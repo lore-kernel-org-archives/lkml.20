@@ -1,72 +1,75 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B6F32E7384
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:35:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3DEC3451B3
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:36:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789137357; cv=none; b=bLP5Sly0pbsc+FvffAbv/ReGV1lpYFuAeRO7g5Vawe7/yR1XxVW8wJ9gW+0i9xIa8Ef/HfE4XTdyKy41SxliWC3Lq4bmhINkYk1+z6bB2vx0xAxVdbIgbqeGd7UDlhdF9vefydKN9SBmIwL8hgq86ssGNLmxylfJrqgkAhrAWT4=
+	t=1789137364; cv=none; b=fK3EXFhH5pMmuBaJXvEmfuTSOu3Enk05YuU+CyedIj9KdtdGPIEIVSd3hWXWpF1dOD5vQoC8D8OTe63CUvlAlBCP6xFuA8Wd9R30L+y4iOrTHKXHJmPU1EmRa+NoB6R07BKhKKtXKtOGuK22T0ELwTV/FH/gJDIyX8LtPCFHnRM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789137357; c=relaxed/simple;
-	bh=WoMrKkn7rdYr5Imx1iey6XtaU2Nnwdr0JBIqWfcWzkI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZywcyfOzUpeqzkYgLf4eleET6DeNodA1bGN31rNdPaAnes2rlCX9qHqRmOW+Lu/Ta/jjxlbhoYoSppNe9ohi/dCBCJSKYN8JGb/Jqnj4rj1VP3RjASpmM4n2Posb/aTpuLnG/ihRCDTHUX3xLKfWo7ZPG8HY+nlFLL17kwaSAok=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eiy78G5y; arc=none smtp.client-ip=209.85.216.41
+	s=arc-20240116; t=1789137364; c=relaxed/simple;
+	bh=lWBYiLAYiyBsMM0WWy6i30OOB/a8PQEv7x19DfVRJYY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=iNVhxUDFq210Rs+jfdgQ5ea6Ds/CbwH6JL2Pf1Sj6uMwX3JNwnSD+IjONZM2bIQ87MNaR8lpp7Kt94O3lV+JCcUXdn/SVZNo+bfIdvFG6ZyY0Wk4qaBWMuj9aNEz7XCFbruHXmJRSAyfyHcmnad8tI+zgpFSBG/DJD3utZkrmps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LKmFmX/A; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eiy78G5y"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-398b3c37877so928343a91.0
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:35:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LKmFmX/A"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccafb752so999620a91.0
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:36:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789137356; x=1789742156; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CAF1AyJzEXRi17wzAYu3TkYA3d413Tq6GeGUnMS210s=;
-        b=eiy78G5y+e/4i7ENAL+ylKJLE1m6AoGPFaojjPdU5kVA6PlOGE4Ph/b/pZ/jyUwIGk
-         pzwLv5wxck3lFHTOngE+Qy2c/UHmpkDa1ZiV/1yYZtsbu2zcNr29oMMdnE1FJA1nu4lc
-         V+JI7g3Wni/gv2iYTi2yYfaL/DQqVioUT5B6AXYBJ0MHDwAvetlKHQ0TnsVXerJAbbgU
-         n/JpRe3/P6VIT6u45lJBi4DnpeBJeNGA7HjB6IcEQM/j8z8YRfqNIVu2KqTcrH1J1Bsp
-         r0+muQE5c0xsLkFwd4grGd/N4YK65K9REJnZUDA0TUwFbbQ+kqbR9YOM8Ua0FI+kWqoJ
-         VVTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789137356; x=1789742156;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1789137359; x=1789742159; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=CAF1AyJzEXRi17wzAYu3TkYA3d413Tq6GeGUnMS210s=;
-        b=VRYYurCTm9Y+5jTr08ouxaSBYb5wpee4R+RF1uUyLcelqJPG/RY9oEIzoSWK8pFQyw
-         jUMli60O4SpVG05tipfJvGomfDb0M13VVHBD8b8pnpX0Sf17X77spuKZ+IHjz6hCT2PR
-         59L2V8LUTL7X4ktpXC2tI96Zu1H6gEs1NZgTzqTKlpv21rVqkHvhS+GQcvBdovQ3qyBv
-         JrQv4wk1SEkWEfUeEj/mqYrduQa3SzD10Ltg1aXkIlkWJ7vDna6KV0fbFE1L0EnowlkY
-         +fh4KwNjoolb4viDePhbHJgVGzSeBKOCC0ZzjMmXSGgpvrq46DkDb0VpvjPcgnGy6rwj
-         /L5A==
-X-Gm-Message-State: AFuF++kVHH3rNjj7UYv/D5rBX3jSlV6/q4V/yOk1jbFfgXNOD1zkLYKm
-	XIjEzTVIcbe5bFcdprIK3plZkuU6Zdq5xquEtMKD0ZIq+XOf5QDtKH7Q9rXy3A==
-X-Gm-Gg: AYBFou1oQ7lt5JzJ6hry6UIsbiMOvQpcJE6DXSrXmiRUrNBQBKnagx7btapZwE8FYgx
-	mVEykmPlqskNAJvEivztRyOsZeaX+UfIQpMCrBYkQG0ms6LXIM3cea2XoNrbPzb7PHm4M1GQqXs
-	benUscQUOqjVC+sNl5zeFkNwuzJApf3a1hY61/BwJ+KU1WvQtcszo9pwQ0Jan0qeCgcg7rpjwBv
-	fi7xQISZx/cp14fsZ/OpvDRqNIjX91SLlZgUxl644+vBHxyuQlKGabZ1+soORE6x5ND4bcBn1zy
-	rue9vi32jqQVoWH8GtpBVAEP7ae2FYZEDbSGNAyQEOVcya2a2n5swVYrNWqtmgT1dm3t7MVVDiK
-	4nH0HPv4TmTg96jj9v5CCd6CgSmlYBA6A/MCZjHheYaYhGDRgAXMmDPT6umx336+dc5kqQ0MVX4
-	CHWVKnWOJkspaSL5HCLHW2piiXMHJlS8dlqLqt/1IpckLyqLG5HE8RFvB+7NgjsKk6ib9liOE9T
-	ojcoDkIBz6I0UT7bsLGYuyE45//ckTkCZ0axBBQNhyhjs9dZWCekdKkvUa98CpGWejwhUVJxu9z
-	Agt+JpRuF2vuKAambAWcDQ==
-X-Received: by 2002:a17:90b:4a8c:b0:398:9c0c:7c72 with SMTP id 98e67ed59e1d1-39d9c3891d8mr7572423a91.25.1789137355496;
-        Fri, 11 Sep 2026 07:35:55 -0700 (PDT)
+        bh=9nmlV1RetPQeAutS6jDocxh3htEhmcFudZu/wAAqidc=;
+        b=LKmFmX/ADrwP9acJc3NYX3ePeXYpeo/WoBNO4mLTs8MQwoyMGjWIfTRWvn92Vvouda
+         At5DlGsw/X3NN3qiK4drPXZJKB5iluVaKcg3orwxjMQwKFwSdYtEIR5A1fZWo18hngNW
+         6d01DW3lMTQLzxjzTK+IJ9ZVDXZ2JKhNgLffE3Bk85wfICE0o6U4MT4+fRDZBR5OB3id
+         ZxhrUXlS2diEyGy6Z36XcpYAlQpOyYPVsFYXzcbGNX3uaC4lwQ/qBQArPZW+NSltHq6p
+         s0bRBt0GRzqeXhWOJFenjLrpZHWIhyhIEmgA8dstE+kGLGkBdrghk6jry59JABfpUIVf
+         TroA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789137359; x=1789742159;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9nmlV1RetPQeAutS6jDocxh3htEhmcFudZu/wAAqidc=;
+        b=PmmEh/RcDEMNjVzuyPXHn7SYCYPXDM24lqBr1O77MgM1ZGgYyqUYXSnwUr05C+WFKx
+         +d3q8zSod7lI0GZfczsGLQQTXNlI177nNb9tYycxd9ATj84iihlmzbYWpSd9s5G11+Ji
+         HG2IWTqip8s37lc/HedDClnLEODJiFczHtoEOksuotFJEhmixP2M4LVHgHiZ5iwfKM4+
+         ImH2IRw6JO/4t/BX4EaAzI8qA9K+yiJv0DgojWcsLWa1qlKYiVInPRcU0p+4wC2vMp9q
+         oBQtTf6hdW4YVVBl3zknsJmW0KO8HN2l2cMoKH4xOjAopPZ9//b8YpF89gxWCmeBPQzj
+         TN0A==
+X-Gm-Message-State: AFuF++kupTwDSXTkHIz4KCvIqyOLiios05Dsjj2IQ/IGSa8Y4o0Pep0+
+	Hu5agCUqpl7/Pagp71Op6WJPXsAMuyAs7uoZA/DqBvXMXD5kFyardiFivLKU8g==
+X-Gm-Gg: AYBFou3RHn6TIKgZVecAbWkAsKiyZtB09CVjRSS4vO4zk/xeN//Nzj0oSYbR4FSLPN/
+	Micfob+8KIy4iEfriOUAfmRGzqwCqfROXHs7dwKNFaXtsVq4Odbnn7SOK6gqdAYUpBeUCEV+yBq
+	OEWsgbwy/VIAgS5p/M5ItEUscSDiGXx1ta9E1RRyiMCvPLfqz2F0gFZg6Jie+RpounX5WEmOOwk
+	nHau1How0SzP4IEdr76qMXBOl6nVnKbO2BrMbpqG68FXjiatLobo61inyk9daeYWVwByFTiX7JY
+	rqXW8nHVq+6kRKX8TlKQmqadzSzzRiDuamqSNZduyqGLEFBkimCmAGIkQTULd6BgLt08dxYVA6f
+	WWIYERZ2gbuZxeWcuEWpnsuw4bE8tEihik8TwRXyXfFX3590ffebZtcbdbVtIC2z+HL6CScGz03
+	4oPPq+N22E47kVx7IcqlCxGrjyzxSUYMhk81gpRZDCEOuIG2SQq4AEmezKHQoPU+0rZH0Zd0tyG
+	N7ZfwENOxzmc0UGZgTUIs293/qlYbU0ur3xytY3yu+89ZDH2ch1cOUH6mr37PX0NFoOT2T4/JSW
+	Ftc/Dr7uca6j0/RWlQ9pUQ==
+X-Received: by 2002:a17:90b:2588:b0:38d:fda6:4873 with SMTP id 98e67ed59e1d1-39d9bd99cc7mr8452274a91.10.1789137358064;
+        Fri, 11 Sep 2026 07:35:58 -0700 (PDT)
 Received: from daehojeong-desktop.mtv.corp.google.com ([2a00:79e0:2e7c:8:4a5b:802b:c0b:d1d7])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4f739b5sm7156371eec.25.2026.09.11.07.35.53
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4f739b5sm7156371eec.25.2026.09.11.07.35.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 07:35:54 -0700 (PDT)
+        Fri, 11 Sep 2026 07:35:57 -0700 (PDT)
 From: Daeho Jeong <daeho43@gmail.com>
 To: linux-kernel@vger.kernel.org,
 	linux-f2fs-devel@lists.sourceforge.net,
 	kernel-team@android.com
-Cc: Daeho Jeong <daehojeong@google.com>,
-	kernel test robot <lkp@intel.com>
-Subject: [PATCH v2 1/2] f2fs: use BIT_ULL for mount option bitmasks
-Date: Fri, 11 Sep 2026 07:35:48 -0700
-Message-ID: <20260911143549.909867-1-daeho43@gmail.com>
+Cc: Daeho Jeong <daehojeong@google.com>
+Subject: [PATCH v2 2/2] f2fs: introduce reserve_shrink mount option for filesystem shrinkage
+Date: Fri, 11 Sep 2026 07:35:49 -0700
+Message-ID: <20260911143549.909867-2-daeho43@gmail.com>
 X-Mailer: git-send-email 2.55.0.1007.g17ff1f9808-goog
+In-Reply-To: <20260911143549.909867-1-daeho43@gmail.com>
+References: <20260911143549.909867-1-daeho43@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,154 +80,262 @@ Content-Transfer-Encoding: 8bit
 
 From: Daeho Jeong <daehojeong@google.com>
 
-Although f2fs_mount_info.opt and f2fs_fs_context.opt_mask are declared as
-unsigned long long (64 bits), the option bit manipulation macros
-(clear_opt, set_opt, test_opt) and context helpers (ctx_set_opt,
-ctx_clear_opt, ctx_test_opt) use BIT(), which expands to (UL(1) << nr).
+When preparing for subsequent online filesystem shrinkage (e.g., during
+partition resizing or FOTA updates), sufficient free space must be
+preserved so that valid data blocks can be evacuated and the filesystem
+can safely shrink.
 
-On 32-bit architectures, sizeof(unsigned long) is 32 bits, causing shift
-count overflow warnings and functional truncation if mount option indices
-reach or exceed 32.
+Existing reserve_root cannot prevent space exhaustion by privileged root
+processes (such as OTA updaters, package managers, and system daemons
+running with CAP_SYS_RESOURCE), which can allocate blocks from the root
+reserve and lead to resize failures due to lack of space. Moreover,
+runtime configurable reserved_blocks represents permanent GC and metadata
+headroom that must persist after resize, which would cause double-counting
+if inflated for shrinkage.
 
-Replace BIT() with BIT_ULL() for mount option bitmasks and helpers.
-Additionally, introduce ctx_clear_opt_mask() and ctx_test_opt_mask()
-helpers to avoid open-coded bitwise manipulations on ctx->opt_mask.
+To resolve this, introduce a dedicated reserve_shrink=<blocks>
+mount option:
+1. Symmetrically mirrors reserve_root=<blocks> in block units to
+   pre-reserve space specifically for subsequent filesystem shrinkage.
+2. In get_available_block_count(), unconditionally deducts
+   reserve_shrink_blocks for all callers, strictly rejecting all
+   allocations (including root / CAP_SYS_RESOURCE) once available blocks
+   are exhausted.
+3. In f2fs_statfs(), deducts reserve_shrink_blocks from f_bfree (and
+   f_bavail) so that filesystem statistics accurately reflect usable space.
+4. In f2fs_resize_fs(), automatically resets reserve_shrink_blocks to 0
+   and clears F2FS_MOUNT_RESERVE_SHRINK upon successful shrink completion,
+   releasing any remaining reservation.
+5. In sysfs: reserved_blocks, subtracts reserve_shrink_blocks when
+   validating the upper limit of configurable reserved blocks.
 
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202609111633.uyRbsEUB-lkp@intel.com/
 Signed-off-by: Daeho Jeong <daehojeong@google.com>
 ---
 v2:
- - Newly added in v2 to fix 32-bit shift count overflow reported by
-   the kernel test robot, and introduce ctx_{test,clear}_opt_mask() helpers.
+ - Split out mount option bitmask expansion (BIT_ULL) into a separate
+   prerequisite patch (Patch 1/2).
 ---
- fs/f2fs/f2fs.h  |  6 +++---
- fs/f2fs/super.c | 40 ++++++++++++++++++++++++++--------------
- 2 files changed, 29 insertions(+), 17 deletions(-)
+ Documentation/filesystems/f2fs.rst |  7 +++++
+ fs/f2fs/f2fs.h                     |  9 ++++++
+ fs/f2fs/gc.c                       |  5 ++++
+ fs/f2fs/super.c                    | 47 ++++++++++++++++++++++++++++++
+ fs/f2fs/sysfs.c                    | 13 +++++++--
+ 5 files changed, 79 insertions(+), 2 deletions(-)
 
+diff --git a/Documentation/filesystems/f2fs.rst b/Documentation/filesystems/f2fs.rst
+index 771216f45207..dbdc5d5a83ad 100644
+--- a/Documentation/filesystems/f2fs.rst
++++ b/Documentation/filesystems/f2fs.rst
+@@ -191,6 +191,13 @@ reserve_node=%d		 Support configuring reserved nodes which are used for
+ 			 gid, the default limit is 12.5% of all nodes.
+ resuid=%d		 The user ID which may use the reserved blocks and nodes.
+ resgid=%d		 The group ID which may use the reserved blocks and nodes.
++reserve_shrink=%d	 Support pre-reserving space for subsequent filesystem
++			 shrinkage (e.g. during partition resizing or FOTA),
++			 unit: blocks. Unlike reserve_root, allocations from
++			 this reserved space strictly reject all callers
++			 (including root / CAP_SYS_RESOURCE). Once the
++			 filesystem is successfully shrunk via resize, this
++			 value is automatically reset to 0.
+ fault_injection=%d	 Enable fault injection in all supported types with
+ 			 specified injection rate.
+ fault_type=%d		 Support configuring fault injection type, should be
 diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-index 62efc25cd107..4aaf29de3f6f 100644
+index 4aaf29de3f6f..48a91771be95 100644
 --- a/fs/f2fs/f2fs.h
 +++ b/fs/f2fs/f2fs.h
-@@ -149,11 +149,11 @@ enum f2fs_mount_opt {
+@@ -145,6 +145,7 @@ enum f2fs_mount_opt {
+ 	 */
+ 	F2FS_MOUNT_LAZYTIME,
+ 	F2FS_MOUNT_RESERVE_NODE,
++	F2FS_MOUNT_RESERVE_SHRINK,
+ };
  
  #define F2FS_OPTION(sbi)	((sbi)->mount_opt)
- #define clear_opt(sbi, option)		\
--	(F2FS_OPTION(sbi).opt &= ~BIT(F2FS_MOUNT_##option))
-+	(F2FS_OPTION(sbi).opt &= ~BIT_ULL(F2FS_MOUNT_##option))
- #define set_opt(sbi, option)		\
--	(F2FS_OPTION(sbi).opt |= BIT(F2FS_MOUNT_##option))
-+	(F2FS_OPTION(sbi).opt |= BIT_ULL(F2FS_MOUNT_##option))
- #define test_opt(sbi, option)		\
--	(F2FS_OPTION(sbi).opt & BIT(F2FS_MOUNT_##option))
-+	(F2FS_OPTION(sbi).opt & BIT_ULL(F2FS_MOUNT_##option))
+@@ -226,6 +227,7 @@ struct f2fs_mount_info {
+ 	unsigned long long opt;
+ 	block_t root_reserved_blocks;	/* root reserved blocks */
+ 	block_t root_reserved_nodes;	/* root reserved nodes */
++	block_t reserve_shrink_blocks;	/* reserve blocks for shrink */
+ 	kuid_t s_resuid;		/* reserved blocks for uid */
+ 	kgid_t s_resgid;		/* reserved blocks for gid */
+ 	int active_logs;		/* # of active logs */
+@@ -2658,6 +2660,13 @@ static inline unsigned int get_available_block_count(struct f2fs_sb_info *sbi,
+ 	if (test_opt(sbi, RESERVE_ROOT) && !__allow_reserved_root(sbi, inode, cap))
+ 		avail_user_block_count -= F2FS_OPTION(sbi).root_reserved_blocks;
  
- #define ver_after(a, b)	(typecheck(unsigned long long, a) &&		\
- 		typecheck(unsigned long long, b) &&			\
++	if (test_opt(sbi, RESERVE_SHRINK)) {
++		if (avail_user_block_count > F2FS_OPTION(sbi).reserve_shrink_blocks)
++			avail_user_block_count -= F2FS_OPTION(sbi).reserve_shrink_blocks;
++		else
++			avail_user_block_count = 0;
++	}
++
+ 	if (unlikely(is_sbi_flag_set(sbi, SBI_CP_DISABLED))) {
+ 		if (avail_user_block_count > sbi->unusable_block_count)
+ 			avail_user_block_count -= sbi->unusable_block_count;
+diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
+index bc22dde1cb30..556c4793478d 100644
+--- a/fs/f2fs/gc.c
++++ b/fs/f2fs/gc.c
+@@ -2492,6 +2492,11 @@ int f2fs_resize_fs(struct file *filp, __u64 block_count)
+ 		spin_lock(&sbi->stat_lock);
+ 		sbi->user_block_count += shrunk_blocks;
+ 		spin_unlock(&sbi->stat_lock);
++	} else if (test_opt(sbi, RESERVE_SHRINK)) {
++		spin_lock(&sbi->stat_lock);
++		F2FS_OPTION(sbi).reserve_shrink_blocks = 0;
++		clear_opt(sbi, RESERVE_SHRINK);
++		spin_unlock(&sbi->stat_lock);
+ 	}
+ out_err:
+ 	f2fs_up_write_trace(&sbi->cp_global_sem, &clc);
 diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
-index f96abecb3c55..a5e109bdcebc 100644
+index a5e109bdcebc..58f33750b2a8 100644
 --- a/fs/f2fs/super.c
 +++ b/fs/f2fs/super.c
-@@ -420,21 +420,33 @@ struct f2fs_fs_context {
- static inline void ctx_set_opt(struct f2fs_fs_context *ctx,
- 			       enum f2fs_mount_opt flag)
- {
--	ctx->info.opt |= BIT(flag);
--	ctx->opt_mask |= BIT(flag);
-+	ctx->info.opt |= BIT_ULL(flag);
-+	ctx->opt_mask |= BIT_ULL(flag);
+@@ -196,6 +196,7 @@ enum {
+ 	Opt_data_flush,
+ 	Opt_reserve_root,
+ 	Opt_reserve_node,
++	Opt_reserve_shrink,
+ 	Opt_resgid,
+ 	Opt_resuid,
+ 	Opt_mode,
+@@ -328,6 +329,7 @@ static const struct fs_parameter_spec f2fs_param_specs[] = {
+ 	fsparam_flag("data_flush", Opt_data_flush),
+ 	fsparam_u32("reserve_root", Opt_reserve_root),
+ 	fsparam_u32("reserve_node", Opt_reserve_node),
++	fsparam_u32("reserve_shrink", Opt_reserve_shrink),
+ 	fsparam_gid("resgid", Opt_resgid),
+ 	fsparam_uid("resuid", Opt_resuid),
+ 	fsparam_enum("mode", Opt_mode, f2fs_param_mode),
+@@ -407,6 +409,7 @@ static match_table_t f2fs_checkpoint_tokens = {
+ #define F2FS_SPEC_lookup_mode			(1 << 24)
+ #define F2FS_SPEC_reserve_node			(1 << 25)
+ #define F2FS_SPEC_resizable_tail_secno		(1 << 26)
++#define F2FS_SPEC_reserve_shrink		(1 << 27)
+ 
+ struct f2fs_fs_context {
+ 	struct f2fs_mount_info info;
+@@ -550,6 +553,27 @@ static inline void limit_reserve_root(struct f2fs_sb_info *sbi)
+ 					   F2FS_OPTION(sbi).s_resgid));
  }
  
- static inline void ctx_clear_opt(struct f2fs_fs_context *ctx,
- 				 enum f2fs_mount_opt flag)
- {
--	ctx->info.opt &= ~BIT(flag);
--	ctx->opt_mask |= BIT(flag);
-+	ctx->info.opt &= ~BIT_ULL(flag);
-+	ctx->opt_mask |= BIT_ULL(flag);
- }
- 
- static inline bool ctx_test_opt(struct f2fs_fs_context *ctx,
- 				enum f2fs_mount_opt flag)
- {
--	return ctx->info.opt & BIT(flag);
-+	return ctx->info.opt & BIT_ULL(flag);
++static inline void limit_reserve_shrink(struct f2fs_sb_info *sbi)
++{
++	block_t block_limit;
++
++	if (!test_opt(sbi, RESERVE_SHRINK))
++		return;
++
++	block_limit = sbi->user_block_count - sbi->reserved_blocks;
++	if (test_opt(sbi, RESERVE_ROOT)) {
++		if (block_limit > F2FS_OPTION(sbi).root_reserved_blocks)
++			block_limit -= F2FS_OPTION(sbi).root_reserved_blocks;
++		else
++			block_limit = 0;
++	}
++	if (F2FS_OPTION(sbi).reserve_shrink_blocks > block_limit) {
++		F2FS_OPTION(sbi).reserve_shrink_blocks = block_limit;
++		f2fs_info(sbi, "Reduce reserved blocks for shrink = %u",
++			  F2FS_OPTION(sbi).reserve_shrink_blocks);
++	}
 +}
 +
-+static inline void ctx_clear_opt_mask(struct f2fs_fs_context *ctx,
-+				      enum f2fs_mount_opt flag)
-+{
-+	ctx->opt_mask &= ~BIT_ULL(flag);
-+}
+ static inline void adjust_unusable_cap_perc(struct f2fs_sb_info *sbi)
+ {
+ 	if (!F2FS_OPTION(sbi).unusable_cap_perc)
+@@ -953,6 +977,14 @@ static int f2fs_parse_param(struct fs_context *fc, struct fs_parameter *param)
+ 		F2FS_CTX_INFO(ctx).root_reserved_nodes = result.uint_32;
+ 		ctx->spec_mask |= F2FS_SPEC_reserve_node;
+ 		break;
++	case Opt_reserve_shrink:
++		if (result.uint_32)
++			ctx_set_opt(ctx, F2FS_MOUNT_RESERVE_SHRINK);
++		else
++			ctx_clear_opt(ctx, F2FS_MOUNT_RESERVE_SHRINK);
++		F2FS_CTX_INFO(ctx).reserve_shrink_blocks = result.uint_32;
++		ctx->spec_mask |= F2FS_SPEC_reserve_shrink;
++		break;
+ 	case Opt_resuid:
+ 		F2FS_CTX_INFO(ctx).s_resuid = result.uid;
+ 		ctx->spec_mask |= F2FS_SPEC_resuid;
+@@ -1775,6 +1807,9 @@ static void f2fs_apply_options(struct fs_context *fc, struct super_block *sb)
+ 	if (ctx->spec_mask & F2FS_SPEC_reserve_node)
+ 		F2FS_OPTION(sbi).root_reserved_nodes =
+ 					F2FS_CTX_INFO(ctx).root_reserved_nodes;
++	if (ctx->spec_mask & F2FS_SPEC_reserve_shrink)
++		F2FS_OPTION(sbi).reserve_shrink_blocks =
++					F2FS_CTX_INFO(ctx).reserve_shrink_blocks;
+ 	if (ctx->spec_mask & F2FS_SPEC_resgid)
+ 		F2FS_OPTION(sbi).s_resgid = F2FS_CTX_INFO(ctx).s_resgid;
+ 	if (ctx->spec_mask & F2FS_SPEC_resuid)
+@@ -2300,6 +2335,13 @@ static int f2fs_statfs(struct dentry *dentry, struct kstatfs *buf)
+ 	buf->f_bfree = user_block_count - valid_user_blocks(sbi) -
+ 						sbi->current_reserved_blocks;
+ 
++	if (test_opt(sbi, RESERVE_SHRINK)) {
++		if (buf->f_bfree > F2FS_OPTION(sbi).reserve_shrink_blocks)
++			buf->f_bfree -= F2FS_OPTION(sbi).reserve_shrink_blocks;
++		else
++			buf->f_bfree = 0;
++	}
 +
-+static inline bool ctx_test_opt_mask(struct f2fs_fs_context *ctx,
-+				     enum f2fs_mount_opt flag)
-+{
-+	return ctx->opt_mask & BIT_ULL(flag);
- }
+ 	if (unlikely(buf->f_bfree <= sbi->unusable_block_count))
+ 		buf->f_bfree = 0;
+ 	else
+@@ -2524,6 +2566,9 @@ static int f2fs_show_options(struct seq_file *seq, struct dentry *root)
+ 					F2FS_OPTION(sbi).s_resuid),
+ 				from_kgid_munged(&init_user_ns,
+ 					F2FS_OPTION(sbi).s_resgid));
++	if (test_opt(sbi, RESERVE_SHRINK))
++		seq_printf(seq, ",reserve_shrink=%u",
++				F2FS_OPTION(sbi).reserve_shrink_blocks);
+ #ifdef CONFIG_F2FS_FAULT_INJECTION
+ 	if (test_opt(sbi, FAULT_INJECTION)) {
+ 		seq_printf(seq, ",fault_injection=%u",
+@@ -3105,6 +3150,7 @@ static int __f2fs_remount(struct fs_context *fc, struct super_block *sb)
  
- void f2fs_printk(struct f2fs_sb_info *sbi, bool limit_rate,
-@@ -1443,7 +1455,7 @@ static int f2fs_check_compression(struct fs_context *fc,
- 			ctx_test_opt(ctx, F2FS_MOUNT_COMPRESS_CACHE))
- 			f2fs_info(sbi, "Image doesn't support compression");
- 		clear_compression_spec(ctx);
--		ctx->opt_mask &= ~BIT(F2FS_MOUNT_COMPRESS_CACHE);
-+		ctx_clear_opt_mask(ctx, F2FS_MOUNT_COMPRESS_CACHE);
- 		return 0;
- 	}
- 	if (ctx->spec_mask & F2FS_SPEC_compress_extension) {
-@@ -1511,43 +1523,43 @@ static int f2fs_check_opt_consistency(struct fs_context *fc,
- 		return -EINVAL;
+ 	adjust_pinned_area_boundary(sbi);
+ 	limit_reserve_root(sbi);
++	limit_reserve_shrink(sbi);
+ 	fc->sb_flags = (flags & ~SB_LAZYTIME) | (sb->s_flags & SB_LAZYTIME);
  
- 	if (f2fs_hw_should_discard(sbi) &&
--			(ctx->opt_mask & BIT(F2FS_MOUNT_DISCARD)) &&
-+			ctx_test_opt_mask(ctx, F2FS_MOUNT_DISCARD) &&
- 			!ctx_test_opt(ctx, F2FS_MOUNT_DISCARD)) {
- 		f2fs_warn(sbi, "discard is required for zoned block devices");
- 		return -EINVAL;
- 	}
+ 	sbi->umount_lock_holder = NULL;
+@@ -5322,6 +5368,7 @@ static int f2fs_fill_super(struct super_block *sb, struct fs_context *fc)
+ 	sbi->current_reserved_blocks = 0;
+ 	sbi->alias_reserved_blocks = 0;
+ 	limit_reserve_root(sbi);
++	limit_reserve_shrink(sbi);
+ 	adjust_unusable_cap_perc(sbi);
  
- 	if (!f2fs_hw_support_discard(sbi) &&
--			(ctx->opt_mask & BIT(F2FS_MOUNT_DISCARD)) &&
-+			ctx_test_opt_mask(ctx, F2FS_MOUNT_DISCARD) &&
- 			ctx_test_opt(ctx, F2FS_MOUNT_DISCARD)) {
- 		f2fs_warn(sbi, "device does not support discard");
- 		ctx_clear_opt(ctx, F2FS_MOUNT_DISCARD);
--		ctx->opt_mask &= ~BIT(F2FS_MOUNT_DISCARD);
-+		ctx_clear_opt_mask(ctx, F2FS_MOUNT_DISCARD);
+ 	f2fs_init_extent_cache_info(sbi);
+diff --git a/fs/f2fs/sysfs.c b/fs/f2fs/sysfs.c
+index aaca9ed9b169..d61940d095b4 100644
+--- a/fs/f2fs/sysfs.c
++++ b/fs/f2fs/sysfs.c
+@@ -591,9 +591,18 @@ static ssize_t __sbi_store(struct f2fs_attr *a,
  	}
- 
- 	if (f2fs_sb_has_device_alias(sbi) &&
--			(ctx->opt_mask & BIT(F2FS_MOUNT_READ_EXTENT_CACHE)) &&
-+			ctx_test_opt_mask(ctx, F2FS_MOUNT_READ_EXTENT_CACHE) &&
- 			!ctx_test_opt(ctx, F2FS_MOUNT_READ_EXTENT_CACHE)) {
- 		f2fs_err(sbi, "device aliasing requires extent cache");
- 		return -EINVAL;
- 	}
- 
- 	if (test_opt(sbi, RESERVE_ROOT) &&
--			(ctx->opt_mask & BIT(F2FS_MOUNT_RESERVE_ROOT)) &&
-+			ctx_test_opt_mask(ctx, F2FS_MOUNT_RESERVE_ROOT) &&
- 			ctx_test_opt(ctx, F2FS_MOUNT_RESERVE_ROOT)) {
- 		f2fs_info(sbi, "Preserve previous reserve_root=%u",
- 			F2FS_OPTION(sbi).root_reserved_blocks);
- 		ctx_clear_opt(ctx, F2FS_MOUNT_RESERVE_ROOT);
--		ctx->opt_mask &= ~BIT(F2FS_MOUNT_RESERVE_ROOT);
-+		ctx_clear_opt_mask(ctx, F2FS_MOUNT_RESERVE_ROOT);
- 		ctx->spec_mask &= ~F2FS_SPEC_reserve_root;
- 	}
- 	if (test_opt(sbi, RESERVE_NODE) &&
--			(ctx->opt_mask & BIT(F2FS_MOUNT_RESERVE_NODE)) &&
-+			ctx_test_opt_mask(ctx, F2FS_MOUNT_RESERVE_NODE) &&
- 			ctx_test_opt(ctx, F2FS_MOUNT_RESERVE_NODE)) {
- 		f2fs_info(sbi, "Preserve previous reserve_node=%u",
- 			F2FS_OPTION(sbi).root_reserved_nodes);
- 		ctx_clear_opt(ctx, F2FS_MOUNT_RESERVE_NODE);
--		ctx->opt_mask &= ~BIT(F2FS_MOUNT_RESERVE_NODE);
-+		ctx_clear_opt_mask(ctx, F2FS_MOUNT_RESERVE_NODE);
- 		ctx->spec_mask &= ~F2FS_SPEC_reserve_node;
- 	}
- 
+ #endif
+ 	if (a->struct_type == RESERVED_BLOCKS) {
++		unsigned long limit;
++
+ 		spin_lock(&sbi->stat_lock);
+-		if (t > (unsigned long)(sbi->user_block_count -
+-				F2FS_OPTION(sbi).root_reserved_blocks)) {
++		limit = sbi->user_block_count -
++				F2FS_OPTION(sbi).root_reserved_blocks;
++		if (test_opt(sbi, RESERVE_SHRINK)) {
++			if (limit > F2FS_OPTION(sbi).reserve_shrink_blocks)
++				limit -= F2FS_OPTION(sbi).reserve_shrink_blocks;
++			else
++				limit = 0;
++		}
++		if (t > limit) {
+ 			spin_unlock(&sbi->stat_lock);
+ 			return -EINVAL;
+ 		}
 -- 
 2.55.0.1007.g17ff1f9808-goog
 
