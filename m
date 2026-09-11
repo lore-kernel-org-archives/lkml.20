@@ -1,281 +1,219 @@
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013027.outbound.protection.outlook.com [40.107.159.27])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C7B74A99AF
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 16:59:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 129C94AA02C;
+	Fri, 11 Sep 2026 16:59:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.27
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789145996; cv=pass; b=mUSnpjlCAcvmmP7qbQhGfJhZQhQTVnxRLPhulHMpGJLMU8HWQTgl8tn1R1yi0haiSb/6iGGjhLQoEvIMe3gA0j0RZ0XPvvA1zrenrwo2h1bqv1Na0WlMHyFkz1XKkbQLOJMICoA2ZZ+kfccqfwL4jugRx/4hK0oomQgqdM4NcxU=
+	t=1789146009; cv=fail; b=jJ3PXBY9nJ0G55bn1GTVtojMkujZBo2xJ4fygbiFRwiRYbLt5jpelEeeXDMN4bUs2B+T8Z/G3GdJJ8v0BkdBE4KI+ahTtX+6h/N+8xCGdBu90k4mcXsgwHBxDDQ8+U9ZZwFKxKq18PmAAtfN+eLYMm5t/LYfE0lggcktgohf9SI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789145996; c=relaxed/simple;
-	bh=qyRF7Tw3fXlY5qpLV+r4H3odLHcbo8qtB8w2c9r/XKI=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=Q17YeykzgjpZp5ItlhWimCh3DkcOFfirJiPV5lUdQ3x9cYaLBZxefO50ObFnkdfEFCovkMEW3tZdlrbpBrdC9gYf7KLASWW4nS6lY0jXCt4gR9kIq/daWeMwpPJj7ZomyMgCH8sP1b7CduYzLznol9JaI9UnGzd6NTgbvcG1wo8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GVth/GnG; arc=pass smtp.client-ip=209.85.218.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789146009; c=relaxed/simple;
+	bh=CAgtc5clOmaQwypEWmxHi5QQSklAFdlqbEPV5eIh6Jw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=oMuCUQRZkvdO8/B2Qgc6v+W9jGFQg8mugipfLD7CidPy0Zhn8KRRHfOIDcrZFuuuDtAPSOnlAKdr7F8VeDPS6pJXZB2mhTTs8sySREmg1KKzDu7ipABfqd4gGtejTbo+WVnpijWKSDOENkWEDDUlCGXhDxiEHXCN8xJmnjD0568=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=W0Z25iZf; arc=fail smtp.client-ip=40.107.159.27
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GVth/GnG"
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c2637dd37c1so171700266b.0
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 09:59:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789145989; cv=none;
-        d=google.com; s=arc-20260327;
-        b=LBFHnIesSSROzNVZ0ifI4tiv00S0vJcYsacgsFcndeNoHxaRdUm26Ffrh5vsiexDSL
-         dNS+OlH3NRj0jcIt8OLELdJITGdalDWxBG9nHB3vw4ZpFqFWoFrlBMQALOIRx5eEN6/f
-         gktCwcsORNK/ql1IhsmpjpmcZfeF91YmfmZ5y1DWHYR884vosffAYiCMkD0qrOI3LHJr
-         BvzbMeswDGRS+Dv3uJTBvFYWpx0Ta/FvZ84T4QFP1AXPID78J6v6um15huJ20tPOqlO0
-         K/WMzMgYNS4pUp5lLmxZRmJ29ArsrjYS2Wguh+zD+sdJZim5cIVC2P8uTmlk875kMA+E
-         +hMg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=2uhrPGOUxIl6L+y/22qICqI3fsFdOGb1uQu3VWhlcuY=;
-        fh=muSiummpVsK9dlc624vlSNqlA6I7ejKBx7KrqElyP0o=;
-        b=rvx1qkuAJnnnigC6mVd4sheTuG7svlF1TbDfIHNX+IiUk1h2KykSN7fDxw6gHz0UiT
-         fjR72ZqmLQIEfCq42o3dNYJmtD5Y1J1FY332fDMOjkQaVzYYKZtpgp4qJnxxzjIqYEAF
-         g2cHalGRoD19lTeBphjM8vudIKXwNN+NOBR2rQsrm9Gy4+siCePs14Z9af3clOmixysp
-         4Ubl1jmGfVRF9dWWI927j/IUjtAKTxOq7xcrtpEF0EAtYw53GU8pLvzfEYm8u0rGrnOH
-         OdJCyJS2WYxYpNHYB0GZ0gFLlqXWK6BINe3A3IihEaKtnK05Alh+v/LNIzFXlO1wZZsj
-         QG5g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789145989; x=1789750789; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2uhrPGOUxIl6L+y/22qICqI3fsFdOGb1uQu3VWhlcuY=;
-        b=GVth/GnGvmdWfHQsknnB3DmL49ugwwUgSHokD+PgdBXTL+E5/bKqBoyHS658Dy6kA5
-         Db007AEVNy6VeFDtpAJTXTgt8A2Q6UtWhIQMbB4YmqqVqjrQYroSK2HlwvIzSZS+iyaA
-         hLQRs/VrVdYMx5FNg1FPb48Z/i5vTacScw3CQJud0L/75OboMnB4WD20cLl3V/DDJ5zF
-         qcr1IZo/M5SaUw9c2nmd7N1X1hnfseXXkmgrE3vO1lQZt4yZE5+BQGYtMOg7QY3puDM0
-         PuwqelnG2aJqni25DzXGHBwyipvL8lFrLhoL/KZF9CxI2Pf8ZyJHJyY+5fEXREqEukRM
-         e/IA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789145989; x=1789750789;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=2uhrPGOUxIl6L+y/22qICqI3fsFdOGb1uQu3VWhlcuY=;
-        b=K3bi4WsMTXIz9b/dY2b3an5bCa4KhT2Xq7bnf2SutKJKWRsWV/0pdOu7Clf8B01ldp
-         TvAVzG7srMRA+mEHPzyBQtjOYUGSDUL7TSPvRZoqUf+Y87nClk6O45smCO2dJRX2+YM0
-         0S1kGUkw7wFC8u1F9OHUi/3iP2XVFfdJiurn1lDoRSWil7u1ZO//gyA+190qZ6m5+FhO
-         fv9w32SphVGRNO3YBmN7SW/wuZm5kW+ekUzGUcaq56ndWDpDSqfQtcCO4G+FAntMMfWa
-         vNgMGQ4vo6QEjYOQcy2dAxEZyuHmZpSwv9CqKadY5Fp/IPB0Uw8eXcCKDVw+h/MKHz2i
-         GDfA==
-X-Forwarded-Encrypted: i=1; AKwUvBzfypqKBZ24ylGfGMFoIzuRToVpcv3UW+zms2ilaMu8fM7Evm6VeYpc2U+CqfyRGmrjcqAzq5/7h9eutbA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lmHw49yOORDBdXm0HCClfnCtdDFXFodhbmSeKHuzk3MEvGpFX3
-	FArHxNmyPEt1a4nAzPZYb4b7ehCqdy8xwVb4IWL31ou3MXHOa6AqJwfJsjBI7vnbXtobmpqmK0J
-	Q7uytXf0iQ9WeqUMs50Nj6n1aOS1Wb/3q8MzI
-X-Gm-Gg: AYBFou0ZAWvZ80LZxfvww8dCb3ItZn0jSYqx1+ap6lp5Pk8MZQvj9Cwfcv8/8aXpjQx
-	f0DtRaNg9Ud218at/iQV6YmOnfZuq+k0iXE8b3Aj+pH4bjpn3VAj2oY4sxdkqDOHpNIYbzMXEXC
-	S3ZcJ3zAxyx7gcISAXpkEB975dsJ02cOevmSWK3453ywli7TUI6tFR3xks7+VKUMzmD1hcCxk/l
-	bo5xiKWs7H+L3ABkYE+l404s+kPEGXe/8xdpJuP4yLIO5yt228WSnU2ffVxFazZEKdbrg5esILt
-	FfDfiKw9/9NupImR6bjAMYFijEtt6FFpYjIYJRR8SQ1hEegFIYxHm4YL
-X-Received: by 2002:a17:907:cf84:b0:c25:cb7a:12d6 with SMTP id
- a640c23a62f3a-c29665b8e3emr247305866b.14.1789145989030; Fri, 11 Sep 2026
- 09:59:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="W0Z25iZf"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KDk4IcK6tHFjMacJ6Fvral4h1zgHAqqkhCr4iYXY+7Oulb0hzS4tL3dLHhgimcyOxCg83JWUeJBo3FS74wvNI+pZL7R9bf7BUohJBaS3zevFtd5J4PvRTt4njcicwpHKQOYjKUTlROjuTsKe4Px82FVd63F45dy8HxgvkHUVIf6XaBPOAaIXrQMM2MViCqd/w5fHhjGdYFPYwYSMqUTw4X+SEoMw4mq9B8USCg8sQPhGQ7jgt6CFxO1G8oSfp4fj0Iy2cOO6JsZ83dq+wEaeaR6TRjbHWQniQNKwhQGeeWKheLqebzLrHWMz0SBvrxSMGFKTKL4LD2xISLYkcbgfxQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GYDk4kQI2fd79w2FWsht7gGbtYChEDHGbDZdkSKsjzs=;
+ b=yJApdW0s+zmvygwbAVNtoCXaHpyb/bmVCmk5vQ3CKMDkRFMDtGsvikdU4bbaOuwNeaUlZf4A6P1vv//OnJHIwJV2WcmKGVUFoESqc28ZRA229hKW9aomXZiNcdrk2dpUqva5uYnV7lkaiGoj2lXbZ926Ate3awVYKO9VOGX/GtdvLW+78qotPe3D1EDwCpRe51nX4AS/A20bJ19Y08izZ4NSr/bMKjYoexdFv3Q/woDRjvvIh8YTP1DyVg/k3xnpIYKp/s19+LJrKzREGqdua6mSANhLXL/LLZv8uG9f+kDyJHN1xEZ6+jlxWWtPEvPuZI8rbEVg5J47Fa2c6lsrTA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GYDk4kQI2fd79w2FWsht7gGbtYChEDHGbDZdkSKsjzs=;
+ b=W0Z25iZfA6uArVcNC/U0Jf4IlxvHIf90pjo42nb3SsTDbl9OswGD7QTw8jMOcaL8dCpVUR9xjvFUumGhyMkHie9WmzwO9FM9aNJpvN+wjl77JrP1f0/VyCFuGARBSX40ow4OiKmZRgV6VoWUIrANyfMr9AkmEzyChDsiMuJiYupnqjq2n8pEHdOIpa0QS4ujsIQ86Y9U+Z+5ZZZGzzOqSqujM7CCgsp3A5eF9upxy4zeRQiWGvCkqNhFFGJvYUuu6EzYawBo3OhaRCf5mTToRpE6pTeDNRWkIyzcosHmeXMK2+2VX8mCs7FNa55ah3oy2qE1Ou3bNxGmaMqtCw4xMg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by MI3PR04MB12439.eurprd04.prod.outlook.com (2603:10a6:290:74::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Fri, 11 Sep
+ 2026 16:59:50 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
+ 16:59:50 +0000
+Date: Fri, 11 Sep 2026 11:59:40 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Frieder Schrempf <frieder.schrempf@kontron.de>
+Cc: Frieder Schrempf <frieder@fris.de>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
+	devicetree@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Eberhard Stoll <eberhard.stoll@kontron.de>
+Subject: Re: [PATCH 1/9] ARM: dts: imx6ul-kontron-bl-common: Replace UART3
+ with DIP switch GPIOs
+Message-ID: <aqQzfBp1gzQccGWt@SMW015318>
+References: <20260908-upstreaming-v7-2-imx-dt-improvements-08-26-v1-0-4d0e8a75db79@kontron.de>
+ <20260908-upstreaming-v7-2-imx-dt-improvements-08-26-v1-1-4d0e8a75db79@kontron.de>
+ <aqGpZQlbFHD_-hVg@SMW015318>
+ <e3b4c69f-6bfd-4765-b3b1-abf0958b5446@kontron.de>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e3b4c69f-6bfd-4765-b3b1-abf0958b5446@kontron.de>
+X-ClientProxiedBy: PH7PR03CA0007.namprd03.prod.outlook.com
+ (2603:10b6:510:339::9) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Jiaming Zhang <r772577952@gmail.com>
-Date: Sat, 12 Sep 2026 00:59:09 +0800
-X-Gm-Features: AcwNN1UUNO3i6PqN_24xS0_k4t58clubd_7UwfpHS3AgWq85p9ytycCIUTBraVE
-Message-ID: <CANypQFabseTuRiyz2pGkc_Qj0moGDnY7KEp1qdTOqkw6gAL3hw@mail.gmail.com>
-Subject: [Linux Kernel Bug] possible deadlock in l2cap_chan_connect
-To: marcel@holtmann.org, luiz.dentz@gmail.com, linux-bluetooth@vger.kernel.org
-Cc: ali@iusegentoo.com, kees@kernel.org, kuba@kernel.org, 
-	linux-kernel@vger.kernel.org, nicoyip.dev@gmail.com, suunj1331@gmail.com, 
-	syzkaller@googlegroups.com, r772577952@gmail.com
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|MI3PR04MB12439:EE_
+X-MS-Office365-Filtering-Correlation-Id: 30b3a2e1-c42c-4c35-5b5f-08df102617ae
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|19092799006|1800799024|23010399003|7416014|376014|10067099003|18002099003|22082099003|56012099006|4143699003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	2tW7QWqZVIpVzJXBGlupaZlJek3S2KCFRw0vKOE5NpUtW4yGM1ZYa2jYefZsQocFqBJTM9iz7nAgQOZqcdMNHUEU40V81d0bcAFQrIUZlqMH2WR29pCjoPuns4KV1KlFdSxsRkEqN+H/qfgmWJOeJP7XAZxG+BvKtV6Y2ehD1PTxu6JSFF9z+BFEVoMqHLzBknC6Jl6XEHRaBe4AFihVe1AzTE/11i5gTx8t7AjhrzkdvBNiQwRUmbrih69nPPNyjHL+Syd8CkYJ55cExPZpmLsoixk4dSc0vuFBQBTW7jXqRsI9x6WjERfXSQ64T/oyHUhXLTGSaEr+KTeDSz11BOn/SQdYMwIHqPc+bJpadtdF3hJ6J82R1+sCRdOo0k+s2nvR7Do17+GWJKRDdyjIqBd4sQOLzcXwZnOLYM6uI9khtuzS50uzqICqCILF9wBBPZmkJE3xol0IBKkTcYPgB7JzAyxcg4nMEqWJg+iU9idHyEG666L9TQquaffKHzq++3xzEnz31J8IrMyhfySA0SNRAyP6HVDUfK/aKIyCfvURprO3Y4a4wmmeoUCu/Tubc90SN+bDi+Wf7MYVdpvX+wcRosV95wXabYZdU9o3hHDcZVV9z2But5eb/SbBaBidoPmC7PIruu0QGNQdQXDwPyBVgDTxasGufumIX0aHlmw=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(1800799024)(23010399003)(7416014)(376014)(10067099003)(18002099003)(22082099003)(56012099006)(4143699003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?cdORz4UsMmBo1lLHqAgH/6XDPGrLGJ7FRj2IVGwLyuxDcvm2FbVQhnfCpOag?=
+ =?us-ascii?Q?Y5lsUstUUOo9cUy1oB/0Xr7BVC3g+MNpsCChO8DxqJ3I7LkQXbT77NwUoVGf?=
+ =?us-ascii?Q?sZddE7NCUXeU5ptu8ajlWAgcn3gpCiAKUI19H/KvRqjogJchHTMtCSaSJMhV?=
+ =?us-ascii?Q?GXybgMHsdN/cpa68Xr43OYfxRJciD91R8VVn0t0qYNgsnGr37KlC8GdlFRvl?=
+ =?us-ascii?Q?12c9hsb2oep4/i60G3pKpIVZdtLd/v+0s1Ih2knsD6RLfo8yVHF6omuPirgx?=
+ =?us-ascii?Q?H9DEg3/u5vdn4NdDL25XkVOCOVIeV6cN4MYFv8HemKHwN+ZSLk2otpgmjOhi?=
+ =?us-ascii?Q?V8VIy8DT8e6P21rWlA770ATg/nKf5EOmC7gRnkwivs599Pmk6sLbosfMFxJ+?=
+ =?us-ascii?Q?jtoT21Vy60j4haga7KaBejUBrqnLf/6YGwaRgfnlHh5ZecMYfY7L3vF28PLD?=
+ =?us-ascii?Q?sXlA2XpB0bF53fOLXdWz3KTHSNzzT6+HblN+pqLP9lrPV5trMsmqMOm0b3RR?=
+ =?us-ascii?Q?6jE6zYbtIPmH2mBIOn81bq+8XAHhfqP5R/C4vB7DDd5Bt+N7RLxWATgA9xuG?=
+ =?us-ascii?Q?MnKrknevAE0Nj8WLk14KlGYfN8r+W2ZAmabfZg+oCpTVpyFHrt99eupBZjqb?=
+ =?us-ascii?Q?V4PTHq9YSsADSjoWY0eU9CAT2xtJ1VnG9aFKg8rlYSmecKJKP3wkX83wEcdU?=
+ =?us-ascii?Q?WXTNG0V/NtPKKD4jiOT/ne1A64nG1z23sdVE+OtICh10SJCTUNqLuUe9IJVS?=
+ =?us-ascii?Q?GaOuH/2hfABb5nTjvcd/AibOPwDetagiMuYM1zcrFbuN66GJoAFQ6JJRVIi/?=
+ =?us-ascii?Q?toGujbZWYEEEm+3QLYMOW2Qptn8SkgXXF8mNxHWQFuUcSksxIJ/TZfOu5kbz?=
+ =?us-ascii?Q?NJWg2qqIctKazm1DpkWV9xh1CNn/5ykmb/KK6SHFZ2cLEOC8YargPfKLJNdd?=
+ =?us-ascii?Q?tVEMazsQ0aBskDEUvXBQwjt3fIUx2KftLwC2YTPVC+tJVMj3pTjYu3jxa029?=
+ =?us-ascii?Q?3SEBrFWJdPAd1YeZymIHgYDfzzhDdGWQvz+Idn5yWOBmmWlupWWgQHdFzzqy?=
+ =?us-ascii?Q?R5ALdFunH5s6R2BhczHmR20xCryhrTV8yHkpsXNfgDi9n+unSXVpfi8hloFj?=
+ =?us-ascii?Q?wgJgahllMex/adfMn6UlnSQyz1jGoYVSv92sC2AyP4/NdNO6nIPoK5z/rfrk?=
+ =?us-ascii?Q?zxMVl/2Lmamuw3Dmo9bAwCo9p/WQw3qBnYP40I1do2sbbQJf+sP7GpzYOuCs?=
+ =?us-ascii?Q?gJSvOOeGANYBcFwGSBES6UOfM5XSdlBCe5Q9arRyGdBfXgZb8umeghm/67vs?=
+ =?us-ascii?Q?rkPm06jlSSfaCsqqJp0TPx1axZJnWFeDOhqJNf/NydSokC6FW7b3p/DPQs4j?=
+ =?us-ascii?Q?rTVuDFgun9hp2dFxde11EpjmRrKrSdI3H0a6JtfYYzHafvKa2KcGWksAHio6?=
+ =?us-ascii?Q?a4HcKBA6N69YOOTAHhXQAbewAVIIAw1xfZXqfLJWXs5PAMmij3VMIFjv5bfw?=
+ =?us-ascii?Q?z8iAAKQ9kaxBvdYRWtTzkVnvotRDicC9odC17fZsFGXvG05Xaua5U84sM0UH?=
+ =?us-ascii?Q?4FDV18eNxkAZ24yYlDP606NEsPAt+ldi/hbwTU1tnCc+acAjtNi2jdnYvlTv?=
+ =?us-ascii?Q?qhXPRZYx9qtaItamZR2vBrQDZWEWrNnA4w7+S+wv+b0eO3AjXrMzMLWb5AHP?=
+ =?us-ascii?Q?oH05/LStoRf2nKye/bluw6OnIFMSO33Z15OkM80AEBU1onLL9QgH9bzbRy6u?=
+ =?us-ascii?Q?GNP8JHuc+Y4X1bBlgmVk2aL4oPimjMHJHcI4Mh3r94e0VOX0C98X?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 30b3a2e1-c42c-4c35-5b5f-08df102617ae
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 16:59:50.5084
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: LWgJ01J3w1/7XOU9pz0gHsVH++yUsxijlrgdX1878UF2RmuDeNLoW9xUmwRwLu9fwj7/YjxOLYh9eXPv+axXAyIWDrvSFX/TKjiTb4rVCKZylzTUWfB9tQpRUDk67xS6
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MI3PR04MB12439
 
-Dear Linux kernel developers and maintainers,
+On Thu, Sep 10, 2026 at 09:05:14AM +0200, Frieder Schrempf wrote:
+> On 09.09.26 20:45, Frank Li wrote:
+> > On Tue, Sep 08, 2026 at 03:51:48PM +0200, Frieder Schrempf wrote:
+> >> From: Eberhard Stoll <eberhard.stoll@kontron.de>
+> >>
+> >> The latest board revision has DIP switches and lacks UART3 instead.
+> >> As the old revision has long been deprecated and not maintained
+> >> anymore, drop the support and reflect the current state of the
+> >> hardware. As the old revision hasn't been widely used, UART3 was
+> >> only available through an obscure extension connector and we have
+> >> carried this patch downstream for years, no users are expected to
+> >> be affected by this change.
+> >
+> > Remove "we have carried this patch downstream for years".
+>
+> Ok.
+>
+> >
+> >>
+> >> Signed-off-by: Eberhard Stoll <eberhard.stoll@kontron.de>
+> >> Signed-off-by: Frieder Schrempf <frieder.schrempf@kontron.de>
+> >> ---
+> >>  .../boot/dts/nxp/imx/imx6ul-kontron-bl-common.dtsi  | 21 +++++----------------
+> >>  1 file changed, 5 insertions(+), 16 deletions(-)
+> >>
+> >> diff --git a/arch/arm/boot/dts/nxp/imx/imx6ul-kontron-bl-common.dtsi b/arch/arm/boot/dts/nxp/imx/imx6ul-kontron-bl-common.dtsi
+> >> index f4c45e964daf..a71669bef7d4 100644
+> >> --- a/arch/arm/boot/dts/nxp/imx/imx6ul-kontron-bl-common.dtsi
+> >> +++ b/arch/arm/boot/dts/nxp/imx/imx6ul-kontron-bl-common.dtsi
+> >> @@ -172,13 +172,6 @@ &uart2 {
+> >>  	status = "okay";
+> >>  };
+> >>
+> >> -&uart3 {
+> >> -	pinctrl-names = "default";
+> >> -	pinctrl-0 = <&pinctrl_uart3>;
+> >> -	uart-has-rtscts;
+> >> -	status = "okay";
+> >> -};
+> >> -
+> >>  &uart4 {
+> >>  	pinctrl-names = "default";
+> >>  	pinctrl-0 = <&pinctrl_uart4>;
+> >> @@ -283,6 +276,11 @@ MX6UL_PAD_SNVS_TAMPER5__GPIO5_IO05	0x1b0b0	/* DOUT1 */
+> >>  			MX6UL_PAD_SNVS_TAMPER4__GPIO5_IO04	0x1b0b0	/* DIN1 */
+> >>  			MX6UL_PAD_SNVS_TAMPER1__GPIO5_IO01	0x1b0b0	/* DOUT2 */
+> >>  			MX6UL_PAD_SNVS_TAMPER0__GPIO5_IO00	0x1b0b0	/* DIN2 */
+> >> +
+> >> +			MX6UL_PAD_UART3_TX_DATA__GPIO1_IO24	0x1b0b0	/* CAN_ADR0 (DIP sw 1) */
+> >> +			MX6UL_PAD_UART3_RX_DATA__GPIO1_IO25	0x1b0b0	/* CAN_ADR1 (DIP sw 2) */
+> >> +			MX6UL_PAD_UART3_CTS_B__GPIO1_IO26	0x1b0b0	/* CAN_ADR2 (DIP sw 3) */
+> >> +			MX6UL_PAD_UART3_RTS_B__GPIO1_IO27	0x1b0b0	/* CAN_ADR3 (DIP sw 4) */
+> >
+> > supposed header overlay or real user should set it. otherwise, the real
+> > user set it will be failure because pin conflict.
+>
+> Sorry, I can't figure out what you are suggesting here.
 
-We are writing to report an issue discovered in the Bluetooth subsystem.  The
-issue is reproducible on the latest version of linux (v7.3-rc2, commit
-df2908090cda368b01ff43709f51890076c56157).  Below is the kernel report:
+Please forget it.  I mess up.
 
-======================================================
-WARNING: possible circular locking dependency detected
-7.3.0-rc2 #42 Not tainted
-------------------------------------------------------
-syz-executor108/9473 is trying to acquire lock:
-ffff8880467900b8 (&hdev->lock){+.+.}-{4:4}, at:
-l2cap_chan_connect+0xa0/0x1130 net/bluetooth/l2cap_core.c:7281
-
-but task is already holding lock:
-ffffffff8fdbc6c0 (rfcomm_mutex){+.+.}-{4:4}, at:
-rfcomm_dlc_open+0x95/0xee0 net/bluetooth/rfcomm/core.c:426
-
-which lock already depends on the new lock.
-
-
-the existing dependency chain (in reverse order) is:
-
--> #2 (rfcomm_mutex){+.+.}-{4:4}:
-       lock_acquire+0x116/0x350 kernel/locking/lockdep.c:5942
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x184/0x1590 kernel/locking/mutex.c:821
-       rfcomm_security_cfm+0x41/0x450 net/bluetooth/rfcomm/core.c:2222
-       hci_encrypt_cfm+0x384/0x500 include/net/bluetooth/hci_core.h:2242
-       hci_encrypt_change_evt+0x5fa/0xce0 net/bluetooth/hci_event.c:3674
-       hci_event_func net/bluetooth/hci_event.c:7887 [inline]
-       hci_event_packet+0x665/0xec0 net/bluetooth/hci_event.c:7938
-       hci_rx_work+0x3ee/0x1070 net/bluetooth/hci_core.c:4041
-       process_one_work kernel/workqueue.c:3396 [inline]
-       process_scheduled_works+0xc85/0x18f0 kernel/workqueue.c:3479
-       worker_thread+0x8a3/0xda0 kernel/workqueue.c:3560
-       kthread+0x38c/0x480 kernel/kthread.c:436
-       ret_from_fork+0x509/0xb70 arch/x86/kernel/process.c:158
-       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
--> #1 (hci_cb_list_lock){+.+.}-{4:4}:
-       lock_acquire+0x116/0x350 kernel/locking/lockdep.c:5942
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x184/0x1590 kernel/locking/mutex.c:821
-       hci_connect_cfm include/net/bluetooth/hci_core.h:2163 [inline]
-       hci_remote_features_evt+0x51c/0x920 net/bluetooth/hci_event.c:3786
-       hci_event_func net/bluetooth/hci_event.c:7887 [inline]
-       hci_event_packet+0x665/0xec0 net/bluetooth/hci_event.c:7938
-       hci_rx_work+0x3ee/0x1070 net/bluetooth/hci_core.c:4041
-       process_one_work kernel/workqueue.c:3396 [inline]
-       process_scheduled_works+0xc85/0x18f0 kernel/workqueue.c:3479
-       worker_thread+0x8a3/0xda0 kernel/workqueue.c:3560
-       kthread+0x38c/0x480 kernel/kthread.c:436
-       ret_from_fork+0x509/0xb70 arch/x86/kernel/process.c:158
-       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
--> #0 (&hdev->lock){+.+.}-{4:4}:
-       check_prev_add kernel/locking/lockdep.c:3209 [inline]
-       check_prevs_add kernel/locking/lockdep.c:3328 [inline]
-       validate_chain+0xa41/0x2560 kernel/locking/lockdep.c:3952
-       __lock_acquire+0xbe0/0xf10 kernel/locking/lockdep.c:5288
-       lock_acquire+0x116/0x350 kernel/locking/lockdep.c:5942
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x184/0x1590 kernel/locking/mutex.c:821
-       l2cap_chan_connect+0xa0/0x1130 net/bluetooth/l2cap_core.c:7281
-       l2cap_sock_connect+0x5c8/0x7d0 net/bluetooth/l2cap_sock.c:255
-       kernel_connect+0x116/0x180 net/socket.c:3755
-       rfcomm_session_create net/bluetooth/rfcomm/core.c:808 [inline]
-       __rfcomm_dlc_open net/bluetooth/rfcomm/core.c:385 [inline]
-       rfcomm_dlc_open+0x924/0xee0 net/bluetooth/rfcomm/core.c:428
-       rfcomm_sock_connect+0x2f7/0x650 net/bluetooth/rfcomm/sock.c:421
-       connect_socket net/socket.c:2141 [inline]
-       __sys_connect_file net/socket.c:2166 [inline]
-       __sys_connect+0x30e/0x430 net/socket.c:2183
-       __do_sys_connect net/socket.c:2189 [inline]
-       __se_sys_connect net/socket.c:2186 [inline]
-       __x64_sys_connect+0x7a/0x90 net/socket.c:2186
-       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-       do_syscall_64+0x170/0x540 arch/x86/entry/syscall_64.c:84
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-other info that might help us debug this:
-
-Chain exists of:
-  &hdev->lock --> hci_cb_list_lock --> rfcomm_mutex
-
- Possible unsafe locking scenario:
-
-       CPU0                    CPU1
-       ----                    ----
-  lock(rfcomm_mutex);
-                               lock(hci_cb_list_lock);
-                               lock(rfcomm_mutex);
-  lock(&hdev->lock);
-
- *** DEADLOCK ***
-
-locks held by syz-executor108/9473: 1, last CPU#0:
- #0: ffffffff8fdbc6c0 (rfcomm_mutex){+.+.}-{4:4}, at:
-rfcomm_dlc_open+0x95/0xee0 net/bluetooth/rfcomm/core.c:426
-
-stack backtrace:
-CPU: 0 UID: 0 PID: 9473 Comm: syz-executor108 Not tainted 7.3.0-rc2
-#42 PREEMPT(full)
-Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix,
-1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x10e/0x190 lib/dump_stack.c:120
- print_circular_bug+0x37e/0x3a0 kernel/locking/lockdep.c:2087
- check_noncircular+0x12f/0x150 kernel/locking/lockdep.c:2219
- check_prev_add kernel/locking/lockdep.c:3209 [inline]
- check_prevs_add kernel/locking/lockdep.c:3328 [inline]
- validate_chain+0xa41/0x2560 kernel/locking/lockdep.c:3952
- __lock_acquire+0xbe0/0xf10 kernel/locking/lockdep.c:5288
- lock_acquire+0x116/0x350 kernel/locking/lockdep.c:5942
- __mutex_lock_common kernel/locking/mutex.c:646 [inline]
- __mutex_lock+0x184/0x1590 kernel/locking/mutex.c:821
- l2cap_chan_connect+0xa0/0x1130 net/bluetooth/l2cap_core.c:7281
- l2cap_sock_connect+0x5c8/0x7d0 net/bluetooth/l2cap_sock.c:255
- kernel_connect+0x116/0x180 net/socket.c:3755
- rfcomm_session_create net/bluetooth/rfcomm/core.c:808 [inline]
- __rfcomm_dlc_open net/bluetooth/rfcomm/core.c:385 [inline]
- rfcomm_dlc_open+0x924/0xee0 net/bluetooth/rfcomm/core.c:428
- rfcomm_sock_connect+0x2f7/0x650 net/bluetooth/rfcomm/sock.c:421
- connect_socket net/socket.c:2141 [inline]
- __sys_connect_file net/socket.c:2166 [inline]
- __sys_connect+0x30e/0x430 net/socket.c:2183
- __do_sys_connect net/socket.c:2189 [inline]
- __se_sys_connect net/socket.c:2186 [inline]
- __x64_sys_connect+0x7a/0x90 net/socket.c:2186
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x170/0x540 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f86d4e40b4d
-Code: b3 66 2e 0f 1f 84 00 00 00 00 00 66 90 f3 0f 1e fa 48 89 f8 48
-89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d
-01 f0 ff ff 73 01 c3 48 c7 c1 b8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007fff9b4b4618 EFLAGS: 00000246 ORIG_RAX: 000000000000002a
-RAX: ffffffffffffffda RBX: 0000000000000004 RCX: 00007f86d4e40b4d
-RDX: 000000000000000a RSI: 0000200000000240 RDI: 0000000000000004
-RBP: 0000000000000003 R08: 000000ff00ff7000 R09: 000000ff00ff7000
-R10: 000000ff00ff7000 R11: 0000000000000246 R12: 000055558c9a6378
-R13: 0000000000000010 R14: 00007f86d4ec50ce R15: 0000000000000001
- </TASK>
-
-Following is the root cause analysis for this issue, note that the
-analysis is performed with the assistance of LLM, but we try our best to
-ensure the accuracy.
-
-lockdep reports a cycle between three mutexes: hdev->lock, hci_cb_list_lock,
-and rfcomm_mutex.  Two paths take the locks in opposite orders.  A connect()
-on an RFCOMM socket runs the whole session setup under rfcomm_mutex, and the
-L2CAP connection it opens along the way takes hdev->lock:
-
-rfcomm_dlc_open() <-- takes rfcomm_mutex
- rfcomm_session_create()
-   kernel_connect()
-     l2cap_chan_connect() <-- takes hdev->lock
-
-The other path starts at the controller.  hci_encrypt_cfm() and
-hci_auth_cfm() are only ever called from HCI event handlers, which hold
-hdev->lock, and the RFCOMM security callback takes rfcomm_mutex from there:
-
-hci_encrypt_change_evt() <-- takes hdev->lock
- hci_encrypt_cfm() <-- takes hci_cb_list_lock
-   rfcomm_security_cfm() <-- takes rfcomm_mutex
-
-When the two paths overlap, hci_rx_work() blocks on rfcomm_mutex while
-holding hdev->lock, and the connecting task blocks on hdev->lock while
-holding rfcomm_mutex.  Neither can make progress, leading to a deadlock.
-
-Following is our suggested solution: The confirmation callback only records
-per-channel state that the krfcommd thread acts on later, so it does not
-have to run in the event path at all.  Deferring it to an ordered workqueue
-keeps that work serialized under rfcomm_mutex and takes rfcomm_mutex out of
-the hdev->lock nesting.
-
-We are actively working on a patch, if the above solution is acceptable,
-I would be happy to submit a formal patch for review.
-
-The kernel console output, kernel config, syzkaller reproducer, and C
-reproducer are available at google drive:
-https://drive.google.com/drive/folders/1Q-Eu5dpQCMH80lEtunLGvK-_oheGkT2O?usp=sharing
-
-Please let us know if any further information is required.
-
-Best Regards,
-Jiaming Zhang
+Frank
+>
+> >
+> > Frank
+> >>  		>;
+> >>  	};
+> >>
+> >> @@ -334,15 +332,6 @@ MX6UL_PAD_NAND_DATA07__UART2_DCE_RTS	0x1b0b1
+> >>  		>;
+> >>  	};
+> >>
+> >> -	pinctrl_uart3: uart3grp {
+> >> -		fsl,pins = <
+> >> -			MX6UL_PAD_UART3_TX_DATA__UART3_DCE_TX	0x1b0b1
+> >> -			MX6UL_PAD_UART3_RX_DATA__UART3_DCE_RX	0x1b0b1
+> >> -			MX6UL_PAD_UART3_CTS_B__UART3_DCE_CTS	0x1b0b1
+> >> -			MX6UL_PAD_UART3_RTS_B__UART3_DCE_RTS	0x1b0b1
+> >> -		>;
+> >> -	};
+> >> -
+> >>  	pinctrl_uart4: uart4grp {
+> >>  		fsl,pins = <
+> >>  			MX6UL_PAD_UART4_TX_DATA__UART4_DCE_TX	0x1b0b1
+> >>
+> >> --
+> >> 2.55.0
+> >>
+> >>
+>
