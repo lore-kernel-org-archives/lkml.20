@@ -1,117 +1,149 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B5F3A31715D;
-	Fri, 11 Sep 2026 14:03:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9281830567D
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:04:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789135413; cv=none; b=JpTo27N7uYYlkOob5QCuhSM17SxFMncrp+VJ6BJFqGXzOcUeoQX173+UVnQdw1fQJn/LcumIj+o/lHRfuJFLtqrY1cDDzgNeZYFkY5F1roFZ3GMVd8IqAwd/Q1daBkU4xSvUJ+tW9FR5k7oRnl9Wh5FVhi5ExLNesFMseS1tB6E=
+	t=1789135476; cv=none; b=cPt5L6acvqNcOmfTiJgCrReFh0MLcSWoIsQ6xm7RjLcQyikNwsD5+lvXZsunaLkQzvMGWUUNCISg8e3uJF86Vl5BtMTO+9WIHyumWFH1nZBr73Grp0yFBV2/5V7vdjOGaKqVeBSzXIL04maK2OL6JMPAJKSIIdqp0IHm6tGNnDM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789135413; c=relaxed/simple;
-	bh=BtmDOcrJzTirInUyJZ4Yn0/HlvkxpOsf18Vh5suxajg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VNyZZYtJEgXrLiFucM9hB1fSSs0LTpRrvCV3eJyWcfLHuNmkSwkKAJHpAQvOmAeZOfefAuLL73qPnCagL4NyC85MWbgK1RWUdXtatTmr9pRIixRmgjyDZvPErI7/D7Ax6xkCvotQ2LZnHe71ESJcTNPRWXaI+QTTyphb+cNlFAQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=F+qBxK/k; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1789135476; c=relaxed/simple;
+	bh=r4JmuPzBJLhfPpOfzWOJ6upjs4g6fN6QJtm4yDvE/D8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=V/NOZPuZwcCd9106MJROQhB6Ta0V1vimoejZDTjFQ8+CgbRcL2nshVUOWruGnNqBINoYM4S7fnDBpwHk/XxjQHNeeK8h3CS/l5n8uH7pl8ARrucq8KPGg3qDB3FkLtlarKRtzdFxBBNsqBzLJkS1XPxUcyvMBkj7Std9Izzz/kw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=FJs3qXkc; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="F+qBxK/k"
-Received: from localhost.localdomain (unknown [4.194.122.144])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 967FE20B7166;
-	Fri, 11 Sep 2026 07:02:37 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 967FE20B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1789135369;
-	bh=nko1lzDX3HYjX2ZcfcghQ19ySoGi04r5ioAQrMQSqwE=;
-	h=From:To:Cc:Subject:Date:From;
-	b=F+qBxK/ke+HD0YetRgg/ZMn/CIDC2IdYBk5xKNw+U0ZGTYZNZj3EAkWjEOrJEOTWu
-	 PnGCq7kMSzHKULddloXe4Yzxzd2m6zm7SbJ2YhWxuU6ZJ3MFoAh/9BQReh8JIAJOdA
-	 64L0IykprkeZ6WipYdaK+43ijmekDCU9b+Az6TX0=
-From: "Cen Zhang (Microsoft Security FORGE Labs)" <cenzhang@linux.microsoft.com>
-To: Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Martin KaFai Lau <martin.lau@kernel.org>
-Cc: Amery Hung <ameryhung@gmail.com>,
-	Xuanqiang Luo <xuanqiang.luo@linux.dev>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Fushuai Wang <wangfushuai@baidu.com>,
-	Weiming Shi <bestswngs@gmail.com>,
-	Matt Bobrowski <mattbobrowski@google.com>,
-	Kees Cook <kees@kernel.org>,
-	Menglong Dong <menglong8.dong@gmail.com>,
-	bpf@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	AutonomousCodeSecurity@microsoft.com,
-	xmei5@asu.edu,
-	tgopinath@linux.microsoft.com,
-	kys@microsoft.com
-Subject: [PATCH bpf v2] bpf: Fix NULL pointer dereference in __bpf_sk_storage_map_seq_show
-Date: Fri, 11 Sep 2026 10:03:08 -0400
-Message-ID: <20260911140308.81560-1-cenzhang@linux.microsoft.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="FJs3qXkc"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id DD7F81A01F2;
+	Fri, 11 Sep 2026 14:04:31 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id B22D7601DE;
+	Fri, 11 Sep 2026 14:04:31 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 62F5711C7AFA9;
+	Fri, 11 Sep 2026 16:04:26 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789135470; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=sAAAdt+JB82u9IOqRch5aAksdYbHp/x+ZDWxVoOC0M0=;
+	b=FJs3qXkcRgnTwT5JYDWGZRweeBUhkhYa8fn+h+Pqm442DSLLiieyGm+KKXz1W0PAjYHLWk
+	OqDr49zCTfhXvdCw6vlunk50+hl9v6BY4yCUBcVfzSXkfVUrEC7vsVeq8h5LU3zoeB0d3Z
+	pqaAa3KRAxsiQE/8xE+rStZvb6Gpo9iVszSwvJ0UCdShDUO/UzWnIIswrYQkGbzHAfzWCy
+	n9iPpFC4HcMYmC2NpKWvOYG8xli/1GcDl6bL3A24AM9WDXRAInT6Wg2OPaOf7+dgfiBBHd
+	nIco070+vKLKx5fb2QHlIwPp4H/ygcJ9bglPHe/NWKxD+8Ka9BDMTgqcfPqzbA==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+Date: Fri, 11 Sep 2026 16:04:23 +0200
+Subject: [PATCH v3] mtd: spi-nor: Fix quad-enable for flashes with QER bit
+ in SR1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260911-perso-fix-spi-nor-qe-mxic-v3-1-2ecaefb2ef2c@bootlin.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43OwQ6CMAwG4FcxO1uzbhODJ9/DeMCtSBPZcCMLh
+ vDuDm7eOP5N/6+dRaLIlMT1MItImRMHX4I+HoTtGv8iYFeyUFJVskaEgWIK0PIEaWDwIcKHoJ/
+ YgpNn1FS3xigUpT9EKmubfX+U3HEaQ/xupzKu0z1qRkBoXeVqNFg1qrk9Qxjf7E829GJ1s9ptq
+ WJdpNXKlD+1pH9rWZYfdMOTMxABAAA=
+X-Change-ID: 20260911-perso-fix-spi-nor-qe-mxic-d0513e9f4421
+To: Pratyush Yadav <pratyush@kernel.org>, Michael Walle <mwalle@kernel.org>, 
+ Takahiro Kuwano <takahiro.kuwano@infineon.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Jon Hunter <jonathanh@nvidia.com>, Steam Lin <STLin2@winbond.com>, 
+ linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Miquel Raynal <miquel.raynal@bootlin.com>
+X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
 
-Iterating a sk_storage map is a two-stage operation:
-bpf_sk_storage_map_seq_find_next() returns a selem, then
-__bpf_sk_storage_map_seq_show() uses it. The latter re-reads
-selem->local_storage via rcu_dereference() without checking for NULL.
-A concurrent socket close can unlink the selem and clear that pointer
-between the two stages, causing a NULL dereference of sk_storage->owner.
+Some flashes (eg. from Macronix) do set BFPT_DWORD15_QER_SR1_BIT6, which
+means they do not have an SR2 to read from/write to. The new generic QE
+helper was supposed to accommodate this situation but in the last version
+that got merged, parts of that specific handling has been moved to a
+more contained location, swp.c (which needed most of the extra code),
+yet the Macronix case has been forgotten about in that generic QE
+handling helper. Booting with such flashes will always fail probing.
 
-Oops: general protection fault, probably for non-canonical
-   address 0xdffffc0000000011
-  net/core/bpf_sk_storage.c:809 __bpf_sk_storage_map_seq_show()
-  bpf_seq_read+0x366/0x1120
-  vfs_read+0x174/0xa50
-  ksys_read+0xfc/0x1d0
+Fix the situation by making sure SR2 reads just return 0 if
+unsupported. This is safe since there is no chip with a write SR2 path
+but no read SR2 path (which is now enforced in the SFDP parsing step).
 
-Return SEQ_SKIP if the re-read yields NULL. This prevents the dereference
-and tells bpf_seq_read() that the stale element was skipped, so it does
-not consume an iterator sequence number without running the BPF program.
+This way, callers still do not have to care about the internal device
+capabilities. Calling sr1_and_sr2 read/write helpers is safe in both
+directions (not risk to get a spurious error). The behavior for SR1-only
+chips is respected, the complexity in the core kept to its minimum.
 
-Fixes: 0be08389c7f2 ("bpf: Switch to bpf_selem_unlink_nofail in bpf_local_storage_{map_free, destroy}")
-Reported-by: Xiang Mei (Microsoft) <xmei5@asu.edu>
-Closes: https://lore.kernel.org/all/20260827051859.45511-1-blbllhy@gmail.com/
-Suggested-by: Amery Hung <ameryhung@gmail.com>
-Suggested-by: Xuanqiang Luo <xuanqiang.luo@linux.dev>
-Link: https://lore.kernel.org/all/CAMB2axNFOC9G2RwOCnsWDth83REMWnmPE8gxMwbLYoGusw9miA@mail.gmail.com/
-Link: https://lore.kernel.org/all/c3f2a61d-d5bc-454c-987d-717b5f8c8809@linux.dev/
-Cc: AutonomousCodeSecurity@microsoft.com
-Signed-off-by: Cen Zhang (Microsoft Security FORGE Labs) <cenzhang@linux.microsoft.com>
-Assisted-by: Copilot (Grok 4.6)
+Reported-by: Jon Hunter <jonathanh@nvidia.com>
+Closes: https://lore.kernel.org/linux-mtd/178876719232.3543902.14451625037676421254.b4-ty@b4/T/#m5bc4ba6776436f2870ced0eb5789d229037ad840
+Fixes: 63489002d397 ("mtd: spi-nor: Refactor Read Status/Write Status support")
+Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 ---
+Changes in v3:
+- Make sure the read helper returns a "valid" SR2 in the sense that it
+  cannot be random data by returning 0 for chips that do not feature a
+  read_sr2 opcode. The major thread was to get a wrong comparison
+  (against the tmp variable) in the _and_check() helper.
+- Link to v2: https://lore.kernel.org/r/20260911-perso-fix-spi-nor-qe-mxic-v2-1-70c324e9f30e@bootlin.com
+
 Changes in v2:
-- Return SEQ_SKIP instead of 0 when the storage disappeared, preserving
-  the iterator sequence number for the next valid element.
-- Correct the Fixes tag to the commit that switched the destruction path
-  to bpf_selem_unlink_nofail().
-- Rebase onto the current bpf master branch.
+- Change the approach, see v1 thread below.
+- Link to v1: https://lore.kernel.org/r/20260911-perso-fix-spi-nor-qe-mxic-v1-1-fd6d91416a2a@bootlin.com
+---
+ drivers/mtd/spi-nor/core.c | 10 ++++++++--
+ drivers/mtd/spi-nor/sfdp.c |  3 ++-
+ 2 files changed, 10 insertions(+), 3 deletions(-)
 
- net/core/bpf_sk_storage.c | 2 ++
- 1 file changed, 2 insertions(+)
+diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
+index e2b6efafdd8d..62b53933927f 100644
+--- a/drivers/mtd/spi-nor/core.c
++++ b/drivers/mtd/spi-nor/core.c
+@@ -849,7 +849,8 @@ int spi_nor_read_sr2(struct spi_nor *nor, u8 *sr2)
+ 
+ /**
+  * spi_nor_read_sr1_and_sr2() - Read SR1 then SR2
+- * General purpose helper.
++ * General purpose helper, always safe to call. Will expectedly ignore
++ * SR2 on certain chips.
+  *
+  * @nor: the spi_nor structure
+  * @sr: pointer to a valid 2-byte array
+@@ -864,7 +865,12 @@ int spi_nor_read_sr1_and_sr2(struct spi_nor *nor, u8 *sr)
+ 	if (ret)
+ 		return ret;
+ 
+-	return spi_nor_read_sr2(nor, &sr[1]);
++	if (nor->params->opcodes.read_sr2)
++		ret = spi_nor_read_sr2(nor, &sr[1]);
++	else
++		sr[1] = 0;
++
++	return ret;
+ }
+ 
+ /**
+diff --git a/drivers/mtd/spi-nor/sfdp.c b/drivers/mtd/spi-nor/sfdp.c
+index c21a6953db96..641f17ad51a0 100644
+--- a/drivers/mtd/spi-nor/sfdp.c
++++ b/drivers/mtd/spi-nor/sfdp.c
+@@ -656,7 +656,8 @@ static int spi_nor_parse_bfpt(struct spi_nor *nor,
+ 
+ 	/* opcodes sanity check */
+ 	WARN_ON(!params->opcodes.read_sr1 ||
+-		(!params->opcodes.write_sr1 && !params->opcodes.write_sr1_and_sr2));
++		(!params->opcodes.write_sr1 && !params->opcodes.write_sr1_and_sr2) ||
++		(!params->opcodes.read_sr2 && params->opcodes.write_sr2));
+ 
+ 	dword = bfpt.dwords[SFDP_DWORD(16)] & BFPT_DWORD16_4B_ADDR_MODE_MASK;
+ 	if (SFDP_MASK_CHECK(dword, BFPT_DWORD16_4B_ADDR_MODE_BRWR))
 
-diff --git a/net/core/bpf_sk_storage.c b/net/core/bpf_sk_storage.c
-index 1d295a8769fa..7d02245aa704 100644
---- a/net/core/bpf_sk_storage.c
-+++ b/net/core/bpf_sk_storage.c
-@@ -806,6 +806,8 @@ static int __bpf_sk_storage_map_seq_show(struct seq_file *seq,
- 		ctx.map = info->map;
- 		if (selem) {
- 			sk_storage = rcu_dereference(selem->local_storage);
-+			if (!sk_storage)
-+				return SEQ_SKIP;
- 			ctx.sk = sk_storage->owner;
- 			ctx.value = SDATA(selem)->data;
- 		}
+---
+base-commit: 700bf34058ca7cd792236b1ba5caad3770d66208
+change-id: 20260911-perso-fix-spi-nor-qe-mxic-d0513e9f4421
 
-base-commit: 15071f2a1263e82150c77eeb1e94dbfc31950a8e
+Best regards,
 -- 
-2.55.0
+Miquel Raynal <miquel.raynal@bootlin.com>
+
