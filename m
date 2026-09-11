@@ -1,131 +1,83 @@
-Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com [209.85.208.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B449F485CF9
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 13:23:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3083C23BD1D
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 13:24:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789133035; cv=none; b=R/C8j3MIT5KG1Qy6OZplq9/Z0kRCkwcwo62SpykUya/UwJLbS/obcencwF8nAeB7W3dAamf1+2vhkIDKO5ecL1tJ2Pf3X8DO5RjXX38jBxPY2O9SNAGZnzNP1PuPGVaMRAspEJZR3wZnuNKy4syC5Eyt+1sMIXrRiPiH49g+xq4=
+	t=1789133074; cv=none; b=ESlc9/95RwBhVeUQRuiG7gjZI5BDNlrEq2Ios8yZD9+iDrQSjVooAy9WjtSZOt2RYG5R57Za68x3jFevviQDL80LcJ7j/eCClL1f5/TeRnyGkiaLwbKS1FmjP0v+untdU8W07z+7WPvj+FFBtRtFppRmnj3q/g58DeFyzh+qAso=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789133035; c=relaxed/simple;
-	bh=qpz2ap2Qy3ycSRZrgUKqHGFQhhk7gpL+MfmoSPp40Dc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=jcCLSrYIKItrgdlFCaVqyz1n7q0RrrGby1n6gbzcNvPEm04U/XeImNJdsmh/R+9QDvfDmvj7kzHcZXRQcXtx566ctrqcMOLL/zNwepExaDQzXc+I5A4YpAYFI1kFHtfRdg0rJASMaCPeHh3Bg7wTPHguR7i7nLUw0djYIYr98qo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=LxGNi495; arc=none smtp.client-ip=209.85.208.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1789133074; c=relaxed/simple;
+	bh=0j2qBcmWOc1p37RvohbHXc08nW5Fm0zVkkY1ZycDOx4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=pPqKmcr+Exs5mPErSd6qyqaIZq3pMI1pYjaR1OTyGU5PNaJDOBBqG5r0tndLNaZvIHODb+eljNZ/0koEhfQlLKNMim4MSxaXqxm7bsFejjXZVewU/cR4RoEejuOyr+3N+OuDt8jl0wmKIrnMjqd4wJIvZMgT6qHCVPlStW10ySY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PZ0ZNrSf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="LxGNi495"
-Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-3a20dec69f9so7162121fa.3
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 06:23:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1789133032; x=1789737832; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=GRtNOlIv6Nq3mnj3CtQhPUwSgfYJDObGyFZaQ8xnneU=;
-        b=LxGNi495ExZd1S3ovUUb0P0OhGIH+1Sfpr9NghkgE3oBK/fh/GxQvEWiinbTCiKCXm
-         XrUEXUWh+Tks113I4Tnos550L8UZNMpWNPUEy7zVqub70fnLlloAf7IanN8t+vtGKjQo
-         z1m7XEejAJGMgylB7IiRIglp7Wg1nqWqz84Aw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789133032; x=1789737832;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=GRtNOlIv6Nq3mnj3CtQhPUwSgfYJDObGyFZaQ8xnneU=;
-        b=SFPZjH4n3jxDYlEDmN58AawZ8SDgUBVHiLKVRtb8diHWr5sbakeDqls1pGd3uPvld0
-         T7IP9/dqQ6natiQgFYcvLRHxrM0TZCQewH2L/q5qpSHEi9J9FJeFQnE8jXbfA/dC2fu5
-         WXCHjZTMAqCu9n2W/htHZTencKjTTEdDgeFC6F+VdQEjwXaYpWEfHeLbzu65pxk4CO8d
-         +1XskMrxuqfpERnBNJCooHEaAWsV7bWK7DhEcAkQvL5aABIGIrZXZtdU/a7TN7c4kSXH
-         tiDAQvMaJm0HB3e52TMFLhoNxNpeEOOZu0nVRBzLM3hqSqbw12aFKn5MDgSZlCAqpYty
-         GkYQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzV069xk1EoNrle8hzKJ1mM8eP8k1nfoNQPLbCxBfOjZlfFaWjs6rEaKPrAY2al3ooJkzbZ9jP9y9EMjsY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mc9wtC5Ip/OzZL7tkee5qSHaSw7ZNe28nWKjSUOGlXz4aOrhMt
-	qVv94CEETp5nvkg0gXIVucYy7FlKPtwlrjzveg9Nl0U/04FFI1iRuQBNszeTgfESeg==
-X-Gm-Gg: AYBFou2mZ1l0/kbTM3MG7KKW/ht4fb2qDJ7I/Tw4lV/5RVTAWDMGdDlnCJIbU13+osx
-	M/S3APY2z6wVC+vdTFUOjbNbVkRSmuxCON+ihRUrzJEIFLokS0lLnOg2wcyCJ5v/y35xExI9ezq
-	n9JNo78H/omWqmeMMpZ+GTeoDrBoingN+FmGnPGJ5oIDNRZp+DIR+S1pgyzQJ2+YxjNSF34OQ4e
-	hOYvvGITkrQ6M5MQ1e+fsmSj4DB76BSIVClIgVQTcRDimTFjU5iu+7Tf4vdzcswJ2Oglx4Bdro7
-	HCUxNfXQo4IZys2/a/n0Kk5zQeyilip/Nf/PVoBXaLCXWq9OLoChd9ugS6vBnNZJEwx9F/vFz2o
-	ltUoWj3ZsxENEZm3QMN947N8sJlBCfe+t+9gtBEcubifn5ZLovIh0CQAxVCJk7lXV3+Lmxht2TW
-	uf92v6ketnh6uve62SfLKWtoUu+9XVqGQVA5vvWTg7WLd+SjIYB0Ar1e+O4cC1KvzNm/ENBY6Be
-	zd/vtgD9PpPGbyHm1hgfZS4P4k7CPoWKeYdxt4JTvu43aEL7w==
-X-Received: by 2002:a05:651c:43c4:10b0:39d:b5b9:f0f4 with SMTP id 38308e7fff4ca-3a5a50895f6mr3800571fa.10.1789133031755;
-        Fri, 11 Sep 2026 06:23:51 -0700 (PDT)
-Received: from ribalda.c.googlers.com (11.36.88.34.bc.googleusercontent.com. [34.88.36.11])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a5a3361f94sm5611931fa.32.2026.09.11.06.23.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 06:23:51 -0700 (PDT)
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Fri, 11 Sep 2026 13:23:50 +0000
-Subject: [PATCH] media: uvcvideo: Fix bounds for descriptor parsing
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PZ0ZNrSf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC8EF1F0089A
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 13:24:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789133072;
+	bh=0j2qBcmWOc1p37RvohbHXc08nW5Fm0zVkkY1ZycDOx4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=PZ0ZNrSfVha0HM4y326o0bJ2eyrzMlMjCB1ztc5BjLmSe815W3rmTnwyLDT3AEkuP
+	 bxZ2TOrL9Odvf4zTpdcFoaKS/15xgpFyZct59mVSsibc0Oajjx7XCYOggFH/Z4+Sao
+	 z7hBR36xgJa+V3SDuiSWREfvzNnWmQtog/YdQywwQ8m0u7fqOUn2J8L9JmW5EiglY/
+	 0ZG7e76HIOnW8VcyXZLhsPBwcWYGMU32bcN1wcrJU8PiJ1AAHdYD22OTNRyrssCxjr
+	 M34RZIaj3r0nCsO1BHwRbbYLxLhyUlZMDC+ekRfrNvjgTz4i7xFKCXp7e8Jsydbvug
+	 ueAb50Wp5VDpQ==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b74e0c2e4dso1117180e87.0
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 06:24:32 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwSJ4ngkTXQ0uIwT1IQTkX3OrnGMGBm2fbja3aH0pR6NMnU/Q0WPSnG3Okg7Og/D+Qh2jV7Z9uZoVp5YHs=@vger.kernel.org
+X-Gm-Message-State: AFuF++koNWNF3sac9WRRhBoGch3j4Bk24xb8tUBr/znhz3XWjQJ6i6AJ
+	OWo82mofEveer6qce0X2d6n1FexN32j/as3f5BHLQ7D8hX2Yn0bIicrPQykrEPVVjguaM5Q5566
+	xOHxIoRAoZABvreX3EqnKyIKcdzvvr7M=
+X-Received: by 2002:a05:6512:2204:b0:5b4:7d9d:16d7 with SMTP id
+ 2adb3069b0e04-5b8a02df777mr1760118e87.11.1789133071406; Fri, 11 Sep 2026
+ 06:24:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260911-uvc-ctrl-bound-v1-1-7b5cfc68bae1@chromium.org>
-X-B4-Tracking: v=1; b=H4sIAOUApGoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDS0ND3dKyZN3kkqIc3aT80rwUXctkQ0sTgzQDs7RkcyWgpoKi1LTMCrC
- B0bG1tQBPMFgRYAAAAA==
-X-Change-ID: 20260911-uvc-ctrl-bound-9c1940f06fc7
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Hans de Goede <hansg@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Laurent Pinchart <laurent.pinchart@skynet.be>, 
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Ricardo Ribalda <ribalda@chromium.org>
-X-Mailer: b4 0.14.3
+References: <20260825105427.686619-1-roshaen09@gmail.com> <d3a928e0-6faa-4cd4-9d2e-cb9be4cf84c0@suse.de>
+In-Reply-To: <d3a928e0-6faa-4cd4-9d2e-cb9be4cf84c0@suse.de>
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 11 Sep 2026 15:24:19 +0200
+X-Gmail-Original-Message-ID: <CAD++jLnAoOaRwWpkVX0o1z0wF=Qs9PRTKbq9iq-GWSkJ2kyX8w@mail.gmail.com>
+X-Gm-Features: AcwNN1XhqjMUxLBJRz2ogLHBz48a4ffLu-JtjNS9gwh4pdm6GiYqoN9oXiWuqlk
+Message-ID: <CAD++jLnAoOaRwWpkVX0o1z0wF=Qs9PRTKbq9iq-GWSkJ2kyX8w@mail.gmail.com>
+Subject: Re: [PATCH] drm/pl111: Advertise no pixel blending
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Roshan Kumar <roshaen09@gmail.com>, dri-devel@lists.freedesktop.org, 
+	leandro.ribeiro@collabora.com, maarten.lankhorst@linux.intel.com, 
+	mripard@kernel.org, airlied@gmail.com, simona@ffwll.ch, pimyn@google.com, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-uvc_parse_control() passes descriptor by descriptor to
-uvc_parse_standard_control() with the number of bytes remaining in the
-buffer, not the number of bytes of that descriptor.
+On Wed, Sep 9, 2026 at 10:16=E2=80=AFAM Thomas Zimmermann <tzimmermann@suse=
+.de> wrote:
 
-Because of this, malformed descriptors could leak over the next
-descriptor, leaving malformed data in our structures.
+> > The PL110/PL111 controller scans out a single framebuffer and does not
+> > blend its alpha channel with a background. Advertise
+> > DRM_MODE_BLEND_PIXEL_NONE to match the existing hardware behavior.
+>
+> Why does the driver report ARGB formats in the first place. I'm looking
+> at the code at [1] and I don't see any difference to XRGB. Unless I'm
+> missing something, please remove ARGB formats from this driver instead.
+> Drivers should not report formats they don't support.
 
-Change the code so we pass the actual length of the descriptor to the
-parser.
+This should be the TRM for PL111:
+https://support.arm.com/documentation/ddi0293/c/?lang=3Den
 
-Note that this makes the existing check more strict and some devices
-that are wrongly parsed today will not be probed now.
+I checked it and indeed the ARGB* should be search/replaced with
+XRGB everywhere.
 
-Cc: stable@vger.kernel.org
-Fixes: c0efd232929c ("V4L/DVB (8145a): USB Video Class driver")
-Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
----
- drivers/media/usb/uvc/uvc_driver.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+Shall I propose a patch?
 
-diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
-index e289cc71ba98..429f1ab19a2a 100644
---- a/drivers/media/usb/uvc/uvc_driver.c
-+++ b/drivers/media/usb/uvc/uvc_driver.c
-@@ -1248,11 +1248,14 @@ static int uvc_parse_control(struct uvc_device *dev)
- 	 */
- 
- 	while (buflen > 2) {
--		if (uvc_parse_vendor_control(dev, buffer, buflen) ||
-+		if (buflen < buffer[0] || buffer[0] < 3)
-+			return -EINVAL;
-+
-+		if (uvc_parse_vendor_control(dev, buffer, buffer[0]) ||
- 		    buffer[1] != USB_DT_CS_INTERFACE)
- 			goto next_descriptor;
- 
--		ret = uvc_parse_standard_control(dev, buffer, buflen);
-+		ret = uvc_parse_standard_control(dev, buffer, buffer[0]);
- 		if (ret < 0)
- 			return ret;
- 
+I also have the actual hardware so I can test it properly.
 
----
-base-commit: 27953c044974baf7e24dee3e9342fe0103dea80c
-change-id: 20260911-uvc-ctrl-bound-9c1940f06fc7
-
-Best regards,
--- 
-Ricardo Ribalda <ribalda@chromium.org>
-
+Yours,
+Linus Walleij
