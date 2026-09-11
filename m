@@ -1,69 +1,74 @@
-Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
+Received: from mx10.gouders.net (mx10.gouders.net [202.61.206.94])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B06985678ED;
-	Fri, 11 Sep 2026 20:19:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62CE8585966;
+	Fri, 11 Sep 2026 20:20:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.61.206.94
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789157994; cv=none; b=Bus24mwAkNSIChmKito9xXxsycqdbuRpYPJPi03n6yA3u3EH5ikVH9AptDF8WYFPVk14afM9efCpNNiQo5GIVTU6JhraGvverRoaypv879/jGHbrA2T/0Srf/IbtbZTvy38SjV3G4cCNDY/aBwKsihUy3KobRuDyqjZGAkLjfHY=
+	t=1789158041; cv=none; b=riy6SXVQ6mZ35AIg9vcYbF0l7wUR7MHairyCyrl8ZB5Q6AhYw/GWSduABvsweZVczQ0W0lUwbj3Ptttz0a3KiiEe6ymEAb9ap6rYX6rl6KPtFzUyy1Cu1lQs5Y9061SMCFyZqo+XVodSnssP7tSNuabN5k95ZPSQO7L65Qwp8Wg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789157994; c=relaxed/simple;
-	bh=WujUq1eMM5pvnZolInHG5G25Q2BM0wYJXW0ABAD7rVk=;
-	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Date:
-	 MIME-Version:Content-Type; b=EgfGIW4l/KJlHrl2K51UoSR7MyIAc/8Xk/zyu1QktvBKyPiyujmcjQcNE3tGHxGy8qJ28MnB+DQwnY8ZnL59/2l1iJy9VbwAlMAdhmnffHq0WXqwdN/NYw7Jr34wfOA36bzP5EKIx+Kdrj+2sQeAfzmjIXrKvrgOEUWxlYNRp1A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=DAf+gd96; arc=none smtp.client-ip=143.255.12.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
+	s=arc-20240116; t=1789158041; c=relaxed/simple;
+	bh=d59MPUPA1H1MBkL0A1IYH5gBVzMvwkxxIArLc12cVVk=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=CzqiIpN8V6JZfvkppvZL5OjisKX3r6XbDCtdUW5RPVlyl+IuV0ABclS9elBlaBjKeKRFGNc9WQiTlfYWxCUQ9fJQgwq6dOTcTi3X/7AqSPpPyrQjj4Zq8PPFQm7cxP0y8wGpHbD0ygm9mAVAOJPU9/EmoTisq/yXds3NB0nDrPc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gouders.net; spf=pass smtp.mailfrom=gouders.net; dkim=pass (1024-bit key) header.d=gouders.net header.i=@gouders.net header.b=jA4bXDJI; arc=none smtp.client-ip=202.61.206.94
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gouders.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gouders.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="DAf+gd96"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=manguebit.org; s=dkim; h=Content-Type:MIME-Version:Date:References:
-	In-Reply-To:Subject:Cc:To:From:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=WujUq1eMM5pvnZolInHG5G25Q2BM0wYJXW0ABAD7rVk=; b=DAf+gd96cgJJp290OQ/Fxe+ooO
-	DX2Qjqvy4Iwp6U1CaNCTgPzj+7EWpFqy6H0267ppXfYp43Pufrt9tFE4o+/sxnM3MK9oits5NcK/z
-	Oh0ZOLJyfqtvCGEdhsNIzsUQ2Vyeg4fQRNIq+WKie3iVY6n9tez930wo5ib2fCVwVkdwTqlptGgJ2
-	5rDN1TwrwOqnIaB4GCXQmD1HEGsdoY04Q67b3ZYa0THsPBB8K8wWLO5LOssTmCcQ33Fnva5REL/36
-	EWVv3pme55BaZkUzVbjj0mBCayX4d/uQJT+TEnLJUrK7qhnaydGuaDRoNPDeTTqlImsssAAXUPz6J
-	OK78JnOQ==;
-Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
-	id 1x57iw-00000001Ewy-1al8;
-	Fri, 11 Sep 2026 17:19:50 -0300
-Message-ID: <3a64b5fb25930d52bf57ccd9cec468ad@manguebit.org>
-From: Paulo Alcantara <pc@manguebit.org>
-To: David Howells <dhowells@redhat.com>, Christian Brauner
- <christian@brauner.io>
-Cc: David Howells <dhowells@redhat.com>, Matthew Wilcox
- <willy@infradead.org>, Namjae Jeon <linkinjeon@kernel.org>, Marc Dionne
- <marc.dionne@auristor.com>, Stefan Metzmacher <metze@samba.org>, Eric Van
- Hensbergen <ericvh@kernel.org>, Dominique Martinet
- <asmadeus@codewreck.org>, Ilya Dryomov <idryomov@gmail.com>,
- netfs@lists.linux.dev, linux-afs@lists.infradead.org,
- linux-cifs@vger.kernel.org, linux-nfs@vger.kernel.org,
- ceph-devel@vger.kernel.org, v9fs@lists.linux.dev,
- linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v12 3/5] cachefiles: Add a tracepoint to log
- insufficient space errors
-In-Reply-To: <20260910220242.2165023-4-dhowells@redhat.com>
-References: <20260910220242.2165023-1-dhowells@redhat.com>
- <20260910220242.2165023-4-dhowells@redhat.com>
-Date: Fri, 11 Sep 2026 17:19:50 -0300
+	dkim=pass (1024-bit key) header.d=gouders.net header.i=@gouders.net header.b="jA4bXDJI"
+Received: from localhost ([47.65.179.181])
+	(authenticated bits=0)
+	by mx10.gouders.net (8.18.2/8.17.1.9) with ESMTPSA id 68BKKVRc088790
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+	Fri, 11 Sep 2026 22:20:32 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gouders.net; s=gnet;
+	t=1789158032; bh=d59MPUPA1H1MBkL0A1IYH5gBVzMvwkxxIArLc12cVVk=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=jA4bXDJICm5i7ajf6+X3o28SpIGteZbAJIaIGcWZaJZeQjYVk96QWHrodjrsCcjuK
+	 cOJjv0axFWG7bSQJFCgQcn7kYO0rFY+lgGPIlE66VWcIhUAYVqoDmuCaWsmLj5NQDU
+	 e/pWT6U/2SRs0+w8hj5lwtlhoadUmLoH+uPjrSjg=
+From: Dirk Gouders <dirk@gouders.net>
+To: Linux PM <linux-pm@vger.kernel.org>
+Cc: Linux Kernel <linux-kernel@vger.kernel.org>
+Subject: Re: Question about system halts caused by temperature
+In-Reply-To: <gha4po5nqj.fsf@gouders.net> (Dirk Gouders's message of "Fri, 11
+	Sep 2026 08:03:00 +0200")
+References: <gha4po5nqj.fsf@gouders.net>
+User-Agent: Gnus/5.13 (Gnus v5.13)
+Date: Fri, 11 Sep 2026 22:20:31 +0200
+Message-ID: <ghik4bmtf4.fsf@gouders.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-David Howells <dhowells@redhat.com> writes:
+On Fri, Sep 11 2026, Dirk Gouders wrote:
 
-> Add a tracepoint to log insufficient space errors.
+> since I own newer hardware (Lenovo L14 Gen 5, AMD Ryzen 7), I suffer
+> from system halts during system rebuilds (I use Gentoo).
 >
-> Signed-off-by: David Howells <dhowells@redhat.com>
-> cc: Marc Dionne <marc.dionne@auristor.com>
-> cc: Paulo Alcantara <pc@manguebit.org>
-> cc: netfs@lists.linux.dev
-> cc: linux-fsdevel@vger.kernel.org
+> I now found a reliable reproducer (emerging webkit-gtk) and a setting that
+> helps the system to survive such a build but that setting works with
+> perhaps very conservative frequencies and from what I read in
+> https://docs.kernel.org/admin-guide/pm/cpufreq.html, even with
+> /sys/devices/system/cpu/cpufreq/boost turned on, the kernel aims to try
+> to not let the system overheat.  Could well be that I misunderstand
+> that...
 
-Reviewed-by: Paulo Alcantara <pc@manguebit.org>
+I'm sorry for the noise about a seemingly well known problem.
+
+(My previous hardware also was a Thinkpad L14 and that worked out of the
+box for some years, so I thought I hit some new problem.  And when I
+tried the powersave governor that let the system heat raise to death
+while the fan speed remained at 3000 RPM I got really confused.)
+
+I digged some more, found *thinkfan* and currently, webkit-gtk is being
+built with performance profile at around (hopefully safe) 84=E2=84=83.
+
+Regards,
+
+Dirk
