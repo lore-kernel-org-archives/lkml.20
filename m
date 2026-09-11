@@ -1,232 +1,277 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 397941E9B1A
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 21:16:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 254B0599A33;
+	Fri, 11 Sep 2026 21:16:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789161372; cv=none; b=RtkbuZZ4IP2EazqiZo1w2LCf8CvL6mrvtG1SyoDhms5IdDJBneET246ILwLNG14UwWeZmq6Rl2OuD9kNaQ9REPo+O0ypwKz2leNgb8k53ykgqe4AlFAH9lNH6nA/Eu5nCriaHJsNS/sz8MutO+Z1Du4fFm03r9xajqnzeRqrT9w=
+	t=1789161377; cv=none; b=ZtflM3AvsN9aMcIM68dJ2BZjRsG+/n9lJDwXIGT8g4dYVdU1WcumHD7R8cjmVUcGwR2jG4SBxgaNJCxc9MtpeImW76Hs57Oh+Kmf6q7qNQLE/VFMImo1XEErxzQYYSXYL3bTqdFbKt1zUEiCxKgAYMtzoTVRrHilnl3DYoNL0hg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789161372; c=relaxed/simple;
-	bh=CkkoL+Mm5wrXLqQiEf4jOxWLB6Aj63iNCHVgZTJ+iiw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Kd0kqJqMXCAwoBNvO6lB5tFccRTi/oiqzSDKbL+CrmXaS+4TXEqbhxyWfWjhK04ZsqzXjhx4ZCRI2gd+GrpQAYJ+YXZJLDBX6G3YK5S02h6UuW0D9SINeceoutsnLDBvaB5L3EBcf+vUpGh1lGWu7ksnqDgka4f5l9ctT3SgN+Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FLXxup54; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789161377; c=relaxed/simple;
+	bh=dgzJVskIA/AR/IOvl0vIDVrcmzNEPwsF8UiNIoH00HM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Xr5Mj9FNQtiUXoW1Q36nvobCCgzXDaWCHk6h4nNooHQdCxNTYEora2KFDGvRR2h29KYjqGTcK2T5D0aUBGzp5qK0Wj75yh3DBMSiqG2BDrk89upSE+fOlEzJMkgVfDyzYsMIcsfTpSF8KOHlPt1jt+gT8ib4FHbGmmkY0HmfVM4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=w_armin@gmx.de header.b=kRop72S7; arc=none smtp.client-ip=212.227.15.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FLXxup54"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d37b6so1542865e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:16:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789161369; x=1789766169; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pK9Q3uGKA1u0ElzG2dqV80RIYwnVI0Uj5jzztR3o9vo=;
-        b=FLXxup54uCKRJpkw3XRCqMzCjtsGb1MCVo9iEru28s7k6HPBxBMilYz1+haf5GO+6M
-         2cUJBJfTONhwzggLzLt3FTn01PzFbJQfPa2p+3Wm1ZdHgsHnSQZmEVeeT612qlJSz+zb
-         Ng4n+81M8IZ4LtA/NMw/7/LaAKUw5JJeoZpZn5fBBgXvdvEG4C5VgBUQ+vL+TaiYm5uS
-         uLi5ThdOY/Ydt/anJZRMA/68zft9HvTJ0m1PgXCETTagqe8YXtHfndWkCYGewwbhfry4
-         PHcZpJxyR1RtQkigqon0Tj71whbkSSnN0VdsHHM6krvsxINYY0FdKsc28mZltp7Fw8ST
-         SlzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789161369; x=1789766169;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=pK9Q3uGKA1u0ElzG2dqV80RIYwnVI0Uj5jzztR3o9vo=;
-        b=J31V/zetDj5kzHBP/cqBg/6If5+AIeiqDvibdl31oI7p6psTnIN8OghtQNb2b/evjg
-         PGl2sNMymzvyVDzkIARGhydj3GIQorQ9IMrXGXXF7xL1ErzbiljQLTpVzOFhk2aY4Ccf
-         84TrJtJrHGpzuTKL4pl7wbpCn7MObztk6l1gnWxpEhAByh/YeI1s8mFjoBvKP93SsoU6
-         94Dd0tVajymls8o3nTwU6rnOCISimUpHTiYsBi8lE496E2E2/BG8FnLBMXmfv+5t+mfi
-         MNx81dKqMeOFJWynEK/cV+DWZPWTr7cky6R0b7gozKCACKQmTOzduPYavMDfAhWe9L4e
-         Sz1A==
-X-Forwarded-Encrypted: i=1; AKwUvBxwJ2AwlY/2YhPZu3idwzdse1AXfaherANfyB1PHSMsQbELQzrxamtpXGkOoFK+8aLx1ckyMf8n/Du5XC4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lGDQUTUSPI9emSzotCGJ0NC6esG04TRj9qx9np0QmPJ7YuA4YJ
-	95lXKU3cCGJHaLAUGHPl6NQlOdMINoL85NpRUQL72xYMaVzGMfQC43yW
-X-Gm-Gg: AYBFou2YgpXLc4xdxOldp26YBEft63M2p9QjIKpqK25ti6yxcG6s897LXwkWR2iw4ot
-	6Y5ySjWOd5Wn9hJkmagargI0ayL/87XcypM9DzH0Lm5xtXId8GStmewPObV4l5CNIULU8wPswdf
-	WKfgTyqOdbaca4+/cDBCpxHyNdS6cHLyr7qEcq8AHPNhlyb5Z//rmkOJsxEeZ9Bj9vAbHRVNVhc
-	s13OPFOj0oSYsRGezWGFgGGClXjjxLgs+qqz7MhAQMZ/bkBD0bYBmACuuCj4eYdbXpXSBe0t/rG
-	BKsVzbuUhYFuFSkjbyWr2GTsna5Rn4JRBPvCqZnaPiE68BCdx2j4SeFd1wDSi6Qb6cYTmnA7SRx
-	Nsb3FeYwPixCyd1fiaPrFb86yvCGPx2Ml+0ZG2oREQM544pPepREMk0xoqKoll0fgRRCWU4BLKf
-	KLFXOzqktvl8E31KBaJgj2W70c8O6zzxUcm1Ndis6RkdIWbYQYeYNSkTLgYRW0TEEit6MEaxXDh
-	6oiIDvtkq5iggdUMut8LRK5OutvFVp8Y7REfYJXQEYw1NuSTI+JcEmtiot31x8juGzPMdzch5c=
-X-Received: by 2002:a05:600c:3494:b0:49c:e3c3:5efd with SMTP id 5b1f17b1804b1-49e619aab42mr162972575e9.9.1789161369234;
-        Fri, 11 Sep 2026 14:16:09 -0700 (PDT)
-Received: from tachyon.internal ([194.220.152.228])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e6576122bsm99082465e9.2.2026.09.11.14.16.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 14:16:08 -0700 (PDT)
-From: =?UTF-8?q?Enrique=20Hern=C3=A1ndez=20Bello?= <ehbello@gmail.com>
-To: shawn.lin@rock-chips.com,
-	lpieralisi@kernel.org,
-	kwilczynski@kernel.org,
-	mani@kernel.org,
-	bhelgaas@google.com
-Cc: robh@kernel.org,
-	heiko@sntech.de,
-	dlemoal@kernel.org,
-	linux-pci@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	=?UTF-8?q?Enrique=20Hern=C3=A1ndez=20Bello?= <ehbello@gmail.com>
-Subject: [PATCH v2] PCI: rockchip: Skip the Tpvperl wait when power is already valid
-Date: Fri, 11 Sep 2026 22:15:59 +0100
-Message-ID: <20260911211559.207990-1-ehbello@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=gmx.de header.i=w_armin@gmx.de header.b="kRop72S7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+	s=s31663417; t=1789161366; x=1789766166; i=w_armin@gmx.de;
+	bh=1JcENN9NQgC4y/bR6i+2Ozig7iK8apg7GYGcFSBNisY=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=kRop72S7B7eS/q2X5h3C0jPa5uO6yZDaWYkReibsXpIRF7duJFFb0O/W2p3Z6Uyw
+	 EfP7tVUdBi+KwdO/0ytxN1SzGk1I7ro+AxVwWemscRs9fCO/g9bTOpqOxTIxYBixr
+	 E2ZoIJHgJOD8XtrRCp0ajz4s/8MoqT32/50iIVXdhaEuYeLwt84x60Rc4mdzD74lk
+	 ZLe9JJPVXF8vKSbotd7C7rELyv8I4O0LtmcglzkeXaqF3n0YSh5zwYFb7UGspmiFR
+	 wZoAn7aRr8HPXfC8Uv3n1K4aKkX2w7rgdCLhNwLLLzSSdaR5N9BOGuocPJPdRODJO
+	 Q27qq0aZYPP6/jE+Pw==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx005
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1MZCb5-1xIWcp1i7N-00XJTs; Fri, 11
+ Sep 2026 23:16:06 +0200
+Message-ID: <346b9665-c034-49d4-a6fe-7c27b05e84e8@gmx.de>
+Date: Fri, 11 Sep 2026 23:16:05 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 05/10] ACPI: video: Use thermal_cooling_device_create()
+To: "Rafael J. Wysocki" <rafael@kernel.org>,
+ Linux ACPI <linux-acpi@vger.kernel.org>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Hans de Goede
+ <hansg@kernel.org>, LKML <linux-kernel@vger.kernel.org>,
+ Linux PM <linux-pm@vger.kernel.org>, Lukasz Luba <lukasz.luba@arm.com>
+References: <1965933.tdWV9SEqCh@rafael.j.wysocki>
+ <23237491.EfDdHjke4D@rafael.j.wysocki>
+Content-Language: en-US
+From: Armin Wolf <W_Armin@gmx.de>
+In-Reply-To: <23237491.EfDdHjke4D@rafael.j.wysocki>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:5igmyc5OTi+SXxwQbJpts8us9/4EJjLGdVf7eSwbZw2hlSB0P+u
+ pU53/pQ3C22SZ23GYhCZcpIi8A4SFDz8DQkzB7kKE8viuYLy5wCGaLMkqZ17fsT+LB2J301
+ J2Zpsegbz4mdrs4X0+GmStaJqA7KJCqVlEcbd2q2F1tV8nSbLR9ap7RZig2riE4Ke+oDpdX
+ C/7MbE7q/yZql5yQJ6bag==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:U4Chvw50M14=;8HwELzGzpu9JcVvj+3/vwM04Wle
+ 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
+ po3Va1uIbIHx3YWDvjuSA9adJ+G9FbBQ4FA==
 
-Since commit c47f90be4c89 ("PCI: rockchip-host: Fix
-rockchip_pcie_host_init_port() PERST# handling"), a JMicron JMB585
-behind an rk3399 root port almost never becomes usable: the link trains
-normally, but the endpoint's configuration space never answers, so the
-device is not enumerated. On this controller a configuration read that
-gets no usable completion is reported as an external abort rather than
-as an all-ones response, which on arm64 brings the machine down.
+Am 11.09.26 um 15:03 schrieb Rafael J. Wysocki:
 
-The change added an unconditional 100 ms sleep so that PERST# stays
-asserted for at least Tpvperl after power becomes valid. The wait is
-performed while PERST# is asserted, so it also extends the reset by
-100 ms, and this endpoint does not tolerate the longer assertion.
+> From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
+>
+> Instead of using thermal_cooling_device_register() for registering a
+> backlight cooling device in the ACPI video bus driver, make it use
+> thermal_cooling_device_create() and pass a pointer to the LCD device
+> to that function as the cooling class device's parent.  That will
+> cause the cooling device's sysfs directory to be created under
+> the parent's sysfs directory (among other things).
+>
+> Since creating a class device under a parent causes a "device" symbolic
+> link from the sysfs directory of the class device to the sysfs directory
+> of the parent to appear automatically, remove the code creating the
+> "device" symbolic link from the sysfs directory of the cooling device
+> in question to the sysfs directory of the parent's ACPI companion
+> device.  That companion device is reachable through the "firmware_node"
+> symbolic link in the parent's sysfs directory regardless.
+>
+> Moreover, since the cooling class device is now located in sysfs under
+> its parent and it can be easily identified as a cooling device, there is
+> no need to create a "thermal_cooling" symbolic link from its parent's
+> ACPI companion to it.  Accordingly, also remove the code creating that
+> symbolic link.
 
-Tpvperl is counted from the supplies becoming valid (PCIe CEM r5.1,
-sec 2.9.2). On boards whose PCIe supplies are always-on -- vcc3v3_pcie
-on ROCK Pi 4 is regulator-always-on and regulator-boot-on -- power has
-been valid since boot, seconds before the driver probes, so the
-requirement is already met and the sleep only lengthens the reset.
+Reviewed-by: Armin Wolf <W_Armin@gmx.de>
 
-Record whether the supplies were already enabled before the driver
-enabled them, and skip the wait in that case. A supply that is already
-on at probe was brought up either by the bootloader or by the regulator
-core at boot, both of which precede a PCIe probe by far more than
-Tpvperl. When the driver really does bring the rails up the full wait
-still happens, as it does if regulator_is_enabled() cannot tell.
-
-The same check is repeated on resume rather than assuming that power
-was cycled: suspend calls regulator_disable() on the 0.9V supply, which
-only drops a reference, so on a board where that rail is always-on or
-shared with another consumer the power stays valid across the cycle.
-
-Skipping the wait only when every supply is already on is strictly more
-conservative than what this driver did for years: until the change cited
-above there was no Tpvperl wait at all, and PERST# stayed asserted only
-for as long as the register writes in between took.
-
-Measured on a ROCK Pi 4C with a Radxa Penta SATA HAT (JMB585) by
-booting repeatedly and counting how often the endpoint enumerated:
-
-  unmodified ....................................  0 out of 84 boots
-  with this patch ...............................  3 out of 3 boots
-  other ways of dropping the same wait ..........  16 out of 16 boots
-
-Fisher's exact test, pooling the last two rows against the first, gives
-p = 4.1e-21. With the patch the endpoint enumerated on every boot and all
-four disks behind it came up.
-
-Each of the three PERST#-related changes that landed together in
-v6.11-rc1 was also reverted individually; only removing this wait made
-any difference. Moving the wait to before link training is enabled,
-rather than removing it, did not help (0 out of 15 boots), which is
-what identified the length of the PERST# assertion rather than any
-interaction with link training as the cause.
-
-The measurements were taken on 6.18, but the code in question is
-unchanged between v6.11 and v7.2.
-
-Fixes: c47f90be4c89 ("PCI: rockchip-host: Fix rockchip_pcie_host_init_port() PERST# handling")
-Cc: stable@vger.kernel.org
-Signed-off-by: Enrique Hernández Bello <ehbello@gmail.com>
----
----
-v2:
- - Re-evaluate the supplies in rockchip_pcie_resume_noirq() instead of
-   assuming that the 0.9V rail was really turned off. On a board where
-   that rail is always-on or shared, regulator_disable() leaves it on,
-   and forcing the wait there would reintroduce on resume exactly the
-   failure this patch fixes. Spotted by an automated review of v1.
- - Factor the test into rockchip_pcie_supplies_enabled() now that it
-   has two callers.
-
-v1: https://lore.kernel.org/all/20260911104952.4190994-1-ehbello@gmail.com/
-
---- a/drivers/pci/controller/pcie-rockchip.h
-+++ b/drivers/pci/controller/pcie-rockchip.h
-@@ -318,6 +318,7 @@
- 	struct	regulator *vpcie1v8; /* 1.8V power supply */
- 	struct	regulator *vpcie0v9; /* 0.9V power supply */
- 	struct	gpio_desc *perst_gpio;
-+	bool	supplies_pre_enabled;
- 	u32	lanes;
- 	u8      lanes_map;
- 	int	link_gen;
---- a/drivers/pci/controller/pcie-rockchip-host.c
-+++ b/drivers/pci/controller/pcie-rockchip-host.c
-@@ -314,7 +314,9 @@
- 	rockchip_pcie_write(rockchip, PCIE_CLIENT_LINK_TRAIN_ENABLE,
- 			    PCIE_CLIENT_CONFIG);
- 
--	msleep(PCIE_T_PVPERL_MS);
-+	if (!rockchip->supplies_pre_enabled)
-+		msleep(PCIE_T_PVPERL_MS);
-+
- 	gpiod_set_value_cansleep(rockchip->perst_gpio, 1);
- 
- 	msleep(PCIE_RESET_CONFIG_WAIT_MS);
-@@ -609,11 +611,33 @@
- 	return 0;
- }
- 
-+/*
-+ * Tpvperl is counted from the supplies becoming valid, and the driver waits
-+ * for it with PERST# asserted, so the wait also lengthens the reset pulse.
-+ * Supplies that are already enabled before this driver enables them were
-+ * brought up by the bootloader or by the regulator core at boot, both of
-+ * which precede this point by far more than Tpvperl, so the requirement is
-+ * already met. Treat an error from regulator_is_enabled() as "not known to
-+ * be on" so that the caller waits.
-+ */
-+static bool rockchip_pcie_supplies_enabled(struct rockchip_pcie *rockchip)
-+{
-+	return (IS_ERR(rockchip->vpcie12v) ||
-+		regulator_is_enabled(rockchip->vpcie12v) > 0) &&
-+	       (IS_ERR(rockchip->vpcie3v3) ||
-+		regulator_is_enabled(rockchip->vpcie3v3) > 0) &&
-+	       regulator_is_enabled(rockchip->vpcie1v8) > 0 &&
-+	       regulator_is_enabled(rockchip->vpcie0v9) > 0;
-+}
-+
- static int rockchip_pcie_set_vpcie(struct rockchip_pcie *rockchip)
- {
- 	struct device *dev = rockchip->dev;
- 	int err;
- 
-+	rockchip->supplies_pre_enabled =
-+		rockchip_pcie_supplies_enabled(rockchip);
-+
- 	if (!IS_ERR(rockchip->vpcie12v)) {
- 		err = regulator_enable(rockchip->vpcie12v);
- 		if (err) {
-@@ -890,6 +914,13 @@
- 	struct rockchip_pcie *rockchip = dev_get_drvdata(dev);
- 	int err;
- 
-+	/*
-+	 * Suspend calls regulator_disable() on the 0.9V supply, but on boards
-+	 * where it is always-on or shared the rail does not actually drop, so
-+	 * re-evaluate instead of assuming that power was cycled.
-+	 */
-+	rockchip->supplies_pre_enabled = rockchip_pcie_supplies_enabled(rockchip);
-+
- 	err = regulator_enable(rockchip->vpcie0v9);
- 	if (err) {
- 		dev_err(dev, "fail to enable vpcie0v9 regulator\n");
+> Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+> ---
+>   drivers/acpi/acpi_video.c | 35 ++++++++++++++++-------------------
+>   1 file changed, 16 insertions(+), 19 deletions(-)
+>
+> diff --git a/drivers/acpi/acpi_video.c b/drivers/acpi/acpi_video.c
+> index 6cfe390411c1..2a2822516665 100644
+> --- a/drivers/acpi/acpi_video.c
+> +++ b/drivers/acpi/acpi_video.c
+> @@ -1700,9 +1700,9 @@ static int acpi_video_resume(struct notifier_block=
+ *nb,
+>  =20
+>   static void acpi_video_dev_register_backlight(struct acpi_video_device=
+ *device)
+>   {
+> +	struct device *phys_dev, *parent =3D NULL;
+>   	struct backlight_properties props;
+>   	struct pci_dev *pdev;
+> -	struct device *parent =3D NULL;
+>   	int result;
+>   	static int count;
+>   	char *name;
+> @@ -1729,11 +1729,10 @@ static void acpi_video_dev_register_backlight(st=
+ruct acpi_video_device *device)
+>   						      device,
+>   						      &acpi_backlight_ops,
+>   						      &props);
+> -	put_device(parent);
+>   	kfree(name);
+>   	if (IS_ERR(device->backlight)) {
+>   		device->backlight =3D NULL;
+> -		return;
+> +		goto put_parent;
+>   	}
+>  =20
+>   	/*
+> @@ -1743,8 +1742,12 @@ static void acpi_video_dev_register_backlight(str=
+uct acpi_video_device *device)
+>   	device->backlight->props.brightness =3D
+>   			acpi_video_get_brightness(device->backlight);
+>  =20
+> -	device->cooling_dev =3D thermal_cooling_device_register("LCD", device,
+> -							      &video_cooling_ops);
+> +	phys_dev =3D acpi_bus_get_primary_device(device->dev);
+> +	if (!phys_dev)
+> +		phys_dev =3D get_device(parent);
+> +
+> +	device->cooling_dev =3D thermal_cooling_device_create(phys_dev, "LCD",=
+ device,
+> +							    &video_cooling_ops);
+>   	if (IS_ERR(device->cooling_dev)) {
+>   		/*
+>   		 * Set cooling_dev to NULL so we don't crash trying to free it.
+> @@ -1753,21 +1756,17 @@ static void acpi_video_dev_register_backlight(st=
+ruct acpi_video_device *device)
+>   		 * -- dtor
+>   		 */
+>   		device->cooling_dev =3D NULL;
+> -		return;
+> +		goto put_phys_dev;
+>   	}
+>  =20
+> -	dev_info(&device->dev->dev, "registered as cooling_device%d\n",
+> -		 device->cooling_dev->id);
+> -	result =3D sysfs_create_link(&device->dev->dev.kobj,
+> -			&device->cooling_dev->device.kobj,
+> -			"thermal_cooling");
+> -	if (result)
+> -		pr_info("sysfs link creation failed\n");
+> +	dev_info(&device->cooling_dev->device, "Using ACPI device %s\n",
+> +		acpi_dev_name(device->dev));
+>  =20
+> -	result =3D sysfs_create_link(&device->cooling_dev->device.kobj,
+> -			&device->dev->dev.kobj, "device");
+> -	if (result)
+> -		pr_info("Reverse sysfs link creation failed\n");
+> +put_phys_dev:
+> +	put_device(phys_dev);
+> +
+> +put_parent:
+> +	put_device(parent);
+>   }
+>  =20
+>   static void acpi_video_run_bcl_for_osi(struct acpi_video_bus *video)
+> @@ -1826,8 +1825,6 @@ static int acpi_video_bus_register_backlight(struc=
+t acpi_video_bus *video)
+>   static void acpi_video_dev_unregister_backlight(struct acpi_video_devi=
+ce *device)
+>   {
+>   	if (device->cooling_dev) {
+> -		sysfs_remove_link(&device->dev->dev.kobj, "thermal_cooling");
+> -		sysfs_remove_link(&device->cooling_dev->device.kobj, "device");
+>   		thermal_cooling_device_unregister(device->cooling_dev);
+>   		device->cooling_dev =3D NULL;
+>   	}
