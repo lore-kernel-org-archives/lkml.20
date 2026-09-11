@@ -1,70 +1,54 @@
-Received: from mta0.migadu.com (out-30.mta0.migadu.com [91.218.175.30])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail3-167.sinamail.sina.com.cn (mail3-167.sinamail.sina.com.cn [202.108.3.167])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FC09477987
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB8D648595B
 	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 13:57:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.30
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.108.3.167
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789135055; cv=none; b=K6sZ67xSJ3VU7KHqw/0tFB2+L0D82i9H5AR39i9ZOSwKeK2JgBcp7AEHHwZr+sDL+qewPwpWLnwWspBzL48u68HXJW2mBDIh0aJ98JBjayej5uS0G/dfdsAJuzmsop9CcirZo6qAbHY3JnTZTMvpJRp9Cl+Zjy9b77Y7tjPW2Ac=
+	t=1789135057; cv=none; b=HVpw9Dcxt8TFKGXyirTym0A4qJScZxPlGKWt5Qw33pdl5JeoaQWHlBprrHXS15CjN91t4R+vtaq1F+F/NunDUSAQk8Rmwg47lFMT7j4n/s78Vc5pWo+V5buSA7rbRBOUCcX8Ieuc10CsRfqtei0E3u8kcVHPPY2wW8ALE/9suVc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789135055; c=relaxed/simple;
-	bh=ln7IoRA07Ilbawg/aAH2sc/zTgGho8RkMvmGvlw20T4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kYFLqxEnejRDGYaeNpAaIY6p+rOHCOgK92eF+YY7IX4KDmqz5Gg2YLXj+lG6RhWkoven8z+O0GYlLMvSy0jiq7+9FMJu3Xs8DFc90nh4I6TkYher3pxzoP4VVGWGKEMbpwmWcWYSThWtj57mEPPS4VtTxJzIe8F1VCDp33TT4g8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=EQ6q6sgn; arc=none smtp.client-ip=91.218.175.30
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789135057; c=relaxed/simple;
+	bh=5e7rbjCz+3YxIVToEiw98Io3Cj0lgTHKqDX6fKaN6/Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=UVP0Rctn5QvnfigU81fRGDsEcCriTP6XiXAmxlfspMU24zC7ivg62FVCzWLWkotQD+5cr8vti/6JRU1pfgz2znH5jqbKcn+OmroTmvOXFBekBohE6qDRbAXOpqAurOBoIywfHaDQeL6sfO1Mvk//POWuykPaxgN27o55BTOB4Dg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com; spf=pass smtp.mailfrom=sina.com; dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b=T+dFp5KN; arc=none smtp.client-ip=202.108.3.167
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="EQ6q6sgn"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ln7IoRA07Ilbawg/aAH2sc/zTgGho8RkMvmGvlw20T4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789135049; v=1; x=1789739849;
- b=EQ6q6sgn88EZUtAPzdZnX52wRDt7DfpHmN1/AWc4yMxIcFx6FyBqHs87h8MEypt8P/xomnc/
- BpDnVOSEIBuvKTN/4MmnVnoTIBQNZKpfMXdj5gdhec+LudvOSXwQRChazrb1IBohWn1y/6xgR8I
- Noag3xPCbbVMDOhzcp4wttRw=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e884e9b4b346d9e9;
-	Fri, 11 Sep 2026 13:57:28 +0000
-X-Mizu-Trace-ID: e884e9b4b346d9e9
-X-Migadu-Flow: FLOW_OUT
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-To: bpf@vger.kernel.org
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Jesper Dangaard Brouer <hawk@kernel.org>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	Simon Horman <horms@kernel.org>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Shuah Khan <shuah@kernel.org>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Hangbin Liu <liuhangbin@gmail.com>,
-	Martin Karsten <mkarsten@uwaterloo.ca>,
-	=?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@redhat.com>,
-	Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>,
-	Eelco Chaudron <echaudro@redhat.com>,
+	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b="T+dFp5KN"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1789135053;
+	bh=KtLTgJmYgCgMjBJobKAo6lCs1IASf63I2XyeCDoH1sA=;
+	h=From:Subject:Date:Message-ID;
+	b=T+dFp5KNENCNoFQ5RiY3ppEXVDrLL9zSOIS5EN3lAQ96D50YjHqJOYm0syja+94Ne
+	 Blu3C2SaOaN+jeZLi1ratB506RsroArdyoMqCNVUvaCKScawO73sViBhNxkShft2tm
+	 kyofD5uZoPEHN1muSXGBLdGxOM3h0B9kNAnGIfJg=
+X-SMAIL-HELO: lxu-ped-host..
+Received: from unknown (HELO lxu-ped-host..)([111.198.231.89])
+	by sina.com (10.54.253.33) with ESMTP
+	id 6AA408BE000017B2; Fri, 11 Sep 2026 21:57:23 +0800 (CST)
+X-Sender: eadavis@sina.com
+X-Auth-ID: eadavis@sina.com
+Authentication-Results: sina.com;
+	 spf=none smtp.mailfrom=eadavis@sina.com;
+	 dkim=none header.i=none;
+	 dmarc=none action=none header.from=eadavis@sina.com
+X-SMAIL-MID: 9867866685322
+X-SMAIL-UIID: 4528D04178E4406AB92BBF8A37E9D359-20260911-215723-1
+From: Edward Adam Davis <eadavis@sina.com>
+To: syzbot+1dbed5969931c19d3eb5@syzkaller.appspotmail.com
+Cc: amarkuze@redhat.com,
+	ceph-devel@vger.kernel.org,
+	idryomov@gmail.com,
 	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH bpf v3 0/2] net: xdp: fix bpf_xdp_shrink_data() page handling on generic XDP and veth
-Date: Fri, 11 Sep 2026 21:56:50 +0800
-Message-ID: <20260911135711.109338-1-jiayuan.chen@linux.dev>
+	slava@dubeyko.com,
+	syzkaller-bugs@googlegroups.com,
+	sage@newdream.net
+Subject: [PATCH] ceph: reject create client if no monitor
+Date: Fri, 11 Sep 2026 21:57:18 +0800
+Message-ID: <20260911135718.864217-1-eadavis@sina.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <6aa30f2a.f81106d8.2ab401.0013.GAE@google.com>
+References: <6aa30f2a.f81106d8.2ab401.0013.GAE@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -73,39 +57,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-I'm always confused which tree(net or bpf) should XDP target.
+From: Edward Adam Davis <eadavis@qq.com>
 
-bpf_xdp_shrink_data() frees a page_pool frag with the wrong memory type on
-skb-backed XDP, hitting "Bad page state ... page_pool leak". Both the
-generic XDP path and the veth path are affected.
+During the resolution of monitor addresses, the failure to resolve the
+server name [1] resulted in no available monitors (i.e., the num_mon
+value in ceph_options was 0).
 
-Patch 1 fixes it by tagging the xdp_buff, so it no longer depends on
-rxq->mem.type (which is shared on generic XDP and gets reset on veth). It
-is reported by syzbot.
+This triggered the issue [2] when joining the Ceph cluster.
 
-Patch 2 adds a selftest that reproduces the leak on both paths.
+Before creating the client, if the number of monitors specified in the
+options is invalid, the client creation process is aborted.
 
+[1]
+libceph: resolve '127.0.0.' (ret=-3): failed
 
-v2 -> v3: handle some feedback from AI review.
-v2: https://lore.kernel.org/bpf/20260824030257.263179-1-jiayuan.chen@linux.dev/
-v1 -> v2: AI found the fix was insufficient and we need a general way
-          to fix them.
-v1: https://lore.kernel.org/bpf/20260816031245.268898-1-jiayuan.chen@linux.dev/
+[2]
+kernel BUG at net/ceph/mon_client.c:211!
+Call Trace:
+ ceph_monc_open_session+0x46/0x60 net/ceph/mon_client.c:534
+ __ceph_open_session+0x135/0x590 net/ceph/ceph_common.c:798
+ ceph_real_mount fs/ceph/super.c:1173 [inline]
+ ceph_get_tree+0xd98/0x1fd0 fs/ceph/super.c:1362
 
-Jiayuan Chen (2):
-  bpf, veth: xdp: fix page_pool page leak on skb-backed XDP
-  selftests/bpf: add xdp_shrink_frags
+Fixes: 16725b9d2a2e ("ceph: super.c")
+Reported-by: syzbot+1dbed5969931c19d3eb5@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=1dbed5969931c19d3eb5
+Tested-by: syzbot+1dbed5969931c19d3eb5@syzkaller.appspotmail.com
+Signed-off-by: Edward Adam Davis <eadavis@qq.com>
+---
+ fs/ceph/super.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
- drivers/net/veth.c                            |   6 +
- include/net/xdp.h                             |  30 +-
- net/core/dev.c                                |   6 +
- net/core/filter.c                             |   7 +
- .../bpf/prog_tests/xdp_shrink_frags.c         | 288 ++++++++++++++++++
- .../selftests/bpf/progs/xdp_shrink_frags.c    |  34 +++
- 6 files changed, 370 insertions(+), 1 deletion(-)
- create mode 100644 tools/testing/selftests/bpf/prog_tests/xdp_shrink_frags.c
- create mode 100644 tools/testing/selftests/bpf/progs/xdp_shrink_frags.c
-
+diff --git a/fs/ceph/super.c b/fs/ceph/super.c
+index 72935f665f11..0f20d6c5e4bd 100644
+--- a/fs/ceph/super.c
++++ b/fs/ceph/super.c
+@@ -818,7 +818,11 @@ static struct ceph_fs_client *create_fs_client(struct ceph_mount_options *fsopt,
+ 					struct ceph_options *opt)
+ {
+ 	struct ceph_fs_client *fsc;
+-	int err;
++	int err, num_mon;
++
++	num_mon = opt->num_mon;
++	if (num_mon == 0 || num_mon > CEPH_MAX_MON)
++		return ERR_PTR(-EINVAL);
+ 
+ 	fsc = kzalloc_obj(*fsc);
+ 	if (!fsc) {
 -- 
 2.43.0
 
