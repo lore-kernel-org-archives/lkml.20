@@ -1,108 +1,208 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011022.outbound.protection.outlook.com [40.107.208.22])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA39645D91E
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 21:31:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789162309; cv=none; b=JmI5mvoJljoAUFFiUisVSxGKVMeVKNwgWUtfCmtVBV6kvJCZmbvFcpkWlTKqDIRbcoSwUKusNqWu7qs/XWOZzn9Y3mGfzDhJ/0NlWwi3KthXzRUd2P/0xfHJ7v3xO7Rq1ghnakJ29826Y59FaQKFF16scli/WbBLhxBKMMy2c30=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789162309; c=relaxed/simple;
-	bh=FRLkAE1TRsicRIjs12TClJYKr9IHrbJZhraLwHHugyI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kjLmoaXY0NtiA2JVnHdnrnmSiaEjekASpbe3P6jgul0G/yuAnEd6sRvcTHCxPFjEOia3xZ9wsc9ifU/7ilPu7VNEr9rtf+QAGUzjKVTFr1NeLhz/od7IdJWL51tZWIPqzpvYlZs276I0xAC0NiPs+UXk2aqO7E1RWtiqYt8O1LY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nJ/8TFsT; arc=none smtp.client-ip=209.85.216.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 920B6434984;
+	Fri, 11 Sep 2026 21:33:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.22
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789162399; cv=fail; b=iX+v+0HOqkR0hGLwPU0saLRoPTx2Y80x5cuXNlwBZLn2erUDlz3uqSULatC2PTMJOlYlsw7UOPI8qLGhGyimFoXtaS36B/nPPmclb43mBbZxhFHMhaPQz9vyEYqWGCvvtHgWfUI+xOPh3KUhNc5kA6U8bh/eE4AWztyIfEpyPeY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789162399; c=relaxed/simple;
+	bh=D8DkvyELPLPSrqOjwLLVgxvIDVyFbJ8cPfCAl7sknsM=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=TlpBb6b/Kf0SySQ6x+I4r8LpLWpcsNQlUk8bvkxgIXjujWLAUlO1clDRBvv4ACaeWqQQzaK9Odi9e3fTAxYboblmHhSJ+IP1GxYSAPmz4inOquM1zgk1XlTaxSWD+vbJwG7Mz9LQlPb8lwZzilV277n8AOrKbBIohtwy/gZUHP8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=AGEmBuB9; arc=fail smtp.client-ip=40.107.208.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nJ/8TFsT"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3856d6fbcb3so1425009a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:31:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789162306; x=1789767106; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EZHEbamxrCKNFud4RphEOhfi3p8kiH9hSf8teP/HbOI=;
-        b=nJ/8TFsTS7MxmufBz1DiI5YpEsH+JlaJ2FYLfc/PwjZ/HWXOhArWnKoICLKT6Evaes
-         ox1NrvppSW2QVCFEA+s0xhQdWR/4QznHHT0L1S+uLnmQmHtH3/0Z8cBYEJsltTakrDcF
-         M5uSv4Bebv5c9oFoluZbIvstDQy7hDb8UNT6ZHV/ZwEdpne9NIhMZvrw6mcUHgaOWqPC
-         1GGAz7//BwhckjUJgvr08o/r4Dez0zCzsS5GRcY/XbmNlC7QRkaFTrS9rrAm5MeUPYgg
-         83vvrZt0FMGy1NCn1nL1FCjTlmiigcJ1wQCOGLhWEufKsQXjclX6874hM2wnBDR7UY1l
-         4yjw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789162306; x=1789767106;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EZHEbamxrCKNFud4RphEOhfi3p8kiH9hSf8teP/HbOI=;
-        b=GfPDpWIoU/QI4rnNNGCPha1wuSCSCFf/YGTMhlpLaU+PhHrrvyBbwZom4vRaVp+oP4
-         JBm0PDN2JWYjZhRMZga40BU737ESDVqlS5zVvu24K5IFyt9QalqHumCNMpIyG8c5YBij
-         ZfC/eyAWn6lf345srluzFtRIGSV7eVO6hoQi8cPMpM05rtCwoTgi+YJU5W7bzuTV1hp7
-         3um5qXie4pf96AX1+YBO5k1xX5IwD3FCV47P1/wz58Rt5jwJfbvsYrxQ9xp3L39WpT6C
-         38qvnvIawqhd1EwJV2MiPyAT6u0hhW2H4izSS0bbuiEEf09dULE4vJTrIEtP4UojFBrq
-         qMWw==
-X-Forwarded-Encrypted: i=1; AKwUvBygG3S1o5CzyAkngCd9uLh5AS5If7IygHbZLSBFFPZ5+alQZuBmjxIuBnTqi+NvNfp1TmRgHodebna4bdk=@vger.kernel.org
-X-Gm-Message-State: AFuF++mewMMw7HdaJ+5VSb6xgeHAiTZLz5g6vYHHLvMxEUUuCJtFlJHb
-	2j8Zak/IjlXhNsXLOWf6yzYB32euV+DR+J8BaDr05SI5JMUl6ZJrN7vi
-X-Gm-Gg: AYBFou2yBAwr4FLuOzrDOIpNSZ4wXmlUdhpdw5qE2BmfLzaSCcO9Lpali1cpH+IRGD9
-	gxD6cVNb5ZAeXERvE0RqDjQx32QiIhx1H//4Fgk4laHhf9bwKIn9UxzscRp9JgQ+YWc7wPtwtQL
-	9/3Fg3wKh2vb74OjXtmaRPoxobBqQoDP1RyETh+3q06510u/ZP3JbkByIo7mBW49G1A6wu1auoH
-	z77eYiilbHM4Ol1SMwMay7rbYp6j2nnp8b2mVYYprkOWLFfDj9/LEBba/lgSGv5LJyOvJ5D5Uvo
-	cdKO/G9Sw/31ygpi/V2W6OFowQ9lt5lI6ROjEX2z0cq/MfZZIUnGXjP8aRIvhdQUln7z6vvlfvi
-	Ho945XBTGOX6M1GpKdwlhc0kylTx699L0Edoz1FGhbA0ypI2QZq1SZN1s6MTwS6JBZl1gxPvGzG
-	Ts/VVIWWPYYE2xgpKzpPx0gIEhAb4Ax+DnydkPRd6ujci9lGeze+Pq1duEphEXv+ioEpTvpUyI6
-	R9ybNqZBFH6UG8etD/vy0s0EXnqrnq7jeLQkKZKYmzckFUHfby6rH4aH7WDsqiLAqz9x2YFOmJl
-	J3MInIgnCSUUEakiEO2FmAXRa9hraZRHNQmb+8OFaR2YltNN
-X-Received: by 2002:a17:90a:da8f:b0:38e:c232:9d3f with SMTP id 98e67ed59e1d1-39d9bc1007dmr8846016a91.5.1789162306195;
-        Fri, 11 Sep 2026 14:31:46 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e35])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39da6016718sm4261752a91.15.2026.09.11.14.31.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 14:31:45 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: linux-wireless@vger.kernel.org
-Cc: =?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>,
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCHv2 ath-next] wifi: ath9k: delete channel-context timers on deinit
-Date: Fri, 11 Sep 2026 14:31:44 -0700
-Message-ID: <20260911213144.130192-1-rosenp@gmail.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="AGEmBuB9"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=en/uOWf9yXdxAYdhbi4woQ3TpQCtkHQXywUvXTcKZlJ1xlQlt7kAIhrzSpUXgfdWCoJFpj9Xog2h43EUfTFUceQBivZiU/hjbRj6MA6p5RO430cnCLGVAFyO1wEnS4+nR1ON5qVcVAEw19s2CjOMLLAu+mecmb74XJe5U0cHuvwgbrBD8icmnHE1LvABZxnV7mnNLm3IDtsTNBf/0yQAGdeEx/e/SvkA6DcAYKmJRUTIeFayyG0keV+ZI1Ium1m3qL9XT+B+K1AIubpZdXkBrZDaXVXBUlW6BpxwSGJdy8PWsATMpPYCLDyt8BJzZhB7hI2Uo74Cc5MfZ5CEoq+ASw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2qdghTQevxM8KIiVLJ6eqtb+jyznEXPtqu2M2ejfvV8=;
+ b=FN2empKUDS0kJgRhS5/NZ0aIYls2fl4vetuhQgsq6fYibgG/CvSYZfIXAfmXBh4np4oAiFLZKMUlL4C//0RulkNT8j2ZYl5LawKbfKGqG4oOmaTvblX5F8X0pKB5XVq2e9JBnPBIvpwBxyAyGSyX/eoPt7n0651a7ew/BNXsYpk8LLADL7mPsOJBx4+A9pa6+1EuJujPkXdwHvZ48CSCoNmhIG3y7Zl3hfLA8WBsvDn+CLdzdntl5w9tOS4M0686DMiEQzT25LvcL066XsIhk44/M1P7sVlh699sKZ6+0IfgdukjzyKQbnQ20VclgU2gIZUdnJ2ZnYB3jMsHQRBDUg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2qdghTQevxM8KIiVLJ6eqtb+jyznEXPtqu2M2ejfvV8=;
+ b=AGEmBuB9ktymTc2pz7i2zoHHH4Qqm4XOk+NP4VpoIBAZpFofowrlSc5dfXqYGuwHdW2zX64eLPkRxO9mo22xTorkyPYM5KHeUE2xCCS60unRKBeprJFrTPiddfxGR4KBBZ1eXNOS5A51UJHsXyQtBXK5Q+IbARNk/Kjxg9njzNeh+kIeQtsCrH0rZqOsWasbZJRGJLkBY/ebf6EV67DnJRfktDXygzRGnWO9lgnvrihuM5ppBpW1byA0QrFwZFBC8VcuqeweYUXMmOl1LUMCpawO6IWfzcDoG8mODFO+V/hlDcNqFp/vz1WvMHoYROY9VOnR+7JrGubzKK4QihZLkg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
+ by SA1PR12MB6728.namprd12.prod.outlook.com (2603:10b6:806:257::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Fri, 11 Sep
+ 2026 21:33:12 +0000
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c%7]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
+ 21:33:11 +0000
+From: Andrea Righi <arighi@nvidia.com>
+To: Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Gabriele Monaco <gmonaco@redhat.com>,
+	bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] sched: Set need-resched flags before tracing
+Date: Fri, 11 Sep 2026 23:33:00 +0200
+Message-ID: <20260911213300.1305763-1-arighi@nvidia.com>
 X-Mailer: git-send-email 2.55.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: MI1P293CA0029.ITAP293.PROD.OUTLOOK.COM
+ (2603:10a6:290:3::15) To DM6PR12MB4827.namprd12.prod.outlook.com
+ (2603:10b6:5:1d6::14)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|SA1PR12MB6728:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1281fea0-ee98-4288-0059-08df104c474d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|23010399003|7416014|376014|10067099003|5023799004|18002099003|6133799003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	yR148qyjDFY9OVOq/X/ywRnYIYGZDChfz10W3paKiGEASgI3oU1OFuAa4KHDMxJ8oALgM/Zb1QLcYUsAiVnBxD4fZiUG3rDKdyOaXIjNvnCQVs7NMQhbwPMSnUHfyvBug1rKsh3QSD8L6XSjqdqeaLrhMpnnIgMhYX7jJbU35652hBEZ/haRX5f3b+wwQ37ReN7q8mCNmfWTDFv7cKKMEgBloOBsyhNPrBOkLOVjpnaGUfjLu/CyPVVDbOZwWQqk4yfJErddHoNVXf2DlntArx9+2i/LDpLfZwYcByTvL7UoxUY87mTKdS5awqK0tgm6rBUYBpewOS5dJJAYqHj6WPdlGb/E/2xpdN9kFAxVC3zSw/mkvqdSrd7DfQoQhqjHJvEBPTFHGoI2IxtBTOcv5xj/7YLEU52/xhyN7agYid7ovLCt0igoZTgKJhp6l1v8p9UwxFbcDNlbc8QWWNvHEHRNSfnXsfN0q/mzF31xHYGcokJstOTKqMdtcqrSBxFtX+B8SfkRoBgCU/vKCfJS/+m2X6dEE84kmSGevdGzc/qfIXIYxvZ2Bnxb9Kq18wkCRuSlBK9XbzBac0WYlYgiPpnB7YhIhTcoYs5cL3ns2hTTWPn4XmRFjn/Xl1ldle0eIsCVr3/OyZBdOZWL8mfG0FsHUBfbLjhf0Mq6HP+N9Gc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(7416014)(376014)(10067099003)(5023799004)(18002099003)(6133799003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?/mvBZHbHP5V3nWQOx6RUoSM1wd6SNQi8pVWSyDqV9r6wIp24M16fr4r5PRA3?=
+ =?us-ascii?Q?QHOunWqv284PmCwpRnAwa8TIo8Q/2DmDMAxbPw737N3ybc5BI9BRN/57pgVd?=
+ =?us-ascii?Q?HGy5Wta8q0OJC4nQrQkkD3hsLcXhH6UwWuEoin4TMemqZzcor1zod9SczW0x?=
+ =?us-ascii?Q?BZPz+P69l66diaVeC90KKhNZdHnpTSJJsOZ83cJ5QqtUfcbT4XjwM/UbB2pN?=
+ =?us-ascii?Q?6qgoIl5GPD5qEWtNbfDD+li2aWRtvl4z8Jg6D1s/4TdfZkj0keFemrr6vKkA?=
+ =?us-ascii?Q?AO9T90Lhch5Tld4Kwkr/og0R7J+j17OVIdslhliBO8utmEsAzqyVAWvpoKi7?=
+ =?us-ascii?Q?wNwcfLKcuLpETwzkLJeSKO4yX0Ht6KMizwjEPg615tudYA34U11L3Uj/GPH9?=
+ =?us-ascii?Q?ugIE4tugaqIykCFUN8IDece4knlKyBIuNubRdtrQjg62FJ406st0gSfz8P4d?=
+ =?us-ascii?Q?8CFsGF30tceZKkDYHvXFdo6L6FlgsczH2sj+lHvzasjWLjLRMjdPsnki+7VW?=
+ =?us-ascii?Q?stKM0t8E7t/iUpoMLVDua+LVcddV8CqEzdgWeOibqNB2hR1ptm5nVjaR3ktM?=
+ =?us-ascii?Q?U1mmyux35doUZ0s5a0WY18u0g2FhnSbR333QJDdrLyYC6LSzGR05DJObZdrC?=
+ =?us-ascii?Q?9DljgOGTx1IN6J24PELrY7KDyn2KSdFYxSSrqXiAJd6fF0Jt2TlXAu7mLuCQ?=
+ =?us-ascii?Q?q0YgqJKqQIZqTJS+oTIBRAllWf6frZlMQlNpIZMfr7vtqJCowuTzOodJ5yMX?=
+ =?us-ascii?Q?k16t9NVezGkGuL4VczArdR5JFK6s3NVm5x2HQN2hrsN0eMqpoJfXF4fEd97F?=
+ =?us-ascii?Q?ignAH+9q/rwb8Knc1PsqQjXoElG+BM/xafZ20y9GqOCerGDwDeus4ciy/F2u?=
+ =?us-ascii?Q?WtO1u67B2dVG5Vhao2Bbfu92c44e+eqFmFdp90kU+WGO5Msfdj6yIvUC+ZPW?=
+ =?us-ascii?Q?F4qkycWsrxn7H3y6cbTPuUVDHqjHFhSeWCIjw20bAW0y8cV76K+HgAQC63RN?=
+ =?us-ascii?Q?Axo/hBRzW+HGHHdrlO9VBpQvh+/2/XDOBA7bSKc2tf2BAGDh6qsMUcJcezyR?=
+ =?us-ascii?Q?d/rFJ5C9b4wMkVEzNOXUNPzL1BsU2hkRgiOOl+GpPA2UXMswu7mWOwFZeUZ2?=
+ =?us-ascii?Q?Y316wCNcSiWsVpPY/0g5rkMPRrCoCODhmDy97nuyQirB6QbDvvH3MbIdJAwb?=
+ =?us-ascii?Q?ENQ3v8J3PXAUQD+PEgcf4NUNMAhgwNXhKaKTxSaxsWzf5Mgmkxi3Nz10TtTC?=
+ =?us-ascii?Q?leVhsf3Z5++xgJPw4/7mw9ORWe8PAblmsqiAJbJtvt4lT+RMsXbNA8kb6y3t?=
+ =?us-ascii?Q?OLTuoAHlI8Ndr9/Xiyy8A1paEGGDK9SoMApteT5NfPWrdbfL9Xp1ktTCo7G5?=
+ =?us-ascii?Q?/1xQvu0juogYtz0yTBaDo54D+vDJ2p0w2zS8P7ZG44p51usQD/KFgN6xFCNx?=
+ =?us-ascii?Q?89hPWVI+3po4vSmJQe9U2fhJsU7VrgKnIbHNSK3yvYxXQEXH4ZlStzrJ4SGt?=
+ =?us-ascii?Q?8WFgDaCICGdhmsbh5oMCgZzvS9M2G5MLhfg/AsSq7Zl/bIdfcvEQCp1CWQnT?=
+ =?us-ascii?Q?Q6zw/IMDHFeUGpf8oLfWTe6494uBc+irVAe4wnfuMA6D9JQdbu6zADXEt8Tu?=
+ =?us-ascii?Q?t3E4U3Vj9VJuM2s49JHoVPYOzp2UfaDueTLqiuQmCeTRI+t/rRl3oGH3PKbh?=
+ =?us-ascii?Q?7g2HY5krSjn0GItJIgYdWNvlAGMjR6TypIvQTeaBbKhs+DtxB/PhlbDAaSb5?=
+ =?us-ascii?Q?WPLYlaJamA=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1281fea0-ee98-4288-0059-08df104c474d
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 21:33:11.2137
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: qAX5wxMSaMOh+m1+xSEHbU6c8zRBplzzm1YRgeO/2mwR3NOpJ3rQ1wh1q2bbvxtv+7zvc6Ir+lMKwyqOTdcZog==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6728
 
-ath9k_deinit_channel_context() cancels chanctx_work but does not delete
-the offchannel and sched timers set up by ath9k_init_channel_context().
-If either timer fires after deinit (e.g. during driver unload or
-suspend), it accesses sc->sc_ah which may already be freed by
-ath9k_hw_deinit(), causing a use-after-free.
+sched_set_need_resched_tp is emitted before the corresponding thread
+flag is set. This allows a BPF tracepoint program to recursively invoke
+the same tracepoint while leaving its RCU read-side critical section.
 
-Delete both timers with timer_shutdown_sync() before cancelling the work
-item.
+If rcu_read_unlock_special() must defer a quiescent state while
+preemption or interrupts are disabled, it calls
+set_need_resched_current(). Since TIF_NEED_RESCHED is still clear, this
+emits the tracepoint again and repeats until the kernel stack overflows:
 
-Assisted-by: LLM
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
+  __trace_set_need_resched()
+    bpf_trace_run3()
+      rcu_read_unlock_migrate()
+        rcu_read_unlock_special()
+          set_need_resched_current()
+            set_tsk_need_resched()
+              __trace_set_need_resched()
+
+Set the thread flag before emitting the tracepoint in both
+set_tsk_need_resched() and __resched_curr(). For a remote reschedule,
+retain the result of set_nr_and_not_polling() so that tracing remains
+ahead of IPI delivery while still observing the updated flag.
+
+Fixes: adcc3bfa8806 ("sched: Adapt sched tracepoints for RV task model")
+Signed-off-by: Andrea Righi <arighi@nvidia.com>
 ---
- v2: use timer_shutdown_sync()
- drivers/net/wireless/ath/ath9k/channel.c | 2 ++
- 1 file changed, 2 insertions(+)
+ include/linux/sched.h | 5 ++++-
+ kernel/sched/core.c   | 7 +++++--
+ 2 files changed, 9 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/net/wireless/ath/ath9k/channel.c b/drivers/net/wireless/ath/ath9k/channel.c
-index 8b27d8cc086a..cfb1c90eb4b6 100644
---- a/drivers/net/wireless/ath/ath9k/channel.c
-+++ b/drivers/net/wireless/ath/ath9k/channel.c
-@@ -1363,6 +1363,8 @@ void ath9k_init_channel_context(struct ath_softc *sc)
- 
- void ath9k_deinit_channel_context(struct ath_softc *sc)
+diff --git a/include/linux/sched.h b/include/linux/sched.h
+index 59f6366fdf501..6003dcd080e6c 100644
+--- a/include/linux/sched.h
++++ b/include/linux/sched.h
+@@ -2105,8 +2105,11 @@ static inline int test_tsk_thread_flag(struct task_struct *tsk, int flag)
+ static inline void set_tsk_need_resched(struct task_struct *tsk)
  {
-+	timer_shutdown_sync(&sc->sched.timer);
-+	timer_shutdown_sync(&sc->offchannel.timer);
- 	cancel_work_sync(&sc->chanctx_work);
+ 	if (tracepoint_enabled(sched_set_need_resched_tp) &&
+-	    !test_tsk_thread_flag(tsk, TIF_NEED_RESCHED))
++	    !test_tsk_thread_flag(tsk, TIF_NEED_RESCHED)) {
++		set_tsk_thread_flag(tsk, TIF_NEED_RESCHED);
+ 		__trace_set_need_resched(tsk, TIF_NEED_RESCHED);
++		return;
++	}
+ 	set_tsk_thread_flag(tsk,TIF_NEED_RESCHED);
  }
  
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index 91f059a556950..aed403fd2f82e 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -1196,6 +1196,7 @@ static void __resched_curr(struct rq *rq, int tif)
+ {
+ 	struct task_struct *curr = rq->curr;
+ 	struct thread_info *cti = task_thread_info(curr);
++	bool send_ipi;
+ 	int cpu;
+ 
+ 	lockdep_assert_rq_held(rq);
+@@ -1212,15 +1213,17 @@ static void __resched_curr(struct rq *rq, int tif)
+ 
+ 	cpu = cpu_of(rq);
+ 
+-	trace_sched_set_need_resched_tp(curr, cpu, tif);
+ 	if (cpu == smp_processor_id()) {
+ 		set_ti_thread_flag(cti, tif);
+ 		if (tif == TIF_NEED_RESCHED)
+ 			set_preempt_need_resched();
++		trace_sched_set_need_resched_tp(curr, cpu, tif);
+ 		return;
+ 	}
+ 
+-	if (set_nr_and_not_polling(cti, tif)) {
++	send_ipi = set_nr_and_not_polling(cti, tif);
++	trace_sched_set_need_resched_tp(curr, cpu, tif);
++	if (send_ipi) {
+ 		if (tif == TIF_NEED_RESCHED)
+ 			smp_send_reschedule(cpu);
+ 	} else {
 -- 
 2.55.0
 
