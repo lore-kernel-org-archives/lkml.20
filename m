@@ -1,45 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBF9A3E867A;
-	Fri, 11 Sep 2026 04:07:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 432B83E7630
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 04:18:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789099671; cv=none; b=TErxnGWC0bFGCFG4Sd2izOmefhQP5X64+nTDbVHCE9+jEcLntsu8iHKegfTkPVAPL+ZK3byUqtOTe7BrPcCICROwx/uo50fdmrUCguASffih0LAHpvYR1zyWVlvU8QpaRX3F4YgRYHDyHDi2Ph4BqT70mVA7nRduG0y1g7djBcg=
+	t=1789100341; cv=none; b=gBDPyxycF0dL8SHhtQyvISR21wmFflGwEdM6HSTKEn2a17DoIWsvN6McfCkGbSei6bzQSBLKiMN4nN9cTOYa/YsATYMSPRqmK6yP2rz8dZm22tiewn8bFdM2zHu+oyHT0AG8O257WsIDw5jXRTtZ+CtH1sTKXCMMRT0K7V0nY3I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789099671; c=relaxed/simple;
-	bh=wbgapqDhT4wUXtrMjMWkTOMlTyH3DqQ+/u4ZuXdvKWg=;
+	s=arc-20240116; t=1789100341; c=relaxed/simple;
+	bh=5iHRpGb1b3o2cqhpH4idk0WKpCZ6dEDqPXg9JqiKmNg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KRE4w5VlLP7dGY1DNJijcX+omfQVilpYf5PoupGVLZgZ7pI4lWw+iaMWWcOykwe3AvW0CzQfn0429HeENM6uFvT9MQg+7CQLLCRm73CsgarpWxlIbT4/G4MbymlS8NCuFI/sMqF/sXlceGoXQgAvyByRulpIiBbEVjJf0u+XVq0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OlemSkOI; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=B12Aqafk5w2VjEGPugCPOFHMW1Z/NMvH99ub+swZMpS+G9aveXSMHV3Fp4kePyeyqTl6GY4b0z0wqYA3vj2Zan3AJkfBWOBkjM7Xth1GKKVILdh+o083TII337D1u+DfS50ua+u2YDO28UuGNMjK7aBkZsKZ1H/MM/TKN1MOYa4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jaPrpOKY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OlemSkOI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 119CB1F000FF;
-	Fri, 11 Sep 2026 04:07:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jaPrpOKY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EBE11F000FF;
+	Fri, 11 Sep 2026 04:18:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789099669;
-	bh=n/g8ly4OxLyeREiUuSYEh2ixuq6wmXwe5ZXzyZhrmyg=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=OlemSkOIqIP8ZwL7dV8e+hxx/mZCUn4P0zds8pnIXTNB8RYOMdtRc9yfZg0Ec5Bh5
-	 J0iyJ1hNnZNUbeUqhLxgW5g3e6XDlpA8uW6Zcj1McDpRBrUxoRJvj471pXjkKt/Hlb
-	 BZobLL3gvi1mj+P4Xk6g7TjVQJoS7HcndRyr2+G04+lJlF/SjIQtRsRXAXYnYfiGyU
-	 Oz6g1Mn6kgKSIhicV1qqm4BevK0Nvc3UaJ2MNmHLIUiRrDZS5mJXH2x0GLeVVNuEfZ
-	 252oOmYiVpaHeJ4oacEhoStMtMNXVL1fwc4cyzWllc2trXqfi1qlrvPZaTmveiwAyb
-	 82doeal4nfdyQ==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id D8974CE157A; Thu, 10 Sep 2026 21:07:48 -0700 (PDT)
-Date: Thu, 10 Sep 2026 21:07:48 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: KunWu Chan <kunwu.chan@gmail.com>
-Cc: jiangshanlai@gmail.com, josh@joshtriplett.org, rostedt@goodmis.org,
-	mathieu.desnoyers@efficios.com, rcu@vger.kernel.org,
+	s=k20260515; t=1789100339;
+	bh=2o3DVHftDSE7CLGmgVt/vw8zK49gWrUrqdVFHE/XEs8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jaPrpOKYc8bC8hCPBbrmOgSckYrdSrelVHuV34ojXcpdKVbeS2SkxAiCfIcKUDj75
+	 AOJcjYYh+pGfBDFsINPglUVNU/M9o+HPittXk4h7OSHSTY/87C5kD2pqSorTdA5ZIl
+	 uJnKdetSkuzCDcLdnTseVWhQ9ktVw+S+tX28Dv1wTCqApt3utKYxrHYMKB2AYdKw71
+	 jnI6ug4sLzUUfUrH26ogqXV5oh0aFH2Wo2VEQv06imsHGAXvHQf7TKQhIhlLoDnG86
+	 RBvXDjwYQ7vU4nM1JWmGdc6Bky9gh+vsTZ4OMJrIU8k5l27DPP3CUy8l6Y6uqQmerj
+	 bh0FIz7FuCB5w==
+Date: Fri, 11 Sep 2026 12:18:53 +0800
+From: Gao Xiang <xiang@kernel.org>
+To: binglei wang <l3b2w1@gmail.com>
+Cc: linux-erofs@lists.ozlabs.org, xiang@kernel.org, chao@kernel.org,
+	shengyong1@xiaomi.com, zbestahu@gmail.com,
+	jefflexu@linux.alibaba.com, dhavale@google.com,
+	hongbohbli@tencent.com, guochunhai@vivo.com, wangshuai12@xiaomi.com,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] srcutree: Skip torture to-big transition for atomic SRCU
-Message-ID: <21442bfe-ec4d-47bb-94e7-73b74aeae81e@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20260910041427.3579817-1-kunwu.chan@gmail.com>
- <8d55847a-9e4d-4f1e-95bc-4dc77bea73c3@paulmck-laptop>
- <CAN_Opa-jjwUOds2QqCbgozKjzYT=wzQV+k7ak0Wpk3Un78aq3g@mail.gmail.com>
+Subject: Re: [PATCH] erofs: fix unbalanced buf->off handling in erofs_bread()
+Message-ID: <aqOBLWQEkH7_3LSu@XiangdeMacBook-Pro.local>
+Mail-Followup-To: binglei wang <l3b2w1@gmail.com>,
+	linux-erofs@lists.ozlabs.org, xiang@kernel.org, chao@kernel.org,
+	shengyong1@xiaomi.com, zbestahu@gmail.com,
+	jefflexu@linux.alibaba.com, dhavale@google.com,
+	hongbohbli@tencent.com, guochunhai@vivo.com, wangshuai12@xiaomi.com,
+	linux-kernel@vger.kernel.org
+References: <CAJ3C4KxqO2--RDZN7jCvYKOjwe-XSUcEj8w74ETeHV2ZUq_1dw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -48,66 +51,122 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAN_Opa-jjwUOds2QqCbgozKjzYT=wzQV+k7ak0Wpk3Un78aq3g@mail.gmail.com>
+In-Reply-To: <CAJ3C4KxqO2--RDZN7jCvYKOjwe-XSUcEj8w74ETeHV2ZUq_1dw@mail.gmail.com>
 
-On Fri, Sep 11, 2026 at 10:12:37AM +0800, KunWu Chan wrote:
-> On Fri, Sep 11, 2026 at 12:53 AM Paul E. McKenney <paulmck@kernel.org> wrote:
-> >
-> > On Thu, Sep 10, 2026 at 12:14:27PM +0800, Kunwu Chan wrote:
-> > > Atomic SRCU does not use the srcu_node combining tree.  Exclude it
-> > > from the SRCU_SIZING_IS_TORTURE() transition in
-> > > srcu_torture_stats_print().
-> > >
-> > > Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
-> > > ---
-> > >  kernel/rcu/srcutree.c | 2 +-
-> > >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > >
-> > > diff --git a/kernel/rcu/srcutree.c b/kernel/rcu/srcutree.c
-> > > index d462102c6bb6..99d11fb4123a 100644
-> > > --- a/kernel/rcu/srcutree.c
-> > > +++ b/kernel/rcu/srcutree.c
-> > > @@ -2421,7 +2421,7 @@ void srcu_torture_stats_print(struct srcu_struct *ssp, char *tt, char *tf)
-> > >               }
-> > >               pr_cont(" T(%ld,%ld)\n", s0, s1);
-> > >       }
-> > > -     if (SRCU_SIZING_IS_TORTURE())
-> > > +     if (SRCU_SIZING_IS_TORTURE() && ssp->srcu_reader_flavor != SRCU_READ_FLAVOR_ATOMIC)
-> > >               srcu_transition_to_big(ssp);
-> > >  }
-> >
-> > Much better, thank you!
-> >
-> > Could you also please add an "else" clause with a WARN_ON_ONCE()
-> > for ssp->srcu_reader_flavor == SRCU_READ_FLAVOR_ATOMIC?
-> >
-> > This is after all a user error where someone said to torture atomic SRCU
-> > but also said to transition to big.
+Hi Binglei,
+
+On Fri, Sep 11, 2026 at 12:01:48PM +0800, binglei wang wrote:
+> erofs_bread() locates the target folio with
 > 
-> Thanks, Paul.
-> Agreed. I'll add the warning in the next version:
-> if (SRCU_SIZING_IS_TORTURE()) {
->         if (WARN_ON_ONCE(ssp->srcu_reader_flavor ==
->                          SRCU_READ_FLAVOR_ATOMIC))
->                 return;
->         srcu_transition_to_big(ssp);
-> }
+>  index = (buf->off + offset) >> PAGE_SHIFT;
 > 
-> This keeps atomic SRCU out of the to-big transition while exposing
-> the invalid torture configuration.
-
-Again, sounds good!
-
-							Thanx, Paul
-
-> Thanks,
-> Kunwu
+> but computes the in-folio offset without taking buf->off into account:
 > 
-> >
-> >                                                         Thanx, Paul
-> >
-> > >  EXPORT_SYMBOL_GPL(srcu_torture_stats_print);
-> > > --
-> > > 2.43.0
-> > >
+>  return buf->base + (offset & ~PAGE_MASK);
+> 
+> If buf->off is not page-aligned, the returned pointer misses the in-page
+> component of buf->off, so callers end up fetching data from a wrong
+> offset.
+> 
+> buf->off is set to sbi->dif0.fsoff in erofs_init_metabuf(), and fsoff can
+> be specified via the "fsoffset=" mount option, which only requires
+> block-size alignment. Therefore, on an image with a sub-page block size
+> (e.g. 512 bytes), a non-page-aligned fsoff (e.g. 512) triggers the issue,
+> since 512 is a multiple of the block size but not of PAGE_SIZE.
+> 
+> It can be reproduced by mounting an image that is placed at a
+> non-page-aligned offset:
+> 
+>  mkfs.erofs -b512 -zlz4hc sub.erofs src/
+>  # prepend 512 bytes of padding to the image
+>  mount -t erofs -o loop,fsoffset=512 padded.erofs /mnt
+> 
+> which fails with
+> 
+>  erofs (device loop0): cannot find valid erofs superblock
+> 
+> because the on-disk superblock (at offset 1024 within the image, i.e.
+> 1536 within the padded file) is read from a wrong in-folio offset. With
+> this fixed, the very same image mounts successfully and its file contents
+> match those read from the unpadded image.
+> 
+> Fix it by including buf->off in the in-folio offset calculation, so that
+> it is consistent with the folio index calculation.
+> 
+> Fixes: c36ec00d7f67 ("erofs: add 'fsoffset' mount option to specify
+> filesystem offset")
+> Cc: <stable@vger.kernel.org> # 6.16+
+> Signed-off-by: Binglei Wang <l3b2w1@gmail.com>
+
+The fix looks fine, but the patch format is broken:
+Reviewed-by: Gao Xiang <xiang@kernel.org>
+
+I applied the following version manually with an updated
+patch subject.
+
+From 135d84c66f85426299db01a09d93a79a87af18ba Mon Sep 17 00:00:00 2001
+From: Binglei Wang <l3b2w1@gmail.com>
+Date: Fri, 11 Sep 2026 12:11:33 +0800
+Subject: [PATCH] erofs: add missing buf->off in erofs_bread()
+
+erofs_bread() locates the target folio with
+
+ index = (buf->off + offset) >> PAGE_SHIFT;
+
+but computes the in-folio offset without taking buf->off into account:
+
+ return buf->base + (offset & ~PAGE_MASK);
+
+If buf->off is not page-aligned, the returned pointer misses the in-page
+component of buf->off, so callers end up fetching data from a wrong
+offset.
+
+buf->off is set to sbi->dif0.fsoff in erofs_init_metabuf(), and fsoff can
+be specified via the "fsoffset=" mount option, which only requires
+block-size alignment. Therefore, on an image with a sub-page block size
+(e.g. 512 bytes), a non-page-aligned fsoff (e.g. 512) triggers the issue,
+since 512 is a multiple of the block size but not of PAGE_SIZE.
+
+It can be reproduced by mounting an image that is placed at a
+non-page-aligned offset:
+
+ mkfs.erofs -b512 -zlz4hc sub.erofs src/
+ # prepend 512 bytes of padding to the image
+ mount -t erofs -o loop,fsoffset=512 padded.erofs /mnt
+
+which fails with
+
+ erofs (device loop0): cannot find valid erofs superblock
+
+because the on-disk superblock (at offset 1024 within the image, i.e.
+1536 within the padded file) is read from a wrong in-folio offset. With
+this fixed, the very same image mounts successfully and its file contents
+match those read from the unpadded image.
+
+Fix it by including buf->off in the in-folio offset calculation, so that
+it is consistent with the folio index calculation.
+
+Fixes: c36ec00d7f67 ("erofs: add 'fsoffset' mount option to specify filesystem offset")
+Signed-off-by: Binglei Wang <l3b2w1@gmail.com>
+Reviewed-by: Gao Xiang <xiang@kernel.org>
+Signed-off-by: Gao Xiang <xiang@kernel.org>
+---
+ fs/erofs/data.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/fs/erofs/data.c b/fs/erofs/data.c
+index 0885b1f2fc92..be63b89f0862 100644
+--- a/fs/erofs/data.c
++++ b/fs/erofs/data.c
+@@ -48,7 +48,7 @@ void *erofs_bread(struct erofs_buf *buf, erofs_off_t offset, bool need_kmap)
+ 		return NULL;
+ 	if (!buf->base)
+ 		buf->base = kmap_local_page(buf->page);
+-	return buf->base + (offset & ~PAGE_MASK);
++	return buf->base + ((buf->off + offset) & ~PAGE_MASK);
+ }
+ 
+ int erofs_init_metabuf(struct erofs_buf *buf, struct super_block *sb,
+-- 
+2.47.3
+
