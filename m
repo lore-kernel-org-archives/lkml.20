@@ -1,222 +1,143 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 439A9381E85;
-	Fri, 11 Sep 2026 21:20:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12EF55AEC61
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 21:20:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789161656; cv=none; b=o1XobMtFKyu2zunv3B+69HEqt9WS1L9Kd3+jPW6IMcWBbu/68IcbbXpWOP29bZGTlEkLpwrwXULJFVo9qda4dTUAA/ONkD67ixcZGpk+8GGxlju2iDxy8w9tdy7gSv/wgmgZIQVlpr1to8/uuO1e+5GN0QM5fVPXH2Ge73+yV00=
+	t=1789161660; cv=none; b=lyq3zO1NLj8CpcZYfud3c2tL3x8ziYXIEJHizhlIiT8XFD50Fn+nw9Q51PN6zkbnee9velBsiwDN0fk6mN+XoC6LD5lHX8B/pd1YYnMrj7tnTCnAhqveXvdBeKh2gEPE/lHa9x4KCOeYGOkSOTPcrHsiBtRc1P3RtLqLx9dR2iM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789161656; c=relaxed/simple;
-	bh=+S/Ndqn1NLM9HrVrqX3qZL5ROiy17xdLBVemTxnQnyk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RixSYCbgrrEnERLrDKOG2FiAuseIqfwXugbsGpD8zg+KRWzSv4KzwSDHl3nkG1uxG78J+gWxmVjCkYZOEiisZN+QWmuUjI9b1x49eDRPjpz9kiUy3s8rzVNezspsL2bm/iqizwg8TeLTDLIoH4+3zawTJ4/FeNd0+PIeLy6158Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=WfL5B2k4; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789161660; c=relaxed/simple;
+	bh=1XT7Ndf17FSIWj8aS7sC43q1scDyv8QK36IlTruSUEA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=g4k9er7+qBwZ8rxNNoIwP6LkYiNyjlJT5rUG3nxNeq5M2w3Cjx7yIJHN8VAlIs8haEV4pRr08zqJhqZWn7J4kPKO47Xb0ydNQGy9WVS98leGkVZj6ZXqiW7T1hry3DBWpQdVVGGFCe2XkCTgDNKBO7eO7nKSTNon7SL9uoTSq5U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dtNc2rHQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="WfL5B2k4"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 525D44E40240;
-	Fri, 11 Sep 2026 21:20:50 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 075A7601A3;
-	Fri, 11 Sep 2026 21:20:50 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C068811C7A23F;
-	Fri, 11 Sep 2026 23:20:30 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789161644; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding; bh=47me5HqSi4G4g0cqSSDdu4U83cbKJwEbQCbF4tWqQ6I=;
-	b=WfL5B2k4xKXGM5bxQoQxfB9a1cT/RPyuU54KehqlB1Bcu+t2ZhQexNXf1gMb+8vPvXA9+H
-	b5BdTZb3YIvk7RPnegfrMAuI32RjaSv3u1qDTxcGbjdJQd/JFRKeYXUyz554FneO78O0qG
-	Af6dTTcfmuByb+ACgu/72/cnv5Prx+2rht9zVN08MjlugwZFhhRn+rfs3mltv4kDVEMwvL
-	tY1YMHtgilEfkERtBXhMfhy2xBht3LpPfBJESpT3PrIf7WipW4Mn8n2lXbbS6fOQyezGcH
-	fPQ8xKvE7Lhq/zqPeC6bJWkgmXnPXYvBN2c02efqN5hJipHzBk29YCEWoCWy2w==
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	davem@davemloft.net,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	=?UTF-8?q?Alexis=20Lothor=C3=A9?= <alexis.lothore@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Emil Renner Berthing <kernel@esmil.dk>,
-	Minda Chen <minda.chen@starfivetech.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Jan Petrous <jan.petrous@oss.nxp.com>,
-	Ovidiu Panait <ovidiu.panait.rb@renesas.com>,
-	Jose.Abreu@synopsys.com,
-	Nicolai Buchwitz <nb@tipi-net.de>
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	thomas.petazzoni@bootlin.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	PKneuper@dspace.de,
-	David Laight <david.laight.linux@gmail.com>
-Subject: [PATCH net v3 0/6] net: stmmac: More selftest-related fixes
-Date: Fri, 11 Sep 2026 23:20:20 +0200
-Message-ID: <20260911212028.1497613-1-maxime.chevallier@bootlin.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dtNc2rHQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 924B51F0089D
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 21:20:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789161657;
+	bh=bYi+BLcDxpGEvH8TRFhgsxjlizIH3+JRxRD7LLGvT8g=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=dtNc2rHQtWIObd/DI/ApVeqzSQNXUd5s6VPhj4i/TV6agec3+bbNqYhrNOPh4K8fg
+	 BIrklNUVaLk+sAVnauNPFcw6npJGzDGiJ76UfZKi4DyEBNOIowrc0b92AcJaMiAPlc
+	 gQwo9UXhkKIasdqcLaN0toFekM0+KsTDfKc2ReccbxNBUYkyEBbmcsfGmvH5NgzSn9
+	 n09EToGNkcYL6LN0XwQbFi1UzKAvcos3XzAmjlfom6VQJmLz3bMyhT4+ftDXM3AQ9t
+	 b297P9sNrDqqJDHY14KoInNCQxoGn3vRu8i/YJ/FzI+ODxI737ZWMsixwY7+acirZW
+	 5GiB2PhdWFaVg==
+Received: by mail-qk2-f13.google.com with SMTP id af79cd13be357-93910c3d02aso12986085a.1
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:20:57 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzQmABC3YyyeEv+vmo20N0QuprMIu8e/Dx/Uhsk7w0XI+9BB4O12RMsBXM71bhPWULAvGKy51KLYZv7HyY=@vger.kernel.org
+X-Gm-Message-State: AFuF++l14Czf/hM0dNPcwQeCqc9W72Ae6nVkwOwvOWPcsbGx1vIM8kVT
+	6GqP24jwU1A3tzbQ2nqw2QuiApFSr7olGLQ7G/TMZcJaPAs5hVC7WqF4sORUBnSpr5A0Xo6bVWW
+	Th+T3MkW2EGVRobMXuEdTZFCS69tD0f4=
+X-Received: by 2002:a05:620a:880c:b0:939:83c1:d8c6 with SMTP id
+ af79cd13be357-939e8b079e4mr730453685a.8.1789161656904; Fri, 11 Sep 2026
+ 14:20:56 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+References: <20260818225904.55236-1-baohua@kernel.org> <08f63301a58f0e0c38480553295ad9af95928da6.camel@amd.com>
+In-Reply-To: <08f63301a58f0e0c38480553295ad9af95928da6.camel@amd.com>
+From: Barry Song <baohua@kernel.org>
+Date: Sat, 12 Sep 2026 05:20:45 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4yjHqSFtmHrRKgE1JrJpQKw5oBs1cuX1_mQ_r0wKdMdYw@mail.gmail.com>
+X-Gm-Features: AcwNN1Wj6o7DDMeN04SnJ_ORbzq-MZuYZLrVkODVnbcFIGbkDcBF9Yh9yxqPI28
+Message-ID: <CAGsJ_4yjHqSFtmHrRKgE1JrJpQKw5oBs1cuX1_mQ_r0wKdMdYw@mail.gmail.com>
+Subject: Re: [RFC PATCH v3 0/4] mm: enable lru cache for smaller large folios
+To: "Garg, Shivank" <shivankg@amd.com>
+Cc: "linux-mm@kvack.org" <linux-mm@kvack.org>, 
+	"akpm@linux-foundation.org" <akpm@linux-foundation.org>, "hughd@google.com" <hughd@google.com>, 
+	"npache@redhat.com" <npache@redhat.com>, "rppt@kernel.org" <rppt@kernel.org>, 
+	"vbabka@kernel.org" <vbabka@kernel.org>, "david@kernel.org" <david@kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "dev.jain@arm.com" <dev.jain@arm.com>, 
+	"surenb@google.com" <surenb@google.com>, "ackerleytng@google.com" <ackerleytng@google.com>, 
+	"usama.arif@linux.dev" <usama.arif@linux.dev>, "ziy@nvidia.com" <ziy@nvidia.com>, 
+	"ryan.roberts@arm.com" <ryan.roberts@arm.com>, 
+	"baolin.wang@linux.alibaba.com" <baolin.wang@linux.alibaba.com>, "liam@infradead.org" <liam@infradead.org>, 
+	"joannelkoong@gmail.com" <joannelkoong@gmail.com>, "mhocko@suse.com" <mhocko@suse.com>, 
+	"ljs@kernel.org" <ljs@kernel.org>, "lance.yang@linux.dev" <lance.yang@linux.dev>, 
+	"hannes@cmpxchg.org" <hannes@cmpxchg.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi everyone,
+On Fri, Sep 11, 2026 at 11:39=E2=80=AFPM Garg, Shivank <shivankg@amd.com> w=
+rote:
+[...]
+>
+> Thanks for this series.
+> I tested this against a Graph500 regression with 16K mTHP.
+> The series removes the regression and reduces folio_lruvec_lock_irqsave c=
+ontention to approximately the 4K rate.
+>
+>
+> Tested-by: Shivank Garg <shivankg@amd.com>
+>
 
-This is V3 of stmmac selftest fixes, adding a cap on EEE test as the
-timeout can get pretty long, found by Nicolai.
+Thanks very much, Shivank. I=E2=80=99m very happy to see that
+mTHP LRUCACHE not only resolves your regression but also
+improves the performance of your case.
 
-This is another round of stmmac selftest fixes, mostly about the selftests
-themselves but a few things were discovered w.r.t MTU and buffer size
-handling, see patch 5.
+As discussed with David, this series will be respun after Hugh=E2=80=99s
+work[1] is merged.
 
-I've continued expanding the test devices I'm running this on, more devices
-should come in the future. With this series, _almost_ everything is
-green, except for some flow control stuff that is either a false positive
-or a real thing that needs investigating.
+In the meantime, I=E2=80=99d really appreciate it if you could test an
+updated version that I haven=E2=80=99t sent out before:
 
-After this is merged, I consider the selftests to be now reliable enough
-to run them nightly on every stmmac series that's sent, and I'll be requiring
-clean selftests for new glue drivers.
+https://git.kernel.org/pub/scm/linux/kernel/git/baohua/linux.git/log/?h=3Dm=
+thp_lrucache
 
-I've been running this on :
+It includes some modifications based on Sashiko=E2=80=99s review comments
+on the version you tested. I=E2=80=99d like to know whether it still provid=
+es
+the same performance gains you saw with that version.
 
- - Altera CycloneV (dwmac-socfpga, dwmac1000 IP, v3.70a)
- - NXP imx8mp (dwmac-imx, dwmac4, v5.10a)
- - Allwinner H2S (dwmac-sun8i, dwmac1000)
- - Amlogic S905X3 (dwmac-meson8b, dwmac1000, v3.70a)
- - STM32mp157a (dwmac-stm32, dwmac4, v4.20a)
- - SiFive JH7110 (dwmac-starfive, dwmac4, v5.20)
- - Motorcomm YT8061 (PCIe, dwmac-motorcomm, dwmac4)
- - Qualcomm IPQ8064 (dwmac-ipq806x, dwmac1000)
+[1] https://lore.kernel.org/linux-mm/e28f9a94-4339-f8ac-8301-6be3c9b5b7ce@g=
+oogle.com/
 
-Tests are OK if return is 0 or -95 (-EOPNOTSUPP), tests are KO otherwise
+>
+> System and Workload
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>
+> AMD EPYC Zen 5 System, 2 sockets, 160 cores/socket,
+> SMT on -> 320 cores / 640 threads
+> 2 NUMA nodes, ~512 GB/node
+> node 0 CPUs: 0-159,320-479
+>
+> Base: v7.3-rc2+ (50d05c7c76c9)
+> Runtime: performance governor, preempt=3Dfull (lazy)
+>
+> Workload: Graph500, Scale 27, edgefactor 16
+> Metric: median_time in ms (lower is better)
+>
+> Bind to node 0 with numactl -C 0-159,320-479 -m 0
+>
+>
+> Performance
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>
+>                   Base       Patched    delta
+> 4K                109.60     109.11     -0.4%
+> mTHP-16K          144.10      99.00    -31.3%
+> mTHP-64K          104.75     104.25     -0.5%
+>
+> mTHP-16K was ~31% slower than THP-never, due to lock contentions.
+> With your series, mTHP-16 performs ~9% faster than THP-never.
+>
+>
+> The dominant folio_lruvec_lock_irqsave entries were:
+>
+>                    Base                  Patched
+>                contended  wait         contended  wait
+> 4K               834603   2.41 m         844193   2.61 m
+> mTHP-16K        7008834   28.88 m        840695   4.87 m
+> mTHP-64K         188144   752 ms         40874    93.46 ms
+>
+>
 
-Before the series :
-
-Test                     imx  socfpga sun8i meson8b stm32 starV mcom ipq806x
-MAC Loopback              0     0      0     0       0     0     0    -110
-MMC Counters              0     0      -95   0       0     0     0    -110
-EEE                       -95   -95    -95   -110    -110  -95   -95  -95
-Hash Filter MC            0     0      -95   0       0     0     0    -95
-Perfect Filter UC         -95   0      0     -95     -95   -95   -95  -95
-MC Filter                 -95   0      -95   -95     -95   -95   -95  -95
-UC Filter                 -95   0      -95   -95     -95   -95   -95  -95
-Flow Control              -95   0      -110  0       -110  -95   -110 -110
-RSS                       -95   -95    -95   -95     -95   -95   -95  -95
-VLAN Filtering            -110  -95    -95   -95     -110  -110  -95  -95
-VLAN Filtering (perf)     -110  -95    -95   -95     -110  -110  -95  -95
-Double VLAN Filter        -110  -95    -95   -95     -110  -110  -95  -95
-Double VLAN Filter (perf) -110  -95    -95   -95     -110  -110  -95  -95
-Flexible RX Parser        0     -95    -95   -95     -95   -95   -95  -95
-SA Insertion (desc)       0     -95    -95   -95     0     0     0    -95
-SA Replacement (desc)     0     -95    -95   -95     0     0     0    -95
-SA Insertion (reg         0     -95    -95   -95     0     0     0    -95
-SA Replacement (reg)      0     -95    -95   -95     0     0     0    -95
-VLAN TX Insertion         -110  -95    -95   -95     -110  -110  -110 -95
-SVLAN TX Insertion        -110  -95    -95   -95     -110  -95   -110 -95
-L3 DA Filtering           0     -95    -95   -95     -95   -95   -95  -95
-L3 SA Filtering           0     -95    -95   -95     -95   -95   -95  -95
-L4 DA TCP Filtering       0     -95    -95   -95     -95   -95   -95  -95
-L4 SA TCP Filtering       0     -95    -95   -95     -95   -95   -95  -95
-L4 DA UDP Filtering       0     -95    -95   -95     -95   -95   -95  -95
-L4 SA UDP Filtering       0     -95    -95   -95     -95   -95   -95  -95
-ARP Offload               -95   -95    -95   -95     -110  -110  -110 -95
-Jumbo Frame               0     -110   -110  0       0     0     0    -110
-Multichannel Jumbo        0     -95    -95   -95     -95   -95   -95  -95
-Split Header             --95   -95    -95   -95     -95   -95   0    -95
-TBS (ETF Scheduler)      --95   -95    -95   -95     -95   -95   -95  -95
-
-ARP offload's still there as this was a net-next patch and I've ran these
-checks on the net tree.
-
-Jumbo frame tests on dwmac1000 started failing after :
-
-commit 23680bf5f8c6 ("net: stmmac: restore NET_IP_ALIGN in the RX DMA offset")
-
-This commit is OK though, it just made the selftest reveal the cracks
-hiding beneath the surface of MTU/bufsz handling.
-
-After this series :
-
-Test                     imx  socfpga sun8i meson8b stm32 starV mcom ipq806x
-MAC Loopback              0      0     0       0     0     0     0    0
-MMC Counters              0      0     -95     0     0     0     0    0
-EEE                       -95    -95   -95     0     0     -95   -95  -95
-Hash Filter MC            0      0     -95     0     0     0     0    -95
-Perfect Filter UC         -95    0     0       -95   -95   -95   -95  -95
-MC Filter                 -95    0     -95     -95   -95   -95   -95  -95
-UC Filter                 -95    0     -95     -95   -95   -95   -95  -95
-Flow Control              -95    0     -110    0     -110  -95   -110 -110
-RSS                       -95    -95   -95     -95   -95   -95   -95  -95
-VLAN Filtering            0      -95   -95     -95   0     0     -95  -95
-VLAN Filtering (perf)     0      -95   -95     -95   0     0     -95  -95
-Double VLAN Filter        0      -95   -95     -95   0     0     -95  -95
-Double VLAN Filter (perf) 0      -95   -95     -95   0     0     -95  -95
-Flexible RX Parser        0      -95   -95     -95   -95   -95   -95  -95
-SA Insertion (desc)       0      -95   -95     -95   0     0     0    -95
-SA Replacement (desc)     0      -95   -95     -95   0     0     0    -95
-SA Insertion (reg         0      -95   -95     -95   0     0     0    -95
-SA Replacement (reg)      0      -95   -95     -95   0     0     0    -95
-VLAN TX Insertion         0      -95   -95     -95   0     0     0    -95
-SVLAN TX Insertion        -95    -95   -95     -95   -95   -95   -95  -95
-L3 DA Filtering           0      -95   -95     -95   -95   -95   -95  -95
-L3 SA Filtering           0      -95   -95     -95   -95   -95   -95  -95
-L4 DA TCP Filtering       0      -95   -95     -95   -95   -95   -95  -95
-L4 SA TCP Filtering       0      -95   -95     -95   -95   -95   -95  -95
-L4 DA UDP Filtering       0      -95   -95     -95   -95   -95   -95  -95
-L4 SA UDP Filtering       0      -95   -95     -95   -95   -95   -95  -95
-ARP Offload               -95    -95   -95     -95   -110  -110  -110 -95
-Jumbo Frame               0      0     0       0     0     0     0    0
-Multichannel Jumbo        0      -95   -95     -95   -95   -95   -95  -95
-Split Header              -95    -95   -95     -95   -95   -95   0    -95
-TBS (ETF Scheduler)       -95    -95   -95     -95   -95   -95   -95  -95
-
-ARP can be ignored, and Flow control needs some more attention, but
-we're getting there :)
-
-Thanks,
-
-Maxime
-
-V3:
- - Bail out of the EEE test if LPI is over 5 seconds
-
-V2:
-https://lore.kernel.org/r/20260910151404.976753-1-maxime.chevallier@bootlin.com
- - Snapshot before sending the frame for EEE, in case we immediately
-   enter LPI
- - Also return -ETIMEDOUT instead of EINVAL
-
-V1: https://lore.kernel.org/lkml/20260909074740.1247762-1-maxime.chevallier@bootlin.com/
-
-Maxime Chevallier (6):
-  net: stmmac: selftests: Support running selftests on DSA conduits
-  net: stmmac: selftests: Validate EEE based on the actual LPI timer
-    value
-  net: stmmac: selftests: Check the dev->features for S-TAG offload
-    testing
-  net: stmmac: selftests: Capture all packets for vlan checks
-  net: stmmac: size the RX buffers from the frame length, not the MTU
-  net: stmmac: selftests: Account for alignment shift on dwmac1000 for
-    Jumbo test
-
- .../net/ethernet/stmicro/stmmac/stmmac_main.c |  20 +--
- .../stmicro/stmmac/stmmac_selftests.c         | 121 +++++++++++++++---
- 2 files changed, 114 insertions(+), 27 deletions(-)
-
--- 
-2.55.0
-
+Best Regards
+Barry
