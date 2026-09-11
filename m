@@ -1,64 +1,64 @@
-Received: from mail-oo1-f47.google.com (mail-oo1-f47.google.com [209.85.161.47])
+Received: from mail-oo2-f43.google.com (mail-oo2-f43.google.com [74.125.231.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1955148F02C
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:42:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7F89496D26
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:42:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789141337; cv=none; b=CaB0oOByEvlWQCpEUOKSueG+NeiEiAwkDPaibLi2VIO7FaCgS7muNlG4js6rXrgrzx04HzXFLfePWKC+dzwT+aTMtI2ZYJrcC/LZPHXwx86KXdgXHw8SKzQ61fycG0jUd/Uq8er2cqjyRHfO3OCH4fJ6kDkhuiwLMD2fp2qKO9Q=
+	t=1789141340; cv=none; b=Str21fgi6XzfBD1yWj4bnN7MFwCH7zhrQWhblYPQKkgwzlQZ8pyOYtUUIPy0D6oo08kuVEX6MOU4zYap31RoDYjBogX+B9zIkx5k9c4GmSw7BsewGhQIJMR/TAIGTj1U71AFXU3fNvOib63TC4/3bgofKSqTHIGrX6IBGvaSzPY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789141337; c=relaxed/simple;
-	bh=hynIoVRf6KTWjB7dioo8ii+57RiEIaRTzKGrkDPGesE=;
+	s=arc-20240116; t=1789141340; c=relaxed/simple;
+	bh=5A1wu8NEeK9mJoM9/OY+CglS8dpgeZrlo6DgdNg46HM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fo0NEI+ddWggRwa4LBtH+PJclZ3ALPR9PH6/nC+VVbSRMJ3b17PXVXj5tm2lDmE4jiXm2H2yik3yRvRxYx79Q1XMVY106kmY2KwvEw1T2va3K4YAB0Q9+7lEcDp+7iBa8TQBxXnaXUKCr76cN5ZvOJYA2z6R3522yWpl2kQGuGo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=wvVVJEHF; arc=none smtp.client-ip=209.85.161.47
+	 MIME-Version; b=dTQoYbpVAKq6Dj/qulAbfnOKf/JpHEiENewwVHIzUl6GJT2zBJ4PMuo0cTIyftSEO9ZFOC34AXh6QLiyGUvfuB0s6vykYJYDytNPPJhFSkb/zS7PlJaIH5dYeGm+C21XbrGVSPST5wtA+lgtawGMRW3KbxVWEQe3m8ouj99EK2U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=GdCuJ436; arc=none smtp.client-ip=74.125.231.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="wvVVJEHF"
-Received: by mail-oo1-f47.google.com with SMTP id 006d021491bc7-6b1b1cb72d0so598195eaf.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:42:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="GdCuJ436"
+Received: by mail-oo2-f43.google.com with SMTP id 006d021491bc7-6b1ae6b200fso713332eaf.1
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:42:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1789141332; x=1789746132; darn=vger.kernel.org;
+        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1789141336; x=1789746136; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=mIwUeFtb2rgpZypFvq5Uvr0k1u6Xe8moD+czEvfbQMY=;
-        b=wvVVJEHFlWUMgEz5jWgI9Lb5EYa6DMnqHBa29HUbnu8XLbKgN3Oaagk2ENdS25sz0+
-         dOyxfXnVCKzr84kCWlzRqaKypxZMvjGznQSlVh5I+3QVUwEXlePfmGmZPl8dA0e+SaVU
-         I9tZzxeuEDeu/fYudq8PLgu9utVr5EGl1myBm45yq6Fkw0oO9AAVStCDEsCa+9x0z5Sg
-         tden1iTWW9XATM6dxID0LM0fhjkNtZplRAkg9RiWBQhRY9ZenWU52rDIHymtPaSQrj96
-         /aU8C73xrNKIkRbvxMLxtvGKn6fE/v4TWXSjrYjubNtqD6GYjc3RqanOj3hGsXfCU+HI
-         KN9g==
+        bh=UfA4gKLRjMNP2H10G64YdooBaWutPGm7Kf7SsyC2UwA=;
+        b=GdCuJ436yBQPGmZmv0GkA1LKAVy0QL/LDG1+alUkOkMSCpTPAhG+dKJPJuNkbCQyge
+         vQk4wFjY8CFZXuXB6VVANodNvSNNRHNnlw4pf26ZOWq6E98n7o5oDEQqU1WNwkjSiQjm
+         olNH8hDPutJiP2MDuKB+Ti6NF1eyZ4DK38nQXW+agzjJaAhc8cZML7+kSv2oRO/PIYAK
+         LnfjFm+vhMu02NiBVZXc6qCw7leT3hsjaIpI8pca0rGSYCHNn3Wb0OWIAfTTY1untzVF
+         uIAypQj7+5jjIXYGptlEBXPBDaBS9hWpffmyvGXJkpLkWIQIG65qVS6zIAg91rKhgwcs
+         olPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789141332; x=1789746132;
+        d=1e100.net; s=20251104; t=1789141336; x=1789746136;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mIwUeFtb2rgpZypFvq5Uvr0k1u6Xe8moD+czEvfbQMY=;
-        b=O9pfoD+sXOQFG5Wxc4VIBQrHuiJI28fNfPd3uZg/Ko2HBGiqvNs5DZFDJkCFFI1Ad+
-         gQjwuSui+7vvoAenHMUP0tRNJUM2Ipu3SqXlz2n8E/EfARvi7xe0P+j004RVO7RWxuKJ
-         ry28KVIC8DgCtMtKSaMRnyyDMUzifO6jQDs4b4uz65jHJa3UmNNreaINt6H0H6oGpvzi
-         /FCcK6FEHnbLQlB5vyJ+QvxMLP24N3TfTFm8CTarZn578UGNqFz8x1uHUzEEge5aKCoR
-         yblCt6SSZYlRg5bW1pckB82P6bE5Js/ou6z/aprr7pxOZaQlOKvkZT2TUhkx1oD+N3W/
-         nSvQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx9uCM6kvYl84k1V4RwyBEfdopOP/7y1B1HuGf0mC4EtwzZWPBBH4XmHmo4OrVA4OrLTOFcvpdqLV5JDMU=@vger.kernel.org
-X-Gm-Message-State: AFuF++ldCmsuWs9XO6EELnED5ANmeGoIY1IbWEOEhZ3hsW72nsycf8xc
-	BMtY1j6+NwICZonXxjvDgAeo512GMB/p5H5hHY7oPfbDJZxLDiVaP8NLo7dhYZLoxj8=
-X-Gm-Gg: AYBFou2sBRyGhIgNgBUzsEg/WYlvdybwJ3pWBCSk1/Eo2Fx0aR1fd9QsEi2E9f7JJBZ
-	iUCJ8h7uj96Lk5jad6aX4gz47LP65+tVb+/htC4zpP0vvnTq/xogIf58+8rkDcomTJhMwf/HIAp
-	GulJgLNFIS9YoSKlwkoDzVNiybDrEU5elPGBrfjo4ZaMo6FrYe31yLoiNuWfD7sPGlSug0dnym6
-	FAc/1koveaBPTm25aOf2QQ6sjWWSdA70UcqoyrswyTuDeTJ+/MklthNMX9m6BmHXMItyACFeDO5
-	cZb9R04QqbvkhCq++wvw2kDu0Ha+QpM3XIVF3HTgG3gsdUAhsElF1bt5/Jpq0EZdlaWPSga6tMA
-	RoV+MDQ61x8DFQqf/kuhRGccs4hSpwkBYb3Skr9SBunw/3YddH2Qf8V1uXItvbJmnQzDhjabiI0
-	wVj/M2iPidVH8eFkw5PEyc3TsPbiTeJGo1IKcAw3G5/tQkDqe856FPJAV4rLJWgtPbyUF7bmYVQ
-	ZUKV6mj8EitDhTJOMEjHKrs+9gM
-X-Received: by 2002:a05:6820:55d4:10b0:6b1:3534:a5b8 with SMTP id 006d021491bc7-6c0ba03ff05mr2428688eaf.15.1789141331976;
-        Fri, 11 Sep 2026 08:42:11 -0700 (PDT)
+        bh=UfA4gKLRjMNP2H10G64YdooBaWutPGm7Kf7SsyC2UwA=;
+        b=Gibd8w7SAWTh1pU7/uvw2wCPIQ0ieeZH39B1ItfyeQ3hSuRusgR/cSxEq4xzksJbrP
+         o+eG0BKmDbMxE+ozhcByPVhpi8wKoiGgI0C86HDd77MRpZyvFaT2eiNVsI+oYMAo55XX
+         lueZ89G3D9QHTUnzTvG9uGqjIokbAd0maQu0H7gude6UTTxIv5IU9QSpseU4zRw20gDX
+         caosh9j2FcO/Sr0FL0Lmj1LTCViJtpQXSyGZaXYYhnAg6f7YT3UMAF5FmZPKFFpPN4t/
+         RF3b+xuFxNFegGD9xAwEWp6G5QeU9BnslX5aDEv490z54xNRjduEtBZAmLn4FYPHaHrk
+         NQIA==
+X-Forwarded-Encrypted: i=1; AKwUvBztVaUkzf8/V+XRqeX8Ar/yhmOO1YG+oJB+3ayOnL/gvhU5MX+bCZ5E/BaEAVtmKHTyplE4Vkqasqs9QeI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kV6EJulhx2cKHNsAIyrW5XMBeQFU8qCYdEBo2x8IXpRJvki7/X
+	bl6hYWARgs9CFf5VAEQeesn1ZDwq+WJ4PHM6/PC+3oUDqXYTWEwJfq8DvIJSCYl1vRc=
+X-Gm-Gg: AYBFou2sH/TTMgv3LWwjTQZuAj48bN3zrq+GXYJ5lp8L3ubDRKaY9y/Y2/fKNkv50S8
+	7QI5HFjETnuExijcg0QUet9EwpeawFNRk/XWOWZ8itQlgAa6eYpgOQztqrGDQZX1gNskkI3+Lwx
+	cL/aFW3Hcq9zVx2waiihAsoOQperrhCB5NyIzBbruprScdvNXykI00p2sRC2bI4khISH7K9RHRy
+	80LFpusF+8k3lBQY/zkWa+VQnqgKHV1uGc0/4GaL9JilIgBZgsMIjnLCOttlQ61xhsizrOgVWqS
+	vfujuZLSVX0oVJMWb+hmOs/qsg5SpIV/UXY0sziyGTGf5O1/Y3phWuzR2zOHgrwmc3tU5xqf1Cb
+	SS16AC993/IlV2ZrsDwfq1pojGdvvOPjsvS3qFTco6TwUy6FDxdIZ50yt76ljHu/Nhjp1u404Ra
+	lWiTJpMaxZJ93RE9kMi/gSFOefjMKhaZMJWbPFgNJGYAJQomiuEXAn2nWzbnu/ZPy8KVby8Ycyx
+	oueA7A/6L/Ur18w8/wwx3F6IGChQQiJjLmmqZkpajo=
+X-Received: by 2002:a05:6820:f00b:b0:6bd:cd33:b885 with SMTP id 006d021491bc7-6c0bc4c8a27mr3367535eaf.42.1789141335900;
+        Fri, 11 Sep 2026 08:42:15 -0700 (PDT)
 Received: from m2max ([96.43.243.2])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6c09690af1dsm2802199eaf.1.2026.09.11.08.42.10
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6c09690af1dsm2802199eaf.1.2026.09.11.08.42.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 08:42:10 -0700 (PDT)
+        Fri, 11 Sep 2026 08:42:15 -0700 (PDT)
 From: Jens Axboe <axboe@kernel.dk>
 To: io-uring@vger.kernel.org
 Cc: linux-arm-kernel@lists.infradead.org,
@@ -67,9 +67,9 @@ Cc: linux-arm-kernel@lists.infradead.org,
 	mingo@redhat.com,
 	peterz@infradead.org,
 	Jens Axboe <axboe@kernel.dk>
-Subject: [PATCH 12/15] io_uring: defer the identity migration to the end of the submission
-Date: Fri, 11 Sep 2026 09:41:02 -0600
-Message-ID: <20260911154148.644489-13-axboe@kernel.dk>
+Subject: [PATCH 15/15] io_uring: issue IOSQE_ASYNC requests inline when a handoff is possible
+Date: Fri, 11 Sep 2026 09:41:05 -0600
+Message-ID: <20260911154148.644489-16-axboe@kernel.dk>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260911154148.644489-1-axboe@kernel.dk>
 References: <20260911154148.644489-1-axboe@kernel.dk>
@@ -81,353 +81,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A handoff currently migrates the full identity (tid, signals, cgroup,
-sched attributes, register state) before the promoted worker resumes
-the SQ ring. With N blockable SQEs in one io_uring_enter(), that puts a
-complete migration between each of them, where the old behaviour was N
-cheap io-wq punts.
-
-None of that is needed to run kernel code on the submitter's behalf,
-only its creds and io_uring context are. Have the promoted task adopt
-the creds and continue the submission right away. If it blocks and
-hands off again, it just goes back to being a worker. Only the task
-that ends the submission migrates the identity, once, from the original
-submitter which is parked in io_wq_handoff_worker() until then.
-
-A task demoted while running the handoff function now also goes through
-io_wq_handoff_worker() rather than straight into the worker loop, so it
-doesn't exit or rename itself while its state is still being read.
+NOTE: undecided if this should be the behavior.
 
 Signed-off-by: Jens Axboe <axboe@kernel.dk>
 ---
- include/linux/io_uring_types.h |  5 +--
- include/linux/thread_handoff.h |  4 +++
- io_uring/handoff.c             | 64 +++++++++++++++++++++++-----------
- io_uring/handoff.h             |  7 ++--
- io_uring/io-wq.c               | 33 +++++++++++-------
- io_uring/io-wq.h               |  3 +-
- kernel/thread_handoff.c        |  6 ++++
- 7 files changed, 83 insertions(+), 39 deletions(-)
+ include/linux/io_uring_types.h | 3 ---
+ io_uring/io_uring.c            | 5 -----
+ 2 files changed, 8 deletions(-)
 
 diff --git a/include/linux/io_uring_types.h b/include/linux/io_uring_types.h
-index 81bc4810fcab..6c8fe7232aa2 100644
+index 37c56ad37e05..dadbe3655138 100644
 --- a/include/linux/io_uring_types.h
 +++ b/include/linux/io_uring_types.h
-@@ -151,9 +151,10 @@ struct io_handoff {
- 	/* the submitter's signal mask while blocking issues run without */
- 	sigset_t			sigmask;
- 	bool				sigsaved;
--	/* the task the identity came from, and the task refs it held */
-+	/* identity source, and the task this hop took the worker from */
- 	struct task_struct		*src;
--	unsigned int			src_refs;
-+	struct task_struct		*prev;
-+	unsigned int			prev_refs;
- 	struct thread_handoff_stats	stats;
- 	/* io_uring_enter() arguments, to resume the syscall */
- 	struct file			*file;
-diff --git a/include/linux/thread_handoff.h b/include/linux/thread_handoff.h
-index e1c17b833e7c..203ab6ef73e0 100644
---- a/include/linux/thread_handoff.h
-+++ b/include/linux/thread_handoff.h
-@@ -29,6 +29,7 @@ bool thread_handoff_compatible(struct task_struct *src,
- 			       struct task_struct *dst);
- bool thread_handoff_prepare(struct task_struct *tsk);
- void thread_handoff_stats_take(struct thread_handoff_stats *st);
-+void thread_handoff_adopt_creds(struct task_struct *src);
- int thread_handoff_finish(struct task_struct *src,
- 			  struct thread_handoff_stats *st);
+@@ -651,7 +651,6 @@ enum {
+ 	REQ_F_IMPORT_BUFFER_BIT,
+ 	REQ_F_SQE_COPIED_BIT,
+ 	REQ_F_IOPOLL_BIT,
+-	REQ_F_ASYNC_USER_BIT,
+ 	REQ_F_HANDOFF_BIT,
  
-@@ -62,6 +63,9 @@ static inline bool thread_handoff_prepare(struct task_struct *tsk)
- static inline void thread_handoff_stats_take(struct thread_handoff_stats *st)
- {
- }
-+static inline void thread_handoff_adopt_creds(struct task_struct *src)
-+{
-+}
- static inline int thread_handoff_finish(struct task_struct *src,
- 					struct thread_handoff_stats *st)
- {
-diff --git a/io_uring/handoff.c b/io_uring/handoff.c
-index 25e9e06812a7..ddc3c4d6a4f3 100644
---- a/io_uring/handoff.c
-+++ b/io_uring/handoff.c
-@@ -89,7 +89,8 @@ bool __io_handoff_begin(struct io_kiocb *req)
+ 	/* not a real bit, just to check we're not overflowing the space */
+@@ -748,8 +747,6 @@ enum {
+ 	REQ_F_SQE_COPIED	= IO_REQ_FLAG(REQ_F_SQE_COPIED_BIT),
+ 	/* request must be iopolled to completion (set in ->issue()) */
+ 	REQ_F_IOPOLL		= IO_REQ_FLAG(REQ_F_IOPOLL_BIT),
+-	/* IOSQE_ASYNC was set on the SQE, not just by prep */
+-	REQ_F_ASYNC_USER	= IO_REQ_FLAG(REQ_F_ASYNC_USER_BIT),
+ 	/* vetted at submit for an inline blocking issue with a handoff */
+ 	REQ_F_HANDOFF		= IO_REQ_FLAG(REQ_F_HANDOFF_BIT),
+ };
+diff --git a/io_uring/io_uring.c b/io_uring/io_uring.c
+index 7c2aa0cfacc8..04e2fbdcb3dd 100644
+--- a/io_uring/io_uring.c
++++ b/io_uring/io_uring.c
+@@ -1771,8 +1771,6 @@ static int io_init_req(struct io_ring_ctx *ctx, struct io_kiocb *req,
+ 	/* same numerical values with corresponding REQ_F_*, safe to copy */
+ 	sqe_flags = READ_ONCE(sqe->flags);
+ 	req->flags = (__force io_req_flags_t) sqe_flags;
+-	if (sqe_flags & IOSQE_ASYNC)
+-		req->flags |= REQ_F_ASYNC_USER;
+ 	req->cqe.user_data = READ_ONCE(sqe->user_data);
+ 	req->file = NULL;
+ 	req->tctx = current->io_uring;
+@@ -1919,9 +1917,6 @@ static bool io_req_force_async(struct io_kiocb *req)
+ 		return true;
+ 	if (!(req->flags & REQ_F_FORCE_ASYNC))
  		return false;
- 	if (!tctx->io_wq)
- 		return false;
--	if (!thread_handoff_allowed(current))
-+	/* an intermediate task's own user state doesn't matter, it stays */
-+	if (!tctx->handoff.src && !thread_handoff_allowed(current))
- 		return false;
- 	/* the SQ head is published while we may still be running */
- 	if (io_req_sqe_copy(req, IO_URING_F_INLINE))
-@@ -98,12 +99,15 @@ bool __io_handoff_begin(struct io_kiocb *req)
- 	if (!io_wq_handoff_spare(tctx->io_wq, !io_req_unbound(req), false))
- 		return false;
- 	/* would interrupt the issue right away, and can't be handled here */
--	if (signal_pending(current))
-+	if (task_sigpending(current))
- 		return false;
- 
- 	ho->req = req;
- 	io_handoff_block_signals(ho);
- 	current->flags |= PF_IO_HANDOFF;
-+	/* already queued task_work gets picked up by io_handoff_end() too */
-+	if (test_thread_flag(TIF_NOTIFY_SIGNAL))
-+		clear_notify_signal();
- 	return true;
- }
- 
-@@ -148,8 +152,8 @@ static void io_handoff_task_refs(struct io_uring_task *tctx,
- 	WRITE_ONCE(tctx->task, dst);
- 	raw_spin_unlock(&tctx->task_ref_lock);
- 
--	/* dropped by the promoted task once it's done taking over */
--	tctx->handoff.src_refs = nr;
-+	/* dropped by the promoted task */
-+	tctx->handoff.prev_refs = nr;
- }
- 
- /* move tctx task_work queued on @task along to the tctx's new task */
-@@ -205,6 +209,8 @@ void io_uring_task_sleeping(struct task_struct *tsk)
- 	struct io_handoff *ho = &tctx->handoff;
- 	struct io_kiocb *req = ho->req;
- 	struct io_ring_ctx *ctx = req->ctx;
-+	/* the identity being handed around, ours unless we're intermediate */
-+	struct task_struct *src = ho->src ?: tsk;
- 	struct task_struct *dst;
- 	bool bound;
- 
-@@ -213,23 +219,26 @@ void io_uring_task_sleeping(struct task_struct *tsk)
- 	/* the issue path is touching state that needs the ring lock held */
- 	if (ctx->submit_lock_depth)
- 		return;
--	if (!thread_handoff_prepare(tsk))
-+	if (src == tsk && !thread_handoff_prepare(tsk))
- 		return;
- 
- 	/* don't let the woken worker preempt us before we've committed */
- 	preempt_disable();
- 	bound = !io_req_unbound(req);
--	dst = io_wq_handoff_claim(tctx->io_wq, bound, io_handoff_resume);
-+	dst = io_wq_handoff_claim(tctx->io_wq, bound, io_handoff_resume, src);
- 	if (!dst) {
- 		preempt_enable();
- 		return;
- 	}
- 
- 	/* committed, @req is ours as the worker from here on */
--	ho->src = tsk;
-+	ho->src = src;
-+	ho->prev = tsk;
- 	ho->ctx = ctx;
- 	ho->bound = bound;
--	thread_handoff_stats_take(&ho->stats);
-+	/* our accounting follows the identity, an intermediate's doesn't */
-+	if (src == tsk)
-+		thread_handoff_stats_take(&ho->stats);
- 
- 	io_handoff_release_ring(ctx, ho);
- 	io_handoff_move_tctx(tctx, tsk, dst);
-@@ -261,24 +270,29 @@ int io_handoff_complete(struct io_kiocb *req, int ret)
- 	return -EIOCBQUEUED;
- }
- 
--/* runs on the promoted task, finishes io_uring_enter() for the submitter */
-+/*
-+ * Runs on the promoted task, finishes io_uring_enter() for the submitter. Only
-+ * takes its identity if it gets through the submission without handing off.
-+ */
- static long io_handoff_resume(void)
- {
- 	struct io_uring_task *tctx = current->io_uring;
- 	struct io_handoff *ho = &tctx->handoff;
--	struct task_struct *src = ho->src;
-+	struct task_struct *src = ho->src, *prev = ho->prev;
- 	struct io_ring_ctx *ctx = ho->ctx;
- 	bool bound = ho->bound;
- 	long ret;
- 
--	if (WARN_ON_ONCE(thread_handoff_finish(src, &ho->stats)))
--		force_sig(SIGKILL);
--	io_wq_handoff_finished(src);
--	put_task_struct_many(src, ho->src_refs);
--	ho->src_refs = 0;
--	ho->src = NULL;
-+	/* enough of the identity to issue requests on its behalf */
-+	thread_handoff_adopt_creds(src);
-+	put_task_struct_many(prev, ho->prev_refs);
-+	ho->prev_refs = 0;
-+	ho->prev = NULL;
- 	ho->req = NULL;
- 	ho->ctx = NULL;
-+	/* an intermediate task has nothing we still need, let it work */
-+	if (prev != src)
-+		io_wq_handoff_finished(prev);
- 
- 	/* flush what the blocked batch left behind, then submit the rest */
- 	io_run_task_work();
-@@ -291,12 +305,20 @@ static long io_handoff_resume(void)
- 		if (ret > 0)
- 			ho->consumed += ret;
- 	}
--	/* the identity came with the mask the blocking issue ran under */
--	io_handoff_submit_end();
-+
-+	mutex_unlock(&ctx->uring_lock);
-+
-+	/* submission done, become the submitter and return to userspace */
-+	if (WARN_ON_ONCE(thread_handoff_finish(src, &ho->stats)))
-+		force_sig(SIGKILL);
-+	if (ho->sigsaved)
-+		__io_handoff_restore_signals(ho);
-+	io_wq_handoff_finished(src);
-+	ho->src = NULL;
-+
- 	ret = ho->consumed;
--	if (ret != ho->to_submit) {
--		mutex_unlock(&ctx->uring_lock);
--	} else {
-+	if (ret == ho->to_submit && (ho->flags & IORING_ENTER_GETEVENTS)) {
-+		mutex_lock(&ctx->uring_lock);
- 		ret = io_uring_enter_finish(ctx, ret, ho->min_complete,
- 					    ho->flags, ho->argp, ho->argsz);
- 	}
-diff --git a/io_uring/handoff.h b/io_uring/handoff.h
-index 833c6314d3b7..b8ded4916606 100644
---- a/io_uring/handoff.h
-+++ b/io_uring/handoff.h
-@@ -44,12 +44,15 @@ static inline void io_handoff_enter(struct file *file, u32 to_submit,
- 	ho->argsz = argsz;
- }
- 
--/* a submit call is done issuing, restore the signal mask if we changed it */
-+/*
-+ * Done issuing, restore the signal mask if we changed it. Not with a handoff
-+ * in flight, io_handoff_resume() does that once it has the identity.
-+ */
- static inline void io_handoff_submit_end(void)
- {
- 	struct io_handoff *ho = &current->io_uring->handoff;
- 
--	if (unlikely(ho->sigsaved))
-+	if (unlikely(ho->sigsaved) && !ho->src)
- 		__io_handoff_restore_signals(ho);
- }
- 
-diff --git a/io_uring/io-wq.c b/io_uring/io-wq.c
-index 3d4eb4992d5b..d29e5a80eddd 100644
---- a/io_uring/io-wq.c
-+++ b/io_uring/io-wq.c
-@@ -829,22 +829,22 @@ static int io_wq_worker(void *data)
- 	 * Only returns if we got handed an identity. -EIOCBQUEUED means we got
- 	 * demoted again while running it, back to the worker loop.
- 	 */
-+	fn = io_wq_worker_run(worker);
- 	for (;;) {
--		long ret;
-+		long ret = fn();
- 
--		fn = io_wq_worker_run(worker);
--		ret = fn();
- 		/* what we return is what userspace gets on some archs */
- 		if (ret != -EIOCBQUEUED)
- 			return ret;
--		worker = current->worker_private;
-+		fn = io_wq_handoff_worker();
- 	}
- }
- 
- /* find and claim an idle sleeping worker, see io_wq_worker_idle_done() */
- static struct io_worker *io_wq_acct_handoff_claim(struct io_wq *wq,
- 						  struct io_wq_acct *acct,
--						  io_wq_handoff_fn *fn)
-+						  io_wq_handoff_fn *fn,
-+						  struct task_struct *src)
- {
- 	struct io_worker *worker, *found = NULL;
- 	struct hlist_nulls_node *n;
-@@ -856,7 +856,7 @@ static struct io_worker *io_wq_acct_handoff_claim(struct io_wq *wq,
- 		/* only claimable inside the idle sleep of the worker loop */
- 		if (!test_bit(IO_WORKER_F_IDLE_SLEEP, &worker->flags))
- 			continue;
--		if (!thread_handoff_compatible(current, worker->task))
-+		if (!thread_handoff_compatible(src, worker->task))
- 			continue;
- 		clear_bit(IO_WORKER_F_FREE, &worker->flags);
- 		hlist_nulls_del_init_rcu(&worker->nulls_node);
-@@ -897,15 +897,17 @@ int io_wq_task_work_add(struct task_struct *task, struct callback_head *cb,
- 	return 0;
- }
- 
--/* claim an idle worker to hand our identity to, pairs with _commit() */
-+/* claim an idle worker to hand @src's identity to, pairs with _commit() */
- struct task_struct *io_wq_handoff_claim(struct io_wq *wq, bool bound,
--					io_wq_handoff_fn *fn)
-+					io_wq_handoff_fn *fn,
-+					struct task_struct *src)
- {
- 	struct io_worker *worker;
- 
--	worker = io_wq_acct_handoff_claim(wq, io_get_acct(wq, bound), fn);
-+	worker = io_wq_acct_handoff_claim(wq, io_get_acct(wq, bound), fn, src);
- 	if (!worker)
--		worker = io_wq_acct_handoff_claim(wq, io_get_acct(wq, !bound), fn);
-+		worker = io_wq_acct_handoff_claim(wq, io_get_acct(wq, !bound),
-+						  fn, src);
- 	if (worker)
- 		return worker->task;
- 	return NULL;
-@@ -958,9 +960,14 @@ io_wq_handoff_fn *io_wq_handoff_worker(void)
- 
- 	WARN_ON_ONCE(!io_wq_current_is_worker());
- 
--	/* the promoted task reads our state until it's done migrating it */
--	wait_var_event(&worker->handoff,
--		atomic_read_acquire(&worker->handoff) == IO_WORKER_HANDOFF_FINISHED);
-+	/*
-+	 * Wait until nobody needs our state anymore, which may be a while if
-+	 * an identity is still parked on us. Hence TASK_IDLE.
-+	 */
-+	___wait_var_event(&worker->handoff,
-+			  atomic_read_acquire(&worker->handoff) ==
-+						IO_WORKER_HANDOFF_FINISHED,
-+			  TASK_IDLE, 0, 0, schedule());
- 	atomic_set(&worker->handoff, IO_WORKER_HANDOFF_NONE);
- 
- 	snprintf(buf, sizeof(buf), "iou-wrk-%d", worker->wq->task->pid);
-diff --git a/io_uring/io-wq.h b/io_uring/io-wq.h
-index 98357b665e54..df451838828d 100644
---- a/io_uring/io-wq.h
-+++ b/io_uring/io-wq.h
-@@ -52,7 +52,8 @@ typedef long (io_wq_handoff_fn)(void);
- 
- /* claim an idle worker, it runs @fn instead of the worker loop when woken */
- struct task_struct *io_wq_handoff_claim(struct io_wq *wq, bool bound,
--					io_wq_handoff_fn *fn);
-+					io_wq_handoff_fn *fn,
-+					struct task_struct *src);
- 
- void io_wq_handoff_commit(struct task_struct *dst);
- io_wq_handoff_fn *io_wq_handoff_worker(void);
-diff --git a/kernel/thread_handoff.c b/kernel/thread_handoff.c
-index 1901eb85bae8..822fdd9a0e7f 100644
---- a/kernel/thread_handoff.c
-+++ b/kernel/thread_handoff.c
-@@ -393,6 +393,12 @@ static void thread_handoff_creds(struct task_struct *dst,
- 	put_cred_many(old, 2);
- }
- 
-+/* the part of thread_handoff_finish() needed to run kernel code for @src */
-+void thread_handoff_adopt_creds(struct task_struct *src)
-+{
-+	thread_handoff_creds(current, src);
-+}
-+
- /* the user requested affinity follows, the effective mask derives from it */
- static void thread_handoff_affinity(struct task_struct *dst,
- 				    struct task_struct *src)
+-	/* userspace asked for it, keep the explicit offload */
+-	if (req->flags & REQ_F_ASYNC_USER)
+-		return true;
+ 	if (req->ctx->int_flags & IO_RING_F_DRAIN_ACTIVE)
+ 		return true;
+ 	/* the file decides on pollability, resolve it now if fixed */
 -- 
 2.55.0
 
