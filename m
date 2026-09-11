@@ -1,105 +1,108 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0347623D7FF
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:15:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from fout-a5-smtp.messagingengine.com (fout-a5-smtp.messagingengine.com [103.168.172.148])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A00D23D7FF
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:16:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.148
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789136150; cv=none; b=ZL0exEdlO8KEghQTXHpQnwAahlefWHlv3zxhRd2YoPj2kUrQbFKH0j00RvoRzgOs3sE7kijCSypEuc8k3RxShRI0lzAO/Y2bAqIr8pfU3s5abPk9ZJ6v0TOurZSRDSvkdom2sOoIqfnQZgQiE3yDKxE72e5P52GQxDDhcd760Lw=
+	t=1789136170; cv=none; b=HRXSFonifOR34EctcCDjQMf3Tdw6J5WXGUqZlYDstCoqYzhOsdYgA6whIY9iB5Fx9aBJB+/RWOI05VWkDSF3wqm50PGhFFojxblUgxp1e5ukjk8Z0MxvFSjQoUoRfhC7PPiYHqi0SS3xENEf7z0L1tIsaFvctCMdHRlqomKfhSE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789136150; c=relaxed/simple;
-	bh=d6mzXbmJYFm0GynqcHkfdRTupKXChsoklSxL3P+yA9A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WnlmVyhmPxVPji8lq3W1p7usQ2qDwCeBi/cjqwZDHmMnzSchwDVKeOtvD8PSKf10WQDEiSiO34nhi0hdMmm1j6tujvpxOjXYu/4krm8SIru+0cxfHl7kPXYW7GSZiFPDczWZA0ZJ1uBFnYENbv2gTbJHVItnihSBcK6CgEU12No=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=fmcup4RL; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789136170; c=relaxed/simple;
+	bh=yCvjTnBgzRgZnaNt5x6C16omR5bABmY6878VdVgjGyU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JljNhbk+uOodMCBYkM3HuBAMIT2RNBwIpng9NQicKxDitI97oMhVeFIFz/3hfh3nn76N5M4x9x9tJu3FIBIv4dxqyb/fKQEbJpNYlV3b5NUz3QvY6ueNMO2jWSp2f89CbxV2xD4yaMaIh3z+kUBnJyCzmx4QiA4wGI5G9R9sfwY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=ZO67rZwL; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=bILzHFpP; arc=none smtp.client-ip=103.168.172.148
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="fmcup4RL"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9AD9C16F2;
-	Fri, 11 Sep 2026 07:15:44 -0700 (PDT)
-Received: from [10.57.73.19] (unknown [10.57.73.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B6D193F7B4;
-	Fri, 11 Sep 2026 07:15:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789136148; bh=d6mzXbmJYFm0GynqcHkfdRTupKXChsoklSxL3P+yA9A=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=fmcup4RLpkQPrB7uRbMMbrAv43xH71VYNGkTpY8+FbNIAeNMuNklcinPYlN6V44AQ
-	 TaJ5cHe04TW8rkSnz3vYYQzfIi7N4Nf9ZWEZGjFMV1CKICVhPyJtkiHWnEAM55SduO
-	 eWCfO0AJalfAUzdhKo1Wd+i+j4Qb0aUvdYUqHgNw=
-Message-ID: <2646dfa6-3f0f-49d1-a7d8-4b93fbd1ec71@arm.com>
-Date: Fri, 11 Sep 2026 16:15:42 +0200
+	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="ZO67rZwL";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="bILzHFpP"
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfout.phl.internal (Postfix) with ESMTP id 2A9BDEC005A;
+	Fri, 11 Sep 2026 10:16:07 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-06.internal (MEProxy); Fri, 11 Sep 2026 10:16:07 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
+	:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to; s=fm1; t=1789136167; x=1789222567; bh=CcsekVvwKY
+	he2s+Q6czENkfa8S7o+3/QkD3gQQ7ZUhE=; b=ZO67rZwLWeQOkQ58XlhJEKRCd3
+	PrBP5pE88T+V5ShscI1Gi7ku7zKbOlouPJmRRDSU0CgNu9kZKm8GfgJLFk1CgN7J
+	E5pCrgUOpeYJlUGo/dOmJiWfDRLIbriyETO00qWcTiB8cjGXH7H+w48MPxmX47OH
+	6ANrv8gP3dIujgF1kNz/BszLzaTKxzlc5+X5yaA8gJJe+3aDSYb9J7w/YSY5DoaO
+	N4bBu3go3NQvsi/vr9riQokCkJbfL1Aq24zuCbRezuBxqlAlweZ8buDS2Lx8E5YO
+	eyGr6moCEZ7Qh+b4eiKsuToMIoUv3lG/zfHbcsZI9J7/6D0nPcIyizTDAPNg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1789136167; x=1789222567; bh=CcsekVvwKYhe2s+Q6czENkfa8S7o+3/QkD3
+	gQQ7ZUhE=; b=bILzHFpPaNiFjVK6YXf0XYCB7C1zOVZJVo4nkL5sc3IeXJ4O19d
+	mRp+qH+W3ALPQaXO1Bc6ZAZ6zlpk2iqPXF/X0t/qBRWJrhkI0y/4mExFw5C6g0sG
+	KTNuw7rCRolEdvgz7OibnFNWVhWZz3bPezC7P8xlZWq1hxbpnHh1DbX9EcrT+qqI
+	iPme+jf9GviH4RS6VMn4AmFq7OcroN5qpYTjjVdj+GcAUzb9W55fy8KrLxqdScIS
+	HoU4B0eSIUyvVIvVz48cUOlYw5WHefMETlavhm6wufjmOgrdyDIqH8cL0QFqPdlj
+	2+CGR92H5xYIYrdubJC9ym1olGUl/CCeXyw==
+X-ME-Sender: <xms:Jw2kaqymdqGAdH7269G4Ip-f28GXGWg981-L4UmREMAsifTaKyYKNQ>
+    <xme:Jw2kakPIrU83_Jn4oyKllnKmxu6XzjZhpF7POjPtq8M0tJEYfrXAklZe_r7GhDNhs
+    cPglQL6oRlAc8RrJSay4wgcbPG0N4MC2wMwTgqfuu4i_wAKEAYQJiLj>
+X-ME-Received: <xmr:Jw2kaj70dLAFWwyy3mvWM6miGKb6-LQdR3sGbHziowyHPeWm1m9BaivIHLuPwsHFxDctLMbmFEqthEeBZVJje9W4jjkCkmwktf6nQoFhtyFkjg>
+X-ME-Proxy-Cause: dmFkZTE1RZ+L4h0E2e2Has1c34TkEhdu+M+Tp1QbdjUiohT+KirTPQBqWKRbnMpWaiYUpl
+    9h/42k3ausgx+d8XqQRjNcpyfjjgg3foPsKr8MBC8CIe723K+ILqgiQtN9CRHrLtbh+uMl
+    579VlEw4BcAEZTm6J1vJNi3sn93hJuQVWdj1UPrdTGWB8O1duv+Q10tBhserL0HRwZTLcS
+    EDgT3n0ynMclOEWsQYAcaVDovCIijyV/SYGHH39rayiEi7qL/fCYkujonuKOlfhupYtpNY
+    Nbof8HaVS7T5Na1p35wY+ky+xgPz9Cf4t+F9xnVPQbl9M+Gu0wFcm4kxBNa4cKBxme55So
+    cTBGEF8BHgorn2ANtYkFj2XvRtANcxcSMAvdG+bbAzPTZ5WJoePKkOhjAturvqSCuXgcrV
+    WuQcPNiGf6vKVHrpsCTPSTWiw1PYSUNj1PCBaLhdx+/eRqfsStyZCu01Hzoipmsc+U+JkU
+    VkLDWkrR/+xZw6UIY+RwYeaKIWclWOM7oXUjRLkCb5L6kF1OUOWpOwryC7/dsfzfaRltnG
+    f4wcwZ9CYRgBcS4rKGhfIzxmyH+ihYTbMCCNO/oelWrVQEZ3aYMKcMJTXdJA+oWRfHAY8L
+    m1hlG0Q4ygRN3hBQA/xpvhABsSB44y/9IzXDRP1uKfeUfGlU5StKJ+fJcf6A
+X-ME-Proxy: <xmx:Jw2katOd-7-sBMjNQOPpA0-B0n9ezO4_hmENX_DYaIIqjKWGJI5gFg>
+    <xmx:Jw2kapl3BiIcpDxj9zhATLRwDPmh5-MbUdLrsWxKJOg563NNLtM6dg>
+    <xmx:Jw2kasRZEu17hhQl55H7q20sgoVQx_AE46YhTIDH-2G9diwYJSsnhQ>
+    <xmx:Jw2katBYpFrnzZNnb1T8U6QneJQs1xv5uiU8c8mIgThB_ydpfbAqfw>
+    <xmx:Jw2kaqkty7QiHTiX4F2v1_LrI1PfdWbDcg1Z1-pg9hav5zyrHwa5dFqG>
+Feedback-ID: ie8e14432:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 11 Sep 2026 10:16:06 -0400 (EDT)
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: linux1394-devel@lists.sourceforge.net
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH] firewire: core: remove unused link field in fw_packet structure
+Date: Fri, 11 Sep 2026 23:16:02 +0900
+Message-ID: <20260911141602.3288806-1-o-takashi@sakamocchi.jp>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] arm64: topology: Prefer PE0 on NVIDIA Olympus SMT
- cores
-To: Andrea Righi <arighi@nvidia.com>
-Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
- Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
- Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
- K Prateek Nayak <kprateek.nayak@amd.com>, Mark Rutland
- <mark.rutland@arm.com>, Christian Loehle <christian.loehle@arm.com>,
- Shrikanth Hegde <sshegde@linux.ibm.com>, Phil Auld <pauld@redhat.com>,
- Breno Leitao <leitao@debian.org>, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260909062649.469633-1-arighi@nvidia.com>
- <20260909062649.469633-2-arighi@nvidia.com>
- <89694e14-4be8-4c9e-9d7b-2808f87dd95f@arm.com> <aqGGlNce4TRLS1cW@gpd4>
- <1528999e-eb59-416f-b18f-2a7667e61a90@arm.com> <aqPFpUw9Y4Ui8ia-@gpd4>
-Content-Language: en-GB
-From: Dietmar Eggemann <dietmar.eggemann@arm.com>
-In-Reply-To: <aqPFpUw9Y4Ui8ia-@gpd4>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11.09.26 11:11, Andrea Righi wrote:
-> Hi Dietmar,
-> 
-> On Thu, Sep 10, 2026 at 12:11:06PM +0200, Dietmar Eggemann wrote:
->> On 09.09.26 18:17, Andrea Righi wrote:
->>> On Wed, Sep 09, 2026 at 05:19:08PM +0200, Dietmar Eggemann wrote:
->>>> On 09.09.26 08:26, Andrea Righi wrote:
+The link field in fw_packet structure has never been used since it was
+added.
 
-[...]
-> I think we can avoid an arm64 override entirely and rely on the default
-> implementation:
-> 
-> int __weak arch_asym_cpu_priority(int cpu)
-> {
-> 	return -cpu;
-> }
-> 
-> The boot option would only add SD_ASYM_PACKING to the SMT domain. A rough
-> prototype could look like this in kernel/sched/topology.c:
-> 
-> static bool sched_smt_asym_packing __read_mostly;
-> 
-> static int __init setup_sched_smt_asym_packing(char *str)
-> {
-> 	sched_smt_asym_packing = true;
-> 	return 1;
-> }
-> __setup("sched_smt_asym_packing", setup_sched_smt_asym_packing);
-> 
-> int cpu_smt_flags(void)
-> {
-> 	int flags = SD_SHARE_CPUCAPACITY | SD_SHARE_LLC;
-> 
-> 	if (sched_smt_asym_packing)
-> 		flags |= SD_ASYM_PACKING;
-> 
-> 	return flags;
-> }
-> 
-> This would make the option generic rather than specific to arm64 or Olympus.
-Ah, OK, no arm64 private 'struct sched_domain_topology_level
-arm64_asym_smt_topology[]' anymore.
+Fixes: 3038e353cfaf ("firewire: Add core firewire stack.")
+Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+---
+ include/linux/firewire.h | 1 -
+ 1 file changed, 1 deletion(-)
 
-[...]
+diff --git a/include/linux/firewire.h b/include/linux/firewire.h
+index 7fa1a3fc8ed4..a1e0cb4526c9 100644
+--- a/include/linux/firewire.h
++++ b/include/linux/firewire.h
+@@ -337,7 +337,6 @@ struct fw_packet {
+ 	 */
+ 	fw_packet_callback_t callback;
+ 	int ack;
+-	struct list_head link;
+ 	void *driver_data;
+ };
+ 
+
+base-commit: 4cb9978b4c66b6fcf529a39ec6869671735fdd2a
+-- 
+2.53.0
+
