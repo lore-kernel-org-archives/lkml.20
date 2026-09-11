@@ -1,96 +1,102 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.5])
+Received: from out28-124.mail.aliyun.com (out28-124.mail.aliyun.com [115.124.28.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B503B434983;
-	Fri, 11 Sep 2026 08:19:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B9EC448D16;
+	Fri, 11 Sep 2026 08:19:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789114771; cv=none; b=u2PXLtGjDPXtARcvvmtlbKhiTgzch3Y/mkD7XIsOf+zRF414U2Lq6KXSVYvX7s+UDeCNuDPFHBPjToFCwYK6PHh3iuS9sACrHWmRhTJgkFTCCSF/vuav82mWQTr8C80ny1ejaXo4xSNNVByxoOhkpYuo1RWbUwtY0wW3y/xPihc=
+	t=1789114786; cv=none; b=UU0UQbmLPw3cJrcvHCxZkexGvgnSFuKxs6a7xTlZPF+6e6YvtQqFZ91BWNymOKzuXnERoYSsNy2vE9U+XDAtNydF4E3ArFKTFSLgcPHULKgZc7R4wfzM1UGZbQmEDb44x94/JY9StTySlmvyoVcuB/pbcqFbzVhTke2k5hb0kOI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789114771; c=relaxed/simple;
-	bh=ePVUWYy1WmpEjDl6lK+lvTdr9681C/JJnc/TLu9nOSY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ADaoIOxv1xAUkQH4yVsTZ6irWyoe1Cjt28GMvlucXWpqDcOtJPomAfudXld4SZVckc7oEJpVJ2vvLnY8jhHurt0lIzjMiP2LZekQwMj8uLwonjoXEzMKjaP6g6YL9xtX8c1UmDzjlJS4tTPuC7WTbpzjSRTwpPX3r3g6EEGzTCs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UxtrHbyI; arc=none smtp.client-ip=192.198.163.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UxtrHbyI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789114770; x=1820650770;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=ePVUWYy1WmpEjDl6lK+lvTdr9681C/JJnc/TLu9nOSY=;
-  b=UxtrHbyI9WOuNew7RSBGkRsPn358RbdFZ4/EByR3gEYcTzXvdGVoYccR
-   kV9U8l3MuTAn+eRR+AJ0lMh67KmINm+AUEIPkXC3wKy4izEmZk+dySK90
-   EoJiP5N17NkE7ZQcDiiooHeewv+ypQ94xX4DX+BFVR8a2BGivlfjdgNEZ
-   H1C62QVrkeL89slb5fL+72/Oh1VLScfZsiv67VxjPnC0uWiMK5gOJAjK5
-   A9ALcLz4PoW1zLO89QNY0Q51O4R7cU7zZL3RaX+wrDEfArxVsrFJ8FdV5
-   Ga8kVRJxwDhXOLP3gjdyJAxVkeXNlPMMa6cnFuTj1EoXda30phTSmxWyU
-   w==;
-X-CSE-ConnectionGUID: 3b9HGguHTxG66jGoS3csGw==
-X-CSE-MsgGUID: sRLQkicBRc2e3CZphbnyaA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11901"; a="85832"
-X-IronPort-AV: E=Sophos;i="6.27,96,1787036400"; 
-   d="scan'208";a="85832"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa115.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 01:19:22 -0700
-X-CSE-ConnectionGUID: YtiXrPu5RpKImt1K5sLzFQ==
-X-CSE-MsgGUID: KkU2ZgFSS5WnRiBieYr5jA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,96,1787036400"; 
-   d="scan'208";a="301758984"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.80])
-  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 01:19:11 -0700
-Date: Fri, 11 Sep 2026 11:19:06 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Janani Sunil <janani.sunil@analog.com>
-Cc: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Olivier Moysan <olivier.moysan@foss.st.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Michael Walle <mwalle@kernel.org>,
-	Randy Dunlap <rdunlap@infradead.org>, linux@analog.com,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-doc@vger.kernel.org, jananisunil.dev@gmail.com,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
-Subject: Re: [PATCH v7 04/17] iio: adc: adi-axi-adc: Add support for CRC
-Message-ID: <aqO5el6eRuMW7NuK@ashevche-desk.local>
-References: <20260910-ad7768-driver-v7-0-7f70b07627e1@analog.com>
- <20260910-ad7768-driver-v7-4-7f70b07627e1@analog.com>
+	s=arc-20240116; t=1789114786; c=relaxed/simple;
+	bh=N3S6b+Az5g4o5di2mJ6MI9dgWyzxca/Ar2fC9gYpsAo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FnzW8HHjC4IRqlesV7+kQTbhCPf5eHi5VrCmlBSdqenIhd7o8ZcYZ5v+M2NQZI0tS8M12ZVoWas2XqvWd72IPHOChA2O+A9GIVjEpVbmA9IsUX7MavppaadYZdAithN9yrLOtloIoroQSQXee0xW/gs1GWVpE+Jr1ufkCmXAY1o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net; spf=pass smtp.mailfrom=open-hieco.net; arc=none smtp.client-ip=115.124.28.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.09209158|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.0787936-0.000257506-0.920949;FP=7864596658906816633|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033040074035;MF=yehuaisheng@open-hieco.net;NM=1;PH=DS;RN=7;RT=7;SR=0;TI=SMTPD_---.jB9h8rm_1789114770;
+Received: from 172.18.22.180(mailfrom:yehuaisheng@open-hieco.net fp:SMTPD_---.jB9h8rm_1789114770 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Fri, 11 Sep 2026 16:19:31 +0800
+Message-ID: <17ebffd9-1ec3-4a34-85b5-fa00eb516478@open-hieco.net>
+Date: Fri, 11 Sep 2026 16:19:29 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260910-ad7768-driver-v7-4-7f70b07627e1@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/hugetlb: account for allowed nodes when gathering
+ surplus pages
+To: Muchun Song <muchun.song@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: osalvador@suse.de, linux-mm@kvack.org, david@kernel.org,
+ linux-kernel@vger.kernel.org, linux-cxl@vger.kernel.org
+References: <20260909074642.7308-1-yehuaisheng@open-hieco.net>
+ <8A0F6014-4E2C-4F07-9732-2DF32418B986@linux.dev>
+ <20260910152026.5bcf5c5d7f1ecdcb0147ceaf@linux-foundation.org>
+ <35D58CFB-BC97-4245-A387-DB3077E395C3@linux.dev>
+From: Huaisheng Ye <yehuaisheng@open-hieco.net>
+In-Reply-To: <35D58CFB-BC97-4245-A387-DB3077E395C3@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 10, 2026 at 07:36:22PM +0200, Janani Sunil wrote:
-> Add support for enabling and disabling Cyclic Redundancy Check (CRC)
-> processing in the AXI ADC backend. CRC provides data integrity verification
-> for high-speed ADC data streams, ensuring reliable data transfer between
-> the ADC frontend and backend processing systems.
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
--- 
-With Best Regards,
-Andy Shevchenko
+On 9/11/2026 10:41, Muchun Song wrote:
+>
+>> On Sep 11, 2026, at 06:20, Andrew Morton <akpm@linux-foundation.org> wrote:
+>>
+>> On Thu, 10 Sep 2026 16:48:56 +0800 Muchun Song <muchun.song@linux.dev> wrote:
+>>
+>>>> This fixes hugetlb mappings when, for example, a task runs with
+>>>> MPOL_BIND on Node 1 while the existing free huge pages are on Node 0.
+>>>>
+>>>> Similar issue also could be found in ltp if the free pages of global pool
+>>>> reside outside the nodes allowed by the application.
+>>>> # cd ltp/testcases/kernel/mem/hugetlb/hugemmap/
+>>>> # numactl --cpunodebind=0 --membind=1 ./hugemmap10
+>>>>
+>>>> Signed-off-by: Huaisheng Ye <yehuaisheng@open-hieco.net>
+>>> Acked-by: Muchun Song <muchun.song@linux.dev>
+>> Should we backport this?
+>>
+>> If so, a Fixes: target would be helpful.
+> I believe the fix should be e4e574b767ba ("hugetlb: Try to grow hugetlb
+> pool for MAP_SHARED mappings"). This commit was introduced back in 2007.
+> Regarding the impact of this issue, I consulted an AI:
+>
+> Severity: Medium
+> Impact: valid HugeTLB mappings can be rejected with ENOMEM
+> Scope: NUMA + cpuset/MPOL_BIND + nr_overcommit_hugepages
+> Risk: availability/configuration failure, no data corruption
+>
+>
+> The fact that it has only been triggered after such a long time also
+> precisely shows how uncommon its configuration is. I expect that
+> backporting may encounter some conflicts. In the absence of clear user
+> feedback, I personally suggest not doing a backport.
+>
+> Of course, as the author of this patch, you could also provide more
+> information, for example, whether it was discovered as a real issue
+> in a production environment, so as to decide whether to proceed with
+> a backport.
+We found this defect when doing the hugemmap10 test of LTP, it appears
+with a certain probability (5%) in scenarios involving multiple NUMA nodes.
+After debugging, I believe its occurrence is related to the location of
+the regular huge page pool and the MPOL_BIND strategy used for allocating 
+surplus pages.
+So I moved to hugetlb-mmap with some simple setup steps to make it reproduce stably.
 
+A more realistic scenario I have in mind is this, user uses huge pages in memory
+pooling solutions like CXL memory expander or others, if there are already some 
+regular
+huge pages locates on the local node, but user wants to restrict application to use
+surplus pages from remote nodes — and that's when the failure occurs.
+
+CC linux-cxl.
+
+BRs,
+Huaisheng Ye
 
