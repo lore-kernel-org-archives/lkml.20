@@ -1,130 +1,107 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B08DD3CAA50
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:09:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93A45408031
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:10:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789121371; cv=none; b=pdEu4ydD5itDLX9cHDrXa6gzvxO8erw7kOa3ktSsnme7G3UOzd2tjfWrXZG0Tj/6Cq8cp2TH6/s/kHkmpQc8XVTeR595tjX/bI0pORtquahO/TQ5e7n6F5B3kOcLRiVok391XXtrh9izzWOPaNDVJI/QS2N08JVzZX8UU9wKDcY=
+	t=1789121459; cv=none; b=Upbpn8zf2FF6bcSgFgJMTmW4Q2FnPyeOJd9Mpb1O7KKZ8psRAyvukEz03IoPnCP2lhWfitH+PjjbO6tvaXiqkguPZu33OHlp3TqCoD0cR50AzRjFygmCVe7FCzbzevC1ng4Or3UmoRq8bVuowb8AXBpweO17oPSMrQPQb4u0mM4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789121371; c=relaxed/simple;
-	bh=X35d2sCJ1bMzS/xHTowMNlqo73R5W1wzBnB8ogjZpqM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kl6v64Fjn0Y0WypanHywq2MDUKh8Nfv8OE9GFqx+1xpuHRAPsDsjq/uXT7jZNJdUZQ5feqN0xwtAxU6J6PkltR32k0kMjgz/FTV/5yBP53yfnXCA3cPdw+p0h/OlLSU5JfY5HB7rK3iPCAxXGLpdXoyZLxGXfZl7DQ954FA+hHg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=sOIkc+/D; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789121459; c=relaxed/simple;
+	bh=1YRDDj3j2Vt1vNRZqhNjgjJMoy05JYx0QLGi7wz+esk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UPE9T1uaghARxrYHS54L2GJe1S1Suwd8uOYYqv1DLdMwb/0KjuEpCGjHXIrL+BTMvphVXEuFAh4k1Z6xxNHkwuuYwifsBEHJGwODb6C/rj0pkIrrYRKsD7kToEkwbgRm0oueeBlGSGyJAXGSm/jUWIicDVo4HDWKpwRdJUvdC2I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com; spf=pass smtp.mailfrom=konsulko.com; dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b=CF8MyNtw; arc=none smtp.client-ip=209.85.208.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=konsulko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="sOIkc+/D"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9BD991655;
-	Fri, 11 Sep 2026 03:09:23 -0700 (PDT)
-Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 58F8A3F7B4;
-	Fri, 11 Sep 2026 03:09:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789121367; bh=X35d2sCJ1bMzS/xHTowMNlqo73R5W1wzBnB8ogjZpqM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=sOIkc+/DOWgnwU7l7WDtETNyCXHfZ2a/LqiWv6TxLJuOuOezEkOwH/FmHb4zlxG8/
-	 rnMGqj0hE7NhTVnsiNFCo52W37p7SF+YMwf3OPDc6zAfmOiaJq0vEmd59y1r+ePDUA
-	 7VEvs7t5WPDqK9fq8iWwBbkMgts/VLEtCCZAuRyg=
-Message-ID: <3f39918f-91c0-4411-88d2-1ab1db3f12d8@arm.com>
-Date: Fri, 11 Sep 2026 11:09:23 +0100
+	dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b="CF8MyNtw"
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6a9a20a5e72so1137355a12.0
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 03:10:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=konsulko.com; s=google; t=1789121456; x=1789726256; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=BMUFQ99hb77UHdAvDILnPay4glWU4keZPMlyptDT9kA=;
+        b=CF8MyNtwumX/kz/jtzkE3vs8eoW41h8N9BB32tZUo7BX7sWiwGuQpBX6RLBAyh/nyq
+         1ADtrDY5HN6eGlNii/qurybYXkXO2UhBDWVDuY1crtxcQ2kugJT/62+SROiSNFi+wQe7
+         edSk+/RzJqTNwc80DCl4twdLYt/qPKMSXUwAU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789121456; x=1789726256;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BMUFQ99hb77UHdAvDILnPay4glWU4keZPMlyptDT9kA=;
+        b=CUBfbs2pL65AzB0ufUAIbJ8HyKAmamYhgkAeDLy1iaIsMnl53+et3zVdgI6at9G+q/
+         Boz7nMcGnS733zONHsMa7HH77tccpyLhHrxMk8uXSfUcXy+Xv8oMYXOmUX6kAgEOo/Zo
+         GsRAMTKKHEv0a3Wn4WZR1zXA0Ys546dBuW0tOquY38cesOEPrpb+eLFD5+HgPLmbm2WS
+         tU0ealvA/gy1ouMIngrtOneAzOlDJ8D9ok7+H12QbsfENZC1Ebg+QJuiyUNYNRXaQuyW
+         3/gW4IA8EHGPfoC5kJ8pfB00aoWrv7on8hK/MVJOUM2caxsD2289B2aCDPeKi7sJuDJJ
+         SS6g==
+X-Gm-Message-State: AFuF++mOslftGH4kqKTdnTkpd756lW61KQVHSb9KoA8+tKfBdTB8EAmI
+	hip+Zz6EGEuMGm6lVMrQ+vKT5vLxKvSeC//Pmr/OXOwM2b4d0hMvX3OugIOQIo3aUf0=
+X-Gm-Gg: AYBFou0VGUljnwMoQDqH4ucuZv8PX0HVwxz/HaQI5x9YkhWmFjf7lK0AGFu5OSqtv7H
+	ZyiQIv5xhxqI1JxM15hXy2oVfAnhTpAiMyfn5/NVTEcXSz6Vqn4Q23NFjNFdLpQV5I/4npbl4qW
+	eHdbOL8SgV+UaDRdO8fq16D3klT06J4eccXcfZHgb3KaJkGBQQ14wBnw/DVh3MfOwUCX6a8Az6t
+	YpMsjM0agI44G2jk1KvsjrcpvWGH7Fb0392d9yBRjB2dCIA3mm52hDindDGfalRtqFO9rfYGJeL
+	OssO2Wp/OY3VqgEEtYiMRy+44btE2OC+iCsL7oGriOjAmMsSAkbFfGZ20Dkaevci/Uajj6Opet4
+	OTJzhna8zgNmmQg7RhtO3i1vcWTpE7/WMx7995dZWbUa6z4B3E6r68kZTB/jFHrE/q5TLXZnpka
+	j7PGTjQa5BsH+VwXSnyhRVC0Xr3CuCxb3SrGkuAnZd08VXjD1RdBiMZmwBmK4+whLUBgbVaWJrD
+	jPhQdOPHlkov4am
+X-Received: by 2002:a05:6402:450f:b0:6a7:f505:ef3a with SMTP id 4fb4d7f45d1cf-6a9b56c5debmr1418388a12.35.1789121455656;
+        Fri, 11 Sep 2026 03:10:55 -0700 (PDT)
+Received: from carbon.k.g ([85.187.61.220])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a9b58f8beesm578104a12.8.2026.09.11.03.10.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 03:10:54 -0700 (PDT)
+Date: Fri, 11 Sep 2026 13:10:51 +0300
+From: Petko Manolov <petko.manolov@konsulko.com>
+To: Dinh Nguyen <dinguyen@kernel.org>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Subject: Re: [PATCH v3 3/3] Add socfpga devicetree for Draeger's M48 board.
+Message-ID: <20260911101051.GF722@carbon.k.g>
+References: <20260909111513.2259643-1-petko.manolov@konsulko.com>
+ <20260909111513.2259643-4-petko.manolov@konsulko.com>
+ <0b682ab0-731d-49dc-a7f8-64c4d71bed71@kernel.org>
+ <20260911092541.GE722@carbon.k.g>
+ <1f61bd22-4e1d-44ae-b4d6-9426fb9dfddf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC v2] arm,x86,fs/resctrl: Generic schema description Proof of
- Concept
-To: Reinette Chatre <reinette.chatre@intel.com>,
- Fenghua Yu <fenghuay@nvidia.com>, Tony Luck <tony.luck@intel.com>,
- James Morse <james.morse@arm.com>, Dave Martin <Dave.Martin@arm.com>,
- Babu Moger <babu.moger@amd.com>, Drew Fustini <fustini@kernel.org>,
- Chen Yu <yu.c.chen@intel.com>
-Cc: Borislav Petkov <bp@alien8.de>, Thomas Gleixner <tglx@linutronix.de>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- Peter Newman <peternewman@google.com>, "x86@kernel.org" <x86@kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <d258a32f-12d5-464d-abe9-4720fb3e44b3@intel.com>
- <eed6d913-c01e-46d4-b249-68d2e7f5b616@nvidia.com>
- <6cf3efa5-697f-476d-9f8b-0c97bebd706b@intel.com>
-Content-Language: en-US
-From: Ben Horgan <ben.horgan@arm.com>
-In-Reply-To: <6cf3efa5-697f-476d-9f8b-0c97bebd706b@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1f61bd22-4e1d-44ae-b4d6-9426fb9dfddf@kernel.org>
 
-Hi Reinette, Fenghua,
-
-A couple more thoughts on emulation.
-
-On 10/08/2026 16:53, Reinette Chatre wrote:
-> Hi Fenghua,
+On 26-09-11 04:54:21, Dinh Nguyen wrote:
 > 
-> On 8/9/26 7:55 PM, Fenghua Yu wrote:
->> On 8/3/26 22:26, Reinette Chatre wrote:
->> With minor MPAM changes, I can do simple tests on MPAM:
->> -               INIT_LIST_HEAD(&hw_ctrl->r_ctrl.emulated_by);
->> +               INIT_LIST_HEAD(&mpam_ctrl->r_ctrl.emulated_by);
->>
->> -               INIT_LIST_HEAD(&hw_ctrl->r_ctrl.emulated_by);
->> +               INIT_LIST_HEAD(&mpam_ctrl->r_ctrl.emulated_by);
->>
->> There is a branch resctrl/controls_rfc_v2.1. Seems no diff from controls_rfc_v2. Is either branch OK for base code?
 > 
-> hmmm ... branch resctrl/controls_rfc_v2.1 should have the change you note above
-> and would be the right branch for you to use.
-> That is the only difference with resctrl/controls_rfc_v2.
+> On 9/11/26 04:25, Petko Manolov wrote:
+> > On 26-09-09 08:36:14, Dinh Nguyen wrote:
+> > > 
+> > > On 9/9/26 06:15, Petko Manolov wrote:
+> > > > 
+> > > > +				bank-name = "SYNC_I";
+> > > 
+> > > bank-name? I don't see it documented anywhere.
+> > 
+> > These DTs come from u-boot where it is documented.  What would be the
+> > correct approach: to drop the property or document it?
+> > 
 > 
->>
->>  * @emulated_by:List of controls that emulate this control. When set the containing
->>  *              struct resctrl_ctrl is likely a legacy control and @emulated_by
->>  *              are the finer grained hardware controls used to back the legacy
->>  *              control. This emulation is hidden from user in schemata file when
->>  *              rdt_resource::ctrl_mode is RESCTRL_CTRL_MODE_LEGACY and
->>  *              exposed when rdt_resource::ctrl_mode is
->>  *              RESCTRL_CTRL_MODE_NATIVE.
->>  */
->> struct resctrl_ctrl {
->> ...
->>         struct list_head        emulated_by;
->> };
->>
->> Does this mean a legacy resctrl control can be emulated by a few
->> resctrl controls (which is stored in the list)?
->>
->> e.g. legacy MB control can be emulated by a few controls? I thought
->> "MB:" line is emulated by only one native control. e.g. "MB:" line
->> is emulated by "MB_NODE:" line.
-> 
-> As Chenyu highlighted this is to support region-aware. 
-> 
-> While I did originally suggest MB_NODE to emulate MB I learned from Ben just
-> how troublesome this can be. I am still trying to untangle how MPAM MSC and
-> AMD GLBE can be supported in this new interface. Could you please consider the
-> most recent message on this topic:
-> https://lore.kernel.org/lkml/bccb1249-e722-451a-9c75-8aa846713045@intel.com/
+> DTs come from Linux, not the other way around. I don't see "bank-name"
 
-For the emulation of MB. I think in the case where the MPAM driver currently uses the memory class
-to back it (single L3/single NUMA node) then it would be most correct for the MB control to become
-MB_NODE_MAX when switching from legacy to native. As previously discussed, in the other case when MB
-is backed by a cache class then I don't think it makes sense for MB_NODE to emulate MB.
+I was explaining the origin of "bank-name", not that we should reverse the
+process.
 
-I'm wondering if it would be best to make the legacy/native switch a mount option (--native). By not
-being resource specific it allows controls to move between resources where that is appropriate. A
-mount option would also allow multiple user programs to interact with the schemata and size files
-without worrying that the format would change under their feet. What do you think?
+> I don't see how the property is getting used in the driver.
 
-Thanks,
+This is enough as a clue.  I'll just drop the property.
 
-Ben
 
-> 
-> You can find more context in thread starting at
-> https://lore.kernel.org/lkml/4ef15dde-2fbb-4763-93b6-4333b02d6859@arm.com/
-> 
-> Thank you very much.
-> 
-> Reinette
-
+		Petko
