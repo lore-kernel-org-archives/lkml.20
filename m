@@ -1,104 +1,197 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAFF03E9C05
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:55:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id AFE95345EDD
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:56:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789116944; cv=none; b=fe+6PZ7ZK1B6chmjWAHx5SzKtvBN7fPn9GWXsmd3b62owM9dioOaCV+aqB7gC4GcxF8sNK7AqTttFWN3uO1/gsVdBCxvxEWsKe9s7gQgl7sm0vWDXNodfTg8XvD9R5L3VHBwMVYFYwOx96hKH2bULv22Q0YN5bVjZMmz+JPPD38=
+	t=1789116972; cv=none; b=V4GwFmDH5+hsdHfSlS7vWDmqKTw/hoAoVlVbsfS7uQIB5zWkl9xRXg1P7P7aO6Xjk9dA/xsUksk+nqGkl2+bOkqBnHCvUXF3KPbxvDhgUvZb//kUVNTqD6jfAhDonjhUvH8JhD86+UwA4ATO3e2SyTErew+oH9qiN+QAz8r59uw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789116944; c=relaxed/simple;
-	bh=T+xP1TFexY0v8QIy6TBFsxe7D+n59YX7Joam+1iRzq4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=I1i8MfuIU5QlBr0HP91l9XZ7o7nSUIn4C3xEopIL50LQEi91Lpwj0MJFGgRncH1DW4KguJcdOR8wBX1odGJBM4z9OzUj5J+Mgi+6m+RuLlMHe2Ad83CxqglTuYQUYg4XlcBhjhQedvSW5mHapAN5u+EMyi8bb1bpaG9tqStMv+Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=FcwwU6FB; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789116972; c=relaxed/simple;
+	bh=mPcxAHu3KYHI6pGhTtcvzaAlBrH1n1Q4zJ/2mJJUMPE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TZfq6VJy+TaWbsN751yVLXDOFIpJ8eAYIp4rRAOwtHOz0bMHJFYS9bFEh79z3NZfTeLMDG7TE4TkJdQxf+FaaIxaKJzJmFvBL/sezoFtxQi/rMyBpmhY0VlY8428sO8CVwChnfpvGlVMhaqzuTaPlg+gy5BE9qmgcHWuJPzSteI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=P7mkOT24; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="FcwwU6FB"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id CF585C653FA;
-	Fri, 11 Sep 2026 08:56:19 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 1A8CA601DE;
-	Fri, 11 Sep 2026 08:55:38 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 823EF11C7AFA0;
-	Fri, 11 Sep 2026 10:55:32 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789116936; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=kkhMf+HVfBqPHLHRY3DS0z3ZcaxJJxytx6vWDhyBIRA=;
-	b=FcwwU6FBl4R1YrHe7j1PqJLYspUCd5fqct5/Zpmkom9q20gFpgF+ibcvGnekXcIj8z9CKk
-	JRmF2ehAbSCawFQMPnJsP3Xvh2auFn3XhkBIscZ9Mqr+GroNsDEI2vJ5M0v1dK3VCMRBg4
-	yrNHQ1bYjDxfHOfUIecyrH0NVjp1KR0pPsk2Au6Di6iHXwrZRJl4sdglCXLy/eqDlC2lg/
-	VWgRwgcfOqONba/LN+ZrGpQLSS3xZqmmh/gLEJVwSFCoIGO4ekIzDZcRZOoV+jd5rrEttm
-	bMDim/FN+YMJNK/ij92lGkcWqF6NeKWYnwv8FBo0y47ugA+zUMAT1pY2dt5bGw==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Fri, 11 Sep 2026 10:55:25 +0200
-Subject: [PATCH] mtd: spi-nor: Fix quad-enable for flashes with QER bit in
- SR1
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="P7mkOT24"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6FE7A16A3;
+	Fri, 11 Sep 2026 01:56:05 -0700 (PDT)
+Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id F1CED3F7B4;
+	Fri, 11 Sep 2026 01:56:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789116969; bh=mPcxAHu3KYHI6pGhTtcvzaAlBrH1n1Q4zJ/2mJJUMPE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=P7mkOT24uSdxWqA8jPAny9fmmKdRuCez9zivlFL3QbNQuVEdreVcChQMiV3DvwIzk
+	 rrdc/6RxTi0bFuJWvqtTr1h74BQ3yd2b6Qe2Uefghl43RYD90MA01Q6fr+KpC97tBX
+	 N9jg0PAiqjM977hyHX0WRd+g6MSB4bijquUUJsPk=
+Message-ID: <d403b92c-aae8-499f-8c73-933a2d757fba@arm.com>
+Date: Fri, 11 Sep 2026 09:56:06 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH] arm_mpam: resctrl: Separate MPAM domains
+To: Reinette Chatre <reinette.chatre@intel.com>, james.morse@arm.com,
+ Dave.Martin@arm.com, fenghuay@nvidia.com
+Cc: tony.luck@intel.com, babu.moger@amd.com, yu.c.chen@intel.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ patches@lists.linux.dev
+References: <85ca29e89eacf12cfa7071249419e7cadb8f0691.1788220029.git.reinette.chatre@intel.com>
+ <0b0eef2d-ce3b-48c8-af08-5889e7396e4f@arm.com>
+ <a492ffb3-c12e-4986-8f36-c907382c67e5@intel.com>
+ <96eda554-64a1-4f1e-9608-98cd106b00da@arm.com>
+ <a3cf9362-007d-4c6c-8f6f-1c9b8b41b1b9@intel.com>
+ <ad1f8ed5-266a-4d79-91ef-ad8ab3febfb8@arm.com>
+ <26e294a0-76a6-4ec0-9df8-021a76bf8ed9@intel.com>
+ <86603611-b20d-4a0a-a247-8cebb11b3432@arm.com>
+ <071d3dc6-6c18-4287-af26-719b89304058@intel.com>
+Content-Language: en-US
+From: Ben Horgan <ben.horgan@arm.com>
+In-Reply-To: <071d3dc6-6c18-4287-af26-719b89304058@intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260911-perso-fix-spi-nor-qe-mxic-v1-1-fd6d91416a2a@bootlin.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MSQqAMAwAvyI5G2jqAvoV8SAaNQfbmoAI4t8tH
- gdm5gFjFTboiweULzGJIQOVBcz7FDZGWTKDd751HREmVou4yo2WBENUPBmPW2ZcXEMVd2tde4L
- cJ+Ws/e9hfN8PR2jLHmsAAAA=
-X-Change-ID: 20260911-perso-fix-spi-nor-qe-mxic-d0513e9f4421
-To: Pratyush Yadav <pratyush@kernel.org>, Michael Walle <mwalle@kernel.org>, 
- Takahiro Kuwano <takahiro.kuwano@infineon.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Jon Hunter <jonathanh@nvidia.com>, Steam Lin <STLin2@winbond.com>, 
- linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Miquel Raynal <miquel.raynal@bootlin.com>
-X-Mailer: b4 0.14.3
-X-Last-TLS-Session-Version: TLSv1.3
 
-Some flashes (eg. from Macronix) do set BFPT_DWORD15_QER_SR1_BIT6, which
-means they do not have an SR2 to read from/write to. The new generic QE
-helper was supposed to accommodate this situation but in the last version
-that got merged, parts of that specific handling has been moved to a
-more contained location, swp.c (which needed most of the extra code),
-yet the Macronix case has been forgotten about in that generic QE
-handling helper. Booting with such flashes will always fail probing.
+Hi Reinette,
 
-Fix the situation by making sure we do not attempt to read SR2 if the QE
-bit is in SR1.
+On 10/09/2026 19:10, Reinette Chatre wrote:
+> Hi Ben,
+> 
+> On 9/10/26 9:28 AM, Ben Horgan wrote:
+>> Hi Reinette,
+>>
+>> On 10/09/2026 16:37, Reinette Chatre wrote:
+>>> Hi Ben,
+>>>
+>>> On 9/10/26 4:11 AM, Ben Horgan wrote:
+>>>> On 08/09/2026 22:12, Reinette Chatre wrote:
+>>>>> On 9/7/26 10:01 AM, Ben Horgan wrote:
+>>>>>> On 03/09/2026 16:29, Reinette Chatre wrote:
+>>>>>>> On 9/2/26 9:10 AM, Ben Horgan wrote:
+>>>>>>>> On 01/09/2026 00:54, Reinette Chatre wrote:
+>>>
+>>> ...
+>>>
+>>>>>>> It is not clear to me if a mon_comp of NULL is able to handle all scenarios since it looks
+>>>>>>> like mpam_resctrl_get_mon_domain_from_cpu() and mpam_resctrl_online_domain_hdr() does not
+>>>>>>> consider the component at all. Would that not cause monitoring features to depend on which
+>>>>>>> CPU of a domain comes online first?
+>>>>>>>
+>>>>>>> Could mon_comp perhaps be required to be !NULL here as a replacement for the earlier
+>>>>>>> "ctrl_comp" check to ensure there is a component with the CPU in its affinity mask?
+>>>>>>
+>>>>>> Doesn't the !any_mon_comp check provide this?
+>>>>>
+>>>>> This is the part that I do not understand since any_mon_comp seems to support the scenario
+>>>>> where a mon_comp may be NULL which is a scenario that I do not think resctrl can support.
+>>>>
+>>>> Ah, I see what you are getting at. As the monitor components are only considered when there topology
+>>>> matches the l3 cache (same cpu affinity for each instance) then the find_component() call will never
+>>>> fail and so mon_comp can't be NULL at this point.
+>>>>
+>>>>>
+>>>>> At a high level there seems to be three affinity masks used by the monitoring code:
+>>>>> the CPU affinity of the component belonging to the control resource class, the CPU affinity
+>>>>> of each component supporting each monitoring event, while these are three separate masks with
+>>>>> code sometimes treating them as though they can be different they are actually required to be the same?
+>>>>
+>>>> Monitor component CPU affinity is enforced by topology_matches_l3() to be the same as the L3.
+>>>> Additionally, traffic_matches_l3() adds extra conditions that mean that there can be considered an
+>>>> uninterrupted link between l3 and memory and so an MSC at either end is effectively the same. Namely
+>>>> the same restrictions I've mentioned before, only a single l3 cache, a single NUMA node and no
+>>>> intermediate caches.
+>>>>
+>>>> You list two rather than three here? Possibly you are also thinking the MSC cpu affinity which can
+>>>
+>>> I did mention three masks. Thank you for clarifying how the one mask (the "ctrl_comp" one) is associated with
+>>> either that of the control class or the same as the class associated with the first event. 
+>>
+>> Ah yes, I misunderstood.
+>>
+>>>
+>>> Regarding the other two masks: it seems to me as though the CPU masks associated with the two supported events
+>>> are managed separately. This means that theoretically the class associated with QOS_L3_OCCUP_EVENT_ID could have
+>>> components with different affinity from the components of the class associated with QOS_L3_MBM_TOTAL_EVENT_ID. A CPU
+>>> being onlined could thus be associated with QOS_L3_OCCUP_EVENT_ID (resulting in mon_comp being
+>>> initialized for this CPU) but not with QOS_L3_MBM_TOTAL_EVENT_ID (mon_comp is NULL for the same CPU). In
+>>> this scenario, "any_mon_comp" will be true and the domain created and onlined while it does not
+>>> actually support both events?
+>>
+>> Hmm, it depends what you mean by "theoretically". In mpam_resctrl_pick_counters() the class to back
+>> each event is chosen. For QOS_L3_OCCUP_EVENT_ID it will always be the class at the L3. For
+>> QOS_L3_MBM_TOTAL_EVENT_ID the topology_matches_l3() call will check the cpu mask matches the L3.
+>> Does that answer query or am I missing something else?
+> I mean "theoretically" because it seems that the CPU online code (specifically domain creation) supports
+> the scenario where these CPU masks of the two events are different (mon_comp can be set for one event but
+> not the other) while the rest of the driver seems to make an effort to keep these CPU masks identical (as
+> you highlight) and there is not actually support for them being different.
+> 
+> The planned changes discussed here are for the domain creation and will touch the code handling this
+> scenario. I was hoping to just change the data structures while maintaining the current flows as closely
+> as possible. I currently struggle with maintaining this flow that can never, and more importantly should
+> never, be encountered.
 
-Reported-by: Jon Hunter <jonathanh@nvidia.com>
-Closes: https://lore.kernel.org/linux-mtd/178876719232.3543902.14451625037676421254.b4-ty@b4/T/#m5bc4ba6776436f2870ced0eb5789d229037ad840
-Fixes: 63489002d397 ("mtd: spi-nor: Refactor Read Status/Write Status support")
-Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
----
- drivers/mtd/spi-nor/core.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+I see, makes sense.
 
-diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
-index e2b6efafdd8d..ac909dfb9657 100644
---- a/drivers/mtd/spi-nor/core.c
-+++ b/drivers/mtd/spi-nor/core.c
-@@ -985,7 +985,10 @@ static int spi_nor_generic_quad_enable(struct spi_nor *nor)
- 	if (!qe_mask[0] && !qe_mask[1])
- 		return 0;
- 
--	ret = spi_nor_read_sr1_and_sr2(nor, sr);
-+	if (qe_mask[0])
-+		ret = spi_nor_read_sr1(nor, sr);
-+	else
-+		ret = spi_nor_read_sr1_and_sr2(nor, sr);
- 	if (ret)
- 		return ret;
- 
+> 
+> Do (admittedly crude) guardrails like below capture the existing driver requirements?
+> 
+> diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
+> index 9d223057953a..dbd06371890c 100644
+> --- a/drivers/resctrl/mpam_resctrl.c
+> +++ b/drivers/resctrl/mpam_resctrl.c
+> @@ -1681,11 +1681,18 @@ mpam_resctrl_alloc_domain(unsigned int cpu, struct mpam_resctrl_res *res)
+>  				continue;       // dummy resource
+>  
+>  			mon_comp = find_component(mon->class, cpu);
+> +			if (!mon_comp) {
+> +				WARN_ON_ONCE(0);
+> +				err = -EFAULT;
+> +				goto offline_ctrl_domain;
+> +			}
+>  			dom->mon_comp[eventid] = mon_comp;
+> -			if (mon_comp)
+> -				any_mon_comp = mon_comp;
+> +			any_mon_comp = mon_comp;
 
----
-base-commit: 700bf34058ca7cd792236b1ba5caad3770d66208
-change-id: 20260911-perso-fix-spi-nor-qe-mxic-d0513e9f4421
+This first part which ensures that if there is a class for the monitor then a component can always
+be found for the given CPU.
 
-Best regards,
--- 
-Miquel Raynal <miquel.raynal@bootlin.com>
+>  		}
+> -		if (!any_mon_comp) {
+
+The any_mon_comp check could still be useful to confirm that if r->mon_capable then there is a
+component for at least one of the events.
+
+> +
+> +		/* hack */
+> +		if (!cpumask_equal(&dom->mon_comp[QOS_L3_OCCUP_EVENT_ID]->affinity,
+> +				   &dom->mon_comp[QOS_L3_MBM_TOTAL_EVENT_ID]->affinity)) {
+
+There doesn't necessary need to be a monitoring class associated with any particular event. If there
+are classes and so components for each of the two supported events then this check looks correct.
+You could ensure that by checking existence:
+
+if (dom->mon_comp[QOS_L3_OCCUP_EVENT_ID] && dom->mon_comp[QOS_L3_MBM_TOTAL_EVENT_ID] &&
+    !cpumask_equal(&dom->mon_comp[QOS_L3_OCCUP_EVENT_ID]->affinity,
+	           &dom->mon_comp[QOS_L3_MBM_TOTAL_EVENT_ID]->affinity))
+
+
+Thanks,
+
+Ben
+
+
+>  			WARN_ON_ONCE(0);
+>  			err = -EFAULT;
+>  			goto offline_ctrl_domain;
+> 
+> 
+> Reinette
+> 
+> 
 
