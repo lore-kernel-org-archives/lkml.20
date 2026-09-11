@@ -1,66 +1,66 @@
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E3554ACC7F
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 18:30:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 384A14A99B3
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 18:32:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789151427; cv=none; b=E1jps63ldfxLm9BiRUdNf4fRDWEBEYpMKAPZVWGn2jHA+NQBmmkN3ICs1d1Zpl8SX6QkPqGmXYnrF16SQTIN16cPz1i4hhRjWFz2w8oH0C97NfjL9AF91jGJLfKT03CaoTCMGV+jh39uC1Bk+RG++NyF2IOkmDXp/nSTvEt3efQ=
+	t=1789151525; cv=none; b=NfzvVURlcWmLjhyuLa4bjpOeKhNkLX+x9Djp7Bnvq9Z8mB/q/8JBsW+uib42xdWkKywIzfk+ZLMEQFVRRLMaalUqVkIEirxkuASe4Dj20LzniFjriCRUm3FPtJ1VZMnHnFXUNH8V7owpFf2/drNunz1Sr3A/XKe4837ZABh2138=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789151427; c=relaxed/simple;
-	bh=TVE3JVWlJlOZPRS1ruijM+QLYraeNqQKuJubo8lPiII=;
+	s=arc-20240116; t=1789151525; c=relaxed/simple;
+	bh=6cBl9YoGoA83gQlWtx1nBAyvkveypxIuXeuy2M875mw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MbnW6es/1WZLKOMRwfwxUaNifDUvyMRdgZV5MRcpH2cUoNLE1c63kPcKhUbXJ8oPtpKV3ym9vxbsSSQsIuf+Z8Sei5x3pB+oI0YLhwoYHjv/yiPxKLhgGcqMmmWMgrxuLyUU5g1dex0Hx3sTJEtlOmID1IyMg/Yp4DSgktlzBdk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=n/A4sIKD; arc=none smtp.client-ip=209.85.216.51
+	 Content-Type:Content-Disposition:In-Reply-To; b=i37ypDZWIO3A7Ozr98+h5nYB50PLCY8zFfQ41hSZTo3WG+IV17qo8KAP2OJKiSkX3Off6f/QVAeW2qmgwnnWRdPLjd64VyycMI/V4tsPi1v2Yg+CdLcUuCzqJBLIUyAT7MmEuYHAWe33MZa+ZCOfyEWQ5qxiIkVtzjDo1Wi4HsI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=f5GBk6fF; arc=none smtp.client-ip=209.85.210.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="n/A4sIKD"
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-39675172593so1338508a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 11:30:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="f5GBk6fF"
+Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-86309e1a213so627473b3a.0
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 11:32:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789151425; x=1789756225; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789151523; x=1789756323; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=wNS06P8dgAVGWElToa1LxbVILkDrDt7tgcn+fOWtX1k=;
-        b=n/A4sIKD35qfXbjSPtoC59egLyEW+bJK7TPxI4HOq56gjXcceK0OAgT8hX83TnZw71
-         FgkkWOgPn8vqN1XTuP1Q290BhPKFbq1lo699/fPN2C84REmmP86xlV8d7qDqC68q7TGy
-         wc2LWlKrafJy3d0f3yuHb+FRF5EkgTqdCtsY85lOrtMxlQDBCG2obYOrxXHNP0bZMlX2
-         VcWqT8/FWwa+Nyj45eymCS1PZ9vd4UB+1Zcz/MxxPSW4wHF9ozBTV+RcI23BGMztvruU
-         26sOw/8rvy71BswwqOZj2DNwZJEd+vQep7FCyqOC+p9MbjbZhTzv5z4HThSAcSIy7hgC
-         y3HQ==
+        bh=647PeDACYFGwHy56KY6C8DNyZ6c/Uo5FYVw3HHMYVSA=;
+        b=f5GBk6fFr3x/guSHAcYDCje1xOw8IeDCzr0jwB0gNRXooXc8AScK3IlipaXWBvY17A
+         u30QvjIR8bmn8kxKXzOVsW+LA3S504JLCcllVu6g1/Xjx62Grn2rOFEMgAl3CVV/U5YZ
+         krbfMFF2GPgse8Ow0F4d5/rtJek2P+piaVLfe022/b8y2RjntNhy8pL+1C0+FWmoLZmU
+         83lbsx5duoScL3EheD8YdZy7o1inCnO0+7bdp8X6wRPAFdTdYOLBkK+ob5zSnPuwh266
+         ftpeqqme7OF7orvSF36+Ee95q0jZp8s5wQVT5SnRZww9b/dYatFdrYR4iOAgOCiQMdG7
+         ye5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789151425; x=1789756225;
+        d=1e100.net; s=20251104; t=1789151523; x=1789756323;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=wNS06P8dgAVGWElToa1LxbVILkDrDt7tgcn+fOWtX1k=;
-        b=g51q4uXki1inTnVqfDLDJwsorzJMq1BKLNrEKrY7Gs4VqrtrGGH8+F6a39YOwcI9h3
-         gJNIYUsnxmieq+ruM++Y6qkxwaVybmqXfe4AnFxyNxhMIoxrT0JUgc/6uCncoHQBXld8
-         2Yezi/joF0rC2zUC+rzqJ/jBpeGGxnBF3R1Dpf0m9owdZwit2cxGJ1pQJOfmuM0+ObuC
-         +H7nQf/oGfYRX/pTDEXnCE7JXqJYfSPEO0nWmPgMXywW0Ln2xL3MRZmkJDf5bDDwl7XX
-         0dLKkfYlm+S8bbEv7aCLnsQ4VK8n3gbghxza1h/Yl4fFaXLXpEkFueNL0FkUCPIDbfd5
-         jMKg==
-X-Forwarded-Encrypted: i=1; AKwUvBxoB231oc65fZUdKFr2MEkjZNe6LyuP8sL+3k86Kr/NbniylTjCkWZ1M4Ncbtt90rWwwHkU4Yp9xxThero=@vger.kernel.org
-X-Gm-Message-State: AFuF++n2qCzD158JoMHW/zWqOs67HmKXdhhMsfzSVc6g6N99AaAZ8ty/
-	MjOdOlezoBbUrtsTX7Am9rkiQyHaRlGwBpRffY5x6uavatFDb/V2WsSu4qERPaG7Yg==
-X-Gm-Gg: AYBFou3D7zFzXHO4BumHwLVXMwYLCF/AHKygWernIv7zJEkpu4LicN2GwcAZPAvogwM
-	ZyMqntrFusGMSiYlPt27Xg95FsMBlMbg1r6roIHoY1rpHa5Ntbr6HNHOyMQvAi9XdXFu6x7zKoT
-	NgL6aLb+hM1y/UEcHW+GUKS13/VDzMe5DyEjW1MviPO2Rq90D3dbI+c+hd2bS8q7BV7ZjDg7EO3
-	GakO6M0/HJ7Q2mCWn96IzM0e1Yad/toNQoPZJv/382jx5GfB45JyFPza6OBXKDvwejb587szkCv
-	ymfpRL/6v6XkHYhquQ++prDln0nFSrwa1f1oaSqasmZGhychkdWFCRQgCnr9KkmzAOXNM4R0D4i
-	e12XRlD2ADHKgMA1nVBeSunmBRLsLANL+n3eLz5U7XfHsvYbMRmr7tKP+h54YKlACdpffecDJxa
-	nqP4o1bVF7eOFMJ65mawL4lQruLooorr6eAtT57cqdhdhV8+0ApOHcuvPK2hdCqrcsOI7AlOQR9
-	ibgBYVJ6syP10wpU0ZxDygJcigrZpQ/ptA8C07A
-X-Received: by 2002:a17:90b:53d0:b0:38e:bfe:81e9 with SMTP id 98e67ed59e1d1-39d9bc1b0demr8040768a91.1.1789151424426;
-        Fri, 11 Sep 2026 11:30:24 -0700 (PDT)
+        bh=647PeDACYFGwHy56KY6C8DNyZ6c/Uo5FYVw3HHMYVSA=;
+        b=Hp687BpqaHCaiIbxgfkQVxjpF8wHGpPF1Fh4Z8CG7Ugcdzn22maORkWaQuqu0H4oGB
+         FHBPTx70fyyNL3Amw9dL5h1gsm4LIzx2PjW7RM79OmXN4d/cJwXNEf837k5FLWNIgMIx
+         Gh5oU4TmghLoOP5+UyE5Cri+C3V/CMoAbqp3pZVvrMd83VgBH8cm3MV4vaVQPGvlH6G+
+         TZYbnJhZnHs4stawJMeGeh/ckQol5ZGVvhzExRIAHAlB+0GokBv99w3tHlciRSORnKqq
+         BWJtX4l61swrkbb8ChudfdXXMvsDtUtuvo5IBo0tIqZ/tknP/kM5VmvXwpvTTGIHaTMI
+         vz+w==
+X-Forwarded-Encrypted: i=1; AKwUvBwqyZbynLGkmVmU8pC4woH6tmY3/qlb7LUmanYXiD/wYo1mHjcOmiEtUW2HcC5wVSYDdAs2eTSqhmPyyo0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nclnz+sPs1IOAqFedKDYoWSUngMSuC+a+N33kZ3cI9pP6Y89VW
+	W0+uKZ90Hei8AeMvZmNxzUEjklHZJOvEyWqSo0gC9S+Ztsen2nDXJ6wGNvlBNOBr8w==
+X-Gm-Gg: AYBFou0WjvwBIpFjdxJsvEhZd39Oj5/V1/i8D+T4qEO6U59oeE3hVlSWOqUpGvvzQaT
+	Nr5L1qeDtVdOzkGVM0ro2QbruYifR/Iy5QScaWAQMXICLPxcG5idhemrB+mahMCjoA8s4WYqnOC
+	g+emPJopmGZ4y4F8/6snlebJPrVQe7lQpUVYBx3+WuMXpFwFEO553EIt44IqfY4F1jdv51IIgEX
+	cc2jDGPHTOQ/F7AC3SL+o/EeG4D+ImU8XL2q4TbX+Zg+tqdOZMuTRlchPK/YT/nkpiqFldUHMS5
+	IJFDxGMZdfRqpQ/6+8TLqE6Y05RKipxYFzUjXhRulXO+0lCGZHIdTRNZLekvuhGQjMGrrqwTLTF
+	hDR+5SZ/lk0MyTh91dPbMssSMNisZFaO9KcuUdxq7Jr2VQ1DrOkSPpd/Cwu49Sv5VziiR3OYJ4h
+	U0GGObc1tHuyOpPD+T8Sp3on6bGOFMj9NhtDLTsw+iZsGl6BDLiKdbIU1bP01vnunslUt/zB1+F
+	Wvv1Zg6L90UgbXDHfzWJgAv/5QubERd0Vhk36PZj65+1O0bwG4=
+X-Received: by 2002:a05:6a20:4308:b0:3c4:3767:adb2 with SMTP id adf61e73a8af0-3daed46ab05mr10698355637.1.1789151522711;
+        Fri, 11 Sep 2026 11:32:02 -0700 (PDT)
 Received: from google.com (192.150.203.35.bc.googleusercontent.com. [35.203.150.192])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d99531b16sm6613109a91.14.2026.09.11.11.30.23
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4c657156bsm1621771a12.21.2026.09.11.11.32.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 11:30:23 -0700 (PDT)
-Date: Fri, 11 Sep 2026 18:30:19 +0000
+        Fri, 11 Sep 2026 11:32:01 -0700 (PDT)
+Date: Fri, 11 Sep 2026 18:31:51 +0000
 From: David Matlack <dmatlack@google.com>
 To: Bjorn Helgaas <helgaas@kernel.org>
 Cc: kexec@lists.infradead.org, linux-doc@vger.kernel.org,
@@ -84,11 +84,11 @@ Cc: kexec@lists.infradead.org, linux-doc@vger.kernel.org,
 	Shuah Khan <skhan@linuxfoundation.org>,
 	Vipin Sharma <vipinsh@google.com>, William Tu <witu@nvidia.com>,
 	Yi Liu <yi.l.liu@intel.com>
-Subject: Re: [PATCH v8 05/12] PCI: liveupdate: Preserve bus numbers during
- Live Update
-Message-ID: <aqRIJs1SdJwoV_cf@google.com>
-References: <20260728221007.2098560-6-dmatlack@google.com>
- <20260910235104.GA367522@bhelgaas>
+Subject: Re: [PATCH v8 08/12] PCI: liveupdate: Adopt ACS controls in incoming
+ preserved devices
+Message-ID: <aqRJF8OME7hn7CJr@google.com>
+References: <20260728221007.2098560-9-dmatlack@google.com>
+ <20260910235149.GA364189@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -97,73 +97,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260910235104.GA367522@bhelgaas>
+In-Reply-To: <20260910235149.GA364189@bhelgaas>
 
 On 2026-09-10 06:51 PM, Bjorn Helgaas wrote:
-> On Tue, Jul 28, 2026 at 10:09:59PM +0000, David Matlack wrote:
-> > During a Live Update, preserved devices must be allowed to continue
-> > performing memory transactions so the kernel cannot change the fabric
-> > topology, including bus numbers, since that would require disabling and
-> > flushing any memory transactions first.
-> > 
-> > To keep bus numbers constant, always preserve the secondary and
-> > subordinate bus numbers assigned to bridges during scanning, instead of
-> > assigning new ones, if any PCI devices were preserved. Note that the
-> > kernel preserves bus numbers even on bridges without any downstream
-> > endpoints that were preserved. This avoids accidentally assigning a
-> > bridge a new window that overlaps with a preserved device that is
-> > downstream of a different bridge.
-> 
-> > +bool pci_liveupdate_preserve_bus_numbers(struct pci_bus *bus, struct pci_dev *dev)
-> > +{
-> > +	struct pci_dev *parent = bus->self;
-> > +
-> > +	if (dev->liveupdate.preserve_bus_numbers)
-> > +		return true;
-> > +
-> > +	if (parent && parent->liveupdate.preserve_bus_numbers) {
-> > +		/*
-> > +		 * Preserve bus numbers if the parent bridge is required to
-> > +		 * preserve bus numbers. Otherwise the PCI core could expand
-> > +		 * this bridge's reservation beyond its parent (which cannot
-> > +		 * expand).
-> > +		 */
-> > +		dev->liveupdate.preserve_bus_numbers = true;
-> > +	} else {
-> > +		/*
-> > +		 * Otherwise preserve bus numbers if there are any incoming
-> > +		 * preserved devices. This ensures that the PCI core does not
-> > +		 * allocate a bus number to a non-preserved device that
-> > +		 * conflicts with the bus number already assigned to a preserved
-> > +		 * device.
-> > +		 *
-> > +		 * This is slightly more restrictive than it needs to be. For
-> > +		 * example, each host bridges have their own range of bus
-> > +		 * numbers that won't conflict with other host bridges. But the
-> > +		 * previous kernel should have assigned a sane bus topology and
-> > +		 * it is simpler to just adopt that entire topology.
-> 
-> s/each ... bridges have their/each ... bridge has its/
-> 
-> It's true there should be no bus number conflicts between host
-> bridges, but it does require the domain as well.
-> 
-> > +		 */
-> > +		dev->liveupdate.preserve_bus_numbers =
-> > +			pci_has_incoming_preserved_devices();
-> > +	}
-> > +
-> > +	return dev->liveupdate.preserve_bus_numbers;
-> 
-> I'm not sure why you don't just return
-> pci_has_incoming_preserved_devices() in all cases, which is what the
-> commit log suggests this patch does.  What's gained by all the logic
-> here?  It's not like devices will be hot-added during the kexec.
 
-To protect against pci_has_incoming_preserved_devices() flipping from
-true to false while the PCI core is in the middle of a scan. It is not
-likely to ever happen given most host bridge scanning should happen
-during early boot, but theoretically possible with the way the PCI core
-code is structured. I did not see way to structurally ensure these 2
-things cannot race. A lot of the host bridge scanning happens without
-taking the rescan lock, for example.
+> > diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+> > index 77b17b13ee61..22001bdf4c97 100644
+> > --- a/drivers/pci/pci.c
+> > +++ b/drivers/pci/pci.c
+> > @@ -34,6 +34,8 @@
+> >  #include <linux/aer.h>
+> >  #include <linux/bitfield.h>
+> >  #include <linux/suspend.h>
+> > +
+> > +#include "liveupdate.h"
+> >  #include "pci.h"
+> >  
+> >  DEFINE_MUTEX(pci_slot_mutex);
+> > @@ -1008,6 +1010,9 @@ void pci_enable_acs(struct pci_dev *dev)
+> >  	bool enable_acs = false;
+> >  	int pos;
+> >  
+> > +	if (!pci_liveupdate_enable_adopted_acs_controls(dev))
+> > +		return;
+> 
+> Ugh.  The asymmetry between pci_save_state(), which does nothing
+> ACS-related, and pci_restore_state(), which enables it, is sort of
+> sketchy to begin with.
+> 
+> The command-line parsing in this path feels like kind of a wart (not
+> that you're touching it).
+> 
+> It just seems like this path is already hard to analyze, and
+> liveupdate is making it harder.
+> 
+> If we could save/restore the ACS state around the reset, wouldn't that
+> solve this without any liveupdate specials here?
+
+Yeah that would simplify the liveupdate support greatly. Let me work on
+that for v9.
