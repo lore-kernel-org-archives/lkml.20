@@ -1,229 +1,163 @@
-Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com [45.249.212.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB326411FA7;
-	Fri, 11 Sep 2026 08:25:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69D034334C9
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:25:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789115135; cv=none; b=FC0NRai6LzaJyF6MpZPKr6TPYxd7OUgOLbkS6U7og13cBv/xzeRl8eRv9T7on86Q6I9PmCcHmGbZfpG6GMrn+p7GhfpzciRYYXcPn2SZPPjh7McTlhqzqGZhGHwt689HPeTDVsQuj/Hurjd8Fo/Bfb0XDOXHxB396XzACorvf0c=
+	t=1789115152; cv=none; b=LFgapIhDRYX+5iCoHTYzjynOWFDD96lfu7DtsYYFzAoSc2/JIZJ22BbDF5xHfTf2Ri891MKdT+xM3KS3MxzFu5vrcTGqQzlv6rpdthIKuxlNBE9aTxoiZMkunx5urpi2Uho7g/hJ31JsMtwGobSEcXAS7sMxuoo8mEoXtRvJsH0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789115135; c=relaxed/simple;
-	bh=kvwK/D6Ch0u9q2sGlCGhyPjlqEOZvaGo0yb6o9YB3NQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QsRN7+UoRqpFENxk/5GPZSubVE37JkJ2j73hhawtzOVZUZpnxNRBu/fHYLSz11+OeTkNt0DY4eC8eqqjYP8CAynqdAl0imYWYhQ/S/ytNN0ppot8XZl2FzLJTjeP9qg/Um/kTjsC6/w8LzkA1hCJktzbezlKvljr4bWzqRY72CE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.177])
-	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hh6zv2RhmzKHMQQ;
-	Fri, 11 Sep 2026 16:25:15 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.112])
-	by mail.maildlp.com (Postfix) with ESMTP id 363D240590;
-	Fri, 11 Sep 2026 16:25:21 +0800 (CST)
-Received: from [10.174.178.253] (unknown [10.174.178.253])
-	by APP1 (Coremail) with UTF8SMTPSA id cCh0CgDH_AfuuqNqJOk2Bg--.2181S3;
-	Fri, 11 Sep 2026 16:25:20 +0800 (CST)
-Message-ID: <aa0f94c8-b959-4aec-b8f5-69365d1a02fa@huaweicloud.com>
-Date: Fri, 11 Sep 2026 16:25:18 +0800
+	s=arc-20240116; t=1789115152; c=relaxed/simple;
+	bh=k4LK5lbS3gaSrE0kwk0ec7AUi1syZRYY0+qgG0SlrdE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nvSUkbQhAGCq5YBvHcOHdErZCv53swcrvTMQG50lBEqCeHtLoLLxURCJw1/z00FQ/2n7Z4jzA9dCr4wz23EO2udiUYXnsM6t9TKUaG2wI+Q3lLvy9bd6o6KWhZoESMwa5W7Hpebirv1MNG3B4jYPdH5N9kxg9XZvP9/4nlA94GE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dHC+caQ0; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dHC+caQ0"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccda24afso470079a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 01:25:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789115149; x=1789719949; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Hh1hhSShntFbj0qIbpZ5cz58KTjWdr8vsIozL/BHi18=;
+        b=dHC+caQ0fmYvSJ2et946C+e+Nr63CVUaY6+WJv/i4yfPYgfrxTRZzWVW3n+fm6Q4uZ
+         HOsVeL0vk/BMWPR0cGd8LA3u+rmfBOAfXa0c8CTmEcyxNbhbSJ+TTR1zAXp3RLx+p3wn
+         17+DFe6kOuiXZp3jnJOuRJ5aKc3kNmAkOtBa5lYc2XqlX8M/xYfhUPLGlyow/IESAof6
+         FcdsgiacOjzdgQtuWlx2E79He1KLwtVhHxHy5jMSqlOe5sZaadW/HerbWvOY+lQb1ehq
+         +hbhbf8mBTaPhEyv4fOK10p4jZyv0RF+n8uIQxRZB0izn9DLxhTLdbJLsFrrsEg0n/qZ
+         BvZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789115149; x=1789719949;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Hh1hhSShntFbj0qIbpZ5cz58KTjWdr8vsIozL/BHi18=;
+        b=CCQSz/gwv22+rumXNQsMkt7dfDIlHOLAQsohGu7B1QhKlgmdeFf91errptvn5Y6++w
+         PCLZBI/BZOBGromDKg5mITY0/AlsQBTUoPeN/0GGklx82TVkIZlmLBv4yBvPLIx8eiUD
+         NwDFwvBn9OdG0Pllkmm4goc8pkldG/WyCsU1VmqotlphKtsp8ePW7/IwBq6ARLWBoICf
+         X8ZO1peSaPk0zEvt24/p8TcGSWn6Uq0kiAajP+pRpI463LRIE1CpzE/jp8KERirsz+J1
+         0cQT32l8Te3uzami0a4GDspeqgMaGt4l/DpI0630u5pZpNV1v5Tr+L/ZcxKdghF1y1F1
+         qUFQ==
+X-Forwarded-Encrypted: i=1; AKwUvBweQMcZi9pAUIPe0Axp2Lu+hJq7s4nyPu9ViYk0p0LOqPjD9xLckADEqtYQFHS25Y+xNq8YBlEY5gKsV8c=@vger.kernel.org
+X-Gm-Message-State: AFuF++nv8NxtLI8x6b8IbtEDT3LJHnZmagZffNMRZxJCSGvh3+blQqD3
+	qY0gVoHWUVNpYrMuzzzpqI8U6MeQZvmVu2tEXqfpeKxbtuv+PkN/gH8pI1xOV4v5
+X-Gm-Gg: AYBFou0ZoegYzrL+vcqOfiXpzurc2vMsLXt9RuVeLLWmvIShyptX5AEB1lwTrUG7skH
+	VISrgOWWFbEs4DtpHP/DbewcyIf6idy1uNHJrBNGMh7+/+NMOm7W4dRH9UBDD6b3KBkAYngnNC9
+	PrwzOPGRkTEyICs+0o5QzmOy9sm2Vb+/7OxdZxXYyLsf9suX8AwOA3HDC935xTFynkSblwOnm8i
+	JNfx2oliJP42eEyqahxu8/Ko7xLYJEAkgrQ0kf9k2QQ58qIQqSbiqpY2J9aTru674dVreevNT/d
+	RQSBHgEJrw3pK6X9TXQebB8mA1CYrHV6R2Cow+3IiS08dft+uas9Oxs2MXsvtEzP/zztC9TDqs7
+	YbJ4mwE6CVTxgFRSlOuwi7IvA/fV8pj3/MGGSYz/NSQ7Wi7nnYRxwEtgF46A9vDSZPWjDgpnszF
+	5Yt4bT0+JVjSCwGV0bVErA38Raa9ig1wZwbK7SFVTefdwZVftap/L9Qkh1QNDKKRjSA5Cu1XecK
+	DFlVglDga/v96M5I61fooikHg==
+X-Received: by 2002:a17:90b:4ad2:b0:398:9be6:f996 with SMTP id 98e67ed59e1d1-39d9c34a241mr4653694a91.21.1789115149333;
+        Fri, 11 Sep 2026 01:25:49 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14365b8137fsm4795964c88.9.2026.09.11.01.25.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 01:25:48 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: Dan Williams <djbw@kernel.org>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Alison Schofield <alison.schofield@intel.com>
+Cc: Ira Weiny <ira.weiny@intel.com>,
+	nvdimm@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] nvdimm/pmem: Release gendisk on probe failure
+Date: Fri, 11 Sep 2026 13:55:43 +0530
+Message-ID: <20260911082543.473670-1-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] mm/truncate: fix data loss when truncating straddling
- large folios
-To: Joanne Koong <joannelkoong@gmail.com>
-Cc: linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-ext4@vger.kernel.org,
- akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
- liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com,
- mhocko@suse.com, hughd@google.com, baolin.wang@linux.alibaba.com,
- willy@infradead.org, jack@suse.cz, ziy@nvidia.com, bfoster@redhat.com,
- djwong@kernel.org, yi.zhang@huawei.com, yizhang089@gmail.com,
- yangerkun@huawei.com, chengzhihao1@huawei.com, wangkefeng.wang@huawei.com,
- yukuai@fnnas.com
-References: <20260909062339.473816-1-yi.zhang@huaweicloud.com>
- <CAJnrk1b8fWpp-yBRxFaBbFzA8852N53SB6j3Zi9Qnp+JBFuNbA@mail.gmail.com>
-Content-Language: en-US
-From: Zhang Yi <yi.zhang@huaweicloud.com>
-In-Reply-To: <CAJnrk1b8fWpp-yBRxFaBbFzA8852N53SB6j3Zi9Qnp+JBFuNbA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:cCh0CgDH_AfuuqNqJOk2Bg--.2181S3
-X-Coremail-Antispam: 1UD129KBjvJXoW3XFy8tF1DXF47KF18AFWUurg_yoWxKr4fpr
-	W2ga9Iyrs7G392krn2va1DXw1rJ3yfXr4UAF93J3s2kan0vr12kF1Utw1rCFWUGr97G3W0
-	v3WjvanrW3WDAFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvYb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k2
-	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
-	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7Cj
-	xVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7
-	CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8C
-	rVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4
-	IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY1x0262kK
-	e7AKxVW8ZVWrXwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c
-	02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_GFv_
-	WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7
-	CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v2
-	6r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07
-	jxCztUUUUU=
-X-CM-SenderInfo: d1lo6xhdqjqx5xdzvxpfor3voofrz/
 
-On 9/10/2026 2:29 AM, Joanne Koong wrote:
-> On Tue, Sep 8, 2026 at 11:31 PM Zhang Yi <yi.zhang@huaweicloud.com> wrote:
->>
->> From: Zhang Yi <yi.zhang@huawei.com>
->>
->> truncate_inode_partial_folio() splits a large folio so that the caller's
->> truncate loop can drop the in-range sub-folios while keeping the
->> out-of-range tail. The first split at the punch start edge is
->> non-uniform, which leaves the sub-folio at the truncation end edge as
->> large as possible, this means it may still straddle the range, holding
->> both zeroed in-range and valid out-of-range data. The function then
->> attempts a second split at offset + length to isolate that tail.
->>
->> If the second split fails the straddling sub-folio stays merged. The
->> function returned true unconditionally on all exit paths of the success
->> block, telling the caller it was fully handled. The caller kept its
->> default end and the truncate loop truncated every sub-folio below it,
->> including the merged straddler, discarding the valid out-of-range tail.
->>
->> For example, a 4-page order-2 folio punched from offset 0 to the middle
->> of the last page:
->>
->>   truncate_inode_pages_range()
->>     truncate_inode_partial_folio()      # same_folio == true
->>       1st split at page0 -> [p0, p1, p2-3]   # non-uniform, success
->>       folio2 = p2-3 # straddles: p2 zeroed, p3 tail valid
->>       2nd split of folio2 fails / cannot lock
->>       return true                       # BUG: caller keeps default end
->>     end = 3
->>     loop truncates p0, p1, p2-3        # p3's valid tail is lost
->>
->> This became reachable after commit 7460b470a131 ("mm/truncate: use
->> folio_split() in truncate operation") replaced the atomic split_folio()
->> with folio_split(), whose non-uniform split can partially split a folio
->> and leave the end edge merged.
->>
->> It has gone unnoticed because a dirty large folio normally carries the
->> filesystem's private data, for example buffer_head, so
->> filemap_release_folio() -> iomap_release_folio() returns false on a
->> dirty folio and folio_split() aborts with -EBUSY before any split,
->> leaving the straddler safely unsplit. The bug is only reachable on paths
->> that produce dirty large folios without filesystem private data, and it
->> was caught on the upcoming ext4 iomap buffered I/O path when no ifs is
->> attached.
->>
->> In addition, even when both splits succeed, data can still be lost when
->> the mapping's minimum folio order (min_order) is non-zero. folio_split()
->> stops at min_order instead of order 0, so the sub-folio containing a
->> split point stays aligned to 1 << min_order rather than to a page. The
->> original success path left start at the page-aligned head of the range
->> and set end to the exact page index of the end edge, neither of which is
->> a folio boundary in general. Either one could land inside the large
->> folio at its edge, and the truncate loop would drop that straddling
->> folio together with its valid out-of-range tail.
->>
->> For example, a 64K (order-4) folio with min_order = 2 punched from
->> offset 0 to 36K:
->>
->>   truncate_inode_pages_range()
->>     truncate_inode_partial_folio()        # same_folio == true
->>       1st split at p0 -> [p0-p3, p4-p7, p8-p15]  # non-uniform, min_order
->>       folio2 = p8-p15 # straddles: p8 in range, p9-p15 tail valid
->>       2nd split of folio2 -> [p8-p11, p12-p15]   # success
->>       end = p9                           # BUG: p9 inside [p8-p11]
->>     loop truncates ... p8-p11           # p9-p11's valid tail is lost
->>
->> Rework the contract so the caller is told the page range to discard:
->>
->>   - Return true only when a split occurred, false otherwise. This
->>     clarifies the existing confusing return value semantics.
->>
->>   - Add pgoff_t *pstart and *pend out-parameters that receive the page
->>     range fully covered by [lstart, lend] after any split (or none),
->>     i.e. the pages wholly within the range and safe to discard. They are
->>     aligned up (pstart) and down (pend) to the mapping's minimum folio
->>     order so they always fall on a folio boundary.
->>
->>   - Rename the byte-range parameters start/end to lstart/lend to avoid
->>     clashing with the new outputs and to separate byte offsets from
->>     folio indices.
->>
->> Callers in truncate_inode_pages_range() and shmem_undo_range() pass
->> &pstart for the folio at the start edge and &pend for the folio at the
->> end edge, so the truncate loop drops exactly the fully covered pages and
->> never touches a straddling folio that still holds valid out-of-range
->> data.
->>
->> Suggested-by: Brian Foster <bfoster@redhat.com>
->> Link: https://lore.kernel.org/linux-fsdevel/anH-WKA1coW6wtfG@bfoster/
->> Fixes: 7460b470a131 ("mm/truncate: use folio_split() in truncate operation")
->> Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
-> 
-> Reviewed-by: Joanne Koong <joannelkoong@gmail.com>
-> 
->> ---
->> v1->v2:
->>  - Export pstart as a new parameter so that the generic and shmem
->>    truncate paths don't need to recompute the start value from the
->>    return value. (Brian)
->>  - When min_order is nonzero, align [pstart, pend] to the inner
->>    boundaries of the folio to ensure they do not point into the middle
->>    of a large folio, which could otherwise cause valid data within the
->>    folio to be incorrectly cleared. (Joanne)
->>
->> v1: https://lore.kernel.org/linux-mm/20260903115018.2034541-1-yi.zhang@huaweicloud.com/
->>
->>  mm/internal.h |  4 +--
->>  mm/shmem.c    | 13 +++-----
->>  mm/truncate.c | 88 +++++++++++++++++++++++++++++++++++----------------
->>  3 files changed, 67 insertions(+), 38 deletions(-)
->>
+pmem_attach_disk() allocates the gendisk with blk_alloc_disk() and hands
+it to devres only once device_add_disk() has succeeded.  Until that
+point the probe path owns the disk itself, which is why every failure
+after the allocation jumps to the out: label and puts it there.
 
-[...]
+The devm_init_badblocks() failure returns directly instead, so the disk
+allocated a few lines earlier is never released.  Nothing releases it
+afterwards either: the devres action that would have done so has not
+been registered yet, so unbinding the namespace or destroying it does
+not reach the disk, and it stays allocated along with its queue and its
+bdev inode until the machine is rebooted.
 
->> diff --git a/mm/truncate.c b/mm/truncate.c
->> index b58ba940be47..d88a1b159084 100644
->> --- a/mm/truncate.c
->> +++ b/mm/truncate.c
->> @@ -206,35 +206,41 @@ static int folio_split_or_unmap(struct folio *folio, struct page *split_at,
->>  /*
->>   * Handle partial folios.  The folio may be entirely within the
->>   * range if a split has raced with us.  If not, we zero the part of the
->> - * folio that's within the [start, end] range, and then split the folio if
->> + * folio that's within the [lstart, lend] range, and then split the folio if
->>   * it's large.  split_page_range() will discard pages which now lie beyond
->>   * i_size, and we rely on the caller to discard pages which lie within a
->>   * newly created hole.
->>   *
->> - * Returns false if splitting failed so the caller can avoid
->> - * discarding the entire folio which is stubbornly unsplit.
->> + * When @pstart and/or @pend are non-NULL they receive the indexes of the
->> + * page range fully covered by [lstart, lend] after any split (or none),
->> + * i.e. the range of pages that are wholly within [lstart, lend] and so safe
->> + * to discard.
-> 
-> I think with themin_order > 0 case, pages wholly within [lstart, lend]
-> can still be excluded, so maybe worth editing this to reflect that.
-> 
-> Thanks,
-> Joanne
+devm_init_badblocks() only fails when a single page allocation fails, so
+reaching this at all needs memory exhaustion during namespace probe, and
+because device_add_disk() has not run there is nothing user visible left
+behind: no device node, no sysfs entry, only the leaked memory.
 
-Good point, I will fix this in next iteration.
+Release the gendisk through the existing cleanup path on this failure.
 
-Thanks,
-Yi.
+Fixes: 3dd60fb9d95d ("nvdimm/pmem: stop using q_usage_count as external pgmap refcount")
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+---
+v2, all of it from Alison's review of v1:
+ - retitled, and the changelog rewritten as background, problem, impact
+   and resolution rather than a walk through the call sequence
+ - says whether the disk is permanently leaked: it is, because the
+   devres action has not been registered at that point, so no later
+   unbind or destroy reaches it
+ - says when the failure can be reached at all, and that nothing user
+   visible is left behind
+ - the Fixes: tag re-derived.  v1 blamed b95f5f4391fa, but the early
+   return after the disk was allocated already existed before it; that
+   commit only changed which call failed.  The leak starts at
+   3dd60fb9d95d, which removed the pmem_release_queue devres action and
+   the fsdax_pagemap_ops .cleanup that had been freeing the disk on
+   these paths.  accf58afb689 then converted the addr and dax_dev
+   returns to goto out, and this one was missed.
+ - the object counts kept, but measured across four batch sizes so that
+   the scaling is visible, and the shortfall you noticed explained
 
-> 
->> + *
->> + * Return %true if the folio was split, %false otherwise.
->>   */
->> -bool truncate_inode_partial_folio(struct folio *folio, loff_t start, loff_t end)
->> +bool truncate_inode_partial_folio(struct folio *folio, loff_t lstart,
->> +                                 loff_t lend, pgoff_t *pstart, pgoff_t *pend)
->>  {
->>         loff_t pos = folio_pos(folio);
->>         size_t size = folio_size(folio);
+Found by an AI-assisted review of the error paths in pmem_attach_disk().
+
+Tested on 7.3.0-rc2 in QEMU, with a legacy pmem region (memmap=1G!2G) and
+a local debug patch forcing the devm_init_badblocks() branch, as it is
+otherwise only reachable under memory exhaustion.  namespace0.0 was bound
+and unbound repeatedly with the branch forced, counting bdev_cache in
+/proc/slabinfo after a drop_caches and a settle:
+
+    failed probes      32     64    128    256
+    growth, unfixed   +24    +60   +120   +252
+    growth, fixed     +12    +12    +12    +12
+
+Without the patch the count tracks the number of failed probes, and the
+unbind between attempts does not bring it back down, which is what makes
+the leak permanent.  With the patch it is flat.  Both rows sit a little
+under the probe count because SLUB's active_objs is an estimate, which is
+the discrepancy you asked about in v1.  Clearing the debug flag and
+binding again still gives a working /dev/pmem0.
+
+v1: https://lore.kernel.org/all/20260824060113.2330468-1-hemanth.selam@gmail.com/
+
+ drivers/nvdimm/pmem.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/nvdimm/pmem.c b/drivers/nvdimm/pmem.c
+index 30a51c365ce8..648fc7d66063 100644
+--- a/drivers/nvdimm/pmem.c
++++ b/drivers/nvdimm/pmem.c
+@@ -563,8 +563,10 @@ static int pmem_attach_disk(struct device *dev,
+ 	nvdimm_namespace_disk_name(ndns, disk->disk_name);
+ 	set_capacity(disk, (pmem->size - pmem->pfn_pad - pmem->data_offset)
+ 			/ 512);
+-	if (devm_init_badblocks(dev, &pmem->bb))
+-		return -ENOMEM;
++	if (devm_init_badblocks(dev, &pmem->bb)) {
++		rc = -ENOMEM;
++		goto out;
++	}
+ 	nvdimm_badblocks_populate(nd_region, &pmem->bb, &bb_range);
+ 	disk->bb = &pmem->bb;
+ 
+-- 
+2.48.1
 
