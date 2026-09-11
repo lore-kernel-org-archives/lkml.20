@@ -1,199 +1,206 @@
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010024.outbound.protection.outlook.com [52.101.61.24])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDA1333555F
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 17:02:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1D49371885;
+	Fri, 11 Sep 2026 17:04:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.24
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789146168; cv=pass; b=a9zKxlNiMCwiLfPzfUp7vjUAvufKILXNwrFrt6zajTM9I/D8dR9AzxmgO5a7YGN6k5GJ3PLOB1chR0gflm2VIUoe43tYBVDOfgMoBOfqfr7Zwn+ZZJIfDYCmS4K/n7r5YJGT3VYOlQxRQSfLMS+8eeHmQCyWa4JPnFPcOVRikvw=
+	t=1789146288; cv=fail; b=h6YSAizZT1gG9HIP0mYMVhRd3f6au2q5e8uj6rd9FqMhhn8228sj+NSsVkoBPXAMddzH2FFTgiXNUzepBNiq3fjQZABRNHEyWNK9delomv/FUpsj3/oI/bt0W1tDzWbyJ+rPdq3IOBi0LdSha5JbDOonK7tzyF/c358eIRITzCY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789146168; c=relaxed/simple;
-	bh=lEBjerB2ZaHUd2HRyZIeMAAHDOVNiGkEpACiPSF32K0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=SjMAmQRd8++Nmd2kmK/nDffCPpsRVAr+CpVw7aoDXCffRJ2ulVjFoQcOx0yWggDviupOryV2X3v4Jt1SbNew6SAxwYy27Fyyx72e2ER5mri0rtoJdm4RrUHMdrMoxQlW+UX2PAUQQ1/sVabDlp7GrI57usNWkzYIubwI8G5AaDI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PSSKsIBU; arc=pass smtp.client-ip=209.85.218.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789146288; c=relaxed/simple;
+	bh=qAmxoerrqYcyq92GGYu2xXwDKPCl4+JcKNKizfEMEHU=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=gZwJS1SxZIPVpZevhHwaQVL0MKFrS/dF1e+KLgOOELQk7jOMcvA6+Ig15IVB59OleItue47rCdLrki56dFwzBEmTVw5ijCcTh8nH5NRwFKQy8kTU8gxsH1Xn1FXWkVGQAs7LhseTlsgeDPfYvzsY+QPYH1xK0LC+lP848uex7GE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=rA3oxoPf; arc=fail smtp.client-ip=52.101.61.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PSSKsIBU"
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c2946aa0d5aso237041866b.0
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:02:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789146163; cv=none;
-        d=google.com; s=arc-20260327;
-        b=OI3YggA2rVKtZnEm8r6s6p+v5CM3zCGPaaacBqRDIFwQZHebzoJNg8Qbcu0UFaDCR6
-         rfcchfjZnkod8yXOv/fhL5L3Tvydh0nsUdFVpicmxjNcnzg0E5ZrX2T0MWCqe88qgjgf
-         RFzum9HacL0UbkD8pysbzV1OhV83s6kYzv1C1vSbRioSQSRP3BjZrQRISyubkVFtNe1D
-         03eGoB3mCox7UB8Jl1xROrKdOIVbzyI4T7hYNu4aknpv7UI9pLSenn/FfwFJi8kBi0QQ
-         970oTkFIp+TeSB6xHdyXz3he5FsrkF0zj3wt8LoHo4PTueluu0vAWA2rjaDmBuA8q5hP
-         1AxA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=OECv2yjkS4C1/vp1OMprOqRH2B2H12xO1mA6lcxkPXk=;
-        fh=VFTNNuEpsqfnCJO/hI6iK+5PflKdR4/xDB3QacBrS6o=;
-        b=sS2L/Na1vFar1MnNzmi8qQjrf08j1teZGOYUdf278vf5Ppe6bXDBTfYdL7g+KX3iAZ
-         FwbIAwAtmB1V7zNfbxvoDht6SvQP95RzQSpZYf0yGcpRDigl1A6g8w6MWtSliki+04e7
-         /9nbLse29uaIbqyiLiIWPczvbFrLaZA8fu3SQDQ/EaxhN6LwBNviTjCKyWAWbeL8IjW2
-         41oCu8Uy1V2kxlEiB4qVYtrzVpQ78WrshL1j+xMF1v4rNBjoN3h9lYPKzh7ZLCYWFtzP
-         NZgUKWiu4J35I6ppmyNWo0OnrTox+i4mNryCRDU9mal05n74IFQvWcAwc9qof1+OX9XT
-         VAtQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789146163; x=1789750963; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OECv2yjkS4C1/vp1OMprOqRH2B2H12xO1mA6lcxkPXk=;
-        b=PSSKsIBUcy9qWXPPdPjS2shTYOrHYxI+7JjwPD1iAbq/y7A4hf/IbpooPhQCxq4Xxr
-         KItZ/y9NkYpFBGFT9RDYDHbX1t/sxF2VM83Pgg9H6B2j2I2/zvhB6hNoPcz2VUiZBVeX
-         ruaMrYiw6aO4RYc3fu9s6fMXBvsQme/5euDfysceXZUmwWyk2Simg/p2pJn/2gXP8yup
-         LiJRxpvGc3ThoQ/vIeglePYQEtrIiVfmF+xNJY4rBgW+AgaQPO/uVt8u9bwgh/iNZqTD
-         tbEKiUqbqXMHnfAjQO+KONv56GNa4Mw3gxyrdwZs9NMLh19tYZRMn+FM/XX/6P6SG7Kr
-         OlqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789146163; x=1789750963;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=OECv2yjkS4C1/vp1OMprOqRH2B2H12xO1mA6lcxkPXk=;
-        b=Rn00VLG30VTaV4auq97+jRlYtS8K5UfbC0dtib33l1MZIpQJTz+KCG37MtqdUXBSDc
-         mHV72uHrzY1uZG7LJKp4fmQriJHWXLeSJwDkO11uA0HyjkUFZrFB9uYGSho9tyxZK2Qz
-         XQFWyhxqnvviFWuMxP/Vbhd06UsYBW1J7J8+NXXK0kBUUqCGFEMeAjfk3I1VeT68+4Xp
-         Gglru14Ex+40iWq9QOZRodzA6mxLu0oBl1Cjmx72Hghz1eigLVTK0pGlkaSGKQY+CJ5F
-         c4deR1IKsTlv+xa8FMPGUeBIg2L8/rRsWMJhXfNxYi88km7jvPJ3rnotVP6bVTz7sDW8
-         gcIQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwHTl06XXBJiu1J9ZKPMiP/qcPpWmYuyBSVAXilBml2JCrkKcn7X8GBCaLC0bF8Z+YtpTsBaRBHNBB3uyE=@vger.kernel.org
-X-Gm-Message-State: AFuF++ls1fom6qhP0+UXsSOuGMZH4miZuQxMLBA8TWDtWGq7E/q3DuU4
-	SBnbFivjNWBxH1kkcLbdvgpoy9qGC2MtMMEIDjbyJucZq+Oe3UtohyfRH+hSaJm5+SoPWFtHByw
-	9rJ8bg8gSWX6duafqCYIGDTm70TsBiGs=
-X-Gm-Gg: AYBFou1Hbdw7LwjG0yhagnbEFiScRM2JCkDTIMEaCsrylEasWKct15cypCclzLjhLmA
-	fhFVw1HcLlbjDKF2H2OMzNrfTdUHjAj69Ly1OT8Sx4Lg8B2GV31foKCIAAfdOVc7pbN3lfpjjIh
-	jWVndLaJAiT+H3+9L0k7sknz+c7lZjBuHfsAh6qEpHM6akneZ9lfAvBVgn8rQdHMPzzy98Q1BSB
-	C2eabBuw5S8rcrt3YooPSlxXPjALO8J49F24iPXDvIjHHS7eIMXKkKbPKKXEZFPUqBrLlGHlm7Q
-	kB0zSk8xBN8+VnfYcA8Fa1GGZl8i5RK8yUA9AZuCNKszknvv7Wpliq1bNuWQXA2lCYK7ptODLD9
-	ZVDSULanKrdky
-X-Received: by 2002:a17:907:6ea3:b0:c26:1cfd:4244 with SMTP id
- a640c23a62f3a-c2945df0046mr549681566b.11.1789146162827; Fri, 11 Sep 2026
- 10:02:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="rA3oxoPf"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=t6oi0PZRP1maD+Y2CxZ7wSXwsmLka87p82WdCBUtpopJCtnCTZs48cgjWzHaEFHBgIieOjdI1ZMF2aBPKelXLHN4L90fIi2+vJtO4BWgRFhkpZqmk0nbihqvi8HHcB1+aptjxG9GUFEuB28KGIok2W82I+t+dUhGHXRDm7uaurdhumQmGXoTRMP+AJhaeUlXF9E4HiAKOKelDQxkaw37wOXfs0wxUbxlHus0XEpzsubaNKwirsLzEmfDOKXMon2xlt8xLoHewzpOu+Z7JJTg/M4TogRxpcItKmL5LpBWI42ya9wVgPHDoKfDhDroPT4E8a/3F/nv4Wwr7Nnz7/wV9Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HD1baymJOvJj9f55VZGilpM8UmMsYC890hvcCdZafW0=;
+ b=HgeKcGDJiwinTuSL09eDFW7hQW43V78gp7AkD6qbBAyV55Ps4GPFFPZTtiuKn5OQ0cqjz8mr7kaqsI+W1N+egV7t2RqQsx+U1meUpug69eNETsrvwMkO5a2OcIlvYetnoz34XrY5j6T/zNO99Cg8lo5m7++bqCYf2oLd2lZwNK2HkSNBhHxVs+a3jOwov/S5xCkDHwz14h//JdgE1+AK4GKrwavEXv/5AB33PeXrTRaWcedjX6r+/P020HmOYfg/+5jWQwa1LQybT4fJMOr+3R3YBp+S+fnNS6KrbSGm5+Iya9bQG+5Nqr8rC80wJmCJZYAy0D6wqFteZjesHNUfWw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HD1baymJOvJj9f55VZGilpM8UmMsYC890hvcCdZafW0=;
+ b=rA3oxoPfeF+qaee2QqPJKDSfKccjhpAAicM7krnKErVCKxVQoMdF2mXDXK94T/nv8qOsfRHgQ+JVCg1UqI/XIWiQoK80whDGnNbOWfTWSvj4lYbVI7AJ9vUtL2//L4mOXGfR+uzD4tnhVNEdxX/q5GfVHFcbDy+mkQcT9dJWoA6mirXNzR4te4b+VlKdPuhVAU7QDFKSZcoeQjE+V+xnYDsQHK8fKEJoA/moZREAkH+17th11wjdnk/NcV9Se+NA+nNYPx3Pqbc3RzpYr8wUEJXThAJwrfn2IOBsKjO+lKqGvsJFE1np1pHiBdELyTx3VqJhRhAUkPoMYRuyj9EB7w==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV3PR12MB9411.namprd12.prod.outlook.com (2603:10b6:408:215::20)
+ by SA1PR12MB8723.namprd12.prod.outlook.com (2603:10b6:806:385::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Fri, 11 Sep
+ 2026 17:04:40 +0000
+Received: from LV3PR12MB9411.namprd12.prod.outlook.com
+ ([fe80::98b7:86de:b69:2a15]) by LV3PR12MB9411.namprd12.prod.outlook.com
+ ([fe80::98b7:86de:b69:2a15%6]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
+ 17:04:40 +0000
+From: Alex Williamson <alex.williamson@nvidia.com>
+To: Alex Williamson <alex@shazbot.org>,
+	kvm <kvm@vger.kernel.org>
+Cc: Alex Williamson <alex.williamson@nvidia.com>,
+	linux-kernel <linux-kernel@vger.kernel.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Yi Liu <yi.l.liu@intel.com>,
+	David Matlack <dmatlack@google.com>
+Subject: [PATCH v2 0/4] vfio: Fix cdev second-open and harden selftests
+Date: Fri, 11 Sep 2026 11:04:23 -0600
+Message-ID: <20260911170429.1642480-1-alex.williamson@nvidia.com>
+X-Mailer: git-send-email 2.53.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: CH2PR16CA0026.namprd16.prod.outlook.com
+ (2603:10b6:610:50::36) To LV3PR12MB9411.namprd12.prod.outlook.com
+ (2603:10b6:408:215::20)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260911-mglru-fg-v2-0-f26e5cb26da7@tencent.com> <20260911-mglru-fg-v2-2-f26e5cb26da7@tencent.com>
-In-Reply-To: <20260911-mglru-fg-v2-2-f26e5cb26da7@tencent.com>
-From: Kairui Song <ryncsn@gmail.com>
-Date: Sat, 12 Sep 2026 01:02:06 +0800
-X-Gm-Features: AcwNN1WZxmLzBpJpg1QE0SBA47yQSwx0Rtahq0z7WbiXeya29doeRNeqKHQTWO4
-Message-ID: <CAMgjq7AAxBGFN05ZQQsqhWhKi8XNyxCfCbH8-G1sZfqDKEYvCQ@mail.gmail.com>
-Subject: Re: [PATCH RFC v2 02/15] mm/mglru: make generation page counters atomic
-To: kasong@tencent.com
-Cc: linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Muchun Song <muchun.song@linux.dev>, 
-	Qi Zheng <qi.zheng@linux.dev>, Ying Huang <ying.huang@linux.alibaba.com>, 
-	Chris Li <chrisl@kernel.org>, Baoquan He <baoquan.he@linux.dev>, 
-	Nico Pache <nico.pache@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
-	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, David Hildenbrand <david@kernel.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, Barry Song <baohua@kernel.org>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
-	Wei Xu <weixugc@google.com>, Vlastimil Babka <vbabka@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
-	Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>, Zi Yan <ziy@nvidia.com>, 
-	Gregory Price <gourry@gourry.net>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Ryan Roberts <ryan.roberts@arm.com>, 
-	Dev Jain <dev.jain@arm.com>, Lance Yang <lance.yang@linux.dev>, Hugh Dickins <hughd@google.com>, 
-	SeongJae Park <sj@kernel.org>, David Rientjes <rientjes@google.com>, Yu Zhao <yuzhao@google.com>, 
-	Vernon Yang <vernon2gm@gmail.com>, Zicheng Wang <wangzicheng@honor.com>, 
-	Chen Ridong <chenridong@xiaomi.com>, Tal Zussman <tz2294@columbia.edu>, 
-	zhaozhengzhuo <zhaozhengzhuo@uniontech.com>, linux-kernel@vger.kernel.org, 
-	cgroups@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV3PR12MB9411:EE_|SA1PR12MB8723:EE_
+X-MS-Office365-Filtering-Correlation-Id: f51921ef-4038-472b-643e-08df1026c41f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|376014|1800799024|6133799003|18002099003|11063799006|56012099006|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	JZT6YCH1u5KJhDL8e2kWjx22ZadRr4yVRy7RGZ9f4oEMdQzsP5HLCIBTTolseArUXO0crl+Eldi5c846OHd9yyLlNb/O2KzWFUlTjASrhEI4QpEMAUdqC804otVr6uBWWAxUO8arbbfbbUGukvP5dSnZgNfoRUPKnGspO8ofYLzw4rL1eRKbLH3sIc7PsBIOD4gAkXzqOgkIIdzWjFOvdQMswVczjug3TgOqJsfc+U7skQ3AVr6SJPudovHE58lO/02RU/LdaUSazbVJoBEzdcnBALRPd6GfVmIG+bTZa1J5ls0QwN5J9S2Q02UiCpScllCl8opUbXgbdRQHDIj16vRcjby+vWGTlSZV0bsxv0S+Jssans6kIigxpDZ3T8snksm4PUTeDbOxogg5339tTurS9WK+tYn4vCsJSO4q1x8Z0VpiLsa2J17pFbj/G3WPWJ+Mmri6Sob9Q/rJMRPb6a8dovu6lhTxsTVnc/0DJlVDVlczdIWneyWLx3ZwWO4DRL64NX0xiaJ0asHqSopEBlzM8QHMv2jxu4O3R5ifn220hyIGL3Czo+LSsOklzQGTmvTfodvG4baZpEWgbsvLFXrIzjqnVN9HNY+GabfNr89S0zkrO/yD/HxizhSK+hjd8D114KiHUVLBI+KL6JmsMNF0poBBaYVmd6vYCqvEmqg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV3PR12MB9411.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(6133799003)(18002099003)(11063799006)(56012099006)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?rC19elas0sjLvnZIa5y65ZhcYWCwhB0ICZfdtGjp1nQaQNfowSDRXyZX0Xl3?=
+ =?us-ascii?Q?P7a9ds1vNTweXx3d89xozeBK4Fx9+CKyjPRywzf7g3jwE8uQPGe9ZYokBUkV?=
+ =?us-ascii?Q?erbVXliod6WZ1GoC4EXD+DlqL9Vb9qwREDp7DdNU7kOKMdJFuaUnoJwqekBf?=
+ =?us-ascii?Q?WQW8c4iZkCyKcZHvLZpAhb2XZ8Fo912wokgPMdQahd4Ptf3jYisp80F+sxcT?=
+ =?us-ascii?Q?qx7XdSnDwaEZRQRM5jghroM6R6q5xsA4VQXvgQcyZA8/RqbG8Cm0H9ltYZix?=
+ =?us-ascii?Q?RGAJunM3t3i3e8cHq1GPogOfZDJQkbwLC+OaArEibYA1AxGSn7vxiY8P7pYa?=
+ =?us-ascii?Q?EUDhKqylAu1xaDUc1x2BxY4qjvOxFMgVZwtjFZQACaPSnBvIcx8zBn1DXpUG?=
+ =?us-ascii?Q?BV/5gcCStMX1xCHZdmZt6quVolBtgsNwSZSTgLxknr1sAuEoK01NkXzIzZeh?=
+ =?us-ascii?Q?Mrc6bQkAUAcE2JKsbeZgNRHmjH3yy+8DBMv8nq5nGSxdaWi/kkNgJc+dR0C3?=
+ =?us-ascii?Q?Iqsp1lgYxy8eopCi1/KHwYDzATlHICNQU8QlvbbXcI+ILHpIzceyW50V7WMy?=
+ =?us-ascii?Q?AZDyOBlh13Ni2CeDDwXD6PjJejaNERXSwAkbQmxkYzfE3tBZHurQzF8Ik74F?=
+ =?us-ascii?Q?YzYUvxHvQ0jfGfrzBew7L8ZDE8XaurntWIgZWmE7IJUTZhWf1q2rUwiAhJU+?=
+ =?us-ascii?Q?D7eKvkkWvfXOpadg+pkITBzsDAepCZL+i47ke1V98aQKob5EsXlI1UbDaCfQ?=
+ =?us-ascii?Q?WCP/wbzxaRg+1okZhksztiEAuNxYc0zF4VgSu//8XWwTmaUFHazMLXVCFFI9?=
+ =?us-ascii?Q?Xkxl/QXxwUA9vnsBTOBLn0DIvEeqlJDwSSAeizVlQh/4UcpnbZOMXgjujQbx?=
+ =?us-ascii?Q?GXNLp5Gc751t0zhr0dz+jgxEGAWCLbNMpLte+5MKeFVm9lRAI2hX+rd85x5Q?=
+ =?us-ascii?Q?vXAdw+BL8bbhSQMeX78Xkht6ZWTV53QnRK2RDxvZFf2AIk8lwdCRkbvQUw1s?=
+ =?us-ascii?Q?qNTysx3cknB3toBO6Fy4ZUCioTg4wtMhlNNxzv1zxGTdVkpfQYkLV0S1fWI6?=
+ =?us-ascii?Q?ClUncVnMREpeYYRrBjkM0lhXYTiVNDCaZejh3hfSgqNku9c93/VYmoFh++hp?=
+ =?us-ascii?Q?q6GflHwoPs2pG1PqXFZh9c7aDgjdRrzFSxEAv+r36ZKFqt9kyve3c9fhh4Zz?=
+ =?us-ascii?Q?5e86LINYfr1hSpRRLJ5IZiXMUmj8k8+gzkHmfUdOMirmhe67TbJ8PjUIpc5G?=
+ =?us-ascii?Q?9R1wdj36SVuxHb8uijGUqiq3dH07bihQbfbnp+G8cciMoFiMJT9qQUDCzA8n?=
+ =?us-ascii?Q?pTLEYJwmSo90xgvSkb2tu78foU5pzUyyqvY5WKTyQ91Etxsz4nHQUFEf4cMU?=
+ =?us-ascii?Q?+ro9bfDQxqUXxbrr+ymK2DHQuajQhq3vV/GkhzozdNnf+NtRPFfK0v2Jx5sD?=
+ =?us-ascii?Q?JFpwuN8BcH8m1uug51NBursKpXarJLa9MBIMgaYWJVrbhRVK51ufqTMNCEFh?=
+ =?us-ascii?Q?NW+/zUV4d5OqJDfof3Cn1AnLvpm+rpucBU/t470Y1Wffo8DfKBXA86rLIpDv?=
+ =?us-ascii?Q?VeT7FOyB6TcE1beHaU8d3ehcuJpteMoFSfSz9RwGwDewkxpaW3DGG5fZzZbn?=
+ =?us-ascii?Q?u6ZuZGZdMVbzibz33jC0pM82ogFKCCc6Rm4lHmXFySdMHkueRbmTC8N8Nj/9?=
+ =?us-ascii?Q?+ZMsolsBmQDnPOwWVYFJEDsvNtuwTFhoybTN0jfHkdAp8e3zeLpA5ByDzlcv?=
+ =?us-ascii?Q?m+BMpNR/Ig=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f51921ef-4038-472b-643e-08df1026c41f
+X-MS-Exchange-CrossTenant-AuthSource: LV3PR12MB9411.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 17:04:39.9591
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9kQ/x1u6r+jU+sgfqvUqkI6x1V71aZqKyiN4nAnBjqMtmg2qDpUPUK2dXrARrjhQ7T3/rJPllDeP4bck5AU0fw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8723
 
-Sashiko reviewed this, I think it's just false positives, see "===" below.
+v2:
+ - Re-try on -EBUSY reworked to harness issue and posted separately[1],
+   dropped here.
+ - vfio selftests subjects updated for consistency, Reviewed-bys
+   incorporated, Assisted-bys updated to current standards.
+ - Added the selftest suggested by David, but split it into two tests,
+   one that validates vf_token is not clobbered regardless of the 2nd
+   bind errno, and another that enforces the -EBUSY expected errno.
+   This allows us to observe that an old kernel fails both and avoids
+   conflating the uAPI expectation vs the underlying data clobber.
 
-commit 5d43c1cf23cfcb5744723aabee21da2f8bffb50a
-Author: Kairui Song <kasong@tencent.com>
+[1]https://lore.kernel.org/all/20260910230254.1198094-1-alex.williamson@nvidia.com/
 
-mm/mglru: make generation page counters atomic
+v1:
 
-This commit converts the MGLRU generation page counters to atomic_long_t.
-This enables lockless updates to the counters without holding the LRU lock
-while ensuring final consistency.
+In porting some testing infrastructure to a different system I found
+the igb selftest failing in mix_and_match and generating a cascade
+failure through the remaining tests.  The difference in the new system
+is the firmware error handling.  When the igb device gets wedged due
+to bad DMA in mix_and_match, we need to FLR the device.  The igb holds
+transaction pending asserted for the full duration of
+pci_wait_for_pending().  Meanwhile, firmware based error handling is
+triggering SMIs and stealing time, such that the 700ms total delay
+in pci_wait_for_pending() turns into several seconds.  With 10 cases
+in mix_and_match generating bad DMAs, the transaction pending delays
+alone push us close to the 30s per-test timeout.  The worst case I
+observed for the total test was ~45s.  Increasing the mix_and_match
+timeout to 90s provides plenty of headroom to get a passing test and
+avoid the cascade failure.
 
-> diff --git a/include/linux/mm_inline.h b/include/linux/mm_inline.h
-> index 597f013c8e046..f52f02e8e5be1 100644
-> --- a/include/linux/mm_inline.h
-> +++ b/include/linux/mm_inline.h
-[ ... ]
+When the process is killed via timeout, the release occurs through a
+scheduled fput(), which is also delayed by the SMI storm.  Each
+subsequent test then sees a non-zero open_count (for the group open
+in legacy mode or on the iommufd bind in the cdev mode), resulting in
+the cascade failure.  Group mode already uses -EBUSY when the group
+fd open count is elevated, which allows selftests to interpret the
+failure as potentially transient and implement a bounded retry.  The
+cdev path instead returns -EINVAL for this case.  -EBUSY seems
+justified here and allows userspace to have compatible retry flows
+for group open and cdev bind operations.
 
-This is a pre-existing issue, but looking at lru_gen_add_folio() in
-include/linux/mm_inline.h, it updates the folio's MGLRU generation but
-fails to clear its tier bits:
+A local sashiko review then found two existing issues.  First, in
+analyzing the exit flow from the iommufd bind, we can see that the
+vf_token and kvm pointers are clobbered by the second process before
+the open count test.  The open_count test in vfio_df_open() is only
+for the cdev path (!df->group) and is called under the dev_set lock,
+so we really only need to relocate the test to
+vfio_df_ioctl_bind_iommufd() prior to vf_token/kvm manipulation.
 
-include/linux/mm_inline.h:lru_gen_add_folio() {
-    ...
-    set_mask_bits(folio_flags(folio, 0), LRU_GEN_MASK | BIT(PG_active), flags);
-    ...
-}
+The second existing issue is that when executed via the kselftest
+runner, all tests have a 45s timeout, which is the cumulative time
+across each sub-test of the execution.  The pci_driver test already
+fails this with ioatdma, nv_falcon, and obviously with physical igb.
+Running in parallel across both ports of an igb on the system prone
+to SMI overhead, the worst case I saw was 450s.  Therefore, we not
+only need to extend the mix_and_match timeout to 90s to handle the
+extra transaction pending delay, we need to extend the default
+timeout to allow the full pci-driver test to complete when executed
+via the runner.  600s is picked here as a "sufficient" margin.
 
-Does this leave stale tier bits intact? The MM Reclaim documentation states
-that all paths modifying LRU_GEN_MASK must also clear LRU_REFS_FLAGS,
-otherwise stale tier bits inflate access counts and distort MGLRU eviction
-decisions. Could we add a fix for this to the series?
+Please review and comment.  Thanks,
 
-> diff --git a/mm/vmscan.c b/mm/vmscan.c
-> index aaceed4759eeb..32890e628240f 100644
-> --- a/mm/vmscan.c
-> +++ b/mm/vmscan.c
-[ ... ]
-> @@ -4720,7 +4717,7 @@ static void __lru_gen_reparent_memcg(struct lruvec *child_lruvec, struct lruvec
->
->   for (i = 0; i < get_nr_gens(child_lruvec, type); i++) {
->   int gen = lru_gen_from_seq(child_lrugen->max_seq - i);
-> - long nr_pages = child_lrugen->nr_pages[gen][type][zone];
-> + long nr_pages = atomic_long_read(&child_lrugen->nr_pages[gen][type][zone]);
->   int child_lru_active = lru_gen_is_active(child_lruvec, gen) ? LRU_ACTIVE : 0;
->   int parent_lru_active = lru_gen_is_active(parent_lruvec, gen) ? LRU_ACTIVE : 0;
->
-> @@ -4728,9 +4725,8 @@ static void __lru_gen_reparent_memcg(struct lruvec *child_lruvec, struct lruvec
->   list_splice_tail_init(&child_lrugen->folios[gen][type][zone],
->        &parent_lrugen->folios[gen][type][zone]);
->
-> - WRITE_ONCE(child_lrugen->nr_pages[gen][type][zone], 0);
-> - WRITE_ONCE(parent_lrugen->nr_pages[gen][type][zone],
-> -   parent_lrugen->nr_pages[gen][type][zone] + nr_pages);
-> + atomic_long_set(&child_lrugen->nr_pages[gen][type][zone], 0);
-> + atomic_long_add(nr_pages, &parent_lrugen->nr_pages[gen][type][zone]);
+Alex
 
-Is there a TOCTOU race in __lru_gen_reparent_memcg() overwriting concurrent
-lockless updates to nr_pages?
+Alex Williamson (4):
+  vfio: Reject a second cdev open before mutating shared device state
+  vfio: selftests: Verify a failed second open preserves the vf_token
+  vfio: selftests: Extend mix_and_match timeout to 90s
+  vfio: selftests: Extend timeout for runner executions
 
-This patch explicitly converts nr_pages to atomic_long_t to allow lockless
-updates without the LRU lock. However, the code reads the counter at the top
-of the loop:
+ drivers/vfio/device_cdev.c                    | 12 ++++
+ drivers/vfio/vfio_main.c                      |  7 ---
+ tools/testing/selftests/vfio/.gitignore       |  1 +
+ tools/testing/selftests/vfio/settings         |  5 ++
+ .../selftests/vfio/vfio_pci_driver_test.c     |  2 +-
+ .../selftests/vfio/vfio_pci_sriov_uapi_test.c | 57 +++++++++++++++++++
+ 6 files changed, 76 insertions(+), 8 deletions(-)
+ create mode 100644 tools/testing/selftests/vfio/settings
 
-    long nr_pages = atomic_long_read(&child_lrugen->nr_pages[gen][type][zone]);
 
-and then later clears it using atomic_long_set() as shown above. If a
-concurrent lockless update happens between the read and the zeroing, wouldn't
-the update be permanently lost?
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+-- 
+2.53.0
 
-Could this cause permanent divergence between actual LRU list sizes and
-recorded nr_pages, corrupting eviction statistics and causing over/under
-reclaim logic errors? Should this safely clear the counter against concurrent
-writers by using atomic_long_xchg() instead?
-
-===
-
-The first lru_gen_add_folio part is false positive, we want to retain
-the refs info, not clean it, at least in this series. For existing
-cases, maybe it's actually not a good idea to always clear the refs
-info as well. But anyway it's not a bug introduced here.
-
-The second reparent issue, __lru_gen_reparent_memcg only occurs for
-dead lruvec, and all users only do this for alive ones. Maybe I can
-add some VM_WARN_ON_ONCE and a Context: kdoc here in next version,
-it's not a bug but good to be cleaner indeed.
