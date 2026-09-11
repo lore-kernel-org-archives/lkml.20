@@ -1,77 +1,68 @@
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88ECF3E92AC
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 17:23:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E52B3515C5;
+	Fri, 11 Sep 2026 17:23:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789147386; cv=none; b=levlZNXxiX3nDB+rc3E3RmFXrHu7DNLDjbYOU8RdUZCws6X8cERaEIWd03w8KkPolmVCB676UuLWAZ/AbyFwdy6SlDbPDbTuAqdFerQxj21k8mRbvKXiFqxji8Z8K9dPpSLKuV8xxIlOka65wZe3YMNwXHn2/1z5/QLJGtB2h8o=
+	t=1789147398; cv=none; b=H/g7EWNPVhQQ/RMpPuPd6KfTPIbBfbw+nE6V43z86+cdbcjd0plmbNi8B+oFWs0aUC4Jg337Q26JMT2MtlDaVKo5nUkpt4zga5sXB/jW/NHW4CuYeLNwKGuNSP4v5Sn8lrXEvW/LS8YXi7AIqXEP/VSTjPeZ5cufygHDpit/1oQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789147386; c=relaxed/simple;
-	bh=qIYU1MO0sijHfVdNSQ+Hm4R8rpjO/e9JudMeQRnZ9Q4=;
+	s=arc-20240116; t=1789147398; c=relaxed/simple;
+	bh=D1to0PZKc/KA50LSwHQ80T7kQBF1FvK+a9r6MqytDzY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sGO7d5FlXPJcL+p24DvFRdhSEf+vbVsHaVvknNHYy/GaOzI4oHH24k7rmhri3CuueuzQVnmvl9ZSvLWON7Mnwi8v4ha8HrqruhHeyIDWv8wAvjw/BsGjbSIxCDfSby0YfKq6OR86QsF305OL73AkhD/1ndWB8S9WToThwUkRi+w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=IlpRSs0Y; arc=none smtp.client-ip=209.85.221.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=bP5d70b9cec5ODsHii7jDnJCM2s8JeJP7PpTfxtoN5AMk2ByCA9cm2kigkkrBKs1pudXyW+/0xuBCenjSZU6mwcofJYcKfDqqxwsxTTE70SXkk15Duw2KdLDxindVuRErEBDCWSOL6SXCL1RhWu+X+TD0T8/sa2q6M3s8yGm/sU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HIZ7yScn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="IlpRSs0Y"
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48441a2ba1bso825967f8f.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:23:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789147383; x=1789752183; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=xQGFbAKMzrECW+70hXJrrw/HwpzyGAxZIlkWvSuSMU0=;
-        b=IlpRSs0YXO7KYPxYHsiL2va+0N8VtEmucgi60EDw96Z37mq2xNZFwdoDQueHTKUtBg
-         gUkW+M74FFmNcoFWEi2EDnXmyWItWHdk/UFzicu4O3H6AhCQu+op3LRaRR/NqY9T7YF3
-         jl7I7R8l+Mv39qUoq+1KBwoUs7+l/CD0x91DC7y0s5BvjBEQwoqrbegVnnZdmkZ2DnhW
-         cbUyBdS5zMtfCQpGHadTJ5WYyF0r+mRNdCAXyyUBeJ5POeWUH737eoHRKpzfvKnXGryW
-         HBB4aU3gVuR4NsmQM56XwQmI5wxUjVnwb0MFOo7F3+X40hXYZeDMhTrPYJ7E5c25i5Td
-         7tcg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789147383; x=1789752183;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xQGFbAKMzrECW+70hXJrrw/HwpzyGAxZIlkWvSuSMU0=;
-        b=Mvad8Xrgc0oiPrEoM6lDGMTm3/ayf6t6dmhwvk6R/S2e2pNRqIFBqvIqZI9b5g4JI+
-         mPObMC6k/tD4sDCOdHWdx9OgmAHGV9RDFPAmoi8T/9wQ91g8tEEVkwjHk3Qilce1Fjf4
-         ApBR8syOuo8qqkIyhfVoqyfCNqDH+BHBSw5Fg/ATSCx9ECBsxOf5D+3OTklWIQFe6ThQ
-         nDytuhTOTiuujzNAL+Rtt5Hy8B63DRjc00PlbAeWVDxtVvze996X17/fQQJTN7mdI4in
-         ylgPdAxgfY3CCbcYNqgW3RB137CgDiof12J5UjUwukQHaab/Y7aaLdRkz61h1jkd+QiI
-         NREw==
-X-Forwarded-Encrypted: i=1; AKwUvBzdvHjY1+diNQOFLRB4TEimQKiHWkgu4zCvwn0CoA8P6GDk67RmnzzPZkg5faHt9rJ5uerOIwDhhC88Gmw=@vger.kernel.org
-X-Gm-Message-State: AFuF++nQVImPtj3+vzqBlssxuix4jSETn1MG9ayriuJC+W6DfLlu5WV2
-	QlsA1HIaUW84YIqkYzSmEjfHpN0V/U9FYpqfvMwxDA+w0qSndbieeQtwdYQkimnhbA==
-X-Gm-Gg: AYBFou0fo8ITDc2KIXEEFDZT3Eb9fOsnKatbVIUhDc+ifdXW9eFeuz3SLpJF75FdseW
-	LW8wQ7IMzqJAhtjn3D2BSdse4edLbjKYjg0jUMqfuCxQeWHP31oc6d9MovVU8BWgji01zoyoecZ
-	nUvgMB0yoZrE/VZgr4oHel4QUZDGPwTAqSctRCPfZGiUm0qdhut4ildHiiF7eYYkRget+l4o47C
-	DDHZja/izKY6MVcpqofuZOB0VCw+kO8CD5rZFWtrihR2Xl8VGZC5NBRTNu8xqwLjwcIoTM7Gy45
-	UPbSsoPXNsfJiO30bfWEYmR9pBNOh3utJxpdLNy5jR73SKyh2pmNqUCXAB8ylaAPBNCTXq0oVVO
-	cuv1AnXHfCtA8WB/Pc6iI47/PbXMC59F2Xhx7RDL9gxcE2aMv4UCuAJDsTMAR1BiaCveD4N/fCx
-	+A+LEp3Yyb05rIPOQTQN6vfzLmEvjzSi/oG+U8bH6TuNQzEkmSo+b5hEgJFjit+2WhgFWOjBa2c
-	KTmvZ4lU9JpNo35alufWYsZ+1VwFWdkOb1T9K/EAHkfGwkeSwKDdw==
-X-Received: by 2002:a05:600c:4687:b0:49d:2625:1b0f with SMTP id 5b1f17b1804b1-49e619e7090mr62693815e9.31.1789147382199;
-        Fri, 11 Sep 2026 10:23:02 -0700 (PDT)
-Received: from google.com (135.91.155.104.bc.googleusercontent.com. [104.155.91.135])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26be3e0asm184389015e9.1.2026.09.11.10.23.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 10:23:01 -0700 (PDT)
-Date: Fri, 11 Sep 2026 18:22:58 +0100
-From: Vincent Donnefort <vdonnefort@google.com>
-To: Xiang Gao <gxxa03070307@gmail.com>
-Cc: Steven Rostedt <rostedt@goodmis.org>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HIZ7yScn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB6981F00893;
+	Fri, 11 Sep 2026 17:23:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789147396;
+	bh=OJP8Kr91re/1TLbUGmF1tDEabRFooEc7DLwpbkUU1SE=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=HIZ7yScn+Y/fJxVNeSGNMIluX+kW3qXFuO1J42ABZc2Lyzd4l390tPeIoz72ca9zZ
+	 xSMOd5mDJ9gPxF1vih4YdipWkGCmMX83+qhriXF0pGjSdAJ78J+BcCTDRhqZ1ZPHz7
+	 xwlRqpD4V42PB00qiY52yy9/bmaSCE8EkR1DRGP8DZD5cYZMwSC4bSUjzABOA39olo
+	 T9dHHVXgcLFoDm6fTUEmqpgpEgsNQkaDiiIKCvN2KVaVANuEFlOrbv0Zwg94T0wdoV
+	 L/4VpbQZgXxnSfXLkj2JRzRNuZbw+jeSgaG4gqFT/akeeog9pLPeb4xdWJTmUlyv+Q
+	 WWdU9cKD1lpDQ==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 8E68DCE1902; Fri, 11 Sep 2026 10:23:16 -0700 (PDT)
+Date: Fri, 11 Sep 2026 10:23:16 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Josef Bacik <josef@toxicpanda.com>
+Cc: Frederic Weisbecker <frederic@kernel.org>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Boqun Feng <boqun@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
 	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>, Jiri Olsa <jolsa@kernel.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>, x86@kernel.org,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Puranjay Mohan <puranjay@kernel.org>,
+	Xu Kuohai <xukuohai@huaweicloud.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Uladzislau Rezki <urezki@gmail.com>,
 	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Lorenzo Stoakes <ljs@kernel.org>, gao xu <gaoxu2@honor.com>,
-	yinchuang1@xiaomi.com, linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Xiang Gao <gaoxiang17@xiaomi.com>
-Subject: Re: [PATCH 0/2] tracing: add ring-buffer memory usage statistics
-Message-ID: <aqQ48rGDhQka916N@google.com>
-References: <20260905112732.3705405-1-gaoxiang17@xiaomi.com>
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Zqiang <qiang.zhang@linux.dev>, Juergen Gross <jgross@suse.com>,
+	Luis Chamberlain <mcgrof@kernel.org>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	linux-kernel@vger.kernel.org, rcu@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH RFC v2 01/15] rcu-tasks: Add per-task trampoline nesting
+ count
+Message-ID: <90c2dfbe-e796-4125-b178-e854b40f68cd@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20260911-b4-rcu-tasks-preempt-qs-v2-0-eaaa61ed2da4@toxicpanda.com>
+ <20260911-b4-rcu-tasks-preempt-qs-v2-1-eaaa61ed2da4@toxicpanda.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,53 +71,202 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260905112732.3705405-1-gaoxiang17@xiaomi.com>
+In-Reply-To: <20260911-b4-rcu-tasks-preempt-qs-v2-1-eaaa61ed2da4@toxicpanda.com>
 
-On Sat, Sep 05, 2026 at 07:27:30PM +0800, Xiang Gao wrote:
-> Report the memory consumed by the tracing ring buffers, rather than the
-> usable data capacity exposed by buffer_size_kb. Android low-memory
-> diagnostics need this to attribute the memory used by tracing when
-> calculating lost RAM.
+On Fri, Sep 11, 2026 at 02:08:39PM +0000, Josef Bacik wrote:
+> Tasks RCU exists so that ftrace, BPF and kprobes can free trampoline
+> text once no task can still be executing in it.  Today the only way a
+> task tells Tasks RCU "I am not in a trampoline" is a voluntary context
+> switch, so a preempted task is always assumed to be inside one.
 > 
-> The buffers can be spread across the global trace array, dynamically
-> created instances, and snapshot buffers. Userspace currently has to
-> discover and sum every instance, and snapshot memory is not exposed by
-> the per-instance totals.
+> Add task_struct::rcu_tramp_nesting so that trampolines can say so
+> directly: a trampoline increments it before calling out and decrements
+> it before returning, and while it is non-zero the task must not be
+> treated as Tasks-RCU quiescent.  Provide rcu_tasks_trampoline_enter()
+> and rcu_tasks_trampoline_exit() for C users, report the count in the
+> Tasks RCU stall output, and, under CONFIG_PROVE_RCU, assert that it is
+> zero on every return to userspace since no task can legitimately reach
+> userspace with a trampoline on its stack.
 > 
-> Patch 1 adds:
+> Only current ever writes the count and every nested user (interrupts
+> running their own trampolines) is balanced, so plain accesses suffice.
 > 
->   /sys/kernel/tracing/trace_stats/memory_usage_kb
+> The callbacks reached from static trampolines (return_to_handler, the
+> rethook and kretprobe trampolines) are covered by the preempt_disable()
+> in the ftrace recursion protection rather than by the count; note that
+> dependency in trace_recursion.h so it is not lost if the
+> preempt_disable() is ever removed from there.
 > 
-> reporting:
+> Nothing increments the count and nothing consults it for quiescent-state
+> decisions yet; both come in later patches.
 > 
->   buffers: ...
->   snapshot_buffers: ...
+> Assisted-by: LLM
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+
+Please see below for a line-saving nit.
+
+							Thanx, Paul
+
+> ---
+>  include/linux/irq-entry-common.h |  2 ++
+>  include/linux/rcupdate.h         | 37 +++++++++++++++++++++++++++++++++++++
+>  include/linux/sched.h            |  1 +
+>  include/linux/trace_recursion.h  | 11 +++++++++++
+>  kernel/fork.c                    |  1 +
+>  kernel/rcu/tasks.h               |  3 ++-
+>  6 files changed, 54 insertions(+), 1 deletion(-)
 > 
-> covering the global trace array and all instances across all CPUs.
-> 
-> Patch 2 adds the per-CPU view under
-> trace_stats/per_cpu/cpuN/memory_usage_kb.
-> 
-> The values account for the full pages backing the data sub-buffers and
-> reader page, plus the cached read page and mmap metadata page when
-> present. Slab-allocated ring-buffer metadata is not included.
-> 
-> Xiang Gao (2):
->   tracing: add ring-buffer memory usage statistics in tracefs
->   tracing: add per-CPU memory usage statistics in tracefs
-> 
->  Documentation/trace/ftrace.rst |  15 +++++
->  include/linux/ring_buffer.h    |   1 +
->  kernel/trace/ring_buffer.c     |  41 +++++++++++++
->  kernel/trace/trace.c           | 104 +++++++++++++++++++++++++++++++++
->  4 files changed, 161 insertions(+)
+> diff --git a/include/linux/irq-entry-common.h b/include/linux/irq-entry-common.h
+> index 0bb6c03481fa..8da571622000 100644
+> --- a/include/linux/irq-entry-common.h
+> +++ b/include/linux/irq-entry-common.h
+> @@ -5,6 +5,7 @@
+>  #include <linux/context_tracking.h>
+>  #include <linux/hrtimer_rearm.h>
+>  #include <linux/kmsan.h>
+> +#include <linux/rcupdate.h>
+>  #include <linux/rseq_entry.h>
+>  #include <linux/static_call_types.h>
+>  #include <linux/syscalls.h>
+> @@ -214,6 +215,7 @@ static __always_inline void __exit_to_user_mode_validate(void)
+>  {
+>  	/* Ensure that kernel state is sane for a return to userspace */
+>  	kmap_assert_nomap();
+> +	rcu_tasks_trampoline_assert_none();
+>  	lockdep_assert_irqs_disabled();
+>  	lockdep_sys_exit();
+>  }
+> diff --git a/include/linux/rcupdate.h b/include/linux/rcupdate.h
+> index 44c07a66edff..b5c666c82479 100644
+> --- a/include/linux/rcupdate.h
+> +++ b/include/linux/rcupdate.h
+> @@ -180,6 +180,37 @@ static inline void rcu_nocb_flush_deferred_wakeup(void) { }
+>  #ifdef CONFIG_TASKS_RCU_GENERIC
+>  
+>  # ifdef CONFIG_TASKS_RCU
+> +
+> +/*
+> + * Trampoline nesting: dynamically allocated text (ftrace trampolines, BPF
+> + * trampoline images, kprobe optinsn slots) that relies on Tasks RCU for its
+> + * lifetime brackets itself with an increment/decrement of
+> + * current->rcu_tramp_nesting.  While the count is non-zero the task is inside,
+> + * or was called from, such text and an involuntary context switch must not be
+> + * treated as a Tasks RCU quiescent state.
+> + *
+> + * Only current writes the count and only current (or an interrupt on the same
+> + * CPU) reads it, so plain accesses suffice.
+> + */
+> +static __always_inline void rcu_tasks_trampoline_enter(void)
+> +{
+> +	current->rcu_tramp_nesting++;
+> +	barrier();
+> +}
+> +
+> +static __always_inline void rcu_tasks_trampoline_exit(void)
+> +{
+> +	barrier();
+> +	current->rcu_tramp_nesting--;
+> +}
+> +
+> +/* A task must never reach userspace with a trampoline on its stack. */
+> +static __always_inline void rcu_tasks_trampoline_assert_none(void)
+> +{
+> +	if (IS_ENABLED(CONFIG_PROVE_RCU))
+> +		WARN_ON_ONCE(current->rcu_tramp_nesting);
+
+Save a line as follows?
+
+	WARN_ON_ONCE(IS_ENABLED(CONFIG_PROVE_RCU) && current->rcu_tramp_nesting);
+
+> +}
+> +
+>  # define rcu_tasks_classic_qs(t, preempt)				\
+>  	do {								\
+>  		if (!(preempt) && READ_ONCE((t)->rcu_tasks_holdout))	\
+> @@ -192,6 +223,9 @@ void rcu_tasks_torture_stats_print(char *tt, char *tf);
+>  # define rcu_tasks_classic_qs(t, preempt) do { } while (0)
+>  # define call_rcu_tasks call_rcu
+>  # define synchronize_rcu_tasks synchronize_rcu
+> +static inline void rcu_tasks_trampoline_enter(void) { }
+> +static inline void rcu_tasks_trampoline_exit(void) { }
+> +static inline void rcu_tasks_trampoline_assert_none(void) { }
+>  # endif
+>  
+>  #define rcu_tasks_qs(t, preempt) rcu_tasks_classic_qs((t), (preempt))
+> @@ -208,6 +242,9 @@ void exit_tasks_rcu_finish(void);
+>  #define rcu_tasks_classic_qs(t, preempt) do { } while (0)
+>  #define rcu_tasks_qs(t, preempt) do { } while (0)
+>  #define rcu_note_voluntary_context_switch(t) do { } while (0)
+> +static inline void rcu_tasks_trampoline_enter(void) { }
+> +static inline void rcu_tasks_trampoline_exit(void) { }
+> +static inline void rcu_tasks_trampoline_assert_none(void) { }
+>  #define call_rcu_tasks call_rcu
+>  #define synchronize_rcu_tasks synchronize_rcu
+>  static inline void exit_tasks_rcu_start(void) { }
+> diff --git a/include/linux/sched.h b/include/linux/sched.h
+> index 8b3d47a325cc..d2e7b1b3c9d2 100644
+> --- a/include/linux/sched.h
+> +++ b/include/linux/sched.h
+> @@ -956,6 +956,7 @@ struct task_struct {
+>  	unsigned long			rcu_tasks_nvcsw;
+>  	u8				rcu_tasks_holdout;
+>  	u8				rcu_tasks_idx;
+> +	int				rcu_tramp_nesting;
+>  	int				rcu_tasks_idle_cpu;
+>  	struct list_head		rcu_tasks_holdout_list;
+>  	int				rcu_tasks_exit_cpu;
+> diff --git a/include/linux/trace_recursion.h b/include/linux/trace_recursion.h
+> index e6ca052b2a85..2da23a52ca4a 100644
+> --- a/include/linux/trace_recursion.h
+> +++ b/include/linux/trace_recursion.h
+> @@ -153,6 +153,17 @@ static __always_inline int trace_test_and_set_recursion(unsigned long ip, unsign
+>  	current->trace_recursion = val;
+>  	barrier();
+>  
+> +	/*
+> +	 * Callbacks reached from static trampoline text (return_to_handler,
+> +	 * the rethook and kretprobe trampolines) do not maintain
+> +	 * current->rcu_tramp_nesting themselves; they rely on this
+> +	 * preempt_disable() to keep the task from being preempted, and thus
+> +	 * from reporting a Tasks RCU quiescent state, while an ftrace_ops or
+> +	 * its data is in use.  If the preempt_disable() is ever removed from
+> +	 * the recursion protection, this must rcu_tasks_trampoline_enter()
+> +	 * here and rcu_tasks_trampoline_exit() in trace_clear_recursion()
+> +	 * instead.  See CONFIG_RCU_TASKS_PREEMPT_QS.
+> +	 */
+>  	preempt_disable_notrace();
+>  
+>  	return bit;
+> diff --git a/kernel/fork.c b/kernel/fork.c
+> index 416758c8a3d4..cfe3a8e53fbd 100644
+> --- a/kernel/fork.c
+> +++ b/kernel/fork.c
+> @@ -1869,6 +1869,7 @@ static inline void rcu_copy_process(struct task_struct *p)
+>  #endif /* #ifdef CONFIG_PREEMPT_RCU */
+>  #ifdef CONFIG_TASKS_RCU
+>  	p->rcu_tasks_holdout = false;
+> +	p->rcu_tramp_nesting = 0;
+>  	INIT_LIST_HEAD(&p->rcu_tasks_holdout_list);
+>  	p->rcu_tasks_idle_cpu = -1;
+>  	INIT_LIST_HEAD(&p->rcu_tasks_exit_list);
+> diff --git a/kernel/rcu/tasks.h b/kernel/rcu/tasks.h
+> index 627295396cd9..1662ba18bf34 100644
+> --- a/kernel/rcu/tasks.h
+> +++ b/kernel/rcu/tasks.h
+> @@ -1113,10 +1113,11 @@ static void check_holdout_task(struct task_struct *t,
+>  		*firstreport = false;
+>  	}
+>  	cpu = task_cpu(t);
+> -	pr_alert("%p: %c%c nvcsw: %lu/%lu holdout: %d idle_cpu: %d/%d\n",
+> +	pr_alert("%p: %c%c nvcsw: %lu/%lu holdout: %d tramp_nesting: %d idle_cpu: %d/%d\n",
+>  		 t, ".I"[is_idle_task(t)],
+>  		 "N."[cpu < 0 || !tick_nohz_full_cpu(cpu)],
+>  		 t->rcu_tasks_nvcsw, t->nvcsw, t->rcu_tasks_holdout,
+> +		 data_race(t->rcu_tramp_nesting),
+>  		 data_race(t->rcu_tasks_idle_cpu), cpu);
+>  	sched_show_task(t);
+>  }
 > 
 > -- 
-> 2.34.1
+> 2.55.0
 > 
-> 
-
-It looks like you have sent the same v1 again.
-
--- 
-Vincent
