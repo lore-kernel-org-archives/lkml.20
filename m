@@ -1,181 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D168D43DEAC
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:25:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A2313CD8CC
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:25:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789122333; cv=none; b=BeTqjNfnr37N5IgSbzPWNonOP3dD5IYdgJT/pE+Mos8FnWzKvxbTJ7cn5VzLLT+Qb5UZEHTySKVsv++jDlX8PeF5bB6W56zAf4sNbI1Q8u4C2+upNPgoMEinmwPMEez0bixrAOSEyOe+VpagUUAiWAychWPp0cgLMKBUunIwMr4=
+	t=1789122355; cv=none; b=EvBLJ1GEip6Bfpk+dIOriieREbkZ9JBlonRDnlASsxfMlUflAdiBd+0cAfJNIO99Nb+4SaRuRuxmUKX0t4VxGHobGY9feiecRWgDDSI+CxYVc1FqBF3SUp6A4fkEDTZNXuaYPaYn9T+3U9Z6begBBXlNabCuSV88swZwMbq4t8w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789122333; c=relaxed/simple;
-	bh=BCI3SQ9HU8MK9uLedEhEXlQ0BQwVpJHPndpiy4PqBu4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=CuCsKOEfcxhtg8iB7Ei8luyhuqCEQnmw6+WYdWy6M9E9cXpi1qxv0s6gzZi1M8aa9W5WKoFXYTrcKqFBzBET+UWSGZ5Lzhl/tU2DWKrkksMQHKHxV20BaK/TPpkE71tOzpytvuQ6qU7UfA4o+66etnqG+ODNlVxAepxzRVSAIDM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ncm+tnV1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789122355; c=relaxed/simple;
+	bh=R8ljdZLMt2xYnTL65Zqez58q6Le00BsPCuyxSRtBZpI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dKR38N5fuDuZS1FgyyVcYpcqs9iZ5kmWsCgyPJGQ0ZcV0jezeZ9VtPxJ8F0jpbOGjMqJTjrAjo6YoZfuuFSbkmxTZnm9Re9muTTzSGzwluxi9lMwYSi2g12iijMMtLldr5LOuOr90J7+NAJbGWC/2tmCmOqCRdjvafsefBJpUro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fvn5CIve; arc=none smtp.client-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ncm+tnV1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 750591F00893
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:25:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789122331;
-	bh=zQZs21mxPOyUqBF+HZ8/HQlhwXONKQO6BnIrlCQuQtM=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=ncm+tnV1Ql8G6yQ5tERj9aafmeENdkoE8yPxORrd6cIQNH55frHXGGwuJv/DV2JzL
-	 sIavBbuKRl/72bj9CWM3HOf1U5BBCagYdQItPTYD+8U0uOV27+9rsdxAhsb7Fz/YEK
-	 8gG+etdLkEIWeOFkTZnh0svPSRrc7ToF3vHHSWjjre89S3Ivd98BOuHlfsbt7YBN1V
-	 qGhNUJWxRl549wnBsRUPRpMffU/u3SErZ3r5RG2xHi2btIUW6D6FHH5VgodeujHBAE
-	 duvGoSaB0nRuhsHWpd5nsDNIg6YC1BfubD+chYmlPHQJhzykGFQutCziATB8K2jiSf
-	 tH5UI2GnVGbGQ==
-Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-3a5a64d475eso4563441fa.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 03:25:31 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBycc1T57vyl7bGiC0Q6xwS7nIjjpEIh5Uu2onm+Ivm1hnNJ5PmmEb7iO6t/kxx63PM7QgHx3ysNf/4epbE=@vger.kernel.org
-X-Gm-Message-State: AFuF++moqbecbInnAD+CN7hGvdKB/4F19ip+ZlEX6ufwU4fj4H68Dxwo
-	xnlsRoLphU9v4udJsXQi2qokac12cfz2PEaSBwLst2Vta00tt87+iljT9G/VVVHfeF9PRz5zRsj
-	ZMDl/L6U5dSb7OWoQumKZpTSQmKJ5oYU=
-X-Received: by 2002:a05:651c:a202:20b0:3a3:7681:6d74 with SMTP id
- 38308e7fff4ca-3a5a52abb09mr2504951fa.29.1789122329799; Fri, 11 Sep 2026
- 03:25:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fvn5CIve"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-39b2ad862bdso992785a91.2
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 03:25:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789122352; x=1789727152; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0pITEbVo1MvPI3pP4SrO6ivYEuuDr//vKXGqFMdO8JQ=;
+        b=fvn5CIvemdGBFONUH8En0DePDvs16Brdh3RdToyYUbvWxlEHhsVXTELxXsw5KRtIlZ
+         Opits4umc2qCNusq1rAOaC54fcGyfqvh6+PKzT7YgCNHVMpQQvDNG15mLT7P9/uXAMkE
+         J5BuAHrKpYL+8x5RSi9B8DkEFLgWxf4sacIknOj1xQX5wT5C4A5esYbaL0AxVU9QYHxi
+         TXv9pTam9eGuTdXa9nzvTDAJTsavYvqdVSXAglkQCTx9Kaz04K9OtoSiY8n6Sw/vZcnQ
+         VfsggHoXiAGzJhKTDij/2TEFzBWC8qGg5bax3du/rv2vZqfuHgDl0I6HXMA6ceyNqBKO
+         rY6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789122352; x=1789727152;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0pITEbVo1MvPI3pP4SrO6ivYEuuDr//vKXGqFMdO8JQ=;
+        b=Fbu7386/+n95ZanVk46+qzhmtUj+N5Qs6B30i9JdsQYa5uDNX3ZW+p3aqVVN5LvrBb
+         sVQrG3C82FfTzpx0hDcMI4NNcyLYF/lCU8JuQjb1w/eQ9GEuekLxxf6jfLC4G2/fyIRq
+         ZFHnAE19fUxkKJy6a1NXWtnFiHCecBkCdPctOQIU4Rd7N9wAlflvM1oZzdVCU1vtA3Oj
+         +eSont/qPbmeuKxalGreGPiiUYS8m63xHAWzswBus49vuYWQaypHUfzjcaxqUbDaCO1H
+         KRMQeb+NSApuOKbmCzXDw3jr+6vP21jV0yijL4s+9yoTDZLmlqCbuTLKYDdyd4EaqZNa
+         6tMw==
+X-Forwarded-Encrypted: i=1; AKwUvBwREdJqMQCEXv23qANlyWuOp1jStET7m/bCHHHkpMjjYT/wHlnmSL6u2h4SNWS8cvfonDkhlDchRw8Dlso=@vger.kernel.org
+X-Gm-Message-State: AFuF++nSKKaqMuU3f7rRzYINrV9df/F1VcOFTnwTlJDaqBU43rL4O+6T
+	AatnwV6zcFYuFFnz6h+CyBg4M20JBLuLZCpU4ETto2Ns8nWhNkTvta6z
+X-Gm-Gg: AYBFou1vzqqRR7Tonu3DUwCrG6A9KzMbmwEaEG8lh90jWdYxBy6dTXpnOiOs5w/NHTA
+	TxNtwVPA9MFDw7gu+ph+GVKD/GdCYOx92aAJ3n16KCbdQxex3F3YGoxEjOsTQcc5ikIJgr7WaCb
+	SYoK+x84Mv5EMtE0NV8jHAkIxrWYa6JwHlJt2wdjjheM/pTbEhOsg7I2ZtAmeWwkmv6e/Nb7p0l
+	mURXFpKHSYMxJAeLNvVGXPso76dz+b0WN7Nq4ojQjTuW7RkFg18RdvpiR+CJ+ZvxK35wy0+rNaJ
+	cE9BOw5KNnlK6cil4KkDRAKESO0EYS2o/YxcL0jcN5i6p9Ww2F/G4b4lvI/lLNckTqMWgMgA1+q
+	aZtixl4Io1wxJn4yLUHjCep976tp5nvVwCUUDQIVDqmUasFTXfx8L8bgu6MA2hPxiekIt4cljcM
+	m8+2nlk7q0ZLUPiUWgIkBnQ45/8QuciXG0jGsaCYz2TB+pc8FN9CdFhFxo41sb+F2GgtEOfOmRH
+	uyM
+X-Received: by 2002:a17:90a:d60e:b0:398:bee5:61d6 with SMTP id 98e67ed59e1d1-39d9c35a385mr6557159a91.24.1789122352281;
+        Fri, 11 Sep 2026 03:25:52 -0700 (PDT)
+Received: from Default ([2409:40f4:1034:ff33:e7d7:d190:816c:e597])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4ed295esm6220095eec.15.2026.09.11.03.25.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 03:25:51 -0700 (PDT)
+From: Jeffin Philip <jeffinphilip14@gmail.com>
+To: cem@kernel.org
+Cc: dgc@kernel.org,
+	linux-xfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jeffin Philip <jeffinphilip14@gmail.com>
+Subject: [RFC PATCH 0/2] xfs: change xfs log item refcount design
+Date: Fri, 11 Sep 2026 15:55:00 +0530
+Message-ID: <20260911102502.163566-1-jeffinphilip14@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <12995802.O9o76ZdvQC@rafael.j.wysocki> <3465482.44csPzL39Z@rafael.j.wysocki>
- <aqOwUynzp3APwfYS@ashevche-desk.local>
-In-Reply-To: <aqOwUynzp3APwfYS@ashevche-desk.local>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Fri, 11 Sep 2026 12:24:16 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0jD4KvoBgcR1gysK1g7y48aM+w0=eNt1oq2QkbbS1vv7Q@mail.gmail.com>
-X-Gm-Features: AcwNN1WyiqkHt0l1tukSkkAiOPeIT9X-tiOlzVf1YjANYevP63TLyxB_MkAGtqY
-Message-ID: <CAJZ5v0jD4KvoBgcR1gysK1g7y48aM+w0=eNt1oq2QkbbS1vv7Q@mail.gmail.com>
-Subject: Re: [PATCH v1 2/4] ACPI: glue: Rearrange acpi_bind_one() to avoid breakage
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Linux ACPI <linux-acpi@vger.kernel.org>, 
-	LKML <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 11, 2026 at 9:40=E2=80=AFAM Andy Shevchenko
-<andriy.shevchenko@linux.intel.com> wrote:
->
-> On Thu, Sep 10, 2026 at 07:56:10PM +0200, Rafael J. Wysocki wrote:
->
-> > Rearange the code in acpi_bind_one() to avoid situations in which the
-> > existing ACPI companion of the given device would be replaced with NULL
-> > due to a memory allocation error or because somebody tries to bind a
-> > physical device with an ACPI companion to a different ACPI device
-> > erroneously.
->
-> ...
->
-> >  int acpi_bind_one(struct device *dev, struct acpi_device *acpi_dev)
-> >  {
-> >       struct acpi_device_physical_node *physical_node, *pn;
-> > +     struct acpi_device *comp_dev =3D ACPI_COMPANION(dev);
-> >       char physical_node_name[PHYSICAL_NODE_NAME_SIZE];
-> >       struct list_head *physnode_list;
-> >       unsigned int node_id;
-> >       int retval =3D -EINVAL;
-> >
-> > -     if (has_acpi_companion(dev)) {
-> > -             if (acpi_dev) {
-> > -                     dev_warn(dev, "ACPI companion already set\n");
-> > +     if (!acpi_dev) {
-> > +             if (!comp_dev)
-> >                       return -EINVAL;
-> > -             } else {
-> > -                     acpi_dev =3D ACPI_COMPANION(dev);
-> > -             }
-> > -     }
-> > -     if (!acpi_dev)
-> > -             return -EINVAL;
-> >
-> > -     acpi_dev_get(acpi_dev);
-> > -     get_device(dev);
-> > -     physical_node =3D kzalloc_obj(*physical_node);
-> > -     if (!physical_node) {
-> > -             retval =3D -ENOMEM;
-> > -             goto err;
-> > +             /* If the companion has been set upfront, pick it up. */
-> > +             acpi_dev =3D comp_dev;
-> > +     }
-> > +     if (comp_dev && comp_dev !=3D acpi_dev) {
-> > +             dev_warn(dev, "ACPI companion already set to %s which is =
-not %s\n",
-> > +                      acpi_dev_name(comp_dev), acpi_dev_name(acpi_dev)=
-);
-> > +             return -EEXIST;
-> >       }
->
-> I would rewrite the above to look as following (if I got the logic right)
->
-> int acpi_bind_one(struct device *dev, struct acpi_device *acpi_dev)
-> {
->         struct acpi_device_physical_node *physical_node, *pn;
->         char physical_node_name[PHYSICAL_NODE_NAME_SIZE];
->         struct list_head *physnode_list;
->         struct acpi_device *comp_dev;
->         unsigned int node_id;
->         int retval =3D -EINVAL;
->
->         comp_dev =3D ACPI_COMPANION(dev);
->         if (comp_dev) {
->                 if (acpi_dev) {
->                         if (comp_dev !=3D acpi_dev) {
->                                 dev_warn(dev, "ACPI companion already set=
- to %s which is not %s\n",
->                                          acpi_dev_name(comp_dev), acpi_de=
-v_name(acpi_dev));
->                                 return -EEXIST;
->                 } else {
->                         /* If the companion has been set upfront, pick it=
- up. */
->                         acpi_dev =3D comp_dev;
->                 }
->         } else if (!acpi_dev) {
->                 return -EINVAL;
->         }
->
-> The rationale is to avoid assignment and known-to-be-false test later on.=
- Also
-> split assignment that is going to be validated and moved it closer to the=
- user
-> (this helps with maintenance in a long term). Unfortunately double test o=
-f comp_dev
-> against NULL just replaced with a double check of acpi_dev against NULL, =
-no gain
-> here.
->
-> TL;DR: original and proposed pieces have their pros and cons.
+This patch series is the first of the series where we attempt to convert
+the XFS Log item reference counting design to be more generic
+compared to the previous type-specific state to fix the "zero
+refcount but in AIL means alive" state. The patch series follows
+instructions outlined here[1].
 
-There are reasons why I prefer the original changes.
+Obviously, the wrappers will be integrated in type-specific functions
+later on.
 
-There's fewer indentation levels and fewer lines of code there and
-!acpi_dev is actually the most common case because acpi_bind_one() is
-called with acpi_dev =3D=3D NULL for every device, so it is better to deal
-with it upfront.
+No behavioral change as of yet.
 
-However, it can be observed that the condition in the second "if ()"
-(in the original $subject patch) is obviously false if acpi_dev is
-NULL, so it can be moved to an "else" branch in the first "if ()":
+[1]: https://lore.kernel.org/all/aqI6v-_dc2DDSbgB@dread/
 
-if (!acpi_dev) {
-    if (!comp_dev)
-        return -EINVAL;
+Jeffin Philip (2):
+  xfs: add lockref and generic helpers for refcounting
+  xfs: change xfs_trans_ail_delete return type to bool
 
-    /* If the companion has been set upfront, pick it up. */
-    acpi_dev =3D comp_dev;
-} else if (acpi_dev !=3D comp_dev && comp_dev) {
-    dev_warn(dev, "ACPI companion already set to %s which is not %s\n",
-             acpi_dev_name(comp_dev), acpi_dev_name(acpi_dev));
-    return -EEXIST;
-}
+ fs/xfs/xfs_log.c        | 38 ++++++++++++++++++++++++++++++++++++++
+ fs/xfs/xfs_trans.h      |  7 +++++++
+ fs/xfs/xfs_trans_ail.c  |  5 +++--
+ fs/xfs/xfs_trans_priv.h |  2 +-
+ 4 files changed, 49 insertions(+), 3 deletions(-)
 
-and that avoids a redundant check when acpi_dev is NULL to start with
-(and is one code line less even).
+-- 
+2.55.0
 
-I'll make this change, but I'd rather not send a whole v2 of the
-series for this, so I'll do it when applying the patch.
-
-Thanks!
