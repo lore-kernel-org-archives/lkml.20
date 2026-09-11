@@ -1,56 +1,56 @@
 Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAEEF563FB5
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 19:42:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD8F9552955
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 19:42:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789155737; cv=none; b=KFJpr2EVl+V3xKHQtEou4DCf/KWxtkooQ84xrYhGRimxGCx5jZNcTrtoKDaAKkrBd9slYre0lKkWHBRyQIWaBWwP4JiqnzuWwtYMOwQAB5SnaD8r9VODlPRLli2alsX8w8OI/n31VFqT6+CsiaJWmvm5fN3mMskSxrBNf8a2EQQ=
+	t=1789155745; cv=none; b=PjdaSvjurbospPD5JRQegVuQCEbyYwJ8P/i2tsHQrXk1v1x6riZQNaLxM0AsYJoEk1+i7LQHKVXV8Zo67sfT7PZdgR9dGX5KpEMQYgWDZkDufYJVOTeNExjTsbtsHEWngDl2PPbL48UI9bfy0PNuCeIg7fcw3DidbthAOUg0JPI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789155737; c=relaxed/simple;
-	bh=iwNq5uu3Zcz820eD4nEDR07scSxQngOrG28BzpUpX0I=;
+	s=arc-20240116; t=1789155745; c=relaxed/simple;
+	bh=hTFVKt75D71OvdXG4pzTXlqYcjNqksLPxYYyQHAZ+yc=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=KTub4DwXYWxaAnQOlBChuQXLLeEXQN4IHLNb4zBe8VH4dnJjzTgb+SInwRITliuEC9myoXrAdNlpKGTc1O5ZkMC9asgImfHlmDTvrbxelYqYJTDi4EfnWuUXU8OxVKqoAWJ2GH9Mp1+uPgR7kLKFwfy+vxljcybDX5TgLZ/jqSM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--surenb.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Jf4B3KNd; arc=none smtp.client-ip=209.85.216.71
+	 To:Cc:Content-Type; b=YqjqZDTcMSR3U7ELho7W0yZ4APXfHYEEJT6oXCky6t9DBY1rv3YjpyKLaUQqM/jnTgOraETkI62ITepPTiWXkLsd6uyPdlpLChIceHwf074fXtVVTCSm/YXTi9TitfMMsz7pFfV5X4wb27YEfbUOmthqiaY1itk5cuWo1h7uCTU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--surenb.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=TKzVZYg/; arc=none smtp.client-ip=209.85.216.71
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--surenb.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Jf4B3KNd"
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38ec0f510a9so2400883a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 12:42:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="TKzVZYg/"
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-398fe469aa0so2186099a91.2
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 12:42:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789155719; x=1789760519; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789155711; x=1789760511; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Zej03whk2f8tlO07T6d+N4M+kS17EX2Qpuy0D1YVEz0=;
-        b=Jf4B3KNdcYS2cJ041SfVt58lvY0wH/q3scN26lfyaeVDfEIuzE6c+Mn6ZR7Zpz1jjN
-         CspqNzHq0NGSsmoa7znJwL+iA+qMhzmO5cGHMBvOgGELq6q1K8DOUGPSO11xfrEGeLin
-         d9zVxr1EfINgxw+hoc7Q2qkNCVAfPApQZwZ46RV5SX0SEqEjr3jev9PBA1U6alKvXu6l
-         1+I50XofIBZ9Wn56ICyZBs3mWEBPEy8iOKIpGqejGvsOz4ARu+Dh0OxA4ku5jbuhRmNF
-         3xOkfVOOBGtRwS0PMhRsW2R+Pisxk8frgFwIO301CF+bBs6WL52w33DLoDpne9YLqubW
-         E6tw==
+        bh=xOFXyMArwtdLkzPinOADoZdNqvQDYiollRghSoVraI0=;
+        b=TKzVZYg/gyRfvrb8NxOkX1XIF1P1agFnWHyxoh5rRuo6tSeM2vVdSPkjPRNitv/TpL
+         ob9I8NrAPC0O+0cI6Zq/aEUUcicoTI46iqErviIkBY7IPPzLq0RP9EH6vQ4i5T+nOg+L
+         mTtNfkIec4DHdNiYPrscu6Fo7LzDgSqi8vPE84Qd2SC5cCqFdT6EymKpAaCpNmlipCfK
+         tPTppqRYIiSMyKhWKh6MlgggIMNSbc/cl6AgpuAHG1Q5zjgdOHDpjkmcjVndDva8vEgu
+         p0aVfYeMMuKDEGMXt8/+9x1nZQ2V4HWLJihWa27LZeHQwImc+phLknGPo34UUCYbBeQR
+         retQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789155719; x=1789760519;
+        d=1e100.net; s=20251104; t=1789155711; x=1789760511;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Zej03whk2f8tlO07T6d+N4M+kS17EX2Qpuy0D1YVEz0=;
-        b=Aiv24L0weuyx4giaYzQkN+L0QfmRnAMljjxQcbIfAj01AU74csqT4V81XxF0OrCEEM
-         F8mXqXQ1brHltvNBsW8IJzeDXAD+MHdqgfb4bVYdgLd8K78IYshmBbYPnjU7l/Y/Rd5F
-         ULAvtw2Wl1y3n+QyFN7ZpJW7HDsXFPtXRq0X4clxggcfsp4qc9ROpWxuvupDv88jH0pe
-         3/OyBrMw3CsTRPrlBfXifdlQR39RWidLAMlbI4mMITOszU7ufcjsG7bUv+2NlRWo9ae/
-         AFSWIgHpJUoxUavfKrE3I7BqeFTN8lV5+HCfj9f4AujHSumUKQ3WpUJF1KQ8heQRX5TA
-         KQgQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzOcXK42UCB4PWXLT+Fh60Dwy2QBwYc15ozWp0TPCzZAzzw5TUcQYwqlFh++KMqJuRwzmpea2e6RtG9CM4=@vger.kernel.org
-X-Gm-Message-State: AFuF++ncZ2a+fTB4mL8A4Mlt3ybinLmP3Bw/PELBl8rbQby/OIOSdqGA
-	ENYeF6eCbzaRscBBQZyNMji6SeriSeu9eTU4XBii3hEMIshE7ZvffQB/Q6+15C3LWGkSMcAmymq
-	vYnPQTA==
-X-Received: from dlzz14.prod.google.com ([2002:a05:7022:48e:b0:143:5477:e9f])
- (user=surenb job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:280e:b0:395:5eec:b932
- with SMTP id 98e67ed59e1d1-39d9beb7248mr9867936a91.11.1789155719169; Fri, 11
- Sep 2026 12:41:59 -0700 (PDT)
-Date: Fri, 11 Sep 2026 12:41:43 -0700
+        bh=xOFXyMArwtdLkzPinOADoZdNqvQDYiollRghSoVraI0=;
+        b=X2vWVZQVHpuckUsdMKRlOvIB9YLoBIwl1YqlruyDiNbiNl/HgBJ+knpLCTvqNXhMLQ
+         PZ0AtvCtY9pG+i2Xm94Lmgb42W7Y4RiGcc/02DFk7P2TSICmyTgn2alUCzqUaCRUC+pO
+         S6vKYgE6wI208P3pl/kr82+J0qjVOS7ZQwugo1wwNKECGvYrtTgs6Convf3BGOIraYrl
+         kv8Q87idCJClURGhk+gWvct1I8epBrEqA9H/M7ftGDw67yo4geYj1epCJu0QLF12oyLq
+         VocuykIHPpG6PtMmyrq5RkTaSIm2GkLopv2eXO1UaRl9+eF3nRK2S2n4qH4Un/Muls35
+         joiQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz8uwsujd+/Q+kekZFHCUu/EDdHM3NL/T8lC13ASI3N7GEbQViL02DK8YLdCFxE4nIcznoQiHRgUsoz91s=@vger.kernel.org
+X-Gm-Message-State: AFuF++lEHda5ShARwaGpvAfoWHXeIx0t11y5Y3TI2CKZjXJu1yf3chhX
+	XmFYXTQPxlTiAW1m3PYgyhEeKZQwzP6waETHwkywYzlqtZFkg7rV273ouTa42a1Ufv6F2P+Jh1J
+	ulhs7QQ==
+X-Received: from dlbrj7.prod.google.com ([2002:a05:7022:f407:b0:143:5fe6:4e1a])
+ (user=surenb job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:5246:b0:398:d2a0:87ff
+ with SMTP id 98e67ed59e1d1-39d9bc67660mr10045684a91.1.1789155711065; Fri, 11
+ Sep 2026 12:41:51 -0700 (PDT)
+Date: Fri, 11 Sep 2026 12:41:39 -0700
 In-Reply-To: <20260911194145.1781926-1-surenb@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,98 +60,154 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260911194145.1781926-1-surenb@google.com>
 X-Mailer: git-send-email 2.55.0.1007.g17ff1f9808-goog
-Message-ID: <20260911194145.1781926-6-surenb@google.com>
-Subject: [PATCH v4 5/7] proc/task_mmu: change proc_get_vma() to stop returning
- gate VMA at the end
+Message-ID: <20260911194145.1781926-2-surenb@google.com>
+Subject: [PATCH v4 1/7] proc/task_mmu: remove unnecessary helpers
 From: Suren Baghdasaryan <surenb@google.com>
 To: akpm@linux-foundation.org
 Cc: liam@infradead.org, ljs@kernel.org, vbabka@kernel.org, david@kernel.org, 
 	willy@infradead.org, jannh@google.com, paulmck@kernel.org, pfalcato@suse.de, 
 	xueyuan.chen21@gmail.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, surenb@google.com
+	linux-fsdevel@vger.kernel.org, surenb@google.com, 
+	Usama Arif <usama.arif@linux.dev>
 Content-Type: text/plain; charset="UTF-8"
 
-proc_get_vma() returning gate VMA at the end is desirable for the its
-current m_start/m_next callers, as they need to report a gate VMA at the
-end of the address space. This behavior is very specific to these callers
-and makes proc_get_vma() hard to use for other purposes.
+When per-vma locks were behind a config option, a number of helper
+functions were needed to simplify the locking code. Now that these
+locks are universally available, we can do a little cleanup.
+Remove lock_vma_range(), unlock_vma_range(), query_vma_setup(),
+query_vma_teardown() helpers.
 
-Move this usage-specific behavior into the callers themselves so that
-proc_get_vma() returns either a valid VMA, an error or a NULL when no
-more VMAs are available. This makes it more generic, simpler and usable
-in the later patches.
+No functional change intended.
 
 Signed-off-by: Suren Baghdasaryan <surenb@google.com>
+Reviewed-by: Liam R. Howlett (Oracle) <liam@infradead.org>
 Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Acked-by: Usama Arif <usama.arif@linux.dev>
 Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- fs/proc/task_mmu.c | 28 +++++++++++++++++++++++-----
- 1 file changed, 23 insertions(+), 5 deletions(-)
+ fs/proc/task_mmu.c | 67 ++++++++++++----------------------------------
+ 1 file changed, 17 insertions(+), 50 deletions(-)
 
 diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-index a6026ffd07f1..aef7ce659889 100644
+index e671b4fd8ded..2f500d639db5 100644
 --- a/fs/proc/task_mmu.c
 +++ b/fs/proc/task_mmu.c
-@@ -236,9 +236,6 @@ static struct vm_area_struct *proc_get_vma(struct seq_file *m, loff_t *ppos)
- 		 * found the extended vma with the same vm_start.
- 		 */
- 		*ppos = vma->vm_end;
--	} else {
--		*ppos = SENTINEL_VMA_GATE;
--		vma = get_gate_vma(priv->lock_ctx.mm);
+@@ -160,25 +160,6 @@ static void unlock_ctx_vma(struct proc_maps_locking_ctx *lock_ctx)
  	}
- 
- 	return vma;
-@@ -248,6 +245,7 @@ static void *m_start(struct seq_file *m, loff_t *ppos)
- {
- 	struct proc_maps_private *priv = m->private;
- 	struct proc_maps_locking_ctx *lock_ctx;
-+	struct vm_area_struct *vma;
- 	loff_t last_addr = *ppos;
- 	struct mm_struct *mm;
- 
-@@ -277,19 +275,39 @@ static void *m_start(struct seq_file *m, loff_t *ppos)
- 		*ppos = last_addr = priv->last_pos;
- 	vma_iter_init(&priv->iter, mm, (unsigned long)last_addr);
- 	hold_task_mempolicy(priv);
-+	/*
-+	 * If seq_file had to flush its collected data right after m_next() set
-+	 * position to SENTINEL_VMA_GATE, m_start() will get that sentinel and
-+	 * should return gate_vma without calling proc_get_vma().
-+	 */
- 	if (last_addr == SENTINEL_VMA_GATE)
- 		return get_gate_vma(mm);
- 
--	return proc_get_vma(m, ppos);
-+	vma = proc_get_vma(m, ppos);
-+	if (vma)
-+		return vma;
-+
-+	/* Return gate VMA at the end */
-+	*ppos = SENTINEL_VMA_GATE;
-+	return get_gate_vma(mm);
  }
  
- static void *m_next(struct seq_file *m, void *v, loff_t *ppos)
+-static inline bool lock_vma_range(struct seq_file *m,
+-				  struct proc_maps_locking_ctx *lock_ctx)
+-{
+-	rcu_read_lock();
+-	reset_lock_ctx(lock_ctx);
+-
+-	return true;
+-}
+-
+-static inline void unlock_vma_range(struct proc_maps_locking_ctx *lock_ctx)
+-{
+-	if (lock_ctx->mmap_locked) {
+-		unlock_ctx_mm(lock_ctx);
+-	} else {
+-		unlock_ctx_vma(lock_ctx);
+-		rcu_read_unlock();
+-	}
+-}
+-
+ static struct vm_area_struct *get_next_vma(struct proc_maps_private *priv,
+ 					   loff_t last_pos)
  {
-+	struct proc_maps_private *priv = m->private;
-+	struct vm_area_struct *vma;
-+
- 	if (*ppos == SENTINEL_VMA_GATE) {
- 		*ppos = SENTINEL_VMA_END;
+@@ -286,13 +267,8 @@ static void *m_start(struct seq_file *m, loff_t *ppos)
  		return NULL;
  	}
--	return proc_get_vma(m, ppos);
-+	vma = proc_get_vma(m, ppos);
-+	if (vma)
-+		return vma;
-+
-+	/* Return gate VMA at the end */
-+	*ppos = SENTINEL_VMA_GATE;
-+	return get_gate_vma(priv->lock_ctx.mm);
- }
  
- static void m_stop(struct seq_file *m, void *v)
+-	if (!lock_vma_range(m, lock_ctx)) {
+-		mmput(mm);
+-		put_task_struct(priv->task);
+-		priv->task = NULL;
+-		return ERR_PTR(-EINTR);
+-	}
+-
++	rcu_read_lock();
++	reset_lock_ctx(lock_ctx);
+ 	/*
+ 	 * Reset current position if last_addr was set before
+ 	 * and it's not a sentinel.
+@@ -325,7 +301,12 @@ static void m_stop(struct seq_file *m, void *v)
+ 		return;
+ 
+ 	release_task_mempolicy(priv);
+-	unlock_vma_range(&priv->lock_ctx);
++	if (priv->lock_ctx.mmap_locked) {
++		unlock_ctx_mm(&priv->lock_ctx);
++	} else {
++		unlock_ctx_vma(&priv->lock_ctx);
++		rcu_read_unlock();
++	}
+ 	mmput(mm);
+ 	put_task_struct(priv->task);
+ 	priv->task = NULL;
+@@ -518,21 +499,6 @@ static int pid_maps_open(struct inode *inode, struct file *file)
+ 		PROCMAP_QUERY_VMA_FLAGS				\
+ )
+ 
+-static int query_vma_setup(struct proc_maps_locking_ctx *lock_ctx)
+-{
+-	reset_lock_ctx(lock_ctx);
+-
+-	return 0;
+-}
+-
+-static void query_vma_teardown(struct proc_maps_locking_ctx *lock_ctx)
+-{
+-	if (lock_ctx->mmap_locked)
+-		unlock_ctx_mm(lock_ctx);
+-	else
+-		unlock_ctx_vma(lock_ctx);
+-}
+-
+ static struct vm_area_struct *query_vma_find_by_addr(struct proc_maps_locking_ctx *lock_ctx,
+ 						     unsigned long addr)
+ {
+@@ -653,12 +619,7 @@ static int do_procmap_query(struct mm_struct *mm, void __user *uarg)
+ 	if (!mm || !mmget_not_zero(mm))
+ 		return -ESRCH;
+ 
+-	err = query_vma_setup(&lock_ctx);
+-	if (err) {
+-		mmput(mm);
+-		return err;
+-	}
+-
++	reset_lock_ctx(&lock_ctx);
+ 	vma = query_matching_vma(&lock_ctx, karg.query_addr, karg.query_flags);
+ 	if (IS_ERR(vma)) {
+ 		err = PTR_ERR(vma);
+@@ -732,7 +693,10 @@ static int do_procmap_query(struct mm_struct *mm, void __user *uarg)
+ 		vm_file = get_file(vma->vm_file);
+ 
+ 	/* unlock vma or mmap_lock, and put mm_struct before copying data to user */
+-	query_vma_teardown(&lock_ctx);
++	if (lock_ctx.mmap_locked)
++		unlock_ctx_mm(&lock_ctx);
++	else
++		unlock_ctx_vma(&lock_ctx);
+ 	mmput(mm);
+ 
+ 	if (karg.build_id_size) {
+@@ -773,7 +737,10 @@ static int do_procmap_query(struct mm_struct *mm, void __user *uarg)
+ 	return 0;
+ 
+ out:
+-	query_vma_teardown(&lock_ctx);
++	if (lock_ctx.mmap_locked)
++		unlock_ctx_mm(&lock_ctx);
++	else
++		unlock_ctx_vma(&lock_ctx);
+ 	mmput(mm);
+ out_file:
+ 	if (vm_file)
 -- 
 2.55.0.1007.g17ff1f9808-goog
 
