@@ -1,77 +1,80 @@
-Received: from fout-a5-smtp.messagingengine.com (fout-a5-smtp.messagingengine.com [103.168.172.148])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A00D23D7FF
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:16:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.148
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36F452DE6E6
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:16:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789136170; cv=none; b=HRXSFonifOR34EctcCDjQMf3Tdw6J5WXGUqZlYDstCoqYzhOsdYgA6whIY9iB5Fx9aBJB+/RWOI05VWkDSF3wqm50PGhFFojxblUgxp1e5ukjk8Z0MxvFSjQoUoRfhC7PPiYHqi0SS3xENEf7z0L1tIsaFvctCMdHRlqomKfhSE=
+	t=1789136194; cv=none; b=S73Z7knhv5Tqpkd4qAG26xHsBazOH44RKHKbHnMGPPHUdv6sBVcMIpcX3XlTIkdl1zFo6k0b6Z8W5UYdJlwfakOzY11zgFkbkBlDDGlhFKFJH4j5Y9vueMNMLXCJdAg35FvW1IyiMgYl8LvUyClWfzBXpHncz3O3n77vh1MIFFk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789136170; c=relaxed/simple;
-	bh=yCvjTnBgzRgZnaNt5x6C16omR5bABmY6878VdVgjGyU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JljNhbk+uOodMCBYkM3HuBAMIT2RNBwIpng9NQicKxDitI97oMhVeFIFz/3hfh3nn76N5M4x9x9tJu3FIBIv4dxqyb/fKQEbJpNYlV3b5NUz3QvY6ueNMO2jWSp2f89CbxV2xD4yaMaIh3z+kUBnJyCzmx4QiA4wGI5G9R9sfwY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=ZO67rZwL; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=bILzHFpP; arc=none smtp.client-ip=103.168.172.148
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
+	s=arc-20240116; t=1789136194; c=relaxed/simple;
+	bh=0mZHJkoBKZVg6KtObC8eJA7MPHUd6muWxiLT/UsPSFQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NukqTl7j+n8+GImowybSI3Kb5D8dZGYADvltpl5iSc5pb0wMkTJ9qR0PClSaa10BMxUM1yO8APmErKw9BUoCWhlOHO+5ukxCOYmYvaxUMSyUsJX1ZPrc4g3wqh3GAt3d87adbWyarHaFo1DrFV+5wtEw+G+6kROw9KHJHGXbyOo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j5hQTjQj; arc=none smtp.client-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="ZO67rZwL";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="bILzHFpP"
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfout.phl.internal (Postfix) with ESMTP id 2A9BDEC005A;
-	Fri, 11 Sep 2026 10:16:07 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-06.internal (MEProxy); Fri, 11 Sep 2026 10:16:07 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
-	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to; s=fm1; t=1789136167; x=1789222567; bh=CcsekVvwKY
-	he2s+Q6czENkfa8S7o+3/QkD3gQQ7ZUhE=; b=ZO67rZwLWeQOkQ58XlhJEKRCd3
-	PrBP5pE88T+V5ShscI1Gi7ku7zKbOlouPJmRRDSU0CgNu9kZKm8GfgJLFk1CgN7J
-	E5pCrgUOpeYJlUGo/dOmJiWfDRLIbriyETO00qWcTiB8cjGXH7H+w48MPxmX47OH
-	6ANrv8gP3dIujgF1kNz/BszLzaTKxzlc5+X5yaA8gJJe+3aDSYb9J7w/YSY5DoaO
-	N4bBu3go3NQvsi/vr9riQokCkJbfL1Aq24zuCbRezuBxqlAlweZ8buDS2Lx8E5YO
-	eyGr6moCEZ7Qh+b4eiKsuToMIoUv3lG/zfHbcsZI9J7/6D0nPcIyizTDAPNg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1789136167; x=1789222567; bh=CcsekVvwKYhe2s+Q6czENkfa8S7o+3/QkD3
-	gQQ7ZUhE=; b=bILzHFpPaNiFjVK6YXf0XYCB7C1zOVZJVo4nkL5sc3IeXJ4O19d
-	mRp+qH+W3ALPQaXO1Bc6ZAZ6zlpk2iqPXF/X0t/qBRWJrhkI0y/4mExFw5C6g0sG
-	KTNuw7rCRolEdvgz7OibnFNWVhWZz3bPezC7P8xlZWq1hxbpnHh1DbX9EcrT+qqI
-	iPme+jf9GviH4RS6VMn4AmFq7OcroN5qpYTjjVdj+GcAUzb9W55fy8KrLxqdScIS
-	HoU4B0eSIUyvVIvVz48cUOlYw5WHefMETlavhm6wufjmOgrdyDIqH8cL0QFqPdlj
-	2+CGR92H5xYIYrdubJC9ym1olGUl/CCeXyw==
-X-ME-Sender: <xms:Jw2kaqymdqGAdH7269G4Ip-f28GXGWg981-L4UmREMAsifTaKyYKNQ>
-    <xme:Jw2kakPIrU83_Jn4oyKllnKmxu6XzjZhpF7POjPtq8M0tJEYfrXAklZe_r7GhDNhs
-    cPglQL6oRlAc8RrJSay4wgcbPG0N4MC2wMwTgqfuu4i_wAKEAYQJiLj>
-X-ME-Received: <xmr:Jw2kaj70dLAFWwyy3mvWM6miGKb6-LQdR3sGbHziowyHPeWm1m9BaivIHLuPwsHFxDctLMbmFEqthEeBZVJje9W4jjkCkmwktf6nQoFhtyFkjg>
-X-ME-Proxy-Cause: dmFkZTE1RZ+L4h0E2e2Has1c34TkEhdu+M+Tp1QbdjUiohT+KirTPQBqWKRbnMpWaiYUpl
-    9h/42k3ausgx+d8XqQRjNcpyfjjgg3foPsKr8MBC8CIe723K+ILqgiQtN9CRHrLtbh+uMl
-    579VlEw4BcAEZTm6J1vJNi3sn93hJuQVWdj1UPrdTGWB8O1duv+Q10tBhserL0HRwZTLcS
-    EDgT3n0ynMclOEWsQYAcaVDovCIijyV/SYGHH39rayiEi7qL/fCYkujonuKOlfhupYtpNY
-    Nbof8HaVS7T5Na1p35wY+ky+xgPz9Cf4t+F9xnVPQbl9M+Gu0wFcm4kxBNa4cKBxme55So
-    cTBGEF8BHgorn2ANtYkFj2XvRtANcxcSMAvdG+bbAzPTZ5WJoePKkOhjAturvqSCuXgcrV
-    WuQcPNiGf6vKVHrpsCTPSTWiw1PYSUNj1PCBaLhdx+/eRqfsStyZCu01Hzoipmsc+U+JkU
-    VkLDWkrR/+xZw6UIY+RwYeaKIWclWOM7oXUjRLkCb5L6kF1OUOWpOwryC7/dsfzfaRltnG
-    f4wcwZ9CYRgBcS4rKGhfIzxmyH+ihYTbMCCNO/oelWrVQEZ3aYMKcMJTXdJA+oWRfHAY8L
-    m1hlG0Q4ygRN3hBQA/xpvhABsSB44y/9IzXDRP1uKfeUfGlU5StKJ+fJcf6A
-X-ME-Proxy: <xmx:Jw2katOd-7-sBMjNQOPpA0-B0n9ezO4_hmENX_DYaIIqjKWGJI5gFg>
-    <xmx:Jw2kapl3BiIcpDxj9zhATLRwDPmh5-MbUdLrsWxKJOg563NNLtM6dg>
-    <xmx:Jw2kasRZEu17hhQl55H7q20sgoVQx_AE46YhTIDH-2G9diwYJSsnhQ>
-    <xmx:Jw2katBYpFrnzZNnb1T8U6QneJQs1xv5uiU8c8mIgThB_ydpfbAqfw>
-    <xmx:Jw2kaqkty7QiHTiX4F2v1_LrI1PfdWbDcg1Z1-pg9hav5zyrHwa5dFqG>
-Feedback-ID: ie8e14432:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 11 Sep 2026 10:16:06 -0400 (EDT)
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: linux1394-devel@lists.sourceforge.net
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH] firewire: core: remove unused link field in fw_packet structure
-Date: Fri, 11 Sep 2026 23:16:02 +0900
-Message-ID: <20260911141602.3288806-1-o-takashi@sakamocchi.jp>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j5hQTjQj"
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3964dfb5b9aso1155968a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:16:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789136192; x=1789740992; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3UtoV/pw3leuZYVI4/SY6nx/n06s07Bocud6331VQDU=;
+        b=j5hQTjQjzLGhp506AT+QmAqOe9AApqT8JtQihNYUeFqtdcJuvZGoyNlG1diGo7mKOY
+         O257Qxy4zmD562aP31CUAOS9PlP+jtIRKAYfKT5seE5tvc60OxDbSg1RgCDSENHh2Mje
+         dGbd3K3K6gvGRJRMBWlT+EUDX5Wcevnm35W/iP9+lBt/IThYObATWNvBIdouEDf4JkMR
+         3JZ/sM81q9Bwv2yGNC4vXzmGoW/lYcrPpqR93BzuCFsdAEeIl5/q/MsHW5yyscnu8Xz4
+         YFIi2RCjYHaEN6fJiF6nCSqOHovinozB4x9UhIDfhWheX7nPIdfMZKGlk/lG8V4VxkFy
+         9qpw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789136192; x=1789740992;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3UtoV/pw3leuZYVI4/SY6nx/n06s07Bocud6331VQDU=;
+        b=Mc/6Ia+NF4h4RxKr22gw7h9Waa+xww56/Zs5uTPzlGSgyn889Ur2rWlyH0TomJ7jfQ
+         vg5o6kvf0LcnJ6Y/Nz5Owhls4bIyl8ETwPKiTDdqO+vpsTfC8wLRlOeLE9z2vKDvkB1z
+         MCu63npwJQ17yztzAXdZ9Ekg3DNRzdM64B/skdQrHyw4+9+9c32JPnag8LmgOr2xAHo2
+         SZcOVI6PcIiqlgXzK7et1hqiR1zqVGFk8C242gZxxvAdwVs6+ycKLcZS37Lneu2ljMEU
+         egG5+gasofBpTNEYpT7o09KC8LYjNW7HAzD7/b0Y+E6Ns/S7/6ZY9cVnKZUybTIti7vJ
+         niKQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxmVQrvzU1cYdX/TOGIsa5lG9y+HeYKEu33JGIa0jDjj+pvCKDAOyBgB/8T2UonA+Mon3NOtJYTIojcF1c=@vger.kernel.org
+X-Gm-Message-State: AFuF++kqMlAsqesX+ZYB0qe7mfyL/mKtoWGgMmRtd1BhKXR6FbrNRN6p
+	T4Uo4hbFsp0aJW997LTM+jSS1yW1Os168d0G6V0Lc1VX1lFyLdyeHQTj
+X-Gm-Gg: AYBFou1xZ4WwBqtvyeEV81u80/f31jKblnLysVPxzEqfNLsu2UsGmHvBujU4dCmybjy
+	D5y6l0Ux5+2SLags28f2Md0JKsx7qrtz03BK4Ckz71o/HCCUG7oJNJ50lm4Og2hZIfvRregMbv2
+	vHjR85R6ND5hLLahLniKuyaQaYAOQjOPzCk/vauMR3GDGQM1NCA5qHNUZh0NBpNpFw1VYl69HxZ
+	eqiFBu1pQpyyXomJgWml4EtaC9e+mc1BhNZlu0bd0xAh1pMyu5nwmZ2QfUdzn/kyfru2XchUI+k
+	zdMhTXtohvU3Sjp7Tr3dd2W3JGvb2eGrpbyYFdpRcYxZAJg7bRsoBMNOTQJYCkj3WNlLuz6kYJt
+	rxqSyVYwYfxZJzi7hrzDC//SRvhOICkVhPgsvyfqIpDKFdGVEoCidWBcZEk4xMFVl2mQMO1n7Vw
+	dXFDIrEbgmhgu+ZOuEmqSYaJsu30QV2lVo6fo8x2gRLBxrHawz3eFjr73o2N0cl9EqgbCSQdICG
+	ds02qTZaAhSD5RamaUyuEKNLDADn7LVU8BoMECmEyhspV3Kj+RMHlvE3SqvVlVJG2L1SU/5UAUl
+X-Received: by 2002:a17:90b:53d0:b0:38e:bfe:81e9 with SMTP id 98e67ed59e1d1-39d9bc1b0demr6575516a91.1.1789136192365;
+        Fri, 11 Sep 2026 07:16:32 -0700 (PDT)
+Received: from nugod-NUC15CRHU5.tail9f095a.ts.net ([218.237.104.87])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d995a42a5sm5172740a91.17.2026.09.11.07.16.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 07:16:31 -0700 (PDT)
+From: HyeongJun An <sammiee5311@gmail.com>
+To: bpf@vger.kernel.org
+Cc: Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	=?UTF-8?q?Ricardo=20B=20=2E=20Marli=C3=A8re?= <rbm@suse.com>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Mykola Lysenko <nickolay.lysenko@gmail.com>,
+	Shuah Khan <shuah@kernel.org>,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	HyeongJun An <sammiee5311@gmail.com>
+Subject: [PATCH bpf-next] selftests/bpf: Tolerate libarena skeleton failures under BPF_STRICT_BUILD=0
+Date: Fri, 11 Sep 2026 23:16:21 +0900
+Message-ID: <20260911141621.1944900-1-sammiee5311@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,29 +83,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The link field in fw_packet structure has never been used since it was
-added.
+The Makefile documents BPF_STRICT_BUILD=0 as tolerating any BPF object,
+skeleton, test object or benchmark failure so that the remaining tests
+still build.  Every skeleton rule honours that through
+$(if $(PERMISSIVE),...), except the three that build the libarena
+skeletons.  Those invoke a sub-make with no guard, so a libarena failure
+is fatal even in permissive mode.
 
-Fixes: 3038e353cfaf ("firewire: Add core firewire stack.")
-Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+With a libarena source that fails to compile, BPF_STRICT_BUILD=0 stops at
+
+  make: *** [libarena/libarena.skel.h] Error 2
+
+while an ordinary program failing the same way prints SKIP-BPF and the
+build carries on.
+
+Guard the three sub-makes the way the other skeleton rules are guarded.
+The build then prints SKIP-SKEL and continues, and test_progs,
+test_progs-no_alu32, test_progs-cpuv4 and bench all link.  Nothing
+downstream needs a change, because the missing skeleton drops out through
+the existing permissive paths and libarena.test.o is reported as
+SKIP-TEST.  The default BPF_STRICT_BUILD=1 still fails on the same input.
+
+Fixes: a6850fa388f6 ("selftests/bpf: Add BPF_STRICT_BUILD toggle")
+Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
+Assisted-by: Claude:claude-opus-5
 ---
- include/linux/firewire.h | 1 -
- 1 file changed, 1 deletion(-)
+ tools/testing/selftests/bpf/Makefile | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-diff --git a/include/linux/firewire.h b/include/linux/firewire.h
-index 7fa1a3fc8ed4..a1e0cb4526c9 100644
---- a/include/linux/firewire.h
-+++ b/include/linux/firewire.h
-@@ -337,7 +337,6 @@ struct fw_packet {
- 	 */
- 	fw_packet_callback_t callback;
- 	int ack;
--	struct list_head link;
- 	void *driver_data;
- };
+diff --git a/tools/testing/selftests/bpf/Makefile b/tools/testing/selftests/bpf/Makefile
+index 7ea5ba1df29e..a9951774e5c8 100644
+--- a/tools/testing/selftests/bpf/Makefile
++++ b/tools/testing/selftests/bpf/Makefile
+@@ -835,17 +835,20 @@ LIBARENA_SKEL := libarena/libarena.skel.h
+ LIBARENA_BENCH_SKEL := libarena/libarena_bench.skel.h
  
+ $(LIBARENA_SKEL): $(INCLUDE_DIR)/vmlinux.h $(BPFOBJ) $(LIBARENA_BPF_DEPS)
+-	+$(MAKE) -C libarena libarena.skel.h $(LIBARENA_MAKE_ARGS)
++	+$(MAKE) -C libarena libarena.skel.h $(LIBARENA_MAKE_ARGS) $(if $(PERMISSIVE),|| \
++		printf '  %-12s %s\n' 'SKIP-SKEL' '$(notdir $@)' 1>&2)
+ 
+ $(LIBARENA_BENCH_SKEL): $(INCLUDE_DIR)/vmlinux.h $(BPFOBJ) $(LIBARENA_BENCH_BPF_DEPS) | $(LIBARENA_SKEL)
+-	+$(MAKE) -C libarena benchmarks $(LIBARENA_MAKE_ARGS)
++	+$(MAKE) -C libarena benchmarks $(LIBARENA_MAKE_ARGS) $(if $(PERMISSIVE),|| \
++		printf '  %-12s %s\n' 'SKIP-SKEL' '$(notdir $@)' 1>&2)
+ 
+ ifneq ($(CLANG_HAS_ARENA_ASAN),)
+ LIBARENA_ASAN_SKEL := libarena/libarena_asan.skel.h
+ CFLAGS += -DHAS_BPF_ARENA_ASAN
+ 
+ $(LIBARENA_ASAN_SKEL): $(INCLUDE_DIR)/vmlinux.h $(BPFOBJ) $(LIBARENA_BPF_DEPS)
+-	+$(MAKE) -C libarena libarena_asan.skel.h $(LIBARENA_MAKE_ARGS)
++	+$(MAKE) -C libarena libarena_asan.skel.h $(LIBARENA_MAKE_ARGS) $(if $(PERMISSIVE),|| \
++		printf '  %-12s %s\n' 'SKIP-SKEL' '$(notdir $@)' 1>&2)
+ endif
+ 
+ # Define test_progs test runner.
 
-base-commit: 4cb9978b4c66b6fcf529a39ec6869671735fdd2a
+base-commit: af0b84a9215d951d16f26b7ee34353b970cf5d4e
 -- 
-2.53.0
+2.43.0
 
