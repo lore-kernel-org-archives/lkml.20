@@ -1,178 +1,276 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010062.outbound.protection.outlook.com [52.101.84.62])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40A7B34214A;
-	Fri, 11 Sep 2026 14:36:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789137402; cv=none; b=dSb5pC6TPLfmiGb8xqowOkgecUbYAQ/o3J93zrzhzurJNjIEtla/f+tGpqe0oIUOXlSi9Cb1QMvsUh4J6H7A66wd8qQEyiAYgLHXXhKX3fu8N6vIPEq/fi2VD8IT0l71iG7clhSWI5sLpvuM6eWZ7lvIsqOe8rYgCvaKbH81l/I=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789137402; c=relaxed/simple;
-	bh=b07jereOcmJG4tE3aUtF9a9dneClyH7OsteBXOpIi/8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VQCLpD/gOkaa9ER+Jsd54i1xyk+MBe2txa0DXcmwInaVG8PsgxOPpqpyoyhfmHBqOkJrYdi44nkpMv9vB42Ht2mygRd1YREzqrjBw21RpklsbbinPZX9laNCZujnUH2n9hdUpd9KdgFXlWM5ZP5VUV6vqLfqnhLuQt5eOAhxgnY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=XGLCnjkO; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=4Gl9I5+N; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=Qsp44nvS; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=s+2gj3zn; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 340D72E7384
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:36:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.62
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789137412; cv=fail; b=q+8T7IMSTSvb36fk99YwXe+O1p98rHNtIdYdTndi6v7c3LU6CeHM6FgNFl7LyNWzOqRydhsyjcmurNv7ZSdR/9rMBcGdnX6LZXNU6HELd8TbwQmkjhzejDgNdYuUqo3lxVC+zuKOwnpHgIrwhEVIfNsPxhi85N71L8HqyVzdZ08=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789137412; c=relaxed/simple;
+	bh=uf1unvZ0tUnKAUSf+b2aAXv3OUQpp9gnLIbsOjiBnSY=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=aUxa2bkIqybv9/YAWEBjLN/YV3/KrWNhxzRXbni94C6gBGHRRjAZJvH60cAndxXqUxQfM9P6fmPrIM61YwXOBokafXSmriYOrzXoztwJ+G8RzxFFe4G1Cyq4A052ayjCsx0UpamwnL3ZYwsslXsNEXUXtsM88dRjN5ysjNunrPA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=sSycsoFw; arc=fail smtp.client-ip=52.101.84.62
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="XGLCnjkO";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="4Gl9I5+N";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="Qsp44nvS";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="s+2gj3zn"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 2E60021CC2;
-	Fri, 11 Sep 2026 14:36:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1789137395; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=BTCkbFXdVpqoHoYAhu4VNMZ8vDdzAMjg/OcxJhTsSF4=;
-	b=XGLCnjkOq6xfhtGwTICKL9DZG3p1s5GUJtjTzBYmcSL+cmhaMNML3UCXtJR+OCyjYemvsD
-	bo02wrH1Bl4FgaNkPGxPV6XfGPDVR6AX2TlZ671zhddzOX2ZcyfAlKsQu0W8gFMitFsEqK
-	QAtEgwJKkS2P+pKddjyI0GGI/ZvRyU4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1789137395;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=BTCkbFXdVpqoHoYAhu4VNMZ8vDdzAMjg/OcxJhTsSF4=;
-	b=4Gl9I5+NfQSQS0k0DJyzc0wAKTrdGdGaZ6aZz8hbdqT4pLgFKI494XjB675ngvpl4LLiHV
-	Dx37vnabMqUBJGBQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1789137391; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=BTCkbFXdVpqoHoYAhu4VNMZ8vDdzAMjg/OcxJhTsSF4=;
-	b=Qsp44nvSoyzy1OTwQ3GVlrz9jNdrmcBF6AQMPjTuCHG3EMTbYfxTHnoR7BEjV/oYgattPH
-	99g80MFozYqwKHFnlTTfqeGsMFnkhfBT3DdEFCSKhgu8Qj6DddFaj5R7omraX6n9G1jvuN
-	AREcYhsfd6gAHz2MI8E0o4nRsKlq7j4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1789137391;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=BTCkbFXdVpqoHoYAhu4VNMZ8vDdzAMjg/OcxJhTsSF4=;
-	b=s+2gj3znR/FMaZe5UgnR6dVlA4rTkdSOBEErewEG5YhyU5art0QWLOqx8thAJooR6WcUgy
-	9Tfa4/tS0OdGImBw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0323B132D3;
-	Fri, 11 Sep 2026 14:36:31 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id Jcq5AO8RpGpEAQAAD6G6ig
-	(envelope-from <jack@suse.cz>); Fri, 11 Sep 2026 14:36:31 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 91CB7A08F7; Fri, 11 Sep 2026 16:36:30 +0200 (CEST)
-Date: Fri, 11 Sep 2026 16:36:30 +0200
-From: Jan Kara <jack@suse.cz>
-To: Christian Brauner <brauner@kernel.org>
-Cc: Bill Wendling <morbo@google.com>, 
-	Bradley Morgan <brads@mainlining.org>, 
-	Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Aleksa Sarai <cyphar@cyphar.com>, Jan Kara <jack@suse.cz>, 
-	Nathan Chancellor <nathan@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Nicolas Schier <nsc@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	Alice Ryhl <aliceryhl@google.com>, Douglas Anderson <dianders@chromium.org>, 
-	Anand Moon <linux.amoon@gmail.com>, Oleg Nesterov <oleg@redhat.com>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, kernel test robot <lkp@intel.com>, 
-	codemender-patching+linux@google.com, linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	linux-hardening@vger.kernel.org
-Subject: Re: [PATCH 2/2] userns: declare the KUnit-visible helpers whenever
- KUnit is enabled
-Message-ID: <qxchqzvs6q6yjr24wv76gzxwerb7rqneookilzrvxg36rnj64d@wtzdyckehwwv>
-References: <20260911-deftig-geprahlt-gesehen-16310bdf51f5@brauner>
- <20260911-zyklisch-stuhl-zweit-d61b18a17838@brauner>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="sSycsoFw"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=cyuIDVKiiu3uJWP6advUXKw91uk0Ts2sdwhK0F3PBeUNZ/JpBPL2o2O/Of+F/ABfi+FyVzKrNFL16vBIVBH2/8S44J5eBtmWFD3TMxzb6E0EV7Rmp99SB9H2IUk+Cxaj4osU26SlzhlethfBd9qzKiabg7PiZhnhliri2pUDacERdx3bjIJtvCYoLyC9xu/JRzFPhDpGUS5hYIxeUh3gP3yR5CgrPih6u4itMFVFx2PnRxH7Bw2k7ALqTrWZGvn6REuLQetUVJzxnRtgyFHDEkc76jxS+znpeb+/y7gRx6GAH+/C2OgXBdA1e57aL9+FtcX9Z/HZnj2fy8cR3Xz1NA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YitNaMqkfGDN66QtW7Iz4Re0M2oaBJ9gPiZ+9XuUQhI=;
+ b=aNTbSgFBT5+vrZ/flK/brkuIsMd6m38zrqPjNhGqevDLZvNgp7JJdp9Jge7lxW8fafDYkVvzGlw+VC70bkzr4dMkB2P+nlHkAcEB/P8ELxkkfxIp5v39Uu5PotUe+lHHVUCHNtRVVXccCBamy1/hACiU5Z39eNT2vJg6y/DFksmBQI+X6hvzjcVzBaOxfmhtJDPJrN/NL7Gfvh4Ue3vOHA8eaQd1Jz6r+0DcM0EetrduYsZUKh2v4aRLfRhD++h5LVD11JBxo183jg6ngtGlawtvrMy90w6si+sDx7+xYlgtc2oAy2Ci1N1ktUYCNvlke9027Ut2usX5AFZyIs6RaQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YitNaMqkfGDN66QtW7Iz4Re0M2oaBJ9gPiZ+9XuUQhI=;
+ b=sSycsoFwfihLSOiPHP9CNgGiiVFmgSnMiB6PI/ZKzcSj2DlnshFXzVtd3A2b7s5vmRswNcmzDeGsOe7AMoj7Er6A9X9W7PI229UYyLO28ijSKb/YTfVMR1Uxw2jMoeUHIHr5CLK4XeWbOhWO5YMBErCUcPezEhhJD8PO7Be1crUyDiMdcRvaucMycIo8Ju2xBLcmBUeWBs46ljO+GkFBY/BIPbmAxQ5UAXUhZRrXSciWzqvW47AlV+/ZjpkwFNShI1lWmF5lAgRVeUwy6eS6fnfQnwYCtdKYl9S6zkTxxna1y0A2/4EBu5OsvFbb4B6Jn4vHmPKtw5bS8xaXC4ibZA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
+ (2603:10a6:150:32b::19) by FRWPR04MB11200.eurprd04.prod.outlook.com
+ (2603:10a6:d10:173::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Fri, 11 Sep
+ 2026 14:36:45 +0000
+Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
+ ([fe80::a498:2b5a:cbdb:d6fa]) by GV2PR04MB12318.eurprd04.prod.outlook.com
+ ([fe80::a498:2b5a:cbdb:d6fa%3]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
+ 14:36:45 +0000
+From: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+To: Ying Liu <victor.liu@nxp.com>,
+	Lucas Stach <l.stach@pengutronix.de>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Daniel Stone <daniels@collabora.com>,
+	Leandro Ribeiro <leandro.ribeiro@collabora.com>,
+	Pekka Paalanen <pekka.paalanen@collabora.com>
+Cc: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
+	dri-devel@lists.freedesktop.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] drm/imx: dcss: Silence blend mode not set boot warning
+Date: Fri, 11 Sep 2026 14:36:36 +0000
+Message-ID: <20260911143638.2674753-1-laurentiu.palcu@oss.nxp.com>
+X-Mailer: git-send-email 2.53.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: AM8P190CA0020.EURP190.PROD.OUTLOOK.COM
+ (2603:10a6:20b:219::25) To GV2PR04MB12318.eurprd04.prod.outlook.com
+ (2603:10a6:150:32b::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260911-zyklisch-stuhl-zweit-d61b18a17838@brauner>
-X-Spam-Score: -2.30
-X-Spam-Level: 
-X-Spamd-Result: default: False [-2.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	MISSING_XM_UA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[23];
-	TAGGED_RCPT(0.00)[linux];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[google.com,mainlining.org,linutronix.de,kernel.org,cyphar.com,suse.cz,garyguo.net,chromium.org,gmail.com,redhat.com,zeniv.linux.org.uk,intel.com,vger.kernel.org];
-	RCVD_COUNT_THREE(0.00)[3];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.cz:email,intel.com:email]
-X-Spam-Flag: NO
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB12318:EE_|FRWPR04MB11200:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5396eccb-6fdf-489d-3dcf-08df10121a4f
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|19092799006|376014|7416014|1800799024|366016|10067099003|6133799003|11063799006|56012099006|18002099003|921020;
+X-Microsoft-Antispam-Message-Info:
+	Bz7++HRifECbAwpumh1SHWenZNrjugliFEW9t90qJOirSz5eZtNKf8IJMQ7d31A6+a63cb8bGsi3i59k+tZTijtUAo9C7wkbcr1l/YIWvVSimdNLmD+VlchnsGP9dVSyFXXTTo6j0fUR5/AsBhoMHvigIQgjm8Ko+q7OfUoKZaQpwZk0inDu5fzXS5U/SuXZVwQda5jkhM1ik5Uq50MsucSVsnL6UE8SyvetgsB9DMZ+9ygazDzW3v1eTZXH7/x9u3Z93R+MguTp1WlD++pI+XYLBJ2l/9lNWN30g7Pr3R3K0+fF16VmkXGhIMEcuqqpQ29on+ZKRd8wvG70AY27vIILb3jSRw5TVwYin0/bFT+6N/UUC5912jSFm2pa8LiWZ1yaKh4wW1YvxzS3RezWOBYnAYFcf6/u9E7hoH8YreGjfcput6WW4wg8dCUFi6UXysrvIfRFL18bVX2O5IcLjTaeynl1BMWRoXxcSuK1q0yTtSkSNE8JWRSCaCWhgB9j2R5bc36IUW3E7JZOxuQ+SP75Eb24b89co8nVh7T4Fyd6mT6Is+JQOAv31s/ReHr7cP7bnRXq+Stc8FLHBCZXWovYX2e8nBXJL2OgsXIl8d1YzBiep3StTIs0WZVCebfpE/caOEjBQD42LLvn1GObahuALJ8tMS/G89Tpob8BlR9Z3BesOtr8NYbJsSAskMN+aSqVANwQ7lSxsXiY61SNWA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB12318.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(376014)(7416014)(1800799024)(366016)(10067099003)(6133799003)(11063799006)(56012099006)(18002099003)(921020);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?k9BUOpKCeNQeFq2q/BTJsr9sPK3RERlvQpxkqonE7i6BjIC+U7pnxavIETBy?=
+ =?us-ascii?Q?F8hsIL/eIOc9bhRcZalX2G8GfXwhQvqaSkutActmnVMv8C2XMyvMR9yQonY3?=
+ =?us-ascii?Q?0H+xeQPIPv/Edf5qfaYzH2juP1O9wj8UbaCKBCfHjYPkKOJV3jN8JihD6yBO?=
+ =?us-ascii?Q?FojdqgyuVro3dEIJ9szb+ijMP6arzUFq1qn6VLE8R9WTcMnlBWNEQ8dKctvD?=
+ =?us-ascii?Q?RqLam3vxizPwf/OKfE2N9LFYE+gvIjsEsTxS8ccyZ+GvU/6yRRX0NMy4CVLY?=
+ =?us-ascii?Q?39TeW8HVPW4YlJceTvzf+84dkwItvHElvzol1BBwLqyB+2prl7TAZ/tRDEK1?=
+ =?us-ascii?Q?VgqVQv1ZsW4kqQujmlt9iMge8nMkPmWv/HZm4f1lF/lq5qaDqKDgOfQVtEoe?=
+ =?us-ascii?Q?LXCLKsWtXK/QeNtliY4Nam4wH7DeUU0fHHBx0PM1+H5svohTqAJ2j8DcVP7s?=
+ =?us-ascii?Q?pcuGdqdX6EH+U2WW9wd5RcMsS7YpqHS/8geBdhcTBLbuMVJZcBgKBEmxYn06?=
+ =?us-ascii?Q?yNbpU6qIazzkN0+MhTbSH86kZZsZp2Wngs8Yx9Jb4xSISqSxvJoyIilYckg8?=
+ =?us-ascii?Q?F+DdQHWTC+XrtkjP6KDVQXoIHKm1SVOwyiZon3gtni/I3ol3ucpdz+ScJfIE?=
+ =?us-ascii?Q?xppgbXOSBs9t+dvQ0mI2fvY7bfVZyQcp4zkpEu3cYZm0t0cYa5drHv0NggdW?=
+ =?us-ascii?Q?d+MWjWNvPHOqhFOk75zNdD45JlPcMPGBgUn3tSwZqk8z2HeH9/Wn+aRk53CI?=
+ =?us-ascii?Q?q/C33IJiOYzxivDbs1KVSpQI3VtysBIW1iGMM1Hf6jjSlERmJOJedTv0nlAM?=
+ =?us-ascii?Q?E9aF/s+mv5wutMRSfaEkGs7+YokuX3YxN5vKraTRmT5ecS0jiT2Qv2UrVVnA?=
+ =?us-ascii?Q?AOM9H2NFaZ+aISsiX72dSQWbHFQnH0qTIv5opsjYHPH6Bk2ggWmpKNT3xFLl?=
+ =?us-ascii?Q?ax4LIv0v0RIdTlb7/PaW2iMdTbE6imoN8WZWxma0eFJJGxVUTlxrXuIUPAI1?=
+ =?us-ascii?Q?zHW15ySMrxsQ2T5VEBP+kXR9+8IZYsdgB4APHXPIjyl8OyoHDC0wDYx9CaLW?=
+ =?us-ascii?Q?ZU2gz4lfy2ziHUE4agn8nm3J74Px3Zl9RQvM8jmIAaScFgsjoyBXYgNaZyW+?=
+ =?us-ascii?Q?+IjjzSObasmg0mO+EcK9RYAc5AgNRnMw7bB2sWlWOkoPWxfQvnfHzu8Uiphi?=
+ =?us-ascii?Q?7DoByIC5Iw81oTbhQYd5xxduxC6QWj19PvBogC8yduclWDSv7vsn6LneGyJN?=
+ =?us-ascii?Q?T0CRZs4Tj4WoPOiAdQPx+nauc3vRRWJv4cIU4qzfojh+TXkOeuZd31Dbj2oh?=
+ =?us-ascii?Q?mvpN+1HuLXUJH/l8vCNKqFA36+V7pI1MwAU6nJcosC9MNXHFqMxt7OMOj1Av?=
+ =?us-ascii?Q?STvoLV4WzBR2PCjRVEUmuz/w2PjVBcdNa3G4hUBR3q0MjoV1Z472vxrrS6Xm?=
+ =?us-ascii?Q?XbL8g/9OCFpu3iESQOlkSyUXilBLrEBq35/mjkyUPZkokWTb8ERRcd3WaA4a?=
+ =?us-ascii?Q?H4Mgf4ZBD6wPUEMYPwCVRh7jc6Svmz1leralyvaMRMmc55Dsi856n/Pt27Mf?=
+ =?us-ascii?Q?PvncbMCswBAqqaJsN7XNfVyr3dClv4R5DPYIisIlrW2L1CwynrbgreZWzWHW?=
+ =?us-ascii?Q?9R10G8L085EAOdOGnQ0RVTgQjC4DWu/LfXyPXX4U8EUMHevxuAcmXk41pA30?=
+ =?us-ascii?Q?xX3ngwSNirWISWK3fpKg5/HLs33/EDdfo/B/7P1kSvU7Ct+B+FREV4UrKtPi?=
+ =?us-ascii?Q?emm78vpNqy3XTH74Z/vshpfOFr0hEPI=3D?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5396eccb-6fdf-489d-3dcf-08df10121a4f
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12318.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 14:36:44.9252
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: cVullCztGECLYO6SudxMux8L/e97N1Arjs4tfxCiT4hm4s6kZNzK72wcLpISbwpM5tntfRXd5qvv9wrpZ3RrXA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: FRWPR04MB11200
 
-On Fri 11-09-26 14:58:40, Christian Brauner wrote:
-> VISIBLE_IF_KUNIT drops the static qualifier whenever CONFIG_KUNIT is
-> enabled but the prototypes for the two helpers it exposes are only
-> declared when CONFIG_USER_NS_MAP_KUNIT_TEST is set.
-> 
->   kernel/user_namespace.c:787:22: warning: no previous prototype for 'insert_extent' [-Wmissing-prototypes]
->   kernel/user_namespace.c:860:22: warning: no previous prototype for 'sort_idmaps' [-Wmissing-prototypes]
-> 
-> Guard the declarations on CONFIG_KUNIT so they match the definitions.
-> 
-> Fixes: f6f1a2496ba5 ("userns: Add KUnit test suite for uid_gid_map")
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes: https://lore.kernel.org/oe-kbuild-all/202609111048.yhHILE11-lkp@intel.com/
-> Closes: https://lore.kernel.org/oe-kbuild-all/202609111305.ta3EOA2x-lkp@intel.com/
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+This addresses the following warning that appears at boot time:
 
-Looks good. Feel free to add:
+--snip--
+[PLANE:39:plane-0] pixel format with alpha exposed but blend mode not setup
+WARNING: drivers/gpu/drm/drm_mode_config.c:872 at drm_mode_config_validate+0x36c/0x520 [drm]
+--snip--
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+The warning started appearing after the commit mentioned below was
+introduced. Add the alpha and blending properties to the primary plane.
 
-								Honza
+Fixes: 860e748bddcc ("drm: ensure blend mode supported if pixel format with alpha exposed")
+Signed-off-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+---
+Changes in v2:
+- Also check alpha and pixel_blend_mode in dcss_plane_needs_setup() so that
+  setting alpha is not skipped by the fast-path in dcss_plane_atomic_update(); [Sashiko]
 
-> ---
->  include/linux/user_namespace.h | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/include/linux/user_namespace.h b/include/linux/user_namespace.h
-> index 637cd7e91a45..91232053775d 100644
-> --- a/include/linux/user_namespace.h
-> +++ b/include/linux/user_namespace.h
-> @@ -208,11 +208,11 @@ extern bool in_userns(const struct user_namespace *ancestor,
->  extern bool current_in_userns(const struct user_namespace *target_ns);
->  struct ns_common *ns_get_owner(struct ns_common *ns);
->  
-> -#if IS_ENABLED(CONFIG_USER_NS_MAP_KUNIT_TEST)
-> +#if IS_ENABLED(CONFIG_KUNIT)
->  extern int uid_gid_map_insert_extent(struct uid_gid_map *map,
->  				     struct uid_gid_extent *extent);
->  extern int uid_gid_map_sort(struct uid_gid_map *map);
-> -#endif /* CONFIG_USER_NS_MAP_KUNIT_TEST */
-> +#endif /* CONFIG_KUNIT */
->  
->  #else
->  
-> -- 
-> 2.53.0
-> 
+ drivers/gpu/drm/imx/dcss/dcss-crtc.c  |  6 ++++++
+ drivers/gpu/drm/imx/dcss/dcss-dev.h   |  3 ++-
+ drivers/gpu/drm/imx/dcss/dcss-dtg.c   | 12 ++++++++----
+ drivers/gpu/drm/imx/dcss/dcss-plane.c | 15 +++++++++++++--
+ 4 files changed, 29 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/gpu/drm/imx/dcss/dcss-crtc.c b/drivers/gpu/drm/imx/dcss/dcss-crtc.c
+index 5e9ee3f09d51f..193ee688cc777 100644
+--- a/drivers/gpu/drm/imx/dcss/dcss-crtc.c
++++ b/drivers/gpu/drm/imx/dcss/dcss-crtc.c
+@@ -5,6 +5,7 @@
+ 
+ #include <drm/drm_atomic.h>
+ #include <drm/drm_atomic_helper.h>
++#include <drm/drm_blend.h>
+ #include <drm/drm_vblank.h>
+ #include <linux/platform_device.h>
+ #include <linux/pm_runtime.h>
+@@ -202,6 +203,11 @@ int dcss_crtc_init(struct dcss_crtc *crtc, struct drm_device *drm)
+ 		return ret;
+ 	}
+ 
++	drm_plane_create_alpha_property(&crtc->plane[0]->base);
++	drm_plane_create_blend_mode_property(&crtc->plane[0]->base,
++					     BIT(DRM_MODE_BLEND_PIXEL_NONE) |
++					     BIT(DRM_MODE_BLEND_COVERAGE));
++
+ 	crtc->irq = platform_get_irq_byname(pdev, "vblank");
+ 	if (crtc->irq < 0)
+ 		return crtc->irq;
+diff --git a/drivers/gpu/drm/imx/dcss/dcss-dev.h b/drivers/gpu/drm/imx/dcss/dcss-dev.h
+index b032e873d227c..9b3bd2f3a7ef1 100644
+--- a/drivers/gpu/drm/imx/dcss/dcss-dev.h
++++ b/drivers/gpu/drm/imx/dcss/dcss-dev.h
+@@ -147,7 +147,8 @@ bool dcss_dtg_is_enabled(struct dcss_dtg *dtg);
+ void dcss_dtg_ctxld_kick_irq_enable(struct dcss_dtg *dtg, bool en);
+ bool dcss_dtg_global_alpha_changed(struct dcss_dtg *dtg, int ch_num, int alpha);
+ void dcss_dtg_plane_alpha_set(struct dcss_dtg *dtg, int ch_num,
+-			      const struct drm_format_info *format, int alpha);
++			      const struct drm_format_info *format, int alpha,
++			      unsigned int blend_mode);
+ void dcss_dtg_plane_pos_set(struct dcss_dtg *dtg, int ch_num,
+ 			    int px, int py, int pw, int ph);
+ void dcss_dtg_ch_enable(struct dcss_dtg *dtg, int ch_num, bool en);
+diff --git a/drivers/gpu/drm/imx/dcss/dcss-dtg.c b/drivers/gpu/drm/imx/dcss/dcss-dtg.c
+index 6bbfd9aa27aca..21da9d3cce4cb 100644
+--- a/drivers/gpu/drm/imx/dcss/dcss-dtg.c
++++ b/drivers/gpu/drm/imx/dcss/dcss-dtg.c
+@@ -3,6 +3,7 @@
+  * Copyright 2019 NXP.
+  */
+ 
++#include <drm/drm_blend.h>
+ #include <linux/clk.h>
+ #include <linux/delay.h>
+ #include <linux/interrupt.h>
+@@ -268,17 +269,20 @@ bool dcss_dtg_global_alpha_changed(struct dcss_dtg *dtg, int ch_num, int alpha)
+ }
+ 
+ void dcss_dtg_plane_alpha_set(struct dcss_dtg *dtg, int ch_num,
+-			      const struct drm_format_info *format, int alpha)
++			      const struct drm_format_info *format, int alpha,
++			      unsigned int blend_mode)
+ {
+ 	/* we care about alpha only when channel 0 is concerned */
+ 	if (ch_num)
+ 		return;
+ 
+ 	/*
+-	 * Use global alpha if pixel format does not have alpha channel or the
+-	 * user explicitly chose to use global alpha (i.e. alpha is not OPAQUE).
++	 * DCSS supports either global alpha or per-pixel blending, following
++	 * the coverage blending formula (with global alpha set to opaque).
++	 * When the pixel blend mode is PIXEL_NONE, the per-pixel alpha is
++	 * meant to be ignored, so fall back to global alpha in that case too.
+ 	 */
+-	if (!format->has_alpha || alpha != 255)
++	if (!format->has_alpha || blend_mode == DRM_MODE_BLEND_PIXEL_NONE)
+ 		dtg->alpha_cfg = (alpha << DEFAULT_FG_ALPHA_POS) & DEFAULT_FG_ALPHA_MASK;
+ 	else /* use per-pixel alpha otherwise */
+ 		dtg->alpha_cfg = CH1_ALPHA_SEL;
+diff --git a/drivers/gpu/drm/imx/dcss/dcss-plane.c b/drivers/gpu/drm/imx/dcss/dcss-plane.c
+index 303e93fd036c1..f991c35d2b993 100644
+--- a/drivers/gpu/drm/imx/dcss/dcss-plane.c
++++ b/drivers/gpu/drm/imx/dcss/dcss-plane.c
+@@ -209,6 +209,14 @@ static int dcss_plane_atomic_check(struct drm_plane *plane,
+ 		return -EINVAL;
+ 	}
+ 
++	/* DCSS supports either per-pixel or global alpha. Not both. */
++	if (new_plane_state->fb->format->has_alpha &&
++	    new_plane_state->pixel_blend_mode != DRM_MODE_BLEND_PIXEL_NONE &&
++	    new_plane_state->alpha != DRM_BLEND_ALPHA_OPAQUE) {
++		DRM_DEBUG_KMS("Both per-pixel and global alpha not supported.\n");
++		return -EINVAL;
++	}
++
+ 	return 0;
+ }
+ 
+@@ -263,7 +271,9 @@ static bool dcss_plane_needs_setup(struct drm_plane_state *state,
+ 	       fb->format->format != old_fb->format->format ||
+ 	       fb->modifier  != old_fb->modifier ||
+ 	       state->rotation != old_state->rotation ||
+-	       state->scaling_filter != old_state->scaling_filter;
++	       state->scaling_filter != old_state->scaling_filter ||
++	       state->alpha != old_state->alpha ||
++	       state->pixel_blend_mode != old_state->pixel_blend_mode;
+ }
+ 
+ static void dcss_plane_atomic_update(struct drm_plane *plane,
+@@ -336,7 +346,8 @@ static void dcss_plane_atomic_update(struct drm_plane *plane,
+ 	dcss_dtg_plane_pos_set(dcss->dtg, dcss_plane->ch_num,
+ 			       dst.x1, dst.y1, dst_w, dst_h);
+ 	dcss_dtg_plane_alpha_set(dcss->dtg, dcss_plane->ch_num,
+-				 fb->format, new_state->alpha >> 8);
++				 fb->format, new_state->alpha >> 8,
++				 new_state->pixel_blend_mode);
+ 
+ 	if (!dcss_plane->ch_num && (new_state->alpha >> 8) == 0)
+ 		enable = false;
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+2.53.0
+
