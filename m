@@ -1,102 +1,142 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D827442135;
-	Fri, 11 Sep 2026 08:19:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D5DC3ACA6F;
+	Fri, 11 Sep 2026 08:19:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.222
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789114796; cv=none; b=lfhm9LMThxF63tcfrqpGd0WaQuPG8W2BWtOgtT3FJwiQqbWZqSZXsRAaGTa9Hfe1/v6azXZ+ru3+a1R7HAclUadMLvh3YsBE6BvxV9inP06zdFnFTOjfzHQbvkOWer5ikrQmaCaP1BmM8Zp3t2tfE8UssIgdjMhlLuxg3sb76yg=
+	t=1789114795; cv=none; b=m99x+luv2/I9c9mrGzEafwEGuFu52efwIMz4wTvsug2dIFun9BdTfENRxK3TYvzwZ2+2YMbL/S/K01WW/8/QjOaF7L/3wmz4jztNQykRLcNm2FwIsL4VP11T7MndgC9a7mPCL66MYp3hW1GKtTluZZdxpxk+F3C+ssK+cKCoDw8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789114796; c=relaxed/simple;
-	bh=GRDQnpUjXxPLjT5QpjpHN5QG10a1f3qt4k3HZnOD/qg=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Zi/ZSk3kzwU41FFxtsx/pX2fUZSUpMLMfcJTzi5di+zKbnJFRqe+4xJeHxUEiUZuI26+r3a59BvvA2Rzg42aW7K63qYH5PqgHajnSZu9pnprFuLMK1057lt8WbfM+nFhdQy4EbsySQIq8xtq3YkMf2DXEzn6T5D0z33WPntptxE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 876c5c96adb911f19a56ed5b684f684d-20260911
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:2407608d-e9c9-4743-83ba-ebcc4f055798,IP:0,U
-	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:25
-X-CID-META: VersionHash:7db8b62,CLOUDID:39f8d6c9e1b18b1a5d6b7c1ce49a4596,BulkI
-	D:nil,BulkQuantity:0,SF:102|865|898,TC:nil,Content:0|15|50|99,EDM:5,IP:nil
-	,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:
-	1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 876c5c96adb911f19a56ed5b684f684d-20260911
-X-User: aichao@kylinos.cn
-Received: from thinksys.tail1c7620.ts.net [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <aichao@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 306417463; Fri, 11 Sep 2026 16:19:37 +0800
-From: Ai Chao <aichao@kylinos.cn>
-To: cezary.rojewski@intel.com,
-	liam.r.girdwood@linux.intel.com,
-	peter.ujfalusi@linux.intel.com,
-	yung-chuan.liao@linux.intel.com,
-	kai.vehmanen@linux.intel.com,
-	pierre-louis.bossart@linux.dev,
-	broonie@kernel.org,
-	perex@perex.cz,
-	tiwai@suse.com,
-	kuninori.morimoto.gx@renesas.com,
-	tgaraev653@gmail.com,
-	ckeepax@opensource.cirrus.com,
-	balamurugan.c@intel.com,
-	marco.crivellari@suse.com
-Cc: linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ai Chao <aichao@kylinos.cn>
-Subject: [PATCH] ASoC: Intel: sof_es8336: Add a quirk for Huawei Matebook B3-420
-Date: Fri, 11 Sep 2026 16:19:32 +0800
-Message-Id: <20260911081932.2605407-1-aichao@kylinos.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789114795; c=relaxed/simple;
+	bh=z3OYYiSsddSRydFxGjCmoFTiAMj0wTdLvLEaV80PuVo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=Gp/wqO4K+KdCR2LyDP58w+9cxNC+m/BmgKstZT+YlZNzM+L+1cQLTVLmKTsxnK7nRWxeOnjMyjqsehd+wOw3I1kEYKB1rWp94/uUeQiaw7I88YzhlFJHmgNxEBZtju3NuQl8LcUCWP44szodG1XhajrHjZq2tdsM8BBAtMwmsX4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=pLvxGjqS; arc=none smtp.client-ip=113.46.200.222
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="pLvxGjqS"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=DE5zARm1WiMEsfgjTTF4N0W92kd6jmsXzW2TA0JqO4g=;
+	b=pLvxGjqSDVVZWgMHGLKbmYAIWr8kI0PJBj/87XvcTbLIaUUwBBPvM4zXHtbqC5QTApKmrkpOV
+	MJPHShVGAjcRSKjAbnaK2vII8KR1phaRwEwNbCagERmQXBdiOYYHB9rM7dWNVmO8jQib1n5BITS
+	fJYK8/iSH+RtFpyuoVWlSOc=
+Received: from mail.maildlp.com (unknown [172.19.162.92])
+	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4hh6cy1D1WzLlX5;
+	Fri, 11 Sep 2026 16:08:50 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id AB37E40565;
+	Fri, 11 Sep 2026 16:19:45 +0800 (CST)
+Received: from [10.67.109.254] (10.67.109.254) by
+ kwepemk200008.china.huawei.com (7.202.194.74) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Fri, 11 Sep 2026 16:19:44 +0800
+Message-ID: <aa37cd26-b870-47c7-abe9-75370a33f1d1@huawei.com>
+Date: Fri, 11 Sep 2026 16:19:42 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 04/40] KVM: arm64: Preserve host MPAM configuration
+ when changing traps
+To: Ben Horgan <ben.horgan@arm.com>
+CC: <amitsinght@marvell.com>, <baisheng.gao@unisoc.com>,
+	<baolin.wang@linux.alibaba.com>, <carl@os.amperecomputing.com>,
+	<dave.martin@arm.com>, <david@kernel.org>, <dfustini@baylibre.com>,
+	<fenghuay@nvidia.com>, <gshan@redhat.com>, <james.morse@arm.com>,
+	<jonathan.cameron@huawei.com>, <kobak@nvidia.com>, <lcherian@marvell.com>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<peternewman@google.com>, <punit.agrawal@oss.qualcomm.com>,
+	<quic_jiles@quicinc.com>, <reinette.chatre@intel.com>,
+	<rohit.mathew@arm.com>, <scott@os.amperecomputing.com>,
+	<sdonthineni@nvidia.com>, <tan.shaopeng@fujitsu.com>,
+	<xhao@linux.alibaba.com>, <catalin.marinas@arm.com>, <will@kernel.org>,
+	<corbet@lwn.net>, <maz@kernel.org>, <oupton@kernel.org>,
+	<joey.gouly@arm.com>, <suzuki.poulose@arm.com>, <kvmarm@lists.linux.dev>,
+	<zengheng4@huawei.com>, <linux-doc@vger.kernel.org>, Shaopeng Tan
+	<tan.shaopeng@jp.fujitsu.com>
+References: <20260313144617.3420416-1-ben.horgan@arm.com>
+ <20260313144617.3420416-5-ben.horgan@arm.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <20260313144617.3420416-5-ben.horgan@arm.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-Add DMI entry for Huawei Matebook B3-420 (BDZ-WXX9) with HEADPHONE_GPIO
-and HEADSET_MIC1 quirks.
 
-Similar to Huawei Matebook D (BOD-WXX9).
-On the same machine,audio routing between speakers and headphones works
-correctly when running Windows with the Huawei audio driver.
-However, after reinstalling Linux, both the speakers and headphones output
-sound simultaneously,indicating that the amplifier enable GPIOs are not
-being toggled correctly to separate the two outputs.
 
-Signed-off-by: Ai Chao <aichao@kylinos.cn>
----
- sound/soc/intel/boards/sof_es8336.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+在 2026/3/13 22:45, Ben Horgan 写道:
+> When KVM enables or disables MPAM traps to EL2 it clears all other bits in
+> MPAM2_EL2.  Notably, it clears the partition ids (PARTIDs) and performance
+> monitoring groups (PMGs). Avoid changing these bits in anticipation of
+> adding support for MPAM in the kernel. Otherwise, on a VHE system with the
+> host running at EL2 where MPAM2_EL2 and MPAM1_EL1 access the same register,
+> any attempt to use MPAM to monitor or partition resources for kernel space
+> would be foiled by running a KVM guest. Additionally, MPAM2_EL2.EnMPAMSM is
+> always set to 0 which causes MPAMSM_EL1 to always trap. Keep EnMPAMSM set
+> to 1 when not in a guest so that the kernel can use MPAMSM_EL1.
+> 
+> Tested-by: Gavin Shan <gshan@redhat.com>
+> Tested-by: Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>
+> Tested-by: Peter Newman <peternewman@google.com>
+> Tested-by: Zeng Heng <zengheng4@huawei.com>
+> Tested-by: Punit Agrawal <punit.agrawal@oss.qualcomm.com>
+> Reviewed-by: Zeng Heng <zengheng4@huawei.com>
+> Reviewed-by: Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>
+> Reviewed-by: Jonathan Cameron <jonathan.cameron@huawei.com>
+> Reviewed-by: Gavin Shan <gshan@redhat.com>
+> Acked-by: Marc Zyngier <maz@kernel.org>
+> Signed-off-by: Ben Horgan <ben.horgan@arm.com>
+> ---
+>  arch/arm64/kvm/hyp/include/hyp/switch.h | 12 ++++++++----
+>  1 file changed, 8 insertions(+), 4 deletions(-)
+> 
+> diff --git a/arch/arm64/kvm/hyp/include/hyp/switch.h b/arch/arm64/kvm/hyp/include/hyp/switch.h
+> index 2597e8bda867..0b50ddd530f3 100644
+> --- a/arch/arm64/kvm/hyp/include/hyp/switch.h
+> +++ b/arch/arm64/kvm/hyp/include/hyp/switch.h
+> @@ -267,7 +267,8 @@ static inline void __deactivate_traps_hfgxtr(struct kvm_vcpu *vcpu)
+>  
+>  static inline void  __activate_traps_mpam(struct kvm_vcpu *vcpu)
+>  {
+> -	u64 r = MPAM2_EL2_TRAPMPAM0EL1 | MPAM2_EL2_TRAPMPAM1EL1;
+> +	u64 clr = MPAM2_EL2_EnMPAMSM;
+> +	u64 set = MPAM2_EL2_TRAPMPAM0EL1 | MPAM2_EL2_TRAPMPAM1EL1;
+>  
+>  	if (!system_supports_mpam())
+>  		return;
+> @@ -277,18 +278,21 @@ static inline void  __activate_traps_mpam(struct kvm_vcpu *vcpu)
+>  		write_sysreg_s(MPAMHCR_EL2_TRAP_MPAMIDR_EL1, SYS_MPAMHCR_EL2);
+>  	} else {
+>  		/* From v1.1 TIDR can trap MPAMIDR, set it unconditionally */
+> -		r |= MPAM2_EL2_TIDR;
+> +		set |= MPAM2_EL2_TIDR;
+>  	}
+>  
+> -	write_sysreg_s(r, SYS_MPAM2_EL2);
+> +	sysreg_clear_set_s(SYS_MPAM2_EL2, clr, set);
+>  }
+>  
+>  static inline void __deactivate_traps_mpam(void)
+>  {
+> +	u64 clr = MPAM2_EL2_TRAPMPAM0EL1 | MPAM2_EL2_TRAPMPAM1EL1 | MPAM2_EL2_TIDR;
+> +	u64 set = MPAM2_EL2_EnMPAMSM;
 
-diff --git a/sound/soc/intel/boards/sof_es8336.c b/sound/soc/intel/boards/sof_es8336.c
-index 9b016136c639..f1e62c2e79fe 100644
---- a/sound/soc/intel/boards/sof_es8336.c
-+++ b/sound/soc/intel/boards/sof_es8336.c
-@@ -360,6 +360,15 @@ static const struct dmi_system_id sof_es8336_quirk_table[] = {
- 		.driver_data = (void *)(SOF_ES8336_HEADPHONE_GPIO |
- 					SOC_ES8336_HEADSET_MIC1)
- 	},
-+	{
-+		.callback = sof_es8336_quirk_cb,
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "HUAWEI"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "NDZ-WXX9"),
-+		},
-+		.driver_data = (void *)(SOF_ES8336_HEADPHONE_GPIO |
-+					SOC_ES8336_HEADSET_MIC1)
-+	},
- 	{}
- };
- 
--- 
-2.34.1
+Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
+
+> +
+>  	if (!system_supports_mpam())
+>  		return;
+>  
+> -	write_sysreg_s(0, SYS_MPAM2_EL2);
+> +	sysreg_clear_set_s(SYS_MPAM2_EL2, clr, set);
+>  
+>  	if (system_supports_mpam_hcr())
+>  		write_sysreg_s(MPAMHCR_HOST_FLAGS, SYS_MPAMHCR_EL2);
 
