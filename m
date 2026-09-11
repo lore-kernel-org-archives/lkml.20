@@ -1,78 +1,88 @@
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 569A239022A;
-	Fri, 11 Sep 2026 05:33:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F88730568B;
+	Fri, 11 Sep 2026 05:37:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789104802; cv=none; b=MNEy04z+heQkAXpa2gPIwa7hqcjSiX/W9ggYwvDovfRVsaRcqfbqzqleYjo4RA1jI4Lx/rxW1T0N+xZUuA/QfVZggCY/vz/7LJjpSNDZ1uFVTggoDa8Mpk43bvmgXTVsuFPj7HFKQqzBk5ZY/xlcfQ1+1A58e1vx0LldoDOJJyY=
+	t=1789105044; cv=none; b=muLTMCUDWKiTbzGk8IZ1FAl+xIzZKnYOZrLyHXYfSYpBevQHU5oGZQ9k7ELgel5tjnJvyUxL8hBMW24K5yRoEa18v389qWa10UkZLJsSsxNOcXZnjkOpu4gHIVsQjpOvKzwdS7YBfbj3POSiH7o0OaO8uOD9fhUwWEVmrpkGOw0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789104802; c=relaxed/simple;
-	bh=zGZ3uu0S3y/uYm1Kg1dxuSxHdKPYJr/SNR1QnCOeyQU=;
+	s=arc-20240116; t=1789105044; c=relaxed/simple;
+	bh=VKe8ph9r2QreQaOChKT8GakmIXr1iLGX7UdMZi8oMD0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Y6bwgf0qX9vFtniz6DQnSSwRI+Q9/mvn2oC3/Fn/YkiCzHBE3Y2qq4BDYzZ2sFEpP/EbfU+wkgH68iTX13OMjKCbIAfVFcanfY675HDCFzMzvmhRl4m5FhT2LqDLeKXH7tS9mVeR4kA3flV24wEwSglIFiF1555yQGxOzRBsZo0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=TIMa3c6G; arc=none smtp.client-ip=180.181.231.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	 Content-Type:Content-Disposition:In-Reply-To; b=ieKJ3mD6MnrI/fOJ22Boejjh4qIcS/j46lR8jcgxr31NQQS9eWfoyTICMpR6VFG4Rrnh1o8i4ORVSu+XMSTGApJd6G8JVNChwF9oPS4R16y5h5plkkjKttDyyPkg/lCiGPZj6lWpg748niWrFAtidObZo+1Vp9Ou5o0Yorn+f9U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dDjw7525; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="TIMa3c6G"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=PdKT3mgg1Pb/Jdrfl1nwELxR2cBte3Dqhgwz6ZyzOwI=; 
-	b=TIMa3c6GeA4fZd4f2E6nP97mtVPGZ6Brs0UF+lS5YEA2cywF320gAH8RDdDBChvD0RddqlPLGhx
-	WXuqzHhDm7t+Tnm/GAwrHmIPWaWJYaB3qnhyhJX9tQYv+NSi0i6fA7FMT4jiDiibym1Z/YaSlFztO
-	q7hR/B3xMXUs++aaDluo+STuZciNdkyZ1ufV1DOwBsHTmOAU73PMqgfI2Nr74K+Zu0MrcI7PRUuuq
-	JEFjXcSp/CSDwOVHvAT8fmCF7rzl/e8WKLWFeFtY0a40Y+1SXFc8qNHDYZ4t8afbW8+UCeAVsHuKw
-	IPkVSKsec5vXBCXbyEZztjYGKnN5+0fEruBg==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1x4tsi-0000000CuDA-1MAD;
-	Fri, 11 Sep 2026 13:33:01 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 11 Sep 2026 15:33:00 +1000
-Date: Fri, 11 Sep 2026 15:33:00 +1000
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Thorsten Blum <blum@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Wensheng Wang <wenswang@yeah.net>, Frank Li <Frank.Li@nxp.com>,
-	Cosmo Chou <chou.cosmo@gmail.com>, Colin Huang <u8813345@gmail.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Antoni Pokusinski <apokusinski01@gmail.com>,
-	Eddie James <eajames@linux.ibm.com>,
-	Dixit Parmar <dixitparmar19@gmail.com>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-crypto@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Conor Dooley <conor.dooley@microchip.com>
-Subject: Re: [PATCH 1/2] dt-bindings: trivial-devices: add atmel,atecc608a
-Message-ID: <aqOSjDb1FeLv9Po4@gondor.apana.org.au>
-References: <20260830220151.21469-3-blum@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dDjw7525"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CFC11F000FF;
+	Fri, 11 Sep 2026 05:37:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789105043;
+	bh=36/1Qi0b8ZLYrU3z3rga2ArYzSjEeaQQnA6fSUVCN/M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dDjw75250u5P/qmInFGdJIZ9jnHGOAd7W7MTcSsn5oIAqFgA+OIc52qMQW18CxnIY
+	 Qxds1lDHzzS6HllVC7AuJtE5vkXdLezYO5gUP/J/aXZLZaNbEAVCQoVhH2oPSMGDuX
+	 E5T+uXhhSA6GRW6X8Mr//QqW9w0cxBSnOBqXTYDBII9bKKLFkmglWaMZXUsxlK1cK2
+	 ZMYN3hucwpBAibZ6i6yJxSnNw5WFV1s56yNBjchgJn98erkjILoIg+u/SW6V9x8gyD
+	 uNB/HPOKd2eUCgZWydHOgqKyrQlyW5qPrSQY9X50aXFgF77FCnQwHPvnxxQ5FkiooY
+	 O0H3Dtjw8Gjiw==
+Date: Fri, 11 Sep 2026 07:37:16 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Nabige Aala <nabige.aala@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>, 
+	Mahadevan P <mahadevan.p@oss.qualcomm.com>
+Subject: Re: [PATCH v4 7/9] phy: qualcomm: qmp-combo: Update
+ qmp_v8_configure_dp_clocks() for Glymur
+Message-ID: <fma47n5b2vyh6iyzalruiv3ea6gglvgyubuzdeckspruf4lgl6@foqf27yzys67>
+References: <20260908-glymur-phy-v3-v4-0-ff22e5150538@oss.qualcomm.com>
+ <20260908-glymur-phy-v3-v4-7-ff22e5150538@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260830220151.21469-3-blum@kernel.org>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260908-glymur-phy-v3-v4-7-ff22e5150538@oss.qualcomm.com>
 
-On Mon, Aug 31, 2026 at 12:01:51AM +0200, Thorsten Blum wrote:
-> Add an entry for ATECC608A.
+On Tue, Sep 08, 2026 at 07:31:00PM +0530, Nabige Aala wrote:
+> From: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
 > 
-> Signed-off-by: Thorsten Blum <blum@kernel.org>
-> ---
->  Documentation/devicetree/bindings/trivial-devices.yaml | 2 ++
->  1 file changed, 2 insertions(+)
+> Remove VCO_DIV programming from qmp_v8_configure_dp_clocks() as it is
+> not required for the v8 PHY.
+> 
+> Add per-link-rate auxless setup/silence cycle and LFPS period values
+> instead of using fixed constants:
+>   RBR (1.62 Gbps): setup=0x03, silence=0x06, lfps_period=0x00
+>   HBR (2.70 Gbps): setup=0x04, silence=0x08, lfps_period=0x11
+>   HBR2 (5.40 Gbps): setup=0x09, silence=0x11, lfps_period=0x33
+>   HBR3 (8.10 Gbps): setup=0x0f, silence=0x1a, lfps_period=0x55
+> 
 
-All applied.  Thanks.
+Why is this change needed?
+
+> Add per-lane drive level lookup from the ln_drv_lvl tables based on
+> the maximum voltage swing and pre-emphasis levels across all active
+> lanes, replacing the hardcoded 0x1f value.
+> 
+
+Same here.
+
+> Remove the duplicate LFPS_PERIOD write that was present after the
+> AUXLESS_CFG1 programming.
+> 
+
+Again, you've clubbed multiple changes in a single patch :/
+
+> Fixes: d10736db98d25 ("phy: qualcomm: qmp-combo: Add DP offsets and settings for Glymur platforms")
+
+What is the issue the patch is fixing?
+
+- Mani
+
 -- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+மணிவண்ணன் சதாசிவம்
