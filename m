@@ -1,71 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98D2344C662;
-	Fri, 11 Sep 2026 07:21:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9540D3F6619
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:22:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789111286; cv=none; b=PGASzMV4W5JKmf+VC6QnOQFX+Hgr+VPxtfKRwFKa5rUGgIaAUeu/UUndmUgXP/UtNs/t2DjP26yqF7M9icW28zq2DHRoNb/+8VVk7GYiVdNBAVyV9LA6bx3mJg3r1yay+mfLFPNVzzaIWj9R2C+73gwqGUVZ1gy4rjmcTViZM0U=
+	t=1789111331; cv=none; b=f+H0YqceECo614n9TMo4Fq/vg7YpIaPqspsT8HXtaXuX6iVe5o4ri5oNf6yBoCPsOgXmDUvPe7oWq5+ACmglJuN/HWo3QPhdsvwUuyygJk3gGcItsJUw1Yxxo+29xwY25sMyWoYBMB92mnSWwP+gwHRc4kT3NP3mVbzfpO+LDN8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789111286; c=relaxed/simple;
-	bh=rNlr3tnJ5jZxFQ6d8h88tXGyOADzGkZQF1pl/F1xmAc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gFPRyF3OYcjMeq0wUvwGMnCjAIBfLCY8iFWrddzbKLoPdgafmAIbV+RcSHmdyWlg7OIlcZUMQp6ji/g4jD9p6E7Md9KG7v2LyVaX+oFMyzrRY0VylHX5VUAPT8hsCZj0wOVnrZRMgFyO0x0cfFzBx5//gK1X9cA2l8378FGHni4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZNUveuZu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789111331; c=relaxed/simple;
+	bh=lFzg1MXITlP0YPhhoCXm2dI0efV/qs7X58nFUlpexRg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HLDVXM5W8k5bgo89VzX+1t86KC3+nB2oxapkzjDK4mxK2gb5nSbWgChF7pYhfGxX0CSTCXOOgGwlKgKDAKoBwmkVmOHXt5HAxpW9QKN2IlldCAYnLL3qkhWbrkdL2pr5Sgru4ePLnH5ww68qdaZrI/mfMUI5m83WQ7wQ/j+A6dw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G0OYgPIl; arc=none smtp.client-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZNUveuZu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 246591F000FF;
-	Fri, 11 Sep 2026 07:21:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789111278;
-	bh=mhwepqDvkhQvBOfX7hfNjS0pa6bknwpbmJ6wXLxOzNc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZNUveuZug9anBBVMumZG8RcbFZ4JYSRFDofahuscD2MiGhPSKwjWPapUmaVDzTfft
-	 NorvRixBeOL0B/P76Z+QDQji5WSxZ9c3giN0GCVWdiLI78Ji1JLuzckCcGFuQUDKqC
-	 JJi4u915+qgHMfKK0YuOmufl4DTVVLUqC2Q41Gv8cmtzxtq8p+sA9ZWG4r3Dgi8TFy
-	 VPz6f5MlrT7kZ84yHouK4gUS00pX4Hna8tI0X3xgPRb5stI+mOYfMmlYWOw8cUoD5h
-	 XNV1HOl4RBv19EbttmGke7Py0WROra2ePMwL/XFUjrWv/pkiJP7afT/JlsXptXNu1B
-	 UJrWWqDDHlRIQ==
-Date: Fri, 11 Sep 2026 09:21:14 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Dinh Nguyen <dinguyen@kernel.org>, linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 1/4] dt-bindings: usb: add Altera Agilex5 DWC3
- controller
-Message-ID: <20260911-nondescript-toucan-of-perspective-6bd8bd@quoll>
-References: <cover.1788886615.git.adrian.ho.yin.ng@altera.com>
- <44ba8639fb41b7c576c0795cb1474a6797754600.1788886615.git.adrian.ho.yin.ng@altera.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G0OYgPIl"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2dd020a2e44so5663465ad.1
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 00:22:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789111318; x=1789716118; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jzIySDJIl2DBofVkPAxMDaItjAN5Njq5eDX0RMJ2Xb4=;
+        b=G0OYgPIlJmiX+wwhGdJSRzlmiSBEf2FA9CYiOcz97B/TzQDhnNpAWBndbxrmVCxYPK
+         eVZ8Eu+fPOMpr8cGWiXgMedUwqJD1ZmSVUQ1RWSM3kMy3zOwLL1eSzOR5RmExxoFENR1
+         yM5IXq6kX+4YDKZWc0UBy093p4WxbLa8UFuq5onTh7P+ITxhow+GtTlAk6M+MqjVt3Dy
+         rDcvMKrbpa8fiZXXmgJ3VjjoYRnw+NutKx91vx1LXI2S0fezXXgzKa6z2w0Hc3kbAVJj
+         WH/erH9naNoPuXCjBqtJfXQ4PbyMnNgePodqBQhAJ8U7s1sQLdvMqoCTieqpOj/aSaRd
+         ts9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789111318; x=1789716118;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jzIySDJIl2DBofVkPAxMDaItjAN5Njq5eDX0RMJ2Xb4=;
+        b=SJ4qU4E+wPxr28GyonwOAVxzkuyzyP7T5DnvgW9VH7gpj85BbS+vZduoxvjoWVY7KJ
+         6WICLntkPhUtX3uaHfBTikMFnDkWVB9V4sxAoC4KUp0aBnKRxiK0HF6K5Ai7Xz6z/Zoa
+         7jLY944rh+Rl0tuR4thgsFkARewcpNFnDYEYYpVO+uzly/wLlOpRQ2E3l52fziJHSgQr
+         sCT9Jn6C2NAAyiZX/00Q5jQgawXT8uTJULpZ200/o+wkOF6Zx4HW4lcCyDSSvMk09ymY
+         CO9Yv4uctyJvAzqGgKcEPwYQzMMjb+sqwBllrjXq3kw2ChPvOaoMtG7zyY4+EFklN4Ki
+         4p7g==
+X-Forwarded-Encrypted: i=1; AKwUvByt4ouG2k3KdZxmCYJkPfU1X7WFJMSnVGJi8nzN9fHrO1cIL/7rwbQOz0sbBCWqGX1agHOnKCZQwMdBPYA=@vger.kernel.org
+X-Gm-Message-State: AFuF++lVha7vq0BMhQbj59TZkp5e9n5Qh4psFKoH7uFPao76ce71TyCx
+	lSaPvzNYolsuqzpTr6WdAXg8Nw+QBddt/fXKXwEoMLwJMHUaWJpO73z8
+X-Gm-Gg: AYBFou2682zLa9J2ZyI/EAkBUS16owHvy4optJyrnnPwLtguZlC5ExmtWcuVzGTw3ox
+	JvoNYcMhZDf8o2cllGisPzJiJuRt5UHKFsIm1scaxUvoY5kWGiTLzGTl/ALsmb+cWi7XY+Rb2Vd
+	vHd/nJ/VWMXrP4NwXx7c3ej2jNYFa3pukh63Lgzn0iQpARM1IMrfqVh9ils+eLXIN7NVqqFqXYE
+	beL5nyFzbOLlgUr4Y/ApfZWG4k7b7TIaeRlFc9oZCP2hpQKyKCaF161bfET6/WiIcbZbdAlkDxd
+	5Zfw6t230YtHauP6xRk9UtAnvcjbdA0q6ZoAxmr2gI2I9uu9ze6bbbv+SxCwEmMYZXZjdAm9IS9
+	Bsuw1O9TV57RWTAoc31tT3UlsCbbM/Q/8hppWSHBSJaTe7cGETrk6eW+K4/a8/mrXdSKdXpi/mk
+	3VOqqc91lKNT7M1r9LLfbiWq0gZ78BXrAWTPtbUHsohtJrS7Pe3UmLeEer//6I0zsvn29XA7bri
+	hyumXpRFD83bn2KqfufHtkdh9zZ
+X-Received: by 2002:a17:903:46d0:b0:2ca:660:b1d with SMTP id d9443c01a7336-2dd2a347a88mr58895465ad.11.1789111317511;
+        Fri, 11 Sep 2026 00:21:57 -0700 (PDT)
+Received: from kernel.tail6741c6.ts.net ([185.220.238.35])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2cca26b2sm7245945ad.4.2026.09.11.00.21.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 00:21:56 -0700 (PDT)
+From: Kunwu Chan <kunwu.chan@gmail.com>
+To: jiangshanlai@gmail.com,
+	paulmck@kernel.org,
+	josh@joshtriplett.org
+Cc: rostedt@goodmis.org,
+	mathieu.desnoyers@efficios.com,
+	rcu@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Kunwu Chan <kunwu.chan@gmail.com>
+Subject: [PATCH v3] srcutree: Don't transition atomic SRCU to big in srcu_gp_end()
+Date: Fri, 11 Sep 2026 15:21:25 +0800
+Message-ID: <20260911072125.2268530-1-kunwu.chan@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <44ba8639fb41b7c576c0795cb1474a6797754600.1788886615.git.adrian.ho.yin.ng@altera.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 09, 2026 at 01:04:37AM +0800, Adrian Ng Ho Yin wrote:
-> Add a binding for the Altera Agilex5 SoC integration of the Synopsys DWC3
-> USB controller (compatible "altr,agilex5-dwc3"), covering clocks, resets,
-> PHYs, and optional IOMMU support.
-> 
-> Clock names follow the snps,dwc3.yaml example order (bus_early, ref,
-> suspend). Reset names use core/ecc. On this SoC ref and suspend are the
-> same hardware source, so the example reuses AGILEX5_USB31_SUSPEND_CLK.
-> 
-> Signed-off-by: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
-> ---
->  .../bindings/usb/altr,agilex5-dwc3.yaml       | 112 ++++++++++++++++++
->  1 file changed, 112 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/usb/altr,agilex5-dwc3.yaml
+Atomic SRCU must remain in the small size state. Warn if this
+invariant is violated and avoid transitioning to big in that case.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
+---
+Changes since v2:
+- Also prevent the transition when the atomic SRCU size-state
+  invariant is violated, per Paul McKenney's suggestion.
+-v2: https://lore.kernel.org/rcu/20260910084629.3695383-1-kunwu.chan@gmail.com/
 
-Best regards,
-Krzysztof
+Changes since v1:
+- Drop the !is_atomic guard from v1 and add WARN_ON_ONCE() instead,
+  per Paul McKenney's suggestion.
+- v1: https://lore.kernel.org/rcu/20260907075829.2073224-8-kunwu.chan@linux.dev/
+---
+ kernel/rcu/srcutree.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/kernel/rcu/srcutree.c b/kernel/rcu/srcutree.c
+index 84c022ec8e09..07db4e459b30 100644
+--- a/kernel/rcu/srcutree.c
++++ b/kernel/rcu/srcutree.c
+@@ -1073,8 +1073,11 @@ static void srcu_gp_end(struct srcu_struct *ssp, bool is_atomic)
+ 		raw_spin_unlock_irq_rcu_node(sup);
+ 	}
+ 
+-	/* Transition to big if needed. */
+-	if (ss_state != SRCU_SIZE_SMALL && ss_state != SRCU_SIZE_BIG) {
++	/* Transition to big if needed, but never for atomic SRCU. */
++	if (ssp->srcu_reader_flavor == SRCU_READ_FLAVOR_ATOMIC &&
++	    ss_state != SRCU_SIZE_SMALL) {
++		WARN_ON_ONCE(1);
++	} else if (ss_state != SRCU_SIZE_SMALL && ss_state != SRCU_SIZE_BIG) {
+ 		if (ss_state == SRCU_SIZE_ALLOC)
+ 			init_srcu_struct_nodes(ssp, GFP_KERNEL);
+ 		else
+-- 
+2.43.0
 
