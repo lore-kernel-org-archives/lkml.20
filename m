@@ -1,271 +1,283 @@
-Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com [209.85.222.181])
+Received: from mail-vs1-f49.google.com (mail-vs1-f49.google.com [209.85.217.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 571364A9D42
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 19:22:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.181
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789154566; cv=none; b=opF0bHKGUzRISRZrbNBEWme0m3IlJZwT/6FUOPuGFpSIe+YmsEbno2aQMvgkV44uxOC+/bb1arXzzF+dI7UyI2M44O9lPkt+X3P1W0Rgh25dRed04gkwI0YMLu9Lcx5XbS67lSfZCkEeWe6cRQTt3H98eIhwI5ZJXhszCyCmPUU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789154566; c=relaxed/simple;
-	bh=SjqVUcClyaoSghgoqURaG31bIRC48pa5N+lDRfufibY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=k7lyU/TRHevWKJ/dpU3CW8Ba9cmn66WDE3U2o412uFH0twkPOdq2t4Y3EkucGQpOuv0oKG+M7XBZjhHwe4T4L2EkWPynDHPFb7WqBy86cJGcXQtM02N20gOcA7gsCeEMzghJdPpEN1mS/17Cae0ntBMa33f5vlu9F6Ybvgs/MK4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=crUKiDpF; arc=none smtp.client-ip=209.85.222.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A25824AA57E
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 19:23:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.217.49
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789154611; cv=pass; b=M+s/u7lXYFN5NNMfeFaKuHhKxUBz/zGMfvxEoc3ef06L5n+jC0CcsXnVHV3FPiE0+asbNOGJjzy3mPxZHrECehXESubeeRooeqFtkYhsiOIYCoZ1Y+dzNy/aRjOdJG8ZtD1ebeJ2oaN9qdM2Z4dulD5Wt9EzPeI6seFnaZFqqqo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789154611; c=relaxed/simple;
+	bh=62zlUVJSESl0HyWfkZ7/G3I1CiFlk4lNjkUBrylBGVE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=h2H5lpr5uNgbsaG3FdRJM3pB0gkBEVel4yrt9FVIKMAxwXth+OM6cQqIik4XjL0f9/NGIAXkRRiLecJTOnQBMmznWalwk4USIqdur9JILyN6+HHOJwUgxTRsD2Z+xNyNUuuucdrfy0J9S2sBmeMXZkFDg+/N4XqYhPqT+dxYjWc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=aehBUrF+; arc=pass smtp.client-ip=209.85.217.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="crUKiDpF"
-Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-92edb12cdf2so90424885a.3
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 12:22:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="aehBUrF+"
+Received: by mail-vs1-f49.google.com with SMTP id ada2fe7eead31-784980b88acso408957137.0
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 12:23:18 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789154596; cv=none;
+        d=google.com; s=arc-20260327;
+        b=JcQzQ6a8rMloGfAJKt/4YHy06nlx7OeUdxJ4W5jd5o1/CScXQB7QCJqtvM5U6zh3iZ
+         myUuqCBNPOxHapd3gns4J2HC3T2eZPuH1x1bD7HQDvL1Ak2YriSQ6pjfZR+w0vZPgYWI
+         VestAmNkzb0QlMpTUBHJroo/RqkHJfxg0a3PxIOp7phlb1IhK/Yv5HZJwGlLHMPifwde
+         fHzFMYnr7PCgxPwVBd74VTi5QoapB7z3G2Q+2ZgZZoywEf/CVZcilqkNTnHbSM4JSFYp
+         wb7xIw1Q0HLbW+oDFpi8JOY+Sf3IALO1GtFvjLjDuRCi+iz3gqvDc+Ax2ojnheMuc3EF
+         2Nqw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=PhVX3j9HCCkbLuuqmLLwRW8XFC61fFVfA+SMOFYe1wg=;
+        fh=8x0bSddaexCt4tnqqdkhfVR5CwCJfF1PMrqNRarnJ0w=;
+        b=MjL55Bby6yn/HEq6N1KzzEBHabAGgrjt2+lslZRSm34QNWa852CWq0kwliUFVzNXf3
+         2/KYc1kLRXX7rzcrLxjF8Ae3RI+UPPTD5Mqos09CP6vjuZ0GXVA3uALZYhcE7s0JM3Mc
+         lJqpPq4kamT90Ltr/QII81vd/eg7b3KfPqlJdKCzPv+z6dhMSrEuZHQNHRNfzqP0OwAr
+         MD/bXFpwtVDuNGqdIbLv6G4bKQ+T+1aNI+ONiApsKM4Nrrc1539YIF7ZfN1ZT/YAwWZn
+         KQlx0Uft/jTSqMKjijeFBmLdWrdCNo5kwuDLw3KQWGWQDgKvU1Qyjm//fodKnP7OtOQx
+         AHIQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1789154554; x=1789759354; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=google.com; s=20251104; t=1789154596; x=1789759396; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=M0EoHccTp+TMQFIefzO5qRUOI8W90Xabolm9/fCqvXs=;
-        b=crUKiDpFg8Dd5itc+sev4/9iXHHq3u5AMmfIZRpeRosIEroQiTHxkuXr42o0MLQxqj
-         J5pdeZPuwcgxchAHiejrnGOUR/5Je8Ht86DM8yROjbA+MI2cVdx8VCJgdnQ04QVdGQQa
-         wNgx7NSFgJvyD+gqzQ7JYG1vfIaa25bKi+G4r7GmfINwJx5coEMY/eHj2et5+IBliTwY
-         SfTIrzQYFUcD3z9DUhVnPXh6dh90BL+2FDQWVWCPbHL+Z5Dj8mfAUjVurJHq0Z0p2jkj
-         PInSwk1uT166ROiPsdfu62flheS9SwMNSfSUfUpd72m3B0+dP5EeoWgAeyn0sd3G85p5
-         rCsQ==
+        bh=PhVX3j9HCCkbLuuqmLLwRW8XFC61fFVfA+SMOFYe1wg=;
+        b=aehBUrF+85+UFrvpUkbaQfbPQNUKJJhvShhqZFCcLmisLbAYfx8gUoDCkP31AK48iK
+         5sRc0lab8QQzj52+X5MP5lXSFHqeUrdZcieJpS1VkTUuQGKDUzrethVkOFzCXjXw9hq+
+         51PyElsRReTEAPwuxut23bXE9Ciz+Ml2pmNw0+RbjL62njcWGqo04NnakXdTBwWbok5Y
+         OWQcncgWDkxVSVYh/vklL6RWfybkgTh1w+jns8I+Y51Rv+QFaLXDp0FeaCJBke0+oWbB
+         W2Wpr38EfEgqa+qGp00gBn4snDa+c4hBzYp7HHESFMFkQKO3jUqruQ13Eu60Cettftvw
+         Ip3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789154554; x=1789759354;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1789154596; x=1789759396;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=M0EoHccTp+TMQFIefzO5qRUOI8W90Xabolm9/fCqvXs=;
-        b=aiK1oMdN9j6fzYgruDXGuI/HkrTcg+HU9I9TkmZ1qvNbz2dyZFxgzSrWtH1ohpbFy6
-         p9HOsUixMqMXuImrADfsA8aGHyMQZhDeQ9Fv6a6jzQhnFASKGSi7y6FE4y+x+ROR7dLZ
-         AGgTsYFZU0J3GDeWTbX45reaW2QPhrr9rybwNWMAbUPTycOMhIQFB5IbTPYZTkus2QcE
-         6X25fGNf98uCTb1YaIDvdvGpbH9qR1lLc3xrFijenREzc4AjSjWc5nKFrfOQOJ0OklB3
-         HSSxrmcmr0KPEw5sFZAho75b0dkjje5fQMGgHP9ff5OfzEU67dZEPdSq9qgQRtcBmYU0
-         IMGQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw02+/Zu5FbUWMLzM/HSRE+uPKnwBDm7//Tinjdw8u3jiLz5wJDUNOBgX9d18XPCj7wjKa001c7J1U/zl0=@vger.kernel.org
-X-Gm-Message-State: AFuF++llxw50AKusRq13eGLTcALnicjOnS2tcIA3YqHuDwW91iFokpLF
-	mj0SGWH+QfY0jDyWks/+biZzwtJ18p37qx1mRmEIcf8dwbbjeIUIdJIjI1GTatRm1g==
-X-Gm-Gg: AYBFou11xILiyrDbNbfL+LpOCXrLjL2for8g/WxdxGuUnu4o2stWuFQ1CQ14qgaICdq
-	TIOIRLa0XcRqtv9ssG4J4eAQ/SP1XshVurGEBGjVFJlNguKyxCxdbMU3fUSs+XDVU/xyOELQ73U
-	zCqpxIMqg9NFWMuNfxJafQ/rlgS/ekjAXAXT8T1s3LDqoJaX3lObdHQGxyy4if10w+36UEMsy3c
-	aBea671LCCA0+1jsY+Ckh0lXtzawPGYhU7jzXC02Ber1CHSMG6RMl5p7PN+TcM+Y4RUzxHbcxLc
-	b3Ngrk70Xr+grAaaCCc20FDXQVPkMiOxi/CkbcVfVF0ERUJXqAsl9wKRqrIrxKgKIuOv2DQ0xK7
-	sQjvvJIsa9OVJoorYQf8COZ8zbGE4GMkwZJAKKyNQTlvNYmGEZ9DtgKrqAYreQofQ9R2pTaFh+W
-	F9LYZrfXjVpumCxOkGcV9bf3R+Px1KUXIUKFcOeMYsM0/54UkO+MdjJkAdyjViPBoODUcZzeTC
-X-Received: by 2002:a05:620a:7087:b0:939:15e:1a5 with SMTP id af79cd13be357-939ea24729bmr820094985a.35.1789154549125;
-        Fri, 11 Sep 2026 12:22:29 -0700 (PDT)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210::7544])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-939e8080404sm312628785a.28.2026.09.11.12.22.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 12:22:27 -0700 (PDT)
-Date: Fri, 11 Sep 2026 15:22:24 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Minseo Kim <neck3922@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Andrey Konovalov <andreyknvl@gmail.com>, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, syzkaller@googlegroups.com
-Subject: Re: [BUG] usb: gadgetfs: KASAN null-ptr-deref and intermittent UAF
- in ep_aio_cancel()
-Message-ID: <0b6b13ff-789e-4ba4-9765-1052a154ef27@rowland.harvard.edu>
-References: <1b92cd86-fe64-43eb-9539-53a559cd14e3@rowland.harvard.edu>
- <CAFmvuTWw90k+Fvs5Ve=1nxCDSQrzH7rytY-3vjGwv=edQOCBPw@mail.gmail.com>
- <fb56064c-6481-44b3-88e5-8e5ff7b85703@rowland.harvard.edu>
- <CAFmvuTXWxQJUZfAAC=vs5QM=myDLE-o0jZZ8OXdqiGioPkRwfA@mail.gmail.com>
- <f928b74b-ce57-4454-bdd4-511b823bf742@rowland.harvard.edu>
- <CAFmvuTXwUiap39-FHv6aqGbJVzORRx8tV1QfN0BDjJaPsbfKHg@mail.gmail.com>
- <cec9b2a0-3454-45a6-b128-51d708cc8cbc@rowland.harvard.edu>
- <CAFmvuTUwGr-=joWrsYMu-Ra3XpHTe_HFhaY5inJnhg=e5b=1PA@mail.gmail.com>
- <1a93bb26-9ded-4b71-b409-62896a2681a6@rowland.harvard.edu>
- <CAFmvuTUogd8MyQM02VpM7iHaopzrOoex+X-McQE28X1fgb_AeQ@mail.gmail.com>
+        bh=PhVX3j9HCCkbLuuqmLLwRW8XFC61fFVfA+SMOFYe1wg=;
+        b=b5OSkr79wj9vCdLGR/cECtm7qzJRP7qijS0LBx+Pez2/To+dLgtrzpNoCv5682/DWJ
+         CTo/2ZhwTfFXO14mUXjrXctyxJCypNtROJ9ikgbrJnPnB8cgD3asZwNqf2s/4PUEzKU/
+         rcFYoOJhgUcaJkuPerSl7OKnm7e05FHrlO3AYbxyI5LCjCOBxcGLA6pf8o8JzfifvuGD
+         /J+w9GC1XpwSvpLzinmljGZ1UqTdgepySlKS15t9eMInDMX7xdDEair0v/XTE+FF00H4
+         6dS10XPs/0DIu6gtUpTgQWC3nqvvUR2K2AQ6fCohHaXC0HiFtOqhS7IJnlWQJ0ecP7Ve
+         RvzA==
+X-Forwarded-Encrypted: i=1; AKwUvBwlg/+0zFC3zMjdJSuLDn7JFOCdOfhBqe9KOFKo8KUtch4o+YtOuI4FW6rqc8yEYdkCSYiAtmmAy43OS/Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++meLmjvSZ/Z7dqvXHDiV9FiaOtqYMn5DCZFByssru6YE0o2BTxp
+	q03YNZmuBlJdOXz4JovjZQoU+V1y5X5UoY0e4e5UmUJ3ZzaA60CFtu8R0lSyS8aAmLBpb+3dI+c
+	+ekRAR1tAItkYwjI/vMm29COQ2MFKbTgv8DQMM5g=
+X-Gm-Gg: AYBFou359P//+idKehpr0zVSqaOhUUki0Wjd1VIQ1FAEwY5JcRPHz5OgxcJqw4YyA1+
+	pyxjkBhCpElGYhdWGoNo1aNQXvvSUrmk6v9oWxdjmnuIAgAiYK0r0GJXTyES7S07VlhiVDmYw6p
+	O3T++FSJySt/MSVcvRV1GeC3MHINM5qWzua7v99wvOOEpquD/SauHieyIgkGLlThbTWz3saY8t3
+	2UCXTEms7ZeE5k7RZD1n/+jVBclLg/xqyrhRVa3mIqdcNfGuVetkAGnL80R8iGJmHDFNqR5Dxnx
+	N3yWAq/TTj45xe6Uk2wk7m8blKDmJYsyJXJd//5o5EhXllfU3bE4Hg7v2YUqV6bZzFB0BEJVCjl
+	scEiJu3l18vP2luXnRF53
+X-Received: by 2002:a05:6102:41a2:b0:792:2a1e:f9bc with SMTP id
+ ada2fe7eead31-792a69532e6mr7921413137.6.1789154595208; Fri, 11 Sep 2026
+ 12:23:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAFmvuTUogd8MyQM02VpM7iHaopzrOoex+X-McQE28X1fgb_AeQ@mail.gmail.com>
+References: <20260911-deftig-geprahlt-gesehen-16310bdf51f5@brauner> <20260911-suggerieren-suchaktion-fliehen-87b9cdf1d169@brauner>
+In-Reply-To: <20260911-suggerieren-suchaktion-fliehen-87b9cdf1d169@brauner>
+From: Bill Wendling <morbo@google.com>
+Date: Fri, 11 Sep 2026 12:22:57 -0700
+X-Gm-Features: AcwNN1U2UiftgU0O-MISENhtsAPDQT8m10Lr2mdv2yJrv7E3NkvZENDE4lT5Wgk
+Message-ID: <CAGG=3QVc0yQ9Cjk5fPzqyqXDzPiWzGO2di2EG0Vwh-TRjtvnkQ@mail.gmail.com>
+Subject: Re: [PATCH 1/2] userns: rename insert_extent() and sort_idmaps()
+To: Christian Brauner <brauner@kernel.org>
+Cc: Bradley Morgan <brads@mainlining.org>, 
+	=?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>, 
+	Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+	Aleksa Sarai <cyphar@cyphar.com>, Jan Kara <jack@suse.cz>, Nathan Chancellor <nathan@kernel.org>, 
+	Miguel Ojeda <ojeda@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+	Gary Guo <gary@garyguo.net>, Alice Ryhl <aliceryhl@google.com>, 
+	Douglas Anderson <dianders@chromium.org>, Anand Moon <linux.amoon@gmail.com>, 
+	Oleg Nesterov <oleg@redhat.com>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	kernel test robot <lkp@intel.com>, codemender-patching+linux@google.com, 
+	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	linux-hardening@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 11, 2026 at 11:00:00PM +0900, Minseo Kim wrote:
-> Hi Alan,
-> 
-> Thank you for the questions. I reran the tests to distinguish the
-> request's endpoint-queue state from the callback's execution state, and
-> the unbind flush from workqueue destruction during module cleanup.
-> 
-> > I didn't think this was possible.  gadgetfs_unbind() calls
-> > destroy_ep_files() before doing the flush, and destroy_ep_files() calls
-> > usb_ep_disable() for each active endpoint.  usb_ep_disable() doesn't
-> > return until the completion handlers for all the outstanding requests on
-> > the endpoint have finished.  This means no copy_work items should have
-> > been left to queue when the flush occurred.
-> 
-> With both patches applied, this ordering was possible in the dummy_hcd
-> test because the target request had already been removed from its
-> endpoint queue before ep_aio_complete() ran. When gadgetfs_unbind()
-> subsequently called destroy_ep_files(), dummy_disable() found the
-> endpoint queue empty. The request associated with the already-running
-> callback was no longer on that queue, so nuke() had no queued request to
-> give back and dummy_disable() returned while the callback was still held
-> at the gate. The unbind flush then returned before the callback queued
-> copy_work.
+On Fri, Sep 11, 2026 at 5:59=E2=80=AFAM Christian Brauner <brauner@kernel.o=
+rg> wrote:
+>
+> The KUnit test suite turned insert_extent() and sort_idmaps() into global
+> symbols and declared them in include/linux/user_namespace.h. That header
+> is pulled in nearly everywhere through linux/cgroup.h and the btrfs
+> self-tests carry a static insert_extent() of their own, so any config
+> with both test suites enabled fails to build:
+>
+>   fs/btrfs/tests/inode-tests.c:16:13: error: conflicting types for 'inser=
+t_extent'
+>   include/linux/user_namespace.h:212:12: note: previous declaration of 'i=
+nsert_extent'
+>
+> A global symbol needs a prefix. Rename them to
+> uid_gid_map_insert_extent() and uid_gid_map_sort(). It's the better name
+> anyway.
+>
+> No functional changes.
+>
+> Fixes: f6f1a2496ba5 ("userns: Add KUnit test suite for uid_gid_map")
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: https://lore.kernel.org/oe-kbuild-all/202609110843.okbPe7GM-lkp@i=
+ntel.com/
+> Closes: https://lore.kernel.org/oe-kbuild-all/202609110937.zHKPPXJk-lkp@i=
+ntel.com/
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-Aha!  In other words, usb_ep_disable() doesn't guarantee that the 
-completion handlers for all outstanding requests on the endpoint have 
-finished -- it only guarantees that they have started.  That's an 
-important difference.  Guess I should update the documentation for 
-that routine.
+Apologies for this. This version of the KUnit testing is susceptible
+to exposting duplicate symbols. :-(
 
-> I confirmed this with markers recording the request and endpoint
-> pointers. The gate was inside ep_aio_complete(), after the request had
-> already been removed from its endpoint queue. It used a bounded,
-> non-sleeping loop. dummy_hcd had already released dum->lock before
-> calling usb_gadget_giveback_request().
-> 
-> In a control with the host-side transfer delayed, the request remained
-> queued when usb_ep_disable() began. dummy_disable() called nuke(), which
-> removed it and invoked its completion callback through
-> usb_gadget_giveback_request(). While I held the callback at entry,
-> neither usb_ep_disable() nor the ep0 close returned. After I released the
-> gate, the callback returned before usb_ep_disable() did, matching your
-> expectation for this pending-request case. The AIO request produced
-> exactly one completion with res=-ESHUTDOWN.
-> 
-> In a separate run with GadgetFS still mounted, the unbind flush and ep0
-> close returned while the callback was held before queuing copy_work. The
-> reproducer had no GadgetFS file descriptors left open in userspace, but
-> the module usage count was 2. rmmod was rejected because gadgetfs was in
-> use, and gadgetfs_cleanup() had not begun. After I released the callback
-> and the reproducer exited, the count was 1; subsequent unmount and rmmod
-> succeeded.
-> 
-> > What prevented rmmod from completing after iocb->ki_complete() had
-> > finished?  Was it waiting for the flush to finish?  If any additional
-> > work items were added to the queue after the flush started, they should
-> > not have blocked the flush.
-> 
-> In a separate worker-tail run using the same late-queueing ordering, the
-> unbind flush had already returned before the callback queued copy_work.
-> I then held the worker immediately after iocb->ki_complete() returned.
-> The module usage count was zero before rmmod started. When rmmod was
-> started, it waited in destroy_workqueue() during module cleanup, not in
-> the earlier unbind flush. The relevant part of the blocked rmmod task's
-> stack was:
-> 
->     __flush_workqueue
->     drain_workqueue
->     destroy_workqueue
->     gadgetfs_cleanup [gadgetfs]
->     __do_sys_delete_module
-> 
-> The __flush_workqueue frame came from drain_workqueue(), which was
-> called by destroy_workqueue(). Thus, the late copy_work did not block
-> the earlier flush_workqueue() in gadgetfs_unbind(); it was already
-> running when gadgetfs_cleanup() called destroy_workqueue(), and
-> drain_workqueue() waited for it instead. Markers confirmed that
-> destroy_workqueue() returned only after I released the worker, and rmmod
-> then completed successfully.
-> 
-> This is consistent with the entry-gated ep_unlink_worker result in my
-> previous message. In that test, unlink_work had already been queued
-> before the unbind flush began, so the flush and the ep0 close remained
-> blocked until I released the worker. In the late-queueing run above,
-> copy_work was not queued until after the unbind flush had returned. A
-> separate control with copy_work queued before the flush likewise kept
-> the unbind flush and the ep0 close blocked until I released the worker.
-> 
-> Thank you for asking me to check this more closely.
+Reviewed-by: Bill Wendling <morbo@google.com>
 
-These results explain a lot.  They mean that flushing the workqueue in 
-gadgetfs_unbind() not only doesn't do what we want, it also isn't 
-necessary -- because destroy_workqueue() will automatically do a flush 
-for us.
+-bw
 
-Also, it isn't really necessary to flush the workqueue when the user 
-program closes ep0 or unmounts the gadgetfs filesystem.  We merely have 
-to make sure that when the module is unloaded, no work items are running 
-or will be started.
-
-Here's a revised version of the second patch, which omits the 
-flush_workqueue() call from gadgetfs_unbind().  I expect it will 
-eliminate the "module unloaded while work items are still running" 
-problem just as well as the original version did.
-
-Alan Stern
-
-
-
-Index: usb-devel/drivers/usb/gadget/legacy/inode.c
-===================================================================
---- usb-devel.orig/drivers/usb/gadget/legacy/inode.c
-+++ usb-devel/drivers/usb/gadget/legacy/inode.c
-@@ -237,6 +237,7 @@ static const char *CHIP;
- static DEFINE_MUTEX(sb_mutex);		/* Serialize superblock operations */
- 
- static DEFINE_SPINLOCK(aio_lock);	/* Protect aio cancellation info */
-+static struct workqueue_struct *gadgetfs_wq;
- 
- /*----------------------------------------------------------------------*/
- 
-@@ -514,9 +515,7 @@ static int ep_aio_cancel(struct kiocb *i
- 		spin_unlock_irqrestore(&aio_lock, flags);
- 		return 0;	/* ep_aio() will call us again if needed */
- 	}
--
- 	priv->cancel_state = AIO_UNLINKING;
--	spin_unlock_irqrestore(&aio_lock, flags);
- 
- 	/*
- 	 * We are called with the aio core holding iocb's context lock.
-@@ -527,7 +526,9 @@ static int ep_aio_cancel(struct kiocb *i
- 	 * For this reason, do the dequeue operation in a work routine.
- 	 */
- 	INIT_WORK(&priv->unlink_work, ep_unlink_worker);
--	schedule_work(&priv->unlink_work);
-+	queue_work(gadgetfs_wq, &priv->unlink_work);
-+
-+	spin_unlock_irqrestore(&aio_lock, flags);
- 	return 0;
- }
- 
-@@ -597,7 +598,7 @@ static void ep_aio_complete(struct usb_e
- 
- 	if (new_req_state == AIO_COMPLETED) {
- 		INIT_WORK(&priv->copy_work, ep_user_copy_worker);
--		schedule_work(&priv->copy_work);
-+		queue_work(gadgetfs_wq, &priv->copy_work);
- 	}
- 	if (cancel_state != AIO_UNLINKING) {
- 		usb_ep_free_request(ep, req);
-@@ -2245,10 +2246,17 @@ static int __init gadgetfs_init (void)
- {
- 	int status;
- 
-+	gadgetfs_wq = alloc_workqueue("gadgetfs", WQ_PERCPU, 0);
-+	if (!gadgetfs_wq)
-+		return -ENOMEM;
-+
- 	status = register_filesystem (&gadgetfs_type);
--	if (status == 0)
--		pr_info ("%s: %s, version " DRIVER_VERSION "\n",
--			shortname, driver_desc);
-+	if (status) {
-+		destroy_workqueue(gadgetfs_wq);
-+		return status;
-+	}
-+
-+	pr_info("%s: %s, version " DRIVER_VERSION "\n", shortname, driver_desc);
- 	return status;
- }
- module_init (gadgetfs_init);
-@@ -2257,6 +2265,7 @@ static void __exit gadgetfs_cleanup (voi
- {
- 	pr_debug ("unregister %s\n", shortname);
- 	unregister_filesystem (&gadgetfs_type);
-+	destroy_workqueue(gadgetfs_wq);
- }
- module_exit (gadgetfs_cleanup);
- 
-
+> ---
+>  include/linux/user_namespace.h   |  5 +++--
+>  kernel/tests/user_ns_map_kunit.c |  6 +++---
+>  kernel/user_namespace.c          | 19 ++++++++++---------
+>  3 files changed, 16 insertions(+), 14 deletions(-)
+>
+> diff --git a/include/linux/user_namespace.h b/include/linux/user_namespac=
+e.h
+> index 633157781edc..637cd7e91a45 100644
+> --- a/include/linux/user_namespace.h
+> +++ b/include/linux/user_namespace.h
+> @@ -209,8 +209,9 @@ extern bool current_in_userns(const struct user_names=
+pace *target_ns);
+>  struct ns_common *ns_get_owner(struct ns_common *ns);
+>
+>  #if IS_ENABLED(CONFIG_USER_NS_MAP_KUNIT_TEST)
+> -extern int insert_extent(struct uid_gid_map *map, struct uid_gid_extent =
+*extent);
+> -extern int sort_idmaps(struct uid_gid_map *map);
+> +extern int uid_gid_map_insert_extent(struct uid_gid_map *map,
+> +                                    struct uid_gid_extent *extent);
+> +extern int uid_gid_map_sort(struct uid_gid_map *map);
+>  #endif /* CONFIG_USER_NS_MAP_KUNIT_TEST */
+>
+>  #else
+> diff --git a/kernel/tests/user_ns_map_kunit.c b/kernel/tests/user_ns_map_=
+kunit.c
+> index 24c21e43a36c..033dccc6a535 100644
+> --- a/kernel/tests/user_ns_map_kunit.c
+> +++ b/kernel/tests/user_ns_map_kunit.c
+> @@ -24,7 +24,7 @@ static void user_ns_map_insert(struct kunit *test)
+>                 extent.lower_first =3D i * 100;
+>                 extent.count =3D 5;
+>
+> -               ret =3D insert_extent(&map, &extent);
+> +               ret =3D uid_gid_map_insert_extent(&map, &extent);
+>                 KUNIT_ASSERT_EQ(test, ret, 0);
+>         }
+>
+> @@ -54,14 +54,14 @@ static void user_ns_map_insert_extended(struct kunit =
+*test)
+>                 extent.lower_first =3D value * 100;
+>                 extent.count =3D 5;
+>
+> -               ret =3D insert_extent(&map, &extent);
+> +               ret =3D uid_gid_map_insert_extent(&map, &extent);
+>                 KUNIT_ASSERT_EQ(test, ret, 0);
+>         }
+>
+>         KUNIT_EXPECT_EQ(test, map.nr_extents, NR_EXTENTS);
+>
+>         /* Now sort the map to set up reverse mapping */
+> -       ret =3D sort_idmaps(&map);
+> +       ret =3D uid_gid_map_sort(&map);
+>         KUNIT_ASSERT_EQ(test, ret, 0);
+>         KUNIT_ASSERT_NOT_ERR_OR_NULL(test, map.reverse);
+>
+> diff --git a/kernel/user_namespace.c b/kernel/user_namespace.c
+> index f9cbb4b92b48..98b0279b6cc6 100644
+> --- a/kernel/user_namespace.c
+> +++ b/kernel/user_namespace.c
+> @@ -780,12 +780,13 @@ static bool mappings_overlap(struct uid_gid_map *ne=
+w_map,
+>  }
+>
+>  /*
+> - * insert_extent - Safely insert a new idmap extent into struct uid_gid_=
+map.
+> + * uid_gid_map_insert_extent - Safely insert a new idmap extent into
+> + * struct uid_gid_map.
+>   * Takes care to allocate a 4K block of memory if the number of mappings=
+ exceeds
+>   * UID_GID_MAP_MAX_BASE_EXTENTS.
+>   */
+> -VISIBLE_IF_KUNIT int insert_extent(struct uid_gid_map *map,
+> -                                  struct uid_gid_extent *extent)
+> +VISIBLE_IF_KUNIT int uid_gid_map_insert_extent(struct uid_gid_map *map,
+> +                                              struct uid_gid_extent *ext=
+ent)
+>  {
+>         struct uid_gid_extent *dest;
+>
+> @@ -821,7 +822,7 @@ VISIBLE_IF_KUNIT int insert_extent(struct uid_gid_map=
+ *map,
+>         *dest =3D *extent;
+>         return 0;
+>  }
+> -EXPORT_SYMBOL_IF_KUNIT(insert_extent);
+> +EXPORT_SYMBOL_IF_KUNIT(uid_gid_map_insert_extent);
+>
+>  /* cmp function to sort() forward mappings */
+>  static int cmp_extents_forward(const void *a, const void *b)
+> @@ -854,10 +855,10 @@ static int cmp_extents_reverse(const void *a, const=
+ void *b)
+>  }
+>
+>  /*
+> - * sort_idmaps - Sorts an array of idmap entries.
+> + * uid_gid_map_sort - Sorts an array of idmap entries.
+>   * Can only be called if number of mappings exceeds UID_GID_MAP_MAX_BASE=
+_EXTENTS.
+>   */
+> -VISIBLE_IF_KUNIT int sort_idmaps(struct uid_gid_map *map)
+> +VISIBLE_IF_KUNIT int uid_gid_map_sort(struct uid_gid_map *map)
+>  {
+>         if (map->nr_extents <=3D UID_GID_MAP_MAX_BASE_EXTENTS)
+>                 return 0;
+> @@ -878,7 +879,7 @@ VISIBLE_IF_KUNIT int sort_idmaps(struct uid_gid_map *=
+map)
+>
+>         return 0;
+>  }
+> -EXPORT_SYMBOL_IF_KUNIT(sort_idmaps);
+> +EXPORT_SYMBOL_IF_KUNIT(uid_gid_map_sort);
+>
+>  /**
+>   * verify_root_map() - check the uid 0 mapping
+> @@ -1047,7 +1048,7 @@ static ssize_t map_write(struct file *file, const c=
+har __user *buf,
+>                     (next_line !=3D NULL))
+>                         goto out;
+>
+> -               ret =3D insert_extent(&new_map, &extent);
+> +               ret =3D uid_gid_map_insert_extent(&new_map, &extent);
+>                 if (ret < 0)
+>                         goto out;
+>                 ret =3D -EINVAL;
+> @@ -1091,7 +1092,7 @@ static ssize_t map_write(struct file *file, const c=
+har __user *buf,
+>          * If we want to use binary search for lookup, this clones the ex=
+tent
+>          * array and sorts both copies.
+>          */
+> -       ret =3D sort_idmaps(&new_map);
+> +       ret =3D uid_gid_map_sort(&new_map);
+>         if (ret < 0)
+>                 goto out;
+>
+> --
+> 2.53.0
+>
