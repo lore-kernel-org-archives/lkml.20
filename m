@@ -1,198 +1,93 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E9AC4749F6;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF2C747D442;
 	Fri, 11 Sep 2026 12:58:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789131527; cv=none; b=nCDW2+dH8zM1AjhCpTY/rWioacNfzKuHMDJW79JUeG5jzPmrFU7ygyqgvycDoDqeyEHNH8n0DCyD9Gn0ab2F3f647GjpqZ7nk7iwE8aKPa9W6cIkoW1RadgqO6SKCyN/nIRVfkOJfh3Rwql22Fp5RPqNMr3X9QTFnXpjePlULKM=
+	t=1789131538; cv=none; b=QHkwKFyODE3AHhXQ4j0iQx8QqjCQkz1EE+EHwylI3G++rZOfd8sGpirPMPaja5a9onL9dU5CYO1NA4adIfWge5BZMZm2IfFjYeh8qqmB2OLT/UHQi7JISYTX0PzstGUWErNRJX1+LKwTq0CHFoc3U6Q+J3bV71sHl33uGAXRqPs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789131527; c=relaxed/simple;
-	bh=ODwQeyy5/R8kBiZjBOhXMKJoZML7I4OqcWMRfhmXyuU=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ezY4RDHTH9bJYBwcoQepIap3xXLPeEIJ6+u4nyRgTB8zbEcdbBWS56639bGjYaPiA+x1Haj0aZzifbPkWO6HXubjHa9R2+brWNFehZcAnGwZIlVZ+i8vQc8G0RJVQGRObVPdVzzHgP7BFCOXFpgzfLD3wHAi4csK1Tb679OMMnc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e5rB0Yy0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789131538; c=relaxed/simple;
+	bh=bjoTTqpWpKvplAqU+RyCcsF1m/WtPEW3tfKywXliCM4=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=p8yaJNx4Z0Kn+7xf7QCDEANgT7Qp9d4dKtLtneBVPLDLFHB8Tub4xRmTh9RUS4JKQUGtIlXVwWakKsbK8juslUY5SS2yCvABdAUPzpcOXCBXQ6aS6UnQr/SnZOQv1LTGenpA5sczC+xBRmiylpK2w5EfX5xfOdzeoVOR1RWqdE8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=0JqVOVv+; arc=none smtp.client-ip=216.40.44.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e5rB0Yy0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1A331F00893;
-	Fri, 11 Sep 2026 12:58:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789131506;
-	bh=DKS3Y875g55w6+jRQCK0RAo8CGT+TF5uQ7AdPQA8+FE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=e5rB0Yy0vm91hHd8PcFabYm0S+Znfex9t24hSeR/jilv1yVwTiOtxiRWg8Vp4PnQq
-	 NruMAB0HQxZGz/RHTFtvsUVcS+iAwNHPQXN/Spu48j9TWM4FGKVPNIKkpmjiFZpYu9
-	 h993H8+S/GnD6/dfShgrfjlWAMnSf4fBkZhUqo5PzjfPojrhHMMzILlYTSK1t6yM7R
-	 TBZoCG4x+NcSkIIgM52hwWjh/cmmC0B1CGh7yMdlcDiTdwEQfDZZip6vxe/lJy0ane
-	 g5FIhs6dgguYOvC6+5kLLBjVOhgh7BfNACHfny9ogXFcW8l++JTBDk/PUK+8nlzmyI
-	 n5n3kfghnZXiA==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1x50pj-00000007lFn-3IG3;
-	Fri, 11 Sep 2026 12:58:23 +0000
-Date: Fri, 11 Sep 2026 13:58:23 +0100
-Message-ID: <86jyos6j2o.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Oliver Upton <oupton@kernel.org>,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Vincent Donnefort <vdonnefort@google.com>,
-	Quentin Perret <qperret@google.com>,
-	Fuad Tabba <tabba@google.com>
-Subject: Re: [PATCH v2 14/17] KVM: arm64: Reject host access to protected VM private state
-In-Reply-To: <20260907070002.3333525-15-fuad.tabba@linux.dev>
-References: <20260907070002.3333525-1-fuad.tabba@linux.dev>
-	<20260907070002.3333525-15-fuad.tabba@linux.dev>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="0JqVOVv+"
+Received: from omf02.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay04.hostedemail.com (Postfix) with ESMTP id 57FF11A0226;
+	Fri, 11 Sep 2026 12:58:17 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf02.hostedemail.com (Postfix) with ESMTPA id 411FB80012;
+	Fri, 11 Sep 2026 12:57:57 +0000 (UTC)
+Date: Fri, 11 Sep 2026 08:59:18 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Ye Liu <ye.liu@linux.dev>
+Cc: Masami Hiramatsu <mhiramat@kernel.org>, Ye Liu <liuye@kylinos.cn>,
+ Michal Hocko <mhocko@suse.com>, SJ Park <sj@kernel.org>, Lorenzo Stoakes
+ <ljs@kernel.org>, Oleg Nesterov <oleg@redhat.com>, peterz@infradead.org,
+ paulmck@kernel.org, mingo@redhat.com, jpoimboe@kernel.org, mic@digikod.net,
+ tglx@kernel.org, akpm@linux-foundation.org, david@kernel.org,
+ linmiaohe@huawei.com, nao.horiguchi@gmail.com, rafael@kernel.org,
+ gnoack3000@gmail.com, gourry@gourry.net, rientjes@google.com,
+ shakeel.butt@linux.dev, xu.xin16@zte.com.cn, chengming.zhou@linux.dev,
+ will@kernel.org, boqun@kernel.org, frederic@kernel.org,
+ neeraj.upadhyay@kernel.org, joelagnelf@nvidia.com, josh@joshtriplett.org,
+ urezki@gmail.com, juri.lelli@redhat.com, vincent.guittot@linaro.org,
+ tony.luck@intel.com, reinette.chatre@intel.com, x86@kernel.org,
+ paul@paul-moore.com, jmorris@namei.org, serge@hallyn.com, pavel@kernel.org,
+ lance.yang@linux.dev, pmladek@suse.com, longman@redhat.com,
+ mathieu.desnoyers@efficios.com, jiangshanlai@gmail.com,
+ qiang.zhang@linux.dev, dietmar.eggemann@arm.com, bsegall@google.com,
+ mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
+ mark.rutland@arm.com, Dave.Martin@arm.com, james.morse@arm.com,
+ babu.moger@amd.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-pm@vger.kernel.org, rcu@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ linux-security-module@vger.kernel.org
+Subject: Re: [PATCH v3 11/15] tracing/fgraph: convert process/thread
+ iterator to for_each_process_thread_rculock
+Message-ID: <20260911085918.30c87ab3@gandalf.local.home>
+In-Reply-To: <20260911075800.491472-12-ye.liu@linux.dev>
+References: <20260911075800.491472-1-ye.liu@linux.dev>
+	<20260911075800.491472-12-ye.liu@linux.dev>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: fuad.tabba@linux.dev, oupton@kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, catalin.marinas@arm.com, will@kernel.org, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, vdonnefort@google.com, qperret@google.com, tabba@google.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Queue-Id: 411FB80012
+X-Stat-Signature: n6a6yg87erzr1tr8kadm4kbym8uws4c7
+X-Rspamd-Server: rspamout03
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX184cgL4CPzpG6wyU7gqy6pHH3IT2rF9ets=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=UaQYdknTmueyDeiPHskDcTArMbJldar1uQP+OR5ILiM=; b=0JqVOVv+9L81lkGml08i9mMS8B782yjgSSh0J7qB8NJfLJbXU0fLz9weZAM4fQ5Ra9CUavRTBo+PCH73WKm//G+wNOzwNoyxnF2a7JXOtbmdL7tZR3SzwRbbk7iw2rNQVN3kwRcItAAPl3JNid1xBW4naEquTGk2Qi05wOwcUrA=
+X-HE-Tag: 1789131477-955751
+X-HE-Meta: U2FsdGVkX18IEJ34TJ0+KfkZrrzHJ2dGti8SCtUwJBxnBs7A77nAwjwyHWgBGGkRmcWxfRbbgYYDx9+//1mp9vVOjUQbCfr8JwoUfq6qObLo5XckYsaDveVKT4KVuSxa43lMppAHrfkQ6q66hua38QSWiGZ4pR4WLuiB/fRlv95rgRSwCTUef6/9xZIREFm6zARLWSxhMwm/+USXJ5Odeo33wnQhHtMWXVBSR1fuAOuRDXqRFn/VmuEmY4R93qX7JzsgtbqMZNWtX+CwTgbkKXii7THG1FmHcDAGAFH4eWA8QubRpp9x6o0Bf0fFFGOxvfWU4KGfGsEN23tdH4CEfp8DdKmJ89MyETXiouFLfhLA9mjoesG1uJ4spkJ5GIdarVsiaR7bvBIJXGMAkAiEBCCCpjOlciuLokm1pcCBCZvkrE1QZjTT39frBEzytesHCZdU724fPrc5uye0+xI5ILZJA4Ngv6OQ1x3Efp0PWJo=
 
-On Mon, 07 Sep 2026 07:59:59 +0100,
-Fuad Tabba <fuad.tabba@linux.dev> wrote:
+On Fri, 11 Sep 2026 15:57:56 +0800
+Ye Liu <ye.liu@linux.dev> wrote:
+
+> From: Ye Liu <liuye@kylinos.cn>
 > 
-> A protected vCPU's register and debug state is no longer exposed to
-> the host. Host ioctls that would reach that state now fail rather
-> than operate on a copy that is not the guest's:
+> Replace the manual rcu_read_lock()/rcu_read_unlock() pair combined
+> with for_each_process_thread() loop in kernel/trace/fgraph.c with
+> for_each_process_thread_rculock(), which scopes the RCU read lock
+> to the loop body via scoped_guard(rcu).
 > 
->   - KVM_GET_ONE_REG and KVM_SET_ONE_REG return -EPERM once the vCPU has
->     run: the copy then holds reset values plus what the exit handlers
->     marshal out. Pre-run access still builds the guest's boot state.
->   - KVM_ARM_VCPU_INIT returns -EPERM once the vCPU has run: it would
->     reset the host copy alone and rewrite mp_state, which EL2 reads
->     only at hyp vCPU creation, so a vCPU the guest powered off would
->     come back RUNNABLE.
->   - KVM_SET_VCPU_EVENTS rejects external-abort injection with -EPERM;
->     SError injection is forwarded and stays permitted.
->   - KVM_SET_GUEST_DEBUG returns -EPERM: a protected guest's debug state
->     is hypervisor-owned.
+> No functional change.
 > 
-> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-> ---
->  arch/arm64/kvm/arm.c   |  7 +++++++
->  arch/arm64/kvm/guest.c | 19 +++++++++++++++++++
->  2 files changed, 26 insertions(+)
-> 
-> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-> index 5c2587da815ab..37a260b139795 100644
-> --- a/arch/arm64/kvm/arm.c
-> +++ b/arch/arm64/kvm/arm.c
-> @@ -1750,6 +1750,13 @@ static int kvm_arch_vcpu_ioctl_vcpu_init(struct kvm_vcpu *vcpu,
->  	bool power_off = false;
->  	int ret;
->  
-> +	/*
-> +	 * Re-init would reset the host copy alone and rewrite mp_state
-> +	 * after EL2 has read it. Pre-run init stays allowed.
-> +	 */
-> +	if (vcpu_is_protected(vcpu) && vcpu_has_run_once(vcpu))
-> +		return -EPERM;
-> +
->  	/*
->  	 * Treat the power-off vCPU feature as ephemeral. Clear the bit to avoid
->  	 * reflecting it in the finalized feature set, thus limiting its scope
-> diff --git a/arch/arm64/kvm/guest.c b/arch/arm64/kvm/guest.c
-> index ab659795d4b2f..abab580a659d4 100644
-> --- a/arch/arm64/kvm/guest.c
-> +++ b/arch/arm64/kvm/guest.c
-> @@ -701,6 +701,10 @@ int kvm_arm_copy_reg_indices(struct kvm_vcpu *vcpu, u64 __user *uindices)
->  
->  int kvm_arm_get_reg(struct kvm_vcpu *vcpu, const struct kvm_one_reg *reg)
->  {
-> +	/* Once the vCPU has run, the host copy is not the guest's state. */
-> +	if (vcpu_is_protected(vcpu) && vcpu_has_run_once(vcpu))
-> +		return -EPERM;
-> +
->  	/* We currently use nothing arch-specific in upper 32 bits */
->  	if ((reg->id & ~KVM_REG_SIZE_MASK) >> 32 != KVM_REG_ARM64 >> 32)
->  		return -EINVAL;
-> @@ -718,6 +722,10 @@ int kvm_arm_get_reg(struct kvm_vcpu *vcpu, const struct kvm_one_reg *reg)
->  
->  int kvm_arm_set_reg(struct kvm_vcpu *vcpu, const struct kvm_one_reg *reg)
->  {
-> +	/* Writes build the boot state; once run, EL2 owns the registers. */
-> +	if (vcpu_is_protected(vcpu) && vcpu_has_run_once(vcpu))
-> +		return -EPERM;
-> +
+> Signed-off-by: Ye Liu <liuye@kylinos.cn>
+> Acked-by: Michal Hocko <mhocko@suse.com>
+> Reviewed-by: SJ Park <sj@kernel.org>
+> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Reviewed-by: Oleg Nesterov <oleg@redhat.com>
 
-Why can't these be moved to the ioctl callback? Something like:
+Acked-by: Steven Rostedt <rostedt@goodmis.org>
 
-diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-index eaf583b771931..0ffd435bf6904 100644
---- a/arch/arm64/kvm/arm.c
-+++ b/arch/arm64/kvm/arm.c
-@@ -1856,6 +1856,19 @@ static int kvm_arm_vcpu_set_events(struct kvm_vcpu *vcpu,
- 	return __kvm_arm_vcpu_set_events(vcpu, events);
- }
- 
-+static long pkvm_filter_vcpu_ioctl(struct kvm_vcpu *vcpu, unsigned int ioctl)
-+{
-+	switch (ioctl) {
-+	case KVM_ARM_VCPU_INIT:
-+	case KVM_SET_ONE_REG:
-+	case KVM_GET_ONE_REG:
-+		if (vcpu_is_protected(vcpu) && vcpu_has_run_once(vcpu))
-+			return -EPERM;
-+	}
-+
-+	return 0;
-+}
-+
- long kvm_arch_vcpu_ioctl(struct file *filp,
- 			 unsigned int ioctl, unsigned long arg)
- {
-@@ -1864,6 +1877,10 @@ long kvm_arch_vcpu_ioctl(struct file *filp,
- 	struct kvm_device_attr attr;
- 	long r;
- 
-+	r = pvkm_filter_vcpu_ioctl(vcpu, ioctl);
-+	if (r)
-+		return r;
-+
- 	switch (ioctl) {
- 	case KVM_ARM_VCPU_INIT: {
- 		struct kvm_vcpu_init init;
-
->  	/* We currently use nothing arch-specific in upper 32 bits */
->  	if ((reg->id & ~KVM_REG_SIZE_MASK) >> 32 != KVM_REG_ARM64 >> 32)
->  		return -EINVAL;
-> @@ -786,6 +794,13 @@ int __kvm_arm_vcpu_set_events(struct kvm_vcpu *vcpu,
->  	u64 esr = events->exception.serror_esr;
->  	int ret = 0;
->  
-> +	/*
-> +	 * EL2 injects an external abort only to complete a forwarded abort.
-> +	 * SError injection is forwarded.
-> +	 */
-> +	if (vcpu_is_protected(vcpu) && ext_dabt_pending)
-> +		return -EPERM;
-> +
-
-Where is KVM_CAP_ARM_INJECT_EXT_DABT rejected?
-
-Thanks,
-
-	M.
-
--- 
-Without deviation from the norm, progress is not possible.
+-- Steve
