@@ -1,382 +1,563 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1105843C043
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 19:15:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789154119; cv=none; b=g/TWTKscnFgUg7S2+0eOqqr1YfKd7LY4g7oOvcYFsfKsYONDJUBvu6D7DONhejbYtbLD88zekb+fDxC0vY77nIE88Oiy7rSHBdrzbFamwxazYHuhsjseM1HXiO/qfCFOvkE/iMGtZ0Z2OxJ37byvsjM6fnW9lX1z7QgUymxfe/g=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789154119; c=relaxed/simple;
-	bh=suCLjVjlPtCVTRxt/yyl4+CfCD3zfr9c7UniXKBFnzU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tDRYTe5TdjOJRR1WNjmIbfMnhJ6p4qcJhv6cP+WDP7JHHeINSZ7ygPYgnK61RRC237Xbl7/tBWuovYVfKJPOfnTF9jC0DOkQMmxVD9CsqjLIrAbwaTmVTd9QNsGQmdHI6X6W1rUWW3YFJnNekWY1KnlMM60piKx/4ysNCIK8gLg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Mq2Eaaca; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=g2GBpCWe; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC401439327
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 19:15:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789154146; cv=pass; b=pi08D2o4tgaj5j0h22qErMiaiwX3ylAnk+YBL7JTxBX7E5WUNw3g+E8Vl0H/EH3vDAonlWNmw6fzB9olzC69vbTgmnfUI2mz6U/jWtccLOe7Iri0YSdevFPsWE3RK4JU0/KWen2CIv51RfZEoCMrcuFJrbBYngsTn0EUD+drmY0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789154146; c=relaxed/simple;
+	bh=/12bx6rwLlRxid+Hna9AzwtpszVi7JB5Vzqx4zepwc8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SgQnO1U4TUbm7vxNt8iTUSXl/eqlZB+pqTS0mMgZbiT27XLRRWypCee/qVTBCbTzrAYIfkaTYm6cFUeBJQPeKF1HFac+CRmqIqwLEhGTwuXkCSbSH/8D2vsOsLTcCDUdmfYZvP94S6256VJBjSgM98szg5ClU4M34aezO3ogfag=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=huJt7u+p; arc=pass smtp.client-ip=165.173.180.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Mq2Eaaca";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="g2GBpCWe"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68BHWOmO810126
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 19:15:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	XA4Kl0KLnzcJOt9vayKyZzMGbRlqf8uEKgvEQ7zEOY4=; b=Mq2EaacaVAgjVX0e
-	3N8B2iHucKabcLOOEc02aUGBnNV1A7FsZjlojV+zwiV62S0nJB50RHkgs4H7Mouf
-	jxR1Kdr0rE8AaO3AmU0CgCnGFzgNpJkUL/ugujL2vccMZ00PuHYh3c7IqldvdpAP
-	ynDMWe3JmtbC/oxvCR+MN2m7uHqKznVzdB/RsXqbBo6CJKmBPUd1noI5I51K3TmK
-	ShkkAr06YPlO0GE3JaY4A58G2ThIv6fSyyQDv7e5v2d5Uip9sUFZdM1JoOWPo146
-	UPVT5a6IA2VpVthw8tSq+HpaT0FP6OLuvdgRBUXbxIoBEAdSEq5sOxVqMNr9JvgX
-	P+IDRQ==
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmnv20eaj-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 19:15:06 +0000 (GMT)
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cb11535e6a1so1211033a12.0
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 12:15:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789154105; x=1789758905; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XA4Kl0KLnzcJOt9vayKyZzMGbRlqf8uEKgvEQ7zEOY4=;
-        b=g2GBpCWeXdmZUUIXR1Xihyq//HSB7A70Fub/P898+M1nG67CKaa/mA06sYfOt3fH+N
-         7uhR0QlK0pfQkRZvf4rGRBCfudnRcaF0hB/JFuEU59VR3RWTu3hXqBf1TCGlUkAPGZbM
-         /uZSaZyPAzHyaQ7Ec7oKht6FuHMqdisr80SH4zuJQ0Anlhjs98RyD2sI54gXy7dAImNv
-         dnHqDHxn0ALO0HO0BZ8ag+4ryv4ysekd2o7f3H63w0pntRONtdA91Ywa6Y4zmT4BuYFf
-         JeTPZxmb9BkRsuB56if4TPk9HsG1EWnuHD8vDpSSzjUB6ukIRrGth/iVaFKsVPuHjeoB
-         10Ug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789154105; x=1789758905;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XA4Kl0KLnzcJOt9vayKyZzMGbRlqf8uEKgvEQ7zEOY4=;
-        b=fluxoZY2kQhhYdwX988bwCEctA4Zkg/uRWIeq8NDtEdETkWaMZrUDXqpH6CHR/x0Md
-         SN4MOgEFqvr/40eJ0MbZIUH8H63tOb8XiUxnltNwYsFxrErSGGXBdTz5GJfdOe5PFiRb
-         7U7gim1nmHessmdWa1AAcDKUcZ3/05Mz8lpDFn6EPX9fRwf696YXpUPYT8qWb3bauY7G
-         R0bX8PcsgviQU1AfHOy91nn345k9P+3XJDC+Gu5iSlMznJGFnpGWmEC0WkGR0AXYyYKg
-         XV+QXesX7c5zUNAYNrJB5T6fYtZsFAVcTGZZ+Pv30LORvxB9QduC4xo9KwQLTD1JU7M9
-         ag2g==
-X-Forwarded-Encrypted: i=1; AKwUvBz47p8LCFBonh8hgoaSmhTg73oa/5cfOJfXU3HhzEv9cwb+wux4NIc4b3ExmkNqyV5AWhnOUSxft/iMgWA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mM3alIrEX+Umqz/3eNgbdQJ3tUmyO5JzoNbS+Jl8m2ZHDtlDL6
-	Ccpk+BPUvZ+c+tc+3Tzz/GHSAwT0rg/ps/x1Q9WndNnlupKIoK0hpctx6eDCLeoVNMkAlfHtbQB
-	KM39n1QMQihfvMlwyANhL9ic1uQ086tGa6huuI4eWRhPcatUzeVhevIS3/B0xyMlDh4k=
-X-Gm-Gg: AYBFou1fga8nVoVwHbWFABIXgqlHpuiF7wAybvpa+YkNzhqqu54toQmVasw1u8xHlkT
-	VOgvM7dUap0USuUs7fGLP2Pvq4lOvs3H3MNbB1VYhAgr8Obj4veeSo1L09iMkf2ow+NXFdOiM6y
-	f8SJYhUjyURh+9K053CH086VpMoRwOK/DPMov85kohjW4QXWuALVXlCIPj/avClFyF+rcvWurCN
-	gRZddu5xUH3hWUujk/JmKCn3YBpQF9werD6xlA9CGCfdyCBG4y0O+jeS0GVDBqDDax+NpwRTjzH
-	NDJfGnnkgoslHar/xo6BknU7zwH7cCZq7hCfXcZO7n1RrFzUbxOuyE7E3WEe4uJk/8hNdtKRwaf
-	8E/C4ek2WxsOVDFUlx6dDSFcF9lt/jItzI+YUpCVipLDWT3ZN9TtF5er1TsP8
-X-Received: by 2002:a05:6a21:6b10:b0:3d3:ad3c:49a8 with SMTP id adf61e73a8af0-3daed3b9745mr10795672637.22.1789154105061;
-        Fri, 11 Sep 2026 12:15:05 -0700 (PDT)
-X-Received: by 2002:a05:6a21:6b10:b0:3d3:ad3c:49a8 with SMTP id adf61e73a8af0-3daed3b9745mr10795608637.22.1789154104461;
-        Fri, 11 Sep 2026 12:15:04 -0700 (PDT)
-Received: from [10.227.105.111] (i-global254.qualcomm.com. [199.106.103.254])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-143659a9a06sm8271959c88.0.2026.09.11.12.15.03
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 11 Sep 2026 12:15:03 -0700 (PDT)
-Message-ID: <d91ce2be-6489-4399-b035-23f6aec0371f@oss.qualcomm.com>
-Date: Fri, 11 Sep 2026 12:15:00 -0700
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="huJt7u+p"
+ARC-Seal: i=1; a=rsa-sha256; t=1789154116; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=GHO+LWge46f1C/h2K2izRaDOFWh6A9wcgSwcDq+9BInZm3K1bvS3T/Z3xB06cUT9MxANAv6tJ259rUXWBs6At+GVz1LWMeJ/Dxwd1WaXQ5FKBu2hUw4hS9gADqFB/ynAaoDcXAGJ9q3DFexjMVbYOlp8hok5HXpDmLx3pGO9vdM=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1789154116; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=8GOqYwu7Av7pSfjPDhidMs9hHjsGQVaguMNs88c905c=; 
+	b=k3VcvKeEXHwtNKeY76Xj/oGPaTCirnpBDmVVLzgxNbyoSd45uaUXwGzgbNwMOQYdouCtlvXHa64fLDe9deseHe/x5AOrgogPOAFdw/CBXnAPLy0VIYIHduL+R9XVNrhMSru7Xyr9X7UrnSmNaEgwUlmtccWWDNEPMSKQCOTRkc4=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+	dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789154116;
+	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
+	bh=8GOqYwu7Av7pSfjPDhidMs9hHjsGQVaguMNs88c905c=;
+	b=huJt7u+p+nGvS0i4cZx6lsonbb/2aAl9bvuMgJ5rogLXZloZaUwEu6PonfR7qwZH
+	CN2ZcYn7Azi5J1NydODVKv/cwY0kCF/vQROVjXs447w6VeBBQFEcsg3prB+SK+go2L+
+	k2SyBRYJX9x2n8Ko7vmB9l316m8luj4EGri75ZOc=
+Received: by mx.zohomail.com with SMTPS id 1789154115230569.3363674477455;
+	Fri, 11 Sep 2026 12:15:15 -0700 (PDT)
+Date: Fri, 11 Sep 2026 20:15:11 +0100
+From: Adrian Larumbe <adrian.larumbe@collabora.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
+	Chris Diamand <chris.diamand@arm.com>, Akash Goel <akash.goel@arm.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 14/18] drm/panthor: Make the VM cleanup path more
+ robust against UAF
+Message-ID: <aqRKIArC82Q9sl2p@sobremesa>
+References: <20260826-panthor-unplug-fixes-v4-0-982cc8f4234b@collabora.com>
+ <20260826-panthor-unplug-fixes-v4-14-982cc8f4234b@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 00/12] ath1{1,2}k: support multiple PCI devices in one
- system
-To: Juha-Matti Tilli <juha-matti.tilli@iki.fi>, ath11k@lists.infradead.org,
-        ath12k@lists.infradead.org, Kalle Valo <kvalo@kernel.org>,
-        Jeff Johnson <jjohnson@kernel.org>,
-        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        "David S . Miller" <davem@davemloft.net>,
-        Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
-        Mihai Moldovan <ionic@ionic.de>, linux-wireless@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260908093145.2492666-1-juha-matti.tilli@iki.fi>
-From: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <20260908093145.2492666-1-juha-matti.tilli@iki.fi>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTExMDI3MCBTYWx0ZWRfX7IXZ5TywLiT5
- kGF/TLEMt14Rjh1Be639XUa9GzC+5kwC6Vle0pXEnfz/WxSyJIaHVqjuoofgLiEXG5VQy1jnxt/
- ZxPH7iF72B65yxQrdcXHrqiDusWBlDQ=
-X-Proofpoint-GUID: afkhTRLFFJGh4UYBFplEKJTr86LNbq1p
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTExMDI3MCBTYWx0ZWRfXwhP9IJY3LkBL
- EsB4L6X8ZetMD7pNJBtJZpPce1Y2ErzLclgw1fUAPB1dkou79F5M1OH6o4nIWJK231v97TkhuEz
- vpKOvRgW+xwvDr9R1FJzof4HC2FUGyagqcWzVlwjS1JofslH1rkGNdMzizibGZWZHuAHR9/6dVc
- LBTV7yqEDowKzfZ3iIRRtoMuSkXTcowN6QygK/fKdTfM3CzP1MSaUTrkxAappiZRDAvveoopj8y
- A0Mn4nCSlEEdUYkkfcGuVtXSww81CeNUwydR43yFXt8n7pIb9gZ/K6lnROzGXC2EZw6D/nS7xcb
- jhDJSUYQtpoYbS4dTABU+Rvk8cZzalX5lkkgmZj+K+Q7Pn9eutn+QY+NM8tDh9CgzYRyjtjtvwl
- 0SDBfBF/aAfkz0AAsmXpM1z4l35K4iWGMJG4HJT0T6EbHYyGrsJKsY1Srmxr0iWfYoHUUZx3yWV
- 8NE8EZfFZvbBFr2y7GA==
-X-Proofpoint-ORIG-GUID: afkhTRLFFJGh4UYBFplEKJTr86LNbq1p
-X-Authority-Analysis: v=2.4 cv=XvdvqlF9 c=1 sm=1 tr=0 ts=6aa4533a cx=c_pps
- a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=bC-a23v3AAAA:8 a=NEAV23lmAAAA:8 a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8
- a=COk6AnOGAAAA:8 a=nuVjNcMAjKUeO9L8OkEA:9 a=QEXdDO2ut3YA:10
- a=x9snwWr2DeNwDh03kgHS:22 a=FO4_E8m0qiDe52t0p3_H:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-11_06,2026-09-11_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 bulkscore=0 priorityscore=1501 phishscore=0 suspectscore=0
- adultscore=0 malwarescore=0 clxscore=1015 spamscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609110270
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260826-panthor-unplug-fixes-v4-14-982cc8f4234b@collabora.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/289.144.59
 
-On 9/8/2026 2:31 AM, Juha-Matti Tilli wrote:
-> Hello,
-> 
-> As you may well know, multiple identical ath11k and ath12k devices are
-> not supported in a single Linux host because they use conflicting QRTR
-> node IDs. Fortunately, Denis Kenzior created a patchset to support
-> multiple QRTR endpoints with identical node IDs, and Mihai Moldovan
-> refined it, after which I took over the patchset and refined it more.
-> 
-> Mihai Moldovan also created a patchset for actually adding the support
-> for this QRTR multi-endpoint feature to ath11k and ath12k drivers.
-> Unfortunately, the code of Mihai was not merge-quality, since it leaked
-> memory if you ran rmmod and modprobe inside a loop. Mihai mentioned this
-> drawback, without providing an API for deleting endpoints or usage of
-> such API in code that's responsible for freeing resources. Also Mihai's
-> patchset had a race condition.
-> 
-> Since Mihai has been busy recently and the previous iteration of this
-> patchset is nearly 2 years old, I decided to "steal" the patchset from
-> him since he said he doesn't care who eventually implements this, as
-> long as it "just works". I am willing to give the responsibility of this
-> patchset back to Mihai if he so wants.
-> 
-> I reverted back to the approach where MHI knows the QRTR endpoint id.
-> This is somewhat ugly, but really the only way resources can be freed
-> (unless you resort to some kind of reference counting which would be
-> doable in kernel, or garbage-collection which wouldn't be doable). It
-> does create some extra memory usage in the mhi_controller data
-> structure, but a large fraction of the time, the data there is useful,
-> since a large fraction of MHI devices actually use QRTR. So this is not
-> as bad as making every PCI device know its QRTR endpoint ID (which a
-> vast majority don't have), even though MHI can be compiled in without
-> QRTR so we have to do the freeing via a function pointer.
-> 
-> I think the code is mostly merge-quality now. It does require the QRTR
-> multi-endpoint support, such as this v6 (I'm soon going to post v7 --
-> note that in v6 one intermediate commit doesn't compile on 32-bit
-> although the tip of the branch does compile):
-> 
-> https://msgid.link/all/20260901131934.225991-1-juha-matti.tilli@iki.fi
-> 
-> I tested it on dual ath11k setup, but more testers would be good. If you
-> only have a single ath11k card, your testing is useful too ("given
-> enough races, all race conditions are shallow").
-> 
-> Link to Github if you don't want to apply patches manually from mails:
-> 
-> https://github.com/jmtilli/linux/tree/athnext_multi_qrtr_v7_multi_ath11k_ath12k_v3
-> 
-> Bugzilla: https://bugzilla.kernel.org/show_bug.cgi?id=218480
-> 
-> Mihai mentioned in Bugzilla in comment 21 that there was a hardware
-> crash he couldn't reproduce and he believed it's a race condition. I
-> could reproduce it in older Mihai's patchset version by treating -EEXIST
-> as an error, which indeed points to it being a race condition. I believe
-> the source was qrtr_endpoint_id_get_or_assign that tried to get an ID
-> and then assign an ID if it couldn't get one, while not holding a
-> spinlock. In my newest patchset, my belief is this race condition is
-> gone (the entire offending function is gone), but any kind of review
-> about thread-safety of my code would be good input.
-> 
-> Original description:
-> 
-> ath11k and ath12k suffer from a long-standing issue that is partly
-> caused by the QRTR implementation, which only supports one device per
-> node/port combination and partly caused by the fact that the
-> QMI instance ID of the devices are statically set to 1.
-> 
-> P Praneesh <quic_ppranees at quicinc.com> submitted a patch[0] that fixes
-> this issue generating a unique QMI instance ID based on the PCI bus data
-> for the device and passing that information to the QMI subsystem and the
-> device's firmware via a special PCI register.
-> 
-> However, it quickly turned out that this approach works for the hardware
-> he tested, but fails for other ath11k-based devices, including the
-> popular QCA6930, since its firmware just ignores the special register
-> being used.
-> 
-> Since we need QMI (and, for matter, QRTR) to work for the initial
-> firmware upload, this approach will not work generically.
-> 
-> Fortunately, Denis Kenzior <denkenz at gmail.com> cooked up a patch set for
-> QRTR[1] that introduces the concept of endpoint IDs, which are
-> dynamically allocated and can be used to distinguish different devices
-> even though they use the same node/port combination. Using this patch
-> set, endpoint IDs can be reported as part of auxiliary data in the QRTR
-> socket and bound to for client sockets, which will automatically filter
-> messages from other endpoints and also make sure that client messages
-> are routed to the correct endpoint.
-> 
-> This looked promising, and with that functionality, the only challenge
-> is to find out the correct endpoint IDs and bind to them in drivers to
-> finally support multiple devices in a generic way.
-> 
-> This patch set implements exactly that, and it WORKSFORME, but
-> unfortunately it turns out that "the only challenge" is very difficult
-> to overcome due to the socket-based architecture.
-> 
-> ath1{1,2}k and QRTR are at opposite sides of the socket, with QRTR
-> assigning endpoint IDs and ath1{1,2}k needing a way to fetch and operate
-> on them.
-> 
-> The endpoint reporting feature in QRTR is not helpful in this case,
-> because drivers do not generally know which endpoint belongs to the
-> device they currently handle (i.e., there is no central registry) and
-> even if we were to snoop on the socket and take the first endpoint ID we
-> are unaware of, this might not be the correct one, because it might be
-> in use by a different driver for instance, or correspond to a different
-> device.
-> 
-> The first iteration of this patch set[2] extended struct mhi_device with
-> a qrtr_endpoint_id field that was initialized to zero and populated by
-> the QRTR MHI driver as soon as it was loaded. Drivers could then query
-> this field through an mhi_device->mhi_cntrl->mhi_device chain (if they
-> also use the MHI bus, of course). This, however, was an incredibly ugly
-> hack because QRTR data should not be part of MHI device structures in
-> the first place, timing is critical (drivers querying the endpoint ID
-> must do so after the QRTR MHI module initialized, which is typically
-> only the case after QRTR socket was created) and it was not possible to
-> query or pre-assign an endpoint ID before creating a socket and directly
-> bind to it (which might lead to races such as seeing messages over the
-> socket that are not meant for the endpoint ID drivers are actually
-> interested in).
-> 
-> Since that was not elegant at all, and due to the other mentioned
-> issues, this iteration uses a different approach: endpoint IDs can now
-> be associated with (private) backend endpoint-specific data, which
-> allows us to identify which endpoint ID is being used with what backend,
-> and additionally new API is introduced so that other parts in the kernel
-> can either get an endpoint ID for given endpoint-specific data or even
-> attach endpoint-specific data to a new endpoint ID generated by the QRTR
-> driver. The QRTR system will try to use endpoint-specific data if
-> possible, but falls back to generating endpoint IDs without
-> endpoint-specific data (as in, NULL pointer) if that did not work.
-> 
-> Crucially, the endpoint-specific data pointer is used as an opaque void
-> pointer and at most compared with data stored in the endpoints XArray.
-> 
-> In the QRTR MHI backend, we use the MHI controller's structure pointer
-> as endpoint-specific data, and since the MHI controller is also the bus
-> master and responsible for the physical link, clients (drivers) can
-> pre-register an endpoint ID for their MHI controllers and directly tell
-> QMI to bind to the endpoint ID at socket creation time.
-> 
-> The QRTR SMD backend uses its rpmsg_device pointer and the TUN backend
-> uses the inode pointer as their respective endpoint-specific data
-> pointers.
-> 
-> This approach is cleaner and works better, because it is not prone to
-> races (although it requires coordination between QRTR backends and
-> clients/drivers because both must use the same endpoint-specific data
-> for the scheme to work).
-> 
-> There are, however, also issues with this approach:
->   - Any kernel part can generate an unlimited number of endpoint IDs
->     with arbitrary pointers. The amount of endpoint IDs that can be
->     tracked is limited, though, so there is potential for exhaustion of ID
->     space.
->   - Since previously endpoint IDs were only generated by the QRTR
->     subsystem, there was no need to use any kind of life cycle management
->     for the endpoint IDs: they were created at node creation time and
->     also deleted at node deletion time. Since other subsystems can now
->     create endpoint IDs, it would probably be good to have a way to
->     reclaim created but unused endpoint IDs. No such implementation is
->     provided here.
->   - Multiple PCI/MHI devices will work, but no AHB + PCI/MHI interaction
->     has been tested. Since PCI/MHI devices bind to their endpoint ID,
->     these will likely work, but the AHB devices might still see messages
->     for all endpoints and fail to work correctly. AHB devices seem to be
->     using QMI and thus also QRTR, but without a specific QRTR backend
->     driver (going through REMOTEPROC instead?), so this approach might
->     not be viable for AHB devices.
-> 
-> I am much more comfortable with this patch set, even if it has some
-> rough edges and might not fix the situation for AHB devices.
-> 
-> [0] https://patch.msgid.link/20230111170033.32454-1-kvalo@kernel.org
-> [1] https://patch.msgid.link/20241018181842.1368394-1-denkenz@gmail.com
-> [2] https://msgid.link/cover.1730790058.git.ionic@ionic.de
-> 
-> v3:
->   - rebase against current ath-next
->   - solved a major memory leak
->   - replaced O(N) algorithm by O(1) where N is the leaked memory
->   - solved all known race condition issues
->   - Link to v2: https://msgid.link/cover.1732506261.git.ionic@ionic.de
-> 
-> v2: code and metadata cleanup (checkpatch.pl), no functional changes
-> 
-> BR, Juha-Matti
-> 
-> Juha-Matti Tilli (5):
->   net: qrtr: support getting new endpoint ids externally
->   bus: mhi: allow mhi to know about its qrtr endpoint id and free it
->   net: qrtr: mhi: register new qrtr endpoint id for mhi
->   wifi: ath11k: implement QRTR endpoint ID fetching for PCI
->   wifi: ath12k: implement QRTR endpoint ID fetching for PCI
-> 
-> Mihai Moldovan (7):
->   soc: qcom: qmi_helpers: add QRTR endpoint ID to qmi_handle
->   soc: qcom: qmi_helpers: optionally bind to QRTR endpoint ID in
->     qmi_sock_create
->   wifi: ath11k: add QRTR endpoint ID hif feature
->   wifi: ath11k: stub QRTR endpoint ID fetching
->   wifi: ath11k: bind to QRTR endpoint ID in ath11k_qmi_init_service
->   wifi: ath12k: add QRTR endpoint ID hif feature
->   wifi: ath12k: bind to QRTR endpoint ID in ath12k_qmi_init_service
-> 
->  MAINTAINERS                           |  1 +
->  drivers/bus/mhi/host/init.c           |  8 +++++
->  drivers/net/wireless/ath/ath11k/ahb.c |  7 ++++
->  drivers/net/wireless/ath/ath11k/hif.h |  9 ++++++
->  drivers/net/wireless/ath/ath11k/mhi.c | 46 +++++++++++++++++++++++++++
->  drivers/net/wireless/ath/ath11k/mhi.h |  1 +
->  drivers/net/wireless/ath/ath11k/pci.c |  1 +
->  drivers/net/wireless/ath/ath11k/qmi.c |  8 +++++
->  drivers/net/wireless/ath/ath12k/hif.h | 10 ++++++
->  drivers/net/wireless/ath/ath12k/mhi.c | 46 +++++++++++++++++++++++++++
->  drivers/net/wireless/ath/ath12k/mhi.h |  3 ++
->  drivers/net/wireless/ath/ath12k/pci.c |  1 +
->  drivers/net/wireless/ath/ath12k/qmi.c |  9 ++++++
->  drivers/soc/qcom/qmi_interface.c      | 28 ++++++++++++++++
->  include/linux/mhi.h                   |  5 +++
->  include/linux/soc/qcom/qmi.h          |  3 ++
->  include/net/qrtr.h                    | 10 ++++++
->  net/qrtr/af_qrtr.c                    | 42 ++++++++++++++++++++----
->  net/qrtr/mhi.c                        | 31 ++++++++++++++++++
->  net/qrtr/qrtr.h                       |  5 +++
->  20 files changed, 268 insertions(+), 6 deletions(-)
->  create mode 100644 include/net/qrtr.h
-> 
+Reviewed-by: Adrián Larumbe <adrian.larumbe@collabora.com>
 
-How are you populating the list of recipients for your e-mail?
+On 26.08.2026 16:56, Boris Brezillon wrote:
+> The VM cleanup logic tries to gracefully evict the page table from its
+> AS slot to make sure the HW doesn't have access to the memory anymore.
+> But it might happen that the eviction fails because the HW hung, and
+> in that case, we have no guarantee that the HW won't access the memory
+> until we've properly reset the GPU.
+> 
+> Defer the cleanup of VMs after the reset is effective when this situation
+> happens.
+> 
+> Note that this introduces a leak if the VM is released while being
+> assigned an AS slot and the device was unplugged, because we don't
+> clear the FORBID_UNMAP restriction in that case. It's just one more
+> issue in an ocean of unplug bugs. These unplug issues will be addressed
+> in an upcoming commit.
+> 
+> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+> ---
+>  drivers/gpu/drm/panthor/panthor_device.c |   6 +-
+>  drivers/gpu/drm/panthor/panthor_mmu.c    | 308 +++++++++++++++++++++++--------
+>  drivers/gpu/drm/panthor/panthor_mmu.h    |   3 +-
+>  3 files changed, 239 insertions(+), 78 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
+> index 19d3669f5ec7..817312f598f3 100644
+> --- a/drivers/gpu/drm/panthor/panthor_device.c
+> +++ b/drivers/gpu/drm/panthor/panthor_device.c
+> @@ -522,9 +522,10 @@ static int panthor_device_resume_hw_components(struct panthor_device *ptdev)
+>  	if (!ret)
+>  		return 0;
+>  
+> -	panthor_mmu_suspend(ptdev);
+> +	panthor_mmu_pre_suspend(ptdev);
+>  	panthor_gpu_suspend(ptdev);
+>  	panthor_pwr_suspend(ptdev);
+> +	panthor_mmu_post_suspend(ptdev);
+>  	return ret;
+>  }
+>  
+> @@ -645,9 +646,10 @@ int panthor_device_suspend(struct device *dev)
+>  		 */
+>  		panthor_sched_suspend(ptdev);
+>  		panthor_fw_suspend(ptdev);
+> -		panthor_mmu_suspend(ptdev);
+> +		panthor_mmu_pre_suspend(ptdev);
+>  		panthor_gpu_suspend(ptdev);
+>  		panthor_pwr_suspend(ptdev);
+> +		panthor_mmu_post_suspend(ptdev);
+>  		drm_dev_exit(cookie);
+>  	}
+>  
+> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+> index 11a9bbe87986..47c57b39bd12 100644
+> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+> @@ -102,6 +102,17 @@ struct panthor_mmu {
+>  		 * TLB/cache flushes.
+>  		 */
+>  		struct list_head lru_list;
+> +
+> +		/**
+> +		 * @cleanup_list: List containing VMs waiting for cleanup.
+> +		 *
+> +		 * This list is used to keep track of VMs that got released but
+> +		 * couldn't be evicted from their AS slot because the HW hanged.
+> +		 * In that case, we add the VM to the list, and wait for the next
+> +		 * post_reset, at which point we're sure the HW is idle and the
+> +		 * VM resources can go away.
+> +		 */
+> +		struct list_head cleanup_list;
+>  	} as;
+>  
+>  	/** @vm: VMs management fields */
+> @@ -117,6 +128,12 @@ struct panthor_mmu {
+>  
+>  		/** @vm.wq: Workqueue used for the VM_BIND queues. */
+>  		struct workqueue_struct *wq;
+> +
+> +		/**
+> +		 * @vm.cleanup_work: Used to cleanup the VMs that are in
+> +		 * panthor_mmu::as::cleanup_list.
+> +		 */
+> +		struct work_struct cleanup_work;
+>  	} vm;
+>  };
+>  
+> @@ -1994,7 +2011,7 @@ static irqreturn_t panthor_mmu_irq_threaded_handler(int irq, void *data)
+>  }
+>  
+>  /**
+> - * panthor_mmu_suspend() - Suspend the MMU logic
+> + * panthor_mmu_pre_suspend() - Prepare the MMU block for a suspend
+>   * @ptdev: Device.
+>   *
+>   * All we do here is de-assign the AS slots on all active VMs, so things
+> @@ -2003,16 +2020,27 @@ static irqreturn_t panthor_mmu_irq_threaded_handler(int irq, void *data)
+>   *
+>   * We also suspend the MMU IRQ.
+>   */
+> -void panthor_mmu_suspend(struct panthor_device *ptdev)
+> +void panthor_mmu_pre_suspend(struct panthor_device *ptdev)
+>  {
+>  	mutex_lock(&ptdev->mmu->as.slots_lock);
+>  	for (u32 i = 0; i < ARRAY_SIZE(ptdev->mmu->as.slots); i++) {
+>  		struct panthor_as *as = ptdev->mmu->as.slots[i].as;
+> +		int ret;
+>  
+> -		if (as) {
+> -			drm_WARN_ON(&ptdev->base,
+> -				    panthor_mmu_as_disable(ptdev, i, false));
+> +		if (!as)
+> +			continue;
+> +
+> +		/* If the disable fails, leave the AS on its slot so we can
+> +		 * properly evict it when we're sure the GPU is off.
+> +		 */
+> +		ret = panthor_mmu_as_disable(ptdev, i, false);
+> +		if (!ret) {
+>  			panthor_as_release_hw_slot_locked(as);
+> +		} else {
+> +			atomic_or(PANTHOR_AS_FORBID_USE |
+> +				  PANTHOR_AS_FORBID_MAP |
+> +				  PANTHOR_AS_FORBID_UNMAP,
+> +				  &as->restrictions);
+>  		}
+>  	}
+>  	mutex_unlock(&ptdev->mmu->as.slots_lock);
+> @@ -2020,6 +2048,35 @@ void panthor_mmu_suspend(struct panthor_device *ptdev)
+>  	panthor_irq_suspend(&ptdev->mmu->irq);
+>  }
+>  
+> +static void mmu_post_reset_cleanup(struct panthor_device *ptdev)
+> +{
+> +	guard(mutex)(&ptdev->mmu->as.slots_lock);
+> +
+> +	/* Now that the reset is effective, we can assume that none of the
+> +	 * AS slots are setup, and clear the faulty flags too.
+> +	 */
+> +	ptdev->mmu->as.alloc_mask = 0;
+> +	ptdev->mmu->as.faulty_mask = 0;
+> +
+> +	for (u32 i = 0; i < ARRAY_SIZE(ptdev->mmu->as.slots); i++) {
+> +		struct panthor_as *as = ptdev->mmu->as.slots[i].as;
+> +
+> +		if (!as)
+> +			continue;
+> +
+> +		panthor_as_release_hw_slot_locked(as);
+> +		atomic_and(~PANTHOR_AS_FORBID_UNMAP, &as->restrictions);
+> +	}
+> +
+> +	if (!list_empty(&ptdev->mmu->as.cleanup_list))
+> +		queue_work(ptdev->cleanup_wq, &ptdev->mmu->vm.cleanup_work);
+> +}
+> +
+> +void panthor_mmu_post_suspend(struct panthor_device *ptdev)
+> +{
+> +	mmu_post_reset_cleanup(ptdev);
+> +}
+> +
+>  /**
+>   * panthor_mmu_resume() - Resume the MMU logic
+>   * @ptdev: Device.
+> @@ -2031,11 +2088,7 @@ void panthor_mmu_suspend(struct panthor_device *ptdev)
+>   */
+>  void panthor_mmu_resume(struct panthor_device *ptdev)
+>  {
+> -	mutex_lock(&ptdev->mmu->as.slots_lock);
+> -	ptdev->mmu->as.alloc_mask = 0;
+> -	ptdev->mmu->as.faulty_mask = 0;
+> -	mutex_unlock(&ptdev->mmu->as.slots_lock);
+> -
+> +	mmu_post_reset_cleanup(ptdev);
+>  	panthor_irq_resume(&ptdev->mmu->irq);
+>  }
+>  
+> @@ -2073,22 +2126,7 @@ void panthor_mmu_post_reset(struct panthor_device *ptdev)
+>  {
+>  	struct panthor_vm *vm;
+>  
+> -	mutex_lock(&ptdev->mmu->as.slots_lock);
+> -
+> -	/* Now that the reset is effective, we can assume that none of the
+> -	 * AS slots are setup, and clear the faulty flags too.
+> -	 */
+> -	ptdev->mmu->as.alloc_mask = 0;
+> -	ptdev->mmu->as.faulty_mask = 0;
+> -
+> -	for (u32 i = 0; i < ARRAY_SIZE(ptdev->mmu->as.slots); i++) {
+> -		struct panthor_as *as = ptdev->mmu->as.slots[i].as;
+> -
+> -		if (as)
+> -			panthor_as_release_hw_slot_locked(as);
+> -	}
+> -
+> -	mutex_unlock(&ptdev->mmu->as.slots_lock);
+> +	mmu_post_reset_cleanup(ptdev);
+>  
+>  	panthor_irq_resume(&ptdev->mmu->irq);
+>  
+> @@ -2101,59 +2139,41 @@ void panthor_mmu_post_reset(struct panthor_device *ptdev)
+>  	mutex_unlock(&ptdev->mmu->vm.lock);
+>  }
+>  
+> -static void panthor_vm_release(struct kref *kref)
+> +static void vm_cleanup(struct panthor_vm *vm)
+>  {
+> -	struct panthor_vm *vm = container_of(kref, struct panthor_vm, refcount);
+>  	struct panthor_as *as = vm->as;
+>  	struct panthor_device *ptdev = container_of(as->base.drm, struct panthor_device, base);
+>  
+> -	/* Make sure the page table behind this VM doesn't participate in reclaim
+> -	 * after that point, since we're about to release everything anyway.
+> +	if (!(atomic_read(&as->restrictions) & PANTHOR_AS_FORBID_UNMAP)) {
+> +		/* Unmap everything in case some BOs were still mapped. */
+> +		drm_WARN_ON(&ptdev->base,
+> +			    panthor_vm_unmap_range(vm, as->base.mm_start, as->base.mm_range));
+> +	}
+> +
+> +	/* It's safe to destroy the heaps and return the dummy BO even if
+> +	 * the FORBID_UNMAP restriction stands because this BO will be retained
+> +	 * by the drm_gpuvm_bo held by the active drm_gpuva entries, which
+> +	 * were preserved because the panthor_vm_unmap_range() was skipped.
+> +	 * The drm_gpuvm object itself is retained by the live drm_gpuvas
+> +	 * living there. So this is one of the rare occasions where we actually
+> +	 * want the circular referencing to silently leak objects.
+> +	 * Another side effect of this is that the drm_device is retained too,
+> +	 * because drm_gpuvm holds a ref on this object. This is okay, because
+> +	 * drm_dev_unregister() makes sure this device is no longer exposed
+> +	 * to userspace, so it's basically a zombie drm_device.
+> +	 *
+> +	 * TLDR; the memory a rogue GPU might have its hands on is leaked,
+> +	 * even though we explicitly destroy the objects owning these resources.
+>  	 */
+> -	mutex_lock(&ptdev->base.gem_lru_mutex);
+> -	as->reclaim.skip = true;
+> -	list_del_init(&as->reclaim.lru_node);
+> -	mutex_unlock(&ptdev->base.gem_lru_mutex);
+> -
+> -	/* Unmap everything in case some BOs were still mapped. */
+> -	drm_WARN_ON(&ptdev->base,
+> -		    panthor_vm_unmap_range(vm, as->base.mm_start, as->base.mm_range));
+> -
+> -	mutex_lock(&vm->heaps.lock);
+> -	if (drm_WARN_ON(&ptdev->base, vm->heaps.pool))
+> -		panthor_heap_pool_destroy(vm->heaps.pool);
+> -	mutex_unlock(&vm->heaps.lock);
+> +	scoped_guard(mutex, &vm->heaps.lock) {
+> +		if (drm_WARN_ON(&ptdev->base, vm->heaps.pool))
+> +			panthor_heap_pool_destroy(vm->heaps.pool);
+> +	}
+>  	mutex_destroy(&vm->heaps.lock);
+>  
+> -	mutex_lock(&ptdev->mmu->vm.lock);
+> -	list_del(&vm->node);
+> -	/* Restore the scheduler state so we can call drm_sched_entity_destroy()
+> -	 * and drm_sched_fini(). If get there, that means we have no job left
+> -	 * and no new jobs can be queued, so we can start the scheduler without
+> -	 * risking interfering with the reset.
+> -	 */
+> -	if (ptdev->mmu->vm.reset_in_progress)
+> -		panthor_vm_start(vm);
+> -	mutex_unlock(&ptdev->mmu->vm.lock);
+> -
+>  	drm_sched_entity_destroy(&vm->entity);
+>  	drm_sched_fini(&vm->sched);
+>  
+> -	mutex_lock(&vm->as->op_lock);
+> -	mutex_lock(&ptdev->mmu->as.slots_lock);
+> -	if (as->hw_slot.id >= 0) {
+> -		int cookie;
+> -
+> -		if (drm_dev_enter(&ptdev->base, &cookie)) {
+> -			panthor_mmu_as_disable(ptdev, as->hw_slot.id, false);
+> -			drm_dev_exit(cookie);
+> -		}
+> -
+> -		panthor_as_release_hw_slot_locked(as);
+> -	}
+> -	mutex_unlock(&ptdev->mmu->as.slots_lock);
+> -	mutex_unlock(&vm->as->op_lock);
+> -
+>  	if (vm->dummy)
+>  		drm_gem_object_put(&vm->dummy->base);
+>  
+> @@ -2162,6 +2182,98 @@ static void panthor_vm_release(struct kref *kref)
+>  	kfree(vm);
+>  }
+>  
+> +static bool vm_prep_for_cleanup(struct panthor_vm *vm)
+> +{
+> +	struct panthor_as *as = vm->as;
+> +	struct panthor_device *ptdev = container_of(as->base.drm, struct panthor_device, base);
+> +	bool ready_for_cleanup;
+> +	int cookie, ret;
+> +
+> +	/* First we forbid any kind of use on the VM that's about to be
+> +	 * released. UNMAP will be restored later if we manage to evict
+> +	 * the page table from its AS slot.
+> +	 */
+> +	atomic_or(PANTHOR_AS_FORBID_USE |
+> +		  PANTHOR_AS_FORBID_MAP |
+> +		  PANTHOR_AS_FORBID_UNMAP,
+> +		  &vm->as->restrictions);
+> +
+> +	/* Make sure the page table behind this VM doesn't participate in reclaim
+> +	 * after that point, since we're about to release everything anyway.
+> +	 */
+> +	scoped_guard(mutex, &ptdev->base.gem_lru_mutex) {
+> +		as->reclaim.skip = true;
+> +		list_del_init(&as->reclaim.lru_node);
+> +	}
+> +
+> +	scoped_guard(mutex, &ptdev->mmu->vm.lock) {
+> +		/* Remove the VM from the list early, so it can't be seen by the VM list
+> +		 * walkers after that point.
+> +		 */
+> +		list_del(&vm->node);
+> +
+> +		/* Restore the scheduler state so we can call drm_sched_entity_destroy()
+> +		 * and drm_sched_fini(). If get there, that means we have no job left
+> +		 * and no new jobs can be queued, so we can start the scheduler without
+> +		 * risking interfering with the reset.
+> +		 */
+> +		if (ptdev->mmu->vm.reset_in_progress)
+> +			panthor_vm_start(vm);
+> +	}
+> +
+> +	if (!drm_dev_enter(&ptdev->base, &cookie)) {
+> +		guard(mutex)(&ptdev->mmu->as.slots_lock);
+> +
+> +		/* If we're still on a slot after an unplug, it means
+> +		 * drm_dev_unplug() has returned but the part in
+> +		 * panthor_mmu_unplug() that evicts all resident AS has
+> +		 * not been executed yet. In that case, we simply queue
+> +		 * the VM to the cleanup list and wait for
+> +		 * panthor_mmu_unplug() to do its job.
+> +		 */
+> +		if (as->hw_slot.id >= 0) {
+> +			list_add_tail(&vm->node, &ptdev->mmu->as.cleanup_list);
+> +			return false;
+> +		}
+> +
+> +		/* If the page table is not resident, we can drop the
+> +		 * FORBID_UNMAP restriction.
+> +		 */
+> +		atomic_and(~PANTHOR_AS_FORBID_UNMAP, &as->restrictions);
+> +		return true;
+> +	}
+> +
+> +	scoped_guard(mutex, &ptdev->mmu->as.slots_lock) {
+> +		if (as->hw_slot.id >= 0) {
+> +			ret = panthor_mmu_as_disable(ptdev, as->hw_slot.id, false);
+> +			if (!ret) {
+> +				panthor_as_release_hw_slot_locked(as);
+> +			} else {
+> +				list_add_tail(&vm->node, &ptdev->mmu->as.cleanup_list);
+> +				panthor_device_schedule_reset(ptdev);
+> +			}
+> +		}
+> +
+> +		/* Page table is no longer resident, we can relax the no-unmap
+> +		 * restriction.
+> +		 */
 
-You are including folks no longer involved in kernel development, but more
-importantly, you are using an obsolete e-mail address for the MHI maintainer
-(Mani). I've replaced his address in my reply.
+Nit: I guess page table is only no longer resident if panthor_mmu_as_disable() succeeds. 
 
-Please make sure to use scripts/get_maintainer.pl to get an accurate list of
-recipients.
+> +		ready_for_cleanup = as->hw_slot.id < 0;
+> +		if (ready_for_cleanup)
+> +			atomic_and(~PANTHOR_AS_FORBID_UNMAP, &as->restrictions);
+> +	}
+> +
+> +	drm_dev_exit(cookie);
+> +	return ready_for_cleanup;
+> +}
+> +
+> +static void panthor_vm_release(struct kref *kref)
+> +{
+> +	struct panthor_vm *vm = container_of(kref, struct panthor_vm, refcount);
+> +
+> +	if (vm_prep_for_cleanup(vm))
+> +		vm_cleanup(vm);
+> +}
+> +
+>  /**
+>   * panthor_vm_put() - Release a reference on a VM
+>   * @vm: VM to release the reference on. Can be NULL.
+> @@ -2785,7 +2897,11 @@ static void panthor_as_free(struct drm_gpuvm *gpuvm)
+>  {
+>  	struct panthor_as *as = container_of(gpuvm, struct panthor_as, base);
+>  
+> -	if (as->pt.ops)
+> +	/* If we get to that point and we're still not allowed to unmap,
+> +	 * this means the HW is still running and has a access to the page
+> +	 * table, so we just leak it to avoid UAF.
+> +	 */
+> +	if (as->pt.ops && !(atomic_read(&as->restrictions) & PANTHOR_AS_FORBID_UNMAP))
+>  		free_io_pgtable_ops(as->pt.ops);
+>  
+>  	mutex_destroy(&as->op_lock);
+> @@ -3493,15 +3609,34 @@ void panthor_mmu_unplug(struct panthor_device *ptdev)
+>  	mutex_lock(&ptdev->mmu->as.slots_lock);
+>  	for (u32 i = 0; i < ARRAY_SIZE(ptdev->mmu->as.slots); i++) {
+>  		struct panthor_as *as = ptdev->mmu->as.slots[i].as;
+> +		int ret;
+>  
+> -		if (as) {
+> -			drm_WARN_ON(&ptdev->base,
+> -				    panthor_mmu_as_disable(ptdev, i, false));
+> -			panthor_as_release_hw_slot_locked(as);
+> -		}
+> +		if (!as)
+> +			continue;
+> +
+> +		ret = panthor_mmu_as_disable(ptdev, i, false);
+> +		drm_WARN_ON(&ptdev->base, ret);
+> +
+> +		/* Drop the unmap restriction if the disabled worked, so we
+> +		 * don't leak resources in the normal situation.
+> +		 */
+> +		if (!ret)
+> +			atomic_and(~PANTHOR_AS_FORBID_UNMAP, &as->restrictions);
+> +
+> +		panthor_as_release_hw_slot_locked(as);
+>  	}
+> +
+> +	if (!list_empty(&ptdev->mmu->as.cleanup_list))
+> +		queue_work(ptdev->cleanup_wq, &ptdev->mmu->vm.cleanup_work);
+>  	mutex_unlock(&ptdev->mmu->as.slots_lock);
+>  
+> +	/* Make sure pending VM cleanups are processed before leaving. Those
+> +	 * cleanups might schedule vm_bind_job cleanups, so keep this
+> +	 * flush_work() before the final flush_workqueue(panthor_cleanup_wq).
+> +	 */
+> +	flush_work(&ptdev->mmu->vm.cleanup_work);
+> +	drm_WARN_ON(&ptdev->base, !list_empty(&ptdev->mmu->as.cleanup_list));
+> +
+>  	/* Ensure any pending job cleanup work are executed before returning,
+>  	 * otherwise those might access objects that are gone if the work is
+>  	 * executed after other components are unplugged.
+> @@ -3519,6 +3654,27 @@ static void panthor_mmu_info_init(struct panthor_device *ptdev)
+>  	ptdev->mmu_info.page_size_bitmap = SZ_4K | SZ_2M;
+>  }
+>  
+> +static void mmu_cleanup_vms_work(struct work_struct *work)
+> +{
+> +	struct panthor_mmu *mmu =
+> +		container_of(work, struct panthor_mmu, vm.cleanup_work);
+> +	struct panthor_vm *vm, *tmp;
+> +	LIST_HEAD(cleanup_list);
+> +
+> +	/* Collect the VMs to cleanup first. */
+> +	scoped_guard(mutex, &mmu->as.slots_lock) {
+> +		list_for_each_entry_safe(vm, tmp, &mmu->as.cleanup_list, node) {
+> +			if (vm->as->hw_slot.id < 0)
+> +				list_move_tail(&vm->node, &cleanup_list);
+> +		}
+> +	}
+> +
+> +	list_for_each_entry_safe(vm, tmp, &cleanup_list, node) {
+> +		list_del(&vm->node);
+> +		vm_cleanup(vm);
+> +	}
+> +}
+> +
+>  static void free_pt_cache(struct drm_device *, void *pt_cache)
+>  {
+>  	kmem_cache_destroy(pt_cache);
+> @@ -3542,7 +3698,9 @@ int panthor_mmu_init(struct panthor_device *ptdev)
+>  	if (!mmu)
+>  		return -ENOMEM;
+>  
+> +	INIT_WORK(&mmu->vm.cleanup_work, mmu_cleanup_vms_work);
+>  	INIT_LIST_HEAD(&mmu->as.lru_list);
+> +	INIT_LIST_HEAD(&mmu->as.cleanup_list);
+>  
+>  	ret = drmm_mutex_init(&ptdev->base, &mmu->as.slots_lock);
+>  	if (ret)
+> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.h b/drivers/gpu/drm/panthor/panthor_mmu.h
+> index de6b4ee4e41a..1ee5958569b6 100644
+> --- a/drivers/gpu/drm/panthor/panthor_mmu.h
+> +++ b/drivers/gpu/drm/panthor/panthor_mmu.h
+> @@ -21,7 +21,8 @@ int panthor_mmu_init(struct panthor_device *ptdev);
+>  void panthor_mmu_unplug(struct panthor_device *ptdev);
+>  void panthor_mmu_pre_reset(struct panthor_device *ptdev);
+>  void panthor_mmu_post_reset(struct panthor_device *ptdev);
+> -void panthor_mmu_suspend(struct panthor_device *ptdev);
+> +void panthor_mmu_pre_suspend(struct panthor_device *ptdev);
+> +void panthor_mmu_post_suspend(struct panthor_device *ptdev);
+>  void panthor_mmu_resume(struct panthor_device *ptdev);
+>  
+>  int panthor_vm_map_bo_range(struct panthor_vm *vm, struct panthor_gem_object *bo,
+> 
+> -- 
+> 2.55.0
 
-
+Adrian Larumbe
