@@ -1,146 +1,111 @@
-Received: from mr3.vodafonemail.de (mr3.vodafonemail.de [145.253.228.163])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com [209.85.210.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FF4F41C6A
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:54:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=145.253.228.163
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A886041C6A
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:55:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789124054; cv=none; b=SPyvYm/mBifPNsq2WXG+5zJCIINHvzhlyq/bhYz0Chl7Z+bubQGYx1tSyWm4HN1F1VMRhWrFlXg/MK7+rQC0y8GE8ILcF7L+95zRQwHvoC5T6yZTSwlTQj013VJt7fr7qKl6/V0ynzSvxmUfYvHfYrirrEvxU4Ha/qtMoeffIo0=
+	t=1789124116; cv=none; b=IwmXnTOtzmPccSngEiQxw2l3qt6MfOLDVglakm7SRaMCP9nypg593Tbrs4fLiipV/0l/r7UQJMBdLjpO6DtSKBr5/+zgr5t6IXsGZjG9wh7imHI+bS+pc7QWeSa2MEWMx+NkscPsKGqB0yJszHoroRiVYJLN04LRWSAsQwmqghY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789124054; c=relaxed/simple;
-	bh=3VfhdoUDK2fZtoyf9zPl96OWvCAWmSXYHS0zpfeHKJo=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=NyYCqcKLT28LZpYNFosVvvWSzd/5qyP/mv01yErsNLG8yjXcrFuwLmkViS68IhZ6ZarKzL+hAHkrgn9m3XqTDqujlzwkdXwW5+TjH7kRCTKkw/C+tPOM7W0cnKwM7c3shDaomT+JrxWHg/ZvMUPmL81l0gzdAcWefKPbjKujPu8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vodafonemail.de; spf=pass smtp.mailfrom=vodafonemail.de; dkim=pass (1024-bit key) header.d=vodafonemail.de header.i=@vodafonemail.de header.b=urG2pa2Z; arc=none smtp.client-ip=145.253.228.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vodafonemail.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vodafonemail.de
+	s=arc-20240116; t=1789124116; c=relaxed/simple;
+	bh=jRRPpcydWK1Nh6x7ID45tWL+SSWHXsE1Zkq+srsRrI0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Osk+KBVLdwvEstCM3PGFj27OhQiP2qVswVJ5bYolh9x26hvM0jR5VLvVw58SgGldFogwcElojYMZJv0kIkOenSXurj5aiFnYWXHnm95xH65hSAUBrN2787J1hgoCR02ZZFycxD7HoC/sk+6BPUlcDpaZI/7fb/GdSh/TrEyniQ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oJAOH1XZ; arc=none smtp.client-ip=209.85.210.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=vodafonemail.de header.i=@vodafonemail.de header.b="urG2pa2Z"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vodafonemail.de;
-	s=vfde-mb-mr2-23sep; t=1789124048;
-	bh=WZwsAz3BYZk7m4w3I6i6HHrzLZtKUQ0T0ts/scR9iWY=;
-	h=Date:From:To:Subject:Message-ID:Content-Type:From;
-	b=urG2pa2ZpugscI+7CE6mRfK9SdTcvflsF68hjY5a/H14bskzqcxT9Y4h9hJREsAaS
-	 HgPVgXyb2JcVtM3EgR4anTeu52QwbaK4ULk+gB8mT7A+sTPWS4x0dacL7D9qw1Y4tG
-	 eBJhea/mupzd7QLG9crRKCdXlR8EamGZhMLho/eA=
-Received: from smtp.vodafone.de (unknown [10.5.0.37])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by mr3.vodafonemail.de (Postfix) with ESMTPS id 4hhBHf6Rsnz3sHpq;
-	Fri, 11 Sep 2026 10:54:06 +0000 (UTC)
-Received: from tachyon.qsoe.net (ipservice-092-208-226-177.092.208.pools.vodafone-ip.de [92.208.226.177])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.vodafone.de (Postfix) with ESMTPSA id 4hhBH54JhHz8sXh;
-	Fri, 11 Sep 2026 10:53:34 +0000 (UTC)
-Received: by tachyon.qsoe.net (Postfix, from userid 516)
-	id E77C42E018A; Fri, 11 Sep 2026 12:53:33 +0200 (CEST)
-Date: Fri, 11 Sep 2026 12:53:33 +0200
-From: Yuri Zaporozhets <yuriz@vodafonemail.de>
-To: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org
-Cc: "H. Peter Anvin" <hpa@zytor.com>, Fei Li <fei1.li@intel.com>,
-	acrn-dev@lists.projectacrn.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] x86/acrn: Set the LAPIC timer period from CPUID leaf
- 0x40000010 EBX
-Message-ID: <aqPdrVJjJFBmC1m1@tachyon.qsoe.net>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oJAOH1XZ"
+Received: by mail-ot1-f51.google.com with SMTP id 46e09a7af769-7f3f52143cdso807794a34.2
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 03:55:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789124112; x=1789728912; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=A1No2H2enpWYRkMqmMl17Jmk4Fevgd1ISE1R76jzAfM=;
+        b=oJAOH1XZuglrQK8JVmyFvCovC/KOOMCAzob64ygy0eJ7v7exSBaz386WlwnzlGoZHv
+         JbzMFsqNvjRuQIBaGGBcEQoo8Q/mHJiH8iZftSI5jfMsjYoAWEuMb/Ib6Gq/eFqVl2kO
+         S+kLMeirYlVfnhSmd4JwKI2zUdPvtIt4pYNEFy08zYHKEADRMAAF5MaS1rBaIpRaJT7p
+         hu7XFJUsN+1+xRtowsnKzOrof+qjYy85rtjmgZEOr24loIb+++UDfXY2oehwmGQP0PEX
+         ZBacHav5fCNIccvYo9taSngwD8i2OZLPIzX+TcQitaES+oKe4TH2da8aANaXd+T6pJXT
+         OCgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789124112; x=1789728912;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=A1No2H2enpWYRkMqmMl17Jmk4Fevgd1ISE1R76jzAfM=;
+        b=iYeumLsiIMQesg3BQSPN6y7qbw2ptZ+gfuKp3BewOmFnvMetlB/tie+tBINgdCxnwl
+         gZ+MvHEHPPLQhfkqW4bWUOPVDiGXk+2dD34yx0zVtfmxtuUF5nlwogsI68uWUiSefbaB
+         Qx5EHreuJVaS2aJ1/PqiGu/7dItgbbuYy5Pvx/m84PY/AZa/MMH4LdVbXAPVk0J3L2zl
+         iCl33iVhDmjw324FzLicoGqCcpF0t5QeRnDpAmDDIfFCafP7A0aOfs2VMvY9aWQQh63m
+         FQoDL0gzthMMrkFVUZ0uIq/5/0gR51pnZ5jbKtXcYeRzTLKV1tQ33qZkMMDqRoEBN8tY
+         wwQg==
+X-Forwarded-Encrypted: i=1; AKwUvByY9BTrc59l3oS8BcaF2dgtydvXCJuGnAxatYG/RvpdvcZ6sfwHfYfGlSta+Ilxu0G591xxmBIdxD8ykHw=@vger.kernel.org
+X-Gm-Message-State: AFuF++k5+8VJ3iFTHJv5v/Qoef2xHiq7SZbq0xlxkflCkzNEb0Zz9B1g
+	n/4t20wlHdI8MMy1Th7duVHJPzb0NdN0e81oSF6fbZ9J8LuOdkKxQgDL
+X-Gm-Gg: AYBFou0WHEKhmmpHbkCuMP7nsAceBIlZZYOK3oPIW+YB+T5RzDOtOQ6953BeIh3b915
+	VjclMT5QMVeblPu3U6ezt/s3W6F2kQKuXL4pP1Lsi6+8rBwaEdi9WTcbUljcqsHVMcBfVOcAJdJ
+	orsnzh4nQSvcu9isDHM9oiLITX/RawT/PaCe024eYL3KR5+5EQaW9sj89SWz+SMoFRiFqXLPDhN
+	RNERdPmQwteXRrntHxMDl8TWsxVci7VipfQAaQdzSBT2OuRzymCDLla4jGqdEvYhpQOzLOWEopZ
+	cfJsyPuAYyPPOr3qIs3SkjYeiXuHOHx72svAiMHAbbSI+vjaopYa0waabxV6LEeN99uqsW0sStH
+	RefblE3ZAEYHmgVRBP7NaPGkmKtPYKyP/em5hMWswLQboXvPErRKpfEjN+kOoBKiwYgCvGgM4eg
+	NQJgStXBRgQrKQ+OFqSVrYeWZCNrGnyxaGqgZDGKuqbKkhZ9YsMykhgT9opOCpTK6DDJ9Vd0lVj
+	8gEu8Y9rM9pTQLDV0XhSexT3tvQcgaN87s=
+X-Received: by 2002:a05:6820:615:b0:6b1:4fa4:76c5 with SMTP id 006d021491bc7-6c0b985e1e0mr2414649eaf.4.1789124111904;
+        Fri, 11 Sep 2026 03:55:11 -0700 (PDT)
+Received: from pop-os.. ([2806:2f0:5681:fad6:450b:4440:1d9e:e823])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6c0990cc05fsm2305646eaf.3.2026.09.11.03.55.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 03:55:11 -0700 (PDT)
+From: Oscar Priego Verdugo <oscar.priegov@gmail.com>
+To: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Oscar Priego Verdugo <oscar.priegov@gmail.com>
+Subject: [PATCH] HID: kye: fix inverted Manticore open/close condition
+Date: Fri, 11 Sep 2026 04:54:38 -0600
+Message-Id: <20260911105438.1862810-1-oscar.priegov@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-X-purgate-server: smtpa06
-X-purgate-type: clean
-X-purgate: clean
-X-purgate-size: 3043
-X-purgate-ID: 155817::1789124042-AFCF0C80-06ADB81C/0/0
+Content-Transfer-Encoding: 8bit
 
-ACRN guests without a TSC-deadline timer currently always need the PIT:
-apic_needs_pit() returns true because lapic_timer_period is never set,
-even though the hypervisor knows the LAPIC bus frequency and could
-provide it, in the same way it already provides the TSC frequency.
+The Manticore workaround is intended to open each HID interface once and
+immediately close it, which is required for the keyboard to become fully
+functional.
 
-The ACRN timing information leaf 0x40000010 only defines EAX (TSC
-frequency in kHz); EBX, ECX and EDX are reserved and return zero.
-Define EBX as the LAPIC bus frequency in kHz and use it to preset
-lapic_timer_period, so that the kernel skips both the PIT and the LAPIC
-timer calibration. This mirrors what Hyper-V (HV_X64_MSR_APIC_FREQUENCY)
-and VMware (VMWARE_CMD_GETHZ) already do, and matches the register layout
-VMware defines for its own timing information leaf, which also lives at
-0x40000010.
+hid_hw_open() returns zero on success, so the current condition is
+inverted: successful opens are left outstanding, while hid_hw_close() is
+called after a failed open.
 
-Hypervisors which do not implement this return zero in EBX, in which
-case the current behaviour is kept.
+Negate the condition so the interface is closed only after a successful
+open. This restores the sequence intended by the original workaround while
+preserving its best-effort behavior when opening fails.
 
-Signed-off-by: Yuri Zaporozhets <yuriz@vodafonemail.de>
+Fixes: 8a396321e210 ("HID: kye: fix unresponsive keyboard")
+Signed-off-by: Oscar Priego Verdugo <oscar.priegov@gmail.com>
 ---
- arch/x86/include/asm/acrn.h | 10 ++++++++--
- arch/x86/kernel/cpu/acrn.c  | 15 +++++++++++++++
- 2 files changed, 23 insertions(+), 2 deletions(-)
+ drivers/hid/hid-kye.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/x86/include/asm/acrn.h b/arch/x86/include/asm/acrn.h
-index fab11192c60a..5db1b6e17f7c 100644
---- a/arch/x86/include/asm/acrn.h
-+++ b/arch/x86/include/asm/acrn.h
-@@ -12,10 +12,11 @@
- 
- /*
-  * Timing Information.
-- * This leaf returns the current TSC frequency in kHz.
-+ * This leaf returns the current TSC and LAPIC bus frequencies in kHz.
-  *
-  * EAX: (Virtual) TSC frequency in kHz.
-- * EBX, ECX, EDX: RESERVED (reserved fields are set to zero).
-+ * EBX: LAPIC bus frequency in kHz (0 if not provided by hypervisor).
-+ * ECX, EDX: RESERVED (reserved fields are set to zero).
-  */
- #define ACRN_CPUID_TIMING_INFO		0x40000010
- 
-@@ -35,6 +36,11 @@ static inline unsigned long acrn_get_tsc_khz(void)
- 	return cpuid_eax(ACRN_CPUID_TIMING_INFO);
- }
- 
-+static inline unsigned long acrn_get_lapic_khz(void)
-+{
-+	return cpuid_ebx(ACRN_CPUID_TIMING_INFO);
-+}
-+
- /*
-  * Hypercalls for ACRN
-  *
-diff --git a/arch/x86/kernel/cpu/acrn.c b/arch/x86/kernel/cpu/acrn.c
-index 2c5b51aad91a..23b6d895cccd 100644
---- a/arch/x86/kernel/cpu/acrn.c
-+++ b/arch/x86/kernel/cpu/acrn.c
-@@ -31,6 +31,21 @@ static void __init acrn_init_platform(void)
- 
- 	x86_platform.calibrate_tsc = acrn_get_tsc_khz;
- 	x86_platform.calibrate_cpu = acrn_get_tsc_khz;
-+
-+	/*
-+	 * Set the LAPIC bus frequency if provided by the hypervisor (EBX of
-+	 * leaf 0x40000010). Hypervisors which do not implement this return 0,
-+	 * which has no effect. When set, apic_needs_pit() returns false and
-+	 * the kernel skips PIT initialization entirely.
-+	 */
-+	if (boot_cpu_has(X86_FEATURE_APIC)) {
-+		unsigned long lapic_khz = acrn_get_lapic_khz();
-+
-+		if (lapic_khz) {
-+			lapic_timer_period = lapic_khz * (1000 / HZ);
-+			pr_info("ACRN: LAPIC bus frequency: %lu kHz\n", lapic_khz);
-+		}
-+	}
- }
- 
- static bool acrn_x2apic_available(void)
-
-base-commit: 028ef9c96e96197026887c0f092424679298aae8
+diff --git a/drivers/hid/hid-kye.c b/drivers/hid/hid-kye.c
+index bd96bfa7af70..ed1588e2bfb3 100644
+--- a/drivers/hid/hid-kye.c
++++ b/drivers/hid/hid-kye.c
+@@ -594,7 +594,7 @@ static int kye_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 		 * The manticore keyboard needs to have all the interfaces
+ 		 * opened at least once to be fully functional.
+ 		 */
+-		if (hid_hw_open(hdev))
++		if (!hid_hw_open(hdev))
+ 			hid_hw_close(hdev);
+ 		break;
+ 	case USB_DEVICE_ID_KYE_EASYPEN_M406:
 -- 
-2.55.0
+2.34.1
+
