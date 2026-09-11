@@ -1,128 +1,146 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D34C1337B81;
-	Fri, 11 Sep 2026 16:44:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 482394A3D41
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 16:44:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789145046; cv=none; b=JXltsk/+BezXxGLdJPKbhGsWjOCuCF2xhcjKY8PbI2n/B/X+l7cfrIof6zuAdfvdkGjK3JsmENnIUiWn9vzB0/G1oy4BWhMMUv/qNkycXKPtpkEo+vabGV+GVV89eEnU/5sGEbrBVKL9s8y2h678P9Y36bd5w9gYrzHEbZJvz88=
+	t=1789145054; cv=none; b=OmgCIg3+sCqdTCX7R+vV2BxWAm4F7jZGdhb2j3cINcdtSVuNsdtvMTKcSlna1SRTaddLSm4KHXqt0krcbwGeLMZa2upJ99RfxQoO60MsDhJSfrfVXlZav4yVl+G+zCSe3+Ud3DlXNQxqQlip41TujdYznxl2YHUtJZ6RLiPoBgk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789145046; c=relaxed/simple;
-	bh=SgjYkhTSvrNQobs81bP+X0p5lyA+pnHIZkqQnoIThvc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JcQxeq1mDUccFI/EVckmhVRZDl6M7xXNP3XLJiaWyBSF1J74U3yYk4qjJDlpTrSibVo2F/KPBKPFl8RO5Im+QOwQo/Jd5cp0VKD+8OOuSDc8BFpkXhl8xbMdJMFrINAPvg1K4zIgNmhqA6X2gvlukz0dUl+G/Y5H1EZpA/wC1hw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hb8KUVi2; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789145054; c=relaxed/simple;
+	bh=PMgKtl8zUoM6gfxbBHwRSP8q6IH3cUZp18QA+Ka/09Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=aUK/u8h0L6eVIlNmiNFXzIiNeDfuro56hHnUuGABFnS+Nn5SaSTpi555BpTyWkpfL30d+dXY3CSxebobx++fa5L9xfhqpuAmhbUzD/Iv0WJxCs7zIPvtQbL7WoAlb28OI56K7MqHGS0nu1W4ujXfZtaIqsd/YGVaMwg7kDufasQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JNlZ0Vfr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hb8KUVi2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789145045; x=1820681045;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=SgjYkhTSvrNQobs81bP+X0p5lyA+pnHIZkqQnoIThvc=;
-  b=hb8KUVi2K8eboY3FDPIC97c3/f7CE0F5xk5VayuS/sHX94QReL59vEbL
-   L2/OJDl3/2U9MHa2ZgwW/lkiQNRJ7WfsJYG4pUk+a7TuzvdbxcWr4nW3h
-   F1FlOPtDTp3xdUO/9WukhpjJUnkqLmm1cUDG4V4ZeYsSCuE1KUtvpJREE
-   0ml3YAThPxzTRdV7Tah70lUX30f6N3CvX4zQsCyZch9sRJFWMpQPskNNo
-   iB/rZ8E1D04/HpgN+Z2tDy7a4wCbpnkX3EZytOePH+x/Frhzch3SUvS+k
-   oxNQoLV81nxOCO7GM3FY0tFUYdeNnkAOWhd5AFVYbLT6UBQYxvEnFa0Vk
-   Q==;
-X-CSE-ConnectionGUID: v39/LWfwQRSOrqQBX7x90A==
-X-CSE-MsgGUID: 1sAC4a9gSjS6gH0WVfgBmA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11902"; a="89485133"
-X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
-   d="scan'208";a="89485133"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 09:44:04 -0700
-X-CSE-ConnectionGUID: UbMeKaogTO+sadtbQf+J6A==
-X-CSE-MsgGUID: 03lti0sPT/mKaqjMZmtm9g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
-   d="scan'208";a="296950336"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.80])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 09:43:59 -0700
-Date: Fri, 11 Sep 2026 19:43:56 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Janani Sunil <janani.sunil@analog.com>
-Cc: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Olivier Moysan <olivier.moysan@foss.st.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Michael Walle <mwalle@kernel.org>,
-	Randy Dunlap <rdunlap@infradead.org>, linux@analog.com,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-doc@vger.kernel.org, jananisunil.dev@gmail.com,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
-Subject: Re: [PATCH v7 09/17] iio: adc: ad7768: Configure channel sampling
- profiles
-Message-ID: <aqQvzEmvNEqYMGLV@ashevche-desk.local>
-References: <20260910-ad7768-driver-v7-0-7f70b07627e1@analog.com>
- <20260910-ad7768-driver-v7-9-7f70b07627e1@analog.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JNlZ0Vfr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9ACDE1F000FF;
+	Fri, 11 Sep 2026 16:44:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789145052;
+	bh=64/u24ltheFG+IRwvDX3qmiVM9rNvR3qqwc5FQ5UhyE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=JNlZ0VfryvP9EzKmXHTr9w/lIf2axf3au0kadcGsERGODueey6Tw/YYQ7c4bG5XsO
+	 V2fZ50m7qORqDc5hsVlmwsbqMJOHGILSx+sty1t6GluygCYQzS6LqtByMeNe/AuX3S
+	 uJH/gJXDtT/BWS5LWoQOQQsn4WjyWZ7sCqbL8Y1fNlYzfYl/t20Lh0mooj4F/ua59Z
+	 R+wClSZRMp1xfQNZvdk9FLadg65f5VV6DMzkmx42VpRAyuTdkQZRqntDswfi8F9QxC
+	 Y/j+PuTJ3KMm+bhmrV7LDhA1KznGr8n7Uuft0S+5jxWqdiVFkulT0d3baNTZG9oA6I
+	 V5q80ufL8r/cA==
+Message-ID: <6882373c-f76f-41ee-be62-cd910d07efce@kernel.org>
+Date: Fri, 11 Sep 2026 18:44:04 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260910-ad7768-driver-v7-9-7f70b07627e1@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC v4 0/12] mm: use per-VMA lock in __access_remote_vm
+ for improved monitoring reliability
+To: Rik van Riel <riel@surriel.com>, Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, kernel-team@meta.com,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ Peter Zijlstra <peterz@infradead.org>, Suren Baghdasaryan
+ <surenb@google.com>, Lorenzo Stoakes <ljs@kernel.org>,
+ Vlastimil Babka <vbabka@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, Matthew Wilcox <willy@infradead.org>,
+ Usama Arif <usamaarif642@gmail.com>
+References: <20260724222934.1463812-1-riel@surriel.com>
+ <9e902c8e-c825-45ee-89a1-85923453e43d@kernel.org>
+ <7c7b028ae93f0551e07e9e09468954e76ad072ee.camel@surriel.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <7c7b028ae93f0551e07e9e09468954e76ad072ee.camel@surriel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 10, 2026 at 07:36:27PM +0200, Janani Sunil wrote:
-> At buffered capture setup, select the fastest compatible power mode for
-> the enabled channel rates. Group channels into the two hardware mode
-> profiles and program their decimation, mode selection, and data clock.
+On 9/11/26 18:03, Rik van Riel wrote:
+> On Fri, 2026-09-11 at 17:11 +0200, David Hildenbrand (Arm) wrote:
+>> On 7/25/26 00:29, Rik van Riel wrote:
+>>> __access_remote_vm() holds mmap_read_lock() for the whole transfer.
+>>> On
+>>> large machines, with large multi-threaded applications, the
+>>> mmap_lock
+>>> is often contended, leading to things like reads of
+>>> /proc/PID/cmdline
+>>> stalling.
+>>>
+>>> This results in system monitoring tools getting stuck, right when
+>>> system information would be the most helpful.
+>>
+>> Rik, what's the status of this, and which series do you consider more
+>> relevant:
+>> the pure per-VMA lock change or the pure page-table walking + folio
+>> batching?
+>>
+>> I'd assume the page-table walking would result in more speedup and
+>> the per-VMA
+>> in mostly less contention. So likely we'd want the page-table walking
+>> optimization first.
+> 
+> We can merge them in either order. 
+> 
+> This series gives a speedup as well, by removing 
+> the double VMA lookup.
+> 
+> If you want to merge the page table walking and
+> folio batching change first, I can easily rebase
+> this per-VMA lock series on top of that.
+> 
+> Do you have additional feedback on changes you
+> want me to make to get the page table walking
+> and folio batching thing in a merge-ready shape?
 
-...
-
-> +	/*
-> +	 * The output data rate ranges overlap between the power modes. At a
-> +	 * common ODR, the faster mode has lower noise, so prefer the fastest
-> +	 * mode that supports every enabled channel.
-> +	 */
-> +	while (mode_idx--) {
-> +		bool supported = true;
-
-Unneeded.
-
-> +		unsigned int channel;
-
-> +		for_each_set_bit(channel, scan_mask,
-> +				 st->chip_info->num_channels) {
-
-Make it a single line (83 characters, yes).
-
-> +			if (!ad7768_find_freq_config(st, mode_idx,
-> +						     st->ch_freq[channel])) {
-> +				supported = false;
-> +				break;
-> +			}
-> +		}
-
-> +		if (supported)
-> +			return ad7768_set_power_mode(st, mode_idx);
-
-		/* No channel found with the requested frequency configuration */
-		if (channel == st->chip_info->num_channels)
-
-> +	}
+I'll go through one patch set next week, I'm trying to figure out which one to
+prioritize :)
 
 -- 
-With Best Regards,
-Andy Shevchenko
+Cheers,
 
-
+David
