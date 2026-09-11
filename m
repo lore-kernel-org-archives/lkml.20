@@ -1,131 +1,115 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 866D04570FF;
-	Fri, 11 Sep 2026 07:47:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789112882; cv=none; b=ilTbRL9tc2MyAgeP9LB9j6p9y6FkH8SHTCIoocrtu+GGfw3CAwHbjI2KGXolCBggdYjxEHJCLjb3eQ8FrkkEGRBR11HELh9ywzuvI6dtPdtKL6RpL9LLJkPXGWXD/5CJq0j25tpCtcqkRBGDJ+kKNjxCUzv9ePMeVunog+hPRpM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789112882; c=relaxed/simple;
-	bh=ruI4u/j0531/L6p3OmQduRDVD6eAPgK4O4B88AoufBA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iBd5uq7rEvXDgjXrrUqhBX2zUGnt0wHTu27ISgYuReI/li8fAfCIJB40dT62aN0dqR5gTkpABmUNc4tqfLQlx3V+e7bhjOa1TQr1I8zf0n19TdffpNKBX/3GnStRDsmIbKGUWSJPv/G0fIcXN0ZTkGu44K5BtZF3M+1TQFWm0bs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=fKTBOdIU; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDFCB44E045
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:48:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.181
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789112884; cv=pass; b=X0OkN45UkUwfe24t4x/pfaQzoUFJ7kpnV9wj6/c07asZNum4/ipUpiRwyXrTi4US18wIIEI+W+AB+l9mzroIidLMpn7iFkXUKTJowSvc/LaP2MaxWzv0XXHaVPh0WqmojXPrYwKET/X5OrqYOixyygttVKllpoeXesGHTVHKLeY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789112884; c=relaxed/simple;
+	bh=g4LUAxw61ZG6O9pKjlfTJNUbYSvDm0/NC8AtOOiAsqs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=F+Dw92D62w59cwJ+N3ijokX4nGU1SndLC3GOaeN8DPW7Xi2ppDo5nonLNSm4TAY8GvQMZUK8oNl2FyC8i5u/pc2aNyEFG44tcDy6PysPy06zs55qQvbMrB+hmWktO3MOa2dYJKyXChCVCmmjRE9TESLujMxRoahib/CWU7O0d0w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M0ko1bm2; arc=pass smtp.client-ip=209.85.210.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="fKTBOdIU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1789112876;
-	bh=ruI4u/j0531/L6p3OmQduRDVD6eAPgK4O4B88AoufBA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=fKTBOdIU38tZS6iAx4RsuMRR2ViORWzbPsH7zJy86cIpgB4cIE44WdjoNAB7ftLGg
-	 yCzwD6mJnjfFT+WTcPyUvTIGEWFZdZ+nBiWg0gfNeCmmtCzqBgAfItQf/JjNXFJPJn
-	 Fo8kOgX3+W3tkS4r6kahQdKQBnagoxFo1mrT2q6+0e0pSnPyn+eoIi4VZMDMXFZN2p
-	 E1YNUMCmSiBe+xtyuSLIK2XTt/iI+1PhbvYwQnS0kdaSGR0oVsddaGabEvS/vkySdW
-	 3MHOtl0slIOUkVT0VUw/HDSpvtlkc2tg6FilUKX+tAc3E08DZlcuIuXWqGwwy0J1bQ
-	 YX5GHHosJw7xA==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 6886417E0CA6;
-	Fri, 11 Sep 2026 09:47:55 +0200 (CEST)
-Message-ID: <87408499-de7e-4359-a2ea-d997abd1d0c4@collabora.com>
-Date: Fri, 11 Sep 2026 09:47:54 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M0ko1bm2"
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-869ac301739so447906b3a.1
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 00:48:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789112881; cv=none;
+        d=google.com; s=arc-20260327;
+        b=PZ75hwwBsfG2FajUR3VjTuZ7Gyy0veDQ8h4qfpvMzjbOCcV85pDhTB+GBI4rATuA4X
+         RGV3kTSGfyRMAcrOJYduJjntB7MWUdHlNP6r+RzBDPSmkkMBVM2H1QoU6vc486ACBd6I
+         E9Uil4J7t8YroBQiQms5iVNFppqIzP3zTISm8aB4BN95CkRkka0ydXqjsv1VeMclvoDs
+         Q7OUQA8F6ZTmk3wXOzZBJKUe0WD9pQO6NtkjlJ3yArAzu2vaf0kp00+8etWGVZFGsCt3
+         pbW+5n6YCK6ZojLR6aKvueQUl8OmIVKHLdR9VYTTAXGAayVpmFuP7aG5f7LrFCsBLtJE
+         zL8Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=nAbGJK1TfivU+OKkZxPlu+JsW/mWTytutOio68a70R4=;
+        fh=NIijxjS4Q7tj0cV9gd0HLGSzcirU9ieK2wmICon0Bck=;
+        b=gaFqNZXduqKQUXyEBUkWnP9N9UlGUvDMAc6tFn6VV/TB/W382/ighAi904jhKbyvWe
+         92iy8leuH2ksvdgpSb3M8vHsPNVOwwl6/M5QWFNY/jxhXHdf0qAQnAnjpMDD9Y98SaBe
+         kdIloQ9F4luWIt0eSUeFiSY+9AjtbHh4kVXopbdZh1UE8jCJbpbazjFe9x+57FRr4u6v
+         op835VF3iZxH1+8VWWz4yQ4Q0Ufh0P5gdkSw0PlVdOiQ1Htrii+FU5TToTiWbxM+yAWC
+         SR/wz8ltHDh16jqvh2ohb4AakXF2NX/gD8jB03HRQ/wseUVbOP4WocwgDh5IYHUDqUA6
+         PDPA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789112881; x=1789717681; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nAbGJK1TfivU+OKkZxPlu+JsW/mWTytutOio68a70R4=;
+        b=M0ko1bm2g5BnN5scV5lXZM2Dzp5AObWEXBpYoIuEPjpf5DbjdLxxh4TM8q62ZYEcNx
+         DPHvrPoMeRwLvRQTAJD6jrQD6c2rNYdoPu+9N1PuM08ZkGcLHnrCafBb2CyTYF3jo3vP
+         j7pZQOBTDGqvZAFyW4bi5GazcCIDCdDj0OM7Un2INp5gxYJFRNC5W+1LnJNfO3gXSwsD
+         X0vncayKdVOZyqR2LCu4d0Msnko4JxcDPhHemO4ijMrMYOPxYZ3JJ/iPntuXsQm9xMFz
+         20I04ZkpvBo6+ReTYczXZyq/Xyd2HY1jf7oOfQoZyPpsYantQ7UJrUFdtuNmYG/VK8xV
+         v7hA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789112881; x=1789717681;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=nAbGJK1TfivU+OKkZxPlu+JsW/mWTytutOio68a70R4=;
+        b=o4azb4snadR7m8DwkQMbBqwRmywic2hroJyHn5Ra/E9JsXUyhjyqYbevejRNJXu14P
+         F8KwPiHzA7+LClMn7wgmoRb0oSb+IQ2MJUoc4RpmDkAQJM04U7H2yXvb9Zh875H7YiyX
+         10ixEnCmFah+cYtYqIqzORHZ45X1+Hy64c6Pi3TDvcM5AsMDRGAinnr1pKjcE82j8W4R
+         GYTPFEbc81bIIGDzKgNFQBUUJMrc9Smk52ay0PVPFLpffYDruckv1FhE4lrryEtUGgb3
+         TwugCJ18+ysjQSkQJwBRPayJD46LC7FzwVpdR8UtokLsVZt/B2F8BEbvK/P8KJ5LBtt7
+         GtaA==
+X-Forwarded-Encrypted: i=1; AKwUvBzHLdvszhdiUznjqpzGdLzi6VX/rhyxzpAQ4UXqO726+flDRCgObQtkCtbuczcUDN14xmINMqwGktJh/NE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kachG/DAnfhv64m6sfom7JF/IedbBL0pvnsOuTQHMwoOfQnTOA
+	roHImR2nb1t8yA7sg+zJWFP9CK+pysdqaNP/01DFh8ZqIGt+Yk/AOHL5B5FBKKwPN8p1OO7Rvm4
+	Ed9PJk7M8RW6wYjZ1NF8kAAvUlukYOWI=
+X-Gm-Gg: AYBFou1E0C+XMwTf/qeFpmUzg+CkKmlC+/imEz6060Pjca8hd8+0UejpNg4auxG8YSq
+	icWsIXmb5ySnfYwGDq+BQhorxYd6roiYJaye3ouCQzaTkz3DkJkq/zxCtrCl49qNpoOg7Qcjjkc
+	1s5l839Dec92LVhPtvkKh6ubfNGFCbqrKSfFJ8us7aZe0wuD6c6EHPk/nPOu6cEFhmBLf43r1H4
+	Rzj7AdFxBWxrYxuRtVBbAbIUwkL+pkxNv4oq8q2lYNa0GBw1n7+GsDHxRe08A6INH8lJXD+UNdk
+	Y+73o+yalkoptc47zcHpMU/Dufc9gRVOtMHceKDG9B+KmfPW120cVWtd5c36J3U/r/aeewXkE2I
+	CAUtAk5iDVIUrCmruCG9yZTwqEEDlHY0+8OkUxG7llX/B51/a2LeaneYeY5si36jxnHA=
+X-Received: by 2002:a05:6a20:a103:b0:3d3:adbf:7779 with SMTP id
+ adf61e73a8af0-3daed3b7ec5mr5165165637.21.1789112880724; Fri, 11 Sep 2026
+ 00:48:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 11/12] phy: phy-mtk-dp: Add PHYD Lane EN register mask
- to SoC data
-To: Manivannan Sadhasivam <mani@kernel.org>
-Cc: chunfeng.yun@mediatek.com, vkoul@kernel.org, neil.armstrong@linaro.org,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- matthias.bgg@gmail.com, chunkuang.hu@kernel.org, p.zabel@pengutronix.de,
- justin.yeh@mediatek.com, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org, linux-phy@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, kernel@collabora.com
-References: <20260707154245.198361-1-angelogioacchino.delregno@collabora.com>
- <20260707154245.198361-12-angelogioacchino.delregno@collabora.com>
- <cydeh263kd5o2un27oeplqx2phe7vzhxvk53kr7dbvtplazafv@rs37qtkhguhj>
- <4e658914-7a17-444b-b20b-8d8b647238b5@collabora.com>
- <m3fpa2igwmsnsxhhxtg5hubsmxbn2vmzcpo4hwacs66z52x5ll@xrl5kac2qmtk>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <m3fpa2igwmsnsxhhxtg5hubsmxbn2vmzcpo4hwacs66z52x5ll@xrl5kac2qmtk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260910125742.150902-1-phucduc.bui@gmail.com>
+ <20260910125742.150902-12-phucduc.bui@gmail.com> <aqKwGQDkB_HruLyQ@stanley.mountain>
+In-Reply-To: <aqKwGQDkB_HruLyQ@stanley.mountain>
+From: Bui Duc Phuc <phucduc.bui@gmail.com>
+Date: Fri, 11 Sep 2026 14:47:48 +0700
+X-Gm-Features: AcwNN1U0HOa6yp6q-cu6PKO_-PEzbPG32NAKnqHP9l3WjK-sZPO65dMRXGkz238
+Message-ID: <CAABR9nE+NYF23XqXCZiHaK7CXhcmVKLznB5Xz3eDr03NCM2dtQ@mail.gmail.com>
+Subject: Re: [PATCH 11/13] ASoC: mediatek: mt8189: Validate sysclk frequency
+To: Dan Carpenter <error27@gmail.com>
+Cc: Mark Brown <broonie@kernel.org>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Matthias Brugger <matthias.bgg@gmail.com>, 
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	Cezary Rojewski <cezary.rojewski@intel.com>, Cyril Chao <Cyril.Chao@mediatek.com>, 
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, cassiogabrielcontato@gmail.com, 
+	linux-sound@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 9/11/26 07:15, Manivannan Sadhasivam wrote:
-> On Thu, Sep 10, 2026 at 11:05:39AM +0200, AngeloGioacchino Del Regno wrote:
->> On 9/9/26 19:25, Manivannan Sadhasivam wrote:
->>> On Tue, Jul 07, 2026 at 05:42:44PM +0200, AngeloGioacchino Del Regno wrote:
->>>> In preparation for adding support for the eDP PHY found in newer
->>>> SoCs, transfer the register mask for PHYD_TX_LN_EN to SoC specific
->>>> data.
->>>>
->>>> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
->>>> ---
->>>>    drivers/phy/mediatek/phy-mtk-dp.c | 13 +++++++++----
->>>>    1 file changed, 9 insertions(+), 4 deletions(-)
->>>>
->>>> diff --git a/drivers/phy/mediatek/phy-mtk-dp.c b/drivers/phy/mediatek/phy-mtk-dp.c
->>>> index 4603f28d1466..f5aadc5fdc42 100644
->>>> --- a/drivers/phy/mediatek/phy-mtk-dp.c
->>>> +++ b/drivers/phy/mediatek/phy-mtk-dp.c
->>>> @@ -220,6 +220,7 @@ struct mtk_dp_phya_imp_sel {
->>>>     * @regs_ana_lane:  Register (layout) offsets for ana_lan
->>>>     * @regs_dig_glb:   Register (layout) offsets for dig_glb
->>>>     * @regs_dig_lane:  Register (layout) offsets for dig_lan
->>>> + * @mask_dig_tx_ln: Register mask for PHYD_TX_LN_EN field
->>>>     * @val_dig_bitrate:IP Version specific register values for Bit Rate setting
->>>>     * @ana_bias_r:     Internal resistance "R" Selection Settings (global)
->>>>     * @ana_cktx_imp:   TX Clock Impedance Selection Settings (global)
->>>> @@ -239,6 +240,9 @@ struct mtk_dp_phy_pdata {
->>>>    	const u8 *regs_dig_glb;
->>>>    	const u8 *regs_dig_lane;
->>>> +	/* Register masks */
->>>
->>> Duplicate comment. With this removed,
->>>
->>
->> Sorry but I think you didn't understand what the comments are there: the kerneldoc
->> is used to describe the structure, of course, but the comments in between are used
->> as a way to describe (and kind of enforce) the order of members.
->>
->> /* Register offsets */
->> u16 member1;
->> u16 member2;
->> ....
->>
->> /* Register maps */
->> const u8 *regs1;
->> const u8 *regs2;
->> ...
->>
->> /* Register masks */
->> u32 mask1;
->> u32 mask2;
->> ....
->>
->> etc.
->>
->> Does that make sense now? :-)
->>
-> 
-> Yes it does. Sorry for the oversight
-> 
-> - Mani
-> 
+Hi Dan
 
-No worries, it just happens to everyone from time to time :-)
 
-Cheers,
-Angelo
+> > mtk_dai_i2s_set_sysclk() accepts zero or negative frequencies.
+>                                            ^^^^^^^^^^^^^^^^^^^^
+> It's unsigned int so it can't be negative.
+>
+
+You're right, thanks for catching that. I'll fix it.
+
+Best regards,
+Phuc
