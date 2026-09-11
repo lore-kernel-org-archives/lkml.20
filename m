@@ -1,115 +1,170 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010059.outbound.protection.outlook.com [52.101.85.59])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 107613DB651
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 22:24:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789165491; cv=none; b=DtuPxkaKfx6jPcqqiKk6tiQLYkPkfgyY2vjC5z6h0hc5aW7+YrOfp9pbLgAm3cPh7ykHnI+voG8Pm3CFG3IjhEQZc9c97uGuqm/GsFQSZz2hWjisIdI5394w7G0P8oNXnNwXX9vA5tcOuGCyR+xjHzWWJoUChySuvRCdDZp/5/A=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789165491; c=relaxed/simple;
-	bh=/3yYSnGEA33M5uN9KvFgeKYKLnii1+uHN85Ctr2VRfg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JmC1S2fgvj7tLarPCLRMY3b3UMcDZjYyplvOXpiWGUpwZo8LsFkSc2JMJuKgVpvpeRN1SNCgdspQV7M4RgPGa994IiK7wt2eXRFcVW+5FC4hAQwT0jJcmfh/D9Zt+p3Sn5Q41KF9UuswcJt41HgVK3HmgkXrgU7ELwgUH2R89XY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=MiBQ2pIy; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8200826299;
+	Fri, 11 Sep 2026 22:25:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.59
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789165505; cv=fail; b=UAURXeKqseesc6O3nbD/DSBpkdoLBGaOMAbdzLpclo2lRptD7cUaYrQBOwjC3pNCWq3J0Bq11DttutsHhhjlKCSXm3Iby7+d2tMVtoq2EezA5QnnWPYFcxXnV0Cn9X6FRtYlSR7WaTA4U8V5d6TIBL22auaptTFJBQSn5zEXEHI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789165505; c=relaxed/simple;
+	bh=wD4Kgx7Z0d2GwIZSUVvbcnhGEqfAYELSb3xDSOuUYHU=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IGEygLDDyWd7vJbY1A6R4sdYcU4kPjFzHLGm317Gve+Yf3APPwMieGcmbJOUYbo9MRbhomyQzRpYNP5M8VJeErpp/si0w7Mlta/+xDhvMVrvkhb9BF/NI8Z7El58S/Wul0xvLZ1Bgz7Jffp0gy00kcTHCiS/zIKBJnpn0EQC9Io=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=pGx+G4aC; arc=fail smtp.client-ip=52.101.85.59
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="MiBQ2pIy"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789165483;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=MLcC3slPi0kXizJ1i2QlzDWQPcjnDpfhBQdjq8/AAys=;
-	b=MiBQ2pIyOOqeQDuERRhSs3YiQEM98qmBYEGXjwti2wADAbYae2VXeFSeZ6Yyis7NllEVai
-	0cS8HgS4RArEfbuIz5JKJ6zcldDdwKZ//EnlVfFocMQfev+zdcpkvUmXbGcSkKRn4MAuyc
-	o7mHUXpcotdGMSqtKpau0vW2Y+EPtBk=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-220-Bj706SCFOnaNXMRUh6bL2A-1; Fri,
- 11 Sep 2026 18:24:42 -0400
-X-MC-Unique: Bj706SCFOnaNXMRUh6bL2A-1
-X-Mimecast-MFC-AGG-ID: Bj706SCFOnaNXMRUh6bL2A_1789165479
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 986AE1953973;
-	Fri, 11 Sep 2026 22:24:38 +0000 (UTC)
-Received: from GoldenWind.redhat.com (unknown [10.22.88.4])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id B4A1E19560AB;
-	Fri, 11 Sep 2026 22:24:35 +0000 (UTC)
-From: Lyude Paul <lyude@redhat.com>
-To: dri-devel@lists.freedesktop.org,
-	nouveau@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Cc: "Dave Airlie" <airlied@redhat.com>,
-	"Timur Tabi" <ttabi@nvidia.com>,
-	"Mohamed Ahmed" <mohamedahmedegypt2001@gmail.com>,
-	"Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
-	"Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
-	"Kees Cook" <kees@kernel.org>,
-	"Simona Vetter" <simona@ffwll.ch>,
-	"David Airlie" <airlied@gmail.com>,
-	"Thomas Zimmermann" <tzimmermann@suse.de>,
-	"Maxime Ripard" <mripard@kernel.org>,
-	"Mel Henning" <mhenning@darkrefraction.com>,
-	"Hongling Zeng" <zenghongling@kylinos.cn>,
-	"Danilo Krummrich" <dakr@kernel.org>,
-	"Lyude Paul" <lyude@redhat.com>
-Subject: [PATCH 0/5] drm/nouveau/gsp/r570: Follow OpenRM's runtime PM process more closely
-Date: Fri, 11 Sep 2026 17:49:53 -0400
-Message-ID: <20260911222428.752641-1-lyude@redhat.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="pGx+G4aC"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AqKs0c07H+J8pSlTjDiWf5c0K2AW8SIrPt/9DxXGI4jxWqwhGkLK3Zn/5rS0T26mSt/bQMu+xLAHleq/1lw1Z0RxCv9ePA/Jrl7FRA7mtGWIrNHULSP0uP9Y3/y+UUd6gDwMfGeu8NrL6JE1lYTvNrPWYG8wsdl9j1DBT5Iufwltz90GDGDXt7bWSnfUIcmEPVK7wUTkZuxZaHS3KQd2DJIujTcjVrPdLWz8VkesoKKxs3A0sdyc/DZNcts3iebxY7ook2QrI8C1oZm0kCYy9IFxfXQFm4cVoYj5TElOaGbIQFhfLFNX2yXnVTSR8YJBu0evjH3lapX7nlYKOXGsBw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hIDOEICOt4x5hTo9wOxCSTq4RJfWI5CvqmdehNQoNPk=;
+ b=ckQ+I3h9+rLC74G8BkNIA+hztJSxN5TxRIx4olA7jfk/wWb+Kv/MGQ6HAGDqCHRajUAc53oRG5RC2cnSKKN0qJHLuUvegnqEn37sfKvr/FkYrYPsM+qMEq2Khg277nXjfXTf9zlFh3XtNunUyClv1X2pe25e+8bhnx67MmUFGY1PoCPx4xtla7JAJCta62DMrPjr/+XKzXcywySGQxcfbPlir+Sp80xiYtIDmNldHj4xV2Aw8oKpWDtfNJXeGDoqCIOZRDTgj6FaRgvJxNAi8V13ucQZHdotYaE9akYD92cp+eSpLSvi8e+cPl0NUDrWg0o2Neb5vaRSe+rGaeGL9w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=uniontech.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hIDOEICOt4x5hTo9wOxCSTq4RJfWI5CvqmdehNQoNPk=;
+ b=pGx+G4aC0jprbrsZRCQCeTlvONygUrYG3ykJoyZKoJaEDDpDoolwVg4mwjBcNis4Wc5iAjVVsehRdOFOV/jT5YsUrRnv2MK3HZ8s8ySl+XDGX6buwiD5jO9VKLzgy6y2PcfLY9VT1ghCfb46wxcUAeevM1Iv+AUNg23GGHh4cfRV+favPZ4GxvzdRiZ6G87xrDmmjwMiOEf6yAK1wWLPW4It9EULYrqj0dDuFFTc9TyYSpRMc0vBTnzoeoCNYtUU7hodqNf5UeOup8zyiwwhwHU3jqcWhzsSFxAkeci3LJ2vEwFJej/Xg2h/QWgnao8Alag4uCX9YRpMtM9B2bBopw==
+Received: from BN9PR03CA0253.namprd03.prod.outlook.com (2603:10b6:408:ff::18)
+ by DM4PR12MB5748.namprd12.prod.outlook.com (2603:10b6:8:5f::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Fri, 11 Sep
+ 2026 22:24:55 +0000
+Received: from BN3PEPF00022BBD.namprd04.prod.outlook.com
+ (2603:10b6:408:ff:cafe::19) by BN9PR03CA0253.outlook.office365.com
+ (2603:10b6:408:ff::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.8 via Frontend Transport; Fri, 11
+ Sep 2026 22:24:55 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ BN3PEPF00022BBD.mail.protection.outlook.com (10.167.248.117) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.5 via Frontend Transport; Fri, 11 Sep 2026 22:24:55 +0000
+Received: from rnnvmail205.nvidia.com (10.129.68.10) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 11 Sep
+ 2026 15:24:36 -0700
+Received: from rnnvmail203.nvidia.com (10.129.68.9) by rnnvmail205.nvidia.com
+ (10.129.68.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 11 Sep
+ 2026 15:24:35 -0700
+Received: from nvidia.com (10.127.8.13) by mail.nvidia.com (10.129.68.9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46 via Frontend
+ Transport; Fri, 11 Sep 2026 15:24:34 -0700
+Date: Fri, 11 Sep 2026 15:24:31 -0700
+From: Nicolin Chen <nicolinc@nvidia.com>
+To: Wentao Guan <guanwentao@uniontech.com>
+CC: <sashal@kernel.org>, <jgg@nvidia.com>, <will@kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <iommu@lists.linux.dev>,
+	<stable@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<skolothumtho@nvidia.com>
+Subject: Re: [PATCH 7.2.y] iommu/arm-smmu-v3: Disable implementations during
+ devm teardown
+Message-ID: <aqR/n+VtlgpjJrAV@nvidia.com>
+References: <20260910065429.1703706-1-guanwentao@uniontech.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260910065429.1703706-1-guanwentao@uniontech.com>
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF00022BBD:EE_|DM4PR12MB5748:EE_
+X-MS-Office365-Filtering-Correlation-Id: c1446d86-e23c-4572-8bd0-08df105381bd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|23010399003|1800799024|36860700016|376014|10067099003|6133799003|18002099003|22082099003|56012099006|11063799006|5023799004;
+X-Microsoft-Antispam-Message-Info:
+	DClE4X4qXMNVE2R1X4cETnRrslVMjraL39BpzUR11SaAafXnbBykMVsWRmB2+BImluS2oTcTnjw90+pa0YdH5iClN++ps0/pKW/bzRtAFU+VW+fYjVdsvCzT+8kFDE30yBctmzjiCNc/5O0mWovgIkdayZsGeYAowrnnzcw+QfrgKXiSYKvfBPN6vJSp5kqUPji79ZUm8CzPkqont3ttQtxUpQMGzaJVKncKv7C9CNpcLwyoJML+s4kkw2Jcnm+XYa1iLkdHx0VDaDVd4P+jA5kWHuIgn/ouIG+epIzY1rltBieg8M0iovqDeVpVY3IOKnTDPHMW2VNQ99cIrlaJbnImTauD6/QWIMkhS7VoFvJFheKp/yEJRX7R2xhG9N9bTEqm1camPkRCnKUQyahDwpF7pmi1qxLwOZo4ubDSPu4qAQPuKGgO7bqvbfexkgfmjyu3nLCgnZ41RWHU+W8u9i1gV0cQlTYopsVxHJ3byCNyNzB8no9DgCavWTI3OFZ/cvY6xIoSRYo9GC3MRF4Hvr0K8Cwi8ncc0WsceyJfoUvLIgwHtRHhH4PxOQd/UEJ/ER3d2G3yOj7o4RdsP85ra4x83IfNesMf344CAKu0NAiTaFAlLsa+PaKSLC9Crw+iVh685JV3i5vYS/hQ5prOKT6baBt1XxshLz0wTIhWtV2QaVqrpKORsxqpSmWdfjv0NrC+EiOD/mdypWcqXnOKMw==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(23010399003)(1800799024)(36860700016)(376014)(10067099003)(6133799003)(18002099003)(22082099003)(56012099006)(11063799006)(5023799004);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	f/8eI8K7Sl3tIBj1hCC2PQcGOeI2x26p3eXID4jOWJpCx8wXnhiOjbbdyXNYT0XoM0U/to7BcpnUV3TPsESuGZJlmJYfyqCTfSxTavqk6Yg4OQYcANqwK7kuHVyLv+ksUX+db1YmY1W7OiOB6hADebNt+d6mFkLO8Hq6hYhqRoL2cIM5do11TceQ0OdFlKzBCWEbtgtH1Q6gzWMPgBl/M+CeSvUlf7uw0LUNhu0Vh+OVJi1hCKWZ9RgaE0wiFnFl/tlZCfugQEHY9BZIO01QdDMleAOwP82ZbuZMzpSgFDo2e0I+E1dmuruMcWmbZ3UGjdLyU33ThEToFf+ei1LEPoSXTI3zkh43sVZ5ruZWtpouwakWet7K8+tYbYawENturxza9R0XsdI0VV+guaPDdk/SLOmrSe6MlMpkmZuOrNTpzw6EB06FgepPkPaCy8fY
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 22:24:55.3097
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c1446d86-e23c-4572-8bd0-08df105381bd
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF00022BBD.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5748
 
-While we have runtime PM working a lot more reliably then in the past
-with R570, we're still doing things a lot differently then OpenRM. For
-instance, we don't save/restore comptag backing stores, and we don't ask
-GSP whether it's OK to enter GcOff.
+On Thu, Sep 10, 2026 at 02:54:29PM +0800, Wentao Guan wrote:
+> The Tegra241 CMDQV teardown fix moved VINTF hardware deinitialization
+> into the implementation device_disable() callback. However, its stable
+> backport preceded the conversion to devm teardown and could only invoke
+> the callback from the shutdown path.
 
-This series fixes this, and gets our runtime PM process to look a lot
-closer to OpenRM's by implementing some missing pieces and workarounds.
+Hmm, it did...
 
-Tested on my daily-driver desktop with an AD102, a ThinkPad P17 Gen1
-with a GA103GLM, and a Dell Precision 7780 with an AD103.
+[correct in mainline]
+git log --oneline v7.3-rc1 drivers/iommu/arm/arm-smmu-v3/
+...
+9ff145a25c5c8 iommu/tegra241-cmdqv: Fix CMD_SYNC use-after-free on teardown
+2bd22a0d40503 iommu/arm-smmu-v3: Manage teardown with devm
+...
 
-Patch series based on drm-misc/drm-misc-next. Branch with patches here:
+[inverted in two trees]
+git log --oneline v7.2.5 drivers/iommu/arm/arm-smmu-v3/
+...
+78fd5a2d65f35 iommu/arm-smmu-v3: Manage teardown with devm
+f9b7375db3b36 iommu/arm-smmu-v3: Add HAFT support for SVA
+5994617e09ee6 iommu/tegra241-cmdqv: Fix CMD_SYNC use-after-free on teardown
+...
 
-    https://gitlab.freedesktop.org/lyudess/linux/-/commits/nouveau/rpm-openrm-sync
+git log --oneline v6.18.51 drivers/iommu/arm/arm-smmu-v3/
+...
+2235eafda9b3d iommu/arm-smmu-v3: Manage teardown with devm
+d903d99ffd22b iommu/tegra241-cmdqv: Reject a vSID wider than the SID_MATCH field
+d2ab08437e913 iommu/tegra241-cmdqv: Fix CMD_SYNC use-after-free on teardown
+...
 
-Lyude Paul (5):
-  drm/nouveau/gsp/r535: Add support for INTERNAL_GCX_ENTRY_PREREQUISITE
-  drm/nouveau/gsp/r535: Add support for MEMSYS_GET_STATIC_CONFIG
-  drm/nouveau/gsp/r570: Add comp mode workaround from issue #3172217
-  drm/nouveau/gsp/r570: Start saving comptag backing stores
-  drm/nouveau/gsp/r570: Enable Gcoff in fbsr again
+[missing cmdqv fix]
+git log --oneline v6.12.109 -33 drivers/iommu/arm/arm-smmu-v3/
+...
+981686f413776 iommu/arm-smmu-v3: Manage teardown with devm
+...
 
- drivers/gpu/drm/nouveau/include/nvif/cl0080.h | 10 +++
- drivers/gpu/drm/nouveau/include/nvif/device.h |  1 +
- .../gpu/drm/nouveau/include/nvkm/subdev/gsp.h |  7 ++
- drivers/gpu/drm/nouveau/nouveau_drm.c         |  9 +++
- drivers/gpu/drm/nouveau/nvif/device.c         | 13 ++++
- .../gpu/drm/nouveau/nvkm/engine/device/user.c | 36 +++++++++
- .../gpu/drm/nouveau/nvkm/subdev/gsp/priv.h    |  1 +
- .../drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c | 43 +++++++++++
- .../nvkm/subdev/gsp/rm/r535/nvrm/gsp.h        | 52 +++++++++++++
- .../nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c    | 76 ++++++++++++++++++-
- .../drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c |  8 ++
- .../nvkm/subdev/gsp/rm/r570/nvrm/fbsr.h       | 29 +++++++
- .../nvkm/subdev/gsp/rm/r570/nvrm/gsp.h        | 50 ++++++++++++
- .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h   |  2 +
- 14 files changed, 335 insertions(+), 2 deletions(-)
+Patch itself looks good to me for v7.2 stable and v6.8 longterm.
 
+But v6.12 longterm might need some extra fix, Sasha?
 
-base-commit: 9d4c98219598e77ca7044c453ae6994519ac0a96
--- 
-2.55.0
+> Now that arm_smmu_disable_action() manages normal teardown, invoke the
+> implementation callback there while the command queue is still alive.
+> This prevents the subsequent implementation remove action from releasing
+> resources while the CMDQV hardware remains active.
+> 
+> After ("iommu/arm-smmu-v3: Manage teardown with devm") merged in stable,
+> now keep the shutdown path consistent with mainline, where disabling
+> the base SMMU is sufficient.
+> 
+> It is a fix for stable tree commit to aligned with mainline, so no
+> upstream commit id here.
+>
+> Fixes: 5994617e09ee ("iommu/tegra241-cmdqv: Fix CMD_SYNC use-after-free on teardown")
+> Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
 
+Acked-by: Nicolin Chen <nicolinc@nvidia.com>
