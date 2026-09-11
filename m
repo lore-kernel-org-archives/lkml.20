@@ -1,153 +1,166 @@
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AE0037E2E4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C91937E2E7
 	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:05:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789139121; cv=none; b=GZ+ebiOZSuj+pOLAvw2IT0MpmKPd9SKL0V0iETL4WFeBHigEjB8XcibN6oUgEsYe0zAfLlC6FsxX+S5KwbwnGUymxJm2Jx7kgr8oXSxDMT7IfWnEIIOvUfRw/x1dpVxHHw1Pee5fYJojlFVzbl6W3mr89PQOR/PMEWLDeytyODA=
+	t=1789139122; cv=none; b=J3Chg7y3Bd8R3A9+P7dX2x00Dka3MgVYj3zuCHCB35pJi7SQMsXhTsm/cUksYZLHE/9yn12H7hoVPCibaQZhF/+ULyEcK6B98fGRRHuwAvhw9Vn/B2Qg+hSNoI38viEgIsGYbl0kAyRYYp/tIvRlKFSaF6U3noO6sG0gzZqd0wc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789139121; c=relaxed/simple;
-	bh=JL+uluzocOxsNsOaPXlEzBUTr48C+sSlS5wULgBtFtM=;
+	s=arc-20240116; t=1789139122; c=relaxed/simple;
+	bh=+BGYJv/Ec5lmfa8H8S/IhXnRpw8XMU+otzHcScLyKyQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=WN0ELc4hMyVeLBSLlpB0pYiCh72J5bXVA2gLtqkShyEhqJYFNWwFKZQCV02bRTfK5qAwjOYeR+NWbd3Xrf+8z3xJUVFxrmGrsS4aakqAcwj+3WupIF80TqQqlgMEkwjavAbdGt5cyz1CkMZK+Egk13bbR4Lmp0Sw+PR34CUnlEw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=DPoBfuQE; arc=none smtp.client-ip=209.85.221.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	 MIME-Version; b=seZT5Weq2xJU6iHjLaIKt6gKFc94gkADNiHekyI8qmPqr+UI0+frVw5GX+u404+UYPmXs/gZBCu8iAHWuu1On5EouxbsvyhV50GbjhQW8x1eo0dMt4PH7D3GJqWgHb/VPo7NiXyimrVY7PyoGN2coaBET8Lo/2ye+1fceCcuW1E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=kdDnowvS; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="DPoBfuQE"
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-486e934b0c9so353320f8f.2
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:05:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1789139116; x=1789743916; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=a258DNEK6aR0v+xDimWu2caaAUdwCvMljBObmnBjN5k=;
-        b=DPoBfuQEnSW5Lg5efeT4TbUM3prqvIUhPd4e5hEY0qDOO+rDm2xucBa0yhmFynP+N3
-         WR6a2Gc2Gg4xPJ+/pv/3qqwEuHoTM9zVDN1DceSyYg43HeUzI6htFkmmQett3GeRPX+S
-         xEQ+K4u9guKtuLvcCJLF7kLfaqhMbAviVHOQ5JWBbVd5vePW+cWI1A/DKoY3mCEzMOkk
-         Y+Hv+yx7UvK8P1P114QbrqXOITDqKZJ8W42XE0Nr58ksWIM7Wqi38tAFD1RGDUieECyv
-         64JK9yPfgwbchvz/IWFnDoeyM4gFoUNujTtTHeHvmhhHodv9ecWYuEs/+7UKTO4ibSdO
-         p3Ow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789139116; x=1789743916;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=a258DNEK6aR0v+xDimWu2caaAUdwCvMljBObmnBjN5k=;
-        b=SYMauEXUXqDE3et0gveMACvtQkNJxMd2sV9+FCI1xgykD9U7O5KihBxoAd1rZ03lY9
-         ZxiXTl1334gjyxvOO9CW9nJ55u032wkWN693ywxFh2M2xVAzM4lk5vrhlJVOzpALtdtW
-         V9tPBxSyz2m8eO0as1dvaqFpxeEYcTnju4W+3WKxQrUQ4wE+JQZ0WKGsrSjzg1jr7UqQ
-         oDwApM5lCW7I18E8Ap1fUxmMks7fhIOTEOtxVVLoOGMG8A25T54gwUMSebDWUCrkXIMo
-         R+Y/SM/PWb0zBJH2Yu8SCS4NqTGeKmBYmcR4ixTwE+ftLPUlUsHGP6nEKWJIshquQ30V
-         HikQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz9QXlGjoaBpkozskFVE/pRiNG0u86CHU/CBKUYKGoozbvK1jJQ5vtd0lo18etOtKjGjnHF3umnYvXpt4w=@vger.kernel.org
-X-Gm-Message-State: AFuF++n79DCQ6kkFWx0VFlrP4fbh7oGtKpNJ6RrXrISiIy4EdBIzOwP7
-	Gwe+83oIBy7ODq+eRmDx+ht4Z/T15x7Nqi5VTy/TQ/g9hVjLVcp1k8sBL7vyxGFg8Mo=
-X-Gm-Gg: AYBFou0ForYvst4VTpBGULcM/VZluqYDAxBJMBN6spvob8w89vXfRfYRg3vQG88LKPT
-	1eueONjKkHu0qyV2v3fNHzZ5GfNv07pIpjekgQS5Rvjwvg5Lijbl1ej12yvY3yXYROx93CA90aL
-	IgGq+FLD3wUXUISoMEgLmjpO+8Low53OoTmPtxIAtEmJBygSl9MFqBao37oL4PZq8vt2MaAtaJx
-	y3YO1r7cudQmiuxeNrOdy+UKbt6FZ90u2X6vliW599aZ5uOszre3lDUVkZlX9XEYNeDCbXHEg5A
-	lx4Mj6H/W3jd6sqovt0tPJPrpufIHbZk//hYI9f5WrubVyOi/c9lf/qdRAvAbp1XbgJTDijEZWf
-	YmC8bhsnLTxBk8m5kC6Edz26vokWBlmsa3s8/KeajPJqpCcOBU8hes98iYtO9v46bMEQs1NYiW8
-	0FJbTs+WlYFlF3pFOabp50Xc4NzJ45b5EHXpnARF1MhrxSDMlAablKALc1LRHAPJAlHZPqbyZuw
-	nJFKMU=
-X-Received: by 2002:a05:6000:491e:b0:486:f4b6:3bce with SMTP id ffacd0b85a97d-486f4b63c4fmr559176f8f.24.1789139115924;
-        Fri, 11 Sep 2026 08:05:15 -0700 (PDT)
-Received: from localhost.localdomain ([2001:af0:8000:1409:193:86:92:181])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb350686sm6853579f8f.27.2026.09.11.08.05.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 08:05:15 -0700 (PDT)
-From: Petr Pavlu <petr.pavlu@suse.com>
-To: Jens Axboe <axboe@kernel.dk>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Jani Nikula <jani.nikula@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Tvrtko Ursulin <tursulin@ursulin.net>,
-	Matthew Brost <matthew.brost@intel.com>,
-	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Cc: Simon Horman <horms@kernel.org>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Francois Dugast <francois.dugast@intel.com>,
-	Luis Chamberlain <mcgrof@kernel.org>,
-	Petr Pavlu <petr.pavlu@suse.com>,
-	Daniel Gomez <da.gomez@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Aaron Tomlin <atomlin@atomlin.com>,
-	linux-block@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-api@vger.kernel.org,
-	intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-modules@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 6/6] module: Remove the error-injection.h include from linux/module.h
-Date: Fri, 11 Sep 2026 17:04:06 +0200
-Message-ID: <20260911-module-include-error_injection-v1-6-5da895d8c84d@suse.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="kdDnowvS"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 9E8BC4E401EF;
+	Fri, 11 Sep 2026 15:05:16 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 737DF601DE;
+	Fri, 11 Sep 2026 15:05:16 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4C43511C7AFA5;
+	Fri, 11 Sep 2026 17:05:09 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789139111; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=fO65BpNoMjprHokkh6R5n/KLjYhKRahGsAa+s7tmcCM=;
+	b=kdDnowvSHryo319s1WAmR815lG6lFHhbgm3+o57L3Hgz5ThMNPVEHZVz1kBLVzFT12+mxo
+	urfXzhKOToe24crfUAy2AdM5AE7kmVNvZNtInnlThsDA1Qzp2KGH0FtTrfuBsu0erZNoge
+	V1jy/kow5pO2wIwn95n7F+26prXsSubuNAlni16h6RG8OFwBAoliE8K1/HdBzT7ZmnC/iq
+	ebR9BewRm4EThScbtnYo02MTZ+7rChVi1ZPmR1pleQ+wQvh1Xt50Xt1uZSF21o3yLGlWS+
+	/QHInXaSb2MhOuwlDFaavjajpxPis9x0G7wL4/tSW+cIXWg1DjUhetfLRTF2Nw==
+From: "Herve Codina (Schneider Electric)" <herve.codina@bootlin.com>
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>
+Cc: linux-renesas-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Pascal Eberhard <pascal.eberhard@se.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v5 1/4] dt-bindings: timer: Add the Renesas RZ/N1 timer
+Date: Fri, 11 Sep 2026 17:04:52 +0200
+Message-ID: <20260911150456.893761-2-herve.codina@bootlin.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260911-module-include-error_injection-v1-0-5da895d8c84d@suse.com>
-References: <20260911-module-include-error_injection-v1-0-5da895d8c84d@suse.com>
+In-Reply-To: <20260911150456.893761-1-herve.codina@bootlin.com>
+References: <20260911150456.893761-1-herve.codina@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-linux/module.h appears in roughly 15k #include directives across the
-kernel. This makes it a "hot" header, so it should avoid pulling in
-unnecessary definitions.
+The Renesas RZ/N1 timer block controller is the controller in charge of
+timers available in the Renesas RZ/N1 SoCs family.
 
-The header currently includes linux/error-injection.h to obtain the
-definition of `struct error_injection_entry`. However, this is unnecessary
-because the type is only referenced in the file as a pointer, for which an
-incomplete type is sufficient.
+This controller handles 8 timers:
+ - 6 16-bit timers
+ - 2 32-bit timers
 
-Remove the linux/error-injection.h include from linux/module.h and add it
-to kernel/module/main.c instead, where
-`sizeof(struct error_injection_entry)` is actually needed.
-
-Signed-off-by: Petr Pavlu <petr.pavlu@suse.com>
+Signed-off-by: Herve Codina (Schneider Electric) <herve.codina@bootlin.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 ---
- include/linux/module.h | 1 -
- kernel/module/main.c   | 1 +
- 2 files changed, 1 insertion(+), 1 deletion(-)
+ .../bindings/timer/renesas,rzn1-timer.yaml    | 74 +++++++++++++++++++
+ 1 file changed, 74 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/timer/renesas,rzn1-timer.yaml
 
-diff --git a/include/linux/module.h b/include/linux/module.h
-index 96cc98568eea..b3a3d5827384 100644
---- a/include/linux/module.h
-+++ b/include/linux/module.h
-@@ -24,7 +24,6 @@
- #include <linux/jump_label.h>
- #include <linux/export.h>
- #include <linux/rbtree_latch.h>
--#include <linux/error-injection.h>
- #include <linux/tracepoint-defs.h>
- #include <linux/srcu.h>
- #include <linux/static_call_types.h>
-diff --git a/kernel/module/main.c b/kernel/module/main.c
-index d0e1e0bd2ad0..f1392c10907a 100644
---- a/kernel/module/main.c
-+++ b/kernel/module/main.c
-@@ -60,6 +60,7 @@
- #include <linux/codetag.h>
- #include <linux/debugfs.h>
- #include <linux/execmem.h>
-+#include <linux/error-injection.h>
- #include <uapi/linux/module.h>
- #include "internal.h"
- 
-
+diff --git a/Documentation/devicetree/bindings/timer/renesas,rzn1-timer.yaml b/Documentation/devicetree/bindings/timer/renesas,rzn1-timer.yaml
+new file mode 100644
+index 000000000000..7218c0c2671d
+--- /dev/null
++++ b/Documentation/devicetree/bindings/timer/renesas,rzn1-timer.yaml
+@@ -0,0 +1,74 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/timer/renesas,rzn1-timer.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Renesas RZ/N1 timers
++
++maintainers:
++  - Herve Codina <herve.codina@bootlin.com>
++
++description: |
++  The Renesas RZ/N1 SoCs timers block controller is composed of 8 independent
++  timers.
++    - 6 are 16-bit timers
++    - 2 are 32-bit timers
++
++  Each timer has its own interrupt line and can work in either one-shot or
++  periodic mode.
++
++properties:
++  compatible:
++    items:
++      - const: renesas,r9a06g032-timer   # RZ/N1D
++      - const: renesas,rzn1-timer
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: APB internal bus clock
++
++  clock-names:
++    items:
++      - const: pclk
++
++  power-domains:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 8
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - clock-names
++  - power-domains
++  - interrupts
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/clock/r9a06g032-sysctrl.h>
++
++    timer@51001000 {
++        compatible = "renesas,r9a06g032-timer", "renesas,rzn1-timer";
++        reg = <0x51001000 0x200>;
++        clocks = <&sysctrl R9A06G032_HCLK_TIMER0>;
++        clock-names = "pclk";
++        power-domains = <&sysctrl>;
++        interrupts = <GIC_SPI 112 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 113 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 114 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 115 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 116 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 117 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 118 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 119 IRQ_TYPE_LEVEL_HIGH>;
++    };
++...
 -- 
 2.55.0
+
