@@ -1,116 +1,136 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mta0.migadu.com (out-23.mta0.migadu.com [91.218.175.23])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 043353563FB
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:11:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789139518; cv=pass; b=IxuWgVCzCGlqEx+Sf3jJxEjQ9zRKL+Jyypf1fmZR04sEAm9PeUw/iAsEwvt+xdlvuxdpjiZkCLa/9rtd6u1KxWJ/GsRQcvg/FJbfVjdLZreTj8qceP+BNKKMi6/pA8qzj8P+mRvN+qJWwBkQOoi4IdbyRHBlGpLecau8M3jnw/w=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789139518; c=relaxed/simple;
-	bh=a1WAq8z6Lr5iIEubA1slcVW5P1heZAnFuDZolrmXxz4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=NBZQmRV1WN0pjTevxCXgDAByaR4/M+hyLTUfobfsdSw9cToFtKRJo0gztVu/K4bf6CQZZ70j7fA3ZQun/sdRJNDHJ3dLWE7WlIJKOkp9OHf5zFz/Xc2xeoGQerFWQlhhB9kRATGkrnPsyxdipvg3ThxGDOhSwzSqnoX4OZKi3TY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=BKuu6Wdd; arc=pass smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEEE52F60B2
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:12:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.23
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789139528; cv=none; b=Q/T6ff6m8idawie5q/WRto11mIDzfOdouxEJWSXrcU4OSz1X/jn3fBsVm5zRZwYV5tP9HjWLDsfAkAgx8KDRLk/DmqeHVJ1FRQUTAvHy9DMMsT0IAjMr0UFPvIAuCX77WdQxv9hiL8P3uoDR0QUYT4H6Z/Sbh0Jgr28DXhRwbWM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789139528; c=relaxed/simple;
+	bh=rOLit0W3VCFGTP5kXtsPzIPoTYVAhJ8ej1x5RJG9eCI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=bZd6783o6UrdpznvSLnQNvqeNDNHfdpOB/g3jjLI7rfOAW+WLugtEb2jz0ygnRk+W1mj5huboPq0JBqmCxoCATJXwLUW7ltlAQhBvHQjLBoZ4xNdglWPI3OZ7MhhwyMiAAMlvCK5nUjKJjVkfChUGafk6rqSi0a1kVo8cmF5mZ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=oCJe9leo; arc=none smtp.client-ip=91.218.175.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="BKuu6Wdd"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d6ff390a6cso125ad.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:11:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789139516; cv=none;
-        d=google.com; s=arc-20260327;
-        b=l91elQ78tCv0w80M2iKIz6PoxcfJE9WRlZJAt0sTL0eoyalhXfqSi1K/IxVCBwZeV+
-         GpJ/R9mLLakm1ZH6CRyWERcntH4otfNxcBbVuGiMA3CWvxPyoGqP2y06lYTk3ropjxQk
-         Z3631ywKnspSbFZTv9hTdQ5TtH4yVO8arE+qEAGEdegrXIaW3cTKT1RraotkHazyi14I
-         Wi1qa4MJr6Abl2qd3akHFjXpNaWspoIzyoYlmfzFor5pABB7KVUM5bO+qrUlaeVuetnY
-         QFle+zQE2uhLt0PYxRu/BJ4XmMZDnLWeW9OSR3V/Tld7kbWcDCOcymW6z/LB3cj9u7nU
-         LkRQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=JwM5Epgg3IOjgygjiEjc2zoeXrLUf/Epju1L3iuJNZk=;
-        fh=ckKscOUj/phyI9Ad6AB2PGleggpu73bZlLBHLSe/h0o=;
-        b=Kd0BxA8Isz8ifXNmJ8QmYLB1suB3GA5ln2vnpCZwXCembOrDDl7o1WXSFUBf8MH2zm
-         b1Ff6Yv3bOZSFjNx92rCDQevioCYcX5Svx4vKfHV1jpTdQDvbls05wnwN8rwHN+be90v
-         CejuxKb8+jmr2Gb1ETJcIn6jktdIfkNriPAuVo0aKEpwZScpvzF4GKfiBAO4zUano+eG
-         GD9djsVwFuboEct3DNxwgpUMtGj4GRBiVnU8G8YJfUI5MY96CCSFSzwMBbImCuqxLYTZ
-         4MnzrBp0r62+kwKjyMzpNVLJic0o7KpunVzI5Yi2yBhTaWeWRVdzejRAKhOTQhtxHiqH
-         ap4Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789139516; x=1789744316; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=JwM5Epgg3IOjgygjiEjc2zoeXrLUf/Epju1L3iuJNZk=;
-        b=BKuu6WddAtNn13Ezu/myWUrl8wRcirs7lJnORviTmc1pNq3zz8wrOYdnDa7K2cWUjn
-         7qIuHQT7YQoVpdZfvYe5Hts8v0BvUZWf2y8Ncz6k/bzDPLJHpU5tPCS6kgo6K1KxYfsP
-         RM1s3g2ne7RHDHhc4E3ULstmP4N+Kjg+OgnrmS1AT/+/AARhli0F8jDgJ6QWLfe9beuU
-         24obPTwjhfvBcjcNQqwnl6G84hD6UML3GjvxMb9kFRnqQudyKTvO/xMmBgONinhnrLa8
-         7oqzOdmbLt8giRI9tnl4yNW2z8EbiYjD1vlBjw2CMS+3WSgOY8iZeZvIZnr6AXfv76CO
-         ffZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789139516; x=1789744316;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JwM5Epgg3IOjgygjiEjc2zoeXrLUf/Epju1L3iuJNZk=;
-        b=L5Q58lYVixSlJEKx7BmfV6Im+L28QGLOedBCK8BbTrhKZh+FjuGMpIrKrFhmV+w8Mk
-         k5if+S7TPGrElG66Viw2p1F0J3khD6TxIyJ7rmJ6m/rpn+cEYhUQ/imF7XSMAOE4Mppv
-         QkUupJMmm/VcWBILsN/meRisoJhDhcY2tupK4x6SUpqiDgcxvnOk56Q+Ny7NRAIFU/9X
-         2s0E5NWgnLQPddTNVEjQOAJrXXmttFpwZ8IC4mSNe7DTucugb9TnCWKRgfx32jx0Icxz
-         rYxv14LyiboG99fYKVTWkxUaiuhFJO5uRTCDKyfEa2M+kbjSncjCPfYPXGFSdQ7Z+YTa
-         oVtQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwkaL3e6agxOZwfKQHWlvDcIsJ2UdOtsjhnfkfOpt0CVsNFXl76duX4i//PyhYrSAdD4iIjPVChiaJHRn8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kOJ5NPzXBv8n5d23CzBl4h8lWLEfOX/VnCeOC7J0ZOM0KzC+EJ
-	iXZaI3UgoxiV2mDvVmmggm7l9yj6P6hlTiQL3FZgZg/Whg4mdfQdyN9ePgQdbtqG7OeprbVUkv+
-	3mSScjkpQBgc1OH+IWHVEGBtwZM32iNaSjOWDknN/
-X-Gm-Gg: AYBFou2BoVnamxj8OemqUPIjmDbsH/NyooFDkNiAJHxb/8Tt3hbfzHjpUAP29K8Pbcn
-	tfgduOECh3oSUKL1m3TYrgpl14MQfxI56hVxXZk98f0PQi6kn3Hm2eHQ5DloNo4rXedNeoC7Yx7
-	wQZiXW6uCL1pEypkaSyiuIae0xUydl4CnIHdE27+V3E+n7mmKllejUotaKY2dvLNjfsA+aQzi1x
-	UteaHy3WD9AHA/P2VuZjJgA4XeG9mmV2wQ2OUGrs8Nqa0yQQ9SvFXD9y9tCg7gPws0O6YHCggfu
-	Idn5w8jKBH3dOR16VTDEKw7Sq7M793NagYmVb3FUiKQImNfSWqwRW84zhziFZvOx/7SM9Cbn+l0
-	N6mOiIhVUOVMRd+2pQ8DQrcPiri5YA+JZ/H6a8GD2Tw==
-X-Received: by 2002:a17:902:dacb:b0:2cf:4353:f117 with SMTP id
- d9443c01a7336-2dd2bf06220mr7129715ad.0.1789139515742; Fri, 11 Sep 2026
- 08:11:55 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="oCJe9leo"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=rOLit0W3VCFGTP5kXtsPzIPoTYVAhJ8ej1x5RJG9eCI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789139523; v=1; x=1789744323;
+ b=oCJe9leofDGa6JkKeh9Krd0+PQ2WfTq01gGyXBohCQFI4ksa3OtdLWDywpM6aKnlhCpFygiq
+ R6ud4hKe01TjpJJVc0nLFy91dU1GDuH1ym6EjjQYDtrr+qy7vgxa442N63AEzKkA9T70fAdcn3f
+ Gw16BnuVOnl4+fY9pGk4dY+8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 7e34b019e9c53bef;
+	Fri, 11 Sep 2026 15:12:03 +0000
+X-Mizu-Trace-ID: 7e34b019e9c53bef
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <91447a15-eea8-4f21-abd6-2d79b5c647bb@linux.dev>
+Date: Fri, 11 Sep 2026 17:12:02 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260907-cloexec-before-exec-update-lock-v1-1-8018c201a7df@google.com>
- <87qzj09gau.fsf@email.froward.int.ebiederm.org>
-In-Reply-To: <87qzj09gau.fsf@email.froward.int.ebiederm.org>
-From: Jann Horn <jannh@google.com>
-Date: Fri, 11 Sep 2026 17:11:18 +0200
-X-Gm-Features: AcwNN1UfWUuTxT6T6m2fFK9oBs0vwCiHpncLk9iQ0jXOn-ma2wM-nV7MC9jABfg
-Message-ID: <CAG48ez3f=-Ydf6rQWRxgeD1jz40LTup3MUmNJgqAaUAgAekDuQ@mail.gmail.com>
-Subject: Re: [PATCH] exec: do_close_on_exec() before taking exec_update_lock
-To: "Eric W. Biederman" <ebiederm@xmission.com>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, 
-	Benjamin Peterson <benjamin@locrian.net>, Jan Kara <jack@suse.cz>, 
-	Arjan van de Ven <arjan@linux.intel.com>, Jake Edge <jake@lwn.net>, linux-kernel@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/2] Input: xpad - introduce a static table to ignore
+ devices
+To: Jiri Kosina <jikos@kernel.org>
+Cc: 'Benjamin Tissoires' <bentiss@kernel.org>,
+ 'Dmitry Torokhov' <dmitry.torokhov@gmail.com>, linux-input@vger.kernel.org,
+ linux-kernel@vger.kernel.org, "Derek J. Clark" <derekjohn.clark@gmail.com>
+References: <20260811125856.1692045-1-denis.benato@linux.dev>
+ <20260811125856.1692045-3-denis.benato@linux.dev>
+ <6598sn1p-p330-1r7o-q43p-r1rnr7nn0022@xreary.bet>
+Content-Language: en-US
+From: Denis Benato <denis.benato@linux.dev>
+In-Reply-To: <6598sn1p-p330-1r7o-q43p-r1rnr7nn0022@xreary.bet>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 11, 2026 at 1:30=E2=80=AFPM Eric W. Biederman <ebiederm@xmissio=
-n.com> wrote:
-> It has always been a requirement that in exec_update_lock not be held
-> for writing over any userspace accesses.  Which is why it is taken in
-> right after exec_mmap is done updating userspace.
+
+On 9/11/26 16:11, Jiri Kosina wrote:
+> On Tue, 11 Aug 2026, Denis Benato wrote:
 >
-> In the original version I missed that do_close_on_exec calls flush
-> which can block waiting on userspace (Is that just a fuse thing?).
+>> Certain devices can work both as HID and as an xpad device: binding both
+>> would duplicate inputs causing userspace to receive double inputs; at the
+>> same time if a HID device is available it is to be preferred as it can
+>> support additional features such as integrated IMU and additional buttons
+>> and more, depending on the specific driver, therefore allow only the
+>> best driver available to bind the device.
+>>
+>> Suggested-by: Derek J. Clark <derekjohn.clark@gmail.com>
+>> Signed-off-by: Denis Benato <denis.benato@linux.dev>
+> I'd like to have Dmitry's Ack on this one before taking the Flydigi 
+> support through the HID tree.
+Hi Jiri,
 
-It's particularly egregious in FUSE, but I think network filesystems
-can also block on network I/O in there.
+Sure thing! While we wait I will get a v4 going that is reported working better
+and having battery reporting too by Adolfo.
 
-> Acked-by: "Eric W. Biederman" <ebiederm@xmission.com>
+This new table will be used by Derek too for some trustmaster (I think) he's
+working on that is in the same situation.
 
-Thanks for the review!
+Best regards,
+Denis Benato 
+> Thanks.
+>
+>> ---
+>>  drivers/input/joystick/xpad.c | 24 ++++++++++++++++++++++++
+>>  1 file changed, 24 insertions(+)
+>>
+>> diff --git a/drivers/input/joystick/xpad.c b/drivers/input/joystick/xpad.c
+>> index feb8f368f834..545119a4fb36 100644
+>> --- a/drivers/input/joystick/xpad.c
+>> +++ b/drivers/input/joystick/xpad.c
+>> @@ -406,6 +406,18 @@ static const struct xpad_device {
+>>  	{ 0x0000, 0x0000, "Generic X-Box pad", 0, XTYPE_UNKNOWN }
+>>  };
+>>  
+>> +#define XPAD_SUBSTITUTE(_vid, _pid, _enabled) \
+>> +	{ .vid = (_vid), .pid = (_pid), .enabled = (_enabled) }
+>> +
+>> +static const struct xpad_excluded_device {
+>> +	u16 vid;
+>> +	u16 pid;
+>> +	bool enabled;
+>> +} xpad_excluded_devices[] = {
+>> +	XPAD_SUBSTITUTE(0x37d7, 0x2401, IS_ENABLED(CONFIG_HID_FLYDIGI)),
+>> +	{ }
+>> +};
+>> +
+>>  /* buttons shared with xbox and xbox360 */
+>>  static const signed short xpad_common_btn[] = {
+>>  	BTN_A, BTN_B, BTN_X, BTN_Y,			/* "analog" buttons */
+>> @@ -2044,11 +2056,23 @@ static int xpad_probe(struct usb_interface *intf, const struct usb_device_id *id
+>>  	struct usb_device *udev = interface_to_usbdev(intf);
+>>  	struct usb_xpad *xpad;
+>>  	struct usb_endpoint_descriptor *ep_irq_in, *ep_irq_out;
+>> +	const struct xpad_excluded_device *excluded;
+>>  	int i, error;
+>>  
+>>  	if (intf->cur_altsetting->desc.bNumEndpoints != 2)
+>>  		return -ENODEV;
+>>  
+>> +	for (excluded = xpad_excluded_devices;
+>> +	     excluded->vid || excluded->pid;
+>> +	     excluded++) {
+>> +		if (!excluded->enabled)
+>> +			continue;
+>> +
+>> +		if (le16_to_cpu(udev->descriptor.idVendor) == excluded->vid &&
+>> +		    le16_to_cpu(udev->descriptor.idProduct) == excluded->pid)
+>> +			return -ENODEV;
+>> +	}
+>> +
+>>  	for (i = 0; xpad_device[i].idVendor; i++) {
+>>  		if ((le16_to_cpu(udev->descriptor.idVendor) == xpad_device[i].idVendor) &&
+>>  		    (le16_to_cpu(udev->descriptor.idProduct) == xpad_device[i].idProduct))
+>> -- 
+>> 2.47.3
+>>
