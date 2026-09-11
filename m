@@ -1,161 +1,204 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D180B4BEE24
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 23:24:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 932E3413D69
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 23:24:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789169051; cv=none; b=jsl6yIYrt7notu/6fdpVlg/JClPtH+nh7sNSvSniajrDR/zcw6l1GR4FsD08ksB8hJUnKux9YYDnqP+7JYSSS8Ofy1SDQ52iWz6d5M6O30XMuYG1RJmM4wYNY0oRGqoipokxCMVdOIYzl5TYgLWHXjbFxMgIKAIlR8JVP9YluKc=
+	t=1789169055; cv=none; b=tjmQ5CY8dfugJf1U7r7OPaheTn8IeHb6dzrbioYCCBFtNFDlosNxJFa+wwk2jnLliCcbluunzfb7f8xhochlVPMc7b7wY9nGGRQn2tnisli1Igs3VckZnwsJlTRgPT5lmlwWIz3Jbg+grVD9OII1nitkur5FJOvyI8XOs/O0Lkg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789169051; c=relaxed/simple;
-	bh=OLxzEF5Veo4HgAXDo4DPwZqpxPXhOc+Zuv+WgZ7fy0Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=M7aFxB3utcItxTGmdxT224l/xRTdeZEC6pMwnqOm20ZPgkbaT2uayuoQwFHCB1FXqJ3ct+BISbpYl3ZOOfiE4VG0DhBeIqhcQEy8jdgwVHjmNBcGvmPXXbmDbU/s8kZKyIclN89XFbBUdCTPHCw2CPpGB2msOZy02Q9wAtnQMlg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=XCA21cqz; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1789169055; c=relaxed/simple;
+	bh=rDYLcF5gI9g5L8e05rkmWXDDZoAfgSwGjk0FLLSQptU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=A4uzYEdFMvVQD5IJ6zmvW8dUd05YEI3NsBx4qS4vysQ6MByJyRF2n44yxeLilE82rDZf+1UQLFzvhnuVaT8i7dpOH/wzyXrXCik2VKVIE8nShJfhu8fmF0jJgLje1kiZ/wlN2DlW7U3Q2yfiayezihXgnMQ227vKHxgim/eZMvA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ngVWFLWD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="XCA21cqz"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d6ff3aca06so11025ad.0
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 16:24:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789169049; x=1789773849; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wLYK1uyd6czX8B16m6xbBDxNBXBkc9fwokq20u5lm6s=;
-        b=XCA21cqzbEXIz1lbmeDPhVHhX87amOYnDicHzEYpvZb5vV/XWKbHFaY2ZSEL8Ze/rz
-         rbtF6W5F2fzefCj1iyxp0dG15HXVyhwAuj3MDukthrh43dIpFwZB2n7Jv9NcK995gX/t
-         UzqoUN3IY+5n78KURFsJNOJ+CRxzujg03ZGAkz4d+Jj39TkT5RNPzys9tsQnNVhO6Gmn
-         HSMklH8jX28xvLcznPfXHJPMTXBqQYlgzdq9wmvQETamtsumCwgoSNu3ZBuK+9h4WcP7
-         6senII5cUNCe7uJt6g67mu46m6MJqHukFfIuRDN/nXsaWkd6BDdxtpGvbtxufE95fO/T
-         IQHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789169049; x=1789773849;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=wLYK1uyd6czX8B16m6xbBDxNBXBkc9fwokq20u5lm6s=;
-        b=Oj07gRikncZ3o4/Of1neE/Ex8JBCbGlqcH8VgvtCkmUdk2fbcll/gvC6qSLDm0eVjM
-         wW/acYMCV1s46PxMeiOeQpINjZm6U2/saiYggGtSUiDEprWK8bsv9EquDic3IYv8YB2+
-         9QK/7IGfxmT5vs8aRNsdrkKH5LdjBSe9s/vW4p6v0thQ5tFmEzgT5mwMmKhHsGdYSEbi
-         GiOzpgnm2G4ChLg7bOVdcWz4ariTuqCt3uf8ZLtGFft025tR+sqbZ9a9iuTaYkPDvs9f
-         vGLsFGJUU/vxDQenXzyJwQFsliFeA32yY/vrjnKi+p3yQwPcrQ8bSCS7OxFssYtMkfz0
-         q4TA==
-X-Forwarded-Encrypted: i=1; AKwUvBzR6KPRjhHN98B3rN27viSFcPgn7zmM1iS9S7RpfC+zRdfsGJsO7sSQfyTreKI3mm2mEt/KetT9qcV8irU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nZa57IyhAoQLMT38xsZKXMISft/I4GmlqfJFYOHza/cE9FO1aO
-	gprr9A18t5UUbPYWJ7jZ2ULVsDRgLYZRsSYbVpLdnO1g8wKqaPBhs4+988BRfDy58A==
-X-Gm-Gg: AYBFou17bI3pjqVvhGfup3j+recc9MsVgQyWggePie1ftpFhkO4E0HaOJP6MFGKzhy6
-	9FhMiaJYck8ZJtXp5a0apVpveBqspVrgWXntOO7+r1M7+koLd/nXAwY1l8RgT72K2I31jfyNqUt
-	lNoGAcWn72eX7jRyUZWvH68fLfsPAT4YhFeF7SmHa050u8074YH7ZghT8JJu7otkPZHmDCJZB0/
-	bEt4J7vQsCxmqMuejWdjDcHXQViUnMyT+u0vZ8gIHYll16iL+GXSBAq+kaGzffJC+Wc58Wbd39T
-	TprpwjcxVQuLDz6W8Rj4REUYUIo06vsCB+qOsoeArFOFT5zm7ZuHwCXHakkBP/5GELJOdm8WPEw
-	nqUHX7VOkqRm5LGQ7fySv5+kEWHOnBBegVYNzDtDosmDiI8bRpYDlcv/HmCM6eYqnd5zbb/sE+v
-	WUAWOwiuuamlArhfeh1qFReJ60W17LVuyI/V4PHMzRTpl9MEtJXPem1yv1kOrqWfzFaitMscBtt
-	1Ue9nUVOt5gcZqRthJ6pwNX5pXy/Vf+lmoRRzo=
-X-Received: by 2002:a17:903:2309:b0:2d5:c090:3810 with SMTP id d9443c01a7336-2dd47eceefcmr3132765ad.2.1789169048773;
-        Fri, 11 Sep 2026 16:24:08 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2e51:8:5f1c:c62:bce3:653f])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4e52a60sm9050841eec.6.2026.09.11.16.24.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 16:24:08 -0700 (PDT)
-Date: Fri, 11 Sep 2026 16:24:01 -0700
-From: Isaac Manjarres <isaacmanjarres@google.com>
-To: Andrii Nakryiko <andrii.nakryiko@gmail.com>
-Cc: =?utf-8?B?6auY57+U?= <gaoxiang17@xiaomi.com>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Xiang Gao <gxxa03070307@gmail.com>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	=?utf-8?B?5Y2w6Zev?= <yinchuang1@xiaomi.com>,
-	"bpf@vger.kernel.org" <bpf@vger.kernel.org>,
-	"linux-mm@kvack.org" <linux-mm@kvack.org>,
-	"linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"Lorenzo Stoakes (Arm)" <ljs@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>
-Subject: Re: [External Mail]Re: [RFC] bpf: account ring buffer backing pages
- separately from Lost RAM
-Message-ID: <aqSNkbhIuaB5D0H0@google.com>
-References: <20260815091819.3651099-1-gaoxiang17@xiaomi.com>
- <04f3ce2f-67f5-4829-9551-a69b9df29854@kernel.org>
- <CAEf4BzbwZkoacX-iP1j4+p8YNbWsq0pc3eTermh2uT5ir66zbw@mail.gmail.com>
- <8d2e20842c24460296e4c83e6dc0dde3@xiaomi.com>
- <CAEf4BzYQvhSVN=Hggg5FHzFdkRr4UNBD6yXaBsOaAwbsRpXpsw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ngVWFLWD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 151FC1F000FF;
+	Fri, 11 Sep 2026 23:24:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789169053;
+	bh=XXgOUPFPI5ePzxOnWQPled+IDxlIHlXzVogy/zHbBXo=;
+	h=From:To:Cc:Subject:Date;
+	b=ngVWFLWDxpzhdpvl5AMx6LSf34+c6CT+k2O+gxBsBwR3iLReWQPtQT63KNYGUC6Ko
+	 yROAoSYKxSn858cErdy+IrUeDLu9eqXmngR/CRovomL015MBNOgLGxZS/6udwaogir
+	 DnlllIxZqepIWO2iPN6jse2Gc+1XMslTisepYhG4m+lGLKNehfwXG+uq1elu1R4D5B
+	 r1wpHY2Trc/HoXFM4S6W3UEv9e35IQbmMk/j5vObfuKhw+9hWTDFqY2IaSvwf1uw3O
+	 q5FbmHiwWhX31UnJN4ZL7m+MacCnEzckwJUgm4GjclFRV5BX20RimeiZRLqxQcmyQz
+	 qVFgNmlbBjXHw==
+From: Chao Yu <chao@kernel.org>
+To: jaegeuk@kernel.org
+Cc: linux-f2fs-devel@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	Chao Yu <chao@kernel.org>
+Subject: [PATCH v7 00/12] f2fs: introduce metadata cache
+Date: Sat, 12 Sep 2026 07:23:53 +0800
+Message-ID: <20260911232405.1815804-1-chao@kernel.org>
+X-Mailer: git-send-email 2.55.0.1007.g17ff1f9808-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAEf4BzYQvhSVN=Hggg5FHzFdkRr4UNBD6yXaBsOaAwbsRpXpsw@mail.gmail.com>
 
-On Wed, Aug 19, 2026 at 10:24:28AM -0700, Andrii Nakryiko wrote:
-> On Tue, Aug 18, 2026 at 6:46 AM 高翔 <gaoxiang17@xiaomi.com> wrote:
-> >
-> > Thanks for the pointer. Understood — no new NR_* counter or
-> > /proc/meminfo entry.
-> >
-> >
-> > The remaining question is on the consumer side: Android's Lost RAM
-> > accounting would need to enumerate all live BPF ringbuf maps
-> > (BPF_MAP_GET_NEXT_ID) and read each map's fdinfo memlock to sum them.
-> >
-> 
-> For BPF ringbufs specifically, you should be fine just iterating all
-> map with BPF_MAP_GET_NEXT_ID, getting its FD with
-> BPF_BTF_GET_FD_BY_ID, and then passing that fd to
-> BPF_OBJ_GET_INFO_BY_FD to get map's size.
-> 
-Hi Andrii,
+This patchset introduces a self-managed metadata block cache in f2fs,
+decoupling meta blocks, node blocks, and compressed data blocks from
+the Linux VFS page cache and fake internal inodes.
 
-Thanks for the suggestion on this! I did want to express a couple of
-concerns with this:
+=== 1. Background & Motivation ===
 
-Scalability
+Currently, F2FS uses fake VFS inodes (meta_inode, node_inode, and
+compress_inode) to manage internal block caching through the VFS page
+cache. Because of this implementation, the f2fs block size was
+historically coupled to the kernel page size.
 
-I counted the number of maps on one of our devices, and there are 112
-maps, meaning that there will be between 224-336 syscalls with this
-approach. eBPF is becoming more popular, so I'm concerned about how well
-this will scale, if we have to invoke 2-3 syscalls per map.
+We now want to unbind block size from page size to support configurations
+where block size <= PAGE_SIZE (e.g., mounting a 4KB-block F2FS image on a
+16KB or 64KB page system).
 
-I had a test program that implemented your suggestion, and it took about
-2 ms to identify 39/112 ringbufs. As the number of maps in the system
-grows, I'm concerned that the latency associated with computing the
-memory usage from ringbufs will become even more expensive. This is
-something we had an issue with before on Android, where we had to
-iterate through various sysfs files to gather wakeupsource metrics [1].
+One possible approach is to continue using the VFS page cache to store
+metadata blocks. However, doing so introduces three major architectural
+issues (illustrated by a 4KB block on a 16KB page system):
 
-To improve on this, I was wondering if we could expose the ringbuf
-memory usage and potentially other bpf stats through bpffs
-(/sys/fs/bpf/stats)? This counter could be a lightweight counter that is
-incremented/decremented on ringbuf allocation/freeing so that when it is
-read, there aren't any expensive computations.
+1. Memory Overhead:
+   Metadata access patterns are typically random and sparse. Caching a
+   single 4KB metadata block inside a page cache folio forces the
+   allocation of an entire 16KB folio, resulting in 4x memory waste.
 
-For this specific metric, we could just use a counter to track how much
-memory is being used by ringbufs and have userspace read that. That also
-brings me to my next point.
+2. Folio and Sub-block Conversion Complexity:
+   Using larger folios requires tracking individual sub-block dirty/uptodate
+   states within each folio and performing index-to-offset conversions across
+   function boundaries. Because core metadata structures (e.g., f2fs_checkpoint,
+   f2fs_sit_block, f2fs_nat_block, f2fs_summary_block, f2fs_node) are accessed
+   extensively throughout the filesystem, this sub-block management and offset
+   calculation complexity would spread across the entire F2FS codebase.
 
-Correctness
+3. Lock Contention:
+   Multiple independent node blocks (e.g., dnode blocks belonging to
+   different files) can reside within the same folio. Concurrent fsync()
+   calls on unrelated files would contend on the same folio_lock(),
+   serializing metadata updates and degrading multi-threaded performance.
 
-The max_entries value is the size of the data in the ringbufs.
-However, it doesn't capture the 3 metadata pages associated with each
-ringbuf, which leaves a gap of ~468 KB, and that gap can keep growing
-as the number of ringbufs increases. It's important to have as much
-information as to where memory is being allocated to, as there are
-devices with as little as 2 GB of memory that we need to be able to
-profile memory usage with.
+Decoupling metadata caching from PAGE_SIZE by allocating exact
+block-sized cache entries is the critical first step toward supporting
+4KB-block F2FS images on 16KB/64KB page systems.
 
-I think exposing the sum of ringbuf data + metadata pages through the
-node I proposed earlier would help achieve this.
+=== 2. Metadata Cache Architecture & Design ===
 
-[1] https://lore.kernel.org/all/20260511174559.659782-1-wusamuel@google.com/
+This patchset introduces a dedicated, block-size-aligned caching
+infrastructure with the following key components:
 
-Thanks,
-Isaac
+- Block-Size Aligned Allocation:
+  Allocates memory buffers matching exactly the filesystem block size
+  (4KB or 16KB) via kzalloc(), fully independent of the host
+  architecture's PAGE_SIZE.
+
+- Radix Tree Indexing with Fast Tag Scanning:
+  Each cache instance (META_CACHE, NODE_CACHE, COMPRESS_CACHE) indexes
+  cached blocks via a radix tree (keyed by Physical Block Address for meta/
+  compress cache, and Node ID for node cache). Radix tree tags
+  (F2FS_CACHE_TAG_DIRTY, F2FS_CACHE_TAG_WRITEBACK) provide O(1) batch gang
+  lookups for flushing and writeback without dual-list shuffling.
+
+- Lightweight Bit-Locking:
+  Individual entries use atomic bit locks (F2FS_BLOCK_LOCKED via
+  wait_on_bit_lock() / clear_and_wake_up_bit()) rather than heavyweight
+  embedded mutexes/semaphores, minimizing memory footprint per entry.
+
+- Direct BIO Read/Write & BIO Merging:
+  Decouples metadata/node I/O from VFS address spaces by submitting direct
+  BIOs (f2fs_submit_cache_read / f2fs_submit_cache_write) with chained
+  adjacent vector merging (entry->next_entry) and dedicated completion
+  handlers.
+
+- Memory Reclamation Shrinker:
+  Integrates with the kernel shrinker subsystem via a 3-phase isolation
+  algorithm (isolate unreferenced clean entries -> truncate from radix tree
+  under lock -> splice un-reclaimed entries back to LRU) to safely reclaim
+  clean cached blocks under system memory pressure.
+
+- Background Writeback Kthread & Checkpoint Integration:
+  Provides a dedicated background kthread (f2fs_writeback-X:Y) for periodic
+  dirty cache flushing, combined with synchronous flushing during checkpoint
+  commit.
+
+- Fault Injection, Tracepoints & Debugfs Observability:
+  Integrates FAULT_KALLOC fault injection, tracepoints for cache state
+  transitions and batch writeback, and per-cache memory breakdowns in debugfs.
+
+=== 3. Patchset Organization ===
+
+- Patch 01: Implement the core metadata cache infrastructure & direct BIO I/O.
+- Patch 02: Initialize and teardown META_CACHE in sb_info.
+- Patch 03: Integrate metadata cache into the memory shrinker subsystem.
+- Patch 04: Introduce the background writeback kernel thread.
+- Patch 05: Migrate metadata block caching (SIT, NAT, SSA, CP, recovery, GC)
+            from meta_inode to META_CACHE.
+- Patch 06: Initialize and teardown NODE_CACHE in sb_info.
+- Patch 07: Migrate node and inode block caching from node_inode to NODE_CACHE.
+- Patch 08: Initialize and teardown COMPRESS_CACHE in sb_info.
+- Patch 09: Migrate compressed cluster caching from compress_inode to COMPRESS_CACHE.
+- Patch 10: Add fault injection support for cache allocation paths.
+- Patch 11: Introduce ftrace tracepoints for cache dirty and writeback events.
+- Patch 12: Expose per-cache memory usage in debugfs.
+
+Changelog:
+
+v6->v7:
+- rebase on last dev-test
+- clean up comments, functions and macro names from page to cache/block
+  based on Jaegeuk's patches
+
+Chao Yu (12):
+  f2fs: cache: implement metadata cache
+  f2fs: cache: initialize meta cache
+  f2fs: cache: introduce shrinker
+  f2fs: cache: introduce writeback thread
+  f2fs: cache: use meta cache
+  f2fs: cache: initialize node cache
+  f2fs: cache: use node cache
+  f2fs: cache: initialize compress cache
+  f2fs: cache: use compress cache
+  f2fs: cache: support fault injection
+  f2fs: cache: introduce tracepoints
+  f2fs: cache: show per-cache usage in debugfs
+
+ Documentation/ABI/testing/sysfs-fs-f2fs |    6 +
+ fs/f2fs/Makefile                        |    2 +-
+ fs/f2fs/acl.c                           |   26 +-
+ fs/f2fs/acl.h                           |    8 +-
+ fs/f2fs/cache.c                         |  708 +++++++++++++++
+ fs/f2fs/cache.h                         |  243 +++++
+ fs/f2fs/checkpoint.c                    |  434 +++++----
+ fs/f2fs/compress.c                      |  165 ++--
+ fs/f2fs/data.c                          |  521 +++++++----
+ fs/f2fs/debug.c                         |   70 +-
+ fs/f2fs/dir.c                           |  170 ++--
+ fs/f2fs/extent_cache.c                  |   14 +-
+ fs/f2fs/f2fs.h                          |  376 ++++----
+ fs/f2fs/file.c                          |   82 +-
+ fs/f2fs/gc.c                            |  185 ++--
+ fs/f2fs/inline.c                        |  284 +++---
+ fs/f2fs/inode.c                         |  217 ++---
+ fs/f2fs/iostat.h                        |   11 +
+ fs/f2fs/namei.c                         |  114 +--
+ fs/f2fs/node.c                          | 1102 +++++++++++------------
+ fs/f2fs/node.h                          |  118 +--
+ fs/f2fs/recovery.c                      |  251 +++---
+ fs/f2fs/segment.c                       |  305 ++++---
+ fs/f2fs/segment.h                       |   37 +-
+ fs/f2fs/shrinker.c                      |   14 +
+ fs/f2fs/super.c                         |  147 ++-
+ fs/f2fs/sysfs.c                         |   15 +-
+ fs/f2fs/xattr.c                         |  123 ++-
+ fs/f2fs/xattr.h                         |   12 +-
+ include/linux/f2fs_fs.h                 |    3 -
+ include/trace/events/f2fs.h             |   71 ++
+ 31 files changed, 3511 insertions(+), 2323 deletions(-)
+ create mode 100644 fs/f2fs/cache.c
+ create mode 100644 fs/f2fs/cache.h
+
+-- 
+2.49.0
+
