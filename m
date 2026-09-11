@@ -1,133 +1,76 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 393881A6838
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:52:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6191944F579
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:52:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789113162; cv=none; b=EuVp9t8Tz5S3G4Ge+nUzMveKoDnJtR+xxJ9nfDNGs0vQs2n0utDeYAjqsd31rYUQVCatwiY8TVQC+6xE9cH8lEvsLfb6aap13Jn9zVADr77vIvRx3fTDMaHFgmWcwMD2SWQ1IZwrr0t7FIdZRnpqf7B3ueM5F2pExhMHJS6MgO8=
+	t=1789113164; cv=none; b=siZIKqTtm9euz/7xH/Yt9QtUdBqmuNQjNDIX5o9g5JLNg7aXlvr7oA4kYKIVpzJ4AdB2sQCC8YbTzHfJcy+ftjlK0O1xyer5xHCO+/sevtA6tOCJY3jg9JFbZRc94cEjFk1JkcfZ7cw7At0Vtv+cB04AZdsHpNLVeWzteaPGjNY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789113162; c=relaxed/simple;
-	bh=6AE1owqySV2xrSwSgCIGV4e51eXVhc5hAMDhjV5VG3M=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pOPeyxdsL+PRxCmy6UMkWVSuYn29NkJKnYld228JWxpV5B17PXp2TFEd5pxzT59DU72i0M6A0CMGEkUzM2hIbOaDMPGboEACVjlUyMg94TV8LjMS9FfBUcSxKy/5RO3moZCEC6ptNLFhIiwf1ScA0diLlQOMq/sbgECZKrsMbak=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b=fJgJNu3U; dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b=PiMCF3+7; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1789113164; c=relaxed/simple;
+	bh=mAy/mjo9ky8p0zKdUD9C54wYiJlR2G9xib1258FjWlg=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KRAE4+b5JEtISBmUal3M2M9LSTHWwjemq/HOGQgHZjIWt4DJwiShC88+ZUrgyacy2g+OuxpI013/xay1wyQrQ0G2iDVPFuegsPMFpb1+Dhi6UUQGGbDKbnz54RN3HuYeLIoFFc27QeBr+1/7tEezW1HNKtqMcPRIyaP4bH+KNjM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nBCejXNQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b="fJgJNu3U";
-	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b="PiMCF3+7"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id E597221D37;
-	Fri, 11 Sep 2026 07:52:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1789113155; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GOvVFBJSlIZ54cIrSULNavAILkGHAg9pGp9S4uew0eU=;
-	b=fJgJNu3Udx2FbXpCAHrK08Br7F1MHhbtCYr5cHeEev98y6cpdt5ACTDx8uwiXN1xpCcXrN
-	vEZVGRTbfG6z1+l/e+Htdrz4DmLGt7h+mfn4l7Wcvf/VZGzpbTcovooLmN2LOld7z44aeK
-	UZWRSHOOG7lHa6dYJyYKJLVF0M5NfNA=
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.com header.s=susede1 header.b=PiMCF3+7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1789113150; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GOvVFBJSlIZ54cIrSULNavAILkGHAg9pGp9S4uew0eU=;
-	b=PiMCF3+7e84hESivbFTkF+oVC/Tf3FtoDEfjwtuwoK65Hl45g6wYBS8gTTo6xXoMC71w5o
-	NDXWvRwk0RrvkwGvsa1ieeD5POuefGn+9VyjN5YK767enjaftevGnN/FXoGiXtUKb4KP5o
-	rJZ3xd4D2adEig/35hbu172wlNkG8LE=
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 81938136ED;
-	Fri, 11 Sep 2026 07:52:30 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id HrUxHj6zo2r+XwAAD6G6ig
-	(envelope-from <jgross@suse.com>); Fri, 11 Sep 2026 07:52:30 +0000
-From: Juergen Gross <jgross@suse.com>
-To: linux-kernel@vger.kernel.org,
-	x86@kernel.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>
-Subject: [PATCH v2 2/5] x86/msr: Remove native_wrmsr()
-Date: Fri, 11 Sep 2026 09:52:13 +0200
-Message-ID: <20260911075216.3142309-3-jgross@suse.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260911075216.3142309-1-jgross@suse.com>
-References: <20260911075216.3142309-1-jgross@suse.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nBCejXNQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 128D31F008A2
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:52:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789113163;
+	bh=mAy/mjo9ky8p0zKdUD9C54wYiJlR2G9xib1258FjWlg=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=nBCejXNQsWQR/kbP8ofYrcVfv2aqnR/3tYIIQUNpPeUU/OvtlVDSgmWDJN8kto6zT
+	 WjZ7krJVZ75zGCFIpW1Sn03CQhjNWofZQyPD7gvktU7uNfWxymEyLEu4lrwtm5fclM
+	 pCpsZM+7a4Hw7C2c4JhTqEDh4s50/Z1V99+0m1tVOFgytvKNW6uLLAinunCFH7QxWt
+	 qZINxZfKBI4bD84Qm6jzD8TkEDuXYWMOY2rcSsKIJMS+bRGvsxVIUhPjN8M2CEZxV2
+	 DNyJwOF4FWXsAfAX8YuBfhkvM7s3UXYq7qpmOwJ001w5/HVHv7wEp64Zt7VCFhiZ6m
+	 6B69oVXtJzFDQ==
+Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5b5e5ab03afso602890e87.3
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 00:52:42 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzALyhubjsxbFSt4RLJbFW0JsShjuYF96aIEUeJj9FtWSGSdtsiHtPmg8V7OyK/30V1G4lI7fobKJOEFg8=@vger.kernel.org
+X-Gm-Message-State: AFuF++k9PtWjiX7UPylcPsg9YZl0k3ukSXoZdgFQx/mmMTH8fU2W28lE
+	09CFNTsOz4vOmfWNo1muTEGnegyjWdeQo18NzCXjSl1I7Iiw+fPPa4R1aR1QUjt5lQ/qO02UcHs
+	6xaDqQDJgf4bKPGN7ZeYqGOBEKuHvA2pcdMzO36d8KA==
+X-Received: by 2002:a05:651c:43c4:20b0:3a3:7682:49a7 with SMTP id
+ 38308e7fff4ca-3a5a5291cf0mr2127591fa.28.1789113161739; Fri, 11 Sep 2026
+ 00:52:41 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Fri, 11 Sep 2026 00:52:40 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Fri, 11 Sep 2026 00:52:40 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260831-shikra-upstream-v2-4-406661d75afa@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Score: -3.01
-X-Rspamd-Queue-Id: E597221D37
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-3.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_MISSING_CHARSET(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	MIME_TRACE(0.00)[0:+];
-	TO_DN_SOME(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	ARC_NA(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	R_RATELIMIT(0.00)[to_ip_from(RLkdkdrsxe9hqhhs5ask8616i6)];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:dkim,suse.com:email,suse.com:mid]
-X-Spam-Flag: NO
+References: <20260831-shikra-upstream-v2-0-406661d75afa@oss.qualcomm.com> <20260831-shikra-upstream-v2-4-406661d75afa@oss.qualcomm.com>
+Date: Fri, 11 Sep 2026 00:52:40 -0700
+X-Gmail-Original-Message-ID: <CAMRc=Mf=s2Q8z165ufJjj70TZPv7TFFF3b8QaTh1Uiz4r-64Og@mail.gmail.com>
+X-Gm-Features: AcwNN1WYfbMG0innksiJiNzSA1WdoA4NxNphoNZxr1Iyd160wvFBkOcClMlPLKs
+Message-ID: <CAMRc=Mf=s2Q8z165ufJjj70TZPv7TFFF3b8QaTh1Uiz4r-64Og@mail.gmail.com>
+Subject: Re: [PATCH v2 4/5] phy: qcom: qmp-pcie: Add QMP PCIe PHY support for Shikra
+To: Sushrut Shree Trivedi <sushrut.trivedi@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-pci@vger.kernel.org, Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Helgaas <bhelgaas@google.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	=?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-As native_wrmsr() has no users left, remove it.
+On Mon, 31 Aug 2026 09:26:04 +0200, Sushrut Shree Trivedi
+<sushrut.trivedi@oss.qualcomm.com> said:
+> Add QMP PCIe PHY Gen2x1 support.
+>
+> Signed-off-by: Sushrut Shree Trivedi <sushrut.trivedi@oss.qualcomm.com>
+> ---
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
- arch/x86/include/asm/msr.h | 3 ---
- 1 file changed, 3 deletions(-)
-
-diff --git a/arch/x86/include/asm/msr.h b/arch/x86/include/asm/msr.h
-index 95761803c2e6..bfad2b96a892 100644
---- a/arch/x86/include/asm/msr.h
-+++ b/arch/x86/include/asm/msr.h
-@@ -95,9 +95,6 @@ static __always_inline u64 native_rdmsrq(u32 msr)
- 	return __rdmsr(msr);
- }
- 
--#define native_wrmsr(msr, low, high)			\
--	__wrmsrq((msr), (u64)(high) << 32 | (low))
--
- #define native_wrmsrq(msr, val)				\
- 	__wrmsrq((msr), (val))
- 
--- 
-2.55.0
-
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
