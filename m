@@ -1,107 +1,140 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7421B4BEE29
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 22:09:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C09AF2D738F
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 22:10:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789164596; cv=none; b=VoNudmVWm/IXYoJpcpBC/M7/DpvXgj1JXH93g/G8qigIKOqJyNQfQtZMSY6eYZXCoCyb/iV2AkZoLk+36dylgRZ3qhFrKK2BYkE9zSNN8PuQgQVbB3Hfa/LUGHK1lDSIdcaml3MoPR3RbAFHnbgyrT4wrKl6ibH2yDqM5yc/0OY=
+	t=1789164622; cv=none; b=StGHOiJ+ixJBtwHrdDLEwXd2+8xvh4g7AtRP/cdZZMLUDYVvTV3GjqGPOwcj3e0fLFNd3rWqWmQmTmJED7Je/BF0JyL8Fc9ZjqTawnsnPAfqGPd1YlECcdUIGD7ew/4xXu9Co0hhV1I367npH8/vg7rYZ9aMuEGQY9v9Yn1cXoA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789164596; c=relaxed/simple;
-	bh=t+Do4nGFECT6+LKHRKvJVejkOKMJELdYcZO6ItT3PsI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=iskugJpvpDRykcWg+6L3ickCqMtheYKjj85STMgmAcOW55G0N7BCMDY1aQuJL6pg9K1GuV2Q8zuq8OvV0ukjC+CKBvn3QEfejfxXr04/2X4dAQiYI5jxkSZRIk1UjBWMIgY+QCCg1eZMKEwndk5iwojtgbHhA98m35A0JJiP8r4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UXVKXqDY; arc=none smtp.client-ip=74.125.225.140
+	s=arc-20240116; t=1789164622; c=relaxed/simple;
+	bh=wzOAT8P+HfggfOuW+tbV1rDr39BIeDu1f097JVhjors=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=WGZtXYVL96nc++Sl99C0vUDxZ5xhxUinetYDI55j0ZPCCYOt0VHH0CZVnskcotsv3D68WZl6R3nUGekG4qpI2LoiGQpzN3uOjGja6RhWMorh1rj7XrF1bkPnkdTdyvYpiTb0DPFYbCE7+aHSMRk/Q7t0vG+JJHdOm6QJBy2V+pQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V8kPqdVL; arc=none smtp.client-ip=209.85.128.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UXVKXqDY"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccff31419so488895e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:09:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V8kPqdVL"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4998b5a63e2so15540505e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:10:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789164594; x=1789769394; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Dk8RJ/gWGUzJZL37Z13wVy/RHkm1H9VT60iwGnpNGc4=;
-        b=UXVKXqDYkUXMqC1VF7c5oSmOINGOJjIRwB+zt63W1TugeVgGhA+4fA0uWFfdCxMnml
-         JY8aOD6UENqwML/LorPb3nBylNitbNjBtkbAOWs3l9pNaLZZ1YeN3Vjkc/EovEZEI+4O
-         bpRZFnENG8YuAf7qOlL/zoyFyyIK2Nemdl3BD6iS6HOBUewYeUSkiuaVxKeKt5rjloDk
-         okfVGjgHoYrKlWgOoE5s2SczIkCuuahrw1Isgb/zKXwtuSGVEhA8YHDV3A0+QGeM8Eq/
-         cuvoxPx6Rgj+7drav+4YNH6hUcoJ3itgi2nFP6n9IECVTDsrlhntZODs2ibr7+isStYY
-         v9pg==
+        d=gmail.com; s=20251104; t=1789164619; x=1789769419; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1CitEInQG9IH8hFfkxw+Dy1+TcxOBHzYjUh6RK88Fgs=;
+        b=V8kPqdVLxhbxYq/ndSOhh59EWr8wuK81XRGpgyG1cXj+UuOWKJMFJ2T2a2dgpFrdLa
+         WkuVwWjHua6E0jDuliU9Xfih3FGXadW6+THWVrO6iOtCVXUCSCtYS+LVNXHxOpwM1s/Y
+         /bOxgg+4FBx1y8MXDR1zhT3bH3ZKtN6CF8wJX8J7oMW/zGMtXic0VCWyi99/rWWjnfd/
+         uuXLEKmMOpD1pjjTO6VRI6T6CUOYwvNYIghCxNP5Ys0xeNLSImT2vW7SH3c25q936lXU
+         qUoUKrw/pjuOxzetQVpQHrvTyuVJAj49eK1mHFx/vB/wgw7+zJMHO9eiGbAO23VErWjb
+         30HQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789164594; x=1789769394;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Dk8RJ/gWGUzJZL37Z13wVy/RHkm1H9VT60iwGnpNGc4=;
-        b=HYAaNABi7V67iO+ThjjBe5C1ZdD+/zZPgch1+Py0MzrUy6VlcsRUOtOXPuApicBv5w
-         YLKwizpPRbFbWlNYleh8WMhoFoR9/2vus8d5Kqv2YxrSW3kc8T3kdVlC1DYACX8UnnaN
-         8880jmgFxt3P4n2hWHmEQy1xSG7Nyx9wcBdIRTYEGZNX3M/Ld80wMNHJzbJ7GrW20wlT
-         etI85oR55UHa7OxOlXu6SnlPLBFWBlpjs6T2bsBLQlq7LBxcsWSP5hSyv/V9XNM8qynd
-         HGWPbbEuRvBqLoio0gY+Q37ipsQwmklTi7DKN9PhzIfZI1qOfhMaTuVEHjmN6+EiMMrs
-         Dkvw==
-X-Forwarded-Encrypted: i=1; AKwUvBxjdeY8a8WY5Rw89C5YvDe1i7uS4mRddKvHSJ4MTXY9b5S1kgskPRZ1K8WIcC8k4MOKvmAOL7BSLqZmkwQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lqsuc270s5hYoYzqWwwA7pKFiLJSsBqTVh9SDDA3D/UksuFgDL
-	oRaPwk21wnOheXiMBGDDP0/jokNxQtBkHTyXqx1yWiIdEcKa67flagl8
-X-Gm-Gg: AYBFou3YNhL0xfAUs3mHuPxTtDnATWsaCDBarjLpL2TmTxxfaklMjDXnkbKzcd5mMaV
-	6cAePtmCjcWKbmieHjb5+TgyaqTaShQ5hSdMgsjR2sztJO3jGOu9/kHqdoEZ2N9WyclmwkHeb4T
-	DUuCK9TCFXOR51e3rulLFYkko2tjbETEGVnWNC7gjX04uBqenRGVOOCSXtV2ky0kY2IwVpHCHkN
-	JXmEyG37NIkj42g0awn3OgBe7iY5+5hojAiv4GGTAStxRR3McbSq5XY6HAZaWna8l8J97A6Bsqp
-	uYSInm0T2U02kkFQLsUM1YKhzICTPSgjTunX+LdEgsTqCiHAZWHsX4r5xLembgxeh04keq6kMvT
-	MkWsrXCHDP3rHnaRj/cM3QhbNeGVMTFeAIMNsMuNzU6aIxyrk1qdqLyXOta2lsoNeF2i3yjrp1o
-	HFeYj2OI09GKvlRum4Ag4pvcwsl1jmTzUNiCXZAKnB38dyLQIG0bV5gG/t7H4pRtyfEkx9S7vNl
-	dKmyzCMNMvnsQaPwKPpBSkzcsKrRyLUkyNu55aS8AOba0kFqev8hXHGo9ITFLABwC2Ad4PhywfD
-	rrfhwkKzNgSIAJwtEhV/PbjL5lM/r/ANZS3DHGd/6vmYPcY=
-X-Received: by 2002:a05:600c:3f16:b0:49d:25b0:cc60 with SMTP id 5b1f17b1804b1-49e6cc13c99mr904955e9.29.1789164593578;
-        Fri, 11 Sep 2026 15:09:53 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-095-114-033-154.95.114.pool.telefonica.de. [95.114.33.154])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e69f02c92sm33383385e9.2.2026.09.11.15.09.52
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 11 Sep 2026 15:09:53 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Maarten Lankhorst <dev@lankhorst.se>,
-	Maxime Ripard <mripard@kernel.org>,
-	Natalie Vock <nat@pixelcluster.dev>,
-	Tejun Heo <tj@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	=?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	cgroups@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] cgroup/dmem: Fix eviction helper reference in dmem_cgroup_try_charge()
-Date: Sat, 12 Sep 2026 00:08:33 +0200
-Message-Id: <20260911220833.6958-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+        d=1e100.net; s=20251104; t=1789164619; x=1789769419;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1CitEInQG9IH8hFfkxw+Dy1+TcxOBHzYjUh6RK88Fgs=;
+        b=et3BZKH5lAsJ7Dqa2op4UD2+VySQDjfsZlOSVJLeZ+ns9nvvDNItayUYwZwBrUxuqS
+         70yv/4QyD/CbbTwF8AxPz7cUH6H+EAnpa/40r1e8KWdDiuZrKIpp0Zf9dxL0tMzvwDSa
+         1jTc3KkuZq8HYGmazuSCz/utLd2f3MTQ1OTEemYuvW3h44jxH9JrGks9KRdP4N31aEXN
+         rVYPJfZmLFiKGtNnl9T1lBSkjCoZ77k+FAwxYYrC7c57eI+5IFbXshpig4oeEwxv2Mrx
+         grOuP85NU3G1vMnChCi+PiiX67erpho8P69h3/7h3VQseXorlPWOl67KSoLIxFTtAQUW
+         nCzA==
+X-Forwarded-Encrypted: i=1; AKwUvBzOa0F+iDjPIS+cJqsJZK92y/eDClIjQizcxck2Mtf4S40EPQntztWCyw9CKLLjLWNYXLENHx/5yRJFU4o=@vger.kernel.org
+X-Gm-Message-State: AFuF++kds3gR8GItZrBb2FevfhckPHK6BNf7x63hAUOoCOzKpPYIF+i6
+	LPm6fCi2WPNGQJMo31lv3q7SpALUZxE0k0KjokdjcP08cb3l4h39+Gb6
+X-Gm-Gg: AYBFou1pDQzRyWj3aJbWS2MaeFTi5pKKD8TT8cPq4ynlzl4wOh+hk1+jPlioQSt/XpD
+	zoGDvR6BqxlELBmd/cwP1nU61RB9bJfgMOAqF44sx8JhsFYsJZrfRi6WiWPTdgI67kZefnjxlg0
+	70ob0kQ76g6ZzVyCoVSaoGVxZtvf/NPCx3M3trwFOQk1YcytItfB5QsEex7IOUVgsgCFgrK0aGx
+	x8zdQOlDsaKoky+x8odYTypDsoMNrg1nT2aGZ70SRf+H6NailDdNVQjCRiOqoOZr7jvqza0vNN0
+	etM4B/Se1pdHQOazTFbS9AwJ/8ZvpgAgbYYV6ezp8sQeO3+cd930djL+o7N202S22+7Bo9DZ4yu
+	nDmnzgz7jYbmzmOhuO77Gy6uFqDcsKlqurXVvku/4g9qI8DTPoc2WXIVjz2X687lY61V/f7U59P
+	tDhXhaJ6Mn1EoDdFr9pAbpPC1Zpa59VlXzaf+Jpp192HsFxVpxObzwzdeRaPE5EPQGu1wXe4uh6
+	NeGDubZR9wL4k5re1SwYE3XKLYMa47xv5px
+X-Received: by 2002:a05:600c:8b41:b0:49b:d45:703e with SMTP id 5b1f17b1804b1-49e6198865dmr87033975e9.8.1789164618893;
+        Fri, 11 Sep 2026 15:10:18 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e61a81943sm69553525e9.1.2026.09.11.15.10.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 15:10:18 -0700 (PDT)
+Date: Fri, 11 Sep 2026 23:10:17 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Bradley Morgan <brads@mainlining.org>
+Cc: "Paul E. McKenney" <paulmck@kernel.org>, frederic@kernel.org,
+ neeraj.upadhyay@kernel.org, boqun@kernel.org, joelagnelf@nvidia.com,
+ rcu@vger.kernel.org, "Andrew Morton" <akpm@linux-foundation.org>, "Arnd
+ Bergmann" <arnd@arndb.de>, linux-arch@vger.kernel.org, "Vineet Gupta"
+ <vgupta@kernel.org>, linux-snps-arc@lists.infradead.org, "Russell King"
+ <linux@armlinux.org.uk>, linux-arm-kernel@lists.infradead.org, "Guo Ren"
+ <guoren@kernel.org>, linux-csky@vger.kernel.org, "Yoshinori Sato"
+ <ysato@users.sourceforge.jp>, "Rich Felker" <dalias@libc.org>, "John Paul
+ Adrian Glaubitz" <glaubitz@physik.fu-berlin.de>, linux-sh@vger.kernel.org,
+ "Chris Zankel" <chris@zankel.net>, "Max Filippov" <jcmvbkbc@gmail.com>,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/6] lib: Add two-byte cmpxchg emulation function
+Message-ID: <20260911231017.550f8cd1@pumpkin>
+In-Reply-To: <20260911192540.20983-2-brads@mainlining.org>
+References: <20260911192540.20983-1-brads@mainlining.org>
+	<20260911192540.20983-2-brads@mainlining.org>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-The kernel-doc comment of dmem_cgroup_try_charge() refers to
-dmem_cgroup_evict_valuable, which does not exist. The name is
-dmem_cgroup_state_evict_valuable. Say dmem_cgroup_state_evict_valuable.
+On Fri, 11 Sep 2026 19:25:34 +0000
+Bradley Morgan <brads@mainlining.org> wrote:
 
-Fixes: b168ed458dde ("kernel/cgroup: Add "dmem" memory accounting cgroup")
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
- kernel/cgroup/dmem.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> cmpxchg_emu_u8() emulates one-byte cmpxchg() in terms of four-byte
+> cmpxchg() for the architectures lacking native one-byte atomics.
+> The same architectures also lack native two-byte cmpxchg(), where
+> such an operation is not supported and either fails to compile via
+> BUILD_BUG() or fails to link, because the bad pointer sentinels
+> these architectures declare are never defined.
+> 
+> Add cmpxchg_emu_u16(), the two-byte sibling. It reads the enclosing
+> word with READ_ONCE(), splices the two target bytes through a union
+> and loops on cmpxchg() of the full word until the compare succeeds.
+> Like cmpxchg_emu_u8() it is fully ordered.
+> 
+> The Kconfig symbol gating this file is renamed from
+> ARCH_NEED_CMPXCHG_1_EMU to ARCH_NEED_CMPXCHG_1_2_EMU, as it now
+> selects both the one-byte and the two-byte emulation.
+> 
+> Suggested-by: Paul E. McKenney <paulmck@kernel.org>
+> Signed-off-by: Bradley Morgan <brads@mainlining.org>
+> ---
+>  arch/Kconfig                |  2 +-
+>  arch/arc/Kconfig            |  2 +-
+>  arch/arm/Kconfig            |  2 +-
+>  arch/csky/Kconfig           |  2 +-
+>  arch/sh/Kconfig             |  2 +-
+>  arch/xtensa/Kconfig         |  2 +-
+>  include/linux/cmpxchg-emu.h |  1 +
+>  lib/Makefile                |  2 +-
+>  lib/cmpxchg-emu.c           | 35 ++++++++++++++++++++++++++++++++---
+>  9 files changed, 40 insertions(+), 10 deletions(-)
+> 
+...
+> diff --git a/include/linux/cmpxchg-emu.h b/include/linux/cmpxchg-emu.h
+> index 998deec67740..fee8171fa05e 100644
+> --- a/include/linux/cmpxchg-emu.h
+> +++ b/include/linux/cmpxchg-emu.h
+> @@ -11,5 +11,6 @@
+>  #define __LINUX_CMPXCHG_EMU_H
+>  
+>  uintptr_t cmpxchg_emu_u8(volatile u8 *p, uintptr_t old, uintptr_t new);
+> +uintptr_t cmpxchg_emu_u16(volatile u16 *p, uintptr_t old, uintptr_t new);
 
-diff --git a/kernel/cgroup/dmem.c b/kernel/cgroup/dmem.c
-index 4683f3d6802268ddad40bd5d9e10305fc4dfddc5..13dbd083f6dedf83002ee7e7912e1f983e3594f0 100644
---- a/kernel/cgroup/dmem.c
-+++ b/kernel/cgroup/dmem.c
-@@ -706,7 +706,7 @@ EXPORT_SYMBOL_GPL(dmem_cgroup_uncharge);
-  *
-  * When this function fails with -EAGAIN and @ret_limit_pool is non-null, it
-  * will be set to the pool for which the limit is hit. This can be used for
-- * eviction as argument to dmem_cgroup_evict_valuable(). This reference must be freed
-+ * eviction as argument to dmem_cgroup_state_evict_valuable(). This reference must be freed
-  * with @dmem_cgroup_pool_state_put().
-  *
-  * Return: 0 on success, -EAGAIN on hitting a limit, or a negative errno on failure.
+Why uintptr_t? Shouldn't it just be u16?
+(Which probably means the code would better if it was just 'unsigned int')
+
+David
+
