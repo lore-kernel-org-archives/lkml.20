@@ -1,102 +1,64 @@
-Received: from sender5-op-o12.zoho.com (sender5-op-o12.zoho.com [165.173.182.12])
+Received: from mx10.gouders.net (mx10.gouders.net [202.61.206.94])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A26D3F0AAD;
-	Fri, 11 Sep 2026 06:09:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789106981; cv=pass; b=PXiyuiTBXfOshrtR6E9TJu4SVh3IptIcWqK/NYGVjQkiGrgFCItjHNevLSeMz4Xgv1nuRMPDR9WQvcjx0DSheaa/UuD4fILz7inw6bYZus4wj6XSphk+SbcIK7nwsIGYdFfp+YMQ8xi8kCz7VRWFmZK8nDLmOvmNa1glE0fAWds=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789106981; c=relaxed/simple;
-	bh=lXI6Xn+i8JvmZ2r1sj3SEtFizb9NlaHcaZbdD/xGw3w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=d69o3SmQkq2Tsv9hDbJSsAtI/YHVdp5/ppuWqYW8EWTDjPQpEstPqPdV23STKsg+O3phhq9csQ+UIYbqVyM4xC7flj6zsmuq8icKT0GBXlkS1gDr8o4hIXaRJG9J13bD8oD+4msfB6/V3C9yc4qgSQJnPglT3nnPFDWAsZpw6bU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziyao.cc; spf=pass smtp.mailfrom=ziyao.cc; dkim=pass (1024-bit key) header.d=ziyao.cc header.i=me@ziyao.cc header.b=EKdB/M5Y; arc=pass smtp.client-ip=165.173.182.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziyao.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziyao.cc
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A736849E15F;
+	Fri, 11 Sep 2026 06:12:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.61.206.94
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789107162; cv=none; b=LKWLc3KeUrfaIeDC6yIBT94uTfR81Xa3qBtCtGGdB/egUe7Qk3vjEeHTj1sIFXPIPFPgJRy70bjDL3Udx6ErfDnUeEJLuBw/1X1AODksw0blcWsgXWVGRRCd4QIIpx2mvRhk1MXI1PQU4JuRBImnR9XQxxT+67sN0z3C21/7tYg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789107162; c=relaxed/simple;
+	bh=gnanWk8CcqOwWXHW4Ye8p3oedpjhH4EIzInyWH7wzvE=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type; b=qNqCG6qS5RykXBS22BVOYCG3+KzSECyTWL2lW1X7kLGbP5P05FNhO6my5Aj1LtYm+sZewhYYWq94tFfuJA+7bReHXALi1rimAEMTWMkib/lmRlF6enSKfmfvSX5ZcK1usQo2I+USWcnbywSmm3wrO42vgweW0qDT9yzRIn0ltOs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gouders.net; spf=pass smtp.mailfrom=gouders.net; dkim=pass (1024-bit key) header.d=gouders.net header.i=@gouders.net header.b=nMYfwFoW; arc=none smtp.client-ip=202.61.206.94
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gouders.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gouders.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ziyao.cc header.i=me@ziyao.cc header.b="EKdB/M5Y"
-ARC-Seal: i=1; a=rsa-sha256; t=1789106942; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=MOdMMOA11nW6/J/W5UFmtmBK+Myeyrj9e4toNDjwVC6ozieasXr3f+Gddaim3g2OZAeFQRJuU9UugusvP3HdfByrZlAmNZWcOXjgFJtqD92zPZaMFi5AglvCYPahR33kuXXLGs85Gqjlu0O4EEZXQH2Gq+0QzzGjyCyDcOIzm10=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1789106942; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=BzCWIm9SHWefUAfRNuRqKetUCaMam98cRazVY0T6n/Q=; 
-	b=EHNXosPFiWD9gKtKX/rOoy0Aq0RPTa+lAyRI71yFewPwzVx6jrDCVloWAUhP33D+iJt3uLW1y7V0zdgvbqcWqRloTYD5oWMJXbtPMhKTNk8Q8jmVf3N8WBkK3VNbrYNxYgkT1MtxqYxU+FF+XMRRcjjyjxG+Itzu1xIpHWCJqYo=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=ziyao.cc;
-	spf=pass  smtp.mailfrom=me@ziyao.cc;
-	dmarc=pass header.from=<me@ziyao.cc>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789106942;
-	s=zmail; d=ziyao.cc; i=me@ziyao.cc;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
-	bh=BzCWIm9SHWefUAfRNuRqKetUCaMam98cRazVY0T6n/Q=;
-	b=EKdB/M5YRvPU4+d8P1+0AhgvguH8AVpGPwkMhjr+oAKdaz9S/KDjP3JkjXaerv4T
-	NcbFZiYWds6qL9sDauM0YUpxpUAh2fnAMC0HyvxzAfF60bkx76FTbC2cA8hDqbrHclM
-	Jxph0tnkk2lAiivc08DiQjMWfOyMwspreIS5IBqA=
-Received: by mx.zohomail.com with SMTPS id 1789106940627378.773449342185;
-	Thu, 10 Sep 2026 23:09:00 -0700 (PDT)
-Date: Fri, 11 Sep 2026 06:08:46 +0000
-From: Yao Zi <me@ziyao.cc>
-To: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>,
-	"Yao Zi" <me@ziyao.cc>, "Stephen Boyd" <sboyd@kernel.org>,
-	"Brian Masney" <bmasney+clk@redhat.com>,
-	"Jerome Brunet" <jbrunet+clk@baylibre.com>,
-	"Yixun Lan" <dlan@kernel.org>, "Alex Elder" <elder@riscstar.com>,
-	"Inochi Amaoto" <inochiama@outlook.com>,
-	"Haylen Chu" <heylenay@4d2.org>
-Cc: <linux-clk@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
-	<spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 4/5] clk: spacemit: reject rate changes to running
- firmware PLLs
-Message-ID: <aqOa7jnonuXhUoy5@pie>
-References: <20260909-spacemit-pll-init-v1-0-b3065ad5a4ac@linux.spacemit.com>
- <20260909-spacemit-pll-init-v1-4-b3065ad5a4ac@linux.spacemit.com>
- <aqKxMmgpFLE3CmQ8@pie>
- <DLC48RE9YAU6.1YO47FZILOUWJ@linux.spacemit.com>
+	dkim=pass (1024-bit key) header.d=gouders.net header.i=@gouders.net header.b="nMYfwFoW"
+Received: from localhost ([47.65.179.181])
+	(authenticated bits=0)
+	by mx10.gouders.net (8.18.2/8.17.1.9) with ESMTPSA id 68B631Rs070422
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+	Fri, 11 Sep 2026 08:03:01 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gouders.net; s=gnet;
+	t=1789106581; bh=gnanWk8CcqOwWXHW4Ye8p3oedpjhH4EIzInyWH7wzvE=;
+	h=From:To:Subject:Date;
+	b=nMYfwFoWNFn97nrCJ8y4a3+nSKHJUozVXHJPxPD4l3wjvKwua8P4/dSt7Fd60vXal
+	 m+OUE5u61P6vSpWmhH7ozEiOujeFPWhfylVEbD2A1cv654whDD330+E0faaUldjK27
+	 ksBtL5GVm3CCeNPYKIpHbiRH128RCgLIjNVmsFPc=
+From: Dirk Gouders <dirk@gouders.net>
+To: Linux PM <linux-pm@vger.kernel.org>,
+        Linux Kernel
+ <linux-kernel@vger.kernel.org>
+Subject: Question about system halts caused by temperature
+User-Agent: Gnus/5.13 (Gnus v5.13)
+Date: Fri, 11 Sep 2026 08:03:00 +0200
+Message-ID: <gha4po5nqj.fsf@gouders.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DLC48RE9YAU6.1YO47FZILOUWJ@linux.spacemit.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/289.97.79
-X-ZohoMailClient: External
+Content-Type: text/plain
 
-On Fri, Sep 11, 2026 at 10:02:47AM +0800, Troy Mitchell wrote:
-> On Thu Sep 10, 2026 at 9:31 PM +08, Yao Zi wrote:
-> > On Wed, Sep 09, 2026 at 10:07:04PM +0800, Troy Mitchell wrote:
-> >> CLK_SET_RATE_GATE only protects clocks prepared through CCF. A PLL left
-> >> running by firmware can have a zero prepare count, so this flag alone
-> >> cannot prevent set_rate() from reprogramming a live PLL.
-> >
-> > Would it be a better idea to simply turn off the PLL before reprogramming,
-> > since protected by CLK_SET_RATE_GATE, re-programming never happens when
-> > the PLL is required by downstream? This also seems to be simpler.
-> Then assigned-clock-rates on the PLL provider node?
+Hi,
 
-Protecting PLL from rate-changing when it's enabled, and re-programming
-the PLL to a recommended rate, are separate goals. This review comment
-only focuses on the former (i.e. changes in this patch).
+just a short question, if I maybe have a test-case that is of interest
+to you:
 
-> I tested this
-> on K3: .set_rate() was called during provider registration, with PLL3's
-> prepare count still zero while the CPUs were running on it. Disabling
-> PLL3 hung the board. CLK_SET_RATE_GATE therefore does not protect users
-> that CCF has not yet accounted for.
+since I own newer hardware (Lenovo L14 Gen 5, AMD Ryzen 7), I suffer
+from system halts during system rebuilds (I use Gentoo).
 
-I think it's caused by asynchronous probing. The APMU controller might
-probe and register clocks after the PLL one, so the prepare/enable
-counters of the PLLs might not match the reality during the gap.
+I now found a reliable reproducer (emerging webkit-gtk) and a setting that
+helps the system to survive such a build but that setting works with
+perhaps very conservative frequencies and from what I read in
+https://docs.kernel.org/admin-guide/pm/cpufreq.html, even with
+/sys/devices/system/cpu/cpufreq/boost turned on, the kernel aims to try
+to not let the system overheat.  Could well be that I misunderstand
+that...
 
-> 
-> -- 
-> Troy Mitchell
-> 
+Thanks for your time,
 
-Best regards,
-Yao Zi
+Dirk
+
