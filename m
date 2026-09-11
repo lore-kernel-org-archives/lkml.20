@@ -1,29 +1,29 @@
 Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A4393E49D5
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 18:44:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04D274B53FB
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 18:44:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.202.193.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789152298; cv=none; b=VMXGHpKV481XNrX3YvW840KC7+xq9oJeB9JGhSVLN5UcmTNLZclMXDDlDXQYwNZOlDCIPvZC3HQJJChlEDl9DdcFIsCr/Y/oNZr2z1nylbS++G5J+cHX/CsLX1mi5z6HFZ8oOxGcE1Gj8Y9qNOfvtGkJgclGzPi+jr4cWtMLWf8=
+	t=1789152297; cv=none; b=iUQwMrigd8K7ut8TKMUIZrbaKYFtnzQybET2E9KJRjEPNLkeyt9oEh6EDNtnMvL0PPLhjGC8fGVq0KneZK9gM/QInLw/3X4XIBQHQ3YC9EkW3a82bOEwJ82HjYpqH3Fpu19x2mwKSkrAFZDpfsrepkjk11v3wnyOyzcH+bhm+WU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789152298; c=relaxed/simple;
-	bh=evRXY1mk5e/9hRx/q9vBneumWgfTsFpYy53xJcSfcZs=;
+	s=arc-20240116; t=1789152297; c=relaxed/simple;
+	bh=OdyIaFHTfKbXWj6XRC6rk9Un0vCTcVZlLONiQQ35BAk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=UhIfUhPSuZapSATlAOATE5XtrV4Ct148oSdefQedCyWtv/cLOu6JvfEeoMS/EIfNCzIHNM5DQEOu6AwvwmgC3OGCdHD8yQZEdTFNT2h5jHbNuD0lGcDQBQ/fFvhE9G8ZV+NlalnRG5H+4CkPDyxGbseKMt9fIlVIT3t/5vis1bw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=c127.dev; spf=pass smtp.mailfrom=c127.dev; dkim=pass (2048-bit key) header.d=c127.dev header.i=@c127.dev header.b=JpgbrNCe; dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b=QjbhosZZ; arc=none smtp.client-ip=34.202.193.197
+	 MIME-Version:Content-Type; b=IOVq+8+W8wHkinj9+y1k1Dx8TgOSHnq1eXi1K/0AUsgRnmB5a12hxYD2fHiyUZ2/NfZvBfL1CKmfsPTU/YuV9ZoHuY2bwxokpyvDnmMjnjpCfIt7ThqiHOX3MB4jXDtHvXUoktNmlXwuFV/dp5mtOTXunI8cIvVzlQ/ci0E0ptA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=c127.dev; spf=pass smtp.mailfrom=c127.dev; dkim=pass (2048-bit key) header.d=c127.dev header.i=@c127.dev header.b=fu24JMu2; dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b=mB02m2EH; arc=none smtp.client-ip=34.202.193.197
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=c127.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=c127.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=c127.dev header.i=@c127.dev header.b="JpgbrNCe";
-	dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b="QjbhosZZ"
-DKIM-Signature: a=rsa-sha256; b=JpgbrNCeSQJBslh55Wk08xA5t9JT6G7+2iKRF09Hd+iX9MZVTpqU03GGjOf3OrwJV6rlRQIUYaO8r4y3ZboOj5FIK3CrPqA0ZQ4OWNOLmioH/tFi7jWQvw18vNJluwbW7kym1zyqImrRkf3SASnpVmdto/Elv//sjw8G6jtSSVz7TBvy7dg7OgvrFGdI83/kjg7+ROAlSgG6lRktRN19hPIyYLXzTjnTj/ZgkMj74P+IxSlZTpsvJaOToSLv6aRoRBSJ8Ki4Has1F3l2RV1t9897O+OXbFZESPF1w09sPrIa3yH/uqhHjqWlfF/8vOq9qlNzpgqrxCAJaGtcVzvrbw==; s=purelymail1; d=c127.dev; v=1; bh=evRXY1mk5e/9hRx/q9vBneumWgfTsFpYy53xJcSfcZs=; h=Received:From:To:Subject:Date;
-DKIM-Signature: a=rsa-sha256; b=QjbhosZZiZABYiEvmMoAGwKXFzDrVx0xFKjSg7XEXUepn8k4P6d8vaPL5YpcYE96uGjPKyUO1TNqj4Z4i3vaS5jztnM94GbbyrcLeviMy0w6lPoSiBSktM6zgJlRCEF13qgeWKkr3ooO75Mqq0aqRwnq+gyHKhDyr3iC0GJSTdOV/5yYya7WcW8Jep19PlOOqnowEKTnVGDN9vW5U9hRzLU0aQ5lzrHcp5c30BAMpyW76L2L5ijpQTeVnhqtVcG8euzCIn7bJx03GAAiaO559Bjv9daCe19Zfjuq173t/3t3NaDi5ChQWC6E0K7Y+XWanUEWc4si6KRcodvt85Io9g==; s=purelymail1; d=purelymail.com; v=1; bh=evRXY1mk5e/9hRx/q9vBneumWgfTsFpYy53xJcSfcZs=; h=Feedback-ID:Received:From:To:Subject:Date;
+	dkim=pass (2048-bit key) header.d=c127.dev header.i=@c127.dev header.b="fu24JMu2";
+	dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b="mB02m2EH"
+DKIM-Signature: a=rsa-sha256; b=fu24JMu2LMFoXk897ztzdTR8oGDiO9ShsCIYIcrA7O8us1CEVIy8+8v4f8nFE17tZMHMA6ARJywOj3/k7WJfk9gakGG4BIOlUp/zn2N+4bj8cErE2Z2YDs6G2UR4fa7vi4sVRxDe7l6t5h41zC6puBCLNBTOgCTm2+X0O1knSgXpgJUr6jM0i+1a64RCmUkrFyUIvtdXKCR4J4TSPCW5O7MbW6F+vZpnYftARjXgRFCb1HYki4aW85I6uRHD1tqi3hrr9ecJORcLhnVkzhzB9MA0igMYCeyieAzTEvN0cWBzLxBnz1UZ3kmR7dOWEqLQItkUSC5AJE4pTRoolnie9A==; s=purelymail1; d=c127.dev; v=1; bh=OdyIaFHTfKbXWj6XRC6rk9Un0vCTcVZlLONiQQ35BAk=; h=Received:From:To:Subject:Date;
+DKIM-Signature: a=rsa-sha256; b=mB02m2EH728+49IdiolSZCE4m+rrnEqTmoxFjva7xhjSTyrIfBF12YAw/WHwXpmQwjiSYB3M+gfwijn5d2O2deQIRdJEXe/EGeUWz5ejGhqXU+3BMqwMcZ1DPUArS2BmC8D12Nh5QlY43VWSP0AwkiXK9Tkb3sL/lK2LrmD+AzZHUPKx541UBtM2v4Hb/HDd24HOdrCfDmjAdPFEC+4fPHN1QbiKlrnsNea1calnNh+/72YOMgb3+t4eYog15ndEwxJ/reEwmdXXojh+Vh2ouy6ZNDIEpLov2dqVKq0cjoEVsF5RIhplrSO9eZizIv+ISnLh7/ZVmglJmwpWh/iPnQ==; s=purelymail1; d=purelymail.com; v=1; bh=OdyIaFHTfKbXWj6XRC6rk9Un0vCTcVZlLONiQQ35BAk=; h=Feedback-ID:Received:From:To:Subject:Date;
 Feedback-ID: 1017243:43747:null:purelymail
 X-Pm-Original-To: linux-kernel@vger.kernel.org
-Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id -894114220;
+Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id -1066090597;
           (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
-          Fri, 11 Sep 2026 18:44:24 +0000 (UTC)
+          Fri, 11 Sep 2026 18:44:22 +0000 (UTC)
 From: Johan Alvarado <contact@c127.dev>
 To: broonie@kernel.org,
 	md.alam@oss.qualcomm.com
@@ -38,9 +38,9 @@ Cc: konradybcio@kernel.org,
 	linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Johan Alvarado <contact@c127.dev>
-Subject: [PATCH v2 2/2] spi: spi-qpic-snand: drop the redundant ECC context handling
-Date: Fri, 11 Sep 2026 13:44:16 -0500
-Message-ID: <20260911184416.109790-3-contact@c127.dev>
+Subject: [PATCH v2 1/2] spi: spi-qpic-snand: publish the ECC context to snandc->qspi
+Date: Fri, 11 Sep 2026 13:44:15 -0500
+Message-ID: <20260911184416.109790-2-contact@c127.dev>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260911184416.109790-1-contact@c127.dev>
 References: <20260911184416.109790-1-contact@c127.dev>
@@ -54,76 +54,93 @@ Content-Transfer-Encoding: quoted-printable
 X-MIME-Autoconverted: from 8bit to quoted-printable by Purelymail
 Content-Type: text/plain; charset=UTF-8
 
-qcom_spi_ecc_init_ctx_pipelined() now publishes the ECC context to
-snandc->qspi->ecc, so the assignment in
-qcom_spi_ecc_prepare_io_req_pipelined() repeats what the pointer already
-holds, and the zeroed struct qpic_ecc that qcom_spi_probe() allocates is
-never read.
+qcom_spi_ooblayout_ecc() and qcom_spi_ooblayout_free() read the ECC
+configuration through snandc->qspi->ecc. qcom_spi_probe() points it at a
+zeroed scratch struct and only qcom_spi_ecc_prepare_io_req_pipelined(),
+which runs on page I/O, ever updates it. qcom_spi_ecc_init_ctx_pipelined()
+installs the ooblayout but does not publish the context it just
+allocated, and qcom_spi_ecc_cleanup_ctx_pipelined() frees that context
+without clearing the pointer.
 
-The pointer is non-NULL only between context creation and destruction,
-and every reader runs inside that window. The ooblayout callbacks are
-installed by init_ctx. The page read, write and program helpers run only
-when prepare_io_req has set page_rw or oob_rw. qcom_spi_block_erase()
-runs only while the mtd is registered, which happens after init_ctx and
-ends before cleanup_ctx. The controller drives a single chip select, so
-the per-controller pointer and the per-chip context cannot disagree.
+spinand_init() calls mtd_ooblayout_count_freebytes() right after the ECC
+context is created and before any page I/O, so the ooblayout always runs
+against a pointer that does not describe the current context:
 
-Remove both. No functional change.
+  - On a first probe it reads the zeroed struct from qcom_spi_probe(),
+    so steps, bytes and bbm_size are 0. The count then returns 0 rather
+    than an error, so the probe continues with mtd->oobavail set to 0.
 
-Suggested-by: Gabor Juhos <j4g8y7@gmail.com>
+  - On a probe retry it reads the ecc_cfg the previous attempt freed.
+
+A retry is easy to hit. On IPQ5018 with the qcom,smem-part parser the
+partition parse returns -EPROBE_DEFER until SMEM has probed, so the
+first spi-nand probe defers. It defers inside
+mtd_device_parse_register(), after mtd_otp_nvmem_add() has already read
+the factory OTP - that read goes through prepare_io_req and leaves
+snandc->qspi->ecc pointing at the context that spinand_cleanup() then
+frees. The second probe allocates a new context, never publishes it, and
+computes the OOB layout from the freed one. Once the slab has been
+reused, qecc->steps holds garbage and
+
+  oobregion->length =3D qecc->steps * 4;
+
+goes negative. qcom_spi_ooblayout_free() only reports -ERANGE for
+section 1 and later, so mtd_ooblayout_count_bytes() sums the regions and
+returns that negative length as the byte count. The -512 below is
+steps * 4 with steps =3D=3D -128. It is a byte count that happens to
+collide with -ERESTARTSYS, not an error the driver returned.
+spinand_init() takes it as an error, and because it is not
+-EPROBE_DEFER the driver core never retries and the NAND never appears:
+
+  spi-nand spi0.0: ESMT SPI NAND was found.
+  spi-nand spi0.0: probe with driver spi-nand failed with error -512
+  UBI error: cannot open mtd rootfs, error -2
+  Waiting for root device /dev/ubiblock0_1...
+
+On a Mercusys MR80X (IPQ5018, ESMT F50D1G41LB) about half of the boots
+failed to mount the rootfs, the outcome depending on whether the freed
+memory had been overwritten yet.
+
+Publish the context when it is created and clear the pointer when it is
+destroyed. Clearing leaves snandc->qspi->ecc NULL after cleanup, which
+is safe: the mtd is unregistered before cleanup_ctx runs, so no
+ooblayout callback can follow.
+
+Fixes: 7304d1909080 ("spi: spi-qpic: add driver for QCOM SPI NAND flash Int=
+erface")
+Cc: stable@vger.kernel.org
+Tested-by: Gabor Juhos <j4g8y7@gmail.com>
 Signed-off-by: Johan Alvarado <contact@c127.dev>
 ---
-Tested on a Mercusys MR80X (IPQ5018, ESMT F50D1G41LB) with both patches
-backported to 6.18.44. Five boots, rootfs mounted every time, mtd
-reported 0 ECC failures and 0 corrected bits, and a 4 MiB file on the
-UBIFS overlay kept its sha256 across the reboots. Overlay churn raised
-the UBI maximum erase counter from 13 to 15, so qcom_spi_block_erase()
-ran repeatedly. Build-tested on this base with W=3D1 and sparse, no
-warnings, patch 1 alone and both patches applied.
+Unchanged from v1. Both hunks are untouched by 44d39535cd4f, so this
+applies to v7.3-rc2 and to spi/for-next alike.
 
- drivers/spi/spi-qpic-snand.c | 8 --------
- 1 file changed, 8 deletions(-)
+ drivers/spi/spi-qpic-snand.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/drivers/spi/spi-qpic-snand.c b/drivers/spi/spi-qpic-snand.c
-index 20045d4a46fa..760ee1c29402 100644
+index 9eafaea74f6b..20045d4a46fa 100644
 --- a/drivers/spi/spi-qpic-snand.c
 +++ b/drivers/spi/spi-qpic-snand.c
-@@ -437,9 +437,7 @@ static int qcom_spi_ecc_prepare_io_req_pipelined(struct=
- nand_device *nand,
- =09=09=09=09=09=09 struct nand_page_io_req *req)
- {
- =09struct qcom_nand_controller *snandc =3D nand_to_qcom_snand(nand);
--=09struct qpic_ecc *ecc_cfg =3D nand_to_ecc_ctx(nand);
+@@ -411,6 +411,8 @@ static int qcom_spi_ecc_init_ctx_pipelined(struct nand_=
+device *nand)
+ =09dev_dbg(snandc->dev, "ECC strength: %u bits per %u bytes\n",
+ =09=09ecc_cfg->strength, ecc_cfg->step_size);
 =20
--=09snandc->qspi->ecc =3D ecc_cfg;
- =09snandc->qspi->raw_rw =3D false;
- =09snandc->qspi->oob_rw =3D false;
- =09snandc->qspi->page_rw =3D false;
-@@ -1586,14 +1584,9 @@ static int qcom_spi_probe(struct platform_device *pd=
-ev)
- =09struct spi_controller *ctlr;
- =09struct qcom_nand_controller *snandc;
- =09struct qpic_spi_nand *qspi;
--=09struct qpic_ecc *ecc;
- =09struct resource *res;
- =09int ret;
++=09snandc->qspi->ecc =3D ecc_cfg;
++
+ =09return 0;
 =20
--=09ecc =3D devm_kzalloc(dev, sizeof(*ecc), GFP_KERNEL);
--=09if (!ecc)
--=09=09return -ENOMEM;
--
- =09qspi =3D devm_kzalloc(dev, sizeof(*qspi), GFP_KERNEL);
- =09if (!qspi)
- =09=09return -ENOMEM;
-@@ -1613,7 +1606,6 @@ static int qcom_spi_probe(struct platform_device *pde=
-v)
- =09snandc->dev =3D dev;
- =09snandc->qspi =3D qspi;
- =09snandc->qspi->ctlr =3D ctlr;
--=09snandc->qspi->ecc =3D ecc;
+ err_free_ecc_cfg:
+@@ -427,6 +429,7 @@ static void qcom_spi_ecc_cleanup_ctx_pipelined(struct n=
+and_device *nand)
 =20
- =09snandc->props =3D of_device_get_match_data(dev);
- =09if (!snandc->props) {
+ =09kfree(snandc->qspi->oob_buf);
+ =09snandc->qspi->oob_buf =3D NULL;
++=09snandc->qspi->ecc =3D NULL;
+ =09kfree(ecc_cfg);
+ }
+=20
 --=20
 2.55.0
 
