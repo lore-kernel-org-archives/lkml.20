@@ -1,130 +1,196 @@
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+Received: from mail-oo1-f52.google.com (mail-oo1-f52.google.com [209.85.161.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8CFB3603D8
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 03:00:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.171
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789095656; cv=pass; b=DZ4EcBs3SZS30zAJssFAyYE8yYHAxnX+9CWdzM1GBRGEtE/oeq+K3zlHY9lf82dArXFCSFYNcvluOUG/KjaURcGHaa3FkRFyF5CQ0jByqg2rPWypy601DFtuBPLim1kcmOhLlWGYuyzzHJNsJ0KicYdfIAy9obCxgGZv81JmqvQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789095656; c=relaxed/simple;
-	bh=Y2IK0OrtSi3t5BcBj1ZtQzAjH+x9+HSC57KKssAwDLw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=J7bOziQpu+8kKXOwmNOndnpr9tnbuoSdXjsc6+zEZSYUgT39A9Rg4oS/YGt1dN35QOC4odjdguq26pB1oWIg2apiaUUZE09UXv2Oee8J0Q0de70ApmiGcciQWdE797npQskuHPflhxW+/9vCKeq1x9DOXAufKi331ivsg2Vv2zg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E1JX9/Kh; arc=pass smtp.client-ip=209.85.210.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E27C9343896
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 03:03:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.52
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789095800; cv=none; b=O3jN3UFiXVNIzMZSvOmgxq3/G+KTAZR+UXXp+ZESktXXMurSxbMJNUtCYr8IzjAPfRpftZ869QbQuGvi6iKrMmiJJqpE5Dok/bDhTPamxnojT6WBZ9bc8Z77rKorep43u1TY3vjR9TUDnoC/HtgRvD1DDS1u2n1NqpJp5QDZQ5o=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789095800; c=relaxed/simple;
+	bh=UL4IaLvDYf4eZDrQo3pMfd8B5yVZDGWQIefeXbbQrAM=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=V16/F7k7NxIe3kVZYcb9S4BpTEmztZYk5qV6C9lfMTlFB/bz4EOklv3OBfT4//0r33fLMWPRR9YhUtp6rjpZyZr/hJbuKRak/aa/2OXAumJbTLfJR5hTF10DFWimjzTTznyZ/ZtJ0QhRQCsQiD1+arY2B4/DXQDcgakjsfVNxJY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JTTsMU2t; arc=none smtp.client-ip=209.85.161.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E1JX9/Kh"
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-853c07a76adso466651b3a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 20:00:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789095654; cv=none;
-        d=google.com; s=arc-20260327;
-        b=pGmgwCtvsssQLxQAqTIrXpTHLgZNGT+98Bl7XcK76v5CVo2v+ekk31tlGAeBaUmE9q
-         Y/3EzxeQfeDYd7nLVI7Liq4FHiQ/apeAtQ1fhUNDl85KFkWb6sRF71JIg9feS2m9OOnt
-         CiOLaBeCbtYkZAPr4sVCGpb5BTdPBnHfHbIoja2t5n8yDDwGOGi7rtv2JicjRzQymjj9
-         Ln0/IUE5APtvp4hDS1/hVRQVaeYUvailOOsNjr/d6vzyc4R/jmMrQLXvBbogaOStJ9Ur
-         VBjwQo8TphYYGdvY1VqG3EiLGTix5GgxfRsy6fF+1hhXRFPospbbp2DAMffMcyWb5Nwa
-         jHfw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=GgvtkYeJ7+6IrGYwWBRX0B9aKmCQvEgKBdWATeTAwDs=;
-        fh=HI83YmH+kR7WJKTrSTNiDFIc8DOoRCAoWyxoMuXcQ/s=;
-        b=D5iFOEmyKv0JkcfP1W4XYpqQQOl8ifmQFtCr/B0XmapHe+74EWtb1m5HLVcI2DM9ub
-         5hNUw8RXe4T5EaShbuS7vdEGYoQWEe9CqdHsGTS9/wrhc4AN/CvijtE73Zux+ZDWg+uV
-         c60G+6Me1aSWdMwm0o3VRmb4n2x+H2Y1+Mm5xv2HL9xaaHVpvel0l2XUv/sa4G6Bz/ij
-         QB/vX4vEAg4Bw68wUlu9EGOSxdySPO7TPapJUHTeFlJrcbXWqo8fQQw+m/esRzyYaAdE
-         3MS4GkWRup2vOHIFC5aBK+BLuZXjDmfCpC2Tux8oAuiezIzEHs1hjbc81pIWBsNYHNah
-         Gnyg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JTTsMU2t"
+Received: by mail-oo1-f52.google.com with SMTP id 006d021491bc7-6b35cc0a8c3so504798eaf.0
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 20:03:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789095654; x=1789700454; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GgvtkYeJ7+6IrGYwWBRX0B9aKmCQvEgKBdWATeTAwDs=;
-        b=E1JX9/KhE7A844Z2hPbzyQgfFOsw7m0hUvXmn6H4DJLeW9mw49E+B1rJx34F0dGB6o
-         So4IHX+VMrCuvS6dnaez8PNdyvxVhM85MqiLc8odRBZicL7klrz9Reunrq35WSpx/NNR
-         f1aZxYYw0wSUnL6EilMjGxa9Qigw4BtGqbhN+jM//HiEXed4Mm0q8kqUzaG3GzR5Zt+9
-         YVRKoeJp/LZB6/dmjEZ7acDtaklg1YckCmSHjPySUOO90cIUyuRC3WB0X3iXoZ3KuR5c
-         HoL6bb5TlfMOUUOG0sW6r32MAJ0OLNzyE6+JDBvnzYj/NulnYw56aytuai0MBDm2fttc
-         M41A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789095654; x=1789700454;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+        d=gmail.com; s=20251104; t=1789095798; x=1789700598; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=GgvtkYeJ7+6IrGYwWBRX0B9aKmCQvEgKBdWATeTAwDs=;
-        b=Qp954PRDXhQMiC2/licS1fKKYNyEZeFDiZcfS8kTiQi6acrN7XPwCvsBrIcF7BOa2R
-         fmVvUd/nZBiWXKLHSD+JeMn/e2u/WJrME6ua8K7E7E1De7vrccUta+V/c6Z9D0aA80YG
-         zfYq66salCBggQjik9laSGXvz02HYdcvsaMtko8YPV1QBRX218RSies1PvQSh9wHIdAu
-         3RZp6TSiiG4DsLHDevE19I8hpUecJEC15Sowe+h0Lux/ursmWLycz8NK7Fk4g5orurBa
-         CWgHWnXr8fumizPoJ9ml0bk9wOb0slJie8wFhsTdYAdaWtIIc46etjk7KM8OB+9kTBqB
-         Nkug==
-X-Forwarded-Encrypted: i=1; AKwUvBzeDgK9HjPKmNicGoFjI5C8FMmcCxKNS6lr+1bkcdm/3PqvJ3lp9rZydGCb1iX1o8m2ssQF9ZTr44zQQBQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mTTowfXWtyT3hqRvwdAs48wGucA6VZRMbIcutrzAyQwqx9yMR7
-	fodl50jAMcUI2dE13bSIqZeRZ6+jlmeWiz3sUS7lGNnDg/ePX1DMpgUZxnH7GIgg3DsPnuqMWyZ
-	uzTgeFhSrePMU8V0qdDossU0VN0HVdiY=
-X-Gm-Gg: AYBFou0kWGM7xji+PKv7g3PEHp1cgumv0BapSFlEUH2a6STy81VOZKyLI03Q/MFf6zt
-	KBFhKlEQo3uFTAzeBvXa7Aeb/N0YcO7R33O7P6a65syO4vS5YmhgiwHVAxxbVuWx88kftHyGzWc
-	r7r4bzd9qR1OKhh5XO7jz0dERtvx8cS7PcWOommKm0dLFOo+qBi2O2jibenSAzR3NQCHJwKKFXx
-	56EZNFAXopqT3JJXNvu4CEvqnuZnKPUXfssaWBrO1cMWVU1Zimga95HyMdPbbtfFHi9mDwBaYIg
-	UhmQe+PMrvE/Ip2m5OkBUBORDGs0vpfqJbZgWd+ciObJXQ9jBbskoJbp8toDEwg7jBWZwcIhZPd
-	EU4IYkSLM3DNUHtRjmdtXyEWp40gwmgy0T5Nm6JtRqOxx0TZtJ0YuD8XtlXN1R510Ubk=
-X-Received: by 2002:a05:6a00:3cd5:b0:857:72f8:dc99 with SMTP id
- d2e1a72fcca58-86b328e7f63mr3298126b3a.26.1789095651223; Thu, 10 Sep 2026
- 20:00:51 -0700 (PDT)
+        bh=0nnirejavAbxn9gQ8vj1fIYctFpSqsa1QzZ3kmf8s7Y=;
+        b=JTTsMU2tAVJBPl34IX0LC5kUjClmXfeInt0mwTvfREf920JKgGQnPQO9/KLi0EsXG2
+         feMKvTyMWEQJVmCjtcE1OrAAzfvlZHXuGT22b4n9y4wyp4L/I9GdkmSZJzJvo6XmamZV
+         1GLj75qZFGgZhRMmHtOBzLCTJpmRHzjQScmsdg71+CyzVIoBvh/W+OE7SuzLUwUDZije
+         QPPiH/5/4W22/dW+xnmQXanAYNLlhIaDAmD5otRORKS5IxJ2dRBElrO5Z90bcDdbHt+S
+         O5iV3m2xtBRTMLYHY2dwG/WGWm07tyFtEeON8Z7/gDOcGE3fOT5Ow13WA1N5gWVkXuKR
+         ZG+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789095798; x=1789700598;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0nnirejavAbxn9gQ8vj1fIYctFpSqsa1QzZ3kmf8s7Y=;
+        b=lzrY9S4z6yIDUfXhpONoYTxrQrwgX5O/3Fz1LYe8dXJQ3d1ClC6Sqnx6OSh5IPWSSB
+         aAFyciKmv+hGddkFMFouz9YJTzUNUfjfPpyTst4StgucgOXCGuRdTx4FRsNFGrYl/9EJ
+         053K/QI9pw9YpPEXPxvWvnsMHLIKdGmqp8hpa8F7dRu1JPh7WaBALJ6JGPbEyx2AtuOX
+         qrcp/5BtXsFCfMfILW2ihNPIZm5T/pYptI4XvvWuoF01MhLVsaBrup91E3CZkjb4ihM2
+         8Gwmn5Zm+FDL56QH5SI2GIISRQeSAXYox/aEw3meB2xilkCqZ5wwZFlcy4fyYyi3hZYO
+         mYrQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz+tqOXyABKiIrkNsLJfj+BNpaL+dQsy8Kdhbb+I3N4tYFVnMYZIYqr6LktIpEId126D3oLxPKPGL5zuvk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kOdUWO3GbDlbtaTp5hu3ampjtH+ePvd8F0yrE+FPm6a2mysTla
+	0fSfC0l6ppugEb/CpretpiY6q6M//VMkYecEr8/Wu9oYKeqOjxCGG6nj
+X-Gm-Gg: AYBFou0Bh8irVui+Bv0j/4vVac452wf4BIeRH0fJhgn6+IxT24xdYCEzK8YM/vw5/4A
+	46fAYrobaMRutUs7mBHGjnLEpzhykUUkqNDQqXTsnufgKh4wDYboAwskFpmatMa7beTzuhvBMBv
+	14kZwftWoOtx4lGbydr5Lz2biVHaQrBHOPI/w0/5iAcG1Dq2zpMpieCpxWWu9euh8zsdH9VbnUU
+	ObsbMqUtg9Buf6AIEI+E8dedryHwuWfJgAcpkWU/0/P9uXsfw4M1lgg/IWNCF6Ms/t8rvpTw2L8
+	C8otBqL9gq6cZyvLzOpg4I1GP7k8D9FITtVwVEuYuav8g2hO0aaAPArTGDCP8/WAKY2y+47EUPJ
+	g9EcuHtlduV2x1GL4EZeU1Rw1dyEPLWnCIGEwoWlwbpR22PJGaDIuv8sNswFCK/NAzMMdrWl8UO
+	lrSPmY8pDG0IDOrn9zWm1Ujs61VrllPM8w2udSoja/KWuj13KVJtc2KJhYuqMkDnIt8Aivstn5O
+	kCdEYh1USpkGXZME9pcnpMcdqPon1QB0g==
+X-Received: by 2002:a05:6820:61b:b0:6bd:fbe8:fb95 with SMTP id 006d021491bc7-6c0be1502f9mr1256940eaf.60.1789095797410;
+        Thu, 10 Sep 2026 20:03:17 -0700 (PDT)
+Received: from localhost (ip68-107-67-45.sd.sd.cox.net. [68.107.67.45])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4e9b359sm2093108eec.14.2026.09.10.20.03.15
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 10 Sep 2026 20:03:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260910114338.142682-1-phucduc.bui@gmail.com> <2a553332-735e-4372-8d75-2ed7d095bfc0@sirena.org.uk>
-In-Reply-To: <2a553332-735e-4372-8d75-2ed7d095bfc0@sirena.org.uk>
-From: Bui Duc Phuc <phucduc.bui@gmail.com>
-Date: Fri, 11 Sep 2026 10:00:39 +0700
-X-Gm-Features: AcwNN1WPfGjfjTJ3UBeJ1SZL5IZMV3aP3IQW-IHMbnVy8yqXjU0IzHMcAxwIYp0
-Message-ID: <CAABR9nGdsKvay_3Cd_Lm0DjU6MiFL0zaC+ftpgQGaX3YtVe+DQ@mail.gmail.com>
-Subject: Re: [PATCH 1/2] ASoC: mediatek: common: Propagate control and DAPM errors
-To: Mark Brown <broonie@kernel.org>
-Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Matthias Brugger <matthias.bgg@gmail.com>, 
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	Cezary Rojewski <cezary.rojewski@intel.com>, Cyril Chao <Cyril.Chao@mediatek.com>, 
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Darren Ye <darren.ye@mediatek.com>, 
-	linux-sound@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 10 Sep 2026 20:03:15 -0700
+Message-Id: <DLC5J1TZ2XOC.NRYCTBZ72424@gmail.com>
+Cc: "Jasmeet (Jazz) Bhatia" <jasmeet.bhatia.us@gmail.com>, "Rafael J .
+ Wysocki" <rafael@kernel.org>, "Pavel Machek" <pavel@ucw.cz>,
+ <linux-efi@vger.kernel.org>, <linux-pm@vger.kernel.org>, <x86@kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v1 0/2] efi/tpm: Preserve event log without changing x86
+ E820
+From: "Jasmeet (Jazz) Bhatia" <jasmeet.bhatia.us@gmail.com>
+To: "Ilias Apalodimas" <ilias.apalodimas@linaro.org>, "Ard Biesheuvel"
+ <ardb@kernel.org>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <cover.1788259938.git.jasmeet.bhatia.us@gmail.com>
+ <a9e23066-aa75-44be-ac3b-9a15f4cf6047@app.fastmail.com>
+ <DL6NCV1KQ9F9.6K6XZQCS4AF3@gmail.com>
+ <c3ca811b-a6eb-4f4d-bbb2-4feef02e3db2@app.fastmail.com>
+ <CAC_iWjL9jDsRaU7kEemYfwk292Nxa49cK0Rq=81pC=FWNRDhvg@mail.gmail.com>
+In-Reply-To: <CAC_iWjL9jDsRaU7kEemYfwk292Nxa49cK0Rq=81pC=FWNRDhvg@mail.gmail.com>
 
-Hi Mark,
+On Mon Sep 7, 2026 at 8:57 AM PDT, Ilias Apalodimas wrote:
+> Hi Ard,
+>
+> On Fri, 4 Sept 2026 at 19:39, Ard Biesheuvel <ardb@kernel.org> wrote:
+>>
+>>
+>>
+>> On Fri, 4 Sep 2026, at 17:45, Jasmeet (Jazz) Bhatia wrote:
+>> > On Thu Sep 3, 2026 at 7:18 AM PDT, Ard Biesheuvel wrote:
+>> >> Hi Jazz,
+>> >>
+>> >> On Tue, 1 Sep 2026, at 13:34, Jasmeet (Jazz) Bhatia wrote:
+>> >>> The EFI stub currently allocates the TPM event log as
+>> >>> EFI_ACPI_RECLAIM_MEMORY. On x86, this becomes an ACPI data entry
+>> >>> in the E820 map.
+>> >>>
+>> >>> On a Framework Laptop 16 (AMD Ryzen AI 300 Series), the EFI allocato=
+r
+>> >>> can place this allocation at different physical addresses across boo=
+ts.
+>> >>> Since x86 hibernation validates architecture-specific data from
+>> >>> the firmware E820 map, this causes an otherwise valid hibernation im=
+age
+>> >>> to be rejected on resume with the following error:
+>> >>>
+>> >>>   Hibernate inconsistent memory map detected!
+>> >>>   PM: hibernation: Image mismatch: architecture specific data
+>> >>>
+>> >>> Allocating the event log as EFI_LOADER_DATA avoids changing the E820
+>> >>> map, but doing that alone would regress the kexec corruption issue f=
+ixed
+>> >>> by commit 77d48d39e991 ("efistub/tpm: Use ACPI reclaim memory for ev=
+ent
+>> >>> log to avoid corruption").
+>> >>>
+>> >>
+>> >> As I replied in the other thread, I am not convinced preserving the T=
+PM
+>> >> event log across a kexec makes sense to begin with. This is the firmw=
+are's
+>> >> view of the state of the TPM PCRs when it handed over the system to t=
+he
+>> >> first OS.
+>
+> It doesn't make sense imho. The only thing you prove is that you
+> kexeced from a 'previous good OS', but without knowledge of what that
+> OS did before kexecing.
+>
+>> >>
+>> >> If the first OS boots, loads a kexec kernel and then boots it without
+>> >> measuring any of that into the TPM, the TPM event log will match the
+>> >> TPM state, but this is meaningless because of the missing measurement=
+s,
+>> >> and the attestation chain is broken.
+>> >>
+>> >> If the first OS does perform TPM measurements, it would need to recor=
+d
+>> >> them into a log and pass that on to the kexec'ed in some implementati=
+on
+>> >> specific way - it cannot use the existing TPM event log for that.
+>
+> Hrmm, that might be problematic. The EventLog needs to illustrate the
+> state of the TPM PCRs. IOW replaying the EventLog in memory should
+> match the current TPM PCRs. But that also means we'll have to teach
+> kexec how to properly extend the PCRs and update the EventLog.
+>
+>> >>
+>> >> TL;DR perhaps we should just discard the TPM event log reference from
+>> >> the EFI config tables after consuming it. Or add a special case to th=
+e
+>> >> kexec code to disregard it.
 
-Thank you for your review.
+Assuming we drop the LINUX_EFI_TPM_EVENT_LOG_GUID reference after the
+kernel consumes the log, is that going to impact any in-kernel kexec
+path that expects that efi.tpm_log to remain valid? Or is that reference
+only needed during the initial TPM event log import?
+
+I'm trying to understand whether removing that reference is just for
+stopping the next kernel from re-importing the stale firmware log, or
+whether other there exists other users of that reference.
 
 >
-> mt8365-afe-pcm.c has:
+> I can't decide what's best here. IIRC we don't expose the final event
+> log config table in systab right? So we won't break any user-space app
+> that depends on it.  We just copy it in
+> /sys/kernel/security/tpm0/binary_bios_measurements. In that case
+> getting rid of it would work.
 >
->     {"HW_GAIN1_IN_CH1", "CONNSYS_I2S_CH1", "Hostless FM DL"},
+> Cheers
+> /Ilias
 >
-> missing a Switch from the control.  I suspect there's other errors; this
-> really needs to be tested before it can be applied.  Given the general
-> quality of the driver here and the lack of anything constructive we're
-> doing with the errors changes like this have high risk and low reward
-> unless we're actually running the code.
+>> > Ok, honestly that makes a lot of sense I see what you are saying and I
+>> > tend to agree. I'm treating the copied event log at something that
+>> > survives kexec in this patch because of the corruption fix so I'll loo=
+k
+>> > at dropping that LINUX_EFI_TPM_EVENT_LOG_GUID reference and rewrite th=
+is
+>> > patch. Hopefully, that will avoid that x86 E820 instability as well.
+>> >
+>> > Appreciate the guidance!
+>>
+>> Please don't send any patches yet - I'd like to get some input from othe=
+r
+>> folks as well.
+>>
 
-I agree that these changes should ideally be tested on real hardware.
-Unfortunately, I don't currently have any MTK boards available for
-testing.
 
-If these changes cannot be properly tested, I'm also fine with
-dropping this patch.
-
-On a related note: do MediaTek or other hardware vendors typically
-provide development boards to independent upstream contributors for
-testing purposes? It would make it much easier for contributors like
-me to properly validate changes like this one.
-
-Best regards,
-Phuc
