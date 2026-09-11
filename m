@@ -1,260 +1,185 @@
-Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5966C5678D3
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 19:48:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.205
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789156096; cv=pass; b=E8CQFlsWMxoTbIlQKVDI3PCxrGCHWoRO76BC0Kc6A99aoHuvfzpu1ghv6P/2HvdQDVehYTMnvG8LQZscn/JhcJtBivStTSDivkNefP5+Zenw2Uf/4Xi+cZm0/1ThMUHVDu+oiEMEdlgfRg8PI2m6Pt1P3yNMN4P6SUeO/neP6go=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789156096; c=relaxed/simple;
-	bh=wAIi5p+WM3xE4xReewx/Myw5rsTFIcQhwdeVujOwHtA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=sv/ztR2kCiuZ1q+Sxyc6svERpklnmxJ3L2nIg5OBB7MqU9YsUmPhzISfyo9aaGHoSrAYRuBmy1Np0xSsp7lUC48ZK4hH0U0ieRSL1a9TEJd93NkrnUQY7pp1cVqNQj2w1/zYt6JUarS84VstYNr2OhpUVONoRLDYzxUCHx9bbYU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=UhhkyG/6; arc=pass smtp.client-ip=74.125.230.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85DC257F756
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 19:49:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789156159; cv=none; b=jAFPoRm2qv8GzYnAn9YTTgJYGr1oulmmfabOYuPSTpyXmvbMXuoW9plVoCK5QAfgbvb6Ic//AaEg2CMiiueD4WpaOIovXoMrIRPSZxhj8uJJXYXyId2QLvxDbZ1td4YdOt3qrwKbeWiZQ/2Oksj8vaglDoH0Tn2rSF8dSLH4/PA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789156159; c=relaxed/simple;
+	bh=+SJWB4l3ge5XtEN0RK3yZRvBmVaW5KcSPPi3HgVmSOQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Lk0rGPnwZZOGG6z3k0DGOEY0Semq0Fz9O4GtQ118N3HiD1TfIdFYoIOfJV93SUcfk940gw34hR6u8cjX+5uABdjlLIn0ikhJ7WWAjzC7hw7NjO44dyKKhSAEkEgp9dAj7NxyL6gdjQKisw8R+I6wO5+/2BMegC7pNPclnk5F2vQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KFdvc42t; arc=none smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="UhhkyG/6"
-Received: by mail-qk2-f13.google.com with SMTP id d75a77b69052e-530d5fc2cd8so102781cf.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 12:48:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789156076; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GuA3brf93CnMBZwX0+8AiBInY4hd0HkK23rnyXIgVlpn7gtL6/XnDHL6f979DEy586
-         yXWL1rHDlcJ6mePLQt7hLPBMoovSzCnM9Oy7t6OMx3iTmeUH6uDy5rnqyNBzVWpR65Bt
-         n8GQU2Yt8FBbfnxjAw+/ug1CEh9lcM7f3x4UG2Nizwk8KAfI/rtrspQLyfTJdUwEI01o
-         SMlWrDE6Q2282QgJHiJaV5LPnViUxgvPsmndfAoJlr5i6kZa2qFytYQnoP1g/oFLYzrd
-         A9XamuwyJc1ngq1Tw2XpFxBpjt/17b9BctrS6oGtknbMrTJtkAt5IqTdYO6+OrpyDws9
-         naQw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=vrYQ8fif4AyPdCzj9gAZ4OwR6V4iYcgiDS5Z8k+S3YA=;
-        fh=xMl9BO/62XI7Ubjt0qDeg3tcePj5cKghSXfXYS/bdSc=;
-        b=cDM9AydudLHvw8PURyiI8ATowmEVB0lOaZ463e+RBr4zzPXZJ+dpqqtYAd1em1kOPl
-         VtyJiY3t0/ayH+PJ5EGV/r9cn6hVSnbZFby4obFv5HDR5GSwoLTk/0VdFFP/34c0mmOJ
-         51doNyF8GaHDIHO9m0EAVvRXJOm5xhAYK8ybo8UcaB5sOGOCDQK5BqaIb1r+wrIS4FbI
-         HT4q8ZVg9IR3Wif2QYkWAbxdzzTdBPTpnJIMvMDyvzaCSpEIaTXWS9YklgM39kYU0z3d
-         367AzZc/KBjH9IQmTZgZWpRo91nEinUmjtIC1cUA8fXfGKo2vapgMcajE2ogfVf4gAlS
-         HALg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KFdvc42t"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-485850cf499so1049539f8f.3
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 12:49:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789156076; x=1789760876; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vrYQ8fif4AyPdCzj9gAZ4OwR6V4iYcgiDS5Z8k+S3YA=;
-        b=UhhkyG/6/c3T4VMN6mxiuSHO8aJKnAncc6fkX89KS5cA0lRaAqVEsJbYsRFlTCk7De
-         bne+M1b4Au4tO/Ca2cl0W5YgnTWN4e/gcruhpDqpZzVIQzdjYBICE6d1iMIVoBWyXGnf
-         fIvf2amFkgvYPd90ap/mtJxB96eVv/B0cVS8LGXs76QCaALGCfQSLfUmho++5YN4ras3
-         YCV19jSrLujWo/hJgLozef28Ws9/zTAS+hWSkmB6Qt5FPtgYNtluK0jzTiEW5onkBJYO
-         +8uAQjfXbWbBLZh7ha1o/OsNGBA2ozPtHSSD8TeMAPzzzkfAYvfS03cQW431SBz276q6
-         zdyQ==
+        d=gmail.com; s=20251104; t=1789156151; x=1789760951; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mmTShhSF6HV793ZXQHXV05vHnnfk3kV8meDt9FBDDzU=;
+        b=KFdvc42t8ZUdjXItx/t+uH+0K2gtdRxbT4unl1glwTpH7VVUN5Kvg5ezfaOeeyGqwO
+         GA5UD/gr4Kx+CLiW5I6awDgVMljZR6L1GbquYWEJ212hSTgTVe7dtH2azD5iet8N76Ad
+         0r2vbHs2zZbCkkSJruqHsAqV2oChiuVewRpEFvvcoE3muxzJfAqCKdYaOx6UuW8OmCfW
+         YdQcVblc6eGk/gOEG5xnsjm0HNHzHfN8QwFWDj0SmnpB9V2IirsvCcPfWY8VqbqVmhQ+
+         MkZg53e6Czy/cuA+PMa9E2MCE5SSWtf4/AE5XCSQR2U/JzxcKfNrOmnN4X36wU27LLKg
+         o2Sw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789156076; x=1789760876;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vrYQ8fif4AyPdCzj9gAZ4OwR6V4iYcgiDS5Z8k+S3YA=;
-        b=OxEX8ebk+g/atTUGnIppMm4yM1bNFjKBgVHwUnen4M7InFuYFKuYaQ+qFOxErTDgAF
-         qUnS+HERSD9y4Q3Q8wmDk6qixcBIZeU1X9/CPO5PvfAg0rSaJ03uH9mXhMelXznBg6Ju
-         8a/Tmmg5qy6UbA85cuZe8zPYmxHt/teQu6PyVF7bs4AxTrBOc5Cr012GjgilUQnEJOOd
-         KJ48s1E0Mgz7KevuCtyw4mtfQvybS6UWWTT6Sj09PYXSx4vRACTiNRoFFr/wwQFS/U8l
-         Hyj02pdBCheC55wLvh4CsBiu9pmuRR1fLm3tRdl2qBhBLT8nsCeY6bQ8TN9DKZPWkEcs
-         R8UQ==
-X-Forwarded-Encrypted: i=1; AKwUvByzoOTb2F90kBR1PjqvXZ/DdAUIt/yRHI5Q5Oi/pItrSY7mHsxmHlGSIK6EyhMPPQ/nHKZehN5a5aSVKkA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lNu2AGBH1LEGPjV6eK5+bwysfyqQKM3INcv6znTXD1r7Vhka9X
-	H/6f0WP9Xzy1SvaWvCWaJuiNt9NfPT2RnDkHXtSCzyZLRlzK3awo2m6vtcGR8OuuvdcfMNORKaP
-	RH6Y/k/MH5oFdCCxd8W51e+lde4yhdPUnXZxTZNql
-X-Gm-Gg: AYBFou0wRfVxzL9lJcvAmUDNNkoH5Qoq2S3mO4kg2l6sTQSzzbBOXVlgUpOpskPAxGv
-	ZM62XlhTfE2QECl1AvHmO7bsSHKbF3mEQn79C4/2wFF42aSZ37E+OcYIUzQNtP3rR/Dc9GA3Ejv
-	UQ4mcmVnUIjNyVawRE760l5q27caYyrkDbULeRekMN6EyKUzQJ7vU4ezJLQU+dJ4oqO/uRGHvoe
-	TLAMoVFqO+2hnOrTStX3DI+kJP+wZzu9Yk1fgdDiYP9A4PuODUGC+SWBGF9VBuMiZjJU9tWTdfr
-	gbt09lxNNCnETxEmbSwhACgFxKCUBoVSKJVHfiMld4cIAxz7XUcH/jjmD7lPRY9wFlImWPUbtP2
-	tBnoghlaFUg==
-X-Received: by 2002:ac8:5749:0:b0:530:39d7:ef48 with SMTP id
- d75a77b69052e-530e612de23mr89771cf.3.1789156074760; Fri, 11 Sep 2026 12:47:54
- -0700 (PDT)
+        d=1e100.net; s=20251104; t=1789156151; x=1789760951;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mmTShhSF6HV793ZXQHXV05vHnnfk3kV8meDt9FBDDzU=;
+        b=f+fjGULad7KEsuiCKWzu4VsB2MywiHk145MTzefvTSqW45DcX//2StVo5pK3AxHqml
+         nKy7/JU7+SJnIgHrr22pcE8GKUoHqyMD9uIjBqDjd/xw7xY4ySxpx/Mqh7/P4uT+xLNl
+         K1Yxe2IupbDMY1hZHRETwAZn6XUMb0bLuSJ7H9A7PtMH73h84IYazH+d9388EmlpbrWZ
+         eQcPsAYFS3PrOcagVSq1pY1lP5p2nHbH4Inn53qTncTK7pr+w6WqNFs4DJTR+nJYE7hm
+         ijz8tlDhLNsjXwRVRwlUSPQ7tA5mfwERNP6uvzIHz1/tL9K5SpORbPecrTb4ALpuODBt
+         ounw==
+X-Forwarded-Encrypted: i=1; AKwUvByNLkIls7lQowWPtiMVlHeMk+ulD8LmLycsqUw2aelkaJAHzaJR/ltZtg06I2k+qWO7DumWIrloH+pTqTw=@vger.kernel.org
+X-Gm-Message-State: AFuF++k5joxU/NEFxEUWmg/AMTW3wK2RMwDmaENiQ+KLh6F3mH5u6jXp
+	Rbf694z2bffTYasRuCvZOF8l0CjN1ekLJAkN55jk8SLr/MSTdB6lJglm
+X-Gm-Gg: AYBFou3mbpqub9rnmkA5BR/JZoJjQYFz2D7P08xRZFk5nTW4K0x+/sV+Cb2J+xIFcXc
+	R0zHUF/fC2TVFpgDyr3plSrPkC285JuLtKyL9RL09FDEpWGxSdqN4KyUtCQ8mS6/FkACXwx+/Pe
+	fDSkQYXAmfEzxUGJfM6ThJaR03a0vrRUeA35mr3MKQNwhZ2MO1clkbTcRpAkFNoUW7od7Ji+vep
+	08MYjt6ntTLQyDbRNHJ+aGP5yh43qCEU9bpwCRmZrL/F52QAbuc7GBEwAxCsabYyT7F62SFEWfs
+	UgZuAFn4PnpW6px47dTzLR6Zvm8ZLz3AbSJsPUOa0nIZZ2cVDBuIVXXls50sJvgT0cuwAYlsybf
+	9KHFO9ohrG4L4BP8tORuaBYk09TTAE2eHuPPytI74d3BnPw9v7wUEpzXixQEinCsv8dbLnxiGm1
+	+gUj3oEbwLpLxC3UxzHVm6omtHskBVTDga7Yo4y3JZ7LnNSxigFxUOjv8nfYZ4k8g4WZ7trbNJJ
+	A9WRpq/zxGAZGGN0ZTQUBEZ4SX+J40pyYAxC0nOwBcJQ1zlJFan+LaWmnZrO9+3QSFKV5F5NpDV
+	lvN6Ls/Rt8tBfLE5t4gPp6rSxW8Qb7Om4YM9iUscJmyP3vFQCANvkThtOJiSZIvbf+dun9UcsRz
+	xX2sxfD6faz9fn45yZJcqYCiFouNGylG8O1LUD34rHJ5dFfOZ
+X-Received: by 2002:a05:600c:6206:b0:49d:1d7e:4085 with SMTP id 5b1f17b1804b1-49e619ec880mr76913545e9.22.1789156151321;
+        Fri, 11 Sep 2026 12:49:11 -0700 (PDT)
+Received: from localhost.localdomain (host-95-246-9-241.retail.telecomitalia.it. [95.246.9.241])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26b7332asm175983925e9.0.2026.09.11.12.49.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 12:49:10 -0700 (PDT)
+From: Nicola Fiorillo <nicfio@gmail.com>
+To: linux-media@vger.kernel.org
+Cc: sakari.ailus@linux.intel.com,
+	mchehab@kernel.org,
+	hverkuil@kernel.org,
+	antti.laakso@linux.intel.com,
+	linux-kernel@vger.kernel.org,
+	Nicola Fiorillo <nicfio@gmail.com>
+Subject: [PATCH v2 0/3] media: Two oopses and a hang when unbinding a streaming sensor
+Date: Fri, 11 Sep 2026 21:48:51 +0200
+Message-ID: <20260911194854.78894-1-nicfio@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260911194145.1781926-1-surenb@google.com> <20260911194145.1781926-5-surenb@google.com>
- <aqRaONEiklcnblwQ@gremlin>
-In-Reply-To: <aqRaONEiklcnblwQ@gremlin>
-From: Suren Baghdasaryan <surenb@google.com>
-Date: Fri, 11 Sep 2026 12:47:43 -0700
-X-Gm-Features: AcwNN1XsaY36agWBMGEWlskBvCYjftnblVqAHV0x5LuDyqQXoH6GyBmbsL07NFo
-Message-ID: <CAJuCfpFRmDJ=hu8et-M+tZtTmYoNcebaHgDqMz1V03eM7WL0LQ@mail.gmail.com>
-Subject: Re: [PATCH v4 4/7] proc/task_mmu: remove special-casing of
- smap_gather_stats() start parameter
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: akpm@linux-foundation.org, liam@infradead.org, vbabka@kernel.org, 
-	david@kernel.org, willy@infradead.org, jannh@google.com, paulmck@kernel.org, 
-	pfalcato@suse.de, xueyuan.chen21@gmail.com, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 11, 2026 at 12:45=E2=80=AFPM Lorenzo Stoakes (ARM) <ljs@kernel.=
-org> wrote:
->
-> On Fri, Sep 11, 2026 at 12:41:42PM -0700, Suren Baghdasaryan wrote:
-> > smap_gather_stats() interprets its start parameter to mean vma->vm_star=
-t
-> > when it's set to 0. Eliminate this special interpretation and provide t=
-wo
-> > separate functions for a partial and complete VMA walk.
-> >
-> > Since smap_gather_stats() operates within a single VMA, we can replace
-> > walk_page_vma()/walk_page_range() calls with walk_page_range_vma()
-> > which is simpler and also can be called while holding per-VMA lock.
-> >
-> > No functional change intended.
-> >
-> > Suggested by: Lorenzo Stoakes <ljs@kernel.org>
-> > Signed-off-by: Suren Baghdasaryan <surenb@google.com>
->
-> LGTM so:
->
-> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+This is the second version of a series first posted on 12 August:
 
-Thanks!
+  https://lore.kernel.org/linux-media/20260812105305.32447-1-nicfio@gmail.com/
 
->
-> > ---
-> >  fs/proc/task_mmu.c | 52 +++++++++++++++++++++++++++++++---------------
-> >  1 file changed, 35 insertions(+), 17 deletions(-)
-> >
-> > diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-> > index 0e53eb065a3e..a6026ffd07f1 100644
-> > --- a/fs/proc/task_mmu.c
-> > +++ b/fs/proc/task_mmu.c
-> > @@ -1246,20 +1246,26 @@ get_smaps_shmem_walk_ops(struct proc_maps_priva=
-te *priv)
-> >       return &smaps_shmem_walk_vma_lock_ops;
-> >  }
-> >
-> > -/*
-> > - * Gather mem stats from @vma with the indicated beginning
-> > - * address @start, and keep them in @mss.
-> > +/**
-> > + * smap_gather_stats_range() - Gather mem stats from a portion of the =
-@vma.
-> > + * @priv: proc maps private state.
-> > + * @vma: The VMA to gather stats for.
-> > + * @mss: The accumulated stats.
-> > + * @start: The address from which to start.
-> >   *
-> > - * Use vm_start of @vma as the beginning address if @start is 0.
-> > + * This gathers stats for the portion of the VMA starting at the @star=
-t
-> > + * address.
-> >   */
-> > -static void smap_gather_stats(struct proc_maps_private *priv,
-> > -                           struct vm_area_struct *vma,
-> > -                           struct mem_size_stats *mss, unsigned long s=
-tart)
-> > +static void smap_gather_stats_range(struct proc_maps_private *priv,
-> > +             struct vm_area_struct *vma,
-> > +             struct mem_size_stats *mss,
-> > +             unsigned long start)
-> >  {
-> >       const struct mm_walk_ops *ops =3D get_smaps_walk_ops(priv);
-> > +     const bool is_partial =3D start > vma->vm_start;
-> >
-> >       /* Invalid start */
-> > -     if (start >=3D vma->vm_end)
-> > +     if (start < vma->vm_start || start >=3D vma->vm_end)
-> >               return;
-> >
-> >       if (vma =3D=3D get_gate_vma(priv->lock_ctx.mm))
-> > @@ -1278,20 +1284,31 @@ static void smap_gather_stats(struct proc_maps_=
-private *priv,
-> >               const unsigned long shmem_swapped =3D shmem_swap_usage(vm=
-a);
-> >               const bool is_cow =3D vma_is_cow_mapping(vma);
-> >
-> > -             if (start || (shmem_swapped && is_cow))
-> > +             if (is_partial || (shmem_swapped && is_cow))
-> >                       ops =3D get_smaps_shmem_walk_ops(priv);
-> >               else
-> >                       mss->swap +=3D shmem_swapped;
-> >       }
-> >
-> > -     if (!start)
-> > -             walk_page_vma(vma, ops, mss);
-> > -     else
-> > -             walk_page_range(vma->vm_mm, start, vma->vm_end, ops, mss)=
-;
-> > +     walk_page_range_vma(vma, start, vma->vm_end, ops, mss);
-> >
-> >       reacquire_rcu(priv);
-> >  }
-> >
-> > +/**
-> > + * smap_gather_stats() - Gather mem stats from the entire @vma.
-> > + * @priv: proc maps private state.
-> > + * @vma: The VMA to gather stats for.
-> > + * @mss: The accumulated stats.
-> > + *
-> > + * This gathers stats for the whole of the VMA.
-> > + */
-> > +static void smap_gather_stats(struct proc_maps_private *priv,
-> > +             struct vm_area_struct *vma, struct mem_size_stats *mss)
-> > +{
-> > +     smap_gather_stats_range(priv, vma, mss, vma->vm_start);
-> > +}
-> > +
-> >  #define SEQ_PUT_DEC(str, val) \
-> >               seq_put_decimal_ull_width(m, str, (val) >> 10, 8)
-> >
-> > @@ -1342,7 +1359,7 @@ static int show_smap(struct seq_file *m, void *v)
-> >       struct vm_area_struct *vma =3D v;
-> >       struct mem_size_stats mss =3D {};
-> >
-> > -     smap_gather_stats(priv, vma, &mss, 0);
-> > +     smap_gather_stats(priv, vma, &mss);
-> >
-> >       show_map_vma(m, vma);
-> >
-> > @@ -1395,7 +1412,7 @@ static int show_smaps_rollup(struct seq_file *m, =
-void *v)
-> >
-> >       vma_start =3D vma->vm_start;
-> >       do {
-> > -             smap_gather_stats(priv, vma, &mss, 0);
-> > +             smap_gather_stats(priv, vma, &mss);
-> >               last_vma_end =3D vma->vm_end;
-> >
-> >               /*
-> > @@ -1454,14 +1471,15 @@ static int show_smaps_rollup(struct seq_file *m=
-, void *v)
-> >
-> >                       /* Case 1 and 2 above */
-> >                       if (vma->vm_start >=3D last_vma_end) {
-> > -                             smap_gather_stats(priv, vma, &mss, 0);
-> > +                             smap_gather_stats(priv, vma, &mss);
-> >                               last_vma_end =3D vma->vm_end;
-> >                               continue;
-> >                       }
-> >
-> >                       /* Case 4 above */
-> >                       if (vma->vm_end > last_vma_end) {
-> > -                             smap_gather_stats(priv, vma, &mss, last_v=
-ma_end);
-> > +                             smap_gather_stats_range(priv, vma, &mss,
-> > +                                                     last_vma_end);
-> >                               last_vma_end =3D vma->vm_end;
-> >                       }
-> >               }
-> > --
-> > 2.55.0.1007.g17ff1f9808-goog
-> >
->
-> --
-> Cheers, Lorenzo
+What changed:
+
+  - Rebased and re-verified on v7.3-rc2. No code changes: none of the
+    three files has changed in mainline since the first posting, so all
+    three patches apply unchanged.
+  - Cover letter: the paragraph on patch 1 named
+    ipu6_isys_csi2_get_remote_desc(), which does not exist. The
+    functions are ipu6_isys_csi2_enable_streams() and
+    ipu6_isys_csi2_disable_streams(), as the patch itself says.
+  - Patch 3 now carries a note on why the check and the marking are not
+    done under q->lock, and on what the proper fix would look like.
+  - Dropped bingbu.cao@intel.com and tian.shu.qiu@intel.com from Cc:
+    both bounced with 550 #5.1.0 on the last message, and neither is in
+    the MAINTAINERS entry for this driver any more.
+
+There have been no review comments so far. I am resending because the
+series has been sitting for a month and because patch 1 now overlaps with
+the IPU7 work; there is a question about that at the end.
+
+Unbinding a camera sensor while a capture is running is a scenario that
+nothing in the IPU6 path handles: the kernel oopses twice, corrupts memory
+once, and leaves the application blocked forever. None of this is caused by
+the sensor drivers themselves, and all four failures are present in
+mainline today.
+
+They were found while testing two new sensor drivers on a CHUWI Hi10 X1
+(Intel N100, Alder Lake-N, IPU6) on a kernel built with KASAN, UBSAN,
+KMEMLEAK, PROVE_LOCKING and DETECT_HUNG_TASK. Three of them are fixed here;
+the fourth, a use-after-free in the media controller, is sent separately
+because it belongs to a different subsystem.
+
+Patch 1 is a NULL pointer dereference in ipu6_isys_csi2_enable_streams()
+and ipu6_isys_csi2_disable_streams(). The remote pad is dereferenced
+without being checked, and unbinding the sensor mid-stream makes it NULL.
+Present since May 2024.
+
+Patch 2 is a second NULL pointer dereference, in subdev_open().
+v4l2_device_unregister_subdev() clears sd->v4l2_dev before the device node
+goes away, so anything opening /dev/v4l-subdevN in that window oopses. This
+one was not provoked deliberately: udev's v4l_id walked into it on its own.
+The window has been open since 2011.
+
+Patch 3 is the hang. isys_async_ops has no .unbind() callback, so nothing
+tells the video nodes that the sensor is gone, and a DQBUF already waiting
+in vb2_core_dqbuf() never returns. The sleep is interruptible, so
+DETECT_HUNG_TASK stays quiet and the process is simply stuck until it is
+killed. Reproduced 10 times out of 10 on both sensors of the machine; with
+the patch, all 10 return -EIO and exit.
+
+How each one was verified, since the three differ:
+
+  - patch 1: the oops was provoked deliberately on the unpatched kernel
+    before the fix was written
+  - patch 2: reproduced itself, unprompted, with udev alone; after the fix,
+    150 cycles of a reproducer with four concurrent openers left no oops
+    and no leaked minors
+  - patch 3: rebuilt both ways, same kernel and same test. Without it,
+    3 attempts out of 3 hang; with it, 10 out of 10 wake up and return
+    -EIO
+
+The full test cycle with the three fixes in place is clean: no KASAN or
+UBSAN reports, no KMEMLEAK findings, and lockdep still enabled at the end
+of the run. That last detail matters: lockdep disables itself on its first
+complaint and silently invalidates everything measured afterwards.
+
+All of the above was measured on the first posting. The machine no longer
+has a kernel tree on it, so this one has not been rebuilt; it is the same
+code, and the rebase is a no-op verified with git apply.
+
+The reproducer is a shell script that streams with v4l2-ctl, unbinds the
+sensor after two seconds, then rebinds it, in a loop. I am happy to post it
+if that would be useful.
+
+One open question, on patch 1. The IPU7 series reworks both functions it
+touches: "media: ipu6: Split ipu6 csi2 stream enable/disable" is in the
+ipu6 branch of the media tree and in [PATCH v4 00/45]. The rework is a
+refactor and carries the bug along -- remote_pad is still dereferenced
+unchecked in both functions -- so the fix is still needed there, in a
+different shape. Patch 1 as posted here applies to mainline and not to that
+branch; a version rebased on the branch is in the v1 thread:
+
+https://lore.kernel.org/linux-media/20260903202820.8401-1-nicfio@gmail.com/
+
+Which base would you prefer? I am happy to resend against either, or to
+split the difference: patches 2 and 3 are unaffected and apply to both.
+
+Nicola Fiorillo (3):
+  media: ipu6: Check the remote pad before dereferencing it
+  media: v4l2-subdev: Check v4l2_dev before dereferencing it in open()
+  media: ipu6: Signal the video queues when a sensor is unbound
+
+ drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c | 14 ++++++-
+ drivers/media/pci/intel/ipu6/ipu6-isys.c      | 41 +++++++++++++++++++
+ drivers/media/v4l2-core/v4l2-subdev.c         | 31 +++++++++++---
+ 3 files changed, 78 insertions(+), 8 deletions(-)
+
+base-commit: df2908090cda368b01ff43709f51890076c56157
+-- 
+2.47.3
+
