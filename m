@@ -1,33 +1,36 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 48D1535C692;
-	Fri, 11 Sep 2026 14:26:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AB9F33AD88
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:26:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789136778; cv=none; b=ZR30kZVEVtDmUzolYmvigCoxd1H6NF85rv5q3vpUxkr1C9y0AoZTMvQ9ukdYsRRhwkEv/oguk+z/W00m9QUpCEs05Pid9k5jRXoLW5u02CXoTIYZ/qG+2PFYDNJJjaqj50YEiEdgN1X16CQOqae8yulLZPKWvqPBLuRnjOJOP2M=
+	t=1789136797; cv=none; b=TztwKbw1YCISmc9/yn0WAXHwi8zVs/9K1a0J6Wh8EbI7h8lhU60EJEsGIzQXqWsaoPZ+o2IOTqr2bNwoEpL5k8RHJXIRpSWnz/+VQBmw1UI9gaVxxB4GsVujk5CZjg6S9lq+yx4weymp9LpZR0oWW8vnrfck0a+mbpKwj9Iv+o0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789136778; c=relaxed/simple;
-	bh=+dl+/CW2c5vdQ2DAyzIA0HbT6aXfdDkk/ZXevqf3xhY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=E65iQyffBb+ou/wuKq1VvLDZzmPbw8QZNMMWL+Wqe2F3hbBXnxFsGe+grDlcIeeCBs+3nxbb4voYnU2uHjwOC3lMdZUOD4m7QS3Xr/ifAfIJ9F+c/wy0XP9i6EFehwahfj/C3gHJReBn1uo+pe600otpynBhaLsTuvFUphXyK34=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=VJS9jdVj; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789136797; c=relaxed/simple;
+	bh=THmaTw1KLQvm7nR22dXToC0lj8N4rbXoqOxsuDdUNVQ=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=m9JehrCf3JjCeEH+exD5yTOKIjltIjq/7J7ZhzM+AgCPp+q0sDI3rshs2hRUNnnioMVzSy6/ZcevnjQLg/5LAmvDOzyIduJIT/Eq/+QYbQfaqJ5DQyDielJvrhLBNUFSVnQacklfiLhOy/dp3gMZ0IWTsMuYB4sf3rMkLAzSpKs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=QoPpUinG; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="VJS9jdVj"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E817316A3;
-	Fri, 11 Sep 2026 07:26:11 -0700 (PDT)
-Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A6E6C3F7B4;
-	Fri, 11 Sep 2026 07:26:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789136775; bh=+dl+/CW2c5vdQ2DAyzIA0HbT6aXfdDkk/ZXevqf3xhY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=VJS9jdVjdxrfhddtboM8//bjGARsasQc92yC8Z54x1d+/OrvhGyfbkqZaUzUr9DjW
-	 S2ERUo7sK1bp3dMpOWEtST2Im/BFbpoRDGPWoe7Qd2gSH41anUBYV5Hja3TSoKj1Xk
-	 DpMjfmQU9PjtvdHf/31WGNkVuM+weOxegDS2VvYs=
-Message-ID: <89a13b60-a1fe-442f-ab0d-b0d37a118ad1@arm.com>
-Date: Fri, 11 Sep 2026 15:26:11 +0100
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="QoPpUinG"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:Cc:To:From:Subject:
+	MIME-Version:Date:Message-ID:From:Reply-To;
+	bh=SvkAWJr2shqvFu+Pn28Qal9b4u+qy3VAnSC7jq+8M1w=; b=QoPpUinG6rIW/W80tOxwmrBCO+
+	jJLt7wSFrEY0vqy89wUJiRq3VRP3aopt98LGfF4SiUZhgb7hH9Qkwl69uTkxXhmlxS6LrF4DP3Iym
+	jhzmn+WrBe9xhHbxYeP763eSuZ7yw7eVUqR99nF8fhCitmyflnsmfMJv3Pq0+FuFrrWUV3iLiEzFS
+	1nKQeTEwkXhtLLg8SqrxOGAaJKxaMSi+kmiGIl4ViF64164hnpeuakyTm2hfPjZSU+uevmyeI8K1B
+	s78gYswNzWgxqe9qVP+EyXjTKCBcyxPJK9lSS6gzBHpamTO5s9xkNJgyKXJnaynfs5A7YrgEV6eVx
+	9h3s2aUQ==;
+Received: from [31.4.134.247] (helo=[192.168.1.126])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+	id 1x52Cr-000iHB-72; Fri, 11 Sep 2026 16:26:21 +0200
+Message-ID: <baff8cb6-93d2-468c-a1f2-421a8700a942@igalia.com>
+Date: Fri, 11 Sep 2026 16:26:16 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,132 +38,126 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 08/14] arm_mpam: propagate MSC access errors for
- interrupt control
-To: Andre Przywara <andre.przywara@arm.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>, Hanjun Guo
- <guohanjun@huawei.com>, Sudeep Holla <sudeep.holla@kernel.org>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
- James Morse <james.morse@arm.com>,
- Reinette Chatre <reinette.chatre@intel.com>, Fenghua Yu <fenghuay@nvidia.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
- Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>,
- Ganapatrao Kulkarni <ganapatrao.kulkarni@oss.qualcomm.com>,
- Trilok Soni <tsoni@quicinc.com>, Srinivas Ramana <sramana@qti.qualcomm.com>,
- Niyas Sait <niyas.sait@arm.com>, Lee Trager <lee@trager.us>,
- Ritwick Sharma <ritwick.sharma@arm.com>, Gavin Shan <gshan@redhat.com>,
- linux-acpi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260911112835.714162-1-andre.przywara@arm.com>
- <20260911112835.714162-9-andre.przywara@arm.com>
+Subject: Re: [PATCH v4] drm: Fix drm_pending_vblank_event leak in error path
+ for out_fence_ptr
+From: Melissa Wen <mwen@igalia.com>
+To: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ kernel-dev@igalia.com, sashiko-bot@kernel.org
+References: <20260826-drm_pending_vblank_event_leak-v4-1-f8de8b996b9d@igalia.com>
+ <48a67b88-7ad8-4764-bab0-c226e9247dda@igalia.com>
 Content-Language: en-US
-From: Ben Horgan <ben.horgan@arm.com>
-In-Reply-To: <20260911112835.714162-9-andre.przywara@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <48a67b88-7ad8-4764-bab0-c226e9247dda@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi Andre,
 
-On 11/09/2026 12:28, Andre Przywara wrote:
-> Allow the functions dealing with interrupt registration and enablement
-> to check for and return errors, and propagate MSC read and write errors
-> from the lower level up.
-> This does not cover the IRQ handler yet, as this needs some more
-> attention.
-> 
-> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
-> Reviewed-by: Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>
 
-Commenting here as this is the last error propagation patch. I think we need a clean boundary for
-the error propagation. As you said a while back I think we can propagate error for all non-static
-functions from mpam_devices.c and the callers can discard the errors if appropriate. For instance,
-mpam_reset_class_locked() should propagate any error.
+On 11/09/2026 15:58, Melissa Wen wrote:
+>
+>
+> On 26/08/2026 13:46, Thadeu Lima de Souza Cascardo wrote:
+>> When an out_fence_ptr is provided but DRM_MODE_PAGE_FLIP_EVENT is not
+>> set, a drm_pending_vblank_event will be allocated. If later, there is an
+>> allocation failure or another failure at setup_out_fence(), that event
+>> will not have base.fence set and it will not be released at
+>> complete_signaling().
+>>
+>> Release the event and set crtc_state->event to NULL just like in the
+>> DRM_MODE_PAGE_FLIP_EVENT case when there is a failure at
+>> drm_event_reserve_init(). That is, prepare_signaling() releases the
+>> event and there is nothing to be done at complete_signaling(). Use
+>> drm_event_cancel_free() as that will also undo drm_event_reserve_init()
+>> in case it has been called.
+>
+> LGTM. Thanks!
+>
+> Reviewed-by: Melissa Wen <mwen@igalia.com>
 
-Thanks,
+Applied to drm-misc-fixes:
+9eb1a393c89a ("drm: Fix drm_pending_vblank_event leak in error path for 
+out_fence_ptr")
 
-Ben
-
-> ---
->  drivers/resctrl/mpam_devices.c | 31 +++++++++++++++----------------
->  1 file changed, 15 insertions(+), 16 deletions(-)
-> 
-> diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
-> index 558efab75f911..eb26c25b9f970 100644
-> --- a/drivers/resctrl/mpam_devices.c
-> +++ b/drivers/resctrl/mpam_devices.c
-> @@ -1105,7 +1105,9 @@ static int mpam_msc_hw_probe(struct mpam_msc *msc)
->  	}
->  
->  	/* Clear any stale errors */
-> -	mpam_msc_clear_esr(msc);
-> +	ret = mpam_msc_clear_esr(msc);
-> +	if (ret)
-> +		return ret;
->  
->  	spin_lock(&partid_max_lock);
->  	mpam_partid_max = min(mpam_partid_max, msc->partid_max);
-> @@ -2668,9 +2670,7 @@ static int mpam_enable_msc_ecr(void *_msc)
->  {
->  	struct mpam_msc *msc = _msc;
->  
-> -	__mpam_write_reg(msc, MPAMF_ECR, MPAMF_ECR_INTEN);
-> -
-> -	return 0;
-> +	return __mpam_write_reg(msc, MPAMF_ECR, MPAMF_ECR_INTEN);
->  }
->  
->  /* This can run in mpam_disable(), and the interrupt handler on the same CPU */
-> @@ -2678,9 +2678,7 @@ static int mpam_disable_msc_ecr(void *_msc)
->  {
->  	struct mpam_msc *msc = _msc;
->  
-> -	__mpam_write_reg(msc, MPAMF_ECR, 0);
-> -
-> -	return 0;
-> +	return __mpam_write_reg(msc, MPAMF_ECR, 0);
->  }
->  
->  static irqreturn_t __mpam_irq_handler(int irq, struct mpam_msc *msc)
-> @@ -2777,11 +2775,13 @@ static int mpam_register_irqs(void)
->  				return err;
->  		}
->  
-> -		mutex_lock(&msc->error_irq_lock);
-> -		msc->error_irq_req = true;
-> -		mpam_touch_msc(msc, mpam_enable_msc_ecr, msc);
-> -		msc->error_irq_hw_enabled = true;
-> -		mutex_unlock(&msc->error_irq_lock);
-> +		scoped_guard(mutex, &msc->error_irq_lock) {
-> +			msc->error_irq_req = true;
-> +			err = mpam_touch_msc(msc, mpam_enable_msc_ecr, msc);
-> +			if (err)
-> +				return err;
-> +			msc->error_irq_hw_enabled = true;
-> +		}
->  	}
->  
->  	return 0;
-> @@ -2800,10 +2800,10 @@ static void mpam_unregister_irqs(void)
->  		if (irq <= 0)
->  			continue;
->  
-> -		mutex_lock(&msc->error_irq_lock);
-> +		guard(mutex)(&msc->error_irq_lock);
->  		if (msc->error_irq_hw_enabled) {
-> -			mpam_touch_msc(msc, mpam_disable_msc_ecr, msc);
-> -			msc->error_irq_hw_enabled = false;
-> +			if (!mpam_touch_msc(msc, mpam_disable_msc_ecr, msc))
-> +				msc->error_irq_hw_enabled = false;
->  		}
->  
->  		if (msc->error_irq_req) {
-> @@ -2815,7 +2815,6 @@ static void mpam_unregister_irqs(void)
->  			}
->  			msc->error_irq_req = false;
->  		}
-> -		mutex_unlock(&msc->error_irq_lock);
->  	}
->  }
->  
+>
+>>
+>> Reported-by: sashiko-bot@kernel.org
+>> Closes: 
+>> https://sashiko.dev/#/patchset/20260727-drm_crtc_atomic_commit_leak-v1-1-23d9948a9d7c@igalia.com?part=1
+>> Fixes: 92c715fca907 ("drm/atomic: Fix double free in 
+>> drm_atomic_state_default_clear")
+>> Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+>> ---
+>> Changes in v4:
+>> - Rename label to err_free_event.
+>> - Use crtc_state->event instead of a local variable e.
+>> - Link to v3: 
+>> https://patch.msgid.link/20260817-drm_pending_vblank_event_leak-v3-1-7582b24447d0@igalia.com
+>>
+>> Changes in v3:
+>> - Use a label for the common exit pattern.
+>> - Link to v2: 
+>> https://patch.msgid.link/20260729-drm_pending_vblank_event_leak-v2-1-a5074aae07df@igalia.com
+>>
+>> Changes in v2:
+>> - Fix UAF when DRM_MODE_PAGE_FLIP_EVENT is used.
+>> - Link to v1: 
+>> https://patch.msgid.link/20260728-drm_pending_vblank_event_leak-v1-1-08429b920b16@igalia.com
+>> ---
+>>   drivers/gpu/drm/drm_atomic_uapi.c | 13 ++++++++++---
+>>   1 file changed, 10 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c 
+>> b/drivers/gpu/drm/drm_atomic_uapi.c
+>> index ae7667d1072d..8c0eea2fed4a 100644
+>> --- a/drivers/gpu/drm/drm_atomic_uapi.c
+>> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+>> @@ -1458,10 +1458,12 @@ static int prepare_signaling(struct 
+>> drm_device *dev,
+>>               struct dma_fence *fence;
+>>               struct drm_out_fence_state *f;
+>>   +            ret = -ENOMEM;
+>> +
+>>               f = krealloc(*fence_state, sizeof(**fence_state) *
+>>                        (*num_fences + 1), GFP_KERNEL);
+>>               if (!f)
+>> -                return -ENOMEM;
+>> +                goto err_free_event;
+>>                 memset(&f[*num_fences], 0, sizeof(*f));
+>>   @@ -1470,12 +1472,12 @@ static int prepare_signaling(struct 
+>> drm_device *dev,
+>>                 fence = drm_crtc_create_fence(crtc);
+>>               if (!fence)
+>> -                return -ENOMEM;
+>> +                goto err_free_event;
+>>                 ret = setup_out_fence(&f[(*num_fences)++], fence);
+>>               if (ret) {
+>>                   dma_fence_put(fence);
+>> -                return ret;
+>> +                goto err_free_event;
+>>               }
+>>                 crtc_state->event->base.fence = fence;
+>> @@ -1531,6 +1533,11 @@ static int prepare_signaling(struct drm_device 
+>> *dev,
+>>       }
+>>         return 0;
+>> +
+>> +err_free_event:
+>> +    drm_event_cancel_free(dev, &crtc_state->event->base);
+>> +    crtc_state->event = NULL;
+>> +    return ret;
+>>   }
+>>     static void complete_signaling(struct drm_device *dev,
+>>
+>> ---
+>> base-commit: 4d4be202165e832d74849b4a68e289a2a377039c
+>> change-id: 20260728-drm_pending_vblank_event_leak-a36cedb296ba
+>>
+>> Best regards,
+>> -- 
+>> Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+>>
+>
 
