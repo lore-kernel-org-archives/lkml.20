@@ -1,119 +1,103 @@
-Received: from mx.prosyst.ru (m2.prosoftsystems.ru [46.48.77.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B47642848B
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:27:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.48.77.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C47645560F;
+	Fri, 11 Sep 2026 08:28:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789115248; cv=none; b=YCjLel5pSK8Yf0AcDt+ZXQZuimgd9qKFZVz0zEqs3C3wLDJOiQWyA2rXdTbYXKo2239egnmzfaNmchkAmNB6GYPYoURAQ0qSIvlMWW9FZ86kfjdSBhe4CWvKoeY4/Ib5550OMqZqx3Ed6mYFRyRPxGRMUDFWs/nxoEngznwAf8s=
+	t=1789115332; cv=none; b=VYb7yaa8SBCVNDxXvbLhL3EgfusAom/9dwZO0XUpDWRHiUMuROuGSMh6sDGlsMbD/oo6UxeaQH0L1p9PMlquL+GyAqkDFKkyMPdqdt32GyJuHWl54ybazxl4Qif5iz+2ypGNAvUwSKN4IdH9lWywKL0/j0h8e0mRS+SZroJ+62c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789115248; c=relaxed/simple;
-	bh=rYi+oMMWYSkIsTarqqDhTmaDhCS9olFaoYmQffkuPsw=;
-	h=Content-Type:From:To:CC:Subject:Date:Message-ID:MIME-Version; b=PHc9QYa0PEx0BeXpakQGZcrxarnCjNF5t6ikfmrnnQrAtdVBbnUE1OPzqQkQp6YOcWeHgraOmIi2uo08owh2mV2CB6PIvusrQ4ul1Jia28Gn/vVfBBi6ol8bgutQfxI6sIly7aY47U52MF6Elrn7UvazC+zbjtm/JlFM/wV4kao=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=prosoftsystems.ru; spf=pass smtp.mailfrom=prosoftsystems.ru; dkim=pass (2048-bit key) header.d=prosoftsystems.ru header.i=@prosoftsystems.ru header.b=dGbWZ4Kt; arc=none smtp.client-ip=46.48.77.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=prosoftsystems.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=prosoftsystems.ru
+	s=arc-20240116; t=1789115332; c=relaxed/simple;
+	bh=Hp6Oz9sNuMG2k+i7B0+dNTO/+y2pO5GzZRg3Z2yhjLs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=L3DqBWRlzNCGy03BZWMX4Ph6JuZ+eSmjRXy4dyi+rUGUUJXR3KXomXlje9AN9ldKRtoiR6RT5tpgohAKPgeYGpBAn9XDUqoa2MygMFX7zlRcu957Hrw30RpkY0saTcD682B4/gQIXfcwmFjUzT4UloScgc/5A90C+8UkWmZhWww=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=q9GqzSFT; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=prosoftsystems.ru header.i=@prosoftsystems.ru header.b="dGbWZ4Kt"
-Content-Language: ru-RU
-Content-Type: text/plain; charset="koi8-r"
-Content-Transfer-Encoding: quoted-printable
-DKIM-Signature: v=1; a=rsa-sha256; d=prosoftsystems.ru; s=ps;
-	c=relaxed/relaxed; t=1789115234; h=from:to:date:message-id:subject;
-	bh=3RxcPjFvGlBKchxGD+ISXOTlayBQ2dnKi7fvrlVIR0w=;
-	b=dGbWZ4KtgNYu9j15lBU2U8wP7xSrzTJeZFVFrwkLsAMqOIwhiEYDNO8XQ8fNGNuj9LHn3soKSpk
-	R+2DB0Ju/lv09cBm4KXy9jBEtrr4pLebkLp+UvLsR1WU7k2vAFRKTXk6ruWjgt2zfUoOUNjR8ZP3P
-	PpYe4AjDm1CIGsK4TR5OvP2O2vudEQ1cqw1xSDd3cBWe9HZwuYEkwzYNcKcuPlUuZkYaIDh43Tep2
-	5k2qITAykTkdqj0AZ0WOaPW5Re4IUG7txhksGUspJe8lwD7XVdxVz158LFmAUZZ7PmjFsBZ4nx5FF
-	yAsZpJkTnuFwx/SSoWipUX1DNAred9Wy6LyA==
-Received: from echo-2.prosoft.ural.ru (172.21.245.22) by mx.prosoftsystems.ru
- (172.21.240.33) with Microsoft SMTP Server (TLS) id 15.1.396.30; Fri, 11 Sep
- 2026 13:27:14 +0500
-Received: from echo-2.prosoft.ural.ru (172.21.245.22) by
- echo-2.prosoft.ural.ru (172.21.245.22) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.39; Fri, 11 Sep 2026 13:27:14 +0500
-Received: from echo-2.prosoft.ural.ru ([::1]) by echo-2.prosoft.ural.ru
- ([fe80::c1a2:90f7:8820:c669%17]) with mapi id 15.02.1748.039; Fri, 11 Sep
- 2026 13:27:14 +0500
-From: =?koi8-r?B?9sHNwsHLycXXIPLBxMnKIPLJy8HSxMnOz9fJ3g==?=
-	<r.zhambakiev@prosoftsystems.ru>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-CC: =?koi8-r?B?9sHNwsHLycXXIPLBxMnKIPLJy8HSxMnOz9fJ3g==?=
-	<r.zhambakiev@prosoftsystems.ru>, Thorsten Blum <blum@kernel.org>, Kees Cook
-	<kees@kernel.org>, Akira Shimahara <akira215corp@gmail.com>, "Greg
- Kroah-Hartman" <gregkh@linuxfoundation.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "lvc-project@linuxtesting.org"
-	<lvc-project@linuxtesting.org>
-Subject: [PATCH] w1_therm: verify CRC only after a full scratchpad read
-Thread-Topic: [PATCH] w1_therm: verify CRC only after a full scratchpad read
-Thread-Index: AQHdQcdZqZCwwiyRf0GG222RKJslsw==
-Date: Fri, 11 Sep 2026 08:27:14 +0000
-Message-ID: <20260911082549.82895-1-r.zhambakiev@prosoftsystems.ru>
-Accept-Language: ru-RU, en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="q9GqzSFT"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id D35EEC2BCF4;
+	Fri, 11 Sep 2026 08:28:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789115331;
+	bh=Hp6Oz9sNuMG2k+i7B0+dNTO/+y2pO5GzZRg3Z2yhjLs=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=q9GqzSFT0gRvLjCZlMLX3TC0aec6jJEz3OMwX+UhLYI/Tk+uk2LUgMD9kv4Rz9SWQ
+	 XIjUYilEcjWvTwD4y/z85cjpupr+SRXnJyoQKNWboseeQ1lKAgkwhV63DI856DlwYL
+	 h/gBcLFvZCopvI/sd2utpXA2bJbayJ2vmJmcT5s0rKd7VlFmAWMFJTTb76lN+Ibfyq
+	 Oncb9aELeKMdj53gGRoI+uV6s9XGdVBPpbjMiPVKbz3NxmRMzHR8k3239LcjKn+idY
+	 GttkDwNVNg6YM4BjBKBsqzCBy2SuumX8hev0xLtJ3C1nBZlJVoCYKKSJ+rgOxnLv8I
+	 QeGUdwogFUiYA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B40E9C79FA1;
+	Fri, 11 Sep 2026 08:28:51 +0000 (UTC)
+From: Chuan Liu via B4 Relay <devnull+chuan.liu.amlogic.com@kernel.org>
+Date: Fri, 11 Sep 2026 16:28:28 +0800
+Subject: [PATCH 01/10] dt-bindings: soc: amlogic: Add compatible to support
+ more SoCs
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260911-more-socs-to-support-clk_measure-v1-1-940e269aa52f@amlogic.com>
+References: <20260911-more-socs-to-support-clk_measure-v1-0-940e269aa52f@amlogic.com>
+In-Reply-To: <20260911-more-socs-to-support-clk_measure-v1-0-940e269aa52f@amlogic.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Chuan Liu <chuan.liu@amlogic.com>
+X-Mailer: b4 0.14.1
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789115329; l=1253;
+ i=chuan.liu@amlogic.com; s=20240902; h=from:subject:message-id;
+ bh=cohyDpjVw0jD9doFV5tm/XEidv0ja/sUaS7qt5A3x+8=;
+ b=+zRqxruOYTQd2GWbHMyhce6LqqsCixdgV8s7tFf1e7uXuhtRdOC4Qbns3oWiIJK2gcihR6bq4
+ IhjH2to1X/2CqUefRZCrhxwbaNuxHIzjijPh9TGjnL5GH1DbkKXt/oJ
+X-Developer-Key: i=chuan.liu@amlogic.com; a=ed25519;
+ pk=fnKDB+81SoWGKW2GJNFkKy/ULvsDmJZRGBE7pR5Xcpo=
+X-Endpoint-Received: by B4 Relay for chuan.liu@amlogic.com/20240902 with
+ auth_id=203
+X-Original-From: Chuan Liu <chuan.liu@amlogic.com>
+Reply-To: chuan.liu@amlogic.com
 
-From: Radiy Zhambakiev <r.zhambakiev@prosoftsystems.ru>
+From: Chuan Liu <chuan.liu@amlogic.com>
 
-read_scratchpad() computes the CRC and updates verdict/ret
-unconditionally after w1_read_block(), even when it failed and returned
-fewer than 9 bytes without writing to info->rom.
+Add clk-measure compatible for amlogic A5, A4, S7, S7D, S6 and A9 SoCs.
 
-info->rom is zeroed at the top of the function, so a failed read leaves
-it all zeros. w1_calc_crc8() of eight zero bytes is 0 and info->rom[8]
-is also 0, so the 'rom[8] =3D=3D crc' comparison spuriously matches, verdic=
-t
-is set and ret becomes 0. That makes the retry loop,
-'while (max_trying-- && ret)', exit early and read_scratchpad() report
-success with an all-zero scratchpad. Callers such as temperature_show()
-then surface a bogus 0 degC reading instead of an error.
+Although the clk-measure IP itself has little hardware difference across
+SoCs, the clock inputs connected to the clk-measure block vary between
+SoCs. Therefore, it is difficult to fall back to the configuration used
+by previous SoCs.
 
-Only run the CRC check (and the resulting ret/verdict update) when all
-9 bytes were actually read; otherwise keep the -EIO so the loop retries.
-
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
-
-Fixes: 308bdb94de0c ("w1_therm: adding resolution sysfs entry")
-Signed-off-by: Radiy Zhambakiev <r.zhambakiev@prosoftsystems.ru>
+Signed-off-by: Chuan Liu <chuan.liu@amlogic.com>
 ---
- drivers/w1/slaves/w1_therm.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+ .../bindings/soc/amlogic/amlogic,meson-gx-clk-measure.yaml          | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/w1/slaves/w1_therm.c b/drivers/w1/slaves/w1_therm.c
-index d96b224e2215..fd8c067a92d4 100644
---- a/drivers/w1/slaves/w1_therm.c
-+++ b/drivers/w1/slaves/w1_therm.c
-@@ -1302,15 +1302,15 @@ static int read_scratchpad(struct w1_slave *sl, str=
-uct therm_info *info)
- 					"w1_read_block(): returned %u instead of 9.\n",
- 					nb_bytes_read);
- 				ret =3D -EIO;
--			}
--
--			info->crc =3D w1_calc_crc8(info->rom, 8);
-+			} else {
-+				info->crc =3D w1_calc_crc8(info->rom, 8);
-=20
--			if (info->rom[8] =3D=3D info->crc) {
--				info->verdict =3D 1;
--				ret =3D 0;
--			} else
--				ret =3D -EIO; /* CRC not checked */
-+				if (info->rom[8] =3D=3D info->crc) {
-+					info->verdict =3D 1;
-+					ret =3D 0;
-+				} else
-+					ret =3D -EIO; /* CRC not checked */
-+			}
- 		}
-=20
- 	}
---=20
-2.53.0
+diff --git a/Documentation/devicetree/bindings/soc/amlogic/amlogic,meson-gx-clk-measure.yaml b/Documentation/devicetree/bindings/soc/amlogic/amlogic,meson-gx-clk-measure.yaml
+index b1200e6940ac..125be01e3b2c 100644
+--- a/Documentation/devicetree/bindings/soc/amlogic/amlogic,meson-gx-clk-measure.yaml
++++ b/Documentation/devicetree/bindings/soc/amlogic/amlogic,meson-gx-clk-measure.yaml
+@@ -26,6 +26,12 @@ properties:
+       - amlogic,s4-clk-measure
+       - amlogic,a1-clk-measure
+       - amlogic,t7-clk-measure
++      - amlogic,a5-clk-measure
++      - amlogic,a4-clk-measure
++      - amlogic,s7-clk-measure
++      - amlogic,s7d-clk-measure
++      - amlogic,s6-clk-measure
++      - amlogic,a9-clk-measure
+ 
+   reg:
+     maxItems: 1
+
+-- 
+2.42.0
+
+
