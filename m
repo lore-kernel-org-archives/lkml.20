@@ -1,73 +1,78 @@
-Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 890D03E9C32
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 03:15:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D948246BCD
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 03:17:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789096508; cv=none; b=YYX5ybjXs0W+0ydHGoIz1T2KHBmUXJrL8m1XGGdpFEH/2MN92xX3JcEQBq8qQOMnT9CkQ+9J1izUtTTV4sdLOTxkZdHayEkiEUOHpwf8KZqEym3pEhsd/nDglh3FMqR6fZvrjvig51sQ4cvlbFvu1Y2b/+/qXFKGY8+gYw0VBVk=
+	t=1789096675; cv=none; b=X7Ri+97otgf/Kq7/zEaDC4gfqmcpMtmL4onBe/vW8KXjDReyMrDBG0mqD9nmnGo3GTb1Ya153xDAei97x7O+dea1xqE0nAAlbVyupgWC6CXsRH/9RaIkFFN4QRzLFG8OlVPd2+njvxtMenZuP2JuQoGuYRTODRUakCZBYmydtKw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789096508; c=relaxed/simple;
-	bh=T9/TW2cLGEYS4bEK3G5XpNy2ErIWmUDDxIv1/6DbR9A=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NWNB1TM+hIcjtA9q+qv61+iCXNz/jQzKpsvAL/CsvRsTyl2X5h231uheLdBlMHNJZDUcbm1oC7kX8ukBr7Lur/XIK3HDLCsUcxIjjKbjTXmY3hOM0DkY5vtnPaNSjeM2iO3m0iLlz1qZs8w8bRzt1sjgeyblkkAoJMWKaUyNi8I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UtGwf8xS; arc=none smtp.client-ip=74.125.230.140
+	s=arc-20240116; t=1789096675; c=relaxed/simple;
+	bh=RGyinIeQbH1SXwu8QSJD/G3OsD3YwwPsVELCds+SjXE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XHg2GOJ7f2C9MG2oHepV91ix76WTJ957U8lJ2JRYDsCZyGeuFgkRTfghvJfyqfemfbNfMf9ugEJ8fJW4hyxohMncRcdPwLHQMZR2QPwKFsAoChwSidOFff8P+hkba/hWUk0GFbMrwIDw4Umnd63kQgvX+6vM6fvsBzUYox20OsA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oKocfXsr; arc=none smtp.client-ip=74.125.230.204
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UtGwf8xS"
-Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfcc3e03so1633416d6.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 20:15:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oKocfXsr"
+Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-939695b5741so46046985a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 20:17:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789096503; x=1789701303; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789096672; x=1789701472; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=D/Er1eDnnKElUawcqZSFtd5s2k6qLXgoYfExyajlAOc=;
-        b=UtGwf8xSIbETNAbb2Z+fgneKGHe0k56UuXgHnKqtsh+nHZWHEjVlZBql60FP2bsUgY
-         JJns87OeIsirPfzVoZh8SCt+BzPVXCV5Of0m+JhXKBjGp033Ia/hogEXugnXtVWlefjF
-         SVx5ZUfs0MT6xNc6fLpw+bFeAzm5FbZi7N0tQ/xiYPoy2jXCXIBcLosk4/FcggI3fMrx
-         6FOCzokikjx+OMKSBWsHNuqd+tYhibOclYPDUqgEv0zaW9+irwTwmTR+4IL/6kYgDc/I
-         vk0hhJJWqA6eOIqxYs57SlJYt4tAAEE0BsqWr2epZSkOi1cwCQCr1FVSTwL/qlOxxv4Y
-         cUzg==
+        bh=guOvZvhnofpuciLtaF8WyaHhY6OyItiA42hCWdF3Kac=;
+        b=oKocfXsroPKBbfln27+llpG1E/SzPpLhR9Sy5RkLGgsPXzKYmg9z+D/3OSIuWQtElv
+         OKbg1TAP8Zmed2nPkBw0onQ7kVf6I6XVlFpOZU3uwud9iRGpbxWxt+MLm2ASjULgyudM
+         SW8kw8U9CLAVUqS5zS/E1RYWLEvQVM1qRm+HsrcGAlfOi5Ft//wCJrEzo1Jhy5JQQt+N
+         cQARGQIhkNC6Np2/PLXJNWYHWv2/r9OVwXCG2W23gFTOnZpyDCWHxPaev3NEbX7qehba
+         yL+Ca5JmiFCDqPFKRA6XCxNJL5LCMr9CtVObD3IM9XtHMPwbKJpYvouPWvJ2hjuriJov
+         hbYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789096503; x=1789701303;
+        d=1e100.net; s=20251104; t=1789096672; x=1789701472;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=D/Er1eDnnKElUawcqZSFtd5s2k6qLXgoYfExyajlAOc=;
-        b=RBd5mf7JBxa9rwZ7HkrMhsQ+Zbj5LMAaFcvMSsqCpjYNuMbpfLs1Q+Yoo3ardhzWnz
-         b8gFeriZXUtRr9zlxnDZ9Sclm76wWIz6/FuJ/ZBpNHSvpGXTKISl2gVR8thnfvMIq9nf
-         ocYP2WJNUuqeMqYjB+0UDB0ukK0PSUe+5n2/TjhgCHyD8Rq+kZUeDHqyvonXLoVA8iew
-         9ifNPZkrYTY39sL0+kPJMt0oXSQKkbIQ83j7NIi/saFdHOkXg26U7q//MFVUXjP0y4dM
-         yoVot3JFPmNah+kibRmVIw6yQ5FWR5hDWugNLIN2lW0EzPD1bWMvsD2HqU4fjbdBr02b
-         Jh4g==
-X-Forwarded-Encrypted: i=1; AKwUvBza+LNAuUno8GLfnxx2hXUYsmI2tyd1mg9iuExKAO3Nw2AhKiS5kJycyfx+Zaz6QdVuuRC/ucdlSUsfQ+8=@vger.kernel.org
-X-Gm-Message-State: AFuF++nMzVYAJ1hsJQG8LmV4cJCFJRGRA+30i5YgwTbSfjvszm2n/5Vm
-	25iyqd/oF0BltHVlMvNzivaAGE6j7l7PAKW1xaOhZKM3xm4v+pxHFiw=
-X-Gm-Gg: AYBFou3thG4jPJYJfF21G5NojAQHA4sHwf6549wrGLaiC/X8TRq4D4D6q4qzLtBOsSM
-	nLDl3tA0l6Q9m6uK8nfn91NkAvthUWbRsiD+OaSr2NSZPekgM4/+niYCbHfFRguezwgw4BkMnnF
-	lX4BJxvln0STfE3kcwYBWY12MFCiqcotXvtgIBOcbPuIGlBUEAF2KofmCAiW5jp9ofI0RQ6RbUU
-	KMqHxsFaUatUxKI17NuPg2vkV8QVifLk1EgRElUqMwndacJOkKbAfICwwBItlHWpPyHKqLa5fkn
-	P94+wIufFPGm1qnJbMUGxzZnSbHuyVCO9jvXHu3VmDkjUJ6XFyNYC0W9mEXj/qeFxkxyeKRs3SU
-	f56MxRSVs1/qM9UYl//DU68l56xDJHNCtSklB2jWO3pcJvobJHDFWz5n3ckvHgV2okcJAzPVxvC
-	tNnaeoIUli2FuygZkP6PagAzWDQFjcbw5hgUkZKkFWdxu7w1vStsKcUamxkoAduZ3+1ktrDB0cG
-	PNs4VUFMD72z6dBnI6UYXlkZ6YwEvvMyuHQuohTDVv/p2kCq6jPz2MBpJ6OgXOQX/F/FbieZvpz
-	GxhlEJ3ndPeIBlFn3UwRMyFnS327tNWnIw==
-X-Received: by 2002:a05:6214:2529:b0:912:5b3:c193 with SMTP id 6a1803df08f44-9120eaf2767mr32388056d6.2.1789096503067;
-        Thu, 10 Sep 2026 20:15:03 -0700 (PDT)
+        bh=guOvZvhnofpuciLtaF8WyaHhY6OyItiA42hCWdF3Kac=;
+        b=O0Si5B1ydwFF3U/VT6cjssTUd1l/OCAk2WSPyl0hPMUmIc6a7leNQtJlTnb6i3n0XF
+         Ya9XnSmv04xyEW4/eM3xTdyiMg4l8ow9thtqMtH2yhmkF++wb9Vixfxtf09tq/V4ri3Q
+         lG7k6nG/GvSEh507T5lUqqNDStZOyYfrENqQPJTMX5RlTj1b/n0PCtVweuZhGfgSB9BH
+         2yicr8yKctn0hiXvsVgZhqHN+Ira3Z0fVgncB23D9REFvjNEwW80/UPnA3tGylGySRiA
+         mOGgfcj7M/NjAsZs/sICe/BTJXvxYdZmY8ezxu9n6Omfb+xYWszMFKjycX4IWvB+1Ae4
+         rlXA==
+X-Forwarded-Encrypted: i=1; AKwUvBzKWRgUtnfROQwaTvMbXA8B/iU408QxYGD+Qknv6PEhRRNKSb7DnrKQxkJw/7MqQWGL00NdkRHRpsbgg6c=@vger.kernel.org
+X-Gm-Message-State: AFuF++nPdjWgAXrjG9gy6xRg8ytIdmrHHVGj8XFyAnUhUpkwcTvhPVQp
+	+w6Q365FUjO0H3UPqt/NFq99LsmaacaTvT78rcKLIhEKCa+clmIh9rM=
+X-Gm-Gg: AYBFou1AiQsBZsX8GGqtaXbNeNP8eklAtPoI7y0fu8L6M6paAb+AnXthBZ79yKIiaWd
+	defW1QAuc5rvHOSBcA3i6gjCORqlFmyeb6c5Zc+EzpAr3sBQUosnvP1/6WjecvCb7QlcGcZLk2M
+	KAY3hDX+ikIrg4ZanCw6rpyosi3WRpZhAgQIbP+mhdYN+G13tyDBW86RwhWt0IE0/lsYvZc+bx+
+	CS0n84QDxcbqasF/PLXN92Ih5MLFgSgu9egMXtNDCIpJsT+yM0oueiOkCvU0gNTCoRcjetLus4K
+	fltitPSS3j4lOcSEUfpclT8KjFTzUdBYfWCmeYdTJHMra0+rjhD+iTDrTxwc0zpyjFZby1dhUz9
+	U5qwiiwaFM35XWTitylN8KZGUttpbSEfavKg8qi19hKPYGOVXmGC4QN6iK5FAg1rq5pSwNVroLg
+	/TwcJiD9CRzWc91reomS5BeKBpsLI15fXYubgfTCTyXenZZ6AAOjx1LnGHkK1hRaSXqYNU68Yqt
+	f/0yK079prJOpAsjw2NAjRw7ityMcMiU7r1bTR9hPXYpsDKuoStoiBzoXUVpom+qf1RITO2LTAW
+	U7ZMSax30RlV/OZHYps2Grm9A+DEbz8S0ng=
+X-Received: by 2002:a05:620a:890d:b0:936:2fa5:387a with SMTP id af79cd13be357-939ea1dcc91mr265058185a.43.1789096672159;
+        Thu, 10 Sep 2026 20:17:52 -0700 (PDT)
 Received: from localhost.localdomain ([104.39.73.78])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120ef650a6sm11625536d6.0.2026.09.10.20.15.01
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f47e800sm11211576d6.27.2026.09.10.20.17.50
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 10 Sep 2026 20:15:02 -0700 (PDT)
+        Thu, 10 Sep 2026 20:17:51 -0700 (PDT)
 From: Myeonghun Pak <mhun512@gmail.com>
-To: gregkh@linuxfoundation.org,
-	jirislaby@kernel.org
-Cc: linux-serial@vger.kernel.org,
+To: s.nawrocki@samsung.com,
+	a.swigon@samsung.com,
+	djakov@kernel.org
+Cc: krzk@kernel.org,
+	peter.griffin@linaro.org,
+	alim.akhtar@samsung.com,
+	linux-samsung-soc@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
 	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH] serial: sh-sci: Unregister UART on sysfs setup failure
-Date: Thu, 10 Sep 2026 23:15:00 -0400
-Message-ID: <20260911031500.5745-1-mhun512@gmail.com>
+Subject: [PATCH] interconnect: exynos: Remove the PM QoS request on unbind
+Date: Thu, 10 Sep 2026 23:17:50 -0400
+Message-ID: <20260911031750.8182-1-mhun512@gmail.com>
 X-Mailer: git-send-email 2.47.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -77,56 +82,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-sci_probe_single() registers the UART port before sci_probe() creates
-the RX FIFO tuning attributes. If either device_create_file() call
-fails, probe returns an error without removing the port from the serial
-core. Device-managed resources are then released while the port remains
-registered.
+The Exynos interconnect provider adds a minimum-frequency PM QoS request
+to its parent devfreq device. The request is embedded in the provider's
+device-managed private data.
 
-Unregister the UART port before returning either sysfs creation error.
-If the second attribute fails, remove the first attribute before
-unregistering the port. Keep the existing probe failure policy and leave
-the successful initialization path unchanged.
+The probe error path removes the request, but the remove callback does
+not. Unbinding the provider while the parent device remains registered
+therefore frees the private data with the request still on the parent's
+QoS list. The child's device cleanup does not remove requests registered
+against its parent.
+
+Remove the request after deregistering the provider, before the private
+data is released.
 
 This issue was identified during our ongoing static-analysis research while
 reviewing kernel code.
 
-Fixes: 5d23188a473d ("serial: sh-sci: make RX FIFO parameters tunable via sysfs")
+Fixes: 2f95b9d5cf0b ("interconnect: Add generic interconnect driver for Exynos SoCs")
 Co-developed-by: Ijae Kim <ae878000@gmail.com>
 Signed-off-by: Ijae Kim <ae878000@gmail.com>
 Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 ---
- drivers/tty/serial/sh-sci.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
-diff --git a/drivers/tty/serial/sh-sci.c b/drivers/tty/serial/sh-sci.c
-index 92193eb26abf5e2de6386389708e635e42d33c8b..50ae9aae6b6146493a5c080a0f0cbb7351a89b3a 100644
---- a/drivers/tty/serial/sh-sci.c
-+++ b/drivers/tty/serial/sh-sci.c
-@@ -3937,12 +3937,12 @@ static int sci_probe(struct platform_device *dev)
- 	if (sp->port.fifosize > 1) {
- 		ret = device_create_file(&dev->dev, &dev_attr_rx_fifo_trigger);
- 		if (ret)
--			return ret;
-+			goto err_remove_port;
+ drivers/interconnect/samsung/exynos.c | 1 +
+ 1 file changed, 1 insertion(+)
+diff --git a/drivers/interconnect/samsung/exynos.c b/drivers/interconnect/samsung/exynos.c
+index 8e8f56186a3669ee834c21bb73e13eabf2cf68fa..9a4789fadac2ea5ecd017db12e2cc226eeba4f17 100644
+--- a/drivers/interconnect/samsung/exynos.c
++++ b/drivers/interconnect/samsung/exynos.c
+@@ -98,6 +98,7 @@ static void exynos_generic_icc_remove(struct platform_device *pdev)
+ 	struct exynos_icc_priv *priv = platform_get_drvdata(pdev);
  
- 		ret = device_create_file(&dev->dev, &dev_attr_rx_fifo_timeout);
- 		if (ret) {
- 			device_remove_file(&dev->dev, &dev_attr_rx_fifo_trigger);
--			return ret;
-+			goto err_remove_port;
- 		}
- 	}
- 
-@@ -3952,6 +3952,10 @@ static int sci_probe(struct platform_device *dev)
- 
- 	sci_ports_in_use |= BIT(dev_id);
- 	return 0;
-+
-+err_remove_port:
-+	uart_remove_one_port(&sci_uart_driver, &sp->port);
-+	return ret;
+ 	icc_provider_deregister(&priv->provider);
++	dev_pm_qos_remove_request(&priv->qos_req);
+ 	icc_nodes_remove(&priv->provider);
  }
  
- static int sci_suspend(struct device *dev)
 -- 
 2.53.0
+
