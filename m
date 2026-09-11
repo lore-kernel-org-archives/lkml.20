@@ -1,203 +1,194 @@
-Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1102F413791;
-	Fri, 11 Sep 2026 19:19:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789154390; cv=fail; b=YTEKMnghsRZpS6qYsKtvKXJyqkFQ0n3bAJs9XTohTZXdKrrK8YJlWt8DOqP7wB4q0/+EDq39NS3dN2zYhQifd4IZyP/QvTHwHQqB7q3Bl0y+fEi08vfhGPKocHE6uM6dSgu0r58E7gclF9AdaR4UWQClPuzixsWjm2NjniVJj7c=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789154390; c=relaxed/simple;
-	bh=I5geqlQr8DtRub5zgu5Wq0WBkGAvWn0C2XgfGbwKM5g=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=c7im/NpnN3o6hzGOgWUj+821AMHf2iYhygXovKRbsiY0Ww7UCoWkroXOm0icHb7U8tKkKJ/b3KnsmwWZnvzS1gs0FNXzmSas9eYtX+aRrtf0oTGMNmY9/HHLTrdZZ6G61+1dJFKig3kMh5BhkueF6pmRQkYw3jJ4Efczp3FJmvw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=VEJqEjus; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=uQDN0F2t; arc=fail smtp.client-ip=148.163.150.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9D3A3F9281
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 19:20:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789154418; cv=none; b=hCet0XIwqBYWhmwOVdH/p83giJPTezVChr2pcgIviS653i4Nv+eMY76UOxBEDRW9jqnEaI6tpxFGxEfLe0D+WHjEjpiRCC3RP138Jc7AWA15QYf673LA2L9HIMdjnMapuTUCtgfi64BFwriXPKs8jathYn8Ec4rVz2yUAj//BIc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789154418; c=relaxed/simple;
+	bh=Bw9uRvg93b3bHTzmWLqQh9aluNDwcNSTBwFhsvqy/1U=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=ahKVcPA/ngZafsj4FO8bILfI2/ldEYmn2v/L65P+ouAwbt5Xlp4TPRBWUx6VZnT41vOZM+QpE6w5Eb+VRQSbjtNvPNcGmNy4luHNyga2zLC6Ql5m+FcTAXvS6LVTR7dE/KAd92iW5aZM/YlqJo6BhEtoWzREOO9oQ5FwTJBGUM8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=PQxfPlLf; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="VEJqEjus";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="uQDN0F2t"
-Received: from pps.filterd (m0380145.ppops.net [127.0.0.1])
-	by m0380145.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 68BHVAwg2341203;
-	Fri, 11 Sep 2026 14:19:31 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=proofpoint-05-2026; bh=aZuiXLmedcmpqQ8
-	QvKRfqhl5+IVukgfCfZ/6VYGtgLM=; b=VEJqEjus/6dX1d+Fl83oyAVUwpMRd+p
-	cV0xqiVeuw4y/baGq5yNfHAQclo1aCGFPYawAZorBGUUmAJiRGazwapd52AS7JIC
-	n1OxXhvbNXWiz2zb/dl2MKrrrOJZ/fbl3yQcD/w54XpVxpHvP1aKvuu6vKaQYj/E
-	2zf9a+W3YAYT1Lm5s75g1G/Jz8d4nDp/d831ywvbsCI8Tvs9hCLb/JJr6xBDoeXl
-	kBLG6tnElZsfoOl01Le9w3irBUXnEaXuBFjdi0D4ezeBEFP07LJ1yJaHkw7nvNsI
-	Vg7VTa0M+G1bcEDfJh2odHnjXOgRjwEx2Rra7IUdduyo3rZE4OJv25g==
-Received: from sn4pr0501cu005.outbound.protection.outlook.com (mail-southcentralusazon11011057.outbound.protection.outlook.com [40.93.194.57])
-	by m0380145.ppops.net (PPS) with ESMTPS id 4gm9gqw13m-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 11 Sep 2026 14:19:31 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EMAiQW6rJixrcIzTjGdOvWg4r3FmO9GTqGq7XoSKiC1c1NhNgOQSWpCWRttILuOOMr8DTi9wOpP3jTPnwXUjjw9iPwXJp24mvspMJZryE0U/f7OtvdtJnAjART3AyaMvBqEbTGpf+epFyaH+dVCvvdmdDvMlYXV+5gapk3r0/cvhV6qJN8E1JKaS+Ot5zAJp3O/vAQ+d/xauKEauGXtv3X+8hOcBhH5NbQ7S1dgBNeDBVWGBQR4U0A2+OYEUsTt7z9xnu1pOdPW3gOpMe0UK5o29+KZM17kx5fNVxR1UOQ0mTYDFoGrR0i4gtckPusu0ctb5m9HDpgK6VldGtyo2Ew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aZuiXLmedcmpqQ8QvKRfqhl5+IVukgfCfZ/6VYGtgLM=;
- b=vW0EI7Mw2VdIAGBFXHHUypH4oWuD2Yh4dN+qX+RVoKM1T+huXpDBlbPMmVHcvT+7CIjAAhyRwrP7QLDFbMuRQxLJWiB0Pgl8jaATWTNl8Say+Hh1WEQjYAEfJvtGuxn0SE0cFDiG0UQIfj+t480d1KhrsvGivxpTOU5cyo7l9vaBx2P3e1JqpNNVtKcDednkSTsSSF+3YcbUuFscxx0rUaZCc7WHtkvSZlQOFJ5NJmc0iR48810APbs3HkB4SN538DnmmhLCm8N8WkiLdOZJhDF4xdXicpCFZyiY0/KI9ciPIDGVKz43mIuZFKIGYeFd7W2ByLDw+giOyfTCENtang==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aZuiXLmedcmpqQ8QvKRfqhl5+IVukgfCfZ/6VYGtgLM=;
- b=uQDN0F2tV6Xxa4qL2PqTwifLHs7zKi1BWhzKVxxAwP7EL+yThb6pgx0uHZze5OMmhbPOqaA9b/y/bRu/D7+zSPRhKrzDYsZIgZ19KecVvezKMCF22++JpVaa5/63s2QoynH+mulVF8hv/QdLzdhJNgFxbqzK2cUNomb1nL08MRY=
-Received: from BN9PR03CA0630.namprd03.prod.outlook.com (2603:10b6:408:106::35)
- by PH0PR10MB5610.namprd10.prod.outlook.com (2603:10b6:510:f8::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.5; Fri, 11 Sep
- 2026 19:19:27 +0000
-Received: from BN1PEPF0001854A.namprd05.prod.outlook.com
- (2603:10b6:408:106:cafe::32) by BN9PR03CA0630.outlook.office365.com
- (2603:10b6:408:106::35) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.9 via Frontend Transport; Fri, 11
- Sep 2026 19:19:25 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.195)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
-Received: from lewvzet201.ext.ti.com (198.47.23.195) by
- BN1PEPF0001854A.mail.protection.outlook.com (10.167.248.9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Fri, 11 Sep 2026 19:19:25 +0000
-Received: from DLEE208.ent.ti.com (157.170.170.97) by lewvzet201.ext.ti.com
- (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 11 Sep
- 2026 14:19:24 -0500
-Received: from DLEE213.ent.ti.com (157.170.170.116) by DLEE208.ent.ti.com
- (157.170.170.97) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 11 Sep
- 2026 14:19:24 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE213.ent.ti.com
- (157.170.170.116) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Fri, 11 Sep 2026 14:19:24 -0500
-Received: from localhost (uda0133052.dhcp.ti.com [128.247.81.232] (may be forged))
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68BJJOG61660364;
-	Fri, 11 Sep 2026 14:19:24 -0500
-Date: Fri, 11 Sep 2026 14:19:24 -0500
-From: Nishanth Menon <nm@ti.com>
-To: Kendall Willis <k-willis@ti.com>
-CC: "Kumar, Udit" <u-kumar1@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>,
-        Tero Kristo <kristo@kernel.org>, Rob Herring <robh@kernel.org>,
-        "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, <s-kochidanadu@ti.com>,
-        <a-kaur@ti.com>, <s-tripathi1@ti.com>, <vishalm@ti.com>,
-        <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 3/3] arm64: dts: ti: k3-am62p: use ti,am62-m_can
- compatible for m_can devices
-Message-ID: <20260911191924.lpu73cwup33fynii@guidable>
-References: <20260902-smth-v2-0-b3678ca44c7b@ti.com>
- <20260902-smth-v2-3-b3678ca44c7b@ti.com>
- <412fc9b3-cac5-4fff-8071-ca2d4855db30@ti.com>
- <20260904145913.a437wnuif4arwb7j@uda0506412>
- <20260911035535.eexmc5g3rdwyahl7@speed>
- <20260911143205.pecdvyzsiokdvpy2@uda0506412>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="PQxfPlLf"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789154401; x=1820690401;
+  h=date:from:to:cc:subject:message-id:mime-version:
+   content-transfer-encoding;
+  bh=Bw9uRvg93b3bHTzmWLqQh9aluNDwcNSTBwFhsvqy/1U=;
+  b=PQxfPlLfnipkcNu8bzbJWpCSRFD5ZUpPq6ct/kuKXXEm6tIR5/Dgx2jD
+   xkKEyK+GbJq7rbdK8i0THyrjaRY9de87qy1NEbBEGUb72UbboLxDd0tMV
+   EHKRULeZgnuQctS0SusplGyGqyW8+BrRHBEdFs6GnSrrt9MWcq2ICvgGO
+   nML3MQCuBuaXMrvXfhrBDMOSPr/1bvigNqn2tpycthv15SqBvj19wlOu2
+   8S/TBSgyrQjpPTiyCe7YV1NZ9DaoIfOcqredIYW78+hZiZrkWosd0qezx
+   QBAEIiBEWNgZ6XI+Diy84JNoK/Z3N2WMijU7sngy7W36k+m7Z8/uc/TgW
+   g==;
+X-CSE-ConnectionGUID: 9tiC6mvzRpyTHurwzGR9cA==
+X-CSE-MsgGUID: LFyb0pRMQV223M9CnpB4iQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11902"; a="89632680"
+X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
+   d="scan'208";a="89632680"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 12:19:58 -0700
+X-CSE-ConnectionGUID: NEV1kEFPTUinKj/2Tr3Cfg==
+X-CSE-MsgGUID: dvCse4fURZCQhvlvHViWdw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
+   d="scan'208";a="271974709"
+Received: from lkp-server02.sh.intel.com (HELO 0a3643a6ed9d) ([10.239.97.151])
+  by orviesa007.jf.intel.com with ESMTP; 11 Sep 2026 12:19:57 -0700
+Received: from kbuild by 0a3643a6ed9d with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x56mU-0000000021j-40Fw;
+	Fri, 11 Sep 2026 19:19:36 +0000
+Date: Sat, 12 Sep 2026 03:12:37 +0800
+From: kernel test robot <lkp@intel.com>
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Dave Airlie <airlied@redhat.com>
+Subject: include/trace/events/dma_fence.h:17:1: sparse: sparse:
+ dereference of noderef expression
+Message-ID: <202609120233.6Elxc35n-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20260911143205.pecdvyzsiokdvpy2@uda0506412>
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF0001854A:EE_|PH0PR10MB5610:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7d98cd98-31a8-416d-27c9-08df103997cd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|36860700016|376014|23010399003|18002099003|22082099003|56012099006|10067099003|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	z8NBeafxHZjP/ONSCAOyuJmQlPYqI8uB9TD4iTq/6tN3y1VxeD8pLCMh6+yfHZ+hT8As1V++u9ibCrVhcA8osd8WPvwFaqiOiSEPqlEEDuhp7EG9SoXaupsCS2yydBR058jrWZ7836H4YFvHjA3YPCTkWqKHTv7x/UD6X8uZiTa3LiCESmEcFd8ztrt0lHZCjOXmVAF3v41775G0+ulxMt+jILZWksDasLuIwnLMIHEGaAN/1FGVLeN9gwpwdHkl9HSiUHgUHICNFGPy5VyRqxnuwJdlXGzLMTwZxegbjW5WvnWSCLxhFq5jhhizO3Fl4zH6bgSpaVGkILuS7RJWiCQ8BMv2R1/ChzFPYv+c24UJnVcA+tsqlNs2t9aV0iYEmqK3Ca6DOQwd6GnSW5yVGmMX6n+7z8K1TYak6liyBhrnij/uAVjI7RkD/vjMYhy1/xo2D1INjPlz+3njl9Zyw7AOjrO1SiJzvswYRhyCl/J6sjGa6Fk66f1hsusjnDJff4ZzlaEfufEWkaxSgiDvzw1EJy2LSL8DxQzzmxcurmBOuJwCWVUQrLGXfhbl7P13bWgueQHeI/AAyJx00yRBX9Cuk1TrcnT+/kB7oWyPAukFaQS6OnnsC3c0vUPJGKBt0dqL4roCLncXTjvEV1PW5R1QD9GXdOcAh/BacUghokj6wMMXKrFGSA79hfamOprbR/VqBkdZQElsNP0q1ui9zg==
-X-Forefront-Antispam-Report:
-	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700016)(376014)(23010399003)(18002099003)(22082099003)(56012099006)(10067099003)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	Vr3J7v072ARIQ6gKbzkNCJPas1h9SI1+6UsJCf6yGIV10fFC9GlpDSJ7F/CWFx/dXcbeIsw4zby5h1gc4/FPBN4ijb5B5lgPTnY0dolUs8V0Cq86nHHFBxf0UQNH+Q7mwVy56+WlV4DEcDqhJ0GI3bkO1TXZeYXk2FTOgNf3zpazU4bWs9xExFASc8bUOnU0uZz5Hwba7j1JNtp38cvRzQZnbiDAtgbr/pN6KvH1rkZXQu6LezlGwbJO6Z74iB6ulnUlmubrBiQcizhmR3oOjHAqQ1zcFau0UGSO09BpWEIZ3eqsZgsrBGLec3+ggBBD7T0I7TA7RE9+kknClEiBiQlO8/0elL5KQJeqr/7Wpl8rD0q+yOlJuEf/xHKPlnCknhj316WeShS7Cr6JmicO6nNpEsXa9Fqc+lIJxfCMkr1W6J0jbFvnOpwApczi/Jd8
-X-Exchange-RoutingPolicyChecked:
-	vlJstXZpivg7kT1IHDTbH1IRxNkoGSwJmL2YfN4GyxrnXMkuE+UEA9+zUyOEBwjY5WZC3yIrhVkORyeOHz1Bfp1l8guia86m4KRb9gaBwKtltbzhwo8fCf0HfedbFNeidNXixOq7TsSRC/iUHBqsLAr7FFiKYqdi8XGr0oGY7ytRVbMWqRRw1T72TYWttVW64rAqKqOccjCLIE8NembR0/5ABLKIiYDpUbTrj3cazMpxuhCLMR8yRkwbG0IPD4NIGIIZPWLKkT4FTMFyFXE84WX6CE7mhh5IS+0bx8lhRRMZ123eUyDuhJP1g588YSjCa3t+Kq2V7yMYosKZR/1Pgw==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 19:19:25.5161
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7d98cd98-31a8-416d-27c9-08df103997cd
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN1PEPF0001854A.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR10MB5610
-X-Proofpoint-GUID: 1eBWJnlQTNHbAnFrQaNVrd2ehKTS3yGL
-X-Proofpoint-ORIG-GUID: 1eBWJnlQTNHbAnFrQaNVrd2ehKTS3yGL
-X-Authority-Analysis: v=2.4 cv=XaUcX455 c=1 sm=1 tr=0 ts=6aa45443 cx=c_pps
- a=vEsArsaSdKs0mJrCYyxDvw==:117 a=f+v6EHfkeJbVwR46tk4DMg==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10
- a=s63m1ICgrNkA:10 a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=Z8NIEmU8O1QQgoT56wFK:22 a=gO1vWkAQAl3rybz1DQOp:22 a=VwQbUJbxAAAA:8
- a=sozttTNsAAAA:8 a=RiiM50_fTKWBR1zmL5EA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTExMDI3MiBTYWx0ZWRfXwJmNQM0VWBUs
- 6GywTayXWuEIiMPP67tlROK/9CqcjG1vPBl0VOAa6PqatHIFev0n/Q8/FyeBdurmSVPXjZXf2ar
- bjqyhbkTn7DoWgnVQ09MPiNFMBSEGCtgeP+VPyfAzk8TvhhNrS3HAXHcIk3AXLKbxIBqJ6EKrgS
- dyu9SZntCV3sYVPkFTyzBdeUNTuh7KMxrPhxT9jWMpwuohAkFu6YR4MT/zJb4v99A0o0AGpC6/A
- yyW63b+Zek0IAf5A/y3c/8hCFWPzADKCfvzgfhyVWWY9D7rxk8q22yWh/CuccO6lrinFPKW1BBg
- TBzSyutvsXN8WsqrxfB17woBM0PW1pN2wSEbDfkH2JurrNRmbK/m1nlrNOJuNrv8GK7lldvGUkZ
- opW4jjmPT57wEz4xsIg0zNjTgcTMErL7uLPytlflju0/ZDkVJ166/ZTr59+NN/o6mSPpceuVm7u
- 1laUIynKihvy7JirvQQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTExMDI3MiBTYWx0ZWRfX/pWKwBu46cTf
- MU4Orhz6mrJyifemzE3KqOvGT/SPZxnCJ4TauovFxwsozy9q6kSjYA7rn8Fo3izI4sOYReMgiV1
- jqQ6zdKy+fKxJME1Wku25K7gauwCt8w=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-11_06,2026-09-11_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 bulkscore=0 phishscore=0 impostorscore=0 adultscore=0
- spamscore=0 priorityscore=1501 malwarescore=0 suspectscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609110272
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 09:32-20260911, Kendall Willis wrote:
-> Hi Nishanth,
-> On 22:55-20260910, Nishanth Menon wrote:
-> > On 09:59-20260904, Kendall Willis wrote:
-> > [...]
-> > 
-> > > Yes, that is essentially what the following patch is doing. But for CAN
-> > > devices, there is a chance that not all pinctrl_state_wakeup have
-> > > out-of-band wakeup functionality which is why the compatible is needed.
-> > > https://lore.kernel.org/all/20260902-temp-v4-2-3896f7d16ce8@ti.com/
-> > >
-> > 
-> > After looking at this driver side thread, Lets look at the DT series
-> > once the driver series has hit master. I am going to skip this series
-> > for this window.
-> > 
-> > Additionally, for future reference, will be good to state explicitly
-> > this kind of driver series dependency in patch diffstat or
-> > cover-letter[1] for example ti,am62-m_can does'nt exist on
-> > next-20260909 or master.
-> > 
-> > [1] https://lore.kernel.org/linux-arm-kernel/20260902-smth-v2-0-b3678ca44c7b@ti.com/
-> 
-> The dependency is listed in the cover letter, but is there a certain
-> way I should list it in the future so it is more clear?
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git =
+master
+head:   08df884136f1c1197bab2a27814404fd329d9aac
+commit: 21f6bcdf2be72e750dbe430b7227a66763a58466 Merge tag 'drm-misc-next-2=
+026-02-26' of https://gitlab.freedesktop.org/drm/misc/kernel into drm-next
+date:   6 months ago
+config: microblaze-randconfig-r112-20260910 (https://download.01.org/0day-c=
+i/archive/20260912/202609120233.6Elxc35n-lkp@intel.com/config)
+compiler: microblaze-linux-gcc (GCC) 14.3.0
+sparse: v0.6.5-rc1
+reproduce (this is a W=3D1 build): (https://download.01.org/0day-ci/archive=
+/20260912/202609120233.6Elxc35n-lkp@intel.com/reproduce)
 
-Yes, lore link to the dependency patch.
+If you fix the issue in a separate patch/commit (i.e. not just a new versio=
+n of
+the same patch/commit), kindly add following tags
+| Fixes: 21f6bcdf2be7 ("Merge tag 'drm-misc-next-2026-02-26' of https://git=
+lab.freedesktop.org/drm/misc/kernel into drm-next")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609120233.6Elxc35n-lkp@i=
+ntel.com/
 
--- 
-Regards,
-Nishanth Menon
-Key (0xDDB5849D1736249D) / Fingerprint: F8A2 8693 54EB 8232 17A3  1A34 DDB5 849D 1736 249D
-https://ti.com/opensource
+sparse warnings: (new ones prefixed by >>)
+   drivers/dma-buf/dma-fence.c:1040:38: sparse: sparse: incorrect type in i=
+nitializer (different address spaces) @@     expected char const [noderef] =
+__rcu *timeline @@     got char * @@
+   drivers/dma-buf/dma-fence.c:1040:38: sparse:     expected char const [no=
+deref] __rcu *timeline
+   drivers/dma-buf/dma-fence.c:1040:38: sparse:     got char *
+   drivers/dma-buf/dma-fence.c:1041:36: sparse: sparse: incorrect type in i=
+nitializer (different address spaces) @@     expected char const [noderef] =
+__rcu *driver @@     got char * @@
+   drivers/dma-buf/dma-fence.c:1041:36: sparse:     expected char const [no=
+deref] __rcu *driver
+   drivers/dma-buf/dma-fence.c:1041:36: sparse:     got char *
+   drivers/dma-buf/dma-fence.c: note: in included file (through include/tra=
+ce/trace_events.h, include/trace/define_trace.h, include/trace/events/dma_f=
+ence.h):
+>> include/trace/events/dma_fence.h:17:1: sparse: sparse: dereference of no=
+deref expression
+>> include/trace/events/dma_fence.h:17:1: sparse: sparse: dereference of no=
+deref expression
+>> include/trace/events/dma_fence.h:17:1: sparse: sparse: dereference of no=
+deref expression
+>> include/trace/events/dma_fence.h:17:1: sparse: sparse: dereference of no=
+deref expression
+>> include/trace/events/dma_fence.h:17:1: sparse: sparse: dereference of no=
+deref expression
+>> include/trace/events/dma_fence.h:17:1: sparse: sparse: dereference of no=
+deref expression
+
+vim +17 include/trace/events/dma_fence.h
+
+e941759c74a44d include/trace/events/fence.h     Maarten Lankhorst 2014-07-0=
+1  11 =20
+506aa8b02a8d68 include/trace/events/dma_fence.h Tvrtko Ursulin    2025-06-1=
+0  12  /*
+506aa8b02a8d68 include/trace/events/dma_fence.h Tvrtko Ursulin    2025-06-1=
+0  13   * Safe only for call sites which are guaranteed to not race with fe=
+nce
+506aa8b02a8d68 include/trace/events/dma_fence.h Tvrtko Ursulin    2025-06-1=
+0  14   * signaling,holding the fence->lock and having checked for not sign=
+aled, or the
+506aa8b02a8d68 include/trace/events/dma_fence.h Tvrtko Ursulin    2025-06-1=
+0  15   * signaling path itself.
+506aa8b02a8d68 include/trace/events/dma_fence.h Tvrtko Ursulin    2025-06-1=
+0  16   */
+62918542b7bf08 include/trace/events/dma_fence.h Tvrtko Ursulin    2025-06-1=
+6 @17  DECLARE_EVENT_CLASS(dma_fence,
+506aa8b02a8d68 include/trace/events/dma_fence.h Tvrtko Ursulin    2025-06-1=
+0  18 =20
+506aa8b02a8d68 include/trace/events/dma_fence.h Tvrtko Ursulin    2025-06-1=
+0  19  	TP_PROTO(struct dma_fence *fence),
+506aa8b02a8d68 include/trace/events/dma_fence.h Tvrtko Ursulin    2025-06-1=
+0  20 =20
+506aa8b02a8d68 include/trace/events/dma_fence.h Tvrtko Ursulin    2025-06-1=
+0  21  	TP_ARGS(fence),
+506aa8b02a8d68 include/trace/events/dma_fence.h Tvrtko Ursulin    2025-06-1=
+0  22 =20
+506aa8b02a8d68 include/trace/events/dma_fence.h Tvrtko Ursulin    2025-06-1=
+0  23  	TP_STRUCT__entry(
+506aa8b02a8d68 include/trace/events/dma_fence.h Tvrtko Ursulin    2025-06-1=
+0  24  		__string(driver, fence->ops->get_driver_name(fence))
+506aa8b02a8d68 include/trace/events/dma_fence.h Tvrtko Ursulin    2025-06-1=
+0  25  		__string(timeline, fence->ops->get_timeline_name(fence))
+506aa8b02a8d68 include/trace/events/dma_fence.h Tvrtko Ursulin    2025-06-1=
+0  26  		__field(unsigned int, context)
+506aa8b02a8d68 include/trace/events/dma_fence.h Tvrtko Ursulin    2025-06-1=
+0  27  		__field(unsigned int, seqno)
+506aa8b02a8d68 include/trace/events/dma_fence.h Tvrtko Ursulin    2025-06-1=
+0  28  	),
+506aa8b02a8d68 include/trace/events/dma_fence.h Tvrtko Ursulin    2025-06-1=
+0  29 =20
+506aa8b02a8d68 include/trace/events/dma_fence.h Tvrtko Ursulin    2025-06-1=
+0  30  	TP_fast_assign(
+506aa8b02a8d68 include/trace/events/dma_fence.h Tvrtko Ursulin    2025-06-1=
+0  31  		__assign_str(driver);
+506aa8b02a8d68 include/trace/events/dma_fence.h Tvrtko Ursulin    2025-06-1=
+0  32  		__assign_str(timeline);
+506aa8b02a8d68 include/trace/events/dma_fence.h Tvrtko Ursulin    2025-06-1=
+0  33  		__entry->context =3D fence->context;
+506aa8b02a8d68 include/trace/events/dma_fence.h Tvrtko Ursulin    2025-06-1=
+0  34  		__entry->seqno =3D fence->seqno;
+506aa8b02a8d68 include/trace/events/dma_fence.h Tvrtko Ursulin    2025-06-1=
+0  35  	),
+506aa8b02a8d68 include/trace/events/dma_fence.h Tvrtko Ursulin    2025-06-1=
+0  36 =20
+506aa8b02a8d68 include/trace/events/dma_fence.h Tvrtko Ursulin    2025-06-1=
+0  37  	TP_printk("driver=3D%s timeline=3D%s context=3D%u seqno=3D%u",
+506aa8b02a8d68 include/trace/events/dma_fence.h Tvrtko Ursulin    2025-06-1=
+0  38  		  __get_str(driver), __get_str(timeline), __entry->context,
+506aa8b02a8d68 include/trace/events/dma_fence.h Tvrtko Ursulin    2025-06-1=
+0  39  		  __entry->seqno)
+506aa8b02a8d68 include/trace/events/dma_fence.h Tvrtko Ursulin    2025-06-1=
+0  40  );
+506aa8b02a8d68 include/trace/events/dma_fence.h Tvrtko Ursulin    2025-06-1=
+0  41 =20
+
+:::::: The code at line 17 was first introduced by commit
+:::::: 62918542b7bf08860a60ebbde7654486e0ac0776 dma-fence: Fix sparse warni=
+ngs due __rcu annotations
+
+:::::: TO: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+:::::: CC: Christian K=C3=B6nig <christian.koenig@amd.com>
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
