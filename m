@@ -1,168 +1,112 @@
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013029.outbound.protection.outlook.com [52.101.83.29])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA52D35E95A;
-	Fri, 11 Sep 2026 15:01:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.29
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789138879; cv=fail; b=aCFsNU1kyPQK8IvWcwsBN2ffF9zJnFgJ4wl8w+04s6C1vzdCBl6HfxD9lGvxxr6ZQQGvhJaFbdDA393KJAlVVjBzwbGszUJGikIF/cJcHaxjL9IuYEvR2pYWYiYICLOQoaCYXc4YTw/R+Zc+aKrfK9kIy7KeWDtCqhiFNKGZCzo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789138879; c=relaxed/simple;
-	bh=8fqsTq4kHV4JWrr4/IZtlKsMC1PBbfxmI9OCuJnJCb4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=duIIwZna1BsHpq83Mqd62YCNw/ObXDnvrcYrCew+pCi/M/ohGMSD2VyBYld7zMA6oHRL90HG2UPN/pLjApmgG2TMDXMytE7/exAPcmhKD4FHP2Zz9SROvfDTz3ipgcZPGMhExVUH+/GR6YlRxrTTOY5ZqqyCJpDuT9Sr5jzRA5c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=vaWN9tmZ; arc=fail smtp.client-ip=52.101.83.29
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED214363C43;
+	Fri, 11 Sep 2026 15:02:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789138947; cv=none; b=JHfHQsh+Jgslrh1dl90RejAhXQC3TnWSteQ/jNFmkuXMEhyHax9DcLjX3vHa0QpTXpRBWA8vKjWxg556XV1o1my21woKj0GASDBnOMklXO/9qBb+FuGidG/LeWXlGadWJnbxs1KieeTIzEh/sU1HpsiReiXkRCzHA833RaPPE5c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789138947; c=relaxed/simple;
+	bh=mvK0XzUvFQt90JZXu3FumK2Xs8BGJgqQg63kn1EarA0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=opwTL/SgoM5ogtG9BW4zzydS1AXGLPCgkTODh/iI/JdE7uDaD+cK/PN9bSH4Vks2wcNq7tV/+FrX+D4+WvvFr+veRU95MAcKSzYwpKDg1i7rVyfecf0vxrVLpLzancf3s+I2s85R8bE7RxTg7Jut5XgMYFIa3PX116PlhLml8sQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VZh6a5er; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="vaWN9tmZ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cnSG4WdEIZ2Ad8TKSbLEb1CVULtsGUd5bGn3dpOg6pn/z1+a+WPTzPrLO6vJczZdn1dLc6JLL1UhYcEr3md/vpuhauIsAPpyvcACrPCqkWh2Pp4lztAeTJjIVMq3k8FiRgcq6SKqxgMIb3ImWKLdjjcMUzF33MKGeG/tZgD7sWsmmr3lBuupuTtgvCMOimSs7PzKmVKz4MoauQxdYFpSL2v1ZJZSXpSysBtOKyYCkqKXNj+qgr+jKRZ5y+CJdZ5ybAO/vBl5MYRCEucl3PIGqDgFwxXItDs5ArcL1JkN1PjQndGbmtuzhix8ECFMZdpzl1SbxH/M4XK3rZnX+FG5Vg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Dm0ZxWVlBf00DtwLWUFPm318jdQuDR4BkBJKFUw4IUI=;
- b=uxEzESuxQLvDWo884No0SEs5fFb1R3316ZUarwxOmzXXbAd2/nt37rjrPRpeghqWyjGV27Iu4/7qC9MvOalYYcYOfqj0RIcAzyoTtFWHwQCy1mtPt+/sSWyWUpsc4r+pCm7CeavUKjFtcLW/vAg9abMCZNOIhfdqXlsYlB2/kPwamih1e+pZfabSXEpvmfqXPNIKzfHVJ6s1ualjkKrzC6EzqA7equAUwRzBbN4wXmC8ApkC+F2P7fB3QSxzp4mzpnNEDXv0G41eTKYTNM+LlXFxfaxd1RF/v+xXmJw0ecK7b7lAbsNWCtjB0PNiu8r0a8+YyNEkZRl+2ZbtBlX1gw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Dm0ZxWVlBf00DtwLWUFPm318jdQuDR4BkBJKFUw4IUI=;
- b=vaWN9tmZnygjniVWe4OLNxy9J0nUl3RbtrtLwpyyS0OySwfh8rIuIdk5Y8LjPmknC43DFiKYNI52RbDBO+/YS+HhmhRfTWTIiWIlEBn6UM8yM9goB1gIQvjRCijPw4UNmcS/dLZD/ny9D3z4Pd2FKaL90hgAh3p+TdKMjrsRp8FOxhjA6S4+R4Ar/GVTM7bdamAkkDQnT7miSa6FTf2dCuGDO85C/8rNSt2P7p5gATFCUSbsabevwtYaKUBIXy693eBl3XUlChFVXaUzEU3ryzB7fmD2jkgwNGNX0RrrGihyAvm7HqhJbojP2CYfpGKL09nQ1FAQTi9rGFoGbMbuPg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AS4PR04MB9714.eurprd04.prod.outlook.com (2603:10a6:20b:4f8::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Fri, 11 Sep
- 2026 15:01:13 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
- 15:01:12 +0000
-Date: Fri, 11 Sep 2026 10:01:03 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Slavin Liu <bolin.liu@seu.edu.cn>
-Cc: ulfh@kernel.org, frank.li@nxp.com, s.hauer@pengutronix.de,
-	kernel@pengutronix.de, festevam@gmail.com, linux-pm@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC] pmdomain: imx: reject a missing bus power domain
-Message-ID: <aqQXrwU3nD-uo6FT@SMW015318>
-References: <20260911060929.94481-1-bolin.liu@seu.edu.cn>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260911060929.94481-1-bolin.liu@seu.edu.cn>
-X-ClientProxiedBy: CYZPR14CA0033.namprd14.prod.outlook.com
- (2603:10b6:930:a0::20) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VZh6a5er"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 138301F000FF;
+	Fri, 11 Sep 2026 15:02:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789138945;
+	bh=1PTWyg4n3qpD4y/aa8UvIgM/ayJsqmzhh3ejIEE3QXI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=VZh6a5erCAhSab9ROCtz8BS6g7MI1jzhVXl1TxFBYM68Z+fltaZm1xEx6OLItP15Z
+	 nZmBVnNP1V+0/DmEZx6SzFV84s9DU1Cqc3gJdZgKEuLrXE8ZBhvx4UTF2zsQJmzQrU
+	 1ESbS6pHuZFLaLsWPyN7kq3K9C94jNU3KLadDp0qGGPb0YqI8SxZOaAh8rd/J0rPK5
+	 N7z3J3PXvkWkYOSJwSDPZrWHYbCcf4HyZ5juLbh027S7qlmCWyKCaa/zsagr+fkbEo
+	 rjY7sSzeoe/K7U4vNDmzPmvaXdunSPEXnnKxmE3D1cRrG2OGu0oUCAh5OqIXCJVYCC
+	 jemxJj67wfX/Q==
+Message-ID: <62160d6e-5409-4249-814b-cdc33b7d29df@kernel.org>
+Date: Fri, 11 Sep 2026 17:02:20 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AS4PR04MB9714:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0923ecb0-73f9-4df9-c6b7-08df101584e5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|376014|366016|1800799024|23010399003|11063799006|10067099003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	WOqiYbk4TRjcCn8An+3snis5yj49lun/3IbRBV1DnhsBwvIJzqg8LmPT1cQEMYf3EGVzsL9LwBuz2sHZQDWI/KtJWT7iVDNf0Q85N8om98XoK2eCu4Bh6ZldvX0qMPvRBWMSdeMD9/KnfnXqaNuKRVNnxEiycCEjN/cazJJkKrhGHoEbCwm1EsjlfBqVr4GmBDFHS2q2XSndDTuQ4bOLNgeDJ5KanRW3Vpy1VgmL0MQcd9UEJ2rKgWQdfvKHgLQNoMNDc/LKGR6mybH+t2pa9dFCU7wF9R77KInBU8NCuK8TwGbanLPJyFtZgbcEqxC8HD1j9FpsVFJezorG6IAWNYcBaHhB9ZtLc3RPsXF+rk0HiYsv74q3gY0LPZhgv0llR1guV1NPk3R1CyjbccSgK/PmL9c9rJQJBHisyWHaDi3At5sqG9FUsngjMRJ2R7R5FYqz9O8/lQxDyqv/S9x7ljeIWz1svQfzF2SoxsB3/Sw340I4NJp+xQ3MF/Nm4tFxF/ODLNjB7BdXWTIePXGhDIDcSH31a9XurYXyHxaECbXyhG++ckbKHwtn9k+vWyvOweVbZCAPDB1S8MmpdzoayS4Kun0zJW/ehdMV3pp1rizUMbGSnylAj3bTXWpQgzPOb6ZkpjlHtgZTo0++oZCq2A==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(376014)(366016)(1800799024)(23010399003)(11063799006)(10067099003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?HpGlQTnlPYJGzWLuvCiQ+Aj/xED1GsHc75s/hMdlEXgDQIO/iUWGAz3yMgvn?=
- =?us-ascii?Q?z8x+EzaRbDz+MDuoAcE7lfRqdzmXh6Y2EdGpXeQIg649DYKTe1jVqxWIChxI?=
- =?us-ascii?Q?n/VBhzxruTKKAwnZVJa/vs5qs3IQK5/Cszpa9f/O+WK3zl+kjeeDs00SZcQL?=
- =?us-ascii?Q?gJrZUgMQdM443dhE0SM+m/pfPPNxNfP7gaBiCTVQa/QSY4vEp6VJQMzBYN2Z?=
- =?us-ascii?Q?Hyun2QBMld4oQ/TgNkHofcf3t/siz9/oA4LQHHYxuJxMAzrPJ9a2SK5wVNek?=
- =?us-ascii?Q?xXOmRd9kc2SxUR06beLcGC45hj3gW5CIapO1xdwR5YWYPWKPPGyB+zXOzm6F?=
- =?us-ascii?Q?ZPDc/GbeXADiy/mCICmzX/Nt3FExjptnSZ+74D+kBdH7AXRaZ7qoCYkZUbIP?=
- =?us-ascii?Q?u/i16uwqSE/z8ymD/1pLR7kap9EujxiG7XsNyg1WYQH+HN7itK8kDRSDxXsx?=
- =?us-ascii?Q?SC3e/3NKmDmVC6o8KpOCYEYReeZ75xp4C7FVaW4I1QRa9OQBOkt0ZZzCjVv4?=
- =?us-ascii?Q?vSIs+8bZxH7U2dmsJETjqrnvxHEOlEq1g5LE/h1xFkzpERBomu8Fg1l+I7f+?=
- =?us-ascii?Q?zn+RyGrtXe7Upe1XJ/W2+6akZQnlozKDftbvzY51GbhKeCy9oqfJUbH+mKWN?=
- =?us-ascii?Q?0cGVVrbn+9tw00cSlim0+5CcNq11Qukmfz4hm8PVRsc/sFAt7EoIw3v2Ftt8?=
- =?us-ascii?Q?5Wb3HSvNwiKuyapm40MZdxhWK6JYxU6AXaHGrRurNN5FfLnzVCknlV4PFmTs?=
- =?us-ascii?Q?b7Degl4rS0x7NQchVNKGNom/FMjhFafE8Gmd4ni9gSbw9BXh6rq54nR6QkMR?=
- =?us-ascii?Q?BOe/RcmpsP6VZuVAuoCS3dh+J8Ky8LJ/RJtzp9Q162v51nhmdsaqPfzMTECH?=
- =?us-ascii?Q?HoSxDla4E2skgJivxH21F2egE1mQAQXN0vLmVrGx8Zivw+LNB+Z5uDeCmQHN?=
- =?us-ascii?Q?Ia9tBF2VZw8xvFHjYbrKxWfbuZG1vKrpdkk/jmdx2oOb9SXhvO4Gnke1cZKt?=
- =?us-ascii?Q?eKqW99BCWVPSGxtJqEkVn4lSMceU2To2UVJazGwpJEca1KiNEIhKFxPtwisy?=
- =?us-ascii?Q?Xxg2eOjyhg9AIZ5p1QrrS+iI1AYozEXVhVo+V3x2/qdpqIX5nyppbYMQ8Aif?=
- =?us-ascii?Q?Y+tvqUcvo5z8DxOBzzB8sc4VD4C8Tsu3LKAl2ulgFVPsdIMOeiF0fybgge8A?=
- =?us-ascii?Q?l+vQMRS14K9FQogH1Vo/JYlItnKS+pmvGaGwDRmXQuDu/dAGcn0HmzuEhN+M?=
- =?us-ascii?Q?cq3YXJ56ac4cIdKPV3iPuHHid01S3J6ec5EOOqHCWR2Np5Tji4q38+HQqxZt?=
- =?us-ascii?Q?96vDibe/m6l1MI/R5UNjKlPMmvUPg72qFkII2uVgpivoPZCiADOmhMOV8m3d?=
- =?us-ascii?Q?1cwhCUDRgVQNMEPfetJaU9eJCYJInbHmt1npOB7/HJ6LZk3zqkWdPlGayqJB?=
- =?us-ascii?Q?odV3DCZnTCh07gGpvNp51CxKn5HRwzLdyP9BARNFmYHV+1Gw14Vuz7Rh0zi+?=
- =?us-ascii?Q?6tyw+HvIZGHu2Ijty/Rp0viFSJEyCnVh+7RqTSbqzsorHYunM19nOd+t4pyY?=
- =?us-ascii?Q?UfC19VwifWqE5ox4GQRiDbWmWfISGCQygTFCvu8pKdl7kTipcR41GI1mhrMZ?=
- =?us-ascii?Q?cASZZRAYfiwxX7k/Iy1WRySR9AtjxLCqrY7Ax9QnzyDTOMEnfRZHG0HjEMK+?=
- =?us-ascii?Q?1rnwOypDlU5YMY4TPgWvaEslZNYixD1TV0cn75cuyNSzH4auUJ4Kzl6fDoUe?=
- =?us-ascii?Q?K3Ju0L5D56plPzKH+CYjqXyxz/XGD7Y0s+buPvZwWDtdVmkwH9b4?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0923ecb0-73f9-4df9-c6b7-08df101584e5
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 15:01:12.3004
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FV3vm63r02WtcNAZNSWwd/wOkfqH2aCP6/nbuPg6uQs01SmG2Q7YukGAWKc3rV0JGXYUxACLQvH62eAh/2yJSBvehVLCOV5ao6YgLUKCAHhIp5c0v8vezjRoWKyPFc04
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4PR04MB9714
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] kselftest: mm: fix potential failure for merged VMA in
+ guard-regions
+To: Yeoreum Yun <yeoreum.yun@arm.com>, linux-mm@kvack.org,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: akpm@linux-foundation.org, ljs@kernel.org, liam@infradead.org,
+ vbabka@kernel.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com
+References: <20260911142904.1825452-1-yeoreum.yun@arm.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
+ dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
+ QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
+ XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
+ Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
+ PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
+ WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
+ UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
+ jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
+ B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
+ ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
+ AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
+ 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
+ g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
+ ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
+ 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
+ /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
+ jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
+ DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
+ HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
+ 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
+ LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
+ 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
+ VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
+ /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
+ iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
+ 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
+ zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
+ azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
+ FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
+ sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
+ 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
+ EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
+ IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
+ 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
+ Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
+ sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
+ yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
+ 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
+ r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
+ 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
+ CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
+ qIws/H2t
+In-Reply-To: <20260911142904.1825452-1-yeoreum.yun@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 11, 2026 at 02:09:29PM +0800, Slavin Liu wrote:
-
-Please remove RFC for this kind fix patches.
-
->
-> The named-domain attach API may return NULL for an absent name.
-> Treat that as -ENODEV before publishing bus_power_dev to later unwind
-> paths, without changing the handling of existing error pointers.
->
-> Detected by static analysis and reviewed with AI-assisted source auditing.
->
-> Fixes: 2684ac05a8c4 ("soc: imx: add i.MX8M blk-ctrl driver")
-> Fixes: 556f5cf9568a ("soc: imx: add i.MX8MP HSIO blk-ctrl")
-> Assisted-by: LLM
-> Signed-off-by: Slavin Liu <bolin.liu@seu.edu.cn>
+On 9/11/26 16:29, Yeoreum Yun wrote:
+> check_vmflag_guard() uses /proc/self/smaps to retrieve the VMA flags,
+> but this can fail if the mapping is merged with an adjacent VMA.
+> 
+> To avoid this potential failure, first allocate a temporary region with
+> extra pages at both ends, unmap it, and then map the test region within
+> the temporary address range, leaving an unmapped page on each side to
+> prevent VMA merging.
+> 
+> Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
 > ---
->  drivers/pmdomain/imx/imx8m-blk-ctrl.c  | 2 ++
->  drivers/pmdomain/imx/imx8mp-blk-ctrl.c | 2 ++
->  2 files changed, 4 insertions(+)
->
-> diff --git a/drivers/pmdomain/imx/imx8m-blk-ctrl.c b/drivers/pmdomain/imx/imx8m-blk-ctrl.c
-> index 479789009c7f..9653a8ac9a6e 100644
-> --- a/drivers/pmdomain/imx/imx8m-blk-ctrl.c
-> +++ b/drivers/pmdomain/imx/imx8m-blk-ctrl.c
-> @@ -228,6 +228,8 @@ static int imx8m_blk_ctrl_probe(struct platform_device *pdev)
->                 return -ENOMEM;
->
->         bc->bus_power_dev = dev_pm_domain_attach_by_name(dev, "bus");
-> +       if (!bc->bus_power_dev)
-> +               return dev_err_probe(dev, -ENODEV, "missing bus power domain\n");
->         if (IS_ERR(bc->bus_power_dev)) {
->                 if (PTR_ERR(bc->bus_power_dev) == -ENODEV)
->                         return dev_err_probe(dev, -EPROBE_DEFER,
-> diff --git a/drivers/pmdomain/imx/imx8mp-blk-ctrl.c b/drivers/pmdomain/imx/imx8mp-blk-ctrl.c
-> index d255c20f58e2..e952b4ee75c0 100644
-> --- a/drivers/pmdomain/imx/imx8mp-blk-ctrl.c
-> +++ b/drivers/pmdomain/imx/imx8mp-blk-ctrl.c
-> @@ -655,6 +655,8 @@ static int imx8mp_blk_ctrl_probe(struct platform_device *pdev)
->                 return -ENOMEM;
->
->         bc->bus_power_dev = dev_pm_domain_attach_by_name(dev, "bus");
-> +       if (!bc->bus_power_dev)
-> +               return dev_err_probe(dev, -ENODEV, "missing bus power domain\n");
->         if (IS_ERR(bc->bus_power_dev))
->                 return dev_err_probe(dev, PTR_ERR(bc->bus_power_dev),
->                                      "failed to attach bus power domain\n");
->
+
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+
+-- 
+Cheers,
+
+David
