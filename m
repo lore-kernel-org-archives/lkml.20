@@ -1,69 +1,69 @@
-Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
+Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABD1B36EA8B
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:10:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A494369D6A
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:10:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789135824; cv=none; b=TNXcF5PHXK3SOOBQAYg2CCxq8+gqpi8Fg68tP4PAm7e7G8sIo61LfjZYF90j0TNtiZO29H453JtEiV6Rr0ADsrAdwiWAQV3vgKQyOLQRQUTe/OoSru+sQiBVsVwobt+aJ3iypUVt6rp77BJZfme7I73laMXsSk74BpDfu0i599Y=
+	t=1789135823; cv=none; b=HAwSYoh713iQxawulKhLWjsPf4YZAF43OiPanGgYLs0MkHY6eYT131WPQYjPYGyl3HzLQM76t22h3e/SHS1UX2Ho0DLR3/zfJyOkJOPfHuXUoljdR8VDlE+MrP9q4hqF7KYibJ4iJ/Z0eCTQkPzzkAvpJbHTUSk6nO5GMKhXr7U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789135824; c=relaxed/simple;
-	bh=c9hUQ9kAAl2b2IbncqDZq1k2ejJxuc1g83EyvfAIkis=;
+	s=arc-20240116; t=1789135823; c=relaxed/simple;
+	bh=hPcqGdFxo+b+ijS7jNB+8GMowmEDvopzKnpNmpphVrY=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=lrGmpBIxGnEzjZsDK5ZaKvCmoJSlRtmsC7xI2rUHkibTa0ByOG6R6cIOrfrdpMkr++wPjrCTeYVW+DDcl2I6nFgcfvlcISo/9YyB/iyy2G6w2gYKFIWhxGvsmR0hhMVKfH9jU8VQ2lVy7kGZ/jeLPDyrpzXpc+JR2w4jMpSa+6o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=VNKysXO3; arc=none smtp.client-ip=74.125.230.140
+	 In-Reply-To:To:Cc; b=YCe78PjlvBdBCLWYj8VM7NZCoZIwzy5vZjwxn4PDz/IwNfEpp8G+Ayy3Heue1SplovyzcuFapLI3kYJYEaQk1ThpFz+BVcRKxjxd8KQcVLjrhPvBpRafNqkwFQYTpF3cLfIe46BZbiKli+svfGfM6IJIV1jS9Vr5yE8aIV4z6EQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=J6fC02vx; arc=none smtp.client-ip=209.85.160.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="VNKysXO3"
-Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfc9b6e4so8995836d6.3
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:10:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="J6fC02vx"
+Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-5306baf6b53so15000001cf.1
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:10:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1789135821; x=1789740621; darn=vger.kernel.org;
+        d=toxicpanda.com; s=google; t=1789135820; x=1789740620; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=twz7P/UgrzFqFrDTfXn+06wBF94/L3aT/pnjRwe1Smk=;
-        b=VNKysXO35hDRh0I5aaik3B+ZyQfCj/A/akUeSWwO4t2rLjIxuWhPn+XPKU7gnGywL3
-         lG8fEKUQC7QElqObZ/b7r5Ip7EIJO13BG03nXDxPK2pGwu8aeUNKR93XiG4KF0VzFvws
-         nlCDPYyeCxTBoVXwy/8O2LmEYq0pnIuyJ+tKpthhet9V30qNJXTmbhJgiRASHmq6cfbS
-         Q/coTcxK4ImFJ2+MaByBx8YRIUAo0f0lnheaKFvC1i2EQ2TFNZlBVQ9LvXPZKPBALc4h
-         X1/IYd9gJBBR8JgQ7InEmdp4f+BNcd7l6jbrB1/TTUmuDzCUYJq+0KZMA9NtqZnErt1h
-         gqCw==
+        bh=32pR0m9lJbbl6oefWflQ2FM2YWt9ii7Ub9HEHMaojiA=;
+        b=J6fC02vxUj7R8uLNkm6j2UFmhumP9masIbwPFYObyCpfnCpl3MwEPR2KHNb3TyycME
+         sNpKatHEdR199uSZcOxHQdrLrPW7i5wb1ApmozfvvD0hBYo2mTiACAsndyXwmdKVEdka
+         08gLK3Be7se5sydXOPVnlve+QHJoL+v/vGwXUs7VmnoCYAYO78aZFdPbcl27Cxkq97PH
+         mMXdGQjeed5kX+kAkvMU5nCtrn9ory3l/CIoX7AuYKpRmhW2FdiprLBawGjB7tYJOAnG
+         if093zQPO+yjtGUUhHQemjKilV6M3h1sN/CklO3LZU1tzpqLhfQQbX+isj8hXyteX8NZ
+         Oa/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789135821; x=1789740621;
+        d=1e100.net; s=20251104; t=1789135820; x=1789740620;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=twz7P/UgrzFqFrDTfXn+06wBF94/L3aT/pnjRwe1Smk=;
-        b=b7Httgqiex+KzI0kwwkYiVaPXvYzzhw+d2UJz9Ny7t2kEhzxTlGnfo2YhsLGaoYp5j
-         9wLVzGLDWD1isXSlVsHJPCYJ4CCiB1yaUabkifLaw2IUFbD4L5IlVAud86Apnss/9J0U
-         UM2NpNm8V5s0h/1PG637cpl5B2y2lbGmftHQd0ggB79cUuEYyY+4mfuATJZxpFhdRvQl
-         9q0N0mEkPw3Qs9tAc/MF35AxF0vU+H13kQj9ftlXsHWZR3jTyFxP0AMVE14sxoaO6H7W
-         h+RWwhwWuSDGAh2gXGX4ARnl7ypCXHZBimUjKNex1UQv22yMcCzo8niJ/j/6d6MymF1X
-         IUqw==
-X-Forwarded-Encrypted: i=1; AKwUvByhyqshf6M1etmdGXHFISXUmE9lMwp8Ne/lltGAXKxVlDW53iYjMpfIQyeNQsH72cOCkNFXEXJNTjOo+GY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nj56oUgwSW2AV5MoxShTxLyYekyBvAjNU2GzE6jhMApMLs+NmV
-	rqbKNPY5obzlDjug42Dhp2nT4BAKOEB05oi8QXOew6fic7kzLzRIqkGcgtYRSGkCrHk=
-X-Gm-Gg: AYBFou2H1PMMmmAep4nWp5VLQO2C6JMKW7gcmuzkhDB47Y1Nl7aIELim+t2nccr/BlY
-	K82RBqNn9fMgkrEYCbVG9L6AKHZd59OvcKHWKPOLHERo5cPKiUqwmpb+Aa69cnwVEEA0pay5KC+
-	wgd1LzSy7WLA6iLFfCTiCm3usO/NkBXkquQmhvXmhYteu2VPouzoxLtLDDxAT/pRvY2KEKP0OR0
-	uttym+Q+h/b4DiUogEqW48//hNYTS4pSghdivKyUWqanePFzATEKuARgz0BlUssE0t1vp10Hx2M
-	ZfeIVI8rHfCDvMc5iv4s/RxzdbE+M0uDiMuj6IGRwYPQIGCVTG0QaYdq+oEbWDTwGm44+7LJ6Nx
-	uODSITUHEWqx9ad42PSbZzQ5TrlmDwXLM9HA4fY8L8512Bjd0XZSK9YgUH3IRsg8rJDQx3oqJtK
-	8+VSNBjRBJK30ewyzUhCplGZu2KlJFT430+I4cJwV3ghRB1wHmNP/MBHxa41jbWp77hLSRMuEiE
-	0pmbYIuKtslQIXvYgZwoDkjnp+0kFBtsDRahOtYsVKWifj2oNmp2LFD
-X-Received: by 2002:a05:620a:690e:b0:939:639b:2e1f with SMTP id af79cd13be357-939ea04922amr525733885a.7.1789135821311;
-        Fri, 11 Sep 2026 07:10:21 -0700 (PDT)
+        bh=32pR0m9lJbbl6oefWflQ2FM2YWt9ii7Ub9HEHMaojiA=;
+        b=pI74BXb+STexKz09aqF7h1OgFx4I1w6mB+dlJx+uhzEF3GoN/8HQCTsQP+IeVTMt3F
+         p/WiW2pyA4uC7ARgsiVpm0/4JhQZ1vI2fdOIZxqOBN3V30iLBy4At6tn/QFaHccKkoTW
+         xHzchGqxN9h1G2PRXhqi8LzSOegY09Crt2Vo2nViu36STeYHvD4Z21KpZbwP7OZ4rLRy
+         Mbj6w5lJOF+IFyxkhs5T0oZyc/HGBYE3Os7NMSiUqXLnYxcxUo7TIxHBw9okklSDdvhD
+         l9/9jUEc6zAhIroCBmzHxDkGymYXdwWDBrV9u3CPH9ZZXHkLYdI4O2e4Vbo1CuTC1zbu
+         In+g==
+X-Forwarded-Encrypted: i=1; AKwUvBw0JKB5DSctN9MVyx03pqaV3fmF77AehMEXsuUT2BtQLfc3Xfk/sIdwfbzaz6n3FyAhKEa076fwtAbqnfQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nbvQcZb2D4V1Qo+E+qWN04QPs+mJPsWvbLeNs/Dte+6AnUAVZj
+	vsV5M2eI9E41AGP7XyazxTVmbgkk0OUBQY7S/By4YjOYnQ5OQR9t0bVnsz5z69c/ELc=
+X-Gm-Gg: AYBFou2pdvCfybgKTc167cchKVu3wmkk2N3G5/g3huYD95uksfbpKpYiHTW5OspGtm+
+	2BgYQi4/KMpwDMd0xM1DSf8srzeHujNrlionm87pLlBVrq52IkviQ4wWUfrrV5SyEDDW++w+WVp
+	Yk3uFBmbzPVTJwHa9eO30GX/3stvQS0Cc4Fee6w9GoBLYb7UHMcgTk5687DBqevkMrrAOwfYs07
+	2dO+XCuawMv+yHBNi08MNfgr7x0+F3tSYUWjR/XBndDEMUj3EwF6i1k6EJg5XatGhYAHlsoi2zP
+	x2A2bcHxi1OarkzkIvdCykX0mJN5gkoNkUFtDIOSB24UpHHIBzqPjUgK5Gn1GmcR6Ukbsi7ht0w
+	mB0tHKghtggPOct4yaKHTUlOs3pMlXGt8xNVNCm70AEgfUQH76++y1T6J0SSSdkcsCKbltw7OrD
+	16aTUdhuzS2FGvss2JMnHruKbANzKRu0QYR0+7lcnutVm1q/spgRtsvYaVuanCegJovOOG1AJ/U
+	rH8a5GzogPZsNvX5RFaF3ZvHpXlW0CDnwOQRneS20ZHGyl/LEjN2ZYGcACF2SPsqt4=
+X-Received: by 2002:a05:622a:4114:b0:530:da2a:757 with SMTP id d75a77b69052e-530da2a1198mr24113211cf.33.1789135818762;
+        Fri, 11 Sep 2026 07:10:18 -0700 (PDT)
 Received: from toxicpanda.com (ec2-34-228-114-98.compute-1.amazonaws.com. [34.228.114.98])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-939e80dc002sm248697485a.39.2026.09.11.07.10.20
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-530e0aaddbdsm2707391cf.2.2026.09.11.07.10.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 07:10:20 -0700 (PDT)
+        Fri, 11 Sep 2026 07:10:17 -0700 (PDT)
 From: Josef Bacik <josef@toxicpanda.com>
-Date: Fri, 11 Sep 2026 14:08:50 +0000
-Subject: [PATCH RFC v2 12/15] rcutorture: Bracket Tasks RCU readers with
- trampoline nesting
+Date: Fri, 11 Sep 2026 14:08:49 +0000
+Subject: [PATCH RFC v2 11/15] samples: ftrace: Maintain Tasks RCU
+ trampoline nesting in direct-call trampolines
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,7 +72,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260911-b4-rcu-tasks-preempt-qs-v2-12-eaaa61ed2da4@toxicpanda.com>
+Message-Id: <20260911-b4-rcu-tasks-preempt-qs-v2-11-eaaa61ed2da4@toxicpanda.com>
 References: <20260911-b4-rcu-tasks-preempt-qs-v2-0-eaaa61ed2da4@toxicpanda.com>
 In-Reply-To: <20260911-b4-rcu-tasks-preempt-qs-v2-0-eaaa61ed2da4@toxicpanda.com>
 To: "Paul E. McKenney" <paulmck@kernel.org>, 
@@ -97,56 +97,366 @@ Cc: Andy Lutomirski <luto@kernel.org>,
  bpf@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  xen-devel@lists.xenproject.org, Josef Bacik <josef@toxicpanda.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1789135737; l=1492;
+X-Developer-Signature: v=1; a=openssh-sha256; t=1789135737; l=10811;
  i=josef@toxicpanda.com; h=from:subject:message-id;
- bh=c9hUQ9kAAl2b2IbncqDZq1k2ejJxuc1g83EyvfAIkis=;
+ bh=hPcqGdFxo+b+ijS7jNB+8GMowmEDvopzKnpNmpphVrY=;
  b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
  JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QDpeCdAsuDTbsWwi8oqAy5KN1IjS7Ye/ysM/qLEJAJ0SGsvHuCkttXUFQ2AlX09A0IwbwXmGUQ4
- qHaGMzc7/Vgg=
+ QKhN0qkThHUh5I4+Grit8p3XEg0LAgV/aMtyHMka/HOmaDw0JgyPUhuISBQoEJ4d9x0FD6DquBp
+ sygcZlr+QrA8=
 X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
  fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
-rcutorture's tasks flavor models a Tasks RCU reader as "any stretch of
-kernel code", and rcu_read_delay() deliberately preempts inside it to
-check that a preemption does not end the read-side critical section.
-Once preemption outside a trampoline becomes a quiescent state that
-model no longer matches what Tasks RCU protects, and the readers would
-report false too-short grace periods.
+Follow the register_ftrace_direct() contract in the sample modules: on
+x86-64 and arm64, have each hand-written trampoline increment
+current->rcu_tramp_nesting before calling its C handler and decrement it
+before returning, via a small shared samples/ftrace/ftrace-direct.h.
+%r11 and x12/w13 are used as scratch; both are caller-saved, non-argument
+registers and therefore dead on entry to and exit from an fentry
+trampoline.
 
-Have tasks_torture_read_lock()/unlock() raise and drop
-current->rcu_tramp_nesting so the reader models a trampoline, which is
-the thing Tasks RCU actually guards; the deliberate preemption inside it
-then continues to be, correctly, not a quiescent state.
+The header pulls in the generated asm-offsets.h only on those two
+architectures, since it is not generally safe to include from C (PPC32's
+TASK_SIZE and arm64's TRAMP_VALIAS clash with the C definitions; the
+latter is worked around locally with push_macro/pop_macro).  Other
+architectures get empty macros and are unchanged.
 
 Assisted-by: LLM
 Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 ---
- kernel/rcu/rcutorture.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ samples/ftrace/ftrace-direct-modify.c       |  9 ++++
+ samples/ftrace/ftrace-direct-multi-modify.c |  9 ++++
+ samples/ftrace/ftrace-direct-multi.c        |  5 +++
+ samples/ftrace/ftrace-direct-too.c          |  5 +++
+ samples/ftrace/ftrace-direct.c              |  5 +++
+ samples/ftrace/ftrace-direct.h              | 64 +++++++++++++++++++++++++++++
+ 6 files changed, 97 insertions(+)
 
-diff --git a/kernel/rcu/rcutorture.c b/kernel/rcu/rcutorture.c
-index 794937e13e7c..df6dd708cea7 100644
---- a/kernel/rcu/rcutorture.c
-+++ b/kernel/rcu/rcutorture.c
-@@ -1144,11 +1144,17 @@ static struct rcu_torture_ops trivial_preempt_ops = {
+diff --git a/samples/ftrace/ftrace-direct-modify.c b/samples/ftrace/ftrace-direct-modify.c
+index 164d9dd6fd92..eb8230fa4242 100644
+--- a/samples/ftrace/ftrace-direct-modify.c
++++ b/samples/ftrace/ftrace-direct-modify.c
+@@ -2,6 +2,7 @@
+ #include <linux/module.h>
+ #include <linux/kthread.h>
+ #include <linux/ftrace.h>
++#include "ftrace-direct.h"
+ #if !defined(CONFIG_ARM64) && !defined(CONFIG_PPC32)
+ #include <asm/asm-offsets.h>
+ #endif
+@@ -73,7 +74,9 @@ asm (
+ "	pushq %rbp\n"
+ "	movq %rsp, %rbp\n"
+ 	CALL_DEPTH_ACCOUNT
++	RCU_TASKS_TRAMP_ENTER
+ "	call my_direct_func1\n"
++	RCU_TASKS_TRAMP_EXIT
+ "	leave\n"
+ 	ASM_RET
+ "	.size		my_tramp1, .-my_tramp1\n"
+@@ -85,7 +88,9 @@ asm (
+ "	pushq %rbp\n"
+ "	movq %rsp, %rbp\n"
+ 	CALL_DEPTH_ACCOUNT
++	RCU_TASKS_TRAMP_ENTER
+ "	call my_direct_func2\n"
++	RCU_TASKS_TRAMP_EXIT
+ "	leave\n"
+ 	ASM_RET
+ "	.size		my_tramp2, .-my_tramp2\n"
+@@ -141,11 +146,13 @@ asm (
+ "	.globl		my_tramp1\n"
+ "   my_tramp1:"
+ "	hint	34\n" // bti	c
++	RCU_TASKS_TRAMP_ENTER
+ "	sub	sp, sp, #16\n"
+ "	stp	x9, x30, [sp]\n"
+ "	bl	my_direct_func1\n"
+ "	ldp	x30, x9, [sp]\n"
+ "	add	sp, sp, #16\n"
++	RCU_TASKS_TRAMP_EXIT
+ "	ret	x9\n"
+ "	.size		my_tramp1, .-my_tramp1\n"
  
- static int tasks_torture_read_lock(void)
- {
-+	/*
-+	 * Model a trampoline: with CONFIG_RCU_TASKS_PREEMPT_QS a preemption is
-+	 * otherwise a quiescent state and rcu_read_delay() preempts on purpose.
-+	 */
-+	rcu_tasks_trampoline_enter();
- 	return 0;
- }
+@@ -153,11 +160,13 @@ asm (
+ "	.globl		my_tramp2\n"
+ "   my_tramp2:"
+ "	hint	34\n" // bti	c
++	RCU_TASKS_TRAMP_ENTER
+ "	sub	sp, sp, #16\n"
+ "	stp	x9, x30, [sp]\n"
+ "	bl	my_direct_func2\n"
+ "	ldp	x30, x9, [sp]\n"
+ "	add	sp, sp, #16\n"
++	RCU_TASKS_TRAMP_EXIT
+ "	ret	x9\n"
+ "	.size		my_tramp2, .-my_tramp2\n"
+ "	.popsection\n"
+diff --git a/samples/ftrace/ftrace-direct-multi-modify.c b/samples/ftrace/ftrace-direct-multi-modify.c
+index b03766c6217b..c8f1062e5d1a 100644
+--- a/samples/ftrace/ftrace-direct-multi-modify.c
++++ b/samples/ftrace/ftrace-direct-multi-modify.c
+@@ -2,6 +2,7 @@
+ #include <linux/module.h>
+ #include <linux/kthread.h>
+ #include <linux/ftrace.h>
++#include "ftrace-direct.h"
+ #if !defined(CONFIG_ARM64) && !defined(CONFIG_PPC32)
+ #include <asm/asm-offsets.h>
+ #endif
+@@ -77,10 +78,12 @@ asm (
+ "	pushq %rbp\n"
+ "	movq %rsp, %rbp\n"
+ 	CALL_DEPTH_ACCOUNT
++	RCU_TASKS_TRAMP_ENTER
+ "	pushq %rdi\n"
+ "	movq 8(%rbp), %rdi\n"
+ "	call my_direct_func1\n"
+ "	popq %rdi\n"
++	RCU_TASKS_TRAMP_EXIT
+ "	leave\n"
+ 	ASM_RET
+ "	.size		my_tramp1, .-my_tramp1\n"
+@@ -92,10 +95,12 @@ asm (
+ "	pushq %rbp\n"
+ "	movq %rsp, %rbp\n"
+ 	CALL_DEPTH_ACCOUNT
++	RCU_TASKS_TRAMP_ENTER
+ "	pushq %rdi\n"
+ "	movq 8(%rbp), %rdi\n"
+ "	call my_direct_func2\n"
+ "	popq %rdi\n"
++	RCU_TASKS_TRAMP_EXIT
+ "	leave\n"
+ 	ASM_RET
+ "	.size		my_tramp2, .-my_tramp2\n"
+@@ -154,6 +159,7 @@ asm (
+ "	.globl		my_tramp1\n"
+ "   my_tramp1:"
+ "	hint	34\n" // bti	c
++	RCU_TASKS_TRAMP_ENTER
+ "	sub	sp, sp, #32\n"
+ "	stp	x9, x30, [sp]\n"
+ "	str	x0, [sp, #16]\n"
+@@ -162,6 +168,7 @@ asm (
+ "	ldp	x30, x9, [sp]\n"
+ "	ldr	x0, [sp, #16]\n"
+ "	add	sp, sp, #32\n"
++	RCU_TASKS_TRAMP_EXIT
+ "	ret	x9\n"
+ "	.size		my_tramp1, .-my_tramp1\n"
  
- static void tasks_torture_read_unlock(int idx)
- {
-+	rcu_tasks_trampoline_exit();
- }
+@@ -169,6 +176,7 @@ asm (
+ "	.globl		my_tramp2\n"
+ "   my_tramp2:"
+ "	hint	34\n" // bti	c
++	RCU_TASKS_TRAMP_ENTER
+ "	sub	sp, sp, #32\n"
+ "	stp	x9, x30, [sp]\n"
+ "	str	x0, [sp, #16]\n"
+@@ -177,6 +185,7 @@ asm (
+ "	ldp	x30, x9, [sp]\n"
+ "	ldr	x0, [sp, #16]\n"
+ "	add	sp, sp, #32\n"
++	RCU_TASKS_TRAMP_EXIT
+ "	ret	x9\n"
+ "	.size		my_tramp2, .-my_tramp2\n"
+ "	.popsection\n"
+diff --git a/samples/ftrace/ftrace-direct-multi.c b/samples/ftrace/ftrace-direct-multi.c
+index 3fe6ddaf0b69..bc6a88dd4ffc 100644
+--- a/samples/ftrace/ftrace-direct-multi.c
++++ b/samples/ftrace/ftrace-direct-multi.c
+@@ -3,6 +3,7 @@
  
- static void rcu_tasks_torture_deferred_free(struct rcu_torture *p)
+ #include <linux/mm.h> /* for handle_mm_fault() */
+ #include <linux/ftrace.h>
++#include "ftrace-direct.h"
+ #include <linux/sched/stat.h>
+ #if !defined(CONFIG_ARM64) && !defined(CONFIG_PPC32)
+ #include <asm/asm-offsets.h>
+@@ -56,10 +57,12 @@ asm (
+ "	pushq %rbp\n"
+ "	movq %rsp, %rbp\n"
+ 	CALL_DEPTH_ACCOUNT
++	RCU_TASKS_TRAMP_ENTER
+ "	pushq %rdi\n"
+ "	movq 8(%rbp), %rdi\n"
+ "	call my_direct_func\n"
+ "	popq %rdi\n"
++	RCU_TASKS_TRAMP_EXIT
+ "	leave\n"
+ 	ASM_RET
+ "	.size		my_tramp, .-my_tramp\n"
+@@ -101,6 +104,7 @@ asm (
+ "	.globl		my_tramp\n"
+ "   my_tramp:"
+ "	hint	34\n" // bti	c
++	RCU_TASKS_TRAMP_ENTER
+ "	sub	sp, sp, #32\n"
+ "	stp	x9, x30, [sp]\n"
+ "	str	x0, [sp, #16]\n"
+@@ -109,6 +113,7 @@ asm (
+ "	ldp	x30, x9, [sp]\n"
+ "	ldr	x0, [sp, #16]\n"
+ "	add	sp, sp, #32\n"
++	RCU_TASKS_TRAMP_EXIT
+ "	ret	x9\n"
+ "	.size		my_tramp, .-my_tramp\n"
+ "	.popsection\n"
+diff --git a/samples/ftrace/ftrace-direct-too.c b/samples/ftrace/ftrace-direct-too.c
+index bf2411aa6fd7..247e418644a2 100644
+--- a/samples/ftrace/ftrace-direct-too.c
++++ b/samples/ftrace/ftrace-direct-too.c
+@@ -3,6 +3,7 @@
+ 
+ #include <linux/mm.h> /* for handle_mm_fault() */
+ #include <linux/ftrace.h>
++#include "ftrace-direct.h"
+ #if !defined(CONFIG_ARM64) && !defined(CONFIG_PPC32)
+ #include <asm/asm-offsets.h>
+ #endif
+@@ -61,6 +62,7 @@ asm (
+ "	pushq %rbp\n"
+ "	movq %rsp, %rbp\n"
+ 	CALL_DEPTH_ACCOUNT
++	RCU_TASKS_TRAMP_ENTER
+ "	pushq %rdi\n"
+ "	pushq %rsi\n"
+ "	pushq %rdx\n"
+@@ -70,6 +72,7 @@ asm (
+ "	popq %rdx\n"
+ "	popq %rsi\n"
+ "	popq %rdi\n"
++	RCU_TASKS_TRAMP_EXIT
+ "	leave\n"
+ 	ASM_RET
+ "	.size		my_tramp, .-my_tramp\n"
+@@ -110,6 +113,7 @@ asm (
+ "	.globl		my_tramp\n"
+ "   my_tramp:"
+ "	hint	34\n" // bti	c
++	RCU_TASKS_TRAMP_ENTER
+ "	sub	sp, sp, #48\n"
+ "	stp	x9, x30, [sp]\n"
+ "	stp	x0, x1, [sp, #16]\n"
+@@ -119,6 +123,7 @@ asm (
+ "	ldp	x0, x1, [sp, #16]\n"
+ "	ldp	x2, x3, [sp, #32]\n"
+ "	add	sp, sp, #48\n"
++	RCU_TASKS_TRAMP_EXIT
+ "	ret	x9\n"
+ "	.size		my_tramp, .-my_tramp\n"
+ "	.popsection\n"
+diff --git a/samples/ftrace/ftrace-direct.c b/samples/ftrace/ftrace-direct.c
+index 5368c8c39cbb..9e1964baf28b 100644
+--- a/samples/ftrace/ftrace-direct.c
++++ b/samples/ftrace/ftrace-direct.c
+@@ -3,6 +3,7 @@
+ 
+ #include <linux/sched.h> /* for wake_up_process() */
+ #include <linux/ftrace.h>
++#include "ftrace-direct.h"
+ #if !defined(CONFIG_ARM64) && !defined(CONFIG_PPC32)
+ #include <asm/asm-offsets.h>
+ #endif
+@@ -54,9 +55,11 @@ asm (
+ "	pushq %rbp\n"
+ "	movq %rsp, %rbp\n"
+ 	CALL_DEPTH_ACCOUNT
++	RCU_TASKS_TRAMP_ENTER
+ "	pushq %rdi\n"
+ "	call my_direct_func\n"
+ "	popq %rdi\n"
++	RCU_TASKS_TRAMP_EXIT
+ "	leave\n"
+ 	ASM_RET
+ "	.size		my_tramp, .-my_tramp\n"
+@@ -97,6 +100,7 @@ asm (
+ "	.globl		my_tramp\n"
+ "   my_tramp:"
+ "	hint	34\n" // bti	c
++	RCU_TASKS_TRAMP_ENTER
+ "	sub	sp, sp, #32\n"
+ "	stp	x9, x30, [sp]\n"
+ "	str	x0, [sp, #16]\n"
+@@ -104,6 +108,7 @@ asm (
+ "	ldp	x30, x9, [sp]\n"
+ "	ldr	x0, [sp, #16]\n"
+ "	add	sp, sp, #32\n"
++	RCU_TASKS_TRAMP_EXIT
+ "	ret	x9\n"
+ "	.size		my_tramp, .-my_tramp\n"
+ "	.popsection\n"
+diff --git a/samples/ftrace/ftrace-direct.h b/samples/ftrace/ftrace-direct.h
+new file mode 100644
+index 000000000000..d0313f33f47f
+--- /dev/null
++++ b/samples/ftrace/ftrace-direct.h
+@@ -0,0 +1,64 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++#ifndef _SAMPLES_FTRACE_DIRECT_H
++#define _SAMPLES_FTRACE_DIRECT_H
++
++#include <linux/stringify.h>
++
++/*
++ * A direct-call trampoline is entered with no lock, refcount or RCU marker
++ * held; only Tasks RCU keeps it (and, for a module, its text) alive while a
++ * task is inside it or preempted in something it called.  On architectures
++ * that select ARCH_HAS_RCU_TASKS_PREEMPT_QS a preemption is a Tasks RCU
++ * quiescent state unless current->rcu_tramp_nesting is non-zero, so the
++ * trampoline must raise it before calling out and drop it afterwards, exactly
++ * like the ftrace and BPF trampolines do.  See rcu_tasks_trampoline_enter()
++ * and register_ftrace_direct().  The instructions before the increment and
++ * after the decrement are covered by ftrace_direct_mark_module().
++ *
++ * These expand to instruction strings for use inside the samples' asm()
++ * trampolines.  The scratch register is caller-saved and not an argument
++ * register, so it is dead on entry to and exit from an fentry trampoline.
++ *
++ * The generated asm-offsets.h is only pulled in on the architectures that need
++ * it here: it is not generally safe to include from C (e.g. PPC32's TASK_SIZE
++ * and arm64's TRAMP_VALIAS clash with the C definitions), which is why the
++ * samples themselves guard their own include of it.
++ */
++#if defined(CONFIG_TASKS_RCU) && defined(CONFIG_X86_64)
++
++#include <asm/asm-offsets.h>
++
++#define RCU_TASKS_TRAMP_ENTER						\
++	"	movq %gs:current_task(%rip), %r11\n"				\
++	"	incl " __stringify(TASK_rcu_tramp_nesting) "(%r11)\n"
++#define RCU_TASKS_TRAMP_EXIT						\
++	"	movq %gs:current_task(%rip), %r11\n"				\
++	"	decl " __stringify(TASK_rcu_tramp_nesting) "(%r11)\n"
++
++#elif defined(CONFIG_TASKS_RCU) && defined(CONFIG_ARM64)
++
++/* arm64's asm-offsets.h redefines TRAMP_VALIAS from <asm/fixmap.h>. */
++#pragma push_macro("TRAMP_VALIAS")
++#undef TRAMP_VALIAS
++#include <asm/asm-offsets.h>
++#pragma pop_macro("TRAMP_VALIAS")
++
++#define RCU_TASKS_TRAMP_ENTER						\
++	"	mrs	x12, sp_el0\n"						\
++	"	ldr	w13, [x12, #" __stringify(TSK_RCU_TRAMP_NESTING) "]\n"	\
++	"	add	w13, w13, #1\n"						\
++	"	str	w13, [x12, #" __stringify(TSK_RCU_TRAMP_NESTING) "]\n"
++#define RCU_TASKS_TRAMP_EXIT						\
++	"	mrs	x12, sp_el0\n"						\
++	"	ldr	w13, [x12, #" __stringify(TSK_RCU_TRAMP_NESTING) "]\n"	\
++	"	sub	w13, w13, #1\n"						\
++	"	str	w13, [x12, #" __stringify(TSK_RCU_TRAMP_NESTING) "]\n"
++
++#else
++
++#define RCU_TASKS_TRAMP_ENTER
++#define RCU_TASKS_TRAMP_EXIT
++
++#endif
++
++#endif /* _SAMPLES_FTRACE_DIRECT_H */
 
 -- 
 2.55.0
