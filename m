@@ -1,110 +1,116 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B93831618B;
-	Fri, 11 Sep 2026 10:29:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9F5F38A700;
+	Fri, 11 Sep 2026 10:29:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789122555; cv=none; b=iDXWmUievfwtAXtnELwoMIjse6Y0wsMfsJnJa/Y4Mxvb8Jyfvuk+OpPI/zy2wSVD+Nr1TjJksxRUlZbN8aw9srdxQaWPE5v5DZW01f9Rtkp6x7HGTZcLwiX3CCZAm8azff4wBHhMcgriEc2seODf/Xz3eYypJZ7ym735yogVjQo=
+	t=1789122576; cv=none; b=V6hkd5dzZX20UOzWNFtsrjp2Qq4KoEgUwCmSbGo0yZVk4Ri34u+O1Dsbx5tl/3vE/tR44KU0EA3Lqah5vihNRSWhw2bg5tondhnVSDmRWhHXZMwoz3V55KfcrF1hYxUvjcrvLxAmjjgFIVGy/EQwZe9b+WGykAq12eXOeKH9Rmg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789122555; c=relaxed/simple;
-	bh=LKuzjAqbxaDQ2qfgnGQCalE+d0UygJTMMx96Iz8eQu4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aPBvBcB9ruZGJWkgoL7lpPh0qLAhdrywmJqf7YWJJrEEjPxJioS+sQYk93aFCP24k5PqE/7P9igltSotbFpLUCpt8to2aZ/odehJDuNAFgmZNq0AOqJBE0xfqvEONZkqVUrj1IcQ1vYqdHCPGtOQH2QAOkWRxdDAuH3Mhl/6SFM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Da8rHM4+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789122576; c=relaxed/simple;
+	bh=ajLUYzbkjP1Vley/6OHu1jmeMXhG5hSn5M6le1CX1sQ=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ZwnssH6P/Zl3THMz3/C4nw7WX9O5qOWwQ8keCO4BlYJSe6THkzQbV8r+IGCuJwnA8E8bZsR6j11ZlQ/ai9RHXLZpS/Nk1FloTcMZb4wQAMZpiAX8wSRMFWShCB9f4fiuqkQi8a86IY/dd1Iou90BMOAlZbI88Akw/4bBm1JqH1A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YhPY37kQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Da8rHM4+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F2311F000FF;
-	Fri, 11 Sep 2026 10:29:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YhPY37kQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 593DD1F000FF;
+	Fri, 11 Sep 2026 10:29:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789122554;
-	bh=X7MA/w3ezZEEYFe3391SsFlW7VhiU5zJ62So+wophUI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Da8rHM4+x+8xT/ItysFYV01rwIJDPoO359WB72JaC8Nx8c50qHWsVb7dhdU/UDszZ
-	 CcZYb6DVxK72uoKOClai7YDGvNAvK9gPU25EYgLb8hIHNqbW0JnONvtXXLTimk5qJv
-	 toYlvAR2BEiTYOorKfPyrNrmSlH7Jfk7OKebnsjmNDCp4VIfrQn0TVmWrVg5/09yTr
-	 SS/oTus8A4+U8RuQ6gxMWQJMbTA99kMJ/YaYOCb/Sf+WS9gkJdKwXjB57oEmcPWFYL
-	 4pd4WJkdker8vgPJQUCi3+dVCZ3Zq6mxUWiU7PbncmjfXUpk74SIzWLPjfZKn70dnr
-	 omRECRVCZMZEQ==
-Date: Fri, 11 Sep 2026 12:29:05 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Naman Jain <namjain@linux.microsoft.com>
-Cc: Sahil Chandna <sahilchandna@linux.microsoft.com>, kys@microsoft.com, 
-	haiyangz@microsoft.com, wei.liu@kernel.org, decui@microsoft.com, longli@microsoft.com, 
-	lpieralisi@kernel.org, kwilczynski@kernel.org, robh@kernel.org, bhelgaas@google.com, 
-	linux-hyperv@vger.kernel.org, linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	mhklinux@outlook.com
-Subject: Re: [PATCH v3] PCI: hv: Warn when wait_for_response() waits
- indefinitely
-Message-ID: <hen5k4ejonfffwdir7tfa2gnmxwfbbqabrjtwooo4o5pjf5gnz@x52vfm5phv3l>
-References: <20260908113009.3005964-1-sahilchandna@linux.microsoft.com>
- <c8b6e10f-dd52-4c74-8d16-268563d8bc1f@linux.microsoft.com>
+	s=k20260515; t=1789122575;
+	bh=zgrgHWkbghvtXVmKqrcuJ1jtMiEH9W3TAIXM+fsJHUE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=YhPY37kQjJGboClQmFaCa1XK2HqrJ1BZkJOazTQo2ObSkPGIobJW+yH/X83wxxDbK
+	 /ZrccE2VFUSyirDjvkQWn11WfyL5TebzMHySQxUEaJcBhS2xs/UmfKLTP5Jmearp/k
+	 H15S4cQcEelcSEpRD70TmpT+5PnGdoaYAkRbiPEeOip4dgEZaJ7lcNiMHUqat4J9kj
+	 eQM6BEKANywzCOIl6n8Rd/b8Ytg17qquy1+88P8YzJjz2G/yU/lAzF8ghnh+/E4L9u
+	 +Ma5FTh6ZPOEIE0Q8CC5qfUVBOEeRj4MetSbrjfDYwVUMBBV5UZLDsEf9nXUcH62jL
+	 LhuOJKY6ZeXEw==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1x4yVh-00000007hk0-0QFw;
+	Fri, 11 Sep 2026 10:29:33 +0000
+Date: Fri, 11 Sep 2026 11:29:32 +0100
+Message-ID: <86ld986pyr.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Oliver Upton <oupton@kernel.org>,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Vincent Donnefort <vdonnefort@google.com>,
+	Quentin Perret <qperret@google.com>,
+	Fuad Tabba <tabba@google.com>
+Subject: Re: [PATCH v2 13/17] KVM: arm64: Pend a protected guest's SError with HCR_EL2.VSE only
+In-Reply-To: <20260907070002.3333525-14-fuad.tabba@linux.dev>
+References: <20260907070002.3333525-1-fuad.tabba@linux.dev>
+	<20260907070002.3333525-14-fuad.tabba@linux.dev>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <c8b6e10f-dd52-4c74-8d16-268563d8bc1f@linux.microsoft.com>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: fuad.tabba@linux.dev, oupton@kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, catalin.marinas@arm.com, will@kernel.org, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, vdonnefort@google.com, qperret@google.com, tabba@google.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Wed, Sep 09, 2026 at 03:01:22PM +0530, Naman Jain wrote:
+On Mon, 07 Sep 2026 07:59:58 +0100,
+Fuad Tabba <fuad.tabba@linux.dev> wrote:
 > 
+> kvm_inject_serror_esr() emulates the exception entry when
+> serror_is_masked() reads PSTATE.A clear, but the host has no view of a
+> protected guest's PSTATE.A, and an emulated entry never reaches the
+> guest: the SError is lost. Set VSE instead and let the guest's own
+> PSTATE.A mask it.
 > 
-> On 9/8/2026 5:00 PM, Sahil Chandna wrote:
-> > A guest can wait indefinitely in wait_for_response() for the host to
-> > send either a rescind message or a packet completion. If the
-> > host does not send either, the guest can remain blocked with no
-> > diagnostic indicating a reason.
-> > This was observed during a guest kernel upgrade in which the
-> > host-side application handling the PCI channel faulted, causing the
-> > guest to never receive the completion request.
-> > Add a warning in wait_for_response() when the wait exceeds
-> > a timeout so that such a hang is visible in the guest's kernel log
-> > and can be correlated with host-side state.
-> > 
-> > Suggested-by: Michael Kelley <mhklinux@outlook.com>
-> > Signed-off-by: Sahil Chandna <sahilchandna@linux.microsoft.com>
-> > ---
-> > Changes since v2:
-> > - Add counter based timeout instead of introducing another timer
-> > Link to v2: https://lore.kernel.org/all/20260902115854.2629164-1-sahilchandna@linux.microsoft.com/
-> > 
-> > Changes since v1:
-> > - Removed periodic warning to one time warning in 2 minutes
-> > - Include vmbus relid and stuck PCI msg.
-> > Link to v1: https://lore.kernel.org/all/20260825051850.2438816-1-sahilchandna@linux.microsoft.com/
-> >   drivers/pci/controller/pci-hyperv.c | 46 ++++++++++++++++++++++-------
-> >   1 file changed, 36 insertions(+), 10 deletions(-)
-> > 
-> > diff --git a/drivers/pci/controller/pci-hyperv.c b/drivers/pci/controller/pci-hyperv.c
-> > index 89816a2bd7cd..bd07402c47ed 100644
-> > --- a/drivers/pci/controller/pci-hyperv.c
-> > +++ b/drivers/pci/controller/pci-hyperv.c
-> > @@ -1040,19 +1040,38 @@ static void put_pcichild(struct hv_pci_dev *hpdev)
-> > 
-> >   /*
-> >    * There is no good way to get notified from vmbus_onoffer_rescind(),
-> > - * so let's use polling here, since this is not a hot path.
-> > + * so let's use polling here, since this is not a hot path. If
-> > + * wait_for_response() has been polling for 2 minutes
-> > + * without either a rescind or completion, add a warning.
-> >    */
-> > +#define PCI_RESPONSE_HANG_TICKS 1200
-> > +
+> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+> ---
+>  arch/arm64/kvm/inject_fault.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
 > 
-> Nit, I think this variable name could be misleading, as this represents a
-> loop counter for a retry logic, but not exactly *ticks* from kernel
-> terminology.
-> 
-> I would have preferred something like: PCI_RESPONSE_WARN_POLL_COUNT.
-> 
+> diff --git a/arch/arm64/kvm/inject_fault.c b/arch/arm64/kvm/inject_fault.c
+> index d6c4fc16f8795..b88098a7e756c 100644
+> --- a/arch/arm64/kvm/inject_fault.c
+> +++ b/arch/arm64/kvm/inject_fault.c
+> @@ -378,8 +378,11 @@ int kvm_inject_serror_esr(struct kvm_vcpu *vcpu, u64 esr)
+>  	 *
+>  	 * As we're emulating the SError injection we need to explicitly populate
+>  	 * ESR_ELx.EC because hardware will not do it on our behalf.
+> +	 *
+> +	 * The host does not see a protected guest's PSTATE.A: leave the
+> +	 * vSError to HCR_EL2.VSE below, which the guest masks itself.
+>  	 */
+> -	if (!serror_is_masked(vcpu)) {
+> +	if (!vcpu_is_protected(vcpu) && !serror_is_masked(vcpu)) {
+>  		pend_serror_exception(vcpu);
+>  		esr |= FIELD_PREP(ESR_ELx_EC_MASK, ESR_ELx_EC_SERROR) | ESR_ELx_IL;
+>  		vcpu_write_sys_reg(vcpu, esr, exception_esr_elx(vcpu));
 
-PCI_RESPONSE_POLL_COUNT?
+I can't say I like this very much.
 
-- Mani
+The fundamental premise is that as far as the host is concerned,
+PSTATE.A is always set. So why can't we give the illusion of this at
+all times?
+
+That'd be a much cleaner approach.
+
+Thanks,
+
+	M.
 
 -- 
-மணிவண்ணன் சதாசிவம்
+Without deviation from the norm, progress is not possible.
