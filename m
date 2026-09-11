@@ -1,131 +1,137 @@
-Received: from mx1.zhaoxin.com (MX1.ZHAOXIN.COM [210.0.225.12])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6F8391A9F83;
-	Fri, 11 Sep 2026 03:31:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.0.225.12
+Received: from mta0.migadu.com (out-54.mta0.migadu.com [91.218.175.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACCF33E8C64
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 03:32:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789097495; cv=none; b=QWoEpfAk/qsdJH9KeUODbVrZskjNQ1jPfbehsrl/tU7ah8kV4QsuqkZ4VLvYB9tO6EpQtV8o6micJG7WW3iQxSI/sCP/HIXarAqWjabFwWdr+LSjcnTESFxkG5lhoUzmqZtwIYkAvlFxJGuW+eWjfsDxN+aDFpNjBzo4BKtB6sk=
+	t=1789097533; cv=none; b=LgTboF35RaGzQVIDlQJIICI+c9BEEZA9hy3vBP1bRcLdVdHhiJzTBq4gzM8Va4eDl7DUh5HHIZyxN2EZQDnxz9ffmAkWJ/SB8t/Psb+09B+37d1m56uUsYiug5GF13l6taiy+l/BDRMnSKrmSyQISU/IaQvQFVrOoAD2J9wPQKk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789097495; c=relaxed/simple;
-	bh=Ft2SFu4NoMEvgsy+ZPKRWgUrkZATMlh7uqCA6lPK47E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Yw81Xv+7EFe09ISX02zUmKMgvf7l5BEyMAT8GliIKS2Yy8wRlYFrUHJE+kSzO00+HBMuEH+XAoZBKfRCNXUHD01iBaHJAtclVP9TYXZfbl0yHwqM7uUq6H70UkZuF/BCTqW7+4ttBh8aa5uWuDF7C0lRfoMbODs1ooxycIK837w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zhaoxin.com; spf=pass smtp.mailfrom=zhaoxin.com; arc=none smtp.client-ip=210.0.225.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zhaoxin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zhaoxin.com
-Received: from zhaoxin.com (unknown [127.0.0.1])
-	by mx1.zhaoxin.com (MTA) with ESMTP id 4hh0Ss5lmvzbKSss;
-	Fri, 11 Sep 2026 11:31:25 +0800 (CST)
-Received: from zhaoxin.com (unknown [10.28.208.166])
-	by mx1.zhaoxin.com (MTA) with ESMTP id 4hh0Ss0ngDzbKSsF;
-	Fri, 11 Sep 2026 11:31:25 +0800 (CST)
-Received: from zjh-os.zhaoxin.com (zjh-os.zhaoxin.com [10.28.24.13])
-	by zhaoxin.com (8.30) with ESMTP9aef44ab773e7a3b17ddf712549750e3
-	Fri, 11 Sep 2026 11:31:25 +0800
-X-Eyou-Smtpauth: jonaszhou-oc@zhaoxin.com
-X-Eyou-EnvelopeSender: jonaszhou-oc@zhaoxin.com
-X-Eyou-From: JonasZhou <jonaszhou-oc@zhaoxin.com>
-From: "=?UTF-8?B?Sm9uYXNaaG91LW9j?=" <jonaszhou-oc@zhaoxin.com>
-To: linux-ext4@vger.kernel.org
-Cc: Jonas Zhou <jonaszhou@zhaoxin.com>,
-	tytso@mit.edu,
-	adilger.kernel@dilger.ca,
-	libaokun@linux.alibaba.com,
-	jack@suse.cz,
-	ojaswin@linux.ibm.com,
-	ritesh.list@gmail.com,
-	yi.zhang@huawei.com,
-	linux-kernel@vger.kernel.org,
-	louisqi@zhaoxin.com,
-	jianhuizzzzz@gmail.com
-Subject: [PATCH v3] ext4: move orphan tracking away from journal state
-Date: Fri, 11 Sep 2026 11:31:13 +0800
-Message-ID: <67ae57ef2ee3ac27ab844c22594351c83142d86f.1789097450.git.jonaszhou@zhaoxin.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <575wyoks3ldokhrg6v43rxwsegaecod4bgrpbii6jeczy7czbi@a3yq26u52orp>
-References: <575wyoks3ldokhrg6v43rxwsegaecod4bgrpbii6jeczy7czbi@a3yq26u52orp>
+	s=arc-20240116; t=1789097533; c=relaxed/simple;
+	bh=DR0+fgEQrwNl6R1crdAoG7L+5iDGJklBvZ41CTFEp/M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZCzY2edee2yFNr5bemv5n4iRXUqtxx7xx6+27p9CrOj9gw8SxUJIQuizauZzbjMgeVGOspztBE/sP0vpmQj7A+dvGgldGW+X6+v074a5Q3TNhmexpSjO+/Y7XGqbhm579+yyw5rjI6tqcsGr5B0PEuMvxj1ZT8Zs36l66qmicko=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=qoA1uG67; arc=none smtp.client-ip=91.218.175.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="qoA1uG67"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=DR0+fgEQrwNl6R1crdAoG7L+5iDGJklBvZ41CTFEp/M=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789097525; v=1; x=1789702325;
+ b=qoA1uG67tuH2V/YUydQlxDCPR9zjIj3a/LGNlNDgWWXwUQZT7fixtigFYebPcSgJs4GwCTw+
+ DvA4lUBbhigolD5OUj5/QZ32t342GpUUJYCSYT6nimdlhbzaWhqa/fhqxYv5yxtWojSrg583ATb
+ hZRDAZyONUTYEWnzDUxgcyBc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 03ed5f65af5ab86f;
+	Fri, 11 Sep 2026 03:32:05 +0000
+X-Mizu-Trace-ID: 03ed5f65af5ab86f
+X-Migadu-Flow: FLOW_OUT
+Date: Fri, 11 Sep 2026 11:31:55 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>,
+	David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
+	Andrea Mayer <andrea.mayer@uniroma2.it>
+Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Hangbin Liu <liuhangbin@kylinos.cn>
+Subject: Re: [PATCH net-next v2] selftests: net: move log_test to lib file
+ and remove duplicate code
+Message-ID: <aqN2K7rAm-S6QI86@fedora>
+References: <20260831-self_log_test-v2-1-eda2e8490cf9@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Eyou-Sender: <jonaszhou-oc@zhaoxin.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831-self_log_test-v2-1-eda2e8490cf9@kylinos.cn>
 
-From: Jonas Zhou <jonaszhou@zhaoxin.com>
+On Mon, Aug 31, 2026 at 05:21:28PM +0800, Hangbin Liu wrote:
+> From: Hangbin Liu <liuhangbin@kylinos.cn>
+> 
+> Many test scripts under tools/testing/selftests/net/ each define their own
+> log_test() function with near-identical logic for comparing a return
+> code against an expected value and printing OK/FAIL. Add a shared
+> log_test_expected() to lib.sh and replace each local definition with a
+> thin wrapper that delegates to it.
+> 
+> The function is named log_test_expected() rather than log_test() because
+> lib.sh already exports log_test() with a different signature used by
+> the forwarding tests.
+> 
+> Two tests required special handling:
+> 
+> - icmp_redirect.sh passed a fourth "xfail" argument to log_test(). The
+>   underlying issue has been fixed and the argument is always absent now,
+>   so it is simply dropped.
+> 
+> - fib_nexthops.sh checked for ksft_skip (exit code 4) inside log_test(),
+>   but no test in the file produces that code. The check is removed,
+>   callers that need to report a skip should use log_test_skip() instead.
+>   Two callers compared against exit code 2 are left as-is since code 2
+>   correctly counts as a failure in the previous log_test().
+> 
+> Signed-off-by: Hangbin Liu <liuhangbin@kylinos.cn>
+> ---
+> Changes in v2:
+> - Remove skip/xfail checking in lib.sh, as any command can exits with 2 or 4 (sashiko)
+> - Remove nskip counter in fib_nexthops.sh
+> - Link to v1: https://lore.kernel.org/r/20260813-self_log_test-v1-1-f88b1107842e@kylinos.cn
+> ---
+>  tools/testing/selftests/net/drop_monitor_tests.sh  | 13 +------
+>  tools/testing/selftests/net/fcnal-test.sh          | 29 +-------------
+>  tools/testing/selftests/net/fdb_flush.sh           | 35 +----------------
+>  tools/testing/selftests/net/fib-onlink-tests.sh    | 18 +--------
+>  .../selftests/net/fib_nexthop_multiprefix.sh       | 21 +----------
+>  tools/testing/selftests/net/fib_nexthop_nongw.sh   | 21 +----------
+>  tools/testing/selftests/net/fib_nexthops.sh        | 44 ++--------------------
+>  tools/testing/selftests/net/fib_rule_tests.sh      | 19 +---------
+>  tools/testing/selftests/net/fib_tests.sh           | 26 +------------
+>  tools/testing/selftests/net/gre_gso.sh             | 26 +------------
+>  tools/testing/selftests/net/icmp_redirect.sh       | 28 ++------------
+>  tools/testing/selftests/net/l2tp.sh                | 19 +---------
+>  tools/testing/selftests/net/lib.sh                 | 31 +++++++++++++++
+>  .../selftests/net/ndisc_unsolicited_na_test.sh     | 26 +------------
+>  .../selftests/net/srv6_encap_lookup_l3vpn_test.sh  | 19 +---------
+>  .../selftests/net/srv6_end_dt46_l3vpn_test.sh      | 19 +---------
+>  .../selftests/net/srv6_end_dt4_l3vpn_test.sh       | 19 +---------
+>  .../selftests/net/srv6_end_dt6_l3vpn_test.sh       | 19 +---------
+>  .../selftests/net/srv6_end_dx4_netfilter_test.sh   | 23 ++---------
+>  .../selftests/net/srv6_end_dx6_netfilter_test.sh   | 23 ++---------
+>  .../testing/selftests/net/srv6_end_flavors_test.sh | 23 ++---------
+>  .../selftests/net/srv6_end_next_csid_l3vpn_test.sh | 19 +---------
+>  .../net/srv6_end_x_next_csid_l3vpn_test.sh         | 19 +---------
+>  .../selftests/net/srv6_hencap_red_l3vpn_test.sh    | 19 +---------
+>  .../selftests/net/srv6_hl2encap_red_l2vpn_test.sh  | 19 +---------
+>  .../selftests/net/test_bridge_backup_port.sh       | 32 +---------------
+>  .../selftests/net/test_bridge_neigh_suppress.sh    | 33 +---------------
+>  tools/testing/selftests/net/test_vxlan_mdb.sh      | 32 +---------------
+>  .../selftests/net/test_vxlan_nolocalbypass.sh      | 32 +---------------
+>  .../selftests/net/test_vxlan_vnifiltering.sh       | 26 +------------
+>  tools/testing/selftests/net/vrf-xfrm-tests.sh      | 19 +---------
+>  tools/testing/selftests/net/vrf_route_leaking.sh   | 19 +---------
+>  .../testing/selftests/net/vrf_strict_mode_test.sh  | 19 +---------
+>  33 files changed, 73 insertions(+), 716 deletions(-)
 
-In the tested x86-64 layout, s_journal and s_ext4_flags share a cache
-line with s_orphan_lock and s_orphan. Legacy orphan-list updates
-invalidate the same line used by unrelated journal and inode paths.
+Hi everyone,
 
-Move s_orphan_lock, s_orphan and s_orphan_info together below
-s_journal_triggers. This separates orphan-list writes from journal
-and flag readers while keeping the related fields in logical groups.
-Add a comment identifying the orphan tracking group and preserve the
-existing member comments.
+This patch is a bit too long for review, and maybe cause conflicts for
+stable backports. I plan to split it into small frags. But there are 2
+ways to split it.
 
-On a system with two Xeon Silver 4208 processors and a filesystem
-without orphan_file enabled, repeated tests against v7.3-rc2 recorded
-mean throughput increases of 11.06% for stress-ng dnotify and 35.93%
-for unlink.
+1. Split based on the test name. e.g. srv6 part, fib part, test_* part, and
+   others.
+2. Split based on the changes. e.g. group the tests that using exactly same
+   log_test functions into one patch.
 
-Tests with orphan_file enabled showed no clear throughput change
-within the observed boot-to-boot variation.
+Does anyone has any suggestion?
 
-perf c2c shows remote HITM samples on the original shared line, but
-none on the separate journal line after the change. Local HITM samples
-and orphan-lock contention remain.
-
-Suggested-by: Jan Kara <jack@suse.cz>
-Link: https://lore.kernel.org/all/575wyoks3ldokhrg6v43rxwsegaecod4bgrpbii6jeczy7czbi@a3yq26u52orp/
-Signed-off-by: Jonas Zhou <jonaszhou@zhaoxin.com>
----
-Changes since v2:
-- Follow Jan's suggestion to move the orphan tracking fields together
-  below s_journal_triggers, instead of exchanging journal state with
-  the error-reporting and lazy-init fields.
-- Add an Orphan inode tracking comment.
-- Rebase and retest against v7.3-rc2.
-
-v2:
-https://lore.kernel.org/all/a33183c1c24ea47a98afdd4756b49365593a2762.1788779199.git.jonaszhou@zhaoxin.com/
-v1:
-https://lore.kernel.org/all/20260903021836.962624-1-jonaszhou-oc@zhaoxin.com/
-
- fs/ext4/ext4.h | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
-
-diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
-index 724a27e8be61..166910914973 100644
---- a/fs/ext4/ext4.h
-+++ b/fs/ext4/ext4.h
-@@ -1644,10 +1644,6 @@ struct ext4_sb_info {
- 	/* Journaling */
- 	struct journal_s *s_journal;
- 	unsigned long s_ext4_flags;		/* Ext4 superblock flags */
--	struct mutex s_orphan_lock;	/* Protects on disk list changes */
--	struct list_head s_orphan;	/* List of orphaned inodes in on disk
--					   list */
--	struct ext4_orphan_info s_orphan_info;
- 	unsigned long s_commit_interval;
- 	u32 s_max_batch_time;
- 	u32 s_min_batch_time;
-@@ -1786,6 +1782,12 @@ struct ext4_sb_info {
- 	/* Journal triggers for checksum computation */
- 	struct ext4_journal_trigger s_journal_triggers[EXT4_JOURNAL_TRIGGER_COUNT];
- 
-+	/* Orphan inode tracking */
-+	struct mutex s_orphan_lock;	/* Protects on disk list changes */
-+	struct list_head s_orphan;	/* List of orphaned inodes in on disk
-+					   list */
-+	struct ext4_orphan_info s_orphan_info;
-+
- 	/* Ratelimit ext4 messages. */
- 	struct ratelimit_state s_err_ratelimit_state;
- 	struct ratelimit_state s_warning_ratelimit_state;
-
-base-commit: df2908090cda368b01ff43709f51890076c56157
--- 
-2.43.0
-
-
+Thanks
+Hangbin
