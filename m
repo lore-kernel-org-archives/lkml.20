@@ -1,134 +1,138 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD17D413780
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 23:43:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789170229; cv=none; b=kIrdGQaS781fCs16WOETolxPr0SZt+sIQ28zsao4uuEAKfqeUqfaRmMvFkilnCHIK5TZpKmP3Mqp7Hombyy9tt0ZZTke/8Q7stukjdqqm7yS3zJb25NjY39y1u0I/E7lnmDkKMQQlpuJVzle210eRMEgzQ9iTw2T3eKVRW9oktw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789170229; c=relaxed/simple;
-	bh=t+XJ1wAgqNN+WEeHaJOlrj19dPtIsMw6Tq49GRs9p+g=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=FkVvvLKYSt20EhEypsa1+PFV2zQ+gIEgGfULk5ryVg1ZLTA5mIO+8yWeR4dSC4VQkGMy9rJTgiPlzGKWn86TH8zpSo54GO/ebjEA1ijs54G6/mYxouRI4HULrU/+oGBGjFaIyqrLXHARC8IxHZL2K1G+2PA02uB7KjFe6z1sk2U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=GVGIDskx; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=WPCr/vCQ; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95F90310645
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 23:45:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789170326; cv=pass; b=NrqTi2MSu/l729OLQukjjJXtdpKnHdtvFyYtGiRq6aH8ahFfX7FQr7gSbyizaChDwk0lKapixPRWrtXSllcJ5tiNRqugPzJMWmTveuwKC8bYCfFIJT7K4JPNqx4bEDCt1hd4Zd0CsNm5HB/tmE16+2am1msLUCz0FmxFPKjspv0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789170326; c=relaxed/simple;
+	bh=QzWOpk3ZI4hDffDwLESVN0j+Y5ln8yDmgEomajzBKRE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZxITBtUPQLNveytyWNiOr/v/5sxdEZfB7ukxuIKvZYs9WI11j5cL4NGQ2Xk9OAwAbwd5CA/eRikqna/hKbC/RgGe9kVEtYjATY9rHmEeVT4ZbTRzTwNESeuesG/YUcVAcVr6KF/0lSQ0h8zPY9za3m8UP3RIcKR1owBL5Q+Wt78=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=Hr/zkX0m; arc=pass smtp.client-ip=165.173.182.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="GVGIDskx";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="WPCr/vCQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789170225;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TrXBM6ELMoiHPLYGYVdC5KjRGl3AA5PVydRD6qLvBRk=;
-	b=GVGIDskxhaOGTPG/0YdBaxd4snt2liOFLnCKuEu2/lBvorP0M6cq/uK4zzH88TnIoBkEHC
-	WzIlyKNIbivumAN9O/C/g9AmzfQIh8U7+rmyz1y4SfF5ZG+w3KS2eRlZlc/LTz1C2fGIAb
-	DrhBD+Ehi5T4vn9hAas+k+PG8eTZrQE=
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
- [209.85.219.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-602-N_6zv0nNMZ-jA6PHv-GPxA-1; Fri, 11 Sep 2026 19:43:43 -0400
-X-MC-Unique: N_6zv0nNMZ-jA6PHv-GPxA-1
-X-Mimecast-MFC-AGG-ID: N_6zv0nNMZ-jA6PHv-GPxA_1789170223
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-90e8472ee1eso26502726d6.0
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 16:43:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1789170223; x=1789775023; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TrXBM6ELMoiHPLYGYVdC5KjRGl3AA5PVydRD6qLvBRk=;
-        b=WPCr/vCQnPwNIqduVwivRqn4s3AAGZGD75inAzVoQZnlUWwm8uSsVDFXf2Cu13ElCd
-         xXyWumu3UTeIfl117Bch9zTI93pdHlBespxm3FQRKMLVwr4RuCLuTjlfLGr505AUVHL8
-         rkfk0aBGrYwbw+lhtIUtLd0Kr3nbh//eUdAPAKQ2V2Z38x3h6r/VwJ6/a0y3BA5nOvAs
-         hQR8JlgNiNEG0zASVs8EiIRwC4B2tQM6SU3rZN7g28gBS0EJbseHZ47sQnd4CieBnOT6
-         2xieIWdhQ9XcCQDxnrgRpz01zUo0Ov6ekY20FDy1hVxbxaWoprSAT2OKnn8C2XV03Mxf
-         IckA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789170223; x=1789775023;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TrXBM6ELMoiHPLYGYVdC5KjRGl3AA5PVydRD6qLvBRk=;
-        b=YgPokYcBwNc/e0EhkmSYBm3ED+ufyjvKCGEuG9Fug9jRPpTLqUNwiU+DHxlOaK038h
-         Vdyrua7fEiFYwAtYvSGYc1MP2/YqdzR8RyciGCQ1vm6P3q0sQJwsO8RAgvKj+aNnti7J
-         IVzUpa0n+WbVe43ntP1Tt16Z8AP4thi3Sek3kUpYJn9sx03lzAvBAINwxEkcfHPZUQaJ
-         MG/2RciUhIqpoj2VA+akmezksTUE5r0pBOu555c0Hm6oid5ru7kI5KyI1kI0jCvyat/b
-         jAwXNhgPIoqc66GCAyIWDYZFHFQvXAGj9XMyyIp0pze5YTEysk4TieKSwOTYMs2zQtPu
-         Z0lw==
-X-Forwarded-Encrypted: i=1; AKwUvBzGhtQRHN3hmxE7l7UlCLQygSUbitHGT0Iyc26GSCvuoZJ6s8pUxa+TvykKrzj9pyoaNgmrqWOB6TYlWJw=@vger.kernel.org
-X-Gm-Message-State: AFuF++mpZD2evOuZo/5mhtMFzUXE3J07PQjbFzl9oZLCA1tBNnjGk0ZB
-	Qkil4nB3lFcilKKW9XnHdPnkyIwraiZmbnOC72nltJ2tM5i6RKVgsSYCyLAHKCr+h1rHoWxQZgw
-	Ks9smF1lhXGKOI6FybOhTY+lgDACkH0cEPGEFpnjjYW/rrxJhec4KtzxsLRvxExnQKQ==
-X-Gm-Gg: AYBFou1t2zsmJ0HvdwwTzblnyZsX/XzCj5UjuW/l4yV6EcLeVbgoPvtrykoH22dnMek
-	dMs8pRFICjUTGAP34Ayh9xEtpCmrxNM/Lgj+VfJbgf1msvptZziH9j7ZT8gTAFQJCIGnbYSRIK0
-	oMtCHEY8wsqovh6+FUOE9F6V1J8RRsoJ7J4mf4J0Fbx67bX1leqFKAv5eSDSufCOHFVMg9R+Diq
-	x6j1mJq3nvBasy1uRprIYY4z5ep2oWiWpNQlfJwAchyJAc8cUxqiuKXrT6Dd3VNwIztiOtg/8im
-	IElVNQDOF9s7HeRX3JpsHYKaWd8HAhRw1KlZgDx2I2d7a3W3xa+pvvO+jYZigNRVgNxIVDkwqUc
-	cjcCY9WNy81hiIhaFIrTrLrkNUkMyQ5wnHmUCF1qG
-X-Received: by 2002:a05:6214:2488:b0:910:c44f:a81 with SMTP id 6a1803df08f44-9121208cb26mr112458266d6.10.1789170223206;
-        Fri, 11 Sep 2026 16:43:43 -0700 (PDT)
-X-Received: by 2002:a05:6214:2488:b0:910:c44f:a81 with SMTP id 6a1803df08f44-9121208cb26mr112457906d6.10.1789170222734;
-        Fri, 11 Sep 2026 16:43:42 -0700 (PDT)
-Received: from [192.168.1.15] (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f4b699bsm32669266d6.37.2026.09.11.16.43.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 16:43:42 -0700 (PDT)
-From: Brian Masney <bmasney@redhat.com>
-To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Marek Vasut <marex@denx.de>, 
- Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <cover.1788429994.git.geert+renesas@glider.be>
-References: <cover.1788429994.git.geert+renesas@glider.be>
-Subject: Re: [PATCH v5 0/2] clk: rs9: Fix and of_clk_hw_onecell_get()
- conversion
-Message-Id: <178917020377.797851.17967029704962049887.b4-ty@b4>
-Date: Fri, 11 Sep 2026 19:43:23 -0400
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="Hr/zkX0m"
+ARC-Seal: i=1; a=rsa-sha256; t=1789170305; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=Nik8REkWSoNwS1AEVNuun9myulksQB+lVCOiMkFCouPjcGuTAMDSuJMn5+wHtija83FyFjqUO1U4yMrn7kWE3s6j793bg9stpfi+qsr02zz5z7TpzqdBYRVgCoSNXgusnC42yKSDW3VhEa30s3lexdz6Mf7jiJk/YDDCAys8w2k=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1789170305; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=eNDdbCbHpg/fxFRYGzGBoVT9mhaLaK9XsQQ36czY1j8=; 
+	b=ewRETs+nlzX/uwXuHjz2j4e+7xhdLtvFguXDVGeTqSK8ECIshNID+PLrmgK5z4eAdqKP3gY530wrWVDyA01TjHkEiBkDYLIBbmjaxSOVcvFUXyUMV6BiTBH3PG8x9KRlhK5iw/QHVA2EP3VEi9lANwYcf+5a/ntHYbrwSPuzx/Y=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+	dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789170305;
+	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
+	bh=eNDdbCbHpg/fxFRYGzGBoVT9mhaLaK9XsQQ36czY1j8=;
+	b=Hr/zkX0mRbUuJOWQTt93YRSCAeQr+C1t8Gra5hNpIcZchu/KnrTl1vv6+6QVoD5c
+	x4ncLCNMXVKd1I7pLHBJlJHPgcaPVxlnZtnH36grHay/6DCjHo5HZiNi8Rdg98iyPjn
+	M5wvMF//9PkJaDCdx4iPGzNpzayr6f8GhnAovjkE=
+Received: by mx.zohomail.com with SMTPS id 1789170303779434.8804821205903;
+	Fri, 11 Sep 2026 16:45:03 -0700 (PDT)
+Date: Sat, 12 Sep 2026 00:45:00 +0100
+From: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
+To: markuss.broks@gmail.com
+Cc: Boris Brezillon <boris.brezillon@collabora.com>, 
+	Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/panfrost: add Mali-G68 support
+Message-ID: <aqSSGQiftEcT3wSd@sobremesa>
+References: <20260803-staging-mainline-v1-1-5071dc782149@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=775; i=bmasney@redhat.com;
- s=20250903; h=from:subject:message-id;
- bh=wHbn7taKCR+nnBU9VHVAYBmu4IPghI0uhBpzOhfVAsg=;
- b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLKWTNKZI7e3WHeDw4ZVZ077XknYWVF4SKMrtXSaiPURv
- uVaF7gcO0pZGMS4GGTFFFmW5BoVRKSusr13R5MFZg4rE8gQBi5OAZjIxj5GhscXikWsls33/XnD
- MK2+pz9VsX1n76udpxvsW6Z/1PLcoMDw3+8rU99h/qLj1doxH2UOhBxhNenpn5Hs/bX+wF7B4zk
- hbAA=
-X-Developer-Key: i=bmasney@redhat.com; a=openpgp;
- fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260803-staging-mainline-v1-1-5071dc782149@gmail.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/289.168.11
 
+Hi Markuss,
 
-On Thu, 03 Sep 2026 12:09:24 +0200, Geert Uytterhoeven wrote:
-> clk: rs9: Fix and of_clk_hw_onecell_get() conversion
+I've no means to test this on real hardware, but other than that:
+
+Reviewed-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+
+On 03.08.2026 12:35, Markuss Broks via B4 Relay wrote:
+> From: Markuss Broks <markuss.broks@gmail.com>
 > 
-> 	Hi all,
+> Add the features, issues, and ID for Mali-G68, a first-generation
+> (v9) Valhall GPU.
+> Tested on Exynos8835: the GPU reports GPU_ID 0x9204 (G68 r1p1).
 > 
-> This patch series contains a fix and further development for the Renesas
-> 9-series PCIe clock generator driver, which were submitted before as
-> separate patches  As the fix hasn't been picked up yet, and the further
-> development depends on the fix, I am resending them as a series.
+> Signed-off-by: Markuss Broks <markuss.broks@gmail.com>
+> ---
+>  drivers/gpu/drm/panfrost/panfrost_features.h | 2 ++
+>  drivers/gpu/drm/panfrost/panfrost_gpu.c      | 3 +++
+>  drivers/gpu/drm/panfrost/panfrost_issues.h   | 8 ++++++++
+>  3 files changed, 13 insertions(+)
 > 
-> [...]
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_features.h b/drivers/gpu/drm/panfrost/panfrost_features.h
+> index 52f9d69f6db9..34c65847192f 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_features.h
+> +++ b/drivers/gpu/drm/panfrost/panfrost_features.h
+> @@ -121,6 +121,8 @@ enum panfrost_hw_feature {
+>  	BIT_ULL(HW_FEATURE_IDVS_GROUP_SIZE) | \
+>  	BIT_ULL(HW_FEATURE_CLEAN_ONLY_SAFE))
+>  
+> +#define hw_features_g68 hw_features_g57
+> +
+>  static inline bool panfrost_has_hw_feature(struct panfrost_device *pfdev,
+>  					   enum panfrost_hw_feature feat)
+>  {
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_gpu.c b/drivers/gpu/drm/panfrost/panfrost_gpu.c
+> index 7d555e63e21a..83223192a544 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_gpu.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_gpu.c
+> @@ -242,6 +242,9 @@ static const struct panfrost_model gpu_models[] = {
+>  	/* MediaTek MT8188 Mali-G57 MC3 */
+>  	GPU_MODEL(g57, 0x9093,
+>  		GPU_REV(g57, 0, 0)),
+> +
+> +	GPU_MODEL(g68, 0x9004,
+> +		GPU_REV(g68, 1, 0), GPU_REV(g68, 1, 1)),
+>  	{0},
+>  };
+>  
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_issues.h b/drivers/gpu/drm/panfrost/panfrost_issues.h
+> index eb60cb83667a..dd39946bb572 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_issues.h
+> +++ b/drivers/gpu/drm/panfrost/panfrost_issues.h
+> @@ -265,6 +265,14 @@ enum panfrost_hw_issue {
+>  #define hw_issues_g57_r0p0 (\
+>  	BIT_ULL(HW_ISSUE_TTRX_3485))
+>  
+> +#define hw_issues_g68 (\
+> +	BIT_ULL(HW_ISSUE_TTRX_2968_TTRX_3162))
+> +
+> +#define hw_issues_g68_r1p0 (\
+> +	BIT_ULL(HW_ISSUE_TTRX_3485))
+> +
+> +#define hw_issues_g68_r1p1 0
+> +
+>  static inline bool panfrost_has_hw_issue(const struct panfrost_device *pfdev,
+>  					 enum panfrost_hw_issue issue)
+>  {
+> 
+> ---
+> base-commit: 415606a7be939835db9b0d6b711887586646346d
+> change-id: 20260803-staging-mainline-ebe89543b632
+> 
+> Best regards,
+> --  
+> Markuss Broks <markuss.broks@gmail.com>
 
-Applied, thanks!
-
-[1/2] clk: rs9: Add clock index range check to rs9_of_clk_get()
-      commit: a2ef401bdfd19aa41d0e3e1b630a12fbc01ac184
-[2/2] clk: rs9: Convert to clk_hw_onecell_data and of_clk_hw_onecell_get()
-      commit: 07f4bac13786a80cd3e6547051376ea65da2f4c5
-
-Best regards,
--- 
-Brian Masney <bmasney@redhat.com>
-
+Adrian Larumbe
