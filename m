@@ -1,137 +1,114 @@
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
+Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com [74.125.224.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26F571A6834
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 00:19:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55C971A682F
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 00:19:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.46
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789085949; cv=pass; b=nw1G6zSK8BneOiKRt5XZqC5Q5lQo7c59ITKCEkM0ZVIYRWUEPGsfgC1Z7Aj4IOT1w8Yi4kfPy9Z4OeldDhK62s0AnJ3Xr5eoh6vO5krTHDrOOdLDC8U9wOysmcKUiuX6QRigVHnwKvWYvo2vUzddZtMIMOufrVIWLZGcgVaffv4=
+	t=1789085955; cv=pass; b=O54liw0u3WIMG0igKaLqOITitQsPR5WIHer6nnmwT1zj6/KxZuMFrH0QKv1PzMsNA8JrSS/KtjPT3dEWrJl7jmsa9uhYBvS9rRlJ138bNUC4/kRK+kiPLgr3DZhi/szEtIu+r/QqxPezmjJ4tPbCX2H1MQ/h1ag8Ifj4ueJzZoI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789085949; c=relaxed/simple;
-	bh=gN6p4BHMJu7wezAEoh+ZWimR6M9/A3O/vdPPB3p5BGk=;
-	h=From:MIME-Version:Date:Message-ID:Subject:To:Cc:Content-Type; b=dx36v4xE6oCKdS3q5kmKkWgfUX/iEN3tOorXzwVxELwQfwzEVp6JtEdoZOL/hfkGEpokVnRYwXvllOVqUZUj69nYptasBH+C2DI32R8WOj0tYIZ7jcSu/6zdUqrkGAyNpxiUknpB111QQXw4d+Ivca+2S4IRPhT0m5VCTTkzAD8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu; spf=pass smtp.mailfrom=berkeley.edu; dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b=JAseW34j; arc=pass smtp.client-ip=209.85.210.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=berkeley.edu
+	s=arc-20240116; t=1789085955; c=relaxed/simple;
+	bh=6AJasxW3GodlVjAlTMJ767WLjIvMw4WJZ6v8qOvBjjg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=dmHcit2URBFBDRX3+xhrYHxT9ZigQwnlF88wsabArNaMy5fF3h7LQUM98HiSlPSiDJCOTmtYyk2hEsHaJjn2tg1J/aMCoqPraLewJ429cozWUtdj8UEURlh/BNYhliVZb1CZvTvDyIE6ZEzJk8+7Xn75hO7PiWbUKV+ZupiPvr0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FZ2NlLtx; arc=pass smtp.client-ip=74.125.224.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b="JAseW34j"
-Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-8541875f596so244326b3a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 17:19:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789085947; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FZ2NlLtx"
+Received: by mail-yx1-f46.google.com with SMTP id 956f58d0204a3-66fa10f35caso392861d50.3
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 17:19:14 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789085953; cv=none;
         d=google.com; s=arc-20260327;
-        b=BqDU2HCDMW4IHii3KRdY2aub1l/ibcpTtzJLci9tv767f/vpZrO4utIfOCC7a+0PZP
-         UiVrrrtjGf2oI0Tlcs37GZvL2EGJolbWUx3Hy5cp3Ao1u26yw0/91Ycxws2ov86pGlIu
-         0dX7dCiArxvsJVK9ekQUISSxfFDoh7k8DLHyBKv+8+4woxltHUINjEZvo+VHV4Au6Pxw
-         IzkhKXy0Pv5j4S/6B3/5M/6u/NC/w/G4rT0uFoZcagnAnZPpVh77+FfdNWQ+pjzoOa5O
-         teOSGtnvDvNhgrd3UkavP85JCaCLyCzAGB8G99IY+r4P0f3CL21u9OgjIBALCwhLan1V
-         bIjA==
+        b=m58Xf31UHChIxrsqqE65wO7Yrzyrgga5YD1m39Aw5iN9Hl7gpOG1GScZiZN+uyBS21
+         dMLOb/go5LD4MTqkgLZu3Wtw9OLstTf+1N3KC2YvCmL9aYEe0SjPV9XGkR4F38BvOwNS
+         JlR3ULz2YXeSfYFyv2ERirLy3vuV2LnsSotsWdshf/cbWXZ5rUhU5uWeuWWWdMLJR5D/
+         SoK2ynC52eFep+WUsAtKA40tvnkyuOsSjPUPD7/XgVr7P4J9Z9vX0t+lGI0/CWOZs4+q
+         wTosQ7eQnWmyp94ryY0eAx64IiMmGYoeplP2K0CMlri74W5ZN7UxmsJZE2KxR5q0/kT3
+         AV9A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:mime-version:from:dkim-signature;
-        bh=DRWY7TGKlrDE8BUJYREHI/zhjMrn8auFwGi8zbFwJIM=;
-        fh=LmIt2osZcYLqTLJVm1sISkq+B9K2/7ktxq8QYFFosvA=;
-        b=QxrQ23mrbUTHbdTb8Nlw97N/PygWAJLmTyftU0Mau53aqPqP2FY4be+iQ/iUFZYbpp
-         sd5ZfYNlPd2EwNfbdDrUMDMSEHh4PqaS85UKtIY7SW3RHRsQEsqVsUbMhI6xUGZES1gJ
-         9P+NH3EZVmfWo5/SH+pc8GJO3rqtKWL6G8ll4v5oSx6epZCanXjLE0GiyPHlqmNRVhuW
-         9RW4yDf3n53EnKOY6SkgRwJFvt6qprSYVof2iFr2+55+T23zJxoRHqPE1keTzxC9soJG
-         C2GiSiVrJbjCyPo4r6GBGDo7ghxKJqhWMXOxJpCKqG2U03I7WA+EE7hsBCyn5R0WEbto
-         6yYg==;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=6AJasxW3GodlVjAlTMJ767WLjIvMw4WJZ6v8qOvBjjg=;
+        fh=aKMfjLb9mUSQgqfEY3gzbzpMSbDakfbFKRyj/HPpSgA=;
+        b=VSeMF5aX1/L//xNY16QDIkL3mGgp1fAbCYyYrQym5HChJFE/b6Qk01OPgrRKCWhpiM
+         8x4oECdf/Ine0abVXv41UGxsUA3Urm48eG/mg3zAmTwWHdotM2/3s7LarfQ0xQFIo1D2
+         BJgr8whe+kn/XlO96knNoMlseYiHCMfGB8xOrSdKKcOpAH4aIdt3R0dNLa24yCEuKG1b
+         dzIt0sdYu6Ly2vLlKeWespIpsZtKwF+c6BLlqL5p/kXmo1AUpeqVpAL+DUxxuffTm44p
+         dKBsnFS2vfpyaIcMc/ykAkQ1RdVQhc9Ew+QQPIKbHuKn65+B4dhG9jlwi2NYPtkFCTti
+         /7EA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=berkeley.edu; s=google; t=1789085947; x=1789690747; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:from:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DRWY7TGKlrDE8BUJYREHI/zhjMrn8auFwGi8zbFwJIM=;
-        b=JAseW34jbtEjb0h3l5jfliToWd1c7hzf6HPMG+cq/Dxu4IUVMZrtmlRw90ip0yyocJ
-         D4PGZU3wy289NXrEp4MaBiC1NtsMKh/W9Y0ntUL1U/d5ERaLEb82bjfkhAcUA15imlpD
-         Ee/HR0Ec0FswO7eDWwEShikaga554Rur7h6yb1CH6uNCv0VajhWHp7rD+alX0LxH5jE2
-         bbZWJY65btCbSND2f/O8doDrPZia4VyGoL+7iw+pd7QUcLLECnO3JN5nERqSJM1qEl0p
-         Pb5GblVJq+54p+smc6vEerSg+AKdpRXeVhMGXtVMevOj2oNRvBaslLvtTTVNhR+QYdW4
-         C5JA==
+        d=gmail.com; s=20251104; t=1789085953; x=1789690753; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6AJasxW3GodlVjAlTMJ767WLjIvMw4WJZ6v8qOvBjjg=;
+        b=FZ2NlLtx3yYAJ1gpoVntdEQwbvgpa5FuCKDb9oX54SyiDshTu/vA6s8mZHeGAtFXR3
+         C3UPJUHTOm0SdB4rlTBDRD7bSnDOgehwE4jxkMjWOK75014wDdY40vrXaeFvW0FC21dg
+         OaihUEgNhGcXnYv1+0BpRNGcecAjx2q7xHpoxUKmQS7fKENHUoJDxR6JB3Hnxi+skasP
+         5jqqqlWDy9CDkPIqO3r2ZflpeKsPcdmxVxe4eyjlZFYo0qa0iv0ABBT419Hb9WDIH+e6
+         rB3JfciTh35gMpjCs7Izn/AC9wpNP1TP9ukBCJ6ueag/9EgAtoo1mC0UAVbbBFCI0QSH
+         gIlw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789085947; x=1789690747;
-        h=content-type:cc:to:subject:message-id:date:mime-version:from
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=DRWY7TGKlrDE8BUJYREHI/zhjMrn8auFwGi8zbFwJIM=;
-        b=SOwyghgSywQR38XedhOjMgjHgNbIsxAAGAiwZvtBll7YzNZ5yfx8BXIK3ifs3aF6mA
-         8P+vXmmRrJTOBEaH8pMUDOtZEhxEo7AH7T3Ib51VrBwLy3RIhoQGNf17LdDXu4EmHbtK
-         yH2JpInXuERyXGUIitjCaYFCcoyqHNhC/sDEEkhXZ8BBFvnQJFRC7kOauVr40xKWetP3
-         9h4BSM1uowLGs1OO1CjjEONqaUuTG8ou0VBh2sIoRbTse1HkMg36yFWsdrcSl4ZEoFUc
-         8yLxspbQNaDU3s99ggBCcZGVQs2tJc0dFIhR1STyTJReNVzm2KTDyCOpd2aKARPSwjTC
-         wziQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwLtV0C++PNW7NxSYenWNnrm769yJTy+DnYj9fMJE9tOHm1rgNh+IarWt53tebH4BzoJkqHGS9Ml7FyPDs=@vger.kernel.org
-X-Gm-Message-State: AFuF++lGG+OQ4wlaG6pfBKTB4rhI3SYVPVVYvv4xk/ZUmuOP7ouIaps5
-	c42A0qLhHCzm7VLw8eVG1+AgSXaiH1Dh3aNzt6fRAjvfRBe8iiKL5Ki3d9IVH4eEuNwyiRnbi/6
-	c8vHKkKPFhhS2GNL4J2rgYJxdvZhj5MW+ZHRutr7N
-X-Gm-Gg: AYBFou0Cge40SqRSBq2y4itNK3E0Knxe+Y16lJDcdEZqytEKOFWkwPTgMRvRHd2vvdw
-	ns+RlHt2/1hM/uychqXg0KJH6OuRT80R9XMyxSxzp2xU25ndyisT2DnbQPjWyxbov0LSPe539F+
-	hQSgNPpZ1ijTA6TxLfQRf0JkPgHLybTduMrQsUeJ7StGUHxCypBQBnYOuBJsje861Tj8wSf/KWs
-	0jSfAdszB2htrNNLx89ZipKVdckNdBFXeCRtQCZtldJhkxDaKrepLMVef9xZfPC94w7zABuYfbB
-	DwZ0KFoEYEHGzZfIrl5cCQIfhGQ4dYlT6TZyiApKBN357OdTzFeww3HoFsmoKzva7DlIvFksfv5
-	cMN6UWVls2lcHn+7xJ/7FnV0h8arl0uDY6LkkxlOpijc=
-X-Received: by 2002:a05:6a00:889:b0:869:4484:ed98 with SMTP id
- d2e1a72fcca58-86b336da391mr2179665b3a.20.1789085946510; Thu, 10 Sep 2026
- 17:19:06 -0700 (PDT)
-Received: from 474444807712 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 11 Sep 2026 00:19:05 +0000
-Received: from 474444807712 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 11 Sep 2026 00:19:05 +0000
-From: Farhad Alemi <farhad.alemi@berkeley.edu>
-X-Mailer: git-send-email 2.53.0
+        d=1e100.net; s=20251104; t=1789085953; x=1789690753;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6AJasxW3GodlVjAlTMJ767WLjIvMw4WJZ6v8qOvBjjg=;
+        b=mbdBWpM0xmHPZErfc5ekr9mNOqzh/Q9vaTRbq+855+Lrolx8vRZwpC1/KFVoXToJxU
+         Dv4akx8lBxYAdc678QLFvIL98d7MomsZl91XEytU76rHz+KsaSknPxJM/mIY13W+N6Nl
+         nhQkCaIQt7/jqnSRCoFhEjI4fPjXNFNqLu5elJfPuoziOGgo5bv1dLOd/L9RGhRwE9x6
+         skPNWwaYbp9oGBdG7+tdWeL5PuHICHzcOAo1OkseHtJ1diqHl2+4f/ixD/wkguPs9/+K
+         QF1KyJoRqR1jjtFLzlvabseGEOk4G4C3f9qexC4aAZOzJXq3kz7q+9OtD+HHp6H/3Ik1
+         kb+w==
+X-Forwarded-Encrypted: i=1; AKwUvBxdd4zR/kBNb2saWwl1/CFxsMyiJggFS/97hu1ZUVypyBdFidkI1JgvtAEEK1IcpAA/nZ29yDfw4VA9Rnw=@vger.kernel.org
+X-Gm-Message-State: AFuF++mbxJWiCjO9U62CXv5gG0Eqa2aHEPfooUMHz7P0XZsq193hCVbs
+	86DqCmd2B3klj/fheNUXqwPbOtyKCx1654rOGymL1XoXscFNVqmtM+W1AeHohY5l9E9pAYHMtGA
+	zAw40D0opBLHrXBIBGsyE5NUZZ/SvCl0=
+X-Gm-Gg: AYBFou1LsQT1nGmP75f57q9xETCmBam8DAs3VTMmmuJp51+PgGB+WGAUN0tyEG6UQTZ
+	h2uNgD5v0I1SSlov2KB3g7PMk3lblLEYjCYdEqU+zjEx9NY1qmf6upxSZ7CN4+mC28qhU6uPXDk
+	gO45H4LMaMOv0ufTadWG3lvK29JsS2hSQA4REKgueD9MsL0A+B0K8EOg8JIr7fPHV96lNtfPbiP
+	35AmI9y3X0/+9A/plXhU2eWCWWdPUIT/obMc1al6GXe9qVVe/MFTQbBVAMJ9DBJh9Vz7ymxyH5V
+	VM1CQZmqLKvw0L6jm7b+Bvr18o4kC/xhQyzAKQk2YkNq8O/b03apslw5g19xb9SsvdTwLiwX7MG
+	2fqANK2xxmIE=
+X-Received: by 2002:a53:c787:0:b0:66f:c1bc:4031 with SMTP id
+ 956f58d0204a3-67124725896mr622106d50.94.1789085953300; Thu, 10 Sep 2026
+ 17:19:13 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Fri, 11 Sep 2026 00:19:05 +0000
-X-Gm-Features: AcwNN1VhQHuDmyfmr7G_3qRfSsnT9lX_ogCYHM0LoLiDwCGK4kVN5SmNeoy2eZA
-Message-ID: <CA+0ovCiUaccnL7U89TZs2GOBGxp2E6OCfU_KMwre9Fnfv4BE4Q@mail.gmail.com>
-Subject: [PATCH] ceph: fix NULL dereference of filelock_reply in ceph_lock_message()
-To: Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>, 
-	Viacheslav Dubeyko <slava@dubeyko.com>
-Cc: falemi@asu.edu, ceph-devel@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260910185030.870-1-frazinjonathan@gmail.com>
+ <20260910185030.870-3-frazinjonathan@gmail.com> <20260910190542.BE6AE1F000FF@smtp.kernel.org>
+In-Reply-To: <20260910190542.BE6AE1F000FF@smtp.kernel.org>
+From: Jonathan Frazin <frazinjonathan@gmail.com>
+Date: Thu, 10 Sep 2026 19:19:02 -0500
+X-Gm-Features: AcwNN1Xw_ZV3zJF9oPd7-FCfkmdUBDHBhWTNPa2DLIGGrFtpH901py50U9hSvEQ
+Message-ID: <CANW_FuNBVteTL52+iEnM3pUerrVnRRLES2SbrDt1FUtLgPi3Jw@mail.gmail.com>
+Subject: Re: [PATCH v1 2/2] drm/tiny: allow a framebuffer larger than the
+ panel on MIPI DBI drivers
+To: sashiko-reviews@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>, 
+	Maxime Ripard <mripard@kernel.org>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Kamlesh Gurudasani <kamlesh.gurudasani@gmail.com>, Alex Lanzano <lanzano.alex@gmail.com>, 
+	Dave Stevenson <dave.stevenson@raspberrypi.com>, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-ceph_lock_message() dereferences req->r_reply_info.filelock_reply
-unconditionally once a CEPH_MDS_OP_GETFILELOCK request completes
-successfully, but a reply with a zero-length extra section leaves it NULL,
-because parse_reply_info() calls parse_reply_info_extra() only when that
-section is non-empty.  parse_reply_info_extra() also selects the parser
-from info->head->op, the opcode the MDS echoes back rather than the one the
-client sent, so a GETFILELOCK reply naming READDIR, LSSNAP, CREATE or
-GETVXATTR is parsed as that op and leaves filelock_reply either NULL or,
-since the extra results are a union, aliased onto the member that parser
-wrote.  Reject a successful GETFILELOCK reply that left filelock_reply
-NULL.  Select the parser from req->r_op instead, since only the op the
-client sent identifies the live member of that union.
+On Thu, Sep 10, 2026 at 2:05=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
+> Since tx_buf was strictly allocated during drm_mipi_dbi_dev_init() to hol=
+d
+> exactly the panel size, copying based on this inflated width and height w=
+ill
+> overflow tx_buf on the heap.
 
-Closes: https://lore.kernel.org/all/CA+0ovCgZoX5yG35yvU1S2D0Fc35TYeEZKAFUnO-tFMqeXubfdw@mail.gmail.com/
-Signed-off-by: Farhad Alemi <farhad.alemi@berkeley.edu>
----
---- a/fs/ceph/mds_client.c
-+++ b/fs/ceph/mds_client.c
-@@ -822,7 +822,8 @@ static int parse_reply_info_extra(void **p, void *end,
- 				  u64 features, struct ceph_mds_session *s)
- {
- 	struct ceph_mds_reply_info_parsed *info = &req->r_reply_info;
--	u32 op = le32_to_cpu(info->head->op);
-+	/* The extra section is a union; only our own op names the live member. */
-+	u32 op = req->r_op;
-
- 	if (op == CEPH_MDS_OP_GETFILELOCK)
- 		return parse_reply_info_filelock(p, end, info, features);
-@@ -872,6 +873,11 @@ static int parse_reply_info(struct
-ceph_mds_session *s, struct ceph_msg *msg,
- 			goto out_bad;
- 	}
-
-+	/* ceph_lock_message() dereferences filelock_reply on a success reply. */
-+	if (req->r_op == CEPH_MDS_OP_GETFILELOCK &&
-+	    !le32_to_cpu(info->head->result) && !info->filelock_reply)
-+		goto bad;
-+
- 	/* snap blob */
- 	ceph_decode_32_safe(&p, end, len, bad);
- 	info->snapblob_len = len;
+Confirmed. On a fractional plane SRC_X/SRC_Y the damage iterator rounds
+the merged rect out by up to a pixel per axis, so it can exceed the
+panel and overflow the mode-sized tx_buf. v2 will clamp the rect back to
+the panel in mipi_dbi_fb_dirty().
