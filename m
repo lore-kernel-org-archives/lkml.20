@@ -1,176 +1,198 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A1C843A7F75
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 10:56:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mx0b-0016f401.pphosted.com (mx0a-0016f401.pphosted.com [67.231.148.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A986F41C6A;
+	Fri, 11 Sep 2026 10:56:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.148.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789124178; cv=none; b=XOW38yUPFY0QwuAe+dapZvGY987E54W4DThTlJFf3h0jiNb6JN9DHIqXTabv20t3h7tb6/D0ynj/w57KZE0230ssmoSKkuoioZHkPU1TuWRaVfqHE/LYJmnWVPgHjcTgAo+V6l8+ODObhtURCrJIQh04oud/3wL4zbo8tCYmwXQ=
+	t=1789124179; cv=none; b=bSDu+5jw/O5CSYmC3NaJ6UEvqo372jFxBCZUjgHagpih57gp0PC/oQfGPR+6R8m1M8TGfyPtOKhUgeVm27AeVmB6lPTO+ezIphtRn0W3REpZhqZxBjkuQQGrXxvQA7AKlzTiHbHOy5r+MlS8kTHH7/xJ3ynpSbPD4i0spQacoFo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789124178; c=relaxed/simple;
-	bh=L8EzfeK5GHg9ts95UQZjIMXReLQVDSdUBWYGEouRTwo=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=cnFGPRu/Pp+z6gggP4hw11x4XVWSjZdqX8+8N0D1iJBKujp233gtuOJRaSClYM1/oi97dqOn0dG0lBtuw9nTKqqYQqPLRj15cB50QNBn47wSlelxPKKy3BHEfgTRs4rv+8N8IzPtLEBOSvEM+Mr/6fdsup9wUmkpCb3czxs/mHQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=FoWNhRN2; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789124179; c=relaxed/simple;
+	bh=ccd5XcXKYsL+2AgAx552ENjUdUAjkgwvUd42kOX4FO8=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=NZMOGUkeUEm2Da0D2t+JuUc0C0s9eHyMaVXmXNOB1FKryxgOF6q99RhQRyza28IIMTYnJtfY9wG6QaAgd54BC9R45TdD4N2f/pS3j76+v1uiFzaHcq0Ci6KlfjX1czXlW/jSgVa87HY7rc7Km3F2bLPN1SI4759ZM1W1z2+u0n8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=MVlliPIj; arc=none smtp.client-ip=67.231.148.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="FoWNhRN2"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 07CA61570;
-	Fri, 11 Sep 2026 03:56:11 -0700 (PDT)
-Received: from e129823.arm.com (unknown [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7C5973F7B4;
-	Fri, 11 Sep 2026 03:56:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789124174; bh=L8EzfeK5GHg9ts95UQZjIMXReLQVDSdUBWYGEouRTwo=;
-	h=From:Subject:Date:To:Cc:From;
-	b=FoWNhRN2PkKrNDMCkWpEKANSSmhj8pUl2ugXvG+rLVOagMPoUyWEONQZq1R2ehQKD
-	 FLtFtTPyY0xeIdyhGMS9SadjMeKuVFUGxFAIpSEKYo3EAAm+KKoaqO2iS6Wtpk3P3N
-	 bOtLmU5MFLTQIl/VtYxyrrjOJ5RwwtHRu/rCTdFE=
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-Subject: [PATCH v10 0/8] fix several inconsistencies with sysfs
- configuration in etmX
-Date: Fri, 11 Sep 2026 11:55:59 +0100
-Message-Id: <20260911-separate_etm_cfg_v2-v10-0-1b715d95927a@arm.com>
+	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="MVlliPIj"
+Received: from pps.filterd (m0045849.ppops.net [127.0.0.1])
+	by mx0a-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68BAooRq919477;
+	Fri, 11 Sep 2026 03:55:34 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=pfpt0220; bh=E3WI/LBj/jyNky1eZ7wi5je
+	rXNLJWRyC09VzPWhMjkc=; b=MVlliPIjNWkRvQvyAeIyNiTNMfQAYqKB+X7vKZh
+	aIUdxtJyJ2w7RgHCkwBcielxNxIg0DN17KiBhazAsvB82TcLC34QUB5ah6d57XNc
+	3j+SU76kG5O0Tpjl1ahKahumxNnqgYxq1Cvs27L64dzk3LcXl24uKpLlToHBctYT
+	kXRD0taUYuEqVblRc0j1Qft82KpnuHEB0MVJLT6fuRc6i7QDZBCa5opT0jLCvevc
+	9O7la86H0pOwnWxpEVmGprHW3WVXIVKtoSDbQmN0GZ1sYoLUraAiFZPALanWecus
+	2T98emxGqpkNJTFmWw+rmDs3Dz3S05U04Qj7yeqp9ucCE6A==
+Received: from dc5-exch05.marvell.com ([199.233.59.128])
+	by mx0a-0016f401.pphosted.com (PPS) with ESMTPS id 4gmb958wa5-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 11 Sep 2026 03:55:34 -0700 (PDT)
+Received: from DC5-EXCH05.marvell.com (10.69.176.209) by
+ DC5-EXCH05.marvell.com (10.69.176.209) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.25; Fri, 11 Sep 2026 03:55:33 -0700
+Received: from maili.marvell.com (10.69.176.80) by DC5-EXCH05.marvell.com
+ (10.69.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
+ Transport; Fri, 11 Sep 2026 03:55:33 -0700
+Received: from rkannoth-OptiPlex-7090.. (unknown [10.28.36.165])
+	by maili.marvell.com (Postfix) with ESMTP id CDEFD5C68E9;
+	Fri, 11 Sep 2026 03:55:28 -0700 (PDT)
+From: Ratheesh Kannoth <rkannoth@marvell.com>
+To: <bpf@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        <netdev@vger.kernel.org>
+CC: <andrew+netdev@lunn.ch>, <ast@kernel.org>, <daniel@iogearbox.net>,
+        <davem@davemloft.net>, <edumazet@google.com>, <hawk@kernel.org>,
+        <john.fastabend@gmail.com>, <kuba@kernel.org>, <pabeni@redhat.com>,
+        <sdf@fomichev.me>, <sgoutham@marvell.com>,
+        Ratheesh Kannoth
+	<rkannoth@marvell.com>
+Subject: [PATCH v15 net-next 0/2] octeontx2-pf: mqprio bandwidth offload for NIX TX schedulers
+Date: Fri, 11 Sep 2026 16:25:19 +0530
+Message-ID: <20260911105521.689565-1-rkannoth@marvell.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAD/eo2oC/x2MWwqAIBAArxL7neAaSXWVCDFbbT96oBJBdPekz
- xmYeSBRZEowVA9EujjxsRdAWVfgVrsHErwUAUoqLXtEkei00WYylDfjfDCXEk2LnUXdudl7KOU
- ZyfP9b8fpfT9Urkq8ZgAAAA==
-To: Mike Leach <mike.leach@arm.com>, James Clark <james.clark@linaro.org>, 
- Leo Yan <leo.yan@arm.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Mathieu Poirier <mathieu.poirier@linaro.org>, coresight@lists.linaro.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux-rt-devel@lists.linux.dev
-Cc: Suzuki K Poulose <suzuki.poulose@arm.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
- Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
- Yeoreum Yun <yeoreum.yun@arm.com>, Jie Gan <jie.gan@oss.qualcomm.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4371; i=yeoreum.yun@arm.com;
- h=from:subject:message-id; bh=L8EzfeK5GHg9ts95UQZjIMXReLQVDSdUBWYGEouRTwo=;
- b=owEB7QES/pANAwAKAW3Vw9FaxTEzAcsmYgBqo95HtZ4cpF4zqoXqt5mEqsg7wKxqYq7f+aYuk
- 2jGxbUKS6+JAbMEAAEKAB0WIQQtg+CS3QUzuFh1pJ1t1cPRWsUxMwUCaqPeRwAKCRBt1cPRWsUx
- M0XlC/9g+sHLYYPrYo3Ooh00EvSPsOSpRlswqk9J+F1lhK218YZPlskc2uLITKHOsEJ3pot966r
- Eldo4+4z7he90kmj6kd5CRmynThXHjf61AZ/wJTM0d93L7XtQf9oFC22NiSQmD+41JuRJu4rgbf
- 9CFTcviIUEZ8j4GkPl6017E38c10kSqB51SEWuK5Gm3Th0Bkv0zqIQEIHkYbE/OEql0Uaw+ueNF
- UiIe2mbeAej3EmI0PPjfkvYInkN9fvKF4lBm/xipHVSUqO2p67QJUpcgvVCjtytJ/BbeVx+RgSI
- 014Z9gEOTadTXxEJD0pbHJvgHd7upC7vWoSJBH40Ktsc30JuslyaF50WSw8nwkwjDUE3/IRcobB
- vXG/ZY/u4AoRYIUTSyumdDewRpD2Ndk4zJL4IGRSYaKH8a85oAHUohvPF5yvV2sYVqnbmy7NlJb
- 74pTZD1w6SYc91IOv/0KYNI85YpE4kJKDYv13MuiyoNLbMbFNCWzQg+xOS0MPM5LZIuTk=
-X-Developer-Key: i=yeoreum.yun@arm.com; a=openpgp;
- fpr=2D83E092DD0533B85875A49D6DD5C3D15AC53133
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTExMDE1MyBTYWx0ZWRfX7Xg4XLo2wNGX
+ VoUqiBIlYu+dP3htDXPfOpg5LLLqePEa4m2+EEwwrpt45pkXQKQXnS3C+DFuRWsa/4M+TkF9+hp
+ omuZAyxNpJMoxLT0DSDXhhQCcHrRo7mzszX+evYf8ii1gME9E22nXjmMYxHnvtRfigeMMokRCyx
+ 45ZVnTfTYfNUGlVCCC2atE6KebcIXmcom9r8Mob5ITx5bbTQE3rzDGVnM8rmMVt1FV5KcmaxJWE
+ PKOfdnZIUODwMy179tCOb6Seru6VHmGDkEJXDQc6kzqTj/euyb/1jFHdABLGs/kPhhafbh2OLmK
+ gHUtp5m6sNkh7YC5bwvmMP6aZdf0fdrXVFQ4THQfVuy9EQBy9s4YPC3MZTF7xknIYRAnbmoPgEH
+ uvMekgR+NQkYrUN3qMGpY9nCHZwiTtf79V/VTnV2tdl54Aff2LjxsJi7RKzc1TTeK/wrBlIPJoM
+ Io07kBcDn6erEV0AITw==
+X-Proofpoint-GUID: pgYzvEFFVLYfJNq_rI44UHp9euQRnzPR
+X-Proofpoint-ORIG-GUID: pgYzvEFFVLYfJNq_rI44UHp9euQRnzPR
+X-Authority-Analysis: v=2.4 cv=c6M+0h9l c=1 sm=1 tr=0 ts=6aa3de26 cx=c_pps
+ a=rEv8fa4AjpPjGxpoe8rlIQ==:117 a=rEv8fa4AjpPjGxpoe8rlIQ==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=l0iWHRpgs5sLHlkKQ1IR:22
+ a=EAYMVhzMl8SCOHhVQcBL:22 a=VwQbUJbxAAAA:8 a=M5GUcnROAAAA:8 a=c92rfblmAAAA:8
+ a=mw16rXp6IqdJ9hzCCQkA:9 a=OBjm3rFKGHvpk9ecZwUJ:22 a=GvGzcOZaWPEFPQC_NcjD:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTExMDE1MyBTYWx0ZWRfX0pqKKSz6MWaq
+ KQfGoOO+VCYmjzY3HcTTj/6SjA0hFpqhX35JcUCDxUjXVYeoSN34OsfkjgqMfIPwBSIj2ORl8gM
+ Q3IG4gC4Ex7FsTZ86JoQ5iQVjuNsQgg=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-11_04,2026-09-09_02,2025-10-01_01
 
-The current ETMx configuration via sysfs can lead to the following
-inconsistencies:
+This series adds hardware offload for channel-mode mqprio with
+TC_MQPRIO_SHAPER_BW_RATE on Marvell octeontx2 PF devices. Each
+non-QoS transmit queue is shaped by programming MDQ CIR/PIR on the NIX TX
+scheduler. When bandwidth offload is active, the driver allocates one
+SMQ per queue, parents every MDQ under TL4[0], and maps each traffic
+class min/max rate to the queue(s) in that class.
 
-  - If a configuration is modified via sysfs while a perf session is
-    active, the running configuration may differ between before
-    a sched-out and after a subsequent sched-in.
+The NIX TX scheduler hierarchy cannot be reprogrammed live today, so
+mqprio add, replace, delete, and failed-replace rollback rebuild it by
+bouncing the netdev through ndo_stop()/ndo_open(). That intentionally
+drops in-flight traffic on each change. Before ndo_stop(), quiesce the
+transmit path with dev_deactivate() so xmit cannot race queue teardown.
+After a successful bounce on a running interface, reactivate TX queues
+with dev_activate(). Cache the active rates and restore MDQ shapers from
+otx2_mqprio_up() during ndo_open(); fail open if restoration fails.
 
-  - If a perf session and sysfs session tries to enable concurrently,
-    configuration from configfs could be corrupted (etm4).
+Track mqprio configuration in mq_offload_snap snapshots (TC layout and
+rates). On tc qdisc replace, stage the new configuration while keeping
+the previous snapshot for rollback: failed setup restores the old
+snapshot via netdev restart when the interface is running, successful
+graft is recorded through TC_ROOT_GRAFT, and teardown of the replaced
+qdisc instance commits the staged snapshot without tearing down the live
+offload.
 
-  - There is chance to corrupt drvdata->config if perf session tries
-    to enabled among handling cscfg_csdev_disable_active_config()
-    in etm4_disable_sysfs() (etm4).
+Patch 1 converts PF/VF and representor flag access to atomic bitops.
+Patch 2 depends on it for safe OTX2_FLAG_INTF_DOWN and OTX2_FLAG_PORT_UP
+updates on asynchronous mbox paths and during the mqprio netdev bounce.
 
-To resolve these inconsistencies, the configuration should be separated into:
+The driver rejects offload unless the interface is running and the device
+advertises CIR+PIR support. Per-TC rates are rejected when a traffic class
+spans more than one queue. Concurrent PFC, XDP, SDP rep, or HTB use is
+blocked, and ethtool channel count changes are blocked while mqprio
+bandwidth offload is active.
 
-  - active_config, which is applied configuration for the current session
-  - config, which stores the settings configured via sysfs.
+Ratheesh Kannoth (2):
+  octeontx2: use atomic bitops for PF/VF and rep flags
+  octeontx2-pf: add mqprio bandwidth offload for NIX TX schedulers
 
-and apply configuration from configfs after taking a mode.
-
-Patch History
-=============
-from v9 to v10:
-  - rebase to coresight/next
-  - https://lore.kernel.org/all/20260725113645.57519-1-yeoreum.yun@arm.com/
-
-from v8 to v9:
-  - add feat_csdev_lock guard interface.
-  - set feat_csdev->drv_spinlock as NULL for etmv4_drvdata.
-  - https://lore.kernel.org/all/20260629090007.1718746-1-yeoreum.yun@arm.com/
-
-from v7 to v8:
-  - accept @Leo Yan' suggestion to handle error.
-  - small minor fixes following @Suzuki' suggestion.
-  - https://lore.kernel.org/all/20260519154812.254884-1-yeoreum.yun@arm.com/
-
-from v6 to v7:
-  - rebase on coresight/next
-  - add ETM_MAX_SEQ_TRANSITIONS define
-  - remove redundant patch relavent cpu-hotplug as coresight-pm patch
-    merged.
-  - https://lore.kernel.org/all/20260422132203.977549-1-yeoreum.yun@arm.com/
-
-from v5 to v6:
-  - fix missing of calling cscfg_csdev_disable_active_config()
-  - add rb & fixes tags.
-  - add ss_status field in etm4x_drvdata to expose STATUS and PENDING bits.
-  - https://lore.kernel.org/all/20260415165528.3369607-1-yeoreum.yun@arm.com/
-
-from v4 to v5:
-  - add rb-tag.
-  - fix underflow issue for nrseqstate.
-  - fix wrong check in etm4_sspcicrn_present().
-  - remove redundant fields on etmv4_save_state.
-  - rename caps->ss_status to ss_cmp.
-  - fix wrong location of etm4_release_trace_id.
-  - https://lore.kernel.org/all/20260413142003.3549310-1-yeoreum.yun@arm.com/
-
-from v3 to v4:
-  - change etm_drvdata->spinlock type to raw_spin_lock_t
-  - remove redundant call etmX_enable_hw() with starting_cpu() callsback.
-  - fix missing trace id release.
-  - add missing docs.
-  - https://lore.kernel.org/all/20260412175506.412301-1-yeoreum.yun@arm.com/
-
-from v2 to v3:
-  - fix build error for etm3x.
-  - fix checkpatch warning.
-  - https://lore.kernel.org/all/20260410074310.2693385-1-yeoreum.yun@arm.com/
-
-from v1 to v2
-  - rebased to v7.0-rc7.
-  - introduce etmX_caps structure to save etmX's capabilities.
-  - remove ss_status from etmv4_config.
-  - modify active_config after taking a mode (perf/sysfs).
-  - https://lore.kernel.org/all/20260317181705.2456271-1-yeoreum.yun@arm.com/
+ .../net/ethernet/marvell/octeontx2/af/rvu_nix.c    |   6 +-
+ .../ethernet/marvell/octeontx2/nic/cn10k_ipsec.c   |   8 +-
+ .../ethernet/marvell/octeontx2/nic/otx2_common.c   | 154 +++-
+ .../ethernet/marvell/octeontx2/nic/otx2_common.h   | 100 ++-
+ .../ethernet/marvell/octeontx2/nic/otx2_dcbnl.c    |   6 +
+ .../ethernet/marvell/octeontx2/nic/otx2_devlink.c  |   2 +-
+ .../ethernet/marvell/octeontx2/nic/otx2_ethtool.c  |  29 +-
+ .../ethernet/marvell/octeontx2/nic/otx2_flows.c    |  34 +-
+ .../net/ethernet/marvell/octeontx2/nic/otx2_pf.c   |  94 +--
+ .../net/ethernet/marvell/octeontx2/nic/otx2_tc.c   | 776 ++++++++++++++++++++-
+ .../net/ethernet/marvell/octeontx2/nic/otx2_txrx.c |  16 +-
+ .../net/ethernet/marvell/octeontx2/nic/otx2_vf.c   |  10 +-
+ .../net/ethernet/marvell/octeontx2/nic/otx2_xsk.c  |   4 +-
+ drivers/net/ethernet/marvell/octeontx2/nic/qos.c   |  11 +
+ .../net/ethernet/marvell/octeontx2/nic/qos_sq.c    |   4 +-
+ drivers/net/ethernet/marvell/octeontx2/nic/rep.c   |  32 +-
+ drivers/net/ethernet/marvell/octeontx2/nic/rep.h   |   3 +-
+ 17 files changed, 1138 insertions(+), 151 deletions(-)
 
 ---
-Yeoreum Yun (8):
-      coresight: etm4x: fix inconsistencies with sysfs configuration
-      coresight: etm3x: fix inconsistencies with sysfs configuration
-      coresight: etm3x: change drvdata->spinlock type to raw_spin_lock_t
-      coresight: etm3x: remove redundant cpu online check on etm_enable_sysfs()
-      coresight: etm4x: introduce struct etm4_caps
-      coresight: etm4x: exclude ss_status from drvdata->config
-      coresight: etm4x: remove s_ex_level from config
-      coresight: etm3x: introduce struct etm_caps
 
- drivers/hwtracing/coresight/coresight-config.c     |  18 +-
- drivers/hwtracing/coresight/coresight-config.h     |  22 ++
- drivers/hwtracing/coresight/coresight-etm.h        |  48 ++-
- drivers/hwtracing/coresight/coresight-etm3x-core.c |  96 ++---
- .../hwtracing/coresight/coresight-etm3x-sysfs.c    | 155 ++++----
- drivers/hwtracing/coresight/coresight-etm4x-cfg.c  |  14 +-
- drivers/hwtracing/coresight/coresight-etm4x-core.c | 413 +++++++++++----------
- .../hwtracing/coresight/coresight-etm4x-sysfs.c    | 204 +++++-----
- drivers/hwtracing/coresight/coresight-etm4x.h      | 196 +++++-----
- 9 files changed, 645 insertions(+), 521 deletions(-)
----
-base-commit: 9e3604d7369cfc0110100eb1a0acab1865ee2d18
-change-id: 20260911-separate_etm_cfg_v2-3518a168cbff
+v14 -> v15: Addressed sashiko comments.
+- Split atomic PF/VF and representor flag access into a preparatory patch
+  so mqprio netdev-restart and mbox paths can update OTX2_FLAG_INTF_DOWN
+  and OTX2_FLAG_PORT_UP without data races on the shared flags word.
+- Clear mqprio software state when hardware shaper teardown fails, warn,
+  and still bounce the netdev on delete so offload does not remain stuck
+  active after a mailbox error.
+	https://lore.kernel.org/netdev/20260904031553.3196916-1-rkannoth@marvell.com/
 
-Best regards,
--- 
-Sincerely,
-Yeoreum Yun
+v13 -> v14: Addressed sashiko comments.
+- Quiesce TX with dev_deactivate() before ndo_stop() and dev_activate()
+  after ndo_open() in otx2_mqprio_restart_netdev() to avoid xmit racing
+  queue teardown.
+- Use atomic set_bit()/clear_bit() for OTX2_FLAG_INTF_DOWN and
+  OTX2_FLAG_PORT_UP updates on netdev-restart and mbox paths.
+- Block concurrent mqprio bandwidth offload and HTB shaping.
+- Fail ndo_open() if otx2_mqprio_up() cannot restore MDQ shapers.
+- Rebuild the TX scheduler via netdev restart in otx2_mqprio_restore_old()
+  when rolling back a failed replace on a running interface.
+- Return an error from otx2_mqprio_down() if clearing hardware shapers
+  fails instead of clearing software state anyway.
+	https://lore.kernel.org/netdev/20260904031553.3196916-1-rkannoth@marvell.com/
 
+v12 -> v13: Addressed sashiko comments.
+	https://sashiko.dev/#/patchset/20260903023324.3078284-1-rkannoth%40marvell.com
+
+v11 -> v12: Addressed sashiko comments.
+	https://sashiko.dev/#/patchset/20260902015500.2985371-1-rkannoth%40marvell.com
+v10 -> v11: Addressed sashiko comments.
+	https://sashiko.dev/#/patchset/20260831131014.2639581-1-rkannoth%40marvell.com
+
+v9 -> v10: Addressed sashiko/jacub comments.
+	https://sashiko.dev/#/message/20260817032747.1765883-1-rkannoth%40marvell.com
+
+v8 -> v9: Addressed Sashiko comments
+	https://lore.kernel.org/netdev/aoJ6FhtWue0FHDQV@rkannoth-OptiPlex-7090/
+v7 -> v8: Addressed Sashiko comments
+	https://sashiko.dev/#/patchset/20260811085050.3212280-1-rkannoth%40marvell.com
+v6 -> v7: Addressed Sashiko comments
+	https://sashiko.dev/#/message/20260810034738.1786029-1-rkannoth%40marvell.com
+v5 -> v6: Addressed Sashiko comments
+	https://lore.kernel.org/netdev/20260806095434.1144397-1-rkannoth@marvell.com/
+v4 -> v5: Addressed sashiko comments
+	https://sashiko.dev/#/patchset/20260803042724.3380209-1-rkannoth%40marvell.com
+v3 -> v4: Addressed sashiko comments
+	https://lore.kernel.org/netdev/20260729105139.2302908-1-rkannoth@marvell.com/
+v2 -> v3: Addressed sashiko comments
+	https://lore.kernel.org/netdev/amnYX866mYx02cBe@rkannoth-OptiPlex-7090/T/#m67310cbec48b21c7720858ab3a1ea083a0f8dc10
+v1 -> v2: Addressed sashiko comments
+	https://lore.kernel.org/netdev/20260724075010.2665758-1-rkannoth@marvell.com/
+
+--
+2.43.0
