@@ -1,154 +1,240 @@
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D4B23537F9
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:12:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.30.148.35
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D60063A0E80
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:12:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789114341; cv=none; b=jueirFBKnG+45iHwYQo88eU10Pn+W3pTbkfSZCYC9MO9qEo3bmWJUPHvBTnklLPZGrhe7lR8IRuvcR/qg8BkvStDDf7wkfh0mb2iP4yiqu/iz5cPeEN7KSCMBxkff/85+Ujt9Md31UbzNZdsbQTbjxN90hUuWtdFnG3Da5Jt9Cc=
+	t=1789114371; cv=none; b=XGFo0ThnXRTL7Ujwl6VQ5/WDMkgJkDfRImvGh34uAzMqUQ495fWr2cqtHfdtIMWTrzol6i5bjFPjc5l5zPSN/zQ+Aog9TrXADaYBGO3ukaV45Xsk2HiHfdS+9r4S+rUsbB16d+RO0QAYF0HTK1eVOMnU+zXwSxhE9DJ9ZkqWjaI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789114341; c=relaxed/simple;
-	bh=xyiHQ4GfGPTe8remfAx9trjKNYwZbt2KB++GbUbhKmc=;
-	h=Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
-	 Subject:Content-Type; b=g1NCw2Z2XXJZWy0f4JoDEoYtwEz8nZRH9mimXOuPpvohUPv23+3j2PIQMqsdVVoNQZjl6yP/HH8XGsmr8PedXzDQEbxS/X3cfKjr9QNfoJxXa2e71EXm5NmHF8m+qVKCyDZIHAsaHtPA9UmHTseK9ZIR0Fni3AV/ejZtFZuyqg0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn; spf=pass smtp.mailfrom=zte.com.cn; arc=none smtp.client-ip=160.30.148.35
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4hh6hx5Fzxz8XrrX;
-	Fri, 11 Sep 2026 16:12:17 +0800 (CST)
-Received: from xaxapp04.zte.com.cn ([10.99.98.157])
-	by mse-fl2.zte.com.cn with SMTP id 68B8C7Bo036013;
-	Fri, 11 Sep 2026 16:12:08 +0800 (+08)
-	(envelope-from xu.xin16@zte.com.cn)
-Received: from mapi (xaxapp01[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Fri, 11 Sep 2026 16:12:10 +0800 (CST)
-X-Zmail-TransId: 2af96aa3b7da071-c2054
-X-Mailer: Zmail v1.0
-Message-ID: <20260911161210082WKOqK1dumByDY7jeEOdPF@zte.com.cn>
-In-Reply-To: <20260911160421076_KNXun8Mpp9Xj7fxHG0i7@zte.com.cn>
-References: 20260911160421076_KNXun8Mpp9Xj7fxHG0i7@zte.com.cn
-Date: Fri, 11 Sep 2026 16:12:10 +0800 (CST)
+	s=arc-20240116; t=1789114371; c=relaxed/simple;
+	bh=gvmZf3ItsRhJ8/S0UFE29TrvpRykf6zfuBlByhYmbFI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lKXLVYbVF1xI7tp5X/fFQmTiam0O9Wvod2d+NBDdX2gKUZwGxhgXhglTlQWDhFP7Gy3cGwChwh/4QSFs1hIlf0/+CHaCdRfnmdfun4YIiE3GdjMDooc0/Jy875AAqaZkvGsU0h8h8gL5tCUTJHMPYLAkvELJ4pTOOOl4W1VIUfQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZkRSlqlJ; arc=none smtp.client-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZkRSlqlJ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789114369; x=1820650369;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=gvmZf3ItsRhJ8/S0UFE29TrvpRykf6zfuBlByhYmbFI=;
+  b=ZkRSlqlJo0eJmkO20ccFB+bTyPR/lVmnTCidP2hPsz6KyoS0AzBhyEOw
+   6B+jx5ChlpUEvTj0J7iNuuHoU4EUg19vNkhIEHaMjL6S/LFlFgw+dxZwD
+   b5AMkNGUrY/rJ4FfqxHZwxv7opcFwFBFXca4jM+HfchoohVHlmHqdJRfA
+   gfd4E3Oxhlz71fQxJx4EZuYsLgytXbaWzjiug6oNJTsA/N7DuPpMzlPtF
+   Oooz5NyVSGepENh7gkzcvNBy40Gm6NfrSYoXcAr0j/E/mb6IjOKnD7v7b
+   tVU1Dy6Dh5Xk6pSBe2j5xBwfzPqLqc7u3YNTAmSaptAHPWTal9KKR41ZO
+   g==;
+X-CSE-ConnectionGUID: JA6umFfEQSKX3zMJMeq04Q==
+X-CSE-MsgGUID: Tt0DFzdwQ9KVERVyyIe/bg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11901"; a="89508837"
+X-IronPort-AV: E=Sophos;i="6.27,96,1787036400"; 
+   d="scan'208";a="89508837"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 01:12:49 -0700
+X-CSE-ConnectionGUID: +ItDRX2hTa+1pmY5/NcOxA==
+X-CSE-MsgGUID: w+iIru6QRJSpZd8HExTxcg==
+X-Ironport-Invalid-End-Of-Message: True
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,96,1787036400"; 
+   d="scan'208";a="271834668"
+Received: from lkp-server02.sh.intel.com (HELO 0a3643a6ed9d) ([10.239.97.151])
+  by orviesa007.jf.intel.com with ESMTP; 11 Sep 2026 01:12:47 -0700
+Received: from kbuild by 0a3643a6ed9d with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x4wMQ-000000001HK-0ldF;
+	Fri, 11 Sep 2026 08:12:02 +0000
+Date: Fri, 11 Sep 2026 16:10:47 +0800
+From: kernel test robot <lkp@intel.com>
+To: Daeho Jeong <daeho43@gmail.com>, linux-kernel@vger.kernel.org,
+	linux-f2fs-devel@lists.sourceforge.net, kernel-team@android.com
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	Daeho Jeong <daehojeong@google.com>
+Subject: Re: [PATCH] f2fs: introduce reserve_shrink mount option for
+ filesystem shrinkage
+Message-ID: <202609111633.uyRbsEUB-lkp@intel.com>
+References: <20260910181057.640203-1-daeho43@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-From: <xu.xin16@zte.com.cn>
-To: <akpm@linux-foundation.org>, <david@kernel.org>, <ljs@kernel.org>,
-        <surenb@google.com>
-Cc: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
-        <chengming.zhou@linux.dev>
-Subject: =?UTF-8?B?W1BBVENIIDMvNF0gbW0va3NtOiBtYWtlIGJyZWFrX2tzbSgpIG1vcmUgc2NhbGFibGU=?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl2.zte.com.cn 68B8C7Bo036013
-X-TLS: YES
-X-ENVELOPE-SENDER: xu.xin16@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Fri, 11 Sep 2026 16:12:17 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AA3B7E1.000/4hh6hx5Fzxz8XrrX
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260910181057.640203-1-daeho43@gmail.com>
 
-From: Xu Xin (ZTE) <xu.xin@linux.dev>
+Hi Daeho,
 
-Currently the last argument 'walk_lock' of break_ksm() is used to
-indicate whether the page_walk is protected by mmap_read_lock or
-mmap_write_lock. If 'walk_lock' is true, we suppose its context to
-be under mmap_write_lock() protection, then mark it PGWALK_WRLOCK and
-make its vma be write-locked during the walk; If 'walk_lock' is
-false, we suppose its context to be mmap_read_lock(), then mark it
-PGWALK_RDLOCK.
+kernel test robot noticed the following build warnings:
 
-This change is prepared for the latter patch to enable VMA
-read-locking where break_ksm() might be under the third new proctecion
-way: VMA read-locking, so we have to replace the boolean variable to
-the enum 'page_walk_lock', but without any function changed.
+[auto build test WARNING on jaegeuk-f2fs/dev-test]
+[also build test WARNING on jaegeuk-f2fs/dev linus/master v7.3-rc2 next-20260909]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-No functional change intended.
+url:    https://github.com/intel-lab-lkp/linux/commits/Daeho-Jeong/f2fs-introduce-reserve_shrink-mount-option-for-filesystem-shrinkage/20260910-111056
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/jaegeuk/f2fs.git dev-test
+patch link:    https://lore.kernel.org/r/20260910181057.640203-1-daeho43%40gmail.com
+patch subject: [PATCH] f2fs: introduce reserve_shrink mount option for filesystem shrinkage
+config: powerpc-randconfig-001-20260911 (https://download.01.org/0day-ci/archive/20260911/202609111633.uyRbsEUB-lkp@intel.com/config)
+compiler: clang version 21.1.8 (https://github.com/llvm/llvm-project 2078da43e25a4623cab2d0d60decddf709aaea28)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260911/202609111633.uyRbsEUB-lkp@intel.com/reproduce)
 
-Signed-off-by: Xu Xin (ZTE) <xu.xin@linux.dev>
----
- mm/ksm.c | 21 ++++++++-------------
- 1 file changed, 8 insertions(+), 13 deletions(-)
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609111633.uyRbsEUB-lkp@intel.com/
 
-diff --git a/mm/ksm.c b/mm/ksm.c
-index 8df66b4e5de0..dda105681d7f 100644
---- a/mm/ksm.c
-+++ b/mm/ksm.c
-@@ -660,16 +660,11 @@ static int break_ksm_pmd_entry(pmd_t *pmdp, unsigned long addr, unsigned long en
- 	return found;
- }
+All warnings (new ones prefixed by >>):
 
--static const struct mm_walk_ops break_ksm_ops = {
-+static struct mm_walk_ops break_ksm_ops = {
- 	.pmd_entry = break_ksm_pmd_entry,
- 	.walk_lock = PGWALK_RDLOCK,
- };
+   In file included from fs/f2fs/debug.c:18:
+>> fs/f2fs/f2fs.h:2663:6: warning: shift count >= width of type [-Wshift-count-overflow]
+    2663 |         if (test_opt(sbi, RESERVE_SHRINK)) {
+         |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   fs/f2fs/f2fs.h:157:26: note: expanded from macro 'test_opt'
+     157 |         (F2FS_OPTION(sbi).opt & BIT(F2FS_MOUNT_##option))
+         |                                 ^~~~~~~~~~~~~~~~~~~~~~~~
+   include/vdso/bits.h:7:26: note: expanded from macro 'BIT'
+       7 | #define BIT(nr)                 (UL(1) << (nr))
+         |                                        ^  ~~~~
+   1 warning generated.
+--
+   In file included from fs/f2fs/gc.c:19:
+>> fs/f2fs/f2fs.h:2663:6: warning: shift count >= width of type [-Wshift-count-overflow]
+    2663 |         if (test_opt(sbi, RESERVE_SHRINK)) {
+         |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   fs/f2fs/f2fs.h:157:26: note: expanded from macro 'test_opt'
+     157 |         (F2FS_OPTION(sbi).opt & BIT(F2FS_MOUNT_##option))
+         |                                 ^~~~~~~~~~~~~~~~~~~~~~~~
+   include/vdso/bits.h:7:26: note: expanded from macro 'BIT'
+       7 | #define BIT(nr)                 (UL(1) << (nr))
+         |                                        ^  ~~~~
+>> fs/f2fs/gc.c:2495:13: warning: shift count >= width of type [-Wshift-count-overflow]
+    2495 |         } else if (test_opt(sbi, RESERVE_SHRINK)) {
+         |                    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   fs/f2fs/f2fs.h:157:26: note: expanded from macro 'test_opt'
+     157 |         (F2FS_OPTION(sbi).opt & BIT(F2FS_MOUNT_##option))
+         |                                 ^~~~~~~~~~~~~~~~~~~~~~~~
+   include/vdso/bits.h:7:26: note: expanded from macro 'BIT'
+       7 | #define BIT(nr)                 (UL(1) << (nr))
+         |                                        ^  ~~~~
+   fs/f2fs/gc.c:2498:3: warning: shift count >= width of type [-Wshift-count-overflow]
+    2498 |                 clear_opt(sbi, RESERVE_SHRINK);
+         |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   fs/f2fs/f2fs.h:153:28: note: expanded from macro 'clear_opt'
+     153 |         (F2FS_OPTION(sbi).opt &= ~BIT(F2FS_MOUNT_##option))
+         |                                   ^~~~~~~~~~~~~~~~~~~~~~~~
+   include/vdso/bits.h:7:26: note: expanded from macro 'BIT'
+       7 | #define BIT(nr)                 (UL(1) << (nr))
+         |                                        ^  ~~~~
+   3 warnings generated.
+--
+   In file included from fs/f2fs/super.c:34:
+>> fs/f2fs/f2fs.h:2663:6: warning: shift count >= width of type [-Wshift-count-overflow]
+    2663 |         if (test_opt(sbi, RESERVE_SHRINK)) {
+         |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   fs/f2fs/f2fs.h:157:26: note: expanded from macro 'test_opt'
+     157 |         (F2FS_OPTION(sbi).opt & BIT(F2FS_MOUNT_##option))
+         |                                 ^~~~~~~~~~~~~~~~~~~~~~~~
+   include/vdso/bits.h:7:26: note: expanded from macro 'BIT'
+       7 | #define BIT(nr)                 (UL(1) << (nr))
+         |                                        ^  ~~~~
+>> fs/f2fs/super.c:548:7: warning: shift count >= width of type [-Wshift-count-overflow]
+     548 |         if (!test_opt(sbi, RESERVE_SHRINK))
+         |              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   fs/f2fs/f2fs.h:157:26: note: expanded from macro 'test_opt'
+     157 |         (F2FS_OPTION(sbi).opt & BIT(F2FS_MOUNT_##option))
+         |                                 ^~~~~~~~~~~~~~~~~~~~~~~~
+   include/vdso/bits.h:7:26: note: expanded from macro 'BIT'
+       7 | #define BIT(nr)                 (UL(1) << (nr))
+         |                                        ^  ~~~~
+   fs/f2fs/super.c:2326:6: warning: shift count >= width of type [-Wshift-count-overflow]
+    2326 |         if (test_opt(sbi, RESERVE_SHRINK)) {
+         |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   fs/f2fs/f2fs.h:157:26: note: expanded from macro 'test_opt'
+     157 |         (F2FS_OPTION(sbi).opt & BIT(F2FS_MOUNT_##option))
+         |                                 ^~~~~~~~~~~~~~~~~~~~~~~~
+   include/vdso/bits.h:7:26: note: expanded from macro 'BIT'
+       7 | #define BIT(nr)                 (UL(1) << (nr))
+         |                                        ^  ~~~~
+   fs/f2fs/super.c:2557:6: warning: shift count >= width of type [-Wshift-count-overflow]
+    2557 |         if (test_opt(sbi, RESERVE_SHRINK))
+         |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   fs/f2fs/f2fs.h:157:26: note: expanded from macro 'test_opt'
+     157 |         (F2FS_OPTION(sbi).opt & BIT(F2FS_MOUNT_##option))
+         |                                 ^~~~~~~~~~~~~~~~~~~~~~~~
+   include/vdso/bits.h:7:26: note: expanded from macro 'BIT'
+       7 | #define BIT(nr)                 (UL(1) << (nr))
+         |                                        ^  ~~~~
+   4 warnings generated.
+--
+   In file included from fs/f2fs/sysfs.c:17:
+>> fs/f2fs/f2fs.h:2663:6: warning: shift count >= width of type [-Wshift-count-overflow]
+    2663 |         if (test_opt(sbi, RESERVE_SHRINK)) {
+         |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   fs/f2fs/f2fs.h:157:26: note: expanded from macro 'test_opt'
+     157 |         (F2FS_OPTION(sbi).opt & BIT(F2FS_MOUNT_##option))
+         |                                 ^~~~~~~~~~~~~~~~~~~~~~~~
+   include/vdso/bits.h:7:26: note: expanded from macro 'BIT'
+       7 | #define BIT(nr)                 (UL(1) << (nr))
+         |                                        ^  ~~~~
+>> fs/f2fs/sysfs.c:599:7: warning: shift count >= width of type [-Wshift-count-overflow]
+     599 |                 if (test_opt(sbi, RESERVE_SHRINK)) {
+         |                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   fs/f2fs/f2fs.h:157:26: note: expanded from macro 'test_opt'
+     157 |         (F2FS_OPTION(sbi).opt & BIT(F2FS_MOUNT_##option))
+         |                                 ^~~~~~~~~~~~~~~~~~~~~~~~
+   include/vdso/bits.h:7:26: note: expanded from macro 'BIT'
+       7 | #define BIT(nr)                 (UL(1) << (nr))
+         |                                        ^  ~~~~
+   2 warnings generated.
 
--static const struct mm_walk_ops break_ksm_lock_vma_ops = {
--	.pmd_entry = break_ksm_pmd_entry,
--	.walk_lock = PGWALK_WRLOCK,
--};
--
- /*
-  * Though it's very tempting to unmerge rmap_items from stable tree rather
-  * than check every pte of a given vma, the locking doesn't quite work for
-@@ -696,11 +691,11 @@ static const struct mm_walk_ops break_ksm_lock_vma_ops = {
-  * protection keys here anyway.
-  */
- static int break_ksm(struct vm_area_struct *vma, unsigned long addr,
--		unsigned long end, bool lock_vma)
-+		unsigned long end, enum page_walk_lock walk_lock)
- {
- 	vm_fault_t ret = 0;
--	const struct mm_walk_ops *ops = lock_vma ?
--				&break_ksm_lock_vma_ops : &break_ksm_ops;
-+	struct mm_walk_ops *ops = &break_ksm_ops;
-+	ops->walk_lock = walk_lock;
+Kconfig warnings: (for reference only)
+   WARNING: unmet direct dependencies detected for HOTPLUG_CPU
+   Depends on [n]: SMP [=y] && (PPC_PSERIES [=n] || PPC_PMAC [=n] || PPC_POWERNV [=n] || FSL_SOC_BOOKE [=n])
+   Selected by [y]:
+   - PM_SLEEP_SMP [=y] && SMP [=y] && (ARCH_SUSPEND_POSSIBLE [=n] || ARCH_HIBERNATION_POSSIBLE [=y]) && PM_SLEEP [=y]
 
- 	do {
- 		int ksm_page;
-@@ -807,7 +802,7 @@ static void break_cow(struct ksm_rmap_item *rmap_item)
- 	mmap_read_lock(mm);
- 	vma = find_mergeable_vma(mm, addr);
- 	if (vma)
--		break_ksm(vma, addr, addr + PAGE_SIZE, false);
-+		break_ksm(vma, addr, addr + PAGE_SIZE, PGWALK_RDLOCK);
- 	mmap_read_unlock(mm);
- }
 
-@@ -1245,7 +1240,7 @@ static int unmerge_and_remove_all_rmap_items(void)
- 		for_each_vma(vmi, vma) {
- 			if (!(vma->vm_flags & VM_MERGEABLE) || !vma->anon_vma)
- 				continue;
--			err = break_ksm(vma, vma->vm_start, vma->vm_end, false);
-+			err = break_ksm(vma, vma->vm_start, vma->vm_end, PGWALK_RDLOCK);
- 			if (err)
- 				goto error;
- 		}
-@@ -2885,7 +2880,7 @@ static int __ksm_del_vma(struct vm_area_struct *vma)
- 		return 0;
+vim +2663 fs/f2fs/f2fs.h
 
- 	if (vma->anon_vma) {
--		err = break_ksm(vma, vma->vm_start, vma->vm_end, true);
-+		err = break_ksm(vma, vma->vm_start, vma->vm_end, PGWALK_WRLOCK);
- 		if (err)
- 			return err;
- 	}
-@@ -3037,7 +3032,7 @@ int ksm_madvise(struct vm_area_struct *vma, unsigned long start,
- 			return 0;		/* just ignore the advice */
+  2650	
+  2651	static inline unsigned int get_available_block_count(struct f2fs_sb_info *sbi,
+  2652							struct inode *inode, bool cap)
+  2653	{
+  2654		block_t avail_user_block_count;
+  2655	
+  2656		avail_user_block_count = sbi->user_block_count -
+  2657						sbi->current_reserved_blocks -
+  2658						sbi->alias_reserved_blocks;
+  2659	
+  2660		if (test_opt(sbi, RESERVE_ROOT) && !__allow_reserved_root(sbi, inode, cap))
+  2661			avail_user_block_count -= F2FS_OPTION(sbi).root_reserved_blocks;
+  2662	
+> 2663		if (test_opt(sbi, RESERVE_SHRINK)) {
+  2664			if (avail_user_block_count > F2FS_OPTION(sbi).reserve_shrink_blocks)
+  2665				avail_user_block_count -= F2FS_OPTION(sbi).reserve_shrink_blocks;
+  2666			else
+  2667				avail_user_block_count = 0;
+  2668		}
+  2669	
+  2670		if (unlikely(is_sbi_flag_set(sbi, SBI_CP_DISABLED))) {
+  2671			if (avail_user_block_count > sbi->unusable_block_count)
+  2672				avail_user_block_count -= sbi->unusable_block_count;
+  2673			else
+  2674				avail_user_block_count = 0;
+  2675		}
+  2676	
+  2677		return avail_user_block_count;
+  2678	}
+  2679	
 
- 		if (vma->anon_vma) {
--			err = break_ksm(vma, start, end, true);
-+			err = break_ksm(vma, start, end, PGWALK_WRLOCK);
- 			if (err)
- 				return err;
- 		}
--- 
-2.25.1
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
