@@ -1,85 +1,131 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B32ED381E85;
-	Fri, 11 Sep 2026 13:35:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EBC5485CE6
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 13:37:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789133752; cv=none; b=irTY4/TiV/ZaiMl3YACPCdXGd+6z0Zgs7nBRNzurMCG95oAeLtS8Oloa04LdRMkaptZY//Hk5YunG5d0OpV3UQ2yy52QEHJmMTb1m3N1/DpVfTxPTrmVKqgdUPLsBfY+RGqdZvj5JJ6MuSIxRNx8xP5rQYyONT+aEYfHZvpJ7s0=
+	t=1789133840; cv=none; b=EluEsxiPExrxKjrstMHqzMbnyTijx8qQ2m1MXrPHcjXuyE+u/2cZpIoV2XNTtPf7iAUjBS70xk85ZRV0s/pt7CymERq8zeT+bYQiIoMTdDaijOADsGkEX5pTscQOxKteCQP6dAQJCJ2NFyVeVskH9bNOCeAOrDjIn54SmwtZbqs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789133752; c=relaxed/simple;
-	bh=Fi5RS+ZGr4LqoSIZFrNySYRnWGBjWO2HwRLas3YEFU0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=K4t+pol2q/F1oKSFd4DcgdPbleLNrP4IXUN2FxVFr0xPQQ1cv08AMGzCDuKt1iN30PTk8hLq20DDesTttbH43UrJBSKGqwrQWUg4fPaqTkxniyPh7slokAgGgDNW9N2d5DAuFH2t3IvmgjeigAMvD7o7vlwEo1UYzLnTr50lxRU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WuqZzmWt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789133840; c=relaxed/simple;
+	bh=Pt4h3NpVdFxgIyPdCiaqsfwIllKAbrQoe/JCPvMw2WI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=NL21NeHXrPVXC4gNOuifWlmkGR/IBqbxasg0E4/wUbYm9R3C7bbNrrZ5CCTFf1E8WHEr0dB4RHKsDKLaF2SKzBEtClNVBAeOAiDuGhgiQaHLdfjlSgjjQKke38RGjdclGAolhLxLi++TfvscN5rbLP0l95CFeCewHK7DeuUukqc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RK6YIPuv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WuqZzmWt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1C101F00893;
-	Fri, 11 Sep 2026 13:35:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RK6YIPuv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BA061F0089A
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 13:37:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789133751;
-	bh=GgGvB7wf3jMu2SKBD8yyeQabKZY9LxyLIN+L7CC9SH4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WuqZzmWte3bB8Ft6qad7MYpkg/9RfskcX7IDxobWRqOvNgeD8tGWhYXzdKo9PxsMr
-	 2HyIUNat9KztrqS3dCQOoSOpdsB5Rx1ZI3NBkSn1PuY0xOOmngDOFnMfRIKJxRS/cH
-	 gRTdgbrETaoPK+AXcXPXMo6N6EztBKkCVpEm97ajoz9nK8y/6sFJoAjL9rSFMM/1+d
-	 iBy4MtTuRNUCjytG0kVee3MqTIx650ie7Jjsy5Snv6RbcptN9fgA/XNfOBb91k82B0
-	 7PWQFpjtL+Q9xQlKIy1yzAYs7YGo5xFX1OXL603T8DXiBGmjneV4Y2z2Rb4e3Q1s+F
-	 JdUS+KQBVXGWg==
-From: SJ Park <sj@kernel.org>
-To: Liew Rui Yan <aethernet65535@gmail.com>
-Cc: SJ Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	damon@lists.linux.dev,
-	linux-mm@kvack.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] Docs/mm/damon/design: fix typos in temporal auto-tuning algorithm section
-Date: Fri, 11 Sep 2026 06:35:43 -0700
-Message-ID: <20260911133544.91871-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260911093314.156875-1-aethernet65535@gmail.com>
-References: 
+	s=k20260515; t=1789133838;
+	bh=EmV7xvDd8p7wDhHv2qGiIJwLxypfzLhq7lXIjcWfW4A=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=RK6YIPuvLOg4R2v2jLAGmphnDEq+EKPbqBKfDsdJrv+Znqc5OXM4FAN6IGJFrLVUe
+	 pqk2i0d60glJzWgU6NnEpEUwu86Wk6vaGWQ2YHEZiKad6VD3MsU8QFl8vz8aGQMz8O
+	 qQUcPzrlU/rqVLVwhq1u81e9W09ZL/B7OBXqptJ8hfTlKoLPI+6JjXxu2rEikRxSIT
+	 wox0kPFtfdi0hEucQmmDK7fC2ql0XLwMEvS9W++/bBWpwJSPrsogWXtAq/LQ9pN2B5
+	 xmCn0gqIP4F9BMXnGvIzL4ukEVZgZjJWnCni/NPPDEB9km3KoJH8HOSI9gKQN7kJlc
+	 de/FtBjyQWBrQ==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b89a0e69dfso904316e87.3
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 06:37:18 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzYtz25gU/9syyE0FyWKjnEXrfKuh+TJ1q43vYHnO9aYx5d9M+uc/CBVO3iKJL/ljX8OBGD8FdLGA9HPSE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lgQmT2J+7/wJnzpZLdPZ27n9svTWg4ABFpDZ3yA9zUrria9Ta7
+	0pQTp6GDnurU6ueWSMX/vwz63zcv1xdcU1zplvp7Iieish76jiwFNK0C5nQpnJfFa3xBGsHG+GT
+	0hoGnOg2UXmXvwBCsXrWUKvrdW0z9Uys=
+X-Received: by 2002:a05:6512:1293:b0:5b6:183b:d20c with SMTP id
+ 2adb3069b0e04-5b8a032660amr1119488e87.51.1789133836636; Fri, 11 Sep 2026
+ 06:37:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260908152808.3928630-1-arnd@kernel.org> <20260908152808.3928630-4-arnd@kernel.org>
+ <CADkSEUjYhRk-ezaXZkHzFTFQnySFSisKtZfEP-_NtLnQF+6-1Q@mail.gmail.com>
+ <CAD++jL=ysmPgs8yKH5KBobuv-eeCHHgZwvo1kvHOFuTwhkaOew@mail.gmail.com> <2144051c-268c-40b1-8c22-4be49f0edd17@acm.org>
+In-Reply-To: <2144051c-268c-40b1-8c22-4be49f0edd17@acm.org>
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 11 Sep 2026 15:37:02 +0200
+X-Gmail-Original-Message-ID: <CAD++jLmRZek7MjW5LuLUb=u5RmgOyHy4V1OcTv7asAZJpWogtA@mail.gmail.com>
+X-Gm-Features: AcwNN1W6r513ollKEmEehDsh6aLwchGLVwxmCgwImDsptMKBPomLX6IK__6z0wQ
+Message-ID: <CAD++jLmRZek7MjW5LuLUb=u5RmgOyHy4V1OcTv7asAZJpWogtA@mail.gmail.com>
+Subject: Re: [PATCH 03/13] ARM: remove riscpc
+To: Bart Van Assche <bvanassche@acm.org>
+Cc: Ethan Nelson-Moore <enelsonmoore@gmail.com>, Russell King <linux@armlinux.org.uk>, 
+	Arnd Bergmann <arnd@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Drew Fustini <fustini@kernel.org>, 
+	Arnd Bergmann <arnd@arndb.de>, Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Liviu Dudau <liviu.dudau@arm.com>, Sudeep Holla <sudeep.holla@kernel.org>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Vladimir Zapolskiy <vz@mleia.com>, Stefan Agner <stefan@agner.ch>, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	Aaro Koskinen <aaro.koskinen@iki.fi>, Andreas Kemnade <andreas@kemnade.info>, 
+	Kevin Hilman <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>, 
+	Tony Lindgren <tony@atomide.com>, Nicolas Ferre <nicolas.ferre@microchip.com>, 
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>, Andrew Lunn <andrew@lunn.ch>, 
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, 
+	Gregory Clement <gregory.clement@bootlin.com>, Robert Jarzmik <robert.jarzmik@free.fr>, 
+	Kristoffer Ericson <kristoffer.ericson@gmail.com>, Geert Uytterhoeven <geert@linux-m68k.org>, 
+	Alexander Sverdlin <alexander.sverdlin@siemens.com>, Shawn Guo <shawnguo@kernel.org>, 
+	Karl Mehltretter <kmehltretter@gmail.com>, "David Hildenbrand (Arm)" <david@kernel.org>, 
+	Nicolas Pitre <npitre@baylibre.com>, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	devicetree@vger.kernel.org, imx@lists.linux.dev, 
+	linux-stm32@st-md-mailman.stormreply.com, linux-omap@vger.kernel.org, 
+	Ian Molton <spyro@f2s.com>, Jens Axboe <axboe@kernel.dk>, Helge Deller <deller@gmx.de>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, "Paul E. McKenney" <paulmck@kernel.org>, linux-block@vger.kernel.org, 
+	linux-serial@vger.kernel.org, linux-fbdev@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, 11 Sep 2026 17:32:58 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
+On Fri, Sep 11, 2026 at 3:26=E2=80=AFPM Bart Van Assche <bvanassche@acm.org=
+> wrote:
+> On 9/11/26 2:07 AM, Linus Walleij wrote:
 
-> Correct incorrect references of "quota" to "goal" in the temporal
-> auto-tuning algorithm description and fix the square bracket formatting.
+> > The community has a built in tension around this:
+> >
+> > - One camp that are enthusiast like yourself. That kind of people
+> >    are running the show inside arch/m68k on Amigas and Ataris.
+> >
+> > - One camp who get their paycheck from present day companies
+> >    and constantly on top of the latest technology. As can be
+> >    seen Qualcomm just taped out a brand new ARMv7 SoC
+> >    named Kuno, for example.
+> >
+> > As you can see this leads to a bit of tension.
+>
+> That summary looks incomplete to me. Every time a kernel API is modified
+> that is used by the RiscPC code, the RiscPC code has to be modified too.
+> Removing the RiscPC code makes modifying kernel APIs easier. A recent
+> example is available here: "[PATCH v5] scsi: core: Drop
+> Scsi_Host.default_lock"
+> (https://lore.kernel.org/linux-scsi/20260831095821.3486994-1-john.g.garry=
+@oracle.com/).
 
-Goot catch, thank you for finding and fixing this, Liew!
+Yes that is development churn, but this is the same whether the hardware
+supported is old or brand new and doesn't really answer the question
+whether it is to be supported or not.
 
-> 
-> Signed-off-by: Liew Rui Yan <aethernet65535@gmail.com>
+That line of reasoning will always require a supportive hypothesis such as:
 
-Reviewed-by: SJ Park <sj@kernel.org>
+- We don't want to support stuff that is old (deprecation and deletionist
+  stance, I don't want to hear yesterdays news)
 
-This patch is applied to damon/next [1] tree.  If this patch is not added to
-mm.git in short term (~1 week?), I will ask mm.git maintainer (Andrew Morton)
-to pick this.  So, no action from your side is needed for now.  If it seems I
-also forgot doing that or you cannot wait for my action, please feel free to
-directly ask that to Andrew.
+- We don't want to support stuff that has very few users (utilitarism,
+basically,
+  the biggest common good for the biggest number of people take
+  precedence)
 
-[1] https://origin.kernel.org/doc/html/latest/mm/damon/maintainer-profile.html#scm-trees
+This is implicit in many statements people make about this. What entusiasts
+ask is a completely different question:
 
+- Is this fun (for me/us), makes me feel good to work on etc.
 
-Thanks,
-SJ
+NB: personally I don't take a clear stance here, I mostly want to break apa=
+rt
+the argument and clarify what it is all about.
 
-[...]
+Yours,
+Linus Walleij
