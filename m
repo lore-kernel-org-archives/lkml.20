@@ -1,41 +1,53 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE12C4BA1E4;
-	Fri, 11 Sep 2026 21:26:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 912E94BA1E0
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 21:27:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789161979; cv=none; b=FRr7SoLY38jrOMGU8jeas+aKc2tgAglQtz+5dkzSV9XrBb4ww3Ma5o9nzRsklGmlYEzCyS+Qb0z9dlNs94AvRXY2UE7qvem8FawdVVk8C3Jamp82+wdg+CUcCs1lPd1NtAcHryM8cmRT+2Iy1WJvx8e5fO3flKZHZ55+J3xvGGg=
+	t=1789162072; cv=none; b=o4sJEf4vig6HybM/MgoRZ2sNhaHM1cPw0r3pMToD9KopZCmgpFYPtd2HBbNF7AWc7lUQiJ9SLz5YDjmzOGQA07PkNFyXQaN+8OWA0Qd7qRSZhqgL/pA/X0eGoY7Wox5uPgs6BdC7BQkJ44RtgWVMe25ke/I1Nwd7zekK7eD6bak=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789161979; c=relaxed/simple;
-	bh=wgL3MrD6bdFH+UEqPWvucihDxaa8s+4KDhrJqUU3pIw=;
+	s=arc-20240116; t=1789162072; c=relaxed/simple;
+	bh=lpPkIMwZ4nZE74cycdwPy94UWA17jHouybB8HYBYfzk=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PovT/Oal3081ZBbJZMT1QDhhuQgeXTwuekBtPw9zKdkiQSAIXZQKtkmVrGyWTnjfOhC/tWk763VzAbZkb75ne+/AaTc/CZMqjLzXAk3upSWD++SdxGoS8P3J0N2OUI7/tRRes8eJtzU9iIug2IR1/zbh9iU+iJAalv2YdSja6Bc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=w_armin@gmx.de header.b=gtKZo/FW; arc=none smtp.client-ip=212.227.15.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.de header.i=w_armin@gmx.de header.b="gtKZo/FW"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
-	s=s31663417; t=1789161969; x=1789766769; i=w_armin@gmx.de;
-	bh=35v6LAu/jRWN6vx0RDDZMQjd2RmaP9sVXxC7YgZc6ZU=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=gtKZo/FWOb6gxRaXeeTJ5FLNtN03OdHueN5FvYVJssrWhHzN2OxuBJ0oxlnI+o2s
-	 A30Z0SO1WG8EXuzx0o81+oYqGC8MzN5yHzZjI7AHu7/Mu3cGor18BuGdkxKDNIAMf
-	 /gx/fOE0oJfIcGf+OsrlgC6XYByT0fOpE5lFqI5dxwDGSM8PlkuTO3+fG6wseTrNR
-	 TbbPvtIhByggvf0UqT5ypzpDQrVj391a9S7KNHhX0iX5Ku1jD/9croPMmrn95k/By
-	 D3yES+wKKxjNSvOKMypAWao4m44ZqKqBz/v2Gx+rkUY0guu104tNKzO+aUUnykK4j
-	 C8tzhguQ2pbIdaiMZA==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx004
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MaJ7v-1xHOfk2EQ1-00Uvhe; Fri, 11
- Sep 2026 23:26:09 +0200
-Message-ID: <10085066-c512-405f-a675-bcf1e166a29a@gmx.de>
-Date: Fri, 11 Sep 2026 23:26:08 +0200
+	 In-Reply-To:Content-Type; b=EsLuPMtZZ2Tt/Xkm7XAlW9Aq28Z+bkJSv0BSBzHyyNJ1J3PciVnMZR0mbOwk1baACkxOl6JV6i1e7DR8Gwup36e+13dr+xFaUuULes0Lvb89qmuQ4SkWBHrrC/UXJPEHqITzf/zzHiC7BVSbhoKrq6MGrabEHrS+Gz9Obm/2Pi0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=grimberg.me; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=grimberg.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-484366874b0so161081f8f.2
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:27:50 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789162068; x=1789766868;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9clTUYcfoxEDLNFpVDjj8fuFA9Sb6BYXsCWxbrtAK80=;
+        b=XQwO6IuoLkBLgNOxMc1J3neD73sZSULhStOoOc6WCLdaBYcyBlIhVh6D/5LCmLYrYq
+         lfC4dEkOjO/Z3dSGoh3nACTvz7k1ilW0hqH0SlbtP9KKTX8SH5iSR9TMWDZZ1B1sHxbk
+         b/PpWQQHLU10fFyZmwG3eXi+puW0WXmxpJ7ss6K9fzEnHOEX+mz1q5cBk5AcZ+1nYvum
+         ClyZZohkURjQFQTxK/fx0L6oMiRszU1goy1hny383wtSORurE6TVhmgti7EdIy5dO7hn
+         0K5zc6WzMDpBoiUfDUeLCK9jPYw3/5PDd+llO5+fl14jEpx56Bbbp0AOrm3kXEHgd+l3
+         XnbQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxF0hMS+nsfrj6NxxLS+zMt5cnzvjXnukZ3Q1jv9q31z4jhCIeOEJUkKeNmnBKz/T3pYaBU3x0P13etYJY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kN5pSmwPbrrI+FToHyaeGwVQ3jyVX/eI3GWELoxpZsvdVzHbo8
+	Hy5H0QmeD1ZYOJR/HFLJrZC4gd5oryuwrx+YM6WcJ5FVdNdzUnjZKTGc8OLy3DN0
+X-Gm-Gg: AYBFou0q3nH6IiQsPl6a7LNqMhvJXo1SY3zghSaI05xhZas+sTqlu8WK8nzIzdmz86+
+	Q46swAqmyToXU+yn4LWMxXbeY/kcodDPZ2xGXahfkjhs+DPLypR+KxnI7t4gYbsXgLVMEJ4rDBD
+	VqjUtvN3g42P7tzRRRSXkGElSlmZwXefAG07bMQau8xbwFkQLjP/jYMNfpapeTYTb7TbQdVGNov
+	R44VDi60QHIfQHw3LTKrD5gFhgvUSkcwjonywhtLg2v5zCY6O8DJJvPjOZzeGL6KzdVExIzEuG4
+	uYMHBuAPgPbkzbLeJfme+Q4ftEagPuYwr44z00DuYH3AOi2cww2ijzordXBEK0h97GaQfLnlH48
+	YADzEl2vI5lFqxThz5RTHva8VdU4dJBwJOkPwuElPLpTWo5gHGmSbSqTyh0Pr+X0D/gvUyyWOnu
+	Lfy8bn9ozjCArABsq/BDDoQveHUZMa02Ln11VrpJTYMspdX5AC+Xv2X7krXocENGaquhlu4+YRX
+	6Qp9kIQVVnmo/+lBVATpfjeKbf6N2K+
+X-Received: by 2002:a05:6000:616:b0:485:b104:6e61 with SMTP id ffacd0b85a97d-486eb339548mr12616545f8f.20.1789162068490;
+        Fri, 11 Sep 2026 14:27:48 -0700 (PDT)
+Received: from [10.100.102.74] (89-138-77-243.bb.netvision.net.il. [89.138.77.243])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb33ea4fsm8713644f8f.21.2026.09.11.14.27.46
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 11 Sep 2026 14:27:47 -0700 (PDT)
+Message-ID: <bec91f99-4498-4be9-bf96-f3021c79f3f1@grimberg.me>
+Date: Sat, 12 Sep 2026 00:27:46 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -43,231 +55,272 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 10/10] ACPI: fan: Use more suitable cooling device data
-To: "Rafael J. Wysocki" <rafael@kernel.org>,
- Linux ACPI <linux-acpi@vger.kernel.org>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Hans de Goede
- <hansg@kernel.org>, LKML <linux-kernel@vger.kernel.org>,
- Linux PM <linux-pm@vger.kernel.org>, Lukasz Luba <lukasz.luba@arm.com>
-References: <1965933.tdWV9SEqCh@rafael.j.wysocki>
- <3631084.QJadu78ljV@rafael.j.wysocki>
+Subject: Re: [PATCH v3 3/3] nvme-tcp: parallelize I/O queue allocation and
+ startup
+To: Surabhi Gogte <sgogte@purestorage.com>, Keith Busch <kbusch@kernel.org>,
+ Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>
+Cc: Solganik Alexander <sashas@lightbitslabs.com>,
+ Roy Shterman <roys@lightbitslabs.com>, linux-nvme@lists.infradead.org,
+ linux-kernel@vger.kernel.org, mkhalfella@purestorage.com,
+ randyj@purestorage.com, adailey@purestorage.com
+References: <20260910202812.1642832-1-sgogte@purestorage.com>
+ <20260910202812.1642832-4-sgogte@purestorage.com>
 Content-Language: en-US
-From: Armin Wolf <W_Armin@gmx.de>
-In-Reply-To: <3631084.QJadu78ljV@rafael.j.wysocki>
+From: Sagi Grimberg <sagi@grimberg.me>
+In-Reply-To: <20260910202812.1642832-4-sgogte@purestorage.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:rS/S3rY+HLIvlzd1HNdQ9tno1KeLQYywTcfPZ16u5R/O9AZEiy0
- rLxR/SvfNvNiReNmDhKb7Tiw6Ida28LZmYxln3BTjjGseJkTIDytPgrn6lOSdWlJBhOi6H6
- 7RkYbc0eOss5xJb4nJv/jtx+cGKLvfqTF+VlBpl7iezD2TaZouMF7fbe9t1BP5DoxzaVl1Q
- 0IUwftaJSxU0OqNBm46WQ==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:VdoxG2PsdtI=;HpKz62ZnGfSJo/9iKgU8P/GuYxr
- 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
- 3iiqpY2yiZZ8mkYVIRXBZ6P9WFQ5vSz0sBA==
+Content-Transfer-Encoding: 7bit
 
-Am 11.09.26 um 15:07 schrieb Rafael J. Wysocki:
 
-> From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
+
+On 10/09/2026 23:28, Surabhi Gogte wrote:
+> Similar to commit 2a8513091d2f ("nvme-rdma: parallelize I/O queue
+> allocation and startup"), refactor nvme tcp I/O queue setup to use async
+> API, combining allocation and startup into a single parallel operation
+> per queue. This reduces connection and reconnection setup time when
+> there are delays in establishing connections, which is especially
+> important for high-core-count hosts.
 >
-> Instead of passing an ACPI device object pointer as devdata to
-> thermal_cooling_device_create(), make acpi_fan_probe() pass a pointer
-> to struct acpi_fan to it, which allows the callback functions in
-> fan_cooling_ops to be simplified.
+> Key changes:
+> - Use async API to facilitate parallel calls for io queue setup.
+> - Add nvme_tcp_queue_setup_ctx for propagating errors from async
+>    workers.
+> - Remove nvme_tcp_start_io_queues() and __nvme_tcp_alloc_io_queues();
+>    their logic is folded into nvme_tcp_setup_io_queues() and
+>    nvme_tcp_configure_io_queues().
+> - Allocate the io tag set before the queues so that the queue range is
+>    known, and only set up the reconnect grow case if the queue count
+>    actually increased.
+> - Serialize the cpu scan and claim in nvme_tcp_set_queue_io_cpu() with a
+>    spinlock, as concurrent callers would otherwise select the same cpu.
+>    The per-cpu counters no longer need to be atomics.
 >
-> Also avoid using acpi_driver_data() in two functions invoked by the
-> cooling device callbacks by passing struct acpi_fan pointers instead
-> of struct acpi_device pointers to them.
+> Testing on a 64-core host with 64 IO-queues shows nvme-tcp connection
+> time reduced from 61ms to 11ms.
 >
-> No intentional functional impact.
-
-Reviewed-by: Armin Wolf <W_Armin@gmx.de>
-
-> Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+> Signed-off-by: Surabhi Gogte <sgogte@purestorage.com>
 > ---
->   drivers/acpi/fan_core.c | 27 ++++++++++++---------------
->   1 file changed, 12 insertions(+), 15 deletions(-)
+>   drivers/nvme/host/tcp.c | 124 +++++++++++++++++++++++++---------------
+>   1 file changed, 79 insertions(+), 45 deletions(-)
 >
-> diff --git a/drivers/acpi/fan_core.c b/drivers/acpi/fan_core.c
-> index 8b20b8a55c13..5ad65975fbb4 100644
-> --- a/drivers/acpi/fan_core.c
-> +++ b/drivers/acpi/fan_core.c
-> @@ -54,8 +54,7 @@ MODULE_DEVICE_TABLE(acpi, fan_device_ids);
->   static int fan_get_max_state(struct thermal_cooling_device *cdev, unsi=
-gned long
->   			     *state)
+> diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
+> index fe0e581608b4..0fc244e676f9 100644
+> --- a/drivers/nvme/host/tcp.c
+> +++ b/drivers/nvme/host/tcp.c
+> @@ -7,6 +7,7 @@
+>   #include <linux/module.h>
+>   #include <linux/init.h>
+>   #include <linux/slab.h>
+> +#include <linux/async.h>
+>   #include <linux/err.h>
+>   #include <linux/crc32.h>
+>   #include <linux/nvme-tcp.h>
+> @@ -54,7 +55,8 @@ MODULE_PARM_DESC(tls_handshake_timeout,
+>   		 "nvme TLS handshake timeout in seconds (default 10)");
+>   #endif
+>   
+> -static atomic_t nvme_tcp_cpu_queues[NR_CPUS];
+> +static int nvme_tcp_cpu_queues[NR_CPUS];
+> +static DEFINE_SPINLOCK(nvme_tcp_cpu_queues_lock);
+>   
+>   enum nvme_tcp_send_state {
+>   	NVME_TCP_SEND_CMD_PDU = 0,
+> @@ -154,6 +156,12 @@ struct nvme_tcp_queue {
+>   static DEFINE_MUTEX(nvme_tcp_ctrl_mutex);
+>   static LIST_HEAD_GUARDED(nvme_tcp_ctrl_list, nvme_tcp_ctrl_mutex);
+>   
+> +struct nvme_tcp_queue_setup_ctx {
+> +	struct nvme_ctrl	*ctrl;
+> +	int			qid;
+> +	int			*err;
+> +};
+> +
+>   struct nvme_tcp_ctrl {
+>   	/* read only in the hot path */
+>   	struct nvme_tcp_queue	*queues;
+> @@ -1719,9 +1727,10 @@ static void nvme_tcp_set_queue_io_cpu(struct nvme_tcp_queue *queue)
+>   		goto out;
+>   
+>   	/* Search for the least used cpu from the mq_map */
+> +	spin_lock(&nvme_tcp_cpu_queues_lock);
+>   	io_cpu = WORK_CPU_UNBOUND;
+>   	for_each_online_cpu(cpu) {
+> -		int num_queues = atomic_read(&nvme_tcp_cpu_queues[cpu]);
+> +		int num_queues = nvme_tcp_cpu_queues[cpu];
+>   
+>   		if (mq_map[cpu] != qid)
+>   			continue;
+> @@ -1732,9 +1741,10 @@ static void nvme_tcp_set_queue_io_cpu(struct nvme_tcp_queue *queue)
+>   	}
+>   	if (io_cpu != WORK_CPU_UNBOUND) {
+>   		queue->io_cpu = io_cpu;
+> -		atomic_inc(&nvme_tcp_cpu_queues[io_cpu]);
+> +		nvme_tcp_cpu_queues[io_cpu]++;
+>   		set_bit(NVME_TCP_Q_IO_CPU_SET, &queue->flags);
+>   	}
+> +	spin_unlock(&nvme_tcp_cpu_queues_lock);
+>   out:
+>   	dev_dbg(ctrl->ctrl.device, "queue %d: using cpu %d\n",
+>   		qid, queue->io_cpu);
+> @@ -2011,8 +2021,11 @@ static void nvme_tcp_stop_queue_nowait(struct nvme_ctrl *nctrl, int qid)
+>   	if (!test_bit(NVME_TCP_Q_ALLOCATED, &queue->flags))
+>   		return;
+>   
+> -	if (test_and_clear_bit(NVME_TCP_Q_IO_CPU_SET, &queue->flags))
+> -		atomic_dec(&nvme_tcp_cpu_queues[queue->io_cpu]);
+> +	if (test_and_clear_bit(NVME_TCP_Q_IO_CPU_SET, &queue->flags)) {
+> +		spin_lock(&nvme_tcp_cpu_queues_lock);
+> +		nvme_tcp_cpu_queues[queue->io_cpu]--;
+> +		spin_unlock(&nvme_tcp_cpu_queues_lock);
+> +	}
+>   
+>   	mutex_lock(&queue->queue_lock);
+>   	if (test_and_clear_bit(NVME_TCP_Q_LIVE, &queue->flags))
+> @@ -2119,25 +2132,6 @@ static void nvme_tcp_stop_io_queues(struct nvme_ctrl *ctrl)
+>   		nvme_tcp_wait_queue(ctrl, i);
+>   }
+>   
+> -static int nvme_tcp_start_io_queues(struct nvme_ctrl *ctrl,
+> -				    int first, int last)
+> -{
+> -	int i, ret;
+> -
+> -	for (i = first; i < last; i++) {
+> -		ret = nvme_tcp_start_queue(ctrl, i);
+> -		if (ret)
+> -			goto out_stop_queues;
+> -	}
+> -
+> -	return 0;
+> -
+> -out_stop_queues:
+> -	for (i--; i >= first; i--)
+> -		nvme_tcp_stop_queue(ctrl, i);
+> -	return ret;
+> -}
+> -
+>   static int nvme_tcp_alloc_admin_queue(struct nvme_ctrl *ctrl)
 >   {
-> -	struct acpi_device *device =3D cdev->devdata;
-> -	struct acpi_fan *fan =3D acpi_driver_data(device);
-> +	struct acpi_fan *fan =3D cdev->devdata;
->  =20
->   	if (fan->acpi4) {
->   		if (fan->fif.fine_grain_ctrl)
-> @@ -105,9 +104,9 @@ int acpi_fan_get_fst(acpi_handle handle, struct acpi=
-_fan_fst *fst)
+>   	int ret;
+> @@ -2198,22 +2192,64 @@ static int nvme_tcp_tls_check_psk(struct nvme_ctrl *ctrl)
+>   	return 0;
+>   }
+>   
+> -static int __nvme_tcp_alloc_io_queues(struct nvme_ctrl *ctrl)
+> +static void nvme_tcp_setup_queue_async(void *data, async_cookie_t cookie)
+>   {
+> -	int i, ret;
+> +	struct nvme_tcp_queue_setup_ctx *ctx = data;
+> +	struct nvme_ctrl *ctrl = ctx->ctrl;
+> +	int ret;
+>   
+> -	for (i = 1; i < ctrl->queue_count; i++) {
+> -		ret = nvme_tcp_alloc_queue(ctrl, i,
+> -				ctrl->tls_pskid);
+> -		if (ret)
+> -			goto out_free_queues;
+> +	ret = nvme_tcp_alloc_queue(ctrl, ctx->qid, ctrl->tls_pskid);
+> +	if (ret)
+> +		goto out_err;
+> +
+> +	ret = nvme_tcp_start_queue(ctrl, ctx->qid);
+> +	if (ret)
+> +		goto out_err;
+> +
+> +	return;
+> +
+> +out_err:
+> +	WRITE_ONCE(*ctx->err, ret);
+> +}
+> +
+> +static int nvme_tcp_setup_io_queues(struct nvme_ctrl *ctrl, unsigned int first,
+> +		unsigned int last)
+> +{
+> +	ASYNC_DOMAIN_EXCLUSIVE(queue_domain);
+> +	struct nvme_tcp_queue_setup_ctx *ctxs;
+> +	int nr_queues = last - first;
+> +	int err = 0, i, ret;
+> +
+> +	ctxs = kmalloc_objs(*ctxs, nr_queues);
+> +	if (!ctxs)
+> +		return -ENOMEM;
+> +
+> +	for (i = 0; i < nr_queues; i++) {
+> +		ctxs[i].ctrl = ctrl;
+> +		ctxs[i].qid = first + i;
+> +		ctxs[i].err = &err;
+> +		async_schedule_domain(nvme_tcp_setup_queue_async, &ctxs[i],
+> +				&queue_domain);
+>   	}
+>   
+> +	async_synchronize_full_domain(&queue_domain);
+> +	kfree(ctxs);
+> +
+> +	ret = READ_ONCE(err);
+> +	if (ret)
+> +		goto out_free_queues;
+> +
+>   	return 0;
+>   
+>   out_free_queues:
+> -	for (i--; i >= 1; i--)
+> -		nvme_tcp_free_queue(ctrl, i);
+> +	for (i = first; i < last; i++) {
+> +		struct nvme_tcp_queue *queue = &to_tcp_ctrl(ctrl)->queues[i];
+> +
+> +		if (test_bit(NVME_TCP_Q_LIVE, &queue->flags))
+> +			nvme_tcp_stop_queue(ctrl, i);
+> +		if (test_bit(NVME_TCP_Q_ALLOCATED, &queue->flags))
+> +			nvme_tcp_free_queue(ctrl, i);
+> +	}
+>   
 >   	return ret;
 >   }
->  =20
-> -static int fan_get_state_acpi4(struct acpi_device *device, unsigned lon=
-g *state)
-> +static int fan_get_state_acpi4(struct acpi_fan *fan, unsigned long *sta=
-te)
->   {
-> -	struct acpi_fan *fan =3D acpi_driver_data(device);
-> +	struct acpi_device *device =3D fan->adev;
->   	struct acpi_fan_fst fst;
->   	int status, i;
->  =20
-> @@ -159,13 +158,12 @@ static int fan_get_state(struct acpi_device *devic=
-e, unsigned long *state)
->   static int fan_get_cur_state(struct thermal_cooling_device *cdev, unsi=
-gned long
->   			     *state)
->   {
-> -	struct acpi_device *device =3D cdev->devdata;
-> -	struct acpi_fan *fan =3D acpi_driver_data(device);
-> +	struct acpi_fan *fan =3D cdev->devdata;
->  =20
->   	if (fan->acpi4)
-> -		return fan_get_state_acpi4(device, state);
-> +		return fan_get_state_acpi4(fan, state);
->   	else
-> -		return fan_get_state(device, state);
-> +		return fan_get_state(fan->adev, state);
->   }
->  =20
->   static int fan_set_state(struct acpi_device *device, unsigned long sta=
-te)
-> @@ -177,9 +175,9 @@ static int fan_set_state(struct acpi_device *device,=
- unsigned long state)
->   				     state ? ACPI_STATE_D0 : ACPI_STATE_D3_COLD);
->   }
->  =20
-> -static int fan_set_state_acpi4(struct acpi_device *device, unsigned lon=
-g state)
-> +static int fan_set_state_acpi4(struct acpi_fan *fan, unsigned long stat=
-e)
->   {
-> -	struct acpi_fan *fan =3D acpi_driver_data(device);
-> +	struct acpi_device *device =3D fan->adev;
->   	acpi_status status;
->   	u64 value =3D state;
->   	int max_state;
-> @@ -213,13 +211,12 @@ static int fan_set_state_acpi4(struct acpi_device =
-*device, unsigned long state)
->   static int
->   fan_set_cur_state(struct thermal_cooling_device *cdev, unsigned long s=
-tate)
->   {
-> -	struct acpi_device *device =3D cdev->devdata;
-> -	struct acpi_fan *fan =3D acpi_driver_data(device);
-> +	struct acpi_fan *fan =3D cdev->devdata;
->  =20
->   	if (fan->acpi4)
-> -		return fan_set_state_acpi4(device, state);
-> +		return fan_set_state_acpi4(fan, state);
->   	else
-> -		return fan_set_state(device, state);
-> +		return fan_set_state(fan->adev, state);
->   }
->  =20
->   static const struct thermal_cooling_device_ops fan_cooling_ops =3D {
-> @@ -565,7 +562,7 @@ static int acpi_fan_probe(struct platform_device *pd=
-ev)
->   	else
->   		name =3D acpi_device_bid(device);
->  =20
-> -	cdev =3D thermal_cooling_device_create(&pdev->dev, name, device, &fan_=
-cooling_ops);
-> +	cdev =3D thermal_cooling_device_create(&pdev->dev, name, fan, &fan_coo=
-ling_ops);
->   	if (IS_ERR(cdev)) {
->   		result =3D PTR_ERR(cdev);
->   		goto err_end;
+> @@ -2255,10 +2291,6 @@ static int nvme_tcp_configure_io_queues(struct nvme_ctrl *ctrl, bool new)
+>   	if (ret)
+>   		return ret;
+>   
+> -	ret = __nvme_tcp_alloc_io_queues(ctrl);
+> -	if (ret)
+> -		return ret;
+> -
+>   	if (new) {
+>   		ret = nvme_alloc_io_tag_set(ctrl, &to_tcp_ctrl(ctrl)->tag_set,
+>   				&nvme_tcp_mq_ops,
+> @@ -2269,12 +2301,12 @@ static int nvme_tcp_configure_io_queues(struct nvme_ctrl *ctrl, bool new)
+>   	}
+>   
+>   	/*
+> -	 * Only start IO queues for which we have allocated the tagset
+> +	 * Only setup IO queues for which we have allocated the tagset
+>   	 * and limited it to the available queues. On reconnects, the
+>   	 * queue number might have changed.
+>   	 */
+>   	nr_queues = min(ctrl->tagset->nr_hw_queues + 1, ctrl->queue_count);
+> -	ret = nvme_tcp_start_io_queues(ctrl, 1, nr_queues);
+> +	ret = nvme_tcp_setup_io_queues(ctrl, 1, nr_queues);
+>   	if (ret)
+>   		goto out_cleanup_connect_q;
+>   
+> @@ -2298,12 +2330,14 @@ static int nvme_tcp_configure_io_queues(struct nvme_ctrl *ctrl, bool new)
+>   
+>   	/*
+>   	 * If the number of queues has increased (reconnect case)
+> -	 * start all new queues now.
+> +	 * setup all new queues now.
+>   	 */
+> -	ret = nvme_tcp_start_io_queues(ctrl, nr_queues,
+> -				       ctrl->tagset->nr_hw_queues + 1);
+> -	if (ret)
+> -		goto out_wait_freeze_timed_out;
+> +	if (ctrl->tagset->nr_hw_queues + 1 > nr_queues) {
+> +		ret = nvme_tcp_setup_io_queues(ctrl, nr_queues,
+> +				ctrl->tagset->nr_hw_queues + 1);
+> +		if (ret)
+> +			goto out_wait_freeze_timed_out;
+> +	}
+
+This if condition can probably move into nvme_tcp_setup_io_queues() and 
+exit early if both are the same. Other than that, patch looks solid. Can 
+you please also run blktests to see that nothing broke. There may be 
+some tests that have subtle race conditions. rdma and tcp btw.
