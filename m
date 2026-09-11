@@ -1,114 +1,169 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9BC442B742;
-	Fri, 11 Sep 2026 21:00:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F68F44838C
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 21:01:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789160435; cv=none; b=QZUeYSfqCp7JhxwNJViD2imefPJ3RN0+BRTrs4JFg6Q3kumpsc8Ue9Alte1+mO9oSnimMuTtXzw3VDPvG8701ZktLvjMmR+ElrK8+LEm4iy/NNcsZL7L1mDOS9RIIlFLoA5NElFXpvhzZ9OB8O9OABxMsXoNVxxF+YaPpxiX0Ts=
+	t=1789160469; cv=none; b=BE5Mtz54WJtQHNWjFzwYrh/1+9niPIZyCNpbN7Udh6DoT9wX6GwecNLf3Pxm6QtLt/IjJXv/6YHzB6Ay/V2Z5l+bg/T6lSKt4/si3/71snp4Rw02X08Gkyg9NZcHCOcIYCzQA6fAdmaMW1i2tgUABRpj47qtm0v2FtEtc3RtNcU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789160435; c=relaxed/simple;
-	bh=yZjf7JKFdKnfct6WVUoDxPoMXOqBcD99ZoVzXOO7gsY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jb+zYZ4n/ALVyF3zdA1DNYCLA3gb4c82QCkEEtp/qAFFFRl2Wsf98GCSa/91wJO/VopZg4uRh8UIsnsijFqlqIP0JTyThQYA1EyMq+/7Ei9wF4y72EjCXlTgo9sgxhnLPjFjc3gW2aMGyBFnc0q7KVedelTDC/VKRn0TjZdjvso=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ScS+ytAz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789160469; c=relaxed/simple;
+	bh=/W6FCmv5ibQNEpHI4GROMvUWyoZn8nstXtz7Y5px5C8=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ZjVVoOQmtTmunJPqbI1BfYRyixJzaiZyTy1igFEZjq7LjRPbx51qU7YHxaRvvUAQ1A1h2mjDKgJpG8KF6FJWQILZwdbaF4BMzkh+QryJfledwBVBED6k83its0N3oND9fj1SekuC2qPwgOjxjgoPeIVgREl/BRDED5RhKl+F9o8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KNPwnScA; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ScS+ytAz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F9741F000FF;
-	Fri, 11 Sep 2026 21:00:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789160433;
-	bh=X0v5qDdlZ+UMhSmAlZv+vR0W72nkytSOWSkoGTQSfXo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ScS+ytAz2/iqKxGyKZ4ZZFeYhfiolHMZ2vEn52zhAVtWOO2y6FJUvzBacDbEkZKAg
-	 Z3g4BgDynUOde7Bm+tHrzeM+B3dAR3vKS0XQYC3qlvjSlf3/LLMw6TT/vjNSJKdC1i
-	 VxuQb+YObH6HyAmfvN5KjpnnXZMGwNt/hX8mZOV+uKw2wlUU0YPBU/dpKzSQuJWzK4
-	 g3hIfFW56a5OPtAeuHWuBwdQ6VFik6nDY0kWEnG6Jn+v/ceRsQCxncMk9LKmMWiKUZ
-	 u/zlAm2VNQk3oqO03MR0eU2DJsX5pQMCb24YIULWjHGAwvZ+9vp2Z1qO8T9UXMP7ZV
-	 OMbfLuyTZq7Lg==
-Message-ID: <8a5abc5a-bfd4-4fc3-aec2-a567ef5c409a@kernel.org>
-Date: Fri, 11 Sep 2026 23:00:24 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KNPwnScA"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6351831so138345f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 14:01:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789160465; x=1789765265; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=W18BjSa6bE823jCNrSo5QAggwLMczPlVTE3fEsKx2B8=;
+        b=KNPwnScAFe2jcxrIlyon/k2wmuOoT5Tqcqt5fuZZMQjtGPbaKL9kPFnS36vKd2iGot
+         GpoqhZ1pU8yCcJ+iKUY/1halq3cgszxCSMC1xpTvTySZdLeq2/5xU3Y5y5fULjHKk3c2
+         w4wjC4NMVktBNnbbrpicJCx1K69y31GvqkzbZn/O/WIkT8r9R6LfSeU5ytUq9R/t5q2B
+         M5CTCU8NCW5yKpAdDsBoTxMTRUK6ujBn9J0qAb0Rr/lPjMUvxL0tE1i9aJPncbtWqN8L
+         l2TAesbl7p4S3lqI6Vhft4rq9vpgv4MvrnLafSpnRg1VIoEz01aDPZP58+rTeNGhQBGh
+         /Ojw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789160465; x=1789765265;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=W18BjSa6bE823jCNrSo5QAggwLMczPlVTE3fEsKx2B8=;
+        b=QxSnRl5E93d81aQVT1DnGTyeMw+3uyUwif+5i0MOXa0eS7Foz0sfZkU3HI1nJrXCRV
+         EOhU4SozBYfSwrA+x02PEbv71XuViZ6QUkscO9zC11JtEJKEJjKoG0VPadIGeAvqSPI6
+         QZU5LC8KhHMPLMClgof+fu+CdmnTm2xTkRY76ZjdwVN1pDUwtVuvInr4e2L7m3k++5XB
+         p+Zf4KxV2oSbRQnG6ww0TKUm6mFZLSfGj46gmwkZuVgMFdEeJGhp3xaofREiDYwfwuiU
+         bLmL9VzkTHQAYORlkM4+EvHpnyIMhLgcUezQRFmnIhYHxqFZuS8+Uv0xnVBPgYtOYzOY
+         spXA==
+X-Forwarded-Encrypted: i=1; AKwUvBx9B6Lp/Kn8OaT2ntkVr3nbwycaZVwHNTUSwo3Db/c7rheWbBw6xo1zzni5lTCACyfN+uFNrMiO6EoEzY4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nQsYvDgA7C21aKz6+49zxQ9mzoN09G2grGneaa4D5wjyX10ph6
+	rEopoVlBD6AtDYNOFTi+2b6HU9B093e25IbpTSMCPnK6CbzZs3cslVAG
+X-Gm-Gg: AYBFou2MKOb34bmQ/z4Om/B65AzJZtPVLv075sHf/2ZfCqdLZo0oiPdrEd1auWGLHyR
+	wTxe4gboH1PlOy1plyj65/zpW0tFHStw0gV0VLg3pONt+aS3En5mdDJuZxTaHsYa1WSpQcQAS9Q
+	YeVIJAK5kSap9gy0dTuodrOgWc4hDlUEYjXKDGPcKh5APVpwNy5Lx3VEBJ8aC3nXEOfMLP5Yo+Z
+	TY7YFYKZWNKuQq3LYszhAtr58q7BDX72eEeNI+UeeDJC8xirQfvw2Rdxe0clHLjZtPovEOmXCco
+	eSQi3sqdKfLRPcCNW01X/YF1Tze0mlWBtvxHotmgRWRikL2HU2IQQlm+j+mo42M98Hh89fvmTOt
+	nWg3fOAQ5vgctKaeewsud014wpZ2/q/x00zK++Ec1Kw/5US7oobdmIUoUsM+e2reEBwXaMG7wIK
+	6qi8TsmTZ5pu/+f3dRVEOrgs76ymjN36BSfkNo7FaGA2vw9Kamq4kFK6RFzMJC7kqw+05XOoZoW
+	aUERL7/A0O+QP50MvdqzdTPsnMHpB14JHK0
+X-Received: by 2002:a05:6000:646:b0:485:8ca8:caa with SMTP id ffacd0b85a97d-486eb34c229mr5448307f8f.52.1789160465448;
+        Fri, 11 Sep 2026 14:01:05 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb359f38sm7798317f8f.30.2026.09.11.14.01.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 14:01:05 -0700 (PDT)
+Date: Fri, 11 Sep 2026 22:01:02 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Nicolas Schier <n.schier@fritz.com>, Nathan Chancellor
+ <nathan@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, Nick
+ Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>,
+ Justin Stitt <justinstitt@google.com>, Masahiro Yamada
+ <masahiroy@kernel.org>, Alexey Gladkov <legion@kernel.org>, Thomas Gleixner
+ <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov
+ <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, Paul Walmsley <pjw@kernel.org>, Palmer
+ Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre
+ Ghiti <alex@ghiti.fr>, Arnd Bergmann <arnd@arndb.de>, Catalin Marinas
+ <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Mark Rutland
+ <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, Ilias Apalodimas
+ <ilias.apalodimas@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>, Peter
+ Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun
+ Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?UTF-8?B?QmrDtnJu?=
+ Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl
+ <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo Krummrich
+ <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, Tamir
+ Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>,
+ Onur =?UTF-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, Jonathan Corbet
+ <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>,
+ linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
+ llvm@lists.linux.dev, linux-riscv@lists.infradead.org,
+ linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org,
+ linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>
+Subject: Re: [PATCH 12/23] kbuild: avoid re-running compiler and linker
+ probes
+Message-ID: <20260911220102.1d3d696a@pumpkin>
+In-Reply-To: <aqRGYXKDzXZMXmmp@gremlin>
+References: <20260908-build-speedup-v1-0-5dc1ac01672d@kernel.org>
+	<20260908-build-speedup-v1-12-5dc1ac01672d@kernel.org>
+	<178901395292.3971858.13236774094648272066.b4-review@b4>
+	<20260910-translucent-sweet-sidewinder-7acacb@l-nschier-aarch64>
+	<20260911183333.1df0f2e2@pumpkin>
+	<20260911-invaluable-indigo-seal-e31aec@l-nschier-aarch64>
+	<aqRGYXKDzXZMXmmp@gremlin>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/7] proc/task_mmu: clarify shmem mapping walk
- conditions in smap_gather_stats()
-To: Suren Baghdasaryan <surenb@google.com>, akpm@linux-foundation.org
-Cc: liam@infradead.org, ljs@kernel.org, vbabka@kernel.org,
- willy@infradead.org, jannh@google.com, paulmck@kernel.org, pfalcato@suse.de,
- xueyuan.chen21@gmail.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org
-References: <20260911194145.1781926-1-surenb@google.com>
- <20260911194145.1781926-4-surenb@google.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260911194145.1781926-4-surenb@google.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On 9/11/26 21:41, Suren Baghdasaryan wrote:
-> smap_gather_stats() optimizes stats gathering by skipping the walk for
-> shmem mappings in certain conditions. Update the comment to clarify
-> these conditions and use vma_is_cow_mapping() for CoW identification
-> instead of open-coding it.
-> 
-> No functional change intended.
-> 
-> Suggested by: David Hildenbrand (Arm) <david@kernel.org>
-> Signed-off-by: Suren Baghdasaryan <surenb@google.com>
-> ---
+On Fri, 11 Sep 2026 19:24:50 +0100
+"Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+> On Fri, Sep 11, 2026 at 08:17:57PM +0200, Nicolas Schier wrote:
+> > On Fri, Sep 11, 2026 at 06:33:33PM +0100, David Laight wrote:  
+> > > On Thu, 10 Sep 2026 17:42:35 +0200
+> > > Nicolas Schier <n.schier@fritz.com> wrote:
+> > >
+> > > ...  
+> > > > Yes, skimming through the patch, I thought about that, too.  Moving more
+> > > > cc option checks to Kconfig will make building out-of-tree kmods with a
+> > > > different compiler more dangerous.  Maybe we will have to make the
+> > > > warning in Makefile's prepare (external kmods) target a bit louder.  
+> > >
+> > > One problem is that distributions have a nasty habit of shipping kernels
+> > > that are compiled with a different compiler version to they actually
+> > > ship as a compiler.
+> > > In some cases the versions are clearly the same - but the version
+> > > strings differ.  
+> >
+> > yeah, I guess you hit the mark.  
+> 
+> I mean this is a problem that already exists for any flags already specified in
+> Kconfig.
+> 
+> Out-of-tree modules are historically something that we don't go to great lengths
+> to support and haven't historically worried about breaking, either.
+> 
+> I'm sure distros can find ways around this if a problem were to arise. But I
+> don't think it's something to worry about all that much.
+> 
+> I expect a _lot_ of these, in any case, would only require the compilers to be
+> within a fair few major versions of one another anyway.
 
--- 
-Cheers,
+That is true at the moment when the version of the compiler being used
+is checked.
+For instance it doesn't matter if modules are compiled without 'asm goto
+with output'.
+But if you putting the options in Kconfig the compiler being used better
+not be older - or it might not support the options.
+It isn't too bad if the compile fails, but some are silent.
+
+IIRC it is Ubuntu that has different version strings for the same compiler
+version, and Oracle that ships kernels compiled with much newer compilers
+that they install by default.
 
 David
+
+> 
+> >
+> > --
+> > Nicolas  
+> 
+> --
+> Cheers, Lorenzo
+
