@@ -1,73 +1,257 @@
-Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com [209.85.210.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 004CD45D92E
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 12:18:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA12646EF98;
+	Fri, 11 Sep 2026 12:18:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789129088; cv=none; b=Du4HtIUteo7K5VHsjIiN74mVgBc/U1NkLuqmUMjgCQXgzcN8i09AstUhptJN/aApV8VqKhsjgKej876h69/+iYhu+WucH35OeMTUK/XiU3FjApMhQp1ozWxlMiQsxReu4uWUjCqkCFMqX7/FseA7yMLbwT0Cdfahax/4CSqI0Ow=
+	t=1789129099; cv=none; b=CmaObxA3PA3CBA4OpV26+PpJ57uYmwbFKrQfdh1oxp6ykiYVz0/AYq4Na3diId03ABDlYo/5Aw3I+GrLqUB+IoNuwm0n9a+2QEgrAOd5LCYkQLnj0JDv55c75K8G4rb0JGj9lR6q3dOvgbREQ65ziPqBtrAyIBeem0g3SmyQNqs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789129088; c=relaxed/simple;
-	bh=AhrVkAtD4xDLoxEwCm1NnTa8eEhq1WhmXGRnKyqP0Wg=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=YGaZALKQNqxBTevpE+uB69t/i2G7xqdWG6EC8P1H2pD14Y/dYHPcSNxSbnWp9JFEgxyX1+gWx9OAuemNI87zU5FBMUM/TZ6EMJkHgV0gNQjfS9BO7BKmDM07GaWL38la4i7wkVBpUwuAweNiTSUlOO+uMa4NI/IcLzM0erpVCaA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f69.google.com with SMTP id 46e09a7af769-7f4fa572ba2so517239a34.3
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 05:18:04 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789129083; x=1789733883;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=sNwKRxstYK9ohce7fyEishGWwXgmSe6DS5doV0Qi2qg=;
-        b=Hl+iWg1esqfq148DRFyAWlgq5SZ0AAgpcpfOf+No2FVMFRsrpJ61gVCs6ur9PgWSWC
-         dWLQCQdXCusIDaVh0JlAGl8P44/H/d9+gOPPsg8g8WhMpeIyJWwNCWXL2BXa/MGdFjj6
-         cPwMRv6dtM4WwUgDCW+aIRZznXuMXyhiKpuqWtfsbE4wpD5dWq2J8Ilma2arq6IDPX5N
-         oPH8fgGZh0brIWO11USpLkbe3OdgTIkiK6VPYhsCihjvtmgUuNX1y3Ib/mySMFbh5AOG
-         s4ruZUEuXbFrGtBD/KmAkwxOOJXTSgH8FbHdZp98o3C8RP/1dwOhGGcUdN7LZ8i/j4iN
-         Dr8A==
-X-Forwarded-Encrypted: i=1; AKwUvBxmX+i+UdK0dt1KZe/sz/4/jmBN4qrqSnB78RG79T6o80wbIltQpG+5TveIc2b98eAPz4R8wQw443kmTQE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nBYoNOOGlmw5P4LcSmTpxhxtVBNxPwsxeps0LajvuRDil9r5z0
-	gvtUyx+51q5JEwQ62IValt1bN2EQQVShm1krO2wA14SJndGmqbusyNCoQAStJjHiHsUtg3e+HN/
-	VxZJuHKf0akQ5dGkeuJQCooMBf2jKy9MZF/hETxDKDWPFiuihBNW7JNLubTA=
+	s=arc-20240116; t=1789129099; c=relaxed/simple;
+	bh=NzzY7RUdWhKU2ZfFof5lCsnTC/UnuSb4itF8/l+oQfY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Ht8b0Naz/G3Eoz+jBslw4yH0OQHzUsN/sOC+Xt06PPyuN/OKJhmkIL9XPVsDfp2uE/3EP/b5PbY1YeMqn+i2W21g9eflEBN7lC9t+INhQvfj3kzPqBJ466+NymdYo6oIQCgNYrHMQjxdZXn30+SaYAr+eGVKn58/62GR6X0ETPw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aAQ+hldR; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aAQ+hldR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2E6E1F000FF;
+	Fri, 11 Sep 2026 12:18:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789129091;
+	bh=jHKVUDAo0z6whhrbNJF6SbfebzVXyt+Gb9SGUTy+yyQ=;
+	h=From:Date:Subject:To:Cc;
+	b=aAQ+hldRYIpJ6p0ID74ri/6MY9oOOJ8vjpAHP+ZrrTZLv7SfQowrcHJlh3wDdz1a2
+	 54aXH7q0KVSmzSdCkwanyJyTX2iLlYstI6vKa9u6pG8/SnxhFq6UTGsJfIryByNXNH
+	 78vFSRtqG9f9dlTi66FjFrgNn5JUF0DqgD0gJmbzt/svJb2nVhXZUGjQwr1EuYuooK
+	 +zhSiGLj5WSmnfJADDSnS/gYBeSJUaixEwlzhylE1YJnuip3YI1XCReighjjEBapGk
+	 3snE4TF89RgAyKlIS8nwufk6i80XVEXkDc9Nhr+MOPtP7gD2wPgwPF3psWnUAroxOI
+	 qkZBdg3ZYVELg==
+From: Maxime Ripard <mripard@kernel.org>
+Date: Fri, 11 Sep 2026 14:18:04 +0200
+Subject: [PATCH v2] drm/ci: Add CI pipeline for drm-misc branches
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:858c:10b0:6b9:1d72:e28b with SMTP id
- 006d021491bc7-6c0bb1f7239mr1813894eaf.27.1789129082968; Fri, 11 Sep 2026
- 05:18:02 -0700 (PDT)
-Date: Fri, 11 Sep 2026 05:18:02 -0700
-In-Reply-To: <20260911114108.855991-1-eadavis@sina.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa3f17a.6e6c5f9e.28f11f.0044.GAE@google.com>
-Subject: Re: [syzbot] [jffs2?] possible deadlock in jffs2_do_clear_inode (2)
-From: syzbot <syzbot+743079a09058321247d8@syzkaller.appspotmail.com>
-To: eadavis@sina.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260911-drm-drm-misc-ci-v2-1-1847f89585cb@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNwQ7CIBBEf6XZs2sosUQ8+R+mhwpru9GCWQzRN
+ Py7yN3DHN5MZmaDRMKU4NRtIJQ5cQwV9K4Dt0xhJmRfGbTSRlml0cvatHJy6BjJGWfsoEyNoba
+ eQjd+t8XLWHnh9IryaQe5/7n/t3KPPR6sVwNpfaTper6TBHrso8wwllK+UEnhjq8AAAA=
+X-Change-ID: 20260902-drm-drm-misc-ci-ec6c69506609
+To: Helen Koike <helen.fornazier@gmail.com>, 
+ Vignesh Raman <vignesh.raman@collabora.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Nathan Chancellor <nathan@kernel.org>, 
+ Nick Desaulniers <ndesaulniers@google.com>, 
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ llvm@lists.linux.dev, Maxime Ripard <mripard@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6653; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=NzzY7RUdWhKU2ZfFof5lCsnTC/UnuSb4itF8/l+oQfY=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFmLP9ZVSdxuWVafcuJbwOo58YpOL/9fDXl2Lp9Jecr/t
+ 6btObIqHVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAimZcZa6Xm/Jzdn3XT+IqV
+ Rt1XKa2m+9XeEloqf3T2bn37p3TRxym5m1Inqaf7T2pav2O+7VS3RMaGbZ/Pden8u6+/QZgzq4G
+ 5JiDmxq5lx36E/WpPsVsrlvj8wraHRhKdDOuv7ZNymDA71M4dAA==
+X-Developer-Key: i=mripard@kernel.org; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 
-Hello,
+The DRM CI infrastructure builds upon Mesa's CI to run IGT tests on
+hardware. Its focus is on functional testing on a selected number of
+targets.
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+The concern for drm-misc is different: it merges a large number of
+patches across many platforms, and build or unit test breakages happen
+on a regular basis. Adding build and unit testing for drm-misc has been
+on the back of our minds, and a first attempt was made last year. The
+feedback was to rely more on the existing infrastructure.
 
-Reported-by: syzbot+743079a09058321247d8@syzkaller.appspotmail.com
-Tested-by: syzbot+743079a09058321247d8@syzkaller.appspotmail.com
+Introduce a CI entry point that runs on pushes to drm-misc-next,
+drm-misc-fixes, and drm-misc-next-fixes. It reuses kunit.yml,
+check-devicetrees.yml, and the freedesktop ci-templates, while defining
+build templates inline to avoid pulling in the Mesa pipeline.
 
-Tested on:
+A single Debian container with LLVM handles cross-compilation to all
+three architectures. The pipeline compiles the kernel using defconfigs
+from the drm/tip rerere-cache branch, runs the DRM KUnit tests, and
+checks device tree bindings.
 
-commit:         50d05c7c Merge tag 'landlock-7.3-rc3' of git://git.ker..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=114f16f9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=85bc5cc2fc7394d9
-dashboard link: https://syzkaller.appspot.com/bug?extid=743079a09058321247d8
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-userspace arch: i386
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=1336ac8e580000
+Link: https://lore.kernel.org/all/20250319-greedy-sturgeon-from-avalon-ac758f@houat/
+Acked-by: Vignesh Raman <vignesh.raman@collabora.com>
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
+---
+Changes in v2:
+- Run dt_bindings_check
+- Run on push instead of MR after some discussions with Dave and Sima
+- Test run here: https://gitlab.freedesktop.org/mripard/kernel/-/pipelines/1744733
+- Link to v1: https://lore.kernel.org/r/20260902-drm-drm-misc-ci-v1-1-49d05e228eab@kernel.org
+---
+ drivers/gpu/drm/ci/drm-misc-ci.yml | 147 +++++++++++++++++++++++++++++++++++++
+ 1 file changed, 147 insertions(+)
 
-Note: testing is done by a robot and is best-effort only.
+diff --git a/drivers/gpu/drm/ci/drm-misc-ci.yml b/drivers/gpu/drm/ci/drm-misc-ci.yml
+new file mode 100644
+index 000000000000..4ab87547794e
+--- /dev/null
++++ b/drivers/gpu/drm/ci/drm-misc-ci.yml
+@@ -0,0 +1,147 @@
++# CI pipeline for drm-misc-next, drm-misc-fixes, and drm-misc-next-fixes.
++#
++# Runs on pushes to drm-misc-next, drm-misc-fixes, and
++# drm-misc-next-fixes. Compiles the kernel for arm, arm64, and
++# x86_64, runs the DRM KUnit tests, and checks device tree bindings.
++#
++# A single container image is built using freedesktop ci-templates with
++# the packages needed for kernel compilation and LLVM for
++# cross-compilation. QEMU is installed at runtime by the KUnit jobs.
++#
++# check-devicetrees.yml and kunit.yml are included directly. build.yml
++# and the Mesa container/build pipelines are not:
++# they pull in hundreds of Mesa-specific jobs and templates that would
++# each need to be individually stubbed or disabled. The build templates
++# (.build:arm32, .build:arm64, .build:x86_64) are defined inline.
++
++variables:
++  CI_TEMPLATES_COMMIT: &ci-templates-commit aec7a6ce7bb38902c70641526f6611e27141784a
++  # Project whose container registry stores the built images
++  FDO_UPSTREAM_REPO: mripard/kernel
++  KERNEL_BUILD_CONTAINER_TAG: "2026-09-11-01"
++  LLVM_VERSION: "19"
++
++default:
++  before_script: []
++
++include:
++  - project: 'freedesktop/ci-templates'
++    ref: *ci-templates-commit
++    file:
++      - '/templates/debian.yml'
++  - local: drivers/gpu/drm/ci/check-devicetrees.yml
++  - local: drivers/gpu/drm/ci/kunit.yml
++
++stages:
++  - container
++  - build
++  - static-checks
++  - kunit
++
++# --- Pipeline rules ---
++workflow:
++  rules:
++    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH =~ /^drm-misc-(next|fixes|next-fixes)$/
++      when: always
++
++# kunit.yml's jobs inherit .build-rules through the .build:* chain.
++# Pass everything through since the pipeline is already gated by
++# workflow:rules.
++.build-rules:
++  rules:
++    - when: on_success
++
++# --- Container build job ---
++# Single container with all build tools. LLVM handles cross-compilation
++# to arm and arm64, so no architecture-specific containers are needed.
++debian/kernel-build:
++  extends: .fdo.container-build@debian
++  stage: container
++  variables:
++    FDO_DISTRIBUTION_VERSION: trixie
++    FDO_DISTRIBUTION_TAG: "${KERNEL_BUILD_CONTAINER_TAG}"
++    FDO_DISTRIBUTION_PACKAGES: >-
++      bc bison ca-certificates cpio curl
++      clang-${LLVM_VERSION} flex gcc gzip
++      lld-${LLVM_VERSION} llvm-${LLVM_VERSION}
++      libelf-dev libssl-dev
++      make perl pkg-config
++      python3 python3-dev python3-pip python3-venv
++      swig xz-utils yamllint
++
++# --- Build templates ---
++# Stubs for templates referenced by check-devicetrees.yml. The
++# originals live in build.yml and container.yml which we do not
++# include.
++.build:
++  extends: .build-rules
++
++.use-debian/x86_64_build:
++  extends: .build-base
++
++.build-base:
++  image: "${CI_REGISTRY}/${FDO_UPSTREAM_REPO}/debian/trixie:${KERNEL_BUILD_CONTAINER_TAG}"
++  needs: ["debian/kernel-build"]
++
++.build:arm32:
++  extends: .build-base
++  variables:
++    KERNEL_ARCH: "arm"
++    DEFCONFIG_ARCH: "arm"
++
++.build:arm64:
++  extends: .build-base
++  variables:
++    KERNEL_ARCH: "arm64"
++    DEFCONFIG_ARCH: "arm64"
++
++.build:x86_64:
++  extends: .build-base
++  variables:
++    KERNEL_ARCH: "x86_64"
++    DEFCONFIG_ARCH: "x86"
++
++# --- Kernel-wide build jobs (LLVM) ---
++.kernel-build:
++  stage: build
++  timeout: 45m
++  variables:
++    GIT_DEPTH: 1
++    DEFCONFIG_URL: https://gitlab.freedesktop.org/drm/tip/-/raw/rerere-cache/drm-misc-${DEFCONFIG_ARCH}_defconfig
++  artifacts: {}
++  before_script:
++    - drivers/gpu/drm/ci/setup-llvm-links.sh
++    - curl -L --retry 4 -f --retry-all-errors --retry-delay 60 -o .config "${DEFCONFIG_URL}"
++
++kernel-build:arm32:
++  extends: [.build:arm32, .kernel-build]
++  script:
++    - make ARCH=arm LLVM=1 olddefconfig
++    - make ARCH=arm LLVM=1 -j$(nproc)
++
++kernel-build:arm64:
++  extends: [.build:arm64, .kernel-build]
++  script:
++    - make ARCH=arm64 LLVM=1 olddefconfig
++    - make ARCH=arm64 LLVM=1 -j$(nproc)
++
++kernel-build:x86_64:
++  extends: [.build:x86_64, .kernel-build]
++  script:
++    - make ARCH=x86 LLVM=1 olddefconfig
++    - make ARCH=x86 LLVM=1 -j$(nproc)
++
++# --- Disable dtbs-check jobs ---
++# dtbs-check validates compiled DTBs which may produce warnings from
++# code we are not responsible for. Keep dt-binding-check only.
++dtbs-check:arm32:
++  rules:
++    - when: never
++
++dtbs-check:arm64:
++  rules:
++    - when: never
++
++# --- KUnit jobs ---
++# kunit:arm32, kunit:arm64, and kunit:x86_64 are defined in kunit.yml
++# and implicitly enabled here through the .build:* templates above.
+
+---
+base-commit: 99c95ce1b07081d7944d637ba7d72d835c0d520a
+change-id: 20260902-drm-drm-misc-ci-ec6c69506609
+
+Best regards,
+-- 
+Maxime Ripard <mripard@kernel.org>
+
