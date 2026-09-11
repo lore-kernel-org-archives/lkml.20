@@ -1,202 +1,149 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABC4E3EC839
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 18:50:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789152646; cv=none; b=Jg4lQi0kPRY2G1/iS6nhMQzdFK4zHjqbVkPBZ4Q6Wq8rB3IKlaC9/Ft4xsfEJV56tZ8OeT59Mje8WCw5lSmbRZUjafsmM0KfYTJO/c4qG6ohsBEQSQg91djCjDyjY0J90o0m/l1zaVFHNE4OVh1q/zGe0W7pDpFKxC0fzl+FDhw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789152646; c=relaxed/simple;
-	bh=uCsYVZ753xnVaLSMgrHyQzxwKaXZtDGn/0u7AvcO/pY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=K8yk/Hy+OUf7lCQRdB0XgC2k6s67D4fAVOfLI2sdf5X1MFlOvh80hgjuzyCbT/qBCnagakXCQ6wRKWqt60elFNEujq/gz3Fxg1JYgibymsZui24KjKiEQTPi98MAHIdJxKhHMpzOL18tdFb0MddnasuVcUU6jeGCriSsUOEMBjI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gzeVXFZY; arc=none smtp.client-ip=209.85.216.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13DFB3F075A
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 18:50:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789152656; cv=pass; b=sXjOJe7Mni7YvuUPU1uNpA3MBPd9hNs1suIMn1sd1f0gp+owuCGptRqaFLKZrIhrEyltA9iZozUhykA8i0TcRyOcsHmxKYpfTb5Lck9waTjKcXbQNUcHhUjrnP0uyAeBfv3Cf3uDU/l2eB2e2hrqWWZqzGivJnARC7vZkYblssY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789152656; c=relaxed/simple;
+	bh=RtqsMSgbSK0DoXzM/jOKS0u9JMf6ypFVGoks8rGZP34=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=rjmjsA3N1pjW35RUP+Wjuk83mEvySp6Dv+NJ8ARcVjitbti60gUwZ5Xv/55oEqByFf7V+64dYoMD48E68zkqpEe17wQc2PneMEEDfjROBgNaSkglYTRIQ1i0QZBeJDm+lBN/L1lYUofT7+Gqpc/bD+EF8dyQke0O34eV9PDCWKE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z67J7PON; arc=pass smtp.client-ip=74.125.228.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gzeVXFZY"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-398b3d66515so1633510a91.0
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 11:50:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z67J7PON"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f9f0b1fso36772966b.2
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 11:50:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789152653; cv=none;
+        d=google.com; s=arc-20260327;
+        b=LjO5OxieizXFAqemTK705KANwbZ70emtSQmK6gr1GQTUBN8gVpov2SE3ZZWN43wSuk
+         Wx5LJBv44SzYHQQ+X2S8YiwK9MiSqDza80E8V2LuTuZPTNt5sCjAs427KYoiSGWi42dm
+         EN95YxbOnzUSpA/B70WbBW4RI+T1amIBQokceVKXOKHjeMZF6gKFHY07KzdLyZ/swB9R
+         EYXxnY/Ly0ij26NiZ91tUduCpMVOzPLA14f0YoDZishxU2UHDOQK8Gg9OLpqNGvpxmg6
+         +XZiFzVKuXflajzuiAnPhE5SeY5Q94RGL02i2wsKwcnvgD9W7vhu4SI7pug89BXZFHpH
+         kgog==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ypEeHjBqTijbQav3RLhdA7zJA9N6dFormi6rhg8jlO0=;
+        fh=pYFAhle4iqpNOF8XX+TcyQxhIXuTOjl/JMjqQRyX2uY=;
+        b=pPs++a5brVJYufgvlZKfWEm3TyHnqVck6Y/7DK1bvVQG7C4yJnplP76K+fjKqD64mV
+         QMxlaOsTBcXC8YGOibJezummaxkGxbeszTeyAtXwYkODS5aph/JitapQaURujvRphYHv
+         oIm0rSrEZTXmYAocTBx7cnRr+BmfFka9eZ0S266TZZWAFwO+U/FDJtXJlMqfCjAyVFaN
+         VsB35RaYaoHBqWhS999qnCoXA9ytqdvY4TcpLl2v209UBuiZbZE7CWJTvho7OosFgKzm
+         WNsYm5VEyKusHyQvFin9wsF9lZbXXgS8M8AfoSATLEwcniA4krU01fzBm4tMZ9wCgh69
+         lsbw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789152643; x=1789757443; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Vwui60iV1sbNyFImmoRi6Sq4sW+pHlWYoAVUwnnhsoc=;
-        b=gzeVXFZYSd/mW5wCWIgHmVjTJQFjMn7a9ReaPJbRDUjMINBC9ksuHWApP1ZDujTKgm
-         ejIkLnrc/3yQiyVL9F0iyYti60NBy+85nup2EfbnyxeCcvcbGG1ZkBG4TDC6UuP+HjvK
-         hB3+wYGtKF4ipTiS/BMfFI7nBipeCcz4ED0yfseTxaKiqKbV99hqGm8NX6BZYAHDf0o1
-         nRG8wbNNYop5e1vh9LabSwSp39AIQ6o4jQR0cNPd0jcC2EVivV/jZSiVTxrpqaQgGqqE
-         nTXE3IYXaedTL2e35GF1gIvBaFQbdq4w2EtLUcqeRMQqOjThYH2AousgXJN3b00ZhPYS
-         h66g==
+        d=gmail.com; s=20251104; t=1789152653; x=1789757453; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ypEeHjBqTijbQav3RLhdA7zJA9N6dFormi6rhg8jlO0=;
+        b=Z67J7PONtf4j90DVRuIUDXP1J+SojR1pWnezXkF8esU1lwCUc/BQMoBFPuBwRrCJdO
+         xjpH53Y+SYsEL74cXMUEhjqb7wCR1tYlsWRuTsp1LmZclofVXQ2uPBFJ2wpBpkQxbmEH
+         uC6UsLiUaZPuKURFv9rku4t2XjNNSZHtjrQUl0dWix0wm3RCFOGYDrFFfkY1tyx852ip
+         WxNMv8siY3637rcO+OSP/lUPndtusgAvaF7Mt528SW4fwE+FFcpJh9WmRk/vwwuOyRSv
+         KrxgpuB9JwK5WnBkVmTisFg8wmlLovMznmAotZG9Ts/RAwI+oq2rffyRXaBhL5bH4KZu
+         tucA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789152643; x=1789757443;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=Vwui60iV1sbNyFImmoRi6Sq4sW+pHlWYoAVUwnnhsoc=;
-        b=nwohwfoy+U0QAB04SU03QxSRtzg1cGToEIBd2BdsBDLVK0bmYI2GE9yiECCgXbdncg
-         uo9SVXhwhfHpmxClZ93RiRzXOyLA7zUYKad8EnSCk+3kft70gxMpR5/PDWRI7AzQIt9/
-         lsWhtgjH6o7KEC3WVLtudMvM6XMC5UHfWTxpZJjYUe3jTnPRHMd8LEA4/bQZC9+Ph6/k
-         c+oMbZUVESgOHTLEItHGa/uLIWEOIJg6J469yCDmM6RlO4m9/KHMq1vdYUetfvmHo2U5
-         PXTUpLhu8On/T8ek4qCFVGMTa8JLd986u99cMXTlG1h8UwGbATVPc0ssfcFmEKLJq1lQ
-         lOKg==
-X-Forwarded-Encrypted: i=1; AKwUvBy8nBl4zwtx8b/Yt6b0UTXJZb0jPtMFK+BupWcKBDg9aHw0X9qqilAKqrtgtv7uZ0hgDmxFKRVROYUMWK0=@vger.kernel.org
-X-Gm-Message-State: AFuF++m16TikVEztJvJCtQxmdW0SxBpaBBoQZd6QL2qhQGdwDvdn0OBS
-	BsVDZt5RRJxJ8LuNZlY8UgVVCMu8YXqwN/C9aQ7zgBsAYygBfXfQA/Qt
-X-Gm-Gg: AYBFou2bY/W78K6o0skmm3+6KKGPNSJ/hUsVn+Hoz3fzSq1WqPCKmmqB4A0RGVgeQCM
-	xm9gliNtRtJijf9Q/pVIbqJeW5LJicVebMdjHvJvJdRySBMEj/31EsYkoX7dcspuKb0/iglhHDF
-	5+WWUIm1EvtcP0G60JoOpvqsI+Z6l0PqmS5vBsvLyfK7M0wwTtjK8G5nknYZDO75cZmvpR0Jnzg
-	bfuy2vAXH3/3C4101iw1YCj1gr27YALNAAYCJ8G3hlW2pF9I0OPurBFv7uUc0+RwEOdIhjh0e26
-	pQAxuWDvLbuTzmVLQMTnMae6MZH3WMMjP0+uhqQ3p27A9A/ohGFR/YeEnSLCv+Fl6OFcZsgN1QQ
-	wfqNpP1Xpn/VmVJvtIv1cMtX1PoqhgBb2tnySGsm/vYgsZ8mz0Ifz4VvcTVgP4HWSnOqE1V1PYX
-	/ibN1D53KMh3JEB58QWZliY0uU24i6k1GBVc+6ltgvTxSbnvJBRcgtokD73+FYXlz9EJfJVEVkL
-	ZgdqbwsvbCtKcodl6IX4EJPBQgRNr5UlMO5yHuvaYvt5s3eNUtTTN11UkoEXJCWRm0=
-X-Received: by 2002:a17:90b:224d:b0:38e:659b:f366 with SMTP id 98e67ed59e1d1-39d9b984500mr8915050a91.0.1789152643128;
-        Fri, 11 Sep 2026 11:50:43 -0700 (PDT)
-Received: from localhost (ec2-35-80-130-216.us-west-2.compute.amazonaws.com. [35.80.130.216])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d98e602e7sm6767203a91.5.2026.09.11.11.50.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 11:50:42 -0700 (PDT)
-From: "Patrick Lu (Anthropic)" <perf.patrick.lu@gmail.com>
-Date: Fri, 11 Sep 2026 18:49:49 +0000
-Subject: [PATCH v2] writeback: bound cleanup_offline_cgwb() rescans by
- rotating scanned inodes
+        d=1e100.net; s=20251104; t=1789152653; x=1789757453;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ypEeHjBqTijbQav3RLhdA7zJA9N6dFormi6rhg8jlO0=;
+        b=PgF/egFSOvL3/xyclvJQj/rhesngYGrfEsCjcgKw3OAyQhbY2T95e3v8Zf2H8gbOi+
+         5gwof2iAsiUaff9AL27FhW+aWh/taYvJXB1Mt9tdQxNRVuN2kXIv9qhCD9zyzM47BdMn
+         4dPv04rI/8HJeEacRI+qbPlJQVEfgjLpcb75/84cdfBqC97S+XESw2cyVPJtD0S4Kv4K
+         P3ig2wLslkhiCAQWtEnQjAX9fj6r8bR+G+9oXcPytQlTr0nQT4qrwgz5b3CWMa3g42RT
+         Jo3JiHbqVf3LJy0vfb9tzRxyIJ2SkAwopnFc4JhxI731F707QTIjyBJXtM5xB83OzZAs
+         jv7A==
+X-Forwarded-Encrypted: i=1; AKwUvBxLujHBi5C0QUzCjs78TWyZ4ipKDc1ercnXTdXHhSqDZ4IJcvq2I8T+1sT9o8w8hvqg5zKiISNo82SQ6uE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lPr6K8cTXW5234C+fl8opj/P7r1fpRH+cQeW5IAimhFgMPpv5A
+	ATEXYPA0V2jK6lT+DSfGwApT1+h/HRylbmiph45akeR9LY5uxglM5WBrkz0eFpGp9veNs6QggGh
+	hNEQBkk8vmxjAgQnRquc7AQCfr3xNsXk=
+X-Gm-Gg: AYBFou2C1p1EWN5vgR9F4qMFI2/MnTA7kWakIevv28wGtz+8d6nYynibv+5BT+ULJZw
+	vpVRLH+hPedEeEGGtT+EvGPqRdme8t7kzuwPweQken0IMODO+gWU2p51H9aTQ33mwMaxUhNrfpF
+	cc/68aOBzD77k1ijQ5ts+1IqW85/I4sTtPZcehB2QtR1fnIgVudEGQSeOcOL/UYNkumyDSMFRwm
+	F+ghSmhiDRUfa5rEwbHGCe4LPyYRGb1ynhgYAVuo8glkgFCkqeUWvbJCwRJiSsPh63VXlapqJfL
+	J6eS0McEduGMxOanfIqLIQD14o654pQXoq+6H5JCelvGwlWBHVhnSfhapPHPr3FDXQXYPhfENg/
+	/IbDnxHVSTcxHHsRTl0Ca+PoqNg0fc8XnOnIEQqHu854hdc0Y1ik6FG5Z9hgYuEuKhu/EI82Sxf
+	i2wZNo/M6sdUAejhp8GXG+oIDyEl/1VrHYoTkYel9Tu3oBUrUM77PMLRauYBtkRkEK+httfs0HD
+	MEX
+X-Received: by 2002:a17:907:7211:b0:c29:53ba:a4cd with SMTP id
+ a640c23a62f3a-c29666f90fdmr483569066b.11.1789152653082; Fri, 11 Sep 2026
+ 11:50:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260911-wb-cgwb-rotate-v2-1-a9ab253a1295@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAExNpGoC/3WOSw6CMBCGr0K6tkIbhNSV9zAs2jKFKlIyraAh3
- N0WVy7cTPLNzP9YiQe04Mk5WwnCbL11YwR+yIju5dgBtW1kwgteFaIQdFFUd3GgCzIANayW9cl
- IbVpNomhCMPa1G16bL/unuoEOySV9KOmBKpSj7tNqmHLtFod3wHw//QYkRW99cPjeO84sOf+tM
- zPKqOGghChbLsvq0j2kHY7aPUizbdsHOddOJfAAAAA=
-X-Change-ID: 20260909-wb-cgwb-rotate-f17a75facfdc
-To: Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
- Andrew Morton <akpm@linux-foundation.org>, Dennis Zhou <dennis@kernel.org>, 
- Roman Gushchin <roman.gushchin@linux.dev>, Tejun Heo <tj@kernel.org>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, 
- "Patrick Lu (Anthropic)" <perf.patrick.lu@gmail.com>
-X-Mailer: b4 0.15.2
+References: <20260910001209.116465-1-rosenp@gmail.com> <6a65465e-f860-434f-9dad-59d9538c97b8@broadcom.com>
+ <CAKxU2N-DJS+ZotHsgami8pc2tnC2+V3nL4JZrqgf=rpTpFHNEA@mail.gmail.com>
+In-Reply-To: <CAKxU2N-DJS+ZotHsgami8pc2tnC2+V3nL4JZrqgf=rpTpFHNEA@mail.gmail.com>
+From: Rosen Penev <rosenp@gmail.com>
+Date: Fri, 11 Sep 2026 11:50:42 -0700
+X-Gm-Features: AcwNN1UBWpQbvDkHrDHhG5kJOPM-dImHVyKgKakwlCkD2k7qVSn-bXfs2dvbyzk
+Message-ID: <CAKxU2N_Z9OHUx4LBmxU+8GZ3_vFYTVuCt04P4XwjyfkRBZ8AOQ@mail.gmail.com>
+Subject: Re: [PATCHv2] ARM: dts: BCM5301X: AC56U: add nvram node
+To: Florian Fainelli <florian.fainelli@broadcom.com>
+Cc: devicetree@vger.kernel.org, Hauke Mehrtens <hauke@hauke-m.de>, 
+	=?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	"moderated list:BROADCOM BCM5301X ARM ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>, 
+	open list <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-cleanup_offline_cgwb() prepares at most WB_MAX_INODES_PER_ISW inodes
-per call and is called again until the dying wb is drained, but every
-call walks wb->b_attached and then wb->b_dirty_time from the same end.
-Inodes already prepared (they stay on the list with I_WB_SWITCH set
-until the switch worker runs) and inodes that cannot be switched
-(I_FREEING, I_WILL_FREE, !SB_ACTIVE, DAX, already on the target wb)
-stay where they are, so each pass rescans a growing run of them under
-wb->list_lock and a full drain is quadratic in the number of inodes on
-the list. With ~17M inodes attached to one dying cgwb we saw this end
-in soft lockups, with CPUs reported stuck for 21-48s.
+On Thu, Sep 10, 2026 at 11:56=E2=80=AFAM Rosen Penev <rosenp@gmail.com> wro=
+te:
+>
+> On Thu, Sep 10, 2026 at 9:46=E2=80=AFAM Florian Fainelli
+> <florian.fainelli@broadcom.com> wrote:
+> >
+> > On 9/9/26 17:12, Rosen Penev wrote:
+> > > Add it and set for gmac0, which is the only GMAC used on this board.
+> > >
+> > > nvram size found from a random bootlog online.
+> > >
+> > > Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> > > ---
+> > >   v2: fix typo.
+> > >   .../boot/dts/broadcom/bcm4708-asus-rt-ac56u.dts    | 14 +++++++++++=
++++
+> > >   1 file changed, 14 insertions(+)
+> > >
+> > > diff --git a/arch/arm/boot/dts/broadcom/bcm4708-asus-rt-ac56u.dts b/a=
+rch/arm/boot/dts/broadcom/bcm4708-asus-rt-ac56u.dts
+> > > index c80ac16ad949..9ab618a097b1 100644
+> > > --- a/arch/arm/boot/dts/broadcom/bcm4708-asus-rt-ac56u.dts
+> > > +++ b/arch/arm/boot/dts/broadcom/bcm4708-asus-rt-ac56u.dts
+> > > @@ -25,6 +25,15 @@ memory@0 {
+> > >                     <0x88000000 0x08000000>;
+> > >       };
+> > >
+> > > +     nvram@1c080000 {
+> > > +             compatible =3D "brcm,nvram";
+> > > +             reg =3D <0x1c080000 0x180000>;
+> >
+> > Why is not the nvram node moved to bcm5301x.dtsi given it is common to
+> > all of the chips?
+> To avoid probe errors on hardware where sizes are unknown.
+I looked at this again. It makes no sense to centralize:
 
-Walk both lists from the oldest end and move every scanned inode to
-the newest end, so the next pass starts where the previous one stopped
-and the drain becomes linear. b_attached is unordered, so nobody sees
-the reorder there. b_dirty_time is ordered by dirtied_when, but the
-oldest unscanned inode stays at the end move_expired_inodes() picks
-from, sync takes the whole list regardless of order, and prepared
-inodes leave the list as soon as the switch work runs and get a new
-dirtied_time_when on the new wb anyway, so the only inodes left out of
-order are the ones that can never switch (DAX), and only on the dying
-wb.
++       nvram@1c080000 {
++               compatible =3D "brcm,nvram";
++               reg =3D <0x1c080000 0x180000>;
 
-Fixes: c22d70a162d3 ("writeback, cgroup: release dying cgwbs by switching attached inodes")
-Cc: stable@vger.kernel.org
-Acked-by: Tejun Heo <tj@kernel.org>
-Acked-by: Roman Gushchin <roman.gushchin@linux.dev>
-Assisted-by: LLM
-Signed-off-by: Patrick Lu (Anthropic) <perf.patrick.lu@gmail.com>
----
-Seen in production on a 6.18-based kernel: with ~17M inodes attached
-to one dying cgwb, a node spent 36 minutes in back-to-back
-wb->list_lock holds by the cleanup scanner (~6ms each, ~46% of wall
-time, starving writeback on that wb); with v1 of this patch the same
-workload drains in ~30 seconds. Also seen on stock Amazon Linux 2023
-6.12.68 as isw workers spinning on the list_lock in
-inode_switch_wbs_work_fn() while cleanup_offline_cgwbs_workfn() runs.
-
-Tested v2 with a QEMU A/B at 100k inodes on b_attached and 100k
-lazytime inodes on b_dirty_time: the per-pass scan under list_lock is
-flat on both lists where unpatched (and v1 on b_dirty_time) grows
-across the drain, all inodes switch, and on-disk timestamps match after
-sync. v1 was also run patched vs unpatched on production-class hardware
-at ~17M attached inodes.
-
-Josef Bacik's patch making the drain loop report a Tasks-RCU quiescent
-state [1] fixes BPF/ftrace detach stalls behind the same drain; this
-patch bounds the walk itself. The two are independent.
-
-[1] https://lore.kernel.org/linux-mm/20260909-cgwb-tasks-rcu-qs-v1-1-967a7754771f@toxicpanda.com/
----
-Changes in v2:
-- Rotate b_dirty_time as well, walking both lists from the oldest end
-  so the expiry still sees the oldest unscanned inode first (Jan)
-- Drop the unrelated comment updates
-- Kept acks from Tejun and Roman since the b_attached side did not
-  change
-- Link to v1: https://patch.msgid.link/20260909-wb-cgwb-rotate-v1-1-f2eb994d2a46@gmail.com
----
- fs/fs-writeback.c | 25 ++++++++++++++++++++-----
- 1 file changed, 20 insertions(+), 5 deletions(-)
-
-diff --git a/fs/fs-writeback.c b/fs/fs-writeback.c
-index e744f9f9d43f..ea3eb40bf828 100644
---- a/fs/fs-writeback.c
-+++ b/fs/fs-writeback.c
-@@ -727,19 +727,34 @@ static bool isw_prepare_wbs_switch(struct bdi_writeback *new_wb,
- 				   struct inode_switch_wbs_context *isw,
- 				   struct list_head *list, int *nr)
- {
--	struct inode *inode;
-+	struct inode *inode, *tmp;
-+	LIST_HEAD(scanned);
-+	bool full = false;
-+
-+	/*
-+	 * Walk from the oldest end and move scanned inodes to the newest
-+	 * end, so the next scan resumes at unscanned inodes instead of
-+	 * re-walking an ever-growing run of prepared and skipped ones.
-+	 * For b_dirty_time this keeps the oldest unscanned inode at the
-+	 * end move_expired_inodes() picks from; b_attached is unordered.
-+	 */
-+	list_for_each_entry_safe_reverse(inode, tmp, list, i_io_list) {
-+		list_move(&inode->i_io_list, &scanned);
- 
--	list_for_each_entry(inode, list, i_io_list) {
- 		if (!inode_prepare_wbs_switch(inode, new_wb))
- 			continue;
- 
- 		isw->inodes[*nr] = inode;
- 		(*nr)++;
- 
--		if (*nr >= WB_MAX_INODES_PER_ISW - 1)
--			return true;
-+		if (*nr >= WB_MAX_INODES_PER_ISW - 1) {
-+			full = true;
-+			break;
-+		}
- 	}
--	return false;
-+	list_splice(&scanned, list);
-+
-+	return full;
- }
- 
- /**
-
----
-base-commit: e14d4302cbd0de773960bec33c2281508c8d8855
-change-id: 20260909-wb-cgwb-rotate-f17a75facfdc
-
-Best regards,
---  
-Patrick Lu (Anthropic) <perf.patrick.lu@gmail.com>
-
+The reg and @ values are correct here but not for all devices. There's
+also nvram@1e3f0000 and nvram@1e1f0000 as examples.
+> > --
+> > Florian
