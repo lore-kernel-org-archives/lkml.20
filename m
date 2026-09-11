@@ -1,142 +1,112 @@
-Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D5DC3ACA6F;
-	Fri, 11 Sep 2026 08:19:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.222
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A84545629A
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:20:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789114795; cv=none; b=m99x+luv2/I9c9mrGzEafwEGuFu52efwIMz4wTvsug2dIFun9BdTfENRxK3TYvzwZ2+2YMbL/S/K01WW/8/QjOaF7L/3wmz4jztNQykRLcNm2FwIsL4VP11T7MndgC9a7mPCL66MYp3hW1GKtTluZZdxpxk+F3C+ssK+cKCoDw8=
+	t=1789114803; cv=none; b=dRttY6rbCMiLcSZuEL4nZe+MVxSegVbPQ1UrUqK5sCVPDL2ovX0QMssKQO23BqufXDneEzRdk0VFzDlOIoUnK5cvbkweGVEsdMDCa4xWn0eXDNTmtJe9oyaxobbQWVjHfB/Wnl8GHAREBVJGzP2thow2B3Vy9U3GMsbEhsCxl0w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789114795; c=relaxed/simple;
-	bh=z3OYYiSsddSRydFxGjCmoFTiAMj0wTdLvLEaV80PuVo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=Gp/wqO4K+KdCR2LyDP58w+9cxNC+m/BmgKstZT+YlZNzM+L+1cQLTVLmKTsxnK7nRWxeOnjMyjqsehd+wOw3I1kEYKB1rWp94/uUeQiaw7I88YzhlFJHmgNxEBZtju3NuQl8LcUCWP44szodG1XhajrHjZq2tdsM8BBAtMwmsX4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=pLvxGjqS; arc=none smtp.client-ip=113.46.200.222
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1789114803; c=relaxed/simple;
+	bh=5d+nBMlmkUKKmZzBSr3vTufMhxlvPlbEcm68Z1jOeHs=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=r0YH8oWCypC6G4y/370lQsSPeec3FmH8Y/ivI2ATlO1T1NiKBWdaURzo/jnu81VAZJCFTkTX1Fnqg+9i4BACEkJGjJc71YPTcm1OLAypUSP54vdSAH0R1ZZetK98qQ7DHVp79nav3/8QNnWywvQJO8/0ePpSaLx/MwK4IX725no=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VN9xZ5NM; arc=none smtp.client-ip=209.85.215.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="pLvxGjqS"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=DE5zARm1WiMEsfgjTTF4N0W92kd6jmsXzW2TA0JqO4g=;
-	b=pLvxGjqSDVVZWgMHGLKbmYAIWr8kI0PJBj/87XvcTbLIaUUwBBPvM4zXHtbqC5QTApKmrkpOV
-	MJPHShVGAjcRSKjAbnaK2vII8KR1phaRwEwNbCagERmQXBdiOYYHB9rM7dWNVmO8jQib1n5BITS
-	fJYK8/iSH+RtFpyuoVWlSOc=
-Received: from mail.maildlp.com (unknown [172.19.162.92])
-	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4hh6cy1D1WzLlX5;
-	Fri, 11 Sep 2026 16:08:50 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id AB37E40565;
-	Fri, 11 Sep 2026 16:19:45 +0800 (CST)
-Received: from [10.67.109.254] (10.67.109.254) by
- kwepemk200008.china.huawei.com (7.202.194.74) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Fri, 11 Sep 2026 16:19:44 +0800
-Message-ID: <aa37cd26-b870-47c7-abe9-75370a33f1d1@huawei.com>
-Date: Fri, 11 Sep 2026 16:19:42 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VN9xZ5NM"
+Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-ca12086c06eso679465a12.0
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 01:20:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789114800; x=1789719600; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Pkkl4LJEG0capi//WgTWNXOHfKwEBVRDjjNXSY4gWOk=;
+        b=VN9xZ5NM1TBSsP1VyHXCk9qDmKpJKJFAZoxqjFlE6/9Cin7OYGDIdfyHM+KCtSmz8T
+         KRAiJZcDgo3dFSEfb5Q8YX3+FcxgSjF6/7foUTWc2Sh5JXG3I3b34OEXu5sS7oBUd+1U
+         5rzaig88hXTZNwQdevqdSdTSAub9R8qBmxH/dm2lB4fHGZ8xKPm5ySdiWBOyf9JXR7Hc
+         tsBJqdUBDgE/BvuymESFrhmHHqr6KULjaH/hiPereepSdfDwEGb6VJyxuClbeN20TZv1
+         vyoY0a53Gba/wMJYXZAQT4H7vlIaslmMAL1aoO2wmEtHvd/MjXuI0b4Z4ERYHDOvEo+S
+         GOLQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789114800; x=1789719600;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Pkkl4LJEG0capi//WgTWNXOHfKwEBVRDjjNXSY4gWOk=;
+        b=AyLuVkb9/k1UbiqqYZ6Zt7o/KRvyMLGLT6uD94gXYXk479T40OSwOBo/nAjLC2KzXt
+         tvX68betwxsd4HymBVW+PG8+Vs/BX7c+Emvh2jtdb3zj/Q8rVhCoZ9VKpDjIbjrYGS1T
+         g5wP/NpGY6Dp702tUp8vX2kw9QXNTAdQgyYhkiN3Zh+TSxJg4Rfv1yq8gktjkK7Tt3gl
+         MPUqLGIWkcj9RCalW8596aWcXI42Y6y/DU5RNKNK/d6c1OQXRe7fWuURzVAXMY4NAUko
+         S/GEOjzE8nH6nVeBaQ5ggWWEgEB2P8s4S0HfZkQ+lUEtpxoxVQu6mRJ6/Iq42j+XaqvI
+         m6eg==
+X-Forwarded-Encrypted: i=1; AKwUvBwRNduWjP16ARwwodEFPH5Lp8K+NECgOK+XmrcaVty3blgMEsWMOpo8OA4uPX1KgASZSIjaedRyDp8heMU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nSmxlxLXe8z4Rq0jYrvqMPeK1pPozUTRw1ts000f1WSGVILWRO
+	Nnhfpu3StjeoQ7Sc8JaKUQFbu/Gaf/DvX1JDEsHlTGtR4X6asd42JQbhVYlFOQ==
+X-Gm-Gg: AYBFou2oC571hRoyDr2L/p2JJDHYFb6HWqvUconP2MaKCC0YQohzYBmWEFRZmlk/Zuz
+	+3+EHvfo+IKjfR9tl+7MP+egF9tp9kepcIgPw4kryle+g2sCQrMVdjPyGaZXbtAzUJqLnzWiIAC
+	xq+HLJoKJGUIHR6jHKtSj1BwBMcPPg+OQdKijP5iAHwu0g0v8sFIqVDWos+Vw4IX4IlJJcf4lX9
+	OGO6jlSlCris476mrucZOlOt/8gTSzobFAuOj7JkIzz8puQo1lpQHAmKi9X0sniAY4plbf/5brc
+	mfTA0efTRxccVsrOBrceQoLs/0g/BNA1AQupK+3aT8GeoVv7qTB7FUzj3QsYfZwSzQV5fmSneTo
+	ttAOumPtMot9EzYg2Uk2rOOdUaZN+auOJ2aqkuW/B1L15CBPSWcymSAlT0vthX50ABJFXBJ8aIQ
+	ztqYh6Ht5GEov5cSPdAZP69C7N6KhvR/RW9IuxnkJVsbKsuDLtn7l9EJ8bZtJGr0fHfE8WFo0pb
+	DntHDKrGXb5I1Yde6E3iK4mxTpPVw==
+X-Received: by 2002:a17:90b:574c:b0:38e:9045:babe with SMTP id 98e67ed59e1d1-39d9bd99cb7mr5589203a91.7.1789114800368;
+        Fri, 11 Sep 2026 01:20:00 -0700 (PDT)
+Received: from embedsky001.tail6d6b2f.ts.net ([183.34.211.247])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d9947b847sm3599006a91.7.2026.09.11.01.19.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 01:19:59 -0700 (PDT)
+From: Yonghao Zhang <hyz3367@gmail.com>
+To: andersson@kernel.org,
+	mathieu.poirier@linaro.org
+Cc: loic.pallardy@st.com,
+	linux-remoteproc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yonghao Zhang <hyz3367@gmail.com>
+Subject: [PATCH] remoteproc: core: Set trace buffer name for diagnostics
+Date: Fri, 11 Sep 2026 16:18:10 +0800
+Message-Id: <20260911081810.740028-1-hyz3367@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 04/40] KVM: arm64: Preserve host MPAM configuration
- when changing traps
-To: Ben Horgan <ben.horgan@arm.com>
-CC: <amitsinght@marvell.com>, <baisheng.gao@unisoc.com>,
-	<baolin.wang@linux.alibaba.com>, <carl@os.amperecomputing.com>,
-	<dave.martin@arm.com>, <david@kernel.org>, <dfustini@baylibre.com>,
-	<fenghuay@nvidia.com>, <gshan@redhat.com>, <james.morse@arm.com>,
-	<jonathan.cameron@huawei.com>, <kobak@nvidia.com>, <lcherian@marvell.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<peternewman@google.com>, <punit.agrawal@oss.qualcomm.com>,
-	<quic_jiles@quicinc.com>, <reinette.chatre@intel.com>,
-	<rohit.mathew@arm.com>, <scott@os.amperecomputing.com>,
-	<sdonthineni@nvidia.com>, <tan.shaopeng@fujitsu.com>,
-	<xhao@linux.alibaba.com>, <catalin.marinas@arm.com>, <will@kernel.org>,
-	<corbet@lwn.net>, <maz@kernel.org>, <oupton@kernel.org>,
-	<joey.gouly@arm.com>, <suzuki.poulose@arm.com>, <kvmarm@lists.linux.dev>,
-	<zengheng4@huawei.com>, <linux-doc@vger.kernel.org>, Shaopeng Tan
-	<tan.shaopeng@jp.fujitsu.com>
-References: <20260313144617.3420416-1-ben.horgan@arm.com>
- <20260313144617.3420416-5-ben.horgan@arm.com>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <20260313144617.3420416-5-ben.horgan@arm.com>
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- kwepemk200008.china.huawei.com (7.202.194.74)
 
+rproc_trace_read() (in remoteproc_debugfs.c) prints the name of a
+trace buffer whose device address could not be resolved, but nothing
+ever assigns trace_mem.name, so that the diagnostics always prints
+an empty string:
 
+	Trace  not available
 
-在 2026/3/13 22:45, Ben Horgan 写道:
-> When KVM enables or disables MPAM traps to EL2 it clears all other bits in
-> MPAM2_EL2.  Notably, it clears the partition ids (PARTIDs) and performance
-> monitoring groups (PMGs). Avoid changing these bits in anticipation of
-> adding support for MPAM in the kernel. Otherwise, on a VHE system with the
-> host running at EL2 where MPAM2_EL2 and MPAM1_EL1 access the same register,
-> any attempt to use MPAM to monitor or partition resources for kernel space
-> would be foiled by running a KVM guest. Additionally, MPAM2_EL2.EnMPAMSM is
-> always set to 0 which causes MPAMSM_EL1 to always trap. Keep EnMPAMSM set
-> to 1 when not in a guest so that the kernel can use MPAMSM_EL1.
-> 
-> Tested-by: Gavin Shan <gshan@redhat.com>
-> Tested-by: Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>
-> Tested-by: Peter Newman <peternewman@google.com>
-> Tested-by: Zeng Heng <zengheng4@huawei.com>
-> Tested-by: Punit Agrawal <punit.agrawal@oss.qualcomm.com>
-> Reviewed-by: Zeng Heng <zengheng4@huawei.com>
-> Reviewed-by: Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>
-> Reviewed-by: Jonathan Cameron <jonathan.cameron@huawei.com>
-> Reviewed-by: Gavin Shan <gshan@redhat.com>
-> Acked-by: Marc Zyngier <maz@kernel.org>
-> Signed-off-by: Ben Horgan <ben.horgan@arm.com>
-> ---
->  arch/arm64/kvm/hyp/include/hyp/switch.h | 12 ++++++++----
->  1 file changed, 8 insertions(+), 4 deletions(-)
-> 
-> diff --git a/arch/arm64/kvm/hyp/include/hyp/switch.h b/arch/arm64/kvm/hyp/include/hyp/switch.h
-> index 2597e8bda867..0b50ddd530f3 100644
-> --- a/arch/arm64/kvm/hyp/include/hyp/switch.h
-> +++ b/arch/arm64/kvm/hyp/include/hyp/switch.h
-> @@ -267,7 +267,8 @@ static inline void __deactivate_traps_hfgxtr(struct kvm_vcpu *vcpu)
->  
->  static inline void  __activate_traps_mpam(struct kvm_vcpu *vcpu)
->  {
-> -	u64 r = MPAM2_EL2_TRAPMPAM0EL1 | MPAM2_EL2_TRAPMPAM1EL1;
-> +	u64 clr = MPAM2_EL2_EnMPAMSM;
-> +	u64 set = MPAM2_EL2_TRAPMPAM0EL1 | MPAM2_EL2_TRAPMPAM1EL1;
->  
->  	if (!system_supports_mpam())
->  		return;
-> @@ -277,18 +278,21 @@ static inline void  __activate_traps_mpam(struct kvm_vcpu *vcpu)
->  		write_sysreg_s(MPAMHCR_EL2_TRAP_MPAMIDR_EL1, SYS_MPAMHCR_EL2);
->  	} else {
->  		/* From v1.1 TIDR can trap MPAMIDR, set it unconditionally */
-> -		r |= MPAM2_EL2_TIDR;
-> +		set |= MPAM2_EL2_TIDR;
->  	}
->  
-> -	write_sysreg_s(r, SYS_MPAM2_EL2);
-> +	sysreg_clear_set_s(SYS_MPAM2_EL2, clr, set);
->  }
->  
->  static inline void __deactivate_traps_mpam(void)
->  {
-> +	u64 clr = MPAM2_EL2_TRAPMPAM0EL1 | MPAM2_EL2_TRAPMPAM1EL1 | MPAM2_EL2_TIDR;
-> +	u64 set = MPAM2_EL2_EnMPAMSM;
+Copy the generated "trace%d" name into the memory entry, so the
+diagnostics identifies the buffer failed to translate.
 
-Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
+Fixes: a987e6b91a5a ("remoteproc: fix trace buffer va initialization")
+Assisted-by: Claude-Code:glm-5.3
+Signed-off-by: Yonghao Zhang <hyz3367@gmail.com>
+---
+ drivers/remoteproc/remoteproc_core.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-> +
->  	if (!system_supports_mpam())
->  		return;
->  
-> -	write_sysreg_s(0, SYS_MPAM2_EL2);
-> +	sysreg_clear_set_s(SYS_MPAM2_EL2, clr, set);
->  
->  	if (system_supports_mpam_hcr())
->  		write_sysreg_s(MPAMHCR_HOST_FLAGS, SYS_MPAMHCR_EL2);
+diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
+index 1ed406714849..263e12f022ea 100644
+--- a/drivers/remoteproc/remoteproc_core.c
++++ b/drivers/remoteproc/remoteproc_core.c
+@@ -574,6 +574,9 @@ static int rproc_handle_trace(struct rproc *rproc, void *ptr,
+ 	/* create the debugfs entry */
+ 	trace->tfile = rproc_create_trace_file(name, rproc, trace);
+ 
++	/* keep the name for the diagnostic in rproc_trace_read() */
++	strscpy(trace->trace_mem.name, name, sizeof(trace->trace_mem.name));
++
+ 	list_add_tail(&trace->node, &rproc->traces);
+ 
+ 	rproc->num_traces++;
+-- 
+2.34.1
 
