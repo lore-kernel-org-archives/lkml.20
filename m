@@ -1,107 +1,105 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3B3825771
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 00:58:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FA1C1A5B9E
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 00:58:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789088319; cv=none; b=dZ+TS1VreWSYaC5Uolh+VDbyxxC3e5/TzKR976YYMtPM2C2yvUQd4cQxHg3DTRv8N61kh0Qj+uySDwgh/h6BlG+ON8U8qUeg1XpD+uFDRnxoxG/QGijeO9P0wpBRW7wUsjlI3cv30FJw0YHQo/RSY3IZLjgdvL5icUt0wuor03s=
+	t=1789088328; cv=none; b=dkWXFJCuqoDOLHp7J/0zLb+yO9QS0J0tusfsoy1LAl8c9ci3pzmsK/w8jIZ2K/kJaysmCR6esAex6Bcrwpj8ZtpHf8BFF+xaL+KrnbmRHs3mmsVg40C1tR51tMjI5P+VJbDdfHnXkXojTO6sSadN1mx3RRdTekiPb1rN+BMzD5k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789088319; c=relaxed/simple;
-	bh=A265HADcB7R78V4B7WaaMJOPNRhCgF3KC+2zEGVJfuc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qvKgbIT0+damsNrsXFOIcSI15a+h1x2iIULjNPeMgf9mee2+a/m1n//QoYu9GV3X6/1n9/Ag1Uf46ZnVgal9L5+uJczExQHUciP69hq+diBh7M2D9IB3tqzG1URFb6cyhbT/TQTPl4PmFcyDw3Q3b5n80VjomY8NtJILzvxOe3U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AO+9+bOA; arc=none smtp.client-ip=209.85.214.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789088328; c=relaxed/simple;
+	bh=wClLg0yaVE7ZNlfOejYMjeuBPlKktDttE2UMYYQRfL0=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=WNQ7Yiw8bmDjHTM7wxkHj96+mFWtt4qnWT+vLNKnyFjrDvv/Wng71CgFujklTGMOMv/gAA3f4EYqfQjAkujS9oILTSOWuzopEIyoH5aO2+CIRW+qqVGDalkzCpwqcvNtNZEEcQ9A3Iu1CeFthPWF8xTh+u84wZywxRLuW7u4QAg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=TEzrwIVz; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AO+9+bOA"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2dd020a2e44so3200385ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 17:58:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789088317; x=1789693117; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=3zf8XnoSX09VWqI6ohFXF2kiQZv/9kfAXq5rTnrECXk=;
-        b=AO+9+bOAKW+LuY+ctXvo42bX1umc8OwZPhpPtWQJnvdZ0j+Yov/S6HerXDbdEx+Ov4
-         Cwf1+YqPvnnudxZFAm4+IP7raj0vJTnxryHHzpNeSeCqaJXHvo5inrydNSym4BXgxOuV
-         c2iH1rdB+WyDcKtQpEGZAYa67hHfvN0DtkO0mROQNQGYnDpcaqWFDcXAjENzLBjSrycv
-         pZOyMqYy/M8C0QQzcQYOIyRYj0hGHwuUPjeAZJOx29zwcAn8jLEJbH3Co8NdehdJ55Od
-         bpN7f7KGHiCqqdNCAZRuGG+9gKd/ourcBvEO3xTP2eU1G5gk6vJQzmLqOu7xKiGQyonA
-         1XwQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789088317; x=1789693117;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3zf8XnoSX09VWqI6ohFXF2kiQZv/9kfAXq5rTnrECXk=;
-        b=BmdoSVzx+DRZtSTBNHp834Hko34V2nXgDQjcccTTEoWYi4HY7Cj0inOVi9D3w02bEQ
-         9S7AftPbkeKQMo9v7+TIyPohU3Fz9sf6HH2TbCFnqezwO3FD5WmBNO+A00yDYryBQIQV
-         Cl+zA/LSQtwJ0aBb+bJ3SM3js03LJkI1hE2hbIuzY1IxUV+zsU1DqprNXIL+pJIkysyb
-         uMr4kE2jEAExMbOyUVXiutAcunglVVwt+NDPL/EHcZNLZashl+/+8cEwC48hb03DRmOX
-         bDLjg6jTXb/ONXMTGxn4R2Oi/x6KTSr8RPwou1jqxHFT4Zm/BEF1EnFx8oCAYgzj8Wzo
-         rgKQ==
-X-Forwarded-Encrypted: i=1; AKwUvByzVvbBrrSzZ6b1mXSdM7bpSDd13uscNhPL/kCjqC7aJyGBVBbL6UwHmG00/QOzVIPaJY8KlfbZD5/+lPY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nsg2THmGfbj1VCZpQinB+J+H6VV0a1dsxu+lTSYGZ2cSgI3VSW
-	00eU45rXZaXC0XA6WwoQWqUcKfMD5ffFq7Dn4n6HyxWWZtCiz5Po0MuA
-X-Gm-Gg: AYBFou0PQ36uFDKjSNbHq0BWkU/1dOt4o1PRxbStN2RWnc4eqeSnkipj0dXEPblUjke
-	Qyl0oEBRIYH5dGbNDxO8QRl3Lc3qDqRMCuORS3gKI+rPw9/G5nO7Zdt6j6lyE2oS1VMwjJYO4hj
-	T//bD8CGQz/aztfD9Gq562728CehIDpSncZQWYaLW9RUNM63kuVfmhrq6mfP0/9UMFnJUXjFHhy
-	KHlej2PpMup/VE/TCLHDI8M1IdkwCs1RRRvCcH4IWhhuqEErHceu2j7PT6NzRfCGp6NM5UH3ocw
-	gppAKygMMH+S7LoInFf10PAIj0r55B/Tkc268ZQDilttinYguPG8jbC48x1sGAsi//sVxTpNmPX
-	rIBkYBRdAlaa3SU9+LT9DCdBMXr8/uHCXN+eUNZPdG15RaFNfAg/hQkiYooDpt02gYRa8FVUifL
-	fgy3sz+SebGF/+bgvcrFBFBG+DplxissXrZRdOaL1M+C1o8W6hatMuy2uhvBu8hoHvbA1aDJQJo
-	lj16d2yaT9g
-X-Received: by 2002:a17:90a:fc48:b0:39a:e983:d4bd with SMTP id 98e67ed59e1d1-39d9c3527b5mr2180437a91.24.1789088317108;
-        Thu, 10 Sep 2026 17:58:37 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14365b8f1f7sm1919922c88.11.2026.09.10.17.58.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 17:58:36 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Thu, 10 Sep 2026 17:58:35 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: "Thomas Richard (congatec GmbH)" <thomas.richard@bootlin.com>
-Cc: Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Werner Gartner <Werner.Gartner@congatec.com>,
-	linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, stable@kernel.org
-Subject: Re: [PATCH 1/2] hwmon: (cgbc-hwmon): Fix current sensors ID lookup
-Message-ID: <b7a59fe6-f8a9-49ae-bbff-c3785dc19ecd@roeck-us.net>
-References: <20260910-cgbc-hwmon-fix-and-new-sensors-v1-0-ef13ae2fa147@bootlin.com>
- <20260910-cgbc-hwmon-fix-and-new-sensors-v1-1-ef13ae2fa147@bootlin.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="TEzrwIVz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789088326; x=1820624326;
+  h=date:from:to:cc:subject:message-id;
+  bh=wClLg0yaVE7ZNlfOejYMjeuBPlKktDttE2UMYYQRfL0=;
+  b=TEzrwIVzSGP7UwOLvJ/oCLJNlkGGAOAWRMLGQCkTONo1BAKX/j1rBVaI
+   tG14gbpnE7bweMIWjB8rQEW0azkadiFZPjne0seftoFmCh5Wf/iPXkBtQ
+   iqPctPMaEmXUQDPaXE1ez93QLoemMdo3suPPEAuewRyjX8wiO4dPGtF3+
+   2jLaF217Z45Bvl7jBpHriZeAF2csJ0HlhHHUGOeH1PyA6JqQHlaQakh/0
+   /ABZICyz731exvNquDECksBViM80jpsHxeLley7aj2rShOMUf1G45frti
+   wmYV7rrBpr+/bUbKqg9wFPfM0PyHGwsg+hDjvMFDiX/dArMt+NenoPpdV
+   Q==;
+X-CSE-ConnectionGUID: +ebahQymSNionfe8aznyDA==
+X-CSE-MsgGUID: 0TBwefe7RZ6qiMcuXp6u6g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11901"; a="89422644"
+X-IronPort-AV: E=Sophos;i="6.27,96,1787036400"; 
+   d="scan'208";a="89422644"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 17:58:46 -0700
+X-CSE-ConnectionGUID: XEU3bjSxQlGispXVvQljOA==
+X-CSE-MsgGUID: lx+ekBHXQEKtoD+y0f4prA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,96,1787036400"; 
+   d="scan'208";a="270410924"
+Received: from lkp-server02.sh.intel.com (HELO 0a3643a6ed9d) ([10.239.97.151])
+  by orviesa010.jf.intel.com with ESMTP; 10 Sep 2026 17:58:44 -0700
+Received: from kbuild by 0a3643a6ed9d with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x4pbG-000000000kX-0KFl;
+	Fri, 11 Sep 2026 00:58:42 +0000
+Date: Fri, 11 Sep 2026 08:57:43 +0800
+From: kernel test robot <lkp@intel.com>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ K Prateek Nayak <kprateek.nayak@amd.com>,
+ Charlie Jenkins <thecharlesjenkins@gmail.com>
+Subject: kernel/futex/core.c:62:16: sparse: sparse: cast truncates
+ bits from constant value (123456789abcdef becomes 89abcdef)
+Message-ID: <202609110834.wO7fAXlN-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260910-cgbc-hwmon-fix-and-new-sensors-v1-1-ef13ae2fa147@bootlin.com>
 
-On Thu, Sep 10, 2026 at 03:28:21PM +0200, Thomas Richard (congatec GmbH) wrote:
-> Current sensors on the Congatec Board Controller don't use consecutive IDs,
-> unlike other sensor types (voltage, temperature, fan). The driver assumed
-> consecutive IDs and performed a simple lookup, which caused an unknown
-> sensor warning. Define current sensor IDs explicitly.
-> 
-> Changes the warning on conga-SA7 (type and channel are correct now).
-> Before:
->   Board Controller returned an unknown sensor (type=2, channel=17), ignore it
-> After:
->   Board Controller returned an unknown sensor (bc_type=1, bc_id=11), ignore it
-> 
-> Cc: stable@kernel.org
-> Fixes: 08ebc9def79f ("hwmon: Add Congatec Board Controller monitoring driver")
-> Signed-off-by: Thomas Richard (congatec GmbH) <thomas.richard@bootlin.com>
+Hi Peter,
 
-Applied.
+FYI, the error/warning was bisected to this commit, please ignore it if it's irrelevant.
 
-Thanks,
-Guenter
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   08df884136f1c1197bab2a27814404fd329d9aac
+commit: b78b0b65825275f58336a43611a700de174be8c3 futex: Use runtime constants for __futex_hash() hot path
+date:   6 weeks ago
+config: i386-randconfig-063-20260911 (https://download.01.org/0day-ci/archive/20260911/202609110834.wO7fAXlN-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+sparse: v0.6.5-rc1
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260911/202609110834.wO7fAXlN-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: b78b0b658252 ("futex: Use runtime constants for __futex_hash() hot path")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609110834.wO7fAXlN-lkp@intel.com/
+
+sparse warnings: (new ones prefixed by >>)
+   kernel/futex/core.c:532:38: sparse: sparse: cast removes address space '__user' of expression
+   kernel/futex/core.c:532:51: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected unsigned int [noderef] [usertype] __user *naddr @@     got void * @@
+   kernel/futex/core.c:532:51: sparse:     expected unsigned int [noderef] [usertype] __user *naddr
+   kernel/futex/core.c:532:51: sparse:     got void *
+   kernel/futex/core.c:548:38: sparse: sparse: cast removes address space '__user' of expression
+   kernel/futex/core.c:548:51: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected unsigned int [noderef] [usertype] __user *naddr @@     got void * @@
+   kernel/futex/core.c:548:51: sparse:     expected unsigned int [noderef] [usertype] __user *naddr
+   kernel/futex/core.c:548:51: sparse:     got void *
+>> kernel/futex/core.c:62:16: sparse: sparse: cast truncates bits from constant value (123456789abcdef becomes 89abcdef)
+
+vim +62 kernel/futex/core.c
+
+    59	
+    60	static __always_inline struct futex_hash_bucket **futex_queues(void)
+    61	{
+  > 62		return runtime_const_ptr(__futex_queues);
+    63	}
+    64	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
