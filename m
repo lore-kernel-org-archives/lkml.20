@@ -1,303 +1,131 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C641B30ACF2
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 13:23:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com [209.85.208.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B449F485CF9
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 13:23:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789133025; cv=none; b=B7NKV8IQSYYeariIiot+wC5cN17i3vdQCMf0+GViO2qidF/tjSyzh56JOkmJOVwsYZPA9QEAPXfDHrjmaUdZmu8ybijR27n9Yj8sSvqHBe3XQqV17BXpYQoktn2JlgKuhfEGrb72EegZpjIOfN+qLgGesRGAK148oKsJdcf8bPA=
+	t=1789133035; cv=none; b=R/C8j3MIT5KG1Qy6OZplq9/Z0kRCkwcwo62SpykUya/UwJLbS/obcencwF8nAeB7W3dAamf1+2vhkIDKO5ecL1tJ2Pf3X8DO5RjXX38jBxPY2O9SNAGZnzNP1PuPGVaMRAspEJZR3wZnuNKy4syC5Eyt+1sMIXrRiPiH49g+xq4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789133025; c=relaxed/simple;
-	bh=5jxEc7P7PC4dHCPzJ6RVgUlF5WVZ1+Frf7XpPEE7Uss=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=e+1YINnbFc6noCffIwrCrMRfAeOtcm/udtk6z39R+wwm3DcxxmQ039cby281AAxunUCZL0aaXY7q9Ehc65Urfr97YaQvAb9op9cyYsT/uaxonWOHVaYZ09+raUszmQorVNGwHJ7e/Ut6IyToqNrxDEgykfX1iHVBXjKoEYyl14M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=aUK2+z78; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789133035; c=relaxed/simple;
+	bh=qpz2ap2Qy3ycSRZrgUKqHGFQhhk7gpL+MfmoSPp40Dc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=jcCLSrYIKItrgdlFCaVqyz1n7q0RrrGby1n6gbzcNvPEm04U/XeImNJdsmh/R+9QDvfDmvj7kzHcZXRQcXtx566ctrqcMOLL/zNwepExaDQzXc+I5A4YpAYFI1kFHtfRdg0rJASMaCPeHh3Bg7wTPHguR7i7nLUw0djYIYr98qo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=LxGNi495; arc=none smtp.client-ip=209.85.208.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="aUK2+z78"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 89A871655;
-	Fri, 11 Sep 2026 06:23:39 -0700 (PDT)
-Received: from e143914.arm.com (unknown [10.2.213.21])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 951E03F59E;
-	Fri, 11 Sep 2026 06:23:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789133023; bh=5jxEc7P7PC4dHCPzJ6RVgUlF5WVZ1+Frf7XpPEE7Uss=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=aUK2+z786llsnU/kTLIbihWkD1/Gd4Xxkrzqo0XIot6f3u2uhvYWeaxRfrILm7tax
-	 96Z8rNDIB3bTA/dBNOpIEKboiDHYUEeFI6eloJdWct3UR3KG7QMR1aJrxQpdlk1iZ1
-	 OeKt5gC+WSRoKUmnmLObdVIbuhbJtL+x7zSXYdQ4=
-Date: Fri, 11 Sep 2026 14:23:39 +0100
-From: Joey Gouly <joey.gouly@arm.com>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
-	kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Vincent Donnefort <vdonnefort@google.com>,
-	Quentin Perret <qperret@google.com>, Fuad Tabba <tabba@google.com>
-Subject: Re: [PATCH v2 10/17] KVM: arm64: Prevent host PC adjustments for
- protected vCPUs
-Message-ID: <aqQA26sBLaOxt5zF@e143914.arm.com>
-References: <20260907070002.3333525-1-fuad.tabba@linux.dev>
- <20260907070002.3333525-11-fuad.tabba@linux.dev>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="LxGNi495"
+Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-3a20dec69f9so7162121fa.3
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 06:23:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1789133032; x=1789737832; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=GRtNOlIv6Nq3mnj3CtQhPUwSgfYJDObGyFZaQ8xnneU=;
+        b=LxGNi495ExZd1S3ovUUb0P0OhGIH+1Sfpr9NghkgE3oBK/fh/GxQvEWiinbTCiKCXm
+         XrUEXUWh+Tks113I4Tnos550L8UZNMpWNPUEy7zVqub70fnLlloAf7IanN8t+vtGKjQo
+         z1m7XEejAJGMgylB7IiRIglp7Wg1nqWqz84Aw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789133032; x=1789737832;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=GRtNOlIv6Nq3mnj3CtQhPUwSgfYJDObGyFZaQ8xnneU=;
+        b=SFPZjH4n3jxDYlEDmN58AawZ8SDgUBVHiLKVRtb8diHWr5sbakeDqls1pGd3uPvld0
+         T7IP9/dqQ6natiQgFYcvLRHxrM0TZCQewH2L/q5qpSHEi9J9FJeFQnE8jXbfA/dC2fu5
+         WXCHjZTMAqCu9n2W/htHZTencKjTTEdDgeFC6F+VdQEjwXaYpWEfHeLbzu65pxk4CO8d
+         +1XskMrxuqfpERnBNJCooHEaAWsV7bWK7DhEcAkQvL5aABIGIrZXZtdU/a7TN7c4kSXH
+         tiDAQvMaJm0HB3e52TMFLhoNxNpeEOOZu0nVRBzLM3hqSqbw12aFKn5MDgSZlCAqpYty
+         GkYQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzV069xk1EoNrle8hzKJ1mM8eP8k1nfoNQPLbCxBfOjZlfFaWjs6rEaKPrAY2al3ooJkzbZ9jP9y9EMjsY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mc9wtC5Ip/OzZL7tkee5qSHaSw7ZNe28nWKjSUOGlXz4aOrhMt
+	qVv94CEETp5nvkg0gXIVucYy7FlKPtwlrjzveg9Nl0U/04FFI1iRuQBNszeTgfESeg==
+X-Gm-Gg: AYBFou2mZ1l0/kbTM3MG7KKW/ht4fb2qDJ7I/Tw4lV/5RVTAWDMGdDlnCJIbU13+osx
+	M/S3APY2z6wVC+vdTFUOjbNbVkRSmuxCON+ihRUrzJEIFLokS0lLnOg2wcyCJ5v/y35xExI9ezq
+	n9JNo78H/omWqmeMMpZ+GTeoDrBoingN+FmGnPGJ5oIDNRZp+DIR+S1pgyzQJ2+YxjNSF34OQ4e
+	hOYvvGITkrQ6M5MQ1e+fsmSj4DB76BSIVClIgVQTcRDimTFjU5iu+7Tf4vdzcswJ2Oglx4Bdro7
+	HCUxNfXQo4IZys2/a/n0Kk5zQeyilip/Nf/PVoBXaLCXWq9OLoChd9ugS6vBnNZJEwx9F/vFz2o
+	ltUoWj3ZsxENEZm3QMN947N8sJlBCfe+t+9gtBEcubifn5ZLovIh0CQAxVCJk7lXV3+Lmxht2TW
+	uf92v6ketnh6uve62SfLKWtoUu+9XVqGQVA5vvWTg7WLd+SjIYB0Ar1e+O4cC1KvzNm/ENBY6Be
+	zd/vtgD9PpPGbyHm1hgfZS4P4k7CPoWKeYdxt4JTvu43aEL7w==
+X-Received: by 2002:a05:651c:43c4:10b0:39d:b5b9:f0f4 with SMTP id 38308e7fff4ca-3a5a50895f6mr3800571fa.10.1789133031755;
+        Fri, 11 Sep 2026 06:23:51 -0700 (PDT)
+Received: from ribalda.c.googlers.com (11.36.88.34.bc.googleusercontent.com. [34.88.36.11])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a5a3361f94sm5611931fa.32.2026.09.11.06.23.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 06:23:51 -0700 (PDT)
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Fri, 11 Sep 2026 13:23:50 +0000
+Subject: [PATCH] media: uvcvideo: Fix bounds for descriptor parsing
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260907070002.3333525-11-fuad.tabba@linux.dev>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260911-uvc-ctrl-bound-v1-1-7b5cfc68bae1@chromium.org>
+X-B4-Tracking: v=1; b=H4sIAOUApGoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDS0ND3dKyZN3kkqIc3aT80rwUXctkQ0sTgzQDs7RkcyWgpoKi1LTMCrC
+ B0bG1tQBPMFgRYAAAAA==
+X-Change-ID: 20260911-uvc-ctrl-bound-9c1940f06fc7
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Hans de Goede <hansg@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Laurent Pinchart <laurent.pinchart@skynet.be>, 
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Ricardo Ribalda <ribalda@chromium.org>
+X-Mailer: b4 0.14.3
 
-Hello!
+uvc_parse_control() passes descriptor by descriptor to
+uvc_parse_standard_control() with the number of bytes remaining in the
+buffer, not the number of bytes of that descriptor.
 
-On Mon, Sep 07, 2026 at 07:59:55AM +0100, Fuad Tabba wrote:
-> __kvm_adjust_pc() lets the host advance a vCPU's PC or inject an
-> exception, which for a protected vCPU would let the host redirect
-> guest execution. Drop the request there: the entry handlers apply the
-> host's PC_UPDATE_REQ on re-entry, where EL2 allows it.
+Because of this, malformed descriptors could leak over the next
+descriptor, leaving malformed data in our structures.
 
-I wrote a comment about how "doesn't this lose the PC update status
-because for a loaded-protected vCPU we do nothing and the entry handlers
-are in a later commit", but I realised it was wrong because:
+Change the code so we pass the actual length of the descriptor to the
+parser.
 
-  a) the handle_vm_entry_generic() handler copies PC_UPDATE_REQ from
-     host_vcpu to hpy->vcpu
-  b) adjust_pc() is called in __kvm_vcpu_run() so applies the update
+Note that this makes the existing check more strict and some devices
+that are wrongly parsed today will not be probed now.
 
-> 
-> For a non-protected vCPU, adjusting the hyp vCPU while
-> PKVM_HOST_STATE_DIRTY is set loses the update at the next flush and
-> the guest re-executes an emulated MMIO access, so the flag selects
-> which copy to adjust. Adjusting the hyp vCPU copies PC_UPDATE_REQ in
-> and back out again. Without the copy back, INCREMENT_PC outlives the
-> adjustment and the next KVM_SET_VCPU_EVENTS trips
-> WARN_ON(INCREMENT_PC) in kvm_pend_exception().
+Cc: stable@vger.kernel.org
+Fixes: c0efd232929c ("V4L/DVB (8145a): USB Video Class driver")
+Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+---
+ drivers/media/usb/uvc/uvc_driver.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-Maybe a slight rewording:
+diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
+index e289cc71ba98..429f1ab19a2a 100644
+--- a/drivers/media/usb/uvc/uvc_driver.c
++++ b/drivers/media/usb/uvc/uvc_driver.c
+@@ -1248,11 +1248,14 @@ static int uvc_parse_control(struct uvc_device *dev)
+ 	 */
+ 
+ 	while (buflen > 2) {
+-		if (uvc_parse_vendor_control(dev, buffer, buflen) ||
++		if (buflen < buffer[0] || buffer[0] < 3)
++			return -EINVAL;
++
++		if (uvc_parse_vendor_control(dev, buffer, buffer[0]) ||
+ 		    buffer[1] != USB_DT_CS_INTERFACE)
+ 			goto next_descriptor;
+ 
+-		ret = uvc_parse_standard_control(dev, buffer, buflen);
++		ret = uvc_parse_standard_control(dev, buffer, buffer[0]);
+ 		if (ret < 0)
+ 			return ret;
+ 
 
-  For a non-protected vCPU, use PKVM_HOST_STATE_DIRTY to determine
-  whether to update the host vCPU or hyp vCPU.
-  If the host vCPU is the authoritative vCPU, the PC can be adjusted
-  directly.
-  If the hyp vCPU is the authoritative vCPU, copy PC_UPDATE_REQ from the
-  host vCPU, adjust the PC and copy the flags back to the host vCPU.
-  Without the copy back, INCREMENT_PC outlives the adjustment and the
-  next KVM_SET_VCPU_EVENTS trips WARN_ON(INCREMENT_PC) in
-  kvm_pend_exception().
+---
+base-commit: 27953c044974baf7e24dee3e9342fe0103dea80c
+change-id: 20260911-uvc-ctrl-bound-9c1940f06fc7
 
-> 
-> Unloaded, the host copy is host-writable, so pin it and its VM before
-> adjusting. Only commit_pending_events(), under KVM_SET_VCPU_EVENTS,
-> reaches EL2 with no hyp vCPU loaded. KVM_RUN's call always has one.
-> enter_exception64() reads the VM's MTE flag and a host copy's
-> vcpu->kvm is host-written, so __kvm_adjust_pc_vm() takes the VM as a
-> parameter: the pinned host struct kvm when unloaded, the hyp VM
-> otherwise.
+Best regards,
+-- 
+Ricardo Ribalda <ribalda@chromium.org>
 
-Rewording:
-
-  A hyp vCPU is not loaded when __kvm_adjust_pc() is called from
-  commit_pending_events(), through KVM_SET_VCPU_EVENTS. In that case, pin
-  the host vCPU and its VM before updating the host copy. The KVM_RUN call
-  always has a hyp vCPU loaded.
-
-  enter_exception64() reads the VM's MTE flag. Since host_vcpu->kvm is
-  host-controlled, add __kvm_adjust_pc_vm() and pass it the already
-  pinned host VM for an unloaded vCPU, or the trusted hyp VM for a
-  loaded vCPU.
-
-
-Feel free to not take the rewording, but it helped me understand a bit,
-and felt clearer.
-
-> 
-> Suggested-by: Marc Zyngier <maz@kernel.org>
-> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-> ---
->  arch/arm64/include/asm/kvm_asm.h   |  1 +
->  arch/arm64/kvm/hyp/exception.c     | 27 ++++++++++-------
->  arch/arm64/kvm/hyp/nvhe/hyp-main.c | 47 +++++++++++++++++++++++++++++-
->  3 files changed, 63 insertions(+), 12 deletions(-)
-> 
-> diff --git a/arch/arm64/include/asm/kvm_asm.h b/arch/arm64/include/asm/kvm_asm.h
-> index e5b92ac09e69e..d149afee7b4bd 100644
-> --- a/arch/arm64/include/asm/kvm_asm.h
-> +++ b/arch/arm64/include/asm/kvm_asm.h
-> @@ -280,6 +280,7 @@ extern int __kvm_at_s12(struct kvm_vcpu *vcpu, u32 op, u64 vaddr);
->  extern int __kvm_vcpu_run(struct kvm_vcpu *vcpu);
->  
->  extern void __kvm_adjust_pc(struct kvm_vcpu *vcpu);
-> +extern void __kvm_adjust_pc_vm(struct kvm_vcpu *vcpu, struct kvm *kvm);
->  
->  extern bool __vgic_v3_get_gic_config(void);
->  extern void __vgic_v3_init_lrs(void);
-> diff --git a/arch/arm64/kvm/hyp/exception.c b/arch/arm64/kvm/hyp/exception.c
-> index 754e2dc1df54a..bf9d8efce9984 100644
-> --- a/arch/arm64/kvm/hyp/exception.c
-> +++ b/arch/arm64/kvm/hyp/exception.c
-> @@ -66,8 +66,8 @@ static void __vcpu_write_spsr_und(struct kvm_vcpu *vcpu, u64 val)
->   * Here we manipulate the fields in order of the AArch64 SPSR_ELx layout, from
->   * MSB to LSB.
->   */
-> -static void enter_exception64(struct kvm_vcpu *vcpu, unsigned long target_mode,
-> -			      enum exception_type type)
-> +static void enter_exception64(struct kvm_vcpu *vcpu, struct kvm *kvm,
-> +			      unsigned long target_mode, enum exception_type type)
->  {
->  	unsigned long sctlr, vbar, old, new, mode;
->  	u64 exc_offset;
-> @@ -109,7 +109,7 @@ static void enter_exception64(struct kvm_vcpu *vcpu, unsigned long target_mode,
->  	new |= (old & PSR_C_BIT);
->  	new |= (old & PSR_V_BIT);
->  
-> -	if (kvm_has_mte(kern_hyp_va(vcpu->kvm)))
-> +	if (kvm_has_mte(kvm))
->  		new |= PSR_TCO_BIT;
->  
->  	new |= (old & PSR_DIT_BIT);
-> @@ -294,7 +294,7 @@ static void enter_exception32(struct kvm_vcpu *vcpu, u32 mode, u32 vect_offset)
->  	*vcpu_pc(vcpu) = vect_offset;
->  }
->  
-> -static void kvm_inject_exception(struct kvm_vcpu *vcpu)
-> +static void kvm_inject_exception(struct kvm_vcpu *vcpu, struct kvm *kvm)
->  {
->  	if (vcpu_el1_is_32bit(vcpu)) {
->  		switch (vcpu_get_flag(vcpu, EXCEPT_MASK)) {
-> @@ -314,23 +314,23 @@ static void kvm_inject_exception(struct kvm_vcpu *vcpu)
->  	} else {
->  		switch (vcpu_get_flag(vcpu, EXCEPT_MASK)) {
->  		case unpack_vcpu_flag(EXCEPT_AA64_EL1_SYNC):
-> -			enter_exception64(vcpu, PSR_MODE_EL1h, except_type_sync);
-> +			enter_exception64(vcpu, kvm, PSR_MODE_EL1h, except_type_sync);
->  			break;
->  
->  		case unpack_vcpu_flag(EXCEPT_AA64_EL1_SERR):
-> -			enter_exception64(vcpu, PSR_MODE_EL1h, except_type_serror);
-> +			enter_exception64(vcpu, kvm, PSR_MODE_EL1h, except_type_serror);
->  			break;
->  
->  		case unpack_vcpu_flag(EXCEPT_AA64_EL2_SYNC):
-> -			enter_exception64(vcpu, PSR_MODE_EL2h, except_type_sync);
-> +			enter_exception64(vcpu, kvm, PSR_MODE_EL2h, except_type_sync);
->  			break;
->  
->  		case unpack_vcpu_flag(EXCEPT_AA64_EL2_IRQ):
-> -			enter_exception64(vcpu, PSR_MODE_EL2h, except_type_irq);
-> +			enter_exception64(vcpu, kvm, PSR_MODE_EL2h, except_type_irq);
->  			break;
->  
->  		case unpack_vcpu_flag(EXCEPT_AA64_EL2_SERR):
-> -			enter_exception64(vcpu, PSR_MODE_EL2h, except_type_serror);
-> +			enter_exception64(vcpu, kvm, PSR_MODE_EL2h, except_type_serror);
->  			break;
->  
->  		default:
-> @@ -348,10 +348,10 @@ static void kvm_inject_exception(struct kvm_vcpu *vcpu)
->   * Adjust the guest PC (and potentially exception state) depending on
->   * flags provided by the emulation code.
->   */
-> -void __kvm_adjust_pc(struct kvm_vcpu *vcpu)
-> +void __kvm_adjust_pc_vm(struct kvm_vcpu *vcpu, struct kvm *kvm)
->  {
->  	if (vcpu_get_flag(vcpu, PENDING_EXCEPTION)) {
-> -		kvm_inject_exception(vcpu);
-> +		kvm_inject_exception(vcpu, kvm);
->  		vcpu_clear_flag(vcpu, PENDING_EXCEPTION);
->  		vcpu_clear_flag(vcpu, EXCEPT_MASK);
->  	} else if (vcpu_get_flag(vcpu, INCREMENT_PC)) {
-> @@ -359,3 +359,8 @@ void __kvm_adjust_pc(struct kvm_vcpu *vcpu)
->  		vcpu_clear_flag(vcpu, INCREMENT_PC);
->  	}
->  }
-> +
-> +void __kvm_adjust_pc(struct kvm_vcpu *vcpu)
-> +{
-> +	__kvm_adjust_pc_vm(vcpu, kern_hyp_va(vcpu->kvm));
-> +}
-> diff --git a/arch/arm64/kvm/hyp/nvhe/hyp-main.c b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-> index 051c2d95e3b7d..1a3f23e90e563 100644
-> --- a/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-> +++ b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-> @@ -640,11 +640,56 @@ static void handle___pkvm_host_mkyoung_guest(struct kvm_cpu_context *host_ctxt)
->  	cpu_reg(host_ctxt, 1) =  ret;
->  }
->  
-> +static void adjust_pc_loaded(struct pkvm_hyp_vcpu *hyp_vcpu,
-> +			     struct kvm_vcpu *host_vcpu)
-> +{
-> +	/*
-> +	 * PKVM_HOST_STATE_DIRTY names the authoritative copy: the host's
-> +	 * when set, the hyp vCPU's otherwise. Adjust that one.
-> +	 */
-> +	if (vcpu_get_flag(host_vcpu, PKVM_HOST_STATE_DIRTY)) {
-> +		__kvm_adjust_pc_vm(host_vcpu, hyp_vcpu->vcpu.kvm);
-
-Not sure here why we use hyp_vcpu->vcpu.kvm over host_vcpu->kvm, in
-non-protected pKVM do we still not trust it?
-
-> +		return;
-> +	}
-> +
-> +	/* Reflect the consumed request back, otherwise it stays pending. */
-> +	vcpu_copy_flag(&hyp_vcpu->vcpu, host_vcpu, PC_UPDATE_REQ);
-> +	__kvm_adjust_pc(&hyp_vcpu->vcpu);
-> +	vcpu_copy_flag(host_vcpu, &hyp_vcpu->vcpu, PC_UPDATE_REQ);
-> +}
-> +
-> +static void adjust_pc_unloaded(struct kvm_vcpu *host_vcpu)
-> +{
-> +	struct kvm *host_kvm;
-> +
-> +	if (!is_protected_kvm_enabled()) {
-> +		__kvm_adjust_pc(host_vcpu);
-> +		return;
-> +	}
-> +
-> +	/* The host copy is authoritative, used only while pinned. */
-> +	if (hyp_pin_shared_mem(host_vcpu, host_vcpu + 1))
-> +		return;
-> +
-> +	host_kvm = kern_hyp_va(READ_ONCE(host_vcpu->kvm));
-> +	if (!hyp_pin_shared_mem(host_kvm, host_kvm + 1)) {
-> +		__kvm_adjust_pc_vm(host_vcpu, host_kvm);
-> +		hyp_unpin_shared_mem(host_kvm, host_kvm + 1);
-> +	}
-> +	hyp_unpin_shared_mem(host_vcpu, host_vcpu + 1);
-> +}
-> +
->  static void handle___kvm_adjust_pc(struct kvm_cpu_context *host_ctxt)
->  {
->  	DECLARE_REG(struct kvm_vcpu *, vcpu, host_ctxt, 1);
-> +	struct pkvm_hyp_vcpu *hyp_vcpu;
-> +	struct kvm_vcpu *host_vcpu;
->  
-> -	__kvm_adjust_pc(kern_hyp_va(vcpu));
-> +	host_vcpu = __get_host_hyp_vcpus(vcpu, &hyp_vcpu);
-> +	if (!hyp_vcpu)
-> +		adjust_pc_unloaded(kern_hyp_va(vcpu));
-> +	else if (!pkvm_hyp_vcpu_is_protected(hyp_vcpu))
-> +		adjust_pc_loaded(hyp_vcpu, host_vcpu);
-
-Possibly a comment at the end as the "else" clause.
-
-  /* Loaded protected vCPU: do nothing. */
-
-(replace with "do nothing" with "handled by entry handlers" or anything
-else that you think makes sense!)
-
->  }
->  
->  static void handle___kvm_flush_vm_context(struct kvm_cpu_context *host_ctxt)
-
-Overall looks good to me.
-
-Acked-by: Joey Gouly <joey.gouly@arm.com>
-
-Thanks,
-Joey
