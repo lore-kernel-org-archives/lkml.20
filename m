@@ -1,114 +1,222 @@
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F393143B49D
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 06:41:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 649B643847E
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 06:41:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789108897; cv=none; b=cS4DOfSmNMV3c9s+7162JyhQSQDtpatZdfdGtLRkTLr23Dp4aTdAhCYl8xgpXsNGHy2vpB0RwfpZHJwQkHsCWk4oIUyv6mqCJT/927+HtnfwMo8zqttwMszsiWWOx/P0nX+NDZp5pv4fqZyFREA8v4YwbkLJzN8UVziyhCae9ns=
+	t=1789108892; cv=none; b=psvoMJ64Mhe47VV4NcK1h9xtjdDDqFEMZZrEcABhARRpNaPDuhZmY7M637y5OyouvL/4fTUyAp22/UNj4gTW6X7ahUGbxD/96bPQLQsrqTLJaL0d9/z2GaqKSuUm/qCSuNyyXkTMjEtr8fdvQ7Wc4O19T6pT4EqIouxUbIkbEAU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789108897; c=relaxed/simple;
-	bh=PkE3WSX9JtIhEhlJzhCajN7UPABJAQghn++d/wKeH58=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OBuDyrLHURa9EWw7m9fdWF69Ljp4wV9pZn5B/xEO7M+CIfPbh7K8qxDg/dlJ/O0cu/cr/ioqsYQMvgxj5n0qNKE/rgD3R/SEHnfCX4vBHYXjB5EdT2ilIj4oOwS5Uhu7bbuek06ye1ga2/yZVU3SuMrBzn36bqo9Q5FpdzHR9HM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JNiKebdl; arc=none smtp.client-ip=209.85.215.181
+	s=arc-20240116; t=1789108892; c=relaxed/simple;
+	bh=cBSJ7IpgdZG9WZqNT7t64eRfTKJAWfYRAikJYu7cyIk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YBmtVnAnJuuSpaJZOIfqn9fVZ57ocQ/TpYQ4dMqGWeLb0QlcIV9dUp9OYqAJ4jofoFfHdsGx30d7SiC7KOsbb3KoK9ULI3ZgXF9frncBnqyhsv6h4EV6mw9rYl2EypvpiZSQTgex8Abl1i0J1UyrXL8+6p1jro0oMfzIIVAZC18=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VDfipXJk; arc=none smtp.client-ip=74.125.228.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JNiKebdl"
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cc4c02ddd62so499430a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 23:41:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VDfipXJk"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cea4bfb6so305319a12.3
+        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 23:41:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789108881; x=1789713681; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wCIfihLLndYAlu2pLx3p5U79c1+e8tApd2WKF9yFlbI=;
-        b=JNiKebdl6Ng5ZOmPVVrx1bvFbrFQR/gtrU6R/R1T/zhKL0eoBLHqRv90B0F2dazj+v
-         fgmyYGSt6+NSWRobOBoehl6JEkrOc+0zhN5kn/s4AiP/cAKxEXzcA8L8n4sAda6CtSRQ
-         DHpbqmEUE8Fo/Y0sCBuVN3XsxttXXKu4OQXfMJBllV0PuI+LO8vkUWPmI9HDF+exrjmi
-         mE06vnBIhQHNqvRZKqTP8JLRTsJzvogk9TGmr98tHDHlcTXDE6GZ0S3sivMVpqmNWCkk
-         vje5Bng5ziVBm61h6i6k8TUPOdW8rBcjym+omsMcBp7xlsRqvPcTvrEZMW3l4jHYvnpN
-         EzJg==
+        d=gmail.com; s=20251104; t=1789108879; x=1789713679; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=uqnrRH3JnuYg9d568dJH6IC4tGq2CueKpd9gXMr6rl0=;
+        b=VDfipXJkDvtkxfKuO0C44HmEGaOpOByFp1vj86wshVbwK0Ykz0vwIvXcfFsqNsiRmO
+         xoJb5qwwHJ0JHlWa6zx1x66cnVcLH5/mojTIdn9kRsBapHnghW1H8QBnLSfUJ2vxR/Vu
+         x/mpxdkXgK/ROCUbZAhzOmXFNf1+kGDkT8n+XmSKgRlcs7pnbhoPYn9kxfbqpvWWBJlo
+         Occa+TWjPx5ptXi0PewqqJBq5SiwQI+3x+5WAdQuC+b6WEzRq07dHrTEcTGR4Gk4QMp7
+         vWGrVRStu/Bik+QKLxlrN1BZIYZAa3jWvPNz8ZwSQOGqQo1/Ps43V+sQL6rEdry54+Ao
+         Q3iw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789108881; x=1789713681;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wCIfihLLndYAlu2pLx3p5U79c1+e8tApd2WKF9yFlbI=;
-        b=oPvmS8xNfy9AJobdBqj35V5z/G9JBDEQWNCk2NYe1dVcPlSS/bYtCZRKVTEE24jkKA
-         FqArwAwTR1wrOscq/2jkyjcutFZ2kujzkaLWsp18M1gzuLhgtUJb3ok5qKb8fOABkvUR
-         OWLvZiEj/VMUo4K9lhuZNHEgzSS2OunudjcRZg3SVyfG8xdaYKs3VO7iskRnBqnp14ZI
-         wHsbFnUdC3kWKNGMGJ4J57JBi50oRVrhMguveJMrAh4446EoxaotLTcE2hnOwpYJS0Bd
-         8e9Hy5xrdbBd0a1swPWVujamlbydWj9FXvl6BF1wyMq+c1mYbnEpHxR3OO1+2IEzcChh
-         gYzQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxCGSr1tQhw+4VTdT+r1HjadPxRoy05RPAcQPh0kz4UFid0fdagGTL2G4oF0L4FFadgYj5N8+O3XpdOetg=@vger.kernel.org
-X-Gm-Message-State: AFuF++ndgyT9jg/o4vbBpB68Oe0IhN01CD72mYhvVk9/hxD+uOfl8CuK
-	gNr6Y37sGFOWCtcylj3f7lHvwViCV0wTjPROmDCiYHxa+yuU/8nfVMZ5
-X-Gm-Gg: AYBFou0sjfE8xrt8af6hhKNoki5wdK9UjDANS7Y631UN8o3rtdi3U3fnpL10tcTmIlF
-	8YhOdKD4lbc/Y4S9QUtTcOYOYQ7mH33JsOG18IQEAo2HBrOr7d835QZxKwUg1GQyk3O8/nLGD3j
-	08iHasRIGPcA1+2jGDwqmWyp693ihvJot1O0tkUbVHsSFHr2MmynXNCNaoYG2dhjpAuSQWjzz71
-	mF6stuKZRcZSRdn1W+UBSzdQhKZm68CY/ZjNYtMUZOxhAuUdKnEVHVUqjsnDaRv8b8AcYftOvkW
-	wDclCtlpPxnJyu+kY0/5c5jWcfzNh6nkDs6jLvCOqD+pNM5R8IcAPoHgj/JqqDfUiB9tJ+XTJ2u
-	8Q9jIcQOMuWdEk9WE/dZoHvmECQ1d74y1xJWSq148v88KPRLbB2QwNEKKk+CoYCDiLI9pYsrf21
-	t76HyQRcO/D2hO0eJf8W4r2nUOIkanUEY+pz5L3gI1hrD3Bpmo+g4OnrCRUnCRGYoyu9SrZKLcb
-	w==
-X-Received: by 2002:a17:90b:440c:b0:39b:57c6:e280 with SMTP id 98e67ed59e1d1-39d9bd65a3bmr4250586a91.7.1789108880711;
-        Thu, 10 Sep 2026 23:41:20 -0700 (PDT)
-Received: from localhost.localdomain ([162.128.207.85])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d98e602e7sm3286683a91.5.2026.09.10.23.41.17
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 10 Sep 2026 23:41:20 -0700 (PDT)
-From: fuqiang wang <fuqiang.wng@gmail.com>
-To: Sean Christopherson <seanjc@google.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: fuqiang wang <fuqiang.wng@gmail.com>,
-	yaowenchao1 <yaowenchao@jd.com>,
-	dongxu zhang <xu910121@sina.com>
-Subject: [PATCH] KVM: x86/mmu: Respect user goal_nr_mmu_pages after zapping oldest pages
-Date: Fri, 11 Sep 2026 14:41:12 +0800
-Message-ID: <20260911064112.10766-1-fuqiang.wng@gmail.com>
-X-Mailer: git-send-email 2.47.0
+        d=1e100.net; s=20251104; t=1789108879; x=1789713679;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uqnrRH3JnuYg9d568dJH6IC4tGq2CueKpd9gXMr6rl0=;
+        b=f6HyS2lBfrST5UeUYPW+9WlMjaAW90zhTkrVimGrR2hzhrP2lU0Qd1OhlI6PgU0U1d
+         OOeVBvEHiVDtKcvGHpSr242j8+Mop0K+K5O8EFPzuA7p0IaV8cBWtq6enpQBdidUWDCr
+         IDHnuPGJWFUrHFCFfxFbIS128jdjbEjeaWAt/ygltKvbSQfK37Sq9P2Bw7czoPC6Gp5S
+         A2ODQaR11xtQUdHYL95ptIVeUsx6TLBLmDmLXePoiZpGdqlxKsmY0XqaI48QZDxVOsKT
+         xXg3i1HEi2PdRCVrFnsjf2JfvQD4py4AUW4y3zpn6udykRdvzUkTDwoQoAptSC/AWL6v
+         q1aA==
+X-Forwarded-Encrypted: i=1; AKwUvBxYii82SOFR3DvvNc5pZCKy5Jt2jj9QQX/JEHeDyhunPc96va+xZWFxFP295TTbfGp5IpFgyTCyPxl1QXw=@vger.kernel.org
+X-Gm-Message-State: AFuF++m4KuZSTVdaTGooN/SB9kSc8enVQr8ZXzOsCfGofdjBPiQnfcSt
+	OI40aLmW7ODjyq6tKpQaolwjnwE3Db7EIuVoZf/GxL1kj1GLfZl6ZYCt
+X-Gm-Gg: AYBFou09rCzKHWmL66FgaUEvgEuWCXzVTNvbktM9JmYOuDMfqmstEQJ8OE7p/r6yrcu
+	AGPRDnllU7AqNZvRxu8qaFM7CslY1G79wJF/GDmhQjkaz18ABYtqylv37X4qCe5QUNKirzET9sz
+	EjGCMw+nrIrVA6tnlC4iF7KHqt72ZbhuC1fu/3IdYgeE6xmzsY38hvSXxzQt3DlWGIXJGraSFcn
+	ME5AWnfSX3j3f+Pv7o66nu27pnQW8gM+tOegWUA/n+jluyyfanWVoJk/kM6q21B8STBX0+8TITm
+	k9nK6k0227mNE9BKdYih5UHR7ccz4UEfb1Zx5gFhAvUkkiqmPMmsiFT6iNR6QlDgAYRBhms0N/E
+	/yaN/5K7J/ufJS2hz8EG3EEqKNAM38gdYwIWLbaXHnLzjLpOme8TnWDhLpMRa9XoloIHtJYot0P
+	/bSevQ+55VHwT8pyoDJwfiXgLHZkM7EqMSqd17e3CPdqmxPfUUEyJlxHbd/QHnWTEWtIBQxNh8F
+	BT0pwvZrN+J1xbGBGxl2W7jP5N/U7PSTA==
+X-Received: by 2002:a05:6a21:a95:b0:3da:6bdd:2c74 with SMTP id adf61e73a8af0-3daed306372mr6132777637.10.1789108878903;
+        Thu, 10 Sep 2026 23:41:18 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2039:4:e7d0:6323:1ab1:99bf])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4c615a84bsm674786a12.1.2026.09.10.23.41.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 23:41:18 -0700 (PDT)
+Date: Fri, 11 Sep 2026 14:41:14 +0800
+From: Kuan-Wei Chiu <visitorckw@gmail.com>
+To: Nathan Chancellor <nathan@kernel.org>
+Cc: kernel test robot <lkp@intel.com>, llvm@lists.linux.dev,
+	oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Linux Memory Management List <linux-mm@kvack.org>,
+	Guan-Chun Wu <409411716@gms.tku.edu.tw>,
+	David Laight <david.laight.linux@gmail.com>
+Subject: Re: lib/base64.c:58:18: warning: implicit conversion from 'int' to
+ 's8' (aka 'signed char') changes value from 131 to -125
+Message-ID: <aqOiihm0Mz0zCnw0@google.com>
+References: <202609110514.S0a0FD6a-lkp@intel.com>
+ <20260910223520.GA3375179@ax162>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260910223520.GA3375179@ax162>
 
-When kvm_mmu_change_mmu_pages() shrinks the shadow page limit and the
-current number of shadow pages exceeds the requested goal, it zaps the
-oldest MMU pages and then updates n_max_mmu_pages.
+On Thu, Sep 10, 2026 at 03:35:20PM -0700, Nathan Chancellor wrote:
+> On Fri, Sep 11, 2026 at 06:07:30AM +0800, kernel test robot wrote:
+> > tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+> > head:   50d05c7c76c96b90462f24debacca971d2e86713
+> > commit: c4eb7ad32eab13ba64cc452c6f43d518b63f5e03 lib/base64: optimize base64_decode() with reverse lookup tables
+> > date:   10 months ago
+> > config: hexagon-allnoconfig (https://download.01.org/0day-ci/archive/20260911/202609110514.S0a0FD6a-lkp@intel.com/config)
+> > compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project d3db069999553568848400c84cbf815c03f5470f)
+> > reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260911/202609110514.S0a0FD6a-lkp@intel.com/reproduce)
+> > 
+> > If you fix the issue in a separate patch/commit (i.e. not just a new version of
+> > the same patch/commit), kindly add following tags
+> > | Fixes: c4eb7ad32eab ("lib/base64: optimize base64_decode() with reverse lookup tables")
+> > | Reported-by: kernel test robot <lkp@intel.com>
+> > | Closes: https://lore.kernel.org/oe-kbuild-all/202609110514.S0a0FD6a-lkp@intel.com/
+> > 
+> > All warnings (new ones prefixed by >>):
+> > 
+> > >> lib/base64.c:58:18: warning: implicit conversion from 'int' to 's8' (aka 'signed char') changes value from 131 to -125 [-Wconstant-conversion]
+> >       58 |         [BASE64_IMAP] = BASE64_REV_INIT('+', ',')
+> >          |                         ^~~~~~~~~~~~~~~~~~~~~~~~~
+> >    lib/base64.c:52:2: note: expanded from macro 'BASE64_REV_INIT'
+> >       48 | #define BASE64_REV_INIT(ch_62, ch_63) { \
+> >          |                                       ~
+> >       49 |         [0 ... 0x1f] = -1, \
+> >       50 |         INIT_32(0x20, ch_62, ch_63), \
+> >       51 |         INIT_32(0x40, ch_62, ch_63), \
+> >       52 |         INIT_32(0x60, ch_62, ch_63), \
+> >          |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+> >    lib/base64.c:46:50: note: expanded from macro 'INIT_32'
+> >       46 | #define INIT_32(v, ...) INIT_16(v, __VA_ARGS__), INIT_16((v) + 16, __VA_ARGS__)
+> >          |                                                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> >    lib/base64.c:45:49: note: expanded from macro 'INIT_16'
+> >       45 | #define INIT_16(v, ...) INIT_8(v, __VA_ARGS__), INIT_8((v) + 8, __VA_ARGS__)
+> >          |                                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> >    note: (skipping 1 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
+> >    lib/base64.c:43:48: note: expanded from macro 'INIT_4'
+> >       43 | #define INIT_4(v, ...) INIT_2(v, __VA_ARGS__), INIT_2((v) + 2, __VA_ARGS__)
+> >          |                                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> >    lib/base64.c:42:48: note: expanded from macro 'INIT_2'
+> >       42 | #define INIT_2(v, ...) INIT_1(v, __VA_ARGS__), INIT_1((v) + 1, __VA_ARGS__)
+> >          |                                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> >    lib/base64.c:34:42: note: expanded from macro 'INIT_1'
+> >       34 |                 : (v) >= '0' && (v) <= '9' ? (v) - '0' + 52 \
+> >          |                                              ~~~~~~~~~~^~~~
+> >    lib/base64.c:58:18: warning: implicit conversion from 'int' to 's8' (aka 'signed char') changes value from 130 to -126 [-Wconstant-conversion]
+> >       58 |         [BASE64_IMAP] = BASE64_REV_INIT('+', ',')
+> >          |                         ^~~~~~~~~~~~~~~~~~~~~~~~~
+> >    lib/base64.c:52:2: note: expanded from macro 'BASE64_REV_INIT'
+> >       48 | #define BASE64_REV_INIT(ch_62, ch_63) { \
+> >          |                                       ~
+> >       49 |         [0 ... 0x1f] = -1, \
+> >       50 |         INIT_32(0x20, ch_62, ch_63), \
+> >       51 |         INIT_32(0x40, ch_62, ch_63), \
+> >       52 |         INIT_32(0x60, ch_62, ch_63), \
+> >          |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+> >    lib/base64.c:46:50: note: expanded from macro 'INIT_32'
+> >       46 | #define INIT_32(v, ...) INIT_16(v, __VA_ARGS__), INIT_16((v) + 16, __VA_ARGS__)
+> >          |                                                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> >    lib/base64.c:45:49: note: expanded from macro 'INIT_16'
+> >       45 | #define INIT_16(v, ...) INIT_8(v, __VA_ARGS__), INIT_8((v) + 8, __VA_ARGS__)
+> >          |                                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> >    note: (skipping 1 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
+> >    lib/base64.c:43:48: note: expanded from macro 'INIT_4'
+> >       43 | #define INIT_4(v, ...) INIT_2(v, __VA_ARGS__), INIT_2((v) + 2, __VA_ARGS__)
+> >          |                                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> >    lib/base64.c:42:24: note: expanded from macro 'INIT_2'
+> >       42 | #define INIT_2(v, ...) INIT_1(v, __VA_ARGS__), INIT_1((v) + 1, __VA_ARGS__)
+> >          |                        ^~~~~~~~~~~~~~~~~~~~~~
+> >    lib/base64.c:34:42: note: expanded from macro 'INIT_1'
+> >       34 |                 : (v) >= '0' && (v) <= '9' ? (v) - '0' + 52 \
+> >          |                                              ~~~~~~~~~~^~~~
+> >    lib/base64.c:58:18: warning: implicit conversion from 'int' to 's8' (aka 'signed char') changes value from 129 to -127 [-Wconstant-conversion]
+> >       58 |         [BASE64_IMAP] = BASE64_REV_INIT('+', ',')
+> >          |                         ^~~~~~~~~~~~~~~~~~~~~~~~~
+> >    lib/base64.c:52:2: note: expanded from macro 'BASE64_REV_INIT'
+> >       48 | #define BASE64_REV_INIT(ch_62, ch_63) { \
+> >          |                                       ~
+> >       49 |         [0 ... 0x1f] = -1, \
+> >       50 |         INIT_32(0x20, ch_62, ch_63), \
+> >       51 |         INIT_32(0x40, ch_62, ch_63), \
+> >       52 |         INIT_32(0x60, ch_62, ch_63), \
+> >          |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+> >    lib/base64.c:46:50: note: expanded from macro 'INIT_32'
+> >       46 | #define INIT_32(v, ...) INIT_16(v, __VA_ARGS__), INIT_16((v) + 16, __VA_ARGS__)
+> >          |                                                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> >    lib/base64.c:45:49: note: expanded from macro 'INIT_16'
+> >       45 | #define INIT_16(v, ...) INIT_8(v, __VA_ARGS__), INIT_8((v) + 8, __VA_ARGS__)
+> >          |                                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> >    note: (skipping 1 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
+> >    lib/base64.c:43:24: note: expanded from macro 'INIT_4'
+> >       43 | #define INIT_4(v, ...) INIT_2(v, __VA_ARGS__), INIT_2((v) + 2, __VA_ARGS__)
+> >          |                        ^~~~~~~~~~~~~~~~~~~~~~
+> >    lib/base64.c:42:48: note: expanded from macro 'INIT_2'
+> >       42 | #define INIT_2(v, ...) INIT_1(v, __VA_ARGS__), INIT_1((v) + 1, __VA_ARGS__)
+> >          |                                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> >    lib/base64.c:34:42: note: expanded from macro 'INIT_1'
+> >       34 |                 : (v) >= '0' && (v) <= '9' ? (v) - '0' + 52 \
+> >          |                                              ~~~~~~~~~~^~~~
+> >    lib/base64.c:58:18: warning: implicit conversion from 'int' to 's8' (aka 'signed char') changes value from 128 to -128 [-Wconstant-conversion]
+> >       58 |         [BASE64_IMAP] = BASE64_REV_INIT('+', ',')
+> >          |                         ^~~~~~~~~~~~~~~~~~~~~~~~~
+> >    lib/base64.c:52:2: note: expanded from macro 'BASE64_REV_INIT'
+> >       48 | #define BASE64_REV_INIT(ch_62, ch_63) { \
+> >          |                                       ~
+> >       49 |         [0 ... 0x1f] = -1, \
+> >       50 |         INIT_32(0x20, ch_62, ch_63), \
+> >       51 |         INIT_32(0x40, ch_62, ch_63), \
+> >       52 |         INIT_32(0x60, ch_62, ch_63), \
+> >          |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+> >    lib/base64.c:46:50: note: expanded from macro 'INIT_32'
+> >       46 | #define INIT_32(v, ...) INIT_16(v, __VA_ARGS__), INIT_16((v) + 16, __VA_ARGS__)
+> >          |                                                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> >    lib/base64.c:45:49: note: expanded from macro 'INIT_16'
+> >       45 | #define INIT_16(v, ...) INIT_8(v, __VA_ARGS__), INIT_8((v) + 8, __VA_ARGS__)
+> >          |                                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> >    note: (skipping 1 expansions in backtrace; use -fmacro-backtrace-limit=0 to see all)
+> >    lib/base64.c:43:24: note: expanded from macro 'INIT_4'
+> >       43 | #define INIT_4(v, ...) INIT_2(v, __VA_ARGS__), INIT_2((v) + 2, __VA_ARGS__)
+> 
+> I have not looked into the legitimacy of this warning yet but it comes
+> about from a recent change to fix -Wconstant-conversion in clang:
+> 
+>   https://github.com/llvm/llvm-project/commit/a5ef934a8d295dc03be3960f2b3744ec2e53238e
+> 
+This looks like a false positive rather than a real bug in the C code.
+The warning triggers because (v) - '0' + 52 evaluates to >= 128 during
+macro expansion which overflows s8.
 
-Previously the new limit was set unconditionally to the current
-mmu_shadow_pages value observed after zapping. However, zapping can
-reduce mmu_shadow_pages below the user-requested goal_nr_mmu_pages,
-since a single __kvm_mmu_prepare_zap_page() may reclaim more than one
-MMU page (it also zaps unsync/child pages). This could then clamp the
-limit below the user's intent.
+However, that branch is guarded by (v) >= '0' && (v) <= '9', which is a
+compile time constant false for those values, so the branch is never
+taken. It seems clang is diagnosing constant conversions in
+unreachable branches of compile time conditional expressions.
 
-Use max(mmu_shadow_pages, goal_nr_mmu_pages) so the user-requested goal
-is honored even if zapping overshoots.
-
-Signed-off-by: fuqiang wang <fuqiang.wng@gmail.com>
----
- arch/x86/kvm/mmu/mmu.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-index 064ecc33b926..efeba58936a6 100644
---- a/arch/x86/kvm/mmu/mmu.c
-+++ b/arch/x86/kvm/mmu/mmu.c
-@@ -2913,7 +2913,7 @@ void kvm_mmu_change_mmu_pages(struct kvm *kvm, unsigned long goal_nr_mmu_pages)
- 		kvm_mmu_zap_oldest_mmu_pages(kvm, kvm->stat.mmu_shadow_pages -
- 						  goal_nr_mmu_pages);
- 
--		goal_nr_mmu_pages = kvm->stat.mmu_shadow_pages;
-+		goal_nr_mmu_pages = max(kvm->stat.mmu_shadow_pages, goal_nr_mmu_pages);
- 	}
- 
- 	kvm->arch.n_max_mmu_pages = goal_nr_mmu_pages;
--- 
-2.47.0
-
+Regards,
+Kuan-Wei
