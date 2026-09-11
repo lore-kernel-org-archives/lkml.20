@@ -1,98 +1,77 @@
-Received: from sg-3-27.ptr.tlmpb.com (sg-3-27.ptr.tlmpb.com [101.45.255.27])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F1BD3839A0
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 04:27:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.45.255.27
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30BD12F5A0E;
+	Fri, 11 Sep 2026 04:32:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789100876; cv=none; b=WZ8lTgzW5rMz1hVC2JkysnbzmrKVREucBmsPLxqsxRilN7XX8Be2+DHLdDPjZ0siupzmZWNHazF6FxwPfMziIyXLfhz6u5NDH6AZGkxk13G58ha2wLFtgLv9OPab9ydCDxFQLtXuN01Yq3DKYfhiKfbUzFZAc38E8rzabZ32FmU=
+	t=1789101128; cv=none; b=j++8IlKfal9VpCh19YB0+wFw60sRzUlPwdDhZSM/oFue/TFVdB5sFTyQkXXtmL2qM/YZM0tNGKqEUQA5DiZbpua0hW6F7jNvqpbvatqSh/gxEnnbBfK3vyabLfZYyQuT97pssWV/wQxW0DUjGnv40wCzu8/fmcd9EvGqz6Qej28=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789100876; c=relaxed/simple;
-	bh=O//23mptPXnLU2BwF3aUzAmv/+0bnVC1d9toDxt71iE=;
-	h=Message-Id:Subject:Date:Cc:From:To:Content-Type:Mime-Version; b=atE58K082FLLz6HBKc8NkJnffbwffCHklijb+LUAT1jpfnZU12SVrCgclquN0omoFZV8YLFHEFKtsOX/QNDLjKssrG+/SNe5quoWQtLJFUnAjSu3uoqhjn41yfnHKYddwCDABL/wptFA2Mv+ErkzmctHnxbTuMZ73Li5bIuOaWE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fnnas.com; spf=none smtp.mailfrom=fnnas.com; dkim=pass (2048-bit key) header.d=fnnas-com.20200927.dkim.feishu.cn header.i=@fnnas-com.20200927.dkim.feishu.cn header.b=VpjnRIRe; arc=none smtp.client-ip=101.45.255.27
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fnnas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=fnnas.com
+	s=arc-20240116; t=1789101128; c=relaxed/simple;
+	bh=cEScVFGDdkbeR+3r7iH2a8OUoRNNEg4QrEzRNMPhI3k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bJk4ECCR9GIIqVCFqFs1z2z0uOX9MnYxkXws42ZekQ+4HM/+EU3keiVnVHp7SED2q62Fi8QtIb5xlqGARETAgfYsJWFuDbeVUB5WO7ICBPg4J75EvaSPvDq5S2DOa/EpLvvQD3kVdwHmKWYc/+VOCRor4jCaF+9R9L79V0I2OkA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=f4AKmI0S; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fnnas-com.20200927.dkim.feishu.cn header.i=@fnnas-com.20200927.dkim.feishu.cn header.b="VpjnRIRe"
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="f4AKmI0S"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=fnnas-com.20200927.dkim.feishu.cn; t=1789100134;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=Aaf95Sia1XUwL9cmx/hcNMrhvi/5eFl5xpwPxhuGTjo=;
- b=VpjnRIRexyefaB2V9p5Xj2aanGf4E/+rtkSF5lh17T4VOIv0eS0gvLtBgyxIQ9B+Y6zlhm
- gGzDVgAbon36rvQtoqN5gMR2GHDIIHHHILDxzyRL/sS+pplb8z2+UR/4Rm7qJCBNCb3e1e
- Z0QMbiYnKP4ueOiSIGXNgG8suMYu386KT+pu58CkLMbC5eZzSqV5yGghZtmJ0pgJkyObLX
- uly7RTKkfmAAZ3C/nncD3oZBy3aWWBTzKAs9F345sHU9jInBAYCE2sJNyE/+EPoHfCo9KZ
- s8q+jaXgG5qlGAcizhulhF1gcqkEc/et0ZL1frANAMo2yx/Xvka/FrjTedUypw==
-Message-Id: <20260911041521.2433222-1-chencheng@fnnas.com>
-X-Original-From: chencheng@fnnas.com
-Subject: [PATCH v3] md/raid5: reject raid4/5 arrays with too few disks
-Date: Fri, 11 Sep 2026 12:15:21 +0800
-X-Mailer: git-send-email 2.55.0
-Content-Transfer-Encoding: 7bit
-Cc: <chencheng@fnnas.com>, <linux-kernel@vger.kernel.org>, 
-	<syzbot+de94ddbfff0c9e6fe030@syzkaller.appspotmail.com>
-From: "Chen Cheng" <chencheng@fnnas.com>
-To: <linux-raid@vger.kernel.org>, <yukuai@fygo.io>, <nixiao@fygo.io>
-Content-Type: text/plain; charset=UTF-8
-X-Lms-Return-Path: <lba+26aa38064+30c2ba+vger.kernel.org+chencheng@fnnas.com>
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=YKpfvW0m7fMGPwroikXgrjlEkqn9S1O/EG9PiSNdpjs=; 
+	b=f4AKmI0SRdE8F+kpVQXiub5fRB7v/nIJ2L3G5tkE0IFsgd3K5CaDIQI3l0p6UZbJ2mO3DjrYlbi
+	mwMOSsi1YjJvikFFyKFw84u7aOz8+H3rMWlPaKAxz6HCbmXt6Ks7qZfJyo/9beOxaupITxz4wWd54
+	j2YL0NVc9k8WR4GaxdmtC9sUVr/uqoFmjw63bokCWOsuCmOTimCzaqm6zyJFLcH1qWw9BprNSOn41
+	XtLLUsVM8HzahjPISNGoNcffLAgI4iKEBcI61DQnEo3QcG9qnDnm5rG7I0BmJ7ej8pNVX5IXlAWyJ
+	qIwseeWShWs2Q0+zzrLpuBeXusz+FN1H6SPQ==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1x4svP-0000000CtQw-0BeT;
+	Fri, 11 Sep 2026 12:31:44 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 11 Sep 2026 14:31:43 +1000
+Date: Fri, 11 Sep 2026 14:31:43 +1000
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Alex Ousherovitch <aousherovitch@rambus.com>
+Cc: Albert Ou <aou@eecs.berkeley.edu>, Conor Dooley <conor+dt@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.com>,
+	Shuah Khan <shuah@kernel.org>, Alexandre Ghiti <alex@ghiti.fr>,
+	devicetree@vger.kernel.org,
+	Joel Wittenauer <Joel.Wittenauer@cryptography.com>,
+	linux-api@vger.kernel.org, linux-crypto@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, linux-riscv@lists.infradead.org,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Thi Nguyen <thin@rambus.com>
+Subject: Re: [PATCH v4 04/19] crypto: cmh - add SHA-2/SHA-3/SHAKE ahash
+Message-ID: <aqOEL-YUVFuThcmf@gondor.apana.org.au>
+References: <20260825221539.255951-1-aousherovitch@rambus.com>
+ <20260825221539.255951-5-aousherovitch@rambus.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Received: from fedora ([183.34.169.131]) by smtp.feishu.cn with ESMTPS; Fri, 11 Sep 2026 12:15:31 +0800
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260825221539.255951-5-aousherovitch@rambus.com>
 
-From: Chen Cheng <chencheng@fnnas.com>
+On Tue, Aug 25, 2026 at 03:15:23PM -0700, Alex Ousherovitch wrote:
+>
+> +/*
+> + * .update -- buffer incoming data, submit full blocks to HW.
 
-raid4 and raid5 require at least two disks, while raid6 requires at least
-four disks. setup_conf() only rejects raid6 arrays with fewer than four
-disks. As a result, an invalid raid4 or raid5 array can be assembled with
-no data disks and later reach raid5_set_limits().
+Please drop block buffering in new drivers.  The Crypto API handles
+this for you.  Take a look at the aspeed driver for an example.
 
-Reject such arrays before the r5conf is created. This prevents the invalid
-geometry from reaching queue limit setup, where roundup_pow_of_two() can be
-called with a zero stripe size.
-
-Reported-by: syzbot+de94ddbfff0c9e6fe030@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/r/6a778c82.01d0871a.3a0d52.006a.GAE@google.com/
-Fixes: f63f17350e53 ("md/raid5: use the atomic queue limit update APIs")
-Signed-off-by: Chen Cheng <chencheng@fnnas.com>
----
-v1->v2:
-- Fix wrong tags
-- Check raid-4 also
-
-v2->v3:
-- Keep two-disk raid5 arrays valid by rejecting raid4/5 only below two disks
----
- drivers/md/raid5.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/md/raid5.c b/drivers/md/raid5.c
-index b91545ce090d..e1f20035703b 100644
---- a/drivers/md/raid5.c
-+++ b/drivers/md/raid5.c
-@@ -7655,13 +7655,15 @@ static struct r5conf *setup_conf(struct mddev *mddev)
- 	     && !algorithm_valid_raid6(mddev->new_layout))) {
- 		pr_warn("md/raid:%s: layout %d not supported\n",
- 			mdname(mddev), mddev->new_layout);
- 		return ERR_PTR(-EIO);
- 	}
--	if (mddev->new_level == 6 && mddev->raid_disks < 4) {
--		pr_warn("md/raid:%s: not enough configured devices (%d, minimum 4)\n",
--			mdname(mddev), mddev->raid_disks);
-+	if ((mddev->new_level != 6 && mddev->raid_disks < 2) ||
-+	    (mddev->new_level == 6 && mddev->raid_disks < 4)) {
-+		pr_warn("md/raid:%s: not enough configured devices (%d, minimum %d)\n",
-+			mdname(mddev), mddev->raid_disks,
-+			mddev->new_level == 6 ? 4 : 2);
- 		return ERR_PTR(-EINVAL);
- 	}
- 
- 	if (!mddev->new_chunk_sectors ||
- 	    (mddev->new_chunk_sectors << 9) % PAGE_SIZE ||
+Cheers,
 -- 
-2.55.0
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
