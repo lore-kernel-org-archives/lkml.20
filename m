@@ -1,120 +1,107 @@
-Received: from mail-oa1-f53.google.com (mail-oa1-f53.google.com [209.85.160.53])
+Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com [209.85.208.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B636847728F
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 13:21:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789132908; cv=pass; b=QxqFo0e5gLMhm1b2WvemNvT2NxTs5ubJ/kM3yV9AAXMZqjigZh7EabHkCEZ33xvngnCqcEP8+bq5ZBBFOLNI9QK32DGp1FApHiKXX7I1wX238H5C1DGpzB/EFpEptZBOdP725LAbDG6dGCJM9+VDWsGb5qIq3PJb9vlELTun5sY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789132908; c=relaxed/simple;
-	bh=5GSzj0e9Yb2VMZ3KqK3B/p1FAZi4+1j3IUEAn1TPPbE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=IQUneO0ax1qArREUbFOhhYB1MqMF/hZANTBponGNGR0OFwoO7oe/LO2Q3uFaugg0E0gSMFQDMydBGEs3PjUxGwm4MfCjQJUvpgjvZ0tWmmo2Ly6O6eEaamH9LwnF2JNbzUb+DyuBLQoYbr3QHaC2JjdPR5GQhpCrShpHFKBrhr8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DP8T2clZ; arc=pass smtp.client-ip=209.85.160.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1C1D485500
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 13:22:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789132959; cv=none; b=YgxUS7APVRh8JA7ktnGuSlI86pdiShCQ6UH9siFAxXnwYgEpojhy4NkP1umdbm7K2NNU8w4woq9AiiQQ7LrVZ76xwphoITLwswE4LYZawCKLJ4dcv5P/8mOroUykgoRbGVsCGxOEOqAL4CInalE4AVNKmWzMzVar1wmAye6J+pE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789132959; c=relaxed/simple;
+	bh=bOQ/MUtV4oABfhpMfaORamrLvXRLrnJxJ8E3V8zPxPw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=qho3wPbV4YX0uiEKu3f6+Z2r3EeSydc6he1egPtW7OlHuHIyJKP9v8mcrnDoXjT582cafPmayyDfV3uyL9o9Txg+w2jjVkNFk8ncXLuNadPYnhMH2SP2oGwiuslSH5IZ6CREzlxCBIUT+CnwrhDS9HwLNYKaaqyYmjBt7ueD0x4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=fQ5arWep; arc=none smtp.client-ip=209.85.208.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DP8T2clZ"
-Received: by mail-oa1-f53.google.com with SMTP id 586e51a60fabf-478622cd851so386854fac.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 06:21:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789132905; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Ki/e3/riAr+iQxJhv7VoUFH0JzoFCILFM/E26O/sxeNvJnFcDDSaQUJqxHl4hF0DIb
-         /PPuxQGpz+1UvFD2ECOf/snGpF7sBkfCHziJdT0vmuVaDz8hRZFIFLn38PNctTiRrH1X
-         BYVpdI1Z+bfrgRyYz2Upl/KC0KZzmJ6TLQF8SL3uADF5bOPpybwAUay4FENXx607GBJg
-         0PJ0N315bDta31S391ey5sYlhiqfts+7QAMhn02CJBjPlZBFEhlvLWrXGcPj/xyERVTm
-         7YsLPLMJD5tD0SZ1QumIssXzXat6Nfv/YjpbEg9dWzLd7IEOdiwR4fXG5W7nZpY91eAi
-         bg9w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=5GSzj0e9Yb2VMZ3KqK3B/p1FAZi4+1j3IUEAn1TPPbE=;
-        fh=u+4rbO31r/RRJp+rMCTe33IhdNzWcpxAo4+T/rUCHnc=;
-        b=fx06NZZmSKEImE8d3EVY2GbYz3bHLRydV4h+ca0wNRpaaF7Fh+aFTeb+ODh21PJ0lC
-         wRBA4BknrjXA3hJUR4b5wji05Ih0xEC/dm8nSyzHpdHhx5lcMuuenmSqezkdniQ8gBNz
-         Ofq6P1f0fWtB6uqo5nnhFjwHPhHEBUT/9XwZoKr2hgBnLazuDhiub309AYZFfEZEGTW8
-         j5IUT7t6+g2hpoNzuDAiDvEkkj1BI6/0iRkJR+Yc4uCS8/XYiphsvC/eUJSdsOiUjlBt
-         FWbbDHMYaoSaswmfICWPyl/zgJg5hN7/r8lh4QObfjaQUKz+Cd/11KZb1fFqkkgLLzMg
-         0ZuA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="fQ5arWep"
+Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-3a309f92daaso7236261fa.3
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 06:22:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789132905; x=1789737705; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5GSzj0e9Yb2VMZ3KqK3B/p1FAZi4+1j3IUEAn1TPPbE=;
-        b=DP8T2clZDChX8ueDK9UJNf50GY+zepjIWDaySeeaSPEqSM9rCOIaOvPrdl8Hu9nGDN
-         CD4M83bIRrmxEhZSLMcAJXHuxO8P3TxRmdCGreE//i2HN3QebyILDZYFH/4zIps/OOfP
-         GnZnslNjZz3+7olfFCslrvWH6vtGBlm9evBdCZrKNtGKESsK2Lwgt2MemiwbFEfUv5ib
-         9j0Sv7THzNS+MUSBZ3bBrAslGUVE1oaYRiPf44iFyGgG0fBGaRzrAsyLnJMCE8dfae20
-         Ch4usIpe3SKuzKE7WSyIxqz3ukcb2mVww3c4BPdkZ5n5BiRjgMO8RbQKa0tPeLa1mRIM
-         LsKg==
+        d=chromium.org; s=google; t=1789132956; x=1789737756; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=axORLmg8T0T4dSUmkU6VVFtEBAwXnJ3GuirIwOgJeOI=;
+        b=fQ5arWepsPpabgndkLNl5iRZ2bKo+uI+JRRjkDvfcbt0eM3P1wbujxBFxq9Z3AQ4M3
+         H6bVw1W12qbQMoSrQB2Si/8deu2g8jse3qmqa8sBbIKnKRGqcWSzDOQSuvehx07Vpq0M
+         cZs7FGki/lZxY1zM0DRUqq7FTvB9vx+uf7kHs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789132905; x=1789737705;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=5GSzj0e9Yb2VMZ3KqK3B/p1FAZi4+1j3IUEAn1TPPbE=;
-        b=NTYuihXQ2Sopvyl++gEfSYc+8MyX6lnwnIuxAvs9EkDXEB4g5daOw+jL3zfdryPnE5
-         BDK0AjVu3VVcg7VcGWnP5DlY7BDX0hFXRj5LfS0SVCeswUf1Yuk6whC2lR6rJLV8UkQO
-         95FJ2UZsMOK4JpNKNdI7BKYfwZ0vGkIRYNNMkwuQwRVW/Hya4nEkGwqMmqUwn6r0MstU
-         o55Ds4fgflpeegqkEJ0wU+e52Alqzw+uDucg7TPpmZE16rjzXMn315FuPCJjVetg5Amr
-         5u1Tck2xr4ai+kTSn9/r/Sm7qciglMu+w97arwQhflCnGg5OIBZa9bkz1/Ok0v0gHuMO
-         YSOw==
-X-Forwarded-Encrypted: i=1; AKwUvBw8A/w1LRm3xJwM3BUb7I/Iq6ci7pr/+mkIePhcja0NQsKHswXTyc7O5RBcuL/NQ79fPkpbQuoutJ7Y87o=@vger.kernel.org
-X-Gm-Message-State: AFuF++miU1TtZRWaZRxd2ya/saZdQB2GnX3yzFF7HjWglI6ZvO17I/IV
-	U7TcldzanCsl6A3Dk9tgLKDw4E+eJVktbqmjaYHNBeilGQm6Rq150eJT6AdcoeHweLsdX805uYO
-	XPlFQDnvDXMLSrN2mKkDHCzu/SVfPZdM=
-X-Gm-Gg: AYBFou3S1gyzbaX1fme3bDIYW6eHmpIsBSuoKt74lFHH9uUyBbKbukWNVvb3u7YQEgO
-	2+bNlQZElbxWqufzArzZjqzh4XHCHZ73VBTlMxmmc+pUGi8To+0Uep1cPczg9pGjb2FEz8Lk0Gu
-	xORezH5LdW2PUslDl/pS6FmFRAO1BtIkMf8zCumSDg+WuqAdq0d/GrjtXGLx0FRLmpFcK41T/Hr
-	owsLDrpeNFoWBEhW6JYusbcGnznd/WTRJnBdqpU658e1gFpZxO1T67vYNXdnvX+cf/OTLjdrrrI
-	gZVCjEWLmAOcltmcywhz4eWXub/+P4h5lhDMOQuNTIkcbFcdfEmu8v56iOUCWkiACxY=
-X-Received: by 2002:a05:6871:4082:b0:479:a30d:60e5 with SMTP id
- 586e51a60fabf-47deb6b21a2mr3169202fac.37.1789132905351; Fri, 11 Sep 2026
- 06:21:45 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1789132956; x=1789737756;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=axORLmg8T0T4dSUmkU6VVFtEBAwXnJ3GuirIwOgJeOI=;
+        b=krgWnoOFGg0xZDdbZ+UDJq9RZL0aD9w6Fcq30UZv2DnyhwLEvK5BygqKtKP1Skhnay
+         jtVcd30fxJ9j/nO3KUHYUuz0LVHywcaxlu4oX/WVZVfIMoJJUASQmSkBPESq2aYUWxnc
+         Jf0TLOaZHZZm5rLc2mQLCo+/vjo8h4FIzjNw4EI1a1TlHwPP6dRxbkhazsJ327yjuquD
+         PvnU6Yw/e14A+A55yOZubZu0+UuurZ6zpIOXBRUaVIitm8qEuYi0zTRgNciQggIB8cZr
+         9Ze0pP8ywMRF2Nci+j222xW0w1JNUltb26Dx14LXcgOnp/bzhRkV8Mk2e4C8EAhj2baQ
+         qzew==
+X-Forwarded-Encrypted: i=1; AKwUvBzQCX5IfAwXyj+yP4x1hWwpnSC2RpbI53DQCH5mvNbkR0UfTiB1AXbpGD6N6DtjrqS4ixuMhBL3oO24oYU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mHNRzgfH5zKG5pe+wpgsJf4i4KYekLIWPbgXgoos+LE99MuMf+
+	obMNUk8ODvYD+SusYq9DX1nuFStvl/2hKI4N48KSW/SCuwbVjnYy5jJ/9nLknM0OPQ==
+X-Gm-Gg: AYBFou31NsnowgXKKv+nClF8AkSVJs10TvLCIGTyJjmGqKnwqjCD2nwSpRQhdtnuPz2
+	QlrlwbOKkUJYePk+/9dE/Q3PwcVMsiPv5Oqw0Oi7xcf96Z7REJfeU3no4WEL+zuZo6EQ2A2Z6or
+	nGEE3zMOYWkPGHwG7zAXPkIFkO1NxmPpWnPVkGeUBZrgOz/VfNybA1aJmC3vmKZe8nB+WRnYCr7
+	aPXI+GsFpEGWzLtuah5ZN5DjX4I2ccZK5JPAYaz84mnrouXWL37DtJWKrORhEXZWRC/HYqlxACZ
+	KsRJKLyP0NXnTnSlTr33sMBfvcTkpuP8meSKfVSG0Fypu39SElSB3r6wX3UvjkxfQIhVsszJtwL
+	dy7MPYS+ClcCge4VYhmGTmJS28L2imTikrX7RUjlOHLfukdCO3yKLsyU3NObTpDLCRY9eQl1SZh
+	jURFoLWEQynU8H/v5al91Zxpe/pzfH5lBVFrr/cKs9kAIVp+xk80asniYh+LETxEBLnd1hjuhqz
+	w6nLRnn24w8muTFsNQcFjK6JUpLTo+wEMi72hR0Pwgu9lLjYw==
+X-Received: by 2002:a05:651c:2127:b0:3a5:a54d:c8cc with SMTP id 38308e7fff4ca-3a5a54eb73fmr4938891fa.23.1789132955799;
+        Fri, 11 Sep 2026 06:22:35 -0700 (PDT)
+Received: from ribalda.c.googlers.com (11.36.88.34.bc.googleusercontent.com. [34.88.36.11])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a5a3303fc9sm6677511fa.6.2026.09.11.06.22.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 06:22:34 -0700 (PDT)
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Fri, 11 Sep 2026 13:22:25 +0000
+Subject: [PATCH v3 1/5] media: uvcvideo: uvc_warn should warn not info
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260911110456.24873-1-abdelnasserhussein11@gmail.com>
- <20260911110456.24873-2-abdelnasserhussein11@gmail.com> <20260911131834.0000514b@gmail.com>
-In-Reply-To: <20260911131834.0000514b@gmail.com>
-From: nasser <abdelnasserhussein11@gmail.com>
-Date: Fri, 11 Sep 2026 16:21:33 +0300
-X-Gm-Features: AcwNN1V6XBqz-WHyitn1RiLjHTKAlPQpxveccB8dqCvxZHDUYuXYYdrHvshVrYM
-Message-ID: <CANpqX3YjCJCmvp98iymexGLvL0zLXvM_M1F1YypbMCUQA0BM-g@mail.gmail.com>
-Subject: Re: [PATCH v5 1/2] staging: iio: adc: ad7816: Serialize SPI read operations
-To: Joshua Crofts <joshua.crofts1@gmail.com>
-Cc: jic23@kernel.org, gregkh@linuxfoundation.org, nuno.sa@analog.com, 
-	Michael.Hennerich@analog.com, dlechner@baylibre.com, andy@kernel.org, 
-	linux@analog.com, linux-iio@vger.kernel.org, linux-staging@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260911-uvc-version-v3-1-604328d8a0dd@chromium.org>
+References: <20260911-uvc-version-v3-0-604328d8a0dd@chromium.org>
+In-Reply-To: <20260911-uvc-version-v3-0-604328d8a0dd@chromium.org>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Hans de Goede <hansg@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Edwin Gatier <edwin.gatier@protonmail.com>, linux-media@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
+ Ricardo Ribalda <ribalda@chromium.org>
+X-Mailer: b4 0.14.3
 
-Hi Joshua,
+Now the uvc_warn_once macro triggers a info message. Use the correct
+level.
 
-Thank you very much for your continuous guidance and patience with my
-patches. I truly appreciate your feedback.
+Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+---
+ drivers/media/usb/uvc/uvcvideo.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-You are completely right. I mistakenly thought I could clean up and
-sort the headers alongside the mutex addition without needing to
-isolate it in a separate patch. I also apologize for letting the
-`sizeof(buf)` change slip into the mutex patch.
+diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
+index b6bcee4a222f..a80406f20beb 100644
+--- a/drivers/media/usb/uvc/uvcvideo.h
++++ b/drivers/media/usb/uvc/uvcvideo.h
+@@ -685,7 +685,7 @@ do {									\
+ #define uvc_warn_once(_dev, warn, fmt, ...)				\
+ do {									\
+ 	if (!test_and_set_bit(warn, &(_dev)->warnings))			\
+-		dev_info(&(_dev)->intf->dev, fmt, ##__VA_ARGS__);	\
++		dev_warn(&(_dev)->intf->dev, fmt, ##__VA_ARGS__);	\
+ } while (0)
+ 
+ /* --------------------------------------------------------------------------
 
-I will prepare a v6 series shortly where I will:
-1. Add a separate precursor patch solely for sorting and cleaning up
-the headers.
-2. Keep the mutex patch strictly focused on serializing the read
-operations (adding only <linux/mutex.h> and <linux/cleanup.h>).
-3. Move the `sizeof()` argument change to the DMA buffer patch where
-it logically belongs.
+-- 
+2.55.0.1007.g17ff1f9808-goog
 
-Thanks again for pointing these out.
-
-Best regards,
-Abdelnasser
