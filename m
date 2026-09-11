@@ -1,82 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 798513BB670
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 02:02:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C3503C456F
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 02:03:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.129
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789092152; cv=none; b=t0qWkWLykt19o294O0oLkdzif7oOcSkP62BA4z4NJ1zfsXB4OGcKKgfIRbI5r+bkMW8U7wnwxspawuQeOC1p0ajd0hvgM2Dv5yW0Oc8+/k352oGtZCoTd9jbm3n0LnW67H5Dfr5xb6lwhf5Odu7Uk4dHj6QLEC7onIs8IGFuktI=
+	t=1789092191; cv=none; b=Fxax01vnjJyS0H+jfj1TPECzL0gV32ht3jy0rX1Xxz2IqZiTot/GP0ahbxPIJCpMB5chH6irm5D5mSfzewAwpZL9lFsU7dxDeHulQCWppsgcE6g/o4y6HoxRQ9wCmW1IdB/JK5nX3x/0FA4XESrS/BQ//y8e0zpmZ6CnVFeOCCQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789092152; c=relaxed/simple;
-	bh=6xPsvuCUZiWtDiYwTCJ2adkdAD9amKFNrL2zN0WQE2I=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=YGfnA7FK0iIDWkrJYJ5G4cO+lJSUTgkV9L30E8wLxqHMstJ3QWSUvhxv9kBMgbviYbWS9Xn86W+4zv+yiiBsdV0vQXxZ2c+Il2ggHo3ZFD1CzGaGglO5vSijrkbkeT9Mr88V3/LVKjRD4bDNmsjkGg2iHq3xSB2wYVbiUPz5zKE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KwpfbZJa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789092191; c=relaxed/simple;
+	bh=p4+ap8iN4dSSeNIC2F+epq8WIYVdpPuH33P0vIVK/GU=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
+	 References:In-Reply-To; b=sBG7XlANqThb8ppKeT//uN42QoBvg+tDe1ujLnhMO0SWdQ7gkk01PgKnEtw0KsG82xnO+1B3JYlYaphhYWQvos2ChDL4nh2BDFHOS5GL1hDyul3pyaHnSFeMNW44LLCKMJk3g5+E4savhMUzieVeQHsTneePAZmiZOUAITMQ+gE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=ktooi5Yt; arc=none smtp.client-ip=54.204.34.129
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KwpfbZJa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C05B1F0089B
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 02:02:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789092148;
-	bh=6xPsvuCUZiWtDiYwTCJ2adkdAD9amKFNrL2zN0WQE2I=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=KwpfbZJaSF0O1LfAuHE5wIn3l8V8cwFMMW0Nb+i22EA+WmNmywvHE6TuxXlKoHfuD
-	 uv6MMg+iPDFyQrsp3WkvJ+Busbm7mhUZ9JP+qaTFViYi/2UgaZLR2R9J0G2THChxA8
-	 jJCpvBGH+8GVMCh7Z0B69Yv1RIyzTqASfVqObep1tfjuylJpU4Lz/CeNobrrj+uo9I
-	 yVpy/izCgTsJ7FdKiFRiM2Gw92jDkV2uQnBYqrfqBuiDfpyq1ehQ2/SZfHmsui4yjw
-	 NZNhuGXB+pnvnG/hp8kC0wNp5ezJ8BsFvZu593HINsYsae5jwpnRphq7im+bV5l75g
-	 C9czlR8S4D+fQ==
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a6056be4d2so329989a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 10 Sep 2026 19:02:28 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBybKBWaPsUF1frXdDAEaDmk8c98Dr40Lj4SXapM0Ym7xAf+1/BZreCVY+usY+8s5sCRELn4vgNErqTPfFM=@vger.kernel.org
-X-Gm-Message-State: AFuF++l1Lcmx/U7pCZvKScRO5ndosYBenIwd+fNEUE1Lu8bGuWFtGxX3
-	mw/PP3ghAgrUef3cQMJg2tQvw6jnNB909m25ezxuidOuhQWzFByo3jsu4KmmQb3XUJdl6MCkT0o
-	stHbBCYbTr5528DGRo3XnheLkGluq1oI=
-X-Received: by 2002:a05:6402:4028:b0:6a9:a088:6788 with SMTP id
- 4fb4d7f45d1cf-6a9b50a3072mr884028a12.14.1789092147099; Thu, 10 Sep 2026
- 19:02:27 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="ktooi5Yt"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1789092177;
+	bh=p4+ap8iN4dSSeNIC2F+epq8WIYVdpPuH33P0vIVK/GU=;
+	h=Mime-Version:Date:Message-Id:Subject:From:To;
+	b=ktooi5Yt3+cHvXXVJIdm5WMqT1MQBDK6mViQ54PCb34h81Mut2j5WELCkkmmlZsXe
+	 chjwveWztyct5KeWxFt4AcXaCS5Wss8oNgX8OpOqiT4XBiUmAJDKB1xOzWoPT0nhpa
+	 MlHSNp9Lrf4N+PqHRavNHS8oHftQCjhpGjhLE680=
+X-QQ-mid: esmtpsz19t1789092172t4f8b07e9
+X-QQ-Originating-IP: aSvGHA2+aoIKS3fHxwTlfYEZdf0xYuWX7HM/PfxhtbM=
+Received: from = ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 11 Sep 2026 10:02:50 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 10264822679062085663
+EX-QQ-RecipientCnt: 13
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260910183742.4029092-2-Jeremy.Jean@oss.cyber.gouv.fr>
-In-Reply-To: <20260910183742.4029092-2-Jeremy.Jean@oss.cyber.gouv.fr>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Fri, 11 Sep 2026 11:02:14 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd9zfsscZ8xaPwdZSbtgfZiMaOi8zH2+c98Yh2oKBc89-w@mail.gmail.com>
-X-Gm-Features: AcwNN1XSWOXYM1Ndvz_QLB9icX217ocCOqcN2MvHx90cXrUPU7WMZq-cvovuqio
-Message-ID: <CAKYAXd9zfsscZ8xaPwdZSbtgfZiMaOi8zH2+c98Yh2oKBc89-w@mail.gmail.com>
-Subject: Re: [PATCH] smb: client: validate absolute native symlink targets
- before NT fixups
-To: =?UTF-8?B?SsOpcsOpbXkgSmVhbg==?= <Jeremy.Jean@oss.cyber.gouv.fr>
-Cc: Paulo Alcantara <pc@manguebit.org>, Ronnie Sahlberg <ronniesahlberg@gmail.com>, 
-	Shyam Prasad N <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>, 
-	Bharath SM <bharathsm@microsoft.com>, linux-cifs@vger.kernel.org, 
-	samba-technical@lists.samba.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=215ee3cf27d68f54324eca2221f65eb243d448b430723bfe53a69c3edd9e;
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Fri, 11 Sep 2026 10:02:47 +0800
+Message-Id: <DLC48RE9YAU6.1YO47FZILOUWJ@linux.spacemit.com>
+Subject: Re: [PATCH 4/5] clk: spacemit: reject rate changes to running
+ firmware PLLs
+From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
+To: "Yao Zi" <me@ziyao.cc>, "Troy Mitchell"
+ <troy.mitchell@linux.spacemit.com>, "Stephen Boyd" <sboyd@kernel.org>,
+ "Brian Masney" <bmasney+clk@redhat.com>, "Jerome Brunet"
+ <jbrunet+clk@baylibre.com>, "Yixun Lan" <dlan@kernel.org>, "Alex Elder"
+ <elder@riscstar.com>, "Inochi Amaoto" <inochiama@outlook.com>, "Haylen Chu"
+ <heylenay@4d2.org>
+Cc: <linux-clk@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
+ <spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260909-spacemit-pll-init-v1-0-b3065ad5a4ac@linux.spacemit.com> <20260909-spacemit-pll-init-v1-4-b3065ad5a4ac@linux.spacemit.com> <aqKxMmgpFLE3CmQ8@pie>
+In-Reply-To: <aqKxMmgpFLE3CmQ8@pie>
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: NzOHSugmTg7XqPDmIlu9eQyPXvynWm3Zq4EcwyB+HRjXAEeE519rUMX3
+	LjoQJQf4lDCeC+UaYFCN+L+xw2kUN6jP4tgRVD07ec6hsBWspRI5rRk0zmKI26DgTTCKOyW
+	nQZXf+6Nwl8+FUrStY7kxRYVVOFWyT2itiVxDcu/DA0pjUlLRRYuF5gBhs2RWE0VHh8ugY7
+	lilX46Thy5BVvYWgT8OGDl8pmPmXc7johJw2SgNtwQptXXPXDL/fqth5nnKxH54vRhIbqae
+	oGt7ikneZ5Z/KMVwhy/DT5tsDOQ9rVluV/Q4nyaog9t1/q3A7iRYtEEXbjohH1kUv0fvQJY
+	awHVzLG4I2ufRpaInuAL4F7Ho16kr9+8p07n7FexognNg7zr9YM95xC9AfV1bHJ/ylAVK6t
+	FitIwI/P+tSUQs87v3e5qJjqUsU28bX0LESngnK18WX/XbsMi/BeSEkrrzPXBgyWT5Ph6XG
+	TaSs+6amv4jPqTKCPuCeBF/1KiIqV4knKX4oz7lXkHCPwBZlLoTgonUhkQKWhzD83CpLL2c
+	f3a6zAh6hNKZmcjsq3X6+jkQpAzJxKq0yhxMtSvTwa/faMBiybgWoXRnV6yjMQ1Tzbnaqz6
+	NloRQIssbA3dlRaGBcUGMDDcxpJ6wXr/Q7Dv3xfBBcyDtRUSM7+DGwPgdG/CrvJyFNGaOYi
+	ifHVF+/mDBY19NWhqvk9hpeL/y2WHe2y7U0bH9mvq2dVBfJUX7f8+bVSgQtD97TaGD8G9OB
+	TMpK5r97KSeZejhDKD13o4c+amAorSITnivRBg74RArOeO9QB3SYay4O4jSEJl2/VoDOtkB
+	Z/CQQEugXaFvB/gwFjATfZUEFBG5VTCN2Ol+Krmb7TmotLGevjgLjS5iROnuswGG7q8By49
+	6rng6PhfNTME0lbgiOwJfpOoSNs5xLlCnE1rNKtqq3HE4dKrLB5n3y10j/yBX47eMFqFpjp
+	Hx7cBnCB5+vzFEx3Nvy8sTptYygfFKvcsikIdwuQKbQTjX5Ng7yFr/BN5ZV5XGzInQtyG28
+	bisb3gUR/CHVlmLq9usxdNuwAyUdioe41ufJyhe/tzYc4fSzqQjwQiPihaeVQ=
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+X-QQ-RECHKSPAM: 0
 
-On Fri, Sep 11, 2026 at 3:41=E2=80=AFAM J=C3=A9r=C3=A9my Jean
-<Jeremy.Jean@oss.cyber.gouv.fr> wrote:
+--215ee3cf27d68f54324eca2221f65eb243d448b430723bfe53a69c3edd9e
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+
+On Thu Sep 10, 2026 at 9:31 PM +08, Yao Zi wrote:
+> On Wed, Sep 09, 2026 at 10:07:04PM +0800, Troy Mitchell wrote:
+>> CLK_SET_RATE_GATE only protects clocks prepared through CCF. A PLL left
+>> running by firmware can have a zero prepare count, so this flag alone
+>> cannot prevent set_rate() from reprogramming a live PLL.
 >
-> With symlinkroot unset, an absolute target is copied without conversion
-> to an NT drive path. Later code still assumes an NT prefix is present
-> when modifying the target and calculating the print name length.
->
-> For "/ab", this causes two failures: sym[5] and path[5] are written
-> past their allocations, and plen -=3D 2 * poff subtracts an assumed
-> 8-byte prefix from a 6-byte UTF-16 target, wrapping u16 plen to 65534.
-> That underflow causes another overflow: memcpy() copies 65534 bytes
-> into a 24-byte buffer. A user with write access to a mounted share
-> can trigger these bugs with default settings.
->
-> Validate the NT drive prefix, including an ASCII drive letter, before
-> accessing fixed offsets or subtracting the prefix length.
->
-> Fixes: 3363da82e02f ("smb: client: fix native SMB symlink traversal")
-> Assisted-by: Codex:gpt-5
-> Signed-off-by: J=C3=A9r=C3=A9my Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
-Thanks.
+> Would it be a better idea to simply turn off the PLL before reprogramming=
+,
+> since protected by CLK_SET_RATE_GATE, re-programming never happens when
+> the PLL is required by downstream? This also seems to be simpler.
+Then assigned-clock-rates on the PLL provider node? I tested this
+on K3: .set_rate() was called during provider registration, with PLL3's
+prepare count still zero while the CPUs were running on it. Disabling
+PLL3 hung the board. CLK_SET_RATE_GATE therefore does not protect users
+that CCF has not yet accounted for.
+
+
+--=20
+Troy Mitchell
+
+
+--215ee3cf27d68f54324eca2221f65eb243d448b430723bfe53a69c3edd9e
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iIMEABYKACsWIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCaqNhRw0caUB0cm95LXku
+b3JnAAoJEJgJ74D5MzQvFiQA/1yR1e1N5dqm/JjKEw3dfM8yjqKmhTeY4evjauQO
+6r/JAQC+EVD4ZL95QJzBkQT+HKp2w5tll5d/gI8NIB1sW9JeDg==
+=Z8ol
+-----END PGP SIGNATURE-----
+
+--215ee3cf27d68f54324eca2221f65eb243d448b430723bfe53a69c3edd9e--
