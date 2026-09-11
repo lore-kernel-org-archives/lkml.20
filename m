@@ -1,189 +1,305 @@
-Received: from mail.avm.de (mail.avm.de [212.42.244.94])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C44D4AFE08;
-	Fri, 11 Sep 2026 18:10:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.42.244.94
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A655C4AE129;
+	Fri, 11 Sep 2026 18:11:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789150247; cv=none; b=EqjKMxjboHAEHGB9QK109mDr4946Lmh/jendB/0leT06/IZ8MlHebjNIJmUdGmPV99tKp6JxTh49tut6lTkoXiGNdD0OOxzRcYD4g8bZzzbKsLrR0V1uB0P696KnNF+CeQ9YuOM+aybzvsU/wGFq5lgI6rneR+MZ1LHUmcgebi8=
+	t=1789150277; cv=none; b=U/b5J1gUPMmcFNwpXgFRsLP6GXaIoHNtZYZxPxr0KSRwUNzCNLx5CdEEdaOnLFDZRRkys4JOQmpXUp4aKrge5r2KN0Rd4/7VlS8WibxhJ9A2NJjOE5B64POZnRe3N5K8t6pnnx8RZJI87FiIZ1dfrekIKvRBihS3me3RcHRiVLw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789150247; c=relaxed/simple;
-	bh=HiXUwfB+4U/xUpyEGVb/EMeam4+iG8adYAIKsP37yh4=;
+	s=arc-20240116; t=1789150277; c=relaxed/simple;
+	bh=hr28GkCYOkQqY24kq3XyGNEHK4E0e1HO2SV1+/nV84k=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MI2i2LwTqrkWevB/DA7Ks+LCc4ZCnB3ApFg0Z8iUAmOIzYnt6pCKkdX4L+FQGqM74s1eQa4O8G8Wz8jfjsEcDoO1QoL7r0Fxb6y2b8UEn4alrkilKKspJTd8A9OmMA8ok5WK2iwZVqnEsuS5sSL4R3VMWmmugRPEss1E0bEHVUs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fritz.com; spf=pass smtp.mailfrom=fritz.com; dkim=pass (2048-bit key) header.d=fritz.com header.i=@fritz.com header.b=hR+36mzQ; arc=none smtp.client-ip=212.42.244.94
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fritz.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fritz.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=EgSNgaOBlkWso+eJ779NPz/QxRZQNeM5DhQIVGPN8bBPMzd9bwaarNKW8yUu/dZzL92vnTmMxNQOVpDvOqXftddygWwzBb5zRZzSFdgsNF+j/9XvW4agcoivWawfthkBQTXoGUPbAuCcV/EobVb6BA4qZMFzkz+M7/G8g9sFNuA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qol0+QL5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fritz.com header.i=@fritz.com header.b="hR+36mzQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fritz.com; s=mail;
-	t=1789150227; bh=HiXUwfB+4U/xUpyEGVb/EMeam4+iG8adYAIKsP37yh4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=hR+36mzQyixe5THHS68Z7oZZlRIG+Ih3UoLL1BWcc1NKiHu5yfuvvZ3PeA8HsaaZM
-	 wpqKNgAnhSoLeoOyyesVQrqn/GY9K8f5+aevV7RXvVGhSStcQ7VkeKrLQjj6x94QMP
-	 bj5Mk8xS1JwoSKDhzLKC2qy15uZyyr9WI9dQ55ZEMhAq4RZcgj5FgoVbR4DaqHSq5Z
-	 J6YPaTOtocigcccnEQy5vXqhN0RJJwBJEmkMfeokD07s3b8D6hERPE+UmNWFIbBIDQ
-	 CpF9zDCxgqafA2mNB0r6jjir20f3LIolX/B4doBNUVqwmyCG317UaapcsrukyZzjYq
-	 M4A5nOMB9H82Q==
-Received: from [212.42.244.78] (helo=mail.avm.de)
-	by mail.avm.de with ESMTP (eXpurgate 4.57.1)
-	(envelope-from <n.schier@fritz.com>)
-	id 6aa44413-6dc7-7f0000032729-7f000001d950-1
-	for <multiple-recipients>; Fri, 11 Sep 2026 20:10:27 +0200
-Received: from mail-auth.fritz.com (unknown [212.42.244.78])
-	by mail.avm.de (Postfix) with ESMTPS;
-	Fri, 11 Sep 2026 20:10:27 +0200 (CEST)
-Date: Fri, 11 Sep 2026 20:10:26 +0200
-From: Nicolas Schier <n.schier@fritz.com>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Nathan Chancellor <nathan@kernel.org>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	Masahiro Yamada <masahiroy@kernel.org>,
-	Alexey Gladkov <legion@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
-	Josh Poimboeuf <jpoimboe@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Randy Dunlap <rdunlap@infradead.org>, linux-kbuild@vger.kernel.org,
-	linux-kernel@vger.kernel.org, llvm@lists.linux.dev,
-	linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-efi@vger.kernel.org,
-	rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org,
-	Jens Axboe <axboe@kernel.dk>
-Subject: Re: [PATCH 12/23] kbuild: avoid re-running compiler and linker probes
-Message-ID: <20260911-mottled-gerbil-of-abracadabra-bacb17@l-nschier-aarch64>
-References: <20260908-build-speedup-v1-0-5dc1ac01672d@kernel.org>
- <20260908-build-speedup-v1-12-5dc1ac01672d@kernel.org>
- <178901395292.3971858.13236774094648272066.b4-review@b4>
- <20260910-translucent-sweet-sidewinder-7acacb@l-nschier-aarch64>
- <aqPXj1nDQ06KRhf4@gremlin>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qol0+QL5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00A991F000FF;
+	Fri, 11 Sep 2026 18:11:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789150266;
+	bh=zbceo/sKYCKvwSfA6gYi+fSUPm/FV0YzBbx3Kaa+7K4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Qol0+QL5XFpE14QASX0HRNirwkB0icbiwkNEBhTU3gHzXlaNiHhxb2ttDVR/R2bOz
+	 JrTM3vfpgNz3WdzEky0uyZd2uOcMps4oD0I+QFpROztnyhwu/5Wrt6dhJW8HBmCinn
+	 p1432fKgICB9YHOSlqpRazo846ckBkh8YUlaXVQfIkp54bUF3iLHTf3Wa1V0ds/O/8
+	 p4q3vJZlJuTOnZwqMLUNYYMRF+ab7L1L9hbSYjznQoM8WDhO8m8m5YWWERfff18o0d
+	 Ry9fpTmkYd3NIg1GFCrdRWWnjd7OdXp/vU3V/VmYE54F6HGETOXGayp2qv5k7x384N
+	 hTQEPusrLih0w==
+Date: Fri, 11 Sep 2026 19:11:00 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Suren Baghdasaryan <surenb@google.com>
+Cc: akpm@linux-foundation.org, liam@infradead.org, vbabka@kernel.org, 
+	david@redhat.com, willy@infradead.org, jannh@google.com, paulmck@kernel.org, 
+	pfalcato@suse.de, xueyuan.chen21@gmail.com, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH v3 4/7] proc/task_mmu: remove special-casing of
+ smap_gather_stats() start parameter
+Message-ID: <aqREAsJK72xwXSzK@gremlin>
+References: <20260910234737.1340642-1-surenb@google.com>
+ <20260910234737.1340642-5-surenb@google.com>
+ <aqQsWNfrBSp4DY_N@gremlin>
+ <CAJuCfpEEi-9ZqhKR536tJHywprb9RFcx92gK00qp_ecBGH9Fvw@mail.gmail.com>
+ <aqQ2M5bZv4k43j91@gremlin>
+ <CAJuCfpG21qzef-yag3A9d22BUXnx2EFmbSvT=Zi5uRx_h7BxbA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="iQrCf81kTXDdOy/g"
-Content-Disposition: inline
-In-Reply-To: <aqPXj1nDQ06KRhf4@gremlin>
-Organization: FRITZ! Technology GmbH
-x-ms-reactions: disallow
-X-purgate-ID: 149429::1789150227-F94CE0BC-0719254D/0/0
-X-purgate-type: clean
-X-purgate-size: 3410
-X-Notice: Whitelisted
-X-purgate: This mail is considered clean (visit https://www.eleven.de for further information)
-X-purgate: clean
-X-pfmilter: host: postfix-mx-03  mail-id: B7F39A0438  external: no
-
-
---iQrCf81kTXDdOy/g
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAJuCfpG21qzef-yag3A9d22BUXnx2EFmbSvT=Zi5uRx_h7BxbA@mail.gmail.com>
 
-On Fri, Sep 11, 2026 at 11:30:12AM +0100, Lorenzo Stoakes (ARM) wrote:
-> On Thu, Sep 10, 2026 at 05:42:35PM +0200, Nicolas Schier wrote:
-> > On Wed, Sep 09, 2026 at 09:19:12PM -0700, Nathan Chancellor wrote:
-> > > > diff --git a/init/Kconfig b/init/Kconfig
-> > > > index 8583d9f06c52..3c92c87254a3 100644
-> > > > --- a/init/Kconfig
-> > > > +++ b/init/Kconfig
-> > > > @@ -144,6 +144,44 @@ config CC_HAS_ASSUME
-> > > >  config CC_HAS_NO_PROFILE_FN_ATTR
-> > > >  	def_bool $(success,echo '__attribute__((no_profile_instrument_fun=
-ction)) int x();' | $(CC) -x c - -c -o /dev/null -Werror)
+On Fri, Sep 11, 2026 at 11:06:28AM -0700, Suren Baghdasaryan wrote:
+> On Fri, Sep 11, 2026 at 10:49 AM Lorenzo Stoakes (ARM) <ljs@kernel.org> wrote:
+> >
+> > On Fri, Sep 11, 2026 at 05:07:48PM +0000, Suren Baghdasaryan wrote:
+> > > On Fri, Sep 11, 2026 at 4:39 PM Lorenzo Stoakes (ARM) <ljs@kernel.org> wrote:
 > > > >
-> > > > +config CC_HAS_ZERO_INIT_PADDING_BITS
-> > > > +	def_bool $(cc-option,-fzero-init-padding-bits=3Dall)
-> > > > +
-> > > > +config CC_HAS_NO_STACK_CLASH_PROTECTION
-> > > > +	def_bool $(cc-option,-fno-stack-clash-protection)
-> > > > +
-> > > > +config CC_HAS_NO_ADDRSIG
-> > > > +	def_bool $(cc-option,-fno-addrsig)
+> > > > On Thu, Sep 10, 2026 at 04:47:34PM -0700, Suren Baghdasaryan wrote:
+> > > > > smap_gather_stats() interprets its start parameter to mean vma->vm_start
+> > > > > when it's set to 0. Eliminate this special interpretation and pass
+> > > > > vma->vm_start explicitly when needed.
+> > > > >
+> > > > > Since smap_gather_stats() operates within a single VMA, we can replace
+> > > > > walk_page_vma()/walk_page_range() calls with walk_page_range_vma()
+> > > > > which is simpler and also can be called while holding per-VMA lock.
+> > > > >
+> > > > > No functional change intended.
+> > > > >
+> > > > > Suggested by: Lorenzo Stoakes <ljs@kernel.org>
+> > > >
+> > > > Hmm did I? Where did I suggest this?... I guess a while ago?
 > > >
-> > > I am generally in favor of this proposal since I think these checks
-> > > should be cached by Kconfig where possible to clear up running them
-> > > twice. That said, I wonder if we should pick a better dumping ground =
-for
-> > > these checks other than init/Kconfig. Maybe init/Kconfig.tools or
-> > > scripts/Kconfig.tools or something?
+> > > In [1] on June 9, 2026.
+> > >
+> > > [1] https://lore.kernel.org/all/aifO_rCurVhFRTcl@lucifer/
 > >
->=20
-> (Sorry hadn't seen you'd replied also!)
->=20
-> > Yes, skimming through the patch, I thought about that, too.  Moving more
-> > cc option checks to Kconfig will make building out-of-tree kmods with a
-> > different compiler more dangerous.  Maybe we will have to make the
-> > warning in Makefile's prepare (external kmods) target a bit louder.
->=20
-> I guess this bit can be a follow up potentially?
-
-yes, sure.
-
+> > Yup a while ago :)
 > >
-> > > I also worry about backsliding and growing cc-option checks. Should we
-> > > update the documentation to state that it is preferrable for these
-> > > checks to live in Kconfig so that they can be properly cached?
+> > >
+> > > >
+> > > > I mean I also happen to suggest it in the previous patch review :) but that was
+> > > > sent after you sent this...
+> > > >
+> > > > > Signed-off-by: Suren Baghdasaryan <surenb@google.com>
+> > > > > Reviewed-by: Liam R. Howlett (Oracle) <liam@infradead.org>
+> > > >
+> > > > I don't love hacking a hack for a patch and then unhack it in the next in a
+> > > > slightly roundabout way.
+> > > >
+> > > > Feels like this should be squashed. And a wrapper function for
+> > > > start=vma->vm_start should be used rather than duplicating that param
+> > > > constantly.
+> > > >
+> > > > > ---
+> > > > >  fs/proc/task_mmu.c | 29 ++++++++++++++++-------------
+> > > > >  1 file changed, 16 insertions(+), 13 deletions(-)
+> > > > >
+> > > > > diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
+> > > > > index 3c40c9cbb9c9..ecce7ce116cb 100644
+> > > > > --- a/fs/proc/task_mmu.c
+> > > > > +++ b/fs/proc/task_mmu.c
+> > > > > @@ -1246,21 +1246,27 @@ get_smaps_shmem_walk_ops(struct proc_maps_private *priv)
+> > > > >       return &smaps_shmem_walk_vma_lock_ops;
+> > > > >  }
+> > > > >
+> > > > > -/*
+> > > > > - * Gather mem stats from @vma with the indicated beginning
+> > > > > - * address @start, and keep them in @mss.
+> > > > > +/**
+> > > > > + * smap_gather_stats() - Gather mem stats from @vma.
+> > > > > + * @priv: proc maps private state.
+> > > > > + * @vma: The VMA to gather stats for.
+> > > > > + * @mss: The accumulated stats.
+> > > > > + * @start: The address from which to start.
+> > > > >   *
+> > > > > - * Use vm_start of @vma as the beginning address if @start is 0.
+> > > > > + * This gathers stats for the whole of the VMA unless the lock was dropped
+> > > > > + * and VMA grew or got merged and we found it again, in which case we only
+> > > > > + * gather stats for the remainder of the VMA range.
+> > > >
+> > > > This seems to be describing what callers do not what the function does unless
+> > > > I'm missing something? So that's really the wrong place for it.
+> > > >
+> > > > I think the description of why it might be a partial walk belongs to the bit of
+> > > > code that actually tries to do a partial walk.
+> > > >
+> > > > Anyway as per below I think separate partial/full functions make sense and there
+> > > > it can simply be described as walking either the full or part of the VMA.
+> > >
+> > > This is verbatim of what you wrote at the end of [1]
 > >
-> > Sounds good, yes.
->=20
-> I can add a doc update as part of this series, unless you guys want to ha=
-ndle
-> separately?
+> > OK, I guess I disagree with myself of 3 months ago?
+> >
+> > The technical point being made here, which I think is the more constructive one
+> > to engage with, is that this is a function that can be called with different
+> > parameters for whatever reason.
+> >
+> > Somebody might decide to call it for another reason, putting something in the
+> > description of the function that assumes what callers will do when that code can
+> > change is asking for bit rot.
+>
+> Yeah, that makes sense.
 
-I don't think it has to be part of the series, it's long enough already. =
-=20
-But if you want to prepare some docmentation about the preference of=20
-cc-option checks, feel free to go ahead or not.
+Thanks.
 
-Kind regards
-Nicolas
+>
+> >
+> > So as I suggested above:
+> >
+> >         I think the description of why it might be a partial walk belongs to the
+> >         bit of code that actually tries to do a partial walk.
+> >
+> > I.e. I guess past me's description is apt, but belongs with the partial case.
+>
+> Ok, sounds like you want two separate functions supporting complete or
+> partial walk. I don't have a strong preference here and it's easy to
+> do like this:
+>
+> staic void smap_gather_stats_range(priv, vma, &mss, start)
+> {
+>         ....
+> }
+>
+> staic void smap_gather_stats(priv, vma, &mss)
+> {
+>         smap_gather_stats_range(priv, vma, &mss, vma->vm_start);
+> }
+>
+> Does that sound good?
 
---iQrCf81kTXDdOy/g
-Content-Type: application/pgp-signature; name="signature.asc"
+Yeah that's the idea.
 
------BEGIN PGP SIGNATURE-----
+>
+> >
+> > >
+> > > >
+> > > > >   */
+> > > > >  static void smap_gather_stats(struct proc_maps_private *priv,
+> > > > >                             struct vm_area_struct *vma,
+> > > > > -                           struct mem_size_stats *mss, unsigned long start)
+> > > > > +                           struct mem_size_stats *mss,
+> > > > > +                           unsigned long start)
+> > > > >  {
+> > > > >       const struct mm_walk_ops *ops = get_smaps_walk_ops(priv);
+> > > > >       const bool is_partial = start > vma->vm_start;
+> > > > >
+> > > > >       /* Invalid start */
+> > > > > -     if (start >= vma->vm_end)
+> > > > > +     if (start < vma->vm_start || start >= vma->vm_end)
+> > > > >               return;
+> > > > >
+> > > > >       if (vma == get_gate_vma(priv->lock_ctx.mm))
+> > > > > @@ -1285,10 +1291,7 @@ static void smap_gather_stats(struct proc_maps_private *priv,
+> > > > >                       mss->swap += shmem_swapped;
+> > > > >       }
+> > > > >
+> > > > > -     if (!start)
+> > > > > -             walk_page_vma(vma, ops, mss);
+> > > > > -     else
+> > > > > -             walk_page_range(vma->vm_mm, start, vma->vm_end, ops, mss);
+> > > > > +     walk_page_range_vma(vma, start, vma->vm_end, ops, mss);
+> > > >
+> > > > I mean obviously am in favour of this as I suggested it in the last patch :)
+> > > >
+> > > > >
+> > > > >       reacquire_rcu(priv);
+> > > > >  }
+> > > > > @@ -1343,7 +1346,7 @@ static int show_smap(struct seq_file *m, void *v)
+> > > > >       struct vm_area_struct *vma = v;
+> > > > >       struct mem_size_stats mss = {};
+> > > > >
+> > > > > -     smap_gather_stats(priv, vma, &mss, 0);
+> > > > > +     smap_gather_stats(priv, vma, &mss, vma->vm_start);
+> > > > >
+> > > > >       show_map_vma(m, vma);
+> > > > >
+> > > > > @@ -1396,7 +1399,7 @@ static int show_smaps_rollup(struct seq_file *m, void *v)
+> > > > >
+> > > > >       vma_start = vma->vm_start;
+> > > > >       do {
+> > > > > -             smap_gather_stats(priv, vma, &mss, 0);
+> > > > > +             smap_gather_stats(priv, vma, &mss, vma->vm_start);
+> > > > >               last_vma_end = vma->vm_end;
+> > > > >
+> > > > >               /*
+> > > > > @@ -1455,7 +1458,7 @@ static int show_smaps_rollup(struct seq_file *m, void *v)
+> > > > >
+> > > > >                       /* Case 1 and 2 above */
+> > > > >                       if (vma->vm_start >= last_vma_end) {
+> > > > > -                             smap_gather_stats(priv, vma, &mss, 0);
+> > > > > +                             smap_gather_stats(priv, vma, &mss, vma->vm_start);
+> > > >
+> > > > I mean this is all horrible, having to pass vma->vm_start explicitly.
+> > > >
+> > > > Although better than the hack that gets compounded in patch 3.
+> > > >
+> > > > There 4 invocations of smap_gather_stats(), only one of them passes a
+> > > > non-vma->vm_start start.
+> > > >
+> > > > So it'd make more sense to just make smap_gather_stats() lose its 3rd param and
+> > > > have it call smap_gather_stats_range(), then have 1 invocation of
+> > > > smaps_gather_stats_range() directly, as per suggestion in last patch.
+> > > >
+> > > > Or something similar to that.
+> > >
+> > > Hmm. Ok, I'll wait for you to read your previous suggestions in [1]
+> > > and after that let's discuss what the final version should look like.
+> >
+> > I don't really think that's hugely constructive.
+>
+> I wasn't trying to offend in any way. Just wanted to give you some
+> time to recall previous conversation and consolidate your position.
+>
+> >
+> > I'm sorry I'm (mildly) disagreeing with my past self, I've sent tens of
+> > thousands of words of review since then so I think it can be forgiven.
+>
+> Definitely. Again, I wasn't trying to blame or anything like that.
+> Just pointing out our previous discussion and want to make sure we are
+> on the same page (while having some fun in the process).
+>
+> >
+> > In any case, I really do think:
+> >
+> >         smap_gather_stats(priv, vma, &mss);
+> >         smap_gather_stats(priv, vma, &mss);
+> >         smap_gather_stats(priv, vma, &mss);
+> >         smap_gather_stats_range(priv, vma, &mss, last_vma_end);
+> >
+> > Works better than:
+> >
+> >         smap_gather_stats(priv, vma, &mss, vma->vm_start);
+> >         smap_gather_stats(priv, vma, &mss, vma->vm_start);
+> >         smap_gather_stats(priv, vma, &mss, vma->vm_start);
+> >         smap_gather_stats(priv, vma, &mss, last_vma_end);
+> >
+> > ?
+> >
+> > I usually come back on review very quickly so I don't think this series
+> > will be held up with any such change.
+> >
+> > But let me know if you think it's not a good idea technically.
+>
+> TBH I don't have strong preference but if you like it this way, it will be done.
+> I'll post an update today since I don't think there will be more
+> controversial parts. The biggest blunder on my part was the way I
+> split patch 3 and 4.
+> Thanks for the review!
 
-iQIzBAABCAAdFiEEDv+Fiet06YHnC6RpiMa8nIiabbgFAmqkRAoACgkQiMa8nIia
-bbh/KQ//Samyl3M+cgoMbxZIs/cR+MwpyWz5bB6lThR5UVELLhuPCTUNC7vWi1ML
-vr3kXdcn7sXCBHA4hoe7PhlINVSGc5kaWiIyry21IPlsJ0ekFdPF8B40PL80yjk8
-y/uU49y0qpRVqTKgSw75t2oyL5boj5TPFwfPRQT8UY3WtvNFyWWLqxP1sq2H15Rb
-8PF/3F1o5b2TdURepbF3drc33OzpVoHQBe+4OWezT8HKe6wsvTlUcpxhnt5eMp3D
-pVCVlxwL4SL0l5JC6gUkCq9DcCL8SltfEvUdAPQbcRCyz6ZgME/zI9Cic7j1b3fn
-tyRHMX+hGWWeDvOpIj7iued1yGWB67DmNfsTeQi7VYR8nFF421w48w8WbVZZV6i2
-8m4dzzmQE7+k574d98GJVHQHR150J1j5OnktE4no2ncIlywpYgnnPFV6dQgjl5ZW
-wlLDK8Hb/224l9Iedak4vWld3VMCNTjn72dDV9LSZzsioM/xNqZc/0tKBnOa67F8
-kbMjM6J4jcmUxuAEWqnSxhBv4t5TFWL9C1nVduQten5kqNWvYdyRuo9AQoeCyRmc
-74nUR4m7g8oCKCGxDYB0oymnuE7HwmtMAQYsq99gZiUVenSZfHl2SXoEdQlWsaTl
-Lr54hkpu2IMqPkMg1EPuCi4U+4x1GAt2mcZAsPaFTXV4lMKhfjg=
-=hl7O
------END PGP SIGNATURE-----
+I'd quite like to have a look through the rest of the series first.
 
---iQrCf81kTXDdOy/g--
+>
+> >
+> > > Thanks,
+> > > Suren.
+> >
+> > --
+> > Cheers, Lorenzo
+
+--
+Cheers, Lorenzo
