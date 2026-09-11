@@ -1,94 +1,63 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mta0.migadu.com (out-182.mta0.migadu.com [91.218.175.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 144BC357CEC
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 16:45:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F9334A3F21
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 16:45:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789145156; cv=none; b=MUDQJoQrfgMlYeLuGycmVCu1GcNoHRoV6EIVLdxjpTq5ui9CWLOQfVxd2zRAhY/NY4uXtZjWHDHiWddAKcE1ptFl2Vcst8ipMensM2cQO7mqykYwN5pqXQWCeVOKKsCySZLmPCoYbvnyek8zOkg5B6dMcIkuZpDUdiRa5pQQHok=
+	t=1789145160; cv=none; b=aBxPgizs/g1Z9GqCQYEFNePUewXqvMmBXAFln43hy4x3tlG9AaRW5RteOn3nK2iAWynkzSefcpIjl40nAOlTm6JxbQ3GxhnkTnw7ufSRoo0s5b+8y2mN+4j2lRmi3lPZTO4NVMjvVxgnkSgCrbYzcHVwMp3U+uJRy9c/tpQt2xk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789145156; c=relaxed/simple;
-	bh=jhZ8WhdxOZfx0MQfMBGA+WGi7i3w3FCXHl1lH7WqOE4=;
+	s=arc-20240116; t=1789145160; c=relaxed/simple;
+	bh=iVjHC+6s8+AGQU6RRqV42Jq80JuEkr3tyj+AhFd+fe8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WfrYyKpdoXird2dX3fXg0S5S9R8S6gDzqn+asQoyXbsWRaKLd2jWjZB88mK6rsQbvCqDheWXCbSeyPn03zBR5baYYvI+HrmkiJMt8jSZ/+70GGqyhuahtONXXnqBMcd3PK998Prum7qgWDtuVg3MTtGkcr+PeAGJ7PGGvn92H4w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Rvo5AzN3; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=kFBzGmjr+JeFcxwrFXzo+sGLvJy+3jykAX3CpD38rankRhB7Wd1Ala65bHloGuDx5fSyzkhSIXme54wgr9eB7n0qAjNrbSSLf3Ht5rp2HjcJPrOCzmzzYYEJ+uIZ578zJ+35AhOXz4hjQwnISehc9ojoODuaJWsdrjCh4EDLBi0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ipDHnnk0; arc=none smtp.client-ip=91.218.175.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Rvo5AzN3"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469b2e1d7so130704b3a.0
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 09:45:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789145154; x=1789749954; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=atdgksBYk103iq7faoi4jk9ATkMw9i3avFodOi108iA=;
-        b=Rvo5AzN3CZ3SXe637+eGMHys9fYzjo5iJKHoTC7Pfh9vnbsiJMPWr2XNXMakwEMchn
-         Mdg4uSWE8aqu5CUh3oZCMEgfc45idjaPiEHXYqLEXHNMbse+r7hoCIyFgoG6A7mftWAd
-         AgPPvNWkBWcXUDP+Jm8L1m2sYydebkFHfCEt2OX3QaZ7tUEDO8WA3n6va0Ke67c3g80t
-         6XgNUgIvigkfDwMiDnApfO7xPmMgPsqTFuB1xcb52Jc0cZN3FN/GbhbDLqf+VN4uSmHy
-         nxFHbCgyeUZ1e6h1M7StIWzxQsNrtnlZEYxoFplaqXPxUKviLnQoDpDycw0JGhEhS/Jf
-         NqpQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789145154; x=1789749954;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=atdgksBYk103iq7faoi4jk9ATkMw9i3avFodOi108iA=;
-        b=GXZ23EyKeHAS446gsHY2IJtMZLwuIn5+Lqb/ToMSQiBLvbkMi0LpaFa7um2XHgA9tV
-         uENLPrse1KMlpWTj3mcHnI3xFCADT9PYf1gUDpuZcZY51HgkRxhrDn7y3sSxrxkm48NR
-         Bc7w7pElTO+G5WMCDY6XHODlUO3q9jvbTGHli/3g0WcgNUSqNg6bn1Pw+mYyEcdUBw0n
-         VYGiZgYQ5OKXesx/dPIayy66Xmh+6oeYA52dp7AqvpadoPukh7mwtKBbUcmsRFqi9+Ff
-         tOd1fnQswh2PjIcivPmel+3DbHo9PWfA7wA+jdnGfdi28zMM0MIQ98cByy7OvQ37UGBy
-         n9Zw==
-X-Forwarded-Encrypted: i=1; AKwUvByDSp1AEc5/rXne8quMUYAkverQg6fqMEmtrMWXJghORxTSR+grFdx8TF8VLnfo2jGDxvo38IKjmdBpWuI=@vger.kernel.org
-X-Gm-Message-State: AFuF++krDpaImx74kxAFXDZi6YGX7y2KAHdarq6sidLo680y/Jmpla4c
-	zjN6Q5XfwQJ/YZV9cCLL3+CXFkzWyo7oltQClGJXKeILEjEWwRUhCUT5/IIi89Kk1w==
-X-Gm-Gg: AYBFou0K8ALdRzTrXkztuEG3pFfrV0FRi3Iuzax9jkUChC7witYyyy07HeX6lxq4srV
-	8itzVTwd1bBUoJnhuHQSK1EAJA0a2sIBLrnz5mG2cZxBO8EezGZ0IY1c4NP/bHsbcojb248hc18
-	m4tps/ucpJSiDopU8pOF33uk3JaOJW2aaVPCJHltPUuJNAMRipXernia+wUixOuLWcBjlFNV+Mv
-	iUC5qODN4ggNChfsJ7gS+BgFB6sz644wzAdwEmNYANc1H/KHPk5G+SY006TfHeYZPUKECa5rqBD
-	5YRgXAGI1licFIhdy8A6JtaxecgcSA1LhV1GsizA8jPUSxVXhh/naJejS3xL9dEUwj0Izb+p66t
-	C22iVb6/P2djZHC/tmXXXiCS64bttTYmXzGrsqgS5UgFr2oBGfMdlbMEP/kN74QzwOxqaDRqECe
-	DQ8d5rKmFGCGE5rAN7F5NJzV8ovllJEqIGUGAZLJz4B8ghLo0oICwl42r8+788ZnizoeKMLRfOS
-	c9Kn2s6/rIjZdIJQiOTn4nIO5AoImwFCqRfgTQ7
-X-Received: by 2002:a05:6a00:4c9b:b0:857:72ba:ff0e with SMTP id d2e1a72fcca58-86b347ebbe6mr9035236b3a.22.1789145153852;
-        Fri, 11 Sep 2026 09:45:53 -0700 (PDT)
-Received: from google.com (192.150.203.35.bc.googleusercontent.com. [35.203.150.192])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b286c3f5asm1472296b3a.12.2026.09.11.09.45.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 09:45:52 -0700 (PDT)
-Date: Fri, 11 Sep 2026 16:45:50 +0000
-From: David Matlack <dmatlack@google.com>
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: kexec@lists.infradead.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
-	linux-pci@vger.kernel.org,
-	Adithya Jayachandran <ajayachandra@nvidia.com>,
-	Alexander Graf <graf@amazon.com>,
-	Alex Williamson <alex@shazbot.org>,
-	Bjorn Helgaas <bhelgaas@google.com>, Chris Li <chrisl@kernel.org>,
-	David Rientjes <rientjes@google.com>,
-	Jacob Pan <jacob.pan@linux.microsoft.com>,
-	Jason Gunthorpe <jgg@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
-	Josh Hilke <jrhilke@google.com>,
-	Leon Romanovsky <leonro@nvidia.com>, Lukas Wunner <lukas@wunner.de>,
-	Mike Rapoport <rppt@kernel.org>, Parav Pandit <parav@nvidia.com>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Pranjal Shrivastava <praan@google.com>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	Saeed Mahameed <saeedm@nvidia.com>,
-	Samiullah Khawaja <skhawaja@google.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Vipin Sharma <vipinsh@google.com>, William Tu <witu@nvidia.com>,
-	Yi Liu <yi.l.liu@intel.com>
-Subject: Re: [PATCH v8 03/12] PCI: liveupdate: Track incoming preserved PCI
- devices
-Message-ID: <aqQwPn4XOxC58vU3@google.com>
-References: <20260728221007.2098560-4-dmatlack@google.com>
- <20260910234956.GA367108@bhelgaas>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ipDHnnk0"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=iVjHC+6s8+AGQU6RRqV42Jq80JuEkr3tyj+AhFd+fe8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789145154; v=1; x=1789749954;
+ b=ipDHnnk0VRcBMvNduGCJFtepe3w0LLG7UlPAnox8ngTrZ9q3T/Jx/ZAHhc91zmP5+amXtTqE
+ MSKCAEGVXd/NiDt2TGf7VdtUGdg8+2r6OeKhE8eL/1l73NeYvyENpGlEm0UyC8GhkHuvZUIx5dg
+ owyA2XgfG8+8zFdx89iEDbVo=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 6c76367668246014;
+	Fri, 11 Sep 2026 16:45:54 +0000
+X-Mizu-Trace-ID: 6c76367668246014
+X-Migadu-Flow: FLOW_OUT
+Date: Fri, 11 Sep 2026 09:45:52 -0700
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Baoquan He <baoquan.he@linux.dev>
+Cc: Nhat Pham <nphamcs@gmail.com>, Kairui Song <kasong@tencent.com>, 
+	Chris Li <chrisl@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Yosry Ahmed <yosry@kernel.org>, David Hildenbrand <david@kernel.org>, 
+	Muchun Song <muchun.song@linux.dev>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+	Barry Song <baohua@kernel.org>, YoungJun Park <youngjun.park@lge.com>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren =?utf-8?B?QmFnaGRhc2FyeWFu77+8?= <surenb@google.com>, 
+	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Rik van Riel <riel@surriel.com>, 
+	Gregory Price <gourry@gourry.net>, Wenchao Hao <haowenchao22@gmail.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
+	Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Kunwu Chan <kunwu.chan@linux.dev>, Meta kernel team <kernel-team@meta.com>, 
+	Linux Memory Management List <linux-mm@kvack.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
+	linux-doc@vger.kernel.org, 
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Kairui Song <ryncsn@gmail.com>, Joshua Hahn <joshua.hahnjy@gmail.com>
+Subject: Re: Path forward for Virtualized Swap?
+Message-ID: <aqQrPLPXHXiuKup0@linux.dev>
+References: <CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
+ <aqJXx2vtbKaRLt3x@fedora>
+ <aqLZ5TVDAqEbIeMN@linux.dev>
+ <aqP81aqNbwAbs2P0@fedora>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -97,49 +66,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260910234956.GA367108@bhelgaas>
+In-Reply-To: <aqP81aqNbwAbs2P0@fedora>
 
-On 2026-09-10 06:49 PM, Bjorn Helgaas wrote:
-> On Tue, Jul 28, 2026 at 10:09:57PM +0000, David Matlack wrote:
-> > During PCI enumeration, the previous kernel might have passed state about
-> > devices that were preserved across kexec. The PCI core needs to fetch
-> > this state to identify which devices are "incoming" and require special
-> > handling.
+On Fri, Sep 11, 2026 at 09:06:29PM +0800, Baoquan He wrote:
+> On 09/10/26 at 09:39am, Shakeel Butt wrote:
+> > On Thu, Sep 10, 2026 at 03:09:59PM +0800, Baoquan He wrote:
+> > > Hi Nhat,
+> > > 
+> > > On 09/04/26 at 02:14pm, Nhat Pham wrote:
+> > > .....snip...
 > > 
-> > Add pci_liveupdate_setup_device() which is called during device setup
-> > to fetch the serialized state (struct pci_ser) from the Live Update
-> > Orchestrator. The first time this happens, pci_flb_retrieve() will run
-> > and convert the array of pci_dev_ser structs into an xarray so that it
-> > can be looked up efficiently.
+> > [...]
+> > 
+> > > With VM_SPARSE, xswap's cluster access is exactly the plain-array line the
+> > > rest of swap already uses:
+> > > 
+> > >     return &si->cluster_info[offset / SWAPFILE_CLUSTER];
+> > > 
+> > > no branch, no RCU discipline, no tear-down state machine, and no NULL
+> > > return. So VM_SPARSE doesn't add complexity to close a gap; it lets the
+> > > cluster layer stay as simple as it already is, which is precisely the
+> > > part later work (writeback, rmap lookup, memcg charging, THP) has to sit
+> > > on.
+> > > 
+> > > I'm not going to claim xswap wins on throughput. I measured it:
+> > > on a 64G/64-thread swapout, xswap, vswap and plain swap+zswap are all
+> > > within ~2-3% of each other, effectively identical. 
+> > 
+> > So the claim is VM_SPARSE is simpler than xarray based approach. I feel like
+> > we are discussing implementation details before deciding the design and
+> > architecture. So, instead of VM_SPARSE vs xarray, let's discuss and decide the
+> > need for dynamic growth. Why we want dynamic growth upfront or can it be added
+> > later? Once we decide that then it will be very easy to pick an implementation
+> > that would take us there.
 > 
-> > + * The PCI core does not enforce any ordering of ``pci_liveupdate_finish()`` and
-> > + * ``pci_liveupdate_preserve()``. i.e. A PCI device can be **outgoing**
-> > + * (preserved for next kernel) and **incoming** (preserved by previous kernel)
+> Hi Shakeel,
 > 
-> Thinking about how this will be rendered in the formatted doc, I think
-> "i.e." is really part of the sentence, so in U.S. usage this would be:
-> 
->   ``pci_liveupdate_preserve()``, i.e., a PCI device can be ...
-> 
-> I understand British usage generally omits the comma after, so that's
-> OK too, but IIUC the first part of the sentence shouldn't be
-> terminated with a period, and the "A" shouldn't be capitalized as if
-> it's a new sentence.
-> 
-> Similar issue in "PCI: liveupdate: Document driver binding
-> responsibilities" later:
-> 
->   bound to the correct driver. i.e. The PCI core does not protect ...
+> Thank you for joining the discussion and for taking the time to comment.
 
-Ack I will fix up the use of "i.e." across the series.
+Hi Baoquan,
+
+I am mainly trying to facilitate the discussion but your use of LLM is causing
+more confusion. LLM use is fine but please at least re-read before sending that
+the sentences flow and makes sense.
 
 > 
-> > +static unsigned long pci_ser_xa_key(u32 domain, u16 bdf)
-> > +{
-> > +	return (unsigned long)domain << 16 | bdf;
-> > +}
+> Agreed on requirement first - but this one was already decided, and not by me. In
+> the July ghost swapfile thread Nhat rejected exactly the shape of "grow only, can
+> be added later":
 > 
-> Add blank line.
+>     "Except for my virtual swap design, which does support dynamic growth AND
+>      shrinking of capacity on demand ;) If it cannot grow (and furthermore, if it
+>      requires userspace operation to trigger swapfile growth), why do we need this
+>      at all? Might as well create a new swapfile with swapon?"
 > 
-> >  static int pci_flb_preserve(struct liveupdate_flb_op_args *args)
-> >  {
+> To me what it converged on was "dynamic growth and shrink, no writeback yet".
+
+I am not getting how out of context above paragraph shows the conclusion about
+dynamic growth/shrink and *no writeback*.
+
+> So automatic growth *and* shrink is the requirement, and the simpler alternative
+> was already on the table.
+> 
+> And I keep mentioning it in the cover-letter of each version of my posting. I
+> only did the foundtation via lazy vmalloc. And Nhat will do the core
+> part including writabck, rmap lookup, memcg accounting, zero page fill,
+> etc.
+
+I don't see any evidense of this decision. Actually this whole email thread
+shows that there is no such decision.
+
+> 
+> What is still genuinely open, and I would like us to settle, is how large the
+> device's address space should be, because the metadata scales with it:
+
+With dynamic growth/shrink, is this really a blocker?
+
+Anyways, I will let Nhat and others discuss the technical details (unless I am
+asked for it). My main reason to join the conversation is to converge the
+discussion to a decision and resolution.
