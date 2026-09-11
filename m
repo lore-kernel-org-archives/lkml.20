@@ -1,124 +1,117 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B171E459AE6;
-	Fri, 11 Sep 2026 09:18:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40A373B8945
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 09:18:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789118293; cv=none; b=bcT2vTB3nGzvRcaCl4tD/kwq1l5K3unONkO8pWLxSqheT8GWxZc8OSIO3w8fRZQW7z3ULJev97WAi8ZgslWy77pgZCKhvd8mpazG3InJxbyd2Wc8ubKC88fPPpK2ZkGRm1+ZAxhnZcXtVPyGTJ/722gFALnPD3zTuWTDjaWKye8=
+	t=1789118320; cv=none; b=RMHh53FPxzQpVv0W1vrPT6mo7JngmDTgV0YTfn0/9K+xflF7S/wqdX3q62tjjpvCK1A/qjBmfVIMqhg09FWuGh69HhaKlInRWot+LNeYUCiGLbp8rjONkKQiTPtYNjhqG6o2k6ddAHtTgdmJ5zrF0eG+BbSAFX9df5vqbRUg6W0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789118293; c=relaxed/simple;
-	bh=F4gYdBbmajqkyCINPzu7zVwcdxrJlsDCWKhr3p++93k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SMXdRe5T2OF6MXuwEcJEkbS6EBrUEhIeFeccDAK97hK/iirEopIe5ln7CDgl24wgmgqcNu0z8P+4jni3TChgSQjY12XP8HtbvedzH/XJBtxz4ONcfKWvT4WFEIQv5GJcoX/BdgDUVj6b6+GLeC7d1vtvvCXt8/xuKQqZ3fH1i/8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cKjeL3h4; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789118320; c=relaxed/simple;
+	bh=ApdEgoZH1dgBxHvIv+0e7MfgGb6pDSn42A6a4+n2tz0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=sNi3mt0Df/gvPohllW/d61ZVBgbIN5j01iFzfd9XcqkMusAKF1iMabpanMxuFlSUCiRFUtXEiOVz7mcJ4V8D1lO9d3dB79QzVtEzhftIa1sBkDR6A5rQFOlMkBay+XyB4pInLVJfMxOULAgnDqbm89BIa2Um4dz5TCuDEmhaj2I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=tJAqiiC7; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cKjeL3h4"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789118292; x=1820654292;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=F4gYdBbmajqkyCINPzu7zVwcdxrJlsDCWKhr3p++93k=;
-  b=cKjeL3h4cMrXQMYZQFCNkOx3Qwhjz1mofLO5X/wGpZffn4/8DHBgsK/D
-   qsHcKYeG/QhjcoeMXSwdEt9bbjH8lDommF9nXkkB/4YJc1Tdxn6qFqmbv
-   QgdZfW+Nq4EZrJsj/Z19bKN3JRo9h7lPxg+eBlcsCwxNzTDdMg41P8WMW
-   /XAk6BpmVHcY7HVpILFlUCFDJx62kfGiJ1MkcjcflfAwfF2npbWyDobC6
-   g0k3EKViwjiRqDaABuueyR6Ni2a9a2tXS08lWBsYgbz7HiFiv88xDdXNM
-   VBtRdsGuY2oDPBjcDszGxT8zmyACtfZ4llu4BDcpZP875PvbApxJzbrje
-   A==;
-X-CSE-ConnectionGUID: zavHJylTQcK5ZYtluKCF+g==
-X-CSE-MsgGUID: qez/0h88TW+fM9Ee8B8vgg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11901"; a="89450907"
-X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
-   d="scan'208";a="89450907"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 02:18:11 -0700
-X-CSE-ConnectionGUID: LGX/EWeHSPeVzgyLApP5NA==
-X-CSE-MsgGUID: IuTtAxozTIW46d9/CqObww==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
-   d="scan'208";a="238127"
-Received: from xiaoyaol-hp-g830.ccr.corp.intel.com (HELO [10.124.240.119]) ([10.124.240.119])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 02:17:54 -0700
-Message-ID: <9eee9ca8-3818-435f-ae09-78b241050e9e@intel.com>
-Date: Fri, 11 Sep 2026 17:17:51 +0800
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="tJAqiiC7"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 961264E401AD;
+	Fri, 11 Sep 2026 09:18:36 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 5F40E601DE;
+	Fri, 11 Sep 2026 09:18:36 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0483711C7AF8E;
+	Fri, 11 Sep 2026 11:18:31 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789118315; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=Pi280aKscbZWtx48WyA/m+mm+bipGQarzbh3f/AoSCY=;
+	b=tJAqiiC7UNjrDRMgLCZsSYbHVMBAjq5SaRJ6I6dE8/dR7pYB6vG02xo2/MTUFoPO12ASP5
+	cLbTby4cInOablVtGmu5bBM4wpgtB2L23bzd9wIZA2fYeYigiV5+7x/v3gOAJvBZIZvpIE
+	nrqymhyIPHa2F8X19SfR9nhZRDQ85Klc2V03gvJ2Gxkg1QM32WnnYyNxaoAky/dVWVHYF8
+	pM3JAXhXfTHudrDPefwvTc0fatcgjD945MXYwXjMe3J2dVDlHjaiHsd62Kw3wBgxmaR31h
+	dZEzcf0AW0r68wqGCP5/ddWDfsfsw4MDrZQE9+aY0JWO2Dwzc/i2lNy/SAvcdg==
+From: Diogo Ivo <diogo.ivo@bootlin.com>
+Subject: [PATCH 0/3] watchdog: omap: Preserve OMAP watchdog across boot to
+ detect faulty boots
+Date: Fri, 11 Sep 2026 11:17:33 +0200
+Message-Id: <20260911-omap4-wdt_boot-v1-0-637d778a4a1e@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v13 01/44] KVM: guest_memfd: Optimize away conversion
- overheads via dead-code elimination
-To: ackerleytng@google.com, aik@amd.com, andrew.jones@linux.dev,
- binbin.wu@linux.intel.com, brauner@kernel.org, chao.p.peng@linux.intel.com,
- david@kernel.org, jmattson@google.com, jthoughton@google.com,
- michael.roth@amd.com, oupton@kernel.org, pankaj.gupta@amd.com,
- qperret@google.com, rick.p.edgecombe@intel.com, rientjes@google.com,
- shivankg@amd.com, steven.price@arm.com, willy@infradead.org,
- wyihan@google.com, yan.y.zhao@intel.com, forkloop@google.com,
- pratyush@kernel.org, suzuki.poulose@arm.com, aneesh.kumar@kernel.org,
- liam@infradead.org, Paolo Bonzini <pbonzini@redhat.com>,
- Sean Christopherson <seanjc@google.com>, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>, Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Shuah Khan <shuah@kernel.org>, Vishal Annapurve <vannapurve@google.com>,
- Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>, Barry Song <baohua@kernel.org>,
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, Youngjun Park <youngjun.park@lge.com>,
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Baoquan He <baoquan.he@linux.dev>,
- Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>,
- Peter Xu <peterx@redhat.com>, tarunsahu@google.com,
- Randy Dunlap <rdunlap@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Fuad Tabba <fuad.tabba@linux.dev>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-kselftest@vger.kernel.org, linux-mm@kvack.org,
- linux-coco@lists.linux.dev
-References: <20260910-gmem-inplace-conversion-v13-0-dd6fbf94f4e1@google.com>
- <20260910-gmem-inplace-conversion-v13-1-dd6fbf94f4e1@google.com>
-Content-Language: en-US
-From: Xiaoyao Li <xiaoyao.li@intel.com>
-In-Reply-To: <20260910-gmem-inplace-conversion-v13-1-dd6fbf94f4e1@google.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM3QqEIBBA4VeJuU4wk6J9lSVCc6wJylD7gejdc
+ 7fL7+KcCwJ6wgCf7AKPOwVyS0KRZ9CPahmQkUkGwUXFm4IzN6tVssPETjsXmayFrksjla0spGj
+ 1aOn8D7/t67DpCfv4u8B9P6t+dJtyAAAA
+X-Change-ID: 20260910-omap4-wdt_boot-472b73d4af6f
+To: Wim Van Sebroeck <wim@linux-watchdog.org>, 
+ Guenter Roeck <linux@roeck-us.net>, Aaro Koskinen <aaro.koskinen@iki.fi>, 
+ Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
+ Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-watchdog@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-omap@vger.kernel.org, devicetree@vger.kernel.org, 
+ thomas.petazzoni@bootlin.com, Diogo Ivo <diogo.ivo@bootlin.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1637; i=diogo.ivo@bootlin.com;
+ h=from:subject:message-id; bh=ApdEgoZH1dgBxHvIv+0e7MfgGb6pDSn42A6a4+n2tz0=;
+ b=owEBbQKS/ZANAwAKAQa+fFtWXslFAcsmYgBqo8dnRm6skagbXWmI0/WA7BWeuDoOPhLGJ0dwb
+ CAinST/NKyJAjMEAAEKAB0WIQTma35o1i1081e8B2UGvnxbVl7JRQUCaqPHZwAKCRAGvnxbVl7J
+ RZUND/0UdFaJ2q8Y7He7OZGBOHYESlBSOYSRmpw+qEdyY1UclZ09E5BMc03QnuV9zaYwmiY4uwk
+ E+pYr0lasTKdm082gd5Std4zPCayYWmNiYV6NBiaQNVb2EYuwLjnLR0qzsPojICpXwon66uq0UE
+ W1p15WKtyb3lFZGdDkp4OhH0sipTiny6R+f6/zZqGQBs6xgmGCgANOYPMtGMpy3rfymRelRvafo
+ YOWmVF8JW55o0knKSM70+6LlC/pW8vXcXxfUaTfbMhxLKnuJyEV7E/Md/sMWEk60zpj3bYCF5m7
+ XLJXrrtSwSP27cXPZFz9oadZnSNxnFFmroldWMr0oimYXHI9oXnrkP7BpCk/nsMSsjE6F9tVvfJ
+ db4Pq42YJHZf8tMwp+ZFvUPY24WZbk6cYOSmTAzN2vkTZ4bPDW4MnKdNCICxhd+Un6jVMTP3cBn
+ 1xWarpujhlXQI6Asf++woTuPkMaEBjwKiNBGMbDNMY75ZPWrwwqeGK0tte2xOZ3PYA9rHkw1Gyf
+ op2kcWHULTBzrcaWWy49YThd4zayzXPeyFH3h1ermuAUF/1J+oHZtKnVffc/46xZz0Z+8F8byi5
+ owjlytp1XraNIMHN+ySSA6ypfjtbaKy0Ef/8viO+L/imnkBDXhZf82BkX5a0QI7FG+TWve+ZP9l
+ oOsAeIokS1GZGdA==
+X-Developer-Key: i=diogo.ivo@bootlin.com; a=openpgp;
+ fpr=E66B7E68D62D74F357BC076506BE7C5B565EC945
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 9/11/2026 7:55 AM, Ackerley Tng via B4 Relay wrote:
-> From: Sean Christopherson <seanjc@google.com>
-> 
-> Add and use kvm_arch_has_gmem_convert() to guard guest_memfd's invocation
-> of arch hooks related to converting memory between private and shared, as
-> only one half of the x86 CoCo duo needs the runtime hooks (any pre-work is
-> pure overhead for TDX).  At this exact moment, the overhead is negligible,
-> but that will change when in-place conversion comes along, at which point
-> to-shared conversions will "need" to find all affected folios prior to
-> calling into arch code.  In quotes because very technically that work could
-> be pushed to arch code, but that would bleed guest_memfd details into arch
-> code and would be far worse than adding yet another kvm_arch_has... hook.
-> 
-> Opportunistically provide the kvm_arch_gmem_make_private() declaration, and
-> rely on dead-code elimination to eliminate the call to non-existent code
-> when CONFIG_HAVE_KVM_ARCH_GMEM_CONVERT=n.
-> 
-> Reported-by: Binbin Wu <binbin.wu@linux.intel.com>
-> Closes: https://lore.kernel.org/all/1ec08cd8-3072-4753-ad5e-cd34956647f8@linux.intel.com
-> Suggested-by: Ackerley Tng <ackerleytng@google.com>
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
-> Signed-off-by: Ackerley Tng <ackerleytng@google.com>
-> Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
-> Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
-> Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Xiaoyao Li <xiaoyao.li@intel.com>
+Allow the OMAP watchdog to survive being stopped on kernel initialization
+so it can detect a faulty boot in cases where the bootloader leaves it
+running and the watchdog driver picks it up during kernel init.
+
+- Patch 1 removes a duplicate omap_wdt_start() call left behind by
+cd004d8299f1 ("watchdog: Fix OMAP watchdog early handling"). This is
+unrelated to the main goal of the series and can be picked up
+independently.
+
+- Patch 2 adds support for reading the watchdog boot status. Probe now
+checks whether the watchdog is already running and takes it over instead
+of blindly stopping it based on early_enable alone. This introduces a
+regression possibility, explained in detail in the patch's message.
+
+- Patch 3 marks the OMAP4 watchdog node ti,no-reset-on-init so the
+ti-sysc driver stops resetting it. A detailed explaination of why is
+also provided in the commit message of the patch.
+
+This series has been tested on a platform based on the VAR-SOM-OM44 from
+Variscite, running a TI OMAP4460 SoC.
+
+Signed-off-by: Diogo Ivo <diogo.ivo@bootlin.com>
+---
+Diogo Ivo (3):
+      watchdog: omap: Remove duplicate start() with early_init
+      watchdog: omap: Add support for reading boot status
+      arm: dts: ti: omap: Prevent watchdog from being reset on kernel boot
+
+ arch/arm/boot/dts/ti/omap/omap4-l4.dtsi |  1 +
+ drivers/watchdog/omap_wdt.c             | 22 ++++++++++++++++++----
+ 2 files changed, 19 insertions(+), 4 deletions(-)
+---
+base-commit: 83d343e6246c83e694548fec49856819124d32c0
+change-id: 20260910-omap4-wdt_boot-472b73d4af6f
+
+Best regards,
+--  
+Diogo Ivo <diogo.ivo@bootlin.com>
+
