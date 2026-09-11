@@ -1,79 +1,103 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E12B62EBB8D;
-	Fri, 11 Sep 2026 07:45:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BBB94562A6
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 07:45:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789112733; cv=none; b=l+gsSK4ifscINq/YuyGUCKMEcNHe8wxfMobaTHwtOjoQrCoiH5cPumD6Kc4ZwUceFwaQC2DdUBTcvMwpifogTvaIp+hxJBWpXebrxw57CtNT+L8o0wV2VSwknPvN6F+FDbx44kDtL3Ph23e4pxWTyI2Hce6yykEDDxMGiGRaobg=
+	t=1789112744; cv=none; b=I/PpcPs6IyKdSfPBiBEnr1Dj6vNUrVRWu17DHua6CcoxY4KRSRwFPLxbLRs66Aw7XDLcwH/++7qw/ghDY5HmFFGlr+/7RJ49SikOUcU4harRTOxhSCX/V8DAvx40tTNGfhNy/6P/gB4Dzpi8B5kODuRJwXpl9nom4nBFFnXjk4I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789112733; c=relaxed/simple;
-	bh=9QHXloPcoJ8/HsR3fj8mFTdatj987DdRw9j+axEn/aI=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=gu8Oa1C4UpDeVE0YRG+usdo8i5jHAusDOvtpk0cJ5PXTLdMo6VOaKpjRNypQbJvN9VXkDNMZiwyYGy9ZOiwesGqQrT4Lv3YSI7we8NOmHKA6u/9gurqkvD/kpFII0HW51JP464RR+JiQlkhCO8gaFlKw/idUD057O1SfkYFY/oo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=tDlJY8Cw; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="tDlJY8Cw"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68B7jJ4S12205436, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1789112720; bh=9QHXloPcoJ8/HsR3fj8mFTdatj987DdRw9j+axEn/aI=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=tDlJY8Cw1h7FrzLS2UvVD2Cv1AWxm4BI1y4xNVkvqY1ivkMg63Xr1Cl3k4/0UnFgP
-	 dyZ9FaNiqXiysc5Gexmp+OJrpH8Sjuigw0bNX1mPuuPCweT1huHcnE8V9MjK0EthpD
-	 kPqujAOKgn1b2vPiV+X81qxJo/A76/9bP88v/lRt99sI6Ppkzce+G5Nov4Qye1/w1k
-	 rMh2GvXUVTIik2OjIvnWuWb/ivQeA7GvPAfHMDNDh7ousXe0ogfZRTxT79DsR3hhP3
-	 f5NlFeR4+oziqn4Ru7lqXEBgdQXCh+8dHWRM+YM97VZTf4I+sIhRQlXGxSlWOMUlJR
-	 Ugn+a18gxYKrw==
-Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68B7jJ4S12205436
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Fri, 11 Sep 2026 15:45:20 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Fri, 11 Sep 2026 15:45:19 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
- 15.02.2562.049; Fri, 11 Sep 2026 15:45:19 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Luka Gejak <luka.gejak@linux.dev>
-CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Michael
- Straube" <straube.linux@gmail.com>, Peter Robinson <pbrobinson@gmail.com>,
-	Bitterblue Smith <rtl8821cerfe2@gmail.com>
-Subject: RE: [PATCH v11 4/7] wifi: rtw88: sdio: zero the padding added to a TX
- transfer
-Thread-Topic: [PATCH v11 4/7] wifi: rtw88: sdio: zero the padding added to a
- TX transfer
-Thread-Index: AQHdQC9VHG8DgIV+fU6Rc/HoW7uZv7bHFi4ggABMaYCAAA+IAIABFupQgAAGCmD//+wzgIAAhxzg
-Date: Fri, 11 Sep 2026 07:45:18 +0000
-Message-ID: <a0a617f1b7e34b979a801e7c10ad98f3@realtek.com>
-References: <20260909074556.55709-1-luka.gejak@linux.dev>
- <20260909074556.55709-5-luka.gejak@linux.dev>
- <d6507fd0447c4c09a9c80bb57dfef35c@realtek.com>
- <DLBQ2H40DC71.2Z3B32X9JQ17I@linux.dev> <DLBR915C5L0S.1TEYXZ8LADNTH@linux.dev>
- <2294d792e937441fbf4ef8169c03df18@realtek.com>
- <a17a665d7d4c47fbb33e038d122ed200@realtek.com>
- <DLCBFNKN09SW.2SIEDXTB4PGJD@linux.dev>
-In-Reply-To: <DLCBFNKN09SW.2SIEDXTB4PGJD@linux.dev>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	s=arc-20240116; t=1789112744; c=relaxed/simple;
+	bh=9lhkzZuJvVFpeL98alq1ESABpY7TdwxlPJiaDIwoo3g=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=uuv0NehznKX9M7HqRFncrKbj/VLkKvngUQP3NBygQu37J7jXljmgU7Pzv0MN92hvRiIQEmRdCuR93/nzeKw9sieii3VQ6oOZbE4rMOrYYTuSj25VZxzuFclHUOC8jziOHra7fvKyx0A10vne31WqWWEVVVRo6CH39Oc+z3vAzvU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id C965121D36;
+	Fri, 11 Sep 2026 07:45:41 +0000 (UTC)
+Authentication-Results: smtp-out1.suse.de;
+	none
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6FAA413794;
+	Fri, 11 Sep 2026 07:45:41 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id /3z6GaWxo2r8WAAAD6G6ig
+	(envelope-from <jgross@suse.com>); Fri, 11 Sep 2026 07:45:41 +0000
+From: Juergen Gross <jgross@suse.com>
+To: linux-kernel@vger.kernel.org,
+	x86@kernel.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>
+Subject: [PATCH v3 01/13] x86/cpu: Fix coding style violation
+Date: Fri, 11 Sep 2026 09:45:18 +0200
+Message-ID: <20260911074530.3140830-2-jgross@suse.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260911074530.3140830-1-jgross@suse.com>
+References: <20260911074530.3140830-1-jgross@suse.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Pre-Result: action=no action;
+	module=replies;
+	Message is reply to one we originated
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: C965121D36
+X-Rspamd-Pre-Result: action=no action;
+	module=replies;
+	Message is reply to one we originated
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	REPLY(-4.00)[]
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -4.00
 
-THVrYSBHZWphayA8bHVrYS5nZWpha0BsaW51eC5kZXY+IHdyb3RlOg0KPiANCj4gSSBjYW4gd3Jp
-dGUgdGhhdCB1cCBmb3IgSm9oYW5uZXMgYXMgYSBzZXBhcmF0ZSBtYWM4MDIxMSBwYXRjaCwgd2l0
-aCB0aGUNCj4gcnR3ODggc2lkZSBhcyBhIGZvbGxvdyB1cC4gSXQgaXMgaW5kZXBlbmRlbnQgb2Yg
-dGhpcyBzZXJpZXMsIGJ1dCBjb25zaWRlcmluZw0KPiB5b3VyIHF1ZXN0aW9uIHdhcyBhYm91dCBD
-UFUgdXNhZ2UgYW5kIHRoaXMgY2hhbmdlIGRvZXNuJ3Qgb3ZlcmFsbCByZWR1Y2UgaXQsDQo+IGl0
-IGlzIHByb2JhYmx5IG5vdCB3b3J0aCBpdC4NCg0KVGhhbmtzIGZvciB0aGUgZXhwZXJpbWVudHMu
-IEkgdGhpbmsgaXQgaXMgbm90IHdvcnRoLi4uIA0KDQo=
+init_transmeta() has a style violation, fix it.
+
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+V2:
+- new patch
+---
+ arch/x86/kernel/cpu/transmeta.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/arch/x86/kernel/cpu/transmeta.c b/arch/x86/kernel/cpu/transmeta.c
+index 3e04b5d01bf8..35d498f24e34 100644
+--- a/arch/x86/kernel/cpu/transmeta.c
++++ b/arch/x86/kernel/cpu/transmeta.c
+@@ -24,11 +24,11 @@ static void early_init_transmeta(struct cpuinfo_x86 *c)
+ 
+ static void init_transmeta(struct cpuinfo_x86 *c)
+ {
+-	u64 msr;
+-	unsigned int max, dummy;
+-	unsigned int cms_rev1, cms_rev2;
+ 	unsigned int cpu_rev, cpu_freq = 0, cpu_flags, new_cpu_rev;
++	unsigned int cms_rev1, cms_rev2;
++	unsigned int max, dummy;
+ 	char cpu_info[65];
++	u64 msr;
+ 
+ 	early_init_transmeta(c);
+ 
+-- 
+2.55.0
+
