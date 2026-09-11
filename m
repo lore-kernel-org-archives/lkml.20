@@ -1,47 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4968B49BD99;
-	Fri, 11 Sep 2026 18:16:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E0194AEBFC
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 18:16:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789150582; cv=none; b=NnZOqJFl94aN7r3BP/6T2jQEe1+XjtKnitretgInstMZUkM646GNf7nDhFjxWaerjrYmyo7ThPXsY+Pw6/7yeV21apit+sJMAFvdWnAe7+SKJ9NH1FUF3jNe342zNIO1kNJdIEM1+HBjymuzK54fq+6Igkq7As8c4+3LBMT/0M0=
+	t=1789150583; cv=none; b=UVezQn4FqPCwbzhelk64IdgkLa/PO6C+TjEnjwTy9eprx/yFTMtWF5hgaDzg+FLGOgZwHRhQz8wmtbkyd/r9WeWUBnKT0bLz+Fz1tR6KPj3I+I3d4SFrCZaHpln0MbWrhrcgeQvhCYR2TVBA7bi8TZEgz/13tnTFfjW1nRQ3KfM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789150582; c=relaxed/simple;
-	bh=l7RMM3fOQcT67m9QVDy7NEUN0usrujTmJJ/b4bmuubA=;
+	s=arc-20240116; t=1789150583; c=relaxed/simple;
+	bh=7ro2pE3u1riMhANQCJdihA9BGA1wIj4E7MHaErE/2kI=;
 	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type; b=tMAafGgLgp6heW4JS66JJA2YkXwWJV0eQ9E8ou3+1XfYaqnPkJfOp7MInCp7Yq7KJDyQDxpHHAH23KMWCTk2fse4cz729DfBehJ0PJv0yFOs3s3zE8jX6gUlyb8GuIVXyIv/Pf1qZOeaAE6cnWTSdYDptZzlzkhz3rTFuHGU3GQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bYBCW8St; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type; b=V/lOHTn872aitovB8v4j17hiL9aUxe+JBIOSYd/6QoxnCHdd55lPgtKGw2I9xEJBU1Epkpk3iMPqUxYuRgZMDC20K2VtwaV3Yy/OX8txpjXFX+ZKdDJCPFZmFNy7NWdMRUGmMAqbX7q4GQzPaVbZBDaQXmqJ++RLvEnL9Boo9EQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LWiM2aBh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bYBCW8St"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A8EA1F0089F;
-	Fri, 11 Sep 2026 18:16:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LWiM2aBh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C0491F008AB;
+	Fri, 11 Sep 2026 18:16:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789150569;
-	bh=S0PII1y871JaHgR+bTBT4HW+/nC8mLPVa1/mhADxMxw=;
+	s=k20260515; t=1789150570;
+	bh=LhELnr2rFNek0pOOslIV9nnQKN7vIKo6BwdAORpnRjg=;
 	h=Date:From:To:Cc:Subject:References;
-	b=bYBCW8StGrvvtk4Z3GLT96eUDoomVYMvPN1NN22tQksUBXvFzlcCKk578Io1ksea8
-	 MOnnj5mSx9NPqvqDzdx7Sb3bbJHYf0HKpWFoMHtPhX4XjNoNR6+MuVC6kAnATG3k+6
-	 NFkth5q89iQWFz4d4B9LIyAKMlrbOFyewVWllPncPY8UK/B7lBJZc+J5QyrJ8yRNkx
-	 aGdzyzc+peciPhU2G8sUmjLrUeHR6a3lb+RAHjXrInzhvGlCSxsj8oGUW/PazsvnAN
-	 UeSs4johIOLuKAURpLxmBQ8zzlDozVX4n4FqX+G89q3XwKw8ZLaLP3gAmFzv381zRM
-	 0fgYZAZaiQNlw==
+	b=LWiM2aBh6hZ9lG4jFEnBhvZsAuq+L3rwhKTHTIDNold916Yl2XCCdCij7UdzqZzok
+	 F1xpyP0/HILFrkcY5f3p3CfvKFMNSQbl72pavrUxK3y31KtzLxhGHMxuVKV3EkOopu
+	 GnqkDILnEnceq7zaNY27Kgy3RSLZHsF0tKG2d+vtJ91E/QH5kXwH5qxtbBf2+okhHE
+	 o3Jb5pC8cQg/+60FpnWXYl2QR3widaRbehlYye1tL3FLCDqW7Wwb53gS4mrGrLoft8
+	 KbNoOss9/wTBEKyHcNqYjeqfyJFleKekHMqsvnFezF79EROEHhdhRe4nGFiC/p8cLx
+	 bzsygn6f0Jglg==
 Received: from rostedt by gandalf with local (Exim 4.99.4)
 	(envelope-from <rostedt@kernel.org>)
-	id 1x55oY-0000000951B-3R9D;
-	Fri, 11 Sep 2026 14:17:30 -0400
-Message-ID: <20260911181730.645121642@kernel.org>
+	id 1x55oZ-0000000954Z-4906;
+	Fri, 11 Sep 2026 14:17:31 -0400
+Message-ID: <20260911181731.813962582@kernel.org>
 User-Agent: quilt/0.69
-Date: Fri, 11 Sep 2026 14:16:48 -0400
+Date: Fri, 11 Sep 2026 14:16:54 -0400
 From: Steven Rostedt <rostedt@kernel.org>
 To: linux-kernel@vger.kernel.org
 Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  Mark Rutland <mark.rutland@arm.com>,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
  Andrew Morton <akpm@linux-foundation.org>,
- stable@vger.kernel.org,
- Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Subject: [for-linus][PATCH 12/20] tracing: Set the trace clock before registering the histogram trigger
+ Karl Mehltretter <kmehltretter@gmail.com>,
+ Vincent Donnefort <vdonnefort@google.com>
+Subject: [for-linus][PATCH 18/20] tracing: Fix ring_buffer_read_page_size() kernel-doc
 References: <20260911181636.485043797@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -51,94 +51,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+From: Karl Mehltretter <kmehltretter@gmail.com>
 
-hist_register_trigger() puts the trigger on the global named_triggers
-list in cmd_ops->init(), and only then sets the trace clock:
+ring_buffer_read_page_size() takes a parameter named rpage, but its
+kernel-doc describes page. As a result, kernel-doc reports rpage as
+undescribed and page as an excess parameter description.
 
-	if (data->cmd_ops->init) {
-		ret = data->cmd_ops->init(data);
-		if (ret < 0)
-			goto out;
-	}
+Rename the documentation entry to match the function.
 
-	if (hist_data->enable_timestamps) {
-		ret = tracing_set_clock(file->tr, hist_data->attrs->clock);
-		if (ret) {
-			hist_err(tr, HIST_ERR_SET_CLOCK_FAIL, errpos(clock));
-			goto out;
-		}
-
-The clock string is not checked anywhere before that call, so a named
-trigger using common_timestamp with an unknown clock fails after it has
-already become findable. event_hist_trigger_parse() then frees it
-without taking it off the list, and the next lookup by name reads the
-freed object:
-
- ~# cd /sys/kernel/tracing/events/sched/sched_switch
- ~# echo 'hist:name=foo:keys=common_pid:ts=common_timestamp:clock=bogus' > trigger
- bash: echo: write error: Invalid argument
- ~# echo 'hist:name=foo:keys=common_pid' > trigger
-
-  BUG: KASAN: slab-use-after-free in find_named_trigger+0xac/0xc0
-  Read of size 8 at addr ffff88800915d760 by task init/1
-   find_named_trigger+0xac/0xc0
-   hist_register_trigger+0xc1/0x900
-   event_hist_trigger_parse+0x3146/0x6af0
-   event_trigger_write+0xce/0x160
-  Freed by task 63:
-   kfree+0x154/0x420
-   trigger_kthread_fn+0xfd/0x160
-
-Set the clock before the trigger is registered, so that nothing which
-can fail runs after it is published, the way commit 6f86bdeab633
-("tracing: Fix bad hist from corrupting named_triggers list") moved the
-registration below the rest of the setup.
-
-tracing_set_filter_buffering() is reference counted, so the init failure
-path has to drop the reference that the clock block now takes first.
-
-Cc: stable@vger.kernel.org
-Fixes: a4072fe85ba3 ("tracing: Add a clock attribute for hist triggers")
-Link: https://patch.msgid.link/20260907091415.554535-1-donggeunyoo.kernel@gmail.com
-Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Link: https://patch.msgid.link/20260909062917.89482-1-kmehltretter@gmail.com
+Fixes: dae8dda341d2 ("tracing: Fix subbuf resize races with trace_pipe_raw readers")
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Reviewed-by: Vincent Donnefort <vdonnefort@google.com>
 Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 ---
- kernel/trace/trace_events_hist.c | 15 +++++++++------
- 1 file changed, 9 insertions(+), 6 deletions(-)
+ kernel/trace/ring_buffer.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
-index 5e00da2d5b1a..1889e310b73c 100644
---- a/kernel/trace/trace_events_hist.c
-+++ b/kernel/trace/trace_events_hist.c
-@@ -6631,12 +6631,6 @@ static int hist_register_trigger(char *glob,
- 		data->cmd_ops = cmd_ops;
- 	}
+diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
+index 9c03a555a6ba..0e30c7bd6045 100644
+--- a/kernel/trace/ring_buffer.c
++++ b/kernel/trace/ring_buffer.c
+@@ -7384,7 +7384,7 @@ EXPORT_SYMBOL_GPL(ring_buffer_read_page_data);
  
--	if (data->cmd_ops->init) {
--		ret = data->cmd_ops->init(data);
--		if (ret < 0)
--			goto out;
--	}
--
- 	if (hist_data->enable_timestamps) {
- 		char *clock = hist_data->attrs->clock;
- 
-@@ -6649,6 +6643,15 @@ static int hist_register_trigger(char *glob,
- 		tracing_set_filter_buffering(file->tr, true);
- 	}
- 
-+	if (data->cmd_ops->init) {
-+		ret = data->cmd_ops->init(data);
-+		if (ret < 0) {
-+			if (hist_data->enable_timestamps)
-+				tracing_set_filter_buffering(file->tr, false);
-+			goto out;
-+		}
-+	}
-+
- 	if (named_data) {
- 		remove_hist_vars(hist_data);
- 		destroy_hist_data(hist_data);
+ /**
+  * ring_buffer_read_page_size - get size of the read page.
+- * @page:  the page to get the size from
++ * @rpage:  the page to get the size from
+  *
+  * Returns size of the page in bytes.
+  */
 -- 
 2.53.0
