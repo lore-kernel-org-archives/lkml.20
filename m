@@ -1,119 +1,155 @@
-Received: from mta0.migadu.com (out-26.mta0.migadu.com [91.218.175.26])
+Received: from mta0.migadu.com (out-64.mta0.migadu.com [91.218.175.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C9F045D93A
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:00:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.26
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0188545D906
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:00:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789113630; cv=none; b=NfwW3W13K4oFIqbPH16CpG/5xskw5X0cZyAGCsAtCdiM3BRLa1J6IPBdISM/f/ih18gmaQwPef1wkyYJ17izbTHv06T4q0irb5BEKZ/Qn1DtM5QEkGbagfaEGvWWSKmNgE0BUk6QsgrBK8gCwFwyvNKcm0hk2h0mAi2XmCKBdfE=
+	t=1789113645; cv=none; b=aAWHQt8PU0upgWn1g+s37uODZkZ/DAekpW1szkT5t1BC0UQW+xF5fxWJH+IFCkBZP0tqbdwCg1Cj84L9Nbx/3qE7rnaRY7e2nIxM4wj39ChOAqbaG7yLzvEspU1P6wmnC1E/u2+zKbnVXdPGnoF1fO2orOhYTx61Sm57wl48g0o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789113630; c=relaxed/simple;
-	bh=afKiJa6hxOxYUi6bVE0sRytlbJBMbtKUr3nFCUs23Ag=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Fc1KRgHnI2SB9oDKWDETrQ4+SXOPsyEylhXZ0NXS+ETCtg/irIdj6fWgvJ+yupoBAOjA2/7YVdDy+9YeKlDU+E9PnaPLhjupxJKrIczmJIeyJ9cMfZePmB3RvwPBVJ8eebD7LeUjz/XUB1WqWzZbAnKTD3Q1+CvembLsenMN3bk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=rqu3dWQw; arc=none smtp.client-ip=91.218.175.26
+	s=arc-20240116; t=1789113645; c=relaxed/simple;
+	bh=MtMBUy3cqPkSQ7l9jm2rwShEJTacHCBGS65FBTs1ICA=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=YYgXQOq53S8qFtgH2HwxG+3EOIHv3Ix5C0x9OC9z/ejUolJyRDerc4OlC65cg/rE3NnKlLSSwWcseikfVRE5/6QodNk9ib5JPWC5SrNgzWVlOmQCLzv/cJ8MfO0Z8kSrWJxAPj+0k5+3z6mtLfCLO+Rcr4je55I73jJQ+csPn98=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=h+UYEGLu; arc=none smtp.client-ip=91.218.175.64
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="rqu3dWQw"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="h+UYEGLu"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=afKiJa6hxOxYUi6bVE0sRytlbJBMbtKUr3nFCUs23Ag=;
+DKIM-Signature: a=rsa-sha256; bh=MtMBUy3cqPkSQ7l9jm2rwShEJTacHCBGS65FBTs1ICA=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789113626; v=1; x=1789718426;
- b=rqu3dWQw9V6BFWdZ0r6uujuUUxROnGxtXQ4CV8vVd96LEglhrE1mYbclk8R1g1pA/OVicFd0
- 21jc+5rqtlJIC3HgENk/ZT0aFFHcMnua8iH6S0QlEl2i9e4icrS4hT05imdVu7U1f4kmkZt7zMX
- rDZSXuFLiI04R716A93u7y2o=
+ t=1789113640; v=1; x=1789718440;
+ b=h+UYEGLu+JS6dSQAwygoKqN/w8blqIv7PNIoSYGhCFG+DyDpdRJmlZ6n/Pn6/3piqWH0gLJO
+ tch7S15FW7DY/CF1ayzqIWxfIRwjpg6QP6XW5ce00zQBsg3PqGXqGUTIr+3NXK/kd0Lz7lxX5N9
+ l5EUO+smI4QrwoNDexUqD9h4=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ae1b02bf5b6b67e0;
-	Fri, 11 Sep 2026 08:00:15 +0000
-X-Mizu-Trace-ID: ae1b02bf5b6b67e0
+Received: by smtp.migadu.com with ESMTPS id 8a1a8142b4b29e09;
+	Fri, 11 Sep 2026 08:00:40 +0000
+X-Mizu-Trace-ID: 8a1a8142b4b29e09
 X-Migadu-Flow: FLOW_OUT
-Message-ID: <f0fa0178-4109-476d-b42b-0970b398de56@linux.dev>
-Date: Fri, 11 Sep 2026 13:30:04 +0530
+From: Ye Liu <ye.liu@linux.dev>
+To: Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Will Deacon <will@kernel.org>,
+	Boqun Feng <boqun@kernel.org>
+Cc: Ye Liu <liuye@kylinos.cn>,
+	Michal Hocko <mhocko@suse.com>,
+	SJ Park <sj@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Oleg Nesterov <oleg@redhat.com>,
+	paulmck@kernel.org,
+	rostedt@goodmis.org,
+	jpoimboe@kernel.org,
+	mic@digikod.net,
+	tglx@kernel.org,
+	akpm@linux-foundation.org,
+	david@kernel.org,
+	linmiaohe@huawei.com,
+	nao.horiguchi@gmail.com,
+	rafael@kernel.org,
+	gnoack3000@gmail.com,
+	gourry@gourry.net,
+	rientjes@google.com,
+	shakeel.butt@linux.dev,
+	xu.xin16@zte.com.cn,
+	chengming.zhou@linux.dev,
+	frederic@kernel.org,
+	neeraj.upadhyay@kernel.org,
+	joelagnelf@nvidia.com,
+	josh@joshtriplett.org,
+	urezki@gmail.com,
+	juri.lelli@redhat.com,
+	vincent.guittot@linaro.org,
+	tony.luck@intel.com,
+	reinette.chatre@intel.com,
+	x86@kernel.org,
+	paul@paul-moore.com,
+	jmorris@namei.org,
+	serge@hallyn.com,
+	pavel@kernel.org,
+	lance.yang@linux.dev,
+	mhiramat@kernel.org,
+	pmladek@suse.com,
+	longman@redhat.com,
+	mathieu.desnoyers@efficios.com,
+	jiangshanlai@gmail.com,
+	qiang.zhang@linux.dev,
+	dietmar.eggemann@arm.com,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	mark.rutland@arm.com,
+	Dave.Martin@arm.com,
+	james.morse@arm.com,
+	babu.moger@amd.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	rcu@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-security-module@vger.kernel.org
+Subject: [PATCH v3 08/15] locking/lockdep: convert process/thread iterators to for_each_*_rculock
+Date: Fri, 11 Sep 2026 15:57:53 +0800
+Message-Id: <20260911075800.491472-9-ye.liu@linux.dev>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260911075800.491472-1-ye.liu@linux.dev>
+References: <20260911075800.491472-1-ye.liu@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf-next v2 08/13] selftests/bpf: cover the low-32 link
- for sign-extending movs
-To: bot+bpf-ci@kernel.org, ast@kernel.org, daniel@iogearbox.net,
- andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com
-Cc: martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
- jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev,
- john.fastabend@gmail.com, shuah@kernel.org, bpf@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- martin.lau@kernel.org, mason@kernel.org
-References: <20260910164635.459558-9-vineet.gupta@linux.dev>
- <5c3e4124ce20a8c5b435ae68e4facd38b0dab5b9f643e74d014287dc9172076e@mail.kernel.org>
-From: Vineet Gupta <vineet.gupta@linux.dev>
-Content-Language: en-US
-In-Reply-To: <5c3e4124ce20a8c5b435ae68e4facd38b0dab5b9f643e74d014287dc9172076e@mail.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/10/26 11:22 PM, bot+bpf-ci@kernel.org wrote:
->> selftests/bpf: cover the low-32 link for sign-extending movs
->>
->> Five programs, mirroring the zero-extending set:
->>
->>   - sext_mov_wide_src: narrowing the source reaches the destination, and
->>     the value that arrives is sign-extended rather than zero-extended
->>   - sext_self_mov_keeps_link: r0 = (s32)r0 on an already-linked register
->>     stays in its set, the shape a sign-extended int return takes
->>   - sext_self_mov_no_link: the same mov on an unlinked register mints no id
->>   - sext_no_sync_when_base_has_delta: a delta on the base stops propagation
->>   - sext_no_sync_from_subreg_base: narrowing the link does not run
->>     backwards into the rest of the set
->>   - sext_kinds_reach_different_values: the same low half reaches -1 through
->>     a sign extension and 0xffffffff through a zero extension
->>
->> Each guards a div by zero that is only unreachable if the propagation
->> happened, so losing the link is a verification failure rather than a test
->> that quietly stops checking anything.
-> This isn't a bug, but should the count read "six programs", and could the
-> closing sentence be scoped to the two __success programs, since
-> sext_self_mov_no_link has no div and the __failure ones expect it to be
-> reachable?
+From: Ye Liu <liuye@kylinos.cn>
 
-OK.
+Replace the manual rcu_read_lock()/rcu_read_unlock() pair combined
+with for_each_process_thread() loop in kernel/locking/lockdep.c with
+for_each_process_thread_rculock(), which scopes the RCU read lock
+to the loop body via scoped_guard(rcu).
 
->> diff --git a/tools/testing/selftests/bpf/progs/bpf_misc.h b/tools/testing/selftests/bpf/progs/bpf_misc.h
->> index eb88d9ce6c34..45bfa02a5338 100644
->> --- a/tools/testing/selftests/bpf/progs/bpf_misc.h
->> +++ b/tools/testing/selftests/bpf/progs/bpf_misc.h
->> @@ -269,6 +269,14 @@
->>   #define CAN_USE_BPF_ST
->>   #endif
->>
->> +#if (defined(__TARGET_ARCH_arm64) || defined(__TARGET_ARCH_x86) ||	\
->> +     (defined(__TARGET_ARCH_riscv) && __riscv_xlen == 64) ||		\
->> +     defined(__TARGET_ARCH_arm) || defined(__TARGET_ARCH_s390) ||	\
->> +     defined(__TARGET_ARCH_loongarch)) &&				\
->> +	(__clang_major__ >= 18 || defined(__BPF_FEATURE_MOVSX))
->> +#define CAN_USE_MOVSX
->> +#endif
->> +
-> This isn't a bug, but now that the gate lives in bpf_misc.h, would it be
-> worth switching verifier_movsx.c's inline #if over to #ifdef CAN_USE_MOVSX
-> so the arch/feature list exists in one place?
+No functional change.
 
-Yes.
+Signed-off-by: Ye Liu <liuye@kylinos.cn>
+Acked-by: Michal Hocko <mhocko@suse.com>
+Reviewed-by: SJ Park <sj@kernel.org>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Oleg Nesterov <oleg@redhat.com>
+---
+Changes in v3:
+  - Split from kernel/ patch in v2 (Peter Zijlstra, Steven Rostedt)
 
-Thx,
--Vineet
+Changes in v2:
+  - Rename *_rcu to *_rculock
+ kernel/locking/lockdep.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
->> diff --git a/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c b/tools/testing/selftests/bpf/progs/verifier_linked_scalars.c
->> index 65cb0efd268f..9d060d8b0c1f 100644
-> [ ... ]
->
->
-> ---
-> AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-> See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
->
-> CI run summary: https://github.com/kernel-patches/bpf/actions/runs/34506184282
+diff --git a/kernel/locking/lockdep.c b/kernel/locking/lockdep.c
+index c56a7f91d72e..ea218dc75ad5 100644
+--- a/kernel/locking/lockdep.c
++++ b/kernel/locking/lockdep.c
+@@ -6834,15 +6834,13 @@ void debug_show_all_locks(void)
+ 	}
+ 	pr_warn("\nShowing all locks held in the system:\n");
+ 
+-	rcu_read_lock();
+-	for_each_process_thread(g, p) {
++	for_each_process_thread_rculock(g, p) {
+ 		if (!p->lockdep_depth)
+ 			continue;
+ 		lockdep_print_held_locks(p);
+ 		touch_nmi_watchdog();
+ 		touch_all_softlockup_watchdogs();
+ 	}
+-	rcu_read_unlock();
+ 
+ 	pr_warn("\n");
+ 	pr_warn("=============================================\n\n");
+-- 
+2.25.1
 
