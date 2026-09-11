@@ -1,64 +1,64 @@
 Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99EFB49B1F8
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:50:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C7C249B5D2
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 15:50:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789141835; cv=none; b=ITgG7MfhB8Fn0AnnueSKFmlRK9ohgWb26laDurd5Cd7jbq0VqsH7EKHlG0NJP8zGhoG4QDQpNaP0FJLx99iIPLHWOIDxA9dYpupEJ35DgcCsTV2EE/ClS0D92vnNiWmUbk24y2QcDTVQRmQoMoACrMwVnV4GithuLsVC310/Tz4=
+	t=1789141838; cv=none; b=cOOd/8KwPXmPpTxrshGlf1FFLT4GpHA0wrddzf8MvZDXmJJ0tBsKrIOSxulfESZy2sZU1IObHCbtpJzo/HYTullOPhDfF9lCx4349cPerEkfsCg3GRD/0VfOFMLTqU6hYMeyFAwSGfu+FB6fDkA/2eB5XZ9GO8hzug4lcaXUaxQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789141835; c=relaxed/simple;
-	bh=7SJy+10+B1JqbGMkduX8APfF0bqZ1tN+8AgCM22hBt0=;
+	s=arc-20240116; t=1789141838; c=relaxed/simple;
+	bh=WjYK3pzeawJSBXL1J2JOmg+my2lNZqZrxPiPYoz/Tl8=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=pvY9P1SG39orBsu68XIZ/vSXBjjJHkHuE7pm12KllcU726aExgnoECTGhRAL6i8TYxsgKxE6l/Ywb2K9QdFvSUbP1S/4Tv7siP88HZ1CFHvSuCYB3ehoFnVTeg/9SQATqbJG3RgxGc1+CtS0BbWycYIrfujnD3Ccfn/B1/Xd6g8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MYYvcQ9/; arc=none smtp.client-ip=74.125.227.140
+	 MIME-Version; b=cFAPQmJgM/Khet5EQsE7te5OYpU/PJsHf36+yX6kKTn0CijRzfNW+8sdmg23ZMaEZSqaBClj4oW9MHLqlrju6T8psbbJBnCQbVfVzvw3xBS4Z/ptsCWIT4I0IWfEpfmfZSgX/9e2FHbd0OzqTL2MxfOZyCfOwCeP89RScH7QBBg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m0bnwaM7; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MYYvcQ9/"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d90ba1d807so13206825ad.3
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:50:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m0bnwaM7"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d8fb334e72so10168825ad.1
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 08:50:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789141831; x=1789746631; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789141835; x=1789746635; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=RDM41NOz5tQjdYkYAiZ0PWoFJhzzxuqUe+1JSWXFyHc=;
-        b=MYYvcQ9/8FRvxNHdnIMHzpn7nxl79fjvT4EIcT7VSJ+FSzMqyTiyFmd1bIDPn4wt/o
-         L/hpy8SSXirW3I0WRk58xjAfkGGZSuN4I08fSffgyBrqX+lIGcKLOKuH75Pi/QiTlWTF
-         s1uNFc7x13twVtjqeAA2/ZFSxl67Q+kdJCyf3Sl5szHiU9Y7tKgStRNKmNMpQ2zqBDn+
-         Nr/HMqLYgNy7VzeTTLnIi+3hMByAfYerCKdnL0GRB1pLsl2iW6v2yvRynJjJbQTbfYNx
-         4Hournav7iw7wWrj2Kab2209FYLzOWN91apXuTV2p+XmQbQgNmLkKfFOAKKomZmcM2Ta
-         zLzg==
+        bh=7Ncv0qza4n7xU/ePfsTNxTo8wWj87uTeUF7PMp8e4PA=;
+        b=m0bnwaM70MBDDbMHG2dmtifkm4kgWDkr/kNqZLn7v76TOBHb5X/uAvG3oZpdWYiCiy
+         pDUj+BMYPb4r8CMoWBkIQodB6C0hvoMySSJn2+uVEEkTsKYDJIUJhI4vFcAiIwuRVaKA
+         g47d40UE42bm74PZeOERzoPaPmQ+S+QHww8aPfc4VnF0ul4+81pbgl243pBZsdXjX5Zx
+         6U8wwNPXod0tcTSrLu6DD9obVrlgZRqfJXfvodL31hTrKol/qxg4ieUfhXB9DMuQZmaZ
+         SYBH2cAvkW0O0h1A7TpQa141e8gjJRLxPkXYOXsXx2pxBz9yxjlnBdlQh7NbrUZOjHnB
+         icHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789141831; x=1789746631;
+        d=1e100.net; s=20251104; t=1789141835; x=1789746635;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RDM41NOz5tQjdYkYAiZ0PWoFJhzzxuqUe+1JSWXFyHc=;
-        b=TExVVNaKsfz5ZkdvIqIHujtPqpRWfw3j6+c2Y2mzfuSCkWwEFRYbovg06ewLUgPtwF
-         yjuwpe2hPrIwdTaZXDRLb6dhqjA04mWdXsQgquXb3ggDd966+sc2muvvUX77JGDHYxHS
-         CtSz9LhurUYGTFVGj3PfheiPhFUmuFbNkNJQVKdd76I/hag711oESbngd8+wbTUp45x7
-         p3LsX28DiIobaCfbPe3WjgazaU+zKzyUWvdnK6E1ADGdTnOWtb8OW41wzDMJmL/K9lIK
-         9NsEFaePRlAhcyUAAFMeonWJ9WykJ6IwRwt7B1ttU7Iy2E4o+nmtLSMekhpXI2/fU2A9
-         r9Ug==
-X-Forwarded-Encrypted: i=1; AKwUvBzD/mcPRUHkNhNMYCAXeDe+29dME6WJy3a5DL1y2w9M/Q8FC8RkaEvhDG8ugW9Dl9SXhAJUjDnWYgP/Uo0=@vger.kernel.org
-X-Gm-Message-State: AFuF++ldSapCdNjPvWyGPzvv+bYA+q03fzXfajm81C/bwRnjX2kqKf2W
-	roAyARqB8FIMdOsnu5OzdoSj/XUfqFYeYwhxu6rcLDX7Dsbl6y66uTmt
-X-Gm-Gg: AYBFou1+hIKKCKIAwLX8kP0SdbYB+VEnBJ4TNzJfL42ez9JyXs7HP+vHvnXIDVLeVmz
-	x0KTIH+5zpN8hHnzLaPlY+dban1QLyjUmr7GHor8+QUG7F6bCVzkpFVXOws9uonOiQ6ajXMUnHg
-	HOKd2ksnEfjOguZNidTqNEjViwsLvjx4Y4YSpeYLaZ7nvdc6XRrFgBHtMaGa42nf2PP5KMLm4fF
-	bfwh3psl88pF5sQ/NtSFVhIvtXUPVgK9J7J6rZcJmix057CVwbj+fIil0rYhOJcyZWIaWwL1u+0
-	LEtHGcrtZSD3J2nZWvgKYJBrtdN5WCOuKCehOOMMONaF1GxOY1+CrX/SvEWtSbq69V9f3SCRNoh
-	KB/8uMz5wTJJK5XyHVJ1zEqq98IMLo4l/v2edWCN1rThow61qIib6isPh4rcx4XzISLmTVS3SXZ
-	zVOdLaW0V4d40FeAEapmM4EH3VUt05PWjQzKvqbQCDWljh4jwOc4RxzIxwMPwBLjPOEFNO8EL6d
-	1MDD+LS+Vq0sUt8GjY/HAtSLaKueKzfJfKkbgE=
-X-Received: by 2002:a17:902:ecd0:b0:2d7:203b:9863 with SMTP id d9443c01a7336-2dd2a1c6251mr86219225ad.1.1789141830459;
-        Fri, 11 Sep 2026 08:50:30 -0700 (PDT)
+        bh=7Ncv0qza4n7xU/ePfsTNxTo8wWj87uTeUF7PMp8e4PA=;
+        b=CK2UcZmv8ouf68k7c55PwSUrc7Fu0ud1Wdrnc5K+KcgY9uqkC1FLmm4Ver94iTtrQQ
+         hqt8vKdD4T9v2f0yHxhnCsOxJrjHa12rVSPKLHBVTsNgxvuR5B4YOaKvIqu7MCM+Fqwy
+         GoOSDJMVJR66sC3LbiCxKEdbjkNztOPJHqmR/QYu2nb1Du3zq/fR31uUamWPd4x1DP8m
+         ghIZleybcDWFqUik/DQiNykqSVhi4SY/Yt31nGUIql53VkJ1HkKOUzb0Pby0/oNPf/h0
+         iIRPs9cXo6abgKEEJi+njsqCOztghN0Hec3I+knqEAc/Emk6ZAw4nJDIpW0gfyCvFbP+
+         HMXQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw6TSNeRCIa8saw7ii7a7+V2FEJYTWE32NCqYZpCNkr4I8XJx4wdXzsy5PaHtXDAA+PjCHRjxtWH6YaHlw=@vger.kernel.org
+X-Gm-Message-State: AFuF++ldLaF8sot+5Qeu+SHk0y8yv3RZ2vQizvVU8270DvXakAno6MSw
+	m5IG+KYv+howF90KbEZ5ZTOxBBhaB/UdhSAuFDNZmmWTcZbI+HwfeDiu
+X-Gm-Gg: AYBFou2USpCFUlDz8qNwb4BeAJ7d0Lda3U5EUxA2XIJwKGHwgNnU6no2Bf7Vu98O5nB
+	abBsqW7HbzFnIYznb81Qhd+LemX7QDEWfnNkHvN1SiJqZ82bw3n7gyg4lIqunTn7+jxDAChy3Mc
+	mu289amCs+jbVATxyWSgczltclKOog5L3ujySDA73JoGpFKq2NYDlrZ/0bmbXcIrdW3SwNSTPEk
+	ObZ391slv0T6XefSGRF5IXVYkCIFsrO/6Uo2WZnrvu9XrNc0O9h2J7dC0DUf9kYR8lNq7FYEWLe
+	0jjMQbHxJk91UP/MBgYi5butpjytaA8pfTGDn7hFA0mJoaZK4Plksal8NZCP8cBFpHHkxpBVrla
+	LVMnrKLbH1ZOKFYtuG0tjzGvFt9JgUJh6OFJkplwiM5VDaeebaBz9XA+vXU2APbpzAxNvzniMmv
+	KAsLNFDeNaKo7QWFLucmruL/jE0r7ZKgPrFOYOgMCYRSecfhVdihLl/vwjwFTZGeQApd8tXQt7K
+	98WUUoGj+96HbcdSpSa8ml4z1jI4V5mY4g2poc=
+X-Received: by 2002:a17:902:ccc9:b0:2d7:3f6e:5cb9 with SMTP id d9443c01a7336-2dd2a1efc6amr98839165ad.8.1789141835370;
+        Fri, 11 Sep 2026 08:50:35 -0700 (PDT)
 Received: from bj-kjy-standalone-gaoxiang17.mioffice.cn ([43.224.245.230])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2cfcefb6sm13634895ad.56.2026.09.11.08.50.27
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2cfcefb6sm13634895ad.56.2026.09.11.08.50.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 08:50:30 -0700 (PDT)
+        Fri, 11 Sep 2026 08:50:35 -0700 (PDT)
 From: Xiang Gao <gxxa03070307@gmail.com>
 X-Google-Original-From: Xiang Gao <gaoxiang17@xiaomi.com>
 To: Steven Rostedt <rostedt@goodmis.org>,
@@ -71,9 +71,9 @@ Cc: Masami Hiramatsu <mhiramat@kernel.org>,
 	linux-trace-kernel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Xiang Gao <gaoxiang17@xiaomi.com>
-Subject: [PATCH v2 1/2] tracing: add ring-buffer memory usage statistics in tracefs
-Date: Fri, 11 Sep 2026 23:50:16 +0800
-Message-Id: <20260911155017.3377254-2-gaoxiang17@xiaomi.com>
+Subject: [PATCH v2 2/2] tracing: add per-CPU memory usage statistics in tracefs
+Date: Fri, 11 Sep 2026 23:50:17 +0800
+Message-Id: <20260911155017.3377254-3-gaoxiang17@xiaomi.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260911155017.3377254-1-gaoxiang17@xiaomi.com>
 References: <20260905112732.3705405-1-gaoxiang17@xiaomi.com>
@@ -86,210 +86,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Report the memory consumed by the tracing ring buffers, rather than the
-usable data capacity exposed by buffer_size_kb. Android low-memory
-diagnostics need this to attribute the memory used by tracing when
-calculating lost RAM.
-
-The buffers can be spread across the global trace array, dynamically
-created instances, and snapshot buffers. Userspace currently has to
-discover and sum every instance, and snapshot memory is not exposed by
-the per-instance totals.
-
-Add a trace_stats directory with memory_usage_kb reporting:
-
-  buffers:
-  snapshot_buffers:
-
-covering the global trace array and all instances across all CPUs.
-
-The values account for the full pages backing the data sub-buffers and
-reader page, plus the cached read page and mmap metadata page when
-present. Slab-allocated ring-buffer metadata is not included, as it is
-already reported through Slab and would be double-counted when
-subtracting tracing memory from lost RAM. Remote buffers, whose pages
-are externally owned, report zero.
+Provide a per-CPU view of the tracing ring-buffer memory usage under
+trace_stats/per_cpu/cpuN/memory_usage_kb, using the same format as the
+aggregate file. Each file reports only the buffers belonging to that CPU
+across the global trace array and all tracing instances.
 
 Signed-off-by: Xiang Gao <gaoxiang17@xiaomi.com>
 ---
- Documentation/trace/ftrace.rst | 12 +++++++
- include/linux/ring_buffer.h    |  1 +
- kernel/trace/ring_buffer.c     | 41 +++++++++++++++++++++++
- kernel/trace/trace.c           | 60 ++++++++++++++++++++++++++++++++++
- 4 files changed, 114 insertions(+)
+ Documentation/trace/ftrace.rst |  3 +++
+ kernel/trace/trace.c           | 46 +++++++++++++++++++++++++++++++++-
+ 2 files changed, 48 insertions(+), 1 deletion(-)
 
 diff --git a/Documentation/trace/ftrace.rst b/Documentation/trace/ftrace.rst
-index 84f06bf0da9b..ff9d604dd1b8 100644
+index ff9d604dd1b8..694c9ed8f241 100644
 --- a/Documentation/trace/ftrace.rst
 +++ b/Documentation/trace/ftrace.rst
-@@ -218,6 +218,18 @@ of ftrace. Here is a list of some of the key files:
+@@ -230,6 +230,9 @@ of ftrace. Here is a list of some of the key files:
+ 	    buffers: ...
+ 	    snapshot_buffers: ...
  
- 	This displays the total combined size of all the trace buffers.
- 
-+  trace_stats/memory_usage_kb:
-+
-+	This reports the memory consumed by the ring buffers, as opposed to
-+	the usable data capacity shown by buffer_size_kb. The value covers the
-+	main and snapshot buffers of the global trace array and all tracing
-+	instances. It does not include slab-allocated ring-buffer metadata.
-+
-+	Output::
-+
-+	    buffers: ...
-+	    snapshot_buffers: ...
++	The same file is provided under trace_stats/per_cpu/cpuN/, reporting
++	only the buffers belonging to that CPU.
 +
    buffer_subbuf_size_kb:
  
  	This sets or displays the sub buffer size. The ring buffer is broken up
-diff --git a/include/linux/ring_buffer.h b/include/linux/ring_buffer.h
-index 0670742b2d60..64eded40222c 100644
---- a/include/linux/ring_buffer.h
-+++ b/include/linux/ring_buffer.h
-@@ -166,6 +166,7 @@ int ring_buffer_iter_empty(struct ring_buffer_iter *iter);
- bool ring_buffer_iter_dropped(struct ring_buffer_iter *iter);
- 
- unsigned long ring_buffer_size(struct trace_buffer *buffer, int cpu);
-+unsigned long ring_buffer_memory_size(struct trace_buffer *buffer, int cpu);
- unsigned long ring_buffer_max_event_size(struct trace_buffer *buffer);
- 
- void ring_buffer_reset_cpu(struct trace_buffer *buffer, int cpu);
-diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-index 8e2485bb3aa8..292af4807c70 100644
---- a/kernel/trace/ring_buffer.c
-+++ b/kernel/trace/ring_buffer.c
-@@ -6464,6 +6464,47 @@ unsigned long ring_buffer_size(struct trace_buffer *buffer, int cpu)
- }
- EXPORT_SYMBOL_GPL(ring_buffer_size);
- 
-+/**
-+ * ring_buffer_memory_size - return the memory used by the buffer (in bytes)
-+ * @buffer: The ring buffer.
-+ * @cpu: The CPU to get ring buffer memory from.
-+ *
-+ * Returns the page-allocator memory consumed by @cpu, including the data
-+ * sub-buffers, the reader page, the cached read page, and the mmap
-+ * metadata page. Unlike ring_buffer_size(), which reports the usable data
-+ * capacity, this accounts for the full pages allocated to the buffer.
-+ * Remote buffers do not own page-allocator memory and report zero.
-+ */
-+unsigned long ring_buffer_memory_size(struct trace_buffer *buffer, int cpu)
-+{
-+	struct ring_buffer_per_cpu *cpu_buffer;
-+	unsigned long subbuf_size;
-+	unsigned long size;
-+
-+	if (!cpumask_test_cpu(cpu, buffer->cpumask))
-+		return 0;
-+
-+	/* Remote buffers use externally owned memory. */
-+	if (buffer->remote)
-+		return 0;
-+
-+	cpu_buffer = buffer->buffers[cpu];
-+	subbuf_size = PAGE_SIZE << READ_ONCE(buffer->subbuf_order);
-+
-+	/* Data sub-buffers plus the reader page. */
-+	size = (cpu_buffer->nr_pages + 1) * subbuf_size;
-+
-+	/* The cached read page, if present, is a full sub-buffer page. */
-+	if (cpu_buffer->free_page)
-+		size += subbuf_size;
-+
-+	/* The mmap metadata page is a single system page. */
-+	if (cpu_buffer->meta_page)
-+		size += PAGE_SIZE;
-+
-+	return size;
-+}
-+
- /**
-  * ring_buffer_max_event_size - return the max data size of an event
-  * @buffer: The ring buffer.
 diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
-index 01a5e87af299..b343e03a6cf8 100644
+index b343e03a6cf8..ea05077af4a0 100644
 --- a/kernel/trace/trace.c
 +++ b/kernel/trace/trace.c
-@@ -5769,6 +5769,52 @@ tracing_total_entries_read(struct file *filp, char __user *ubuf,
- 	return simple_read_from_buffer(ubuf, cnt, ppos, buf, r);
+@@ -5815,6 +5815,31 @@ static int trace_mem_show(struct seq_file *m, void *v)
  }
+ DEFINE_SHOW_ATTRIBUTE(trace_mem);
  
-+struct trace_mem_stats {
-+	unsigned long	buffers;
-+	unsigned long	snapshot;
-+};
-+
-+static void
-+trace_array_buffer_memory(struct trace_array *tr, int cpu,
-+			  unsigned long *buffers, unsigned long *snapshot)
-+{
-+	if (tr->array_buffer.buffer)
-+		*buffers += ring_buffer_memory_size(tr->array_buffer.buffer, cpu);
-+
-+#ifdef CONFIG_TRACER_SNAPSHOT
-+	if (tr->snapshot_buffer.buffer)
-+		*snapshot += ring_buffer_memory_size(tr->snapshot_buffer.buffer, cpu);
-+#endif
-+}
-+
-+static struct trace_mem_stats trace_buffers_memory(void)
++static struct trace_mem_stats trace_buffers_memory_cpu(int cpu)
 +{
 +	struct trace_mem_stats stats = {};
 +	struct trace_array *tr;
-+	int cpu;
 +
 +	guard(mutex)(&trace_types_lock);
 +
-+	list_for_each_entry(tr, &ftrace_trace_arrays, list) {
-+		for_each_tracing_cpu(cpu)
-+			trace_array_buffer_memory(tr, cpu, &stats.buffers,
-+						  &stats.snapshot);
-+	}
++	list_for_each_entry(tr, &ftrace_trace_arrays, list)
++		trace_array_buffer_memory(tr, cpu, &stats.buffers,
++					  &stats.snapshot);
 +
 +	return stats;
 +}
 +
-+static int trace_mem_show(struct seq_file *m, void *v)
++static int trace_mem_per_cpu_show(struct seq_file *m, void *v)
 +{
-+	struct trace_mem_stats stats = trace_buffers_memory();
++	struct trace_mem_stats stats = trace_buffers_memory_cpu((long)m->private);
 +
 +	seq_printf(m, "buffers: %lu\n", stats.buffers >> 10);
 +	seq_printf(m, "snapshot_buffers: %lu\n", stats.snapshot >> 10);
 +
 +	return 0;
 +}
-+DEFINE_SHOW_ATTRIBUTE(trace_mem);
++DEFINE_SHOW_ATTRIBUTE(trace_mem_per_cpu);
 +
  #define LAST_BOOT_HEADER ((void *)1)
  
  static void *l_next(struct seq_file *m, void *v, loff_t *pos)
-@@ -9188,6 +9234,18 @@ static struct notifier_block trace_module_nb = {
- };
- #endif /* CONFIG_MODULES */
+@@ -9236,7 +9261,9 @@ static struct notifier_block trace_module_nb = {
  
-+static __init void init_trace_stats_tracefs(void)
-+{
-+	struct dentry *stats_dir;
+ static __init void init_trace_stats_tracefs(void)
+ {
+-	struct dentry *stats_dir;
++	struct dentry *stats_dir, *per_cpu_dir, *cpu_dir;
++	char cpu_dir_name[30];
++	int cpu;
+ 
+ 	stats_dir = tracefs_create_dir("trace_stats", NULL);
+ 	if (!stats_dir)
+@@ -9244,6 +9271,23 @@ static __init void init_trace_stats_tracefs(void)
+ 
+ 	trace_create_file("memory_usage_kb", TRACE_MODE_READ, stats_dir,
+ 			  NULL, &trace_mem_fops);
 +
-+	stats_dir = tracefs_create_dir("trace_stats", NULL);
-+	if (!stats_dir)
++	per_cpu_dir = tracefs_create_dir("per_cpu", stats_dir);
++	if (!per_cpu_dir)
 +		return;
 +
-+	trace_create_file("memory_usage_kb", TRACE_MODE_READ, stats_dir,
-+			  NULL, &trace_mem_fops);
-+}
++	for_each_tracing_cpu(cpu) {
++		snprintf(cpu_dir_name, 30, "cpu%d", cpu);
++		cpu_dir = tracefs_create_dir(cpu_dir_name, per_cpu_dir);
++		if (!cpu_dir) {
++			pr_warn("Could not create tracefs '%s' entry\n",
++				cpu_dir_name);
++			continue;
++		}
 +
++		trace_create_file("memory_usage_kb", TRACE_MODE_READ, cpu_dir,
++				  (void *)(long)cpu, &trace_mem_per_cpu_fops);
++	}
+ }
+ 
  static __init void tracer_init_tracefs_work_func(struct work_struct *work)
- {
- 
-@@ -9196,6 +9254,8 @@ static __init void tracer_init_tracefs_work_func(struct work_struct *work)
- 	init_tracer_tracefs(&global_trace, NULL);
- 	ftrace_init_tracefs_toplevel(&global_trace, NULL);
- 
-+	init_trace_stats_tracefs();
-+
- 	trace_create_file("tracing_thresh", TRACE_MODE_WRITE, NULL,
- 			&global_trace, &tracing_thresh_fops);
- 
 -- 
 2.34.1
 
