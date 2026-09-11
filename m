@@ -1,264 +1,148 @@
-Received: from LO3P265CU004.outbound.protection.outlook.com (mail-uksouthazon11020120.outbound.protection.outlook.com [52.101.196.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f2.google.com (mail-oo2-f2.google.com [74.125.231.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 178D9599A5B;
-	Fri, 11 Sep 2026 20:12:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.196.120
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789157555; cv=fail; b=qtaKNAItGR+hrfeZbgs0PaMVnMq9k4Q+VmWtdTN7TrO195CK6YmPJol2gnpqNJ2HsVQXrIi8f8VXEceFd38HpcCD2L/9td6S2BSXBhfAJ8hkM/L/gBHJmEkyKLCGv62VQF5bJye7YyFBRNvoksn3iXWtyt0jrRpT9igIRp3ahkc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789157555; c=relaxed/simple;
-	bh=/mEUK7CQlONSgwoJBZFdyzVSHuaOKprhdNzRzAA8sVk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=dW3zobZC4FzE9/zDeycKIpjIoqT89XSBJu9/Q1oi6BFe7/pr9KH7yOay2QcVNrFpPJwOeWOE0+yV0fuJFKal/4lpFW79exTIK4rvU2Wa0Nj12gWwZ+EVNPAWtSRYcbPj93P0yARA+GWvumVE4tPSyNnPBw5oYNrHDAUe0FBPQtc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.196.120
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WYUNuNucGuy/6x1hzcZDdchOmp9iMb4CCJLVtUWjq8fTFjWd1OElJRzw4sbTWJ2IM1eSQExbjvWZMPbos7h5eTvLeTeBaeJSIfXjC67WzFAUB+01mf/a4LsXmfy2lRrTDl99fBVflXQzc66yAIJCT3M3skgvkYBXJUsC4GnY5ogmjXr2JcvDe6bdG1HOSiJvEOnyAPwEk6/48KjHPkQ1bCVD9MpvX8xkWdZKzMkDSHlrwul11tXYTRBNksYdSXYNocweiw8Se4OXo8bT2834O9kNl9R8sLHAwP3U61HDYFTzV/fLqZTIMex1bI6PuUsGm50ex7zlGt/Yg45oAipCLA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
- bh=cJ5shgQXXULb3pj/DfugS4L00WeAJz9RYHIslo0MYQo=;
- b=F3Bc5CNOXOmVswlbcZfgL8rilrFE1VWB7kpaLNe6fGm+0hwMfeNc9HQNVlQFKyUl5Pd6vF7r/+MWpFmt5EXArGRZljZ29nlYt1+R1s/5aipRgLsARoFEXzMu38XoKTEEJr030VZtpd4779M3PqwKswmjJLq1p5IXjLO05c2k4FJwWAWJyzWrpxyRyhP1Mcx7ERTXazeJcfct1VrIWeK5ARkLEJMO33V5oKmjejWCzdYre6AnPL2U5rlORyDWrgNwtxXPDc0Dlyjt7jptxpdswWT8QdVKbVoIZJmf8lppgPAQCaFGe0Upyv5YAjm9+Tfs+ZCuGmExtqev6zwQjRFsuw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
- dkim=pass header.d=atomlin.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=atomlin.com;
-Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
- by CWXP123MB3207.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:3b::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Fri, 11 Sep
- 2026 20:12:18 +0000
-Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- ([fe80::cec4:77ab:262e:d230%4]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
- 20:12:18 +0000
-From: Aaron Tomlin <atomlin@atomlin.com>
-To: tony.luck@intel.com,
-	bp@alien8.de,
-	tglx@kernel.org,
-	mingo@redhat.com,
-	dave.hansen@linux.intel.com
-Cc: x86@kernel.org,
-	hpa@zytor.com,
-	frederic@kernel.org,
-	marco.crivellari@suse.com,
-	neelx@suse.com,
-	sean@ashe.io,
-	chjohnst@gmail.com,
-	mproche@gmail.com,
-	nick.lange@gmail.com,
-	linux-edac@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v6 2/4] x86/mce/threshold: Fix concurrency races in storm tracking
-Date: Fri, 11 Sep 2026 16:12:04 -0400
-Message-ID: <20260911201206.532113-3-atomlin@atomlin.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260911201206.532113-1-atomlin@atomlin.com>
-References: <20260911201206.532113-1-atomlin@atomlin.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: BN0PR04CA0137.namprd04.prod.outlook.com
- (2603:10b6:408:ed::22) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:400:183::5)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D6E3598BF5
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 20:12:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.130
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789157567; cv=none; b=in3REBQUllEJuU7rAoO5UZOszTtWA7Pzzo25La7Q0S4W6TwZ+3Zd4uRqYPoI8iv4kDmr1PK4y0pg1izwtECdvUNx6KKxR0CHXesKLT7HsSAUeLWIBZvoI0Tv4kkpe67QY6wuhv311n1EgdopEV26uA6rSn7q/98EiCxwZkhSG48=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789157567; c=relaxed/simple;
+	bh=wAvKU8SjsFsHYB2ozXwljdG5NjRIWOViEiptb6tCW1Q=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=MVoVTDI3U01em5DUAXlirR5PdfW78J8uLWU0QePQCjne0bfIuLKTM9mmZaWIIn0eeISEY7bTUl0rlmOl8BP33GJUnGsyWtEjmPMeLcbWPOnZqfSBpcJzRfVo5C8M8g/sd1YvNKDp1SaMYk49XrqtmLkcUgUjbxRyUosDMBdnkNI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo2-f2.google.com with SMTP id 006d021491bc7-6bd3ee01a0dso512048eaf.0
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 13:12:40 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789157554; x=1789762354;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2tA+SngjrmQk+wdihqTLbubXs7aLmdXGgsvtzF18URA=;
+        b=MWM1c3jNJBSh7qsOali0EX5yWF1h0oAqBE5tovqxwnVKLQNl6R8ZENiheTi4XZFh+e
+         nmSxnm3PumuJMAnRSmp/SoiyrxO+R17x0COWC0pD8W3f02BQT72fFZJf4bH1BBBk4i9v
+         rK4/cX3Tf+bcUrSZ7GJYY14YLGmcCHMiHZM3Y0xssGf41apdOVANf5hFNFmMd7pCUrUj
+         FJhkZExnB0LP3zQvKvtrJuEf9Xy0wZRaoXzHDV9GF7SgiK364iD103nlnUAsaz50uDbv
+         1acvonXh9T7rxIzxWJ9NCQt2ASJgdRLit1vriwNqKXabeTjYz0NUAyzBStWQ4eWr3G7V
+         W2mQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz/cRyhXU0xjy7MT9BKvV5oK85S5eiA09oEZuoQiU68rUa9xB61NanMutq/qHbojWejPGtBgW/UcshGeL4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kIHwgPiai3Wv7a8ReafFQf9WD9l/jdvKwMcN4dgQJsVn4Wsxxp
+	AeFlw9f9dSWccI1bE8fpIZSuTAYe9fA8RbTx1ca+O1mf3JsKVWElOYpYt1pmsxZ1ucAA3o8TJDk
+	f4nnPPrV75NXpzia0PeLyMwrYRcAwuUoF9fmy7cLYFYraJhJhpm5D5y4jEIQ=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|CWXP123MB3207:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1aa3d6fe-1d98-4cf7-5f30-08df1040fa9a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|366016|1800799024|23010399003|6133799003|3023799007|10067099003|5023799004|56012099006|18092099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	OmwM9Enc6h5ZekT74DpEgNFNgE49lE/jOyCFpskKw2XUQ5iT7kYwaV0vD6u+G/IM9piJbzGT1K/eibjEBByOLMItvHEkvazZcvbR6gWfHc4+A+PflGYc6iCBa79gpSvOgDdaQvCrlgXRm2DIYNenNoxuwjujsRZNB2X/yx7+c4m+cJa0Qt56mLyB3UDDl9vfOAnLkMHASYsqhXKyKxYnTtFtFHlHANArKomgLPsW8mO3BUxpVNwvCHyqwpocwHB/FTe/HMz86DMw614HRIyE5JGRJQLTecFnnL4pVXj/bKYJiDrwOP9SD0RReU0ayfnRly2gHpBRwzk3DCjEsuihPr9G6+RF9bLBvrcUKNCssQCniFJDfiLTDoM+HB9rCaRYRE7MOTvbtF+XBDMBDTxNLmIyQ1ZO004cpI6/DabbQidqgZPX2M9FTcpI+YWsoGJ4qe50ohHTqyXnJUkY6BhEgMI+PGA5Oz4bdjQ5xi6xF6qc9bPTT/zWrV62boCl8UTH1e8EO/VrMwiEXHhYEwxWIkv3M1NpS/MbO5mam7rhc+Kpv9T5uNxm3Iu+wFhGKMFMbhgwfqfAWQ/U5xASdLA90P5vPuUSSZMpv0UDpTsENnma09bQen9fLwMmh3iHP4M1hEwbdbVOQnYX0jGYKQ8jufAHVo1xFZEUkeeXFlnWXrA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024)(23010399003)(6133799003)(3023799007)(10067099003)(5023799004)(56012099006)(18092099006)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?5MRWUJ0K6Mg3yMIi387chwFYcLfVuiYkeJhzI0CDLI42fXRDlvHKQCSXJ5YN?=
- =?us-ascii?Q?LwnWyO0mlaxdyM05ZleGhxtTycX0AYpzvxqGTipSyr7gxyzBt/C+AcI2CjwA?=
- =?us-ascii?Q?+V+h6pWuT2ZX6YLc+e4LvTcWSq5cQnVr9PQo59YkxcEqzKlVmMKgF1EYCWce?=
- =?us-ascii?Q?jE9xCCgw5Bh0+Ij03vk3wRqz3dQJY0KKv6ea/Dv5/ITb1xrBRTnq0UGDEvfI?=
- =?us-ascii?Q?sRScGbtpMpseqGW2NLC1YYKuDnGjT++FTfK/HTZ8TsNZU4y8KaX4K95tXy+z?=
- =?us-ascii?Q?d4EAuosT6Sve0WZE/k/ShpiAkXmzn4W9Je4W5RlaGSlYG7nTs9+EIbKgBu8Z?=
- =?us-ascii?Q?VPxB8ZAXa6xMc70XPpu912uKKKL+XDPZEMkEAhN7ao1rRnqD+XzckOC1rAoD?=
- =?us-ascii?Q?jtYl3y0KWWbaLWSRzCmPxjeqin81ENM8hGJTUVlH5xxMDn13P+VTthQKNhuF?=
- =?us-ascii?Q?JY4XwJlD02wdcXiMwNmDof1jtdp/boJIY/tG1eMLjAB4SSgPb/H7Mxo1vZ2k?=
- =?us-ascii?Q?w5GFFC+3Rd+PqYFOFX75mDZhTGzW6uygqlN1LcM106Nzm99tG9KsGUxO02uS?=
- =?us-ascii?Q?5+DKe0o/MN5XrRu9w/R0Itd8PzmHGDEjJGo24MB8hb2Shd8tLqAkwmzu8jA0?=
- =?us-ascii?Q?tDJJwDEEqmT+NMWamZ5zQ36DKeA11K4Ed2S1TxizjoQJDosAQ517MKG0CYfp?=
- =?us-ascii?Q?IBDpmuHoNQCQE+ffOAGQF7q5I+o6o6McChoJxx/cPPCAoiUW94+9yEml4+65?=
- =?us-ascii?Q?bBESBYZKlwQJvJN6n2PMa4mCcv6GREzzpLUGNJHmXZUSKuUrgIaue7sbvnGS?=
- =?us-ascii?Q?+dMsHnbPDTJKKdzAitg+hIKCbgcPzZrHBVh6LpvhAkhBegIrqiOGqKMtNMZF?=
- =?us-ascii?Q?Z0fFuzolmsTrME0UaZbuSw8Ul9NyDHkEdpJFTmC40B58JAoguQOgApjSvS9E?=
- =?us-ascii?Q?rcsGC89O7+9QNhCgiA8SxB+sqz0Ck5nezhDr0k3EKwM2trmVvqae3M5Fg1Hf?=
- =?us-ascii?Q?6qCl88M63jNLF5Fu3n2BPvO31vninqSv9BOhrTBRRjaTtx/3x9Jg8BXMeYoJ?=
- =?us-ascii?Q?FZAAvSqEfKEqsSisscJYogijBd4+pZ2uIQn7QjdRv2rqAbcULE0log8rgp0s?=
- =?us-ascii?Q?fDu5sJ+MMkeAIbki0jk9elz90xeKXoKraLspVcPMmyuqnvwWv87/hJMrjQ+u?=
- =?us-ascii?Q?F30TP4GSr50l8ZxpMuaJZq+tKHTy9LIDsTWFY1eoWDbovN0H21+fzuZs8Ioi?=
- =?us-ascii?Q?4vUC8V3xC+92Z1W69YH+//AQv14jtg5fTEpEKU9RlPFfufwSe+5ZfnMD/c4d?=
- =?us-ascii?Q?Fd/LOd620ZjJeor3YzycQ+2a6qGkmh5X63HSqdr9p5TAZhTdnpg49Q7jwcAb?=
- =?us-ascii?Q?YJwD8a4bWwphoS34QIUIDiktVfF8hsGEw3jHulUv0cSP8MRazlwdpM0zWJ03?=
- =?us-ascii?Q?bY5f0mNgI1zBDza2u/Q4Lh+9ylDCCTsumRtYs6dwh0Co3QbR+yCJPagTR6tG?=
- =?us-ascii?Q?ocEhNzzE39R0uKhVbYu52QrURpYyRrzfgWi/NRTaTulMCv0onD8lIqGAFtrn?=
- =?us-ascii?Q?kgis35mWS0ilTB56EoVWSRFSVvvWyCnqqqX3kI17GANvZtXMrV5OSbo6Lu8r?=
- =?us-ascii?Q?0yMaxIG8VO0F+Zxzzk9ZzjzMf43KaBkZAZitvUY1FJDuBbQFYWE6Og4UvSJE?=
- =?us-ascii?Q?0sG+4NaILwTYOceVmWISW5h1hScjIedMSYCRrkOole2OQRWk/GLEdP7Z1tUi?=
- =?us-ascii?Q?ppHVBGkznA=3D=3D?=
-X-OriginatorOrg: atomlin.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1aa3d6fe-1d98-4cf7-5f30-08df1040fa9a
-X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 20:12:18.0190
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: CkNh5JzifC/+GXAdumgmKSsKKzmHMpJcTCXdqleQG0vGic+9mmXXk/6efYBBesRcSKyKkDgiQTlVXN0Wwo2OZg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWXP123MB3207
+X-Received: by 2002:a05:6820:2083:b0:6ae:5250:dd1c with SMTP id
+ 006d021491bc7-6c0ba248037mr4778054eaf.29.1789157554406; Fri, 11 Sep 2026
+ 13:12:34 -0700 (PDT)
+Date: Fri, 11 Sep 2026 13:12:34 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa460b2.6e6c5f9e.28f11f.0049.GAE@google.com>
+Subject: [syzbot] [usb?] WARNING in service_outstanding_interrupt/usb_submit_urb
+ (2)
+From: syzbot <syzbot+eb8f169da355a394fe04@syzkaller.appspotmail.com>
+To: gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org, 
+	linux-usb@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Functions cmci_storm_begin(), cmci_storm_end(), and __mce_disable_bank()
-modify the per-CPU bitmap mce_poll_banks using non-atomic __set_bit()
-and __clear_bit(). In addition, mce_track_storm(), cmci_storm_begin(),
-and cmci_storm_end() manipulate per-CPU storm descriptors and invoke
-mce_timer_kick() without synchronisation against local interrupts.
+Hello,
 
-While mce_poll_banks and storm_desc are per-CPU, mce_track_storm() and
-cmci_storm_end() execute in timer softirq context (via mce_timer_fn())
-with local hardirqs enabled, whereas cmci_storm_begin() can be invoked
-from CMCI hardirq context (via intel_threshold_interrupt()).
+syzbot found the following issue on:
 
-This introduces multiple concurrency races between softirq and hardirq
-contexts on the same CPU:
-    1.  A hardirq interrupting a softirq's non-atomic read-modify-write
-        on mce_poll_banks will have its bit update clobbered when the
-        softirq resumes, dropping a stormy bank from polling.
+HEAD commit:    34c9c5517033 Merge 7.3-rc2 into usb-next
+git tree:       https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usb.git usb-testing
+console output: https://syzkaller.appspot.com/x/log.txt?x=101ceaf9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=c451f9f64434b622
+dashboard link: https://syzkaller.appspot.com/bug?extid=eb8f169da355a394fe04
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
 
-    2.  An incoming CMCI hardirq during mce_track_storm() re-entrantly
-        executes mce_track_storm() on the same CPU, racing on
-        in_storm_mode, history, and timestamps, which can corrupt the
-        bank's storm state machine.
+Unfortunately, I don't have any reproducer for this issue yet.
 
-    3.  If a hardirq fires after cmci_storm_end() decrements
-        stormy_bank_count to zero, but before mce_timer_kick(false) is
-        called, the hardirq's cmci_storm_begin() will increment
-        stormy_bank_count to 1 and call mce_timer_kick(true). When the
-        softirq resumes, its delayed mce_timer_kick(false) will
-        erroneously override storm mode, leaving the CPU with
-        stormy_bank_count == 1 whilst the timer reverts to the default
-        polling interval.
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/8a384e63cde6/disk-34c9c551.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/e5a73decdc30/vmlinux-34c9c551.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/13abc163bbdc/bzImage-34c9c551.xz
 
-Resolve these issues by switching to atomic set_bit() and clear_bit()
-operations on mce_poll_banks and __mce_disable_bank(). Finally, enclose
-mce_track_storm(), cmci_storm_begin(), and cmci_storm_end() with
-local_irq_save() and local_irq_restore().
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+eb8f169da355a394fe04@syzkaller.appspotmail.com
 
-Fixes: 7eae17c4add5 ("x86/mce: Add per-bank CMCI storm mitigation")
-Cc: stable@vger.kernel.org
-Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
+------------[ cut here ]------------
+URB ffff888112540000 submitted while active
+WARNING: drivers/usb/core/urb.c:379 at usb_submit_urb+0x1689/0x19b0 drivers/usb/core/urb.c:379, CPU#0: syz.0.163/5871
+Modules linked in:
+CPU: 0 UID: 0 PID: 5871 Comm: syz.0.163 Not tainted syzkaller #0 PREEMPT(lazy) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+RIP: 0010:usb_submit_urb+0x168c/0x19b0 drivers/usb/core/urb.c:379
+Code: 00 48 8b 04 24 48 8b 90 b0 00 00 00 e9 70 ff ff ff bb ed ff ff ff e9 ac f1 ff ff e8 be 79 b2 fc 48 8d 3d d7 b6 19 06 48 89 de <67> 48 0f b9 3a bb f0 ff ff ff e9 8e f1 ff ff c7 44 24 30 00 00 00
+RSP: 0018:ffffc90013e2fb50 EFLAGS: 00010293
+RAX: 0000000000000000 RBX: ffff888112540000 RCX: 0000000000000000
+RDX: ffff888112d28000 RSI: ffff888112540000 RDI: ffffffff8b1c35d0
+RBP: ffff88810ffb5090 R08: 0000000000000001 R09: 0000000000000000
+R10: 0000000000000001 R11: 0000000000000000 R12: 0000000000000000
+R13: ffff88810ffb52b8 R14: ffff88810ffb5050 R15: ffff88810ffb5050
+FS:  00007f59984c56c0(0000) GS:ffff8882683e4000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 000000110c2d13ca CR3: 00000001149e4000 CR4: 00000000003506f0
+Call Trace:
+ <TASK>
+ service_outstanding_interrupt.isra.0+0x166/0x270 drivers/usb/class/cdc-wdm.c:509
+ wdm_read+0x8a8/0xaf0 drivers/usb/class/cdc-wdm.c:615
+ vfs_read+0x1e4/0xb40 fs/read_write.c:572
+ ksys_read+0x12a/0x250 fs/read_write.c:716
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x119/0x710 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f5999aae159
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f59984c5028 EFLAGS: 00000246 ORIG_RAX: 0000000000000000
+RAX: ffffffffffffffda RBX: 00007f5999d36180 RCX: 00007f5999aae159
+RDX: 00000000000000b3 RSI: 0000200000000340 RDI: 000000000000001e
+RBP: 00007f5999b45024 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f5999d36218 R14: 00007f5999d36180 R15: 00007ffc3efb3688
+ </TASK>
+----------------
+Code disassembly (best guess):
+   0:	00 48 8b             	add    %cl,-0x75(%rax)
+   3:	04 24                	add    $0x24,%al
+   5:	48 8b 90 b0 00 00 00 	mov    0xb0(%rax),%rdx
+   c:	e9 70 ff ff ff       	jmp    0xffffff81
+  11:	bb ed ff ff ff       	mov    $0xffffffed,%ebx
+  16:	e9 ac f1 ff ff       	jmp    0xfffff1c7
+  1b:	e8 be 79 b2 fc       	call   0xfcb279de
+  20:	48 8d 3d d7 b6 19 06 	lea    0x619b6d7(%rip),%rdi        # 0x619b6fe
+  27:	48 89 de             	mov    %rbx,%rsi
+* 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
+  2f:	bb f0 ff ff ff       	mov    $0xfffffff0,%ebx
+  34:	e9 8e f1 ff ff       	jmp    0xfffff1c7
+  39:	c7                   	.byte 0xc7
+  3a:	44 24 30             	rex.R and $0x30,%al
+  3d:	00 00                	add    %al,(%rax)
+
+
 ---
- arch/x86/kernel/cpu/mce/core.c      |  2 +-
- arch/x86/kernel/cpu/mce/threshold.c | 23 +++++++++++++++++------
- 2 files changed, 18 insertions(+), 7 deletions(-)
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/arch/x86/kernel/cpu/mce/core.c b/arch/x86/kernel/cpu/mce/core.c
-index 765e8103b0d2..aa604d981358 100644
---- a/arch/x86/kernel/cpu/mce/core.c
-+++ b/arch/x86/kernel/cpu/mce/core.c
-@@ -2294,7 +2294,7 @@ void mcheck_cpu_clear(struct cpuinfo_x86 *c)
- static void __mce_disable_bank(void *arg)
- {
- 	int bank = *((int *)arg);
--	__clear_bit(bank, this_cpu_ptr(mce_poll_banks));
-+	clear_bit(bank, this_cpu_ptr(mce_poll_banks));
- 	cmci_disable_bank(bank);
- }
- 
-diff --git a/arch/x86/kernel/cpu/mce/threshold.c b/arch/x86/kernel/cpu/mce/threshold.c
-index 6c370d5af5bd..83f3e2250ae2 100644
---- a/arch/x86/kernel/cpu/mce/threshold.c
-+++ b/arch/x86/kernel/cpu/mce/threshold.c
-@@ -85,8 +85,10 @@ static void mce_handle_storm(unsigned int bank, bool on)
- void cmci_storm_begin(unsigned int bank)
- {
- 	struct mca_storm_desc *storm = this_cpu_ptr(&storm_desc);
-+	unsigned long flags;
- 
--	__set_bit(bank, this_cpu_ptr(mce_poll_banks));
-+	local_irq_save(flags);
-+	set_bit(bank, this_cpu_ptr(mce_poll_banks));
- 	storm->banks[bank].in_storm_mode = true;
- 
- 	/*
-@@ -95,32 +97,38 @@ void cmci_storm_begin(unsigned int bank)
- 	 */
- 	if (++storm->stormy_bank_count == 1)
- 		mce_timer_kick(true);
-+	local_irq_restore(flags);
- }
- 
- void cmci_storm_end(unsigned int bank)
- {
- 	struct mca_storm_desc *storm = this_cpu_ptr(&storm_desc);
-+	unsigned long flags;
- 
-+	local_irq_save(flags);
- 	if (!mce_flags.amd_threshold)
--		__clear_bit(bank, this_cpu_ptr(mce_poll_banks));
-+		clear_bit(bank, this_cpu_ptr(mce_poll_banks));
- 	storm->banks[bank].history = 0;
- 	storm->banks[bank].in_storm_mode = false;
- 
- 	/* If no banks left in storm mode, stop polling. */
- 	if (!--storm->stormy_bank_count)
- 		mce_timer_kick(false);
-+	local_irq_restore(flags);
- }
- 
- void mce_track_storm(struct mce *mce)
- {
- 	struct mca_storm_desc *storm = this_cpu_ptr(&storm_desc);
--	unsigned long now = jiffies, delta;
-+	unsigned long flags, now = jiffies, delta;
- 	unsigned int shift = 1;
- 	u64 history = 0;
- 
-+	local_irq_save(flags);
-+
- 	/* No tracking needed for banks that do not support CMCI */
- 	if (storm->banks[mce->bank].poll_only)
--		return;
-+		goto out;
- 
- 	/*
- 	 * When a bank is in storm mode it is polled once per second and
-@@ -149,15 +157,18 @@ void mce_track_storm(struct mce *mce)
- 
- 	if (storm->banks[mce->bank].in_storm_mode) {
- 		if (history & GENMASK_ULL(STORM_END_POLL_THRESHOLD, 0))
--			return;
-+			goto out;
- 		printk_deferred(KERN_NOTICE "CPU%d BANK%d CMCI storm subsided\n", smp_processor_id(), mce->bank);
- 		mce_handle_storm(mce->bank, false);
- 		cmci_storm_end(mce->bank);
- 	} else {
- 		if (hweight64(history) < STORM_BEGIN_THRESHOLD)
--			return;
-+			goto out;
- 		printk_deferred(KERN_NOTICE "CPU%d BANK%d CMCI storm detected\n", smp_processor_id(), mce->bank);
- 		mce_handle_storm(mce->bank, true);
- 		cmci_storm_begin(mce->bank);
- 	}
-+
-+out:
-+	local_irq_restore(flags);
- }
--- 
-2.55.0
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
