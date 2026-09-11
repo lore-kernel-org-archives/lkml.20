@@ -1,74 +1,105 @@
-Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 718C44FECF6;
-	Fri, 11 Sep 2026 19:27:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D26C94DBD63;
+	Fri, 11 Sep 2026 19:28:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789154880; cv=none; b=XNlQyebS8cjLLtMwPX2Od3ETgsc2cd0G15anjBV4L0zPFfiC2fW64hJeHZyf1LFSRemzbGPX1KylAL/WgXNn64v4b2GjTM5DcTgOscFqKNMGbFoaiswyLdVajTbjbQYQB2nZd/aJoi9/QzU0SkS+AqdJdfc+9tRbdAevVBWa0hA=
+	t=1789154896; cv=none; b=C2u3G6limLeA7JGDZc+spSR3vi2RnAdQmbCHB8Rn3w/D9hlOf/eTail+rrQUGvbXgoS8wXP6eyJ792IsSILvkU7XlDn35nIhbnem/kzr6xZoP2xATAjsUxXbd2ZH1vdCQcfj/pdJxhs85HsGC3K/0KSKA5NursXU4mxlpRF51js=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789154880; c=relaxed/simple;
-	bh=KpDrJISlaF6H/M0MMFyA0RGb7eh15mdVcRTNvu1Wy5U=;
-	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Date:
-	 MIME-Version:Content-Type; b=NJAN93pls5hf3/3d6rnHp6sgjk22UuhfjUSzNyAwj3VVGZpJRFJx2N83uWS/ASKpNijpqbquAVQ9GlK0FUYmLTrSnzzU41qjvH1D/+iQzl3kQpW3BRK/2kmTp7ayAES2GesxEihA5WJqOYVneZ7BnIQrpVe7iQnHZ+/RPcxrRu0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=lEbbRtOo; arc=none smtp.client-ip=143.255.12.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="lEbbRtOo"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=manguebit.org; s=dkim; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Date:References:In-Reply-To:Subject:Cc:To:From:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description;
-	bh=KpDrJISlaF6H/M0MMFyA0RGb7eh15mdVcRTNvu1Wy5U=; b=lEbbRtOo45j4MXVpsX4v4PWFoI
-	CuKF9lYGgjtBd9tsOVTinG8ncuzVQ/6stZDO+GDk6c6kD2b2RUA2oF6DB9hJytT/aSkEU4bKuEOKX
-	bJOkPaE9X7AJu3g20w0HqJZYqGAfJ9n6kRHeOqy/k0qUWUc3ajEJAm5waR0NxRyZoEOmJgqZdirZL
-	Ir6VYWVFL+og9yQ+JJIKQCH66LBnDWStm0JOlteM/JBv/TDBSfxdg0M2BVIUIZv2p+zX053976Fpd
-	vt3pxdwE4ObXzYhSC3LRSIz8F9EDs0MSfTUoxGQA/AhOr8XWJmfy01kYiMxVbX3XfZ+qNaTgU0AIt
-	QKHXlksQ==;
-Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
-	id 1x56uV-00000001Ek3-27YU;
-	Fri, 11 Sep 2026 16:27:43 -0300
-Message-ID: <35fa98de2def19bee8e0bdc1e82d83e5@manguebit.org>
-From: Paulo Alcantara <pc@manguebit.org>
-To: =?utf-8?B?SsOpcsOpbXk=?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>, Namjae
- Jeon
- <linkinjeon@kernel.org>
-Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>, Shyam Prasad N
- <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>, Bharath SM
- <bharathsm@microsoft.com>, linux-cifs@vger.kernel.org,
- samba-technical@lists.samba.org, linux-kernel@vger.kernel.org,
- =?utf-8?B?SsOpcsOpbXk=?= Jean
- <Jeremy.Jean@oss.cyber.gouv.fr>
-Subject: Re: [PATCH] smb: client: validate absolute native symlink targets
- before NT fixups
-In-Reply-To: <20260910183742.4029092-2-Jeremy.Jean@oss.cyber.gouv.fr>
-References: <20260910183742.4029092-2-Jeremy.Jean@oss.cyber.gouv.fr>
-Date: Fri, 11 Sep 2026 16:27:43 -0300
+	s=arc-20240116; t=1789154896; c=relaxed/simple;
+	bh=OMMhULdKWAQNm6guNaaFEO5E2d3Y+6kb+rF6qcJf/JE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=mplQ0Z4xyJdLgB+b4q6Yhuj8BKLGJXrGR/7h/JAhIJh+sjGBuasqf+cOLlIcSwQpHo0DpePL7s/4xbW3D1+aMN0F4vEWuDSyQswMlKywpaCvkW71IVKxgFmW5uSlcLE66GeKqN1XjByIbYeZA5V/QuySnbdRlnIVeE84dExPGg8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.helo=mail.mainlining.org; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.helo=mail.mainlining.org
+From: Bradley Morgan <brads@mainlining.org>
+To: "Paul E. McKenney" <paulmck@kernel.org>
+Cc: frederic@kernel.org,
+	neeraj.upadhyay@kernel.org,
+	boqun@kernel.org,
+	joelagnelf@nvidia.com,
+	rcu@vger.kernel.org,
+	"Andrew Morton" <akpm@linux-foundation.org>,
+	"Arnd Bergmann" <arnd@arndb.de>,
+	linux-arch@vger.kernel.org,
+	"Vineet Gupta" <vgupta@kernel.org>,
+	linux-snps-arc@lists.infradead.org,
+	"Russell King" <linux@armlinux.org.uk>,
+	linux-arm-kernel@lists.infradead.org,
+	"Guo Ren" <guoren@kernel.org>,
+	linux-csky@vger.kernel.org,
+	"Yoshinori Sato" <ysato@users.sourceforge.jp>,
+	"Rich Felker" <dalias@libc.org>,
+	"John Paul Adrian Glaubitz" <glaubitz@physik.fu-berlin.de>,
+	linux-sh@vger.kernel.org,
+	"Chris Zankel" <chris@zankel.net>,
+	"Max Filippov" <jcmvbkbc@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	brads@mainlining.org
+Subject: [PATCH 4/6] csky: Emulate two-byte cmpxchg
+Date: Fri, 11 Sep 2026 19:25:37 +0000
+Message-ID: <20260911192540.20983-5-brads@mainlining.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260911192540.20983-1-brads@mainlining.org>
+References: <20260911192540.20983-1-brads@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-J=C3=A9r=C3=A9my Jean <Jeremy.Jean@oss.cyber.gouv.fr> writes:
+csky has no byte or halfword atomic memory operations, so the
+__cmpxchg_relaxed(), __cmpxchg_acquire() and __cmpxchg() switches
+each route case 1 through cmpxchg_emu_u8() and leave case 2 to
+fall into the BUILD_BUG() default. Route case 2 in all three
+through the new cmpxchg_emu_u16().
 
-> With symlinkroot unset, an absolute target is copied without conversion
-> to an NT drive path. Later code still assumes an NT prefix is present
-> when modifying the target and calculating the print name length.
->
-> For "/ab", this causes two failures: sym[5] and path[5] are written
-> past their allocations, and plen -=3D 2 * poff subtracts an assumed
-> 8-byte prefix from a 6-byte UTF-16 target, wrapping u16 plen to 65534.
-> That underflow causes another overflow: memcpy() copies 65534 bytes
-> into a 24-byte buffer. A user with write access to a mounted share
-> can trigger these bugs with default settings.
->
-> Validate the NT drive prefix, including an ASCII drive letter, before
-> accessing fixed offsets or subtracting the prefix length.
-> ...
+arch_cmpxchg_local() maps to __cmpxchg_relaxed() and so picks up
+case 2 automatically.
 
-Applied.
+Signed-off-by: Bradley Morgan <brads@mainlining.org>
+---
+ arch/csky/include/asm/cmpxchg.h | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/arch/csky/include/asm/cmpxchg.h b/arch/csky/include/asm/cmpxchg.h
+index db6dda47184e..a6a4805064a4 100644
+--- a/arch/csky/include/asm/cmpxchg.h
++++ b/arch/csky/include/asm/cmpxchg.h
+@@ -65,6 +65,9 @@
+ 	case 1:							\
+ 		__ret = (__typeof__(*(ptr)))cmpxchg_emu_u8((volatile u8 *)__ptr, (uintptr_t)__old, (uintptr_t)__new); \
+ 		break;						\
++	case 2:							\
++		__ret = (__typeof__(*(ptr)))cmpxchg_emu_u16((volatile u16 *)__ptr, (uintptr_t)__old, (uintptr_t)__new); \
++		break;						\
+ 	case 4:							\
+ 		asm volatile (					\
+ 		"1:	ldex.w		%0, (%3) \n"		\
+@@ -98,6 +101,9 @@
+ 	case 1:							\
+ 		__ret = (__typeof__(*(ptr)))cmpxchg_emu_u8((volatile u8 *)__ptr, (uintptr_t)__old, (uintptr_t)__new); \
+ 		break;						\
++	case 2:							\
++		__ret = (__typeof__(*(ptr)))cmpxchg_emu_u16((volatile u16 *)__ptr, (uintptr_t)__old, (uintptr_t)__new); \
++		break;						\
+ 	case 4:							\
+ 		asm volatile (					\
+ 		"1:	ldex.w		%0, (%3) \n"		\
+@@ -132,6 +138,9 @@
+ 	case 1:							\
+ 		__ret = (__typeof__(*(ptr)))cmpxchg_emu_u8((volatile u8 *)__ptr, (uintptr_t)__old, (uintptr_t)__new); \
+ 		break;						\
++	case 2:							\
++		__ret = (__typeof__(*(ptr)))cmpxchg_emu_u16((volatile u16 *)__ptr, (uintptr_t)__old, (uintptr_t)__new); \
++		break;						\
+ 	case 4:							\
+ 		asm volatile (					\
+ 		RELEASE_FENCE					\
+-- 
+2.47.3
+
