@@ -1,96 +1,111 @@
-Received: from mail-lr2-f12.google.com (mail-lr2-f12.google.com [74.125.230.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13A6749363D
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 16:35:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30AC42E7F39;
+	Fri, 11 Sep 2026 16:36:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789144564; cv=none; b=fTgu0G1aJqZz4udYsuf2ablQiGBHbq4PDbLUvrJmcfxbt6ZigkyPUEXouj5cJoE3S1AfhEWI5y+lP1p+Md7z+UCbAhlHVSJ+s+h/usuAq/vDZH+1dFvgw9ym8NnsAaistIr/UmTbdviLxGbs53uvb5KltzmHE8PuK0B6a8PtwQ0=
+	t=1789144571; cv=none; b=HPf8O0BtqBoN6ISWRJSjfFqehUJVl9ZisfL6hvce7CaIFUdjAOb/fBg0gdEu4lyMmh5iC9wdVraQ2TWiggf040EIvtHZgxEnTxjUDISDn0j1QPTLJgR3M/kluP+D51iLuvubihDG4f5bT95HCaKdlihRqAwEDlM5I1KC+0EhX6k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789144564; c=relaxed/simple;
-	bh=R0XhzVxGIplG0TMthud7LnfIleUzn/+uQRtVxWfuhLg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZPHzSiRYZN+ZrXs55A0Xvwhg6Mg0c5dLEcWWY6WZUf3q0VB1UWUkeMXJTkVx3I76p8bqqH0oSHlqQTORlbxN/GP0yvGtXOVX+vIuzL1GXhUSrPf33kwmZqX+2VnwZkm0is9FdV+Ulj9EaCXXNH1wuQFNKllZBbiqxbnmVQpwZWY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HaSEYsfh; arc=none smtp.client-ip=74.125.230.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789144571; c=relaxed/simple;
+	bh=yz7jG0GQg2lxTBzG1jVrT2PvynMTR9zaPhSYUZPrHUg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MKOW3Y5KxKsEYIFos1tUOGPv/qivIYuHbSMTUmMPhJl4Mkrlhyn15QVqFnYWEU8VDk9S70J9IVE2VY3DJSwwMnnLu4RADl9vJ2Z3pVYDuMj+XrPtKGDkBq3GnEpn30U8nOjspuneYO6QwOdFs80IBzCVahzleaeBtBUDt5R8Cdw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=eyfL15dd; arc=none smtp.client-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HaSEYsfh"
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a30521edd8so122201fa.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 09:35:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789144555; x=1789749355; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uvtkVCglXTkIsJQIDmLubwTL07uM5Au39JyN8CJCMdA=;
-        b=HaSEYsfhVGSfTSwoOcoGNR02FaQSKc56lWE1Nt75mzsAKE9OFMs3c2XWySUkh0qWNz
-         48i6iWxz6qDDBR1VPHb4RvXJddL1WNzeUyFeThEsbKR53vjAbMhnkIH5cniRHOVcLCUK
-         B0e41pO9tgulhIhw5pW8sUHujF+PkRTI771p8vXEzFBIm3DsUqzmAKJeF8/Lu/zkzYhF
-         lPm0OwTy6lmAuecqlVN5kOZNU7US86Z3pxEbN5KCNLqgu7WywlzeMdCAam3t7B8Rt1HP
-         PE8uRtW02VikInPgrvZO2jRMB4BTS5PsxDjvJT0a7PwtOMrCYRgrL2lB+/dDOcbzm+km
-         roEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789144555; x=1789749355;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uvtkVCglXTkIsJQIDmLubwTL07uM5Au39JyN8CJCMdA=;
-        b=gxsgMDAQT7chdsReFeVaKeiYeyRslYECra8TTwE/ZaZLwyTcN5/fSPAjqgOhO0ISiM
-         fnRU/h8iJCP2bc0TflurW19ZuaUC+v8BZ/G4WjqZbJTlihC7im0IQoEYOKcu7VpwS0Cw
-         fB8f9KVUUxabR5UGrxXYLshLB9Uf5O54GXzKhR02blvCkDg+hjAaTawfh4qw6yn5b0Kl
-         HxyxJNFXSpSrf4+34t68DjIfA++pN0fCsUnjQEdmM86kAwIHpauSXnoom70Q7pFRRNeC
-         zKy01XGA+LvtUypjQUuEVO67km8eK8fekfGsnaN1YBMKhJnKkiwBy5syYwp5D610DsMh
-         7t5w==
-X-Forwarded-Encrypted: i=1; AKwUvBx1McFS8+/IcuWzq0EMP5c8b+Sbu1DLoCX85SGYvGeL6z6UFqVlJCRUhe7JYqyV3cAJIqtzswgS4hvtZTQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lEUe5EHaXwqE8V+HfK59D6Putxjkfbkk7k9XgKQ108MPWLM8MT
-	Uo06F8zRUQQd7yAt9jMeHxXUvc1gpgkjAhk/EPSQ1F9m3GH42lAKUX+F
-X-Gm-Gg: AYBFou2B3Ydhkq3/E9EA59sSDJrRoXoYK6fsht1+ONvYyzHVZhxyHRkBTXtNZhXorTG
-	veH1HUi2lBwfry8UhgJIbfu+ahdYpqDL0i5nS9dXy06qIBKX56WJx4rbmrTfeVCXb7GCDkG6wYU
-	EG0X1qA3bYDWmqPCFsCF1wfRdAqz0wRmStTQ2a5bYpguNuc9HnOnt4RqjPQHWpkpqSVQG0wRuGm
-	U+6LbZ086G5aH66+GkIb4Sa8SDKVC6oDHMb5/sxtzw/02Slp8WhiIQuJsp/HmqacIB8iIL6W9XS
-	4vOSrEgULakTgeLOj9zuQ1tlsQzmPVNyISFllbjDwBMJcQDe/6DxlASoxoHWfY2lTXYmCC0Is1P
-	SU7Q3nq54R0U0QuXF8Gld6Ut6g2SH03H4103xtsQ7/GqAl/yuNNV92PAV6SsbgdM/XYD2w0GudX
-	xvgDjXRJHuvrOHp287CKUvu8JspcV4mIHgIvIU7C/KuE9q9vfzq/AgfOPDGr2122QaYiz1PeD4H
-	iJ8449zdBMC5vflnRwML2HIMvuk/EWcRMMXJ5MhhGInCOf7MVEqiP0=
-X-Received: by 2002:a2e:be95:0:b0:3a3:61ec:7db9 with SMTP id 38308e7fff4ca-3a5a3eb96a1mr6335341fa.15.1789144554984;
-        Fri, 11 Sep 2026 09:35:54 -0700 (PDT)
-Received: from pc.tail250202.ts.net ([87.110.86.243])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a5a33262c2sm8524061fa.20.2026.09.11.09.35.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 09:35:52 -0700 (PDT)
-From: Janis Edvarts Lacis <janislacis06@gmail.com>
-To: pabeni@redhat.com
-Cc: davem@davemloft.net,
-	edumazet@google.com,
-	horms@kernel.org,
-	janislacis06@gmail.com,
-	kuba@kernel.org,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org,
-	liuhangbin@kylinos.cn
-Subject: Re: [PATCH net] net: vlan: fix vlan name truncation
-Date: Fri, 11 Sep 2026 19:35:43 +0300
-Message-ID: <20260911163543.204203-1-janislacis06@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <bb5eeef9-a78d-44c2-a8f5-2cddd274d3ab@redhat.com>
-References: <bb5eeef9-a78d-44c2-a8f5-2cddd274d3ab@redhat.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="eyfL15dd"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789144569; x=1820680569;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=yz7jG0GQg2lxTBzG1jVrT2PvynMTR9zaPhSYUZPrHUg=;
+  b=eyfL15dduASf6C/R3sK+xDUQA0GjVbIRcXjPpXZIIzggshc57V9IfE8o
+   80BpyWCBtluYH4fQ0+7bXDFq1Zhkx9kYRsZKHu5xG5XXVXs0qcOx9RFfK
+   cubDrGRDWlJRlR7dtX1NAHqb2q+3lUIvMeG3pet5zFf3jEL06mUIbpdSn
+   X5hISQdTCE0JGOvfxmNVU1lTQ+0L04HwcO4d7sA9pIEcq+FTPo2JVM1j6
+   VvUlYWmjndsGsK2f/+bTplCu2qHdqhsfi5rHsvT6Y6kxTShC1+tCG7+OE
+   Uet9al5NiF1/ErwvZqzG7+j9h5Z5mPDHbhYDrll5HfJpAtKi6B0Tp2NV+
+   g==;
+X-CSE-ConnectionGUID: 7JhOpUmcQJmzbXY3tYPzkw==
+X-CSE-MsgGUID: pGmimFhrRYiNGhJLMHoUDw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11902"; a="93478928"
+X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
+   d="scan'208";a="93478928"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 09:36:08 -0700
+X-CSE-ConnectionGUID: NxnlvRXQT7qrMwjZhXEZRw==
+X-CSE-MsgGUID: ga2lvyo+ScyIWwNg0IeyIA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
+   d="scan'208";a="301873179"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.80])
+  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 09:36:06 -0700
+Date: Fri, 11 Sep 2026 19:36:03 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: Linux ACPI <linux-acpi@vger.kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	LKML <linux-kernel@vger.kernel.org>,
+	Linux PM <linux-pm@vger.kernel.org>,
+	Lukasz Luba <lukasz.luba@arm.com>, Armin Wolf <w_armin@gmx.de>
+Subject: Re: [PATCH v1 07/10] ACPI: thermal: Use cooling device parent for
+ thermal zone binding
+Message-ID: <aqQt8-MlG3fiFw2-@ashevche-desk.local>
+References: <1965933.tdWV9SEqCh@rafael.j.wysocki>
+ <9672996.CDJkKcVGEf@rafael.j.wysocki>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <9672996.CDJkKcVGEf@rafael.j.wysocki>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Thu, Sep 10, 2026 at 10:56 AM, Paolo Abeni wrote:
-> I'm sorry, but I don't think we can accept this patch: this change an
-> user-space visible behavior: ...
+On Fri, Sep 11, 2026 at 03:05:07PM +0200, Rafael J. Wysocki wrote:
 
-Okay, I see the issue. How about a 'solution' like this: we use scnprintf() 
-instead of snprintf() in two branches that can have the name truncated? From 
-what I see, the only difference between snprintf() and scnprintf() is the 
-return value so there should be no functional change visible to the user. I 
-tested the W=1 build, the warning is gone if scnprintf() is used.
+> The ACPI thermal zone .should_bind() callback function,
+> acpi_thermal_should_bind_cdev(), expects the given cooling device's
+> devdata to point to an ACPI device object whose ACPI handle should be
+> compared with ACPI handles in a list associated with the given trip
+> point.  That is not particularly straightforward and it effectively
+> requires the drivers of ACPI cooling devices to populate the devdata
+> with addresses of the ACPI companions of the devices they bind to.
+> Consequently, the devdata cannot be used by the driver for its own
+> needs which is its intended purpose.
+> 
+> That can be overcome with the help of the observation that the
+> ACPI device objects to be matched against the lists of ACPI handles
+> associated with trip points are in fact the ACPI companions of the
+> parents of cooling devices.  Thus instead of using the given cooling
+> device's devdata, it is sufficient to obtain the ACPI handle of its
+> parent and compare that ACPI handle with the ones in the list
+> associated with the given trip point.
+
+...
+
+> +	parent_handle = ACPI_HANDLE(parent);
+>  
+> -		if (acpi_fetch_acpi_dev(handle) == cdev_adev)
+> +	for (i = 0; i < acpi_trip->devices.count; i++) {
+> +		if (acpi_trip->devices.handles[i] == parent_handle)
+
+device_match_acpi_handle() ?
+
+		if (device_match_acpi_handle(parent, acpi_trip->devices.handles[i]))
+
+>  			return true;
+>  	}
+
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
