@@ -1,111 +1,104 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-230.mta0.migadu.com [91.218.175.230])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD96B3E49F7;
-	Fri, 11 Sep 2026 02:41:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB8372D6E64
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 02:41:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.230
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789094482; cv=none; b=aBBwxplrVF277BQ95qYAuo960AtY02BqkpSqs+UtMlJtWFL9eR/wnlJOd0NoQtKA0K37CpEb9s3FhxCFGmEUWTfrb4SNCmn8vOCqELSnxBKWwE0TPN3UiE9jYGja7z5afH0x6vtJJPjDT9tiy1eFJqiGfbgksSrblSICXvDptic=
+	t=1789094481; cv=none; b=Vm4Nui+YD6c4lstJ75XsaABLcUkVhDs3vUZrXV98eh2RWuTLNVsB9LRF1qx2QyDCSgM7Lo0snixfGQkqQTGa3ASp6ta8w5pco8YACBWZoisEVJ7aKEsrYj03bLr7JSwDUZeRHHgRGGFs38TuNv0RIZuQ2nbBaJdX2YeNLcAPF1o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789094482; c=relaxed/simple;
-	bh=RpS5lxvIqvCnyCF5vcYKjHed80SBUp0dNIQ0rgcc1dA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qwUzrvYodzVz18MXyx6BpbmJWmDNDMwINgyKB3CUDWSJ1nJKoSHsdlIin0uRTUL8U9EAg2gbhCM0N7pFmAqZbH71I6cjp6R7cJjxaLPBusZA4WVlZLEddjiTrLFwVhywNqu4KxYvXyCTMxLewMYgU5bolwwzn8qEK7e4cP2JEfY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UCKEos94; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789094481; c=relaxed/simple;
+	bh=UJk0u1UcOnDOPy91sspUcF/wAve5eSeuHy+a5gHNvbk=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=kGF7o8bGv2wN+7x2xUv6sLf9EVCxx750MnnGgx9BoB+wBxWDaGhrPo5kLrNb7cIb9b/ERUaCPjc3a1hLnwdj1vz+vdSzCbrxZ68Dt/6idzoxnzp7E1x5iUN12SSAdYl8nRW93+ZL+N4nlYPJFc9sT7tGFXTeBZnwlu1fprZQau0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=adZNZmRQ; arc=none smtp.client-ip=91.218.175.230
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UCKEos94"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789094480; x=1820630480;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=RpS5lxvIqvCnyCF5vcYKjHed80SBUp0dNIQ0rgcc1dA=;
-  b=UCKEos941qLkpNqeWgl+CqusfmwF2r5xi8uWJAROBeUW1d8P7Lf4G60I
-   9rdBU9BiB1VN9BVEbx9LXUGmefxMOnIjA7SIVBRJEoH/DyAggldL/1cf+
-   7WAYD6XNW05kgKAQe9+TXxDKkbgKt/UD3Ls8c3QDEpjGq3GpLB2N74wZJ
-   TLfCyYU1a/vujsWOnKV4QBo2GYLAS6iHF3JTc6KJqnw5SKQjaAOcP39xj
-   shBiv2068PYHO47t4oKCkrYCrWVxqSq3gi2yGuS+6gw9GS1KK3GSY1fXZ
-   G/8wbOdbluU5uFaOxvFEb1cLc8A9eDDkduCkG2Fd+JdnNoMQ4DLrsCY6c
-   A==;
-X-CSE-ConnectionGUID: wSUQV0fETmmT20vYLT0yyg==
-X-CSE-MsgGUID: XtQgg8DiRCm+WPQNFffUkw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11901"; a="100151354"
-X-IronPort-AV: E=Sophos;i="6.27,96,1787036400"; 
-   d="scan'208";a="100151354"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 19:41:19 -0700
-X-CSE-ConnectionGUID: y/s/pk7YS2a6KV1g9cJQuQ==
-X-CSE-MsgGUID: nvZFIjuyTc+nSfkolQcyTA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,96,1787036400"; 
-   d="scan'208";a="271326838"
-Received: from pankris-x299-ud4-pro.bj.intel.com ([10.238.152.122])
-  by orviesa008.jf.intel.com with ESMTP; 10 Sep 2026 19:41:16 -0700
-From: Kris Pan <kris.pan@intel.com>
-To: edumazet@google.com
-Cc: davem@davemloft.net,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	atomasov@redhat.com,
-	oliver.sang@intel.com,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Kris Pan <kris.pan@intel.com>
-Subject: [PATCH v2] net: iterate online nodes in skb_defer_free_flush()
-Date: Fri, 11 Sep 2026 10:38:04 +0800
-Message-ID: <20260911023804.3503989-1-kris.pan@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260911020438.3502801-1-kris.pan@intel.com>
-References: <20260911020438.3502801-1-kris.pan@intel.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="adZNZmRQ"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=UJk0u1UcOnDOPy91sspUcF/wAve5eSeuHy+a5gHNvbk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789094476; v=1; x=1789699276;
+ b=adZNZmRQ3cxUe8zHt2km+HnfktRjUs9S0+G8u47/ocIANugHL+DJ7u7Jdz1aaL5R50TRd9oC
+ P17oQ9bq+ZcI/qjPGsWT6wvaOVxvYxrjEUQsb3FTYChvZOY/Q0uzmq4x0QsHfKoGveN2CXRn8Qq
+ zCLR9V0k5IT9/ytqZf7jAKvk=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id d64be4f82663bc04;
+	Fri, 11 Sep 2026 02:41:16 +0000
+X-Mizu-Trace-ID: d64be4f82663bc04
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.700.51.1.1\))
+Subject: Re: [PATCH] mm/hugetlb: account for allowed nodes when gathering
+ surplus pages
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <20260910152026.5bcf5c5d7f1ecdcb0147ceaf@linux-foundation.org>
+Date: Fri, 11 Sep 2026 10:41:01 +0800
+Cc: osalvador@suse.de,
+ linux-mm@kvack.org,
+ david@kernel.org,
+ linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <35D58CFB-BC97-4245-A387-DB3077E395C3@linux.dev>
+References: <20260909074642.7308-1-yehuaisheng@open-hieco.net>
+ <8A0F6014-4E2C-4F07-9732-2DF32418B986@linux.dev>
+ <20260910152026.5bcf5c5d7f1ecdcb0147ceaf@linux-foundation.org>
+To: Andrew Morton <akpm@linux-foundation.org>,
+ Huaisheng Ye <yehuaisheng@open-hieco.net>
+X-Mailer: Apple Mail (2.3864.700.51.1.1)
 
-skb_attempt_defer_free() only queues skbs on the current CPU's node
-(numa_node_id() of a running CPU), which is always online, so the
-flush loop never needs to visit nodes that are merely possible.
 
-for_each_node() walks node_possible_map.  On machines where the
-possible map is much larger than the online map -- e.g. a POWER10
-LPAR with 32 possible but 1 online node -- the flush loop touches 31
-cold, always-empty per-node lists on every softirq pass, showing up
-as skb_defer_free_flush() and _find_next_bit() overhead.
 
-Use for_each_online_node() to iterate only node_online_map.
+> On Sep 11, 2026, at 06:20, Andrew Morton <akpm@linux-foundation.org> =
+wrote:
+>=20
+> On Thu, 10 Sep 2026 16:48:56 +0800 Muchun Song <muchun.song@linux.dev> =
+wrote:
+>=20
+>>> This fixes hugetlb mappings when, for example, a task runs with
+>>> MPOL_BIND on Node 1 while the existing free huge pages are on Node =
+0.
+>>>=20
+>>> Similar issue also could be found in ltp if the free pages of global =
+pool
+>>> reside outside the nodes allowed by the application.
+>>> # cd ltp/testcases/kernel/mem/hugetlb/hugemmap/
+>>> # numactl --cpunodebind=3D0 --membind=3D1 ./hugemmap10
+>>>=20
+>>> Signed-off-by: Huaisheng Ye <yehuaisheng@open-hieco.net>
+>>=20
+>> Acked-by: Muchun Song <muchun.song@linux.dev>
+>=20
+> Should we backport this?
+>=20
+> If so, a Fixes: target would be helpful.
 
-Loopback UDP throughput in a QEMU guest with 32 possible / 1 online
-nodes (bench_udp, 8 senders, 6 interleaved runs) improves by ~5%.
+I believe the fix should be e4e574b767ba ("hugetlb: Try to grow hugetlb
+pool for MAP_SHARED mappings"). This commit was introduced back in 2007.
+Regarding the impact of this issue, I consulted an AI:
 
-Fixes: 5628f3fe3b16 ("net: add NUMA awareness to skb_attempt_defer_free()")
-Reported-by: kernel test robot <oliver.sang@intel.com>
-Suggested-by: Adrian Tomasov <atomasov@redhat.com>
-Closes: https://lore.kernel.org/oe-lkp/202512112119.5b9829a-lkp@intel.com
-Signed-off-by: Kris Pan <kris.pan@intel.com>
-Reviewed-by: Eric Dumazet <edumazet@google.com>
----
- net/core/dev.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Severity: Medium
+Impact: valid HugeTLB mappings can be rejected with ENOMEM
+Scope: NUMA + cpuset/MPOL_BIND + nr_overcommit_hugepages
+Risk: availability/configuration failure, no data corruption
 
-diff --git a/net/core/dev.c b/net/core/dev.c
-index 290e0f099e6bf..b528b6a986fcf 100644
---- a/net/core/dev.c
-+++ b/net/core/dev.c
-@@ -6907,7 +6907,7 @@ static void skb_defer_free_flush(void)
- 	struct skb_defer_node *sdn;
- 	int node;
- 
--	for_each_node(node) {
-+	for_each_online_node(node) {
- 		sdn = this_cpu_ptr(net_hotdata.skb_defer_nodes) + node;
- 
- 		if (llist_empty(&sdn->defer_list))
--- 
-2.43.0
 
+The fact that it has only been triggered after such a long time also
+precisely shows how uncommon its configuration is. I expect that
+backporting may encounter some conflicts. In the absence of clear user
+feedback, I personally suggest not doing a backport.
+
+Of course, as the author of this patch, you could also provide more
+information, for example, whether it was discovered as a real issue
+in a production environment, so as to decide whether to proceed with
+a backport.
+
+Thanks.=
