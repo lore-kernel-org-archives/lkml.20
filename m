@@ -1,114 +1,164 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E1E1457E40;
-	Fri, 11 Sep 2026 11:21:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A79C5446BF8
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 11:24:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789125709; cv=none; b=F66wdySXPF0lfWpT6aNBL+MknD3s2dQXXv9rwfOYbaQ4SNRn7SVheG2J8iPLQkYvE0TgP5kx7pCU5z1EvhiA7uK06pHLyJ+O6V4Aqpp9EhQ9gOY45VDQoYVmt6E7Z2Eigs8dFPv3+dceu8cGQfN39nIS9Vblx+TOsAAfkjrqfBE=
+	t=1789125869; cv=none; b=g+fVPyPY75m1rB+z/tdeuy43zW+Sq5xD0d5IdqylJjGl19UrfTBFoX49s8CI+k5xcDUpGc/BYygpnMzxIg+wJYuBl28x3y7XMEEV1vDT4clcrqsU/lthke8/F1PgnjLQk/9kMBqh/H8Ml3mOV6pN8kEonfKTt0eJVcKC7rAujT8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789125709; c=relaxed/simple;
-	bh=U0uqeX8zjZmm8OzGTnuvDazj/KS2QfPD4Kczm2VS9r4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=KNQ0NqgylGzJEJgCFGho68SNVZNTAK/CSvbOuVJuI+yvDGalxRBe7v9iIIerJ8VXXtHHv25ix1Z5eoGXrZCJH4kbQZayIQ2SncVKpjedbbwhJesTE6Y0IeLlb4me8+iM2ntHzKh1vCrTSgRiEeqsFQUjiDfClGFIMS6KeXO5zkU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dp/dgcvD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789125869; c=relaxed/simple;
+	bh=dTfnOyCnA7hxdwn+lzetAiaSH6DRBFI0JNJ4cyWnp+A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ku775HhoV9huHBtpGQP+puZH+59vilE/7rsjymIK+4HEc3k1m+gj3MTzIVIXX9h8H+eLs2mA8nU6xGe0KQp+D3Ly8v5u7V1zdtaKRNbsBESmjsdfZ2IQtWIaWKXF/ivxwv5kqdB9neX3v8VtSx/HogubnMi46D8WqDN7r7cw7Ik=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Abhg5kEP; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dp/dgcvD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EC3F1F000FF;
-	Fri, 11 Sep 2026 11:21:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789125704;
-	bh=FUuyIOdaCSVB6Q6+FnhJHrufYlYSxc7UyO1FDKD9AZA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=dp/dgcvDjj2QoA8u0Xw9JksvXFc4MZaOLt8IEHm3UKMOaVghAeam9xy+uEvmlHyGH
-	 ixk/y3kHgbPAosqtBH9kKVafY2g13PumL645/utBz2tbMpIJNymEopH5S5nuFVxgIl
-	 STeN2raw8cA82GFCgUaWET8JMfWT+0k52d2d5vZ3FoG6BDi8tEHwmbE8O3Bi3++OrJ
-	 t3fR3e3mNAwRFOTbvkXKPXscVZiPVBhPL1kPye/9/e+OqtZ1b++wvdWZbCz2t4xpDU
-	 F2xFoRTq2OLv/RDFRjCMid5Hrxk/nSL2TguK0OkEKAeBYaJq0ifnalFU9RYlpaWfxY
-	 xGuO53YBicEvw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 1/8] coresight: etm4x: fix inconsistencies with
- sysfs configuration
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yeoreum Yun" <yeoreum.yun@arm.com>
-Cc: linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev
-In-Reply-To: <20260911-separate_etm_cfg_v2-v10-1-1b715d95927a@arm.com>
-References: <20260911-separate_etm_cfg_v2-v10-0-1b715d95927a@arm.com>
- <20260911-separate_etm_cfg_v2-v10-1-1b715d95927a@arm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 11 Sep 2026 11:21:44 +0000
-Message-Id: <20260911112144.8EC3F1F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Abhg5kEP"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49b392ccaacso12171125e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 04:24:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789125853; x=1789730653; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yxMwJEm7jTlZ/4MOIRCMOFi1PHLu4xK9k7RvriEL/cs=;
+        b=Abhg5kEPlOZzz61wXw4oP9rE4wPA0mEaEzF7lShaceq7q3ZH1UerVQTWGIrm9A9JhF
+         gvTuvkzoFoLJCk2yyIhu+dEs8i9bME3TIT56nmYwsFKs6eqlGpmnToBV8bvLgWBy6D+M
+         FfnHwFNlIGl203Wj/Gizw2PLW5QFURhLXASolY0RSLnKPIbniz8SSR/nez3cGGGCpjnt
+         buTJN7EXDu/2BIDNBjzfhDCRTVhJbDJGTIAb+an+GPlDN8T19oElChX/QTCRdLNMHrat
+         VOqeWiU6tRB37wZKIPvHR/GpbtOmqI03p+49k1sYadnYPnROweYxZIhZ7w0SojTH2hBt
+         KB5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789125853; x=1789730653;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=yxMwJEm7jTlZ/4MOIRCMOFi1PHLu4xK9k7RvriEL/cs=;
+        b=dwKsncSmv5PajHh7yWT4CRTqh6L6OuGsC0Uw/RMJMJ9HXoDC3Bby2T84eNvcLcnH65
+         TdaD9H8wnCyLb6ytlmEjmBPON0PVmsI6DiocB0oZscJb2FoeuFmijolbvGaY/y6hIPtJ
+         6jqlbZbqS3omJFtQVCewFAthR/8LlIgxUj5wHA2k9qyyqvXVpvZd3wRrg8irvVeVXaD7
+         YMhB8Ue0dqq2h69SE2k3JjPuBW5Wfp1csVpUtlkNnVyBrOAA+6+eRiNSUVG+KwA3rlsl
+         Pbl8EsyNr+aucEdLCmvqrRXdHXRxWsBkK2iLGzPeCJFMOzCjPkqXtPquIQmEDpB3a6o4
+         n5Dg==
+X-Forwarded-Encrypted: i=1; AKwUvByfofE3VIK4562DnH4yK14QFjP4YVaqseu2ckPCimpKp7VovOa8RnhOegQcVhqsU5EqMyUCpQCTlcQJ1iw=@vger.kernel.org
+X-Gm-Message-State: AFuF++nP283yukZvD1Rm8uXOeGSLnlnnrJKS9XzUk5jF0MqoDlqH1tmq
+	jCVJEhmd8lNMUAptkqvpQ/rCyC7/aFFqwprEQsJwtbYcZw1fq98K3SvEqamAzzI2dQ==
+X-Gm-Gg: AYBFou0bE5t0u+NS1iSAmd9XH3SQwrOV1LJjgwMlY92A8uVxbutsX755w8X3OL/uwJ/
+	rJyKeFRIgIQesGMQHc3iQ5KZigZcudzaTf4m4+eHokKbLoCGSy6kaGlvgkd6ey24A5/7zxNr4ds
+	oEqch/6DgSpPk13dcUkVA8wFttmFD/XnO5A/9tL0XZf4opbYr1Cjnd9HUB5696ciAeVbeaFV12T
+	1Xp6kmXe58RQWl8gw1jhcvzhgsIJYPxJBaYED8zwLTz4qdkTHBoyQyzA/jiis9RfKtHC84p+N90
+	xEqNaqnPAeLuTYEGQn22azby+vdQ1TffL3RZhI1rxyoj25zjwRsylFEQ+0uUHQtd8zFoU3F78tl
+	0wqk5EnuZm734AGO4vh0ugavpX7I1AJsUDVSOUJLbdcArZhNkQTN5XQX6MYDXJUJ+oimak703Ox
+	F9ee3QNz2nyfvuefqMp4OoKZdQln4p2zBx2Zc9r9c0knfwKSR+DOnSnSaAlO5XOQ59HJzrwcqmN
+	I3gTg6crwQnwpuylvNQqClYomWBvw==
+X-Received: by 2002:a05:600c:6309:b0:49c:ff3c:973f with SMTP id 5b1f17b1804b1-49e619c45f9mr37913425e9.24.1789125852560;
+        Fri, 11 Sep 2026 04:24:12 -0700 (PDT)
+Received: from google.com ([2a00:79e0:288a:8:9f0c:8f56:41ab:6c3b])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e60acff8bsm68594435e9.9.2026.09.11.04.24.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 04:24:12 -0700 (PDT)
+Date: Fri, 11 Sep 2026 13:24:07 +0200
+From: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>
+To: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
+Cc: Paul Moore <paul@paul-moore.com>, Jeff Vander Stoep <jeffv@google.com>,
+	Nick Kralevich <nnk@google.com>,
+	Ondrej Mosnacek <omosnace@redhat.com>,
+	"Serge E . Hallyn" <serge@hallyn.com>,
+	Stephen Smalley <stephen.smalley.work@gmail.com>,
+	audit@vger.kernel.org, kernel-team@cloudflare.com,
+	linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
+	selinux@vger.kernel.org
+Subject: Re: [PATCH v1 2/2] selftests/landlock: Check full ioctl commands in
+ audit records
+Message-ID: <aqPk1ytxErNcqPuQ@google.com>
+References: <20260910144837.381855-1-mic@digikod.net>
+ <20260910144837.381855-3-mic@digikod.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260910144837.381855-3-mic@digikod.net>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Hardware counter values (`cntr_val`) read back during trace disabl=
-e are saved to the temporary runtime `active_config` instead of the sysfs-v=
-isible `config` structure, permanently losing the post-session hardware sta=
-te.
---
-
-commit 293039b149bb540c924b83cd181604cbff99de4c
-Author: Yeoreum Yun <yeoreum.yun@arm.com>
-
-coresight: etm4x: fix inconsistencies with sysfs configuration
-
-This commit addresses inconsistencies in ETM4x sysfs configuration by
-separating the configuration into an active_config for the current session
-and a config for sysfs. It updates the enable/disable paths to use the
-active session configuration to prevent corruption from concurrent access.
-
-> diff --git a/drivers/hwtracing/coresight/coresight-etm4x-core.c b/drivers=
-/hwtracing/coresight/coresight-etm4x-core.c
-> --- a/drivers/hwtracing/coresight/coresight-etm4x-core.c
-> +++ b/drivers/hwtracing/coresight/coresight-etm4x-core.c
-
-[ ... ]
-
-> @@ -1044,7 +1054,7 @@ static void etm4_disable_trace_unit(struct etmv4_dr=
-vdata *drvdata)
->  static void etm4_disable_hw(struct etmv4_drvdata *drvdata)
+On Thu, Sep 10, 2026 at 04:48:34PM +0200, Mickaël Salaün wrote:
+> The ioctl audit test uses FIONREAD, whose command value fits in 16 bits.
+> It therefore cannot detect truncation of encoded direction and size
+> bits.
+> 
+> Use an architecture-independent unknown command with set upper bits and
+> require its complete value in the audit record.  Landlock rejects the
+> command before the device handles it, and the existing ioctl enforcement
+> test already exercises the same request.  The new expectation fails with
+> ioctlcmd=0xfeee on an unfixed kernel and passes with ioctlcmd=0xc00ffeee
+> after the shared audit field is widened.
+> 
+> Signed-off-by: Mickaël Salaün <mic@digikod.net>
+> ---
+>  tools/testing/selftests/landlock/fs_test.c | 10 +++++++---
+>  1 file changed, 7 insertions(+), 3 deletions(-)
+> 
+> diff --git a/tools/testing/selftests/landlock/fs_test.c b/tools/testing/selftests/landlock/fs_test.c
+> index 18dbdb99aeba..1abdcc9ee784 100644
+> --- a/tools/testing/selftests/landlock/fs_test.c
+> +++ b/tools/testing/selftests/landlock/fs_test.c
+> @@ -4146,6 +4146,9 @@ TEST_F_FORK(layout1, o_path_ftruncate_and_ioctl)
+>  	ASSERT_EQ(0, close(fd));
+>  }
+>  
+> +/* Arbitrary command with nonzero bits in both 16-bit halves. */
+> +static const unsigned int unknown_ioctl_cmd = 0xc00ffeee;
+> +
+>  /*
+>   * ioctl_error - generically call the given ioctl with a pointer to a
+>   * sufficiently large zeroed-out memory region.
+> @@ -4249,7 +4252,7 @@ TEST_F_FORK(layout1, blanket_permitted_ioctls)
+>  	EXPECT_EQ(EACCES, ioctl_error(_metadata, fd, FS_IOC_ZERO_RANGE));
+>  
+>  	/* Default case is also blocked. */
+> -	EXPECT_EQ(EACCES, ioctl_error(_metadata, fd, 0xc00ffeee));
+> +	EXPECT_EQ(EACCES, ioctl_error(_metadata, fd, unknown_ioctl_cmd));
+>  
+>  	ASSERT_EQ(0, close(fd));
+>  }
+> @@ -7943,6 +7946,7 @@ TEST_F(audit_layout1, truncate)
+>  	EXPECT_EQ(1, records.domain);
+>  }
+>  
+> +/* Checks that audit records preserve every ioctl command bit. */
+>  TEST_F(audit_layout1, ioctl_dev)
 >  {
->  	u32 control;
-> -	struct etmv4_config *config =3D &drvdata->config;
-> +	struct etmv4_config *config =3D &drvdata->active_config;
->  	struct coresight_device *csdev =3D drvdata->csdev;
->  	struct csdev_access *csa =3D &csdev->access;
->  	int i;
+>  	struct audit_records records;
+> @@ -7952,10 +7956,10 @@ TEST_F(audit_layout1, ioctl_dev)
+>  
+>  	fd = open("/dev/null", O_RDONLY | O_CLOEXEC);
+>  	ASSERT_LE(0, fd);
+> -	EXPECT_EQ(EACCES, ioctl_error(_metadata, fd, FIONREAD));
+> +	EXPECT_EQ(EACCES, ioctl_error(_metadata, fd, unknown_ioctl_cmd));
+>  	EXPECT_EQ(0, matches_log_fs_extra(_metadata, self->audit_fd,
+>  					  "fs\\.ioctl_dev", "/dev/null",
+> -					  " ioctlcmd=0x541b"));
+> +					  " ioctlcmd=0xc00ffeee"));
 
-[Severity: High]
-Does this change cause the post-session hardware counter values to be lost?
+Minor: I don't see much upside in extracting the shared unknown_ioctl_cmd
+variable here; if we used the 0xc00ffeee literally in the
+ioctl_error() call here, it would be clearer in this test how the
+test's stimulus of calling ioctl() with 0xc00ffeee related to the
+expected output, without having to do that side-lookup.
 
-Later in etm4_disable_hw(), the hardware counter values are read back from
-the device:
+Logic looks good though, good to test it more exhaustively.
 
-	/* read back the current counter values */
-	for (i =3D 0; i < caps->nr_cntr; i++) {
-		config->cntr_val[i] =3D
-			etm4x_relaxed_read32(csa, TRCCNTVRn(i));
-	}
+>  
+>  	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
+>  	EXPECT_EQ(0, records.access);
+> -- 
+> 2.55.0
+> 
 
-Because config now points to drvdata->active_config, the updated counter
-values are saved to the temporary active session configuration instead of
-the primary sysfs configuration.
-
-When a user subsequently reads the counter value via the sysfs interface
-in cntr_val_show():
-
-	struct etmv4_config *config =3D &drvdata->config;
-	...
-	val =3D config->cntr_val[idx];
-
-they will read from the static drvdata->config, which never receives these
-read-back values and will instead return the initial configuration value.
-Should the read-back hardware state be synchronized back to drvdata->config
-when the trace is disabled?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260911-separate_e=
-tm_cfg_v2-v10-0-1b715d95927a@arm.com?part=3D1
+Reviewed-by: Günther Noack <gnoack@google.com>
