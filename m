@@ -1,140 +1,165 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F9DE47CA82
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 12:55:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7C5C47C0E2
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 12:55:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789131348; cv=none; b=oC4ClLZHWBbuLMupmIsb11cmStpfSgraad97Iamfm/wfKiaUzQNvuHyiUn8cKhQNz0WwXUEyu32wX/iyQG+DO50skVzyGUR+82bYg8uFp5/rcweLeouP/CCE4L4g1LbbHCUh3Ldm+8iH9V/SaD8zt0y8ViQ9grSsHiBbqPeJMYE=
+	t=1789131345; cv=none; b=B23oeVcExP90ntFJ8gPTpZODdnE6NlEdGb0RKGnEf7fnbK4YuVSGCCxY2P9HsoWXDtfE43RQC2MBaf5MSPhv/CM0jfgdQwqKenlkds1lmqd2uPmFsu8SDEPC28/5BhcLRJQE8w4xrDo9fZKWqL8Po6Y6YeOdVQs0jNckC+wOHjE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789131348; c=relaxed/simple;
-	bh=q610DSRKaR2GaLlSOTKR9Z1RwhA6CVlIuE0efD2k5Ec=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TzB6GNoSZ3/p1lES/v6Fl7yJYSHhZSVKdSiBRIfsZqPgEEjZbF2yvyFsZah6VWuELBu3xPRJOZMlqS8btxfJPg18RRjET6V7Fq/B4oK0fTjPGifywSf5Rvkhd9M+jxGqnJytEwwIfVmOWQRFKY5CbkUM+niIRRq+LYSJwdpDrvI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IvOQoMpe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789131345; c=relaxed/simple;
+	bh=q5hfUmnX5cI2moI5VNKfCuehyKZytH+0Gd0A3JKIhQ8=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=uzKQ8U9ZayMpfDNniPM1l6YaqBkYc8cLB8bnatfVfrqtyXHDLLEMkiv6hPlCibf0kI9i2hsfSnajSiA30FzLpSz/2H2JjFyf5BFWI3IjoLP1am6SQFmv4s4RVLQgzhSYRnzaGl91aMSDP/HFWN28o00ZkOWS32RfimIDKy4wrtA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=l712AHn6; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IvOQoMpe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 120F91F00899;
-	Fri, 11 Sep 2026 12:55:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789131339;
-	bh=FX+ulTvKeH2tAXgFdwWmsnpZnFKY2vdgZHf6u/RdTO0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IvOQoMpe8ugrrsDfGxDB3ZN+qFB9IZHhrpJWFvvHshfskJ7ECBSQdNCUU/LvgE6Hb
-	 +5XWXw+RLRs/M0Gai2Q1WZfX9Idmq9soTOd7CDz8K7UzsqQRchMRKCsQozrj+n3Msj
-	 ayvsbSv+M0GDuySwdwyT7+QQFuB0TMk5P8r8ZsmwTa/GSn6RhUbXCsXzQdrnRzACiE
-	 zuEIi8oYM80BZX5sfPYcwnxiJmaFQAVgSk36iFj4cFCMwESzZKN18x2XZn3+mAjPVO
-	 UsKieGMEQbsbn8sHrYR4stmAEC0ElsHTjXW9A3AcZs8qpHRftJoNoJ+cyUZ5uI1AOY
-	 sTl3fn4b1SiNw==
-Date: Fri, 11 Sep 2026 13:55:34 +0100
-From: Will Deacon <will@kernel.org>
-To: Jinjie Ruan <ruanjinjie@huawei.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Thomas Gleixner <tglx@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	David Woodhouse <dwmw@amazon.co.uk>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Marc Zyngier <maz@kernel.org>
-Subject: Re: [PATCH 11/19] arm64: smp: Use generic HOTPLUG_SPLIT_STARTUP
- machinery for CPU onlining
-Message-ID: <aqP6Rjzk8XmGmQQp@willie-the-truck>
-References: <20260907164024.17164-1-will@kernel.org>
- <20260907164024.17164-12-will@kernel.org>
- <2f75098e-bc2c-4692-8325-809983042a9d@huawei.com>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="l712AHn6"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6351832so442207f8f.3
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 05:55:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1789131328; x=1789736128; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=V+ZHt1Hv90ZffrGNuf1k0Rp2yL5IB44JRHsPcN8IeA0=;
+        b=l712AHn6ZQlA87zJAL+6vDSvIafCY05BuvIWVrZgNDNMfnK48n9G4OYqhQyzlEW8h9
+         eM2PqI1DyXWsSSWBy+BmmEc8JOXmfvM5nqD++IJJXwoybolslwIfs7OhWpT9kPziAQv/
+         SsrL2lsOvfB91snEpGIqxPVI21eRRHTfovvY2piaD/O4risdWR2ksl6HUAucATPyZmYL
+         8GznCPHvTYeeYlqD+r6W2y2a3CMrDmdqSuRPv863IErlEEwGuxtunmiYnxUJ6RlIPIBD
+         R1YY8fGJLDOM4ai+7+kWl+M5U1JFISKTQaKpbIBJdCm75Ky2X6XzK8Ivn5cJ5wIPf7g2
+         Gu+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789131328; x=1789736128;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=V+ZHt1Hv90ZffrGNuf1k0Rp2yL5IB44JRHsPcN8IeA0=;
+        b=Iz35KVDafOTPxXkYMlrNBOgl0h0ertFUgUtbgz9pLkwmC5fWXqSZB346vD8UigVc+c
+         fOi+xlCGcEW/6g2UfcTXDG993wptBXB78XWB9aQWKFcjGIJXJC65oN7NwVA3dd7lU5wS
+         GaOTHr/EOOgTLYho4ay1DUWEmv6I66sKUhk855Yhsdy0MtYsf/MskhO334ujZeYevIUQ
+         FwfzC/6C10wQ1VCtHcAuh1ehA8DojJ53w4q/V1a8IoC8fA1a3fL9Bvyc9MLra52wflqy
+         KT5n36gzwGdyPtK/zBIzT2G/TLCGyNaawIxRsxWwzljbFwUjLcSPX3ZvBqUJyjb1B1jL
+         bNHA==
+X-Forwarded-Encrypted: i=1; AKwUvByN1fxyCBa+j/rGJ+/3FKjdHRemlW+kadiA7cIf7zZPK20YT6Nb+TZ51iWvtlRiF+4UYAF3NwSrYGgyFKU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mTD/31docGScCgxcv6Q1l6IqgWYUJOuvfKxVLoiyz15pM/ROLm
+	B15oG/THQWoC1cqCQvuhhp1nRl5yT+RQ26svhDQTUq4pKNWZh2IIbjTWD64Xm9r8PBk=
+X-Gm-Gg: AYBFou09kOihEC32tleO8j1ZhFwpwpezx2WKYTSdaNyHLJV/N5hHQt/AMcu9n/4R55G
+	/4HVB1vy7qMcCWYS0kWKegOO9+Qe8BVzIo7CrMPrIOqntuexYD+RohU3Ra3rT9PMQzAg/QKzuqS
+	4hjc5A7Qfakn2qQkF5LfkbG8i2O6M9G5tjOGUo0oKG7/2RbI15hbLO7Cw3DxkEmX9TqlOgPfVD3
+	brZKztncYcnTxLjgpmdHYjKBkCsxSfst1icOEKZSYcLJXjjqV6nbBfN4UcB9BeEGFCEmeK8qf6B
+	kZtuTt9VrxaYjSAxLDzpDo4EYvbXgMQKMleo/n2aDvVjtOBailDzrU2nC5UYHr5xGTPaJwqJZHt
+	cAYpSK0UqIuE340njRngtrKy3wrffYOEsNLZ9NrZyztuxB2SLBNd49bLSRGAxyzu4YkZRo0gFsh
+	YdZC2gU8smBtDUuyrnH8Vt9K7NMItFa4Wa9n5Re61xDzLAcGui0ZiKkHwdnx1qeDP2Vkrf0uHeX
+	FWbzVM0BySeay4zeG8=
+X-Received: by 2002:a05:600c:3ba9:b0:49c:fa21:e73e with SMTP id 5b1f17b1804b1-49e619c0558mr56438145e9.20.1789131327727;
+        Fri, 11 Sep 2026 05:55:27 -0700 (PDT)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e61a34cacsm41600045e9.0.2026.09.11.05.55.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 05:55:27 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>, Long Zhao via B4 Relay
+ <devnull+longzhao.ambarella.com@kernel.org>, Arnd Bergmann
+ <arnd@arndb.de>, Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Cc: Long Zhao <longzhao@ambarella.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Linus Walleij <linusw@kernel.org>,
+ Bartosz Golaszewski <brgl@kernel.org>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, Andy
+ Shevchenko <andriy.shevchenko@linux.intel.com>, Ilpo =?utf-8?Q?J=C3=A4rvi?=
+ =?utf-8?Q?nen?=
+ <ilpo.jarvinen@linux.intel.com>, Catalin Marinas
+ <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Long Zhao
+ <zl020895@163.com>, Lee Jones <lee@kernel.org>, mfd@lists.linux.dev,
+ devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
+ linux-gpio@vger.kernel.org, linux-serial@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Krzysztof Kozlowski
+ <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v6 00/13] Ambarella CV75 SoC minimal bring-up
+In-Reply-To: <46d21889-6b52-4c09-8f77-7c08dba93777@kernel.org>
+References: <20260904-cv75-v5-v6-0-e918514cb3b1@ambarella.com>
+ <1jwlt1ld6c.fsf@starbuckisacylon.baylibre.com>
+ <46d21889-6b52-4c09-8f77-7c08dba93777@kernel.org>
+Date: Fri, 11 Sep 2026 14:55:25 +0200
+Message-ID: <1jld986j7m.fsf@starbuckisacylon.baylibre.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <2f75098e-bc2c-4692-8325-809983042a9d@huawei.com>
+Content-Type: text/plain
 
-On Tue, Sep 08, 2026 at 07:35:46PM +0800, Jinjie Ruan wrote:
-> 
-> 
-> 在 2026/9/8 0:40, Will Deacon 写道:
-> > In preparation for enabling parallel bringup of secondary CPUs on arm64,
-> > take the baby step of moving from HOTPLUG_CORE_SYNC_FULL to
-> > HOTPLUG_SPLIT_STARTUP.
-> > 
-> > Rework the cpu_die_early() path to use a private cpumask, otherwise
-> > clearing the incoming CPU from the present mask in the 'kick' stage will
-> > prevent the hotplug stage machine from progressing and
-> > arch_cpuhp_cleanup_kick_cpu() will not be called.
-> > 
-> > Signed-off-by: Will Deacon <will@kernel.org>
-> > ---
-> >  arch/arm64/Kconfig           | 2 +-
-> >  arch/arm64/include/asm/smp.h | 1 +
-> >  arch/arm64/kernel/smp.c      | 9 +++++----
-> >  3 files changed, 7 insertions(+), 5 deletions(-)
-> > 
-> > diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-> > index 89d1f0f2269c..fd8cf792b7fd 100644
-> > --- a/arch/arm64/Kconfig
-> > +++ b/arch/arm64/Kconfig
-> > @@ -230,7 +230,7 @@ config ARM64
-> >  	select HAVE_SYSCALL_TRACEPOINTS
-> >  	select HAVE_KPROBES
-> >  	select HAVE_KRETPROBES
-> > -	select HOTPLUG_CORE_SYNC_FULL
-> > +	select HOTPLUG_SPLIT_STARTUP
-> >  	select HOTPLUG_SMT if HOTPLUG_CPU
-> >  	select IRQ_DOMAIN
-> >  	select IRQ_FORCED_THREADING
-> > diff --git a/arch/arm64/include/asm/smp.h b/arch/arm64/include/asm/smp.h
-> > index fe343c30d620..7b986a6a765b 100644
-> > --- a/arch/arm64/include/asm/smp.h
-> > +++ b/arch/arm64/include/asm/smp.h
-> > @@ -89,6 +89,7 @@ asmlinkage void secondary_start_kernel(void);
-> >  struct secondary_data {
-> >  	struct task_struct *task;
-> >  	long status;
-> > +	cpumask_t cpu_died_early_mask;
-> >  };
-> >  
-> >  extern struct secondary_data secondary_data;
-> > diff --git a/arch/arm64/kernel/smp.c b/arch/arm64/kernel/smp.c
-> > index 00362ed6e1ab..c5e9d5d5e003 100644
-> > --- a/arch/arm64/kernel/smp.c
-> > +++ b/arch/arm64/kernel/smp.c
-> > @@ -62,7 +62,7 @@
-> >   * so we need some other way of telling a new secondary core
-> >   * where to place its SVC stack
-> >   */
-> > -struct secondary_data secondary_data;
-> > +struct secondary_data secondary_data = {};
-> >  /* Number of CPUs which aren't online, but looping in kernel text. */
-> >  static int cpus_stuck_in_kernel;
-> >  
-> > @@ -108,7 +108,7 @@ static int boot_secondary(unsigned int cpu, struct task_struct *idle)
-> >  	return -EOPNOTSUPP;
-> >  }
-> >  
-> > -int __cpu_up(unsigned int cpu, struct task_struct *idle)
-> > +int arch_cpuhp_kick_ap_alive(unsigned int cpu, struct task_struct *idle)
-> >  {
-> >  	int ret;
-> >  
-> > @@ -146,6 +146,8 @@ void arch_cpuhp_cleanup_kick_cpu(unsigned int cpu, bool is_alive)
-> >  		cpus_stuck_in_kernel++;
-> >  		break;
-> >  	case CPU_KILL_ME:
-> > +		if (cpumask_test_cpu(cpu, &secondary_data.cpu_died_early_mask))
-> > +			set_cpu_present(cpu, false);
-> 
-> Should we set_cpu_present(cpu, false) in CPU_STUCK_IN_KERNEL case, as we
-> do not update to CPU_KILL_ME but CPU_STUCK_IN_KERNEL if
-> CONFIG_HOTPLUG_CPU is not enabled
+On ven. 04 sept. 2026 at 08:56, Krzysztof Kozlowski <krzk@kernel.org> wrote:
 
-That's where we get to at the end of the series, but I can hoist this
-check on 'secondary_data.cpu_died_early_mask' above the switch here to
-keep that behaviour for bisection.
+> On 04/09/2026 08:54, Jerome Brunet wrote:
+>> On ven. 04 sept. 2026 at 14:38, Long Zhao via B4 Relay <devnull+longzhao.ambarella.com@kernel.org> wrote:
+>>>
+>>>  .../devicetree/bindings/arm/ambarella.yaml         |  24 +
+>>>  .../bindings/clock/ambarella,cv75-rct.yaml         |  64 ++
+>>>  .../devicetree/bindings/gpio/pl061-gpio.yaml       |  32 +-
+>>>  Documentation/devicetree/bindings/mfd/syscon.yaml  |   1 +
+>>>  .../bindings/pinctrl/ambarella,cv75-pinctrl.yaml   | 239 +++++++
+>>>  .../bindings/serial/snps-dw-apb-uart.yaml          |   1 +
+>>>  .../devicetree/bindings/vendor-prefixes.yaml       |   2 +
+>>>  MAINTAINERS                                        |  14 +
+>>>  arch/arm64/Kconfig.platforms                       |   6 +
+>>>  arch/arm64/boot/dts/Makefile                       |   1 +
+>>>  arch/arm64/boot/dts/ambarella/Makefile             |   3 +
+>>>  arch/arm64/boot/dts/ambarella/cv75-evk.dts         |  30 +
+>>>  arch/arm64/boot/dts/ambarella/cv75.dtsi            | 177 +++++
+>>>  arch/arm64/configs/defconfig                       |   1 +
+>>>  drivers/clk/Kconfig                                |   1 +
+>>>  drivers/clk/Makefile                               |   1 +
+>>>  drivers/clk/ambarella/Kconfig                      |  13 +
+>>>  drivers/clk/ambarella/Makefile                     |   6 +
+>>>  drivers/clk/ambarella/ccu-cv75.c                   | 296 ++++++++
+>>>  drivers/clk/ambarella/ccu_common.c                 |  60 ++
+>>>  drivers/clk/ambarella/ccu_common.h                 |  25 +
+>>>  drivers/clk/ambarella/ccu_mux_div.c                | 234 +++++++
+>>>  drivers/clk/ambarella/ccu_mux_div.h                |  35 +
+>>>  drivers/clk/ambarella/ccu_pll.c                    | 421 ++++++++++++
+>>>  drivers/clk/ambarella/ccu_pll.h                    |  70 ++
+>>>  drivers/gpio/Kconfig                               |   2 +
+>>>  drivers/gpio/gpio-pl061.c                          | 342 +++++----
+>>>  drivers/gpio/gpio-regmap.c                         |  24 +-
+>>>  drivers/pinctrl/Kconfig                            |  15 +
+>>>  drivers/pinctrl/Makefile                           |   2 +
+>>>  drivers/pinctrl/pinctrl-ambarella-cv75.c           | 561 +++++++++++++++
+>>>  drivers/pinctrl/pinctrl-ambarella.c                | 761 +++++++++++++++++++++
+>>>  drivers/pinctrl/pinctrl-ambarella.h                |  50 ++
+>>>  drivers/tty/serial/8250/8250_dw.c                  |  34 +
+>>>  include/dt-bindings/clock/ambarella,cv75-rct.h     |  15 +
+>>>  include/linux/amba/bus.h                           |   1 +
+>>>  include/linux/gpio/regmap.h                        |  13 +
+>>>  37 files changed, 3439 insertions(+), 138 deletions(-)
+>> 
+>> That is a lot of stuff mixed into a single series that could easily split
+>
+> Well, not easily, because each split patchset would rely on non-existing
+> CONFIG which could trigger warnings.
+>
+> Contributors follow here the correct and documented process of new SoC
+> platform, I don't get why now only this patchset has to be split...
 
-Will
+Are you referring to this or something else ?
+
+"""
+one patchset containing new arch/foo/Kconfig entry, DTS files, MAINTAINERS file entry and *optionally initial drivers* with their Devicetree bindings
+"""
+
+No problem with that, I was merely trying to say that mixing 4 or 5 trees
+in a single patchset is pushing it a little and it does not solve the
+dependency problem you've mentioned, it just move it.
+
+>
+>
+> Best regards,
+> Krzysztof
+
+-- 
+Jerome
