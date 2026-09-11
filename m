@@ -1,296 +1,232 @@
-Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com [113.46.200.223])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85B81324B33
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 03:47:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.223
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DBC92F7EE7;
+	Fri, 11 Sep 2026 03:51:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789098427; cv=none; b=FxuHrIJOQcy994ugfiOYNr1yRkadHqk7yk1ZaxwqEafmlPTtMW8M5L5AJvKptYsdzNXnPGz6ecRx8q2DlX+sLG9vel6WpGWK/QrJASAcbgsWqpTbwvhuleBVNt08xWAOFCv2PLE62dImNCdV4w0lAGAyRya4bknTAjLoPgGTicY=
+	t=1789098689; cv=none; b=LFt66ogsuSGn3UiPntR7cVw1rZ0SLNx8uN/lr2jTAvhV7o32LrPZBrVbvO7+fORdmCPOpU2X5ZUW4CnfmgdHscBxW6uLmjYHsaT6kYluZzhGrNJxVtxQb3IGi0fmlQSUlOxTxfy85s1hmt5ahh5ysqoNmrrOx1+lnPbntyDYrUE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789098427; c=relaxed/simple;
-	bh=XYIvPbhp92CRatcbm3d4u5G/EeYoPSrEv6i9HoBu2XA=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:CC:References:
-	 In-Reply-To:Content-Type; b=K2nMq9SDb3onUpXaUPgsItWmI2bpzxBhxs5P5RQWDPiYVR6R8TMU3F7iz3ayhc4Mw1+v5VzAoOGkvz1gVLOLD+QTA72r8yRytBFmbcG6drFX2AkAjnFtbJU0AYyf7gCRsTFfYFfM+WrTPZH+FZH2YLS5eUcekMVqCe99XiToHws=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=ZZNb24wI; arc=none smtp.client-ip=113.46.200.223
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1789098689; c=relaxed/simple;
+	bh=jhaXMbEqFAGG1BYQ4hT83wZRdrqFjoRbXyE95aYGjHQ=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=X8Q2bBeORjJk4yNxfJez+xmsew0mBcnHc0HhiVYofDZnpwwUD/y2Ao9Y7kjp7Vn/l8BYb4whZTM2Up04WZz9aHSDIeSP4gF5ut31dO7yWF7egpYgrRabKmvT9afGNXwPm6MAcgYXSJvMcE0dEW5/4D8UkU0l+K8G02mV10/ird4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OBDw4vXK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="ZZNb24wI"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=BlrJLdpM3zMWFk1fkLx4AY3ejbX+yyxGhDPieEUikHo=;
-	b=ZZNb24wI75scTSGGZgnJi+SRLnerJs249M8+emuPWbFbGaYf+nB6cAQ3tHksHNzfpFIwmNGHQ
-	/T0Om+q4ukfg9wDYOrnqENavpDbH4PC1U6ZLMq1ObfA/vZBBjm9rdqmeiRc9Oo9KpeRaqQwN1/y
-	vfAJHtUr1R6vBiOt7A1rTa4=
-Received: from mail.maildlp.com (unknown [172.19.163.200])
-	by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4hh0Z313gvzmVBZ;
-	Fri, 11 Sep 2026 11:35:55 +0800 (CST)
-Received: from whupemk200005.china.huawei.com (unknown [7.152.185.164])
-	by mail.maildlp.com (Postfix) with ESMTPS id B554340563;
-	Fri, 11 Sep 2026 11:46:50 +0800 (CST)
-Received: from [10.67.108.244] (10.67.108.244) by
- whupemk200005.china.huawei.com (7.152.185.164) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Fri, 11 Sep 2026 11:46:49 +0800
-Message-ID: <2f3b90e5-c626-4de9-84a7-ad9e25320906@huawei.com>
-Date: Fri, 11 Sep 2026 11:46:48 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OBDw4vXK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 143E91F00893;
+	Fri, 11 Sep 2026 03:51:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789098687;
+	bh=4PIIPLikARhx+ISSplyjJ5hdNCv4TnEMaKWm21wWOGk=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=OBDw4vXKDOjy6fUzmiNlXIJhK1JGQ2zR7Hr3muhsla5AVKh47csbU99oOF+i1ovNc
+	 aUBBJ/sEvEL6foglA1pIFU5erFy5oYFRE3FpHadKmgF4iQeHh0WVlgc+sYaQ6a8g9n
+	 EN9x2el4CNoyjoJ1sY6tRzzAL4v6woMo8yyfcC57e/jem/U5AEIYaAJ0bj9P8XhIl1
+	 jUjhyjK2GbGQVeQZLZ16nzF1/L/Ipl6hokfdvrarTYkbLo725llY8+EP6s1iJSKEUO
+	 FXOjiSgMxtPc3jjI7jL7jHWKLMerPttgc/XOa6NfHvsGJVgL8f/M8gtrmZTtlIZxDe
+	 RjTVs2mwrciVQ==
+Subject:
+ Re: [PATCH net v6 2/2] net: phy: restore the interrupt the bus gave a PHY
+From: netdev-bot+sashiko@kernel.org
+To: f@lex.la
+Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
+ olteanv@gmail.com, davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Fri, 11 Sep 2026 03:51:26 +0000
+Message-ID: <178909868657.219967.11602145101392158508@kernel.org>
+In-Reply-To: <20260908155025.4155289-3-f@lex.la>
+References: <20260908155025.4155289-3-f@lex.la>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 1/2] sched/cache: Reduce the overhead of
- task_cache_work by only scan the visisted cpus
-Content-Language: en-US
-From: Luo Gengkun <luogengkun2@huawei.com>
-To: <peterz@infradead.org>
-CC: <dietmar.eggemann@arm.com>, <rostedt@goodmis.org>, <bsegall@google.com>,
-	<mgorman@suse.de>, <vschneid@redhat.com>, <kprateek.nayak@amd.com>,
-	<linux-kernel@vger.kernel.org>, <juri.lelli@redhat.com>,
-	<vincent.guittot@linaro.org>, <tim.c.chen@linux.intel.com>,
-	<yu.c.chen@intel.com>, <mingo@redhat.com>
-References: <20260731024417.1106503-1-luogengkun2@huawei.com>
- <20260731024417.1106503-2-luogengkun2@huawei.com>
- <b9f1e2cf-aebc-4239-b938-0f7a46da6d1d@huawei.com>
-In-Reply-To: <b9f1e2cf-aebc-4239-b938-0f7a46da6d1d@huawei.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
- whupemk200005.china.huawei.com (7.152.185.164)
 
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider:
 
+Critical: 0 · High: 0 · Medium: 2 · Low: 1
 
-On 2026/8/11 10:27, Luo Gengkun wrote:
-> 
-> 
-> On 2026/7/31 10:44, Luo Gengkun wrote:
->> The overhead of task_cache_work() is high, especially in multi-NUMA systems.
->> Currently, task_cache_work() tries to find the pref_llc by scanning all CPUs
->> in the system. However, most of these scans are meaningless, such as those
->> for CPUs that have never been visited or were accessed a long time ago.
->>
->> To address this problem, introduce visited_cpus to track the visited CPUs
->> and evict them once they have not been accessed for a duration exceeding
->> llc_epoch_affinity_timeout.
->>
->> Now that we know exactly which CPUs to scan from visited_cpus, we can remove
->> get_scan_cpumasks().
->>
->> Tested-by: Chen Yu <yu.c.chen@intel.com>
->> Reviewed-by: Tim Chen <tim.c.chen@linux.intel.com>
->> Signed-off-by: Luo Gengkun <luogengkun2@huawei.com>
-> Hi Peter,
-> 
-> Friendly ping on this patch.
-> 
-> It has accumulated Reviewed-by and Tested-by tags, and there are no further
-> comments. Please let me know your thoughts when you have a moment.
-> 
-> Thanks,
-> Gengkun.
+- [Medium] phy_restore_probe_irq() bails out whenever
+  phydev->phy_link_change is non-NULL and records no pending…
+- [Medium] phy_restore_probe_irq() performs an unsynchronized check-then-
+  act on state owned by the rtnl-side attach/detach paths.
+- [Low] No Fixes: tag (and no target-tree indication) on a patch whose
+  changelog describes a concrete, lasting user-visible defect.
 
-Friendly ping.
+--
 
-All comments have been addressed and there are no outstanding issues.
+net: phy: restore the interrupt the bus gave a PHY
 
-Let me know if this looks good to pick up, or if anything else is needed.
+phy_probe() demotes phydev->irq to PHY_POLL when the binding driver has no
+interrupt support, and nothing restores it afterwards.  This patch adds a
+helper that copies the number back out of mdiobus->irq[], and calls it from
+phy_remove(), phy_probe()'s error exit and the phy_attach_direct() unwind.
+The helper skips the restore while phydev->phy_link_change marks an attached
+consumer.
 
-Thanks,
-Gengkun
->> ---
->>   include/linux/mm_types.h |  6 +++
->>   include/linux/sched.h    |  2 +
->>   kernel/sched/fair.c      | 96 ++++++++++++++++------------------------
->>   3 files changed, 47 insertions(+), 57 deletions(-)
->>
->> diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
->> index b18c2b2e7d2c..35559079e4d4 100644
->> --- a/include/linux/mm_types.h
->> +++ b/include/linux/mm_types.h
->> @@ -1620,6 +1620,11 @@ static inline int mm_alloc_sched_noprof(struct mm_struct *mm)
->>       if (!pcpu_sched)
->>           return -ENOMEM;
->> +    if (!zalloc_cpumask_var(&mm->sc_stat.visited_cpus, GFP_KERNEL)) {
->> +        free_percpu(pcpu_sched);
->> +        return -ENOMEM;
->> +    }
->> +
->>       mm_init_sched(mm, pcpu_sched);
->>       return 0;
->>   }
->> @@ -1630,6 +1635,7 @@ static inline void mm_destroy_sched(struct mm_struct *mm)
->>   {
->>       free_percpu(mm->sc_stat.pcpu_sched);
->>       mm->sc_stat.pcpu_sched = NULL;
->> +    free_cpumask_var(mm->sc_stat.visited_cpus);
->>   }
->>   #else /* !CONFIG_SCHED_CACHE */
->> diff --git a/include/linux/sched.h b/include/linux/sched.h
->> index 373bcc0598d1..b461a71a65da 100644
->> --- a/include/linux/sched.h
->> +++ b/include/linux/sched.h
->> @@ -2388,6 +2388,7 @@ static __always_inline int task_mm_cid(struct task_struct *t)
->>   struct sched_cache_time {
->>       u64 runtime;
->>       unsigned long epoch;
->> +    unsigned long epoch_last_visit;
->>   };
->>   struct sched_cache_stat {
->> @@ -2398,6 +2399,7 @@ struct sched_cache_stat {
->>       unsigned long next_scan;
->>       unsigned long footprint;
->>       int cpu;
->> +    cpumask_var_t visited_cpus;
->>   } ____cacheline_aligned_in_smp;
->>   #else
->> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
->> index d78467ec6ee1..2bb370b38b79 100644
->> --- a/kernel/sched/fair.c
->> +++ b/kernel/sched/fair.c
->> @@ -1585,6 +1585,7 @@ void mm_init_sched(struct mm_struct *mm,
->>           pcpu_sched->runtime = 0;
->>           /* a slightly stale cpu epoch is acceptible */
->>           pcpu_sched->epoch = rq->cpu_epoch;
->> +        pcpu_sched->epoch_last_visit = rq->cpu_epoch;
->>           epoch = rq->cpu_epoch;
->>       }
->> @@ -1635,13 +1636,23 @@ static inline void __update_mm_sched(struct rq *rq,
->>       }
->>   }
->> -static unsigned long fraction_mm_sched(struct rq *rq,
->> -                       struct sched_cache_time *pcpu_sched)
->> +static unsigned long fraction_mm_sched(int cpu,
->> +                       struct mm_struct *mm)
->>   {
->> +    struct sched_cache_time *pcpu_sched =
->> +        per_cpu_ptr(mm->sc_stat.pcpu_sched, cpu);
->> +    struct rq *rq = cpu_rq(cpu);
->> +
->>       guard(raw_spinlock_irqsave)(&rq->cpu_epoch_lock);
->>       __update_mm_sched(rq, pcpu_sched);
->> +    /* Skip the rq that has not been hit for a long time */
->> +    if ((rq->cpu_epoch - pcpu_sched->epoch_last_visit) > llc_epoch_affinity_timeout) {
->> +        cpumask_clear_cpu(cpu, mm->sc_stat.visited_cpus);
->> +        return 0;
->> +    }
->> +
->>       /*
->>        * Runtime is a geometric series (r=0.5) and as such will sum to twice
->>        * the accumulation period, this means the multiplcation here should
->> @@ -1711,6 +1722,9 @@ void account_mm_sched(struct rq *rq, struct task_struct *p, s64 delta_exec)
->>           pcpu_sched->runtime += delta_exec;
->>           rq->cpu_runtime += delta_exec;
->>           epoch = rq->cpu_epoch;
->> +        pcpu_sched->epoch_last_visit = epoch;
->> +        if (!cpumask_test_cpu(cpu_of(rq), mm->sc_stat.visited_cpus))
->> +            cpumask_set_cpu(cpu_of(rq), mm->sc_stat.visited_cpus);
->>       }
->>       /*
->> @@ -1761,51 +1775,6 @@ static void task_tick_cache(struct rq *rq, struct task_struct *p)
->>       }
->>   }
->> -static void get_scan_cpumasks(cpumask_var_t cpus, struct task_struct *p)
->> -{
->> -#ifdef CONFIG_NUMA_BALANCING
->> -    int cpu, curr_cpu, nid, pref_nid;
->> -
->> -    if (!static_branch_likely(&sched_numa_balancing))
->> -        goto out;
->> -
->> -    cpu = READ_ONCE(p->mm->sc_stat.cpu);
->> -    if (cpu != -1)
->> -        nid = cpu_to_node(cpu);
->> -    curr_cpu = task_cpu(p);
->> -
->> -    /*
->> -     * Scanning in the preferred NUMA node is ideal. However, the NUMA
->> -     * preferred node is per-task rather than per-process. It is possible
->> -     * for different threads of the process to have distinct preferred
->> -     * nodes; consequently, the process-wide preferred LLC may bounce
->> -     * between different nodes. As a workaround, maintain the scan
->> -     * CPU mask to also cover the process's current preferred LLC and the
->> -     * current running node to mitigate the bouncing risk.
->> -     * TBD: numa_group should be considered during task aggregation.
->> -     */
->> -    pref_nid = p->numa_preferred_nid;
->> -    /* honor the task's preferred node */
->> -    if (pref_nid == NUMA_NO_NODE)
->> -        goto out;
->> -
->> -    cpumask_or(cpus, cpus, cpumask_of_node(pref_nid));
->> -
->> -    /* honor the task's preferred LLC CPU */
->> -    if (cpu != -1 && !cpumask_test_cpu(cpu, cpus) && nid != NUMA_NO_NODE)
->> -        cpumask_or(cpus, cpus, cpumask_of_node(nid));
->> -
->> -    /* make sure the task's current running node is included */
->> -    if (!cpumask_test_cpu(curr_cpu, cpus))
->> -        cpumask_or(cpus, cpus, cpumask_of_node(cpu_to_node(curr_cpu)));
->> -
->> -    return;
->> -
->> -out:
->> -#endif
->> -    cpumask_copy(cpus, cpu_online_mask);
->> -}
->> -
->>   static inline void update_avg_scale(u64 *avg, u64 sample)
->>   {
->>       int factor = per_cpu(sd_llc_size, raw_smp_processor_id());
->> @@ -1845,7 +1814,7 @@ static void task_cache_work(struct callback_head *work)
->>       if (time_before(now, next_scan))
->>           return;
->> -    /* only 1 thread is allowed to scan */
->> +    /* elect a single scanner per epoch */
->>       if (!try_cmpxchg(&mm->sc_stat.next_scan, &next_scan,
->>                now + max_t(unsigned long,
->>                        READ_ONCE(llc_epoch_period), 1)))
->> @@ -1866,7 +1835,18 @@ static void task_cache_work(struct callback_head *work)
->>       scoped_guard (cpus_read_lock) {
->>           guard(rcu)();
->> -        get_scan_cpumasks(cpus, p);
->> +        /*
->> +         * Data race: While evaluating the visited_cpus without
->> +         * a lock, a CPU could be concurrently set by
->> +         * account_mm_sched(), meaning the scan might skip the newly
->> +         * visited CPU if the bit changes during the scan. This is
->> +         * a deliberate trade-off between accuracy and efficiency:
->> +         * locking would prevent this race but incur extra overhead.
->> +         * The missed runtime contribution is negligible because it
->> +         * implies this process hasn't run on that CPU for a long
->> +         * time, and will be captured in the next cycle.
->> +         */
->> +        cpumask_and(cpus, cpu_online_mask, mm->sc_stat.visited_cpus);
->>           for_each_cpu(cpu, cpus) {
->>               /* XXX sched_cluster_active */
->> @@ -1877,19 +1857,21 @@ static void task_cache_work(struct callback_head *work)
->>               if (!sd)
->>                   continue;
->> -            for_each_cpu(i, sched_domain_span(sd)) {
->> -                occ = fraction_mm_sched(cpu_rq(i),
->> -                            per_cpu_ptr(mm->sc_stat.pcpu_sched, i));
->> +            for_each_cpu_and(i, sched_domain_span(sd), cpus) {
->> +                cur = rcu_dereference_all(cpu_rq(i)->curr);
->> +                if (cur && !(cur->flags & (PF_EXITING | PF_KTHREAD)) &&
->> +                    cur->mm == mm)
->> +                    nr_running++;
->> +
->> +                occ = fraction_mm_sched(i, mm);
->> +                if (occ == 0)
->> +                    continue;
->> +
->>                   a_occ += occ;
->>                   if (occ > m_occ) {
->>                       m_occ = occ;
->>                       m_cpu = i;
->>                   }
->> -
->> -                cur = rcu_dereference_all(cpu_rq(i)->curr);
->> -                if (cur && !(cur->flags & (PF_EXITING | PF_KTHREAD)) &&
->> -                    cur->mm == mm)
->> -                    nr_running++;
->>               }
->>               /*
+>     A bus whose driver writes only phydev->irq and never the table is not
+>     covered, because the table then holds PHY_POLL and there is nothing to
+>     give back; lan78xx, smsc95xx and sxgbe are in that position today and
+>     registering the interrupt with the bus is theirs to do.
+>
+>     This needs commit e0d1c55501d3 ("net: phy: fix
+>     phy_uses_state_machine()") to be of any use: without it the mark this
+>     skips on is never cleared once a consumer has attached, and the restore
+>     never runs.
+>
+>     Assisted-by: LLM
+>     Signed-off-by: Aleksei Sviridkin <f@lex.la>
+
+[Severity: Low]
+The changelog describes a lasting user-visible defect ("polls for the rest
+of the uptime once the real driver takes over"), but the tag block carries
+no Fixes: line and the subject has no net/net-next scoping.
+
+The assignment being undone, in phy_probe():
+
+	if (!phy_drv_supports_irq(phydrv) && phy_interrupt_is_valid(phydev))
+		phydev->irq = PHY_POLL;
+
+is the natural blame target.  Could a Fixes: tag pointing at it (or an
+explicit statement that this targets net-next as a behavioural change) be
+added?
+
+This matters more than usual given the stated dependency on e0d1c55501d3,
+which is what clears phydev->phy_link_change in phy_detach().  On a tree
+without that commit the new restore in phy_remove() is a silent no-op, so a
+backport applies cleanly and changes nothing.  Should that boundary be
+spelled out for stable?
+
+> diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
+> index 94b2e85e00a3..b55402569300 100644
+> --- a/drivers/net/phy/phy_device.c
+> +++ b/drivers/net/phy/phy_device.c
+> @@ -1734,6 +1734,19 @@ static bool phy_drv_supports_irq(const struct phy_driver *phydrv)
+>  	return phydrv->config_intr && phydrv->handle_interrupt;
+>  }
+>
+> +/* Give back what phy_probe() took, from the bus that owns the number, but
+> + * not while phy_link_change marks a consumer: it skipped
+> + * phy_request_interrupt() on the value it saw, so phy_disconnect() would
+> + * free an interrupt nobody requested.
+> + */
+> +static void phy_restore_probe_irq(struct phy_device *phydev)
+> +{
+> +	if (phydev->phy_link_change || phydev->irq != PHY_POLL)
+> +		return;
+> +
+> +	phydev->irq = phydev->mdio.bus->irq[phydev->mdio.addr];
+> +}
+
+[Severity: Medium]
+Can this check-then-act run concurrently with the attach/detach paths that
+own phydev->phy_link_change and phydev->irq?
+
+The helper reads phy_link_change and irq, then writes irq, running from
+phy_probe()/phy_remove() under the mdio device lock only.  The writers of
+that same state take neither the mdio device lock nor phydev->lock:
+
+phy_attach_direct()
+	phydev->phy_link_change = phy_link_change;
+	...
+	if (phydev->dev_flags & PHY_F_NO_IRQ)
+		phydev->irq = PHY_POLL;
+
+	if (!phy_drv_supports_irq(phydev->drv) && phy_interrupt_is_valid(phydev))
+		phydev->irq = PHY_POLL;
+
+phy_detach()
+	phydev->phy_link_change = NULL;
+
+phy_driver_register() leaves suppress_bind_attrs unset, so a root sysfs
+unbind can enter phy_remove() at any time, and __device_release_driver()
+clears dev->driver only after ->remove() returns, so a concurrent
+phy_attach_direct() still sees d->driver != NULL and proceeds.
+
+One interleaving:
+
+CPU0 phy_remove() -> phy_restore_probe_irq()
+	reads phy_link_change == NULL, irq == PHY_POLL
+	(preempted before the store)
+
+CPU1 phy_attach_direct()
+	phydev->phy_link_change = phy_link_change;
+	phydev->irq = PHY_POLL;		/* no phy_request_interrupt() */
+
+CPU0 resumes
+	phydev->irq = phydev->mdio.bus->irq[phydev->mdio.addr];
+
+Does that leave a valid IRQ published for a consumer that requested
+nothing, so that teardown hits:
+
+phy_disconnect()
+	if (phy_interrupt_is_valid(phydev))
+		phy_free_interrupt(phydev);
+
+and free_irq(phydev->irq, phydev) warns about freeing an already-free IRQ?
+phy_polling_mode() is also false at that point, so link changes would be
+neither polled nor interrupt driven, which is the situation the new comment
+says it avoids.
+
+The reverse order gives the opposite outcome: phy_remove() observes a still
+non-NULL phy_link_change just before phy_detach() clears it, and the PHY is
+left unbound with irq == PHY_POLL.
+
+Would making the individual accesses atomic help here, or does the decision
+plus the store need to be serialized against the whole attach/detach and
+interrupt request/free sequence, for example by driving the restore from
+phy_detach() under rtnl?
+
+> @@ -3848,6 +3864,8 @@ static int phy_remove(struct device *dev)
+>  	if (phydev->drv && phydev->drv->remove)
+>  		phydev->drv->remove(phydev);
+>
+> +	phy_restore_probe_irq(phydev);
+> +
+
+[Severity: Medium]
+When phy_restore_probe_irq() takes the phy_link_change early return here, is
+the interrupt number ever restored later?
+
+The changelog says restoring at the three bind-cycle exits means "a bind
+that is undone by any path leaves the PHY as it was found", but nothing
+records a pending restore for the skipped case.
+
+A driver unbind while a consumer is still attached:
+
+unbind_store()
+	if (dev && dev->driver == drv) {
+		device_driver_detach(dev);
+
+reaches phy_remove() with phy_link_change still set by phy_attach_direct(),
+so the helper returns early and phy_remove() then clears phydev->drv.
+
+When the consumer disconnects afterwards, phy_detach() clears the marker but
+its release is gated:
+
+	phydev->phy_link_change = NULL;
+	...
+	if (phydev->is_genphy_driven) {
+		device_release_driver(&phydev->mdio.dev);
+		phydev->is_genphy_driven = 0;
+	}
+
+and for an already-unbound device device_release_driver() is a no-op, so
+phy_remove() does not run again and no restore happens.  A later
+interrupt-capable driver then sees phydev->irq == PHY_POLL in phy_probe(),
+phy_interrupt_is_valid() is false, and polling continues.
+
+The early return itself looks necessary, since restoring under an attached
+consumer is what would make phy_disconnect() free an unrequested IRQ.  Could
+the skipped restore instead be completed in phy_detach() right after
+phy_link_change is cleared?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260908155025.4155289-1-f%40lex.la
