@@ -1,68 +1,185 @@
-Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6596A49B201;
-	Fri, 11 Sep 2026 16:00:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A099E49B5A0;
+	Fri, 11 Sep 2026 16:01:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789142431; cv=none; b=MmgNssqGGbT/odCURG3hEKLXSqkcTPVo3ZlUj6CqgddLR70oMALRkCOOIcDnYXsos2jwEe/wO6zHYGj7UqSuAqG0LGd9eCYY6Aq3XyxiQg6QfxscDg6Zh/vytt98zdXa+RQORc2YImBOD4fiGRmlW754DV1Km23MbYrgmHvUxVU=
+	t=1789142515; cv=none; b=qith6GTZbXWunZxNVex5mIww4X8TwPOLLwqxmtpa6gOLr3kyArUlEdIQxaH/nyUYcXUpFF0Ub/XeGeltWe7/GSGlbfj6JC42R6U/s117Ic5ycYzBnUj/StygTqG1CUq8jreSIQoExqSmBA5aVYTtrsr2KKf9SN1GrlS1agKmJqc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789142431; c=relaxed/simple;
-	bh=+QEQyKkJoiMrA/3HTit19JPln4erh+u17aGYAdQZSM8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=In6F3UpLlWCqtN195zDrbXTVY/lF4O6LbP82dYP0cdjbXwEtcCdHjtTCOyqyb8LD2ZMsKnnLj5SbIXbUeGxW8lEt9Dqv5tA/5QKiqRoODgsiHizDAabH4DI7SQpd9ea9GULpxMeRWdxT5t+LciWNHt9fu6avh6fjuUXWMc0gq3A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=SLoD59aq; arc=none smtp.client-ip=178.21.23.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
+	s=arc-20240116; t=1789142515; c=relaxed/simple;
+	bh=ujc4gahDkCicEOOqjPUihWYFOIFiCd+3SQ8TizbLmes=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=O1dQrkb/LgbpqW+EI3d+3OxjaL1oEvrmgSlXvhQuadspKoXCqH3Z+WyQtYRgyoWz+0afwWJ2mo5IZciFIrtsRfLCqzisjg68uD+nQN6vyWqAellGxKr2F3mn9ePZFXVghwiF5kvbAGikjmGtt3rBpICXTNN0uTpSeWOaWi/TT04=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MEmN1Xy7; arc=none smtp.client-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="SLoD59aq"
-Received: from mail01.layka.lan (localhost [127.0.0.1])
-	by disroot.org (Postfix) with ESMTP id 6CD32809D8;
-	Fri, 11 Sep 2026 18:00:27 +0200 (CEST)
-X-Virus-Scanned: SPAM Filter at disroot.org
-Received: from layka.disroot.org ([127.0.0.1])
- by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id hp5OaKgBkdr5; Fri, 11 Sep 2026 18:00:26 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
-	t=1789142426; bh=+QEQyKkJoiMrA/3HTit19JPln4erh+u17aGYAdQZSM8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SLoD59aqxSs996kB13PggG5d5KZSymG6FrTn/9qyt9fCyre211izYGiY6fXvoZDFU
-	 zglLAO4aKZXzC0B9EXg8jUT677zWP1T9n//Yy1UzljXKJ5td7EuPaSM0zsdVkxytGV
-	 tTZf7TMnWHZ1VxWn1Y2XiznRWhIOj5rlVlXJ4DhCF8pD46Y/V8xqPg/4PyHLom0W/m
-	 lI4enV+zi0Ex2DReM7t2kUGCp8tk7UrRDaj258gRG2ed674dEWA9JWr976eHb1mbJQ
-	 WlELrzcVjeVCqk2TpUWHY/2GHdg0tDHkhekUVeSGI5KRfZ+QEWHMlSGMWAZntPJkmy
-	 OyqJHqCOTFUjA==
-From: =?UTF-8?q?Ali=20Ahmet=20Memi=C5=9F?= <aliamemis@disroot.org>
-To: Alexander Gordeev <agordeev@linux.ibm.com>
-Cc: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	LKML <linux-kernel@vger.kernel.org>,
-	Linux Trace Kernel <linux-trace-kernel@vger.kernel.org>,
-	linux-s390@vger.kernel.org
-Subject: Re: [PATCH] tracing: Delay module ref count for "enable_event" trigger
-Date: Fri, 11 Sep 2026 19:00:13 +0300
-Message-ID: <20260911160016.355492-1-aliamemis@disroot.org>
-In-Reply-To: <20260828134340.2501683A24-agordeev@linux.ibm.com>
-References: <20260724132415.1b5005db@gandalf.local.home> <20260828134340.2501683A24-agordeev@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MEmN1Xy7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789142514; x=1820678514;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=ujc4gahDkCicEOOqjPUihWYFOIFiCd+3SQ8TizbLmes=;
+  b=MEmN1Xy7o4zLQd0KDhJf3XaF1iOy3VlLwQSc5fTJBqjvG3DFmSqVwhEK
+   0pTKGThJ9Ollxkc0KlUhRmDOOXrgiGAhHi6WQ8k7G2eqcqGEQPL7iN4uM
+   ZBiJVhPIKjk/I2mmfjyKuJR/RSO1mCiY9o72DCXAlP60Kg7SxP26gPoQA
+   VXNCN8yGkaweexMCjW66NaotMO+xUgQHE+xerd8+E+6ndisxGIICFArtA
+   eKCMqrIrl0x82X2lv8W2zlA/D66jVNSSj0h9zY7dmnyZIfjI0hv37pAzn
+   yboeRwx+Mc8fnIQx0ot3qQdS5bj0N9goEfmt3m1XuP7G7HiMg+RiqVVP0
+   Q==;
+X-CSE-ConnectionGUID: L0K8H5Z4TRSiK+vmhbTXog==
+X-CSE-MsgGUID: 4wNGNnkHRTazl1fTh9QnlQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11902"; a="93302427"
+X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
+   d="scan'208";a="93302427"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 09:01:53 -0700
+X-CSE-ConnectionGUID: AdFjuv8aQxO8uw/zlLU2MQ==
+X-CSE-MsgGUID: jNTTNQIRR6CgxOPbx5OxGg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,97,1787036400"; 
+   d="scan'208";a="270190829"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.80])
+  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 09:01:50 -0700
+Date: Fri, 11 Sep 2026 19:01:47 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Cc: Linux ACPI <linux-acpi@vger.kernel.org>,
+	LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v1 2/4] ACPI: glue: Rearrange acpi_bind_one() to avoid
+ breakage
+Message-ID: <aqQl6wYLlMpHYgDy@ashevche-desk.local>
+References: <12995802.O9o76ZdvQC@rafael.j.wysocki>
+ <3465482.44csPzL39Z@rafael.j.wysocki>
+ <aqOwUynzp3APwfYS@ashevche-desk.local>
+ <CAJZ5v0jD4KvoBgcR1gysK1g7y48aM+w0=eNt1oq2QkbbS1vv7Q@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAJZ5v0jD4KvoBgcR1gysK1g7y48aM+w0=eNt1oq2QkbbS1vv7Q@mail.gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Fri, Aug 28, 2026 at 03:43:40PM +0200, Alexander Gordeev wrote:
-> This patch increasingly looks as a regression on s390.
-> We are hitting this once in a while when running the ftrace selftests:
-[...]
-> I did not manage to come up with a reproducer - if you have any idea,
-> please let me know.
+On Fri, Sep 11, 2026 at 12:24:16PM +0200, Rafael J. Wysocki (Intel) wrote:
+> On Fri, Sep 11, 2026 at 9:40 AM Andy Shevchenko
+> <andriy.shevchenko@linux.intel.com> wrote:
+> > On Thu, Sep 10, 2026 at 07:56:10PM +0200, Rafael J. Wysocki wrote:
 
-Sent a fix:
+...
 
-https://lore.kernel.org/all/20260911155650.354844-1-aliamemis@disroot.org/
+> > >  int acpi_bind_one(struct device *dev, struct acpi_device *acpi_dev)
+> > >  {
+> > >       struct acpi_device_physical_node *physical_node, *pn;
+> > > +     struct acpi_device *comp_dev = ACPI_COMPANION(dev);
+> > >       char physical_node_name[PHYSICAL_NODE_NAME_SIZE];
+> > >       struct list_head *physnode_list;
+> > >       unsigned int node_id;
+> > >       int retval = -EINVAL;
+> > >
+> > > -     if (has_acpi_companion(dev)) {
+> > > -             if (acpi_dev) {
+> > > -                     dev_warn(dev, "ACPI companion already set\n");
+> > > +     if (!acpi_dev) {
+> > > +             if (!comp_dev)
+> > >                       return -EINVAL;
+> > > -             } else {
+> > > -                     acpi_dev = ACPI_COMPANION(dev);
+> > > -             }
+> > > -     }
+> > > -     if (!acpi_dev)
+> > > -             return -EINVAL;
+> > >
+> > > -     acpi_dev_get(acpi_dev);
+> > > -     get_device(dev);
+> > > -     physical_node = kzalloc_obj(*physical_node);
+> > > -     if (!physical_node) {
+> > > -             retval = -ENOMEM;
+> > > -             goto err;
+> > > +             /* If the companion has been set upfront, pick it up. */
+> > > +             acpi_dev = comp_dev;
+> > > +     }
+> > > +     if (comp_dev && comp_dev != acpi_dev) {
+> > > +             dev_warn(dev, "ACPI companion already set to %s which is not %s\n",
+> > > +                      acpi_dev_name(comp_dev), acpi_dev_name(acpi_dev));
+> > > +             return -EEXIST;
+> > >       }
+> >
+> > I would rewrite the above to look as following (if I got the logic right)
+> >
+> > int acpi_bind_one(struct device *dev, struct acpi_device *acpi_dev)
+> > {
+> >         struct acpi_device_physical_node *physical_node, *pn;
+> >         char physical_node_name[PHYSICAL_NODE_NAME_SIZE];
+> >         struct list_head *physnode_list;
+> >         struct acpi_device *comp_dev;
+> >         unsigned int node_id;
+> >         int retval = -EINVAL;
+> >
+> >         comp_dev = ACPI_COMPANION(dev);
+> >         if (comp_dev) {
+> >                 if (acpi_dev) {
+> >                         if (comp_dev != acpi_dev) {
+> >                                 dev_warn(dev, "ACPI companion already set to %s which is not %s\n",
+> >                                          acpi_dev_name(comp_dev), acpi_dev_name(acpi_dev));
+> >                                 return -EEXIST;
+> >                 } else {
+> >                         /* If the companion has been set upfront, pick it up. */
+> >                         acpi_dev = comp_dev;
+> >                 }
+> >         } else if (!acpi_dev) {
+> >                 return -EINVAL;
+> >         }
+> >
+> > The rationale is to avoid assignment and known-to-be-false test later on. Also
+> > split assignment that is going to be validated and moved it closer to the user
+> > (this helps with maintenance in a long term). Unfortunately double test of comp_dev
+> > against NULL just replaced with a double check of acpi_dev against NULL, no gain
+> > here.
+> >
+> > TL;DR: original and proposed pieces have their pros and cons.
+> 
+> There are reasons why I prefer the original changes.
 
-It's the deferred trace_event_put_ref() reading file->event_call after the
-instance rmdir already freed the trace_event_file. Could you give it a run?
+Thanks for clarification. Yes, your variant (as put below) sounds good enough
+to me.
+
+> There's fewer indentation levels and fewer lines of code there and
+> !acpi_dev is actually the most common case because acpi_bind_one() is
+> called with acpi_dev == NULL for every device, so it is better to deal
+> with it upfront.
+> 
+> However, it can be observed that the condition in the second "if ()"
+> (in the original $subject patch) is obviously false if acpi_dev is
+> NULL, so it can be moved to an "else" branch in the first "if ()":
+> 
+> if (!acpi_dev) {
+>     if (!comp_dev)
+>         return -EINVAL;
+> 
+>     /* If the companion has been set upfront, pick it up. */
+>     acpi_dev = comp_dev;
+> } else if (acpi_dev != comp_dev && comp_dev) {
+>     dev_warn(dev, "ACPI companion already set to %s which is not %s\n",
+>              acpi_dev_name(comp_dev), acpi_dev_name(acpi_dev));
+>     return -EEXIST;
+> }
+> 
+> and that avoids a redundant check when acpi_dev is NULL to start with
+> (and is one code line less even).
+> 
+> I'll make this change, but I'd rather not send a whole v2 of the
+> series for this, so I'll do it when applying the patch.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
