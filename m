@@ -1,68 +1,164 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C50A93E559B;
-	Fri, 11 Sep 2026 23:33:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789169630; cv=none; b=IT2CaIY8Dzn8kkk3okZPJ7ewO9j5RP9XgjhQsfNgVVo1AyhC4kUVYdMA7ZfNzcSJrIpj99TUucO9ff6zNpOY+p1QSuqgh10JASa11eYX5Cnk1k8KbTWQCpEind5qXOci8nYE6wBWNGgIEBhSflXuGYnQpgV/BHcarD08xiCMP3U=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789169630; c=relaxed/simple;
-	bh=MSPRi5LPGRatMZE06AgWTDa/3BLYDw6nznSRgCXsDYs=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=kAfy2YlEt4KVB24dUOlBHAoOO9exCHq1qtIuJ6nYocX9zhQh4yp0RVz1FjLkbSKYq8UQ5pItd6x+6hH00koJquZi8b7qPYOuT9IJh7aCVNtVJHcg1JDZ7399dQR6eC8vg2k61si7AxArA4oo8mrGCtQUEpWki/vDc9tQmrNnIps=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M3v/ylxk; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M3v/ylxk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 930A91F000FF;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6B563DAAD0;
 	Fri, 11 Sep 2026 23:33:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789169629;
-	bh=Zc0yaMzBORhlcdAryqbANRe9WowMzC+qKnvwl2m5wRw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=M3v/ylxk47CIy9WUmEQov3pzX30z3xsZZqDPnwD9i59IQa4QXn2FQRTSOPEsFnpMZ
-	 H1JL2KGb1GzOOBMb54VtqwLSCeO1Pw7qQdDTJU4+ajNWdp7A7zBYAY28ushm/5wnbs
-	 Zw8tFgWd6zjTiIz6uicDRn/U+9sVYTHEBCYSofkdi/L3m0JIq6yLZDT++Im/q8AJCu
-	 b4VZbPKkQWT8Clvsc0IaxSQxFphyo7owp+DVJoKoT5t4kbzpIiRAcsUXosnYULLNzB
-	 vTMGF8VIAsM6Jlgm0Ymn5rhQ1kJdx6Y4ocl5mwsb7GJWNTFbFVl9NP6pX76KLxGCSn
-	 Cbf3HjH85t7rA==
-Date: Fri, 11 Sep 2026 16:33:48 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Bastien Curutchet <bastien.curutchet@bootlin.com>
-Cc: netdev-bot+sashiko@kernel.org, woojung.huh@microchip.com,
- UNGLinuxDriver@microchip.com, andrew@lunn.ch, olteanv@gmail.com,
- davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
- richardcochran@gmail.com, pascal.eberhard@se.com,
- miquel.raynal@bootlin.com, thomas.petazzoni@bootlin.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v3 10/10] net: dsa: microchip: add periodic
- output support for the KSZ8463
-Message-ID: <20260911163348.5e2a6c20@kernel.org>
-In-Reply-To: <e2ecdd7e-80dd-4540-a316-0718d05cb367@bootlin.com>
-References: <20260908-ksz-perout-v3-10-6722a3f1ca75@bootlin.com>
-	<178903621782.219967.1067616730052651942@kernel.org>
-	<e2ecdd7e-80dd-4540-a316-0718d05cb367@bootlin.com>
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789169630; cv=pass; b=WwpPHevgFu2JO/baGmYeyCUgqChKv5NWZgc3JFVNi0K1IL24XuG1bf99CGzaa/04HXcHUet+akf4yi442oIQWnwiCSaODASukkF/7IGYMFC84O/CNs0Ezcvd7mqH2c6/hQJvN1QvLMLmi2Q4U1Vd4+IM+5ysgzxu1g2WwZ3fU+A=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789169630; c=relaxed/simple;
+	bh=Yo+9K2nblqwDnLI6SnUTtE21RpYU30T8k87N5vXWLrc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VE7MsOuLFYhw77PvLAn2SKh1jmYY8qp3Lc8WALQTOLgFcC4QmedMBqanEnOdFHIpDCQK+KKxW9QSLnFWHjLqsTayutk5Te+jmvyNsVzMc5dBBtG5OQ09iIgQvrq+jkUcTr9HHXVz5ASWJKIrk7o7T3fQJbktRY2Sj/GSfrNNz/E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=Jsm26mRv; arc=pass smtp.client-ip=165.173.182.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="Jsm26mRv"
+ARC-Seal: i=1; a=rsa-sha256; t=1789169608; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=mAAVftruK7RZ9u89zhkmXNyh3qvxYiEGBEfrf57eZyJ86b36g/B5ryA4hiQV0RqoedA4bpd8zpK1NsTyVvRHJbr1DeAXi1Kd01fg9n7QR47TsCQkse1bzw5oFKzOD9myRp/Wq7Um0u5pM8Of0CtrM9SgJ/WOtm4ojBdL+MOCzRA=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1789169608; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=FlSuAj76Xa7+btWKg1rFtrdbbsqdb8pmg5RuE4pVw8Q=; 
+	b=KOu9AHP+5+6zaagWPzxr7jUzdbDqRjd7lAHX07oPuNAdmWxivMZtgFm4HVr0wY8ikXd9tQRS6sYpZtRobQYDwKVlROiQM2TNkbjZk8dRn+oAAaPjwIaeoOQisOcg0yGBfju8Vo7gpSfptYKpfBZVLCR1SvviZjLDz+kvUh8o1kY=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+	dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789169608;
+	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
+	bh=FlSuAj76Xa7+btWKg1rFtrdbbsqdb8pmg5RuE4pVw8Q=;
+	b=Jsm26mRvp27+E7Gla/l/m9cPR7hCZ1J2W4HW0n+RIU2a2CEH0uwfLiqJim278yny
+	nG8BOSCvsoWFVxI1e1cUCRJJ3y7WLy7Iy9P6iy/hh80Z/uaYzhmOXOfknvZOD23s8uT
+	uuOXzZfOt4eODuFaxxRJAx7ut4v1pR818WEse8nU=
+Received: by mx.zohomail.com with SMTPS id 1789169607383556.0096067894884;
+	Fri, 11 Sep 2026 16:33:27 -0700 (PDT)
+Date: Sat, 12 Sep 2026 00:33:23 +0100
+From: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
+To: Guangshuo Li <lgs201920130244@gmail.com>
+Cc: Boris Brezillon <boris.brezillon@collabora.com>, 
+	Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, 
+	Eric Anholt <eric@anholt.net>, "Marty E. Plummer" <hanetzer@startmail.com>, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] drm/panfrost: fix autosuspend cleanup during teardown
+Message-ID: <aqSOyUCZ7rT-u1hF@sobremesa>
+References: <20260808135025.2872956-1-lgs201920130244@gmail.com>
+ <anx91vwww0TMjLn8@sobremesa>
+ <CANUHTR9Xneqaa7FvdKmwuBfKiBuj2nE+nOXOxuR_cJYjExiemQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CANUHTR9Xneqaa7FvdKmwuBfKiBuj2nE+nOXOxuR_cJYjExiemQ@mail.gmail.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/289.144.59
 
-On Fri, 11 Sep 2026 09:23:06 +0200 Bastien Curutchet wrote:
-> This is an already existing bug. It made me realize that I forgot to 
-> send the fix ..
-> 
-> The fix conflicts with this series. I can either send the fix now, wait 
-> for it to enter net-next and then send a new iteration of this series; 
-> or send the fix once this series has been merged. I checked the other 
-> Sashiko comments, and IMHO, this comment is the only one that is really 
-> relevant.
-> 
-> What do you prefer ?
+Hi Guangshou,
 
-Let's get the fix in and then repost this set after the net -> net-next
-merge. Conflicts require manual work for a bunch of people, they are
-best avoided.
+I'm afraid in the end I can't apply this patch because the series I wrote, besides including this
+fix, has quite a few others to deal with existing issues with power management in the driver.
+It felt awkard to apply this one in isolation without addresing the other bugs at the same time.
+
+Check https://lore.kernel.org/r/20260912-claude-fixes-v9-0-e588feaa61ef@collabora.com for further
+context, patch 6/16 to be more precise.
+
+However, like I said in a previous message, I'll soon be compiling a list of existing issues
+and post them on a Freedesktop Gitlab issue for anyone curious to have a go at.
+
+Cheers,
+Adrian
+
+On 13.08.2026 10:10, Guangshuo Li wrote:
+> Hi Adrian,
+> 
+> On Wed, 12 Aug 2026 at 22:35, Adrián Larumbe
+> <adrian.larumbe@collabora.com> wrote:
+> >
+> > Hi Guangshuo,
+> >
+> > Recently I've been working on a patch series that addresses PM refcnt imbalances in Panfrost.
+> > One of the fixes introduces devm_pm_runtime_enable(), so manually calling pm_runtime_dont_use_autosuspend()
+> > is no longer necessary like you mentioned in the commit message.
+> >
+> > However, there might be a point in using it during device teardown and probe error just like Panthor does,
+> > becasue it doesn't make sense to postpone suspension when the device is going away.
+> >
+> > Anyway, you can have a look at it here:
+> > https://lore.kernel.org/r/20260811-claude-fixes-v5-0-3d692c9e98c2@collabora.com
+> >
+> > I was thinking, I'll let you know when I've v6 ready and then you could rebase this patch onto it
+> > before I submit the series to the ML so that I can send them all together?
+> >
+> > Kind Regards,
+> > Adrian
+> >
+> > On 08.08.2026 21:50, Guangshuo Li wrote:
+> > > panfrost_probe() calls pm_runtime_use_autosuspend(), but neither the
+> > > probe error path nor panfrost_remove() calls the matching
+> > > pm_runtime_dont_use_autosuspend() during teardown.
+> > >
+> > > If the autosuspend delay is set to a negative value while autosuspend
+> > > is enabled, the runtime PM core increments usage_count to prevent
+> > > runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
+> > > during teardown, this reference is not dropped.
+> > >
+> > > The documentation for pm_runtime_use_autosuspend() also notes that it
+> > > is important to undo it with pm_runtime_dont_use_autosuspend() at
+> > > driver exit time, unless runtime PM was initially enabled with
+> > > devm_pm_runtime_enable().
+> > >
+> > > Add the missing pm_runtime_dont_use_autosuspend() calls to both the
+> > > probe failure and device removal paths.
+> > >
+> > > This issue was found by manual code inspection.
+> > >
+> > > Fixes: f3ba91228e8e ("drm/panfrost: Add initial panfrost driver")
+> > > Cc: stable@vger.kernel.org
+> > > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> > > ---
+> > >  drivers/gpu/drm/panfrost/panfrost_drv.c | 2 ++
+> > >  1 file changed, 2 insertions(+)
+> > >
+> > > diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
+> > > index 784e36d72c2b..007dcba62e62 100644
+> > > --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
+> > > +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+> > > @@ -1011,6 +1011,7 @@ static int panfrost_probe(struct platform_device *pdev)
+> > >  err_out2:
+> > >       drm_dev_unregister(&pfdev->base);
+> > >  err_out1:
+> > > +     pm_runtime_dont_use_autosuspend(pfdev->base.dev);
+> > >       pm_runtime_disable(pfdev->base.dev);
+> > >       panfrost_device_fini(pfdev);
+> > >       pm_runtime_set_suspended(pfdev->base.dev);
+> > > @@ -1025,6 +1026,7 @@ static void panfrost_remove(struct platform_device *pdev)
+> > >       drm_dev_unregister(&pfdev->base);
+> > >       panfrost_gem_shrinker_cleanup(&pfdev->base);
+> > >
+> > > +     pm_runtime_dont_use_autosuspend(pfdev->base.dev);
+> > >       pm_runtime_get_sync(pfdev->base.dev);
+> > >       pm_runtime_disable(pfdev->base.dev);
+> > >       panfrost_device_fini(pfdev);
+> > > --
+> > > 2.43.0
+> >
+> > Adrian Larumbe
+> 
+> Sure, I’d be glad to do that. Please let me know when v6 is ready, and
+> I’ll rebase my patch on top of it.
+> 
+> Best regards,
+> Guangshuo
+
+Adrian Larumbe
