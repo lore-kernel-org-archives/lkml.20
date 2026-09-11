@@ -1,35 +1,62 @@
-Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 018D32E7378;
-	Fri, 11 Sep 2026 02:06:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.161.220
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB99035CB7F;
+	Fri, 11 Sep 2026 02:07:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789092421; cv=none; b=fBpqvxOpvEIUdTv2a48q1+gP56d/SMf4QE4tI41Z+f+MEyOxMIcI96y87RcTx7oviQDg/zIeSjhkRQmh8JPrj+W1fGaRkgI5g4T5VU8M+6mbD61SiRzllYp8uVbkwlOsJn1WXaFthuxs0+gq3bLlrp3nxodWSemd3Zv++nr8f5Q=
+	t=1789092477; cv=none; b=JbGpeqvqOWQPKKGIHPtwzABjNWu9vcHzsmOQm9sLBWfybtP5Voam5pAgSXnfDgEZoTvWOSI9/uw8Cjlbd/VgULO22ER9n3FadUrVRQLYwMUdKHhJZXDgVG7qTdZM1xLWBgUe1PeXXCMvGUadvcRWhCInxKqu0e3I5Zz+JUr//vE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789092421; c=relaxed/simple;
-	bh=1dtU5TOUa1+dyx1hn5t0NaQeaDgdhBqRisH1DuW5npI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=CH6byATNzZZc49lZH+M+jTWpB2Y9Rk81ASaqL9Xym2Zgcj6K7c6xbHC8bClcq9RYro43IjaqYfVLSw2H1Nf+uwiqzW9u2QSh4kbUO6D7aRKZne5SK5Au0aaRqDacUDb/0UFfZXBxbU/CBs39//jaQYasX38fCAMTwG+m2ZjNb2I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=162.243.161.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wCHgD8zYqNqgokIAQ--.3500S3;
-	Fri, 11 Sep 2026 10:06:44 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app2 (Coremail) with SMTP id zC_KCgB3CtEyYqNquF5tBA--.35527S2;
-	Fri, 11 Sep 2026 10:06:42 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: oliver@neukum.org,
-	aliakc@web.de,
-	lenehan@twibble.org
-Cc: James.Bottomley@HansenPartnership.com,
-	martin.petersen@oracle.com,
-	linux-scsi@vger.kernel.org,
+	s=arc-20240116; t=1789092477; c=relaxed/simple;
+	bh=5ZSezPgL8RvDa829HOfJft8+065d7PRQjPG2zmtL3I8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lU1NL9x7xuo/GNrbkfneoPO8zqfOH2bvU3R4tW79EHvFstRnp8chC0DslEw90XQx7nOGnoTwy/ArBh2xd6b5ad6/OFgam3JeI0HMsj1/gBxM83TxHfkaIelvIQ1wVVnXpUTDSzU3Q3JX3t/u32QT33f+nh3N3bociXAByURTpyw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HNaBou1t; arc=none smtp.client-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HNaBou1t"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789092475; x=1820628475;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=5ZSezPgL8RvDa829HOfJft8+065d7PRQjPG2zmtL3I8=;
+  b=HNaBou1tt4RDDx8i2cQ4TDEr9yyrt47Si/WU5G3IVfUgTdZZH94jQIzl
+   9GcIbDPP2Rfu661wqdElej3e3nw7uelZwtQMrOEebuNedUdRzuNakFL+L
+   ryc/c7CD1YpNggKJtxtfhOHuN1WnG94YZguPs33gkRTVeOZy8YZCUkzS4
+   S7V2EJoGt7TKLdr+IndpNKCEmGHThUHXwxtJm0oqewh+2ExWP55SIhbT1
+   +FEEzJ8hiQkTFn+O4hIaQinJD+wcApjFFrf6K/YftHJxVgbMCkSOz9REb
+   bDPntIJEMtyijrwPdsQbnSIZ25N0UYfLhK4Om/T1iFcWqVb5yfu5xdiRX
+   A==;
+X-CSE-ConnectionGUID: ygw3Ht9hSw6Vn+w6FA+sRw==
+X-CSE-MsgGUID: 4Pp7+BXCRJGzOZxkDiSojg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11901"; a="88697692"
+X-IronPort-AV: E=Sophos;i="6.27,96,1787036400"; 
+   d="scan'208";a="88697692"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 19:07:52 -0700
+X-CSE-ConnectionGUID: g1ydOlmIRbOuoRSY/CyTUw==
+X-CSE-MsgGUID: UGIvXrs0Qb2L0QxuMT5TBQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,96,1787036400"; 
+   d="scan'208";a="265595484"
+Received: from pankris-x299-ud4-pro.bj.intel.com ([10.238.152.122])
+  by fmviesa009.fm.intel.com with ESMTP; 10 Sep 2026 19:07:50 -0700
+From: Kris Pan <kris.pan@intel.com>
+To: edumazet@google.com
+Cc: davem@davemloft.net,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	atomasov@redhat.com,
+	oliver.sang@intel.com,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] scsi: dc395x: sync the waiting_timer before freeing the host
-Date: Fri, 11 Sep 2026 02:05:44 +0000
-Message-Id: <20260911020544.42966-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	Kris Pan <kris.pan@intel.com>
+Subject: [PATCH] net: iterate online nodes in skb_defer_free_flush()
+Date: Fri, 11 Sep 2026 10:04:38 +0800
+Message-ID: <20260911020438.3502801-1-kris.pan@intel.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,85 +64,43 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zC_KCgB3CtEyYqNquF5tBA--.35527S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?Ss9SQwXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfncGSG+szpQCInt5Y8rbJUI2Ua2YcfOqAp+ssWdS7x5LHL3VMvLoD1QUFpGgVgVF9+ilW
-	lzWXXeHfR2Um9GD+FCmp9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoW7uw4xAF13KF1ktr17JrWUAwc_yoW8KryDpa
-	ykWw17KF1jqr47tw47Cr4kWFyrAws3JFWDKFW8Wa15uan3Gr1YyF98KFyjvFW7Aan5XFn7
-	AF4kX3Z8Arn0krcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8
-	JbIYCTnIWIevJa73UjIFyTuYvjxU7gAwDUUUU
 
-The waiting_timer callback re-arms itself and takes the host lock.
-adapter_uninit() currently stops it with timer_delete(), which does not
-wait for a callback already running on another CPU. The final
-scsi_host_put() that frees the host (and the host lock the callback
-dereferences) runs right after adapter_uninit(), so a concurrent or just
-re-armed callback can fire after the free, leaving a potential
-use-after-free window.
+skb_attempt_defer_free() only queues skbs on the current CPU's node
+(numa_node_id() of a running CPU), which is always online, so the
+flush loop never needs to visit nodes that are merely possible.
 
-Replace timer_delete() with timer_shutdown_sync() at the top of
-adapter_uninit(), before the host-lock section: the timer is dequeued,
-a running callback is waited for and rearming is blocked before the chip
-is halted, so it cannot fire at all once the adapter has ceased to
-function. Waiting outside the lock avoids the self-deadlock that would
-result from syncing a callback blocked on the lock we still hold.
+for_each_node() walks node_possible_map.  On machines where the
+possible map is much larger than the online map -- e.g. a POWER10
+LPAR with 32 possible but 1 online node -- the flush loop touches 31
+cold, always-empty per-node lists on every softirq pass, showing up
+as skb_defer_free_flush() and _find_next_bit() overhead.
 
-No shutdown is needed for selto_timer because it has no reachable armer
-or callback.
+Use for_each_online_node() to iterate only node_online_map.
 
-This issue was found by an in-house static analysis tool.
+Loopback UDP throughput in a QEMU guest with 32 possible / 1 online
+nodes (bench_udp, 8 senders, 6 interleaved runs) improves by ~5%.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Cc: Jamie Lenehan <lenehan@twibble.org>
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Fixes: 5628f3fe3b16 ("net: add NUMA awareness to skb_attempt_defer_free()")
+Reported-by: kernel test robot <oliver.sang@intel.com>
+Closes: https://lore.kernel.org/oe-lkp/202512112119.5b9829a-lkp@intel.com
+Signed-off-by: Kris Pan <kris.pan@intel.com>
 ---
-v2:
-  - Move timer_shutdown_sync() before adapter_uninit_chip(), as
-    suggested by Oliver Neukum.
-v1: https://lore.kernel.org/all/20260810055028.119525-1-fanwu01@zju.edu.cn/
+ net/core/dev.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- drivers/scsi/dc395x.c | 10 ++++------
- 1 file changed, 4 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/scsi/dc395x.c b/drivers/scsi/dc395x.c
-index 6183ce05d..fcd4c0029 100644
---- a/drivers/scsi/dc395x.c
-+++ b/drivers/scsi/dc395x.c
-@@ -3814,13 +3814,11 @@ static void adapter_uninit_chip(struct AdapterCtlBlk *acb)
- static void adapter_uninit(struct AdapterCtlBlk *acb)
- {
- 	unsigned long flags;
--	DC395x_LOCK_IO(acb->scsi_host, flags);
+diff --git a/net/core/dev.c b/net/core/dev.c
+index 290e0f099e6bf..b528b6a986fcf 100644
+--- a/net/core/dev.c
++++ b/net/core/dev.c
+@@ -6907,7 +6907,7 @@ static void skb_defer_free_flush(void)
+ 	struct skb_defer_node *sdn;
+ 	int node;
  
--	/* remove timers */
--	if (timer_pending(&acb->waiting_timer))
--		timer_delete(&acb->waiting_timer);
--	if (timer_pending(&acb->selto_timer))
--		timer_delete(&acb->selto_timer);
-+	/* Drain the self-rearming timer; must not run under host_lock. */
-+	timer_shutdown_sync(&acb->waiting_timer);
-+
-+	DC395x_LOCK_IO(acb->scsi_host, flags);
+-	for_each_node(node) {
++	for_each_online_node(node) {
+ 		sdn = this_cpu_ptr(net_hotdata.skb_defer_nodes) + node;
  
- 	adapter_uninit_chip(acb);
- 	adapter_remove_and_free_all_devices(acb);
+ 		if (llist_empty(&sdn->defer_list))
 -- 
-2.34.1
+2.43.0
 
