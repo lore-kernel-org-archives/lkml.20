@@ -1,325 +1,199 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012056.outbound.protection.outlook.com [52.101.66.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0524C41DE0B
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 19:32:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FF50538D98
+	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 19:33:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.179
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789155167; cv=fail; b=Gs6VBgZdpjJVqBSb0GiYjlYiAZ7QQCsGu04h3ZwPbWZDKVjGU19cPWH6g3yFizGrFJR03Jtv7QOv7vZyWgcSVfEFeC8ERQzbj0tOmrkqjj5jzGaTf+x32E/6TwMIX79Mm21Ox1BNJNk5+D4NWTHVxMJsqApzlCQchV5Wj3SwJQ4=
+	t=1789155198; cv=pass; b=neXpTiRJ5NEfK9dumfRFYhHsboDPgb8rPO/CtDJhBeVxgeauzu6vAtocv5nz9dYUD7p+IrYftyFDHocnwYvLHGPAgX6M/Sjn1Yl4UUpcZGId+kUKSOTAvxt/mZhGDm0AN4ws4e4bw28IRuyAfQlSeNt/ze+Pud/hIR3Ybhu7CC8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789155167; c=relaxed/simple;
-	bh=XSC8qI/aQcQZqvKEIujoucQg8EH3p0WnylCQ5/R1dcs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=LHWDzfmuNt8fJS/aLERiJ2G2KiuUXAeIxxzNVNJtCo4nK/kpqpHcZ0Q9a41CnWXN51/3sRRHd6MDzQvDep7KiVwcCe1kSlDwkM6gUXA+JLxZly9cH8bmZaNpYQADECjLp0g4+JYj0WxIZyM/+nLLYiDkRlFECfwMy6GrtMq2+JI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=fail (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=Lt5UJstC reason="signature verification failed"; arc=fail smtp.client-ip=52.101.66.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	s=arc-20240116; t=1789155198; c=relaxed/simple;
+	bh=CGyOJflPw9TgiV+rqedwCHC27ERtreB0Gsv6VIvPr90=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=j7ZrGw7iSNa1MnmyopJy5kYBzZkuB8E+Mwv+v95z5VbinQkKxPYyb/gl6Ex+usQlh9MBs25ttLtm8kPHx1CKDPZBb1z7HqzTGrApTbZaiHO969sTnQ07ppt2JZPOjxLLeSdtEXh7ZLm9l2WmMCEhqa3f8lu+1wG4JnJzpoyz8UQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Pm/oUhEH; arc=pass smtp.client-ip=209.85.128.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="Lt5UJstC"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rNZdmW8rNAh+aLmkYpA7/bRB3Oc62OeqP1sd0S92uJNqrzvZmGwR7gdiNT5Qhp0LmUenGw5+d56uGi2tRbzzlYRMKBSzL+1Usdh4LEtLb0bkJOCggaZdf8rK5TCUU7/nEq63nS4wPSknDcQU8WS83LCAWMIhvdqkxF2sph2breZQh4N0mDsNxseaGS6Hnde6836e42ESvwh2PvCqMEaWmM300jtMWlBZwUkZfbxNDug72WT5ri+n4/V7KwQHYkMgvAQS+SFSF65S5EtzZGVvtkJLs1asKZzxeDFuohC4rhA+125vkMTnAKJdg3hIJ299DAER16un/iKTGGQTPv3J6g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nPPduQCKR51rlxY+zK1BI96fFFSBAm339SI518w9idY=;
- b=ZmQ1JgzBs69ycCvJpgX8+TyfqEY8BNiJpW92KkY8wM27GLcHV3Uc9r2+emTAEldp+Itsc4zV/W5EupvEP2ZFRfp0P/tmK679JRGevIEkB4Cjcrzts0hmlgCqb3E2hmH7Ge6vfA77VrdoYW9rDW8y1fEklzbGMViZuydKbYJwsJd6jvJIAGQoSc9rO1H0i30DNh7n13n4bN2jSaX0jry3o6fu42TaKZuuzIlTp5bEEggPIiPx4j2A8foI6ZTKpFlpxWVE4b5bW75+hHOvkMmqDaBZZLpU1yeQlr004PJoGxCb+EqZeYAMmovzYutFnz8wCkcral56NRmTWPq+kmM5Ug==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nPPduQCKR51rlxY+zK1BI96fFFSBAm339SI518w9idY=;
- b=Lt5UJstCqTgHIVq4KUsHmreO6k8++3BP6iblmMj6cyq/uHAWKIQ7O85AFpW6mFkIPUkDOOn4sZg3kJEZ5zF5aK2junj7oAw2XHtUoAkT1IWlpXg6Wpr5YCK5H2tFDnOIinGwOZCSggCnLRswBY9JzW/50IWIKP6afK0xEXKsQg5G3iHoit6yvvVdnRshG9ZfPOX39lO/fSokLfEFdViJO1NRoHGcfoHNgYOtCsGdn5oE9g97M0pUQVGhXbf99ThGUY+8uUa0cAQfoW92WyKYAjRe2lcD/jKnn7n1gQ8EDGlOkfU+3ewZtfAFoP+acW/sV9YYl4VQ310vWReuhOfjHg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AS8PR04MB8642.eurprd04.prod.outlook.com (2603:10a6:20b:429::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Fri, 11 Sep
- 2026 19:32:36 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
- 19:32:35 +0000
-Date: Fri, 11 Sep 2026 15:32:28 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Radu Rendec <radu@rendec.net>
-Cc: Fabio Estevam <festevam@gmail.com>, tglx@kernel.org, Frank.Li@nxp.com,
-	imx@lists.linux.dev, linux-kernel@vger.kernel.org,
-	Fabio Estevam <festevam@nabladev.com>
-Subject: Re: [PATCH v3 1/2] irqchip/imx-irqsteer: Convert to
- devm_pm_runtime_enable()
-Message-ID: <aqRXTITjN3rgjsBk@lizhi-Precision-Tower-5810>
-References: <20260805192743.244441-1-festevam@gmail.com>
- <f5e720e174fb74615f5c3c0702e63f6b8aa3ec87.camel@rendec.net>
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <f5e720e174fb74615f5c3c0702e63f6b8aa3ec87.camel@rendec.net>
-X-ClientProxiedBy: PH1PEPF00013301.namprd07.prod.outlook.com
- (2603:10b6:518:1::f) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Pm/oUhEH"
+Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-87005a0e052so16413617b3.2
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 12:32:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789155173; cv=none;
+        d=google.com; s=arc-20260327;
+        b=jlu6b/FUM3S7zT37b/gfvM7ruYV4j6zZ9XowzBimGMPOjIhVEeJ9O5znwcsM/0mk1d
+         uqtW0y+6+2MGZ9UUtcTbK763X+iLfaixzHtd0Yf+ZknTPVWKVudHi0kYj9MIubYO0YdZ
+         s7QD59J5gfqErDj3TySO5sCzlRyW8sqEmSscSbnk7wBV77Uy349fa9+l2PNm6FKrebKQ
+         fFEQmmkMjZgp1fcrhk/cQkQ0webxPUvSRXQ4rI4M0yfVklP/zvDeh7Jl4dOoknJPkm4K
+         WSGUK1RYkHxbR5mROk4I+9KiKyUUwY3TgDJuCwMvep1K3UznQMKe6p9O1wCqcxfsxICh
+         EWfw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=/rJ/7COLhmxpolU24jgY2LdSFwnw3Shgdsy8Wx+a790=;
+        fh=SOHrOijkKIz6C0ITMijyv3UU4/PmZMM0GVkCvGSnGEg=;
+        b=dKgD492mQMHhXJqFWuhu3GXLROF4XgOqPlj1dzs05grNptf48CQ0LKPEL/vKx9/inm
+         DYKEXjBuRWopASTWjcnNo61ZrMH9rc3nBSm2fHdYXnDq2p6Ok+LVk3ALcyPhtxlJ3qND
+         /tgPKvo9LC+hYpaMcfbouoFmDsoBzNGv+yFI6RrLCsBe98FEN1/AIJ5VHQlJEbU5MQOT
+         3R43wyladb8o8DksUmJNu4B0hz6MQuQS0orUVkC52B8iAUIgzUhfd1hEbDukSMCK4Dzk
+         l5FySSXbUy60/mshtw1DOuDYFyUzJ+4FQd43SZOPuDltM7Qipw47js1lM1q+3AJ9HNPF
+         sU3Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789155173; x=1789759973; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/rJ/7COLhmxpolU24jgY2LdSFwnw3Shgdsy8Wx+a790=;
+        b=Pm/oUhEHcqPF43r2HvKgd0CydFNW8cBsXI6K59+mMSlso0bKPZ6hXu96UZBd1MRqAk
+         4+3131sVWFYveKQigE6rBRsXxF7pp0XR+4lYbkTFOn+VK4Geu0tMLnr3OGYjlsrfMhok
+         AE6a+7xdtyOiaPql/tXmhfMcymORcfLuY2VQFQWv3BjERrBN1Tat00rtMiPHTYOaX9Ms
+         rC0C+ZaiUO4bKHGgXozk04YiQwkGOMS4B44FA+gGOtZG5zHRBdEjU3rlpKIfX+XNolz6
+         UYF2OWuxPX5h3Uf28jMXl8pf7ibY2IONKkTXAzfERpNKUnl52+GsSeBVmdUfv/EwhClj
+         ktIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789155173; x=1789759973;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/rJ/7COLhmxpolU24jgY2LdSFwnw3Shgdsy8Wx+a790=;
+        b=TIg1O+9/7t8ILXgWtH7dJKJuXyfWZML1tKFnCv5I23/gAwwhZ22mXPdN8Qkj6ISOP7
+         6wBulZ8acuVx3bkRvG46ePIXtzl2D6FeTAyM6I1azCfuu/G7rf+ksdb7oeTxoqqR++rn
+         /HYJBL91HIFVITrcL/ZvmfJdgd14wIpwbUaG+wS+10ZFlcc+yjXAobdz2gkTnxN86EKH
+         ekH1vmE2PetU89QxQ/XzsRL9Ocidv+t/wQ/xvkDIosilgOdXSB9Efk4hDqkJ8rzWnmoz
+         GfEWPqoOAwQrWeeAJNMNm4rweD7KDOs/iphK3V2JJxRYEICCq3LBl0t7GQcLNMZwXZ6t
+         h4GA==
+X-Forwarded-Encrypted: i=1; AKwUvBxkupvgRdm4kx5s1XJD34A8oEOkZz+1l/voBgeBtCDdrHX5c+EXe5du9qx2ZppyR4EP4bQdFwsCGuHLzDw=@vger.kernel.org
+X-Gm-Message-State: AFuF++khAG0BSM/Y78YdgHsMApU+rcYbgCh82olv3ZQ3RZb+I46DU6iT
+	aS+7pMVvYLuPZ/fJqhL15X+IcbPFB0zex0mkizdLoSHoRYSmJ5xGCwYF8cpncXBHj3f4zBF+6Dc
+	3Wc2ImKItuTBU4KsXLK/oNpuHH2LU6/U=
+X-Gm-Gg: AYBFou0iQuPHPwV5tH00Bir0brs7Y/zsq+6ef+U2Jy9rfrJuAtPnRnPl/S+9mtAfKYH
+	El70S5Nmza6B0ure2byT8MfwjK48bvxvP7F8yfSYZ+JFZLkoKp8bUoQ/a5/DWgnFy2Ezdaa1BKG
+	zJphy2vzT/dFheW/eeJ4PlJ1Rnn8qAVVJWHKEwtSCUiAsIb8IM5tcMFlI/bhtLtl/Kf23YhU9Qt
+	X+RIqaTWufp1mNWjacW2Vqnh/HSXRbTvfwatnk/R4umepbssNdbNFMNXLxP5/pYQ7NyQ5P3KS1A
+	VAnpgfKMrXN2EwBj2764MER3v2VxPxX7X8HztIsaiiPZ7+V4zQ6z8ijd2XDdC7dwPBotomRhFFc
+	mZHNl5AE5fylmjbfed/wrVBL8wh26Qv9oebrGk5A=
+X-Received: by 2002:a05:690c:c50f:b0:865:c62b:6075 with SMTP id
+ 00721157ae682-884adfe8f7fmr22555577b3.2.1789155172327; Fri, 11 Sep 2026
+ 12:32:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AS8PR04MB8642:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7f3b0b37-e173-4116-9aec-08df103b6eb6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|23010399003|19092799006|366016|18002099003|6133799003|10067099003|4143699003|11063799006|56012099006|5023799004|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	pa3gIuwg6exQk8GHy77IaunQijqaKWZs9/MWPwyhuyYr7Hb7nlEWeJw8RsrBk4eFSnTW8/feJJ6t/ccFt1M9rcQZaVlUvLL+b+xV8yKUqvj+EEGbNvXxG5kGgk4oF5Psxr2FsNnCfmZmh5Bw3K6YekCst+/x/aWDy7ZcnUzBEgRb0h6dQDlQv+IOeZFam31F1xMqDCl9poO5IXB+MgDC8qxTzD/Vlea0gqb84wA/DVjz3m2NFQyosMtlq942po53R2NZAjviJx6B1VpAfyW+UTMExDnIL24YnwjJeeXs1VGaKklefmi6blvltnpkyr4E2GITNCxNM45s/z7VxyFcVjhipBEIGotfNc0G13kB1rvXq968ojUMqdCdKLj4GTscN2D74Msc+//Ih9E+1+GPF1dy0q9PKXFu+jk79zA+TlwJidR3dTAZ/g90ARax7PELWeu9mgZVYONXYrFw0oj/3e/09Bl6eeqtSM1JzNSjd5KcmDfT0vWZmtvzQooGYKRl2PVb3MJSmavCmVt3EOA0aNBnyoHu0VxWcJSKNxPJjGn/4LCDR60oz0yBUxDYxzZUK7MH7ITYInowEKVbBD1VZ13/5A0yezjQT2VwMP+BDKs5wzUJRg3oyqlGJTPJJm7R
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(19092799006)(366016)(18002099003)(6133799003)(10067099003)(4143699003)(11063799006)(56012099006)(5023799004)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?iso-8859-1?Q?MNR56l3gZM6RhC4fbEIvsWgANS48kPGXkKucKTOboBHHo8yDHt74pPnHaj?=
- =?iso-8859-1?Q?4dw7v8u7BSg17k2sRQFtbewgTkfdzdFKyNgToeK0srFRdlp1wZ0gc/Fw4u?=
- =?iso-8859-1?Q?RWYB1COU2PsLkqTT+1afMMA9vzuoIYvHRU6KB3nKuvrdDu2pyKRcokphHg?=
- =?iso-8859-1?Q?pMa0JUrGtAoRV1LFzRklzTflN+zCxh4tYowZRLUUP9E5VLN6ByoS7CkrpX?=
- =?iso-8859-1?Q?R5iyviQgcG1dH9Qxvt6i6/OUsqY9Cm+KJjbLcROvimj2/EBV06to8KgvhV?=
- =?iso-8859-1?Q?QzGiyB2gOmwp/e5hc6KhzPqiOB9NyuGTpknzLPBFs8dE66p2xvad1atwtt?=
- =?iso-8859-1?Q?XkS/26I3qBlMZsVw97fTQp3u5WKcOO0DbBYYTutuiqPHA+ZNeEShmIqCP6?=
- =?iso-8859-1?Q?ES5UkA3sM5F0xCjdv7TvK7Zs8GSgPXIwwAcUQ6HMzORfRdMBvbm1bJSiK6?=
- =?iso-8859-1?Q?sJhiQG1G81+S2AnQrAVUTNUkOvIfnROKKUtnS6fTZjnP3jMXV4zndP8j9d?=
- =?iso-8859-1?Q?Fte/hf/sVhMg6kL2KI1yOgmKTKFHLdIDiTrqQvMFx92l7z3I17UIuM1Opq?=
- =?iso-8859-1?Q?FwcGnRpN29p30nlC0PXcicVWMob9yVInVQonh6C/CB3TEgyAkCxZzUQ5VV?=
- =?iso-8859-1?Q?OuwNKVdMrm5xEpqSR9ptYjHfY5L4Fyl5gP5PIB5qNq+inTzkb5FVsnh3Oo?=
- =?iso-8859-1?Q?VaYSa+cNW36JPPDHloWlEpk6cjyIBjFgAtVzJFNtj+uXxJqwBe9fWnWyTd?=
- =?iso-8859-1?Q?Sq2G9LhmH5Rc5QNidnE9f6JvVtUzEahKtFbuWnoLFgKGa3yxq/HZ1HnOV3?=
- =?iso-8859-1?Q?X+k1uEMhF47txUxj8DttcYxQk1TISBetTWVLEs1eTEYxv6gZ7mwjcUGDLe?=
- =?iso-8859-1?Q?Tj17SWFxMHhlv/7osMd9PZtnsyULWIpErMzccq+VnJq0zHZnOyQjZfRero?=
- =?iso-8859-1?Q?naj4XRddG7e5X6vfjsorJAM1IycKOieUqWlbCj9DEwZleZYxHXAbv4UQ1I?=
- =?iso-8859-1?Q?azO+FxZJnHITFIi8DNr7vb8Br3D8ah8yMP50iqcQwtPWtnzYb+C2n8Zt47?=
- =?iso-8859-1?Q?rhAAOD9Sc4yNiWVbZ+dSxWXyH+xyOrMVRA3AEBfTP7rLOHv3ZifNeWQuQ3?=
- =?iso-8859-1?Q?ThdXRUkjiFHiGUdgxiuP9ePdECW7GSwo13STiqQmOVENCcHhrXazA9KDM2?=
- =?iso-8859-1?Q?JIjjjuZGc3mHHw8aMqd2rdI1Dhmaqc9fg/lvBE6IqgPixk74IuJw8KGW+u?=
- =?iso-8859-1?Q?rmnrWZiwDpvtaQXT6+vv4mztA1ND7+dwwC0JOqWWwDMrO75qeLT74XUZ1w?=
- =?iso-8859-1?Q?w5OdJT2Q26sCPUm5/vmhUMV1gAGYtQaSSqUkklltTs22eI79BgabriecCn?=
- =?iso-8859-1?Q?lUP22Irz5xfR/XdN+oTb6uvtCCGU4LRZ0HhcKeLrmVA70Vp+Qk1XuZc18M?=
- =?iso-8859-1?Q?cRk8D8ZtW1hlZqboCwTCWziv3HfDUazq1lI/0KO8S4JJntBQmcCLqwht7f?=
- =?iso-8859-1?Q?lcBOXgTiMqFTdHFQUccLnTGR271BWSpyYySOpZYSb3Wed5CWMhWG+zJx3a?=
- =?iso-8859-1?Q?Q56rPuf+odb1IZZmd8gZryiKEuoQCY1h9saEYgEwWoFFSjliPNRCqUQnGa?=
- =?iso-8859-1?Q?MIMIfFOeNcrHCG+Z5/AH0x0QFgu/dqRzrcfszG3qrEDWdNtcy0l67ksBO7?=
- =?iso-8859-1?Q?SiJ3dklt1Fdlpc79j9iavd8vzHe1WJnjYwuN/B9pOrNTaVio6vs1xowHGa?=
- =?iso-8859-1?Q?lwDdgmCuIxchWWgU3VwP1A4uNgUP8CnX/lju9HJjvr+Mwk72E/GD5MCu8r?=
- =?iso-8859-1?Q?yNEb4bjO7zmIrdvn+s12LgOnbBXd0jBJE5Ul0KcdUGK3lDRTeIV0?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7f3b0b37-e173-4116-9aec-08df103b6eb6
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 19:32:35.8201
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Fz4qA/NIiFiq613x+YzHx2J/xH3pt9Yz4UwaQq41iB5U7t1EKfblySLWidc7v6dEvXo5/cni37HdfbTVIbZ0cBnO3HH825Ik1D8XAWAxOvCZ6otazgeeme8R2NHNUGcm
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8642
+References: <20260902235132.453044-1-mikhail.v.gavrilov@gmail.com>
+ <20260904012028.77590-1-mikhail.v.gavrilov@gmail.com> <e316af2c02709047ae4982a72d92bebc7feb81e3.camel@iki.fi>
+ <1ce72e4f26b5c35940a160d121cb479203e5d565.camel@gmail.com>
+In-Reply-To: <1ce72e4f26b5c35940a160d121cb479203e5d565.camel@gmail.com>
+From: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Date: Fri, 11 Sep 2026 15:32:39 -0400
+X-Gm-Features: AcwNN1W9JIb3p4fVmP5IRreVpehwt6CRRZxNeTdV1ae3_S4uHbdAWA_8dkBZJFE
+Message-ID: <CABBYNZK6kzJ0z1Mi5s4Ju6wyd-G0TGidQBJsrnPWhFbDA0abqw@mail.gmail.com>
+Subject: Re: [PATCH v2] Bluetooth: RFCOMM: defer security confirmation to krfcommd
+To: "mikhail.v.gavrilov@gmail.com" <mikhail.v.gavrilov@gmail.com>
+Cc: Pauli Virtanen <pav@iki.fi>, marcel@holtmann.org, nicoyip.dev@gmail.com, 
+	linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzbot+74071deb72339c215b2e@syzkaller.appspotmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Aug 06, 2026 at 05:28:59PM -0400, Radu Rendec wrote:
-> On Wed, 2026-08-05 at 16:27 -0300, Fabio Estevam wrote:
-> > From: Fabio Estevam <festevam@nabladev.com>
+Hi Mikhail,
+
+On Sat, Sep 5, 2026 at 10:49=E2=80=AFAM mikhail.v.gavrilov@gmail.com
+<mikhail.v.gavrilov@gmail.com> wrote:
+>
+> Hi Pauli,
+>
+> thanks for running the checker, and for looking at this again.
+>
+> > This v2 checks session hci_conn is the same as original, however it
+> is
+> > unclear if delayed processing of confirmation on the same hci_conn,
+> can
+> > result to wrong outcomes.
 > >
-> > imx_irqsteer_probe() enables runtime PM, but imx_irqsteer_remove() does
-> > not disable it. Consequently, runtime PM remains enabled after unbinding
-> > the device, and rebinding it triggers:
-> >
-> > Unbalanced pm_runtime_enable!
-> >
-> > Use devm_pm_runtime_enable() to automatically disable runtime PM when
-> > the device is removed. Set up runtime PM before creating the IRQ domain
-> > and registering chained handlers so that a failure cannot leave either
-> > resource pointing at freed driver data.
-> >
-> > Fixes: 4730d2233311 ("irqchip/imx-irqsteer: Add runtime PM support")
-> > Signed-off-by: Fabio Estevam <festevam@nabladev.com>
-> > ---
-> > Changes since v1:
-> > - Move devm_pm_runtime_enable() prior to irq_domain_create_linear(). (Frank)
-> >
-> >  drivers/irqchip/irq-imx-irqsteer.c | 8 +++++---
-> >  1 file changed, 5 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/drivers/irqchip/irq-imx-irqsteer.c b/drivers/irqchip/irq-imx-irqsteer.c
-> > index 87b07f517be3..653e25115083 100644
-> > --- a/drivers/irqchip/irq-imx-irqsteer.c
-> > +++ b/drivers/irqchip/irq-imx-irqsteer.c
-> > @@ -236,6 +236,11 @@ static int imx_irqsteer_probe(struct platform_device *pdev)
-> >  	if (irqsteer_has_chanctrl(data->devtype_data))
-> >  		writel_relaxed(BIT(data->channel), data->regs + CHANCTRL);
-> >  
-> > +	pm_runtime_set_active(&pdev->dev);
-> > +	ret = devm_pm_runtime_enable(&pdev->dev);
-> > +	if (ret)
-> > +		goto out;
-> > +
-> >  	data->domain = irq_domain_create_linear(dev_fwnode(&pdev->dev), data->reg_num * 32,
-> >  						&imx_irqsteer_domain_ops, data);
-> >  	if (!data->domain) {
-> > @@ -262,9 +267,6 @@ static int imx_irqsteer_probe(struct platform_device *pdev)
-> >  
-> >  	platform_set_drvdata(pdev, data);
-> >  
-> > -	pm_runtime_set_active(&pdev->dev);
-> > -	pm_runtime_enable(&pdev->dev);
-> > -
-> >  	return 0;
-> >  out:
-> >  	clk_disable_unprepare(data->ipg_clk);
+> > What makes it not introduce new race conditions?
 >
-> I still believe there is something off with the way pm_runtime is
-> handled, and that the double clock disable is possible.
+> Only two values cross the window: status and encrypt.  Everything else
+> is read when the confirmation is applied - the session lookup, the DLC
+> list, d->state, d->sec_level, and conn->sec_level in
+> hci_conn_check_secure(), the last one under hdev->lock as before.
 >
-> Since (like I said) I have very limited understanding of the runtime_pm
-> framework, I decided to make a little experiment.
+> Confirmations are queued and drained FIFO, and krfcommd drains the
+> whole queue in one pass before rfcomm_process_sessions(), so none is
+> dropped or reordered.  Two encryption changes in the same window are
+> applied in the order they arrived, and the last one wins, same as
+> without the queue.
 >
-> With the dummy module below, I see this:
-> [  548.253591] pm_dummy pm_dummy: pm_dummy_probe() executed
-> [  548.254209] pm_dummy pm_dummy: clock enabled; refcount: 1
-> [  548.255028] pm_dummy pm_dummy: pm_dummy_runtime_suspend() triggered
+> That leaves stale status/encrypt applied to a DLC list that may have
+> changed meanwhile, and every path they feed fails closed:
+>
+>   - RFCOMM_SEC_PENDING with stale status or encrypt =3D=3D 0 sets
+>     RFCOMM_ENC_DROP, which drops the DLC;
+>   - a stale success does not clear anything the next confirmation would
+>     have acted on: if encryption really went away, that event is queued
+>     too and reaches step two, which re-arms SEC_PENDING for
+>     BT_SECURITY_MEDIUM and sets ENC_DROP for HIGH/FIPS;
+>   - RFCOMM_AUTH_PENDING is answered with
+>     !status && hci_conn_check_secure(conn, d->sec_level), and that
+>     function reads the live conn->sec_level.  A stale failure can only
+>     reject.  An accept still requires the link to be secure enough at
+>     the time the decision is made.
+>
+> So a stale confirmation can close a DLC that would have survived; it
+> cannot accept one that the current state of the link does not justify.
+> A confirmation that cannot be allocated has the same effect - the DLC
+> closes on its auth timeout.
+>
+> > GPT-5.6 produced report of pre-existing race condition where
+> > security_cfm() races with DLC open and results to intermittent wrong
+> > security level, but I didn't verify this was not nonsense.
+>
+> There is such a window and it is older than this patch.
+> __rfcomm_dlc_open() sets RFCOMM_AUTH_PENDING on a new DLC when
+> rfcomm_check_security() finds the request still in flight, and the next
+> confirmation for that link clears the bit and answers with the status
+> of whatever event it came from, which is not necessarily the request
+> that DLC is waiting for.  Before this patch the callback took
+> rfcomm_mutex and hit exactly the same DLC as soon as the opener
+> released it.  The queue makes the window longer, it does not add a case
+> that was not reachable.  Untangling that needs per-request state on the
+> DLC and looks like separate work to me.
+>
+> > I wonder if the kernel_connect() could be moved out from under
+> > rfcomm_mutex, since the RFCOMM channels should already have to handle
+> > transition to CONNECTED state and possible failures there, and the
+> lock
+> > cycle solved from the other side.
+>
+> I agree that is the better place to fix it - it removes the inversion
+> for any future callback that needs rfcomm_mutex, and it leaves the
+> security confirmation synchronous, so none of the above has to be
+> reasoned about at all.  Luiz suggested the same direction on the
+> original thread.
+>
+> It is a rework of the connect path rather than a regression fix,
+> though: rfcomm_session_create() would have to build and connect the
+> socket outside the lock, and __rfcomm_dlc_open() would have to look the
+> session up again after re-acquiring rfcomm_mutex and drop the socket it
+> just made if another thread won the race.
+>
+> Luiz, which one do you want?  759c185d0bbd is in v7.3-rc1 and marked
+> for stable, so the inversion is in a released tree and heading for the
+> stable trees.  If you would rather have the small fix now and the
+> connect-side rework in -next, v2 is here; if you want the connect side
+> instead, I will write it - I would just rather not write it twice.
 
-https://elixir.bootlin.com/linux/v7.2.2/source/drivers/base/dd.c#L827
+This is not small fix though, so I rather have the kernel_connect
+rework fix this for good than doing one on top of the other.
 
-after probe, pm_request_idle(dev), which trigger pm_dummy_runtime_suspend()
+> --
+> Thanks,
+> Mikhail
 
-> [  548.255845] pm_dummy pm_dummy: clock disabled; refcount: 0
 
-> [  554.261820] pm_dummy pm_dummy: pm_dummy_runtime_resume() triggered
-> [  554.263100] pm_dummy pm_dummy: clock enabled; refcount: 1
-> [  554.264006] pm_dummy pm_dummy: pm_dummy_runtime_suspend() triggered
-> [  554.264997] pm_dummy pm_dummy: clock disabled; refcount: 0
-> [  554.265819] pm_dummy pm_dummy: pm_dummy_remove() executed
 
-You should set runtime_resume() at remove function to match probe's state.
-if your driver remove() did disable clock.
-
-It is trick between runtime pm and devm clock management.
-
-The beneafit of keep runtime active in probe, driver can work when disable
-CONFIG_PM, but complex at tear down.
-
-keep inactive in probe, code will be simple, but it will not work if
-disable CONFIG_PM because clock have not enabled
-
-Frank
-
-> [  554.266609] pm_dummy pm_dummy: clock disabled; refcount: -1
-> [  554.267468] pm_dummy pm_dummy: **************************************************
-> [  554.268554] pm_dummy pm_dummy: [BUG DETECTED] Clock disable count underflow! (-1)
-> [  554.269479] pm_dummy pm_dummy: **************************************************
->
-> What I find interesting is that the device is suspended immediately
-> during probe(), then it's automatically resumed and immediately
-> suspended again right before remove(). The latter is probably a side
-> effect of devm_pm_runtime_enable(). But in any case, the clock *is*
-> disabled twice, and that's even without any explicit suspend or resume,
-> it's just by loading and unloading the module.
->
-> #include <linux/module.h>
-> #include <linux/kernel.h>
-> #include <linux/init.h>
-> #include <linux/platform_device.h>
-> #include <linux/pm_runtime.h>
->
-> MODULE_LICENSE("GPL");
-> MODULE_AUTHOR("Radu Rendec <radu@rendec.net>");
-> MODULE_DESCRIPTION("runtime_pm playground");
->
-> static int mock_clk_count = 0;
->
-> static int mock_clk_prepare_enable(struct device *dev)
-> {
-> 	mock_clk_count++;
-> 	dev_info(dev, "clock enabled; refcount: %d\n", mock_clk_count);
-> 	return 0;
-> }
->
-> static void mock_clk_disable_unprepare(struct device *dev)
-> {
-> 	mock_clk_count--;
-> 	dev_info(dev, "clock disabled; refcount: %d\n", mock_clk_count);
->
-> 	if (mock_clk_count < 0) {
-> 		dev_err(dev, "**************************************************\n");
-> 		dev_err(dev, "[BUG DETECTED] Clock disable count underflow! (%d)\n", mock_clk_count);
-> 		dev_err(dev, "**************************************************\n");
-> 	}
-> }
->
-> static int pm_dummy_runtime_suspend(struct device *dev)
-> {
-> 	dev_info(dev, "%s() triggered\n", __func__);
-> 	mock_clk_disable_unprepare(dev);
-> 	return 0;
-> }
->
-> static int pm_dummy_runtime_resume(struct device *dev)
-> {
-> 	dev_info(dev, "%s() triggered\n", __func__);
-> 	return mock_clk_prepare_enable(dev);
-> }
->
-> static const struct dev_pm_ops pm_dummy_pm_ops = {
-> 	SET_RUNTIME_PM_OPS(pm_dummy_runtime_suspend, pm_dummy_runtime_resume, NULL)
-> };
->
-> static int pm_dummy_probe(struct platform_device *pdev)
-> {
-> 	dev_info(&pdev->dev, "%s() executed\n", __func__);
->
-> 	mock_clk_prepare_enable(&pdev->dev);
-> 	pm_runtime_set_active(&pdev->dev);
-> 	devm_pm_runtime_enable(&pdev->dev);
->
-> 	return 0;
-> }
->
-> static void pm_dummy_remove(struct platform_device *pdev)
-> {
-> 	dev_info(&pdev->dev, "%s() executed\n", __func__);
->
-> 	mock_clk_disable_unprepare(&pdev->dev);
-> }
->
-> static struct platform_driver pm_dummy = {
-> 	.probe = pm_dummy_probe,
-> 	.remove = pm_dummy_remove,
-> 	.driver = {
-> 		.name = "pm_dummy",
-> 		.pm = &pm_dummy_pm_ops,
-> 	},
-> };
->
-> static struct platform_device *pdev;
->
-> static int __init pm_demo_init(void)
-> {
-> 	int ret;
->
-> 	ret = platform_driver_register(&pm_dummy);
-> 	if (ret)
-> 		return ret;
->
-> 	pdev = platform_device_register_simple("pm_dummy", -1, NULL, 0);
-> 	if (IS_ERR(pdev)) {
-> 		platform_driver_unregister(&pm_dummy);
-> 		return PTR_ERR(pdev);
-> 	}
->
-> 	return 0;
-> }
->
-> static void __exit pm_demo_exit(void)
-> {
-> 	platform_device_unregister(pdev);
-> 	platform_driver_unregister(&pm_dummy);
-> }
->
-> module_init(pm_demo_init);
-> module_exit(pm_demo_exit);
+--=20
+Luiz Augusto von Dentz
