@@ -1,137 +1,175 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012019.outbound.protection.outlook.com [52.101.48.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2173835950;
-	Fri, 11 Sep 2026 14:13:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789136009; cv=none; b=WOIwqwiPp14rjDLbEUDxGQiFThjFp6vAs64Ckud64u3f4MIl/JKbt3uivh7BuacppQOlFl6rwjvTFY/J0p5G3esnIcosPo15YbOxkXEyEFQ6FUx8UrFTjUkzYi5iLHNxoHUruj0vJn1/jD5ddcFkJGYHvbD+ue7y2wJgiTXoTnM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789136009; c=relaxed/simple;
-	bh=gaQ5Xs18z39QaJwI9yW27cWzRZ5tq/OyB+9wrAfaws0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=HbN1AGUdL6JqcNKZTqJ/aoRCrkia8SxF+1touUr2VFLQfiZupOjoXoaFRMbWzEWOPvNF5L0jfwiSmE4O5bK/yV59K8K8yRDls0U/lPEDTY6TVhtWSFngZuw/ngPntj1Y0t5wm0ZQmi3JdbYwTuzq9/JhUz3gwaLv/BVg5jtYLhc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eqkP9GEr; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E6463128AB;
+	Fri, 11 Sep 2026 14:13:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.19
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789136015; cv=fail; b=ogT8n1a+6QMdeTH3troPXCv5XskJbGmXMB+oJ4/yMaS5FfCTlQVaH3CrNBKL0PJfdQNwbL5P8lS45Ck3/UI1fz2d9BCkbSigXhUTTej3fyMVpmodetvQF5D7MT/oE2CDVKkiYg0WXNoJydOGu02K+tHLpO0ekhN/j9moiOungoQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789136015; c=relaxed/simple;
+	bh=ajvH/d13mv28oX8MuNnqLzbR/FjMXiLHqt+h9QkuzNM=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=RPrekLH6SvHJStRv/hckAurrM1XtYpfD7aP3aPMA6GDzl7dYqTpktINv2TgHcOd63aWXwGfSfS3FJP8HPx9ZV4+gI1NDS9R6BtGptbZUubp5sIU81xgyY5RJF2UyRl/LCA7IhxBqRuU74VKaYiJIUXTtjYblYY6tg3UBRKp/myM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=e42CRzRj; arc=fail smtp.client-ip=52.101.48.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eqkP9GEr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DB8F1F008A2;
-	Fri, 11 Sep 2026 14:13:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789136007;
-	bh=/HV0MLuSBgaL1qmMEBUkUTq3L2F/ZFCkWyKIdA3nReA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eqkP9GEruSBlvtmbGkL7qPBurTs91QbfUWPdGC97TW+KsJHXT62weW0bZIxFx94lK
-	 Cahw1Zz/P4CKmuVODHRG4EIeGzfYwr/rko5YGPIlKVXKmObVL2FaiPr25fDkgtQvyL
-	 Et63Edj5jqQ4EW1lDjLtZpDihUDjybEvxrbBKxxfMh0Vf2Er3AOjG+7SX1i639pDRI
-	 QVzHHgSKqausbQNOP8eT4twx3UHwhsVEFGqVP2UHmyPq3jykUtphmVRejT3wRqiVqd
-	 IVP+xsjQE3ZoAb5qTYUUp/bH5UNgv6NbLoTo7C/yVhbFMsmUoEDD/0MdZL9yLXVT9d
-	 FgAw0SKrfQLWw==
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	Sang-Heon Jeon <ekffu200098@gmail.com>
-Subject: [PATCH v2 3/4] bootconfig: Skip internal tree sanity checks in kernel
-Date: Fri, 11 Sep 2026 23:13:24 +0900
-Message-ID: <178913600409.248794.12941798680046327623.stgit@devnote2>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <178913597653.248794.1237187523153227751.stgit@devnote2>
-References: <178913597653.248794.1237187523153227751.stgit@devnote2>
-User-Agent: StGit/0.19
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="e42CRzRj"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mzvG5b1O0nYXOYKHMxxfjzIy1EYFCYUjcUgP5dz+Y9W7w/LXeRV+UEU/nu8No5I997DxUBzpK+jcqpsMUbnNezakOlKDiEyHpdKfvndCQbofm96tlK8VIQg7brvzbxkQfBve1V62GHEsTnaQa0/k3e1+VnLqKZZHGL+i5B3Qezq9VyiHJzJ5j7o+YrcLtd7z2pdgTTy0EfvdFlsDaWQyV4JD5Fp187jITjqvO6TV4Zq1ry3KeoiaeEUmNebe3Q7TtiKVSmOTXO+3WzdKdIiCoMsbtkKKValHrfFGAovq4y7o9gmPKxDfZ5wMFka1JUd4sjP9IeseVpxMwaanIeDEBQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eJGpA/VU8QwMMIao+hKP1I7a0ayBGLaaDQDt0RhdbZk=;
+ b=szh4HWqp1E/Lca9mZ2y4jotwiYSEEkHq6ZlzGB+J/w7n6q+/WU6Lhr8gH4UgwQi1NdcGVqknuYfhJ0KXhpRKYZvQCZ9hTTKqBPsEJXDqTCY55dAKNdh4+vScoWBLtF0g0fYr4rckaSbG5xl3bTFPySUAvqi1zilw0341Y0dTkP1Dkf8Zll8J2SY9WInj0gilVmCnzXumd+S5DQIPTnwMYr8g1n9TS8RRDrEjDE26+9fzAFwSDGUjwTG1tES0/evsCK/0FMwUXxyU7+nAMgppL02YSZskEWTPjt/x7Fw2TMFSZoM5tUjEL3EhdcSMEnwcVinfHOXmFLUHV0a/kNifhg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eJGpA/VU8QwMMIao+hKP1I7a0ayBGLaaDQDt0RhdbZk=;
+ b=e42CRzRjHVOXLt5NDD1sT07RBGPu/JGBDqluMOHi+fCYo54GGQ7y2aockSFm+23uhZG1ThzXWpgUGWqJ+4Dowu/EP/n7A92Muzx6HuoR4uRwaayWQtMHPbQ3Qx3+gUYDYhNNpxrmFGJ5/dZFhvT0B11NT9Quww3VPkx8T1YhjnQpbvKImopX+dPg2eZ/ouuMMmqfyrwmldHbZsiggyTDrwCZ+lFMZzi9HEooymzEd6CrYKURsjPj6G1mAp6XIm1uKBAFhL53ykOn0HXCCOWrBFd1R1mZ3aCAdGPCBv7vAVVBWlv/qJ4v8PuJP21b4X3Ix7xDaCB+6mqAb70StSkL+g==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
+ LV5PR12MB9802.namprd12.prod.outlook.com (2603:10b6:408:2f8::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Fri, 11 Sep
+ 2026 14:13:30 +0000
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
+ 14:13:30 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 11 Sep 2026 23:13:27 +0900
+Message-Id: <DLCJS7B2P5Z4.20ZKVSEUW9H6F@nvidia.com>
+Cc: "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
+ <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Alexandre Courbot"
+ <acourbot@nvidia.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "Daniel Almeida" <daniel.almeida@collabora.com>,
+ "Bjorn Helgaas" <bhelgaas@google.com>,
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ <rust-for-linux@vger.kernel.org>, <driver-core@lists.linux.dev>,
+ <nova-gpu@lists.linux.dev>, <linux-kernel@vger.kernel.org>, "Joel
+ Fernandes" <joelagnelf@nvidia.com>
+Subject: Re: [PATCH] rust: pci: add resource_flags accessor
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Eliot Courtney" <ecourtney@nvidia.com>, "Danilo Krummrich"
+ <dakr@kernel.org>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260908-pci-resource-flags-v1-1-269f29f81de6@nvidia.com>
+In-Reply-To: <20260908-pci-resource-flags-v1-1-269f29f81de6@nvidia.com>
+X-ClientProxiedBy: TYCP286CA0082.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:2b3::6) To DS0PR12MB6413.namprd12.prod.outlook.com
+ (2603:10b6:8:ce::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|LV5PR12MB9802:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8ba3e756-005c-40a0-84fd-08df100edb35
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|1800799024|10070799003|23010399003|366016|10067099003|56012099006|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	D78a/k+dtduHtc6iDJX2WaEnsVEzKAo4SV6Ah+4WtJoyhTgZfGUv5JRgSiXzIzuJXNCOQ6corsLvIBOUScrf2MhSurob7ZyAb+J2RF6j1zQIPaiuDp1Ginr/Vpt1BPx+AXyoAW5Q/tCfSAjFmSMifNT3UUwbwVwOH4NzvgOMtlOYzsMZ1oR3YVJRIcoHL5O2DmnwVRIXGOEAUamgagZSunEFWpLEGOA9zyiwhO3dIyq7LHDsXC0tXGdpK77C0GyUjbrgybwR1KuO7mFLYL4O48ts6TfQLW9cX1kcoFMPJHpX+YOHxwAzGME9CQEx3BiXBwuqc9a1EgfDCyXSMQLUWbJ8V1ZSc9Qwc3TTmHFPr2L2IEhwFmpDJv6TBWdMBUABAoNXWNOErQmS3BzY2LKIneWPABwSjnHxFLOVUbwgTgJw2j7udfCwOdG6tjB226mtksa8fGPAM9gXL5TVeF4kqPN2Sf1A3dgiIdKYa1GPyNUku7o5ZJMOXaYfGHMxVKvSxaUFxO4GoJl39ck06RdxKfCw9RHMJV9owLHE10rEz7jCjNgpJp2Y2H1Nz0763Kxc55L6+/9KDMal7BgIuLbdudyXVUkYieykefmhQEtLjJzThTdl+UZvletr1I1RmXLLBChslkGv7i3bsWK5CUXLsADTtsaOARUe/d7ugpEp8Ik=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(10070799003)(23010399003)(366016)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?d1Nac3pzbG5TRytuK1FOTElFRkt3bnVuSmtzVENGS1NEWWVlOVFsRWJUalk5?=
+ =?utf-8?B?Qm8za0xEZzZCcksxdXBFdlFON1J5aUNhOURiZkQ3TzVkRDZtcTNrVXk3MVYy?=
+ =?utf-8?B?akFsajBxeENsSHFadnZGdG1sb0pxY1RFTlFPUjM2VTlPQzFodXJBZ0NFVTJy?=
+ =?utf-8?B?Nm52SWpua2JwZmE5WUYxZDVtQ0FhNjZWd3BhdWYrSWpnUVB4bU1rY3ZtN3Zy?=
+ =?utf-8?B?SUpKL0FTMCtidTVWWmJBS3FWc2hCMDlPcUVua2d0Z2xQa09td294UlRrS0ZB?=
+ =?utf-8?B?czE2NStRTUdpUG9HY2ZPNUFuSmxxMUM0bGlYV3hPVG1YVks2R2pCWkhTbVNP?=
+ =?utf-8?B?eFJKZUs4Z255R2p5c3k2dVhpbG9nVFkybVhqUmVnNFVkZGt2MWxZa3ZMdU0w?=
+ =?utf-8?B?ZmZteTBjeFZJRnhydVdIVlN5TjVFdE53WW54TktDZ2V1Q05MSERVWkRYUW1X?=
+ =?utf-8?B?RmNpM00zdWhBeElXYTVyUW5lSFRIZ3prRDJvdXAvZmRSVWsvalFVMzFoZkdI?=
+ =?utf-8?B?Wkx1cm82akl4YTVPQm1YbWJ1U1dGTVdHSnZFZktucERpQWJnbnVpNVBwaTVn?=
+ =?utf-8?B?N0NtRWNOY3BuaUdBdzN0QzRlQ0NwTUVMaVlSRTFMdUUwRlFnWXdETnVIM1hX?=
+ =?utf-8?B?UmZzc0FkbWNtRTV2blFkT213T3dlRDBvdkZBVmJhYlJNRVRlY21yUmtzb3lt?=
+ =?utf-8?B?cytkNmNNUXBxOTNMeGNyOG9rODJwemFJd3FQYlJTNGtlTy9PU3NGNHUwblNy?=
+ =?utf-8?B?YmtQWVZ6WHQ3Q3ovNm5FZmZyZTljVmJKbW1yYnpBOXJMWDZzYSt2TDRESkIy?=
+ =?utf-8?B?L3ZHVXNOaitlcnc3QkRKazNTNERxZGNBb3Z4SWlVQ21SY0dRRHFoYkxCRzhF?=
+ =?utf-8?B?eFZpNlhxYVlkRkhOMS9PbFpyZjZNcm5WdTJZWW90ckVPMHBqcnZsRVhNTnZT?=
+ =?utf-8?B?RS85OE1RN3lueXlXQVBjeUtHU3k5ajQ5akFpak4xL2FYOWovcUsvL29Sdlcv?=
+ =?utf-8?B?aWtHbS9zMXM3WjgxT3FNbmJ1bEw3Wjc2WWMwZlZLUmE1ZXJQd05OYmw1ZFR3?=
+ =?utf-8?B?Sk9HbUloM1dYVUV2Z09qc1Vhb09qaVNiS1RRZUtKZHdCMVZ0Q2p6QXVwa2s5?=
+ =?utf-8?B?K3IzS3NuaEVXWDh2OXYvQlQvc2UyL0lRNWxFQ1Q0eHZTcEZQTlVhRytXOVVN?=
+ =?utf-8?B?TkVMWkJXQXpFd3pjbUJZR1lSdzhtSklMdWc5QVltYW84aXkyRDd2am8rSXVn?=
+ =?utf-8?B?cTIwb296MHNtY3A4aTk2azIyS0I0UC9Ody9TalQ5MWZvaDQrRDlCWmYwWXJa?=
+ =?utf-8?B?QW0zMzlQbU9XMzZMbEgvZEpqeHRtOUExMFAyTHBHeW5sZVgyZWJXWHhKOWMw?=
+ =?utf-8?B?dkFYUlZXc3Q4OGIzMW1yRENvQnhPR3phZUpYQ1pKMk9VTnJBcDhub2dEdUhC?=
+ =?utf-8?B?NFlUVW9VbkIvTW82ODI5cTZpc3FzNnRNQWIyTWNCNytPcmJmaktKaCt1WGtq?=
+ =?utf-8?B?azJ2bXRQbEdocE0zaFZqaVM5cDZtb0taOEMycmxlekZQRmV6bitjekpvVzJK?=
+ =?utf-8?B?eFhzRm1EMlRibzVEeTJibS84VEFlS3d5dnVrbGtJNnFwTTlldC85Y2V2eU5n?=
+ =?utf-8?B?TjllSVpvdnM5d2RaYUxPNDk3d3RWTlVmVTE2cUpqVkhrM1VnVFgrdGZnTVl2?=
+ =?utf-8?B?VEJvTDNGMU5wMmRia3NsZHdad1czc2lkb09aZklHUkY3M0x2RW1CaHpRd2tx?=
+ =?utf-8?B?WDU1S2pVK1N5dkFXMUIwMWdXSFBhUExkR0tUWWpTQS9JTjR4NnVLZS9lUmFZ?=
+ =?utf-8?B?TkZQSkFlQ0lodTZ0cEJtNXh3VlJPSzBqZytCRks2ZlNsVjdpZ1NtS2lzbVdw?=
+ =?utf-8?B?VWNJRUlYQTVFWHZpWEJBUm4wbENhRW5wVERHR1dhTGQwWDFGMGo3YzdoVmNq?=
+ =?utf-8?B?NDJEVFViSUh6dTJoY0NGS2syaU5FWFR1Y2FFSW5yenI0ZGtOTHpSWk84V3dw?=
+ =?utf-8?B?aVo0WkhmUkc4a2NVL2xESEU0R0dHcTNPYk93SzBCNUEwc0l2Ylp6UVd5UHc4?=
+ =?utf-8?B?c05OVTFWejg2aEQ2R2xuTnRTL2IxTW9CcUtoaTVrcU5oUjdBZUVTeHZIWGpR?=
+ =?utf-8?B?aEdlT2E3ZkNMa2ZZc2N1Snd6eHU3QVhLalJTWjZtZ2haMkk1TEdFMm14SGtG?=
+ =?utf-8?B?bjQ2emZtajZhZmVTaE1BdXhjQVp3dkwrLzNURm9PZ3pyaFJ5R1RsTmg3bnZv?=
+ =?utf-8?B?S2FBQnAwOE4zUC95bjUvNVVQMFZ1bEF4emNKM0xEYWRiTjBUVmFFTStCZGNl?=
+ =?utf-8?B?cC9pVWpzR01kc0lGVUNMcm5UTy9zSXZKUk5QTUFJUTlOTStJM2UySjhwcVFY?=
+ =?utf-8?Q?HW4xSnsiMueXqSdangoWjwFqoVC/I+5UnRBhmCt/txhXq?=
+X-MS-Exchange-AntiSpam-MessageData-1: J6f2Lr1+v8vSyw==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8ba3e756-005c-40a0-84fd-08df100edb35
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 14:13:30.5947
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: cm+qUEGQUaTwSzSVbYhJgncihWcfVA3FVV42x64bDZ+aj3g8UftTpARrcwnh3MeFsqdk82N2I8zfXh+4NuA8Tg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV5PR12MB9802
 
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+On Tue Sep 8, 2026 at 4:51 PM JST, Eliot Courtney wrote:
+> From: Joel Fernandes <joelagnelf@nvidia.com>
+>
+> Add a `Device::resource_flags()` method to the PCI Rust abstraction,
+> wrapping the C-side static inline `pci_resource_flags()`.
+>
+> The flags returned correspond to the `IORESOURCE` bitmask carried by a
+> PCI BAR's `struct resource`.
+>
+> The immediate motivation is BAR layout discovery on NVIDIA GPUs: a
+> 64-bit BAR consumes two consecutive Linux PCI resource slots (the lower
+> 32 bits at index N and the upper 32 bits at index N+1, with the latter
+> having no flags or size of its own).
+>
+> Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
+> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+> ---
+> This is patch 1 of Joel's nova-core mm prerequisites series [1],
+> reposted with no code changes. The rest of that series was folded into
+> the PRAMIN series [2], which is now in drm-rust-next and didn't carry
+> this patch. The upcoming nova-core memory management changes still need
+> resource_flags().
+>
+> This is based on drm-rust-next.
+>
+> [1] https://lore.kernel.org/all/20260518180342.2387845-2-joelagnelf@nvidi=
+a.com/
+> [2] https://lore.kernel.org/all/20260827-pramin-split-v3-0-24b24d7afc52@n=
+vidia.com/
+> ---
 
-In xbc_verify_tree(), the loop iterating through all nodes to check that
-xbc_nodes[i].next < xbc_node_num and xbc_nodes[i].child < xbc_node_num
-is a defensive sanity check against implementation regressions (such
-an out-of-bounds index cannot be produced by malformed input).
+Applied to drm-rust-next, thanks!
 
-Running this check in the kernel adds unnecessary boot-time overhead.
-Split this check out into xbc_sanity_check_tree() for userspace, so
-that it continues to run during userspace bootconfig validation (e.g.
-when applying or testing bootconfig with tools/bootconfig), but is
-omitted in the kernel to speed up initialization.
-
-Reported-by: Sang-Heon Jeon <ekffu200098@gmail.com>
-Closes: https://lore.kernel.org/all/20260905141637.1547429-1-ekffu200098@gmail.com/
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-Reviewed-by: Sang-Heon Jeon <ekffu200098@gmail.com>
----
- lib/bootconfig.c |   38 ++++++++++++++++++++++++++------------
- 1 file changed, 26 insertions(+), 12 deletions(-)
-
-diff --git a/lib/bootconfig.c b/lib/bootconfig.c
-index 61cae6d6e3f8..20b3d6e78fea 100644
---- a/lib/bootconfig.c
-+++ b/lib/bootconfig.c
-@@ -1003,9 +1003,30 @@ static int __init xbc_close_brace(char **k, char *n)
- 	return __xbc_close_brace(n - 1);
- }
- 
-+#ifndef __KERNEL__
-+/* Sanity check for regression: node indices must be within bounds */
-+static int __init xbc_sanity_check_tree(void)
-+{
-+	int i;
-+
-+	for (i = 0; i < xbc_node_num; i++) {
-+		if (xbc_nodes[i].next >= xbc_node_num) {
-+			return xbc_parse_error("No closing brace",
-+				xbc_node_get_data(xbc_nodes + i));
-+		}
-+		if (xbc_nodes[i].child >= xbc_node_num) {
-+			return xbc_parse_error("Broken child node",
-+				xbc_node_get_data(xbc_nodes + i));
-+		}
-+	}
-+
-+	return 0;
-+}
-+#endif
-+
- static int __init xbc_verify_tree(void)
- {
--	int i, depth;
-+	int depth;
- 	size_t len, wlen;
- 	struct xbc_node *n, *m;
- 
-@@ -1022,17 +1043,6 @@ static int __init xbc_verify_tree(void)
- 		return -ENOENT;
- 	}
- 
--	for (i = 0; i < xbc_node_num; i++) {
--		if (xbc_nodes[i].next >= xbc_node_num) {
--			return xbc_parse_error("No closing brace",
--				xbc_node_get_data(xbc_nodes + i));
--		}
--		if (xbc_nodes[i].child >= xbc_node_num) {
--			return xbc_parse_error("Broken child node",
--				xbc_node_get_data(xbc_nodes + i));
--		}
--	}
--
- 	/* Key tree limitation check */
- 	n = &xbc_nodes[0];
- 	depth = 1;
-@@ -1203,6 +1213,10 @@ int __init xbc_init(const char *data, size_t size, const char **emsg, int *epos)
- 	ret = xbc_parse_tree();
- 	if (!ret)
- 		ret = xbc_verify_tree();
-+#ifndef __KERNEL__
-+	if (!ret)
-+		ret = xbc_sanity_check_tree();
-+#endif
- 
- 	if (ret < 0) {
- 		if (epos)
+[1/1] rust: pci: add resource_flags accessor
+      commit: 3f1e12fce16f6e88fbaab3404df33f65c8f4df87
 
