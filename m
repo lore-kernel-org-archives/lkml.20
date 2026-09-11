@@ -1,251 +1,141 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 853D43F5BC0
-	for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 17:34:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1D8C4A68B5;
+	Fri, 11 Sep 2026 17:35:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789148076; cv=none; b=eaKnn2A6avoGFnPfRm/VlnKCYqGmIAKHKxRYOL23cgFVu2eBVlpr67KoEs6OXmWLbRcJNEnEjPGcHKYpCrGv3ntfkGekJfjmZvrGHAfU3Fb5Ux3KnoltXGQi0A8ByQgzQXrlapkiDMH1Spgj0xQrQt3gmNwFTBPDpDZ7SkMhECM=
+	t=1789148118; cv=none; b=D51P1GM72uIENa8GEMSu/VspnkLfDL2QWjIJ09/DMc6uKyndArP0KlxqiZi7JRHlsQ8gN431JLFWuSgq45eLhcJ0v231RBVQPBMhw8rbnZoYc67FcnE7VECkMPvTQ/JlpegVULQLemCaz5LhEl8mJES8jNCcPeOXst8ZkrlrF9U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789148076; c=relaxed/simple;
-	bh=RBY7lZwtsfQ2RJkPc82K4STh6l7BokTJxRE8RtJ3/JA=;
-	h=Content-Type:Date:Message-Id:From:Subject:Cc:To:In-Reply-To:
-	 References:MIME-Version; b=HyoMkDfgXRAkKrWVbWaJH2q5/SILXQN2/gA8/ZOo4ZxFWy+jyTsE8ZfpyiHk/De4qzW88QvLAswRPl38Jvvy/rXA1TRu3g9aBKzgQcQ02IcPkFujNRY+LljxIA3lMDKBMFoCISKPuWf5qY2hwUlati0/WBGFHETS0/UprpH8nAM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=ATfplhYE; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789148118; c=relaxed/simple;
+	bh=kN+PV2iOq3JJVRTjxSU6DGs6/edFIKhfuQcDCarufaM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IiE67DQIY7wrid7YCt+Gm5Sy6hMqvGEu7MbbTAe7Gl6u9UK5nyS+J4ICllLwmKXyl1dFyTBiXJe66G2bzzYJk88pBz2FuVV0LaxQNVRbA+yebWIUpmLbaICl8Q9ETlANE3+aqOUO3tXOph32MkcAyQEkcoao4A0oZDTaXrWDXGA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=oLgUx8i+; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="ATfplhYE"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id F151D4E401F2;
-	Fri, 11 Sep 2026 17:34:32 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id C3E80601A3;
-	Fri, 11 Sep 2026 17:34:32 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1759811C7AFAD;
-	Fri, 11 Sep 2026 19:34:19 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789148071; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=fEfwvzZ1FQaRICJYWrLud8DTMm74WpFOhCG7W2r2il4=;
-	b=ATfplhYEV88PcT3XiAjw9fKztYqGx2rAsRBNdYPXjNV86iN2pPM0r86Xzo7hty9igtjTsT
-	KI6D7BAflvJz2wSiRxLSUJ7dNxk2ayaHjfGs4P60ptoPACITLcm6SXtZUcOgNjqOX3CRQ4
-	m+nK7d698ha/D0QLbmWmmOw/W5COlEJ96087uARn4dBwTS8IK2c8bbKAnoO81MyTnurakD
-	cVONF+/vv/VLkwRjFQ4NaUVmoHTqAw+6aHTMtx+nN8vgt8YTnP8pYgiWYSkyNV6xBPo3fB
-	KRO5/14VfFAxMyb/vOrSSFSYanXgRxwIHDQaCRjnIiUSKfLKsvgraQLZtmmR+Q==
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 11 Sep 2026 19:33:55 +0200
-Message-Id: <DLCO1OTT6D7E.3KIF8LWG9FMRT@bootlin.com>
-From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
-Subject: Re: [PATCH net-next v9 15/17] net: macb: read ISR inside bp->lock
- critical section
-Cc: <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Nicolas
- Ferre" <nicolas.ferre@microchip.com>, "Claudiu Beznea"
- <claudiu.beznea@tuxon.dev>, "Paolo Valerio" <pvalerio@redhat.com>, "Nicolai
- Buchwitz" <nb@tipi-net.de>, "Vladimir Kondratiev"
- <vladimir.kondratiev@mobileye.com>, "Gregory CLEMENT"
- <gregory.clement@bootlin.com>, =?utf-8?q?Beno=C3=AEt_Monin?=
- <benoit.monin@bootlin.com>, "Tawfik Bayouk" <tawfik.bayouk@mobileye.com>,
- "Thomas Petazzoni" <thomas.petazzoni@bootlin.com>, "Maxime Chevallier"
- <maxime.chevallier@bootlin.com>
-To: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>, "Conor Dooley"
- <conor.dooley@microchip.com>, "Andrew Lunn" <andrew+netdev@lunn.ch>, "David
- S. Miller" <davem@davemloft.net>, "Eric Dumazet" <edumazet@google.com>,
- "Jakub Kicinski" <kuba@kernel.org>, "Paolo Abeni" <pabeni@redhat.com>,
- "Richard Cochran" <richardcochran@gmail.com>, "Russell King"
- <linux@armlinux.org.uk>
-In-Reply-To: <20260812-macb-context-v9-15-7ddbf5f715e0@bootlin.com>
-References: <20260812-macb-context-v9-15-7ddbf5f715e0@bootlin.com>
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="oLgUx8i+"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 5A6B756F;
+	Fri, 11 Sep 2026 19:33:32 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1789148012;
+	bh=kN+PV2iOq3JJVRTjxSU6DGs6/edFIKhfuQcDCarufaM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=oLgUx8i+zFrsl3PNAFYR+UY96C8AxETKgkFa43f5G2dsiQlRtt3jNbUoZ7ZljlSEV
+	 QpbLQ765WCKzy/jPiKBccIXmyLy5PuTGKOo5pgYtV+zHDYwP/YMApCB0kTnTrIzNpD
+	 /5wyKnc+qpx+Wes0SQJ0CZrf0+PwjFTV9WNpqn+w=
+Date: Fri, 11 Sep 2026 20:35:08 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Cc: Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	Dafna Hirschfeld <dafna@fastmail.com>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Paul Elder <paul.elder@ideasonboard.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] media: rkisp1: Fix Bayer demosaicing bypass
+Message-ID: <20260911173508.GW1892234@killaraus.ideasonboard.com>
+References: <20260911-imx8mp-demosaicing-bypass-v1-1-5568a7a560a6@ideasonboard.com>
+ <178913687012.1723501.3167773155478207003@ping.linuxembedded.co.uk>
+ <aqQTTtJf9qcdSz2z@zed>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-TUID: P0s/ZTOr6xz1
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <aqQTTtJf9qcdSz2z@zed>
 
-Replying to non-net sashiko
-https://sashiko.dev/#/patchset/20260812-macb-context-v9-0-7ddbf5f715e0%40bo=
-otlin.com
-
-> commit 48c8a049fccfd5d7c55b15a7fd08dc4eca66d836
-> Author: Th=C3=A9o Lebrun <theo.lebrun@bootlin.com>
-> Date:   Wed Aug 12 08:03:29 2026 +0000
->
->     net: macb: read ISR inside bp->lock critical section
->    =20
->     The IRQ handler reads ISR register into the `status` stack variable.
->     If empty, it early returns. Else, it grabs bp->lock and iterates on
->     the status bits.
->    =20
->     We risk a race on spinlock acquire; status might have changed.
->     Move the readl(ISR) inside the bp->lock critical section.
->
-> > diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/eth=
-ernet/cadence/macb_main.c
-> > index d23a0d08c2769..6d79663e42bfe 100644
-> > --- a/drivers/net/ethernet/cadence/macb_main.c
-> > +++ b/drivers/net/ethernet/cadence/macb_main.c
-> > @@ -2190,12 +2190,13 @@ static irqreturn_t macb_interrupt(int irq, void=
- *dev_id)
-> >  	bool hresp_err =3D false;
-> >  	u32 status;
-> > =20
-> > -	status =3D queue_readl(queue, ISR);
-> > +	spin_lock(&bp->lock);
->
-> [Severity: High]
-> Does taking this lock unconditionally cause severe latency spikes for oth=
-er
-> devices on a shared interrupt line?
->
-> If a shared interrupt fires while the driver's error handling task is run=
-ning,
-> this CPU might spin with local interrupts disabled for up to 14ms:
->
-> macb_tx_error_task()
->     spin_lock(&bp->lock);
->     macb_halt_tx()
->         read_poll_timeout_atomic(..., MACB_HALT_TIMEOUT, ...)
->
-> (MACB_HALT_TIMEOUT is 14000us)
-
-Yes this is correct. And something we will live with.
- - Our IRQ line is shared only with other queues of the same MAC.
- - That timeout is scaled to 10 Mbits/s, on 1G this timeout should be
-   100 times smaller. We just don't bother scaling it with link speed.
-
-[...]
-
-> > -	if (unlikely(!status))
-> > +	status =3D queue_readl(queue, ISR);
->
-> [Severity: High]
-> This is a pre-existing issue, but can this unconditional hardware registe=
-r
-> read trigger a synchronous external abort (bus fault) if the MAC is in
-> runtime suspend?
->
-> If another device on the same shared IRQ line triggers an interrupt while
-> the MAC's clocks are gated via macb_clks_disable() in macb_runtime_suspen=
-d(),
-> accessing memory-mapped registers of a clock-gated peripheral typically
-> causes a bus fault.
-
-Again, we have IRQF_SHARED only to share with other queues of the same
-MAC. So that theory is moot. Long term I'd like to drop IRQF_SHARED.
-
->
-> > +	if (unlikely(!status)) {
-> > +		spin_unlock(&bp->lock);
-> >  		return IRQ_NONE;
-> > -
-> > -	spin_lock(&bp->lock);
-> > +	}
-> > =20
-> >  	while (status) {
->
-> [Severity: High]
-> This is a pre-existing issue, but will this loop infinitely if an unhandl=
-ed
-> interrupt bit (like PFR) is set on hardware with Write-1-to-Clear ISR
-> behavior?
-
-Yes. Long term I'd like to introduce a max iteration count.
-Completely unrelated to context swapping.
-
-> [Severity: High]
-> This isn't a bug introduced by this patch, but does the driver have a
-> use-after-free risk during interface closure or driver removal?
->
-> In macb_close(), the context structure is freed without synchronizing wit=
-h
-> or cancelling the asynchronous error tasks:
-
-Yes. This one I'll fix. See previous email.
-
-Re: [PATCH net-next v9 08/17] net: macb: introduce macb_context struct for =
-buffer management
-https://lore.kernel.org/netdev/DLCLQPVD8B9N.NFKWDS6SH0QN@bootlin.com/
-
-[...]
-
----
-
-Replying to net sashiko
-https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260812-macb-context-v=
-9-0-7ddbf5f715e0%40bootlin.com
-
-> commit 4cc0cf203c223199f230330ef1014c2cac4c4841
-> Author: Th=C3=A9o Lebrun <theo.lebrun@bootlin.com>
->
-> net: macb: read ISR inside bp->lock critical section
->
-> This moves the queue_readl(queue, ISR) in macb_interrupt() from before th=
-e
-> bp->lock acquisition to inside the critical section, and unlocks on the
-> early return path when status is zero.  The stated goal is to avoid actin=
-g
-> on a stale ISR sample.
->
-> > We risk a race on spinlock acquire; status might have changed.
-> > Move the readl(ISR) inside the bp->lock critical section.
+On Fri, Sep 11, 2026 at 04:43:32PM +0200, Jacopo Mondi wrote:
+> On Fri, Sep 11, 2026 at 03:27:50PM +0100, Kieran Bingham wrote:
+> > Quoting Jacopo Mondi (2026-09-11 14:56:19)
+> > > The RKISP1_CIF_ISP_DEMOSAIC_BYPASS bit, when set, bypasses the
+> > > demosaicing block on the RkISP1 ISP.
+> > >
+> > > The current implementation however clears the bit when demosaicing
+> > > have to be bypassed and sets it when demosaicing has to be enabled,
+> > > effectively inverting the bypass bit handling logic.
 > >
-> > In practice, we protect ourselves from interpreting the same ISR status
-> > twice.
->
-> [Severity: Low]
-> [Finding: gpt-5-6-sol-1-3]
-> [Sources: gpt-5-6-sol, opus-5]
-> Could the changelog name the two contexts that can observe the same ISR
-> sample, and the hardware precondition?
+> > Ouch.
+> >
+> > > Fix this by setting the bypass bit when disabling the demosaicing block,
+> > > and by clearing it instead when demosaicing has to be performed.
+> > >
+> > > The issue never manifested itself as libcamera hasn't an algorithm
+> > > to control Bayer demosaicing bypass yet.
+> > >
+> > > Fixes: 6c53a7b68c5d ("media: rkisp1: Implement extensible params support")
+> > > Cc: stable@vger.kernel.org
+> > > Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+> > > ---
+> > > media: rkisp1: Fix demosaicing bypass
+> > > ---
+> > >  drivers/media/platform/rockchip/rkisp1/rkisp1-params.c | 8 ++++----
+> > >  1 file changed, 4 insertions(+), 4 deletions(-)
+> > >
+> > > diff --git a/drivers/media/platform/rockchip/rkisp1/rkisp1-params.c b/drivers/media/platform/rockchip/rkisp1/rkisp1-params.c
+> > > index 042b759eba62..496381962f1b 100644
+> > > --- a/drivers/media/platform/rockchip/rkisp1/rkisp1-params.c
+> > > +++ b/drivers/media/platform/rockchip/rkisp1/rkisp1-params.c
+> > > @@ -1854,8 +1854,8 @@ rkisp1_ext_params_bdm(struct rkisp1_params *params,
+> > >         const struct rkisp1_ext_params_bdm_config *bdm = &block->bdm;
+> > >
+> > >         if (bdm->header.flags & RKISP1_EXT_PARAMS_FL_BLOCK_DISABLE) {
+> > > -               rkisp1_param_clear_bits(params, RKISP1_CIF_ISP_DEMOSAIC,
+> > > -                                       RKISP1_CIF_ISP_DEMOSAIC_BYPASS);
+> > > +               rkisp1_param_set_bits(params, RKISP1_CIF_ISP_DEMOSAIC,
+> > > +                                     RKISP1_CIF_ISP_DEMOSAIC_BYPASS);
+> > >                 return;
+> > >         }
+> > >
+> > > @@ -1863,8 +1863,8 @@ rkisp1_ext_params_bdm(struct rkisp1_params *params,
+> > >
+> > >         if ((bdm->header.flags & RKISP1_EXT_PARAMS_FL_BLOCK_ENABLE) &&
+> > >             !(params->enabled_blocks & BIT(bdm->header.type)))
+> > > -               rkisp1_param_set_bits(params, RKISP1_CIF_ISP_DEMOSAIC,
+> > > -                                     RKISP1_CIF_ISP_DEMOSAIC_BYPASS);
+> > > +               rkisp1_param_clear_bits(params, RKISP1_CIF_ISP_DEMOSAIC,
+> > > +                                       RKISP1_CIF_ISP_DEMOSAIC_BYPASS);
+> >
+> > I think this also opens us up to add mono formats as explicitly
+> > supported by the ISP and potentially set the demosaic defaulting to off
+> > in that instance?
+> 
+> mmm, I think userspace is in a better position to decide when to
+> bypass debayer instead of relying on auto-configuration of the ISP ?
+> 
+> I guess we'll discuss this when support for luma-only formats will be
+> added to the driver
 
-If any other context clears an IRQ then we race against that. Grep for
-macb_queue_isr_clear in the code; for example the suspend !WOL case.
-Maybe the commit message is badly written; it isn't a notion of
-interpreting the same bit twice.
+While I understand why auto-configuration is tempting, I've found that
+more often than not it makes the life of both the driver and userspace
+more difficult. Look for instance at the colourspace handling code in
+rkisp1.
 
-[...]
+> > Anyway, Looks sane to me in this order.
+> >
+> > Reviewed-by: Kieran Bingham <kieran.bingham@ideasonboard.com>
 
-> > diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/eth=
-ernet/cadence/macb_main.c
-> > index d23a0d08c276..6d79663e42bf 100644
-> > --- a/drivers/net/ethernet/cadence/macb_main.c
-> > +++ b/drivers/net/ethernet/cadence/macb_main.c
-> > @@ -2190,12 +2190,13 @@ static irqreturn_t macb_interrupt(int irq, void=
- *dev_id)
-> >  	bool hresp_err =3D false;
-> >  	u32 status;
-> > =20
-> > -	status =3D queue_readl(queue, ISR);
-> > +	spin_lock(&bp->lock);
-> > =20
-> > -	if (unlikely(!status))
-> > +	status =3D queue_readl(queue, ISR);
-> > +	if (unlikely(!status)) {
-> > +		spin_unlock(&bp->lock);
-> >  		return IRQ_NONE;
-> > -
-> > -	spin_lock(&bp->lock);
-> > +	}
->
-> [Severity: Medium]
-> [Finding: main-3-6]
-> [Sources: opus-5]
-> Does this remove the lock-free "not my interrupt" fast path?
->
-> The handler is registered shared in macb_init():
+Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 
-Yes! Once again, we share only with other queues of the same MAC.
-We don't support running alongside other devices.
+> thanks
+> 
+> > >  }
+> > >
+> > >  static void
+> > >
+> > > ---
+> > > base-commit: 27953c044974baf7e24dee3e9342fe0103dea80c
+> > > change-id: 20260911-imx8mp-demosaicing-bypass-bb284d9cca60
 
-[...]
+-- 
+Regards,
 
-Thanks,
---=20
-Th=C3=A9o Lebrun, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
+Laurent Pinchart
