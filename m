@@ -1,68 +1,70 @@
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D771E43B6E1;
-	Fri, 11 Sep 2026 06:55:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E0C440587A;
+	Fri, 11 Sep 2026 06:55:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789109721; cv=none; b=tknmUeCKIfN/zS7W5erPC8a9UQAmJIJcEarV3OZB8c1X35VM0IRlKnXYVH8i12st7hiARZhCuedFCoMko+2tln9xsrqPQu98PrwDlObcZAqFK5vty/oziuAkz4Tck8P8uAnRGXzyZ/HEFdX6kCxmHxzHnBnCBUOOWYTC/G7E9PQ=
+	t=1789109752; cv=none; b=P1bQDnk/dP3GfhHKY5Jgko/Q63kO4HlbI8KJs4hGVk8zDVEMug3AQTXlHzbB/PloXTn7RR6Wv93zJtomniwNoJFwTqfBT4lToi6ozNdrHv87Vg2i0Ab2pUjkPlWRJ87PXU0EgCmahoEg7WtE3ngpiR0CKqsvdY5rK5r10ao/4Io=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789109721; c=relaxed/simple;
-	bh=QrBxKFd+lCLiq4J/RpPqN89Bmwz6kY4DqM+2m0MMwtA=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=jx8bM631AFU9y9vuS5o7E0AA53gRNzWiSqT0KgtwJgST2L3usPYMhl8P/FAYW9/p3mc/SqZv2PngTS3HlgRISDFvVFw31yPyyxt++DGXTDoOBPNgqNtvkFwbdQGoMkU8isj8/QQHFOjBy+LGh0LvZrdarx1o907twckWEWyBk2I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jmu.edu.cn; spf=pass smtp.mailfrom=jmu.edu.cn; arc=none smtp.client-ip=45.254.49.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jmu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jmu.edu.cn
-Received: from Vostro-3710.. (unknown [14.220.232.127])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4d649de3c;
-	Fri, 11 Sep 2026 14:55:07 +0800 (GMT+08:00)
-From: Chukun Pan <amadeus@jmu.edu.cn>
-To: razor1702@gmail.com
-Cc: HystericalDragons@proton.me,
-	amadeus@jmu.edu.cn,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	devnull+hystericaldragons.proton.me@kernel.org,
-	diederik@cknow-tech.com,
-	heiko@sntech.de,
-	jensenhuang@friendlyarm.com,
-	krzk+dt@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	jonas@kwiboo.se
-Subject: Re: [PATCH v3 1/5] arm64: dts: rockchip: Reset the NanoPi Zero2 PHY from the MDIO bus
-Date: Fri, 11 Sep 2026 14:55:00 +0800
-Message-Id: <20260911065500.3145846-1-amadeus@jmu.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260909225002.976-1-razor1702@gmail.com>
-References: <20260909225002.976-1-razor1702@gmail.com>
+	s=arc-20240116; t=1789109752; c=relaxed/simple;
+	bh=ISVPbbt0Fc5BFamR3eYfpcVyINYbzazSJuHDTzPCUqA=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=V5IH8dglDQ3VR5xyVL8wqhLIvANl14P9yv/8MqL6K45Xeidf2qYNjbM2TO6TK9P7iXJcpif42n4cSjBJv5lgwBZTGTGJpi+Di5o43YxawTnrif0rXTNwKaVWJkQO2/zPcRHpXv/2SxHmtY/NmLiw1ABqu6I5J8QInHQ1BOw4gdE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F/XbA+tV; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F/XbA+tV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73B071F000FF;
+	Fri, 11 Sep 2026 06:55:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789109741;
+	bh=f1i7na06iDth2FdJIH8BE1JqijLD9bS75AOuEnYVjg8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=F/XbA+tV/fjHLp6KWUkt1UF/rxFDoluhj3dEGL2nQVc/LNX/RMVRIvVsEWGLmqb5O
+	 EmlovJpiVWVtk5TRgXB3Jv3ntHC6ZCBpkJFIBmWUCjvwWWOYFeih08MDGjTtxrMel5
+	 ipyWBbV3O7s2IqzXOp9HlSE82W9KtD0APDTnH3v1rHUnJ7yGqVbgnoRNrOaYq5/TI7
+	 Xp5CSIZH3LlnevFxTisSWh9m1gnGtLSsjKmjCInlm5pYZdqrm9TykzIDpLpvvRilzS
+	 C2xtkv8J17Fv6cJ0zPQpDSKNy3uzIlRXQDx10xGyP/P48PdUfQtqzW3CSHbk/lPjJd
+	 21DymFi2/97GQ==
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Lukasz Luba <lukasz.luba@arm.com>, 
+ Peter Griffin <peter.griffin@linaro.org>, linux-pm@vger.kernel.org, 
+ linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, Jiawen Liu <1298662399@qq.com>
+Cc: Alim Akhtar <alim.akhtar@samsung.com>, stable@vger.kernel.org
+In-Reply-To: <tencent_B0189529F550458590E3BA614EAB800FBF08@qq.com>
+References: <tencent_B0189529F550458590E3BA614EAB800FBF08@qq.com>
+Subject: Re: [PATCH v2] memory: exynos5422-dmc: handle clock enable
+ failures
+Message-Id: <178910973800.29600.13263415611790690641.b4-ty@b4>
+Date: Fri, 11 Sep 2026 08:55:38 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa08f3fa3b903a2kunm0979cd011deada
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDTENDVkkfTU4dTx1DGk0YTVYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKT1VJSUtVSUhJVUpJTFlXWRYaDxIVHRRZQVlPS0hVSktISk
-	5MTlVKS0tVSkJLS1kG
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
 
-Hi,
 
->  &mdio1 {
-> +	reset-delay-us = <20000>;
-> +	reset-gpios = <&gpio4 RK_PC2 GPIO_ACTIVE_LOW>;
-> +	reset-post-delay-us = <100000>;
+On Fri, 04 Sep 2026 14:01:35 +0400, Jiawen Liu wrote:
+> Check the return values of clk_prepare_enable() for fout_bpll and
+> mout_bpll.
+> 
+> If enabling fout_bpll fails, propagate the error. If enabling mout_bpll
+> fails, disable fout_bpll before returning. This keeps the clock enable
+> count balanced on probe error paths.
+> 
+> [...]
 
-This is an incorrect change, see also: [1]
-Since you are using mainline U-Boot 2026.07, you should have
-already noticed that nanopi-zero2-rk3528 is available.
-Therefore, the nanopi-zero2-rk3528 target should be used
-instead of generic-rk3528.
+Applied, thanks!
 
-[1] https://lore.kernel.org/lkml/1e8da54f-ef87-4d31-9a0a-17c0ff66bee0@kwiboo.se/
+[1/1] memory: exynos5422-dmc: handle clock enable failures
+      https://git.kernel.org/krzk/linux-mem-ctrl/c/cce46902ea9fcd585cd200fffa3166f63bc571f1
+
+Best regards,
+-- 
+Krzysztof Kozlowski <krzk@kernel.org>
+
