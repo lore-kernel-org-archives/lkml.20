@@ -1,116 +1,90 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1E364BEE5F;
-	Sat, 12 Sep 2026 05:56:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05C7C4BEE5F;
+	Sat, 12 Sep 2026 05:57:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789192617; cv=none; b=ClJu5bPY988mxVXlkXsYcVjuU78ssXXx/55UoV1jOG4f4vBpf8GTOJYmXkJManuCdci/k23/R8QE7USnPUO3owncArjbK6+3qoa9N+NBpRD9nKDi+Pgqp+6qWbzNxiOinADb03hIRGJb/f5XoW0LmyLHGY4zcQki03KCGdmb0ek=
+	t=1789192672; cv=none; b=P0sR7VrzdGNb6LTZR+vyEZmf9C2WHY/2bENZAPscg9DMR3wj+c1uplglAV/oeMbtwE1Hszx0kCLjSSxMHIZEtyCuABFrAOMLpnfL+326EIDk38RUm6DL3aaJC7ruI39crWk66OB3ghy8flobWFg97+4vdbQ1woQwHvoq+DMzC/I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789192617; c=relaxed/simple;
-	bh=vQnM29728odeLPAUj1IkvsTep0IjgJjfhRJyY4Jlo0Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lKrOroUCgQsG0sUfCUexczA0bMRWShluOnx0kNudMJvKG9OfFkfdrvVW4iqZhdcTIhaToUc8wHNTdKd0JMorYefLaHnCW5cdLgaRF1DbIg2B+f9wLeQF3f3dqHx2nFQ/JGWcPXLgZRrjFhDUSU3oTknA3vfXnOIRtyvEj0fmYEw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Ng+LJGd0; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789192672; c=relaxed/simple;
+	bh=Rcj9FY1u7DeFsZyQHQT3wFpcx6FB1JM6CIJykUWQ+LI=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=ShGlaNYJyNM0wcsHB1+hhZj1IUF+QNPFyBaYComuJjJ+DjR2I8ZkWNF9h/gE6BvnhrhSdbPCEMKFj2ry1gvN4beMpG0RJYhkZJ+9zyD5ENclcB+lGqF0p4uyDAodNakqk/YzUveFvzqK1u5YpPQjaJajerYEyP170euPceWHJmE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=W9QWPMBr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Ng+LJGd0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=6R
-	/b4zS8XP8H6wJrIB34ieHf09qcvPGBexQrQVoZDd8=; b=Ng+LJGd0nXLzn40JJI
-	wxdAYdRygXFPQY5piPY2zVEiA/WKXiXS/h2cOdFZv64Al9hKsEvKpoTCLFauKujl
-	V+4zXFfv/nBqZl1PVxQNGBA6FEUs0CdkmnmfZemMdOscOpZ64b3WAE/ecxjPMh58
-	MIZf18twUYTCGitoBxQ3b0gnw=
-Received: from localhost (unknown [])
-	by gzsmtp3 (Coremail) with SMTP id PigvCgCHL2mD6aRqGTEXSQ--.43520S2;
-	Sat, 12 Sep 2026 13:56:19 +0800 (CST)
-From: Hui Su <sh_def@163.com>
-To: Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>
-Cc: Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Jiri Olsa <jolsa@kernel.org>,
-	linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Hui Su <sh_def@163.com>
-Subject: [PATCH] perf synthetic-events: Fix schedstat event lifetime handling
-Date: Sat, 12 Sep 2026 14:56:19 +0900
-Message-ID: <20260912055619.2284443-1-sh_def@163.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="W9QWPMBr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CBBD1F000FF;
+	Sat, 12 Sep 2026 05:57:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1789192670;
+	bh=U0SBV4CnGKvvNIIMNW/AkFFYrokvu33qARejmqNfK7k=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=W9QWPMBrCBYQPao72IDryRFjPwSSSzrFQQnrmLzru4nkSfY7n6kvfdGou8tEUsaBz
+	 YXnJ7trlUURtUmQ5q92Z9tjACJ6M2DwkICOvZNuFJCGLzkDH1br2fjmd7x47mEvCDa
+	 ftdLLENxCy+9QbpE3RoB2EsWDrkbkAkX7SPqo58c=
+Date: Fri, 11 Sep 2026 22:57:49 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Yury Norov <yury.norov@gmail.com>
+Cc: Matthew Wilcox <willy@infradead.org>, "Liam R. Howlett"
+ <liam@infradead.org>, Yury Norov <ynorov@nvidia.com>, Chris Li
+ <sparse@chrisli.org>, Alice Ryhl <aliceryhl@google.com>, Andrew Ballance
+ <andrewjballance@gmail.com>, linux-sparse@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ linux-mm@kvack.org, maple-tree@lists.infradead.org
+Subject: Re: [PATCH 1/3] compiler.h: add ASSERT_STATIC_STORAGE()
+Message-Id: <20260911225749.8727d23eb76b93141f08e574@linux-foundation.org>
+In-Reply-To: <20260911221444.1523311-2-ynorov@nvidia.com>
+References: <20260911221444.1523311-1-ynorov@nvidia.com>
+	<20260911221444.1523311-2-ynorov@nvidia.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PigvCgCHL2mD6aRqGTEXSQ--.43520S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7KFWUur17JrW7ZF1rXFWkWFg_yoW8tr1rpr
-	s8u3y3tr1vgw1jg343Jr48J348ur4xXrs3WF1YkryayF1rJr92yFW7KFy5try3ArWkZFy2
-	y34qgrnaqFZrJaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piHq2tUUUUU=
-X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbC6gRfvmqk6YTtIgAA3j
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-perf_event__synthesize_schedstat() has two event lifetime issues.
+On Fri, 11 Sep 2026 18:14:41 -0400 Yury Norov <yury.norov@gmail.com> wrote:
 
-After a successful iteration, event is freed but retains its value. If
-the next iteration starts with an unrecognized schedstat record type,
-neither synthesizer assigns a new value. The stale pointer then passes
-the NULL check, may be passed to process(), and is freed again.
+> Static lock initializers rely on a persistent object address when lockdep
+> assigns a lock-class key. Using such an initializer for an automatic local
+> object can compile successfully but disable lockdep on the first lock
+> acquisition.
+> 
+> Add ASSERT_STATIC_STORAGE() for declaration macros that require
+> static storage duration. It declares an unused static pointer initialized
+> with the object's address. An automatic local object's address is not a
+> valid static initializer, so the compiler rejects it.
+> 
+> Mirror the helper in tools/include/linux/compiler.h because the userspace
+> radix-tree tests include the kernel IDA and Maple Tree headers with the
+> tools compiler definitions.
+> 
+> For example:
+> 
+>   void example(void)
+>   {
+>           int object;
+>           ASSERT_STATIC_STORAGE(object);
+>   }
+> 
+> GCC reports:
+> 
+>   error: initializer element is not constant
+>     name##_storage_check = &(name)
+>                            ^
+>   note: in expansion of macro 'ASSERT_STATIC_STORAGE'
+>     ASSERT_STATIC_STORAGE(object);
+> 
+> File-scope objects and static local objects remain valid. The helper takes
+> an object identifier and must be used as a declaration after that object
+> has been declared.
+> 
 
-In addition, when user_requested_cpus filters out a synthesized event,
-the continue path skips free(event), leaking the event.
+Thanks, I'll queue it.
 
-Make event local to each loop iteration so it always starts as NULL.
-Also avoid the filter continue and unconditionally free each synthesized
-event at the end of the iteration.
-
-Fixes: c3030995f23b ("perf sched stats: Add record and rawdump support")
-Signed-off-by: Hui Su <sh_def@163.com>
----
- tools/perf/util/synthetic-events.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
-
-diff --git a/tools/perf/util/synthetic-events.c b/tools/perf/util/synthetic-events.c
-index 0c150193cca8..2eac2310a01d 100644
---- a/tools/perf/util/synthetic-events.c
-+++ b/tools/perf/util/synthetic-events.c
-@@ -2817,7 +2817,6 @@ int perf_event__synthesize_schedstat(const struct perf_tool *tool,
- 				     struct perf_cpu_map *user_requested_cpus)
- {
- 	char *line = NULL, path[PATH_MAX];
--	union perf_event *event = NULL;
- 	size_t line_len = 0;
- 	char bf[BUFSIZ];
- 	__u64 timestamp;
-@@ -2858,6 +2857,7 @@ int perf_event__synthesize_schedstat(const struct perf_tool *tool,
- 	 * for filtered out cpus.
- 	 */
- 	for (ch = io__get_char(&io); !io.eof; ch = io__get_char(&io)) {
-+		union perf_event *event = NULL;
- 		struct perf_cpu this_cpu;
- 
- 		if (ch == 'c') {
-@@ -2872,12 +2872,12 @@ int perf_event__synthesize_schedstat(const struct perf_tool *tool,
- 
- 		this_cpu.cpu = cpu;
- 
--		if (user_requested_cpus && !perf_cpu_map__has(user_requested_cpus, this_cpu))
--			continue;
--
--		if (process(tool, event, NULL, NULL) < 0) {
--			free(event);
--			goto out_free_line;
-+		if (!user_requested_cpus ||
-+		    perf_cpu_map__has(user_requested_cpus, this_cpu)) {
-+			if (process(tool, event, NULL, NULL) < 0) {
-+				free(event);
-+				goto out_free_line;
-+			}
- 		}
- 
- 		free(event);
--- 
-2.55.0
-
+Sashiko wants the same treatment for a few other macros:
+	https://sashiko.dev/#/patchset/20260911221444.1523311-1-ynorov@nvidia.com
