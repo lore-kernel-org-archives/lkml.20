@@ -1,106 +1,78 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 013FF2F2619;
-	Sat, 12 Sep 2026 00:00:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF05931D362;
+	Sat, 12 Sep 2026 00:01:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789171232; cv=none; b=asREvw4oGhv96gWgJ4X7+jA6IMNejIkMgbQhBQ7Q022wI4YN4OmtC3uatR5ro4e5W/rdRf5K5+/uPxeMw3VRwmBlOAfCycK1BZejZFR63iYvcx9ilFq7Jjxc2VNlfu6rZR8rrXN5FRoWUjgb+GIcyvKrOY4WGr1SGNx08RYXbnQ=
+	t=1789171274; cv=none; b=en7jfnHUPZHxYKEGawl/xZ5bbXluhz4y0+zntchXeJcfCKRN9t0iJSXF6Wi+6ROht8vlQlZgR6ittV43LdWd7Q6iOKLUxQzSC3E2iZOVeiHDheONwISxNYwQtgZIUCKxa32gudXyzglGqC3JuIjaiy0Fn5xw1g80EaYZ8SWnAr4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789171232; c=relaxed/simple;
-	bh=dEMrIegqMAKxT2HNIahVYJnAeozBlb2dZyX8KRsgin0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BlcJAJeWfxA14r5E/ZBb0PeThs6ttmJyhogAR9el+ezJ2hxnePaXPqvf2glkS3yyrCFDNAWD4YlFr0SlA9l39H4j7w4PQxzgT2PH3C3I009ruzTWJe41Vz2YLjcBrK1qFY+mC7GsRPNTxiX//KZ7XyTsnOJmS0fKHXN9S9BB+M8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Jx51cAIt; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789171274; c=relaxed/simple;
+	bh=eKI+gI+JKGdVOkJu5X7JeHWpiGuoWuu7uo/Sb1pkctc=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=S2+Nk3gY9a5M9OQyZUNf9TKmgQ6H7pVN14S8eAwbHKUdNXiMcPmeEAAGSB1XG0bh7GqxTFQAgNA6yww6v/aVz0e9t7UMpCz9hxWM8kpbAr9QAgXRLJpCpBTT96XwS+EV1DSFqpB36ibM96X/p5hBd1Mfd/hKAOSA51jTPr/4hqo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jYi8jYwt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Jx51cAIt"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789171231; x=1820707231;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=dEMrIegqMAKxT2HNIahVYJnAeozBlb2dZyX8KRsgin0=;
-  b=Jx51cAIt5y8ypVgGc6NsO9MhR8/6cZRLHQPZfhRmqgAfpP9WUxwxkHbd
-   bMlqWLfPhEUNWtYuWsTRTSpI5dkXcM9973zuaNkt1mPtyyr1OL3/+TQpQ
-   g3QAZIwkSk1JQpnySttxmqsJR2/b3KJB490MTPs5xeZM7B9yZdllMpi1u
-   DYYgpiIlZTw/+tHHBgEfSjaEeX82WZAsKLwqZCX/XMncv+zmeYduSj7YC
-   L5FHcSx6id66pT6Y0vBJrSp3P/fT79mcFUkEuMBbh0vz8gPyzq76rDJqK
-   qwFtiiep6oMgOov4YXCH2D4+TdI/J+QjOeM9THimz2B3l7T7pL9yoYq/9
-   g==;
-X-CSE-ConnectionGUID: 3dMy2D+nSaquHPjvkrILhw==
-X-CSE-MsgGUID: paLdMT1HRdST5yk4RDDRkQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11902"; a="89678614"
-X-IronPort-AV: E=Sophos;i="6.27,98,1787036400"; 
-   d="scan'208";a="89678614"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 17:00:31 -0700
-X-CSE-ConnectionGUID: W0jYb3hZRYaax+3CtHsJ+g==
-X-CSE-MsgGUID: YWDCEjRJQCmc+7UPOJx/UA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,98,1787036400"; 
-   d="scan'208";a="310327739"
-Received: from schen9-mobl4.amr.corp.intel.com (HELO [10.125.108.42]) ([10.125.108.42])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 17:00:30 -0700
-Message-ID: <2a3e8c7c-4430-42fa-9489-1ced969324e6@intel.com>
-Date: Fri, 11 Sep 2026 17:00:29 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jYi8jYwt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDA4F1F00893;
+	Sat, 12 Sep 2026 00:01:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789171271;
+	bh=J3dP6TQ01nerFYbQUPmYoRE/18ptxGTy8+QhUv+PZFE=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=jYi8jYwt+DUsfPMZdr2mcWWlFdyAGfP03MoX4fkL5Sh3zbPIHy3VMiZJQuW/SQm/F
+	 KzunQ/m297CLzNUYxHPr2F0AsQAzdvhE0OewwYHNg1Ob2Fg+3euL/8N3kPsCflRXQC
+	 oAnIVlTGYseRQyuaFIkKdujMaMu0shCL8wTJkhuUMgSV8cyJBiWrFkISpW/SAOXznJ
+	 Ug7hjNkhDGg8y+HW5rMcD1erxCL7aHf/oVl5VVQDTISKDsq9fBSEsPc2c3vKUn8B6j
+	 bSM6jKvReaU1yPd7d9ULf2mbjTkCp9e/hHj0QS5hfQbYGPEwwDilCpY2D08klSCkeQ
+	 IN2xwCGfA5Yfg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0BB4392445B;
+	Sat, 12 Sep 2026 00:00:08 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] cxl/region: Fix the return value in devm_cxl_add_region()
- kernel-doc
-To: Karl Mehltretter <kmehltretter@gmail.com>,
- Davidlohr Bueso <dave@stgolabs.net>, Jonathan Cameron <jic23@kernel.org>,
- Alison Schofield <alison.schofield@intel.com>,
- Vishal Verma <vishal.l.verma@intel.com>, Dan Williams <djbw@kernel.org>
-Cc: Ira Weiny <iweiny@kernel.org>, Li Ming <ming.li@zohomail.com>,
- Ben Widawsky <bwidawsk@kernel.org>, linux-cxl@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260911221748.7212-1-kmehltretter@gmail.com>
-From: Dave Jiang <dave.jiang@intel.com>
-Content-Language: en-US
-In-Reply-To: <20260911221748.7212-1-kmehltretter@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net-next v5] net: dropreason: add
+ SKB_DROP_REASON_IP_TTL_EXCEEDED
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178917120738.3168051.8796678700758467343.git-patchwork-notify@kernel.org>
+Date: Sat, 12 Sep 2026 00:00:07 +0000
+References: <20260910094937.536150-1-junjie.cao@intel.com>
+In-Reply-To: <20260910094937.536150-1-junjie.cao@intel.com>
+To: Junjie Cao <junjie.cao@intel.com>
+Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, dsahern@kernel.org, horms@kernel.org, idosch@nvidia.com,
+ fmancera@suse.de, jiayuan.chen@linux.dev, hangbin.liu@linux.dev,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
 
+Hello:
 
+This patch was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-On 9/11/26 3:17 PM, Karl Mehltretter wrote:
-> devm_cxl_add_region() returns the new struct cxl_region, or an ERR_PTR()
-> on failure, but its kernel-doc says "0 if the region was added to the
-> @cxlrd, else returns negative error code", which was never true.
-> Describe the pointer.
+On Thu, 10 Sep 2026 17:49:37 +0800 you wrote:
+> The forwarding paths report an expired TTL or hop limit as
+> SKB_DROP_REASON_IP_INHDR, the reason otherwise used for a header that is
+> malformed (ip_input.c, exthdrs.c, br_netfilter). Nothing else in the drop
+> path separates the two: IPSTATS_MIB_INHDRERRORS covers both, and the TTL
+> check runs before NF_INET_FORWARD, so netfilter tracing stops at
+> PREROUTING and never sees the drop.
 > 
-> Fixes: 779dd20cfb56 ("cxl/region: Add region creation support")
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> [...]
 
-Dropped fixes tag since it's just a comment fix and not code bug.
+Here is the summary with links:
+  - [net-next,v5] net: dropreason: add SKB_DROP_REASON_IP_TTL_EXCEEDED
+    https://git.kernel.org/netdev/net-next/c/219c6b768ec7
 
-Applied to cxl/next
-2dfb4796d19b
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-
-> ---
->  drivers/cxl/core/region.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/cxl/core/region.c b/drivers/cxl/core/region.c
-> index 27e63e6dab7c82ccd6c34b7955f52789a32ce478..28a8e3d1e1231eef40bc30cdd937af980952232c 100644
-> --- a/drivers/cxl/core/region.c
-> +++ b/drivers/cxl/core/region.c
-> @@ -2727,7 +2727,7 @@ void kill_regions(struct cxl_root_decoder *cxlrd)
->   * This is the second step of region initialization. Regions exist within an
->   * address space which is mapped by a @cxlrd.
->   *
-> - * Return: 0 if the region was added to the @cxlrd, else returns negative error
-> + * Return: the new region if it was added to the @cxlrd, else an ERR_PTR() with the error
->   * code. The region will be named "regionZ" where Z is the unique region number.
->   */
->  static struct cxl_region *devm_cxl_add_region(struct cxl_root_decoder *cxlrd,
 
