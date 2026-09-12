@@ -1,261 +1,292 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fhigh-b3-smtp.messagingengine.com (fhigh-b3-smtp.messagingengine.com [202.12.124.154])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAFBD320CBE
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 06:50:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0949D26CE2C;
+	Sat, 12 Sep 2026 06:51:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.154
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789195807; cv=none; b=KPB3mZ0KuWI8X7d/lv3tk+0/lknemD+B9WfayMDf2vDXTlAAP/b8H7B8BZu3PqdL79fPUpbJ0FgGkorJyI6pGu+zaX2Izl0YEWPFtWwsIiRSFgmwHKeMO1qHTHV1kI8tXESiwVBByMb98vZ0QcbFp/BBGO8zMsw44IN1fySm4KU=
+	t=1789195870; cv=none; b=U2AvT0HNn5tmjTUfswbtczjF/mZ9y5KnOM5oaq3tXAmhrwMQwvhflFW/Gw5lKEFyWhYxXuIsDG3z0ix16emj/iIlWRB3b1Rf6Cfm7ttTN04MEElhVHAHgQprc2+4VpiGn2gNeuewKZXRuFqeKxgVUJ3VBs4cSVEZ6OU9mUfzrzY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789195807; c=relaxed/simple;
-	bh=sCdpZe2i/QHdtW679jX9SdR4a7+kZzZrKxfkIQPem7s=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QjlorKV1xvF9z/TzmZ0fTkFFOo/bI7R3DfB7nd5hY0FfXB4+3xzuH6MrS3gfeDEZUQ/pXwHeOIGtjPcsv8g/jqq3xbFL3QNMN/xXXj7UYuK9sUNgcE/eNCP/orkiqWQWLKqIdp546tR9K8xMrSTQ9OkpfkQBRjbQlvZNjp1YylA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=Bssf86yg; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1789195870; c=relaxed/simple;
+	bh=AKP6AeGesIaVtdZBx9Nw9MPi/xcIFDgn/Sa6HGJ0Kz8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YDI6oP8et8ujrcx9aszLR5e8s7RCqAXGQmybTLA1r56KwyLRq2WTDTznZG/JxW0IpbnRzML+bk7jbFW1td8oeSZCvMRYzm9tsVffFSOqGVaZE2RkyyUlGrR0u5Ku4S11j/ZiM9sAY5owImpAYsW7WRwzcoaRaMYoqmVj3sDlTG0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com; spf=pass smtp.mailfrom=gahingwoo.com; dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b=hiRsrBnl; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=xfBOxyIE; arc=none smtp.client-ip=202.12.124.154
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gahingwoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="Bssf86yg"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f9f0b1fso94660366b.2
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 23:50:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1789195804; x=1789800604; darn=vger.kernel.org;
-        h=content-type:in-reply-to:autocrypt:from:content-language:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=sCdpZe2i/QHdtW679jX9SdR4a7+kZzZrKxfkIQPem7s=;
-        b=Bssf86ygnNcIOdpsdU4WXEa1ReCtbz3TI1Wl3uGEaUZtS7UPlvJQrdmweV/MNyXtEl
-         yGbLEIYe+cLmLKuv+fwPCHwsvj40VRZWz9OC2opd2HS2aJf5O8QRupaW4mP3h9l0kgiB
-         qwuThS3MR1F28jCuJ6i/q/7Ao0ozfRzUGV6h5Tg7P76wGtS37F0fzm1PxjbHCcuBxR1y
-         ug094VTjCBsXaH8STSHhVxJLtrKA1saOnfhOfI5M+mIWlfzt2Gd0Qsb3oXu39qLrQiCs
-         7RD+fZP6KLagHedMyx1Y9LtmElGDv0phG8KeQiztLO3T5sHAkprIzEpewBrtsiG/HtUz
-         s61w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789195804; x=1789800604;
-        h=content-type:in-reply-to:autocrypt:from:content-language:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sCdpZe2i/QHdtW679jX9SdR4a7+kZzZrKxfkIQPem7s=;
-        b=hMTXLl3haz2t3G4tLE9ojpy+aQNJr3ULwWP9DoEHG7pwjIeQ8NdGQsL/WhHFguS23R
-         PM2pd3C+QJugnrHYqwD+tRwU2tTLMBy1BbhLzV+gp9rsylA4enou9H+Pw/prgc2gCle4
-         K1O1gyworZjISliovTyG8mYHayjDmWDyCsj2qmZTbkKWra/P1W5DfvOBlz1XtHN1D9CM
-         lVgRuAI7+Lqt6hxPqTVvYC7vXgbNQde7bhf5puP6hx6Y/87cntINxWZvNcjc6ushM5AS
-         A00Q2zXTiu15RN5av4mHVJx4z2mEqePRR3i1PzVpU0DOudkdTQLymjkcHH8m3AghjKWG
-         sreA==
-X-Forwarded-Encrypted: i=1; AKwUvBzZRxgvyDW2Y2swAbb5Zp9AUoD558/yaPNrpCrFK6UGp6Z9XPHstX9GlF5VOR7esUjlNbftRi0KEI8okm8=@vger.kernel.org
-X-Gm-Message-State: AFuF++nI8RqV9wZnL1pSd3MqqQtuOM96fC0LNLS5WtU5jSqOJujW2OGD
-	eWHFdGHDXhXNf4m2yz1P1hdy+RSWhlBiQsM/SdHJbQ/L55sLn0fB+8qhC18OkZoyZbg=
-X-Gm-Gg: AYBFou1ye5SBqmM5xqLWK2nxrtXCKUrQoNwhuFgss8JbyVH0q9iZBULPRBJES0X36f1
-	osNy1YAbIBbfiSxAMKZXRsm8UgfmSTwakBzb7UOCK2aCI14VstQufVW18wGYlmYPBBOl81E7cuo
-	g0l+E7KTxWxpB2NWBHy1814usy4RTU/Ec2bDYL3qr31KDddKnkq45gBlxKAzXRAVVcGqL/8s65R
-	BBoaZIJ9viyXYMCzdTiwW0KhTkNFQe6FQvUnMF4d2f5G7FWw16S6Dh2/c2fx7OswjAOlD3v+0pQ
-	spMGzCMCsBeoc+R0+VgrYBrqGxCJQ+eyZ/4sqHV/xTRaEYHxpoQQoD1MlPehUYYw22rgW3H5L+G
-	7Ep6lvcP8VDzscrYMAku5nKwuPQQOAf6YB/Kq3igqYgMRxqKS82eUotmwaI704aBAy067W+BwbT
-	y4PBCJrfmtq6rMqMEFMNFAGY6ROTrdP8Cbdqd88HJmZk3aedO6m43QzNSbmXVUcxvaHO5EoYeAO
-	qha5w84Q+L6rnNoSKDDZnOvyxAipy/vRD8jGoIIlLRx+ESloedFPlAMTpXrD1GrtBqLESYCyZaS
-	xuas8XEF4f2zVzqvxIzgPBri
-X-Received: by 2002:a17:906:f591:b0:c29:462b:f917 with SMTP id a640c23a62f3a-c29666f739cmr698707866b.14.1789195804064;
-        Fri, 11 Sep 2026 23:50:04 -0700 (PDT)
-Received: from ?IPV6:2a00:12d0:af5d:ad01:5d3f:14e6:9bcb:5112? (2a00-12d0-af5d-ad01-5d3f-14e6-9bcb-5112.ip.tng.de. [2a00:12d0:af5d:ad01:5d3f:14e6:9bcb:5112])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2965c4e1ffsm159761166b.7.2026.09.11.23.50.03
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 11 Sep 2026 23:50:03 -0700 (PDT)
-Message-ID: <1e2adc53-87f4-42f3-8eda-cce828009e88@suse.com>
-Date: Sat, 12 Sep 2026 08:50:02 +0200
+	dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="hiRsrBnl";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="xfBOxyIE"
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 833817A00C1;
+	Sat, 12 Sep 2026 02:51:05 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-05.internal (MEProxy); Sat, 12 Sep 2026 02:51:06 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
+	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
+	:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to; s=fm2; t=1789195865; x=1789282265; bh=pXelZX8vHK
+	ysmBTKdiKejFzl/2p5vCMGgp21kZl21jw=; b=hiRsrBnlxsefTGda2N1uAs+xp8
+	yekMNX5yy90qikBkAg7DCIdQ2Bo7uF1VBCJWFuIzzXptDkiuFy38KAolnO2KxyYt
+	YgTsu/Sq37kuRfjEHkovEDOtgkwoG8VZB/XmSLLLeL6wqKxbwKU0LNSgTFq3jeeO
+	h3DShAxkvk23Pu3SqMDE8NZkYIrAp0roUU12rdTR3HXE+WW0FUD0ZbJPD/mZdm1f
+	yu0GKfOFRMrFv07G/uNuDLt5sWPj9WxFt1ZuFUWn/DjOYMHghaF41pxsFkkfWT/W
+	J2tzu/fHwTL1EerMYO3xXFntHzbcY8Sd/Lecp80/ikYmD/eZ2wpKMHQlp9XA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1789195865; x=1789282265; bh=pXelZX8vHKysmBTKdiKejFzl/2p5vCMGgp2
+	1kZl21jw=; b=xfBOxyIECso5VM6+QHZgkwAFNjbCkuLwDW0+LV+WOSkuOID0aGz
+	Olhys97hu4/DfZkzrZXujPc2IWK6HpifRIoJnHZ5kTSe6Cc9s+YXBdl/HfF1UThe
+	tw0BzW2nk2y7m0wwYg4UwTbtmFIH42cR8s0LWlPW/RazivIrNRRWhKD30HbUk4WE
+	mV6bGz+q579NKWEo9RgJFsKnVgXa9/8k8LON1lYnc9nG3raXkw108MlTZ5U7NI8B
+	4NV3V1i3k1XTVEzAxkz5XkDY0fxRfpa6TCZ5H+rRZVr3aa924b/050R9iHn+ire2
+	S0ukwM/iL2gpKjEcabb0MM83wbhN2i5kApg==
+X-ME-Sender: <xms:V_akaseX7i16dWfw94yLXj53yqAI5aVlqbB6VR4qH7iE6S2gy_2gnw>
+    <xme:V_akauVJb9aiAHeu5d0sakAoof3oy02TsXyhZRARIECWOvvU44QbhfEYGxHSlJ16M
+    7d33DgQuMeBdYElfy7e601gC_cVcvCAmuy9ueGx1ox5IHlnAYdF1YKC>
+X-ME-Received: <xmr:V_akarWSuPmCR8e8YBVpgWNJGIKyKAymA8sfUMAhs93hbx2WtoUwbKgNzIVM_65ANlcVoC3EyQ>
+X-ME-Proxy-Cause: dmFkZTEPTAV3+XbjVP/bW4cRcXpyHrAzrH9+9QpuyVHtrKg7x48x8iJmpPt+1NC3WIxLWq
+    r90BQCoAJYZ4nSPfYg34koSNDHSCM2PvChnmulEsow2NWcqxLYLRquMqtW/z7CFvgHF9xp
+    LOS+C2iupKH/lT7unaEiIeevY0qs7y6OgZbxHtoot4tQNz9ihjBhVk6V9xUu18cmN/tk1o
+    K+47UZXjeql+caK/KOSRUH22I0DMlynKeBZMw4qh2DpLfMXSqs0cPx/6PCAYwoBVOx8Rtx
+    6GeClWPMRgiw9fCuJkVZfSxjLfC6gXvV53A9ZcDytiAoD7IwiylFwUUs4149lKa+UxHfUN
+    o0sM/X690ex351WoPTjnMXG/DAMOBLbz4DIxnHRum+bC7G3+ct9UP63sYJ5eO2uFT/y+aN
+    4cVYu8EsVuVmr2Kj++BLkM4hynmjuobdI3qqF4nstMu40TzyNeZ4k749sWkkR2ERCsBBP5
+    bE+0sjSUSNnf8P7VaOmeHICeczk3YyWHBZheVLFz2sbV0JZ0BfUEVmp519eLCYmXJS1pym
+    N5RqRZ1ViOlv51iW4mOTo8SnXd68vKLDSH71UY/+veMtHy29cynZjHqYy9iM0qK8qENLdS
+    O5rFazB4HaGcUVaNRXJc+FZiH2IKGJZE7YzOkn0jAXpRsvxWu++S/vBC8vMQ
+X-ME-Proxy: <xmx:V_akamNUNvB3xUSe3EjObkxaAHI9rk2yk-J9S-ABrOx9VfPS0elSAA>
+    <xmx:V_akam6OUBb7IwMWMFVb-twh-Dwm4MwX6ADYMSIHO67EYnvRcjzlZg>
+    <xmx:V_akanpsMUEkU4ILCLCKjaRjJR_mTUGUDAYSl_I-c7rMi9i0GPDYZA>
+    <xmx:V_akakDyatk626BOurHHYVOSIPduqmBsokghXQ8dIq6S9SsV_nis4Q>
+    <xmx:WfakapbatKBJhGytDqbeQ7IvGtzUSW2zdMOgACchzEOfXUxfph3yuaAK>
+Feedback-ID: i7a5e4b5f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 12 Sep 2026 02:50:55 -0400 (EDT)
+From: Jiaxing Hu <gahing@gahingwoo.com>
+To: tomeu@tomeuvizoso.net,
+	heiko@sntech.de,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	joro@8bytes.org,
+	will@kernel.org,
+	robin.murphy@arm.com,
+	ulfh@kernel.org,
+	p.zabel@pengutronix.de,
+	ogabbay@kernel.org,
+	zhangqing@rock-chips.com
+Cc: royalnet026@gmail.com,
+	abel.vesa@oss.qualcomm.com,
+	sebastian.reichel@collabora.com,
+	sidong.yang@furiosa.ai,
+	u.kleine-koenig@baylibre.com,
+	chaoyi.chen@rock-chips.com,
+	diederik@cknow-tech.com,
+	alchark@flipper.net,
+	dri-devel@lists.freedesktop.org,
+	linux-rockchip@lists.infradead.org,
+	iommu@lists.linux.dev,
+	linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Jiaxing Hu <gahing@gahingwoo.com>
+Subject: [PATCH v12 00/14] accel/rocket: RK3576 NPU (RKNN) enablement
+Date: Sat, 12 Sep 2026 18:50:39 +1200
+Message-ID: <20260912065053.1519165-1-gahing@gahingwoo.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 13/13] x86/msr: Simplify some rdmsrq() use cases
-To: Shreshth Srivastava <shreshth.srivastava@intel.com>,
- linux-kernel@vger.kernel.org, x86@kernel.org,
- linux-perf-users@vger.kernel.org, linux-hyperv@vger.kernel.org,
- kvm@vger.kernel.org, linux-coco@lists.linux.dev
-Cc: acme@kernel.org, adrian.hunter@intel.com,
- alexander.shishkin@linux.intel.com, bp@alien8.de,
- dave.hansen@linux.intel.com, decui@microsoft.com, haiyangz@microsoft.com,
- hpa@zytor.com, irogers@google.com, james.clark@linaro.org, jolsa@kernel.org,
- kas@kernel.org, kys@microsoft.com, longli@microsoft.com,
- mark.rutland@arm.com, mhklinux@outlook.com, mingo@redhat.com,
- namhyung@kernel.org, pbonzini@redhat.com, peterz@infradead.org,
- rick.p.edgecombe@intel.com, seanjc@google.com, tglx@kernel.org,
- wei.liu@kernel.org
-References: <20260821105709.1671132-1-jgross@suse.com>
- <20260911213310.381839-1-shreshth.srivastava@intel.com>
-Content-Language: en-US
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <20260911213310.381839-1-shreshth.srivastava@intel.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------faqU8D6UM6LZgyWtdNphe2F6"
+Content-Transfer-Encoding: 8bit
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------faqU8D6UM6LZgyWtdNphe2F6
-Content-Type: multipart/mixed; boundary="------------dL8jxm9dVU7kKr5WHApU9RgD";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Shreshth Srivastava <shreshth.srivastava@intel.com>,
- linux-kernel@vger.kernel.org, x86@kernel.org,
- linux-perf-users@vger.kernel.org, linux-hyperv@vger.kernel.org,
- kvm@vger.kernel.org, linux-coco@lists.linux.dev
-Cc: acme@kernel.org, adrian.hunter@intel.com,
- alexander.shishkin@linux.intel.com, bp@alien8.de,
- dave.hansen@linux.intel.com, decui@microsoft.com, haiyangz@microsoft.com,
- hpa@zytor.com, irogers@google.com, james.clark@linaro.org, jolsa@kernel.org,
- kas@kernel.org, kys@microsoft.com, longli@microsoft.com,
- mark.rutland@arm.com, mhklinux@outlook.com, mingo@redhat.com,
- namhyung@kernel.org, pbonzini@redhat.com, peterz@infradead.org,
- rick.p.edgecombe@intel.com, seanjc@google.com, tglx@kernel.org,
- wei.liu@kernel.org
-Message-ID: <1e2adc53-87f4-42f3-8eda-cce828009e88@suse.com>
-Subject: Re: [PATCH v3 13/13] x86/msr: Simplify some rdmsrq() use cases
-References: <20260821105709.1671132-1-jgross@suse.com>
- <20260911213310.381839-1-shreshth.srivastava@intel.com>
-In-Reply-To: <20260911213310.381839-1-shreshth.srivastava@intel.com>
+This adds the RK3576 NPU to accel/rocket, which today supports RK3588
+only. The RK3576 carries two cores of the same RKNN block, wired up
+differently. Two extra convolution buffer clocks, two power domains per
+core, one reset rather than two, no NPU SRAM rail, and a PC_TASK_CON
+that packs the task number into sixteen bits rather than twelve.
 
---------------dL8jxm9dVU7kKr5WHApU9RgD
-Content-Type: multipart/mixed; boundary="------------VU1m0sOTKOmOlXUOKddZrxGl"
+1/14 is Igor Paunovic's "[PATCH v2] accel/rocket: request the core clocks
+by name", carried in the series since v11 so it applies to a plain
+next-20260911 with nothing outside it to follow. It keeps his authorship
+and its four tags. Tested on a Radxa ROCK 4D.
 
---------------VU1m0sOTKOmOlXUOKddZrxGl
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Five things changed since v11:
 
-T24gMTEuMDkuMjYgMjM6MzMsIFNocmVzaHRoIFNyaXZhc3RhdmEgd3JvdGU6DQo+IEhpIEp1
-ZXJnZW4sDQo+IA0KPiBJJ20gd29ya2luZyBvbiBhIHYzIG9mIERhdmUncyAieDg2L21zcjog
-Q29uc29saWRhdGUgbmF0aXZlL3BhcmF2aXJ0IE1TUg0KPiBmdW5jdGlvbnMiIHNlcmllcyBv
-biB0b3Agb2YgeW91cnMsIHNvIEkgdHJpZWQgdGVzdGluZyB0aGlzIHBhdGNoLg0KDQpZb3Ug
-c2hvdWxkIGxvb2sgYXQgWzFdIGFuZCBbMl0gYXMgd2VsbC4NCg0KPiANCj4gV2hpbGUgSSdt
-IGhlcmU6IHlvdSBtZW50aW9uZWQgeW91J2Qgc2VuZCBhIFYzIGFmdGVyIHJjMSBpZiBjb25m
-bGljdHMNCj4gdHVybmVkIHVwLiBJcyB0aGF0IHN0aWxsIHRoZSBwbGFuPyBJIHdhc24ndCBz
-dXJlIHdoZXRoZXIgdG8gYmFzZSBvbiB2Mg0KPiBwbHVzIHRoZSByZXNwaW5zIG9mIDQgYW5k
-IDEzLCBvciB3YWl0Lg0KDQpJIGRpZCBzZW5kIG91dCBWMyB5ZXN0ZXJkYXkgWzNdLg0KDQo+
-IA0KPiBNb3N0IG9mIHRoZSBjb2RlIHRoaXMgdG91Y2hlcyBjYW4ndCBydW4gb24gbXkgYm94
-LCBzbyBJIGNvbXBhcmVkIGNvbXBpbGVkDQo+IG91dHB1dCBpbnN0ZWFkLiBCdWlsdCBwYXRj
-aGVzIDEtMTIsIHRoZW4gMS0xMywgd2l0aCB0aGUgc2FtZSAuY29uZmlnIGFuZA0KPiBjb21w
-aWxlciwgYW5kIGRpZmZlZCAib2JqZHVtcCAtZCIgb3V0cHV0IGZvciBldmVyeSAubyBpbiBi
-b3RoIHRyZWVzLiBBbGwNCj4gOTM5NiBvYmplY3RzIGNhbWUgb3V0IGlkZW50aWNhbC4gVGhl
-IDEtMTMga2VybmVsIGJvb3RzIGZpbmUgdW5kZXIgS1ZNLg0KPiANCj4gT25seSB0cmllZCB0
-aGUgb25lIGNvbmZpZzogeDg2XzY0LCBnY2MgMTEuNS4wLA0KPiBDUFVfU1VQX3tJTlRFTCxB
-TUQsWkhBT1hJTn09eSwgSFlQRVJWPXksIEtWTV9JTlRFTD15LCBLVk1fSU5URUxfVERYPXku
-DQo+IA0KPiBUZXN0ZWQtYnk6IFNocmVzaHRoIFNyaXZhc3RhdmEgPHNocmVzaHRoLnNyaXZh
-c3RhdmFAaW50ZWwuY29tPg0KDQpUaGFua3MuDQoNCg0KSnVlcmdlbg0KDQpbMV06IGh0dHBz
-Oi8vbG9yZS5rZXJuZWwub3JnL2xrbWwvMjAyNjA5MTEwNzUyMTYuMzE0MjMwOS0xLWpncm9z
-c0BzdXNlLmNvbS9ULyN0DQpbMl06IGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2xrbWwvMjAy
-NjA5MTEwODQyMTEuMzE0OTk1Ny0xLWpncm9zc0BzdXNlLmNvbS9ULyN0DQpbM106IGh0dHBz
-Oi8vbG9yZS5rZXJuZWwub3JnL2xrbWwvMjAyNjA5MTEwNzQ1MzAuMzE0MDgzMC0xLWpncm9z
-c0BzdXNlLmNvbS9ULyN0DQo=
---------------VU1m0sOTKOmOlXUOKddZrxGl
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+  3/14   clears the raw interrupt status beside the mask. Masking alone
+         left the DPU bit latched until rocket_core_reset(), and the
+         hardirq decides on raw status alone, so a fault from the IOMMU
+         sharing this core's line would wake the threaded handler again
+         and "No handler is running now" would stop holding partway
+         through the function.
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+         It still tests "> 0". An earlier draft of this version changed
+         that to "!= 0", on the reasoning that -EINVAL means runtime PM
+         is not managing the device and the block is therefore powered.
+         That is wrong and the change is withdrawn.
+         pm_runtime_get_conditional() tests power.disable_depth before
+         power.runtime_status, so -EINVAL masks a suspended device
+         rather than excluding one, and this driver makes that state
+         twice: in pm_runtime_force_suspend(), its own system sleep
+         callback, which disables runtime PM before turning the clocks
+         off, and in rocket_core_fini(), which suspends then disables
+         before cancelling the timeout worker. Either would have put a
+         register write on a powered-down block.
 
-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
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
+  10/14  cycles the resets before the settle delay 9/14 adds, not after.
+         PD_NPU0 and PD_NPU1 ask for both, and the old order spent the
+         delay and then deasserted a reset with nothing between it and
+         rockchip_pmu_restore_qos(). The reset is SRST_A_RKNN0/1_BIU,
+         the bus interface those writes go through.
 
---------------VU1m0sOTKOmOlXUOKddZrxGl--
+         This is a change to code Abel Vesa reviewed. His Reviewed-by
+         is kept because the patch still does what he read, in a
+         different order; say so if it should go. 9/14 is untouched.
 
---------------dL8jxm9dVU7kKr5WHApU9RgD--
+  11/14  checks the match data at the top of rocket_probe(), before
+         anything is allocated. of_device_get_match_data() returns NULL
+         for a device bound by name rather than by compatible, and such
+         a device has no of_node, so the walk of matching nodes that
+         sizes rdev->cores[] never counted it. Storing into that array
+         and checking afterwards writes past the end.
 
---------------faqU8D6UM6LZgyWtdNphe2F6
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+  13/14  gives CLK_RKNN_DSU0 a rate. Nothing in mainline sets it and the
+         NPU comes up at 786 MHz, while Rockchip's OPP table asks 800 mV
+         of its 800 MHz step and nothing sets the rail either. On the
+         ROCK 4D at the 750 mV its PMIC boots with, two jobs at once
+         make the second core write single words wrong, thirteen to
+         twenty rows of a 5400 row pass, where either core alone is
+         exact; at 594 MHz, or at 786 with the rail at 800 mV, four such
+         passes are clean. 594 MHz is a divider off GPLL and sits
+         between that table's 500 and 600 MHz steps, both of which ask
+         725 mV, so it is inside the voltage a board that describes no
+         NPU rail already provides.
 
------BEGIN PGP SIGNATURE-----
+  14/14  enables both cores and both IOMMUs. v11 enabled rknn_core_0
+         alone, "left to whoever can test it". It has been tested.
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmqk9hsFAwAAAAAACgkQsN6d1ii/Ey/S
-1wf/QTQ5woUenjuZ7QkJEXIuWDT7pJrQQt4dQPrJUah9M9GRZ1uIegM3263zRi5Yv09bbadrYuM3
-oLSnH3FWqDCembBNmlwXTlL+fkoRnIoAZZUApZHUyVZDqQZmyfjPpogjHlUhDfwnKZMJYRX5P/rH
-AilfznPtW63O4zPeeCDF/q803mUv3UBxtP9PA4+Bhta4b9zcRpSHouBFVgOj/Eq6uj4bs9YPdYvE
-jUpqgPbVXQzL6HUq79PPAUxs/Is+2tusB7d/OwA4UzeY0VN8Ky6zeJNAOv7xMxiFZeVh8RZ5Dk5w
-ak4YEaJmufWhu4w8Bgx3uV5J/SvArlMv2MnItpdDew==
-=kgkG
------END PGP SIGNATURE-----
+Sashiko raised one thing on 4/14 that an argument does not settle.
+pm_runtime_put_autosuspend() is asynchronous with a 50 ms delay, so on a
+workload whose submit gap is shorter the domain does not cycle after a
+reset, 10/14's power-on pulse never fires, and rocket_core_reset()'s own
+resets are all that run.
 
---------------faqU8D6UM6LZgyWtdNphe2F6--
+Measured on the domain rather than on the device: over one 60.8 s decode
+of Phi-3.5-mini on a ROCK 4D, genpd's npu domain took 46.8 s active and
+14.2 s idle, which sum to the wall clock, and its idle-state usage count
+rose by 202. npu0 and npu1 rose by 210 and 217, and current_state reads
+off-0 either side. The domain cycles about two hundred times a minute
+under a real decode, and the pulse fires.
+
+Whether it cycles after a timed-out job is the half Sashiko is asking
+about, and that depends on the gap to the next submit. Inducing one needs
+a kernel with JOB_TIMEOUT_MS lowered and a flash, so that half is still
+an argument rather than a measurement.
+
+Findings Sashiko labelled pre-existing, for Tomeu. These five recur; it
+raised thirteen across the nine mails, and the one not listed worth
+naming is a 64-bit DMA address truncated to 32 bits, which faults the
+IOMMU above 4 GB.
+
+  - the job completion path takes iommu_group_get(core->dev) and never
+    puts it, one group reference a job, flagged on seven of the nine.
+    5/14 moves this call rather than adding or removing it, so the leak
+    is pre-existing but not untouched;
+  - the shared IRQ handler touches registers without checking the PM
+    state;
+  - runtime suspend has no synchronize_irq();
+  - num_cores is used both as an array length and as the probe index;
+  - rdev is leaked through devres on probe deferral.
+
+5/14 moves the iommu_detach_group(NULL, iommu_group_get(core->dev)) line
+out of the IRQ handler and into rocket_job_next_locked(). ZhaoJinming's
+"accel/rocket: Fix iommu_group leak and unsafe IRQ register access"
+changes the same line, is marked for stable, and carries the same Fixes
+tag as ours. Whichever lands first the other conflicts; say which you
+would rather take.
+
+Still open from v9, no reply since. 9/14 does three things: it adds the
+settle delay, renames a macro, and gives RK3576_PD_NPU a regulator, which
+also makes every RK3576 board force that domain off at probe. I asked
+whether it wants splitting; Abel Vesa's Reviewed-by may be the answer,
+and I would rather split it than have it merged on my silence. 13/14 also
+gives each core both NPU domains, which is the description that has been
+tested here rather than the topology; if it should be one domain per
+core, 6/14's minItems has to change with it.
+
+The bindings are unchanged since v9, where dt_binding_check was clean on
+all three with dtschema 2026.6 and yamllint 1.38.0, and CHECK_DTBS was
+clean on all 13 rk3576 and all 48 rk3588 dtbs. 13/14 adds a property to a
+dts rather than to a binding, and CHECK_DTBS is clean on all 13 rk3576
+dtbs with it.
+
+A correction to an earlier posting. On 11 September I replied to the v10
+cover saying that the 102 induced resets and the all-0x80 buffer it
+described were not Igor Paunovic's. They are his: he reported both on
+25 August in the v9 02/13 thread, and the 45 resets of 19 August and the
+102 of 25 August are two different runs of his. I had read only the
+19 August thread, and should have searched before saying in public that
+he had not measured it. That mail is withdrawn, and both of his
+Tested-by lines stand as he sent them.
+
+Link to v11: https://lore.kernel.org/all/20260831081956.84871-1-gahing@gahingwoo.com/
+
+The tags:
+
+  2/14   Tested-by: Igor Paunovic   # RK3588, three cores
+  3/14   Tested-by: Igor Paunovic   # RK3588, three cores, induced
+                                    # reset, differential base,
+                                    # JOB_TIMEOUT_MS=2
+  4/14   Tested-by: Igor Paunovic   # RK3588, three cores, induced
+                                    # reset, JOB_TIMEOUT_MS=2
+  5/14   Reviewed-by: Igor Paunovic
+  6/14   Reviewed-by: Krzysztof Kozlowski
+  7/14   Acked-by: Conor Dooley
+  8/14   Acked-by: Conor Dooley
+  9/14   Reviewed-by: Abel Vesa
+  10/14  Reviewed-by: Abel Vesa
+
+Igor Paunovic (1):
+  accel/rocket: request the core clocks by name
+
+Jiaxing Hu (13):
+  accel/rocket: take the completion register writes under job_lock
+  accel/rocket: wait for a running IRQ handler before resetting a core
+  accel/rocket: let the core suspend after a reset
+  accel/rocket: factor the completion tail out of the IRQ handler
+  dt-bindings: npu: rockchip: add rockchip,rk3576-rknn-core
+  dt-bindings: power: rockchip: allow resets in a power domain node
+  dt-bindings: iommu: rockchip: describe the RK3576 NPU MMU
+  pmdomain: rockchip: add optional per-domain power-on settle delay
+  pmdomain: rockchip: cycle optional power-domain resets on power-on
+  accel/rocket: select the per-core clock and reset counts from match
+    data
+  accel/rocket: add RK3576 NPU (RKNN) support
+  arm64: dts: rockchip: add NPU (RKNN) nodes to rk3576
+  arm64: dts: rockchip: enable the NPU on rk3576-rock-4d
+
+ .../bindings/iommu/rockchip,iommu.yaml        |  28 ++++
+ .../npu/rockchip,rk3588-rknn-core.yaml        |  47 +++++-
+ .../power/rockchip,power-controller.yaml      |   8 ++
+ .../boot/dts/rockchip/rk3576-rock-4d.dts      |  22 +++
+ arch/arm64/boot/dts/rockchip/rk3576.dtsi      |  86 ++++++++++-
+ drivers/accel/rocket/rocket_core.c            |  32 ++++-
+ drivers/accel/rocket/rocket_core.h            |  11 +-
+ drivers/accel/rocket/rocket_device.c          |   7 +-
+ drivers/accel/rocket/rocket_drv.c             |  42 +++++-
+ drivers/accel/rocket/rocket_drv.h             |   2 +
+ drivers/accel/rocket/rocket_job.c             | 135 +++++++++++++++---
+ drivers/pmdomain/rockchip/pm-domains.c        |  83 ++++++++---
+ 12 files changed, 440 insertions(+), 63 deletions(-)
+
+
+base-commit: 68142f986ff04b2b70b31db00f719bf690f64a9a
+-- 
+2.43.0
+
