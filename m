@@ -1,276 +1,216 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDBBD3BFAF7
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 09:15:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CA38417BD2
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 09:18:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789204514; cv=none; b=Rkjv78CQJIW8mgeIdXM83qSVcmlOLcXJQUYUxh4tRIfxEeNR26KXi2JHWO247sAfO0goxMK9c+tlcBXg/ouS51DE4eNywbr+FeY80XramGw/+gXJKsiNYUoNJwyfVzDOF8HdoQX5J7+uQLh1LSAO7Ct3TReDdgyJ1oombO6hORQ=
+	t=1789204697; cv=none; b=GL0vNFn5wDaZD+Od7ClHIjuBfgeaNr7VkE3lxLE7c3B8NLDL43A0L44UWQEOE/Cjjszg4E/+Ty8Q9PyzOSLto/DtxLqJxbY1k/FbgVfc5o7J3zkSKedGwsCKmozNKisNHtDvdDd0kdE6NpRt6p9iQ6au89EW2lovLY64VqLRfB8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789204514; c=relaxed/simple;
-	bh=Fh/bBgJyBwaSTe9nnuTQMdOkcFhC3tAOkvAZyeumstU=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=Qn3mBO/d5IsNyFnf+btNTHN+JKlGOc0xtuy3HuIfKC2BVLPB6VShp7P7JQrJJ4KfGtuWjTbZPyCziFqtNQWDOvtu4JGyqAXNaWTT5T4xOCQgNjbVYlalnYjE3jhBUQBT9h+fsU9WlnGGMhr2sDuIJ7cBNw7mv8uPS6ay0ugjT60=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lxu1+1ii; arc=none smtp.client-ip=198.175.65.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789204697; c=relaxed/simple;
+	bh=D5Wpjm5oN3dzkOYfCx8is3WGvUjqM+WV4ReOYryVGW4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ak+PynitBOTMUnR3yuoDvFphxAcgDeDd7bRLzqqzMBcu48JhmXE5wJKTZ5rJMoliXwa7KrPw4gcO/QeVkx/+xY0v/BeTaCu9GPKFWaZd43NUFIxnkc5gYN7BmYWcswHEn/2UAzBFY+n63kBK0BrYVK9agwlMd9U7V71NskGm3gY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pf90Jhwt; arc=none smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lxu1+1ii"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789204512; x=1820740512;
-  h=date:from:to:cc:subject:message-id;
-  bh=Fh/bBgJyBwaSTe9nnuTQMdOkcFhC3tAOkvAZyeumstU=;
-  b=lxu1+1ii+BYUD88Wbdn74bC/8oHPB4B7xjwLWpxLYLbDG+PUybspVunF
-   +Un5pR/UUuEwz3tipYe1WwjwyZaLSXdsYBPVsf81kYOBdGxuTZjv+3hLm
-   kXh9dUJGdYpFjtLQbrr9O9q8ekzJv3f6WQidNM2/PagrMYrUGoY4I2qCI
-   r9bupGFDxDONVIW+zPe20ILIml/KOU4cNBwKgcFaczvTIvhRXxs7x5fll
-   RtQO38v9/B+GAagaDoPjGjzeOtjPXdpBRegezuHBFtbF1WQn/znql8yNT
-   rYTKL5R2bg2uZup84tMJSYCwxMIItA06yIHesFKt1SetsfIwFg2g7dbAC
-   g==;
-X-CSE-ConnectionGUID: NBfDx/khQtCI9/06FwxSuQ==
-X-CSE-MsgGUID: CmcldPpYSuOt/2i4Soec6w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11902"; a="93521269"
-X-IronPort-AV: E=Sophos;i="6.27,99,1787036400"; 
-   d="scan'208";a="93521269"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Sep 2026 02:15:12 -0700
-X-CSE-ConnectionGUID: 16GSCu38S+q/kUkeCA0IlQ==
-X-CSE-MsgGUID: JN5mAdrbQh6U/deDsoE0Hg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,99,1787036400"; 
-   d="scan'208";a="295638575"
-Received: from lkp-server02.sh.intel.com (HELO 0a3643a6ed9d) ([10.239.97.151])
-  by fmviesa002.fm.intel.com with ESMTP; 12 Sep 2026 02:15:10 -0700
-Received: from kbuild by 0a3643a6ed9d with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x5JpD-000000002oN-3HTj;
-	Sat, 12 Sep 2026 09:15:07 +0000
-Date: Sat, 12 Sep 2026 17:14:17 +0800
-From: kernel test robot <lkp@intel.com>
-To: "x86-ml" <x86@kernel.org>
-Cc: linux-kernel@vger.kernel.org
-Subject: [tip:master] BUILD SUCCESS
- 3d4279fce2cfb39dfa3477dd4fa5d484e98bfcd2
-Message-ID: <202609121713.0PDHHxxs-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pf90Jhwt"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c2940ff2313so49062066b.1
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 02:18:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789204692; x=1789809492; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=STiZW/IcHvT4e1S/BFbyfQE4PgoHv6tak0bixvasDdQ=;
+        b=pf90JhwtRtLEpH0z6Y5lJdcFxxB26/HGVIeK60q0J9YHSGK9VCctazDBh0zXd5V9NP
+         Db9qgN1OCxg+bYDHW9Le3wl35xCHMw/fBTSI3txdCvI8mjpZIeBu7xXk2A3hQDQxAY8j
+         MD/QscXwdbXdeVN99IBefcMOmCu1oaFCZXFoWk9xz8JlLLPotGo/CI+ux4gY7AyH0D6M
+         W8eyBOuYwtFmruDKYNnAGjAVkwf5TcQukSgtOsewmx3g2K9VQ5x5L5nqnFk7Gzpg4Qm6
+         ByxtfJGKv5K+U1I5CGO8wJ5gNX94FW7bsoqSY+zCobnQNIrFLh6GD9JKTZw87k0l5Ul5
+         s9pg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789204692; x=1789809492;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=STiZW/IcHvT4e1S/BFbyfQE4PgoHv6tak0bixvasDdQ=;
+        b=ZzlxmVvA1kzYpda5J01HFhL24gxWyvGBv6qDtxYVDUJ9dBbTxzps29pxlW1Tzsi0sV
+         clWsHCaRjQ2FG48jwyP1AjX7xB1VzcpN5z3pwZsKFMpE00z6uZfbwxpnDXZV566K1IJn
+         GsaSzGl4+8yL4gTGiTdXhqx/Tu897gHi19bWlA/B056hrRKp6f7H8CF/YCTxICxwfS1c
+         5SOYYdx31uP0MbnOJbg4hD/1ON4HvQ7EMsoT3K8yDR2GgH0rB/Z4kYNtzjzDXQhDO7Hc
+         9twov5H6pMlDpgCc6qvGO9/LQ/lMTCe0ZiBkcaBhgUTtrJrJacC9lYTEC7i5phWFLmy1
+         2XAQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw/0ViXLPWVmSlsEzxbZUlPO6PIkAJVXVqtqSb3CmpSqRJLMzKDCYOqbINHoWyR0NX659HDlWUdssZQIwY=@vger.kernel.org
+X-Gm-Message-State: AFuF++nM3dwSBhf8oF9gTkWg4EYYMj23wAK3IvG+UQHtBqQoGy51H0Qr
+	iGm+oRVq0pdEgl8gkSi0eSoq8djk7sBw7+QDGZE0nchP+KLhOHP/UM3w
+X-Gm-Gg: AYBFou0/JLfxXGf2NW8kw/qp+4e/tHgnt74Ni/H9FE2FI4nVwocM7Xq49BptTr/4WEv
+	bGIcXETUFmcZTe//lC+1EYySMB45wRyxEaRbeQc793wkW87eM+fhwpvqgo0wVslxejV6o75+nr9
+	AhaXGa+xLILozeTk3G+xewmEtyRcsiCCmcsFYByrh3gfbB15uCxU5U3PYdDK9Vv3VFTRfeRMk+L
+	VaLk6+ya1aT/8qY7Ev6rfKcwPBnEnLVup0N2amE8UsNFYA6dhSopgAGn1HcrLUMCflsGzzYUJP1
+	rJn1Vg5BRsl+uAf6zSyPCpNvXbsUS+aLTLaWIEVO2Q0YoBcI4F0h1iiBTdwG4Pal6Eq6spYZ3Ez
+	GPlxypo962QLb/KgkGMVLFvHiKHrsIZcF5v9G6CVNLOv52p8c0bvoRbjROZ7ah8yGHdXRnTo/Kt
+	4YreS9KvdK8bn7AODUeKO/TEHtf6zjkPNIXO6R3zGvW57P75mBF2sGQFXO/YQ6p8kqt6L9KuPJz
+	kynY+jB6p3beWHDQZhe
+X-Received: by 2002:a17:907:3c86:b0:c25:f7db:4bef with SMTP id a640c23a62f3a-c2962c9944bmr512031466b.21.1789204691464;
+        Sat, 12 Sep 2026 02:18:11 -0700 (PDT)
+Received: from cartold.tail1da87c.ts.net ([77.213.69.61])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c29660234e7sm170786066b.15.2026.09.12.02.18.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 12 Sep 2026 02:18:11 -0700 (PDT)
+From: Theo Andersen Carton <andersen.theo@gmail.com>
+To: jani.nikula@linux.intel.com,
+	rodrigo.vivi@intel.com
+Cc: joonas.lahtinen@linux.intel.com,
+	tursulin@ursulin.net,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Theo Andersen Carton <andersen.theo@gmail.com>
+Subject: [PATCH] drm/i915/ddi: add DDI A force 4 lanes quirk for Apple MacBookPro11,5
+Date: Sat, 12 Sep 2026 11:18:05 +0200
+Message-ID: <20260912091805.531666-1-andersen.theo@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git master
-branch HEAD: 3d4279fce2cfb39dfa3477dd4fa5d484e98bfcd2  Merge branch into tip/master: 'x86/tdx'
+On dual-GPU Retina MacBooks the internal panel is muxed to the discrete
+GPU at boot, so Apple's firmware never lights up eDP on the Intel side.
+As a result it never sets DDI_A_4_LANES, and intel_ddi_max_lanes() reads
+back a source maximum of two lanes for port A.
 
-elapsed time: 1482m
+intel_dp_max_common_lane_count() then takes min3(source_max = 2,
+sink_max = 4, ...) = 2, giving 2 x 2.7 Gbps x 8/10 = 4.32 Gbps of link
+bandwidth. The panel's native 2880x1800@60 8bpc mode needs 8.1 Gbps, so
+every mode is rejected with MODE_CLOCK_HIGH and the connector comes up
+with no usable modes at all -- the panel stays dark whenever i915 is
+made to drive it, which looks like a hardware limitation but is not.
 
-configs tested: 199
-configs skipped: 2
+The lanes are physically there. Reading the panel's DPCD from the AMD
+side, where amdgpu drives it correctly, reports MAX_LANE_COUNT = 0x84,
+i.e. 4 lanes, and amdgpu's own link_settings shows it running the panel
+at 4 lanes / HBR. macOS likewise drives this panel from the iGPU at its
+native resolution, so all four lanes are routed through the gmux to
+DDI A. Only the register bit is unset.
 
-The following configs have been built successfully.
-More configs may be tested in the coming days.
+intel_ddi_a_force_4_lanes() already exists for exactly this situation --
+its neighbouring comment notes that "Some BIOS might fail to set this
+bit on port A if eDP wasn't lit up at boot" -- but it only covers
+Broxton and Geminilake. Extend it with a DMI quirk so affected Macs get
+the correct lane count too.
 
-tested configs:
-alpha                             allnoconfig    gcc-16.1.0
-alpha                            allyesconfig    gcc-16.1.0
-alpha                               defconfig    gcc-16.1.0
-arc                              allmodconfig    clang-24
-arc                               allnoconfig    gcc-16.1.0
-arc                              allyesconfig    clang-24
-arc                                 defconfig    gcc-16.1.0
-arc                   randconfig-001-20260912    clang-17
-arc                   randconfig-002-20260912    clang-17
-arm                               allnoconfig    gcc-16.1.0
-arm                              allyesconfig    clang-24
-arm                         at91_dt_defconfig    clang-17
-arm                                 defconfig    gcc-16.1.0
-arm                            hisi_defconfig    clang-24
-arm                      jornada720_defconfig    clang-24
-arm                            mps2_defconfig    clang-24
-arm                        mvebu_v7_defconfig    clang-24
-arm                           omap1_defconfig    clang-17
-arm                           omap1_defconfig    clang-24
-arm                   randconfig-001-20260912    clang-17
-arm                   randconfig-002-20260912    clang-17
-arm                   randconfig-003-20260912    clang-17
-arm                   randconfig-004-20260912    clang-17
-arm                         s5pv210_defconfig    clang-17
-arm64                            allmodconfig    clang-24
-arm64                             allnoconfig    gcc-16.1.0
-arm64                               defconfig    gcc-16.1.0
-arm64                 randconfig-001-20260912    gcc-15.2.0
-arm64                 randconfig-002-20260912    gcc-15.2.0
-arm64                 randconfig-003-20260912    gcc-15.2.0
-arm64                 randconfig-004-20260912    gcc-15.2.0
-csky                             allmodconfig    gcc-16.1.0
-csky                              allnoconfig    gcc-16.1.0
-csky                                defconfig    gcc-16.1.0
-csky                  randconfig-001-20260912    gcc-15.2.0
-csky                  randconfig-002-20260912    gcc-15.2.0
-hexagon                          allmodconfig    gcc-16.1.0
-hexagon                           allnoconfig    gcc-16.1.0
-hexagon                             defconfig    gcc-16.1.0
-hexagon               randconfig-001-20260912    clang-24
-hexagon               randconfig-002-20260912    clang-24
-i386                             allmodconfig    clang-22
-i386                              allnoconfig    gcc-16.1.0
-i386                             allyesconfig    clang-22
-i386        buildonly-randconfig-001-20260912    gcc-14
-i386        buildonly-randconfig-002-20260912    gcc-14
-i386        buildonly-randconfig-003-20260912    gcc-14
-i386        buildonly-randconfig-004-20260912    gcc-14
-i386        buildonly-randconfig-005-20260912    gcc-14
-i386        buildonly-randconfig-006-20260912    gcc-14
-i386                                defconfig    gcc-16.1.0
-i386                  randconfig-001-20260912    gcc-14
-i386                  randconfig-002-20260912    gcc-14
-i386                  randconfig-003-20260912    gcc-14
-i386                  randconfig-004-20260912    gcc-14
-i386                  randconfig-005-20260912    gcc-14
-i386                  randconfig-006-20260912    gcc-14
-i386                  randconfig-007-20260912    gcc-14
-i386                  randconfig-011-20260912    gcc-14
-i386                  randconfig-012-20260912    gcc-14
-i386                  randconfig-013-20260912    gcc-14
-i386                  randconfig-014-20260912    gcc-14
-i386                  randconfig-015-20260912    gcc-14
-i386                  randconfig-016-20260912    gcc-14
-i386                  randconfig-017-20260912    gcc-14
-loongarch                        allmodconfig    clang-24
-loongarch                         allnoconfig    gcc-16.1.0
-loongarch                           defconfig    clang-24
-loongarch             randconfig-001-20260912    clang-24
-loongarch             randconfig-002-20260912    clang-24
-m68k                             allmodconfig    gcc-16.1.0
-m68k                              allnoconfig    gcc-16.1.0
-m68k                             allyesconfig    clang-24
-m68k                                defconfig    clang-24
-m68k                       m5235evb_defconfig    gcc-16.1.0
-microblaze                        allnoconfig    gcc-16.1.0
-microblaze                       allyesconfig    gcc-16.1.0
-microblaze                          defconfig    clang-24
-mips                             allmodconfig    gcc-16.1.0
-mips                              allnoconfig    gcc-16.1.0
-mips                             allyesconfig    gcc-16.1.0
-mips                  cavium_octeon_defconfig    clang-24
-mips                     decstation_defconfig    gcc-16.1.0
-mips                      fuloong2e_defconfig    gcc-16.1.0
-mips                           jazz_defconfig    clang-24
-mips                       rbtx49xx_defconfig    clang-24
-nios2                            allmodconfig    clang-20
-nios2                             allnoconfig    clang-24
-nios2                               defconfig    clang-24
-nios2                 randconfig-001-20260912    clang-24
-nios2                 randconfig-002-20260912    clang-24
-openrisc                         allmodconfig    clang-20
-openrisc                          allnoconfig    clang-24
-openrisc                            defconfig    gcc-16.1.0
-openrisc                 simple_smp_defconfig    clang-24
-parisc                           allmodconfig    gcc-16.1.0
-parisc                            allnoconfig    clang-24
-parisc                           allyesconfig    clang-17
-parisc                              defconfig    gcc-16.1.0
-parisc                generic-64bit_defconfig    clang-24
-parisc                randconfig-001-20260912    clang-24
-parisc                randconfig-002-20260912    clang-24
-parisc64                         alldefconfig    gcc-16.1.0
-parisc64                            defconfig    clang-24
-powerpc                          allmodconfig    gcc-16.1.0
-powerpc                           allnoconfig    clang-24
-powerpc                    amigaone_defconfig    gcc-16.1.0
-powerpc                      arches_defconfig    clang-17
-powerpc                   lite5200b_defconfig    gcc-16.1.0
-powerpc                      mgcoge_defconfig    clang-17
-powerpc                 mpc837x_rdb_defconfig    clang-17
-powerpc                     mpc83xx_defconfig    clang-24
-powerpc                      pasemi_defconfig    clang-17
-powerpc                         ps3_defconfig    clang-17
-powerpc                     rainier_defconfig    clang-24
-powerpc               randconfig-001-20260912    clang-24
-powerpc               randconfig-002-20260912    clang-24
-powerpc                  storcenter_defconfig    gcc-16.1.0
-powerpc64             randconfig-001-20260912    clang-24
-powerpc64             randconfig-002-20260912    clang-24
-riscv                            allmodconfig    clang-24
-riscv                             allnoconfig    clang-24
-riscv                            allyesconfig    clang-24
-riscv                               defconfig    gcc-16.1.0
-riscv                 randconfig-001-20260912    gcc-11.5.0
-riscv                 randconfig-002-20260912    gcc-11.5.0
-s390                             allmodconfig    clang-17
-s390                              allnoconfig    clang-24
-s390                             allyesconfig    gcc-16.1.0
-s390                                defconfig    gcc-16.1.0
-s390                  randconfig-001-20260912    gcc-11.5.0
-s390                  randconfig-002-20260912    gcc-11.5.0
-sh                               allmodconfig    gcc-16.1.0
-sh                                allnoconfig    clang-24
-sh                               allyesconfig    clang-17
-sh                                  defconfig    gcc-14
-sh                 kfr2r09-romimage_defconfig    clang-24
-sh                    randconfig-001-20260912    gcc-11.5.0
-sh                    randconfig-002-20260912    gcc-11.5.0
-sh                      rts7751r2d1_defconfig    clang-24
-sh                           se7206_defconfig    gcc-16.1.0
-sh                           se7751_defconfig    clang-24
-sparc                             allnoconfig    clang-24
-sparc                               defconfig    gcc-16.1.0
-sparc                 randconfig-001-20260912    gcc-14.3.0
-sparc                 randconfig-002-20260912    gcc-14.3.0
-sparc64                          allmodconfig    clang-20
-sparc64                             defconfig    gcc-14
-sparc64               randconfig-001-20260912    gcc-14.3.0
-sparc64               randconfig-002-20260912    gcc-14.3.0
-um                               allmodconfig    clang-17
-um                                allnoconfig    clang-24
-um                               allyesconfig    gcc-16.1.0
-um                                  defconfig    gcc-14
-um                             i386_defconfig    gcc-14
-um                    randconfig-001-20260912    gcc-14.3.0
-um                    randconfig-002-20260912    gcc-14.3.0
-um                           x86_64_defconfig    gcc-14
-x86_64                           alldefconfig    clang-24
-x86_64                           allmodconfig    clang-22
-x86_64                            allnoconfig    clang-24
-x86_64                           allyesconfig    clang-22
-x86_64      buildonly-randconfig-001-20260912    gcc-14
-x86_64      buildonly-randconfig-002-20260912    gcc-14
-x86_64      buildonly-randconfig-003-20260912    gcc-14
-x86_64      buildonly-randconfig-004-20260912    gcc-14
-x86_64      buildonly-randconfig-005-20260912    gcc-14
-x86_64      buildonly-randconfig-006-20260912    gcc-14
-x86_64                              defconfig    gcc-14
-x86_64                                  kexec    clang-22
-x86_64                randconfig-001-20260912    clang-22
-x86_64                randconfig-002-20260912    clang-22
-x86_64                randconfig-003-20260912    clang-22
-x86_64                randconfig-004-20260912    clang-22
-x86_64                randconfig-005-20260912    clang-22
-x86_64                randconfig-006-20260912    clang-22
-x86_64                randconfig-011-20260912    gcc-14
-x86_64                randconfig-012-20260912    gcc-14
-x86_64                randconfig-013-20260912    gcc-14
-x86_64                randconfig-014-20260912    gcc-14
-x86_64                randconfig-015-20260912    gcc-14
-x86_64                randconfig-016-20260912    gcc-14
-x86_64                randconfig-071-20260912    gcc-14
-x86_64                randconfig-072-20260912    gcc-14
-x86_64                randconfig-073-20260912    gcc-14
-x86_64                randconfig-074-20260912    gcc-14
-x86_64                randconfig-075-20260912    gcc-14
-x86_64                randconfig-076-20260912    gcc-14
-x86_64                               rhel-9.4    clang-22
-x86_64                           rhel-9.4-bpf    gcc-14
-x86_64                          rhel-9.4-func    clang-22
-x86_64                    rhel-9.4-kselftests    clang-22
-x86_64                         rhel-9.4-kunit    gcc-14
-x86_64                           rhel-9.4-ltp    gcc-14
-x86_64                          rhel-9.4-rust    clang-22
-xtensa                            allnoconfig    clang-24
-xtensa                           allyesconfig    clang-20
-xtensa                randconfig-001-20260912    gcc-14.3.0
-xtensa                randconfig-002-20260912    gcc-14.3.0
+The DMI match is deliberately narrow. Other dual-GPU models in the same
+family are very likely affected identically, but they are untested, so
+widen the match only as reports come in.
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Tested on a MacBookPro11,5 (Broadwell, Iris Pro + Radeon R9 M370X):
+with the quirk, DDI A comes up as 4 lanes, link training passes at
+link rate 270000 / lane count 4, and i915 drives the internal panel at
+its native 2880x1800.
+
+Signed-off-by: Theo Andersen Carton <andersen.theo@gmail.com>
+---
+ drivers/gpu/drm/i915/display/intel_ddi.c    |  7 +++++
+ drivers/gpu/drm/i915/display/intel_quirks.c | 34 +++++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_quirks.h |  1 +
+ 3 files changed, 42 insertions(+)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+index 02a53c9848e1..f746287830b3 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+@@ -4976,6 +4976,13 @@ static bool intel_ddi_a_force_4_lanes(struct intel_digital_port *dig_port)
+ 	if (display->platform.geminilake || display->platform.broxton)
+ 		return true;
+ 
++	/*
++	 * Machines whose firmware leaves eDP dark on the Intel side never set
++	 * the bit, so trust the quirk rather than the register.
++	 */
++	if (intel_has_quirk(display, QUIRK_DDI_A_FORCE_4_LANES))
++		return true;
++
+ 	return false;
+ }
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
+index 33245f44c0d5..feb28956a013 100644
+--- a/drivers/gpu/drm/i915/display/intel_quirks.c
++++ b/drivers/gpu/drm/i915/display/intel_quirks.c
+@@ -100,6 +100,20 @@ static void quirk_disable_psr2(struct intel_display *display)
+ 	drm_info(display->drm, "PSR2 support not currently available for this setup, applying disable PSR2 quirk\n");
+ }
+ 
++/*
++ * Dual-GPU Macs boot with the internal panel muxed to the discrete GPU, so
++ * the firmware never lights up eDP on the Intel side and consequently never
++ * sets DDI_A_4_LANES -- even though all four lanes are wired through the gmux
++ * to DDI A. Without the bit, port A is capped at two lanes, which is not
++ * enough bandwidth for the panel's native mode, leaving the connector with no
++ * usable modes at all.
++ */
++static void quirk_ddi_a_force_4_lanes(struct intel_display *display)
++{
++	intel_set_quirk(display, QUIRK_DDI_A_FORCE_4_LANES);
++	drm_info(display->drm, "Applying DDI A force 4 lanes quirk\n");
++}
++
+ struct intel_quirk {
+ 	int device;
+ 	int subsystem_vendor;
+@@ -142,6 +156,13 @@ static int intel_dmi_no_pps_backlight(const struct dmi_system_id *id)
+ 	return 1;
+ }
+ 
++static int intel_dmi_ddi_a_force_4_lanes(const struct dmi_system_id *id)
++{
++	DRM_INFO("DDI A is 4 lanes despite firmware on %s\n", id->ident);
++
++	return 1;
++}
++
+ static const struct intel_dmi_quirk intel_dmi_quirks[] = {
+ 	{
+ 		.dmi_id_list = &(const struct dmi_system_id[]) {
+@@ -188,6 +209,19 @@ static const struct intel_dmi_quirk intel_dmi_quirks[] = {
+ 		},
+ 		.hook = quirk_no_pps_backlight_power_hook,
+ 	},
++	{
++		.dmi_id_list = &(const struct dmi_system_id[]) {
++			{
++				.callback = intel_dmi_ddi_a_force_4_lanes,
++				.ident = "Apple MacBookPro11,5",
++				.matches = {DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
++					    DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "MacBookPro11,5"),
++				},
++			},
++			{ }
++		},
++		.hook = quirk_ddi_a_force_4_lanes,
++	},
+ };
+ 
+ static struct intel_quirk intel_quirks[] = {
+diff --git a/drivers/gpu/drm/i915/display/intel_quirks.h b/drivers/gpu/drm/i915/display/intel_quirks.h
+index 970a4fe52faf..d2b8e9183c62 100644
+--- a/drivers/gpu/drm/i915/display/intel_quirks.h
++++ b/drivers/gpu/drm/i915/display/intel_quirks.h
+@@ -23,6 +23,7 @@ enum intel_quirk_id {
+ 	QUIRK_EDP_LIMIT_RATE_HBR2,
+ 	QUIRK_DISABLE_EDP_PANEL_REPLAY,
+ 	QUIRK_DISABLE_PSR2,
++	QUIRK_DDI_A_FORCE_4_LANES,
+ };
+ 
+ void intel_init_quirks(struct intel_display *display);
+-- 
+2.55.0
+
