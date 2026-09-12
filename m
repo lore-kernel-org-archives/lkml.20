@@ -1,132 +1,129 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from lamorak.hansenpartnership.com (lamorak.hansenpartnership.com [198.37.111.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7D813AEF51;
-	Sat, 12 Sep 2026 12:05:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51BE1299920;
+	Sat, 12 Sep 2026 12:10:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.37.111.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789214720; cv=none; b=nkCHNvTY4sLu14vfeY06Z4k3ir0g46KHBqUiuMH06/y8/3E/GlR2T28i8flDOTItI/SHIgLeO75BtDjswXt1kzdELrN51L381Y6Y0luUk/v2GMTPoB+K80S/5peiP/kMbOkO6WI4ka9YHMjsv6ei3DNINOKlJj8U4jvpXu6SRl4=
+	t=1789215010; cv=none; b=R2AfaN88hX6rdzYvIY2i7ZyF8H13pbUI6WkIsGxdzBD+D82nifR/j3j+xPvRvkAPcsx9oPGd5gJWur6H5Ac7PKhj4cxYpqKvFbAfihKtJGa+5AUmAmncJE1jOR5BK1lTisqxEu50zPWNBUCUFyCx7Jflwaw39VTU+3AGtowgI7g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789214720; c=relaxed/simple;
-	bh=GSqIFDfqDHUzvEFDDSz/346ZUmRNMp/AsdyBf2HLU/I=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WecOXuAQF0LSCW/S8Nuc0XEiA0ompOdHSQZDkbVW/dfpgRpn0tufyfjueW9GldNZGMlvTbP24LAqWDHllztX/RKpl9u05wEQGhmZcuUXRR7DTwhbEvSCgj46ThJxkyY9d3qlJ6ZA7OZurLr5qUKsGxw1+1QYULid7Iim/V6YMuk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=CDPcNiOK; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=9Bh6pzve; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1789215010; c=relaxed/simple;
+	bh=/k4GRfwmwZKzSvKRwfRpdBLr6CRpzHPGhwfQMUhuJh8=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=UuTOX7mvtnYQwN/tkvm9EeeHIAO1rsUtOlCAkAtadlWzM+/2U+goM6x+V6dh8K5pX+ySo7dpPP1wPjyN2GD8oZ9OJoxFhwP1zj0wnwTrrPLDlX2IFcHe95tI9adQBxbVik49K5CjK6MdpoPxenfdTrRJiSCjzahBq22lMwws/K4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=HansenPartnership.com; spf=pass smtp.mailfrom=HansenPartnership.com; dkim=pass (1024-bit key) header.d=hansenpartnership.com header.i=@hansenpartnership.com header.b=oZM71hHx; arc=none smtp.client-ip=198.37.111.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=HansenPartnership.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=HansenPartnership.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="CDPcNiOK";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="9Bh6pzve"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=From:To:Subject:Date:Message-ID; t=1789214702; bh=u8myC1jiNWPSND6jaTeBmI/
-	7+nYxV64Z9V+k1jO42CA=; b=CDPcNiOKxzam1w59NACzqglFRzHlZJHJpGtTUPCe6UEqyJdC8k
-	RyNWSFZjyTl0mJl8gpuHiYQuNNiqElfdekfhPu69bYCa7vFz7H3dlIVUk4WgAh3S91TANUgZAYo
-	rtm79YKx4fH0MM2CRe2ZNnE9gvOtmyxxO/7OwN1EEjU48mnSZgCaQrD5IKiOgkxV/Kfu9EMV+wS
-	EqhuChLx8CYqUtxyPSzubOZd577Ey/3znCztPl8mVm56d2PpH/jCovZS+7nLRIyCNxmSFYFgfir
-	aUulVXltXJsJQIItBHdTdqgBopTBysZ/7zVjpT9ftpXz5nwBAmv2yCeo63flo/kOfXg==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=From:To:Subject:Date:Message-ID; t=1789214702; bh=u8myC1jiNWPSND6jaTeBmI/
-	7+nYxV64Z9V+k1jO42CA=; b=9Bh6pzveTujNlEp2+e6BsPCiNakHL77NBoD0zaKhBnPvNg9KQt
-	CRubo/CUdZE57jEO8ZaOyh8okG5VT/BeffDg==;
-Message-ID: <6fc67e27-a36c-4974-96e4-1f68b85b3114@mainlining.org>
-Date: Sat, 12 Sep 2026 15:05:01 +0300
+	dkim=pass (1024-bit key) header.d=hansenpartnership.com header.i=@hansenpartnership.com header.b="oZM71hHx"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+	d=hansenpartnership.com; s=20151216; t=1789215006;
+	bh=/k4GRfwmwZKzSvKRwfRpdBLr6CRpzHPGhwfQMUhuJh8=;
+	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:From;
+	b=oZM71hHxMpR9t+SuGo5js5DAyZlRbQAFVHKU4+7Zb+EqftYdEo0QJgdiRvK/I3YLX
+	 iGTUu+ySHx3yK/Y6KXn1EgbBfyjfuy3DgUKYgonreQK3g7FtI/rWtk7VLNPQJr2H/U
+	 HM16lMnR9WUccxFiyQ7zieUDuecpvOybOD11HMnM=
+Received: from lingrow.int.hansenpartnership.com (unknown [IPv6:2601:5c4:4300:d341::8309])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by lamorak.hansenpartnership.com (Postfix) with ESMTPSA id 1990A1C00A3;
+	Sat, 12 Sep 2026 08:10:06 -0400 (EDT)
+Message-ID: <bdcff6a168e6d4b8e9c9524bd598281817a7df2c.camel@HansenPartnership.com>
+Subject: Re: [PATCH RFC] drivers/rufs: add Rust UFS host controller driver
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: Andreas Hindborg <a.hindborg@kernel.org>, Greg KH
+	 <gregkh@linuxfoundation.org>, jaemyung.lee@samsung.com
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo
+	 <gary@garyguo.net>, =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron	
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Alice Ryhl	
+ <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo Krummrich	
+ <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, Tamir
+ Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>,
+ Onur =?ISO-8859-1?Q?=D6zkan?=	 <work@onurozkan.dev>,
+ linux-kernel@vger.kernel.org, 	rust-for-linux@vger.kernel.org,
+ linux-block@vger.kernel.org, 	linux-scsi@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org
+Date: Sat, 12 Sep 2026 08:10:05 -0400
+In-Reply-To: <87mrtmvioe.fsf@kernel.org>
+References: <20260912-rufs-private-v1-1-716db733e655@samsung.com>
+	 <YKq4TcQM0v2dXF4wTHEvZKwASII6PDd_R7_UiHWe3NRnR4JsrC_ZS-x6jA_Kl7P6ONehU0REHYk7WaLz8Xv5gA==@protonmail.internalid>
+	 <2026091124-treason-trickily-bc52@gregkh> <87mrtmvioe.fsf@kernel.org>
+Autocrypt: addr=James.Bottomley@HansenPartnership.com;
+ keydata=mQENBE58FlABCADPM714lRLxGmba4JFjkocqpj1/6/Cx+IXezcS22azZetzCXDpm2MfNE
+ lecY3qkFjfnoffQiw5rrOO0/oRSATOh8+2fmJ6el7naRbDuh+i8lVESfdlkoqX57H5R8h/UTIp6gn
+ 1mpNlxjQv6QSZbl551zQ1nmkSVRbA5TbEp4br5GZeJ58esmYDCBwxuFTsSsdzbOBNthLcudWpJZHU
+ RfMc0ew24By1nldL9F37AktNcCipKpC2U0NtGlJjYPNSVXrCd1izxKmO7te7BLP+7B4DNj1VRnaf8
+ X9+VIApCi/l4Kdx+ZR3aLTqSuNsIMmXUJ3T8JRl+ag7kby/KBp+0OpotABEBAAG0N0phbWVzIEJvd
+ HRvbWxleSA8SmFtZXMuQm90dG9tbGV5QEhhbnNlblBhcnRuZXJzaGlwLmNvbT6JAVgEEwEIAEICGw
+ MGCwkIBwMCBhUIAgkKCwQWAgMBAh4BAheAAhkBFiEE1WBuc8i0YnG+rZrfgUrkfCFIVNYFAml2ZBI
+ FCS3GUMIACgkQgUrkfCFIVNZKjQf/deRzlXZClKxTC/Ee2yEPqqS7mm/INUA49KdQQ5oIhSxkUBy0
+ 9J4qjMIo5F8ZFkFTqikBqeL35LKu7O7rn8WETfX8Bxvos3HUsl3jHo34DES4MUFIpoQPgtiLRGwLb
+ K0cVCAArR2u2qj4ABmTRrs1I1kvdjEw6gatOuXtEe/j5O2fvfzTq9GBr0Q3n2IAsFXi4hLlx6VPE8
+ tyWUZ8BWJKtih3JAeUiXFvASL3McV0rV9RnU0VbjEQEhSE7PMYhWpnDC9AyBb0lXJllQRvC3NSkUB
+ 8KVQgNNxRPss0WE/nBoZ4dFA42jTyzTz8lNylxZoAWV7WJb3QxVg4oCodRVrxxrQhSmFtZXMgQm90
+ dG9tbGV5IDxqZWpiQGtlcm5lbC5vcmc+iQFVBBMBCAA/AhsDBgsJCAcDAgYVCAIJCgsEFgIDAQIeA
+ QIXgBYhBNVgbnPItGJxvq2a34FK5HwhSFTWBQJgS5mYBQkbNYS9AAoJEIFK5HwhSFTWBpwIAL5Bk3
+ 5FB34U6iHmDzzgdCbxLTs43T/YQyJpcGIvopBvnI/fDY8oSG6Df64/O6B+1R+A8TDp6ZG5ysUWnCC
+ 6GuIaEHemBYkitMPglR6+sGCMQY7O0mlsPvdssvKK1KI9Bno4VU6ogaF2qVzefSqg1Djmf/DcsxWP
+ rI/jdJ8FB5AYR2rjIdDFc+zRdAJuavo1/anyY2wgpFh/3R8IOYAEfWV9nGgYkf9+tA4EIn1sxE0I3
+ L5oW2N3mbyRrkzuBwO8ztMCwqEPk7moWzhokcZqMXiAIahaZdkashJC+s2X2RZSGCy+g+pvY5NN4B
+ BVG5XwLgVBqbHMTcxE0fbmPqz+q6O0LEphbWVzIEJvdHRvbWxleSA8amVqYkBoYW5zZW5wYXJ0bmV
+ yc2hpcC5jb20+iQFXBBMBCABBFiEE1WBuc8i0YnG+rZrfgUrkfCFIVNYFAmODZ5ACGwMFCRs1hL0F
+ CwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQgUrkfCFIVNZu0Af/TzvL2/NdgAcw9uN3x60H8
+ jc4QUq14VpxcFEFEMpcj1morkX/G93V+56HBBaXZj+yK8PhxIA/SIz+sU7C/0YvKuvzakP8ZX/7WJ
+ e32SOUtjfr/VTaqjIBzNj6OxLvZpmNbBw7s6DwhhNpHOWqJ/1ml+PtDRDV71IB58yVqQjp1xlNKVl
+ ZppcJ5908EJzsFnRIVjiQiDSKoppqB2BCibBbrWcln7CiWMyOC/cco6SIn6twH+f7+aivJ3xGcOE2
+ a9gBKF5rNi9TBoX9oyPmshv/TDmnohsVrH7AYXlGYfZTk15SWEiROh1QX8/uD9wl/gcIv5EDUpT/F
+ L2jzOsA5663bw==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/3] Novatek NT51021 DSI panel IC driver
-To: Ryan Brue <ryanbrue.dev@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Alexey Minnekhanov <alexeymin@minlexx.ru>
-References: <20260911-qcom-novatek-nt51021-panels-v2-0-135e3190a7fb@mainlining.org>
- <56dcdf77-2a82-4efc-888b-736f512e63f5@gmail.com>
-Content-Language: ru-RU, en-US
-From: Nickolay Goppen <setotau@mainlining.org>
-In-Reply-To: <56dcdf77-2a82-4efc-888b-736f512e63f5@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
+On Sat, 2026-09-12 at 13:00 +0200, Andreas Hindborg wrote:
+> "Greg KH" <gregkh@linuxfoundation.org> writes:
+>=20
+> > On Sat, Sep 12, 2026 at 12:52:55AM +0900, Jaemyung Lee via B4 Relay
+> > wrote:
+> > > Comments on the decision to bypass the SCSI midlayer, the blk-mq
+> > > model used
+> > > in its place, and the proposed prerequisite API boundaries would
+> > > be
+> > > especially welcome.
+> >=20
+> > Many many years ago, the USB subsystem tried to bypass the SCSI
+> > midlayer for its storage driver, and while it was a "quick
+> > solution" at the time, in the end, it didn't work out and we
+> > dropped the driver as it just made no sense to keep duplicating all
+> > of the logic all the time.
+> >=20
+> > So I wouldn't recommend it, as long as UFS builds on top of the
+> > SCSI commands and the like, you should not attempt to duplicate it
+> > in a separate driver, no matter how much "simpler" it initially
+> > seems to be.
+>=20
+> The scsi related code in this driver is less than 300 lines and is
+> mostly struct packing/unpacking. I guess we could lift the struct
+> definitions from the scsi layer via bindgen. But at 280 lines I am
+> not sure it is worth it, and it hardly counts as duplication.
 
-12.09.2026 05:58, Ryan Brue пишет:
->
-> On 9/11/26 10:37 AM, Nickolay Goppen wrote:
->> This series adds support for Novatek NT51021-based panels
->> for upcoming xiaomi-clover submission
->>
->> Although according to datasheet, the IС has three power rails
->> in the use case of xiaomi-clover, all of them are wired to one
->> fixed regulator
->>
->> Maybe I should create a dt option for enabling CABC for panel
->>
->> Signed-off-by: Nickolay Goppen <setotau@mainlining.org>
->> ---
->> Changes in v2:
->> - Use devm_functions and renamed structs and functions (Neil)
->> - Added delay before deasserting reset for stable initialization 
->> (Sashiko and Ryan)
->> - Fixed dt-bindings (Sashiko and Neil)
->> - Added a comment about set_display_on command
->> - Link to v1: 
->> https://patch.msgid.link/20260829-qcom-novatek-nt51021-panels-v1-0-cc1ca61bd261@mainlining.org
->>
->> To: Nickolay Goppen <setotau@mainlining.org>
->> To: Neil Armstrong <neil.armstrong@linaro.org>
->> To: Jessica Zhang <jesszhan0024@gmail.com>
->> To: David Airlie <airlied@gmail.com>
->> To: Simona Vetter <simona@ffwll.ch>
->> To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
->> To: Maxime Ripard <mripard@kernel.org>
->> To: Thomas Zimmermann <tzimmermann@suse.de>
->> To: Rob Herring <robh@kernel.org>
->> To: Krzysztof Kozlowski <krzk+dt@kernel.org>
->> To: Conor Dooley <conor+dt@kernel.org>
->> Cc: dri-devel@lists.freedesktop.org
->> Cc: devicetree@vger.kernel.org
->> Cc: linux-kernel@vger.kernel.org
->> Cc: ryanbrue.dev@gmail.com
->>
->> ---
->> Nickolay Goppen (3):
->>        dt-bindings: display: panel: Add bindings for Novatek NT51021
->>        drivers: gpu: drm: panel: Add BOE NT51021 driver
->>        MAINTAINERS: Add myself as a maintainer of NT51021 panel driver
->>
->>   .../bindings/display/panel/novatek,nt51021.yaml    |  89 +++
->>   MAINTAINERS                                        |   6 +
->>   drivers/gpu/drm/panel/Kconfig                      |   9 +
->>   drivers/gpu/drm/panel/Makefile                     |   1 +
->>   drivers/gpu/drm/panel/panel-novatek-nt51021.c      | 791 
->> +++++++++++++++++++++
->>   5 files changed, 896 insertions(+)
->> ---
->> base-commit: 99cc957e3ef3cccd72d2119c8eacbab39af0d1d6
->> change-id: 20260829-qcom-novatek-nt51021-panels-e2f9db85a967
->>
->> Best regards,
->> -- 
->> Nickolay Goppen <setotau@mainlining.org>
-> Hi Nickolay,
-> I have patches ready on top of your v2 series for the Amazon Fire HD 
-> 10 (2017)'s panel; however, given that Sashiko has found an issue with 
-> this series, would it be best for me to wait for a v3, or would you 
-> like my patches now to incorporate into your next series?
->
-Maybe I can incorporate your panel to my driver.
-> Thank you,
-> Ryan
+You didn't actually read the above did you?  The problem isn't
+necessarily the duplication of code per-se it's the duplication of
+function without understanding the subtlety.   Every fool thinks they
+can duplicate the core features of SCSI in a few hundred lines (and
+they can: the core SCSI model looks beguilingly simple).  They then
+usually spend years adding back the necessary corner cases and quirks
+before finally concluding that actually they shouldn't have tried in
+the first place.  Just because it's in rust doesn't change that
+calculus ... and you're by no means the first people to try this, so
+listen to the voices of experience and don't.
 
--- 
-Best regards,
-Nickolay
+Regards,
 
+James
