@@ -1,133 +1,78 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8D4BEED8
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 00:02:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CB6E2157A5A;
+	Sat, 12 Sep 2026 00:03:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789171356; cv=none; b=fSk/mMYDGufgzaqY+2ZCOJBUN+i2qagseb4LdnOtadWWLQ/3u1rc3JuUTBL5ktFIvq270qksXABcKKpzIghOfZ7lprxxl8/WSld8VEM5TqiafyYG2hMVrt3lZygDpO4uFPvzhPTyP04Y8o0amfjyYG5P+qV8HunpAVU9DNy5Ypw=
+	t=1789171418; cv=none; b=ZO7lhet0sVDDww9zg3eJ/LXKi/lsQkoQA5GEwQMOmzjPafzLDEY9uI0nQZjGWtF2bXQ8mmSPmTazu2uzvT9M4tWVscu6w05XC19dkr4gVbYr8v6MNpl/MfHti1aUpP58+3gkyWqdK40Zl0rzmX0OZiGU+sLvzKvKZPjo+jGGGlA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789171356; c=relaxed/simple;
-	bh=8/eHJLDCC1bgnSg4S6WmtVg2N+g/yx6dDLMOK09FGHs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TzivQabLW//Zo4BrOlV9e8r6MJ+tYWKkzXr2/SVjNB3VXDsWQD+0gEy3yk49UzEkdMMV+BhfpO2KS5LGJoreWs/pkvsOoiFLuv6BTzJSFkFcoIqwUhhZwUkAgDh3N8kCZpJPGHA50eO7wsHseo8RDmREpkeK2Ve2ks+b/Twc0Us=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=DpjZO9/I; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Sq67RQkf; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789171418; c=relaxed/simple;
+	bh=ljImxSARlImIWCfI26fpSA0puw18fokbpQ6ryY2BX7Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GWW1zwaof1tpSuySJFn4uUYyFF/C0DiKEY0gWj6p2L3M5qPWzAhAG0eC8WhYLCRzRJ4FEsAi6i3TyE4Ihi4Rq9bICV1lM7WI7p5LkscVnqj590Ul7/IVOfMRBAn+i+iiV17Jxv6gEQwb6NGXpb2wysc9diaDHI8C3Lgk8OU+34A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=WBUfFldT; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="DpjZO9/I";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Sq67RQkf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789171353;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vD3rHJHT6IXoplMI1G9PUB23ltzGVExlvF1tjwSpHoA=;
-	b=DpjZO9/I522C2D05HBYgzPWDjasIVUXkIhNavQ6xx5o0o2fKhc0njr4Y/GNOqCKdaVnSrZ
-	OlYKFWGIjPG32W5NTYoWSozUhFCASdkhROvavd5op011DzrJeLQlFN22Zx9tfPrfbMSbIx
-	iTr9xaAFzNh10PjjA8TOhvGbqhxg3wU=
-Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com
- [209.85.221.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-280-uvuqCBB9Pg-m5Sdvl3qlSw-1; Fri, 11 Sep 2026 20:02:32 -0400
-X-MC-Unique: uvuqCBB9Pg-m5Sdvl3qlSw-1
-X-Mimecast-MFC-AGG-ID: uvuqCBB9Pg-m5Sdvl3qlSw_1789171352
-Received: by mail-vk1-f199.google.com with SMTP id 71dfb90a1353d-5c405d3e18eso1791295e0c.0
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 17:02:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1789171352; x=1789776152; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=vD3rHJHT6IXoplMI1G9PUB23ltzGVExlvF1tjwSpHoA=;
-        b=Sq67RQkfCFNnFCOi12j+923UfcRdbptyNEGqJVL6gaIMWLovydZh2Za2+7Rvt2hwS7
-         XnsHJBKKPSGpCmhcAAOKgPt7Ecl4qgClcVRzpv+ETYkOgE37pdfUIGG1+CWrUdxmGoTq
-         EEtaGmkTlcdWzt6LzwYtQ2eIqTmDDnKA1GbKs9qjFXhWIi76RDFWdO3aVdn+6+LYdIW2
-         TEEH1Za4SAFrozIPvj5CHZZBABj7sHKCV59tAaMedTQyL7YYRTxipiKe5jqwe44j9BVC
-         VwIVtL9qwTYhrAHDXtTLCbr4VdFbG2ZR9KHvETYcz61nmONIBjlsJHZqUn9fXPo5PCqd
-         XaRw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789171352; x=1789776152;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vD3rHJHT6IXoplMI1G9PUB23ltzGVExlvF1tjwSpHoA=;
-        b=pQoQ05AMClCKGaN9IXnJAFVIQDN5EndVrFx9eJqPpWuJVFZZo9NhEZSsbiXhdI4L1A
-         TF79+zrpNGM4XmYknqGohf5n9c7aMFEKJdn70O6wR3jO30Rlqbv5DyXEJ7f4+iQolFh0
-         9R1U4OXmrJCvVrJ9PZ6ypE3N8a9Xf+JQ3cOK9ddpRKogOqGukKRZB0XXuzU4cfUUxT7W
-         bT2zb9A8PebudsXgHscRwPVFuDfxNIbH094Sq2w0QAH4k2reqV3eZSp97ScSvkhCe6gB
-         BpkQ3PcP+aHrF/3y6REdULi4wH3anNRa1Z6z0PsgX3ZKAy7sarXtsw2ex+hnlZF7YS6L
-         lQpw==
-X-Forwarded-Encrypted: i=1; AKwUvBwRemWEmIBl06a2Eh/D7OF9//vYanlJ79bO4ue9VHYOfQ7QjXJnzlmRKlc6xPDbd4TVWGQPnyol1TYjL8g=@vger.kernel.org
-X-Gm-Message-State: AFuF++kCgAb3QHv3cmBbc9RIw/540R4E6OJWFH4OiE7CFkZiP5z6K8bT
-	+0H8h42V9lgK1bgf5THLssyPf2eE9dVXxjHcstOCmXZJNVU1E+wIvQjdEoefpdqAyZ8w2JZWknu
-	c6a0cqJqOWppbcc1AdijeV0VkYrl+dYMs2sQL0AA9lDYxOIMNi2mKwOEXb+cbpgqLsw==
-X-Gm-Gg: AYBFou2Q6e7UcEdfUF64TAN0gBJ5Hx4nOflxesE0n2mTs8giHfchSG0wb9oEbGvB/et
-	FgSBydMS7cEEUF0tvHStTD3LlS0yFRRu+N+S9X5fdONzL80hwUQU6yrBYLK71SX9eLtg/aCe16p
-	TnCpf9vsM6z6YvB1/XB4JXiZ1Fc7wa9VV/QefGuuWJL9wTt9D0hmTmuVbEGUxZRbmcbzrZBaN78
-	fOFYosTwBAlgQE8hO++0j7kL/Szz+c0hD8siqDzGP6W8Bltvy5ZRSi0V+HHDA8i/eRb5zH89HXT
-	yaTbpKJfdU2c5EQ5TeyNDwHYmho5duNCJ5H49/7B1cTHIupR3FIrKdo1eNvz8ROikTmEh1/o8CB
-	AoPqoKc9w5jGVSVmOibxeqx7Zu0MGyefe/p4=
-X-Received: by 2002:a05:6102:f88:b0:796:1ed:ba3f with SMTP id ada2fe7eead31-79601edbb2bmr223318137.0.1789171351658;
-        Fri, 11 Sep 2026 17:02:31 -0700 (PDT)
-X-Received: by 2002:a05:6102:f88:b0:796:1ed:ba3f with SMTP id ada2fe7eead31-79601edbb2bmr223244137.0.1789171351235;
-        Fri, 11 Sep 2026 17:02:31 -0700 (PDT)
-Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f4963fcsm32883346d6.33.2026.09.11.17.02.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 17:02:30 -0700 (PDT)
-Date: Fri, 11 Sep 2026 20:02:28 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: Rosen Penev <rosenp@gmail.com>
-Cc: linux-clk@vger.kernel.org, Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Andreas =?iso-8859-1?Q?F=E4rber?= <afaerber@suse.de>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	"moderated list:ARM/ACTIONS SEMI ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>,
-	"moderated list:ARM/ACTIONS SEMI ARCHITECTURE" <linux-actions@lists.infradead.org>,
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] clk: actions: owl-pll: cast delay to unsigned long for
- uelay()
-Message-ID: <aqSWlPP4YfAi15rE@redhat.com>
-References: <20260904215013.98283-1-rosenp@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="WBUfFldT"
+Received: from mrdev.corp.microsoft.com (192-184-212-33.fiber.dynamic.sonic.net [192.184.212.33])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 5CB2D20B7166;
+	Fri, 11 Sep 2026 17:02:52 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 5CB2D20B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1789171372;
+	bh=KbbeNAbKnLi4K2xTGirN8aJRfGt2gYTtz1BdXQq9+do=;
+	h=From:To:Cc:Subject:Date:From;
+	b=WBUfFldT3YPJiOuFqmtuTIwCow4y7v2LtxqlV/ozShJHj0wPjjojMNhfwSmITx77l
+	 kHMh7pLeoORNKH+4vDTmynWWyrp0G/ZVXpsL2sPUoAqS9JdMMRVWFbjyVggowKnEaL
+	 ureQNwKd/4L+W6Xgs3rF+DV1CF6J6e+PCNDtlrFA=
+From: Mukesh R <mrathor@linux.microsoft.com>
+To: linux-hyperv@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: kys@microsoft.com,
+	wei.liu@kernel.org,
+	mhkelley58@gmail.com,
+	mrathor@linux.microsoft.com
+Subject: [PATCH V2 0/3] MSHV: Redesign memory deposit logic
+Date: Fri, 11 Sep 2026 17:03:15 -0700
+Message-ID: <20260912000318.2959621-1-mrathor@linux.microsoft.com>
+X-Mailer: git-send-email 2.51.2.vfs.0.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260904215013.98283-1-rosenp@gmail.com>
-User-Agent: Mutt/2.4.0 (2026-06-19)
+Content-Transfer-Encoding: 8bit
 
-Hi Rosen,
+This small series redesigns the memory deposit logic when Linux runs on
+Hyper-V hypervisor as a privileged VM, the second patch explains why.
+The series is split in three patches, the first patch renames the
+functions to _old and that makes the 2 main patch much easier and nicer
+to review. Last patch just removes the *_old functions from first patch.
 
-The subject has a typo: s/uelay/udelay/
+Thanks,
+-Mukesh
 
-On Fri, Sep 04, 2026 at 02:50:13PM -0700, Rosen Penev wrote:
-> The 'delay' field in struct owl_pll_hw is u8, but udelay() internally
-> compares its argument against MAX_UDELAY_MS * 1000 (2000). Since a u8
-> can never exceed 255, the compiler warns of a tautological comparison
-> that is always false:
-> 
->   drivers/clk/actions/owl-pll.c:189:2: error: result of comparison of
->   constant 2000 with expression of type 'u8' is always false
-> 
-> Cast the delay value to unsigned long to widen the type and silence the
-> warning without changing behavior.
+V2:
+ o Enhance comments
+ o In case of contiguous and failure, don't goto err_free_dep_pages but
+   just return also. It should not happen, but if it does, hypevisor will
+   throw error.
 
-Just to clarify: This only shows up with a W=1 build, right? If so, it
-would be good to clarify that in the commit message.
+V1:
+ o Remove hv_alloc_contig_pages() and make contiguous allocation part of
+   hv_alloc_dep_pages(), thus getting rid of the kmalloc.
+ o Instead of stubbing out functions, rename them to *_old.
 
-> 
-> Assisted-by: opencode:big-pickle
+Mukesh R (3):
+  mshv: Rename memory deposit memory functions to _old
+  mshv: Redesign hypervisor memory deposit logic
+  mshv: Remove unused *_old memory deposit functions
 
-The new guidance is:
+ drivers/hv/hv_proc.c           | 246 +++++++++++++++++++--------------
+ drivers/hv/mshv_root_hv_call.c |  10 +-
+ include/asm-generic/mshyperv.h |   5 -
+ 3 files changed, 141 insertions(+), 120 deletions(-)
 
-Assisted-by: LLM
-
-Brian
+-- 
+2.51.2.vfs.0.1
 
