@@ -1,125 +1,117 @@
-Received: from out28-121.mail.aliyun.com (out28-121.mail.aliyun.com [115.124.28.121])
+Received: from calculus.sigma-star.at (calculus.sigma-star.at [188.245.196.96])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8CE1379ED2;
-	Sat, 12 Sep 2026 06:57:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.121
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54D293176EE
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 06:57:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.245.196.96
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789196283; cv=none; b=UOJBcXG1VuueJBeZ0F2Lr4+QkmSuetstqH6Nv3AZwkcyoVhd5xS87gte/AJzNx8k7hg/vdQs06uV0dw11MfXX6SrmoYoyLn8fFseS9fnYdCvA5Fssrcwu6+B+Zp112huMS+s5xfpOj6TLWAmG+9vnjwvbUtyDioCtGp+JnHsTEw=
+	t=1789196284; cv=none; b=UG6EQCToGIz+su67y6G+bjVWaLdfJxWZYpEZaS5C69Ec3El/DAbVVUWVfWdkFT7jFuZbIUGzv9PupSb3PzPpQufFgz+9dcdAXeYNnscltj8P7ggpsBP7mGq/amcxnstZXKoClfjA9P8wGw1TjplKRcvheJxHkNgxDfGruSSEwBo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789196283; c=relaxed/simple;
-	bh=ESPyGXogLAjQYJ/OVdxVhXdinBONTfeimkvrsMopzZw=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=EamdQz6srC2RISa80fncN8G9bY/CBOfiiiX/k60YwEEvrTDt0qZZdYaacf16clcs0F2AK6Va7mTXDm4S+aJuoS5sHx8HjetfGotL6FOcPNqgn+wwtmsUYb9W8E2GgFbwYKy5CjDy6G5ZOW3oOfZBq0HpvgRg/Pg19G17Mzp1C6Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com; spf=pass smtp.mailfrom=motor-comm.com; arc=none smtp.client-ip=115.124.28.121
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=motor-comm.com
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.1201357|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0539208-0.0045022-0.941577;FP=16348498472350846131|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam011083013073;MF=kyle.switch@motor-comm.com;NM=1;PH=DS;RN=14;RT=14;SR=0;TI=SMTPD_---.jBqAOqu_1789195948;
-Received: from motor-comm.com(mailfrom:kyle.switch@motor-comm.com fp:SMTPD_---.jBqAOqu_1789195948 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Sat, 12 Sep 2026 14:52:29 +0800
-From: Kyle Switch <kyle.switch@motor-comm.com>
-To: Frank.Sae@motor-comm.com,
-	andrew@lunn.ch,
-	hkallweit1@gmail.com,
-	linux@armlinux.org.uk,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: ming.xu@motor-comm.com,
-	xiaolin.xu@motor-comm.com,
-	jianmin.wang@motor-comm.com,
-	jie.han@motor-comm.com
-Subject: [PATCH net-next v17 1/2] dt-bindings: net: Document Motorcomm YT8824 PHY package
-Date: Sat, 12 Sep 2026 14:52:23 +0800
-Message-Id: <20260912065224.2723883-2-kyle.switch@motor-comm.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260912065224.2723883-1-kyle.switch@motor-comm.com>
-References: <20260912065224.2723883-1-kyle.switch@motor-comm.com>
+	s=arc-20240116; t=1789196284; c=relaxed/simple;
+	bh=YqF6948mrzb/8cVOwHRgt0vfii6osOjLl0iOUfxhbM4=;
+	h=From:To:Cc:Subject:Message-ID:In-Reply-To:References:Date:
+	 MIME-Version:Content-Type; b=WnPRNRjgimw7st0dSAid3GuGS/CU5dDecvFZQIZ6XMFhBIHpqo4BBnOdhXBG2IWQ5QXvpVHk2xUCSGsuSNK3V2loyYcp1wz93PSjWWEzNtVKN3Mk2tc6nq1UNOuDNuS2ZuZhMqA+FlAYdsTbFZbBdcetyEitJwa1w9pRRnTPapQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nod.at; spf=fail smtp.mailfrom=nod.at; dkim=permerror (0-bit key) header.d=nod.at header.i=@nod.at header.b=4TdRhezk; dkim=pass (2048-bit key) header.d=nod.at header.i=@nod.at header.b=4yLgpQZl; arc=none smtp.client-ip=188.245.196.96
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nod.at
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nod.at
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=permerror (0-bit key) header.d=nod.at header.i=@nod.at header.b="4TdRhezk";
+	dkim=pass (2048-bit key) header.d=nod.at header.i=@nod.at header.b="4yLgpQZl"
+DKIM-Signature: v=1; a=ed25519-sha256; s=v1-ed25519-20260901; d=nod.at; c=relaxed/relaxed; r=y;
+	h=Date:Message-ID:Subject:To:From; t=1789196248; bh=leruooDUceeBS55cyQM9N7+
+	EUJjnPs5o4axCcQft5jo=; b=4TdRhezkcMKKa9mJdgGnTeZldT4/P82jTGqvyKCdgrx2pWLOOa
+	5t1fnrvmuy5dcj3OEP8o+6Vi0ZqyK0fV6IDQ==;
+DKIM-Signature: v=1; a=rsa-sha256; s=v1-rsa-20260901; d=nod.at; c=relaxed/relaxed; r=y;
+	h=Date:Message-ID:Subject:To:From; t=1789196248; bh=leruooDUceeBS55cyQM9N7+
+	EUJjnPs5o4axCcQft5jo=; b=4yLgpQZlO5FxeJVmkgxlqD2JZ4pfaVIDXIEcdawVeO+trgM55W
+	ION6tFPWe2QoFApgzGIYhReQD6lTdUmlupg1qZN3oJZWI1OLVkbJNGlXQUuFhAxGFglHwd+ZsO4
+	5PRn1hTuqZNr8GvBadNPbcyTMHGfpDyqhWP/oRDTUg4b05GCv3DjEgf+A0rQi9l6IsYdSi81+/j
+	+9cxMGN+IK041PWxxh17hKz/1lypmzNmVjsgckGg93MoXXpPOhvQ+BPvWatDKhkSazyHvJ6zuvH
+	AIcUajHmiF+uZZkRD7jKaseYmgW+XYDSwCL5hM4BpicDV5mVbqxAb1lBUzL1Fgc1HSw==;
+From: "Richard Weinberger" <richard@nod.at>
+To: "Deepanshu Kartikey" <kartikey406@gmail.com>, <dwmw2@infradead.org>
+Cc: <kees@kernel.org>, <viro@zeniv.linux.org.uk>, 
+	<linux-mtd@lists.infradead.org>, <linux-kernel@vger.kernel.org>, 
+	<syzbot+675e84fdf3dde67b4946@syzkaller.appspotmail.com>
+Subject: AW: [PATCH] jffs2: fix double-free of f->target in jffs2_alloc_inode()
+Message-ID: <mty190q3.779eb778-4fb7-41bb-9c12-561cc0980b10@nod.at>
+In-Reply-To: <CADhLXY5uco9Wq8ZmW5UnvGgTrrcLtj+X5Ne+AqaNyyBdKrQ8qg@mail.gmail.com>
+References: <20260823152648.23136-1-kartikey406@gmail.com>
+	<CADhLXY5uco9Wq8ZmW5UnvGgTrrcLtj+X5Ne+AqaNyyBdKrQ8qg@mail.gmail.com>
+Date: Sat, 12 Sep 2026 06:57:28 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-Motorcomm YT8824 Ethernet PHY is PHY package of 4 PHY-s.
+Am Sat, Sep 12, 2026, 03:08 schrieb Deepanshu Kartikey <kartikey406@gmail.co=
+m>:
 
-Signed-off-by: Kyle Switch <kyle.switch@motor-comm.com>
----
- .../bindings/net/motorcomm,yt8824.yaml        | 59 +++++++++++++++++++
- 1 file changed, 59 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml
+> On Sun, Aug 23, 2026 at 8:57=E2=80=AFPM Deepanshu Kartikey
+> <kartikey406@gmail.com> wrote:
+> >
+> > jffs2_alloc_inode() does not initialize f->target before returning
+> > the new inode. It is normally cleared later by
+> > jffs2_init_inode_info(), called from jffs2_iget(), but that runs
+> > only after alloc_inode() has already returned successfully.
+> >
+> > If inode_init_always() fails in between, alloc_inode() calls
+> > ->free_inode() directly on the half-initialized inode.
+> > jffs2_free_inode() then does kfree(f->target) on whatever stale
+> > value was left in the reused slab object, which can be a pointer
+> > that was already freed, causing a double-free.
+> >
+> > Initialize f->target to NULL in jffs2_alloc_inode() to close this
+> > window, and clear it in jffs2_free_inode() after freeing it so a
+> > reused or re-freed object can never carry a dangling pointer.
+> >
+> > Fixes: 4fdcfab5b553 ("jffs2: fix use-after-free on symlink traversal")
+> > Reported-by: syzbot+675e84fdf3dde67b4946@syzkaller.appspotmail.com
+> > Closes: https://syzkaller.appspot.com/bug?extid=3D675e84fdf3dde67b4946
+> > Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+> > ---
+> >  fs/jffs2/super.c | 2 ++
+> >  1 file changed, 2 insertions(+)
+> >
+> > diff --git a/fs/jffs2/super.c b/fs/jffs2/super.c
+> > index 81396a092ba8..30d753d4c263 100644
+> > --- a/fs/jffs2/super.c
+> > +++ b/fs/jffs2/super.c
+> > @@ -42,6 +42,7 @@ static struct inode *jffs2_alloc_inode(struct super_bl=
+ock *sb)
+> >         f =3D alloc_inode_sb(sb, jffs2_inode_cachep, GFP_KERNEL);
+> >         if (!f)
+> >                 return NULL;
+> > +       f->target =3D NULL;
+> >         return &f->vfs_inode;
+> >  }
+> >
+> > @@ -50,6 +51,7 @@ static void jffs2_free_inode(struct inode *inode)
+> >         struct jffs2_inode_info *f =3D JFFS2_INODE_INFO(inode);
+> >
+> >         kfree(f->target);
+> > +       f->target =3D NULL;
+> >         kmem_cache_free(jffs2_inode_cachep, f);
+> >  }
+> >
+> > --
+> > 2.34.1
+> >
+>=20
+> Gentle Reminder. Please let me know the status of this patch.
 
-diff --git a/Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml b/Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml
-new file mode 100644
-index 000000000000..93e9f765404a
---- /dev/null
-+++ b/Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml
-@@ -0,0 +1,59 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/net/motorcomm,yt8824.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: MotorComm YT8824 Ethernet PHY
-+
-+maintainers:
-+  - Kyle Switch <kyle.switch@motor-comm.com>
-+
-+description:
-+  Motorcomm YT8824 Ethernet PHY is a PHY package of 4 PHYs.
-+
-+$ref: ethernet-phy-package.yaml#
-+
-+properties:
-+  compatible:
-+    enum:
-+      - motorcomm,yt8824-package
-+
-+required:
-+  - compatible
-+  - phy-mode
-+  - reg
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    mdio {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        ethernet-phy-package@0 {
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+            compatible = "motorcomm,yt8824-package";
-+            reg = <9>;
-+
-+            phy-mode = "internal";
-+
-+            ethernet-phy@4 {
-+                reg = <4>;
-+            };
-+
-+            ethernet-phy@5 {
-+                reg = <5>;
-+            };
-+
-+            ethernet-phy@6 {
-+                reg = <6>;
-+            };
-+
-+            ethernet-phy@7 {
-+                reg = <7>;
-+            };
-+        };
-+    };
--- 
-2.25.1
+We got lot's of identical fixes this issue.
+I had no time yet to sort out who was the first.
+This is maybe the first report with fix suggestions, but the reporter
+vanished:
+https://lore.kernel.org/linux-mtd/CAFLxGvyZO_EDo-YM_EybZG3u7aNUoNiThhvbhQCrO=
+PD7mPV6GA@mail.gmail.com/
+
+Thanks,
+//richard
+
 
