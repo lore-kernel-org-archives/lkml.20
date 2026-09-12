@@ -1,93 +1,111 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 796BF19E7F7
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 08:17:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A660D3A8384
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 08:18:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789201081; cv=none; b=bUkkkvH9Q0t0o4P7B3iKMIqmrXpjpCHkLdIVoStEAwLBRF8zphmj8YOjwWRQk1MCf6NXjnkIx08ztZn951V5NfZZcqiNcxGQWQw11oNblEjMZDlZrYRZokyaTtvX5HRLb40QYawwj4n6n9Pgdfv8Ot7pxxdrFARIQoZuFm5TOak=
+	t=1789201084; cv=none; b=kXNoCd+cbrXNrNsDvt7W1JPm8xb5eRQ08/nzhA5T9crV4+v3f6nMwumQYvS6ePn10OUf2Prz9keefa5Lc/aLl3RCApToqKVF6OMK0uq03q5YXbDTvGBoGUmph1LjICHuk1SJBUedv6Ly9LrR79ufDB5rSpexyxwdOhlRlRkxh+g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789201081; c=relaxed/simple;
-	bh=cCyZMqpzmrpqPfFCTh1oJgClCJY3tu6401ICl76MZx8=;
-	h=Date:From:To:Cc:Subject:Content-Type:MIME-Version:Message-ID; b=gwqbFlTuGvE05awk6H4Dpw9NOp3vT2Vcy6tqdtZxQYJoNyUjXSkyS6rUn+7iHHRx+KlMjDfSYcnBBfATylu6ceL+UkQFHBqw/b3J/OBhIVXWo0wKbfhuaTdW/malURAihagFVk8n3LeBIMl4G8vwR7RuXjut8orV8gzpTdE6Xh0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Xo1EyPef; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789201084; c=relaxed/simple;
+	bh=S3sgi+FGFVuKYdx50zo6hRfoeOv0mTZjAo7cFxCyyVY=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=uI2jsKhMSokhXHShR0EgJ7KcE4mfMSJlVsKz1Pd8rDaPDjuPbXFjU5cYDiIbnmi9Bfun2biypGpUndeHMrnbrDAzct0jF4llSb68kyyvDmtGgf49VMjPRmE5qUzxGei0ojjhZ7yrgmZYjlUNRuPjCl/OvQgKY+lMbYbebZ3ztqI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pLDngrjS; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Xo1EyPef"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=cCyZMqpzmrpqPfFCTh1oJgClCJY3tu6401ICl76MZx8=; b=X
-	o1EyPefcbxnAde5xZbiQrFZvm4PTMwRaBw5Nny3DRyMBbumLTkQbol0xAt8iPvYb
-	KxRHRWiHcChIhb7sguKtr0D//2WYxTOaEuN8hK20U3QSI/1bc+FYPj0+F03wwS8A
-	AyB5zoVMlwjs3gdzPo5/1RCbGU/Ki48XBYwh1cg9es=
-Date: Sat, 12 Sep 2026 16:17:38 +0800 (CST)
-From: CJ <firefly0158@163.com>
-To: mikulas@artax.karlin.mff.cuni.cz
-Cc: linux-kernel@vger.kernel.org,
-	syzbot+fa88eb476e42878f2844@syzkaller.appspotmail.com
-Subject: [BUG] hpfs: KASAN use-after-free in hpfs_get_ea still reproducible
- on v7.3-rc1
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-X-NTES-SC: AL_Qu2TC/6bvkgu7iOfZOkdnk0WheY5W8G0vvwk1YJec+0EnCnA4x8nW35OGljH9OSwKQeeojOyQjNp7cR6YpBKbMK6ldRvEwsXbpobPPNtDQ==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pLDngrjS"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49b965570d7so21109465e9.0
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 01:18:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789201081; x=1789805881; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RocYUdBBcIeZ/ASBsFYpzq2iQKAbEehKSNM8n1TlCEA=;
+        b=pLDngrjSA1Hy0sXHPGix5TLIlYWj+saL00AHZHC8oEsxlr58SXgRa7FwILLSbWDF9y
+         6BEGSLAQSZvRPdRs6qrTHrs4rjk2S9gkny/Nic9HYzgKgziX+B6F76vWJixKAsw6ok7i
+         X/kUatmD69SGJucRhoag9o1d1vEv1gA31kdsonZ86jQ0nN82x9UQHzYw2q8Z5uxBRWbA
+         dJB++IAekFBAMTB/1OYIJ0J3iFI0++aa6JcsxBZFOF3UfR3KoFRthzcXiE2xFD/eJVb/
+         iMQKD3FCYIGWiPYBgPYghppGDrjxl9wLBWbZoEdxw5qiUrD00z+WzfF/u0FGwGZE9BIT
+         3iJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789201081; x=1789805881;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RocYUdBBcIeZ/ASBsFYpzq2iQKAbEehKSNM8n1TlCEA=;
+        b=H8+GehDgLHyzk//DfoDJrowUlJvhmZuBRZHv57r75advuY3xMg47nsl2uGdKEU74BZ
+         CE6AHt07ElWvr7xl6OKvl7GZCaFEn7GY0X6e2ohoDt6AHST265y/DzXt/I6661k/8rxR
+         +CWUf6JKHbKVxf493pSRpxOwyczPFFpxrOFT52Ltsca8CPu9+QXruDBaIsogtTLNPpYQ
+         y+2yOGDeVD8d8Jyq3unk/LAHfHTvYA1V4qtfMUKYZqQPBYqnjAIzOn/yNBxeRFfhVexV
+         AY3hnzt10UeztmEKWYSan1l9sl+Ayk2v2/hcLpSS8LTyIsCOXI/3HsQjty0hg0vHDjG3
+         Gvqg==
+X-Forwarded-Encrypted: i=1; AKwUvBxxg71yWALgQeqK6SQghhE7N0YoKp+M+ZdKf9SO4jQL/gA72n1Pw4k6LCYl2dSzbokErH0s9T+yw2nW8oc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mur9EP/MO0vU+ZAvhaMZ9VU6SBuUgszeBF7pkadmfDp2303b6B
+	AYEIezXaN+aYjyhlH0QEarA6Hb5dkDfHigjWK0WLEu/P0p/abbUggxSS
+X-Gm-Gg: AYBFou12aBWiQbcZiCwPuBD2oMmPmPFRqtmsXD6Jsuf4WtO1NIyIOtg+9dKu4tHWOOc
+	55Z0xuOmTelnXeGr4yJ9XN6pbf8QPwjdhsGZO9f8f9FTxVSzI1nYWFjOctO1sLQGq5Gmd9447a5
+	SjpOD51HjoKLf+N0vs6MgkwQyOAIRgFFFWSjSxvwAQvaM8g1zlqBJyTndnUC9cQ0oA753uU8Bed
+	uukiGSquwO6gyz/aq8qDGcftSDlqjg8AlZ08sBa32UAQPR6sFZwz8fHlciO/wJbS2R/hgjfIcdb
+	epGThLUpz2kXwb/OSkyeyhSA601+3o0JZCQb6Hq3rAgZkCzQW0y2t35h0+E6+uyK2t8p61neCPZ
+	JxaPi0G7bLH1zs636cAg3z7PJGW7NL1LKXQ6cI8/+R0DRtVbspzUwrSIC0xzIz9j0I8zPv68ogH
+	isYJI9WzhikEcPoNmLe56hM/X+AQtnY4c/8dVBbiIBlfOtxDaMLrDJ/7R7zX+7AE6DJTHeeVNY5
+	vgxfOwkryDYmT+Fa8Fiej1YVa8a2apSGoXqJCc8lb5t+jzy0TFfLqwZRYrBFqAOnn0qFEXCBOj9
+	8esGG7NREvfIUIDh2FVKCtLEo5Y+TdtrYd6nTbnMXoj2reHBu+Jfg7TCJO5cVoFx3LRR3tdIRkj
+	afvuceDmzT6CC
+X-Received: by 2002:a05:600d:8445:10b0:49c:cf18:494e with SMTP id 5b1f17b1804b1-49e6198a3b2mr62627265e9.12.1789201080628;
+        Sat, 12 Sep 2026 01:18:00 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-b260-f201-9983-e8c4-aff5-7a36.310.pool.telefonica.de. [2a02:3100:b260:f201:9983:e8c4:aff5:7a36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e6420de77sm57620925e9.3.2026.09.12.01.17.59
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 12 Sep 2026 01:18:00 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Matthew Brost <matthew.brost@intel.com>,
+	=?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/pagemap_util: Fix drm_pagemap_shrinker_create_devm() kernel-doc
+Date: Sat, 12 Sep 2026 10:17:55 +0200
+Message-Id: <20260912081755.60885-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <1730ac3f.2047.1a094b18a4a.Coremail.firefly0158@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:ZigvCgDnjw6jCqVqoUZFAA--.16353W
-X-CM-SenderInfo: piluvw1o1qikqy6rljoofrz/xtbC3QOuYGqlCqM2vAAA38
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Transfer-Encoding: 8bit
 
-CkhpLAoKCkkgYW0gcmVwb3J0aW5nIGEgS0FTQU4gdXNlLWFmdGVyLWZyZWUgcmVhZCBpbiBocGZz
-X2dldF9lYSwgdHJpZ2dlcmVkIGJ5IGEKc3l6a2FsbGVyIHJlcHJvZHVjZXIgdGhhdCBtb3VudHMg
-YSBjcmFmdGVkIEhQRlMgaW1hZ2UuICBUaGUgaXNzdWUgaXMKcmVwcm9kdWNpYmxlIHdpdGggSEVB
-RCBjb21taXQgY2VlOTM5NWFjZDgwNDNiZTA2NDRiMjVjMzRiZmE4NjYyM2YyYjkzNQoodjcuMy1y
-YzEsIExpbnV4IDcuMy4wLXJjMSkuCgoKVGhlIHJlcHJvZHVjZXIgbW91bnRzIGEgc21hbGwgSFBG
-UyBpbWFnZSB0aGF0IGNhcnJpZXMgYSBtYWxmb3JtZWQgZXh0ZW5kZWQKYXR0cmlidXRlIGNoYWlu
-IGluIGFuIGZub2RlLiAgRHVyaW5nIG1vdW50LCBocGZzX2ZpbGxfc3VwZXIgcmVhZHMgdGhlIHJv
-b3QKaW5vZGUgdGhyb3VnaCBocGZzX3JlYWRfaW5vZGUsIHdoaWNoIGNhbGxzIGhwZnNfZ2V0X2Vh
-IHRvIGxvb2sgdXAgdGhlIFVJRCwgR0lECmFuZCBNT0RFIGF0dHJpYnV0ZXMuCgoKaHBmc19nZXRf
-ZWEgd2Fsa3MgdGhlIGF0dHJpYnV0ZXMgaW4gdGhlIGZub2RlIHdpdGgKImZvciAoZWEgPSBmbm9k
-ZV9lYShmbm9kZSk7IGVhIDwgZWFfZW5kOyBlYSA9IG5leHRfZWEoZWEpKSIgYW5kIGNvbXBhcmVz
-IGVhY2gKbmFtZSB3aXRoIHN0cmNtcChlYS0+bmFtZSwga2V5KSBiZWZvcmUgdmFsaWRhdGluZyBh
-bnl0aGluZyBhYm91dCB0aGUgZW50cnkuClRoZSB0YXJnZXQgY29uc29sZSBzaG93cyAiQlVHOiBL
-QVNBTjogdXNlLWFmdGVyLWZyZWUgaW4gc3RyY21wKzB4YTcvMHhiMCIsClJlYWQgb2Ygc2l6ZSAx
-LCB3aXRoIHRoZSBmYXVsdGluZyBmcmFtZXMgaHBmc19nZXRfZWEgLT4gaHBmc19yZWFkX2lub2Rl
-IC0+CmhwZnNfZmlsbF9zdXBlci4gIEtBU0FOIHJlcG9ydHMgdGhlIGJ5dGUgYmVpbmcgcmVhZCBh
-cyBiZWxvbmdpbmcgdG8gZnJlZWQKbWVtb3J5LCBzbyB0aGUgd2FsayBoYXMgYWR2YW5jZWQgb3V0
-c2lkZSB0aGUgZm5vZGUncyBhdHRyaWJ1dGUgYXJlYSBhbmQKc3RyY21wIGlzIHJlYWRpbmcgYSBu
-YW1lIGZyb20gbWVtb3J5IHRoYXQgaXMgbm8gbG9uZ2VyIGxpdmUuCgoKT25lIHBvc3NpYmxlIGNh
-dXNlIGlzIHRoYXQgdGhlIGxvb3AgdHJ1c3RzIHRoZSBvbi1kaXNrIGF0dHJpYnV0ZSBjaGFpbi4g
-IFRoZQplYS0+bmFtZWxlbiBmaWVsZCBpcyB1c2VkIHRvIGNvbXB1dGUgdGhlIG5leHQgcG9zaXRp
-b24gYnkgbmV4dF9lYSgpIHdpdGhvdXQgYQpib3VuZCBvbiBuYW1lbGVuLCBhbmQgdGhlIGxvb3Ag
-Y29uZGl0aW9uIG9ubHkgY29tcGFyZXMgYWdhaW5zdCBlYV9lbmQsIHdoaWNoIGlzCml0c2VsZiBk
-ZXJpdmVkIGZyb20gdGhlIHNhbWUgZm5vZGUuICBBIGNyYWZ0ZWQgaW1hZ2UgY2FuIHRoZXJlZm9y
-ZSBtYWtlIHRoZQppdGVyYXRvciBzdGVwIHBhc3QgdGhlIGF0dHJpYnV0ZSBhcmVhOyB0aGUgc3Vi
-c2VxdWVudCBzdHJjbXAgcmVhZHMgb3V0IG9mCmJvdW5kcy4gIFRoaXMgbG9va3MgbGlrZSBhIG1p
-c3NpbmcgdmFsaWRhdGlvbiBvbiB0aGUgYXR0cmlidXRlIGVudHJ5IHJhdGhlcgp0aGFuIGEgbGlm
-ZXRpbWUgYnVnIGluIHRoZSBmbm9kZSBpdHNlbGYuCgoKVGhpcyBhcHBlYXJzIHRvIGJlIGEgcmVj
-dXJyZW5jZSBvZiBhIHByZXZpb3VzbHkgcmVwb3J0ZWQgc3l6Ym90IGlzc3VlICh0aXRsZQoiS0FT
-QU46IHVzZS1hZnRlci1mcmVlIFJlYWQgaW4gaHBmc19nZXRfZWEiLCByZXBvcnRlZCBvbiA2LjE2
-LjAtcmM2KS4gIEEgZml4CmFkZGluZyBib3VuZHMgY2hlY2tzIHRvIHRoZSBFQSBpdGVyYXRpb24g
-bG9vcCB3YXMgcG9zdGVkIGluIEp1bHkgMjAyNSBhbmQKc3l6Ym90IHJlcG9ydGVkIG9uIDIwMjUt
-MTAtMTQgdGhhdCB0aGUgcmVwcm9kdWNlciBubyBsb25nZXIgdHJpZ2dlcmVkIHdpdGggdGhhdApw
-YXRjaCBhcHBsaWVkLCBidXQgdGhlIGNoYW5nZSBpcyBub3QgaW4gbWFpbmxpbmU6IGZzL2hwZnMv
-ZWEuYyBpbiB2Ny4zLXJjMQpzdGlsbCBjb250YWlucyB0aGUgdW5ndWFyZGVkIGxvb3AsIGFuZCB0
-aGUgYnVnIHJlbWFpbnMgcmVwcm9kdWNpYmxlLiAgSSBhbQpyZXBvcnRpbmcgdGhpcyBiZWNhdXNl
-IHRoZSBmaXggZG9lcyBub3QgYXBwZWFyIHRvIGhhdmUgYmVlbiBtZXJnZWQuCgoKUmVwcm9kdWNl
-cjoKCgpzeXogcmVwcm9kdWNlcjpodHRwczovL3Bhc3RlYmluLmNvbS9yYXcvRmF1ekZCOVcKCgpj
-b25zb2xlIG91dHB1dDogaHR0cHM6Ly9wYXN0ZWJpbi5jb20vcmF3L2NzVndpMFQxCmtlcm5lbCBj
-b25maWc6IGh0dHBzOi8vcGFzdGViaW4uY29tL3Jhdy9nWlF4UEhuQgoKCktlcm5lbDoKCgpIRUFE
-IGNvbW1pdDogY2VlOTM5NWFjZDgwNDNiZTA2NDRiMjVjMzRiZmE4NjYyM2YyYjkzNQpnaXQgdHJl
-ZTogaHR0cHM6Ly9naXQua2VybmVsLm9yZy9wdWIvc2NtL2xpbnV4L2tlcm5lbC9naXQvdG9ydmFs
-ZHMvbGludXguZ2l0Cmtlcm5lbCB2ZXJzaW9uOiA3LjMuMC1yYzEKdGVzdGVkIHRhZzogdjcuMy1y
-YzEKCgpMZXQgbWUga25vdyBpZiB5b3UgbmVlZCBtb3JlIGRldGFpbHMgb3IgdGVzdGluZy4KCgpC
-ZXN0IHJlZ2FyZHMsCgo=
+drm_pagemap_shrinker_create_devm() returns the new struct
+drm_pagemap_shrinker, or an ERR_PTR() on failure, but its kernel-doc
+says "%0 on success", which was never true. Describe the pointer.
+
+Fixes: 77f14f2f2d73 ("drm/pagemap: Add a drm_pagemap cache and shrinker")
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+ drivers/gpu/drm/drm_pagemap_util.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/drm_pagemap_util.c b/drivers/gpu/drm/drm_pagemap_util.c
+index 6111d90a38e24586fbcb06f8182e9025339b26b0..c9077a84e3467a5c547d437baae9159bfcd9bea1 100644
+--- a/drivers/gpu/drm/drm_pagemap_util.c
++++ b/drivers/gpu/drm/drm_pagemap_util.c
+@@ -412,7 +412,7 @@ static void drm_pagemap_shrinker_fini(void *arg)
+  * The shrinker is drm_device managed and unregisters itself when
+  * the drm device is removed.
+  *
+- * Return: %0 on success, negative error code on failure.
++ * Return: the new shrinker on success, an ERR_PTR() on failure.
+  */
+ struct drm_pagemap_shrinker *drm_pagemap_shrinker_create_devm(struct drm_device *drm)
+ {
+-- 
+2.39.5 (Apple Git-154)
+
