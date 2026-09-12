@@ -1,256 +1,175 @@
-Received: from mail-pz2-f30.google.com (mail-pz2-f30.google.com [74.125.228.30])
+Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37CC247AF6A
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 12:28:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.30
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3D3447CA6E
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 12:28:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789216111; cv=none; b=DYReDP5TCLsn0QnQxI801kcevWvS5a/brUgOb1pqgtk35gKE2KEdT30veg2KlofcalM7cQ2PH6HNqJq+Ux+hCiEHVw8HR0g1yjTkO6W7JaaC4EOxnh4xtJ+1lank9/1J9GiEKDxdnZ3rVhyJWupukdiF4q5r7858kBC9zPLKhmE=
+	t=1789216116; cv=none; b=gWRhX/Ux0jvOMnuPHbp8wSxpt6+l5iCmz0ILFB7bznvC3TGAE4A2Mv7906rv8cGcCbiMF5HrjtxyBPkp9S8KsaDr4/MVIUDNZiaNhGcUDisVvZ8HM4rpYlFXhAjh2gpZSkrSwDDUV4cZenW5lqFITUrDAe9iRFmjMDYzjJHjkg0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789216111; c=relaxed/simple;
-	bh=yz6bckSpPK+mT3wOAvuYtNvVu5X2DaRSd2H64HUk4Tw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=riqjpfPu2J3P3TWIzjxW8nrTRQNs7OA1mrDAAX42EDTBsGkd5377+4Uft/BTR+jmKCGU50bCHgMbyUlJnRjgArF3XfpcIZIMQZ6eR5zyADReRlcLow2tj7QPMZ0i50pU21iKdMb3wPKgwkv8GtyODoAB5hk/2baETeCrUL0lXi4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=d9EYzk9N; arc=none smtp.client-ip=74.125.228.30
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789216116; c=relaxed/simple;
+	bh=UEfjtaP+OjZfpUGS2B7a5BTw/P5s5UMLg0m29u/MkCs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nVitQglPs8rf/L/8mJCff8wAalhRqTB2uy4NE13huxmFr5QeyLMEyrPWzIkfy5gxQQ/xxId81AlbVol2iBh/sKt3DrtRPtu017PfaaZiNGw7YUdwmUHOqOrib0VqBx6Iu14P+YR5WUCI9Ygkp/ifYx8mrSP9PXCkJdl8A/xvM+M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=PzY1BsZe; arc=none smtp.client-ip=74.125.230.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="d9EYzk9N"
-Received: by mail-pz2-f30.google.com with SMTP id 41be03b00d2f7-cc1cea50dc0so128767a12.2
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 05:28:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="PzY1BsZe"
+Received: by mail-qk2-f13.google.com with SMTP id d75a77b69052e-52fb7692a57so5440501cf.1
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 05:28:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789216109; x=1789820909; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=B3nhmvqGa2kNf07F150Q8CjjmWkxjneDBxSr089YGCY=;
-        b=d9EYzk9Nb8wfT/6U8/F+ueLS+UyUPUU0LVB46HPlSq4xKXbWD5LqEwwSMOJjch5w52
-         58CdMhG7RmggzxCm+mTKfkYzPRXLPIL8w91Gq4BTq9yjrsFc50H7KFNIMJ9VCT1u6QT7
-         Utbo20p7/QnbefYz4qwPrbQCfiPhRkxbg88+UIbCkwEt/MSkfpdR6M9Zvjq4xufYEv0m
-         YBAc/g3Z7e272RWF5vsO2PPyfwdz1ylQ8dyMsV9dXUhLWblA+PtJbQ4QqoLBMnK8at/r
-         pyg1GVpVkW9DOyUYxFdb9ZJqU0wPUspqURUns+U/wj/RKwOTg9h18m5nL0awKCbgaHC8
-         Q8Jg==
+        d=gourry.net; s=google; t=1789216114; x=1789820914; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NJXH9rrJbZbgym50NMM/+P+67cMUDF3IUxD6O+4ZOuc=;
+        b=PzY1BsZeB34yYpF6aAkHGcZER2wdBN+Q0+slK07ZNp4fmrDxqF1enSV618spjWCcAn
+         ssCputSccsXGMHyvZJxeWHNBewFM95YapJJvGTmS38DYNNPcUMaFwucyTPKSEm4vb4u2
+         cSSTZ/QOD6wkzOAxC64TcIRXzMJPPkmf+RyWjp+/LdqjZTgRvvnEWnyi6z4RQohZBu93
+         sHZZH5wU+AD7W1BxPjb8WC7MCcymf8w9knqxISx9kfvCIFbZ0vaP94hr1OA1F1L0XYHx
+         GF/ECDIt+U86egjq0XUBVOwxR/YUrkdj/azpCeXfUgsQaNY3d7T12FoJerj+fdoRHj3J
+         hrNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789216109; x=1789820909;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=B3nhmvqGa2kNf07F150Q8CjjmWkxjneDBxSr089YGCY=;
-        b=QcgYn0HdPf/82T7MntsWWWIJEAfWKyQ0nvjYbICiA23dhqywdQaYIv8LabakWgN68W
-         Lzi3WAPAjutK30UZEGoSPxt67cbdGlXJ9q4+RxX9eeNETfMWcMTEu3OizVmuWSgxDQ4M
-         M92A+PmEI+x0KMfaR8VLtGDbjs1O5NtgwSGaQmICYf7Z+Adm1gegQYi0bhiwcKfMgx8w
-         oMVhlKZ24s6Eb4fWycZeku/OV/pmnEMgKNDlveAvxzkLoI725C7ML0UlC6Fd2VY2zcHn
-         MGh5tEOulgKLe7S3rQkuJkYXr178VtAJjV+0PaMOlZglwtCKWmoVhacDQEItCotRVDZS
-         Leng==
-X-Forwarded-Encrypted: i=1; AKwUvByKoqmZSZjPKX5pops0w9MXA3HpaM71TPqw88pDfBCBSs2Dhmfrk8sIp4O36Xe7OV3aSFWzrRKCv5aiv/4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nZTkYeBbejgrW2nULw8LpTFUOHjaEC+ypcDibF0LB+ELLrKzLu
-	mtDlsHuXjorN6ky9Lt/7XsuW2zsQmf5y9cuf+TxPzKKsFJfQbqKZP3v84yFH/w==
-X-Gm-Gg: AYBFou2jPVhW4vlEwc/oCmBA4fZCrvMHF3yh40ky9dm6SAwpUxxqKg7mvWOOzlK+Rki
-	ab8PwT9psl6306+9PPlfwSxEwFkX0pTCxmLmdFtOZ5SUgfvOdhS4jn8xRvD8KKOXjaBiU4KI0BJ
-	40ZyGMnR7jzKNJO594sqpt8Nk7KftpujB4CHgaOX1mlmFmK2/JUAfA3QS1cA51LuufbJ4zJ/D8f
-	LPQBM/THFo/kikLx9pmUVc2+a32T8QjnRl/vVBXiBWPe63XQM/gAP+Yvnq3Nbk7kF5zOcQC8GFL
-	hvFWNaRcmaWEypKfq2EGOM5mgcnROp7Jj/dhmQC244N+baUMRwolZJ9uk3TIi/gUXkd2D6NA9ce
-	5KrXB9eIYmoZ70f/Gaa4ArTE9/GDrVui2dIN/O1tn3DsN/fEY0We1NJReKvuiVGJMEpfFTmYzmB
-	6kuokt6KpRi3gqSddSoXZet5dt1dupU8cgrJJzpiOvg0wysaZ5dNurHTz0swkePc8=
-X-Received: by 2002:a05:6a21:a98:b0:3d3:ad3c:49a6 with SMTP id adf61e73a8af0-3db0e41e8bemr4637386637.20.1789216109248;
-        Sat, 12 Sep 2026 05:28:29 -0700 (PDT)
-Received: from [127.0.0.2] ([2404:c0:701d:4e35:aab7:8c01:68f1:4912])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4c65b1a63sm2512427a12.31.2026.09.12.05.28.24
+        d=1e100.net; s=20251104; t=1789216114; x=1789820914;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NJXH9rrJbZbgym50NMM/+P+67cMUDF3IUxD6O+4ZOuc=;
+        b=aRdl5DaJLVcgszRipIR+wEZtmiyFxU//n7cRmloI6bpMVP9suj9yQTNpdhLd06b1CJ
+         UVpuy1o8s9u02g4HUS38XBjljwL56bWVIz4d5cOy+5DGaP45W+lTOTW8Rxr2cOdN0iMT
+         OnLSmMfx1t0XT/hu+nnUMAUyqTVBIBPSCXFlLJvz7quaokM1Q5Av2zr+77yowSH1e95V
+         9kLvhX0HsfmGXhthL9dKbwOOtEzYGQqKPtGPPzAnSyMqaP67UCEEZDAgvMehhbuett95
+         58//QLR3m1fcENEBK1uaTDOvZD73FkRaID4onWkH8hMRT5zqg5OUb3KN6UOovQh+WcWn
+         efBw==
+X-Forwarded-Encrypted: i=1; AKwUvByodfTZBGpkJfP8m54Lz+Uq8s/W4xz7Do0Pdx6baf8+zLiMgFgLZb3EYNqHcNpwGQ/D8KKWdFq7HveA+fc=@vger.kernel.org
+X-Gm-Message-State: AFuF++kUWuELHpy+m3/LH4NdmY4PSZVAoQuIXJeGLgrPZnZt9OfXgY3s
+	3AWOE2e5QUwvaTJmGfH7hrBmDZrqE08pmS2zcVVor+TV3thbr9eCl+n/SnXgHE/FOvE=
+X-Gm-Gg: AYBFou0sarqFI5CyuE7/QHOX4gvnf2i3XsOylArJfWHPlyK5g5UMZARY5nkOrUq2kZi
+	isWz0qNS9m+DRuznpTy9N9Lay+JGpGaKaQ8uu+9Wo+zqHQypL2zX05YCuZ+ygpdJymYZlkVaV3M
+	BTN/YWgGgPpg4FNaN1RqvvJpIlklb/N/Ddm3lM2WOgPubXU2h4LmhDNMkMHIRwnuq34/OsWnVSI
+	LjJqqDzf8JotuYH5o8SrAJvoV99t3cXpKfdcyP0PcOc2nmoMsuDqJmpJvzppbXc7OgTB0etUpgX
+	a3TN4FvkHf58xUTXmIi65ckFTEc3qoYzgvjPaPR532KA/qb/NoP23knpbdjo4zS0KzjodyeRcKE
+	JTODYtpvAda+CcelTgi6bhD7sSKxNGIFtUUYnnXn4hJ+Sp47eVsDU9pivnFR3cvqLX7z0Q81fg7
+	0e86Ax7heJx7M7JJcElZXsMRLbvGhDEM3yRdrplVJRcdcxY63UEQOmtfYP4/oQaQsDOgMk0Dqm1
+	pkfyFRcadr9b2lZZqyElDXi0C4GdjSwGN3d4Y+HVgocSmoOXz1K7/1Q2Rc7
+X-Received: by 2002:a05:622a:1f8b:b0:530:42e5:f3a4 with SMTP id d75a77b69052e-530e81e3f69mr37044771cf.45.1789216113681;
+        Sat, 12 Sep 2026 05:28:33 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F.lan (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-530e64da059sm17780461cf.24.2026.09.12.05.28.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 12 Sep 2026 05:28:28 -0700 (PDT)
-From: Reza Kurniawan <imkyufie@gmail.com>
-Date: Sat, 12 Sep 2026 12:27:33 +0000
-Subject: [PATCH 1/2] power: supply: bq256xx: Expose VBUS state through
- extcon
+        Sat, 12 Sep 2026 05:28:32 -0700 (PDT)
+From: Gregory Price <gourry@gourry.net>
+To: linux-mm@kvack.org
+Cc: linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	kernel-team@meta.com,
+	akpm@linux-foundation.org,
+	liam@infradead.org,
+	ljs@kernel.org,
+	vbabka@kernel.org,
+	jannh@google.com,
+	pfalcato@suse.de,
+	peterx@redhat.com,
+	jgg@ziepe.ca,
+	david@kernel.org,
+	sashiko-bot <sashiko-bot@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH] proc/task_mmu: handle special PMDs in clear_refs and pagemap
+Date: Sat, 12 Sep 2026 08:28:22 -0400
+Message-ID: <20260912122822.3348978-1-gourry@gourry.net>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260912-riva-usb-v1-1-0acd5cf8c62a@gmail.com>
-References: <20260912-riva-usb-v1-0-0acd5cf8c62a@gmail.com>
-In-Reply-To: <20260912-riva-usb-v1-0-0acd5cf8c62a@gmail.com>
-To: Sebastian Reichel <sre@kernel.org>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- Reza Kurniawan <imkyufie@gmail.com>
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
-Useful for USB controllers needing to sense VBUS state changes. This is
-needed for devices like Xiaomi Redmi 5A (riva) that doesn't have its VBUS
-session comparator wired directly to the USB connector pin to automatically
-enable certain USB functions upon the presence of a USB power input.
+mshv_vtl_low can install a special PMD from a PFN supplied in the mmap file
+offset.  That PFN need not have a memmap entry.  Reading /proc/PID/pagemap
+or writing /proc/PID/clear_refs for such a mapping oopses the kernel.
 
-Signed-off-by: Reza Kurniawan <imkyufie@gmail.com>
+With a test driver mapping the PFN at the 1 TiB mark:
+
+  echo 1 > /proc/self/clear_refs
+
+  BUG: unable to handle page fault for address: fffffb5b80000008
+  #PF: supervisor read access in kernel mode
+  #PF: error_code(0x0000) - not-present page
+  RIP: 0010:clear_refs_pte_range+0xb1/0x1e0
+  Call Trace:
+   walk_pgd_range+0x50a/0xad0
+   __walk_page_range+0x6a/0x1d0
+   walk_page_range_mm_unsafe+0x193/0x230
+   clear_refs_write+0x18e/0x3f0
+
+  pread(pagemap_fd, buf, 512 * 8, addr / PAGE_SIZE * 8)
+
+  BUG: unable to handle page fault for address: fffff57840000008
+  RIP: 0010:pagemap_pmd_range+0x3cf/0x6b0
+  Call Trace:
+   walk_pgd_range+0x50a/0xad0
+   __walk_page_range+0x6a/0x1d0
+   walk_page_range_mm_unsafe+0x193/0x230
+   pagemap_read+0x1dc/0x350
+
+clear_refs_pte_range() passes the PMD to pmd_folio(), while
+pagemap_pmd_range_thp() uses pmd_page() followed by page_folio().
+
+Both paths assume the PFN has a struct page and dereference bad address.
+
+Use vm_normal_folio_pmd() and vm_normal_page_pmd() so clear_refs skips
+folio operations and pagemap skips folio-derived flags for special PMDs.
+This matches the PTE paths, which already use vm_normal_folio() and
+vm_normal_page().
+
+User-facing notes:
+ - Pagemap still reports PM_PRESENT and the PFN to a CAP_SYS_ADMIN reader.
+
+ - For a special PMD backed by a valid memmap entry and for the huge
+   zero PMD, PM_FILE changes from set to clear.
+
+ - PM_MMAP_EXCLUSIVE is already clear in both cases.
+
+ - The output for an anonymous THP is unchanged.
+
+Tested in QEMU with the test driver on broken and fixed kernels.  Both proc
+operations oops before the fix and return 0 after it.
+
+Reported-by: sashiko-bot <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260912034833.2952750-1-gourry%40gourry.net
+Fixes: 3c8e44c9b369 ("mm: mark special bits for huge pfn mappings when inject")
+Cc: <stable@vger.kernel.org> # v6.19+
+Assisted-by: LLM
+Signed-off-by: Gregory Price <gourry@gourry.net>
 ---
- drivers/power/supply/bq256xx_charger.c | 88 ++++++++++++++++++++++++++++++----
- 1 file changed, 80 insertions(+), 8 deletions(-)
+ fs/proc/task_mmu.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/power/supply/bq256xx_charger.c b/drivers/power/supply/bq256xx_charger.c
-index 4b1f81b1e..46b036be3 100644
---- a/drivers/power/supply/bq256xx_charger.c
-+++ b/drivers/power/supply/bq256xx_charger.c
-@@ -16,6 +16,7 @@
- #include <linux/moduleparam.h>
- #include <linux/slab.h>
- #include <linux/acpi.h>
-+#include <linux/extcon-provider.h>
+diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
+index 24425e230895..501cd038b4e4 100644
+--- a/fs/proc/task_mmu.c
++++ b/fs/proc/task_mmu.c
+@@ -1671,7 +1671,9 @@ static int clear_refs_pte_range(pmd_t *pmd, unsigned long addr,
+ 		if (!pmd_present(*pmd))
+ 			goto out;
  
- #define BQ256XX_MANUFACTURER "Texas Instruments"
+-		folio = pmd_folio(*pmd);
++		folio = vm_normal_folio_pmd(vma, addr, *pmd);
++		if (!folio)
++			goto out;
  
-@@ -209,6 +210,7 @@ enum bq256xx_id {
-  * @client: i2c client structure
-  * @regmap: register map structure
-  * @dev: device structure
-+ * @edev: extcon device registered to report vbus state changes
-  * @charger: power supply registered for the charger
-  * @battery: power supply registered for the battery
-  * @lock: mutex lock structure
-@@ -229,6 +231,7 @@ enum bq256xx_id {
- struct bq256xx_device {
- 	struct i2c_client *client;
- 	struct device *dev;
-+	struct extcon_dev *edev;
- 	struct power_supply *charger;
- 	struct power_supply *battery;
- 	struct mutex lock;
-@@ -1164,8 +1167,14 @@ static int bq256xx_get_charger_property(struct power_supply *psy,
- 	return ret;
- }
+ 		/* Clear accessed and referenced bits. */
+ 		pmdp_test_and_clear_young(vma, addr, pmd);
+@@ -1991,7 +1993,7 @@ static int pagemap_pmd_range_thp(pmd_t *pmdp, unsigned long addr,
+ 		goto populate_pagemap;
  
--static bool bq256xx_state_changed(struct bq256xx_device *bq,
--				  struct bq256xx_state *new_state)
-+enum bq256xx_state_change {
-+	CHANGED_NONE,
-+	CHANGED_VBUS,
-+	CHANGED_OTHER
-+};
-+
-+static enum bq256xx_state_change bq256xx_state_changed(struct bq256xx_device *bq,
-+						       struct bq256xx_state *new_state)
- {
- 	struct bq256xx_state old_state;
+ 	if (pmd_present(pmd)) {
+-		page = pmd_page(pmd);
++		page = vm_normal_page_pmd(vma, addr, pmd);
  
-@@ -1173,27 +1182,50 @@ static bool bq256xx_state_changed(struct bq256xx_device *bq,
- 	old_state = bq->state;
- 	mutex_unlock(&bq->lock);
- 
--	return memcmp(&old_state, new_state, sizeof(struct bq256xx_state)) != 0;
-+	if (new_state->online != old_state.online)
-+		return CHANGED_VBUS;
-+
-+	if (memcmp(&old_state, new_state, sizeof(struct bq256xx_state)) != 0)
-+		return CHANGED_OTHER;
-+
-+	return CHANGED_NONE;
-+}
-+
-+static void bq256xx_extcon_update(struct bq256xx_device *bq, bool online)
-+{
-+	int ret;
-+
-+	ret = extcon_set_state_sync(bq->edev, EXTCON_USB, online);
-+	if (ret)
-+		dev_err(bq->dev, "Failed to update extcon state: %d\n", ret);
- }
- 
- static irqreturn_t bq256xx_irq_handler_thread(int irq, void *private)
- {
- 	struct bq256xx_device *bq = private;
- 	struct bq256xx_state state;
-+	enum bq256xx_state_change changed;
- 	int ret;
- 
- 	ret = bq256xx_get_state(bq, &state);
- 	if (ret < 0)
- 		goto irq_out;
- 
--	if (!bq256xx_state_changed(bq, &state))
-+	changed = bq256xx_state_changed(bq, &state);
-+	switch (changed) {
-+	case CHANGED_NONE:
- 		goto irq_out;
- 
--	mutex_lock(&bq->lock);
--	bq->state = state;
--	mutex_unlock(&bq->lock);
-+	case CHANGED_VBUS:
-+		bq256xx_extcon_update(bq, state.online);
-+		fallthrough;
-+	case CHANGED_OTHER:
-+		mutex_lock(&bq->lock);
-+		bq->state = state;
-+		mutex_unlock(&bq->lock);
- 
--	power_supply_changed(bq->charger);
-+		power_supply_changed(bq->charger);
-+	}
- 
- irq_out:
- 	return IRQ_HANDLED;
-@@ -1554,6 +1586,40 @@ static int bq256xx_power_supply_init(struct bq256xx_device *bq,
- 	return 0;
- }
- 
-+static const unsigned int bq256xx_usb_extcon_cable[] = {
-+	EXTCON_USB,
-+	EXTCON_NONE,
-+};
-+
-+static int bq256xx_extcon_init(struct bq256xx_device *bq)
-+{
-+	unsigned int charger_status_0;
-+	int ret;
-+
-+	bq->edev = devm_extcon_dev_allocate(bq->dev, bq256xx_usb_extcon_cable);
-+	if (IS_ERR(bq->edev)) {
-+		dev_err(bq->dev, "Failed to allocate extcon device\n");
-+		return PTR_ERR(bq->edev);
-+	}
-+
-+	ret = devm_extcon_dev_register(bq->dev, bq->edev);
-+	if (ret < 0) {
-+		dev_err(bq->dev, "Failed to register extcon device\n");
-+		return ret;
-+	}
-+
-+	ret = regmap_read(bq->regmap, BQ256XX_CHARGER_STATUS_0,
-+			  &charger_status_0);
-+	if (ret) {
-+		dev_err(bq->dev, "Failed to read charger status\n");
-+		return ret;
-+	}
-+
-+	bq256xx_extcon_update(bq, !!(charger_status_0 & BQ256XX_PG_STAT_MASK));
-+
-+	return 0;
-+}
-+
- static int bq256xx_hw_init(struct bq256xx_device *bq)
- {
- 	struct power_supply_battery_info *bat_info;
-@@ -1743,6 +1809,12 @@ static int bq256xx_probe(struct i2c_client *client)
- 	if (!IS_ERR_OR_NULL(bq->usb3_phy))
- 		usb_register_notifier(bq->usb3_phy, &bq->usb_nb);
- 
-+	ret = bq256xx_extcon_init(bq);
-+	if (ret) {
-+		dev_err(dev, "Failed to register extcon device\n");
-+		return ret;
-+	}
-+
- 	if (client->irq) {
- 		ret = devm_request_threaded_irq(dev, client->irq, NULL,
- 						bq256xx_irq_handler_thread,
-
+ 		flags |= PM_PRESENT;
+ 		if (pmd_soft_dirty(pmd))
 -- 
 2.55.0
 
