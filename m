@@ -1,152 +1,124 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FDC92BCF7F
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 06:01:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE1572AD3C;
+	Sat, 12 Sep 2026 06:02:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789192882; cv=none; b=n0DDA88c3XNNeuJApLxaqTUBK5vOiX4ayC/tFWBLcH3OMFfl8iEkEHBFsI0A1p+H2lItAL1cRK/GIz4fJqg35j1JwXZLvrvAWsy4HdBam8aBElrH9IjRZXgL2aPdEHhKpgnipeXjRRAvgZO224sbySa67ys4zPtU5F3KPv5z1go=
+	t=1789192959; cv=none; b=AxnA3NND/3ipnZ3v+Fja9MC4hSxjL+zfvPzlICfOKr6pb09WbfB0d6jG43rQ2NKAB7IAtCxUM+kZDF9kf3Vc1G27rQ6irfYIBMLGFTEcWZ3Po9uD2r475odZ9Svy9Xn5Ix5ce4H9KoK03WUCOnvaxUvrgHiwC05cWr9CF/fVAk4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789192882; c=relaxed/simple;
-	bh=+mh6hCRv3jV8lG1bYtqlCdPgplm2V3taMDxvZ/qC59Q=;
-	h=From:Content-Type:Mime-Version:Subject:Message-Id:Date:Cc:To; b=R6vEd0ZV2gdn7s283EyHMrD2OOUfIhW71l5Pk8tdQDFkK1BwjU8BB9ASG2bJHY8ZT9Kz+OsHADQ9ew1G2gs1tztdwrrp4Tbmmik7u7qJrWflXi29WFppCoBfMYfD4c7/H/SLvxi0j/zTkgBZJ5U39wW6YLV15UFHKp9ANzmo+IA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=doyensec.com; spf=pass smtp.mailfrom=doyensec.com; dkim=pass (2048-bit key) header.d=doyensec.com header.i=@doyensec.com header.b=SPCMFHJA; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=doyensec.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=doyensec.com
+	s=arc-20240116; t=1789192959; c=relaxed/simple;
+	bh=5gLjyyM4G900QAKhjPkQFtRkNeaXWMtmoQI163YSpek=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YcHBRz5uAOkN0EMGwCTDjhVSlIhgsElMVLOyy+FxKzXHIrgQ0/9HjTaBY2LJhLddrtnj6bns8asWS2F1dBAKa4BcOiimxsG3N/Jit97zKEXWZ9+VTH5ESsvHb98pYc5N0TY8LVWPwdCt/MUtzsC5Ye2I8zSHLGmDgLTSrD0M330=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=Y4N+D4j1; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=doyensec.com header.i=@doyensec.com header.b="SPCMFHJA"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254fa4c24cso41269466b.2
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 23:01:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=doyensec.com; s=google; t=1789192879; x=1789797679; darn=vger.kernel.org;
-        h=to:cc:date:message-id:subject:mime-version
-         :content-transfer-encoding:content-type:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Jzx6evAcXzYbgCcZylnkVlQvDEuLCz2zM++yE3ascC8=;
-        b=SPCMFHJALDbdLoYctOIPOlG7qcxpvOEO+fuR2h5XQlk36FcZMqPqYagrKgrbn0Mc9w
-         LuVJGv9OTiKHOchMINpKzTyOuxQWZ5TGvNrzjVprIDUeclQCYAA3Wt7VTmliU/bNkfTA
-         mqYYnNbEsTf8EuY/iyqxP0wRyWq7pmmjtcEA9o5g4Jpjfrk3eu7NaRQKFQBmwhcTmVWz
-         PBoj9i002FLybpf2gipacNoT5f5YKA0AZCwpzydYrAUEXzco56rK+2BtVYOkPCGlKGZy
-         XNXP366CpHUx1pYP6uT5cpwnPzd9rRDwPBqyUgFf6Agfu8Mk1LVF+vIxsvXC+hkBId4E
-         8FHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789192879; x=1789797679;
-        h=to:cc:date:message-id:subject:mime-version
-         :content-transfer-encoding:content-type:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Jzx6evAcXzYbgCcZylnkVlQvDEuLCz2zM++yE3ascC8=;
-        b=KQjrY/vYipTzJqwVx6ZlFv+5Jn4z8gkEMGyQM3SsCENzT3EkGbHja5xSJimml2PH1K
-         56nlllai86Rhx+w2RlW2pJAxOhiPn8wdpoPTnaeBw9KxcULNKyK/yJuBG8r3G+80ufB8
-         tAh5l3gk/oXFvdzCdl6fuyouikInl3iOO3I24uRHNLBnvkKg8bTYWCsjYDXVwLuvpYX1
-         LeioOV4GZOidFqB72XTasUPg51nPyQWotNhdP8vx9X3pxgb1GaHyAY0B0mvdBJ9vYWYJ
-         MAFwzE35r07YfnMKAwgDp79zt+AAS7cTP09FYJKU3baH4YYG1yVJW6xNOkQ9JoO4GczX
-         rmrQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzX+6FHgZouKBf7lsNi39TbrSEE0ns7SImezQmUV0jQZDNG9iuRFLFd3quzXiETRm5qutsOW5RUtiiDHks=@vger.kernel.org
-X-Gm-Message-State: AFuF++lOKjY5fYxgRJMH8EN0t+QUMlV37hqGC0kVmZLhZMHpfqtkLg2Q
-	ZbFhTfWaNi+a9RDtaWPuRB0W9ZMHv3wf9B1QQMK+j+iwd9cCYSap7R9CxDG8gZZjZ7E=
-X-Gm-Gg: AYBFou3Z3PymELz1g5OZYeXiGre7vFcbuInWKedGz88AhDwj89TOyLkMeh1FmPXURoK
-	yPNPyMMmhCuGfMFjkIckJ7u5HphOqpfkHGCKfSJ0h3g6+gEBspPzDhQm+n/6WJea0b/L5wDKhdM
-	RzIOb3dAPtrN4CZZfucdHBqQoT+rN1WmuRKs4TnZr70t2jXTv7UoBQeiJGMoiajXIySn2qJflXC
-	C43IC0/bWhys7D4QI+iaW3RZTcrf2WNs/Anf3K2Gqd9CpDUg5hP5QkS9vhkidC3P7wHuqXDZh2Z
-	XO6NVAnUOldEudUIf3jD3nj4RVdngtY6K/NtbjwUU0MzfCkmOxUmfB58sg/qCgyD0UTJLYuCYUJ
-	IJXOuUyYgKZNgUybt+vNjKvP8dPwXdVOD8YYUIbDD6Y88IpwsAOrcs1j5MBTiBBc0MCWsIh24lm
-	IOnS8XctVDhe9Y+SoOmAhULxI/b3Yvhuq1Q9d+hGwM8xxaOwrCA7wiMtEo0JhhzfK/gYJ4LfkNY
-	maf9uiuDeQawOSb859qwb8/hPCaCDwRI86H9A6oKNY4jn36Wio3qK2U+FFsd14=
-X-Received: by 2002:a17:907:94c6:b0:c15:f598:60c0 with SMTP id a640c23a62f3a-c2985700099mr87558266b.4.1789192878508;
-        Fri, 11 Sep 2026 23:01:18 -0700 (PDT)
-Received: from smtpclient.apple (80.49.147.201.ipv4.supernova.orange.pl. [80.49.147.201])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2966066b6asm156002966b.34.2026.09.11.23.01.17
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 11 Sep 2026 23:01:17 -0700 (PDT)
-From: Norbert Szetei <norbert@doyensec.com>
-Content-Type: text/plain;
-	charset=us-ascii
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="Y4N+D4j1"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 5DBD540E00E8;
+	Sat, 12 Sep 2026 06:02:28 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id JbJRULlAKaRJ; Sat, 12 Sep 2026 06:02:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1789192934; bh=vCcat0/oImBmwSaV0rtau+d25lxPnhEctueRjHdO8d8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Y4N+D4j159xcdGfuYfIfnrSQAtZ79Js2B+F8ucOMjUtY2oTQM1NPZtzCxaFvasgr6
+	 upHy024f+YUOGou/NibGnj1U0EvWRDnEX8ujyzHwCwwCboqMU/uYsY34BMmPS8DHv/
+	 3084vI37nkmflB95ugxmMuRrJ9z5pySjNotSYGpX+iNUyi6l8iJ2Cw8xKAKZR9rn2o
+	 DKVafsUMNULaRnHOcvNkCVo2jkmMtTZ5Z8YZ28jRpBMQHZbMqLWCjnrIWHqKgoE9fS
+	 fi00YPLy8V0pIJUCmmism7jqIhUJ2ksy9JoN+Wov49Iis8pEhbxap8Rcfdlk8hzZep
+	 vIAcjNWFp+/G4DZXVo2zL2RE1Plqhzorv3fi3OEa8kCuI4ldVIE/4rS3kooRo5qNpp
+	 Zg1LBEUsc4OHc72CIOlEMj/32elSbau3F9cGu5hOPbGAsQgLak+yuIVKKBVAjlQ4EM
+	 vUF9uttmrceKtoYxSBf1baYzdEw65y7uY7djIUbsRn3O7w71uoL+QybonGIO8uimXk
+	 ephKNhWFi95dOujF3IHy6yN1WRcQnh1B2yzbgRwec0p08JTrcNf3AMfhUlXk8hPlqO
+	 4DHzaD/BzB/PYaZl4MD2BV1uNMctDMLMaN9a+ONNymCbkSBDowViaVGVgWBYvneJHP
+	 rEZpaYAujEGnlBoSa0pql6/c=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::1a])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 93E5240E00B8;
+	Sat, 12 Sep 2026 06:02:06 +0000 (UTC)
+Date: Fri, 11 Sep 2026 23:02:03 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
+Cc: Shravan Kumar Ramani <shravankr@nvidia.com>,
+	David Thompson <davthompson@nvidia.com>,
+	Tony Luck <tony.luck@intel.com>,
+	Zhao Qunqin <zhaoqunqin@loongson.cn>, linux-edac@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] edac: use named initializers for acpi_device_id
+Message-ID: <20260912060203.GCaqTq2wnz-tV6vPIl@fat_crate.local>
+References: <20260904-acpi-edac-v1-1-ef93d60bbda4@thegoodpenguin.co.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.700.51.1.1\))
-Subject: [PATCH net v2] net: xps: reject an out of range traffic class
-Message-Id: <CE030A45-D573-4310-8761-01431156F0D6@doyensec.com>
-Date: Sat, 12 Sep 2026 08:01:06 +0200
-Cc: "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>,
- Kees Cook <kees@kernel.org>,
- Kuniyuki Iwashima <kuniyu@google.com>,
- Alexander Duyck <alexander.duyck@gmail.com>,
- linux-kernel@vger.kernel.org
-To: netdev@vger.kernel.org
-X-Mailer: Apple Mail (2.3864.700.51.1.1)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260904-acpi-edac-v1-1-ef93d60bbda4@thegoodpenguin.co.uk>
 
-Only the entries below dev->num_tc are valid in dev->tc_to_txq[], and
-dev->prio_tc_map[] may only name classes below it. netdev_set_num_tc()
-lowers dev->num_tc without touching either array.
+On Fri, Sep 04, 2026 at 03:41:43PM +0100, Pawel Zalewski wrote:
+> Use a named initializer for the acpi_device_id fields which
+> makes the code more readable and consistent with how lists
+> are initialized in the rest of the kernel code base. Also
+> drop explicitly setting fields to 0 where it is redundant.
+> 
+> While we are at it - unify the list terminator to have
+> a single space between the brackets and no trailing
+> comma.
+> 
+> Signed-off-by: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
+> ---
+> This series is converting lists that contain the acpi_device_id
+> struct, which is defined in the include/linux/device-id/acpi.h
+> to make use of named initializers (which they do not use currently).
+> This work is part of the on going effort in the kernel associated
+> with device-ids [1]
+> 
+> The plan is to convert acpi_device_id::driver_data to have an anonymous
+> union, similarly to what was introduced for PCI and I2C device ID tables.
+> The goal is to increase type-safety (as most of the existing casts are gone),
+> to improve readability and to make use intent a bit more clear:
+> 
+> ```
+> union {
+> 	kernel_ulong_t driver_data;
+> 	const void *driver_data_ptr;
+> }
+> ```
+> 
+> But for that to work all lists containing the structs need to use named
+> initializers first to avoid triggering -Wmissing-braces. I already have
+> patches that implement this and touching a lot of kernel subsystmes that
+> use the acpi_device_id struct and that list keeps on growing. Therefore,
+> I have decided to split the series per every subsystem into:
+> - pre-clean-ups that convert the lists to use named initializers (this series)
+> - actual implementations that make some of the modules use the new driver_data_ptr
+> 
+> That way the task can be fragmented into manageable and independent
+> chunks of work and makes this effort easier to review.
+> 
+> Tested builds on a64 in Yocto using 7.3-rc1.
+> 
+> [1] https://lore.kernel.org/all/cover.1780048925.git.u.kleine-koenig@baylibre.com/
+> ---
+>  drivers/edac/bluefield_edac.c | 4 ++--
+>  drivers/edac/loongson_edac.c  | 4 ++--
+>  2 files changed, 4 insertions(+), 4 deletions(-)
 
-netdev_txq_to_tc() walks all TC_MAX_QUEUE slots and
-netdev_get_prio_tc_map() returns the entry as it stands, so a leftover
-entry is handed out as a traffic class >=3D dev->num_tc. Taking that
-class from netdev_txq_to_tc(), __netif_set_xps_queue() rejects only a
-negative one and indexes an XPS map sized for dev->num_tc classes:
+Applied, thanks.
 
-	tci =3D j * num_tc + tc;
-	RCU_INIT_POINTER(new_dev_maps->attr_map[tci], map);
+-- 
+Regards/Gruss,
+    Boris.
 
-Any caller that lowers num_tc leaves such entries behind, and
-mqprio_destroy() tears down with netdev_set_num_tc(dev, 0) rather than
-netdev_reset_tc(). After mqprio with 8 classes then 1, tc_to_txq[1..7]
-still describe txq 1..7. The splat is from an XPS write to txq 2:
-
-  BUG: KASAN: slab-out-of-bounds in __netif_set_xps_queue+0x1eb9/0x2440
-  Write of size 8 at addr ffff888110e978d8 by task xps_oob/573
-   __netif_set_xps_queue+0x1eb9/0x2440
-   xps_rxqs_store+0x24d/0x360
-   netdev_queue_attr_store+0x61/0x90
-  Allocated by task 573:
-   __kmalloc_noprof+0x246/0x6c0
-   __netif_set_xps_queue+0x8ca/0x2440
-  The buggy address is located 0 bytes to the right of
-   allocated 88-byte region [ffff888110e97880, ffff888110e978d8)
-
-Reject a class the map has no room for.
-
-Fixes: 184c449f91fe ("net: Add support for XPS with QoS via traffic =
-classes")
-Assisted-by: LLM
-Signed-off-by: Norbert Szetei <norbert@doyensec.com>
----
-v2:
-  - bound the class in __netif_set_xps_queue() instead of clearing
-    dev->tc_to_txq[]/dev->prio_tc_map[] in netdev_set_num_tc(), per the
-    Sashiko review of v1
-  - dropped the memory-ordering claim from the changelog
-  - retitled
-v1: =
-https://lore.kernel.org/netdev/16E3A318-5532-4B5E-8D03-86D21B463A2D@doyens=
-ec.com/
-
- net/core/dev.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/net/core/dev.c b/net/core/dev.c
-index ecfbd72d5d1a..7e76860602e2 100644
---- a/net/core/dev.c
-+++ b/net/core/dev.c
-@@ -2901,7 +2901,7 @@ int __netif_set_xps_queue(struct net_device *dev, =
-const unsigned long *mask,
- 		dev =3D netdev_get_tx_queue(dev, index)->sb_dev ? : dev;
-=20
- 		tc =3D netdev_txq_to_tc(dev, index);
--		if (tc < 0)
-+		if (tc < 0 || tc >=3D num_tc)
- 			return -EINVAL;
- 	}
-=20
---=20
-2.55.0
-
+https://people.kernel.org/tglx/notes-about-netiquette
