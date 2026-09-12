@@ -1,168 +1,129 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80C142EBDE9
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 07:20:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789197603; cv=pass; b=HgkU3qj6BXwvNOdpZ2r7Zrh6z1768+z6CAxjo/QXRHGrTpxb0OJsTmClAJmIqLe6wPJBpzCnOghVvdZD5O4F18+8MI3d3DkWX14jPBdgrFcGAJbnGhedj1WXWSa+7fbL9i7Pc3jc2K4lr2tkgCyfFiBVtBe6ElqF8tG1tLqDuTQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789197603; c=relaxed/simple;
-	bh=96QqdAH+ut3FoNAu5P8fNecmY73HgWuZtIEXkBWpqh8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=enEzVzUzUpY7BlIcZFO2lIzWeJZ/nupKGuYlCqaPSPsqTqIYyI1VLHMBT5putAOjKHX37UUXTjgmCKa9n5HB2eNb121Jju7w/u+SIX3TWOosrn+Rh7LLPCZjNAFd4pikdurs6ia+SUdAEskArxjHULnIf4Jpm3NrCfdU7/OCs0w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org; spf=none smtp.mailfrom=brainfault.org; dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b=ppJTEwSG; arc=pass smtp.client-ip=209.85.221.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=brainfault.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC9192EBDE9;
+	Sat, 12 Sep 2026 07:20:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.210.214.84
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789197643; cv=none; b=QUF4veTzZccORkJZ6T05RNa7/r6OpmSC7DfQ1IaccsJC6npbuR3JICC8NPYJCMFr5+xWJ41JQ5RK6FxsITEcat6J5i1fBJvTRTwR6HGCkBaGHmidEevQyr4yTYiGjcQcTneHGB+bWQLMexWKFu6++2tz9t27TFik8lvtIrGfCA0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789197643; c=relaxed/simple;
+	bh=u8ivYwxK+2BIM0DzoW3aB5C7wCGYriQe/fCxpUC+Tmo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fgEKXqymMA+L2f1rthKpr3Xh+OD59emhgUYHNAnplFfSZik94yxoZ2XDei05+xeJ/beMA3g6gkxR5sfc4OIYEGxuDrptkjkISute97nf7NEEIC6gNue5IHUACMCZBpL9hGvoaL4zU85tryFhOvCCR4sOMCAAqR//bNP0FNj0yxg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org; spf=pass smtp.mailfrom=codewreck.org; dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b=TblNxtxB; arc=none smtp.client-ip=62.210.214.84
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b="ppJTEwSG"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-4843e9c5960so1553033f8f.0
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 00:20:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789197600; cv=none;
-        d=google.com; s=arc-20260327;
-        b=sQqaHjkVuo+J7H24+AH37oKUwb6EyQs87BfVCDvHPb6xYsHGJNCzg4CX/LF4pcQkDX
-         1PlxUQa/2y7GDfnG4k1R6o37PREFMMUDhv5gIPwSq95vVvRL5JN8nBvSHmJmliEMuLKE
-         1SK7NIMbF/NdxHb1RHl8LFO1q01PBhIb4bpWu+DvnP406b7mn5ZBsURMAkUaRa4LFb/q
-         33JntdWGgYmYYWD47TXB8YLyaHsqU9Jex3OxgWVDh4XLl/KRUJalTxpP3Zza+QMuQi2V
-         VApv4gfy2lQIALbqERHwpYD1zWdrh9xwY+6l0Y2GJ0AWOmgdFn2wEKVK0F6Dvz7kjuaO
-         aY9A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=+HCXtMkwPRPt0+8i1UnJyzIlexbsOaqziQRyoO3VN8k=;
-        fh=je/iXtVKa0mYtqLIQzaKgQU7vn+lPc1w5ir+WaYbBJw=;
-        b=hmG3lJmNklCGrkPl70FBrgYZZJhPDp6bUK//Ui7Eqrw2jaqnGlXx6+dVvSN3KB76mq
-         JZ+0B7MYwumTMtzoE2BhORiGpczaZdJIpCxIyTIlmD9W184NeGJgTPVYNbKkUg9Mw70J
-         c9GjUIlaF3aIggpUR+rozwuZ5CPaBgP2UayhPtU7J6aDOYY0ZbpaF6T/0etZaND+yrgm
-         1gVfC6BfF+ZcEeuifF+dmIDm/6IzOPu2x9ezFIw2D6U+nocy2K/j2aeV19NC+nplnpUZ
-         MSUnubSnMpPO2BOuN6YXihDAnIwgB4AubJQxy577JgKEn738BYk5mJJx+FXBLS+VuAv3
-         5Z+Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=brainfault.org; s=google; t=1789197600; x=1789802400; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+HCXtMkwPRPt0+8i1UnJyzIlexbsOaqziQRyoO3VN8k=;
-        b=ppJTEwSGUgr/ATI3/8AmaI/wzOXHMeTZiqeuiisUik103k4Iuk36bllz65KzLAtR4A
-         Ns5xKxVsMblItnNY2rNwGE8nQ/EkjiUpkfOSN76BGWUx5zwFmS/Bp6ll1TCde2EpXViv
-         4AItdjmAwN7Zd/bWaRfGUjIIPimTei3mrR0Cg0ybvfSi2Wj7B1LAhDFhk77Rj1OJXP0X
-         sWIx+OSL01oXjZs4HI8Hhogi7/vrVqR+mFECnvX9C+1OVyRvu+e7FxX0mJS5ErIKhxiG
-         dOimFqpJiMrYrSQ2BA/nTx79Mbbft0YGPBux24Zp1acD6XyeyBt3Y1TVW9sLc2a5b7je
-         gjJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789197600; x=1789802400;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+HCXtMkwPRPt0+8i1UnJyzIlexbsOaqziQRyoO3VN8k=;
-        b=nKXuIKGm2pyMD+JJs7UtuKBTyo0V5Uw5uhnXtB5/PCwhX4M3KTzD49Qrfm54VW6NmH
-         KQkPgVTYFlClXojLk1PIB0QWaVdMlJwFGXC94ExqaQCtqJs2oTDQg1D0688hhZmQG2tp
-         IGO+lfZ5ME0fMlbG0LFTzeO11yMdPNy/EB0pVAOKeOh/XnBIVO/FqkkY5EniPApkWlze
-         0kUY/mIWvbHe8RLzbOPHAVRUzIuQlCYIbj1sV0wuCUSI0YUTMaAukuoSh/EM/bmhQ/LU
-         oSzo7xacBm8lQ8QadBUc8KZXlVaPOFxsr1Ky8rgDbsJ6SyW6n3i5z2X8lm+eatS2j8rM
-         CeAw==
-X-Forwarded-Encrypted: i=1; AKwUvBwBTfA1uBX+MLuv2ZCrEf2wU/auFlyV1S72OhYajgISPxQ6eR7Sq7DtxrW/kh2f3HxNvdURp+kprUSWg4s=@vger.kernel.org
-X-Gm-Message-State: AFuF++mK8SD7Ml6hAOh9fxu8Xge6fDPQiVrgVrJUuD31tdMfngFCUmMN
-	FCt+E+Q/OWux//dZimsC6N6tLJlCrOQBOmdJJYT8h5DlJ43bDrIp8NfaanwA/zNZYdCIieLLJpS
-	wo3K9uS0kWv7y3CmApkdtTHM71vdvZhWbTyvQl5GLOw==
-X-Gm-Gg: AYBFou3GZVScCgIM9UgoTLQiJUKdLjqgI4zttUda1wh6s1K6ybXXZniMyRXgF6KJmQ0
-	xK6yIhCcVxjXikGe3ul/1a/QSfXW04IcuHXoPvyiSxg+SWfr4Ie1a61oTecA8VxndVZ0AiYbZOJ
-	TNUhnCGwieZhEJIH1uCCWwgnzuQTV1a6kJ80EFUoAC21KrTtyYGnKU5cAz0RPXkpbcj5lQ162Hv
-	DnYwFE68PQvZU2YZHFyDFdCC/Taw7/S7oGHatsbcOBDl74c7NzrPoDceTGopete73ZN4sgQTTvk
-	gqxtObNF4Rm5NXG5gfdANnxlL1QoUtKYMG4YdQthqEGymMrhE5UUSEnRCO0mS4xxwiqXKTMJH9Q
-	0EHDo7LUG7OEpsHFe2iC9CJ4z0PzEPuvuWxsmRSlGoppcHS4gmvo19UsdlQ+o4dtiMwSrjgXMAw
-	==
-X-Received: by 2002:a5d:5f44:0:b0:486:ed36:bb8 with SMTP id
- ffacd0b85a97d-486ed360ceemr8264961f8f.29.1789197599622; Sat, 12 Sep 2026
- 00:19:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b="TblNxtxB"
+Received: from gaia.codewreck.org (localhost [127.0.0.1])
+	by submarine.notk.org (Postfix) with ESMTPS id 8622F14C2D6;
+	Sat, 12 Sep 2026 09:20:35 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
+	s=2; t=1789197637;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=dW41XwRFtq+O0RRRVs3avgWhzaMEj/gxt+nXVXX5eHU=;
+	b=TblNxtxBcJrUuhFvy/DHnW8cXnEWRxowX/lEeBIiy88g/ZDWBxtW2DTUhaFFVXhfD+6nS5
+	ttbaOwOjzY6KZJIFVnE/+3Jv0dgjrwRMiw5n9Fel5HzDCAVtPAmFa+6mqADDbvvTkX4NuN
+	8+AcC1TqvVHnOGTuq75lD/jOURdsD1av2alQL9MyFy8vFGnKEBHKPY6FHCoPtOIhQnLDAr
+	fEkCLfRqhD+zGGIvsorzB1OOofnr4WbJqvmFNnR9dlhAwlr4Ae/VONri3zwR+ej8V2MeJG
+	oJ9HkkL+NXm62Edih7thZbpV4usOpIk3FqrWX5ITAaxLxiKbiyXWo4xB0LEEvQ==
+Received: from gaia.codewreck.org (localhost.lan [127.0.0.1])
+	by gaia.codewreck.org (OpenSMTPD) with ESMTP id afb269bf;
+	Sat, 12 Sep 2026 07:20:33 +0000 (UTC)
+From: Dominique Martinet <asmadeus@codewreck.org>
+To: 
+Cc: v9fs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	David Howells <dhowells@redhat.com>,
+	Michael Mulqueen <mike@method-b.uk>,
+	stable@vger.kernel.org,
+	Dominique Martinet <asmadeus@codewreck.org>
+Subject: [PATCH] 9p: Fix v9fs_issue_write() to update i_size and remote_i_size
+Date: Sat, 12 Sep 2026 07:19:41 +0000
+Message-ID: <20260912071940.3-2-asmadeus@codewreck.org>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <caplitmus-rv.c91c005b844342d9a9f60949b04c520d.d65@163.com>
-In-Reply-To: <caplitmus-rv.c91c005b844342d9a9f60949b04c520d.d65@163.com>
-From: Anup Patel <anup@brainfault.org>
-Date: Sat, 12 Sep 2026 12:49:47 +0530
-X-Gm-Features: AcwNN1VonCRcgUOPNOO0ybAk3-QpJzTjEpr8-CCE2ai98LUN-VM9a568vF76B6w
-Message-ID: <CAAhSdy0cnHwfs5hRfZdq6WAzrEobqcjYMuv1oAmvRk2pi2zkPA@mail.gmail.com>
-Subject: Re: [PATCH] RISC-V: KVM: Publish NACL HFENCE configuration last
-To: Pengpeng Hou <hppiscas@163.com>
-Cc: Atish Patra <atish.patra@linux.dev>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, kvm@vger.kernel.org, kvm-riscv@lists.infradead.org, 
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Andrew Jones <andrew.jones@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sun, Sep 6, 2026 at 1:37=E2=80=AFPM Pengpeng Hou <hppiscas@163.com> wrot=
-e:
->
-> The SBI NACL interface requires software to write Page_Number and
-> Page_Count before publishing an HFENCE entry with Config.Pending set.
-> __kvm_riscv_nacl_hfence() currently stores the pending configuration firs=
-t.
->
-> Write the payload first and order those stores before publishing the
-> configuration word with WRITE_ONCE(). Use a write barrier that also
-> applies to UP kernels, since the consumer is outside the Linux SMP
-> domain.
->
-> Keep nacl_hfence_mkconfig() unchanged: setting Pending in a local value
-> does not publish the entry. The shared-memory store is the publication
-> point.
->
-> The issue was found by our static-analysis tool and manually reviewed.
->
-> Fixes: d466c19cead5 ("RISC-V: KVM: Add common nested acceleration support=
-")
-> Assisted-by: GPT-5
-> Signed-off-by: Pengpeng Hou <hppiscas@163.com>
+From: David Howells <dhowells@redhat.com>
 
-There was another patch from Zongmin Zhou which is relatively
-more complete hence I have merged that one.
+Fix v9fs_issue_write() to update i_size and remote_i_size to the new size
+of the server file if we made it larger, using the start fpos and the count
+returned by p9_client_write() to calculate the new minimum file size.
 
-Regards,
-Anup
+This assumes that if the 9P server makes a short write (say it hits
+ENOSPC), a reduced count is returned.
+
+Fixes: 5fb70e7275a6 ("netfs, 9p: Implement helpers for new write code")
+Reported-by: Michael Mulqueen <mike@method-b.uk>
+Closes: https://lore.kernel.org/r/fbb9e395-1e07-4212-8f70-23f3cd498074@method-b.uk/
+Cc: stable@vger.kernel.org
+Signed-off-by: David Howells <dhowells@redhat.com>
+Message-ID: <2226525.1789118704@warthog.procyon.org.uk>
+Signed-off-by: Dominique Martinet <asmadeus@codewreck.org>
+---
+I'm resending this as a patch to get sashiko to run on it, please
+disregard this email and reply to the original thread (Closes link
+above) if you have concerns about it.
+(well, I guess either David or me will see it either way, but it's
+easier to follow if it's all in the same thread)
 
 
-> ---
->
-> diff --git a/arch/riscv/kvm/nacl.c b/arch/riscv/kvm/nacl.c
-> index 9aff03c4..c5c4907a 100644
-> --- a/arch/riscv/kvm/nacl.c
-> +++ b/arch/riscv/kvm/nacl.c
-> @@ -5,6 +5,7 @@
->
->  #include <linux/kvm_host.h>
->  #include <linux/vmalloc.h>
-> +#include <asm/barrier.h>
->  #include <asm/kvm_nacl.h>
->
->  DEFINE_STATIC_KEY_FALSE(kvm_riscv_nacl_available);
-> @@ -42,12 +43,15 @@ again:
->                 }
->         }
->
-> -       entp =3D shmem + SBI_NACL_SHMEM_HFENCE_ENTRY_CONFIG(i);
-> -       *entp =3D cpu_to_lelong(control);
->         entp =3D shmem + SBI_NACL_SHMEM_HFENCE_ENTRY_PNUM(i);
->         *entp =3D cpu_to_lelong(page_num);
->         entp =3D shmem + SBI_NACL_SHMEM_HFENCE_ENTRY_PCOUNT(i);
->         *entp =3D cpu_to_lelong(page_count);
-> +
-> +       /* Publish the payload before setting Config.Pending. */
-> +       wmb();
-> +       entp =3D shmem + SBI_NACL_SHMEM_HFENCE_ENTRY_CONFIG(i);
-> +       WRITE_ONCE(*entp, cpu_to_lelong(control));
->  }
->
->  int kvm_riscv_nacl_enable(void)
->
-> base-commit: 4d7d9486c04d917265f64c55bd23b2cc4fe7749c
->
+
+ fs/9p/vfs_addr.c | 28 +++++++++++++++++++++++++++-
+ 1 file changed, 27 insertions(+), 1 deletion(-)
+
+diff --git a/fs/9p/vfs_addr.c b/fs/9p/vfs_addr.c
+index 1ac0b3dcc077..13cf87a5f90c 100644
+--- a/fs/9p/vfs_addr.c
++++ b/fs/9p/vfs_addr.c
+@@ -54,11 +54,37 @@ static void v9fs_begin_writeback(struct netfs_io_request *wreq)
+ static void v9fs_issue_write(struct netfs_io_subrequest *subreq)
+ {
+ 	struct p9_fid *fid = subreq->rreq->netfs_priv;
++	struct inode *inode = subreq->rreq->inode;
++	struct netfs_inode *ictx = netfs_inode(inode);
+ 	int err, len;
+ 
+ 	len = p9_client_write(fid, subreq->start, &subreq->io_iter, &err);
+-	if (len > 0)
++	if (len > 0) {
++		uoff_t end = subreq->start + len, i_size, remote, zp;
++		bool set = false;
++
++		spin_lock(&inode->i_lock);
++
++		/* We can read the sizes directly as we hold i_lock. */
++		i_size = inode->i_size;
++		remote = ictx->_remote_i_size;
++		zp = ictx->_zero_point;
++
++		if (end > i_size) {
++			i_size = end;
++			set = true;
++		}
++		if (end > remote) {
++			remote = end;
++			set = true;
++		}
++
++		if (set)
++			netfs_write_sizes(inode, i_size, remote, zp);
++		spin_unlock(&inode->i_lock);
++
+ 		__set_bit(NETFS_SREQ_MADE_PROGRESS, &subreq->flags);
++	}
+ 	netfs_write_subrequest_terminated(subreq, len ?: err);
+ }
+ 
+-- 
+2.55.0
+
