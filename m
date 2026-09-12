@@ -1,227 +1,178 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazolkn19011026.outbound.protection.outlook.com [52.103.33.26])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com [209.85.222.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2355D3EEAC2;
-	Sat, 12 Sep 2026 22:38:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.33.26
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789252717; cv=fail; b=Kz9McZdUtOpLuabiK+Jt7vYDwxzEPNhSKNWICUjxTVOd1hd3kzGHsqaZFdC8lLyzAg83hW4b+1K4i3KA475DvG8k34hatBvBv5v0uCLW+KUp55f+mlYI/pWDNDuas6aGz2vWDSp4sk3PSgsuLy+p5C8xh+9zq4rrk3AY029Jnco=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789252717; c=relaxed/simple;
-	bh=+nhGkcdkrOZAyQePVpq37f7E1JY1gve4hIjNa8DWuiA=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=PuI+gJGIZD5jrOQ4k5rxxwKkMbnjIS3Kju9K0m820drRZw8j62jXvHzO0ZXxHBJQWYzj+IBUrk7w54jx7SwzAA0XOinYfPz20LJ4ifltu2CsBAeTeYtPTERVmYLneDpWdjudujvseFH3ygJSfSXPBmywNiNOrbovYwojkV7BxfQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=JtQQ0MTz; arc=fail smtp.client-ip=52.103.33.26
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 190C54BEE4A
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 22:39:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.178
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789252777; cv=none; b=KJF6/tznKH0UOv/se9RAx4LPmkMlthq8zNdPRqbsNAIuilnfej64LCGY7kcED9PjwR+izy4zoJthWUur9VC839F7EPL51EIdSsKYVzimVKzQg6Jduzqu3BaN8h/ahM1NNfcyG8zZ8FAbIEiElprh3t5JpLQko3W3ZAc20FI+WuY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789252777; c=relaxed/simple;
+	bh=we8mnm/f613zZ1ll4RJjRsvqMgkHwaThiDyN6ZY3sDo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=urPAHGdJJ9+PDLMkn/lcpKaTgXf9b6w4yVsR8NItkl+45IJt+dwC8wEd99j2ibJAG548cLle/0o4UF0yJJBbGtAsO/XKczHkcfqWqE0hvx9GgGsbk7qh6LEreujTy/tVtNxvI1jbaMZqWMIGNFk8tkgkUXtROHq3YZDTJFvZhys=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gXCAAUSh; arc=none smtp.client-ip=209.85.222.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="JtQQ0MTz"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VvSV+A9voaAcxOTGNn/vJXHaXwVwoLT26JxjUEm43wZ0HFOBF3jo5j4aiNkp3LMGM13he5vNNbBUZG9UWRvx0xlMc49cQoh0H6y+3KSPu9CEhnRJs0qaL3KNXdsNQnd6utn6oKND/l0x3DUjJBsMhJThh52LCp9LrObPmaFo6gIGkLyky+PlbY9CO5nqXsMBVa3sVBMOlMNV8KRQRABM0l/NRIfNwvU2cpDdvoSc+cWKr/chOMHGlkMzMi1XOScifeQEWYaTk/SyZPCnijO0cmd/YStrTM5oUINEqhkBUZNwVW+oNZNPqQo4ZsELul+fc6RXExdab7hwnFUIIOLxbQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KKbMRAeF7YbRmzJNBlt862XXqwGxRw71srYhL1mYXeI=;
- b=DRwQnJrhtHYxvy8MFijqCA/8aFoWX9fQuebtamXxfttNScNTlq0ciSkbA4qXtBQT1L910f377gxkw2WLas07aQJWCe5itFs/Y8xA1Z80yVxS1fza3U3EsrfcbmkDR2f6NTICMOMx8HcltCShNkGh3wpIKZH7W/1lV7Ct0RlFyx3jXCc7yoNQELEn9M7wLP22r+q2/UigOboehdECc6dPCpF/yZaidvibyRZF6bt29AVUTJ3Xr/2EcuCewiqBIMffCj4QkK7htyHCZof23MtDBHHtpGWM81n27bJtvjkNYXcSaqRvOg9ciLDygIYWSu0bXSyncGIkNSdFJiR8iyBMwQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KKbMRAeF7YbRmzJNBlt862XXqwGxRw71srYhL1mYXeI=;
- b=JtQQ0MTzFTsUuPATSCVpB5AfLuI9Ajz/kaP+ozgevNV14p7ZefZU9wsIO4hdcNZ4gZHF14elhPLiDGDmGOJxAoR4ShztUgFIqQmi7FNG3p8yKKMgb5gWajL2cdC9Jw8DhS5dtxut95PMkJjhy+AIB4xIjv6WWs7EGbj7AOhortfLPUaIIOsw+6BySubdWZROjTDMs7t1u7D6Tz+I7MI+0PADjbYBcnIsa1+DjPHYWown+lFGHEEL4zgTLCbI9ob1CbEf/5wmuC3EeSp3BoksywYgtX8L+tzS4bOiaPRU8OPA5+usGVTsxMU0eCLnf8obDJpaCOf9wtdW2rcs43kReQ==
-Received: from GV1PR08MB8497.eurprd08.prod.outlook.com (2603:10a6:150:81::22)
- by GVXPR08MB11096.eurprd08.prod.outlook.com (2603:10a6:150:1ff::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Sat, 12 Sep
- 2026 22:38:32 +0000
-Received: from GV1PR08MB8497.eurprd08.prod.outlook.com
- ([fe80::705b:d4a3:1c1f:b9a2]) by GV1PR08MB8497.eurprd08.prod.outlook.com
- ([fe80::705b:d4a3:1c1f:b9a2%5]) with mapi id 15.21.0428.004; Sat, 12 Sep 2026
- 22:38:32 +0000
-From: Manuel Fombuena <fombuena@outlook.com>
-To: lee@kernel.org,
-	pavel@kernel.org,
-	vicentiu.galanopulo@remote-tech.co.uk,
-	linux-leds@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gXCAAUSh"
+Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-939b5ded99dso209298185a.2
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 15:39:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789252775; x=1789857575; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZOGMTD5LGSJ43nsYgDh0j1HHamIrGJcLYj3gibAvI+U=;
+        b=gXCAAUShukG95VEURrZteW/3GL26Yz3iARH0wQ/VFIxsP1REsxycrRYBYsVcV9V1oR
+         Js+3bJ4VbfoqVNlAP6A+8mIzxNRQfrWnCtq4vSzbH7dfxiUKIiotVttXsvMVKgMW01nv
+         3TYB+0vYvBfRlawuQQS9+RtJjgyd1CXWoee/CJc6yXyH7OCYI+9xN+xmqX+oQdasuH5o
+         0EhjwUl1pW3QXqwjuOTY39HFmzaoxspwaV8Iv46WE7LoXCGDZAOKdsXTAUK7XF+I8ZKJ
+         mCAajIEIkZ+g5LA6270T2w55dlkq2PQEmKbMaIHowzDH2/LkXqcTxuPfWWqcgC9DDPh6
+         7Rlg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789252775; x=1789857575;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZOGMTD5LGSJ43nsYgDh0j1HHamIrGJcLYj3gibAvI+U=;
+        b=IgiZnA+GaxD+JnHHrlLx+yWL65f8nUG+WqW6BH0NoG3gK12wRtmFZE5ovNDsA8GfLA
+         Tiu08SqbqJSUWTvCAjZ1/5gt7+7JlEWYYj26I9QvNOPXfOVBk+PC27hvc9vdS/9rLL1U
+         TZL7w5TAaRtLfYODvWCC7oHsjiv50qORysv4msIXaNQr2u1c2PmRA4j9+nW0iLTKyBE5
+         nKwF8Bwtpn0hIKYrAI9dlPp5HVOPwvyi1dfhZOX/i1cJ7QzZKpzrd/faYqtZAJT7Tq/j
+         EBhDrfq2Syr6lfUKA6Ec76SN7gY5U5NiQ2x0o5/5+bq+T6S6N3SQVDWZ+IJvvtbtMuza
+         HAGw==
+X-Forwarded-Encrypted: i=1; AKwUvBwvbMb59XlNszS2nccjgHJBSHFTRzHuakCUf06YlOLWss845GpsXWxMVdOUY9aGKOc8L8AWel57bI3cOJA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kNT3T4Wa5SxvM6lKKxw2DMOxGGemt5OhaqDVK7i/Lf5+pJJbCA
+	m/0wjX4Yv09rSQMx/4x4vRu0OwYC++vH24UizsQWLr9d9uxrflcfQ8njIZJ9Mk+F
+X-Gm-Gg: AYBFou0Kk3kq05pfR7ykRQ9Rem5LEldaVJmQ/WdgohKYAHj3YS+9QVnzllnfZ0yNC/d
+	N0CT0mj/sLzOryBkyuAjcK52pLMLPiIc5NXCsxugVr721u/G7RVZmGIrEJEpm1PHaHF6hGDZHKn
+	Ye1zf1IUuREPFIQZ8zr1rm7yQeTtwRyIphx/4aXZKCsHzj3033WJZb8Ie2vYwCKRvQ38vpF9ZTR
+	lIaKhCzqzPaqn9NBn/kNYjKh/MAuorNGy5rJqrp8JDvC9vJTCtxjH0fH8ECKaipiG4A08QpRuPi
+	OhU/F6c7V3kNoNKwZrfxrwN9kpzj9JdKLZZJXwwmISE/h2mEuPub80FBQ7HBsvObSP4F1zxM2/X
+	XSKNw/LdZhkj5iqT7kaePol5B/3P2hNC78P4lNu1Z/2GmfFD9sdvK3R6BaQvoQkuFQTj38d0SGr
+	fKwVFH7lWXlP658XQikXXp8rwocdbxaZAwy/WzGDRMfs+8yPneKNqZ7ISxX8oXFvihHpgciEwGu
+	tkTe0RFBTQHnMlSV3ul6LjEhvuxaoxc/5D/l4ZDic1S3wjWqx1+ec0KsXdNcINngQNvRXjU8b3t
+	2wN4Otf3Svqv6kXwImU=
+X-Received: by 2002:a05:620a:17a5:b0:93a:12eb:b626 with SMTP id af79cd13be357-93a12ebd99dmr245498185a.4.1789252774908;
+        Sat, 12 Sep 2026 15:39:34 -0700 (PDT)
+Received: from docker-runner-pve5.tail732951.ts.net (bras-base-toroon4524w-grc-16-76-70-76-130.dsl.bell.ca. [76.70.76.130])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-939ebda519bsm537893485a.26.2026.09.12.15.39.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 12 Sep 2026 15:39:34 -0700 (PDT)
+From: Mykyta Bozhenko <caudadragonis@gmail.com>
+To: richard@nod.at,
+	anton.ivanov@cambridgegreys.com,
+	johannes@sipsolutions.net
+Cc: linux-um@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v1 09/11] leds: st1202: Do not set brightness from atomic context
-Date: Sat, 12 Sep 2026 23:38:20 +0100
-Message-ID:
- <GV1PR08MB84976AB392C375533BE4B583C5BD2@GV1PR08MB8497.eurprd08.prod.outlook.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <GV1PR08MB8497422B7A44424C4968AEC1C5BD2@GV1PR08MB8497.eurprd08.prod.outlook.com>
-References: <GV1PR08MB8497422B7A44424C4968AEC1C5BD2@GV1PR08MB8497.eurprd08.prod.outlook.com>
-Reply-To: fombuena@outlook.com
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: LO4P265CA0167.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:312::12) To GV1PR08MB8497.eurprd08.prod.outlook.com
- (2603:10a6:150:81::22)
-X-Microsoft-Original-Message-ID:
- <20260912223820.3104846-1-fombuena@outlook.com>
+Subject: [PATCH] um: ubd: perform the flush the block layer asks for
+Date: Sat, 12 Sep 2026 18:39:32 -0400
+Message-ID: <20260912223932.2941631-1-caudadragonis@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV1PR08MB8497:EE_|GVXPR08MB11096:EE_
-X-MS-Office365-Filtering-Correlation-Id: dd61da47-7586-4f01-1424-08df111e92c8
-X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|41001999006|15080799012|5072599009|23021999003|25010399006|51005399006|8060799015|19110799012|24021099003|37011999003|440099028|3412199025|40105399003|2607281247196008;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?Hw6/nd2vf4G3q4IzmuDaekaWT1Oma2/iy1LjsXuqDlGhseoF5RGptm55+cJm?=
- =?us-ascii?Q?qFekULYKvqvnIEJ1mU8Tz9NUtWj8Qq4o15LhY8PoSUF3aHUPhJATUd5A57sk?=
- =?us-ascii?Q?t6Ofqw1GyrgejbPjYl33voee3bLstJ3I/InKS17c00JhkXo8wOCmR7TqZX0f?=
- =?us-ascii?Q?JHLv8Kq9X0AymGGr2pyEXkvyEnzDh0d33I/NDllauflJpcwc/RPOIel+rk6D?=
- =?us-ascii?Q?klFT4Aa2CRGv4J7YRcDomgA0q9m4ORxUfY6boqk/zBK0KRtQrw/H8VeKxtyc?=
- =?us-ascii?Q?42uM5Sk9surxVXcu1MPj4I7NPBodv6/xfXHONtbuR4mmeAbdX8ES/gFS/Wqs?=
- =?us-ascii?Q?zL8zUxmnxFKQEI4J7kGUUvJIJyhYDEdbS18SOvwj9Jd5b82DKIOuzDFpjo/B?=
- =?us-ascii?Q?SNsZo7NIk9ougx3Xikfzvffi7dbmoe98im7U/XIbEGk2zr54eYYu/t//fiX8?=
- =?us-ascii?Q?ReEQ3feKSAgvkab57WkSZPA4z2p0sJQ/s3xdyXrSOCjF8MsaBT7odP6hcnII?=
- =?us-ascii?Q?zvJZtxaUAeQxEiQLeS+bM9Js8QWnnfQ3vL1dvRgocPnBwKmSZqXTE2OB03uH?=
- =?us-ascii?Q?1VIt7DNc3CzH217rTC9G3fF9ggLryHDcaZeBTz6IoxATMT/iEMwwufGVI9uC?=
- =?us-ascii?Q?XlR9A1PEFBVuBKyJHnXjr53lBWTVZmowbIXPhj4GaiUFiCyW9PSGsbjD2DU7?=
- =?us-ascii?Q?5mR7iW0IRyKxekr72iruE8xxwGyQRkLnbiMuEXgbJHbD79SoylhqiQ1tnz/6?=
- =?us-ascii?Q?oUxFNK1NmlYZd46rPf3/NYfhz+6N8jUEdxZppTVek3DGLHnJ4fa2tfNaawXT?=
- =?us-ascii?Q?pqIQR0DG77crrHG1msv4z8nAaZA0mizYVhLJ079l+B/uxrzIE786pTygkv+J?=
- =?us-ascii?Q?BjjqG6J3eX0iiSLcI2UtE+273OjiKkWbhM9003SpCPK7VSvjRQJ6I5jZnat0?=
- =?us-ascii?Q?z0dKhHRL1/v60yp9PCiN/0KdtIdkCo2YiyJ7eHnUOxD6fmcjZok67P+JcR1N?=
- =?us-ascii?Q?Kssz?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?CtvxNcZdFByGxy/fCPAB4jLPHYCSjgYEbMZx/E4aHGdLf06V0+OBIBPEbkQh?=
- =?us-ascii?Q?qjFp4Naoa9vyKBC+e7XjFbUY93jLC2b61SfbpcZcEkFm5MP/vHuIz1b5AtfG?=
- =?us-ascii?Q?N0RKOKPEALNZKFFfvSCMARj9aNNtptkm6QC/Pk2mYKrVnWZl+CICb309t5Vt?=
- =?us-ascii?Q?RRzidKhKb7AggqewFC31PjqvKYqgMELebrEriGFi5mfZfyHZwFru+gn/+GXw?=
- =?us-ascii?Q?IT+JK73DHt35i1xkMLL5oSDu9rIC1EoHFo0+whCT5ziLEOnFA+QrT2/0YvyV?=
- =?us-ascii?Q?5Z2bZeAKVHWkXBevsb0M4zuQm4/B3eQcm17luq2G3kfCaWwUa2sCws42SX1j?=
- =?us-ascii?Q?ixyOiU6zcTCAwQjVM/TT+6c7R+WV/5J+48uF12M72u7h/yWiQ+rliZQ5ZLnh?=
- =?us-ascii?Q?+jQUkyj/uFOJ+kbKV0wYPsi+jbA7549PAah6uOejcaghXYXKUyCflaxe7Qfb?=
- =?us-ascii?Q?E6QFyDvJtkIRZU/BZz2vczmB20RcAe/Gkeome/zoUmmVfRR8hjOV6Xuw2i0N?=
- =?us-ascii?Q?d03K1cOtAAAIKJdwuJA2ixJtyQOyR4hI4ShJLnqm6N56yUY7SPKYA82L9LSe?=
- =?us-ascii?Q?yVzLbHnQ0j7VU8OElBaA3FD+0V641lXpxRXyGmesxf8hqeZGY65rBbbh6gT6?=
- =?us-ascii?Q?EELSBYTdWaF18rNyWB/oPtL34ckFuM37bs2uuyhXEQb/vt7fITuG1SprSQGw?=
- =?us-ascii?Q?6Z46GViDAgQtW27pcEbxMsHP4XV5fEhVqNrbrvTG32gDlkLZNVboMYQhSLWQ?=
- =?us-ascii?Q?cm8UGB6Wuk9UaBj3cb+XuSm3kG1zaqvpawaZEORKmuJ2GEyi6/CU0LQS+yXZ?=
- =?us-ascii?Q?Nu89RWfr3YIJCT2IujgDWqkX2Ro6jTdIvsZuNIriNaA8k8nMqIkCvUwBWIP6?=
- =?us-ascii?Q?2CJSIrofSqTTJG0eCPGAgyADbPEaNjjb8wKdWWV73h7CVfW/LtkV+iQP2CJR?=
- =?us-ascii?Q?iGxUcJ9DHdZH03oBJegralCH4WNYEjbNaG98ZMCPbrSrgHI5LX8QjVYRlKR6?=
- =?us-ascii?Q?hYNLbcWaJOAEqGPodoUtH8ck9g5zfNeQLWl1pJIiH2tGtuh/xRfqVnnuwd4V?=
- =?us-ascii?Q?iW9CVVCoYYYqHUq9fv/qzprC2X7SwXZMX1eO5t2Sn9KoBSNnI32Rvz9J/W4Y?=
- =?us-ascii?Q?jxulpGOWaAQFHdow8AjbWcx0f0W+wuc+J1G6RsTipFYN8PWDbGuhEnOgqDtM?=
- =?us-ascii?Q?tTwlvszsEtn0qG7jvqvZc4OTLUTMVno7bCt1/dE7M4vwCaPC7HerUGJ1Fwf+?=
- =?us-ascii?Q?llXC9eCkqgz8OcFwBkiG+0tkw+TH9zjrsq+gxE1yh06UaYbcVDOoxMWnfJP0?=
- =?us-ascii?Q?eX8uN31Ajyyfb6vzrTaEa7ULqRXlOxwqY/+yCYfQJTcp14MPpv00u5/SABsG?=
- =?us-ascii?Q?Q4xdfr+6VqRZTkj09uCrfv6yWxqyV/fb2qfGxsy9ScPqaqbLZdDmZ2rXJuzb?=
- =?us-ascii?Q?4kBe4kgODf+SV5GoVE7zAykSRVU8f1yK?=
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dd61da47-7586-4f01-1424-08df111e92c8
-X-MS-Exchange-CrossTenant-AuthSource: GV1PR08MB8497.eurprd08.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Sep 2026 22:38:32.2118
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR08MB11096
+Content-Transfer-Encoding: 8bit
 
-st1202_brightness_set() takes the chip mutex and performs I2C transfers,
-both of which can sleep, but it is installed as the brightness_set
-callback. led_set_brightness_nopm() calls that op directly on the
-assumption that it never sleeps, including from softirq context, so the
-driver can sleep in atomic context.
+ubd sets BLK_FEAT_WRITE_CACHE, so the block layer sends it REQ_OP_FLUSH
+requests and, as Documentation/block/writeback_cache_control.rst puts it,
+the driver "needs to handle them". do_io() does implement that: for
+REQ_OP_FLUSH it calls os_sync_file() on the backing file and maps the
+result back into the request.
 
-The driver also installs brightness_set_blocking, but the core only
-falls back to it when brightness_set is absent, so st1202_led_set() was
-never reached. It merely turned the channel on or off and ignored the
-requested brightness, so dropping brightness_set on its own would have
-lost brightness control entirely.
+That branch has been unreachable since commit fc6b6a872dcd ("um: ubd:
+Submit all data segments atomically"), which replaced the single
+per-request do_io() call with a loop over the request's data
+descriptors:
 
-Move the register programming into st1202_led_set() so the blocking
-callback honours the brightness value, and drop brightness_set. The core
-now defers the update to a work queue, where sleeping is allowed. Errors
-from the register writes are propagated rather than discarded.
+	-			do_io((*io_req_buffer)[count]);
+	+			for (i = 0; !req->error && i < req->desc_cnt; i++)
+	+				do_io(req, &(req->io_desc[i]));
 
-Programming every PWM slot to full scale is kept: it is what makes the
-brightness visible while the global sequencer is running, without having
-to stop the sequencer and disturb the other channels.
+A flush carries no data and ubd_submit_request() sets desc_cnt to 0 for
+it, so the loop body never runs. The request is handed back to the block
+layer with error 0, i.e. the flush is reported as completed without the
+backing file ever being synced. Guest fsync(), fdatasync() and journal
+commits return success while the data is only in the host's page cache,
+and because no ordering is enforced either, a host crash can leave the
+image in a state the guest never allowed. The error path is dead too:
+a failing host fdatasync() cannot be reported.
 
-Fixes: 259230378c65 ("leds: Add LED1202 I2C driver")
-Signed-off-by: Manuel Fombuena <fombuena@outlook.com>
-Assisted-by: LLM
+Measured on a UML guest with ext4 on ubda, doing 20 writes of 4 KiB each
+followed by fdatasync(), then one fsync() and one directory fsync():
+
+  before: the guest sees 22 successful flushes, /sys/block/ubda/stat
+          reports 16 completed flush requests, and the UML process issues
+          no fdatasync() on the image at all
+  after:  the same workload results in 43 fdatasync() calls on the image
+
+os_pwrite_file() is entered 131 times either way, and e2fsck on the
+resulting image is clean in both cases.
+
+Honouring the flush costs what the flush costs. With the image on host
+ext4, 400 iterations of write() plus fdatasync() in the guest take 467 ms
+before and 2007 ms after (medians of five runs). uretprobes on
+os_sync_file() attribute 1.597 s of that difference to time spent inside
+the host's fdatasync(), the remaining data path being unchanged
+(os_pwrite_file(): 19246 calls in both). A 64 MiB sequential write
+followed by a single fsync() goes from 278 ms to 362 ms, due to the
+periodic journal commits. With the image on tmpfs there is no measurable
+difference.
+
+Users who prefer the previous speed to durability can disable the cache
+per device:
+
+  echo "write through" > /sys/block/ubda/queue/write_cache
+
+That is also cheaper than the unfixed driver, 326 ms for the same 400
+iterations, because the block layer then completes empty flush requests
+without entering the driver at all.
+
+Fixes: fc6b6a872dcd ("um: ubd: Submit all data segments atomically")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM bpftrace
+Signed-off-by: Mykyta Bozhenko <caudadragonis@gmail.com>
 ---
- drivers/leds/leds-st1202.c | 38 ++++++++++++++++++++++----------------
- 1 file changed, 22 insertions(+), 16 deletions(-)
+Not verified, stated explicitly as the process asks: the change was built and
+exercised for ARCH=um only, on torvalds/master at cba2348ab and on v6.19; no
+other architecture goes through this path. The flush error path, map_error() on
+a failing host fdatasync(), is reachable again but I could not isolate it: the
+block layer fault injection I used fails the data write too, so the EIO the
+guest observes cannot be attributed to the flush alone.
 
-diff --git a/drivers/leds/leds-st1202.c b/drivers/leds/leds-st1202.c
-index 600e004944a6..1267671557f0 100644
---- a/drivers/leds/leds-st1202.c
-+++ b/drivers/leds/leds-st1202.c
-@@ -180,20 +180,6 @@ static int st1202_channel_set(struct st1202_chip *chip, int led_num, bool active
- 	return __st1202_channel_set(chip, led_num, active);
- }
+The numbers above come from a single-CPU guest with 10 ms timer granularity,
+which is why they are medians of five runs rather than percentages. Host side
+counts are from uprobes on os_sync_file() and os_pwrite_file() and from the
+sys_enter_fdatasync tracepoint filtered to the UML process; the guest side flush
+count is field 11 of /sys/block/ubda/stat.
+ arch/um/drivers/ubd_kern.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/arch/um/drivers/ubd_kern.c b/arch/um/drivers/ubd_kern.c
+index 20fc333..bb1d990 100644
+--- a/arch/um/drivers/ubd_kern.c
++++ b/arch/um/drivers/ubd_kern.c
+@@ -1516,6 +1516,18 @@ void *io_thread(void *arg)
+ 			int i;
  
--static void st1202_brightness_set(struct led_classdev *led_cdev,
--				enum led_brightness value)
--{
--	struct st1202_led *led = cdev_to_st1202_led(led_cdev);
--	struct st1202_chip *chip = led->chip;
--
--	guard(mutex)(&chip->lock);
--
--	for (int pattern = 0; pattern < ST1202_MAX_PATTERNS; pattern++)
--		st1202_pwm_pattern_write(chip, led->led_num, pattern, ST1202_PATTERN_PWM_FULL);
--	st1202_write_reg(chip, ST1202_ILED_REG0 + led->led_num, value);
--	__st1202_channel_set(chip, led->led_num, !!value);
--}
--
- static enum led_brightness st1202_brightness_get(struct led_classdev *led_cdev)
- {
- 	struct st1202_led *led = cdev_to_st1202_led(led_cdev);
-@@ -210,8 +196,29 @@ static enum led_brightness st1202_brightness_get(struct led_classdev *led_cdev)
- static int st1202_led_set(struct led_classdev *ldev, enum led_brightness value)
- {
- 	struct st1202_led *led = cdev_to_st1202_led(ldev);
-+	struct st1202_chip *chip = led->chip;
-+	int ret;
+ 			io_count++;
 +
-+	guard(mutex)(&chip->lock);
++			/*
++			 * A flush request carries no data descriptors, so the
++			 * loop below would never call do_io() for it and the
++			 * flush would be reported as completed without the
++			 * backing file ever being synced.
++			 */
++			if (req_op(req->req) == REQ_OP_FLUSH) {
++				do_io(req, NULL);
++				continue;
++			}
 +
-+	/*
-+	 * The output of a channel is ILED x Pattern_PWM / 4095. Setting every
-+	 * PWM slot to full scale makes it equal ILED whatever the state of the
-+	 * sequencer, so the brightness takes effect without stopping the
-+	 * sequencer, which is global and would disturb the other channels.
-+	 */
-+	for (int pattern = 0; pattern < ST1202_MAX_PATTERNS; pattern++) {
-+		ret = st1202_pwm_pattern_write(chip, led->led_num, pattern,
-+						ST1202_PATTERN_PWM_FULL);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	ret = st1202_write_reg(chip, ST1202_ILED_REG0 + led->led_num, value);
-+	if (ret)
-+		return ret;
- 
--	return st1202_channel_set(led->chip, led->led_num, !!value);
-+	return __st1202_channel_set(chip, led->led_num, !!value);
- }
- 
- static int st1202_led_pattern_clear(struct led_classdev *ldev)
-@@ -432,7 +439,6 @@ static int st1202_dt_init(struct st1202_chip *chip)
- 		led->led_cdev.pattern_clear = st1202_led_pattern_clear;
- 		led->led_cdev.default_trigger = "pattern";
- 		led->led_cdev.blink_set = st1202_blink_set;
--		led->led_cdev.brightness_set = st1202_brightness_set;
- 		led->led_cdev.brightness_get = st1202_brightness_get;
- 	}
+ 			for (i = 0; !req->error && i < req->desc_cnt; i++)
+ 				do_io(req, &(req->io_desc[i]));
  
 -- 
-2.55.0
+2.43.0
 
