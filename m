@@ -1,47 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 662062BCF7F;
-	Sat, 12 Sep 2026 00:28:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6975123D2B1;
+	Sat, 12 Sep 2026 00:29:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789172946; cv=none; b=m+iI8fbn3RMhH4sCbx/bX8qrv3rfllq1fXskXqODTwGftSVo3yUEw5O+NvCLZxYCqlQq3mNi9oCYL7Xw+t2Phhvwi73jrESfOTOfIoKI/dXiShWAj5y9ldI6eyUVms2EcsTh+IFPbByRC0JNeduitadR8I0+p4af4c7SHHiBatE=
+	t=1789172947; cv=none; b=CUsFZ423B1v5r/Go/EXd9Ju5uNAbgTYXvd5hVgVARBo1yfCtbTJoTusDeo8DXI/a/j8GXC+sOWNn+oXSe5ICaFRYfMFU6SAqRJFGXWTBY1gAIf2DWgEmzMlHDaECPKJmeI9ZLLbnTrJc3YYd5JyScrCu/qeriUodGK7MBXqLv3Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789172946; c=relaxed/simple;
-	bh=G3Pi6UhKBF0fIpwIX35B8iV4CClZQCcFqfjIPOs5IyU=;
+	s=arc-20240116; t=1789172947; c=relaxed/simple;
+	bh=7V+1FQXJSpysw+tUgbWJ5tg5hki9iB3nsAHB4fDlLAg=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=iOBeIS5SKZJtBiUGIllLzWG3lnstTcHP6C1kdmwf2Zk7pBL8v7AMe9ye/2BfOIT2FZYQvUpGB84Ir7r4swFcA20LN5gLWDUvRR3XGIL/8LsiMZwOc+DrgRA/i1BoJOJme4cMNJmOgNnUn9r2hZBEWu+vuhLJGwT+xZmH/aVSXOY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZiqYeQD8; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=EjZKDujlL3+JS238kLti6g8udTUKsewX06ni0Re+pVKylMEnBG2/0QxJCC4ofUeAAPed8sRgyvzD/BzDcJRw6EVyuMkCwo/MzRIY2Zh554L6dMgVq0BUtl/xwyG7cIfVBN0LMfgmJgl0g2/2i1nO2FLnMsQUuiJdJ3q7ga2nvSo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AxqY6qAT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZiqYeQD8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BE231F00898;
-	Sat, 12 Sep 2026 00:28:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AxqY6qAT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43C6B1F00893;
+	Sat, 12 Sep 2026 00:29:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789172939;
-	bh=bNuGpLdNUIqdLPTJ8MiJBre87z3YX17baMPKrMx/PFI=;
+	s=k20260515; t=1789172943;
+	bh=cD53z2Pns1P+7sJ0xqddc3cQaAGdODJ7m6lHfTDi/ec=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=ZiqYeQD8ZHPpAz5tznOf4GuS26kOFAT7Mp5prq0BgutT3mQioVClfdTDqoalsU5c5
-	 4/V26rIWI1IwD5ZKHOZX4T3KZuuXWfT/3Njb8Cj9/iHvJ4Bu7Emls6453rgg7Sc661
-	 vasQREjLZQV9LYTQotFOLZQiAQUoP92/HyKhFBpRyDea3Cow5YPIhBkWlx3kXFi8w+
-	 y+UCTlsukLLQxpK/kr7JsLAounAuFoCt3e7Y0hkcohGoGAreOfgKMReCazxukgXgWF
-	 wJBUVn2NTqBNNnFlNYqFaKJ6PPXPnM7f1WgqiQjf68fS25goPC0Nhp5bkLbKqZQ4X4
-	 ktNK/h/4jo7wg==
-Subject: Re: [PATCH net-next v14 5/6] net: dsa: mxl862xx: recover switch stuck
- in MCUboot rescue mode
+	b=AxqY6qATDQCLSJCQ4yaaGmRALvwGp72k0e0KXFiZSzzQaARaBBn+VyfNdx5HbJDQO
+	 wADi71gLgsxfFBGf2eEXQnOIyHYpJNY6Yk4EiQOuTjT0q4Jx2sJH7k4Cwtz1zuSh5j
+	 DWaoP10hOe9VK0iGMklw7fBlLrWn75otHH2bozW0oRyU2Q7fTURB0qYo9NOsvDWMc5
+	 n4LOlPF/9a+yydgb9R9XQ4YRFpxpeOmMaxjIlwzb4qt3pkVyNh4KPz6VtvMIq8cvaz
+	 N8UNEuIwOWvVEG9cKqmIw0Kve75Q+eo9vNv/iPn+PDssRfBIwTiRmpUaUGByBpowLJ
+	 LqRs7GkKW+IMA==
+Subject: Re: [PATCH net 1/2] net: psp: avoid conflicts with skb->decrypted and
+ sk_validate_xmit_skb()
 From: netdev-bot+sashiko@kernel.org
-To: daniel@makrotopia.org
-Cc: jiri@resnulli.us, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, corbet@lwn.net,
- skhan@linuxfoundation.org, rdunlap@infradead.org, gregkh@linuxfoundation.org,
- rafael@kernel.org, dakr@kernel.org, andrew@lunn.ch, olteanv@gmail.com,
- netdev@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, driver-core@lists.linux.dev
-Date: Sat, 12 Sep 2026 00:28:57 +0000
-Message-ID: <178917293786.219967.6720618074821278877@kernel.org>
-In-Reply-To: =?utf-8?q?=3Cd86b8833a198030c39dce8e4d4b20a2e47f75573=2E1788976?=
- =?utf-8?q?064=2Egit=2Edaniel=40makrotopia=2Eorg=3E?=
-References: =?utf-8?q?=3Cd86b8833a198030c39dce8e4d4b20a2e47f75573=2E17889760?=
- =?utf-8?q?64=2Egit=2Edaniel=40makrotopia=2Eorg=3E?=
+To: daniel.zahka@gmail.com
+Cc: edumazet@google.com, ncardwell@google.com, kuniyu@google.com,
+ davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ willemdebruijn.kernel@gmail.com, andrew+netdev@lunn.ch, shuah@kernel.org,
+ willemb@google.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org
+Date: Sat, 12 Sep 2026 00:29:01 +0000
+Message-ID: <178917294180.219967.2431474539892551274@kernel.org>
+In-Reply-To: <20260910-psp-ktls-fix-v1-1-e3f30aaeca4e@gmail.com>
+References: <20260910-psp-ktls-fix-v1-1-e3f30aaeca4e@gmail.com>
 X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -52,245 +49,162 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 3 potential
+Thank you for your contribution! Sashiko AI review found 1 potential
 issue(s) to consider:
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 1
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-- [Medium] The new `rescue_heal_work` drain can block driver unbind and
-  system shutdown for ~17 s: `mxl862xx_rescue_drain()` tests…
-- [Medium] `mxl862xx_rescue_mode_detect()` recognises only READY
-  (0xc55c), DL_READY (0xc33c) and 0; every other non-zero STAT is…
-- [Low] `priv->rescue_mode` is cleared as a plain store under
-  `priv->mdiodev->bus->mdio_lock` in `mxl862xx_devlink_flash_update()`,…
+- [Medium] The new mutual-exclusion gate keys off
+  `sk->sk_validate_xmit_skb`, a function pointer that is inherited…
 
 --
 
-net: dsa: mxl862xx: recover switch stuck in MCUboot rescue mode
+net: psp: avoid conflicts with skb->decrypted and sk_validate_xmit_skb()
 
-This adds probe-time detection of a switch left in its MCUboot loader over
-the clause-22 SMDIO mailbox, registers the switch in a reduced "rescue
-mode" so devlink stays usable, and drains an interrupted download back to a
-clean loader state from a background work item.
+This adds a mutual exclusion gate so that a socket cannot carry both PSP
+state and a TCP ULP, since the two conflict over skb->decrypted and
+sk->sk_validate_xmit_skb(). The gate is applied in __tcp_set_ulp() and in
+psp_sock_assoc_set_rx().
 
-> diff --git a/drivers/net/dsa/mxl862xx/mxl862xx-fw.c b/drivers/net/dsa/mxl862xx/mxl862xx-fw.c
-> index e8913954b2bae..042a4eee6af81 100644
-> --- a/drivers/net/dsa/mxl862xx/mxl862xx-fw.c
-> +++ b/drivers/net/dsa/mxl862xx/mxl862xx-fw.c
-
-[ ... ]
-
-> @@ -218,6 +265,338 @@ static void mxl862xx_flash_notify(struct devlink *dl, const char *status,
->  	devlink_flash_update_status_notify(dl, status, NULL, done, total);
+> diff --git a/include/net/sock.h b/include/net/sock.h
+> index 51185222aac29..ba5e5092f192c 100644
+> --- a/include/net/sock.h
+> +++ b/include/net/sock.h
+> @@ -2312,6 +2312,17 @@ static inline void sk_gso_disable(struct sock *sk)
+>  	sk->sk_route_caps &= ~NETIF_F_GSO_MASK;
 >  }
 >  
-
-[ ... ]
-
-> +/* The loader is not asking for a chunk: it may still be programming the last
-> + * one, or the counter has reached zero and it is verifying the image and
-> + * resetting into READY. Wait that out -- STAT cannot tell the two apart, and
-> + * guessing would mean writing END into a live receive loop.
-> + *
-> + * Return: 0 once the loader has left the loop, -EAGAIN if it asks for another
-> + * chunk after all, -EIO for a loader still holding the count when the verify
-> + * window expires, or an SMDIO bus error.
-> + */
-> +static int mxl862xx_rescue_drain_finish(struct mxl862xx_priv *priv, u32 chunk)
+> +static inline bool sk_has_validate_xmit_skb(const struct sock *sk)
 > +{
-> +	struct device *dev = &priv->mdiodev->dev;
-> +	int stat;
-> +
-> +	stat = mxl862xx_sb_pdi_poll_drain(priv, MXL862XX_SB_PDI_VERIFY_MS);
-
-[ ... ]
-
-> +static int mxl862xx_rescue_drain(struct mxl862xx_priv *priv)
-> +{
-> +	struct device *dev = &priv->mdiodev->dev;
-> +	/* Bound: twice the loader's 16 MiB image cap, one byte per chunk. */
-> +	u32 max_chunks = 2u * (16u << 20) / MXL862XX_DRAIN_CHUNK_BYTES;
-> +	u32 chunk = 0;
-> +	int ret, stat;
-> +
-> +	while (chunk < max_chunks) {
-> +		/* Teardown can interrupt this long drain. */
-> +		if (test_bit(MXL862XX_FLAG_WORK_STOPPED, &priv->flags))
-> +			return -ECANCELED;
-> +
-> +		stat = mxl862xx_sb_pdi_poll_drain(priv, MXL862XX_SB_PDI_STEP_MS);
-> +		if (stat < 0)
-> +			return stat;
-> +		if (stat == MXL862XX_SB_PDI_READY)
-> +			return 0;
-> +
-> +		if (stat) {
-> +			ret = mxl862xx_rescue_drain_finish(priv, chunk);
-> +			if (ret != -EAGAIN)
-> +				return ret;
-> +		}
+> +#ifdef CONFIG_SOCK_VALIDATE_XMIT
+> +	return !!sk->sk_validate_xmit_skb;
+> +#else
+> +	return false;
+> +#endif
+> +}
 
 [Severity: Medium]
-The MXL862XX_FLAG_WORK_STOPPED test only runs at the top of each chunk
-iteration, but neither poll that follows it re-tests the flag.
+Is sk_validate_xmit_skb a reliable indicator of live per-socket state here?
+The field sits after sk_dontcopy_end in struct sock, so sock_copy() copies
+it verbatim into a cloned socket, and neither sk_clone() nor
+inet_csk_clone_lock() resets it.  By contrast, sk_clone() does explicitly
+clear the PSP association:
 
-mxl862xx_sb_pdi_poll_drain() sleeps up to MXL862XX_SB_PDI_STEP_MS (2000 ms)
-and, when STAT still holds a count, mxl862xx_rescue_drain_finish() sleeps up
-to MXL862XX_SB_PDI_VERIFY_MS (15000 ms) on top of that, with the stop flag
-in neither poll condition.
-
-The join point is synchronous:
-
-drivers/net/dsa/mxl862xx/mxl862xx-host.c:mxl862xx_host_shutdown() {
-	cancel_work_sync(&priv->crc_err_work);
-	cancel_work_sync(&priv->rescue_heal_work);
-}
-
-Can this stall driver unbind and, via mxl862xx_shutdown(), reboot and
-poweroff for roughly 17 s whenever the switch is in the wedged-download
-state that rescue_heal_work exists to handle?
-
-Would it be reasonable to fold the stop flag into the poll conditions of
-mxl862xx_sb_pdi_poll_drain() so the wait aborts as soon as teardown asks
-for it?
-
-[ ... ]
-
-> +/* Detect MCUboot rescue mode over clause-22 SMDIO alone, so the caller can rule
-> + * the loader out before any C45 API request (which spews CRC errors when no WSP
-> + * firmware answers). A scratch write to ADDR/DATA must latch or the chip is
-> + * absent (-ENODEV); the mailbox is reset first, or a transfer interrupted with
-> + * CTRL=WR would take that write as a payload word instead of latching it. STAT
-> + * then classifies the state, poked destructively only when 0, the one value a
-> + * running firmware never holds:
-> + *
-> + *  - 0xc33c: flashless loop; recognised but not supported here.
-> + *  - 0xc55c: console loop, if the register-read challenge is serviced.
-> + *  - other non-zero: running firmware, left unpoked.
-> + *  - 0: wedged receive loop; the 1-byte slice-advance then says whether it
-> + *    still needs draining or has just finished.
-
-[ ... ]
-
-> +int mxl862xx_rescue_mode_detect(struct mxl862xx_priv *priv)
-> +{
-
-[ ... ]
-
-> +	/* Any other non-zero value is a running firmware, not a loader. */
-> +	if (stat)
-> +		return MXL862XX_NOT_RESCUE;
-
-[Severity: Medium]
-STAT is also where the download handshake lives, and it is host-writable.
-Are the loader's handshake wait states covered by this catch-all?
-
-mxl862xx_sb_pdi_reset() writes CTRL, ADDR and DATA only, so a value already
-in STAT survives it:
-
-drivers/net/dsa/mxl862xx/mxl862xx-fw.c:mxl862xx_sb_pdi_reset() {
-	ret = mxl862xx_smdio_write(priv, MXL862XX_SB_PDI_CTRL,
-				   MXL862XX_SB_PDI_CTRL_RST);
+net/core/sock.c:sk_clone() {
+	sock_copy(newsk, sk);
 	...
-	ret = mxl862xx_smdio_write(priv, MXL862XX_SB_PDI_ADDR,
-				   MXL862XX_SB_PDI_CTRL_RST);
+#if IS_ENABLED(CONFIG_INET_PSP)
+	RCU_INIT_POINTER(newsk->psp_assoc, NULL);
+#endif
+
+So a socket accepted from a listener that had PSP Tx state installed ends up
+with sk_validate_xmit_skb == psp_validate_xmit while psp_assoc == NULL, and
+sk_has_validate_xmit_skb() then reports true for a child that has neither a
+PSP association nor a ULP.
+
+Can PSP state be installed on a listening socket in the first place?  The only
+socket check before installation appears to be in psp_nl.c:
+
+net/psp/psp_nl.c:psp_assoc_device_get_locked() {
 	...
-	return mxl862xx_smdio_write(priv, MXL862XX_SB_PDI_DATA,
-				    MXL862XX_SB_PDI_CTRL_RST);
-}
+	if (!sk_is_tcp(socket->sk)) {
 
-In mxl862xx_flash_firmware() there is a window between the START handshake
-and the header byte count where STAT holds 0xf48f (written by the host) or
-0xf490 (published by the loader while it waits for the header words and
-their count):
+and neither psp_sock_assoc_set_rx() nor psp_sock_assoc_set_tx() inspects
+sk_state, while psp_sock_assoc_set_tx() does:
 
-	ret = mxl862xx_sb_pdi_poll_stat(priv, MXL862XX_SB_PDI_START + 1,
-					MXL862XX_FW_ACK_TIMEOUT_MS);
+net/psp/psp_sock.c:psp_sock_assoc_set_tx() {
 	...
-	for (i = 0; i < MXL862XX_FW_HDR_SIZE / 2; i++) {
-		...
-		if (ret < 0)
-			goto write_err;
-	}
+	WRITE_ONCE(sk->sk_validate_xmit_skb, psp_validate_xmit);
 
-Any SMDIO error there takes the write_err/no_end paths, which return without
-advancing or aborting the loader; a host crash in the same burst has the same
-effect. On the next probe, detection sees 0xf48f or 0xf490 and returns
-MXL862XX_NOT_RESCUE, so mxl862xx_setup() runs mxl862xx_reset() and
-mxl862xx_wait_ready() over clause-45 against a switch with no firmware,
-re-runs detection, gets NOT_RESCUE again and fails probe with -ETIMEDOUT.
-
-That is the CRC-error storm plus probe abort this patch sets out to avoid,
-and it also conflicts with the commit message:
-
-    after a failed one the switch is still in MCUboot, rescue mode
-    is detected again, and the user can retry.
-
-Should the handshake magics (START, ACK, and a lingering host-written count)
-be classified as a loader rather than as running firmware, or should STAT be
-reset out of the handshake before the flash path returns an error?
+> +
+> +bool sk_has_decrypt_user(const struct sock *sk);
+> +
+>  static inline int skb_do_copy_data_nocache(struct sock *sk, struct sk_buff *skb,
+>  					   struct iov_iter *from, char *to,
+>  					   int copy, int offset)
+> diff --git a/net/core/sock.c b/net/core/sock.c
+> index fa60b7494c586..9489d9c479493 100644
+> --- a/net/core/sock.c
+> +++ b/net/core/sock.c
 
 [ ... ]
 
-> @@ -602,6 +1021,7 @@ int mxl862xx_devlink_flash_update(struct dsa_switch *ds,
->  		 * readiness poll below read the freshly booted firmware.
->  		 */
->  		priv->flash_reading = true;
-> +		priv->rescue_mode = false;
->  		mutex_unlock(&priv->mdiodev->bus->mdio_lock);
-
-[Severity: Low]
-This is the only post-registration writer of rescue_mode, and it is a plain
-store under mdio_lock. mxl862xx_api_wrap() reads it under the same lock, but
-the readers this patch adds run in a different lock domain (rtnl_lock, or no
-lock at all) and use neither mdio_lock nor READ_ONCE():
-
-mxl862xx_port_enable()
-mxl862xx_port_disable()
-mxl862xx_port_stp_state_set()
-mxl862xx_port_mdb_del()
-mxl862xx_phylink_mac_select_pcs()
-
-rtnl_lock and mdio_lock do not order these against the store, so a reader can
-observe a stale value indefinitely. Would WRITE_ONCE()/READ_ONCE() pairing be
-worth adding here, matching what the same patch already does for the sibling
-rescue_ready and rescue_failed flags?
-
-mxl862xx_port_mdb_del() has a second ordering detail: the flag is read after
-mxl862xx_api_wrap() has already dropped mdio_lock, so the -ENODEV
-classification can use a value that changed in between:
-
-	ret = MXL862XX_API_READ(priv, MXL862XX_MAC_TABLEENTRYQUERY, qparam);
-	...
-	if (ret == -ENODEV && (priv->skip_teardown || priv->rescue_mode))
-		return 0;
-
-[ ... ]
-
-> diff --git a/drivers/net/dsa/mxl862xx/mxl862xx-host.c b/drivers/net/dsa/mxl862xx/mxl862xx-host.c
-> index caa4f74a86cf1..23e5dfe81e364 100644
-> --- a/drivers/net/dsa/mxl862xx/mxl862xx-host.c
-> +++ b/drivers/net/dsa/mxl862xx/mxl862xx-host.c
-
-[ ... ]
-
-> @@ -554,9 +560,11 @@ int mxl862xx_smdio_write(struct mxl862xx_priv *priv, u32 addr, u16 val)
->  void mxl862xx_host_init(struct mxl862xx_priv *priv)
->  {
->  	INIT_WORK(&priv->crc_err_work, mxl862xx_crc_err_work_fn);
-> +	INIT_WORK(&priv->rescue_heal_work, mxl862xx_rescue_heal_work_fn);
+> @@ -2670,6 +2671,12 @@ void sk_setup_caps(struct sock *sk, struct dst_entry *dst)
 >  }
+>  EXPORT_SYMBOL_GPL(sk_setup_caps);
 >  
->  void mxl862xx_host_shutdown(struct mxl862xx_priv *priv)
->  {
->  	cancel_work_sync(&priv->crc_err_work);
-> +	cancel_work_sync(&priv->rescue_heal_work);
->  }
+> +bool sk_has_decrypt_user(const struct sock *sk)
+> +{
+> +	return psp_sk_assoc(sk) ||
+> +	       (sk_is_inet(sk) && inet_csk_has_ulp(sk)); /* for tls */
+> +}
+> +
+>  /*
+>   *	Simple resource managers for sockets.
+>   */
+> diff --git a/net/ipv4/tcp_ulp.c b/net/ipv4/tcp_ulp.c
+> index 2aa442128630e..f3e0c9d379bb6 100644
+> --- a/net/ipv4/tcp_ulp.c
+> +++ b/net/ipv4/tcp_ulp.c
+> @@ -136,6 +136,10 @@ static int __tcp_set_ulp(struct sock *sk, const struct tcp_ulp_ops *ulp_ops)
+>  	if (icsk->icsk_ulp_ops)
+>  		goto out_err;
+>  
+> +	err = -EINVAL;
+> +	if (sk_has_decrypt_user(sk) || sk_has_validate_xmit_skb(sk))
+> +		goto out_err;
+> +
 
-[ ... ]
+[Severity: Medium]
+For such an accepted child, sk_has_decrypt_user() returns false (psp_assoc is
+NULL and there is no ULP yet), but sk_has_validate_xmit_skb() returns true
+from the inherited pointer, so setsockopt(TCP_ULP) now fails with -EINVAL for
+every socket accepted from that listener.
 
-Thanks for the detailed protocol comments in mxl862xx-fw.c, they made the
-state machine much easier to follow while reading this.
+Before this patch the stale pointer was harmless, since psp_validate_xmit()
+reads the association from the skb extension and treats a NULL association as
+good.  Should the check key off live per-socket state via psp_sk_assoc()
+instead, or should sk_validate_xmit_skb be cleared in sk_clone() next to the
+existing psp_assoc reset?
+
+>  	if (sk->sk_socket)
+>  		clear_bit(SOCK_SUPPORT_ZC, &sk->sk_socket->flags);
+>  
+> diff --git a/net/psp/psp_sock.c b/net/psp/psp_sock.c
+> index 1a2a6b7516b0f..509035617894a 100644
+> --- a/net/psp/psp_sock.c
+> +++ b/net/psp/psp_sock.c
+> @@ -143,6 +143,10 @@ int psp_sock_assoc_set_rx(struct sock *sk, struct psp_assoc *pas,
+>  		NL_SET_ERR_MSG(extack, "Socket already has PSP state");
+>  		err = -EBUSY;
+>  		goto exit_unlock;
+> +	} else if (sk_has_decrypt_user(sk) || sk_has_validate_xmit_skb(sk)) {
+> +		NL_SET_ERR_MSG(extack, "Socket has incompatible state");
+> +		err = -EINVAL;
+> +		goto exit_unlock;
+>  	}
+
+[Severity: Medium]
+The same inherited pointer hits this branch too: the psp_sk_assoc(sk) test
+above passes because the child's association was cleared, then this else-if
+fires on sk_validate_xmit_skb and returns -EINVAL with "Socket has
+incompatible state".  Does that mean PSP itself can no longer be set up on any
+socket accepted from a listener that had PSP Tx state?
+
+Also worth noting on reachability: PSP_CMD_RX_ASSOC and PSP_CMD_TX_ASSOC carry
+only GENL_CMD_CAP_DO in net/psp/psp-nl-gen.c, without GENL_ADMIN_PERM, so a
+process with access to the PSP device can install the association on a
+TCP_LISTEN fd.  On a listener the preconditions in psp_sock_assoc_set_tx()
+hold: psp_sock_recv_queue_check() walks empty queues and returns 0,
+tcp_write_collapse_fence() is a no-op on the empty write queue, and
+icsk_sync_mss is tcp_sync_mss from tcp_init_sock().
+
+The follow-up commit in the series, "selftests: drv-net: psp: test PSP and TCP
+ULP mutual exclusion", only touches tools/testing/selftests, so this case does
+not appear to be addressed later in the series.
+
+>  
+>  	refcount_inc(&pas->refcnt);
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/cover.1788976064.git.daniel%40makrotopia.org
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260910-psp-ktls-fix-v1-0-e3f30aaeca4e%40gmail.com
