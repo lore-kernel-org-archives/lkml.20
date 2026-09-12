@@ -1,150 +1,186 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA829353EF7;
-	Sat, 12 Sep 2026 22:47:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F2503630A5;
+	Sat, 12 Sep 2026 22:49:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789253259; cv=none; b=LhY/6Di1ShqkCJwmKe2njc2UivAZfq2bqrgyqrGg9zd0D1jE+3AR2BujVulhflqwxLYOH35nCUzY/YqSi8T1775lZlIWgV7fbf+Yjk+6jpRvGZGaKRZFnWlkLQByDxqzZpxOLSi3jXF5+zgPZV3chvp02Ndt2CP3n35ofv1KfY0=
+	t=1789253344; cv=none; b=LLMvvSXfhWI3ErC2coWwEronfEHUeH1/jR6xDTlCfsd2O4hg4yvjz/yxIpjDV1FBv9BapByWboQcPABRb+TjxMoPgw2JzUvebQmy043WaRiwygiNcoTZdu8zDpFlwuyx1AuC+DDsObAq034bAn4oLJit7B9S956okTbI/fGL9Ws=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789253259; c=relaxed/simple;
-	bh=WhpKhnaimmiDMo+7z3TyZxw7aAekk9TUYm3OZVPStwM=;
+	s=arc-20240116; t=1789253344; c=relaxed/simple;
+	bh=inWXTJaZqfaLTDFfjfCtHuRxzqwCXHz5Kjvucf8V5eA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RdxGMy4M6iEisGH3D5UO+INk8CTO8YCVD9/oh/YnLcdogOCTdCReZXvnK5zfuIlMEelYL/LsCggsIP65tFE6LoORuqAiGexI50V1rTt2bkSDSXp8X5l+VAHNCN1nrmeWd46R9Cwt33brImFoFP1AqL36pu+G+s1+N+A4DTDpMd0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e4ZfcMFm; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=g5o0sOE6lA5tBRacr5LGAlbuPfSOEtRssmv1TqJHR9BvXRbR4ToLI4LXuf+sCSABOin5frlTib/A0NXqSq5k9y1hhmXhdPXRyQv9iL2pVyqYh2wY5swtjd40ESdg+doukBP2rjAxXBaZU7lA2uphWH4/1hyDSaZ+kbMdCfMaNzg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I3u0NC19; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e4ZfcMFm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7215B1F000FF;
-	Sat, 12 Sep 2026 22:47:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I3u0NC19"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A93AA1F000FF;
+	Sat, 12 Sep 2026 22:49:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789253257;
-	bh=YTs0RHzOBARO9Zxd/72JxEwAoUlFgRlD7PJM9ViCXyc=;
+	s=k20260515; t=1789253342;
+	bh=iens78yZLtnL+fl57beRiJJ6hBIEP2ui7EKhm8tgYOs=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=e4ZfcMFmvfYKUh71LAPoMcJrwB+EauX2idSlHvlrc7/TcwWF4y4so18J/fbY5lXYi
-	 R7U55xnaXLAON7/zdmlPVdNgwj6zPMq1L2fBY8yKvOCgRckwkR0KzQNa2gxGw7uFfA
-	 wm2T2BsSDlRNJ4H1wIXuFyyLsOUX42JzfBTZ57ZX668HEN5yhgzUyOYlE/vi9rRF1e
-	 wxNzTDgBlwyw4kYH+U2DPdRNeBPA1JL+8gr8GbujAgHSSmzPofsMXi7mlmK5MX4lQM
-	 Q9YMH4vqdH97Z9EK53Aaj452z+/sBIpyi8GFKK13J3KjBc/JY1me3oHi5xO3iHRUE4
-	 jKTcBOzWYivwQ==
-Date: Sat, 12 Sep 2026 15:47:33 -0700
-From: Josh Poimboeuf <jpoimboe@kernel.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
-	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, Masahiro Yamada <masahiroy@kernel.org>, 
-	Alexey Gladkov <legion@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Arnd Bergmann <arnd@arndb.de>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Peter Zijlstra <peterz@infradead.org>, 
-	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
-	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
-	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
-	Alexandre Courbot <acourbot@nvidia.com>, Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, 
-	Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, 
-	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
-	linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org, 
-	Jens Axboe <axboe@kernel.dk>
-Subject: Re: [PATCH 18/23] objtool: cache relocations and function dead end
- state, do less work
-Message-ID: <aqW4klkDI2P0aUn5@jpoimboe>
-References: <20260908-build-speedup-v1-0-5dc1ac01672d@kernel.org>
- <20260908-build-speedup-v1-18-5dc1ac01672d@kernel.org>
+	b=I3u0NC19M8ZJn+OZabFQ320nZ5FD/RljkUzPgRa1Xxtt3mka6eH7hAcThMbJur4PE
+	 ONRHxJAKZGyhg3OZt+fp19IQAeNcEh0tLqbF7bsoYi5fX/SVQv0TGyxTb6Mp6tIBZk
+	 JoqIGq2kg8ttK8NGcJ1USLE+aI7Q9R4bkbRsAcX39Lc8Ue+6led9TaxxAkOOWO/jy+
+	 vGUPoiskwjC8IcDv3P+D+VwhuW6Dx9dXYiXa+7KpnfHJ0M77ZEiUaq7OgiQVj1IP50
+	 YA1yGfRHFxyaEd9+tIct0zwHbY7rToEUFObfjti5AhhXYRkrjwVREk/CkH0omrba3Z
+	 FA+vLerGKlJbQ==
+Date: Sun, 13 Sep 2026 00:48:57 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: astian <astian@memeware.net>
+Cc: linux-man <linux-man@vger.kernel.org>, libc-alpha@sourceware.org, 
+	Thomas Gleixner <tglx@kernel.org>, Andy Lutomirski <luto@kernel.org>, linux-kernel@vger.kernel.org
+Subject: Re: ioperm(2): confusing terminology
+Message-ID: <aqXWu0bKoK_XMuLT@devuan>
+References: <DLDOCNQUCW9N.3GGL01BMV0HNG@memeware.net>
+ <aqXOgqne-v4GtglY@devuan>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="4s7u3irbxnqwwa2q"
 Content-Disposition: inline
-In-Reply-To: <20260908-build-speedup-v1-18-5dc1ac01672d@kernel.org>
+In-Reply-To: <aqXOgqne-v4GtglY@devuan>
 
-On Tue, Sep 08, 2026 at 09:55:18PM +0100, Lorenzo Stoakes (ARM) wrote:
-> Whole build, 128-thread Threadripper 9980X, best of N runs:
-> 
->                                          before   after     delta
->                                          -------------------------------
->   x86 defconfig, touch mm/vma.c, gcc        8.4s     8.1s    -0.28s (-3%)
->   x86 defconfig, touch mm/vma.c, clang      7.5s     7.1s    -0.41s (-5%)
->   x86 defconfig, clean, gcc                27.1s    26.8s    -0.34s (-1%)
->   x86 defconfig, clean, clang              26.6s    26.2s    -0.40s (-1%)
->   x86 allmodconfig, touch mm/vma.c, gcc    30.2s    28.4s     -1.8s (-6%)
->   x86 allmodconfig, touch mm/vma.c, clang  28.1s    26.0s     -2.1s (-7%)
 
-Nice!
+--4s7u3irbxnqwwa2q
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: astian <astian@memeware.net>
+Cc: linux-man <linux-man@vger.kernel.org>, libc-alpha@sourceware.org, 
+	Thomas Gleixner <tglx@kernel.org>, Andy Lutomirski <luto@kernel.org>, linux-kernel@vger.kernel.org
+Subject: Re: ioperm(2): confusing terminology
+Message-ID: <aqXWu0bKoK_XMuLT@devuan>
+References: <DLDOCNQUCW9N.3GGL01BMV0HNG@memeware.net>
+ <aqXOgqne-v4GtglY@devuan>
+MIME-Version: 1.0
+In-Reply-To: <aqXOgqne-v4GtglY@devuan>
 
-> @@ -305,7 +305,15 @@ static bool __dead_end_function(struct objtool_file *file, struct symbol *func,
->  
->  static bool dead_end_function(struct objtool_file *file, struct symbol *func)
->  {
-> -	return __dead_end_function(file, func, 0);
-> +	if (!func)
-> +		return false;
-> +
-> +	if (!func->dead_end_known) {
-> +		func->dead_end = __dead_end_function(file, func, 0);
-> +		func->dead_end_known = 1;
-> +	}
-> +
-> +	return func->dead_end;
->  }
+Oops; I've fixed the mailing list address now.
 
-This bit seems like it should be a separate patch.  Though actually, it
-can just be dropped as I have something similar brewing:
 
-  https://lore.kernel.org/9d4b8ccfed745ac47a954aa2e1de62a85197122d.1788899473.git.jpoimboe@kernel.org
+Cheers,
+Alex
 
-> -struct reloc *find_reloc_by_dest(const struct elf *elf, struct section *sec, unsigned long offset)
-> +/* Should never be invoked, provided as a backstop. */
-> +static struct reloc *find_reloc_linear(struct section *rsec,
-> +				       unsigned long offset, unsigned int len)
->  {
-> -	return find_reloc_by_dest_range(elf, sec, offset, 1);
-> +	struct reloc *reloc, *first = NULL;
-> +
-> +	WARN("%s: linear scan for sec %s with %u relocs at offset %lu len %u",
-> +	     __func__, rsec->name, sec_num_entries(rsec), offset, len);
+> Date: 2026-09-13 00:24:17+0200
+> From: Alejandro Colomar <alx@kernel.org>
+>
+> Hi astian,
+>=20
+> > Date: 2026-09-12 22:00:57+0000
+> > From: astian <astian@memeware.net>
+> >
+> > ioperm(2) says:
+> >=20
+> >   int ioperm(unsigned long from, unsigned long num, int turn_on);
+> >=20
+> >   ioperm() sets the port access permission bits for the calling thread
+> >   for num bits starting from port address from.  If turn_on is nonzero,
+> >   then permission for the specified bits is enabled; otherwise it is
+> >   disabled. [...]
+> >=20
+> > The use of "bits" here is confusing/sloppy.
+> >=20
+> > ioperm is supposed to enable or disable permission to access IO ports
+> > for the calling thread.  In this API, the "permission bit" (singular) is
+> > really "turn_on": 0 to disable access, non-zero to enable.  However this
+> > description refers also "num bits starting from port address from" and
+> > "the specified bits".  That seems to suggest that IO ports somehow refer
+> > to "bits" and this API controls access permission to them, which is
+> > bewildering.
+> >=20
+> > Searching around I have seen that other versions of this manpage used to
+> > say "bytes" instead of "bits", which is only slightly less bewildering.
+> > Ports/addresses in the IO space refer neither to bits nor to bytes per
+> > se, they are an abstract interface, like a syscall number/index.
+> > (Architecturally, in some cases, these indices may in fact map to
+> > processor registers which may in fact be portions of a contiguous
+> > internal memory, so in some cases one could correctly say that the ports
+> > refer to "bytes" in such memory, but this is obviously all very
+> > low-level and microarchitecture-specific.  I think being aware of such
+> > details actually makes this description more confusing.)
+> >=20
+> > Apparently the reason for this confusing description is that for Linux
+> > ioperm is a syscall and the kernel implements this syscall using a
+> > bitmap with 1 bit (permitted/denied) for each port, in a contiguous
+> > sequence.  See ksys_ioperm in "arch/x86/kernel/ioport.c".
+> >=20
+> > Thus "num bits starting from port address from" actually refers to the
+> > bits of that bitmap: the bits [from, from+num) are set according to
+> > turn_on.
+> >=20
+> > This kind of implicit reference to implementation details is wicked.
+> >=20
+> > Suggested change:
+> >=20
+> >   ioperm() sets the calling thread's access permission for num ports
+> >   starting from port address from.  If turn_on is nonzero, then
+> >   permission for the specified ports is enabled; otherwise it is
+> >   disabled. [...]
+>=20
+> Hmmm, sounds reasonable.  Do you want to send a patch?  Or should
+> I write it?  (I don't mind; just asking in case you want to do it.)
+>=20
+> > PS: Oh, also, maybe the title should say "set input/output port
+> > permissions" instead of "set port input/output permissions".
+>=20
+> Same here.
+>=20
+> BTW, the manual page also says:
+>=20
+>      This  call  is  mostly for the i386 architecture.  On many
+>      other architectures it does not exist or will  always  re=E2=80=90
+>      turn an error.
+>=20
+> Is this still true?
+>=20
+> Another issue:
+>=20
+>      EIO    (on PowerPC) This call is not supported.
+>=20
+> Is this really true?  Where this is not supported, I expect ENOSYS.
+>=20
+> And yet another thing: should we document the parameters as being
+> uintptr_t instead of unsigned long?  They are the same exact type
+> always, AFAIK.  Or is there any system where they aren't?  If they are
+> the same, uintptr_t will better document that they are addresses.
+>=20
+>=20
+> Have a lovely night!
+> Alex
+>=20
+> --=20
+> <https://www.alejandro-colomar.es>
 
-Won't this be triggered for sections created with
-elf_create_rela_section()?  I don't see where they set rsec->hashed.
 
-> @@ -1147,6 +1307,28 @@ static int read_relocs(struct elf *elf)
->  
->  		rsec->base->rsec = rsec;
->  
-> +		/* DWARF relocs are never looked up. */
-> +		if (is_dwarf_section(rsec->base))
-> +			continue;
-> +		if (reloc_sec_in_order(rsec)) {
-> +			rsec->sorted = true;
-> +			continue;
-> +		}
-> +
-> +		rsec->hashed = true;
-> +		nr_hashed += sec_num_entries(rsec);
-> +	}
 
-Hm, I'm not sure whether hashing is even still needed, as compilers
-generally emit sorted relocs.
+--=20
+<https://www.alejandro-colomar.es>
 
-> @@ -1592,6 +1799,7 @@ static int elf_alloc_reloc(struct elf *elf, struct section *rsec)
->  	}
->  
->  	rsec->nr_alloc_relocs = nr_alloc;
-> +	copy_reloc_cache_to_hash(elf, rsec, nr_relocs_old);
+--4s7u3irbxnqwwa2q
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Not all relocation appends go through this allocation code path.
-It can return earlier in this function if the space has already been
-allocated previously.  So this call probably belongs in
-elf_create_reloc().
+-----BEGIN PGP SIGNATURE-----
 
--- 
-Josh
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmql1tMACgkQ64mZXMKQ
+wqkhCBAAmozT/vRNeKjPJbVgj7wYz61Uswez1MZe19cCoJB1DUQr5hCBDa0q9uF6
+RL0JlVGvGTrl+eXroesSOQyrt2tLe6h/ozd+0my/oJGGZvOXjw++p1lQGd3MwKx2
+cMhDjyaCJCRI0K8hWuq54Pkt21q9+NCx2DQlfCIZo3brNG3Udzp7iTBFUe57wFPK
+QSN4OGNlzM1/YIbPXTvxUHzxNQMu8D0Ni162EXq3IMeKt4owgiyCo4lEfsFL/gy2
+49Mncm6hSp7R9EKPr6yO5C9NtfCxzR9fEflbZfVDQpIrZRbPQy852qv9wzwwTWkt
+yFzlht84rOSYmlcdasUkHiWAGX3DnVJ8z4T2aD9yXTq+HA2SB9VSEw0WSqRue9qf
+S9nkmSvU75154L58UQwoQwxqXsxo5rRPkAsP65IOudnoZijkH2Myt/BCjPT/5lrh
+RIl78E0HNPItgAnxN/9227r15ynAt1I302hrJQQRpVlf+s+Mgo1kkhRexBo3DGmt
+Up/2dV9WfyXqOpxkCAc6S2qw3ip0rgJBPG5mdom6ZOY72Xc0DSIokVoymJaXzf21
+9Gtf7Z9TFjgXzgRMQrOzv9dIYp15r5R5L3sZbmgky0Skq2+AcsDjAu4PxfA5o7sn
+rQPoPS324ynLz68xpv2fg7E3GvFW48bzrMKRtMQC63Y0Jd6lcc4=
+=DZhe
+-----END PGP SIGNATURE-----
+
+--4s7u3irbxnqwwa2q--
