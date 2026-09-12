@@ -1,178 +1,182 @@
-Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com [209.85.222.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazolkn19013083.outbound.protection.outlook.com [52.103.46.83])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 190C54BEE4A
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 22:39:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.178
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789252777; cv=none; b=KJF6/tznKH0UOv/se9RAx4LPmkMlthq8zNdPRqbsNAIuilnfej64LCGY7kcED9PjwR+izy4zoJthWUur9VC839F7EPL51EIdSsKYVzimVKzQg6Jduzqu3BaN8h/ahM1NNfcyG8zZ8FAbIEiElprh3t5JpLQko3W3ZAc20FI+WuY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789252777; c=relaxed/simple;
-	bh=we8mnm/f613zZ1ll4RJjRsvqMgkHwaThiDyN6ZY3sDo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=urPAHGdJJ9+PDLMkn/lcpKaTgXf9b6w4yVsR8NItkl+45IJt+dwC8wEd99j2ibJAG548cLle/0o4UF0yJJBbGtAsO/XKczHkcfqWqE0hvx9GgGsbk7qh6LEreujTy/tVtNxvI1jbaMZqWMIGNFk8tkgkUXtROHq3YZDTJFvZhys=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gXCAAUSh; arc=none smtp.client-ip=209.85.222.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6ED436D9F5;
+	Sat, 12 Sep 2026 22:39:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.46.83
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789252794; cv=fail; b=hbbcrBXdJfcAB2XBJIIQ/rV4AmvW1+ExeBcRu4IZ4GcvDDRgM9qObleSChmtGYQMRfdl70HjJ/sH/vwWY+U558QKtOKtJAmkKRfhw1zBOIzTiQlzYervz6GQo+iNbB5tigJCk3EitZWo0g7m/O2xDPZ9PkfU8LDHtZKxa6aIm/c=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789252794; c=relaxed/simple;
+	bh=XpUoG+RNOk4g1wElPidv6aK5T5DSyiHiWnWcaH5bZGE=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=JIAcIFUTICBNnA63FHpBGZlGERLVGTTWdxEivL/hSw6h8UbV9cbC0gzbzL50J55pn1dQc4KM/YaHhFEghQwzsEwkFthR+pBRvj+S29Peo9XdzwQgn9umjR8Rd8HafY9/nvL6GzvhW6GdfN7RqrWmx9ic3gU6URyZA98t/lDoDa0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=hYC3Fwfx; arc=fail smtp.client-ip=52.103.46.83
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gXCAAUSh"
-Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-939b5ded99dso209298185a.2
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 15:39:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789252775; x=1789857575; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZOGMTD5LGSJ43nsYgDh0j1HHamIrGJcLYj3gibAvI+U=;
-        b=gXCAAUShukG95VEURrZteW/3GL26Yz3iARH0wQ/VFIxsP1REsxycrRYBYsVcV9V1oR
-         Js+3bJ4VbfoqVNlAP6A+8mIzxNRQfrWnCtq4vSzbH7dfxiUKIiotVttXsvMVKgMW01nv
-         3TYB+0vYvBfRlawuQQS9+RtJjgyd1CXWoee/CJc6yXyH7OCYI+9xN+xmqX+oQdasuH5o
-         0EhjwUl1pW3QXqwjuOTY39HFmzaoxspwaV8Iv46WE7LoXCGDZAOKdsXTAUK7XF+I8ZKJ
-         mCAajIEIkZ+g5LA6270T2w55dlkq2PQEmKbMaIHowzDH2/LkXqcTxuPfWWqcgC9DDPh6
-         7Rlg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789252775; x=1789857575;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZOGMTD5LGSJ43nsYgDh0j1HHamIrGJcLYj3gibAvI+U=;
-        b=IgiZnA+GaxD+JnHHrlLx+yWL65f8nUG+WqW6BH0NoG3gK12wRtmFZE5ovNDsA8GfLA
-         Tiu08SqbqJSUWTvCAjZ1/5gt7+7JlEWYYj26I9QvNOPXfOVBk+PC27hvc9vdS/9rLL1U
-         TZL7w5TAaRtLfYODvWCC7oHsjiv50qORysv4msIXaNQr2u1c2PmRA4j9+nW0iLTKyBE5
-         nKwF8Bwtpn0hIKYrAI9dlPp5HVOPwvyi1dfhZOX/i1cJ7QzZKpzrd/faYqtZAJT7Tq/j
-         EBhDrfq2Syr6lfUKA6Ec76SN7gY5U5NiQ2x0o5/5+bq+T6S6N3SQVDWZ+IJvvtbtMuza
-         HAGw==
-X-Forwarded-Encrypted: i=1; AKwUvBwvbMb59XlNszS2nccjgHJBSHFTRzHuakCUf06YlOLWss845GpsXWxMVdOUY9aGKOc8L8AWel57bI3cOJA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kNT3T4Wa5SxvM6lKKxw2DMOxGGemt5OhaqDVK7i/Lf5+pJJbCA
-	m/0wjX4Yv09rSQMx/4x4vRu0OwYC++vH24UizsQWLr9d9uxrflcfQ8njIZJ9Mk+F
-X-Gm-Gg: AYBFou0Kk3kq05pfR7ykRQ9Rem5LEldaVJmQ/WdgohKYAHj3YS+9QVnzllnfZ0yNC/d
-	N0CT0mj/sLzOryBkyuAjcK52pLMLPiIc5NXCsxugVr721u/G7RVZmGIrEJEpm1PHaHF6hGDZHKn
-	Ye1zf1IUuREPFIQZ8zr1rm7yQeTtwRyIphx/4aXZKCsHzj3033WJZb8Ie2vYwCKRvQ38vpF9ZTR
-	lIaKhCzqzPaqn9NBn/kNYjKh/MAuorNGy5rJqrp8JDvC9vJTCtxjH0fH8ECKaipiG4A08QpRuPi
-	OhU/F6c7V3kNoNKwZrfxrwN9kpzj9JdKLZZJXwwmISE/h2mEuPub80FBQ7HBsvObSP4F1zxM2/X
-	XSKNw/LdZhkj5iqT7kaePol5B/3P2hNC78P4lNu1Z/2GmfFD9sdvK3R6BaQvoQkuFQTj38d0SGr
-	fKwVFH7lWXlP658XQikXXp8rwocdbxaZAwy/WzGDRMfs+8yPneKNqZ7ISxX8oXFvihHpgciEwGu
-	tkTe0RFBTQHnMlSV3ul6LjEhvuxaoxc/5D/l4ZDic1S3wjWqx1+ec0KsXdNcINngQNvRXjU8b3t
-	2wN4Otf3Svqv6kXwImU=
-X-Received: by 2002:a05:620a:17a5:b0:93a:12eb:b626 with SMTP id af79cd13be357-93a12ebd99dmr245498185a.4.1789252774908;
-        Sat, 12 Sep 2026 15:39:34 -0700 (PDT)
-Received: from docker-runner-pve5.tail732951.ts.net (bras-base-toroon4524w-grc-16-76-70-76-130.dsl.bell.ca. [76.70.76.130])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-939ebda519bsm537893485a.26.2026.09.12.15.39.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 12 Sep 2026 15:39:34 -0700 (PDT)
-From: Mykyta Bozhenko <caudadragonis@gmail.com>
-To: richard@nod.at,
-	anton.ivanov@cambridgegreys.com,
-	johannes@sipsolutions.net
-Cc: linux-um@lists.infradead.org,
+	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="hYC3Fwfx"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tlcuPXZ04jjMXvPhFC1EnZAysz46lCtZ+b9rwY/eKVenLx/Jf/hS/J5X2kkyD7AxUmWqc3N6J1Vda9xSgXN91H1Yg6c4/uEpk4KR8Y9V6j4h0LNjVu5G3TbpwZwPkicJ33kqZEX0e+4oIcYklGmpSLqOGinJ4l3ZAx9vKFcSFtcZ7Ij/55/QPqwMPX2UpFsrQBUljcUxvHUAgiuUIJl9Lr2znml0u4hvE7tuvP1r6A9QzjnHmr8idDSWgBMTsRovfQTycTG2uO9cHtwe0Sb/EVSp6Dv6B1njOrz4O/RUhcuBJpKMSzHsgnokvdESFn/pocbfp1SOaIAfpwLC2RhZLw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wwL3NiMcDXFRT87ki3nMU0BtgmrUN+pShYZd0gaXwsQ=;
+ b=Rq0E0dP046p/4cSX1mVrj1rvzFobD3BF8pcudiYsm4Y298KlqsblO8Nv9vWDBhL6JRo9yF1qiZlj4Io1GZxajQmHmzL7r8HqciLG9JsUNvH/5/mJvJjHfNXyiKGVD967ppTV96FgtQQHyDMWVr7wNb5IUpXjwdrq8QYSn74aCIhaTpjMdJ4e/vycY1OdXyQz8yDFs1bR4Y8kx3iJOBJbUhhnq8KFhaPwgo2i9+uJog2CX9Pd4nSfOCc3Arh20hN9XvsSF7Dejeq/kCPtRmVHrbP1rnjOUGVb6uPiRj8lKyGdwOPnWPXk97y8KJEjd0Y8RleP63t7IcUTDtwu5FpNZg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wwL3NiMcDXFRT87ki3nMU0BtgmrUN+pShYZd0gaXwsQ=;
+ b=hYC3FwfxMjxpnM1S3JYrLSobUb/sg3NB4yy/Tq75LMIrqkpuZqmRRvnh8Cetvx61uI8OBEm7yF7g5Q4U+0fB9m6Iw4xmhguJQyeC/HwCl2WtOMZrlU7WOa/B92ZAULCqUUYtc6ykeJhF5Mdp9y5gECQunNnTZIgHAG4k2bpIoQ28rh6XFmL37p84cYeB1aVfhiMgBCUCcZw06R7a14za3eyqyjsK7J1i6WAT6txss/iWwvvqbwv+wz2l11ialwcxjXUvmTz3IzV2gsnzZv4NRPPuEnkYTt2x/uPZupLzclgXKsb2fuWuJ9GpLyHwaWjIIvjzuFlW661U0A7s60pDhw==
+Received: from GV1PR08MB8497.eurprd08.prod.outlook.com (2603:10a6:150:81::22)
+ by GVXPR08MB11096.eurprd08.prod.outlook.com (2603:10a6:150:1ff::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Sat, 12 Sep
+ 2026 22:39:50 +0000
+Received: from GV1PR08MB8497.eurprd08.prod.outlook.com
+ ([fe80::705b:d4a3:1c1f:b9a2]) by GV1PR08MB8497.eurprd08.prod.outlook.com
+ ([fe80::705b:d4a3:1c1f:b9a2%5]) with mapi id 15.21.0428.004; Sat, 12 Sep 2026
+ 22:39:50 +0000
+From: Manuel Fombuena <fombuena@outlook.com>
+To: lee@kernel.org,
+	pavel@kernel.org,
+	vicentiu.galanopulo@remote-tech.co.uk,
+	linux-leds@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] um: ubd: perform the flush the block layer asks for
-Date: Sat, 12 Sep 2026 18:39:32 -0400
-Message-ID: <20260912223932.2941631-1-caudadragonis@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Subject: [PATCH v1 10/11] leds: st1202: Clear unused pattern slots in blink_set()
+Date: Sat, 12 Sep 2026 23:39:37 +0100
+Message-ID:
+ <GV1PR08MB8497E28C8864E97AF8C6F08DC5BD2@GV1PR08MB8497.eurprd08.prod.outlook.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <GV1PR08MB8497422B7A44424C4968AEC1C5BD2@GV1PR08MB8497.eurprd08.prod.outlook.com>
+References: <GV1PR08MB8497422B7A44424C4968AEC1C5BD2@GV1PR08MB8497.eurprd08.prod.outlook.com>
+Reply-To: fombuena@outlook.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: LO4P265CA0219.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:33a::17) To GV1PR08MB8497.eurprd08.prod.outlook.com
+ (2603:10a6:150:81::22)
+X-Microsoft-Original-Message-ID:
+ <20260912223937.3112143-1-fombuena@outlook.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV1PR08MB8497:EE_|GVXPR08MB11096:EE_
+X-MS-Office365-Filtering-Correlation-Id: 330a6677-9852-45ba-2988-08df111ec10e
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|41001999006|15080799012|5072599009|23021999003|25010399006|51005399006|8060799015|19110799012|16051099003|24021099003|37011999003|440099028|3412199025|40105399003|2607281247196008;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?Gq0O4rUfYEYQYxZfOB0AR+wE55SrXfZfqRry5Kou9jJR+qVBCnUOf7oo4xfa?=
+ =?us-ascii?Q?yjke9ohtB9tdxDPk8v3UnyqcLoq+A8Onuj5NLpOrJThZcTzzJUB1Ug3EAtQQ?=
+ =?us-ascii?Q?lJ/XifQivS+7etkUJZMfs4DGxrX02m6xUy+m9IiVzxW4geAbXdCCTm5VlHPM?=
+ =?us-ascii?Q?k6TUWPb7BWeOiJ1a2gi27QbwEQJzIFffukSQ9L/vO0NMbJyxByd2ccbr8h98?=
+ =?us-ascii?Q?0V5lmOGPJyp3V8NqXX6IMFhHnFcyXT9znzMkr34CYACQw0uaVBnyDlhz48Wl?=
+ =?us-ascii?Q?7ghemOLGH6i2Xu6HkAYWQXSeVq4Wd7VXU4L28xOG9nH4jJRqnZ1A3WqseZGM?=
+ =?us-ascii?Q?e1YmPV8Ju+QIb3z9Z2jthqrY0pv7E1ZS+U9pDpaBWeZXxCi6K0g9ehRXjE1/?=
+ =?us-ascii?Q?MSabK/R+KmED1jDkXoulerqMx/YRVbkwf3AksML5kOaYyafQEiIJUvY1ABvF?=
+ =?us-ascii?Q?T629MwjssVt8kPEp5EcOKsriKqC5i6Cl7hOSbrUEDpUf91BYuzdOGuONU7rl?=
+ =?us-ascii?Q?ajDpPCO5im+lCLrau3ncDXK/SazsGRry9cHlVCsQiee0LGl+5gRSocoBwbr9?=
+ =?us-ascii?Q?1zF0Jce4e4k/BpaRFsTKj86s2oY6MbnTEtoA10eAyoQLNf5H3CFfbRm8Ql6O?=
+ =?us-ascii?Q?W1RWus3lizcxcAohay66deUjpH9tEi1rxSf+ueMke+2ictz4Pi0gCSbvgS+w?=
+ =?us-ascii?Q?Nd1iHoxUEgiZPEogbKb4zGWRWFgEsZRLm7o9hViiN0wvfcN8Uq1cLjc192Lw?=
+ =?us-ascii?Q?QFo6pRp/QMFQH0Uom44uKiL/xcWIHpr28iQAF7o6kc5krBzNsXxuhs8esLuk?=
+ =?us-ascii?Q?VqLRYHJyYzu1QQrKGX4QtKgphDUjlj8QMpS2QcFFjIA2m4JlPtYMx/BJX/KI?=
+ =?us-ascii?Q?HJ0LE5vWgQZhu+Zdcfwu0t0FtyRQYo4m6nDGvlLhEYcfc5T2bmlclnyYQKuR?=
+ =?us-ascii?Q?gBu8SdwVLsV9ZmQpa8jTdTsX05EP2WmlELMVbrsHW0npd0IQ/rIXPmuMfkBD?=
+ =?us-ascii?Q?8EsP9J2sFcWu6i9J7CZAa5RYZaTT73yiVXkqGBS6uH9R0+8=3D?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?wyKNLHtoiYS6uko2F+KIqo2W4hhTirFwlvi85bprOHOPk6Jh677hgxI6D0Ac?=
+ =?us-ascii?Q?U1zQ39ym4R7WoSKUOV/Nak5SN36dRU0RT5pYnfyILL+yXrVULvn022SGPsI2?=
+ =?us-ascii?Q?gTMwWwc2FSKkH1CIwzEGg3fHmJG4TYXvUZNfC4tpnj1Iptp6S3QC2AshuIf2?=
+ =?us-ascii?Q?2LGFi6j+dHJFtKNtlrlfOJ9pkG/JkZCgRSE4kFs9FhOrlkYJ6z3lG24HVJwM?=
+ =?us-ascii?Q?5Skz2NEDUgSvNaZkFC3h1BLbeiqMYyi6Qs6koqsiAkYyIEyfw8VP9XK2vzBd?=
+ =?us-ascii?Q?K0HOlXIitEziFY+3lDP9EqHJ8qKBvqMW8imlutnedPDAqp+XOCSmch3YZQbN?=
+ =?us-ascii?Q?nUXoOkymXsSOmWiuGWb8Jd1ltLox4Xb4UlT8iFrtFxuLWhr9pyuz+sG1uyck?=
+ =?us-ascii?Q?pYswUkDOUf/d6F4AkEyyBp2VhBnVBGgXx/5m3SoFeHX1l052q0Cx1ODYdupA?=
+ =?us-ascii?Q?0t5o4iPcNtPGrClkkFtveBjmGM7TF8Skv04gd+o7KSHdtMpb30oiTSPO7kBX?=
+ =?us-ascii?Q?aynx66dZapkkNbW1DigBmnAP7SKHfvm0KQQHJ3M0lzYo6wdpI3wCQVeGzxOt?=
+ =?us-ascii?Q?3fetnDooUDBUwchU6s4XiI/WL9FGV7JgCjh0BAQ+xwq+n50KBzxLMsMH8UxH?=
+ =?us-ascii?Q?L2oI3GnywZ21yqB3L/DkGjxQO9sKn1nypURbL07ZSuCytYp1mKJEMZkoSJz7?=
+ =?us-ascii?Q?daYxRYToSaqK9pveFFEpgGBIe54tgAPpNudj/f8Eq6XywABytrtD5wo+X5Gp?=
+ =?us-ascii?Q?QasBmLvZjFsNPgRUUbcLWU/8QpfQtVYTP5Mruwyag8uhwdqsKjUV1+JZEtSB?=
+ =?us-ascii?Q?hMoxCrIgMHyCVcTTvN/o7WblP0t9BlXNPAPRy8vOvzEXL7cNVA1z/fyx1wZ9?=
+ =?us-ascii?Q?gsqsPlCfwf+k1AjP3BIB1JkDn0RA2VEjZv/mlQDK3nSMtbSugAJposri2bhS?=
+ =?us-ascii?Q?Pa15X94zSHNnqGtt+0xDv60ll8TYmzYn/Wxu/wXJMrlEWR1eOeen6aUOPkXU?=
+ =?us-ascii?Q?7ug8w7xfV+rDO5R8khMedd21om96dcsjIRNlRWj3RVukKJTgMG0u1gIMy3wu?=
+ =?us-ascii?Q?YV3cvUoEDz7v+yeBOIsduGw1CV+8KTSeE/5+RmJSD74d0YY52yjwBErO9jyF?=
+ =?us-ascii?Q?ETbhbXYGwQcY4PXRy0BBwI3TY7t6LN0Cq62BsL3/JsaWC9CoJ2R3huw1/Tyh?=
+ =?us-ascii?Q?zxGLgn2goCj1XSOvXX5rB8txnhbheKnqcxlgQy3DRXxa3nN6L9pmoXi5yXRO?=
+ =?us-ascii?Q?ZnkAuGOfTidaDrJ2SwLd6+2EcphWGqQsbmgRQCgqnCuP0lWDhbLMPO/xRFIk?=
+ =?us-ascii?Q?hipVqE/9tx7fjYA8Y1VK0j4r6wxm59+01EgzuiqJcJClR/ssGh0ywh3Vf/P/?=
+ =?us-ascii?Q?2/Hv/nROmU4xkbjsbufjSXtkc199eZPiSi4/0L1XT4cOK6SolVMG977RIM01?=
+ =?us-ascii?Q?ilsO/KZ0NnjU+GylyCHU6Rc/Q2CKAP53?=
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 330a6677-9852-45ba-2988-08df111ec10e
+X-MS-Exchange-CrossTenant-AuthSource: GV1PR08MB8497.eurprd08.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Sep 2026 22:39:49.8860
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR08MB11096
 
-ubd sets BLK_FEAT_WRITE_CACHE, so the block layer sends it REQ_OP_FLUSH
-requests and, as Documentation/block/writeback_cache_control.rst puts it,
-the driver "needs to handle them". do_io() does implement that: for
-REQ_OP_FLUSH it calls os_sync_file() on the backing file and maps the
-result back into the request.
+st1202_blink_set() programs slots 0 and 1 of its own channel and leaves
+slots 2 to 7 at ST1202_PATTERN_PWM_FULL, the value both st1202_led_set()
+and st1202_led_pattern_clear() leave behind. Nothing keeps those slots
+out of the output except the duration registers being zero, and those
+are shared by all twelve channels.
 
-That branch has been unreachable since commit fc6b6a872dcd ("um: ubd:
-Submit all data segments atomically"), which replaced the single
-per-request do_io() call with a loop over the request's data
-descriptors:
+Another channel programming a hardware pattern longer than two steps
+writes those durations again and re-arms the sequencer, so the blinking
+channel drives full scale for the extra steps. With two LEDs on one
+device, blinking one and giving the other a four step pattern, the
+blinking channel lights during the two steps it never programmed.
 
-	-			do_io((*io_req_buffer)[count]);
-	+			for (i = 0; !req->error && i < req->desc_cnt; i++)
-	+				do_io(req, &(req->io_desc[i]));
+Zero the channel's own unused slots, the same invariant
+st1202_led_pattern_set() applies to the slots beyond its pattern length.
+blink_set() already zeroes durations 2 to 7 when it runs; the slots are
+exposed only when another channel sets those shared durations again.
 
-A flush carries no data and ubd_submit_request() sets desc_cnt to 0 for
-it, so the loop body never runs. The request is handed back to the block
-layer with error 0, i.e. the flush is reported as completed without the
-backing file ever being synced. Guest fsync(), fdatasync() and journal
-commits return success while the data is only in the host's page cache,
-and because no ordering is enforced either, a host crash can leave the
-image in a state the guest never allowed. The error path is dead too:
-a failing host fdatasync() cannot be reported.
+A channel whose blink is shorter than the active timeline still loses
+its own timing, because the sequencer has one set of duration registers.
+This only stops it emitting output it never asked for.
 
-Measured on a UML guest with ext4 on ubda, doing 20 writes of 4 KiB each
-followed by fdatasync(), then one fsync() and one directory fsync():
-
-  before: the guest sees 22 successful flushes, /sys/block/ubda/stat
-          reports 16 completed flush requests, and the UML process issues
-          no fdatasync() on the image at all
-  after:  the same workload results in 43 fdatasync() calls on the image
-
-os_pwrite_file() is entered 131 times either way, and e2fsck on the
-resulting image is clean in both cases.
-
-Honouring the flush costs what the flush costs. With the image on host
-ext4, 400 iterations of write() plus fdatasync() in the guest take 467 ms
-before and 2007 ms after (medians of five runs). uretprobes on
-os_sync_file() attribute 1.597 s of that difference to time spent inside
-the host's fdatasync(), the remaining data path being unchanged
-(os_pwrite_file(): 19246 calls in both). A 64 MiB sequential write
-followed by a single fsync() goes from 278 ms to 362 ms, due to the
-periodic journal commits. With the image on tmpfs there is no measurable
-difference.
-
-Users who prefer the previous speed to durability can disable the cache
-per device:
-
-  echo "write through" > /sys/block/ubda/queue/write_cache
-
-That is also cheaper than the unfixed driver, 326 ms for the same 400
-iterations, because the block layer then completes empty flush requests
-without entering the driver at all.
-
-Fixes: fc6b6a872dcd ("um: ubd: Submit all data segments atomically")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM bpftrace
-Signed-off-by: Mykyta Bozhenko <caudadragonis@gmail.com>
+Fixes: 35cbd34a6a05 ("leds: st1202: Add hardware-accelerated blink support")
+Signed-off-by: Manuel Fombuena <fombuena@outlook.com>
+Assisted-by: LLM
 ---
-Not verified, stated explicitly as the process asks: the change was built and
-exercised for ARCH=um only, on torvalds/master at cba2348ab and on v6.19; no
-other architecture goes through this path. The flush error path, map_error() on
-a failing host fdatasync(), is reachable again but I could not isolate it: the
-block layer fault injection I used fails the data write too, so the EIO the
-guest observes cannot be attributed to the flush alone.
+ drivers/leds/leds-st1202.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-The numbers above come from a single-CPU guest with 10 ms timer granularity,
-which is why they are medians of five runs rather than percentages. Host side
-counts are from uprobes on os_sync_file() and os_pwrite_file() and from the
-sys_enter_fdatasync tracepoint filtered to the UML process; the guest side flush
-count is field 11 of /sys/block/ubda/stat.
- arch/um/drivers/ubd_kern.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
-
-diff --git a/arch/um/drivers/ubd_kern.c b/arch/um/drivers/ubd_kern.c
-index 20fc333..bb1d990 100644
---- a/arch/um/drivers/ubd_kern.c
-+++ b/arch/um/drivers/ubd_kern.c
-@@ -1516,6 +1516,18 @@ void *io_thread(void *arg)
- 			int i;
+diff --git a/drivers/leds/leds-st1202.c b/drivers/leds/leds-st1202.c
+index 1267671557f0..b93828fbbe26 100644
+--- a/drivers/leds/leds-st1202.c
++++ b/drivers/leds/leds-st1202.c
+@@ -361,9 +361,11 @@ static int st1202_blink_set(struct led_classdev *led_cdev,
+ 	if (ret)
+ 		return ret;
  
- 			io_count++;
-+
-+			/*
-+			 * A flush request carries no data descriptors, so the
-+			 * loop below would never call do_io() for it and the
-+			 * flush would be reported as completed without the
-+			 * backing file ever being synced.
-+			 */
-+			if (req_op(req->req) == REQ_OP_FLUSH) {
-+				do_io(req, NULL);
-+				continue;
-+			}
-+
- 			for (i = 0; !req->error && i < req->desc_cnt; i++)
- 				do_io(req, &(req->io_desc[i]));
+-	ret = st1202_pwm_pattern_write(chip, led->led_num, 1, LED_OFF);
+-	if (ret)
+-		return ret;
++	for (int pattern = 1; pattern < ST1202_MAX_PATTERNS; pattern++) {
++		ret = st1202_pwm_pattern_write(chip, led->led_num, pattern, LED_OFF);
++		if (ret)
++			return ret;
++	}
  
+ 	ret = st1202_duration_pattern_write(chip, 0, on);
+ 	if (ret)
 -- 
-2.43.0
+2.55.0
 
