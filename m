@@ -1,299 +1,687 @@
-Received: from mx0b-00230701.pphosted.com (mx0b-00230701.pphosted.com [148.163.158.9])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 726F52C032C;
-	Sat, 12 Sep 2026 01:03:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.158.9
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789175021; cv=fail; b=j6+4fQX6eeNq6oDtZGQTUfupmSzj7uZnoK7DvHuhax2eL7+q0u1tdyGq0ZDgfS0jiVQBFpfv5RCVCn3JawNrkhPBJPWN/ii5Ia30HuNtuzN4QNHJ2tm4TpdYEDXzZP8n2VeBt/GVLUwZmac+KU+YVbydqow90pl69QOxiNpXl+4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789175021; c=relaxed/simple;
-	bh=ltR23gQmKMDk8PfF3amJIcON3yGEdrW//ZrE+EnSM7U=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=fbROPjxyQhNJqSxNSGxRQz7UBVpo56BIVEW32TnqwWuSlTHIiT2oPWy2qaIjkmJ45fXnVCNxrMOsm+nAZm9BggxTAD56BRDILTRjXC1LrRMmhuJrWlgJ3JppsoIQPxgdmgrZj2sdgbys96pmKDR8K4YRyu8AKvx8YpJbpD+Wqa0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=synopsys.com; spf=pass smtp.mailfrom=synopsys.com; dkim=pass (2048-bit key) header.d=synopsys.com header.i=@synopsys.com header.b=HvugTTbN; dkim=pass (2048-bit key) header.d=synopsys.com header.i=@synopsys.com header.b=OaN2ksGd; dkim=fail (1024-bit key) header.d=synopsys.com header.i=@synopsys.com header.b=N25/1lwd reason="signature verification failed"; arc=fail smtp.client-ip=148.163.158.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=synopsys.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=synopsys.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5125225CC79;
+	Sat, 12 Sep 2026 01:03:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789175036; cv=none; b=oPoAFGTd39FJiqWP2s0K5vDM6VbAbzKVp/gExNDRw52XEqTr44L/qtLaPT5qwxI3+LOmA/mR+jtoh0ap8aM/dYaGY7jeXckkcaVBV8xvZLDtiW91G/iicbCORiZYNn8gvqeWwUexUxYM1V87Qpy1ndY+qvxUjDFBNpqJZusIFRI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789175036; c=relaxed/simple;
+	bh=SzV4R6abWUlCEgmA6bDuW/WvPQYrJktEavBBoDd+zKY=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=VDBnNEuHTmlLOghwGlDHFcLaYMjeIPJELy42uCvIdTAPLC/TN5DpbPQkpje9tAqFfg3+nXmO97MSFrz+ZQhx9GbMGcqoinoH7QG/1QYyfbuxLI74+BLmxIDKZ01ErXduEVSXSXGrmTGB0jSQYTGXbpNzQ8eXhffOT/30C4bievw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tih1SEZr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=synopsys.com header.i=@synopsys.com header.b="HvugTTbN";
-	dkim=pass (2048-bit key) header.d=synopsys.com header.i=@synopsys.com header.b="OaN2ksGd";
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=synopsys.com header.i=@synopsys.com header.b="N25/1lwd"
-Received: from pps.filterd (m0098572.ppops.net [127.0.0.1])
-	by mx0b-00230701.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68C0xknh2622699;
-	Fri, 11 Sep 2026 18:03:29 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=synopsys.com; h=
-	cc:content-id:content-transfer-encoding:content-type:date:from
-	:in-reply-to:message-id:mime-version:references:subject:to; s=
-	pfptdkimsnps; bh=ltR23gQmKMDk8PfF3amJIcON3yGEdrW//ZrE+EnSM7U=; b=
-	HvugTTbNoUmsYUc4G2aLAEor3YJSDIxU6DHw83uA4M60gCG/977wzB0gsfRT1KTt
-	eLvPv466SPaV/aKD1l5CWfYeTihWczFAiJ5PPXJeDS6oGQhpPHRiU+K3x5Mz+QGM
-	tg8zHgItaK3PGEqtT85WzWGYb240bEfaCQdDrgbWJ0cqdUxssnRKyNZFqM0YI14O
-	Hq5yzgaWcMIfSApV8nQTfORxXqRxHUHA897ERAzlVTHC2o6XmAbF2IEHj+89ezEw
-	lpPGeVtBLRykF6ONG46swdTjOXv327TMkP+bldnC7Uynqj4N7pfMpjo9Oe/qQGS5
-	mB8wmnrZRpHm5MWg2iwv4g==
-Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com [149.117.73.133])
-	by mx0b-00230701.pphosted.com (PPS) with ESMTPS id 4gmvp5r0hj-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 11 Sep 2026 18:03:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
-	t=1789175008; bh=ltR23gQmKMDk8PfF3amJIcON3yGEdrW//ZrE+EnSM7U=;
-	h=From:To:CC:Subject:Date:References:In-Reply-To:From;
-	b=OaN2ksGdt414q5WO33gx0rzzHyRhHA59zz3GGwe+o2whe5j7cf//17rkfFaElo3Hu
-	 la6WEDApQpvZ30AgVUnkGXXPHvAQlFN1A9Mq/duUAx7QWj1dyAoXj9oz6Ues7NuJnh
-	 XAVaL/lr6iuxbhvsaZrzu4zaVKLyYgdLOnHY/Bkrpyk6gfJ7vje+335rDtjlYOYlGn
-	 xGAIdoK16ZpOHFRntghnYPfLAO6CQMc9adXNQ4xwaiCseTOAkfc3yM331m2IZV5bSv
-	 ndFSdShhuRPYhYE4NJUE4Xfur6RzdEaC9F9FKIf2t3SbQqksKvYJTTWTm1/kKl35ET
-	 N5hWJJu3vFLkQ==
-Received: from mailhost.synopsys.com (sv2-mailhost2.synopsys.com [10.205.2.134])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits)
-	 client-signature RSA-PSS (2048 bits))
-	(Client CN "mailhost.synopsys.com", Issuer "SNPSica2" (verified OK))
-	by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 4949D401D9;
-	Sat, 12 Sep 2026 01:03:28 +0000 (UTC)
-Received: from o365relay-in.synopsys.com (us03-o365relay1.synopsys.com [10.4.161.137])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits)
-	 client-signature RSA-PSS (2048 bits))
-	(Client CN "o365relay-in.synopsys.com", Issuer "Sectigo Public Server Authentication CA OV R36" (not verified))
-	by mailhost.synopsys.com (Postfix) with ESMTPS id D5F4BA0F26;
-	Sat, 12 Sep 2026 01:03:27 +0000 (UTC)
-Authentication-Results: o365relay-in.synopsys.com; dmarc=pass (p=reject dis=none) header.from=synopsys.com
-Authentication-Results: o365relay-in.synopsys.com; spf=pass smtp.mailfrom=synopsys.com
-Authentication-Results: o365relay-in.synopsys.com;
-	dkim=pass (1024-bit key; unprotected) header.d=synopsys.com header.i=@synopsys.com header.a=rsa-sha256 header.s=selector1 header.b=N25/1lwd;
-	dkim-atps=neutral
-Received: from BYAPR08CU003.outbound.protection.outlook.com (mail-byapr08cu00302.outbound.protection.outlook.com [40.93.1.106])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-384) server-signature RSA-PSS (2048 bits) server-digest SHA256
-	 client-signature RSA-PSS (2048 bits) client-digest SHA256)
-	(Client CN "mail.protection.outlook.com", Issuer "DigiCert SHA2 Secure Server CA" (not verified))
-	by o365relay-in.synopsys.com (Postfix) with ESMTPS id 352554048B;
-	Sat, 12 Sep 2026 01:03:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Wl1iPd9BNogJ1EubE2dgORpt2CinBBi1DZjKRzo7ddWBSBvpVIHbWk84pzS4HP3Mc5blB5hoQwpgSAYXM/4h/l5MG7cuUapHQ/wykQC7jMuGwvO+xmCnbIgBmKzKobHkzdT8lrENn0GOsDtJ3u9j5gRgvwcWixFQFnNxaaT+0F8U3YPSdfLkdjk3M2yKZfaLy7A7Hpf4vZ+ipc5NGZKIZmPMsivdGbXiP6zBuFGUFuumzsB8fmqzyi+BR6w0l63IY8QuZ+gBvZRGG57YExnK8tJCoYKAOwHg+LHQPxHDKcRfcan3uSwIarBuKX3D1A438cflT6/vh8F0KuHMJHRioA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ltR23gQmKMDk8PfF3amJIcON3yGEdrW//ZrE+EnSM7U=;
- b=UZw91rBcJhIuXswHq/bbXBybe0hEBG0khLNvaegi+XIvf6NsJDpylV6fJDK60i1qHWv7FAKUAP4wXoQmFqN6nSFdiWgr2o2i9ePAoHJCzhWP7xCvzC9FbzprwgTARNP6mBVv63m/uZ4zpXppFRB8vm1Fs8vmKCa1yX2Be5aJvZQJzpmRr9Q5y7f2ut0L3i4kWH79t7fpDSazv+HWW2Z8+7soE5DAwBtsdp/7f0IsFJu/RyLd7n4jZEUZJKdMoITwi/njKHENWrJ+4ueW136miHUqFqRwdBWfrO9bjyMyE2ezMKfDdmvJfIKRJyDh1EunnuG/vVVbflnutTEORcgh4Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=synopsys.com; dmarc=pass action=none header.from=synopsys.com;
- dkim=pass header.d=synopsys.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=synopsys.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ltR23gQmKMDk8PfF3amJIcON3yGEdrW//ZrE+EnSM7U=;
- b=N25/1lwdrwysbOYgFWA7pblU2sLsarfhEyEUpV3+1ZhUF0d5QtXHwboeVio5k9oqpZ8/Lg1wma8BfQHf0m3GGwHj+EXRQkKiCplYRr5Vab7yiR0Rac/sxzP75o0n8Fo6o3JG/5ZStdvAXsQ/wtkUyX4gZTSWiKNrAc5zkSnuoJM=
-Received: from PH0PR12MB7486.namprd12.prod.outlook.com (2603:10b6:510:1e9::6)
- by LV0PR12MB243158.namprd12.prod.outlook.com (2603:10b6:408:3fc::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Sat, 12 Sep
- 2026 01:03:23 +0000
-Received: from PH0PR12MB7486.namprd12.prod.outlook.com
- ([fe80::7df9:b25e:9216:f109]) by PH0PR12MB7486.namprd12.prod.outlook.com
- ([fe80::7df9:b25e:9216:f109%6]) with mapi id 15.21.0406.007; Sat, 12 Sep 2026
- 01:03:23 +0000
-X-SNPS-Relay: synopsys.com
-From: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-To: Faisal Hassan <faisal.hassan@oss.qualcomm.com>
-CC: Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Mathias Nyman <mathias.nyman@intel.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Philipp Zabel <p.zabel@pengutronix.de>,
-        Wesley Cheng <wesley.cheng@oss.qualcomm.com>,
-        Sriram Dash <sriram.dash@oss.qualcomm.com>,
-        Jack Pham <jack.pham@oss.qualcomm.com>,
-        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
-        Shazad Hussain <shazad.hussain@oss.qualcomm.com>,
-        "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
-        "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
-        "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 5/7] usb: dwc3: add xhci-reset-on-resume property for
- power-loss resume
-Thread-Topic: [PATCH v2 5/7] usb: dwc3: add xhci-reset-on-resume property for
- power-loss resume
-Thread-Index: AQHdO7pjsdQIH1bh3k2j5EVEWzq0vrbKLY2A
-Date: Sat, 12 Sep 2026 01:03:23 +0000
-Message-ID: <aqSVKL2riEdZfS0D@vbox>
-References: <20260903153827.3463313-1-faisal.hassan@oss.qualcomm.com>
- <20260903153827.3463313-6-faisal.hassan@oss.qualcomm.com>
-In-Reply-To: <20260903153827.3463313-6-faisal.hassan@oss.qualcomm.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR12MB7486:EE_|LV0PR12MB243158:EE_
-x-ms-office365-filtering-correlation-id: bc2042fa-7d88-4f74-c648-08df1069a4bc
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|1800799024|7416014|376014|23010399003|38070700021|56012099006|18002099003|11063799006|10067099003|4143699003|6133799003|22082099003;
-x-microsoft-antispam-message-info:
- aJs9BX8Ky3JGUNNNcTRjRYU+w5oosA4YyW7QZzWI1H9wByqRmGy57HmHndozfUlyH0qS3guhu4hMabD+6UeLnmO+KvuqEkYxVs8N+/tp3Ut57leJL8tt/em69+yjxm17Dqz0CQ471jTJqVk6Nen4RrYmrR8rL1f2yKcJ590QsG+Q/l4P3pUiEvhfkovNwB0mMoCjRch0VSYm2cEphPWj9Rz2yYsmsls1HGikkiL8/vl6mAkQGp2uN1q9gfu/GvDmEP5baFfYnpfg0gGKibjn8M19RpeTxMEFRyfJIRVnxe6mG21OI0RhxaDOlIsVvRxTVj3HLh/l9zLID02V05BBv4t5oNc6e9bSCI9JZTzpqT9UCPxnnOg1Ga3k3AAOGQVjJLnuT6TsYIys/ETYSKAvV8TSnQREZRhaqeeJ6C4XH7N+BrzWsOWFkeBFHh/qdszP4jhso/ysdmAyOtufqxl87UVEGy6qYKWVoXMApT4KYzQEWih3YGitXKfarr+iVxVG2C3RWiaUSp7eu4Y+OGad3pBFR6u7YdS5o2F0Tbo+CAAn2TGJ0Bbj26LvtDFiHH6aCEIKaureJEg8/W9Jo7BeauKy240vG7akY9MbpKqn5QWOWrd8GuXkonGTHGeS7fRHs8cijPswsJQeZNgk1Irxyl6O425Rd/ctuaW75Aroy+4D80rTm7g5bB4gl1MxTOGbmKX7vXohEmbpRhxzE4VZVCh82rvAOfuvlU5whSqEXYk=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB7486.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(23010399003)(38070700021)(56012099006)(18002099003)(11063799006)(10067099003)(4143699003)(6133799003)(22082099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?cTFSaUZpdVc2OFZtWm1zcmFLQ0Jxd2lETzMyWlhycXluTll5VlRpWjRuQjdO?=
- =?utf-8?B?bVNPRWVHOEhRWDc1djJkVFBhTjAyWEZNMmRCbkdBZFlTcnZEdVZxaURvbGRx?=
- =?utf-8?B?TkFTWGlEZmNmVlI5QnQ4c0xjZlFpc3VWQ0JGSXI2bEF2eVJicFNCYlIwVVRy?=
- =?utf-8?B?eHRrSkZ3WENsa3d1eEFnZkFHZVkyNVdteFJYeW0zQWZ4aXVxRTJVMDYxRHpF?=
- =?utf-8?B?QlBFWitJZ1h0ZjR1KzRjdHVLcTcxTTFLYnJiTXdZLzZ5RUpia2czL1dpS2Ni?=
- =?utf-8?B?V2xsTW03RUw0TzNkckw2M2tsN3J4Vi96RGw4MkpLR0xWZDlmWUZwdzF2RVhp?=
- =?utf-8?B?MkdXQlZCUjgvVVJ2RnlrZit1dWhMci9IS3ZiNG1sRWt4MlB2Y24waGZhOTlF?=
- =?utf-8?B?eXNlVUhtZXhkQlNlTFFTRU5admtWVVkyRGd0Nm1XeE5WWmg0cllmcG1CVHlX?=
- =?utf-8?B?Tm5yLytQVGFtNGNla1ZxYXEza2JEUW8rMjV0S09HSE9zS1lWc3FRZXVCZmtv?=
- =?utf-8?B?M3ZGZnlLcmQzVXEzcHFwNVZIdEJTVkFZSmpCZzFSQWRGT2IwRC9GZEZ0NTV6?=
- =?utf-8?B?WFg0bFlTYkZNb2kzb2E0VnRJRTVjaXpzQ1YxeFNxK2R0Mkg2VXArNE9RR2d4?=
- =?utf-8?B?cStWL295d01aM0w3OXdLZFdFMGk3b2tHWFZoY01oZnZUL3ZQYnNZVWNaRFJs?=
- =?utf-8?B?cnBFYUVDRVhMVzFzNVVKbTZhWE5hb25iblJLS3pMQ0F1TXdUQk9zOTExRkN2?=
- =?utf-8?B?MXF2UmsrMVNKNlRzazJQWU5JWUE0ZmlnOElaVW00bUoxOXkwVCt0VzY4SHd4?=
- =?utf-8?B?MnNoMDVNQjNqZ2RIR1YyRHhLcTk1citKMzBKcE81allxRUtCd0ttcXJSWndr?=
- =?utf-8?B?SnJFN3h1STdRSUpseHA4VTU4MWh5YUFLUVlFWnlhQTBzOWV1QkgxZHU0VHNh?=
- =?utf-8?B?SUVSSk1LMzdJRnQzQ3YwSnVlMmZWL0ZOOG43TGxxVGFncUFEN3BtSnMyZjNZ?=
- =?utf-8?B?bXBLaGtSaUNoQXluMDMrTHZVUTNvTlF5K09WVk42dEl2bHpheXIzQ2FSbEhz?=
- =?utf-8?B?MlFNK04zRGhGWXFTVDlNekh2d2h4N2hXUTJ6ZDJ4UzZsTFc3WElncHZ6SXlv?=
- =?utf-8?B?V0NhOUl4T3AremNZYVFPY3BGaFhsRGFPZFNhWUV3RnovNGNyNittQys1Qktm?=
- =?utf-8?B?L0lQbmhtTmdNVkZSWGVSWWRmNDhFbE5ycDVvakZlU3BUbjNsT0tKS2xVNksx?=
- =?utf-8?B?dlBucUxuRlA3S2tCSi9zOTNnMUtKYjFxNUVxUmdFOS9jUG9JUkJGMlBhU0Na?=
- =?utf-8?B?cVBjc1VVTkRIMVlNaWN3cDZMK2ZIVktSOXdJTm1mN0dRMFdSRi9lTHFtMjBx?=
- =?utf-8?B?YjAxTjMwMFJUamU0WU9EaUZBMFBsQ2lEOUg5YU12RUJmallnNjdRbUNHSWxR?=
- =?utf-8?B?cWhEa2ZsdHRTMFhWc0l6ZGNhQTA0S2REaWJZaDQ0VDFxQ0RSU1pHNTR6bi9v?=
- =?utf-8?B?b29uelZtZEd0eENUMUdCK0xmZVdiOHFWSXl0ajFEbitWam1ZYXI0R1BoTTU3?=
- =?utf-8?B?c0Y5UXNVUG9LaVcvMWg2dzM2QWNQM2VEL1o3d2V2aldiNkoraVF5bWplejZS?=
- =?utf-8?B?bFhrYmhBbFVOZ3ZJYnkrT25UL25tM0dhUjJvUi81eDc1QzNnamY4ZHltVzF2?=
- =?utf-8?B?aTQ0SWhtNkpMSUE0aGdwT1FvUmprOWY5RHFkWVpRQkdJNmh2RzkzQ3hXdXBp?=
- =?utf-8?B?NUhTNk1hZnZWSnd0MXp3QXZBcHBMcUl6TkF1RDh4aC9LOUhncU5tL3RxZ1d4?=
- =?utf-8?B?NDVpcTJMS3p2V09DOERIN1ZONFh5WDB4djRqOHlhTGJBSXJsVWl5bGxobS9X?=
- =?utf-8?B?cDl3MC84a2IwVHM4L3Q4bjBqUmdSYUlXYzF1QWJER05LeExhTjdpdlpFNytB?=
- =?utf-8?B?bzBIYngzWGlmQTBudWs0QTNhaUhSeTJXSHNqTnNjcVdkclVnL0dueGVOV0J1?=
- =?utf-8?B?b2kzWmJaRjgrUkFwLzY0SXZpNldYQWFSNm55blRhQnlqcHFtVDV6TWlQaG00?=
- =?utf-8?B?WmQ0bWNndkYrNnNtNWVQYVRzZWZueG02T2ZrSkhUd01Sa2YxdXpoYWt2WTdL?=
- =?utf-8?B?NUdWc1ZqT2hzdWwyYld5MWF3RnRFOHJBcGtLMUt1NVhlL1BTMUFlS0lSMWpp?=
- =?utf-8?B?Q20vR3RmTHJyaE9TOFdvNlNQU2VKcURpbm01dmVobXhpL1lSeVZ1akdxMjk0?=
- =?utf-8?B?M2VqcWV4MTZhMytJdGhGNFZnNW1jcDZ6NVpyaHMxN3FSWTJmd1hDbzNid25F?=
- =?utf-8?B?SG9WWktHTCtkUEsvbFZ2TXBPTVI4d04vM2phZWkxSEhsajBCUjAwZz09?=
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tih1SEZr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B0131F000FF;
+	Sat, 12 Sep 2026 01:03:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789175034;
+	bh=kVoZbZquZsDUnqENDu8hpM4MhPdRTqpQyP1gH83w+h4=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Tih1SEZr2tQhfxrVjIUOV8iGqgJ4IQpzLj23ygtC+Q1TAQq4OMdC7hDtJtXXIZ+NF
+	 cp3vCfbNxfUzj4xa+ZgEmXQO+qYofdteCeOORYkeSI4jPmP4KXxVE+nx4CPjlDQgpX
+	 IT8jMZUm3Kb9UQsCblj3KBJtxqet3QFaXGzeOAe39j6bYoJhZtJwddbeMX4OAPrlP0
+	 SLp3GkCOgS6kG5ta/9eWljfG4DgA7VspobQtyawe5LkqUWnuB5qTRmdJ5wWeGwAk1W
+	 3Dy28LXFTr/GKusVRO062QbuJ4gQ3k2UNxeCH8DVcR/hBdZsvVhfbXEo5c2Seed08/
+	 ov5p1iW4cNyXQ==
+Subject: Re: [PATCH v14 net-next] octeontx2-pf: add mqprio bandwidth offload
+ for NIX TX schedulers
+From: netdev-bot+sashiko@kernel.org
+To: rkannoth@marvell.com
+Cc: bpf@vger.kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ andrew+netdev@lunn.ch, ast@kernel.org, daniel@iogearbox.net,
+ davem@davemloft.net, edumazet@google.com, hawk@kernel.org,
+ john.fastabend@gmail.com, kuba@kernel.org, pabeni@redhat.com, sdf@fomichev.me,
+ sgoutham@marvell.com, cursoragent@cursor.com
+Date: Sat, 12 Sep 2026 01:03:52 +0000
+Message-ID: <178917503269.219967.2398157169238372750@kernel.org>
+In-Reply-To: <20260908062437.251739-1-rkannoth@marvell.com>
+References: <20260908062437.251739-1-rkannoth@marvell.com>
+X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
-Content-ID: <6AA36BEE74B9A64C9D1F497E6372F330@namprd12.prod.outlook.com>
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked:
-	uCmRY+4hOLzxQG/eCSpS5h8x/pDVuHSWXtlod52USTkz5NuHnw5RYgBYjMIsRGtzJalBZJ1BN9qPBqUXg4itXIwezEDxpmrp8cHkLSiaEzqI01R+bMN3444vkSfdQ8bweljM8FRDGqeWljWFJh6BYJ/CajCUXZbZmqgCQWWz1R/+jJ5ADWcLWJsBAhfSLdfQbDVl4CloG08ahh+Wjdb6nhoVqqqQwlm7aZ+7hmzBRu3LQhuXtif7z1LJztA3vhUvMQFbA66uiCqUsDpDPOxUwAJOR0L/udE8LZpJzbvIfzkKfuWkYRMdabXlBRKKTpdx+0h4zoncA/SjER8Sab3o6g==
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	7+wBVVelLJ6YaNHTUAyfHxKisiZJpk8MYQWbLpx0mrUVkVSv4yW5DXod8TLJTV/u2DZ9PrVDYUbx0Q0OJz7msYdPXDfbRT44myq7zc7u5XfnX11W1uodODx7GXN9f4c9yTO3gyHVYZlq3mInCWkdGuTXbaGtUcrRGK3g5MQBB83c0e1qT7bTwIRiWnRNOHNA7EoFkBoNXornbHRjEXZIePtGXZco7JQ3FgANWS1jq+7zLTqHoXGPSSAD9YSPQG0PpO5pGr2avhWwJ6ppr1iIgeevAdewbC/m76TKtC380kxt78TMTztvpBAaODDUUAcfPqHbt0cfzcEnP+ty45mam2LKMowCmLxzipsiV0dr6C7uNsTIf3WAj2RZc3Yz58Mre/AeadoIe7iwqvyK8C87McpikOsEKu/KJuP+i0bX5rqd3ZDrvGxtVFUIq9e9pD9XF6hidVg2J2mMq4V4JSQnDetYSiyud4dNIBN4Ziqvfuc+Z2DITv5DNVNi6o0vGMxo6w6uRV9TJTXExQ9a2ijj65TN6V1VGI56MJmeJ20F21Xl4cS7G45Tu9aX6u0ArzysJNNXWdLPb1Jwp8f5gE5jZPTptaix/QAosMRCBqvORxZaX08OAoZhYevKBeQ5TlMk1OADlliYRTYXqjFE/RP2Iw==
-X-OriginatorOrg: synopsys.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB7486.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bc2042fa-7d88-4f74-c648-08df1069a4bc
-X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Sep 2026 01:03:23.1224
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: c33c9f88-1eb7-4099-9700-16013fd9e8aa
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: T1tgf2okdtP6O+45FI3Dh21jO5lDGwx5erJ8TBSC5hmK5OYnrZMRB6h2sB6wthiQUn1FBPqD8VBhQLNkThy7BA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV0PR12MB243158
-X-Proofpoint-GUID: B4x_oZj_Bvyh9JQBziCOQ0mRDSyAIaVy
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEyMDAxMSBTYWx0ZWRfX0a1s1IciS6IG
- SsFR9Rb8rLJ+M2DqYKiZKi3r2vF8gw3H8SZVqOlgaQnxObqLFY21nRiP0LIgMbHapugzAfVCxHM
- P/krzflcrGnf5owI6hMBxP8B3ZR68A84I7dpPiNjRx91HpvNqxdQ2tPpwft/ARdMGcr8l3x2DgV
- jqAaUHk/DQgvQ1rmhF9MH8JxLC2Scc82bnyaqB70uK9ku2st6CEJ6fEFAnC25if8fflk/SEPfvP
- Z1NkJ+sinTYAzv+jcG8OvLhWmHKv3vkj2de5HLDa1fmxP6lILQBoDMdc6eZkxe0dZ/2OzrCNoB9
- 8kXiwSAXc7Xkdvv5CXhVW3D08ulEmEEJnhoRuxsKO5dhsQ90U6cNPAKAY/XLnfbL/XB1FfWuXSO
- u3UFTM6Nl4C6K9Ei7ALggRHo1uY7dXOE0A2CiHehEA0w5ckKCEzC49PB7QWzCPfcNVbMyL283fu
- rn+TglztahtyOCOoRJw==
-X-Authority-Analysis: v=2.4 cv=XuBvqlF9 c=1 sm=1 tr=0 ts=6aa4a4e1 cx=c_pps
- a=8EbXvwLXkpGsT4ql/pYRAw==:117 a=8EbXvwLXkpGsT4ql/pYRAw==:17
- a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19
- a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=qPHU084jO2kA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=tU_645BZ7FZt8VqRJtHG:22 a=jSPayVjLy6xbsuKauFBc:22
- a=EUspDBNiAAAA:8 a=n9a5Ab0_2G5eu81RUksA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEyMDAxMSBTYWx0ZWRfX27Ff0LenRenk
- ZCSMBSAUMBA9Pg0IRm8lBkottuP60U0J6/eyMU1M/QB4m2YEq8JFHWhkpQ3GQuCcX39HNG3hzdN
- 5ouh4WZuS6uasKJfz5Hv3X9nR1pNEOg=
-X-Proofpoint-ORIG-GUID: B4x_oZj_Bvyh9JQBziCOQ0mRDSyAIaVy
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-11_06,2026-09-11_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_active_cloned_notspam
- policy=outbound_active_cloned score=0 phishscore=0 malwarescore=0 bulkscore=0
- lowpriorityscore=0 spamscore=0 adultscore=0 suspectscore=0 clxscore=1015
- priorityscore=1501 impostorscore=0 classifier=typeunknown authscore=0 authtc=
- authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.22.0-2609040000 definitions=main-2609120011
 
-T24gVGh1LCBTZXAgMDMsIDIwMjYsIEZhaXNhbCBIYXNzYW4gd3JvdGU6DQo+IE9uIHBsYXRmb3Jt
-cyB3aGVyZSB0aGUgVVNCIGNvbnRyb2xsZXIgbG9zZXMgcG93ZXIgZHVyaW5nIHN5c3RlbQ0KPiBz
-dXNwZW5kLCBsaWtlIFNBODI1NVAsIHJlc3VtZSB0cmlnZ2VycyBhIEhvc3QgQ29udHJvbGxlciBF
-cnJvcg0KPiByZXF1aXJpbmcgZnVsbCByZWluaXRpYWxpemF0aW9uLg0KPiANCj4gVGhlIHhoY2kg
-ZHJpdmVyIHN1cHBvcnRzIFhIQ0lfUkVTRVRfT05fUkVTVU1FIHRvIGhhbmRsZSB0aGlzLA0KPiBi
-dXQgZHdjMyBwcmV2aW91c2x5IGxhY2tlZCBwbGF0Zm9ybS1zcGVjaWZpYyBxdWlyayBjb25maWd1
-cmF0aW9uLg0KPiBBZGQgYSBkZXZpY2UgcHJvcGVydHkgInhoY2ktcmVzZXQtb24tcmVzdW1lIiB0
-aGF0IGVuYWJsZXMgdGhpcw0KPiBxdWlyayBmb3IgY29udHJvbGxlcnMgbmVlZGluZyBjb21wbGV0
-ZSByZWluaXRpYWxpemF0aW9uIGFmdGVyDQo+IHBvd2VyIGxvc3MgZHVyaW5nIHN1c3BlbmQuDQo+
-IA0KPiBMZXQgZHdjMyBtYW5hZ2UgdGhlIHF1aXJrIGZvciB0aGUgdXNiIGNvbnRyb2xsZXIgdXNp
-bmcNCj4gc29mdHdhcmUgcHJvcGVydGllcy4NCj4gDQo+IENvLWRldmVsb3BlZC1ieTogU3JpcmFt
-IERhc2ggPHNyaXJhbS5kYXNoQG9zcy5xdWFsY29tbS5jb20+DQo+IFNpZ25lZC1vZmYtYnk6IFNy
-aXJhbSBEYXNoIDxzcmlyYW0uZGFzaEBvc3MucXVhbGNvbW0uY29tPg0KPiBTaWduZWQtb2ZmLWJ5
-OiBGYWlzYWwgSGFzc2FuIDxmYWlzYWwuaGFzc2FuQG9zcy5xdWFsY29tbS5jb20+DQo+IC0tLQ0K
-PiAgZHJpdmVycy91c2IvZHdjMy9jb3JlLmMgfCA0ICsrKysNCj4gIGRyaXZlcnMvdXNiL2R3YzMv
-Y29yZS5oIHwgNSArKysrKw0KPiAgZHJpdmVycy91c2IvZHdjMy9ob3N0LmMgfCA1ICsrKystDQo+
-ICAzIGZpbGVzIGNoYW5nZWQsIDEzIGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkNCj4gDQo+
-IGRpZmYgLS1naXQgYS9kcml2ZXJzL3VzYi9kd2MzL2NvcmUuYyBiL2RyaXZlcnMvdXNiL2R3YzMv
-Y29yZS5jDQo+IGluZGV4IGZkNWMyY2QzNmM1OS4uZWI2ZmZkNTE0OGE3IDEwMDY0NA0KPiAtLS0g
-YS9kcml2ZXJzL3VzYi9kd2MzL2NvcmUuYw0KPiArKysgYi9kcml2ZXJzL3VzYi9kd2MzL2NvcmUu
-Yw0KPiBAQCAtMTcxMiw2ICsxNzEyLDEwIEBAIHN0YXRpYyB2b2lkIGR3YzNfZ2V0X3NvZnR3YXJl
-X3Byb3BlcnRpZXMoc3RydWN0IGR3YzMgKmR3YywNCj4gIAkJCQkJICAgICAgICZnc2J1c2NmZzBf
-cmVxaW5mbyk7DQo+ICAJCWlmICghcmV0KQ0KPiAgCQkJZHdjLT5nc2J1c2NmZzBfcmVxaW5mbyA9
-IGdzYnVzY2ZnMF9yZXFpbmZvOw0KPiArDQo+ICsJCWlmICghZHdjLT54aGNpX3Jlc2V0X29uX3Jl
-c3VtZSAmJg0KPiArCQkgICAgZGV2aWNlX3Byb3BlcnR5X3JlYWRfYm9vbCh0bXBkZXYsICJ4aGNp
-LXJlc2V0LW9uLXJlc3VtZSIpKQ0KPiArCQkJZHdjLT54aGNpX3Jlc2V0X29uX3Jlc3VtZSA9IHRy
-dWU7DQo+ICAJfQ0KPiAgfQ0KPiAgDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL3VzYi9kd2MzL2Nv
-cmUuaCBiL2RyaXZlcnMvdXNiL2R3YzMvY29yZS5oDQo+IGluZGV4IDYwOGRhZWI3ZWYxMC4uMGZm
-MjNlYjIxN2JjIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL3VzYi9kd2MzL2NvcmUuaA0KPiArKysg
-Yi9kcml2ZXJzL3VzYi9kd2MzL2NvcmUuaA0KPiBAQCAtMTE3Miw2ICsxMTcyLDEwIEBAIHN0cnVj
-dCBkd2MzX2dsdWVfb3BzIHsNCj4gICAqIEBzdXNwZW5kZWQ6IHNldCB0byB0cmFjayBzdXNwZW5k
-IGV2ZW50IGR1ZSB0byBVMy9MMi4NCj4gICAqIEBzdXNwaHlfc3RhdGU6IHN0YXRlIG9mIERXQzNf
-R1VTQjJQSFlDRkdfU1VTUEhZICsgRFdDM19HVVNCM1BJUEVDVExfU1VTUEhZDQo+ICAgKgkJICBi
-ZWZvcmUgUE0gc3VzcGVuZC4NCj4gKyAqIEB4aGNpX3Jlc2V0X29uX3Jlc3VtZTogRW5hYmxlIFhI
-Q0lfUkVTRVRfT05fUkVTVU1FIHF1aXJrIGZvciB0aGUgeEhDSQ0KPiArICoJCQkgIGhvc3QgY29u
-dHJvbGxlci4gU2V0IHRvIHRydWUgZm9yIHBsYXRmb3JtcyB3aGVyZQ0KPiArICoJCQkgIHRoZSBV
-U0IgY29udHJvbGxlciBsb3NlcyBwb3dlciBkdXJpbmcgc3lzdGVtIHN1c3BlbmQsDQo+ICsgKgkJ
-CSAgcmVxdWlyaW5nIGNvbXBsZXRlIHJlaW5pdGlhbGl6YXRpb24gb24gcmVzdW1lLg0KPiAgICog
-QGltb2RfaW50ZXJ2YWw6IHNldCB0aGUgaW50ZXJydXB0IG1vZGVyYXRpb24gaW50ZXJ2YWwgaW4g
-MjUwbnMNCj4gICAqCQkJaW5jcmVtZW50cyBvciAwIHRvIGRpc2FibGUuDQo+ICAgKiBAbWF4X2Nm
-Z19lcHM6IGN1cnJlbnQgbWF4IG51bWJlciBvZiBJTiBlcHMgdXNlZCBhY3Jvc3MgYWxsIFVTQiBj
-b25maWdzLg0KPiBAQCAtMTQyMCw2ICsxNDI0LDcgQEAgc3RydWN0IGR3YzMgew0KPiAgCXVuc2ln
-bmVkCQl3YWtldXBfY29uZmlndXJlZDoxOw0KPiAgCXVuc2lnbmVkCQlzdXNwZW5kZWQ6MTsNCj4g
-IAl1bnNpZ25lZAkJc3VzcGh5X3N0YXRlOjE7DQo+ICsJdW5zaWduZWQJCXhoY2lfcmVzZXRfb25f
-cmVzdW1lOjE7DQoNCkNhbiB5b3UgbW92ZSB0aGlzIGFmdGVyIGRpc19zcGxpdF9xdWlyayBhbmQg
-YWRkIGEgYmxhbmsgbGluZSB0byBzZXBhcmF0ZQ0KcHJvcGVydGllcyBmcm9tIGR3YzMgc3RhdGUv
-Y29uZmlnIGZpZWxkcz8NCg0KPiAgDQo+ICAJdTE2CQkJaW1vZF9pbnRlcnZhbDsNCj4gIA0KPiBk
-aWZmIC0tZ2l0IGEvZHJpdmVycy91c2IvZHdjMy9ob3N0LmMgYi9kcml2ZXJzL3VzYi9kd2MzL2hv
-c3QuYw0KPiBpbmRleCA5NmI1ODhiZDA4Y2QuLjIxNzBmY2FmYzg4OSAxMDA2NDQNCj4gLS0tIGEv
-ZHJpdmVycy91c2IvZHdjMy9ob3N0LmMNCj4gKysrIGIvZHJpdmVycy91c2IvZHdjMy9ob3N0LmMN
-Cj4gQEAgLTEyOSw3ICsxMjksNyBAQCBzdGF0aWMgaW50IGR3YzNfaG9zdF9nZXRfaXJxKHN0cnVj
-dCBkd2MzICpkd2MpDQo+ICANCj4gIGludCBkd2MzX2hvc3RfaW5pdChzdHJ1Y3QgZHdjMyAqZHdj
-KQ0KPiAgew0KPiAtCXN0cnVjdCBwcm9wZXJ0eV9lbnRyeQlwcm9wc1s2XTsNCj4gKwlzdHJ1Y3Qg
-cHJvcGVydHlfZW50cnkJcHJvcHNbN107DQoNClRoaXMgc2hvdWxkIGJlIDguIFRoZXJlJ3MgYWxy
-ZWFkeSBhIGZpeCBwYXRjaCBmb3IgdGhpcy4gSG9wZWZ1bGx5IGl0DQpnZXRzIHBpY2tlZCB1cCBz
-b29uLg0KDQo+ICAJc3RydWN0IHBsYXRmb3JtX2RldmljZQkqeGhjaTsNCj4gIAlpbnQJCQlyZXQs
-IGlycTsNCj4gIAlpbnQJCQlwcm9wX2lkeCA9IDA7DQo+IEBAIC0xNzMsNiArMTczLDkgQEAgaW50
-IGR3YzNfaG9zdF9pbml0KHN0cnVjdCBkd2MzICpkd2MpDQo+ICAJaWYgKGR3Yy0+dXNiMl9scG1f
-ZGlzYWJsZSkNCj4gIAkJcHJvcHNbcHJvcF9pZHgrK10gPSBQUk9QRVJUWV9FTlRSWV9CT09MKCJ1
-c2IyLWxwbS1kaXNhYmxlIik7DQo+ICANCj4gKwlpZiAoZHdjLT54aGNpX3Jlc2V0X29uX3Jlc3Vt
-ZSkNCj4gKwkJcHJvcHNbcHJvcF9pZHgrK10gPSBQUk9QRVJUWV9FTlRSWV9CT09MKCJ4aGNpLXJl
-c2V0LW9uLXJlc3VtZS1xdWlyayIpOw0KPiArDQo+ICAJLyoqDQo+ICAJICogV09SS0FST1VORDog
-ZHdjMyByZXZpc2lvbnMgPD0zLjAwYSBoYXZlIGEgbGltaXRhdGlvbg0KPiAgCSAqIHdoZXJlIFBv
-cnQgRGlzYWJsZSBjb21tYW5kIGRvZXNuJ3Qgd29yay4NCj4gLS0gDQo+IDIuMzQuMQ0KPiANCg0K
-VGhhbmtzLA0KVGhpbmg=
+Thank you for your contribution! Sashiko AI review found 8 potential
+issue(s) to consider:
+
+Critical: 0 · High: 4 (1) · Medium: 4 · Low: 0
+
+- [High] otx2_mqprio_down() returns -errno on a mailbox failure while
+  clearing MDQ shapers and deliberately skips otx2_mqprio_clear_sw();…
+- [High] The mqprio replace-commit path depends on the driver receiving
+  TC_SETUP_ROOT_QDISC/TC_ROOT_GRAFT, but qdisc_offload_graft_helper()…
+- [High] The driver writes netdev_set_num_tc()/netdev_set_tc_queue() from
+  its own rollback and teardown paths while the TC core mutates the same…
+- [High] The patch converts only three write sites of the u64 pf->flags
+  word to atomic bit operations (OTX2_FLAG_PORT_UP in the asynchronous…
+- [Medium] otx2_txschq_stop() now zeroes pfvf->hw.txschq_cnt[lvl] for
+  every level.
+- [Medium] otx2_mqprio_restore_old() calls otx2_mqprio_alloc_cache(pfvf,
+  false), and with replacing==false that helper first calls…
+- [Medium] otx2_mqprio_restart_netdev() open-codes part of
+  __dev_close_many(): it clears __LINK_STATE_START, issues…
+- [Medium] With mqprio bandwidth offload the driver now parents N MDQ/SMQ
+  nodes under a single TL4 node (otx2_txschq_config(): `if…
+
+Pre-existing issues:
+- [High] pfvf->refill_wrk is devm_kcalloc()'d and its delayed works
+  INIT_DELAYED_WORK()'d in otx2_config_nix_queues()…
+
+--
+
+octeontx2-pf: add mqprio bandwidth offload for NIX TX schedulers
+
+This adds TC_SETUP_QDISC_MQPRIO offload for channel-mode mqprio with
+TC_MQPRIO_SHAPER_BW_RATE, programming per-queue MDQ CIR/PIR through the NIX
+TX scheduler mailbox.  Because the TX scheduler hierarchy cannot be
+reprogrammed live, every mqprio add/replace/delete bounces the netdev
+through ndo_stop()/ndo_open().  Configuration is tracked in
+mq_offload_snap snapshots so a failed replace can be rolled back.
+
+> diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.c b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.c
+> index 175992188c18a..a519e0a97a2b7 100644
+> --- a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.c
+> +++ b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.c
+
+[ ... ]
+
+> @@ -651,7 +787,11 @@ int otx2_txschq_config(struct otx2_nic *pfvf, int lvl, int prio, bool txschq_for
+>  						(u64)hw->smq_link_type);
+>  		req->num_regs++;
+>  		/* MDQ config */
+> -		parent = schq_list[NIX_TXSCH_LVL_TL4][prio];
+> +		if (pfvf->mqprio.rate_limit)
+> +			parent = schq_list[NIX_TXSCH_LVL_TL4][0];
+> +		else
+> +			parent = schq_list[NIX_TXSCH_LVL_TL4][prio];
+> +
+>  		req->reg[1] = NIX_AF_MDQX_PARENT(schq);
+>  		req->regval[1] = parent << 16;
+>  		req->num_regs++;
+
+[Severity: Medium]
+
+Who programs the arbitration configuration of TL4[0] once N MDQs are
+parented under it?
+
+This path writes only TL4X_PARENT/TL4X_SCHEDULE for the parent and
+MDQX_SCHEDULE = dwrr_val for each child (PRIO field 0).  Grepping the tree,
+NIX_AF_TL4X_TOPOLOGY is never written by the AF driver, and in the PF driver
+it is written only by the HTB code:
+
+  qos.c:otx2_qos_txschq_set_parent_topology() {
+      ...
+      cfg->reg[0] = NIX_AF_TL4X_TOPOLOGY(parent->schq);
+      cfg->regval[0] = (u64)parent->prio_anchor << 32 | ... child_dwrr_prio << 1;
+      ...
+  }
+
+So for the mqprio hierarchy, TL4[0]'s PRIO_ANCHOR/RR_PRIO is whatever the
+register happens to hold - the reset value, or a stale value left behind by a
+previously destroyed HTB tree on the same TL4 index, since the AF free path
+resets only link cfg, shaping and schedule registers.
+
+If the stale RR_PRIO does not match the children's PRIO of 0, are the MDQs
+arbitrated as static-priority children instead of a DWRR group, starving all
+but one queue?  A sequence like "configure HTB, delete HTB, then enable
+mqprio bw_rlimit" would reuse that TL4 with the previous arbitration
+configuration.
+
+> @@ -779,6 +919,9 @@ int otx2_txsch_alloc(struct otx2_nic *pfvf)
+>  		req->schq[NIX_TXSCH_LVL_TL4] = chan_cnt;
+>  	}
+>  
+> +	if (pfvf->mqprio.rate_limit)
+> +		req->schq[NIX_TXSCH_LVL_SMQ] = pfvf->hw.non_qos_queues;
+> +
+>  	rc = otx2_sync_mbox_msg(&pfvf->mbox);
+>  	if (rc)
+>  		return rc;
+> @@ -844,6 +987,7 @@ void otx2_txschq_stop(struct otx2_nic *pfvf)
+>  
+>  	/* Clear the txschq list */
+>  	for (lvl = 0; lvl < NIX_TXSCH_LVL_CNT; lvl++) {
+> +		pfvf->hw.txschq_cnt[lvl] = 0;
+>  		for (schq = 0; schq < MAX_TXSCHQ_PER_FUNC; schq++)
+>  			pfvf->hw.txschq_list[lvl][schq] = 0;
+>  	}
+
+[Severity: Medium]
+
+Does zeroing txschq_cnt[] here create a modulo-by-zero for the existing
+consumer in otx2_get_smq_idx()?
+
+  otx2_common.h:otx2_get_smq_idx() {
+      ...
+      idx = qidx % pfvf->hw.txschq_cnt[NIX_TXSCH_LVL_SMQ];
+      smq = pfvf->hw.txschq_list[NIX_TXSCH_LVL_SMQ][idx];
+      ...
+  }
+
+Before this hunk the count retained its last non-zero value once the
+interface had been opened; now it reads back as 0 after every stop.
+
+The reachable non-mqprio consumer is the dcbnl path, which is not gated on
+netif_running():
+
+  otx2_pfc_txschq_update() -> update_sq_smq_map label
+      -> otx2_pfc_update_sq_smq_mapping()
+             cn10k_sq_aq->sq.smq = otx2_get_smq_idx(pfvf, prio);
+
+So: bring the interface up, enable PFC, "ip link set dev ethX down", then
+disable PFC.  On arm64 UDIV returns 0 rather than trapping, so the result is
+idx 0 and smq = txschq_list[SMQ][0] == 0, i.e. the driver programs an SQ
+context with a scheduler queue it does not own - which is exactly what the
+new AF is_valid_txschq() message reports - and the otx2_sync_mbox_msg()
+return value there is not checked.  On architectures where integer division
+traps this would be a divide error instead.
+
+The new mqprio code guards against the zero count itself (via
+otx2_mqprio_mdq_allocated() and "else if (txschq_cnt[SMQ])"); should this
+pre-existing consumer get the same guard?
+
+> diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c
+> index c0e2100de1d93..68ad2f3d22277 100644
+> --- a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c
+> +++ b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c
+> @@ -907,11 +907,13 @@ static int otx2_mbox_up_handler_rep_event_up_notify(struct otx2_nic *pf,
+>  
+>  	if (info->event == RVU_EVENT_PORT_STATE) {
+>  		if (info->evt_data.port_state) {
+> -			pf->flags |= OTX2_FLAG_PORT_UP;
+> +			set_bit(__builtin_ctzll(OTX2_FLAG_PORT_UP),
+> +				(unsigned long *)&pf->flags);
+>  			netif_carrier_on(netdev);
+>  			netif_tx_start_all_queues(netdev);
+>  		} else {
+> -			pf->flags &= ~OTX2_FLAG_PORT_UP;
+> +			clear_bit(__builtin_ctzll(OTX2_FLAG_PORT_UP),
+> +				  (unsigned long *)&pf->flags);
+>  			netif_tx_stop_all_queues(netdev);
+>  			netif_carrier_off(netdev);
+>  		}
+
+[Severity: High]
+
+The commit message says:
+
+  "Use atomic bit operations when updating OTX2_FLAG_PORT_UP and
+   OTX2_FLAG_INTF_DOWN on asynchronous and netdev-restart paths."
+
+Does converting only some writers of pf->flags actually close the race?
+
+The same u64 word is still updated with plain read-modify-write elsewhere in
+otx2_open():
+
+  pf->flags &= ~OTX2_FLAG_INTF_DOWN;
+  pf->flags &= ~OTX2_FLAG_PORT_UP;
+
+and on its error path:
+
+  pf->flags |= OTX2_FLAG_INTF_DOWN;
+
+with the same pattern in otx2_vf.c, rep.c and otx2_ethtool.c.
+
+Atomic bitops give no protection against a concurrent non-atomic RMW on the
+same word.  This handler runs from the mbox workqueue without RTNL, so can
+its set_bit(PORT_UP) + netif_tx_start_all_queues() (or the clear_bit path) be
+erased by a concurrent otx2_open() store on another CPU, leaving PORT_UP
+inconsistent with the actual carrier and queue state?  The same applies to
+INTF_DOWN, which gates the driver's fast-path teardown checks.
+
+Would converting pf->flags to unsigned long / DECLARE_BITMAP and switching
+all writers (or taking a lock) be a better fit than mixing the two access
+styles?
+
+> @@ -2007,6 +2009,14 @@ int otx2_open(struct net_device *netdev)
+>  	if (err)
+>  		goto err_free_mem;
+>  
+> +	err = otx2_mqprio_up(pf);
+> +	if (err) {
+> +		netdev_err(pf->netdev,
+> +			   "mqprio: failed to restore shapers during open: %d\n",
+> +			   err);
+> +		goto err_free_hw;
+> +	}
+> +
+>  	/* Register NAPI handler */
+>  	for (qidx = 0; qidx < pf->hw.cint_cnt; qidx++) {
+>  		cq_poll = &qset->napi[qidx];
+> @@ -2205,6 +2215,7 @@ int otx2_open(struct net_device *netdev)
+>  	free_irq(vec, pf);
+>  err_disable_napi:
+>  	otx2_disable_napi(pf);
+> +err_free_hw:
+>  	otx2_free_hw_resources(pf);
+>  err_free_mem:
+>  	otx2_free_queue_mem(qset);
+
+[Severity: High]
+
+This isn't a bug introduced by this patch, but does the new error path make
+the refill_wrk leak reachable much more often?
+
+pf->refill_wrk is devm_kcalloc()'d and its delayed works initialized in
+otx2_config_nix_queues(), reached from otx2_init_hw_resources():
+
+  otx2_common.c:otx2_config_nix_queues() {
+      pfvf->refill_wrk = devm_kcalloc(pfvf->dev, pfvf->qset.cq_cnt,
+                                      sizeof(struct refill_work), GFP_KERNEL);
+      ...
+  }
+
+The only cancel/free site is otx2_stop():
+
+  for (wrk = 0; wrk < pf->qset.cq_cnt; wrk++)
+          cancel_delayed_work_sync(&pf->refill_wrk[wrk].pool_refill_work);
+  devm_kfree(pf->dev, pf->refill_wrk);
+
+None of otx2_open()'s error labels, including the new err_free_hw, cancel
+those delayed works or free the array.  And otx2_mqprio_restart_netdev()
+deliberately marks the interface down before netif_close():
+
+  set_bit(__builtin_ctzll(OTX2_FLAG_INTF_DOWN),
+          (unsigned long *)&pfvf->flags);
+  smp_wmb();
+  netif_close(netdev);
+
+so otx2_stop() returns immediately at its "if (pf->flags &
+OTX2_FLAG_INTF_DOWN) return 0;" check and the cleanup never runs.
+
+Does each failed open therefore leak one refill_wrk devres block and leave
+initialized (possibly already queued) delayed works behind?  Their handler
+does:
+
+  qidx = wrk - pfvf->refill_wrk;
+  cq = &pfvf->qset.cq[qidx];
+
+after otx2_free_queue_mem() freed qset->cq.  The new synchronize_net() in
+otx2_stop() does not help here because otx2_stop() is skipped by design.
+This is now repeatable via "tc qdisc add/replace/del ... mqprio".
+
+> @@ -2226,7 +2237,8 @@ int otx2_stop(struct net_device *netdev)
+>  	netif_carrier_off(netdev);
+>  	netif_tx_stop_all_queues(netdev);
+>  
+> -	pf->flags |= OTX2_FLAG_INTF_DOWN;
+> +	set_bit(__builtin_ctzll(OTX2_FLAG_INTF_DOWN),
+> +		(unsigned long *)&pf->flags);
+>  	/* 'intf_down' may be checked on any cpu */
+>  	smp_wmb();
+
+[ ... ]
+
+> diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_tc.c b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_tc.c
+> index 039fd47ebf522..045b4573ce14e 100644
+> --- a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_tc.c
+> +++ b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_tc.c
+
+[ ... ]
+
+> +static int otx2_mqprio_alloc_cache(struct otx2_nic *pfvf, bool replacing)
+> +{
+> +	u16 num_txq = pfvf->hw.non_qos_queues;
+> +
+> +	if (replacing && pfvf->mqprio.min_rate && pfvf->mqprio.max_rate) {
+> +		memset(pfvf->mqprio.min_rate, 0,
+> +		       num_txq * sizeof(*pfvf->mqprio.min_rate));
+> +		memset(pfvf->mqprio.max_rate, 0,
+> +		       num_txq * sizeof(*pfvf->mqprio.max_rate));
+> +		pfvf->mqprio.flags = 0;
+> +		return 0;
+> +	}
+> +
+> +	otx2_mqprio_free_cache(pfvf);
+> +
+> +	pfvf->mqprio.min_rate = devm_kcalloc(pfvf->dev, num_txq,
+> +					     sizeof(*pfvf->mqprio.min_rate),
+> +					     GFP_KERNEL);
+> +	pfvf->mqprio.max_rate = devm_kcalloc(pfvf->dev, num_txq,
+> +					     sizeof(*pfvf->mqprio.max_rate),
+> +					     GFP_KERNEL);
+> +	if (!pfvf->mqprio.min_rate || !pfvf->mqprio.max_rate) {
+> +		otx2_mqprio_free_cache(pfvf);
+> +		return -ENOMEM;
+> +	}
+> +
+> +	return 0;
+> +}
+
+[ ... ]
+
+> +static int otx2_mqprio_restore_old(struct otx2_nic *pfvf)
+> +{
+> +	struct mq_offload_snap *snap = pfvf->old_mq_snap;
+> +	struct net_device *netdev = pfvf->netdev;
+> +	u16 num_txq = pfvf->hw.non_qos_queues;
+> +	int tc, txq, err;
+> +
+> +	if (!snap)
+> +		return 0;
+> +
+> +	err = otx2_mqprio_alloc_cache(pfvf, false);
+> +	if (err)
+> +		return err;
+
+[Severity: Medium]
+
+Should the rollback path pass replacing == true here?
+
+With replacing == false, otx2_mqprio_alloc_cache() first calls
+otx2_mqprio_free_cache(), which devm_kfree()s and NULLs the currently live
+min_rate/max_rate arrays, and only then attempts the two devm_kcalloc()s.  If
+either allocation fails it frees again and returns -ENOMEM, leaving both
+caches NULL while mqprio.rate_limit is still true.
+
+restore_old() returns that error without reconciling the state, and
+otx2_mqprio_up() begins with:
+
+  if (!pfvf->mqprio.min_rate || !pfvf->mqprio.max_rate)
+          return 0;
+
+so every subsequent ndo_open() programs no MDQ CIR/PIR while the driver still
+reports the offload as active and keeps rejecting PFC/XDP/HTB and channel
+changes.  The arrays are already the required size at this point, so the
+reuse+memset path in the same helper would avoid destroying live state.
+
+> +
+> +	memset(pfvf->mqprio.min_rate, 0, num_txq * sizeof(*pfvf->mqprio.min_rate));
+> +	memset(pfvf->mqprio.max_rate, 0, num_txq * sizeof(*pfvf->mqprio.max_rate));
+> +	pfvf->mqprio.flags = 0;
+> +
+> +	for (tc = 0; tc < snap->num_tc; tc++) {
+> +		u64 min_rate = snap->min_rate[tc];
+> +		u64 max_rate = snap->max_rate[tc];
+> +
+> +		if (min_rate)
+> +			pfvf->mqprio.flags |= TC_MQPRIO_F_MIN_RATE;
+> +		if (max_rate)
+> +			pfvf->mqprio.flags |= TC_MQPRIO_F_MAX_RATE;
+> +
+> +		for (txq = snap->offset[tc];
+> +		     txq < snap->offset[tc] + snap->count[tc]; txq++) {
+> +			pfvf->mqprio.min_rate[txq] = min_rate;
+> +			pfvf->mqprio.max_rate[txq] = max_rate;
+> +		}
+> +	}
+> +
+> +	netdev_set_num_tc(netdev, snap->num_tc);
+> +	for (tc = 0; tc < snap->num_tc; tc++)
+> +		netdev_set_tc_queue(netdev, tc, snap->count[tc],
+> +				    snap->offset[tc]);
+
+[Severity: High]
+
+Does this restore survive the caller?
+
+On a failed replace the error propagates back to qdisc_create()'s
+init-failure path, which calls mqprio_destroy() on the new instance with
+priv->hw_offload still 0 (mqprio_enable_offload() assigns it only on
+success):
+
+  net/sched/sch_mqprio.c:mqprio_destroy() {
+      if (priv->hw_offload && dev->netdev_ops->ndo_setup_tc)
+              mqprio_disable_offload(sch);
+      else
+              netdev_set_num_tc(dev, 0);
+      ...
+  }
+
+So num_tc, tc_to_txq[] and prio_tc_map[] are zeroed right after this function
+restored them, while the old offloaded mqprio is still root and
+mqprio.rate_limit is still true with MDQ shapers programmed.
+
+Also, netdev_set_num_tc() memsets prio_tc_map[], and nothing here restores
+it - is the priority-to-TC mapping lost even when the restore does stick?
+
+> +
+> +	if (otx2_mqprio_mdq_allocated(pfvf)) {
+> +		err = otx2_nix_tm_clear_queue_shaper(pfvf);
+> +		if (err)
+> +			return err;
+> +	}
+
+[ ... ]
+
+> +static void otx2_mqprio_clear_sw(struct otx2_nic *pfvf)
+> +{
+> +	struct net_device *netdev = pfvf->netdev;
+> +
+> +	pfvf->mqprio.rate_limit = false;
+> +	otx2_mqprio_clear_replace_state(pfvf);
+> +	netdev_set_num_tc(netdev, 0);
+> +	otx2_mqprio_free_cache(pfvf);
+> +}
+
+[Severity: High]
+
+Can this zero the TC mapping of a qdisc that was just created?
+
+Consider replacing an offloaded mqprio with a software one:
+
+  tc qdisc add     dev ethX root mqprio hw 1 mode channel shaper bw_rlimit ...
+  tc qdisc replace dev ethX root mqprio hw 0 num_tc N ...
+
+mqprio_init() installs the new mapping first:
+
+  net/sched/sch_mqprio.c:mqprio_init() {
+      netdev_set_num_tc(dev, qopt->num_tc);
+      for (i = 0; i < qopt->num_tc; i++)
+              netdev_set_tc_queue(dev, i, qopt->count[i], qopt->offset[i]);
+      ...
+  }
+
+Then the old offloaded instance is destroyed, reaching
+otx2_teardown_tc_mqprio() -> otx2_mqprio_down() / otx2_mqprio_restart_netdev(false),
+both of which call otx2_mqprio_clear_sw() and its unconditional
+netdev_set_num_tc(netdev, 0).
+
+Does the live software mqprio then run with dev->num_tc == 0, so
+netdev_pick_tx()/skb_tx_hash() no longer confine traffic to each traffic
+class's queue range, and dumps report num_tc 0?
+
+> +
+> +/* Tear down mqprio bandwidth offload: clear per-queue shapers,
+> + * mqprio_rate_limit, netdev TC mappings, and the cached rates.  Called on
+> + * explicit mqprio teardown (tc qdisc del) and error cleanup, not on
+> + * routine netdev stop/open cycles where the offload stays active.
+> + */
+> +int otx2_mqprio_down(struct otx2_nic *pfvf)
+> +{
+> +	int err = 0;
+> +
+> +	if (!pfvf->mqprio.rate_limit)
+> +		return 0;
+> +
+> +	if (netif_running(pfvf->netdev) &&
+> +	    otx2_mqprio_mdq_allocated(pfvf))
+> +		err = otx2_nix_tm_clear_queue_shaper(pfvf);
+> +
+> +	if (err) {
+> +		netdev_err(pfvf->netdev,
+> +			   "mqprio: failed to clear hardware shapers: %d\n",
+> +			   err);
+> +		return err;
+> +	}
+> +
+> +	otx2_mqprio_clear_sw(pfvf);
+> +
+> +	return 0;
+> +}
+
+[Severity: High]
+
+The v14 changelog says:
+
+  "Return an error from otx2_mqprio_down() if clearing hardware shapers
+   fails instead of clearing software state anyway."
+
+Can this error reach anybody who acts on it?
+
+The teardown during qdisc destruction comes from:
+
+  net/sched/sch_mqprio.c:mqprio_disable_offload() {
+      ...
+      dev->netdev_ops->ndo_setup_tc(dev, TC_SETUP_QDISC_MQPRIO,
+                                    &mqprio);
+  }
+
+The return value is discarded there, and mqprio_destroy() is void, so the
+qdisc is destroyed regardless.
+
+Meanwhile the driver keeps mqprio.rate_limit == true, netdev num_tc != 0 and
+the cached rate arrays, because otx2_mqprio_clear_sw() was skipped.  From
+then on:
+
+  - otx2_qos_root_add() rejects HTB
+  - otx2_xdp_setup() rejects XDP
+  - otx2_dcbnl_ieee_setpfc() rejects PFC
+  - otx2_set_channels() rejects channel changes
+  - otx2_txsch_alloc() keeps widening the SMQ allocation
+  - otx2_mqprio_up() re-applies the stale rates on every ndo_open()
+
+and the qdisc instance is gone, so there is no user-visible path left to
+clear it.  otx2_sync_mbox_msg() can fail on an AF timeout, which is why the
+check exists.  Would clearing the software state unconditionally (or
+recovering locally) be safer than returning an error nobody reads?
+
+> +
+> +int otx2_mqprio_up(struct otx2_nic *pfvf)
+> +{
+
+[ ... ]
+
+> +static int otx2_mqprio_restart_netdev(struct net_device *netdev, bool rate_limit)
+> +{
+> +	struct otx2_nic *pfvf = netdev_priv(netdev);
+> +	const struct net_device_ops *ops = netdev->netdev_ops;
+> +	bool running = netif_running(netdev);
+> +	int err;
+> +
+> +	/* TODO: Explore live TX scheduler reprogramming to avoid a full
+> +	 * ndo_stop()/ndo_open() bounce on every mqprio change.
+> +	 */
+> +	netdev_info(netdev,
+> +		    "mqprio: restarting interface to reprogram TX scheduler; in-flight traffic will be dropped\n");
+> +
+> +	if (running) {
+> +		clear_bit(__LINK_STATE_START, &netdev->state);
+> +		smp_mb__after_atomic(); /* Commit netif_running(). */
+> +	}
+> +	dev_deactivate(netdev, true);
+> +
+> +	err = ops->ndo_stop(netdev);
+
+[Severity: Medium]
+
+This open-codes part of __dev_close_many() but leaves out
+netpoll_poll_disable()/netpoll_poll_enable() (and the NETDEV_GOING_DOWN
+notification).  Is that safe when netpoll is attached?
+
+netpoll_poll_dev() is serialized only by ni->dev_lock plus a netif_running()
+check:
+
+  net/core/netpoll.c:netpoll_poll_dev() {
+      if (!ni || down_trylock(&ni->dev_lock))
+              return;
+      ...
+      if (!netif_running(dev) || netif_local_xmit_active(dev)) {
+              up(&ni->dev_lock);
+              return;
+      }
+      ...
+      poll_napi(dev);
+  }
+
+A poll that passed that netif_running() check just before the clear_bit()
+above can then run concurrently with otx2_stop()'s
+napi_disable()/netif_napi_del() and otx2_free_queue_mem(), which frees the
+qset->napi array holding those NAPI structs.  With netconsole bound to ethX,
+could a printk during "tc qdisc add/replace/del ... mqprio" touch freed NAPI
+state?
+
+The transmit side looks covered: __netpoll_send_skb() and queue_process()
+both re-check netif_running(), and the bit is cleared before dev_deactivate().
+
+> +	if (err) {
+> +		if (running) {
+> +			set_bit(__LINK_STATE_START, &netdev->state);
+> +			dev_activate(netdev);
+> +		}
+> +		return err;
+> +	}
+
+[ ... ]
+
+> +static int otx2_setup_tc_root(struct otx2_nic *pfvf,
+> +			      struct tc_root_qopt_offload *root)
+> +{
+> +	switch (root->command) {
+> +	case TC_ROOT_GRAFT:
+> +		if (pfvf->mqprio.replace_setup_done)
+> +			pfvf->mqprio.replace_graft_done = true;
+> +		return 0;
+> +	default:
+> +		return -EOPNOTSUPP;
+> +	}
+> +}
+
+[Severity: High]
+
+Is this callback ever invoked for otx2 netdevs in the default configuration?
+
+  net/sched/sch_api.c:qdisc_offload_graft_helper() {
+      if (!tc_can_offload(dev) || !dev->netdev_ops->ndo_setup_tc)
+              return;
+      ...
+  }
+
+tc_can_offload() tests dev->features & NETIF_F_HW_TC, and otx2 adds that bit
+to hw_features only after features was derived from hw_features:
+
+  otx2_pf.c:otx2_probe() {
+      ...
+      netdev->features |= netdev->hw_features;
+      ...
+      if (pf->flags & OTX2_FLAG_TC_FLOWER_SUPPORT)
+              netdev->hw_features |= NETIF_F_HW_TC;
+      ...
+  }
+
+otx2_vf.c has the same ordering, so dev->features lacks NETIF_F_HW_TC unless
+the user turns hw-tc-offload on.
+
+mqprio_enable_offload()/mqprio_disable_offload() are not gated by
+tc_can_offload(), so the driver's setup and teardown callbacks still run.
+Does that mean a successful "tc qdisc replace ... mqprio hw 1 mode channel
+shaper bw_rlimit" over an already-offloaded mqprio leaves
+replace_setup_done == true and replace_graft_done == false, so the old
+instance's teardown takes the rollback branch in otx2_teardown_tc_mqprio():
+
+  if (pfvf->mqprio.replace_setup_done && pfvf->cur_mq_snap) {
+          err = 0;
+          if (pfvf->mqprio.replace_graft_done)
+                  otx2_mqprio_snap_commit(pfvf);
+          else
+                  err = otx2_mqprio_restore_old(pfvf);
+
+and otx2_mqprio_restore_old() reprograms the previous rates and TC layout
+while the kernel keeps the new mqprio qdisc installed and reports hw offload
+success?  The user's new rates would then never be applied, and the error is
+discarded because mqprio_destroy() is void.
+
+Would driving the commit from the mqprio teardown itself, rather than from a
+graft notification the core may never deliver, avoid depending on
+NETIF_F_HW_TC being enabled?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260908062437.251739-1-rkannoth%40marvell.com
