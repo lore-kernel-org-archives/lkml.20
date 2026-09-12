@@ -1,206 +1,158 @@
-Received: from mail-m9373.xmail.ntesmail.com (mail-m9373.xmail.ntesmail.com [103.126.93.73])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D11E34BEE51;
-	Sat, 12 Sep 2026 01:21:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.126.93.73
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1FB130E0F2;
+	Sat, 12 Sep 2026 01:24:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789176078; cv=none; b=oQc4aR2LfIhEgLN7RUWPVueDXNykqcqs1VAYCs1dB7YyL4jMfW/LRUqRIDRJI/c8BwdZR7sVYB9VkgahtR2oNxn8DYfloV4flDbnOOYvE97RIZY9wKGyEwIqwyxkJ/J/5XaqNw6i6RH0dvNcopWIwAt2VNwV6IMc9x4jX9+huIE=
+	t=1789176277; cv=none; b=GbZUyXR7B7xchE6pNUcm2ZWHWWAx8mwG61kzfv0meTPlBc0gJt+Nn4PHgc+30Ouw6GhKXyTjbHuxDrfRaonViZEFGRhg8xq818R5Sdwusdy5VFDy5hjsqf43VXTPRyIJnXDfvEnAjHHBuDH0aQpmk0qgcOfu9j+mAem0kFfKAic=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789176078; c=relaxed/simple;
-	bh=oTCwzBZ3Uw+xUer9WiCbSmkm6bYKXnJjisJ6oK0Fmbs=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=IiRvwV/XtvyOCTAQwhjGZfbOM+RkoXCUexrRlpx3bpXZLYwVFl+ZkiNLs/imcdTTTLpMbaphnHI+y16ed4kGp725XsetksHWzWz2u/VJywbeDgdI7UMZgqUM+4qeCRDgxVUlNxtDPVqax+zJAV+ObOav+GBvC2HAEStwWz8oiQM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=cxf08jnl; arc=none smtp.client-ip=103.126.93.73
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1789176277; c=relaxed/simple;
+	bh=LGd6dC0onm1ajNOz0Cb9Sk/OoQsDF8Ak9Js6QeKb3MQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=LJN/oQagl7ACsFlQko8tAtbvhdWHeiiNyuuiXCB7i1et7XOBqvzMyn+whKd+hBGuy4Cv7J//mcST69F8Asix1Y6vtRr/MmuKiE184E9D39UssX+BbYoOJjTNNLubTRREW5eqcVM1ZCQVhHN9Wlzf3uA2uFXHsWWRuxYu715Nu+8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oginf3Tq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="cxf08jnl"
-Received: from [172.16.12.48] (unknown [58.22.7.114])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4d7dade84;
-	Sat, 12 Sep 2026 09:21:03 +0800 (GMT+08:00)
-Message-ID: <577c2a79-25f9-409d-be46-275821e3a2f7@rock-chips.com>
-Date: Sat, 12 Sep 2026 09:21:02 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oginf3Tq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C6F31F00893;
+	Sat, 12 Sep 2026 01:24:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789176275;
+	bh=atCJ+9fOMZNoJYAqBKF0xAZjFgYfz6uFc9U9AXB0XEM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=oginf3TqeM7uCTnaSK2SuDV+DseeP0B+iIawaCsqfcOcAEPw2/T8BBJDHEWf0Mati
+	 mPhpcn0XpCJi8wE/4/udMj2SARyDzkmA9AYn0l0wTxxAQfANYVpFnMXh/iznjjcdFw
+	 wnxVbH3bd/pttFp+27YjeW4LlOpBwhpT/LXOvPFVUQIb0k5OxXYCks7+0dVz9aaFbv
+	 8pdyk/77wDjhk3s9UQH5StrqOgjAffRsyWSTq62xHsouY5JEA1eUNRmg5ygfdk5kKE
+	 nzbELUoF/3YwotA7INyEkPByUamJTwudlxPxHqbj87t17xO8HUiqKxv8hWlq/OpSLU
+	 RQHWGTYsWknAg==
+Date: Fri, 11 Sep 2026 18:24:33 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Tariq Toukan <tariqt@nvidia.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ <netdev@vger.kernel.org>, Paolo Abeni <pabeni@redhat.com>, Sabrina Dubroca
+ <sd@queasysnail.net>, Bobby Eshleman <bobbyeshleman@meta.com>, Boris
+ Pismenny <borisp@nvidia.com>, Carolina Jubran <cjubran@nvidia.com>, Cosmin
+ Ratiu <cratiu@nvidia.com>, Daniel Zahka <daniel.zahka@gmail.com>, Doruk Tan
+ Ozturk <doruk@0sec.ai>, Dragos Tatulea <dtatulea@nvidia.com>, Gal Pressman
+ <gal@nvidia.com>, Jianbo Liu <jianbol@nvidia.com>, Kees Cook
+ <kees@kernel.org>, Leon Romanovsky <leon@kernel.org>, open list
+ <linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
+ <linux-rdma@vger.kernel.org>, Mark Bloch <mbloch@nvidia.com>, Petr Machata
+ <petrm@nvidia.com>, Raed Salem <raeds@nvidia.com>, Rahul Rameshbabu
+ <rrameshbabu@nvidia.com>, Saeed Mahameed <saeedm@nvidia.com>, Shuah Khan
+ <shuah@kernel.org>, Shuah Khan <skhan@linuxfoundation.org>, Simon Horman
+ <horms@kernel.org>, Willem de Bruijn <willemb@google.com>, Willem de Bruijn
+ <willemdebruijn.kernel@gmail.com>
+Subject: Re: [PATCH net-next V4 14/14] selftests: drv-net: Add PSP HW GRO
+ conformance tests
+Message-ID: <20260911182433.74d3f73c@kernel.org>
+In-Reply-To: <20260908065244.3799142-15-tariqt@nvidia.com>
+References: <20260908065244.3799142-1-tariqt@nvidia.com>
+	<20260908065244.3799142-15-tariqt@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: shawn.lin@rock-chips.com, robh@kernel.org, heiko@sntech.de,
- dlemoal@kernel.org, linux-pci@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, lpieralisi@kernel.org,
- kwilczynski@kernel.org, bhelgaas@google.com, mani@kernel.org
-Subject: Re: [PATCH v2] PCI: rockchip: Skip the Tpvperl wait when power is
- already valid
-To: =?UTF-8?Q?Enrique_Hern=C3=A1ndez_Bello?= <ehbello@gmail.com>
-References: <20260911211559.207990-1-ehbello@gmail.com>
-From: Shawn Lin <shawn.lin@rock-chips.com>
-In-Reply-To: <20260911211559.207990-1-ehbello@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0933423fc03a4kunm40c32d25659aad
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZQ0xKTFYYGUlDGU8aHk
-	9PGEpWFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
-	tIVUJCSU5LVUpLS1VKQktCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=cxf08jnlyk6piigolkqCttl0YSj1g+2QbmF0qfW48jixSdNXBS62RrdYfpyeCe4ykg6faZFb5n3tENxhSudVN+Dhw1HlUUlL8evUWbYcja4hDbROnVo6+pNHZL82UCkMN79QJ9F2cFOLT/jyGDVtItkX/YetjYejI3fJze03Y2k=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=8/QG9JqLLnNaub/oqU9gkVaGaxueCMPbNMwP2fsCHcY=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-在 2026/09/12 星期六 5:15, Enrique Hernández Bello 写道:
-> Since commit c47f90be4c89 ("PCI: rockchip-host: Fix
-> rockchip_pcie_host_init_port() PERST# handling"), a JMicron JMB585
-> behind an rk3399 root port almost never becomes usable: the link trains
-> normally, but the endpoint's configuration space never answers, so the
-> device is not enumerated. On this controller a configuration read that
-> gets no usable completion is reported as an external abort rather than
-> as an all-ones response, which on arm64 brings the machine down.
+On Tue, 8 Sep 2026 09:52:44 +0300 Tariq Toukan wrote:
+> From: Cosmin Ratiu <cratiu@nvidia.com>
 > 
-> The change added an unconditional 100 ms sleep so that PERST# stays
-> asserted for at least Tpvperl after power becomes valid. The wait is
-> performed while PERST# is asserted, so it also extends the reset by
-> 100 ms, and this endpoint does not tolerate the longer assertion.
+> Add PSP conformance tests using the same gro helper binary as other gro
+> tests , but in --psp mode. SPIs are procured by psp_gro.py from a real
+> PSP device and handed off to the gro sender & receiver. The sender
+> crafts and encrypts packets in software, the receiver relies fully on
+> the HW to decrypt, decapsulate and do HW GRO.
 > 
-> Tpvperl is counted from the supplies becoming valid (PCIe CEM r5.1,
-> sec 2.9.2). On boards whose PCIe supplies are always-on -- vcc3v3_pcie
-> on ROCK Pi 4 is regulator-always-on and regulator-boot-on -- power has
-> been valid since boot, seconds before the driver probes, so the
-> requirement is already met and the sleep only lengthens the reset.
+> Because the NIC decrypts and decapsulates before the frames reach the
+> receiver AF_PACKET tap, the gro receiver sees the plain frames and the
+> assertions remain exactly the same as other gro tests.
 > 
-> Record whether the supplies were already enabled before the driver
-> enabled them, and skip the wait in that case. A supply that is already
-> on at probe was brought up either by the bootloader or by the regulator
-> core at boot, both of which precede a PCIe probe by far more than
-> Tpvperl. When the driver really does bring the rails up the full wait
-> still happens, as it does if regulator_is_enabled() cannot tell.
+> So these tests verify, at length, that the device does PSP HW-GRO the
+> same way as plain TCP.
 > 
-> The same check is repeated on resume rather than assuming that power
-> was cycled: suspend calls regulator_disable() on the 0.9V supply, which
-> only drops a reference, so on a board where that rail is always-on or
-> shared with another consumer the power stays valid across the cycle.
+> Additional PSP-specific tests are defined to check that GRO doesn't
+> merge packets across PSP versions, SPIs, encryption-status, etc.
 > 
-> Skipping the wait only when every supply is already on is strictly more
-> conservative than what this driver did for years: until the change cited
-> above there was no Tpvperl wait at all, and PERST# stayed asserted only
-> for as long as the register writes in between took.
-> 
-> Measured on a ROCK Pi 4C with a Radxa Penta SATA HAT (JMB585) by
-> booting repeatedly and counting how often the endpoint enumerated:
-> 
->    unmodified ....................................  0 out of 84 boots
->    with this patch ...............................  3 out of 3 boots
->    other ways of dropping the same wait ..........  16 out of 16 boots
-> 
-> Fisher's exact test, pooling the last two rows against the first, gives
-> p = 4.1e-21. With the patch the endpoint enumerated on every boot and all
-> four disks behind it came up.
-> 
-> Each of the three PERST#-related changes that landed together in
-> v6.11-rc1 was also reverted individually; only removing this wait made
-> any difference. Moving the wait to before link training is enabled,
-> rather than removing it, did not help (0 out of 15 boots), which is
-> what identified the length of the PERST# assertion rather than any
-> interaction with link training as the cause.
-> 
-> The measurements were taken on 6.18, but the code in question is
-> unchanged between v6.11 and v7.2.
-> 
-> Fixes: c47f90be4c89 ("PCI: rockchip-host: Fix rockchip_pcie_host_init_port() PERST# handling")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Enrique Hernández Bello <ehbello@gmail.com>
-> ---
-> ---
-> v2:
->   - Re-evaluate the supplies in rockchip_pcie_resume_noirq() instead of
->     assuming that the 0.9V rail was really turned off. On a board where
->     that rail is always-on or shared, regulator_disable() leaves it on,
->     and forcing the wait there would reintroduce on resume exactly the
->     failure this patch fixes. Spotted by an automated review of v1.
->   - Factor the test into rockchip_pcie_supplies_enabled() now that it
->     has two callers.
-> 
-> v1: https://lore.kernel.org/all/20260911104952.4190994-1-ehbello@gmail.com/
-> 
-> --- a/drivers/pci/controller/pcie-rockchip.h
-> +++ b/drivers/pci/controller/pcie-rockchip.h
-> @@ -318,6 +318,7 @@
->   	struct	regulator *vpcie1v8; /* 1.8V power supply */
->   	struct	regulator *vpcie0v9; /* 0.9V power supply */
->   	struct	gpio_desc *perst_gpio;
-> +	bool	supplies_pre_enabled;
->   	u32	lanes;
->   	u8      lanes_map;
->   	int	link_gen;
-> --- a/drivers/pci/controller/pcie-rockchip-host.c
-> +++ b/drivers/pci/controller/pcie-rockchip-host.c
-> @@ -314,7 +314,9 @@
->   	rockchip_pcie_write(rockchip, PCIE_CLIENT_LINK_TRAIN_ENABLE,
->   			    PCIE_CLIENT_CONFIG);
->   
-> -	msleep(PCIE_T_PVPERL_MS);
-> +	if (!rockchip->supplies_pre_enabled)
-> +		msleep(PCIE_T_PVPERL_MS);
-> +
->   	gpiod_set_value_cansleep(rockchip->perst_gpio, 1);
->   
->   	msleep(PCIE_RESET_CONFIG_WAIT_MS);
-> @@ -609,11 +611,33 @@
->   	return 0;
->   }
->   
-> +/*
-> + * Tpvperl is counted from the supplies becoming valid, and the driver waits
-> + * for it with PERST# asserted, so the wait also lengthens the reset pulse.
-> + * Supplies that are already enabled before this driver enables them were
-> + * brought up by the bootloader or by the regulator core at boot, both of
-> + * which precede this point by far more than Tpvperl, so the requirement is
-> + * already met. Treat an error from regulator_is_enabled() as "not known to
-> + * be on" so that the caller waits.
-> + */
-> +static bool rockchip_pcie_supplies_enabled(struct rockchip_pcie *rockchip)
-> +{
-> +	return (IS_ERR(rockchip->vpcie12v) ||
-> +		regulator_is_enabled(rockchip->vpcie12v) > 0) &&
-> +	       (IS_ERR(rockchip->vpcie3v3) ||
-> +		regulator_is_enabled(rockchip->vpcie3v3) > 0) &&
-> +	       regulator_is_enabled(rockchip->vpcie1v8) > 0 &&
-> +	       regulator_is_enabled(rockchip->vpcie0v9) > 0;
-> +}
-> +
->   static int rockchip_pcie_set_vpcie(struct rockchip_pcie *rockchip)
->   {
->   	struct device *dev = rockchip->dev;
->   	int err;
->   
-> +	rockchip->supplies_pre_enabled =
-> +		rockchip_pcie_supplies_enabled(rockchip);
-> +
+> Some gro tests are not included because they don't work:
+> - ip_csum: the checksum is recomputed by psp_dev_rcv().
+> - tcp_csum: packets are marked with CHECKSUM_UNNECESSARY.
+> - ip_frag4/ip_frag6: PSP is incompatible with IP fragmentation.
+> - IPv6 extension header tests: PSP doesn't deal with IPv6 ext headers.
 
-If it's pre-enabled, should we still need to enable this regulator just
-for adding a refcount for it?
+Daniel commented on the csum tests already, it'd also be good to
+understand what the problem with frag tests is. Presumably they
+get passed thru still encrypted? Or dropped and counted as errors?
 
->   	if (!IS_ERR(rockchip->vpcie12v)) {
->   		err = regulator_enable(rockchip->vpcie12v);
->   		if (err) {
-> @@ -890,6 +914,13 @@
->   	struct rockchip_pcie *rockchip = dev_get_drvdata(dev);
->   	int err;
->   
-> +	/*
-> +	 * Suspend calls regulator_disable() on the 0.9V supply, but on boards
-> +	 * where it is always-on or shared the rail does not actually drop, so
-> +	 * re-evaluate instead of assuming that power was cycled.
-> +	 */
-> +	rockchip->supplies_pre_enabled = rockchip_pcie_supplies_enabled(rockchip);
+> diff --git a/tools/testing/selftests/drivers/net/hw/Makefile b/tools/testing/selftests/drivers/net/hw/Makefile
+> index 6105be8e590f..daa7e52f236e 100644
+> --- a/tools/testing/selftests/drivers/net/hw/Makefile
+> +++ b/tools/testing/selftests/drivers/net/hw/Makefile
+> @@ -13,6 +13,20 @@ else
+>  $(warning excluding iouring tests, liburing not installed or too old)
+>  endif
+>  
+> +# psp_gro.py uses the gro binary in PSP mode, which requires OpenSSL.
+> +PKG_CONFIG ?= pkg-config
+> +HAVE_OPENSSL := $(shell echo 'int main(void) { return 0; }' | \
+> +		  $(CC) -x c - -include openssl/evp.h \
+> +		  $(shell $(PKG_CONFIG) --cflags --libs libcrypto 2>/dev/null \
+> +			  || echo -lcrypto) \
+> +		  -o /dev/null >/dev/null 2>&1 && echo 1)
 > +
->   	err = regulator_enable(rockchip->vpcie0v9);
->   	if (err) {
->   		dev_err(dev, "fail to enable vpcie0v9 regulator\n");
-> 
-> 
+> +ifeq ($(HAVE_OPENSSL),1)
+> +COND_PROGS += psp_gro.py
+> +else
+> +$(warning excluding PSP GRO tests, libcrypto not installed)
+> +endif
+
+Looks like slop. Why do this? Just run the test and see if it works.
+Don't hide the python tests because build was lacking. We explicitly
+want to see all tests run and fail if something is missing in the build
+setup in NIPA.
+
+If you really want you can "probe" or display the support in some --help
+message from the binary and check at runtime. 
+
+>  TEST_GEN_FILES := \
+>  	$(COND_GEN_FILES) \
+>  # end of TEST_GEN_FILES
+> @@ -40,6 +54,7 @@ TEST_PROGS = \
+>  	nk_qlease.py \
+>  	ntuple.py \
+>  	pp_alloc_fail.py \
+> +	$(COND_PROGS) \
+>  	rss_api.py \
+>  	rss_ctx.py \
+>  	rss_drv.py \
+> @@ -64,6 +79,8 @@ TEST_FILES := \
+>  
+>  TEST_INCLUDES := \
+>  	$(wildcard lib/py/*.py ../lib/py/*.py) \
+> +	../gro_lib.py \
+> +	../psp_lib.py \
+
+ugh, just move the test down to the drv-net dir, and Xfail for
+netdevsim. Both PSP and GRO live in ../ better to keep this test
+there as well.
+
+> +# Tests for both IP versions, a subset of gro tests. Missing:
+> +# - tcp_csum: PSP packets are validated by HW (with the ICV) and marked with
+> +# CHECKSUM_UNNECESSARY.
+> +_COMMON = ["data_same", "data_lrg_sml", "data_sml_lrg", "data_lrg_1byte",
+> +           "data_burst",
+> +           "ack",
+> +           "flags_psh", "flags_syn", "flags_rst", "flags_urg", "flags_cwr",
+> +           "tcp_seq", "tcp_ts", "tcp_opt",
+> +           "ip_ecn", "ip_tos",
+> +           "large_max", "large_rem",
+
+Really not great that we have to duplicate all the cases under psp.
+Narcisa is adding BIG TCP cases for instance, how are we
+going to keep this in sync :S
 
