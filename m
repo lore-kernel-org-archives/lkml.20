@@ -1,127 +1,261 @@
-Received: from mail-ej2-f2.google.com (mail-ej2-f2.google.com [74.125.228.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 626F33B3C12
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 20:33:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.130
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789245201; cv=pass; b=HQnq6OP6M/Fit2+4nXyk4wbdfxJ2VaRG8zb1Fsmj7HtIjMMsnTHMncDj7a+9qLuQvrwFw4Pjy5UeRf7ddWb7Rxb44MtBwPIStiyaw+pvUmI5sMPtNvWWR3D0Zy42kHGvyBIsXtfB7NM2/9YEg6AO7mXFj7XpjlF0pAUqnbQXjzk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789245201; c=relaxed/simple;
-	bh=rqyBuqSHWVw61RfLl33rH8YgPC33rT4HhMMfaGZOUmk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=XPRVNC2DLsvn//WSozaTJHdeb2vKweMKfDeV/pSmc2XH3RdoQJv8VQz1h1m8Cavs/mlOJhUFG2vIZkkh7RGSaxKv3tmi2SYT/3y4sElxSZHOL+lC5tblu0NGaqat9K+XjyFO+LEQJufotOQFv3WrlqDL582R7lVUOtYPzAQA2mQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Jbjo574P; arc=pass smtp.client-ip=74.125.228.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCFBA382292;
+	Sat, 12 Sep 2026 20:36:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789245369; cv=none; b=fKW0isu5YaPJjNuRCn7r7f/TyyE9ceoOBYDOTIP+XdnEYiP5actJOfsUNX/uirfnj9EjxKb43LROJeqAt9RN6G9SwCKcuIu48qMqeM83aH1re2B0WivhEkq/+QQJDi/9rzJ7V2LryhcT2+rK1k9hWZ8PG8+lE3fzZgrCp3fzWAQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789245369; c=relaxed/simple;
+	bh=pQ/xiZi7CyghD+EeLTv8Kk6qQxqx3iEelRKILdAHWjc=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=G/6q5bXjhjKImQvJcoZj8Ukt7VtBQBO2+LWjADki1S+7kS1/vKQ5ThDEOMX4EUIW7jmEMECAS9kadSgiiKxARUxQsXgvWwcgZsdpV1Qj5+9WUhIk3NE3rbXAb9K6OlF6L0HwZOLURUfddpeKZ0313gQEn8vOOGotpQWcPbNBgK4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XEMYoKz4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Jbjo574P"
-Received: by mail-ej2-f2.google.com with SMTP id a640c23a62f3a-c294938a983so107227166b.0
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 13:33:19 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789245197; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GWgI/KRV6aB2p6cYolPMuvqlI3QujnX+m4LgklTj5HxgU0J8sPRRdPySh7bMuvrbIa
-         Ov8ZpTj/5ay0VsTij7q5ARsD8gJR7XfjUQ2C0+yD7ez/3VQtJjoHg7q2IvHFvCHsGY2R
-         UJOyEF6qCP3yxdjuy50a1/2gJuTEiVyMGMA7J7aFym60XEVyIMzKXbJZ7+zLJw89MjAv
-         IZKdQ7WFpKPKTpgWarSVj6LYEp9TvL2cVFm2t4mDtBoctRi8k9Q9Ygkfsct2Amdk+3g9
-         DZ6VUFiSY/EngGLIRCF5ZdWiPNuM3W6CUrmEOQcxjazuBOMHhqAuwv3dqe3OS3kXQTMJ
-         8Blw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=fXb2RdQOVdFeimkTuBnAC0nV21XWeOYpcj6vU3s52nc=;
-        fh=VutYIiU5d26QgRFCzmJUy7vVjCZwMiYhAfe0OGBBak4=;
-        b=pvMK5TxV/dP4nVrUouJ7pe+ZtmP2r9gVkdcaIp+pTAPPnUCzImMMjSl2P5d/SHtOXN
-         cvQKynv1ww9JSvSHw1Tr2jn2DilKSaG7gwTWvZR5IMPWgLlGkWt07VqCRJUfAHr9C40w
-         Ke0WQNE5ePKsI8MN21TDykpRipVd2IzQoquY6BJgeruOkwRoCHnw4YfXQq8fQwu73yn/
-         4jmzZ28zaMFhEwtz7vbIo6RRAYrsmrlCOLqrKb4Ec+qcwJwQCsehHJ4ZmTTzMQHUvBTQ
-         wYw7u+/ejP78MoGf/R/g9Hq549zj+RaMu4U1JTDzsbiHVsKWK5X5oFL+hgI792XJ9G6L
-         6esg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789245197; x=1789849997; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=fXb2RdQOVdFeimkTuBnAC0nV21XWeOYpcj6vU3s52nc=;
-        b=Jbjo574PeTwU3+ByMmD0BDF3eHeS+YkszMRg9Bo7/IIlHtfBp7jgOLCGKQ7+5+1raM
-         fUqdKA0UE/3fwUTp4r/6j/yU3C7O24396HMzfdE9XC65WsHanQkgjirPppgsGFkcdgvl
-         bhlgEUqawkFA1HR0vwDkl8c8DbnKmwbzmX/U6dh9095SCPvDa+NcGEzbC0cuf/Ah13XL
-         AUTfaAd8hqJbArhLA9GWAX7vPXVAPRsC5K4PRaphHqNMD5424cAQlEE889b1JNP8+8r1
-         mg1+L92vDMS1CO3hlBJoqQp6rUsEWQ83E0ya+3hFyICO5HQb9w2EK5ey1CSwrfvq9CJm
-         U6AA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789245197; x=1789849997;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fXb2RdQOVdFeimkTuBnAC0nV21XWeOYpcj6vU3s52nc=;
-        b=EBdrvm1YeNP5q809B4WH4Q8SGtT98YjTrad/y3AdmOAyC6nNKkseixnC+HAd7bpMZR
-         h7gjZGfmCmh3QkkyJusjVGkqqCq1U2ABjv1uwlUZ7oTli+wTJhpd+qFxL4tpk0oCftp6
-         9oBVH7OeHl5HdgyHBvHfsZAitCq4AlGzwjz8X50EUGavND5BKd2t9HJJHYM2tXCHCeVJ
-         +0ag+9ROpxPxR5cWyj5QdkCneDPHFKjEdxdxZJlhkMmGnrFnMKZRVbLj8n3uAL8E+nR/
-         dsmOICvG8xHir52+7jn8vxz4A97q97lnmTq9ux2YACUPcJg2xlkPAlu9VMqLijc+4pjG
-         ehLQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwzNQSsNqvbH/rYcohoDzDU9vBA9LtY01EEAKTprqCberjlFzwop56fy0y43SSplEbvTuJH3B4vkZ7wT3Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++l9EtkQEz1+3Jxdln2CgmWf0I+TuKK1HGfqjIbCO8+t4bj+mAx0
-	zZdiE5Yb//qkqVcOTOZ30Nd9VWvUMTPwy+fSyEo+iOw+u/T9z1raJCGpDtEXmssWNDOrycY4XcX
-	RZZWHilaoQ8zTnVRDkhS2sRbqyQheGbQ=
-X-Gm-Gg: AYBFou1keKThCgWUEgYsQpSF+f5RPCa6aztapRFDI2rpIjGURsDUlpQLuIIrn9JkStJ
-	OyB0IVRkk9FhXVME+K0rRsSfhbsaeVHfc9/Jnd/QpHLZWucQSj7cCCdLE4TJ1uHsAlet7utUYP6
-	GDjEJUaRz2klk3D1ujjmmdayWcAmHq/deGYybd9TS3u2SQsaI2S/5pukspUjAnN9tjZJXJ6QfbY
-	D6FICiz+MDrOcgZq48gx1oGNlLq+IGhoi7xNU/ZrElHzSN1yem9to+y1jEo0V0ywgRyRZQrqlG/
-	HDCZokvb7SnUSETqfIl85a+b2fzoynTLE9HPFgYhBIOVK1o3TMCCHiqjww==
-X-Received: by 2002:a17:907:d02:b0:c25:2a78:15ed with SMTP id
- a640c23a62f3a-c296659c61fmr976523566b.6.1789245197295; Sat, 12 Sep 2026
- 13:33:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XEMYoKz4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F2481F000FF;
+	Sat, 12 Sep 2026 20:36:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789245366;
+	bh=3Mf+Bus7bZExgX6eYnOhdv7JCpgr42IOI7dNLYeXZDg=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=XEMYoKz4ALPiSXMax/Cs8C4xOjdSa5xuiMZI/JrBpmZruaGuCY1lED7PWaJUYypz6
+	 8iUo5JoTAt4byFY8nISrlCvhryA4MyqlrRRu7JtEjkchgOU85PsXbZBw6jeU/bXwIu
+	 Q8Hfv8/fyHcfa7sRwaSGIwJLSrXxwPxsjmYEKCoMO0QDaT2UhlZQtXFMUtY7YChHlr
+	 6ZjpINW50T2osjv1SGr3Y3uohbuUpE0JJxOPs+EAk6AZIDJ20/BHNbkJE1M9+LWuWf
+	 GXz3lVIJAaEeYCQm/+TQSrWxH+hzuE7gCsSIZZ4TTM7Ur0hFqw6ICYis613/MyRQw9
+	 /AyAu8l6C2LcA==
+Subject: Re: [PATCH net-next v2 1/8] dt-bindings: net: add Xilinx TSN Endpoint
+ Ethernet MAC
+From: netdev-bot+sashiko@kernel.org
+To: srinivas.neeli@amd.com
+Cc: nagadheeraj.rottela@amd.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, richardcochran@gmail.com,
+ michal.simek@amd.com, bigeasy@linutronix.de, clrkwllms@kernel.org,
+ rostedt@goodmis.org, netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rt-devel@lists.linux.dev, neelisrinivas18@gmail.com, git@amd.com
+Date: Sat, 12 Sep 2026 20:36:04 +0000
+Message-ID: <178924536482.3125.12884246382008244685@kernel.org>
+In-Reply-To: <20260909-patches_v2_external-v2-1-3a40babaff4c@amd.com>
+References: <20260909-patches_v2_external-v2-1-3a40babaff4c@amd.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260907153713.2572547-2-coiaprant@gmail.com> <20260912131421.2960a12d@kernel.org>
-In-Reply-To: <20260912131421.2960a12d@kernel.org>
-From: Coia Prant <coiaprant@gmail.com>
-Date: Sun, 13 Sep 2026 04:33:05 +0800
-X-Gm-Features: AcwNN1Wp1szdgOCnvhL-ujyIZJIERlGVxaN0L7OfiFu9TcpEfz4jyCgcrEH55iM
-Message-ID: <CALj3r0itTv0+8R+mTg3wtMD95=4V3Znwsk48oxaSjrVMLoJfJA@mail.gmail.com>
-Subject: Re: [PATCH net-next v4 00/10] net: pcs: add basic support for RK3568 XPCS
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, Vinod Koul <vkoul@kernel.org>, 
-	Maxime Chevallier <maxime.chevallier@bootlin.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
-	Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
-	Romain Gantois <romain.gantois@bootlin.com>, Heiner Kallweit <hkallweit1@gmail.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Russell King <linux@armlinux.org.uk>, 
-	Shawn Lin <shawn.lin@rock-chips.com>, David Heidelberg <david@ixit.cz>, netdev@vger.kernel.org, 
-	linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com, 
-	linux-renesas-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Jakub Kicinski <kuba@kernel.org> =E4=BA=8E2026=E5=B9=B49=E6=9C=8813=E6=97=
-=A5=E5=91=A8=E6=97=A5 04:14=E5=86=99=E9=81=93=EF=BC=9A
->
-> On Mon,  7 Sep 2026 23:37:03 +0800 Coia Prant wrote:
-> > This series adds proper SGMII support for the Rockchip RK3568 SoC
-> > using the integrated Synopsys DesignWare XPCS, along with necessary
-> > fixes and refactoring in the stmmac core and XPCS driver.
->
-> Sending the AI review FYI, please look thru it and judge if any of the
-> comments are worth respinning for. We're waiting for a review on the
-> device tree bindings, anyway.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider:
 
-I apologize; I have been so busy this week that I=E2=80=99ve repeatedly
-overlooked my plan to reply to sashiko-bot's comment. I will get back
-to you as soon as possible.
+Critical: 0 · High: 0 · Medium: 1 · Low: 1
 
-Best,
-Coia
+- [Medium] Inconsistent/incomplete port constraints in the new switch
+  `^(ethernet-)?ports$` container.
+- [Low] The endpoint MAC child's DMA/queue description is under-
+  constrained and, more importantly, duplicates information that is…
+
+--
+
+dt-bindings: net: add Xilinx TSN Endpoint Ethernet MAC
+
+Adds a new binding for the Xilinx TSN Endpoint Ethernet MAC IP in the
+Bridged Endpoint configuration.  The wrapper node owns the six IP clocks
+and xlnx,num-priorities, and has an ethernet@ child for the endpoint MAC
+and a switch@ child for the three-port switch plus its two per-MAC
+windows.
+
+Two questions below about the schema constraints.
+
+> diff --git a/Documentation/devicetree/bindings/net/xlnx,tsn-endpoint-ethernet-mac.yaml b/Documentation/devicetree/bindings/net/xlnx,tsn-endpoint-ethernet-mac.yaml
+> new file mode 100644
+> index 000000000000..4e65d1710da7
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/net/xlnx,tsn-endpoint-ethernet-mac.yaml
+> @@ -0,0 +1,364 @@
+
+[ ... ]
+
+> +  xlnx,num-priorities:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    minimum: 2
+> +    maximum: 8
+> +    description:
+> +      Number of traffic classes (priorities) configured in the IP.
+> +      This is an IP configuration parameter that determines the number of
+> +      priority queues available for QoS scheduling. Traffic classes map to
+> +      IEEE 802.1Q priority levels (0-7).
+
+[Severity: Low]
+
+Is xlnx,num-priorities derivable from the properties already present in
+the ethernet@ child?
+
+The driver added later in this series only accepts one value for it.  In
+xlnx_tsn_ep_probe() in drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c:
+
+	if (num_tx != num_prio)
+		return dev_err_probe(dev, -EINVAL,
+				     "TX channel count %u must equal num-priorities %u\n",
+				     num_tx, num_prio);
+
+so the only legal value is the number of tx_chanN entries in the child's
+dma-names.
+
+Since this is a required ABI property, would it be better to drop it and
+count the tx_chanN entries, or, if it must stay, to state in the
+description which of the two is authoritative?
+
+[ ... ]
+
+> +      dma-names:
+> +        minItems: 2
+> +        maxItems: 16
+> +        items:
+> +          pattern: "^(tx|rx)_chan[0-7]$"
+> +        description: |
+> +          Names matching the entries in 'dmas', one per DMA channel and in
+> +          the same order. TX channel names use "tx_chan<N>" and RX channel
+> +          names use "rx_chan<N>", where N is 0..7. Example: "tx_chan0",
+> +          "tx_chan1", ..., "rx_chan0", "rx_chan1", ....
+
+[Severity: Low]
+
+A plain items pattern here also accepts lists the description rules out:
+a TX-only or RX-only list, the same name repeated twice, or RX names
+before TX names.  Could the entries be spelled out as an ordered items
+list (or split with minItems/maxItems per direction) so the "TX first,
+then RX" ordering is actually enforced?
+
+> +      tx-queues-config:
+> +        type: object
+> +        additionalProperties: false
+[ ... ]
+> +        patternProperties:
+> +          "^queue[0-7]$":
+> +            type: object
+> +            additionalProperties: false
+[ ... ]
+> +            properties:
+> +              xlnx,dma-channel-num:
+> +                $ref: /schemas/types.yaml#/definitions/uint32
+> +                description:
+> +                  DMA channel that transmits this priority queue, given as
+> +                  the N of the tx_chanN entry in dma-names.
+> +                minimum: 0
+> +                maximum: 7
+
+[Severity: Low]
+
+tx-queues-config is required but has no required queueN child, so an
+empty tx-queues-config node validates.  xlnx,dma-channel-num is also
+bounded only by 0..7, so a queue may point at a channel that is absent
+from dma-names, or at a channel another queue already claims.  Was at
+least a required queue0 intended here?
+
+[ ... ]
+
+> +    patternProperties:
+> +      "^(ethernet-)?ports$":
+> +        type: object
+> +        additionalProperties: false
+> +
+> +        properties:
+> +          '#address-cells':
+> +            const: 1
+> +
+> +          '#size-cells':
+> +            const: 0
+> +
+> +          port@0:
+> +            type: object
+> +            unevaluatedProperties: true
+> +            description:
+> +              CPU port. Wired internally to the endpoint MAC sibling.
+> +
+> +            properties:
+> +              reg:
+> +                const: 0
+> +
+> +              phy-mode:
+> +                const: internal
+> +
+> +            required:
+> +              - ethernet
+
+[Severity: Medium]
+
+Should reg be required on port@0 as well?
+
+The value is constrained with reg: const: 0, but the required list only
+names ethernet, and nothing in the inherited chain makes reg mandatory:
+dsa.yaml#/$defs/ethernet-ports -> dsa-port.yaml only defines it,
+
+  properties:
+    reg:
+      items:
+        - description: Port number
+
+and its if/then on ethernet/link requires phy-mode plus one of
+fixed-link/phy-handle/managed.  ethernet-switch.yaml's ports container
+requires only #address-cells/#size-cells.
+
+So this node passes dt_binding_check:
+
+    port@0 {
+        ethernet = <&ep_mac>;
+        phy-mode = "internal";
+        fixed-link { speed = <1000>; full-duplex; };
+    };
+
+but dsa_switch_parse_ports_of() in net/dsa/dsa.c bails out on it:
+
+	for_each_available_child_of_node(ports, port) {
+		err = of_property_read_u32(port, "reg", &reg);
+		if (err) {
+			of_node_put(port);
+			goto out_put_node;
+		}
+
+That is also asymmetric with the sibling ^port@[1-2]$ subschema below,
+which does require reg.
+
+> +        patternProperties:
+> +          "^port@[1-2]$":
+> +            type: object
+> +            unevaluatedProperties: true
+> +            description:
+> +              External Ethernet port. port@1 is wired to MAC1 and reached
+> +              through the mdio-1 bus, port@2 is wired to MAC2 and reached
+> +              through the mdio-2 bus.
+> +
+> +            properties:
+> +              reg:
+> +                enum: [1, 2]
+
+[Severity: Medium]
+
+Since both external node names share this one subschema, reg is
+decoupled from the unit address.  This validates:
+
+    port@1 { reg = <2>; phy-handle = <&phy0>; phy-mode = "rgmii-id"; };
+    port@2 { reg = <1>; phy-handle = <&phy1>; phy-mode = "rgmii-id"; };
+
+as does giving both ports the same reg value.  The description keys the
+MAC and MDIO association by node name, while the DSA core selects the
+port by the reg value, so a swapped DT passes the schema and then
+associates the wrong PHY/MDIO bus with each MAC.
+
+Would per-port subschemas with reg: const: 1 and reg: const: 2, in the
+same style used for port@0, work better here?
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260909-patches_v2_external-v2-0-3a40babaff4c%40amd.com
