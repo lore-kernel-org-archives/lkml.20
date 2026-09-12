@@ -1,266 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BC5319D8BC;
-	Sat, 12 Sep 2026 10:28:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 902D53C9ED6
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 10:30:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789208913; cv=none; b=Way/xeMr8fbGNtFvIuoi8dbwhGqfpfuL06mXsYVQem0LCCCd7esoY6mFthmdf/HI+PZrI37UHRFmPvC7Po1pI0YMn2Ei0GoGsTo1bDde3dcXl/ydiYHIjXkQNU363IXU3brT9qNS+7UzWxs+lLIpr88E/PH+zsfJik0q/E5F7eg=
+	t=1789209020; cv=none; b=hGCZDRKvJl0mRWvLaTD9gpbx1U+42NjB7RHzBx2HRD+lQ+ywkB0kX8F+nMJ2nYWwl2L9GgMMPoxPfmhDhow05EebB7Vvfa9zdQ4pW0zFVGyfip9QEz09SO0z3pyoIYIJzL8Vp0x35EP/1igpWTMbOcIezu/414ZZw6EMjsv45Mw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789208913; c=relaxed/simple;
-	bh=tLEFTsIWr9PBRCDuxXSlgORwhEQ8o/t+rrtg8hpJDlk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YaMxfl42kcqy1eEDwR5a76V6nGbpbWG2P1pjhtqduXR5b6APrz4TMZOmtKzWVCzpzSIrIF1gKZoU1ZWjHWinbOC1VNNd8uv71l9YLzAJR3au5NWYNQxj+YE3B4Kj6TnmWnX32oZTFhmdMUW4WJD5pKyBMmkCLObbwmf9/dBxhmM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e2l4h1Pm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789209020; c=relaxed/simple;
+	bh=uidliuKGHw2E/ldvvPAHKDIwXVmXlX9yLSj8Rr6/5q8=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=fCFdIGV4EUGLPgNUsbju9PWnaLJkqsxlDvfVE/RS5AjEvnfzOsdiCf1g6Zg7HszTwKrlHv3DpfwrecpDRp/Cf7u43Qh/n6svzS9tnNcZoanfcXE9HORibyAEhV/fN9B1KVMqgQwBdExIc2YlEVXF49g8bvieQ8NbwzUe87CqTfY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ehIKw9AU; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=EUwKAq2O; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e2l4h1Pm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 617FE1F000FF;
-	Sat, 12 Sep 2026 10:28:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789208911;
-	bh=At+WeKXtQjeogENKXppQ8RFPEPNYjU9qfcKZa6sKpdk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=e2l4h1Pm+ysCufWt/uQ0dElEbJq/UZQxBeNOLINZ0nWL4VjzyzhGBk7wPagGO9udD
-	 2X3JAIh9PtniXevsaELg2k1qDTKXv+20pk3UJKhBiiq0lmplzFnblhwxy1BKMTJM6p
-	 5cgt0R3BnQJUvBd6uAdVXNF5QfG+55LHVz1anjn3AHDHM6mryPw3gEkoFaDmdmnsyJ
-	 5MhFGqr5Ac9SksS31H7P8Kp8QnpeG0N/WL5yMg669YJMOx1ZYLPWeAjF+4o0acbhCI
-	 j5JP2N0EotWKjUExD864PxDvPcDdB6kXdUqZRqBT6ycZ//pgbs+6c6PGmWqu2mo2Yw
-	 NOgyKu8mYLtUw==
-From: Simon Horman <horms@kernel.org>
-To: zihanx@nebusec.ai
-Cc: Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org,
-	linux-afs@lists.infradead.org,
-	dhowells@redhat.com,
-	marc.dionne@auristor.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	vega@nebusec.ai,
-	root@tr0jan.top
-Subject: Re: [PATCH net v4 1/1] rxrpc: fix encap_rcv skb accounting exhaustion
-Date: Sat, 12 Sep 2026 11:26:59 +0100
-Message-ID: <20260912102659.174546-1-horms@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <ca1d010bc963319d4167b8e985b5afac5912f6da.1788878590.git.zihanx@nebusec.ai>
-References: <ca1d010bc963319d4167b8e985b5afac5912f6da.1788878590.git.zihanx@nebusec.ai>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ehIKw9AU";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="EUwKAq2O"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789209017;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type;
+	bh=tKE4fvWSK04nXM2Txdsuz1dl1KZf76ZKjdSpilIXM+w=;
+	b=ehIKw9AUG5XB2iCO5/p9yki0KcPNKBGQriw0QzkwCc6rzfn09b09qbe4o6XkzNbbFKUY80
+	x1fA5JXqvXNfVB1KKax+0O2hOxndkGGTucmjC7MpW6CKn7KzEqBHVVRGQz5ri34s65HtwQ
+	Vs7k8/E7zoSOAjKx/8Oz/qe21phVr/k=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-249-orPAN5A8PSOseO-PSyP9JQ-1; Sat, 12 Sep 2026 06:30:16 -0400
+X-MC-Unique: orPAN5A8PSOseO-PSyP9JQ-1
+X-Mimecast-MFC-AGG-ID: orPAN5A8PSOseO-PSyP9JQ_1789209015
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4994cf6cdb9so12906935e9.3
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 03:30:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1789209015; x=1789813815; darn=vger.kernel.org;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tKE4fvWSK04nXM2Txdsuz1dl1KZf76ZKjdSpilIXM+w=;
+        b=EUwKAq2OrUEoU26Vo1hzpGbB6/bZ+UjwTtOd/RBE1PnqniYhCaDnxNx+08B6Z6xPAC
+         PKn4D4xqPg62kWXiiy3C+fNd6Tr/bQoYdXK0l3Voq0Vk3jDRsdhLcsB2EhShCTzpP1Ye
+         Li6kIU5FL1FXzDclblXYgqGfTgwe7aLPCUNPSn20sraq1ac/7xOFYyaulI8Q9Z+QF4TE
+         KsZvhuK9lC2xWJ8KeGKn7zXYl1eVEH94788PUQ+Pfv9iJD4fNqNEi+KAFYw675g+01Tf
+         nJAa3Gz+9Ax/3DHjZGa18UUeYIzvx48Fg3mm+f+DX7JbIAT4mjHhVWEG/bQ6Dg127DN0
+         ZYdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789209015; x=1789813815;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tKE4fvWSK04nXM2Txdsuz1dl1KZf76ZKjdSpilIXM+w=;
+        b=rVAChuWzkcL/5cmYSNHQFxtuA/ettYqsJfO+AeLybJ9KuiUyKDHp5H9eWu/tK+HDjZ
+         wBeQIlHgmnw7SQpol5nhKNxCQf3yEgZlmVZ2VWQvE+A0+vscZ+luc7TB5Nko+8HBMXTM
+         6TR+4Ta9dBEBxXW4sZDlySSXux2BuqMCiExTlRb0NtYIMQvsyB7Cah1SYAmnOK5JyJFy
+         3Xqgxz0CwllRS0Qqtw0Kl1g61msd9rtt+EbnsxTU9G8ZszukA24t1thpy2BOkzvg7aRR
+         V7SdMXTwjLIV/FGHCVreTb4meX/3mzXNw1jXp2CI0urHYJaD+oqAXyPaVU0JyiDK/lpQ
+         Jnnw==
+X-Forwarded-Encrypted: i=1; AKwUvBzbmUWzqUjNyj7qrdpIfmwCGFavmWsre05tW9NSLMHmVdWsXTbAaWV+kL3TX3oO0igWat+4RHEIQJR+IIQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nSMMAAVLOg3wCqPOeZyy36hVxATps+TqPs5Jf+M5XErLimtmQk
+	r4ZB8R3w+p+TTyAc+2GvsCXxhHFtshh2ZPGG/JgK3jK52QiFau2UJODyYEYsAgfHFAv82XGV3MV
+	mNIP4bm+GC2cLYFdls5QRy6ZAlWiNLEG10L6wD1Q9P/QtS5wWPkU5M/qq+DvIzlgJJA==
+X-Gm-Gg: AYBFou0Wz4Pz3VtAfM6I4tuRgLNoC7vIZqgM2NjitT9N7zJk5iJCc8tOqSQTll63QOr
+	EH9hHpC0s+SaXS5sjiICXJGfO058WcUHaDjap4n1Zc2ZS2SKCCImBP20cIQQOYDSoMk2NBIkOFd
+	CprKtCSLX/hVFo9rz9n7TaiwiCtt98ISVb2djKj6V5kG0NKQkKo0afrpAX/PQptPoLdEGFESPYA
+	wYcU44Nju3iXfxnXV20SqYgFslOmMVB6KmnaMecMzxw7vO2/VviAheF3ONDREVhLgwNOfTgi1ne
+	ZPrcT0xNOgsafUesqgc9uC1XSK8wnP+I3c8NuF1+WL0ql0ybj26SqkmMospBSJtvGvY=
+X-Received: by 2002:a05:600c:138c:b0:49c:fa21:1c84 with SMTP id 5b1f17b1804b1-49e6cc078b0mr17506645e9.25.1789209014712;
+        Sat, 12 Sep 2026 03:30:14 -0700 (PDT)
+X-Received: by 2002:a05:600c:138c:b0:49c:fa21:1c84 with SMTP id 5b1f17b1804b1-49e6cc078b0mr17506075e9.25.1789209014057;
+        Sat, 12 Sep 2026 03:30:14 -0700 (PDT)
+Received: from redhat.com ([147.235.223.59])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb34e608sm12850975f8f.23.2026.09.12.03.30.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 12 Sep 2026 03:30:13 -0700 (PDT)
+Date: Sat, 12 Sep 2026 06:30:11 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: virtualization@lists.linux.dev
+Cc: jasowangio@gmail.com, eperezma@redhat.com, xuanzhuo@linux.alibaba.com,
+	jiri@resnulli.us, kmehltretter@gmail.com, sashiko-bot@kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4 0/3] virtio: fix callback synchronization and avq cleanup
+ on reset
+Message-ID: <cover.1789204858.git.mst@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailer: git-send-email 2.51.2.2891.g4157995a80.dirty
+X-Mutt-Fcc: =sent
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
-Full review at: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/ca1d010bc963319d4167b8e985b5afac5912f6da.1788878590.git.zihanx@nebusec.ai?part=1
----
-rxrpc: fix encap_rcv skb accounting exhaustion
+Two issues with virtio device reset:
 
-This charges encapsulated packets against the UDP tunnel socket's receive
-buffer in rxrpc_encap_rcv() and drops them once sk_rcvbuf is reached, then
-orphans PACKET skbs when the I/O thread dequeues them.  It also moves the
-sk_user_data clearing under RCU and defers sock_release() until after the
-local queues are purged.
+1. Karl Mehltretter reported that virtio_reset_device() promises
+   callbacks are not in progress after reset, but only PCI transports
+   actually synchronize callbacks - other transports leave a window
+   where a handler already executing keeps running while the driver
+   tears down state.
 
-Link: https://lore.kernel.org/all/cover.1788539302.git.zihanx@nebusec.ai/
-Link: https://lore.kernel.org/all/cover.1785339953.git.zihanx@nebusec.ai/
-Link: https://lore.kernel.org/all/cover.1784742007.git.zihanx@nebusec.ai/
+2. sashiko reported a race in virtio_pci_modern: the avq interrupt
+   handler calls virtqueue_get_buf concurrently with
+   virtqueue_detach_unused_buf in vp_modern_avq_cleanup, and there
+   is no synchronize_irq between reset and cleanup.
 
-> diff --git a/net/rxrpc/io_thread.c b/net/rxrpc/io_thread.c
-> index dc5184a2fa9d..415b05f5e2b4 100644
-> --- a/net/rxrpc/io_thread.c
-> +++ b/net/rxrpc/io_thread.c
-> @@ -13,6 +13,22 @@ static int rxrpc_input_packet_on_conn(struct rxrpc_connection *conn,
->  				      struct sockaddr_rxrpc *peer_srx,
->  				      struct sk_buff *skb);
->  
-> +/*
-> + * Drop UDP rmem ownership for packets charged in encap_rcv().
-> + * sk_forward_alloc is serialised by sk_receive_queue.lock.
-> + */
-> +static void rxrpc_skb_orphan_udp(struct sk_buff *skb)
-> +{
-> +	struct sock *sk = skb->sk;
-> +
-> +	if (!sk)
-> +		return;
-> +
-> +	spin_lock_bh(&sk->sk_receive_queue.lock);
-> +	skb_orphan(skb);
-> +	spin_unlock_bh(&sk->sk_receive_queue.lock);
-> +}
-> +
->  /*
->   * handle data received on the local endpoint
->   * - may be called in interrupt context
+Fix 1 by adding virtio_synchronize_cbs in the core after reset,
+then dropping the now-redundant per-transport sync calls. Fix 2 by
+moving avq cleanup from vp_reset to a modern-specific del_vqs
+wrapper, which runs after callbacks have been synchronized - and is
+where buffer teardown conceptually belongs.
 
-[ ... ]
+Changes v3->v4:
+    patch 1: add Tested-by and Acked-by from Karl
+    patch 2: was patch 3 in v3; instead of moving
+        vp_modern_avq_cleanup() to the common vp_del_vqs(),
+        add a vp_modern_del_vqs() wrapper in
+        virtio_pci_modern.c. Split out callback sync removal
+        into a separate patch.
+    patch 3: was patch 2 in v3 (legacy only); now includes
+        modern transport too.
 
-> @@ -52,6 +66,22 @@ int rxrpc_encap_rcv(struct sock *udp_sk, struct sk_buff *skb)
->  	}
->  #endif
->  
-> +	spin_lock(&udp_sk->sk_receive_queue.lock);
-> +	if (atomic_read(&udp_sk->sk_rmem_alloc) >= READ_ONCE(udp_sk->sk_rcvbuf) ||
-> +	    !sk_rmem_schedule(udp_sk, skb, skb->truesize)) {
+Changes v2->v3:
+    patch 1: unchanged
+    patch 2: split from v2 patch 2 - legacy part only
+    patch 3: new in v3
 
-[Severity: High]
+Michael S. Tsirkin (3):
+  virtio: synchronize callbacks after device reset
+  virtio_pci_modern: move avq cleanup from reset to del_vqs
+  virtio_pci: drop callback sync on reset
 
-Which sk_rcvbuf value does this end up comparing against?  Nothing in
-net/rxrpc/ sizes the tunnel socket's receive buffer.  rxrpc_open_socket()
-calls udp_sock_create() and setup_udp_tunnel_sock(), neither of which touches
-it, so it stays at what sock_init_data() assigned:
+ drivers/virtio/virtio.c            |  2 ++
+ drivers/virtio/virtio_pci_legacy.c |  2 --
+ drivers/virtio/virtio_pci_modern.c | 15 ++++++++-------
+ 3 files changed, 10 insertions(+), 9 deletions(-)
 
-net/core/sock.c:sock_init_data() {
-	...
-	sk->sk_rcvbuf		=	READ_ONCE(sysctl_rmem_default);
-	...
-}
+-- 
+MST
 
-That is roughly 208 KiB of truesize for the entire local endpoint, and since
-this is a kernel socket with no fd, the only way to change it is the global
-net.core.rmem_default.
-
-Meanwhile rxrpc keeps advertising a 255 packet receive window per call:
-
-net/rxrpc/misc.c:
-unsigned int rxrpc_rx_window_size = 255;
-
-net/rxrpc/conn_event.c:rxrpc_conn_retransmit_call() {
-	...
-	trailer.rwind		= htonl(rxrpc_rx_window_size);
-	...
-}
-
-with rxrpc_rx_mtu at RXRPC_JUMBO(46).  Both are sysctl-tunable; the new cap
-is not.
-
-The test is a hard >= with no headroom, and the charge is only released one
-skb at a time when the MIN_NICE krxrpcio thread dequeues.  At 2-4 KiB truesize
-per MTU-sized skb, 50-90 queued skbs exhaust the budget, which a single
-softirq round can deliver before the I/O thread runs.
-
-Can a compliant AFS peer that simply fills the window rxrpc advertised to it
-get dropped here, with no EXCEEDS_WINDOW ACK and recovery only via RTO?  The
-resulting threshold, how it was derived, and the disagreement with the
-advertised window aren't mentioned in the commit message or the v2/v3/v4
-changelog.
-
-> +		spin_unlock(&udp_sk->sk_receive_queue.lock);
-> +		sk_drops_inc(udp_sk);
-> +		kfree_skb(skb);
-> +		return 0;
-> +	}
-
-[Severity: Low]
-
-The drop returns 0, which UDP counts as a delivered datagram:
-
-net/ipv4/udp.c:udp_queue_rcv_one_skb() {
-	...
-		ret = encap_rcv(sk, skb);
-		if (ret <= 0) {
-			__UDP_INC_STATS(net, UDP_MIB_INDATAGRAMS);
-			return -ret;
-		}
-	...
-}
-
-So each dropped datagram bumps UDP_MIB_INDATAGRAMS and neither
-UDP_MIB_RCVBUFERRORS nor UDP_MIB_INERRORS is incremented, unlike UDP's own
-rcvbuf-overflow path for the same socket type
-(__udp_enqueue_schedule_skb() -> -ENOMEM -> RCVBUFERRORS + INERRORS).
-Under the flood this patch bounds, netstat -su shows InDatagrams climbing and
-zero receive-buffer errors while sk_drops rises.
-
-The hook return value can't express this (a negative return makes
-udp_queue_rcv_one_skb() resubmit to the protocol and still counts
-INDATAGRAMS), so would an explicit __UDP_INC_STATS(net, UDP_MIB_RCVBUFERRORS)
-plus UDP_MIB_INERRORS here be appropriate, along with a specific
-skb_drop_reason instead of the bare kfree_skb()?
-
-> +
-> +	skb->dev = NULL;
-> +	skb_set_owner_r(skb, udp_sk);
-
-[Severity: Medium]
-
-This consumes the same counter and the same limit that the socket error queue
-is gated on:
-
-net/core/skbuff.c:sock_queue_err_skb() {
-	if (atomic_read(&sk->sk_rmem_alloc) + skb->truesize >=
-	    (unsigned int)READ_ONCE(sk->sk_rcvbuf))
-		return -ENOMEM;
-	...
-}
-
-rxrpc's only ICMP ingress is rxrpc_encap_err_rcv() ->
-ip_icmp_error()/ipv6_icmp_error() -> sock_queue_err_skb().  On -ENOMEM the
-notification is kfree_skb()'d, sk_error_report() is never called, so
-rxrpc_error_report() never queues an RXRPC_SKB_MARK_ERROR skb and
-rxrpc_input_error() never runs.
-
-Does that silently drop port-unreachable (peer-dead) detection and
-ICMP_FRAG_NEEDED path-MTU input for the whole endpoint for as long as the rx
-queue is near full, i.e. exactly the state this patch holds during a flood?
-
-Before this change the encap path never touched sk_rmem_alloc, so the budget
-was effectively reserved for error skbs.  Error skbs also stay charged after
-rxrpc_error_report() moves them onto local->rx_queue, since the patch
-deliberately does not orphan them, which widens the window further.
-
-> +	spin_unlock(&udp_sk->sk_receive_queue.lock);
-> +	skb_dst_force(skb);
-
-[Severity: Low]
-
-What consumes the forced dst reference, and why is skb->dev cleared above?
-
-A git grep for skb_dst and skb->dev in net/rxrpc/ matches only these two new
-lines, and the only dst dereference in rxrpc (dst->dev->gso_max_segs in
-peer_object.c) works on an output route lookup.
-
-Before this change the queued skb carried a SKB_DST_NOREF dst, which
-refdst_drop() skips on free; skb_dst_force() promotes it to a refcounted dst
-held until the skb is finally freed.  UDP's own queueing path drops the dst
-instead:
-
-net/ipv4/udp.c:udp_queue_rcv_one_skb() {
-	...
-	ipv4_pktinfo_prepare(sk, skb, true);
-	return __udp_queue_rcv_skb(sk, skb);
-}
-
-Would skb_dst_drop() be what is wanted here?  rxrpc_skb_orphan_udp() releases
-the rmem charge at dequeue but leaves the dst in place, so DATA packets handed
-to a call's recvmsg queue keep the reference for a
-remote-sender-plus-slow-reader controlled interval that is not covered by the
-new sk_rcvbuf cap, because dst size is not part of skb->truesize.
-
-Neither skb->dev = NULL nor skb_dst_force() is described in the commit message
-or the v2/v3/v4 changelog.
-
-> +
-> +	skb->mark = RXRPC_SKB_MARK_PACKET;
-> +	rxrpc_new_skb(skb, rxrpc_skb_new_encap_rcv);
->  	skb_queue_tail(rx_queue, skb);
->  	wake_up_process(io_thread);
->  	return 0;
-> @@ -471,6 +501,9 @@ int rxrpc_io_thread(void *data)
->  		/* Distribute packets and errors. */
->  		while ((skb = __skb_dequeue(&rx_queue))) {
->  			struct rxrpc_skb_priv *sp = rxrpc_skb(skb);
-> +
-> +			if (skb->mark == RXRPC_SKB_MARK_PACKET)
-> +				rxrpc_skb_orphan_udp(skb);
->  			switch (skb->mark) {
->  			case RXRPC_SKB_MARK_PACKET:
->  				skb->priority = 0;
-
-[ ... ]
