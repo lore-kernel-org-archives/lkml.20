@@ -1,244 +1,92 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDE6B42466D
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 08:40:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2616F429802;
+	Sat, 12 Sep 2026 08:42:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789202419; cv=none; b=LbRPJDWN573byazmz2nhptdtBPScrTAsGVxFl3aFn4AUWqrwal7PdCaADAl11W00aDCS1L28zyTqCJWYqmG0kL9o6lXKspwFAWPzZtgZM5IoAjRiuFj785ac7f1ACmgTdgLOzZS0yGyjpxjKwcschCoY1+KCuYhFHkfDLncg6ww=
+	t=1789202543; cv=none; b=WjPMt0REg57YjSiGzSsu632gZGtssrsuBDAUTln9mItkOmib13MQ8VkXmgdBCwMXGlml78ThF8m21aA8z+8E5vGT9tXvz1sOjy8JxOJQaLZHa3aWKcBwOXol/RrtyCjoqKlDtxWF5mY70QVj03ze2Xi6FKjyDPOMErkku2qLCEY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789202419; c=relaxed/simple;
-	bh=vVKv47cmfAuACjoqEhj5I+LzS+aoqmIZBNi2XYraPes=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=gjGlR7mgAy2j9osj8jSJu2J7Ld43950onFTEJDZSpENQk0raRljE427MIQThi7YgAtsF5WIsSPMqMiIa1DP1s83ndDHWm9NpzYEmZkHljbm2uLbbyeJaJTp+DD3lWg7IJq3KsIpDIFX/8z3M012M8LwblxlGHKC4rxGHdBVZc74=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SuRJoFSp; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789202543; c=relaxed/simple;
+	bh=imROA7H3+czajTh2rKfRqdn21rlRtDUOheAnxPHki4M=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=InKlUhCPBopdYEXR4/KP3bSxVQ/O125Uan2gZQ4agOutj2XocoNPs8B9PHeP2MuzkEQEEM1fsqYsVWxw/zaASrC9Lk5NED7qQYJPM5tyXfQh3vBmy8nH3GjENenja4bBbnMgtZ/ODsveDh0jCMDk9UZ2kP2np/RmTXJIFWiuwBU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sg5ZAlxl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SuRJoFSp"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccb652d7so249978a91.0
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 01:40:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789202417; x=1789807217; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=D62nAxto8FBPn6ofyV4nlMYglOuFu5fWBNRz3jiEv7M=;
-        b=SuRJoFSpIRLQ4qAK7vXrgRvw1ZjJlXGd87wKCyWlcf3mCVn7nZQGlukWbPx7sz8UnU
-         HUtXJNHtLY7JHXsaTqe7MgLhM/j3Z48gRgfO0WUsQA6tchB45JeCh42gsrVjMuYw8UMy
-         WID73GfLw5paL3my0tyhEPrgxjEP/XWTiqraYb6vplu9lkrWRygNTc6WtMDVFCJD13t5
-         OiqrwpICbWRZO/9WYPTi4vn5t4BPi75O/mUfIF9BidamN2rFRV/qY12vZGf4ohxO5LY2
-         ckgk/0edon7NK/MG8l3g8BYms/GX6eQ1gjlep425d2F5zR0edBWIgHD55X0oEfQoqAKH
-         vUiA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789202417; x=1789807217;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=D62nAxto8FBPn6ofyV4nlMYglOuFu5fWBNRz3jiEv7M=;
-        b=Dj2uBa0LZXvdFdVMIkk5DHwhOWX+beyht2a5OeJcjwScy1FQoLXI/n2ReFbuK6WAuz
-         sJbGLRqA8xMCrEOtWcqw6agBSqdZ6GGOMC70Shtmhwegn2XGft2eZU7FcCf0Zyd+GqaI
-         /2Erv8SPFYDa74uEsRFHVT48nshSxB+Ab3C1D9ZBHs0aC8yELRPJYog7W8/YS95b09Hh
-         yFi27dhztVzDhkW/wMyauLXoHkM5BlFXbeB36WK8FFKmUPzvZEdhBXH7Ys64fExrXeAn
-         435H5/8YcZXpSKdz65W4FXohPb4E84yf/dyeqNetICXXs6IyWSqF0S/WIYDzgmXLly1d
-         4zxQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxxvZm73eO1/uc8lnnVY9g7hxj9M8d6yvlSbDNj1TTagyRpo1fE9Uz7wh4AqPKa8yrfCHQpSf+VPVya9YA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mTppW6LH7WmOU9cA6iUHEl7rVerIlaR/TctVjbqJygPUa3zW06
-	mpSTXTUe7NMAMKRxtwtXgviqt6OyYKi03wBK2TZlepacWRFZKgTL4c11
-X-Gm-Gg: AYBFou35MXJre9+pakhE77dvhHtrLmkI9TVqaZvNx7RsvDCbbf4XlRihXmXpcu8m7rv
-	wUB16ogpQpiYG2O20gE73UUHmuKSUViUQ/Ae8EOA8XB7OUXWC6RqbS1tUeepDfa5hY19h3xLc+L
-	oNRwwKm7sPJXXALP8bXuqDjQcdX/7aUOTw6pq4JaYMehiU/6sQOBOBMQHn6IyeHngTGjJinlkrV
-	OjVQFZbIZOJj34GEINAnv9ItAhNkdWomQwqxHlC73D5g2vZyp28cb74yqNeocaDfBvA0o18RBMt
-	rUlHt7UtpLpySaTSZaZ+wrSBzbh+3jG6jmFuOumzZPFJqllcmdqTt4CkWYkMNkh1+s3yOv2J7mF
-	k8LD9OUernYQv0M4EEj37kyK3tgu5Pf+wSc71R4YYc125IxKoXCVeeonYUMe8W1ZjWcmXXZse/w
-	GqRVBY7WZg8FcbX1ULXKEY8uxWbtNzhsLE1aJG7KJb9EDlWS42AP90mlkpTuDgPIabmrmG6BXiD
-	eOisGSpDZfQbQ9D1svSOA+QnTW+YH83ZNQmQUy/
-X-Received: by 2002:a17:90b:28cd:b0:38e:97f0:aa4b with SMTP id 98e67ed59e1d1-39dbc69b2c5mr3272923a91.13.1789202417155;
-        Sat, 12 Sep 2026 01:40:17 -0700 (PDT)
-Received: from lipengfei28-ThinkStation-P368.mioffice.cn ([2408:8607:1b00:8:16a3:d08b:6ddb:dec6])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d95091214sm9790583a91.3.2026.09.12.01.40.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 12 Sep 2026 01:40:16 -0700 (PDT)
-From: Li Pengfei <ljdlns1987@gmail.com>
-X-Google-Original-From: Li Pengfei <lipengfei28@xiaomi.com>
-To: rostedt@goodmis.org,
-	mhiramat@kernel.org
-Cc: mathieu.desnoyers@efficios.com,
-	mark.rutland@arm.com,
-	corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	lkp@intel.com,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	zhangbo56@xiaomi.com,
-	lipengfei28@xiaomi.com
-Subject: [RFC PATCH v7 10/10] selftests/ftrace: add a stackmap instance gating test
-Date: Sat, 12 Sep 2026 16:37:53 +0800
-Message-Id: <20260912083753.3426176-11-lipengfei28@xiaomi.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260912083753.3426176-1-lipengfei28@xiaomi.com>
-References: <20260912083753.3426176-1-lipengfei28@xiaomi.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sg5ZAlxl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C33D1F00898;
+	Sat, 12 Sep 2026 08:42:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789202541;
+	bh=imROA7H3+czajTh2rKfRqdn21rlRtDUOheAnxPHki4M=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=Sg5ZAlxl+X0XvpN63m5oDTos4dM9XLtSJq2TEThBCUbMwAJS8zSqf2xrdDc3ukyhw
+	 YC0rX98k5Je4uhXe4E4KL+RYv4EUlfz2Bbhig1bglr4HwO9SL+sfk9L0gg0AQVyhWL
+	 tpFY99olNhZVX5iTHz0vyCDarjHjdjrvon4KxI9hy+swaKSySd78Q91hIszTH+3Jdk
+	 VhdNmmUCNYSUqz7yIuzbfE9W/vypjbAKEOwrqCHlr2fYGWCPawKpRbQ5cxeEQMNw0C
+	 +CupjhpuZz3EAs9kC1UKlnscSkdfsAcjXywcm78c8O6o+u/SL8G4Z603XfTsFnuhfI
+	 L57rNV2TojQIQ==
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 6A5CD198003A;
+	Sat, 12 Sep 2026 04:42:19 -0400 (EDT)
+Received: from ams-imap-11 ([10.64.2.31])
+  by ams-compute-02.internal (MEProxy); Sat, 12 Sep 2026 04:42:19 -0400
+X-ME-Sender: <xms:aBClaqadaGA3cW7yBAiJavDftfPuXHDekvJYDpLExP4dOonPTSvIjQ>
+    <xme:aBClaoMXxS43DU3aGW0o9jczSCZEP46Wf_HKQqA5pFxnQOfm8cBQ_y5pDW7Wtx2W0
+    uj8FDzKb9UqTFHXmrkJa4rCtByFw2MjdOCtzPEcizMJzNWrbXmbhA>
+X-ME-Proxy-Cause: dmFkZTG3p6HovJHCcVlrBFjfcn6R7cadeQWsKAyNwAxVuYGi1cLQO2kSjdYHoGqVeBNwaX
+    kMR2fY3I9tW3NEM+aYTykBiocH3objfnpWH9q/in/k8rtjOKSqMedMKzrYpU2kjT9Vd+PL
+    s11uzXGcDmw84pAqkfTH2HQLtUaJglB+ZgJj3kjTk+D92gyNcRzApLFOd0peGseKhD9lRo
+    ElZ4AJL9hDEbvR9Rupa79Vs3ck6mnUMtc8/Mpd6wm8hxSW/UB6S0Ilw7/oZWzvEkqlB18w
+    EoU+TozVBNpgQFEmEdlueJC8GuuGR+aek+ZK/eEzQMaBQKSMoQ9Y5scV1HUD4xNpffT1kp
+    152Qg9Yg9T+eXnl7Jyb4SVtWHMoRJtVC6SrjSzGgEqrW+CkoIS5NIMXrfP4sTPRzBgTWGQ
+    M3OnfiheQ+86/YKfcf4A86JfrRFK+Qcz7UMXnVsls/HyrBTUSPdSLQs6wAmsycYfeACRaK
+    pLjWo2ecOqP58Oa6Cg63wxdrmgy5hMV4jGZyGcqZteeAqj0xuQT3f5qeQ23Ff/GJ/zyOkE
+    rDcHMbcbtEs9LwzeH+RMeCvRdzrJGaRHFZjpK0hxk5nBqQ5XjjTf6dIXG7C8Cg+S1vr8f1
+    fLDVWTYEcypGAkHPU8shOjvdle05QZi+CzGK0LHndVzLDD5Y0I1oWPkZHtNw
+X-ME-Proxy: <xmx:axClaoCg3WIhOo4GzAf0RqfQQRy1iuEfQjutgIfjgQfrVFbMmjTKsQ>
+    <xmx:axClakm23X6KhB0RNfmKt6ZB0pEy_gYqW1ahjuluEByik51WIgWBQA>
+    <xmx:axClareOUgOSeaySV3rXCjSOdvdhg-e2vBmYF0U7ugecP4KEShsDlA>
+    <xmx:axClagQpfGcbGXqWg7UgOmqrBgQDr8I4qk-Lb9izvGQN8M-5GBjTIA>
+    <xmx:axClaqvM83dum0aTlVN8R_sGifN2ZDsxweqvhBet3S_g6sw3Iacl3YMe>
+Feedback-ID: ice86485a:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 461B3F8007E; Sat, 12 Sep 2026 04:42:16 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Sat, 12 Sep 2026 10:41:56 +0200
+From: "Ard Biesheuvel" <ardb@kernel.org>
+To: "Borislav Petkov" <bp@alien8.de>
+Cc: "Kiryl Shutsemau" <kirill@shutemov.name>,
+ "Ard Biesheuvel" <ardb+git@google.com>, linux-efi@vger.kernel.org,
+ linux-kernel@vger.kernel.org, "Vincent Mailhol" <mailhol@kernel.org>,
+ x86@kernel.org
+Message-Id: <b259aff1-1fb1-4819-88ca-9b47dac036cd@app.fastmail.com>
+In-Reply-To: <20260912061005.GDaqTsveevVkzxRJoI@fat_crate.local>
+References: <20260909115530.1924665-12-ardb+git@google.com>
+ <20260909115530.1924665-13-ardb+git@google.com>
+ <20260909191410.GAaqGwAsCewrdVZZ0s@fat_crate.local>
+ <cee2e02b-3817-44cf-857f-62a148290367@app.fastmail.com>
+ <aqKrhNQ3mZMs5-Dy@thinkstation>
+ <b24b9785-b790-476d-985d-e8c5405d192b@app.fastmail.com>
+ <20260912061005.GDaqTsveevVkzxRJoI@fat_crate.local>
+Subject: Re: [PATCH v2 01/10] x86/boot: Drop pointless re-implementation of panic()
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-From: Pengfei Li <lipengfei28@xiaomi.com>
 
-Verify both enforcement points for the global-instance-only stackmap
-option.
+On Sat, 12 Sep 2026, at 08:10, Borislav Petkov wrote:
+> On Fri, Sep 11, 2026 at 09:32:26AM +0200, Ard Biesheuvel wrote:
+>> Thanks. Can this be applied as a fix please? I need it to base efi/next
+>> on it for the next cycle.
+>
+> You mean I stick it into tip and give you an immutable tag to merge?
+>
 
-Require options/stackmap and stack_map on the top-level instance. Read a
-shared-kernel random UUID from /proc/sys/kernel/random/uuid and combine
-it with ftracetest's $PID to create collision-resistant owned and foreign
-secondary-instance names, including across PID namespaces. Verify that
-neither the option nor any stack_map node appears in the owned instance.
-Also require writing stackmap through its aggregate trace_options file
-to fail and leave the option unset.
-
-Create the foreign instance as a sentinel. Remove the owned instance
-explicitly and verify the sentinel remains, proving that cleanup does
-not remove unrelated instances.
-
-Defer signal exit across each mkdir and ownership assignment so cleanup
-removes a directory only after this invocation has created it. Put mkdir
-in an if condition so ftracetest's errexit mode cannot bypass return-code
-handling, the explicit failure path, or ownership bookkeeping. Track both
-directories separately and remove only those created by this test. Keep
-the auxiliary stack_map_stat and stack_map_bin nodes optional on the
-global side.
-
-Signed-off-by: Pengfei Li <lipengfei28@xiaomi.com>
----
- .../test.d/ftrace/stackmap-instance-gate.tc   | 114 ++++++++++++++++++
- 1 file changed, 114 insertions(+)
- create mode 100644 tools/testing/selftests/ftrace/test.d/ftrace/stackmap-instance-gate.tc
-
-diff --git a/tools/testing/selftests/ftrace/test.d/ftrace/stackmap-instance-gate.tc b/tools/testing/selftests/ftrace/test.d/ftrace/stackmap-instance-gate.tc
-new file mode 100644
-index 000000000000..818dbb7bfeb8
---- /dev/null
-+++ b/tools/testing/selftests/ftrace/test.d/ftrace/stackmap-instance-gate.tc
-@@ -0,0 +1,114 @@
-+#!/bin/sh
-+# SPDX-License-Identifier: GPL-2.0
-+# description: ftrace - stackmap option is gated to the top-level trace instance
-+# requires: stack_map options/stackmap instances
-+
-+# The 'stackmap' option is added to TOP_LEVEL_TRACE_FLAGS, matching the
-+# convention used for global-only options like 'printk' and 'record-cmd'.
-+# Verify that:
-+# 1. The global instance exposes options/stackmap and the required
-+#    stack_map node. stack_map_stat and stack_map_bin are auxiliary and
-+#    may be absent if their tracefs creation failed.
-+# 2. A newly created secondary instance under instances/ does NOT expose
-+#    options/stackmap or any stack_map* nodes.
-+
-+fail() {
-+    echo "FAIL: $1"
-+    exit_fail
-+}
-+
-+instance_token=$(cat /proc/sys/kernel/random/uuid 2>/dev/null) || {
-+    echo "could not obtain a collision-resistant instance token"
-+    exit_unresolved
-+}
-+[ -n "$instance_token" ] || exit_unresolved
-+owned_instance=stackmap_gate_owned_${PID}_${instance_token}
-+owned_dir=instances/$owned_instance
-+foreign_instance=stackmap_gate_foreign_${PID}_${instance_token}
-+foreign_dir=instances/$foreign_instance
-+owned_created=0
-+foreign_created=0
-+
-+remove_owned() {
-+    if [ "$owned_created" -eq 1 ]; then
-+        rmdir "$owned_dir" || return 1
-+        owned_created=0
-+    fi
-+}
-+
-+cleanup() {
-+    if [ "$owned_created" -eq 1 ]; then
-+        rmdir "$owned_dir" 2>/dev/null || :
-+    fi
-+    if [ "$foreign_created" -eq 1 ]; then
-+        rmdir "$foreign_dir" 2>/dev/null || :
-+    fi
-+}
-+trap cleanup EXIT
-+trap 'exit 1' HUP INT TERM
-+
-+# 1. Global instance must expose the option and required map node
-+test -e options/stackmap || fail "options/stackmap missing on global instance"
-+test -e stack_map        || fail "stack_map missing on global instance"
-+
-+# 2. Create a foreign sentinel and an owned secondary instance. Defer signal
-+# exit across each mkdir and ownership assignment: cleanup must remove a path
-+# only after this invocation has successfully created it.
-+interrupted=0
-+trap 'interrupted=1' HUP INT TERM
-+create_rc=0
-+if mkdir "$foreign_dir"; then
-+    foreign_created=1
-+else
-+    create_rc=$?
-+fi
-+trap 'exit 1' HUP INT TERM
-+[ "$interrupted" -eq 0 ] || exit 1
-+[ "$create_rc" -eq 0 ] || fail "could not create foreign sentinel instance"
-+
-+interrupted=0
-+trap 'interrupted=1' HUP INT TERM
-+create_rc=0
-+if mkdir "$owned_dir"; then
-+    owned_created=1
-+else
-+    create_rc=$?
-+fi
-+trap 'exit 1' HUP INT TERM
-+[ "$interrupted" -eq 0 ] || exit 1
-+[ "$create_rc" -eq 0 ] || fail "could not create secondary instance"
-+
-+if [ -e "$owned_dir/options/stackmap" ]; then
-+    fail "secondary instance unexpectedly exposes options/stackmap"
-+fi
-+
-+for f in stack_map stack_map_stat stack_map_bin; do
-+    if [ -e "$owned_dir/$f" ]; then
-+        fail "secondary instance unexpectedly has $f"
-+    fi
-+done
-+
-+# 3. The aggregate trace_options file still reaches set_tracer_flag(),
-+#    so writing 'stackmap' there must be rejected on a secondary
-+#    instance. Otherwise the bit could appear set in trace_options
-+#    while the hot path silently falls back to a full stack trace
-+#    (tr->stackmap == NULL).
-+if echo stackmap > "$owned_dir/trace_options" 2>/dev/null; then
-+    fail "secondary instance accepted 'echo stackmap > trace_options'"
-+fi
-+if grep -qw stackmap "$owned_dir/trace_options"; then
-+    fail "secondary instance trace_options reports stackmap as set"
-+fi
-+
-+remove_owned || fail "could not remove owned secondary instance"
-+if [ -e "$owned_dir" ]; then
-+    fail "owned secondary instance still exists after removal"
-+fi
-+if [ ! -d "$foreign_dir" ]; then
-+    fail "owned cleanup removed foreign sentinel instance"
-+fi
-+rmdir "$foreign_dir" || fail "could not remove foreign sentinel instance"
-+foreign_created=0
-+
-+echo "stackmap option gating to top-level instance works"
-+exit 0
--- 
-2.34.1
+If you're not taking it as a fix, then yes, please.
 
