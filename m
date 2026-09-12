@@ -1,95 +1,133 @@
-Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-80.mta0.migadu.com [91.218.175.80])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82F2847A872;
-	Sat, 12 Sep 2026 13:38:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.89.1.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B913E42586B
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 13:40:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789220294; cv=none; b=ijnb2nSLbAXK/xJxa8QMs7eDCB0+w6K1sPWL0auQtqw8tjRskv34Zajqdi9mzkAewsvXxAqttY59NkuE72gyp3lwWVBkHdmH+85d0WVrSPhQTNNU1sVkmb+Agpe5yKczaEHxnRHaa/5m0HSjMFAAlULuDQTU1+9CZJsgJorTkkw=
+	t=1789220460; cv=none; b=nuRUEPamoE01AOSeviRTqY6OlogjOQuQcwe99O1QvpRJzhm/KQQycb1DaLezP2QzD0s17079RzhvEwhtUJkGqCygWhPVUx8+IOjuyDBvxZ1JbFLB1AeMJsC2bf0b0SG33BW4r1EkKQhSzRFzjE3OjLjD1gtUc/yO0plprN5Uzcs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789220294; c=relaxed/simple;
-	bh=RTJWQPVnP2cOgXsP4ClBmG+cOVJE5siN7LC/E44GvyE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=e/yZc04xk0C+PJFHxdQXwSeAtE6qlcqkq/Py0rthuZrmTWFzWrUfQ8MA3EHZJu5pVuvUGwGiu7dunrz0jqXIHx6PyfDTT7qZrJbqJVOCx7F5n9kETO8geOuLDi+yNU9PFtzrHtrfN0qVuwNqbeaUyYzBAJ/TA1COwd70c4DNfdc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=kylMEAS/; arc=none smtp.client-ip=199.89.1.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	s=arc-20240116; t=1789220460; c=relaxed/simple;
+	bh=wzaMXtcdgpE7+fSGmah4FUmNUZubEptioqAA871qN1g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LAp7nQBL7itemm/8x3YCn54TlvOaWLSC++LcgmS9SZfV3P6Mq/obRMwOKLqAr0rVNxLci853WDYNP32fCLN3/XC18nEwbbfcLc1m6k+tL1LdGpap6CWGxZmaiEokr6y1XdBeW6XvWIAbo0OREIUxtT8gfbHXKdu/t475EOGr0+E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=E8H3zD61; arc=none smtp.client-ip=91.218.175.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="kylMEAS/"
-Received: from localhost (localhost [127.0.0.1])
-	by 011.lax.mailroute.net (Postfix) with ESMTP id 4hhstW3k24z1XM4Tn;
-	Sat, 12 Sep 2026 13:38:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1789220282; x=1791812283; bh=RTJWQPVnP2cOgXsP4ClBmG+c
-	OVJE5siN7LC/E44GvyE=; b=kylMEAS/uohEmArHVY5mu2GljCVVBZEG8faduRUp
-	cv1Ez/x1NhcE7opQCNoneTYveQnTM6n4ivZJlYeCCi5MfApFihkf5Lv5arA8d+ua
-	5C9Zyua1Mdv3dKU03I7PsXGIUEBD0J5EEM0tzG74Jwv5pzaENkoMgl+oHfuncZ7l
-	+qTJTUUYnk3YbRi8gM6P7UQ9ED7uzWDfLnOSd8vKR9u2scuDkdYwqievv88QzQ6O
-	DBflHp3acTkqXHWkXZtYIZ+mQh71t7Ec9QJSHzms9YRyXCB1tYuOBN8X/I9UvTsW
-	3t0AZSBop7GqbkvbQMXa1oAzFnLqrzeCvdaBiBItIz3LXg==
-X-Virus-Scanned: by MailRoute
-Received: from 011.lax.mailroute.net ([127.0.0.1])
- by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id 4OGwJAQrYKY2; Sat, 12 Sep 2026 13:38:02 +0000 (UTC)
-Received: from [192.168.51.14] (c-24-6-239-25.hsd1.ca.comcast.net [24.6.239.25])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4hhstC2kndz1XM4Sx;
-	Sat, 12 Sep 2026 13:37:54 +0000 (UTC)
-Message-ID: <fb1d0993-4349-406c-8721-41602e5fe5a7@acm.org>
-Date: Sat, 12 Sep 2026 06:37:53 -0700
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="E8H3zD61"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=wzaMXtcdgpE7+fSGmah4FUmNUZubEptioqAA871qN1g=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789220456; v=1; x=1789825256;
+ b=E8H3zD6190pSsMmKc0a2Tl1wYBaVuWZGm3DejNXcolDf8k37Z5UOVFAavw1LJrRVSAK1ytDk
+ 3xHCWvWA5IIIqLECpeDBMmvYXgz36GGE0aAa2pB6Vv21doxpWEokrIwFUsfKcnSPUwqmTLLg6ZN
+ FfHzyvXvuqipypC4SsRu7kCw=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id de80f2347108c150;
+	Sat, 12 Sep 2026 13:40:56 +0000
+X-Mizu-Trace-ID: de80f2347108c150
+X-Migadu-Flow: FLOW_OUT
+From: Xuanqiang Luo <xuanqiang.luo@linux.dev>
+To: netdev@vger.kernel.org,
+	edumazet@google.com
+Cc: dsahern@kernel.org,
+	idosch@nvidia.com,
+	davem@davemloft.net,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	linux-kernel@vger.kernel.org,
+	luoxuanqiang@kylinos.cn
+Subject: [PATCH net-next v2] ipv6: make IPV6_FREEBIND and IPV6_TRANSPARENT setsockopt lockless
+Date: Sat, 12 Sep 2026 21:40:40 +0800
+Message-ID: <20260912134040.215664-1-xuanqiang.luo@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC] drivers/rufs: add Rust UFS host controller driver
-To: Andreas Hindborg <a.hindborg@kernel.org>,
- James Bottomley <James.Bottomley@HansenPartnership.com>,
- Greg KH <gregkh@linuxfoundation.org>, jaemyung.lee@samsung.com
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot
- <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
- linux-block@vger.kernel.org, linux-scsi@vger.kernel.org,
- linux-arm-msm@vger.kernel.org
-References: <20260912-rufs-private-v1-1-716db733e655@samsung.com>
- <YKq4TcQM0v2dXF4wTHEvZKwASII6PDd_R7_UiHWe3NRnR4JsrC_ZS-x6jA_Kl7P6ONehU0REHYk7WaLz8Xv5gA==@protonmail.internalid>
- <2026091124-treason-trickily-bc52@gregkh> <87mrtmvioe.fsf@kernel.org>
- <6JMwZ4EuSfQ8V4TGaPwatQ31m30TceLJblORsuILQmy4VV8Fx2lHbihL8ARsRUuJmaSUqek8L54y4Nk6DuZMXQ==@protonmail.internalid>
- <bdcff6a168e6d4b8e9c9524bd598281817a7df2c.camel@HansenPartnership.com>
- <87eceyvdnv.fsf@kernel.org>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <87eceyvdnv.fsf@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/12/26 5:48 AM, Andreas Hindborg wrote:
-> At any rate, the rationale for extracting the UFS driver is to make room
-> for features that fit poorly into the SCSI midlayer and which are not
-> standardized in T10 - without making additional work for scsi subsystem
-> maintainers.
+From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
 
-This rationale is completely wrong. I have seen multiple proposals for
-the introduction of new SCSI commands in JEDEC that made me think
-"Yikes. This proposal shouldn't be accepted." Some of these commands
-were attempts to introduce ZBC-like functionality for traditional block
-devices. That is wrong - if ZBC-like functionality is needed, ZBC should
-be implemented. Other proposals were about the introduction of new copy
-offload commands. Copy offload commands should be standardized by T10
-instead of JEDEC.
+IPV6_FREEBIND and IPV6_TRANSPARENT still take the socket lock despite
+using inet_assign_bit() to update the flags shared with IP_FREEBIND
+and IP_TRANSPARENT. IPv6 TCP and UDP sockets can already update these
+flags without the lock through the corresponding SOL_IP options.
 
-Bart.
+Move both options to the lockless setsockopt path.
+
+Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+---
+Changes:
+v2:
+  - Squash the two patches into one and drop the cover letter.
+    (Eric Dumazet.)
+
+v1: https://lore.kernel.org/all/20260911102418.157071-1-xuanqiang.luo@linux.dev/
+
+ net/ipv6/ipv6_sockglue.c | 36 +++++++++++++++---------------------
+ 1 file changed, 15 insertions(+), 21 deletions(-)
+
+diff --git a/net/ipv6/ipv6_sockglue.c b/net/ipv6/ipv6_sockglue.c
+index 1f68fb64a43ef..4b3536571c980 100644
+--- a/net/ipv6/ipv6_sockglue.c
++++ b/net/ipv6/ipv6_sockglue.c
+@@ -398,6 +398,21 @@ int do_ipv6_setsockopt(struct sock *sk, int level, int optname,
+ 
+ 	/* Handle options that can be set without locking the socket. */
+ 	switch (optname) {
++	case IPV6_FREEBIND:
++		if (optlen < sizeof(int))
++			return -EINVAL;
++		/* Shared with IP_FREEBIND. */
++		inet_assign_bit(FREEBIND, sk, valbool);
++		return 0;
++	case IPV6_TRANSPARENT:
++		if (valbool && !sockopt_ns_capable(net->user_ns, CAP_NET_RAW) &&
++		    !sockopt_ns_capable(net->user_ns, CAP_NET_ADMIN))
++			return -EPERM;
++		if (optlen < sizeof(int))
++			return -EINVAL;
++		/* Shared with IP_TRANSPARENT. */
++		inet_assign_bit(TRANSPARENT, sk, valbool);
++		return 0;
+ 	case IPV6_UNICAST_HOPS:
+ 		if (optlen < sizeof(int))
+ 			return -EINVAL;
+@@ -666,27 +681,6 @@ int do_ipv6_setsockopt(struct sock *sk, int level, int optname,
+ 		retv = 0;
+ 		break;
+ 
+-	case IPV6_TRANSPARENT:
+-		if (valbool && !sockopt_ns_capable(net->user_ns, CAP_NET_RAW) &&
+-		    !sockopt_ns_capable(net->user_ns, CAP_NET_ADMIN)) {
+-			retv = -EPERM;
+-			break;
+-		}
+-		if (optlen < sizeof(int))
+-			goto e_inval;
+-		/* we don't have a separate transparent bit for IPV6 we use the one in the IPv4 socket */
+-		inet_assign_bit(TRANSPARENT, sk, valbool);
+-		retv = 0;
+-		break;
+-
+-	case IPV6_FREEBIND:
+-		if (optlen < sizeof(int))
+-			goto e_inval;
+-		/* we also don't have a separate freebind bit for IPV6 */
+-		inet_assign_bit(FREEBIND, sk, valbool);
+-		retv = 0;
+-		break;
+-
+ 	case IPV6_RECVORIGDSTADDR:
+ 		if (optlen < sizeof(int))
+ 			goto e_inval;
+
+base-commit: 348ea4642f56ab3dc93621c8e3ab0ccd0e5f1782
+-- 
+2.43.0
+
