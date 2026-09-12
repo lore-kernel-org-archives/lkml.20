@@ -1,33 +1,32 @@
-Received: from mta0.migadu.com (out-159.mta0.migadu.com [91.218.175.159])
+Received: from mta0.migadu.com (out-165.mta0.migadu.com [91.218.175.165])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1522625B09D
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 01:59:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.159
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45B48224B05
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 01:59:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.165
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789178376; cv=none; b=rHSnU4q4kziRWIcZYmaPIHNkzszea2SHTJiu5i5BE1czqHxw1N4WpZTNcCHQ/rTCnvHqbLnjUKih8o3LloeDda7BNvcw4YR3RVYR4BRkUiYvPvroH6gOxpNRA5LLEnqdtY631Snahpv95hoSSbxh4Y4kHJ/nOAxgdqVjZkIS1K8=
+	t=1789178383; cv=none; b=uOrYqUYtNNI+aTpkmFQMGQaFV+ogAU5MvBmw73efSAdGUeEboRNuhy2UifVbTRwS3DZkf2t7CJMhGpGUhkTnipIRS5+PIIrND9qtDgAfF2KTIHfHXhqzBvZs+OIOjANIB7KnjmDB8xvkStU/Y2qN08rfeXhuOuZcZzhzXjLXx1Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789178376; c=relaxed/simple;
-	bh=s70WjWUOYhj/JuHH6aUF78zObHqSFRFlD2Dv57grYF4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=n6jorhwNgmJr6dquQeqdyTf976M0KWwrLj6mmK42HgGHAjy5XlHl0o2AsQ1vzMxMvLlmla6sgjxTDdjmvzW5/sBnCkhJL6O0rhTvteyx2cjeWMrvm9dJsnK0Yy+cMZicx0hdWuJjbbR5JmWbwGoSy0rN22Zzw1UUW/iF/Zdv8WM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=TXHJSuBx; arc=none smtp.client-ip=91.218.175.159
+	s=arc-20240116; t=1789178383; c=relaxed/simple;
+	bh=hIdzcLDIM2a6ZzvvyAw4DUVvkh0FCwt+HZ5qI3cVZhM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RKmjcSIk/MFUsJjD4yzni1dWofL2COwKQo55eu0eZUyapFL6YxBJ8BuBSVJJcdTEpx8xK13LDKwSxeVEtF7uAw2UTXh/J3JE3YdXXxVjr1g+m2jPc4jjQADB2260emG44d3UyOaUTGihPu88B3i4EaWSX2Ws+FC9kO8+0nPYbd8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=tcXEEwxi; arc=none smtp.client-ip=91.218.175.165
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="TXHJSuBx"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="tcXEEwxi"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=s70WjWUOYhj/JuHH6aUF78zObHqSFRFlD2Dv57grYF4=;
+DKIM-Signature: a=rsa-sha256; bh=hIdzcLDIM2a6ZzvvyAw4DUVvkh0FCwt+HZ5qI3cVZhM=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789178371; v=1; x=1789783171;
- b=TXHJSuBxnSHQYgD3k9BKzc9tpczyc3lZmBRCz/uPbMbcRXg+Py42SnpTNTKbeWv83BTFoDvc
- 2zywOTqOPwH1CltyI/CBNYOjn1ielPVGRT2XsY3J/IZ/hWBI4PhbHiqCM+W6beDuHOoX4RCwAoo
- Zcfd4CLBHuRn9cFtvprqwhZU=
+ t=1789178380; v=1; x=1789783180;
+ b=tcXEEwxiGsqFYxp9jKEvEK7I9kYfsCmvXQPZ5zOy5ihX1avL7JLta/ipnsXjKc44aKza5eV1
+ zuDGYajsfqq7uGnLsmY7OJQ1h2wQf9ZaMDPWUwDHvWbA9nqCtSFZo6URl5DBgfZoD0MGtQamG5S
+ MUIS9JS1L5WWEYCpp5Q/zBL4=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 87fb88622ac49665;
-	Sat, 12 Sep 2026 01:59:31 +0000
-X-Mizu-Trace-ID: 87fb88622ac49665
+Received: by smtp.migadu.com with ESMTPS id c169604d0b3ccf5c;
+	Sat, 12 Sep 2026 01:59:30 +0000
+X-Mizu-Trace-ID: c169604d0b3ccf5c
 X-Migadu-Flow: FLOW_OUT
 From: Denis Benato <denis.benato@linux.dev>
 To: 'Jiri Kosina' <jikos@kernel.org>
@@ -37,12 +36,10 @@ Cc: 'Benjamin Tissoires' <bentiss@kernel.org>,
 	linux-kernel@vger.kernel.org,
 	"Derek J. Clark" <derekjohn.clark@gmail.com>,
 	Denis Benato <denis.benato@linux.dev>
-Subject: [PATCH v4 2/2] Input: xpad - introduce a static table to ignore devices
-Date: Sat, 12 Sep 2026 01:59:26 +0000
-Message-ID: <20260912015926.230874-3-denis.benato@linux.dev>
+Subject: [PATCH v4 0/2] HID: flydigi: add support for vader 5 pro
+Date: Sat, 12 Sep 2026 01:59:24 +0000
+Message-ID: <20260912015926.230874-1-denis.benato@linux.dev>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260912015926.230874-1-denis.benato@linux.dev>
-References: <20260912015926.230874-1-denis.benato@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,66 +48,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Certain devices can work both as HID and as an xpad device: binding both
-would duplicate inputs causing userspace to receive double inputs; at the
-same time if a HID device is available it is to be preferred as it can
-support additional features such as integrated IMU and additional buttons
-and more, depending on the specific driver, therefore allow only the
-best driver available to bind the device.
+Hi all,
 
-Suggested-by: Derek J. Clark <derekjohn.clark@gmail.com>
-Signed-off-by: Denis Benato <denis.benato@linux.dev>
----
- drivers/input/joystick/xpad.c | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+A few days ago I was contacted by a friend of mine who was having his
+share of issues with his Flydigi Vader 5 Pro controller: specifically
+the rumble didn't work correctly, alongside other issues that were
+partially solved by using the linked project.
 
-diff --git a/drivers/input/joystick/xpad.c b/drivers/input/joystick/xpad.c
-index 2da0b7f1722a..bd24beacc788 100644
---- a/drivers/input/joystick/xpad.c
-+++ b/drivers/input/joystick/xpad.c
-@@ -407,6 +407,18 @@ static const struct xpad_device {
- 	{ 0x0000, 0x0000, "Generic X-Box pad", 0, XTYPE_UNKNOWN }
- };
- 
-+#define XPAD_SUBSTITUTE(_vid, _pid, _enabled) \
-+	{ .vid = (_vid), .pid = (_pid), .enabled = (_enabled) }
-+
-+static const struct xpad_excluded_device {
-+	u16 vid;
-+	u16 pid;
-+	bool enabled;
-+} xpad_excluded_devices[] = {
-+	XPAD_SUBSTITUTE(0x37d7, 0x2401, IS_ENABLED(CONFIG_HID_FLYDIGI)),
-+	{ }
-+};
-+
- /* buttons shared with xbox and xbox360 */
- static const signed short xpad_common_btn[] = {
- 	BTN_A, BTN_B, BTN_X, BTN_Y,			/* "analog" buttons */
-@@ -2046,11 +2058,23 @@ static int xpad_probe(struct usb_interface *intf, const struct usb_device_id *id
- 	struct usb_device *udev = interface_to_usbdev(intf);
- 	struct usb_xpad *xpad;
- 	struct usb_endpoint_descriptor *ep_irq_in, *ep_irq_out;
-+	const struct xpad_excluded_device *excluded;
- 	int i, error;
- 
- 	if (intf->cur_altsetting->desc.bNumEndpoints != 2)
- 		return -ENODEV;
- 
-+	for (excluded = xpad_excluded_devices;
-+	     excluded->vid || excluded->pid;
-+	     excluded++) {
-+		if (!excluded->enabled)
-+			continue;
-+
-+		if (le16_to_cpu(udev->descriptor.idVendor) == excluded->vid &&
-+		    le16_to_cpu(udev->descriptor.idProduct) == excluded->pid)
-+			return -ENODEV;
-+	}
-+
- 	for (i = 0; xpad_device[i].idVendor; i++) {
- 		if ((le16_to_cpu(udev->descriptor.idVendor) == xpad_device[i].idVendor) &&
- 		    (le16_to_cpu(udev->descriptor.idProduct) == xpad_device[i].idProduct))
+However at the current time his main interest is in Steam support
+and the driver was working in everything but Steam, which insists
+on using the controller in hid mode rather than evdev mode
+by default, and when in evdev mode it is disregarding additional
+buttons and the gyroscope.
+
+So we ended up with a perfectly working driver for the controller,
+that at the cost of gyroscope support and back buttons has
+rumble working correctly in Steam.
+
+Since the driver works in basically everything that is not Steam,
+including the browser, I decided to submit it anyway as someone
+else will surely be interested in using some other way that is not
+the aforementioned program.
+
+To make optimal use of this device the xpad driver should not
+bind to the controller, and this is the case for more than just
+this controller as Derek told me, so I added some basic infrastructure
+to use the best available driver for the device.
+
+I also want to thank the original authors that did the work
+of implementing the controller the first time (in SDL).
+
+Best regards,
+Denis Benato
+
+Link: https://github.com/DuncanTPerkins/vader5-pro-linux-fix
+
+Link v1: https://lore.kernel.org/all/20260807012334.58737-1-denis.benato@linux.dev/
+Link v2: https://lore.kernel.org/all/20260808122439.69159-1-denis.benato@linux.dev/
+Link v3: https://lore.kernel.org/all/20260811125856.1692045-1-denis.benato@linux.dev/
+
+v2:
+  - HID: flydigi: add support for vader 5 pro
+    - Solve flagged vulnerabilities
+v3:
+  - HID: flydigi: add support for vader 5 pro
+    - Solve the flagged vulnerability
+
+v4:
+  - HID: flydigi: add support for vader 5 pro
+    - Fix rumble possibly getting overwhelmed
+    - Implement battery reporting
+    - Improve imu reporting
+
+Denis Benato (2):
+  HID: flydigi: add support for vader 5 pro
+  Input: xpad - introduce a static table to ignore devices
+
+ drivers/hid/Kconfig           |    8 +
+ drivers/hid/Makefile          |    1 +
+ drivers/hid/hid-flydigi.c     | 1129 +++++++++++++++++++++++++++++++++
+ drivers/hid/hid-ids.h         |    3 +
+ drivers/input/joystick/xpad.c |   24 +
+ 5 files changed, 1165 insertions(+)
+ create mode 100644 drivers/hid/hid-flydigi.c
+
 -- 
 2.47.3
 
