@@ -1,217 +1,203 @@
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
+Received: from mail-qk2-f8.google.com (mail-qk2-f8.google.com [74.125.230.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19FB235CBCB
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 02:06:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.54
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789178789; cv=none; b=AXCp7Yv0ZlMXFkM7Y0Gk0qzdHrofusjhstLml5YQDNDoRguNVatjePogGbLFbBXpr//r1XX9pRQBf1sj0G94h+aJOj1hsY4SxkIfeinM0gmR7Ct8kC0Yw4YuzVRhSTlcHpnOMONO65AQASU+aEq5xHNifIq2jeJb5kdRviFexzo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789178789; c=relaxed/simple;
-	bh=spVOa9f/F/7Wv09hnrKBTUsoNuao2ZOIwYgjaS7I4kE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NAATl0lG6sop25EuvW2iC/fdTMSTwW4yHarHCl8rHQwTTWJs/yn6MvhN4Y4V/uktdmZUqQeZNB6XLaAhLg/U991hSt4WBVzb1gAGtMGYqCdCugVFnpCVYUzIl6ubZzAZMbwTx2eUy5aVnt5V3Vm8OF52D3uBV6oc3co/zDEdX2o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gz4Nzn47; arc=none smtp.client-ip=209.85.218.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9649372691
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 02:09:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.200
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789178953; cv=pass; b=HCGp502Tggadia0/dPfJrSgPlW4yFuFF4LfWJNxmegkw+sm4+moGfNApuU7XYBcgSLo434wZDO/Nl39lgdM2/OQIcP/9cCMzXDT4QEFboQKEsvStKHv308JXW/9nmtKlS1NZ8/I0QNJQIcgbe++j3UomAhbAB1DGytp3OWieFsA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789178953; c=relaxed/simple;
+	bh=mdT9ENWPEzBfkyRK8P1a2dUQlY39G8cEaKSfK8TCWpw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Y50ZRLJSpe/XB8C1aeYcEz9r/icFfmw9QmPPOHQOZjDF6gjc2wjAselImSYU9GqjTTq+0hhM2RA9dzvNET2UeA44+6sxAV60rGe/gCCSodhusyO2W+qPIkV36E8tzsewUTfAifZXmvgebkZW+JkJ/XHiEoN8odanJDtnR4TOmo0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=haSfbs4D; arc=pass smtp.client-ip=74.125.230.200
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gz4Nzn47"
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c262204cc80so225160266b.3
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 19:06:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="haSfbs4D"
+Received: by mail-qk2-f8.google.com with SMTP id d75a77b69052e-530e2f0c0a8so4153361cf.0
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 19:09:09 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789178947; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Fk911wEgryojW9U2Tw7txVunaIVqO9738rLbiqkjRLn+Qy2vSp+PvQ8zJ6tr001jpH
+         hRPXR6AuACg95+iGBYFe4kumwZ3KODmSCS3Hf3Iy4R0tdL7RF+SwiW7Nh/430e1xLyqu
+         mESlEI7a/sGy5u4r/UIpAc80wTzYybPA2xx0fH4KziyZMkNiZq1KFG3xTOk/XyvaEKcY
+         DvA6OEjRohLKwVtk9BUZgHVMUfGwTgdZLKKyZ3WQsTtit6um51d+DK1OnfHnzfheqKR/
+         SKrk27Tta40ccnfiauaZNZv4To/M2TAdeRrh14Y2wavLsTGpGxiKn+hwjujuWJCZFyAU
+         HMlQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=mdT9ENWPEzBfkyRK8P1a2dUQlY39G8cEaKSfK8TCWpw=;
+        fh=PojVPuzqvEdUrXPwIpbTOl23R7wd8gPTyO30V9Slmx0=;
+        b=jLId/H/XmegmV/WIZS5IIvQOv8yHRCKNpYbp5yMw5MsZfSpSouvlOOeDyw0a4fJTYd
+         qYhOCx5bwbNn2+oQSyUWpQbMUgrCqzGvKpIYgJ14uMNCWh1Y17uA7ZH98+VmdfKGPlYe
+         DfO4xTeqoCQ6CBwWjEOJI05uX5HgH0Y8jqLsk79/g66ARfjBgLPNfDbCt4BSBo/p3sOB
+         SW4vEg3n9W6jpe8VgGnBpHL0iTnAcu9txX7frCWap6KRk6Oq6XD5oI2CBalbV+Jxryo5
+         bQe67WlNeqMgoxIV9uoRMkLE7aCZIa1vYCdz69shBM3PeIRonC3Y8/r+sFdhxsO30xOW
+         gfCQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789178786; x=1789783586; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:reply-to:message-id:subject:cc:to:from:date
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XjLvs9IRvdKtutQQVUqHinOZTztdopsuXZK8dx8qcRk=;
-        b=gz4Nzn47I4uMkq9nWOLZraIpP5NUd1H2qZ91k465qA1MpbmzGdxF1EBLPOEzxLsA7j
-         +/sbdjoI3xahfydHAJ7jHgdVu8GBU7UCC6QB4x23Z6PwO+/VtHYZ5KobqbyP+vvBNA12
-         JrB77K83wCu7WiSIhxj+ComRqSVddlP3IpvFvnTYJxCQMP1TPlgaafKelR3yMGxBD0W8
-         CI8CS3SwnNoDZY63nehXGYSqU8AS7p1C26beSSudZNvv8gulhEwW6NJjjtk5RtTCF5xk
-         KrbFK6XfmxVH6vasEd/RXLuiXmSel5+qZ0s24FhPbfU9qA1mXw7QDU69jC5upYiXPrHw
-         Ps7w==
+        d=gmail.com; s=20251104; t=1789178947; x=1789783747; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mdT9ENWPEzBfkyRK8P1a2dUQlY39G8cEaKSfK8TCWpw=;
+        b=haSfbs4DLoa/DAimtNX+pLEgqVbB7AgCSaa9bMdLPLPuxwKrwGhBx6UXOTpqKsX3In
+         HmPfspx9fu9BmY6nqeDEKMHkk4AfRVKdygG1wjixkkNt491Q5PdYIBST2VNmRyWmEFzQ
+         qX1Hc/DXQC5bNhj0fQXw31rlPm+l7E6BUz++lSI3Kw24acU8zmdqgk88WwKlS9ljAf4u
+         BMtf0NbTwyATUMBTOiHfCfoai66hcwlO1fS98WJDfMROGq1Kj8b5+1Bq05A23o/VE9sA
+         jpNl9UK+fREU+YaTa3g4rVRk84pTrhtji2/oOGf0OpTqWofga//DHQycVfrqmj0xByET
+         u7Sw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789178786; x=1789783586;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:reply-to:message-id:subject:cc:to:from:date
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=XjLvs9IRvdKtutQQVUqHinOZTztdopsuXZK8dx8qcRk=;
-        b=G/nHd5luY7LJdxQfMBJH0+qo3GWh93GW1tqSnbwuOLgr0h64+aDkYudoHtWIDaTKL5
-         Lh38Og3xC+MlW5TylefnpRGWOfZB5zL2L3DlIxqwBK2VL7p+sHMnrtaQVlbltHZ2LJnn
-         sVpRExw/9T01cbyJvFttkt0kGz+aPDFZFCWXTdv01/d1tY3tDtJLz9MC0ArzV8IYoG0+
-         cugI0fFz+HkzUGibs6nRJAd793UJ9WAiU8lOK9ln0b9snhYA/AdDkXUTbq4rf82jIOHO
-         uZ2ndEtbsXnPyMeg0/SGI2FafAXfWBejid845NL3mVpuEwemZM2rOmHX2Sbqi/uGuY3O
-         R0vw==
-X-Forwarded-Encrypted: i=1; AKwUvBzp8rdH9SZdGtGQvruNQ2DaM4mUU4dtqquwbO115MSt3+e+xfGhKsofXiyZrR/inXj17vVqCvdAHJqGrgU=@vger.kernel.org
-X-Gm-Message-State: AFuF++n9YTlKVW3SS+0dtvqERo+FqXthlS7UJXRbLYEY2WtWrbhcdKpj
-	Mv80HLffcamxoAz+F3bNzL9KdwghqUGrjzndWz4aFII4ulAvHtOQ0u+H
-X-Gm-Gg: AYBFou3dLlr40P5LJAeCMpcVe9yicF4QEAyWJmkjvHYOW16j25YcOCA1mbSmZV9JzFt
-	Dwg53HSHBBmm6VJU4ZY/mIPXXHXNYtI3LIGME20VRdcpuY63grwWc/GLjNWhmeFKVk+Ws82oSAX
-	9CMfIkqs+29TQfQFG/NllITE6OXdJWyU8ZVUfrlxvxllWk6aQbWtXk3vF8ZW/8lrYaA2A1RmVQC
-	/PjOSYyxBbkwGASPMft8X8tqm5c1BijOF8CKxwaRH8YXBoPvzEDAIGi+D3uADlCsuQAf+gzAOhD
-	KAdaYcCdTzs3LDslHeKuGa9JdWwRQbShQbubu0GDIww2V2PJOkKeMnnLtpwwyU5WcUYocnfeWn9
-	VIzcHXn9sqPi0oOUeMu6R+ZTqo/Zldq40bqxozu6EYQRI+hpMAzsRe6xgOpDUxwS+SB/l6PMK1R
-	ICnaLjc4caWfleZrDxPLeHR0QND3BQ9vkWSvJpGRNuDEzTpbe/wcRlLSby47CuAusnSbUyzycdc
-	LEQnU1d
-X-Received: by 2002:a17:907:3f17:b0:c29:4970:abec with SMTP id a640c23a62f3a-c29665d8281mr318676066b.19.1789178786176;
-        Fri, 11 Sep 2026 19:06:26 -0700 (PDT)
-Received: from localhost ([185.92.221.13])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c29660b29a7sm146651466b.43.2026.09.11.19.06.24
-        (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
-        Fri, 11 Sep 2026 19:06:24 -0700 (PDT)
-Date: Sat, 12 Sep 2026 02:06:24 +0000
-From: Wei Yang <richard.weiyang@gmail.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Wei Yang <richard.weiyang@gmail.com>, Yuan Liu <yuan1.liu@intel.com>,
-	Oscar Salvador <osalvador@suse.de>, Mike Rapoport <rppt@kernel.org>,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-	Chen Yu <yu.c.chen@intel.com>, Jason Zeng <jason.zeng@intel.com>,
-	Vlastimil Babka <vbabka@kernel.org>
-Subject: Re: [BUG] mm/memory_hotplug: panic due to race between compaction
- and memory hot-unplug
-Message-ID: <20260912020624.tyu6gwj3tssxfjp3@master>
-Reply-To: Wei Yang <richard.weiyang@gmail.com>
-References: <20260903095543.3752338-1-yuan1.liu@intel.com>
- <1d625a60-9473-4f48-a384-7d756ccb7135@kernel.org>
- <20260910031609.qbn2qcxzbitau5xc@master>
- <12147238-575e-49ea-aa83-ea25c660ee38@kernel.org>
+        d=1e100.net; s=20251104; t=1789178947; x=1789783747;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mdT9ENWPEzBfkyRK8P1a2dUQlY39G8cEaKSfK8TCWpw=;
+        b=UMmD/uQBgzcO8mALJeRHSLAya4tcVF/kQiNzqdJ5YE/nEbSZa1gomfhPpCMOdzUVih
+         Uoe3MChsAbKWQvX+CM0cbox7SBHjqMlCgUa8IWZlqX00YcJMjLwUuOY6JTB2ATHGbyNt
+         R0QoTgMU3Gizwmzez32q1tzthJXTjlgOQclpK4u3yF0tGhjXujW8lSKiTZIgpGzJKNh4
+         4LGBNwSyohvSKeKDnn5UTPViXDyFfMyqCeLmsNpbRTgRQZb/a62xmbpRa4KwInK35Kc2
+         8svsHPvUDiU+MZWtBUpu1yTb31f/gk8DeuzEHeJ6YaKdGuLnHhlsbxNHRKzIKacGhImp
+         GgUw==
+X-Forwarded-Encrypted: i=1; AKwUvBwhE9AhrBhCCRKcSZxTucjTficP8xjjzMNJ0tEYaaSzNPXd9sfrh9wT3KuySEkNFfSY/IKZkvOn2aEJOFg=@vger.kernel.org
+X-Gm-Message-State: AFuF++nlADqInGOyrynOyuJk62Nv1wYO1Bb8ROg/+RznJTFUNafCrvVp
+	nkfiJVbjXWuNQiEe0mON015EpFg5WJN7PV06xho2WRQLMcVbSiZpm9IRsxoHOcOkRxOjE4nWCDY
+	g8wjkWm1F4g0caVbz1B+UyA9Fl2TyLAU=
+X-Gm-Gg: AYBFou2Y7R/WfnpPrvmeZ8JFNWdB47EDVRlzI/56iooz/Oe00kGGY62yBI+1h/t4Ufp
+	fSzmwxaElj6+pj0H6WGA/a0ATPIIyTX74J4SAMqeH0wZf8nORqKQcWpEX0rU7o3xd/f2S+L7CX/
+	4e0cuyqOnuk2Ad3SSOs2oBY6aXSV7njogu/Qx07H1tB1r05dGpu8soDWHdqpGA2Ac2nCDdOYTtn
+	4arz4CuqaM3lwYX00b8ZDOCfKUrEsd2xILU2/oixGtOVLhPwgFGaMndHGHNHU3ur1Evb2W2Zwcd
+	DGy6QZqOhq2GysDhPyBGJbMh+ZYyXcETMDW2ki8qbBIzW7V3tNAP8DqEw5ylKM+lrtfNDN8K0u4
+	+BkBXprnHUStcFnUnr3OagomriI9k3GARR5x4psmK
+X-Received: by 2002:ac8:5dc6:0:b0:530:d1d6:792d with SMTP id
+ d75a77b69052e-530e7dd8ae5mr13590681cf.15.1789178947506; Fri, 11 Sep 2026
+ 19:09:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <12147238-575e-49ea-aa83-ea25c660ee38@kernel.org>
-User-Agent: NeoMutt/20170113 (1.7.2)
+References: <20260908152808.3928630-1-arnd@kernel.org> <20260908152808.3928630-4-arnd@kernel.org>
+ <CADkSEUjYhRk-ezaXZkHzFTFQnySFSisKtZfEP-_NtLnQF+6-1Q@mail.gmail.com> <aqRI3N5FPX1dpIlk@gmail.com>
+In-Reply-To: <aqRI3N5FPX1dpIlk@gmail.com>
+From: Ethan Nelson-Moore <enelsonmoore@gmail.com>
+Date: Fri, 11 Sep 2026 19:08:55 -0700
+X-Gm-Features: AcwNN1XgIQzd6k50BFzIHmb9Q0P_yN5Y-RnB_uEDdmfcLkrtltvi4fLr_oEAXtE
+Message-ID: <CADkSEUgkPyikkhqLBOVEeS-H8L7CvUN8VD88=dUuTeFB8pUM5w@mail.gmail.com>
+Subject: Re: [PATCH 03/13] ARM: remove riscpc
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Arnd Bergmann <arnd@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Linus Walleij <linusw@kernel.org>, 
+	Russell King <linux@armlinux.org.uk>, Drew Fustini <fustini@kernel.org>, 
+	Arnd Bergmann <arnd@arndb.de>, Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Liviu Dudau <liviu.dudau@arm.com>, Sudeep Holla <sudeep.holla@kernel.org>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Vladimir Zapolskiy <vz@mleia.com>, Stefan Agner <stefan@agner.ch>, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	Aaro Koskinen <aaro.koskinen@iki.fi>, Andreas Kemnade <andreas@kemnade.info>, 
+	Kevin Hilman <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>, 
+	Tony Lindgren <tony@atomide.com>, Nicolas Ferre <nicolas.ferre@microchip.com>, 
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>, Andrew Lunn <andrew@lunn.ch>, 
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, 
+	Gregory Clement <gregory.clement@bootlin.com>, Robert Jarzmik <robert.jarzmik@free.fr>, 
+	Kristoffer Ericson <kristoffer.ericson@gmail.com>, Geert Uytterhoeven <geert@linux-m68k.org>, 
+	Alexander Sverdlin <alexander.sverdlin@siemens.com>, Shawn Guo <shawnguo@kernel.org>, 
+	"David Hildenbrand (Arm)" <david@kernel.org>, Nicolas Pitre <npitre@baylibre.com>, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	devicetree@vger.kernel.org, imx@lists.linux.dev, 
+	linux-stm32@st-md-mailman.stormreply.com, linux-omap@vger.kernel.org, 
+	Ian Molton <spyro@f2s.com>, Jens Axboe <axboe@kernel.dk>, Helge Deller <deller@gmx.de>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, "Paul E. McKenney" <paulmck@kernel.org>, linux-block@vger.kernel.org, 
+	linux-serial@vger.kernel.org, linux-fbdev@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 10, 2026 at 09:40:32AM +0200, David Hildenbrand (Arm) wrote:
->On 9/10/26 05:16, Wei Yang wrote:
->> On Mon, Sep 07, 2026 at 04:27:50PM +0200, David Hildenbrand (Arm) wrote:
->>> On 9/3/26 11:55, Yuan Liu wrote:
->>>> Hi all,
->>>
->>> Hi!
->>>
->>>>
->>>> While stress testing memory hotplug on a VM guest running an
->>>> unmodified vanilla mainline kernel (7.3.0-rc1, as reported by
->>>> uname -r), we hit a kernel panic in the guest when memory
->>>> hot-unplug runs concurrently with memory compaction.
->>>>
->>>> The kernel was built from mainline at commit:
->>>>
->>>>     cee9395acd80 ("Linux 7.3-rc1")
->>>>
->>>> To be more specific, after a large virtio-mem hot-unplug, the guest
->>>> kernel takes a fatal page fault in suitable_migration_target(), called
->>>> from isolate_freepages() during compaction.
->>>
->>> Sounds like a real problem we should tackle.
->>>
->>>>
->>>> We are not sure whether this race is reachable under realistic
->>>> workloads or only under this synthetic stress test. Sharing it here
->>>> in case it is useful, and in case this is already a known issue.
->>>> Thanks.
->>>>
->>>>
->>>> Call trace (top to bottom)
->>>> ==========================
->>>> - RIP: suitable_migration_target+0x5/0x70
->>>>    isolate_freepages() <- compaction_alloc() <-
->>>>    migrate_pages() <- compact_zone() <- compact_node() <-
->>>>    sysctl_compaction_handler().
->>>>
->>>>
->>>> Why the race happens
->>>> ====================
->>>> CPU0 (compaction free-scanner)          CPU1 (virtio-mem hot-unplug)
->>>> ----                                    ----
->>>> page = pageblock_pfn_to_page()
->>>>    /* checks pass, section ONLINE */
->>>>    /* returns valid struct page* */
->>>>
->>>>                                          offline_pages()
->>>>                                            /* section -> offline */
->>>>                                          __remove_pages()
->>>>                                            vmemmap_free()
->>>>                                            /* struct page UNMAPPED */
->>>>
->>>> suitable_migration_target(page)
->>>>    PageBuddy(page)
->>>>      read page->page_type
->>>>      *** not-present fault -> panic ***
->>>>
->> 
->> Does it mean, the combination of pfn_to_online_page() / PageBuddy(page) is not
->> safe, when there is hot-remove, even for other users. Not only compaction.
->
->There is an inherent race between any
->
->pfn_to_online_page() user that then takes a look at the memmap (PageBuddy,
->whatever).
->
->Usually, that's not really relevant, because for things to go terrible wrong
->(instead of only being slightly suboptimal :) )
->
->You have to run both, memory offlining *and* memory removal.
->
->For things like
->
->page = pfn_to_online_page()
->if (PageBuddy(page))
->
->That's unlikely to hit (no reports), and we could likely easily fix it with the
->help of RCU.
->
->It gets more problematic when we do things like
->
->page = pfn_to_online_page()
->... do all other kind of stuff
->if (PageBuddy(page))
->
->(what we have here)
->
+Hi, Karl,
 
-Thanks for the explanation. I still have one confusion.
+On Fri, Sep 11, 2026 at 11:43=E2=80=AFAM Karl Mehltretter
+<kmehltretter@gmail.com> wrote:
+> I've made a RiscPC emulator in the browser using QEMU and WASM. It boots
+> Linux kernels and currently emulates a StrongARM RiscPC:
 
-What we have here is:
+That's awesome. Are you planning to add support for the NetWinder to the b?
 
-isolate_freepages(cc)
-    page = pageblock_pfn_to_page()
-        if (zone->contiguous)
-	    return pfn_to_page(pfn)
-        return __pageblock_pfn_to_page()
-            start_page = pfn_to_online_page()                       (1)
-            ... check page_zone(start_page) and page_zone_id()
-            return start_page
-    suitable_migration_target(cc, page)
-        if (PageBuddy(page))                                        (2)
+A couple things that I didn't see when I glanced through the code:
 
-It looks the extra stuff between (1) and (2) is trivial and they still rely on
-page struct. 
+* QEMU needs to model the broken ldrh/strh instructions for the Risc
+PC (but not the NetWinder). I am not sure exactly what their behavior
+is on real hardware (though I have seen forum posts where people
+investigated this - I'll let you know when I find them). For now, you
+could just have them load/store a random value (:p). It would also be
+helpful if it could print a warning when one of these instructions is
+executed, to help people detect and remove instances of them in e.g.
+JITs.
 
-Do you think it could be caused by the data synchronization between CPUs?
+* On ARMv3, CP15 register c0 is write-only, and you don't model this.
+This caused Linux on ARMv3 to be broken for a very long time before
+support was eventually removed - it was broken even in 2.4.18-rmk4. A
+patch to run Linux on the CL-PS7500FE (=3D ARM710 Risc PC on a chip,
+used in the Acorn A7000+) works around this by keeping a copy of it:
+http://webpal.bigbrd.com/patch-2.4.18-rmk4-wp3.gz. According to a
+comment in later 2.4 versions, that approach won't work, but I don't
+understand why. Also, the patch fails to fix other reads to the
+register outside cpu_get_pgd() (I forget which ones).
 
-Two possible points:
+A few things I know about early ARM hardware and Linux that might help you:
 
-  a) zone->contiguous
-  b) section_mem_map's SECTION_IS_ONLINE bit
+Before 2.6, ARM support in the mainline kernel was very incomplete
+and, IIRC, unusable. To build a working kernel, you needed to apply a
+patch from http://ftp.armlinux.org.uk/pub/linux/arm/kernel/. There are
+no patches for versions newer than 2.4.27, but the 2.4.27 patch mostly
+applies correctly to 2.4.37.11 (I didn't try to fully fix it up
+though). The last patch that was released was 2.6.0-rmk2 - it has some
+relevant changes like the CL-PS7500 PS/2 mouse driver. There is also
+an unreleased 2.6.4 patch - I should ask RMK if he still has it.
 
-At either point, if we get the old data, we would think page is still valid
-and access it.
+The NetWinder development team shipped patches to their kernel with
+additional features for the NetWinder (and other ARM hardware,
+including Acorn). This is the last one:
+http://www.netwinder.org/mirror/users/r/ralphs/kernel/patch-2.4.21-rmk1-nw1=
+.gz
+I don't think most of those changes ended up in mainline.
 
->Using RCU is usually not easily possible. Mostly only comapction does something
->like that.
->
->-- 
->Cheers,
->
->David
+The Risc PC and NetWinder lost their audio drivers when OSS was
+removed in commit 727dede0ba8afbd8d19116d39f2ae8d19d00033d. RMK was
+working on an ALSA driver for the NetWinder but never finished it
+(IIRC it is in 2.6.0-rmk2 but probably doesn't work).
 
--- 
-Wei Yang
-Help you, Help me
+> I used LLMs a lot while building it.
+
+I don't use LLMs for environmental reasons, because they are often
+inaccurate, and because I like using my own brain and don't want it to
+atrophy, but we are all entitled to our own opinion.
+
+> Your GCC work looks useful for this. I will look at building the RiscPC
+> Linux kernel with it, and at emulating the original ARMv3 CPU too.
+
+Great. Let me know if it works.
+
+P.S. I have a few UI suggestions for the emulator:
+* Make the display bigger and able to lock the mouse/keyboard and go
+into fullscreen.
+* Remove the LK201 keyboard - the NetWinder used a normal PC keyboard
+(if you add it), and the Risc PC used an Acorn PS/2 keyboard (a normal
+British PC keyboard but with no Windows key):
+https://chrisacorns.computinghistory.org.uk/32bit_UpgradesA2G/Acorn_RiscPC_=
+Keyboard.html.
+Just keep virtual keys for the keys that you can't input in a web
+browser.
+* It should be possible to middle click using a modifier key if the
+emulator ever runs Risc OS, because middle clicking is heavily used in
+Risc OS.
+* I think some of the explanatory text is unnecessary.
+* The skeuomorphism is cute but inaccurately represents a Risc PC, and
+I think it clutters the UI unnecessarily.
+
+Ethan
