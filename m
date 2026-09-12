@@ -1,70 +1,83 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D83E372EF0;
-	Sat, 12 Sep 2026 06:30:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 551BE361976
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 06:30:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789194624; cv=none; b=Zkc/9h3WUy2CalnBHN19YiyzdkJRKGZPK5jF1rbBuLXquXdHoGEfz/Ys7d8suyKI3FbokFS1cyPukSlKyxxAm1N/qGkfAhnWDDvN6uth0onABci8zV6J910z9v16HP7zvSWx4XHPo5vlO7GO91cyglFSOH0/bc6WCAxoVRp1RZ8=
+	t=1789194627; cv=none; b=ZzhX7s1MeqB/JGfLxb5PhkXnJO05EZI10TNbswBNte1Kq54RmljgewFdXiY1KU5dQAD0uzZcyJ2KWvK1vD/y8HSYMYjrZEUEisVGWk7GbO4qJigPQdE8rXFVdJZygJTqHRJNel92bFkmeWI1/GLtE42quagqetQrCvKDgudAtxM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789194624; c=relaxed/simple;
-	bh=VWliHbAyNsfQkTLue9pckqYn2hIoO3+6LJlxdUoTPaQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Pl61y9MZwFv3W4R85MQpNIQ3w6lq/MEHWWmkmdaoRQNBGzVjwVQSB/v6JCum2iTf/JOLLk485fRnvMYZ1SrPLhWxCXOgGu4EgJXci8hPtHCrz1fTQt5apfwECIbuhtwil8pQluTFcQaKl1Ys6XK6GoPY/zBsVrweV8YhJt0/JUs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=OgqGdeMF; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1789194627; c=relaxed/simple;
+	bh=2b3NiVq4avcIMh0d4fwdRkcWobqPZIeKbq3gCHaDsBg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=b4OvXWKSCtm08Hu3/1Ndb6i1O/ib6R2E6jMC8ihuD/kl0GNJwSJ8vHfZ80+eFZMvY/VZenis831L2OP1g+Iiu8PumfvL18hoPaJlkjiHlGKZOyaz4UQPdnoMYjtWNNY80WBGVKJwdHkzAxrS0/Edhn+g+fsVVyPkODev/W6KiZQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pSRUriWC; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="OgqGdeMF"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68C4Y2oP2614431;
-	Sat, 12 Sep 2026 06:30:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=lVQVUZ0Ep4SayKCfM
-	+/Hw8LgKHBJ2yc3PzwStLnYwVQ=; b=OgqGdeMFPjyvHmKwsmRtXs0EBxTOrcBWo
-	rdbaBO1of2GUJtwxOZdlvkxaYNU85fzBf8Y2tFVm4yHaPcEpY1WUsM5uDGVddex2
-	pelTMwLXEK/206laV3PerOsLwP6LAMc9KVdkjDN6fKsDwv/CIlOKvlYZQ1HruTOV
-	CiXvFmMZtiD99MalXKMMLj3TUofEUQV866unV0rSOsamEwPMSvBbt3ICQ7cDNuCF
-	B4hHLbpT8acWxZb6sw4OCxU4O32nZq0FQmRzzjF0RRxqrltRqOFngP4Pz+7HaSGr
-	UFOJUK8dpq0+byPIjO2SGZFg+dbtrvyueYrzsEG15WXU8rhyVYx0A==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmw5dgnjq-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Sat, 12 Sep 2026 06:30:19 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68C4Z8RL2786998;
-	Sat, 12 Sep 2026 06:30:19 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gkvtfj7em-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sat, 12 Sep 2026 06:30:19 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68C6UF6345809964
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Sat, 12 Sep 2026 06:30:15 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 0F5782004B;
-	Sat, 12 Sep 2026 06:30:15 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id C274620040;
-	Sat, 12 Sep 2026 06:30:09 +0000 (GMT)
-Received: from li-fc74f8cc-3279-11b2-a85c-ef5828687581.ibm.com (unknown [9.67.123.78])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Sat, 12 Sep 2026 06:30:09 +0000 (GMT)
-From: Srish Srinivasan <ssrish@linux.ibm.com>
-To: linux-integrity@vger.kernel.org, keyrings@vger.kernel.org
-Cc: James.Bottomley@HansenPartnership.com, jarkko@kernel.org,
-        zohar@linux.ibm.com, stefanb@linux.ibm.com,
-        linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
-        nayna@linux.ibm.com, rnsastry@linux.ibm.com, ssrish@linux.ibm.com,
-        stable@vger.kernel.org
-Subject: [PATCH v9 1/2] keys/trusted_keys: return immediately after TPM unseal failure
-Date: Sat, 12 Sep 2026 11:59:49 +0530
-Message-ID: <20260912062950.279104-2-ssrish@linux.ibm.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260912062950.279104-1-ssrish@linux.ibm.com>
-References: <20260912062950.279104-1-ssrish@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pSRUriWC"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912e64ccso3967465e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 23:30:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789194624; x=1789799424; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jFix9ue4kazbG44bcHfnwQtuSA55kubKr06mMHl278s=;
+        b=pSRUriWCb9DTPWOvv9XBLy97o+IDU4SqK8JmCza6qqdWU0mb06O8NN7QnVrYz1znP+
+         cpuPyVSPy4CuZgbnRf8ZhRS1Wql/SqR7u4szePXhgB0ZRyC0xn8CNSO83ldLMKwLKEpy
+         j17wGQuzhriDRB1j7pTaFnq99/FHeiRtVUWooVD4YzG8Xit2Nqsy+hQ1wGQ1ncvYiYPx
+         2HeDeLe4RYrnFtBkpke3VG0KGeoEpc0sHhtfRIhRRIz7LIQFKgTIu8nm4TSFsmKwLXEC
+         FT93SiJVc3aNTHj1EcU3ZHDxysGWw46WulhfCMyPJU5dWZ0h9SaURCvd+o6XiV6R5ju1
+         ZdNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789194624; x=1789799424;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jFix9ue4kazbG44bcHfnwQtuSA55kubKr06mMHl278s=;
+        b=ZgFAzC2EJP32QqPFpMSzNyw7bBBJypBwLcHHoLY4sYY1zIEZPQ6rUMBQtzvhijuFbJ
+         7Bm72ZDlRR1dinJDdu2RDeCvja9Asm+TsIT56i97qX635iGpF5B7lRrJHRilPxxMyMka
+         RkYLvXOXJ9vIdCfHPlhUUQkL+4VVflyWTVNRTqibI+/50aKb2ztHSWSVKLD61xU36lxy
+         gd0qfZgejGlAf6zg6LvFfqGwjUBOH9AX6beydd87f5Id8jOUDG8ytaTPKSRvW20e5UpY
+         BRNgeXJEWR1vmjws0GS4bwu8UFg36YDyALondN3M31EFxBrxIwRW3ihB00gfng+oHKKl
+         lbbA==
+X-Forwarded-Encrypted: i=1; AKwUvBxNosM/1FwVogPU1rhs10PcXJSrK2PslZwZGYJPBkmQtalEWODWkAMhnOGrlVFeI65UZibKNRm7xfA7mqI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lxN9g746pvQCtr+oWaNzZLZu/F2+hfn1VBLI8yo2LelY6c3yWN
+	qeR3qftfkJu5lmNSOiy+PZC5oNSERa3sZBDTpgkjSi0C50IjT9uaYkB0
+X-Gm-Gg: AYBFou3jHWv4yVJjVZjFcKCMMOKzdIpyNica0xsMGdjI95ojzZ8W112w3smEtW9Aahh
+	6ud5B3SOtuoY6PIDjItgzNi940akexKD+YRrHl8CiKZHDQELzppQ7t84IQgNGeJJ76np1ll7IAf
+	A1Qkp67WuwvkpnRRgGEmPBBeLNsXm74oL9WbYx0RBfRqJ93yFuxoN1u/JcrkOL+OFdriXOvI2Ku
+	cF876WSeRps8XzR3R3zSL4j3RqsK90tssshBTjhHxLKX/QloKtz1cQRjCihvlyJE00cTvjb42pK
+	afTZH9v054usns2IJX4Zn22X2ZhY7Egf+os8c8fvFNoAi+7iQFw+oIOTcoBY7Zh7t74K6kDEUVs
+	Eh0qH2XDXEAQxaLDfZjl286koM3Ne7oDO1Bo1RIXDWvaP0krNyhCrXr15eyP/rsxrjCAzAqJ0Hw
+	DxW/26Mc7xXOi7SMqtT/0hgy4J8tYhaqgGMQa4ZxvvVzDQKBPV5c5/W8nVotkiApbQXV3/dVndX
+	GGrWtFcfPmD5RBjcw6y2g6ubYWvvflfv1cnM+TCs613wKKdJiZ4uYT8GuNwqmSQgWU3UU90vcdA
+	V8cMLA0G4+nnLTVXzdGY7g7fwFq5gn1bsO1LE4n6MsgnDDiAgN7HjerPdl+PvUeuAcPXMz6apX9
+	3hQ==
+X-Received: by 2002:a05:600c:19c8:b0:499:b65e:49c9 with SMTP id 5b1f17b1804b1-49e619f3ae1mr160612545e9.10.1789194624288;
+        Fri, 11 Sep 2026 23:30:24 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-b260-f201-9983-e8c4-aff5-7a36.310.pool.telefonica.de. [2a02:3100:b260:f201:9983:e8c4:aff5:7a36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e63c9a7c9sm187527915e9.13.2026.09.11.23.30.23
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 11 Sep 2026 23:30:23 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Alessio Belle <alessio.belle@imgtec.com>,
+	Luigi Santivetti <luigi.santivetti@imgtec.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Faith Ekstrand <faith.ekstrand@collabora.com>,
+	Sarah Walker <sarah.walker@imgtec.com>,
+	Frank Binns <frank.binns@imgtec.com>,
+	imagination@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/imagination: Fix PowerVR UAPI constant references in kernel-doc
+Date: Sat, 12 Sep 2026 08:30:21 +0200
+Message-Id: <20260912063021.43076-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,65 +85,56 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEyMDA4NCBTYWx0ZWRfX2Kerm9f7Hiqs
- hg1DPj9GmPlCmJJU+EhOj8dY27h74oca6B4sUaR+6s2YGTjsO7P61hS5wNpdx//XmZ/Dh1owCQU
- CWptxC76U7WLKaVuFAQgswaNnmbbkyhXxeFJzuO4cPXvpKvan4swJ/sT6/NzgPcsUNxYBszHlZw
- xCchDB+Gj2go04VGVtpAgDEYo4uomzqAtJn2iUCDrYFYkFj3K/7BUanVKD0VnKfpHgEpXi5p02o
- N4X2Qx2GXtmOZpFXXfNgmgSjLiyHOYIpmsdme+UqPD9RS3h6b4hJSVhjjZuFdN31NU/17moeXW5
- 7v5QAq9RUQNLA298B2zw3G4rbj8xt+MhnGc8njUm4kv7yhwWntEKkNFQGpGqq8pma8aZ0YMSu77
- 9mR7oGTooa60KClhPa6HYYTgs7NYGjEB3PvaNz7qGAUB0QvUIP9N9rPeDgJYHl4KwZIDpXtKiSE
- DBhob0Ti9Q77p+xIReg==
-X-Authority-Analysis: v=2.4 cv=E/NYNqdl c=1 sm=1 tr=0 ts=6aa4f17b cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=Gb-tKBqSAOq4cnd-bv4A:9
-X-Proofpoint-ORIG-GUID: v7k1jPmYfv3oHHOkgmA7XbiUSgcHLQ3z
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEyMDA4NCBTYWx0ZWRfXz7DHrA7Z4qI+
- zFXQwePFg8nuW/wk7e78z8dxvXV9K1gFGhObBLRIx7mzaAQzFb+XO1tm1anh4RXs4f3he+K8Qf3
- ycBduW7FxKsd2LQdeglv3vo+IpPGdWE=
-X-Proofpoint-GUID: v7k1jPmYfv3oHHOkgmA7XbiUSgcHLQ3z
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-12_02,2026-09-11_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 priorityscore=1501 spamscore=0
- adultscore=0 clxscore=1015 bulkscore=0 malwarescore=0 suspectscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609120084
 
-trusted_tpm_unseal() proceeds to pcrlock() when the TPM unseal operation
-fails. If pcrlock() succeeds, its return value overwrites the unseal error,
-causing key instantiation to succeed.
+The PowerVR UAPI comments contain misspellings of the enhancement query
+selector, two buffer object flags, and the job submission ioctl. The
+correct names were already present in the UAPI definitions when these
+comments were introduced.
 
-Return immediately when unseal fails to preserve the original error.
+Use DRM_PVR_DEV_QUERY_ENHANCEMENTS_GET, DRM_PVR_BO_PM_FW_PROTECT,
+DRM_PVR_BO_ALLOW_CPU_USERSPACE_ACCESS, and DRM_IOCTL_PVR_SUBMIT_JOBS in
+the corresponding comments.
 
-Fixes: 5d0682be3189 ("KEYS: trusted: Add generic trusted keys framework")
-Cc: stable@vger.kernel.org
-Signed-off-by: Srish Srinivasan <ssrish@linux.ibm.com>
-Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+Fixes: 1088d89e5515 ("drm/imagination/uapi: Add PowerVR driver UAPI")
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
- security/keys/trusted-keys/trusted_tpm1.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ include/uapi/drm/pvr_drm.h | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/security/keys/trusted-keys/trusted_tpm1.c b/security/keys/trusted-keys/trusted_tpm1.c
-index bf0bf7f36970..9cdfeea800a3 100644
---- a/security/keys/trusted-keys/trusted_tpm1.c
-+++ b/security/keys/trusted-keys/trusted_tpm1.c
-@@ -923,8 +923,10 @@ static int trusted_tpm_unseal(struct trusted_key_payload *p, char *datablob)
- 		ret = tpm2_unseal_trusted(chip, p, options);
- 	else
- 		ret = key_unseal(p, options);
--	if (ret < 0)
-+	if (ret < 0) {
- 		pr_info("key_unseal failed (%d)\n", ret);
-+		goto out;
-+	}
+diff --git a/include/uapi/drm/pvr_drm.h b/include/uapi/drm/pvr_drm.h
+index ccf6c2112468f3f53b093bc298dac2bbbfd35e6e..d97a69b83cc59338b7aae306e4dfa1320f071a2d 100644
+--- a/include/uapi/drm/pvr_drm.h
++++ b/include/uapi/drm/pvr_drm.h
+@@ -231,7 +231,7 @@ struct drm_pvr_dev_query_quirks {
+  * the user mode driver.
+  *
+  * When fetching this type &struct drm_pvr_ioctl_dev_query_args.type must be set
+- * to %DRM_PVR_DEV_ENHANCEMENTS_GET.
++ * to %DRM_PVR_DEV_QUERY_ENHANCEMENTS_GET.
+  */
+ struct drm_pvr_dev_query_enhancements {
+ 	/**
+@@ -848,8 +848,8 @@ struct drm_pvr_ioctl_create_free_list_args {
+ 	 * @max_num_pages * ``sizeof(__u32)``.
+ 	 *
+ 	 * The buffer object must have been created with
+-	 * %DRM_PVR_BO_DEVICE_PM_FW_PROTECT set and
+-	 * %DRM_PVR_BO_CPU_ALLOW_USERSPACE_ACCESS not set.
++	 * %DRM_PVR_BO_PM_FW_PROTECT set and
++	 * %DRM_PVR_BO_ALLOW_CPU_USERSPACE_ACCESS not set.
+ 	 */
+ 	__u64 free_list_gpu_addr;
  
- 	if (options->pcrlock) {
- 		ret = pcrlock(options->pcrlock);
+@@ -1277,7 +1277,7 @@ struct drm_pvr_job {
+ };
+ 
+ /**
+- * struct drm_pvr_ioctl_submit_jobs_args - Arguments for %DRM_IOCTL_PVR_SUBMIT_JOB
++ * struct drm_pvr_ioctl_submit_jobs_args - Arguments for %DRM_IOCTL_PVR_SUBMIT_JOBS
+  *
+  * If the syscall returns an error it is important to check the value of
+  * @jobs.count. This indicates the index into @jobs.array where the
 -- 
-2.53.0
+2.39.5 (Apple Git-154)
 
