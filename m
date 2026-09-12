@@ -1,117 +1,275 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa2-f12.google.com (mail-oa2-f12.google.com [74.125.231.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E933032B126;
-	Sat, 12 Sep 2026 18:50:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3A6932B126
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 18:50:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789239040; cv=none; b=UTxDVs5SYnInrHc53WdMzPZgyNsftSjlzq0v3UZp4bzXCRbLEw2BW/VzPr4xjltyjy53gV1GcBbY7jjNAG7lzNViBK2FExuwYRByyUXmQpL7sWkAgT3/ZdVxELPZkbJt6Fq6UH3pRAeiY5Mkc7BTHj2ApObEnVmMAC2rDVy85GQ=
+	t=1789239062; cv=none; b=cZ41MtVESqQ/iWH7h0ozpBexEpmQmkbs+ABUKlJjms4eOmM3ESiIzzi/7BRdOwaPHz1kPg3nRYAovzCVZ3naWjIW120bRMFRQKHTvBFHvxJM+lKV9AzMEkrCIiyrFixc/May/uoVoRchSD5/P5KkOXLeNJGbEjX9ZdkJcRUTjd0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789239040; c=relaxed/simple;
-	bh=OhvyiMsp/mZoEtAboDo8kyMAfh6o9vfe+qVneM15LBY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=T8lxLd00CVV0o/Y2bQ6lL8W7Uu8YlAsHaJZxq4tGX/Ys4dTMQoCVXdNx2luiy0q1Jm0uwb0NdXNP0/QhZbRCJrIjVYK/PNx4YQLe8NR1hEMwUAimrSDJAI1ZxtXn+k1iwGf5hTQkkdodVtO1E5Cm/zvBCtsyYLkBaXG5sbfdq7Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RLgsxU6P; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789239062; c=relaxed/simple;
+	bh=u4bY25OlS/STiPfEff3AYuZQbpFqDVPDBaP06JtG/TA=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=sdwJWhsj0IzGUL69GbqHbCaTUL1vQkdMZv1Ur/z9qBuVyF31aH0Rm34aiNOvd2LM4rA+wBy/1s1LyAu8gxieRv1RFOigPefGSurGt1V6Y9iDt+NLhkcapzgfCVOSQDo4F2on/tRE7W6w9RfjySFRyI4O4LE0UrLwjVRZqV94GuU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TToE2Exp; arc=none smtp.client-ip=74.125.231.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RLgsxU6P"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC0381F000FF;
-	Sat, 12 Sep 2026 18:50:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789239038;
-	bh=07Lq/XL1IlEUe96PwnmgESbCWMzA0hrr6WiCfxD8Fb0=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=RLgsxU6PeWZGIJJzuyvy0mpF8AcE0juypLZ1Ik603Ce6CC6jQSHYlfeWfLhC/WNoI
-	 EyMcc/mB867y2U4esY7SAF4acLDpm2GnSZLEZGY39F++WpybLl1DKuSuYjzhNEePMH
-	 USmeBRCO7Yu6tqRUXE3VuJeCCUGj/fAV72oe4CgEiX3Bwf8caRGUSTkkFExsTcvj+R
-	 ntksnKiLez9gCOnL9SEf6wjPgsbQn7TJeQcjVbYX3HQJDBNZKMcpHGk+TLB0sHm6PE
-	 iZTzdj3P0DLKmRlQilr+VN8nRvk2TW3ona3DkqCKpk21pMC9aELUz9wOScdxTbhIju
-	 zqjnm1Jag1WvA==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 92247CE0D0D; Sat, 12 Sep 2026 11:50:38 -0700 (PDT)
-Date: Sat, 12 Sep 2026 11:50:38 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: KunWu Chan <kunwu.chan@gmail.com>
-Cc: jiangshanlai@gmail.com, josh@joshtriplett.org, rostedt@goodmis.org,
-	mathieu.desnoyers@efficios.com, rcu@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Zqiang <qiang.zhang@linux.dev>
-Subject: Re: [PATCH] srcutree: Add lockdep and early-boot checks to
- synchronize_srcu_atomic()
-Message-ID: <e6be6641-731c-4b21-ad4e-c05bedc388d6@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20260911093515.2802551-1-kunwu.chan@gmail.com>
- <0cf7b133-d2fd-4298-adba-70a2b86d1892@paulmck-laptop>
- <CAN_Opa-uuim=aiOuAmHYUoD5S=vBREemj-dCvcunF-4zNdp1=A@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TToE2Exp"
+Received: by mail-oa2-f12.google.com with SMTP id 586e51a60fabf-46accbdfc20so1142771fac.0
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 11:50:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789239057; x=1789843857; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=MVAa2vcLmhJgPgBL+zt2cQ5v03fr313Ui4EZTagdeVQ=;
+        b=TToE2Exp4sA5jtwdvfPSDEFCvS7otXijaFHMX/7EccbUKRSMGocJWGzECKJJe2z+i/
+         lVN2GNZ3qIWo8hwFPDhui0/HkOyRrbzDNjB0io4vAz+VnCWIRyYKuwGnxewsCXOxwcEm
+         ShpkyJ1IicYiITOHcR8PQb/CvuIsFQbN+1Oy6M7Y1QQv8U3zbLY7sxcTwjt4ck4rXrV6
+         RvqCSF/8wLyrd7Q1c934K4MV/fI/yKjA6hKhm1pUBNc7H3PHhgthgq5WhUux88611VPx
+         X9pM6X36TesmN4Zg08OxmJq2cRPl1uxTtjzjMa6THUODElGGnOrjYutbvUWIwaO3fcLq
+         3pOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789239057; x=1789843857;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MVAa2vcLmhJgPgBL+zt2cQ5v03fr313Ui4EZTagdeVQ=;
+        b=RMSxuXfSjW1e08ei98x60VJ4jvFnqG3874WhFkUKadIExq9K0SEb3UOddvrreea9RG
+         vC74z/sSNK41+DhYzmCWXY+gn4Q/SKDxBt2rNmxsZQrfyHL9bDmd3uqTOpbRHbG9fpBN
+         Vd1ikO537zXZkMyPw3qIOAUjeMrbftTQYSU9Vw4v8T4Opjg5MDw0pqdtfyOTbj3EnVSF
+         5QVTmH96Tem1GzRUmmvcv2gjB3MGhhepMCtZherdRE8MWeRTm6HbKMMnd28dnXYcmq6i
+         h+iDq9ao3hWSfljfi4YxcPhpvUjepwG8k+Iuv1MBcfxKrS/zRArcPznZ/XL5P5Wo+za4
+         fszg==
+X-Forwarded-Encrypted: i=1; AKwUvBw2OLWuFP2/2Ug0RyJr79FH/Jl2P4DZWOxQWJzfGRYPp2pKm7ts66eROBpL53h1AVc5FZsju/K2LoVJE9A=@vger.kernel.org
+X-Gm-Message-State: AFuF++l/VxmgdDaOjNxdfh20YoDaO/Qawbg0gce9zWkqD17GAME6H6m8
+	uTyLp+qbm8SlWkfBKAAsZb+SjGe3cK2BSHqQWTPvuVXAk9UUIYgniLOV
+X-Gm-Gg: AYBFou1ppIGTRSV0S6gjPPw89pw1K7XCMQzmVWtBsouyaP5ZeeTsLCpy7n73bZ+JW+W
+	z/+RfSEPwRPF7FOuITIKwZFp878AoPuzsNM9dOCAyLzQL6gFr+NqjUIiZ618mBN12aX430SoxsB
+	uVMCDrHLqxh2fb394UyE+xLXFb4rWMxSmqMHhXXJG3uVlEOz2mSlCnMJFc8pE3mNXkhv58WTV7k
+	amAsOY6oM/F1ohVto755K3FZC5WdGhPOAA42t70BkJJf15b/h50B3/D45QojAiRdwEmRFdLqr/p
+	0HTCygwByF9/Z2ws2B5BjpGsen52w/ooh7FpNwzY/gK8QmJbMYVw1ZS/EtU6lMdZs0vskyrtWIG
+	7Ul1BBPgrsWkprvcyQwdQ2WeHT4fWP+JoduOjIGT7g1/IvZBFTR1u+rS4xyQa1wS5fm69Sgx20F
+	u8wxzzyNXSNPcq3cy2B1uVPvouVfhPQc8Q2gMlK1BpxqEII+IqXL5mGTa/YhzT/nNoKa3ke5VVw
+	xGXd5YEjch/AlRX+iTWuh98LFzn933ABfwel0FyiOfUk3PdOhW0UXu5EGSQh7bKJeY=
+X-Received: by 2002:a05:6870:d307:b0:451:d77d:f2d5 with SMTP id 586e51a60fabf-47de9866097mr11425912fac.13.1789239057269;
+        Sat, 12 Sep 2026 11:50:57 -0700 (PDT)
+Received: from localhost ([2a03:2880:10ff:5d::])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-47df64dbec6sm5034901fac.2.2026.09.12.11.50.54
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 12 Sep 2026 11:50:55 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAN_Opa-uuim=aiOuAmHYUoD5S=vBREemj-dCvcunF-4zNdp1=A@mail.gmail.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 12 Sep 2026 11:50:54 -0700
+Message-Id: <DLDKB6BTHVXE.PFK87O3QY1J5@gmail.com>
+Cc: <martin.lau@linux.dev>, <song@kernel.org>, <yonghong.song@linux.dev>,
+ <jolsa@kernel.org>, <emil@etsalapatis.com>, <ihor.solodrai@linux.dev>,
+ <john.fastabend@gmail.com>, <shuah@kernel.org>, <bpf@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>
+Subject: Re: [PATCH bpf-next v2 01/13] bpf: move linked-scalar flags out of
+ bpf_reg_state->id [NFC]
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+To: "Vineet Gupta" <vineet.gupta@linux.dev>, <ast@kernel.org>,
+ <daniel@iogearbox.net>, <andrii@kernel.org>, <eddyz87@gmail.com>,
+ <memxor@gmail.com>
+X-Mailer: aerc
+References: <20260910164635.459558-1-vineet.gupta@linux.dev>
+ <20260910164635.459558-2-vineet.gupta@linux.dev>
+In-Reply-To: <20260910164635.459558-2-vineet.gupta@linux.dev>
 
-On Sat, Sep 12, 2026 at 08:37:33PM +0800, KunWu Chan wrote:
-> On Sat, Sep 12, 2026 at 12:47 AM Paul E. McKenney <paulmck@kernel.org> wrote:
-> >
-> > On Fri, Sep 11, 2026 at 05:35:15PM +0800, Kunwu Chan wrote:
-> > > Add the lockdep annotation, same-type SRCU nesting warning, and
-> > > early-boot check used by __synchronize_srcu().
-> > >
-> > > Suggested-by: Zqiang <qiang.zhang@linux.dev>
-> > > Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
-> >
-> > Queued for review and testing, thank you both!
-> >
-> > Interestingly enough, it is now the case that there is a grace-period
-> > wait that can be placed in a normal RCU read-side critical section.
-> > Does this mean that we should also adjust the --do-srcu-lockdep testing
-> > in tools/testing/selftests/rcutorture/bin/torture.sh?
-> 
-> Thanks, Paul. Good point.
-> 
-> I’ll check the current `--do-srcu-lockdep` coverage, including the
-> case where `synchronize_srcu_atomic()` is called from a normal RCU
-> read-side critical section, and follow up with the necessary torture
-> testing changes.
+On Thu Sep 10, 2026 at 9:46 AM PDT, Vineet Gupta wrote:
+> bpf_reg_state->id doubles as a linked-register id and, in its top two
+> bits, as a record of how the register relates to that set:
+>
+>   #define BPF_ADD_CONST64 (1U << 31)
+>   #define BPF_ADD_CONST32 (1U << 30)
+>
+> Every user of ->id therefore has to mask, and more link kinds are coming.
+> Move the two bits into a bitfield next to ->precise, which is the last
+> field of the struct and outside every memcmp() window used for state
+> comparison, so the layout and all byte-wise comparisons are unchanged. Th=
+e
+> two kinds are mutually exclusive, so a 2-bit enum captures them and makes
+> ADD_CONST_32 vs ADD_CONST_64 explicit at each use.
+>
+> ->id becomes a plain 32-bit identifier: no masking anywhere, and
+> check_scalar_ids() loses its two-level "check the compound id, then the
+> base id" dance in favour of a single check_ids().
+>
+> While here, use regs_exact() for the explore_alu_limits case in regsafe()=
+:
+> it is what that open-coded memcmp+check_scalar_ids pair amounts to, and i=
+t
+> picks up the add_const comparison for free (parent_id is 0 for
+> SCALAR_VALUE).
+>
+> check_stack_write_fixed_off() cleared ->id directly on a narrowing spill,
+> which would now leave ->add_const set without an id; use
+> clear_scalar_id().
+>
+> Moving the kind out of ->id also drops an incidental comparison in
+> regs_exact(), which used to see it as part of the idmap key; the next
+> patch restores it. Otherwise no functional change intended.
+>
+> Suggested-by: Eduard Zingerman <eddyz87@gmail.com>
+> Signed-off-by: Vineet Gupta <vineet.gupta@linux.dev>
+> ---
+> v2: was RFC 2/6.
+>  - kinds are a 2-bit enum bitfield, not a byte of flags; RFC 1/6, which
+>    turned ->precise into that byte, is dropped (Eduard)
+>  - use regs_exact() for the explore_alu_limits case
+>  - clear_scalar_id() on the narrowing spill, which would otherwise leave
+>    ->add_const set without an id
+>
+>  include/linux/bpf_verifier.h                  | 25 ++++++++-----
+>  kernel/bpf/log.c                              |  4 +--
+>  kernel/bpf/states.c                           | 35 +++++--------------
+>  kernel/bpf/verifier.c                         | 35 +++++++++++--------
+>  .../bpf/progs/verifier_linked_scalars.c       | 34 +++++++++---------
+>  5 files changed, 65 insertions(+), 68 deletions(-)
+>
+> diff --git a/include/linux/bpf_verifier.h b/include/linux/bpf_verifier.h
+> index 9727df5af83a..afb1e5628698 100644
+> --- a/include/linux/bpf_verifier.h
+> +++ b/include/linux/bpf_verifier.h
+> @@ -35,6 +35,17 @@ enum bpf_iter_state {
+>  	BPF_ITER_STATE_DRAINED,
+>  };
+> =20
+> +/*
+> + * Records that a register is (base + ->delta) within its ->id set:
+> + * r1 +=3D 10;   r1 gets ADD_CONST_64 delta
+> + * w3 +=3D 10;   r3 gets ADD_CONST_32 delta
 
-Sounds good!
+w3 gets ?
 
-Perhaps you and Zqiang can work together on this.  Co-developed-by,
-for example.
+> + */
+> +enum bpf_add_const {
+> +	ADD_CONST_NONE =3D 0,
+> +	ADD_CONST_32,		/* delta was added with a 32-bit ALU op */
+> +	ADD_CONST_64,		/* ... with a 64-bit ALU op */
+> +};
+> +
+>  struct bpf_reg_state {
+>  	/* Ordering of fields matters.  See states_equal() */
+>  	enum bpf_reg_type type;
+> @@ -136,16 +147,9 @@ struct bpf_reg_state {
+>  	 * to a specific instance of bpf_iter.
+>  	 */
+>  	/*
+> -	 * Upper bit of ID is used to remember relationship between "linked"
+> -	 * registers. Example:
+> +	 * Registers sharing an ->id are "linked":
+>  	 * r1 =3D r2;    both will have r1->id =3D=3D r2->id =3D=3D N
+> -	 * r1 +=3D 10;   r1->id =3D=3D N | BPF_ADD_CONST and r1->delta =3D=3D 1=
+0
+> -	 * r3 =3D r2;    both will have r3->id =3D=3D r2->id =3D=3D N
+> -	 * w3 +=3D 10;   r3->id =3D=3D N | BPF_ADD_CONST32 and r3->delta =3D=3D=
+ 10
+>  	 */
+> -#define BPF_ADD_CONST64 (1U << 31)
+> -#define BPF_ADD_CONST32 (1U << 30)
+> -#define BPF_ADD_CONST (BPF_ADD_CONST64 | BPF_ADD_CONST32)
+>  	u32 id;
+>  	/*
+>  	 * Tracks the parent object this register was derived from.
+> @@ -164,6 +168,11 @@ struct bpf_reg_state {
+>  	u32 frameno;
+>  	/* if (!precise && SCALAR_VALUE) min/max/tnum don't affect safety */
+>  	bool precise;
+> +	/*
+> +	 * How this register relates to the others sharing its ->id.
+> +	 * Non-zero only if ->id is.
+> +	 */
+> +	enum bpf_add_const add_const:2;
+>  };
+> =20
+>  static inline s64 reg_smin(const struct bpf_reg_state *reg)
+> diff --git a/kernel/bpf/log.c b/kernel/bpf/log.c
+> index fb032dfdc0de..f8d7a5c8052f 100644
+> --- a/kernel/bpf/log.c
+> +++ b/kernel/bpf/log.c
+> @@ -651,8 +651,8 @@ static void print_reg_state(struct bpf_verifier_env *=
+env,
+>  		verbose(env, "%s", btf_type_name(reg->btf, reg->btf_id));
+>  	verbose(env, "(");
+>  	if (reg->id)
+> -		verbose_a("id=3D%d", reg->id & ~BPF_ADD_CONST);
+> -	if (reg->id & BPF_ADD_CONST)
+> +		verbose_a("id=3D%d", reg->id);
+> +	if (reg->add_const)
+>  		verbose(env, "%+d", reg->delta);
+>  	if (reg->parent_id)
+>  		verbose_a("parent_id=3D%d", reg->parent_id);
+> diff --git a/kernel/bpf/states.c b/kernel/bpf/states.c
+> index 66fb11b6c6a7..d974baad37ee 100644
+> --- a/kernel/bpf/states.c
+> +++ b/kernel/bpf/states.c
+> @@ -369,13 +369,6 @@ static bool check_ids(u32 old_id, u32 cur_id, struct=
+ bpf_idmap *idmap)
+>   * and r7.id=3D0 (both independent), without temp IDs both would map old=
+_id=3DX
+>   * to cur_id=3D0 and pass. With temp IDs: r6 maps X->temp1, r7 tries to =
+map
+>   * X->temp2, but X is already mapped to temp1, so the check fails correc=
+tly.
+> - *
+> - * When old_id has BPF_ADD_CONST set, the compound id (base | flag) and =
+the
+> - * base id (flag stripped) must both map consistently. Example: old has
+> - * r2.id=3DA, r3.id=3DA|flag (r3 =3D r2 + delta), cur has r2.id=3DB, r3.=
+id=3DC|flag
+> - * (r3 derived from unrelated r4). Without the base check, idmap gets tw=
+o
+> - * independent entries A->B and A|flag->C|flag, missing that A->C confli=
+cts
+> - * with A->B. The base ID cross-check catches this.
+>   */
+>  static bool check_scalar_ids(u32 old_id, u32 cur_id, struct bpf_idmap *i=
+dmap)
+>  {
+> @@ -384,15 +377,7 @@ static bool check_scalar_ids(u32 old_id, u32 cur_id,=
+ struct bpf_idmap *idmap)
+> =20
+>  	cur_id =3D cur_id ? cur_id : ++idmap->tmp_id_gen;
+> =20
+> -	if (!check_ids(old_id, cur_id, idmap))
+> -		return false;
+> -	if (old_id & BPF_ADD_CONST) {
+> -		old_id &=3D ~BPF_ADD_CONST;
+> -		cur_id &=3D ~BPF_ADD_CONST;
+> -		if (!check_ids(old_id, cur_id, idmap))
+> -			return false;
+> -	}
+> -	return true;
+> +	return check_ids(old_id, cur_id, idmap);
+>  }
+> =20
+>  static void __clean_func_state(struct bpf_verifier_env *env,
+> @@ -542,8 +527,7 @@ static bool regsafe(struct bpf_verifier_env *env, str=
+uct bpf_reg_state *rold,
+>  			/* explore_alu_limits disables tnum_in() and range_within()
+>  			 * logic and requires everything to be strict
+>  			 */
+> -			return memcmp(rold, rcur, offsetof(struct bpf_reg_state, id)) =3D=3D =
+0 &&
+> -			       check_scalar_ids(rold->id, rcur->id, idmap);
+> +			return regs_exact(rold, rcur, idmap);
 
-							Thanx, Paul
+Why drop memcmp() ? Doesn't look correct.
+Also even after above change to check_scalar_ids() the check_scalar_ids() i=
+s still
+no equivalent to check_ids() that regs_exact() is doing.
 
-> Thanks,
-> Kunwu
-> 
-> >
-> >                                                         Thanx, Paul
-> >
-> > > ---
-> > >  kernel/rcu/srcutree.c | 8 ++++++++
-> > >  1 file changed, 8 insertions(+)
-> > >
-> > > diff --git a/kernel/rcu/srcutree.c b/kernel/rcu/srcutree.c
-> > > index 6a9c432a3bd0..6c729e805fb3 100644
-> > > --- a/kernel/rcu/srcutree.c
-> > > +++ b/kernel/rcu/srcutree.c
-> > > @@ -2123,6 +2123,14 @@ void synchronize_srcu_atomic(struct srcu_struct *ssp)
-> > >       unsigned long rdm0, rdm1;
-> > >       unsigned long unlocks0, unlocks1;
-> > >
-> > > +     srcu_lock_sync(&ssp->dep_map);
-> > > +
-> > > +     RCU_LOCKDEP_WARN(lockdep_is_held(ssp),
-> > > +                      "Illegal synchronize_srcu_atomic() in same-type SRCU read-side critical section");
-> > > +
-> > > +     if (rcu_scheduler_active == RCU_SCHEDULER_INACTIVE)
-> > > +             return;
-> > > +
-> > >       // Initialize.  Either init_srcu_struct() was invoked or
-> > >       // DEFINE_SRCU() or similar was used.  Therefore, no allocation
-> > >       // will be done here.
-> > > --
-> > > 2.43.0
-> > >
+This patch should have been refactoring, if so, this change looks
+unrelated and dubious.
+
+The rest looks fine.
