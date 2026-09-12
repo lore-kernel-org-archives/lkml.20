@@ -1,78 +1,49 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3DE6328B7F
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 04:04:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC35B1A268
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 04:09:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789185844; cv=none; b=PIT43Re54fEAXMEu81TOdlAF0CxSVdla48ectFSmfp4fvESfRKKuSt4J/GUdM+HQ8vtkfsIqVZ04IZdiUag4leCLJ7lXNZtIF8EuXkz3MGW2niXxT1l39bkzynhBbq4txRNRlhqdsqJkzqgKBL1azSrgfLpHcLk7XehcC9DoYTg=
+	t=1789186168; cv=none; b=fIRvTDvco1RqpkUwriFckYl8/NmgbKdcIB7vaeIdeys1+HP9RIXsaqqYuQ383cMQcRkziv1Zi8mwZL5p0mjG5GE4HBUyvlazc+SH7XPFZlkKHtzrItV6i5HP4wIhcSC1ayP3vIrlyu2BILw75FlYMHGCLGXjmhAS1QiU/xuHrug=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789185844; c=relaxed/simple;
-	bh=n2+a3bHoasD57GyzTGSQRXSs6iKWYXA4uMXs9bwZOSU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KEtpmmJbHfkdXcWGaDOLCjnG1F/+IOu7j2rWfLC0iRc8tne7azYQP4Ib10zn/UEqdIJvczHtn5TeozQwhL250KLhn+ssNfefBl477Ik8zdBCNPWOZmrjjqcM2fL89kOHcDahAp0Gw0y3jQxmY9rj5I6jJlAm1d6r1iwefG9rCzM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PKtqbKMn; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789186168; c=relaxed/simple;
+	bh=q6r+fmpBGe53FQ1SVZuun/Bd5TdqHC7Or9LgvToG+pw=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=CdGNBtCX9iwXHjrspKnVBhh4uf6bn7AmWW6QxrpC3CHs2Hs3zfMHa17VPZ0w0T+Vjji3D8fTlx3kfUkuOZDP4DPQ4jRD3CZqNCCaEdrGjoMFujkgnNyeMv5Q2Xzh0ojOzvDExtMB1Zz+cP6L5siwdmfTWVqPY5irO0eHzLJRHos=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=OgJnXNqa; arc=none smtp.client-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PKtqbKMn"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39b350c6920so168322a91.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 21:04:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789185842; x=1789790642; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UClbOqJghVNS+HetxvyOx47BLVX5S3LX2RS9VshAjqk=;
-        b=PKtqbKMn6ocf5hPmyRK0Lj/A/YvpTTf06QgNwIa26Ps52xTNCBb6bHD8nfg+hcjUig
-         pfgQkWUUtPCczixwVmMTrnpqNq8F0aQnEMoPWy/Gcqueh5Xj0NQN2EAICnXOcNx/T+f5
-         3krAkntNKWMY2hKV82a1dnJKXRIjKc+0wptkjXCkes4M4mphAsxm91f9JMerfGE7QQoR
-         Cs5ybkFpS8ZtKA37b/PHaKhf50GOgbXaLQk1/ZWAyowDlD9AuW3SWGtMa1xbeBetN2YD
-         SY2u7SrDWk+Ub832bGmASdabhMmFexKt5Ln28cJYwFpxH5x+DM5894mNAJyspJyoOG5R
-         tnNA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789185842; x=1789790642;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UClbOqJghVNS+HetxvyOx47BLVX5S3LX2RS9VshAjqk=;
-        b=SKwdJfGDF4PDrXj6J5lUHlOzIAzyu960ZDKzESWZrSTLnsgFg4rhNIdCuyv7QC/xxw
-         I/ytPNQp3FBYYH+6t6b8rf7d7hkKoese05EM/BPp/9ztAs1xncMCxilD9H7m7U2Rs1pA
-         WGH1Zd1h6pws/bQNrelw5b3RgJP6qdIUeNZUPx73Jaww7zVPdxqs4anhmXz6O+7dGvUX
-         Kmh+EmN5hmUNyIFNRTECK1I/QP0/hyNWVcYm1GpkygI2ufIFnEWb2yBUK/YUPCIcDImR
-         d8v4vGt/0+JUF1BpDpibxLuG3pfw97KGrUNDaCQHC2xq6tCnYt/bU4MrVG3l3KNcDy+o
-         tCPA==
-X-Forwarded-Encrypted: i=1; AKwUvByvJc2GVUhhbm6fwXVpCPGCqQ8IuVv7bzN4zQh48X81SjCsLiZUaTAfyvyITtD2Hyl6kTjWhWGbhFT9Ms8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mgSxHdfZ5Z9M/oZ+Ub2ao2/CnSH49Sh5WMrna5oIAlNsNwsEof
-	pkybR0jXfaR23Wl7tAkm2F9tC/RmDRlEKcBZIy9usEetXkg1Y27sE0d9
-X-Gm-Gg: AYBFou1qBGrE2ISJ8mlPDKs036YnGEabPqLyOmSLpsn60ZfjVSW4mpOwvNn+Nn5t1K1
-	OgTYzM5V+jsIVo9PGnTIpq4r1w/BJl0pH8zQ0T7W1gfl0SXtGE3gkCMwpT9K6o7KMKNDJOfTouU
-	9rEkNrap0WpVwbVrKxAJ5HcUB3R2etZwQaeKAnPqTTgNulrJgbkihcOaCUv4Eh6HsYD6am4z+rF
-	pTL5YFWe7iF9LQAKB4hULk4bUO3SKdpiqn3t0ieMoNvI1/S+/e+OuIwX37JepgJRF+o4P6DLPFz
-	ieX3C4gbt2gEWCdHG7F3BcVv8khJthaig4y4Jti8m713+1rGaGCAg/UdFyYJzmvcmbenQmKgOq/
-	MzMzEzk7As0lRIRfZZ4Wl4Uh1YnAEAP/UsiPdXvnVokBoBYt1+RyOf3lWnTJpBe3YEt8KiGANfJ
-	5W0MepA1SslNZc5vY5cphYpbPFg3+i3XdG8huVSuyk46iE6AX52jHusbmoB7AQbbQP+FLu86Nd5
-	xPR+DFbK2NMgKWoxnZLDTJVW4ZgII/V1k9YWn25z6FQzdkRxX6ZVRpQzzyy79p4
-X-Received: by 2002:a17:90a:c2c6:b0:396:5fce:8e24 with SMTP id 98e67ed59e1d1-39dbbe85d7bmr2067589a91.4.1789185841956;
-        Fri, 11 Sep 2026 21:04:01 -0700 (PDT)
-Received: from deepanshu-Legion-Pro-5-16AFR10.. ([2405:201:682f:383f:3e34:fc0e:e4a8:fba1])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d9d7ff2c5sm1937554a91.2.2026.09.11.21.03.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 21:04:00 -0700 (PDT)
-From: Deepanshu Kartikey <kartikey406@gmail.com>
-To: david@ixit.cz,
-	johan@kernel.org
-Cc: kuba@kernel.org,
-	error27@gmail.com,
-	gregkh@linuxfoundation.org,
-	sameo@linux.intel.com,
-	michael.thalmeier@hale.at,
-	oe-linux-nfc@lists.linux.dev,
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="OgJnXNqa"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Jb
+	w9HG2tqBAmGwytIc19pMq5hBGY8qQKlQCdyyqxoDQ=; b=OgJnXNqawBWXIY0fvR
+	XatcDhmkjbu5iaSsc7VTgCp88I0Ad8Zv8uBdpiNHrpnEs/yvn6MIDuL48AaUTdxx
+	4a+CsfXtFQTiEG8ybNFbl352N+aqcNJpUXo93BqlDQA1J9eOI3Ugqtf0H5xl8hES
+	/eN6EZpq1pXtPigCZvxD8I5AE=
+Received: from zhaoxin-MS-7E12.. (unknown [])
+	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wD3H64k0KRq3nyqAA--.144S2;
+	Sat, 12 Sep 2026 12:08:06 +0800 (CST)
+From: Xin Zhao <jackzxcui1989@163.com>
+To: vincent.guittot@linaro.org
+Cc: bsegall@google.com,
+	dietmar.eggemann@arm.com,
+	jackzxcui1989@163.com,
+	juri.lelli@redhat.com,
+	kprateek.nayak@amd.com,
 	linux-kernel@vger.kernel.org,
-	Deepanshu Kartikey <kartikey406@gmail.com>,
-	syzbot+1853daab1a47603d4678@syzkaller.appspotmail.com
-Subject: [PATCH v2] nfc: pn533: fix OOB read in pn533_acr122_is_rx_frame_valid()
-Date: Sat, 12 Sep 2026 09:33:51 +0530
-Message-ID: <20260912040351.15056-1-kartikey406@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	mgorman@suse.de,
+	mingo@redhat.com,
+	peterz@infradead.org,
+	rostedt@goodmis.org,
+	vschneid@redhat.com
+Subject: Re: [RFC PATCH RESEND 05/10] sched/fair: Introduce select_task_rq_fair_thin() to select rq when LB_PROMOTE
+Date: Sat, 12 Sep 2026 12:08:04 +0800
+Message-Id: <20260912040804.3391229-1-jackzxcui1989@163.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <CAKfTPtCQUndM7NfMYpz8S6vXhwbwrOYALr9dNb+971XgZ9GqnA@mail.gmail.com>
+References: <CAKfTPtCQUndM7NfMYpz8S6vXhwbwrOYALr9dNb+971XgZ9GqnA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,50 +51,77 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3H64k0KRq3nyqAA--.144S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxXFWUAFyxCFW3KrWkGFy8Zrb_yoW5GFyxpa
+	yfWr43Kw47J340y3W29r1fur4UGrW8J3W7Kr45Gry0kwn8ua4qyr1ftw4S9a4UArW8u3WU
+	tF4jqa4kCas5Aa7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pRTKZAUUUUU=
+X-CM-SenderInfo: pmdfy650fxxiqzyzqiywtou0bp/xtbCwAYBC2qk0CZ-KgAA3h
 
-frame->ccid.datalen is read directly from the USB response frame
-and used, unchecked, as an index into frame->data[]. A malicious or
-malfunctioning device can set this field to an arbitrary value,
-causing the driver to read far outside the received buffer.
+On Fri, 11 Sep 2026 14:27:04 +0200 Vincent Guittot <vincent.guittot@linaro.org> wrote:
 
-Bound ccid.datalen against the maximum possible ACR122 frame size
-before using it. This replaces the existing datalen == 0 check,
-since datalen < 2 already covers that case and additionally
-rejects datalen == 1, which would still underflow the
-"datalen - 2" offset used below.
+> > I did overlook the detail regarding the SD_BALANCE_WAKE flag; our project did
+> > not change the default state of the SD_BALANCE_WAKE flag, which is set to 0
+> > Moreover, as far as I know, most embedded Linux projects have real-time
+> > requirements and generally do not modify this SD_BALANCE_WAKE flag
+> 
+> But if you have real-time requirements, why don't you use the
+> real-time scheduler ?
 
-Fixes: 9815c7cf22da ("NFC: pn533: Separate physical layer from the core implementation")
-Reported-by: syzbot+1853daab1a47603d4678@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=1853daab1a47603d4678
-Tested-by: syzbot+1853daab1a47603d4678@syzkaller.appspotmail.com
-Assisted-by: Claude (Anthropic)
-Link: https://lore.kernel.org/all/20260906054336.20187-1-kartikey406@gmail.com/T/ [v1]
-Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+Due to fair scheduling, especially in a 250Hz system, we often experience significant
+scheduling delays. Therefore, we have already converted many critical tasks to real-time
+in our projecct. Currently, there are already a considerable number of real-time tasks
+running on our system. The following is the data on our system:
 
----
-Changes in v2:
-- Replace the existing "if (!frame->ccid.datalen)" check instead of
-  adding the new bounds check alongside it, since the new check
-  already subsumes it (per Johan Hovold).
----
- drivers/nfc/pn533/usb.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+CPU ID | Total Tasks | Real-time Tasks
+------------------------------------------
+0 | 369          | 197
+1 | 293          | 132
+2 | 166          | 53
+3 | 103          | 27
+4 | 89          | 26
+5 | 63          | 29
+6 | 173          | 61
+7 | 215          | 39
+8 | 181          | 53
+9 | 77          | 21
+10 | 90          | 47
+11 | 119          | 63
+12 | 55          | 23
+13 | 50          | 27
+14 | 85          | 33
+15 | 143          | 50
+16 | 156          | 40
+17 | 159          | 44
 
-diff --git a/drivers/nfc/pn533/usb.c b/drivers/nfc/pn533/usb.c
-index efb07f944fce..9471c34b4d4b 100644
---- a/drivers/nfc/pn533/usb.c
-+++ b/drivers/nfc/pn533/usb.c
-@@ -319,7 +319,9 @@ static bool pn533_acr122_is_rx_frame_valid(void *_frame, struct pn533 *dev)
- 	if (frame->ccid.type != 0x83)
- 		return false;
- 
--	if (!frame->ccid.datalen)
-+	if (frame->ccid.datalen < 2 ||
-+	    frame->ccid.datalen > PN533_ACR122_FRAME_MAX_PAYLOAD_LEN +
-+	    PN533_ACR122_RX_FRAME_TAIL_LEN)
- 		return false;
- 
- 	if (frame->data[frame->ccid.datalen - 2] == 0x63)
--- 
-2.43.0
+
+The RT tasks/total tasks percent is already very high. It is no longer feasible to expand
+the scope of real-time tasks, including tasks like kworker, ksoftirqd, and kswap, which
+are not suitable for real-time scheduling, right? In particular, within kworker and
+ksoftirqd, there are still many scenarios where insufficient scheduling timeliness leads
+to increased processing delays in the entire pipeline.
+
+The LB_PROM feature and its associated series of patches are specifically designed to
+address this issue. One of the most significant core changes is patch 10; you may want to
+take a look at it first. The remaining patches (patch 5, this patch, patch7, patch 8, and
+patch 9) all contribute to improving fair scheduling delays.
+
+
+> > Given this situation, is it necessary to create a new branch for such a "_thin"
+> > select_task_rq_fair() variant when enabling LB_PROMOTE?
+> 
+> At now, I don't see a need for a new branch nor a LB_PROMOTE. You
+> failed to describe your problem and came up with thos
+> platform-specific solution instead of fixing current code. Putting it
+> behind LB_PROMOTE, doesn't make it better.
+
+I took a closer look at the implementation of sched_balance_find_dst_cpu and believe that
+this function already meets the requirements. I'm wondering if it would be possible to add
+the SD_BALANCE_WAKE flag to the scheduling domains (sd) of each CPU when the LB_PROMOTE
+feature is enabled, and then revert it back to 0 after the LB_PROMOTE feature is disabled.
+Would that be feasible?
+
+
+--
+Xin Zhao
 
