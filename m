@@ -1,217 +1,215 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-lr2-f12.google.com (mail-lr2-f12.google.com [74.125.230.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9642C3876C3
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 02:42:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789180981; cv=none; b=CudvyOyIGduZrR9+6tRB6uTQKjRzJ2iv1NFK1+YSZA5yj1k1En8+Aii7g7rrVsx1Zggysoxj8Y1adGdMRmpZVUqpiXKab6X9aAipDYhB5mage8HdP27/2k/sKX1/wC4DFg8HxDltNP2DU9LpG5YIs8wy2AZ/PLXaV51moy04avk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789180981; c=relaxed/simple;
-	bh=uK7HAOo0XGA640EhrLFvGJWqXs75fzhrrXXDy+FcH+8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=r3AgylKfDldYjwqJL0hiuPB3llrzydo6bhIWZhGLbzMQPCrnLnYY4BXwtnJyd1RRBQjm8aMfQ++MpcZ7l66DrtnDaFqD8DFrHxamMp5+9Xsysw3LPhOLSKLVaqXA6zNtFpSa/0kvHbUg/M6A9Fe2nVPyc24wujntexj53AA03ww=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FcIp326J; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4246734D4E9
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 02:50:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789181454; cv=pass; b=klsiXZR1BecC6z5Z6COXEwhKFdGz+8ko5WrAlOShcEQkTXH08clRaFsBKztG5z4kWlunedriSGrukIS8IGhtEAOwCsaYeToRyjXQgyBRKBZTMsZ+jn+HnsuvRhvqWh2HQAKfj8Ic8mYjurOdp7Tyobl6vSSmfNraFL7I0aTbUmI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789181454; c=relaxed/simple;
+	bh=UBF68ob9rLLcJ+B4BGI8OMKoTXkffDblP9vHlbmSr8c=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=kVcTzBjc2cyarV1YILBR2KAhyHpHYUm8rKqXu+FY2Trin+UYnslxZOKPgTxbrqxOz8WKQgzlTbUHxxaFONI2DmhlgxzeD6b1JYtnf6GWyxd9ALHWtlUirz4x8kvQgx3hoJpVenIhpvyIPue/4tdbS5ZpxFga/X9YMzylBtrCjhE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=soekMItX; arc=pass smtp.client-ip=74.125.230.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FcIp326J"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39dbdfaef3cso150891a91.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 19:42:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="soekMItX"
+Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a5919af39dso5081651fa.1
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 19:50:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789181451; cv=none;
+        d=google.com; s=arc-20260327;
+        b=oxf5klJDrLc8av8+EfYZtXsDzPKL0ltLVq6YwYprFXoPOuGLQz39DOzn7Ii2/ooFm1
+         0dTkInj7l02JDRzA7/fhXz5vPq3O8SSMKtgdx99AAmWveK56Of8D8x+y21+CCHeZGMX2
+         RZISascQqC9CVZxoCkX45neVLA1aqZkhu0hf2bV6vgxbosbuu9Banmz2daJIfuOZiHYL
+         pOe1CYXmpkxcRGTLktqWtW9z6FB6CEyW/igYlt0mgNBEZC1uM+MLBQ7GxdVYza66R7OD
+         eoXI231n4lvjpVSeeZIz2lCaDJ4ArrehZPGoWydG1vwDBzumMqQzDjZduKlU79vnsUX/
+         9SHg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=7lm0hPUEiNGm9wQton/cSC99gHERZOkyr34L44cajdM=;
+        fh=yfV50YEDLW/dN7EpHDPZ2LCHWc0uO2v0QTHLCVXgcf8=;
+        b=XRQfUC70hL3rsOIxdIZSjo7jbvrDqMpGFAs9Ltq28lZII2FeQqsJjp4+kYvxTb+VZX
+         c+bSYl8oKVtubCB3vLPx3RWW5UEWuxAmJX37wYb0kcx0tl3BwZyjk98BFbd1EECFqDdn
+         QuihSV4G4TlJ7aMQN2e4j4UW4xDV8xH4Qmy61aZ8f/RbFXEyhCGnq7DcNpWG9o0PMosh
+         wOdPqlSiPx8lz7gCRq+uYZMMCuXsUqBfAIZsTiQ+Jn7d//wLISTDFJgA6GTUitTSxb7D
+         m84y2EA3dIiPkVuD3CUpasIgjNAcs8853ZDU69F/U/OqVCWTmzgvUTEw7HcLT3rHJW93
+         BT5A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789180979; x=1789785779; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=k8y+2G0lbVO7qrpdZ9gvoGNdOPIses0q/HemIii5KS0=;
-        b=FcIp326JO0n+c7nfwxiqhalPjT2ddXunqJYCgj+i3cT64zHkfunKVwt9OW05ucJ52C
-         H77Cfoj7MXaN0acMy7jByiFvlWb4nPBet0wWfBVHyuHGGSmh3aCa+4yXtBNFrHvfctMw
-         xVGqLvLbYdiAodWpoppuJXz6DP4fJR9/2iJs5E6w4WWCvItiVluvu8hw5nwXMHcvXMu8
-         0hvGioUuc0D6tNPNRwVXi91PLccIIvGG2u2xHGaeRaWQkL+KV2M3YXlH61daTv/4vP2u
-         CcMiXgLH7vZ4AvAnlSmKFmZ30kj7Nzmyo+hG91JmJOXguwRU6yEaiIavrqqnjUqHLuau
-         vQCg==
+        d=nebusec.ai; s=google; t=1789181451; x=1789786251; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7lm0hPUEiNGm9wQton/cSC99gHERZOkyr34L44cajdM=;
+        b=soekMItXA9QqFaOQZUqkhYikTmgyQ3GxeHmtHh/W776sbTPTNFfZFQZxbFmJ5lGy1r
+         UTDOsYLtWXJUhDejqN6oRafURawF+E01esZbvRgC1nPi+j4D1r3Ipwhc3jeEofjFTUKZ
+         ldQoE1yCZ5ZFNnqhedj8lWp227/lVMVOvmM2yDkFbBv2sJVwprjh67H/psR1EnySNc9W
+         e0CfxcQrSruWo1qh3jKeUZZe7VUD2sQQcyEs+Od4HNyA1U79SEutUp2caxRzR6VKiQx1
+         pRnd4AHMowh+qp+/4l3tTZ7bwn+L17kIBucZWbG5eQQAg1DrRWavNsaIjxw2ZyD6HwqZ
+         OOjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789180979; x=1789785779;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=k8y+2G0lbVO7qrpdZ9gvoGNdOPIses0q/HemIii5KS0=;
-        b=giQSFly9+uL1nWT5RK6uDKvs3GfhD8lXxqi5xXM9C6kzhYSbdF0i0pVS1kTeIvTPlT
-         4rB9DiLe86DVl62kEw3XW1nFxgIExg0UQOky2hVVbS6VWrLfAkKIHqm2bLijmkO/leJd
-         3KvTE784orHjjyOtAsdg8VEyhmbbL3SueWNLTWz2L5uq0Ou1ZtjfZWR0nUHV5ySKEs6T
-         9a6y531uVKYV4TRI9pIFoD8OCV54XT141hOk6XywxKh3NGu50fOV4Y432ff9khQfk+Zv
-         mbI/edJPe3Nid4aQJhfthz2omZdc/nJHQzY5x7TZv2CtyPV8CkOXsXBE58XaINA47Lrk
-         WBtg==
-X-Forwarded-Encrypted: i=1; AKwUvBya0ONpyZX25SkT41ij9sJkZREwwIgpP1zH31EpFW86l3ZftJmh7ffYeoUtkN7mZEZwY/YI9YkFPpciNqY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kaIa6rtjEcYIdprfYMhMv7doIqnNZ5mz0KDhPEYxNOqm7P2PSz
-	PGYvb3s3rpJgk2aA1dXpRtiypwjrli9C3FucYKPRjpE9d+c4F9HG15m1
-X-Gm-Gg: AYBFou1gepY6IJGSN6P+y67cwNKkT1B16wIrjszFNbrikG2wOAWjtQXIfMo13MoLIxk
-	BdSeYEA1bpQm+snypofyQwdrt5IX9IfoOHDwjJTkEVPxN06lI4VMi1cxMVBusL6dFrL8TnbRYbU
-	y6LktACcNoIjm43sM4XESE10YtiYvGQQsNBWG0FZ3TI63d+r3yE/CJM+qbnXwWw+SmRcDo1ARDI
-	8rBwckq11Rtmoyn/8nOnH+IRCEwKwDOfkICTIjTfO0LtUBdI1n+cB8KY3Em+VOEZnHvvNf7BI03
-	zelGrTaSl/e3yxV+Zu45M0eMD0sRenM/bAf6BpTz0E5b22QKUzTty6Gq+fI8Ni3sV7PbCUUlUrq
-	QvXZjcOW+DHA11qkiySwb3tWE5SKnVk5vRFDrg3RVWkSGs+HxCLR3LEaLsCDm8pKtKWHdaTCaIw
-	9xUCKvgonb0gjNtqeQwvwGTyRkXG6DUoDYLCW1l3wEBEscU8ZKtU+Nlacc3tRZAYBfPvKXTmZBa
-	1y/zvF0FlDdImxgvg==
-X-Received: by 2002:a17:90b:4b90:b0:38f:2168:b9cb with SMTP id 98e67ed59e1d1-39d9bd99cd2mr10275855a91.9.1789180978938;
-        Fri, 11 Sep 2026 19:42:58 -0700 (PDT)
-Received: from kernel.tail6741c6.ts.net ([185.220.238.35])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d950913a6sm7879099a91.6.2026.09.11.19.42.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 19:42:58 -0700 (PDT)
-From: Kunwu Chan <kunwu.chan@gmail.com>
-To: paulmck@kernel.org,
-	dlustig@nvidia.com,
-	joelagnelf@nvidia.com,
-	corbet@lwn.net,
-	akiyks@gmail.com,
-	luc.maranget@inria.fr,
-	j.alglave@ucl.ac.uk,
-	dhowells@redhat.com,
-	npiggin@gmail.com,
-	boqun@kernel.org,
-	peterz@infradead.org,
-	will@kernel.org,
-	parri.andrea@gmail.com,
-	stern@rowland.harvard.edu
-Cc: linux-doc@vger.kernel.org,
-	lkmm@lists.linux.dev,
-	linux-arch@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	rdunlap@infradead.org,
-	skhan@linuxfoundation.org,
-	Kunwu Chan <kunwu.chan@gmail.com>
-Subject: [PATCH v2 2/2] Documentation/litmus-tests: Add SRCU fastpath scan-before-anchor test
-Date: Sat, 12 Sep 2026 10:42:25 +0800
-Message-ID: <20260912024225.2872265-3-kunwu.chan@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260912024225.2872265-1-kunwu.chan@gmail.com>
-References: <20260912024225.2872265-1-kunwu.chan@gmail.com>
+        d=1e100.net; s=20251104; t=1789181451; x=1789786251;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7lm0hPUEiNGm9wQton/cSC99gHERZOkyr34L44cajdM=;
+        b=oso0KS5tkwHIYTFl7loddyEOK8aqSPgmYwoOpl89aifRuJX5+iVAwQfAcfaksdUFKJ
+         ggFxY5//FjLEQmtAh3B267hlVN2WsY+w9e4QX+StB54U65Hm4dho7iYasoefrJmTDSkO
+         VSRMESqrpdNX1Ll7MktcDukW5CwDofNoEgUMiC468YaIalcXMl7IizqckmJqvkCi7fvh
+         tkngTkGwz0qe1nPm6a8EMFOer6wY7MpPWM9Xldd92gAM0EO6dnetS0I0rPMoQbldCuVK
+         w5QwyHwgKpk6WJA48Dd/s0xEa59W6fOfKMb6Wu8Z6GFlN1/JeqtJkHNr5ZS88hbnSPE6
+         Vn/w==
+X-Forwarded-Encrypted: i=1; AKwUvBzcTF9lEVp5NsbZIwofPrJUwOYfvQ/Nm4SVUmE1/9P68Ff8gk6iSIXZnHAqlYzJDk5pgyVKcjqPWWDwnrU=@vger.kernel.org
+X-Gm-Message-State: AFuF++lLN9PhcRbvvVs3Wg9U3lTM0DJAh7YXQtVVv07MbWGZ8COyYijy
+	xyzb9W2m89ZvEd6nT1ygI16RFEounfnCMdWofup13s5qqi+XugZZaeAR7nsxL4GTBBCz46/PJpL
+	e4zeckYTEIUc3z4tqpKR1Q5Rgey/wdwW3U+78YqKJaFY=
+X-Gm-Gg: AYBFou2KMjb9pGbZpw6aj9c+WQS1gh0IUr8kc6ed9w7OH9oQW3ypyU6FsaZ1ehSFyfi
+	aeG3JKoWmy4QqmK2+ae91ScQwcW670s6YWA1GdFKBEPfklA1r5U4p5miWiP//p4prrAhSokBj4P
+	8dz6RLS4R/uNmp3qkTx+6KaOcRmual7cxKxtjgDzveRPlAm8Z5Nw++RwFoMaJ/jYMxqasdpWvkJ
+	iQTkOe5HzbE/6hh+HzyZsua86qYk6c/42ySm4HkXG7FnIV53EBmS9e/uXL3V90LuFZQEm0RjZ3r
+	/vqoCK6G7pPx3tfli1nEs6BnGPmbAYEnaNfPr1xcri2R0ivSKyfRVKrNbCfjidzq5hx6wlrfs0f
+	ZTAlAHHvvyQ==
+X-Received: by 2002:a05:651c:1503:b0:3a4:99ed:beac with SMTP id
+ 38308e7fff4ca-3a5a51c9fc4mr17435271fa.4.1789181451073; Fri, 11 Sep 2026
+ 19:50:51 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <cover.1788516372.git.zihanx@nebusec.ai> <20260904140527.62354-1-zihanx@nebusec.ai>
+ <20260911170034.1236993-1-sorenson@redhat.com>
+In-Reply-To: <20260911170034.1236993-1-sorenson@redhat.com>
+From: zihan xi <zihanx@nebusec.ai>
+Date: Sat, 12 Sep 2026 10:50:38 +0800
+X-Gm-Features: AcwNN1U-uRTqt8ykL8GuFuZ-SOYux8MbyRejD1SIf3LqoAgM1qpEMJQANafNEo0
+Message-ID: <CAANe3eQwGetW4jWjGrjCwO+kXhGbDJpE5iMhVbWkJBGp+Do+MQ@mail.gmail.com>
+Subject: Re: [PATCH v3 1/2] smb: client: fix create context out-of-bounds reads
+To: Frank Sorenson <sorenson@redhat.com>
+Cc: Paulo Alcantara <pc@manguebit.org>, Namjae Jeon <linkinjeon@kernel.org>, 
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>, Shyam Prasad N <sprasad@microsoft.com>, 
+	Tom Talpey <tom@talpey.com>, Bharath SM <bharathsm@microsoft.com>, 
+	Pavel Shilovsky <pshilovsky@samba.org>, Aurelien Aptel <aaptel@suse.com>, linux-cifs@vger.kernel.org, 
+	samba-technical@lists.samba.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-If the synchronize_srcu_atomic() fastpath instead places its lock scan
-before the grace-period anchor, the scan can miss a reader whose
-increment was already visible before the anchor.  That reader already
-existed when the grace period started, so completing the grace period
-without waiting for it would violate the SRCU grace-period guarantee.
+On Sat, Sep 12, 2026 at 1:05=E2=80=AFAM Frank Sorenson <sorenson@redhat.com=
+> wrote:
+>
+> On Fri, Sep 04, 2026 at 02:05:17PM +0000, Zihan Xi wrote:
+> > smb2_parse_contexts() validates the complete create-context area but do=
+es
+> > not bound each context record by its Next field before dispatching to a
+> > handler.  A malformed chain can therefore expose bytes past one context=
+ to
+> > the handler.  The QFid handler also used a full response-structure cast=
+ even
+> > though it only consumes DiskFileId.
+>
+> Hello,
+>
+> I have some thoughts/comments on your series.
+>
+> First, a possible reason for not getting a response on your v2, and
+> delayed response on this v3: Steve French passed away in August, so
+> mail addressed to him isn't reaching a maintaner, and things may
+> have gotten missed during transitions.  You'll want to send future
+> versions to Paulo Alcantara <pc@manguebit.org>, with Cc to
+> Namjae Jeon <linkinjeon@kernel.org>
+>
+>
+> I've been carrying an overlapping patch (an earlier posting:
+> https://lore.kernel.org/r/20260826153147.4112943-12-sorenson@redhat.com).
+> in a bounds-checking series of my own.  Like yours, my patch has
+> been addressing the memory safety problem in the three handlers
+> which read at fixed offsets, rather than the generic checks.
+>
+> But I think yours is probably a better fix, and you've got the
+> PoC, so if we can perfect yours and get it in, I'll be dropping
+> mine in favor of this series.
+>
+>
+> A few points (take with a grain of salt):
+>
+> 1) The lease parser still reads at a fixed offset rather than from
+>    DataOffset:
+>
+> >               case 4:
+> >                       if (!strncmp(name, SMB2_CREATE_REQUEST_LEASE, 4))=
+ {
+> > -                             *oplock =3D server->ops->parse_lease_buf(=
+cc, epoch,
+> > +                             if (cc_len >=3D smb2_create_lease_min_cc_=
+len(server))
+> > +                                     *oplock =3D server->ops->parse_le=
+ase_buf(cc, epoch,
+> >                                                                      le=
+ase_key);
+>
+> cc_len bounds the record, so the read stays in bounds.  But this is
+> just like the QFid bug you just fixed nearby:  smb2_parse_lease_buf()
+> and smb3_parse_lease_buf() reach the fields at the canonical offset
+> of the create_lease layout, not at DataOffset, so a valid but non-
+> canonical DataOffset could get in-bounds garbage rather than an
+> OOB.  That's not a security fix, but since LeaseState drives client
+> caching decisions, it's probably worth closing.  Reading lcontext
+> from DataOffset, as with DiskFileId would make the two handlers
+> consistent.
+>
+> (My version also had this, so it's more an observation than anything
+> else)
+>
+>
+> 2) You may want to consider matching DataLength exactly, rather than
+>    taking a minimum.
+>
+> ksmbd's parse_lease_state() requires:
+>
+>         sizeof(struct lease_context_v2) =3D=3D le32_to_cpu(cc->DataLength=
+)
+>
+> and validates DataOffset + DataLength against the create_lease_v2
+> size, rather than accepting anything at least long enough.  It was
+> suggested to me that having the client & server halves agree on
+> strictness would be good.
+>
+> (I did confirm your minimums cover all the fields each of the parsers
+> actually touch, so this is about strictness, not a hole)
+>
+>
+> Frank
+> --
+> Frank Sorenson
+> sorenson@redhat.com
+> Principal Software Maintenance Engineer, filesystems
+> Red Hat
+>
 
-This litmus test models the reversed ordering, with the lock scan placed
-before the grace-period anchor.  "seq" models the grace-period anchor in
-->srcu_gp_seq and "ctr" models the per-CPU ->srcu_ctrs[].srcu_locks
-counter.  P0 scans the lock counter before writing the anchor, with an
-smp_mb() between them.  P1 models the reader-side counter increment,
-with the smp_mb() of __srcu_read_lock() following the increment.  P2
-models an observer that sees the reader's increment before seeing the
-anchor.
+Hi Frank,
 
-The same outcome is allowed with this ordering, and herd7 reports
-"Sometimes".  The litmus-tests README is also updated to describe both
-SRCU fastpath tests.
+Thank you for the review.  I'm sorry to hear about Steve.  I'll send
+future versions to Paulo Alcantara, with Cc to Namjae Jeon.
 
-Tested with herd7 7.58 using linux-kernel.cfg.
+I also appreciate you carrying the overlapping bounds-checking series.
 
-Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
----
- Documentation/litmus-tests/README             | 21 ++++++++
- .../SRCU-fastpath-scan-before-anchor.litmus   | 54 +++++++++++++++++++
- 2 files changed, 75 insertions(+)
- create mode 100644 Documentation/litmus-tests/srcu/SRCU-fastpath-scan-before-anchor.litmus
+I'll address both comments in v4 and send it as a new thread:
 
-diff --git a/Documentation/litmus-tests/README b/Documentation/litmus-tests/README
-index 6c666f3422ea..076a6edd70ff 100644
---- a/Documentation/litmus-tests/README
-+++ b/Documentation/litmus-tests/README
-@@ -78,3 +78,24 @@ RCU+sync+read.litmus
- RCU+sync+free.litmus
-     Both the above litmus tests demonstrate the RCU grace period guarantee
-     that an RCU read-side critical section can never span a grace period.
-+
-+
-+SRCU (/srcu directory)
-+--------------------
-+
-+SRCU-fastpath-anchor-before-scan.litmus
-+        This models the synchronize_srcu_atomic() fastpath with the
-+        grace-period anchor ordered before the lock-counter scan.  This
-+        ordering prevents readers that existed before the grace period
-+        from being missed by the scan.  See
-+        SRCU-fastpath-scan-before-anchor.litmus for the reversed
-+        ordering.
-+
-+SRCU-fastpath-scan-before-anchor.litmus
-+        This models the synchronize_srcu_atomic() fastpath with the
-+        lock-counter scan ordered before the grace-period anchor.  This
-+        permits the scan to miss readers that existed before the grace
-+        period, violating the SRCU grace-period guarantee.  See
-+        SRCU-fastpath-anchor-before-scan.litmus for the opposite
-+        ordering.
-+
-diff --git a/Documentation/litmus-tests/srcu/SRCU-fastpath-scan-before-anchor.litmus b/Documentation/litmus-tests/srcu/SRCU-fastpath-scan-before-anchor.litmus
-new file mode 100644
-index 000000000000..4d3bdb14d888
---- /dev/null
-+++ b/Documentation/litmus-tests/srcu/SRCU-fastpath-scan-before-anchor.litmus
-@@ -0,0 +1,54 @@
-+C SRCU-fastpath-scan-before-anchor
-+
-+(*
-+ * Result: Sometimes
-+ *
-+ * If the synchronize_srcu_atomic() fastpath instead places its lock
-+ * scan before the grace-period anchor, the scan can miss a reader whose
-+ * increment was already visible before the anchor.  That reader already
-+ * existed when the grace period started, so completing the grace period
-+ * without waiting for it would violate the SRCU grace-period guarantee.
-+ *
-+ * This litmus test models the reversed ordering, with the lock scan
-+ * placed before the grace-period anchor.  "seq" models the grace-period
-+ * anchor in ->srcu_gp_seq and "ctr" models the per-CPU
-+ * ->srcu_ctrs[].srcu_locks counter.  P0 scans the lock counter before
-+ * writing the anchor, with an smp_mb() between them.  P1 models the
-+ * reader-side counter increment, with the smp_mb() of __srcu_read_lock()
-+ * following the increment.  P2 models an observer that sees the reader's
-+ * increment before seeing the anchor.
-+ *
-+ * The same outcome is allowed with this ordering, and herd7 reports
-+ * "Sometimes".  See SRCU-fastpath-anchor-before-scan.litmus for the
-+ * opposite ordering, which forbids this outcome.
-+ *)
-+
-+{}
-+
-+P0(int *seq, int *ctr)
-+{
-+	int r2;
-+
-+	r2 = READ_ONCE(*ctr);
-+	smp_mb();
-+	WRITE_ONCE(*seq, 1);
-+}
-+
-+P1(int *ctr)
-+{
-+	WRITE_ONCE(*ctr, 1);
-+	smp_mb();
-+}
-+
-+P2(int *seq, int *ctr)
-+{
-+	int r3;
-+	int r4;
-+
-+	r3 = READ_ONCE(*ctr);
-+	smp_mb();
-+	r4 = READ_ONCE(*seq);
-+}
-+
-+filter (0:r2 = 0)
-+exists (2:r3 = 1 /\ 2:r4 = 0)
--- 
-2.43.0
+1) smb2_parse_lease_buf() and smb3_parse_lease_buf() will copy the
+   lease context from DataOffset, as the QFid handler does for
+   DiskFileId.  Agreed this is not a security fix; it just keeps
+   LeaseState correct when DataOffset is non-canonical.
 
+2) DataLength will be required to equal sizeof(struct lease_context)
+   or sizeof(struct lease_context_v2) for the corresponding parser,
+   rather than a minimum.  A mismatch skips lease parsing and does
+   not fail the open.
+
+Thanks,
+Zihan
