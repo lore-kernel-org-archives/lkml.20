@@ -1,104 +1,91 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03856340D9D
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 14:20:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F43A4BEE20
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 14:20:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789222823; cv=none; b=Rplcpt+AyfpUKx5jTi7xmqTMf8D0PU5jtPWP5VoGQeyTDrurdaGtKO3OZLScfbMIAKi3aOSJz4IEqPhoj5105GOFiRSBQOXF2HDuXp2O5DxVpYc2V+i+MvQYsL5+I27Ifu3zp2zj9BhTYzSfkT1b97DcROIzJuCv9wleG4mP5Bs=
+	t=1789222840; cv=none; b=c9Au1G4R+hDL7n6vIRY3kB7XgtjDaogNpv6ZRfUzN9d0t5Svanw3otMj8OL12hO/Ua5Y/FpSy+WdTe9lF5kL4LzrCGt5/DtxAQ9PYVwPT6nV77SHJ3JqbeNUxBQuQCykWalvlsTtTQ2IzzC15onTCSjq1bjWreSsThqLNBZhQu0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789222823; c=relaxed/simple;
-	bh=biqxF2WqF9FsEWFi0SeRE5ItXS6SATDbQxMgWQtNwgc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lO61woYv011jiT29ijbdewwmAWvF29Lv91MqZE5skPH+3cmYlH0FgQW3xPoIeHTtnVKo1EnHmYekLbotvfvc8JWHgesZbPIdPSHZHMUeL2HhrJbjZ5iho9tRNJpGv5V2kGZihmiMSchB5Ed/5j0xac+QMapJGxNKmuH25sJd/P0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X9wS6sgy; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+	s=arc-20240116; t=1789222840; c=relaxed/simple;
+	bh=JLVHm6p63n0VryfKPzW5PRsxWWIQ2DrkwggRggEOHXo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=oaVcSd6aALVDGl4HySU4MWyEejMbj20gjcbxHpNc8ImrHpKVUtreQuekHMH9mq2r/+SEb9TGlXoMADesCK2Ys1WBnUa9k2IAFZM7nptg0MwiNuZ/JGbvtOTlNSqYLDWyrB91BNhfkvba74yHqPkQI9pAVRvqdtXgRttFxPPoJ+w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZAr9RU5i; arc=none smtp.client-ip=209.85.215.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X9wS6sgy"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39d654f02baso458868a91.3
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 07:20:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZAr9RU5i"
+Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cc4aa18f9afso1400727a12.3
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 07:20:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789222821; x=1789827621; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=we0ycuhD13NPMWrxsYvOqSZt4f6T+4762jU+NZLRKXc=;
-        b=X9wS6sgyPv70YucXExX/1Ce4CRnkgEBlcbO4tXFe2BDHC5ArRqa3qtidYPXbc+Eb86
-         t0mtTuUgnC3wg6ofDeOJ0aTvX3bUhY5Ktd7u/+uecMOcrv+vBAhjk/aq9zz+u/HFyO+/
-         j35JVG5kq7mNh+HuEE3Yye9zQxxnTCTJ+GuoOyhGUkS5sUPnXXGr4/ZHm0BPUWIbpty1
-         Kq4WauWQpzAb/3mjBQtH6WP4wQm4W4uV+2X8I5QHGgF3Jgx7UaiH3mOKt2who7ft2dck
-         plOwJ3A5714iuVwbgSw5ymHhx7MgqNunxTATC7VsY4aQe6zVBWd+3OgROJDd1P+Xs1Yr
-         XOsA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789222821; x=1789827621;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1789222839; x=1789827639; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=we0ycuhD13NPMWrxsYvOqSZt4f6T+4762jU+NZLRKXc=;
-        b=jW+cqhq4je13QUvQhBDCJ0H7WHWCMieRC+/2dglNKGmsRBLdZBuRDry8eqN70vYTF8
-         v823vJFa7tuP63km4wOBZX3XGi2v35NZUdkcJc2nUjsNV3bgUpP9KiR0JRIs55j50REe
-         7tdlqnFZ0w0Ou8KlsRl+SE2QtLD6RGcdSp+bbuQjkdhLW6ReqEw5DGT12o/JRLpCWXlT
-         0fc27yCtFAiiNeXOmgLibavAhYGN4BA1nPde3Rv6ZZF2Jp2zi/Wh3aiojO/nrP4Ze7OH
-         yBIF8n8gGMMNs3vQgmoBSfLAQCQ3aOU+XLF+30QyJqMZk2uctcV39C7L/HTfK5tr8vqY
-         qhzA==
-X-Forwarded-Encrypted: i=1; AKwUvBz2rwA7xH9sLWCBVSRR5Fe/9F8XklFt6dtwFvWNts6pXHF/1lVC+SM54+nNhxRP0npf4y/OdK1V1aFdsZQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kDeJBj4rIhM2pSYxElBWL0hW/wowSQDl/vFkFtkp6VBqzwltN7
-	M191CR8OGAjlkQ6bJXzx+Wtdejavyc0rITtmYwH63occ9FZJo+bOSV/a
-X-Gm-Gg: AYBFou0el6sf+eqVvfvtLC2F3qO02Q5HpxHs0VCjTA5IUfY1TGn31IZquXLz/UzDIMR
-	Xwl0hIOkN2i4VzwuZPKBP6KJjow1NwR7szaYbLsqaKY5N2IPH14p8drycu3RTNsjJF155AMHvNb
-	b1zzjdFWt4/AWPCTbU4pN9eQsYoioZvUQ7O4DJ6DH5mApdUvRYyRsqYohWIk/DvTejWaDSjfCgA
-	TuCujvhVplBm3wDlBMcCRP6X+exLTmigLmZ6ZoCnQu3Xtd/NmosPm8JedUybUMMYqM3Kv43OCfK
-	wfi2JSiexMzSF+bLi1agewCuUzlbpt1z3+Mma+8tzcYJw1yfTqh/YRTbgHOrdloJzPhgHHYawrL
-	W9bw0or6nLSqVm7HTpdcDe+WYthgO2lEIVASb7AXo8GPSdCHT58QtR72fmQRvmsJTwOYuYnwvsk
-	8rNfAJTEGe0cO9WBIhHWZ4ZjbRGv+sZcLIq3+F77Dts2x8qYYLNULpWzh40u+H5mNiBEn9qhgbI
-	hidPb0LM7PL
-X-Received: by 2002:a17:90b:2dcd:b0:398:dcfe:967a with SMTP id 98e67ed59e1d1-39dbc6d53e5mr5724044a91.17.1789222821301;
-        Sat, 12 Sep 2026 07:20:21 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d95994375sm10641268a91.17.2026.09.12.07.20.20
+        bh=JLVHm6p63n0VryfKPzW5PRsxWWIQ2DrkwggRggEOHXo=;
+        b=ZAr9RU5inB+2IhbFUvOqP91pLU2gBCSu42uo2kjxWuF8xyQgq0xUGAEmg+AiC+oqgb
+         XQFheRNFn80XK0kGABGYFlF/AJV12W4KltY6pDW5rAHLatsT7Z/GHSNXtHvI6rQer/H9
+         gtmzPxX3LhXhuiI/G0Ke+cF5U10CluS20ZvgonoxWXNlQjP3BayNfKCfqU4y+Mz6gFVJ
+         9L6QqtjTB0bNgXnLGENEm6uN+USaIlAbe3un1KcAuARirzj8HtwDztF9R1VVmED6UkCM
+         sml/UmouAbhggLpehbd4C/LRrQ7UC7rxda5aTVwz0XgtmGNPtRa1LLql/e/9Bkwhqw0p
+         PC9g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789222839; x=1789827639;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JLVHm6p63n0VryfKPzW5PRsxWWIQ2DrkwggRggEOHXo=;
+        b=VAmLWo2e8zDjp/bg1IEwTqQ6o0MCFJ00vxqC10HLiBSLYMPIM6pTGPpENSbBi13dSr
+         mgwYdweSlQ3L+lollUtgdjgUu7EA/AfWsS0AuxEuyV2cdR3bnANLZ+HwmesX3h7+h9oO
+         cSxAVymvkPE2Cetgwl6HoGkdNgJ2c/AXKbOhGHnhSSN9sBe5Fs1T3SK0OSQXY1vTE7K7
+         3urfi8atyqHIAcyTXCXKBnIgWycxC8EbJ6S7LOqGGHo/TFW5QwXvW+6sOPrlTEyvh2Kz
+         wws/64JeCPVwvmBEQBeCOYb9KopEp7cObSgzuzPpH7kuJVA/n2+OmNnI3pzHe4DxAy0E
+         jlMw==
+X-Gm-Message-State: AFuF++l2okJd7Mxw67X1VwaR/axASz9WXJ255OmMpBAC0nShTH0fCFBc
+	jxjtASUwScfBng/X1Za3+EdDSLvHJA8PiL4/mSfvfxfogkSNHY4D7GAe
+X-Gm-Gg: AYBFou1/so01GZSkrl1L9qYMeRj3tDBMs+o+ujdROyO+cmDwc+b2aUPHa4lb/ErkZmC
+	ixfeELxU3a8qmorqUaFwL7C/6e7riTedIx9N9bHs2jk/y4KmTDGuQidwLqw0+VhSpRs+EbvUf/6
+	3tPbBkD4XVOWJ4XEYzRnI/8zmNzCtX/LQVHXbfTOQxMYjuL7x7FTGnzPeE62rDifkCFsB1ppzgh
+	HMR12RuiBx51bsL18DOWFXlkBO44NR0JHyzREdeUZTpJ2NHYgLLGlyYuhnp8ow0jfT3YYODdxuI
+	wJuv01QToSz9xeFWdhcR4tuKr86EY6jAREVdNXnDm7auTz477w6bkq+u+r9rqgHZZXPgMyMAU7s
+	1tW4zThRaum/BqFjHb1BnWAzvOxZbMRCU3wdzw4nQMF3xG4EiX7Olc9Lb19zbVarP7mOU723Jt4
+	59RxpUR1zFMHzpkC0HvhbABgFreBmawkQ0BvIx8aCyMBZBeOI1r6ysOnZJZdeysr0OAOgREYGnC
+	uNQRgi94sXHYQ==
+X-Received: by 2002:a17:90b:2f44:b0:398:e86b:ce14 with SMTP id 98e67ed59e1d1-39d9c21f686mr15996429a91.20.1789222838747;
+        Sat, 12 Sep 2026 07:20:38 -0700 (PDT)
+Received: from kidz0ne.tail43063e.ts.net ([180.69.96.23])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39db113a3d0sm6222472a91.14.2026.09.12.07.20.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 12 Sep 2026 07:20:20 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Sat, 12 Sep 2026 07:20:19 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>
-Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-doc@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>
-Subject: Re: [PATCH v2 1/4] hwmon: (pmbus/core) increase number of phases and
- add new mask
-Message-ID: <5d6bb7de-5cd2-4708-b894-fe8648a9c49c@roeck-us.net>
-References: <20260911-hwmon-max20826-support-v2-0-5e30cbd97d84@analog.com>
- <20260911-hwmon-max20826-support-v2-1-5e30cbd97d84@analog.com>
+        Sat, 12 Sep 2026 07:20:38 -0700 (PDT)
+From: Kijo Park <red993688@gmail.com>
+To: tglx@kernel.org
+Cc: LKML <linux-kernel@vger.kernel.org>,
+	Hyunwoo Kim <imv4bel@gmail.com>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Christian Brauner <brauner@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	John Stultz <jstultz@google.com>,
+	Ingo Molnar <mingo@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	"Eric W . Biederman" <ebiederm@xmission.com>,
+	Alan Stern <stern@rowland.harvard.edu>
+Subject: Re: [patch V3 0/8] exec/exit: POSIX timer related bugfixes and related cleanups
+Date: Sat, 12 Sep 2026 23:20:11 +0900
+Message-ID: <20260912142011.1139400-1-red993688@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260911090341.949101445@kernel.org>
+References: <20260911090341.949101445@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260911-hwmon-max20826-support-v2-1-5e30cbd97d84@analog.com>
 
-On Fri, Sep 11, 2026 at 02:53:37PM +0100, Nuno Sá wrote:
-> Increase the number of phases to 16 as a new upcoming device supports
-> such a number.
-> 
-> While at it, add a new mask for controlling the source of the output
-> voltage.
-> 
-> Signed-off-by: Nuno Sá <nuno.sa@analog.com>
+I applied the V3 series to Linux 7.2.5 and reran my reproducer. The WARN
+and KASAN use-after-free no longer occur.
 
-Applied.
-
-Thanks,
-Guenter
+Tested-by: Kijo Park <red993688@gmail.com>
