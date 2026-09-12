@@ -1,196 +1,166 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC0B837189C
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 08:52:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4677B20ED
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 08:54:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789203174; cv=none; b=Nmr6Le933LHQD6hxlSQ4WcO/cBIq6qa98RW/kMqKy3UHoXTVMHCW9YzHgGRqRoAQwahKbhggoVl/C4ce4MynQGbUVqc/x0IfQBWD1sjWUmPTxMGeSGGapEMa7eyutzOwOAo4V2D+mYlqNhAkBkE4qJ/y2sNMSxYYOWGVmsYH0lY=
+	t=1789203278; cv=none; b=FPnUt8fi+FJYn2snhWmRKV8wFoBaIa518CLg9Mm4erOT/c/3emB8Vn15aGL5tEL/uQRha22ySt4gIXbFxuiAilPAMyXhezIvXP9LkMwuIvKCsOO+dWjhTk11gfsaZcYnWuaA+zQMuX9qMwq0awGnKTyAnibmkKEV+ue55ufimLI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789203174; c=relaxed/simple;
-	bh=dquZraZjSq1eNM+T01tcQIrz2JYvFIRH7UkrcXngR/g=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=ERQMp4zbbm0j46TYFHwZqVGq+HyouvTxUij9xQRMmM5dRvXvX9+cL5P+3BDH8xFB4OFj/MxbD3zYRJsqHOcAhrelqq0c1P5UvgBLlDURD5R28yU/R3bUPxT79t6U2EMsI7E8n/b/DbhZB6mkkB1vhbeKAPwiROU3pQomSopLTtE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=cAAHydwN; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=e18SaTpT; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789203278; c=relaxed/simple;
+	bh=kA4O/akdo2tw2RMDpn/eCUheGJVrbEaLFgeSEjZTLkM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=iTaAhruDTSqd4KST028oxClDTb5rtYlnTHgVRQUHGIxo0A6QuqdmkQQOUTukb0UO0zb2LakotkZt4gyCyPFXUCYYNNzByfEo89w6FQfJduMeP0LmTGSs8MmcRPopTuBRVI4/VUsr0fYh1n+vhGXPar/f4X/F36N+8VhJb/XlEV8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=JnfB3v1k; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=F1wO1xiD; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="cAAHydwN";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="e18SaTpT"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68C84wrj2443090
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 08:52:51 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=JBHFKISvb5GpVQD3ZIst72
-	axNU1WVodRSK6PtMFk5sM=; b=cAAHydwN5dNGUGUMFXpisq/Iq0RO/ru1PTNKhK
-	zgjYiDXkNln1quw5I50Sb0gMm+HcficYy3izkgODOkw/NFQtwDGX1JXUJUIWz3Mo
-	/Wtf23DYrFhkN87N6yvH+3JCLxQIBjEZ9NQTMydXhjCjkveTbXv7HxuUHO8YoIAQ
-	zvuWkUX6hPc1M1/no8didy0oBYmUOSZZFBQZfU65re+5FtB1p3HSWXGcfy6rMANp
-	ctPggWEuW9xwZ9MqREqofKCXa+zTGNYOXEYgadusZpCdb2iRvMfNBEklVP6pEqPq
-	Gv9PKaEPu83VwK43p0Fce7HgvaylYYroKO7/TOuO5DLUwjxQ==
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9c0hj3-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 08:52:51 +0000 (GMT)
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc42a07d04aso1499179a12.1
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 01:52:51 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="JnfB3v1k";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="F1wO1xiD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789203276;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9UVqrsRLM86Ysp8trDXvwZjNx2dQs8WYUeTmxIXTCoc=;
+	b=JnfB3v1kjKJ1nXbu+aN5zQoEnVxSZOaU/eoBjDbab/gpXg6vezRcdCdILsaN922TPkqCSb
+	XQhpMVheMzJ94letdRH4cwoad3Y8j0z9DcwBB2i8FbzCqiYTzGbpfo/O08ReK4pK+c6MvH
+	Uo3bo8krlz/vX5S4x5TyIdHPR/3Daho=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-563-3GfU1984P1G6KAvtuUJmHg-1; Sat, 12 Sep 2026 04:54:34 -0400
+X-MC-Unique: 3GfU1984P1G6KAvtuUJmHg-1
+X-Mimecast-MFC-AGG-ID: 3GfU1984P1G6KAvtuUJmHg_1789203273
+Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-486f197e5c2so916589f8f.3
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 01:54:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789203171; x=1789807971; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=JBHFKISvb5GpVQD3ZIst72axNU1WVodRSK6PtMFk5sM=;
-        b=e18SaTpT7w9K4ZnNcaORhoMNCx76gTmRjQv3GXtA5M3MNxNXXsnXnc3RhP5ObMAqnW
-         1OJD/XoQ0hiOUCF8ObU0gxA2S4y1sjOEs9OQIn4nfkE7KTvdRwHXAW1XlC3auW8egpgK
-         1qp7z+JjE7gLrugInazxiL59UF2nisF725LV2CWsCyLG8OBxfk3Pg6TEyun+SOiasS2F
-         vS0+L+uSsBJGNk5QSiRi0yflc6Nl0C03oV3F4CrPbms6+uDmFoje2PASpmd3ky/ZHZLN
-         ZwW/sJ7neqmT4uHEo/C+sm3th2/Kaaz/R6OcrBq1p2HE1Z/RCTxoFGXjXJUHpUhukpTp
-         jdiw==
+        d=redhat.com; s=google; t=1789203273; x=1789808073; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9UVqrsRLM86Ysp8trDXvwZjNx2dQs8WYUeTmxIXTCoc=;
+        b=F1wO1xiDnQr9kwMDZSwlrwqLJCRfTQEyo28jdza67E18az2qPmkHlYBXn+i30uK+D5
+         AhFtI/nUZC076agaeLSq/+DdeykxwQuCIszJpkErrMrgAbbW/UH0bcHEz3MSntKM9Taw
+         NjFNcu+it7qHAeCuyUQ7+jwRJQygnSqnvFrrTb0NSBbKF7xplovLIPHahwMB0JJKgPSO
+         8XKP21BkV0e1gWPocrTOH/uAA8JfD+lsdcf7/oWh0fac9hp3cVV7FZYaeluGs+crXPUk
+         AnDCoBfr1c035m1SRD6yUpHyOgQT/+pFv0UDEFQAg5BxFJBzQwDdjdag0qHhnEaexUUK
+         ZCsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789203171; x=1789807971;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=JBHFKISvb5GpVQD3ZIst72axNU1WVodRSK6PtMFk5sM=;
-        b=klPqcuRorwcFu4lFw+z4UMF2ybE5qgev/55h17YrSCOo9GV8y/xCe/h580WwXWzyvz
-         VA9f4Gv1OkC2eUu13jAycj8iOgvORb5VzgcpJL4UlVQQX2K9+mvfc9CfVqcm75XwufEg
-         +zHwE5u19aV4KYqueuMLkA47EOupbUJY8Wj9EMp7l3TK02PywRp8BaRxg6NO0XiyVV8k
-         bP09FprJicwqiEfVsA3PHds/yqhCTPfM7h2gx4ENMIoggg3R+SKP12gBC6IzRkSmTvg6
-         VncXUglx5zdMLewkE6k/fQW2YDZwyq+pZuiqxxWcip50OAPTLL+X3jHK4i7Efte65lhJ
-         WxpQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwQku+otSuSMKcYJUdaEN76ZHoDWUZyrRoYomR8MTPuSs8dk1d79KkoLbRxj4koR1B0cLhE4/zJHFb5X+0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lspkQZ7ZbMqUKwQx6nA2AuSmR4Qle5i+E7O+deV3sUOmY00weF
-	w1fsRnMpi9A/JMLVsTRxUr5GkyzkmcdfTj1h3x0FoSXqdAIPLf4A7Bokg6ObVUH0zoJBIHR2Kv/
-	xwPM+UzkoWFjZdSgjVQThbzaUQC16yuoLH4MfuY1YNnhnLhaKrkwTCeC8zMO2IhItcpY=
-X-Gm-Gg: AYBFou33vZP6py2QJt8/wJ5C4Yhmy9yftxhHc/K+Wr/OnYSwY07H0jWJ6M3wIljbDpE
-	8tXb0eQtpdf/u1PKXjOCawBmoX9qviasPrHXpx0lfXoUgwrVlIIdC2DmZZ9SeiZLFrTMsjgYs1Q
-	kiI2oY/nmZTSSOBT92XKxv2pRHC74Sf8UYlmmUta9w/I/X42/oMi5Ln1d8Sn5Nf782H9yX3sOBN
-	TTEZx0jyKrZfeakhnN7OVfHBHt36jDR/VWDP8SPjZbxYmqlcqxOP3GHnAt1/Y1V+GxPHAhQ6KmH
-	c26ejBabi3ru1wNH1tM0Lmf9d3ndWhT3E7qtj0wWGm1HY+5gSyl/TV0tzQnprLG8ibHblm2nA+9
-	jkFiM9ZwnzLj+atKY1XuP+PL714zaWQj91tgX6t57S9YP5e+vHhg/BBso1sDEhc65kOnfW/Kt0g
-	==
-X-Received: by 2002:a17:90a:da8f:b0:398:d6e8:f84e with SMTP id 98e67ed59e1d1-39d9bd6976amr12162606a91.9.1789203170740;
-        Sat, 12 Sep 2026 01:52:50 -0700 (PDT)
-X-Received: by 2002:a17:90a:da8f:b0:398:d6e8:f84e with SMTP id 98e67ed59e1d1-39d9bd6976amr12162576a91.9.1789203170296;
-        Sat, 12 Sep 2026 01:52:50 -0700 (PDT)
-Received: from congzhan02.ap.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d9afa367bsm2721832a91.0.2026.09.12.01.52.46
+        d=1e100.net; s=20251104; t=1789203273; x=1789808073;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9UVqrsRLM86Ysp8trDXvwZjNx2dQs8WYUeTmxIXTCoc=;
+        b=qNhPmxz1u6fH/STkZNQuVAH1bFoCHtmilxa5lJjB4kqoKmcRqvRL8gP0E3JwrYohdQ
+         g7kc2Fmm8nf+u9VYQtDDnkybQLWqEuiMaPcPMbjLq/g+IJksd1V5E7Ks1GC8lJkZwdGU
+         oIPrRIBuxjZmLfP2f+KLeGeP+6pdK7lk/VSwH9Eji2EjUWHQDieP6cy93TD4uv3nC/F9
+         mIMUmnQiVlDHRu+X/NCU5vlljZB6WcQa+yH+fhGqm+x0P8FoWOLBnocq5866c9gpqOkI
+         lEgbPQLwMfkuFmf+9BbdKs7jdSLqEmkY3HXeEcwQTS5PmNmea17tuWnoVY5Q+Nwywc2B
+         PVtA==
+X-Gm-Message-State: AFuF++nD3vSexDufn1tvDGroFzVtv961yauE73N8tG070w1oQPfgqPLk
+	FiuyUecxBwibDrNC6uEa29273m2kLC1gvhOIEhRKcA7BDEMhm2w3In/79fRzsTinm/rGkJ9EIz9
+	Trnle773lEANFmXyVP8UDU+2075g9byA+xJWUGDvRE3saC7VZmUYds+4/u4TTnPw3GA==
+X-Gm-Gg: AYBFou3zRXsRKAxSbDXP+EIBHJxA0XOHgFAkZlOQLlFzp3JyDiuxkvAhAArPUyN0h8T
+	BvXrYplDjbOA/NeBJd8lop9UIivk3UBNa9YEOrc4KVPpHoIFHJTtFvERqEwU/WZe4RGs70QhUx/
+	Q4BYkhzqVRoQn3d1glTd1iBapKCIjPQDBA8eGU3QjJtikjN3/svp4BpifRscvsb4stVOAL55+Bx
+	zZARAQgfoHAd/cUtwsPgSnUOTYkJLuHjVOhn9cu/7Pq8PPk9rzIoBdqeYPp8iUf0zRboFcf1zCY
+	3MmUxQKhzTSDeUNB/gjG/FmMB7glxrFTdxp/zWLvYxqhweMlYV27/znLMDAp/dtaBFRpWuYzRpx
+	T8fgov3Ud0/YzyEw2luDsyplG9Cc=
+X-Received: by 2002:a05:6000:184d:b0:486:f17d:14dc with SMTP id ffacd0b85a97d-486f17d15eemr17190960f8f.12.1789203273487;
+        Sat, 12 Sep 2026 01:54:33 -0700 (PDT)
+X-Received: by 2002:a05:6000:184d:b0:486:f17d:14dc with SMTP id ffacd0b85a97d-486f17d15eemr17190924f8f.12.1789203273159;
+        Sat, 12 Sep 2026 01:54:33 -0700 (PDT)
+Received: from alrua-x1.borgediget.toke.dk (alrua-x1.borgediget.toke.dk. [2a0c:4d80:42:443::2])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb33e020sm12029348f8f.18.2026.09.12.01.54.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 12 Sep 2026 01:52:49 -0700 (PDT)
-From: Cong Zhang <cong.zhang@oss.qualcomm.com>
-Date: Sat, 12 Sep 2026 16:52:44 +0800
-Subject: [PATCH v2] virtio_blk: use synchronous quiesce in
- virtblk_freeze_priv()
+        Sat, 12 Sep 2026 01:54:32 -0700 (PDT)
+Received: by alrua-x1.borgediget.toke.dk (Postfix, from userid 1000)
+	id BF2369B9AB9; Sat, 12 Sep 2026 10:54:31 +0200 (CEST)
+From: =?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@redhat.com>
+To: linux-kernel@vger.kernel.org
+Cc: =?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@redhat.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Shuah Khan <shuah@kernel.org>,
+	bpf@vger.kernel.org
+Subject: [PATCH bpf-next v3 2/4] selftests/bpf: Add assertions for bpf_program__{add,clear}_flags()
+Date: Sat, 12 Sep 2026 10:41:01 +0200
+Message-ID: <20260912084109.432834-2-toke@redhat.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260912084109.432834-1-toke@redhat.com>
+References: <20260912084109.432834-1-toke@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260912-virtblk_sync_quiesce-v2-1-09a001549b72@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIANsSpWoC/22Nyw6CMBREf8XctSW0PFJc+R+GEChFrgKVXmgkh
- H+3YNy5meQkM3NWIG1RE1xOK1jtkNAMHsT5BKoth7tmWHsGEYo0zHjIHNqp6p4FLYMqxtlvlWZ
- ZJZSUdZzEPAU/fVnd4Pu4veVfprl6aDXtX3ujRZqMXQ6v43vvp+D/FY4zzkopo0Y2EReJvBqiY
- JzLTpm+D3xAvm3bByMsulHRAAAA
-X-Change-ID: 20260910-virtblk_sync_quiesce-9b2c88d45416
-To: "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>,
-        =?utf-8?q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>,
-        Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-        Paolo Bonzini <pbonzini@redhat.com>,
-        Stefan Hajnoczi <stefanha@redhat.com>, Jens Axboe <axboe@kernel.dk>,
-        Ming Lei <ming.lei@redhat.com>
-Cc: linux-arm-msm@vger.kernel.org, virtualization@lists.linux.dev,
-        linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org, Cong Zhang <cong.zhang@oss.qualcomm.com>
-X-Mailer: b4 0.15-dev-38bf1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789203166; l=2165;
- i=cong.zhang@oss.qualcomm.com; s=20250926; h=from:subject:message-id;
- bh=dquZraZjSq1eNM+T01tcQIrz2JYvFIRH7UkrcXngR/g=;
- b=0Ru6H5o7DriZH6nGIn+WEPZQ8StS9Rizbxvz8EIwzzUUBVZ0EF77mcdQDEO7uy9EnjUAdZw7+
- t7tYlt2DxODCqquyJaKo7mzhK7StK0v9KpZ9C/U5sLB8hfQCB4cYQMQ
-X-Developer-Key: i=cong.zhang@oss.qualcomm.com; a=ed25519;
- pk=8SBh3ey5igz2nlW+UFC6khFvaNPgG7MmbWtAeO2s6n8=
-X-Proofpoint-ORIG-GUID: pHoohVsiCwLQFxJSctEOqqWgkwGjW-SM
-X-Proofpoint-GUID: pHoohVsiCwLQFxJSctEOqqWgkwGjW-SM
-X-Authority-Analysis: v=2.4 cv=c5Y+0h9l c=1 sm=1 tr=0 ts=6aa512e3 cx=c_pps
- a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=roso6HiFfYj01OpyUwUA:9 a=QEXdDO2ut3YA:10
- a=x9snwWr2DeNwDh03kgHS:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEyMDEyNSBTYWx0ZWRfX35ZqUWy7RmfA
- Dzar+TQETapVdpqg/Umpmv1JU+38iC5d0u8u1zjyPn9gP9WFQMeDzlOflpyW6FqAPtw4fjae/Ts
- RZWW2p8W0yxWCreImgTFS1pEc9TlGJTrCXQ2yd3JY2UkmtW8zTVUJ6VDZgCj4ltGC+ycMpFQkT8
- FaB3HfGxy2R7su+9PaPV8PvCcf+1M0/+/fGCY2pg5u8dQiVTSzjfjOljTt86EoKqYPVlhj7V64h
- +fUBUXIZ/ikSPSeW7XrXknq/lC4Ai5+BFzELwrOtWObEWUvxdziHxu+pQkUsOGrpvnIOgDjtAeQ
- S1U1yu/9qXT2r1uSqZCI65QXQCD+n5qGKx2hMKStQPFrsYekmmV6NUqXQmwkkbMa7aEHBahP1Mh
- qfORJ0d6t6dPwgkPmFMgekau9sCbUQWKK0J0T6HZwDSYyWavIi84Dw0m2VPF+7BeupQokDvkXDi
- +MRID/JT9V9Glon608w==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEyMDEyNSBTYWx0ZWRfXy7/i/lk07AmW
- JUL56JPFgHGc82YBFDyCCe/Deoc7fiIA/syV2j3/3WLVEdY1JYLB02PCtQgHoLmAuSa7rjS+5z6
- yiVroB+CsqnRsoU9EF+KFwAWzd/Dops=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-12_03,2026-09-11_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015 priorityscore=1501 lowpriorityscore=0 bulkscore=0
- impostorscore=0 suspectscore=0 malwarescore=0 phishscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609120125
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Replace blk_mq_quiesce_queue_nowait() with blk_mq_quiesce_queue() in
-virtblk_freeze_priv().
+Add assertions that round-tripping through bpf_program__add_flags() and
+bpf_program__clear_flags() ends up with the original flags value.
+Arbitrarily add these to the kernel_flag test prog since that's where
+we're already checking for the bpf_program__flags() value (and the test
+name contains "flag").
 
-Keep the existing freeze and unfreeze order. The synchronous call waits
-for dispatch code that was already running. The queue remains quiesced
-until virtblk_restore_priv() calls blk_mq_unquiesce_queue().
-
-Fixes: 7678abee0867 ("virtio-blk: don't keep queue frozen during system suspend")
-
-Signed-off-by: Cong Zhang <cong.zhang@oss.qualcomm.com>
+Acked-by: Ihor Solodrai <ihor.solodrai@linux.dev>
+Signed-off-by: Toke Høiland-Jørgensen <toke@redhat.com>
 ---
-blk_mq_run_work_fn() can call blk_mq_sched_dispatch_requests() through
-blk_mq_run_dispatch_ops(). The dispatcher checks QUEUE_FLAG_QUIESCED
-while the flag is clear. It can then be preempted before it gets a
-request. At that time, it has no queue usage reference, so
-blk_mq_freeze_queue() does not wait for it.
+ .../selftests/bpf/prog_tests/kernel_flag.c    | 21 +++++++++++++++++--
+ 1 file changed, 19 insertions(+), 2 deletions(-)
 
-virtblk_freeze_priv() then calls blk_mq_quiesce_queue_nowait() and
-blk_mq_unfreeze_queue(). A new request can enter the queue. The old
-dispatcher can run again, use its old flag check, get the new request,
-and call virtio_queue_rq(). At the same time, virtblk_freeze_priv() can
-reset the device, delete the virtqueues, and free vblk->vqs. The old
-dispatcher can then use a deleted virtqueue or a NULL vblk->vqs, and the
-kernel can crash.
----
-Changes in v2:
-- Cc stable@vger.kernel.org.
-- Link to v1: https://lore.kernel.org/20260911-virtblk_sync_quiesce-v1-1-a883f8f31258@oss.qualcomm.com
----
- drivers/block/virtio_blk.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/block/virtio_blk.c b/drivers/block/virtio_blk.c
-index 32bf3ba07a9d..7a570591e040 100644
---- a/drivers/block/virtio_blk.c
-+++ b/drivers/block/virtio_blk.c
-@@ -1595,7 +1595,7 @@ static int virtblk_freeze_priv(struct virtio_device *vdev)
+diff --git a/tools/testing/selftests/bpf/prog_tests/kernel_flag.c b/tools/testing/selftests/bpf/prog_tests/kernel_flag.c
+index 25eb59f460ab..c723c9fbfbcb 100644
+--- a/tools/testing/selftests/bpf/prog_tests/kernel_flag.c
++++ b/tools/testing/selftests/bpf/prog_tests/kernel_flag.c
+@@ -10,15 +10,32 @@ void test_kernel_flag(void)
+ 	struct test_kernel_flag *lsm_skel;
+ 	struct kfunc_call_test *skel = NULL;
+ 	struct kfunc_call_test_lskel *lskel = NULL;
++	struct bpf_program *prog;
++	__u32 flags;
+ 	int ret;
  
- 	/* Ensure no requests in virtqueues before deleting vqs. */
- 	memflags = blk_mq_freeze_queue(q);
--	blk_mq_quiesce_queue_nowait(q);
-+	blk_mq_quiesce_queue(q);
- 	blk_mq_unfreeze_queue(q, memflags);
+-	lsm_skel = test_kernel_flag__open_and_load();
++	lsm_skel = test_kernel_flag__open();
+ 	if (!ASSERT_OK_PTR(lsm_skel, "lsm_skel"))
+ 		return;
  
- 	/* Ensure we don't receive any more interrupts */
-
----
-base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
-change-id: 20260910-virtblk_sync_quiesce-9b2c88d45416
-
-Best regards,
---  
-Cong Zhang <cong.zhang@oss.qualcomm.com>
+-	ASSERT_EQ(bpf_program__flags(lsm_skel->progs.bpf) & BPF_F_SLEEPABLE,
++	prog = lsm_skel->progs.bpf;
++	flags = bpf_program__flags(prog);
++	ASSERT_EQ(flags & BPF_F_SLEEPABLE,
+ 		  BPF_F_SLEEPABLE, "sleepable in program flags");
+ 
++	ret = bpf_program__add_flags(prog, BPF_F_ANY_ALIGNMENT);
++	ASSERT_OK(ret, "bpf_program__add_flags ret");
++	ASSERT_EQ(bpf_program__flags(prog), flags | BPF_F_ANY_ALIGNMENT,
++		  "bpf_program__add_flags value");
++
++	ret = bpf_program__clear_flags(prog, BPF_F_ANY_ALIGNMENT);
++	ASSERT_OK(ret, "bpf_program__clear_flags ret");
++	ASSERT_EQ(bpf_program__flags(prog), flags, "bpf_program__clear_flags value");
++
++	ret = test_kernel_flag__load(lsm_skel);
++	if (!ASSERT_OK(ret, "test_kernel_flag__load"))
++		goto close_prog;
++
+ 	lsm_skel->bss->monitored_tid = sys_gettid();
+ 
+ 	ret = test_kernel_flag__attach(lsm_skel);
+-- 
+2.55.0
 
