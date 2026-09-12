@@ -1,26 +1,35 @@
-Received: from smtpfb2-g21.free.fr (smtpfb2-g21.free.fr [212.27.42.10])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 26FC23BFAF7;
-	Sat, 12 Sep 2026 11:59:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.27.42.10
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7D813AEF51;
+	Sat, 12 Sep 2026 12:05:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789214383; cv=none; b=hEasJhjos1573PwDPczV4MM6Gq1MYXLYd8FvUbxWBAfES0et1XUtzOhwjvio8bBRLcVa4EcS41ODxuTo5fmM7QqfUjZSKYyOT4e9wD+110WsEwoxsJfJWIPEkjz6oAgDnqYa6rXTitzqCOsD4F+zTq5CMblVs3mdj3mztUXnCNQ=
+	t=1789214720; cv=none; b=nkCHNvTY4sLu14vfeY06Z4k3ir0g46KHBqUiuMH06/y8/3E/GlR2T28i8flDOTItI/SHIgLeO75BtDjswXt1kzdELrN51L381Y6Y0luUk/v2GMTPoB+K80S/5peiP/kMbOkO6WI4ka9YHMjsv6ei3DNINOKlJj8U4jvpXu6SRl4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789214383; c=relaxed/simple;
-	bh=G6mmFANjJXAB8RQFP1tL/aszZQhBPwFQSG9j5/5FQWk=;
+	s=arc-20240116; t=1789214720; c=relaxed/simple;
+	bh=GSqIFDfqDHUzvEFDDSz/346ZUmRNMp/AsdyBf2HLU/I=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Sy01wun/Rs0sXrSEA+CJ6IcASXf0R7a21q9o+NpU6c1eYcXYgKhmMmAKPDXQ9eWl/YvIOjH5Gila9NbmAdEjoKqwPQe396ebyF7B14GvqqMjdyaYXnvvUbDFvU22p233lTgPwdfw8ee/24/cH2wfTcpGdk8zupXU8EUJmsZ0LTM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=droneaud.fr; spf=pass smtp.mailfrom=droneaud.fr; arc=none smtp.client-ip=212.27.42.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=droneaud.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=droneaud.fr
-Received: from smtp5-g21.free.fr (smtp5-g21.free.fr [212.27.42.5])
-	by smtpfb2-g21.free.fr (Postfix) with ESMTP id 707924281F2;
-	Sat, 12 Sep 2026 13:51:15 +0200 (CEST)
-Received: from [IPV6:2a01:e0a:125c:c670:72c:339f:43cb:52bb] (unknown [IPv6:2a01:e0a:125c:c670:72c:339f:43cb:52bb])
-	(Authenticated sender: ydroneaud@free.fr)
-	by smtp5-g21.free.fr (Postfix) with ESMTPSA id E93ED6012F;
-	Sat, 12 Sep 2026 13:50:01 +0200 (CEST)
-Message-ID: <4e447b33-574e-425e-bc92-2b728128cf18@droneaud.fr>
-Date: Sat, 12 Sep 2026 13:50:00 +0200
+	 In-Reply-To:Content-Type; b=WecOXuAQF0LSCW/S8Nuc0XEiA0ompOdHSQZDkbVW/dfpgRpn0tufyfjueW9GldNZGMlvTbP24LAqWDHllztX/RKpl9u05wEQGhmZcuUXRR7DTwhbEvSCgj46ThJxkyY9d3qlJ6ZA7OZurLr5qUKsGxw1+1QYULid7Iim/V6YMuk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=CDPcNiOK; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=9Bh6pzve; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="CDPcNiOK";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="9Bh6pzve"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=From:To:Subject:Date:Message-ID; t=1789214702; bh=u8myC1jiNWPSND6jaTeBmI/
+	7+nYxV64Z9V+k1jO42CA=; b=CDPcNiOKxzam1w59NACzqglFRzHlZJHJpGtTUPCe6UEqyJdC8k
+	RyNWSFZjyTl0mJl8gpuHiYQuNNiqElfdekfhPu69bYCa7vFz7H3dlIVUk4WgAh3S91TANUgZAYo
+	rtm79YKx4fH0MM2CRe2ZNnE9gvOtmyxxO/7OwN1EEjU48mnSZgCaQrD5IKiOgkxV/Kfu9EMV+wS
+	EqhuChLx8CYqUtxyPSzubOZd577Ey/3znCztPl8mVm56d2PpH/jCovZS+7nLRIyCNxmSFYFgfir
+	aUulVXltXJsJQIItBHdTdqgBopTBysZ/7zVjpT9ftpXz5nwBAmv2yCeo63flo/kOfXg==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=From:To:Subject:Date:Message-ID; t=1789214702; bh=u8myC1jiNWPSND6jaTeBmI/
+	7+nYxV64Z9V+k1jO42CA=; b=9Bh6pzveTujNlEp2+e6BsPCiNakHL77NBoD0zaKhBnPvNg9KQt
+	CRubo/CUdZE57jEO8ZaOyh8okG5VT/BeffDg==;
+Message-ID: <6fc67e27-a36c-4974-96e4-1f68b85b3114@mainlining.org>
+Date: Sat, 12 Sep 2026 15:05:01 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -28,90 +37,96 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 17/23] modpost: perform srcversion hashing in parallel
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
- <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- Masahiro Yamada <masahiroy@kernel.org>, Alexey Gladkov <legion@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>,
- Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Ard Biesheuvel <ardb@kernel.org>,
- Ilias Apalodimas <ilias.apalodimas@linaro.org>,
- Josh Poimboeuf <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
- Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot
- <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
- llvm@lists.linux.dev, linux-riscv@lists.infradead.org,
- linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org,
- linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>
-References: <20260908-build-speedup-v1-0-5dc1ac01672d@kernel.org>
- <20260908-build-speedup-v1-17-5dc1ac01672d@kernel.org>
-Content-Language: fr-FR, en-US, en-GB
-From: Yann Droneaud <yann@droneaud.fr>
-In-Reply-To: <20260908-build-speedup-v1-17-5dc1ac01672d@kernel.org>
+Subject: Re: [PATCH v2 0/3] Novatek NT51021 DSI panel IC driver
+To: Ryan Brue <ryanbrue.dev@gmail.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Alexey Minnekhanov <alexeymin@minlexx.ru>
+References: <20260911-qcom-novatek-nt51021-panels-v2-0-135e3190a7fb@mainlining.org>
+ <56dcdf77-2a82-4efc-888b-736f512e63f5@gmail.com>
+Content-Language: ru-RU, en-US
+From: Nickolay Goppen <setotau@mainlining.org>
+In-Reply-To: <56dcdf77-2a82-4efc-888b-736f512e63f5@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hi,
 
-Le 08/09/2026 à 22:55, Lorenzo Stoakes (ARM) a écrit :
-> modpost does a lot of single-threaded work hashing files from each object's
-> .cmd file.
+12.09.2026 05:58, Ryan Brue пишет:
 >
-> This makes the build slower than it needs to be, so do this work in
-> parallel.
+> On 9/11/26 10:37 AM, Nickolay Goppen wrote:
+>> This series adds support for Novatek NT51021-based panels
+>> for upcoming xiaomi-clover submission
+>>
+>> Although according to datasheet, the IС has three power rails
+>> in the use case of xiaomi-clover, all of them are wired to one
+>> fixed regulator
+>>
+>> Maybe I should create a dt option for enabling CABC for panel
+>>
+>> Signed-off-by: Nickolay Goppen <setotau@mainlining.org>
+>> ---
+>> Changes in v2:
+>> - Use devm_functions and renamed structs and functions (Neil)
+>> - Added delay before deasserting reset for stable initialization 
+>> (Sashiko and Ryan)
+>> - Fixed dt-bindings (Sashiko and Neil)
+>> - Added a comment about set_display_on command
+>> - Link to v1: 
+>> https://patch.msgid.link/20260829-qcom-novatek-nt51021-panels-v1-0-cc1ca61bd261@mainlining.org
+>>
+>> To: Nickolay Goppen <setotau@mainlining.org>
+>> To: Neil Armstrong <neil.armstrong@linaro.org>
+>> To: Jessica Zhang <jesszhan0024@gmail.com>
+>> To: David Airlie <airlied@gmail.com>
+>> To: Simona Vetter <simona@ffwll.ch>
+>> To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+>> To: Maxime Ripard <mripard@kernel.org>
+>> To: Thomas Zimmermann <tzimmermann@suse.de>
+>> To: Rob Herring <robh@kernel.org>
+>> To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+>> To: Conor Dooley <conor+dt@kernel.org>
+>> Cc: dri-devel@lists.freedesktop.org
+>> Cc: devicetree@vger.kernel.org
+>> Cc: linux-kernel@vger.kernel.org
+>> Cc: ryanbrue.dev@gmail.com
+>>
+>> ---
+>> Nickolay Goppen (3):
+>>        dt-bindings: display: panel: Add bindings for Novatek NT51021
+>>        drivers: gpu: drm: panel: Add BOE NT51021 driver
+>>        MAINTAINERS: Add myself as a maintainer of NT51021 panel driver
+>>
+>>   .../bindings/display/panel/novatek,nt51021.yaml    |  89 +++
+>>   MAINTAINERS                                        |   6 +
+>>   drivers/gpu/drm/panel/Kconfig                      |   9 +
+>>   drivers/gpu/drm/panel/Makefile                     |   1 +
+>>   drivers/gpu/drm/panel/panel-novatek-nt51021.c      | 791 
+>> +++++++++++++++++++++
+>>   5 files changed, 896 insertions(+)
+>> ---
+>> base-commit: 99cc957e3ef3cccd72d2119c8eacbab39af0d1d6
+>> change-id: 20260829-qcom-novatek-nt51021-panels-e2f9db85a967
+>>
+>> Best regards,
+>> -- 
+>> Nickolay Goppen <setotau@mainlining.org>
+> Hi Nickolay,
+> I have patches ready on top of your v2 series for the Amazon Fire HD 
+> 10 (2017)'s panel; however, given that Sashiko has found an issue with 
+> this series, would it be best for me to wait for a v3, or would you 
+> like my patches now to incorporate into your next series?
+>
+Maybe I can incorporate your panel to my driver.
+> Thank you,
+> Ryan
 
-
-If you're going parallel, it would be nicer to do it under make's 
-jobserver supervision.
-
-
-> This is egregious for allmodconfig builds - for instance x86-64 can end up
-> opening 200,000 files individually and hashing them all serially.
->
-> Parallelise this operation by maintaining a thread pool for the hashing
-> work.
->
-> Combined with the per-file hashing commit this cuts modpost's run time
-> nearly in half for an allmodconfig build.
->
-> Module.symvers and every *.mod.S are byte for byte the same.
->
-> modpost is on the serial tail of every allmodconfig build, however
-> defconfig does not set CONFIG_MODULE_SRCVERSION_ALL and is unchanged.
->
-> Whole build, 128-thread Threadripper 9980X, best of N runs:
->
->                                           before   after     delta
->                                           -------------------------------
->    x86 allmodconfig, touch mm/vma.c, gcc    33.4s    30.2s     -3.2s (-10%)
->    x86 allmodconfig, touch mm/vma.c, clang  31.1s    28.1s     -3.0s (-10%)
->
-> Assisted-by: LLM
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> ---
->   scripts/mod/Makefile     |  1 +
->   scripts/mod/modpost.c    | 72 ++++++++++++++++++++++++++++++++++++++++++++++--
->   scripts/mod/modpost.h    |  2 ++
->   scripts/mod/sumversion.c |  3 +-
->   4 files changed, 74 insertions(+), 4 deletions(-)
->
-
-Regards.
-
+-- 
+Best regards,
+Nickolay
 
