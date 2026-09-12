@@ -1,78 +1,73 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86E04360EF7
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 06:22:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07A4336729D
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 06:26:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789194181; cv=none; b=jzKsbdyqsEBKZkaHZJVZSlANgkZARr+apmH2WxFBqjW8bcvMQ4HfFm2vCDTsUBUB+VuU4cOTg8jnWXn0ayVKusTpltlyRkdkhWA/wBi2hc5G+wP3O8JvmfQB0DRl5bsav2ol2+QiyYzrj+0rhy6ZjMqmtwQnbUHd0rjifL1sFUw=
+	t=1789194382; cv=none; b=EHKPj6X1veIvpbL5XG8xPW0RMM14l+4zmGjYH+k1YQSINwRwwW4ZbAexAayqui3H6vVb4u69Ltf6Jw5+K0PBv7Id7rstaZ6kcBjV5mDcfyYiP1QLe+fXHs0hKxW7G7inTQQ3IIV5LKJEhLc2pRKB40APKyp+4dZhbBdUEh3MugQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789194181; c=relaxed/simple;
-	bh=Eo0mHBRWqGbjHPOtw+RoepOiHqUltsjCs3L6erZNzys=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=YfXxwWGjJD9RhdQ+9zu6w2hon/LsPSx223ZEkwQckRJKLmcZyPQwWEA8p/uwWKPntZcnaPkejs+diqyz6wEqI0vhnkLBHOnJVJpdmBETwSy3lhtKGJuW8/E32BB0vr+i1iQncQagvLowVV/OMrVybpadbzycLM4wgVzp3whLjRw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M33aO+uX; arc=none smtp.client-ip=74.125.225.76
+	s=arc-20240116; t=1789194382; c=relaxed/simple;
+	bh=4+N7cdDhN3844Z1q8z+zFikbwV4LBr5lVJ1YjHeeoFs=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=g+B5lNAGYGfqCCuoj58Cb++V0GJDzISylL2vveEmc/FbZ0SUqtkgjdDYvA3b3Ea+EzBBU/OFXpZpXeMpUDk5STUQfzQ/TncfrJEVFLHbebbxZ+0glamCP5eMJd+4ESlKmaIbiIlapfbJlPTTjxEp5RrHASd1FO8erGyWsz1D9fA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f8tdQYhB; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M33aO+uX"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6350f88so122850f8f.2
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 23:22:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f8tdQYhB"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccff31419so2168175e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 23:26:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789194178; x=1789798978; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789194379; x=1789799179; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SXZuoWLz+daoVkVjYqrR1OWv4fzrVeC6Qw0y82I4Cug=;
-        b=M33aO+uXXMQExhaPIFws41UHmEtvRXNKOzL8JVlDBNY5bYpHXES9BcGmYNvV4MXgd+
-         Bep0lR40Sylq54gEusPJsA0QM33fSz4sAFWQDkJbcP6EGOAphDgBMwmlygMhljMfpQ28
-         HvFe4fbNHL+Hril6R6ESWIn1v93iwfLlYIKlX1qbRJdAdbJ0KAbvbejQ+bzXXgt3XJ+m
-         pe/CvPLat7jgw22PRxHaVOBeCPnbeBgXC3RpFPcYytOLH47EWtf3+9DalXIDfpgKWdsI
-         5bUiDEHm2KpmBFfZhbvsnDVrjQdLt2K8gkj6iMhqFJraiUCz4H2msTG0FKumdVbk4qes
-         OuUg==
+        bh=ztIntik1xeW8jWQz7bcwpnWQ4yK2/dDMrcPOzey+VHE=;
+        b=f8tdQYhBBfOJUEvFAA3vjecV13jPgs2zZXXymqBFS034ofTkKRXXtNTOYbY2oQ6sdB
+         SyRUgShgwBASRUeof1HO92zIXscqdaljlKsQ0ugfsvTUop1zlXDIrxx/bVloPiUySZvt
+         anwf8ukJ7AFMETsoIRkext14/P8alAS3DKLZstvRjxPfAndFsBU/yoZQMvlXYgUqcFRn
+         OFtTfkJP/aY2uFqPY+P0D+5Uo13rpIQmYy50OupNcxqs2Ir7HWVPnNMvwFGDv7E8UV3l
+         OY+EGTaQSatgh/Vb66APo5+hXNYjstGX6Z2+Qy0wgHwAolSX9V4PLuSsarqFJj/HI2mh
+         MrGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789194178; x=1789798978;
+        d=1e100.net; s=20251104; t=1789194379; x=1789799179;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=SXZuoWLz+daoVkVjYqrR1OWv4fzrVeC6Qw0y82I4Cug=;
-        b=hdvl0xEmiyACnjKB6HwmZv9FoikLWPfUPAlQeSPUiXHRo5aFfjqKXQwL0NW58+ZQ9V
-         Y9I/9Bt9kDhMI3BBaw1m2AGosBBT2OoiIa5C8eLk5mUgj2uXgeZXqhejRnkvq6jPyWZ4
-         QQApxjkIFdJIvMExHHAUWK9yHDvyjQcE84hAfN057cS8QRjeTAPy7DTnYVunW3+tX6I6
-         mJYQqtXMlUp+6r9sJnIbS1FQjjJrtqP9ebzvcaN7GtS1Be5dYyCuYWBWWd0QpbTjB8VD
-         62SpXHrbsxIg8xwL5M7GyBn6KC+h2rLPbETvoDGp8e3/f9JrwWkYUOuWTYMhis5j3mzm
-         /x7w==
-X-Forwarded-Encrypted: i=1; AKwUvBz65FJNCwOCDwfZEgoNBMZQUZmK25xx+hkfwYU0lR/dT7BROBWBMtuSez1kjWlAzdq6wMNlgif9LfyUH8c=@vger.kernel.org
-X-Gm-Message-State: AFuF++nAY5JH69GDimWUETO79epyaGuOtNzB7gxRho9cetW7C0SE32TN
-	BTDHn/rUsiKbqVGoD6BNKrPJg/STu3IkIatPNe/vIm+unh1kRAvCJddq
-X-Gm-Gg: AYBFou31uWlMMWNXjL7i1YucaBZhoRagSsj7lcT/nOHnxq51EIfdUkx/bD2DN8WpXIw
-	Dnp8Rwgq3w6/IbdS/Z87kNqRi7kp8OW0GSG5r9d5ePxeH3OThxcIM96rUakfUtP8ntTZDUuI7fk
-	S0m2yNgg4Ss2vTauT4p4lcAh/AjA0+zqIaxRMSiP3MbsEiVXZVP5HXBWeCTnhEV6qjcaN1WO15d
-	AULnyEtbRl+RuGZqWdUS0S8n2wr9HqUbGq2ROZnY6DArReqkqwbFZ/DfMtUcH3IDuJfYE61XAJn
-	/2UePVdW/ZozKRqyS2zm1RyckPjLuR3kD5hOxGISG2gwdG6Mu0xSOa+Kx3ozJqka9tnmu/BArVX
-	3hOFnI8PQ3eEMOvIfjzne/fVUp/VGcMHn4pESVCg7lB4X8vNnW7POEYra/CX/jt7ITxhHt88seB
-	gD84QTfKkTWhRwIAx5z+7jG32WLH78SOWmrTfZDFAoCL2XTFX5HwjemdUJrTznAKxZ4EQQm8j96
-	Frj8zgBvENZ7hCghJqjwnNELm9EA38S4CiMxRx034A0B7XpLQYaYb85tgOkLSjzbxEx+unIai+C
-	zy1hyM5DLn1/WhnKgHNazX5FQqAFSOVd63hUOZ3YJtXt2TFEdDaKnbAdaw5PRyAW3SyE2C4p8Zs
-	1DeVIz4PxKs5E
-X-Received: by 2002:a05:6000:41cf:b0:481:5167:abda with SMTP id ffacd0b85a97d-486f6bd8afdmr1548275f8f.9.1789194177611;
-        Fri, 11 Sep 2026 23:22:57 -0700 (PDT)
+        bh=ztIntik1xeW8jWQz7bcwpnWQ4yK2/dDMrcPOzey+VHE=;
+        b=kZ330ImiJABGMZek9SN3UtPVBgN9feevE/EX77FfhvwzX6agBB+MNm7jAkNS7rc0dJ
+         ZY5VGEnwUFis89IfNQLNKqPA71ZMGo7LhJE3dJxBClNuowNeydGnplgccEfu336DQa5K
+         3ko4OJMbtbLZnItx7zQdYsQ4K53c7i4nbbmmpPbyg5j97jRmpsgwd4MuXk5FEDohpo4I
+         O9aVvW4wyJh6Al9NrO8LAP3HSZSlyIP9Ynb6x9f+T1UfzndoLRDDyAe3g/uobnz/dYMs
+         bQyD+4gj0cutbf3yEV+yJYZJSBchp7uIO0fsA4uly82+1w7XmmO0x7skLU5im0wN8dbx
+         5img==
+X-Forwarded-Encrypted: i=1; AKwUvBwnfpNRW8GdcxsCSwIWGvCjeeBZm2ceJpCO8r+7IOZs4aKJS8D6CUqv10ZNjVx/Hk8tVUDzSqNNRudB5TM=@vger.kernel.org
+X-Gm-Message-State: AFuF++mA3mUz79cJEfQ9Po+dTchvbDbOZfdLP78V90N1gOjLZ7t/0HFf
+	mbJmkXwLfv4niVfpkW2P9k6GYe1iI6miVkXetCU7NyLCUUZp0WbZfXhz
+X-Gm-Gg: AYBFou2kiv2CNT5KOsd4lCCSRxWi9103SxH5fPFX0Rqom0osFwph7P2NvTEmKVq+5CN
+	hWu8L41UUIx/zIue6bfvmx9f2jrcJfXuEjB8EVslx0eg7e3O1JPzwICkVVqUj2pQ7sFLC5RiQWY
+	DBzfyABidyEFkCaCQJMEwep6BVrFfIFhyLWfsIzPdK0MRo+Q5MXzSNQt/8HLBbUwlUhnqi4SOVI
+	ltQ6/WJshyzcmIlZNsMk/mh0gxsnyX1fd3tW1e5Z50FTPwwZIiu0M9ha3J8WcI6pTqCS27GLaNb
+	SLHI5ryUSZMcwCMKB5mpSaUD8W3m5BRbt2vo5415mv0aczXxSVY31XV5dOL0MEU6cZGfQUKuqnE
+	utKcuJeq4Pi4NQVgea4ZssaAxjLajMnztip9V5ZAyMuX/9gUGxrKyYWUzNLe6Z+U62hOnCykQwE
+	RX/D5PvNfArNlEYao6ugjyux2AO1kjW6QupdukdhyF4f4fWRyMfYZOZNMDfailz+ntNeSyNAqVK
+	zp2VU0Omqse/2daR05cW4TtyFANIShIOP2y+j/5/nqwD4MiLhcWhKcCYJfsjDQKNPQA9sfP7YXZ
+	YvaFLyN1rPA2J7JEZ8EVYtFUM3+nppGes9F7wOxfvmIdEK73ZIbH8jNzvfm6iCeE057XI5eDIVX
+	qzA==
+X-Received: by 2002:a05:600c:190b:b0:49c:dada:30b7 with SMTP id 5b1f17b1804b1-49e6caa6f6bmr12779215e9.2.1789194379075;
+        Fri, 11 Sep 2026 23:26:19 -0700 (PDT)
 Received: from localhost.localdomain (dynamic-2a02-3100-b260-f201-9983-e8c4-aff5-7a36.310.pool.telefonica.de. [2a02:3100:b260:f201:9983:e8c4:aff5:7a36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb34e74esm10929336f8f.25.2026.09.11.23.22.56
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e60adaeefsm130212965e9.12.2026.09.11.23.26.18
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 11 Sep 2026 23:22:57 -0700 (PDT)
+        Fri, 11 Sep 2026 23:26:18 -0700 (PDT)
 From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Eduardo Valentin <edubezval@gmail.com>,
-	Keerthy <j-keerthy@ti.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>
+To: Andreas Gruenbacher <agruenba@redhat.com>
 Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Zhang Rui <rui.zhang@intel.com>,
-	Lukasz Luba <lukasz.luba@arm.com>,
-	linux-pm@vger.kernel.org,
-	linux-omap@vger.kernel.org,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	gfs2@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] thermal: ti-soc-thermal: Fix the return value in ti_bandgap_get_sensor_data() kernel-doc
-Date: Sat, 12 Sep 2026 08:22:52 +0200
-Message-Id: <20260912062252.42762-1-kmehltretter@gmail.com>
+Subject: [PATCH] gfs2: Fix the return value in gfs2_get_link() kernel-doc
+Date: Sat, 12 Sep 2026 08:26:14 +0200
+Message-Id: <20260912062614.42899-1-kmehltretter@gmail.com>
 X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -82,38 +77,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ti_bandgap_get_sensor_data() returns an ERR_PTR() if the bandgap
-instance or sensor ID is invalid. Otherwise it returns the stored sensor
-data, which can be NULL if no data has been set or the stored value has
-been cleared.
+gfs2_get_link() returns the link target or an error pointer, but its
+kernel-doc still describes an integer status. The mismatch dates back to
+the change in its predecessor's follow_link calling convention.
 
-This mismatch was already present in omap_bandgap_get_sensor_data() when
-the driver was introduced in staging.
+Describe the returned pointer and error value.
 
-Document the validation errors while retaining NULL as a possible stored
-value.
-
-Fixes: 8feaf0ce1a04 ("staging: OMAP4+: thermal: introduce bandgap temperature sensor")
+Fixes: 680baacbca69 ("new ->follow_link() and ->put_link() calling conventions")
 Assisted-by: LLM
 Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
- drivers/thermal/ti-soc-thermal/ti-bandgap.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ fs/gfs2/inode.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/thermal/ti-soc-thermal/ti-bandgap.c b/drivers/thermal/ti-soc-thermal/ti-bandgap.c
-index ba43399d0b384cf86d12642cc184c5f14066f431..2e8fe7daedb80b7ca4a24f2c89fc5ef44a0a9ebb 100644
---- a/drivers/thermal/ti-soc-thermal/ti-bandgap.c
-+++ b/drivers/thermal/ti-soc-thermal/ti-bandgap.c
-@@ -576,7 +576,8 @@ int ti_bandgap_set_sensor_data(struct ti_bandgap *bgp, int id, void *data)
-  * @bgp: pointer to bandgap instance
-  * @id: sensor id
+diff --git a/fs/gfs2/inode.c b/fs/gfs2/inode.c
+index f361876c5583353a1196ed35be1c95af33a90c02..d5e03ec89127254654dceaff56322ed617a3400a 100644
+--- a/fs/gfs2/inode.c
++++ b/fs/gfs2/inode.c
+@@ -1900,7 +1900,7 @@ static int gfs2_rename2(struct mnt_idmap *idmap, struct inode *odir,
   *
-- * Return: data stored by set function with sensor id on success or NULL
-+ * Return: the stored sensor data, which may be %NULL, or an ERR_PTR()
-+ * if @bgp or @id is invalid.
+  * This can handle symlinks of any size.
+  *
+- * Returns: 0 on success or error code
++ * Returns: the link target on success, an ERR_PTR() on failure
   */
- void *ti_bandgap_get_sensor_data(struct ti_bandgap *bgp, int id)
- {
+ 
+ static const char *gfs2_get_link(struct dentry *dentry,
 -- 
 2.39.5 (Apple Git-154)
 
