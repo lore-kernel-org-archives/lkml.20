@@ -1,30 +1,30 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68C9F23A562
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 01:48:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6A7733D6F8
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 01:54:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789177703; cv=none; b=Qlq7tu1HqbiRwSvDA10R09pd271XxPr1VL5eTg27lUynWpU3DaPKQtl1S6cj/miwQoITYzK5UPpg4gsCh+6tcO7f3AcePSPL0juqQzlamNd8un1i9whC+DrGTAEYLKxMx1DPNSHmdE+TOUsKcVFLBfnCeOJfzRh4lfEDFaPd4n0=
+	t=1789178072; cv=none; b=eK7P45oxMA2wQy2RNh4dBZJWCyOh/KLLpG+4tXYqijO/85TZyBHo96FZPRO+XHT+sgN1sGt9hBMFxLUXQKI6YQArYHyvbFdh/+zUWQ0J8EcU4rIX+dvb/80PDSsQQ2gubOhk6dgocCGIaQJhJr2Z1Fc7nTUF62DZ7CjhrpEC0jA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789177703; c=relaxed/simple;
-	bh=p+l+kLLWJcH/DP8ZQRnxbwPr8gKh8TQLSkXD+Arj+Wk=;
+	s=arc-20240116; t=1789178072; c=relaxed/simple;
+	bh=AOD6ES53agtGPOdJwgMAp1L23R00GJgsYLVb30CW+OQ=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=mVMIp7RTjFsH7RKLj3+QO/crNbHBbd6tlMSC3nefkRgmQ4lbXMNmPXSqIsfndiFhxAaLYIQXaqj91oPpzJb0qtgdPvofK8SrQPgeUIf1nHAC7zb7tbFIOTwQoOTAlSTSq6hH/kZMLojae3XSyplOUv2/qEOveGdwcViEXmnlgtc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=H75HCbVx; arc=none smtp.client-ip=220.197.31.4
+	 MIME-Version; b=OGeIcXZ7/LR4zzcwWJr/XHENEDDF/xX0KO3AB1ngcs8rensd6eErQkYN1LdkGh2qCXw87D0TY0WaPPPkIb8E3Zop4syLZ1nn7Lf0SmdY+geMVGJyYaaZMG2QebXY5q/cT3DmMlWzNHCmeDeX6Tms6vsLr+NqXUBOwQqqCNAhQiw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=RiHbRe5L; arc=none smtp.client-ip=117.135.210.2
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="H75HCbVx"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="RiHbRe5L"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=F+
-	6IKphNoF3+njGfhfpNDm9tmz//3UOaAtPgmuqX5qQ=; b=H75HCbVxWm8em6G/SZ
-	TAxsQQYjSD8YLfGBBPs5AHgfaLYHZEgWevaJRwjp0qroOLeEDLP74gKwLehJxtJ/
-	8CU7L+pg0foDSm+4zsPh3xmdf6M4elnS2pteRavZ9JxNm6YV5C9fG3t9X7FEELIo
-	bmxBwm3EqbfNTrPRC3QvhdETU=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=kz
+	Jl+HiJMo4EEwRnNCYKWoLRScdKh5djMookmaD9fws=; b=RiHbRe5LVtnrfk+xlq
+	KO1fwy0n1rGwfbLCER3rKXmSZFhrTD1Zx8tM6SYRoqJPAnZTC0zvfMqsqV+3oe2S
+	au9W/xGFmSiuCnlYbBRv+lJ6S20Zbzuoqvi28ueMvXO/I91PFm/nWb39CSkpT8Rk
+	DYolYk3b8lfxOL6B05Vg93MDk=
 Received: from zhaoxin-MS-7E12.. (unknown [])
-	by gzsmtp1 (Coremail) with SMTP id PCgvCgCnDy0Or6RqrTUYOw--.61943S2;
-	Sat, 12 Sep 2026 09:46:55 +0800 (CST)
+	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wC3j8qUsKRqHd20AA--.49789S2;
+	Sat, 12 Sep 2026 09:53:25 +0800 (CST)
 From: Xin Zhao <jackzxcui1989@163.com>
 To: kprateek.nayak@amd.com
 Cc: bsegall@google.com,
@@ -39,8 +39,8 @@ Cc: bsegall@google.com,
 	vincent.guittot@linaro.org,
 	vschneid@redhat.com
 Subject: Re: [RFC PATCH RESEND 01/10] sched/fair: Do not set_rd_overloaded() if rd->online != env->cpus
-Date: Sat, 12 Sep 2026 09:46:54 +0800
-Message-Id: <20260912014654.3305884-1-jackzxcui1989@163.com>
+Date: Sat, 12 Sep 2026 09:53:24 +0800
+Message-Id: <20260912015324.3310241-1-jackzxcui1989@163.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <b44631c1-4272-4860-88f7-14c62de5e2fd@amd.com>
 References: <b44631c1-4272-4860-88f7-14c62de5e2fd@amd.com>
@@ -51,12 +51,18 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PCgvCgCnDy0Or6RqrTUYOw--.61943S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxZFW3Gry7Ww1kAF1xWr4kZwb_yoW5WF15pw
-	40kw4aqr4DJFn3K3y7XFykGw12yr9Fq3s0yF4rWFWFyw45Zr48CF98K3WxJrWSkrZYqF12
-	yrn2g348uFn5J3JanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0JU6v38UUUUU=
-X-CM-SenderInfo: pmdfy650fxxiqzyzqiywtou0bp/xtbC6A+yvGqkrw8fagAA3y
+X-CM-TRANSID:_____wC3j8qUsKRqHd20AA--.49789S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxXw17Gr4kCw48CF4UCFyDKFg_yoW5Cr4fpw
+	4vk3yaqr4DJFn293y7ZFn5C3Wayr9Iq3s0ya98WryFyw45Zr48AF98K3WxGrWFkrsYv3W2
+	yrn2gFWxuFs8X3JanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0JUDpnPUUUUU=
+X-CM-SenderInfo: pmdfy650fxxiqzyzqiywtou0bp/xtbC5xUVH2qksJUz5wAA3H
+
+Hello Prateek,
+
+I apologize for the confusion. Please disregard the previous email response; this
+email is essentially the same, so you only need to refer to this one.
+
 
 On Fri, 11 Sep 2026 11:51:10 +0530 K Prateek Nayak <kprateek.nayak@amd.com> wrote:
 
@@ -65,8 +71,6 @@ On Fri, 11 Sep 2026 11:51:10 +0530 K Prateek Nayak <kprateek.nayak@amd.com> wrot
 
 I don't think so. I sometimes make basic mistakes, so I'll express my complete
 viewpoint, and you can check if there's anything wrong with what I'm saying below:
-
-The simplified code in can_migrate_task() related LBF_ALL_PINNED is as follows:
 
 The simplified code in can_migrate_task() related LBF_ALL_PINNED is as follows:
 static
@@ -103,7 +107,7 @@ Assuming a system with two clusters, each containing two physical CPUs, the
 structure is as follows:
 
                           DIE
-           USTER0              CLUSTER1
+           CLUSTER0              CLUSTER1
          cpu0       cpu1        cpu2       cpu3
 T0       p1,p2      p3           p4         p5
 
@@ -114,6 +118,11 @@ CPU1 has only task p3, with a CPU mask of CPU1.
 CPU2 has only task `p4 with a CPU mask of CPU2.
 CPU3 has only task p5, with a CPU mask of CPU3.
 
+
+                          DIE
+           CLUSTER0              CLUSTER1
+         cpu0       cpu1        cpu2       cpu3
+T1       p1,p2      p3           p4         newly lb
 At time T1:
 
 Task p5 on CPU3 goes to sleep, and then a newly load balance (newly lb) is
@@ -133,6 +142,11 @@ Then it executes sched_balance_find_src_group(), followed by update_sd_lb_stats(
 At this point, aside from CPU0, there is at most one task on the other CPUs,
 causing the _overloaded flag in rd to be cleared.
 
+
+                          DIE
+           CLUSTER0              CLUSTER1
+         cpu0       cpu1        cpu2       cpu3
+T2       p1,p2      p3           newly lb
 At time T2:
 
 Task p4 on CPU2 goes to sleep, and a newly idle load balance (newly lb) is
