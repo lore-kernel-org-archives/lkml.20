@@ -1,221 +1,145 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+Received: from mail-oo2-f0.google.com (mail-oo2-f0.google.com [74.125.231.128])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E264E361975
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 23:33:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A748F361975
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 23:39:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.128
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789256027; cv=none; b=mGPvbIyfSoApTZ5fEsydUVedBbNrfUxSQONV05HWp03MmNEJfREQqQuhdIz5TNVkAF1USeorhTfcrL7S6Qz/zrJQkrkJTHBUgymW77b0qCUHztLbLzh1JKgtxF2gn01Gw78xEeiNamCef1jIdsDLcVXv7dHZiqqyf9DyRzrXfy8=
+	t=1789256367; cv=none; b=kWvDbtjMIE/MxZ/OcMEGdq8eJfOYJWtG1IJD8NCa1n+XD+fqfLiG8L0KLazNS/xKBwTMPHvy2eoRAisW25i19/4XYzGGxdLEnq3owSwj3/VQuUfgJN/cXxtZukybzOt6RrVcYiqyLhMk889sRE/10v9BQlmHnVOMueMPulk3X0c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789256027; c=relaxed/simple;
-	bh=1gDPSptQeLj0OPrmt+0JnBYsBhx744ZDgc9Dq15UM34=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=V/PmmTDNAQAGaIRV/JrJI0uroIF/EFLzWlPYQO483rooMtnOA9L9ZmlcxL8+oR9lYZJ1FzPFKoxJ1xk/7QxIZ22x+1fGk1hfsJn8bTU2r8UxERaLqUG4sG8cL2f54PiMBK9enbvWg7CDWJTa+ds7b29XWCE1TSmBruf8fp/R4M4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=nyh9oMnz; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="nyh9oMnz"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49e6deb520eso10510045e9.0
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 16:33:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789256024; x=1789860824; darn=vger.kernel.org;
-        h=content-type:mime-version:references:message-id:in-reply-to:subject
-         :cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GfWZA5VorxPvBHCBstYGbBsoifsqUoZdc3SoHINZf28=;
-        b=nyh9oMnzKN5gJFcuwcEpkaedunk0sBKBgBUlUwJc5PrqGF1qkDZrLUJjIzy8NdJj9Q
-         NtWgzVCpjMMJvGVJ4zh6rH+5gOkhOFb/ZLelzAmdieXV4cbnIYM/hv47hbrYTJ+qgr33
-         lNJB7PfQJA9wKZSJB6NLZnY9oCBQE64yiP0vubK0slD8lGLZNq3vcSyyPWQvTbCwaL6o
-         U/kNU+Nmi5KcJFg438aAuvSvsQ/yt88jQN2sYBZ3BVz57/jKyERLRGSY6H9hw/g/8r9b
-         0dJPu3B+4uhfrdasItNEZbztisXPCyRElJVK6jC2UAgkNJlMnvMWhChd4q6goPg8Cbzz
-         flmg==
+	s=arc-20240116; t=1789256367; c=relaxed/simple;
+	bh=CJOvd6ShywdZs1rx7fjJCsC/4XAK4z3X2gQXF3/nugw=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=B+G86rV7omU3lUx8OjPgjxsPmjwqcK9gDgdrZoGZHUdS0jDzghLZB1qcWvtvh2gH0HSP3HjKI6VvIGjQUb6EZKT9JPksw2jypJsD+PEjI8fNO3HYKlc2SAfpD2WFzUPxseFa9KSJSLNXP/m+bJAH0BYhOrWT4Ij/Kqp+CZbZ28A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.128
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo2-f0.google.com with SMTP id 46e09a7af769-80477cb33a7so621915a34.0
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 16:39:25 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789256024; x=1789860824;
-        h=content-type:mime-version:references:message-id:in-reply-to:subject
-         :cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GfWZA5VorxPvBHCBstYGbBsoifsqUoZdc3SoHINZf28=;
-        b=Lgby2OoS0dBz3rOfbsai0fPawQfvSZeKn0zX7WouITiAlOlIY09Gr9Ufr4qH/7Wdy4
-         jknKgydQHrpqwQHcKvin8flqnbpGniXuR/jIjYiV/SQ122ZHIliyIos5/CJs2oFSqMM7
-         9gA3ecuLOto2mz8IHWAMISxxLJLbJF/8E52CJVgwOMOVPONFW0DQGbSxga84j802bveQ
-         nuijSkPovAXxsb5nYjzbIIuJLTbEUioO1IdUiXvtRw4FEDvdEdiTcWfehIngtKt8yyC3
-         Aca59k5FkgBQSv4rL/3IWZq8TBSM0mdxZUFvlffiQmhviIQ3ioJcud7Be1FaAfo0gmnq
-         /B/w==
-X-Forwarded-Encrypted: i=1; AKwUvBwTfLSyEAtDoMc9998lpAy2DRsXOL2Q3ErZGmpSPcCCYEnR2j3PHtOJKuZ29VZNYmtf1HtATXtaAWaVTcY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nQysRM1gSk1VeFZ4Gjjmdbl6AoOneeBUX+kpR3DnO1B/KDqQ/u
-	f8hIt8wgSmLF+Y914MCYUMdn6kpI8N25CZl0B9/apBioIoaJcGJ64gP8+wplGDk98w==
-X-Gm-Gg: AYBFou38DIiHljj3zBmY3W2ac++/NqXXi4M8kPcjEEHjzfp8GU0jArI+s/qisd4wXgr
-	oLmNEjXKL53I5dhMu/xBAIo7MsyEIm6n2GjGTNefKGiGdM+FlhEbKEGyr7HOhRXjpDjgX/iUfay
-	CZEXcHuNYznlWpRUt7lzz2gDHDD5O1fTtFES+DHwWHZzSIENql+Uak2ugU0jfubBMmV1jsXXCmG
-	+MRwCCb7N0X+CVApiOpSPokerEs4susJbpH95tIZSsyVCXmRu8QFcJr6nbKGVOmtPutbTNj/xB8
-	A2Be1bB6uV0O7A367F9ytkSKhXE7HTSVGwaZx+uHHZDUNyrWPZ6IR7JcEkAXahjY3s+M7arliHt
-	E7Q6mMf9anz2AqT5tNS7CvsUa686SXOrkDfcJEN5ENjxQli54NuipGa89K4jakxUH4ir7oFe8/r
-	X/0NPBeT5kTk8FRggZYTJLqupm77nMXPHnUc4yhID4B3CIzXCEuE3qjn+3BF3NqwpHe7WuHjytu
-	3bsdFsSy6vjoh3/knah
-X-Received: by 2002:a05:600c:8b41:b0:49b:d45:703e with SMTP id 5b1f17b1804b1-49e6198865dmr137086655e9.8.1789256023669;
-        Sat, 12 Sep 2026 16:33:43 -0700 (PDT)
-Received: from darker.lan (104.157.125.91.dyn.plus.net. [91.125.157.104])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26be3e35sm266378545e9.2.2026.09.12.16.33.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 12 Sep 2026 16:33:41 -0700 (PDT)
-Date: Sat, 12 Sep 2026 16:33:39 -0700 (PDT)
-From: Hugh Dickins <hughd@google.com>
-To: Kiryl Shutsemau <kas@kernel.org>
-cc: Hugh Dickins <hughd@google.com>, Andrew Morton <akpm@linux-foundation.org>, 
-    Ackerley Tng <ackerleytng@google.com>, 
-    Alexander Viro <viro@zeniv.linux.org.uk>, Alexandre Ghiti <alex@ghiti.fr>, 
-    Baolin Wang <baolin.wang@linux.alibaba.com>, 
-    Barry Song <baohua@kernel.org>, Binbin Wu <binbin.wu@linux.intel.com>, 
-    Christian Brauner <brauner@kernel.org>, Christoph Hellwig <hch@lst.de>, 
-    Christoph Lameter <cl@gentwo.org>, 
-    Claudio Imbrenda <imbrenda@linux.ibm.com>, 
-    David Hildenbrand <david@kernel.org>, JP Kobryn <jp.kobryn@linux.dev>, 
-    Jan Kara <jack@suse.cz>, Jens Axboe <axboe@kernel.dk>, 
-    Johannes Weiner <hannes@cmpxchg.org>, Kairui Song <ryncsn@gmail.com>, 
-    Lance Yang <lance.yang@linux.dev>, Leonardo Bras <leobras.c@gmail.com>, 
-    Lorenzo Stoakes <ljs@kernel.org>, Marcelo Tosatti <mtosatti@redhat.com>, 
-    Matthew Wilcox <willy@infradead.org>, 
-    Mel Gorman <mgorman@techsingularity.net>, 
-    Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@suse.com>, 
-    Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-    Oscar Salvador <osalvador@suse.de>, Peter Zijlstra <peterz@infradead.org>, 
-    Qi Zheng <qi.zheng@linux.dev>, Rik van Riel <riel@surriel.com>, 
-    Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
-    Shakeel Butt <shakeel.butt@linux.dev>, 
-    Suren Baghdasaryan <surenb@google.com>, 
-    Vlastimil Babka <vbabka@kernel.org>, 
-    Yang Shi <yang@os.amperecomputing.com>, Yu Zhao <yuzhao@google.com>, 
-    Zach O'Keefe <zokeefe@google.com>, Zi Yan <ziy@nvidia.com>, 
-    linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-    linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [PATCH v2 07/26] mm/fbatch: LRU_NEXT_ACTIVATE bit to optimize
- folio_activate()
-In-Reply-To: <aqLaa4QvXMbQaIWG@thinkstation>
-Message-ID: <84fecd13-f1e4-7d40-94c9-963f5c2f7aee@google.com>
-References: <e28f9a94-4339-f8ac-8301-6be3c9b5b7ce@google.com> <c44a34f8-ea3c-48cd-27d5-02df129be685@google.com> <aqLaa4QvXMbQaIWG@thinkstation>
+        d=1e100.net; s=20251104; t=1789256364; x=1789861164;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=X+4nm1uFj1dV7vSKZCHtdIxVm+oQk/J5Z2TW7/T4cvs=;
+        b=fO6+8T/DazNH3gHa1EnuQvN8UqnxCnc124egNhTPa709Mj9ftegCzKT2qLsh8+VDCi
+         qpe0Ba7RDQXEA6C+l9pz/O3WGwwqYnEnfUujK/DFUfn3c/PHU4Q2mc9GyFdbJFhT3TDY
+         kkfULWTQ1anBkT8d4rF/5w703v7xW9IC45clgWeEo7q4ges8krvzf0bV9hRbtLNawLlc
+         WeHICHSAFmYZU+nmJtNP/AZ75UirwcmrgQwPtABScRtS+szvwzHPxzAxht9QmpHE7T82
+         hDjPpSl+pSYkk7y9OYArFbXJlmPO4+NI8elmUSK+FhOTCCzRUEPImUA+6S15E1+4sdEm
+         PaPw==
+X-Forwarded-Encrypted: i=1; AKwUvBzj4wUdBbydciJdSM0y6TWf3xAHWwnjRtX2JTJWyB2wNjQr6gZTafpcG1Cp1UA5i4XnBaSWb/P9bF8N18E=@vger.kernel.org
+X-Gm-Message-State: AFuF++lo9RjWPOKmKZYmHGKiV6gsqlFbtPnu/parS+KLB/HEe1FV68tg
+	qGA39itsUgabwowjU/IZ7HOgwS2d3sa/gd870j5Kt+wnDNIYmf8yT4+wXVDBTuNLAcBYFRkJdLn
+	HeRKrWrA7EnUAPHXXBhXzzjk/gn10wjvrwCt3L7YuEyEJ3ykVpJq3qx5eDVA=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+X-Received: by 2002:a05:6820:16aa:b0:6c1:e01b:3b1e with SMTP id
+ 006d021491bc7-6c1e01b48b3mr4716143eaf.48.1789256364568; Sat, 12 Sep 2026
+ 16:39:24 -0700 (PDT)
+Date: Sat, 12 Sep 2026 16:39:24 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa5e2ac.6e6c5f9e.28f11f.0052.GAE@google.com>
+Subject: [syzbot] [net?] WARNING in tcf_ct_flow_table_process_conn
+From: syzbot <syzbot+6cc37aba98dac721c415@syzkaller.appspotmail.com>
+To: davem@davemloft.net, edumazet@google.com, horms@kernel.org, 
+	jhs@mojatatu.com, jiri@resnulli.us, kuba@kernel.org, 
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org, pabeni@redhat.com, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, 10 Sep 2026, Kiryl Shutsemau wrote:
-> On Wed, Sep 09, 2026 at 02:55:41AM -0700, Hugh Dickins wrote:
-> > Implement an equivalent to the old __lru_cache_activate_folio()
-> > optimization, to activate a folio recently put in the lru_add fbatch,
-> > without having to put it through the lru_activate fbatch too. Neither
-> > lruvec lock nor lru bit can guard this safely and efficiently, so resort
-> > to try_cmpxchg() on a further, LRU_NEXT_ACTIVATE bit in folio->lru_next.
-> > 
-> > Signed-off-by: Hugh Dickins <hughd@google.com>
-> > ---
-> >  include/linux/mm_inline.h |  4 ++++
-> >  mm/folio.c                | 23 ++++++++++++++++++++---
-> >  2 files changed, 24 insertions(+), 3 deletions(-)
-> > 
-> > diff --git a/include/linux/mm_inline.h b/include/linux/mm_inline.h
-> > index 8420b1276535..8f5efadf9c7c 100644
-> > --- a/include/linux/mm_inline.h
-> > +++ b/include/linux/mm_inline.h
-> > @@ -346,6 +346,7 @@ static inline void folio_migrate_refs(struct folio *new, const struct folio *old
-> >  enum {
-> >  	LRU_NEXT_NEVER_TAIL = 0,	/* Used by a tail's compound_head */
-> >  	LRU_NEXT_BATCHED = 1,		/* Not used by any aligned pointer */
-> > +	LRU_NEXT_ACTIVATE,
-> >  	NR_LRU_NEXT_FLAGS
-> >  };
-> >  
-> > @@ -358,6 +359,9 @@ bool lru_add_del_folio(struct folio *folio)
-> >  	if (!(lru_next & BIT(LRU_NEXT_BATCHED)))
-> >  		return false;
-> >  
-> > +	if (lru_next & BIT(LRU_NEXT_ACTIVATE))
-> > +		folio_set_active(folio);
-> > +
-> >  	WRITE_ONCE(folio->lru.next, LIST_POISON1);
-> >  	/* BUG_ON(folio->lru_next & BIT(LRU_NEXT_BATCHED)); */
-> >  
-> > diff --git a/mm/folio.c b/mm/folio.c
-> > index a18d8ef6afd5..0b75c3b69d5a 100644
-> > --- a/mm/folio.c
-> > +++ b/mm/folio.c
-> > @@ -256,15 +256,32 @@ static void lru_activate(struct lruvec *lruvec, struct folio *folio)
-> >  
-> >  void folio_activate(struct folio *folio)
-> >  {
-> > +	unsigned long lru_next;
-> > +
-> >  	if (folio_test_active(folio) || folio_test_unevictable(folio) ||
-> >  	    !folio_test_lru(folio))
-> >  		return;
-> >  
-> >  	/*
-> > -	 * XXX: It is curiously difficult to recreate safely the old
-> > -	 * __lru_cache_activate_folio() optimization (folio_set_active()
-> > -	 * directly if it's on the local lru_add fbatch): revisit later.
-> > +	 * This optimization is intended for the common case of folio
-> > +	 * having been recently added to this CPU's lru_add fbatch.
-> > +	 * But since other CPUs can now take it at any instant (after
-> > +	 * a folio_test_clear_lru()), and we may be migrated to another
-> > +	 * CPU, it is simplest just to extend the optimization to all CPUs.
-> > +	 *
-> > +	 * folio_set_active() would be unsafe without the lruvec lock, and
-> > +	 * a folio_test_clear_lru() here might cause a racing drain of the
-> > +	 * lru_add fbatch to skip its lru_add(): so use try_cmpxchg().
-> >  	 */
-> > +	lru_next = READ_ONCE(folio->lru_next);
-> > +	while (lru_next & BIT(LRU_NEXT_BATCHED)) {
-> > +		if (lru_next & BIT(LRU_NEXT_ACTIVATE))
-> > +			return;
-> > +		if (try_cmpxchg(&folio->lru_next, &lru_next,
-> > +				lru_next | BIT(LRU_NEXT_ACTIVATE)))
-> > +			return;
-> 
-> Hm. What prevents the folio from becoming unevictable under us here?
-> I don't see anything.
-> 
-> __folio_add_lru() wouldn't like it:
-> 
-> 	VM_BUG_ON_FOLIO(folio_test_active(folio) &&
-> 			folio_test_unevictable(folio), folio);
-> 
-> folio_lru_list() has the VM_BUG() too.
+Hello,
 
-You're right, thank you. I thought I had deleted all such VM_BUG_ONs:
-and indeed I had, but only in a patch I later decided was too much for
-this series (removing PG_unevictable, using !folio_evictable() in some
-places, or folio_test_unevictable() testing another POISON in lru_next).
+syzbot found the following issue on:
 
-That excuse is not enough for this series! Yes, I must send a fixup,
-but not today.
+HEAD commit:    5225b8eec4c9 mailmap: update entry for Jens Axboe
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=165795f9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=5e4e3a0e188a497e
+dashboard link: https://syzkaller.appspot.com/bug?extid=6cc37aba98dac721c415
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
 
-> 
-> I am not sure what the right fix is.
-> 
-> Maybe lru_add_del_folio() should only call folio_set_active() on
-> !folio_test_unevictable() folios?
-> 
-> Or should we allow occasional active+unevictable
+Unfortunately, I don't have any reproducer for this issue yet.
 
-Yes, that's what I did, just removed the VM_BUG_ONs: but I'll need
-to check again whether that other patch also had to fix any ordering
-of checks. Offhand, probably not: once the "Unevictable LRU" became
-an oopsing fiction, it was important to check unevictable first:
-unevictable must take precedence, and then it really doesn't matter
-whether active is set or not.
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/8ec9ac0f583a/disk-5225b8ee.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/ba864b419b40/vmlinux-5225b8ee.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/ddacae1aa6db/bzImage-5225b8ee.xz
 
-> so if they are
-> munlocked, they will go directly to active list?
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+6cc37aba98dac721c415@syzkaller.appspotmail.com
 
-I didn't think of that, but I don't think that "active", set racily
-back when the folio was assigned "unevictable", bears much relation
-to whether it ought to be put on active or inactive list when later
-made evictable again. We should probably be consistent, and
-consistent with existing behaviour, that they go to inactive when
-made evictable. (I'm not looking at that other patch at present,
-I don't recall where active got cleared in it.)
+------------[ cut here ]------------
+1
+WARNING: net/sched/act_ct.c:437 at tcf_ct_flow_table_add net/sched/act_ct.c:437 [inline], CPU#0: ksoftirqd/0/15
+WARNING: net/sched/act_ct.c:437 at tcf_ct_flow_table_process_conn+0x449/0x7c0 net/sched/act_ct.c:513, CPU#0: ksoftirqd/0/15
+Modules linked in:
+CPU: 0 UID: 0 PID: 15 Comm: ksoftirqd/0 Tainted: G             L      syzkaller #0 PREEMPT(full) 
+Tainted: [L]=SOFTLOCKUP
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+RIP: 0010:tcf_ct_flow_table_add net/sched/act_ct.c:437 [inline]
+RIP: 0010:tcf_ct_flow_table_process_conn+0x449/0x7c0 net/sched/act_ct.c:513
+Code: 85 81 02 00 00 41 0f b7 2f 31 ff 89 ee e8 6f b1 e9 f7 85 ed 0f 84 7c 01 00 00 e8 22 ad e9 f7 e9 e0 01 00 00 e8 18 ad e9 f7 90 <0f> 0b 90 e9 b2 01 00 00 e8 0a ad e9 f7 4d 89 f7 40 84 ed 74 27 e8
+RSP: 0018:ffffc900001471d8 EFLAGS: 00010246
+RAX: ffffffff89de1d98 RBX: ffff8880774aa000 RCX: ffff88801e299f40
+RDX: 8000000000000100 RSI: 0000000000000100 RDI: 0000000000000000
+RBP: 0000000000000000 R08: 0000000000000100 R09: 1ffff1100ee95418
+R10: dffffc0000000000 R11: ffffed100ee95419 R12: dffffc0000000000
+R13: 1ffff1100ee9541e R14: ffff8880774aa0c0 R15: 0000000000000001
+FS:  0000000000000000(0000) GS:ffff888124cd2000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f40fd23ffd0 CR3: 0000000028424000 CR4: 00000000003526f0
+DR0: ffffffffffffffff DR1: 00000000000001f8 DR2: 0000000000000083
+DR3: ffffffffefffff15 DR6: 00000000ffff0ff0 DR7: 0000000000000400
+Call Trace:
+ <TASK>
+ tcf_ct_act+0x2a75/0x4050 net/sched/act_ct.c:1123
+ tc_act include/net/tc_wrapper.h:131 [inline]
+ tcf_action_exec+0x185/0x8d0 net/sched/act_api.c:1162
+ tcf_exts_exec include/net/pkt_cls.h:361 [inline]
+ basic_classify+0x1b2/0x2d0 net/sched/cls_basic.c:54
+ tc_classify include/net/tc_wrapper.h:198 [inline]
+ __tcf_classify net/sched/cls_api.c:1779 [inline]
+ tcf_classify+0x43d/0x1160 net/sched/cls_api.c:1875
+ tc_run+0x42d/0x750 net/core/dev.c:4463
+ sch_handle_ingress net/core/dev.c:4538 [inline]
+ __netif_receive_skb_core+0x1443/0x30c0 net/core/dev.c:6115
+ __netif_receive_skb_one_core net/core/dev.c:6262 [inline]
+ __netif_receive_skb net/core/dev.c:6377 [inline]
+ process_backlog+0x727/0x18b0 net/core/dev.c:6728
+ __napi_poll+0xaa/0x330 net/core/dev.c:7787
+ napi_poll net/core/dev.c:7850 [inline]
+ net_rx_action+0x61d/0xf50 net/core/dev.c:8007
+ handle_softirqs+0x226/0x860 kernel/softirq.c:645
+ run_ksoftirqd+0x36/0x60 kernel/softirq.c:1099
+ smpboot_thread_fn+0x565/0xa70 kernel/smpboot.c:160
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
 
-Hugh
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
