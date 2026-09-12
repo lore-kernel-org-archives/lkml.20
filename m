@@ -1,123 +1,148 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB399309F08;
-	Sat, 12 Sep 2026 15:50:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66412475334
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 15:51:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789228211; cv=none; b=sftykAY9VGIIEg2ljpx5nETcRrbqXyeMUUZCEFFKrrOkMhQ2R63PX68jB3yOnP6P0K9ida4+mVNAv8U+6EIdvr5esX3w5U52mg7LdY2BzD4FAqmFAj5NN2lrP2lyrdNGu6vHLVDUmDmohPO42GiaiLl8cWNpXIt2Y99qMPltmHY=
+	t=1789228265; cv=none; b=j+mxC5JuJxddtQMfFvcpGLgdo+JilarNN3qeObmbvEB2n/8UAKjmelxsIFYbizbLLxm6yAp7IBtTyaynLZppPDURSDfjlWUR5tWVmWuNuiYfctw/d9YCK006E+TNyJSEX/aqGfRl1YodiIdwQ29QiERGDwvdEkeiCkFmkF9OuJY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789228211; c=relaxed/simple;
-	bh=SqX45cSexAwma2sfoPrWq11l59nyG2V0B5+reMu3PpI=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=GpVCqIthr6/E6EYO3YP3OCS7hoOjCBWTLS8tGOouAT2mtLhe8QgRgqRODMxV3v3T3PPIvL53hObRZ2u8Ikp95Q6910DYIOBWQvDW+z+3LinV/KmKMKBEx1svljv51ytW21DRigHpkw9TRSJS+/T/quRHwOsu837rD6AhxOzuzjU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZHy6FG+0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789228265; c=relaxed/simple;
+	bh=jYjhr9lQehwgsoB55McaT2/qQLnqXw43VwwgAETPBqE=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=ZaGhk7d5FafTnz5SXjsCKdYUEfcN8fGbWIvmCdHSw0CLmh10PUIs3WQ3erEYlLKxLxOnsNA+24oFJkGvves+egTNOxudwifqX+fCh5OmrM6SmEq+FmRdVpESaX9ziFYKvxMHkf97NKfu8LkK0ftwFl0DnH737shBtJJFHkDfutg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=B5Z+lMD3; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZHy6FG+0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29A321F00893;
-	Sat, 12 Sep 2026 15:50:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789228210;
-	bh=/jXriT0LBtwCGebid8xL0Vq86DNF4IhBfxaOu4ms12I=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=ZHy6FG+0D3RiiTN34quBEaXnPhDsjAWhcGGC4gz4xAQpBtkR8JLcv8MOObe50K0EM
-	 hcwoWhUzKwrdxHrT+GAdpBnMTGvlRMd6tgonKD+0akNqB+uDelwxI6NEunQQK0+KOy
-	 x3oVQWYGAJyT7PlnkD70deRlTr9Y+VppggvuuKzprEMLxendYw3XHDIKCYwNzskQCt
-	 AOiqkIAWMR8cdXu4fiE7BlF+ppcNfuiVpJKGH/fxNTDTNLlfIS5e2C4sv4FeFk2r/R
-	 xTCOcqkZ7YlOzhDIucv8NTwlJyit8a/vdFFBJZayD8CQOOQqcbRaZSyiq3VpT9lOmJ
-	 uKvTadc4prWVw==
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfauth.phl.internal (Postfix) with ESMTP id 31B7CF40066;
-	Sat, 12 Sep 2026 11:50:09 -0400 (EDT)
-Received: from phl-imap-15 ([10.202.2.104])
-  by phl-compute-10.internal (MEProxy); Sat, 12 Sep 2026 11:50:09 -0400
-X-ME-Sender: <xms:sXSlag3tcFvmghcP65QibBbGsPDdXf1xkzm7nSaJEdqUJ-b8crBq-w>
-    <xme:sXSlal5wmQ3wrTgJg3HX0QRCETODFUilRjGsi38tsBqfpwJwmaUhMcsfjOFNxYgRH
-    qVbiEeBij7vScFZxH9zHVjjx430QtEVfQvIowYXyqHT_kHhBHmQVyA>
-X-ME-Proxy-Cause: dmFkZTGVwn5kOo/uZq5shYrwT5pZn57c9Il78RFXvR5MxG768BWMf/RLTlbjYvwXrP8YQ/
-    h6GERoCOfwWttJd5YXoYzG9wB18+8l2OESXiJuUEYWP5yyKxmC2RTfebu1tyICZVB+B4uO
-    N5EReYOc7B6A4vAHr0yG8hWP521B0URtKfu9qv/7jf7wbBXr3toPZ05SmlgDPb/1KtJZbe
-    W/1h0AkqQ5nZ+eMNpiEnXfvCQgPZnyy50PY0RvRmPcnUPV0gr/RUSLofw9KlG5LHmPGIbp
-    PT4Do6FnynEUeUy4wcmU0FOHiIphVaR8UUSt6mPy0ltnITNASiGND7hXLJDY2I41GVpoUo
-    fCU8bvYQaPiqDsyLVTJVm+QzUJQTNaUAXxPMzkv8vfgrkj3zeGWZYjAPmTz0iTKG74RMSZ
-    rweK2d94PMf+pkBsH1mzrF2IuVhozxW5GSAkL0p40+DIouR+rFb9nnL4//9Og4K1pXAfcq
-    jMPL9qoatgxEqDxMvYooPUG1YOHcWPyEj3YfRPWjlVrtCFFpyC2cvdWBA42j3exYJNvKgF
-    pDtYLkLQw0b5i/MIxgkCMuuUR4AZ/L+WLNgD3VRSPj3JfMcJt3f0Rf3i/5x+UMceiDphdD
-    hfZPrAKiL0Sqpjc2b/USuAdvz6ZV9aOmard8Oby8hTITNlxuLkf7saWzO54g
-X-ME-Proxy: <xmx:sXSlalFSejhhpqfpF45vdQ6eHaBGGoQD0jXwHb7NuhaGjgG3LjarDQ>
-    <xmx:sXSlaqyIVyT79WKmsSoJWxGuDX8ddmB3gCGQoj4dauZP6R3h2dZDxw>
-    <xmx:sXSlan21pg2xn4juRn15Lrji9TgEGFAHxd4z54K7M8QcUCzcdnkrnQ>
-    <xmx:sXSlaip7EcTNXhmnOjDj9Y6PwU6h6wZfE004m3nZ8EuhdKxeki3Lqw>
-    <xmx:sXSlasVld5rwPWyBdWEphnweQ2FjPf1Ju5Qd97Vkz_biaLKV_vSTHZM7>
-Feedback-ID: ifa6e4810:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id 05333780070; Sat, 12 Sep 2026 11:50:09 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="B5Z+lMD3"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e71cdb22bso1880065e9.2
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 08:51:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1789228260; x=1789833060; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WYsEok5/6RpeOa0+UdPPhWNeU1Av3CpfKIsBFwLi6qQ=;
+        b=B5Z+lMD3RMMj7NVb/nfYAe9DpW00iaTkHgayOvY05B8q+8RkWJk6fAJAFkb72iwiyJ
+         O0loOWoDYolpvpWZ5rVs4/SMg/Hz8YlSiFAsBG050eftDr4RIAPy7rizLvbYtovn9VCt
+         bTGVVGCEq9a9FBCXkMQpCMeTXNmsJRuonxg8zcxKzn1lOpAxlhanYHYOks4Edg4VnJ3r
+         lMJ6JlJyjpGetWqBo0FiaciOd3HPSKCLtxZvR6XrXercqClTkajUAvcu/sQRUq8JRPHg
+         56uZDjTmeeoO38w5PIPxUFX1f+AwvlGvySbq2/PCPeeEJuqXqURiupMHDE6d7SRoV3ff
+         uDkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789228260; x=1789833060;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :references:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WYsEok5/6RpeOa0+UdPPhWNeU1Av3CpfKIsBFwLi6qQ=;
+        b=avU26sQ8CeEWbRa7WTdOsXuHXgzzPOqsTGkjanOaWo7Q8sDx2MGD2cunWRGVAyZmJe
+         5Vg3b0rjeQXaeIaXHJ/sOiL4xDX1mSpFWd0awK8LJayaSla3nwGr23e0zfxzoqNvv9x2
+         0fuS08vzIsfm5ufJ6L3l7Ubuo4U9+7PXLNvJCF6WlgRthCv3N/5j/OalVzcRg8nBCa/6
+         lzOK1Zz5/Bh/Kn0+VOaJbch9lgoG+MiCM5L3hA3aMO0ObQ7jrLt1lVPEas7azLhNOSfP
+         wXwSmClPlY+gxyuprZyFESDNsR9JVEv0aXLTzwfHGu6heRwiScwcJHdhAB2WIiCP0sMy
+         KQmw==
+X-Forwarded-Encrypted: i=1; AKwUvBxFq3DHrOhZeP+9wGESGn0lM7iLgrUTvr0CfyJCWveOHbHzQ9nhQyaMmXEOmmdQqgrvSznQhooN7923dUM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lA8pIlvpkGIrL00EREZhNM1dB8s2p0H0F8y9QFdqPkm5hPosHJ
+	7Oyvlka0JaqyenhjAA5lCivmvsrPcHbYrvgl3wZKpjTGgcrqhbyI750pes/XsPAnmOE=
+X-Gm-Gg: AYBFou2xtaCm/gSOG7rzBAynufLT1E9CR0xkytatMi+kFSUcq9uwI+7+zcvy6HTVApv
+	BbYxn+PwjOEPVH5tW8iPb30G1lVqdwXg7U/x3uh2miclhfh5AqrQyM8R+4w9HQCRZsectt1350b
+	IjQgHdn8oog9XBqor8DssI6DAgd5OpxvqD8M0pdnhaGwc4OLpD84u3QLOyvzBWppTk6dga4UIhG
+	9TDblFli7puzoS8QItE3e5jRA8k8+9FLHVz9Kz6EFpVk4/kdB59wZkFf412xWtPW15KQ/Ip1J3k
+	3AdTV9sbQltDtc4NqSRzB6IU7TP6JeSwNxaOkaBT9LQgbAAvD9ssEOPhzMKddcCYabCKNubpWdI
+	53G0TFZHCzuLxt3Jm1XPUfEsI583oX/ga7xOEECCNStwo8jRMEFmXQC3XPiarcveSCsQ5lWwl3a
+	l2v7dy7MOsjMZTMkqyYbnF6W1UEujyDRUjyRWaKS4Wbtmu7WnugVeyc4iItHvrqJ2BEdXFifSJH
+	7G3oiv3xxXWthDJcu4qOEIc28qu
+X-Received: by 2002:a05:600c:8b8b:b0:49c:fa20:cbfd with SMTP id 5b1f17b1804b1-49e6cbfeee9mr26096875e9.20.1789228260689;
+        Sat, 12 Sep 2026 08:51:00 -0700 (PDT)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e636f7fa2sm154001915e9.15.2026.09.12.08.50.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 12 Sep 2026 08:51:00 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: tanure@linux.com, Brian Masney <bmasney@redhat.com>
+Cc: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Neil
+ Armstrong <neil.armstrong@linaro.org>, Kevin Hilman
+ <khilman@baylibre.com>, Martin Blumenstingl
+ <martin.blumenstingl@googlemail.com>, Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney <bmasney+clk@redhat.com>, Chuan Liu <chuan.liu@amlogic.com>,
+ Jian Hu <jian.hu@amlogic.com>, Ronald Claveau <linux-kernel-dev@aliel.fr>,
+ linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 4/4] clk: meson: t7: don't mark sys_ampipe_nand as
+ critical
+In-Reply-To: <CAJX_Q+2vpcFw-5evCkykwWo6jbHvKvQ4XjYt_EKFyJuQm_ES5g@mail.gmail.com>
+References: <20260905153234.133217-1-tanure@linux.com>
+ <20260905153234.133217-5-tanure@linux.com> <aqSX-kUvYaixESxe@redhat.com>
+ <CAJX_Q+2vpcFw-5evCkykwWo6jbHvKvQ4XjYt_EKFyJuQm_ES5g@mail.gmail.com>
+Date: Sat, 12 Sep 2026 17:50:55 +0200
+Message-ID: <1jcxui79k0.fsf@starbuckisacylon.baylibre.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AgpFG2YqzZmg
-Date: Sat, 12 Sep 2026 11:49:44 -0400
-From: "Chuck Lever" <cel@kernel.org>
-To: tmenninger@purestorage.com
-Cc: "Trond Myklebust" <trondmy@kernel.org>,
- "Anna Schumaker" <anna@kernel.org>, "Tejun Heo" <tj@kernel.org>,
- "Lai Jiangshan" <jiangshanlai@gmail.com>, linux-nfs@vger.kernel.org,
- linux-kernel@vger.kernel.org, "Eric Badger" <ebadger@everpuredata.com>,
- "Jon Curley" <jcurley@everpuredata.com>
-Message-Id: <e18e121c-5c05-4caa-96ea-e0886594ee07@slotpi15m67>
-In-Reply-To: <20260912145926.208269-1-tmenninger@purestorage.com>
-References: <48e8b6c6-dc62-4630-b7c9-19cdcc5cbf11@slotpi15m67>
- <20260912145926.208269-1-tmenninger@purestorage.com>
-Subject: Re: [PATCH RFC 6/8] SUNRPC: Reduce rpciod workqueue contention
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, 12 Sep 2026, Tim Menninger wrote:
-> 10-second deltas:
+On sam. 12 sept. 2026 at 08:50, Lucas Tanure <tanure@linux.com> wrote:
+
+> On Sat, Sep 12, 2026 at 1:08=E2=80=AFAM Brian Masney <bmasney@redhat.com>=
+ wrote:
+>>
+>> Hi Lucas,
+>>
+>> On Sat, Sep 05, 2026 at 04:32:34PM +0100, Lucas Tanure wrote:
+>> > sys_ampipe_nand clocks the pipeline stage inserted in the bus path
+>> > between the SD/eMMC controllers and the NIC_MATRIX fabric. It does have
+>> > identifiable consumers - the three MMC controllers - so marking it
+>> > critical was the wrong tool: the clock should be referenced from the
+>> > consumer nodes and claimed by the mmc driver instead.
+>> >
+>> > Drop the CLK_IS_CRITICAL flag and update the comment accordingly.
+>> > sys_am2axi0..2 remain critical as they clock the AXI DMA bus itself and
+>> > have no single identifiable consumer.
+>> >
+>> > Assisted-by: Claude:claude-fable-5
+>> > Signed-off-by: Lucas Tanure <tanure@linux.com>
+>> > ---
+>> > This patch depends on the MMC controllers actually referencing the clo=
+ck:
+>> > the dt-bindings, mmc driver and t7 DTS changes adding the "pipeline"
+>> > clock must land before this patch, otherwise the boot hangs and memory
+>> > corruption this clock caused are reintroduced.
+>>
+>> This series should be merged together in one tree? Which tree? I can
+>> provide an Acked-by if it should go through the mmc tree.
+>>
+>> Brian
+>>
+> It's definitely best to keep the series together in one tree to avoid
+> boot regressions,
+> but I think the clk tree is the better fit since the core changes
+> revolve around clock logic.
+> Could you accept it ?
+
+No. This applies on top of another change already queued in the amlogic
+clock tree. It can't go through the MMC tree at the moment.
+
+This clock is not critical in mainline right now, so
+1) I could merge this and it and in practice there would be no
+   regression. The problem you had would still be there until the MMC
+   change lands
+
+2) Or you can wait for the MMC stuff to land and re-submit this in
+   the next cycle.
+
+Your choice. IMO, (1) is fine.
+
 >
->     free_fastpath:    +49,161,373
->     free_slowpath:    +70,391,872
->     sheaf_flush:       +1,582,440
->     barn_put:            +673,877
->     barn_put_fail:        +26,374
->     barn_get:            +673,860
->     barn_get_fail:     +1,199,576
->     alloc_slowpath:             0
+> thanks
+> lucas
 
-Thanks. No worries on the delayed response, IMO there is something
-here worth digging out.
-
-Your results confirm the barn-limit theory was wrong. The frees are
-bypassing the sheaves.
-
-can_free_to_pcs() refuses any object whose slab is on a different
-NUMA node than the freeing CPU. A remote free goes directly to
-__slab_free and never refills a barn. With elbencho unpinned and
-every CQ on node 0, rpciod on node 0 frees every nfs_page object
-that a node 1 thread allocated. That is the 59% slowpath share.
-Node 1's barn stays empty, so its allocators refill from partial
-slabs via __refill_objects_node and get_partial_node_bulk, the
-other two callers under the contended lock. The contention count
-fits as well: __slab_free takes list_lock only on a full-to-partial
-or partial-to-empty transition, and the bulk refills keep slabs
-full.
-
-Still unknown is whether this lock bounds throughput or only
-absorbs idle CPU time. __slab_free led the lock profile in both
-placements, and the split placement still ran at 46 GB/s.
-
-To separate the two, keep the all-local CQ placement and pin the
-workload to node 0:
-
-    numactl --cpunodebind=0 --membind=0 elbencho <same args>
-
-Sample the same nfs_page counters and perf lock -l over the same
-10-second window. free_slowpath should drop toward zero.
-
-
--- 
-Chuck Lever (Come to NFS bake-a-thon! https://nfsv4bat.org)
+--=20
+Jerome
