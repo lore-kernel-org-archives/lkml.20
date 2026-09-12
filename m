@@ -1,129 +1,70 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-10698.protonmail.ch (mail-10698.protonmail.ch [79.135.106.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B53B2429CC8;
-	Sat, 12 Sep 2026 11:43:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6601C47A0AB
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 11:44:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789213412; cv=none; b=mEtJhfIlnn8MouITUXFNEDO0h1qnEDEM6XbpiUElQwr/tCp0IACiNgqrQWBA8P6QI6J3iGmubHSCf49FcZhm9ibxiI+ShMZtTCfyjTuFf3vTJjjZcSzsbmA5qdZhCOLgxKbsXEMnm3YsCBWgpWrKR3HwzU/ghsHBRsjBTsO9MsA=
+	t=1789213486; cv=none; b=LwEWxogPHlEA5eRmEDwwFz9PsbeS89G6yhhuAxPRzXXUtJUaa41rCKgX4s2TU1dz3DoITrKG0ptv9njHT8AmfzF/VD0yr30GJ/NYhBrwJ49XhQRgP6MqmH4nrSL2kz+Abn5OnGnVsFpJYTpcygR86s3I9RwoYAEQb2DOAZIBM6k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789213412; c=relaxed/simple;
-	bh=TAAuZOGr/85DV5+Z7Dz9SB0m4XeycxoHFiH1U0fo8xQ=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=hif06+coYyq0h58X8epoQmqy+9Z9fBWQy40O+rAbAp2pfAM2A7r7tRfOBhMj3zgIL2M3mp1kq+c0U18LANpmvRnyxs0VIwWJ70XGMTH1jaeBVuc/QA2JfeOUM0sb79zDCnzpEFgQ9PkUJ3nmlsYLzqxrQ2BEoj9tzsnm611+Z9Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cK5XlgfP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789213486; c=relaxed/simple;
+	bh=FLc/JbmBUV2/tnQnAHt38ZatpXwzNiotpOVK1PzaB7A=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=qLFp7XTdLmpCdOzMGLz+2LPgcHT4nJy/iY8QQI4Wm9cI4Q5wR1jNyeKzCWrTNZmqW8xEczHRZZDDGTDlD13YK/vjAYq4UOA/4ets+XTjCrKnEu9g6VYt5fG0DhCYliKxMCJPdwu/2A5u78DJJsNRqHlvnPbZDtOOzsH0xMZG97o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=gQO3Ccct; arc=none smtp.client-ip=79.135.106.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cK5XlgfP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88A781F00893;
-	Sat, 12 Sep 2026 11:43:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789213411;
-	bh=FluqXzh5k5qC80kIPbMVeqGTxq2K8dL/fFXy6Ui0ioU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=cK5XlgfPkupYP5E+vsxJ+64JEO2JtLPlE15k4Mh8bZmBOf41g0Y7tUKKpNBn4dZi5
-	 +dQGE5QpQwpwGkmBB/TV1FaS0Chj+kAm75gtK1QNRdX6dQ98Twu9fuQfV51yd2rBh3
-	 aHk4owDnHeAaYPsu61BKSShioTRuwr52FvDxJusrvPBfe8dNMD8w2r4TYC9gY/7tH8
-	 W+pun973OiWgJ+Ceb2yzNOB1ZTFgfXAAnvTY7bqI79eOHgXwK5ZPjDZcaKupHT4JW2
-	 G8tYUYsdxUr0OiePQztZ33u56eWGo8bhIfchdyLD/h8M10IpI+U931IcCKBr/MLW+K
-	 /mM8xwPF3/6jw==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1x5M8n-000000085Bb-05E5;
-	Sat, 12 Sep 2026 11:43:29 +0000
-Date: Sat, 12 Sep 2026 12:43:28 +0100
-Message-ID: <86ecey7l0f.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Steffen Eiden <seiden@linux.ibm.com>
-Cc: kvm@vger.kernel.org,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-s390@vger.kernel.org,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Andreas Grapentin <gra@linux.ibm.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Claudio Imbrenda <imbrenda@linux.ibm.com>,
-	David Hildenbrand <david@kernel.org>,
-	Friedrich Welter <fritz@linux.ibm.com>,
-	Fuad Tabba <tabba@google.com>,
-	Gautam Gala <ggala@linux.ibm.com>,
-	Hariharan Mari <hari55@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Hendrik Brueckner <brueckner@linux.ibm.com>,
-	Ilya Leoshkevich <iii@linux.ibm.com>,
-	Janosch Frank <frankja@linux.ibm.com>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Nico Boehr <nrb@linux.ibm.com>,
-	Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
-	Oliver Upton <oupton@kernel.org>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Will Deacon <will@kernel.org>,
-	Zenghui Yu <yuzenghui@huawei.com>
-Subject: Re: [PATCH v7 11/23] KVM: arm64: Share arm64 code with s390
-In-Reply-To: <20260902124152.438647-C-seiden@linux.ibm.com>
-References: <20260831144802.834315-1-seiden@linux.ibm.com>
-	<20260831144802.834315-12-seiden@linux.ibm.com>
-	<87se3tmlrv.wl-maz@kernel.org>
-	<20260901084037.185345-C-seiden@linux.ibm.com>
-	<87mru0m76g.wl-maz@kernel.org>
-	<20260902124152.438647-C-seiden@linux.ibm.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="gQO3Ccct"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+	s=protonmail3; t=1789213474; x=1789472674;
+	bh=FLc/JbmBUV2/tnQnAHt38ZatpXwzNiotpOVK1PzaB7A=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=gQO3CcctxU3raZ2NxuUOHg0C0XTRZTL7tFyTi2Em+XoVpNdNsZSPGdTCg3uwIP85a
+	 2xa4I6VGnSihY8x8BH0BalvFbcbUw+LlHJ/NMEuTWSbireigyWvGGAJ+f7MuQLyNb5
+	 ZXm7XTO7zGJdL0FocQW8q05xjJdFk7yE8vQDIVm5Ltd0ZaFE5/qRx6SfQJzlFrDK3r
+	 3Mkmm+D+EKpnceRxU8Ut6mUb+0Wg5vYmMJ1m06Ecodu3HxXENTeiv+V63kcugH5rs+
+	 3605/lKX/oJpCjWqVLPAjkpfGjHMk6CgTCsUmcjEEaHFvnQbaHYU531KsSIvAutWKu
+	 v1tZLcv/rgEsw==
+Date: Sat, 12 Sep 2026 11:44:29 +0000
+To: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+From: Turritopsis Dohrnii Teo En Ming <teo.en.ming@protonmail.com>
+Cc: "ceo@teo-en-ming-corp.com" <ceo@teo-en-ming-corp.com>
+Subject: Linux 7.4 To Support Realtek RTL8127atf & RTL8116af Networking
+Message-ID: <6bll9EOVy7jxUteGUx-A3wJsjoGKRvtPgW7Qzpg24PB9G2QkaOlttrm2ZG0XWGiRz0toZR4IJrAc7U0suQ4s2Jsph-2-xooiz3g_LROhraU=@protonmail.com>
+Feedback-ID: 39510961:user:proton
+X-Pm-Message-ID: 64f3832dd04c8090c43792acaf44b3a624853a01
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: seiden@linux.ibm.com, kvm@vger.kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org, agordeev@linux.ibm.com, gra@linux.ibm.com, arnd@arndb.de, catalin.marinas@arm.com, borntraeger@linux.ibm.com, imbrenda@linux.ibm.com, david@kernel.org, fritz@linux.ibm.com, tabba@google.com, ggala@linux.ibm.com, hari55@linux.ibm.com, hca@linux.ibm.com, brueckner@linux.ibm.com, iii@linux.ibm.com, frankja@linux.ibm.com, joey.gouly@arm.com, nrb@linux.ibm.com, oss@nina.schoetterlglausch.eu, oupton@kernel.org, pbonzini@redhat.com, seanjc@google.com, suzuki.poulose@arm.com, svens@linux.ibm.com, Ulrich.Weigand@de.ibm.com, gor@linux.ibm.com, will@kernel.org, yuzenghui@huawei.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, 02 Sep 2026 13:41:52 +0100,
-Steffen Eiden <seiden@linux.ibm.com> wrote:
+Subject: Linux 7.4 To Support Realtek RTL8127atf & RTL8116af Networking
 
-[...]
+Good day from Singapore,
 
-> So my suggestion is:
-> 
-> For series 1 (and 2) s390 has its own, local implementation of
-> handle_exit without sharing any code with arm64 in regard to EC
-> 
-> When s390 has all the relevant code available (likely series 3) s390 can
-> switch to using most (if not all) EC handling code used by
-> arm_exit_handlers implemented in handle_exit.c.
-> 
-> This can be done without a mixed patch:
-> 
-> 1. Mark arm64 handle_exit.c as shared (roughly the first 400Loc w/o
->    includes) - s390 will not use it after this patch.
-> 2. remove the handle exit code from s390's handle_exit.c and include the
->    new generated handle_exit.inc
-> 
-> This approach brings us further into the share architecture not only code
-> approach you meantrioned in the comments regarding sys-regs. (I or
-> Andreas will provide a solution for this later :) ) 
-> 
-> Is that OK with you, what do you think?
+Here is an article which I would like to share.
 
-I *think* that's OK. I just want to make sure that in the long run, we
-don't end-up with pointless divergence.
+Article: Linux 7.4 To Support Realtek RTL8127atf & RTL8116af Networking
+Link: https://www.phoronix.com/news/Linux-7.4-RTL8127atf-RTL8116af
+Date of article: 8 Sep 2026
 
-Thanks,
+Thank you.
 
-	M.
+Regards,
 
--- 
-Without deviation from the norm, progress is not possible.
+Mr. Turritopsis Dohrnii Teo En Ming
+Targeted Individuals Singapore
+Government-Induced Schizophrenia, Government-Induced Health and Medical Pro=
+blems, and Government-Induced Extreme Poverty for the Past 20 Years (Govern=
+ment Persecution)
+12 Sep 2026 Saturday 7.44 pm Singapore Time
+
+
+
+
+
