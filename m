@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B93DA357CFC;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BED2547DFBF;
 	Sat, 12 Sep 2026 13:32:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789219963; cv=none; b=SWNCb9xf75V8PWCccbGJTGwVH0U16d/480ft1lZ3I1Jq97ld7rftb6zDCaYWLNY2gcECucgJBXV1wWGWH6PIkthf71jTtM9R2RiMEKHSxsQ/WvTuTiuWyb3evh/Ykmp5GV9ta2FAsokCJeP4bHN8g1V9gwlDip9QNryx1hrUsPo=
+	t=1789219963; cv=none; b=hgxPifVADgvdS59VJDReSPJRQr9Yx/oE03Qnyd6ge305+YKrE7CM++QZ3aqnWQUqYIDJxaMJXz8Aq5EpKzHi9DPJn7O6IZXDWV7a/nRZW3yWLs7zCOr8U40gnT0YQvzUGt6BuGnCAnIaBe2721q0gBRMmfkQ8b75mdMDrJNb98s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789219963; c=relaxed/simple;
-	bh=n5QACkd1zv3PhqXE3MIany6DDgK40aeV4SQY8yeovjE=;
+	bh=JkwzbNYwRAgQqV5i3Ky5WDnTYDRC8C/A4yQ5N2SQlvs=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=PLo53mhreC9ICu/Udm11gU/O5AretRUA1pF5InlhaYRwjzZjjSslc396YRyWJoimmQyL1CZXx/yDLowULqm8Ph8Y/29+DqVm1jPIYhT1203uutgOw/7o2VcUxb6EW+h0D/uXY08eMKxgaTVv8/tM+1mvfHc9LjlM8/N4WGnCiqQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kMPb1eNA; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=A8xEKrhtgVJlevjUPN8wKeVleRNWS101vkt3JSbEdKPAYM6VlIC2ZajCd9TwnfkZCJFDrC071uR5yiLkZSUpQaeYm58OsMCIoA70dglN1I1628T80/tTEImk0s+vEOY9qnDeISMqqQErAb/sPCsyEWq+Iyl9hZUIMdEJAjbwNv4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k9gAkp0J; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kMPb1eNA"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 6E5F4C2BCB9;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k9gAkp0J"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 7E241C2BCF6;
 	Sat, 12 Sep 2026 13:32:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1789219963;
-	bh=n5QACkd1zv3PhqXE3MIany6DDgK40aeV4SQY8yeovjE=;
+	bh=JkwzbNYwRAgQqV5i3Ky5WDnTYDRC8C/A4yQ5N2SQlvs=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=kMPb1eNAKy2ull0Kt4rBiyZNO9WrhVXXATUcsnauepvA8hwOaPV1JEvbRkFgRUYDo
-	 ib9wUiWzHLu6xtkBebMm2vi6ec3YqPOEfZEBH2ylhFauf2dXeAU5wrwHR5r8MW8Phk
-	 o5tcIfLZGYhTQNvFmKqaWd9QUCYUdrEqI+zIAzhBqjPaDpLtdpZYqOzKF1m6vDBr7B
-	 LQohuqHPaZxdYOtRKHOp6+33lH5M9kBVaKKiR3cJJsp9ilgIWGh7AYoYGw9P2DYXt3
-	 QOHHk+LMhUeuYH0aPEd4SndKOhcaPqs1tsiaKlkK1+ajXP7oXuzMo1nHF06EeWBr5V
-	 12BrIDTKpMLTA==
+	b=k9gAkp0JWhV7mBN8QWBqNqigjYp78I4lt8FZrxRf2jW0P1EcSYeviR6rt8WxD+Tb4
+	 35NX5AsEkAdvx9GEvvhGMM08TRPgFcUNr0AN+Mtu8eqiDOq8MSuxcMPSOQSuKHJK6d
+	 KpqwsUwRyckwWEBv/hjnwaU5YIK0hFxdJFjOLP5Un/peh7q/RDzt2jRJ60eSO5RDz5
+	 BJh323p9LYwrMRuv0Yf8akW/JnLyvnq2l3upSb+P51neENMNvsKxcOUXr8ZCY61Cr9
+	 Bg0wdUqS62BB/6ixb8a1QYzx7ZVVH3PRsKdo4zv62VibOmRf5PxS51OqLhH6ph4A+Z
+	 sDvv0pMj1Zdcw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4FF19C88E59;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5E51AC88E53;
 	Sat, 12 Sep 2026 13:32:43 +0000 (UTC)
 From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
-Date: Sat, 12 Sep 2026 15:32:36 +0200
-Subject: [PATCH v5 1/3] dt-bindings: vendor-prefixes: add Free Mobile
+Date: Sat, 12 Sep 2026 15:32:37 +0200
+Subject: [PATCH v5 2/3] dt-bindings: arm: fsl: add Free Mobile Nodebox v3
+ CPU Module
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260912-for-upstream-nbxv3-dts-v5-1-ead604dba61b@free.fr>
+Message-Id: <20260912-for-upstream-nbxv3-dts-v5-2-ead604dba61b@free.fr>
 References: <20260912-for-upstream-nbxv3-dts-v5-0-ead604dba61b@free.fr>
 In-Reply-To: <20260912-for-upstream-nbxv3-dts-v5-0-ead604dba61b@free.fr>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -50,14 +51,13 @@ To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Fabio Estevam <festevam@gmail.com>
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- Vincent Jardin <vjardin@free.fr>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+ Vincent Jardin <vjardin@free.fr>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789219957; l=923;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789219957; l=890;
  i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
- bh=YJnL8SVSS5jtnm6LBYWZbK3h+dEb8nY2DV6ueCzz3OA=;
- b=qmRFT5RpvWd3q46tYhS7mCLr27LjvwhGpawYwavOPxHiZMrNwHJmpV6pexi5F0y4Mr67j/h4e
- eTXs1KxxHNcCXdfMV2EVFsKvoFrCVUbrb8BoR7ItnPUiVjgoS+XHxGA
+ bh=6NRdekrvZ1bADwMMSU8BctmnPr4DJ0Rx7XWnLNXPJac=;
+ b=oYnzQwBQLJRk7ZpVu3rJN78/oGczQp1xYVeQKVjG73zu54wxvJB0DAiodIs1x37ZRyQHlTLpV
+ 1AgbD+BhuDgB0+/JhUrFD2pGdLbG5FJXHZCpDBDJ/rK284dkX9QZUMb
 X-Developer-Key: i=vjardin@free.fr; a=ed25519;
  pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
 X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
@@ -67,28 +67,31 @@ Reply-To: vjardin@free.fr
 
 From: Vincent Jardin <vjardin@free.fr>
 
-Free Mobile is a French mobile network operator. Add its vendor
-prefix, used by the Nodebox v3 CPU Module (freemobile,nbxv3).
+Add DT compatible string for the Free Mobile Nodebox v3 CPU Module, an
+NXP LX2160A based board.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Signed-off-by: Vincent Jardin <vjardin@free.fr>
 ---
- Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ Documentation/devicetree/bindings/arm/fsl.yaml | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index ba2002969373..e467da45cd7a 100644
---- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-+++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -626,6 +626,8 @@ patternProperties:
-     description: Freebox SAS
-   "^freecom,.*":
-     description: Freecom Gmbh
-+  "^freemobile,.*":
-+    description: Free Mobile
-   "^frida,.*":
-     description: Shenzhen Frida LCD Co., Ltd.
-   "^friendlyarm,.*":
+diff --git a/Documentation/devicetree/bindings/arm/fsl.yaml b/Documentation/devicetree/bindings/arm/fsl.yaml
+index 656f2596e1d5..baff4f4159b2 100644
+--- a/Documentation/devicetree/bindings/arm/fsl.yaml
++++ b/Documentation/devicetree/bindings/arm/fsl.yaml
+@@ -1937,6 +1937,12 @@ properties:
+               - fsl,lx2162a-qds
+           - const: fsl,lx2160a
+ 
++      - description: Free Mobile LX2160A based Boards
++        items:
++          - enum:
++              - freemobile,nbxv3
++          - const: fsl,lx2160a
++
+       - description: SolidRun LX2160A CEX-7 based Boards
+         items:
+           - enum:
 
 -- 
 2.43.0
