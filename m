@@ -1,120 +1,119 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8DAC1F1534
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 08:26:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+Received: from mail.8bytes.org (mail.8bytes.org [85.214.250.239])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0D4353F8EA2
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 08:33:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.214.250.239
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789201593; cv=none; b=WkY27/dD55UscFxU36lKQ2N3DUbnEcncKO0/zDly9UEt3J/Q8AP9DbalrVdYPhk3kjGPllxzqov/XmAtqK535egrAEeSZ6qQkpyzwgpK1U6p+ex1uLU5n1AuMkwGeTnAfziGRmcuhI/OTZVGZn5U3PlUOKRJIZQXPgV8jAUHimw=
+	t=1789201987; cv=none; b=NEo3E5SrT97htjPYQ1sYg6H1i37j9kSfH6W0rhpE1A2b8JguJMJ1PyRPcGKwteHcesjin7nTPnPvOYnoXCPxTBUF9PVeXD+OCEpfTsS+YIxsNNu2Qby5PGPVjTFs5QkeQpeGQ9vRGw3APUaL/iQHDxZ+aI6Fk/8GWOqaL3yaSSk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789201593; c=relaxed/simple;
-	bh=MV79uzAtxP4q3WPkmZ4F2Nx3PPF437DFK7HOPCcmm4c=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gs/GjWYDZqBlEu6xsRavP6btUV+fD1pQwhy2FsxAk1tckbpVfPLnBC3icz3EL6HHzPIZSaNSvF7un5iKerEXiWOjqYgqi2Fjt3C9l57Fesljq3IkWYuW75kAFdetiO2Q8MA1F7O36o1fryTmvFKvnswJieEAUPvml3G2Olzsltc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Sz9hZ3gn; arc=none smtp.client-ip=117.135.210.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Sz9hZ3gn"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=PC
-	KQzHy11n4rZ/Ir7KunChoHPt2wwZSgc8x8OP6qy24=; b=Sz9hZ3gnsXEBvhqNjp
-	R8n7fEYA200Widg1VJ/UBlhyyCvoyOv40BdwS2jWy3mulgauNMnBQLuv0sI2D7sX
-	FI+WS8MObchPuONVR1x7UwXu9VeNqDc7kt4lIkCW9J+Vwo+qLD7Mgoqfo3b7a6du
-	MzlJ1EevqwI3uTw76Nx5hwciM=
-Received: from VM-0-3-ubuntu.. (unknown [])
-	by gzsmtp3 (Coremail) with SMTP id PigvCgDnr7FODKVqmfMoSQ--.44660S2;
-	Sat, 12 Sep 2026 16:24:47 +0800 (CST)
-From: Longlong Xia <xialonglong2025@163.com>
-To: xu.xin16@zte.com.cn
-Cc: akpm@linux-foundation.org,
-	baohua@kernel.org,
-	baolin.wang@linux.alibaba.com,
-	borntraeger@linux.ibm.com,
-	chengming.zhou@linux.dev,
-	david@kernel.org,
-	dev.jain@arm.com,
-	gourry@gourry.net,
-	harry@kernel.org,
-	lance.yang@linux.dev,
-	liam@infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	nico.pache@linux.dev,
-	peterz@infradead.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	usama.arif@linux.dev,
-	vbabka@kernel.org,
-	ziy@nvidia.com,
-	ljs@kernel.org,
-	Longlong Xia <xialonglong@kylinos.cn>
-Subject: [PATCH RFC 0/3] mm/ksm: scan with per-VMA locks
-Date: Sat, 12 Sep 2026 16:24:04 +0800
-Message-ID: <20260912082407.75875-1-xialonglong2025@163.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260911160421076_KNXun8Mpp9Xj7fxHG0i7@zte.com.cn>
-References: <20260911160421076_KNXun8Mpp9Xj7fxHG0i7@zte.com.cn>
+	s=arc-20240116; t=1789201987; c=relaxed/simple;
+	bh=4DJ6CupgZbGFa6TAJep5n9Vx0F32273uqkSSgt0aM6s=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=QHtBR8TTTIw8tQNEXnn6a0a+c126+wRqUMtjhjmhdeZ0irLzUDy1lqoIUInlUgaAIQiHY9HPMRi6G/RWd4b20kVUgBArzazGU+FNBhz/8+mhVXa9938AbVCR5VNjZi+VrFue0hn1INxJslpA9E9omC+LTQfd6YlGfPHbbGs4xEo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=8bytes.org; spf=pass smtp.mailfrom=8bytes.org; arc=none smtp.client-ip=85.214.250.239
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=8bytes.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=8bytes.org
+Received: from 8bytes.org (p4ffe1383.dip0.t-ipconnect.de [79.254.19.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.8bytes.org (Postfix) with ESMTPSA id 024142062B5;
+	Sat, 12 Sep 2026 10:32:56 +0200 (CEST)
+Date: Sat, 12 Sep 2026 10:32:55 +0200
+From: Joerg Roedel <joro@8bytes.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Will Deacon <will@kernel.org>, linux-kernel@vger.kernel.org, 
+	iommu@lists.linux.dev
+Subject: [git pull] IOMMU Fixes for Linux v7.3-rc2
+Message-ID: <aqUOFhjG7gjWfpAf@8bytes.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PigvCgDnr7FODKVqmfMoSQ--.44660S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7uF1UWw43tw4UtFy5Ww17ZFb_yoW8AF1xpa
-	9Ig345Kr48Zr12vwnavanrCrWrGw1kGFW8tr43G340yr45K3WqvFW0yw1jy3WUW34UG3yr
-	Zr40yF1v93W5Ww7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j7CztUUUUU=
-X-CM-SenderInfo: x0ldz0pqjo00rjsqjki6rwjhhfrp/xtbC2w8aE2qlDE+hbQAA3d
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-From: Longlong Xia <xialonglong@kylinos.cn>
+Hi Linus,
 
-This work was developed independently before I saw the above series.
-After comparing the two implementations, I found that the approaches
-overlap, so I am posting this draft version as an alternative 
-implementation and would be happy to combine the useful parts.
+The following changes since commit df2908090cda368b01ff43709f51890076c56157:
 
-  The main differences are:
+  Linux 7.3-rc2 (2026-09-06 15:07:20 -0700)
 
-  - use per-VMA locking in the ksmd VMA scanner;
-  - revalidate the mmap-lock sequence before skipping the fallback walk;
-  - avoid repeating a completed VMA traversal when no candidate page is
-    found.
+are available in the Git repository at:
 
-Benchmark (QEMU q35, TCG multi-thread, 4 vCPUs, 8 GiB, x86_64 guest on
-Ubuntu 24.04, 7.3-rc2 base, CONFIG_KSM=y + CONFIG_PER_VMA_LOCK=y;
-victim: 32 MiB anon, 2048 unique pages x4 duplicates,
-pages_to_scan=100000, sleep_millisecs=0, 3 runs each; churners: 4
-threads mmap/munmaping 256 MiB in the same mm. Microbenchmark as
-posted in [3]; relative numbers only, TCG is not native hardware):
+  git://git.kernel.org/pub/scm/linux/kernel/git/iommu/linux.git tags/iommu-fixes-v7.3-rc2
 
-                       0 churners      4 churners (mean)   
-  7.3-rc2              1.21-1.41 s     90.9 s             
-  + patch 2/3          1.41 s          48.7 s   (-46%)   
-  + patch 2/3 + 3/3    1.21-1.41 s     30.1 s   (-67%)  
+for you to fetch changes up to b63c3c26726576e2a87baeee80bc202a5a43c9e5:
 
+  iommu/amd: Remove unused macro (2026-09-11 17:27:22 +0200)
 
- 1. mm/pagewalk: allow folio_walk_start() under a vma read lock
+----------------------------------------------------------------
+IOMMU fixes for Linux v7.3-rc3:
 
- 2. mm/ksm: use the VMA lock when looking up mergeable pages
+- RISC-V IOMMU:
+  - Serialize command queue publication to prevent concurrent producers
+    from exposing incomplete or out-of-order commands to hardware.
+  - Wait for queue space outside the command queue lock.
+  - Avoid waiting for IOFENCE completion when command enqueue failed.
 
- 3. mm/ksm: scan VMAs with per-VMA locks
+- AMD IOMMU:
+  - Prevent GA log buffers from being reallocated and leaked during
+    resume, where allocation also occurs in an unsuitable syscore
+    callback context.
+  - Fix a regression on older systems whose firmware advertises
+    incorrect IOMMU features.
+  - Preserve allocation errors when assigning host domain IDs to nested
+    domains.
 
-Link:https://lore.kernel.org/all/5cd47bc3-bc3d-473c-80d0-8be8b7b79881@163.com/
+- s390 IOMMU:
+  - Prevent a NULL dereference when translating an unmapped IOVA with
+    five-level ZPCI translation tables.
 
-Longlong Xia (3):
-  mm/pagewalk: allow folio_walk_start() under a vma read lock
-  mm/ksm: use the VMA lock when looking up mergeable pages
-  mm/ksm: scan VMAs with per-VMA locks
+- Miscellaneous:
+  - Remove a stale MAINTAINERS entry and clean up unused or redundant
+    AMD IOMMU declarations, macros, and checks.
 
- include/linux/pagewalk.h |   3 +
- mm/ksm.c                 | 166 ++++++++++++++++++++++++++++++++++++---
- mm/pagewalk.c            |  11 ++-
- 3 files changed, 166 insertions(+), 14 deletions(-)
+----------------------------------------------------------------
+Daasaradhi Mannava (1):
+      MAINTAINERS: Drop the nonexistent vsi-iommu.h file entry
 
-base-commit: df2908090cda368b01ff43709f51890076c56157
--- 
-2.43.0
+Fangyu Yu (3):
+      iommu/riscv: Add command queue lock
+      iommu/riscv: Serialize command queue publishing
+      iommu/riscv: Avoid waiting on failed command enqueue
 
+Hemanth Selam (1):
+      iommu/amd: Fix ineffective error check in nested domain allocation
+
+Karl Mehltretter (1):
+      iommu/amd: Do not reallocate GA log buffers on resume
+
+Niklas Schnelle (1):
+      iommu/s390: Fix NULL dereference in iova_to_phys() with ZPCI_TABLE_TYPE_RFX
+
+Vasant Hegde (5):
+      iommu/amd: Fix premature break in init_iommu_one() again
+      iommu/amd: Make iommu_sva_set_dev_pasid as static
+      iommu/amd: Remove redundant check in irq_remapping_select()
+      iommu/amd: Remove redundant checks from interrupt handler path
+      iommu/amd: Remove unused macro
+
+ MAINTAINERS                         |   1 -
+ drivers/iommu/amd/amd_iommu.h       |   3 -
+ drivers/iommu/amd/amd_iommu_types.h |  16 -----
+ drivers/iommu/amd/init.c            |  18 ++++--
+ drivers/iommu/amd/iommu.c           |   6 --
+ drivers/iommu/amd/nested.c          |   7 ++-
+ drivers/iommu/amd/pasid.c           |   6 +-
+ drivers/iommu/amd/ppr.c             |   3 -
+ drivers/iommu/riscv/iommu.c         | 117 +++++++++++++++++++++---------------
+ drivers/iommu/riscv/iommu.h         |   2 +
+ drivers/iommu/s390-iommu.c          |   2 +
+ 11 files changed, 93 insertions(+), 88 deletions(-)
+
+Please pull.
+
+Thanks,
+
+	Joerg
