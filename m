@@ -1,70 +1,91 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75AAF3C3F6B;
-	Sat, 12 Sep 2026 20:14:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F255345EA7;
+	Sat, 12 Sep 2026 20:15:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789244072; cv=none; b=JKxShBhVzt93M3qvKvaDz9J6A/uVpZB8/iBWMtPaJ/qmHkgV4Xfd6krxbbV/Joca7IB42/jVe9SdjUAsizrju48mDFkLEpkLlWXuRgO78Uc7O0q8uQO9xo7iMefBvnEnR6KYYr2H7fVN9ua75Xw857BOEuZJYyJmOuOhS9xmPME=
+	t=1789244111; cv=none; b=AC6tDXIDSh/e4kIHTvvpAw+PVZkvTp5vcmfKHv+dpJFbYKJvEzdOw2Gk22bNyvRpvoVUzOeOPxIuzGHqymQqoXw09OdhoD1VLv4MrUVKKgXxMnUui5PsukDFVX4UxBpyjsQmZWfbXY25R4lOTetOA6We0W7b/McHbEG7mWKlxQs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789244072; c=relaxed/simple;
-	bh=aMPkbxR4vtJzo8CQmwjK4ydwCWfJWyYm46YXN2FALZA=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=TOXy6ZkUf4egwPzbxUIDynGn7DUYga3ju9fOypf1ZDKudkEW0vw2b+OeQZ382kHlADbHVdIbpITV/R0AJq5GQ37LxinWdz48CarcYS0wqXw5WqQznY8VwijjE03pZvRE0b0RNyo5yrnrI1pw+YgMv4l7z+OBfu+WJ2ukdixI4FQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MrX7l1OA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789244111; c=relaxed/simple;
+	bh=XJmiCQsVdnNmISDg3lxYu29PWa7Ygrnba439C1aPA/g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cDL/N5vpkaKZAijmfNqpyZ+MLUh05XXE6d2/ZJwK7KiC8ruhAwDSATSVP07idKfyb1CtT2SRhFZkroAMrBbc4D5g5fMzhvRi8C/jbZBHWpmYt/i7XFkP2Qo/AOpdXSwTQDrm9BgPQnkm8/ey7UVjslBc9iCl8+uAoXYrgY1rwbA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BeyIAvd+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MrX7l1OA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 051D81F000FF;
-	Sat, 12 Sep 2026 20:14:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BeyIAvd+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40FB51F000FF;
+	Sat, 12 Sep 2026 20:15:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789244062;
-	bh=4oIqfV5KvbDI3IxsRZQ0qEeErlbPv5b2bokyql58ZQM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=MrX7l1OAJDEXaSi+yO3atB0AhnXcGQZB91SZ1OMJlf9nuUPg0LaizMDHxmtO9ESd1
-	 ENnnjy7v09zGy+l1UrIkWhHbi5bZ4sdPXZKrrIJ6deBKpx9XdQ75M3gXqVvoLMUu7Y
-	 oJHdkbKGBRtEvT/4WlHwPu+7b/xrjZ0xVW+nNrOk8Ug6jGehXVbmFf7iTq+vuDObOW
-	 ufeiU7Tkiw+awST3BRX1jJz59feM+4DiHNTNw4Un7z7Bxq2gG4JVi4AxlLyVxHpK6s
-	 HfcwklUKFmx/TVXU/FrKO086thP5Z5n2TmiO4ar8U77taiN7osBwfidpi8vOy97iTW
-	 +8084FdwzkMOQ==
-Date: Sat, 12 Sep 2026 13:14:21 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Coia Prant <coiaprant@gmail.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo Abeni
- <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner
- <heiko@sntech.de>, Vinod Koul <vkoul@kernel.org>, Maxime Chevallier
- <maxime.chevallier@bootlin.com>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Lad Prabhakar
- <prabhakar.mahadev-lad.rj@bp.renesas.com>, Romain Gantois
- <romain.gantois@bootlin.com>, Heiner Kallweit <hkallweit1@gmail.com>, Neil
- Armstrong <neil.armstrong@linaro.org>, Russell King
- <linux@armlinux.org.uk>, Shawn Lin <shawn.lin@rock-chips.com>, David
- Heidelberg <david@ixit.cz>, netdev@vger.kernel.org,
- linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH net-next v4 00/10] net: pcs: add basic support for
- RK3568 XPCS
-Message-ID: <20260912131421.2960a12d@kernel.org>
-In-Reply-To: <20260907153713.2572547-2-coiaprant@gmail.com>
-References: <20260907153713.2572547-2-coiaprant@gmail.com>
+	s=k20260515; t=1789244109;
+	bh=iARXpJiva2weZPGXK48Cat7tifL8FGJrdQkrAN+DV1g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BeyIAvd+8CaDUxvXLA8+PzsWhF0PZ4grovnXONlkyWZvDBq0o45EU6jnMMREv8i2w
+	 5xYd7eIePlQqRA/FF5RFZ3uzuK76YTpvXg/atQPyFfqRJeGZNYZUPkFP3IOAO6uNws
+	 uU+HKDP5HwMG8Xjy5ha9Il4im6m5RD6URFRglM2v5+Jy2MSSrCUkVoyrFLipgqyNXI
+	 GA6FolaK3B5wtn70hKIYcraw/BBiZI8SovMQpts37RNvJmiyCnJCRz6YIs3r/+LDLj
+	 TiRMOj1wOZqV5hqvkalfyB06qWl+ClSYr95SPgi850OV7NOXpSgH2oMTP327DI8D0y
+	 lv69+TSYPbOEQ==
+Date: Sat, 12 Sep 2026 17:15:04 -0300
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Ian Rogers <irogers@google.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+	Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>, llvm@lists.linux.dev
+Subject: Re: [PATCH v1] tools build: Fix timerfd feature detection with clang
+Message-ID: <aqWyyC4n0XvAFvux@x2>
+References: <20260910213907.3206529-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260910213907.3206529-1-irogers@google.com>
 
-On Mon,  7 Sep 2026 23:37:03 +0800 Coia Prant wrote:
-> This series adds proper SGMII support for the Rockchip RK3568 SoC
-> using the integrated Synopsys DesignWare XPCS, along with necessary
-> fixes and refactoring in the stmmac core and XPCS driver.
+On Thu, Sep 10, 2026 at 02:39:07PM -0700, Ian Rogers wrote:
+> Clang's uninitialized-const-pointer warning causes a feature test to
+> fail when building perf with clang. This disables support for 'perf
+> kvm stat live'. Add default initialization to new_value as a
+> workaround.
+> 
+>   test-timerfd.c:15:30: error: variable 'new_value' is uninitialized when passed
+> 			       as a const pointer argument here
+> 			       [-Werror,-Wuninitialized-const-pointer]
+>      15 |         if (timerfd_settime(fd, 0, &new_value, NULL) != 0)
+>         |                                     ^~~~~~~~~
+>   1 error generated.
+> 
+> Signed-off-by: Ian Rogers <irogers@google.com>
 
-Sending the AI review FYI, please look thru it and judge if any of the
-comments are worth respinning for. We're waiting for a review on the
-device tree bindings, anyway.
+Thanks, applied to perf-tools-next, for v7.4.
+
+- Arnaldo
+> ---
+>  tools/build/feature/test-timerfd.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/tools/build/feature/test-timerfd.c b/tools/build/feature/test-timerfd.c
+> index 9c72c697a9df..f88e8cc63ef3 100644
+> --- a/tools/build/feature/test-timerfd.c
+> +++ b/tools/build/feature/test-timerfd.c
+> @@ -6,7 +6,7 @@
+>  
+>  int main(void)
+>  {
+> -	struct itimerspec new_value;
+> +	struct itimerspec new_value = {};
+>  
+>  	int fd = timerfd_create(CLOCK_MONOTONIC, TFD_NONBLOCK);
+>  	if (fd < 0)
+> -- 
+> 2.55.0.1007.g17ff1f9808-goog
+> 
