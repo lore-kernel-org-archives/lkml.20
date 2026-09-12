@@ -1,111 +1,104 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91B8531E84B
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 13:48:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 490E3320CD3
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 13:49:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789220935; cv=none; b=svnXXV9cdEvu9mJmok9HJIGWriQOsZwEBdO1x4bnOn+DuedBn/mhpqv5g18XCER0QW7lSbFWYLz8bzqCZK4cvbRC4Yczw4uynnNSXeNBAwyCfYdmc1NHafqD2yaymFJsbDE8qBakKS9bCyxGNIdsztLK7806wDQxuNpJ7N76AzM=
+	t=1789220989; cv=none; b=KPAPI+bdI+lrifsw27i4c2SuOIJSRrRJKPGMJzYVigCjYJzaC8eCA/pqBAsmWvA6bpG6u7A+BS0xAx6ZztJ8vcp4Blb3FSil+mTY2VmXmlY5DHbz8V7ZADCmOYVbSQcB9hDD/X9a5gRb3/86093pnBc7IliyWw8DoRAnvTs1uaY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789220935; c=relaxed/simple;
-	bh=6pVt0PUQ4LIcwar5ugRNpizavgzQxLUwL/Y0pJ784AY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sWyzT9fGtexs5OlBOisw8/RL9DvgdwmbIlx/oVI5Cle18sCCKJQ8EhHf4X5hZRiKvWbgPFVoe0M8uhqr1PmL+rHnPQNwP+zXmaiyyUc6tD9NjbIJy3K7eyHO/qlmoEDSekh4Nb0r79W060OcV1s8YtlHkOOChLBWDNeSR7IwHnY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=noFLW9/R; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789220989; c=relaxed/simple;
+	bh=zHff7ojdq2sTvHmVbmv1SvpCrqoWCLfFjCYi9fVj9rQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=SczLVmdxXUpbXMJ5YWDOpTTNiym9DaZGrM98IO617H1/BZ1nKRzVdwBkw7z+tR+1RZlix/owh4GUVkb01WP9jwC2WXJsPbPN7qVTdT/WZq3slv3LQI4RevSiaWbrM7R568PZEireqDK1hwa7cFJAqYJeg8LJW1CotNKclxE0CcY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a6z2gYUz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="noFLW9/R"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccdaea76so228861a91.0
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 06:48:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789220933; x=1789825733; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IRE9clLLWxIBFYz3gEl3LiQKErgqN/9gBQjM8vZ0D3o=;
-        b=noFLW9/RvD48s1Bzji5giq64hw/CN0vnaB37wiuJrOT3kmOVhLEpldiR2JrG9ga5k7
-         wV7JcpDb4uiGR0VP70bAH4SXgjVZ6k/+TISyQxocLUzmbF+Dvfc/08db8ghV4arH+cu3
-         9th/uzeE6upQfpyqKFn2ZU8McvEdcnqN2ytI7i4NmYvrpASfZNXZJXnZsNaR8mPYy68K
-         M+Bk5SpoJFprIiZQX9ninYR7eI3TeXNc8K53Ye4JovFaRzJ+0dG6kZU4Wz7fbvP5tqIy
-         piQkPCBXUL2Toulo8jTcxzSYMupitNr3hrHo9jBMOzeu8zKdF1EkdLc7SuHz7fgVnb61
-         UMxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789220933; x=1789825733;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IRE9clLLWxIBFYz3gEl3LiQKErgqN/9gBQjM8vZ0D3o=;
-        b=hx5ciqcR9c27p85aAL8yWTkl4Y+mrZANhtMp7ODlV1kgCrdBfAMdfIOQt0NKIlIgnR
-         stcNOBw5hsriNOy+i5l9UCZ9d6XTu/YE/rjnSqQ+g5LO8330mWPj8v0O24RuKC1Y88+X
-         CSw+UUyNcVvlMo/lERvtNclBFbbl31PwfYuQ7Ancaed+2/D7NeIPzZxg53ZkW7dlhFHS
-         +sxz84dVPte7wcGhzVnD/JuM2khnTzxeEUH+foJoZWXb8W/a2lvQuZQEOFdTk3LkF979
-         aUXxkRzBK+hr0U4ovJIWUtRW+GtA9/zZoesy6inANJh776KCDjBUtKjDkXDHxfC1GOaK
-         x0Bg==
-X-Forwarded-Encrypted: i=1; AKwUvBxZ/1J6StfdpdZ00K6JzFlFIk6Hvq1GVK9WrU54cjYVo+q8QD4i+lwTjpiPGu+D3vOXOKNKA/ARA4/sYV8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kHn2yN0UmmifwhqP2V96P4pswF4bcj8CtoDXdTnJx34tBb9Rsd
-	dtvzRAVP2Rvk0porwbWzbyzuRukiC7+bkSmYEsuHiq22DC4M5xo/O2lQ
-X-Gm-Gg: AYBFou2x0YvAo5Ra2G/M/iMRvTCJHqHHfcVSVVt5YANuAzzL4DrAjOIuj6ndtDRBjfZ
-	+H/tTm8TbJC4XmqQZGrBFnRUCEiVTlIPS+7aA6Vc047y2hI7f825h/dIbIPx5/y9S9rcmoQjfdb
-	XUVhsf3fUYOqgjBNgqHuruS3NmpTGi0RMqkJYfLa3j49oqbmAW4QzfnDS6JM5unWnVlwXbGkwZ2
-	TnNdlpuLTh9BLspZzE9viRrygsQpyVJYg+GLJpIwWlv/iLgzSyBgtGEXBYU1+NkISI9Q/GER8ya
-	OramEe5cysA7mHf4w0D4Xg0Y3a3ZanlVrTaFUflnpzLOd+E4n50JimxvbBWi9RS6mn3bXjo/hgL
-	8bCygp7y3G3HgOsdNCbKcKExfYJaHyUPm0JUprld/9lvdhgbsJIpom+/tH1kFpLUrGpc7p1MIpL
-	ZpfBXZX8yYdby1cfbFWmw0iMx/jMVG903FFTOjD5fmuAnFWyMaq5TO929xXw7zbRB2
-X-Received: by 2002:a17:90a:d410:b0:398:9bd3:d6d2 with SMTP id 98e67ed59e1d1-39d980ac288mr8416579a91.12.1789220932772;
-        Sat, 12 Sep 2026 06:48:52 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d94744dfdsm11078347a91.0.2026.09.12.06.48.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 12 Sep 2026 06:48:52 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Guangshuo Li <lgs201920130244@gmail.com>,
-	Kees Cook <kees@kernel.org>,
-	Paul Mundt <lethal@linux-sh.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH] cdrom: gdrom: fix gendisk reference leak
-Date: Sat, 12 Sep 2026 21:48:21 +0800
-Message-ID: <20260912134821.981705-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a6z2gYUz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E2051F0089E
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 13:49:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789220988;
+	bh=14JGNhJ9pFK51pgf/wGsG4+Juf1Yiur3FvqT3KPXWmA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=a6z2gYUzAE7zUjqQGicLNmnv/c4QAmA5/DOFmaOA0/3Eg4yB7NBwpfOsyMG1IyNOq
+	 Cm4tDKAdLHVdA/ozFmnKhv1q2v09a8Xn2TywoKl3GjE/Yl3ur8WP/gQ/zJJaMpXgS1
+	 W8KgsnKIsN0s+uegeBDlA/yN0O6ghVZfHQ3Nh3DlaUuMR4NVEb9QaPKSJM+2Nh09eR
+	 eYykvapgFNAKPMNXs90cOBpAdn/BNOdcZyvr8VLpU4tbFew88XyJRBuk8aUKsVzKNv
+	 yPyOKtLg8mOWhw0Z9tlr8gthesBtyqpBUO39UYHsPxiHcjwGs5uQc+fOIm6+n+iB1u
+	 U0irhzrZUcD+w==
+Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a35a64530bso4394091fa.2
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 06:49:48 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwo8eStisQpFfYOdmQ0wX6watlrL7Ne6q9sI7dfU9Jj4m2XXkz9laGnm2GD7kgXVTPjQl+uJzqFmKu87cg=@vger.kernel.org
+X-Gm-Message-State: AFuF++lsYskefTdlMyE4Mf22b+T0iWaT7smSTwHjO1fLOWDwGQgxnzLV
+	JJpU8Fwh/5OkJGrB+AEiI25PSqC2eLqklHc3eaCFp+BIQwovN4GNYL4vNNUuVqrekn81S13i2Ex
+	Fitski/4pWW/gEMbdd866Vn5eNwC5J/g=
+X-Received: by 2002:a05:6512:304c:b0:5b6:1883:d604 with SMTP id
+ 2adb3069b0e04-5b8a8f01711mr492268e87.67.1789220986489; Sat, 12 Sep 2026
+ 06:49:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <1965933.tdWV9SEqCh@rafael.j.wysocki> <14089663.uLZWGnKmhe@rafael.j.wysocki>
+ <aqQsac65eDbHV_I_@ashevche-desk.local>
+In-Reply-To: <aqQsac65eDbHV_I_@ashevche-desk.local>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Sat, 12 Sep 2026 15:48:31 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0gBn9+a9hJfyOuES2bpnpv6HfriUadkeMTaFEfFGxhkeQ@mail.gmail.com>
+X-Gm-Features: AcwNN1UHNmhXOxcuTakqbwbQhHo2aCZ6fkDTYWUzrL2OK_kaaUVrw3RcEBpr7YY
+Message-ID: <CAJZ5v0gBn9+a9hJfyOuES2bpnpv6HfriUadkeMTaFEfFGxhkeQ@mail.gmail.com>
+Subject: Re: [PATCH v1 01/10] ACPI: fan: Fix memory leak due to leftover
+ devm_kcalloc() argument
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Linux ACPI <linux-acpi@vger.kernel.org>, 
+	Daniel Lezcano <daniel.lezcano@kernel.org>, Hans de Goede <hansg@kernel.org>, 
+	LKML <linux-kernel@vger.kernel.org>, Linux PM <linux-pm@vger.kernel.org>, 
+	Lukasz Luba <lukasz.luba@arm.com>, Armin Wolf <w_armin@gmx.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-probe_gdrom() allocates a gendisk with blk_mq_alloc_disk(), but
-remove_gdrom() only calls del_gendisk() during driver removal.
+On Fri, Sep 11, 2026 at 6:29=E2=80=AFPM Andy Shevchenko
+<andriy.shevchenko@linux.intel.com> wrote:
+>
+> On Fri, Sep 11, 2026 at 03:00:51PM +0200, Rafael J. Wysocki wrote:
+>
+> > An ACPI device object's dev field in passed as the first argument to
+> > devm_kcalloc() in acpi_fan_get_fps() which is incorrect and leads to
+> > a memory leak on driver probe errors and removal because the driver
+> > is not bound to that ACPI device.
+> >
+> > Address this by replacing that pointer with a pointer to the device the
+> > driver is actually bound to.
+> >
+> > While at it, drop a redundant error message after a memory allocation
+> > failure (that also gets printed relative to the ACPI device).
+>
+> ...
+>
+> >       fan->fps_count =3D obj->package.count - 1; /* minus revision fiel=
+d */
+> > -     fan->fps =3D devm_kcalloc(&device->dev,
+> > -                             fan->fps_count, sizeof(struct acpi_fan_fp=
+s),
+> > -                             GFP_KERNEL);
+> > +     fan->fps =3D devm_kcalloc(dev, fan->fps_count, sizeof(*fan->fps),=
+ GFP_KERNEL);
+> >       if (!fan->fps) {
+> > -             dev_err(&device->dev, "Not enough memory\n");
+> >               status =3D -ENOMEM;
+> >               goto err;
+>
+> I was about ranting on goto after devm_*(), but looking at the context,
+> I understand why it's not a problem. While at it, a side note: perhaps it=
+ makes
+> sense to use ACPI_FREE(obj) instead of kfree()?
 
-del_gendisk() unregisters the disk but does not drop the driver's
-reference to the gendisk. Without a matching put_disk(), the reference
-remains held and the gendisk is leaked.
+It should be ACPI_FREE() strictly speaking.
 
-Call put_disk() during remove_gdrom() to release the reference acquired
-during disk allocation.
+> Or even better to have __free() version of it, so we can declare the obje=
+ct with autoclean.
 
-This issue was found by manual code inspection.
-
-Fixes: 74ee1a7590b78 ("cdrom: Add support for Sega Dreamcast GD-ROM.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/cdrom/gdrom.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/cdrom/gdrom.c b/drivers/cdrom/gdrom.c
-index 4ba4dd06cbf4..cd8c79e4a5ac 100644
---- a/drivers/cdrom/gdrom.c
-+++ b/drivers/cdrom/gdrom.c
-@@ -841,6 +841,7 @@ static void remove_gdrom(struct platform_device *devptr)
- 	if (gdrom_major)
- 		unregister_blkdev(gdrom_major, GDROM_DEV_NAME);
- 	unregister_cdrom(gd.cd_info);
-+	put_disk(gd.disk);
- 	kfree(gd.cd_info);
- 	kfree(gd.toc);
- }
--- 
-2.43.0
-
+That one is a bit tricky, but I think I have an idea how to do it.
+I'll post something next week.
