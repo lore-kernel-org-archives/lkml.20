@@ -1,148 +1,153 @@
-Received: from mta0.migadu.com (out-16.mta0.migadu.com [91.218.175.16])
+Received: from mail-oo2-f0.google.com (mail-oo2-f0.google.com [74.125.231.128])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E46F11C5D72
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 00:56:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 841FF1E8332
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 00:57:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.128
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789174566; cv=none; b=fRksN7bPswZybhhW29/rB8G/BVzpDz1M3t43O7nJX4r/splAPXNEKqMN/C8B8bFUElsvONkBNNIizeRj1azYgCWpFuSd9VQWPI/HFfNJU+2W5savPm96E2EZ/z6o0fb7T4d50Q8qNWQJybNoteFPVXBWlfTWXiBVkZ7Cg/o9uSQ=
+	t=1789174650; cv=none; b=gmhDSEY4EfSFLnhNglVdG70jbBeArsr6fxR8av+QkpEBnOtvYouzYoNosYQ5IPvB5hyIASQCbMXJe5XfZm61yJ21nZBJ9A891QmNhQ6XOlTxtVQ+QzUePdIXxw6SDfTbjY6gQMJbmfL2xi6p0DbR1QzDlZ/x40R53CgIA3f/0JI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789174566; c=relaxed/simple;
-	bh=ORe5ihNzKp5uDsNyFoir3oP0+RDs+ueQ3G07msDULwQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VIreVW+1rjo43zS1J0F5diyI93FxjUOHjHdMntnkIyl+SBM1Eh7iDfNPnXQdHMYfGueQbGAfgqwyUQm0UBjciNARaDD9YahtVdVjiDzY7h8t4k/f2sAlGUDmUVX3P0bAyeZTDrFhBiQ+4pPVUO2OVDy3xXT7qE81EFRJEQGgfsU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Cm9Pzg+Y; arc=none smtp.client-ip=91.218.175.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Cm9Pzg+Y"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ORe5ihNzKp5uDsNyFoir3oP0+RDs+ueQ3G07msDULwQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789174561; v=1; x=1789779361;
- b=Cm9Pzg+Y9dxN80MBgCa1Wl5lEkyz2WpoSTbH73rdjzUH+ClCQLdrGv9kPxQpQxE/WmnPnks/
- jhuMc+/qkFOwOHgS3Y6W9E3yo1aCMrQRDm5sCa8arrKnSGgYzfXipr6QNV9X962sZvUXNiqWbP6
- ksL6Bc78f8/vsUr438puytJ8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 55d87a568804cd70;
-	Sat, 12 Sep 2026 00:56:01 +0000
-X-Mizu-Trace-ID: 55d87a568804cd70
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <7c3370ca-d03c-4b99-b653-fd91592ca672@linux.dev>
-Date: Sat, 12 Sep 2026 02:56:00 +0200
+	s=arc-20240116; t=1789174650; c=relaxed/simple;
+	bh=sfdKITiTTBp/5SdN9B+NauWhSGiWmQ+MMSMPzMhDZMg=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=Zg7Y8Mphh3UZkWPhrqz5Q4pkzUR9CnOv7P8tzdN1eL+WNUNhh3N3w4B+v1lnIFwIQs4vaavEG4WqB/Y5tizkCdpijtpmKYKxeUfVkjmYSgQo4wXVG6Zw5u4sWGyAn2wSfD5ga6LrrNoOvcYttL294VFnt8aAlPAJLCCeIyvQ4yY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.128
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo2-f0.google.com with SMTP id 46e09a7af769-804795653f9so168547a34.0
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 17:57:28 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789174647; x=1789779447;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Y2buhqL3+jbmYjdf40xuvgASTB4Cv1cwvnYxQ4HuR5c=;
+        b=kZqzm24AG64H+UvKFTBnzBsZhmDnx5/CzAsAu+ULmsREwVgzS6mjABPboyqEF6GpdU
+         e1coNf/E6nEPVUDJh3vSKvK4D5c8ncEAo/OTkULI9Sf+y3W47ieeyYo8UwOCCtwx4Fjt
+         AM4VCQD7EqYtYrLPsxebBq/jCY92gfMdu3S2qBujrfOchvlchZEVPGltwb0M700p6FFP
+         J+vSP9n8hMDc08iouCVJW4VxDprDDpvxf44sDNemAOicAQeW7mQls4uJ2HqsCoGoEjSM
+         DzQacOkWUujfD4dMOgJ7gsbyvCSyK6jx4UcirObT+0BPB4fRPuAFNJxT7Af5BrteM241
+         jyPA==
+X-Forwarded-Encrypted: i=1; AKwUvBxrdKWTIKNq2bOZ2ambj/i2a7GQ/WyzEyfdAtT+k8jMv9oXGxXERPEVxU3MHIDqXmG9zRSq47jpryK8UBE=@vger.kernel.org
+X-Gm-Message-State: AFuF++k4pfDNMkdahpnKAZsUCDZwPtb8nAFdK84gpSJMVKf+33d3/wZL
+	C0XbDy/clbTSLRv53WnsJJvsDedgT9nJQtTAlf/4jt+FTmsRol+o36kRBuwFJkBbRnIu7B7QiHl
+	E3srKka7wvAQK7fyM6kLYPkF01KHxNN1mNWYRmwzBEGJFDUOoeuLkiwA+2nw=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] Input: xpad - introduce a static table to ignore
- devices
-To: "Derek J. Clark" <derekjohn.clark@gmail.com>,
- Jiri Kosina <jikos@kernel.org>
-Cc: 'Benjamin Tissoires' <bentiss@kernel.org>,
- 'Dmitry Torokhov' <dmitry.torokhov@gmail.com>, linux-input@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260811125856.1692045-1-denis.benato@linux.dev>
- <20260811125856.1692045-3-denis.benato@linux.dev>
- <6598sn1p-p330-1r7o-q43p-r1rnr7nn0022@xreary.bet>
- <91447a15-eea8-4f21-abd6-2d79b5c647bb@linux.dev>
- <F4BC32F9-792B-48C3-A1EF-65BC4E2534C5@gmail.com>
-Content-Language: en-US
-From: Denis Benato <denis.benato@linux.dev>
-In-Reply-To: <F4BC32F9-792B-48C3-A1EF-65BC4E2534C5@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6820:16ac:b0:6b3:5229:fcd7 with SMTP id
+ 006d021491bc7-6c24ceaaed3mr634429eaf.16.1789174647429; Fri, 11 Sep 2026
+ 17:57:27 -0700 (PDT)
+Date: Fri, 11 Sep 2026 17:57:27 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa4a377.f81106d8.2ab401.0024.GAE@google.com>
+Subject: [syzbot] [netfilter?] WARNING: suspicious RCU usage in expect_iter_name
+From: syzbot <syzbot+4bd730aede2791e40bdf@syzkaller.appspotmail.com>
+To: coreteam@netfilter.org, davem@davemloft.net, edumazet@google.com, 
+	fw@strlen.de, horms@kernel.org, kuba@kernel.org, linux-kernel@vger.kernel.org, 
+	netdev@vger.kernel.org, netfilter-devel@vger.kernel.org, pabeni@redhat.com, 
+	pablo@netfilter.org, phil@nwl.cc, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+
+Hello,
+
+syzbot found the following issue on:
+
+HEAD commit:    15071f2a1263 Merge branch 'bpf-tcp-fix-bpf_sock_destroy-on..
+git tree:       bpf
+console+strace: https://syzkaller.appspot.com/x/log.txt?x=127ca1f9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=5e4e3a0e188a497e
+dashboard link: https://syzkaller.appspot.com/bug?extid=4bd730aede2791e40bdf
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=17caf749580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=115c9f9e580000
+
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/e4f2d0fa738f/disk-15071f2a.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/508ad5098ef2/vmlinux-15071f2a.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/c3f06d5bc6b9/bzImage-15071f2a.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+4bd730aede2791e40bdf@syzkaller.appspotmail.com
+
+=============================
+WARNING: suspicious RCU usage
+syzkaller #0 Not tainted
+-----------------------------
+net/netfilter/nf_conntrack_netlink.c:3393 suspicious rcu_dereference_check() usage!
+
+other info that might help us debug this:
 
 
-On 9/11/26 17:39, Derek J. Clark wrote:
-> On September 11, 2026 8:12:02 AM PDT, Denis Benato <denis.benato@linux.dev> wrote:
->> On 9/11/26 16:11, Jiri Kosina wrote:
->>> On Tue, 11 Aug 2026, Denis Benato wrote:
->>>
->>>> Certain devices can work both as HID and as an xpad device: binding both
->>>> would duplicate inputs causing userspace to receive double inputs; at the
->>>> same time if a HID device is available it is to be preferred as it can
->>>> support additional features such as integrated IMU and additional buttons
->>>> and more, depending on the specific driver, therefore allow only the
->>>> best driver available to bind the device.
->>>>
->>>> Suggested-by: Derek J. Clark <derekjohn.clark@gmail.com>
->>>> Signed-off-by: Denis Benato <denis.benato@linux.dev>
->>> I'd like to have Dmitry's Ack on this one before taking the Flydigi 
->>> support through the HID tree.
->> Hi Jiri,
->>
->> Sure thing! While we wait I will get a v4 going that is reported working better
->> and having battery reporting too by Adolfo.
->>
->> This new table will be used by Derek too for some trustmaster (I think) he's
->> working on that is in the same situation.
->>
-> Hi Denis,
->
-> I'm waiting for Vicky's GIP driver to land before I do that because I'll need to add a similar table to that driver and I want to avoid getting in their way.
-Well that means I am trying to set up something better than some code: a pattern on how to handle these cases :D
-> Cheers,
-> Derek
->
->> Best regards,
->> Denis Benato 
->>> Thanks.
->>>
->>>> ---
->>>>  drivers/input/joystick/xpad.c | 24 ++++++++++++++++++++++++
->>>>  1 file changed, 24 insertions(+)
->>>>
->>>> diff --git a/drivers/input/joystick/xpad.c b/drivers/input/joystick/xpad.c
->>>> index feb8f368f834..545119a4fb36 100644
->>>> --- a/drivers/input/joystick/xpad.c
->>>> +++ b/drivers/input/joystick/xpad.c
->>>> @@ -406,6 +406,18 @@ static const struct xpad_device {
->>>>  	{ 0x0000, 0x0000, "Generic X-Box pad", 0, XTYPE_UNKNOWN }
->>>>  };
->>>>  
->>>> +#define XPAD_SUBSTITUTE(_vid, _pid, _enabled) \
->>>> +	{ .vid = (_vid), .pid = (_pid), .enabled = (_enabled) }
->>>> +
->>>> +static const struct xpad_excluded_device {
->>>> +	u16 vid;
->>>> +	u16 pid;
->>>> +	bool enabled;
->>>> +} xpad_excluded_devices[] = {
->>>> +	XPAD_SUBSTITUTE(0x37d7, 0x2401, IS_ENABLED(CONFIG_HID_FLYDIGI)),
->>>> +	{ }
->>>> +};
->>>> +
->>>>  /* buttons shared with xbox and xbox360 */
->>>>  static const signed short xpad_common_btn[] = {
->>>>  	BTN_A, BTN_B, BTN_X, BTN_Y,			/* "analog" buttons */
->>>> @@ -2044,11 +2056,23 @@ static int xpad_probe(struct usb_interface *intf, const struct usb_device_id *id
->>>>  	struct usb_device *udev = interface_to_usbdev(intf);
->>>>  	struct usb_xpad *xpad;
->>>>  	struct usb_endpoint_descriptor *ep_irq_in, *ep_irq_out;
->>>> +	const struct xpad_excluded_device *excluded;
->>>>  	int i, error;
->>>>  
->>>>  	if (intf->cur_altsetting->desc.bNumEndpoints != 2)
->>>>  		return -ENODEV;
->>>>  
->>>> +	for (excluded = xpad_excluded_devices;
->>>> +	     excluded->vid || excluded->pid;
->>>> +	     excluded++) {
->>>> +		if (!excluded->enabled)
->>>> +			continue;
->>>> +
->>>> +		if (le16_to_cpu(udev->descriptor.idVendor) == excluded->vid &&
->>>> +		    le16_to_cpu(udev->descriptor.idProduct) == excluded->pid)
->>>> +			return -ENODEV;
->>>> +	}
->>>> +
->>>>  	for (i = 0; xpad_device[i].idVendor; i++) {
->>>>  		if ((le16_to_cpu(udev->descriptor.idVendor) == xpad_device[i].idVendor) &&
->>>>  		    (le16_to_cpu(udev->descriptor.idProduct) == xpad_device[i].idProduct))
->>>> -- 
->>>> 2.47.3
->>>>
+rcu_scheduler_active = 2, debug_locks = 1
+locks held by syz-executor381/5628: 2, last CPU#1:
+ #0: ffffffff9aee42a0 (nfnl_subsys_ctnetlink_exp){+.+.}-{4:4}, at: nfnl_lock net/netfilter/nfnetlink.c:96 [inline]
+ #0: ffffffff9aee42a0 (nfnl_subsys_ctnetlink_exp){+.+.}-{4:4}, at: nfnetlink_rcv_msg+0xa69/0x12b0 net/netfilter/nfnetlink.c:293
+ #1: ffffffff8ea74d58 (nf_conntrack_expect_lock){+...}-{3:3}, at: spin_lock_bh include/linux/spinlock.h:353 [inline]
+ #1: ffffffff8ea74d58 (nf_conntrack_expect_lock){+...}-{3:3}, at: nf_ct_expect_iterate_net+0x38/0x180 net/netfilter/nf_conntrack_expect.c:623
+
+stack backtrace:
+CPU: 1 UID: 0 PID: 5628 Comm: syz-executor381 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ lockdep_rcu_suspicious+0x140/0x1d0 kernel/locking/lockdep.c:6972
+ expect_iter_name+0xfb/0x100 net/netfilter/nf_conntrack_netlink.c:3393
+ nf_ct_expect_iterate_net+0xf2/0x180 net/netfilter/nf_conntrack_expect.c:633
+ ctnetlink_del_expect+0x45d/0x640 net/netfilter/nf_conntrack_netlink.c:3455
+ nfnetlink_rcv_msg+0xcc2/0x12b0 net/netfilter/nfnetlink.c:300
+ netlink_rcv_skb+0x226/0x4a0 net/netlink/af_netlink.c:2556
+ nfnetlink_rcv+0x2b9/0x28c0 net/netfilter/nfnetlink.c:667
+ netlink_unicast_kernel net/netlink/af_netlink.c:1319 [inline]
+ netlink_unicast+0x7bd/0x940 net/netlink/af_netlink.c:1345
+ netlink_sendmsg+0x813/0xb40 net/netlink/af_netlink.c:1900
+ sock_sendmsg_nosec+0x13a/0x180 net/socket.c:800
+ __sock_sendmsg net/socket.c:815 [inline]
+ ____sys_sendmsg+0x54e/0x850 net/socket.c:2713
+ ___sys_sendmsg+0x2a5/0x360 net/socket.c:2767
+ __sys_sendmsg net/socket.c:2799 [inline]
+ __do_sys_sendmsg net/socket.c:2804 [inline]
+ __se_sys_sendmsg net/socket.c:2802 [inline]
+ __x64_sys_sendmsg+0x1b1/0x290 net/socket.c:2802
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fb7651a5649
+Code: c0 79 93 eb d5 48 8d 7c 1d 00 eb 99 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 d8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007ffc2a17f2a8 EFLAGS: 00000246 ORIG_RAX: 000000000000002e
+RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00007fb7651a5649
+RDX: 0000000020000080 RSI: 0000200000000300 RDI: 0000000000000004
+RBP: 0000000000000000 R08: 0000000000000006 R09: 0000000000000006
+R10: 0000000000000006 R11: 0000000000000246 R12: 0000000000000000
+R13: 431bde82d7b634db R14: 00007fb765238c40 R15: 0000000000000002
+ </TASK>
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
