@@ -1,153 +1,307 @@
-Received: from mail-oo2-f0.google.com (mail-oo2-f0.google.com [74.125.231.128])
+Received: from mta0.migadu.com (out-50.mta0.migadu.com [91.218.175.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 841FF1E8332
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 00:57:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.128
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F5ADEED8
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 00:58:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789174650; cv=none; b=gmhDSEY4EfSFLnhNglVdG70jbBeArsr6fxR8av+QkpEBnOtvYouzYoNosYQ5IPvB5hyIASQCbMXJe5XfZm61yJ21nZBJ9A891QmNhQ6XOlTxtVQ+QzUePdIXxw6SDfTbjY6gQMJbmfL2xi6p0DbR1QzDlZ/x40R53CgIA3f/0JI=
+	t=1789174700; cv=none; b=n5juFFJvhtfUeaBo4y7zkpsGwg90oUz63JujuEumuFg5b7oMeA3e10GF3bJtivN3VaElV12AdjEwV22LFGlPiL3rUSuSHDBKLUmTfy8Wn3+0oTlfrYF25OirdvqFVF2nKDmoFFufcHJersxf3yLBtP8Z9Y1RwUi0azwypdAyMJ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789174650; c=relaxed/simple;
-	bh=sfdKITiTTBp/5SdN9B+NauWhSGiWmQ+MMSMPzMhDZMg=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=Zg7Y8Mphh3UZkWPhrqz5Q4pkzUR9CnOv7P8tzdN1eL+WNUNhh3N3w4B+v1lnIFwIQs4vaavEG4WqB/Y5tizkCdpijtpmKYKxeUfVkjmYSgQo4wXVG6Zw5u4sWGyAn2wSfD5ga6LrrNoOvcYttL294VFnt8aAlPAJLCCeIyvQ4yY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.128
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo2-f0.google.com with SMTP id 46e09a7af769-804795653f9so168547a34.0
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 17:57:28 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789174647; x=1789779447;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Y2buhqL3+jbmYjdf40xuvgASTB4Cv1cwvnYxQ4HuR5c=;
-        b=kZqzm24AG64H+UvKFTBnzBsZhmDnx5/CzAsAu+ULmsREwVgzS6mjABPboyqEF6GpdU
-         e1coNf/E6nEPVUDJh3vSKvK4D5c8ncEAo/OTkULI9Sf+y3W47ieeyYo8UwOCCtwx4Fjt
-         AM4VCQD7EqYtYrLPsxebBq/jCY92gfMdu3S2qBujrfOchvlchZEVPGltwb0M700p6FFP
-         J+vSP9n8hMDc08iouCVJW4VxDprDDpvxf44sDNemAOicAQeW7mQls4uJ2HqsCoGoEjSM
-         DzQacOkWUujfD4dMOgJ7gsbyvCSyK6jx4UcirObT+0BPB4fRPuAFNJxT7Af5BrteM241
-         jyPA==
-X-Forwarded-Encrypted: i=1; AKwUvBxrdKWTIKNq2bOZ2ambj/i2a7GQ/WyzEyfdAtT+k8jMv9oXGxXERPEVxU3MHIDqXmG9zRSq47jpryK8UBE=@vger.kernel.org
-X-Gm-Message-State: AFuF++k4pfDNMkdahpnKAZsUCDZwPtb8nAFdK84gpSJMVKf+33d3/wZL
-	C0XbDy/clbTSLRv53WnsJJvsDedgT9nJQtTAlf/4jt+FTmsRol+o36kRBuwFJkBbRnIu7B7QiHl
-	E3srKka7wvAQK7fyM6kLYPkF01KHxNN1mNWYRmwzBEGJFDUOoeuLkiwA+2nw=
+	s=arc-20240116; t=1789174700; c=relaxed/simple;
+	bh=lzTHUeccj4GGMHE8+q+63oTkTTnUUe9iGB9+E+0blRw=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
+	 In-Reply-To:References; b=b2cK9Xy3xucC31YyR3OK5zaQiHfU6xdCj/bauH1QgahsaDXPJOxn45/cRFO2xpaXj2LuPIAm9NusLcFb9HUDAxEGGpggoP2a0RjZlTKCEQu/7MFnW/kIN/aEEESOCG2q0M7GoWoce6sXWMfPvQbUW25Bb0t4kyJU4aReQf+eB3g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=aRkvgriU; arc=none smtp.client-ip=91.218.175.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="aRkvgriU"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=lzTHUeccj4GGMHE8+q+63oTkTTnUUe9iGB9+E+0blRw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789174695; v=1; x=1789779495;
+ b=aRkvgriUIqbhW+vYiImtK0x+VCRGNw2bX+LFeULM1jZEeng9SUvJUIHK4/Osaw093FIGMFDA
+ XLrB0xemG9EMl0ggjizxtXoyzc2Bv9khsxbUVNvwmXFMuOv6jh+WXGH+7Z1QTFUHdR6BWsHVgF7
+ 4csglOZASpA0hRvhh77w+/zc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 3e05039b998d5cde;
+	Sat, 12 Sep 2026 00:58:15 +0000
+X-Mizu-Trace-ID: 3e05039b998d5cde
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:16ac:b0:6b3:5229:fcd7 with SMTP id
- 006d021491bc7-6c24ceaaed3mr634429eaf.16.1789174647429; Fri, 11 Sep 2026
- 17:57:27 -0700 (PDT)
-Date: Fri, 11 Sep 2026 17:57:27 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa4a377.f81106d8.2ab401.0024.GAE@google.com>
-Subject: [syzbot] [netfilter?] WARNING: suspicious RCU usage in expect_iter_name
-From: syzbot <syzbot+4bd730aede2791e40bdf@syzkaller.appspotmail.com>
-To: coreteam@netfilter.org, davem@davemloft.net, edumazet@google.com, 
-	fw@strlen.de, horms@kernel.org, kuba@kernel.org, linux-kernel@vger.kernel.org, 
-	netdev@vger.kernel.org, netfilter-devel@vger.kernel.org, pabeni@redhat.com, 
-	pablo@netfilter.org, phil@nwl.cc, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Date: Sat, 12 Sep 2026 00:58:15 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: "Zqiang" <qiang.zhang@linux.dev>
+Message-ID: <a99b4eccaf7bdad2d1e45625be47ec7753e88d1e@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH 00/13] srcu: Round out atomic SRCU support
+To: "KunWu Chan" <kunwu.chan@gmail.com>, paulmck@kernel.org
+Cc: rostedt@goodmis.org, mathieu.desnoyers@efficios.com, rcu@vger.kernel.org,
+ linux-kernel@vger.kernel.org, jiangshanlai@gmail.com,
+ josh@joshtriplett.org
+In-Reply-To: <4298908f242e82d54e0f462307ee18fa777b0935@linux.dev>
+References: <20260907075829.2073224-1-kunwu.chan@linux.dev>
+ <c201584b58aec856342e0f23f8df9f81baccba1d@linux.dev>
+ <CAN_Opa-cvXVJeMxniuarq+2mE9EepjzTCgii1bW6mmSnaCKKxQ@mail.gmail.com>
+ <4298908f242e82d54e0f462307ee18fa777b0935@linux.dev>
 
-Hello,
-
-syzbot found the following issue on:
-
-HEAD commit:    15071f2a1263 Merge branch 'bpf-tcp-fix-bpf_sock_destroy-on..
-git tree:       bpf
-console+strace: https://syzkaller.appspot.com/x/log.txt?x=127ca1f9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=5e4e3a0e188a497e
-dashboard link: https://syzkaller.appspot.com/bug?extid=4bd730aede2791e40bdf
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=17caf749580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=115c9f9e580000
-
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/e4f2d0fa738f/disk-15071f2a.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/508ad5098ef2/vmlinux-15071f2a.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/c3f06d5bc6b9/bzImage-15071f2a.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+4bd730aede2791e40bdf@syzkaller.appspotmail.com
-
-=============================
-WARNING: suspicious RCU usage
-syzkaller #0 Not tainted
------------------------------
-net/netfilter/nf_conntrack_netlink.c:3393 suspicious rcu_dereference_check() usage!
-
-other info that might help us debug this:
+2026=E5=B9=B49=E6=9C=8812=E6=97=A5 08:41, "Zqiang" <qiang.zhang@linux.dev=
+ mailto:qiang.zhang@linux.dev?to=3D%22Zqiang%22%20%3Cqiang.zhang%40linux.=
+dev%3E > =E5=86=99=E5=88=B0:
 
 
-rcu_scheduler_active = 2, debug_locks = 1
-locks held by syz-executor381/5628: 2, last CPU#1:
- #0: ffffffff9aee42a0 (nfnl_subsys_ctnetlink_exp){+.+.}-{4:4}, at: nfnl_lock net/netfilter/nfnetlink.c:96 [inline]
- #0: ffffffff9aee42a0 (nfnl_subsys_ctnetlink_exp){+.+.}-{4:4}, at: nfnetlink_rcv_msg+0xa69/0x12b0 net/netfilter/nfnetlink.c:293
- #1: ffffffff8ea74d58 (nf_conntrack_expect_lock){+...}-{3:3}, at: spin_lock_bh include/linux/spinlock.h:353 [inline]
- #1: ffffffff8ea74d58 (nf_conntrack_expect_lock){+...}-{3:3}, at: nf_ct_expect_iterate_net+0x38/0x180 net/netfilter/nf_conntrack_expect.c:623
+>=20
+>=20>=20
+>=20> On Thu, Sep 10, 2026 at 8:16 PM Zqiang <qiang.zhang@linux.dev> wrot=
+e:
+> >=20=20
+>=20>=20=20
+>=20>  From: Kunwu Chan <kunwu.chan@gmail.com>
+> >=20=20
+>=20>  This series rounds out atomic SRCU support with a reader-free fast=
+path,
+> >  some atomic-context fixes, and additional test coverage.
+> >=20=20
+>=20>  The core change is a reader-free fastpath for synchronize_srcu_ato=
+mic().
+> >  Atomic SRCU's read-side critical sections disable preemption, so whe=
+n
+> >  the summed lock and unlock counts match for both ranks,
+> >  synchronize_srcu_atomic() can end the grace period immediately, with=
+out
+> >  the index flip or the srcu_advance_state() scans. Correctness depend=
+s
+> >  on the grace-period anchor written by srcu_gp_start() preceding the
+> >  lock-count scan; two LKMM litmus tests (patches 1-2) verify that
+> >  ordering.
+> >=20=20
+>=20>  For synchronize_srcu_atomic(), the following items maybe also
+> >  need to be added:
+> >=20=20
+>=20>  Hi Zqiang
+> >  Sent as: https://lore.kernel.org/rcu/20260911093515.2802551-1-kunwu.=
+chan@gmail.com/
+> >=20=20
+>=20>  Did a small late_initcall that enters an atomic read-side critical=
+ section and
+> >  calls synchronize_srcu_atomic(). srcu_lock_sync() catches it:
+> >  WARNING: possible recursive locking detected
+> >  swapper/0/1 is trying to acquire lock: (&ss) at:
+> >  synchronize_srcu_atomic+0x28/0x380
+> >  but task is already holding lock: (&ss) at:
+> >  srcu_lockdep_test_init+0xd0/0x170
+> >  *** DEADLOCK ***
+> >  Rcutorture SRCU-N/P also pass.
+> >=20
+>=20Hi, kunwu
+>=20
+>=20You can add srcu_atomic lockdep test to rcutorture to verify
+> your change, and I also saw that Paul suggested the same thing :)
+>=20
+>=20For example, as shown below (I am not test or verify it):
+>=20
+>=20diff --git a/kernel/rcu/rcutorture.c b/kernel/rcu/rcutorture.c
+> index d795e07a12ad..d4f7399acbd5 100644
+> --- a/kernel/rcu/rcutorture.c
+> +++ b/kernel/rcu/rcutorture.c
+> @@ -4662,6 +4662,17 @@ static DECLARE_RWSEM(rwsem7);
+>  static DECLARE_RWSEM(rwsem8);
+>  static DECLARE_RWSEM(rwsem9);
+>=20
+>=20+static DEFINE_RAW_SPINLOCK(spin0);
+> +static DEFINE_RAW_SPINLOCK(spin1);
+> +static DEFINE_RAW_SPINLOCK(spin2);
+> +static DEFINE_RAW_SPINLOCK(spin3);
+> +static DEFINE_RAW_SPINLOCK(spin4);
+> +static DEFINE_RAW_SPINLOCK(spin5);
+> +static DEFINE_RAW_SPINLOCK(spin6);
+> +static DEFINE_RAW_SPINLOCK(spin7);
+> +static DEFINE_RAW_SPINLOCK(spin8);
+> +static DEFINE_RAW_SPINLOCK(spin9);
+> +
+>  DEFINE_STATIC_SRCU(srcu0);
+>  DEFINE_STATIC_SRCU(srcu1);
+>  DEFINE_STATIC_SRCU(srcu2);
+> @@ -4673,6 +4684,17 @@ DEFINE_STATIC_SRCU(srcu7);
+>  DEFINE_STATIC_SRCU(srcu8);
+>  DEFINE_STATIC_SRCU(srcu9);
+>=20
+>=20+DEFINE_STATIC_SRCU_ATOMIC(srcu0_atomic);
+> +DEFINE_STATIC_SRCU_ATOMIC(srcu1_atomic);
+> +DEFINE_STATIC_SRCU_ATOMIC(srcu2_atomic);
+> +DEFINE_STATIC_SRCU_ATOMIC(srcu3_atomic);
+> +DEFINE_STATIC_SRCU_ATOMIC(srcu4_atomic);
+> +DEFINE_STATIC_SRCU_ATOMIC(srcu5_atomic);
+> +DEFINE_STATIC_SRCU_ATOMIC(srcu6_atomic);
+> +DEFINE_STATIC_SRCU_ATOMIC(srcu7_atomic);
+> +DEFINE_STATIC_SRCU_ATOMIC(srcu8_atomic);
+> +DEFINE_STATIC_SRCU_ATOMIC(srcu9_atomic);
+> +
+>  static int srcu_lockdep_next(const char *f, const char *fl, const char=
+ *fs, const char *fu, int i,
+>  int cyclelen, int deadlock)
+>  {
+> @@ -4702,6 +4724,13 @@ static void rcu_torture_init_srcu_lockdep(void)
+>  &rwsem5, &rwsem6, &rwsem7, &rwsem8, &rwsem9 };
+>  struct srcu_struct *srcus[] =3D { &srcu0, &srcu1, &srcu2, &srcu3, &src=
+u4,
+>  &srcu5, &srcu6, &srcu7, &srcu8, &srcu9 };
+> +
+> + raw_spinlock_t *spins[] =3D { &spin0, &spin1, &spin2, &spin3, &spin4,=
+ &spin5,
+> + &spin6, &spin7, &spin8, &spin9};
+> + struct srcu_struct *srcus_atomic[] =3D {&srcu0_atomic, &srcu1_atomic,=
+ &srcu2_atomic,
+> + &srcu3_atomic, &srcu4_atomic, &srcu5_atomic,
+> + &srcu6_atomic, &srcu7_atomic, &srcu8_atomic,
+> + &srcu9_atomic};
+>  int testtype;
+>=20
+>=20 if (!test_srcu_lockdep)
+> @@ -4812,11 +4841,48 @@ static void rcu_torture_init_srcu_lockdep(void)
+>  }
+>  #endif // #ifdef CONFIG_TASKS_TRACE_RCU
+>=20
+>=20+ if (testtype =3D=3D 4) {
+> + pr_info("%s: test_srcu_lockdep =3D %05d: SRCU_ATOMIC %d-way %sdeadloc=
+k.\n",
+> + __func__, test_srcu_lockdep, cyclelen, deadlock ? "" : "non-");
+> + if (deadlock && cyclelen =3D=3D 1)
+> + pr_info("%s: Expect hang.\n", __func__);
+> + for (i =3D 0; i < cyclelen; i++) {
+> + j =3D srcu_lockdep_next(__func__, "srcu_read_lock_atomic", "synchroni=
+ze_srcu_atomic",
+> + "srcu_read_unlock_atomic", i, cyclelen, deadlock);
+> + idx =3D srcu_read_lock_atomic(srcus_atomic[i]);
+> + if (j >=3D 0)
+> + synchronize_srcu_atomic(srcus_atomic[j]);
+> + srcu_read_unlock_atomic(srcus_atomic[i], idx);
+> + }
+> + return;
+> + }
+> +
+> + if (testtype =3D=3D 1) {
+         ^^^^^^^^
+       testtype =3D=3D 5
 
-stack backtrace:
-CPU: 1 UID: 0 PID: 5628 Comm: syz-executor381 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- lockdep_rcu_suspicious+0x140/0x1d0 kernel/locking/lockdep.c:6972
- expect_iter_name+0xfb/0x100 net/netfilter/nf_conntrack_netlink.c:3393
- nf_ct_expect_iterate_net+0xf2/0x180 net/netfilter/nf_conntrack_expect.c:633
- ctnetlink_del_expect+0x45d/0x640 net/netfilter/nf_conntrack_netlink.c:3455
- nfnetlink_rcv_msg+0xcc2/0x12b0 net/netfilter/nfnetlink.c:300
- netlink_rcv_skb+0x226/0x4a0 net/netlink/af_netlink.c:2556
- nfnetlink_rcv+0x2b9/0x28c0 net/netfilter/nfnetlink.c:667
- netlink_unicast_kernel net/netlink/af_netlink.c:1319 [inline]
- netlink_unicast+0x7bd/0x940 net/netlink/af_netlink.c:1345
- netlink_sendmsg+0x813/0xb40 net/netlink/af_netlink.c:1900
- sock_sendmsg_nosec+0x13a/0x180 net/socket.c:800
- __sock_sendmsg net/socket.c:815 [inline]
- ____sys_sendmsg+0x54e/0x850 net/socket.c:2713
- ___sys_sendmsg+0x2a5/0x360 net/socket.c:2767
- __sys_sendmsg net/socket.c:2799 [inline]
- __do_sys_sendmsg net/socket.c:2804 [inline]
- __se_sys_sendmsg net/socket.c:2802 [inline]
- __x64_sys_sendmsg+0x1b1/0x290 net/socket.c:2802
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fb7651a5649
-Code: c0 79 93 eb d5 48 8d 7c 1d 00 eb 99 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 d8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007ffc2a17f2a8 EFLAGS: 00000246 ORIG_RAX: 000000000000002e
-RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00007fb7651a5649
-RDX: 0000000020000080 RSI: 0000200000000300 RDI: 0000000000000004
-RBP: 0000000000000000 R08: 0000000000000006 R09: 0000000000000006
-R10: 0000000000000006 R11: 0000000000000246 R12: 0000000000000000
-R13: 431bde82d7b634db R14: 00007fb765238c40 R15: 0000000000000002
- </TASK>
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+> + pr_info("%s: test_srcu_lockdep =3D %05d: SRCU_ATOMIC/raw_spinlock %d-=
+way %sdeadlock.\n",
+> + __func__, test_srcu_lockdep, cyclelen, deadlock ? "" : "non-");
+> + for (i =3D 0; i < cyclelen; i++) {
+> + pr_info("%s: srcu_read_lock_atomic(%d), raw_spin_lock(%d), raw_spin_u=
+nlock(%d), srcu_read_unlock_atomic(%d)\n",
+> + __func__, i, i, i, i);
+> + idx =3D srcu_read_lock_atomic(srcus_atomic[i]);
+> + raw_spin_lock(spins[i]);
+> + raw_spin_unlock(spins[i]);
+> + srcu_read_unlock_atomic(srcus_atomic[i], idx);
+> +
+> + j =3D srcu_lockdep_next(__func__, "raw_spin_lock", "synchronize_srcu_=
+atomic",
+> + "raw_spin_unlock", i, cyclelen, deadlock);
+> + raw_spin_lock(spins[i]);
+> + if (j >=3D 0)
+> + synchronize_srcu_atomic(srcus_atomic[j]);
+> + raw_spin_unlock(spins[i]);
+> + }
+> + return;
+> + }
+> +
+>  err_out:
+>  pr_info("%s: test_srcu_lockdep =3D %05d does nothing.\n", __func__, te=
+st_srcu_lockdep);
+>  pr_info("%s: test_srcu_lockdep =3D DNNL.\n", __func__);
+>  pr_info("%s: D: Deadlock if nonzero.\n", __func__);
+> - pr_info("%s: NN: Test number, 0=3DSRCU, 1=3DSRCU/mutex, 2=3DSRCU/rwse=
+m, 3=3DSRCU/Tasks Trace RCU.\n", __func__);
+> + pr_info("%s: NN: Test number, 0=3DSRCU, 1=3DSRCU/mutex, 2=3DSRCU/rwse=
+m, 3=3DSRCU/Tasks Trace RCU, 4=3DSRCU_ATOMIC, 5=3DSRCU_ATOMIC/raw_spinloc=
+k.\n", __func__);
+>  pr_info("%s: L: Cycle length.\n", __func__);
+>  if (!IS_ENABLED(CONFIG_TASKS_TRACE_RCU))
+>  pr_info("%s: NN=3D3 disallowed because kernel is built with CONFIG_TAS=
+KS_TRACE_RCU=3Dn\n", __func__);
+>=20
+>=20Thanks
+> Zqiang
+>=20
+>=20>=20
+>=20> Thanks, Kunwu
+> >=20=20
+>=20>=20=20
+>=20>  srcu_lock_sync(&ssp->dep_map);
+> >=20=20
+>=20>  RCU_LOCKDEP_WARN(lockdep_is_held(ssp),
+> >  "Illegal synchronize_srcu() in same-type SRCU read-side critical sec=
+tion");
+> >=20=20
+>=20>  if (rcu_scheduler_active =3D=3D RCU_SCHEDULER_INACTIVE)
+> >  return;
+> >=20=20
+>=20>  Thanks
+> >  Zqiang
+> >=20=20
+>=20>  The series is:
+> >=20=20
+>=20>  1-2 LKMM litmus tests for the reader-free fastpath ordering.
+> >  3 srcutree: add the reader-free fastpath.
+> >  4 rcutorture: add --do-atomic-srcu to torture.sh.
+> >  5-7 srcutree: honor and propagate is_atomic so atomic SRCU never
+> >  transitions to big.
+> >  8 srcutree: forbid srcu_expedite_current() on atomic SRCU.
+> >  9 rcutorture: disable srcu_expedite_current() for atomic SRCU.
+> >  10 srcutree: skip callback scheduling for atomic SRCU grace periods.
+> >  11 srcutree: drop the srcu_barrier() sleep for atomic SRCU.
+> >  12 srcutree: remove leftover debug pr_alert()s.
+> >  13 srcu: restrict the non_block annotation to task context, fixing a
+> >  KCSAN data race.
+> >=20=20
+>=20>  The KCSAN race in patch 13 is a data race on the interrupted task'=
+s
+> >  ->non_block_count when a timer callback runs atomic-SRCU readers in
+> >  inline softirq context.
+> >=20=20
+>=20>  Tested with herd7 7.58 (litmus tests), torture.sh --do-atomic-srcu=
+, and
+> >  torture.sh --do-atomic-srcu --do-kcsan (KCSAN+PROVE_LOCKING).
+> >=20=20
+>=20>  Kunwu Chan (13):
+> >  litmus: Add SRCU fastpath anchor-before-scan test
+> >  litmus: Add SRCU fastpath scan-before-anchor test
+> >  srcutree: Add reader-free fastpath to synchronize_srcu_atomic()
+> >  rcutorture: Add atomic-SRCU support to torture.sh
+> >  srcutree: Honor is_atomic in check_init_srcu_struct()
+> >  srcutree: Make init_srcu_struct_atomic() prevent transition to big
+> >  srcutree: Don't transition atomic SRCU to big in srcu_gp_end()
+> >  srcutree: Forbid srcu_expedite_current() on atomic SRCU
+> >  rcutorture: Disable srcu_expedite_current() for atomic SRCU
+> >  srcutree: Skip callback scheduling for atomic SRCU grace periods
+> >  srcutree: Remove srcu_barrier() sleep for atomic SRCU
+> >  srcutree: Remove debug pr_alert()s
+> >  srcu: Restrict atomic-SRCU non_block annotation to task context
+> >=20=20
+>=20>  include/linux/srcu.h | 10 +-
+> >  kernel/rcu/rcutorture.c | 1 +
+> >  kernel/rcu/srcutree.c | 95 ++++++++++++++-----
+> >  tools/memory-model/litmus-tests/README | 16 ++++
+> >  .../SRCU-fastpath-anchor-before-scan.litmus | 56 +++++++++++
+> >  .../SRCU-fastpath-scan-before-anchor.litmus | 53 +++++++++++
+> >  .../selftests/rcutorture/bin/torture.sh | 24 +++++
+> >  7 files changed, 229 insertions(+), 26 deletions(-)
+> >  create mode 100644 tools/memory-model/litmus-tests/SRCU-fastpath-anc=
+hor-before-scan.litmus
+> >  create mode 100644 tools/memory-model/litmus-tests/SRCU-fastpath-sca=
+n-before-anchor.litmus
+> >=20=20
+>=20>  base-commit: ef15070f96c5f07de3a9b593c36f6e83bc9e3d58
+> >  --
+> >  2.43.0
+> >
+>
