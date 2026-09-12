@@ -1,124 +1,206 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE1572AD3C;
-	Sat, 12 Sep 2026 06:02:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E46292DC783
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 06:10:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789192959; cv=none; b=AxnA3NND/3ipnZ3v+Fja9MC4hSxjL+zfvPzlICfOKr6pb09WbfB0d6jG43rQ2NKAB7IAtCxUM+kZDF9kf3Vc1G27rQ6irfYIBMLGFTEcWZ3Po9uD2r475odZ9Svy9Xn5Ix5ce4H9KoK03WUCOnvaxUvrgHiwC05cWr9CF/fVAk4=
+	t=1789193428; cv=none; b=a6HtB2oQGyz8tCx8yIJ5kddBPEAsxZsbu4AWz5TkwtazCzC5ioMaieDrOxyaxjLgfIytscSDKtU+2WGOqlt2bMAe+YaVplKVEsBmGdWksqwuZD3//R6e9BUq09jdQ3NOo47hg9YYcvykM36Uvb+5HiyU2ljRIrMsw5mJQWL/io4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789192959; c=relaxed/simple;
-	bh=5gLjyyM4G900QAKhjPkQFtRkNeaXWMtmoQI163YSpek=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YcHBRz5uAOkN0EMGwCTDjhVSlIhgsElMVLOyy+FxKzXHIrgQ0/9HjTaBY2LJhLddrtnj6bns8asWS2F1dBAKa4BcOiimxsG3N/Jit97zKEXWZ9+VTH5ESsvHb98pYc5N0TY8LVWPwdCt/MUtzsC5Ye2I8zSHLGmDgLTSrD0M330=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=Y4N+D4j1; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1789193428; c=relaxed/simple;
+	bh=ULvW80VV/lmMg40PTQIlJd8Bb6yYkYlfMSQSoDL8xo0=;
+	h=Message-ID:Date:MIME-Version:To:Cc:From:Subject:Content-Type; b=ZI/NCp/r5yfjRZi1RXj9I2YOtD8wwgqaFM8BdVMQnjxvv6q2kLK6NSh9NBuKyorjyi4oGhacbSGOCndYJPO8ZCYjgFRC/knzXtpkS9tzFhO4Sra/PvKXevNVlxg6EGKAFDouoUFuKbiE5tULIoPCWJ9hLPXxjoa74SuxpFi0e6A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=gpTNoZ8A; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="Y4N+D4j1"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 5DBD540E00E8;
-	Sat, 12 Sep 2026 06:02:28 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id JbJRULlAKaRJ; Sat, 12 Sep 2026 06:02:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1789192934; bh=vCcat0/oImBmwSaV0rtau+d25lxPnhEctueRjHdO8d8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Y4N+D4j159xcdGfuYfIfnrSQAtZ79Js2B+F8ucOMjUtY2oTQM1NPZtzCxaFvasgr6
-	 upHy024f+YUOGou/NibGnj1U0EvWRDnEX8ujyzHwCwwCboqMU/uYsY34BMmPS8DHv/
-	 3084vI37nkmflB95ugxmMuRrJ9z5pySjNotSYGpX+iNUyi6l8iJ2Cw8xKAKZR9rn2o
-	 DKVafsUMNULaRnHOcvNkCVo2jkmMtTZ5Z8YZ28jRpBMQHZbMqLWCjnrIWHqKgoE9fS
-	 fi00YPLy8V0pIJUCmmism7jqIhUJ2ksy9JoN+Wov49Iis8pEhbxap8Rcfdlk8hzZep
-	 vIAcjNWFp+/G4DZXVo2zL2RE1Plqhzorv3fi3OEa8kCuI4ldVIE/4rS3kooRo5qNpp
-	 Zg1LBEUsc4OHc72CIOlEMj/32elSbau3F9cGu5hOPbGAsQgLak+yuIVKKBVAjlQ4EM
-	 vUF9uttmrceKtoYxSBf1baYzdEw65y7uY7djIUbsRn3O7w71uoL+QybonGIO8uimXk
-	 ephKNhWFi95dOujF3IHy6yN1WRcQnh1B2yzbgRwec0p08JTrcNf3AMfhUlXk8hPlqO
-	 4DHzaD/BzB/PYaZl4MD2BV1uNMctDMLMaN9a+ONNymCbkSBDowViaVGVgWBYvneJHP
-	 rEZpaYAujEGnlBoSa0pql6/c=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::1a])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 93E5240E00B8;
-	Sat, 12 Sep 2026 06:02:06 +0000 (UTC)
-Date: Fri, 11 Sep 2026 23:02:03 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
-Cc: Shravan Kumar Ramani <shravankr@nvidia.com>,
-	David Thompson <davthompson@nvidia.com>,
-	Tony Luck <tony.luck@intel.com>,
-	Zhao Qunqin <zhaoqunqin@loongson.cn>, linux-edac@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] edac: use named initializers for acpi_device_id
-Message-ID: <20260912060203.GCaqTq2wnz-tV6vPIl@fat_crate.local>
-References: <20260904-acpi-edac-v1-1-ef93d60bbda4@thegoodpenguin.co.uk>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="gpTNoZ8A"
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68C4WFMs2610556;
+	Sat, 12 Sep 2026 06:09:50 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=pp1; bh=ziKGmp+RFUsicvsMPTlaSxO33SZA
+	FbOcB4DvM6PmbSI=; b=gpTNoZ8AiT5NBuGZPbKYfirLtn+Tz83eLnQjYbfn8cL2
+	b1J4pT1e+sqNds7FQqDqDUu/Vhzkk+NmDhmgSQKGseQNkCszNhJRrA6AXDmSM19R
+	4jKZtrYpHDQbi7Q5gt89bXkiwGPm0IZyUZC1090hlMYoBjHM5+a2l/bn6YgTmhg2
+	5sxhkKVP1QEd8eFkxoU/HuZ0+6pzxgQ8d8F1o0HWMEPm+cM+qkpW5QnyIft5Yrr/
+	gJ9fnjW9X2nEI8kVEvK/rI2xx1MKyXOob5oehwppXH1wiYTErMRgBAqYCugaREWd
+	1oPSpDC5HSTutAThcoDi44rlmnjqbtm8P4uxNFBGKg==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmw5dgm6y-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Sat, 12 Sep 2026 06:09:49 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68C4Z1D92798777;
+	Sat, 12 Sep 2026 06:09:49 GMT
+Received: from smtprelay02.wdc07v.mail.ibm.com ([172.16.1.69])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gkvq3271p-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Sat, 12 Sep 2026 06:09:49 +0000 (GMT)
+Received: from smtpav02.wdc07v.mail.ibm.com (smtpav02.wdc07v.mail.ibm.com [10.39.53.229])
+	by smtprelay02.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68C69l0G8717044
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Sat, 12 Sep 2026 06:09:47 GMT
+Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 7C27858059;
+	Sat, 12 Sep 2026 06:09:47 +0000 (GMT)
+Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id E201058058;
+	Sat, 12 Sep 2026 06:09:40 +0000 (GMT)
+Received: from [9.43.99.206] (unknown [9.43.99.206])
+	by smtpav02.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Sat, 12 Sep 2026 06:09:40 +0000 (GMT)
+Message-ID: <96c01d5a-3000-4921-9775-025f9c4c2908@linux.ibm.com>
+Date: Sat, 12 Sep 2026 11:40:34 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260904-acpi-edac-v1-1-ef93d60bbda4@thegoodpenguin.co.uk>
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: aboorvad@linux.ibm.com, atrajeev@linux.ibm.com, chentao@kylinos.cn,
+        christophe.leroy@csgroup.eu, leixiang@kylinos.cn,
+        linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+        michail.tatas@gmail.com, mpe@ellerman.id.au, naveen@kernel.org,
+        npiggin@gmail.com, sourabhjain@linux.ibm.com,
+        thibault.ferrante@canonical.com, yanlonglong@kylinos.cn
+From: Madhavan Srinivasan <maddy@linux.ibm.com>
+Subject: [GIT PULL] Please pull powerpc/linux.git powerpc-7.3-3 tag
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEyMDA4NCBTYWx0ZWRfXzW3spdA9BY0W
+ dyLedNY1iNYGeKvH19Or7s0Hkcguw8taTetNFCjlLD2d8mm2nRVbBGdtwiV/b3OzigyS75ov+IX
+ 7Lhkb4FqqS+Wwkgk1RwTugbdjRsIgjB6d8zaTdrzp6eATmeqLPfM36L6s0mvD4+J8t/MA4+FVjP
+ O2KoiOdhPYZh86fBbwgIwuoqQCbZYduYsnZdOqlq7X4mbvNy5qr/eRnhQHh/A13GdyUFkrQp33b
+ KobgQ6nPgkto4ek8zU7UtpO8xGs1jzpnZji9wNz04y+pBMs5swQX+nDy2yf06/pxJGWf2FWFswH
+ nq5YL7Xs6ssVVmY4ZTYrXJTAHHwfyejh6dyBakXjgzPw3J7myb/dNaCKeItbFQQBPBxGOvNVJqe
+ Zr3RQze9Gp5lHu7ESQ4+Yb8vXFRioM9QDCZQ+GI0sHFtllOUcMhzPUlFF2KpeMSpGV1O/kuyXfp
+ pwQvg3IL3Ndm8rYnQ+A==
+X-Authority-Analysis: v=2.4 cv=E/NYNqdl c=1 sm=1 tr=0 ts=6aa4ecae cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8
+ a=7XlsL3zjmXWDbTe4z3YA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: NM9Dz2-3_I1bwV-RzUFxvFYZ8W7zlk_L
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEyMDA4NCBTYWx0ZWRfX6OIrsDPsi2IR
+ WyfteM055/C+ucdnf6DQQqE13G/CI2RJ2OrLyCGZckiRW1XtBsBWEQ8DWKaF55PM4Ob1FF5F/O+
+ XyiMpdcBQiSSKNhpNA/Cri/6q+buopU=
+X-Proofpoint-GUID: g48dzVaMicoswZFKScOq5qfZtgAmhIAp
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-12_02,2026-09-11_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 priorityscore=1501 spamscore=0
+ adultscore=0 clxscore=1011 bulkscore=0 malwarescore=0 suspectscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609120084
 
-On Fri, Sep 04, 2026 at 03:41:43PM +0100, Pawel Zalewski wrote:
-> Use a named initializer for the acpi_device_id fields which
-> makes the code more readable and consistent with how lists
-> are initialized in the rest of the kernel code base. Also
-> drop explicitly setting fields to 0 where it is redundant.
-> 
-> While we are at it - unify the list terminator to have
-> a single space between the brackets and no trailing
-> comma.
-> 
-> Signed-off-by: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
-> ---
-> This series is converting lists that contain the acpi_device_id
-> struct, which is defined in the include/linux/device-id/acpi.h
-> to make use of named initializers (which they do not use currently).
-> This work is part of the on going effort in the kernel associated
-> with device-ids [1]
-> 
-> The plan is to convert acpi_device_id::driver_data to have an anonymous
-> union, similarly to what was introduced for PCI and I2C device ID tables.
-> The goal is to increase type-safety (as most of the existing casts are gone),
-> to improve readability and to make use intent a bit more clear:
-> 
-> ```
-> union {
-> 	kernel_ulong_t driver_data;
-> 	const void *driver_data_ptr;
-> }
-> ```
-> 
-> But for that to work all lists containing the structs need to use named
-> initializers first to avoid triggering -Wmissing-braces. I already have
-> patches that implement this and touching a lot of kernel subsystmes that
-> use the acpi_device_id struct and that list keeps on growing. Therefore,
-> I have decided to split the series per every subsystem into:
-> - pre-clean-ups that convert the lists to use named initializers (this series)
-> - actual implementations that make some of the modules use the new driver_data_ptr
-> 
-> That way the task can be fragmented into manageable and independent
-> chunks of work and makes this effort easier to review.
-> 
-> Tested builds on a64 in Yocto using 7.3-rc1.
-> 
-> [1] https://lore.kernel.org/all/cover.1780048925.git.u.kleine-koenig@baylibre.com/
-> ---
->  drivers/edac/bluefield_edac.c | 4 ++--
->  drivers/edac/loongson_edac.c  | 4 ++--
->  2 files changed, 4 insertions(+), 4 deletions(-)
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
 
-Applied, thanks.
+Hi Linus,
 
--- 
-Regards/Gruss,
-    Boris.
+Please pull some more powerpc fixes for 7.3:
 
-https://people.kernel.org/tglx/notes-about-netiquette
+The following changes since commit 45a5f7285f835adb3b74c9344c09a7bd2c4fb664:
+
+   MAINTAINERS: powerpc: Add Ritesh and Shrikanth (2026-09-07 12:15:39 
++0530)
+
+are available in the git repository at:
+
+https://git.kernel.org/pub/scm/linux/kernel/git/powerpc/linux.git 
+tags/powerpc-7.3-3
+
+for you to fetch changes up to 9e5c53d75c560a058abef0e4338c5e3e52cb432a:
+
+   powerpc/pasemi: Add a null pointer check to the pas_setup_mce_regs 
+(2026-09-10 13:19:25 +0530)
+
+- ------------------------------------------------------------------
+powerpc fixes for 7.3 #3
+
+  - powerpc/entry: Fix double accounting of user time on interrupt entry
+
+  - Fix leak in htmdump_init_debugfs
+
+  - KVM: PPC: Book3S HV: Set irqfd->producer only on success
+
+  - powerpc/kexec_file: print configured kernel command line
+
+  - Remove redundant early_init_dt_scan_root() call
+
+  - misc fixes and cleanup
+
+Thanks to: Aboorva Devarajan, Amit Machhiwal, Athira Rajeev, Christophe 
+Leroy,
+Christophe Leroy (CS GROUP), Kunwu Chan, leixiang, longlong yan, Michail 
+Tatas,
+Mukesh Kumar Chaurasiya (IBM), Ritesh Harjani (IBM), Shivang Upadhyay, 
+Sourabh
+Jain, Thibault Ferrante, Vaibhav Jain, Venkat Rao Bagalkote
+
+- ------------------------------------------------------------------
+Aboorva Devarajan (1):
+       powerpc/entry: Fix double accounting of user time on interrupt entry
+
+Athira Rajeev (1):
+       selftests/powerpc/pmu/ebb: fix lost_exception_test hang with 
+sched yield change
+
+Kunwu Chan (1):
+       powerpc/pasemi: Add a null pointer check to the pas_setup_mce_regs
+
+Michail Tatas (1):
+       powerpc/pseries/htmdump: Fix leak in htmdump_init_debugfs
+
+Sourabh Jain (2):
+       powerpc/kexec_file: print configured kernel command line
+       powerpc/prom: Remove redundant early_init_dt_scan_root() call
+
+Thibault Ferrante (1):
+       selftests/powerpc/tm: Fix tcheck() reading uninitialised CR value
+
+leixiang (1):
+       KVM: PPC: Book3S HV: Set irqfd->producer only on success
+
+longlong yan (1):
+       selftests/powerpc: use MAP_FAILED instead of (void *)-1 in 
+tm-signal-context-force-tm
+
+
+  arch/powerpc/include/asm/entry-common.h  |  2 --
+  arch/powerpc/kernel/prom.c |  1 -
+  arch/powerpc/kexec/elf_64.c  |  2 ++
+  arch/powerpc/kvm/book3s_hv.c |  4 ++--
+  arch/powerpc/platforms/pasemi/setup.c  |  2 ++
+  arch/powerpc/platforms/pseries/htmdump.c                        | 19 
++++++++++++++++----
+  tools/testing/selftests/powerpc/pmu/ebb/lost_exception_test.c   | 11 
++++++++++--
+  tools/testing/selftests/powerpc/tm/tm-signal-context-force-tm.c |  4 ++--
+  tools/testing/selftests/powerpc/tm/tm.h  |  8 ++++++--
+  9 files changed, 38 insertions(+), 15 deletions(-)
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEqX2DNAOgU8sBX3pRpnEsdPSHZJQFAmqk7GoACgkQpnEsdPSH
+ZJRbIg//atmDlXDJC8LJkszixDmqHro670bFgH/bubPKghqCYJNVc3wHKfzki0zq
+M3UKtrHwV3al24Ed5w65Nz1PZcp4dvqcpr9axFqKfv62cwemM1Bn0xT5aniH8hyO
+Xg+vH8guDYO+tV+eAvtKpR9K2wtsR8cTbGjbvgD4/yI72Ic9VJJb+OtJ+VmlZMaU
+w9uqr9qihNl/+tLKL1WCtJ4vm5IePs4tc4jOzPcrijLlAnoKEA3oaD1pPtYNYWHf
+WD3Tp1h5URI3YKW3Z22vrp0TKKa39aFqcMR4ynZJw8KmvvvYn1Yf2VmJFyEpNLH+
+Wp2UuLaEHp8zvJygS9zzFGXWNLvGd56yW+NcWc4Jjkh8Gq38lilEWnR3BiKEIIif
+sSNxA2+gvO9/3wzzEE6H2nQembZOpTOZixo7VDdI6uy4HmRrAz8hOSV7Y000/Nqt
+7IH8Lf8zmpt0KK65PIWQ8Mn56IoB7nT6nEjbJCJCGnOefEJDl7jnJlFlrTp3R/t6
+HSoErU2gqnVkCUFZ320N4ERrkKy3iWvSzJUXoDu77La1cSOA6aWhAWJMVq/TCpi1
+TvVfdbSV2VIRIeswVlF7otPo3pJtkEQ27UNHvZNBWrGZit2VPCHY1m3RbfkdW2TJ
+g+N0d4EupA94VIxcyK5dULBqodJ4bp8AwzI9uHLorI8Tjq8Uhsw=
+=emPV
+-----END PGP SIGNATURE-----
