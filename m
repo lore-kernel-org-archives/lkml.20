@@ -1,381 +1,205 @@
-Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11021076.outbound.protection.outlook.com [40.107.74.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F121C357CE9;
-	Sat, 12 Sep 2026 14:57:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789225042; cv=fail; b=WThs91++HNw8N1vYFi9PYAfvvhbwi9hwG5RkbIHMiwt6Nn4ZuOg1lVH6d4yBUJQUQqhLneiC17pJ/MFjCXLCclssoUbzDcLi2QaxaOwx9AdoORd6jmfr7CZCRcPoeWRwST/eVPpgKCWv7C59QfWKsVvEKHsM/Dy+/uXVLY/DWlU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789225042; c=relaxed/simple;
-	bh=QQ1RxTC+278ukU0OvhNFceEVzJCBYMTtSxAS57VkdZc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=cG0fhcpUqZm/LNG9DF9DACft7HuwDsBO1yEP/fhSdrt6q1rERx0eE3hdlsUpRUokG1Jz9We5OAO9DvaZPLS+KS+KUNbg/95wZt4CMFYIdAxfp1WvR4tvJQ14MbaMAm3JXDeJtC4nFOzqnj+iDRtPmUGABUuX49bvPHPilsvd6gA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp; spf=pass smtp.mailfrom=valinux.co.jp; dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b=neFp3Fs9; arc=fail smtp.client-ip=40.107.74.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 397DD4BEE5E
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 14:58:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789225097; cv=none; b=FdF4lYMUwsw/9If0325TxThXNtNkpqXPgDVkfxWfunxjn5lRzlCe4yxxEwrHL8LGVS+mlIyPHXnPIQoOF+dTcrw/wC5yzzlN1QwtesX5LYyXZigVHsKWCj0JwplGlQLBRyn03sDatuWrrA1/LxWQoAQCNKQbs94KbHewWibCHU0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789225097; c=relaxed/simple;
+	bh=DwQh+/xadZ9FUW5QShYxj1ADN6uyUnr/Nr2NR81o4E8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nELOIPkVSn0f3fvgkt5hYogqcijQIyQq1IwGIMdpJaJ8SYPXsuNghDVruZO/4IxJnS31/aihi3FOBxqfebHmgiCRLyfnoxalC3oYANXP+dPFQH4WbdovVofEDH+mbhte641oyulMIwGkxnHyUNXTYEhmyc53FWDhAayvTQZJFvw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oXorFWqg; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b="neFp3Fs9"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BxAt0drM5AXR2O03s4DIm4hg2CZ9c4RXL8necdxo62fREkzU3FVoQQnV98BG/XAqLxmdc1S6SE3AAF6zR30AM4uwQBsZw4d6tHGf8AayK0XJFSMdq+a8nHGdMe+0lpHkKgxuukZStcMsc3qXGYzZkKxcc5XPvmuHh1IuwQn2Vv/h5QKz5m+d8Vtmzb1dekzhphBEGZTBzUEc1AtQihuPbhsI599JCXBXr7KHrTIcK9DLq4PsaVCemVd1bOjamfyL0v/UKg4VFYMyY8GAPwj0qDWNsRbhItKKN8y0dA40aH5tXMRnTmi/7meCAY6Te/vKsBwIln9ca0d0UO77qOIMsQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oBKfSunlyaKNCqDgnJINasPXCcZuCY2dXwNtLFNSsb0=;
- b=VMUYfrv4QVh8/kvFaxVdGdzlyu9mTH+2hoyrm3JyOBfApsrT9ICaN2k/mm/LlpH6/3/jD4zwbA65m780qZU1CK65+8q1u5aTTkX6Rl9qOXicAAthXITMa2nIL3jhjequ/QLc8/xkMtHCQR4HARUr4nsxQHxuaCEZJzLJ0RZWb+accC9QQs7YAPpNrcrtQWcnR1NKYXe8RWa2gNB0EeBvmtiynkwR57CNnKwZXK/ISj9iUtJekqs5tbckjPUfsmX3Zdh+Zd5g4ZnR/hyTSUzSEja7lq77h30qyONIQ7Z4IpIwp0Ygj4Kq5rPTuVl2cEixPLgcyi+jMz4mRwxss2amaw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
- header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oBKfSunlyaKNCqDgnJINasPXCcZuCY2dXwNtLFNSsb0=;
- b=neFp3Fs9bBxHfr32lCRD1gEX6TkZNdkzNCQ1KkBCRiDrZWTpXRkGi2XS3VYGyZmWJlKrNGQvvhqfLzbrQ7uYCrf9CqlAMTBsBTkgksf2hYTe6x8w2f8+LMq/vWzrwfbYAx1yRB9EQQzWetJkHIFAO2KTvRHWnZnAVzgqJMPbenc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=valinux.co.jp;
-Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:38f::10)
- by OSOP286MB3924.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:2f0::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.11; Sat, 12 Sep
- 2026 14:57:14 +0000
-Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
- ([fe80::2305:327c:28ec:9b32]) by TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
- ([fe80::2305:327c:28ec:9b32%4]) with mapi id 15.21.0406.007; Sat, 12 Sep 2026
- 14:57:14 +0000
-Date: Sat, 12 Sep 2026 23:57:13 +0900
-From: Koichiro Den <den@valinux.co.jp>
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: Manivannan Sadhasivam <mani@kernel.org>, 
-	Frank Li <Frank.Li@kernel.org>, Jon Mason <jdmason@kudzu.us>, Dave Jiang <dave.jiang@intel.com>, 
-	Allen Hubbe <allenbh@gmail.com>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Kishon Vijay Abraham I <kishon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, ntb@lists.linux.dev, 
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 2/2] PCI: endpoint: pci-epf-vntb: Manage virtual NTB
- and PCI bus lifetime
-Message-ID: <t7ocqmfomd5kotla734wmffdbea3onkq43lkarfeiwkcii2jwj@osrsxx3qaeko>
-References: <20260901063238.631166-3-den@valinux.co.jp>
- <20260911214507.GA582865@bhelgaas>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260911214507.GA582865@bhelgaas>
-X-ClientProxiedBy: TY4P301CA0013.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:26f::19) To TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:38f::10)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oXorFWqg"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cea50dc1so259353a12.0
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 07:58:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789225095; x=1789829895; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eg+Cx2mHq8xuMsQFumf2bryL3EVhVNeWJmOvxvc1Pb8=;
+        b=oXorFWqgDGyP+nYVgVBAWOn/wU1VBE7qJlC+OkIRA0T/A6ijBSJ/4JtzxAay7P/x+k
+         QOxk9PxRxVwkf0D8Nmm4UasqDbB2nHYSW7/x7PJ+I6ETKkMYSkP30CHFEA6VPWIAOgUQ
+         8r0S1/O5UnfY0VM6xrXELfpY89N5jCaI3wYnl7O89R3pIAyRm0h1m1ihC8QKssRYYUE8
+         d7kJv6CPQj6PhYd6GrUd29udWPQPwazUqLwNtaGCJ4hayoxbgKbdBuxTkekXMBp1rg8u
+         4/09INvlynMD9HHHEFghjFlBz/tmgnmKBzVJBhPZEH92oKcfI9z4JPxIiZCEuy9iL2Kh
+         LZBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789225095; x=1789829895;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=eg+Cx2mHq8xuMsQFumf2bryL3EVhVNeWJmOvxvc1Pb8=;
+        b=ZugHnd34NnTk/76yOVcwtv7gYnW7T2LIn3yQEe1Whh1Xp/1GQ74BSH7w5FyO4Wt6N7
+         QCp3Vew+7IlFacF624XcZCZcqcGaVpTthknHf6KWCBzBfPVlAK4mr7JqrU4OUH4yogbM
+         TdSEwlSsdz9YCU4kBDE4kSvSVbBtUI4uQQNrrtbUvPX+ZP+ZFYb2H0ondHurO786Lz/F
+         NPc5p7mut//yJItO+lC0cJ9eOZYjVWUxjwuifd2wYuCtsCcem9yVULHcvw5iM0RmfOaL
+         R4wbrWJqSDpHvnvIadmFnqMxOi6B7+rAEu1ZRkFYmJAgZKZh+bKbJu+69DQwaS521/EY
+         JByA==
+X-Forwarded-Encrypted: i=1; AKwUvBxu9ACfeDPKWLOFwLVDFOO2PuZNLoffZUDlYCPNGkyY29vMJGSqXuPeMCX3iyZRd+IxAY0zcj5F6+Ro9kE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lpyHW8VsC/DS4/EuNhHYuPbW8xJ3A8vNNv5yyVfQWsTI9gi10v
+	PuD2tLGWPUaLZoUSp8zhIKcpi56j5a/ER76XmvymRW76buQz52G1OLs0
+X-Gm-Gg: AYBFou2G00ljUtVxeEG4ALMCCH0OFe9voXEMVUHLHra/NpugADKYRg6WfWdmZpsa8by
+	xJ/UDidQ18kQO3l83VUNbx7fmkUKpW+S4J0n4DkMPvmIR7OIndFiEilsn2NEhxlQrT1XWt+PHGQ
+	v8pYaWBCKG4p3ddeQLEhKN8elYfVnmq5RyqaVq774HVBdlpA+ZltLv45w5/drxkfmdH3TXQuJeU
+	IQRoZE5pgB6FQ9xv+3J4SJKfeJ3DA2GlVLOiqNDWVvFtrqa+qSHWofq8gW9+VJssvJ7zFrCRxNZ
+	uCR7YuLd0ytbYkZ7lLvaCA1YITIzznEjuAPYtTpTZpak0jFA+vbxQh9f0dZrIzTABAmx1+LZU/t
+	lyYNfbB9qdMo3GZ5/ziqHaRBmuuubzo2P82BBvRlzoW5OmVFqaD0yEyOmHJJFUHMoe1uMth1q+Z
+	J3l0la4JvqeYj/7Fb+k1Lvgcd9Y66BbVx90RW592b3yVVg2zR8aXNCMxc8PyGLnNRfk2+P72SyS
+	+8eMAXcZ2H0wJaTOIQzJgCIO/k0niA3D04XK2TbHecTeuNP
+X-Received: by 2002:a17:90b:53cf:b0:380:540:d499 with SMTP id 98e67ed59e1d1-39dbbeb3c67mr5634290a91.6.1789225095539;
+        Sat, 12 Sep 2026 07:58:15 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d9d554220sm3250791a91.2.2026.09.12.07.58.14
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 12 Sep 2026 07:58:15 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <33b90bab-8562-4638-a981-70f11459d380@roeck-us.net>
+Date: Sat, 12 Sep 2026 07:58:13 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY7P286MB7722:EE_|OSOP286MB3924:EE_
-X-MS-Office365-Filtering-Correlation-Id: 15641e36-8e49-4c42-0381-08df10de21c3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|10070799003|23010399003|1800799024|366016|6133799003|10067099003|4143699003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	nTFt+8alhWIc2nKJzhj7oHNU2txCclbiAGgBe2M8DOkRIs/djFpjYVjw05l+KcxT1SV3br7EIA472jJkXtXq+gG/hzQ3Pe1XRVED0pvAv3DZZAlNgf0fIq3vac6ZPe8+TCfHOKJnevd7pKva8588yKBLho4o/5H/GIEWwRY0cN700j7R7CwkuR7GtimNvRnyBk3ANO/pyZbWSZbAAKEQIL+0MLtPYsWvo9FMNqs8n1v12QbiOJUYExag6J0M5jz9gYKmBoJ0BgUwTetdlMKMEoScuKzexE+VRcI9jFlJsbj3y4Q7X2J1mmTfw8xilMSAP126c8f6s068QvdKWFeeEUMEinahFsGC2nmtmqYo783IO4Dpqsb5xsxei51lnWSPe1A02q7UVZAXAVpCcwVaviM4GzkpyeMZFnGauZzLP6EPhSNmBzdvka37cMGGo9oBLUdwAbTDxXB918NaKo1MEovIkUG8NgF+ha73XNnq/iD7Iun6frzfCV0eVnA8yIaDwO04U5McYp06tSo4Q8G/KnrU/fMmOQIaPLRmwEyNqJqKiMTjTJiXsQGkNCQzDw6gfuSAy/roz4+l4bFYDDZybnyB3ljbH6abSXr/bHqM5I8og+U7jno33ro5gfHEhCPp
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(10070799003)(23010399003)(1800799024)(366016)(6133799003)(10067099003)(4143699003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?yaXRI3Jg3vvXmN5Axk9NDgH2SdM+DPVM0sro9a1DJ7lc6Ry27dvErWgfvWf2?=
- =?us-ascii?Q?6dK8WSK1rtE9KefoZTQwuvHIvfCfq/cO8d0bau2q8VIBLwcEWhA5pLYK75xX?=
- =?us-ascii?Q?QoBTneT9bU9YwZI67RlyQb0JvtA11eVwsIZ2p3jHCQ8+BGcUsCOFXXsMGwte?=
- =?us-ascii?Q?eTaieVPI9fyH+aV6Po3szWimZIWniA/ajo7FfRoXaesYU+wLpbAISxs3r/ei?=
- =?us-ascii?Q?LeD/oGjItpWJSLNcG3F+xnezljwI5pVNH7hXdx9jRqVMc44Yn44zECc8hW8K?=
- =?us-ascii?Q?nLNGJkZxv5+WTtO0TtnQQZkenwLqt/5JzoxHZ6rLi0rvuMUmyk5J99hsCp0U?=
- =?us-ascii?Q?JrnAH5gCOVgtOopDm0W4Djoykvmd1DUy8l3q08FLR/QdN4XuYMj6ywMK6Qnv?=
- =?us-ascii?Q?EgBUAYpjUwqL+vvHIwUHCnq3JB3e7bJmQ8uEaxUpE/OgBqWGkZ1ftM4cHcz9?=
- =?us-ascii?Q?4C0O306L1WXSuzQyoQqusVCOkOTHL8OQFjiXt89Ai/2sZnfVvUv5J86yCv4e?=
- =?us-ascii?Q?O14np1U7fgrRtj1dEDwUzJ962OwFoPlJa3B0xEGkDR9fk55q9FWuW3e52qRt?=
- =?us-ascii?Q?btqbc7BXqo/vHVDwQH6dAuMMcaj+2aExDdxapIAGXmrupQ+lYMObrSX36pTy?=
- =?us-ascii?Q?9gLw0uozvmt8/qcoJb718ux+boPnDUMKF4TbxLD9rZRQG4+BuOcRnHLKEOxW?=
- =?us-ascii?Q?lvv/zh8fKK6tkH9RyAWc/SStlvVvXE+VFq2oGXFD36nM11Cy9LKQ3/dJhwrN?=
- =?us-ascii?Q?eYQnmPl2N8zpDZ+LC7loRaKWsxysS/AcyX4TK2zTCHY8getOWsvaKrmk9vkH?=
- =?us-ascii?Q?5x0pBpQy5M1ZVYVfdFhs2ImYeORfgT+/+gNvkJ3GEEFIxuYz0TBx9d/kIafk?=
- =?us-ascii?Q?RyrNXvdFugaZPd62Z1Qc2yW0Ed5nL/t6M94XMa5CpMLyTt1PpVEd0T2ImwnR?=
- =?us-ascii?Q?WTtvHHWis7AECez7xMvDnSTMz2euXdoDFwmJY25KcEYPc8CI48+RmU24qS+V?=
- =?us-ascii?Q?AprkkGM3bvEed3y75JLOSo7cCk8iQ8L8ZwlGL4OKi8VrHgCyLxb5glDZ0kHv?=
- =?us-ascii?Q?kAXhXd3vPQj/rKlG+uUhmP0c0RID6pwA2L8y9qxanw8YNH8m+Br9Fc2JAy/c?=
- =?us-ascii?Q?YOVwTuhvTf2pGeX793oCid7zaLvoFBnpP++qycJ+QGPMjcsJLWB1A1corKE3?=
- =?us-ascii?Q?FmPmrciaH3pH5APcDP5sK6SMD8Evd2l0TqSy0M3So+QynNXBE42U+pPMKMiS?=
- =?us-ascii?Q?BUDHMv/kB9iO8OlEQtyamDnOzZBASL9J0pCRY1GSNipBcbj5TB8pQ+o7rndB?=
- =?us-ascii?Q?eS4HvPMqI/O9VYZzQWV2Su+XnLMVEjsaRunOk3FTUAC/0vXokebwLZj7fLl6?=
- =?us-ascii?Q?dEMKRob1qmRtk3goW+NkCy/HCS/Br6/RMqdTw4gMzw9r+8BxdffJezEgEDJo?=
- =?us-ascii?Q?Zr5GopW6YUN1WltSafBQG+cz6Acimk9xJ+ODOd+Tzam5o/wHM2o/cUKhlXxy?=
- =?us-ascii?Q?5ih5q1/6X1xji42TDL14xHeb4ISnNnS6y2hFy/KsBwilVlvL4+9zPwyGWbpB?=
- =?us-ascii?Q?I9E4axQiton/fkMIdAV07vyxtp50oiJAPOd1j7+TK2dEZdO+9f+H099GhSCF?=
- =?us-ascii?Q?6BYgTtmfOzAif3lcPf91NhQJDntlQHD54eu8aXvm3xruD6W8rE/La9/Pcj5b?=
- =?us-ascii?Q?iKdNH2v3cXoxUJ9LEH7IC1DAE3oGQaK3OhR8GekM1PZwgY+pj5K027VMrESo?=
- =?us-ascii?Q?BWjcziJ7Se/nZVnLR4fYfFbj1fyIYKZGFfASU23qWi7zz7n/Enmt?=
-X-OriginatorOrg: valinux.co.jp
-X-MS-Exchange-CrossTenant-Network-Message-Id: 15641e36-8e49-4c42-0381-08df10de21c3
-X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Sep 2026 14:57:14.5594
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NPzUT1labPoGj0Y/7CJRQ1EcBFxnx4a5RY7MVzCyz8lsVLZgqlximEM7tuRPnBkGnYkyIP5LgChch87hH64rdw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSOP286MB3924
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 5/6] hwmon: (peci/cputemp) Add support for Granite
+ Rapids (GNR)
+To: Changhuang Liang <changhuang.liang@starfivetech.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Iwona Winiarska <iwona.winiarska@intel.com>
+Cc: openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ Philipp Zabel <p.zabel@pengutronix.de>
+References: <20260903133408.110847-1-changhuang.liang@starfivetech.com>
+ <20260903133408.110847-6-changhuang.liang@starfivetech.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260903133408.110847-6-changhuang.liang@starfivetech.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 11, 2026 at 04:45:07PM -0500, Bjorn Helgaas wrote:
-> On Tue, Sep 01, 2026 at 03:32:38PM +0900, Koichiro Den wrote:
-> > The virtual PCI driver registers an ntb_dev but has no remove callback.
-> > Unbinding the endpoint function can therefore free BARs while the NTB
-> > device and its client still use them. It also leaves the virtual PCI
-> > devices and root bus allocated.
-> > 
-> > Allocate an ntb_dev for each virtual PCI probe and unregister it from the
-> > matching remove callback. Start command processing only after registration.
-> > Publish the device for doorbell IRQs at the same point. During remove, stop
-> > the command work and drain IRQ handlers before unregistering the device.
-> > 
-> > Retain the root bus returned by pci_scan_bus() so it can be removed on
-> > unbind. Unregister the virtual PCI driver before releasing endpoint
-> > resources. Stop and remove the root bus under the PCI rescan/remove lock,
-> > then release its host bridge.
-> > 
-> > Fixes: e35f56bb0330 ("PCI: endpoint: Support NTB transfer between RC and EP")
-> > Cc: stable@vger.kernel.org # 6.0+
-> > Signed-off-by: Koichiro Den <den@valinux.co.jp>
-> > ---
-> > Changes in v6:
-> >   - Rework v5 patch 5 on v7.3-rc1.
-> >   - Publish ntb_dev only after registration, and tie command work and
-> >     doorbell delivery to its lifetime.
-> >   - Retain and remove the virtual root bus, then release its host bridge.
-> >   - Drop v5 patch 4; f7245901de89 ("PCI: Check parent for NULL in
-> >     of_pci_bus_release_domain_nr()") fixed the bug it worked around.
-> >     v5: https://lore.kernel.org/r/20260226084142.2226875-6-den@valinux.co.jp/
-> > 
-> > @Frank, the code changed substantially since v5, so I did not carry your
-> > R-b tag. I would appreciate another look.
-> > 
-> >  drivers/pci/endpoint/functions/pci-epf-vntb.c | 85 +++++++++++++++----
-> >  1 file changed, 70 insertions(+), 15 deletions(-)
-> > 
-> > diff --git a/drivers/pci/endpoint/functions/pci-epf-vntb.c b/drivers/pci/endpoint/functions/pci-epf-vntb.c
-> > index 412e8cc6fb1d..992f5e7f8d4a 100644
-> > --- a/drivers/pci/endpoint/functions/pci-epf-vntb.c
-> > +++ b/drivers/pci/endpoint/functions/pci-epf-vntb.c
-> > @@ -132,7 +132,7 @@ struct epf_ntb_ctrl {
-> >  } __packed;
-> >  
-> >  struct epf_ntb {
-> > -	struct ntb_dev ntb;
-> > +	struct ntb_dev *ntb;
-> >  	struct pci_epf *epf;
-> >  	struct config_group group;
-> >  
-> > @@ -166,10 +166,15 @@ struct epf_ntb {
-> >  	void __iomem *vpci_mw_addr[MAX_MW];
-> >  
-> >  	struct delayed_work cmd_handler;
-> > +	struct pci_bus *vpci_bus;
-> >  };
-> >  
-> >  #define to_epf_ntb(epf_group) container_of((epf_group), struct epf_ntb, group)
-> > -#define ntb_ndev(__ntb) container_of(__ntb, struct epf_ntb, ntb)
-> > +
-> > +static struct epf_ntb *ntb_ndev(struct ntb_dev *ntb)
-> > +{
-> > +	return ntb->pdev->sysdata;
-> > +}
-> >  
-> >  static struct pci_epf_header epf_ntb_header = {
-> >  	.vendorid	= PCI_ANY_ID,
-> > @@ -195,7 +200,7 @@ static int epf_ntb_link_up(struct epf_ntb *ntb, bool link_up)
-> >  	else
-> >  		ntb->reg->link_status &= ~LINK_STATUS_UP;
-> >  
-> > -	ntb_link_event(&ntb->ntb);
-> > +	ntb_link_event(ntb->ntb);
-> >  	return 0;
-> >  }
-> >  
-> > @@ -284,7 +289,7 @@ static void epf_ntb_cmd_handler(struct work_struct *work)
-> >  	     i++) {
-> >  		if (ntb->epf_db[i]) {
-> >  			atomic64_or(1 << (i - EPF_IRQ_DB_START), &ntb->db);
-> > -			ntb_db_event(&ntb->ntb, i - EPF_IRQ_DB_START);
-> > +			ntb_db_event(ntb->ntb, i - EPF_IRQ_DB_START);
-> >  			ntb->epf_db[i] = 0;
-> >  		}
-> >  	}
-> > @@ -348,12 +353,18 @@ static void epf_ntb_cmd_handler(struct work_struct *work)
-> >  static irqreturn_t epf_ntb_doorbell_handler(int irq, void *data)
-> >  {
-> >  	struct epf_ntb *ntb = data;
-> > +	struct ntb_dev *ndev;
-> >  	int i;
-> >  
-> > +	/* Pair with smp_store_release() in pci_vntb_probe(). */
-> > +	ndev = smp_load_acquire(&ntb->ntb);
-> > +	if (!ndev)
-> > +		return IRQ_HANDLED;
-> > +
-> >  	for (i = EPF_IRQ_DB_START; i < ntb->db_count; i++)
-> >  		if (irq == ntb->epf->db_msg[i].virq) {
-> >  			atomic64_or(1 << (i - EPF_IRQ_DB_START), &ntb->db);
-> > -			ntb_db_event(&ntb->ntb, i - EPF_IRQ_DB_START);
-> > +			ntb_db_event(ndev, i - EPF_IRQ_DB_START);
-> >  		}
-> >  
-> >  	return IRQ_HANDLED;
-> > @@ -985,7 +996,6 @@ static int epf_ntb_epc_init(struct epf_ntb *ntb)
-> >  	}
-> >  
-> >  	INIT_DELAYED_WORK(&ntb->cmd_handler, epf_ntb_cmd_handler);
-> > -	queue_work(kpcintb_workqueue, &ntb->cmd_handler.work);
-> >  
-> >  	atomic64_set(&ntb->peer_db_pending, 0);
-> >  	enable_work(&ntb->peer_db_work);
-> > @@ -1340,6 +1350,7 @@ static int vpci_scan_bus(void *sysdata)
-> >  		pci_unlock_rescan_remove();
-> >  		return -EINVAL;
-> >  	}
-> > +	ndev->vpci_bus = vpci_bus;
-> >  
-> >  	pci_bus_add_devices(vpci_bus);
-> >  
-> > @@ -1425,7 +1436,7 @@ static int vntb_epf_mw_set_trans(struct ntb_dev *ndev, int pidx, int idx,
-> >  	int ret;
-> >  	struct device *dev;
-> >  
-> > -	dev = &ntb->ntb.dev;
-> > +	dev = &ndev->dev;
-> >  	barno = ntb->epf_ntb_bar[BAR_MW1 + idx];
-> >  	epf_bar = &ntb->epf->bar[barno];
-> >  	epf_bar->phys_addr = addr;
-> > @@ -1563,7 +1574,7 @@ static void vntb_epf_peer_db_work(struct work_struct *work)
-> >  			ret = pci_epc_raise_irq(epf->epc, func_no, vfunc_no,
-> >  						PCI_IRQ_MSI, interrupt_num);
-> >  			if (ret)
-> > -				dev_err(&ntb->ntb.dev,
-> > +				dev_err(&epf->dev,
-> >  					"Failed to raise IRQ for interrupt_num %u: %d\n",
-> >  					interrupt_num, ret);
-> >  		}
-> > @@ -1681,13 +1692,18 @@ static const struct ntb_dev_ops vntb_epf_ops = {
-> >  
-> >  static int pci_vntb_probe(struct pci_dev *pdev, const struct pci_device_id *id)
-> >  {
-> > -	int ret;
-> >  	struct epf_ntb *ndev = (struct epf_ntb *)pdev->sysdata;
-> >  	struct device *dev = &pdev->dev;
-> > +	struct ntb_dev *ntb;
-> > +	int ret;
-> > +
-> > +	ntb = devm_kzalloc(dev, sizeof(*ntb), GFP_KERNEL);
-> > +	if (!ntb)
-> > +		return -ENOMEM;
-> >  
-> > -	ndev->ntb.pdev = pdev;
-> > -	ndev->ntb.topo = NTB_TOPO_NONE;
-> > -	ndev->ntb.ops =  &vntb_epf_ops;
-> > +	ntb->pdev = pdev;
-> > +	ntb->topo = NTB_TOPO_NONE;
-> > +	ntb->ops = &vntb_epf_ops;
-> >  
-> >  	ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(32));
-> >  	if (ret) {
-> > @@ -1695,16 +1711,41 @@ static int pci_vntb_probe(struct pci_dev *pdev, const struct pci_device_id *id)
-> >  		return ret;
-> >  	}
-> >  
-> > -	ret = ntb_register_device(&ndev->ntb);
-> > +	ret = ntb_register_device(ntb);
-> >  	if (ret) {
-> >  		dev_err(dev, "Failed to register NTB device\n");
-> >  		return ret;
-> >  	}
-> >  
-> > +	/* Publish after ntb_register_device() succeeds. */
-> > +	smp_store_release(&ndev->ntb, ntb);
-> > +	queue_delayed_work(kpcintb_workqueue, &ndev->cmd_handler, 0);
-> > +
-> >  	dev_dbg(dev, "PCI Virtual NTB driver loaded\n");
-> >  	return 0;
-> >  }
-> >  
-> > +static void pci_vntb_remove(struct pci_dev *pdev)
-> > +{
-> > +	struct epf_ntb *ndev = pdev->sysdata;
-> > +	struct ntb_dev *ntb;
-> > +	unsigned int i;
-> > +
-> > +	/* Stop the work reader, then close and drain the IRQ gate. */
-> > +	cancel_delayed_work_sync(&ndev->cmd_handler);
-> > +
-> > +	ntb = xchg(&ndev->ntb, NULL);
-> > +
-> > +	if (ndev->msi_doorbell)
-> > +		for (i = 0; i < ndev->db_count; i++) {
-> > +			if (epf_ntb_db_irq_is_duplicated(ndev->epf, i))
-> > +				continue;
-> > +			synchronize_irq(ndev->epf->db_msg[i].virq);
-> > +		}
-> > +
-> > +	ntb_unregister_device(ntb);
-> > +}
-> > +
-> >  static struct pci_device_id pci_vntb_table[] = {
-> >  	{
-> >  		PCI_DEVICE(0xffff, 0xffff),
-> > @@ -1716,6 +1757,7 @@ static struct pci_driver vntb_pci_driver = {
-> >  	.name           = "pci-vntb",
-> >  	.id_table       = pci_vntb_table,
-> >  	.probe          = pci_vntb_probe,
-> > +	.remove         = pci_vntb_remove,
-> >  };
-> >  
-> >  /* ============ PCIe EPF Driver Bind ====================*/
-> > @@ -1796,12 +1838,25 @@ static int epf_ntb_bind(struct pci_epf *epf)
-> >   */
-> >  static void epf_ntb_unbind(struct pci_epf *epf)
-> >  {
-> > +	struct pci_host_bridge *bridge;
-> >  	struct epf_ntb *ntb = epf_get_drvdata(epf);
-> >  
-> > +	pci_unregister_driver(&vntb_pci_driver);
-> > +
-> > +	if (ntb->vpci_bus) {
-> > +		bridge = to_pci_host_bridge(ntb->vpci_bus->bridge);
+On 9/3/26 06:34, Changhuang Liang wrote:
+> Add Granite Rapids (GNR) CPU support to the PECI cputemp driver. The GNR
+> platform does not support the core mask scan via PCI local read, so
+> handle this case explicitly by returning -EPERM and skipping the core
+> mask initialization.
 > 
-> Where was this host bridge allocated?
-
-The existing pci_scan_bus() call allocates it during bind:
-
--> epf_ntb_bind()
-  -> vpci_scan_bus()
-    -> pci_scan_bus()
-      -> pci_create_root_bus()
-        -> pci_alloc_host_bridge()
-
-Best regards,
-Koichiro
-
+> Define new cpu_info structure for GNR with minimum PECI revision 0x40 and
+> the thermal margin conversion function dts_ten_dot_six_to_millidegree().
 > 
-> > +		pci_lock_rescan_remove();
-> > +		pci_stop_root_bus(ntb->vpci_bus);
-> > +		pci_remove_root_bus(ntb->vpci_bus);
-> > +		ntb->vpci_bus = NULL;
-> > +		pci_unlock_rescan_remove();
-> > +
-> > +		pci_free_host_bridge(bridge);
-> > +	}
-> > +
-> >  	epf_ntb_epc_cleanup(ntb);
-> >  	epf_ntb_config_spad_bar_free(ntb);
-> > -
-> > -	pci_unregister_driver(&vntb_pci_driver);
-> >  }
-> >  
-> >  // EPF driver probe
-> > -- 
-> > 2.51.0
-> > 
+> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+
+The series does not suggest how it should be applied. Technically I could
+apply this and the subsequent patch. However, it depends on the use of "gnr"
+for Granite Rapids which is introduced with earlier patches of the series,
+so it will have to wait or be applied together with the rest of the patches.
+
+For my reference:
+
+Reviewed-by: Guenter Roeck <linux@roeck-us.net>
+
+Thanks,
+Guenter
+> ---
+>   drivers/hwmon/peci/cputemp.c | 20 ++++++++++++++++++++
+>   1 file changed, 20 insertions(+)
+> 
+> diff --git a/drivers/hwmon/peci/cputemp.c b/drivers/hwmon/peci/cputemp.c
+> index 457089c561b4..43e52a6db79b 100644
+> --- a/drivers/hwmon/peci/cputemp.c
+> +++ b/drivers/hwmon/peci/cputemp.c
+> @@ -339,6 +339,17 @@ static int init_core_mask(struct peci_cputemp *priv)
+>   	u32 data;
+>   	int ret;
+>   
+> +	/*
+> +	 * Some platforms (e.g. Granite Rapids) do not expose the RESOLVED_CORES
+> +	 * register over PECI - per-core temperatures are simply not available.
+> +	 */
+> +	if (!reg) {
+> +		dev_dbg(priv->dev,
+> +			"resolved cores scan is not supported on vendor-family-model 0x%x\n",
+> +			peci_dev->info.x86_vfm);
+> +		return -EOPNOTSUPP;
+> +	}
+> +
+>   	/* Get the RESOLVED_CORES register value */
+>   	switch (peci_dev->info.x86_vfm) {
+>   	case INTEL_ICELAKE_X:
+> @@ -543,6 +554,11 @@ static const struct cpu_info cpu_emr = {
+>   	.thermal_margin_to_millidegree = &dts_ten_dot_six_to_millidegree,
+>   };
+>   
+> +static const struct cpu_info cpu_gnr = {
+> +	.min_peci_revision = 0x40,
+> +	.thermal_margin_to_millidegree = &dts_ten_dot_six_to_millidegree,
+> +};
+> +
+>   static const struct auxiliary_device_id peci_cputemp_ids[] = {
+>   	{
+>   		.name = "peci_cpu.cputemp.hsx",
+> @@ -576,6 +592,10 @@ static const struct auxiliary_device_id peci_cputemp_ids[] = {
+>   		.name = "peci_cpu.cputemp.emr",
+>   		.driver_data = (kernel_ulong_t)&cpu_emr,
+>   	},
+> +	{
+> +		.name = "peci_cpu.cputemp.gnr",
+> +		.driver_data = (kernel_ulong_t)&cpu_gnr,
+> +	},
+>   	{ }
+>   };
+>   MODULE_DEVICE_TABLE(auxiliary, peci_cputemp_ids);
+
