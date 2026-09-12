@@ -1,71 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4322A2773E4;
-	Sat, 12 Sep 2026 00:36:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C132B1A268
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 00:38:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789173411; cv=none; b=ZezhdCcJeVXsjFCVkK9zJwR2l5B7STNhsmyJiftLSPPRuTjZmVt8y9DRjuBuGwgic3dqOpEHRtewtG6PeB/BnoMTckSJsk8NKqp+AwAxA+ZcqtyBr+oWN4NXqo9uexpeeB6AREJOpbt3Vs4b3YZRodoAFzOtsOGRyn0AUDkEkYw=
+	t=1789173496; cv=none; b=Xsh5RdTfv7flfqliE4cFaKjup9D4YZOD0I3iTJhKQTWWbmUvOeOO80mgf7iIhBCsMPQ9QEJAmYDGs3e35k1jJ2vGA1i9jjyTsS7/hPRhuDOkDNtyOVCDvBn4Z0ARwD6iDkAFbKfGc3aBhwdLzL0HM6N7KEK27ftnBFMCpgcJwlc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789173411; c=relaxed/simple;
-	bh=+1JliZP+aQkEHQBcYUeNWSV/MThj1jAPFrIYjz24va8=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=tkdkKVELNshWa03i02zIme6y/NMCMXsbd/e+GEn3sBY54DIj0MENl4FffdzqkMGgQTT5y0I8e8OZiWe5Qb6vkZsINCKuE1tvxaACIphlsZqUiYoI3/K3piMCoCK8lpmT/wT6LUCDk/0KPt2tZK0Ph1ZDPtopYQyyrNb52vgDqqM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CNRRNKhC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789173496; c=relaxed/simple;
+	bh=4+pvpfnm7Y+kldzOhwF17EFvoIoCbYAxiP4iinuidC0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=PAoJA06LcfvISZoy1NC0GxqLTNl+GcK1tU78h+mK89L3+QkJgRwJowiTt7duccgyMCK7SI1JdG9Jq5Lmqz7LwTY8yXf+8w9z5zfVAelUclOf/4545xpz82lJWgNUQyibPHKS/wRlvPEWUcg0a/ZwEl0+n2/nufpIToxjVMXFvio=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o6to8Gou; arc=none smtp.client-ip=209.85.216.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CNRRNKhC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90EA61F000FF;
-	Sat, 12 Sep 2026 00:36:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789173409;
-	bh=+1JliZP+aQkEHQBcYUeNWSV/MThj1jAPFrIYjz24va8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=CNRRNKhCzaB9PDy/CZ30hCnecQT5fn+E5V3gDU/IWfu5qw/n9YjsECDM83YPvaRiu
-	 jzblnpMj7JuPI3LwVA4XBCp/muC+lg9Y2jaiEiigYpQ52F3pdN3oa1T4iGU8l8Iyvu
-	 3hKfFgUKGOsv1DxN1CNgRJB/atal92uya2XDa5OBXTbaOOI8+Dm8AqKuvIqGXhQXzd
-	 8nyQIQJI00y7R8kWNzvGOsLv99CSki7JeaCMd+68hKH19+8L4XXNeZrltJ1Ly4Vqkp
-	 tcIldeaGxdisgX/jkPeLGot4qRyh6zs65KUy5g1y4E3jtpMITo6fn0bqi0R574CbKT
-	 iTxVmd2w72/pA==
-Date: Fri, 11 Sep 2026 17:36:48 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: =?UTF-8?B?QXNiasO4cm4=?= Sloth =?UTF-8?B?VMO4bm5lc2Vu?=
- <ast@fiberby.net>
-Cc: netdev@vger.kernel.org, Donald Hunter <donald.hunter@gmail.com>,
- Danielle Ratson <danieller@nvidia.com>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo Abeni
- <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- linux-kernel@vger.kernel.org, Daniel Borkmann <daniel@iogearbox.net>,
- Nikolay Aleksandrov <razor@blackwall.org>
-Subject: Re: [PATCH net-next 04/10] netlink: specs: rt-link: fix
- netkit-policy names
-Message-ID: <20260911173649.49474ab5@kernel.org>
-In-Reply-To: <20260911152629.490a47c7@kernel.org>
-References: <20260911214148.1184806-1-ast@fiberby.net>
-	<20260911214148.1184806-5-ast@fiberby.net>
-	<20260911152629.490a47c7@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o6to8Gou"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-381b831d535so2729773a91.0
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 17:38:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789173494; x=1789778294; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yZQfj7II/byHNXuSfY97UNVF+e/8Sy7W9P4BrNmI8r8=;
+        b=o6to8GouIPEYZ/SzVdzTf2kZY983seN6a2br/R+4oqWau6Q9NuIMUMydqyb/zg03r4
+         tPlGdC4fAFBPouQc1OKiEg4K9lZpawyD4WK6IUnaWouI66R+nfhUGevwBqjcVyKcPF6K
+         MUKFmoWu11u841qPW1YkFvHI13ys2fZW/ekE45Dik3h3fLmrj8jmOqs2OOPVLRjAsB1M
+         7+JMRFz6MVaSoRwzyCU3c1Kw3WVF/UPIitOk41s1RiI0EqQ1LiaLHJtCIQwxLxU0IUo9
+         OeGMUKa1SZitP4dbVDkqITkt/+ctxFq6YiQm+FmFzFv5u3sbF1Fie8deghT5BYaIAc7C
+         9fRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789173494; x=1789778294;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yZQfj7II/byHNXuSfY97UNVF+e/8Sy7W9P4BrNmI8r8=;
+        b=MKQVdKTOXtwBWevhjM2x2tEk7SOiTZkeaMyK7r33uMTm/u+Rj9CsGkQMnddNUt6Seu
+         0Ux2Nhq/Dm4bh5kes+2urNmRpEhrQJby9nbj1U3qRxXkCTXoVc3YgiIb721CD2HQ4S1o
+         nI/pmKPGjg/GQTmMI+7x7enMhoFm4gIMBFSBvTF9BCRXOxkpci3vuHdYFV0Ou9rrshR8
+         XRoHtrb3bqJUNpDPSH/4W7fyNJMmNK1jJD9+wkZbvDejZwwuBQlxwxT2b9gRMNfn0xYg
+         64+piKY1TknoZL1/7EtZ6FfbgPnS2n8etivfz566qWXh/STbMuH6tvIvwE43ChNONbBz
+         us5Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzFVh5MQUQnnSlPjIwSbCy6zSTjuRuEhtwMn7UVcSkE3Q8Lew9e2hpvR0f505u6GubGzKTwh3dp67Eg3as=@vger.kernel.org
+X-Gm-Message-State: AFuF++ktG1LP5WF1cIcjmOquWrp06hLwVSL5kNKX3utb0x1zVagBDZ8F
+	E2AW7oCPRpi1ekFFFp4XSwhFWO4+ihlKIrSlL4iO6BbXYZrjNQrMVdI=
+X-Gm-Gg: AYBFou2KmtP2cqEVG4ri81SzWOXNCU6wG1bbGM8GiJriudAfz8ar2mteOnVXEDFye/p
+	DMXza7LcY7Rkv9NpGE1rCglV9wZuy4M8/hTXfBcYWw8TaR8A3NQrvi0LA11My4NN5koL6K2mUQW
+	q0zi1RHt4gAjkZIianvweBtFFXiLcRPW9hI+xJdh0WJS01tkOCyRcUtLoCg2CvCFJNbBvVviNqp
+	MfrEVcG6UTpl8LsbLqUa94vsB3PgkpV6QryMRo5AzEBIW4qAanHXK81zCq5bzK2wZSHlfZzXQbs
+	NIwgM3OelbzYZN1IFdjDJCDcgS5buj0iD+Es/+qp7VFjVUOM/EEekD432m92DGSOCWV8TdYoeMu
+	rgbm34CQ7SJF0ubgp/m2Hp64G/AsNZbG4Sv81P4q2cWqsq+rDKTYjl7oFN4YDi12pkHns8lJyfS
+	bIfWoE1rE7UP2kTrjKMyDpqSwqzatlIaIyLL6lUTzE0uru+OoXZQRfSQ4YSonIIFxfYybSNmtCn
+	ej+IEpsR1gT2GyoiXodiNExjw==
+X-Received: by 2002:a17:90a:e7cb:b0:395:7fff:a08f with SMTP id 98e67ed59e1d1-39d9b960826mr1728046a91.0.1789173494034;
+        Fri, 11 Sep 2026 17:38:14 -0700 (PDT)
+Received: from ydg-Zenbook-14-UM3406GA ([211.230.25.193])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39db113a3d0sm2808801a91.14.2026.09.11.17.38.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 17:38:12 -0700 (PDT)
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+To: sashiko-reviews@lists.linux.dev,
+	Matthew Brost <matthew.brost@intel.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Philipp Stanner <phasta@kernel.org>
+Cc: Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+	Luben Tuikov <ltuikov89@gmail.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/sched: Free the run queues at the end of drm_sched_fini()
+Date: Sat, 12 Sep 2026 09:38:05 +0900
+Message-ID: <20260912003805.1900119-1-donggeunyoo.kernel@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260910123736.6EB8D1F000FF@smtp.kernel.org>
+References: <20260910121601.805032-1-donggeunyoo.kernel@gmail.com> <20260910123736.6EB8D1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, 11 Sep 2026 15:26:29 -0700 Jakub Kicinski wrote:
-> On Fri, 11 Sep 2026 21:41:30 +0000 Asbj=C3=B8rn Sloth T=C3=B8nnesen wrote:
-> > Correct the names of these `enum netkit_action` constants:
-> >=20
-> > - NETKIT_PASS is 0, so "pass", not "forward".
-> > - NETKIT_DROP is 2, so "drop", not "blackhole".
-> >=20
-> > Note, the other enum members are not used in netlink, and
-> > are not allowed by netkit_check_policy(). =20
->=20
-> Looks right tho may be intentional, so the other option would be to add
-> #define aliases for the spec names.
+On 9/10/26 21:37, sashiko-bot@kernel.org wrote:
+> [Critical] Potential Use-After-Free of `sched` and `sched->sched_rq` if
+> `drm_sched_fini()` is called with pending jobs and `own_submit_wq` is false.
 
-Ah, looks like some of the selftests use "forward" by name
-You'll have to fix those
---=20
-pw-bot: cr
+The chain is there in the scheduler. drm_sched_start() queues work_run_job
+unconditionally, and drm_sched_fini() destroys submit_wq only when it owns it,
+so a timeout handler restarting the scheduler during teardown could leave work
+behind that later reads sched->sched_rq[i].
+
+No in-tree driver reaches it. Of the four that pass their own submit_wq:
+
+  - panthor sets .timeout = MAX_SCHEDULE_TIMEOUT on both its schedulers, which
+    drm_sched_start_timeout() tests before anything else, so the TDR never arms;
+  - powervr refcounts the context, and pvr_queue_destroy() runs only after the
+    last reference is dropped, which in-flight jobs hold;
+  - nouveau waits on nouveau_sched_job_list_empty() before drm_sched_fini();
+  - xe never calls drm_sched_start().
+
+Both drivers named in the report are covered, for different reasons. So there
+is nothing here for this patch, which only moves the run queue frees within
+drm_sched_fini().
+
+The one thing worth recording is that the protection is per-driver rather than
+structural. A driver combining its own submit_wq, a finite timeout, and
+drm_sched_start() in timedout_job would have to drain before teardown itself.
+
+Regards,
+Donggeun
