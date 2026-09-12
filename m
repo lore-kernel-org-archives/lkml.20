@@ -1,231 +1,318 @@
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011066.outbound.protection.outlook.com [40.107.208.66])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36D7E42DA5A
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 08:48:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2559F3630A5;
+	Sat, 12 Sep 2026 08:50:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.66
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789202920; cv=pass; b=R16+yiTHrhQFRApP3LzS9HBjHrim96BjuE0ot8Nl9mkdhVHvFAJfV5TN9XBlr+Y07n/dVV+31SrpsQdi+r/U0F77DK9C7nBHaXFEdCTpmAr5+uH6FhdmtMuxXlFjYMW9kpFl7WLkDzDFOfS9l5UOgeam6heTo1BUm1+T+Cwg/gc=
+	t=1789203047; cv=fail; b=SqEIMq0wWjRQMk4H87mPcNPEf0prbswK89Wa2dTr+8N6/+C3tzjj5zwhZSZE/WK40gpoIXP71bBG+Or4hkndPhVU29MqNlQDfvdBchoI4y0NQ1YRwYg11xEH135pD9bHddID4dH6Mx/MTSWkA3s4/95saDISg+dk3XAxUEyoxFc=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789202920; c=relaxed/simple;
-	bh=PEtxQYkjYgQRxaF03D30N0xMCnigd147rHHH7QHltEQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=q8sqNBIE3xs6asudOUdDVYHOEu9Z03XkGPO1G9i4eU+iL27BmzdlpGdxhXvKcM2D6E8VKXP3aA0tIcydJkyGJnUjbHlMhowQEFPsUv71h3ljF2N8bErWCoLjrXze/FluSUgBhRrXnORPHcGBlw/3S5QsaKovncHw7LzjNFxgrcs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EhX9cfsT; arc=pass smtp.client-ip=209.85.208.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789203047; c=relaxed/simple;
+	bh=RrhN5Pgr9JBHp4EobJhwEv9BrCt1zRj4whCoND/C/OM=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=DPRyX4cZna+MH+oe+oGhve6k2bIuRR+jfIJPCncKVDSqW6kLQFWpRmdyJChSzcVz2Q+tIrxVT3wkQyM6+Ta9dEpcJRzuGKzUC1L8A88WoKTNP5Kparr3GdnI2e8tdNiWw9XEkar62/ePiuabA5FrMMB2S/WnBXeFPKcOfm92bYw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=EhfAMRNI; arc=fail smtp.client-ip=40.107.208.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EhX9cfsT"
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6a9cb66f7b4so664308a12.3
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 01:48:37 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789202916; cv=none;
-        d=google.com; s=arc-20260327;
-        b=dQZLcaxQR3UdypQoHarZytspkeaJDO/vZo8iY9viFKnnL9izpy0jCJCa9UQuVLhkNd
-         SZyraTHLVsBFYHwK2EXqnyIPEX4ubf4ey/+oF2Q9lw5kkTs8HSUx0oB3GBAAr9IoUxPk
-         xLjaTkH/+0ZGGfggbC6g2q0ovk1oNQhFpjFC9ExLzcYEEOiTaV1640zYdbINQqsMe8Ov
-         9vvJhg0Qmd4F3ntl6/MPMZuy42CpJ8zZBWiLfEg8SqdaObRFjJAQfA+T4DpxeRxYVXGU
-         q8Z0zSEIkp0xd4V4MCpLpZCiMmuJSVK+LVPsw3hs1xV1mADgmvDoDLvnfmydhiPccxQ5
-         Qr6A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=I4VBvSxEGrUfJJhcCbVvt54AZ/dw8YbEqxSSPOGIQHY=;
-        fh=5OJVRA1WLWGaIvDFffjdyPIPQ93zeH375Cy1JCmiDpA=;
-        b=OgSF5rroHNMXK4cxEQHMEi9MRWVmiUrMNNGibLGPQhM2BDVepIH+hk+lc9W1qXYxQg
-         ACFq5zTo7KyLbJ9R0cWAj6wVMdIlOu/BB+g0WS/3fQn66FIQfdKWUweS1I3thism9Opw
-         Fulj8EvjVTvz3bpb9R5Tpd7G0rbDdXd1MMmj06zj4BJVGBhIQRra7/jEGPDD/rI1e3mK
-         UATTc1XLDDyyLtodrlbfUOliSZzQTiAj7+0LQUuo59micO7ZeAMlb3/hpJ8cJMZ43cXB
-         A8NX5MbUIvrPlDUpLXS+LXPUhHY1kutz+4i9TZ5BTNAZmo82PMwDap0NHapr0VDkGdj9
-         fygg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789202916; x=1789807716; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=I4VBvSxEGrUfJJhcCbVvt54AZ/dw8YbEqxSSPOGIQHY=;
-        b=EhX9cfsTA8wuzqlx4v0gI7INYdvOI07HVCKskWVxtYxlHU3ehzVsoxO1P1oohG3jYi
-         nhYfe2s/cBhfDjlnSZV2gp56s9x3/hoj3XQ5wY2lk5ixBD8B1YDl0Q9UCRnb3Cw6VLes
-         x7lY9ZCYQ/LZ1OHTtHj0WXhsqx+ip4fZRzU68j8MwYJ/R3nxiRx94JN6H0e1HaNpaCMc
-         0cAb0UxJRiGOPdvbiUZ3iecH08hEB1wnwjZYuFn7r5uCpHfOkBa8dl/NyUpw8BvCob9+
-         GBE95j0TpbLAMoXNeeuZi8bkIL45PNSe66OlTXqDAbwvMMVYzQARcSvHuB4ARFwcVeen
-         /YgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789202916; x=1789807716;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=I4VBvSxEGrUfJJhcCbVvt54AZ/dw8YbEqxSSPOGIQHY=;
-        b=Ip643vtpokXfiBCZi56Ku77lGVlTuAGJRziMkkKeqBBE1tyNIWqhOfMZ/aatOqIrHS
-         I57MlUx/m1idT8esNWNNNsL4DvXAndkSzp8q9k/OF04m9N8EvS3pedrup+xRe4GT9YiQ
-         ppR9TW+3vr5bmuhGlmwM8e0Slrz0GJkHIaliFobp69OxyI6NFY3hEKgE3UIotOdX4W2+
-         ABAm+PgJec461WRb6OikoJHbmSBDjMTw9ofgNyvHY64My80Wpd/3z6VfUEEgJDa0VzWJ
-         FEghnbK0hx40z7E5huOcACTEgB8WanfSeFTXA7bkhBMMmI+5gfnEWmHZIhrZYxjQUP1W
-         3PDg==
-X-Forwarded-Encrypted: i=1; AKwUvBwwCNm9w9bBm6qlTCCYObtpJ6Pqhk32qN/9j4cXHhpfF9UZKZvRcyzF/8Bc1YFnDXUMKK19oZ3kzUN+Bqs=@vger.kernel.org
-X-Gm-Message-State: AFuF++mVJvkfbOCMbRRGWHrSZtPej1bjIns6SR8xfMI9sE8I91GKrzUz
-	fLSf4p7G/oiBEG4A5F4jJdHHdQ+Lsn2wvfW89zF6QGoOp/mFogb5M1HI/0xXzFHkNM0o5dzDFPk
-	3rzHenFcH7jANWp5Fpq3HCtgkb3Nq5qo=
-X-Gm-Gg: AYBFou2JHq1Cg17MupuhMEnrFhKB+9OVJPKZj3KFLTsYh5vzbkEcKVUOkcROqACoIL9
-	S5AT1uFiab4Bbx9XOeeIv7+TNHeap8rh7Gm5m8P8UT4cyRzcIRw3b/66G+a43iR3ihjcRTrqGhI
-	pfkIXJq+YAZrz/mzY9fdqpo+JTN7v37bMZLIqjN2+7KmfUzjFDZMEigNNI958m71YWicdzZQ9MQ
-	ha0UXxUHpNPmxqfPweaShjrxkEYxrxYerpuqUdrEIVd4MTyma+FJfOAuyi7PhTY6TgAZmFH4Fzt
-	Lo19mzSJyM/ZIIz1MWAEf/R3Jdor3dPtWbUNDo8FWZ3kRkh/GX1icom0/iLR0qOb6S2TxmpX7Rc
-	w/3edocjtejebJA==
-X-Received: by 2002:a05:6402:354a:b0:6a9:93c0:113e with SMTP id
- 4fb4d7f45d1cf-6a9b5603d6cmr3580548a12.9.1789202916079; Sat, 12 Sep 2026
- 01:48:36 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="EhfAMRNI"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=HM8pJP2s006WGatT5SZ9GpadKOl6EjUaUc+bGNS+tA6nrVl51EoVFY1vtlyTWcS94eBPmiKS+xfh+2wNeKUJGUGIVOm9Ezidiuw2XasY5y5tLZNV3/w0jKtgD1s+1w3r7SYPMmqP5cMQeydOa3rP+0R+nnh9ZisS8n2vZxDTc7fVv2rMudMcln16zZgsOvNa17SJO13NwWCPw3ZQ2PzKXSjgkOxJ5PJvL8x/ot6C6PioXnw1mZIy82DDPOwxi0Q2joeLND+sbWtvVhlcuYxM7tYyLIMNBR0yqB0AfpoETv4pfKVxUmVaiMjv7mx7Sto81FXozIPSgnrGSzLfwycklw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6QrEV81hEs0XdDmfsFztPPv4A+sFjqm0H86GVY2rbOE=;
+ b=WwoNwA7oa9lBveTyMv7kBtotGcoFnf1Iwp/0AQqfx/qdohaCN59S9/U90suSDY3S3cNqw/wCUJn/PdmWT+fKM/kc2MyZ5mwdKi3mN+hbZx2c/7MBngaif/Puway5Kz9Z8/oBUfqaemJ1Ja5xIsMKCD7DmMJrASX92iTyW2GB8rAmY6uS9BNmJ9aMCtEzyTT6XsMWfUuu8jYCrJS2w+BTIVbOXdXT5AytU10/5DvoI7I3s6FSLIth3rN8rwk+MYk/SC5+ShopE6Dw7agn0Z33f8w/JoATMiU1YMHd360F8mPAMcSQXWZuKQYBmkkFVQ/IbAsLsgbhxyAFY2jQ0i6ctw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6QrEV81hEs0XdDmfsFztPPv4A+sFjqm0H86GVY2rbOE=;
+ b=EhfAMRNIVNsk/yxKiPS/wvqUyV/mPCrHROt7CaS+Tp6rDvNlIJeVrxKSLEyC90QXkVEzIrAsSSdBHil+pKuSgVAW8wUjUj3hHMBrZo6iCdYQn9uqFygfyAywL1R3o+sHy7jzXTQqu+cofB3bsRPHqeAdhKElUfYAUhH1y8QCQ44=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DS2PR12MB9567.namprd12.prod.outlook.com (2603:10b6:8:27c::8) by
+ CH3PR12MB7713.namprd12.prod.outlook.com (2603:10b6:610:14d::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.11; Sat, 12 Sep
+ 2026 08:50:38 +0000
+Received: from DS2PR12MB9567.namprd12.prod.outlook.com
+ ([fe80::636:1b52:24ca:d7e5]) by DS2PR12MB9567.namprd12.prod.outlook.com
+ ([fe80::636:1b52:24ca:d7e5%4]) with mapi id 15.21.0406.007; Sat, 12 Sep 2026
+ 08:50:38 +0000
+Message-ID: <1d88a835-5417-4314-b166-47e1ad09bead@amd.com>
+Date: Sat, 12 Sep 2026 14:19:34 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/8] soundwire: amd: fix SDW command timeout return value
+ handling
+To: Mario Limonciello <mario.limonciello@amd.com>, vkoul@kernel.org
+Cc: yung-chuan.liao@linux.intel.com, pierre-louis.bossart@linux.dev,
+ Basavaraj.Hiregoudar@amd.com, Sunil-kumar.Dommati@amd.com,
+ venkataprasad.potturu@amd.com, Syed.SabaKareem@amd.com,
+ Richard.Gong@amd.com, linux-sound@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260910190240.1604447-1-Vijendar.Mukunda@amd.com>
+ <20260910190240.1604447-2-Vijendar.Mukunda@amd.com>
+ <813fafd9-64fd-4f0c-9aa6-37fba57a1f4a@amd.com>
+Content-Language: en-US
+From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
+In-Reply-To: <813fafd9-64fd-4f0c-9aa6-37fba57a1f4a@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PN2PR01CA0026.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:25::31) To DS2PR12MB9567.namprd12.prod.outlook.com
+ (2603:10b6:8:27c::8)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
- <CAMgjq7AHRzBsbmGOx0s=TQFBwcn=DEU1naR443sO6x+pJd6hAg@mail.gmail.com>
- <CAKEwX=O8i+OsP6BJXNZNk07hveN9HDT+PoyMTAU6gOc-xp0Ppg@mail.gmail.com>
- <CAMgjq7BQeQQOZMDPFJ+8LS2N4t3x53r6Nm+9o0_pi92oVUgjgQ@mail.gmail.com>
- <CAKEwX=MS-7C96i4tzBijHN=-xuZgny_wQEa_0YjfHzhoNysdYQ@mail.gmail.com>
- <CAMgjq7B7Mc7vpQN0gBknsSrfZWXdif5L7nU29YskG9mzS-_jsA@mail.gmail.com> <CAKEwX=PxZ68_4240DC8HjcqPRE0bQWGmouoqapqqTQ2b0xqpvg@mail.gmail.com>
-In-Reply-To: <CAKEwX=PxZ68_4240DC8HjcqPRE0bQWGmouoqapqqTQ2b0xqpvg@mail.gmail.com>
-From: Kairui Song <ryncsn@gmail.com>
-Date: Sat, 12 Sep 2026 16:47:59 +0800
-X-Gm-Features: AcwNN1Vvr5dRguutvcgehjz-XZkuALg4SjwQULHioJZ7yEPwdeM7nc8UPMPMn9E
-Message-ID: <CAMgjq7D40KGRjwpFMH4x4fhJ18OQyZwPtovhc8Hm3Y7+__d4Lw@mail.gmail.com>
-Subject: Re: Path forward for Virtualized Swap?
-To: Nhat Pham <nphamcs@gmail.com>
-Cc: YoungJun Park <youngjun.park@lge.com>, Chris Li <chrisl@kernel.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Yosry Ahmed <yosry@kernel.org>, David Hildenbrand <david@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Barry Song <baohua@kernel.org>, Chengming Zhou <chengming.zhou@linux.dev>, 
-	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	=?UTF-8?Q?Suren_Baghdasaryan=EF=BF=BC?= <surenb@google.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Rik van Riel <riel@surriel.com>, 
-	Gregory Price <gourry@gourry.net>, Wenchao Hao <haowenchao22@gmail.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
-	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
-	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS2PR12MB9567:EE_|CH3PR12MB7713:EE_
+X-MS-Office365-Filtering-Correlation-Id: 709bfecc-d515-4d63-f35b-08df10aaeaba
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|11063799006|56012099006|4143699003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	WA8FjBSjd4JxXD/ZHCP2yTJRpoX9fDUYUNZ6exG9kQFOImeFybtX3YhXSAimq7rEnz/SJxpGCw1/w/DLmovPjhZDUFysQHyNxhBJNOfRQ/8cUK1DfKwf0BbqS1/YqznTpj/n7F6pyG0FTMUX0PzyX4uUAZKlmUIERBS9Z+Smpzr269ODu+YqpXXB0aAjMt/d1Y9Qrc8CAMBwzJptb8Y60v54mQpHXIc8tJNp9FrV5EI5gBfPDuYZP8RVw/h7v6GxtesbhxXZntl1gMQZoTNs72CuXfMaAucUBybKBXBfy9R/b7XqVwiiymje4g+3qrW6vXD4F2K5tt8N7haeAOxRTg8jOTH4nAzIJDAR+rBHeWLEyPo0tjz7RMAEgtFr7tqHLLKIpwXASyhnSF99A9N6kjk5tzZ3JeKQjWnZ+CuScKOfNP0ya9c3tuUgyH4IkVCZV6DyqpgxCwvbjeUKv8eWjuxd8pXCg2VyXGcB7+TwRjnMOgzb40eFaYbRicy6tgpPA1OtQlKop8aJ/j3AzyfE4XxEruCRe0vjW8H9yZcaLdoXSnO2EHDu6++kAaQEqmf1MLS3A8++ZhZq+MwnkRGbmo6hCAvAb409TKm7/98BAJdRAaTo2by2/BrXkXM2C7qb0V9DJl7bh+8YAkkyiwdgqQTdBDwTRNGIAQvcUAh4oTE=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS2PR12MB9567.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(11063799006)(56012099006)(4143699003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?RGlrV3FtWll0Vk9TdThWRXhlMGZNdnRsVTNYaHdxVjBud0M5ZFBXZytoM25Y?=
+ =?utf-8?B?WFdFSmlaL1Z4a0paRytXU01UZnVCLzhlLzlnYldBK3F6eEFjN0U1S3pOY25E?=
+ =?utf-8?B?UEQ0N3BZODNnVTRFeFJ5ZTFkMWVrRzBuS3ZUam8xVU4wZm9TcWV0Nk5SaHF4?=
+ =?utf-8?B?MkJlSXN0Rkh6eGhOcWVOVXc5dDlWNHB0WjZhRC9BQWFCeVNWQU0zbzlUZ0Fi?=
+ =?utf-8?B?V2ZWVnR3N1dRWmtJT2xJN3hYZUVJQWdKV2hXVi9MNmNHM1dGaTZBZWxXaytV?=
+ =?utf-8?B?Tm15OFJ2TEtJZG1IaDVTWlMxWXhmNUdBekdhaTQrWnBUSHdsa1ZqL3c1OC9p?=
+ =?utf-8?B?RVczZFpJSGhCaHdDZm1iWTk4STFhK1U2UWtNajVPWVpRK2lLQnVkQS9taExz?=
+ =?utf-8?B?RTIxRUtHZlJrVzdnNFc3UUM5WjYwTnJONHJra3hIbVc3U1hnbFVtVS9UM3RY?=
+ =?utf-8?B?RFAxVklGNkNaRW5ScXU1V0VwK1JsSzFlYTJ0ckhINnNxRTE1WjJiL2VPU1Bm?=
+ =?utf-8?B?R0pOMnhpSUU2MzVnRjU5bTNVT00wRHYwTndGelVZZnhkazZIUllWWGNFdDdw?=
+ =?utf-8?B?VkVDQkU5bytybWk1bEpWSjZsUWNVdmxlQUZmcksxR2t2Um44ZHgvMmZHdk42?=
+ =?utf-8?B?OVFVSFd4WkRaOENrQTZKNmptc08vVURudncwdUY1czlHNmszZ1c3TUxOT2NO?=
+ =?utf-8?B?M3hpTExPZXplTGdCUjZ6SUpQd2U0UUFqWXZJVUNXMTVKR3BINmFiYVVmY3RM?=
+ =?utf-8?B?T3VVRmlXMlhtdXR5ZGEwWTFyK0EyK094a0p0N2VBOEc1NlVxeGtoWkFZMmhs?=
+ =?utf-8?B?WXZ0ZjFrc3BuQ0pOczdQRWZOc1VxRndhelMvMEZNYktwVmdPUWFwU2FBUkdU?=
+ =?utf-8?B?Q3NLNjdvUmxpYWZob3MyVHJ4VU9sSlM4Yi9UK3Q1c3gzUzUwYUtTbkIwK2Fr?=
+ =?utf-8?B?SlpTeCtwOTJnV28wcmRyTEZaUHRXaFAyOGVoQXJ6NS9sWmJTRmgycXB5MjNO?=
+ =?utf-8?B?a2RONGhqLzZoK1ZKSG5kSnh4TC8vWmtFSUp4aDhsam10bWJQNGdFOTU0SUFB?=
+ =?utf-8?B?L3g2aHY1K2ZCTDB6VGQ1Nk1jbTZCQ2xDMkJLckRhMVE4aG9UU1d6MlMrMzlL?=
+ =?utf-8?B?SnVHOWloUnFzUHRTaW1EQVFzdTRxQXNsZG9mZnJIYkpSWTViTU1nNThTaU5M?=
+ =?utf-8?B?NmdxL2hxNDdwYUU2UGQxUDVwWUVwUXlXNk1xKzUzMFJJWUFSUENSSWl1MktZ?=
+ =?utf-8?B?UUVuRllZL3R5RmFjSnNPUlQ4TWZIcEsySTVaeE9sTFVkVWpmNC9DMU5HeGl6?=
+ =?utf-8?B?Vy9BSjZnQ0F4YjljdTNqQmx0NVhMSzhmY1hGenFabEVPZ0o5bFdoSEpoZk5E?=
+ =?utf-8?B?V0libVM1bFVmeW9BYTJnZXFrclU2YWhNNUZrQjJZZ3BINGQwcXZpZlBqRVNO?=
+ =?utf-8?B?NkV5NVJtellvSE53aFhhTUNUalhpQzl5STFxYnFOSU03aFpuOGxpRnpMTlkw?=
+ =?utf-8?B?Zjd0UlJnQjJOOTJraUV6VXRsYm1lNU5JRUFiWlN3NTBZRE02b3B2eFlrUVFR?=
+ =?utf-8?B?d2RIM2JTYmpvdVlBOTdDNjM5VGIrUitpMlhEb0FBZkowbXZsaWF1dks1aHpN?=
+ =?utf-8?B?TERIUnQ0aTM2REQxRnBYVWRPa05aWExEZ2RqbFNXN3dIa29ZWHhtcHpqRE1m?=
+ =?utf-8?B?V3NZSFEvUmM5elNJT1FDNzlyT0w3eHZYWS8rOUNzS0xyMjR4b3dnMVBUYjBS?=
+ =?utf-8?B?VDdwNnFZK3JvckZPNGJCYUVPRVhzYVc4cm9TZUpabHBLYkdmZTBXWUJjWnYw?=
+ =?utf-8?B?cWlQWU9SY3N0UllhT0xPcWE1SGJGYlQ2bWRsRHZFWm1FT0FUSGlsK29JK2lt?=
+ =?utf-8?B?R0R2WFpUTFhMS3hpZXhGSHhtZ1ZsNEJZdnkxTjg4dW5hNXIvdXRmRDVNQ2Y2?=
+ =?utf-8?B?U1Q2WENqU0x5RjYwVDA3MU04Rll0dXlhSGVMY2E3Ni9sQ3dCMWNnZkQ4Vlgz?=
+ =?utf-8?B?ZElEKys4SWRPLzNVbDcxandUWWJ5c0t1WGxaN0RoMGlHRmhCcmN3SjhjaGRq?=
+ =?utf-8?B?UWpuRWlMMDNWQXByeUZydVVMVGkreEt3MFVCaThUUTlSUzRGbjJQRHdBL051?=
+ =?utf-8?B?ck02Tkk1ZEtsVnhTVFVNZnUwOWNFVkdiSnhpZFZIYmtmUDM5bDliQkYyejcx?=
+ =?utf-8?B?UWNaaWw5YUNTN3Zub0NacG11T201YlNRWmY3Nmd2Ym5SZk9MS0NGZEVmNVdI?=
+ =?utf-8?B?N0hnRjZ0cG12MGxpZTB0Z1hYZnBZKzlSUzBYWFhYR2xVbWhkY3NhYVhJeWow?=
+ =?utf-8?B?YlpoQlovODhoeTY2MHdKZ1N2eSt2azlENW5GeG96WUsyT3dpYXpOdz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 709bfecc-d515-4d63-f35b-08df10aaeaba
+X-MS-Exchange-CrossTenant-AuthSource: DS2PR12MB9567.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Sep 2026 08:50:37.9810
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: LYt/sPjjtmmzPMEJrgfeIe9RUHUam4z4dM9E4HEUUWB9aj3lzGyB530bl2KDT1B1/cGbZaVNFpHyqpGXf9Vk8w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7713
 
-On Sat, Sep 12, 2026 at 3:04=E2=80=AFAM Nhat Pham <nphamcs@gmail.com> wrote=
-:
+
+
+On 9/11/26 23:18, Mario Limonciello wrote:
 >
-> On Fri, Sep 11, 2026 at 11:14=E2=80=AFAM Kairui Song <ryncsn@gmail.com> w=
-rote:
-> >
-> > > Would something like this fix it for you? ZRAM users will not get
-> > > vswap indirection overhead at all, because it would bypass vswap :)
-> > > Down the line we can revisit this decision - for e.g, if there is a
-> > > use case for vswap-on-top-of-swapfile. There might be other interface
-> > > that makes more sense.
-> >
-> > Hmm, this interface looks confusing though. you mean tangles vswap
-> > with zswap through the cgroup's zswap limit? I originally expected
-> > this to be a problem solved by tiering, skipping certain tiers seems
-> > much more intuitive. Maybe Youngjun have some idea here?
 >
-> It wouldn't be confusing if this is something users don't have to
-> think about at all :) My point is that we don't have a use case where
-> we need userspace input on vswap-enablement on a per-cgroup basis yet,
-
-Ha, you really can't assume that for everyone :), we even have
-workloads working at different compression levels, and the tiering
-series shows different cgroups working on different devices, there has
-been pathes enabling per-cgroup swap device a decade ago.
-
-> > > Potentially, but we have many users at Meta. There's a huge diversity
-> > > of machine types, workingset size, access patterns (both frequency an=
-d
-> > > file:anon split), compressibility, etc.
-> >
-> > You can just set the number as 8PB? :)
+> On 9/10/26 14:00, Vijendar Mukunda wrote:
+>> amd_sdw_send_cmd_get_resp() returned u64 but was returning -ETIMEDOUT
+>> (a negative int) on readl_poll_timeout() failures, which silently
+>> widens to a large u64 value.
+>>
+>> Change the return type to int and pass the raw u64 response through an
+>> out-parameter. Timeout is detected directly from readl_poll_timeout()
+>> return value.
+>>
+>> Update all callers: amd_program_scp_addr(), _amd_sdw_xfer_msg(),
+>> amd_sdw_read_and_process_ping_status(), and amd_sdw_read_ping_status()
+>> to check the return value and handle timeout explicitly. In
+>> amd_sdw_read_and_process_ping_status(), the mutex unlock is also moved
+>> to after amd_sdw_process_ping_status() so the lock is held across the
+>> full status processing step.
+>>
+>> Fixes: d8f48fbdfd9a ("soundwire: amd: Add support for AMD Manager 
+>> driver")
+>> Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+>> ---
+>>   drivers/soundwire/amd_manager.c | 56 +++++++++++++++++++--------------
+>>   1 file changed, 33 insertions(+), 23 deletions(-)
+>>
+>> diff --git a/drivers/soundwire/amd_manager.c 
+>> b/drivers/soundwire/amd_manager.c
+>> index a3316efdf8ac..fa3f4e797edd 100644
+>> --- a/drivers/soundwire/amd_manager.c
+>> +++ b/drivers/soundwire/amd_manager.c
+>> @@ -250,10 +250,9 @@ static void amd_sdw_ctl_word_prep(u32 
+>> *lower_word, u32 *upper_word, struct sdw_m
+>>       *lower_word = lower_data;
+>>   }
+>>   -static u64 amd_sdw_send_cmd_get_resp(struct amd_sdw_manager 
+>> *amd_manager, u32 lower_data,
+>> -                     u32 upper_data)
+>> +static int amd_sdw_send_cmd_get_resp(struct amd_sdw_manager 
+>> *amd_manager, u32 lower_data,
+>> +                     u32 upper_data, u64 *response)
+>>   {
+>> -    u64 resp;
+>>       u32 lower_resp, upper_resp;
+>>       u32 sts;
+>>       int ret;
+>> @@ -291,9 +290,8 @@ static u64 amd_sdw_send_cmd_get_resp(struct 
+>> amd_sdw_manager *amd_manager, u32 lo
+>>               amd_manager->instance);
+>>           return ret;
+>>       }
+>> -    resp = upper_resp;
+>> -    resp = (resp << 32) | lower_resp;
+>> -    return resp;
+>> +    *response = ((u64)upper_resp << 32) | lower_resp;
+>> +    return 0;
+>>   }
+>>     static enum sdw_command_response
+>> @@ -309,19 +307,22 @@ amd_program_scp_addr(struct amd_sdw_manager 
+>> *amd_manager, struct sdw_msg *msg)
+>>       scp_msg.buf = &msg->addr_page1;
+>>       scp_msg.flags = SDW_MSG_FLAG_WRITE;
+>>       amd_sdw_ctl_word_prep(&lower_data, &upper_data, &scp_msg, 0);
+>> -    response_buf[0] = amd_sdw_send_cmd_get_resp(amd_manager, 
+>> lower_data, upper_data);
+>> +    if (amd_sdw_send_cmd_get_resp(amd_manager, lower_data, 
+>> upper_data, &response_buf[0])) {
+>> +        dev_err_ratelimited(amd_manager->dev,
+>> +                    "SCP_addrpage command timeout for Slave %d\n", 
+>> msg->dev_num);
+>> +        return SDW_CMD_TIMEOUT;
+>> +    }
+>>       scp_msg.addr = SDW_SCP_ADDRPAGE2;
+>>       scp_msg.buf = &msg->addr_page2;
+>>       amd_sdw_ctl_word_prep(&lower_data, &upper_data, &scp_msg, 0);
+>> -    response_buf[1] = amd_sdw_send_cmd_get_resp(amd_manager, 
+>> lower_data, upper_data);
+>> +    if (amd_sdw_send_cmd_get_resp(amd_manager, lower_data, 
+>> upper_data, &response_buf[1])) {
+>> +        dev_err_ratelimited(amd_manager->dev,
+>> +                    "SCP_addrpage command timeout for Slave %d\n", 
+>> msg->dev_num);
+>> +        return SDW_CMD_TIMEOUT;
+>> +    }
+>>         for (index = 0; index < 2; index++) {
+>> -        if (response_buf[index] == -ETIMEDOUT) {
+>> -            dev_err_ratelimited(amd_manager->dev,
+>> -                        "SCP_addrpage command timeout for Slave %d\n",
+>> -                        msg->dev_num);
+>> -            return SDW_CMD_TIMEOUT;
+>> -        } else if (!(response_buf[index] & AMD_SDW_MCP_RESP_ACK)) {
+>> +        if (!(response_buf[index] & AMD_SDW_MCP_RESP_ACK)) {
+>>               if (response_buf[index] & AMD_SDW_MCP_RESP_NACK) {
+>>                   dev_err_ratelimited(amd_manager->dev,
+>>                               "SCP_addrpage NACKed for Slave %d\n",
+>> @@ -366,11 +367,7 @@ static enum sdw_command_response 
+>> amd_sdw_fill_msg_resp(struct amd_sdw_manager *a
+>>           if (msg->flags == SDW_MSG_FLAG_READ)
+>>               msg->buf[offset] = FIELD_GET(AMD_SDW_MCP_RESP_RDATA, 
+>> response);
+>>       } else {
+>> -        if (response == -ETIMEDOUT) {
+>> -            dev_err_ratelimited(amd_manager->dev, "command timeout 
+>> for Slave %d\n",
+>> -                        msg->dev_num);
+>> -            return SDW_CMD_TIMEOUT;
+>> -        } else if (response & AMD_SDW_MCP_RESP_NACK) {
+>> +        if (response & AMD_SDW_MCP_RESP_NACK) {
+>>               dev_err_ratelimited(amd_manager->dev,
+>>                           "command response NACK received for Slave 
+>> %d\n",
+>>                           msg->dev_num);
+>> @@ -390,7 +387,11 @@ static unsigned int _amd_sdw_xfer_msg(struct 
+>> amd_sdw_manager *amd_manager, struc
+>>       u32 upper_data = 0, lower_data = 0;
+>>         amd_sdw_ctl_word_prep(&lower_data, &upper_data, msg, 
+>> cmd_offset);
+>> -    response = amd_sdw_send_cmd_get_resp(amd_manager, lower_data, 
+>> upper_data);
+>> +    if (amd_sdw_send_cmd_get_resp(amd_manager, lower_data, 
+>> upper_data, &response)) {
+>> +        dev_err_ratelimited(amd_manager->dev, "command timeout for 
+>> Slave %d\n",
+>> +                    msg->dev_num);
+>> +        return SDW_CMD_TIMEOUT;
+>> +    }
+>>       return amd_sdw_fill_msg_resp(amd_manager, msg, response, 
+>> cmd_offset);
+>>   }
+>>   @@ -446,9 +447,14 @@ static void 
+>> amd_sdw_read_and_process_ping_status(struct amd_sdw_manager *amd_man
+>>       u64 response;
+>>         mutex_lock(&amd_manager->bus.msg_lock);
 >
-> Sure, but with the vmalloc-array approach, there is more metadata
-> overhead even if we have not allocated the backing page of the
-> clusters yet. This will be annoying on the smaller size machines
-> (O(dozen of GB)) to also pay the overhead of 8PB-swap space metadata
-> reservation.
+> guard(mutex) might work better here so you don't need to cover every 
+> exit path with a mutex_unlock() manually.
 
-Not al all? With VM_SPARSE, you literally have zero overhead, unless
-you really use these slots.
+Thanks for the suggestion. I agree that guard(mutex) would simplify
+the locking and make the error paths cleaner.
 
-And even if you really use these slots, the overhead in both CPU and
-memory is lower than Xarray, if I did the math right. I just ran a
-quick test with Baoquan's Xswap, forcing it to start with 8PB on boot;
-it was smooth as batter on a 1GB box and still worked fine after heavy
-anon memory pressure.
+For this patch, I wanted to keep the change focused on fixing the
+-ETIMEDOUT handling issue and avoid mixing it with unrelated cleanup.
+The driver currently uses explicit mutex_lock() / mutex_unlock() pairs
+throughout amd_manager.c, so introducing guard(mutex) in a single
+function would make the locking style inconsistent.
 
-See below (8PB xswap device with almost no metadata overhead, the only
-overhead comes from zswap so I reduced the tree number but that can be
-easily merged into clusters as we discussed before):
+I'll plan to follow up with a separate cleanup patch that converts the
+eligible mutex-protected paths to guard(mutex) consistently across the
+driver. Keeping that work separate should make both the bug fix and the
+cleanup easier to review and bisect.
+>
+>> -    response = amd_sdw_send_cmd_get_resp(amd_manager, 0, 0);
+>> -    mutex_unlock(&amd_manager->bus.msg_lock);
+>> +    if (amd_sdw_send_cmd_get_resp(amd_manager, 0, 0, &response)) {
+>> +        mutex_unlock(&amd_manager->bus.msg_lock);
+>> +        dev_err_ratelimited(amd_manager->dev, "SDW%x ping status 
+>> timeout\n",
+>> +                    amd_manager->instance);
+>> +        return;
+>> +    }
+>>       amd_sdw_process_ping_status(response, amd_manager);
+>> +    mutex_unlock(&amd_manager->bus.msg_lock);
+>>   }
+>>     static u32 amd_sdw_read_ping_status(struct sdw_bus *bus)
+>> @@ -457,7 +463,11 @@ static u32 amd_sdw_read_ping_status(struct 
+>> sdw_bus *bus)
+>>       u64 response;
+>>       u32 slave_stat;
+>>   -    response = amd_sdw_send_cmd_get_resp(amd_manager, 0, 0);
+>> +    if (amd_sdw_send_cmd_get_resp(amd_manager, 0, 0, &response)) {
+>> +        dev_err_ratelimited(amd_manager->dev, "SDW%x ping status 
+>> timeout\n",
+>> +                    amd_manager->instance);
+>> +        return 0;
+>> +    }
+>>       /* slave status from ping response */
+>>       slave_stat = FIELD_GET(AMD_SDW_MCP_SLAVE_STAT_0_3, response);
+>>       slave_stat |= FIELD_GET(AMD_SDW_MCP_SLAVE_STAT_4_11, response) 
+>> << 8;
+>
 
-### Before XSWAP
-# free -m
-               total        used        free      shared  buff/cache   avai=
-lable
-Mem:            1464         405         756           1         544       =
- 1058
-Swap:              0           0           0
-
-### Create a XSWAP device, I hardcoded the max size in code to 8PB,
-### and use fewer ZSWAP trees:
-# echo 0 > /sys/kernel/mm/xswap/create
-[  140.289280] xswap: adding extendable swap type 0 (prio -1, init 733
-clusters =3D 375295 pages, max 2199023255552 pages)
-# free -m
-               total        used        free      shared  buff/cache   avai=
-lable
-Mem:            1464         407         755           1         545       =
- 1057
-Swap:           1465           0        1465
-
-### Lift the ceiling to 8PB:
-# echo 4294967296 > /sys/kernel/debug/xswap/type0_cluster_limit
-# free -m
-               total        used        free      shared  buff/cache   avai=
-lable
-Mem:            1464         403         756           1         547       =
- 1060
-Swap:     8589934591           0  8589934591
-
-### Run memhog:
-# time memhog 12G
-...
-________________________________________________________
-Executed in    4.36 secs    fish           external
-   usr time    0.46 secs    0.00 millis    0.46 secs
-   sys time    3.77 secs    3.80 millis    3.76 secs
-
-### After memhog:
-# free -m
-               total        used        free      shared  buff/cache   avai=
-lable
-Mem:            1464         336        1136           0         222       =
- 1127
-Swap:     8589934591          31  8589934560
-
-The only different from vswap now is that you just hides everything :)
-(writeback is not hard to add)
-
-> https://lore.kernel.org/all/CAKEwX=3DNYoMH8pTKeCvA=3DXHFmmNVMeDz3mxbhp5q6=
--PxSTJ5wOg@mail.gmail.com/
-
-Right I saw that, but 64 bit of private id will make shadows really
-awkward, not for SWAP but for file folios and file mappings, swap
-table is actully fine since memcg_table is standaone, and we can
-workaround the hieratical refault distance issue in other ways (e.g.
-record the reclaim level instead of memcgid direct). I think 24 bit is
-good for now? As I've never see anyone ran into issues
-with even 16 bits in production.
