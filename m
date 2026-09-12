@@ -1,105 +1,146 @@
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94CB433BBBD
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 01:48:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68C9F23A562
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 01:48:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789177700; cv=none; b=fUY0EfJmJPku1Sy3dcz9NP3lHpOZrXxqKf+MJyiqswbL37lgDb+vPCdNv8PCr6IMBXiORjyYlhfoVwbA5R6czjusaYCG2zzEmZ5emIkK9uCotWkbVc1cqx5qR1GCHQt8pR1eFgcKxjdUG9ZleU2Dov52pNBLZ6f92vWmO0M1uC4=
+	t=1789177703; cv=none; b=Qlq7tu1HqbiRwSvDA10R09pd271XxPr1VL5eTg27lUynWpU3DaPKQtl1S6cj/miwQoITYzK5UPpg4gsCh+6tcO7f3AcePSPL0juqQzlamNd8un1i9whC+DrGTAEYLKxMx1DPNSHmdE+TOUsKcVFLBfnCeOJfzRh4lfEDFaPd4n0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789177700; c=relaxed/simple;
-	bh=u06mvMx/nyGRx2ZwItUdVoG3cF9jttBAKDzjNvDn2Qc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=LK7y8hQQZeP5IMDoIcV3PC85OfH/UBnHorSY6f7684dPh3WmrCNL12MDqnBTbRnqf5zxCSxbdtdk8JP1Zu9VFVtRP+2E/lkPupBVwLq7QMyq15scbf3eE8iFbOOVI+LNH9WaLuKIdt0ba5zzltmzseHNQwgyynDDUX0hqaWjWIo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Yh7OL5Z+; arc=none smtp.client-ip=209.85.216.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789177703; c=relaxed/simple;
+	bh=p+l+kLLWJcH/DP8ZQRnxbwPr8gKh8TQLSkXD+Arj+Wk=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=mVMIp7RTjFsH7RKLj3+QO/crNbHBbd6tlMSC3nefkRgmQ4lbXMNmPXSqIsfndiFhxAaLYIQXaqj91oPpzJb0qtgdPvofK8SrQPgeUIf1nHAC7zb7tbFIOTwQoOTAlSTSq6hH/kZMLojae3XSyplOUv2/qEOveGdwcViEXmnlgtc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=H75HCbVx; arc=none smtp.client-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Yh7OL5Z+"
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-38e42560ebcso1627388a91.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 18:48:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789177699; x=1789782499; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=AJTaf2bDSpdzSk6z7WG/DeZkUq5zAHBzTOO9sxhYvuY=;
-        b=Yh7OL5Z+KuE1GvJGtKX/pcGMbtvZsVB53/Oh1SId+ya0PYtrB4/qWLcqP1fSBy40sx
-         YfhgS6Z0nvYOKkDMhLf3ub7+3iQT7kID7XLU4JJ+XRhRzvN+RBMqVY5QBFfrv4O9pYx9
-         nG/ht+OZvtjugWkX35Ly8n/u3jVe3j6Nq9lmD3VzL3q8Wx9RG0kjsR3HZNRnEXDpAZTf
-         whtNJTNLx0bT0uA+4vI/RjRLRTf5etMaaxdC/WUojcL3Kh3mcFV0xaqjO2zlsVVKaV0n
-         u2c20gRbs2C/HALpLxirbOqIbdc5veIvVwWBr0NTfi+nW50kbHj3AQDY1G/C5xIRu2Mk
-         vBQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789177699; x=1789782499;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AJTaf2bDSpdzSk6z7WG/DeZkUq5zAHBzTOO9sxhYvuY=;
-        b=HONdzqOHk26ejgMLOLwhCcAvKKzhXzDmnnsmRWEljeGBUumToduVhbBXWLpq+vGHis
-         EkZympD8WzIcingjWN6hr0p7+0DNW60Q93WrIrPbXpMidHE4OkyLWQtlkXkc8WxuxISM
-         btrXzNFBBT1kjshbKWC1sa35UrA/yOZH1xrNVUkVXXtv74fargVtDQb54s5xZ0zaHP1B
-         ed1k+N+M5bBE3nU/fKuoY7fdHANfSi/4so7sQOZayyl7v3h28ZnfY1TapdEa5JrchtUA
-         0Z7q3uaGqOiZz1aAgl1dVLIXYyZpKP9kn8HbjA7puhSyBYf+vjVWfwQdxi938/xxgouQ
-         rfNA==
-X-Forwarded-Encrypted: i=1; AKwUvBxgQH84SBuc+3oiW7/N4BmIXcwHUAWSF9124l/kGWDK5kL2erO8qrT18fXLFnuFayiV+fCseDUq6n+PH8U=@vger.kernel.org
-X-Gm-Message-State: AFuF++l7BPcUJpBQGW5BHf9ydUHedoCmkVZPk6PwdMIQR6jkuGWsDs6O
-	gb/IEbW9jwEsJp2F6GZVaIu5+58PRFo53gBvopXJHRez2YcDWfINTtk=
-X-Gm-Gg: AYBFou32xjpGDZ0yvBF4OOb83sMTiPKQ7iq9TXV+YdoF1FsGWkuffd7ew8EvxrHeh14
-	w3NVRnJf3HyK5qXKFpO7MYW46wCBxdRNUImPwsV5iyx4m6pDpIKbVOYW9oKxv5daUcjfGyHE3BJ
-	Hl3+6NvdK5JsK8UoJZhhjtdM0050vJG4bHciUhKxY03qNOfcJWGhv5J8Ob1QtesjzlL9i7m7VF7
-	5hMuXs8ijAEjZjxN2i/Pu5vAavHS78SiVjuQ2ok0WnlHq73wZ+aBfdoX7W+2HmYXrwas/pqc8lz
-	qz4Y2jBMJonvS3XYycZAR/OGtMsTJW/+Za7p+Xq9jXHIWWSUxblN7cPV5uhFyk3cBL8guFRkBDC
-	Yq2ybtM8IQLAgMwpNCOT++Pce3cwT1wE3yaCDhTXMMbXrixdklYnscEVd7QQJzflJOL/+PMGspS
-	YkPTHhmzfE/Pc2knROQcqwHnLCG+y/devv9VCD76MwDNzWjLqM8od4hyPt6gVtxqYrJNwOvtLYC
-	ueC7pVrc4XckO/OS2OrwMWxKg==
-X-Received: by 2002:a17:90b:2689:b0:398:9bd1:3211 with SMTP id 98e67ed59e1d1-39d9c21eb06mr10847998a91.18.1789177698853;
-        Fri, 11 Sep 2026 18:48:18 -0700 (PDT)
-Received: from ydg-Zenbook-14-UM3406GA ([211.230.25.193])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d94bafb3bsm7912064a91.1.2026.09.11.18.48.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 18:48:18 -0700 (PDT)
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	phasta@kernel.org
-Cc: Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
-	Philipp Stanner <phasta@mailbox.org>,
-	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
-	Luben Tuikov <ltuikov89@gmail.com>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: drm/sched: run queues freed before the TDR that drm_sched_fini() waits for
-Date: Sat, 12 Sep 2026 10:48:12 +0900
-Message-ID: <20260912014812.2115452-1-donggeunyoo.kernel@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <363aa83e-7c72-4592-a8ca-46f0ab56e4c5@amd.com>
-References: <20260910054605.634135-1-donggeunyoo.kernel@gmail.com> <6f52dcbb040b8ba796b56311e9a77465d111c868.camel@mailbox.org> <df7b0d1e-5a74-445b-90fe-fae30cee4cb3@amd.com> <20260910084408.703333-1-donggeunyoo.kernel@gmail.com> <363aa83e-7c72-4592-a8ca-46f0ab56e4c5@amd.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="H75HCbVx"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=F+
+	6IKphNoF3+njGfhfpNDm9tmz//3UOaAtPgmuqX5qQ=; b=H75HCbVxWm8em6G/SZ
+	TAxsQQYjSD8YLfGBBPs5AHgfaLYHZEgWevaJRwjp0qroOLeEDLP74gKwLehJxtJ/
+	8CU7L+pg0foDSm+4zsPh3xmdf6M4elnS2pteRavZ9JxNm6YV5C9fG3t9X7FEELIo
+	bmxBwm3EqbfNTrPRC3QvhdETU=
+Received: from zhaoxin-MS-7E12.. (unknown [])
+	by gzsmtp1 (Coremail) with SMTP id PCgvCgCnDy0Or6RqrTUYOw--.61943S2;
+	Sat, 12 Sep 2026 09:46:55 +0800 (CST)
+From: Xin Zhao <jackzxcui1989@163.com>
+To: kprateek.nayak@amd.com
+Cc: bsegall@google.com,
+	dietmar.eggemann@arm.com,
+	jackzxcui1989@163.com,
+	juri.lelli@redhat.com,
+	linux-kernel@vger.kernel.org,
+	mgorman@suse.de,
+	mingo@redhat.com,
+	peterz@infradead.org,
+	rostedt@goodmis.org,
+	vincent.guittot@linaro.org,
+	vschneid@redhat.com
+Subject: Re: [RFC PATCH RESEND 01/10] sched/fair: Do not set_rd_overloaded() if rd->online != env->cpus
+Date: Sat, 12 Sep 2026 09:46:54 +0800
+Message-Id: <20260912014654.3305884-1-jackzxcui1989@163.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <b44631c1-4272-4860-88f7-14c62de5e2fd@amd.com>
+References: <b44631c1-4272-4860-88f7-14c62de5e2fd@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PCgvCgCnDy0Or6RqrTUYOw--.61943S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxZFW3Gry7Ww1kAF1xWr4kZwb_yoW5WF15pw
+	40kw4aqr4DJFn3K3y7XFykGw12yr9Fq3s0yF4rWFWFyw45Zr48CF98K3WxJrWSkrZYqF12
+	yrn2g348uFn5J3JanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0JU6v38UUUUU=
+X-CM-SenderInfo: pmdfy650fxxiqzyzqiywtou0bp/xtbC6A+yvGqkrw8fagAA3y
 
-On 9/10/26 15:58, Christian König wrote:
-> That is a really good point, canceling the timeout handler should indeed
-> happen before freeing the runqueues.
+On Fri, 11 Sep 2026 11:51:10 +0530 K Prateek Nayak <kprateek.nayak@amd.com> wrote:
 
-Posted, in a separate thread:
+> What is the point of doing load balancing if the CPUs that are overloaded
+> have all their tasks pinned? Those are just wasted cycles.
 
-  https://lore.kernel.org/dri-devel/20260910121601.805032-1-donggeunyoo.kernel@gmail.com/
+I don't think so. I sometimes make basic mistakes, so I'll express my complete
+viewpoint, and you can check if there's anything wrong with what I'm saying below:
 
-> Oh, that is completely broken behavior of the KUnit test case. I suggest to
-> fix that as well.
+The simplified code in can_migrate_task() related LBF_ALL_PINNED is as follows:
 
-Agreed - it never signals the hardware fence, on purpose, only to find out
-whether the sequence was reachable at all. A local probe, not something
-meant for the tree.
+The simplified code in can_migrate_task() related LBF_ALL_PINNED is as follows:
+static
+int can_migrate_task(struct task_struct *p, struct lb_env *env)
+{
+    ...
+    if (!cpumask_test_cpu(env->dst_cpu, p->cpus_ptr)) {
+        ...
+        if (env->idle == CPU_NEWLY_IDLE ||
+		    env->flags & (LBF_DST_PINNED | LBF_ACTIVE_LB))
+			return 0;
+        /* Prevent to re-select dst_cpu via env's CPUs: */
+		cpu = cpumask_first_and_and(env->dst_grpmask, env->cpus, p->cpus_ptr);
 
-Regards,
-Donggeun
+		if (cpu < nr_cpu_ids) {
+			env->flags |= LBF_DST_PINNED;
+			env->new_dst_cpu = cpu;
+		}
+
+		return 0;
+    }
+
+	/* Record that we found at least one task that could run on dst_cpu */
+	env->flags &= ~LBF_ALL_PINNED;
+    ...
+}
+
+Thus, LBF_ALL_PINNED does not mean that tasks are all pinned to their current CPU;
+it merely indicates that tasks on the src CPU cannot be migrated to the dst CPU.
+
+Example:
+
+Assuming a system with two clusters, each containing two physical CPUs, the
+structure is as follows:
+
+                          DIE
+           USTER0              CLUSTER1
+         cpu0       cpu1        cpu2       cpu3
+T0       p1,p2      p3           p4         p5
+
+At time T0:
+
+CPU0 has tasks p1 and p2, and both have a CPU mask of CPU0 and CPU2.
+CPU1 has only task p3, with a CPU mask of CPU1.
+CPU2 has only task `p4 with a CPU mask of CPU2.
+CPU3 has only task p5, with a CPU mask of CPU3.
+
+At time T1:
+
+Task p5 on CPU3 goes to sleep, and then a newly load balance (newly lb) is
+executed. It first looks for load balancing within CLUSTER1 and finds no tasks
+to migrate.
+It then goes up to the DIE level scheduling and finds the busiest CPU, which is
+CPU0's queue. However, it discovers that none of the tasks can be migrated to
+CPU3. Since this is a newly idle load balance, it won't perform the binding
+check for whether other CPUs in env->dst_grpmask can serve as a CPU.
+Consequently, it removes the busiest CPU (CPU0) from the CPU set, but CPU1
+remains in the CPU set. Therefore, the check if 
+
+(!cpumask_subset(cpus, env.dst_grpmask)) {
+
+passes leading to the redo phase.
+Then it executes sched_balance_find_src_group(), followed by update_sd_lb_stats().
+At this point, aside from CPU0, there is at most one task on the other CPUs,
+causing the _overloaded flag in rd to be cleared.
+
+At time T2:
+
+Task p4 on CPU2 goes to sleep, and a newly idle load balance (newly lb) is
+executed. However, since thesg_overloadedflag inrdhas been set,sched_balance_newidle()`
+returns early.
+But in reality, at this point, it is possible to migrate a task p1 to CPU2.
+
+
+--
+Xin Zhao
+
