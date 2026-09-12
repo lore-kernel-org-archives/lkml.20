@@ -1,218 +1,274 @@
-Received: from sg-3-41.ptr.tlmpb.com (sg-3-41.ptr.tlmpb.com [101.45.255.41])
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D220311967
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 14:05:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.45.255.41
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789221908; cv=none; b=DV1PqI5Epd8HuzCNEG4YXq9k29vAv9zP6EkTGE/suPOA11VhQ144pLts3OazQ8JTYDJQ2idLd4on8q8yOZarLpaIzZEcWh1kQWcXLUXoufAvkJJYd+9CZc3SnmItSbY4uHhn8o9PjJG+5+7nk5iG4va9jsftz+LwYAmIp5w2SJg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789221908; c=relaxed/simple;
-	bh=4ZVerH78wo5qLuv8nfINl/jI65zReuAdmOl2xZZBoKU=;
-	h=Subject:From:Content-Type:Cc:Mime-Version:In-Reply-To:References:
-	 To:Date:Message-Id; b=pV0slJE1S69ylz7anb9aa5os7ccYqU+GGG6H3FaGYrmMmMHrz3A7pc0oe7xNQyBGDJyVL+rNqn0m/o4ya+ZioH/qlUqe6PzLafZoMkCA2fNEuFGNZLI1GemhqvHTdad8qnu6QiAaKqH8ghtE9ILHkU41J9Vza0K3UOirUBNIw8o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io; spf=pass smtp.mailfrom=fygo.io; dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b=aZ/LV4uM; arc=none smtp.client-ip=101.45.255.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74DE41DE4EF
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 14:07:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789222043; cv=pass; b=uMhULsVBIggCJdPeE7krBLWJur1OofMm/43bxWqvvWoFamVD80McOV9n8Y0JEZcC5LvY4TiGV343C4pMTiZCahDtyFFs/eRA/X4/flVAugAdaOR3FKrXAuIg+fw/OVjCaqvC5YqtTJcAbrTi+CX0c4tDQb/OT/Ocbdi5YRCbveU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789222043; c=relaxed/simple;
+	bh=h6brpj5u/nMM7qT8pE96tt0VxTkwoueRws9I0pOLJLY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=EksecHu1bGakxOXRi6dN1pJYPaOjx8apjn5NNGfQ2J71Z/BEIt9nqjz9l4qH1fiLbq+c+IBsRCW8ZHZdbEIyx0S4EequbRdSs3bwdLPATIEqtNvLRoqEy4uTYg33yNbkX37ijRxXdx3rSCvlJvRmfJuW3h0dPvhIru1hl3yrM8w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TTQPdNXC; arc=pass smtp.client-ip=74.125.224.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b="aZ/LV4uM"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1789221857;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=SN67MfKQzWhNa/imCV5LxYu9NDBZlih7iFUSWzTxIuA=;
- b=aZ/LV4uMGyWFfVKvLrFD8Ce5/rf16GEzbk9moOp1d8WUZWi7PSj0pXwBY/3MKRDI41wkD2
- k7UUL+PkepFvkyre18qxjVmpfwZI+zJBVYXeR0NxfZSN+D2P6us+zYg04sf734KwQrOkwv
- F672xXBq4m1lv5DgGtCVOr5gmeusIcb0+QKNUUeCR75qrCmFo/XvkgBc6MCROkOLniD6DP
- xKlZ5fbVHMDHiDOYJDtr7PEhIg943lgjjIWWi0OjUQz0jpFlT+h5S3C/1eSz21xmuupk/b
- /hGUZzefel6LaZx6hs67OszShwgXc9UUlUuVaQdvZCf2aFrSVYqmcBhm1aGk9A==
-Subject: Re: [PATCH] md/raid5: serialize plug list add with device_lock
-Content-Transfer-Encoding: quoted-printable
-From: "yu kuai" <yukuai@fygo.io>
-Content-Type: text/plain; charset=UTF-8
-X-Original-From: yu kuai <yukuai@fygo.io>
-Reply-To: yukuai@fygo.io
-Cc: <song@kernel.org>, <magiclinan@didiglobal.com>, <xiao@kernel.org>, 
-	<linux-raid@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
-	"Li Youhong" <liyouhong@kylinos.cn>, <stable@vger.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TTQPdNXC"
+Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66e4ab20a33so393472d50.1
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 07:07:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789222040; cv=none;
+        d=google.com; s=arc-20260327;
+        b=iFBEgnCLiBB/08b121Fd0Q78iqq2nn98KlFy8WFFDUNEmz05UGReforQiKT6d4f57e
+         MPgM4X1kHeMSPFq+EfpbOQP9oPwsSQ3INxQfjoo/ZNF4mrjii8FU0uVY4CkSRb1QR4oI
+         m/ZuVhU6vTf19p+xEM0gkN2ih/pAV2vG8SQ78nr70EesxgxF2HFt9ziEZeH6y+M7hmrZ
+         bbhcNx+ItDs6eh3JSYuKWvAKiF8ZcrOyOmT/v+HcbHzH3Uq3P0tYfJL9VVHfwoN4gbM+
+         8LTWpyTEBQz2qKhvFHsrJzl2KBx4rUcg4TWskGJFokxQb9Xd/x3pLwY55WTD/fRgp48/
+         630A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=uP8joNivVUeq7UCg0aYPViRR5LnStG5aem+LvN65kxY=;
+        fh=0SbqL+90+dUTxhlvGkiBZNUWTgSFr6q6DUVmYg7PV7I=;
+        b=hCQSlZWFssWi3mNbOX4Be/hSlFvr9bVGIkBkQyL1kqwKasbjlLg6Z/wffWmo/V5WRh
+         3GE3k8P8uiD8/57D2dBsCBNs3aBAJyxZwHZVE0Rh7HXnpwLjyxS0poRbpO3f+dA4eMiZ
+         TIKPxb6wD3864gGjlhFc5hGQtQj4hX1R3KtTisn/GlIhQ1ncftMC/CmsVcdUFBX21B8p
+         3/DDoNQVAFHUaoohMuCMjbo7WPEJPEpAXw1Jp/LVovoa5oxZdgjEWb5oOnl8qiwT0yoh
+         Ho6Z2NBm4ToNHfl6FZkCU/hAOhlhbjeBtmuytTC6C8FHMJKoqv15B/AfgOgvMn0OaZoU
+         CPQQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789222040; x=1789826840; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=uP8joNivVUeq7UCg0aYPViRR5LnStG5aem+LvN65kxY=;
+        b=TTQPdNXCcCUC0qq0kZKN9EDy182+wL0X55DX+1K0Ge3+vxbtwAz3rdWEcGywhn3MJ8
+         0b9xJDInz+BFj4oFVktSCBZD6ioFWE8pwqHJcyZFA5JjRM1q1yfWNYdI1hCjzlGGBzWZ
+         1GZcVYI6ar3k56xOQglyZKGrvuoKZwCXSpcvX9k3Upb76sPYAq3s0nyPLnMlp7YSjYOg
+         doVZUz4MHd09yFchWzl/NdxqpSy6IhU6B/xu0cixfyrGF4Ms2OclwN9NW6itF3rtmubo
+         8KaiZi2UqNSrgtasMDdlGNNkptNYjOjgQdX9Xjj/vIRxFiNfO4/eyGUQzRX9HqVpbndb
+         x6KA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789222040; x=1789826840;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uP8joNivVUeq7UCg0aYPViRR5LnStG5aem+LvN65kxY=;
+        b=iT7g62D1u0dOo2e9EB30N36r+w1p5FkLl2HOdBkn9wd3uUhAfqZefsJgRcWCAyf92T
+         5Ph/g+hy4bJViYZP23kxampX/a6MP7tiqmwiVxSmLzPglboc/nGOr/CvZ+9cF8ZJtEqr
+         4cU8Vp94xxtMBYS3vmAe/DWzzOrPzou/aGiPUvi3tTmsHM5+dj4sf+y6Xa89s1uIOS0E
+         wycAM7dsgn0TVETwY01XzZLFv0+m+iLxFTbPdMMotRbC0xuY9iLnxFmaHh9JXfBGRcut
+         xVVEIllsTgcdh6i3u23AVZU6isorLZpA2mXL4O/QdQnL7TqwWE/D62bhrQKxXCuiO8Iu
+         yqSg==
+X-Forwarded-Encrypted: i=1; AKwUvBwatv8DBszXcWKi9d45CoIilbD57ApawXdjzXpj9ybKsLxjGUKR6so37r9qQzXwbiuSmoJqdo1zkJRUdVI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lLf6xf3jHPIAPieXmWbau4ZHlMYOXsfMqfnW9soztsvnZOGZER
+	nUzZS+Q3IODmuD7+ROIT3B6RA/LgVlQKrCzdnY/9ULAOPa9Y52hKg7ofStpLm2/HTXFT8pA/1kv
+	Kgc8XtWCz20tM48c/7ddj7azjc9ABMZQ=
+X-Gm-Gg: AYBFou321ANhL1hCAYL7Uu+05Miwav3CgNwaaUociUMuALlMbUEwDZSp7SRQZ1j0rAB
+	uaJkq0TQvJVpj/Wrg0XWgx/IwG39/b5K+xylFBeMM/DCGwXITpUjkfGzO8+T6b/b6xFmipexi46
+	L7/Gyh9MUlQHud7ZE+L4vnhzDsR9fgatIhDD0guIwfHWRl5N93Touc38cN4baqZz6KAXnRuRuuO
+	rLafaoW/ATeJ9HKOylzJYvnqBCDlYGxr/a9m6jjVm64sxJcuTRIHuVaTvKRmndXJIfWv20PuWqo
+	gYp80o0oB3abV4Szl/v0e1aJfusFtiYeuQnLNLeYFL/y8Thl3GKLtE6t0OPF6Xk=
+X-Received: by 2002:a05:690e:4092:b0:671:3392:7d68 with SMTP id
+ 956f58d0204a3-67135bdab56mr487328d50.90.1789222040258; Sat, 12 Sep 2026
+ 07:07:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-In-Reply-To: <6edbeca2.341a.1a079e5507c.Coremail.dayou5941@163.com>
-User-Agent: Mozilla Thunderbird
-References: <20260902095307.358569-1-dayou5941@163.com> <826d82e9-0f0c-450e-a5f9-ea6675b7adc6@fygo.io> <6edbeca2.341a.1a079e5507c.Coremail.dayou5941@163.com>
-To: =?utf-8?q?=E6=9D=8E=E4=BD=91=E9=B8=BF?= <dayou5941@163.com>, 
-	"yu kuai" <yukuai@fygo.io>
-Date: Sat, 12 Sep 2026 22:04:12 +0800
-Message-Id: <116efada-45f3-4c68-92d9-2bf56fcc7629@fygo.io>
-Received: from [192.168.1.104] ([39.182.0.161]) by smtp.larksuite.com with ESMTPS; Sat, 12 Sep 2026 14:04:15 +0000
-X-Lms-Return-Path: <lba+26aa55be0+13c1bc+vger.kernel.org+yukuai@fygo.io>
+MIME-Version: 1.0
+References: <178913597653.248794.1237187523153227751.stgit@devnote2> <178913599508.248794.10388592925402087434.stgit@devnote2>
+In-Reply-To: <178913599508.248794.10388592925402087434.stgit@devnote2>
+From: Sang-Heon Jeon <ekffu200098@gmail.com>
+Date: Sat, 12 Sep 2026 23:07:08 +0900
+X-Gm-Features: AcwNN1Vr5VsseriknahGDTNoV_TO5GOKkDRiBZy77mQfG8Sm2DpAE7RopSZc0qs
+Message-ID: <CABFDxMEeej-5AtJeLAsT6sFeS2DKg1pKTkFhxU-Dpqg-AVoQGQ@mail.gmail.com>
+Subject: Re: [PATCH v2 2/4] tools/bootconfig: Consolidate xbc_init() to error
+ message wrapper
+To: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org, 
+	linux-trace-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
+On Fri, Sep 11, 2026 at 11:13=E2=80=AFPM Masami Hiramatsu (Google)
+<mhiramat@kernel.org> wrote:
+>
+> From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+>
+> Use init_xbc_with_error() for all bootconfig initialization in the
+> bootconfig tool instead of showing errors in different way.
+>
+> This simplifies the code logic and make it easy to maintain.
+>
+> Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+> ---
+> Changes in v2:
+>  - Remove redundant buffer copy in init_xbc_with_error().
+> ---
+>  tools/bootconfig/main.c |  100 ++++++++++++++++++++---------------------=
+------
+>  1 file changed, 43 insertions(+), 57 deletions(-)
+>
+> diff --git a/tools/bootconfig/main.c b/tools/bootconfig/main.c
+> index aff169ba75b8..652e491b9c33 100644
+> --- a/tools/bootconfig/main.c
+> +++ b/tools/bootconfig/main.c
+> @@ -21,6 +21,39 @@
+>  #define BOOTCONFIG_FOOTER_SIZE \
+>         (sizeof(uint32_t) * 2 + BOOTCONFIG_MAGIC_LEN)
+>
+> +static void show_xbc_error(const char *data, const char *msg, int pos)
+> +{
+> +       int lin =3D 1, col, i;
+> +
+> +       if (pos < 0) {
+> +               pr_err("Error: %s.\n", msg);
+> +               return;
+> +       }
+> +
+> +       /* Note that pos starts from 0 but lin and col should start from =
+1. */
+> +       col =3D pos + 1;
+> +       for (i =3D 0; i < pos; i++) {
+> +               if (data[i] =3D=3D '\n') {
+> +                       lin++;
+> +                       col =3D pos - i;
+> +               }
+> +       }
+> +       pr_err("Parse Error: %s at %d:%d\n", msg, lin, col);
+> +
+> +}
+> +
+> +static int init_xbc_with_error(char *buf, int len)
+> +{
+> +       const char *msg;
+> +       int ret, pos;
+> +
+> +       ret =3D xbc_init(buf, len, &msg, &pos);
+> +       if (ret < 0)
+> +               show_xbc_error(buf, msg, pos);
+> +
+> +       return ret;
+> +}
+> +
+>  static int xbc_show_value(struct xbc_node *node, bool semicolon)
+>  {
+>         const char *val, *eol;
+> @@ -197,7 +230,6 @@ static int load_xbc_from_initrd(int fd, char **buf)
+>         int ret;
+>         uint32_t size =3D 0, csum =3D 0, rcsum;
+>         char magic[BOOTCONFIG_MAGIC_LEN];
+> -       const char *msg;
+>
+>         ret =3D fstat(fd, &stat);
+>         if (ret < 0)
+> @@ -249,52 +281,9 @@ static int load_xbc_from_initrd(int fd, char **buf)
+>                 return -EINVAL;
+>         }
+>
+> -       ret =3D xbc_init(*buf, size, &msg, NULL);
+> -       /* Wrong data */
+> -       if (ret < 0) {
+> -               pr_err("parse error: %s.\n", msg);
+> -               return ret;
+> -       }
+> -
+> -       return size;
+> -}
+> -
+> -static void show_xbc_error(const char *data, const char *msg, int pos)
+> -{
+> -       int lin =3D 1, col, i;
+> -
+> -       if (pos < 0) {
+> -               pr_err("Error: %s.\n", msg);
+> -               return;
+> -       }
+> -
+> -       /* Note that pos starts from 0 but lin and col should start from =
+1. */
+> -       col =3D pos + 1;
+> -       for (i =3D 0; i < pos; i++) {
+> -               if (data[i] =3D=3D '\n') {
+> -                       lin++;
+> -                       col =3D pos - i;
+> -               }
+> -       }
+> -       pr_err("Parse Error: %s at %d:%d\n", msg, lin, col);
+> +       ret =3D init_xbc_with_error(*buf, size);
+>
+> -}
+> -
+> -static int init_xbc_with_error(char *buf, int len)
+> -{
+> -       char *copy =3D strdup(buf);
+> -       const char *msg;
+> -       int ret, pos;
+> -
+> -       if (!copy)
+> -               return -ENOMEM;
+> -
+> -       ret =3D xbc_init(buf, len, &msg, &pos);
+> -       if (ret < 0)
+> -               show_xbc_error(copy, msg, pos);
+> -       free(copy);
+> -
+> -       return ret;
+> +       return ret < 0 ? ret : size;
+>  }
+>
+>  static int show_xbc_kernel_cmdline(void)
+> @@ -423,9 +412,8 @@ static int apply_xbc(const char *path, const char *xb=
+c_path)
+>         char *buf, *data;
+>         size_t total_size;
+>         struct stat stat;
+> -       const char *msg;
+>         uint32_t size, csum;
+> -       int pos, pad;
+> +       int pad;
+>         int ret, fd;
+>
+>         ret =3D load_xbc_file(xbc_path, &buf);
+> @@ -438,6 +426,13 @@ static int apply_xbc(const char *path, const char *x=
+bc_path)
+>                 size++;
+>         csum =3D xbc_calc_checksum(buf, size);
+>
+> +       /* Verify the data format */
+> +       ret =3D init_xbc_with_error(buf, size);
+> +       if (ret < 0) {
+> +               free(buf);
+> +               return ret;
+> +       }
+> +
+>         /* Backup the bootconfig data */
+>         data =3D calloc(size + BOOTCONFIG_ALIGN + BOOTCONFIG_FOOTER_SIZE,=
+ 1);
+>         if (!data) {
+> @@ -446,15 +441,6 @@ static int apply_xbc(const char *path, const char *x=
+bc_path)
+>         }
+>         memcpy(data, buf, size);
+>
+> -       /* Check the data format */
+> -       ret =3D xbc_init(buf, size, &msg, &pos);
+> -       if (ret < 0) {
+> -               show_xbc_error(data, msg, pos);
+> -               free(data);
+> -               free(buf);
+> -
+> -               return ret;
+> -       }
+>         printf("Apply %s to %s\n", xbc_path, path);
+>         xbc_get_info(&ret, NULL);
+>         printf("\tNumber of nodes: %d\n", ret);
+>
 
-=E5=9C=A8 2026/9/7 11:24, =E6=9D=8E=E4=BD=91=E9=B8=BF =E5=86=99=E9=81=93:
->
->
->
-> Hi Kuai,
->
->
->
->
->
->
->
->
->
->
->
->
-> At 2026-09-05 11:17:58, "yu kuai" <yukuai@fygo.io> wrote:
->> Hi,
->>
->> =E5=9C=A8 2026/9/2 17:53, Li Youhong =E5=86=99=E9=81=93:
->>> From: Li Youhong <liyouhong@kylinos.cn>
->>>
->>> raid5_unplug() can spin forever under conf->device_lock when
->>> raid5_plug_cb.list still points at a stripe whose sh->lru has
->>> already been reinitialized (self-looped). That disables IRQs on
->>> the holder CPU and causes multi-CPU hard lockups on waiters of
->>> the same lock.
->>>
->>> This happens because release_stripe_plug() sets
->>> STRIPE_ON_UNPLUG_LIST and list_add_tail(sh->lru) without
->>> device_lock, while do_release_stripe() may concurrently move the
->>> same lru onto handle/inactive when the last reference drops.
->>>
->>> Note: a 2020 proposal tried extra refs / checking
->>> STRIPE_ON_UNPLUG_LIST in do_release_stripe() without serializing
->>> the plug enqueue:
->>> https://lore.kernel.org/linux-raid/20200108163023.9301-1-guoqing.jiang@=
-cloud.ionos.com/
->>> That still leaves a TOCTOU window where the bit is clear during
->>> the check and set afterwards, allowing two list_add on the same
->>> lru. It was not merged.
->>>
->>> Serialize the bit update and list_add with device_lock. If
->>> do_release_stripe() still sees STRIPE_ON_UNPLUG_LIST, restore the
->>> reference and let raid5_unplug() own the final release.
->>>
->>> Observed on production 9-disk NVMe RAID5 under MySQL AIO
->>> (io_submit -> blk_finish_plug -> raid5_unplug).
->>>
->>> Fixes: 8811b5968f62 ("raid5: make_request use batch stripe release")
->>> Cc: stable@vger.kernel.org
->>> Signed-off-by: Li Youhong <liyouhong@kylinos.cn>
->>> ---
->>>    drivers/md/raid5.c | 33 ++++++++++++++++++++++++++++++---
->>>    1 file changed, 30 insertions(+), 3 deletions(-)
->>>
->>> diff --git a/drivers/md/raid5.c b/drivers/md/raid5.c
->>> index b91545ce090d..c9197b63b1c4 100644
->>> --- a/drivers/md/raid5.c
->>> +++ b/drivers/md/raid5.c
->>> @@ -229,6 +229,17 @@ static void do_release_stripe(struct r5conf *conf,=
- struct stripe_head *sh,
->>>    	int i;
->>>    	int injournal =3D 0;	/* number of date pages with R5_InJournal */
->>>   =20
->>> +	/*
->>> +	 * Stripe is owned by release_stripe_plug()'s cb->list. A concurrent
->>> +	 * last-ref release can reach here after the stripe was queued for
->>> +	 * unplug (lru may already be non-empty). Do not re-add lru elsewhere=
-;
->>> +	 * restore the reference and let raid5_unplug() finish the release.
->>> +	 */
->>> +	if (test_bit(STRIPE_ON_UNPLUG_LIST, &sh->state)) {
->>> +		atomic_inc(&sh->count);
->>> +		return;
->>> +	}
->>> +
->>>    	BUG_ON(!list_empty(&sh->lru));
->>>    	BUG_ON(atomic_read(&conf->active_stripes)=3D=3D0);
->>>   =20
->>> @@ -5760,6 +5771,9 @@ static void release_stripe_plug(struct mddev *mdd=
-ev,
->>>    		raid5_unplug, mddev,
->>>    		sizeof(struct raid5_plug_cb));
->>>    	struct raid5_plug_cb *cb;
->>> +	struct r5conf *conf =3D mddev->private;
->>> +	unsigned long flags;
->>> +	bool queued =3D false;
->>>   =20
->>>    	if (!blk_cb) {
->>>    		raid5_release_stripe(sh);
->>> @@ -5775,9 +5789,22 @@ static void release_stripe_plug(struct mddev *md=
-dev,
->>>    			INIT_LIST_HEAD(cb->temp_inactive_list + i);
->>>    	}
->>>   =20
->>> -	if (!test_and_set_bit(STRIPE_ON_UNPLUG_LIST, &sh->state))
->>> -		list_add_tail(&sh->lru, &cb->list);
->>> -	else
->>> +	/*
->>> +	 * Serialize with do_release_stripe() on device_lock so sh->lru canno=
-t
->>> +	 * be added to handle/inactive and cb->list at the same time.
->>> +	 */
->>> +	spin_lock_irqsave(&conf->device_lock, flags);
->>> +	if (!test_and_set_bit(STRIPE_ON_UNPLUG_LIST, &sh->state)) {
->>> +		if (unlikely(!list_empty(&sh->lru))) {
->>> +			clear_bit(STRIPE_ON_UNPLUG_LIST, &sh->state);
->>> +		} else {
->>> +			list_add_tail(&sh->lru, &cb->list);
->>> +			queued =3D true;
->>> +		}
->>> +	}
->>> +	spin_unlock_irqrestore(&conf->device_lock, flags);
->> Do you run some performance test on this patch? I believe this is from I=
-O hot path,
->> a spinlock is not acceptable. I know there is already some spinlock for =
-raid5, but
->> I'd like not to introduce new lock contention.
->>
->> Can this problem be fixed by a new llist in stripe_head?
->
-> I agree that adding device_lock on this path can bring some
-> overhead; I will follow up with performance numbers.
->
->
-> Regarding the alternative: did you mean adding a dedicated
-> llist_node in stripe_head for the plug/unplug path (instead of
-> reusing sh->lru), so that release_stripe_plug() and
-> do_release_stripe() no longer share the same list node?
->
->
-> If we still queue the plug list via sh->lru, switching that list
-> to an llist would not remove the race, because do_release_stripe()
-> can still list_add the same lru onto handle/inactive concurrently.
-> A separate node would avoid that, but unplug would then need to
-> move stripes from the plug llist onto the existing lru-based
-> release path, which is a larger change.
-
-I mean a new list for unplug in sh like unplug_llist. And I think it's
-fine to use the llist directly for unplug, there is no need to move
-sh from unplug llist to lru list first.
-
->
->
-> Please let me know if that matches what you had in mind.
->
->
-> Thanks,
-> Li Youhong>
->>> +
->>> +	if (!queued)
->>>    		raid5_release_stripe(sh);
->>>    }
->>>   =20
->> --=20
->> Thanks,
->> Kuai
-
---=20
-Thanks,
-Kuai
+Reviewed-by: Sang-Heon Jeon <ekffu200098@gmail.com>
