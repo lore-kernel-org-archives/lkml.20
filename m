@@ -1,74 +1,74 @@
 Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 475283A1D05
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 08:10:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9D2B37FF6D
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 08:10:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789200648; cv=none; b=ZDYoHOw5WhxVVRi5ToLN+TaoRbErMbzIrWz5sF68NCGf4gr5prdWSmLBpnl8HxbnkDe0WsF3LF6yuhwl6cA4vnWhsiboE1uXqH57daF8a8sIuT7JOrg3zce6UL0CjSvVun+/bBJgF1ereiEmNp9NzH+rXdO8zApEyGLolOULL+U=
+	t=1789200653; cv=none; b=m3SsVBqRZtaipDkcNpKBd9+EGUKGAV/C/4jJc5b/X4fMz0AJJqE9Fjzkc0f5pOVU7k9pWqdwSy0eDbDrH1iYsC/G9xr8taQXnE2vlFf6aD3yrusYLsAmRZIpwSjDSm1TQurfli36CcUVbxL1ggUuDHFTJyAPEVhnis+SMKuLIFY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789200648; c=relaxed/simple;
-	bh=mUKHHlQooGLT59Ah3RqD2AYxc1c/y9A2ALw5tBIdqtU=;
+	s=arc-20240116; t=1789200653; c=relaxed/simple;
+	bh=PEAuDrza3Y5SfFxch680LxNXRvad81aZFzbJXkuqqNg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=E1kJZ8N8HaU3CqrHdEE462hti20tYFupXdKN+HTSrasAOblkDNyDY6yCwhAd8w+MQR8F5aMwajWlc9FoxpEMYbU0ovuOTIM3QEzbIbqKifvVUNZqBLuJaknocdMPx4/5ep3arO2RTmvqvdApgmLKtq+dWO8GYQL6LiIDsyYbDXQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FDeOOpX0; arc=none smtp.client-ip=74.125.227.140
+	 MIME-Version; b=FJSKzYFHnaJOopktCWTY6kAIo52FzW4GW589H9nf7Vxnqe0a4A+F2rvKQSRzsrlPewuRdXSvKMyp8FjvL3vWZY48URUOKxFwqQDpUXN6g9fSNocBFWYT5fjmzm/kBVkoR9cRqwBDIqeunjnJ9BCOBvkR6IHV2bbqjKIiSy4CZGU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PdLdxd3x; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FDeOOpX0"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39d654f02baso302049a91.3
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 01:10:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PdLdxd3x"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2db1ca069c8so3066315ad.3
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 01:10:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789200646; x=1789805446; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789200651; x=1789805451; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=qekC0MqEXMTW5BJCD+Nqo9MkepvtatwwVDmZuLTl4rg=;
-        b=FDeOOpX0FJG+9c1566VUXdQTzGODd7YY8f7YKjXJEz5g9eGwmueU6iFjvcZCV3+9n8
-         d93l+nVpbYrrsVQ9rdBPZtWaVKfyHvJKvyVT4919NbsSG+0oxI576ju87SQfPl3ukiJO
-         kfUWSr6wntmlp6d2b1K+7PAOEcGbueJRdzO9uerOURGRLoH5CydmanWVt/PuGqCcAt5H
-         7HYBIwEi1M+T23NaSvBQTmwjjzOWxornarBLXVSRN7zlUzt2X9VPwm0SI2b6ejzc1WWo
-         Li1dlloLvImVWUWC0/i6S/4hoxIjnq2DJ/ysgWEQBTh0Vw+AM8mHYWjaYWHcQSUIjLsh
-         b9jg==
+        bh=0GoExsibafFWCOKZx2T64mk+4e5+1pi6zhVko5O9cFc=;
+        b=PdLdxd3x82JHgWwp9kLIMk8pb6LAetk/Dm0o1OZ3tMue1Jw2ciaKQB86dxM+weJJqd
+         T5YH3S+2UrLRLoAuTqqGN/98GdyUz3sFLFwR4R2rHtqOc6MITT14rjk47KvruJ8eW/a2
+         6ODPmiACmbjwVSnpKpVchcFOjEHvCKhXMWi0n5v5uVNWAf3zxyZuyyZzF1cfN+kXhugj
+         rfunve3bJtSZKq6ZZlFUGdsMPQF3ORUc8to7pghCo1/8TdMoiurCHwqxdydYvxhTYFBU
+         b6LquAlJhb+CSE1y4AGbOhHbSe/TtUiKG9z+Enhhh9zGvm3P4WlLgfEPbA8VpRZMd+4B
+         63DA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789200646; x=1789805446;
+        d=1e100.net; s=20251104; t=1789200651; x=1789805451;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qekC0MqEXMTW5BJCD+Nqo9MkepvtatwwVDmZuLTl4rg=;
-        b=MQfKwvEilWSUOd/5m0lWX+2j9gpHQbQyuvTRM7M8lPMQsJ8yUnwSP9dXzOSzqWXPfV
-         YWlXeoy1yl6rPGHBf/CkH2IVriPuqVpVc7v2PExk+y8mPLfuqajs4kbcXa1l2VwJ6xlD
-         UCdRDlcNt/7zmGMsHAnsrUPz5dXU82naUG5/hqbTRMM8QEFfgT0CdXbud7AZVP1ou5xl
-         y3H4wntNPaVi0E2zSqXOSQrMnIRRL4gKptJBRtK9NTRsfChi8E1Sk6fIGRG9ySgehya7
-         lhwP/HD+++fs5gadCkKe49JFDqphZk2QAWQ+lsTH4p8ZYBbP43u0eiU8jHEk5wpcyisz
-         E9eg==
-X-Forwarded-Encrypted: i=1; AKwUvBxU2US5qUGRbjzYgs7WUhmra06td0tmACJ+VnYf0UchLqBNNmVDedImKwfKiCNHsTCfXj4BX9p2qWtqkrM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kmd1GyKSRcVRfxskYqUKsLfoxKvBdEB682TQS0TiTRqEKpTduH
-	z1PNjtkgjsJ3dt4Ta/yMCqEKxTOOTFoc2TYLDSWFJDuN2uuVMVAXKUuyGUuXnsuYbFU=
-X-Gm-Gg: AYBFou2WPz9wo0axCbCe/jXwMneDBTt9jAlbfKXnw3eW9MfsAsFemvNJPVtfRBQzJyA
-	VeUh2z4M3z+5+OKKsLUA37+2ZU6w4q3LPXwYCAdUhl4yWc6fJb65QM8UhRGwmtilBvDYHuxQshO
-	EMGj27EM0qj6d1v0ppazGcmXOGmFY6INMIcKlpaEl6ZvWBVqv/rFrmi082lpN+pdD5OC98tmSgN
-	3vWWOCIizaDysMmjqz+8hbQInOJUoXcH2eGeFMAkrySwCEzbpiQchUs8Bo22sba4WMsw4l9NXHw
-	z9sHBecdF1VNwTass3J7+qZ/x0qEgWkfLGkAiLFBdLwLwDfEvtuT/LE+ztemxevkSiQZq9Ld8f4
-	JIHZPz13AGiqJ2cgsBQg1iINGbpFVKgGUQqzUYhOBv68M25t/3/BoTjpZ8SZye+ChUHCWuOlpUM
-	tjgoib2z1cUg+XabWq7Yje5VJXjYwDsPw56KiR/39AsxepDg7FWhbOZiYzV/N2O2396U4GN8OCj
-	daXDlCCmOhplq92wsJGpITDFpb68y1wUOhTl+XYIdpmXrxazvqQLOmyu4Fi9Ev+zYaFTNla1AN7
-	2wj2spF1dcEc0RMXC4Ek/MIgkfyCnGj+Hyjf0qsDSXGT
-X-Received: by 2002:a17:90b:57c6:b0:381:a766:efc9 with SMTP id 98e67ed59e1d1-39dbbeb57a5mr3434433a91.7.1789200646524;
-        Sat, 12 Sep 2026 01:10:46 -0700 (PDT)
+        bh=0GoExsibafFWCOKZx2T64mk+4e5+1pi6zhVko5O9cFc=;
+        b=dRcNyuoESrdRinZTWaWBKXoVqM4l5iP8xMRihWlruxpetf7fPyHABvE3t1cq+cFImh
+         8pBY6xZ2Ae58bJN7kcJUBHNnvGwKYlDzjR4by2kcWo6em9SopflAsZiNqIxdlGeVG+yB
+         oDMJaL+71ESuknOvFxl7vuNaHLl2dxWoRpNktijm82Y+kCRBImGWEpecvZ8ewIqgmbIN
+         XbmvTtFMwKzCAZmP4BGnYQd60az1a/y5g4j/OVdL5MYHrxwMVf2SLxtN1Eq1/yZQYEOQ
+         nP4UNUKveP6lrL/5oURJfN8jGCu492WI32wO2B8dDtmS7cKQSYj+A2oMNJl/84X64/sC
+         3IAw==
+X-Forwarded-Encrypted: i=1; AKwUvBwgL2gV6gvKanICANoPklpt4u/jsqYjl6KtNadhnKOYRtR8Xal3hsSgw1Kt3kv/O44USwJcKmG+5oL3WXI=@vger.kernel.org
+X-Gm-Message-State: AFuF++n+hk5a/toaRB5YHpxNCqLIM7sNtqzKgpFKng3nJ/hQ7oJsoc5C
+	YRVPAhc9QM7cvgOJi8whU89hjAmzqLyUNJNLgoX0EubkaFyZzco6vBkG
+X-Gm-Gg: AYBFou1NUJoQnGSFiIrJBbQD450S0YrCmYCGlAdve46kKBxIomFAiXMAaczcINLau2N
+	eqXp4dXknl6GyMnxIWC7fqAVZVS3SokxXp7qMnT6jqA4mKepgQzPRPBTpX905qxpkU7i/2ceD3o
+	2dm1j+65rAz3SlA/T2phD5LpehSmMoMFIYG/yv1+DBuGSoDic7UfAEsfRxGEkeOszXKXeXGVlaC
+	aLVl56GvGIOFOpVZbgdh0Yp6A3ydgZjgNQ4ZyySKrK80+G0a0XeEhqcMQ9hoxbZRRqGJerw+mmC
+	r/HeDd9XentsDbwRNkcF47wRCXpLp+WNDQR2sd6X5YJG6csASV0YQYLgqX03sUnV0popysH0vg+
+	W7Epgg9OD74zNstEK7ycaSS7ixxur9ICVQx2jj8yS/2Ge2xkp+Ni14cMcbidPWPPXkgQTgQO5kK
+	E6G5cTEIHyx4Qf5w6yoY6EPccNDptYVyL5Fxg2g8XI4RZDIUOAP29eCQetjrs7YNJQL/vsPNtQz
+	PvfyDkpLC/LxuWVBL18Xku6Lb1d2nZjza4e2csgDF4auZOsEkIfwFQIb1u6dM7HkUj0OW2gNmpA
+	6lnfhcah8gCzV3mTBoN25XmllaP2QeLui9HiPHGRjvs1
+X-Received: by 2002:a17:90b:1d82:b0:381:1c96:829b with SMTP id 98e67ed59e1d1-39dbbe8b88bmr3419988a91.3.1789200650925;
+        Sat, 12 Sep 2026 01:10:50 -0700 (PDT)
 Received: from 0xiviel.ip (122-63-135-80.mobile.spark.co.nz. [122.63.135.80])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39db7ae6d25sm982474a91.1.2026.09.12.01.10.42
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39db7ae6d25sm982474a91.1.2026.09.12.01.10.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 12 Sep 2026 01:10:46 -0700 (PDT)
+        Sat, 12 Sep 2026 01:10:50 -0700 (PDT)
 From: Eva Crystal <0xiviel@gmail.com>
 To: Min Ma <mamin506@gmail.com>,
 	Lizhi Hou <lizhi.hou@amd.com>
 Cc: dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
 	Eva Crystal <0xiviel@gmail.com>
-Subject: [PATCH 3/4] accel/amdxdna: release the chained command BO when vmap fails
-Date: Sat, 12 Sep 2026 20:10:11 +1200
-Message-ID: <20260912081012.2274075-4-0xiviel@gmail.com>
+Subject: [PATCH 4/4] accel/amdxdna: check the command payload before using it in the exec requests
+Date: Sat, 12 Sep 2026 20:10:12 +1200
+Message-ID: <20260912081012.2274075-5-0xiviel@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260912081012.2274075-1-0xiviel@gmail.com>
 References: <20260912081012.2274075-1-0xiviel@gmail.com>
@@ -80,49 +80,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When amdxdna_cmd_set_error() follows a command chain it takes a
-reference on the BO named by the chain:
+aie2_init_exec_dpu_req() takes the payload of a command BO and subtracts
+the fixed header from its length before establishing that the length
+covers the header at all:
 
-	abo = amdxdna_gem_get_obj(client, cc->data[0], AMDXDNA_BO_SHARE);
-	if (!abo)
+	sn = amdxdna_cmd_get_payload(cmd_bo, &cmd_len);
+	if (cmd_len - sizeof(*sn) > sizeof(dpu_req->payload))
 		return -EINVAL;
-	cmd = amdxdna_gem_vmap(abo);
-	if (!cmd)
-		return -ENOMEM;
+	...
+	dpu_req->inst_buf_addr = sn->buffer;
+	memcpy(dpu_req->payload, sn->prop_args, cmd_len - sizeof(*sn));
 
-and drops it at the end of the function under "if (cc)". The -ENOMEM
-path returns before reaching that, so the reference taken by
-amdxdna_gem_get_obj() is leaked and the GEM object is never freed.
+It also dereferences sn without testing it, although
+amdxdna_cmd_get_payload() returns NULL for a command header whose count
+field does not fit the BO, setting cmd_len to 0 as it does so.
 
-amdxdna_gem_vmap() fails only if drm_gem_vmap() fails, which needs
-memory pressure or an exporter that refuses the mapping, so this is a
-small leak on a rare path rather than something a caller can drive at
-will. It is still a leak, and the chain BO handle comes from a command
-buffer user space can write.
+Both work out today, and for the same reason: cmd_len is a u32 and
+sizeof() is a size_t, so the subtraction is evaluated in 64-bit. A short
+command produces a value near 2^64, which is larger than the payload
+field, so the test returns -EINVAL before sn is dereferenced and before
+the memcpy. The NULL case is caught by the same comparison, because
+cmd_len is then 0.
 
-Drop the reference before returning.
+The guarantee is therefore supplied entirely by the operand types. A
+later change that computes the difference into a u32 first - as the
+sibling slot-filling functions in this file already do - would truncate
+the underflow to a small value, and the function would dereference NULL
+and copy from a short payload. Those siblings, aie2_cmdlist_fill_dpu()
+and friends, all carry an explicit "cmd_len < sizeof(*sn)" test for
+exactly this reason; this path was left without one.
+
+Add the explicit length and NULL tests here, matching the siblings, and
+add the missing NULL test to aie2_init_exec_cu_req(), which copies
+cmd_len bytes from a pointer it likewise never checks. No behavioural
+change is intended: every input rejected by the new tests is already
+rejected today.
 
 Signed-off-by: Eva Crystal <0xiviel@gmail.com>
 ---
- drivers/accel/amdxdna/amdxdna_ctx.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/accel/amdxdna/aie2_message.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/accel/amdxdna/amdxdna_ctx.c b/drivers/accel/amdxdna/amdxdna_ctx.c
-index c24bf1c..7a61e83 100644
---- a/drivers/accel/amdxdna/amdxdna_ctx.c
-+++ b/drivers/accel/amdxdna/amdxdna_ctx.c
-@@ -170,8 +170,10 @@ int amdxdna_cmd_set_error(struct amdxdna_gem_obj *abo,
- 		if (!abo)
- 			return -EINVAL;
- 		cmd = amdxdna_gem_vmap(abo);
--		if (!cmd)
-+		if (!cmd) {
-+			amdxdna_gem_put_obj(abo);
- 			return -ENOMEM;
-+		}
- 	}
+diff --git a/drivers/accel/amdxdna/aie2_message.c b/drivers/accel/amdxdna/aie2_message.c
+index 3028968..ab9e7c4 100644
+--- a/drivers/accel/amdxdna/aie2_message.c
++++ b/drivers/accel/amdxdna/aie2_message.c
+@@ -556,7 +556,7 @@ static int aie2_init_exec_cu_req(struct amdxdna_gem_obj *cmd_bo, void *req,
+ 	void *cmd;
  
- 	if (abo->mem.size < sizeof(*cmd)) {
+ 	cmd = amdxdna_cmd_get_payload(cmd_bo, &cmd_len);
+-	if (cmd_len > sizeof(cu_req->payload))
++	if (!cmd || cmd_len > sizeof(cu_req->payload))
+ 		return -EINVAL;
+ 
+ 	cu_req->cu_idx = amdxdna_cmd_get_cu_idx(cmd_bo);
+@@ -578,7 +578,8 @@ static int aie2_init_exec_dpu_req(struct amdxdna_gem_obj *cmd_bo, void *req,
+ 	u32 cmd_len;
+ 
+ 	sn = amdxdna_cmd_get_payload(cmd_bo, &cmd_len);
+-	if (cmd_len - sizeof(*sn) > sizeof(dpu_req->payload))
++	if (!sn || cmd_len < sizeof(*sn) ||
++	    cmd_len - sizeof(*sn) > sizeof(dpu_req->payload))
+ 		return -EINVAL;
+ 
+ 	dpu_req->cu_idx = amdxdna_cmd_get_cu_idx(cmd_bo);
 -- 
 2.53.0
 
