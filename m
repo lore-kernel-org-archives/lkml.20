@@ -1,135 +1,251 @@
-Received: from mail-ot1-f48.google.com (mail-ot1-f48.google.com [209.85.210.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6B9132B126
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 18:51:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88A47377ABA;
+	Sat, 12 Sep 2026 18:53:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789239104; cv=none; b=Jmcs07bmCmoDj+SWJ1wxW+iKZcTeRIB2CqsVkBZQ+dsFykgKgqEJD4UZ2fGMjQaIUB4+ZSE4HQMYx8XopiGo2kmH47KJxv5YK58h9SVT25c7RYy02YzqVmBc4BfVyXPhSztgLQSIJJunHp2rnahyyRP9camoyH9tEJLDC0AxVjQ=
+	t=1789239206; cv=none; b=H2SxtzWyxCLSTigmhh8ZHE+wsh97Pt+VlCzdNp1ODG9B8jWUvVdWyJdHMDyqAlCiufiImmIABZGpJMfvkEGas6kNBZyG0RNie8VP6PTqFqw3iqtgPzw4XfPa/QoZGpJE/JguOybNA4aeSkV1SGIhizcqn2fX9JFGCfRq+RG/kWg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789239104; c=relaxed/simple;
-	bh=cz+Iw+9oadOcnbZ190k9VcVhvOaR25l5A7IKRmwRNOw=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=MI1LvAtlZ6mP/ZCnJ0N3uF9C+Xtqqf1Gl1uBAJV5kLikrruqOqQtWLMSf7JY/hNx4OBjUdfoYm1oMxDB3df15UCrfHjwRZ1S7qEJdJQYolPc6xQYGJw0JMxUPywb/4nFGY8BAle+PbolI62dgkROOk67WakGzKPt69U+S2IhO30=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HkUccQP1; arc=none smtp.client-ip=209.85.210.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789239206; c=relaxed/simple;
+	bh=KVTuBIqSOrU+t/qtFB9Plx2OsTNlxdKE8436WBnfdgc=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=n0EHJysydTB59UuXhsecbWxkObVXXKi8fYxK+9po4sf+tN1Ehf7elGln8elKRQFyg2CvRMdP1Wvv/m17FQcfAsE2CkMqn0f1NLUDJarh1g3HXl5v/SYZ4BaDJoiULKBeo5+bPR6CptgcyWUHOIxwTb3vMROkbYx99bDez8P/tNc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LrdvV2Eo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HkUccQP1"
-Received: by mail-ot1-f48.google.com with SMTP id 46e09a7af769-7fccba9c675so2296714a34.0
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 11:51:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789239101; x=1789843901; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=RH8hnLpRglatc+7F+7cXVcygz7RNap9bF3alqePjg/U=;
-        b=HkUccQP1YQqv2cH4wjSzxuAD1hBIGOqXixHVBqmHxPtm05FAJjrTvHVI5wgCKWb3b9
-         k6I2WU8n61HRRq2jESERPNl5ejz49JVyQYSv1peU1emuVETPL/Z0X1qxqb/EEgd4XggF
-         1yjo9Uu2p611eKe0mFPDiU8rrIt4AkjAXUhj4m6lvJtRzrW4xBTKY06zZyUCJPhGomDz
-         BRviLvdEyLjigEFXGviyETlcItOz8ZbxVtTLhw8IamSIeo+yNOttmZkM/k3H1jSwiwC6
-         6EzNEyxcq1f2FTOEkr4Eq8l+tn5SmnHWGxQ6IfRvLUIEzd0NG273j+7hIszoW3tAML+W
-         DBRg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789239101; x=1789843901;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RH8hnLpRglatc+7F+7cXVcygz7RNap9bF3alqePjg/U=;
-        b=mqh9AlRDSfTVzQdHLjrclcy8uxsXXWjgFOGcQv7j7gLqZTiZLGcrf0BhaPtB2NuYgW
-         D1g88k0WpyaiwSCFKJ7yEGTpANEshIbK0gLdpta5v+Ffs3SzKmoNDXjaaUYyRWBaBuag
-         PND1P/Y3joXn2wDdBpfpXgzTIEwjarGLpxgcms9sVCqM3E6/zV84te/Q16whuy8esE3k
-         0C4yUKW3geXpAEym2KCSUJQAMCEWFlP0gvgaYIGjkodEDkFZcDukbAUoI8lZhwanbQq/
-         ncEnsOBneTb+4onp9yjr/VjogWEyEjTMMUWnWr4FL6i/U+KIs+5VWl9Ijr2N5OSX1qe1
-         mJUg==
-X-Forwarded-Encrypted: i=1; AKwUvByshiys6rEHwOtlGiWkBSIszaOMGU3RsdZctNsubtnLD3k6PW5S5J7w8fUoqtSdNOJYvXygqDKLy5d7nfE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kHBq++83l1vHOE00q8j6GRi62AaTmf1fk6G1hnSaVmU9ps8CGr
-	G2cBzxoin8oZMUXLEpknajps8nd4LhMa7tWg1CrIjOlDKZR28En4n1gc
-X-Gm-Gg: AYBFou2K9615aTYzbTDBrBGsJQCvqY2GLXyQQCsXVRUCgRiR2imGFjEFqRbmZ5f5vpg
-	Ouypt3GaDeHctWFxgmgurnvvdpZWAgDnOir6myv+t9Inp36+xI/JcCz7qucx7AUJsNUxQYY2qvR
-	gQBoAmLBlwPVvDQgaqpL/B/fzszorC/sXfSiCvoXQL3WM+H+rF6KBI+wzL5WYzg1WclvkFpn/ql
-	5L1YJTGVHSxZykxlvWorHsAXF9KhAeQjlVblCsVnJb/dyWNBLz8/QcZGkf7rr0qso83KhwwCUoK
-	cm265xBB+GVmtSUMfe4chrzqANo8RB2Yeo0qLq64O2X0c8qdPGSGm3nwgsYZOnTcfW41/4C2ReI
-	AdE7kkSEPjgV9cD12Q4Q0QksEB1L6e1AmsNWC9BE83DZbjfx0SG0ccbALt4lBfL4xpFkUIVrlRT
-	XnGDf969+Vz0evX7CkFvMlNGa1cEncvGEMDQXeS6nxf3oGAo8OiynLX6UglSYFKiBVBPbPUpsPK
-	CmNQk4st7XTNwkzzfv+hkmBpxkRS1hfnQY/7Ew36y7QnNBAKLprtWMvwBULNAkwrvc36EJJHRNi
-X-Received: by 2002:a05:6830:6e16:b0:7fc:8596:7448 with SMTP id 46e09a7af769-8027aa42d64mr7794583a34.10.1789239101122;
-        Sat, 12 Sep 2026 11:51:41 -0700 (PDT)
-Received: from localhost ([2a03:2880:10ff:59::])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-8051005d845sm4196181a34.24.2026.09.12.11.51.40
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 12 Sep 2026 11:51:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LrdvV2Eo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36E931F00893;
+	Sat, 12 Sep 2026 18:53:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789239205;
+	bh=pnYw8oV7PDO5JJNnfCNgZakByu1XteCUnWGxERqr7V4=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To;
+	b=LrdvV2EoAwqvph+f6BPThyZ2EUHBeXS5A4ViAyKyQzIRTRjD4+TIY7uk9QC14YzFD
+	 kopVm/CwYxzkzDRhDT+IrnF35QpG0aicyJBZVXF9kcM43pnoK4rjR8VPcs6SgrpVvg
+	 DywpldBL3OE85cJI8xG/ERzO1gCcCbbYdU6STM8Dbc7Jjqb2aEkse/dnMV6zygObkC
+	 uRohCFKBSiWN+l6+iOm/wEpBYqvAbGee5mU2lmX315izCLKyWjyK5/ji6p6O/6VTcS
+	 DY54SemGEI4A6nr58Lejxzeejy48+ZPp5SDeqcinjFvCgTBwDKPBQaZtSZfBsSbjjC
+	 TNF5uD9qGGixA==
+Message-ID: <3d327595-791c-4a7a-ae65-afae80c9c848@kernel.org>
+Date: Sat, 12 Sep 2026 20:53:16 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 12 Sep 2026 11:51:39 -0700
-Message-Id: <DLDKBR3Q9Z7A.23CDO8IOAPZYX@gmail.com>
-Cc: <martin.lau@linux.dev>, <song@kernel.org>, <yonghong.song@linux.dev>,
- <jolsa@kernel.org>, <emil@etsalapatis.com>, <ihor.solodrai@linux.dev>,
- <john.fastabend@gmail.com>, <shuah@kernel.org>, <bpf@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>
-Subject: Re: [PATCH bpf-next v2 02/13] bpf: compare linked-scalar kinds in
- regs_exact()
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: "Vineet Gupta" <vineet.gupta@linux.dev>, <ast@kernel.org>,
- <daniel@iogearbox.net>, <andrii@kernel.org>, <eddyz87@gmail.com>,
- <memxor@gmail.com>
-X-Mailer: aerc
-References: <20260910164635.459558-1-vineet.gupta@linux.dev>
- <20260910164635.459558-3-vineet.gupta@linux.dev>
-In-Reply-To: <20260910164635.459558-3-vineet.gupta@linux.dev>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] powerpc/kasan: require memintrinsic prefix support for
+ KASAN
+From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+To: Mukesh Kumar Chaurasiya <mkchauras@gmail.com>
+Cc: maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
+ ryabinin.a.a@gmail.com, glider@google.com, andreyknvl@gmail.com,
+ dvyukov@google.com, vincenzo.frascino@arm.com, pjw@kernel.org,
+ palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr, kees@kernel.org,
+ amachhiw@linux.ibm.com, ritesh.list@gmail.com, robh@kernel.org,
+ sayalip@linux.ibm.com, linuxppc-dev@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
+ linux-riscv@lists.infradead.org, linux-hardening@vger.kernel.org,
+ Venkat Rao Bagalkote <venkat88@linux.ibm.com>
+References: <20260908064948.999530-1-mkchauras@gmail.com>
+ <b3b1fa5a-c836-447f-a658-ad66183c23c5@kernel.org>
+ <aqOrCdvUB5lFjNsS@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
+ <2dedc7a9-95f5-4a7f-8d38-6b9351db402f@kernel.org>
+Content-Language: fr-FR
+In-Reply-To: <2dedc7a9-95f5-4a7f-8d38-6b9351db402f@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Thu Sep 10, 2026 at 9:46 AM PDT, Vineet Gupta wrote:
-> regs_exact() memcmp()s up to offsetof(id), so it does not see ->add_const=
-,
-> which sits past ->frameno. Compare it explicitly.
->
-> Two cases go from accepted to rejected:
->
->   old {r1.id=3DA, r2.id=3DA+delta}  vs cur {r1.id=3DB, r2.id=3DB}
->   old {r2.id=3DA+delta32}         vs cur {r2.id=3DB+delta64}
->
-> The first was rejected before this series -- the kind lived in ->id, so
-> A+delta was a distinct idmap key -- and the previous patch lost that. The
-> second was accepted before the series too, which is wrong: alu32 and alu6=
-4
-> deltas differ in sync_linked_regs(), so the states are not
-> interchangeable.
->
-> ->delta is inside the memcmp() window and is cleared together with the
-> kind, so either case needs a kind with delta 0, e.g. "r6 =3D r5; r6 +=3D =
-0".
->
-> Only states_equal(..., EXACT) and env->explore_alu_limits reach
-> regs_exact() for a scalar; regsafe() compares kinds itself on the ordinar=
-y
-> path. Neither is easy to drive from a test program, so no selftest.
->
-> Signed-off-by: Vineet Gupta <vineet.gupta@linux.dev>
-> ---
-> v2: new. Splits out the comparison RFC 3/6 lost when the kind left
-> ->id, which was raised on that patch.
->
->  kernel/bpf/states.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/kernel/bpf/states.c b/kernel/bpf/states.c
-> index d974baad37ee..5505d7aaeed0 100644
-> --- a/kernel/bpf/states.c
-> +++ b/kernel/bpf/states.c
-> @@ -475,6 +475,7 @@ static bool regs_exact(const struct bpf_reg_state *ro=
-ld,
->  		       struct bpf_idmap *idmap)
->  {
->  	return memcmp(rold, rcur, offsetof(struct bpf_reg_state, id)) =3D=3D 0 =
-&&
-> +	       rold->add_const =3D=3D rcur->add_const &&
 
-This change should be in the patch 1 otherwise patch 1 is not correct?
 
+Le 12/09/2026 à 19:35, Christophe Leroy (CS GROUP) a écrit :
+> Hi Mukesh,
+> 
+> Le 11/09/2026 à 19:39, Mukesh Kumar Chaurasiya a écrit :
+>>
+>> [...]
+>>>> diff --git a/arch/powerpc/kernel/cputable.c b/arch/powerpc/kernel/ 
+>>>> cputable.c
+>>>> index 6f6801da9dc1..44115f904c2c 100644
+>>>> --- a/arch/powerpc/kernel/cputable.c
+>>>> +++ b/arch/powerpc/kernel/cputable.c
+>>>> @@ -36,8 +36,8 @@ void __init set_cur_cpu_spec(struct cpu_spec *s)
+>>>>        t = PTRRELOC(t);
+>>>>        /*
+>>>> -     * use memcpy() instead of *t = *s so that GCC replaces it
+>>>> -     * by __memcpy() when KASAN is active
+>>>> +     * use memcpy() instead of *t = *s so that the compiler 
+>>>> replaces it
+>>>> +     * by __asan_memcpy() when KASAN is active
+>>>>         */
+>>>
+>>> Does the initial problem still exist with the new __asan_memcpy() 
+>>> approach ?
+>>> If not the comment should be removed.
+>>>
+>> Hey Christophe,
+>>
+>> Thanks for pointing it out, i took a deeper look into this, here's my
+>> understanding on it.
+>>
+>> On PowerPC during very early boot the kernel is loaded by the
+>> bootloader/firmware at some physical address, but the kernel was linked
+>> expecting it to run at KERNELBASE(virtual address like
+>> 0xc000000000000000). The MMU mapping that makes that virtual address
+>> valid hasn't been set up yet. So far for a window of early boot, code is
+>> executing at the physical load address while all symbol addresses in the
+>> binary refer to the virtual linked address. reloc_offset() computes the
+>> gap between these two and PTRRELOC applies it to any pointer.
+>>
+>> So PTRRELOC(&the_cpu_spec) gives the physical address where the struct
+>> actually lives in memory right now, not where the linker thinks it lives.
+>>
+>> Why *t = *s would be wrong?
+>>
+>> In set_cur_cpu_spec:
+>>
+>> struct cpu_spec *t = &the_cpu_spec;  // linked (virtual) address
+>> t = PTRRELOC(t);                     // physical address — where it 
+>> actually is
+>> memcpy(t, s, sizeof(*t));            // copy into the right place
+>>
+>> If you wrote *t = *s instead, the compiler generates a struct assignment.
+>> For a large struct like cpu_spec, GCC is free to implement that however
+>> it likes — including emitting a call to memcpy(). But crucially, a
+>> compiler-generated memcpy call resolves through the GOT/PLT or direct
+>> symbol — which points to the linked virtual address of memcpy, not the
+>> physical address. At this point in boot, calling through the wrong
+>> address would jump to garbage or an unmapped page.
+>>
+>> memcpy(t, s, sizeof(*t)) written explicitly is different: t is already
+>> the corrected physical address, s points into the cpu_specs table which
+>> has also been PTRRELOC'd. The explicit call goes through the normal
+>> early-boot call mechanism which is safe.
+>>
+>> The original comment said:
+>>
+>> "use memcpy() instead of *t = *s so that GCC replaces it by __memcpy()
+>> when KASAN is active"
+>>
+>> This was added because under the old KASAN scheme
+>> (!CC_HAS_KASAN_MEMINTRINSIC_PREFIX), KASAN overrode the memset/memcpy
+>> linker symbols globally with C wrappers that called kasan_check_range().
+>> If the compiler turned *t = *s into an implicit memcpy(), that would hit
+>> the KASAN wrapper — calling kasan_check_range() at a point in early boot
+>> where the KASAN shadow isn't mapped yet, causing a crash.
+>>
+>> Writing memcpy(t, s, sizeof(*t)) explicitly made GCC emit __memcpy()
+>> (the raw assembly alias exposed by _GLOBAL_KASAN) instead of the
+>> KASAN-wrapped memcpy(), bypassing the shadow check.
+>>
+>> That was the secondary reason. The primary reason that t is a
+>> PTRRELOC-adjusted physical pointer and the copy must go through it
+>> correctly was never stated.
+>>
+>> So the KASAN comment is not required but i think we still need to state
+>> why memcpy is required. For PTRRELOC adjustment, comment should reflect
+>> that.
+>>
+>> I'll update the comment and commit message and send out a new version.
+> 
+> Explanation based on kernel v5.10
+> 
+> The problem was not linked to PTRRELOC, the t = PTRRELOC(t) followed by 
+> *t = *s works well in term of adressing, regardless of whether 
+> CONFIG_KASAN is enabled or not.
+> 
+> The problem is that with *t = *s, gcc emits a call to memcpy(). When 
+> CONFIG_KASAN is enabled, memcpy() is instrumented. But we don't want 
+> cputable.o instrumented as we have KASAN_SANITIZE_cputable.o := n in 
+> Makefile.
+> 
+> In asm/string.h we have:
+> 
+> #if defined(CONFIG_KASAN) && !defined(__SANITIZE_ADDRESS__)
+> /*
+>   * For files that are not instrumented (e.g. mm/slub.c) we
+>   * should use not instrumented version of mem* functions.
+>   */
+> #define memcpy(dst, src, len) __memcpy(dst, src, len)
+> #define memmove(dst, src, len) __memmove(dst, src, len)
+> #define memset(s, c, n) __memset(s, c, n)
+> 
+> Because in non-instrumented files like cputable.o we want memcpy() to be 
+> replaced at buildtime by __memcpy() to skip KASAN instrumentation. But 
+> this is resolved by pre-processing, and pre-processor doesn't know that 
+> the compiler will emit a call to memcpy().
+> 
+> By replacing *t = *s by the memcpy(), the pre-processor replaces 
+> memcpy() by __memcpy() when CONFIG_KASAN is enabled.
+> 
+> See the difference:
+> 
+> This is v5.10
+> 
+> 00000000 <set_cur_cpu_spec>:
+>     0:    94 21 ff e0     stwu    r1,-32(r1)
+>     4:    7c 69 1b 78     mr      r9,r3
+>     8:    bf c1 00 18     stmw    r30,24(r1)
+>     c:    3f e0 00 00     lis     r31,0
+>              e: R_PPC_ADDR16_HA    .data..read_mostly
+>    10:    3b ff 00 00     addi    r31,r31,0
+>              12: R_PPC_ADDR16_LO    .data..read_mostly
+>    14:    7c 08 02 a6     mflr    r0
+>    18:    7d 3e 4b 78     mr      r30,r9
+>    1c:    7f e3 fb 78     mr      r3,r31
+>    20:    90 01 00 24     stw     r0,36(r1)
+>    24:    48 00 00 01     bl      24 <set_cur_cpu_spec+0x24>
+>              24: R_PPC_REL24    add_reloc_offset
+>    28:    7f c4 f3 78     mr      r4,r30
+>    2c:    38 a0 00 58     li      r5,88
+>    30:    48 00 00 01     bl      30 <set_cur_cpu_spec+0x30>
+>              30: R_PPC_REL24    __memcpy
+>    34:    38 7f 00 58     addi    r3,r31,88
+>    38:    48 00 00 01     bl      38 <set_cur_cpu_spec+0x38>
+>              38: R_PPC_REL24    add_reloc_offset
+>    3c:    93 e3 00 00     stw     r31,0(r3)
+>    40:    80 01 00 24     lwz     r0,36(r1)
+>    44:    83 c1 00 18     lwz     r30,24(r1)
+>    48:    83 e1 00 1c     lwz     r31,28(r1)
+>    4c:    7c 08 03 a6     mtlr    r0
+>    50:    38 21 00 20     addi    r1,r1,32
+>    54:    4e 80 00 20     blr
+> 
+> This is v5.10 with commit adcf59187e270 reverted:
+> 
+> 00000000 <set_cur_cpu_spec>:
+>     0:    94 21 ff e0     stwu    r1,-32(r1)
+>     4:    7c 69 1b 78     mr      r9,r3
+>     8:    bf c1 00 18     stmw    r30,24(r1)
+>     c:    3f e0 00 00     lis     r31,0
+>              e: R_PPC_ADDR16_HA    .data..read_mostly
+>    10:    3b ff 00 00     addi    r31,r31,0
+>              12: R_PPC_ADDR16_LO    .data..read_mostly
+>    14:    7c 08 02 a6     mflr    r0
+>    18:    7d 3e 4b 78     mr      r30,r9
+>    1c:    7f e3 fb 78     mr      r3,r31
+>    20:    90 01 00 24     stw     r0,36(r1)
+>    24:    48 00 00 01     bl      24 <set_cur_cpu_spec+0x24>
+>              24: R_PPC_REL24    add_reloc_offset
+>    28:    7f c4 f3 78     mr      r4,r30
+>    2c:    38 a0 00 58     li      r5,88
+>    30:    48 00 00 01     bl      30 <set_cur_cpu_spec+0x30>
+>              30: R_PPC_REL24    memcpy
+>    34:    38 7f 00 58     addi    r3,r31,88
+>    38:    48 00 00 01     bl      38 <set_cur_cpu_spec+0x38>
+>              38: R_PPC_REL24    add_reloc_offset
+>    3c:    93 e3 00 00     stw     r31,0(r3)
+>    40:    80 01 00 24     lwz     r0,36(r1)
+>    44:    83 c1 00 18     lwz     r30,24(r1)
+>    48:    83 e1 00 1c     lwz     r31,28(r1)
+>    4c:    7c 08 03 a6     mtlr    r0
+>    50:    38 21 00 20     addi    r1,r1,32
+>    54:    4e 80 00 20     blr
+> 
+> So my question is ? Do we still have this issue nowadays ?
+
+I now did the same test with v7.2 without and with adcf59187e270 
+reverted. I both cases I get memcpy().
+
+Christophe
