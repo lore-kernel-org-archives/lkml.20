@@ -1,212 +1,117 @@
-Received: from va-2-60.ptr.blmpb.com (va-2-60.ptr.blmpb.com [209.127.231.60])
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9F643451C1
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 14:21:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.60
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5722345CCE
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 14:21:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789222907; cv=none; b=sANRzKyznIl0a3jxgA4XJBvyg8PbYoxEYHE/gOh7fe7HSfN+IXyAEVj829NzyGalpoONDFdLOW9p9SCYzBlPAZZwbRMDV5a8Q9DCWkpASpnxL7Hy0ibIy7DT5yOwYpV6XateiWeOIre4kbpalz+SjpGCKUhv7SPjQGYLOxRx8yE=
+	t=1789222914; cv=none; b=tjRVmJVi4tDRR+G/tXoXaAMYj5Hi54xH/GEgu9uHhQX4+EGJuO9/dk2/aKYuGwbrea8xIJq4ZOEWshPEx+Wt8Up+zHIebVIQ1zw4I6ZqnTnc0Hq7Opom19s7mg/8eixlqti+v/mHLASjNk+sZ2oC4c9EPMQgDlXKNqFs9t+0a8s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789222907; c=relaxed/simple;
-	bh=0wX6hOxSyzv13NfzbyN+AEPTOtfdE4C+hpqJPodyllQ=;
-	h=From:References:Date:Subject:Message-Id:Mime-Version:In-Reply-To:
-	 To:Cc:Content-Type; b=mRulw5jL4jBJSxhzMoftTHGe8+BB3leq5W5zc/RN06Sa5G+lkfYVGhF/vkT/IN+qc49owqsrbQBeyaCySKQcQU9KGt6cXBvjTCFzXfsRUErT1VKQOQoibj/q3yidXS9G9n3Pat+WjTrR7fDhvf86CD3DwZKPY+q5b8RkZEQT5Y0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io; spf=pass smtp.mailfrom=fygo.io; dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b=UGldNLs5; arc=none smtp.client-ip=209.127.231.60
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
+	s=arc-20240116; t=1789222914; c=relaxed/simple;
+	bh=KgZKD+EluK0sfJ94RDAUxxixgPsC7zCuBwgjrLJz1FQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hAfyS4WoRWtDNSpbEPDBZf5EHZMj9XNSV6V1s1q8A7UuNIQFUNHQJKq8eC4GgNK+M/zNPIm8nB/GFWHZommoBh3aClFnwlRoBruNalYUzXanJ200gOQKgjuhJQxxdMBO89Ts4tDnK4j+4Sr/G/tUKudwyvSno7ZnKW/PJ1Wncds=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XyVxz7G8; arc=none smtp.client-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b="UGldNLs5"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1789222897;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=m4/pESkF5aOOEVFDthMDfJ73cy1uGXqcU5VDQUIbEYU=;
- b=UGldNLs5R+8hoPWBCmTD+McM5Lu8GHuFFxsmAmDuGrVLgTG7E9C0LBRQSirs7xt/2EJDwa
- MpkQdDwP6+tg/xRfQJz06LqsuuwEGE1G8V1M/vDR/gVJeGWeWyVYUi8CbcSAiYrs8dwL1S
- H5WrG0RhB1nnSdMfCNZEjrEgqOrXZ4rWyP4w8cUygCNxY3Sa97c10ob+L8OOlkylzKKnxQ
- /B0Ky1v9kHB/rknQECUEC8/bx/mXrCnIkoe8x/3T/U9gowiymL3x1DGXVF9dQGIqNWLTBq
- bMThFbPAPYcXsLS9ztGL8N/N5LLnQZsBtnSl3BTxJry0yWA7JeGYzv2Md+2UrQ==
-From: "yu kuai" <yukuai@fygo.io>
-X-Lms-Return-Path: <lba+26aa55ff0+040f12+vger.kernel.org+yukuai@fygo.io>
-X-Original-From: yu kuai <yukuai@fygo.io>
-References: <20260823133045.970199-1-yukuai@kernel.org> <20260823133045.970199-3-yukuai@kernel.org> <49d724b8-57c6-48fc-8099-69cd1b072351@linux.ibm.com> <befbc177-f7f5-4c44-b02e-20a99fc64c0c@fygo.io> <a123f309-6ec7-470f-b5b0-f08cca6d2627@linux.ibm.com>
-Date: Sat, 12 Sep 2026 22:21:28 +0800
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 2/3] blk-cgroup: store blkcg in bio instead of blkg
-Message-Id: <4701cbcb-b877-4902-a5b6-59836c345ae1@fygo.io>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XyVxz7G8"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2d942c7cc2fso17992495ad.3
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 07:21:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789222911; x=1789827711; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EZekEX9u4dkM+nKRZ96Vifo/IB+ikfrYJWegpPxurD8=;
+        b=XyVxz7G8frBAkuLTDZhqKlA8o7034o+uk6nUvm9Z+i9h4XyNTaQ+kRyeLhrlQZdJiM
+         G8JlIAdETtZnTeAydqpTJB5ljemwSviMgeoqEeDa9Cj6ddVmh9GvnaDOP67UY4qfbiSm
+         2dZSnnyAVK4MJDJltFA1m5OoEvdQtCVHBkl4GdHgYhkRvlhxLV0xuB8o9/96jICdf4d6
+         jr1V3/Kx/xf8d7BlrPo3+j4ax8k3FmoAzPHtboFvxFegpjcp3QJ2nSGwQ1lSp71kQJS3
+         ECblMT1VKNWM0bFpyn1YIAVnlC010XFT8kU7YRcCuOc1IN9kVvhHc0qUKFi0EHcIyp04
+         IgIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789222911; x=1789827711;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EZekEX9u4dkM+nKRZ96Vifo/IB+ikfrYJWegpPxurD8=;
+        b=dD1OoZjBh4J29OwRZ3tzoUn1sN2WdXOYbYq6QQjLNIwZHtXZ54eKbcodWfy1BBnGc0
+         zI7dhNPDds1olfunuBeUAR2pbuBh6CP9nL+LdVclpI6UIcPSRTaWlH/K4doabtIHuZu7
+         w7uU2MbaD+UZWW1jb+EH9lvbeGV5oaNeMz+/NZoz1XMBh4GEahGoJpoaw6wZ/ccwUY+t
+         44Exl55L0B01RiKVkXjL5gmeBAwXi5roN1/0mzX37ywYRvDANqNCvDYsqABMlfEuj3wU
+         tXJzCEQGuSZ/l+Ht+42JVOE8Af+id7NldMnesJZKX3F1pc0BJugPaUKLgilsu2Bf29qX
+         HHhw==
+X-Forwarded-Encrypted: i=1; AKwUvBy70hU4DoGEEdVsz9u/Tmz44Dbo/PE3JTJAt8o+INGGkWk4FE9kOzFu+kdNwfPMu3uJCX3h6Ddwx+5SZEU=@vger.kernel.org
+X-Gm-Message-State: AFuF++kUt0J7BjhSgI3PrWFrwuPKmFv+rjr/3GYwlWf1QJCI8rzE+MNc
+	mGYKq7BUgcDp3skcGbqc7D4cQ6Gu2L3ebZQPt7mupOC6zf82U8zEb3Eh
+X-Gm-Gg: AYBFou0k5BM+Q2rpss04nnzpXPr/WyL3BvAYwS1TvejKAz6szICDKWIJUdL/6iSWRQ8
+	3ftFrKCvXja3RZKsVyaqLfU0F8E+m5nVXQ8Ih5KmhT1bgj5HvLHdmEw5+EktCwvk5GDkx+zJ1RX
+	g8sfYVsT+lNSyq5CFEMFXRSykk24x9dBF9YwGZ2mmu+hhCMhhUvDZqRoWEOz3qhT8OlYXXWw2PO
+	Qi9H+jRAZspEgrmLIa7sGFqm/UuNJidBrzKa0x+Ot5WJ3LM3JMoTIxCZnpx46be7yLvqE07Am9Q
+	hhPcxyOG7GbaCbJa/Moja/QOzaC9dhj2lutXXtBxZ76mGoVpK0QqqV39fefK1/C44nMCVIW0/zh
+	emsHNLHjdHdTYcvCTxL3mn2OOoaRFB7m+As54A/RYPrgBBfI6X3zsW13yD33Vq+GVqioEK6t8Iw
+	VZPUx3ThREOZPJ1zWQ7EgA9aRN2Y9PEt6TuqpicPDY78kNJlavn9+1bv3Vvr9Po/OROQM0MT3ry
+	H7TFd4TtA+lKg==
+X-Received: by 2002:a17:903:1b4f:b0:2dd:40cb:a054 with SMTP id d9443c01a7336-2dd40cba32bmr89839555ad.19.1789222911290;
+        Sat, 12 Sep 2026 07:21:51 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd3f0faed5sm17625205ad.10.2026.09.12.07.21.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 12 Sep 2026 07:21:50 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Sat, 12 Sep 2026 07:21:49 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>
+Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-doc@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
+Subject: Re: [PATCH v2 3/4] dt-bindings: hwmon/pmbus: Document MAX20826 and
+ similar devices
+Message-ID: <c8ba0294-79bc-4b81-98b2-94577c1869b2@roeck-us.net>
+References: <20260911-hwmon-max20826-support-v2-0-5e30cbd97d84@analog.com>
+ <20260911-hwmon-max20826-support-v2-3-5e30cbd97d84@analog.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Received: from [192.168.1.104] ([39.182.0.161]) by smtp.larksuite.com with ESMTPS; Sat, 12 Sep 2026 14:21:35 +0000
-In-Reply-To: <a123f309-6ec7-470f-b5b0-f08cca6d2627@linux.ibm.com>
-Reply-To: yukuai@fygo.io
-To: "Nilay Shroff" <nilay@linux.ibm.com>, "Jens Axboe" <axboe@kernel.dk>, 
-	"Tejun Heo" <tj@kernel.org>, "Josef Bacik" <josef@toxicpanda.com>, 
-	"Johannes Weiner" <hannes@cmpxchg.org>, 
-	=?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
-	"yu kuai" <yukuai@fygo.io>
-Cc: "Christoph Hellwig" <hch@lst.de>, "Tao Cui" <cui.tao@linux.dev>, 
-	"Jan Kara" <jack@suse.cz>, "Jonathan Corbet" <corbet@lwn.net>, 
-	"Shuah Khan" <skhan@linuxfoundation.org>, "Coly Li" <colyli@fygo.io>, 
-	"Kent Overstreet" <kent.overstreet@linux.dev>, 
-	"Alasdair Kergon" <agk@redhat.com>, "Mike Snitzer" <snitzer@kernel.org>, 
-	"Mikulas Patocka" <mpatocka@redhat.com>, 
-	"Benjamin Marzinski" <bmarzins@redhat.com>, "Song Liu" <song@kernel.org>, 
-	"Li Nan" <magiclinan@didiglobal.com>, "Xiao Ni" <xiao@kernel.org>, 
-	"Pankaj Gupta" <pankaj.gupta.linux@gmail.com>, 
-	"Dan Williams" <djbw@kernel.org>, 
-	"Vishal Verma" <vishal.l.verma@intel.com>, 
-	"Dave Jiang" <dave.jiang@intel.com>, 
-	"Alison Schofield" <alison.schofield@intel.com>, 
-	"Ira Weiny" <iweiny@kernel.org>, 
-	"Andreas Gruenbacher" <agruenba@redhat.com>, 
-	"Matthew Wilcox" <willy@infradead.org>, 
-	"Andrew Morton" <akpm@linux-foundation.org>, 
-	"Chris Li" <chrisl@kernel.org>, "Kairui Song" <kasong@tencent.com>, 
-	"Kemeng Shi" <shikemeng@huaweicloud.com>, 
-	"Nhat Pham" <nphamcs@gmail.com>, "Baoquan He" <baoquan.he@linux.dev>, 
-	"Barry Song" <baohua@kernel.org>, 
-	"Youngjun Park" <youngjun.park@lge.com>, <cgroups@vger.kernel.org>, 
-	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
-	<linux-block@vger.kernel.org>, <linux-bcache@vger.kernel.org>, 
-	<dm-devel@lists.linux.dev>, <linux-raid@vger.kernel.org>, 
-	<nvdimm@lists.linux.dev>, <virtualization@lists.linux.dev>, 
-	<gfs2@lists.linux.dev>, <linux-fsdevel@vger.kernel.org>, 
-	<linux-mm@kvack.org>
-Content-Type: text/plain; charset=UTF-8
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260911-hwmon-max20826-support-v2-3-5e30cbd97d84@analog.com>
 
-Hi,
+On Fri, Sep 11, 2026 at 02:53:39PM +0100, Nuno Sá wrote:
+> The MAX20826 IC and similar provide a high-density, flexible and scalable
+> dual-loop solution for high current cores for AI applications. These are
+> dual loop solutions multiphase voltage regulators. Between Rails A and B,
+> MAX20855B and MAX20908 supports up to 8 phases total configurable from
+> 8+0 to 4+4 phases, MAX20912 supports up to 12 phases from 12+0 to 6+6,
+> and MAX20826 and MAX20916 supports up to 16 phases from 16+0 to 8+8.
+> 
+> The output voltage of each rail is controlled either through PMBus or
+> through the high-speed processor voltage-control interface (Intel SVID,
+> AMD SVI3, Nvidia PWMVID or AVSBus, depending on the device). Which one is
+> in use is part of the configuration the device powers up with and is read
+> back from it, hence adi,rail-a-high-speed and adi,rail-b-high-speed only
+> tell whether the high-speed interface or PMBus controls the output voltage
+> of the respective rail.
+> 
+> Co-developed-by: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
+> Signed-off-by: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
+> Signed-off-by: Nuno Sá <nuno.sa@analog.com>
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
 
-=E5=9C=A8 2026/9/7 14:02, Nilay Shroff =E5=86=99=E9=81=93:
-> On 9/6/26 5:09 PM, yu kuai wrote:
->> Hi,
->>
->> =E5=9C=A8 2026/9/6 18:56, Nilay Shroff =E5=86=99=E9=81=93:
->>> On 8/23/26 7:00 PM, Yu Kuai wrote:
->>>> @@ -257,20 +262,21 @@ static inline bool
->>>> bio_issue_as_root_blkg(struct bio *bio)
->>>> =C2=A0=C2=A0=C2=A0 * @blkcg: blkcg of interest
->>>> =C2=A0=C2=A0=C2=A0 * @q: request_queue of interest
->>>> =C2=A0=C2=A0=C2=A0 *
->>>> =C2=A0=C2=A0=C2=A0 * Lookup a blkg for the @blkcg - @q pair, whether i=
-t is online or
->>>> dying.
->>>> =C2=A0=C2=A0=C2=A0 *
->>>> - * Must be called in a RCU critical section.
->>>> + * Must be called with either RCU read lock or queue_lock held.
->>>> =C2=A0=C2=A0=C2=A0 *
->>>> =C2=A0=C2=A0=C2=A0 * This does not acquire a reference.=C2=A0 The call=
-er must already hold
->>>> one, or
->>>> =C2=A0=C2=A0=C2=A0 * have the blkg pinned by I/O.
->>>> =C2=A0=C2=A0=C2=A0 */
->>>> =C2=A0=C2=A0 static inline struct blkcg_gq *blkg_lookup_any(struct blk=
-cg *blkcg,
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct request_queue *q)
->>>> =C2=A0=C2=A0 {
->>>> -=C2=A0=C2=A0=C2=A0 RCU_LOCKDEP_WARN(!rcu_read_lock_held(),
->>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 "blkg_lookup_any() requires an RCU read lock");
->>>> +=C2=A0=C2=A0=C2=A0 RCU_LOCKDEP_WARN(!rcu_read_lock_held() &&
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 !lockdep_is_held(&q->queue_lock),
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 "blkg_lookup_any() requires an RCU read lock or
->>>> queue_lock");
->>>> =C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return rhashtable_lookup(&=
-q->blkg_hash, &blkcg->css.id,
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 blkg_hash_params);
->>>> =C2=A0=C2=A0 }
->>>
->>> The changes look good to me. However, rhashtable_lookup() is annotated
->>> with __must_hold_shared(RCU). Since we now officially support Clang
->>> context annotations in the block layer, compiling with the latest
->>> Clang/LLVM generates a number of context warnings, for example:
->>>
->>> block/blk-cgroup.h:277:9: warning: calling function 'rhashtable_lookup'
->>> requires holding __ctx_lock_RCU 'RCU' [-Wthread-safety-analysis]
->>> =C2=A0=C2=A0 277 |=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 retu=
-rn rhashtable_lookup(&q->blkg_hash,=20
->>> &blkcg->css.id,
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ^
->>>
->>> The same warning is reported from several other block layer source
->>> files that include blk-cgroup.h.
->>>
->>> This indicates that rhashtable_lookup() requires the RCU read lock
->>> from Clang's context-analysis perspective. Looking at the call paths of
->>> blkg_lookup_any(), it appears that not all callers hold
->>> rcu_read_lock() when invoking it.
->>
->> I was not aware of the above clang warning, this should not be a real=20
->> problem
->> because queue_lock should have the same protection as rcu, and I was=20
->> trying
->> not to make this patch too complex.
->>
-> I agree that this is not a runtime correctness issue when the lookup=20
-> is already
-> protected by q->queue_lock.
->
->> I add the rcu_read_lock() in the following patch to covert queue_lock=20
->> to blkcg_mutex:
->>
->> [RFC PATCH v3 3/6] blk-cgroup: protect blkgs with blkcg_mutex - Yu=20
->> Kuai=20
->> <https://lore.kernel.org/all/20260823152926.1043863-4-yukuai@kernel.org/=
->
->>
->> Since this is related to compile warning, I'll move the rcu=20
->> protection to this
->> patch.
->>
-> Since rhashtable_lookup() is annotated with __must_hold_shared(RCU),=20
-> Clang's
-> context analysis still reports warnings for these call paths. While this
-> doesn't cause a build failure (and only generates warning) when=20
-> CONFIG_WERROR
-> is not enabled, it could do so for configurations that enable=20
-> CONFIG_WERROR=3Dy.
->
-> So IMO, moving the rcu_read_lock() protection into this patch makes=20
-> sense.
-> This would avoid introducing the Clang warnings/errors in this patch,=20
-> and then
-> you may accordingly adjust your subsequent series where the=20
-> q->queue_lock protection
-> is removed and the blkg lookup paths are protected by RCU.
->
-> I also noticed that some paths already take q->queue_lock followed by=20
-> rcu_read_lock(),
-> so adding the RCU protection here should be consistent with those=20
-> existing paths.
+Applied.
 
-Turns out Clang will still warn after adding rcu_read_lock(). I'm not famil=
-iar how this
-works, but AI told me this is related to inline helpers, And I'll have to a=
-dd the same
-__must_hold_shared(RCU) in rhashtable_lookup() for following inline callers=
- to kill the
-warning:
-
-   static inline struct blkcg_gq *blkg_lookup_any(...)
-         __must_hold_shared(RCU);
-
-   static inline struct blkcg_gq *blkg_lookup(...)
-         __must_hold_shared(RCU);
-
->
-> Thanks,
-> --Nilay
-
---=20
 Thanks,
-Kuai
+Guenter
