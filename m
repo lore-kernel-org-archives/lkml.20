@@ -1,117 +1,128 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21C3847CA6D;
-	Sat, 12 Sep 2026 13:15:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD80E47CA9D
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 13:16:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789218907; cv=none; b=hsGd0ZnwqR+TfAtZwINePfJGH42fOPpFbNZRRaYwUP5317iU7hAEinGsNsGEsTgWYu05a9awWTG6Ndt5iY6lorOxHNziyuaXip/+LaF9UVZjxFZrDVBkdi5zD1AY3JMWQvI4l6GAOzcHtH86yOhDtpdeGdCmroJS2WeVsC/0Fp0=
+	t=1789218989; cv=none; b=msLLLX69l17T7a1ARU9NOQ90YmdUQ8ZtbgAbtt//3/McgZUy3hKtqyqsDXCZix8dincvg4Dx/GthCudy9WacpWC7g/FT7OWta5smhT6uOo8lmRm612mtiBCktOS6zVYbIYHfmtNvn0CR2rrUdtEBoQca3xImac1drFMae5bACOw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789218907; c=relaxed/simple;
-	bh=aEqQPAM8IpJbzV5TaPpdI3LfTzG8+rxefu/liAzV82U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BpaKr+FwTF9ktyKXc5ZQ7kz6JoTCkOCmqMSa2ZJrrHvWNMtZ3U7K7jKUx0iA9LlcXG87rL9PycTn5CLvkhdVlGky9dGA8TNfJ9ZeNTKJastXR6q2h9xGqjUEO/KTErgoYYtDc8QoeNrc6hOjUXRLeVNi0bSsmzD6HyVA+GkNICY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=j+Qc4Gz1; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789218989; c=relaxed/simple;
+	bh=WBefzjrz2/CjXAIfyansE/nMcdxDRp4c0Q4PEl3UA9g=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=PUE6OcH9bIkeBYLi5bsXsKt9hs7UakRHE6SblcT0c0ru/KN4QKyMZi889NxLwDPqT2GYsGv/u7hoSLAW2kpbdPydFQ3HuSTeTAtIlWrnnsMVi9RprVrpfrrLLt2yOFJwfNhwTC0Q3vQ99kd5pfBuo+MX5KQ3eWG7spg2JBMAI9k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=eVeH/fYg; arc=none smtp.client-ip=209.85.215.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="j+Qc4Gz1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789218905; x=1820754905;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=aEqQPAM8IpJbzV5TaPpdI3LfTzG8+rxefu/liAzV82U=;
-  b=j+Qc4Gz1dOM6Rp4SVqLi0x8sGZf9iMFZn4N7uYYz9nUZMKROQ6NefWY5
-   aClBudoNr+ayyPgU+RzMJLzMmn5bt1YPoeCPGBXAEMCdFT6vWuVioyQTm
-   1E8mtTuyNySUK59t0JRI4V9SsYi1GbyFWTL0JhtOgioUhyjcmj/awK3SD
-   mhkJKyVqggSKq1EqjbI4PPfQ/LN5WxBMOQNnnfWHiFg59Fww6ZctTai8Y
-   kFZPdkVHAPc5Cf9mG1WkH7+CKoUf8PDrFAnnkktMY1FGCVvLEOglO2Kli
-   3xJMsFeFdOuD26z5wMyrQAquO59zL4L5+6XMDeoumEjKShznnBJJpVQ4L
-   A==;
-X-CSE-ConnectionGUID: 2amq7eqXR7CZVLbGzrPYsQ==
-X-CSE-MsgGUID: Y2TUhAf5TaeuFVOYUYyQPw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11902"; a="89669187"
-X-IronPort-AV: E=Sophos;i="6.27,99,1787036400"; 
-   d="scan'208";a="89669187"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Sep 2026 06:15:04 -0700
-X-CSE-ConnectionGUID: yHcfrC34RlGyL6jJfZeyIA==
-X-CSE-MsgGUID: wnRtCPr7Q8yzVRpKQ3wmdQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,99,1787036400"; 
-   d="scan'208";a="268901516"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.239])
-  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Sep 2026 06:15:01 -0700
-Date: Sat, 12 Sep 2026 16:14:59 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Pavol Sakac <sakacpav@amazon.de>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Tejun Heo <tj@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>, driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org, Xu Yang <xu.yang_2@nxp.com>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
-	Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org,
-	nh-open-source@amazon.com
-Subject: Re: [RFC PATCH 5/8] drivers: base: test: Add KUnit suite for staged
- sysfs registration
-Message-ID: <aqVQU6hbDPE5zOm-@ashevche-desk.local>
-References: <20260911-vfopt-s5-v1-0-fa4cacdb6ca8@amazon.de>
- <20260911174414.97060-5-sakacpav@amazon.de>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="eVeH/fYg"
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc1ca15334cso2478930a12.1
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 06:16:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789218987; x=1789823787; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5+xx9uV4GIqiOlAAcl6ZWviwUg5PixHQSZ2d4jk5TG4=;
+        b=eVeH/fYgj6rcHPDWc+/lYmutrRZ37RcG53qpL5qqhkJDqq0NqbQEPsB1ouVUPd4ahK
+         C9YI3HMoAd0QcXy30U9MaG9wMwyVqjChUcu3BrIcMrl8E+4PrhUNDXCUJ+4reP+7pK5s
+         rPr8zxEjTWqpjsPBNNaWuGeDMhG0QrMOvfBa1IS0QSB/D2BTe8Z94TDvDlKmaiVzGYJf
+         uYULPh4dainBBeemDh/zB2ZJ6PsXPeN+prJ9s0V9lQn/uD8DRVnl2afVKQAl00lXtnbX
+         UUuxou8ZluZAWiikwbYm98DwAlBwso/kRfj1XFlHqvLEit4TBwLfz40J77G73H3w9Fab
+         CGgA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789218987; x=1789823787;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5+xx9uV4GIqiOlAAcl6ZWviwUg5PixHQSZ2d4jk5TG4=;
+        b=c4gxEwWvuwTEyIRk7D/6TnCDQWWCV1l3CfrvjrYKNZxbnBciWpyy+7du94aU6qhbSK
+         IkoPTqRR3bhAQuvNRJWOcuoX+q9JzcFZgVa2JzevIiXUVZItuyVGnCo9zWoJUKMegovn
+         jgghnyKmVomWMfDw3h6LG7st1sRQph6mzWwlFHov6xx2rmQ/m+EFDt/QRHPk8jS9VkHe
+         NYixIpGcazCRHKosLN28P4qMTdSdjv5TMOzbFKblR9gPkWI7++pgxRZEek9dX84mUWMm
+         B4GKoBDbL4//93fi03kz3l8ligIh5Gi+KePu5i05mpZ2yextbjfpqF05mD7prLwYPuL/
+         eYDw==
+X-Forwarded-Encrypted: i=1; AKwUvBxXeMYZtVMDpjtuTsO011LJ0nSS6HZqHguMShSK42oVx0zSq0Ao0UCnA7ndIVMlT0K5r198KSj9Z7i+9sQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++k5+hf3UT8mEiPnv6pEG9WbirfmSFZ/j7vLS7zT3p97CjzTsGqi
+	hnGioCjfaO/8CYwmW8YBCed6d7L8aYCQGohr5p+KSoAfTQDoiNpzNLbiO8vcWTXOlFgRSmWKV88
+	4wml/cZ8sVSWIxM51VKDm9w==
+X-Received: from pjwo14.prod.google.com ([2002:a17:90a:d24e:b0:39d:c293:4b7])
+ (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:90b:134f:b0:39d:8eb5:e096 with SMTP id 98e67ed59e1d1-39dbc6a3e2emr4979778a91.15.1789218986868;
+ Sat, 12 Sep 2026 06:16:26 -0700 (PDT)
+Date: Sat, 12 Sep 2026 21:16:25 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260911174414.97060-5-sakacpav@amazon.de>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.1007.g17ff1f9808-goog
+Message-ID: <20260912131625.2301486-1-stanleyjhu@google.com>
+Subject: [PATCH v3] scsi: ufs: core: Keep internal commands dispatchable
+ during error handling
+From: Stanley Jhu <stanleyjhu@google.com>
+To: "Martin K. Petersen" <martin.petersen@oracle.com>, linux-scsi@vger.kernel.org
+Cc: Bart Van Assche <bvanassche@acm.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
+	Avri Altman <avri.altman@sandisk.com>, Peter Wang <peter.wang@mediatek.com>, 
+	Brian Kao <powenkao@google.com>, stable@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Stanley Jhu <stanleyjhu@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Sep 11, 2026 at 07:43:37PM +0200, Pavol Sakac wrote:
-> Add a staged_device KUnit suite under its own
-> CONFIG_STAGED_DEVICE_KUNIT_TEST symbol exercising the staged mechanism.
-> kobject_add() on a kobject with ->sd_staged builds the directory staged
-> but does not publish it, since only device_add() does, so the tests
-> drive the window directly: stage, then populate and observe, then
-> sysfs_publish_dir(). The cases cover publication of plain, named-group
-> and merged-group content, the failure modes of publication itself, abort
-> without publication, foreign-thread access, concurrent windows including
-> two that share one hashed staged mutex, glue-directory sharing, and
-> bus-klist membership by the time device_add() returns. The suite also
-> covers the KERNFS_STAGED_TOP/KERNFS_HAS_MMAP aliasing on a staged
-> mmap-capable bin file.
-> 
-> The publication-misuse cases intentionally trigger the publication
-> guards' WARN backtraces, and the duplicate-name cases trigger
-> sysfs_warn_dup() splats: those backtraces are expected output of a
-> passing run, not failures. The suite is therefore unsuitable for
-> runners that set panic_on_warn, which turns the first intentional splat
-> into a panic, and does not follow KUNIT_ALL_TESTS: it runs only when its
-> symbol is enabled explicitly.
+Commit 08b12cda6c44 ("scsi: ufs: core: Switch to scsi_get_internal_cmd()")
+switched UFS internal commands to allocate requests on
+hba->host->pseudo_sdev->request_queue, which shares the host tagset with
+regular LUNs.
 
-...
+During error recovery, ufshcd_err_handling_prepare() calls
+blk_mq_quiesce_tagset(&hba->host->tag_set), marking all queues in the
+tagset as quiesced, including pseudo_sdev->request_queue. When
+ufshcd_verify_dev_init() subsequently issues internal commands (e.g. NOP
+OUT UPIU) via blk_execute_rq(), blk_mq_run_hw_queue() skips running the
+quiesced queue, resulting in an unrecoverable circular wait deadlock.
 
->  drivers/base/test/.kunitconfig         |    1 +
+Keep quiescing the tagset and unquiesce the pseudo SCSI device on top of
+that, so internal commands stay dispatchable while the logical units
+remain quiesced. Re-quiesce the pseudo device before unquiescing the
+tagset so that quiesce_depth stays balanced.
 
-Same question, why is this file got modified?
+Clock scaling and ufshcd_pause_command_processing() are unaffected: they
+keep quiescing the whole tagset, internal commands included.
 
-...
+Fixes: 08b12cda6c44 ("scsi: ufs: core: Switch to scsi_get_internal_cmd()")
+Cc: stable@vger.kernel.org
+Link: https://lore.kernel.org/all/6f78c4bd-a70b-402d-abfd-599091b67674@acm.org/
+Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
+---
+Changes since v2:
+- Keep blk_mq_quiesce_tagset() and unquiesce only the pseudo SCSI device,
+  instead of iterating over SCSI devices, which skipped devices already
+  being removed and left their request queues quiesced.
+- Dropped Bart's Reviewed-by since the implementation changed.
 
-> +++ b/drivers/base/test/.kunitconfig
-> @@ -1,3 +1,4 @@
->  CONFIG_KUNIT=y
->  CONFIG_DM_KUNIT_TEST=y
->  CONFIG_GLUE_DIR_KUNIT_TEST=y
-> +CONFIG_STAGED_DEVICE_KUNIT_TEST=y
+ drivers/ufs/core/ufshcd.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-It seems this series is based on some other series?
-
+diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
+index a25b6a0cb5c6..91270f8e45a2 100644
+--- a/drivers/ufs/core/ufshcd.c
++++ b/drivers/ufs/core/ufshcd.c
+@@ -6817,11 +6817,17 @@ static void ufshcd_err_handling_prepare(struct ufs_hba *hba)
+ 	}
+ 	/* Wait for ongoing ufshcd_queuecommand() calls to finish. */
+ 	blk_mq_quiesce_tagset(&hba->host->tag_set);
++	/*
++	 * Internal commands are submitted on the pseudo SCSI device. Let them
++	 * through so that the error handler can recover the link.
++	 */
++	blk_mq_unquiesce_queue(hba->host->pseudo_sdev->request_queue);
+ 	cancel_work_sync(&hba->eeh_work);
+ }
+ 
+ static void ufshcd_err_handling_unprepare(struct ufs_hba *hba)
+ {
++	blk_mq_quiesce_queue_nowait(hba->host->pseudo_sdev->request_queue);
+ 	blk_mq_unquiesce_tagset(&hba->host->tag_set);
+ 	ufshcd_release(hba);
+ 	if (ufshcd_is_clkscaling_supported(hba))
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.55.0.1007.g17ff1f9808-goog
 
