@@ -1,80 +1,74 @@
-Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AFEB24B28
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 02:54:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5389315A85A
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 02:57:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789181680; cv=none; b=c68jo+cHGADM+l4BNlGmo0CiqvA5OYjQEv29b9JIhRoqd3BKfA3WoNwcToMnfLuVebBcz8iDyZtbvLx7G20K/22O+92x0H7+w5uD2INkbZRXyygue/34XdRGt51TyMmz+ooaVFkFb4ajVZKhYa9nBHRyEz84qsnpvVTWu2qxXEw=
+	t=1789181840; cv=none; b=OJtfSMJdu1Qzuood8tNB13GieRzIX/he9/OZgZupKHaz6uNk25OUgukSC9HAKqs/ganlyCpc3VLX4loaSokuOVdu7dz4NLgCBYPY5GR5T5pfboWmY7hGEb/4g5dOM4PQe2+H9RYY3uklmJjqDY6bG2kL2F0IPlFM4FdVlAeKc6s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789181680; c=relaxed/simple;
-	bh=y2WHk1EElATFuPrRnMnMdPT7wRBuN+MIsDSt8uiBS7E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=crJ49HRqJA5Ym2aag03M23I/4IvPqzGSPRoI69A3IrktDUOH+fzXAprLWrrlAlcWKXLL5KWbN1pdWeDGkKGPjkph8SjpkAhGM0wlGrYgSXQMKLdIRm1W223se8b+BYxJEeON6AI06/va0ffhqjmbT5FFgy+PBnkgwICM77qRhDo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SOgDPtyc; arc=none smtp.client-ip=74.125.228.43
+	s=arc-20240116; t=1789181840; c=relaxed/simple;
+	bh=aRmA38fLQQW2la5to94eGZ+mEq/IwIZqpvXOmzW5gd8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iZdN0wFSuIpq4hZaSz7z6GsbPRoN7lPpfTfrwOn4MB6GSGYfYgBTAU2xtU3FjzCv/hQLLL5sLUly6OljnoRh9xMBfHrLRzXPCqfqfGvWjLlY1PXI+dWXYAmwb/uloarw+sgrUpu4qTB0YoboNteWTeFlh0WcwaU7EDKquyonp1o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DJnFP+Tw; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SOgDPtyc"
-Received: by mail-pz2-f43.google.com with SMTP id 41be03b00d2f7-cc4c08393dfso142221a12.3
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 19:54:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DJnFP+Tw"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccafb74fso449397a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 19:57:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789181678; x=1789786478; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Co3fSwJnonBc+uhQ5gB6WwuK1NTmdlfZd5Atd2jIXqI=;
-        b=SOgDPtycOwsWxj1wEVkGxvsvhMA2rpqWiikMVmoDDKnSz9bcTAhNCGH5/7Uvqb6dYi
-         PVM1TLGylvU9bt4ckANFcyXEbWy1qLaq9Th+ItZnwbHuLaEPw3TdPvEbOixfxYqQSp/d
-         MZZVhA26iO1rztii9zTIfbR0r8EmzbdcUaZ+51PIOqPFRRpQbqXLyP5NpsplBG07ayuu
-         fuFNYxkRuJxB+qmyLQ7F83zz/J2xTnA4LGkDmUBaATU7ktIghzhfQH8PDrteznNvQEX8
-         UaraSgGOQAdOh8HxzqExx29tN5vauSeF7AxgeHuS5Ig5OoNk6b3f6aVF2GEAuQsHqRHR
-         Py0Q==
+        d=gmail.com; s=20251104; t=1789181839; x=1789786639; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZChHh/4B9HUVQ4ZUWlKc1VE04E7v5RYeUYSFt/vXmVc=;
+        b=DJnFP+TwUMf3OQ/1SkbSsht6aAllf7t7pm79Js8JrzK/Y6EPJmPkpdD7fE6gCqqF3x
+         B7rgPNU7Ifea3o77dhw0zTJBZDvg4DK40FscjvQ0ShVdFnAPiGJEu/Pk91hsQYXE/CSd
+         D7lR3MwUfd9ZyZhwEst1Z05D1PMJ6fx87vvSWmQlW+iQLxLvgEajdmCDg24j03UH/WNn
+         FPEmXDrE2UrP78Dx5OeLesrWrfPxKyOpzrMBnvrx8w61dioSBmUFmBSFX0BQpH+kCnRR
+         fPIKtPsTkaW+rSXRAmr6zm2ty7l8fYzEgFw2LA3MQ9mx0FeAgx3TAZkUAsBRVkc8EnlG
+         IyZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789181678; x=1789786478;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Co3fSwJnonBc+uhQ5gB6WwuK1NTmdlfZd5Atd2jIXqI=;
-        b=JxFqTpGoQvrVoGyP1Eg3GLPNZm/rBVMUtHmyScR5VnFI3KdB8Ei6rkIKGr0AP6kMtO
-         5Q50mnao6Fv7qSA+1+Jjt9nD8WIxjaStXQNZ/yhTi4QiiXK1gYIruR/qayLkFg0/zdBB
-         LeipQ/J+q/GoV02q9TtiyIELCyX9/L4qxmUYCHBu4w2cdxezWZH9y/q4pVgEsSriMuXL
-         /Kvd1dsTt+IscXYjuI7G3DReT6tu3k+dAfpIEFRiqdGQCZlkEwE+60tP2neMaZmYjCOB
-         h5JAiVd7UraRbm0dJtzPCec9UdE/A5Nopr6wdIlRpbpGE3UyNqmLm/4TzUF0dev0rRqU
-         39Jw==
-X-Forwarded-Encrypted: i=1; AKwUvByO3q6O3Maf2eFh8y5xAZo9xzOUfDB1iHoRcOwUcOP0vGeNII7bUMgMaF1tY3M5E3iUk66KcxAnaWM4+vw=@vger.kernel.org
-X-Gm-Message-State: AFuF++mPW0b4mgU5OIvqg6YFMEg23q8s8nwXYjgwdNWUJtcmnseSu1dk
-	V1dW1RzpKTzRPAR70yqLXthKMuB0z7cLg3X4qVvGYS9nKw10ffxq5rTaJtuy9+2VDC4=
-X-Gm-Gg: AYBFou3BqAOo543xiXGzfNMJJdsWFQFGgbIE1Vq15qz8Zre3LJsC/4R7iuqLmX7+0+l
-	gCNpr9XpHKcfBLG2nRPplA97CMh/uZcb/tz5h+mlPTmcOOxzsISs/pwFe4RIDTTPtnYZXP5fh8y
-	S9URtq4uJg5hQH1i2nMZtyFrXl174FnshDvp1b7s30yxK3ATTamNjRrMgrchi89lmS7wbOd9gnt
-	8jtfQASK6/gxDqEO4HQUbybMfdXGbAZ9Q3VzPeGdyahGSMHa5hgNuCOnwfz454eY8G8x9eW0NCe
-	m3HhoOGohuC3aC2vOznv/ioss+AGWKB5Vrb++jWqWgOG5Gd0iXGlZ5Dylatsz4KclmyP/oJ+1t5
-	spyvL1dDx3ixaNx9CWupWPzhv1i0N6KQLFF95wFXzD+kMS1lNxncq2f4JQ2GRACrxsV5LkQP3YK
-	FIHU6UQTP05MDhqfHF/G1x/HOgbQGIEzCOBCwAda6VEXNPZGmeaxbglYxVySffs06AbG0djvrfR
-	Mk/RGg5qNoRemahsKUPd4No1H+BUTg/0YMvOoVI/ErpNyyTGvVhLf47jML6jBHKmN5uEco0frec
-	ww==
-X-Received: by 2002:a05:6a20:7348:b0:3da:b8b4:91d7 with SMTP id adf61e73a8af0-3db0e0a9ea3mr1564567637.2.1789181677725;
-        Fri, 11 Sep 2026 19:54:37 -0700 (PDT)
-Received: from nugod-NUC15CRHU5.tail9f095a.ts.net ([218.237.104.87])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4c6572ecasm1875903a12.22.2026.09.11.19.54.35
+        d=1e100.net; s=20251104; t=1789181839; x=1789786639;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZChHh/4B9HUVQ4ZUWlKc1VE04E7v5RYeUYSFt/vXmVc=;
+        b=jBMLz4I3aCJf+CX6Gcrui67uBHs2RGd3pKyXAty1D/CtkIddTKWTrHK9O5fZqeUMFC
+         Gk+JdFPTPD8LrIvYAGXhI8IRz8IHoc4OSqseOrYz7MPJvkWd2+oGlMNXO4V8KLd4Y7cT
+         4DIAWl4xxHETHMGA9JlwqrhGPyCLXfkBdn9L6ZU53aaqM3Y7GrTzt/M8KCnWIRX5qsr9
+         A83ToITKqLAUsybmiMdKvmfqhtnTDbjCtEubq6A8UaRoy4kpkVMC5P5c52oz4vjbU93s
+         3dOhe8ad8zae2nwi19NRdz2OBpdXlEJikrnnmpwa4Rq4h2qo115SIEJan77oVLppn+GQ
+         ozMw==
+X-Forwarded-Encrypted: i=1; AKwUvByuX8ArFpAiS++YhcJRPrlmmURKbG53DOG1Ul/YvDt5FE2pJA+v/ch4xemYypl3JAFhbDSkx5AW/n+UVHU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nxM6330lwuUjK+vHFMI0Y7cDyDcT8GeId9/7zu1kkhfQ5TyQZP
+	y/0uUt6pC1oCy2zJNSbhTB2QJ4GfaoaVrD9nysKF51DOILSaVlNQJV+q
+X-Gm-Gg: AYBFou32CxUaRhhOqawGSfgSmH2cCGDM6V4bysBoMlpuJXHIjpwxl3XviIE9UFZZxqK
+	BulbUW+uqqzPBDtoBhxspdApNZ5zD6s0zsR9qnuPmlZNvnf9gjpdljCVYGbqCv1V0FlG1oz8zlu
+	7pbtLVWR4/Y9eAaTi6PezgdQlAbE9TMxiOGWZMxmbjzF0rUWHfs1NoI94Y9yiqHXEBKBFh20lTm
+	IxiBWyqlRmWLtw/s8RfjvBSK/aFlPOj3g6bew+bYAARqgC6RTPzRp/7RgKqkixPvnz1Ws+UvsIF
+	8BOJFNALZX3ILIgPbnvdesyVjqskWOqsGAZcI+pbRSfMTei809eoyFa2sLrl3AvvmhqQE8UDKTr
+	N9AiS0r8J3W9w4Ifb/wurxTv+PCR7a/owRefzuQ1JwC3J0U7ncvuv2HvXgQeM1hKzPkAE+TU+pX
+	aCmvJ8rt0jrxiIxdxqzIRAXVtu8kZQ+nWjf98zteIv4ts3GP5A5iN/
+X-Received: by 2002:a17:90b:57ce:b0:396:b918:c2a with SMTP id 98e67ed59e1d1-39d9c1dbb3emr12783798a91.12.1789181838654;
+        Fri, 11 Sep 2026 19:57:18 -0700 (PDT)
+Received: from linux.. ([2409:8a28:a63:d170:c5de:2f75:4ae3:11de])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d9d554220sm2344737a91.2.2026.09.11.19.57.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 19:54:37 -0700 (PDT)
-From: HyeongJun An <sammiee5311@gmail.com>
-To: broonie@kernel.org,
-	perex@perex.cz,
-	tiwai@suse.com,
-	shuah@kernel.org
-Cc: linux-sound@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
+        Fri, 11 Sep 2026 19:57:18 -0700 (PDT)
+From: Binglei Wang <l3b2w1@gmail.com>
+X-Google-Original-From: Binglei Wang
+To: linux-erofs@lists.ozlabs.org
+Cc: xiang@kernel.org,
+	chao@kernel.org,
+	shengyong1@xiaomi.com,
 	linux-kernel@vger.kernel.org,
-	HyeongJun An <sammiee5311@gmail.com>
-Subject: [PATCH v3] selftests/alsa: Test writes to IEC958 controls
-Date: Sat, 12 Sep 2026 11:54:30 +0900
-Message-ID: <20260912025430.2102149-1-sammiee5311@gmail.com>
+	Binglei Wang <l3b2w1@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] erofs: fix unbalanced buf->off handling in erofs_bread()
+Date: Sat, 12 Sep 2026 10:57:09 +0800
+Message-ID: <20260912025709.25604-1-l3b2w1@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260904123334.1505003-1-sammiee5311@gmail.com>
-References: <20260904123334.1505003-1-sammiee5311@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,342 +77,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Nothing checks that the put() callback of an IEC958 control reports a
-change, because write_valid skips these controls.
+From: Binglei Wang <l3b2w1@gmail.com>
 
-Where the device publishes a mask, toggle every bit in it and check each
-write.  A bit the mask advertises that does not stick fails the test, the
-way a rejected value fails for the other control types.
+erofs_bread() locates the target folio with
 
-Where none is found, keep the old single guess at the non audio bit,
-which the device is free to ignore, so only the notification can be
-counted against it.  That path writes without checking so drop_events()
-clears what those writes leave behind.
+	index = (buf->off + offset) >> PAGE_SHIFT;
 
-On an HDA card with four HDMI PCMs the Con Mask is 0f ff, so each control
-walks eleven bits instead of one and all eleven stick:
+but computes the in-folio offset without taking buf->off into account:
 
-  -# Totals: pass:212 fail:5 xfail:0 xpass:0 skip:56 error:0
-  +# Totals: pass:216 fail:5 xfail:0 xpass:0 skip:52 error:0
+	return buf->base + (offset & ~PAGE_MASK);
 
-A driver whose put() never reports a change still shows up as
-event_missing.  hdmi-codec and img-spdif-out store every byte and return
-0, so boards using them report one event_missing per walked bit, and
-hdmi-codec advertises the whole block so that is 191 of them.  A driver
-whose mask claims more than its put() keeps now fails write_valid
-outright: au88x0 and ice1712 on Delta 1010 and Mediastation advertise
-bytes they never store, cs46xx, oxygen and ice1724 advertise bits their
-put() drops, and the RME cards regenerate the whole emphasis field from
-one bit so the rest of it never reads back.  None of that hardware was
-to hand, the paths were read rather than run.
+If buf->off is not page-aligned, the returned pointer misses the in-page
+component of buf->off, so callers end up fetching data from a wrong
+offset.
 
-write_invalid stays a skip.  Every bit pattern is a valid channel status.
+buf->off is set to sbi->dif0.fsoff in erofs_init_metabuf(), and fsoff can
+be specified via the "fsoffset=" mount option, which only requires
+block-size alignment.  Therefore, on an image with a sub-page block size
+(e.g. 512 bytes), a non-page-aligned fsoff (e.g. 512) triggers the issue,
+since 512 is a multiple of the block size but not of PAGE_SIZE.
 
-Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
-Assisted-by: Claude:claude-opus-5
+It can be reproduced by mounting an image that is placed at a
+non-page-aligned offset:
+
+	mkfs.erofs -b512 -zlz4hc sub.erofs src/
+	# prepend 512 bytes of padding to the image
+	mount -t erofs -o loop,fsoffset=512 padded.erofs /mnt
+
+which fails with
+
+	erofs (device loop0): cannot find valid erofs superblock
+
+because the on-disk superblock (at offset 1024 within the image, i.e.
+1536 within the padded file) is read from a wrong in-folio offset.  With
+this fixed, the very same image mounts successfully and its file contents
+match those read from the unpadded image.
+
+Fix it by including buf->off in the in-folio offset calculation, so that
+it is consistent with the folio index calculation.
+
+Fixes: c36ec00d7f67 ("erofs: add 'fsoffset' mount option to specify filesystem offset")
+Cc: <stable@vger.kernel.org> # 6.16+
+Signed-off-by: Binglei Wang <l3b2w1@gmail.com>
 ---
-Changes in v3:
-- Say check rather than grading.
-- Where a mask is found, walk every bit it advertises instead of one and
-  fail a bit that does not stick.
-- Split the two cases into test_ctl_write_valid_iec958_mask() and
-  test_ctl_write_valid_iec958_guess(), so drop_events() now runs only on
-  the guess path.
-- Keep the guess for the four drivers with no mask.  Adding the mask
-  controls to fsl_spdif, fsl_xcvr, uniperif_player and stm32_sai_sub is a
-  separate change for each of them.
-- Report when the mask lookup falls back to the non audio guess, and
-  report a drop_events() failure with the raw return value since three
-  of the wait_for_event() paths hand back a bare -1.
-- Name the drivers whose mask claims more than their put() keeps, which
-  a full walk widens beyond the three v2 mentioned.
+ fs/erofs/data.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-v2: https://lore.kernel.org/all/20260904123334.1505003-1-sammiee5311@gmail.com/
-v1: https://lore.kernel.org/all/20260904021939.149468-1-sammiee5311@gmail.com/
-
- tools/testing/selftests/alsa/mixer-test.c | 255 ++++++++++++++++++++++
- 1 file changed, 255 insertions(+)
-
-diff --git a/tools/testing/selftests/alsa/mixer-test.c b/tools/testing/selftests/alsa/mixer-test.c
-index 0857d64c322a..53a72753bb08 100644
---- a/tools/testing/selftests/alsa/mixer-test.c
-+++ b/tools/testing/selftests/alsa/mixer-test.c
-@@ -30,6 +30,12 @@
- 
- #define TESTS_PER_CONTROL 7
- 
-+/* Suffixes of the SNDRV_CTL_NAME_IEC958() names, not exported to userspace */
-+#define IEC958_DEFAULT		"Default"
-+#define IEC958_CON_MASK		"Con Mask"
-+#define IEC958_PRO_MASK		"Pro Mask"
-+#define IEC958_MASK		"Mask"
-+
- struct card_data {
- 	snd_ctl_t *handle;
- 	int card;
-@@ -842,6 +848,251 @@ static bool test_ctl_write_valid_enumerated(struct ctl_data *ctl)
- 	return !fail;
+diff --git a/fs/erofs/data.c b/fs/erofs/data.c
+index 0885b1f2fc92..be63b89f0862 100644
+--- a/fs/erofs/data.c
++++ b/fs/erofs/data.c
+@@ -48,7 +48,7 @@ void *erofs_bread(struct erofs_buf *buf, erofs_off_t offset, bool need_kmap)
+ 		return NULL;
+ 	if (!buf->base)
+ 		buf->base = kmap_local_page(buf->page);
+-	return buf->base + (offset & ~PAGE_MASK);
++	return buf->base + ((buf->off + offset) & ~PAGE_MASK);
  }
- 
-+/*
-+ * Find the read only mask control for an IEC958 value control.  The two
-+ * share device, subdevice and index but not always the interface.
-+ */
-+static struct ctl_data *find_iec958_mask_ctl(struct ctl_data *ctl,
-+					     const char *suffix)
-+{
-+	char name[64];
-+	int stem;
-+	struct ctl_data *mask;
-+
-+	stem = strlen(ctl->name) - strlen(IEC958_DEFAULT);
-+	if (snprintf(name, sizeof(name), "%.*s%s", stem, ctl->name, suffix) >=
-+	    (int)sizeof(name))
-+		return NULL;
-+
-+	for (mask = ctl_list; mask != NULL; mask = mask->next) {
-+		if (mask->card != ctl->card)
-+			continue;
-+		if (snd_ctl_elem_info_get_type(mask->info) !=
-+		    SND_CTL_ELEM_TYPE_IEC958)
-+			continue;
-+		if (snd_ctl_elem_info_is_inactive(mask->info))
-+			continue;
-+		if (!snd_ctl_elem_info_is_readable(mask->info))
-+			continue;
-+		if (snd_ctl_elem_id_get_device(mask->id) !=
-+		    snd_ctl_elem_id_get_device(ctl->id))
-+			continue;
-+		if (snd_ctl_elem_id_get_subdevice(mask->id) !=
-+		    snd_ctl_elem_id_get_subdevice(ctl->id))
-+			continue;
-+		if (snd_ctl_elem_id_get_index(mask->id) !=
-+		    snd_ctl_elem_id_get_index(ctl->id))
-+			continue;
-+		if (strcmp(mask->name, name) == 0)
-+			return mask;
-+	}
-+
-+	return NULL;
-+}
-+
-+/*
-+ * Read the bits the device says it implements.  Bit 0 of the first status
-+ * byte picks which mask applies, some devices publish only a plain Mask.
-+ */
-+static bool read_iec958_mask(struct ctl_data *ctl,
-+			     const snd_aes_iec958_t *cur,
-+			     snd_aes_iec958_t *mask)
-+{
-+	int err;
-+	struct ctl_data *mask_ctl;
-+	snd_ctl_elem_value_t *val;
-+
-+	if (!strend(ctl->name, IEC958_DEFAULT))
-+		return false;
-+
-+	if (cur->status[0] & IEC958_AES0_PROFESSIONAL)
-+		mask_ctl = find_iec958_mask_ctl(ctl, IEC958_PRO_MASK);
-+	else
-+		mask_ctl = find_iec958_mask_ctl(ctl, IEC958_CON_MASK);
-+	if (!mask_ctl)
-+		mask_ctl = find_iec958_mask_ctl(ctl, IEC958_MASK);
-+	if (!mask_ctl)
-+		return false;
-+
-+	snd_ctl_elem_value_alloca(&val);
-+	snd_ctl_elem_value_set_id(val, mask_ctl->id);
-+
-+	err = snd_ctl_elem_read(mask_ctl->card->handle, val);
-+	if (err < 0) {
-+		ksft_print_msg("snd_ctl_elem_read() failed for %s: %s\n",
-+			       mask_ctl->name, snd_strerror(err));
-+		return false;
-+	}
-+
-+	snd_ctl_elem_value_get_iec958(val, mask);
-+
-+	return true;
-+}
-+
-+/*
-+ * Throw away the events from a write we are not checking, one left behind
-+ * would make a missing notification look like a notification we got.
-+ */
-+static int drop_events(struct ctl_data *ctl)
-+{
-+	int err;
-+
-+	do {
-+		err = wait_for_event(ctl, 0);
-+	} while (err > 0);
-+
-+	return err;
-+}
-+
-+/*
-+ * Toggle every bit the device advertises, one at a time.  Each one starts
-+ * from the value we read since a driver can look at the rest of the block
-+ * when it stores a bit, and bit 0 of the first status byte selects the
-+ * layout the others are read in so leave that one alone.
-+ */
-+static bool test_ctl_write_valid_iec958_mask(struct ctl_data *ctl,
-+					     snd_ctl_elem_value_t *orig_val,
-+					     const snd_aes_iec958_t *mask)
-+{
-+	int err, j;
-+	unsigned int byte;
-+	unsigned char bit;
-+	bool fail = false, found = false;
-+	snd_aes_iec958_t iec958;
-+	snd_ctl_elem_value_t *val;
-+	snd_ctl_elem_value_alloca(&val);
-+
-+	snd_ctl_elem_value_copy(val, orig_val);
-+
-+	for (byte = 0; byte < sizeof(mask->status); byte++) {
-+		for (j = 0; j < 8; j++) {
-+			bit = 1 << j;
-+
-+			if (byte == 0 && bit == IEC958_AES0_PROFESSIONAL)
-+				continue;
-+			if (!(mask->status[byte] & bit))
-+				continue;
-+			found = true;
-+
-+			snd_ctl_elem_value_get_iec958(orig_val, &iec958);
-+			iec958.status[byte] ^= bit;
-+			snd_ctl_elem_value_set_iec958(val, &iec958);
-+
-+			err = write_and_verify(ctl, val, NULL);
-+			if (err != 0) {
-+				ksft_print_msg("%s failed to set advertised status[%u] 0x%02x\n",
-+					       ctl->name, byte, bit);
-+				fail = true;
-+			}
-+		}
-+	}
-+
-+	if (!found)
-+		ksft_print_msg("%s implements no settable status bits\n",
-+			       ctl->name);
-+
-+	return !fail;
-+}
-+
-+/*
-+ * With nothing advertised all we can do is try non audio, and the device
-+ * need not implement even that.  Write it once and ignore the result, then
-+ * compare against what came back so the value cannot fail, which leaves the
-+ * notification counted by event_missing.
-+ */
-+static bool test_ctl_write_valid_iec958_guess(struct ctl_data *ctl,
-+					      snd_ctl_elem_value_t *orig_val)
-+{
-+	int err;
-+	snd_aes_iec958_t iec958;
-+	snd_ctl_elem_value_t *val, *read_val, *w_val;
-+	snd_ctl_elem_value_alloca(&val);
-+	snd_ctl_elem_value_alloca(&read_val);
-+	snd_ctl_elem_value_alloca(&w_val);
-+
-+	snd_ctl_elem_value_get_iec958(orig_val, &iec958);
-+	iec958.status[0] ^= IEC958_AES0_NONAUDIO;
-+	snd_ctl_elem_value_copy(val, orig_val);
-+	snd_ctl_elem_value_set_iec958(val, &iec958);
-+
-+	/* Writing can modify the value so keep a copy to write from */
-+	snd_ctl_elem_value_copy(w_val, val);
-+	err = snd_ctl_elem_write(ctl->card->handle, w_val);
-+	if (err < 0) {
-+		ksft_print_msg("snd_ctl_elem_write() failed: %s\n",
-+			       snd_strerror(err));
-+		return false;
-+	}
-+
-+	snd_ctl_elem_value_set_id(read_val, ctl->id);
-+	err = snd_ctl_elem_read(ctl->card->handle, read_val);
-+	if (err < 0) {
-+		ksft_print_msg("snd_ctl_elem_read() failed: %s\n",
-+			       snd_strerror(err));
-+		return false;
-+	}
-+
-+	/* Put it back where we found it, then drop the events from both */
-+	snd_ctl_elem_value_copy(w_val, orig_val);
-+	err = snd_ctl_elem_write(ctl->card->handle, w_val);
-+	if (err < 0) {
-+		ksft_print_msg("snd_ctl_elem_write() failed: %s\n",
-+			       snd_strerror(err));
-+		return false;
-+	}
-+
-+	err = drop_events(ctl);
-+	if (err < 0) {
-+		ksft_print_msg("drop_events() failed for %s: %d\n",
-+			       ctl->name, err);
-+		return false;
-+	}
-+
-+	if (snd_ctl_elem_value_compare(val, read_val)) {
-+		ksft_print_msg("%s does not implement status[0] 0x%02x\n",
-+			       ctl->name, IEC958_AES0_NONAUDIO);
-+
-+		/* Expect what came back, the notification is still checked */
-+		return write_and_verify(ctl, val, read_val) == 0;
-+	}
-+
-+	return write_and_verify(ctl, val, NULL) == 0;
-+}
-+
-+/*
-+ * Write the channel status bits and check that userspace is told about it.
-+ * Where a mask was found every bit in it has to stick, otherwise we fall
-+ * back to one guessed bit the device is free to ignore.
-+ */
-+static bool test_ctl_write_valid_iec958(struct ctl_data *ctl)
-+{
-+	int err;
-+	snd_aes_iec958_t iec958, mask;
-+	snd_ctl_elem_value_t *orig_val;
-+	snd_ctl_elem_value_alloca(&orig_val);
-+
-+	/*
-+	 * The bytes past the ones a driver implements are compared too,
-+	 * so start from a read rather than building a value here.
-+	 */
-+	snd_ctl_elem_value_set_id(orig_val, ctl->id);
-+	err = snd_ctl_elem_read(ctl->card->handle, orig_val);
-+	if (err < 0) {
-+		ksft_print_msg("snd_ctl_elem_read() failed: %s\n",
-+			       snd_strerror(err));
-+		return false;
-+	}
-+
-+	snd_ctl_elem_value_get_iec958(orig_val, &iec958);
-+
-+	if (!read_iec958_mask(ctl, &iec958, &mask)) {
-+		ksft_print_msg("%s falling back to non audio\n", ctl->name);
-+		return test_ctl_write_valid_iec958_guess(ctl, orig_val);
-+	}
-+
-+	return test_ctl_write_valid_iec958_mask(ctl, orig_val, &mask);
-+}
-+
- static void test_ctl_write_valid(struct ctl_data *ctl)
- {
- 	bool pass;
-@@ -878,6 +1129,10 @@ static void test_ctl_write_valid(struct ctl_data *ctl)
- 		pass = test_ctl_write_valid_enumerated(ctl);
- 		break;
- 
-+	case SND_CTL_ELEM_TYPE_IEC958:
-+		pass = test_ctl_write_valid_iec958(ctl);
-+		break;
-+
- 	default:
- 		/* No tests for this yet */
- 		ksft_test_result_skip("write_valid.%s.%d\n",
--- 
-2.43.0
+
+ int erofs_init_metabuf(struct erofs_buf *buf, struct super_block *sb,
+--
+2.33.0
 
