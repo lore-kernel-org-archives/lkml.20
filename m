@@ -1,192 +1,213 @@
-Received: from mail-oi2-f13.google.com (mail-oi2-f13.google.com [74.125.231.205])
+Received: from mail-lr2-f12.google.com (mail-lr2-f12.google.com [74.125.230.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32D8F34DB6D
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 17:18:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53F6942A144
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 17:21:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789233533; cv=none; b=uU2xnhUjo4nokyKV89wF8Vrlwqxjodcr8m3Jitox/X3aQa4NDj8pyIl72GiTtYMPP06rtkhPJkpw27Qj28Ihf7N6R3Z4fpqkc4MjkopPW6rCMfqhFjlF4z+OiGqGF+DTYykYcKyBtMc/IOyUrCUSL0hHRL5qWo/eF8bXWXEYhmw=
+	t=1789233668; cv=none; b=VGE18ho5iGWmZX/effrIfsufMI3Y3HCWjXS0KRqXLCGBP5SGip8+e08orRLIg4Sk1/pqH8uXRb2okVemjyb//wJaxz+cNKGZIIb92qcu8nbcUvjcNIwHxQ1wxxaZq/+jGdNyk9oxPCm11TUqfBzhWiXl7aUrA4HCb0cePQIR9MM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789233533; c=relaxed/simple;
-	bh=jBtZBjDlT8Qi3VYpNIp72jmf1UAXzlM9TkhK/45vnWc=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=LNZAlxdod/wN58/GCJL9jX3cWOxeq0hO5YAVMQmp4HoCjU4srChlKD2mXvL9b27xgXNCrIxYwmcBBlTjWJjMZKpYGg2dH9kqCPiNeNhQNDLL7NjdrjkbIsT4YLgUt4VZ6PazaacHW8GinI0ldWlmzWO+3hEtlOAp05cWKeJF2+M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LLufjg9t; arc=none smtp.client-ip=74.125.231.205
+	s=arc-20240116; t=1789233668; c=relaxed/simple;
+	bh=vXXGCo/Cvd8orX5ZHIf26NBPMR725nb7AVPQUDI/1eM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=t4upBe3MViDRH7iiZ5Yy8uSDjdet5QARstZZhgHQQVduEue5FKZULErRMFXD1As5Ud582o9/QlosLOlUjhgs4mdMisr5BTqJDKEktbXtRiP9jcGBDtsrxZB0/Fyp8dIftOcNhLmgKxZ6YtCVLZZNj7NqQPSFmnnlfp25AUeDUlM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FA3OWHNt; arc=none smtp.client-ip=74.125.230.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LLufjg9t"
-Received: by mail-oi2-f13.google.com with SMTP id 5614622812f47-4c2c08ff3f8so404703b6e.1
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 10:18:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FA3OWHNt"
+Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a2ff176d7eso7651201fa.3
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 10:21:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789233531; x=1789838331; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=M1c6suOtzZ2rRuH1TXxQJyOcddxpg3oryXf9dCc4tZI=;
-        b=LLufjg9tkDHfboL43zM8EhB8/3TC5sqvSGrfLsnHpXY5oKIZhyLB12Mpf/1tRBn0Qt
-         aUTmkwDr6K1fXlg42wE3St71lnXgY16DGhmZZsHQvWDX2pFVJrt5xBash1IGri8ujw+K
-         Dos33rufshNrGVyoXmhoAMIEpr8fIqzOJFk56h7oRwrJuSCYgqjWRXrzK1ZwBBeWgsiL
-         mr9G3buIXNvAzpRm2IDzqETuhVXtEVWc5aDnZYcYd8lkAR3CX8wWFuJv8SBGHhH90wdt
-         z0lgJu+7pvtMQKcaKQ+3nUEpjKi4ykmWxRmG4eJoqROjAOq8cGeK8F7PH7wAPuFFmXFw
-         9uoQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789233531; x=1789838331;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1789233663; x=1789838463; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=M1c6suOtzZ2rRuH1TXxQJyOcddxpg3oryXf9dCc4tZI=;
-        b=s5BKsY/OhCAJ9/rTkwAX8I9mGHWH4EXW4hj50zr4NDXJGKABwLo89Hzobn1xSJbRQS
-         bbhe6oQ8PCfovcJjBw03hDYlHE+Ra1tP101rQAMMjVuBu0ocT9iqFi0C3kW0MNSnmiS/
-         5Pi6e4InnD1uW8Pl9514xQDN6mT9PX6aRZe3pvmJUxc+TiXddMA0zBhUi5xfkwd5Yqtk
-         +/sBwl6J8dQ4Zb+zGwE/nQ3oX5QaT5LQYJwDBLD8D6jTP5tr/zDMOhWWymiQ1wSSb3Hi
-         IFTyXinU1UOZ7Jal/Wz3WbZpAB6BbhapsyhE438hnBAR4JLW8f3ISQgBVlfIxU6q4P/T
-         uWrg==
-X-Forwarded-Encrypted: i=1; AKwUvBxl2dX+zYTmjvj1LZY0WX1oZKnZqanBkvMyKlJIZzRsAgkNWihmMlp8hefgP4dkYm7Dr3LXq8vO1M7ARUo=@vger.kernel.org
-X-Gm-Message-State: AFuF++kk4O7xtelxRPHFn/Sy5lqVI9PABCBaiBmiInxbr799BiCIHc1M
-	HkD4dQgmJw99XfGG9zQFmfufZxBehfAk2cjCtTJARyH94HVOhXJvfcqZ
-X-Gm-Gg: AYBFou2Js/eXk59PhU05XYBu/YW8xqLt2QJJa8NWOF8VJhf4HVpY642jDUTCN3TWJgB
-	AzL1ocaG5KIV2d/uRhWGTlw4sj2IQVbZ9l5Gsd1ehIJLUUPTFZ1Rg3DqGqYS5XbtVU0l6WwuCL+
-	fQdBJM91SiuhoIf9VhVayhWFyFuApgxqKqaKBqsyQHYNYjTD6solj/PyNEB9fuoV3Myx9Ug7l7w
-	KGSshEsBw+Y2egCvANzabMbeG54Pz/cIuIvNGkoCHszGWKFCIkAlJL3sOkfCXjqMCauKyLe5PzI
-	yHcUL7iNWXqzAMEML+K4CsF7fG/JBSh6qcKyCbG8mIIMd4IIqxz/1i9QoMk+V04g9G8NYYgXBbY
-	R5PfhzEIZnCOT/vp6Sxm46bE5Nh5cJcOEuZg+31arDwMcIgmoAfli+NSCktpGgl2wk20nqny75U
-	Fxn/EaPqQ4RDzdmr9UDbLOXb+kx3TXkNo7vGhHForwKHsM3y2tzVC1XjHQS8Y3tv4LGiMe1oX5A
-	41IGn6TgR/g7jfJ7Jx0uHSVyHWY/WTPFkuxmZNzSC/kZ6/I4mUxcDag9E3QXeZprQ==
-X-Received: by 2002:a05:6808:3503:b0:4b3:8323:8cd8 with SMTP id 5614622812f47-4c4a751294bmr2617971b6e.5.1789233530981;
-        Sat, 12 Sep 2026 10:18:50 -0700 (PDT)
-Received: from localhost ([2a03:2880:10ff:72::])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4c3315b19afsm5495263b6e.10.2026.09.12.10.18.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 12 Sep 2026 10:18:49 -0700 (PDT)
+        bh=Mebu2RW2U3weGUDhTYy7W+gVJ+9xcUZXKXTexRRpr2s=;
+        b=FA3OWHNtuOkj5X5mTwULnmQsqRmI+Gl3u5x93b+Y1+w8mrz79wGwz9KP9AyNvhPV0X
+         8AVUlsEIFngLKxvrRwWvqjS5FNGq+w0U+Xhld0d+ER7TfRJ79NsgVzccM2DRfyAeSh52
+         5aVzSd2jXjtyRLWMMwcXQm7kvUUKc6x7jMMUljSHWQz0Pjh7leRqU40ZSHX8XkXDGATS
+         WWzqMrCilwJ8zkTxwfIHzOSjRzpaFF5KT7F5JUg1zqC22aO/ZSK+LXvb1PeS02TJ8VXj
+         GFwfbDRhYQMo2yh4A8zpC4ZYx5VAj0f2M5nL+52b6fIVy8VI8+xmw8YTqI2KjvAlaiez
+         Ta4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789233663; x=1789838463;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Mebu2RW2U3weGUDhTYy7W+gVJ+9xcUZXKXTexRRpr2s=;
+        b=idmhVisVKOziwDrHTzgVcFy1UAQZr+t57c3ureAm+q2sBh4y3ck6Jtm1r4ccKrGCVE
+         0ieKu6nOiPdpKKDRiHHdeAe0DVT5nUcJX5vDfnwgtywmRfZFJME6tVJvQtn4235a70sm
+         rqRoMsShpsH/ExsQGV2qDRm2zJWSToOS5/+MSKJeK0Elt5n/QE3lFOet9Q/k/RmlJTW4
+         KvFV3B6HangF452i/La84SZomQxKGv1bZACu2BZd577GkQylLWbQtYqyhusBRI4Ff7tK
+         8OnyuQZLw5P+aQPCamUX8YEVvokN8tRNHmBZNOdJ9I5ApD1ophRciLzxsv60Qi8cfTsI
+         J9OQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxrMRmFqZlMQbzuitsjv2N2TxQE5HHtJ2xkxbNzOvt3p6KHibGGVv4/8hd44+QpdariyekTQpfIXsZFsiE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nz6p5GJQLPAuQmrfD1y9uKrddK7rIhugd2odUlKtddFMzMeeHS
+	J62vUaXNKzduWfO0TqvYFBDZRhsF0QatoNH/K2r/DMgwKfrh/mgtWtS0
+X-Gm-Gg: AYBFou03J/MjvVJct39YurJkr+DaUlIAa9cYADu385P6CpFxiHtHABf2CR9lvNfjg4V
+	kWPe2oeplvQfyVQeW/IzqFkIsmK/JF3Cjz0UwjGRemwYojn6bMX6VpGhmWOAlsmQEhYOhSJy0wi
+	FStnIDqjFGqNO7YxGMtl1xLzfzwFi2bE4t0oQSvFMDOC5T7xirpN4z6KPRzmoaYYOZ1J8de9xUZ
+	pJEJxrpXjC+IQZcND+edhqEw2Y3Qge4EKlDUtBpQZzkC72j3jDziLmqTGuKSIQxkFBwzBj0utvi
+	36ra6z4rtldJt8C5MkyNtZxDEGoVoOcTY8ioYTZf2qQkQS+Eal9E8eOvqJ6ANl9J8+tQNgeA9eE
+	mGsOo9rmrXGvMpBeemw6rHph9TlaysV5noowjIrPffflKT5NXKFy/Lk3YREPVDTwEUTfJd/Mv0E
+	L54vMy/XdCpbeVnhiIYbeWADMUESuM7NKA27zXQ2L+gVwMam26BLozso1PQFCmfBvohJxQh1xk4
+	VuKDOUDNnFaALxgEGfYf9YRJgg2GuJ8D/4MTeIoNox5
+X-Received: by 2002:a05:6512:33d6:b0:5b0:113d:8ae5 with SMTP id 2adb3069b0e04-5b8a02fa142mr4002643e87.10.1789233662685;
+        Sat, 12 Sep 2026 10:21:02 -0700 (PDT)
+Received: from localhost (host-80-73-162-2.rev.as20985.net. [80.73.162.2])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8a03a8009sm1377546e87.7.2026.09.12.10.21.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 12 Sep 2026 10:21:02 -0700 (PDT)
+From: Andrey Golovko <andrey.golovko@gmail.com>
+To: Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
+ Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ "Holalu Yogendra, Niranjan" <niranjan.hy@ti.com>,
+ Antoine Monnet <antoine@montane.tech>,
+ Robin Everaars <robineveraars@pm.me>,
+ Ville Saarinen <wiza@saarinenkoti.fi>,
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] ASoC: tas2783-sdw: stop describing the Latency and XU ID/Version Controls
+Date: Sat, 12 Sep 2026 19:29:50 +0300
+Message-ID: <20260912163500.8412-1-andrey.golovko@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Date: Sat, 12 Sep 2026 10:18:48 -0700
-Message-Id: <DLDICNLENSRI.2R6EJ0ZFJE45T@gmail.com>
-Cc: "Josef Bacik" <josef@toxicpanda.com>, "Frederic Weisbecker"
- <frederic@kernel.org>, "Neeraj Upadhyay" <neeraj.upadhyay@kernel.org>,
- "Joel Fernandes" <joelagnelf@nvidia.com>, "Boqun Feng" <boqun@kernel.org>,
- "Thomas Gleixner" <tglx@kernel.org>, "Peter Zijlstra"
- <peterz@infradead.org>, "Steven Rostedt" <rostedt@goodmis.org>, "Masami
- Hiramatsu" <mhiramat@kernel.org>, "Mark Rutland" <mark.rutland@arm.com>,
- "Jiri Olsa" <jolsa@kernel.org>, "Alexei Starovoitov" <ast@kernel.org>,
- "Daniel Borkmann" <daniel@iogearbox.net>, "Andrii Nakryiko"
- <andrii@kernel.org>, <x86@kernel.org>, "Catalin Marinas"
- <catalin.marinas@arm.com>, "Will Deacon" <will@kernel.org>, "Puranjay
- Mohan" <puranjay@kernel.org>, "Xu Kuohai" <xukuohai@huaweicloud.com>, "Andy
- Lutomirski" <luto@kernel.org>, "Josh Triplett" <josh@joshtriplett.org>,
- "Uladzislau Rezki" <urezki@gmail.com>, "Mathieu Desnoyers"
- <mathieu.desnoyers@efficios.com>, "Lai Jiangshan" <jiangshanlai@gmail.com>,
- "Zqiang" <qiang.zhang@linux.dev>, "Juergen Gross" <jgross@suse.com>, "Luis
- Chamberlain" <mcgrof@kernel.org>, "Ihor Solodrai"
- <ihor.solodrai@linux.dev>, <linux-kernel@vger.kernel.org>,
- <rcu@vger.kernel.org>, <linux-trace-kernel@vger.kernel.org>,
- <bpf@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH RFC v2 08/15] bpf, x86: Maintain Tasks RCU trampoline
- nesting in the BPF trampoline
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: <paulmck@kernel.org>
-X-Mailer: aerc
-References: <20260911-b4-rcu-tasks-preempt-qs-v2-0-eaaa61ed2da4@toxicpanda.com> <20260911-b4-rcu-tasks-preempt-qs-v2-8-eaaa61ed2da4@toxicpanda.com> <DLD0OHX8C4ME.VNR49VC2UYH4@gmail.com> <14cb8a91-497d-49f5-aa20-c6cb8b9a27fc@paulmck-laptop>
-In-Reply-To: <14cb8a91-497d-49f5-aa20-c6cb8b9a27fc@paulmck-laptop>
+Content-Transfer-Encoding: 8bit
 
-On Fri Sep 11, 2026 at 10:10 PM PDT, Paul E. McKenney wrote:
-> On Fri, Sep 11, 2026 at 08:27:56PM -0700, Alexei Starovoitov wrote:
->> On Fri Sep 11, 2026 at 7:08 AM PDT, Josef Bacik wrote:
->> > Emit an increment of current->rcu_tramp_nesting once the trampoline's
->> > frame is set up and a decrement before the final register restore, so
->> > that a task preempted while running fentry/fexit/fmod_ret/LSM programs
->> > or the __bpf_tramp_enter()/__bpf_tramp_exit() glue is not treated as
->> > Tasks-RCU quiescent.  Drop the count around the call to the original
->> > function: that may run arbitrarily long without sleeping and must not =
-pin
->> > a Tasks RCU grace period, and the trampoline frame above it is held by
->> > im->pcref rather than by Tasks RCU (see bpf_tramp_image_put()).  The
->> > fmod_ret early-exit branch and the ip_after_call -> ip_epilogue poke b=
-oth
->> > skip the decrement/increment pair around the original call, so the cou=
-nt
->> > stays balanced on every path.
->> >
->> > The sequence is "mov r11, gs:[current_task]; inc/dec dword [r11 + off]=
-";
->> > r11 is scratch at every emission point and (u32)&current_task is a val=
-id
->> > sign-extended %gs-absolute with the current per-CPU layout, the same f=
-orm
->> > the JIT already uses for this_cpu_off.  The image is dynamically
->> > allocated text, so the instructions outside the bracketed region are
->> > covered by the irq-exit IP check.
->> >
->> > Assisted-by: LLM
->> > Signed-off-by: Josef Bacik <josef@toxicpanda.com>
->> > ---
->> >  arch/x86/net/bpf_jit_comp.c | 43 ++++++++++++++++++++++++++++++++++++=
-+++++++
->> >  1 file changed, 43 insertions(+)
->> >
->> > diff --git a/arch/x86/net/bpf_jit_comp.c b/arch/x86/net/bpf_jit_comp.c
->> > index 2853e87797a7..a375c1b7bd50 100644
->> > --- a/arch/x86/net/bpf_jit_comp.c
->> > +++ b/arch/x86/net/bpf_jit_comp.c
->> > @@ -722,6 +722,31 @@ static void emit_indirect_jump(u8 **pprog, int bp=
-f_reg, u8 *ip)
->> >  	*pprog =3D prog;
->> >  }
->> > =20
->> > +/*
->> > + * Tasks RCU trampoline nesting, see rcu_tasks_trampoline_enter().
->> > + *
->> > + *   mov r11, QWORD PTR gs:[current_task]
->> > + *   inc/dec DWORD PTR [r11 + offsetof(struct task_struct, rcu_tramp_=
-nesting)]
->> > + *
->> > + * r11 (AUX_REG) is scratch in the trampoline at every point this is =
-emitted.
->> > + */
->> > +static void emit_rcu_tasks_tramp_nesting(u8 **pprog, bool enter)
->> > +{
->> > +#ifdef CONFIG_TASKS_RCU
->> > +	u8 *prog =3D *pprog;
->> > +
->> > +	/* mov r11, gs:[abs32] */
->> > +	EMIT2(0x65, 0x4C);
->> > +	EMIT3(0x8B, 0x1C, 0x25);
->> > +	EMIT((u32)(unsigned long)&current_task, 4);
->> > +	/* inc/dec dword ptr [r11 + disp32] */
->> > +	EMIT3(0x41, 0xFF, enter ? 0x83 : 0x8B);
->> > +	EMIT(offsetof(struct task_struct, rcu_tramp_nesting), 4);
->> > +
->> > +	*pprog =3D prog;
->> > +#endif
->>=20
->> It's not a lot of overhead, but I feel it will be the death by thousand =
-cuts.
->> rcu_read_lock_trace() in bpf_prog_enter_sleepable is doing the same thin=
-g...
->> increamenting a variable inside current.
->> Can they be combined? Like treat current->trc_reader_nesting > 0 as
->>  current->rcu_tramp_nesting > 0 ?
->> Or replace one with the other?
->> Two current->foo++ operations look redundant.
->>=20
->> bpf trampoline is already quite heavy. I'd like to find ways to reduce
->> its overhead instead of adding more.
->
-> Replace rcu_read_lock_trace() with Josef's rcu_tasks_trampoline_enter)?
+The read-only Control list and tas2783_sdca_mbq_size() still describe the
+Latency Control of every Entity - twenty-one registers in all - and the
+XU ID and XU Version of the Extension Unit.  The driver never reads any
+of them, and the platform firmware seen so far describes exactly one of
+the Latencies (FU21, as a DisCo constant) and neither of the two XU
+Controls.  XU ID answers COMMAND_IGNORED on the bus in every power
+state.
 
-If necessary...
-what I don't understand why we need another rcu_tasks_trampoline_enter-like=
- counter.
-Can existing rcu_read_lock_trace() current be used ?
-It's already doing current->trc_reader_nesting++
-so use that as a signal ?
+Since commit f4ffa3820949 ("ASoC: tas2783-sdw: do not cache read-only
+Controls") they have no defaults and are marked volatile, so every
+access goes to the bus.  Remove them from both tables: the driver then
+neither declares them readable nor sizes them, and the read-only list is
+left with the readings the device actually reports - Clock Valid, the
+actual power state, the protection status and the algorithm ready flags.
+
+No functional change for the driver itself, which does not read any of
+the removed registers.
+
+Link: https://lore.kernel.org/all/70a91202-e801-4008-bec8-883b229f9f0f@linux.dev/
+Signed-off-by: Andrey Golovko <andrey.golovko@gmail.com>
+---
+ sound/soc/codecs/tas2783-sdw.c | 53 +++-------------------------------
+ 1 file changed, 4 insertions(+), 49 deletions(-)
+
+diff --git a/sound/soc/codecs/tas2783-sdw.c b/sound/soc/codecs/tas2783-sdw.c
+index 1d31b3bfb1ad..8dafdc7af129 100644
+--- a/sound/soc/codecs/tas2783-sdw.c
++++ b/sound/soc/codecs/tas2783-sdw.c
+@@ -333,7 +333,6 @@ static int tas2783_sdca_mbq_size(struct device *dev, u32 reg)
+ 	case SDW_SDCA_CTL(1, TAS2783_SDCA_ENT_PPU26, 0x11, 0):
+ 	case SDW_SDCA_CTL(1, TAS2783_SDCA_ENT_TG23, 0x10, 0):
+ 	case SDW_SDCA_CTL(1, TAS2783_SDCA_ENT_XU22, 0x01, 0):
+-	case SDW_SDCA_CTL(1, TAS2783_SDCA_ENT_XU22, 0x08, 0):
+ 	case SDW_SDCA_CTL(1, TAS2783_SDCA_ENT_XU22, 0x0a, 0):
+ 	case SDW_SDCA_CTL(1, TAS2783_SDCA_ENT_XU22, 0x10, 0):
+ 	case SDW_SDCA_CTL(1, TAS2783_SDCA_ENT_XU22, 0x14, 0):
+@@ -419,7 +418,6 @@ static int tas2783_sdca_mbq_size(struct device *dev, u32 reg)
+ 	case SDW_SDCA_CTL(1, TAS2783_SDCA_ENT_FU127, 0x0b, 0):
+ 	case SDW_SDCA_CTL(1, TAS2783_SDCA_ENT_FU26, 0x0b, 0):
+ 	case SDW_SDCA_CTL(1, TAS2783_SDCA_ENT_FU26, 0x0b, 1):
+-	case SDW_SDCA_CTL(1, TAS2783_SDCA_ENT_XU22, 0x07, 0):
+ 	case SDW_SDCA_CTL(1, TAS2783_SDCA_ENT_XU22, 0x09, 0):
+ 	case SDW_SDCA_CTL(1, TAS2783_SDCA_ENT_MFPU21, 0x12, 0):
+ 	case SDW_SDCA_CTL(1, TAS2783_SDCA_ENT_MFPU26, 0x12, 0):
+@@ -431,27 +429,8 @@ static int tas2783_sdca_mbq_size(struct device *dev, u32 reg)
+ 	case SDW_SDCA_CTL(1, TAS2783_SDCA_ENT_IT21, 0x11, 0):
+ 		return 2;
+ 
+-	case SDW_SDCA_CTL(1, TAS2783_SDCA_ENT_FU23, 0x10, 0):
+-	case SDW_SDCA_CTL(1, TAS2783_SDCA_ENT_IT21, 0x08, 0):
+-	case SDW_SDCA_CTL(1, TAS2783_SDCA_ENT_IT26, 0x08, 0):
+-	case SDW_SDCA_CTL(1, TAS2783_SDCA_ENT_IT28, 0x08, 0):
+-	case SDW_SDCA_CTL(1, TAS2783_SDCA_ENT_IT29, 0x08, 0):
+-	case SDW_SDCA_CTL(1, TAS2783_SDCA_ENT_OT23, 0x08, 0):
+-	case SDW_SDCA_CTL(1, TAS2783_SDCA_ENT_OT24, 0x08, 0):
+-	case SDW_SDCA_CTL(1, TAS2783_SDCA_ENT_OT25, 0x08, 0):
+-	case SDW_SDCA_CTL(1, TAS2783_SDCA_ENT_OT28, 0x08, 0):
+-	case SDW_SDCA_CTL(1, TAS2783_SDCA_ENT_OT127, 0x08, 0):
+-	case SDW_SDCA_CTL(1, TAS2783_SDCA_ENT_MU26, 0x06, 0):
+-	case SDW_SDCA_CTL(1, TAS2783_SDCA_ENT_FU127, 0x10, 0):
+-	case SDW_SDCA_CTL(1, TAS2783_SDCA_ENT_FU26, 0x10, 0):
+-	case SDW_SDCA_CTL(1, TAS2783_SDCA_ENT_XU22, 0x06, 0):
+ 	case SDW_SDCA_CTL(1, TAS2783_SDCA_ENT_XU22, 0x12, 0):
+ 	case SDW_SDCA_CTL(1, TAS2783_SDCA_ENT_XU22, 0x13, 0):
+-	case SDW_SDCA_CTL(1, TAS2783_SDCA_ENT_MFPU21, 0x08, 0):
+-	case SDW_SDCA_CTL(1, TAS2783_SDCA_ENT_MFPU26, 0x08, 0):
+-	case SDW_SDCA_CTL(1, TAS2783_SDCA_ENT_SAPU29, 0x05, 0):
+-	case SDW_SDCA_CTL(1, TAS2783_SDCA_ENT_PPU21, 0x06, 0):
+-	case SDW_SDCA_CTL(1, TAS2783_SDCA_ENT_PPU26, 0x06, 0):
+ 		return 4;
+ 
+ 	default:
+@@ -465,47 +444,23 @@ static bool tas2783_readable_register(struct device *dev, unsigned int reg)
+ }
+ 
+ /*
+- * The read-only SDCA Controls the driver describes: the Latency of every
+- * Entity, the Clock Valid of every Clock Source, the actual power state of
+- * the Power Domain Entity, the protection status, the algorithm ready flag
+- * and the Extension Unit id, version and firmware download status.  None of
+- * them is a setting; every one is a reading of device state.
++ * The read-only SDCA Controls the driver describes: the Clock Valid of every
++ * Clock Source, the actual power state of the Power Domain Entity, the
++ * protection status and the algorithm ready flags.  None of them is a
++ * setting; every one is a reading of device state.
+  */
+ static bool tas2783_read_only_control(unsigned int reg)
+ {
+ 	switch (reg) {
+-	case SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, TAS2783_SDCA_ENT_FU21, 0x10, 0):
+-	case SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, TAS2783_SDCA_ENT_FU23, 0x10, 0):
+-	case SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, TAS2783_SDCA_ENT_FU26, 0x10, 0):
+-	case SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, TAS2783_SDCA_ENT_XU22, 0x06, 0):
+-	case SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, TAS2783_SDCA_ENT_XU22, 0x07, 0):
+-	case SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, TAS2783_SDCA_ENT_XU22, 0x08, 0):
+ 	case SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, TAS2783_SDCA_ENT_CS24, 0x02, 0):
+ 	case SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, TAS2783_SDCA_ENT_CS21, 0x02, 0):
+ 	case SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, TAS2783_SDCA_ENT_CS25, 0x02, 0):
+ 	case SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, TAS2783_SDCA_ENT_CS26, 0x02, 0):
+ 	case SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, TAS2783_SDCA_ENT_CS28, 0x02, 0):
+ 	case SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, TAS2783_SDCA_ENT_PDE23, 0x10, 0):
+-	case SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, TAS2783_SDCA_ENT_UDMPU23, 0x06, 0):
+-	case SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, TAS2783_SDCA_ENT_SAPU29, 0x05, 0):
+ 	case SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, TAS2783_SDCA_ENT_SAPU29, 0x11, 0):
+-	case SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, TAS2783_SDCA_ENT_PPU21, 0x06, 0):
+-	case SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, TAS2783_SDCA_ENT_PPU26, 0x06, 0):
+-	case SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, TAS2783_SDCA_ENT_IT21, 0x08, 0):
+-	case SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, TAS2783_SDCA_ENT_IT29, 0x08, 0):
+-	case SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, TAS2783_SDCA_ENT_IT26, 0x08, 0):
+-	case SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, TAS2783_SDCA_ENT_IT28, 0x08, 0):
+-	case SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, TAS2783_SDCA_ENT_OT24, 0x08, 0):
+-	case SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, TAS2783_SDCA_ENT_OT23, 0x08, 0):
+-	case SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, TAS2783_SDCA_ENT_OT25, 0x08, 0):
+-	case SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, TAS2783_SDCA_ENT_OT28, 0x08, 0):
+-	case SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, TAS2783_SDCA_ENT_MU26, 0x06, 0):
+-	case SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, TAS2783_SDCA_ENT_OT127, 0x08, 0):
+-	case SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, TAS2783_SDCA_ENT_FU127, 0x10, 0):
+ 	case SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, TAS2783_SDCA_ENT_CS127, 0x02, 0):
+-	case SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, TAS2783_SDCA_ENT_MFPU21, 0x08, 0):
+ 	case SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, TAS2783_SDCA_ENT_MFPU21, 0x04, 0):
+-	case SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, TAS2783_SDCA_ENT_MFPU26, 0x08, 0):
+ 	case SDW_SDCA_CTL(FUNC_NUM_SMART_AMP, TAS2783_SDCA_ENT_MFPU26, 0x04, 0):
+ 		return true;
+ 
+
+base-commit: 604ac544390f420332b10738cc10b29a2e91bac8
+-- 
+2.53.0
 
