@@ -1,241 +1,168 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 065442F7F07;
-	Sat, 12 Sep 2026 03:11:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70AF5185B48
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 03:17:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789182705; cv=none; b=Q2nC8ArL8U16irx1Mw2kCmNmaTsSSMaYaZi35Zlc0Ow4cET0CjSexfxX9wZjPyPPFWEFcipZwm21vXZAJX6pMsnu1eXm0LkzDQMeX5nJi/vF7E3EgXhi6HWML4HQQe9O6jrk1A2CuL5leCFi2tUBjwJrYEEetuprxVfBvGglvVw=
+	t=1789183062; cv=none; b=hIMmQODLyS2mLw1tXrrGRd2Y0l4qT97RJSdH/lpqazIj0pkJIfavgwMbCZ49Ve5PfRFol13NVkeupbaNqnfONzMCa84CBD8u9OTEs+xC6UjcuYWDsO0rODKHqxpfp6KM8ljCdu3VwZNjrlLga9RGEMvZTb2E5I9kjY9xrZAn5xk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789182705; c=relaxed/simple;
-	bh=Go5Hg7knIGDuijHH0qtGw0fQymnbvE7x4jbQmt+ICJI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WJCqUpXXKovqqP/nVVGPGHTxDFLDasJpMqCcUxHfsHpnIA0ZzcwQ5dsfrqnKP7vFZK6Jee84RytwQJ/dR58vQkxynXefU8Zyz9a9CZw1/+gyEt5snm3QsBfDwFIcFl6YwRbo6dCfHY/lG48Hph+WkTSFcf/KRquJ3tG7Oc582kc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=oXD9eBZz; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789183062; c=relaxed/simple;
+	bh=wYgdKTtaiftOB1NzVdZ/Fy4nrse0zcR5mGExXehf1cc=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=i+rNjTQ+M9MUuWA0T+GJzDdOWcG4MNLJ3kWPZtH7FKxvba+YWI6SvII6sbgYZIQOrEjtNe1iiQAlq60L06Pu4wKMqmeSEjcSueCtdFYWyFUdVlhHJh13CRQErit0KVGC509onusCtIKLotJL4QErqaJEn0IHRYXOUGxLib+Ne6Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=k4TrAiCN; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="oXD9eBZz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=G6
-	i46xAMMvlxSlwuhrN58VLqhWgxVA3qRAQZ2supRts=; b=oXD9eBZzmCrZ2vDq0Z
-	lzplAiLVF03rhjx8WlbMszvJ4LdVBRHEMzWAd7mMZ+iG+XsuZ2qMdPGuo4IDhvLn
-	LAPLPkf0y/3Frw5BSMAY8asOFenixFXyLrgxQJJKdhiePUACkpL2Wa9VJOVgKUI9
-	3JSDIpepAeBoRqpApYMiMGAsk=
-Received: from localhost (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD3X8fQwqRqv+m_AA--.45437S2;
-	Sat, 12 Sep 2026 11:11:12 +0800 (CST)
-From: Hui Su <sh_def@163.com>
-To: Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>
-Cc: Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Jiri Olsa <jolsa@kernel.org>,
-	linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Hui Su <sh_def@163.com>
-Subject: [PATCH] perf evsel: Restrict incremental open error unwind
-Date: Sat, 12 Sep 2026 12:11:10 +0900
-Message-ID: <20260912031112.1814574-1-sh_def@163.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="k4TrAiCN"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789183059; x=1820719059;
+  h=date:from:to:cc:subject:message-id;
+  bh=wYgdKTtaiftOB1NzVdZ/Fy4nrse0zcR5mGExXehf1cc=;
+  b=k4TrAiCNzYqgf4VnY08vFpETNmOry7P3BFZRe7skSiEAK5GjT4wldN4+
+   WkBjZIzKPbqb8YLD//bd4WNVOlT3cpVOnLxj5mhP5E9vb9lTarHma1YPP
+   ohUJVNLUMFioV1t0/wyunLmXCaRf13/uZdekzIRIDWOx0Kw9P0CeJEZzs
+   zlVLaxikx4vM8er0lv1mitz3AnlZ8xJeSvOZVljpXeb/z0Q+UOZMqgsll
+   HfAYsZhfs0nSD7x/YiYwvybalWv+ZtoJbiKuyeuz3loH2dsr/WJ7o+Zvk
+   s5ytEEZYsYqMvKWT6Maz80u9m3puI53pcO7tR7smpJd2zlW6qO3GJzhKP
+   A==;
+X-CSE-ConnectionGUID: GxV34ZnwR4KJuZT70dQ5Hg==
+X-CSE-MsgGUID: aah2mrcFRFaQpG6y5Uhc9A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11902"; a="100238841"
+X-IronPort-AV: E=Sophos;i="6.27,98,1787036400"; 
+   d="scan'208";a="100238841"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 20:17:39 -0700
+X-CSE-ConnectionGUID: HoEN+FSuSE2FXOOf+j6O7Q==
+X-CSE-MsgGUID: kBMPMspKRMmR1kWTJYjK/w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,98,1787036400"; 
+   d="scan'208";a="271606800"
+Received: from lkp-server02.sh.intel.com (HELO 0a3643a6ed9d) ([10.239.97.151])
+  by orviesa008.jf.intel.com with ESMTP; 11 Sep 2026 20:17:38 -0700
+Received: from kbuild by 0a3643a6ed9d with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x5EFC-000000002aF-3zNN;
+	Sat, 12 Sep 2026 03:17:34 +0000
+Date: Sat, 12 Sep 2026 11:16:41 +0800
+From: kernel test robot <lkp@intel.com>
+To: Alejandro Lucero <alucerop@amd.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Dave Jiang <dave.jiang@intel.com>
+Subject: drivers/net/ethernet/sfc/efx_cxl.c:77: undefined reference
+ to `devm_cxl_probe_mem'
+Message-ID: <202609121058.6ZNcYDPM-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3X8fQwqRqv+m_AA--.45437S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxKrW8WrWxuw4Utw17uF18Grg_yoW7KryrpF
-	WkCrWftrZ8Gr1avw1fJa17WFWagayfWr9rGr9akr4rZr4Iqr1kXrWIqa45tF1UZ3yvv3y2
-	yF15KrWDCrWfAF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piJ5r7UUUUU=
-X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbCwRCoCGqkwtCvfQAA3-
 
-evsel__open_cpu(), evsel__tool_pmu_open() and
-evsel__hwmon_pmu_open() support opening a subrange of a CPU map, bounded
-by [start_cpu_map_idx, end_cpu_map_idx).
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   08df884136f1c1197bab2a27814404fd329d9aac
+commit: 0418860ef2ca8ab4e696ce3913fd76660c881c0e sfc: obtain and map cxl range using devm_cxl_probe_mem
+date:   2 months ago
+config: arm-randconfig-001-20260912 (https://download.01.org/0day-ci/archive/20260912/202609121058.6ZNcYDPM-lkp@intel.com/config)
+compiler: arm-linux-gnueabi-gcc (GCC) 10.5.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260912/202609121058.6ZNcYDPM-lkp@intel.com/reproduce)
 
-Their error paths, however, unwind using "while (--idx >= 0)" all the way
-back to CPU index 0 regardless of start_cpu_map_idx. If lower CPU indices
-were opened by an earlier invocation, a later incremental open failure
-therefore closes those existing file descriptors and overwrites their
-slots with -1.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: 0418860ef2ca ("sfc: obtain and map cxl range using devm_cxl_probe_mem")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609121058.6ZNcYDPM-lkp@intel.com/
 
-Before this fix, running the new incremental open test demonstrates this
-corruption:
+All errors (new ones prefixed by >>):
 
-  $ perf test -v "Tool PMU"
-   12: Tool PMU:
-   12.1: Tool PMU                                                      : Ok
-   12.2: Tool PMU leader                                               : Ok
-   12.3: Incremental open error unwind boundary:
-     FAILED: CPU 0 FD overwritten: FD(evsel, 0, 0)=-1, expected 4
-  FAILED!
+   arm-linux-gnueabi-ld: drivers/net/ethernet/sfc/efx_cxl.o: in function `efx_cxl_init':
+>> drivers/net/ethernet/sfc/efx_cxl.c:77: undefined reference to `devm_cxl_probe_mem'
 
-Stop the unwind at start_cpu_map_idx so that only file descriptors
-opened by the current invocation are rolled back.
 
-After this fix:
+vim +77 drivers/net/ethernet/sfc/efx_cxl.c
 
-  $ perf test -v "Tool PMU"
-   12: Tool PMU:
-   12.1: Tool PMU                                                      : Ok
-   12.2: Tool PMU leader                                               : Ok
-   12.3: Incremental open error unwind boundary                        : Ok
+    16	
+    17	int efx_cxl_init(struct efx_probe_data *probe_data)
+    18	{
+    19		struct efx_nic *efx = &probe_data->efx;
+    20		struct pci_dev *pci_dev = efx->pci_dev;
+    21		struct range cxl_pio_range;
+    22		struct efx_cxl *cxl;
+    23		u16 dvsec;
+    24		int rc;
+    25	
+    26		/* Is the device configured with and using CXL? */
+    27		if (!pcie_is_cxl(pci_dev))
+    28			return 0;
+    29	
+    30		dvsec = pci_find_dvsec_capability(pci_dev, PCI_VENDOR_ID_CXL,
+    31						  PCI_DVSEC_CXL_DEVICE);
+    32		if (!dvsec) {
+    33			pci_info(pci_dev, "CXL_DVSEC_PCIE_DEVICE capability not found\n");
+    34			return 0;
+    35		}
+    36	
+    37		pci_dbg(pci_dev, "CXL_DVSEC_PCIE_DEVICE capability found\n");
+    38	
+    39		/* Create a cxl_dev_state embedded in the cxl struct using cxl core api
+    40		 * specifying no mbox available.
+    41		 */
+    42		cxl = devm_cxl_dev_state_create(&pci_dev->dev, CXL_DEVTYPE_DEVMEM,
+    43						pci_get_dsn(pci_dev), dvsec,
+    44						struct efx_cxl, cxlds, false);
+    45	
+    46		if (!cxl)
+    47			return -ENOMEM;
+    48	
+    49		rc = cxl_pci_setup_regs(pci_dev, CXL_REGLOC_RBI_COMPONENT,
+    50					&cxl->cxlds.reg_map);
+    51		if (rc) {
+    52			pci_err(pci_dev, "No component registers\n");
+    53			return rc;
+    54		}
+    55	
+    56		if (!cxl->cxlds.reg_map.component_map.hdm_decoder.valid) {
+    57			pci_err(pci_dev, "Expected HDM component register not found\n");
+    58			return -ENODEV;
+    59		}
+    60	
+    61		if (!cxl->cxlds.reg_map.component_map.ras.valid) {
+    62			pci_err(pci_dev, "Expected RAS component register not found\n");
+    63			return -ENODEV;
+    64		}
+    65	
+    66		/* Set media ready explicitly as there are neither mailbox for checking
+    67		 * this state nor the CXL register involved, both not mandatory for
+    68		 * type2.
+    69		 */
+    70		cxl->cxlds.media_ready = true;
+    71	
+    72		if (cxl_set_capacity(&cxl->cxlds, EFX_CTPIO_BUFFER_SIZE)) {
+    73			pci_err(pci_dev, "dpa capacity setup failed\n");
+    74			return -ENODEV;
+    75		}
+    76	
+  > 77		cxl->cxlmd = devm_cxl_probe_mem(&cxl->cxlds, &cxl_pio_range);
+    78		if (IS_ERR(cxl->cxlmd)) {
+    79			pci_err(pci_dev, "CXL accel memdev creation failed\n");
+    80			return PTR_ERR(cxl->cxlmd);
+    81		}
+    82	
+    83		cxl->ctpio_cxl = ioremap_wc(cxl_pio_range.start,
+    84					    range_len(&cxl_pio_range));
+    85		if (!cxl->ctpio_cxl) {
+    86			pci_err(pci_dev, "CXL ioremap region (%pra) failed\n",
+    87				&cxl_pio_range);
+    88			return -ENOMEM;
+    89		}
+    90	
+    91		probe_data->cxl = cxl;
+    92	
+    93		return 0;
+    94	}
+    95	
 
-Fixes: 4804e0111662 ("perf stat: Use affinity for opening events")
-Fixes: 240505b2d0ad ("perf tool_pmu: Factor tool events into their own PMU")
-Fixes: 53cc0b351ec9 ("perf hwmon_pmu: Add a tool PMU exposing events from hwmon in sysfs")
-Signed-off-by: Hui Su <sh_def@163.com>
----
- tools/perf/tests/tool_pmu.c | 79 +++++++++++++++++++++++++++++++++++++
- tools/perf/util/evsel.c     |  2 +-
- tools/perf/util/hwmon_pmu.c |  2 +-
- tools/perf/util/tool_pmu.c  |  2 +-
- 4 files changed, 82 insertions(+), 3 deletions(-)
-
-diff --git a/tools/perf/tests/tool_pmu.c b/tools/perf/tests/tool_pmu.c
-index c6c5ebf0e935..667160f9e2cd 100644
---- a/tools/perf/tests/tool_pmu.c
-+++ b/tools/perf/tests/tool_pmu.c
-@@ -1,8 +1,16 @@
- // SPDX-License-Identifier: (LGPL-2.1 OR BSD-2-Clause)
-+#include <errno.h>
-+#include <fcntl.h>
-+#include <string.h>
-+#include <unistd.h>
-+#include <internal/xyarray.h>
-+#include "cpumap.h"
- #include "debug.h"
- #include "evlist.h"
-+#include "evsel.h"
- #include "parse-events.h"
- #include "tests.h"
-+#include "thread_map.h"
- #include "tool_pmu.h"
- 
- static int do_test(enum tool_pmu_event ev, bool with_pmu)
-@@ -100,9 +108,80 @@ static int test__tool_pmu_with_pmu(struct test_suite *test __maybe_unused,
- 	return TEST_OK;
- }
- 
-+static int test__tool_pmu_incremental_open_unwind(struct test_suite *test __maybe_unused,
-+						  int subtest __maybe_unused)
-+{
-+	struct evlist *evlist = evlist__new();
-+	struct parse_events_error err;
-+	struct perf_cpu_map *cpus = NULL;
-+	struct perf_thread_map *threads = NULL;
-+	struct evsel *evsel;
-+	int ret = TEST_FAIL, fd0 = -1;
-+
-+	if (!evlist)
-+		return TEST_FAIL;
-+
-+	parse_events_error__init(&err);
-+	if (parse_events(evlist, "tool/user_time/", &err)) {
-+		parse_events_error__exit(&err);
-+		evlist__put(evlist);
-+		return TEST_FAIL;
-+	}
-+	parse_events_error__exit(&err);
-+
-+	evsel = evlist__first(evlist);
-+	cpus = perf_cpu_map__new("0,1");
-+	threads = thread_map__new_by_tid(getpid());
-+	if (!cpus || !threads)
-+		goto out;
-+
-+	/* Step 1: Open CPU index 0 successfully */
-+	if (evsel__open_per_cpu_and_thread(evsel, cpus, 0, threads) < 0) {
-+		pr_debug("Failed to open CPU index 0\n");
-+		goto out;
-+	}
-+
-+	fd0 = (*(int *)xyarray__entry(evsel->core.fd, 0, 0));
-+	if (fd0 < 0 || fcntl(fd0, F_GETFD) < 0) {
-+		pr_debug("CPU index 0 FD is invalid (%d)\n", fd0);
-+		goto out;
-+	}
-+
-+	/* Step 2: Intentionally trigger failure on CPU index 1 */
-+	evsel->core.attr.sample_period = 1; /* Not supported for tool PMU -> -EINVAL */
-+	if (evsel__open_per_cpu_and_thread(evsel, cpus, 1, threads) >= 0) {
-+		pr_debug("Unexpected success opening CPU index 1 with sample_period=1\n");
-+		goto out;
-+	}
-+
-+	/*
-+	 * Step 3: Check that CPU index 0's FD was NOT destroyed by CPU index 1's unwind.
-+	 */
-+	if ((*(int *)xyarray__entry(evsel->core.fd, 0, 0)) != fd0) {
-+		pr_debug("FAILED: CPU 0 FD overwritten: FD(evsel, 0, 0)=%d, expected %d\n",
-+			 (*(int *)xyarray__entry(evsel->core.fd, 0, 0)), fd0);
-+		goto out;
-+	}
-+
-+	if (fcntl(fd0, F_GETFD) < 0) {
-+		pr_debug("FAILED: CPU 0 FD %d was closed by error unwind! errno=%d (%s)\n",
-+			 fd0, errno, strerror(errno));
-+		goto out;
-+	}
-+
-+	ret = TEST_OK;
-+out:
-+	evsel__close(evsel);
-+	perf_cpu_map__put(cpus);
-+	perf_thread_map__put(threads);
-+	evlist__put(evlist);
-+	return ret;
-+}
-+
- static struct test_case tests__tool_pmu[] = {
- 	TEST_CASE("Parsing without PMU name", tool_pmu_without_pmu),
- 	TEST_CASE("Parsing with PMU name", tool_pmu_with_pmu),
-+	TEST_CASE("Incremental open error unwind boundary", tool_pmu_incremental_open_unwind),
- 	{	.name = NULL, }
- };
- 
-diff --git a/tools/perf/util/evsel.c b/tools/perf/util/evsel.c
-index d4cb455f4a7d..eb429087ebfe 100644
---- a/tools/perf/util/evsel.c
-+++ b/tools/perf/util/evsel.c
-@@ -3127,7 +3127,7 @@ static int evsel__open_cpu(struct evsel *evsel, struct perf_cpu_map *cpus,
- 			FD(evsel, idx, thread) = -1;
- 		}
- 		thread = nthreads;
--	} while (--idx >= 0);
-+	} while (--idx >= start_cpu_map_idx);
- 	errno = old_errno;
- out:
- 	if (err)
-diff --git a/tools/perf/util/hwmon_pmu.c b/tools/perf/util/hwmon_pmu.c
-index ed544dca70c3..96aeb379e169 100644
---- a/tools/perf/util/hwmon_pmu.c
-+++ b/tools/perf/util/hwmon_pmu.c
-@@ -803,7 +803,7 @@ int evsel__hwmon_pmu_open(struct evsel *evsel,
- 			FD(evsel, idx, thread) = -1;
- 		}
- 		thread = nthreads;
--	} while (--idx >= 0);
-+	} while (--idx >= start_cpu_map_idx);
- 	close(dir);
- 	return err;
- }
-diff --git a/tools/perf/util/tool_pmu.c b/tools/perf/util/tool_pmu.c
-index 5c30854b4644..d2f7591747d9 100644
---- a/tools/perf/util/tool_pmu.c
-+++ b/tools/perf/util/tool_pmu.c
-@@ -349,7 +349,7 @@ int evsel__tool_pmu_open(struct evsel *evsel,
- 			FD(evsel, idx, thread) = -1;
- 		}
- 		thread = nthreads;
--	} while (--idx >= 0);
-+	} while (--idx >= start_cpu_map_idx);
- 	errno = old_errno;
- 	return err;
- }
--- 
-2.55.0
-
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
