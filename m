@@ -1,165 +1,269 @@
-Received: from bg-bec.cloudflare-smtp.org (bg-bec.cloudflare-smtp.org [104.30.16.142])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31285CA6F
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 15:37:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=104.30.16.142
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BC3E356744;
+	Sat, 12 Sep 2026 15:43:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789227437; cv=none; b=KS8GdKPC0iqicb9itMMJVRtpFPzFlDt7MqvVtceFqaqemkBVbpNrYP3NwcZ9YzFdRkFRq1mTkFq2dNh5Z+yek5vsBMMU0hTG/2mCung8Gy4rUYMKHvFTj9aR1e4p2w1yYyqPVL+GBu3noZySSHNCPokSv0BYxJINaZCQzPkN2wg=
+	t=1789227817; cv=none; b=ZEYY7tWqkQ/Z+Sy/t5Y+Epp5HLq+iw/0ooVcHAp3vOYQquB5udsDLGmdju/mSTI3ZpS+d7Cq+KexyCJNZhCZL7FmDUlxQymMEsJWqPbBdx+XIIcb54p/u68b+TJzI10t7pasX1VPgN+jIMAVhOHj1kjk+tPOPJKeRb/wP90h6I0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789227437; c=relaxed/simple;
-	bh=9D5/4FORv72k+5rN2KBqHXPWNG6InAm6xGxG/0ZvL5Y=;
-	h=From:Message-ID:Date:Subject:To:Cc:MIME-Version:Content-Type; b=Qcmm51BmBviGly0XgFn/9toCD76vbFq740Shv9oTplT529orlkrepcnl2Pe3N/S5/qDEftdeb2yEogfK3IWTOCGttIFpMOB0aelyfd1ZyMDuVtmvRFO2iaq8Qo+WAdUnwmRubNt3M6fycVo5DcFsrSwxFEXpRG3ZCatMKVU9Zhs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh; spf=pass smtp.mailfrom=cf-bounce.bugs.sh; dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b=Hy2J03wD; dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b=YvEQGghR; arc=none smtp.client-ip=104.30.16.142
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cf-bounce.bugs.sh
+	s=arc-20240116; t=1789227817; c=relaxed/simple;
+	bh=GKRHTiVQqFPq7UasEnD1vvF/BJRoNZ3dURz/mC3UTaU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=p0MDvcWFAi3OQOd0965l4G0ztluOfPwecRk0TMVYjjr7cwDaNE2beroiQ4JCrbxx1UN2oiB0VAq6THjQnZAogHYhjZqg4uTD13bW0OFXCSaJSDh9VnfmOc0+yqr/pvMtpK+k1Y6Q7zEcQtHZQL7Ugg0i2ldz5SaZNuh1gAt4gsA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E0f4e8om; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b="Hy2J03wD";
-	dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b="YvEQGghR"
-DKIM-Signature: v=1; a=rsa-sha256; s=cf2024-1; d=cloudflare-smtp.org; c=relaxed/relaxed;
-	h=Cc:To:Subject:Date:From:Feedback-ID:from:reply-to:resent-date
-	:resent-from:resent-to:resent-cc:in-reply-to:references:list-id:list-help
-	:list-unsubscribe:list-unsubscribe-post:list-subscribe:list-post
-	:list-owner:list-archive; t=1789227435; x=1789832235; bh=pw7BzzxvhimaajakrJ
-	3z6za2n8++20QAAsxZ657rXWE=; b=Hy2J03wDFGELY689Sy7uvBdHR621pGS3fhHXKYdHwu1B4
-	mgTHKcPGeJMDbRpNoqChkyWstReGAJ0IzHg1Mp/zeLT9Au0MeCIEWKQkbjw7VXEyK80M3eqDzHd
-	03llQDKL7qEbQqdpVBDKFEaO+TqaH8oGYbQWLQeIuyjNvEZD4qzEHxOBF5GA2v85a+bxiZPCgoX
-	Txz2nqUFW14NR+Bk+P0vAkTQQoQOugcennOS0XNW/6b1t0tqGCyVshyIBqB3gSG1YANIiHk+eSP
-	KNxZqdFM+UFMKxGoyTU3IIWuy1294kDsmOR/TIxHGKSrQ+7lBgd8VrTjyPHHkSGBcF9wE0xQ==;
-DKIM-Signature: v=1; a=rsa-sha256; s=cf-bounce; d=bugs.sh; c=relaxed/relaxed;
-	h=Cc:To:Subject:Date:From:Feedback-ID:from:reply-to:resent-date
-	:resent-from:resent-to:resent-cc:in-reply-to:references:list-id:list-help
-	:list-unsubscribe:list-unsubscribe-post:list-subscribe:list-post
-	:list-owner:list-archive; t=1789227435; x=1789832235; bh=pw7BzzxvhimaajakrJ
-	3z6za2n8++20QAAsxZ657rXWE=; b=YvEQGghRpcdTaULFGhwwnaY95CuRyC5CjEnjJT0m++y1Z
-	mH0w/jYsfRaE+3+5FeSrhxBkBPO1VfrQ4vGQZUAjauTmHOsS3xdK4vzSis0MaPd0lcvWgA6LMZQ
-	QmhHDSeHpKZp3q361qrjAdqvK8yIoSxCsRS+vdYKBA2GMCvmPaxCnF2PHbCsxCwlNayziMs1IOQ
-	elIBcMT2Q6q9MuMGNBb3YNpe4QUml9w6TWrWgmwahWU7XqxtcU+UZIVJUUyVXGaEevBAnpRUpx7
-	qV7FHlLVAQK2cAHySfX68hYCNKTzpL38KY52bZtAWxzMYJaxZi1+We2AKUg+h4F6gD0/EGOg==;
-Feedback-ID: bugs.sh:5:6:Cloudflare
-From: co <co+77553a7fc66ac133@bugs.sh>
-Message-ID: <Ah6QavQXwvshtqyUcYD1P1R7XE0ND9fB7lbV@bugs.sh>
-Date: Sat, 12 Sep 2026 15:37:09 +0000
-Subject: [BUG] drivers/nvme: out-of-bounds in nvmet_execute_auth_receive()
-To: linux-nvme@lists.infradead.org, "Hannes Reinecke" <hare@suse.de>, "Christoph
- Hellwig" <hch@lst.de>, "Sagi Grimberg" <sagi@grimberg.me>, "Chaitanya
- Kulkarni" <kch@nvidia.com>
-Cc: "Jens Axboe" <axboe@kernel.dk>, linux-kernel@vger.kernel.org, co <co+77553a7fc66ac133@bugs.sh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E0f4e8om"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 24052C2BCF5;
+	Sat, 12 Sep 2026 15:43:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789227817;
+	bh=GKRHTiVQqFPq7UasEnD1vvF/BJRoNZ3dURz/mC3UTaU=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=E0f4e8omCex/xu7lk+yu79nGSyLNG2t7erxvyW6CxNZfD6XuR2cQmoScOgiw3QM9/
+	 63i6Fph5X/ty/ChSeMBSvtIka8Ut1CxpYprTVDx5gEUxfpz88+14I3VsE7lBkOs22e
+	 Uw80h2hI0yFEXACUS9h7RKmr7pbPRrpqggs4RgO+QL39AtJTUtuWrqDM3TmCPCkPFh
+	 PRSefaL0VME60XiMoeULDRITMVOQCmXvtso6HjjialXYX735fz9CGyhARbhrUnIpe0
+	 WiQMIrgZ21YZ6itj4P4acei/AwHmsCWNXgFhIYe2zQcZrDzmfJVYlW4yhWkWPcibcz
+	 uv3DC5P9odHDQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 00925C88E5A;
+	Sat, 12 Sep 2026 15:43:36 +0000 (UTC)
+From: Quanye Yang via B4 Relay <devnull+quanyeyang.proton.me@kernel.org>
+Date: Sat, 12 Sep 2026 23:43:34 +0800
+Subject: [PATCH net-next v3] tcp: annotate lockless access to sk->sk_err
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260912-mptcp-sk-err-net-v3-1-c41383878bde@proton.me>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XOQQ7CIBAF0Ks0rMVQrLa48h7GBaWDRVMggKSm6
+ d0F3HShy5+ZeX8W5MEp8OhcLchBVF4ZncJhVyExcn0HrIaUESX0RBjp8GSDsNg/MTiHNQTcStl
+ 1IMmRNA1KZ9aBVHMhrygvaJgDun0n/tU/QIQs5t1R+WDcu7THulz8L4o1rvHA25pzEIzL4WKdC
+ UbvJyh8pFuA/QBoAvKbvAfBBSNbYF3XD1F12ooNAQAA
+X-Change-ID: 20260908-mptcp-sk-err-net-7ff88ef05044
+To: Eric Dumazet <edumazet@google.com>, 
+ Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
+ "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+ "Matthieu Baerts (NGI0)" <matttbe@kernel.org>, 
+ Geliang Tang <geliang@kernel.org>, Mat Martineau <martineau@kernel.org>, 
+ Jiayuan Chen <jiayuan.chen@linux.dev>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789227816; l=7237;
+ i=quanyeyang@proton.me; s=20260801; h=from:subject:message-id;
+ bh=/TVHWLyjQ1Gp2BZxsaZ2r2VGQqosRER2Bq/lIgTk0VQ=;
+ b=NV3pMCvEwnCXyey3N0gWPatws1sUCJbNRLchS+CksVpIf1fqjhRdtuBFoByj4n4XqMwhi8vZI
+ A/7bL/lNpZIDpJ3C1wO76pYowk8+wIHq1UALWoeiQLUPh1/2aqb535Q
+X-Developer-Key: i=quanyeyang@proton.me; a=ed25519;
+ pk=9L9FrcvzMgxPaBRU6XV0EnqTgjDqVO596rQKSZ9qZoY=
+X-Endpoint-Received: by B4 Relay for quanyeyang@proton.me/20260801 with
+ auth_id=963
+X-Original-From: Quanye Yang <quanyeyang@proton.me>
+Reply-To: quanyeyang@proton.me
 
-This is a bug report, not a patch submission.
+From: Quanye Yang <quanyeyang@proton.me>
 
-We found a bug reachable in:
+BUG: KCSAN: data-race in do_recvmmsg / mptcp_recvmsg
 
-    path    drivers/nvme/target
-    crash   out-of-bounds in nvmet_execute_auth_receive()
-    commit  2f1baf1fc892 ("Merge tag 'trace-v7.2-rc7' of git://git.kernel.o=
-rg/pub/scm/linux/kernel/git/trace/linux-trace")
+read-write (marked) to 0xffff8880134d391c of 4 bytes by task 2619 on cpu 1:
+ instrument_atomic_read_write include/linux/instrumented.h:113 [inline]
+ sock_error include/net/sock.h:2565 [inline]
+ do_recvmmsg+0x50c/0x580 net/socket.c:3049
+ __sys_recvmmsg net/socket.c:3144 [inline]
+ __do_sys_recvmmsg net/socket.c:3167 [inline]
+ __se_sys_recvmmsg net/socket.c:3160 [inline]
+ __x64_sys_recvmmsg+0x161/0x180 net/socket.c:3160
+ x64_sys_call+0x19c7/0x1ca0 arch/x86/include/generated/asm/syscalls_64.h:300
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0xde/0x3d0 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-Config, environment, the sanitizer report and a C reproducer follow.
+read to 0xffff8880134d391c of 4 bytes by task 2620 on cpu 0:
+ tcp_recv_should_stop include/net/tcp.h:3086 [inline]
+ mptcp_recvmsg+0x54d/0xd50 net/mptcp/protocol.c:2466
+ inet_recvmsg+0x204/0x210 net/ipv4/af_inet.c:894
+ sock_recvmsg_nosec net/socket.c:1151 [inline]
+ sock_recvmsg+0x11a/0x140 net/socket.c:1173
+ ____sys_recvmsg+0x14b/0x3c0 net/socket.c:2933
+ ___sys_recvmsg+0x116/0x160 net/socket.c:2975
+ __sys_recvmsg net/socket.c:3008 [inline]
+ __do_sys_recvmsg net/socket.c:3014 [inline]
+ __se_sys_recvmsg net/socket.c:3011 [inline]
+ __x64_sys_recvmsg+0xeb/0x160 net/socket.c:3011
+ x64_sys_call+0x1319/0x1ca0 arch/x86/include/generated/asm/syscalls_64.h:48
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0xde/0x3d0 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-=3D=3D Notes =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-    If you fix this bug, this tag credits the report and lets us
-    close it on our side:
+value changed: 0x0000006b -> 0x00000000
 
-Reported-by: co+77553a7fc66ac133@bugs.sh
+Reported by Kernel Concurrency Sanitizer on:
+CPU: 0 UID: 0 PID: 2620 Comm: syz.2.33 Not tainted 7.2.0-g39d4f32c5d53 #76 PREEMPT(full)
+Hardware name: QEMU Ubuntu 26.04 PC (i440FX + PIIX, 1996), BIOS 1.17.0-debian-1.17.0-1ubuntu1 04/01/2014
 
-    Everything in this mail is validated by the reproducer below.
+do_recvmmsg() and getsockopt(SO_ERROR) call sock_error() without the
+socket lock. sock_error() clears sk_err with xchg(), which races with
+unmarked loads of the same field.
 
-    We also hold an unreviewed LLM-generated analysis and candidate
-    patch. The same reproducer panics the unpatched kernel and runs
-    clean with that patch applied. Use it as a starting point, or ignore
-    it and write your own:
+KCSAN reported the unmarked peek in tcp_recv_should_stop(). The same
+lockless writer races with the other plain sk_err reads on the
+TCP/MPTCP send, recv and splice paths.
 
-        patch.diff  https://bugs.sh/b/77553a7fc66ac133/patch.diff
-        report.md   https://bugs.sh/b/77553a7fc66ac133/report.md
+Annotate those peeks with READ_ONCE(). No extra ordering is needed:
+the value is only used to decide whether I/O should stop. This does
+not consume sk_err; the check-then-sock_error() TOCTOU on the no-data
+paths is a separate issue.
 
-    Happy to test patches. Complaints and suggestions about our work
-    are welcome at:
+Suggested-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+Link: https://lore.kernel.org/netdev/8bbee583-6f21-4817-bfeb-2d60057380a3@linux.dev/
+Reported-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Closes: https://github.com/multipath-tcp/mptcp_net-next/issues/632
+Signed-off-by: Quanye Yang <quanyeyang@proton.me>
+---
+Changes in v3:
+- drop the Fixes tag and retarget to net-next
+- annotate the remaining unmarked sk_err peeks on the TCP/MPTCP
+  send, recv and splice paths
+- Link to v2: https://patch.msgid.link/20260909-mptcp-sk-err-net-v2-1-5044abecac90@proton.me
 
-        cedalion@bugs.sh
+Changes in v2:
+- add Reported-by and Closes for the MPTCP syzkaller report
+- Link to v1: https://patch.msgid.link/20260908-mptcp-sk-err-net-v1-1-da71aaec9afd@proton.me
+---
+ include/net/tcp.h    | 3 ++-
+ net/core/stream.c    | 2 +-
+ net/ipv4/tcp.c       | 6 +++---
+ net/ipv4/tcp_bpf.c   | 7 +++----
+ net/mptcp/protocol.c | 6 +++---
+ 5 files changed, 12 insertions(+), 12 deletions(-)
 
-=3D=3D Environment =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-    Reproduced on  2f1baf1fc892 ("Merge tag 'trace-v7.2-rc7' of git://git.k=
-ernel.org/pub/scm/linux/kernel/git/trace/linux-trace")
-    VM setup       https://bugs.sh/b/77553a7fc66ac133/run.sh
-    config         https://bugs.sh/b/77553a7fc66ac133/config.gz
-    poc            https://bugs.sh/b/77553a7fc66ac133/repro.c
-
-=3D=3D Sanitizer Report =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-BUG: KASAN: slab-out-of-bounds in nvmet_execute_auth_receive (drivers/nvme/=
-target/fabrics-cmd-auth.c:451 drivers/nvme/target/fabrics-cmd-auth.c:578)
-Write of size 32 at addr ffff88802363c790 by task kworker/1:0H/26
-CPU: 1 UID: 0 PID: 26 Comm: kworker/1:0H Not tainted 7.3.0-rc1 #2 PREEMPT(f=
-ull)
-Workqueue: nvmet_tcp_wq nvmet_tcp_io_work
-Call Trace:
-dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
-print_report (mm/kasan/report.c:378 mm/kasan/report.c:482)
-kasan_report (mm/kasan/report.c:595)
-kasan_check_range (mm/kasan/generic.c:186 mm/kasan/generic.c:200)
-__asan_memcpy (mm/kasan/shadow.c:106 (discriminator 1))
-nvmet_execute_auth_receive (drivers/nvme/target/fabrics-cmd-auth.c:451 driv=
-ers/nvme/target/fabrics-cmd-auth.c:578)
-nvmet_tcp_try_recv_pdu (drivers/nvme/target/tcp.c:1134 drivers/nvme/target/=
-tcp.c:1258)
-nvmet_tcp_io_work (drivers/nvme/target/tcp.c:1365 drivers/nvme/target/tcp.c=
-:1397 drivers/nvme/target/tcp.c:1460)
-process_one_work (kernel/workqueue.c:3396)
-worker_thread (kernel/workqueue.c:3479 kernel/workqueue.c:3560)
-kthread (kernel/kthread.c:436)
-ret_from_fork (arch/x86/kernel/process.c:158)
-ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
-Allocated by task 26:
-kasan_save_stack (mm/kasan/common.c:57)
-kasan_save_track (mm/kasan/common.c:78)
-__kasan_kmalloc (mm/kasan/common.c:398 mm/kasan/common.c:415)
-__kmalloc_noprof (./include/linux/kasan.h:263 mm/slub.c:5414 mm/slub.c:5439)
-nvmet_execute_auth_receive (./include/linux/slab.h:995 ./include/linux/slab=
-.h:1312 drivers/nvme/target/fabrics-cmd-auth.c:569)
-nvmet_tcp_try_recv_pdu (drivers/nvme/target/tcp.c:1134 drivers/nvme/target/=
-tcp.c:1258)
-nvmet_tcp_io_work (drivers/nvme/target/tcp.c:1365 drivers/nvme/target/tcp.c=
-:1397 drivers/nvme/target/tcp.c:1460)
-process_one_work (kernel/workqueue.c:3396)
-worker_thread (kernel/workqueue.c:3479 kernel/workqueue.c:3560)
-kthread (kernel/kthread.c:436)
-ret_from_fork (arch/x86/kernel/process.c:158)
-ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
-The buggy address belongs to the object at ffff88802363c780
-which belongs to the cache kmalloc-64 of size 64
-The buggy address is located 16 bytes inside of
-allocated 33-byte region [ffff88802363c780, ffff88802363c7a1)
-
+diff --git a/include/net/tcp.h b/include/net/tcp.h
+index 5e5f5f9b89a3..6ee513bdb503 100644
+--- a/include/net/tcp.h
++++ b/include/net/tcp.h
+@@ -3093,7 +3093,8 @@ enum skb_drop_reason tcp_inbound_hash(struct sock *sk,
+ 
+ static inline int tcp_recv_should_stop(struct sock *sk)
+ {
+-	return sk->sk_err ||
++	/* sk_err can be cleared locklessly by sock_error(). */
++	return READ_ONCE(sk->sk_err) ||
+ 	       sk->sk_state == TCP_CLOSE ||
+ 	       (sk->sk_shutdown & RCV_SHUTDOWN) ||
+ 	       signal_pending(current);
+diff --git a/net/core/stream.c b/net/core/stream.c
+index 2d748581862d..5c0adc3077f0 100644
+--- a/net/core/stream.c
++++ b/net/core/stream.c
+@@ -133,7 +133,7 @@ int sk_stream_wait_memory(struct sock *sk, long *timeo_p)
+ 	while (1) {
+ 		sk_set_bit(SOCKWQ_ASYNC_NOSPACE, sk);
+ 
+-		if (sk->sk_err || (sk->sk_shutdown & SEND_SHUTDOWN))
++		if (READ_ONCE(sk->sk_err) || (sk->sk_shutdown & SEND_SHUTDOWN))
+ 			goto do_error;
+ 		if (!*timeo_p)
+ 			goto do_eagain;
+diff --git a/net/ipv4/tcp.c b/net/ipv4/tcp.c
+index 1c867a302444..9e7fa7e39726 100644
+--- a/net/ipv4/tcp.c
++++ b/net/ipv4/tcp.c
+@@ -843,7 +843,7 @@ ssize_t tcp_splice_read(struct socket *sock, loff_t *ppos,
+ 				break;
+ 			if (sock_flag(sk, SOCK_DONE))
+ 				break;
+-			if (sk->sk_err) {
++			if (READ_ONCE(sk->sk_err)) {
+ 				ret = sock_error(sk);
+ 				break;
+ 			}
+@@ -1228,7 +1228,7 @@ int tcp_sendmsg_locked(struct sock *sk, struct msghdr *msg, size_t size)
+ 	mss_now = tcp_send_mss(sk, &size_goal, flags);
+ 
+ 	err = -EPIPE;
+-	if (sk->sk_err || (sk->sk_shutdown & SEND_SHUTDOWN))
++	if (READ_ONCE(sk->sk_err) || (sk->sk_shutdown & SEND_SHUTDOWN))
+ 		goto do_error;
+ 
+ 	while (msg_data_left(msg)) {
+@@ -2760,7 +2760,7 @@ static int tcp_recvmsg_locked(struct sock *sk, struct msghdr *msg, size_t len,
+ 			if (sock_flag(sk, SOCK_DONE))
+ 				break;
+ 
+-			if (sk->sk_err) {
++			if (READ_ONCE(sk->sk_err)) {
+ 				copied = sock_error(sk);
+ 				break;
+ 			}
+diff --git a/net/ipv4/tcp_bpf.c b/net/ipv4/tcp_bpf.c
+index 2e234d155b5e..a96323e65758 100644
+--- a/net/ipv4/tcp_bpf.c
++++ b/net/ipv4/tcp_bpf.c
+@@ -286,7 +286,7 @@ static int tcp_bpf_recvmsg_parser(struct sock *sk,
+ 		if (sock_flag(sk, SOCK_DONE))
+ 			goto out;
+ 
+-		if (sk->sk_err) {
++		if (READ_ONCE(sk->sk_err)) {
+ 			copied = sock_error(sk);
+ 			goto out;
+ 		}
+@@ -553,10 +553,9 @@ static int tcp_bpf_sendmsg(struct sock *sk, struct msghdr *msg, size_t size)
+ 		bool enospc = false;
+ 		u32 copy, osize;
+ 
+-		if (sk->sk_err) {
+-			err = -sk->sk_err;
++		err = -READ_ONCE(sk->sk_err);
++		if (err)
+ 			goto out_err;
+-		}
+ 
+ 		copy = msg_data_left(msg);
+ 		if (!sk_stream_memory_free(sk))
+diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
+index e1f08f71cdb1..7631fa582834 100644
+--- a/net/mptcp/protocol.c
++++ b/net/mptcp/protocol.c
+@@ -2028,7 +2028,7 @@ static int mptcp_sendmsg(struct sock *sk, struct msghdr *msg, size_t len)
+ 	}
+ 
+ 	ret = -EPIPE;
+-	if (unlikely(sk->sk_err || (sk->sk_shutdown & SEND_SHUTDOWN)))
++	if (unlikely(READ_ONCE(sk->sk_err) || (sk->sk_shutdown & SEND_SHUTDOWN)))
+ 		goto do_error;
+ 
+ 	pfrag = sk_page_frag(sk);
+@@ -2429,7 +2429,7 @@ static int mptcp_recvmsg(struct sock *sk, struct msghdr *msg, size_t len,
+ 			    !timeo)
+ 				break;
+ 		} else {
+-			if (sk->sk_err) {
++			if (READ_ONCE(sk->sk_err)) {
+ 				copied = sock_error(sk);
+ 				break;
+ 			}
+@@ -4655,7 +4655,7 @@ static ssize_t mptcp_splice_read(struct socket *sock, loff_t *ppos,
+ 				break;
+ 			if (sock_flag(sk, SOCK_DONE))
+ 				break;
+-			if (sk->sk_err) {
++			if (READ_ONCE(sk->sk_err)) {
+ 				ret = sock_error(sk);
+ 				break;
+ 			}
 
 ---
-The report format is based on syzbot bug report.
+base-commit: 211f2a875f6f447745d80d5762d6d614503ac84a
+change-id: 20260908-mptcp-sk-err-net-7ff88ef05044
 
-This report is generated by a bot. It may contain errors.
-See https://github.com/n132/cedalion for more information.
-
-For any issue with this report, reach out to cedalion@bugs.sh
-
-If the report is already addressed, let us know by replying with:
-#co fix: <commit hash>
-
-If the report is a duplicate of another one, reply with:
-#co dup: <lore link>
-
-If you want to undo deduplication, reply with:
-#co undup
+Best regards,
+--  
+Quanye Yang <quanyeyang@proton.me>
 
 
