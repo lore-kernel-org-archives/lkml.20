@@ -1,181 +1,160 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F36BF475334;
-	Sat, 12 Sep 2026 15:45:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ED2347887F
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 15:46:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789227959; cv=none; b=NekZH8g9dK4RuvYH+KBRCTXgILfpZSRuaAVzkJBVcKnggRm+pVQ0rroXn8mvYZLzPzPsPHrovdpOi+FwosHrtXW773T5PdV56GHo3dRDiRV9PGzpmOZ4jN/Aa2pmBjDkU1C804FV97VN8iN0AbSs9n3mP/da55d6c20mYiVYFww=
+	t=1789228007; cv=none; b=goNuBI+kIx/7RCDEYvc5TLLa1BlrsnuWq+DUHlfbOWI8ZXzBDwaguI7I/1Sq+f0u0i2FoCSFqe7ZDCLW1Asb3wZUvbW322DnHuurFfbcvFjicJSVfgWzvHzFMb0jU2WgXa8+YgCcFw+/LwDYNcN9muTT1PF4hrEtNcETY6R0GS8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789227959; c=relaxed/simple;
-	bh=8ER3or0aXOIo0/gTiBp/Gq/PHHeOUbuTmPzvW2r3QXE=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=L9qxIbFs7+msMNpvyTumuXY/rGFKpYkG/CS2+pdtmmIMaB8u5eAaUKPHtDZfZ8Fbc0dL0KgQDJV71XL8CfUcxMWyedDoBRnF+56Yvw0WvzJpGbklIc/QO72+LMHQ4RXkt+Fj6EEm3E09xUgT6bgFEdVs44G8aT1wy47tjrdkWS8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CkeJklpE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789228007; c=relaxed/simple;
+	bh=LkZk7eDOgro1jEZi3/1gCjcZxD/PbBiJGk1sivjx/Fg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=q+gFIQaRRODJ6q8xD5/sdcybdDvFxbbhrJi9OX4zA8QcHUo4Przqlrldr10lj6O5PKr8qFEl/+yVGzJD4uTDXNRexNs/Uu+Flz+eS+YlcO3gmn+pkuJe1NVqC3enGOaheQG8eowYBCSMIGwiVC+8GQ+hs66B8FBEDjKvwNGGSl4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qsGkoY1I; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CkeJklpE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFE201F00893;
-	Sat, 12 Sep 2026 15:45:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789227957;
-	bh=gpE7hpvn6MeyqhNqz6cqrOOcN1VuNhouP3veEi9dIbg=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=CkeJklpEnRwbNrIxrKlLQnEuLzgdLELqJF1eB/s+4eS7jLuzzVGSXv2L/zkCtJVcB
-	 0Olv8XzAmLMSX1tpUITfj12F32msiFralKrN8PbiOKs4Bb5ewkANjrAO5k8HzXjAFW
-	 J4HQFV9XRXFaYDj/HbU2OeJeGS+C5CbtD9vaTcYWW9eDqYUS+9aexjllTf5ZG46GWx
-	 dxgkuPWTp2VhzZ+CtZ/stz+EbdbZbBgmoQ7Zi5fCjab5oHm1y7zbbwujCGB+ahWfGh
-	 eLIRit3CWFjw4spA9hN77HJ6fnNSzbPhWYA2oBxrRUDrNjDFeZMLd/5kKx9GNi4gQH
-	 mhdhSA1padJ3g==
-From: Andreas Hindborg <a.hindborg@kernel.org>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>, Greg KH
- <gregkh@linuxfoundation.org>, jaemyung.lee@samsung.com
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6rn?= Roy Baron
- <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>, Alice
- Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo
- Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>, Onur =?utf-8?Q?=C3=96zkan?=
- <work@onurozkan.dev>,
-	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
-	linux-block@vger.kernel.org, linux-scsi@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
-	Bart Van Assche <bvanassche@acm.org>, Bean Huo <beanhuo@iokpp.de>
-Subject: Re: [PATCH RFC] drivers/rufs: add Rust UFS host controller driver
-In-Reply-To: <77e00073a9254d5ea1ade771590da81a859b75a6.camel@HansenPartnership.com>
-References: <20260912-rufs-private-v1-1-716db733e655@samsung.com>
- <YKq4TcQM0v2dXF4wTHEvZKwASII6PDd_R7_UiHWe3NRnR4JsrC_ZS-x6jA_Kl7P6ONehU0REHYk7WaLz8Xv5gA==@protonmail.internalid>
- <2026091124-treason-trickily-bc52@gregkh> <87mrtmvioe.fsf@kernel.org>
- <6JMwZ4EuSfQ8V4TGaPwatQ31m30TceLJblORsuILQmy4VV8Fx2lHbihL8ARsRUuJmaSUqek8L54y4Nk6DuZMXQ==@protonmail.internalid>
- <bdcff6a168e6d4b8e9c9524bd598281817a7df2c.camel@HansenPartnership.com>
- <87eceyvdnv.fsf@kernel.org>
- <RJ3H-1s-vh5YR7DRuPZ6p050ld3umNGcKNeBigg7n3KUQt1WJ2C-sR9kEqrF6f4ubj5AHoHNvB0MRGJyw6tf_Q==@protonmail.internalid>
- <77e00073a9254d5ea1ade771590da81a859b75a6.camel@HansenPartnership.com>
-Date: Sat, 12 Sep 2026 17:45:45 +0200
-Message-ID: <87bja2v5g6.fsf@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qsGkoY1I"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-398c066106cso548136a91.1
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 08:46:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789228002; x=1789832802; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=G/YDrfc3Xwk7gOrxAX9QzohKyWwy1OWumC+p49dj5dE=;
+        b=qsGkoY1I3TK6hmq2NxBYIMBjSPX2U7xAW+8UcsfFprr5CF/xo9ystJcWg39QEY8LBL
+         LqL08KUoYHmY0Q/ZqV+AITS+2ChpfjVI9aUZZ7RIj7Lpv7vVJqkEIW5qDRtnVphyHhTU
+         tu8BK/de0eBqchuNpHPIEGKz+jQAhF4te37L0JpSiKWVXyrKqoAsLAtadgMjzdDBxuxG
+         CFB6desXClM/Rafxl8+NpzoJiMvHiTawD+0hLUq4O27eoZJymDiTU1k6HZHcUsXUZ9rV
+         OjJQ1LZ8MceGhIyX0JiuqeOjIzFOwKT54BPFjZ66XcPi+TTm6z7qewDSssjCIo79b1EG
+         eJGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789228002; x=1789832802;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=G/YDrfc3Xwk7gOrxAX9QzohKyWwy1OWumC+p49dj5dE=;
+        b=p82Sowxgyw2SVR/SF9Cdspiot3jatIKM35FkO7M/ctniAH60YJ6i1ZQ3UbfH8l0P9X
+         OGlqS5FbdFqH2i3XgGklwsT9MLnuPOKKbUwYd3aCc7oqNd0GmaDu3V1x20F3Cu3t65CF
+         xH+Gt3NSXGdVgWxAE5CJu+9hMFbh6ulc3G1Zg5nYO+hPrx+gAsMLLLcDRHFgNddiB0ed
+         DScu6Vr8rRnXEQAJOup70ONMpgczISjMoEH5RkIGvuKeqZR917et0BSXr6AUwVngSZ6W
+         q+gb+50OZiDdKRUKFOMJwhVmZ3LxzkFjYg5hXXx/z6wa4BxsOEr6eXWAlECHLBCAv9NX
+         8z5w==
+X-Forwarded-Encrypted: i=1; AKwUvByEU5t84WQ/kQcE7306mJ+KKH5H/JsCsnMMSaNFreAhYxFU1sIuQ4mmTn7jxCwnzEVDBHjGbtWUv3GYp74=@vger.kernel.org
+X-Gm-Message-State: AFuF++mYZRA/pbgijTIBg1AiNjGSE/Stz4TSybxJ+AM6UFxJJSL5+Py1
+	U2SbhMKmRH1msHCJu/H4QuC4JFHGTIvqX2mOtobmi73OPCWYLDcv8RhD
+X-Gm-Gg: AYBFou1X902YEtQ8JicpYultyyhPkg2EqwJKeOvnkBEAM+nFLq6+kR4WdelNYQU6MFy
+	xXFzg97XiexPJ1EcJOamizT0AldqbCFtPTxrC5LnZlgREmpQRmPnpbxdP2GII66gqK6tFv5qJ+c
+	SnOWLBEQpRvKNSVHC/KCZ2gM8JMnsgpZzwdhRSpAVI7tmmC0yjmmhUKpmWqmuCntQvvpn9Kzkdz
+	D3AInItzUu06QixTq6woy28oTQktcBE85Jh/8x8JDE/cHcPzOq2r75zywbw17LP2bWhQEPSK6Jz
+	lZFqslPOUcIFk238vUfa0XBTQinbBZNlWTgJ7JRvYwhaaANCt5qxoqWycNhBZlctTTKSXe+mgoy
+	vS7HZTjbfMomEGupfP4KxiyPV5zzPhLfKredMauYYwikhgZR1wyFwNN3KwCfJwYXRuQgw2V0hrO
+	pZxu7unRLN+bEreMHbAGdPIaBYI7v+dLG3AA/vX0vC5Y4NA2lp43hARMM4KqQIALNK
+X-Received: by 2002:a17:90b:586f:b0:398:9be6:f999 with SMTP id 98e67ed59e1d1-39d9c386bacmr17219294a91.24.1789228002294;
+        Sat, 12 Sep 2026 08:46:42 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d98e602e7sm12214069a91.5.2026.09.12.08.46.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 12 Sep 2026 08:46:41 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Patrice Chotard <patrice.chotard@foss.st.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Ludovic Barre <ludovic.barre@st.com>,
+	linux-arm-kernel@lists.infradead.org,
+	dmaengine@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] dmaengine: st_fdma: fix potential use-after-free in vchan tasklets
+Date: Sat, 12 Sep 2026 23:46:29 +0800
+Message-ID: <20260912154629.1021632-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-"James Bottomley" <James.Bottomley@HansenPartnership.com> writes:
+st_fdma_probe() allocates the channel array with devm_kcalloc() and
+initializes an embedded virt-dma tasklet for each st_fdma_chan through
+vchan_init().
 
-> On Sat, 2026-09-12 at 14:48 +0200, Andreas Hindborg wrote:
->> "James Bottomley" <James.Bottomley@HansenPartnership.com> writes:
->>
->> > On Sat, 2026-09-12 at 13:00 +0200, Andreas Hindborg wrote:
->> > > "Greg KH" <gregkh@linuxfoundation.org> writes:
->> > >
->> > > > On Sat, Sep 12, 2026 at 12:52:55AM +0900, Jaemyung Lee via B4
->> > > > Relay
->> > > > wrote:
->> > > > > Comments on the decision to bypass the SCSI midlayer, the
->> > > > > blk-mq model used in its place, and the proposed prerequisite
->> > > > > API boundaries would be especially welcome.
->> > > >
->> > > > Many many years ago, the USB subsystem tried to bypass the SCSI
->> > > > midlayer for its storage driver, and while it was a "quick
->> > > > solution" at the time, in the end, it didn't work out and we
->> > > > dropped the driver as it just made no sense to keep duplicating
->> > > > all of the logic all the time.
->> > > >
->> > > > So I wouldn't recommend it, as long as UFS builds on top of the
->> > > > SCSI commands and the like, you should not attempt to duplicate
->> > > > it in a separate driver, no matter how much "simpler" it
->> > > > initially seems to be.
->> > >
->> > > The scsi related code in this driver is less than 300 lines and
->> > > is mostly struct packing/unpacking. I guess we could lift the
->> > > struct definitions from the scsi layer via bindgen. But at 280
->> > > lines I am not sure it is worth it, and it hardly counts as
->> > > duplication.
->> >
->> > You didn't actually read the above did you?
->>
->> Yes.
->>
->> > The problem isn't necessarily the duplication of code per-se it's
->> > the duplication of function without understanding the subtlety.=C2=A0=
-=C2=A0
->> > Every fool thinks they can duplicate the core features of SCSI in a
->> > few hundred lines (andthey can: the core SCSI model looks
->> > beguilingly simple).
->>
->> Yes, it's really just encoding/decoding. Not much semantics or logic.
->>
->> > They then usually spend years adding back the necessary corner
->> > cases and quirks before finally concluding that actually they
->> > shouldn't have tried in the first place.
->>
->> Please educate this fool then. I am curious what SCSI logic we would
->> spend years re-implementing in a detached ufshci driver.
->
-> The "duplication" is incomplete (it's actually only sense code handling
-> in scsi.rs, but the rest of the duplication is sprayed all over the
-> driver).
+The interrupt handler calls vchan_cookie_complete() or
+vchan_cyclic_callback(), which may schedule the tasklet. However,
+st_fdma_remove() only frees the IRQ and does not kill already scheduled
+tasklets.
 
-The SCSI logic is the CDB encoding in scsi.rs and about 50 lines of
-completion disposition in queue.rs (status to block status, unit
-attention requeue). I agree that the latter is the start of what
-scsi_decide_disposition and sd_done do, and that it is incomplete. What
-I am not yet convinced of is that the complete version for UFS is large
-or subtle compared to scsi midlayer combined with current ufshcd.
+devm_free_irq() prevents new interrupt handlers from running and waits
+for an in-flight handler to finish, but it does not flush a tasklet
+that was scheduled by a previous interrupt. Since fdev->chans is
+devm-managed, the channel array is released after the remove callback
+returns.
 
-> The incompleteness is fine if you never test for it, but your
-> users will run into it in the field (almost certainly in error
-> handling), which is when you begin the reinvention.
+This leaves the following possible race:
 
-Correct, the RFC deliberately leaves out recovery and task management.
-We wanted to get this discussion going sooner rather than later.
+  CPU0 (driver removal)                 CPU1 (IRQ / softirq)
+  ---------------------                 --------------------
+                                        st_fdma_irq_handler()
+                                          vchan_cookie_complete()
+                                            tasklet_schedule()
+                                        return
+                                        <tasklet pending>
 
-Of course we would validate the driver with proper testing before
-declaring it stable.
+  st_fdma_remove()
+    devm_free_irq()
+    ...
+    return
 
-And yes, the encoding/decoding surface will expand a bit once we
-implement TMF and recovery. And there would have to be a bit of logic to
-handle that as well. And that logic would be similar in semantics to
-code in the scsi midlayer. I doubt it will be many lines, but I feel
-like I have to build it first to convince you of that.
+  devres cleanup
+    ...
+    kfree(fdev->chans)                  // FREE
+                                        vchan_complete()
+                                          vc = from_tasklet(...)
+                                          spin_lock_irq(&vc->lock)
+                                                       // USE -> UAF
 
-> As Greg said, this
-> is the exact path USB storage tried ... and they did it because their
-> devices barely behave like SCSI ones so they seemed different enough
-> that there was little overlap with core SCSI (i.e. exactly like the
-> JEDEC comment in the cover letter).
->
-> What I don't quite get is this isn't a criticism of the language or the
-> rust project, it's a criticism of the implementation methodology of
-> this particular driver; and it isn't a theoretical criticism: it's
-> practical; this path has been tried before and failed.  The definition
-> of insanity is doing the same thing over and expecting different
-> results.
+The pending tasklet is embedded in the devm-allocated st_fdma_chan.
+Once fdev->chans is released, the tasklet and the virt_dma_chan
+containing it point into freed memory. A later vchan_complete() can
+therefore dereference the freed channel and cause a potential
+use-after-free.
 
-Agreed, and I did not read it as a criticism of the language.
+Kill all vchan tasklets after freeing the IRQ. This prevents new
+interrupt handlers from scheduling them and waits for any tasklet that
+is already pending or running before the channel storage can be
+released.
 
-For ub, the deprecation commit from 2012 says it was removed because
-every device it handled was also handled by usb-storage. Not because the
-SCSI midlayer turned out to be deep. The UFS situation is different. The
-device population is a handful of vendors behind one host controller
-spec.
+This issue was found by manual code inspection.
 
-If we expected this new driver to be a strict subset of ufshcd, we would
-not build it. The reason to do it is the features that do not fit the
-scsi midlayer.
+Fixes: 6b4cd727eaf15 ("dmaengine: st_fdma: Add STMicroelectronics FDMA engine driver support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/dma/st_fdma.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-Here is what I count the midlayer doing for UFS today: sense to
-retry/errno disposition (scsi_decide_disposition, scsi_check_sense,
-sd_done), the abort to LU reset to host reset escalation in scsi_eh with
-ufshcd supplying the handlers, the sd device model (capacity, write
-cache, UNMAP, runtime PM), and the SG_IO ioctl plus the scsi_device
-sysfs tree. Which of these is the part you expect to take years?
-
-Best regards,
-Andreas Hindborg
-
+diff --git a/drivers/dma/st_fdma.c b/drivers/dma/st_fdma.c
+index d9547017f3bd..23071cbf1866 100644
+--- a/drivers/dma/st_fdma.c
++++ b/drivers/dma/st_fdma.c
+@@ -846,8 +846,13 @@ static int st_fdma_probe(struct platform_device *pdev)
+ static void st_fdma_remove(struct platform_device *pdev)
+ {
+ 	struct st_fdma_dev *fdev = platform_get_drvdata(pdev);
++	int i;
+ 
+ 	devm_free_irq(&pdev->dev, fdev->irq, fdev);
++
++	for (i = 0; i < fdev->nr_channels; i++)
++		tasklet_kill(&fdev->chans[i].vchan.task);
++
+ 	st_slim_rproc_put(fdev->slim_rproc);
+ 	of_dma_controller_free(pdev->dev.of_node);
+ }
+-- 
+2.43.0
 
