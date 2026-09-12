@@ -1,376 +1,217 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from sonic308-54.consmr.mail.gq1.yahoo.com (sonic308-54.consmr.mail.gq1.yahoo.com [98.137.68.30])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB00247CA76
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 13:17:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789219081; cv=pass; b=MY53R0/ouDrZxHQKZZHpHAsXPwwnYMW4W4Jh8/chImNO0GkOQ2RToqIP9z39VTl3CMw1SJrM4OGTtjpVRjxiv7xaac/79TYwA+yuio6m/mBj57RRo/zVeomM9u1c0c3lsQAoSCQwKJewaaiJWsts3rtlLhue24oSA30VkkPAL5Y=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789219081; c=relaxed/simple;
-	bh=BsiF8+r5vgUuRparDjgrLB9w7U/qShYtdjOD3d2tROQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=BX7gouIn2J+L4QAqYPIE4nPaHrP30OB+leot2IpGRz9qoLhQH5U2B7y5ogORcco+CG1IrHgzzIy9zml5n+EG4IKxcSnwvG8Xr3E5JxXuGoJi+gX99szPR+0pMx6NsymlayfHoPp9HuS5Ch6Hllf16R564o64uH4DjT7dNVj26IA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Pa93kqwP; arc=pass smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D4542D739C
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 13:18:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=98.137.68.30
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789219114; cv=none; b=pNrze0ZbsNYQ4d0nDbYzJFULBrOiEqZYS7k4xDwzxZo2k5P7S2VWWUKudYXh+b1opaEMjLpQy4saZ10uHUVKatL0Dg8cvToFsS2O7q/5rZ74M0upQPtNX5wlNyrv3vmLbfpTpyZ4Wp4zlxd9XqJ/uTpk8v50JXsO2wc3Ry3LEk0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789219114; c=relaxed/simple;
+	bh=G6HyL0dYXVt7PUR3paimgCZ01h3k1/ZWf737SKB72Fw=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=rBKpz5FjS36CySdPICooe+uL8f2XJaYRVnLrQ4Pb2C863fNlb25blgcgWrX3TF36pxUa7/iUFHTGeKBc1TXomcUeW+GeWgPqBrTguM3tqI0TtOkFCwGCr+uaeLOPmx6sUOhfFbPErw2Pu1bupaChUZQw0oAs/wrmSDV3VAHh4Bo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=aol.com; spf=pass smtp.mailfrom=aol.com; dkim=pass (2048-bit key) header.d=aol.com header.i=@aol.com header.b=PWLTiBvP; arc=none smtp.client-ip=98.137.68.30
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=aol.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aol.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Pa93kqwP"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e69b9e16aso4519865e9.1
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 06:17:59 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789219078; cv=none;
-        d=google.com; s=arc-20260327;
-        b=VPcvBWKVw+NWs6xNMqWanG6VjnZ0mxcmZat4SwpZrYDAOkrpC0WgfHaHMMKR9QfmFc
-         28qgaATpxr5xf+xa3sOejSRZZGNpEu0I9ijCgfhl638vBtmiKTkWyZwz/GEbSAbaO6Kw
-         XOm0YftmnKyJ/VSakPeR5zdIRa6qvFrDuy8bevdxuGZDunkza3fZzN7ZBoGbHeGq8nmN
-         myq0qqarOuVZ7QURrmeKYJ2Fr7cBH1s+p+T0DVzfQu86yCBUwPcZRnSpa5ZA+AaFphSt
-         y5N1weqnHDEYvnRHV90C0Gl4Lm3R8R21h1p10e85JlRaTVBaxgr4vfY/8GMX+l/j+Kx6
-         uvGA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=QPi8mMYl+gIyOrC3hZ2sXqCE+u6Vau0Qj07zs3k7gBA=;
-        fh=n7CWuG3vXyNVXrRoLvvK2Zde98ARutG49dSBPlMPLlg=;
-        b=AzHLlLA6I/RGd0xXw9QTLd4YYy2FxtuTAl1+wHd2k5rMC01Oqj855VQa6DDHEdtfsj
-         /3pdCgIpJtGWKeQXb0SrCNekT7ZteRLqa6lSxI62tdyKT7JKjHVTXTevxtTTsfB20n+N
-         l+C1FcIo4eqChQFGzWqJRZZT9/MUmsSUHMLLjKlvFhmPXjmKVGfPC1bcGYU+SmxiRxHa
-         9CCKtViv1H7mcZgPl6iV/9T5FpOnOj/ASQAsxS7TbITOTBKwLyCipXoVvAeG5Fkq+5GO
-         +35F3jiEkh8ZTkqt8ttSWJa9VefdeYePI75tp9VhlENGHZdxU9HVDUueXTW0qedvAX/S
-         pEeQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789219078; x=1789823878; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=QPi8mMYl+gIyOrC3hZ2sXqCE+u6Vau0Qj07zs3k7gBA=;
-        b=Pa93kqwPH/SeNFjsdCZVBPfFpttIy3qoCOSQS4W2ZvJJvB+3DIOxuYM8ZjkscBohkj
-         mROx2kk1SCZfxZ9K5T1LzkevowV8Tc7JpvYO7yLCT7fsya2tDRRCCCIhjrbdQNV0o3Vc
-         wjLQ6+y1V8qrCxzgcg7YX6g5tgc3qtxoBoIk82jyU1za6wLQ3qxA528iwf7AMOmKJ0qy
-         nAbwwXoqayiMtCsL2vKk+TZrp9xMvh/SZv0ZJvFFGNeZYucsq20DPsMT+cJnnRlXyyW7
-         0Oh6I//FZAMOXskxT6t4IYFdUp+ZZkpSGwUnTUVSdPLgyB2cofbDqkmwl5x1xLlxr3Q3
-         88FA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789219078; x=1789823878;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QPi8mMYl+gIyOrC3hZ2sXqCE+u6Vau0Qj07zs3k7gBA=;
-        b=nOb8fLxHjPBZ7j3Pwvcae6p/OJxcYxm/oWgFiVrvBMRIyyn4rYxs/wdNngWZtLAegn
-         sKo9c59u6MSpsE83a2NHRycBr74r0wlLKbFr+cJ58mxZrcyIlBmS/mJx4z7vVLJyeRXx
-         tvwv7J1UDqMcP1oYAWJLHFlJsBvcIXAyQDKTb8EFWM6iDzig9FV441PGiDq/5AB9ojQz
-         2yvuZLJBYkV5Rym/myBLeTOrazZeDIGgslfDxvOugXgDie3gDv6Fe90jK5IziZVYWobH
-         1f3i1nNIVIbMcJTZOpOwQNjrUrsyJKRkCNwifGJa7e4uLOpeZNxUZva0wezkqWAFkLKv
-         ZrDA==
-X-Forwarded-Encrypted: i=1; AKwUvBxlGPZMGV7FQF4rK9nOqYlLUIlFTPwlrjxXmQBAVzuV2ixMhfweGpfkWOdj+pZNW9vYT4cOeAHNdy/n3eI=@vger.kernel.org
-X-Gm-Message-State: AFuF++nkL1L91vKPuQBcAExgevVaoNkaaCBhBcogtHB1RU1iQvaI2NXd
-	nL79uNqkfbJRD4nV5tCtw+eKHJLY3H+r0/a4jfaLfzQhHszgf51AiZO2WTuNgNBUXCi9R64l90S
-	d9Mi0YulPDUJlK6u6vOUUz0NbPXFCUn8=
-X-Gm-Gg: AYBFou3/whcN6ZtCoye9ajPZsBr/mY7SSSc8t1BDFWyCpuLlqv/PfjyzF7fIiaunqUO
-	l03FaG1w1gih5yzWFofdVrjd7HVgB9l5Xtc+qVguyphyC6UdSnX5psm6Ith5VBI+cnd/rBJ5W/B
-	DboZus7X3wFw55IrDyHpBoWGs6y2WqIko5v5gtbuBK+gqdAFj4U7976FFvTcre22BglnmhVvXJA
-	TigNvHQXiKNu3REgyDGw8+DlgoSAGq+FpSRyBY0cvdU6/zChmVSJjgd7fsSjaqzBe43cmTz9rMr
-	KF0SIVlt5AnUprW22sUFoWPIEFfVhZNc2a/4kIL3vmUHuZBhL2EFojBHvmLMfHBegQWw2dVB4Xv
-	+DqVVdSusenc=
-X-Received: by 2002:a05:600c:6216:b0:49c:d019:70c5 with SMTP id
- 5b1f17b1804b1-49e6ca350camr24650915e9.0.1789219077551; Sat, 12 Sep 2026
- 06:17:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=aol.com header.i=@aol.com header.b="PWLTiBvP"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aol.com; s=a2048; t=1789219112; bh=Lx85r0W+jeUnQMK0+dOI3OPVKtpzc7tM7ldROhGz60k=; h=Subject:From:To:Cc:Date:In-Reply-To:References:From:Subject:Reply-To; b=PWLTiBvP8+wIoA3Yt8u6uwfgxz+OaMQqgVkE6WHNkzfs5Zy5IzwbF9dPsCGyNa31lD2TyllD7lEPylhq+2o9m1BQV4CJ9VHbX91NTAmpt/oYqIXjX+0eWGoptKxEbGJJcxPgnYJpSWOrhZEierX3g10A6PGKCf6HSZKcbkt2SuGnJ2fk1yrbKr4m7YyrHri9q8Is9rLYYHCmRjdC68oE43bUqyuJ5y1UKlDJQ4y3myXximsixmh0uKbXZhDwc81SKX+IKcQStvYszV2F/w8nCsSQLf44IgQzdizYsMx2HryefALhko5H744rt9sNEepIJf9+totCRIwj+aZG7Bx6cw==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1789219112; bh=CdtvU+rAHT3HlvPV3UNYAz87SwbUM08NqUgBIQlTwu8=; h=X-Sonic-MF:Subject:From:To:Date:From:Subject; b=JnAZpiZHWubLsie/FsDwQ//0MdDtCbmt9O0A7xpki4ChKtSKZctt/y9IRTJEfBeLZLuCtIskHNPR+YtdvZ5PT7zHfBMaLQWhRH5nrq6ueInyNs8dZCsr3p3X681BM5Bnt9StXEw+svaTHRUsd62px3jfMs7OuRXLyxPCo361NFe/JTC6fs93ZEXBh1t++yqkfQWrpmphjlZFjJQeZty9pv9ROkRcoB0ioF3j/RasQLqewnatL//Rexv186JKzkAUdHw7GQFw9Y0pKeUx67lPtaTf/v44OhOfbsMVjsxkpPnGIA8/UOrpaAoIuiwOIchw1E4eKY3jcA//r1KVTR/o3g==
+X-YMail-OSG: z2Yz0KIVM1n9mmUwgGlVFNaVPcs.Z3LinkqcN_vpv6g.Ez3nXvQ8hVz9Swp6S2V
+ LnehiZGrtVL16YXwinmvMrUwr76DaRGwzZkgZtRIILyLFkJAYvIEa8374yd_XTUG2pwO8lyCaiQq
+ K2jvD4JEEuRnDxluTxJnOYObkwWiww62u3qvesjG7Q3UqinnijTaa5ld8gDWTwjyeM3EtvX52YZm
+ H87fAgUvOaYTdOCGNvALybtBlpYWhnloMHd2mnh0BHVo7mXCyk9qeiP7sgD_Rn.rY_dxjHiyu7eu
+ OIjfGC7v6Vj9.ErXB4tuFwSSWZCegg8tFJbzzHIZBniyVa5sY0KkG9XCIQh1uwzKA_jPYoQNztjw
+ TS.ewQXIZ9Yugio5l6HEjmw5OGFAMJZWpPsHsRXeR1qfEjzVVRe8mnGva1VrJD0uBJBSHX_yTzVx
+ PLbdjNaASFNLVJ8tHX3Y6Fp.st96KPj27gIFK2VKfVWrDlqmn9ckLaODUdUNhYKh5yVhym_R2d0a
+ NcavPkcH3HTqd4YTJU2utdilyl7A932HuM5CyYKLxj49_dIAH3ODklMrTuTr0Q3DHy72kiCxBnOJ
+ rI3inn9lOiVp.26E04XqNQZvaKf873rgffvl7mkIRtEXd7zUPonqykuHzH9pavsZjlasx93AS867
+ .XjE1UfFgSCRfI.M4XMoVmxzEkly1ebOvxNkToa6A_8.vlYIBNVQT_8tNICkA4T0P9miolNfteQU
+ oYgm9JWjEU0iwMegr_u87ZC4Lz5dmeGvtgfL4kc4u.A7qlD0EWeXo_JAPYq16ztFZXgnCRV20hlh
+ 8LacUw3xuKG7WzH36MGdSZm3i2rYumlE9HqHZHGMGQ19XyV8ki8wL4MryIdhQvRAaiLBdGJL_0EP
+ qay2t4W5izCiaNKTmtwjtDEtVCiNQAGAKYmRkogxdCnvnOc6O_wZ.4CMJlx2lXfuJYkZz.N6X0LE
+ GokfOcgKFu1LOg_3O6bDo8w6ZHQM1fEE5YWbyuAf2OHf4CPRCRIQ4qVRzzZAgUxLPFvoY_Vp9zv.
+ w4GA1hKcfr.tPjMI9b8lstDrJkopX_gp07ZwUBo9NgOulX3W33cLIPe8qPrsL668lBHR1UOkdi1z
+ 9tV9tLkfPMXEKlReoT_e7uWOegV.SG7Y1bH.y6IM1WhZCrBjqagqIi811lxRqM1TDFDRuGsDCfMP
+ uP0DLt_FC1aVbz5w3UUM9SogfseosF3bYeJu8PRtM8rDUXxiAeTE4MmA9XialT.7vNOxmuptCBuz
+ bP6wLlyVo_SLxE58AiduKdXYOPrR.RkOd8jXUlPhwpUXLb6Z7JA8yWPmrZdKS.9mst3sb3UnMTTc
+ aZ_huL1QTlT9qJZUy4_XsBD.eOrX5LHd5oIj4NTa.it4x.ibqRmIxdYCFTW1xXgY3iVlVtjCiIkZ
+ 0GxCPKdc3C1_geEsT2WkC__ThFrpnMZHSln7M2EGHViORiyUfagQalOSd28OC0V7CsqL1.iskC9J
+ rZNqhKbqEDEf4Tr0POHbhWxCq9JNdoC6M6eeukvE4i8xk7okI7fOwY1M9NzFIJDkw4SgFYcMSufL
+ KljuG4HawcX.SeFbuGtl7Vvjbb5fgmbYU9krvECon49wGu1jPuGA1qpgU9b5E7pHwQFws7w9Yj9G
+ M1HxEZTNkZ0YsALtXHvTeTm74u3Dizi9YKtkzp2oOHY9l4ZoiZuxOIvbPULW9MqfKQDng32Nh0dJ
+ zzdzmDWKvdGRQ7fu48JKGnLVlMNhzHRUyrRyQ_s0oIaY75mRXLESzvDuFXKfxwFv.U1Vc39nehNj
+ .2Rk3hepl.iFGxrIJgZvN0kZd2CLM_q6s_JYgNOQWs5DueUhfD8P6H7fUSN_KxyWDQX_JLTIU0M6
+ 0a.cEVl2n590Tlnxn5FRxuYr4RtXIOyPx1RmzQJg9gpDZ.c9xeKiyBlXeucTo_ENTw7LCG51wgqp
+ WV7E3s4ZDJdo1xo0EJyxlA23ffX2yrtt.KdO4hBBYkHzA_WSbO4jnpRz8A1PXbwYC27v7D9V6neU
+ 2i8XV.vd3BHRO_9ZKu0uUDtwFIAcEdrfmaJS.__QGVaJuSjBJMtsOy1xTStB9PVnuGXGsRop02hd
+ mkO9slSrJX_X.GbN7eIl7r16wY.hC0P7MpyQtwsVi2UsTyYgEHIPfXC2DVOx9prTCUcWDv_tHqHL
+ 7GTHtcQMZnaRWl.qWZZv3Gv_kXwg.8kASvnnXVviU9oG6V1oR1JE2eOgSLJg63jYwAHIUrUJ0KS8
+ xRCtkoScSqxNm4SnWJaDKvFsnRvN4HT46.w0y51GAwCRQUsoQQ5SdKfBntZACXvpA4oh3
+X-Sonic-MF: <rubenru09@aol.com>
+X-Sonic-ID: 3416b63d-630d-4d85-a3f5-ab7bb9b240c5
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic308.consmr.mail.gq1.yahoo.com with HTTP; Sat, 12 Sep 2026 13:18:32 +0000
+Received: by hermes--production-ir2-cddf86dcf-zlkgn (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 227c9617cdb3fdecd9416df7ccea6728;
+          Sat, 12 Sep 2026 12:36:03 +0000 (UTC)
+Message-ID: <43b9f5782e43ef795a53976a3b15ee09c304ec1f.camel@aol.com>
+Subject: Re: [PATCH] drm/gud: fix out-of-bounds write in
+ gud_plane_atomic_check()
+From: Ruben Wauters <rubenru09@aol.com>
+To: Sajal Gupta <sajal2005gupta@gmail.com>
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, 	airlied@gmail.com, simona@ffwll.ch,
+ noralf@tronnes.org, 	dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Sashiko	 <sashiko-bot@kernel.org>
+Date: Sat, 12 Sep 2026 13:35:57 +0100
+In-Reply-To: <20260902123254.36987-1-sajal2005gupta@gmail.com>
+References: <20260902123254.36987-1-sajal2005gupta@gmail.com>
+Autocrypt: addr=rubenru09@aol.com; prefer-encrypt=mutual;
+ keydata=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
+ eIvzsqg==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-AIYPRBPr3NqvjOzWOXo5"
+User-Agent: Evolution 3.60.2 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260907075829.2073224-1-kunwu.chan@linux.dev>
- <c201584b58aec856342e0f23f8df9f81baccba1d@linux.dev> <CAN_Opa-cvXVJeMxniuarq+2mE9EepjzTCgii1bW6mmSnaCKKxQ@mail.gmail.com>
- <4298908f242e82d54e0f462307ee18fa777b0935@linux.dev>
-In-Reply-To: <4298908f242e82d54e0f462307ee18fa777b0935@linux.dev>
-From: KunWu Chan <kunwu.chan@gmail.com>
-Date: Sat, 12 Sep 2026 21:17:45 +0800
-X-Gm-Features: AcwNN1WZzQfgiUds4j9elCw2mdpkAUcvPuBlha1DBx4yXy8ULrk4CMRYin5AjcY
-Message-ID: <CAN_Opa_AVXF=+0FbTccTQU_vrQ798Y0HBynmH8qpKickDnS55Q@mail.gmail.com>
-Subject: Re: [PATCH 00/13] srcu: Round out atomic SRCU support
-To: Zqiang <qiang.zhang@linux.dev>
-Cc: paulmck@kernel.org, rostedt@goodmis.org, mathieu.desnoyers@efficios.com, 
-	rcu@vger.kernel.org, linux-kernel@vger.kernel.org, jiangshanlai@gmail.com, 
-	josh@joshtriplett.org
+X-Mailer: WebService/1.1.26525 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
+
+
+--=-AIYPRBPr3NqvjOzWOXo5
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Sat, Sep 12, 2026 at 8:41=E2=80=AFAM Zqiang <qiang.zhang@linux.dev> wrot=
-e:
->
-> >
-> > On Thu, Sep 10, 2026 at 8:16 PM Zqiang <qiang.zhang@linux.dev> wrote:
-> >
-> > >
-> > > From: Kunwu Chan <kunwu.chan@gmail.com>
-> > >
-> > >  This series rounds out atomic SRCU support with a reader-free fastpa=
-th,
-> > >  some atomic-context fixes, and additional test coverage.
-> > >
-> > >  The core change is a reader-free fastpath for synchronize_srcu_atomi=
-c().
-> > >  Atomic SRCU's read-side critical sections disable preemption, so whe=
-n
-> > >  the summed lock and unlock counts match for both ranks,
-> > >  synchronize_srcu_atomic() can end the grace period immediately, with=
-out
-> > >  the index flip or the srcu_advance_state() scans. Correctness depend=
-s
-> > >  on the grace-period anchor written by srcu_gp_start() preceding the
-> > >  lock-count scan; two LKMM litmus tests (patches 1-2) verify that
-> > >  ordering.
-> > >
-> > >  For synchronize_srcu_atomic(), the following items maybe also
-> > >  need to be added:
-> > >
-> > Hi Zqiang
-> > Sent as: https://lore.kernel.org/rcu/20260911093515.2802551-1-kunwu.cha=
-n@gmail.com/
-> >
-> > Did a small late_initcall that enters an atomic read-side critical sect=
-ion and
-> > calls synchronize_srcu_atomic(). srcu_lock_sync() catches it:
-> >  WARNING: possible recursive locking detected
-> >  swapper/0/1 is trying to acquire lock: (&ss) at:
-> > synchronize_srcu_atomic+0x28/0x380
-> >  but task is already holding lock: (&ss) at:
-> > srcu_lockdep_test_init+0xd0/0x170
-> >  *** DEADLOCK ***
-> > Rcutorture SRCU-N/P also pass.
->
-> Hi, kunwu
->
-> You can add srcu_atomic lockdep test to rcutorture to verify
-> your change, and I also saw that Paul suggested the same thing :)
->
+On Wed, 2026-09-02 at 18:00 +0530, Sajal Gupta wrote:
+> The plane property loop uses req->properties[num_properties + i] as write
+> index while simultaneously incrementing `num_properties` inside the loop.
+> At iteration i, num_properties has also incremented by i, so the write
+> is done at `initial_num_properties + 2*i`, skipping every other index and
+> advancing by 2 per iteration.
+>=20
+> With just 2 connector and 32 plane properties the last write happens at
+> index 64, one slot past the end of the 64-slot (indices 0=E2=80=9363)
+> allocation. A USB device can trigger OOB by advertising the maximum
+> number of properties.
+>=20
+> Fix by dropping the redundant `+ i`; num_properties is already the correc=
+t
+> running index, as gud_connector_fill_properties() fills the preceding
+> slots.
+>=20
+> Fixes: 40e1a70b4aed ("drm: Add GUD USB Display driver")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Link: https://sashiko.dev/#/patchset/20260821071812.16500-1-sajal2005gupt=
+a%40gmail.com?part=3D1
+> Signed-off-by: Sajal Gupta <sajal2005gupta@gmail.com>
+Cc: <stable@vger.kernel.org>
+Acked-by: Ruben Wauters <rubenru09@aol.com>
 
-Hi Zqiang,
-Thanks for the suggestion. This is very helpful.
+Sorry, for some reason I didn't receive this patch in my mailbox, only
+by manually searching for patches did I find it, thanks for the patch.
+> ---
+>=20
+> Verified with KASAN using a raw-gadget fake GUD device reporting 2
+> connector properties and 32 plane properties:
+>=20
+>   BUG: KASAN: slab-out-of-bounds in gud_plane_atomic_check+0x1352/0x1ba0
+>   Write of size 2 at addr ffff88800d029a9a by task temm/270
+>=20
+>   Call Trace:
+>    <TASK>
+>    kasan_report+0xfa/0x120
+>    gud_plane_atomic_check+0x1352/0x1ba0
+>    drm_atomic_helper_check_planes+0x2f2/0x9b0
+>    drm_atomic_helper_check+0x72/0x140
+>    drm_atomic_check_only+0x127b/0x3420
+>    drm_atomic_commit+0x124/0x2e0
+>    drm_atomic_helper_set_config+0xd9/0x130
+>    drm_mode_setcrtc+0xcfd/0x1b20
+>    drm_ioctl_kernel+0x167/0x2d0
+>    drm_ioctl+0x53f/0xbe0
+>    __x64_sys_ioctl+0x137/0x1c0
+>    do_syscall_64+0xde/0x4b0
+>    </TASK>
+>=20
+>   The buggy address is located 0 bytes to the right of
+>   allocated 666-byte region [ffff88800d029800, ffff88800d029a9a)
+>=20
+>=20
+>  drivers/gpu/drm/gud/gud_pipe.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/gud/gud_pipe.c b/drivers/gpu/drm/gud/gud_pip=
+e.c
+> index 5ef887d8485a..54adc401bc1b 100644
+> --- a/drivers/gpu/drm/gud/gud_pipe.c
+> +++ b/drivers/gpu/drm/gud/gud_pipe.c
+> @@ -562,8 +562,8 @@ int gud_plane_atomic_check(struct drm_plane *plane,
+>  			goto out;
+>  		}
+>=20
+> -		req->properties[num_properties + i].prop =3D cpu_to_le16(prop);
+> -		req->properties[num_properties + i].val =3D cpu_to_le64(val);
+> +		req->properties[num_properties].prop =3D cpu_to_le16(prop);
+> +		req->properties[num_properties].val =3D cpu_to_le64(val);
+>  		num_properties++;
+>  	}
+>=20
+> --
+> 2.55.0
 
-I saw Paul's suggestion too. I'll use your example as a starting
-point, verify the atomic SRCU lockdep cases, and check the
---do-srcu-lockdep handling in torture.sh, including the normal RCU
-read-side case Paul mentioned.
+--=-AIYPRBPr3NqvjOzWOXo5
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 
-I'll add a Suggested-by tag for your contribution when I post the
-changes.
+-----BEGIN PGP SIGNATURE-----
 
-Thanks,
-Kunwu
+iQJPBAABCAA5FiEE3obNNdPQ9V5CQi2Y0n5QwFCuDOEFAmqlRy0bFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMiwyAAoJENJ+UMBQrgzhJSEQAIhALwsMzSm+ghvLzzEb
+sFJDn2yAVoumSdo+mGeP60+kDmWIlz3C79apzRoL3trFn2qHnZAq2E5TjF199/a9
+V9sqo457YxHvgZ7SFnvzEd8VIF5UJ698HQOltRomGMHwtv8SFC2oRH2dZZFKRYTk
+RoXutTWfwGEsnjPlvjNH+DukBz5iYdlNIBipJXqyiXa7O+ARyw+uzbArqeFM7icj
+z3ZQaZ7J6xfP10Tb7Dfd6RIFqwXLktAkXtplUz5xDDBZjxjVwsJpAJ4gPcIB1pRW
++dIr5yt1ynqtodSB9UmAs1R0AVbmZ9XTUAlQghk1N6I3dINsU1a+KWvydWh5kLFM
+sYCNI/eyvup4IA9BnwRCNnqKnqeYrxwpUNOIvBFyhNf4nuGzzea+i08rDNLUwFfg
+eKblr70NMzvYrgQkqGV6qK1UnFZ3SVm3modW3nq4nB0iqho6S7V702uGS3QrYoqw
+6dJJ3kZsa+YcO89YKbeL7Erb+IYGbFcDAxlN+Em28LTz/557mc8VZGEA+zAfvC/l
+7Ol4wU9wjqkepyam3MwHJKZoO8G2lcPiL6+RvIk7VhWjxnkpDeD2ZbswmoYY7P70
+WBBecytV8dFKtfoy75z3mYl9oGF8qmKMVGZJnnYQEd5gYV7q3e7tPB3QmzFAotcq
+qFHkspvYgT9cXpfALbM+uhlQ
+=CaGy
+-----END PGP SIGNATURE-----
 
-> For example, as shown below (I am not test or verify it):
->
-> diff --git a/kernel/rcu/rcutorture.c b/kernel/rcu/rcutorture.c
-> index d795e07a12ad..d4f7399acbd5 100644
-> --- a/kernel/rcu/rcutorture.c
-> +++ b/kernel/rcu/rcutorture.c
-> @@ -4662,6 +4662,17 @@ static DECLARE_RWSEM(rwsem7);
->  static DECLARE_RWSEM(rwsem8);
->  static DECLARE_RWSEM(rwsem9);
->
-> +static DEFINE_RAW_SPINLOCK(spin0);
-> +static DEFINE_RAW_SPINLOCK(spin1);
-> +static DEFINE_RAW_SPINLOCK(spin2);
-> +static DEFINE_RAW_SPINLOCK(spin3);
-> +static DEFINE_RAW_SPINLOCK(spin4);
-> +static DEFINE_RAW_SPINLOCK(spin5);
-> +static DEFINE_RAW_SPINLOCK(spin6);
-> +static DEFINE_RAW_SPINLOCK(spin7);
-> +static DEFINE_RAW_SPINLOCK(spin8);
-> +static DEFINE_RAW_SPINLOCK(spin9);
-> +
->  DEFINE_STATIC_SRCU(srcu0);
->  DEFINE_STATIC_SRCU(srcu1);
->  DEFINE_STATIC_SRCU(srcu2);
-> @@ -4673,6 +4684,17 @@ DEFINE_STATIC_SRCU(srcu7);
->  DEFINE_STATIC_SRCU(srcu8);
->  DEFINE_STATIC_SRCU(srcu9);
->
-> +DEFINE_STATIC_SRCU_ATOMIC(srcu0_atomic);
-> +DEFINE_STATIC_SRCU_ATOMIC(srcu1_atomic);
-> +DEFINE_STATIC_SRCU_ATOMIC(srcu2_atomic);
-> +DEFINE_STATIC_SRCU_ATOMIC(srcu3_atomic);
-> +DEFINE_STATIC_SRCU_ATOMIC(srcu4_atomic);
-> +DEFINE_STATIC_SRCU_ATOMIC(srcu5_atomic);
-> +DEFINE_STATIC_SRCU_ATOMIC(srcu6_atomic);
-> +DEFINE_STATIC_SRCU_ATOMIC(srcu7_atomic);
-> +DEFINE_STATIC_SRCU_ATOMIC(srcu8_atomic);
-> +DEFINE_STATIC_SRCU_ATOMIC(srcu9_atomic);
-> +
->  static int srcu_lockdep_next(const char *f, const char *fl, const char *=
-fs, const char *fu, int i,
->                              int cyclelen, int deadlock)
->  {
-> @@ -4702,6 +4724,13 @@ static void rcu_torture_init_srcu_lockdep(void)
->                                           &rwsem5, &rwsem6, &rwsem7, &rws=
-em8, &rwsem9 };
->         struct srcu_struct *srcus[] =3D { &srcu0, &srcu1, &srcu2, &srcu3,=
- &srcu4,
->                                         &srcu5, &srcu6, &srcu7, &srcu8, &=
-srcu9 };
-> +
-> +       raw_spinlock_t *spins[] =3D { &spin0, &spin1, &spin2, &spin3, &sp=
-in4, &spin5,
-> +                                       &spin6, &spin7, &spin8, &spin9};
-> +       struct srcu_struct *srcus_atomic[] =3D {&srcu0_atomic, &srcu1_ato=
-mic, &srcu2_atomic,
-> +                                               &srcu3_atomic, &srcu4_ato=
-mic, &srcu5_atomic,
-> +                                               &srcu6_atomic, &srcu7_ato=
-mic, &srcu8_atomic,
-> +                                               &srcu9_atomic};
->         int testtype;
->
->         if (!test_srcu_lockdep)
-> @@ -4812,11 +4841,48 @@ static void rcu_torture_init_srcu_lockdep(void)
->         }
->  #endif // #ifdef CONFIG_TASKS_TRACE_RCU
->
-> +        if (testtype =3D=3D 4) {
-> +                pr_info("%s: test_srcu_lockdep =3D %05d: SRCU_ATOMIC %d-=
-way %sdeadlock.\n",
-> +                        __func__, test_srcu_lockdep, cyclelen, deadlock =
-? "" : "non-");
-> +                if (deadlock && cyclelen =3D=3D 1)
-> +                        pr_info("%s: Expect hang.\n", __func__);
-> +                for (i =3D 0; i < cyclelen; i++) {
-> +                        j =3D srcu_lockdep_next(__func__, "srcu_read_loc=
-k_atomic", "synchronize_srcu_atomic",
-> +                                              "srcu_read_unlock_atomic",=
- i, cyclelen, deadlock);
-> +                        idx =3D srcu_read_lock_atomic(srcus_atomic[i]);
-> +                        if (j >=3D 0)
-> +                                synchronize_srcu_atomic(srcus_atomic[j])=
-;
-> +                        srcu_read_unlock_atomic(srcus_atomic[i], idx);
-> +                }
-> +                return;
-> +        }
-> +
-> +        if (testtype =3D=3D 1) {
-> +                pr_info("%s: test_srcu_lockdep =3D %05d: SRCU_ATOMIC/raw=
-_spinlock %d-way %sdeadlock.\n",
-> +                        __func__, test_srcu_lockdep, cyclelen, deadlock =
-? "" : "non-");
-> +                for (i =3D 0; i < cyclelen; i++) {
-> +                        pr_info("%s: srcu_read_lock_atomic(%d), raw_spin=
-_lock(%d), raw_spin_unlock(%d), srcu_read_unlock_atomic(%d)\n",
-> +                                __func__, i, i, i, i);
-> +                        idx =3D srcu_read_lock_atomic(srcus_atomic[i]);
-> +                        raw_spin_lock(spins[i]);
-> +                        raw_spin_unlock(spins[i]);
-> +                        srcu_read_unlock_atomic(srcus_atomic[i], idx);
-> +
-> +                        j =3D srcu_lockdep_next(__func__, "raw_spin_lock=
-", "synchronize_srcu_atomic",
-> +                                              "raw_spin_unlock", i, cycl=
-elen, deadlock);
-> +                        raw_spin_lock(spins[i]);
-> +                        if (j >=3D 0)
-> +                                synchronize_srcu_atomic(srcus_atomic[j])=
-;
-> +                        raw_spin_unlock(spins[i]);
-> +                }
-> +                return;
-> +        }
-> +
->  err_out:
->         pr_info("%s: test_srcu_lockdep =3D %05d does nothing.\n", __func_=
-_, test_srcu_lockdep);
->         pr_info("%s: test_srcu_lockdep =3D DNNL.\n", __func__);
->         pr_info("%s: D: Deadlock if nonzero.\n", __func__);
-> -       pr_info("%s: NN: Test number, 0=3DSRCU, 1=3DSRCU/mutex, 2=3DSRCU/=
-rwsem, 3=3DSRCU/Tasks Trace RCU.\n", __func__);
-> +       pr_info("%s: NN: Test number, 0=3DSRCU, 1=3DSRCU/mutex, 2=3DSRCU/=
-rwsem, 3=3DSRCU/Tasks Trace RCU, 4=3DSRCU_ATOMIC, 5=3DSRCU_ATOMIC/raw_spinl=
-ock.\n", __func__);
->         pr_info("%s: L: Cycle length.\n", __func__);
->         if (!IS_ENABLED(CONFIG_TASKS_TRACE_RCU))
->                 pr_info("%s: NN=3D3 disallowed because kernel is built wi=
-th CONFIG_TASKS_TRACE_RCU=3Dn\n", __func__);
->
->
-> Thanks
-> Zqiang
->
->
->
->
->
-> >
-> > Thanks, Kunwu
-> >
-> > >
-> > > srcu_lock_sync(&ssp->dep_map);
-> > >
-> > >  RCU_LOCKDEP_WARN(lockdep_is_held(ssp),
-> > >  "Illegal synchronize_srcu() in same-type SRCU read-side critical sec=
-tion");
-> > >
-> > >  if (rcu_scheduler_active =3D=3D RCU_SCHEDULER_INACTIVE)
-> > >  return;
-> > >
-> > >  Thanks
-> > >  Zqiang
-> > >
-> > >  The series is:
-> > >
-> > >  1-2 LKMM litmus tests for the reader-free fastpath ordering.
-> > >  3 srcutree: add the reader-free fastpath.
-> > >  4 rcutorture: add --do-atomic-srcu to torture.sh.
-> > >  5-7 srcutree: honor and propagate is_atomic so atomic SRCU never
-> > >  transitions to big.
-> > >  8 srcutree: forbid srcu_expedite_current() on atomic SRCU.
-> > >  9 rcutorture: disable srcu_expedite_current() for atomic SRCU.
-> > >  10 srcutree: skip callback scheduling for atomic SRCU grace periods.
-> > >  11 srcutree: drop the srcu_barrier() sleep for atomic SRCU.
-> > >  12 srcutree: remove leftover debug pr_alert()s.
-> > >  13 srcu: restrict the non_block annotation to task context, fixing a
-> > >  KCSAN data race.
-> > >
-> > >  The KCSAN race in patch 13 is a data race on the interrupted task's
-> > >  ->non_block_count when a timer callback runs atomic-SRCU readers in
-> > >  inline softirq context.
-> > >
-> > >  Tested with herd7 7.58 (litmus tests), torture.sh --do-atomic-srcu, =
-and
-> > >  torture.sh --do-atomic-srcu --do-kcsan (KCSAN+PROVE_LOCKING).
-> > >
-> > >  Kunwu Chan (13):
-> > >  litmus: Add SRCU fastpath anchor-before-scan test
-> > >  litmus: Add SRCU fastpath scan-before-anchor test
-> > >  srcutree: Add reader-free fastpath to synchronize_srcu_atomic()
-> > >  rcutorture: Add atomic-SRCU support to torture.sh
-> > >  srcutree: Honor is_atomic in check_init_srcu_struct()
-> > >  srcutree: Make init_srcu_struct_atomic() prevent transition to big
-> > >  srcutree: Don't transition atomic SRCU to big in srcu_gp_end()
-> > >  srcutree: Forbid srcu_expedite_current() on atomic SRCU
-> > >  rcutorture: Disable srcu_expedite_current() for atomic SRCU
-> > >  srcutree: Skip callback scheduling for atomic SRCU grace periods
-> > >  srcutree: Remove srcu_barrier() sleep for atomic SRCU
-> > >  srcutree: Remove debug pr_alert()s
-> > >  srcu: Restrict atomic-SRCU non_block annotation to task context
-> > >
-> > >  include/linux/srcu.h | 10 +-
-> > >  kernel/rcu/rcutorture.c | 1 +
-> > >  kernel/rcu/srcutree.c | 95 ++++++++++++++-----
-> > >  tools/memory-model/litmus-tests/README | 16 ++++
-> > >  .../SRCU-fastpath-anchor-before-scan.litmus | 56 +++++++++++
-> > >  .../SRCU-fastpath-scan-before-anchor.litmus | 53 +++++++++++
-> > >  .../selftests/rcutorture/bin/torture.sh | 24 +++++
-> > >  7 files changed, 229 insertions(+), 26 deletions(-)
-> > >  create mode 100644 tools/memory-model/litmus-tests/SRCU-fastpath-anc=
-hor-before-scan.litmus
-> > >  create mode 100644 tools/memory-model/litmus-tests/SRCU-fastpath-sca=
-n-before-anchor.litmus
-> > >
-> > >  base-commit: ef15070f96c5f07de3a9b593c36f6e83bc9e3d58
-> > >  --
-> > >  2.43.0
-> > >
-> >
+--=-AIYPRBPr3NqvjOzWOXo5--
