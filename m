@@ -1,102 +1,101 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com [209.85.167.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56EB54BEE43
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 16:25:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF2172E7631
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 16:26:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789230322; cv=none; b=VW6Hfu0F6QdUolPtVr+Uj7RLkCjqh2UvXRzNyEtK5P1iSqzOK3O7Gkne4m6hrsiOsCpsfpEJAv5lgJAExI5/WFuaHC6wj5vpuT5ANH3siDRNuV8jfjvEdj5fUx1gjTlTOeWPGtWg0Yf5cGLeB/B5oImazOSiaTd7mH2j9ZPoPMs=
+	t=1789230409; cv=none; b=k8c8bXH5YtmZfx80CaE+Jvj2D3KF1Q4c6AJuXxwcyVcCDb+lP7HQwWkv0mfodn72+LLbQIjWLi4p48a28cy0zPENMufupLRy9b0o0rUD8u18fTxI+Y5Odxbc4KcTq7pM3p3dIY3OiA8t2n0pI10hX85xKrLbydbeOuOP57lBAUM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789230322; c=relaxed/simple;
-	bh=4CNMsE42yELW6hDHST/90JepYoJVdDA+goTAW3rWuyM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TF3rt5B1bWQ0G6OWq5svzL6y8PlS5kGhHEb1XcJ371dv9iTj2CLg3Bfb83Xv17ZLqUr6/blRCswimveHoujx0iP2A4tOT8bntVHWrPvB0J0NAzhOtjee2691kTsPtPBzfLFmck3or2G9iwn/dz2HZyuTrAbanp2Wgf3fNh1R748=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=mbwXM8Rc; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1789230409; c=relaxed/simple;
+	bh=2ybGNvtRPmELIiuqpy4MyXSFl7zacEdOM8euYoyTYNA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=a9Ari/nQEAMDi2eQVMATmaczv4g0m8HZEnEcr3uvl3VyNGFCo3ut42oaG62Yx8pa9oQIuDApcUf8Fg6ffeWRlhP2ndwW9KRtfsRZo+FVdSDdCtiUMbM4eOCjdutFVy2F5XOHKF2U8Yeliwz8tfqg2WLnxGgqUWF8lrsHYh6Ap7c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qQpDjRLg; arc=none smtp.client-ip=209.85.167.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="mbwXM8Rc"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 630F94DC;
-	Sat, 12 Sep 2026 18:23:39 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1789230219;
-	bh=4CNMsE42yELW6hDHST/90JepYoJVdDA+goTAW3rWuyM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=mbwXM8Rcfk72aBduE7Xs1WJx4R3sYcegGVk1n7Bp3ILBqZsrsZXsj5ZnKW3+w76CS
-	 3r/xHqnGUC3HHXboVpWY9p3qvfrzRkKcWQrMOpsppZ1LOQ6xKracJ1hP7+H6SC7CEJ
-	 Bx2rzxFswzhecijDasASZFJAUhuMq8IPGvI7oQ08=
-Date: Sat, 12 Sep 2026 19:25:16 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Sam Ravnborg <sam@ravnborg.org>, Danilo Krummrich <dakr@kernel.org>,
-	Liviu Dudau <liviu.dudau@arm.com>, dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/gem-dma: Correct GEM object wrapper documentation
-Message-ID: <20260912162516.GA1892234@killaraus.ideasonboard.com>
-References: <20260912063258.43169-1-kmehltretter@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qQpDjRLg"
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5b76694fb7aso1790363e87.0
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 09:26:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789230405; x=1789835205; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CgEC75mikLCwF5cE3ExQ9CoPkC0/OMRsItLfyWpU9YY=;
+        b=qQpDjRLg8IZhUfvWBmMMysx9/KgCXzz3LvK1OTkBIOE0Lpdp3gMCunkLg8f5Q5Pvu8
+         EsC3+DrdZx2EXIvZJV8frQPPWFe9N8Vqx5RobQrHYqtdAU+n0G2ARbITIzoZDp+ufrW+
+         WWs3KQ//4QBiXKDy6mfqHe79EazeO/6Ul/UnFl5G4PPdIpfKBw41z6y+6mjaOb7n762V
+         nxIzP6Pm9ECqH+j3bwUF8ERtHGmfsqg5PP5NX18EbXIbxAIU5fnN1Md14KAk7VgQ+gYF
+         4o1NS2JN9Itxr8ud1GnTYoAf+TKDpCitZf5ax/O4AU4jmt9b3eM66Ow1sVxlv0cg0TZ4
+         xglg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789230405; x=1789835205;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=CgEC75mikLCwF5cE3ExQ9CoPkC0/OMRsItLfyWpU9YY=;
+        b=az2AXfehL5Vl8Jw8vrq0KICaPdR4Lx/7QwOq1biBJWWEGS77dFx7f+nc3WqLdHSwxU
+         DcPfO6INNtG3mK1+D+LPINVQV38peJmijKopf1Vs3lYXPRgb/owyDBv2ZJTMvv6rDRWu
+         8BV0px01QzcRfqhc5v06YZ0O92JgbLoLyXYUB55rrI5bEgFeSvNID2cb838FkKWR1Ful
+         j9ksFbz4eNJnbwOB48/u/R+0sQHfMC8eJZWwPGJceOLTN499xyEgCvEnf5hnTANzI8Xf
+         2T7QvgvVjl+TJ6ijbsKHR6K5VZmR67HE9/UbXsIsrLvddqo0oUM9WgcHhITs/Tl1svYI
+         pSLw==
+X-Gm-Message-State: AFuF++nmWAVm4dByZr/CJDmoYYjNt86rKmcERfT0MfSoQ0JwuZdvpNny
+	1CQsW97C0edeykYVwac5tn112/RDoliZR4RXR0iymSQBmPi10UjeBFjU6JejW0ukCYY=
+X-Gm-Gg: AYBFou0UgFClyPVF85Qqf006S6rOmxAtrdTTBBbbDtyOcdMtpAUmnjUiRi+McjgNZ/2
+	ub8yZF/iFLsU7Hv2mVTCweFMEp02XcFDK95Hs7NBwIez7ljpqxnhWIsjEZe+fOX/JP63Tteh7FR
+	m/AzcWSN24UZVNBvudd7KAHS0w8TJWKf88Q8GvFn43SvufIDAONW6Bja7keseZ3Em/rX95kRfD3
+	LfrOgodkTmxLZ5mvhxCS+uS1+28aXTk7u80RbmSb0/LM63hv6pSt+3dhoVyaMW90M2JwM5rYete
+	B2CjRjYvk1WT/MMec2EuF9oZjGSLIDACtIah3sNvpcfJ++F79z45diZwk/2SxPKPRJ3grAzG9CW
+	27Nxmzi7PwiMyvb1EoJLkNdU846E3StGmoxg+kHW4tYqx7L8yc1AeaRdUy+0FE12UuBhCYCqis+
+	fPqaoEYfGPF6DY/oG/irsgMPVLIqFhPsjwOw4dBUKyXeYYc1HeMgTRabRk9U29myWlYn0PikzYy
+	oKm/xX+A6Lk2ekkAetbsa8BO9efbZjSDA==
+X-Received: by 2002:a05:6512:3d9f:b0:5b4:ab0c:f606 with SMTP id 2adb3069b0e04-5b89a2e7c1bmr2727737e87.2.1789230405156;
+        Sat, 12 Sep 2026 09:26:45 -0700 (PDT)
+Received: from localhost (host-80-73-162-2.rev.as20985.net. [80.73.162.2])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8a047aba2sm1364112e87.73.2026.09.12.09.26.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 12 Sep 2026 09:26:44 -0700 (PDT)
+From: Andrey Golovko <andrey.golovko@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH] mailmap: update email address for Andrey Golovko
+Date: Sat, 12 Sep 2026 19:26:30 +0300
+Message-ID: <20260912162630.7731-1-andrey.golovko@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260912063258.43169-1-kmehltretter@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sat, Sep 12, 2026 at 08:32:58AM +0200, Karl Mehltretter wrote:
-> The drm_gem_dma_object_free() wrapper calls drm_gem_dma_free(), but its
-> description still names the former drm_gem_dma_free_object() helper.
-> Update the reference to match the wrapped function.
-> 
-> Also correct drm_gem_dma_object_get_sg_table() to document an error
-> pointer on failure. It forwards the result of
-> drm_gem_dma_get_sg_table(), which returns ERR_PTR() rather than NULL on
-> failure.
-> 
-> Fixes: e580ea25c08d ("drm/cma-helper: Pass GEM CMA object in public interfaces")
-> Fixes: 05b1de51df07 ("drm/cma-helper: Export dedicated wrappers for GEM object functions")
-> Assisted-by: LLM
+Patches sent from andrey.golovko@gmail.com carry the authorship of my
+commits, but some of the tags I gave on other people's patches use
+andrey@golovko.me.  Map the second address onto the first so the two do
+not look like two different contributors.
 
-Throwing LLMs at this kind of things is neither a good use of computing
-resources nor a good use of maintainer time. Please refrain from doing
-so in the future.
+Signed-off-by: Andrey Golovko <andrey.golovko@gmail.com>
+---
+ .mailmap | 1 +
+ 1 file changed, 1 insertion(+)
 
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-> ---
->  include/drm/drm_gem_dma_helper.h | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
-> 
-> diff --git a/include/drm/drm_gem_dma_helper.h b/include/drm/drm_gem_dma_helper.h
-> index f2678e7ecb9847917e9c6c0287af9815d54bae79..5defd47d7de425515c76391d1825f0ed28077eaa 100644
-> --- a/include/drm/drm_gem_dma_helper.h
-> +++ b/include/drm/drm_gem_dma_helper.h
-> @@ -52,7 +52,7 @@ extern const struct vm_operations_struct drm_gem_dma_vm_ops;
->   * drm_gem_dma_object_free - GEM object function for drm_gem_dma_free()
->   * @obj: GEM object to free
->   *
-> - * This function wraps drm_gem_dma_free_object(). Drivers that employ the DMA helpers
-> + * This function wraps drm_gem_dma_free(). Drivers that employ the DMA helpers
->   * should use it as their &drm_gem_object_funcs.free handler.
->   */
->  static inline void drm_gem_dma_object_free(struct drm_gem_object *obj)
-> @@ -87,7 +87,8 @@ static inline void drm_gem_dma_object_print_info(struct drm_printer *p, unsigned
->   * use it as their &drm_gem_object_funcs.get_sg_table handler.
->   *
->   * Returns:
-> - * A pointer to the scatter/gather table of pinned pages or NULL on failure.
-> + * A pointer to the scatter/gather table of pinned pages on success, or
-> + * an ERR_PTR() on failure.
->   */
->  static inline struct sg_table *drm_gem_dma_object_get_sg_table(struct drm_gem_object *obj)
->  {
+diff --git a/.mailmap b/.mailmap
+index 37aad399e4e0..bcc092fd83af 100644
+--- a/.mailmap
++++ b/.mailmap
+@@ -91,6 +91,7 @@ Andrew Morton <akpm@linux-foundation.org>
+ Andrew Murray <amurray@thegoodpenguin.co.uk> <amurray@embedded-bits.co.uk>
+ Andrew Murray <amurray@thegoodpenguin.co.uk> <andrew.murray@arm.com>
+ Andrew Vasquez <andrew.vasquez@qlogic.com>
++Andrey Golovko <andrey.golovko@gmail.com> <andrey@golovko.me>
+ Andrey Konovalov <andreyknvl@gmail.com> <andreyknvl@google.com>
+ Andrey Ryabinin <ryabinin.a.a@gmail.com> <a.ryabinin@samsung.com>
+ Andrey Ryabinin <ryabinin.a.a@gmail.com> <aryabinin@virtuozzo.com>
 
+base-commit: df2908090cda368b01ff43709f51890076c56157
 -- 
-Regards,
+2.53.0
 
-Laurent Pinchart
