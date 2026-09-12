@@ -1,76 +1,76 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 034621E8332
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 00:23:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F8C14BEE5E
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 00:23:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789172584; cv=none; b=mUAL0ktr/Ol/bxrVhDz7jQ8P9MdY5Q8VtaLu8SdboHO6dnUca+HbQ5YuJD2MKyUJcI6s9eAqjTz8bubc57yzV2exQcuwsBMMD8iiiPeKiARC+FvRa1P0CR9JFSQSbugNvglO+0wZoMCuz8Sq8lpgAXQA4zYs4gEfdurvcNPyXfs=
+	t=1789172612; cv=none; b=ICN1Nw0zkKuKWmPsfDp+kiJaFzS+COPfehv6pSgAYp4GKW8Lfr5k1Uptbd8UjpJERYd8WmmMX97i+L2ESQoEDGQi0LlFc53s05tFOHiBgoeLsk11Xk90+r71qZkcHnbejw2ruQQ3pr6Y+k+icZrawOA/KPNIawRKzlzmOFRPnMU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789172584; c=relaxed/simple;
-	bh=C/ntNuH7/T4V0mo/sAmWBhHUovXH2mX+woiBShNBDfI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=HTVTkrsWKQHSPXr3RXLRYMAqnx7Y/aoMrqnaXFuWcjvFgq8kFD/RsV5kg75eyWUmxirWRBBGVW762tWHZkrNvyeZnsuT6PzR1ys4iNGZcI11MNOJl6ohJc7DCR3wgdocFsRA+sqi6Kv1w8UPKPfzOJd84lUYMZqMwzH1q8H3FJM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FWP47adl; arc=none smtp.client-ip=74.125.225.76
+	s=arc-20240116; t=1789172612; c=relaxed/simple;
+	bh=0nPcm+58pJfEAXygSakPQx72e6W/l6Dp/b8T+CvBjD8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aL8B1Y+mKnKo1ah8ijzolmmKjWQbkBB9t3mtIL7ibP5SkmUMkQlNJl35sym++QZPkLY/kwbGwkgVjyenH/tgr8/d37WS9hLVPyIXZAp3ibHKt01ik9eg2puBpGo3uFwBe6Kt4yxGTKTasc6KjzIeLzk4j+zzCPo+ap+RmArUtyM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WQ0KvVJo; arc=none smtp.client-ip=209.85.216.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FWP47adl"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485b1d2874fso96371f8f.0
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 17:23:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WQ0KvVJo"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-38a0c7e841fso2192511a91.2
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 17:23:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789172581; x=1789777381; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789172611; x=1789777411; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=a76hBPXYrcoSmtn4Q7RocQBlCM+IbZbkHYVvSI8P1K4=;
-        b=FWP47adlnxicZz+lZg2e0nRmBhvXFIldq7jGMPwERkXLLfcrWZR7WK0LkTY+GjF2jd
-         LTQgYV+RZ282s2sh+c+zv3BNGXnXtxiSH3/KPmDyndBeYB/qXJd/pPYcj98H94mq6tDe
-         UZUySs9tz3Zwko5zqmndwQpmW2SsoxISk5rzx5bXvpk4y1z93uFN9k6xjtUfefiuyQHf
-         7vfTwcMuClUbJ7PoA80CbyZz6o2VF1Bb67xWlXnRij/TdJbAmAStYt6dwWVVHHc3f08z
-         yDl2fdLR/N8jk9DXLryYDTYjAcQ1JZvQLiEqJAOaNVAdvY8Uhq8fUPECeQ2T3r+Mpopc
-         0+yQ==
+        bh=eigGeAMP83LxrsKBiSA2Uv71rHDhlLqddwKc16SH2gs=;
+        b=WQ0KvVJooAObOPgWZunfr4YKCQ7VUR3DdhiM1jrbU49c9y+W2x+VKHbj0880qjB8xO
+         TH90u2cwGdR9jO2sDgrX35/l5+tl4AM8D9VZRgNfPpBH8Rne1QUZPrK6tX+ysBY+LPR0
+         RrUOCUNfgotX0hcWg/vMqRi/iNz0MnzRd+tZdo/vC4LQ4pIaEtF2V6GEFzxQsy8v0kBu
+         JPUbHF+dgds0fxBTEEJQ3JtRl5t9Flk4uVYtn7W731tKmDdXo7hX6IZL2tSj14IA6Oc+
+         0NOiyixns9q4hn+/k0eSiqSaYV6aHPXazkPbo91nqWMx/Y2EG2bt+JyD9qYZROZe5wia
+         mUyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789172581; x=1789777381;
+        d=1e100.net; s=20251104; t=1789172611; x=1789777411;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=a76hBPXYrcoSmtn4Q7RocQBlCM+IbZbkHYVvSI8P1K4=;
-        b=sJRh2CX6IQP6fwltLbo6+JLGeaIokv+H3K7XvsFnmYqcG8xDiHY8ql7UE1QBR1NwGp
-         GAF5w4bOMoNQptCf5+SONpQbCER42c8e7ckVchiPT6K6Hpt8zboQNi7yhCsPgk6Bp9kN
-         RLBztF31/fAXhpd+rgUgtIPIrcbzBt7/i/oO61CRUSFR5+GpTXCKssINndDpaGg3K5vV
-         3lMOW+LsDBJgG5VURT2HW2uFt4qoIkxiboCEUYr1FpGQECwab28VvLdwlLMS+GjRNsaT
-         NktmCwu8DyTCZrEj4902yxVdt7lU1EXFe1bhgi3g0aIF9qLT1gu3ov5EF7aGRip3ivj0
-         FdBQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwv9UfUN7d1onKa9Ad+2AnxrbPeIufYKt5uFm4ZHbeSBZJhpe0pNPpGxZLVj3Phf0vioqRQGdt9hzpKI98=@vger.kernel.org
-X-Gm-Message-State: AFuF++mJiSkbEW29zY+KMZNBUABy9y/ZDM/YsyeqlIX2z2Nypp1o+/RX
-	pwAkeLX9XW+4LCEQxpNxtCKs0K9K0p5PoVI+2rv4q8IkTJOgDYorOaJQ
-X-Gm-Gg: AYBFou29QNoslsynlxVZGWpU8PpR64SQ6qw7lSeMkWXR/pIMAMnrnTlxLfE9ukTYk//
-	IhsWx94QFc5Es5/DjU4Nf9LbWWchlza0yfprp6BYSEKp2psP055GJ0tAPsAMmgg80RBP+hJix/Y
-	M5w3M5RVtGVhXeu/3f2Cm197aWev22e9IdXZSUMrWlhqx7CXJDlLJY3x8ap2j8GlRDCilpbUThe
-	QlmjEKGMQpL47af8Mgyjt5d7E3rW1J5M/C7eb+gCu+q+7lNwBCgw+ukiW/Xj+M5HN+C3OVGpwu3
-	5Kosi0XRN5GcRJ0ySrYrKRPf5QH/iK7HClbLVbTyTahhKogGfbhcsnuL38dEYE/P6dnE1hVNjhc
-	Tuby5hmeFV2iQH+f15USOd2XXEaw7RaidKnTf99zINhmhNb6Lj+ct1U8hDgJnaGELiHmAOwqZ7D
-	ariaHIOmKFR6L1LC7DLD8Mz6TmKVCVYEE8xcdTt4YCSUBJiJ93d0a7jRL9Sz1W0hDPck/MXtDNL
-	N6kbN6KekWtG6tkzu5NtlJ1T/E6f/tLsgATflZBexiqp9J+/ijYsts4mvkinZHOdwPIwOkw7ur5
-	vl5uPlZOj14W4zHXrZ+Tu0JTMaXsn71KtApV
-X-Received: by 2002:a05:600c:698d:b0:49e:6865:904e with SMTP id 5b1f17b1804b1-49e6865921amr43495635e9.12.1789172581015;
-        Fri, 11 Sep 2026 17:23:01 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-095-114-033-154.95.114.pool.telefonica.de. [95.114.33.154])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e69f02e0bsm26924275e9.2.2026.09.11.17.22.59
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 11 Sep 2026 17:23:00 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Even Xu <even.xu@intel.com>,
-	Xinpeng Sun <xinpeng.sun@intel.com>,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] HID: intel-thc-hid: intel-quicki2c: Fix the return value in quicki2c_dev_init() kernel-doc
-Date: Sat, 12 Sep 2026 02:21:43 +0200
-Message-Id: <20260912002143.35091-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+        bh=eigGeAMP83LxrsKBiSA2Uv71rHDhlLqddwKc16SH2gs=;
+        b=Ew2sCdfYShgs5C3xpgGW5WMJD5XQGjDWtiedFmJw8OQkqTfZkE/8RyVZz3FnQI/TS2
+         NUME4uAXsLwdNHZO/0asorL+6qXYkFhb7rqZwS0jm90ieY3s1WaXqto902VYt1fKH1HL
+         5oQ5FZCqVC72fE2AxcNisGOVzH99GdljkWuAi8j7wwnAtywfrBBXkuUSpkyF2E8QZzxN
+         52AvJ165ONQ4dbko02fO+IdGZOZB+umZ+6DqJw2n+60n6WjSxcxupmF34gaD0ev6XKj7
+         k3WBcDNhTLYLhZNL61lzJUFXeCEbQNqAlVpg8vEJB4VDxlaYJKV42skp+6uNjgNopk6s
+         J/zw==
+X-Forwarded-Encrypted: i=1; AKwUvBzftB1XGHlDlgcKzxCLTeN6DgbecWLsYHF6TEfAlio0243/bEx9k3mlYO6s7aDga8DkWx0M+DhZD07mfjU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nMKQ05wG7/XiWWDEpnxMviNbafLqz5PbmyPpeQAtU5DV5WE2VL
+	DZu/jEv802NaGFTAcQtIa+lepzErDHCJwS85trJuY4xiBBjSx+lnN0u1
+X-Gm-Gg: AYBFou2lJIxHr2N+3G/R4p50i4PfPCLGHUHZoKRto6pTf/KCnR9uC9pvPFlZvo+qUb0
+	lnwVC12I7tPF6bJPzTVahxJPyQEekKPJai08sH+U3PzOb7MS0rBwivzLwyO8sVQ3qeplPyGNrG2
+	aOnyo5QbB316RZ4PxDo/0POdP1YtZiNE7kD+6lcDxQi2jbXMGzHWwl7Fa7C1Y6MJrlk70qgXYdB
+	7cpYc+lJ7CEoQtnSTI64o8T80SWscWhkhlGfe7fDRcWhjBKkSZVsoB8VWxEDBLSkoi6xTdROE6h
+	syGwU8fJeX3ByDPgFKNpgtIkv9n/LuH9cyyxWs3ntLblI8hMebO2GftiSdJN/XbsuaRWh5Gdo1Q
+	IgC2CxDJ38KlMRxtM5YyNHUiNOr97AZBTPo+BegxjybLak9t25szTS87ovHK2JAHM3gwKmdQ1nQ
+	DX4m5e6LChC87IKbIqhRc1Yg48SqNyvq8WozBPezhCsYXlKF58atPcSJ5gw9Wqx0lHK3ZZPb9l3
+	Nuw2/Svtc4cd8uuV05/trwpluPRXT2ZKchK965ocVtqV6CqsR/oLjcfhnFswB0F6wzpCejrPZ7G
+	B/Gni4w6IxOqzG+h2+B2OF7KL5CzL3PDCEMMVvtNDJ06+rn1
+X-Received: by 2002:a17:90b:270c:b0:39b:a8d8:985 with SMTP id 98e67ed59e1d1-39d9c0ad3edmr11221696a91.12.1789172610740;
+        Fri, 11 Sep 2026 17:23:30 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e35])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2cff6780sm17510475ad.76.2026.09.11.17.23.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 17:23:29 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: linux-clk@vger.kernel.org
+Cc: Jacky Huang <ychuang3@nuvoton.com>,
+	Shan-Chun Hung <schung@nuvoton.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	linux-arm-kernel@lists.infradead.org (moderated list:ARM/NUVOTON MA35 ARCHITECTURE),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH RESEND] clk: nuvoton: ma35d1-divider: simplify allocation
+Date: Fri, 11 Sep 2026 17:23:26 -0700
+Message-ID: <20260912002326.237419-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,32 +79,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-quicki2c_dev_init() returns an ERR_PTR() on failure, but its kernel-doc
-says that failure returns NULL. This mismatch was present in the
-original driver skeleton.
+Use a flexible array member instead of kcalloc + pointer that is not
+actually const.
 
-Document the error pointer returned by the initialization paths.
+Simplifies allocation slightly.
 
-Fixes: 61bb2714dc3a ("HID: intel-thc-hid: intel-quicki2c: Add THC QuickI2C driver skeleton")
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
- drivers/hid/intel-thc-hid/intel-quicki2c/pci-quicki2c.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/clk/nuvoton/clk-ma35d1-divider.c | 20 +++++++-------------
+ 1 file changed, 7 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/hid/intel-thc-hid/intel-quicki2c/pci-quicki2c.c b/drivers/hid/intel-thc-hid/intel-quicki2c/pci-quicki2c.c
-index 0d2ad7bc3648a2f227db2ed27ad9cbe18955bc0f..aa601ef613c91729f4fc90bdc1674cb838921421 100644
---- a/drivers/hid/intel-thc-hid/intel-quicki2c/pci-quicki2c.c
-+++ b/drivers/hid/intel-thc-hid/intel-quicki2c/pci-quicki2c.c
-@@ -380,7 +380,7 @@ exit:
-  * If success, enable THC hardware interrupt.
-  *
-  * Return: Pointer to the quicki2c_device structure if success
-- * or NULL on failure.
-+ * or an ERR_PTR() on failure.
-  */
- static struct quicki2c_device *quicki2c_dev_init(struct pci_dev *pdev, void __iomem *mem_addr,
- 						 const struct quicki2c_ddata *ddata)
+diff --git a/drivers/clk/nuvoton/clk-ma35d1-divider.c b/drivers/clk/nuvoton/clk-ma35d1-divider.c
+index e992e7c30341..6eaca5b35dd8 100644
+--- a/drivers/clk/nuvoton/clk-ma35d1-divider.c
++++ b/drivers/clk/nuvoton/clk-ma35d1-divider.c
+@@ -17,9 +17,9 @@ struct ma35d1_adc_clk_div {
+ 	u8 shift;
+ 	u8 width;
+ 	u32 mask;
+-	const struct clk_div_table *table;
+ 	/* protects concurrent access to clock divider registers */
+ 	spinlock_t *lock;
++	struct clk_div_table table[];
+ };
+ 
+ static inline struct ma35d1_adc_clk_div *to_ma35d1_adc_clk_div(struct clk_hw *_hw)
+@@ -83,30 +83,25 @@ struct clk_hw *ma35d1_reg_adc_clkdiv(struct device *dev, const char *name,
+ {
+ 	struct ma35d1_adc_clk_div *div;
+ 	struct clk_init_data init;
+-	struct clk_div_table *table;
+ 	struct clk_parent_data pdata = { .index = 0 };
+ 	u32 max_div, min_div;
+ 	struct clk_hw *hw;
+ 	int ret;
+ 	int i;
+ 
+-	div = devm_kzalloc(dev, sizeof(*div), GFP_KERNEL);
+-	if (!div)
+-		return ERR_PTR(-ENOMEM);
+-
+ 	max_div = clk_div_mask(width) + 1;
+ 	min_div = 1;
+ 
+-	table = devm_kcalloc(dev, max_div + 1, sizeof(*table), GFP_KERNEL);
+-	if (!table)
++	div = devm_kzalloc(dev, struct_size(div, table, max_div + 1), GFP_KERNEL);
++	if (!div)
+ 		return ERR_PTR(-ENOMEM);
+ 
+ 	for (i = 0; i < max_div; i++) {
+-		table[i].val = min_div + i;
+-		table[i].div = 2 * table[i].val;
++		div->table[i].val = min_div + i;
++		div->table[i].div = 2 * div->table[i].val;
+ 	}
+-	table[max_div].val = 0;
+-	table[max_div].div = 0;
++	div->table[max_div].val = 0;
++	div->table[max_div].div = 0;
+ 
+ 	memset(&init, 0, sizeof(init));
+ 	init.name = name;
+@@ -122,7 +117,6 @@ struct clk_hw *ma35d1_reg_adc_clkdiv(struct device *dev, const char *name,
+ 	div->mask = mask_bit ? BIT(mask_bit) : 0;
+ 	div->lock = lock;
+ 	div->hw.init = &init;
+-	div->table = table;
+ 
+ 	hw = &div->hw;
+ 	ret = devm_clk_hw_register(dev, hw);
 -- 
-2.39.5 (Apple Git-154)
+2.55.0
 
