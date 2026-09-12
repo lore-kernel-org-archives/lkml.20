@@ -1,173 +1,160 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f11.google.com (mail-oo2-f11.google.com [74.125.231.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4B0532ED40;
-	Sat, 12 Sep 2026 14:34:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4279724DCF9
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 14:38:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789223664; cv=none; b=hUHAT5Ym11Jdv2uqEsO7iXm54fppofDoAEOtn33QrOwAXb8BZRK8Kfw7Eg745SzMpDsU9xE1rhIUFw/VNQ/x12lbJcSowq2dUV2yahaRGYQLbzafALoQT1MbZ/MLQ0lsTTs7G1bN3mDMGrY26jeyloQv3i2Dlx1vJMxjrFgGhA4=
+	t=1789223910; cv=none; b=W2t4UMHfr+5KqS1jAtPvg2CR9TR3UIkn7zz/l32ol6gpbl4JQuC882Gj0LFUij0KvJCjwuyH9X8pMRC/ZAGm+cIHRLesnZ4vlevpr2tASMXqC2n2eq+XZR1vbE4kGTQGTqo7kmDBSrsvuDdfBbo+kgeyP/P+6sCg356Uj8hK0Js=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789223664; c=relaxed/simple;
-	bh=5KGAjaKRiqURBTU9apOiwO77RImCsqSWROMJiDiU5jQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=EmPwIEcxh7tn31I9VS463s9elIFor1lzOtzATrJ+l15tfz0dYYC5lDa8uK4M9jKfh9mkOVtpJlyVX03NXme/GvykTrdXEpKMd7hkDImQOL2XLhVdYT5ADoLchBrV8/unqkwSE8/Jz3lNjAeccJHj5k2mNWahvNjHoEso7dJF/ZU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZUw5Spy8; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZUw5Spy8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C5AB1F00893;
-	Sat, 12 Sep 2026 14:34:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789223662;
-	bh=50MDlKeHzZptqeNiSQueD/W5VPcD18X/x07MiohJnng=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZUw5Spy8wX111O0I03cVMQ7Hph35U/QYuuIwsIvra6Q1UojaG3tcaux0kSI94Upzs
-	 qPX9/Godts6I/WkxXRyMXmMtLSHFCuAL6N45gyVUCu1nkMu2UyhJ6nAhe0ELw18HdR
-	 z5d4EX6ivln7k7BdyzlarzbGANCxYIb4WKV1yJwpSvVFwy/GFtnwKrmZJGmPNTCKSn
-	 xiq5WhXaV0M9nfGWf7TmgTk3GuAMRz9ziqX6AGFQ2k8uIaFU1YP6i9lgxdFCQsd2oX
-	 YJSfLGCF8aQSqlkvx/yy0+Vfz5XvD/HCkQX1xc4IVSGn/LXL0GXPcXPUKIERvpvz1z
-	 TXl5OtpuQrL+w==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Matthew Brost <matthew.brost@intel.com>,
-	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
-	Christian Koenig <christian.koenig@amd.com>,
-	Huang Rui <ray.huang@amd.com>,
-	Matthew Auld <matthew.auld@intel.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] drm/ttm: Drop tt->restore after successful restore
-Date: Sat, 12 Sep 2026 10:34:18 -0400
-Message-ID: <20260912143418.2961430-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260912143418.2961430-1-sashal@kernel.org>
-References: <2026090936-stew-difficult-cba0@gregkh>
- <20260912143418.2961430-1-sashal@kernel.org>
+	s=arc-20240116; t=1789223910; c=relaxed/simple;
+	bh=VBThyPnoMQdNNS/uNu7l/ly+rs0fUH3fEK4cBJ7vDcA=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=o3XSJRmGxNeamX/sdpXtLJS1RpjqS0lkD4TsAvU6HKjjoDQCkqVwoIid1MBwNLYRhRN+L1X3/E5k0ECynqehcYz5haTKSAFedvuGj5AqPrIzH3ZZLCW9fkndaiRjD4Hz6rLNW7eG9K/aWPmXiMo1Lti5nMjiBmQq5SaoQarozAA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo2-f11.google.com with SMTP id 46e09a7af769-8069d92e182so12220a34.0
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 07:38:29 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789223908; x=1789828708;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6EQmoDvPX6OnCSV9Mz9rAJccsbd4S0WYqocLFtZY3KQ=;
+        b=P4WowPq+hWT/Mu2NHKV0isCzIlA+OYkgTyIS23Y5218MLzQ9YPDwB3aiJM9ayZBiQn
+         bMn4KwiGOFIC/Wh2rl9X6tcnO+9csEqziDwaG1lspZ/OofwHbTWS1FAisBkh8lhN+fX5
+         rMTdYxqRb7sPp2k34GMqt/Qs44I7ItgUThK2mNM5/Fv5pOxkkmw11falW8WUzTpsWn95
+         DkHXqhh6KcX9ccQEBW+5pf6bggnfrfseuWQgvLzkKJxlEomcfWZ28/D5LrNZitmA//HA
+         3qHNqWDwYFBcle494wohl20m1ceD5h1k2XwIp8V93CAxjtjyZ58sXwARuO5KQi+p+6wR
+         Jqew==
+X-Forwarded-Encrypted: i=1; AKwUvBx1bTvs9ImVE/qR2vVICUUrU+EeCtsDA7qm4uOUytfGSQQ1Kw1w0FACKzJSBq0vz5CtGIVmHaswMLNVdE8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kStRQMnaB1QLYY9jinmOg062FbDI3VoE8u8hV4eed3LR8cqgCz
+	Yiy8YaV9CPgSR/yRCSP0tLP3JPwiGUSUNycr5PNMTRjajXBr2dNjYxOlHhHaD53l63qQmP9cpTY
+	EAdnYgZc7oTkAU1loD3jEbWirrtywVQlbo72jHtmp8f5TM4CuSF7QGV281gc=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6820:1f06:b0:6b7:46e9:96f4 with SMTP id
+ 006d021491bc7-6c24e671e92mr1523372eaf.36.1789223908039; Sat, 12 Sep 2026
+ 07:38:28 -0700 (PDT)
+Date: Sat, 12 Sep 2026 07:38:28 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa563e4.f2639fcc.29487d.0041.GAE@google.com>
+Subject: [syzbot] [exfat?] KCSAN: data-race in fat12_ent_put / fat_mirror_bhs (2)
+From: syzbot <syzbot+ff8bd63dc02136db5a1a@syzkaller.appspotmail.com>
+To: hirofumi@mail.parknet.co.jp, linkinjeon@kernel.org, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	sj1557.seo@samsung.com, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-From: Matthew Brost <matthew.brost@intel.com>
+Hello,
 
-[ Upstream commit 941ac10529b3be5965a88d432a161ab459672ba8 ]
+syzbot found the following issue on:
 
-ttm_pool_restore_and_alloc() can successfully complete the restore
-process via ttm_pool_restore_commit(), but tt->restore is not dropped
-afterward. As a result, subsequent backup/restore flows observe what
-appears to be a completed restore, while in reality shmem handles are
-still installed in tt->pages, leading to the stack trace below.
+HEAD commit:    3026c6e4f223 Merge tag 'slab-for-7.3-rc2' of git://git.ker..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=117769f9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=e3dbeec937af205c
+dashboard link: https://syzkaller.appspot.com/bug?extid=ff8bd63dc02136db5a1a
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
 
-Fix this by freeing and dropping tt->restore in
-ttm_pool_restore_and_alloc() upon successful completion of the restore.
+Unfortunately, I don't have any reproducer for this issue yet.
 
-20545 [  309.784531] RIP: 0010:sg_alloc_append_table_from_pages+0x38c/0x490
-20547 [  309.809570] RSP: 0018:ffffc9000623b838 EFLAGS: 00010206
-20548 [  309.814827] RAX: 0000000000001000 RBX: ffff88816e42a160 RCX: 0000000000000000
-20549 [  309.821986] RDX: 0000000000002000 RSI: 0000000000000003 RDI: 0000000000001000
-20550 [  309.829147] RBP: ffff88816e42a168 R08: 0000000000000002 R09: 000000007ffff000
-20551 [  309.836310] R10: ffffc9000623b928 R11: 0000000000000000 R12: 000000007ffff000
-20552 [  309.843471] R13: ffff88815ba5a100 R14: 0000000000000000 R15: 0000000000000001
-20553 [  309.850634] FS:  00007f9ff305e700(0000) GS:ffff888276c94000(0000) knlGS:0000000000000000
-20554 [  309.858749] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-20555 [  309.864519] CR2: 00007f9fca701000 CR3: 00000001565e2005 CR4: 0000000008f70ef0
-20556 [  309.871678] PKRU: 55555558
-20557 [  309.874403] Call Trace:
-20558 [  309.876866]  <TASK>
-20559 [  309.878988]  sg_alloc_table_from_pages_segment+0x60/0x100
-20560 [  309.884415]  ? ttm_resource_manager_usage+0x36/0x60 [ttm]
-20561 [  309.889845]  ? xe_tt_map_sg+0x7d/0xd0 [xe]
-20562 [  309.894045]  xe_tt_map_sg+0x7d/0xd0 [xe]
-20563 [  309.898037]  xe_bo_move+0x927/0xaa0 [xe]
-20564 [  309.902029]  ttm_bo_handle_move_mem+0xba/0x170 [ttm]
-20565 [  309.907022]  ttm_bo_validate+0xbe/0x190 [ttm]
-20566 [  309.911405]  xe_bo_validate+0x9a/0x120 [xe]
-20567 [  309.915663]  xe_gpuvm_validate+0xd9/0x140 [xe]
-20568 [  309.920206]  drm_gpuvm_validate+0x2f0/0x5b0 [drm_gpuvm]
-20569 [  309.925459]  ? drm_exec_lock_obj+0x63/0x210 [drm_exec]
-20570 [  309.930627]  xe_vm_validate_rebind+0x46/0xb0 [xe]
-20571 [  309.935428]  xe_exec_fn+0x20/0x40 [xe]
-20572 [  309.939249]  drm_gpuvm_exec_lock+0x78/0xc0 [drm_gpuvm]
-20573 [  309.944410]  xe_validation_exec_lock+0x5a/0xa0 [xe]
-20574 [  309.949385]  xe_exec_ioctl+0x806/0xc30 [xe]
-20575 [  309.953639]  ? ttwu_queue_wakelist+0xd9/0xf0
-20576 [  309.957935]  ? __pfx_xe_exec_fn+0x10/0x10 [xe]
-20577 [  309.962449]  ? __wake_up_common+0x73/0xa0
-20578 [  309.966482]  ? __pfx_xe_exec_ioctl+0x10/0x10 [xe]
-20579 [  309.971263]  drm_ioctl_kernel+0xa3/0x100
-20580 [  309.975209]  drm_ioctl+0x213/0x440
-20581 [  309.978637]  ? __pfx_xe_exec_ioctl+0x10/0x10 [xe]
-20582 [  309.983415]  xe_drm_ioctl+0x67/0xd0 [xe]
-20583 [  309.987408]  __x64_sys_ioctl+0x7f/0xd0
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/31e48aab7540/disk-3026c6e4.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/4e31dbebfbd9/vmlinux-3026c6e4.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/cf95aa277f9d/bzImage-3026c6e4.xz
 
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Cc: Christian Koenig <christian.koenig@amd.com>
-Cc: Huang Rui <ray.huang@amd.com>
-Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Fixes: b63d715b8090 ("drm/ttm/pool, drm/ttm/tt: Provide a helper to shrink pages")
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Link: https://patch.msgid.link/20260617015531.1164189-1-matthew.brost@intel.com
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+ff8bd63dc02136db5a1a@syzkaller.appspotmail.com
+
+==================================================================
+BUG: KCSAN: data-race in fat12_ent_put / fat_mirror_bhs
+
+read-write to 0xffff88810c2e3f2a of 1 bytes by task 8373 on cpu 0:
+ fat12_ent_put+0xc4/0x180 fs/fat/fatent.c:165
+ fat_ent_write+0x6c/0xe0 fs/fat/fatent.c:422
+ fat_chain_add+0x170/0x4c0 fs/fat/misc.c:138
+ fat_add_cluster fs/fat/inode.c:113 [inline]
+ __fat_get_block fs/fat/inode.c:155 [inline]
+ fat_get_block+0x468/0x5e0 fs/fat/inode.c:190
+ __block_write_begin_int+0x400/0xf90 fs/buffer.c:2030
+ block_write_begin fs/buffer.c:2144 [inline]
+ cont_write_begin+0x5bf/0x920 fs/buffer.c:2506
+ fat_write_begin+0x52/0xe0 fs/fat/inode.c:230
+ generic_perform_write+0x186/0x490 mm/filemap.c:4374
+ __generic_file_write_iter+0x9e/0x120 mm/filemap.c:4491
+ generic_file_write_iter+0x77/0x1f0 mm/filemap.c:4517
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x57f/0x9a0 fs/read_write.c:687
+ ksys_write+0xdc/0x1a0 fs/read_write.c:739
+ __do_sys_write fs/read_write.c:750 [inline]
+ __se_sys_write fs/read_write.c:747 [inline]
+ __x64_sys_write+0x40/0x50 fs/read_write.c:747
+ x64_sys_call+0x154e/0x2550 arch/x86/include/generated/asm/syscalls_64.h:2
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x112/0x360 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+read to 0xffff88810c2e3e00 of 512 bytes by task 8427 on cpu 1:
+ fat_mirror_bhs+0x1df/0x330 fs/fat/fatent.c:399
+ fat_ent_write+0xd0/0xe0 fs/fat/fatent.c:428
+ fat_chain_add+0x170/0x4c0 fs/fat/misc.c:138
+ fat_add_cluster fs/fat/inode.c:113 [inline]
+ __fat_get_block fs/fat/inode.c:155 [inline]
+ fat_get_block+0x468/0x5e0 fs/fat/inode.c:190
+ __block_write_begin_int+0x400/0xf90 fs/buffer.c:2030
+ block_write_begin fs/buffer.c:2144 [inline]
+ cont_write_begin+0x5bf/0x920 fs/buffer.c:2506
+ fat_write_begin+0x52/0xe0 fs/fat/inode.c:230
+ generic_perform_write+0x186/0x490 mm/filemap.c:4374
+ __generic_file_write_iter+0x9e/0x120 mm/filemap.c:4491
+ generic_file_write_iter+0x77/0x1f0 mm/filemap.c:4517
+ __kernel_write_iter+0x30f/0x590 fs/read_write.c:621
+ dump_emit_page fs/coredump.c:1293 [inline]
+ dump_user_range+0xa73/0xd00 fs/coredump.c:1367
+ elf_core_dump+0x21c0/0x2340 fs/binfmt_elf.c:2106
+ coredump_write+0xafb/0xdd0 fs/coredump.c:1047
+ do_coredump fs/coredump.c:1126 [inline]
+ vfs_coredump+0x2762/0x3270 fs/coredump.c:1195
+ get_signal+0xd33/0xf10 kernel/signal.c:3036
+ arch_do_signal_or_restart+0x96/0x480 arch/x86/kernel/signal.c:337
+ __exit_to_user_mode_loop kernel/entry/common.c:66 [inline]
+ exit_to_user_mode_loop kernel/entry/common.c:101 [inline]
+ __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
+ irqentry_exit_to_user_mode_prepare include/linux/irq-entry-common.h:244 [inline]
+ irqentry_exit_to_user_mode include/linux/irq-entry-common.h:315 [inline]
+ irqentry_exit+0x14d/0x610 kernel/entry/common.c:165
+ exc_general_protection+0x155/0x1e0 arch/x86/kernel/traps.c:914
+ asm_exc_general_protection+0x26/0x30 arch/x86/include/asm/idtentry.h:589
+
+Reported by Kernel Concurrency Sanitizer on:
+CPU: 1 UID: 0 PID: 8427 Comm: syz.4.1138 Not tainted syzkaller #0 PREEMPT(lazy) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+==================================================================
+
+
 ---
- drivers/gpu/drm/ttm/ttm_pool.c | 15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
-index 1f52a1f59d7b7..dd5666eb4692b 100644
---- a/drivers/gpu/drm/ttm/ttm_pool.c
-+++ b/drivers/gpu/drm/ttm/ttm_pool.c
-@@ -838,6 +838,7 @@ int ttm_pool_restore_and_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
- {
- 	struct ttm_pool_tt_restore *restore = tt->restore;
- 	struct ttm_pool_alloc_state alloc;
-+	int ret;
- 
- 	if (WARN_ON(!ttm_tt_is_backed_up(tt)))
- 		return -EINVAL;
-@@ -861,14 +862,22 @@ int ttm_pool_restore_and_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
- 	} else {
- 		alloc = restore->snapshot_alloc;
- 		if (ttm_pool_restore_valid(restore)) {
--			int ret = ttm_pool_restore_commit(restore, tt->backup,
--							  ctx, &alloc);
-+			ret = ttm_pool_restore_commit(restore, tt->backup,
-+						      ctx, &alloc);
- 
- 			if (ret)
- 				return ret;
- 		}
--		if (!alloc.remaining_pages)
-+		if (!alloc.remaining_pages) {
-+			ret = ttm_pool_apply_caching(&alloc);
-+			if (ret)
-+				return ret;
-+
-+			kfree(tt->restore);
-+			tt->restore = NULL;
-+
- 			return 0;
-+		}
- 	}
- 
- 	return __ttm_pool_alloc(pool, tt, ctx, &alloc, restore);
--- 
-2.53.0
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
