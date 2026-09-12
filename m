@@ -1,130 +1,132 @@
-Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FEAB1E8332
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 00:53:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.179
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789174385; cv=none; b=gLXbUyXFEHlXVhVZ5eDEixjhab6a7L4SUct0zK8ZSkvXw13VO7PkUf3IfgQR+0BLStAoiOlkB+QWJFn+SXmt7rt7b+B0Cqo1gmCjxzLAE47kPGMM0xRj0310R8mjrgvwtzZvJH7Rmfh/Qjc3Ny8TTXLvPiHQJ08+X9b2/8/1CHQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789174385; c=relaxed/simple;
-	bh=Z0B1tYQoy2wwCjBSDJn+vaoAZbny+EqSWEL2H4Ek3mI=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=aAb3B4VgoVbpEkJkBsc0Wpbnyle+k74xfk4ylkQ9dZ3k+JVNkjaXUWfgR51uSIIlPpEH/QKfvEfviOBMzE/syFjhKxxXFV92Wj/TKJQGInQ3i2TLGWuAjiioPWaVuuQ2NgD4Rpbuza4tf7GPZ6/0XceO+gqSlX8qLkiVzGR8FH0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XrMGz679; arc=none smtp.client-ip=209.85.160.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E97C51E8332
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 00:53:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789174392; cv=pass; b=uRr1akuBuygH51ux7JXhHDYw2muiP4FgwMjYVd7b1XiaK5ntRl2j2klE6t1RICVWj88TXi36Cg6QTzu+h/xNs3QKBOddTl9MYyP6fd4xO2/KiNX4F2EmEI+lpcW8QtFn47CZqQEe4H7WMQzW9AatvHen5+xJSXDHWnHupJmLdzM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789174392; c=relaxed/simple;
+	bh=CQQ5uxI5LJywT10nnwzEUlbjvcuF9cqEPowouB9NJYM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=AGdvfhj02Aljm7uMUOvuQWUaaoYB6X3LeEY3W0uoKLuxpWUNjrt9NjJekihzxWl7zq9VA8tT4MNYhN3ao630ETzhG2o7WKhZtAmx1Hf4Qy03rOouFu5XdVPdvAeYardIBugM5qy5BD75XxCRSdpUWioPb3mGD2mMR9znU8gfqKg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M6nXHCLg; arc=pass smtp.client-ip=209.85.218.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XrMGz679"
-Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-5300bdf61d9so20214191cf.3
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 17:53:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M6nXHCLg"
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c2940d16190so224142666b.3
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 17:53:10 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789174389; cv=none;
+        d=google.com; s=arc-20260327;
+        b=PIhA3/wgXUyMU5kTNCF+CxIvLYp8EWoja2le6m0AxoHUHiBAXgXkw8IeIGYp01meIR
+         TG+cli1EC2uhNtNVzVa4JxNFa6AJkWKMVAaLsn5vPwgazuuBkNXtBKyNXp0ia1KUh0Zc
+         MLu1rDO6cOn95eQ9CrRBLjatn2oXd967i2UJf0Fcx4lSwF+iZ3mIfm+FOtMN6B7o5OOu
+         ExAA24J2VV4nQlnh5TftyyvWPuaab4JA3C40B4R92rtLfkBFYdHlW/frDniR4rqFVGCJ
+         SHm4tD1jnlNaitNd8wo9uH0jqZhWf2Cc67n1+UlTxEoC4NxfRfr21KGvVcgARZ34AtG4
+         6V0w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=CQQ5uxI5LJywT10nnwzEUlbjvcuF9cqEPowouB9NJYM=;
+        fh=QBKr/J7y5EHz0OCZIQgIBf7SRIdrRSM1ceKFJ6tLdSY=;
+        b=IeCpKMYO4HsDmQ9Hyz27FFp2CNoL9u8boBuC6Jn/+bTwzukgdCvBe1R6VkY/Kpn6Sk
+         koByeCYcyrF2DvvtrGtE1zCCPBDn8Y36qv/JYbbtDXi0XmEhwwUr8DVrON+2IcnSxrIh
+         ITbZ/RIrTlDoL2X4qVmEZUsQQePxfnKghATkeo58MTES1xenIOajJeCr/d0uBXtXXwAT
+         EOfJ4B646hoTnD5W/4OLXdg3aR7SE6iFvi+G2Cj2Vj78BK5dMB6kPdVIXfSMn+Bin3nZ
+         LwGCE3DyVCV4qk1FFsEFAUXGX2/5pJrFDyNbQ2to8R24BIORSPVuUbCd5Ipo3AFrTmtK
+         NcYQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789174383; x=1789779183; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Z0B1tYQoy2wwCjBSDJn+vaoAZbny+EqSWEL2H4Ek3mI=;
-        b=XrMGz679areLNmPuKDMyhIna1IRQdnT2i57c4NbFNUez9HGoq9Fe6q6oAR0cQVuNjO
-         MUG1WSeH3mgfHGmFgcMpW5J4Ka1TfyX2sXbAyq1z380IHkwGGc/82qSL3ZZpaoHZDPpD
-         PyS+NaakHpWulEpcWsjbn4udShXkk+Nq1sHA7aQPXykMBM3302yH30II+A7Mbe0PbjQV
-         HC2I1tZlbqhsE0Q/HdVRbMBH6z2G9fKK390PLyTJpJ4AItDAHya/2Ghgnxjlx/nOSxbf
-         pw19KYQstMswWDAkIFZR7StG68JlQaP+2961xMuRlHxCrqDNoZ/686KpUFdu59fH+HzO
-         WA1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789174383; x=1789779183;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1789174389; x=1789779189; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Z0B1tYQoy2wwCjBSDJn+vaoAZbny+EqSWEL2H4Ek3mI=;
-        b=p7V55Dmlhdb3gC9xZw2axWFqXmgEEVaYb1cWF5j2oOKfYQZUlczkyqfAP5ZLTqQlSP
-         e1BQjZjthXFJnuvKSfHMxmKvcrPgiV+Jb5ulrUUWbI+Rer6EkjfxprsgyAJ9jTfTfgYF
-         OyonrZJm5PlJcS2dEZijHMP8wKX28VQCIgmArpeKYt1rwPjbr0agPjym5qAo3K8IbHEH
-         TBr3wjq9iY/bGGuVdyPcJfS52rZUrvh307aaHlng7oAq2h2rtXP5AozanA5/jerSBwL5
-         oSKpxynIDv9OM0nn7K5SpDb/k8HmPQCy4qpkPB12ZY4HZzhwQgSOMFlZN/tIgkJ4CbEP
-         jrlg==
-X-Forwarded-Encrypted: i=1; AKwUvBwgpuZp5Wfkrb+zirX/MV+VuUFqtOg46pcu+X7gpudvnLvMWl76165kKPMGOpRzgAlYHYICLck2ky2H3pY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kOem+20gKbGsI8lVQDJbl32C1Tanj0iCatRXvibsTpOkG2Kxfg
-	zCI8iLttrs3/ApbTXBSR+UOm3OExm/Hd3bTwrAQ2Uq65OevM+MolDxx6
-X-Gm-Gg: AYBFou31Uys3q8BXUo3tb+iiuMIAc/rGSQjQKrymDkS3XTqxebXlPdTx3lFDyMYBBRs
-	HGfRDe9yBGchi83Z/Z3YGsMSlPKZGiBGRxDdEVOH9r7diJ/BNLdCGbrINow+AiR7VIhbv6ocXEk
-	ewe4NC1tjGurz4Sq3m0SKYwyOb16WyIudy2QsrQA1uVCd5l9DIDsC+2QVZzahChzPOAZ3mnczeD
-	qlrj6V1Sk/C92jJ8T3/Zb4IB4hTFCUlM/TBliX0iKiJU7pKwbsp3eZG1uSca6CN8ken8sDyr8Dq
-	Mr0SpauqdKGFgXMPIDfdOjyGxsyTJZ52AOo2K+qZIUjgQIuhOjMo8fiRLGTIiz7WgI60Vb2InU9
-	Mnb3lTiEIbLIscLJifVd5TlWO3lJwGjubG4SvQVZfhp8iwQmchuAYUZoRvh6rWPYfkp+V2003s+
-	RwEKSjOLkAdAp8RxpxY8dqtjGXizTaWO6i+OvkXeDp6jweLhmQCdqAxFA=
-X-Received: by 2002:a05:622a:64c:b0:51b:efbb:fbf with SMTP id d75a77b69052e-530c8542899mr105004331cf.18.1789174383053;
-        Fri, 11 Sep 2026 17:53:03 -0700 (PDT)
-Received: from localhost ([2601:8c:4b7f:2b40::d060])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f478bf1sm33798776d6.25.2026.09.11.17.53.01
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 11 Sep 2026 17:53:02 -0700 (PDT)
+        bh=CQQ5uxI5LJywT10nnwzEUlbjvcuF9cqEPowouB9NJYM=;
+        b=M6nXHCLgKnJz4RWXriSUPlzYrFaCIph0CapgEoDCVGumdGLXCy9dHgs5YIpz74mfrg
+         b+yNKGpNJgLcRRtb8vi2BC215CfpFuabnyscg/ZCKSw1subIrni867Q56obS505FXtyO
+         yXU/+XqdNsqHNL38TCFRE55ZF4DCGaLHPPBx2E2zKYInrcfNywFh1EBu4axQ32QmgTF8
+         8gCJRwnwS2Qt/Pud4RFTXgZzCC7nF+EoJEXXA2TApZy0MCE0TfnJm87VbZo2fysfA7IV
+         BZ3pjLWYGxHc727jFJRM3UC2twiFfjTaszCR35Gw4CHV05K+tlL9UQutozGzEFuWHhJf
+         kA/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789174389; x=1789779189;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=CQQ5uxI5LJywT10nnwzEUlbjvcuF9cqEPowouB9NJYM=;
+        b=AhPyXe5/WYV2OJvaxT+Z4RwmXhurHI8gncaMYd4IYKiAVfL+yvxrsz6nSHPOxcjbX7
+         MMdGm1b0pquF33y4maWDaPjlzi+RQ2DUZn5obq1eV4TVWaGRfyypRGaW9YPnjPMjNIng
+         iIe74kZDeP3J3qiFfULUn8L/1WcLAJ+8eJy4W+1ItOHeG1/Ilq+yl094Ams5i8RObb3g
+         6dwpEcL2eOgTJ25OgHEhTMrhFoVu1n8OWYUNOzTkqI5bCdr7IcfTNGd9If6o3Asc/se1
+         FIybHIM5T0xFUJ6mXAbBd60codhK5DszPFB0jUOIfNPMAIR+/CqZZOpA3Hu2tlSqs4u9
+         +K7g==
+X-Forwarded-Encrypted: i=1; AKwUvByZMh0MkFfl1c1WF6zFp2SAW6LTBukCdHvqXFfqhj8m6Ssf7Go7VHQPfvkqWPlmTniytnQiyIkpQH0Zv+Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++nKGVrMyPdca3B2ktiFfwsotfyVN7lf7V3ElSZw39DOyucIMv8a
+	R6UQ42+wHyFxFEoaoB+hvru8b0uZ7y2Ldz3JOKlOpuDC/JXZJ8VqkbBoWZwxOLsLXyaT15Tfy+i
+	w3jeLhmaXYvG7Fy6x7kmLiVW2Zs7CrgLt0mHR
+X-Gm-Gg: AYBFou0PwxpSKu/l4bs1okdCPKdnbgLi9jKJYC+AFXZmuNleEps/WeK0/j2ihxDqwyh
+	2i12bxL4Lc7E4FJtNKDUoS09DC04hSeybuBlbfduVgysQDYjEaT8pvLzrE27629dThf1lijruW4
+	2+wk59HqghL8SRMWtW/8ZHi5UJ4lI4melqM43Mq80NSR7bkfQvEoGe2b/gxXpCG9qVf1+90nIsE
+	MQ+Nc3VDcoEOUsLg789U+cA1h99dluTExQ7CTkOAdt4/LyEmfBu9ce1WD/TYo7YTPYt3I79o6xF
+	ZZj9SboQ7lJJ1Po8EEtfo7l9nltncbMaMSxBqJBknyTPbyUb4lMYuAPB/hCW/+7Z
+X-Received: by 2002:a17:907:8b91:b0:c28:f9e4:836c with SMTP id
+ a640c23a62f3a-c2966746c86mr293173366b.28.1789174388992; Fri, 11 Sep 2026
+ 17:53:08 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 11 Sep 2026 20:53:01 -0400
-Message-Id: <DLCXDVPGGC8M.11EBKPBY2KNVP@gmail.com>
-Cc: "Willem de Bruijn" <willemb@google.com>, <netdev@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>
-Subject: Re: [PATCH net 1/2] net: psp: avoid conflicts with skb->decrypted
- and sk_validate_xmit_skb()
-From: "Daniel Zahka" <daniel.zahka@gmail.com>
-To: "Daniel Zahka" <daniel.zahka@gmail.com>, "Eric Dumazet"
- <edumazet@google.com>, "Neal Cardwell" <ncardwell@google.com>, "Kuniyuki
- Iwashima" <kuniyu@google.com>, "David S. Miller" <davem@davemloft.net>,
- "Jakub Kicinski" <kuba@kernel.org>, "Paolo Abeni" <pabeni@redhat.com>,
- "Simon Horman" <horms@kernel.org>, "Willem de Bruijn"
- <willemdebruijn.kernel@gmail.com>, "Andrew Lunn" <andrew+netdev@lunn.ch>,
- "Shuah Khan" <shuah@kernel.org>
-X-Mailer: aerc 0.21.0-threadmapfix
-References: <20260910-psp-ktls-fix-v1-0-e3f30aaeca4e@gmail.com>
- <20260910-psp-ktls-fix-v1-1-e3f30aaeca4e@gmail.com>
-In-Reply-To: <20260910-psp-ktls-fix-v1-1-e3f30aaeca4e@gmail.com>
+MIME-Version: 1.0
+References: <20260911213340.3767930-3-main.kalliope@gmail.com> <c440fa97680eae9966579d51586c2e6b9936bfc3157225269166e1c133515f8c@mail.kernel.org>
+In-Reply-To: <c440fa97680eae9966579d51586c2e6b9936bfc3157225269166e1c133515f8c@mail.kernel.org>
+From: Nicholas Dudar <main.kalliope@gmail.com>
+Date: Fri, 11 Sep 2026 20:52:57 -0400
+X-Gm-Features: AcwNN1Ur_WOJSfWbT1nTjTcNVZl3abwhTBIueEcresXiT5wFs3FL9dx_llrHL2k
+Message-ID: <CAJZwKkgKjSOsHADdupd8cFdyUXKQeVzNmwLyX0jDorru1p1W7A@mail.gmail.com>
+Subject: Re: [PATCH bpf-next v4 2/3] MIPS: uasm: Add signed div/mod and
+ sign-extension emitters
+To: bot+bpf-ci@kernel.org
+Cc: tsbogend@alpha.franken.de, ast@kernel.org, daniel@iogearbox.net, 
+	andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com, 
+	johan.almbladh@anyfinetworks.com, paulburton@kernel.org, martin.lau@linux.dev, 
+	song@kernel.org, yonghong.song@linux.dev, jolsa@kernel.org, 
+	emil@etsalapatis.com, ihor.solodrai@linux.dev, linux-mips@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org, philmd@oss.qualcomm.com, 
+	martin.lau@kernel.org, mason@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu Sep 10, 2026 at 7:46 PM EDT, Daniel Zahka wrote:
-> PSP conflicts with TLS ULP in its usage of both skb->decrypted and
-> sk->sk_validate_xmit_skb(). Offloaded TLS conflicts on both sides in
-> both Tx and Rx. SW TLS could mistake skb->decrypted in the Rx path set
-> by a PSP device as being a decrypted TLS record.
->
-> Prevent PSP from being used with other socket features that use
-> skb->decrypted or sk->sk_validate_xmit_skb().
->
-> For now, we include all TCP ULPs in the sk_has_decrypt_user() check,
-> even though TLS is the only one that conflicts with PSP via the
-> decrypted bit. This is intentional because PSP was not designed to be
-> used with ULPs. It is best to close off surface area that may make bugs
-> reachable, until someone wishes to design and test an actual user of PSP
-> with ULPs.
->
-> Fixes: 6b46ca260e22 ("net: psp: add socket security association code")
-> Signed-off-by: Daniel Zahka <daniel.zahka@gmail.com>
-> ---
+> This isn't a bug, but would it read better to add the SEB and SEH emitters
+> together with their first caller in the BPF_MOVSX series?
 
-sashiko and clashiko both point out that sk_clone() is still broken if
-the listener socket has psp assoc tx state. In this case, the
-sk->sk_validate_xmit_skb function is not cleared out in the cloned
-socket.
+I grouped the native-MIPS uasm additions for SDIV/SMOD and MOVSX in one
+preparatory patch, with instruction selection handled by their respective
+JIT changes. MOVSX v3 will declare this series as a dependency. Keeping
+SEB/SEH with their first callers would also be a valid split.
 
-In sashiko's eyes, this patch constitutes a regression, because before
-the stale validate callback would mostly just be a waste of instructions
-on the child socket, whereas after this commit the child, without psp
-assoc state, would be ineligible for rx assoc.
+Until those callers arrive, the emitters are unused. Their definitions
+do not generate instructions, and the existing opcode encodings are
+preserved.
 
-I think we should remove the ability to attach psp assoc state to
-listener sockets. I don't see a simple path towards making that a useful
-feature given the current model we have for psp that is very much geared
-towards upgrading from established state.
+> and CONFIG_CPU_MICROMIPS kernels would hit build_insn()'s panic for them
+> since arch/mips/mm/uasm-micromips.c isn't updated with their encodings.
 
-As a reference, Google's psp repo [1] demonstrates listening sockets
-accepting a psp encrypted TCP SYN, and replying with an encrypted SYN
-ACK. To make that work requires exchanging keys beforehand, and pre
-installing the psp state per connection on the listening socket. That is
-a completely different connection model.
+That requires a microMIPS caller. Neither this series nor the existing
+kernel code calls these emitters, and the planned MOVSX callers cannot
+be built for microMIPS: MIPS only selects HAVE_EBPF_JIT when
+!CPU_MICROMIPS.
 
-[1]: https://github.com/google/psp/tree/linux-v5.15-psp-v1.0
+I checked this on the posted v4: olddefconfig removes the attempted BPF
+JIT settings with CPU_MICROMIPS enabled, and the microMIPS uasm object
+builds successfully. Compiled-table comparisons also confirm that every
+existing native and microMIPS opcode entry is preserved.
+
+I also ran test_bpf on the official base and standalone v4, without
+MOVSX, under QEMU Malta on little-endian MIPS32 R2 and MIPS64 R2.
+Both showed exactly 14 signed DIV/MOD failures becoming passes, with
+no other test-status changes.
+
+Nicholas
