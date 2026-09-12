@@ -1,88 +1,80 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93A3B2C3251;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43F6730E853;
 	Sat, 12 Sep 2026 05:47:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789192031; cv=none; b=Imn4XEsuzntOLHB43j3HFHR2ERLb56X0mlI4Q6N2Tah8UDM9JiMrFEmtdn73WBUMMCm/wcR/1An8OYLmQfCx7Qvb1+eQD2lUKFLJuW0x9VDYVNGQ7lPLje8TrBBEcFs2PSnh0735XyynBvCGAMtmYsbr50dPHXwOryB/8FDfAAk=
+	t=1789192032; cv=none; b=kmlU+EYivWjOsDcnrdG7X4zE3Mptg4LmtC7Jj4tiQHPth6fLgKIFJ/FB5GXsQpJCKMkZjL7wuhals63dvzT75B7bVnzPGzmApL2u3edMD37Db3XCgv3XcfCtfWVs80Ex/oOQaqkL67JBjOxKfwQAVD5fCk9I9K/Z3GHN/P8WEGY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789192031; c=relaxed/simple;
-	bh=wbALB+P/n6+D5E3k+DwxJSR6GBEdaf9n0qGWy6O02hE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DDCyip4mFO+u7oEhaBeCKrTXMNA8dw0XCpZiWK35rmtBWydIEwSRYTzUDYVUHDhsUyXnGN/GgGO9U7gly+7wIKw4dTHpP5TC+Yj1m2SWRzdKelDWpumNkAbXjukuTDaWhXVKkK+tYunu34QBULraovTQR0O1QIHeuTJadNxqyqs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GFf/wJKH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789192032; c=relaxed/simple;
+	bh=XtjdVOa4ofFL2/map0QAzdphOu8JVuMkNoLmzpb4YmM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cQjvPe5Z0OvH5Y6rhgnH+h4NxQ8aZF/rk6rOEp0RGWl/ViGDg8tZhKYhCSY24HXkRZlxHsRIn/I+GgXp8SY2FVTjXjq3wGHWatSP5b2CcBN2hoAic7cY6gKUQ/leY45LkUa2iitlsjub99UQ/9Ct8jJkrxLmBv+xmUsItV6uR+Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=aa2PHdQg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GFf/wJKH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A62841F000FF;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="aa2PHdQg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B66191F00893;
 	Sat, 12 Sep 2026 05:47:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789192030;
-	bh=uNK9hE2bCV4rOoiH5G8sV/37BeoD+5r/+xuxjjN/A+o=;
-	h=From:To:Cc:Subject:Date;
-	b=GFf/wJKH9hMUFCr9Uf0AHmT7qyVY4OUfDTa9M9sgZcdw0duDDmGKd0Qal+cjwq9hq
-	 ObFyRThk1r+8QabJ1YDbPSZvU4i4zIbY7sVFLUdJPHE9TPVcLnx39cb3LWrSp1vd61
-	 dO/NI9DDsI6QbK7THI/9PGIhAaHv7QDJ4+D6BE62AoPWiT1G/BinE2jZVRwL5Iu5vr
-	 okyq8yLjQY+rKN5qf1gaWImnUKTNo+AYRRtb1C7QHgWtrOPRdPYFenBykk1YyId8Y1
-	 TdP3GxNwZKQTj+OPp2txYElLEtUcsuKsqxhv/OGhGLrCKi9yII0nzFLhAUK6Go1Bxn
-	 J0rwru8tiIz0A==
-From: Namhyung Kim <namhyung@kernel.org>
-To: Arnaldo Carvalho de Melo <acme@kernel.org>
-Cc: Ian Rogers <irogers@google.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@kernel.org>,
-	LKML <linux-kernel@vger.kernel.org>,
-	linux-perf-users@vger.kernel.org,
-	Zecheng Li <zli94@ncsu.edu>,
-	Yanbo Zhao <yzhao62@ncsu.edu>,
-	Tengda Wu <wutengda@huaweicloud.com>,
-	Shuai Xue <xueshuai@linux.alibaba.com>
-Subject: [PATCH 0/4] perf annotate-data: Support flexible array types
-Date: Fri, 11 Sep 2026 22:47:02 -0700
-Message-ID: <20260912054706.1475583-1-namhyung@kernel.org>
-X-Mailer: git-send-email 2.55.0.1032.g73a4cd73de-goog
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789192030;
+	bh=I1xw0WIHIZxIqpPpXrHwOD6f1qs8OsT841gbBO28lGQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aa2PHdQg4+PvANHacVKowSLHfTGDeGCuR7LhcLPwyghvZVnaARHPauLW7qErLoiJa
+	 SvNDBQ2Tdjl76HqDjB7JHQsCtb2kqsFUvb+hXfLlhUd2AyFk/o0gSASk8i3LNzTTyD
+	 qFm6J49svMxKux/Fcm27pyUsVIPvZkE/Zxka4lX0=
+Date: Sat, 12 Sep 2026 07:47:00 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: co <co+66c3f58096d0bde8@bugs.sh>
+Cc: linux-usb@vger.kernel.org,
+	Valentina Manea <valentina.manea.m@gmail.com>,
+	Shuah Khan <shuah@kernel.org>, Hongren Zheng <i@zenithal.me>,
+	Suwan Kim <suwan.kim027@gmail.com>, linux-kernel@vger.kernel.org
+Subject: Re: [BUG] drivers/usb: NULL pointer dereference in
+ stub_recv_cmd_submit()
+Message-ID: <2026091217-almighty-slouching-de2c@gregkh>
+References: <J3vQPnNHSkQ6YUiFvu1bk8ai3Q8aZ7a9J1Y7@bugs.sh>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <J3vQPnNHSkQ6YUiFvu1bk8ai3Q8aZ7a9J1Y7@bugs.sh>
 
-Hello,
+On Sat, Sep 12, 2026 at 02:06:13AM +0000, co wrote:
+> This is a bug report, not a patch submission. See
+> https://bugs.sh/reporting.html
+> 
+> We found a bug reachable in:
+> 
+>     path    drivers/usb/usbip
+>     crash   NULL pointer dereference in stub_recv_cmd_submit()
+>     commit  2f1baf1fc892 ("Merge tag 'trace-v7.2-rc7' of git://git.kernel.org/pub/scm/linux/kernel/git/trace/linux-trace")
+> 
+> Config, environment, the sanitizer report and a C reproducer follow.
+> 
+> == Notes ===============================================================
+>     If you fix this bug, this tag credits the report and lets us
+>     close it on our side:
+> 
+> Reported-by: co+66c3f58096d0bde8@bugs.sh
+> 
+>     Everything in this mail is validated by the reproducer below.
+> 
+>     We also hold an unreviewed LLM-generated analysis and candidate
+>     patch. The same reproducer panics the unpatched kernel and runs
+>     clean with that patch applied. Use it as a starting point, or ignore
+>     it and write your own:
+> 
+>         patch.diff  https://bugs.sh/b/66c3f58096d0bde8/patch.diff
 
-The flexible arrays are dynamically allocated with different size.  So checking
-with the original type size won't match and cannot match the sample.  This patch
-series detects those flex-arrays and allows accesses beyond the original size.
+Please just submit patches like normal, in a format that can be applied,
+and do not make us go to random links to attempt to get any information.
+That's not how kernel development works at all.
 
-I'm not sure what's the best way to add test codes for data type profiling as it
-seems we need to add a lot more workloads for different cases.  Probably we may
-want to split the workloads as separate binaries.
+thanks,
 
-Thanks,
-Namhyung
-
-
-Cc: Zecheng Li <zli94@ncsu.edu>
-Cc: Yanbo Zhao <yzhao62@ncsu.edu>
-Cc: Tengda Wu <wutengda@huaweicloud.com>
-Cc: Shuai Xue <xueshuai@linux.alibaba.com>
-
-Namhyung Kim (4):
-  perf annotate-data: Convert type histogram to hashmap
-  perf dwarf-aux: Add die_has_flex_array() helper
-  perf annotate-date: Allow out-of-size access for flex-array types
-  perf annotate-data: Adjust type offset for flex-array
-
- tools/perf/ui/browsers/annotate-data.c |  11 +-
- tools/perf/util/annotate-data.c        | 167 +++++++++++++++++++------
- tools/perf/util/annotate-data.h        |  10 +-
- tools/perf/util/dwarf-aux.c            |  57 +++++++++
- tools/perf/util/dwarf-aux.h            |   3 +
- 5 files changed, 202 insertions(+), 46 deletions(-)
-
--- 
-2.55.0.1032.g73a4cd73de-goog
-
+greg k-h
