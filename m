@@ -1,43 +1,47 @@
 Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 910EB3B3BE9
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 19:14:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1B4048D88E
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 19:14:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789240497; cv=none; b=k9xN3QanY1SdAL7g6UfW6yfI/TnFBC3Ad3n8mYIFIixNRmeByrxIt1UkKx+b3M+5Mg4zqj3j3064jrb2pIrXWHeDmm4dRvY4NPPLYTmij5U6TVdCm5ZJCX0CawJZHsChl7W250EAWgCu/17jAcdXckZ79k1pCuoLRnmgXeob1Rc=
+	t=1789240497; cv=none; b=q+mwiSmGhRItoKX9DnihODB4zf8IfyLb/+K8qPb+QUD43ZmVBHGVj+rFmcUouvsGHrh4CK4RS9pA2dm502VodO4w18l35x1U/ST/oVshdJtUYC95szDKkyyYFz2P7eVajxxMqpLG0Ooj8PZwBUO6wEAeSIiQ2aBLdCeWdbt+IKU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789240497; c=relaxed/simple;
-	bh=9jZZHtUJ9Vlf32LwXhb6U36qZzQLoX2JpeFyt2215wk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iJJu87c7dpHi5az/KCgeHrOA8csz7xAW7GgCEyWfqWJzOFUAbFKIQiF7PbX8dD6ZzKDTSIj8Y48HBkwn0t0x8LNVstkrGxrIAAqVbp9rH9+itifKKPq1aQQu2E+lEeWuwnEXYevt3s715t5hYo4Z01RZ4FQRhyWoeUD8Z3H/36g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=Hihtw41B; arc=none smtp.client-ip=194.117.254.33
+	bh=lDN34E1cSMytRNznJ9Oh9/pMmYog5phgJEbH2gZSCGg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=qiYGUvvn1Nef7FOy1K0NUU+QdD3BMzH+MFjNey9mjxXtJQ1GaUVX4VzxsmvKpx0abXqS7wlOz0RpnYrMoSK/rgtGnNyIiLXjAn5Vfi/ZLkemn/AwZO9Tl1weo/e//jDwZa9F97ki7gNfoj995AMvK1vvztVr7utAhsoe8HfFMxg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=SiBdiW5H; arc=none smtp.client-ip=194.117.254.33
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="Hihtw41B"
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="SiBdiW5H"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	sang-engineering.com; h=from:to:cc:subject:date:message-id
-	:mime-version:content-transfer-encoding; s=k1; bh=hXxrm04WuYpXWj
-	7dY2iBnpaQCrhs6vSTXPHoviyO2Lk=; b=Hihtw41BDNXixCQAOap5zxnNxAdcja
-	znNMqe3NGDepcOFB+axnRMONkBpHkhSoNk0UVaDfofyU7vmplXEgdbx+YEy0z98z
-	D4Y5jP2UrSqTRG1sKCh7JqL64k5K8VbnSKfNgQeAhmCYMQORZZx66tv9Fp2s9Xhp
-	o9WJ9nbRRH6Vg4e35CfytWrrzohe6QcdorHnBjBMzsoL1+rn/8ckbyzPaZvgGqI1
-	nBi7p2CmKOpRsfJkA9qRziHCdy8qlf1n1RWr6j+f6ykG44u7q6cBELBfm2aYZsRw
-	uGp9yugoyj9OQ5nrkkP9h6aA7rNO2pzImo6N8FcMWsfdpdBV9Fm8xhJQ==
-Received: (qmail 105194 invoked from network); 12 Sep 2026 21:14:49 +0200
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 12 Sep 2026 21:14:49 +0200
-X-UD-Smtp-Session: l3s3148p1@hOzLA05bnrYujnsz
+	:in-reply-to:references:mime-version:content-transfer-encoding;
+	 s=k1; bh=qwhdoD0R8EFPgpLc6tXFj3KTuVR3dVvJTYzNRHyNGd0=; b=SiBdiW
+	5HKJAU3yOoa6uHGNN+5IUaAyB+Xf6KV7sZ04dKIgbxZNxHMoNZ1Cqqlz+vGn4G4R
+	SZVLm29ziNrR19xIasiJwe0EP2boat0kmPxMPdSJtr/SHkHMEfYbGi8XY1y7tNmN
+	CvBvrwomMx/RgDb/kVXYS9q47VOgIVgxL5nEMokCAOWzbR/Vlv5RLOexMwx42ZcN
+	GukYF4OroNLRTg+cXhNPRhmmianAzpRZJ75pwe51EHv0Wsy+gNeEtK6F+bn5UsEi
+	2n6keQwwshy0+d/aB8CWNU5EsnZeiojwhoMlUNJZtby3ZQBXs23Qf24vW69qoxaB
+	MtdepmPUNDnaRbFA==
+Received: (qmail 105282 invoked from network); 12 Sep 2026 21:14:51 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 12 Sep 2026 21:14:51 +0200
+X-UD-Smtp-Session: l3s3148p1@UJzsA05bwrYujnsz
 From: Wolfram Sang <wsa+renesas@sang-engineering.com>
 To: linux-renesas-soc@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org,
 	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
 	Bjorn Andersson <andersson@kernel.org>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
 	linux-remoteproc@vger.kernel.org
-Subject: [PATCH v7 0/3] hwspinlock: convert to XArray and add debug capabilities
-Date: Sat, 12 Sep 2026 21:14:38 +0200
-Message-ID: <20260912191442.99453-1-wsa+renesas@sang-engineering.com>
+Subject: [PATCH v7 3/3] hwspinlock: add low level debug capabilities
+Date: Sat, 12 Sep 2026 21:14:41 +0200
+Message-ID: <20260912191442.99453-4-wsa+renesas@sang-engineering.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260912191442.99453-1-wsa+renesas@sang-engineering.com>
+References: <20260912191442.99453-1-wsa+renesas@sang-engineering.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -46,57 +50,171 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Changes since v6 are only a rebase to linux-next as of 20260911 and a
-typo in the subject of patch 2 (was "list of mailboxes" instead of "list
-of locks").
+While developing the hwspinlock core or a device driver, it can be
+really helpful to change states from userspace. Add a debugsfs interface
+to request, free, lock, unlock, and test hwspinlocks. Because this is a
+potentially dangerous interface, it can only be enabled via source code.
+Similar to writeable attributes for clocks where this idea stems from.
+The created files take a single id for a single lock. To test all locks
+in a system, one could use this oneliner while in the debugfs directory:
 
-I would really love to get this applied. Since there have not been any
-reviewers lately, maybe it is time to put it into -next and see what
-happens. I will be there to fix things. Or we just revert if it goes all
-wrong. But Matthew is the creator of XArray, I tested this as much as I
-could and I took the Sashiko reviews into account. I don't know what to
-do else. But I can't continue fixing the real issues in the hwspinlock
-subsystem unless this series is applied :/ Here is the old coverletter
-for more details:
+for l in $(cut -d: -f1 hwspinlock_summary); do echo $l > test_lock; done
 
-I will not add more functionality to upcoming versions of this series,
-only address review comments. I do have a list of issues I still want to
-fix in hwspinlock, but only once this series is applied. So, I hope we
-can upstream this soon.
+Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+---
+ drivers/hwspinlock/hwspinlock_core.c | 132 +++++++++++++++++++++++++++
+ 1 file changed, 132 insertions(+)
 
-Renesas R-Car SoCs have their spinlocks inside a unit called MFIS. Up to
-R-Car Gen4, there was only one MFIS unit on the SoC. Gen5, though, has
-multiple instances and, thus, multiple spinlock providers. The spinlocks
-are meant for specific cases (AP<->AP, AP<->RT, AP<->SCP...). For
-development on these systems, it is helpful to have an overview of
-registered spinlocks in debugfs. Also, for debugging the hwspinlock
-core, it is helpful to change lock states from userspace to trigger
-corner cases.  This series adds support for all that. The first patch
-converts the subsystem from the deprecated radix-tree to the easier to
-handle XArray (Thank you again, Matthew!). The second patch adds the
-summary in debugfs based on the new XArray implementation. The third
-patch implements the low level debug interface.
-
-A branch for testing is here:
-
-git://git.kernel.org/pub/scm/linux/kernel/git/wsa/linux.git renesas/hwspinlock/xarray
-
-It has been tested on a SparrowHawk board (R-Car V4H) with one MFIS
-instance and an Ironhide board (R-Car X5H) with two MFIS instances.
-
-Looking forward to comments.
-
-
-Matthew Wilcox (Oracle) (1):
-  hwspinlock: Convert to XArray
-
-Wolfram Sang (2):
-  hwspinlock: add list of locks to debugfs
-  hwspinlock: add low level debug capabilities
-
- drivers/hwspinlock/hwspinlock_core.c | 369 ++++++++++++++++++++-------
- 1 file changed, 270 insertions(+), 99 deletions(-)
-
+diff --git a/drivers/hwspinlock/hwspinlock_core.c b/drivers/hwspinlock/hwspinlock_core.c
+index 947b4d4fa153..6fb2670873a2 100644
+--- a/drivers/hwspinlock/hwspinlock_core.c
++++ b/drivers/hwspinlock/hwspinlock_core.c
+@@ -910,6 +910,120 @@ static const struct seq_operations hwspinlock_sops = {
+ };
+ DEFINE_SEQ_ATTRIBUTE(hwspinlock);
+ 
++/*
++ * This can be dangerous, therefore don't provide any real compile time
++ * configuration option for this feature.
++ * People who want to use this will need to modify the source code directly.
++ */
++#undef HWSPINLOCK_LOW_LEVEL_DEBUG
++#ifdef HWSPINLOCK_LOW_LEVEL_DEBUG
++
++static int fops_request_set(void *data, u64 id)
++{
++	if (id > UINT_MAX)
++		return -EINVAL;
++
++	return hwspin_lock_request_specific(id) ? 0 : -ENOENT;
++}
++DEFINE_DEBUGFS_ATTRIBUTE(fops_request, NULL, fops_request_set, "%llu\n");
++
++static int fops_free_set(void *data, u64 id)
++{
++	struct hwspinlock *hwlock;
++
++	if (id > UINT_MAX)
++		return -EINVAL;
++
++	hwlock = xa_load(&hwspinlocks, id);
++
++	return hwlock ? hwspin_lock_free(hwlock) : -ENOENT;
++}
++DEFINE_DEBUGFS_ATTRIBUTE(fops_free, NULL, fops_free_set, "%llu\n");
++
++/*
++ * It is intentionally allowed to lock/free hwspinlocks which have not been
++ * requested before. Like error injection, these inconsistent states can be
++ * very useful for debugging. Be aware that you might need another properly
++ * requested lock on a provider to ensure that its clocks etc are enabled!
++ */
++static int fops_trylock_raw_set(void *data, u64 id)
++{
++	struct hwspinlock *hwlock;
++
++	if (id > UINT_MAX)
++		return -EINVAL;
++
++	hwlock = xa_load(&hwspinlocks, id);
++
++	return hwlock ? hwspin_trylock_raw(hwlock) : -ENOENT;
++}
++DEFINE_DEBUGFS_ATTRIBUTE(fops_trylock_raw, NULL, fops_trylock_raw_set, "%llu\n");
++
++static int fops_unlock_raw_set(void *data, u64 id)
++{
++	struct hwspinlock *hwlock;
++
++	if (id > UINT_MAX)
++		return -EINVAL;
++
++	hwlock = xa_load(&hwspinlocks, id);
++	if (hwlock)
++		hwspin_unlock_raw(hwlock);
++
++	return 0;
++}
++DEFINE_DEBUGFS_ATTRIBUTE(fops_unlock_raw, NULL, fops_unlock_raw_set, "%llu\n");
++
++static int fops_test_set(void *data, u64 id)
++{
++	struct hwspinlock *hwlock;
++	int ret;
++
++	if (id > UINT_MAX)
++		return -EINVAL;
++
++	hwlock = hwspin_lock_request_specific(id);
++	if (!hwlock)
++		return -ENOENT;
++
++	/* Try twice to see if unlocking was also successful */
++	for (int i = 0; i < 2; i++) {
++		ret = hwspin_trylock_raw(hwlock);
++		if (ret) {
++			hwspin_lock_free(hwlock);
++			return ret;
++		}
++
++		ret = hwspin_trylock_raw(hwlock);
++		if (ret != -EBUSY) {
++			if (ret == 0)
++				hwspin_unlock_raw(hwlock);
++			hwspin_lock_free(hwlock);
++			return -EACCES;
++		}
++
++		hwspin_unlock_raw(hwlock);
++	}
++
++	ret = hwspin_lock_free(hwlock);
++	if (ret)
++		return ret;
++
++	pr_info("Successfully tested lock %llu\n", id);
++	return 0;
++}
++DEFINE_DEBUGFS_ATTRIBUTE(fops_test, NULL, fops_test_set, "%llu\n");
++
++static void hwspin_lock_low_level_debug_init(struct dentry *rootdir)
++{
++	debugfs_create_file("request", 0200, rootdir, NULL, &fops_request);
++	debugfs_create_file("free", 0200, rootdir, NULL, &fops_free);
++	debugfs_create_file("lock", 0200, rootdir, NULL, &fops_trylock_raw);
++	debugfs_create_file("unlock", 0200, rootdir, NULL, &fops_unlock_raw);
++	debugfs_create_file("test_lock", 0200, rootdir, NULL, &fops_test);
++}
++#endif
++
+ /*
+  * subsys_initcall() is used here but controllers may already have been
+  * registered earlier or will be later. The rationale is that debugfs is
+@@ -922,6 +1036,24 @@ static int __init hwspin_lock_init(void)
+ 
+ 	debugfs_create_file("hwspinlock_summary", 0444, hwspinlock_debugfs,
+ 			    NULL, &hwspinlock_fops);
++
++#ifdef HWSPINLOCK_LOW_LEVEL_DEBUG
++	pr_warn("**********************************************************\n");
++	pr_warn("**   NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE   **\n");
++	pr_warn("**                                                      **\n");
++	pr_warn("**    Low Level Debug for hwspinlocks is compiled in!   **\n");
++	pr_warn("**                                                      **\n");
++	pr_warn("** This means safety, security, stability can be easily **\n");
++	pr_warn("** compromised from userspace!                          **\n");
++	pr_warn("**                                                      **\n");
++	pr_warn("** If you see this message and you are not debugging    **\n");
++	pr_warn("** the kernel, report this immediately to your vendor!  **\n");
++	pr_warn("**                                                      **\n");
++	pr_warn("**   NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE   **\n");
++	pr_warn("**********************************************************\n");
++	hwspin_lock_low_level_debug_init(hwspinlock_debugfs);
++#endif
++
+ 	return 0;
+ }
+ subsys_initcall(hwspin_lock_init);
 -- 
 2.53.0
 
