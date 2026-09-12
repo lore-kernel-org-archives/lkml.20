@@ -1,137 +1,271 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11D8E4248C6
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 15:51:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789228293; cv=pass; b=iofR52dm4h3CJ3MlXsrLZ364BRRiwq1sCBQxDEaOLR2jLrkOgFH1m7Ie6PerxYywxjAYNNAmpeBl5wYf7noKMrxC2ZpVflynVKfK/LTbg/vZRolVv24PO5vc2uuyrZC/KTOLCW8LMez4n0xQ0QG+j6R3VAXKK2sC+ALq1JDbtl4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789228293; c=relaxed/simple;
-	bh=SPedAVqPeiUb8NjiNxJnvdJv3qfQNNhKzjipm/j87EY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=U5PLCz+XjybGu7IK5SSuF8fUDeXk5PbIJxqFZf4Wgevytme831dkq/fImqb3wYpe+eOFW8pSwX7BHgQS1/9mWzZLuspsm5yHjgzY4/IOX8eeOv1hDh5bgfFV5psgQT+AjH7V2+Dg/IAL833jxmoDVTlaUPKXbBmvHkN3u2sqoYo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=flUFPye+; arc=pass smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D82F29DB64
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 15:57:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789228669; cv=none; b=Owp7IJ/Gfb4n1QVNMwUfRxWCDHrD7mqc8OttLjIYP0szV44bgBBvOgmMdCUw5zD8jqpZoT2Kp95zcfp/QoAoxZbB3Y2lQj8EEG/6mJw7IoATIaTaASnI/ToP4tRxVCJibknkX5PcEqLGZov1BscYIMtBxsRmHJ3e3eswwKsv+Us=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789228669; c=relaxed/simple;
+	bh=DDdwMavose+L44nqqW3Jbf/GzHVrxplojO2qv8SdCQU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mr3KFmb3A2fgqAf/fX25Br0WUtjN6+YHsjUZVRqDDfLyuIL7TPIrSOzN6gZcumy85wqtfVr0nqGoVyfaY5XEoOmIa//wxF8zteMusrpd9NYgR5lLDLgAPaluDNYZBNKmgSyBQ2tm1X5NlHUge3SOOuPdZW/ZPxd87sa4gSm4fRY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=dNMo1iQC; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=fzUeq5w7; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="flUFPye+"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c294496989aso144289866b.3
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 08:51:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789228290; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Oiy8DYTnS3BmJTAMRrf9na9PmQpQkVV4yfSRjjGL80lNNKFks32rlCEmaO+rQfuLFE
-         /KgJkh/ttc/jwbCLfvESzt7/Wb14fhyKuchyl6h8VWoNbUO+edJQPi71XKyWwvffyPKP
-         a5STzubpBGxNzqJPlUapa6wrEKKN1IiARsXKpkvq4AsN5J7d+jkUzkpREfuawy/hT4Zt
-         E4kMtmU9aL3XWKuF2WQV7ib/fpPjo1CHg0p7O5qSW0lOjNkzgQv8q9dopCJlFvvfuZ8X
-         I4mCyZYXrYQON9YGd1Nm6+4s9q6PjqtQIUNg2BRARwCWz1oMRouISh72nUVjIYBN3sBs
-         BQfg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=SPedAVqPeiUb8NjiNxJnvdJv3qfQNNhKzjipm/j87EY=;
-        fh=3LkwQ+V8gRW6E/Oui86hpQFdiW90XbUEWGCt0W8EusQ=;
-        b=pRsS/7x73rUp04c1hQ5rPlCHZT95c7FT7GFJ4n03iWFgqC9mzMIJ3FGofl3EmA9cNp
-         NX33FvztzAZlrLJGaJz88NpgiYgSttBwAKrdSsxL4ZgK8BACWNdCF+7wlJd5swYfSsPp
-         r4VdnylpPoltA7YSQFW5cwCp0TQQkwJ2M9atfPokfA54NgOueuefoHHiV4gIsl89UuPM
-         9xhr/2Gk7KGz4zcvGA1zDCFOSwLhxosBCl9MZBKw7uz3Ub3Vn45CbKE3yOJHoifcALw4
-         Y3bMM8Kldix00kYt8f+/e0wWC22A5Qcnz4OyyBQxyF+4dEsMgxtcuuz/Yu2ZXVbRE+WV
-         ksdQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="dNMo1iQC";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="fzUeq5w7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789228666;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+Suz8unb1e4b6bNiUz2gPySCHFTJdV6OXkzqI95eyBY=;
+	b=dNMo1iQC8jDNhrWXOIsYVMk4ySNegC5krtYVnurhWaNalXth2wklw4UUu7go76/Oi/gOqH
+	YL1GImRQzpnNb8Z/L3Wlq33buUXZfo7dFA6wwrFfQqtiNF+xwgJl/Tb33qClCmbzL7zkke
+	120IotcacR4reG/E9zY5YyL78z9iA84=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-125-UYaKpixDN329pdPZQOpaig-1; Sat, 12 Sep 2026 11:57:44 -0400
+X-MC-Unique: UYaKpixDN329pdPZQOpaig-1
+X-Mimecast-MFC-AGG-ID: UYaKpixDN329pdPZQOpaig_1789228663
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-49e6422198fso12172535e9.1
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 08:57:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789228290; x=1789833090; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=redhat.com; s=google; t=1789228663; x=1789833463; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=SPedAVqPeiUb8NjiNxJnvdJv3qfQNNhKzjipm/j87EY=;
-        b=flUFPye+q7pYckVgvjo7uiwouUrncBWQjyNXVq5DBiaIN6TvGVBtC6iVa+HfhRmjAF
-         0P+NsqPPed4JOMYh0GbYnkumfZdz5dKVBms+0kFJrPzOzP9CCzjl7Lrcl/zWs/+EPwOA
-         d8kAMgvwkxF+kIyAgObxACRMhZxY9lxCysgIxeg5sxsmXYcgPjInHsg5vlDqsLNCQRp8
-         A58meTMhJzKHCHWgZgXD68Wz97X9vo4A2P/e5nzKqyAkEJdSW2qNyDQWRd1jAhPdt6Y3
-         rNz6mgs1XoRpG9vimVD/rhjQZqIcy9divmMMjwSp2weWIA0iHRCidIPzoG3gJfLY1F1g
-         VnhQ==
+        bh=+Suz8unb1e4b6bNiUz2gPySCHFTJdV6OXkzqI95eyBY=;
+        b=fzUeq5w74iXyUs3gLLBun0HKebgLfUd8slh2zUlnlTeEQl2RRBGI/N2PaBD5MpRYKw
+         g76Rbj8lUZrSRX1eRDwmCG+ZsuVozeTkoVHBNNx3Zx8FYZq6qFC8/+b5wNl3iE59ut4l
+         12grK3+9Gw1/rfXO/vi6wNWT4WzuAXOmdtPOk4K6RDSBHIB3CF3sc1B0WN3eQYijJsio
+         SPOz0OB32loCbv6jD7zSgUzuBO/ytyq1W7NIHZIJi29O/9lzMVsW8p209hQB77HSZdGV
+         Cy49lrseSsRYZe8r6f/R56wQW3K0kMoESdxwKnQgC87Ts0Nq8bOHqLgNdwxe99Z3FJje
+         5v/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789228290; x=1789833090;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1789228663; x=1789833463;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=SPedAVqPeiUb8NjiNxJnvdJv3qfQNNhKzjipm/j87EY=;
-        b=drUwkvO+/QnvJ6NoItimSpxxXmrdlDd37aehD6BpbkrJl8IAP3hWirxKKXImfhH+j/
-         i7iwlk6fwiIYipN1711X6xDOpo9vThNdzc2pXSRhNhxRF2m2T8cihEgIT798zh45p87e
-         VgeJGMR9xixiesgmHXf2+4/PChK7QTrHuvbSUVYJ8taPGnNbsl0W4WuPW0xXp98MAtnR
-         W1N+iCiVw+LIa6EPVo06I/SCjvXiYCNAN1gTZHnmyTbOk1zRbGsac2pc0h1cb8ESD/Kh
-         dWmVEhXz1oRveUkZxZWB9gCXYOwQZOz377y8UWYWe4d1jzneJfRSscsQWIJB0lh8v9Do
-         EZjw==
-X-Forwarded-Encrypted: i=1; AKwUvBzV0kIdJ6VMg9lmsyBhNg+u+Mh9hEUCSq44XW5LWixylt5ZzadBXnElayDnyDDYiIEK1G94CtgeeZA3nOo=@vger.kernel.org
-X-Gm-Message-State: AFuF++noEPnciLtMVJ6ngxCeou14u8QiOdrE29gFSiT7zx2MDzF118wz
-	9eQ20JDyplARVahURc6bbNsXpbdD80ozPanP5tP7tj7AwjkwCZA3nZ1IXc2UU9LjyxmMh5wIedQ
-	r/gZB6Hamoptii6m/CIthKp0//F/4YyY=
-X-Gm-Gg: AYBFou2PknlOb0GZ89xuB9vt2acHHkn0zcl2dpTWFYiX+0Qk2nh5tfOxXmrlt1F4q26
-	d0DuajMu0KMlI2RAy0uFISGLfDxDFV45kkcbZjLU/aM6QGYSyLF1b6vEC/ytbJ+MgjPyqGJB5Ng
-	/DKJiJFKuIbJvdrAxLnNQuLJQum3HFQx6bFcTqGksXDVqbl41RuI0ZSiY6Eqx9hLOYn+EWdPiZ6
-	O/7YcLW1hJK/rIGZaNoHhxzF29mIqgmuPeD/nOS/DfekaRye66kQtdtz+RImqhlgxoxRZ+N6AV5
-	jEsqyJ165dwClMh8nILuE8F4kHBYnOtWi98IDIoUMcpmv4fAf0YLPgG4O+ODfkOae7dNhfYi200
-	ssrE7tRMSOIHEO89Ea3ClvuGqKadw0U00QtZzsgarlkTQEX3WHIli/NKf3th8sqZ/SnbiOm+dQ6
-	su6Wfotp1kj4iUijbTQu2m7ZgOWg2jSle27fHM1g4NBCsXok1ZY2w=
-X-Received: by 2002:a17:906:f585:b0:c26:1648:a075 with SMTP id
- a640c23a62f3a-c29667067c8mr442873366b.48.1789228290103; Sat, 12 Sep 2026
- 08:51:30 -0700 (PDT)
+        bh=+Suz8unb1e4b6bNiUz2gPySCHFTJdV6OXkzqI95eyBY=;
+        b=NcVcEVHxPv5LODyB73oRDQyLPDEPTbY5cKg0iYi0yofmLCsqwUUjEs7Bbo5+lIXWyU
+         +uJoxfqJDh6+DRiq5UwImhTKtcQ2DKt8a+b6UYoSuAghjxLMYUNRtYZpo1X9vGbVWT6o
+         CdaDx+icgg8BfJS8DVDykWD5HTxH0SQRIX05morRQL3C0rzrnaHv/434yrAVq/T+aXIt
+         4z62KYOr2+2moAc5KXmAnR+VMqKId7hVhBamdPaD5vhpGYXlTTMNct+DZebJuu7b+vXl
+         vv9eGZQJh8majGOgFa3/gDZ6AD5TopIVEuQvPH5V53ZXTI/5zqgwhPHV6lWl1iRi+SYZ
+         1YbQ==
+X-Forwarded-Encrypted: i=1; AKwUvByM0QgpxrZfgpDJmvqm2X58WQz8dQA3zD9gZlZHYC6npMY/kQfKoCzaephcmhLLZ/0vRwds4H59l67QvYA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kAeHd2HD6PDIEHDI6Xitiz89CbaqVQZnhHAt2rLuvRs6bBtVIf
+	MOpB5pP40+o3qbLsKmVUGwG+vxlX2iQKfffI/GDC6vTH0o09Vm0KwcV9IAuzSsDA6ygQElo2Odo
+	ZfXhb+d5dakbJYkxCFQIX+oaJemLGilUNR1Pkj4Je/guQKS6IL6mDSeIoQcLjTmBtIQ==
+X-Gm-Gg: AYBFou1Nvcs8DqhKZh9fzeREMPmiFee9rYRTpJZAs4eGfZrRszo/hObOBpe0V2Up+D6
+	WXLqisN0U52J7uBSfU3wVtkvxY5pmn+yzIvtJ2PWgs79kvh2VGaGaR8sWW5FwWXhsPZEqlGbPzO
+	xdcAhcPz/SeOt4YvT11qSVFaLDMkaX4YPHD0q4/Nozcr/tf9UlDs9Hrfp59Hy/L3AVVlV86ZwIA
+	SqW2ytjfGflmI6lwHEnGL87zk3pQJ9O/7cYalS46ovRoqV60z4ghVTFYhaD890Sa+XYxCVa70sA
+	C4OxHc13diqolnrpFhBQ0Rc3Tp1688h9byANNUXDIGb7yQ8smQP1dHNMZeitX+G7i94=
+X-Received: by 2002:a05:600c:4e0c:b0:49c:ed94:cdd8 with SMTP id 5b1f17b1804b1-49e6198734emr251758215e9.6.1789228663086;
+        Sat, 12 Sep 2026 08:57:43 -0700 (PDT)
+X-Received: by 2002:a05:600c:4e0c:b0:49c:ed94:cdd8 with SMTP id 5b1f17b1804b1-49e6198734emr251757665e9.6.1789228662551;
+        Sat, 12 Sep 2026 08:57:42 -0700 (PDT)
+Received: from redhat.com ([147.235.223.59])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49db038401fsm269738175e9.13.2026.09.12.08.57.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 12 Sep 2026 08:57:41 -0700 (PDT)
+Date: Sat, 12 Sep 2026 11:57:38 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Abhin Parekadan Jose <abhinjoses@gmail.com>
+Cc: bhelgaas@google.com, lukas@wunner.de, linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org, ilpo.jarvinen@linux.intel.com,
+	kees@kernel.org, xueshuai@linux.alibaba.com
+Subject: Re: [PATCH RFC 2/3] PCI: pciehp: Report surprise removal from
+ pciehp_isr()
+Message-ID: <20260912115420-mutt-send-email-mst@kernel.org>
+References: <20260905183905.997833-1-abhinjoses@gmail.com>
+ <20260905183905.997833-3-abhinjoses@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260912010936.12832-1-ricardobarbosamscg@gmail.com>
- <CAHp75Vfpq7TXcqFfGfqBZSawSSyMdbCj_gdNRkarTHyzbkJL4w@mail.gmail.com> <CAOOzAW3+ySKGkSETW7knDLb7=aMTsgpJ4RSmRFcMjCb+gvaJuQ@mail.gmail.com>
-In-Reply-To: <CAOOzAW3+ySKGkSETW7knDLb7=aMTsgpJ4RSmRFcMjCb+gvaJuQ@mail.gmail.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Sat, 12 Sep 2026 18:50:51 +0300
-X-Gm-Features: AcwNN1X5L6R8VeJmkjFevWlO1Zk9f-pg5FslM8lqB45lWu3P0SnHxHdoYHbt7ts
-Message-ID: <CAHp75VdKEzXDyUZbDwS-dGECjDXsosQ-62yVK9PasmjBBTEPoQ@mail.gmail.com>
-Subject: Re: [PATCH] staging: media: atomisp: remove duplicate blank line
-To: ricardo barbosa <ricardobarbosamscg@gmail.com>
-Cc: hansg@kernel.org, mchehab@kernel.org, gregkh@linuxfoundation.org, 
-	andy@kernel.org, sakari.ailus@linux.intel.com, linux-staging@lists.linux.dev, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260905183905.997833-3-abhinjoses@gmail.com>
 
-On Sat, Sep 12, 2026 at 6:44=E2=80=AFPM ricardo barbosa
-<ricardobarbosamscg@gmail.com> wrote:
+On Sat, Sep 05, 2026 at 06:38:59PM +0000, Abhin Parekadan Jose wrote:
+> A surprise removal during a safe removal cannot be reported: the
+> removal blocks waiting on a device interrupt or status read, and the
+> single-threaded IRQ thread is itself executing that removal, so it
+> cannot report that the device is gone. The removal hangs.
+> 
+> The hardirq handler pciehp_isr() still runs while the IRQ thread is
+> blocked, so it can report the disconnect. However, pciehp_ist()
+> deliberately ignores link and presence changes caused by a Secondary
+> Bus Reset or Downstream Port Containment, where the device is only
+> temporarily inaccessible. Distinguishing those normally requires
+> waiting for the SBR or DPC to conclude, which takes seconds and is not
+> possible in hardirq context.
+> 
+> Schedule a work item from pciehp_isr() when a PDC or DLLSC event
+> arrives and PDS indicates if the device is connected/disconnected.
+> This provides us a pathway to wait/block/sleep as we will not be
+> in pciehp_isr().
+> 
+> Move the scheduling of the driver's disconnect notification out of
+> pci_dev_set_disconnected() into schedule_notification_work() so it can
+> be invoked from the new work item. Factor the spurious link change
+> test out of pciehp_ist() into pciehp_is_spurious_link_change() so both
+> pciehp_ist() and pciehp_disconnect_work() can use it.
+> 
+> Link: https://lore.kernel.org/all/aHlZE18kPuHuDtTT@wunner.de/
+> Signed-off-by: Abhin Parekadan Jose <abhinjoses@gmail.com>
+> ---
+>  drivers/pci/hotplug/pciehp.h     |  1 +
+>  drivers/pci/hotplug/pciehp_hpc.c | 56 +++++++++++++++++++++++++++-----
+>  drivers/pci/pci.h                |  6 ++++
+>  3 files changed, 55 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/pci/hotplug/pciehp.h b/drivers/pci/hotplug/pciehp.h
+> index debc79b0adfb..c8ceb9320e2e 100644
+> --- a/drivers/pci/hotplug/pciehp.h
+> +++ b/drivers/pci/hotplug/pciehp.h
+> @@ -116,6 +116,7 @@ struct controller {
+>  	unsigned int ist_running;
+>  	int request_result;
+>  	wait_queue_head_t requester;
+> +	struct work_struct disconnect_work;
+>  };
+>  
+>  /**
+> diff --git a/drivers/pci/hotplug/pciehp_hpc.c b/drivers/pci/hotplug/pciehp_hpc.c
+> index 4c62140a3cb4..235ca8a176f1 100644
+> --- a/drivers/pci/hotplug/pciehp_hpc.c
+> +++ b/drivers/pci/hotplug/pciehp_hpc.c
+> @@ -620,6 +620,45 @@ static void pciehp_ignore_link_change(struct controller *ctrl,
+>  	up_read(&ctrl->reset_lock);
+>  }
+>  
+> +/*
+> + * Link Down/Up events caused by Downstream Port Containment if recovery
+> + * succeeded, or caused by Secondary Bus Reset, suspend to D3cold, firmware
+> + * update, FPGA reconfiguration, etc. are spurious and should be ignored.
+> + */
+> +static bool pciehp_is_spurious_link_change(struct controller *ctrl,
+> +						  struct pci_dev *pdev,
+> +						  u32 events)
+> +{
+> +	return (events & (PCI_EXP_SLTSTA_PDC | PCI_EXP_SLTSTA_DLLSC)) &&
+> +		(pci_dpc_recovered(pdev) || pci_hp_spurious_link_change(pdev)) &&
+> +		ctrl->state == ON_STATE;
+> +}
+> +
+> +/*
+> + * Workaround to not wait in the isr.
+> + */
+> +static void pciehp_disconnect_work(struct work_struct *work)
+> +{
+> +	struct pci_bus *bus;
+> +	struct controller *ctrl = container_of(work, struct controller,
+> +					       disconnect_work);
+> +	struct pci_dev *pdev = ctrl_dev(ctrl);
+> +	u32 events;
+> +
+> +	events = atomic_read(&ctrl->pending_events);
+> +
+> +	if (pciehp_is_spurious_link_change(ctrl, pdev, events))
+> +		return;
+> +
+> +	bus = ctrl->pcie->port->subordinate;
+> +
+> +	/* The card may have returned */
+> +	if (!bus || pciehp_card_present(ctrl) != 0)
+> +		return;
+> +
+> +	pci_walk_bus(bus, schedule_notification_work, NULL);
+> +}
+> +
+>  static irqreturn_t pciehp_isr(int irq, void *dev_id)
+>  {
+>  	struct controller *ctrl = (struct controller *)dev_id;
+> @@ -722,6 +761,12 @@ static irqreturn_t pciehp_isr(int irq, void *dev_id)
+>  
+>  	/* Save pending events for consumption by IRQ thread. */
+>  	atomic_or(events, &ctrl->pending_events);
+> +
+> +	/* presence change events */
+> +	if ((events & (PCI_EXP_SLTSTA_PDC | PCI_EXP_SLTSTA_DLLSC)) &&
+> +	    !pciehp_card_present(ctrl))
+> +		schedule_work(&ctrl->disconnect_work);
+> +
+>  	return IRQ_WAKE_THREAD;
+>  }
+>  
+> @@ -761,14 +806,7 @@ static irqreturn_t pciehp_ist(int irq, void *dev_id)
+>  				      PCI_EXP_SLTCTL_ATTN_IND_ON);
+>  	}
+>  
+> -	/*
+> -	 * Ignore Link Down/Up events caused by Downstream Port Containment
+> -	 * if recovery succeeded, or caused by Secondary Bus Reset,
+> -	 * suspend to D3cold, firmware update, FPGA reconfiguration, etc.
+> -	 */
+> -	if ((events & (PCI_EXP_SLTSTA_PDC | PCI_EXP_SLTSTA_DLLSC)) &&
+> -	    (pci_dpc_recovered(pdev) || pci_hp_spurious_link_change(pdev)) &&
+> -	    ctrl->state == ON_STATE) {
+> +	if (pciehp_is_spurious_link_change(ctrl, pdev, events)) {
+>  		u16 ignored_events = PCI_EXP_SLTSTA_DLLSC;
+>  
+>  		if (!ctrl->inband_presence_disabled)
+> @@ -1036,6 +1074,7 @@ struct controller *pcie_init(struct pcie_device *dev)
+>  	init_waitqueue_head(&ctrl->requester);
+>  	init_waitqueue_head(&ctrl->queue);
+>  	INIT_DELAYED_WORK(&ctrl->button_work, pciehp_queue_pushbutton_work);
+> +	INIT_WORK(&ctrl->disconnect_work, pciehp_disconnect_work);
+>  	dbg_ctrl(ctrl);
+>  
+>  	down_read(&pci_bus_sem);
+> @@ -1096,6 +1135,7 @@ struct controller *pcie_init(struct pcie_device *dev)
+>  void pciehp_release_ctrl(struct controller *ctrl)
+>  {
+>  	cancel_delayed_work_sync(&ctrl->button_work);
+> +	cancel_work_sync(&ctrl->disconnect_work);
+>  	kfree(ctrl);
+>  }
+>  
+> diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
+> index 23b1605e783a..4e17878edeab 100644
+> --- a/drivers/pci/pci.h
+> +++ b/drivers/pci/pci.h
+> @@ -805,6 +805,12 @@ static inline int pci_dev_set_disconnected(struct pci_dev *dev, void *unused)
+>  	pci_dev_set_io_state(dev, pci_channel_io_perm_failure);
+>  	pci_doe_disconnected(dev);
+>  
+> +	return 0;
+> +}
+> +
+> +static inline int schedule_notification_work(struct pci_dev *dev, void *unused)
+> +{
+> +	pci_dev_set_disconnected(dev, NULL);
 
-Please, do not top-post!
 
-> Thanks for the feedback, Andy.
->
-> As a beginner taking the LFD103 course, my main goal with this
-> submission was simply to validate the workflow and git send-email
-> toolchain with a zero-risk change.
+Does this not break what patch 1 was trying to do,
+for everyone who does not call schedule_notification_work,
+that is, everyone except pciehp?
 
-Unfortunately this driver is not the best choice for a newbie. We
-prefer to see real work (likely by a contributor who has a hardware to
-test) on it first.
+I'd say do the reverse: make schedule_notification_work
+schedule the work, and have both pcieh and 
+pci_dev_set_disconnected call that.
 
-> I'll look into more meaningful tasks for my next patch.
 
-Yes, it's still possible to submit some cleaning stuff, but do not
-expect it will be accepted or even reviewed, we lack the resources to
-handle that driver ourselves with all contributions it gets lately.
-Thanks for understanding.
+>  	if (READ_ONCE(dev->disconnect_work_enable)) {
+>  		/* Make sure work is up to date. */
+>  		smp_rmb();
+> -- 
+> 2.51.1
+> 
 
-> On Sat, Sep 12, 2026 at 8:36=E2=80=AFAM Andy Shevchenko
-> <andy.shevchenko@gmail.com> wrote:
-> > On Sat, Sep 12, 2026 at 4:11=E2=80=AFAM Ricardo Barbosa Dias
-> > <ricardobarbosamscg@gmail.com> wrote:
-> > >
-> > > Remove an unnecessary extra blank line to clean up code style
-> > > and fix checkpatch CHECK warning.
-> >
-> > This is the lowest possible priority patch, if even considered. If you
-> > want to clean up this driver, there are more interesting tasks.
-
---=20
-With Best Regards,
-Andy Shevchenko
