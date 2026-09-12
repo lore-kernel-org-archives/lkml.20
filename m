@@ -1,390 +1,266 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11021092.outbound.protection.outlook.com [40.107.74.92])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F11D723BD03
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 14:47:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789224460; cv=none; b=gaXzpw3/joetWQoBUJfh1dUjmhhIQMXEzLEiUomhg7zw2JESSOU6+XTmW8iLYLvoddZzf1e0KaGegGgnlIp5xbgOYLR+gsJ3eW3kM8YGMRgVuKuYXR/8jRE/ha+vtit6V1xCPPGgeAQnfNyCiXFIz/lgxU+sA5mhofV7Fwk7xMM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789224460; c=relaxed/simple;
-	bh=m+orVjbrYOPpnTMcocWp5XwWThJkf2QCkbTZFw2UstY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=hTpmIv74PIlgrgvvg6NZgcpzdFAya5QLXmaz2KeeJCguxmdXPwEgapEe9e4jR1RNRLBhkEv7ALEYetRh/ZsVdS78PjkTcjXpZzCc57uhtAra96+aKj/oRx0QuadkZGr806y+Z28pu0v3PBZYKnmJd9uPvAJ+erJsecOKM5FUvPM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RfP0Ipre; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=acaNxStZ; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3698C352022
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 14:52:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.92
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789224753; cv=fail; b=jl28C/psq4Kn5RC3EykQeMILP8RD92yJlcH5KpyAj2ZQYukRn/WnEHpBdhJ1I36Cjympe06IizK2OpM2aUGLn4KODY0X+n36NtnLsHOvEfXu4F1u+W+IBmlu99v/vl+i4ENDVg+ufpbyhgOE17vL0KcN4rS+E2akDs3/A3Fvvb4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789224753; c=relaxed/simple;
+	bh=9Lz1o0Wf4IubEXSq5eoQbQLacqhKC288FCKoRnVZ25s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=aO/orgr+tcauGjrkVayg9exKAB+cwaC7EKTgn2ZLSNB9LAJy0QFnVDrTIk1xv+8BxqviQQApoycoPEtuaixxA7k1Fuj0U4JzlgGW3mW6ZSoY2AeKLmvicTZpfdu/yjKyYnedWDPQ9aBlkWmjP7BLzq5JJElIjL6IYWeDMafrpKM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp; spf=pass smtp.mailfrom=valinux.co.jp; dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b=dSp9Oeaq; arc=fail smtp.client-ip=40.107.74.92
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RfP0Ipre";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="acaNxStZ"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68CEdbLl2794368
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 14:47:38 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	DX4wNWjesrloq9u2vm+bvbsCX/R2nLiI4EHDne68gKs=; b=RfP0Ipre5KZIIGme
-	7aeeDu5OVJM3aRP+sHuk6E/7AjZyP1kOXPFv5baYv6kakb7yM3sRwwqzUErfkrce
-	QcC1ykBxOKLLoimTLEqV6QpvJmBPf3E3HvD0dlBkYFZNINYj9lHN+v+YJW5k7LfT
-	Gbk2RVnHsaSliDn4k77T0TxDAq6s5Vl8ruDX2dLZYawdNW+5d1nvpDDc1/4BHLGU
-	q6EwObG/FajbtphUV65Git6T10XmbH7xSCsXtRMdQ+PfcBw+ve+wCHEdEZCeWcTk
-	jRZYLjl8B+Dg+z6x7mlCYLn2yFFz0TMz5l4zk1gXm8n65/wNNgdGg4sHg4smfZ0r
-	2fwGSg==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmygd15ys-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 14:47:38 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38dbf293831so3939429a91.3
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 07:47:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789224457; x=1789829257; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DX4wNWjesrloq9u2vm+bvbsCX/R2nLiI4EHDne68gKs=;
-        b=acaNxStZjLkBXwC+1N3aHAJAFvsLwqU4G8gcEMKtm1jeDtE+C/ioQyny61X6ygCyvT
-         w2H8HQ69cVR59btfLGngxNgfBlO17IJqVXRfnm+PBJcJ8HBNbdDh2ZPBK/apWnipZ34X
-         93ImRaIr+ElICX78wjAqkBo7OXC2hdSy+xXZBUNraUUNfl+ZU5JeNWfY5r1/2WY9bqVG
-         fiC3HFUZ/rGrZIk8rLsvXjkYcYsfzlNkNCTWzaKWOSBkX6tCNaKQ+d3FT01w4zgoEHYr
-         6c2iCZJh39Hea2u7T4g2c3vaFghL0fVowtwV8h0d6nhsyQRymxWi/7l4pq92amzJO5w0
-         uASw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789224457; x=1789829257;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DX4wNWjesrloq9u2vm+bvbsCX/R2nLiI4EHDne68gKs=;
-        b=O3KbMsW1tALMNkeH2CfXN+ZH/0UziQ5x/MRtvfN8ndguHyBzBNXhDBx9M6Uv5tkPcC
-         S2T+vDloQkHjAy8J++i3XqZG5FzVvVPIH5cwak1lSBAgAtLhJDboFJ7oYEuAitsi0iFj
-         0xLxPIzVC8xAbbkAfvD8chY0KPAL6ooJFQJQGxRYwxxsTy0OcYHUhfpfH6+99NWBERRp
-         2gJHsqqCrId3+HWmzrWDwq0moWwpxi0n7Y0ZPBOF69fV8ot5IKqW7Vzoy3w/vExZuxE3
-         jyn5Mdla7VN6EZo+q9hYw9r8l1yyYt0EvLOWlzcXr7pwVHlWXeZGw87WgW6Nljj6+FbX
-         HQcA==
-X-Forwarded-Encrypted: i=1; AKwUvBwiUxZhtRvcOVwV8ln9ST5BmpOemBd5ubVe6yPCcM3Sf6focUbJuzmKiuOEmsx5lS9i85ZgGUiUKpLCBJo=@vger.kernel.org
-X-Gm-Message-State: AFuF++kL9RwHCp7MSHML9zOiceO8rtkg2wTeYbjsLN8vlDwtSLIHZRDF
-	LJf6KNlhGpHSQyDCTJUPTSGRUoBuQEQusR6hG3K33jwZNkl0KsojwMY7kF7j1zwTDsa7kp+M2EZ
-	XSORmJJwrmeHo7rWsNko7HkRf6V2AyNAZdGmPDY0bR4HgShy7HcOazYnktnK8QeTf4zI=
-X-Gm-Gg: AYBFou3VHYlfQNKV1FuoNAKmYil5HmMKGuAg2B+RHh5afna4WFr0etcY4rreaTsro7X
-	zwvwMlVXueHJ1LaRjZHqf8Fu4S6qYztodFKmNi4M2R79weCDAoQIqT8+8HbCJ6b3g+Q3ltD4D6D
-	qgpTUMy+evWVHvsEoYJ+LzAvaYfA6JQkVszIClzs558PzncAe/ZbdzlU+Hgd+OeE15ANuBSAsmC
-	jESw74heWgK8kbgxIDxGXdTfhz+0XsgReQs6/2O899JuvJcpOJHY7iURsFA4JfFvGOVqNrj0QwL
-	4QQKxv7TwVCtDbKZIGJBnGdYppC/hFnMDqdEXJZ1GqJANO99ws9Ay2uMIlB2WnR7q3ukBrIEqR8
-	+ZZwdlRfvVsIK1rA=
-X-Received: by 2002:a17:90a:e7cb:b0:395:7fff:a08f with SMTP id 98e67ed59e1d1-39d9b960826mr6552986a91.0.1789224457438;
-        Sat, 12 Sep 2026 07:47:37 -0700 (PDT)
-X-Received: by 2002:a17:90a:e7cb:b0:395:7fff:a08f with SMTP id 98e67ed59e1d1-39d9b960826mr6552933a91.0.1789224457001;
-        Sat, 12 Sep 2026 07:47:37 -0700 (PDT)
-Received: from [10.213.101.118] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4f7390csm14344833eec.26.2026.09.12.07.47.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 12 Sep 2026 07:47:36 -0700 (PDT)
-From: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-Date: Sat, 12 Sep 2026 20:17:03 +0530
-Subject: [PATCH v9 3/3] arm64: dts: qcom: shikra: Enable USB controllers
- and primary Type-C support
+	dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b="dSp9Oeaq"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=cMDns5WyLuwjXVibhr/3QB4QIzuOxKIhFDut+MnPpjPwBm1tKduNikXWOOtEglwamtRQGrl12u3syxUH00VMVTo5bnHBXut1vPz/4zbOMTiMcnwaRsg3WiNVlD64wKlMSZ8rVfuWYoL+6TULwez+4USRkQenPSPsxLBvfsEXGce2mmpiwGmPxvIYZZx3jomtabwyPqCuuTQERMxJuN+6ys/eN7VTgnYNsNw3wBxfRnbvY847juX6jvj6iu8HJk8KlBVEN/LFXVCUeTHP1RbJLF1MlfFHvnv62K3v6OvlYqNkIHqWoUPjdrpvp82tLRdV/+SSvJQ2o6V7qonbxnAO4A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fBG5TqE3JlxdZBa5TILKXFvT8bezE10kN8jVN+grVLc=;
+ b=IYuzz8AKq4qHIq21OnLXhb01ZAgOD/1zp7dgfJ+AWFHTJtp7/1T6lY13FgSvJnu9XdiQ9+A2L/8GeleKVJH6B0QKil2a1RoDa1Qf0Nl/qgLK6hboRzpHmu7Vcp84m1z12Hlkx4x2Ox5bntqxb9fONyF7zIVfsSJ/Z+tq9nzomgoQdVoRYGC6BQd9Ar9nmrIclXRe6HDjNT+FFAEtxEgmVh6mm49ZbukRZdX+gWzxEOTFhtSOSbgzeC6dWkDWyYiYJIoRtk4M5ztcBYMaIspV7VwUyfeIO5OnLI36TgFoMQIEvdBWAWakeF5oRWqfDPwMJqy1K3QNrjjGlcU61jwavg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
+ header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fBG5TqE3JlxdZBa5TILKXFvT8bezE10kN8jVN+grVLc=;
+ b=dSp9Oeaq6R1ayRQqsUoI1LadDPS+it02qwk5YMPbaLJtWy6gxR7o9wbf6Ygk7nUbRlh2gQ1Ue/HB1L88vZl6EG8bNHwGJAdq0JJs9HICjDEE9qhMYRalwEgvCqrAo37VVMO2EFJm8VUaZ0ADYKkV7bIYHnPMSTHHKCsw3ogfTRw=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=valinux.co.jp;
+Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:38f::10)
+ by TY7P286MB7233.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:365::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.11; Sat, 12 Sep
+ 2026 14:52:28 +0000
+Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::2305:327c:28ec:9b32]) by TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::2305:327c:28ec:9b32%4]) with mapi id 15.21.0406.007; Sat, 12 Sep 2026
+ 14:52:28 +0000
+Date: Sat, 12 Sep 2026 23:52:26 +0900
+From: Koichiro Den <den@valinux.co.jp>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Jon Mason <jdmason@kudzu.us>, Dave Jiang <dave.jiang@intel.com>, 
+	Allen Hubbe <allenbh@gmail.com>, Frank Li <Frank.Li@kernel.org>, 
+	Logan Gunthorpe <logang@deltatee.com>, fuyuanli <fuyuanli0722@gmail.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Nicholas Bellinger <nab@linux-iscsi.org>, 
+	Joey Zhang <joey.zhang@microchip.com>, ntb@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 05/14] NTB: ntb_transport: Avoid losing QP link-up
+ requests
+Message-ID: <i3b4kyeuwyjssav2kne5uhxmltwl2bmug2weyfaujxtrwlkuox@ms6ozb55tmz5>
+References: <20260910040836.3792333-1-den@valinux.co.jp>
+ <20260910040836.3792333-6-den@valinux.co.jp>
+ <aqQyEbLbABhhvFTO@SMW015318>
+ <ciucjqvb7qbendlxqdya2wigyivgj4bvqbxtc4cidulr4knq6j@xbwucjdsiayy>
+ <l5xf2iuwxgfa4xmtm2l3wn6nce5onfjxxkzfsj627k5xp3snmp@er6fkwlb3sgs>
+ <aqTFAi8uo4LwzSj0@SMW015318>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqTFAi8uo4LwzSj0@SMW015318>
+X-ClientProxiedBy: TY4P301CA0052.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:36b::15) To TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:38f::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260912-usb-shikra-v7-v9-3-c7b507a0ec27@oss.qualcomm.com>
-References: <20260912-usb-shikra-v7-v9-0-c7b507a0ec27@oss.qualcomm.com>
-In-Reply-To: <20260912-usb-shikra-v7-v9-0-c7b507a0ec27@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
-        Komal Bajaj <komal.bajaj@oss.qualcomm.com>,
-        Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789224435; l=5483;
- i=komal.bajaj@oss.qualcomm.com; s=20250710; h=from:subject:message-id;
- bh=3uKBvxyWjcwLrJKwPEarFukDhI+wcZDsP0yuO/Zjgfg=;
- b=1L20gFn0OLBfREYmcfO91jX5AoZ5j7dpOO6zxQRefVYkXYhGqE9RV6hneWi2795T5fTG/Mxui
- e51uemnd1xCD776BwCjNfD1KDs+WoB55t7wxVtqPYMbV4fmUE3c1HIJ
-X-Developer-Key: i=komal.bajaj@oss.qualcomm.com; a=ed25519;
- pk=wKh8mgDh+ePUZ4IIvpBhQOqf16/KvuQHvSvHK20LXNU=
-X-Authority-Analysis: v=2.4 cv=RY0FmFtv c=1 sm=1 tr=0 ts=6aa5660a cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=1_fiUyOONLQHFIvD_h0A:9 a=QEXdDO2ut3YA:10
- a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEyMDIxMyBTYWx0ZWRfX3QNBEl16pXxE
- C3RXLzo69ehDRYQUFewFJnVxue9iZhPModfrpjnLbTgWyWd4XwgG5bdP/aXlSNlrqn/TESw46IN
- rPzIwz15eZMywv3Y65iSZnOA7MFdwBbZO7zmW34p+J503CxLelZGIKm6qfc3+HXFVlhANUHMwXo
- kkAWoMUI0pPITK+CxUliRA4yi2R/24u678XpacrJMVN6Bes0IotgV7GhBY0hHGCpzXsFZuYFqAK
- tOePZHavmqvzslPJrIHXU5Fb5MCoHKKCXMEwNMPzVWnkMWwW9zHcz/4rAL4FxZ4b1KPa9Je4pMe
- hRaub5OK2XcI4l3O4uWnW6N3wso1wW1n6kPSmZPJmakGjKfyKQMotf3ABhjgBkQv5jjCSYo+GIR
- y6K4xLVsOgC+FV5RJmgw1RVdm+2jtVJm9eedYG/8K2FaNQ5ujcA+Qp37vRLjud6YWzyrSfdNjMu
- LuomXgYYUWS8xrDCiNA==
-X-Proofpoint-ORIG-GUID: tg4HCCQVPGqF5V38JPDO1FlIfv0muZXo
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEyMDIxMyBTYWx0ZWRfXze44tXMBZOZv
- M766MMnD6hwofXpR3hOWUwE8/OUSXs9kD49xqkwjM/fQcql2qW4P7SI2EbCSDEofCFeuB9wyf91
- Qs9SLkvXVSqyl2FaIG2YotiNjOtwuF0=
-X-Proofpoint-GUID: tg4HCCQVPGqF5V38JPDO1FlIfv0muZXo
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-12_05,2026-09-11_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 spamscore=0 suspectscore=0
- lowpriorityscore=0 impostorscore=0 phishscore=0 malwarescore=0 bulkscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609120213
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY7P286MB7722:EE_|TY7P286MB7233:EE_
+X-MS-Office365-Filtering-Correlation-Id: 058ecf66-2327-46e4-ca70-08df10dd76e2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|7416014|10070799003|23010399003|366016|6133799003|56012099006|4143699003|18002099003|22082099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	4XTZGvgZGtFsa0pvKchjAGsD9XchkOXY//f8p0c6ZtoXgKjenYut4IvmI0EUrhep94xYudZ4xFjWQu1k4gyRAa/1oXSQZq/1+emid6bsdTlNWsbwHo3bD5ZdKmfGsdz3fnP1YHyFAXDeQi5O3DClvJJlR+2PIIXElydVsBkCR2F8o8H4wWPNNxdsUE6xe84608Pl8OaYE4CgB4EZUIEuk1Xu5Y5mHRShFbGhFON17fn//bxmEahobAWwatfmP8o39vf1cQdhv0Pns66dVFzF/lGmC9VlZdM0/gUC2CzGc1BmVtteE2Yc2CkCMiLHX3Cs7o1gOcVQtZ7vMdMqTxGzCd01RvNluQGHbNr7cXClZXZbbwh1KVq57HnQN3fnU6NAgA0oFkFYfOfyi7Y8MCKFY/pJufg3gvipp5xDiL3/sNGBeyl9afAhDp9Wa+MmOeVfw7gVGd7fZStubjG7FOTDQTRD+UJ/x3xrEkWwevzgXTWDs8GNLUDYHyR/dV8G7D46IiwXRoeE9lKIya6FKfMT7pBH5DQoxd70WHJTyQOwrt8I20JzwzoBRc/lsMr528j8f45iUIgLCIOGQduZvnvLzX0ZlFVGhDzhy/NaBTcycY1wgMNWLpVfoNQe8sCmZK7a
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(10070799003)(23010399003)(366016)(6133799003)(56012099006)(4143699003)(18002099003)(22082099003)(10067099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?MXjJgi+fosjS86m9sYD3lUu8DQhocXl+m6ANlD2uGIfQ3dvJV5rSw/PxZ644?=
+ =?us-ascii?Q?Shu2dtDJG7D8+VWx0SBIyVFArai9qNOUiQVTII+x00HU3/uboqDgBae9hvZA?=
+ =?us-ascii?Q?EkVV1ImHZeD/+MQyTXWGJaebu2cPo7qjeS3IJJHOkvkha+hjcA6ee19HcOkG?=
+ =?us-ascii?Q?wpS4ClIGU0M/pB63tnhirNeX7hit0486FfRDHVTMAWsJgp56eVs80RcBn8n7?=
+ =?us-ascii?Q?Z5ZsJBXHGDdAF8JY0jF+ws9llx0IjLkU+zrD7ywNS14LxalYqiFDgo2x321k?=
+ =?us-ascii?Q?Yu1VLmJY9VMiz4ITfJ+HJ3gBPRFo6UOrlz9REHJ9zzn9fJWrbWnUBAvn9GW3?=
+ =?us-ascii?Q?UZqreaDrku+Se7tynX+/oUDtfOiAKarlXVxxrsHgRE8a9p39eSQyG5HvZx2H?=
+ =?us-ascii?Q?JSmt2mRLYpzp3ERwceypcltC9+gSp5FXm0POhXoA7P/Om3pu15JKEzP7J2mi?=
+ =?us-ascii?Q?kevbwVGcdFbrmGlKwSxy5f0vrZUhyBap5n+zvLwPfzQ1U4V7b/lhCGwttZg4?=
+ =?us-ascii?Q?MPvJj/ujb1/jwGl7Drd24Y720jW5qyRdkvjh7Mxe+19mwcHMcoh7UPpaoTGS?=
+ =?us-ascii?Q?4Pjr2Aa7a5DK8oOIqU89Nh4pRHGMcmmhoW+KBlN54jLGVqMeEa4SSgDol/QI?=
+ =?us-ascii?Q?2HMdYixv/uUyAwq/Xn4RSnjIJRDotd4XnKI9KAQAAxocj5vhjkY6H1FKorj0?=
+ =?us-ascii?Q?GqFQ94NA7q7ZmJ0d1TXvbMIazYIqM37VCcjixLiaMQ012WXiMTsAggckfVHO?=
+ =?us-ascii?Q?9mY32RhIF08UXvZNvzo7eVjCIJIsfm/S3GnKEmbqLyoTEhtG8ete+9DZk/p1?=
+ =?us-ascii?Q?gbL8DAfkeb8kOQjE4hgYn8hIDz2iUvac3gY7Qw4opGjSyX2iylREUDhfKGmT?=
+ =?us-ascii?Q?MOsg8LM46CDX46R8Lh5AjQRF1S7zVr5GaJ1/wHlf9eUsfmZ0OiN82LM8sWSv?=
+ =?us-ascii?Q?/mpZ5dImq2AI5CYTiaoILxWC8yV/oO3uA5p0Jyt7QoXJ//EH9h9SAwJFBhJj?=
+ =?us-ascii?Q?f/Gu9W8H0G3W97IoqjJ4zxspVbjn1j0ndvHXVe+CQRSU1Zv7iv7O+XBbRuLg?=
+ =?us-ascii?Q?yksiwEeOshpAc6tvX69+riGXkKkTprujXZ9w78li0dX+YTvpg3Y5hcOkvUQk?=
+ =?us-ascii?Q?yKUsy4bXn2ClTVAeYIFMlUFz6xUzy5WLaWzjOlzzlT5zh1D2O5tPoF+tDDT6?=
+ =?us-ascii?Q?tGHxhaPNPcvuEkphjsqumrTreDYzzgLngVYDbcDf8PWf4udZMGMMg/ffAr/i?=
+ =?us-ascii?Q?C7Rn2nXb1KqLFszVKaOp/kJxZMS/U+0nCg5/9wY3jiRKhLAyQLEeV3U2vxkM?=
+ =?us-ascii?Q?V6CYcJToTTatXASuwoOgwUDx2VFzsWdQPeiMsdGyvY/iFhQdU1XGpsErYyPX?=
+ =?us-ascii?Q?NhrMFS4XTz8az/Vkztnzju9LVjoXWAnWyuzuL1gVtMZBjVNo2y9tVuoRz4vi?=
+ =?us-ascii?Q?jHiGwiI+4p6zLz6pr5mrP2QsKmHocLAfuGZacXyTfSFZIbWe3cXJ81uh5xJE?=
+ =?us-ascii?Q?Guls9scsyc6aB+e7DQ3s2jEck8gsq8clEY99TRFtBxDGhnCRE+EOc4tb+C0c?=
+ =?us-ascii?Q?NFqv0qo+VnDt2Tya/uo/H33nBm1VevKayob6m9KpoW2X94P3jfqk0HVyHZ69?=
+ =?us-ascii?Q?qwy055hXNj6XBCrzuhQej6AsMJEJQIHG4BY0k9H330pPXSTSkWlj/q5xhLqv?=
+ =?us-ascii?Q?TOcI/touSI3vh9gyEe5iaBDE0MZQf+iX232krG9R6nVj8ZuYYj+BkkkuQlRJ?=
+ =?us-ascii?Q?/F3EdrUnbiEOReNg+WMle1hKxfYYgaa+QODbWf7ZC75ukOwKCvQH?=
+X-OriginatorOrg: valinux.co.jp
+X-MS-Exchange-CrossTenant-Network-Message-Id: 058ecf66-2327-46e4-ca70-08df10dd76e2
+X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Sep 2026 14:52:27.9419
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: neZdkzSqtXjuLt7jqPNdsYKuaiBo5P//32rx5OiwI/bGYbjStdVmxF9su7UqV19TBBfk08yEh/p1JhjLaotsHQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY7P286MB7233
 
-From: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+On Fri, Sep 11, 2026 at 10:20:34PM -0500, Frank Li wrote:
+> On Sat, Sep 12, 2026 at 03:21:08AM +0900, Koichiro Den wrote:
+> > On Sat, Sep 12, 2026 at 03:04:21AM +0900, Koichiro Den wrote:
+> > > On Fri, Sep 11, 2026 at 11:53:37AM -0500, Frank Li wrote:
+> > > > On Thu, Sep 10, 2026 at 01:08:27PM +0900, Koichiro Den wrote:
+> > > > > ntb_netdev_open() can call ntb_transport_link_up() while the transport
+> > > > > worker is completing setup on another CPU. Concurrent transport setup
+> > > > > and a client link-up request can both read the other's flag as false and
+> > > > > leave QP link work unqueued. The QP then stays down until another link
+> > > > > event or client link-up request.
+> > > > >
+> > > > > This is the store-buffering pattern described in
+> > > > > tools/memory-model/Documentation/recipes.txt ("Store buffering").
+> > > > >
+> > > > > Add a full barrier between the store and load on each side, and
+> > > > > mark the client_ready accesses with READ_ONCE()/WRITE_ONCE().
+> > > > >
+> > > > > Fixes: fce8a7bb5b4b ("PCI-Express Non-Transparent Bridge Support")
+> > > > > Cc: stable@vger.kernel.org
+> > > > > Reported-by: Sashiko <sashiko-bot@kernel.org>
+> > > > > Link: https://lore.kernel.org/r/20260907144701.702E41F00A3A@smtp.kernel.org/
+> > > > > Signed-off-by: Koichiro Den <den@valinux.co.jp>
+> > > > > ---
+> > > > > Changes in v2:
+> > > > >   - New patch (Sashiko)
+> > > > >
+> > > > >  drivers/ntb/ntb_transport.c | 13 +++++++++++--
+> > > > >  1 file changed, 11 insertions(+), 2 deletions(-)
+> > > > >
+> > > > > diff --git a/drivers/ntb/ntb_transport.c b/drivers/ntb/ntb_transport.c
+> > > > > index 75d4a2e021f4..1332d53bcfe7 100644
+> > > > > --- a/drivers/ntb/ntb_transport.c
+> > > > > +++ b/drivers/ntb/ntb_transport.c
+> > > > > @@ -1104,10 +1104,16 @@ static void ntb_transport_link_work(struct work_struct *work)
+> > > > >  	/* Publish the link only after every QP has been set up. */
+> > > > >  	smp_store_release(&nt->link_is_up, true);
+> > > > >
+> > > > > +	/*
+> > > > > +	 * Prevent both sides from missing each other's flag. Pairs with
+> > > > > +	 * the barrier in ntb_transport_link_up().
+> > > > > +	 */
+> > > > > +	smp_mb();
+> > > > > +
+> > > > >  	for (i = 0; i < nt->qp_count; i++) {
+> > > > >  		struct ntb_transport_qp *qp = &nt->qp_vec[i];
+> > > > >
+> > > > > -		if (qp->client_ready)
+> > > > > +		if (READ_ONCE(qp->client_ready))
+> > > >
+> > > > I think it'd better change to use atomic variable for client_ready to avoid
+> > > > manual handle smp sync.
+> > >
+> > > AFAICT converting client_ready to atomic_t and using atomic_set()/atomic_read()
+> > > instead of WRITE_ONCE()/READ_ONCE() would not free us from the smp sync, as
+> > > those operations are unordered.
+> 
+> there are acquire version for atomic
+> 
+> atomic_set_release()
+> 
+> atomic_read_acquire()
+> 
+> My key point is use existing higher level sync APIs to avoid consider
+> barrier problem, which need more brain cell to think it.
+> 
+> this is just sync state, which don't impact performance.
 
-Enable USB controller nodes across Shikra platform device trees and add
-primary Type-C controller wiring for CQM/CQS variants.
+I agree with the idea of changing both flags to atomic_t for cleaner code, but
+I'm not sure if it frees us from "the smp sync" or the "barrier problem". We'd
+still need both smp_mb()s and still have to think about *_release/*_acquire when
+revisiting the code and maybe scratching our heads, right?
 
-- Enable USB controller blocks for shikra-cqm-evk, shikra-cqs-evk
-  and shikra-iqs-evk
-- Add Type-C support on the primary controller for CQM/CQS boards,
-  including role-switch and connector integration
+BTW, I once wondered whether it might be worth consolidating
+link_work/link_cleanup into a single state machine worker per transport or QP.
+That could simplify synchronization between setup and cleanup, which aren't
+really performance-critical, as you say. However, that would possibly require a
+larger rework, so for now I've put together this fix series as a small step. I
+would be interested to hear what NTB maintainers think about the possibility of
+such a rework.
 
-Co-developed-by: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-Signed-off-by: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts  | 43 ++++++++++++++++++++++++++++
- arch/arm64/boot/dts/qcom/shikra-cqm-som.dtsi | 41 ++++++++++++++++++++++++++
- arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts  | 43 ++++++++++++++++++++++++++++
- arch/arm64/boot/dts/qcom/shikra-evk.dtsi     | 12 ++++++++
- arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts  | 23 +++++++++++++++
- 5 files changed, 162 insertions(+)
+Best regards,
+Koichiro
 
-diff --git a/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts b/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts
-index b112b21b1d79..2d26435b257a 100644
---- a/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts
-+++ b/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts
-@@ -23,6 +23,14 @@ chosen {
- 	};
- };
- 
-+&pm4125_hs_in {
-+	remote-endpoint = <&usb_1_dwc3_hs>;
-+};
-+
-+&pm4125_ss_in {
-+	remote-endpoint = <&usb_qmpphy_out>;
-+};
-+
- &remoteproc_cdsp {
- 	firmware-name = "qcom/shikra/cdsp.mbn";
- 
-@@ -57,3 +65,38 @@ &sdhc_1 {
- 
- 	status = "okay";
- };
-+
-+&usb_1 {
-+	dr_mode = "otg";
-+};
-+
-+&usb_1_dwc3_hs {
-+	remote-endpoint = <&pm4125_hs_in>;
-+};
-+
-+&usb_1_hsphy {
-+	vdd-supply = <&pm4125_l12>;
-+	vdda-pll-supply = <&pm4125_l13>;
-+	vdda-phy-dpdm-supply = <&pm4125_l21>;
-+
-+	status = "okay";
-+};
-+
-+&usb_2_hsphy {
-+	vdd-supply = <&pm4125_l12>;
-+	vdda-pll-supply = <&pm4125_l13>;
-+	vdda-phy-dpdm-supply = <&pm4125_l21>;
-+
-+	status = "okay";
-+};
-+
-+&usb_qmpphy {
-+	vdda-phy-supply = <&pm4125_l8>;
-+	vdda-pll-supply = <&pm4125_l13>;
-+
-+	status = "okay";
-+};
-+
-+&usb_qmpphy_out {
-+	remote-endpoint = <&pm4125_ss_in>;
-+};
-diff --git a/arch/arm64/boot/dts/qcom/shikra-cqm-som.dtsi b/arch/arm64/boot/dts/qcom/shikra-cqm-som.dtsi
-index fde7fc035bf5..541ba278bb2e 100644
---- a/arch/arm64/boot/dts/qcom/shikra-cqm-som.dtsi
-+++ b/arch/arm64/boot/dts/qcom/shikra-cqm-som.dtsi
-@@ -85,6 +85,47 @@ &pm4125_resin {
- 	status = "okay";
- };
- 
-+&pm4125_typec {
-+	status = "okay";
-+
-+	connector {
-+		compatible = "usb-c-connector";
-+
-+		power-role = "dual";
-+		data-role = "dual";
-+		self-powered;
-+
-+		vbus-supply = <&pm4125_vbus>;
-+
-+		typec-power-opmode = "default";
-+		pd-disable;
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+				pm4125_hs_in: endpoint {
-+				};
-+			};
-+
-+			port@1 {
-+				reg = <1>;
-+				pm4125_ss_in: endpoint {
-+				};
-+			};
-+		};
-+	};
-+};
-+
-+&pm4125_vbus {
-+	regulator-min-microvolt = <5000000>;
-+	regulator-max-microvolt = <5000000>;
-+
-+	status = "okay";
-+};
-+
- &pm8005_regulators {
- 	status = "disabled";
- };
-diff --git a/arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts b/arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts
-index e62ba5aef71f..fcafd8aa6384 100644
---- a/arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts
-+++ b/arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts
-@@ -23,6 +23,14 @@ chosen {
- 	};
- };
- 
-+&pm4125_hs_in {
-+	remote-endpoint = <&usb_1_dwc3_hs>;
-+};
-+
-+&pm4125_ss_in {
-+	remote-endpoint = <&usb_qmpphy_out>;
-+};
-+
- &remoteproc_cdsp {
- 	firmware-name = "qcom/shikra/cdsp.mbn";
- 
-@@ -57,3 +65,38 @@ &sdhc_1 {
- 
- 	status = "okay";
- };
-+
-+&usb_1 {
-+	dr_mode = "otg";
-+};
-+
-+&usb_1_dwc3_hs {
-+	remote-endpoint = <&pm4125_hs_in>;
-+};
-+
-+&usb_1_hsphy {
-+	vdd-supply = <&pm4125_l12>;
-+	vdda-pll-supply = <&pm4125_l13>;
-+	vdda-phy-dpdm-supply = <&pm4125_l21>;
-+
-+	status = "okay";
-+};
-+
-+&usb_2_hsphy {
-+	vdd-supply = <&pm4125_l12>;
-+	vdda-pll-supply = <&pm4125_l13>;
-+	vdda-phy-dpdm-supply = <&pm4125_l21>;
-+
-+	status = "okay";
-+};
-+
-+&usb_qmpphy {
-+	vdda-phy-supply = <&pm4125_l8>;
-+	vdda-pll-supply = <&pm4125_l13>;
-+
-+	status = "okay";
-+};
-+
-+&usb_qmpphy_out {
-+	remote-endpoint = <&pm4125_ss_in>;
-+};
-diff --git a/arch/arm64/boot/dts/qcom/shikra-evk.dtsi b/arch/arm64/boot/dts/qcom/shikra-evk.dtsi
-index 4b9452d9e93f..7cdbd257e9c9 100644
---- a/arch/arm64/boot/dts/qcom/shikra-evk.dtsi
-+++ b/arch/arm64/boot/dts/qcom/shikra-evk.dtsi
-@@ -20,3 +20,15 @@ &qupv3_0 {
- &uart0 {
- 	status = "okay";
- };
-+
-+&usb_1 {
-+	dr_mode = "peripheral";
-+
-+	status = "okay";
-+};
-+
-+&usb_2 {
-+	dr_mode = "peripheral";
-+
-+	status = "okay";
-+};
-diff --git a/arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts b/arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts
-index 727809430fd1..779b9582c011 100644
---- a/arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts
-+++ b/arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts
-@@ -57,3 +57,26 @@ &sdhc_1 {
- 
- 	status = "okay";
- };
-+
-+&usb_1_hsphy {
-+	vdd-supply = <&pm8150_l4>;
-+	vdda-pll-supply = <&pm8150_l12>;
-+	vdda-phy-dpdm-supply = <&pm8150_l13>;
-+
-+	status = "okay";
-+};
-+
-+&usb_2_hsphy {
-+	vdd-supply = <&pm8150_l4>;
-+	vdda-pll-supply = <&pm8150_l12>;
-+	vdda-phy-dpdm-supply = <&pm8150_l13>;
-+
-+	status = "okay";
-+};
-+
-+&usb_qmpphy {
-+	vdda-phy-supply = <&pm8150_l6>;
-+	vdda-pll-supply = <&pm8150_l12>;
-+
-+	status = "okay";
-+};
-
--- 
-2.34.1
-
+> 
+> Frank
+> 
+> > > So to illustrate this in litmus test like form:
+> > >
+> > >    # L = nt->link_is_up
+> > >    # R = qp->client_ready
+> > >    # Both initially false
+> > >
+> > >    Transport setup                  Client link-up
+> > >    ---------------                  --------------
+> > >     smp_store_release(&L, true);     WRITE_ONCE(R, true);
+> > >     smp_mb(); /* added */            smp_mb(); /* added */
+> > >     r0 = READ_ONCE(R);               r1 = smp_load_acquire(&L);
+> > >
+> > >    Both reads return false?
+> > >     Before: allowed
+> > >     After:  forbidden
+> > >
+> > > I might be misunderstanding your suggestion though. If you have something
+> > > different in mind, please let me know.
+> >
+> > Just for the record, smp_store_release/smp_load_acquire depicted above, instead
+> > of WRITE_ONCE()/READ_ONCE(), is intentional. They are for MP ordering to publish
+> > the QP setup, which is needed by an earlier patch:
+> > https://lore.kernel.org/r/20260910040836.3792333-5-den@valinux.co.jp/
+> >
+> > Best regards,
+> > Koichiro
+> >
+> > >
+> > > Thanks for the review.
+> > > Koichiro
+> > >
+> > > >
+> > > > Frank
+> > > >
+> > > > >  			ntb_transport_schedule_qp_link(qp, 0);
+> > > > >  	}
+> > > > >
+> > > > > @@ -2401,7 +2407,10 @@ void ntb_transport_link_up(struct ntb_transport_qp *qp)
+> > > > >  	if (!qp)
+> > > > >  		return;
+> > > > >
+> > > > > -	qp->client_ready = true;
+> > > > > +	WRITE_ONCE(qp->client_ready, true);
+> > > > > +
+> > > > > +	/* Pairs with the barrier in ntb_transport_link_work(). */
+> > > > > +	smp_mb();
+> > > > >
+> > > > >  	ntb_transport_schedule_qp_link(qp, 0);
+> > > > >  }
+> > > > > --
+> > > > > 2.51.0
+> > > > >
