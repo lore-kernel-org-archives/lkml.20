@@ -1,146 +1,154 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013043.outbound.protection.outlook.com [40.93.201.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E16CB1531C8
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 00:09:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789171743; cv=none; b=ipWin4utmjuSztl4cVNE7iVG5YsXiHxNXuArLoFBz5CzLYKyLDoYCH6xAFHBeHp2VyY99FJtbTS/lhOY/TW3ks/Y2rP7hO1MD6q+AC2YDB46IFNclSol11e69sdU8yhqFbrUJIC4ghzeIpV/pqVChySZ330/1wO4jUc+rO2FxeE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789171743; c=relaxed/simple;
-	bh=ygMKCEBw17w2TvFNF0QvzIbk38ofcVwwZgG68di1PHA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QTNXojRRebsr6Gzcos1K+Rhium/UfdyT6QBeNG71KJ3qfOHP9T4L46wgETypaKpoH/SLMeXC8zD9Hr+xJ4+XC75pqP/kn9dHS/dBbQmuceDRE+R4RzWCkxPadbVeFSjY8gXSdmX0D5fm5kOftfm1sSMclVZW9dycDfhbYiHYmbs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu; spf=pass smtp.mailfrom=asu.edu; dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b=YjI0ZWIB; arc=none smtp.client-ip=209.85.216.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 273AE24B28;
+	Sat, 12 Sep 2026 00:09:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789171763; cv=fail; b=rbWlAgv1pzYx1WAYeqBLtgWtFWT5OVuvElwY4oKyXnWhZHuw9vDqHGyTPnaEr6nA1Orh62oWhLF2TaniFqFaHI0TplpYCAq7MJjL84gT4nrCAoopQZhMn67WGjMVNciCmvpC+463tomnjvz3mRcryHi5w+tf/HvRZ3hvrdt1MNA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789171763; c=relaxed/simple;
+	bh=JVZNdKnMRRtY0B3k+OOd1KYvhVVYvdxMYVHyIhxc7AY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=BpWH3JOmQiWRAEqG9uLQPLN55wzcxmiMfGMZY0nuMn9BFlMrzo3WzI+tOX/26DJnEa81MSyZHQHpWItwvms5WOX9mzjvOx8vmzkZ8sympkhsDlOvmHRLSgqtZRUx+/LrX4E1jBJJHtsezC3st8BUpxiDzmtLhrAC2kqNpoFeZF0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=e8/U269q; arc=fail smtp.client-ip=40.93.201.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b="YjI0ZWIB"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-398e9698a70so1657991a91.0
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 17:09:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=asu.edu; s=google; t=1789171741; x=1789776541; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+jg78uCdmO9sMjETRRr5TwWNFlS1xhamjhV2nUNuwjo=;
-        b=YjI0ZWIB/nGMOm0UYOsz2fholhMeS08SmeOm964A3eryKyRbn4LreZzE9jKdS6DJKB
-         tIJNRVZrPbxR89kUs/uWbWIdrsuhl3xn+PrWlGL+6vuzZCP1J+FsPqczOtrQy+V7hXzm
-         e6/HgSVGD35LN8vnwvAWQsedFerHVmyXcQNfzN78diSInYBVBNmfqHMyOXVUqTMareM6
-         PanPVU0nL/KVnf6VrVlsv2g0d9hXVIqOZEGRMucwswD9ZROAjaYqxTIZDxuEt108KC+K
-         OSzSNnzKQm81lnhRaPwenW9S9BlvL0ibn5WdcKNHWqYpngn//l60mxpBaJ3DoJOie6HB
-         psuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789171741; x=1789776541;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+jg78uCdmO9sMjETRRr5TwWNFlS1xhamjhV2nUNuwjo=;
-        b=R/075sxdvu6YPOL2NPZXkarVPDU3/R5qhrttHkwaXayvrK1xpyvWauFCsWG+wUaBJ2
-         b/We96Bp4RRDc8f2iz70XtrB5hZGIq3mwyG4rhRi0Rgk43Lbse0fDAf3UMrPARoGVrdP
-         w3uj4+Kg5ZXE3SI9rabo9ybk9zSaw1XJ91Xf9Zrq+o71kRpLBKanc5wc+7emnnqtkVJ4
-         yRpY2On3Wt/Ys9VnAs0gGIZmN2FORDhs5Rr0d01uYono6vk3+tMvSeybHZSN1zXgA3l9
-         J4OSv/hxesLUlT724YpoaAYL+cW52sJ49HvFGG4ndpv7Cs+u4beuhKA6pPVLjG94hJEv
-         1pWQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy1WHBuX819yeTs2RT0Y0zwlsO7xgpPaX47rYA/PAtj1Nkp3cS4EVv4w+8gt/0h5cPR/9NLPBDZ0C6JT+w=@vger.kernel.org
-X-Gm-Message-State: AFuF++l9rnEgDiWKLN3BXrgI7wBsCqw64MHtrHaodXWP4JbgyVoyBVs0
-	9vi55hKxRagTyazKVC94zmrw+n8E+QKOY+Xr0YC6ItIwOcysk3XdrEYLOQQTHTKu8A==
-X-Gm-Gg: AYBFou2daWyqmrPh4pPHrlh7Nj3JmIpjRuoKJRWZJW1UhpLnt7F+xy0m4nNWqHMh3SP
-	NQMwYgooNrj979PY21D03s/GHIThm34ChxG5RoxeAYZUTGUaKltlo6p98JEhmSpbUdl+bws9JPN
-	uYCpHwE4L5a232DNiSLHRHLI+x+rMEarq/qFhlnaKLjBAg9uiyNDQ7dDNWT/0Srl0DWBu1T35SM
-	28fMZWfH90nlAGx/H8dhr+awFgWm2hhgZziRS+AInCiCTV1SqTzWlrSivO0CbSTJObCCEqXlAzO
-	wilWsBHdk2HrWHWmEbucae/Gq+6tnG8/rxd/MFhDidLMTVM1MFLvBqJFoAcaA1cwDoAoo7cv3T4
-	TmQhBY3I/fW7tVvQ3umvCGIlZdeBmFexchBLuChHDUyOfgZe528DQgSTkSkWAuhNJxQfH9Ozt1W
-	dR2gh5F/EWWoJtfK7+pe6AaEWb7ZxKnAqe1bxUJJEeHGRj7kB5O38crkzUGhuYrowzdtn31fV6R
-	Qj3LQbl9VR3iq6yWoQyVyoDzoGWYUWVUg==
-X-Received: by 2002:a17:90b:2689:b0:398:9bd1:3211 with SMTP id 98e67ed59e1d1-39d9c21eb06mr10344323a91.18.1789171741006;
-        Fri, 11 Sep 2026 17:09:01 -0700 (PDT)
-Received: from gio.scai.dhcp.asu.edu (209-147-138-31.nat.asu.edu. [209.147.138.31])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4e52a60sm9199756eec.6.2026.09.11.17.08.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 17:09:00 -0700 (PDT)
-From: Giorgi Kobakhia <gkobakhi@asu.edu>
-To: Namjae Jeon <linkinjeon@kernel.org>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Tom Talpey <tom@talpey.com>,
-	ChenXiaoSong <chenxiaosong@chenxiaosong.com>
-Cc: linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	xmei5@asu.edu,
-	Giorgi Kobakhia <gkobakhi@asu.edu>,
-	stable@vger.kernel.org
-Subject: [PATCH ksmbd-for-next] ksmbd: fix overflow in dacloffset bounds check in build_sec_desc()
-Date: Fri, 11 Sep 2026 17:08:17 -0700
-Message-ID: <20260912000817.763001-1-gkobakhi@asu.edu>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="e8/U269q"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eW2Z8U8gIPZDZOpGlFZoyQaPLHcFeKr48z+BJEtn4JAujHj+5PmTBz40HsBe9zUvU2pea2EU5kjmzwcJAC9FhEYodfXBzek8iNPizzK3aJejwhE5IWgeRTeCp26NaVutD/7hADd9KVzqAPISg9g5uN9dNIzI3Iybye+l29VWpuyOTa0ZM6Aht9TfSfG/q/5fkNaBFKZmwKFal9bsQ7k/lgHk8vklhuJidl3XWqj8DivX03q7Td8uFDINxnr2WBxtnOcD/AcvQDinFlL7xDV489oT7euMP0Ey67YaBQP0i0NaoiyizZRlqHEHOEv6loH7Wu6wEkM3mF1bfYqASekE4A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=aYnEGF91cdZnjZWi8lLXYTleIZtomCADpDkcAPlzIuk=;
+ b=WYiSub9LpOOh9zEtmirp2+tdzGigkVFlCOhLT5qkU4HqyyN77UtRBGlJnNzCJngGUL4/l/tAKqfGXAdcR5KQzO+j5O7DlPJldKSOtqsyBbxOIdfEai7YxFxS+DtwedIC8Ha3voWenWfxA/cZ26CxVxaoPT8Yyer0cbPWM1VEK9aS4X+KGaqmdVFLj8cx7KQ7/X18K3++Xuf7rDlt7RGv4HLTF7zhbAkPvMmXciV+loI1OApumeVyyfEHkI9qknkJVyi4DWKoMeerRsW0nqkez6LWktPHsZcmds0xsax7rhvpx+k79NfLoSoY1XiAmNW8R5FhWYgnwlbIS/sYOyOvYQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aYnEGF91cdZnjZWi8lLXYTleIZtomCADpDkcAPlzIuk=;
+ b=e8/U269qAvudngnBDER/OGvbSgToQx57CuV9sMd0XJq7ajXX5qL0YoOVFNy6I25Cxhg4ZKo2Msi1dkFjSj14jeh1xXJ7HqFkXuBonkY0Zo5irzshwLRC01AnDXnXeMItycRubn+tgb/Z0QAmKvNqch/b8JC06P7beIOo3s7Pvj3t7ab7ognO5lMjyuY/NHH9ZvroQpwZeynK2Ma8BT2eFelZvSancx0HveQR5LH6kVrOyDx3Vts2ty++2iBMURj58VpJE3GPJd/fXXE5RS4GgbNi/aSCecynXrShEJm9tM5blxq6/C3Mzb/1lwhLOIizcQwuBlvhaY1jlVBvaho26A==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by DSVPR12MB999150.namprd12.prod.outlook.com (2603:10b6:8:388::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Sat, 12 Sep
+ 2026 00:09:17 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0406.007; Sat, 12 Sep 2026
+ 00:09:17 +0000
+From: Zi Yan <ziy@nvidia.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ Jaeyeon Lee <jaeyeon.lee.dev@gmail.com>, shuah@kernel.org, david@kernel.org,
+ liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com,
+ mhocko@suse.com, linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] selftests/mm: skip khugepaged file tests if mkfs.xfs is
+ unavailable
+Date: Fri, 11 Sep 2026 20:09:20 -0400
+X-Mailer: MailMate (3.0r7032)
+Message-ID: <1544B919-099C-4D6A-BDCA-9F12110EE2BE@nvidia.com>
+In-Reply-To: <20260911165610.e1b1d957e6c73a200b64e546@linux-foundation.org>
+References: <20260911124517.63714-1-jaeyeon.lee.dev@gmail.com>
+ <aqP7gW98GIiYgL1z@gremlin>
+ <20260911165610.e1b1d957e6c73a200b64e546@linux-foundation.org>
+Content-Type: text/plain
+Content-Transfer-Encoding: quoted-printable
+X-MS-Reactions: disallow
+X-ClientProxiedBy: BL1PR13CA0082.namprd13.prod.outlook.com
+ (2603:10b6:208:2b8::27) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|DSVPR12MB999150:EE_
+X-MS-Office365-Filtering-Correlation-Id: 470ef0f9-e98b-4fb2-e731-08df106215cd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|7416014|376014|23010399003|4143699003|11063799006|56012099006|10067099003|6133799003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	S5mvP9EczUZpM5Uwqn6ws1OsrA6cY39j8okkqkCnMH5+5hiojSztrgQgM+Fb59JoPy6eCCMrwMvhQdXrushCNqdLcBwxlomWNV9AXouC3smA8X87OxGegp3VkEy7dL7o1DvFCgRm5McO0xQBiS0QGqdd7VQL6Lsz/zpM8glke9EQgzAH/Zx4VxSg9D1Yn/TtXZCdiFDuOMqGoU/Jq2BGjN+iEz0eSQXkHYsofwxQVxYBVwhjEjsVfVx/0kGcg4njGxF0OkYCqKLinqTI5PUAvE44VNP1+AO3WKK20IQBIZqtedQg3mnAWs4IkzqtpuPiz+R/IdyQR/h1VEQvteQVA9XMSVnr5GdxD02pZe9c0cVp+SHmxYCmqiPfCDoYh6VBSZRb0ukrUa++J374L2cbSDR0T07H0w8T0tXWb/vfL0ihjJtMKAZRwlj++n9WwpH8weJ2FbrrrOyANLeJshZaEMS9DO7bOjxS3rBmsiwEU0z4OlDl5urhIN9lstSXXEv2Df9u+0i1NC0ozrScCEsR+TMocWbqqYrfbWw9EtmoQhmGqZvIJNSFvrblTqpEQ0Gl03dRKq6TlARMyqvgGOFeX5vdEYIh9bo3V7JnlZb6/LmsBvFW3qIcpgkBmN49h1X06atbHCRHZYqYNOzKj1yB1W69SsWGBmNrlIMRM/lcGz0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(23010399003)(4143699003)(11063799006)(56012099006)(10067099003)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?d+qJynyEd0YxHKe2W26ooJh9Tg768RgHvjs2cBsLHjbf3QMkU+bESQFx/37A?=
+ =?us-ascii?Q?GVcNwb4RRp+12Y+oHfGSuc8Huc+Sww0zSi8pxr4fy81dolH86+IPYxzmibXN?=
+ =?us-ascii?Q?xZRf5OgaN4JNcUcoGgvhYNbuPvcltzqw1G6Vp47waq/1pnjtSMy/d1TEXJZC?=
+ =?us-ascii?Q?mL5OeE2Fz+BNo5ipjbwbfMtveAYUsb3JSM0bSe5TKsxUiqAvzrbZuHfdiSwi?=
+ =?us-ascii?Q?uqp7jF9v2T6KUBpZ776ZXEIvLXA3TFA9kxqIXLTRVovM1qJTv0/vf42NNcYX?=
+ =?us-ascii?Q?fgfugVcWU4Ro+B41NlMGEb6X6vRcFgzFFm06Ozgd7xUZ25I6voXNrqBguQbR?=
+ =?us-ascii?Q?f6bOcN0V3I9lNfzcByCBohx2ps/yyaWwtQ6dyLYibaLG0TnQUpRS7xI5GRes?=
+ =?us-ascii?Q?/lF688NstqatoTS1ep8QVTb5h775EsHtQvBxvDDq4j3QOmeuVr7q0UD0yaPf?=
+ =?us-ascii?Q?PcWgHPCmPGm1mBwgV8dsvg2b+DkUI5i+kiUfJW1n+ZnFtqOaVLFYJExvRu/8?=
+ =?us-ascii?Q?7clDQ9G70EEzQhkKA7+t+Tj8Y+VWVbnuW25mqy/rj/BQ5wbENYLtIQUC0KN6?=
+ =?us-ascii?Q?VcORA22e3jKHZogg68YMDzUx92OmSEshKcKXngyw2o6it/zaepJV8mMfijm5?=
+ =?us-ascii?Q?VHrY3eORCClSMlJfwFEIfRoRF1y3o64YOdP5VJYh5d7LriggFkUr9f+jPmNQ?=
+ =?us-ascii?Q?9vKVMuu4h5WT3B7RTL8zh0uPpvY6hXUn5nspxxc04nqX9bK9s+VNTnnf9kh6?=
+ =?us-ascii?Q?Ny9VSWrrYBbnXCBw879Lol+k8QvF0lx7XlOlwxt3vd59LExr/20+a80CKJPm?=
+ =?us-ascii?Q?cZ0wHb2Cq9iiKpkr4F+1pAWgXQwSsBFluf/f1eCckBOHIghj9gyfAO5XqiIp?=
+ =?us-ascii?Q?uJMNJBjusu3pj6D15KI0b6tQmHkIyhaiSyyZFstSeBjuFe9pANt/BND61dmM?=
+ =?us-ascii?Q?t7B7FEvhlvM6ydaP5iPLHzUeKhAg8SH6uICZERnQ5xQutPD08ra5cNszRj42?=
+ =?us-ascii?Q?DW8Gnz4QBbS+Ogvg5cVoWQr7t+AZk16yJEFAuJKtee6lfOhZzbCqzqRFG54b?=
+ =?us-ascii?Q?oTFS0ZlZr3YiefWZTK+cDUB+lBJN0KO3YJack2ZJoJFvF3aVpY+5LJZ4NN3V?=
+ =?us-ascii?Q?sUwFiOZqqyRUr2JZbytON9TV48WcYrY7ZMhyUAHc0S8HyiEzYqENaA/7NIoU?=
+ =?us-ascii?Q?qB3z/kPQIcbY5udNxwKHO0G7/hzsa+azh+xmjQOBxjR8YKUGiTk2t1v71J2G?=
+ =?us-ascii?Q?KCVKQCkefg5jTWgBibu62gS/jVagL/YpGf9AS6VMxOkX7yO/6LE0H5OlsVkz?=
+ =?us-ascii?Q?r6S7s3PYn1itk3B2cTb0EIWpDPVA6IDi4t9R2n4qZWaFc/dMSAhw1rpQEXZY?=
+ =?us-ascii?Q?sl53wRTRfFcgUAXjeUHaMbOGZBqBhzlfTw3TK7J7TsVJLrydHJQ+5/wF2ogc?=
+ =?us-ascii?Q?CXwbKF0iLmlTvWmIO/8nESTeqLtotUhZYLBMtBvlgxugjos4t5scpVZ9Dpxk?=
+ =?us-ascii?Q?w12wTnR0SwWX2Nop0pwpeNz9Q8hOZyAFG1FClgsy9NQl5JBcA/4l6jA9j8y4?=
+ =?us-ascii?Q?1CJrH+FP7EOVFmBhPoFn/gR2jqoUJrWGimFU+6eqvQWX4/eMXjue7vc58FYG?=
+ =?us-ascii?Q?lA+MebyxXmsS/1Sy3ANzygaddgwU5ua9liJ9NJYAZrxuC9NAWPhRyt1yHsnt?=
+ =?us-ascii?Q?tn7hXb7G3JsS3NATEqS6ZmiFnh/igSzGnfFuantRywERivd3Wny8AgSZLg4j?=
+ =?us-ascii?Q?DM3Ovf62YQ=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 470ef0f9-e98b-4fb2-e731-08df106215cd
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Sep 2026 00:09:16.9620
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5de3pkXcg71p6uawfN2rZOZ+Vb+26lm4csCLdjH5IkkoKefTgTwqQzyRG5WLs15z
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR12MB999150
 
-When the large dacl_offset is provided, dacl_offset + sizeof(struct
-smb_acl) overflows on 32-bit builds and the check is passed,
-Which makes le16_to_cpu(ppdacl_ptr->size) read out-of-bounds. This
-only happens for dacl_offset in range [0xFFFFFFF8, 0xFFFFFFFF]. So
-the oob read is max 8 bytes preceding the allocated ppntsd.
+On 11 Sep 2026, at 19:56, Andrew Morton wrote:
 
-    unsigned int dacl_offset = le32_to_cpu(ppntsd->dacloffset);
-    int ppdacl_size, ntacl_size = ppntsd_size - dacl_offset;
+> On Fri, 11 Sep 2026 14:01:55 +0100 "Lorenzo Stoakes (ARM)" <ljs@kernel.=
+org> wrote:
+>
+>>> Assisted-by: claude.ai:claude-opus-5
+>>
+>> Convention is now:
+>>
+>> Assisted-by: LLM
+>>
+>> See https://docs.kernel.org/process/coding-assistants.html
+>
+> Yeah.  That's so lame.  I like seeing what people are using - it's
+> interesting.
 
-    if (!dacl_offset ||
-	(dacl_offset + sizeof(struct smb_acl) > ppntsd_size))
-	    goto out;
+It is like free advertising for these model[1], like I guessed.
 
-Commit beff0bc9d69b ("ksmbd: fix overflow in dacloffset bounds check")
-fixes similar checks in other functions. But leaves this one out,
-because it is only valid for 32-bit builds.
+>
+> Also tautological.  What else will we ever place after
+> "Assisted-by: "?  Dr Watson?
 
-Reproduced on 32-bit ARM with KASAN, by a client sending SMB2
-SET_INFO(SEC) with dacloffset=0xfffffff8, then QUERY_INFO(SEC) on the
-same file:
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/co=
+mmit/?id=3D816d9992d9ed434ec52cfbd63080d518e535a41b
 
- BUG: KASAN: slab-out-of-bounds in build_sec_desc (fs/smb/server/smbacl.c:1105)
- Read of size 2 at addr c2a273fa by task kworker/1:1/35
- CPU: 1 UID: 0 PID: 35 Comm: kworker/1:1 Not tainted 7.3.0-rc2+ #5
- Workqueue: ksmbd-io handle_ksmbd_work
- Call trace:
-  kasan_check_range from build_sec_desc (fs/smb/server/smbacl.c:1105)
-  build_sec_desc from smb2_query_info (fs/smb/server/smb2pdu.c:7676)
-  smb2_query_info from handle_ksmbd_work (fs/smb/server/server.c:160)
-  handle_ksmbd_work from process_one_work (kernel/workqueue.c:3401)
-  process_one_work from worker_thread (kernel/workqueue.c:3473)
-  worker_thread from kthread (kernel/kthread.c:436)
-
-Add overflow check.
-
-Fixes: 8f0541186e9a ("ksmbd: fix heap-based overflow in set_ntacl_dacl()")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM claude
-Tested-by: Xiang Mei <xmei5@asu.edu>
-Signed-off-by: Giorgi Kobakhia <gkobakhi@asu.edu>
----
- fs/smb/server/smbacl.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
-index 7c60520f3b63..e75247915c87 100644
---- a/fs/smb/server/smbacl.c
-+++ b/fs/smb/server/smbacl.c
-@@ -1097,9 +1097,12 @@ int build_sec_desc(struct mnt_idmap *idmap,
- 			struct smb_acl *ppdacl_ptr;
- 			unsigned int dacl_offset = le32_to_cpu(ppntsd->dacloffset);
- 			int ppdacl_size, ntacl_size = ppntsd_size - dacl_offset;
-+			size_t dacl_struct_end;
- 
- 			if (!dacl_offset ||
--			    (dacl_offset + sizeof(struct smb_acl) > ppntsd_size))
-+			    check_add_overflow(dacl_offset, sizeof(struct smb_acl),
-+					       &dacl_struct_end) ||
-+			    dacl_struct_end > (size_t)ppntsd_size)
- 				goto out;
- 
- 			ppdacl_ptr = (struct smb_acl *)((char *)ppntsd + dacl_offset);
--- 
-2.43.0
-
+Best Regards,
+Yan, Zi
