@@ -1,154 +1,138 @@
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013043.outbound.protection.outlook.com [40.93.201.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 273AE24B28;
-	Sat, 12 Sep 2026 00:09:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDFA7192D8A
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 00:12:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.141
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789171763; cv=fail; b=rbWlAgv1pzYx1WAYeqBLtgWtFWT5OVuvElwY4oKyXnWhZHuw9vDqHGyTPnaEr6nA1Orh62oWhLF2TaniFqFaHI0TplpYCAq7MJjL84gT4nrCAoopQZhMn67WGjMVNciCmvpC+463tomnjvz3mRcryHi5w+tf/HvRZ3hvrdt1MNA=
+	t=1789171975; cv=pass; b=cJzleAN5sXsNhabB8/I12XdqJRVWIwHOIWFGsEcPLnjxFmXc91Pen4v30yP0FTT0twE1ZPMC2+G6MAYaMwLPwZk/Etzdv4gfUvJ2rF9voquc9sK6Yp7cBRRQTSrnr1ZJPqGVvUQp7ri4PHVkv/yxZP9oZ71ozBAkfGaRGYwKx20=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789171763; c=relaxed/simple;
-	bh=JVZNdKnMRRtY0B3k+OOd1KYvhVVYvdxMYVHyIhxc7AY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=BpWH3JOmQiWRAEqG9uLQPLN55wzcxmiMfGMZY0nuMn9BFlMrzo3WzI+tOX/26DJnEa81MSyZHQHpWItwvms5WOX9mzjvOx8vmzkZ8sympkhsDlOvmHRLSgqtZRUx+/LrX4E1jBJJHtsezC3st8BUpxiDzmtLhrAC2kqNpoFeZF0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=e8/U269q; arc=fail smtp.client-ip=40.93.201.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1789171975; c=relaxed/simple;
+	bh=rpf73EZEStOwsDS1lr4nwRoZur9RYU/pyz/FypXYRsg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ua8znxVeL3qNs3EM/yOEefT06hqXMIT1+8OKUY5Rbc3eOXmqJRA1ZIauxp00lxONeb2NYbdC11Jc4wxhJ7mURuY1tMdEqchQfaPXAMVaSdmtu68O8exYHlce/PmqDrBI6Zce0ChzQTiWbIT0TtWBX96HJZju7Gasf9NFPauNnug=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Phc/WVYo; arc=pass smtp.client-ip=74.125.224.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="e8/U269q"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eW2Z8U8gIPZDZOpGlFZoyQaPLHcFeKr48z+BJEtn4JAujHj+5PmTBz40HsBe9zUvU2pea2EU5kjmzwcJAC9FhEYodfXBzek8iNPizzK3aJejwhE5IWgeRTeCp26NaVutD/7hADd9KVzqAPISg9g5uN9dNIzI3Iybye+l29VWpuyOTa0ZM6Aht9TfSfG/q/5fkNaBFKZmwKFal9bsQ7k/lgHk8vklhuJidl3XWqj8DivX03q7Td8uFDINxnr2WBxtnOcD/AcvQDinFlL7xDV489oT7euMP0Ey67YaBQP0i0NaoiyizZRlqHEHOEv6loH7Wu6wEkM3mF1bfYqASekE4A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aYnEGF91cdZnjZWi8lLXYTleIZtomCADpDkcAPlzIuk=;
- b=WYiSub9LpOOh9zEtmirp2+tdzGigkVFlCOhLT5qkU4HqyyN77UtRBGlJnNzCJngGUL4/l/tAKqfGXAdcR5KQzO+j5O7DlPJldKSOtqsyBbxOIdfEai7YxFxS+DtwedIC8Ha3voWenWfxA/cZ26CxVxaoPT8Yyer0cbPWM1VEK9aS4X+KGaqmdVFLj8cx7KQ7/X18K3++Xuf7rDlt7RGv4HLTF7zhbAkPvMmXciV+loI1OApumeVyyfEHkI9qknkJVyi4DWKoMeerRsW0nqkez6LWktPHsZcmds0xsax7rhvpx+k79NfLoSoY1XiAmNW8R5FhWYgnwlbIS/sYOyOvYQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aYnEGF91cdZnjZWi8lLXYTleIZtomCADpDkcAPlzIuk=;
- b=e8/U269qAvudngnBDER/OGvbSgToQx57CuV9sMd0XJq7ajXX5qL0YoOVFNy6I25Cxhg4ZKo2Msi1dkFjSj14jeh1xXJ7HqFkXuBonkY0Zo5irzshwLRC01AnDXnXeMItycRubn+tgb/Z0QAmKvNqch/b8JC06P7beIOo3s7Pvj3t7ab7ognO5lMjyuY/NHH9ZvroQpwZeynK2Ma8BT2eFelZvSancx0HveQR5LH6kVrOyDx3Vts2ty++2iBMURj58VpJE3GPJd/fXXE5RS4GgbNi/aSCecynXrShEJm9tM5blxq6/C3Mzb/1lwhLOIizcQwuBlvhaY1jlVBvaho26A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by DSVPR12MB999150.namprd12.prod.outlook.com (2603:10b6:8:388::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Sat, 12 Sep
- 2026 00:09:17 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0406.007; Sat, 12 Sep 2026
- 00:09:17 +0000
-From: Zi Yan <ziy@nvidia.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
- Jaeyeon Lee <jaeyeon.lee.dev@gmail.com>, shuah@kernel.org, david@kernel.org,
- liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com,
- mhocko@suse.com, linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] selftests/mm: skip khugepaged file tests if mkfs.xfs is
- unavailable
-Date: Fri, 11 Sep 2026 20:09:20 -0400
-X-Mailer: MailMate (3.0r7032)
-Message-ID: <1544B919-099C-4D6A-BDCA-9F12110EE2BE@nvidia.com>
-In-Reply-To: <20260911165610.e1b1d957e6c73a200b64e546@linux-foundation.org>
-References: <20260911124517.63714-1-jaeyeon.lee.dev@gmail.com>
- <aqP7gW98GIiYgL1z@gremlin>
- <20260911165610.e1b1d957e6c73a200b64e546@linux-foundation.org>
-Content-Type: text/plain
-Content-Transfer-Encoding: quoted-printable
-X-MS-Reactions: disallow
-X-ClientProxiedBy: BL1PR13CA0082.namprd13.prod.outlook.com
- (2603:10b6:208:2b8::27) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Phc/WVYo"
+Received: by mail-yx2-f13.google.com with SMTP id 00721157ae682-85d4ddd1d91so4270337b3.1
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 17:12:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789171972; cv=none;
+        d=google.com; s=arc-20260327;
+        b=OukmYdgXZgMZ5X6FoFNer0S8mCGoI7KXBdZ1vsfWcaR+oXAyPPSlEMqyEpV7l/3Nk6
+         PdZWN3Y8J+viyzi1eb7Bz/YvN+sRNqyBQNBd4BlvyG8YFt8UkguArDAZzWboBvciQhNr
+         WjsiRYSxST1ZQEYxerxYXRt0NEpVmsJwOwSiCoT1bOxGylC+LWFcykRL43ovptHxzVyY
+         x2ENnWH3r7zhIsJanoxEgpXf7VPJL/CRltyofmYsK0AUyEI4ucw4NHeXlWtoIaduY+PE
+         ypEtU1XlwFO7cGVP03WaQ9raRBKj4HKzRM4IG4hnxnLA3Hjz4sAcmcDhIUbLAvkWW6o5
+         QDMA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=xQ76fY6ulaYNYKwPfApE+ipglZPuPZv8sU5oC2IS+ko=;
+        fh=hx1pXHa2CgxIsSWfotiAWzDzlMN2aSE/xpY6vYedY7k=;
+        b=rlcVxbPwKckI2RrHhEPbwCJRqoLOlmbDXJf+eVusvbbGPckXsAYWSy7iVRuyGctCxk
+         SvNC6hr5NmhCoYeaAYB4+sopUjYtWSI1bl85z5e1/YCMm5MBZvj94H4AWEXhdo000HIV
+         PXn1kyLcQzU/hlSxgx5fPnd0v5XQYbHxSckyjjgs99hfMo4+6qi/xv5ExebHIK7V0Z1j
+         joMkVwdSL+8VoL/b0hc+0MM4/otLCfjYPHllqOSvKliGc6xrXyz8T9QJFEaWhaHmZaBi
+         9OquREqTwAJbYMuX+ngjlVHyFInAl2vOhO3CqprgvX9+fewdKZf3iC4Y+BZJ/jY65Qjm
+         uo3w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789171972; x=1789776772; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xQ76fY6ulaYNYKwPfApE+ipglZPuPZv8sU5oC2IS+ko=;
+        b=Phc/WVYo8EphJoGKkkh2tehrwqo33p9lQhzuB9TcskQi9/bw9tcO9vCwiTT8nZicUT
+         t7Z5djJasaQ+WF8wLTjOZJpaeNgudCQornt8QJwaf0VrHlOY0eqOQ2qCro7QzcyOWxMS
+         YAwwKvWpSXhncclQR2ZZUJSd6FIJEU0lnfOa3m3AZfL2slWbyclKolLSVBArwyJEN1F0
+         yBA8WDUTeb79undSOcPWQFZpQ6ZtRtMzxJ9bMPZVSoU1ffLcT6HpJbVoIWS1jY7GPWq9
+         XPSgsTVAvGgxffLJQ0XoBjmC7HIeoiJ0Oq38SVTg2nf5PewpARe7Ye8R8fi3Gc/qkFJn
+         WBEw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789171972; x=1789776772;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=xQ76fY6ulaYNYKwPfApE+ipglZPuPZv8sU5oC2IS+ko=;
+        b=f2Xl03K/W4Y85pWsWuWyHKACV+gJBWPSquecayVFp0BaBTmk425P5Gs3PdWvfLQ+LZ
+         7meSTu5ElbbYrD5VLiV1/ET+1/ZXTT9KUynacQc3Jce+BDDkPobE5K5MYk9HK5ZKFIXd
+         nt1F+SKejXACAyKJU3NUJXf49XMlu6q3RC+rCPZoahtKCO27K0bC6KUYz6+/Ciipavd1
+         2B5M5mnbJgDUwDk/Wpnv/GG1x7G0fLflVvWHvWi4lWFmNigAb/1IL0FCZuHvXv2l3VU1
+         8ZzwYfjNqb2N7NBTeVlP57zR7AO+nlDSOjB72VMDtPYVd/oVyLylfzUMKpAnWQN7ttPR
+         8Nvw==
+X-Forwarded-Encrypted: i=1; AKwUvBytw6Sy6jYfGFowGDsJQAQ5u9xdaxwoxqWS/u+i700ebLDInGnnzfXFRm8HFUowPHMhbp4/mUR5blRtqvQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mHImqLM2lKlTatKXVk45h2RHyju6TpmqBcmuj++I++O/SrStp4
+	29O/6XpeBbvzwxUdMNyotVgR1v6HxWPWyhTbhoyCm+ClWlw4aibwsK+ptBFNwfEA9IWHUZasiu6
+	XDYUeTPVLi3QnMZ8rCta/j+OqHSx6OqAs77WPdD0C
+X-Gm-Gg: AYBFou09a8z5N5rzpD2kq+cWxBB1meJtH8cFTsFBbh5Jg702Xl8WxdjXopcb6ABCEuG
+	i4Ta3YV4PjWGEplsU5ZcqtMG6Q9Yd8JHTrIB08av8Xvowe1p0o873apJUM3M5nWIpkL1UWhzPoB
+	OyXWJnfZq4qBxDdRzWo1OFQ/usdDNnroHgGr46RD/o3eIgX167O6IZNXdt9Yi1B2XHCM6RARZG9
+	ksIuo+RpwrFuTselsvWEHM7B+H1uF3502kfE26orDq0PGjGj1rAduClHOUOECmjFwrEuycziWSc
+	8/l3Wp3RR9ddO50gkk5UsL/gPCHFe08jxpcuzvDHTX6VxmqKTOZTRwHVsBVNQzHUXdtj3W9jrFN
+	Qs2nWDplTVQ==
+X-Received: by 2002:a05:690c:314:b0:886:30f8:ef85 with SMTP id
+ 00721157ae682-88630f8f5d1mr18380937b3.16.1789171971605; Fri, 11 Sep 2026
+ 17:12:51 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|DSVPR12MB999150:EE_
-X-MS-Office365-Filtering-Correlation-Id: 470ef0f9-e98b-4fb2-e731-08df106215cd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|7416014|376014|23010399003|4143699003|11063799006|56012099006|10067099003|6133799003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	S5mvP9EczUZpM5Uwqn6ws1OsrA6cY39j8okkqkCnMH5+5hiojSztrgQgM+Fb59JoPy6eCCMrwMvhQdXrushCNqdLcBwxlomWNV9AXouC3smA8X87OxGegp3VkEy7dL7o1DvFCgRm5McO0xQBiS0QGqdd7VQL6Lsz/zpM8glke9EQgzAH/Zx4VxSg9D1Yn/TtXZCdiFDuOMqGoU/Jq2BGjN+iEz0eSQXkHYsofwxQVxYBVwhjEjsVfVx/0kGcg4njGxF0OkYCqKLinqTI5PUAvE44VNP1+AO3WKK20IQBIZqtedQg3mnAWs4IkzqtpuPiz+R/IdyQR/h1VEQvteQVA9XMSVnr5GdxD02pZe9c0cVp+SHmxYCmqiPfCDoYh6VBSZRb0ukrUa++J374L2cbSDR0T07H0w8T0tXWb/vfL0ihjJtMKAZRwlj++n9WwpH8weJ2FbrrrOyANLeJshZaEMS9DO7bOjxS3rBmsiwEU0z4OlDl5urhIN9lstSXXEv2Df9u+0i1NC0ozrScCEsR+TMocWbqqYrfbWw9EtmoQhmGqZvIJNSFvrblTqpEQ0Gl03dRKq6TlARMyqvgGOFeX5vdEYIh9bo3V7JnlZb6/LmsBvFW3qIcpgkBmN49h1X06atbHCRHZYqYNOzKj1yB1W69SsWGBmNrlIMRM/lcGz0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(23010399003)(4143699003)(11063799006)(56012099006)(10067099003)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?d+qJynyEd0YxHKe2W26ooJh9Tg768RgHvjs2cBsLHjbf3QMkU+bESQFx/37A?=
- =?us-ascii?Q?GVcNwb4RRp+12Y+oHfGSuc8Huc+Sww0zSi8pxr4fy81dolH86+IPYxzmibXN?=
- =?us-ascii?Q?xZRf5OgaN4JNcUcoGgvhYNbuPvcltzqw1G6Vp47waq/1pnjtSMy/d1TEXJZC?=
- =?us-ascii?Q?mL5OeE2Fz+BNo5ipjbwbfMtveAYUsb3JSM0bSe5TKsxUiqAvzrbZuHfdiSwi?=
- =?us-ascii?Q?uqp7jF9v2T6KUBpZ776ZXEIvLXA3TFA9kxqIXLTRVovM1qJTv0/vf42NNcYX?=
- =?us-ascii?Q?fgfugVcWU4Ro+B41NlMGEb6X6vRcFgzFFm06Ozgd7xUZ25I6voXNrqBguQbR?=
- =?us-ascii?Q?f6bOcN0V3I9lNfzcByCBohx2ps/yyaWwtQ6dyLYibaLG0TnQUpRS7xI5GRes?=
- =?us-ascii?Q?/lF688NstqatoTS1ep8QVTb5h775EsHtQvBxvDDq4j3QOmeuVr7q0UD0yaPf?=
- =?us-ascii?Q?PcWgHPCmPGm1mBwgV8dsvg2b+DkUI5i+kiUfJW1n+ZnFtqOaVLFYJExvRu/8?=
- =?us-ascii?Q?7clDQ9G70EEzQhkKA7+t+Tj8Y+VWVbnuW25mqy/rj/BQ5wbENYLtIQUC0KN6?=
- =?us-ascii?Q?VcORA22e3jKHZogg68YMDzUx92OmSEshKcKXngyw2o6it/zaepJV8mMfijm5?=
- =?us-ascii?Q?VHrY3eORCClSMlJfwFEIfRoRF1y3o64YOdP5VJYh5d7LriggFkUr9f+jPmNQ?=
- =?us-ascii?Q?9vKVMuu4h5WT3B7RTL8zh0uPpvY6hXUn5nspxxc04nqX9bK9s+VNTnnf9kh6?=
- =?us-ascii?Q?Ny9VSWrrYBbnXCBw879Lol+k8QvF0lx7XlOlwxt3vd59LExr/20+a80CKJPm?=
- =?us-ascii?Q?cZ0wHb2Cq9iiKpkr4F+1pAWgXQwSsBFluf/f1eCckBOHIghj9gyfAO5XqiIp?=
- =?us-ascii?Q?uJMNJBjusu3pj6D15KI0b6tQmHkIyhaiSyyZFstSeBjuFe9pANt/BND61dmM?=
- =?us-ascii?Q?t7B7FEvhlvM6ydaP5iPLHzUeKhAg8SH6uICZERnQ5xQutPD08ra5cNszRj42?=
- =?us-ascii?Q?DW8Gnz4QBbS+Ogvg5cVoWQr7t+AZk16yJEFAuJKtee6lfOhZzbCqzqRFG54b?=
- =?us-ascii?Q?oTFS0ZlZr3YiefWZTK+cDUB+lBJN0KO3YJack2ZJoJFvF3aVpY+5LJZ4NN3V?=
- =?us-ascii?Q?sUwFiOZqqyRUr2JZbytON9TV48WcYrY7ZMhyUAHc0S8HyiEzYqENaA/7NIoU?=
- =?us-ascii?Q?qB3z/kPQIcbY5udNxwKHO0G7/hzsa+azh+xmjQOBxjR8YKUGiTk2t1v71J2G?=
- =?us-ascii?Q?KCVKQCkefg5jTWgBibu62gS/jVagL/YpGf9AS6VMxOkX7yO/6LE0H5OlsVkz?=
- =?us-ascii?Q?r6S7s3PYn1itk3B2cTb0EIWpDPVA6IDi4t9R2n4qZWaFc/dMSAhw1rpQEXZY?=
- =?us-ascii?Q?sl53wRTRfFcgUAXjeUHaMbOGZBqBhzlfTw3TK7J7TsVJLrydHJQ+5/wF2ogc?=
- =?us-ascii?Q?CXwbKF0iLmlTvWmIO/8nESTeqLtotUhZYLBMtBvlgxugjos4t5scpVZ9Dpxk?=
- =?us-ascii?Q?w12wTnR0SwWX2Nop0pwpeNz9Q8hOZyAFG1FClgsy9NQl5JBcA/4l6jA9j8y4?=
- =?us-ascii?Q?1CJrH+FP7EOVFmBhPoFn/gR2jqoUJrWGimFU+6eqvQWX4/eMXjue7vc58FYG?=
- =?us-ascii?Q?lA+MebyxXmsS/1Sy3ANzygaddgwU5ua9liJ9NJYAZrxuC9NAWPhRyt1yHsnt?=
- =?us-ascii?Q?tn7hXb7G3JsS3NATEqS6ZmiFnh/igSzGnfFuantRywERivd3Wny8AgSZLg4j?=
- =?us-ascii?Q?DM3Ovf62YQ=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 470ef0f9-e98b-4fb2-e731-08df106215cd
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Sep 2026 00:09:16.9620
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5de3pkXcg71p6uawfN2rZOZ+Vb+26lm4csCLdjH5IkkoKefTgTwqQzyRG5WLs15z
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR12MB999150
+References: <20260906202747.4041389-1-samagazaryan@google.com>
+ <20260906202747.4041389-4-samagazaryan@google.com> <20260911-d0e2d97df458cbf24fa42089@linux.microsoft.com>
+In-Reply-To: <20260911-d0e2d97df458cbf24fa42089@linux.microsoft.com>
+From: Sam Agazaryan <samagazaryan@google.com>
+Date: Fri, 11 Sep 2026 17:12:40 -0700
+X-Gm-Features: AcwNN1XGf5UCGIDj0-3n6mkuZTqdVzaLGdiWSNdFIbb-PgTGwHhfgg9zPWx-lbE
+Message-ID: <CAHreonH0b=spgb2LuUbVvWHarJWf3MOyL8qS5k_1X6gb_mjVkg@mail.gmail.com>
+Subject: Re: [PATCH v4 3/3] i3c: add i3cdev module to expose i3c dev in /dev
+To: Meagan Lloyd <meaganlloyd@linux.microsoft.com>
+Cc: linux-i3c@lists.infradead.org, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Frank Li <Frank.Li@nxp.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>, 
+	Vitor Soares <vitor.soares@toradex.com>, 
+	Oleksandr Shulzhenko <oleksandr.shulzhenko.viktorovych@intel.com>, linux-kernel@vger.kernel.org, 
+	tgopinath@linux.microsoft.com, boris.brezillon@collabora.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 11 Sep 2026, at 19:56, Andrew Morton wrote:
+Hey Meagan,
 
-> On Fri, 11 Sep 2026 14:01:55 +0100 "Lorenzo Stoakes (ARM)" <ljs@kernel.=
-org> wrote:
->
->>> Assisted-by: claude.ai:claude-opus-5
->>
->> Convention is now:
->>
->> Assisted-by: LLM
->>
->> See https://docs.kernel.org/process/coding-assistants.html
->
-> Yeah.  That's so lame.  I like seeing what people are using - it's
-> interesting.
+Thanks for sharing your patch series.
 
-It is like free advertising for these model[1], like I guessed.
+ The reason we have the bus notifier system here is
+ 1. Dynamic module loading is handled automatically: if i3cdev is built-in and
+    a specialized driver module loads later, the bus notifier receives
+    BUS_NOTIFY_BIND_DRIVER and immediately calls i3cdev_detach().
+ 2. No cross-subsystem changes needed. The bus notifier avoids touching other
+    subsystems entirely.
+ 3. Boot-time recovery flows: For OCP Secure Firmware Recovery
+    devices come up unbound and need /dev/bus/i3c/<device> available
+    immediately without requiring udev rules or sysfs writes first.
 
->
-> Also tautological.  What else will we ever place after
-> "Assisted-by: "?  Dr Watson?
+Let me know what you think about that and if there's something I may be missing.
 
-[1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/co=
-mmit/?id=3D816d9992d9ed434ec52cfbd63080d518e535a41b
+It looks like we're both going in the same direction for UAPI integration too.
 
-Best Regards,
-Yan, Zi
+If you're open to collaborating, I think we can combine and converge on a single
+i3cdev driver - adopting all necessary fixes and ensuring the UAPI and features
+cover both of our use cases so we have one unified series (and any
+other use cases
+or desires we may want out of an i3cdev driver).
+
+I'd like to know what everyone thinks about taking that approach also
+if there are any
+other use cases we may be missing here, regardless of which patch set we choose.
+
+I guess just to get things moving, if we go one way and choose to go
+forward with
+the bus notifier approach, Meagan would you be okay with me incorporating your
+Patch 2/3 for actual_len for the i3c controller drivers? Of course
+with your authorship.
+
+
+Thanks,
+Sam
