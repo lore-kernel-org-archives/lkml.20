@@ -1,151 +1,201 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFF41320CD3
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 15:11:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA2333AC17
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 15:13:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789225902; cv=none; b=bMJhFAhU3/mxCWJWeWXXaIq0++mpxIYkZBu7dYWlrpUpEVXQN28StPrevT53TS/erW1ztADemy1ZOZme+Uw/LBo8kH1bfXOBKYW3ro0IqrJI2URmLQy3ctv97t3abk3excOuHAS5RdwT3IIO4gYDdJjHHZJe2wfMiLLN0fRZx3c=
+	t=1789226031; cv=none; b=PF3Rz4Ye5AZOZvPhMzK6wYLWij3iXkg/e8+tFdirQUN/vhiTcrhnkoOr0p1VPEjNjd8+qFnfPHTma20QuYZb+uV1FvWjk2lrN+/sVYflxFkSBi873WD/CbAbF6dRDK1BtfvkR6v+tEQbfwRKLDlFj2btg6AGqOLxhvo/c3RurvQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789225902; c=relaxed/simple;
-	bh=lSNHqvRhMHGwhckSbpdghGzhXyliVNB3ylXTKjvZ0Oo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tsLG5+NUZwqaQzTgJ3kKEP5F1YkvhSYShVfcDmWcsxw8Ls1ZuM4Zd/IGSwgGhU3jkCnP5u/plAarAznjD4yYnYtMtTf9uMBhkzZV7zHIaS4bDhu4TmNfqjnMIToF0ojhOH2zENGykMllrLNFviWUEKMbR0MMqYnJMMcsBY7o1vU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aheymans.xyz; spf=pass smtp.mailfrom=aheymans.xyz; dkim=pass (2048-bit key) header.d=aheymans-xyz.20251104.gappssmtp.com header.i=@aheymans-xyz.20251104.gappssmtp.com header.b=lzGz5IHt; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aheymans.xyz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aheymans.xyz
+	s=arc-20240116; t=1789226031; c=relaxed/simple;
+	bh=nkzZC4O3ba+qnaj9PyoG2dWmmfwTuprT6RMLwOebYh4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jW0h/UFHg+9D7lDYMjsbY3lRazRLnhfmyXCpRwwZF9+w6ClPNe7C24vJDssWutdNH0QV7kWek6I01jECvfDpEDzREMXuZOb50UJJVjnpdmjGWFWIy8UO6X7aYTeOwaSx4pufKYWV56DPWc7UZTgIfrwCPL+A6Q66FFyqp6TQ6BQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o0ipokmm; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aheymans-xyz.20251104.gappssmtp.com header.i=@aheymans-xyz.20251104.gappssmtp.com header.b="lzGz5IHt"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49cd38e0f79so3850165e9.3
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 08:11:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o0ipokmm"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccc02279so690841a91.1
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 08:13:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=aheymans-xyz.20251104.gappssmtp.com; s=20251104; t=1789225899; x=1789830699; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UNp2ej2UnoB5ep8eGYhUlJSsYiFkYUAkgSgRSLrvMp8=;
-        b=lzGz5IHtdYHxzmzApAljNy2K7DMePqMft9KM2wG7lt/0tn7y13ypuPr3nodlREZiDO
-         WAZknuqnJ6z2mxMyInRrJq8DNZovJvKKmgVQbbcF6fd4k32hrerIiAWL3raDMpdatdbL
-         AZs83vf3a2qBnI89M07tzY/G1HPvRUiVcartsPUIrXGSJxE+OPLiODXWfJVyTyqHtIrL
-         qa1mrEBHvL7knK1VdpKvNm3a5rLnsaVoPw4jgerNrSl5NnuhdpZkioBfY7Fjz42czn09
-         L1USwypVcgmvfXWqSB5v99oDgj30RTn7cwtwgBwn1s2FRvCrLH0taOSSDhZvIzhe/nlU
-         6uRA==
+        d=gmail.com; s=20251104; t=1789226029; x=1789830829; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NZJ+Pa3NsYZTQTTHYy8H/tv0MO/NVxIE9LyyFhhiPi8=;
+        b=o0ipokmmlTflHvxBa4P57AV63fufbCWCZdMjnJc6qGFV3BOg6H6B7m6rd2SM8JRhHu
+         hWAx2HYdz7vsv0qYbg9Ix0VR0DuyjBagnZoUAw/rmMSK/ddpdiL6+c0zkRW+jZeUQ2MW
+         2PqlialXAtFVA21Eri37CiX9OPIETXgJldQJN/IKh2U5DFpoQObkg1ooFH76b+ztdR14
+         36EuOi3N6WvT+Pg6bmoKdnGDVdKq2D44mKeS/iyf/VX5wJ01J5xgpq9Wk1x034MMo3iN
+         gSTPotz5cwMBSE3G3zRim8a/24z6k12EoUOZ1sltMAR6uqYTdsCQIlMFm1PZshCAs5B6
+         Of2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789225899; x=1789830699;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UNp2ej2UnoB5ep8eGYhUlJSsYiFkYUAkgSgRSLrvMp8=;
-        b=KR/dnLmWDZckDdJ17NdmAQLZAnwU+MqzMp94woaxZYk7jXUdxHLm70+BT3wvGVySB8
-         Z4Cd5QgaQO8IeAwbWtSjbBpMV3+M+Gu1MI0tAefcC4TIU0OceSjZhKJC4hlhlvYwQK9D
-         YwrlkzpLO8qLbOVMX2AwEbhRBftaC4QLQx7MoEPQd+lsYQTgcUCBRc73N80thW7xkisx
-         5w2G33Lk7v1UX7f67FN9tGv9cN3d5AO5rZB24IPMT00V3C+fscbiu48VhokDdZED7chU
-         Yl2q2fe3DYKn7mo2380xxBfdvOe25jHlvYLS1tr39GAIQgzUhRMQj7jIqVuC1uAbpfrh
-         BPQg==
-X-Forwarded-Encrypted: i=1; AKwUvBzSIZXAJ17K9dRKngacaz9czweCbILvA1av2/AQStME+3Lr/c5xcZz8WGVTncWYrwpmOGx3o9YNAeUZTBY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lbljoueKXaWldE66xGqXEKf9xhAXFq1fHFg1QxmsJJaHC9AdqA
-	yzk5L9fkhUMWd6MClKXMHRcypIZV93/zLXAtO2N3XaV0p0tQT5Tde7v21W/iJbcrw6G1d1nehz8
-	nntfdsZls+A==
-X-Gm-Gg: AYBFou0ABbPymp9PDzPHRM2CX7vjT6+LdLtW8bQUoSYpe0xCrL7T4Ha+P+wl6nKoLJn
-	FZr+v5pXqzZyuFkwZgQtHG92pLqYPiigOOrdLN0sVAM6TghJLiO/6EE1OdN7Twjza9F4o+DVE6Z
-	quOuNj7vUzm9mnpPai2WaFZwutR14ZiEF8mBLH4Xnk0ScWW/x3awqmrepTFdx6cN16sQCqTnzxw
-	SqSE6az2X2O/31r7cCnCJXz5G00hi0HdJj7nnNSv+1Q6HR71x8idYqui/F2aTZ0XKbSkUS/PBx1
-	8x/D7QMQZjIuipx3mzdylL0NMe2XkA5twhN6ZXEM15jnsgNZ7NMYdblfgHb+pIcB+RGjOjNDJGp
-	cs6WKXrSGyTt1NpxDGW7R80tGTtWRXO8yHrFJ6tGGRtFEa3cs4c70qNFFHToaR10j7WzS5NJAAx
-	kN3HzxZO9q3eVbsndp/QERJuKKPPjeczf1Bxen1cT89I0pONhgLkOAvxJ1L098BYZxjP5B8C6A0
-	UBVf+yUfo8xYEqBDMuQ75V03zcl7J2b/VfDYBiRgy8uUIVGDtZj+UptgCcJa5DG+KEr5nx8gP6W
-	VmqAVQF1+seZ/fuBd9oQD+LlxTZd8kKVrkes2rg=
-X-Received: by 2002:a05:600c:2301:b0:49d:2555:1a6d with SMTP id 5b1f17b1804b1-49e619cbf88mr155925425e9.16.1789225898398;
-        Sat, 12 Sep 2026 08:11:38 -0700 (PDT)
-Received: from localhost (2a02-1810-b422-d400-af60-1d41-c104-7560.ip6.access.telenet.be. [2a02:1810:b422:d400:af60:1d41:c104:7560])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e60adaeefsm162063135e9.12.2026.09.12.08.11.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 12 Sep 2026 08:11:38 -0700 (PDT)
-From: Arthur Heymans <arthur@aheymans.xyz>
-To: amd-gfx@lists.freedesktop.org
-Cc: harry.wentland@amd.com,
-	sunpeng.li@amd.com,
-	siqueira@igalia.com,
-	alexander.deucher@amd.com,
-	christian.koenig@amd.com,
-	michael.mityushkin@amd.com,
-	nicholas.kazlauskas@amd.com,
-	qingqing.zhuo@amd.com,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Arthur Heymans <arthur@aheymans.xyz>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/amd/display: Preserve eDP mode on initial ASSR failure
-Date: Sat, 12 Sep 2026 17:11:37 +0200
-Message-ID: <20260912151137.3913987-1-arthur@aheymans.xyz>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20251104; t=1789226029; x=1789830829;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=NZJ+Pa3NsYZTQTTHYy8H/tv0MO/NVxIE9LyyFhhiPi8=;
+        b=dCqx1cOGeFB0S8lg8CaIUM7wcNZHf5bubtRqdc39w8TzJL+kfAkufryl5xvtdttLB3
+         bEd5nWYGlw94X4FTmjW4H3nBJqdahsWESl7oBR6KUmu9ut/OfXEKLSrmUdyWdVjI7fHj
+         51g/eHaj0YVXTL7Ms8/wLw3O/HT0Ocw2ku6AwvERPNSAOmx9PP+lAHYzFcinMYMtVGfY
+         cr59q7Yb1mxJNk8F2WnMd4t0BgJ3nlqlIc8BTUuhGgi60zq1S2JLVFlRM+7GbN7sVqUe
+         s/8K6iFCwmcrLQOQ3g2rXun4cs4TUepoR1gnHU8p5g3YSv2nXiDXuOBxKGKBwADJ11t6
+         0Fqg==
+X-Forwarded-Encrypted: i=1; AKwUvBzLHBmzQOKji61D0WAJ9iXXwI30udtmsN0BNcbVOqkFZwfQ7KQWz+QGXLoJnQjcMJWBRJeb8lv1ACrMlow=@vger.kernel.org
+X-Gm-Message-State: AFuF++kmhbqESgITDcup8cj3JfFSBgSPXSO/f57N/ZY7xreLUT6IbCtU
+	WEbLjUJx6Yv3Wrqk8aN6bQZwFwZ2XiN0mQ2dWPNaWFT9Xee8EugPP/JQ
+X-Gm-Gg: AYBFou1xrrZ53mm8zGfxilD6X/9LNPeX7IKXfkk8aMS9CRg6ijsMZVhErTC/N71A7Ht
+	/ElNU5drsGUYJrOzSkgVy/X8/sBcmGORejGBWoCVzUJFMmHMuybq4b1JCMb3s7gRXmMM6yy4qjB
+	sviciuKg1UoDFHozCLV0l92h5up38De+H/fNSmW18FXpBVc8olJ9KC+5rGQYIWh2KREDbLTNqK6
+	+9pzyxEJthZa4FBh6PhimiDY3KMzACR1w+kpnMOYg42qwMMCx1IypoaK1UAMOLusGYt6QH0tpNc
+	UrtxrEOXcTosSCzoOYbTXJZzCCdQkdeZ6XD8KwQt/2ancc0NXugyjbzYddvYVJuWD7qjI5MoiuM
+	kSkjH3+dCePn7nLHdEPxjCwWLWs7gwp2p0eLXATZ9X0pCAy6fWttQUUmpTcVp0xtIEFDUjl+nDx
+	y9vd7TveRIG2O/oINNmSeXeZlEmHJ56lbpbMe9YzjSDd2iIuLKrdGcPSDU9udKxlJUkkc9M1tfD
+	JxC8NwNK6DhcrPX6Bwz8ta1zTAPkcN6t2Dl5VrrAvjpiMdfd4UU0T1wgrM=
+X-Received: by 2002:a17:90b:3147:b0:398:ab03:95b2 with SMTP id 98e67ed59e1d1-39d9bee5d69mr16001778a91.10.1789226029163;
+        Sat, 12 Sep 2026 08:13:49 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39db41a7adfsm5718476a91.1.2026.09.12.08.13.47
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 12 Sep 2026 08:13:48 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <b47789a3-731e-44c4-a954-e9352529cdf5@roeck-us.net>
+Date: Sat, 12 Sep 2026 08:13:47 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 5/6] hwmon: (peci/cputemp) Add support for Granite
+ Rapids (GNR)
+To: Changhuang Liang <changhuang.liang@starfivetech.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Iwona Winiarska <iwona.winiarska@intel.com>
+Cc: openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ Philipp Zabel <p.zabel@pengutronix.de>
+References: <20260903133408.110847-1-changhuang.liang@starfivetech.com>
+ <20260903133408.110847-6-changhuang.liang@starfivetech.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260903133408.110847-6-changhuang.liang@starfivetech.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Commit 56d8ce9d8c17 ("drm/amd/display: Apply correct panel mode when
-reinitializing hardware") made ASSR failure fall back to the default panel
-mode unless eDP mode had previously been applied.
+On 9/3/26 06:34, Changhuang Liang wrote:
+> Add Granite Rapids (GNR) CPU support to the PECI cputemp driver. The GNR
+> platform does not support the core mask scan via PCI local read, so
+> handle this case explicitly by returning -EPERM and skipping the core
+> mask initialization.
+> 
 
-However, dc_link is zero-initialized and DP_PANEL_MODE_DEFAULT is zero.
-Before the first call to dp_set_panel_mode(), panel_mode therefore looks
-like a previously applied default mode. If ASSR setup fails during the
-first link training attempt, the driver incorrectly trains the eDP link
-using the default scrambling mode.
+After reading the next patch of the series: Are you sure that this is
+the case, or is it possible that Granite Rapids just uses a different
+access mechanism to provide the information ?
 
-On a Google Vilboz Chromebook running self-built coreboot firmware and
-PSP verstage, this leaves the panel mostly black with corrupted output
-along the top edge.
+Thanks,
+Guenter
 
-Track whether panel_mode has actually been initialized, and only consult
-the saved mode after it has been applied. This retains the recovery
-behavior while preserving eDP mode during initial link training.
-
-Fixes: 56d8ce9d8c17 ("drm/amd/display: Apply correct panel mode when reinitializing hardware")
-Cc: stable@vger.kernel.org # v6.4+
-Assisted-by: Pi:gpt-5.6-sol
-Signed-off-by: Arthur Heymans <arthur@aheymans.xyz>
----
- drivers/gpu/drm/amd/display/dc/dc.h                           | 1 +
- .../amd/display/dc/link/protocols/link_edp_panel_control.c    | 4 +++-
- 2 files changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index 4ecd5699ac5e..0db55a73da0c 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -1912,6 +1912,7 @@ struct dc_scratch_space {
- 	struct ddc_service *ddc;
- 
- 	enum dp_panel_mode panel_mode;
-+	bool panel_mode_initialized;
- 	bool aux_mode;
- 
- 	/* Private to DC core */
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-index 9883216dcc9d..cd90576bc6f0 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-@@ -93,6 +93,7 @@ void dp_set_panel_mode(struct dc_link *link, enum dp_panel_mode panel_mode)
- 	}
- 
- 	link->panel_mode = panel_mode;
-+	link->panel_mode_initialized = true;
- 	DC_LOG_DETECTION_DP_CAPS("%d eDP panel mode supported: %d, enabled: %d\n",
- 				 link->link_index,
- 				 link->dpcd_caps.panel_mode_edp,
-@@ -1300,7 +1301,8 @@ void edp_set_panel_assr(struct dc_link *link, struct pipe_ctx *pipe_ctx,
- 
- 		result = cp_psp->funcs.enable_assr(cp_psp->handle, link);
- 
--		if (!result && link->panel_mode != DP_PANEL_MODE_EDP)
-+		if (!result && link->panel_mode_initialized &&
-+		    link->panel_mode != DP_PANEL_MODE_EDP)
- 			*panel_mode = DP_PANEL_MODE_DEFAULT;
- 	}
- }
--- 
-2.55.0
+> Define new cpu_info structure for GNR with minimum PECI revision 0x40 and
+> the thermal margin conversion function dts_ten_dot_six_to_millidegree().
+> 
+> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+> ---
+>   drivers/hwmon/peci/cputemp.c | 20 ++++++++++++++++++++
+>   1 file changed, 20 insertions(+)
+> 
+> diff --git a/drivers/hwmon/peci/cputemp.c b/drivers/hwmon/peci/cputemp.c
+> index 457089c561b4..43e52a6db79b 100644
+> --- a/drivers/hwmon/peci/cputemp.c
+> +++ b/drivers/hwmon/peci/cputemp.c
+> @@ -339,6 +339,17 @@ static int init_core_mask(struct peci_cputemp *priv)
+>   	u32 data;
+>   	int ret;
+>   
+> +	/*
+> +	 * Some platforms (e.g. Granite Rapids) do not expose the RESOLVED_CORES
+> +	 * register over PECI - per-core temperatures are simply not available.
+> +	 */
+> +	if (!reg) {
+> +		dev_dbg(priv->dev,
+> +			"resolved cores scan is not supported on vendor-family-model 0x%x\n",
+> +			peci_dev->info.x86_vfm);
+> +		return -EOPNOTSUPP;
+> +	}
+> +
+>   	/* Get the RESOLVED_CORES register value */
+>   	switch (peci_dev->info.x86_vfm) {
+>   	case INTEL_ICELAKE_X:
+> @@ -543,6 +554,11 @@ static const struct cpu_info cpu_emr = {
+>   	.thermal_margin_to_millidegree = &dts_ten_dot_six_to_millidegree,
+>   };
+>   
+> +static const struct cpu_info cpu_gnr = {
+> +	.min_peci_revision = 0x40,
+> +	.thermal_margin_to_millidegree = &dts_ten_dot_six_to_millidegree,
+> +};
+> +
+>   static const struct auxiliary_device_id peci_cputemp_ids[] = {
+>   	{
+>   		.name = "peci_cpu.cputemp.hsx",
+> @@ -576,6 +592,10 @@ static const struct auxiliary_device_id peci_cputemp_ids[] = {
+>   		.name = "peci_cpu.cputemp.emr",
+>   		.driver_data = (kernel_ulong_t)&cpu_emr,
+>   	},
+> +	{
+> +		.name = "peci_cpu.cputemp.gnr",
+> +		.driver_data = (kernel_ulong_t)&cpu_gnr,
+> +	},
+>   	{ }
+>   };
+>   MODULE_DEVICE_TABLE(auxiliary, peci_cputemp_ids);
 
