@@ -1,106 +1,155 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+Received: from meesny.iki.fi (meesny.iki.fi [195.140.195.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C31D37DEBF;
-	Sat, 12 Sep 2026 07:57:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789199881; cv=none; b=UjR2V2rQ8vPWEOiFkMWI8gqO8nTsgT2w7LEM/onihS5RoMhS+GkCMnUmq6I3K0S/9TPWMYVB4vd8LyKt5/RFNw+u71Z3bKlyETM5C6AEuyzzRfQBQS39q1/oAb0sfIwHDK17Y54Ecve+xOLOD1Ez3Ps8eV+th85qJwX+0X1GxyQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789199881; c=relaxed/simple;
-	bh=vXC/lz8sDS7vIK7kkmOHAKB95vRwZ8MKI1dgipjQ6uY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kCNSmBw6V+voclRDN5Xh5a3hlD+2tRat/jMFoDgDuoONPuHUZZ40dHnMGFZXfDmeZF0BRsEuongK549b6/0IoSADbfvO7kzGpvp/y77NSmdYWvOIKodMag1wpkiEQfmRmpT5agi4v+OpKatVZjM4vtXhbWmyLa7VAKK+SVWgLyc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ht9POEgX; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3117B38DC43;
+	Sat, 12 Sep 2026 07:59:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=195.140.195.201
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789199963; cv=pass; b=ICNbzCSL40bQnL06XWrtN4h3ijBZeQYm120Z4BTVJcnQKyMT7qawTDB7YvYXFmvnDq4/WLrLNaVZ+3duxIvsRI45zdJTJ8OHCqRGAHDqCxaIJlFm+vIWOjF9BXpPnUeDRwKv9lkrKYeF37Cl1nb99Byi3yCCz0kW9ye9V/9HcK0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789199963; c=relaxed/simple;
+	bh=NmXmFYFRtLU22HLrYBSd1oFf2pfvgHBMxjXsjw+Yi3Q=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=EZkuNzch6xYFbQmUj7UEVpMVjs2ZLRCX4rziFgjAPds/oYkDO6xa9VqDppkmfVhdkqt8UJt0xzBdPls7O5fRKvRw8WsTrnd5ZvrJ1WRzd4QfkDaHjt9x8xk89r+EsVK/a+KOoD6XtuXJzpfcRNAJeVcJw2+2nQOBbnC5jBbDHeQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b=c1nizgtp; arc=pass smtp.client-ip=195.140.195.201
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ht9POEgX"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789199880; x=1820735880;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=vXC/lz8sDS7vIK7kkmOHAKB95vRwZ8MKI1dgipjQ6uY=;
-  b=ht9POEgXKcHmKZo7I0ktgshOt0zC1r8r/afn9pimGXd/4VFLHmLX+tTy
-   GSRIzXIz0brWxjub5auIjcg6MvwmdQkk+4ZH6CG0XwANen6hJGEKURYvj
-   U1BUy4ulD8CfZXs8N5qXjHFb0JLNFYiYz9jqxsF7KgquG/5/gikTBKANN
-   okueqA13XqqdLFB67J2JKEwQ9fQDft+IDT1848TUlc9toid6fEg1A7HOv
-   QYSX4SMTctahvViCIO6IvTJpqAnOgLlu8qrYnugk2yV4FQWtX1KtrMrva
-   Wix1vlAspb4NViYLiHqdyQOw2Rb42EVX0FbteRKSrYr52XhrlvuLfUExt
-   w==;
-X-CSE-ConnectionGUID: w6QEx3CBR3eFAVOujKjVVA==
-X-CSE-MsgGUID: d63wBIUCTDia6j95pD3LBA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11902"; a="89691825"
-X-IronPort-AV: E=Sophos;i="6.27,98,1787036400"; 
-   d="scan'208";a="89691825"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Sep 2026 00:57:59 -0700
-X-CSE-ConnectionGUID: bR4opzlKQVmHrLrg7T0zlQ==
-X-CSE-MsgGUID: wAgTxgzzQDaNadMqh9H5pQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,98,1787036400"; 
-   d="scan'208";a="268851514"
-Received: from cpetruta-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.230])
-  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Sep 2026 00:57:54 -0700
-Date: Sat, 12 Sep 2026 10:57:51 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>
-Cc: linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-iio@vger.kernel.org,
-	linux-sound@vger.kernel.org, linux-spi@vger.kernel.org,
-	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
-	=?iso-8859-1?Q?Am=E9lie?= Delaunay <amelie.delaunay@foss.st.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH v4 01/10] dmaengine: Move enum dma_slave_buswidth to a
- new header
-Message-ID: <aqUF_8g-DG7GB1pM@ashevche-desk.local>
-References: <20260911-dmaengine-support-wider-dma-masks-v4-0-72b8fd4cc78e@analog.com>
- <20260911-dmaengine-support-wider-dma-masks-v4-1-72b8fd4cc78e@analog.com>
+	dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b="c1nizgtp"
+Received: from fauth-c1-smtp.messagingengine.com (fauth-c1-smtp.messagingengine.com [204.75.18.200])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: jmtilli)
+	by meesny.iki.fi (Postfix) with ESMTPSA id 4hhkMH4PThzySb;
+	Sat, 12 Sep 2026 10:59:07 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=meesny;
+	t=1789199948;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=kWtoX2q/jGZ//1+vTBGDG8T4O15rbIPB/EVBKLVQA20=;
+	b=c1nizgtp/UZNwiHIDtiTCKEEfIaCe0KdOhFPIJTCb47HHJUK5LsxbiUhPhvDePNeNsnn8+
+	J7nd5Ar9y49SERDsS6Hkxa6YUP5HOPQ4Jnp0DYKlJWCOs8umYf2YjnUAT/nFF5A8lUGsEg
+	Ao61NcvI0IRG9KkoCLAhGdVYMdBUl9Y=
+ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=meesny; cv=none; t=1789199948;
+	b=VJ4U+jtAJFzR306aVpQL7xZpYGbpV8t2XgbbbxHtD23dRNrH0Vvrt1J+2xMdDxIIPQiism
+	MaZrkIiN15ygXZ/9kRybeR+lDqalOpf3+SNjZXbFZPd7kPP6/SEzBT0CpQHzoeE7nbgqAm
+	QxkH0PhCg/NyLJFJv12qM84cnINRR94=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
+	s=meesny; t=1789199948;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=kWtoX2q/jGZ//1+vTBGDG8T4O15rbIPB/EVBKLVQA20=;
+	b=Y3jj+/jl1D9ZL3reijnjzxtM1ndhiL681A2rux/8xF+hhqz2GQevjUZkCfDQML5TPR+/LE
+	yYHfVYFG2dWLLnhGMIcvlnozPqIrfswLFBhTMJRBwSJ9IepE8Cr4Pj1dBFavCpPd4Wg2At
+	Mc0qck58ThGJGsc2sjk9vXm33lnm6Bc=
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=jmtilli smtp.mailfrom=juha-matti.tilli@iki.fi
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 88644198004A;
+	Sat, 12 Sep 2026 03:59:06 -0400 (EDT)
+Received: from ams-imap-13 ([10.64.2.33])
+  by ams-compute-02.internal (MEProxy); Sat, 12 Sep 2026 03:59:06 -0400
+X-ME-Sender: <xms:Rwalamwxsu26ZEAS5voScVlywrSY1nhVUTKXq3cCPVO3bORaiKI0WQ>
+    <xme:RwalatHmZGDCrKjVl44ZugsMgSP-83xtoEiRnWXbEa594O-wzVVXEOaS37DOktAxZ
+    4sdKJ1HSC1VSuv0EC7SHScw5yENnTPd1ZiKGEFNV7szZcRnIbl0xl0>
+X-ME-Proxy-Cause: dmFkZTFEXGNHCKhuAHtyaQNCz9mF0LZj+0EMZrDTZmy3QBtpWwkxw8Zh/OO90gMbHDDFgT
+    rbvZjVfyzbe7pkuXoVe4F/B+gfkty3EASgQrgf67g1gdMjrMwpOFHdiISUkhGVC3bvpJ9v
+    A91YgggnXoVf0wSMRnkH/4DlMkIjf+ckzw7bbjyYzmMwVAMq2ftHOT3fnqksac5SBbsmIa
+    MaWjmODyRy0ISaJM+6j9CoXe9+qacm+h1bg9tNmq/kjTbQPDkj/cxQkqm5oWG/imqJqNJs
+    Ev2UEr8Eg77CV9+/3aghkj2fBy7lSvVvXi3yrGhTiR19pRxc5DHSStlNeaVEV1VLGnx+TT
+    ZYeGFc/3MyJHxUijdmDRETWFGoaVjYJAdy1uZQ/BfFqdZAqgxHenipTtFZ+IsAkjZV82et
+    gYjy9Mrr0CxGBXCBY1gjGvAMwjbuPDk7V5PvJKRykqP8MnmE6N5FOiABM14uiaEeRu+Le3
+    uHBEaMbVg7qJTalVLlsh9Imxuv55Qyvo3/xt1DGbpovUZCUaT2W2s8VIJI2wXY1hnINTO7
+    ZGpqOFUev7REkutW6tUhurd8LQBWLSTGVe0PRDkwpzJCTQPdGQxKqrkfewZC4O+6lWMbRA
+    Wu1nZnQ4La7Mwtb9p3zmrEEuuwQHxIEdOcO30Im3b01LDr8JJ1MMMtqcoukQ
+X-ME-Proxy: <xmx:SgalanJwwwbuJsLQgae23CqvUJjCBfbiUimryUZ_BVZMVHowVP0KSA>
+    <xmx:SgalagAkJ3r3T_wIeqZo1ZRDMk6UNekCYm1Igx-rQlq1g3bzFzQh_A>
+    <xmx:SgalaoScTpCd1L-V1EcbcZqBRrWadwyH-hQgdE5LxFjo5cFTHYGotA>
+    <xmx:SgalahqLyq8KMc4R3N09DShooKOVboWooC2HMbjuNW16yJBdUFescg>
+    <xmx:SgalahV9QqOmNXwtcBK-HLYKgjWLCsxT90vaUs6jp6PopLystOxxEea7>
+Feedback-ID: i02414972:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 5DC57F80087; Sat, 12 Sep 2026 03:59:03 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260911-dmaengine-support-wider-dma-masks-v4-1-72b8fd4cc78e@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+X-ThreadId: Av35K2MZ7qUg
+Date: Sat, 12 Sep 2026 10:58:42 +0300
+From: "Juha-Matti Tilli" <juha-matti.tilli@iki.fi>
+To: "Jeff Johnson" <jeff.johnson@oss.qualcomm.com>,
+ ath11k@lists.infradead.org, ath12k@lists.infradead.org,
+ "Kalle Valo" <kvalo@kernel.org>, "Jeff Johnson" <jjohnson@kernel.org>,
+ "Manivannan Sadhasivam" <manivannan.sadhasivam@oss.qualcomm.com>
+Cc: "Bjorn Andersson" <andersson@kernel.org>,
+ "Konrad Dybcio" <konradybcio@kernel.org>,
+ "David S . Miller" <davem@davemloft.net>,
+ "Eric Dumazet" <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>,
+ "Paolo Abeni" <pabeni@redhat.com>, "Simon Horman" <horms@kernel.org>,
+ "Mihai Moldovan" <ionic@ionic.de>, linux-wireless@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Message-Id: <65bea1ee-edf5-4884-98e7-f9d6237f8999@app.fastmail.com>
+In-Reply-To: <d91ce2be-6489-4399-b035-23f6aec0371f@oss.qualcomm.com>
+References: <20260908093145.2492666-1-juha-matti.tilli@iki.fi>
+ <d91ce2be-6489-4399-b035-23f6aec0371f@oss.qualcomm.com>
+Subject: Re: [PATCH v3 00/12] ath1{1,2}k: support multiple PCI devices in one system
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 11, 2026 at 06:25:36PM +0100, Nuno Sá wrote:
-> In preparation for the bitmap based bus width capabilities, move
-> enum dma_slave_buswidth out of linux/dmaengine.h into a new
-> include/linux/dma/engine/types.h.
+On Fri, Sep 11, 2026, at 22:15, Jeff Johnson wrote:
+> On 9/8/2026 2:31 AM, Juha-Matti Tilli wrote:
+> > Hello,
+> > 
+> > As you may well know, multiple identical ath11k and ath12k devices are
+> > not supported in a single Linux host because they use conflicting QRTR
+> > node IDs. Fortunately, Denis Kenzior created a patchset to support
+> > multiple QRTR endpoints with identical node IDs, and Mihai Moldovan
+> > refined it, after which I took over the patchset and refined it more.
+> > 
+> > [snip]
 > 
-> linux/dmaengine.h is included nearly everywhere, so growing it with the
-> new interface would make every one of its users pay for it. Keeping the
-> basic types in a separate header lets the new interface live next to it
-> without that cost. linux/dmaengine.h includes the new header, so its
-> users are unaffected.
+> How are you populating the list of recipients for your e-mail?
 > 
-> While at it, add the missing kernel-doc for the enum members. The block
-> already opened with /**, so kernel-doc expected every member to be
-> described and warned about each one of them. Describe the UNDEFINED case
-> in particular, as its meaning depends on where the value is used.
+> You are including folks no longer involved in kernel development, but more
+> importantly, you are using an obsolete e-mail address for the MHI maintainer
+> (Mani). I've replaced his address in my reply.
 > 
-> No functional change intended.
+> Please make sure to use scripts/get_maintainer.pl to get an accurate list of
+> recipients.
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Hello,
 
--- 
-With Best Regards,
-Andy Shevchenko
+I will post a new patchset without messed-up threading later. The e-mail
+list was populated from Mihai's patchset from 2024, and I indeed noticed 
+that Mani's e-mail address was old, which would have been fixed in the
+next version anyway. I will also do an estimate of how recently the
+recipients have been doing kernel development, based on the Linux kernel
+commit history, and what kind of development they have done (in what
+subsystems), and remove addresses that haven't been part of relevant
+kernel subsystem development recently (except maybe Denis and Mihai
+could be listed as the patches were originally theirs). Of course,
+get_maintainer.pl result will be included.
 
+I will also join the modified recipient lists of Denis's patchset and
+Mihai's patchset, as they are related to each other, and Mihai's patches
+require Denis's patches.
 
+I hope that with these modifications, the patchsets could be taken into
+consideration and review.
+
+At least my git send-email settings and changed SMTP server settings
+should prevent the previous mistake in the next series, and if not, now
+I know --in-reply-to and --no-thread. Also shorter CC list will make SMTP
+server limits less likely.
+
+BR, Juha-Matti
