@@ -1,318 +1,136 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58E171D63F3
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 01:03:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 791E624DCF9
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 01:03:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789175011; cv=none; b=CD1E1va/qii2DFgmhs/M7XpeWdXMud7cl1FZuvtjHMeZCRKZ1NHu/8TgHC9nUoq6SRfn5VPXU+S9hSIaN4Zj7jYEzKEoqLYfa6L1uqbX6IAWdXTdHI50zqiNThbxgf+NDIZv+GNPkXU63ugexW0zJLxFM3jY3dP39HiL0SBhyH4=
+	t=1789175020; cv=none; b=tQz8HacbwgTsRHySsuslufXhcAA+NMrmKShFnaoMw+NnZ+bgCp5GBRNyaiseBbqCvsvD5r0RtcdY0Of8ZV4OfrZuBbizL1iI0Pp+2aLKq2Ae1ZyWfZxf6LBqWAzEyyf5AqDOG+JZws5DfVZb5gsw1VCI0X5FzF5zXRObMxpYCX4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789175011; c=relaxed/simple;
-	bh=4UKEgZ4eXlkzkrb4KtZZThIWExN+o/sQ5l6NpslRxqU=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=WM0m9Bwgk1UjmOjsx2zgiQFj3BV+SGMMVCe48Fu221GOOccMwg4ig+Ra5fZxRT3R3gbriwuaM5JWbWm1y5KQfFdC7wpLFZlTWHZXfGYFopiND25F8Vr4g7RSwb2GuB5wnVHKPny3TRcYw/ao+Xo8uZh9Ud9Xxc4O+TymZJEBr0A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=akaLyV9q; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="akaLyV9q"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789175009; x=1820711009;
-  h=date:from:to:cc:subject:message-id;
-  bh=4UKEgZ4eXlkzkrb4KtZZThIWExN+o/sQ5l6NpslRxqU=;
-  b=akaLyV9qmjN0c0lPr81XryiF+VDFDZak1b8OvoJjhldzh6Nw+RAjvdbi
-   SSWApB49XGvuBMQL20R+52hxtGKmszG9kB7iF5RQkqe/niOnaQNs/XZ4O
-   2qQFsT31V/Y3DinaqbYIUXOX36CvDiRCqpEf0ft0e1O8d62Y2RNNmNOPS
-   xrAqjTJ9nvhPxF2XhGIZWa2kf8zbdDJht34yjW2o/QN5HNNEQ8s6+voyM
-   73rpj3Q54IFY2FfTjJfvQZOlZjnbeekKVV9rfCsZb4cSO0eMTEVhTyMu0
-   u7KMPe/QLb+PuD82UQLWytv5ZDi9ueFK0RxaB6iBk9Rnu6RVaxMdw7Xtj
-   A==;
-X-CSE-ConnectionGUID: Uqkd7xa/QKSN6LZFRVr+yg==
-X-CSE-MsgGUID: LkuGmQR1R3emjWYFUY0nxg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11902"; a="107149935"
-X-IronPort-AV: E=Sophos;i="6.27,98,1787036400"; 
-   d="scan'208";a="107149935"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 18:03:29 -0700
-X-CSE-ConnectionGUID: cUMXQBUYRHOO6S3Z+oyHgw==
-X-CSE-MsgGUID: sh/na7xNR9uHZrXvflkyTA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,98,1787036400"; 
-   d="scan'208";a="310337520"
-Received: from lkp-server02.sh.intel.com (HELO 0a3643a6ed9d) ([10.239.97.151])
-  by orviesa001.jf.intel.com with ESMTP; 11 Sep 2026 18:03:28 -0700
-Received: from kbuild by 0a3643a6ed9d with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x5C9E-000000002TJ-1zmJ;
-	Sat, 12 Sep 2026 01:03:18 +0000
-Date: Sat, 12 Sep 2026 09:01:47 +0800
-From: kernel test robot <lkp@intel.com>
-To: "Paul E. McKenney" <paulmck@kernel.org>
-Cc: linux-kernel@vger.kernel.org
-Subject: [paulmck-rcu:dev] BUILD SUCCESS
- 8c2887d90ac4aabbf762fbdf47ad921538d2048f
-Message-ID: <202609120944.kKDSFLuK-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	s=arc-20240116; t=1789175020; c=relaxed/simple;
+	bh=pGNKxrjCNphcniCv8tBdF8SNvI9xRkFNxjSxF74Ecjk=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=n8mJM5FeSN/MyqSB4Z5bdtnU09ffaVknhcaMQni3Oozo5ZkqdOoSRr+uVYeqFvAUWcYYujEwI4fg6npMISnib/7JaConVI6Ppc1gkQJtVr9dOcto60HM3wbySUP03maGWdH8dmkid05AIbcBLMYPTfzRx7Ok19qOLh3x5HG7Jcc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-8048c813cceso1670175a34.1
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 18:03:38 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789175017; x=1789779817;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=na/b8wxbKAfp1iA2ziFelOwLQ+W1QKRALCqAyIvdeOg=;
+        b=OJXwsy3v+mRHclgMxE2sUHcqSmlFvY11U8o7xxaj6Cn9ksV5r1vPvRPFONUWGrspLE
+         +bw3EY0RSVXL7LSmS4S4gdaLfkWYVZpKCMKdEI+VgXYyAuyNwNawUZatWT1GNCMCnrKA
+         T9SfCGGN2p9nKmZTsCw+G2RHbGYQRKKurt/ITDue54h6RHrSk8Q4Xm9MMGop6WlF5C3L
+         mB+/4/ievGCpoAcdwyTWdy7mIViupnUozIdq5v0oE1yg+MUVASzzajmkhi3rxx6LIwC4
+         4ZKd+pyCLCse2ZSD1uvypsdcvAI5w9q30w4XiUYRvyaOMBz4t/rqNZzhxtWbexqmWwbK
+         c0VA==
+X-Gm-Message-State: AFuF++mLiqHrSDdhnv97lnRuBoZbZO6R6artHXg/wdiIs737NczTQ8k/
+	3uZ65jf6JaTONavWzJo/4AG7zRjwxX7ZClNjGIqC94o1qlahAGGWOM+7/MKyUC3Hvd5ILJ4vE2k
+	/h8LNNHAXdv6AB6FHtI32ygrfjb5+IVVljmy5V9zyyDgl1GhXzhcdzNj5LKQ=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-Received: by 2002:a05:6820:607:b0:6b7:8415:d786 with SMTP id
+ 006d021491bc7-6c0bcabfb07mr4936347eaf.49.1789175017242; Fri, 11 Sep 2026
+ 18:03:37 -0700 (PDT)
+Date: Fri, 11 Sep 2026 18:03:37 -0700
+In-Reply-To: <6aa4291e.f81106d8.2ab401.001e.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa4a4e9.f81106d8.2ab401.0025.GAE@google.com>
+Subject: Forwarded: [PATCH] Input: sur40 - fix use-after-free in v4l2_release
+ on disconnect
+From: syzbot <syzbot+34957180b0ed2581edaf@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/paulmck/linux-rcu.git dev
-branch HEAD: 8c2887d90ac4aabbf762fbdf47ad921538d2048f  rcu: Drop the private tick-internal.h include from tree.c
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-elapsed time: 1451m
+***
 
-configs tested: 241
-configs skipped: 2
+Subject: [PATCH] Input: sur40 - fix use-after-free in v4l2_release on disconnect
+Author: kartikey406@gmail.com
 
-The following configs have been built successfully.
-More configs may be tested in the coming days.
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
 
-tested configs:
-alpha                             allnoconfig    gcc-16.1.0
-alpha                            allyesconfig    gcc-16.1.0
-alpha                               defconfig    gcc-16.1.0
-arc                              allmodconfig    clang-24
-arc                               allnoconfig    gcc-16.1.0
-arc                              allyesconfig    clang-24
-arc                          axs103_defconfig    gcc-16.1.0
-arc                                 defconfig    gcc-16.1.0
-arc                   randconfig-001-20260911    clang-24
-arc                   randconfig-002-20260911    clang-24
-arm                               allnoconfig    gcc-16.1.0
-arm                              allyesconfig    clang-24
-arm                       aspeed_g5_defconfig    gcc-16.1.0
-arm                        clps711x_defconfig    gcc-16.1.0
-arm                                 defconfig    gcc-16.1.0
-arm                          pxa3xx_defconfig    gcc-16.1.0
-arm                   randconfig-001-20260911    clang-24
-arm                   randconfig-002-20260911    clang-24
-arm                   randconfig-003-20260911    clang-24
-arm                   randconfig-004-20260911    clang-24
-arm                           sama7_defconfig    gcc-16.1.0
-arm64                            allmodconfig    clang-24
-arm64                             allnoconfig    gcc-16.1.0
-arm64                               defconfig    gcc-16.1.0
-arm64                 randconfig-001-20260911    gcc-16.1.0
-arm64                 randconfig-002-20260911    gcc-16.1.0
-arm64                 randconfig-003-20260911    gcc-16.1.0
-arm64                 randconfig-004-20260911    gcc-16.1.0
-csky                             allmodconfig    gcc-16.1.0
-csky                              allnoconfig    gcc-16.1.0
-csky                                defconfig    gcc-16.1.0
-csky                  randconfig-001-20260911    gcc-16.1.0
-csky                  randconfig-002-20260911    gcc-16.1.0
-hexagon                          allmodconfig    gcc-16.1.0
-hexagon                           allnoconfig    gcc-16.1.0
-hexagon                             defconfig    gcc-16.1.0
-hexagon               randconfig-001-20260911    gcc-12.5.0
-hexagon               randconfig-001-20260912    clang-24
-hexagon               randconfig-002-20260911    gcc-12.5.0
-hexagon               randconfig-002-20260912    clang-24
-i386                             allmodconfig    clang-22
-i386                              allnoconfig    gcc-16.1.0
-i386                             allyesconfig    clang-22
-i386        buildonly-randconfig-001-20260911    clang-22
-i386        buildonly-randconfig-001-20260912    gcc-14
-i386        buildonly-randconfig-002-20260911    clang-22
-i386        buildonly-randconfig-002-20260912    gcc-14
-i386        buildonly-randconfig-003-20260911    clang-22
-i386        buildonly-randconfig-003-20260912    gcc-14
-i386        buildonly-randconfig-004-20260911    clang-22
-i386        buildonly-randconfig-004-20260912    gcc-14
-i386        buildonly-randconfig-005-20260911    clang-22
-i386        buildonly-randconfig-005-20260912    gcc-14
-i386        buildonly-randconfig-006-20260911    clang-22
-i386        buildonly-randconfig-006-20260912    gcc-14
-i386                                defconfig    gcc-16.1.0
-i386                  randconfig-001-20260911    clang-22
-i386                  randconfig-002-20260911    clang-22
-i386                  randconfig-003-20260911    clang-22
-i386                  randconfig-004-20260911    clang-22
-i386                  randconfig-005-20260911    clang-22
-i386                  randconfig-006-20260911    clang-22
-i386                  randconfig-007-20260911    clang-22
-i386                  randconfig-011-20260911    clang-22
-i386                  randconfig-011-20260912    gcc-14
-i386                  randconfig-012-20260911    clang-22
-i386                  randconfig-012-20260912    gcc-14
-i386                  randconfig-013-20260911    clang-22
-i386                  randconfig-013-20260912    gcc-14
-i386                  randconfig-014-20260911    clang-22
-i386                  randconfig-014-20260912    gcc-14
-i386                  randconfig-015-20260911    clang-22
-i386                  randconfig-015-20260912    gcc-14
-i386                  randconfig-016-20260911    clang-22
-i386                  randconfig-016-20260912    gcc-14
-i386                  randconfig-017-20260911    clang-22
-i386                  randconfig-017-20260912    gcc-14
-loongarch                        allmodconfig    clang-24
-loongarch                         allnoconfig    gcc-16.1.0
-loongarch                           defconfig    clang-24
-loongarch             randconfig-001-20260911    gcc-12.5.0
-loongarch             randconfig-001-20260912    clang-24
-loongarch             randconfig-002-20260911    gcc-12.5.0
-loongarch             randconfig-002-20260912    clang-24
-m68k                             allmodconfig    gcc-16.1.0
-m68k                              allnoconfig    gcc-16.1.0
-m68k                             allyesconfig    clang-24
-m68k                                defconfig    clang-24
-m68k                       m5235evb_defconfig    gcc-16.1.0
-m68k                       m5275evb_defconfig    gcc-16.1.0
-microblaze                        allnoconfig    gcc-16.1.0
-microblaze                       allyesconfig    gcc-16.1.0
-microblaze                          defconfig    clang-24
-mips                             allmodconfig    gcc-16.1.0
-mips                              allnoconfig    gcc-16.1.0
-mips                             allyesconfig    gcc-16.1.0
-mips                     decstation_defconfig    gcc-16.1.0
-mips                      fuloong2e_defconfig    gcc-16.1.0
-mips                      loongson1_defconfig    gcc-16.1.0
-mips                      loongson3_defconfig    gcc-16.1.0
-mips                       rbtx49xx_defconfig    gcc-16.1.0
-nios2                            allmodconfig    clang-20
-nios2                             allnoconfig    clang-24
-nios2                               defconfig    clang-24
-nios2                 randconfig-001-20260911    gcc-12.5.0
-nios2                 randconfig-001-20260912    clang-24
-nios2                 randconfig-002-20260911    gcc-12.5.0
-nios2                 randconfig-002-20260912    clang-24
-openrisc                         allmodconfig    clang-20
-openrisc                          allnoconfig    clang-24
-openrisc                            defconfig    gcc-16.1.0
-parisc                           allmodconfig    gcc-16.1.0
-parisc                            allnoconfig    clang-24
-parisc                           allyesconfig    clang-17
-parisc                              defconfig    gcc-16.1.0
-parisc                randconfig-001-20260911    gcc-8.5.0
-parisc                randconfig-001-20260912    clang-24
-parisc                randconfig-002-20260911    gcc-8.5.0
-parisc                randconfig-002-20260912    clang-24
-parisc64                         alldefconfig    gcc-16.1.0
-parisc64                            defconfig    clang-24
-powerpc                          allmodconfig    gcc-16.1.0
-powerpc                           allnoconfig    clang-24
-powerpc                    amigaone_defconfig    gcc-16.1.0
-powerpc                   lite5200b_defconfig    gcc-16.1.0
-powerpc               randconfig-001-20260911    gcc-8.5.0
-powerpc               randconfig-001-20260912    clang-24
-powerpc               randconfig-002-20260911    gcc-8.5.0
-powerpc               randconfig-002-20260912    clang-24
-powerpc                  storcenter_defconfig    gcc-16.1.0
-powerpc                      tqm8xx_defconfig    gcc-16.1.0
-powerpc64             randconfig-001-20260911    gcc-8.5.0
-powerpc64             randconfig-001-20260912    clang-24
-powerpc64             randconfig-002-20260911    gcc-8.5.0
-powerpc64             randconfig-002-20260912    clang-24
-riscv                            allmodconfig    clang-24
-riscv                             allnoconfig    clang-24
-riscv                            allyesconfig    clang-24
-riscv                               defconfig    gcc-16.1.0
-riscv                 randconfig-001-20260911    gcc-16.1.0
-riscv                 randconfig-001-20260912    gcc-11.5.0
-riscv                 randconfig-002-20260911    gcc-16.1.0
-riscv                 randconfig-002-20260912    gcc-11.5.0
-s390                             allmodconfig    clang-17
-s390                              allnoconfig    clang-24
-s390                             allyesconfig    gcc-16.1.0
-s390                          debug_defconfig    gcc-16.1.0
-s390                                defconfig    gcc-16.1.0
-s390                  randconfig-001-20260911    gcc-16.1.0
-s390                  randconfig-001-20260912    gcc-11.5.0
-s390                  randconfig-002-20260911    gcc-16.1.0
-s390                  randconfig-002-20260912    gcc-11.5.0
-sh                               allmodconfig    gcc-16.1.0
-sh                                allnoconfig    clang-24
-sh                               allyesconfig    clang-17
-sh                                  defconfig    gcc-14
-sh                    randconfig-001-20260911    gcc-16.1.0
-sh                    randconfig-001-20260912    gcc-11.5.0
-sh                    randconfig-002-20260911    gcc-16.1.0
-sh                    randconfig-002-20260912    gcc-11.5.0
-sh                      rts7751r2d1_defconfig    gcc-16.1.0
-sh                   rts7751r2dplus_defconfig    gcc-16.1.0
-sh                           se7206_defconfig    gcc-16.1.0
-sh                           se7722_defconfig    gcc-16.1.0
-sh                             shx3_defconfig    gcc-16.1.0
-sparc                             allnoconfig    clang-24
-sparc                               defconfig    gcc-16.1.0
-sparc                 randconfig-001-20260911    gcc-13.4.0
-sparc                 randconfig-001-20260912    gcc-14.3.0
-sparc                 randconfig-002-20260911    gcc-13.4.0
-sparc                 randconfig-002-20260912    gcc-14.3.0
-sparc64                          allmodconfig    clang-20
-sparc64                             defconfig    gcc-14
-sparc64               randconfig-001-20260911    gcc-13.4.0
-sparc64               randconfig-001-20260912    gcc-14.3.0
-sparc64               randconfig-002-20260911    gcc-13.4.0
-sparc64               randconfig-002-20260912    gcc-14.3.0
-um                               allmodconfig    clang-17
-um                                allnoconfig    clang-24
-um                               allyesconfig    gcc-16.1.0
-um                                  defconfig    gcc-14
-um                             i386_defconfig    gcc-14
-um                    randconfig-001-20260911    gcc-13.4.0
-um                    randconfig-001-20260912    gcc-14.3.0
-um                    randconfig-002-20260911    gcc-13.4.0
-um                    randconfig-002-20260912    gcc-14.3.0
-um                           x86_64_defconfig    gcc-14
-x86_64                           allmodconfig    clang-22
-x86_64                            allnoconfig    clang-24
-x86_64                           allyesconfig    clang-22
-x86_64      buildonly-randconfig-001-20260911    gcc-14
-x86_64      buildonly-randconfig-001-20260912    gcc-14
-x86_64      buildonly-randconfig-002-20260911    gcc-14
-x86_64      buildonly-randconfig-002-20260912    gcc-14
-x86_64      buildonly-randconfig-003-20260911    gcc-14
-x86_64      buildonly-randconfig-003-20260912    gcc-14
-x86_64      buildonly-randconfig-004-20260911    gcc-14
-x86_64      buildonly-randconfig-004-20260912    gcc-14
-x86_64      buildonly-randconfig-005-20260911    gcc-14
-x86_64      buildonly-randconfig-005-20260912    gcc-14
-x86_64      buildonly-randconfig-006-20260911    gcc-14
-x86_64      buildonly-randconfig-006-20260912    gcc-14
-x86_64                              defconfig    gcc-14
-x86_64                                  kexec    clang-22
-x86_64                randconfig-001-20260911    clang-22
-x86_64                randconfig-002-20260911    clang-22
-x86_64                randconfig-003-20260911    clang-22
-x86_64                randconfig-004-20260911    clang-22
-x86_64                randconfig-005-20260911    clang-22
-x86_64                randconfig-006-20260911    clang-22
-x86_64                randconfig-011-20260911    gcc-14
-x86_64                randconfig-012-20260911    gcc-14
-x86_64                randconfig-013-20260911    gcc-14
-x86_64                randconfig-014-20260911    gcc-14
-x86_64                randconfig-015-20260911    gcc-14
-x86_64                randconfig-016-20260911    gcc-14
-x86_64                randconfig-071-20260911    gcc-14
-x86_64                randconfig-071-20260912    gcc-14
-x86_64                randconfig-072-20260911    gcc-14
-x86_64                randconfig-072-20260912    gcc-14
-x86_64                randconfig-073-20260911    gcc-14
-x86_64                randconfig-073-20260912    gcc-14
-x86_64                randconfig-074-20260911    gcc-14
-x86_64                randconfig-074-20260912    gcc-14
-x86_64                randconfig-075-20260911    gcc-14
-x86_64                randconfig-075-20260912    gcc-14
-x86_64                randconfig-076-20260911    gcc-14
-x86_64                randconfig-076-20260912    gcc-14
-x86_64                               rhel-9.4    clang-22
-x86_64                           rhel-9.4-bpf    gcc-14
-x86_64                          rhel-9.4-func    clang-22
-x86_64                    rhel-9.4-kselftests    clang-22
-x86_64                         rhel-9.4-kunit    gcc-14
-x86_64                           rhel-9.4-ltp    gcc-14
-x86_64                          rhel-9.4-rust    clang-22
-xtensa                            allnoconfig    clang-24
-xtensa                           allyesconfig    clang-20
-xtensa                randconfig-001-20260911    gcc-13.4.0
-xtensa                randconfig-001-20260912    gcc-14.3.0
-xtensa                randconfig-002-20260911    gcc-13.4.0
-xtensa                randconfig-002-20260912    gcc-14.3.0
+sur40_disconnect() unconditionally freed the sur40_state struct
+(which embeds struct video_device vdev) via kfree(), even while a
+userspace process could still hold an open file descriptor on the
+video device. video_unregister_device() does not wait for open file
+descriptors to close before returning, so if a process closed its fd
+after disconnect() had already run, v4l2_release() would dereference
+the already-freed vdev, resulting in a slab-use-after-free.
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Fix this by giving vdev a real .release callback (sur40_video_release)
+instead of video_device_release_empty, and move the v4l2_device
+unregister and the kfree() calls into it. This defers the actual free
+until the last reference to vdev drops to zero, whether that happens
+during disconnect() (no fd open) or later when the last open fd is
+closed.
+
+Reported-by: syzbot+34957180b0ed2581edaf@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=34957180b0ed2581edaf
+Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+---
+ drivers/input/touchscreen/sur40.c | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/input/touchscreen/sur40.c b/drivers/input/touchscreen/sur40.c
+index 09d8c5f8d09f..bd8d9f6190fb 100644
+--- a/drivers/input/touchscreen/sur40.c
++++ b/drivers/input/touchscreen/sur40.c
+@@ -179,6 +179,7 @@ static uint gain = SUR40_GAIN_DEF;
+ module_param(gain, uint, 0644);
+ MODULE_PARM_DESC(gain, "set initial gain"
+ 	SUR40_PARAM_RANGE(SUR40_GAIN_MIN, SUR40_GAIN_MAX));
++static void sur40_video_release(struct video_device *vdev);
+ 
+ static const struct v4l2_pix_format sur40_pix_format[] = {
+ 	{
+@@ -750,6 +751,7 @@ static int sur40_probe(struct usb_interface *interface,
+ 	sur40->vdev.v4l2_dev = &sur40->v4l2;
+ 	sur40->vdev.lock = &sur40->lock;
+ 	sur40->vdev.queue = &sur40->queue;
++	sur40->vdev.release = sur40_video_release;
+ 	video_set_drvdata(&sur40->vdev, sur40);
+ 
+ 	/* initialize the control handler for 4 controls */
+@@ -820,6 +822,16 @@ static int sur40_probe(struct usb_interface *interface,
+ 	return error;
+ }
+ 
++static void  sur40_video_release(struct video_device *vdev)
++{
++	struct sur40_state *sur40 = container_of(
++                                                vdev,struct sur40_state , vdev);
++
++	v4l2_device_unregister(&sur40->v4l2);
++	kfree(sur40->bulk_in_buffer);
++	kfree(sur40);
++}
++
+ /* Unregister device & clean up. */
+ static void sur40_disconnect(struct usb_interface *interface)
+ {
+@@ -829,10 +841,6 @@ static void sur40_disconnect(struct usb_interface *interface)
+ 
+ 	v4l2_ctrl_handler_free(&sur40->hdl);
+ 	video_unregister_device(&sur40->vdev);
+-	v4l2_device_unregister(&sur40->v4l2);
+-
+-	kfree(sur40->bulk_in_buffer);
+-	kfree(sur40);
+ 
+ 	usb_set_intfdata(interface, NULL);
+ 	dev_dbg(&interface->dev, "%s is now disconnected\n", DRIVER_DESC);
+-- 
+2.43.0
+
