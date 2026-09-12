@@ -1,81 +1,112 @@
-Received: from mail-244106.protonmail.ch (mail-244106.protonmail.ch [109.224.244.106])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AB44356A0D
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 08:03:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.106
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48C522931FB;
+	Sat, 12 Sep 2026 08:03:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789200209; cv=none; b=FsKLhP/SguVeuzqQM2kJC7/XLvUDc8zfIMy8S55iSHQWPGbK7NklJaPuY8+h8uX/FPKDbKEWVjJHMVkj43SmGa5h7jaN/ysVVNIa5bctO1Je98OmUzjwX3eGr+1fF5URwxfsH4JDIw0h5yfZ7PQMDr0/iWiGAmE72wLgTjy7ta0=
+	t=1789200223; cv=none; b=R33TCw95PbQM2EBeJOLm0XaGEbvf3bfI2PqW4rimvJFDllLkUlfNcFxL03zISFPQqlUWAvbZ5UqLwiKfBTf+YdU4bCRGmBh7mFy+eQRsj4OjUbqHvmNBKjLpVu5d495wIzTEBd1JI2L8x0aRY3RN6SV9LounxK7CWmira/7CsPk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789200209; c=relaxed/simple;
-	bh=teKekUbsLbZTfK8cipzX7J8A+wZqme4cswd/NEqv9mc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=X1+2jcb6B3Mqh3jKiwSTHT6PhinXwl587LDDfVtlL9JJTba6i0H1hbhUYQfcno3NUGERB4RrMEo9AC43AsfbXlNsQR8Z+muEZ50kOdfeJcj4Yud+N+WCwJUj/3KjmTiCbsj+voA+sfGKit1ft11f9Wn/QmfTrA4yC1F9p5Co+i8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=onurozkan.dev; spf=pass smtp.mailfrom=onurozkan.dev; dkim=pass (2048-bit key) header.d=onurozkan.dev header.i=@onurozkan.dev header.b=kPovIeMB; arc=none smtp.client-ip=109.224.244.106
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=onurozkan.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onurozkan.dev
+	s=arc-20240116; t=1789200223; c=relaxed/simple;
+	bh=ILKNp+WUMz7m60Cj2U3b3QKfAIuTdzWdXrka2tpZqXw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=BCOtiIlVRoywWSkShR7kfnGl3Eo20ACu0HTaIEViNanOU6ZWZmKIQynkCBXNQ5YiEOA2x+SViEsywqbAoOfVL0nKdPFczXuNRtiy0suAoISGI21B+s5iMaIc6TkAM8826Im5xiVdh14J6ttmCSwor8RV+uIM+QcG+Jn034TRFGA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bkZiD4uF; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=onurozkan.dev header.i=@onurozkan.dev header.b="kPovIeMB"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onurozkan.dev;
-	s=protonmail; t=1789200205; x=1789459405;
-	bh=kK7CQgC17BZEaNS8D1YaLCnpNWJ1hulzqUvU7kaLBmg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=kPovIeMBW5V9/JqworP/bg79xmmgxWyhBUFtnle7WSBVUZM7q3jwb6GYoJzT8TtDd
-	 s8RkVjbch/6YD67SWKkC1MlZIuu37TWSWE4+UFSBnM+e+LzD0yq+uogpUos4OEkpIV
-	 YRNRg+WAuMXp1a72SH4yrVq4IYq1UdaN5DcgIBsBXoqfc+zUAmPLK5m8JAt8Fi52wb
-	 /igTf/rhVSyZzKkTTNuLOaiXRIpdlPy1GpA7rxEBPzYGkS1uRjH5CxKQiu5NCwE5D0
-	 2Y+wPMeU7oGPdjnDxlcS5JSy54UJ/R7XhQvY9/46jt/J2U1F+jEIQejLx2cldjPivE
-	 +5O7TrUHdXflw==
-X-Pm-Submission-Id: 4hhkSB3vgqz2ScN7
-From: =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
-To: Daniel Almeida <daniel.almeida@collabora.com>
-Cc: linux-kernel@vger.kernel.org,
-	rust-for-linux@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	dakr@kernel.org,
-	aliceryhl@google.com,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	ojeda@kernel.org,
-	boqun@kernel.org,
-	gary@garyguo.net,
-	bjorn3_gh@protonmail.com,
-	lossin@kernel.org,
-	a.hindborg@kernel.org,
-	tmgross@umich.edu
-Subject: Re: [PATCH 2/2] drm/tyr: unplug the GPU when reset fails
-Date: Sat, 12 Sep 2026 11:03:17 +0300
-Message-ID: <20260912080321.78104-1-work@onurozkan.dev>
-X-Mailer: git-send-email 2.51.2
-In-Reply-To: <62D24E3D-0956-402E-8451-24FADC8D357D@collabora.com>
-References: <20260823-tyr-gpu-unplug-b4-v1-0-e99c07d4c785@onurozkan.dev> <20260823-tyr-gpu-unplug-b4-v1-2-e99c07d4c785@onurozkan.dev> <62D24E3D-0956-402E-8451-24FADC8D357D@collabora.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bkZiD4uF"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id D0EC2C2BCF4;
+	Sat, 12 Sep 2026 08:03:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789200222;
+	bh=ILKNp+WUMz7m60Cj2U3b3QKfAIuTdzWdXrka2tpZqXw=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=bkZiD4uF5TCVrUKm68zSiu3UsGrSnIROJB8jRqeUX0SgnekRupH45MgAKqAVHFzhn
+	 uVOVmxgy4NCSHafnrSf+sICm8tSeYW6jG1ziihWox+nY96AmlBZ+KoA3qf8mjbVBjv
+	 o9QcxiNQnyKwSXX9mk6879UnB9WzT8bk658znHSEuh+GX/Rlq5CrUylHVvhYbcKflu
+	 +B7KKIAJ3i6EvnaAPvVhmsU+fEiUlAPmfmK2+LIS/3XLuFk+oh9Ah4IiDK/A66yxW5
+	 rXGP5taFECRp98rp2yAX8taCg+51fiipg1DhzM03AZTQ2XNlqzV0EW2C//7B6+acKf
+	 9YKlDMmbU/0Pw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AE2F1C88E4D;
+	Sat, 12 Sep 2026 08:03:42 +0000 (UTC)
+From: Myria Sarvay via B4 Relay <devnull+myrialsarvay.gmail.com@kernel.org>
+Date: Sat, 12 Sep 2026 18:03:35 +1000
+Subject: [PATCH] drivers/perf: apple_m1: Add macOS 27 M2 Event
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260912-m2-9f-pmu-name-v1-1-da682557453c@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBA0avIrB3QKajjVYoLm07aEZJKYkQQ7
+ 96oy7f4f4coQSVCX+wQZNWoP59RlwWY7+g/gvrOBqqoqbgmdIRscXYJ/egE246NbejBtmXI0Rz
+ E6nYNn8PtmF6TmOW8wHH8AWdXnI5yAAAA
+X-Change-ID: 20260912-m2-9f-pmu-name-789cf6239f79
+To: Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-perf-users@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, asahi@lists.linux.dev, 
+ Myria Sarvay <myrialsarvay@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1883;
+ i=myrialsarvay@gmail.com; h=from:subject:message-id;
+ bh=WE/9S0PEWj724ZfvllqIPRhYse7Qz5ha7AiDrC/FTsg=;
+ b=owJ4nJvAy8zAJRbk4iixYu2/l4yn1ZIYspayxz65P616LZ9MUu9hz417PhrzyN/98Wr2pZPXq
+ g4Kqv4IMn/eUcrCIMbFICumyKJvmqY9ma3hUuky1y0wc1iZQIYwcHEKwET0rRgZlv4v+ytisH/V
+ bqWbC7UP50ttuHTvbs7Vdjcvb+b+oMU3lBgZdvy9F5kzfcrGTY6/DLfXWXYdFnbz/DBZV4Jt0QP
+ NvyEKzADqTksT
+X-Developer-Key: i=myrialsarvay@gmail.com; a=openpgp;
+ fpr=2F35662B930680D275A645B452444118A8ADFEE9
+X-Endpoint-Received: by B4 Relay for myrialsarvay@gmail.com/default with
+ auth_id=1027
+X-Original-From: Myria Sarvay <myrialsarvay@gmail.com>
+Reply-To: myrialsarvay@gmail.com
 
-On Wed, 26 Aug 2026 11:05:39 -0300=0D
-Daniel Almeida <daniel.almeida@collabora.com> wrote:=0D
-=0D
-> Hi Onur,=0D
-> =0D
-> I have nothing against this patch, but as with anything touching Revocabl=
-e, I'd=0D
-> rather get Danilo's opinion here regarding revoke() and the Arc in the re=
-gistration.=0D
-> =0D
-> Otherwise LGTM.=0D
-> =0D
-> -- Daniel=0D
-=0D
-Before implementing this, I asked for Danilo's opinion so I believe there=0D
-shouldn't be significant issues with the approach from his perspective.=0D
-=0D
-But yeah, it would be great to get his feedback on the complete design.=0D
-=0D
-	Onur=0D
+From: Myria Sarvay <myrialsarvay@gmail.com>
+
+This patch adds another known PMU event that can be found under
+/usr/share/kpep on macOS 27 for M2 macs. INST_SIMD_ALU_VEC purports to
+count "Retired non-load/store vector Advanced SIMD instructions", and as
+we already noted, can only be registered on counter 7. Though this event
+only shows up on the M2 kpep records, it can be set on M1 CPUs, and
+records something.
+
+Link: https://github.com/0ax1/apmc/blob/9cff99a9df2ae055f1e3065c64f633e38bb6beec/counters/m2.md
+Signed-off-by: Myria Sarvay <myrialsarvay@gmail.com>
+---
+ drivers/perf/apple_m1_cpu_pmu.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/perf/apple_m1_cpu_pmu.c b/drivers/perf/apple_m1_cpu_pmu.c
+index 81b6f1a62349..1f73c8a77462 100644
+--- a/drivers/perf/apple_m1_cpu_pmu.c
++++ b/drivers/perf/apple_m1_cpu_pmu.c
+@@ -81,7 +81,7 @@ enum m1_pmu_events {
+ 	M1_PMU_PERFCTR_INST_SIMD_ALU				= 0x9a,
+ 	M1_PMU_PERFCTR_INST_LDST				= 0x9b,
+ 	M1_PMU_PERFCTR_INST_BARRIER				= 0x9c,
+-	M1_PMU_PERFCTR_UNKNOWN_9f				= 0x9f,
++	M1_PMU_PERFCTR_INST_SIMD_ALU_VEC			= 0x9f,
+ 	M1_PMU_PERFCTR_L1D_TLB_ACCESS				= 0xa0,
+ 	M1_PMU_PERFCTR_L1D_TLB_MISS				= 0xa1,
+ 	M1_PMU_PERFCTR_L1D_CACHE_MISS_ST			= 0xa2,
+@@ -150,7 +150,7 @@ static const u16 m1_pmu_event_affinity[M1_PMU_PERFCTR_LAST + 1] = {
+ 	[M1_PMU_PERFCTR_INST_SIMD_ALU]				= BIT(7),
+ 	[M1_PMU_PERFCTR_INST_LDST]				= BIT(7),
+ 	[M1_PMU_PERFCTR_INST_BARRIER]				= ONLY_5_6_7,
+-	[M1_PMU_PERFCTR_UNKNOWN_9f]				= BIT(7),
++	[M1_PMU_PERFCTR_INST_SIMD_ALU_VEC]			= BIT(7),
+ 	[M1_PMU_PERFCTR_L1D_CACHE_MISS_LD_NONSPEC]		= ONLY_5_6_7,
+ 	[M1_PMU_PERFCTR_L1D_CACHE_MISS_ST_NONSPEC]		= ONLY_5_6_7,
+ 	[M1_PMU_PERFCTR_L1D_TLB_MISS_NONSPEC]			= ONLY_5_6_7,
+
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260912-m2-9f-pmu-name-789cf6239f79
+
+Best regards,
+--  
+Myria Sarvay <myrialsarvay@gmail.com>
+
+
