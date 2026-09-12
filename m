@@ -1,32 +1,33 @@
-Received: from mta0.migadu.com (out-73.mta0.migadu.com [91.218.175.73])
+Received: from mta0.migadu.com (out-59.mta0.migadu.com [91.218.175.59])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9CD741C302
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 09:59:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.73
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBE7234252D
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 09:59:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.59
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789207188; cv=none; b=ZlszZG8pR/zjVqv6O5zAL7DI2FfgZP0IbZmYF+RDQIldWhDxminDN/hrmVL7RLN1dzWT0TX/BkK0p7Pw5dYAIdo4JsWZzfO0QNATX/GWSS5BGPctS+ocPIS9Ir3z87a+YbJi6cabS+e+a8j4XUzoxyh5yZpeW3or5QqxLPxLXck=
+	t=1789207188; cv=none; b=ONuHksgKSpCaSz9ECqWKYwbCa9fqqaWxLLbmPUnyS6mILWrE0jBy+4bYRJYpdGLoEGh1KiNG9VbZL5jJCvTkH6kkHRsFNMi4AHrBiYuBGU3TMP4oz5YMl2UVH5fC41ajhd4IpevnqedA/wfmluEQurHMw+LWmUP4vGrUtgfNz4o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789207188; c=relaxed/simple;
-	bh=+w2ty0N07ehYbihR8BaJqeYkPu0Z+RDmERKCPLpF3Fs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YtNLx2HBO9vqq7Pu/PjX5f6tWpfaCv1bJOWzOjzzx4rFRXH3wJiZb1+YQzWoUiWXvLcVDka5/7vHSJUzKNGzN4dam63JpSJ978cSdiHaiyEwaiRA/oueCUEHPyczfXdMuBsvURLh5jrAtP2j1tsah2Tq3NuAIJXsIObtcGT9b7M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=JGK2AIAG; arc=none smtp.client-ip=91.218.175.73
+	bh=tgZl06z7/4xhjayGkETWgxJojl5Inx70waXLFgymCrk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=oARAjeEQ2iyRAkirmio55aVW7dNXHuZOhyk/97147iXl2deU36MeDU0jqNM+RGN0PPZfqoazYwb2BoHrHYw1tIHNwJPZrEimX/SNmt3xJKN9IPQdvO7cl9HCZ0+P9q7DMZ97KqdXogw3qmSf6CKRvKY9W1cAwpas0bDCvy7qoDA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=HbgeRK17; arc=none smtp.client-ip=91.218.175.59
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="JGK2AIAG"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="HbgeRK17"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=+w2ty0N07ehYbihR8BaJqeYkPu0Z+RDmERKCPLpF3Fs=;
+DKIM-Signature: a=rsa-sha256; bh=tgZl06z7/4xhjayGkETWgxJojl5Inx70waXLFgymCrk=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789207184; v=1; x=1789811984;
- b=JGK2AIAG2RqBsCe9pbMkX9hlrI8QIK6Dy0pnx5LxEVSFgqocewcYXCxPspLri1Kc3rQz4iq2
- SCJoV/tTIwC4d5eiPm+VktfhUdlX13hdOFYd6GbUcM8htFGNYigjGUfa0kpBaRZ49nB6yim0q9e
- brUsOKfUUor62Sgi9sRBpkRU=
+ t=1789207183; v=1; x=1789811983;
+ b=HbgeRK17KIq3X1l8BgliA+T1skq7b+7+V3oBbnmEmwvmPu77WTaMk6mzgusMCEt935HHuhfG
+ DxANDjUmLrTJRkqGx+aRa8rISM8IWffwhIpJE1xsyLsIOzZHxLjOzNF/m0+fFO0MVCwclsaotlw
+ 9L4qIbGDOO+kT2HJoTgXHvRQ=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 1eb9cb2a28a517dd;
-	Sat, 12 Sep 2026 09:59:34 +0000
-X-Mizu-Trace-ID: 1eb9cb2a28a517dd
+Received: by smtp.migadu.com with ESMTPS id bb9540d5f7ec6256;
+	Sat, 12 Sep 2026 09:59:42 +0000
+X-Mizu-Trace-ID: bb9540d5f7ec6256
 X-Migadu-Flow: FLOW_OUT
 From: "Florent Revest (Anthropic)" <florent.revest@linux.dev>
 To: bpf@vger.kernel.org,
@@ -56,10 +57,12 @@ Cc: "Florent Revest (Anthropic)" <florent.revest@linux.dev>,
 	Tiezhu Yang <yangtiezhu@loongson.cn>,
 	Hengqi Chen <hengqi.chen@gmail.com>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH bpf v2 0/2] bpf: Fix use-after-free of progs detached from busy trampolines
-Date: Sat, 12 Sep 2026 09:59:13 +0000
-Message-ID: <20260912095924.866254-1-florent.revest@linux.dev>
+Subject: [PATCH bpf v2 2/2] selftests/bpf: Detach a trampoline prog while a task sleeps before it
+Date: Sat, 12 Sep 2026 09:59:15 +0000
+Message-ID: <20260912095924.866254-3-florent.revest@linux.dev>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260912095924.866254-1-florent.revest@linux.dev>
+References: <20260912095924.866254-1-florent.revest@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -68,75 +71,296 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A task running in a trampoline image can call a prog that was detached
-and freed in the meantime, when it slept in a sleepable prog before
-reaching the detached one or was preempted between two progs. Patch 2
-adds a selftest that demonstrates this and patch 1 contains the fix.
+Add a test for the use-after-free fixed by the previous commit. A
+sleepable prog on bpf_fentry_test1() blocks a task on a userfaultfd
+page, like bpf_mod_race does, while the prog that runs after it in the
+same trampoline is detached and freed. The task is then released and
+must not call into the freed prog. This is done once with fentry progs
+and once with fexit progs, where the task is already past the jmp that
+bpf_tramp_image_put() installs.
 
-v1 kept the progs alive by having the image hold a reference on them
-until it is freed, which Alexei pointed out pins detached progs for as
-long as a task sleeps in the traced function. v2 follows his suggestion
-to extend the ip_after_call nop patching instead: every prog call in the
-image is preceded by a nop, and detaching a prog patches its nop into a
-jump over the call in the images that are still around. Nothing is
-pinned and nothing changes on the fast path besides the nop.
+Without the fix, on a kernel with KASAN:
 
-One thing is a bit different from what we discussed: instead of
-patching all the nops to jump to the epilogue when the image is put,
-only the nop of the detached prog is patched, when it is detached, and
-it jumps over just that prog. Patching all of them would make tasks that
-are in an old image skip fentry and fmod_ret progs that are still
-attached whenever the trampoline is updated (e.g. an LSM prog missing a
-check because another prog got attached to the same hook), and those
-can't jump to the epilogue anyway since the original function still has
-to be called. This needs the trampoline to know which of its images are
-still in use, which is the list added here.
+  BUG: KASAN: vmalloc-out-of-bounds in __bpf_prog_enter_recur+0xed/0x1e0
+  Read of size 8 at addr ffa0000000144040 by task test_progs/171
+  CPU: 6 UID: 0 PID: 171 Comm: test_progs Tainted: G           OE       7.2.0+ #1 PREEMPT(full)
+  Call Trace:
+   <TASK>
+   __bpf_prog_enter_recur+0xed/0x1e0
+   bpf_trampoline_6442545468+0x72/0xe3
+   bpf_fentry_test1+0x9/0x20
+   bpf_prog_test_run_tracing+0x183/0x3e0
+   __sys_bpf+0xd3f/0x38f0
+   ...
 
-The nops also cost a bit of room in the image: 38 progs no longer fit in
-a page on arm64 and loongarch, so BPF_MAX_TRAMP_LINKS is lowered there
-(and on powerpc, where 38 already didn't fit) the way s390 does it. The
-alternative would be to let images span two pages, I can do that
-instead if it is preferred.
-
-Tested on x86_64 under KVM and on arm64, s390x, powerpc64le, riscv64
-and loongarch64 under qemu TCG, all with KASAN: the new selftest crashes
-the unpatched kernel on every one of them and passes with the series,
-and trampoline_count, fentry/fexit, modify_return and test_lsm pass too
-(the full test_progs on x86_64). The trig-fentry/fexit/fmodret
-benchmarks on x86_64 are within noise.
-
-Changes since v1
-(https://lore.kernel.org/bpf/20260819122252.1782790-1-florent.revest@linux.dev/):
-- Patch nops in front of detached progs instead of taking prog
-  references from the image (Alexei)
-- Lower BPF_MAX_TRAMP_LINKS on arm64, loongarch and powerpc so the
-  image still fits in a page
-- Explain that the sleepable case doesn't depend on CONFIG_PREEMPTION
-  (Kumar, Alexei)
-- Add a selftest (Jiri, Alexei)
-- Add Sechang's Reported-by (Junseo, Kumar)
-- Drop Leon's and Kumar's acks since the code changed entirely
-
-Florent Revest (Anthropic) (2):
-  bpf: Skip detached progs in trampoline images that are still in use
-  selftests/bpf: Detach a trampoline prog while a task sleeps before it
-
- arch/arm64/net/bpf_jit_comp.c                 |  29 ++-
- arch/loongarch/net/bpf_jit.c                  |  35 ++--
- arch/powerpc/net/bpf_jit_comp.c               |  38 ++--
- arch/riscv/net/bpf_jit_comp64.c               |  34 ++--
- arch/s390/net/bpf_jit_comp.c                  |  35 +++-
- arch/x86/net/bpf_jit_comp.c                   |  23 ++-
- include/linux/bpf.h                           |  40 +++-
- kernel/bpf/trampoline.c                       |  51 ++++-
+Assisted-by: Claude:unspecified
+Signed-off-by: Florent Revest (Anthropic) <florent.revest@linux.dev>
+---
  .../bpf/prog_tests/tramp_prog_detach.c        | 191 ++++++++++++++++++
  .../selftests/bpf/progs/tramp_prog_detach.c   |  56 +++++
- 10 files changed, 465 insertions(+), 67 deletions(-)
+ 2 files changed, 247 insertions(+)
  create mode 100644 tools/testing/selftests/bpf/prog_tests/tramp_prog_detach.c
  create mode 100644 tools/testing/selftests/bpf/progs/tramp_prog_detach.c
 
-
-base-commit: 15071f2a1263e82150c77eeb1e94dbfc31950a8e
+diff --git a/tools/testing/selftests/bpf/prog_tests/tramp_prog_detach.c b/tools/testing/selftests/bpf/prog_tests/tramp_prog_detach.c
+new file mode 100644
+index 000000000000..9a0e1fc44c74
+--- /dev/null
++++ b/tools/testing/selftests/bpf/prog_tests/tramp_prog_detach.c
+@@ -0,0 +1,191 @@
++// SPDX-License-Identifier: GPL-2.0
++#include <test_progs.h>
++#include <pthread.h>
++#include <poll.h>
++#include <sys/mman.h>
++#include <sys/syscall.h>
++#include <linux/userfaultfd.h>
++#include "tramp_prog_detach.skel.h"
++#include "testing_helpers.h"
++
++/*
++ * Detach and free a prog while a task sleeps in the prog that runs before it
++ * in the same trampoline image, then let that task continue through the
++ * image. It must not call into the freed prog.
++ *
++ * The task is held in a sleepable fentry prog with userfaultfd, like
++ * bpf_mod_race does.
++ */
++
++static int test_setup_uffd(void *fault_addr)
++{
++	struct uffdio_register uffd_register = {};
++	struct uffdio_api uffd_api = {};
++	int uffd;
++
++	uffd = syscall(__NR_userfaultfd, O_CLOEXEC);
++	if (uffd < 0)
++		return -errno;
++
++	uffd_api.api = UFFD_API;
++	uffd_api.features = 0;
++	if (ioctl(uffd, UFFDIO_API, &uffd_api)) {
++		close(uffd);
++		return -1;
++	}
++
++	uffd_register.range.start = (unsigned long)fault_addr;
++	uffd_register.range.len = getpagesize();
++	uffd_register.mode = UFFDIO_REGISTER_MODE_MISSING;
++	if (ioctl(uffd, UFFDIO_REGISTER, &uffd_register)) {
++		close(uffd);
++		return -1;
++	}
++	return uffd;
++}
++
++static struct bpf_program *pick_prog(struct tramp_prog_detach *skel,
++				     bool fexit, bool sleepable)
++{
++	if (fexit)
++		return sleepable ? skel->progs.fexit_sleepable :
++				   skel->progs.fexit_victim;
++	return sleepable ? skel->progs.fentry_sleepable :
++			   skel->progs.fentry_victim;
++}
++
++static struct bpf_program *sleepable_prog;
++
++static void *run_sleepable(void *arg)
++{
++	LIBBPF_OPTS(bpf_test_run_opts, topts);
++
++	/* calls bpf_fentry_test1() */
++	return (void *)(long)bpf_prog_test_run_opts(bpf_program__fd(sleepable_prog),
++						    &topts);
++}
++
++static struct tramp_prog_detach *load_one(bool fexit, bool sleepable)
++{
++	struct tramp_prog_detach *skel;
++	int err;
++
++	skel = tramp_prog_detach__open();
++	if (!ASSERT_OK_PTR(skel, "open"))
++		return NULL;
++
++	bpf_program__set_autoload(pick_prog(skel, fexit, sleepable), true);
++	err = tramp_prog_detach__load(skel);
++	if (!ASSERT_OK(err, "load"))
++		goto err;
++	skel->bss->pid = getpid();
++	err = tramp_prog_detach__attach(skel);
++	if (!ASSERT_OK(err, "attach"))
++		goto err;
++	return skel;
++err:
++	tramp_prog_detach__destroy(skel);
++	return NULL;
++}
++
++static void test_detach(bool fexit)
++{
++	struct tramp_prog_detach *sleepable = NULL, *victim = NULL;
++	struct pollfd pfd = { .events = POLLIN };
++	struct uffdio_copy uffd_copy = {};
++	struct uffd_msg uffd_msg;
++	void *fault_page, *src_page = MAP_FAILED;
++	long page_size = getpagesize();
++	bool started = false;
++	void *thread_ret;
++	pthread_t thread;
++	int uffd = -1;
++
++	fault_page = mmap(NULL, page_size, PROT_READ | PROT_WRITE,
++			  MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
++	if (!ASSERT_NEQ(fault_page, MAP_FAILED, "mmap fault_page"))
++		return;
++	src_page = mmap(NULL, page_size, PROT_READ | PROT_WRITE,
++			MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
++	if (!ASSERT_NEQ(src_page, MAP_FAILED, "mmap src_page"))
++		goto out;
++
++	/* The most recently attached prog runs first */
++	victim = load_one(fexit, false);
++	if (!victim)
++		goto out;
++	sleepable = load_one(fexit, true);
++	if (!sleepable)
++		goto out;
++	sleepable_prog = pick_prog(sleepable, fexit, true);
++
++	/* Not armed yet so this doesn't block, make sure sleepable runs first */
++	if (!ASSERT_OK((long)run_sleepable(NULL), "dry run"))
++		goto out;
++	if (!ASSERT_LT(sleepable->bss->ts, victim->bss->ts, "prog order"))
++		goto out;
++
++	uffd = test_setup_uffd(fault_page);
++	if (!ASSERT_GE(uffd, 0, "userfaultfd open + register address"))
++		goto out;
++	sleepable->bss->fault_addr = fault_page;
++
++	if (!ASSERT_OK(pthread_create(&thread, NULL, run_sleepable, NULL),
++		       "pthread_create"))
++		goto out;
++	started = true;
++
++	/* Wait for the thread to sleep in bpf_copy_from_user() */
++	pfd.fd = uffd;
++	if (!ASSERT_EQ(poll(&pfd, 1, 10000), 1, "poll uffd"))
++		goto out;
++	if (!ASSERT_EQ(read(uffd, &uffd_msg, sizeof(uffd_msg)), sizeof(uffd_msg),
++		       "read uffd"))
++		goto out;
++	if (!ASSERT_EQ(uffd_msg.event, UFFD_EVENT_PAGEFAULT, "uffd pagefault"))
++		goto out;
++
++	/* Detach and unload the victim prog, and make sure it is gone */
++	tramp_prog_detach__destroy(victim);
++	victim = NULL;
++	kern_sync_rcu();
++	usleep(100 * 1000);
++	kern_sync_rcu();
++
++	/*
++	 * That was enough to test the use-after-free but do it once more, so
++	 * that an older image with an already patched nop gets patched too.
++	 */
++	victim = load_one(fexit, false);
++	tramp_prog_detach__destroy(victim);
++	victim = NULL;
++
++out:
++	/* Let the thread proceed with the rest of the trampoline */
++	if (uffd >= 0) {
++		uffd_copy.dst = (unsigned long)fault_page;
++		uffd_copy.src = (unsigned long)src_page;
++		uffd_copy.len = page_size;
++		ASSERT_OK(ioctl(uffd, UFFDIO_COPY, &uffd_copy), "uffd copy");
++		close(uffd);
++	}
++	if (started &&
++	    ASSERT_OK(pthread_join(thread, &thread_ret), "pthread_join"))
++		ASSERT_NULL(thread_ret, "blocking run");
++
++	tramp_prog_detach__destroy(victim);
++	tramp_prog_detach__destroy(sleepable);
++	if (src_page != MAP_FAILED)
++		munmap(src_page, page_size);
++	munmap(fault_page, page_size);
++}
++
++void serial_test_tramp_prog_detach(void)
++{
++	/* a task sleeping before the original function is called */
++	if (test__start_subtest("fentry"))
++		test_detach(false);
++	/* a task sleeping after it returned, past the jmp that detach installs */
++	if (test__start_subtest("fexit"))
++		test_detach(true);
++}
+diff --git a/tools/testing/selftests/bpf/progs/tramp_prog_detach.c b/tools/testing/selftests/bpf/progs/tramp_prog_detach.c
+new file mode 100644
+index 000000000000..507d372167ec
+--- /dev/null
++++ b/tools/testing/selftests/bpf/progs/tramp_prog_detach.c
+@@ -0,0 +1,56 @@
++// SPDX-License-Identifier: GPL-2.0
++#include "vmlinux.h"
++#include <bpf/bpf_helpers.h>
++#include <bpf/bpf_tracing.h>
++
++char _license[] SEC("license") = "GPL";
++
++int pid;
++void *fault_addr;
++__u64 ts;
++
++static int do_sleepable(void)
++{
++	char dst;
++
++	if (bpf_get_current_pid_tgid() >> 32 != pid)
++		return 0;
++
++	ts = bpf_ktime_get_ns();
++	/* blocks for as long as user space wants when fault_addr is armed */
++	bpf_copy_from_user(&dst, sizeof(dst), fault_addr);
++	return 0;
++}
++
++static int do_victim(void)
++{
++	if (bpf_get_current_pid_tgid() >> 32 != pid)
++		return 0;
++
++	ts = bpf_ktime_get_ns();
++	return 0;
++}
++
++SEC("?fentry.s/bpf_fentry_test1")
++int BPF_PROG(fentry_sleepable, int a)
++{
++	return do_sleepable();
++}
++
++SEC("?fentry/bpf_fentry_test1")
++int BPF_PROG(fentry_victim, int a)
++{
++	return do_victim();
++}
++
++SEC("?fexit.s/bpf_fentry_test1")
++int BPF_PROG(fexit_sleepable, int a, int ret)
++{
++	return do_sleepable();
++}
++
++SEC("?fexit/bpf_fentry_test1")
++int BPF_PROG(fexit_victim, int a, int ret)
++{
++	return do_victim();
++}
 -- 
 2.55.0
 
