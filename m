@@ -1,195 +1,214 @@
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazolkn19013010.outbound.protection.outlook.com [52.103.33.10])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 997D439281F;
-	Sat, 12 Sep 2026 13:19:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.33.10
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789219191; cv=fail; b=g36T3HWeQcyG5z1qrQOStOKZMv6ezWaVQQJnPS8rcvy88gFGDAKBBNXwlvcfdWXxKB+51sU5d/cJTl4bmnkQgdkg74GNpqQwptg8/jIt6w82q0suDjTrdgJW9bXydTGwx0tRRg+xmnNfecY9CHXbtgfIbwq1YnmelOqGnnaCk6Y=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789219191; c=relaxed/simple;
-	bh=Bkp15FuTIjX0Yq7SSmDJ5Na+uzyriYOI7SCEmsJQH3Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=P3bvlsmQ60619NbTDEUPjPXIfPpURUZY7jPXZInkaZI1OF94Jx90s6IXeqOUHjYStkicfy84KvA45qhzHJTxFAJIxtrI72FDKsQVR/PtxEFU/m8zQfQOgSn7hkNhQWorV0vKGBxp7b3YPbQkLOA5fr2bqnoBbo7gLHi8fRzVEZI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk; spf=pass smtp.mailfrom=hotmail.co.uk; dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b=hPsLgphI; arc=fail smtp.client-ip=52.103.33.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.co.uk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B65347A89B;
+	Sat, 12 Sep 2026 13:20:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789219218; cv=none; b=K6jPe326a4Pp+B6RWG1SIHBTDfxAvy+DwuzZwCI3LymP1c68eZ/Deglq/HfyX23vaH2niARCiFvCMDOac6ktaf1lYwoIdxZjXt/oho+wiRCWc7c01Oa14Zs25jEYhntuEuKXaKbFIyED3vCoa8F9KB2UpIMfs8+QDoFY1sFpoYw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789219218; c=relaxed/simple;
+	bh=XTJsLnwrNhgezoO+tvyX6TMcd2mpHVISXBNLCjPPTbA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sTKuQDVq/4EHJi9J480+qcnsPFtYLSfiW1MuNkh7NaLFcvrx1b5LEWe8MZYx3gSijBM0K5j00B9u8xjkluQf8kqV4+8t+OutMQH8txeY8lb4AWGn0ZoVaU1D9X3Ju43pm+nAwPCnAzjErD9r6rPVY3Ntm0Je9Kns+YdYP6Pxgwc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=c6iBN2+0; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b="hPsLgphI"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=g76EiTvqDBX2In9x0HKnOk+cbsf6ENkMlwCtXWGtUtcjQa3CiVCxZjH5sBVmmB9l91CnpmN0oxtzyZJeMN6vsOhdrYLDv9AT6qkaQehU2TpbFOWvSz6Jry3AXAxZ4ju6qZrN9fl0xoD1Maclw5Tacalp5prgL32do7ZBe5v18BS7tAA+TDWNeP0GwoEI1mloismM98oW3MTYpWTyTzQLx14vvWu1g838iasBfeJIm7LdAvoFEZ5OIw5XhrrIvxfeF1ACM6Vh0r7xZOsNEgvvX0TwwtlBtpaRr3BQx3OanMuvPi7Lmja9GU66Dlxp5Dp7S79Y+BlqbpgGR0JUyTG+Pg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6/7tYDJEGBzqa6N+hTu0e0g/njA6UEQ3vWc3fLKnteM=;
- b=Ttzf9nITruxwNLbd/1N62RlK+wvWxGxemZCuQo3J0oHlATyoNNUF/somF/XE6V8CAhWlp4jU5HxVLuYe8DWVZx1JOsHqq1WnJDlv8Ultyk6HCYu46XNHn+kLDu0dJG+odR1FOD4+DOUmq0XsmP9pXq8b+Z3VHmGeoC/VrBQ1JVQQtf96BR9rQB7rE0X7YJzWRTYc+OlH7o1IbYYOWDHoMh18QtbRA/7RUp6VLXEb96wYKp0PHLHZjBqqlxo4B/taybJFPWLYDMq9pk9Zdsu7F/P/65SBOtRecatayD3wONcBvM2IIETeDDgGig+QFlkSsv0VdiGVRCUW02yoZSb/Vw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=HOTMAIL.CO.UK;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6/7tYDJEGBzqa6N+hTu0e0g/njA6UEQ3vWc3fLKnteM=;
- b=hPsLgphIbIMycaagk2ZnNEhKR73HsFYg9Cnob1kkSJ0Zq10nGsOmMRCk0XVBEiiRlrdGwzD/HDlIdSm8Xni1kIUD0723dAsItCVypDRVK0pGoAQpfZ4iro2ucks3sayKUrRYKaZ4OEFXYCuMy9w4gp2ZAa4Xf+KBurOTEC76nbotYrMI4PMvOf67iDCML6/XuvwsXEucAY/aaxkpdKrglDQKEMbeJRyRC+TbuPOdvkAjMNrqjPZfVx1Cwr4Oi+KcmDe59qe6o7+pYt2FSV9plZaEJEm5JDfYG8cVNWDxh1SOvM1qj5DSeE7Udc06ZOYw+ggm8bK6/57qwQLJZ+BWig==
-Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM (2603:10a6:20b:344::22)
- by GVXP251MB1056.EURP251.PROD.OUTLOOK.COM (2603:10a6:150:1b5::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.10; Sat, 12 Sep
- 2026 13:19:45 +0000
-Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
- ([fe80::2952:d4d0:4ba:8352]) by AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
- ([fe80::2952:d4d0:4ba:8352%3]) with mapi id 15.21.0406.007; Sat, 12 Sep 2026
- 13:19:45 +0000
-From: Aamir Ahmed <elb12345@hotmail.co.uk>
-To: David Heidelberg <david@ixit.cz>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Simon Horman <horms@kernel.org>,
-	oe-linux-nfc@lists.linux.dev,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net v2] nfc: digital: check DEP_REQ length before reading DID byte
-Date: Sat, 12 Sep 2026 14:19:43 +0100
-Message-ID:
- <AS8P251MB0001F45C42BBD0D16D7B30ABC8BD2@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
-X-Mailer: git-send-email 2.55.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: LO4P123CA0382.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:18f::9) To AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
- (2603:10a6:20b:344::22)
-X-Microsoft-Original-Message-ID:
- <20260912131943.14056-1-elb12345@hotmail.co.uk>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="c6iBN2+0"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789219216; x=1820755216;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=XTJsLnwrNhgezoO+tvyX6TMcd2mpHVISXBNLCjPPTbA=;
+  b=c6iBN2+0mPCVKmUm1PxPdWF0+xZ4ARftzsE0692gBvAiDZxUSpEVbqrZ
+   DL9NPeoEMIY1kqJn6iTj8PYqajMGmrfWQ96M/U70RbBOx6jbiI5JnepMQ
+   fXQGufELSfmR6GQ5wNbF0y9hafb8BgUXa3ZUEakbh4BksePiN4GUiiRLB
+   2JPdJvaIXeCP/SHAA3qKqEnxaV0RW3nRzG0uUwuXUlkMYytcYoWR1Njd4
+   JzQ76CEw382VBG3orltka1CZvh0+O00arSlcyLN98tiE1IFytUx1fndvp
+   CgkbtFhLiacInuLDz8HlNR065g2t/aThAmSH9DO6OTDXN2eZJRSmmYgj5
+   A==;
+X-CSE-ConnectionGUID: Oev1BvNyQhaBH9VpqH5Njg==
+X-CSE-MsgGUID: sHm+5w5XRKyhZgdgVDjEQg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11902"; a="89785119"
+X-IronPort-AV: E=Sophos;i="6.27,99,1787036400"; 
+   d="scan'208";a="89785119"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Sep 2026 06:20:15 -0700
+X-CSE-ConnectionGUID: iK3U4KW7QYCRb8l6bA1k8A==
+X-CSE-MsgGUID: C1nfPCSAR/uRW9c4hhsYwQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,99,1787036400"; 
+   d="scan'208";a="295674418"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.239])
+  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Sep 2026 06:20:12 -0700
+Date: Sat, 12 Sep 2026 16:20:10 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Pavol Sakac <sakacpav@amazon.de>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Tejun Heo <tj@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>, driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org, Xu Yang <xu.yang_2@nxp.com>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
+	Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org,
+	nh-open-source@amazon.com
+Subject: Re: [RFC PATCH 6/8] driver core: Defer uevents for devices
+ registered in a staged window
+Message-ID: <aqVRirAqdynCpG13@ashevche-desk.local>
+References: <20260911-vfopt-s5-v1-0-fa4cacdb6ca8@amazon.de>
+ <20260911174414.97060-6-sakacpav@amazon.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS8P251MB0001:EE_|GVXP251MB1056:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5bcbf333-f0a6-450f-f208-08df10d08324
-X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|5062599005|5072599009|15080799012|55001999006|24021099003|8060799015|19110799012|12121999013|25010399006|23021999003|51005399006|41001999006|25031999004|37011999003|440099028|3412199025|4302099013|26104999009|1602099012|40105399003|2607281247196008|10035399007;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?3Km0F2nfQDIN8RkFyp2/YTeKAQohdc5TU2gRTy1Gi8d52Kvm4CmK5F2Ya1CQ?=
- =?us-ascii?Q?9L/+VVG87+bK/w7j+kswI8HkSEiGVs3J4I7JC/1keZtTo5m/55R4hIi3D4Cn?=
- =?us-ascii?Q?7SagBJgTTGyWYMo1TSWgDyJkDdMuMzsN+cbaP4/htUdbDj/SCWyqVO2g6FKi?=
- =?us-ascii?Q?CB74GOec469U0XgzTTkDul9fwj/XSxNfySlGKzY9nOvGktkkL6vhVVmo2e2e?=
- =?us-ascii?Q?uaD0gqLuAxyv85rDPTGDFcPrw9ex/gARv0LvaOEXfgY2H+2WPQ32XpZDght3?=
- =?us-ascii?Q?LjcqpdCiAom0JIc5uauxFGJJFFZX2XxgElWu9EoWppoHSf23YD4AI9uV1OQ3?=
- =?us-ascii?Q?Yef16lFWxlxqts5VgBBByGPUVCXgIsh1nEaTvD1UxltRt/DdZuT0eCw+fkxS?=
- =?us-ascii?Q?Ynu1DpBoHc8QDiJmgd0vdvx91YsS6DHypnAgf6ptnmh5bdSYiuKmzen3jrgI?=
- =?us-ascii?Q?xRqMhHz0QqG9Cbe3dT8WSNipVhRGcaME1FvbcS4j6z64++lihuyi9ovj6wgx?=
- =?us-ascii?Q?ovQWllTb7QF5EOv67UVBW81wdMz8NfC0moqclug3EV6BdpgW0pluisBY7pV4?=
- =?us-ascii?Q?M2Q17JPU/a9VDdtHcuIQiqsyXgoBrkM0j27vxU7d307Wq7zNRMXGwR29bY45?=
- =?us-ascii?Q?jKj9yz+PGr3xvyE0hSYkDqUh3k1Lth+CN2UBAjRTs0zaP6DnjQfSF6ta4cpk?=
- =?us-ascii?Q?CO7cjxK2uS48boOtYFXPdlMQ4PfM+2edqjz1L6Mkqd162fHyO8OKhNOoAHvg?=
- =?us-ascii?Q?7aEfPTSqcgTSXTG72mzS1VA9cStXvJf58kBQ7VCaBzx2xiF2+on7kvZolA1F?=
- =?us-ascii?Q?dqTBsUnPQPmOi7jrtjnfk1wGi2HeYbos/vH6gk33eFk51uDxs/CNsWUoK8G2?=
- =?us-ascii?Q?qo26nP9yCUEQL+JN5ftuAQRuv0pnR5Gaw81+g0ssAPaWGwOAlXWePkpc4+UB?=
- =?us-ascii?Q?Qi8IVvhXPqSDpRTEPigw3c5iA2gk/czjr1DZp6CjQzOGELrmjwKZLkqzPFAQ?=
- =?us-ascii?Q?hWI+FXvq0nR7G+P7H/zdt9R75LquhAqA4zJ8q4ZYA0E38A/BaDEXmj9zIEm9?=
- =?us-ascii?Q?SwPMzbUkRRaLXGRu25iv6eI7qaom05H5ctkKVlmKzl7InxcgaCdQlYeVDR2q?=
- =?us-ascii?Q?X+gVZ64YmCbXgx2hVJFSkBE7TwUz/b2FvWiApbV1/0rlgJIONkcMmXFG26H/?=
- =?us-ascii?Q?gWOqSGIXyeXMNSx1cd8JuMvtNucEs9eGfEEZBw=3D=3D?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?hbQYQJQbpXFsJbPSTtkAlQnt3kMhGcVAqUzldhqV/QfGCDfoFWvjLHCIW7A8?=
- =?us-ascii?Q?D5q9QYZwX6X5NMl8FVCDTfe7tdyjyQISg2HY0Hn6qhP+WT0Exz1ec480W9QR?=
- =?us-ascii?Q?5vKBcXraT6g7quqOpmj1EHQmsTSLV8NLxk9e7fAjajcq2TICx/Ittu5fQeho?=
- =?us-ascii?Q?2UG7o4twaInKh94XDLSmYFeQIcDhrOgbRQWf/ahPj0JL6Ye6j7EGlS/mknv/?=
- =?us-ascii?Q?95tGCRCVu6z78zH2kV+9g9Tmu5VPiBxEKiD1YWKlWoGumuSmH2/Ni+ydZm+D?=
- =?us-ascii?Q?ZW3qHN8OGTxPUZkxB6N91ae0uFGy8u2uyDCZ8oFJ92UUsjgpnHB3OvzeS1Hm?=
- =?us-ascii?Q?2v56KUA5DGaWkZh/LZRr1f1TJVyxMBYyDgWW84C/FlMGg6phMClhaqWnuXPB?=
- =?us-ascii?Q?0NyI4+X1x+5xWsEi85jQONL3zXCfM+d7TPWE8r7yf2Ca/RLzz3WV5kjQtrrG?=
- =?us-ascii?Q?2+Jg78GOMouVwLzujO0O008eUZz4dw7vn6ZrPRXOR5KvgVW/C2hMXHsbr64n?=
- =?us-ascii?Q?lfiZNgDUu6Mxn9dg1i69+fEsHufMTcHdXBuk5SlMaGJ82KESILDIZyAwqyPc?=
- =?us-ascii?Q?le6l5eKacnPSs/BngNtAMyguggXrMih/+9d/cdh6Qt9G47FMuy4abWbHBMCN?=
- =?us-ascii?Q?CdZAqbSGW/TOxaTJaEAbP8zcX1m6yk3vAYKdLtjMJZLumK4m4DXG+QICXowy?=
- =?us-ascii?Q?KZoJgBrNXjHKwV0y5UFMNBQcn+ywMqtPOGMVn9UaRdNEbzDJaH3a0WSFD0MQ?=
- =?us-ascii?Q?2wDLJpCOtMqnN0rypM+zAT4aCrQ30V5k0g7Ack9pACo1wKDq2Vk7t2ZLgtTN?=
- =?us-ascii?Q?oZz6kvaVMhWJD4A1Axh6f3rqGUV/xo0tRzlvGLXtxZtW9JqreeDaPfI1QIgI?=
- =?us-ascii?Q?cIcI6CfdvIIDZhK2b9qlOSutfUpwcCmDMn5/YWWlffTIpGD4Kq51qAgrYosM?=
- =?us-ascii?Q?SlicxrpKHRjrv5dw5odWBqmGd93/QztnewmE15cLpNZOHBkRW2u6BkmgYzL9?=
- =?us-ascii?Q?EatwICxqm/Y4VfbyuO+6NBXATF7CXuIGiddJawptZDUtxGm61GMct4LIdv1H?=
- =?us-ascii?Q?ezbGPDTCcnZTKZr7RlLDYQJ6R2luT3CNe9ywyiZtnR7n7jjqchLRvhDBOEMW?=
- =?us-ascii?Q?6PlMNCsN7CVM/vk6Cg5iIXsZOABdRX+agWa5Oz1SKNA5LyCuuZ1q1XdrpNbJ?=
- =?us-ascii?Q?KlNXBUCdJl1OY5OEiDskLPCDko/prm+oZ3i/3D3oQEjCVqr0yXoCVphGkrlX?=
- =?us-ascii?Q?Kcel7uPiik0d9xwBAfgjrUrc3J9y2aZ4NTtA9g/hzgYABz3kGauuJLkI0QWM?=
- =?us-ascii?Q?VZhCk4cxJwC7AP1MIU1unX70/4QXesgRg7tKgWcrG5IYftFiyYMHnuWBiR9o?=
- =?us-ascii?Q?46SM6R5i2aBQ+o8BPrD0/khV7FiWP/Dc/RqJH1orVj1MkO0nq6CTvJO8rxy0?=
- =?us-ascii?Q?93YSiwI4g0crbq5USosHBznCVVnnS+5Z?=
-X-OriginatorOrg: sct-15-20-9412-3-msonline-outlook-fe3f5.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5bcbf333-f0a6-450f-f208-08df10d08324
-X-MS-Exchange-CrossTenant-AuthSource: AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Sep 2026 13:19:45.2296
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXP251MB1056
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260911174414.97060-6-sakacpav@amazon.de>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-digital_tg_recv_dep_req() reads resp->data[3] when the DID bit is set
-in the PFB, but only sizeof(struct digital_dep_req_res) bytes (3) are
-guaranteed by the preceding length check.  A crafted DEP_REQ that is
-exactly 3 bytes long with the DID bit set causes an out-of-bounds read
-past the valid skb data.
+On Fri, Sep 11, 2026 at 07:43:38PM +0200, Pavol Sakac wrote:
+> Staged registration publishes a device's subtree in one step, so nothing
+> observes the device before it is complete. That does not hold for a
+> device registered from inside the window: device_add() calls hooks that
+> can register a child of the device being added, and such a child takes
+> the eager path and announces itself with KOBJ_ADD while its own path
+> resolves to nothing. Nothing replays that event, so a consumer that
+> cannot open the DEVPATH never learns of the child. Neither opt-in in
+> this series reaches that case: nothing attaches a wakeup source to a
+> PCI VF or to the VFIO class devices, and pci_acpi_setup() enables
+> wakeup only for a bridge that can do D3. It is reachable by code the
+> opt-in caller does not control: dpm_sysfs_add() registers a
+> wakeup-source device whenever power.wakeup is already attached, and
+> wakeup_source_register() registers one directly for a device that is
+> already registered, which a staged device is. The driver core
+> therefore handles the case rather than forbidding it in the opt-in
+> contract.
+> 
+> Defer such a registration, composing the idiom block/genhd.c already uses
+> for a disk's partition tree: suppress the uevents, complete the tree,
+> then unsuppress and replay KOBJ_ADD. A device whose directory kernfs
+> marked staged is enqueued suppressed on the window of the nearest
+> ancestor that opted in, and the window is drained as the ancestor's
+> device_add() returns, just after its own KOBJ_ADD, each member's ADD
+> delivered in registration order followed by BIND where a driver bound
+> in the window. An ancestor whose owner suppresses its uevent and
+> replays it after registration will see members announced before its
+> replayed ADD. The window lives in a global hashtable keyed by the
+> opted-in device, so no struct grows.
+> 
+> Members are expected to be registered synchronously by the opted-in
+> device_add() that owns the window, the only shape the driver core can
+> reason about here. Raw uevent_suppress is not reused as the detection
+> marker, precisely because a subsystem may already own it; a device found
+> already suppressed is left out of the window entirely. An in-window
+> KOBJ_CHANGE is dropped rather than replayed, as in the genhd case, since
+> only the addition can be reconstructed afterwards. A failed opted-in
+> registration closes its window without replaying anything and leaves
+> suppression set, so a member's KOBJ_REMOVE is dropped too and userspace
+> never sees a removal for an addition it never saw.
+> 
+> The staged_device suite gains five cases for the window: the replay of a
+> member's addition once the owner's device_add() returns, the aborted
+> window that replays nothing and leaves suppression set, a member behind
+> a class glue directory, the reconstructed KOBJ_BIND of a driver bound in
+> the window, and a member found already suppressed being left out of the
+> window.
+> 
+> If you would rather not carry this until a caller needs it, it can be
+> dropped and the restriction stated as an opt-in condition instead.
 
-This read can happen on every DEP_REQ from a malicious NFC initiator
-when the target device has a non-zero DID.  The stale byte is compared
-against ddev->did, so in practice the mismatch causes an -EIO return,
-but the read itself is undefined behavior and accesses data past the
-buffer.
+...
 
-Reorder the condition so that the length check (resp->len < size + 1)
-comes first and short-circuits before resp->data[size] is accessed.
-The existing fallthrough to the later "size > resp->len" check is
-preserved for the NAD case.
+> +	member->dev = get_device(dev);
+> +
+> +	spin_lock(&staged_windows_lock);
+> +	hash_for_each_possible(staged_windows, win, node, (unsigned long)top) {
+> +		if (win->top != top)
+> +			continue;
+> +		dev_set_uevent_suppress(dev, 1);
+> +		list_add_tail(&member->node, &win->members);
+> +		member = NULL;
+> +		break;
+> +	}
+> +	spin_unlock(&staged_windows_lock);
+> +
+> +	if (member) {
+> +		put_device(dev);
 
-Fixes: 1c7a4c24fbfd ("NFC Digital: Add target NFC-DEP support")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Aamir Ahmed <elb12345@hotmail.co.uk>
-Reviewed-by: Simon Horman <horms@kernel.org>
----
-v2:
-  - add the Assisted-by: LLM tag (Simon)
-  - designate the target tree in the subject
-  - collect Simon's Reviewed-by
-No code change.
-v1: https://lore.kernel.org/netdev/AS8P251MB000196084524EB27D62162B8C8B32@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM/
+With this condition it makes sense to use the same argument, id est
+member->dev.
 
-Compile-tested only; I have no NFC hardware.
+> +		kfree(member);
+> +	}
 
- net/nfc/digital_dep.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+...
 
-diff --git a/net/nfc/digital_dep.c b/net/nfc/digital_dep.c
-index 3982fa084737..ae5407fca12d 100644
---- a/net/nfc/digital_dep.c
-+++ b/net/nfc/digital_dep.c
-@@ -1117,12 +1117,12 @@ static void digital_tg_recv_dep_req(struct nfc_digital_dev *ddev, void *arg,
- 	pfb = dep_req->pfb;
- 
- 	if (DIGITAL_NFC_DEP_DID_BIT_SET(pfb)) {
--		if (ddev->did && (ddev->did == resp->data[3])) {
--			size++;
--		} else {
-+		if (resp->len < size + 1 || !ddev->did ||
-+		    ddev->did != resp->data[size]) {
- 			rc = -EIO;
- 			goto exit;
- 		}
-+		size++;
- 	} else if (ddev->did) {
- 		rc = -EIO;
- 		goto exit;
+> +/*
+> + * Records the child's replayed uevents as they are dispatched through the
+> + * bus uevent callback -- which runs upstream of netlink broadcast, so this
+> + * observes action-specific kernel dispatch and ordering, not reception by
+> + * any consumer.  Scoped to the active context's child: the same static bus
+> + * serves another case, and teardown emits further events.
+> + */
+> +static int staged_test_bus_uevent(const struct device *dev,
+> +				  struct kobj_uevent_env *env)
+> +{
+> +	struct staged_window_ctx *c = staged_window_ctx;
+> +	int i;
 
-base-commit: df2908090cda368b01ff43709f51890076c56157
+Why signed?
+
+> +	if (!c || dev != c->child)
+> +		return 0;
+> +
+> +	for (i = 0; i < env->envp_idx; i++) {
+
+
+	for (int i = 0; i < env->envp_idx; i++) {
+
+> +		if (!strcmp(env->envp[i], "ACTION=add")) {
+> +			c->add_uevents++;
+> +			c->add_seq = ++c->uevent_seq;
+> +		} else if (!strcmp(env->envp[i], "ACTION=bind")) {
+> +			c->bind_uevents++;
+> +			c->bind_seq = ++c->uevent_seq;
+
+Why preincrements?
+
+> +		}
+> +	}
+
+Missing blank line.
+
+> +	return 0;
+> +}
+
+...
+
+> +static struct attribute in_window_attr = {
+> +	.name = "in_window_attr", .mode = 0644,
+> +};
+
+I believe you haven't read the generated code. Do you understand what it does
+(I mean the whole your patch and patch series)?
+
+...
+
+> +static const struct attribute_group *in_window_grps[] = {
+> +	&in_window_grp, NULL,
+> +};
+
+Same style issue.
+
+Also we have __ATRIBUTE_GROUPS() macro.
+
 -- 
-2.55.0
+With Best Regards,
+Andy Shevchenko
+
 
