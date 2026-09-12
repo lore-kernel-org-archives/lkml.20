@@ -1,164 +1,145 @@
-Received: from mail-oo2-f43.google.com (mail-oo2-f43.google.com [74.125.231.171])
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 972513AAF7B
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 19:09:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.171
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789240173; cv=none; b=GnGqkwGHvOdfjWtsXtyEX1czLUZfyBEHno8RVar/QRkymjtfxtPRkxp8VdLb1CSuL1LR3pRO1w9ZQV4BEXTN1WvYmGdrezgMZBjV6TvhGGhvdFb4WIGEO1cSURxjuF2MvIUg8H567CEUgpj2l/TTVK12tkvLA5Ogc4uamvvG9n0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789240173; c=relaxed/simple;
-	bh=1GCGviX25TYqPRHmTXuQNh5HBCz3fk4sZ7dXrthU7dQ=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
-	 References:In-Reply-To; b=ZkaRAS+fMtxkLJIW7YnbnmJR4Th8H3JecvTL2MUiKyLy2ZR4p/zMTCMM8CkdzTNNqcFRuKQswOWoDxQ4/Bp4T6EPCEwSDp76YZfgrOARI/r2cC8L0/etHolSGEGPZxL+t2dm14HYKsAb5V/Xbc9d/KWlRTa01+izoG7Th/mCF30=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FhZt8NDj; arc=none smtp.client-ip=74.125.231.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5875357D18
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 19:10:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789240237; cv=pass; b=g4YgNRfupECH2ycdBujIt4ETc1En/8BWrELLIW5oBtpfnYMDW9ECHyn1TjiFNFJmWozDXfL8k36SZflUAvmFZBewOpg4ldlWjP0dVG8ABlEQZ354FSvHUjLUvGCxHeSO47ryW2OkVhmH3gOTAs9WvRSSDlXoMEyGeKw6wi96REE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789240237; c=relaxed/simple;
+	bh=nC1HlSANXwPCu0TdcZsZ/ITYqsAJked312qQsvhydMU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=GfjotLhVrZ8McjGo8FlDE4qbKarpaWCg0Jqzl+CPQDAwoR+J1wfye3n2VO55XgNy2mxTft8pywtWK54iNg+hCEFR9OYCOVbE1E7AQQc99FaF0sOSvqFs8QJWAQd/w099EnQF1c8VA0TvenS7izNez+sX9RQ2bWWyYHw8PRepWDQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UM3eExt7; arc=pass smtp.client-ip=74.125.224.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FhZt8NDj"
-Received: by mail-oo2-f43.google.com with SMTP id 46e09a7af769-7f4f0cfb29cso487260a34.1
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 12:09:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UM3eExt7"
+Received: by mail-yx2-f12.google.com with SMTP id 00721157ae682-85d43da99easo9279737b3.1
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 12:10:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789240234; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HuDN1NdH1e/mUQGzv2PWYEYCK2zJp7Jw76iGAS3buTJFQpAjwLsJwA9zT47xOhRUwy
+         /0BgnTwikoZaEV9cMxQ7MEgrkoWQoKao0CUshInwLPFU4zDQsDL7gweDaNpIbcqYsJqZ
+         tgcSDWC8fhdzN4MIFSKtNZBixX2uqxhaslTpDHPhoVUo+yebIMF6MUGjxsjCtWhAXegY
+         QcPO0BMQUUf7tgBSdwZkg2sFOHSrNFDm+3XkrtcWxOTXdBrX3MHvpdGJgjINJAEMo6Nd
+         DQXXjYR3atG//W97tKE+lKA2ic24m8Fgmvd2SWLrSgDyODaPt9YPiTQmRHGPZvp1NHy5
+         8Wpg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=daj75kJ6ldxZJz9wLYTKbQQmIUWSVox4tdaNBDn6j84=;
+        fh=vKELELr4YejrctvXQcMr6WwdQzuDzskAKmBTfAR7w48=;
+        b=al7zG58oZ1Ybpp8edrMWNBMgHzhy/n/FrKivYQBSFT4VBkszAATfQv50Y924eFEyqn
+         JL3EezAH974wvs4alfAZVY2vM7WLsbevPXErIHomL9MSbSpqtx2ftyC0/p8BD1G8Ha3h
+         c/NfK801GVfhYjRhEaBl/hSg4hlRIZ3aDByoChdWCPaMUD83hOHoaOIKzrQ57t/5yCbx
+         dzaKMfDWOhteupXQNlaXJBVOowGOAL6f1zfALjBs+MwNNxhyesTI7NZmMqVsC0t3ITHs
+         Ebds3iJ1PpBvtrxGBfvg+KiFRxhcqfTbAnkTjom6++nePFy5vWw1UJb2w9q+90z9rnN9
+         c/ug==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789240170; x=1789844970; darn=vger.kernel.org;
-        h=in-reply-to:references:subject:cc:to:from:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=freJdhpvvc4lgT92WOat9fEScu2yTzyuoW03t35i2eQ=;
-        b=FhZt8NDjXrdi6tISEa9SYo4gqM1/jGO2MvoWBBC6wDz2S6N9F47dAod3GVVuWm82Kj
-         T5xiOa3ZaqSAhvZJf9Qk54dg3UNSnAECVZE1Zx1M53y+EQqxvTC3jNUBuYxLjpdCTJKW
-         zCbzsS6bgAlpAuubvK+sU0l7m7bRB9v7yauhEf4W75YPa9kkCHUuXMKs/Ib2DMA/zexW
-         pk7TsrTTegv8Rubpb1MS7ihp3DLh16UnF92u4oA5OxXcF56NulYd8TLKRdviQy23eS9N
-         EoAG6QSnevuVPi4Jdc52AoTjgcdr2oBDQ9p5zUm1pnK++oUpMrLUJRQxjcAI6Tu89+jV
-         wsug==
+        d=gmail.com; s=20251104; t=1789240234; x=1789845034; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=daj75kJ6ldxZJz9wLYTKbQQmIUWSVox4tdaNBDn6j84=;
+        b=UM3eExt7dIEMPJGPVysCGiZoJvVhl544RBXMSKbBfawBd4i4ZIIrytcZCFRMvLVM3d
+         5eiLXNBDNhGUMAKnG6+WP65Yk3S5t/+rAwzH/7NjWzps65qzaYK5evMfM2Ot0BwfJKKV
+         Ur9kMpPKFdo6S1W2rH2aAcvBKX0zTWg5fXJq+vpV0d9RLgrOa+S+PC9HyUoFTSQCjtFd
+         JD4zSgPlW2NuoroUQpoOJwihbV7zD0Cg/GWE0WN2p7DYdnNKSzI3g+aNV8qr42Zoe0Gk
+         JFif1loFi4gJt8pMKaQWUrcfxAo0tHc55cAf0+3XSSY9XfGaK7lJQrhx3Hx1KnuPFD73
+         RZ4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789240170; x=1789844970;
-        h=in-reply-to:references:subject:cc:to:from:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1789240234; x=1789845034;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=freJdhpvvc4lgT92WOat9fEScu2yTzyuoW03t35i2eQ=;
-        b=espnbL9a6Cghngk60ioeHainWYpENYLwlDWp4d136IOPbsQOjQ1YNFodlyGf+oRpI0
-         ytcMOTb8IZ8+0Vwpu6RCK0Oafky7XDWI8mgjH/9kJJ5lGUtGMr833z16pUapOQkLDZsz
-         wzmYO6DvNuY3E0ZxuK3JQOZN7ZhWepxE7Pb3aEr1M+6eu4O4eblwiBPT5HURFT8FqIpU
-         5kj1fOjgvo9NxgCmJygfmgOWb9sUdVCFth4k1XAEfpf9LlNj5arR+abD+WU/gUtuurrn
-         X0sNqVfQ3Dkjlcf1bH60Vh3Kdauyv1ZRuxLDvUbqddC3Ml3iH5a9jzA0LD7a4PuiM0CL
-         2ing==
-X-Forwarded-Encrypted: i=1; AKwUvBxgcSLX3Q2DU25iN8Q+afnTSxCeAQyj66+tFo5+1x8uq7/TPTJDkIBZcJh+xmbSsxc+q5HSksNIXOhb19Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++mFtxOpFjeMm46QCm4L/1mMZwrD1QIflHKy5WmBAoGZEq2l91J/
-	gYNCuGLFNIetsiH4F1IK+82PTbJH0HvXMU14lbmY91VtF9F0shN+3Dvd
-X-Gm-Gg: AYBFou2kUBAFZmPDcr+PZlY3l7oWVi2QSoA74Ac0oLc9oXtF+gKt5sOLFh2v4jN/rY6
-	79KFcx/pAeZ6ie9895n11lVfsp2KV5Jw8J1hvlnIV+3pRvXSZtDq328/57b+tNnqB2DVaXw7Dd2
-	D31vOm1mrmBDOxpQGH/nEbV5qo90sh5zYXNQWPUF3N1BzycPqA5ya/ERFh1UGsLhgfg+lwQHtF9
-	y418l2vCwCV/XiqSeQ0KDH1gnCX4fHRMZ3/VPNd+CNpRDnjT1UJeuGa71dHV5KZd9/5WvMszweu
-	hF9Scwdz/KXUei1z98oCEVFq+StCpRTtOefQoD+kxrm0/W6kBTx6I7UP4NKvDdNf9lc5ILuBHgP
-	8SMkUPbTLQd/fpYrcHAfqqgAdIFI39VpeyWH4aCsGN6KHWcWAhSxD2o9K2I+ckE2lw2QnqDDaiO
-	OShImIvj08VDgb+qRaM9jMawhJ0smw44P+yePUiSCiWZOZijC8kUYNgzzWNYj/FHpycEiV+AhHQ
-	8VN55QuS5k8T4rgDsFppM6MBiX6zmrbQla9LZEPT+6jygIMD3KKhEIqvcKzJZ9Cp4+E+WQeJlYz
-	9g==
-X-Received: by 2002:a05:6830:82c3:b0:7f6:ec23:7956 with SMTP id 46e09a7af769-803fe1bd730mr16167290a34.2.1789240170442;
-        Sat, 12 Sep 2026 12:09:30 -0700 (PDT)
-Received: from localhost ([2a03:2880:10ff:4e::])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-805c4808b18sm2163754a34.5.2026.09.12.12.09.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 12 Sep 2026 12:09:29 -0700 (PDT)
+        bh=daj75kJ6ldxZJz9wLYTKbQQmIUWSVox4tdaNBDn6j84=;
+        b=dJDrseAlcgIfke/uUep1z4hLA87y+uXcDb3IfQVvXEFAfF6esZ589SAr1S1SxWt+RU
+         GX9KfJp/+F6lKJKYKoQLS4lqleKSfdTNJWBXvYh3oFP57H6dXNQHDg8n9u/bO+YWK19K
+         I8zqaENpbQSdFWNfVFeiNgdMDvTf65kHbu1MCrRv58QC6lxr1enKBkO2L4rUfLuhWI+8
+         Sa1iTiatMs9z3McwHvxixr4foLj+a+UebRf4Lx0x2QEydvVKl+BNfTWCF49tTBazKTAw
+         7ASE/3zwTchgN3CrccxhOrgaOk2JHOEjv9HB53gFHX12mCOPHd0usPbPOpUvrTZaeKID
+         rDXA==
+X-Forwarded-Encrypted: i=1; AKwUvBw/Ky1YFko7wgfm3s6V2Ph+yzEBRq44t7QkjvT4b+1LFgww06TK3fhMfoe6we5HJLVWu/FnD95EYeuunKo=@vger.kernel.org
+X-Gm-Message-State: AFuF++nqbaZSC6LiUQGUBhwzb8o3Ff22b0KOHfXzEtxJiMdkZqxB97s5
+	ezwe3jgN07JAhGrU8bcy6HjeQksr0Eziax+i4PPEojqQsEQGlijDlbC1k7+CpGp3hu3YoraxCD9
+	EqRO2sWLTiNa2ulfXdQbBBxA2hMI3z00=
+X-Gm-Gg: AYBFou2xpN7mbfg1DzzUf4KR3tvGZHtfL321TT0mRyT0Q8KSLR52LBUHyhVWgl9XghA
+	JfbKEGSG/c4OXxzzT5os7hlrjmP8fDkAzU98sYiPBYZF6tsav2fGiqg1pvRGmuBce1bBZ3tRpU1
+	74OMSpRrgcv2Ny0Kr5DYGhOzRpdehk7eu9SEQCXRmxaFcBxnoi9lAqSQfPdQUi8Aop8DoS5VBrK
+	fhEBNHw/c3oCVWasUY5MvE4mUUnVVE5qes2M+2TlkLY885tqVeK+P69fk7QryYKdAMpMZjxM9kZ
+	g/IqlER9h8JhoZQ9hf4xC7ub9ixrc5AMANT3ysdMBM5prKnpiJ58
+X-Received: by 2002:a05:690c:9a91:b0:873:5bd1:98b5 with SMTP id
+ 00721157ae682-884b200e9d9mr29464677b3.39.1789240234520; Sat, 12 Sep 2026
+ 12:10:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
+References: <20260906061755.5103-1-sumeet4linux@gmail.com> <20260906061755.5103-6-sumeet4linux@gmail.com>
+ <1a5fb9bb-d057-4579-8b2c-b81aa16a61cb@kernel.org>
+In-Reply-To: <1a5fb9bb-d057-4579-8b2c-b81aa16a61cb@kernel.org>
+From: Sumeet Pawnikar <sumeet4linux@gmail.com>
+Date: Sun, 13 Sep 2026 00:40:23 +0530
+X-Gm-Features: AcwNN1WFgZ6qmRCXqz0Ywv_tzPCCXsJ0jqSiA_xFTFPzs4rsV6HyVJPe6GfuozM
+Message-ID: <CAJ9orWRgatqn5gLx5+eDu7-T4s2PWcoVQPvuyMBgEp-KwDwkfQ@mail.gmail.com>
+Subject: Re: [PATCH 5/5] power: Use %pe to print error pointers symbolically
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: rafael@kernel.org, amit.kachhap@gmail.com, daniel.lezcano@kernel.org, 
+	thara.gopinath@gmail.com, talel@amazon.com, hayashi.kunihiko@socionext.com, 
+	mhiramat@kernel.org, mmayer@broadcom.com, viresh.kumar@linaro.org, 
+	sumitg@nvidia.com, peter.griffin@linaro.org, myungjoo.ham@samsung.com, 
+	kyungmin.park@samsung.com, cw00.choi@samsung.com, Frank.Li@nxp.com, 
+	s.hauer@pengutronix.de, matthias.bgg@gmail.com, 
+	angelogioacchino.delregno@collabora.com, sven@kernel.org, j@jannau.net, 
+	marcan@marcan.st, casey.connolly@linaro.org, sre@kernel.org, wens@kernel.org, 
+	t.schramm@manjaro.org, bcm-kernel-feedback-list@broadcom.com, 
+	linux-samsung-soc@vger.kernel.org, kernel@pengutronix.de, imx@lists.linux.dev, 
+	linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 12 Sep 2026 12:09:28 -0700
-Message-Id: <DLDKPDWY833W.1QJX9MTD6SZG5@gmail.com>
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: "Vineet Gupta" <vineet.gupta@linux.dev>, <ast@kernel.org>,
- <daniel@iogearbox.net>, <andrii@kernel.org>, <eddyz87@gmail.com>,
- <memxor@gmail.com>
-Cc: <martin.lau@linux.dev>, <song@kernel.org>, <yonghong.song@linux.dev>,
- <jolsa@kernel.org>, <emil@etsalapatis.com>, <ihor.solodrai@linux.dev>,
- <john.fastabend@gmail.com>, <shuah@kernel.org>, <bpf@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>
-Subject: Re: [PATCH bpf-next v2 07/13] bpf: track low-32 scalar equality
- across sign-extending movs
-X-Mailer: aerc
-References: <20260910164635.459558-1-vineet.gupta@linux.dev>
- <20260910164635.459558-8-vineet.gupta@linux.dev>
-In-Reply-To: <20260910164635.459558-8-vineet.gupta@linux.dev>
 
-On Thu Sep 10, 2026 at 9:46 AM PDT, Vineet Gupta wrote:
-> The zero-extending mov records that dst shares src's low 32 bits. A 32-bi=
-t
-> sign extension shares them too -- it keeps the low half and fills the hig=
-h
-> half from bit 31 -- so the same link applies, with a different rule for
-> rebuilding the high bits:
+On Sun, Sep 6, 2026 at 12:00=E2=80=AFPM Krzysztof Kozlowski <krzk@kernel.or=
+g> wrote:
 >
->   r6 =3D ...              /* full 64-bit unknown */
->   r7 =3D (s32)r6          /* 32-bit sign-extending mov */
->   if w6 =3D=3D -1 goto ...  /* taken: r6's low 32 bits are all ones */
->   ...                   /* r7 is -1, not deduced today */
+> On 06/09/2026 08:17, Sumeet Pawnikar wrote:
+> >       }
+> > diff --git a/drivers/power/supply/cw2015_battery.c b/drivers/power/supp=
+ly/cw2015_battery.c
+> > index 1bcb60cf763d..48643f7bf503 100644
+> > --- a/drivers/power/supply/cw2015_battery.c
+> > +++ b/drivers/power/supply/cw2015_battery.c
+> > @@ -658,8 +658,8 @@ static int cw_bat_probe(struct i2c_client *client)
+> >
+> >       cw_bat->regmap =3D devm_regmap_init_i2c(client, &cw2015_regmap_co=
+nfig);
+> >       if (IS_ERR(cw_bat->regmap)) {
+> > -             dev_err(cw_bat->dev, "Failed to allocate regmap: %ld\n",
+> > -                     PTR_ERR(cw_bat->regmap));
+> > +             dev_err(cw_bat->dev, "Failed to allocate regmap: %pe\n",
+> > +                     cw_bat->regmap);
+> >               return PTR_ERR(cw_bat->regmap);
 >
-> Add SUBREG_SEXT alongside SUBREG_ZEXT, and sext_32_to_64() alongside
-> zext_32_to_64() to drive the reconstruction. Both work from the base's
-> 32-bit range, which is what a 32-bit compare narrows.
-> coerce_reg_to_size_sx() cannot serve here: it reads smin/smax, which
-> straddle after such a compare and collapse to the full field range.
+> return dev_err_probe
 >
-> tnum_sext() is the counterpart to tnum_cast(). Unlike a tnum_range() over
-> the new bounds it keeps the known low bits.
+> Instead you should use dev_err_probe and drop the last argument.
 >
-> The enum has room for the third value, so bpf_reg_state stays 80 bytes.
->
-> Unlike the zero-extending arm, a self-mov can form a link here, but only
-> when src is already linked: r0 =3D (s32)r0 is how a sign-extended int ret=
-urn
-> lands. On an unlinked register there is nothing to link to, and minting a=
-n
-> id would leave the register describing itself.
->
-> Signed-off-by: Vineet Gupta <vineet.gupta@linux.dev>
-> ---
-> v2: was RFC 5/6.
->  - no forward declaration (Eduard)
->  - src renamed known_reg (Eduard)
->  - sext_32_to_64() and tnum_sext() rather than reusing
->    coerce_reg_to_size_sx(); the sync path needs the base's 32-bit range,
->    see the cover letter
->  - tnum_sext() keeps the known low bits a tnum_range() would drop (Eduard=
-)
->  - a self-mov links only when src already has an id, narrower than the RF=
-C
->
->  include/linux/bpf_verifier.h |  1 +
->  include/linux/tnum.h         |  3 +++
->  kernel/bpf/log.c             |  2 ++
->  kernel/bpf/tnum.c            | 15 ++++++++++++
->  kernel/bpf/verifier.c        | 47 +++++++++++++++++++++++++++++++++---
->  5 files changed, 65 insertions(+), 3 deletions(-)
->
-> diff --git a/include/linux/bpf_verifier.h b/include/linux/bpf_verifier.h
-> index f1b01059c5da..920c9490ecc8 100644
-> --- a/include/linux/bpf_verifier.h
-> +++ b/include/linux/bpf_verifier.h
-> @@ -53,6 +53,7 @@ enum bpf_add_const {
->  enum bpf_subreg {
->  	SUBREG_NONE =3D 0,
->  	SUBREG_ZEXT,		/* high bits are zero (32-bit zero-extending mov) */
-> +	SUBREG_SEXT,		/* high bits repeat bit 31 (32-bit sign-extending mov) */
+Sure. I'll do this suggested usage of dev_err_probe in different patch
+series for *_probe() functions update.
 
-If my earlier suggestion to model SUBREG_ZEXT as add_const32 with delta =3D=
-=3D 0
-works, then sign extension could be:
+As of now reverting the change for dev_err under *_porbe() function
+and planning to post V2 for this original series to use %pe for review.
 
-enum bpf_add_const {
-       ADD_CONST_NONE =3D 0,
-       ADD_CONST_32,    /* delta was added with a 32-bit ALU op */ /* works=
- as ZERO_EXTEND when delta =3D=3D 0 */
-       ADD_CONST_64,    /* ... with a 64-bit ALU op */
-       SIGN_EXTEND_32, 	/* delta has to be =3D=3D 0 */
-};
+Thanks,
+Sumeet.
 
-and if we really want to we can track movsx 8 and 16 too.
-Which might be an overkill.
-
+> Best regards,
+> Krzysztof
