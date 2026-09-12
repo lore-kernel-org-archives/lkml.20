@@ -1,137 +1,137 @@
-Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
+Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com [209.85.161.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B32D386559
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 19:39:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 101943382CB
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 19:40:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789241997; cv=none; b=NCBvLYC3zq/Qf5zTNbaEi8xGduvSiThLxeh3FxqFhgsZpnvx3MfLdlxJZXZ2FnilM2ep6XZ9xlE8ps7dBb9M60JEA0Z3G2qPmv7UrKG2XXVndwgUpxq/g3cqdvCzKz63oSjDywBi3xSAmZAhsF8wlEVGSE1LG45u1yuAbeypd9w=
+	t=1789242060; cv=none; b=fhMXkrMbzZYxq8a5ODvDdXApJ14JrQlIzEqvceHjv6cCmv987v3DC06hq1/dxQTRycPOO3wehUh+RFu3v+lyMSh5Xo4GQUraEF5BwYxJlY1dTgOmpL82K49zo/D/mvwxQJbAJ5rKt9Oo1w83ASFX4FC8qKBqKmNHC9Pe1a+x8y4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789241997; c=relaxed/simple;
-	bh=AdChyE9QQdLXS/FICQDcwm0+ypo31/BoXuJxJr08H+E=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Wl5czG8lTSnp38aGv6l0/kY1GLfug31saqbMCcRAh4z9pLcNimSonpXI2uVZUBWkATB2UMcvEQYRDJKekW8KMVEGLVxeNrpVf0ezC9xTdIN7wKdNczHzEI+kswd6B95zso7PVbEU7Xjy/UkU3QrFBbQNr0kS4v9cZCrW+lg2Nfo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f2TuRyJh; arc=none smtp.client-ip=74.125.229.204
+	s=arc-20240116; t=1789242060; c=relaxed/simple;
+	bh=Fg3k93J+NnauWx+3Z+BYbTT2WHUzh/cuAEcclS6y3ms=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=H16RVmCxE3eSmQVjioNUHKaDlwr4/sJR3MH51Twazhe7/0xNi59ARXzeFCKXZtHfGUo2sYAuj1YYz4tDMnaTqEUT3kg9PPYNwS6/YlS3sCy8bGAvduW/icgmt6oMGeuEXbxdrpFOsDfJFyq6rf+12yij37pU8EoMedAJ/SdetbU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hdL8Tpdf; arc=none smtp.client-ip=209.85.161.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f2TuRyJh"
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f13d77so829257e87.0
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 12:39:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hdL8Tpdf"
+Received: by mail-oo1-f50.google.com with SMTP id 006d021491bc7-6c1983dfaffso1229182eaf.2
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 12:40:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789241993; x=1789846793; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eCThjcDAlbKsFQN80hFuu4ztvw1PnueEZBsdmTCibKA=;
-        b=f2TuRyJhpQCecB1uRmMsGLLTZzcGZCA/5ETExYpWQ+lXO+CJXJB4piPf3KRSjDW2Hy
-         Fa0YpX5sClhDK5IoISKUCMj5l1volVO8YBRU5xHMiCm5V5KPQgl4pcLNvdPgznbc1lE5
-         UJLW0F1EMiCVzTwC5MKnXE6CefVK9gj01vv/OTjt9tVppR6dZZWfk4bQlU6UASr0M2bc
-         +PZ9SJ/6uBFGOeF0ANT9sIOH0QVM/AM6g55pVrE4q+n5Pwr1y40O74exmdCcpskGdJBa
-         iMq7atGNtuqqCc3AnhmSR0WgP2EEsVienigfWJYobef9Og5qKpuiP9jhGv8ec6AyaxHC
-         Z6/g==
+        d=gmail.com; s=20251104; t=1789242058; x=1789846858; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=/mW9uIl4IQ84J3enCrJFqvgB+YMh25zxbJWRDQHZcYo=;
+        b=hdL8TpdfrOnsp8icWzp7H9iP1o4b4ff7BeOjoL79h4VOB7Mi6IPUtkUAsdZtSvGWwY
+         G5S4oixFN/qeznuCur5B4gc2bSVe1MLjnzZkQ7sCtiMWHNDvIpW7Njy83RaekEGJfsR8
+         uBar9fpNP8lY8JkBGfS5tr+LkGAtKGPJe5TmeIp8OLJfC6ZUfW1aY64veWs450nV/hiG
+         lAAeDTT4Nb6gB9crfFPc3Hnu0lUOghQtcutwfJGRfdY/gWa0Rle4PGL5cYr/WxeqduxL
+         t9HwIy3rA8i+vi44eDI2IZZE+xh853xSBvG4vdqzZ5ApW6bDRml9lMb+xYwImLjcHGLM
+         YUyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789241993; x=1789846793;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eCThjcDAlbKsFQN80hFuu4ztvw1PnueEZBsdmTCibKA=;
-        b=WWbk+woVp856yY4KpUFWRLHkECz9cipJlx+nCEyBJRhDVjLdGjNnV145J7oEzOtG5q
-         shiQ8tVjJ0wghl+zZ6kp20PAw40zBSPNWs9KR28qSj1cT3L3UTZbpfAILXpu72OhsMl6
-         kshvF1jiK+Tuq7oX6AsBkGQhMeT2qCPIPPieqJ70Etv4j/nnTV2yblZD3IZVfWbUGMz3
-         Qk3TqHHSP24Ayj6psMv0qwrYoLKN5mvGL80R3KKtRnXv0QkYMNdQhn8nEv/uH9rLFIf3
-         oNwnd96Fh6tvFZLygJVmEeFmD5VWXyCRxmspAnCdVjHmSJ+tkjh7mGwut36jJvJsBqEn
-         dcmA==
-X-Forwarded-Encrypted: i=1; AKwUvBzTgnbC+kO8Z1KAikcle9BM8h/CvVa2lU0Swfr019qmp8kKcEuXNMR1yVnojbIXVCi52HJ07cebIGWatsE=@vger.kernel.org
-X-Gm-Message-State: AFuF++m8L2/hhkxSLi13yriLcsI9S9SZKNJxIxBBuwyQObVpV1IP9mfR
-	6TUevmYtW7Jmnu8JGVMD+UfeG3S1FplCJf6W5Xpl9ywUN0FcuDRYA0zImtyaxkeSB9GVdVeG
-X-Gm-Gg: AYBFou2bxOo/bh65qf6sCUy4fqqiASAhKQOAfBKawSiebEUHu+qNdirDzT4/yiMOQ6X
-	Dcnxu8pxkQNjeuQ4avn9UJTXcEHqTT/ZP5GV0oW5Iv2RD2LqqswsfYlZoqOJq43IDXJwG/9Sfde
-	jBUJPc+QJfbdOSEqXlMv1/HoBMQW+P65mobR+WOZ8M5ieZA2q08ae0oG6cM/SMauYxP0tUbwVP6
-	XZKqLTuSKpjYdySOU+f6YOXpW4GbR2eUtagehZoEXXDFN2micEkIWhdIP5Szp0zfXL4qBMYOWv0
-	feNZAov9rPyo1FMiwyYOLmmZWVeq+qHqo5AXsf/SXZ+VJe910SX9+vlH6G75NFHfNHkxwVeMG1F
-	woPSZbitAfGq5uuw0rf6eDk3H5gP1C15lS0QfTGKV3eIu7d9KJSYiH/6+wi797Jezv3cdz6/gZu
-	q+UJ356wR9SWKi+tIxbpXYNnQdXyvEOr3HoYtmhX/SSEDfVuMqmWXSKVRkrYlWBjQMcJMkvsYvb
-	Z1J4U84I8GjaKzmjqSIYaohy8o=
-X-Received: by 2002:a05:6512:3a8e:b0:5b4:ac1b:89bc with SMTP id 2adb3069b0e04-5b8a8ea6ebamr693162e87.24.1789241992711;
-        Sat, 12 Sep 2026 12:39:52 -0700 (PDT)
-Received: from localhost.localdomain ([80.66.93.65])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8a047aa12sm1392668e87.74.2026.09.12.12.39.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 12 Sep 2026 12:39:51 -0700 (PDT)
-From: Maxim Skokov <skokovmaksimevg@gmail.com>
-To: pkshih@realtek.com
-Cc: linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: rtw89: WOW_CPUIO_RX_CTRL is never answered on RTL8851B
-Date: Sat, 12 Sep 2026 22:39:36 +0300
-Message-ID: <20260912193939.5565-1-skokovmaksimevg@gmail.com>
-X-Mailer: git-send-email 2.47.3
+        d=1e100.net; s=20251104; t=1789242058; x=1789846858;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/mW9uIl4IQ84J3enCrJFqvgB+YMh25zxbJWRDQHZcYo=;
+        b=JtiMs0XRUuxjSSmIqFkgX6bcBWTnvnPKtOs9xYtBVpfuPqpTQU3FK1dSlWKgWNvQ6c
+         t6ZTQ5xWcM0iTR4U8UcTmqqrVPXgEN5SK9U21vaQrR0+nnVDCkfxYPyuJNVU62Yzlw66
+         zkC1SUYVqRWCwoCvpGiOXd3bxvXT7dwipi/b8Yvl17x/TjL4aUmHjGjP3YtV5UWou0qU
+         Repv8ZmQJ1BlQDUCEPMqWwGbwDuQu9ztoRLBVX8CHrckjJdtG5wPvF+lTHIFqOf3aLu7
+         bMhS6NouQoX55FVRtWmV8k4Vi4ZySdvEljeQoytUbLTeckBrHvwH2qgPdnfgLQQ0kijt
+         sWkQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwi68kR7/C7LGjaG02LnymI66tjguKenN95ZuI1ck/KRq8XcN4Rs7M3kU/eZv5HVyTtz0f7TEbv3P9JEVk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kzS45FmshM5YKJ3Br0E5rHnVkgM/aCCCCIMkB2pzFu/cVJ+ehm
+	uP2vc0q0jK3R5tECSsrxpBckKITW1l/C3fTMXPwPVF1Dz8jvwtI1DFYp
+X-Gm-Gg: AYBFou0Cu91uyo/+2ombWJ5vN0z4yXLfYRqBvBp9OyUjpBeVw/yQoL4TnfQO14xdaUi
+	pXTunau5fLrjVbyPlumidLt4eMwM/H1CUt6getetJUp+EWmJZK3d6JqPbSz2MqVK/GjivdaEdUo
+	OnWnuJnz0nTYfMbyAIIrdwA7yZ0B9dKferCalGtMmPQ+q4Qbv/Z2Qwql3sZ2JF9Imc+boMT52R/
+	1a41sK0IrQYmvjdwIM1sIGepaBgvmPJw0AJHIXWt36EL8xo0hrXL//FwdfhqnrgK9nopSpV/kN6
+	NwC5LnEMyTe5B8ufgwecitFl2sxid052h5Hsi3y/fqWkwP7NwM8JXmOCgiiFydXhYbGHopveAfR
+	nR9sxlPYjXo/9bcUF1JCH6mHwOZrTMupYhPa8DNqyX16dbvqRfh+aoSssoBkxUYcAcU2fKhibUn
+	zkVkPF9TyGcozXb+HIAkzkdyguNJxMtM04CiFKPPU4FFrFOPNFUocCmd6WzznRALsnEdrgjRvm6
+	tC85OUICYOay/3eDDijDiIpxeJpElhrmVmMl41i70yBN5w4ryWK+1tS8FfSo4RyirI+WE74rVM=
+X-Received: by 2002:a05:6820:f034:b0:6c0:c954:e534 with SMTP id 006d021491bc7-6c0c9550c4dmr5760632eaf.38.1789242057820;
+        Sat, 12 Sep 2026 12:40:57 -0700 (PDT)
+Received: from localhost ([2a03:2880:10ff:5::])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6c0996dc5a6sm6404372eaf.6.2026.09.12.12.40.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 12 Sep 2026 12:40:57 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 12 Sep 2026 12:40:55 -0700
+Message-Id: <DLDLDGTSBHA0.32TYNBSKKPFXH@gmail.com>
+Cc: "Josef Bacik" <josef@toxicpanda.com>, "Frederic Weisbecker"
+ <frederic@kernel.org>, "Neeraj Upadhyay" <neeraj.upadhyay@kernel.org>,
+ "Joel Fernandes" <joelagnelf@nvidia.com>, "Boqun Feng" <boqun@kernel.org>,
+ "Thomas Gleixner" <tglx@kernel.org>, "Peter Zijlstra"
+ <peterz@infradead.org>, "Steven Rostedt" <rostedt@goodmis.org>, "Masami
+ Hiramatsu" <mhiramat@kernel.org>, "Mark Rutland" <mark.rutland@arm.com>,
+ "Jiri Olsa" <jolsa@kernel.org>, "Alexei Starovoitov" <ast@kernel.org>,
+ "Daniel Borkmann" <daniel@iogearbox.net>, "Andrii Nakryiko"
+ <andrii@kernel.org>, <x86@kernel.org>, "Catalin Marinas"
+ <catalin.marinas@arm.com>, "Will Deacon" <will@kernel.org>, "Puranjay
+ Mohan" <puranjay@kernel.org>, "Xu Kuohai" <xukuohai@huaweicloud.com>, "Andy
+ Lutomirski" <luto@kernel.org>, "Josh Triplett" <josh@joshtriplett.org>,
+ "Uladzislau Rezki" <urezki@gmail.com>, "Mathieu Desnoyers"
+ <mathieu.desnoyers@efficios.com>, "Lai Jiangshan" <jiangshanlai@gmail.com>,
+ "Zqiang" <qiang.zhang@linux.dev>, "Juergen Gross" <jgross@suse.com>, "Luis
+ Chamberlain" <mcgrof@kernel.org>, "Ihor Solodrai"
+ <ihor.solodrai@linux.dev>, <linux-kernel@vger.kernel.org>,
+ <rcu@vger.kernel.org>, <linux-trace-kernel@vger.kernel.org>,
+ <bpf@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+ <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH RFC v2 08/15] bpf, x86: Maintain Tasks RCU trampoline
+ nesting in the BPF trampoline
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+To: <paulmck@kernel.org>
+X-Mailer: aerc
+References: <20260911-b4-rcu-tasks-preempt-qs-v2-0-eaaa61ed2da4@toxicpanda.com> <20260911-b4-rcu-tasks-preempt-qs-v2-8-eaaa61ed2da4@toxicpanda.com> <DLD0OHX8C4ME.VNR49VC2UYH4@gmail.com> <14cb8a91-497d-49f5-aa20-c6cb8b9a27fc@paulmck-laptop> <DLDICNLENSRI.2R6EJ0ZFJE45T@gmail.com> <8c51a669-eb6b-455b-a829-b537da5209f8@paulmck-laptop>
+In-Reply-To: <8c51a669-eb6b-455b-a829-b537da5209f8@paulmck-laptop>
 
-On RTL8851BE every suspend/resume cycle with WoWLAN enabled spends about
-20 seconds in firmware timeouts:
+On Sat Sep 12, 2026 at 11:03 AM PDT, Paul E. McKenney wrote:
+>
+> In the old kernels, yes, we have current->trc_reader_nesting++.
+> In the newer kernels, Tasks Trace RCU is instead implemented in terms
+> of SRCU-fast, which instead increments per-CPU counters.  Which among
+> other thins is a bit faster and does not need to hook into the scheduler.
 
-  rtw89_8851be 0000:02:00.0: c2h reg timeout          (x3)
-  rtw89_8851be 0000:02:00.0: Unknown wakeup reason 0
-  rtw89_8851be 0000:02:00.0: c2h reg timeout          (x3)
+old kernels? I'm confused.
+rcu_read_lock_trace() in bpf-next is doing t->trc_reader_nesting++
+and then calls __srcu_read_lock_fast().
 
-With WoWLAN disabled the same suspend/resume path is silent. Both results
-are 3 out of 3, using rtcwake so the cycles are identical.
+Are you talking about some RCU branch that you target for next merge window=
+?
 
-A kretprobe on rtw89_fw_msg_reg() shows all six timeouts are the same
-command:
+>
+> So we have several ways forward:
+>
+> 1.	Revert the implementation of RCU Tasks Trace in terms of
+> 	SRCU-fast, and use the existing current->trc_reader_nesting++,
+> 	as you suggest.
+>
+> 2.	Deprecate RCU Tasks Trace entirely in favor of RCU Tasks
+> 	augmented by rcu_tasks_trampoline_enter() and friends, as
+> 	I was suggesting.
+>
+> 3.	Implement rcu_tasks_trampoline_enter() in terms of SRCU-fast,
+> 	keeping the speedup, and put a synchronize_srcu() in the
+> 	RCU Tasks grace-period mechanism.  This again deprecates
+> 	RCU Tasks Trace entirely in favor of the augmented RCU Tasks.
+>
+> 4.	It is always good to explicitly state the apparent status quo,
+> 	which involves redundant trampoline entry/exit overhead.
+>
+> 5.	As always, your additional ideas here!
+>
+> 							Thanx, Paul
 
-  h2c=10  ret=-110  3355 ms   RTW89_FWCMD_H2CREG_FUNC_WOW_CPUIO_RX_CTRL
-  h2c=10  ret=-110  3345 ms
-  h2c=10  ret=-110  3344 ms
-  h2c=10  ret=-110  3315 ms
-  h2c=10  ret=-110  3305 ms
-  h2c=10  ret=-110  3307 ms
-  h2c=7   ret=0        0 ms   AOAC_RPT_1
-  h2c=8   ret=0        1 ms   AOAC_RPT_2
-  h2c=5   ret=0        0 ms   SCH_TX_EN
-  h2c=5   ret=0        1 ms   SCH_TX_EN
-
-Other commands on the same h2creg channel are answered in 0 to 1 ms, so
-the channel itself works. The firmware just never answers this one.
-
-Six calls because rtw89_mac_cpu_io_rx() retries CPU_IO_RX_RETRY_CNT = 3
-times and is called once on suspend and once on resume. Its return value
-is ignored by rtw89_wow_config_mac_ax(), so WoWLAN setup is not aborted
-and the only cost is the delay.
-
-_rtw89_mac_cpu_io_rx() already has a way out:
-
-	if (RTW89_CHK_FW_FEATURE(NO_WOW_CPU_IO_RX, &rtwdev->fw))
-		return 0;
-
-but rtw89_fw_feat_list only carries
-
-	__CFG_FW_FEAT(RTL8852A, lt, 0, 13, 37, 0, NO_WOW_CPU_IO_RX),
-	__CFG_FW_FEAT(RTL8852B, lt, 0, 29, 30, 0, NO_WOW_CPU_IO_RX),
-
-and nothing for RTL8851B.
-
-Should RTL8851B get an entry, and with what version boundary? The newest
-firmware published for this chip in linux-firmware is 0.29.41.5, and it
-does not answer the command either, so from here I cannot tell whether
-support is planned for a later version. I am happy to send and test a
-patch once I know which version to use.
-
-One unrelated note from the same trace: "Unknown wakeup reason 0" is not
-a failed AoAC read. AOAC_RPT_1 and AOAC_RPT_2 both succeed, and
-rtw89_wow_show_wakeup_reason() reads the reason straight from
-wow_reason_reg, which holds 0 because the card was not the wake source
-here, the RTC alarm was. The switch has no case for that and falls
-through to the warning.
-
-Tested on:
-  RTL8851BE [10ec:b851], subsystem AzureWave [1a3b:6111]
-  wireless-next 13e51269b6, built with KASAN, UBSAN, PROVE_LOCKING and
-  DEBUG_OBJECTS; none of them fire during these cycles
-  firmware 0.29.41.3 (65cefb31), also reproduced with 0.29.41.5
