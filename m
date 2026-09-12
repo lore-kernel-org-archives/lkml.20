@@ -1,148 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD8922FFDEA;
-	Sat, 12 Sep 2026 13:48:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91B8531E84B
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 13:48:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789220920; cv=none; b=g4AEE5VDxxMC0hIN+lwLJy1bsO/a1pr8QzPYXS+z9PCyD4ALfQ5H4V051pD9ckpakhXWKLRSQNYPVgHOPLNvTj6UwNYm+D9HA5rmdyUkWyXqp+8cWhMSUiK7pdRMN6ZMMINSOc24GGf3EL0m86TGkczy/8eT/II5Od9ds/L4RZk=
+	t=1789220935; cv=none; b=svnXXV9cdEvu9mJmok9HJIGWriQOsZwEBdO1x4bnOn+DuedBn/mhpqv5g18XCER0QW7lSbFWYLz8bzqCZK4cvbRC4Yczw4uynnNSXeNBAwyCfYdmc1NHafqD2yaymFJsbDE8qBakKS9bCyxGNIdsztLK7806wDQxuNpJ7N76AzM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789220920; c=relaxed/simple;
-	bh=gOxsz5HXT0QCByERbuD1MVZYSovffvRkqFf7umhpBxc=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=S2T3FGL//sLjKNKzQgZFWMoccV+LV7ssd9y0Hz1+ZV1NVBXhqKHKRQQU+x14uG3Dpkm0JoS4WH05PqSG0DsYKwZ8Q2cygs0gnzONVsM0P698TueSpfzfclwtcq3aamCs0TQNHD/KalMRRWjyZYQ0dY3HQRZ3j8XolOyeMEwCDK0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UZ/26ACE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789220935; c=relaxed/simple;
+	bh=6pVt0PUQ4LIcwar5ugRNpizavgzQxLUwL/Y0pJ784AY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sWyzT9fGtexs5OlBOisw8/RL9DvgdwmbIlx/oVI5Cle18sCCKJQ8EhHf4X5hZRiKvWbgPFVoe0M8uhqr1PmL+rHnPQNwP+zXmaiyyUc6tD9NjbIJy3K7eyHO/qlmoEDSekh4Nb0r79W060OcV1s8YtlHkOOChLBWDNeSR7IwHnY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=noFLW9/R; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UZ/26ACE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C7D21F000FF;
-	Sat, 12 Sep 2026 13:48:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789220919;
-	bh=0VJ/mqw67OyMvnuaO2K3Ir8jJ5ldSDsZMgF3x779aBU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=UZ/26ACEkZcAzY6sFn3ZLsGshe3F1rBNIrPl7fQQefKof+NVcONv/Pf6U5/xvS4RQ
-	 tz2zCXRjabth5zjM63h3IUgerHvKXqcyWA919XYYcqVTTaMToC4Q1MgCdp+HWshsb0
-	 cuRWGK5/PLqQbv7GDorhVbExBkmA9pE2XXAQUOzE+zKEEBntc9i16fY2g8Hwstpqx3
-	 0xFXetnFd2np1pEhjPE6kfc+VTm3T1lv1/g2Sj/JpGetRkxPB42aUSyGvS6P802fIJ
-	 hC6jTauX9MvXhAHRsY3Nrka8ktIyyUd+/f3vw91VFEWi28U2VHsmTUqzMfS43fhadQ
-	 40xR6qp0H3HKQ==
-Date: Sat, 12 Sep 2026 22:48:35 +0900
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- Sang-Heon Jeon <ekffu200098@gmail.com>
-Subject: Re: [PATCH v2 0/4] bootconfig: Reject unexpected data after null
- character and cleanups
-Message-Id: <20260912224835.4e5f73b44cee39387554cc70@kernel.org>
-In-Reply-To: <20260911155911.1cccfa39dd2e3c6e3a84e03f@linux-foundation.org>
-References: <178913597653.248794.1237187523153227751.stgit@devnote2>
-	<20260911155911.1cccfa39dd2e3c6e3a84e03f@linux-foundation.org>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="noFLW9/R"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccdaea76so228861a91.0
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 06:48:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789220933; x=1789825733; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IRE9clLLWxIBFYz3gEl3LiQKErgqN/9gBQjM8vZ0D3o=;
+        b=noFLW9/RvD48s1Bzji5giq64hw/CN0vnaB37wiuJrOT3kmOVhLEpldiR2JrG9ga5k7
+         wV7JcpDb4uiGR0VP70bAH4SXgjVZ6k/+TISyQxocLUzmbF+Dvfc/08db8ghV4arH+cu3
+         9th/uzeE6upQfpyqKFn2ZU8McvEdcnqN2ytI7i4NmYvrpASfZNXZJXnZsNaR8mPYy68K
+         M+Bk5SpoJFprIiZQX9ninYR7eI3TeXNc8K53Ye4JovFaRzJ+0dG6kZU4Wz7fbvP5tqIy
+         piQkPCBXUL2Toulo8jTcxzSYMupitNr3hrHo9jBMOzeu8zKdF1EkdLc7SuHz7fgVnb61
+         UMxQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789220933; x=1789825733;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IRE9clLLWxIBFYz3gEl3LiQKErgqN/9gBQjM8vZ0D3o=;
+        b=hx5ciqcR9c27p85aAL8yWTkl4Y+mrZANhtMp7ODlV1kgCrdBfAMdfIOQt0NKIlIgnR
+         stcNOBw5hsriNOy+i5l9UCZ9d6XTu/YE/rjnSqQ+g5LO8330mWPj8v0O24RuKC1Y88+X
+         CSw+UUyNcVvlMo/lERvtNclBFbbl31PwfYuQ7Ancaed+2/D7NeIPzZxg53ZkW7dlhFHS
+         +sxz84dVPte7wcGhzVnD/JuM2khnTzxeEUH+foJoZWXb8W/a2lvQuZQEOFdTk3LkF979
+         aUXxkRzBK+hr0U4ovJIWUtRW+GtA9/zZoesy6inANJh776KCDjBUtKjDkXDHxfC1GOaK
+         x0Bg==
+X-Forwarded-Encrypted: i=1; AKwUvBxZ/1J6StfdpdZ00K6JzFlFIk6Hvq1GVK9WrU54cjYVo+q8QD4i+lwTjpiPGu+D3vOXOKNKA/ARA4/sYV8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kHn2yN0UmmifwhqP2V96P4pswF4bcj8CtoDXdTnJx34tBb9Rsd
+	dtvzRAVP2Rvk0porwbWzbyzuRukiC7+bkSmYEsuHiq22DC4M5xo/O2lQ
+X-Gm-Gg: AYBFou2x0YvAo5Ra2G/M/iMRvTCJHqHHfcVSVVt5YANuAzzL4DrAjOIuj6ndtDRBjfZ
+	+H/tTm8TbJC4XmqQZGrBFnRUCEiVTlIPS+7aA6Vc047y2hI7f825h/dIbIPx5/y9S9rcmoQjfdb
+	XUVhsf3fUYOqgjBNgqHuruS3NmpTGi0RMqkJYfLa3j49oqbmAW4QzfnDS6JM5unWnVlwXbGkwZ2
+	TnNdlpuLTh9BLspZzE9viRrygsQpyVJYg+GLJpIwWlv/iLgzSyBgtGEXBYU1+NkISI9Q/GER8ya
+	OramEe5cysA7mHf4w0D4Xg0Y3a3ZanlVrTaFUflnpzLOd+E4n50JimxvbBWi9RS6mn3bXjo/hgL
+	8bCygp7y3G3HgOsdNCbKcKExfYJaHyUPm0JUprld/9lvdhgbsJIpom+/tH1kFpLUrGpc7p1MIpL
+	ZpfBXZX8yYdby1cfbFWmw0iMx/jMVG903FFTOjD5fmuAnFWyMaq5TO929xXw7zbRB2
+X-Received: by 2002:a17:90a:d410:b0:398:9bd3:d6d2 with SMTP id 98e67ed59e1d1-39d980ac288mr8416579a91.12.1789220932772;
+        Sat, 12 Sep 2026 06:48:52 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d94744dfdsm11078347a91.0.2026.09.12.06.48.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 12 Sep 2026 06:48:52 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Guangshuo Li <lgs201920130244@gmail.com>,
+	Kees Cook <kees@kernel.org>,
+	Paul Mundt <lethal@linux-sh.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH] cdrom: gdrom: fix gendisk reference leak
+Date: Sat, 12 Sep 2026 21:48:21 +0800
+Message-ID: <20260912134821.981705-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Fri, 11 Sep 2026 15:59:11 -0700
-Andrew Morton <akpm@linux-foundation.org> wrote:
+probe_gdrom() allocates a gendisk with blk_mq_alloc_disk(), but
+remove_gdrom() only calls del_gendisk() during driver removal.
 
-> On Fri, 11 Sep 2026 23:12:56 +0900 "Masami Hiramatsu (Google)" <mhiramat@kernel.org> wrote:
-> 
-> > Hi,
-> > 
-> > Here are v2 patches for bootconfig to rejects unexpected config data after
-> > null character and other cleanups including tools/bootconfig to consolidate
-> > bootconfig initialization with errors, and skipping internal tree sanity
-> > check in kernel.
-> > 
-> > ...
-> >
-> 
-> Thanks, I've updateed mm.git's mm-nonmm-unstable branch to this version,
-> 
-> > This version removes redundant buffer copy in init_xbc_with_error() [2/4]
-> > and moves BOOTCONFIG_FOOTER_SIZE to include/linux/bootconfig.h[4/4].
+del_gendisk() unregisters the disk but does not drop the driver's
+reference to the gendisk. Without a matching put_disk(), the reference
+remains held and the gendisk is leaked.
 
-OK, anyway I'll pick this series to bootconfig/for-next.
+Call put_disk() during remove_gdrom() to release the reference acquired
+during disk allocation.
 
-Thank you,
+This issue was found by manual code inspection.
 
-> 
-> Here's how v2 altered mm.git:
-> 
-> 
->  include/linux/bootconfig.h |    4 ++++
->  init/main.c                |    2 +-
->  tools/bootconfig/main.c    |   14 +-------------
->  3 files changed, 6 insertions(+), 14 deletions(-)
-> 
-> --- a/include/linux/bootconfig.h~b
-> +++ a/include/linux/bootconfig.h
-> @@ -27,6 +27,10 @@ bool __init cmdline_has_extra_options(vo
->  #define BOOTCONFIG_ALIGN	(1 << BOOTCONFIG_ALIGN_SHIFT)
->  #define BOOTCONFIG_ALIGN_MASK	(BOOTCONFIG_ALIGN - 1)
->  
-> +/* Bootconfig footer is [size][csum][BOOTCONFIG_MAGIC]. */
-> +#define BOOTCONFIG_FOOTER_SIZE	\
-> +	(sizeof(uint32_t) * 2 + BOOTCONFIG_MAGIC_LEN)
-> +
->  /**
->   * xbc_calc_checksum() - Calculate checksum of bootconfig
->   * @data: Bootconfig data.
-> --- a/init/main.c~b
-> +++ a/init/main.c
-> @@ -278,7 +278,7 @@ static void * __init get_boot_config_fro
->  	int i;
->  
->  	if (!initrd_end || initrd_end < initrd_start ||
-> -	    initrd_end - initrd_start < BOOTCONFIG_MAGIC_LEN + 8)
-> +	    initrd_end - initrd_start < BOOTCONFIG_FOOTER_SIZE)
->  		return NULL;
->  
->  	data = (char *)initrd_end - BOOTCONFIG_MAGIC_LEN;
-> --- a/tools/bootconfig/main.c~b
-> +++ a/tools/bootconfig/main.c
-> @@ -17,10 +17,6 @@
->  
->  #define pr_err(fmt, ...) fprintf(stderr, fmt, ##__VA_ARGS__)
->  
-> -/* Bootconfig footer is [size][csum][BOOTCONFIG_MAGIC]. */
-> -#define BOOTCONFIG_FOOTER_SIZE	\
-> -	(sizeof(uint32_t) * 2 + BOOTCONFIG_MAGIC_LEN)
-> -
->  static void show_xbc_error(const char *data, const char *msg, int pos)
->  {
->  	int lin = 1, col, i;
-> @@ -44,20 +40,12 @@ static void show_xbc_error(const char *d
->  
->  static int init_xbc_with_error(char *buf, int len)
->  {
-> -	char *copy = malloc(len);
->  	const char *msg;
->  	int ret, pos;
->  
-> -	if (!copy)
-> -		return -ENOMEM;
-> -
-> -	memcpy(copy, buf, len);
-> -	/* We do not terminate the copy with \0 for sanity checking */
-> -
->  	ret = xbc_init(buf, len, &msg, &pos);
->  	if (ret < 0)
-> -		show_xbc_error(copy, msg, pos);
-> -	free(copy);
-> +		show_xbc_error(buf, msg, pos);
->  
->  	return ret;
->  }
-> _
-> 
-> 
+Fixes: 74ee1a7590b78 ("cdrom: Add support for Sega Dreamcast GD-ROM.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/cdrom/gdrom.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-
+diff --git a/drivers/cdrom/gdrom.c b/drivers/cdrom/gdrom.c
+index 4ba4dd06cbf4..cd8c79e4a5ac 100644
+--- a/drivers/cdrom/gdrom.c
++++ b/drivers/cdrom/gdrom.c
+@@ -841,6 +841,7 @@ static void remove_gdrom(struct platform_device *devptr)
+ 	if (gdrom_major)
+ 		unregister_blkdev(gdrom_major, GDROM_DEV_NAME);
+ 	unregister_cdrom(gd.cd_info);
++	put_disk(gd.disk);
+ 	kfree(gd.cd_info);
+ 	kfree(gd.toc);
+ }
 -- 
-Masami Hiramatsu (Google) <mhiramat@kernel.org>
+2.43.0
+
