@@ -1,228 +1,121 @@
-Received: from mta0.migadu.com (out-86.mta0.migadu.com [91.218.175.86])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fhigh-b3-smtp.messagingengine.com (fhigh-b3-smtp.messagingengine.com [202.12.124.154])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F19A039022B
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 19:50:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.86
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2131839021F;
+	Sat, 12 Sep 2026 19:53:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.154
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789242643; cv=none; b=P+7yb4Ejyxpg59tQXzOU4bUecpBU4io/Kj13A03FTPkyS3/RD8XYw7BuUJCEYuYpTZoOHM7ET6yAAYkqNo0fq5as8ZOj4lynIoWDYG0q69BFmmUCLnhABmZ9o9svum2mZ1t57OeB0XOjtkmnogrJQXoqnNJr+g8ul075EpIwzvI=
+	t=1789242810; cv=none; b=KVMpS4StazD7xQFs10DtTtqgZr/8YFKE3k9Lmm2Pbk3NCWOUvXUW5ARZLqhQn8sC/6wLR2ykz54Mb554vYCrnLDxfMw3dHelPlBti+8OifIby0S5XG6WetGjmMWKOdbNlAVTwDGzlwYlguBwstzii5MApK/UZhC6glvFDJYvrsU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789242643; c=relaxed/simple;
-	bh=IZQWpLfgOYy2HoyGgwPrn56oEiNSXBhTyZWh8PoLnm8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NZNeSKYxGdoXhQS4C5B9VsdlqZ3nuc28X9eT4/LEPFvVB9W4AXoHlcNnxBn2pL+GvRV3lV35QqEAxI++C6vr21bJoc7DuwXQZU+QL6ZokRxdDyyY7ly6eGSfpAYTRuzQTbU41YQMOaH5EfuG9E0k433ST9UHAYqK5KpHSFep6vw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=vI4PQNvt; arc=none smtp.client-ip=91.218.175.86
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789242810; c=relaxed/simple;
+	bh=QhujFu7ub6IE2ARBoi9F5M8+TesNlF+Y2RwfWxY4jrk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HFwxGcykiUISaQgK+y46kZLKlCLZHq0tZE/YJhY8u3lHNw5fu+slATbV/cTIbUigZYGjt10y+kYpDQmFSv5w8drmnHoJsF0H1Fg/AX2tedb0ONokNyM5b2Jgm4cWF5GlUO0zpssYLi5XyFVwGMFMuas38ZpvnMBd0BPF5A7P/k8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=xLm/Jg8A; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=sYKaSbh8; arc=none smtp.client-ip=202.12.124.154
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="vI4PQNvt"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=IZQWpLfgOYy2HoyGgwPrn56oEiNSXBhTyZWh8PoLnm8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789242639; v=1; x=1789847439;
- b=vI4PQNvtzlz5BVglkofWTsBPA2OSAuND2Xwvxxxa6xJ/msUylIFRfjkuTMEihxVtkwfQtU71
- Pk9Mmmccy09A3gqx8ZBJeUKYQYs1Y4gU5zjrGMB5nEr2SHTFoGNTndIhWP/6M5zr36YcfEKlqON
- XbTZkjx4hK5Dw0euM25ihMW8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 657099db2046fc3f;
-	Sat, 12 Sep 2026 19:50:39 +0000
-X-Mizu-Trace-ID: 657099db2046fc3f
-X-Migadu-Flow: FLOW_OUT
-From: Ilya Gladyshev <ilya.gladyshev@linux.dev>
-To: ilya.gladyshev@linux.dev
-Cc: akpm@linux-foundation.org,
-	andrew+netdev@lunn.ch,
-	apopple@nvidia.com,
-	artem.kuzin@huawei.com,
-	baolin.wang@linux.alibaba.com,
-	david@kernel.org,
-	Liam.Howlett@oracle.com,
-	edumazet@google.com,
-	harry.yoo@oracle.com,
-	hramamurthy@google.com,
-	ivgorbunov@me.com,
-	joshwash@google.com,
-	kirill@shutemov.name,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	lorenzo.stoakes@oracle.com,
-	mhocko@suse.com,
-	muchun.song@linux.dev,
-	pfalcato@suse.de,
-	rppt@kernel.org,
-	surenb@google.com,
-	torvalds@linuxfoundation.org,
-	vbabka@suse.cz,
-	willy@infradead.org,
-	yuzhao@google.com,
-	ziy@nvidia.com
-Subject: [PATCH v6 3/3] mm: implement page refcount locking via dedicated bit
-Date: Sat, 12 Sep 2026 22:50:10 +0300
-Message-ID: <ebd6540ad89a4bb80e2a62d00901b5c827315b66.1789239015.git.ilya.gladyshev@linux.dev>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1789239015.git.ilya.gladyshev@linux.dev>
-References: <cover.1789239015.git.ilya.gladyshev@linux.dev>
+	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="xLm/Jg8A";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="sYKaSbh8"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id D9EFE7A0060;
+	Sat, 12 Sep 2026 15:53:27 -0400 (EDT)
+Received: from phl-frontend-01 ([10.202.2.160])
+  by phl-compute-04.internal (MEProxy); Sat, 12 Sep 2026 15:53:28 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1789242807;
+	 x=1789329207; bh=efb/m2639qqsMfy0Z+NNVp675M9BqyPP9yCBlatIUIk=; b=
+	xLm/Jg8AYbR2plIHf3zJzStKt0QXXLZ2SlmuaFY0+u15A0suJnbRO7VMXxeetCkb
+	WXzqBx6KAM2BEYjPhZbW/C6n+8SS1Wym4ewK8a9SC41Nj8vjF0VZhArGOHHw5PXV
+	R2wP/wXZWmJrF/ayLbKjE2iRCuR20spj19uRICKMtBTSeoi3KMpSdzV8kwE5XRFh
+	mP9W88CQlppi95qmgTjv5TVZe65+klmE3NvUOBYNWpApfs/JqOsZrrXq+FQkQ4pN
+	Z9XSQSdDhYfBGoXYsZ0YNlXo6yaWfwrXhOmNV+BPinIo4cD6TwSvdjedBzg96yvj
+	CmVwrzoqvSTBc+33UjU8yA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789242807; x=
+	1789329207; bh=efb/m2639qqsMfy0Z+NNVp675M9BqyPP9yCBlatIUIk=; b=s
+	YKaSbh8f916j3qp+ZGNNnG7duHmtKStTvguaUJkgarkuO9wVqYCAwQvCoXxbZwsz
+	TXfORt2QnZF5tMH/Uc3bLagxp7AruFwu54HyuKBjP9AWwaTP0pby3SnsfjYrNcWv
+	z4unqMVfTJGxOMrmpHmkalR4GPucqyMAyFolO76HQH2Dt36rwOpNAj7F6uU77g28
+	WFDgm++23RWKU986LU3i2KCo3ZalHY/WeGFwMsD30SnCY2KJ/HxmqaHRWpLFm+wx
+	NmbxfeeCOFDDIXPBUppOaRuk4a3ntleGrmjzORh/8hJXN30WnOdqb0BkO33dKWJm
+	RcqvyL+jU6u/uyZP5A4tQ==
+X-ME-Sender: <xms:tq2lah0HfrWA8nlLRsG90lfJlirBcvClPEsUxArT5ZGH-MmJN1Vx3A>
+    <xme:tq2laj9kzBHFlQnaXTXpcNf04tBMfLutnbr3AbZ5aESbUPA44a2x8RvzKHtXjWwuO
+    Lh79wIpI-NQKtBFNpBhiLwLuLWRaw__kr_moZtvLP0OQVP4gC65sOZm>
+X-ME-Received: <xmr:tq2latYvP0uepwOU189t3X4R4EVJmuO4sgLuRLTEvagn9uHruBd9qrqyB--l9RCXSaPft9K1aKBaQgcdwizGVuHayJM3DtFO>
+X-ME-Proxy-Cause: dmFkZTFqKHF1MLRkXZv+Inqzg4R1iNe4F2f6ml6UjMyB4Hcg5L8p9eE1ahvGmR0DuXZGcK
+    415B78+Xk9kIzAOkxvYjYOffLdehC0FaYnd/t7+aFi22xsEbQziYt7XzHQ3y8f2Bc8B5pa
+    IIz48A/MOGzGylHgDuanjF9qfgNF3TefUpIPHLQI8XBwusdCHw/Q7/7tc+22DZHedTXSxx
+    VRzuCljitYWek8AtWv8tpPAnk0GQmfv9Wn6uAkJk92FMaaC8jTkYf2VcwpmRJs53FBv5s7
+    FGV9jccTzRMjeDbYZCNSUR6m1GsVRCdqLISySfG5d0Ix1p/9VnF26Saly/qwgXbPXZlLk7
+    FdkkRFcq9RX44/V7WYOBG4hhBSHqDEodfyyRoWKSlKAPUYegnCatJqJmv0O92gjN80fulq
+    dLkKoVOqUM8fHaY3m2AlEMQOeZvaGZ6LwPLm/CDAeGrbXy3LvhvNqOr7GasTU22dp1TLwZ
+    RsEooKf1aGlM2lIiuLX3wXL3QqjYRg16mw6GIGr/0NiGSgjxaRwj4N5CtiXC6ow1qGmvnR
+    0+VyR1i5RDVoJEX57yMX3fhQrJ3/E3IlR9sqPtEuSv2v1YcfBBOjSldLCR/aMDTbSZa3fo
+    Z0p4Dr0Vklp6yEFsObozitbbAPldzXpUW6d/xZGwsOeJ4B7q+WzoghRt8itQ
+X-ME-Proxy: <xmx:tq2laiyMnM_uHUDQm0fzUNJ0R6VizZFUxRo8yxg6H1XpC_2sYWMGFQ>
+    <xmx:tq2lar_vkudWGi003riIR0M5vFBwwzGmB6js3Y7N3LQmsYvDeKp4IA>
+    <xmx:tq2lauxEZQMaSYgi-DBTkkMfo2_JBODe3WZWEP13A0ioJPV-ZO-v8g>
+    <xmx:tq2laguCZKkZ6YMAR59mptObQ-Wutbe3c0bRcDegoOYn-zgy_UJpSA>
+    <xmx:t62lauIhs6aCGiQG7MTnmaYyiRSbCHJEmUUiu0NnTq8Y_KVDFBmh5liv>
+Feedback-ID: i6289494f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 12 Sep 2026 15:53:24 -0400 (EDT)
+Message-ID: <92ed5ad0-2336-45b2-b9da-d736b7629985@pobox.com>
+Date: Sat, 12 Sep 2026 12:53:23 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5.10 000/798] 5.10.270-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260912065516.948645775@linuxfoundation.org>
+Content-Language: en-US
+From: "Barry K. Nathan" <barryn@pobox.com>
+In-Reply-To: <20260912065516.948645775@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The current page refcount implementation uses a single counter value
-(zero) as dead. So, to prevent incrementing a dead refcount in
-folio_try_get(), it fundamentally requires a CAS loop.
+On 9/11/26 11:53 PM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 5.10.270 release.
+> There are 798 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Mon, 14 Sep 2026 06:54:17 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-5.10.270-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-5.10.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-This CAS loop can act as a serialization point and can become a
-significant bottleneck during high-frequency file read operations
-[1][2].
+Tested on an amd64 laptop (Lenovo ThinkPad T14 Gen 1). Working well,
+no regressions observed.
 
-This patch reallocates the refcount value range:
+Tested-by: Barry K. Nathan <barryn@pobox.com>
 
-(1) refcount < 0 means dead refcount (uninit / frozen)
-(2) refcount = 0 allowed only as a temporary state (see below)
-(3) refcount > 0 is a regular reference count
-
-In other words, refcount is now split into "dead bit" and a 31-bit
-counter.
-
-Refcount decrement now works as follows:
-1. Counter decrement
-2. If it is now zero, try to put it deep inside the dead zone
-   (CAS to INT_MIN). Or you can view it as "set up frozen bit and reset
-   counter".
-3. This CAS can fail only if someone grabbed a reference in-between --
-   that's okay, this page is their problem now.
-
-The size of the dead zone allows performing an optimistic increment
-inside page_ref_add_unless_frozen(), replacing the previous read + CAS
-loop with a single RMW operation. This reduces cache line bouncing and
-improves scalability, especially in NUMA scenarios.
-
-[1]: https://lore.kernel.org/all/20251017141536.577466-1-kirill@shutemov.name/
-[2]: https://lore.kernel.org/all/CAHk-=wj00-nGmXEkxY=-=Z_qP6kiGUziSFvxHJ9N-cLWry5zpA@mail.gmail.com/
-
-Reviewed-by: Artem Kuzin <artem.kuzin@huawei.com>
-Co-developed-by: Ivan Gorbunov <ivgorbunov@me.com>
-Signed-off-by: Ivan Gorbunov <ivgorbunov@me.com>
-Signed-off-by: Ilya Gladyshev <ilya.gladyshev@linux.dev>
-Acked-by: Linus Torvalds <torvalds@linuxfoundation.org>
----
- include/linux/page-flags.h | 13 +++++++++++++
- include/linux/page_ref.h   | 30 +++++++++++++++++++++++++-----
- 2 files changed, 38 insertions(+), 5 deletions(-)
-
-diff --git a/include/linux/page-flags.h b/include/linux/page-flags.h
-index 7a863572adce..b19721e0e7ca 100644
---- a/include/linux/page-flags.h
-+++ b/include/linux/page-flags.h
-@@ -196,6 +196,19 @@ enum pageflags {
- 
- #define PAGEFLAGS_MASK		((1UL << NR_PAGEFLAGS) - 1)
- 
-+/* Most significant bit in page refcount */
-+#define PAGEREF_FROZEN_BIT BIT(31)
-+
-+/* Page reference counter can be in 3 logical states,
-+ * which are described below with their value representation
-+ *        state              |         value
-+ * (1)  safe with  owners    |   1...INT_MAX
-+ * (2)  safe with no owners  |         0
-+ * (3)  frozen               |  INT_MIN....-1
-+ *
-+ * State (2) can only temporarily occur inside dec_and_test.
-+ */
-+
- #ifndef __GENERATING_BOUNDS_H
- 
- /*
-diff --git a/include/linux/page_ref.h b/include/linux/page_ref.h
-index 82ff3a99297a..cc7a9d7db504 100644
---- a/include/linux/page_ref.h
-+++ b/include/linux/page_ref.h
-@@ -64,7 +64,7 @@ static inline void __page_ref_unfreeze(struct page *page, int v)
- 
- static inline bool __page_count_is_frozen(int count)
- {
--	return count == 0;
-+	return count & PAGEREF_FROZEN_BIT;
- }
- 
- static inline bool page_is_frozen(const struct page *page)
-@@ -79,7 +79,12 @@ static inline bool folio_is_frozen(const struct folio *folio)
- 
- static inline int page_ref_count(const struct page *page)
- {
--	return atomic_read(&page->_refcount);
-+	int val = atomic_read(&page->_refcount);
-+
-+	if (unlikely(val & PAGEREF_FROZEN_BIT))
-+		return 0;
-+
-+	return val;
- }
- 
- /**
-@@ -150,7 +155,7 @@ static inline void init_page_count(struct page *page)
- 
- static inline void set_page_count_frozen(struct page *page)
- {
--	set_page_count(page, 0);
-+	set_page_count(page, PAGEREF_FROZEN_BIT);
- }
- 
- static inline void page_ref_add(struct page *page, int nr)
-@@ -220,6 +225,9 @@ static inline int page_ref_sub_and_test(struct page *page, int nr)
- 	VM_WARN_ON_ONCE_PAGE(page_is_frozen(page), page);
- 	int ret = atomic_sub_and_test(nr, &page->_refcount);
- 
-+	if (ret)
-+		ret = !atomic_cmpxchg_relaxed(&page->_refcount, 0, PAGEREF_FROZEN_BIT);
-+
- 	if (page_ref_tracepoint_active(page_ref_mod_and_test))
- 		__page_ref_mod_and_test(page, -nr, ret);
- 	return ret;
-@@ -250,6 +258,9 @@ static inline int page_ref_dec_and_test(struct page *page)
- 	VM_WARN_ON_ONCE_PAGE(page_is_frozen(page), page);
- 	int ret = atomic_dec_and_test(&page->_refcount);
- 
-+	if (ret)
-+		ret = !atomic_cmpxchg_relaxed(&page->_refcount, 0, PAGEREF_FROZEN_BIT);
-+
- 	if (page_ref_tracepoint_active(page_ref_mod_and_test))
- 		__page_ref_mod_and_test(page, -1, ret);
- 	return ret;
-@@ -275,9 +286,18 @@ static inline int folio_ref_dec_return(struct folio *folio)
- 	return page_ref_dec_return(&folio->page);
- }
- 
-+#define _PAGEREF_FROZEN_LIMIT	((1 << 30) | PAGEREF_FROZEN_BIT)
-+
- static inline bool page_ref_add_unless_frozen(struct page *page, int nr)
- {
--	bool ret = atomic_add_unless(&page->_refcount, nr, 0);
-+	int val = atomic_add_return(nr, &page->_refcount);
-+	bool ret = !(val & PAGEREF_FROZEN_BIT);
-+
-+	/* Undo atomic_add() if counter is locked and scary big */
-+	while (unlikely((unsigned int)val >= _PAGEREF_FROZEN_LIMIT)) {
-+		if (atomic_try_cmpxchg_relaxed(&page->_refcount, &val, PAGEREF_FROZEN_BIT))
-+			break;
-+	}
- 
- 	if (page_ref_tracepoint_active(page_ref_mod_unless))
- 		__page_ref_mod_unless(page, nr, ret);
-@@ -312,7 +332,7 @@ static inline bool folio_ref_try_add(struct folio *folio, int count)
- 
- static inline int page_ref_freeze(struct page *page, int count)
- {
--	int ret = likely(atomic_cmpxchg(&page->_refcount, count, 0) == count);
-+	int ret = likely(atomic_cmpxchg(&page->_refcount, count, PAGEREF_FROZEN_BIT) == count);
- 
- 	if (page_ref_tracepoint_active(page_ref_freeze))
- 		__page_ref_freeze(page, count, ret);
 -- 
-2.55.0
-
+-Barry K. Nathan  <barryn@pobox.com>
