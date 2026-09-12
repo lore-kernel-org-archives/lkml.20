@@ -1,125 +1,142 @@
-Received: from mta0.migadu.com (out-16.mta0.migadu.com [91.218.175.16])
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B9182737FC
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 07:38:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.16
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789198690; cv=none; b=l5b3AcT2gxWieZJWWnTcB/FM1xPKaDiZlkezm+SjYeVqH17VnHb2oMPRczN3R46hc0rPHc6ChHELFVCDtB3LZzk1Rp5JAf2rgoeTFStQ2p3HgTqHLU99OYezdQBULlaTvY8BAzKeUwUaJgSLEDvODGXVvCl1nL4LScNEnmKmsC0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789198690; c=relaxed/simple;
-	bh=951k9p3C3OHpYcCEeTeS+zKRLsyye3/AWkca/cyq9wg=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=hXT03aRaCN3wPYfx1RZjgaXakr/iE+fhbw4+Z26S8MVxOdI3hXDejI1SR3py+r68zzDSyklbwNIElFuGdw4uKE2UOWYmGk74MPcktJSZrXbaCbUT0/EXWasmn+Oez4U+jjHG8ZPDOs+U8+k2k9ZxpmTcUNxS4cOM9GxTSGZ2HYc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=PdYkI8Bc; arc=none smtp.client-ip=91.218.175.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CBAE346AE3
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 07:40:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789198814; cv=pass; b=HIq5CNeQlxaT5efXZBJPY4HNnZyYcLGsujfUaUNg/XzQ3zKFBaJQsah+FdlabJoBClfdYwcWcT+DjdLo8H4lkLa5H3GYpi4xCwqz6Pv3AK5falNFdjOcUvpGB2I+Z3aAMrS59T3fpdrTxuelP0LXaO3G1VPd3ypMnYwncB5Rgb4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789198814; c=relaxed/simple;
+	bh=a5BgZIa2nN3V7GG8MnhDOEO9Xluz3rwKpxUKZrZY1y0=;
+	h=From:MIME-Version:Date:Message-ID:Subject:To:Cc:Content-Type; b=NqtXTAMDvrQgYkqOq5mxz3i5h/hSjkydBLcOG9AyGJy3Q6UvjpRb4FMbv+fzATp4bYomUwB5RnZhH2OSYfnz9c/aBegG37dXiU6E2VqkDlSKdFL/9RwcSm3wAeSlbCZblJBcu4EOaiaCW0ynA1hrN/n6Cv95zK4Zp47T8HTlOlM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu; spf=pass smtp.mailfrom=berkeley.edu; dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b=OMN+nqkl; arc=pass smtp.client-ip=74.125.228.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=berkeley.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="PdYkI8Bc"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=951k9p3C3OHpYcCEeTeS+zKRLsyye3/AWkca/cyq9wg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789198685; v=1; x=1789803485;
- b=PdYkI8BcRaRDXjOUAnW/wi8lDGLlrzQ4swELZzUuADDe+4CMU+j6m9wR3smMKHkysii8vq0f
- Qjy7mW5zpPUZ72zYf9HslYFoadSQgMZaQDF2YoHNAKtJxnSONSp/c7QYxwP5r8pKlx2uu5c8rq1
- tlxJjn5JeSKAuiV1kHFFI56Q=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 937d4987c72d0ac1;
-	Sat, 12 Sep 2026 07:38:05 +0000
-X-Mizu-Trace-ID: 937d4987c72d0ac1
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: yintirui@gmail.com
-Cc: akpm@linux-foundation.org,
-	linux-mm@kvack.org,
-	david@kernel.org,
-	ljs@kernel.org,
-	dev.jain@arm.com,
-	ziy@nvidia.com,
-	baolin.wang@linux.alibaba.com,
-	baohua@kernel.org,
-	lance.yang@linux.dev,
-	ryan.roberts@arm.com,
-	nico.pache@linux.dev,
-	usama.arif@linux.dev,
-	liam@infradead.org,
-	wangkefeng.wang@huawei.com,
-	chenjun102@huawei.com,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC 4/9] mm/huge_memory: use normal_or_softleaf_folio_pmd() in the PMD split path
-Date: Sat, 12 Sep 2026 15:37:55 +0800
-Message-Id: <20260912073755.8403-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.39.3 (Apple Git-146)
-In-Reply-To: <efae5222ad43f749c40aaca9b759b41844fdded8.1787941780.git.yintirui@gmail.com>
-References: <efae5222ad43f749c40aaca9b759b41844fdded8.1787941780.git.yintirui@gmail.com>
+	dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b="OMN+nqkl"
+Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-85469e25187so464949b3a.2
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 00:40:11 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789198811; cv=none;
+        d=google.com; s=arc-20260327;
+        b=MBlpoWLFgbblyJRY1zSEFqzwmA/oXCLIhTmLHXcZ2rUENyeUkmHlbD3itd3saWxfdr
+         qxF3+USRV7N2YfUbMghCr4h7/C0hhev6qjBFe9ovQIkKDA8y96oSCY8eu5DAIfGZej5l
+         UYtyJC9Tv5RO/aaj6U6PvVRe1D2Ari3UUMlIkcKKtaGimOvsRyb4axHUELTDg+OlUeVR
+         jMbuDbW7Kqz5t6VZnbpC0w04ioZQMGZ06Cz6SVXdYg9lRQD3bPSuVFnBkYzAXdt8QU/j
+         VJ8J5k2srtw8OybpIPSp/rUeytHAdMFCK8GCm59mmWvTFNA10i5YbcHEP5yIBu3BA89L
+         XyWA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:mime-version:from:dkim-signature;
+        bh=QG2SNeNOqKf6itNXVRATkNtIQBJP4qkHEst2cXeq/Oc=;
+        fh=c2Efnc4D9BfHAIu0V1UPo/gspWySKdagKbvfZcCm0Tg=;
+        b=A6o4gbVJqTbkIHNk686AtjKbLHdwS1MelnXNxJhAx9xWX4mmNv5cMYu8eKA+2OA/Sd
+         S3+mQHGAV0eYR5Oqa1CYU3OJFcSaTzczdEDRpuT+Uc+v6p1GxQn5vg1gMvcazaKVu2Uu
+         jIDIlKoBGtN+L96EUXCi/nUEsTaksSzqGsVxJT3AT7A4MI9znbnAFcGAQFTswS+r/Sib
+         yiiViZBXOgUK09CiQTqMq0pg0scMLtWsauuxVo5xcRSiDNSgq2FwySyMVwiSCq6ltx1S
+         nKq9MQs5hWDA6GOFwmtYo+PpP/FgUsjNlRrJSre7P9pVHGXLuuojIuDp4ClfU7VemViS
+         4f1Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=berkeley.edu; s=google; t=1789198811; x=1789803611; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:from:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QG2SNeNOqKf6itNXVRATkNtIQBJP4qkHEst2cXeq/Oc=;
+        b=OMN+nqklVDfMdt0nt/oR8IX/v2tMsZLPn7d5gYUNxzhpm9jH0ORZw2hKmqg8lWA0rB
+         lzwa1bcYSLxPxJbrw0VCk6T4Zrq03uEZfbeDk1GQbLSbRhMoZHUrIySl0qSiMFCrWOe7
+         LEDz/C7y57r0G14FWil9ccCN5nfGtSkZ/ryy2NWWN47c3JLy0cRu14fi5nIm2bV2P2NI
+         X3PsPA4NxDRDgVqXTkSAsPvQEjMBtr9G6u8VZ3NCmxsYpM22RI1/40hd3uFJVOkbylCI
+         e6otxTorETJ0MtznvOJNQLO3YpPQu/IADoppXDIwBE9my5qCEu9brIez2rm+oGKdeHNb
+         UDLQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789198811; x=1789803611;
+        h=content-type:cc:to:subject:message-id:date:mime-version:from
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=QG2SNeNOqKf6itNXVRATkNtIQBJP4qkHEst2cXeq/Oc=;
+        b=pJilnnOuAv02h/l9fNKk4cXvmVk4k2OfmhLrpLJVvH9GjJ16f02PPTtShpvPn+3c+R
+         7BwZDmqyRJS1gT/UWHBIF2evi1cacqiJbLYIHS/jJJ96Gy2FfVndTvJ1tSf4qyEONdcv
+         VO57oXO54Iy6HdFJHTwAlfwIhQaiqOm25VvH9DyOsICa0jsfIi9K90Q2MQj4yGWb7XGy
+         B1I/7JPZ8k+p28dRn2K1zptQTg2NvpQJmf9EzCp1zjVeMjsnsKPEheIi0YJ86DU0aUDf
+         Kl46KssyBQttPXsOw0pOJEn2r+MrUlw1lvQ7GUxGav9B0w+Yn9SEPa6MeylNa8H9VF5o
+         5l4A==
+X-Forwarded-Encrypted: i=1; AKwUvBzeTuORdzA5GGfh7y8dPGe2ahGe0k7YmnIn6WbN/skIoIhUZW0Y+HQENdEgVbpcMeylOAIjhOlXsKUw9sE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nRqpoi+ZT5615tHtpEtYyjop9nWHqhMUokzPi/VdLZSoeJKuVz
+	JbMA6Cpx8spCSqVlBhdoWwva7y1AUs+KYXxPj8VLQn8F2ZYJlMpG9r8NjHa5nO0SmFwhvyntCZt
+	WR8eIxMS/UwBM29+ZYUf06MHRf2pCCRfiLqchoy+k
+X-Gm-Gg: AYBFou0XRmZUakWM3oaLgan60j4yiVHRbLQSPzZbXMm17Kun63CHz5UI8K3wFzPeziT
+	9TcfWrgDDcuJBUP1owFIotE7RK1A+0oO3mG9IvcQo5GxFc5mp9F0qpodaFZD1Ys08PLXtlLUhVY
+	HUoUjpGvQI89bpEzPlhdXmkhzvKsIc82LzaqVPYeru+DKcochtCGR1bfDRgPyyVxyyoQzTYe2ua
+	mzFEFyQavq4pEh76FsA4lH+YDryRy98RBA4kN8NJlp/U5qQfnyiHwBlwC+dSiZffkuoNzH5ZZhG
+	BO7HjG2PbmWfq9ROdRMpoUxXaU+MfcjSpF8Hk0fO/B9Rk3BwhOhiEGwH8X9zYa/hvDMdnGMwPhP
+	B2qEiMnSidHo6RvZ6VVeFxQpgaY4Q1ENBV2wl0PFJNGQ=
+X-Received: by 2002:a05:6a20:3ca8:b0:3d0:868d:8ccb with SMTP id
+ adf61e73a8af0-3daed418649mr14691447637.13.1789198810266; Sat, 12 Sep 2026
+ 00:40:10 -0700 (PDT)
+Received: from 474444807712 named unknown by gmailapi.google.com with
+ HTTPREST; Sat, 12 Sep 2026 07:40:09 +0000
+Received: from 474444807712 named unknown by gmailapi.google.com with
+ HTTPREST; Sat, 12 Sep 2026 07:40:09 +0000
+From: Farhad Alemi <farhad.alemi@berkeley.edu>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Sat, 12 Sep 2026 07:40:09 +0000
+X-Gm-Features: AcwNN1U7oiMPPggvAGkLxJ8f4FS-S3NfnynfUNKYcvJ3EJSPIXU-keM5UBnvdpg
+Message-ID: <CA+0ovCgKDOk+Bg6Gh5Lwx94u_jJjQ30-vY1JcY2BYfhnWJJbPA@mail.gmail.com>
+Subject: [PATCH net v2] net: remove WARN_ON_ONCE() from the
+ dev_fill_forward_path() loop check
+To: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Cc: falemi@asu.edu, Simon Horman <horms@kernel.org>, 
+	Pablo Neira Ayuso <pablo@netfilter.org>, Florian Westphal <fw@strlen.de>, 
+	Lorenzo Bianconi <lorenzo@kernel.org>, Xuanqiang Luo <xuanqiang.luo@linux.dev>, 
+	netfilter-devel@vger.kernel.org, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+ipip_fill_forward_path() and ip6_tnl_fill_forward_path() look up the
+route to the tunnel's remote endpoint and set ctx->dev to its device,
+which is the tunnel itself when that route resolves back to the tunnel.
+dev_fill_forward_path() then makes no progress and trips
+WARN_ON_ONCE(last_dev == ctx->dev) as soon as a flowtable tries to
+offload a flow through the tunnel. That routing loop is a configuration
+any CAP_NET_ADMIN user can set up, and ip_tunnel_xmit() and
+ip6_tnl_xmit() already treat it as a tx error, so remove the warning and
+just fail the walk, as commit 008e7a7c293b ("net: remove WARN_ON_ONCE
+when accessing forward path array") did for the path stack overflow.
 
-On Sat, Aug 29, 2026 at 02:33:14AM +0800, Yin Tirui wrote:
->Get the folio once with normal_or_softleaf_folio_pmd() and decide the
->deposit once with has_deposited_pgtable(), as zap_huge_pmd() does. That
->makes split and zap classify an entry the same way, and drops
->vma_is_special_huge() from this path.
->
->Behaviour changes only where the entry and the VMA flags disagree, which no
->in-tree path produces.
->
->Signed-off-by: Yin Tirui <yintirui@gmail.com>
->---
-> mm/huge_memory.c | 21 ++++++++++++---------
-> 1 file changed, 12 insertions(+), 9 deletions(-)
->
->diff --git a/mm/huge_memory.c b/mm/huge_memory.c
->index aefd62827139..b2ede9a6ae5d 100644
->--- a/mm/huge_memory.c
->+++ b/mm/huge_memory.c
->@@ -3172,7 +3172,7 @@ static void unmap_huge_pmd_entry(struct vm_area_struct *vma,
-> 	 * We are going to unmap this huge page. So
-> 	 * just go ahead and zap it
-> 	 */
->-	if (arch_needs_pgtable_deposit())
->+	if (has_deposited_pgtable(vma, old_pmd, folio))
-> 		zap_deposited_table(mm, pmd);
+Fixes: ab427db17885 ("netfilter: flowtable: Add IPIP rx sw acceleration")
+Fixes: d98103575dcd ("netfilter: flowtable: Add IP6IP6 rx sw acceleration")
+Closes: https://lore.kernel.org/all/CA+0ovCgaRvbd0Udj70b2xxG8Cx3CaCpNhnf1V4RWQuDveZYZhA@mail.gmail.com/
+Suggested-by: Pablo Neira Ayuso <pablo@netfilter.org>
+Assisted-by: Claude:claude-opus-5 syzkaller
+Signed-off-by: Farhad Alemi <farhad.alemi@berkeley.edu>
+---
+v2:
+ - Remove the WARN_ON_ONCE() in dev_fill_forward_path() instead of
+   rejecting the looping route in the tunnel drivers (Pablo Neira Ayuso).
+ - Add the Fixes: tags (Xuanqiang Luo).
 
-Staring at this ... I think we're missing raw PFN mappings of the huge
-zero folio ...
+v1: https://lore.kernel.org/all/CA+0ovCj+Pd5owGH+51rA8-RDu9YFx5oYUv8bV0zOE72QgVfY0A@mail.gmail.com/
 
-static bool has_deposited_pgtable(struct vm_area_struct *vma, pmd_t pmdval,
-		struct folio *folio)
-{
-	/* Some architectures require unconditional depositing. */
-	if (arch_needs_pgtable_deposit())
-		return true;
+diff --git a/net/core/dev.c b/net/core/dev.c
+index ecfbd72d5d1a..c67900354fa6 100644
+--- a/net/core/dev.c
++++ b/net/core/dev.c
+@@ -789,7 +789,7 @@ int dev_fill_forward_path(struct net_device_path_ctx
+ 			goto err_out;
 
-...
-	if (is_huge_zero_pmd(pmdval))
-		return !vma_is_dax(vma);
+ 		stack->num_paths++;
+-		if (WARN_ON_ONCE(last_dev == ctx->dev))
++		if (last_dev == ctx->dev)
+ 			goto err_out;
+ 	}
 
-...
-	return folio && folio_test_anon(folio);
-}
-
-If a non-DAX raw PFN mapping on x86 (say, via mshv_vtl_low) matches
-huge_zero_pfn, vmf_insert_pfn_pmd() won't deposit a page table, but
-has_deposited_pgtable() will return true ...
-
-Before this patch, arch_needs_pgtable_deposit() skips withdrawal when
-splitting this mapping on x86. The new check would instead reach
-pgtable_trans_huge_withdraw() and dereference NULL through pgtable->lru
-if pmd_huge_pte(mm, pmd) is NULL.
-
-The helper already causes the same bug in zap_huge_pmd(), but extending
-it to split is a regression introduced by this patch. I'll send a separate
-fix, and we need it landed first :D
-
-[...]
-
-Cheers, Lance
+-- 
+2.53.0
