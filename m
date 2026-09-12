@@ -1,165 +1,313 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+Received: from mail-43172.protonmail.ch (mail-43172.protonmail.ch [185.70.43.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BB8A356754
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 07:51:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 537E937DEBF
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 07:55:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789199522; cv=none; b=s6Pg0duqypFa89ra+pvXN4t5Wke3gfONeBWgl0rxO2NKMp3xiIoQptFDVRSeK0DX0C6UhvydahStCJUE1ocUDVCDy0lOqFLIxxPaBbWJuiR5k9DgBgGIEENibOFHhgD+i+S4eP3uFiCDzA1CZm89tU/AXCgvla2nXxxYDLwsvYQ=
+	t=1789199731; cv=none; b=pBfZIMwh0m7tPnyMfKNq2B1LTEHkKKvyHaRPmbV9PBLes4KipwReBb5ZZD42dpbXuLVn0aVY910IYg2H2eoOQZkYB3kJ97kSVEjepTBd1kTD7ebZMPxoxn0eRjYzppID9eUNCHZTojLlABOPUkuGupB7lexJMMlTOyi+uBEz7OY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789199522; c=relaxed/simple;
-	bh=46h7Icp07RcnbhVwELPuCNWFoOPP/0gHjr3jGpDE618=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jPo2Te+B8KaNPeLxZgDFg/xPTrCv0M+Ttyme9UOIfmKfwf6bE5Aejf0Rbn3e+zSZBbrJSH5b+YBbirfVcvqnKIpwfn4S/UPYrX1ZbDG6tvecmucbtI2wquWdm+XVP1XZLmFcJT4C3K7/B227JW1JNWhoJC298lq4myMiNCMl0W8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ngA28xaK; arc=none smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789199731; c=relaxed/simple;
+	bh=KD4QiSI0HX2frZKgY1bL3VQtH86/CXOzShOKXocO/Yk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=hJdXsWkxt0t8GY7utu7NVuKclBDthZs1OgvXwB9OTLnpbKZqQ3Ys2dcp/G+4GUmYPzJO9FBlONqa9CvAjM/Eah+M9J5Ie3ZlelJwh0RUmpHsN8YfRXaat/a9fHHOfYOgePld6KfQcW2k3Sxwb5sd04tZHb6L8QRhsUHgV+MGJf0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=onurozkan.dev; spf=pass smtp.mailfrom=onurozkan.dev; dkim=pass (2048-bit key) header.d=onurozkan.dev header.i=@onurozkan.dev header.b=FnlgvXu5; arc=none smtp.client-ip=185.70.43.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=onurozkan.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onurozkan.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ngA28xaK"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789199520; x=1820735520;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=46h7Icp07RcnbhVwELPuCNWFoOPP/0gHjr3jGpDE618=;
-  b=ngA28xaK5378vqVyvTjTsOb7mac1zJpIJ2+UIzDm+N8gt8RuS51vsiAi
-   MSf3H6eN0D5DYRnXpwqoe6p7ku0T4sWLMVXURjgpq3PKpi0G8P4x4YiAK
-   8X3uSQqpawUUmsjvR8g4hqxNFVUJ+YLd6seplxGALYnPM1kATgD3JDv5L
-   FaQKwJbj8MHMRJu+lmImKb5Jw+EBt7b2D+Ha/OwDWG8YPO3C4UC1fYIiz
-   3lTlkvew+oz7X4WcU3VrFocNu36pt/k7ZWKKarSpdKEjNWndbXvrYdNso
-   118l6IIj0Zf+OjHVV/CSFgIDQbzDcmerVIOv4LJ1/CUToJ0MZ9UFvrHN4
-   w==;
-X-CSE-ConnectionGUID: 0n1HO8+RTP6xW1c2RXuARg==
-X-CSE-MsgGUID: kTK4pGRqSVKU5hC2uC0ALw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11902"; a="93346175"
-X-IronPort-AV: E=Sophos;i="6.27,98,1787036400"; 
-   d="scan'208";a="93346175"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Sep 2026 00:51:59 -0700
-X-CSE-ConnectionGUID: +YBMtQj6RHSU+ypduIdIFA==
-X-CSE-MsgGUID: iKsquZWoS76O59FE1JyNnw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,98,1787036400"; 
-   d="scan'208";a="310395597"
-Received: from lkp-server02.sh.intel.com (HELO 0a3643a6ed9d) ([10.239.97.151])
-  by orviesa001.jf.intel.com with ESMTP; 12 Sep 2026 00:51:57 -0700
-Received: from kbuild by 0a3643a6ed9d with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x5IWg-000000002lf-0mG2;
-	Sat, 12 Sep 2026 07:51:54 +0000
-Date: Sat, 12 Sep 2026 15:51:51 +0800
-From: kernel test robot <lkp@intel.com>
-To: Matthew Zvolsky <matthew-kernel@post.cz>, gregkh@linuxfoundation.org
-Cc: oe-kbuild-all@lists.linux.dev, vaibhav.sr@gmail.com,
-	mgreer@animalcreek.com, johan@kernel.org, elder@kernel.org,
-	greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev,
+	dkim=pass (2048-bit key) header.d=onurozkan.dev header.i=@onurozkan.dev header.b="FnlgvXu5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onurozkan.dev;
+	s=protonmail; t=1789199720; x=1789458920;
+	bh=Nhjin6tMRCiwQViCTXHCJ3Nu7Cr9PpgLWgcVZJJQHgM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=FnlgvXu5RkTBRIQNkTH8kLYWwokAXaokQ2sCyECPFcoXvWY+LD0mUlSJ4bGM2IqOe
+	 SNVrNzDvLsS+2XCfKi3F02pUw5fBJZGFXis8hLbH+mVD+YgMVKSOdlqVttgnEiLxKr
+	 MhgC1WPRyoognF+FA7AxoRbi1xptLvpDKv8mFoLX7L+wSer6ztZvRw1ZNMunHkfdBT
+	 UYW8KyFZnkBIOCbXMQd5XTHi5msMpD8wDOqe4L0KS/HkI6Yx+M+jWkBtlihPBKF52J
+	 0IJ+2frlO6NtExc5mg/JgluaJZ3ksV11IHbwDRrSyZCIiQW+MJ/geG1wRdpVJ4VzWA
+	 aayKFCVDL1kOw==
+X-Pm-Submission-Id: 4hhkGs3mfxz1DFFJ
+From: =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
+To: Alice Ryhl <aliceryhl@google.com>
+Cc: Danilo Krummrich <dakr@kernel.org>,
+	tj@kernel.org,
+	jiangshanlai@gmail.com,
+	ojeda@kernel.org,
+	boqun@kernel.org,
+	gary@garyguo.net,
+	bjorn3_gh@protonmail.com,
+	lossin@kernel.org,
+	a.hindborg@kernel.org,
+	tmgross@umich.edu,
+	daniel.almeida@collabora.com,
+	tamird@kernel.org,
+	acourbot@nvidia.com,
+	jhubbard@nvidia.com,
+	rust-for-linux@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Matthew Zvolsky <matthew-kernel@post.cz>
-Subject: Re: [PATCH] staging: greybus: add missing newlines to sysfs_emit
-Message-ID: <202609121553.VPi1qrGB-lkp@intel.com>
-References: <20260911190253.894650-1-matthew-kernel@post.cz>
+	driver-core@lists.linux.dev
+Subject: Re: [PATCH v2 5/6] rust: workqueue: add ScopedQueue for lifetime bound items
+Date: Sat, 12 Sep 2026 10:54:59 +0300
+Message-ID: <20260912075516.66479-1-work@onurozkan.dev>
+X-Mailer: git-send-email 2.51.2
+In-Reply-To: <apg1c4GdVrhYDK1P@google.com>
+References: <20260807165252.3849875-1-dakr@kernel.org> <20260807165252.3849875-6-dakr@kernel.org> <apg1c4GdVrhYDK1P@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260911190253.894650-1-matthew-kernel@post.cz>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi Matthew,
-
-kernel test robot noticed the following build errors:
-
-[auto build test ERROR on staging/staging-testing]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Matthew-Zvolsky/staging-greybus-add-missing-newlines-to-sysfs_emit/20260911-210253
-base:   staging/staging-testing
-patch link:    https://lore.kernel.org/r/20260911190253.894650-1-matthew-kernel%40post.cz
-patch subject: [PATCH] staging: greybus: add missing newlines to sysfs_emit
-config: nios2-randconfig-001-20260912 (https://download.01.org/0day-ci/archive/20260912/202609121553.VPi1qrGB-lkp@intel.com/config)
-compiler: nios2-linux-gcc (GCC) 8.5.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260912/202609121553.VPi1qrGB-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609121553.VPi1qrGB-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   drivers/staging/greybus/audio_manager_module.c: In function 'send_add_uevent':
->> drivers/staging/greybus/audio_manager_module.c:162:3: error: initializer element is not constant
-      name_string,
-      ^~~~~~~~~~~
-   drivers/staging/greybus/audio_manager_module.c:162:3: note: (near initialization for 'envp[0]')
-   drivers/staging/greybus/audio_manager_module.c:163:3: error: initializer element is not constant
-      vid_string,
-      ^~~~~~~~~~
-   drivers/staging/greybus/audio_manager_module.c:163:3: note: (near initialization for 'envp[1]')
-   drivers/staging/greybus/audio_manager_module.c:164:3: error: initializer element is not constant
-      pid_string,
-      ^~~~~~~~~~
-   drivers/staging/greybus/audio_manager_module.c:164:3: note: (near initialization for 'envp[2]')
-   drivers/staging/greybus/audio_manager_module.c:165:3: error: initializer element is not constant
-      intf_id_string,
-      ^~~~~~~~~~~~~~
-   drivers/staging/greybus/audio_manager_module.c:165:3: note: (near initialization for 'envp[3]')
-   drivers/staging/greybus/audio_manager_module.c:166:3: error: initializer element is not constant
-      ip_devices_string,
-      ^~~~~~~~~~~~~~~~~
-   drivers/staging/greybus/audio_manager_module.c:166:3: note: (near initialization for 'envp[4]')
-   drivers/staging/greybus/audio_manager_module.c:167:3: error: initializer element is not constant
-      op_devices_string,
-      ^~~~~~~~~~~~~~~~~
-   drivers/staging/greybus/audio_manager_module.c:167:3: note: (near initialization for 'envp[5]')
->> drivers/staging/greybus/audio_manager_module.c:180:46: error: passing argument 3 of 'kobject_uevent_env' from incompatible pointer type [-Werror=incompatible-pointer-types]
-     kobject_uevent_env(&module->kobj, KOBJ_ADD, envp);
-                                                 ^~~~
-   In file included from drivers/staging/greybus/audio_manager.h:11,
-                    from drivers/staging/greybus/audio_manager_module.c:10:
-   include/linux/kobject.h:283:10: note: expected 'char **' but argument is of type 'const char * const*'
-       char *envp[]);
-       ~~~~~~^~~~~~
-   cc1: some warnings being treated as errors
-
-
-vim +162 drivers/staging/greybus/audio_manager_module.c
-
-8db00736d365b75 Svetlin Ankov    2016-01-13  151  
-8db00736d365b75 Svetlin Ankov    2016-01-13  152  static void send_add_uevent(struct gb_audio_manager_module *module)
-8db00736d365b75 Svetlin Ankov    2016-01-13  153  {
-8db00736d365b75 Svetlin Ankov    2016-01-13  154  	char name_string[128];
-8db00736d365b75 Svetlin Ankov    2016-01-13  155  	char vid_string[64];
-8db00736d365b75 Svetlin Ankov    2016-01-13  156  	char pid_string[64];
-d0af1bd5f6f4497 Pankaj Bharadiya 2016-10-16  157  	char intf_id_string[64];
-a9234bfd6cec442 Vaibhav Agarwal  2016-03-30  158  	char ip_devices_string[64];
-a9234bfd6cec442 Vaibhav Agarwal  2016-03-30  159  	char op_devices_string[64];
-8db00736d365b75 Svetlin Ankov    2016-01-13  160  
-a33c60996e08817 Matthew Zvolsky  2026-09-11  161  	static const char * const envp[] = {
-8db00736d365b75 Svetlin Ankov    2016-01-13 @162  		name_string,
-8db00736d365b75 Svetlin Ankov    2016-01-13  163  		vid_string,
-8db00736d365b75 Svetlin Ankov    2016-01-13  164  		pid_string,
-d0af1bd5f6f4497 Pankaj Bharadiya 2016-10-16  165  		intf_id_string,
-a9234bfd6cec442 Vaibhav Agarwal  2016-03-30  166  		ip_devices_string,
-a9234bfd6cec442 Vaibhav Agarwal  2016-03-30  167  		op_devices_string,
-8db00736d365b75 Svetlin Ankov    2016-01-13  168  		NULL
-8db00736d365b75 Svetlin Ankov    2016-01-13  169  	};
-8db00736d365b75 Svetlin Ankov    2016-01-13  170  
-8db00736d365b75 Svetlin Ankov    2016-01-13  171  	snprintf(name_string, 128, "NAME=%s", module->desc.name);
-8db00736d365b75 Svetlin Ankov    2016-01-13  172  	snprintf(vid_string, 64, "VID=%d", module->desc.vid);
-8db00736d365b75 Svetlin Ankov    2016-01-13  173  	snprintf(pid_string, 64, "PID=%d", module->desc.pid);
-d0af1bd5f6f4497 Pankaj Bharadiya 2016-10-16  174  	snprintf(intf_id_string, 64, "INTF_ID=%d", module->desc.intf_id);
-a9234bfd6cec442 Vaibhav Agarwal  2016-03-30  175  	snprintf(ip_devices_string, 64, "I/P DEVICES=0x%X",
-a9234bfd6cec442 Vaibhav Agarwal  2016-03-30  176  		 module->desc.ip_devices);
-a9234bfd6cec442 Vaibhav Agarwal  2016-03-30  177  	snprintf(op_devices_string, 64, "O/P DEVICES=0x%X",
-a9234bfd6cec442 Vaibhav Agarwal  2016-03-30  178  		 module->desc.op_devices);
-8db00736d365b75 Svetlin Ankov    2016-01-13  179  
-8db00736d365b75 Svetlin Ankov    2016-01-13 @180  	kobject_uevent_env(&module->kobj, KOBJ_ADD, envp);
-8db00736d365b75 Svetlin Ankov    2016-01-13  181  }
-8db00736d365b75 Svetlin Ankov    2016-01-13  182  
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+On Wed, 02 Sep 2026 14:40:51 +0000=0D
+Alice Ryhl <aliceryhl@google.com> wrote:=0D
+=0D
+> On Fri, Aug 07, 2026 at 06:52:48PM +0200, Danilo Krummrich wrote:=0D
+> > From: Onur =C3=96zkan <work@onurozkan.dev>=0D
+> > =0D
+> > Add a workqueue wrapper for work items that are not 'static.=0D
+> > =0D
+> > Tyr reset work is queued from a handle that owns a Controller<'bound>=0D
+> > where the work item holds references tied to the lifetime of the bound=
+=0D
+> > device and its mapped IO state. The existing API only accepts 'static=0D
+> > work items which cannot express that relationship.=0D
+> > =0D
+> > Introduce ScopedQueue for this case. It owns the underlying workqueue=0D
+> > and ties enqueued work to the queue lifetime so borrowed state cannot=0D
+> > outlive the queue that may still run it.=0D
+> > =0D
+> > Construction is unsafe because the queue must not be leaked.=0D
+> > =0D
+> > `compile_fail` doc-tests are ignored for now as KUnit doesn't support=0D
+> > that. Enabling those tests as regular code block would raise this error=
+:=0D
+> > =0D
+> >     ERROR:root:error[E0597]: `data` does not live long enough=0D
+> > 	 --> rust/doctests_kernel_generated.rs:22029:44=0D
+> > 	  |=0D
+> >     22027 |         let data =3D ();=0D
+> > 	  |             ---- binding `data` declared here=0D
+> >     22028 |         // SAFETY: Queue is not leaked.=0D
+> >     22029 |         queue =3D unsafe { new_queue(&data)? };=0D
+> > 	  |                                            ^^^^^ borrowed value do=
+es not live long enough=0D
+> >     22030 |     }=0D
+> > 	  |     - `data` dropped here while still borrowed=0D
+> >     ...=0D
+> >     22034 | }=0D
+> > 	  | - borrow might be used here, when `queue` is dropped and runs the =
+`Drop` code for type `ScopedQueue`=0D
+> > 	  |=0D
+> > 	  =3D note: values in a scope are dropped in the opposite order they a=
+re defined=0D
+> =0D
+> The '^^^^^' on the warning doesn't quite point at the right location.=0D
+> =0D
+> > =0D
+> > which is exactly the constraint ScopedQueue is meant to enforce.=0D
+> > =0D
+> > Suggested-by: Danilo Krummrich <dakr@kernel.org>=0D
+> > Signed-off-by: Onur =C3=96zkan <work@onurozkan.dev>=0D
+> > [ Move from scoped_queue.rs to scoped.rs, which can be shared with=0D
+> >   ScopedWork; add missing inline annotations. - Danilo ]=0D
+> > Signed-off-by: Danilo Krummrich <dakr@kernel.org>=0D
+> > ---=0D
+> >  rust/kernel/workqueue/mod.rs    |   3 +=0D
+> >  rust/kernel/workqueue/scoped.rs | 190 ++++++++++++++++++++++++++++++++=
+=0D
+> >  2 files changed, 193 insertions(+)=0D
+> >  create mode 100644 rust/kernel/workqueue/scoped.rs=0D
+> > =0D
+> > diff --git a/rust/kernel/workqueue/mod.rs b/rust/kernel/workqueue/mod.r=
+s=0D
+> > index 8eb2d037be83..551fa1401b85 100644=0D
+> > --- a/rust/kernel/workqueue/mod.rs=0D
+> > +++ b/rust/kernel/workqueue/mod.rs=0D
+> > @@ -212,6 +212,9 @@=0D
+> >  mod builder;=0D
+> >  pub use self::builder::Builder;=0D
+> >  =0D
+> > +mod scoped;=0D
+> > +pub use self::scoped::ScopedQueue;=0D
+> > +=0D
+> >  /// Creates a [`Work`] initialiser with the given name and a newly-cre=
+ated lock class.=0D
+> >  #[macro_export]=0D
+> >  macro_rules! new_work {=0D
+> > diff --git a/rust/kernel/workqueue/scoped.rs b/rust/kernel/workqueue/sc=
+oped.rs=0D
+> > new file mode 100644=0D
+> > index 000000000000..18a4b6f6cf18=0D
+> > --- /dev/null=0D
+> > +++ b/rust/kernel/workqueue/scoped.rs=0D
+> > @@ -0,0 +1,190 @@=0D
+> > +// SPDX-License-Identifier: GPL-2.0=0D
+> > +=0D
+> > +//! Lifetime-scoped workqueues.=0D
+> > +//!=0D
+> > +//! Provides [`ScopedQueue`] for work items that may borrow data with =
+some=0D
+> > +//! non-`'static` lifetime.=0D
+> > +//!=0D
+> > +//! Unlike [`Queue`] which only accepts `'static` work items, [`Scoped=
+Queue`]=0D
+> > +//! owns its underlying queue and relies on that queue being dropped t=
+o drain=0D
+> > +//! pending and running work before borrowed data can go out of scope.=
+=0D
+> > +//!=0D
+> > +//! TODO: Remove `ignore` once KUnit supports `compile_fail` on doc-te=
+sts.=0D
+> > +//! ```compile_fail,ignore=0D
+> > +//! use kernel::prelude::*;=0D
+> > +//! use kernel::workqueue::ScopedQueue;=0D
+> > +//!=0D
+> > +//! /// # Safety=0D
+> > +//! ///=0D
+> > +//! /// Returned queue must not be leaked.=0D
+> > +//! unsafe fn new_queue<'bound>(_: &'bound ()) -> Result<ScopedQueue<'=
+bound>> {=0D
+> > +//!     // SAFETY: Caller guarantees that the returned queue is not le=
+aked.=0D
+> > +//!     unsafe { ScopedQueue::new(c"scoped_queue") }=0D
+> > +//! }=0D
+> > +//!=0D
+> > +//! fn queue_outlives_borrowed_data() -> Result {=0D
+> > +//!     let queue;=0D
+> > +//!=0D
+> > +//!     {=0D
+> > +//!         let data =3D ();=0D
+> > +//!         // SAFETY: Queue is not leaked.=0D
+> > +//!         queue =3D unsafe { new_queue(&data)? };=0D
+> > +//!     }=0D
+> > +//!     // Here the `compile_fail` is fulfilled as `queue` would be dr=
+opped=0D
+> > +//!     // after `data`.=0D
+> > +//!     Ok(())=0D
+> > +//! }=0D
+> > +//! ```=0D
+> > +//!=0D
+> > +//! TODO: Remove `ignore` once KUnit supports `compile_fail` on doc-te=
+sts.=0D
+> > +//! ```compile_fail,ignore=0D
+> > +//! use kernel::prelude::*;=0D
+> > +//! use kernel::sync::Arc;=0D
+> > +//! use kernel::workqueue::{=0D
+> > +//!     impl_has_work,=0D
+> > +//!     new_work,=0D
+> > +//!     ScopedQueue,=0D
+> > +//!     Work,=0D
+> > +//!     WorkItem,=0D
+> > +//! };=0D
+> > +//!=0D
+> > +//! #[pin_data]=0D
+> > +//! struct BorrowedWork<'bound> {=0D
+> > +//!     data: &'bound (),=0D
+> > +//!     #[pin]=0D
+> > +//!     work: Work<BorrowedWork<'bound>>,=0D
+> > +//! }=0D
+> > +//!=0D
+> > +//! impl_has_work! {=0D
+> > +//!     impl{'bound} HasWork<BorrowedWork<'bound>> for BorrowedWork<'b=
+ound> { self.work }=0D
+> > +//! }=0D
+> > +//!=0D
+> > +//! impl<'bound> WorkItem for BorrowedWork<'bound> {=0D
+> > +//!     type Pointer =3D Arc<Self>;=0D
+> > +//!=0D
+> > +//!     fn run(_this: Arc<Self>) {}=0D
+> > +//! }=0D
+> > +//!=0D
+> > +//! impl<'bound> BorrowedWork<'bound> {=0D
+> > +//!     fn new(data: &'bound ()) -> Result<Arc<Self>> {=0D
+> > +//!         Arc::pin_init(=0D
+> > +//!             pin_init!(Self {=0D
+> > +//!                 data,=0D
+> > +//!                 work <- new_work!("BorrowedWork::work"),=0D
+> > +//!             }),=0D
+> > +//!             GFP_KERNEL,=0D
+> > +//!         )=0D
+> > +//!     }=0D
+> > +//! }=0D
+> > +//!=0D
+> > +//! struct Handle<'bound> {=0D
+> > +//!     work: Arc<BorrowedWork<'bound>>,=0D
+> > +//!     wq: ScopedQueue<'bound>,=0D
+> > +//! }=0D
+> > +//!=0D
+> > +//! impl<'bound> Handle<'bound> {=0D
+> > +//!     /// # Safety=0D
+> > +//!     ///=0D
+> > +//!     /// Returned handle must not be leaked.=0D
+> > +//!     unsafe fn new(data: &'bound ()) -> Result<Self> {=0D
+> > +//!         Ok(Self {=0D
+> > +//!             work: BorrowedWork::new(data)?,=0D
+> > +//!             // SAFETY: Caller guarantees that the returned handle =
+is not leaked.=0D
+> > +//!             wq: unsafe { ScopedQueue::new(c"handle_wq")? },=0D
+> > +//!         })=0D
+> > +//!     }=0D
+> > +//! }=0D
+> > +//!=0D
+> > +//! fn handle_outlives_borrowed_data() -> Result {=0D
+> > +//!     let handle;=0D
+> > +//!=0D
+> > +//!     {=0D
+> > +//!         let data =3D ();=0D
+> > +//!         // SAFETY: Handle is not leaked.=0D
+> > +//!         handle =3D unsafe { Handle::new(&data)? };=0D
+> > +//!=0D
+> > +//!         let _ =3D handle.wq.enqueue(handle.work.clone());=0D
+> > +//!     }=0D
+> > +//!     // Here the `compile_fail` is fulfilled as `handle` would be d=
+ropped=0D
+> > +//!     // after `data`.=0D
+> > +//!     Ok(())=0D
+> > +//! }=0D
+> > +//! ```=0D
+> > +=0D
+> > +use super::{=0D
+> > +    OwnedQueue,=0D
+> > +    Queue,=0D
+> > +    RawWorkItem, //=0D
+> > +};=0D
+> > +=0D
+> > +use crate::{=0D
+> > +    bindings,=0D
+> > +    ffi,=0D
+> > +    prelude::*, //=0D
+> > +};=0D
+> > +=0D
+> > +use core::marker::PhantomData;=0D
+> > +=0D
+> > +/// An owned workqueue that can enqueue work items borrowing from `'sc=
+ope`.=0D
+> > +///=0D
+> > +/// A `ScopedQueue` must not outlive data borrowed by its work items.=
+=0D
+> > +pub struct ScopedQueue<'scope> {=0D
+> > +    inner: OwnedQueue,=0D
+> > +    _scope: PhantomData<&'scope mut &'scope ()>,=0D
+> > +}=0D
+> =0D
+> A Queue is the same as a ScopedQueue<'static>, so we don't necessarily=0D
+> need a new type if we add a lifetime to Queue and add two constructors:=0D
+> =0D
+> 	fn new() -> Queue<'static>;=0D
+> 	unsafe fn new_scoped() -> Queue<'a>;=0D
+=0D
+Sounds reasonable. Should I pull this series and do that approach directly =
+on=0D
+it, or send another version for [1]?=0D
+=0D
+[1]: https://lore.kernel.org/all/20260617144645.253444-1-work@onurozkan.dev=
+=0D
+=0D
+	Onur=0D
+=0D
+> =0D
+> Alice=0D
