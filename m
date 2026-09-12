@@ -1,90 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05C7C4BEE5F;
-	Sat, 12 Sep 2026 05:57:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 500A136DA14
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 05:58:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789192672; cv=none; b=P0sR7VrzdGNb6LTZR+vyEZmf9C2WHY/2bENZAPscg9DMR3wj+c1uplglAV/oeMbtwE1Hszx0kCLjSSxMHIZEtyCuABFrAOMLpnfL+326EIDk38RUm6DL3aaJC7ruI39crWk66OB3ghy8flobWFg97+4vdbQ1woQwHvoq+DMzC/I=
+	t=1789192736; cv=none; b=kgt0F9ZRqq52QJ9xrm0nJrm8mBgl3fcm3EGHXmLhvLxx34iGLTDBc5SlVwfMWmdgTfYUyDAzj21z+yUJDGfQrKqo5KNjv6Dnieo+6viZXeaFINrDXiRdOqH4NxY8XBa5t1M94apE5So2RK1YYEX01x/dgP/S2D0n554I3YrEUrc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789192672; c=relaxed/simple;
-	bh=Rcj9FY1u7DeFsZyQHQT3wFpcx6FB1JM6CIJykUWQ+LI=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=ShGlaNYJyNM0wcsHB1+hhZj1IUF+QNPFyBaYComuJjJ+DjR2I8ZkWNF9h/gE6BvnhrhSdbPCEMKFj2ry1gvN4beMpG0RJYhkZJ+9zyD5ENclcB+lGqF0p4uyDAodNakqk/YzUveFvzqK1u5YpPQjaJajerYEyP170euPceWHJmE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=W9QWPMBr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789192736; c=relaxed/simple;
+	bh=ueoTsFOT6IEBMH9w1VXnKEUIt4SYl9OsCzBkVcPRlxk=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=NVp9P+KtPWzQtSP+gpwd9U7r4ZtU/BW1QBipyWkE+1VaJoRo/BVz0zr4vQJ/KzNydXWsxbJioSSyNMF+Zk2mWhdQFbi7yefDT2mrFz9X8yXZVqdpnmM26dqWV/sOyzwSR5U31MtMJAQkDYywfRSdt1r/Smv6E7H6brsmVHlqiBk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y5r5edcD; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="W9QWPMBr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CBBD1F000FF;
-	Sat, 12 Sep 2026 05:57:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y5r5edcD"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cc9f581c4so1553025e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 22:58:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1789192670;
-	bh=U0SBV4CnGKvvNIIMNW/AkFFYrokvu33qARejmqNfK7k=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=W9QWPMBrCBYQPao72IDryRFjPwSSSzrFQQnrmLzru4nkSfY7n6kvfdGou8tEUsaBz
-	 YXnJ7trlUURtUmQ5q92Z9tjACJ6M2DwkICOvZNuFJCGLzkDH1br2fjmd7x47mEvCDa
-	 ftdLLENxCy+9QbpE3RoB2EsWDrkbkAkX7SPqo58c=
-Date: Fri, 11 Sep 2026 22:57:49 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Yury Norov <yury.norov@gmail.com>
-Cc: Matthew Wilcox <willy@infradead.org>, "Liam R. Howlett"
- <liam@infradead.org>, Yury Norov <ynorov@nvidia.com>, Chris Li
- <sparse@chrisli.org>, Alice Ryhl <aliceryhl@google.com>, Andrew Ballance
- <andrewjballance@gmail.com>, linux-sparse@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- linux-mm@kvack.org, maple-tree@lists.infradead.org
-Subject: Re: [PATCH 1/3] compiler.h: add ASSERT_STATIC_STORAGE()
-Message-Id: <20260911225749.8727d23eb76b93141f08e574@linux-foundation.org>
-In-Reply-To: <20260911221444.1523311-2-ynorov@nvidia.com>
-References: <20260911221444.1523311-1-ynorov@nvidia.com>
-	<20260911221444.1523311-2-ynorov@nvidia.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+        d=gmail.com; s=20251104; t=1789192733; x=1789797533; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=91A0MwjfK7mjbvi90xRjfD+giwnVd22Z7TdoxKf1o0M=;
+        b=Y5r5edcD+iQ0UbMlcI2S/08v4etT6QuUV27xbesjs+1sCp48xAuib/ZP48rdNccCwB
+         VHZVmUROd+oTYnVt5JkxXTDA9jEAC17v6mPH2zVDBAP4vQBMRTS4Wprh8H/6WdLHr7O4
+         7q3qfhrJkdZWvwqP0CHJVA1Zm/DjdY6xmeAy8MRJos41wv5n5ZPGb3OzAl2LJF1ZuNKe
+         6JVQ3uwXmdobEWE/dzqw9ypZj00veyMFqdFr678rUSWaRdU/dCpkxnHH3z6HmnokgCbX
+         +hA28EFNDbSZEZxV51gdTUguHrTBRWM+2xY22ANo3xpsJa19sw4fRE9CtncESqSgBMhf
+         zK6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789192733; x=1789797533;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=91A0MwjfK7mjbvi90xRjfD+giwnVd22Z7TdoxKf1o0M=;
+        b=ggUlWLMOTam18ITOtpQox6ClfLNdfrPuc+FXghS/w5PI2FODyIsxii5plbJ5IpgRja
+         SlGMaa76K4M5o86fFYwISRwB4QXvkulD3tmiQyGoT8Q4dJ9sxUA6s+1gKCInYyLp02Mb
+         iICBM7uNtnJQCXxfIYRLrn7f8cPzzyrXsTXAxRMK625ErhrbTxyQ18rRoCeYGoPd72NR
+         pI3slkUNO78CmED4c+T0ekaoQGi3Zta0CbYL8eax7hIdk3opnR4VDjHP+ywAmiFCNO6L
+         d25pwN2ceE+T4h3JxG2Sn8MmQNK2MweebBNW9QiDe0JgUuR1PXBkiop0d1W9VBtAwTmp
+         WbXA==
+X-Forwarded-Encrypted: i=1; AKwUvBwcNdH0DNR5dufZYBf/4HgiSSBS+KFPjpdG4y0zMF6HMmYtEzVQao7M1YK2Upz77N40A/XZyhGfOXNZ2hY=@vger.kernel.org
+X-Gm-Message-State: AFuF++l4sWtOA3Rq4whZ0gQ+n6d4qWXIKnQVW4niWWB8XoY2V8WA4xmx
+	Fctnpqgfatiqu6lUYJKSpDAyuA/H/EGsI663k3TluUprw7CS+2LEnPvL
+X-Gm-Gg: AYBFou3LFGnT291FKUpGsyEFXQOHoZc5KjRmqbW0vyjF2TmPrNNpwELm0pd8kmnTdBt
+	DxmzWh+4HoAS9kFRxd1rso2bab/PMqzwSrYOH9K8nmbfrgnoNAMx2aw1HxgBoxlCS5GGBd4dEgC
+	3eGoVZXHQ2RiyueiypQxtDld5a75vynbdH3Vidr4iEZ1wEfjlpAquO3zPFBkHgHOF39gS3kpmJh
+	bhirOTKzxQZ/AyOZrAyYISyIlcyO4CHnc6mtbPOj/YJhct2HFVcA+EqoeHDn51MgXPeWdSyQ+RB
+	Bq7f2wjTsBNsELX7hy3q/4TUmJh/Nip1GJMSvSCfbQ5+9BlhDL8S1tSq0oxA/4AU/te1wy40wS3
+	UOcLyLLP6fQzBmPUt9YrLwvb795ByAZVTzj7DqZP1P7C020DAxTlCvTXq4ZITy6JkayvwnT1rde
+	oChtjlDLKFKmb3cWu+ZDatceeP7/uUtgUzy0s8SIihDoa1Ex0afUQv5a3QWAskL4KFuRlF52OHq
+	4pRCXN3SVjtkgYhVIRiVcgY6d0gIyrG0/BaoorcDBavBzRFKsXLc890tN5dIgort3fslFaddaey
+	m+bOBBpiuuT40oISyJ39D6JW8AUfVXOtZgXtqDYmy1a6IrNcMBk27iPMZVEVjxCCcofpuO1HqVU
+	ZZZABMd8=
+X-Received: by 2002:a05:600c:c162:b0:49d:2936:8ad1 with SMTP id 5b1f17b1804b1-49e60f5b03fmr93484435e9.1.1789192733201;
+        Fri, 11 Sep 2026 22:58:53 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-b260-f201-9983-e8c4-aff5-7a36.310.pool.telefonica.de. [2a02:3100:b260:f201:9983:e8c4:aff5:7a36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e60ababd5sm175215525e9.4.2026.09.11.22.58.52
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 11 Sep 2026 22:58:52 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] media: v4l2-subdev: Fix media_entity_operations references in kernel-doc
+Date: Sat, 12 Sep 2026 07:58:50 +0200
+Message-Id: <20260912055850.39828-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Fri, 11 Sep 2026 18:14:41 -0400 Yury Norov <yury.norov@gmail.com> wrote:
+The kernel-doc comment of v4l2_subdev_link_validate() refers to
+media_entity_ops, which does not exist. The name is
+media_entity_operations. Say media_entity_operations.
 
-> Static lock initializers rely on a persistent object address when lockdep
-> assigns a lock-class key. Using such an initializer for an automatic local
-> object can compile successfully but disable lockdep on the first lock
-> acquisition.
-> 
-> Add ASSERT_STATIC_STORAGE() for declaration macros that require
-> static storage duration. It declares an unused static pointer initialized
-> with the object's address. An automatic local object's address is not a
-> valid static initializer, so the compiler rejects it.
-> 
-> Mirror the helper in tools/include/linux/compiler.h because the userspace
-> radix-tree tests include the kernel IDA and Maple Tree headers with the
-> tools compiler definitions.
-> 
-> For example:
-> 
->   void example(void)
->   {
->           int object;
->           ASSERT_STATIC_STORAGE(object);
->   }
-> 
-> GCC reports:
-> 
->   error: initializer element is not constant
->     name##_storage_check = &(name)
->                            ^
->   note: in expansion of macro 'ASSERT_STATIC_STORAGE'
->     ASSERT_STATIC_STORAGE(object);
-> 
-> File-scope objects and static local objects remain valid. The helper takes
-> an object identifier and must be used as a declaration after that object
-> has been declared.
-> 
+Fixes: 5fd3e2412ade ("media: v4l2-subdev: Support hybrid links in v4l2_subdev_link_validate()")
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+ include/media/v4l2-subdev.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Thanks, I'll queue it.
+diff --git a/include/media/v4l2-subdev.h b/include/media/v4l2-subdev.h
+index d256b7ec8f848c51416cd1b62ff931ddc4feb4fd..6c4a0a6334e8e210c5da48527c1ad514568bd633 100644
+--- a/include/media/v4l2-subdev.h
++++ b/include/media/v4l2-subdev.h
+@@ -1236,10 +1236,10 @@ int v4l2_subdev_link_validate_default(struct v4l2_subdev *sd,
+  * width, height and the media bus pixel code are equal on both
+  * source and sink of the link.
+  *
+- * The function can be used as a drop-in &media_entity_ops.link_validate
++ * The function can be used as a drop-in &media_entity_operations.link_validate
+  * implementation for v4l2_subdev instances. It supports all links between
+  * subdevs, as well as links between subdevs and video devices, provided that
+- * the video devices also implement their &media_entity_ops.link_validate
++ * the video devices also implement their &media_entity_operations.link_validate
+  * operation.
+  */
+ int v4l2_subdev_link_validate(struct media_link *link);
+-- 
+2.39.5 (Apple Git-154)
 
-Sashiko wants the same treatment for a few other macros:
-	https://sashiko.dev/#/patchset/20260911221444.1523311-1-ynorov@nvidia.com
