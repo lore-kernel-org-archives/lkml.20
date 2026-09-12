@@ -1,225 +1,226 @@
-Received: from mail-oa2-f12.google.com (mail-oa2-f12.google.com [74.125.231.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C0EB38DC48
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 03:38:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FF4D3515CB
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 03:45:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789184302; cv=none; b=f+14RCXVRaSL3QJG7IottsnETlvW5ln/kJwO6gNruPDix6xjC8E4WrV9UwJEcOtQsXsprUacBd1Uixw+Lyns+2Et1hFHW743yh89jDYIiTObuGWjSFmCElybEn1KQYHgSc3ag/eX77lX7pb2GqvmPAlPlc/tvLvqqls9e8AViZs=
+	t=1789184717; cv=none; b=lyVh8/r6fGBzBNZsW8V4/xKblnisfRVNMfRIzfgZxcOeYRoVRU++vhg+n1U0BR5UlWALDTIutUsEsHeRNHCMZBuHCKpWGDA2zPTkqwrVzbqlLgaf9pG0rpWeGZqlLIbRxLxfKGS4Gi0M3s6Nozq+IWjojRJNsse69w6PAwjeSnI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789184302; c=relaxed/simple;
-	bh=KC+UqVfL9UqJKpxIQMOygXmXYZtPFOQIR+oOnjMHYG0=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
-	 References:In-Reply-To; b=iVLxzpr+svJ58l3aSuOd2GFupHphfKEZV0pOUryjqRpf2vmtrK5/sgTcqWHJfHoZl82xABkFnebHW5RmcenaXbFKGhUJOzQ4JjAAV1fJQ5T9rK8MQ3shx+06fskhDvOL5Wn0MZtZNUkcNzvY//X9RKtVRYnZm960kYq2QXpmREk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mGh1YbDY; arc=none smtp.client-ip=74.125.231.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789184717; c=relaxed/simple;
+	bh=bIwuxMyUCAhuNfIWh8WUFWnZ9Amsu+HOG8fMNc00tO8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FLEs7SuIH+Md+CcwnKYzWDdsL+Ua7fib1ToH0zyyzztriMXbpAoyAXe6w1+iw57+bokWdaueDMYvQKWfID/NVFUfK9UIE1ytoIYDCLyS6c6Lxo+COUzWna4pqQ16S324FQI+bJt4h4ZFuk7OpT2gciFTKQkKr3d7hrgV5akhs2c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=gBvc+pXu; arc=none smtp.client-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mGh1YbDY"
-Received: by mail-oa2-f12.google.com with SMTP id 586e51a60fabf-466ccde2a99so411749fac.3
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 20:38:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789184300; x=1789789100; darn=vger.kernel.org;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=byHgOSMC0udxAsSgGbQwrR3Tvn2bMZ/JmBBvuMT0KGo=;
-        b=mGh1YbDYBjvfUVBoqmm/fySt1SxgWxr3UN+Ry6ud/7EMhuJTRtowTAVH+5GzctqT0K
-         u1Ie8Beqk9hNW0w6rMx8+E4inaw4bxYQXnT1qrt8eWBUK728iioNPYf1lzTupFSHlxDK
-         5mO/e43ddaIJtF6+LOxcSYmSCZaSd/7LVfSXO1zPLvrA3T/HXjQywj135ucQvYs5vVsO
-         Ft39w1UKd7VaqYmPX5o2N6DVJ2K8JtcdJnwcTccVzth4hQIp6164NIkV6HOEoLhxYrc8
-         iyVqUTQRALMl6L9j6oI1cCLznD/KodSvEDTkbuzO6WfC3e9QO9vvWfcCHQuJ8kvMY3Lu
-         /oQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789184300; x=1789789100;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=byHgOSMC0udxAsSgGbQwrR3Tvn2bMZ/JmBBvuMT0KGo=;
-        b=UZk4gbiMcYZcahpEPX9vZzGPXWGx1tC+7LjJAO7aXBvJzY4SbZp3C4chl1CK0swMad
-         6twFkgum1YyjT0ZN2VWCdrbty6oKvotxT/AgBZaKFWmtldoEKUrUAVCzjNxjjPzuNiQJ
-         nitYmNg0TKXHbBmAR8LmkwG26lW4LFtjFtjc9qqQLv8ProrhViMddAFyixYyGMm2AuEG
-         NWgaEWJSlnAOlgaVXeyqTP9NRhPfZZUCY+LC60qvc7FhKwQdQO+DT5gNqogHc+aWkNDM
-         pjeQI/1oceXVMLqyGhgPA3cRnRbA+Yux0YA2AtEP7Wxc2U3kmSscX03CE9ioiBn4iXnh
-         nqvg==
-X-Forwarded-Encrypted: i=1; AKwUvBwWUBkGX4RMSiQSGt7zEcdiZyFHkzAcDeFU22iMQ2T/wmqyj46Vz36k//pL2wttxDpCv5DxXu2hAXOyyzk=@vger.kernel.org
-X-Gm-Message-State: AFuF++kONRvSqEqwdRc4wHHMpVel5znAV9lbTAgXqp89tJ8eH3g6g6NI
-	B9nu+GlxArPI/9wvc7hx9sTaijwKnanFIXhdRW1yifASJH7JZjIeDLpS
-X-Gm-Gg: AYBFou2rL373cGmuydVlrHoYowqlTEblpMlzx9KCUd+H7JMzV2L0TGy9sV2bwNIQbzf
-	3YvumtBTptoWOLKbM4pMgnINb8eRniExIJYs3aCQ5bvH+bGCaxTT+D+vu7ICVA3VVQtxs+/rwHj
-	c7A17DoR75hZecKgeR+zBkMovH98RQfSnLFJY3Mta4BQo1uG72Vk4oFnCPj1v4Z4B5SYaeCCDOp
-	0YCZebL4DcCS4nJzBz2csxryGzxEz+onS00T6L0auwdzSSexbN0H76MzYzIZDem712aa7laiNDI
-	NTo0HDhr7DKQa02lTMhyziolZEu89JRdan82oxoGG26PQ29MaULZnij6r6Xs8b7cxjIKQYfsGUl
-	5ldi5wyCNCDzOYJw6psVIkpNraodoYn/MFqF8IpY5hixGbA2WT/CDeEZFyCovzCT3NQbAdX5Q5l
-	0dVurj3jKsCM2li9N9ic+HsDHkvcJ2eD9GbCAD4KZyfGZnKyF432idIXl8YNZ59MfT19bwPy0jz
-	IV1ghCVzlvRSg/XeEx4YZ+h09y5ioCd6RVvckANmmu/PVEVQ+8xpZo4ij/qnjLGsw==
-X-Received: by 2002:a05:6871:113:b0:448:71f4:a28 with SMTP id 586e51a60fabf-47de7720e6amr10502335fac.2.1789184299775;
-        Fri, 11 Sep 2026 20:38:19 -0700 (PDT)
-Received: from localhost ([2a03:2880:10ff:12::])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-47df8699647sm3683938fac.5.2026.09.11.20.38.16
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 11 Sep 2026 20:38:18 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="gBvc+pXu"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Gj
+	VmVH5S4Dxs6ChmY6XlrEUo+G/7AHP0A242MZDHi70=; b=gBvc+pXuOrnoiSmTtG
+	kzAIlnlNC6z/4AEO4NWd/lPf1aeQ43IQat+MWgWOovmemn2RZx41dH3wHEUhbeNI
+	Lhaa4z31Fl6fTlhQV3dazHdB4CZVmJVqUVMFib11uIrX7sUg2Px1gifFKoReKON9
+	UE8+EhDJGyRfzfzDV0KZnToDg=
+Received: from localhost (unknown [])
+	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wDnyxSOyqRqs6a7AA--.33047S2;
+	Sat, 12 Sep 2026 11:44:15 +0800 (CST)
+From: Hui Su <sh_def@163.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>
+Cc: Matthew Brost <matthew.brost@intel.com>,
+	Balbir Singh <balbirs@nvidia.com>,
+	Zi Yan <ziy@nvidia.com>,
+	Joshua Hahn <joshua.hahnjy@gmail.com>,
+	Rakie Kim <rakie.kim@sk.com>,
+	Byungchul Park <byungchul@sk.com>,
+	Gregory Price <gourry@gourry.net>,
+	Ying Huang <ying.huang@linux.alibaba.com>,
+	Alistair Popple <apopple@nvidia.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Hui Su <sh_def@163.com>
+Subject: [PATCH v2] mm/migrate_device: consolidate compound folio handling
+Date: Sat, 12 Sep 2026 12:44:14 +0900
+Message-ID: <20260912034414.1943342-1-sh_def@163.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 11 Sep 2026 20:38:16 -0700
-Message-Id: <DLD0WER9K97K.2V2NOAJ840CR7@gmail.com>
-Subject: Re: [PATCH bpf-next v3 07/15] lsm: Add the
- bpf_lsm_policy_apply_bprm kfunc
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: "Justin Suess" <utilityemal77@gmail.com>, <ast@kernel.org>,
- <daniel@iogearbox.net>, <andrii@kernel.org>, <kpsingh@kernel.org>,
- <matt@bobrowski.net>, <paul@paul-moore.com>, <mic@digikod.net>,
- <viro@zeniv.linux.org.uk>, <brauner@kernel.org>, <kees@kernel.org>
-Cc: <casey@schaufler-ca.com>, <gnoack@google.com>, <jack@suse.cz>,
- <song@kernel.org>, <yonghong.song@linux.dev>, <martin.lau@linux.dev>,
- <eddyz87@gmail.com>, <memxor@gmail.com>, <jolsa@kernel.org>,
- <m@maowtm.org>, <bpf@vger.kernel.org>,
- <linux-security-module@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-X-Mailer: aerc
-References: <20260909193719.518517-1-utilityemal77@gmail.com>
- <20260909193719.518517-8-utilityemal77@gmail.com>
-In-Reply-To: <20260909193719.518517-8-utilityemal77@gmail.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDnyxSOyqRqs6a7AA--.33047S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW3Jr1UJrWfAr43GFyDAr1fJFb_yoW7Xr13pF
+	40g3W7trZrWry2kw13Zr18Ar13ur93Xa1fKFZrGrn2kFs8JFy5uw1Iq3Z5XF45W397XFyx
+	ZFW7tFy7Z3WDGF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piHa0PUUUUU=
+X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbC6RGa+WqkypGQdgAA3o
 
-On Wed Sep 9, 2026 at 12:37 PM PDT, Justin Suess wrote:
-> Add the kfunc applying a policy object to an execution:
->
->   bpf_lsm_policy_apply_bprm(object, bprm, flags)        KF_SLEEPABLE
->
-> It asks the LSM owning @object, through the bprm_apply_policy_object
-> hook, to restrict the credentials prepared in @bprm, so that the
-> executed task starts confined by the policy.  The meaning of @flags
-> and the composition with restrictions the credentials already carry
-> are the owning LSM's; an LSM without execution policy support makes
-> the call fail with -EOPNOTSUPP.
->
-> The kfunc runs the hook in a root memcg charging scope: the policy
-> restricts the execution on behalf of the BPF program, not of the
-> mediated task, so what the owning LSM allocates to compute it, e.g.
-> Landlock's merged domain, is not charged to the task the program
-> supervises.
->
-> The filter makes the kfunc exclusive to the sleepable LSM programs
-> attached to the bprm_creds_for_exec() or bprm_creds_from_file()
-> hooks, the only contexts where the bprm's credentials are prepared
-> but not yet committed.  The verifier's argument typing does not draw
-> this boundary on its own: a trusted struct linux_binprm pointer is
-> also available at the other bprm hooks -- bprm_check_security(),
-> which runs per binfmt while an interpreter may still rewrite the
-> execution, and bprm_committing_creds()/bprm_committed_creds(), which
-> run at or past the point of no return, where the prepared
-> credentials are frozen or installed -- and to tp_btf programs via
-> the sched_prepare_exec and sched_process_exec tracepoints, which
-> resolve kfuncs from the same registration bucket as LSM programs.
-> The attach-point filter, not the argument type, is the authorization
-> boundary.
->
-> No filter case is needed for BPF_LSM_CGROUP programs: since
-> commit 5b038319be44 ("bpf: Reject sleepable BPF_LSM_CGROUP programs
-> at load time") they cannot be sleepable, so KF_SLEEPABLE already
-> excludes them.
->
-> Cc: Paul Moore <paul@paul-moore.com>
-> Cc: KP Singh <kpsingh@kernel.org>
-> Signed-off-by: Justin Suess <utilityemal77@gmail.com>
-> ---
->
-> Notes:
->     v2->v3:
->         - Drop the BPF_LSM_CGROUP case from the kfunc filter: since
->           commit 5b038319be44 ("bpf: Reject sleepable BPF_LSM_CGROUP
->           programs at load time") such programs cannot be sleepable, so
->           KF_SLEEPABLE already excludes them from the apply kfunc.
->         - Document, in the commit message and the filter comment, why the
->           attach-point filter rather than the verifier's argument typing
->           is the authorization boundary.
->
->  security/bpf_lsm_kfuncs.c | 68 +++++++++++++++++++++++++++++++++++++++
->  1 file changed, 68 insertions(+)
->
-> diff --git a/security/bpf_lsm_kfuncs.c b/security/bpf_lsm_kfuncs.c
-> index 43a4bf57fd31..857e9a316d1c 100644
-> --- a/security/bpf_lsm_kfuncs.c
-> +++ b/security/bpf_lsm_kfuncs.c
-> @@ -2,16 +2,25 @@
-> =20
->  /* BPF kfuncs exposing LSM policy objects. */
-> =20
-> +#include <linux/binfmts.h>
->  #include <linux/bpf.h>
->  #include <linux/btf.h>
->  #include <linux/btf_ids.h>
->  #include <linux/cfi.h>
->  #include <linux/init.h>
->  #include <linux/lsm_hooks.h>
-> +#include <linux/memcontrol.h>
-> +#include <linux/sched/mm.h>
->  #include <linux/security.h>
-> =20
->  #include "lsm.h"
-> =20
-> +/* The sleepable LSM hooks bpf_lsm_policy_apply_bprm() may be called fro=
-m. */
-> +BTF_SET_START(bpf_lsm_policy_bprm_hooks)
-> +BTF_ID(func, bpf_lsm_bprm_creds_for_exec)
-> +BTF_ID(func, bpf_lsm_bprm_creds_from_file)
-> +BTF_SET_END(bpf_lsm_policy_bprm_hooks)
-> +
->  __bpf_kfunc_start_defs();
-> =20
->  /**
-> @@ -44,6 +53,49 @@ bpf_lsm_policy_acquire(struct lsm_policy_object *objec=
-t)
->  	return NULL;
->  }
-> =20
-> +/**
-> + * bpf_lsm_policy_apply_bprm - Apply a policy object to exec credentials
-> + * @object: policy object to apply
-> + * @bprm: execution context providing the prepared credentials to
-> + *        restrict
-> + * @flags: flags defined by the LSM owning @object
-> + *
-> + * Ask the LSM owning @object to restrict the credentials prepared in
-> + * @bprm with it, so that the executed task starts confined by the
-> + * policy.  How the policy composes with restrictions the credentials
-> + * already carry, and the meaning of @flags, are defined by the owning
-> + * LSM.  @object is only borrowed: the caller keeps its reference.
-> + * The hook runs in a root memcg charging scope: policy the LSM
-> + * computes on behalf of the program is not charged to the mediated
-> + * task.
-> + *
-> + * Return: 0 on success, -EOPNOTSUPP if the LSM owning @object does
-> + * not support applying policy to an execution, -EINVAL on unsupported
-> + * @flags, other negative values on LSM-specific failures.
-> + */
-> +__bpf_kfunc int bpf_lsm_policy_apply_bprm(struct lsm_policy_object *obje=
-ct,
-> +					  struct linux_binprm *bprm, u32 flags)
-> +{
-> +	struct lsm_static_call *scall;
-> +	struct mem_cgroup *old_memcg;
-> +	int err;
-> +
-> +	lsm_for_each_hook(scall, bprm_apply_policy_object) {
-> +		if (scall->hl->lsmid->id !=3D object->lsmid)
-> +			continue;
-> +		/*
-> +		 * The hook runs on behalf of the BPF program, not of the
-> +		 * mediated task: charge its allocations to the root memcg.
-> +		 */
-> +		old_memcg =3D set_active_memcg(root_mem_cgroup);
-> +		err =3D scall->hl->hook.bprm_apply_policy_object(bprm, object,
-> +							       flags);
-> +		set_active_memcg(old_memcg);
-> +		return err;
-> +	}
-> +	return -EOPNOTSUPP;
+Commit dc41e961a269 ("mm/migrate_device: avoid out-of-bounds writes for
+compound folios") added handling for compound folios that do not fit in
+the remaining PFN array.
 
-Nack.
+migrate_device_range() and migrate_device_pfns() duplicate the logic for
+locking device PFNs, encoding compound folios, and handling this boundary
+condition.
+
+A compound folio cannot be represented partially for migration. Warn when
+one does not fit in the remaining PFN array, while retaining the existing
+defensive handling: release any lock and reference acquired for the
+current folio, clear the remaining entries, and stop collecting.
+
+Move the shared collection and encoding logic into a helper so both
+interfaces handle compound folios consistently. Also use memset() for
+the compound-folio tail entries instead of open-coding the clearing loop.
+
+Document that an encountered compound folio must fit entirely in the
+remaining range or PFN array.
+
+Link: https://lore.kernel.org/r/c99ca53a-73ef-4a0c-8738-eba1cc89bea2@kernel.org
+Suggested-by: David Hildenbrand <david@kernel.org>
+Signed-off-by: Hui Su <sh_def@163.com>
+---
+
+Notes:
+    Changes in v2:
+    - Fix the helper parameter indentation and keep the declaration to two
+      lines, as suggested by David Hildenbrand.
+
+ mm/migrate_device.c | 89 ++++++++++++++++++++++++---------------------
+ 1 file changed, 48 insertions(+), 41 deletions(-)
+
+diff --git a/mm/migrate_device.c b/mm/migrate_device.c
+index 009bfa8b212d..ace543fd6946 100644
+--- a/mm/migrate_device.c
++++ b/mm/migrate_device.c
+@@ -1392,6 +1392,38 @@ static unsigned long migrate_device_pfn_lock(unsigned long pfn)
+ 	return migrate_pfn(pfn) | MIGRATE_PFN_MIGRATE;
+ }
+ 
++/*
++ * Collect a device folio into the page-granular PFN array.
++ *
++ * Return the number of entries consumed, or 0 if the folio does not fit in
++ * the remaining array.
++ */
++static unsigned int migrate_device_collect_folio(unsigned long *src_pfn,
++		unsigned long pfn, unsigned long remaining)
++{
++	struct folio *folio = page_folio(pfn_to_page(pfn));
++	unsigned int nr;
++
++	*src_pfn = migrate_device_pfn_lock(pfn);
++	nr = folio_nr_pages(folio);
++
++	if (WARN_ON_ONCE(nr > remaining)) {
++		if (*src_pfn & MIGRATE_PFN_MIGRATE) {
++			folio_unlock(folio);
++			folio_put(folio);
++		}
++		memset(src_pfn, 0, remaining * sizeof(*src_pfn));
++		return 0;
++	}
++
++	if (nr > 1) {
++		*src_pfn |= MIGRATE_PFN_COMPOUND;
++		memset(src_pfn + 1, 0, (nr - 1) * sizeof(*src_pfn));
++	}
++
++	return nr;
++}
++
+ /**
+  * migrate_device_range() - migrate device private pfns to normal memory.
+  * @src_pfns: array large enough to hold migrating source device private pfns.
+@@ -1410,35 +1442,22 @@ static unsigned long migrate_device_pfn_lock(unsigned long pfn)
+  * migrating pages that aren't free before unmapping them. Drivers may then
+  * allocate destination pages and start copying data from the device to CPU
+  * memory before calling migrate_device_pages().
++ *
++ * A compound folio must fit entirely in the remaining range.
+  */
+ int migrate_device_range(unsigned long *src_pfns, unsigned long start,
+ 			unsigned long npages)
+ {
+-	unsigned long i, j, pfn;
++	unsigned long i, pfn;
+ 
+ 	for (pfn = start, i = 0; i < npages; pfn++, i++) {
+-		struct page *page = pfn_to_page(pfn);
+-		struct folio *folio = page_folio(page);
+-		unsigned int nr = 1;
++		unsigned int nr;
+ 
+-		src_pfns[i] = migrate_device_pfn_lock(pfn);
+-		nr = folio_nr_pages(folio);
+-		if (nr > npages - i) {
+-			if (src_pfns[i] & MIGRATE_PFN_MIGRATE) {
+-				folio_unlock(folio);
+-				folio_put(folio);
+-			}
+-			memset(&src_pfns[i], 0,
+-			       (npages - i) * sizeof(*src_pfns));
++		nr = migrate_device_collect_folio(&src_pfns[i], pfn, npages - i);
++		if (!nr)
+ 			break;
+-		}
+-		if (nr > 1) {
+-			src_pfns[i] |= MIGRATE_PFN_COMPOUND;
+-			for (j = 1; j < nr; j++)
+-				src_pfns[i+j] = 0;
+-			i += j - 1;
+-			pfn += j - 1;
+-		}
++		i += nr - 1;
++		pfn += nr - 1;
+ 	}
+ 
+ 	migrate_device_unmap(src_pfns, npages, NULL);
+@@ -1454,33 +1473,21 @@ EXPORT_SYMBOL(migrate_device_range);
+  *
+  * Similar to migrate_device_range() but supports non-contiguous pre-populated
+  * array of device pages to migrate.
++ *
++ * A compound folio must fit entirely in the remaining PFN array.
+  */
+ int migrate_device_pfns(unsigned long *src_pfns, unsigned long npages)
+ {
+-	unsigned long i, j;
++	unsigned long i;
+ 
+ 	for (i = 0; i < npages; i++) {
+-		struct page *page = pfn_to_page(src_pfns[i]);
+-		struct folio *folio = page_folio(page);
+-		unsigned int nr = 1;
++		unsigned long pfn = src_pfns[i];
++		unsigned int nr;
+ 
+-		src_pfns[i] = migrate_device_pfn_lock(src_pfns[i]);
+-		nr = folio_nr_pages(folio);
+-		if (nr > npages - i) {
+-			if (src_pfns[i] & MIGRATE_PFN_MIGRATE) {
+-				folio_unlock(folio);
+-				folio_put(folio);
+-			}
+-			memset(&src_pfns[i], 0,
+-			       (npages - i) * sizeof(*src_pfns));
++		nr = migrate_device_collect_folio(&src_pfns[i], pfn, npages - i);
++		if (!nr)
+ 			break;
+-		}
+-		if (nr > 1) {
+-			src_pfns[i] |= MIGRATE_PFN_COMPOUND;
+-			for (j = 1; j < nr; j++)
+-				src_pfns[i+j] = 0;
+-			i += j - 1;
+-		}
++		i += nr - 1;
+ 	}
+ 
+ 	migrate_device_unmap(src_pfns, npages, NULL);
+
+base-commit: df2908090cda368b01ff43709f51890076c56157
+-- 
+2.55.0
+
