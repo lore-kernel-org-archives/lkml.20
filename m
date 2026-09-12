@@ -1,136 +1,168 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com [209.85.167.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69AD2388E76
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 22:07:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789250846; cv=none; b=uKDcVwdV5JNBheehxaC1Dx4nBCIcp8x9MqeyccjxgESMTZMJGHpWkZIk7r0n8iQ8P/eYz1rrt9tuefOCJRTsDBgpYDjT2rVbrcxsk4ciVbv14aK5vGMsV5KhsTxiNnCViS7d1++RLijfAXU7GxdVpdRCK/w0wUxgLmVz2RNQfT4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789250846; c=relaxed/simple;
-	bh=aO0EnKRtbp4eQRdiajrWBnJhUoH5QBxQwM0G7h6ERwI=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=jzIAvmZRHGCUhxDdGpU7d3UonI50z21ztqCxIqbygogspUyl21X4aEL4taOOKOecIuST4lMaAtuNEglD2CeBzfabz6MVTvv6ZiZ0/EfvRyijATM1APlwN8XGIaYNrpr58mu9JP1fN4YHEn54Kk5U7lKzanEQRcnHTxVAcSGIrzc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=BRtj19Jm; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 298A3372ECE
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 22:09:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789250954; cv=pass; b=ToPPeVK8KT+WClxh9Y/EU4UmBLRmnzz+gDaRqsSHrvkYQYDGGX8/4YlqeJX9JFYh0pPdZuIpt9W2tBy2RX46PzuyrKV243n0S9luJ98+LWICnX01b/6HkKCZqoWwWYrlC4cPahQ6xaa7j+pRAb/rFifGCLIf/YsfE1l56U9ktNc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789250954; c=relaxed/simple;
+	bh=H2ICmjZpLo/tW61jV/HYoGADra3Y8ym4ib/gFKKdiW8=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=nJPk0d8CBX/09+YNr3PisQqn/WczxO8XJc1X+t/9ktDTOMe49GHr2QFucdvG3UGHBi55qFMKN0NGdco0iIBcVvZX5zS+t+S3FS2RM6DXiwVEJvb+nAjpBIcplgF+nXOo0c1ThW2nliF1xVUwNcOGBc/jfyqqItfYuQm45GwW7T8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=khu.ac.kr; spf=pass smtp.mailfrom=khu.ac.kr; dkim=pass (1024-bit key) header.d=khu.ac.kr header.i=@khu.ac.kr header.b=I7f0XMvZ; arc=pass smtp.client-ip=209.85.167.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=khu.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=khu.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="BRtj19Jm"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccf3ca626so2710955e9.0
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 15:07:24 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=khu.ac.kr header.i=@khu.ac.kr header.b="I7f0XMvZ"
+Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5b2b92065ffso2487935e87.1
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 15:09:11 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789250950; cv=none;
+        d=google.com; s=arc-20260327;
+        b=YPffTFKDlWUaLSmU5Q0zAFH8h8LiOnQoAMrFiW7NqY9OmiBolLmTUKKeAG/R9e1xch
+         ZC6Ul8dnAYBAg3eP2aRajIT8I/Iyhj8gCcZgNMxEtMXs+WA7k4zSAqlG7BCdFazgs+Ov
+         0/EHaKbtQkedithqGcpej8UvmXYJrZ1X1aF8gAgXTGGeeYrJYOGpJqMUGYhjYHKqmFPH
+         oM7kH1t68mWZXc+EESD2FYdjkLEzfwooBXr+vmay0ifpQkG8iPEAeku9Bk2boeFurH88
+         hvqmMlBUqejKA+kHYb2w0PFPN0705r0/hn9MuKqw3Q5nUpZSC789TxwQ7cQpcp/vZku5
+         qRhw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=SaUBas2xojJNtpVmmDXVZGkNTaIpg5Lm10270g6b8fU=;
+        fh=QH5j6iZ1luz0zzWJwY7KHBLY124YOXyZpLboqHbF8Mw=;
+        b=e1/AG70ZuC0mfCJR8oboLUNxitijfN55XoofDvltSEC9pmWE9Y8b9EdjIspQ343j89
+         NWXWsCNJMQ49uPT7w92tE2vO8dAzLKrwsxcQRCMEvhfhFl79w4jc8OI75hYltAjjBumf
+         yhFjI5sMFkiHWLXGHzvRDEyyWItxJywXqWnVKHkHNMtUyxAEbX9AyHfJSdVbekX68zM4
+         DE9e5HJbpM6FeUCRoQh5IlMGZGZgHKXJV6oZgqV9CGnmCWJRupGo0cLkxiyjv06ThP0Y
+         cG+ZDR3RjE6C7zaRTRuKXEJzxU5ZhX9VY9PWHTOd09CH2aDbCTKTfCncPgkWgcTDhMfX
+         xGOQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789250843; x=1789855643; darn=vger.kernel.org;
-        h=content-type:mime-version:references:message-id:in-reply-to:subject
-         :cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Rv9y+bdGfrIVxvXFR+/Wb3gMq5lM5A+QpTE+pSCVxcc=;
-        b=BRtj19Jm3XCuIKfHnRQELeUcgfjAhTyscn/BtZ8qnMuQa6d+j51+unk7VwNUWZf+W+
-         z98zEU9F7KpbgDTYRN9CQG76ae8O5OaHYSxjk2fyPnfLbVVCgQe1GpnB+3BUoQbksT8T
-         Ct0IURHezJufjPd0Q95+dOpvacKfd4kHwQjz7dq9GAhQ0uBfy2adJ9KDnoGBzzNfdyrj
-         jq0Zjy/dG+dlM+L+FKdSBRrDRzQDL8Phc/G6LYFhl2VreS/DYy8FSgxe9JYYpLf1r0iY
-         XAmnSKFNOgWspEwTi5Ob8sPA6HyrYtkrnbUnuucJCLBcHh1ayw8MPm3n1jVkCDl7WW+y
-         rHsA==
+        d=khu.ac.kr; s=google; t=1789250950; x=1789855750; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SaUBas2xojJNtpVmmDXVZGkNTaIpg5Lm10270g6b8fU=;
+        b=I7f0XMvZGa+qEjxCn3GebBbQkARe4SQIXmdtl4eoT5TDnpy537s2xfAc0UiVryAVvD
+         IENjdkxuXxYqJ6vW+uN6y4JhtJUTTFIPR1eQV3B/ajEKLGlsaRmGX66TqYJDod9pur46
+         l/ZeTIUBPgcgocIlaZupi4yAObj+6x1m8R3j4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789250843; x=1789855643;
-        h=content-type:mime-version:references:message-id:in-reply-to:subject
-         :cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Rv9y+bdGfrIVxvXFR+/Wb3gMq5lM5A+QpTE+pSCVxcc=;
-        b=TJu9f6w7wzgcfqOGajWM4IAoZTCaISFYB2OzXX1tcSlbaATFbJab48z9umCno/xn8r
-         lwRX4W5vOm3vJicXnN/E10qFWoN/qbHxV2ev3Ayfk91reLiLzldXBw5UzzM9gayTmX0u
-         PgSDkyU+Va15vz904Ir6mOViUdKClSQpzthx35EZ+FEZejIEb8zblozxO0jAoTdHkGyR
-         WdxBM7ZqCTxkXHhwkA6sRW3omxHleNCpFO7NCkrswkjjLrBDNKmO8mAHW3eUldp1FRGN
-         d4BHrbcF/IMZe4hkMLThVOPKguGTZlY6b0j+0AbLjSC9iqq+XzoOMYo1QF7803h4GEf3
-         qqIw==
-X-Forwarded-Encrypted: i=1; AKwUvBzu4+fi+uYpd/ymZE+tlC5QDsQa8ocLAo7zqesSLd8V54TEC9bAKBhskTeXqJ6xkDJlTAxWFPbtNaTb7uQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++ki2d6TFfLjY/GWVTgQ1/V3HL4rK2X3oXT6PlSvFOEQoEQrm8vI
-	NYluXRhQt25WEFieDweZWSq93YyfmbYxZjHDpvdJHBHGVdMEfAGwtSXUeObXMpZQpg==
-X-Gm-Gg: AYBFou03Fmy1PLYDTU49QGUpX7xZQ4Z8cyP4ZgOWG5y27PLaYdwHBciAw9/uvBzT11J
-	D+K8kC8OyWYnm7WBERcguLEtnVEfSG76GUavho5lNv0ok1dHGasOjASQJDQwK/qLArz4gG5O2Yg
-	2AZ85f95/ay2z+MwZAhr4Djhr6GXdFaEKRwlClqeHkcaZyoO0sg5KIvGG54AtCnHtTo96FOnc4O
-	1D3gd8I91RFrVRbX9iYyVx7Cqx0K+JlVcfQOtFUhcsafdJ/ET3BpKFU827zoo2alelgYlBU8XJM
-	Zio//RmRMrH+r1CJ5xbXR2SCufr+engAv5c1Q4A16I5s7zUy9rS7wCbom7iGriNk6X1VerWCASB
-	Dl165hKasPAizJ2/RoDa6TGHIpTHxHFJ+ghN09tTk86/75V7M1X8+/EMj7dlOlkAu4TvzFYhR5y
-	ih13CGTrDleCtNQJgvvL2ayPJuwaa6Iz522BXUEIQfgJd5eYcnhGAntA0Llsg7m7hsprKtILbSH
-	ZeddExCLcFCfdVaT+91
-X-Received: by 2002:a05:6000:2f8a:b0:486:e920:6726 with SMTP id ffacd0b85a97d-486f6d5956dmr4081301f8f.51.1789250842159;
-        Sat, 12 Sep 2026 15:07:22 -0700 (PDT)
-Received: from darker.lan (104.157.125.91.dyn.plus.net. [91.125.157.104])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb33ee5csm15513089f8f.20.2026.09.12.15.07.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 12 Sep 2026 15:07:20 -0700 (PDT)
-Date: Sat, 12 Sep 2026 15:07:18 -0700 (PDT)
-From: Hugh Dickins <hughd@google.com>
-To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-cc: Hugh Dickins <hughd@google.com>, Andrew Morton <akpm@linux-foundation.org>, 
-    Ackerley Tng <ackerleytng@google.com>, 
-    Alexander Viro <viro@zeniv.linux.org.uk>, Alexandre Ghiti <alex@ghiti.fr>, 
-    Baolin Wang <baolin.wang@linux.alibaba.com>, 
-    Barry Song <baohua@kernel.org>, Binbin Wu <binbin.wu@linux.intel.com>, 
-    Christian Brauner <brauner@kernel.org>, Christoph Hellwig <hch@lst.de>, 
-    Christoph Lameter <cl@gentwo.org>, 
-    Claudio Imbrenda <imbrenda@linux.ibm.com>, 
-    David Hildenbrand <david@kernel.org>, JP Kobryn <jp.kobryn@linux.dev>, 
-    Jan Kara <jack@suse.cz>, Jens Axboe <axboe@kernel.dk>, 
-    Johannes Weiner <hannes@cmpxchg.org>, Kairui Song <ryncsn@gmail.com>, 
-    Kiryl Shutsemau <kas@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-    Leonardo Bras <leobras.c@gmail.com>, Lorenzo Stoakes <ljs@kernel.org>, 
-    Marcelo Tosatti <mtosatti@redhat.com>, 
-    Matthew Wilcox <willy@infradead.org>, 
-    Mel Gorman <mgorman@techsingularity.net>, 
-    Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@suse.com>, 
-    Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-    Oscar Salvador <osalvador@suse.de>, Peter Zijlstra <peterz@infradead.org>, 
-    Qi Zheng <qi.zheng@linux.dev>, Rik van Riel <riel@surriel.com>, 
-    Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
-    Shakeel Butt <shakeel.butt@linux.dev>, 
-    Suren Baghdasaryan <surenb@google.com>, 
-    Yang Shi <yang@os.amperecomputing.com>, Yu Zhao <yuzhao@google.com>, 
-    Zach O'Keefe <zokeefe@google.com>, Zi Yan <ziy@nvidia.com>, 
-    linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-    linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [PATCH v2 06/26] mm/fbatch: fbatch_drain_lazyfree(onstack fbatch)
- before ptl unlock
-In-Reply-To: <ac4fedf1-168f-4166-8059-353f2cbf04ae@kernel.org>
-Message-ID: <9ca87753-6851-7b54-4305-75d5319b069d@google.com>
-References: <e28f9a94-4339-f8ac-8301-6be3c9b5b7ce@google.com> <17e1a6c3-525b-1cc3-0731-349f0850e3ea@google.com> <ac4fedf1-168f-4166-8059-353f2cbf04ae@kernel.org>
+        d=1e100.net; s=20251104; t=1789250950; x=1789855750;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=SaUBas2xojJNtpVmmDXVZGkNTaIpg5Lm10270g6b8fU=;
+        b=DjQ1wb5bgVk4Qluy20+MbUCCFDtTwa0utS7TXyu97NV6mrfqIyItMTNqOr90/ju9Ml
+         iOkz+D7S71hd+8slPrSAFJ8gkfSsn2N8hBqiSvhFT+3GTNJC6AvSH30kIpUWZnNNgzZZ
+         w6f09/VAgtC9zULPdrVrtCfc4HaRkHMfgbyXzhLJqDCrV11YeE0EvkhewC/BXRhwe4NW
+         FcJkbfeWlHZ43tdrBw2yPO3OSARPYE+W884W1B5FHk4el+k1yPHRbANTpW6ZRrEMGqdj
+         kCcc8rG7lW8xXtCO//gUB3SvVlry3ve+UI50Xzss2P45+vIS8EtyOALJUiv/Zo8RfX2t
+         Z7GQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxNwR9mE0SptQoXTmJNpJ9aAKMV92nsIit/6t7DdqmYn+JOiu0bcgGKs1jeOXs4NKILX3fqQAJemyfff8g=@vger.kernel.org
+X-Gm-Message-State: AFuF++mk9JumPpBSfCeYDS7r7j7dOJn5E7sIoEWr8bKh1kWWTxtT+ybk
+	9OTTx0ViJFJsIoonHf+HTwXvK/bFHioYVmxKoc110o9sqj+jG8BLT2baZh2+V1iKP61aLD6yJSx
+	RCPlrae1NwgTX7NFXTW/1lWquNfAI0JnF+lkbQihmdA==
+X-Gm-Gg: AYBFou3yCzvNAn0hfwefuQZ2rePDcLJCD+sGjc+NlK3Jui82MUVjC5oA1ouhNMS8Sxt
+	xDeWo+Wn7IgqDG0hn3yXvGvEj7kP/cpERX+qIrzjujXWrNv+7IQW+hk9wTspHa5a6220rbj1gZf
+	DGPy1HMQwiWi7QI5ZYfzUrMwN1vHsn/GSpyaXJIz7EpXPciEd9bLnhadNvsOc619gUyiMQHRXif
+	xOSevRr0mxstPyoL+BLZ/wqzOgeEhomvr0Mv0ootfX5Gtjbpx/cI67s8c18NRWRZwF1YGeEnC2l
+	F4aHVHOK8a7AZShn8phw/ffZ9hlAxbpbsA0Agjcc49T9QG5zGm4=
+X-Received: by 2002:a05:6512:b87:b0:5b5:e8af:a5f2 with SMTP id
+ 2adb3069b0e04-5b8a02cccf0mr2106901e87.20.1789250949819; Sat, 12 Sep 2026
+ 15:09:09 -0700 (PDT)
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Sat, 12 Sep 2026 15:09:09 -0700
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Sat, 12 Sep 2026 17:08:17 -0500
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Sat, 12 Sep 2026 17:39:07 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+From: kimwooseok <5mghybrid@khu.ac.kr>
+Date: Sat, 12 Sep 2026 15:09:09 -0700
+X-Gm-Features: AcwNN1WJjBQEbc375fUfyTjRKYGITxb5OsGfVxMtKIzLK8nMKDyxANUQAsZFX4I
+Message-ID: <CAH1Bc_yJ1e_nHk9tP2qP_4D8MHEve1R2EF5cYCEXRwc+1xVAxw@mail.gmail.com>
+Subject: [PATCH RESEND wireless 0/4] wifi: rtl8xxxu: keep RX requests
+ available across transient errors
+To: linux-wireless@vger.kernel.org
+Cc: Jes.Sorensen@gmail.com, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, 9 Sep 2026, Vlastimil Babka (SUSE) wrote:
-> On 9/9/26 11:53, Hugh Dickins wrote:
-> > Re-enable lazyfree batching for MADV_FREE. But it's not safe now to leave
-> > potentially stale (then reused) folios in a per-cpu fbatch for lazyfree.
-> > Instead, madvise_free_pte_range() keep an fbatch on its stack, and drain
-> > it each time before dropping pagetable lock, while the folios are secure.
-> > 
-> > Ignore folio_may_be_lru_cached() and lru_cache_disabled(): limitations
-> > irrelevant to this fbatch drained under spinlock (even if RT); though
-> > in practice madvise_free_huge_pmd() does have to drain every time.
-> > 
-> > Signed-off-by: Hugh Dickins <hughd@google.com>
-> 
-> It seems correct to me, so:
-> 
-> Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+This resends the same patches after line wrapping damaged the previous
+posting and prevented it from being applied. There are no code changes.
 
-Thanks.
+Previous posting:
+https://lore.kernel.org/linux-wireless/CAH1Bc_wBUmmNyzF3c2H1aFBRBbAPSw0hR=1MnPOAcCXypVL_Dg@mail.gmail.com/
 
-> 
-> Might be that something regresses performance though. Guess we'll see.
-> 
-> Also seems to me that if this patch was preparatory, the batching wouldn't
-> have to be temporarily disabled. Doesn't matter ultimately though.
+rtl8xxxu maintains a pool of 32 RX URBs. Successful completions return
+their URBs to a pending list and schedule the RX worker when more than
+eight URBs are waiting. The worker allocates fresh receive buffers and
+resubmits the queued URBs in a batch.
 
-That's true, the order of patches does rather reflect the order in
-which I got to think about things - but I thought it might be easiest
-to review in this way too. I was anxious to get to the core patch (04/26)
-as quickly as possible, to find out whether the idea would fly at all;
-I could see lazyfree was a problem, but wanted to put off its solution.
+Completion errors free the affected URBs, reducing the pool. Once eight
+or fewer survive, their completions can leave all remaining requests on
+the pending list without reaching the worker scheduling threshold. If no
+request is in flight and no worker is pending or running, nothing triggers
+further submissions, so RX remains stalled after the errors stop.
 
-Hugh
+Temporary submission failures can leave requests in the same state, while
+retaining an skb that the next submission attempt overwrites.
+
+This series fixes buffer ownership on failed submission, unwinds
+incomplete startup, and preserves requests through one delayed retry path.
+The retry worker schedules submission even for a single request. A
+separate error list provides a 100 ms batch delay from the first error
+while preserving normal successful RX batching. Shutdown drains retry
+work, submission work and active requests in that order.
+
+Completion retries cover EPROTO, EILSEQ, ETIME, EOVERFLOW, ECOMM and ENOSR;
+ENOMEM/EAGAIN from startup or worker submission uses the same retry path.
+Cancellation and removal keep their release behavior. EPIPE endpoint-halt
+recovery is outside this series.
+
+With 24 injected EPROTO completions, the original driver stopped at eight
+pending requests and zero in flight for about 30 seconds. Under the same
+error budget, the patched driver retained all 32 requests and resumed RX
+without restarting the interface.
+
+Validation:
+- ARM64 QEMU KUnit: 11/11 cases passed, covering the actual RX helpers,
+  worker, buffer ownership, startup failures and shutdown.
+- RTL8192EU on Raspberry Pi, kernel 6.18.46-thesis-test-rt+: 13/13 cases
+  passed using a compatibility backport. The lab fixture substitutes
+  completion statuses and injects submission and allocation failures.
+  Each of the six completion statuses recovered after 32 completion
+  errors followed by 96 submission failures. Error-window, pending-retry
+  stop, startup failure and clean RX/down-up cases also passed.
+- W=1 ARM64 allmodconfig and allyesconfig builds passed with incremental
+  caches; the changed driver and KUnit objects rebuilt in both.
+  Sparse added no diagnostics relative to baseline.
+- Each intermediate production commit compiled, and sequential patch
+  application reproduced the corresponding source trees.
+
+kimwooseok (4):
+  wifi: rtl8xxxu: free RX skb when URB submission fails
+  wifi: rtl8xxxu: unwind incomplete receive startup
+  wifi: rtl8xxxu: preserve RX requests across recoverable transfer
+    errors
+  wifi: rtl8xxxu: test RX ownership and recovery across failures
+
+ .../wireless/realtek/rtl8xxxu/.kunitconfig    |  16 +
+ drivers/net/wireless/realtek/rtl8xxxu/Kconfig |  11 +
+ .../net/wireless/realtek/rtl8xxxu/Makefile    |   3 +
+ drivers/net/wireless/realtek/rtl8xxxu/core.c  | 236 +++++++--
+ .../net/wireless/realtek/rtl8xxxu/rtl8xxxu.h  |   3 +
+ .../net/wireless/realtek/rtl8xxxu/rx-test.c   | 461 ++++++++++++++++++
+ .../net/wireless/realtek/rtl8xxxu/rx-test.h   |  27 +
+ 7 files changed, 707 insertions(+), 50 deletions(-)
+ create mode 100644 drivers/net/wireless/realtek/rtl8xxxu/.kunitconfig
+ create mode 100644 drivers/net/wireless/realtek/rtl8xxxu/rx-test.c
+ create mode 100644 drivers/net/wireless/realtek/rtl8xxxu/rx-test.h
+
+
+base-commit: f71dd599a98182d6bc34dce39977f928068ecd64
+-- 
+2.48.1
