@@ -1,150 +1,139 @@
-Received: from va-2-46.ptr.blmpb.com (va-2-46.ptr.blmpb.com [209.127.231.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA40438DC71
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 07:48:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A0A729B799;
+	Sat, 12 Sep 2026 07:48:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789199298; cv=none; b=Q8wYkZEzp/5wfCV7JmJbp8wPztLeT9j568bTn3m8EEKklNCRAhyj0j3iYvd4YJauop9iEcgD7devHE6yxeSr8MuN+Y7LrPHiNK/6j5wwilvw0DqfS/A7VopQ0CDmoNDdY3K+HleZxU/zcTp4NKizuxh1TyFQmzD63pdUINOSkIk=
+	t=1789199309; cv=none; b=IRiPFi5/iMzTHskolpBl8h1smf1lhJVpZSoVz4m1qn74LY0kRADm7v6wxN9/VwtvJq8eiqXmodubyjJTIqUTMZppG2oVoyYvfhnQqQ8ratIITNUQl/BA45s9kUOfDHo7n2/GBNt1Y0PscFoZdn/jypQ2N6RpYJvvXi+L7rbJU2E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789199298; c=relaxed/simple;
-	bh=j7DPIT46L3jwPBs/m4i9dXxYp91/V5WPUKCQ73DO1cs=;
-	h=Subject:In-Reply-To:From:Mime-Version:Message-Id:References:Date:
-	 To:Cc:Content-Type; b=CqO5zhTSyvtxIW5Z77C96m47XfnZG5CHGJOTWOI64byb0TiF6LvTGib6l/9zkHMK4Oqx887aNs4E6Mx/JvtKQs7YqQNnSCEiW35LHRH8Brx0XWaGRuuq5W4oYUJZueqk9fvZjBJ4SC/l+igj9CWjRa8fA6VBBqGXLtADIDGfceA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io; spf=pass smtp.mailfrom=fygo.io; dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b=NikpzdR0; arc=none smtp.client-ip=209.127.231.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
+	s=arc-20240116; t=1789199309; c=relaxed/simple;
+	bh=A7L0tDKFmrvl30pQk6RU8/YxA2ciMANb9L3sNLliSog=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RxABpFozEByq7dWQwosT6yuyxtT2w8i8bajHxDdBbvgPaIUTJ59Pqv3o+EzKkGoVs94/fCrJi0j5rgzDLlpeYiQT2TlRyfmdaj7T3nBSKrJlUqILCgPt0fNe3P6rqs85TWA3lF50+9CSvZ0UKBK0J4jWuNQlrIZW1YaWMnnvqdU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=ElveQm2y; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b="NikpzdR0"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1789199285;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=1VyD7DaC6wasXE9S7pArhsSgm3Sx7MaWSQX/kiC/gJ4=;
- b=NikpzdR09/F8jjEurW0CDFTH6PkpC4QLjhIWtGTyY2EGlJjBO5bIcO6Bd2yb2gL4q7SfCQ
- xljC87r0sRehHc+iFA1dUhhc6f4MJjddtcf1o9sOkPRHza6hi9M/IYpH29fwaVOtAvrpHK
- srW+p7PHZlNXRg9cPxBtjTU1lwoikkIzQMcx3y91mp2brO1uxFCkEstSTb7jhX0f97McF0
- F9ALnFYNx7/MpiWh/ZKDPO/5yFLiz/EyoUmb04lRICLngIJWhpFRMJT0ngOE7LTovgQ9pO
- aulCGlzLnrh63Ui0JyG9cZKR2LqMMbCUD6NOAKaJCeZlW4HS5+Nlxvs0/d2HIA==
-Subject: Re: [PATCH] md/raid5: don't BUG() on an inconsistent reshape state from the superblock
-In-Reply-To: <20260910131103.988-1-yogeshgaur.83@gmail.com>
-Received: from [192.168.1.104] ([39.182.0.161]) by smtp.larksuite.com with ESMTPS; Sat, 12 Sep 2026 07:48:04 +0000
-From: "yu kuai" <yukuai@fygo.io>
-User-Agent: Mozilla Thunderbird
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="ElveQm2y"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id AB363103602;
+	Sat, 12 Sep 2026 09:42:06 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1789198927;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=QWa1IkWKPTCdseDREpcvpcw4PGH+ZbLXJHyJCDrt8b8=;
+	b=ElveQm2yVIihXNcaF17U19GIAdSa/BiVaRE03FrRG7IXfCOWQfK6vFOSI7feuIlpsuT29k
+	jlC+E2IQfjomVP/VslABgEAOBeWtCEjlQs+T+fnPM/mJdiBLWOjh7v4NVeQXdldJzmFqso
+	jRpvpN8kcMNRpRBla9B+kjcGk7nROg9lDWgEU9iGkc178f2FppAqjlJdkvroPHa2VwF+W5
+	eGyXHcna9jfROEzYvxUQAep97fpJkJ3kNYVjMBoJtqMsis08Oc5gdqZ6Tw1BYlZTZHrcoo
+	XzBKQBibCYOqz3xM3jq8YmvfmyNMz9HUGFKBhcS0AAe+p1zhK0qM5a+m8GG1ng==
+Message-ID: <ef8a31e2-dd1e-f37d-7747-e4fe0db4c7cb@nabladev.com>
+Date: Sat, 12 Sep 2026 09:41:13 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Message-Id: <15056940-2572-4395-a72b-8cba7d8d11b7@fygo.io>
-X-Original-From: yu kuai <yukuai@fygo.io>
-References: <20260910131103.988-1-yogeshgaur.83@gmail.com>
-X-Lms-Return-Path: <lba+26aa503b4+1d33de+vger.kernel.org+yukuai@fygo.io>
-Date: Sat, 12 Sep 2026 15:48:00 +0800
-To: "Yogesh Gaur" <yogeshgaur.83@gmail.com>, "Song Liu" <song@kernel.org>, 
-	"yu kuai" <yukuai@fygo.io>
-Cc: "Li Nan" <magiclinan@didiglobal.com>, "Xiao Ni" <xiao@kernel.org>, 
-	<linux-raid@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
-	<syzbot+1f5a7de91d547763f4c8@syzkaller.appspotmail.com>
-Content-Type: text/plain; charset=UTF-8
-Reply-To: yukuai@fygo.io
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.2.0
+Subject: Re: [PATCH v2 0/3] rtc: rs5c372: add Ricoh R2223x support
+Content-Language: en-US
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-kernel@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+ Rob Herring <robh@kernel.org>, linux-rtc@vger.kernel.org
+References: <20260825071927.4090460-1-hs@nabladev.com>
+From: Heiko Schocher <hs@nabladev.com>
+In-Reply-To: <20260825071927.4090460-1-hs@nabladev.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-=E5=9C=A8 2026/9/10 21:11, Yogesh Gaur =E5=86=99=E9=81=93:
+Hi All,
 
-> raid5_run() branches on mddev->reshape_position. When it is MaxSector --
->
-> no reshape in progress -- the else branch asserts that nothing else
->
-> describes one:
->
->
->
-> 	BUG_ON(mddev->level !=3D mddev->new_level);
->
-> 	BUG_ON(mddev->layout !=3D mddev->new_layout);
->
-> 	BUG_ON(mddev->chunk_sectors !=3D mddev->new_chunk_sectors);
->
-> 	BUG_ON(mddev->delta_disks !=3D 0);
->
->
->
-> Nothing enforces that invariant. Both superblock validators copy the
->
-> reshape fields straight off disk without cross-checking them against
->
-> each other: super_1_validate() takes reshape_position, delta_disks,
->
-> new_level, new_layout and new_chunk from the superblock whenever
->
-> MD_FEATURE_RESHAPE_ACTIVE is set, and super_90_validate() does the same
->
-> for minor version 91. A superblock that sets the reshape feature while
->
-> leaving reshape_position at the MaxSector sentinel therefore reaches the
->
-> else branch with a non-zero delta_disks, and assembling the array takes
->
-> the machine down:
->
->
->
->    kernel BUG at drivers/md/raid5.c:8117!
->
->    Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
->
->    RIP: 0010:raid5_run+0x11a7/0x1670 drivers/md/raid5.c:8117
->
->    Call Trace:
->
->     md_run+0xc2f/0x2510 drivers/md/md.c:6779
->
->     do_md_run+0x36/0x660 drivers/md/md.c:6880
->
->     array_state_store+0x9c5/0xcf0 drivers/md/md.c:4765
->
->     md_attr_store+0x1c5/0x330 drivers/md/md.c:6158
->
->     sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
->
->     kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
->
->
->
-> This is reachable by anyone who can present an md superblock, so BUG()
->
-> is the wrong response. Refuse to start the array instead, the way the
->
-> reshape_position !=3D MaxSector branch a few lines above already refuses =
-a
->
-> reshape it cannot resume. Nothing has been allocated at this point --
->
-> the journal-and-bitmap check just above returns -EINVAL the same way --
->
-> so there is nothing to unwind.
->
->
->
-> Reported-by:syzbot+1f5a7de91d547763f4c8@syzkaller.appspotmail.com
->
-> Closes:https://syzkaller.appspot.com/bug?extid=3D1f5a7de91d547763f4c8
->
-> Fixes: 91adb56473fe ("md/raid5: refactor raid5 "run"")
->
-> Assisted-by: LLM
->
-> Signed-off-by: Yogesh Gaur<yogeshgaur.83@gmail.com>
->
+On 25.08.26 09:19, Heiko Schocher wrote:
+> The Ricoh R2223x is an I2C RTC from the same family as the r2025sd and
+> r2221tl which the rtc-rs5c372 already supports. It shares the R2x2x
+> control register layout, so only the new type must be added to the driver.
+> 
+> The ricoh R2223x drives a clock output and offers an eco mode that
+> lowers its current consumption while running from the backup supply.
+> 
+> The trivial-rtc binding does not cover this, so give the device its
+> own binding in patch 1. Patch 2 adds the R2223x to the rs5c372 rtc
+> driver, and patch 3 implements the eco-mode setting.
+> 
+> v2 answers the sashiko review of v1 and a local run of the same review
+> prompts. This resulted in 2 changes:
+> 
+> Patch 2 now handles the new type in rs5c372_ioctl(), where RTC_VL_READ
+> read CTRL2 bit 4 as XSTP although the R2x2x parts have PON there and
+> RTC_VL_CLR did nothing at all, and in the two offset helpers, where the
+> R2223x fell back to the coarse trim resolution.
+> 
+> Patch 3 now applies the device tree setting in both directions. V1 only
+> set the eco bit before, so a board that dropped the property kept running
+> in eco mode, because CTRL2 is backed by the backup supply.
+> 
+> Not touched sashiko reviews (some from local run):
+> 
+> - #clock-cells stays out of the required list. Requiring it would
+>    reject every node that does not use the clock output; the other
+>    discrete I2C RTC bindings with a clock output keep it optional too.
+>    Also the clock output can be disabled per hardware pin CLKC. So
+>    #clock-cells is optional.
+> 
+>    https://sashiko.dev/#/patchset/20260824110452.4038870-1-hs@nabladev.com?part=1
+> 
+> - additionalProperties: false together with $ref: rtc.yaml# means the
+>    properties from rtc.yaml are not allowed here unless they are listed.
+>    Only start-year is, the others can be added once a board needs them.
+>    microcrystal,rv3032.yaml is built the same way.
+> 
+> - ricoh,eco-mode is a vendor boolean. Whether the RTC may run in eco
+>    mode depends on the backup cell the board is fitted with, so it
+>    describes the board and not a runtime policy.
+> 
+> Changes in v2:
+> - Added Reviewed-by from Conor, no code change in patch 1
+> - Fixed the sashiko review of v1: handle the new type in
+>    rs5c372_ioctl(), rs5c372_read_offset() and rs5c372_set_offset()
+>    https://sashiko.dev/#/patchset/20260824110452.4038870-1-hs@nabladev.com?part=2
+> - Added sashiko review for patch 3 in this patch, as it fits better here
+>    https://sashiko.dev/#/patchset/20260824110452.4038870-1-hs@nabladev.com?part=3
+> - Fixed results of a local run of the sashiko review prompts: apply the
+>    device tree setting in both directions. v1 only set the eco bit, so
+>    the mode stayed on when a board dropped the property.
+> - Leave rs5c372_probe() through goto exit like its other error paths,
+>    instead of returning directly.
+> 
+> Heiko Schocher (3):
+>    dt-bindings: rtc: add ricoh,r2223x binding
+>    rtc: rs5c372: add support for Ricoh R2223x
+>    rtc: rs5c372: support eco mode on R2223x
+> 
+>   .../devicetree/bindings/rtc/ricoh,r2223x.yaml | 58 +++++++++++++++++++
+>   drivers/rtc/rtc-rs5c372.c                     | 52 ++++++++++++++++-
+>   2 files changed, 107 insertions(+), 3 deletions(-)
+>   create mode 100644 Documentation/devicetree/bindings/rtc/ricoh,r2223x.yaml
+> 
 > ---
->
->   drivers/md/raid5.c | 16 +++++++++++-----
->
->   1 file changed, 11 insertions(+), 5 deletions(-)
-Applied to md-7.3
+> base-commit: 2709dd5ae32f0828f386327c76bba9f39f63a1c6
+> 
 
---=20
-Thanks,
-Kuai
+gentle ping.
+
+Any comments to this series?
+
+Thanks!
+
+bye,
+Heiko
+-- 
+Nabla Software Engineering
+HRB 40522 Augsburg
+Phone: +49 821 45592596
+E-Mail: office@nabladev.com
+Geschäftsführer : Stefano Babic
