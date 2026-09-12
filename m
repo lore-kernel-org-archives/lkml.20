@@ -1,151 +1,184 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E038B3FD96B
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 09:04:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C96138736C
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 09:09:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789203890; cv=none; b=ZloIJD5hGmdZj9S2lmJDR/c8VWT2vNcvku14MqrPEGgSSDaY5FDS/GKyEGWz0d2gaV95WS1SxZzPj4Cl0F9cqC4WptLlF8EfhnPsFKPccL5wAKW24/+4VO/7ck6JmSqfsBOPQ2e0tbUal0BFhkT2wBjjKGBUR7seHf6pWcHo88A=
+	t=1789204195; cv=none; b=DCsiQxnKJCrOpjcY9wFMZdCNeLAR+0o4iF8R52Na17T1KCRIX2V2jtI4wEsxMJOPwvRhTsYOgppkZiaxO2aO5apT2SeCB5v/UjPzBkMzvUIIwjGGOBBTgz4fpA28wRW2indzREuwWsC31Kxi0CavjNmrZbGnwiYeLrDRHShQT6I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789203890; c=relaxed/simple;
-	bh=T2GpveXf86xU4PJdOWIIi5lBw5gHgOvqTYsANeAQESM=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=PPOz0CtlseDCamN0l0FR+esBTk3gRqCWQpK/vblQaB791FUKAiHLUi6HS0y2G7GwCBN6PgbSjjkrtR401EUazCBdzLE78THc6HNuGhanqVIeZ2mt/kbUSge+do03rMzydqEvDXNT7fBmnPiVFDtz4g0Rbd8c6JrTLpgzx6f/cXQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kqbLTT9J; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789204195; c=relaxed/simple;
+	bh=Udoo0U8Eun6RScJdgOh2tTlkvguARmiSlB0JzgpGvvE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=l9kz1M45YI35PWHOhgC8TlEoEH8qBfgKK6pM1ZRCEKRg5wmu3ZVfZtx002exKbhv5QpRJR0dh25A2bPuhefGJurPNVl2ccoW8kb/K1Khmyi9IzaWekoL8mS8JrP/DNoLoi+B6dYiO/MdneKvJULbM5k1+Qn3aCytZBb+4ds5KTg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=A36Rsk1/; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=tjCJ44WR; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kqbLTT9J"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d8fb334ddcso7092875ad.0
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 02:04:48 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="A36Rsk1/";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="tjCJ44WR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789204192;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=2fTpUU0/C+r9b31rC+Uhm2IpvHL/cIjBJckoMkgqczM=;
+	b=A36Rsk1/JGGPKhqUdkP2Uzb4X8kroFJyAcjL3JxOwzivEpPtDlCP+nSJ7VBC/8ec7Y9H2W
+	CDeUtp1448Stg6uCGlbG7ZgmoWG+m8zKRGllb+kGWs0c+IWzYlrSiZAv0lStp5YHmBBwsa
+	DSAArsG8P2ke6W7RIQPr7MTTAN0W9YY=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-284-z8NB_SnkOcKIoSY5vwJtoQ-1; Sat, 12 Sep 2026 05:09:50 -0400
+X-MC-Unique: z8NB_SnkOcKIoSY5vwJtoQ-1
+X-Mimecast-MFC-AGG-ID: z8NB_SnkOcKIoSY5vwJtoQ_1789204190
+Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-485afdd5079so1404267f8f.1
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 02:09:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789203888; x=1789808688; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=i5SaSEoCo9RleDHysc9IxVyTl6w7IzP28iEqT/KO1Rk=;
-        b=kqbLTT9JTLyQIoa+DfxYHVB3Jc2De4iPTrYPsf9c0C3rFuVlfoCC5MP1EO/hlV5U3Q
-         Gsx9UTTI8fGOT0rMXX0VWCgon5dKgM8g1W0slKMn56QLJCaypjrPZS09okkb6P9AkpnY
-         lE1Oa1o9KQNQQz1KfIO1SiWUYlxhAv2MEq6EwU6qDEhRK4OskN7jmm6+l+6dZLCuL7fn
-         jk081qsUNRpqCykNU2Tq0e96fLELWoebdBgIkSsSLGgpqrqYB9AIK+hJKP05S8quOzGO
-         szQsJ686ubH2H8cLlcItJw12GHe5u9GsbxkWaxg4HRcUggL2Iyrn2uPA7MNJQNihm/t0
-         PRdw==
+        d=redhat.com; s=google; t=1789204189; x=1789808989; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2fTpUU0/C+r9b31rC+Uhm2IpvHL/cIjBJckoMkgqczM=;
+        b=tjCJ44WRixS3c8wTvizTp2GmGaw6sxq2Adp4xYIfq2XzbTwj4hYNLotvo/ee9Ry1CK
+         AKsv+XZQKkNwOnmPZK5t0sg2+uX7kDQkLIEwf3GZw0Cm6Y7bOeLHQPel+AIUBiqIoVoX
+         SgVzQ4waqpFCeWFjKOQdA1/GUCNTP+M1OCM7anF3zbNacoATipImGmOLL0QpaX0NyCuM
+         RQWmo/qSWrt4KnUrB8BrKhdQkVadjuViCyuHOfS0RNv9wkt5FewICpfegdsk6xBhj6Mm
+         Zj/H32a/zaUo3vstzCcf3AXl+F7qxJAwA90k/+dFXRkO+MS39KjcRyAU6g5hjlpWGJ+N
+         sUWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789203888; x=1789808688;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=i5SaSEoCo9RleDHysc9IxVyTl6w7IzP28iEqT/KO1Rk=;
-        b=FLhczHJX5ouLvc+13WxGX/c4K0sV+O1Lqc8QeACI3Lury5xHLkV0Qqdhr46pE9RlYe
-         QB4Th6x+dnf3njLmiNeR2kcUZ8jYl60CRAm0pp5UO7RrSMzUSVQQyla6SYYg7y8tgJcX
-         j/CIpjSQnAsDX/hDb3QNMk+OrLzjd3fsxQ/T4JULjaHBCRDnm7SpuwZCZrrRlJAWfaYE
-         9k/jtn+Cz1eobfy1liLwGZ0YDTop712k8ObS4XCIHOnBZYWWFZ19+18WaabAsslSbCXV
-         KjS5fb48gNWd9EFm7DsFzyZC43XfAJGBm42LFzhBAYu4V3isHGJq4s8jpm4gA8WDKIhf
-         4Wbg==
-X-Forwarded-Encrypted: i=1; AKwUvBxJOiXeSn16QQVkifEWf8+Dcc/byoiRpPQ++kWEJYgT8Spi9L3/No1D8AvB6lRqChrN55z2lfiL1UBLfXg=@vger.kernel.org
-X-Gm-Message-State: AFuF++ldBrw3JUnU8+n36XH7m1+kGt8jx7G3G9AlzdV51lP4a4nOjDiH
-	1zlX6VbAm+0SUK1pjiDUCd3ciZCx3ksT6CLQqGiOxkM2J4WI2lYzxA58
-X-Gm-Gg: AYBFou1bEVwbJ7pYLrbKnGmrmtUrch10WSVWYo03ffP6sEv8/DkEWnP9xMPPV6qz43w
-	5dj8FIHSUlw5M4vzz/uswuVLzrRGDdCsMDUEkBIHtbmF+VZf4czr7zWQO2uf0RLYWNKF3DCGp53
-	+eAc7wLzLb9LokKN3f+j/W3az4HBtOY3+CIjD17/oMgL5XO58sHLAzZCu9nxkfZCepgkwkYHjYU
-	jS5PIWJJFwtJ31uO/jBxl2eK/Ekc5WJTx4fTpqjnskKttqkrxS85fC/vAGdj+72oGB6oFPLl86V
-	3PmQJ5EolG/MF75QbWPFnOvKCNMd/+2mRq7g2XvuskjHhyjQw6ksFMUAFutFXd+AoEmjEcGIpvY
-	ZPW75p6+myV+MQzGPOn6QUU1UoK19JuBCesyUGGbosZpdR+DwNimhWAPyXjjYWMljGratXKgqL+
-	GrtzXp9QmSXenkhM75PBH+orFGNbaFnFNM4SHMH+EhjccLkbFXoLTLxzbu/srYXNUhGPclf9Q=
-X-Received: by 2002:a17:90b:5246:b0:398:d2a0:87ff with SMTP id 98e67ed59e1d1-39d9bc67660mr14176109a91.1.1789203888155;
-        Sat, 12 Sep 2026 02:04:48 -0700 (PDT)
-Received: from gmail.com ([188.253.12.32])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4f7390csm12345338eec.26.2026.09.12.02.04.43
+        d=1e100.net; s=20251104; t=1789204189; x=1789808989;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2fTpUU0/C+r9b31rC+Uhm2IpvHL/cIjBJckoMkgqczM=;
+        b=jBbCmT+GbM99/QVh8Mho1+I+S36kOoroBh28JWgs3SClAaHSFZ/w1UxRksViwfMy5V
+         dmW3rmRZyG0EDu97ZTkGkH4hhmPwxMvqV7YCVSsvsEnTyiI1tlDctMaUJ4TvREBh0yY5
+         w4vIL8V0ptcb52axHD/mVOGqFt/HCjCTdu+N0mmkZrkgfEYaHAdX00JLKOQUoJTqFjzH
+         UBS3SDu0+zoP3W3nr2FIiKCyaMKKyQK3WLPw0xl0ELi5BO1WvqZgwF+8Y/OGeZOuF3ur
+         CjpUY1WsWdFScXDBD+KWXzsndcoVIR/HuvY8Opu8Ol/u5Obq0PFfjP7g4Yu0qo3hNItI
+         RehQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzgPKFYA3KhZtTQu9Pt50mRrlZW9XkAtWN+0jM/UXxCH1p/iUavoGzLftNOlht2POJI2CXjbixFulSNRjE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nv774NILNOaB4jxJlYZnh9dQmcEp0yebS8vpQ9rOX1DyBzMlco
+	1wUPR2xsqknaIkAvZ9/vJ5GFaKJAdfX2jYqXiY6zEKcxv68jxDWgKgWT/G+TKNv2MreSMXhIQUw
+	AU85TARceCkmkgrUawkYMj23S54pHYA8aJeisfHoD/1YfTRAg6euyHpGeRjsSm+qpcA==
+X-Gm-Gg: AYBFou2omEGWpbpoy1Zy1P9ZmG3NDCW2aV57QmACp2EmF6baNv6mraJsBTWZisoTrPK
+	adJYwsEG17njgda8+eGI4eyaZ0MI34ZsQBia7z/7eOVzC0nwMg06axq41poUUSgOFqI4PCL5rEO
+	W9f/gpVTI5iRrq/YCpvA4hU1xBPVp4C6Msp/hw5YRNWanuGzKrK9XQ7KaWVCaO1Px0YA8xGcgRy
+	4o1lXZ0fxfGfQkdb6ekZF7vs5B84helj1wIMhv3YXNLVt17yfxlrsrtJ/0uoo+DXUkgnYxTiF/y
+	zfBt319WkWQJ7/velMoYSXVmxXEOuBmy7jPO1+l7+nexIHtultbnPh9dtmeHXAiTIeI=
+X-Received: by 2002:a05:6000:4008:b0:485:8c16:a32d with SMTP id ffacd0b85a97d-486eb329a0amr8768537f8f.34.1789204189459;
+        Sat, 12 Sep 2026 02:09:49 -0700 (PDT)
+X-Received: by 2002:a05:6000:4008:b0:485:8c16:a32d with SMTP id ffacd0b85a97d-486eb329a0amr8768508f8f.34.1789204188889;
+        Sat, 12 Sep 2026 02:09:48 -0700 (PDT)
+Received: from redhat.com ([147.235.223.59])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb34f1f7sm11666697f8f.24.2026.09.12.02.09.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 12 Sep 2026 02:04:47 -0700 (PDT)
-From: Jia Jia <physicalmtea@gmail.com>
-To: mst@redhat.com,
-	jasowangio@gmail.com,
-	michael.christie@oracle.com,
-	pbonzini@redhat.com,
-	stefanha@redhat.com,
-	eperezma@redhat.com
-Cc: virtualization@lists.linux.dev,
-	kvm@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] vhost-scsi: do not relock event vq mutex on send_evt fallback
-Date: Sat, 12 Sep 2026 17:04:20 +0800
-Message-Id: <20260912090420.47439-1-physicalmtea@gmail.com>
-X-Mailer: git-send-email 2.34.1
+        Sat, 12 Sep 2026 02:09:48 -0700 (PDT)
+Date: Sat, 12 Sep 2026 05:09:45 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Cong Zhang <cong.zhang@oss.qualcomm.com>
+Cc: Jason Wang <jasowangio@gmail.com>,
+	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Stefan Hajnoczi <stefanha@redhat.com>, Jens Axboe <axboe@kernel.dk>,
+	Ming Lei <ming.lei@redhat.com>, linux-arm-msm@vger.kernel.org,
+	virtualization@lists.linux.dev, linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] virtio_blk: use synchronous quiesce in
+ virtblk_freeze_priv()
+Message-ID: <20260912050459-mutt-send-email-mst@kernel.org>
+References: <20260912-virtblk_sync_quiesce-v2-1-09a001549b72@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260912-virtblk_sync_quiesce-v2-1-09a001549b72@oss.qualcomm.com>
 
-vhost_scsi_send_evt() is called with the event virtqueue mutex held.
-If the worker is gone, the fallback currently calls
-vhost_scsi_complete_events(), which tries to acquire the same mutex again
-and deadlocks the caller.
+On Sat, Sep 12, 2026 at 04:52:44PM +0800, Cong Zhang wrote:
+> Replace blk_mq_quiesce_queue_nowait() with blk_mq_quiesce_queue() in
+> virtblk_freeze_priv().
+> 
+> Keep the existing freeze and unfreeze order. The synchronous call waits
+> for dispatch code that was already running. The queue remains quiesced
+> until virtblk_restore_priv() calls blk_mq_unquiesce_queue().
 
-Split event completion into a helper for callers that already hold the
-mutex and a locking wrapper for the event worker. Use the helper on the
-fallback path.
 
-Link: https://lore.kernel.org/all/20260905005352.1E5B01F00A3D@smtp.kernel.org/
-Fixes: b1b2ce58ed23 ("vhost-scsi: Handle vhost_vq_work_queue failures for events")
-Signed-off-by: Jia Jia <physicalmtea@gmail.com>
----
-Sashiko AI flagged this while reviewing
-the vhost-scsi event queue fix.
-This is a pre-existing self-deadlock. It was reproduced in a follow-up test.
 
-Trigger: vq->worker == NULL. vhost_vq_work_queue() then returns false,
-and a subsequent vhost_scsi_do_plug() call deadlocks. I do not know what
-normal condition gets us here; the normal vhost-scsi worker detach/reset
-paths do not reach this code. The only reproduction I could come up with
-was killing the vhost-scsi worker. This still looks like a low-probability
-condition.
+This repeatition of the code in english is not what we need
+in the commit log.
 
- drivers/vhost/scsi.c | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
+Suggested format:
 
-diff --git a/drivers/vhost/scsi.c b/drivers/vhost/scsi.c
-index 7a1f39a32..7c905e9ad 100644
---- a/drivers/vhost/scsi.c
-+++ b/drivers/vhost/scsi.c
-@@ -630,19 +630,26 @@ vhost_scsi_do_evt_work(struct vhost_scsi *vs, struct vhost_scsi_evt *evt)
- 	vhost_scsi_log_write(vq, vq_log, log_num);
- }
- 
--static void vhost_scsi_complete_events(struct vhost_scsi *vs, bool drop)
-+/* Caller must hold the event virtqueue mutex. */
-+static void __vhost_scsi_complete_events(struct vhost_scsi *vs, bool drop)
- {
--	struct vhost_virtqueue *vq = &vs->vqs[VHOST_SCSI_VQ_EVT].vq;
- 	struct vhost_scsi_evt *evt, *t;
- 	struct llist_node *llnode;
- 
--	mutex_lock(&vq->mutex);
- 	llnode = llist_del_all(&vs->vs_event_list);
- 	llist_for_each_entry_safe(evt, t, llnode, list) {
- 		if (!drop)
- 			vhost_scsi_do_evt_work(vs, evt);
- 		vhost_scsi_free_evt(vs, evt);
- 	}
-+}
-+
-+static void vhost_scsi_complete_events(struct vhost_scsi *vs, bool drop)
-+{
-+	struct vhost_virtqueue *vq = &vs->vqs[VHOST_SCSI_VQ_EVT].vq;
-+
-+	mutex_lock(&vq->mutex);
-+	__vhost_scsi_complete_events(vs, drop);
- 	mutex_unlock(&vq->mutex);
- }
- 
-@@ -1829,7 +1836,7 @@ vhost_scsi_send_evt(struct vhost_scsi *vs, struct vhost_virtqueue *vq,
- 
- 	llist_add(&evt->list, &vs->vs_event_list);
- 	if (!vhost_vq_work_queue(vq, &vs->vs_event_work))
--		vhost_scsi_complete_events(vs, true);
-+		__vhost_scsi_complete_events(vs, true);
- }
- 
- static void vhost_scsi_evt_handle_kick(struct vhost_work *work)
+The following issue was observed by ...: currently .... because ... this is a
+problem because ... and we can not ... because ... to fix ... so that
+... tested by ...: before ... after ...
+
+
+
+
+> Fixes: 7678abee0867 ("virtio-blk: don't keep queue frozen during system suspend")
+> 
+> Signed-off-by: Cong Zhang <cong.zhang@oss.qualcomm.com>
+
+no empty lines between tags please
+
+> ---
+> blk_mq_run_work_fn() can call blk_mq_sched_dispatch_requests() through
+> blk_mq_run_dispatch_ops(). The dispatcher checks QUEUE_FLAG_QUIESCED
+> while the flag is clear. It can then be preempted before it gets a
+> request. At that time, it has no queue usage reference, so
+> blk_mq_freeze_queue() does not wait for it.
+> 
+> virtblk_freeze_priv() then calls blk_mq_quiesce_queue_nowait() and
+> blk_mq_unfreeze_queue(). A new request can enter the queue. The old
+> dispatcher can run again, use its old flag check, get the new request,
+> and call virtio_queue_rq(). At the same time, virtblk_freeze_priv() can
+> reset the device, delete the virtqueues, and free vblk->vqs. The old
+> dispatcher can then use a deleted virtqueue or a NULL vblk->vqs, and the
+> kernel can crash.
+
+
+
+this kind of thing belongs in the commit log.
+
+> ---
+> Changes in v2:
+> - Cc stable@vger.kernel.org.
+
+
+which is no longer there?
+
+> - Link to v1: https://lore.kernel.org/20260911-virtblk_sync_quiesce-v1-1-a883f8f31258@oss.qualcomm.com
+> ---
+>  drivers/block/virtio_blk.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/block/virtio_blk.c b/drivers/block/virtio_blk.c
+> index 32bf3ba07a9d..7a570591e040 100644
+> --- a/drivers/block/virtio_blk.c
+> +++ b/drivers/block/virtio_blk.c
+> @@ -1595,7 +1595,7 @@ static int virtblk_freeze_priv(struct virtio_device *vdev)
+>  
+>  	/* Ensure no requests in virtqueues before deleting vqs. */
+>  	memflags = blk_mq_freeze_queue(q);
+> -	blk_mq_quiesce_queue_nowait(q);
+> +	blk_mq_quiesce_queue(q);
+>  	blk_mq_unfreeze_queue(q, memflags);
+>  
+>  	/* Ensure we don't receive any more interrupts */
+> 
+> ---
+> base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
+> change-id: 20260910-virtblk_sync_quiesce-9b2c88d45416
+> 
+> Best regards,
+> --  
+> Cong Zhang <cong.zhang@oss.qualcomm.com>
+
