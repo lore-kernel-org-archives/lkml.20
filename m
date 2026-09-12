@@ -1,118 +1,150 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 422EB351C10
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 17:33:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789234393; cv=none; b=LlGS3PIZvc/5wa8AscwLYOKi+tWtn417mj8kjMSRdn4Sx77TI6GsHWsH9BmZyfBgxn7SLGbe89lCpJLN5+XemHCERq+y1I09UNHEyCJik8OzF9gizrIvJ3SaTu6noesMdzbFx8YOFrklcPEI66RVEjMJBWP3SLFSbzouxoY6sa0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789234393; c=relaxed/simple;
-	bh=EiAEJfMZTtWgNFlG1Kn6MkmrA0T0OKXP3d4n4uNbVVc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CnuZrPd1JHKEKyq4lNR+oLGu9c4Uzb/G+ScTIDIC07TaCtsGsU6zjK8yd7OIr35vGt1xXlCBJWdBF3CwTAGof1qlEU4e0O9wfH+fdMmcO66Y2AWT0A+r5Q/bu4wusfASre2vjs40c+J9e7cxlf7Z4yUQ5yLZ1yRjuS0q2XW/qp0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=JYuM/GRo; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6597A348C6E
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 17:35:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789234530; cv=pass; b=n6+Cn4vJb+SfaoQTRfMZl6Z8/8yWZ20mhHf+9H5Hr5S7KxrjO6U3NygRHURF0SOLj8h/yTTs75C4EU30bMBhDGoHaEHid1jkxkgXv3kxA0oPPCMThaZNb7hk+ue9xCWd1+2KXkVXeND4TIaOVwhG3jMlU8R7zX5LnxrCSN2vp6Q=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789234530; c=relaxed/simple;
+	bh=MG/oMutIsKGUZqj5v7QgFG2V0GauV5NB34SQJzSYO0c=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=PgwZzEOhrGve7h8JjavSWmSRMiIlc2elVWv/8W8mOmk6vYJE9Tt1EOGEioR4Cb6quKGqr+ktkhyGUvbchRny0vM7VdH5+HEP3L2YDUqH2qaG9RHohm0yAGnLGjWcMKVDHSyH30X2gFAGAfI24Y+crOrI6JQGluyeU/unKXFm4gA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SXUv1d5Z; arc=pass smtp.client-ip=74.125.230.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="JYuM/GRo"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b94fce6e8so6263515e9.2
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 10:33:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SXUv1d5Z"
+Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-91058dd77a2so15017566d6.3
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 10:35:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789234528; cv=none;
+        d=google.com; s=arc-20260327;
+        b=sw5YPPc2aSVYQuvcZzvFSlDnhZCnPdHsxllXD9/2hM97RdEMaM1WWGezNO11gM1gpE
+         3RTJmvyokgoHnLRAstVxwRhBU9FO0BnEIU5WapPiAQn0DJHUVn6sCiVoyHYini0+tVmP
+         R9tyXnA3+l6gyyj5BR00PIMe7FtOZzBw81u0rq0InrAnl3/tV3eO5WU5g1PUqlWDX+SS
+         +0ctNhQbr3Yk55/4yUAsFupM0co215XLeA4spA9CpVetFRUwnCEomSXqtPwvUznOtXQV
+         MT5rjkEVCepb+Rn2HyQpGaT1sUD+3/0y4WsnynPfWs1qhcIga8xdMCCmzf7+ltzr7oqP
+         mDJQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=MG/oMutIsKGUZqj5v7QgFG2V0GauV5NB34SQJzSYO0c=;
+        fh=tRLiVIuT7XSOybWAaIdBImteIoIC3gr3P+89dxQpNYg=;
+        b=rySlw5ze5V71CsTzKbxTxL/vdGKRAvtxRIDllwUcWVaNnArkeUfWn0FKaVenZq/WSL
+         g2n7eW3Kp33dsYpP/JrzDMJ+ZOlYl1eP3LLcnhiZDjwWd0AihjsqJQidXoE2jH7qFozl
+         IHby4oHzZN8NkKyRdSpdhEElcPg6pXGbA2wQTIwrvqXjeOXCfMEs1gPGRqWmVUYEUuev
+         sqgb5kqLMQ/6dOZoTc7vuwoEuTw6VyLVZTr+dJ3uZPM4l89i6SeTfBSNzumCss7qCr4i
+         2p1V5HzEserBipy51pa6FZbUQ6Y7cw4NoefBv2Ak1X2wZrGdWK3k5bFGWbvMRgrA5a5c
+         JJCg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20251104; t=1789234390; x=1789839190; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=B870ygeANjcpypjK7/JSP1iclhPyzN0EU3DaKZEWjNI=;
-        b=JYuM/GRoz7HvgqOVtOPfN3+u0H8R8CXaGZ4PGwzCQWymRtVbXsJL8YQ4t9LZE9EoHi
-         Xs1PiApx2cTlL3Y0+CqdAz07uyVBeeyTveDhwUyqKgsEPwV8ItWP1Ezqpxdu8Zntfbv1
-         2XNQtHmgjNB6alQjdzT5f6Awy7u7SMzdIsWIfAjv142HGp7dC+cvshy9oee+ERnMlsB9
-         MyJ368q92BTwDlUEM9xLCYvcJIUKQ8++DGZ6Zn8shiV7yU7W7okP8qskn9QYTN8wTvKp
-         w2Ir7fpBA964QO5a2o47xoU7xeoi06Uth3eVSwaXe8z0r/gbi2GQjyPPYCpKgmgzkd3U
-         0Dxw==
+        d=gmail.com; s=20251104; t=1789234528; x=1789839328; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=MG/oMutIsKGUZqj5v7QgFG2V0GauV5NB34SQJzSYO0c=;
+        b=SXUv1d5ZusVbW6QMcQKAkJOafOuzAnGNaJTQE6I0n/3bZMidqHQPsUe7ezSYFvW5eR
+         84P/Llv56IOl6B3OWHc9j9IntGx+ZJHGFyI6ANX6b055aX0YD9agYfz17+yFqUIKboAM
+         t/V3BjQqU5C0VMj51Tx8kJGQpxfKlQvNtc1Nj5nfSzy2OHCMEKcSRLzMjxkYmezJ50K0
+         NDrGQc9R+et6wU/9u3iSVefBBbJJUvqo+DX/A2CMY7XNNBPR8nao+11MuM8Ckn8PkiQP
+         6OVnoQaP9vnIpYJUZ18pBbqwFqSGwMhua2TSadaykkpIslutQrmGMRsM99tIt1E8VSZb
+         QuZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789234390; x=1789839190;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=B870ygeANjcpypjK7/JSP1iclhPyzN0EU3DaKZEWjNI=;
-        b=kGsbJK/KaPzLAZFGNoAnhbdLvA/y8HLnGhgOoA74uuj3XS1ZxJLARfQaT9kX5szZfJ
-         NzuBgZS+HOF0YP0/LXbhRUz/H8MU2Gn273D+blGOoKvk3mNTaVSpHCcJpAzCfoniMv5B
-         iUmfR9wEDBCuA9vpwPxodSvqT29tLS3gpT84M0ANkkGmwJrsG9krbOBWudu/dXdqOEDL
-         633Q7fcN6a5rb43O25vmUDiwqegYwnv5exdIsDWdRloDLw4UkpqmkeYWuy8b7MnyY44h
-         OUpq3YtCMgMjqZuaNT1fjDZfcdMxriV5YO4hl2lbje6CloFK+tbBvqA4RftnxY/RVWCN
-         nmYA==
-X-Forwarded-Encrypted: i=1; AKwUvBzG76pyYpv6sOeMEREVb/jc9QUbJR8QJHg+G+lGNbgW6FJ8X3hISJPN+ds/gQS64VcFnp7q4cq4nZMmvuo=@vger.kernel.org
-X-Gm-Message-State: AFuF++k5XQfByfxwwjdqZUAqdzIoxJ0tUwbsyllYFXH1G2MyH+VU95SS
-	7FlPeqhvEQIEMjpu08GYUKF9ijgAdiCgg6Vxlej71bfzQghm/PB+amM=
-X-Gm-Gg: AYBFou3Hft1W5QyITBfWcCY3ZaFmSrPP+xn6a5KZqVyGDWoTcrKRNxp32HuRaTH5I90
-	XEMfOp32ydyJbSC0eIMISIBbh/x2PkYRwxWwaQY5zmioGy/dgwE3WL2UaTdYzUjQ79DDXdO2i/Z
-	Irybn4G6RZUUkIOW/4P//roME5E7i0PMBVEVIaQcDmTUWn7h2HyuP2paNWidMGlLrGeSADsvwJO
-	YVp0gWSqnGB565EEKzcWTOhSG+cVboqU0X6RX+SqECexFO/rVBYzgOuay4LmvDOOAe0ouxZX8mD
-	dFU+zlGLHN1zyb114Yp8ZWUZpXmspwRqzpvi6Uk44tptZptXgu9aERd18ZYWMoL/xE64Y9YN4Fm
-	YurEzqJ5/LlKp3niWlzbssh/JTC7ACuIHba3mFGXvqa3AbQJiAaQInWNqqtfFqRpPdpvibUW5/R
-	oruPRp90dgrJMcKiIaPzVIRAUPsKUNPrUje65oM+Oc6FSP/PyfGRQbjOXWLdEPOC2UoudaPwjNM
-	jido2sExDkFsWITX34tJqV1QgC2RTFSfysmSQp/RKLPvHdtTgi8
-X-Received: by 2002:a05:600c:c48f:b0:499:bf0e:95c8 with SMTP id 5b1f17b1804b1-49e619831b6mr112079735e9.1.1789234390460;
-        Sat, 12 Sep 2026 10:33:10 -0700 (PDT)
-Received: from [192.168.1.3] (p5b2ac4da.dip0.t-ipconnect.de. [91.42.196.218])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26c1bc5fsm244057125e9.3.2026.09.12.10.33.09
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 12 Sep 2026 10:33:10 -0700 (PDT)
-Message-ID: <ef6ea817-371a-4038-a73d-274fece32f4b@googlemail.com>
-Date: Sat, 12 Sep 2026 19:33:09 +0200
+        d=1e100.net; s=20251104; t=1789234528; x=1789839328;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MG/oMutIsKGUZqj5v7QgFG2V0GauV5NB34SQJzSYO0c=;
+        b=n8SG1Mc9IBGp4k1k2cAovBotaBSiHNDxNtPa1jqMlilC5J0qk8O0CrmShegQP/jlIy
+         TX+zgMun0pvKDxzyIIgL174SS620dlkEQlHZcmFVj7lSAvWYEqmCAznYsGaR+HPYieQ4
+         eCPzCtEqy0Aed5ZqeGqXFuzzoIAV+C1mUmi6whDGvj8PF3pYecHEqvPVHmWQwVTf8NLF
+         9b0qEZW311Bx/+VB7eLdRYvJH47yRhWvsvHjwR1yGRj4zDQG+OhNOSWGLFkZoykPEI7V
+         Bhwubg/rIbD3JEg3DrfwrNFEJB6h6KogIiQ+531mo6WmwU/TLFt0nWeRMj9FnHTcZrUY
+         alFQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwF89dPABl7uUS9rv/Ku3o5bFpcODSHIXmyGhTFrTIxB2l9DDAKwNj9dPnDBMK1tUQKxmzQ+n9+UTNGwdM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lRnkvZY77A0mdht49/pzVdpFXn+Fsy5YhMSVYy0PO3triXMgcF
+	fpiWuRii5ZxohS62gHh93ZqISSwGwGxKiRmF32qw2kIQ7FZIaxmrX7XU8szPI7VVv/9Qv4bCrll
+	PizY2XiZKtb0g4S/BTDLP23qP3AOUNCM=
+X-Gm-Gg: AYBFou2x1O93CD+Bxd2pkgTXRQbQO9mmCKMoGe1aT6NzHHzSGQYgMgGwWKVfgfMNghu
+	2BGDrMkkNWXPrMP/h6kWAOdldrAadMlyS5W1J/6YI/tlPtf/cZ4wFAlyx9gZhbCbwY5uvmquTn7
+	6hn9U3MtaaDQFeMp0+wG+VhrCqiB0lqXi7LuC2hWsjhiOFf1pwMLaLk+Tz4VvlkNr+py937wkZH
+	My/wudCzOuVa0yYtVsnj1XaEb+sfpOfGZYiOwMn3i+nqVLGm2aLvKjujn6GjCL/8dyHYlXhmFxY
+	asNgncAu9+Dt1aZo7TVgumjSo6chIcS81vA+wnnju+ZkmKDudF9A+Pg3OYhwCEqwxT+oDQsXPNi
+	A5cN+WBU/ox33Pg==
+X-Received: by 2002:a05:6214:328c:b0:910:4402:f410 with SMTP id
+ 6a1803df08f44-91212091c4bmr186100076d6.13.1789234528323; Sat, 12 Sep 2026
+ 10:35:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH 6.18 0000/1518] 6.18.52-rc1 review
-Content-Language: de-DE
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260912065623.398859879@linuxfoundation.org>
-From: Peter Schneider <pschneider1968@googlemail.com>
-In-Reply-To: <20260912065623.398859879@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20260908-ynl-robustness-v1-0-f255214c0f30@gmail.com> <20260910192314.209ecb01@kernel.org>
+In-Reply-To: <20260910192314.209ecb01@kernel.org>
+From: tmbates12 <tmbates12@gmail.com>
+Date: Sat, 12 Sep 2026 13:35:16 -0400
+X-Gm-Features: AcwNN1VO8FHui11gOOlIP1du45BV5WIWfuLdWO8vIfsBmwBzL9VU8kIrvC85IlM
+Message-ID: <CAC4WM+zvK1zFuPfS5WnzuDR3b_DRX==x_S=Gg7LSLgZb9=33Ng@mail.gmail.com>
+Subject: Re: [PATCH net-next 0/4] netlink: fix ynl spec tooling robustness bugs
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: Donald Hunter <donald.hunter@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Jiri Pirko <jiri@resnulli.us>, Stanislav Fomichev <sdf@fomichev.me>, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Am 12.09.2026 um 08:36 schrieb Greg Kroah-Hartman:
-> This is the start of the stable review cycle for the 6.18.52 release.
-> There are 1518 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+On Thu, 10 Sep 2026 22:23:14 -0700 Jakub Kicinski wrote:
+> Why are you doing this? What's your intended use?
+> YNL extensions for classic families are unlikely to be accepted.
+> It's definitely not a goal for us to backfill all the ancient baggage.
 
-Builds, boots and seems to works on my 2-socket Ivy Bridge Xeon E5-2697v2 server.
-However, I do see the same strange dmesg warnings that I see in 6.12.110-rc1:
+As part of work I've been doing on switchdev based ethernet switches
+for configuration and state monitoring, I'd like to avoid having to rely
+on shelling out to iproute2 to query bridge VLAN devices.
+Parsing its output is fine as it can emit structured JSON
+output, but as bridge(8) always resolves the ifindex to its interface
+name, additional lookups are required in order to find the ifindex.
 
-[    2.397237] Driver 'sr' needs updating - please use bus_type methods
-...
-[   84.031323] Driver 'ses' needs updating - please use bus_type methods
+Is a bridge VLAN spec something you would consider at all, or should
+I drop the idea before writing it up?
 
-And again, these warning are new in this rc, they did not appear in 6.18.51.
+> So you know that the Fixes tags are pointless and yet you add them?
+> Please, if it's not a bug that needs to go to LTS it should not have
+> a Fixes tag :/
+
+Understood, I will drop the Fixes: tags.
+
+I will be dropping patches 2/4 and 3/4 based on your comments on each.
+I'll drop 4/4 as well, since I'm not planning to submit the OVS spec
+work it would need to go with.
 
 
-Tested-by: Peter Schneider <pschneider1968@googlemail.com>
-
-
-Beste Grüße,
-Peter Schneider
-
--- 
-Climb the mountain not to plant your flag, but to embrace the challenge,
-enjoy the air and behold the view. Climb it so you can see the world,
-not so the world can see you.                    -- David McCullough Jr.
-
-OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
-Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
+On Thu, Sep 10, 2026 at 10:23=E2=80=AFPM Jakub Kicinski <kuba@kernel.org> w=
+rote:
+>
+> On Tue, 08 Sep 2026 19:45:06 -0400 Taylor Bates wrote:
+> > This series is intended to address several robustness bugs found in the=
+ ynl
+> > tooling and the netlink-raw YAML specification.
+> >
+> > These issues were found while writing a netlink-raw spec for the Bridge
+> > VLAN family. However each stands independently of that work, and fixes
+> > bugs in the parser that can be reproduced against the existing spec
+> > definitions.
+>
+> Why are you doing this? What's your intended use?
+> YNL extensions for classic families are unlikely to be accepted.
+> It's definitely not a goal for us to backfill all the ancient baggage.
+>
+> > The patches in this series carry Fixes tags, but are all in developer
+> > tooling and have no effect on the running kernel. That is why they have
+> > been targeted at net-next rather than net.
+>
+> So you know that the Fixes tags are pointless and yet you add them?
+> Please, if it's not a bug that needs to go to LTS it should not have
+> a Fixes tag :/
