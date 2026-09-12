@@ -1,48 +1,48 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AD1D2D8364
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 00:35:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74EB22F549F
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 00:35:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789173311; cv=none; b=OddJouruSyUUth9J8umbrc3gqZSyATnYQP7AamFJ4yv0bSWf7MHiqFX/zvdSBS3B6yfrcGTu8YhqUsFKzMSC3OwYNKhQz9wTz6Ge3EkgSspBOAPK5A82TBDVXg7sciYvjjeB4tpf/1fYuHRTD6CM3+avk37ozm/IBqec7b0G0V8=
+	t=1789173312; cv=none; b=Svh6xxcPN69/YAGHlaDijK25AxW3DpC7JbQrA2zgIYaOyHih0TN1esdDDt96WHa0C7+ay8si5DBTwIVsIodAhAaIEPCive7XU66a5UeMeOLX9rBizHeGVlxzTO+NqMeWvWV7ZYzY6z+z8uBm+y8XiagVWTg9koXSmOrxYwICzvE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789173311; c=relaxed/simple;
-	bh=p0migYejU9N010P8ZHhopEIg+2ZfkCHshpwVI7sSvrU=;
+	s=arc-20240116; t=1789173312; c=relaxed/simple;
+	bh=jSAeJNOqF8YEG9tUnSYtAHr8JZ8rjcLYO1EZl9WbSjU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rBcDE9chlgORFf4m/p5O073rh3m7C/ZtSzd0FqICpAXE6Nwa6U5S0dJdxKEZZl+VN6VPOQfjFom7iUmhDs8Lz+sdrx7aQU3Qq30+5UwS0LEKUTrNU5a9cXhHwBReTI4Vdq/FxTFe9GG8pmsscppCugm6TzykkRxxT2mmNj9F41Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LYDSU7mI; arc=none smtp.client-ip=192.198.163.7
+	 MIME-Version; b=n00INe/enC63FzUeGPBcC8g4YHzNawRz2Bf3TwwxsVMWx9rtc92AcYjhZbV45bF5D3x55CZ5Ot64hTkd6vIlGFJher4xXyv9hdIzUlErv6i4Lqp5xEABFKg0BmHuJfsN1akYCaI0Pu3IfQdcJ00r2HByxfrADf84XPu0zBqDocU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=XVIitJWR; arc=none smtp.client-ip=192.198.163.7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LYDSU7mI"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="XVIitJWR"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789173309; x=1820709309;
+  t=1789173312; x=1820709312;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=p0migYejU9N010P8ZHhopEIg+2ZfkCHshpwVI7sSvrU=;
-  b=LYDSU7mI4z3S3FD5GIF375Im3cHOKqYi80GMOzaNMiDlJl4hrYtimqjd
-   9EnZ8t3AFqcuO8UFJtoiMxkoBSr4vyP1e4pd5qjDTYzFEBkeygyNnhnVV
-   tYeUR+nhMIjD7GddO892E/TkuL7ILL7V6d8hWHKJjhfkiVK0JqQGoCU5I
-   BWHnNE/rHM/MInp+TyCgHpnALiG7U4lNNDjHb8iPqDxrDUMGnZxNSw6St
-   lHP3hL9FHwRz/0uFbXDLCFzI6j3DMCwpyw9/s2qcAf8tfRaUzXcsEAZEI
-   PlVI7acRvkRQSNiX2ziFL2hkcROLmbGTxuvJG6mh3FFNFWMn3CehX15H4
-   Q==;
-X-CSE-ConnectionGUID: zXK94IsOQSynSOxv1X6elg==
-X-CSE-MsgGUID: JWIFYwrITWOa+9VhC+g1uQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11902"; a="115174979"
+  bh=jSAeJNOqF8YEG9tUnSYtAHr8JZ8rjcLYO1EZl9WbSjU=;
+  b=XVIitJWR0XG2iS92n9AWUxijf5+/jjeJ+G5mjLBQeZZBWx7kB2lDMP6S
+   4yi7Bq/sqd/7sECQgsRkasi2AQ75KqVavtksEGaeNPCEJCIuuQZr1rEId
+   fXwBROqViFoi5ifPye/obUMB076cSmud/V08lL+AOjssXXJhoHbnbBX/F
+   NeU5l5nTK3jsrIfl3IFd8eip3tvSp8wHOXu82CxsABz3KPOSBOTlMO6bD
+   eXeI/P+JNh4VMNETf5gONdiy3AxPSq7mfcMEMJa49rxwAOGp/xjJpjoTk
+   fOOocKbX7OM/KYFyMlgdKAO5N65rYVszedlxNvjnV8Mv7lm5d0LgFu6nC
+   w==;
+X-CSE-ConnectionGUID: RHCbwAm1TaOMrGVOCLZKqQ==
+X-CSE-MsgGUID: 5H680vRmTuGu/nacRH3Mew==
+X-IronPort-AV: E=McAfee;i="6800,10657,11902"; a="115174983"
 X-IronPort-AV: E=Sophos;i="6.27,98,1787036400"; 
-   d="scan'208";a="115174979"
+   d="scan'208";a="115174983"
 Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 17:35:09 -0700
-X-CSE-ConnectionGUID: 7esh7jKWRYyX9j2GdbHZpg==
-X-CSE-MsgGUID: XVzZhznYQH27jSZWTSHDww==
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 17:35:11 -0700
+X-CSE-ConnectionGUID: KNRLmKe5Q6OF3VHYiDueAw==
+X-CSE-MsgGUID: rBfgnburTpOnyYO5OLdrlg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,98,1787036400"; 
-   d="scan'208";a="276217668"
+   d="scan'208";a="276217693"
 Received: from chang-linux-3.sc.intel.com (HELO chang-linux-3) ([172.25.66.174])
-  by orviesa005.jf.intel.com with ESMTP; 11 Sep 2026 17:35:09 -0700
+  by orviesa005.jf.intel.com with ESMTP; 11 Sep 2026 17:35:11 -0700
 From: "Chang S. Bae" <chang.seok.bae@intel.com>
 To: linux-kernel@vger.kernel.org
 Cc: x86@kernel.org,
@@ -52,9 +52,9 @@ Cc: x86@kernel.org,
 	dave.hansen@linux.intel.com,
 	kevin.shu@intel.com,
 	chang.seok.bae@intel.com
-Subject: [PATCH RFC v1 6/8] x86/microcode: Support uniform scope for late loading
-Date: Sat, 12 Sep 2026 00:08:12 +0000
-Message-ID: <20260912000815.997720-7-chang.seok.bae@intel.com>
+Subject: [PATCH RFC v1 7/8] x86/microcode/intel: Support uniform scope for early loading
+Date: Sat, 12 Sep 2026 00:08:13 +0000
+Message-ID: <20260912000815.997720-8-chang.seok.bae@intel.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260912000815.997720-1-chang.seok.bae@intel.com>
 References: <20260912000815.997720-1-chang.seok.bae@intel.com>
@@ -66,83 +66,147 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In the late-loading path, per-CPU storage records a primary CPU in the
-ctrl_cpu field of struct microcode_ctrl. The primary CPU is then
-responsible for coordinating updates for the CPUs within its loading
-scope via __load_primary().
-
-To support uniform loading, provide helpers that allow a given CPU to
-identify either its corresponding primary CPU or the set of CPUs in its
-loading scope.
+The parallel bringup facility queries whether the architecture provides a
+custom set of primary CPUs. Extend x86 hooks with the Intel-specific
+logic so that the primary CPU selection matches the uniform loading
+scope.
 
 Signed-off-by: Chang S. Bae <chang.seok.bae@intel.com>
 ---
- arch/x86/kernel/cpu/microcode/core.c | 38 +++++++++++++++++++++++-----
- 1 file changed, 32 insertions(+), 6 deletions(-)
+ arch/x86/kernel/cpu/microcode/core.c     |  9 +++
+ arch/x86/kernel/cpu/microcode/intel.c    | 70 ++++++++++++++++++++++++
+ arch/x86/kernel/cpu/microcode/internal.h |  4 ++
+ 3 files changed, 83 insertions(+)
 
 diff --git a/arch/x86/kernel/cpu/microcode/core.c b/arch/x86/kernel/cpu/microcode/core.c
-index 8f617745d4d0..dfa311a2edbd 100644
+index dfa311a2edbd..ed547f2b4601 100644
 --- a/arch/x86/kernel/cpu/microcode/core.c
 +++ b/arch/x86/kernel/cpu/microcode/core.c
-@@ -296,6 +296,36 @@ static void reload_early_microcode(unsigned int cpu)
- static struct faux_device *microcode_fdev;
+@@ -906,14 +906,23 @@ static int mc_cpu_down_prep(unsigned int cpu)
+ /*
+  * Queried by the parallel bringup code to determine whether x86 provides a
+  * custom primary CPU mask for early loading.
++ *
++ * Uniform loading scope is Intel-specific, so let the vendor code determine the
++ * primary CPU selection.
+  */
+ bool __init arch_cpuhp_primary_aware(void)
+ {
++	if (x86_cpuid_vendor() == X86_VENDOR_INTEL)
++		return intel_primary_aware();
++
+ 	return __max_threads_per_core > 1;
+ }
  
- #ifdef CONFIG_MICROCODE_LATE_LOADING
+ const struct cpumask *__init arch_cpuhp_get_primary_cpus(void)
+ {
++	if (x86_cpuid_vendor() == X86_VENDOR_INTEL)
++		return intel_get_primary_cpus();
 +
-+/*
-+ * Return the CPU mask corresponding to the update scope that @cpu belongs to.
-+ * Unknown scopes fall back to the legacy per-core scope.
-+ */
-+static const struct cpumask *ucode_scope_cpumask(unsigned int cpu)
+ 	return cpu_primary_thread_mask;
+ }
+ 
+diff --git a/arch/x86/kernel/cpu/microcode/intel.c b/arch/x86/kernel/cpu/microcode/intel.c
+index 4b5feee14712..6178bddb7f60 100644
+--- a/arch/x86/kernel/cpu/microcode/intel.c
++++ b/arch/x86/kernel/cpu/microcode/intel.c
+@@ -989,6 +989,76 @@ static __init bool staging_available(void)
+ 	return !!(val & MCU_STAGING);
+ }
+ 
++bool __init intel_primary_aware(void)
 +{
-+	if (!microcode_ops->use_uniform)
-+		return topology_sibling_cpumask(cpu);
++	if (!microcode_intel_ops.use_uniform)
++		return __max_threads_per_core > 1;
 +
-+	switch (microcode_ops->uniform_scope) {
-+	case UNIFORM_PKG:
-+		return topology_core_cpumask(cpu);
++	switch (microcode_intel_ops.uniform_scope) {
 +	case UNIFORM_SYS:
-+		return cpu_online_mask;
++		/*
++		 * The boot CPU performs the update for the entire system. But,
++		 * returning false would fall back to the SMT primary mask.
++		 * Return true to indicate the primary CPU clearly.
++		 */
++		return true;
++	case UNIFORM_PKG:
++		/* One primary core per package participates. */
++		return true;
 +	case UNIFORM_DEFAULT:
 +	case UNIFORM_CORE:
++		/*
++		 * Fallback to the legacy per-core loading, where the primary
++		 * CPU distinction matters only when SMT is on.
++		 */
 +		break;
 +	default:
++		/* Unknown scopes fall back to the legacy per-core scope. */
 +		WARN_ON_ONCE(1);
 +	}
 +
-+	return topology_sibling_cpumask(cpu);
++	return __max_threads_per_core > 1;
 +}
 +
-+static inline unsigned int ucode_primary_cpu(unsigned int cpu)
++static struct cpumask primary_cpus __initdata;
++
++static void __init set_primary_cpus(void)
 +{
-+	return cpumask_first(ucode_scope_cpumask(cpu));
++	if (!microcode_intel_ops.use_uniform) {
++		cpumask_copy(&primary_cpus, cpu_primary_thread_mask);
++		return;
++	}
++
++	switch (microcode_intel_ops.uniform_scope) {
++	case UNIFORM_SYS:
++		/*
++		 * CPU0 is guaranteed to be online and acts as the system
++		 * primary.
++		 */
++		cpumask_set_cpu(0, &primary_cpus);
++		break;
++	case UNIFORM_PKG:
++		/* One CPU per package is sufficient. */
++		cpumask_and(&primary_cpus, cpu_primary_core_mask, cpu_primary_thread_mask);
++		break;
++	case UNIFORM_DEFAULT:
++	case UNIFORM_CORE:
++	default:
++		cpumask_copy(&primary_cpus, cpu_primary_thread_mask);
++	}
 +}
 +
- /*
-  * Late loading dance. Why the heavy-handed stomp_machine effort?
-  *
-@@ -437,7 +467,7 @@ static noinstr void load_secondary(unsigned int cpu)
- 
- static void __load_primary(unsigned int cpu)
++/*
++ * The bringup code may query the mask more than once. Compute it on first use.
++ */
++const struct cpumask *__init intel_get_primary_cpus(void)
++{
++	if (cpumask_empty(&primary_cpus))
++		set_primary_cpus();
++
++	return &primary_cpus;
++}
++
+ struct microcode_ops * __init init_intel_microcode(void)
  {
--	struct cpumask *secondaries = topology_sibling_cpumask(cpu);
-+	const struct cpumask *secondaries = ucode_scope_cpumask(cpu);
- 	enum sibling_ctrl ctrl;
- 	enum ucode_state ret;
- 	unsigned int sibling;
-@@ -736,11 +766,7 @@ static bool setup_cpus(void)
- 			continue;
- 		}
+ 	struct cpuinfo_x86 *c = &boot_cpu_data;
+diff --git a/arch/x86/kernel/cpu/microcode/internal.h b/arch/x86/kernel/cpu/microcode/internal.h
+index 0a74794e0245..0552d66f4012 100644
+--- a/arch/x86/kernel/cpu/microcode/internal.h
++++ b/arch/x86/kernel/cpu/microcode/internal.h
+@@ -128,11 +128,15 @@ static inline void exit_amd_microcode(void) { }
+ void load_ucode_intel_bsp(struct early_load_data *ed);
+ void load_ucode_intel_ap(void);
+ void reload_ucode_intel(void);
++bool intel_primary_aware(void);
++const struct cpumask *intel_get_primary_cpus(void);
+ struct microcode_ops *init_intel_microcode(void);
+ #else /* CONFIG_CPU_SUP_INTEL */
+ static inline void load_ucode_intel_bsp(struct early_load_data *ed) { }
+ static inline void load_ucode_intel_ap(void) { }
+ static inline void reload_ucode_intel(void) { }
++static inline bool intel_primary_aware(void) { return false; }
++static inline const struct cpumask *intel_get_primary_cpus(void) { return cpu_none_mask; }
+ static inline struct microcode_ops *init_intel_microcode(void) { return NULL; }
+ #endif  /* !CONFIG_CPU_SUP_INTEL */
  
--		/*
--		 * Initialize the per CPU state. This is core scope for now,
--		 * but prepared to take package or system scope into account.
--		 */
--		ctrl.ctrl_cpu = cpumask_first(topology_sibling_cpumask(cpu));
-+		ctrl.ctrl_cpu = ucode_primary_cpu(cpu);
- 		per_cpu(ucode_ctrl, cpu) = ctrl;
- 	}
- 	return true;
 -- 
 2.53.0
 
