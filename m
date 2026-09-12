@@ -1,184 +1,118 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 978A12DE702;
-	Sat, 12 Sep 2026 13:34:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CE4147887F
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 13:36:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789220060; cv=none; b=MfUbBYPQBfVD6omuTyRmmqBUfY50W/YkvGoGdK9PYuafCnCT7QXd/zTy8t/34g5KxgZZ+SD80O5zP/m4a/m2gbaLV5dvAvpJZ7I13ty+Wp7DPVmh3wVCdurw8J4z3Tsv+bFV0rps+21vbBlyDJI7tF8xyFh519JpTjS7FPyTu2I=
+	t=1789220167; cv=none; b=NeCQStJYZNqgET6OP0KrdqqJxW6CUe75BSX+/Z+Fy9WagNqSy9l07gZoTmdniqjEBABTa7CpVSCkfDltMIQ/CSyAgk+mHtd9ZQ8ens8hCtaa+YitCNr5N1baYjdHe2SAJqVtnkHJRnoZF7ZvSikSDYc9bl190vLFOUy074R6GlI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789220060; c=relaxed/simple;
-	bh=uI2lCWjKinwIjNkbZnJCkiN0pNFLG9IVNnoW/AIIabA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VlXENT8511lmhw9obU32eeyCb4dzCPKG0f6HFtNxDRkcue6/hFHD+wnHxS2yAc7BmsjVd3mzPdaVDoJAd8mJMCWCylWuvDShOY+O+qQIZc66M2rUjOl/HEBhybMUWmmk7FvrT0ey3hLouxcrq27cv73bh2ARTARxa0lxdgPgXJw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FU5nUZaK; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789220167; c=relaxed/simple;
+	bh=jDJyxuQSJq7yMmcZQK0ZnQpYDqlPQN9BTFZbhDw07n8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=f03OzqJW309cFm1teOLJTrma1YNWfJkSrm50lU3bUZN0MpudQKXe40jw9/vy2UIHkKiKAWGNw4WZa+Ll86xj4A/jaL1i9NzBwiN8w23Fq/hongG1RTekbhrE0HCywQKNsi23ME+J1Byz0LVyncrt+QsNAXbd2VEsRINy4gwYNI4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EqsiSjTl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FU5nUZaK"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789220059; x=1820756059;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=uI2lCWjKinwIjNkbZnJCkiN0pNFLG9IVNnoW/AIIabA=;
-  b=FU5nUZaKX9cY4oIaRcgFuRGys9Bn/V0s7jyHgvQfMOgr+oESi/8tBZ56
-   PEvIlSuEBLSm54Pr4TOH8S2mVZe/LBJS4sjOn1Jf+5SmDD32PCCq4cOpC
-   MR+rcAYn7Hy9Q0+CZIIok+ekuAR/E1zm1yKh3pXGIb3WTLsiF2XTV9aMI
-   eqrPR5Qi1hHJeU/O/l4JEeWCg47f6dmUc9gTMZINi2AvudPdujysveAns
-   nWCHGk5EzYNTa5fIreCxEpPI1pO+j19BNQvB7Ae8Kee+8aQdVGDqo3g65
-   i/sdmWe0rDroC7PskbWDfiZiGpzMsn4/6M6SRn5BnFUENnLLeMKN8MFw4
-   Q==;
-X-CSE-ConnectionGUID: khb92MqWQUGELUVjOCbIJg==
-X-CSE-MsgGUID: qX5crewMRjW2FTIrkWJQ3A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11902"; a="101012558"
-X-IronPort-AV: E=Sophos;i="6.27,99,1787036400"; 
-   d="scan'208";a="101012558"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Sep 2026 06:34:13 -0700
-X-CSE-ConnectionGUID: 2+Td6OM1QkugSBdDOgfs5A==
-X-CSE-MsgGUID: VwpzJuGpQN2oirhn156mRg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,99,1787036400"; 
-   d="scan'208";a="275933395"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.239])
-  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Sep 2026 06:34:03 -0700
-Date: Sat, 12 Sep 2026 16:34:01 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Meagan Lloyd <meaganlloyd@linux.microsoft.com>
-Cc: linux-i3c@lists.infradead.org, alexandre.belloni@bootlin.com,
-	vitor.soares@toradex.com, samagazaryan@google.com,
-	gregkh@linuxfoundation.org, arnd@arndb.de,
-	boris.brezillon@collabora.com,
-	oleksandr.shulzhenko.viktorovych@intel.com,
-	tgopinath@linux.microsoft.com, corbet@lwn.net,
-	skhan@linuxfoundation.org, linux@roeck-us.net, Frank.Li@nxp.com,
-	jorge.marques@analog.com, pgaj@cadence.com,
-	wsa+renesas@sang-engineering.com, tommaso.merciai.xr@bp.renesas.com,
-	nuno.sa@analog.com, Michael.Hennerich@analog.com, jic23@kernel.org,
-	dlechner@baylibre.com, andy@kernel.org, lorenzo@kernel.org,
-	enelsonmoore@gmail.com, rppt@kernel.org, pratyush@kernel.org,
-	giovanni.cabiddu@intel.com, gabewhigham@gmail.com,
-	haren@linux.ibm.com, pasha.tatashin@soleen.com,
-	jirislaby@kernel.org, adrian.ho.yin.ng@altera.com,
-	ustc.gu@gmail.com, jszhang@kernel.org, adrian.hunter@intel.com,
-	akhilrajeev@nvidia.com, tze.yee.ng@altera.com,
-	manikanta.guntupalli@amd.com, shubhrajyoti.datta@amd.com,
-	jarkko.nikula@linux.intel.com, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
-	linux@analog.com, linux-iio@vger.kernel.org
-Subject: Re: [PATCH 3/3] i3c: add i3cdev character device module for
- user-space access
-Message-ID: <aqVUyYkpKT8iX4Jz@ashevche-desk.local>
-References: <20260911210935.1353126-1-meaganlloyd@linux.microsoft.com>
- <20260911210935.1353126-4-meaganlloyd@linux.microsoft.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EqsiSjTl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 219301F00898
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 13:36:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789220166;
+	bh=VIOMCRGrgf499RUPLB6ulTo6LJeLoQVad4u4CeQkZ10=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=EqsiSjTlJhtLWKCveTl9m96RwH2jOXg3RVcoDhG9wC9OpZZ363RaF3Ju72aBLbLNT
+	 b5yYGyGiw5rQDxHf0iB4sgRiUO3qc1jT/twqCbbn/utSeW85XTO04m3H2aqonPPtd2
+	 OBg4oVQ1CVi6tgFEJFxGD00vln2I0B3w/utnSWPNLj2Nhz065y+7k4KZCn/IXcArG4
+	 oubxtcccZvLt/K/UodEtH0AdYEnBfS8J2jQdxcG0NXvGCOqql9u9Zn3C5QfF5OToYM
+	 /3a9Ue+5VfSDs2j116UKffP0t3Xxb4kTc9GT3rcKCvLae7Z+4b4MqgPBZxleaAa4Hm
+	 HaqdjEruthwIg==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b79784a6edso531218e87.1
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 06:36:06 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwIjdNqS7dUkH78DHYiSqsawX/1pm16ivFpSZqO/cOHWcSK4LF8dtaKZrG4U0nBc9xA2QhlhJz82zJ8/0w=@vger.kernel.org
+X-Gm-Message-State: AFuF++kPU0zXjhcNuA6RFGaXLkiSC2zowaxqaS6g9NXQjNK1N6C3FJ+Q
+	KmYwjpmmpC+F7elmSCpRMBG53+iu95E5oJIyse7iCsI5UbyUvAQBjzYnZHqtzQbmBj4zPCvsFmH
+	AJ44uu5Dli0WWOl9g5FSsHz37WnjOm+0=
+X-Received: by 2002:a05:6512:3d0e:b0:5b7:6733:a216 with SMTP id
+ 2adb3069b0e04-5b8a8ebe48amr537213e87.10.1789220164432; Sat, 12 Sep 2026
+ 06:36:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260911210935.1353126-4-meaganlloyd@linux.microsoft.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+References: <1965933.tdWV9SEqCh@rafael.j.wysocki> <951189ad-71b6-4776-8484-a207f1efe415@gmx.de>
+In-Reply-To: <951189ad-71b6-4776-8484-a207f1efe415@gmx.de>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Sat, 12 Sep 2026 15:34:48 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0gLWT4x44Vbruaf0cKWp0jPTkLuh0pLQ29_O5vfNC4q_A@mail.gmail.com>
+X-Gm-Features: AcwNN1XLJyxVvs6LDrF1qngxz3f1oAUIQeurZ_7Ko4NDINm0cOQRh3m_J7CRT5Q
+Message-ID: <CAJZ5v0gLWT4x44Vbruaf0cKWp0jPTkLuh0pLQ29_O5vfNC4q_A@mail.gmail.com>
+Subject: Re: [PATCH v1 00/10] ACPI: thermal: Register thermal class cooling
+ devices under parents
+To: Armin Wolf <W_Armin@gmx.de>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Linux ACPI <linux-acpi@vger.kernel.org>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	Daniel Lezcano <daniel.lezcano@kernel.org>, Hans de Goede <hansg@kernel.org>, 
+	LKML <linux-kernel@vger.kernel.org>, Linux PM <linux-pm@vger.kernel.org>, 
+	Lukasz Luba <lukasz.luba@arm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 11, 2026 at 02:09:35PM -0700, Meagan Lloyd wrote:
-> The i3cdev driver is a character device driver that allows user-space
-> to control and interact with I3C devices.
+On Fri, Sep 11, 2026 at 11:35=E2=80=AFPM Armin Wolf <W_Armin@gmx.de> wrote:
+>
+> Am 11.09.26 um 15:00 schrieb Rafael J. Wysocki:
+>
+> > Hi All,
+> >
+> > This series generally changes the way in which thermal class cooling de=
+vices
+> > are used by ACPI device drivers registering them (ACPI processor, ACPI =
+fan,
+> > and ACPI video) and by the ACPI thermal zone device driver.
+> >
+> > First, it causes the thermal class cooling devices to be registered und=
+er
+> > parents in specific locations within the device hierarchy which allows
+> > their relationships with other devices to be recognized more easily.  I=
+t
+> > also drops custom sysfs attributes registered by the users of the therm=
+al
+> > class cooling devices because they are not particularly useful any more
+> > when those devices get proper parents.
+> >
+> > Second, it modifies the ACPI thermal zone device driver to use thermal =
+class
+> > cooling device parent information for binding cooling devices to trip p=
+oints
+> > in thermal zones, which was previously done with the help of the devdat=
+a
+> > pointers of the cooling devices and effectively prevented drivers from =
+using
+> > the devdata pointers for their own purposes as originally intended.
+> >
+> > Finally, it updates the ACPI processor and ACPI fan drivers to use the
+> > devdata pointers of thermal class cooling devices in a bit more efficie=
+nt
+> > way.
+> >
+> > The first two patches in the series are preliminary fixes preventing
+> > Sashiko from reporting "pre-existing issues" in the subsequent patches.
+> >
+> > The third patch is a thermal core update allowing thermal class cooling
+> > devices to be registered under proper parents.
+> >
+> > The other patches update the ACPI processor, ACPI video, and ACPI fan
+> > drivers as per the above.
+> >
+> > The details are covered by individual patch changelogs.
+> >
+> > Thanks!
+>
+> Nice patch series, it looks mostly good to me.
 
-> Currently, it has the ability to perform Single Data Rate (SDR)
-> transfers - basic reads/writes.
-> 
-> With the addition of sysfs driver_override, there is now a
-> straightforward and direct way to match the i3cdev driver to any i3c
-> device without stepping on the toes of more specialized drivers that are
-> loaded automatically.
+Thanks!
 
-Is it safe? Why on the earth do we need this? The commit message has not enough
-information.
+> Do you plan something similar for thermal zones?
 
-> This is accomplished by the i3cdev driver not having any entries in the
-> i3c_device_id table. After boot, simply set the driver_override to
-> "i3cdev" and bind the device manually via the sysfs bind knob. This can
-> also be automated with udev rules as well.
-> 
-> The character device interface will be exposed at:
-> /dev/bus/i3c/<bus id>-<Provisional ID>
-
-...
-
-> +	struct i3c_xfer xfer = {
-> +		.rnw = I3C_WRITE
-
-In such cases always leave a trailing comma. It will reduce possible churn in
-the future.
-
-> +	};
-
-...
-
-> +	return !ret ? len : ret;
-
-My gosh, wouldn't Elvis just work naturally?
-
-	return ret ?: len;
-
-...
-
-> +	for (int i = 0; i < metadata->nxfers; i++) {
-
-Why is 'i' signed?
-
-> +		ret = copy_struct_from_user(k_uxfer,
-> +					    sizeof(*k_uxfers),
-> +					    uxfer,
-> +					    metadata->xfer_size);
-> +		if (ret)
-> +			goto out_free_k_uxfers;
-> +
-> +		/* Enforce that padding must be zero */
-> +		if (memchr_inv(k_uxfer->pad, 0, sizeof(k_uxfer->pad))) {
-> +			ret = -EINVAL;
-> +			goto out_free_k_uxfers;
-> +		}
-> +
-> +		uxfer += metadata->xfer_size; /* u8 pointer so use xfer_size */
-> +		k_uxfer++;		      /* struct i3cdev_xfer pointer */
-> +	}
-
-...
-
-> +		if (!ret)
-> +			total_bytes += i3c_xfers[i].len;
-> +		else
-> +			return ret;
-
-Yeah, you really need to reconsider patterns you use in the code. Here 'else'
-is redundant. Homework to understand how (#easy).
-
-...
-
-> +/**
-> + * print_i3c_err() - Prints the I3C error encountered during the prior
-> + * call to the core's transfer function.
-> + * @i3cdev: i3cdev_data object
-> + * @metadata: Kernel's copy of i3cdev_xfers (ioctl I3CDEV_XFER input)
-> + * @i3c_xfers: i3c_xfer array that was sent to the I3C core
-
-> + * Returns: void
-
-Huh?! Where is this coming from?
-
-> + */
-
-...
-
-Please, rely less on AI and more on the common sense and proof-reading.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+I do overall, but that is a bit harder due to the hwmon involvement.
