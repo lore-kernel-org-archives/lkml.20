@@ -1,123 +1,111 @@
-Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch [109.224.244.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16D2C3603C3;
-	Sat, 12 Sep 2026 06:25:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0013825228C
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 06:28:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789194364; cv=none; b=qdDOwBzo6tqxgoFZRntc9hJMnkfMECNKswMVTJW5lfrme8IuvdmVEBiJstBSJ68CwEyiyk3ARz8vBynWGGfxKQuiNuds7aPCJBc5QaJFFkNN2AsuqykE4hni+bay2VNjI50+SDRJDwAST+N3Stljrtf3HoPaDyZjUWVW+xZ7L38=
+	t=1789194489; cv=none; b=FgkBHqPjijzKWNlEmgVaM6sFCR6IzlPBe5hC+AtQhcrEMdML25Zt1IHVU1xRvafQItkmoyFgeQEGMRfNXYhrDmkEp2EOPzRuz2epV5E61gA8WqnJ6ldD9z7sJONtndDu5PyAxLe9gMd34Ay2CthOhYqqldc8HrHTpcw/U98Cvpc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789194364; c=relaxed/simple;
-	bh=LXFB/ZwOqDYyjksqQ2b0dmXeG+8rjPHlC4T+NYMGW5I=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=IeCIhM55a3qrjHI47Nkg9ruxOD0uwG85GyOZcYI0AURFXDbTREr8vGWX+DZyI2RgaenzyfqdijRF62KInEcf+p7kCmLZXqmuGlJglGOqTIvei2MtyOF7bK27qTtryhUynm5Z4XuL48ki9+SoeKvNafsMHp3RDz5lbxABzogqxjQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=CqvRM8QL; arc=none smtp.client-ip=109.224.244.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1789194489; c=relaxed/simple;
+	bh=Tgfw+bR1PxAXAQBy+XRLskdLb5gIhfOBvMohuAAe0u0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ijqV8XdEgIQnwX1idAuIM9PD8ONyqwRDxBicc1L2W/BiKN8K4SpW+yhpuVDcwV6kQGCBFCR8dfQbZuNIhsOVUSI7tQxo/fbh6JBHF3kAjKFObZQhzTmZpL+KVadBEkIcRuZfoM9N+bYeBrh2phQ/CZilKKERe7CU2+oNT5wRlYI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MsTur5kT; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="CqvRM8QL"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=umyhfihd7raclp6qpvkn3iaxra.protonmail; t=1789194350; x=1789453550;
-	bh=2Ln0c+cFT05cfCP/yMw4EfUk9itFzGT2tqOdce2BmS8=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=CqvRM8QLQi+3tntgR/hLfo4OXkJKcnbL5ZpLS1ki62eT57pC5I55cv3vCIkOzM4lc
-	 fwM5yKzqV+5QQVDE/be1XqQbelLrDzQ/gvWoU1IlyIMjIdnmfkLp2uZqZImqURn8RR
-	 /vxAQBf83397UbEoDs9RuvRufnNI4OQrmUEXs4QfevzsMGyeELF1c+Ji0EuBcthomJ
-	 zl5h5iFSetPJ5cm1tKFPGdY/KeyjbJts7B2yIbcXZtsttPcPAyvnZ4yxDE3nJNZRS9
-	 t40JjuXDbKB2l5tPJ1M1YfBhIp5YTdUR0SiPFtXPbHAHJrhhnMZ6R0xWB9yMK0G/Hg
-	 mwr9/nsSlXX7A==
-Date: Sat, 12 Sep 2026 06:25:45 +0000
-To: "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, netdev@vger.kernel.org, rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
-From: Sagar Taunk <sagartaunk@proton.me>
-Cc: Sagar Taunk <sagartaunk@proton.me>
-Subject: [PATCH] rust: net: netlink: Migrate to zerocopy's `IntoBytes`
-Message-ID: <20260912062536.363720-1-sagartaunk@proton.me>
-Feedback-ID: 130121444:user:proton
-X-Pm-Message-ID: d76dbb697311a0626cdb87e99dc332e72c880d27
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MsTur5kT"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e620fa473so1285855e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 23:28:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789194486; x=1789799286; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rsRnOmGwT1DNso6iLHvZBhAmNRKCLZB/9f/AeAbBVZg=;
+        b=MsTur5kTZCftDCgm8CUjh8Nf+KCP78wrj9TvPTfHJlH/0+EW7TVtfa/rgEbOJw5kHb
+         qkimqiIDXt1oPcpTKEkhw4AEUouFRNPhPNbKU4u5e7d4HuTtFn+wiXkF4CrKQW1jbT9t
+         ZcqcbYJU2Dg0RL5u5iX/QAVuUakZHdSLlWHgJih3Txw3kGmOjGkymE3jWXR8NFofnBeO
+         xWmoGbdGiLqP/t03jWSlkf5GHwji4wP77mjysG9vXkt8mySRd1BabRt9p6Ld/vhyD76d
+         SUBiMx/g2XusUIFRewxKfc/Fsc5nqxAN0wJkqFMWb/lLR18H9hqYqaKxndEBGUWFSAYA
+         125Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789194486; x=1789799286;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rsRnOmGwT1DNso6iLHvZBhAmNRKCLZB/9f/AeAbBVZg=;
+        b=AXNIZjSgF4ENTCBM2M+NrTLyLEYIBJ3zqh0SA/J7vUHbyIWHglSDLlinhxFVFocWDZ
+         ZccxEZPnlWHl+/ZqEbMMWGBrs9gq5BHv4VyV5iAkAAygCxXwGKaAu7WyPqe27vQHl9Jl
+         k+MtRAMSM0RoScnReDZJq46HNaaPgtdNU8u8fpHoub6aZ7GG6x0AqOf5YEoq20dVdIQO
+         KQNZHUdhA5WqO33tOG6Av0ZYQL2eoFFUb2GlD6/wYhXAdot2G+iI1lpM1olhYGx0Tfc5
+         ye7BCEFSwY/zWhOoEC3/ocqyYEG4GMYxG+S0UKMKNHSeaBcDyTfwZLofSJfmCU94Q3BH
+         WOsw==
+X-Forwarded-Encrypted: i=1; AKwUvBw4O0Ge/KrFJaSQptbts5CYl+nlSNqhHO/rSNYKKipjrJ+5hCWL1VugMfPJllaEHnZCoHuLRRaLQWP7j6o=@vger.kernel.org
+X-Gm-Message-State: AFuF++miB/oFjsPKQFsitxRONubQPIb+wvLMmDGbOVZZdugSlmjOqgLm
+	mBrYsdwN5CuDeFyypUWZ11MiDggSB/7KkwApid1cW6KUeP+d7XVXA795
+X-Gm-Gg: AYBFou2D+6CZYuaR453UZQdH0bE9ZBlpSKSnW6ZPMVv3XaQcLL0SdpbW/TPgzq5aV37
+	sBl9lPi+yoSwT8loYhgDFY3neXuLmqqF04j0TFzRYMKaC9XhNVmnahnrZj/8zXSO57zDTfMrRPB
+	q3w9+2J5sjv8+6UUmnYUQYjPCoCYm8pYCPocoXrbe4NEGNeHGm57HFqIcOpDkioJpUkU06X7gMK
+	B8l7u4xdAym00p3HxI5Vdq+Evr6FTkh/oecyu5ej5jGfo09mBCfDBJDJXvuG5AseFDcrhlI+DG9
+	djSSJN5nUUcciOnIpYPw9/BfNg8L2zTzHezhXPAun2afLMiSr6Ytb5wLKgrMyO0G+H2smoXLDj2
+	cbtng3iRa10+NsmfaK3HcHXLIzGxOzvNm08CgNhIYYsCa9zwOacoeYaBXMNRXHTUlCHr0wwj0/L
+	8gASr+IbznxweubiirCkYC+MuJeRWRqiJ7XLgEFI487m12EPy8otmaRKhxeCBRx/JbXLapfAJb5
+	PeaToIrScZoAbkfc4uRrZijWqH+5uApFcucHgaHrdNAPb7tZOG0W063sbW7nNk237kM1ShZAOwn
+	e+URpuduyDd5dVa8irjCVuM/TZFWmEt0Htu3rLz1X6Ds5uLV+d8X+vs1myMXYOOYJqeV4bx9aaF
+	aDQ==
+X-Received: by 2002:a05:600c:4713:b0:49e:6838:c813 with SMTP id 5b1f17b1804b1-49e6cc102ddmr12126115e9.33.1789194485973;
+        Fri, 11 Sep 2026 23:28:05 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-b260-f201-9983-e8c4-aff5-7a36.310.pool.telefonica.de. [2a02:3100:b260:f201:9983:e8c4:aff5:7a36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e6af095d7sm45068765e9.0.2026.09.11.23.28.05
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 11 Sep 2026 23:28:05 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Hannes Reinecke <hare@suse.de>,
+	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+	"Martin K. Petersen" <mkp@kernel.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Chris Leech <cleech@redhat.com>,
+	Robert Love <robert.w.love@intel.com>,
+	linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] scsi: fcoe: Fix the return value in fcoe_interface_create() kernel-doc
+Date: Sat, 12 Sep 2026 08:28:03 +0200
+Message-Id: <20260912062803.42969-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Replace the kernel's own `transmute::FromBytes` and `AsBytes` traits
-with their zerocopy equivalents. Specifically, this updates
-`GenlMsg::put` to rely on `IntoBytes` for converting attributes into
-byte slices.
+fcoe_interface_create() returns an ERR_PTR() on failure, but its
+kernel-doc still promises NULL on error. Its error paths switched to
+error pointers when FCoE module references were added for vports.
 
-Also, add `Immutable` trait bound on `GenlMsg::put` as zerocopy
-splits the `no interior mutability` guarantee that `AsBytes` bundled
-together.
+Update the return documentation to match the implementation.
 
-Moreover, shashiko pointed out `put()` trusted an unchecked `as` cast
-from `usize` to `c_int` for the attribute length. A length larger than
-`i32::MAX` wraps to a negative value in that cast, which can pass
-`nla_put()`'s own signed `skb_tailroom()` check and then be reinterpreted
-as an enormous unsigned length via `__nla_reserve()`/`skb_put()`, leading
-to a kernel panic via `skb_over_panic()`. Validate the length with
-`c_int::try_from()` and reject it with `EMSGSIZE` instead.
-
-Link: https://github.com/Rust-for-Linux/linux/issues/1241
-Signed-off-by: Sagar Taunk <sagartaunk@proton.me>
+Fixes: 7287fb911409 ("[SCSI] fcoe: Fix module reference count for vports")
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
- rust/kernel/net/netlink.rs | 23 ++++++++++++++++-------
- 1 file changed, 16 insertions(+), 7 deletions(-)
+ drivers/scsi/fcoe/fcoe.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/rust/kernel/net/netlink.rs b/rust/kernel/net/netlink.rs
-index 22ef3dde36fa..f929f63b32c1 100644
---- a/rust/kernel/net/netlink.rs
-+++ b/rust/kernel/net/netlink.rs
-@@ -12,11 +12,12 @@
-     alloc::{self, AllocError},
-     error::to_result,
-     prelude::*,
--    transmute::AsBytes,
-     types::Opaque,
-     ThisModule,
- };
-=20
-+use zerocopy::{Immutable, IntoBytes};
-+
- use core::{
-     mem::ManuallyDrop,
-     ptr::NonNull, //
-@@ -84,14 +85,22 @@ impl GenlMsg {
-     #[inline]
-     fn put<T>(&mut self, attrtype: c_int, value: &T) -> Result
-     where
--        T: ?Sized + AsBytes,
-+        T: ?Sized + IntoBytes + Immutable,
-     {
-         let skb =3D self.skb.skb.as_ptr();
--        let len =3D size_of_val(value);
--        let ptr =3D core::ptr::from_ref(value).cast::<c_void>();
--        // SAFETY: `skb` is valid by `NetlinkSkBuff` type invariants, and =
-the provided value is
--        // readable and initialized for its `size_of` bytes.
--        to_result(unsafe { bindings::nla_put(skb, attrtype, len as c_int, =
-ptr) })
-+        let bytes =3D value.as_bytes();
-+        // `nla_put()` takes attrlen as a plain `c_int`. If `bytes.len()`
-+        // doesn't fit, an `as` cast would wrap around a negative value.
-+        // Which then, would feed a huge unsigned length to `__nla_reserve=
-()`
-+        // and `skb_put()` causing it to panic via `skb_over_panic()`. So,
-+        // the following check will reject it instead.
-+        let len =3D c_int::try_from(bytes.len()).map_err(|_| EMSGSIZE)?;
-+        let ptr =3D bytes.as_ptr().cast::<c_void>();
-+        // SAFETY: `skb` is valid as per `NetlinkSkBuff` type invariants.
-+        // `bytes` is a valid Rust slice, so `ptr` is readable for `len`
-+        // bytes, and `T: Immutable` guarantees nothing can mutate `*value=
-`
-+        // while `nla_put()` copies it.
-+        to_result(unsafe { bindings::nla_put(skb, attrtype, len, ptr) })
-     }
-=20
-     /// Puts a `u32` attribute into the message.
---=20
-2.55.0
-
+diff --git a/drivers/scsi/fcoe/fcoe.c b/drivers/scsi/fcoe/fcoe.c
+index 438ac7c3a9e3fd548a42779c4d753320ec79a854..2c86d8a06e410c99e02f5c7f2ab96a908dda199a 100644
+--- a/drivers/scsi/fcoe/fcoe.c
++++ b/drivers/scsi/fcoe/fcoe.c
+@@ -375,7 +375,7 @@ static int fcoe_interface_setup(struct fcoe_interface *fcoe,
+  * @netdev: The net device to create the FCoE interface on
+  * @fip_mode: The mode to use for FIP
+  *
+- * Returns: pointer to a struct fcoe_interface or NULL on error
++ * Returns: pointer to a struct fcoe_interface or an ERR_PTR() on error
+  */
+ static struct fcoe_interface *fcoe_interface_create(struct net_device *netdev,
+ 						    enum fip_mode fip_mode)
+-- 
+2.39.5 (Apple Git-154)
 
