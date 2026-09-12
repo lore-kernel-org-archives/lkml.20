@@ -1,160 +1,151 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mail-oo2-f11.google.com (mail-oo2-f11.google.com [74.125.231.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A8FB3C2BA2
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 20:09:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789243771; cv=pass; b=XaTKT5ozOzzqa4D+kBocZrYlTxqZ37LPn8rOY7E1+zWzqMkFX1NR4gy0H92WX2wMQvCwAQ4yQzQ343IYuv9I/D1ZKksBBdc3Dgeujlg74Ul+81BcZ7bjYSV6jom4wrInbEkd4SqvRlrjM2SE5KeP6TEC+xi1NUxrKPWiqAGc1a8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789243771; c=relaxed/simple;
-	bh=n3MqhRx/mXenvMytp/ni8E7dPCtfLaiHE2c3yHtK4ds=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ROyQ6dwST2HGdFDGjnDMg0+z/TVH2XLi+fym7q0MfwZeUNiuHgjJM22CI5XatXaWhGWiSq2/vykU9y/aRTutnbXb23xh1YN0lpJ8YmaeJkDiBh47oer5R/WxG4X5y3pF4jXTfZCVLiVIzwMJRXef0zc2IlEooh6KOr4mOmq+h28=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu; spf=pass smtp.mailfrom=asu.edu; dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b=Pu2w6QjS; arc=pass smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b="Pu2w6QjS"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-8625b35df89so47379b3a.0
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 13:09:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789243769; cv=none;
-        d=google.com; s=arc-20260327;
-        b=c812x5ove92GaSX4lzCwiavK2MdmpB8AeBu8ke0WCJk4KAPH9EL7+/eHPC50GjEm/W
-         qUUx6aRLRG5KQ/WuRbx0bSS4cN4IlgrYSTGvYG9RxaniS/8tYPXCF0hvmg+svNWQJoUX
-         AzdW+yMrsS9/+UBkjrjJO4+sfRMwGC0pXDLnGGZ7KTT+Zv7H63eqGz8hqNtHhEc4KjAd
-         ltiZ15xH3MQdFozMBIsPokH16T52rw6s6Yi27vTM+3m+ZYZs8nMZXTB9FyeudQ5WD5E1
-         D9Seu6wXUGDHExcxOq6jjk+qnUB3cK/7n9EPMz6osniOQ8NB8d3IjHTlMPb50PEck4Du
-         fgRw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=qB21ANWRxv7n96J1JHu+XhZk0UtWY45/KlWzWPWjsSs=;
-        fh=kMBqXC4TyBeUOLjWFrWmb95H/LP+zBZ1LgmFnxnixVw=;
-        b=rNGZqL7sUHOTtrFY4CA0gsEJAi7DoYD/HjPAntoQ8z+LLi6AeoAsRqApHFVQyipba6
-         DvYjlvC3L+DAk8oDfv+er2BlUm5MCahlcPuv9Td8xOP4USaGFjZi6W79E9swa3IENQye
-         rb3ChirLUVxo4v64KPaahoJPG5PubwKD8ZzclV77DyeZwuC00RhXAB5+pWJvy3DdxU2l
-         IYph7qnS5+7Nc2mrWMhQG2IAmvPVaAW301h7sFQoTFLdklyTALJHz6updcbXtTuOXnDG
-         JP1e2PlkGDOJJO4CMH+dyZ0/IfoiCqffh22MbXpx6MiTL4BfPemKHg++FFKKnlFl/ct7
-         gJXA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=asu.edu; s=google; t=1789243769; x=1789848569; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=qB21ANWRxv7n96J1JHu+XhZk0UtWY45/KlWzWPWjsSs=;
-        b=Pu2w6QjSjr7W/fUpQJmQ5RUyWMljxt0bHbeptdYU7Q2jv+nF0HexMBHMvNh8L2yPoJ
-         TiS6VjhVcWtEIiK7M+RnyX814SoGVi04iVOfo8VRuDx8zAmlM+SxEWqg7Lt4i+EGmuOO
-         rKWtaApxAKPzQHOvHLpySibQZqqjpGzv5y8IUXFrpRr6yrvVKAM6KDWuzayM24JDSDFl
-         Ghwt/cmZMYGNsJJsy2EgzizdM91UvE5XwK8KXNeWrK7DxcEg27X71rOQA2HcePv01srH
-         ccoowyhkoAmVSym2f1xflXIUcTrzA7pXReRvw2ZBQH2H3NVMJA5+l76d48H4N67m7eFV
-         6x0w==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3917E3603DB
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 20:10:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.139
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789243827; cv=none; b=axQ2YAnr6SDN5ch2XSxwCXGzVabSFWkgKTm8ljCsan8x6YVTwLfm4gxh0e822/mhYTTjTjedahxUDBUj+Q7nxJSPYqUHZSgwR55rU6auSEWTIF9crQ5FBR2JL+EtQm9rYYX35qst++aZD1yHg9rcJRihenPiTskdbcmXhb2ZBbs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789243827; c=relaxed/simple;
+	bh=ezlL/05hTjc59M9JMSnCcVjSLETeIAlX4JiGnhjw1w4=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=U0fQULYFQKt6ILoIdRJlxxU6AuKS0/GgAwKskQS1sKHouAnXV13orsXEYNQ+gMVzkyy9RWtnetSx8s48PY3mDP+GO976/DPvWb7UPwZ7qYUJBBSXTXaSnJK50SiCRxpzUR7Nzf7PywvRs1C8yGw2ZZ7HOxS4c+d9iy0vx0uNGj4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo2-f11.google.com with SMTP id 46e09a7af769-8069d92e182so98807a34.0
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 13:10:25 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789243769; x=1789848569;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qB21ANWRxv7n96J1JHu+XhZk0UtWY45/KlWzWPWjsSs=;
-        b=NZKl0r4AuEh5EmxJiTz9mtQYJqKR9dAj3jIeGhJo1i6fF3ysFA2zwx13h419yRF7It
-         ECc3AOSNjt5K+WvbYCKAKxnptzR2FSjTHuSAk6UItVMKNWjvdm6ctWc9ye/8+TYPF3sM
-         JU0hqfzSqwXJF9Qno5yg6LemYEJZtaDE2bj4FJ5sD719gd1XwLB/kDu8WzSfYgDboeYy
-         jfBLr8LxcHVpMAE4YOuoAdLgvx4zjTyM5+AEwE/C5CLCKNeSd97qtT0T+sxcOV12hj4B
-         dk3aP7WYeHg+g6qKFc6fqnHjX+zrP9kvJy7LMCXyxHZ/tWcDBcD0mFJGNO4Fx++GbdLa
-         e3nw==
-X-Forwarded-Encrypted: i=1; AKwUvBziUCPJtkd63Mfipuh2Gei7LpdPuxstC4vXxEc4gxuqiFLU2q6RSR2SgTnVVoUOXNUDWxU3XGvTyjYkuSc=@vger.kernel.org
-X-Gm-Message-State: AFuF++lhwVLiefTC/AFfOZomW+ZhiIMX3fhRKtjwDimTdGHVW7PSdfWm
-	2oydE/FitmCkMpPNl5VpcJYz0nj0QoCuLPr/LTOhscnJTpcuOr/XWRMF/Q6BwN0JtqBRVxlCcpO
-	8ZUTd35gFIePHOXD9DdkdsSfSaWHWRQzENBXKW22x
-X-Gm-Gg: AYBFou3Q6S6RagBAIfarM34gS9CQE94nZgC3NJW94nyDajqHz8Nd66cRgWTV9z/wHCm
-	9Z63SgnOp2m14xriyLppR1kyU0QmMU0MJxDXcB0WbrXa1LCFTsgybO4eqjIo5VnMe1hV7w+c2LP
-	qyBklH2jH+fZmlIs5KvnBCLB4flv5Sc2lq8Urxboe0Op+/+kbOvH6y+jCCWBEBDCn5R6AueJFkz
-	cQEo9anP0ryLwLGUsQmC6S+viCmkpNkSwbHHjooCypCrRmgVAm3SYTQ5/IIVApKdMCkeJDWN+Tt
-	txtd1vnt3V8imjBp61UwmQaaiQ0sS8jUGU/bs8nh8wyYMMmh/seCDglfBHxCKGeU4/tNpGEkTx1
-	ISG9V2nuEg9Q=
-X-Received: by 2002:a05:6a00:2304:b0:851:8bde:7861 with SMTP id
- d2e1a72fcca58-86b100bc308mr11287669b3a.1.1789243768860; Sat, 12 Sep 2026
- 13:09:28 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1789243824; x=1789848624;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=NC5wIFrOLxpILKOliVtJmVWh7MhmLTBGqFSlaBXK+qg=;
+        b=TlMxa2V71INJVEIwPt7p+RvRShFpnUGBI/erayClrqfmWk5QulBOUj6yHiU7nOdVXX
+         h9zrlDTiQLGRMWlvlnECRgYlkm/R9t7QI5teAOfPEt+vz9MavEl/3bia7eOWlbUKa0l4
+         TaP6+tgqZ1pdzvcJXcHxwyRHCJBXG7DCljq/YO7WvzA+K29syGKQ7So6RubI9Xn4EHXc
+         o+j5NPKGUykpEJWqaQemQ/ZUfE3g+l5/CaU5QjuOH40Z122+SqFPgzTHvqUoZkplFc/R
+         9zGXfEYGBms/aD/ae16S/Mks/eR2JHf4hoikJeAWPW4DNalmdKUbN/RodmN63z6X+kc/
+         BJsA==
+X-Forwarded-Encrypted: i=1; AKwUvByePcWvfO6ugHC+EC7LZmbb4xN/Kslr3NJUi3n4yCj7aUbS29gklfVh4JGXsakaXagBKckVP2vRwmZcfw4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lwTjK1lsfb8j6FHLw8nLm86ganN1rz5GDzWLXfr7kuTUiNfMVD
+	JRQEmhohBzqMUMrVhga8U4h627Nk+SYTy8opq+sgjwfitxvL6uOV7abi+1r4nJrOIqlP7KCDpje
+	APW848NvzSdHyyRo6JL4jfk6TcleE7EZaPlZ+7tTuxlyU0byE6m6gwv4F4Qk=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <22xPn8drvIUtYgVeQnBiNqXuevOTpBAjepLz@bugs.sh> <87wlsq1lfa.wl-tiwai@suse.de>
-In-Reply-To: <87wlsq1lfa.wl-tiwai@suse.de>
-From: Xiang Mei <xmei5@asu.edu>
-Date: Sat, 12 Sep 2026 13:09:18 -0700
-X-Gm-Features: AcwNN1X1dMySvkFBvnf6VyEpz9GV0R43A0JOxk9_7Dhsosx5Nt9vYTNCh5NQHsE
-Message-ID: <CAPpSM+RgpkW7dxWdX0qr0kjVATYxyx2GT_ZD_mgpD6r4WetQJw@mail.gmail.com>
-Subject: Re: [BUG] sound/usb: out-of-bounds in prepare_playback_urb()
-To: Takashi Iwai <tiwai@suse.de>
-Cc: cedalion@bugs.sh, linux-sound@vger.kernel.org, 
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org
+X-Received: by 2002:a05:6820:2d04:b0:6c1:f832:9b6a with SMTP id
+ 006d021491bc7-6c24e671d43mr2171106eaf.33.1789243824191; Sat, 12 Sep 2026
+ 13:10:24 -0700 (PDT)
+Date: Sat, 12 Sep 2026 13:10:24 -0700
+In-Reply-To: <6a8b254b.91706f20.16b6e3.02c9.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa5b1b0.f81106d8.2ab401.002f.GAE@google.com>
+Subject: Re: [syzbot] [wireless?] memory leak in ieee80211_mesh_csa_beacon
+From: syzbot <syzbot+f5752cd6b94fe38be666@syzkaller.appspotmail.com>
+To: johannes.berg@intel.com, johannes@sipsolutions.net, kartikey406@gmail.com, 
+	linux-kernel@vger.kernel.org, linux-wireless@vger.kernel.org, 
+	netdev@vger.kernel.org, nico.escande@gmail.com, 
+	syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Sat, Sep 12, 2026 at 9:31=E2=80=AFAM Takashi Iwai <tiwai@suse.de> wrote:
->
-> On Sat, 12 Sep 2026 04:09:23 +0200,
-> co wrote:
-> >
-> > This is a bug report, not a patch submission.
-> >
-> > We found a bug reachable in:
-> >
-> >     path    sound/usb/endpoint.c` (the overwrite) and `sound/usb
-> >     crash   out-of-bounds in prepare_playback_urb()
-> >     commit  2f1baf1fc892 ("Merge tag 'trace-v7.2-rc7' of git://git.kern=
-el.org/pub/scm/linux/kernel/git/trace/linux-trace")
-> >
-> > Config, environment, the sanitizer report and a C reproducer follow.
-> >
-> > =3D=3D Notes =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> >     If you fix this bug, this tag credits the report and lets us
-> >     close it on our side:
-> >
-> > Reported-by: co+8eacd4fa193b1b28@bugs.sh
-> >
-> >     Everything in this mail is validated by the reproducer below.
-> >
-> >     We also hold an unreviewed LLM-generated analysis and candidate
-> >     patch. The same reproducer panics the unpatched kernel and runs
-> >     clean with that patch applied. Use it as a starting point, or ignor=
-e
-> >     it and write your own:
-> >
-> >         patch.diff  https://bugs.sh/b/8eacd4fa193b1b28/patch.diff
-> >         report.md   https://bugs.sh/b/8eacd4fa193b1b28/report.md
-> >
-> >     A guide to taking it from here to a sendable patch, including the
-> >     trailers to add: https://bugs.sh/patch.html
-> >
-> >     Happy to test patches. Complaints and suggestions about our work
-> >     are welcome at:
-> >
-> >         cedalion@bugs.sh
->
-> The suggested patch looks reasonable.  Could you just submit it in a
-> proper format for upstream (after verifying that the issue still
-> happens in the latest upstream)?
->
-Thanks for checking.
-The patch has been tested on the latest upstream (tiwai/sound.git).
+syzbot has found a reproducer for the following issue on:
 
-And I have checked related functionality and ensured the patch fixes
-the bug (to my knowledge):
-https://lore.kernel.org/linux-sound/20260912200530.1955491-1-xmei5@asu.edu/=
-T/#u
+HEAD commit:    5225b8eec4c9 mailmap: update entry for Jens Axboe
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=1172e9f9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=736c81750115a056
+dashboard link: https://syzkaller.appspot.com/bug?extid=f5752cd6b94fe38be666
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=12a9b615580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=15d870c9580000
 
-Xiang
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/12d5d066d792/disk-5225b8ee.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/f9bb3f95e482/vmlinux-5225b8ee.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/84ee8de2ba4a/bzImage-5225b8ee.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+f5752cd6b94fe38be666@syzkaller.appspotmail.com
+
+2026/09/12 20:09:52 executed programs: 5
+BUG: memory leak
+unreferenced object 0xffff888107ffb800 (size 1024):
+  comm "syz.0.18", pid 5913, jiffies 4294943824
+  hex dump (first 32 bytes):
+    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+    d8 23 48 14 81 88 ff ff 00 00 00 00 00 00 00 00  .#H.............
+  backtrace (crc f81fd0):
+    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
+    slab_post_alloc_hook mm/slub.c:4696 [inline]
+    slab_alloc_node mm/slub.c:4996 [inline]
+    __kmalloc_cache_noprof+0x38f/0x420 mm/slub.c:5559
+    _kmalloc_noprof include/linux/slab.h:991 [inline]
+    ieee80211_mesh_csa_beacon+0x2e/0x100 net/mac80211/mesh.c:1547
+    ieee80211_set_csa_beacon net/mac80211/cfg.c:4674 [inline]
+    __ieee80211_channel_switch+0xb22/0xed0 net/mac80211/cfg.c:4795
+    rdev_channel_switch net/wireless/rdev-ops.h:1168 [inline]
+    nl80211_channel_switch+0x39b/0x780 net/wireless/nl80211.c:12388
+    genl_family_rcv_msg_doit+0x12e/0x1a0 net/netlink/genetlink.c:1114
+    genl_family_rcv_msg net/netlink/genetlink.c:1194 [inline]
+    genl_rcv_msg+0x302/0x440 net/netlink/genetlink.c:1209
+    netlink_rcv_skb+0x89/0x1c0 net/netlink/af_netlink.c:2556
+    genl_rcv+0x28/0x40 net/netlink/genetlink.c:1218
+    netlink_unicast_kernel net/netlink/af_netlink.c:1319 [inline]
+    netlink_unicast+0x38f/0x4e0 net/netlink/af_netlink.c:1345
+    netlink_sendmsg+0x335/0x690 net/netlink/af_netlink.c:1900
+    sock_sendmsg_nosec net/socket.c:800 [inline]
+    __sock_sendmsg net/socket.c:815 [inline]
+    ____sys_sendmsg+0x54a/0x580 net/socket.c:2713
+    ___sys_sendmsg+0x101/0x140 net/socket.c:2767
+    __sys_sendmsg+0xcd/0x140 net/socket.c:2799
+    do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+    do_syscall_64+0xe9/0x530 arch/x86/entry/syscall_64.c:84
+    entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+BUG: memory leak
+unreferenced object 0xffff888107ff8400 (size 1024):
+  comm "syz.0.19", pid 5915, jiffies 4294943825
+  hex dump (first 32 bytes):
+    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+    d8 23 48 14 81 88 ff ff 00 00 00 00 00 00 00 00  .#H.............
+  backtrace (crc f81fd0):
+    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
+    slab_post_alloc_hook mm/slub.c:4696 [inline]
+    slab_alloc_node mm/slub.c:4996 [inline]
+    __kmalloc_cache_noprof+0x38f/0x420 mm/slub.c:5559
+    _kmalloc_noprof include/linux/slab.h:991 [inline]
+    ieee80211_mesh_csa_beacon+0x2e/0x100 net/mac80211/mesh.c:1547
+    ieee80211_set_csa_beacon net/mac80211/cfg.c:4674 [inline]
+    __ieee80211_channel_switch+0xb22/0xed0 net/mac80211/cfg.c:4795
+    rdev_channel_switch net/wireless/rdev-ops.h:1168 [inline]
+    nl80211_channel_switch+0x39b/0x780 net/wireless/nl80211.c:12388
+    genl_family_rcv_msg_doit+0x12e/0x1a0 net/netlink/genetlink.c:1114
+    genl_family_rcv_msg net/netlink/genetlink.c:1194 [inline]
+    genl_rcv_msg+0x302/0x440 net/netlink/genetlink.c:1209
+    netlink_rcv_skb+0x89/0x1c0 net/netlink/af_netlink.c:2556
+    genl_rcv+0x28/0x40 net/netlink/genetlink.c:1218
+    netlink_unicast_kernel net/netlink/af_netlink.c:1319 [inline]
+    netlink_unicast+0x38f/0x4e0 net/netlink/af_netlink.c:1345
+    netlink_sendmsg+0x335/0x690 net/netlink/af_netlink.c:1900
+    sock_sendmsg_nosec net/socket.c:800 [inline]
+    __sock_sendmsg net/socket.c:815 [inline]
+    ____sys_sendmsg+0x54a/0x580 net/socket.c:2713
+    ___sys_sendmsg+0x101/0x140 net/socket.c:2767
+    __sys_sendmsg+0xcd/0x140 net/socket.c:2799
+    do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+    do_syscall_64+0xe9/0x530 arch/x86/entry/syscall_64.c:84
+    entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+connection error: failed to recv *flatrpc.ExecutorMessageRawT: EOF
 
 
-> thanks,
->
-> Takashi
->
+---
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
