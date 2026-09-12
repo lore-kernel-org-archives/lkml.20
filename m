@@ -1,172 +1,117 @@
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A603732D7F8
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 18:41:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.181
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789238498; cv=pass; b=FygIanUvmPPKdze3R+bcbZ0qz2+o9qmrw68lKBE4ozftTcP6QefXKNVt62ycCY9TKzqN3NQdt2GLjkjKiAQRwI/POy1EbcEOJOj8Af0qy/VoLPY+fPAEyr5ECXYLTLWGq5W2ic4Yrj44ENmiRIgqMbsxn9NQo9oQ7M1brNFikxE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789238498; c=relaxed/simple;
-	bh=qtjD8mGNVxf7mZ2NIHBiWN/l2X+eK3VcVypAVVOeFfk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ndpLBOaVqp6V/WE+jBlecIfCaCmJs0OgxtaDiLFlmAcum8+Aflh+23lHe8KNvXsQ0rMC3UaeF63LqFEuY3KvUJi0u0B4WUUM1rUYmopZzAnkwGOn3+/f4YZbPqqj/4L2dtXyWT+4q5/n2B0KRYBKqkjDV0xSiUhdfzl7iQaOvqo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu; spf=pass smtp.mailfrom=asu.edu; dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b=YA/c8vZQ; arc=pass smtp.client-ip=209.85.210.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E933032B126;
+	Sat, 12 Sep 2026 18:50:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789239040; cv=none; b=UTxDVs5SYnInrHc53WdMzPZgyNsftSjlzq0v3UZp4bzXCRbLEw2BW/VzPr4xjltyjy53gV1GcBbY7jjNAG7lzNViBK2FExuwYRByyUXmQpL7sWkAgT3/ZdVxELPZkbJt6Fq6UH3pRAeiY5Mkc7BTHj2ApObEnVmMAC2rDVy85GQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789239040; c=relaxed/simple;
+	bh=OhvyiMsp/mZoEtAboDo8kyMAfh6o9vfe+qVneM15LBY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=T8lxLd00CVV0o/Y2bQ6lL8W7Uu8YlAsHaJZxq4tGX/Ys4dTMQoCVXdNx2luiy0q1Jm0uwb0NdXNP0/QhZbRCJrIjVYK/PNx4YQLe8NR1hEMwUAimrSDJAI1ZxtXn+k1iwGf5hTQkkdodVtO1E5Cm/zvBCtsyYLkBaXG5sbfdq7Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RLgsxU6P; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b="YA/c8vZQ"
-Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-86265451beeso1269593b3a.0
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 11:41:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789238495; cv=none;
-        d=google.com; s=arc-20260327;
-        b=bdpMOPvI23P6+d7rvK7InZIa5/FduK7TW6m4jXsd73dd1C73+BuWxf+uMOhvdF3GYW
-         +J6V420IMSFVO2y8H4uFA43nM+dgynFemvX6SGEl82jkddW1C1MkBDdCCDw01K453K5k
-         7dlokAMbZNnMtOoOBH763iKHeRCyZqOuYKx5u+dO6blkn/1Gk9cwA+FiHH00nSWscxTY
-         AfA/UK9zPRziC2I4wQDqkMLyI8wwYxiw6FELfPR2bDQbN0gHAbMYL/VmtG+V/+ei3I8u
-         lJ2TBeNB2O6nxeX9QdlQ1fMHa+WTCBDnpcCPuFVYR3TelPBFV8RcMEAHL+FvBCry7mZo
-         6pKg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Q5HxYaGLmH6quZJ16ng/1tdJU0o/ciJH2LOZdATejjA=;
-        fh=wdWMKT3JEtWwPZok9g7tCrGVLRFyiX8HUiMeA1AVgoA=;
-        b=T+ahwnq6C0ugnnhh7v3nTNblghWadLk608KLpT4erg95TT5A16GOJ2XhMHYkcKgg9S
-         Tg5MbBCagqsf6dRhabdpKTggVarZgNla3/XTfdf3ccUKMd0lmkubhr8LhYbyCIP0rhqy
-         SL5+ug1Qk5Cti8VZeQiW0+7MCFYSQWSBrwnlpV/Rv9csG7WU1ozWtXf8ZSoxR1D1qy+O
-         k8hSGdTQKWgwpyyrKJJKdgsNWjo09zfDiMIveVdqP2km64jLaaswnhTSU5B9ExuaIyhn
-         6eMh5FHkozM/7PiYCIaeRFUvxNhUfdG2qMVuoYUVsaDLgDjQwowYRMMUGhsfklUJlIjf
-         UXIQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=asu.edu; s=google; t=1789238495; x=1789843295; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Q5HxYaGLmH6quZJ16ng/1tdJU0o/ciJH2LOZdATejjA=;
-        b=YA/c8vZQzIjbBNSsrIznsbARA0mR57HjDigMF86p3o5ebQd9Hi/u0TLnxze2yL5mXO
-         ge1ZxvHwFDpHX/Dc5s7ACpy1rbK4lAY2VZtxIuXe6uIFdiIILhAI7PQTYtAvCzXpbfV0
-         ZgcJBMZbzYz4N/aUAWaX8aOkMsMJR/Zc5Kbvm1Wyo93NtjBhVwMi3tKi6fiZRPi7ro9x
-         ggvbcyboX9mRGPVCv4TMsBqsw7JSHEjp5MEqRlvcP37JwsDadAQZjJAzEmasYaZJ4NsA
-         rr5jFA/JaAPRHw9aYjb3IVlwohFXEz9Y1przch0uAE9LunlxleiB/3X1vIKEgJfZfpzo
-         M4EQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789238495; x=1789843295;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Q5HxYaGLmH6quZJ16ng/1tdJU0o/ciJH2LOZdATejjA=;
-        b=aSekKmITxDYVSjo8hL7yu/JOh2B+x46m6TuqlQgIWr3r3AqwD0MDLGdJbDK8WmpCY9
-         kAybvFC3Bo7kJabhGIJEQlJd4tCcovqeuiWekSB4wQjcfrnxOjHy5EmOxKRmRFQKl0TE
-         TuFvZKJ/OLRUQCtdWdCYjK7rjOjnSAnCJmRnw8LAQkrTkaydyN2zA2WbaN2ZmHgUfnan
-         tQp7WgwZKf1UCcjEKeJzXbnzQCh+wGjitgBWyiDhVbxc12lRqxEMjvgpqsFd9L6QnUlH
-         1mtw+g2Og1ADCKb94685pynCxSK4VNHbSVbPRjwE3p36pUm4zMYkcA5gujZweBOh5yMl
-         PD0g==
-X-Forwarded-Encrypted: i=1; AKwUvBxH/CJb0GXFpLzcKlWB2JTpYesp/plzivXZbb0Sp7Kf/lbUQP3GurXhXgBKV6buRl0hVariQRAbJ21j1X0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kkIR6DRGRjH2fNob6lRvHmvh/UPbz4xZ985BOPdmf9Z12HmLqb
-	/g6ukJ2JEw2Uvme9gt4FX6LVgkpRmuOykznJwSut27f1P1MTXjiV5l5+mS00Mqibpsc9Uv3//U/
-	xrzV8v5Gmp7bFHZgRDiETBEaUISre90mcKZigEaQ5
-X-Gm-Gg: AYBFou3AWvGMcwUYu+UifSShHEnHHcicBoQYY06k2ZmEA70Q1O3iztSTO6uYo5EUL+K
-	cXB15DDzDZng67lCNFxHM4B2WkKQck8m8Qg/jaMWVPeY0uqoeG/FrrRzxhKEiqyaD1nmz9xeGCC
-	5sdlx86aEW0xMvm5Axm8nhZ1rPbnMjhR1f3ZAC4t46cbJfEn0Qy9aM4jx7uZMcfTD4UIu7nO7bc
-	BANfxjuzj992BHYjfjuaRilDYi14XxbBgdBESQAuuIJHZcKNqwVFsl9R8mmy9yS4VMehWfruTHe
-	hVxqZ9UkUBAOLNgO4HQfVVO10juiwXsiGRt9RS+QpqKEPMAVlJP+oI/2aWTiVcMZTGs6CByz9n4
-	uSr/lLOKLLC0DwvEXoHw9ppAhJge+93EB2L3Yww8eYDDgTg==
-X-Received: by 2002:a05:6a21:3397:b0:3bf:b84c:2984 with SMTP id
- adf61e73a8af0-3daed206213mr20273722637.11.1789238495108; Sat, 12 Sep 2026
- 11:41:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RLgsxU6P"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC0381F000FF;
+	Sat, 12 Sep 2026 18:50:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789239038;
+	bh=07Lq/XL1IlEUe96PwnmgESbCWMzA0hrr6WiCfxD8Fb0=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=RLgsxU6PeWZGIJJzuyvy0mpF8AcE0juypLZ1Ik603Ce6CC6jQSHYlfeWfLhC/WNoI
+	 EyMcc/mB867y2U4esY7SAF4acLDpm2GnSZLEZGY39F++WpybLl1DKuSuYjzhNEePMH
+	 USmeBRCO7Yu6tqRUXE3VuJeCCUGj/fAV72oe4CgEiX3Bwf8caRGUSTkkFExsTcvj+R
+	 ntksnKiLez9gCOnL9SEf6wjPgsbQn7TJeQcjVbYX3HQJDBNZKMcpHGk+TLB0sHm6PE
+	 iZTzdj3P0DLKmRlQilr+VN8nRvk2TW3ona3DkqCKpk21pMC9aELUz9wOScdxTbhIju
+	 zqjnm1Jag1WvA==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 92247CE0D0D; Sat, 12 Sep 2026 11:50:38 -0700 (PDT)
+Date: Sat, 12 Sep 2026 11:50:38 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: KunWu Chan <kunwu.chan@gmail.com>
+Cc: jiangshanlai@gmail.com, josh@joshtriplett.org, rostedt@goodmis.org,
+	mathieu.desnoyers@efficios.com, rcu@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Zqiang <qiang.zhang@linux.dev>
+Subject: Re: [PATCH] srcutree: Add lockdep and early-boot checks to
+ synchronize_srcu_atomic()
+Message-ID: <e6be6641-731c-4b21-ad4e-c05bedc388d6@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20260911093515.2802551-1-kunwu.chan@gmail.com>
+ <0cf7b133-d2fd-4298-adba-70a2b86d1892@paulmck-laptop>
+ <CAN_Opa-uuim=aiOuAmHYUoD5S=vBREemj-dCvcunF-4zNdp1=A@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <J3vQPnNHSkQ6YUiFvu1bk8ai3Q8aZ7a9J1Y7@bugs.sh> <2026091217-almighty-slouching-de2c@gregkh>
-In-Reply-To: <2026091217-almighty-slouching-de2c@gregkh>
-From: Xiang Mei <xmei5@asu.edu>
-Date: Sat, 12 Sep 2026 11:41:00 -0700
-X-Gm-Features: AcwNN1VRko1QhfcNpXUHrgWahCKVmFdRFEfCWoiFBe39F7TD0MRyo3ctkWNOmGs
-Message-ID: <CAPpSM+TjBEDy0zpkeNfz2ZeCZxYBHSKrw3spDBYS-kBw=EXL8g@mail.gmail.com>
-Subject: Re: [BUG] drivers/usb: NULL pointer dereference in stub_recv_cmd_submit()
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: co <co+66c3f58096d0bde8@bugs.sh>, linux-usb@vger.kernel.org, 
-	Valentina Manea <valentina.manea.m@gmail.com>, Shuah Khan <shuah@kernel.org>, 
-	Hongren Zheng <i@zenithal.me>, Suwan Kim <suwan.kim027@gmail.com>, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAN_Opa-uuim=aiOuAmHYUoD5S=vBREemj-dCvcunF-4zNdp1=A@mail.gmail.com>
 
-On Fri, Sep 11, 2026 at 10:47=E2=80=AFPM Greg Kroah-Hartman
-<gregkh@linuxfoundation.org> wrote:
->
-> On Sat, Sep 12, 2026 at 02:06:13AM +0000, co wrote:
-> > This is a bug report, not a patch submission. See
-> > https://bugs.sh/reporting.html
+On Sat, Sep 12, 2026 at 08:37:33PM +0800, KunWu Chan wrote:
+> On Sat, Sep 12, 2026 at 12:47 AM Paul E. McKenney <paulmck@kernel.org> wrote:
 > >
-> > We found a bug reachable in:
+> > On Fri, Sep 11, 2026 at 05:35:15PM +0800, Kunwu Chan wrote:
+> > > Add the lockdep annotation, same-type SRCU nesting warning, and
+> > > early-boot check used by __synchronize_srcu().
+> > >
+> > > Suggested-by: Zqiang <qiang.zhang@linux.dev>
+> > > Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
 > >
-> >     path    drivers/usb/usbip
-> >     crash   NULL pointer dereference in stub_recv_cmd_submit()
-> >     commit  2f1baf1fc892 ("Merge tag 'trace-v7.2-rc7' of git://git.kern=
-el.org/pub/scm/linux/kernel/git/trace/linux-trace")
+> > Queued for review and testing, thank you both!
 > >
-> > Config, environment, the sanitizer report and a C reproducer follow.
+> > Interestingly enough, it is now the case that there is a grace-period
+> > wait that can be placed in a normal RCU read-side critical section.
+> > Does this mean that we should also adjust the --do-srcu-lockdep testing
+> > in tools/testing/selftests/rcutorture/bin/torture.sh?
+> 
+> Thanks, Paul. Good point.
+> 
+> I’ll check the current `--do-srcu-lockdep` coverage, including the
+> case where `synchronize_srcu_atomic()` is called from a normal RCU
+> read-side critical section, and follow up with the necessary torture
+> testing changes.
+
+Sounds good!
+
+Perhaps you and Zqiang can work together on this.  Co-developed-by,
+for example.
+
+							Thanx, Paul
+
+> Thanks,
+> Kunwu
+> 
 > >
-> > =3D=3D Notes =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> >     If you fix this bug, this tag credits the report and lets us
-> >     close it on our side:
+> >                                                         Thanx, Paul
 > >
-> > Reported-by: co+66c3f58096d0bde8@bugs.sh
-> >
-> >     Everything in this mail is validated by the reproducer below.
-> >
-> >     We also hold an unreviewed LLM-generated analysis and candidate
-> >     patch. The same reproducer panics the unpatched kernel and runs
-> >     clean with that patch applied. Use it as a starting point, or ignor=
-e
-> >     it and write your own:
-> >
-> >         patch.diff  https://bugs.sh/b/66c3f58096d0bde8/patch.diff
->
-> Please just submit patches like normal, in a format that can be applied,
-> and do not make us go to random links to attempt to get any information.
-> That's not how kernel development works at all.
->
-
-Hi Greg,
-
-Sorry about this. We may have misunderstood your earlier reply in this thre=
-ad:
-
-"But sure, posting bug reports is fine, but again, patches are better :)"
-
-https://lore.kernel.org/all/2026090139-shortlist-junkie-9bee@gregkh/#t
-
-We interpreted this as meaning that sending bug reports without
-patches was acceptable. We understand your concern with the current
-format, and we will stop sending reports in this format to you and
-linux-usb@vger.kernel.org.
-
-To make sure we understand correctly and follow the appropriate
-practice going forward, should we:
-
-1. Send pure bug reports without any LLM-generated analysis or
-candidate patch, similar to the bug reports syzbot sends to kernel
-mailing lists;
-2. For USB, do not send bug reports and only submit patches in the
-normal kernel format; or
-3. More generally, do not send bug reports to Linux kernel mailing
-lists and only submit patches in the normal kernel format?
-
-Sorry again for the misunderstanding, and thanks for taking the time
-to clarify this despite your busy schedule.
-
-Xiang
-
-> thanks,
->
-> greg k-h
->
+> > > ---
+> > >  kernel/rcu/srcutree.c | 8 ++++++++
+> > >  1 file changed, 8 insertions(+)
+> > >
+> > > diff --git a/kernel/rcu/srcutree.c b/kernel/rcu/srcutree.c
+> > > index 6a9c432a3bd0..6c729e805fb3 100644
+> > > --- a/kernel/rcu/srcutree.c
+> > > +++ b/kernel/rcu/srcutree.c
+> > > @@ -2123,6 +2123,14 @@ void synchronize_srcu_atomic(struct srcu_struct *ssp)
+> > >       unsigned long rdm0, rdm1;
+> > >       unsigned long unlocks0, unlocks1;
+> > >
+> > > +     srcu_lock_sync(&ssp->dep_map);
+> > > +
+> > > +     RCU_LOCKDEP_WARN(lockdep_is_held(ssp),
+> > > +                      "Illegal synchronize_srcu_atomic() in same-type SRCU read-side critical section");
+> > > +
+> > > +     if (rcu_scheduler_active == RCU_SCHEDULER_INACTIVE)
+> > > +             return;
+> > > +
+> > >       // Initialize.  Either init_srcu_struct() was invoked or
+> > >       // DEFINE_SRCU() or similar was used.  Therefore, no allocation
+> > >       // will be done here.
+> > > --
+> > > 2.43.0
+> > >
