@@ -1,84 +1,128 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5287A4248DB;
-	Sat, 12 Sep 2026 10:16:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41CCF357CEC;
+	Sat, 12 Sep 2026 10:17:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789208213; cv=none; b=t67WaASiys6llvq43SJa+5Mtob6U2S6fwpSiCXbJnfGYalfzWUnuWtsNSLY3WQeKH5lfEhA8yLZMYTgUmLCXZKqa9kbabrAkFHg00YpfJu2D/1ohjTaLxErW+le2x08Tp+spuS2IzHDmFMcRweyIkP/ClKJBSRg4TEG1HkkFp94=
+	t=1789208273; cv=none; b=VF6FLUlhavRaL/l7b6/QfDYDvh0Nb4tbZPKoZnG4CRW2tfJbFqWa64KjmwF46TQMcVRKbp+qQxkPCNnA6y6jJj3aIywcEZ+KP280LRSLxW637Esueca2Szn7bf35JLBMKn8bvSo7OFJS0HlZYvf677rBIHMHWdn40CXqxjcvP2c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789208213; c=relaxed/simple;
-	bh=z5WVj38IiC/hz5c3bJDAj7E0oAL60HZscOoZZnZ7vi0=;
+	s=arc-20240116; t=1789208273; c=relaxed/simple;
+	bh=3Hf8Eqlr+Ebp9f09GYEgMl/3B/tG67lXiBEhbgdIlso=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qfcJOo0psYg3syXoVuAM3C2Ra4pU/EaZucerTqFfofAD2VDoyQb91AxsTxZ9eW0GABnFzvafgi2emrAFvwFsk6h10uCf+rw4zBwiFbaSRt8/xmSYq6Cdj6xEUTHKCyWKEhXoUy7qNTUXhaT5e8nH/E/NIXotjjsIddugk6hXugk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Oc+Iki3a; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=C1n+6kP9AyglM487ZsfIBfQCehjZiDdL46DP1+jw+CnzCSShEg2MX4ZcjARIrnD3LNVTIJHaaWTeTsAMsJrLFFpz6Blb7Xwp+uYFEI7qy1wp6rKx8/bHxmxKaCR3paPCOgmVlSOeUZsEgjoqt9pF9B4pUuLgtQZfp016O2Jn1Ow=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qa+qxoGg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Oc+Iki3a"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789208210; x=1820744210;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=z5WVj38IiC/hz5c3bJDAj7E0oAL60HZscOoZZnZ7vi0=;
-  b=Oc+Iki3aspX24lGtW1jo19/Lkk7upEpLFuux2xOPREHxA8ASkv4bB0tk
-   Cc18F0LZPdJQ/XEa6TQCvzFI9ZuHev0QvPU3sW08yZHPKcrIJXFViVzGZ
-   f2pwIiNWu62Ks7zQqI1ktw8/m9Kv/YDIFYU4kY81c/CDhXUT1TyGQM/wS
-   MpQvOLbTLRTWEY9GyPl7iBF3zfh9fmVaaxjPwwDEE0DUs/DCipPGk15s5
-   adgfAjgwyr9BiRMPn4ScHNnPf3xV2gtECh4pF2eozMw24o2MAnTCfCFlB
-   cLFi6Atbt+KNtANOiqGtclax1zM4O/WBpbRBJiv++h/YvXe6IlwnhVyDl
-   Q==;
-X-CSE-ConnectionGUID: JGPDO89zQvSr35SxeedzLw==
-X-CSE-MsgGUID: FbO4/p3GTOmUYuuNSS21jQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11902"; a="100248591"
-X-IronPort-AV: E=Sophos;i="6.27,99,1787036400"; 
-   d="scan'208";a="100248591"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Sep 2026 03:16:46 -0700
-X-CSE-ConnectionGUID: WxYq0ebZTheni3f+fkGWkQ==
-X-CSE-MsgGUID: LkotNZvCSiy5ua4aaoNTbg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,99,1787036400"; 
-   d="scan'208";a="275906220"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.236])
-  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Sep 2026 03:16:44 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id B4A5D121BCE;
-	Sat, 12 Sep 2026 13:16:48 +0300 (EEST)
-Date: Sat, 12 Sep 2026 13:16:48 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Pierre Pinon <pierre@pinon1.fr>
-Cc: Jason Chen <jason.z.chen@intel.com>, Jimmy Su <jimmy.su@intel.com>,
-	linux-media@vger.kernel.org,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans de Goede <hansg@kernel.org>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] media: i2c: ov08x40: Do not expose the broken
- 1928x1088 binned mode
-Message-ID: <aqUmkCIizqkwrgZG@kekkonen.localdomain>
-References: <20260904134604.595685-1-pierre@pinon1.fr>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qa+qxoGg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80C831F000FF;
+	Sat, 12 Sep 2026 10:17:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789208272;
+	bh=3Hf8Eqlr+Ebp9f09GYEgMl/3B/tG67lXiBEhbgdIlso=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Qa+qxoGghTv4oAOG7i/tSjYS4KhXAaaPb5yzEBw8nyLzYc3CVADLpMeHqc6N4Wety
+	 NzzP+m3/LbFShGAUu22jxiU2XRyTZ6IWjnHHlIPpne/k47lHvREUaZ4ThFETNyfeMK
+	 SPc9398ZBuiS3q8+Tp5jlmklxOwLeQgZvmzMmbKeR4BFMjXgTNBm2IYRrP5Sqf1Ay1
+	 LeG4UGPBngYaBeS1gsCmFVt0tBl8VDTTiyxjndiUuu2VMRki/pZ9ZjAEgkV+Yz2nj6
+	 Mc21OONP0SEvZB+Tx9yjfVtm45YepGJreCMjduVNmcdbPP0R9kr4f4lq0HHlBQ5m3n
+	 UXT4BKgIWPHMQ==
+Date: Sat, 12 Sep 2026 11:17:46 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Ariana.Lazar@microchip.com
+Cc: dlechner@baylibre.com, linux@roeck-us.net, linux-hwmon@vger.kernel.org,
+	nuno.sa@analog.com, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, robh@kernel.org, jic23@kernel.org,
+	andy@kernel.org, krzk+dt@kernel.org, linux-kernel@vger.kernel.org,
+	conor+dt@kernel.org
+Subject: Re: [PATCH v3 1/2] dt-bindings: iio: adc: add support for PAC1711
+Message-ID: <aqUmxhYfDjjm7tLH@squawk>
+References: <20260909-pac1711-v3-0-dff81003b82f@microchip.com>
+ <20260909-pac1711-v3-1-dff81003b82f@microchip.com>
+ <aqKauqCxYwo8_nxM@squawk>
+ <b706814686dedc5a640970ae83e5e845589f4163.camel@microchip.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="hJ3tvd1MLjv1w3cd"
 Content-Disposition: inline
-In-Reply-To: <20260904134604.595685-1-pierre@pinon1.fr>
+In-Reply-To: <b706814686dedc5a640970ae83e5e845589f4163.camel@microchip.com>
 
-Hi Pierre,
+--hJ3tvd1MLjv1w3cd
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 04, 2026 at 03:46:00PM +0200, Pierre Pinon wrote:
-> Measured on a Dell Pro 14 Premium PA14260 (IPU7 + Intel CVS, 2 MIPI
-> lanes at 1500 Mbps) by instrumenting libcamera's software ISP to count,
-> for each line of the incoming buffer, how many samples were left at
-> 0xffff:
+On Thu, Sep 10, 2026 at 02:52:02PM +0000, Ariana.Lazar@microchip.com wrote:
+> Hi Conor,
+>=20
+> > > +=A0 The accumulation-source property aims to specify what kind of
+> > > hardware is
+> > > +=A0 intended to be used/available for the user. There are two main
+> > > cases here:
+> > > +=A0=A0=A0 - the user wants to measure also the current/power consumed
+> > > before the
+> > > +=A0=A0=A0=A0=A0 driver insertion (e.g. from the boot to user control=
+) and if
+> > > this is a
+> > > +=A0=A0=A0=A0=A0 runtime setting, the hardware accumulator will be re=
+set by
+> > > the default
+> > > +=A0=A0=A0=A0=A0 configuration the driver starts with.
+> > > +=A0=A0=A0 - the driver does not know what type of hardware it's deal=
+ing
+> > > with. In
+> > > +=A0=A0=A0=A0=A0 case the part is monitoring the charge/discharge cur=
+rent it
+> > > does not
+> > > +=A0=A0=A0=A0=A0 make sense in user-space to change the accumulator to
+> > > calculate energy.
+> > > +=A0=A0=A0=A0=A0 Same if the hardware is intended to calculate energy=
+ it does
+> > > not make
+> > > +=A0=A0=A0=A0=A0 sense in user-space to change to Coulomb counter. Ch=
+anging
+> > > the setting
+> > > +=A0=A0=A0=A0=A0 from one mode to another will reset the hardware acc=
+umulator
+> > > inside the
+> > > +=A0=A0=A0=A0=A0 chip.
+> >=20
+> > Why is this here, rather than with the property in question or the
+> > commit message? Anything justifying the property should just be in
+> > the
+> > commit message, this doc is user facing and just should explain when
+> > and
+> > why to use it.
+> > >=20
+>=20
+> Thanks for the review. I put the explanation in the binding description
+> as suggested in the V2 review here:
+> https://lore.kernel.org/all/a73ab4e3-520e-4515-adaf-ed5ec644e5f6@baylibre=
+=2Ecom/
+>=20
+> But if it's better, I will move it in the commit message instead in V4
+> of this patch series.
 
-Can you provide the output of lsusb on that system, plesae?
+Things explaining the use of the property and hinting to a user when
+they might want to set it (which this does contain) should be reworded
+to not talk about concepts like "userspace" and can be retained - but in
+the property description not the binding's main one. Things justifying
+your design that don't help the author of a dts should go in the commit
+message.
 
--- 
-Regards,
+--hJ3tvd1MLjv1w3cd
+Content-Type: application/pgp-signature; name=signature.asc
 
-Sakari Ailus
+-----BEGIN PGP SIGNATURE-----
+
+iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaqUmxgAKCRB4tDGHoIJi
+0kOYAQDwJc0OEI3xpE/J4ek3A8yK4EIKGn8E68qXS0UeS98xwQEAtDVSfB2xkPSk
+aNaJUueNn6pdwTFZIeFSiL5amcfHOAI=
+=UPu5
+-----END PGP SIGNATURE-----
+
+--hJ3tvd1MLjv1w3cd--
