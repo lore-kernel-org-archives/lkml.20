@@ -1,98 +1,97 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03D5A34252D
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 09:26:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE8D3400DF6
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 09:28:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789205166; cv=none; b=UOeDXX8IihvJkFHILXCW9VTDIqE85FcVsrQ4CmL5wK7ncCqOr2O597HPWCTs+Z/zIelIzs1bthgxiiKCHT87tuxQvDqQEFyudvtBJnnhYEbDSk3lEYEveeboAyg+csPokWjsHvNuulQmqbEMKffDKxNfmdVXNFPt1n4sYIyHA1A=
+	t=1789205336; cv=none; b=rYUauxTCCjR2CMBJpQGAe/kj7hSDXmjlZRMQVKOgUgPhmA5ez873LkwIg+ceTJOnM9in2/79eUEO61x5KFp/kICHdse/2y4RhBnJzKXlE4gRiCoOnkhwJTXdpbRkiklxw5ZkPCzHADuN04zY5vn1Fkjp8MIwHleiCNE99EbkhmM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789205166; c=relaxed/simple;
-	bh=Au0kYIhFKAbX9DAoangGExUJBBn0fjnDDwdTlUUabPk=;
+	s=arc-20240116; t=1789205336; c=relaxed/simple;
+	bh=irnNQGM4SxSqT6WlZtxSSdiba+n3L62mlvpQAyinunk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=G1LroYrKtajUeJvH5J+JUzoi3LiMMx86WPuIM+7gqAUzKqmtCuRpojvwQK6ffeZ/VReb65c872Pkjo+yJljp3cuL3UkM/BJhex7OVsBr/1OC0HShM/dClJ3fVF0d5t5dJ1ofacf05zB6hMvj8ae1SlCz5pUbmYYJC5UtwgxVHVg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D+QIGsAK; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=QW8wpYxE+VlYMc/B+Od84NZGlDlrtdkYgPOfXDX3SPwOW1dTm1HShX/jddMtnnPHfu+6uR5MogKm+Gj3lK3KS/j3VF8XzyqTab2YKLJze2S5W1YSI98kt8dqGVyu4KR3CErVo6F+KvFjCKs4o4lvJc5aCaSQAWf/Qi/nRlvaPak=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rSV2M65Z; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D+QIGsAK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3F0A1F000FF;
-	Sat, 12 Sep 2026 09:26:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789205164;
-	bh=RcssxDcliU7vD3F+mu6uXNvjkcF5Kkz6UZoypW6r5jc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=D+QIGsAKeIU3e1n1EgW8EZSrtxXvyZFGHtxApR4t18y5GNG7qD5Mssh8ZLiPlJXNo
-	 Xmedjs6S5jVpggf/YrwhL+YwLRzQ5IwTVLsga46jrB9++SqS3JI2EPInYLXY4xSyse
-	 p0Iqkshow7wk6rpF+b8CUfbt0UMVFO7u1+ZkmwlAk55xQ9RTnvTnreIwX+BfjP/5qM
-	 HJhhNYGr3Molvixaeyb3rCyXlxQw3bftpUgfYRtyTJKh3KdY5UgSmTNLQiH5gX5yPf
-	 LrJsIW3rcCFDB+vfLn1ZCBHM1/I/+yWAtaQwjn5+SMOoShHNW2fodCegzj/JTFl5vT
-	 tLvQd+XSDLzyQ==
-Date: Sat, 12 Sep 2026 17:25:57 +0800
-From: Gao Xiang <xiang@kernel.org>
-To: Binglei Wang <l3b2w1@gmail.com>
-Cc: linux-erofs@lists.ozlabs.org, xiang@kernel.org, chao@kernel.org,
-	shengyong1@xiaomi.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] erofs: fix unbalanced buf->off handling in erofs_bread()
-Message-ID: <aqUapQtNF7DK-A5J@XiangdeMacBook-Pro.local>
-Mail-Followup-To: Binglei Wang <l3b2w1@gmail.com>,
-	linux-erofs@lists.ozlabs.org, xiang@kernel.org, chao@kernel.org,
-	shengyong1@xiaomi.com, linux-kernel@vger.kernel.org
-References: <20260912025709.25604-1-l3b2w1@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rSV2M65Z"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485b1d2874fso153217f8f.0
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 02:28:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789205333; x=1789810133; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=oZB+hcVlJrpLepGmrLZu6QnJEDDc9JmtrXYXn1Q09aY=;
+        b=rSV2M65Z2a6wgtai4cv8SOvcONx5Gs4e/aajvyCPYH8Hca3S6TJ0NHtBVz7fYhGv2X
+         2NiqiHG67rY4DyuDnils1/BJA1u6IsRmotjVLz3BJ8uXRkLqq9/wPTp6nTgIH5mSEHA1
+         YhFvEiC6OOUDZ5IFRJXgsYkBKMC4uDyXz6WyeEuI1DiVCebPj1JyFCQGP3Q9mo6PFJid
+         hhpud0Dr2C+Paz+eet1Ghc8jndc+qraJqT7XYxZqEBQeIXkcxsj4t3Snq8NYa+8WqPnU
+         nYKBoaL2vh5SXidY8TCfBEYdJQrdHsgr73yIQ572dbF4jk5d51rNYnz1avSiQAPkUt0H
+         YGlw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789205333; x=1789810133;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oZB+hcVlJrpLepGmrLZu6QnJEDDc9JmtrXYXn1Q09aY=;
+        b=rYNRPGCjaGYp3V9JZ1zdb9jGcRqD4jpvPnkq9j7LaAqdVD6CEu1M9Gd4Jod8Kgk49V
+         4z/DMeCnTDGOxVDZ8bRqCe2dO7LcsjTPYEoCFog8KZuwsxnxUsMfMZCFRrweUX2af4qW
+         gcAUYChGqR/LYCwMsPj8FVgjoONO5Z79t6fWIoYK2EgA2xhrsAN7AxjoQZoWE2dx0vYR
+         2kveMuhkVb/9pO2z5d1pe5IHHXcthm/1z8M+c/sMtW82tcX5P+XdmcPUBdgg27Ffh99g
+         iVK763ctIFA446ON6U4vJtTFmAWtcc7DpZP3sm7TTS2HcJynyPIS3Ph7p5MJh22IltPy
+         RoWw==
+X-Forwarded-Encrypted: i=1; AKwUvBys6RJ0MLJ8Jn+m0VCDt/1rbarbc5asx5PIZQa1nRPrab5VJg15GzFTk+ZBoX9BVTzyHwqUyyi2xWZvdt4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kxnjmAq/Q4jgNoA6pLp0vWamziRiL88VzCcHe2987rrVQAZeB7
+	lZy2yTXn/DqvjnyuMKVjCoT1qiV9Z36WB6wp20/3RiGfIc0+teGYS7Oj
+X-Gm-Gg: AYBFou3OqKENs3zmV9crpxk5Klhj1kKD5ZDIA0VFtKlEC7V6Le2pyuoJ9GVtOPAFBMs
+	wnHuaz3onu6qvcPWmjny7HTp4wR/7LbG3fRFDeq6RV1p6W1gZ20xy5YiNZjFPMSeg8iloGKVqPI
+	srUwpC6DU+Wua0BW38+aqG48Tgnkl9FTJplp0VHBhlnCGzGfuBNb0+lKk0wrbl1K8mtnfZuUmLL
+	ocvhHlbC5Grqxl1weG6ViVquOlzyeGLLw7kdTBSspK9LUsPbFsXBdmSzCnEJUXKzYxb3wwS0LmT
+	qvs07BFmausJGePsXbax9jORkaHRQA1Qgxr5BFucsm+OAUUYR3kvxOGgL2qEyo0O9gkO72FjJx0
+	wlF7wgydHNtAr8B6VsNVii0yfGK6GGlajiFbdCDO94VuxDm/Gytx2URKw5eRGppaEx5PMP1NJgb
+	2fVUzk0A9VYk+l/1Sc24lsCjtXjxOTt7r8+gZyGZdAHZlwt2YQdQ3GmLKMTmuMKEqQ7eCBno0E0
+	s9Q4EDixJEhZtPPVV/PqmQtTCPQA34dXYWzLTyKfJ20thQNLehxx8nPtTc5mFhFYXqI48kCpBxS
+	11qfzacUQ0EzV4nnTrxyQJKVnOgaGmdivYxrjOgLX63N8wALroqlrHn+zYBl4tXRyvlanBnK464
+	=
+X-Received: by 2002:a05:600c:3509:b0:49c:f13e:e4d with SMTP id 5b1f17b1804b1-49e61082a1dmr93634965e9.10.1789205332807;
+        Sat, 12 Sep 2026 02:28:52 -0700 (PDT)
+Received: from unknown748F3CBA5068 (dynamic-2a02-3100-b260-f201-9983-e8c4-aff5-7a36.310.pool.telefonica.de. [2a02:3100:b260:f201:9983:e8c4:aff5:7a36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e6c0cb676sm50621125e9.14.2026.09.12.02.28.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 12 Sep 2026 02:28:52 -0700 (PDT)
+Date: Sat, 12 Sep 2026 11:28:51 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Andrey Konovalov <andreyknvl@gmail.com>
+Cc: Alexander Potapenko <glider@google.com>, 
+	Dmitry Vyukov <dvyukov@google.com>, Marco Elver <elver@google.com>, 
+	Bradley Morgan <include@grrlz.net>, kasan-dev@googlegroups.com, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] kcov: report the first spurious PC in the interrupt
+ selftest
+Message-ID: <aqUa5t19bDfcGkqP@gmail.com>
+References: <20260724192122.73080-1-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260912025709.25604-1-l3b2w1@gmail.com>
+In-Reply-To: <20260724192122.73080-1-kmehltretter@gmail.com>
 
-On Sat, Sep 12, 2026 at 10:57:09AM +0800, Binglei Wang wrote:
-> From: Binglei Wang <l3b2w1@gmail.com>
+On Fri, Jul 24, 2026 at 09:21:22PM +0100, Karl Mehltretter wrote:
+> Changes in v2:
+> - Use kcov_start() and kcov_stop() instead of open-coding their logic.
+> - Add decanonicalize_ip() next to canonicalize_ip() and use it when
+>   reporting the recorded PC.
+> - Retest under QEMU on arm64, mips64le, and x86_64.
 > 
-> erofs_bread() locates the target folio with
-> 
-> 	index = (buf->off + offset) >> PAGE_SHIFT;
-> 
-> but computes the in-folio offset without taking buf->off into account:
-> 
-> 	return buf->base + (offset & ~PAGE_MASK);
-> 
-> If buf->off is not page-aligned, the returned pointer misses the in-page
-> component of buf->off, so callers end up fetching data from a wrong
-> offset.
-> 
-> buf->off is set to sbi->dif0.fsoff in erofs_init_metabuf(), and fsoff can
-> be specified via the "fsoffset=" mount option, which only requires
-> block-size alignment.  Therefore, on an image with a sub-page block size
-> (e.g. 512 bytes), a non-page-aligned fsoff (e.g. 512) triggers the issue,
-> since 512 is a multiple of the block size but not of PAGE_SIZE.
-> 
-> It can be reproduced by mounting an image that is placed at a
-> non-page-aligned offset:
-> 
-> 	mkfs.erofs -b512 -zlz4hc sub.erofs src/
-> 	# prepend 512 bytes of padding to the image
-> 	mount -t erofs -o loop,fsoffset=512 padded.erofs /mnt
-> 
-> which fails with
-> 
-> 	erofs (device loop0): cannot find valid erofs superblock
-> 
-> because the on-disk superblock (at offset 1024 within the image, i.e.
-> 1536 within the padded file) is read from a wrong in-folio offset.  With
-> this fixed, the very same image mounts successfully and its file contents
-> match those read from the unpadded image.
-> 
-> Fix it by including buf->off in the in-folio offset calculation, so that
-> it is consistent with the folio index calculation.
-> 
-> Fixes: c36ec00d7f67 ("erofs: add 'fsoffset' mount option to specify filesystem offset")
-> Cc: <stable@vger.kernel.org> # 6.16+
-> Signed-off-by: Binglei Wang <l3b2w1@gmail.com>
+> This patch improves the failure diagnostics.
 
-As I said, I aiready applied a version before, please don't
-send it again.
+Friendly ping. Bradley has given his Reviewed-by for this v2.
 
 Thanks,
-Gao Xiang
+Karl
