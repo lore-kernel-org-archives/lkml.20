@@ -1,107 +1,111 @@
-Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8651397B1C;
-	Sat, 12 Sep 2026 18:34:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.129
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83FB033EAF3;
+	Sat, 12 Sep 2026 18:40:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789238047; cv=none; b=JbHuCo2fRcHcRsb7U6pMqiSoMfigtRjdze8W5LinYBjEcMfboIKBWe58L1U69Vmf9v0jzJP/FvEv0j69LL0OP9QiSQSVeXG6G0H/WrdIa4WBQjSED3vWwDp14SK+ize9srZSfXSytnVhNh0z/ebC7CgKQkU9q1A9l2BiYGQclaA=
+	t=1789238439; cv=none; b=JqQ/FfjC1jdEu+HCi6Mgxe3PWERs2rTtdTFNbBI5abwHg7KM4utqywe1DrnhY/Tu0wI6A628SLdfjpREurXPeEbF1nXXAlyZmeJoTFDR/0s1US71IhBy7J8UrImg2atMDfWE++H/103epZVRKPb5oNm2C3u6kw+NIn8xrKHmihs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789238047; c=relaxed/simple;
-	bh=EehspJWxBfgxZxcXNmhaNSb76TeoQuQnC6cupWen7fs=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=rRcwgUW8lWU6X6iv1raORR0NzyKl1nzyzvm0BQt9XgOHpTgSXRQCJE5ZoMUBmFkh3l1SmP+UQQ96w8MBCRZkE6X5Ai6BGQtRiuKKnd4oHiAijZY3ynpTUy7t6wjkYxhOcG0jsXVsUZK7ANOKbIrDrihHq2KX3TYC0zddmTn2Xg0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=kMACDoA7; arc=none smtp.client-ip=54.204.34.129
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1789238439; c=relaxed/simple;
+	bh=feGQjLsjp9QR+P8XbdIRYHpjRLB04VfdxUjH1AfHsW4=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=hODKoJ6ca8AO1e/7O7VuO5+D8VYiD9mGSE0+ivzAxafzZY+MLRh6t8K8tHlPc22PKVe4IKU1BV6zK31Q6EflwzIPCKphpSW0OFol1lAdmtSfuORkoy2+T6ZCGugXa6Nt9Qm2Xq3NOztUGIAtphriS4ABgQhrSxZlzmFq6skAeCI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G6I9qaVI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="kMACDoA7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1789237960;
-	bh=EehspJWxBfgxZxcXNmhaNSb76TeoQuQnC6cupWen7fs=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=kMACDoA7MXi4fLkLTMUa3dByZanIlgKCnh3bD2kcdv1xEC4g6Tbbtp2iMNsLxahBm
-	 cdrocxj8r3x7a3CF9/rmw6DeYWbMaB8yk4WVVVhyO6mQi+HPrZpMem4BT6nKPpgK12
-	 bVzqYWJowYHrjPQlLHUFTaE36kbei7IloAL5pqfc=
-X-QQ-mid: zesmtpsz9t1789237955teb9d1e36
-X-QQ-Originating-IP: 2MiFuFD/tKLMHaKg2sO6/FCDBS7Mac1mwUPIvJjgmmc=
-Received: from localhost.localdomain ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Sun, 13 Sep 2026 02:32:31 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 10537202822548573077
-EX-QQ-RecipientCnt: 21
-From: Wentao Guan <guanwentao@uniontech.com>
-To: gregkh@linuxfoundation.org
-Cc: achill@achill.org,
-	akpm@linux-foundation.org,
-	broonie@kernel.org,
-	conor@kernel.org,
-	f.fainelli@gmail.com,
-	hargar@microsoft.com,
-	jonathanh@nvidia.com,
-	linux-kernel@vger.kernel.org,
-	linux@roeck-us.net,
-	lkft-triage@lists.linaro.org,
-	patches@kernelci.org,
-	patches@lists.linux.dev,
-	pavel@nabladev.com,
-	rwarsow@gmx.de,
-	shuah@kernel.org,
-	sr@sladewatkins.com,
-	stable@vger.kernel.org,
-	sudipm.mukherjee@gmail.com,
-	torvalds@linux-foundation.org,
-	Wentao Guan <guanwentao@uniontech.com>
-Subject: Re: [PATCH 6.6 0000/1424] 6.6.157-rc1 review
-Date: Sun, 13 Sep 2026 02:32:28 +0800
-Message-Id: <20260912183228.840180-1-guanwentao@uniontech.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20260912065607.279695368@linuxfoundation.org>
-References: <20260912065607.279695368@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G6I9qaVI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CE981F000FF;
+	Sat, 12 Sep 2026 18:40:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789238427;
+	bh=PyVUkoEzTYYgdYhMfWVlTxZE00BQsQtl3tpKIEMb6KE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=G6I9qaVIIxavxCzZxKS0RHdqQrO8/fIaUP+iZZX2t5yMP8yGfj1MWcpJst/PnmrTU
+	 fhNFy1wThxie3BEqI/zw0YH1eeUp6q3mhTD3Pj8X+AqbfcvRER6qRmdh2rdYQEei3L
+	 17kJcMTrDm+rc/vEiWhRvFRKwP4g62NvellUivh49ClI7FIY+gZ93RmVmN9izMn9DT
+	 exMHaEIcwTIeB0MgFv/phK8ZE/5txFGs4BM3iEdybKFQBPWD+BOOl6C7ryWvauoEI2
+	 xDbLNkmAJw67BiueH8q8AiWMU6ZEc6lRs66CSsP5J+Od390zaUJP12zqq0hhTxJJMV
+	 Cvx/lgmn91yNA==
+Date: Sat, 12 Sep 2026 11:40:26 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Narcisa Vasile <narcisav.kernel@gmail.com>
+Cc: netdev@vger.kernel.org, daniel.zahka@gmail.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
+ shuah@kernel.org, horms@kernel.org, willemb@google.com, petrm@nvidia.com,
+ anubhavsinggh@google.com, richardbgobert@gmail.com,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v2] selftests: drv-net: add BIG TCP test cases
+Message-ID: <20260912114026.6a39fb91@kernel.org>
+In-Reply-To: <aqWYNpcPRjTAoDok@gmail.com>
+References: <20260912050327.20616-1-narcisav.kernel@gmail.com>
+	<20260912093226.529ff414@kernel.org>
+	<aqWYNpcPRjTAoDok@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: Ob956G9wEH2TWSnm5UbP+4jMykKXAuhqZK9T/TKRAR45AaCmZ99Hd1cw
-	gqF+N41baCrIgPRv8rCsBiVuFxKyH+rYIhWrBULESsLdlWbTylfCxSUG6/lmiRzWkdtrLLX
-	I06LWKFcPdXcaHZDbohLPipLPupCG1KXZabP/D4PY+HsGc+nCsYbgt9D1yYDLi6MRCqJYn3
-	jDe0o6YPh5GLK/zZWjUSDUpHa1ES6S5DyGpuq9Ul6Ag6Ag+bbHSxpDzP2IfwzaGhEwaithd
-	HweF3zfznNAIAr9biFsv2b3jJ4PKgR1mRXIVkbqWbfP2A7Dl3Y8n+rDGrCt2ZzaUygJh9BK
-	nVSDm3fvd22ZZn/AWbQmSe3GbtInQ5Mqfqcd4cQR4ysENUhqZQoHAR39eMNdCyYQewslknX
-	56bL/ljyt6MAbwle2nekDo0tFiWwmvIXNpOewffRGOYMHQ1pWkcLK8b6xM5k+qUJL78BS1N
-	TuFG+41J/wjVCSTUtSMWPiPbIVTEsI1nX9FV/geIF9koAQCZ/hHjbvO/q+zyNupqZUMfWbm
-	N/IDn2g0sCZ522nj24pIZT4z/1ygtXD8JoL9DugddPnN1n3cS4LrY+G4PIEmFcwXRbTPhPZ
-	0BmBzjxFJJXCJT7PiGgPYYMd0Ii1HGIv8XBC97G31aj9IpQwjMuQr+Ng0Flk2P+aOWcQ/nQ
-	3SdribuHo7grgJri8crigh8XxveggwbT04hOw08yUaJwQYPLKkFAd99XsPWNa1eVt97a3WI
-	I26Ni2BrUdHoQIsbrpVregwCtC+PaTgwGp+tkNd/JYWEgIINVFcHJQRC+KsGzcRF5QkpSsc
-	KKVfHsvMLhRUy53Phc7K6NLnl706py9D8CXd6AxiCnrTAlCTwLOf+8YhNoQgUvoSmF7hs/H
-	lS6S/kop/rdfteLojXEeNYSOvnA1/aohRtZ2T3ovA4gmFBCCuvbJTn5LYarnMKcDInrQgGR
-	hk2uN8pT4JBbbFTaNablVlWivkwcLoblrXZgamGvGUFWJpzG8pVYeC75UTm1AHyeUY4Uszy
-	sRPjt/ryUtfv3BEy0Ja4msgvdLXhnOiNe9xlxjZCExb2jrNbjHAIhtuacmfi8=
-X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Build tested in our x86,arm64,loongarch,riscv config successfully without error.
+On Sat, 12 Sep 2026 11:21:42 -0700 Narcisa Vasile wrote:
+> On Sat, Sep 12, 2026 at 09:32:26AM -0700, Jakub Kicinski wrote:
+> > On Fri, 11 Sep 2026 22:03:27 -0700 Narcisa Vasile wrote:  
+> > > Add four new test cases that validate coalescing
+> > > under increased size limits (BIG TCP):
+> > > 
+> > > big_tcp_data_same
+> > >   - validates that equal-sized segments coalesce past
+> > >    the legacy IP_MAXPACKET limit.
+> > > big_tcp_data_lrg_sml
+> > >   - validates that a smaller final segment coalesces into the
+> > >     previous chain of large-sized segments while crossing the
+> > >     IP_MAXPACKET limit.
+> > > big_tcp_tcp_seq
+> > >   - validates that a packet with a wrong sequence number doesn't
+> > >     coalesce. The test uses a sequence number for which the low 16 bits
+> > >     correspond to the correct sequence number to validate against
+> > >     truncation bugs, since total aggregate length crosses over the
+> > >     legacy size limit for BIG TCP.
+> > > big_tcp_large_max
+> > >   - validates that coalescing stops at the configured BIG TCP limit.  
+> >  
+> > Still failing:
+> > 
+> > https://netdev-ctrl.bots.linux.dev/logs/vmksft/net-drv-dbg/results/819882/3-gro-sw-py/stdout
+> > 
+> > https://netdev-ctrl.bots.linux.dev/logs/vmksft/net-drv-dbg/results/819882/3-gro-sw-py-retry/stdout
+> > 
+> > Grep gro_lib.py for KSFT_MACHINE_SLOW  
+> 
+> Are you suggesting to just skip the big tcp test cases on slow machines?
+> That's the current behavior for the large_* existing tests.
 
-Tested-by: Wentao Guan <guanwentao@uniontech.com>
+Yup!
 
-Best Regards
-Wentao Guan
+> > Then the 15x increase is probably unnecessary/too high as well, since
+> > we GRO 64k 128k shouldn't need more than 2x ?  
+> 
+> If I skip them in slow envs, then yes, 2x should be enough.
+> Those pre-existing up-to-64K large tests don't pass either in the run
+> above. They're skipped, so we don't actually know the proper
+> timeout value for them in this test envirnoment. From the test run above:
+> 
+> # #           Received {40560 [!=65495]24935 [!=599]599 [!=0]}, Total 3 packets.
+> # #           /srv/vmksft/testing/wt-18/tools/testing/selftests/net/lib/gro: incorrect number of packets
+> # # Ignoring ipv4/large_max failure due to slow environment
 
-Log:
-Linux version 6.6.157-rc1-arm64-desktop-hwe-gfcb8c41a77e1 (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT
-Linux version 6.6.157-rc1-arm64-desktop-hwe-gfcb8c41a77e1 (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #34 SMP PREEMPT Sun Sep 13 01:43:27 CST 2026
-Linux version 6.6.157-rc1-loong64-desktop-hwe-gfcb8c41a77e1 (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT
-Linux version 6.6.157-rc1-loong64-desktop-hwe-gfcb8c41a77e1 (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #35 SMP PREEMPT Sun Sep 13 01:58:15 CST 2026
-Linux version 6.6.157-rc1-riscv64-desktop-hwe+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP
-Linux version 6.6.157-rc1-riscv64-desktop-hwe+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #36 SMP Sun Sep 13 02:14:33 CST 2026
-Linux version 6.6.157-rc1-amd64-desktop-hwe-gfcb8c41a77e1 (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin18) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT_DYNAMIC
-Linux version 6.6.157-rc1-amd64-desktop-hwe-gfcb8c41a77e1 (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin18) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #33 SMP PREEMPT_DYNAMIC Sun Sep 13 01:22:56 CST 2026
+Exactly, that's what made me remember the MACHINE_SLOW hack :S
 
+> Instead of skipping them, I was thinking to change the approach and
+> send packets continuously, enough for more than just one aggregate.
+> The the test would verify that at least one aggregate passed the 64K boundary.
+> I'd also keep the increased timeout. What do you think?
+
+Probably not worth it? The SLOW machines testing is primarily
+aimed at catching debug asserts/WARNINGS/kasan issues etc.
+Here we are trying to test the receiver behavior but the SLOW
+machine is slowing down the sender. We could try to optimize
+the sender somehow but it will probably add complexity to the
+test and catch no additional bugs?
