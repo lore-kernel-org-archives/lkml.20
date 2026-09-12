@@ -1,73 +1,44 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out28-121.mail.aliyun.com (out28-121.mail.aliyun.com [115.124.28.121])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 496AF367B71
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 06:57:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8CE1379ED2;
+	Sat, 12 Sep 2026 06:57:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.121
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789196233; cv=none; b=U5UsyYGWrghDAeXF87si3qyNHkriMQF0arfj6OLNFpJcL60r4yQQxYjD3gqE/bik2i9A9F/iB280gWbeWGBDyO1ges5sbm2C4BnZksdxhB7SgTMqva1TFisdI3zYGllDiX0i+taunAUccbXqOAZ75Ehn/NkJo4bP/JNcn0JXcmI=
+	t=1789196283; cv=none; b=UOJBcXG1VuueJBeZ0F2Lr4+QkmSuetstqH6Nv3AZwkcyoVhd5xS87gte/AJzNx8k7hg/vdQs06uV0dw11MfXX6SrmoYoyLn8fFseS9fnYdCvA5Fssrcwu6+B+Zp112huMS+s5xfpOj6TLWAmG+9vnjwvbUtyDioCtGp+JnHsTEw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789196233; c=relaxed/simple;
-	bh=mr9mEofpZg517wnfuvyOVQlKcymgg20rBs3rPdaoQTE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hA4U8im0vNdrrpK3AYg9QPPT3alEIIi1yD6mdSZyqJ1U8/MHPI+OlMjO2BFT5R33IPVCsf3pjWH2tMMNL9qsCWBDUtowpFIV43LhbXfPiSe7QxRNRZyxM7reWTj9+ZFv7+WDD2vBIEpAB5qugJCXk6sOjo4XR5KMHBic+bq/x/E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BQ7edGGc; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BQ7edGGc"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f635552aso245617f8f.2
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 23:57:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789196229; x=1789801029; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=81nBBk0ZNsJNmNXGHQvlj0ybllEDe9lXdGKxk1W969Q=;
-        b=BQ7edGGcyXg75I9K0WkY+sMjmYL4/JPuPrsehQFI28AOotsdiDSy3dlQwWiXsXnAfw
-         KB5VuEQ7yFFJVuV8++TajvFeqOX03DMT9JmxVcKPt4rmtQKvKUYsz1Q6CzyyhyBygZ9J
-         AnOssCbbPZcXtNius+J7i3bWXwWdPIhEjclfw+jrdZWJoFWZIVNYwO63tBv4bqRQZAeP
-         T1Su8rRFWs6WpdzDBlqbYCkQCquoHaMa91zD+IdrU/3yL2l5P1HvUXZWXCVVmMbxZKY0
-         pmA82b/s4Su4PSa4xsVwPoZT+ps23vxX2IrEc689BmPxRmKSza+OvgjoUSHOOoO88Bkk
-         bEIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789196229; x=1789801029;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=81nBBk0ZNsJNmNXGHQvlj0ybllEDe9lXdGKxk1W969Q=;
-        b=Iask/HAdmE3qMNtuZvj3Flt74jHGkzTZaeu6GT7uO4q6s1TNrSGZ7VC0LRu905MCgf
-         +4CxqSRZ4G6YZE4j63KZ0Q2UaDvl9ewLXynteKTPJFA99Pm4gVykUabruPV9x39OlCSg
-         lQ28xWywKhHnWDjfIb6Jct3Af64nzHgPolpahnRd9H2Qj83Bdbhp6uUloyce5c6V/IWR
-         xxax1IuX+JWRPP3QZvb6+namTXDEihDTWXWUto5ZXFPNXHIF6xYZ0+W4Kv2jfZLHwzf/
-         bKeS6JzVWPVeY9R0N77MX0CiSZveCy7RwhD54ah11jDWfQyPDgbr1QKvJUh5iRKoBhzV
-         s/+g==
-X-Forwarded-Encrypted: i=1; AKwUvBx/agCV5LLbBrjiwRYl0MT2eCGfg/UdgkRUFSTR2AptfDIJBIqUm9+Afoxf59lz+B9Pyh/eylXI+C0phic=@vger.kernel.org
-X-Gm-Message-State: AFuF++kqtynwtyjd7cQuhJZ7+EHpfOpZwya83D61PvbSI3P+pFEkqT0N
-	J8oP+mMj87k67QJuHK1arbxTXnCvcoAtwwDtxNFbfCY5XySAkgHNeRlZ
-X-Gm-Gg: AYBFou21Q7KUlvAMyrQ0Xlp4/geSfyFg/6DQvZcCe2q89Q/zua0kJO+MccORYs5e7rA
-	wgyIctDIjWFD8ApcG/NpUd2e6c3s/Wx59AtI2cqoRKTkjpbXoFVYXaz/2269nX3QO1gQVlqFeYx
-	vXvwdRQ+R2a3Tuj8C1KEjjOOd9a+EQXrizdHBIrydE4C/Syabv+ibPYeFsfnfmXGtk5wl9PneaZ
-	590Jbu/AiSXUGaUeWzf+IhnzmsLMVeyrmqW36pZoueTZtxnYfnRW/XEasFd1jSyOAhoczDqUHY3
-	nSGXiEUHesY2treaGmQbbDvfnf0FiimpLJc3TqVnBA3lN7sYG+n4+6gOdNKGPGYJWpcpxrD2XmQ
-	oaedn9mOv1J4QqlLCHG0n5uCCvVTr3bbYsrTHNoohj+BEXe0DKnfVbVRIAvlTpAsl0vsDMV1hIm
-	2p5/cx0atri8XxISuG3HN61XlV1Kno0aaaQkUQ2FNtpo9mecSKv9H3GfpPu2UABCfYfmRAjChyt
-	Pe1gr/MYhgnFZ3ZCydWNV7yzrge4cYys6lfj1yKGGQ+nAdQPgN6l7avcnPCWhjsxWnRiXVlFZhJ
-	aeKNwyn7IeR0
-X-Received: by 2002:a05:6000:71a:b0:485:8a46:704e with SMTP id ffacd0b85a97d-486f6c4b7fbmr1611416f8f.32.1789196229218;
-        Fri, 11 Sep 2026 23:57:09 -0700 (PDT)
-Received: from localhost.localdomain ([41.90.145.204])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486f301121asm6495278f8f.0.2026.09.11.23.57.06
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 11 Sep 2026 23:57:07 -0700 (PDT)
-From: Kenneth Kabogo <kennethkabogo2@gmail.com>
-To: andersson@kernel.org,
-	konradybcio@kernel.org
-Cc: linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Kenneth Kabogo <kennethkabogo2@gmail.com>
-Subject: [PATCH] soc: qcom: mdt_loader: fix off-by-one heap overflow in segment name
-Date: Sat, 12 Sep 2026 09:56:51 +0300
-Message-ID: <20260912065651.59968-1-kennethkabogo2@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	s=arc-20240116; t=1789196283; c=relaxed/simple;
+	bh=ESPyGXogLAjQYJ/OVdxVhXdinBONTfeimkvrsMopzZw=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=EamdQz6srC2RISa80fncN8G9bY/CBOfiiiX/k60YwEEvrTDt0qZZdYaacf16clcs0F2AK6Va7mTXDm4S+aJuoS5sHx8HjetfGotL6FOcPNqgn+wwtmsUYb9W8E2GgFbwYKy5CjDy6G5ZOW3oOfZBq0HpvgRg/Pg19G17Mzp1C6Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com; spf=pass smtp.mailfrom=motor-comm.com; arc=none smtp.client-ip=115.124.28.121
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=motor-comm.com
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.1201357|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0539208-0.0045022-0.941577;FP=16348498472350846131|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam011083013073;MF=kyle.switch@motor-comm.com;NM=1;PH=DS;RN=14;RT=14;SR=0;TI=SMTPD_---.jBqAOqu_1789195948;
+Received: from motor-comm.com(mailfrom:kyle.switch@motor-comm.com fp:SMTPD_---.jBqAOqu_1789195948 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Sat, 12 Sep 2026 14:52:29 +0800
+From: Kyle Switch <kyle.switch@motor-comm.com>
+To: Frank.Sae@motor-comm.com,
+	andrew@lunn.ch,
+	hkallweit1@gmail.com,
+	linux@armlinux.org.uk,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: ming.xu@motor-comm.com,
+	xiaolin.xu@motor-comm.com,
+	jianmin.wang@motor-comm.com,
+	jie.han@motor-comm.com
+Subject: [PATCH net-next v17 1/2] dt-bindings: net: Document Motorcomm YT8824 PHY package
+Date: Sat, 12 Sep 2026 14:52:23 +0800
+Message-Id: <20260912065224.2723883-2-kyle.switch@motor-comm.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260912065224.2723883-1-kyle.switch@motor-comm.com>
+References: <20260912065224.2723883-1-kyle.switch@motor-comm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -76,50 +47,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-mdt_load_split_segment() builds a segment firmware filename by
-overwriting the last three characters of a kstrdup'd copy of fw_name
-with "b%02d" formatted from segment. %02d is a minimum field width,
-not a cap: for segment in [0, 99] this produces exactly "bNN" + NUL,
-which fits the buffer, but for segment >= 100 it writes "b100" or
-wider, one or more bytes past the end of the kstrdup allocation.
+Motorcomm YT8824 Ethernet PHY is PHY package of 4 PHY-s.
 
-segment is not bounded to [0, 99] anywhere before this point. It is a
-raw index into the firmware's ELF program header table, ultimately
-bounded only by e_phnum, a 16-bit ELF field (max 65535). The existing
-check in mdt_header_valid() only verifies that the program header
-table fits inside the firmware file, not that e_phnum itself is sane,
-so a small firmware file can supply e_phnum > 100 and reach this path
-with segment >= 100 from either qcom_mdt_read_metadata() (the hash
-segment scan) or the main loadable-segment loop in
-qcom_mdt_load_no_init(), whenever the image uses the split-firmware
-convention.
-
-segment was never valid past 99 under this driver's own "bNN" naming
-scheme, so reject it outright instead of widening the buffer.
-
-Found by code inspection while auditing the Qualcomm PIL/PAS
-firmware-authentication flow. No reproducer beyond code inspection is
-available; I don't have affected hardware to trigger it on.
-
-Signed-off-by: Kenneth Kabogo <kennethkabogo2@gmail.com>
+Signed-off-by: Kyle Switch <kyle.switch@motor-comm.com>
 ---
- drivers/soc/qcom/mdt_loader.c | 3 +++
- 1 file changed, 3 insertions(+)
+ .../bindings/net/motorcomm,yt8824.yaml        | 59 +++++++++++++++++++
+ 1 file changed, 59 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml
 
-diff --git a/drivers/soc/qcom/mdt_loader.c b/drivers/soc/qcom/mdt_loader.c
-index 002100fe2..0d55e9e0a 100644
---- a/drivers/soc/qcom/mdt_loader.c
-+++ b/drivers/soc/qcom/mdt_loader.c
-@@ -77,6 +77,9 @@ static ssize_t mdt_load_split_segment(void *ptr, const struct elf32_phdr *phdrs,
- 	if (strlen(fw_name) < 4)
- 		return -EINVAL;
- 
-+	if (segment > 99)
-+		return -EINVAL;
+diff --git a/Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml b/Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml
+new file mode 100644
+index 000000000000..93e9f765404a
+--- /dev/null
++++ b/Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml
+@@ -0,0 +1,59 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/net/motorcomm,yt8824.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
- 	char *seg_name __free(kfree) = kstrdup(fw_name, GFP_KERNEL);
- 	if (!seg_name)
- 		return -ENOMEM;
++title: MotorComm YT8824 Ethernet PHY
++
++maintainers:
++  - Kyle Switch <kyle.switch@motor-comm.com>
++
++description:
++  Motorcomm YT8824 Ethernet PHY is a PHY package of 4 PHYs.
++
++$ref: ethernet-phy-package.yaml#
++
++properties:
++  compatible:
++    enum:
++      - motorcomm,yt8824-package
++
++required:
++  - compatible
++  - phy-mode
++  - reg
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    mdio {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        ethernet-phy-package@0 {
++            #address-cells = <1>;
++            #size-cells = <0>;
++            compatible = "motorcomm,yt8824-package";
++            reg = <9>;
++
++            phy-mode = "internal";
++
++            ethernet-phy@4 {
++                reg = <4>;
++            };
++
++            ethernet-phy@5 {
++                reg = <5>;
++            };
++
++            ethernet-phy@6 {
++                reg = <6>;
++            };
++
++            ethernet-phy@7 {
++                reg = <7>;
++            };
++        };
++    };
 -- 
-2.55.0
+2.25.1
 
