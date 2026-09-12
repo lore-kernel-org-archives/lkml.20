@@ -1,394 +1,608 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3499D417BD2;
-	Sat, 12 Sep 2026 08:39:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7656415B9D
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 08:39:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789202358; cv=none; b=nPA0fRefJQjS9yu4b2XsHABjzbJy/FTXXOqUe7tdM88XTDtdOvQKWdCno6ms/ZrBUA7MLfq9bMPFKOQkznqxhn356RNeAMlb9vevfQFqfnbgjiM9dgQOK3Dvg9Bx6MpBfO6rMJcY9C/eItxHE5iEKUzcsmZxSO4Q/vMp0aB8xrc=
+	t=1789202358; cv=none; b=serRTskRoK+2u+QKzP9CLbP312Kv04qhoTvStciW9NZHTMujaHOeam6HNMXZWRwnVqeNG61LLQ7q3dx6VH7C/LvyRi5Ql0kVE/I6YDWsNTLh9kdfJQuUstKSFJ7X9LQJjw/EAJWRUkzRfv5H2PBcSsfurhR+gR+g3gEIqafXAIg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789202358; c=relaxed/simple;
-	bh=o2VSyHTxUfSGM5eyyNwP4XWCmgbVTwqPS8NmK4uo3Bc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=FZXM2WPkfS14PeyMbHAiG3UcV9OdzXFx79u4xkOR1y4pTJmtWT9YqJoO3KrQOzuKpYe//A+zgLU3/Q8QC4fi2Twj1OKoB8DpfrbohjgbRnAWwW1KVd6MDUseXTR9jX/Q3iU4XnbanFpkeiW6zWD6JWE+OZ/l8vGWrkBthnUHinI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dwQ/BcLz; arc=none smtp.client-ip=10.30.226.201
+	bh=AfM3SFtvPJuTCq/8cbw7DweeLdqiDG5N19h0y2wwpXg=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=uTahSXmyQV0fgujoY8fuPgI6DrR0DG24uTVXD6rc7jh1jJc7/N8wPZjOloRxSSstm7Db701doMLa2SqKhe5M01/2MvXV/Jry7OMnHCbQaC5aHF+56FEdo7SEUutsiWEZCBcb0F4XOwqDaRUg70r3VV20+8s+dcpFCP/ruuOy3is=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g8ZjtlkE; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dwQ/BcLz"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id D4A0BC2BCFB;
-	Sat, 12 Sep 2026 08:39:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789202357;
-	bh=o2VSyHTxUfSGM5eyyNwP4XWCmgbVTwqPS8NmK4uo3Bc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=dwQ/BcLzXWFkdM15bclsJMKmhmWZ7gBJuPTMFjzL00PkHbQyFKxck5qE5s5MLBIZp
-	 ZYRj6SecHwRq9iyVozMuh/93BEPbxO/vQjEeNBBPWtVVqK/Dw5q7qEwk8ECSosyfdN
-	 3R/8FIQdc3h+5PwKHcPaaZq06InIQEtrg6PN4A0sEKLI2CaGTJv+NUvW/b0NkjzZYl
-	 OVEhz83G1O05luAN+qsAALnLKiAnw5N6H7Z+gosO6wE4K2b71VngMkcA4FJRYZpUNM
-	 2nV8Umv28rjgUXnNpgVLR5i1uydvKQysyzlNsTbb65JyXHXOij7D6c+HYzqLY4Rb/t
-	 9P3IfZHGbpVYA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AD128C88E53;
-	Sat, 12 Sep 2026 08:39:17 +0000 (UTC)
-From: Muzaffer Kadir via B4 Relay <devnull+muzafferkadir.mainlining.org@kernel.org>
-Date: Sat, 12 Sep 2026 11:39:10 +0300
-Subject: [PATCH RFC 01/20] dt-bindings: clock: qcom: Add MSM8952 global
- clock controller
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g8ZjtlkE"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39b350c6920so259729a91.1
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 01:39:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789202355; x=1789807155; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=nEYSFhCFadhxBxnBccGBAOZJpAt0b+wT9YcG2VEzJP8=;
+        b=g8ZjtlkE5KRWjcG8cKCMpyo09kD0y09PzB92fp04xXxdWyPB23KXUfiuAbJCCi9An3
+         PUpSI3x/xXhSar+R/mveUylsxIRTyKVWKEiT/uUF9ojmAnAfRhf08j2FIuNvS2SpUo0k
+         5Swkq32XSfqHecUQoYPk8UJKDAxQYDm3WC6lgDH/hrxuOzN/ImTltGUKgiN2cVdEYlOS
+         nm7uIup3VLUApwtqQBdT7e8flFXM2i78xtzfo13NT+52qNIpHHyifBxrPFK+9SxvEUJw
+         vUyHapS/K2LANI9c/8ub60oaQlzlGNWLwELAgYxwfCKMzUZ3wJbnuGBX1ULwtj1PdaXn
+         pBIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789202355; x=1789807155;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nEYSFhCFadhxBxnBccGBAOZJpAt0b+wT9YcG2VEzJP8=;
+        b=CwQ56G9rmgdE0+SRi/oWiXjVvUShTotzLy/yrRhE+V966evXL8OgaJo+chQR9/eqje
+         6prvRIe1Bf0MfETPvzcbVqhjmHcKCrXHg8vIMnSpEQmV6kaOJaPlyQOH1iOwYApf77IN
+         f7WNXdIHy/jAqQePvfdnxtyn9iQDYQAwSYDJ2PYTbyPTihNjJj7grT3TbO82segH1eYL
+         nUavbry3Wky+UiJDG0/kEfcgB4Js1Nn5p3aHJaylncxZ4ihu2P84o6dYQ0FsInvaNbaB
+         dD4OUY5g6nQaYgEbGsP+tuV00Zwgy4apFn5VsEjMk7SxwJMy1L3eYlsA/eO/K16jWY3r
+         MKqQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzbsGOR1itMDA0fy22MzAf2bTwfp9KTzb9aBmkNF+SeVubgj9IPSQDhbq9a+02IOakGCM2IG4m0tZRKxZ4=@vger.kernel.org
+X-Gm-Message-State: AFuF++k74oGZBsBiLQFRd87y26qNXFBdaX9q/413Rg6F5TTDwcgQXIDx
+	dicQhN6E35BWZPqUrEznmcYozXmRIsR8j0EEyVjgRxLuYBcRc9YdFF7U
+X-Gm-Gg: AYBFou3dvuKUYfQcKU7Q2V5H9kFJRFr7aLJNHCos3+U55b0OG8kghxPfEYSTXmJYlZn
+	QsktOa1cFnZcWAFBTmGoG2bO322zHwndbFwA1n4Vdoa9YEYe76ny3BzXVsFpjgbx+q/8qDLqsd9
+	GFjOnHjeEPKPFPekjr4/6drbJsGfRD/qkUmM9nXM1Gqc9k/7N66Wi4IM/kuzz9dxmyhQ89Fh+Pg
+	fBPrEnCLeBxwV46R7CQgQ8AnbUcAxMt+ZQ9pLiQkHwxOBJPkjV7E/8SENTPTmYICFsXZWWdcOHT
+	WxLsXwvVxctgt15oglW10KRBrxQNvLhzFUqaKAYK4IoZb2JXwzoEJB3mOetqbkIyPJXrwVzA2qG
+	a6R1G7qoKsNgNhHiJmL56lZjFq/8RNPBYmri4AfqQ0Rfud8OsEqIAmH7sY+cbLDg7A8tmHlnR9z
+	pMwu/U7rMxhSRCW6QdAnEemwKnKpiahaAq+mq263JkD0Vi5H0LeSuHJDe77Fi3iof0hA5KvZQhD
+	Sll1pEdlPNvjr5QtzGdpy6r/Sz8vb0WYtTDFbwG
+X-Received: by 2002:a17:90b:1350:b0:398:d132:ba76 with SMTP id 98e67ed59e1d1-39dbc6e44dcmr3636835a91.21.1789202355049;
+        Sat, 12 Sep 2026 01:39:15 -0700 (PDT)
+Received: from lipengfei28-ThinkStation-P368.mioffice.cn ([2408:8607:1b00:8:16a3:d08b:6ddb:dec6])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d95091214sm9790583a91.3.2026.09.12.01.39.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 12 Sep 2026 01:39:13 -0700 (PDT)
+From: Li Pengfei <ljdlns1987@gmail.com>
+X-Google-Original-From: Li Pengfei <lipengfei28@xiaomi.com>
+To: rostedt@goodmis.org,
+	mhiramat@kernel.org
+Cc: mathieu.desnoyers@efficios.com,
+	mark.rutland@arm.com,
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	lkp@intel.com,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	zhangbo56@xiaomi.com,
+	lipengfei28@xiaomi.com
+Subject: [RFC PATCH v7 04/10] trace: add stackmap binary export
+Date: Sat, 12 Sep 2026 16:37:47 +0800
+Message-Id: <20260912083753.3426176-5-lipengfei28@xiaomi.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260912083753.3426176-1-lipengfei28@xiaomi.com>
+References: <20260912083753.3426176-1-lipengfei28@xiaomi.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260912-msm8952-initial-support-v1-1-0e742578b524@mainlining.org>
-References: <20260912-msm8952-initial-support-v1-0-0e742578b524@mainlining.org>
-In-Reply-To: <20260912-msm8952-initial-support-v1-0-0e742578b524@mainlining.org>
-To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Srinivas Kandagatla <srini@kernel.org>, 
- Ulf Hansson <ulfh@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
- Robin Murphy <robin.murphy@arm.com>, Lee Jones <lee@kernel.org>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Robert Marko <robimarko@gmail.com>, Guru Das Srinagesh <linux@gurudas.dev>, 
- Amit Kucheria <amitk@kernel.org>, Thara Gopinath <thara.gopinath@gmail.com>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
- Lukasz Luba <lukasz.luba@arm.com>, Kees Cook <kees@kernel.org>, 
- Tony Luck <tony.luck@intel.com>, 
- "Guilherme G. Piccoli" <gpiccoli@igalia.com>, 
- Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: David Heidelberg <david@ixit.cz>, Dang Huynh <danct12@riseup.net>, 
- phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org, 
- iommu@lists.linux.dev, mfd@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, Krzysztof Kozlowski <krzk@kernel.org>, 
- linux-pm@vger.kernel.org, linux-input@vger.kernel.org, 
- Muzaffer Kadir <muzafferkadir@mainlining.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789202354; l=9903;
- i=muzafferkadir@mainlining.org; s=20260816; h=from:subject:message-id;
- bh=QFdtS+4ir8qozpzsMSNO2DZzGZTmEOtu2UKFZZesD/A=;
- b=at0BTMV+Mfb/LXDsg/wLvnABIQbu0yGFesjX58+sXobrtx8rbp6hCarwipA5XkEmdRV/p+OmT
- 3riFANHlGYPCzBWsxZ2s9lF3S/GbxJ1MbgyI43AJtUSYOlbJnAc2JQO
-X-Developer-Key: i=muzafferkadir@mainlining.org; a=ed25519;
- pk=4zkv4suQ3cYcO4Z7CrV8JSSjEGLBGepUtvQCFjgnYIU=
-X-Endpoint-Received: by B4 Relay for muzafferkadir@mainlining.org/20260816
- with auth_id=954
-X-Original-From: Muzaffer Kadir <muzafferkadir@mainlining.org>
-Reply-To: muzafferkadir@mainlining.org
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Muzaffer Kadir <muzafferkadir@mainlining.org>
+From: Pengfei Li <lipengfei28@xiaomi.com>
 
-Add a device tree binding to describe clocks, resets and power domains
-provided by the global clock controller on MSM8952 SoC.
+Add stack_map_bin, a native-endian version 1 binary export containing a
+header followed by stack id, depth, reference count and IP records.
+Userspace detects byte order from the magic value.
 
-Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
+Stream records through seq_write() instead of allocating a private
+payload snapshot. open() records populated slot numbers in a bitmap and
+sets nr_stacks to its exact count. The bitmap uses at most 64 KiB, and
+exactly those records are emitted. It fixes record membership, not
+payload values, so ref_count can change before a selected record is
+written.
+
+seq_file releases reader_sem between read() calls. Track resets with a
+u64 generation sampled at open and checked at the start of each later
+seq pass. All runtime generation accesses are under reader_sem, so a
+plain u64 is sufficient. A changed generation returns -ESTALE rather
+than -EAGAIN, which seq_file reserves for internal traversal retries.
+Data already buffered by the current pass can be returned first.
+
+Once iteration has reached the end, a later read returns normal EOF even
+if reset intervened because no new-generation record can be appended.
+A reader that receives -ESTALE must reopen the file.
+
+Export the trampoline sentinel unchanged and apply
+trace_adjust_address() to other addresses, matching the text export.
+
+The records contain raw kernel instruction pointers after
+trace_adjust_address(). The auxiliary file has mode 0440 and open() uses
+tracing_check_open_get_tr(), matching the access boundary of existing raw
+tracing interfaces. This rejects LOCKDOWN_TRACEFS and pins the owning
+trace array. All open failure paths and release drop that reference after
+seq_file state is released. Failure to create the auxiliary file does not
+disable stackmap.
+
+Signed-off-by: Pengfei Li <lipengfei28@xiaomi.com>
 ---
- .../bindings/clock/qcom,gcc-msm8952.yaml           |  56 ++++++
- include/dt-bindings/clock/qcom,gcc-msm8952.h       | 219 +++++++++++++++++++++
- 2 files changed, 275 insertions(+)
+ kernel/trace/trace.c          |  18 +-
+ kernel/trace/trace_stackmap.c | 327 ++++++++++++++++++++++++++++++++--
+ kernel/trace/trace_stackmap.h |  20 +++
+ 3 files changed, 343 insertions(+), 22 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/clock/qcom,gcc-msm8952.yaml b/Documentation/devicetree/bindings/clock/qcom,gcc-msm8952.yaml
-new file mode 100644
-index 000000000000..274dde633e17
---- /dev/null
-+++ b/Documentation/devicetree/bindings/clock/qcom,gcc-msm8952.yaml
-@@ -0,0 +1,56 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/clock/qcom,gcc-msm8952.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
+index 17df5f85da7a..68f5eb9a1e96 100644
+--- a/kernel/trace/trace.c
++++ b/kernel/trace/trace.c
+@@ -4109,8 +4109,8 @@ int set_tracer_flag(struct trace_array *tr, u64 mask, int enabled)
+ #ifdef CONFIG_FTRACE_STACKMAP
+ 	/*
+ 	 * STACKMAP is intentionally global-instance-only: the dedup map,
+-	 * its tracefs files and the lifetime/reset semantics are tied
+-	 * to the global trace
++	 * its tracefs files (stack_map / stack_map_stat / stack_map_bin)
++	 * and the lifetime/reset semantics are tied to the global trace
+ 	 * array. options/stackmap is hidden on secondary instances via
+ 	 * TOP_LEVEL_TRACE_FLAGS, but writes still reach set_tracer_flag()
+ 	 * through the aggregate trace_options file. Reject the enable on
+@@ -9412,17 +9412,21 @@ static __init void tracer_init_tracefs_work_func(struct work_struct *work)
+ 				smp_store_release(&global_trace.stackmap, smap);
+ 				WRITE_ONCE(stackmap_init_state, STACKMAP_INIT_DONE);
+ 				/*
+-				 * stat is an auxiliary observability
+-				 * surface. If it fails to be created we keep
+-				 * dedup enabled -- the kernel side still
+-				 * works and stack_map alone is enough to
+-				 * resolve and reset; trace_create_file()
++				 * stat and bin are auxiliary observability
++				 * surfaces. If they fail to be created we
++				 * keep dedup enabled (the kernel side still
++				 * works, and stack_map alone is enough to
++				 * resolve and reset); trace_create_file()
+ 				 * already pr_warn()s on failure.
+ 				 */
+ 				trace_create_file("stack_map_stat",
+ 						  TRACE_MODE_READ, NULL,
+ 						  smap,
+ 						  &ftrace_stackmap_stat_fops);
++				trace_create_file("stack_map_bin",
++						  TRACE_MODE_READ, NULL,
++						  smap,
++						  &ftrace_stackmap_bin_fops);
+ 			}
+ 		} else {
+ 			pr_warn("ftrace stackmap init failed, dedup disabled\n");
+diff --git a/kernel/trace/trace_stackmap.c b/kernel/trace/trace_stackmap.c
+index 2382c7459712..439d3be9e351 100644
+--- a/kernel/trace/trace_stackmap.c
++++ b/kernel/trace/trace_stackmap.c
+@@ -35,17 +35,19 @@
+  * collision, linear probing finds the next slot and full memcmp
+  * confirms the match.
+  *
+- * Concurrent userspace readers (cat stack_map) get a best-effort
+- * snapshot. They are coherent with the hot path (smp_load_acquire on
+- * entry->val); they are also serialized against reset via
+- * smap->reader_sem (readers take it in shared mode, reset in
++ * Concurrent userspace readers (cat stack_map / stack_map_bin) get a
++ * best-effort snapshot. They are coherent with the hot path
++ * (smp_load_acquire on entry->val); they are also serialized against
++ * reset via smap->reader_sem (readers take it in shared mode, reset in
+  * exclusive mode), so a reset cannot tear a single seq_file pass --
+  * it waits for the active read() pass to drop the rwsem before clearing
+- * the map. The hot path is coordinated with reset separately, via
+- * acquire/release on smap->resetting.
++ * the map. Binary readers spanning multiple read() calls additionally
++ * use a generation check. The hot path is coordinated with reset
++ * separately, via acquire/release on smap->resetting.
+  */
+ 
+ #include <linux/kernel.h>
++#include <linux/bitmap.h>
+ #include <linux/slab.h>
+ #include <linux/jhash.h>
+ #include <linux/seq_file.h>
+@@ -74,7 +76,7 @@
+ /*
+  * Memory ordering of entry->val: published with smp_store_release()
+  * by the inserter; consumed with smp_load_acquire() by every reader
+- * that dereferences the elt (get_id, seq_show). This pairs
++ * that dereferences the elt (get_id, seq_show, bin_show). This pairs
+  * the writes to elt->{nr,ips,ref_count} (initialized BEFORE the
+  * publish) with the reads of those fields (which happen AFTER the
+  * load). seq_start / seq_next only test val for NULL and use the
+@@ -119,11 +121,19 @@ struct ftrace_stackmap {
+ 	struct stackmap_entry	*entries;	/* hash table */
+ 	struct stackmap_elt	*elts;		/* flat element pool */
+ 	atomic_t		resetting;
++	/*
++	 * Bumped by every completed reset, inside the reader_sem write
++	 * section. A reader that spans several read() calls samples this
++	 * at open() and revalidates it on each pass, so a reset landing
++	 * between two reads is detected instead of silently splicing two
++	 * generations of the map into one output stream.
++	 */
++	u64			generation;
+ 	/*
+ 	 * Reader/reset serialization. Held in shared mode (read lock)
+-	 * across seq_file iteration; held in exclusive mode (write
+-	 * lock) by reset's clearing phase. The hot path (get_id) does
+-	 * not take this lock — it
++	 * across each seq_file pass of the text and binary exports;
++	 * held in exclusive mode (write lock) by reset's clearing
++	 * phase. The hot path (get_id) does not take this lock — it
+ 	 * uses smp_load_acquire/smp_store_release on entry->val and
+ 	 * the resetting flag for the lock-free protocol.
+ 	 */
+@@ -206,6 +216,7 @@ struct ftrace_stackmap *ftrace_stackmap_create(struct trace_array *tr)
+ 	smap->hash_seed = get_random_u32();
+ 	atomic_set(&smap->next_elt, 0);
+ 	atomic_set(&smap->resetting, 0);
++	smap->generation = 0;
+ 	init_rwsem(&smap->reader_sem);
+ 
+ 	return smap;
+@@ -307,10 +318,10 @@ static int ftrace_stackmap_reset(struct ftrace_stackmap *smap)
+ 
+ 	/*
+ 	 * Take the reader_sem in exclusive mode. This serializes the
+-	 * memset against any tracefs reader (seq_file iteration) that
+-	 * may currently hold the rwsem for read. The Tasks RCU grace
+-	 * periods already drained the hot path; this rwsem covers
+-	 * process-context export readers.
++	 * memset against any tracefs reader (a seq_file pass of the text
++	 * or binary export) that may currently hold the rwsem for read.
++	 * The Tasks RCU grace periods already drained the hot path; this
++	 * rwsem covers process-context export readers.
+ 	 */
+ 	down_write(&smap->reader_sem);
+ 
+@@ -323,6 +334,13 @@ static int ftrace_stackmap_reset(struct ftrace_stackmap *smap)
+ 		atomic_long_set(per_cpu_ptr(smap->drops, cpu), 0);
+ 	}
+ 
++	/*
++	 * Bump inside the write section so a reader holding the read
++	 * side either sees the whole pre-reset generation or the whole
++	 * post-reset one, never a counter from each.
++	 */
++	smap->generation++;
 +
-+title: Qualcomm Global Clock & Reset Controller on MSM8952
+ 	up_write(&smap->reader_sem);
+ 
+ 	/* Release resetting=0 so new get_id() observes a cleared map. */
+@@ -402,7 +420,7 @@ int ftrace_stackmap_get_id(struct ftrace_stackmap *smap,
+ 			val = stackmap_load_elt(entry);
+ 			/*
+ 			 * READ_ONCE(val->nr) keeps style consistent with
+-			 * the seq_show reader. nr is write-once
++			 * the seq_show / bin_show readers. nr is write-once
+ 			 * (set before publish, never modified afterwards),
+ 			 * so the load is data-race-free, but READ_ONCE
+ 			 * silences any analysis tool that flags a plain
+@@ -853,3 +871,282 @@ const struct file_operations ftrace_stackmap_stat_fops = {
+ 	.llseek		= seq_lseek,
+ 	.release	= stackmap_stat_release,
+ };
 +
-+maintainers:
-+  - Muzaffer Kadir <muzafferkadir@mainlining.org>
++/* --- Binary export --- */
 +
-+description: |
-+  Qualcomm global clock control module provides the clocks, resets and power
-+  domains on MSM8952.
-+
-+  See also::
-+    include/dt-bindings/clock/qcom,gcc-msm8952.h
-+
-+properties:
-+  compatible:
-+    enum:
-+      - qcom,gcc-msm8952
-+
-+  clocks:
-+    items:
-+      - description: XO source
-+      - description: Always-on XO source
-+      - description: DSI phy instance 0 dsi clock
-+      - description: DSI phy instance 0 byte clock
-+
-+  clock-names:
-+    items:
-+      - const: xo
-+      - const: xo_a
-+      - const: dsi0pll
-+      - const: dsi0pllbyte
-+
-+required:
-+  - compatible
-+  - '#power-domain-cells'
-+
-+allOf:
-+  - $ref: qcom,gcc.yaml#
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    clock-controller@1800000 {
-+      compatible = "qcom,gcc-msm8952";
-+      #clock-cells = <1>;
-+      #reset-cells = <1>;
-+      #power-domain-cells = <1>;
-+      reg = <0x01800000 0x80000>;
-+    };
-+...
-diff --git a/include/dt-bindings/clock/qcom,gcc-msm8952.h b/include/dt-bindings/clock/qcom,gcc-msm8952.h
-new file mode 100644
-index 000000000000..1ae241614d3c
---- /dev/null
-+++ b/include/dt-bindings/clock/qcom,gcc-msm8952.h
-@@ -0,0 +1,219 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
 +/*
-+ * Copyright 2020 Linaro Limited
-+ * Copyright 2026 Muzaffer Kadir <muzafferkadir@mainlining.org>
++ * Binary counterpart of the text export, for userspace that would
++ * rather not parse symbols out of stack_map.
++ *
++ * Between resets, the element pool only grows and populated slots are
++ * not recycled. open() records the populated slot numbers in a bitmap,
++ * then the table is streamed in index order through seq_write(). This
++ * fixes the record set and makes header.nr_stacks exact without copying
++ * stack payloads. Even at the largest supported table, the bitmap is
++ * only 64 KiB per open, rather than a roughly 135 MiB element snapshot.
++ * A reset clears and reuses both the table and pool.
++ *
++ * seq_file drops reader_sem between read() calls, so a reset landing
++ * between two reads of the same fd would otherwise splice two
++ * generations of the map into a single stream. Text output would merely
++ * look confusing, but a binary consumer would parse it as one coherent
++ * dump, so open() samples the generation counter and every pass
++ * revalidates it, failing the read with -ESTALE once it has moved. ESTALE
++ * is intentional: seq_file treats -EAGAIN as an internal traverse retry,
++ * which would make lseek() on a stale fd spin forever. A reader that loses
++ * the race must reopen the file.
++ *
++ * The records contain raw kernel instruction pointers after
++ * trace_adjust_address(). VFS mode checks provide the tracefs permission
++ * boundary, and open additionally uses tracing_check_open_get_tr() for the
++ * tracing lockdown check and to pin the owning trace array for the lifetime
++ * of the file.
 + */
++struct stackmap_bin_iter {
++	struct ftrace_stackmap	*smap;
++	u64			generation;	/* sampled at open() */
++	u32			nr_stacks;	/* selected at open() */
++	bool			locked;		/* reader_sem held by start() */
++	/*
++	 * Staging buffer for one full-depth entry, kept here rather than
++	 * on the stack: the IP array alone is 512 bytes, which has no
++	 * business in a seq_file show() frame. Emitting an entry in a
++	 * single seq_write() also keeps it from being torn across a
++	 * buffer-growth retry.
++	 */
++	char			ebuf[sizeof(struct ftrace_stackmap_bin_entry) +
++				     FTRACE_STACKMAP_MAX_DEPTH * sizeof(u64)]
++				     __aligned(8);
++	/* Populated table slots selected during the open-time scan. */
++	unsigned long		*slots;
++};
 +
-+#ifndef _DT_BINDINGS_CLK_MSM_GCC_8952_H
-+#define _DT_BINDINGS_CLK_MSM_GCC_8952_H
++/*
++ * Advance to the first populated slot at or after *idx. Sets *idx to
++ * map_size when the table is exhausted, so a later call terminates
++ * immediately.
++ */
++static struct stackmap_entry *stackmap_bin_seek(struct stackmap_bin_iter *iter,
++						loff_t *idx)
++{
++	struct ftrace_stackmap *smap = iter->smap;
++	unsigned long i;
 +
-+#define GPLL0						0
-+#define GPLL0_VOTE					1
-+#define GPLL3						2
-+#define GPLL3_EARLY					3
-+#define GPLL4						4
-+#define GPLL4_VOTE					5
-+#define GPLL6						6
-+#define GPLL6_VOTE					7
-+#define CAMSS_TOP_AHB_CLK_SRC				8
-+#define APSS_AHB_CLK_SRC				9
-+#define CSI0_CLK_SRC					10
-+#define CSI1_CLK_SRC					11
-+#define GFX3D_CLK_SRC					12
-+#define VFE0_CLK_SRC					13
-+#define BLSP1_QUP1_I2C_APPS_CLK_SRC			14
-+#define BLSP1_QUP1_SPI_APPS_CLK_SRC			15
-+#define BLSP1_QUP2_I2C_APPS_CLK_SRC			16
-+#define BLSP1_QUP2_SPI_APPS_CLK_SRC			17
-+#define BLSP1_QUP3_I2C_APPS_CLK_SRC			18
-+#define BLSP1_QUP3_SPI_APPS_CLK_SRC			19
-+#define BLSP1_QUP4_I2C_APPS_CLK_SRC			20
-+#define BLSP1_QUP4_SPI_APPS_CLK_SRC			21
-+#define BLSP1_UART1_APPS_CLK_SRC			22
-+#define BLSP1_UART2_APPS_CLK_SRC			23
-+#define CCI_CLK_SRC					24
-+#define CAMSS_GP0_CLK_SRC				25
-+#define CAMSS_GP1_CLK_SRC				26
-+#define JPEG0_CLK_SRC					27
-+#define MCLK0_CLK_SRC					28
-+#define MCLK1_CLK_SRC					29
-+#define CSI0PHYTIMER_CLK_SRC				30
-+#define CSI1PHYTIMER_CLK_SRC				31
-+#define CPP_CLK_SRC					32
-+#define CRYPTO_CLK_SRC					33
-+#define GP1_CLK_SRC					34
-+#define GP2_CLK_SRC					35
-+#define GP3_CLK_SRC					36
-+#define BYTE0_CLK_SRC					37
-+#define ESC0_CLK_SRC					38
-+#define MDP_CLK_SRC					39
-+#define PCLK0_CLK_SRC					40
-+#define VSYNC_CLK_SRC					41
-+#define PDM2_CLK_SRC					42
-+#define SDCC1_APPS_CLK_SRC				43
-+#define SDCC2_APPS_CLK_SRC				44
-+#define USB_HS_SYSTEM_CLK_SRC				45
-+#define VCODEC0_CLK_SRC					46
-+#define GCC_BLSP1_AHB_CLK				47
-+#define GCC_BLSP1_QUP1_I2C_APPS_CLK			48
-+#define GCC_BLSP1_QUP1_SPI_APPS_CLK			49
-+#define GCC_BLSP1_QUP2_I2C_APPS_CLK			50
-+#define GCC_BLSP1_QUP2_SPI_APPS_CLK			51
-+#define GCC_BLSP1_QUP3_I2C_APPS_CLK			52
-+#define GCC_BLSP1_QUP3_SPI_APPS_CLK			53
-+#define GCC_BLSP1_QUP4_I2C_APPS_CLK			54
-+#define GCC_BLSP1_QUP4_SPI_APPS_CLK			55
-+#define GCC_BLSP1_UART1_APPS_CLK			56
-+#define GCC_BLSP1_UART2_APPS_CLK			57
-+#define GCC_BOOT_ROM_AHB_CLK				58
-+#define GCC_CAMSS_CCI_AHB_CLK				59
-+#define GCC_CAMSS_CCI_CLK				60
-+#define GCC_CAMSS_CSI0_AHB_CLK				61
-+#define GCC_CAMSS_CSI0_CLK				62
-+#define GCC_CAMSS_CSI0PHY_CLK				63
-+#define GCC_CAMSS_CSI0PIX_CLK				64
-+#define GCC_CAMSS_CSI0RDI_CLK				65
-+#define GCC_CAMSS_CSI1_AHB_CLK				66
-+#define GCC_CAMSS_CSI1_CLK				67
-+#define GCC_CAMSS_CSI1PHY_CLK				68
-+#define GCC_CAMSS_CSI1PIX_CLK				69
-+#define GCC_CAMSS_CSI1RDI_CLK				70
-+#define GCC_CAMSS_CSI_VFE0_CLK				71
-+#define GCC_CAMSS_GP0_CLK				72
-+#define GCC_CAMSS_GP1_CLK				73
-+#define GCC_CAMSS_ISPIF_AHB_CLK				74
-+#define GCC_CAMSS_JPEG0_CLK				75
-+#define GCC_CAMSS_JPEG_AHB_CLK				76
-+#define GCC_CAMSS_JPEG_AXI_CLK				77
-+#define GCC_CAMSS_MCLK0_CLK				78
-+#define GCC_CAMSS_MCLK1_CLK				79
-+#define GCC_CAMSS_MICRO_AHB_CLK				80
-+#define GCC_CAMSS_CSI0PHYTIMER_CLK			81
-+#define GCC_CAMSS_CSI1PHYTIMER_CLK			82
-+#define GCC_CAMSS_AHB_CLK				83
-+#define GCC_CAMSS_TOP_AHB_CLK				84
-+#define GCC_CAMSS_CPP_AHB_CLK				85
-+#define GCC_CAMSS_CPP_CLK				86
-+#define GCC_CAMSS_VFE0_CLK				87
-+#define GCC_CAMSS_VFE_AHB_CLK				88
-+#define GCC_CAMSS_VFE_AXI_CLK				89
-+#define GCC_CRYPTO_AHB_CLK				90
-+#define GCC_CRYPTO_AXI_CLK				91
-+#define GCC_CRYPTO_CLK					92
-+#define GCC_OXILI_GMEM_CLK				93
-+#define GCC_GP1_CLK					94
-+#define GCC_GP2_CLK					95
-+#define GCC_GP3_CLK					96
-+#define GCC_MDSS_AHB_CLK				97
-+#define GCC_MDSS_AXI_CLK				98
-+#define GCC_MDSS_BYTE0_CLK				99
-+#define GCC_MDSS_ESC0_CLK				100
-+#define GCC_MDSS_MDP_CLK				101
-+#define GCC_MDSS_PCLK0_CLK				102
-+#define GCC_MDSS_VSYNC_CLK				103
-+#define GCC_MSS_CFG_AHB_CLK				104
-+#define GCC_OXILI_AHB_CLK				105
-+#define GCC_OXILI_GFX3D_CLK				106
-+#define GCC_PDM2_CLK					107
-+#define GCC_PDM_AHB_CLK					108
-+#define GCC_PRNG_AHB_CLK				109
-+#define GCC_SDCC1_AHB_CLK				110
-+#define GCC_SDCC1_APPS_CLK				111
-+#define GCC_SDCC2_AHB_CLK				112
-+#define GCC_SDCC2_APPS_CLK				113
-+#define GCC_GTCU_AHB_CLK				114
-+#define GCC_JPEG_TBU_CLK				115
-+#define GCC_MDP_TBU_CLK					116
-+#define GCC_SMMU_CFG_CLK				117
-+#define GCC_VENUS_TBU_CLK				118
-+#define GCC_VFE_TBU_CLK					119
-+#define GCC_USB2A_PHY_SLEEP_CLK				120
-+#define GCC_USB_HS_AHB_CLK				121
-+#define GCC_USB_HS_SYSTEM_CLK				122
-+#define GCC_VENUS0_AHB_CLK				123
-+#define GCC_VENUS0_AXI_CLK				124
-+#define GCC_VENUS0_VCODEC0_CLK				125
-+#define GCC_APSS_TCU_CLK				126
-+#define GCC_GFX_TCU_CLK					127
-+#define GCC_BIMC_GFX_CLK				128
-+#define GCC_BIMC_GPU_CLK				129
-+#define GCC_MSS_Q6_BIMC_AXI_CLK				130
-+#define GCC_GFX_TBU_CLK					131
-+#define GCC_CPP_TBU_CLK					132
-+#define USB_FS_SYSTEM_CLK_SRC				133
-+#define USB_FS_IC_CLK_SRC				134
-+#define GCC_USB_FS_AHB_CLK				135
-+#define GCC_USB_FS_IC_CLK				136
-+#define GCC_USB_FS_SYSTEM_CLK				137
-+#define GCC_VENUS0_CORE0_VCODEC0_CLK			138
-+#define GCC_VENUS0_CORE1_VCODEC0_CLK			139
-+#define GCC_OXILI_TIMER_CLK				140
-+#define GCC_USB_HS_PHY_CFG_AHB_CLK			141
-+#define CSI2_CLK_SRC					142
-+#define GCC_CAMSS_CSI2_AHB_CLK				143
-+#define GCC_CAMSS_CSI2_CLK				144
-+#define GCC_CAMSS_CSI2PHY_CLK				145
-+#define GCC_CAMSS_CSI2PIX_CLK				146
-+#define GCC_CAMSS_CSI2RDI_CLK				147
-+#define SDCC1_ICE_CORE_CLK_SRC				148
-+#define GCC_SDCC1_ICE_CORE_CLK				149
-+#define BLSP2_QUP1_I2C_APPS_CLK_SRC			150
-+#define BLSP2_QUP1_SPI_APPS_CLK_SRC			151
-+#define BLSP2_QUP2_I2C_APPS_CLK_SRC			152
-+#define BLSP2_QUP2_SPI_APPS_CLK_SRC			153
-+#define BLSP2_QUP3_I2C_APPS_CLK_SRC			154
-+#define BLSP2_QUP3_SPI_APPS_CLK_SRC			155
-+#define BLSP2_QUP4_I2C_APPS_CLK_SRC			156
-+#define BLSP2_QUP4_SPI_APPS_CLK_SRC			157
-+#define BLSP2_UART1_APPS_CLK_SRC			158
-+#define BLSP2_UART2_APPS_CLK_SRC			159
-+#define GCC_BLSP2_AHB_CLK				160
-+#define GCC_BLSP2_QUP1_I2C_APPS_CLK			161
-+#define GCC_BLSP2_QUP1_SPI_APPS_CLK			162
-+#define GCC_BLSP2_QUP2_I2C_APPS_CLK			163
-+#define GCC_BLSP2_QUP2_SPI_APPS_CLK			164
-+#define GCC_BLSP2_QUP3_I2C_APPS_CLK			165
-+#define GCC_BLSP2_QUP3_SPI_APPS_CLK			166
-+#define GCC_BLSP2_QUP4_I2C_APPS_CLK			167
-+#define GCC_BLSP2_QUP4_SPI_APPS_CLK			168
-+#define GCC_BLSP2_UART1_APPS_CLK			169
-+#define GCC_BLSP2_UART2_APPS_CLK			170
-+#define VFE1_CLK_SRC					171
-+#define GCC_CAMSS_VFE1_CLK				172
-+#define GCC_CAMSS_VFE1_AHB_CLK				173
-+#define GCC_CAMSS_VFE1_AXI_CLK				174
-+#define GCC_CAMSS_CSI_VFE1_CLK				175
-+#define MCLK2_CLK_SRC					176
-+#define GCC_CAMSS_MCLK2_CLK				177
-+#define GCC_VFE1_TBU_CLK				178
-+#define GCC_IPA_TBU_CLK					179
-+#define GCC_CAMSS_CPP_AXI_CLK				180
-+#define GCC_CAMSS_VFE0_AHB_CLK				181
-+#define GCC_CAMSS_VFE0_AXI_CLK				182
++	i = find_next_bit(iter->slots, smap->map_size, *idx);
++	if (i >= smap->map_size) {
++		*idx = smap->map_size;
++		return NULL;
++	}
 +
-+/* Indexes for GDSCs */
-+#define VENUS_GDSC				0
-+#define MDSS_GDSC				1
-+#define JPEG_GDSC				2
-+#define VFE0_GDSC				3
-+#define VFE1_GDSC				4
-+#define OXILI_GX_GDSC				5
-+#define VENUS_CORE0_GDSC			6
-+#define VENUS_CORE1_GDSC			7
-+#define CPP_GDSC				8
++	*idx = i;
++	return &smap->entries[i];
++}
 +
-+/* Indexes for Resets */
-+#define RST_CAMSS_MICRO_BCR			0
-+#define RST_USB_HS_BCR				1
-+#define RST_QUSB2_PHY_BCR			2
-+#define RST_USB2_HS_PHY_ONLY_BCR		3
-+#define RST_USB_HS_PHY_CFG_AHB_CBCR		4
-+#define RST_USB_FS_BCR				5
-+#define RST_CAMSS_CSI1PIX_CBCR			6
-+#define RST_CAMSS_CSI_VFE1_CBCR			7
-+#define RST_CAMSS_VFE1_CBCR			8
-+#define RST_CAMSS_CPP_CBCR			9
-+#define RST_MSS_BCR				10
-+#define RST_MDSS_BCR				11
++/*
++ * Stream position 0 is the file header; position idx+1 is table slot
++ * idx. Deriving it from the slot index keeps the iteration idempotent
++ * across the retries seq_file performs when its buffer has to grow.
++ */
++static void *stackmap_bin_seq_start(struct seq_file *m, loff_t *pos)
++{
++	struct stackmap_bin_iter *iter = m->private;
++	struct ftrace_stackmap *smap = iter->smap;
++	struct stackmap_entry *entry;
++	loff_t idx;
 +
-+#endif
-
++	/*
++	 * Serializes against the clearing phase of ftrace_stackmap_reset().
++	 * Dropped in stackmap_bin_seq_stop(), which seq_file calls after
++	 * every pass, including the ones where start() reports an error.
++	 */
++	down_read(&smap->reader_sem);
++	iter->locked = true;
++
++	/*
++	 * The table has already been walked to the end. There is nothing
++	 * left to hand over, so a reset that happened in the meantime
++	 * cannot splice generations into this stream: report EOF rather
++	 * than an error. Otherwise a reader that had already consumed the
++	 * whole export would take a failure on its final read() and treat
++	 * the data it holds as invalid.
++	 */
++	if (*pos > smap->map_size)
++		return NULL;
++
++	if (smap->generation != iter->generation)
++		return ERR_PTR(-ESTALE);
++
++	if (*pos == 0)
++		return SEQ_START_TOKEN;
++
++	idx = *pos - 1;
++	entry = stackmap_bin_seek(iter, &idx);
++	*pos = idx + 1;
++	return entry;
++}
++
++static void *stackmap_bin_seq_next(struct seq_file *m, void *v, loff_t *pos)
++{
++	struct stackmap_bin_iter *iter = m->private;
++	struct ftrace_stackmap *smap = iter->smap;
++	struct stackmap_entry *entry;
++	loff_t idx;
++
++	if (v == SEQ_START_TOKEN)
++		idx = 0;
++	else
++		idx = ((struct stackmap_entry *)v - smap->entries) + 1;
++
++	entry = stackmap_bin_seek(iter, &idx);
++	*pos = idx + 1;
++	return entry;
++}
++
++static void stackmap_bin_seq_stop(struct seq_file *m, void *v)
++{
++	struct stackmap_bin_iter *iter = m->private;
++
++	if (iter->locked) {
++		up_read(&iter->smap->reader_sem);
++		iter->locked = false;
++	}
++}
++
++static int stackmap_bin_seq_show(struct seq_file *m, void *v)
++{
++	struct stackmap_bin_iter *iter = m->private;
++	struct ftrace_stackmap_bin_entry *e;
++	struct stackmap_entry *entry;
++	struct stackmap_elt *elt;
++	u32 i, nr;
++
++	if (v == SEQ_START_TOKEN) {
++		struct ftrace_stackmap_bin_header hdr = {
++			.magic		= FTRACE_STACKMAP_BIN_MAGIC,
++			.version	= FTRACE_STACKMAP_BIN_VERSION,
++			.nr_stacks	= iter->nr_stacks,
++			.reserved	= 0,
++		};
++
++		seq_write(m, &hdr, sizeof(hdr));
++		return 0;
++	}
++
++	entry = v;
++	elt = stackmap_load_elt(entry);
++	if (!elt)
++		return 0;
++
++	nr = READ_ONCE(elt->nr);
++	if (nr > FTRACE_STACKMAP_MAX_DEPTH)
++		nr = FTRACE_STACKMAP_MAX_DEPTH;
++
++	e = (struct ftrace_stackmap_bin_entry *)iter->ebuf;
++	e->stack_id = entry - iter->smap->entries;
++	e->nr = nr;
++	e->ref_count = atomic_read(&elt->ref_count);
++	e->reserved = 0;
++
++	for (i = 0; i < nr; i++) {
++		unsigned long ip = elt->ips[i];
++
++		/*
++		 * Emit the trampoline marker verbatim so userspace can
++		 * render it as [FTRACE TRAMPOLINE]; pass everything else
++		 * through trace_adjust_address() so the binary export
++		 * follows the same address-adjustment rules as the text
++		 * export.
++		 */
++		if (ip == FTRACE_TRAMPOLINE_MARKER)
++			e->ips[i] = (u64)FTRACE_TRAMPOLINE_MARKER;
++		else
++			e->ips[i] = (u64)trace_adjust_address(iter->smap->tr, ip);
++	}
++
++	seq_write(m, e, struct_size(e, ips, nr));
++	return 0;
++}
++
++static const struct seq_operations stackmap_bin_seq_ops = {
++	.start	= stackmap_bin_seq_start,
++	.next	= stackmap_bin_seq_next,
++	.stop	= stackmap_bin_seq_stop,
++	.show	= stackmap_bin_seq_show,
++};
++
++static int stackmap_bin_open(struct inode *inode, struct file *file)
++{
++	struct ftrace_stackmap *smap = inode->i_private;
++	struct stackmap_bin_iter *iter;
++	struct seq_file *m;
++	u32 nr = 0;
++	loff_t i;
++	int ret;
++
++	if (!smap)
++		return -ENODEV;
++
++	ret = tracing_check_open_get_tr(smap->tr);
++	if (ret)
++		return ret;
++
++	ret = seq_open_private(file, &stackmap_bin_seq_ops, sizeof(*iter));
++	if (ret)
++		goto put_tr;
++
++	m = file->private_data;
++	iter = m->private;
++	iter->smap = smap;
++	iter->slots = kvcalloc(BITS_TO_LONGS(smap->map_size),
++			       sizeof(*iter->slots), GFP_KERNEL_ACCOUNT);
++	if (!iter->slots) {
++		ret = -ENOMEM;
++		goto release_seq;
++	}
++
++	/*
++	 * Select the populated slots up front so header.nr_stacks exactly
++	 * frames the records emitted by this fd. The bitmap copies only
++	 * membership, not stack payloads; at the maximum map size it uses
++	 * 64 KiB. Inserts after this scan are deliberately excluded.
++	 */
++	down_read(&smap->reader_sem);
++	iter->generation = smap->generation;
++	for (i = 0; i < smap->map_size; i++) {
++		if (READ_ONCE(smap->entries[i].key) &&
++		    stackmap_load_elt(&smap->entries[i])) {
++			__set_bit(i, iter->slots);
++			nr++;
++		}
++	}
++	up_read(&smap->reader_sem);
++
++	iter->nr_stacks = nr;
++	return 0;
++
++release_seq:
++	seq_release_private(inode, file);
++put_tr:
++	trace_array_put(smap->tr);
++	return ret;
++}
++
++static int stackmap_bin_release(struct inode *inode, struct file *file)
++{
++	struct seq_file *m = file->private_data;
++	struct stackmap_bin_iter *iter = m->private;
++	struct ftrace_stackmap *smap = iter->smap;
++	int ret;
++
++	kvfree(iter->slots);
++	ret = seq_release_private(inode, file);
++	trace_array_put(smap->tr);
++	return ret;
++}
++
++const struct file_operations ftrace_stackmap_bin_fops = {
++	.open		= stackmap_bin_open,
++	.read		= seq_read,
++	.llseek		= seq_lseek,
++	.release	= stackmap_bin_release,
++};
+diff --git a/kernel/trace/trace_stackmap.h b/kernel/trace/trace_stackmap.h
+index 7615e346dfa6..80415b985627 100644
+--- a/kernel/trace/trace_stackmap.h
++++ b/kernel/trace/trace_stackmap.h
+@@ -7,6 +7,25 @@
+ 
+ #define FTRACE_STACKMAP_MAX_DEPTH	64
+ 
++/* Binary export format */
++#define FTRACE_STACKMAP_BIN_MAGIC	0x46534D42	/* 'FSMB' */
++#define FTRACE_STACKMAP_BIN_VERSION	1
++
++struct ftrace_stackmap_bin_header {
++	u32 magic;
++	u32 version;
++	u32 nr_stacks;
++	u32 reserved;
++};
++
++struct ftrace_stackmap_bin_entry {
++	u32 stack_id;
++	u32 nr;
++	u32 ref_count;
++	u32 reserved;
++	u64 ips[];		/* nr entries follow the header */
++};
++
+ struct trace_array;
+ 
+ #ifdef CONFIG_FTRACE_STACKMAP
+@@ -20,6 +39,7 @@ int ftrace_stackmap_get_id(struct ftrace_stackmap *smap,
+ 
+ extern const struct file_operations ftrace_stackmap_fops;
+ extern const struct file_operations ftrace_stackmap_stat_fops;
++extern const struct file_operations ftrace_stackmap_bin_fops;
+ 
+ #else
+ 
 -- 
-2.54.0
-
+2.34.1
 
