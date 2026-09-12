@@ -1,73 +1,61 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from bregans-1.gladserv.net (bregans-1.gladserv.net [185.128.211.58])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 018C8427F91;
-	Sat, 12 Sep 2026 17:43:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E46D747FB17;
+	Sat, 12 Sep 2026 17:43:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.128.211.58
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789235006; cv=none; b=SzCDww3u3+vldT0lO/WURYBaJsNFCcZgtSfIiR5tgsn4iAWVX/SHEdTtegeTwYlRUdyEurvmEo92AnwLjOizgG+pDRQKvnI145y/LevrV/pTxsoMHHmX7h9ybRRM+W4yc79AFyZ5JcvMtQbTqgYrdQ2fVk3K0aFhCiZsnnBWFKc=
+	t=1789235045; cv=none; b=aErr6HqgRIU3ZJQYksFFV83+yLucidk3Bwdl2WQkS3pub2b2/a77ROjYes38zUVPVsyF3r9A1dHQNF6Gc2nhpY2QexLqclKLzE2M9/lSa2CzNdR2KsqCRhCRNMHpdmtAnhzn53iW3Q7Vjct479+RDol13UyTzhKbYSebz0SF5Vc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789235006; c=relaxed/simple;
-	bh=p9xNgzyOOGjC3nneFi7FF9dS3gReLqfYyME7Rxt17rs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=R6FIqNU1UmlDxmhq5eFbL0d75mQUOAcBcbABLajhDKAAbxK4qSS+IzHB2/FsmCUn3EbuJ0+tXD5WYb0jSvlPyYUYp6dhse5yASyRbcQpYPO7HZNVecgdcaWIX9teE85rN4E8TDiMNAMm5P2yFNO7UZDioGAZRDkC3YJURPr+Gwc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.helo=mail.mainlining.org; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.helo=mail.mainlining.org
-Message-ID: <506c188c-2518-4d2e-aff6-336a8dbbb65a@mainlining.org>
-Date: Sat, 12 Sep 2026 20:42:12 +0300
+	s=arc-20240116; t=1789235045; c=relaxed/simple;
+	bh=H5g9pOikHE1/Q2rEFjIaRLs15UQvJ7BVbOdD+IM13kA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=R3zVatsuv19sDDyRhh81N+fzMftbGnFz8IhDi6jsoMT48BWg6l6VpC5E5SEKlve+sy0PGFbN+1BeB3hgsAjn5RuzCNT8p5YdWjzhl0W2dprUnfIcChXGZZUydPdHLWpUuxCIedUy/jfLjJr5AX6z0R0R/AMdYx+xegrDPMzWbkA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=librecast.net; spf=pass smtp.mailfrom=librecast.net; arc=none smtp.client-ip=185.128.211.58
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=librecast.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=librecast.net
+From: Brett A C Sheffield <bacs@librecast.net>
+To: gregkh@linuxfoundation.org
+Cc: stable@vger.kernel.org,
+	patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	torvalds@linux-foundation.org,
+	akpm@linux-foundation.org,
+	linux@roeck-us.net,
+	shuah@kernel.org,
+	patches@kernelci.org,
+	lkft-triage@lists.linaro.org,
+	pavel@nabladev.com,
+	jonathanh@nvidia.com,
+	f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com,
+	rwarsow@gmx.de,
+	conor@kernel.org,
+	hargar@microsoft.com,
+	broonie@kernel.org,
+	achill@achill.org,
+	sr@sladewatkins.com,
+	Brett A C Sheffield <bacs@librecast.net>
+Subject: Re: [PATCH 5.15 000/935] 5.15.221-rc1 review
+Date: Sat, 12 Sep 2026 17:43:38 +0000
+Message-ID: <20260912174342.63266-1-bacs@librecast.net>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260912065526.833703348@linuxfoundation.org>
+References: <20260912065526.833703348@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 20/20] arm64: dts: qcom: generalmobile-shamrock: new
- device
-To: David Heidelberg <david@ixit.cz>
-Cc: Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
- Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Srinivas Kandagatla <srini@kernel.org>,
- Ulf Hansson <ulfh@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Lee Jones <lee@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Robert Marko <robimarko@gmail.com>, Guru Das Srinagesh <linux@gurudas.dev>,
- Amit Kucheria <amitk@kernel.org>, Thara Gopinath <thara.gopinath@gmail.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- Lukasz Luba <lukasz.luba@arm.com>, Kees Cook <kees@kernel.org>,
- Tony Luck <tony.luck@intel.com>, "Guilherme G. Piccoli"
- <gpiccoli@igalia.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Bjorn Andersson <andersson@kernel.org>, Dang Huynh <danct12@riseup.net>,
- phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org,
- iommu@lists.linux.dev, mfd@lists.linux.dev, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, Krzysztof Kozlowski <krzk@kernel.org>,
- linux-pm@vger.kernel.org, linux-input@vger.kernel.org
-References: <20260912-msm8952-initial-support-v1-0-0e742578b524@mainlining.org>
- <20260912-msm8952-initial-support-v1-20-0e742578b524@mainlining.org>
- <9d2c5d44-206f-4ae9-b340-ba1994e234bf@ixit.cz>
-From: Muzaffer Kadir <muzafferkadir@mainlining.org>
-Content-Language: en-US
-In-Reply-To: <9d2c5d44-206f-4ae9-b340-ba1994e234bf@ixit.cz>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi David,
+# Librecast Test Results
 
-I will fix all of these in v2.
-Thanks a lot for review.
+020/020 [ OK ] liblcrq
+010/010 [ OK ] libmld
+120/120 [ OK ] liblibrecast
 
-Best regards,
-Muzaffer Kadir
+CPU/kernel: Linux auntie 5.15.221-rc1-02629-g0dce236725a5 #1 SMP Sat Sep 12 17:34:59 -00 2026 x86_64 AMD Ryzen 9 9950X 16-Core Processor AuthenticAMD GNU/Linux
+
+Tested-by: Brett A C Sheffield <bacs@librecast.net>
