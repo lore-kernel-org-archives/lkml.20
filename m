@@ -1,104 +1,199 @@
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f51.google.com (mail-oa1-f51.google.com [209.85.160.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E99E7224B05;
-	Sat, 12 Sep 2026 03:36:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEE2138DC48
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 03:37:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789184178; cv=none; b=mw/9sbaItFldKfuaTrgfH831K81TlfagJ+BWirhJ0JKlq0woZy34rFnpnBOplr2HqTcoNgTzT9g2AYDG1zxETxrXsT5ihE6GO3d4O0xcxOoHXXWLEWYk/7YSgwbWnl2Ohd8MU55l5sRlwMu3nBz2DbIcWLMlXShhUl/JXD8tQvk=
+	t=1789184248; cv=none; b=VcOfOn8BaA1RvfHKPhFaMEq/cREr2BjQdmicR7/0UHj4MlgJJon7xNokJJCClvbOFJMDy9OLAgGsjzuGcZREVbji476zt/pLrJrGHDcJ+f2q6/qBSfiB6r1iuEhGy1H3WkBiZm1uH+PtSzu2O6MCHD/j7r/bqCFlV1PRivmBqiQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789184178; c=relaxed/simple;
-	bh=EpZ6j2bTxc/TQ71LdovCHSO2o+cU1b+DPT7FT1SlkCk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MAwXVeh65Fd/Zbqwc9qrONImiZIe0AjfuudlwyDqFgOjizcnMoqNuiIZwZxA8MVDOfBXAbecHcXN2jS5hcQXdzXrR9n5e5AvznLCyyvsCSHwGh3f0UtKh0c+vkWtEEn8WVPDguNA7LTiUW0GWy0OcgOY5gVlUHAiOkAmPJHlDDU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=O8VKpYDp; arc=none smtp.client-ip=80.241.56.161
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1789184248; c=relaxed/simple;
+	bh=FAr9tReetHGiitE150pNp7pPIhm3hZefJKyWwDq8/JI=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=aQMPNNMpu8jPP52t0Nu8XY8MIYc0oHac7XUADJniU0mxbdbcnKxAgvTn2TWfqNs9NsCoX41dno+u/kSG+dMxOoN9o0bvNDFQuUcxl4XXURXgThIKzX6yCpqzP58kPu8oETiHja6VRpToj2N8QVYx1x7Y6jn8hpcB6BrDOuyomts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R7zubTUV; arc=none smtp.client-ip=209.85.160.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="O8VKpYDp"
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4hhcWr616szKnW5;
-	Sat, 12 Sep 2026 05:36:08 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1789184168;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=or6iSFDqXd+CZU1JKZS6bDuUBfaHBa3v2MYKJQpV0z4=;
-	b=O8VKpYDpouBVk4IdgBvg//9oqP/8SAVYAhiAo0uc2bxwFeZpAQ+NzBmJRSRn0JJXYwLlEP
-	C6DOBYq1e3oMylz+UUiF/xicd2Q/Z41CohvG9f2DTCT9C4pXhiy5crqq1dsZDDJ/DEbZto
-	BV/z6i2RMBRV7Qr9OYGZ29L9Tz8HurX+U8fHmzTCDvyUS6c+WdxHifvsjOvof+AMMepbTt
-	IsOgFcXSlurldQMKVjeszhMU9vPrkcg4Jquk3sOTolU2YDxCvsJMB2KGALIIdbDmGfJJQE
-	ARHDNeWBrJseqeVBGO55YpDcH4k3RJdRXXUSiSL41OMyEGs/eQNFn3FDEKUH8A==
-Date: Fri, 11 Sep 2026 20:35:56 -0700
-From: Roman Kisel <vdso@mailbox.org>
-To: Naman Jain <namjain@linux.microsoft.com>
-Cc: glx@kernel.org, mingo@redhat.com, bp@alien8.de,
-	dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
-	decui@microsoft.com, yunhong.jiang@linux.intel.com,
-	ricardo.neri-calderon@linux.intel.com, rahul.tanwar@linux.intel.com,
-	linux-kernel@vger.kernel.org, linux-hyperv@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] x86/init: Initialize wall clock in get_rtc_noop()
-Message-ID: <aqTInOmsyr8AiciA@xps-8930>
-References: <20260831082528.1623843-1-namjain@linux.microsoft.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R7zubTUV"
+Received: by mail-oa1-f51.google.com with SMTP id 586e51a60fabf-46ac530b9ebso1129431fac.0
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 20:37:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789184245; x=1789789045; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=WmrWSnWNyTTCpi7ZqrIB5/x7yhuTuUn6rcorAMZT4zU=;
+        b=R7zubTUVdyC4D3UkHl5hK/3v8ofG/SuEdRJVCoHWQK9YL7PpNIc6Pn2gXIUX58dOip
+         oiBG3AlwYZCSMC6Os1E6PfwR0GqLVhRg6vvqxyk0eTx+TKKacyBP0WjQvht7sXdE74cv
+         XbBV1estltTApxw1eU53LoZMGbVztlFv7eS2chE/alDEA4D3ePaNvm5nDzn54mHaGDwt
+         v1NSCrI4lZeey83QqwL9HDqcQIwLXkz+aQM2YINixBsYhXmQJgzd58lrkFvPo7AwocBn
+         NJI9AfGBA38M30UqolHMmSLQKRPa60138Hp+t4UCq+PZanbdDUDHLPydS/T2AU2f/x8T
+         H4aA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789184245; x=1789789045;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WmrWSnWNyTTCpi7ZqrIB5/x7yhuTuUn6rcorAMZT4zU=;
+        b=lxVHy4dCTralW15toIotxx8+Uzp6kp+Dnzgf1IHfLoVW7fgKYjv1gb20cIBL/NSO+7
+         Mbs7M9/PyUxK1kEF8xfGE77JpvorCXcHGsUZpRIthvg/3xM8pDiC0Y5QqPOZKgiXD2mC
+         wsBjcvy6n6vjkNOIYXB7AKrZWgLY2bXMLkJ4Ou/W22QSXSQk8eIhSi1DnLYh1aiL3a81
+         HzBFj1ZhAUQW+QEduHn8/3rvu5XYf0uSXyEQA18Caw/whbm8aqzXEvnmCrNdDKbrYF4a
+         HRLJlm+BsrTgpwiQFhZsJPxNc6iB/pj1W+Wwrg7Vgssr5pPxnDWqtGtU28P0OeHvrOcM
+         1dag==
+X-Forwarded-Encrypted: i=1; AKwUvBwYgD5Q/2WTs0Aow7GA21/PM1TDJ3veQoB5mX7SsbnzHwLU+I5Cdurm/sWA8NmGWg5G0yv6jhlswGLGVmo=@vger.kernel.org
+X-Gm-Message-State: AFuF++lDE8XvkATiz09CAfolXZGXZqmau7VrZlXYIV3kGGtDddDaqMuJ
+	yrsbHoZWvcxKmmf+rEYhA2KFszgpaP0TmQOkc9oBcyllLo4WrwByDzD8
+X-Gm-Gg: AYBFou35xGCj95d+pgSokb4FN1wTPZoU2yXujx/xxCQwrjhnN2sQEObCiVLIOQGY/Ri
+	kbqHjxVKELEAMR0L2EHYIB+wj9B/gc3YL0s3VA0t8Ef1HZ6crbeF5BjIoioo8aafbtHI6BFtEDL
+	nqzjeswEZDeoDF06JW+XX8GMT3W+/huo7TkkV8ZvW36lYYM9D9hedoqgUNUW91VpUaXSMyAL05I
+	6EkPZVqOQvxVenzsAGu292/YecE6Vz3A691tuhT+SeXUYdWJdimbESRPdzRo0QEYbV/mC5tRN91
+	uL9nUqXrElow9JWC5QQDwoKFRj+Km5u37EAYH013GdBLh0l+SdMz5EVQ8a9eNZShFz9UMRhLrJG
+	3BU9CmLfjqIxwUJdB0aMVQ3hyOlS/hpXJzXCSuAs2dGDOCO+WTjxgzOSzcNqz2g4BdyNJ0bTMpO
+	D4KKTDN1LzwmkFM9zmcJXlRWK1LdzZLFpyZQGqn2U3jlr2S6Pas3pKTUKLFo0UxCUJqwjhwcpif
+	OhIZHzKHmRzonJe7WIf9f16kfGBklLKA8uY4axZmTMgsoNG6JxGJCRSOm6yEt1fuw==
+X-Received: by 2002:a05:6870:5d95:b0:467:e082:b93c with SMTP id 586e51a60fabf-47c970414cemr6741625fac.2.1789184245328;
+        Fri, 11 Sep 2026 20:37:25 -0700 (PDT)
+Received: from localhost ([2a03:2880:10ff:42::])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-47df8bd0278sm3471827fac.7.2026.09.11.20.37.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 11 Sep 2026 20:37:24 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260831082528.1623843-1-namjain@linux.microsoft.com>
-X-MBO-RS-META: jtxs5yqspmypysgsh4udaqisz4pi914f
-X-MBO-RS-ID: 47d219f6da6d1010c08
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 11 Sep 2026 20:37:22 -0700
+Message-Id: <DLD0VQ3D8CYC.3V5ZT8HDMY4IH@gmail.com>
+Cc: <ast@kernel.org>, <daniel@iogearbox.net>, <andrii@kernel.org>,
+ <kpsingh@kernel.org>, <matt@bobrowski.net>, <mic@digikod.net>,
+ <viro@zeniv.linux.org.uk>, <brauner@kernel.org>, <kees@kernel.org>,
+ <casey@schaufler-ca.com>, <gnoack@google.com>, <jack@suse.cz>,
+ <song@kernel.org>, <yonghong.song@linux.dev>, <martin.lau@linux.dev>,
+ <eddyz87@gmail.com>, <memxor@gmail.com>, <jolsa@kernel.org>,
+ <m@maowtm.org>, <bpf@vger.kernel.org>,
+ <linux-security-module@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH bpf-next v3 04/15] lsm: Add the bpf_lsm_policy_release
+ kfunc and policy object destructor
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+To: "Paul Moore" <paul@paul-moore.com>, "Justin Suess"
+ <utilityemal77@gmail.com>
+X-Mailer: aerc
+References: <20260909193719.518517-1-utilityemal77@gmail.com>
+ <20260909193719.518517-5-utilityemal77@gmail.com>
+ <CAHC9VhQHZ+ngFdzKqmnzBh341CGEg-jexu+QYU8=1qXK=u-x-Q@mail.gmail.com>
+ <aqHUw6k0Mf83CGFT@zenbox>
+ <CAHC9VhTM7emi9vxs+5Za8Hrc_e9dg7fZx+Z6BGUc4VQ1qhEAUA@mail.gmail.com>
+In-Reply-To: <CAHC9VhTM7emi9vxs+5Za8Hrc_e9dg7fZx+Z6BGUc4VQ1qhEAUA@mail.gmail.com>
 
-On Mon, Aug 31, 2026 at 08:25:28AM +0000, Naman Jain wrote:
-> get_rtc_noop() is used when an RTC is unavailable, but leaves its output
-> argument untouched. When CONFIG_INIT_STACK_ALL_ZERO is not enabled,
-> timekeeping_init() may therefore receive a nonzero invalid persistent
-> clock value and warn:
-> "Persistent clock returned invalid value"
-> 
-> Initialize the output to zero, the documented representation of an
-> unsupported persistent clock.
-> 
-> Fixes: c311ed6183f4 ("x86/init: Allow DT configured systems to disable RTC at boot time")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Naman Jain <namjain@linux.microsoft.com>
-> ---
->  arch/x86/kernel/x86_init.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/arch/x86/kernel/x86_init.c b/arch/x86/kernel/x86_init.c
-> index 252c5827d0634..3b9b41820c84c 100644
-> --- a/arch/x86/kernel/x86_init.c
-> +++ b/arch/x86/kernel/x86_init.c
-> @@ -37,7 +37,7 @@ static void iommu_shutdown_noop(void) { }
->  bool __init bool_x86_init_noop(void) { return false; }
->  void x86_op_int_noop(int cpu) { }
->  int set_rtc_noop(const struct timespec64 *now) { return -EINVAL; }
-> -void get_rtc_noop(struct timespec64 *now) { }
-> +void get_rtc_noop(struct timespec64 *now) { *now = (struct timespec64){0}; }
+On Wed Sep 9, 2026 at 4:08 PM PDT, Paul Moore wrote:
+> On Wed, Sep 9, 2026 at 6:21=E2=80=AFPM Justin Suess <utilityemal77@gmail.=
+com> wrote:
+>> On Wed, Sep 09, 2026 at 05:34:31PM -0400, Paul Moore wrote:
+>> > On Wed, Sep 9, 2026 at 3:37=E2=80=AFPM Justin Suess <utilityemal77@gma=
+il.com> wrote:
+>> > >
+>> > > Add security/bpf_lsm_kfuncs.c, the home of the kfuncs exposing LSM
+>> > > policy objects to BPF programs, with the first of them:
+>> > >
+>> > >   bpf_lsm_policy_release(object)                KF_RELEASE
+>> > >
+>> > > The kfuncs are the LSM framework's own BPF interface: there is no
+>> > > per-LSM kfunc and no intermediate security_*() layer.  Each kfunc
+>> > > walks the matching hook's implementation list and calls the one
+>> > > registered by the LSM whose lsmid the policy object carries.  Callin=
+g
+>> > > a kfunc for an LSM that is not active or has no policy object suppor=
+t
+>> > > fails at runtime rather than hiding the kfunc at verification time,
+>> > > so BPF program loading is independent of the boot-time LSM
+>> > > configuration.
+>> > >
+>> > > A policy object reference is meant to be handed over through a map
+>> > > kptr field, so also register a destructor for struct
+>> > > lsm_policy_object: map-held references are dropped on map teardown,
+>> > > possibly from a context that cannot sleep, which the
+>> > > policy_object_put() hook contract accounts for.  For the same reason
+>> > > the kfunc is not KF_SLEEPABLE, and the filter adds no per-kfunc rule=
+:
+>> > > releasing a reference must be allowed wherever one can be held.  The
+>> > > filter itself is needed because BPF_PROG_TYPE_LSM and
+>> > > BPF_PROG_TYPE_SYSCALL, the two registered program types, share their
+>> > > kfunc lookup buckets with other program types.
+>> > >
+>> > > Cc: Paul Moore <paul@paul-moore.com>
+>> > > Cc: KP Singh <kpsingh@kernel.org>
+>> > > Signed-off-by: Justin Suess <utilityemal77@gmail.com>
+>> > > ---
+>> > >
+>> > > Notes:
+>> > >     v2->v3:
+>> > >         - No change.
+>> > >
+>> > >  MAINTAINERS               |  1 +
+>> > >  security/Makefile         |  2 +-
+>> > >  security/bpf_lsm_kfuncs.c | 98 ++++++++++++++++++++++++++++++++++++=
++++
+>> > >  3 files changed, 100 insertions(+), 1 deletion(-)
+>> > >  create mode 100644 security/bpf_lsm_kfuncs.c
+>> >
+>> > While not a new concern, it has been a few months so I want to mention
+>> > it again to see where things stand with the BPF crowd: are the BPF
+>> > folks still opposed to BPF kfuncs in security/bpf_lsm_kfuncs.c,
+>> > similar to fs/bpf_fs_kfuncs.c?
+>> >
+>> > If the answer remains yes, the BPF devs are not able to tolerate
+>> > kfuncs under security/, then I'm afraid this patchset is stuck.
+>> > However, if the BPF devs are willing to ACK kfuncs in
+>> > security/bpf_lsm_kfuncs.c, I'll add this patchset to the review queue
+>> > for the LSM tree.
+>> >
+>> To avocate for the current placement:
+>>
+>> Placing these kfuncs outside where it is in security/ would
+>> be very awkward, the kfuncs use lsm internal APIs
+>> (lsm_for_each_hook, active static keys, lsm dispatch table) that
+>> have no buisness outside the LSM framework.
+>>
+>> And logically, the kfuncs operate entirely on in-tree lsm objects.
+>>
+>> > > diff --git a/MAINTAINERS b/MAINTAINERS
+>> > > index 6215fcb07770..ba816d7ee127 100644
+>> > > --- a/MAINTAINERS
+>> > > +++ b/MAINTAINERS
+>> > > @@ -5081,6 +5081,7 @@ F:        kernel/bpf/bpf_lsm.c
+>> > >  F:     kernel/bpf/bpf_lsm_proto.c
+>> > >  F:     kernel/trace/bpf_trace.c
+>> > >  F:     security/bpf/
+>> > > +F:     security/bpf_lsm_kfuncs.c
+>> >
+>> > We would need the maintenence of security/bpf_lsm_kfuncs.c to fall to
+>> > the LSM framework, just as the maintenence of bpf_fs_funcs.c falls to
+>> > the VFS.
+>>
+>> Agreed.
+>>
+>> I intend that any security/ kfuncs go through both LSM and BPF
+>> review at a minimum. As a bug in any of these kfuncs or their permitted
+>> calling context / signatures could cause regressions in either subsystem=
+.
+>
+> While some other subsystems are lax on this, it's general practice in
+> the LSM space to *really* try to get ACK's from other affected
+> subsystems before merging.  Sometimes we move forward anyway, e.g.
+> patches being ignored for almost a year, but those are exceptions
+> rather than the rule.
+>
+> I only bring this up because the MAINTAINERS entry was pointed at the
+> BPF devs, not the LSM devs.  I would expect that patches going into
+> security/bpf_lsm_kfuncs.c would need to be ACK'd both the LSM
+> framework and BPF LSM maintainers.
 
-Hi Naman,
+There is will be no kfuncs under security/.
+Period.
 
-Could be
-
-*now = (struct timespec64){};
-
-to save a byte :)
-
-LGTM.
-Reviewed-by: Roman Kisel <vdso@mailbox.org>
-
->  
->  static __initconst const struct of_device_id of_cmos_match[] = {
->  	{ .compatible = "motorola,mc146818" },
-> -- 
-> 2.43.0
-> 
