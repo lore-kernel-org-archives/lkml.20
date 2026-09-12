@@ -1,263 +1,128 @@
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C896E30F924;
-	Sat, 12 Sep 2026 02:35:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E6AA2F3632
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 02:42:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789180520; cv=none; b=Bou/ksz8Nu3DsXBdv/n/3y1TLIkoOFnskGAkCQO/kZegCyO2gQF7D1jsRSIX5Dq7Hzu2gNsjLLbFkvfFNvHQmVNOe6dDGJ1mwfJ2NnPTRE2Y8AcyUXx+8cyuzbG9TAsXTBGWR6dR17Fx/Vn32BDXy/Klzc2aGy2nWuLYPWKC+So=
+	t=1789180967; cv=none; b=avTxdkoZ7O5ldpXleQ/TYMTB5DK9rTBOrCUhqo1SIvZE1H7sB4jHhA2lf5Xd5VejhrN1CU0edZ9/0UyfJBZwOw+OpMrLK34vCeMJ/CKLwAIzk2GPDA41xR3AQobyxt+2DlOhq0nJq6rvkwhqdaFmlll70ZVp01XCqawvCIFzYH8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789180520; c=relaxed/simple;
-	bh=58hgpzwENQEpfFed/j0rymz0+upISqiFSlTfz21KsqM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TQvDONqIgqtv9gfsyqqqzwOjNGqmu6VVR9xfWVpF6g3WQkO24PbPmhYYE5oM7WrbyC/mvYxSRJSKS+HJfLQxmFE2/4ka7/R33lu0LBWaWYLSmpolEa/xIExYegPI/Cu4wD5pdIyBeQfJ29coNuEvUcFN4xCvfkgoCkhuDoNWmYo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au; spf=pass smtp.mailfrom=gandalf.ozlabs.org; dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b=HDCIdZAB; arc=none smtp.client-ip=150.107.74.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
+	s=arc-20240116; t=1789180967; c=relaxed/simple;
+	bh=9f7h9PLAGNr5QREiP4rXwCLceZZ+OvQlKMgj7JBEccA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VeSuuB8+tIsuQfZJH9hsEi3cEK6YBjPcrofACAnslB9dkBhIGl55Lkbuzk6dKiZnrhOEh31Y+Ts7KEOaNRCTGW77N4yFFaLzBCoiaYGN4of4MroDeRX5bJ5DT8Wy5tX05nkHvdOAChAOdYNz1JT/0a9T73+o2bgMfEic+QyZ8ts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PklKXUbH; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b="HDCIdZAB"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PklKXUbH"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccd66bb5so160201a91.0
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 19:42:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=gibson.dropbear.id.au; s=202608; t=1789180502;
-	bh=1VVU2RoslZavprNdtO3OLmTE4nNUN2PVsPWOym9AUeo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=HDCIdZABOEGaZlRPKgSyNyTM3NUiMBjgwxQNUQo7+hr2r6WSNsbJnKDOYpGnv39Mz
-	 c3l+7ln0+pL4rzVj09nBNLyXD1Srm3Hjk+Plg0eoiljYmwPKlRhUMOUhyr9h9RhVzZ
-	 0+UX9Wc2zLELjJpL+Ki0KOgVxP6FwtpJ5uk18WwAjykzYZd5vxtMQSdLpkzzB046D6
-	 JGvaQb5e8JFE7hllwHbMe+UgkMXwh3Sia3IgYMzU/iL9VNSqhvMnMCB39TOnh5A83U
-	 vBp6JZ9KP3HILNYFsU2zdTHuv0KyECVt7q6xJGPpkp+r+KIgJnkzRblTVgKC8xASKa
-	 xRsbLhWFMNMZg==
-Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
-	id 4hhb9L4q4qz4wck; Sat, 12 Sep 2026 12:35:02 +1000 (AEST)
-Date: Sat, 12 Sep 2026 12:34:24 +1000
-From: David Gibson <david@gibson.dropbear.id.au>
-To: Herve Codina <herve.codina@bootlin.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Ayush Singh <ayush@beagleboard.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
-	Hui Pu <hui.pu@gehealthcare.com>,
-	Ian Ray <ian.ray@gehealthcare.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v3 06/15] Introduce structured tag value definition
-Message-ID: <aqS6HmkaVYbrePtN@gractus.seuss>
-References: <20260826083146.304291-1-herve.codina@bootlin.com>
- <20260826083146.304291-7-herve.codina@bootlin.com>
- <aqI3KnnQnUytqkEc@gractus.seuss>
- <20260910094126.4bf4cae6@bootlin.com>
- <aqJ5OhJcv4k-ZAj8@gractus.seuss>
- <20260911091653.37b22b0f@bootlin.com>
+        d=gmail.com; s=20251104; t=1789180966; x=1789785766; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KsxAOkX7Z0gktBYPmfGgeg8Ie2GzO8n+hdt9t2tFXNY=;
+        b=PklKXUbHrl0mESqR6cCz+z1uSVCL/gU9evRoA+t0HTJ5g2+6IN+gQk6SRzR51PcG84
+         4002eTU4pfv3+VCXOFlDjL7Lhu23TUl5pjvlrWc4IzDelmIA+KCiZSI+sZv3udFhC5bZ
+         64W7dC9js1bAqW5Q5Trfg6lsqco8XFiofhwDGEp9FYHBdz/3mJ5BPY1eGfJHgdr6JBds
+         YBWoVrAdFpAOgcK322tiy7YDkP40ncS9Wjvgd15OHI4TkDoVzOkHfETd1zBIcSl1bDa8
+         tYfcfV5bUiDXBG9scdFCWHimShA3Z65iTE/6GK5r1awOxvDDsZ0P3Qk9gHkdlftd2R0K
+         RUHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789180966; x=1789785766;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KsxAOkX7Z0gktBYPmfGgeg8Ie2GzO8n+hdt9t2tFXNY=;
+        b=YTnlzSvRuxVKHxH2Xmy/93HI65i4JWlxHgx0IC/JlfMrqQJi0HgNSMaOth04LA4pRg
+         Eq7c4UU1HEwuuYzBLe/urTLcag/aJTtKgSlD/mb5wn54r4Nu/PaKB8J9L1aIUKbCvYoS
+         926yalUnJ1Qon/jwrvO9xFI9M/n9adUQvePCkeZuFEsarVvveeT8YeTVYbCqku2Rdb5l
+         HfrOi3PxiP01+eECD12WJRmAYgwkWOct+N5vMub+dFs2M5d8qsrtj49Vgyrg29C1pk1d
+         7RIHHbGmMtt0kuhizTeYbI+RWJviXDHPGpCpbft1ZBYxgZU5eMPEKqrw7pFwLOV5fL+8
+         YCqQ==
+X-Forwarded-Encrypted: i=1; AKwUvByH/Ukr9pQG533OM3U92+YJMuIP3I6yNov7M3zLrgBj3RJi5wxoW+bw+y22JVkng0gP9pdKJ5E71MrAh+M=@vger.kernel.org
+X-Gm-Message-State: AFuF++nvd9I96Eowsup3OfAeFnW6a8IPOx7BIsMBvs4RGXIbUedH3qZy
+	UV2Tz9imjbSEq4tApGuBmESk9xavCPbg332HSl18B0UAzDeeMvgSq8GA
+X-Gm-Gg: AYBFou1XVmbq40Hj2DTGS9CKl3LoEK964vjGoFA/PO/aPoZb2pCuaLnLT4CVwwJ9xb/
+	zlHA3NmuPuh+bwQRwsQWvZ0brqWIPYrL+1/7y6due0TYgcKXPKybvCvX7iSqEHVjWKcdtm/GZZw
+	AmtYWjGFIIagxA6Me+EeCl9Vm7CMlrBSg8/ctTeJkkbxOKIvdxZlZ1djoOOXi5twwl3X43G1y64
+	N144RY3/5Me589OlB9dgzqeiDPhs2Gz1x0+4skoiPNaFxqnm6CrutisTXylXN58Hi8Ocio87usB
+	jG6WqzycIwQnSyFKNIaqkJ7mObXZaHybE78TCG1ByWeCefvNJD1yoE4KDebcqu4Z/D9hinsZzE7
+	nj/URs3QR6AwizWjYaZ1/PLY6lD4tLdv7LYdfKOtqSj+Ggz40jDBmQ3ZgO01z59sis/6c9VCNMC
+	mZxZDq5at8ijYdIbB7euAZ2q1TYLEOH/fzTR2TUxj/OTk/m0AACYyTTBEusz5COHFPeI/shSuLQ
+	GB7q2UcveWB02SMDQ==
+X-Received: by 2002:a17:90b:2588:b0:36a:5d1f:7b6 with SMTP id 98e67ed59e1d1-39dbbe87b09mr1694147a91.2.1789180965146;
+        Fri, 11 Sep 2026 19:42:45 -0700 (PDT)
+Received: from kernel.tail6741c6.ts.net ([185.220.238.35])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d950913a6sm7879099a91.6.2026.09.11.19.42.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 19:42:44 -0700 (PDT)
+From: Kunwu Chan <kunwu.chan@gmail.com>
+To: paulmck@kernel.org,
+	dlustig@nvidia.com,
+	joelagnelf@nvidia.com,
+	corbet@lwn.net,
+	akiyks@gmail.com,
+	luc.maranget@inria.fr,
+	j.alglave@ucl.ac.uk,
+	dhowells@redhat.com,
+	npiggin@gmail.com,
+	boqun@kernel.org,
+	peterz@infradead.org,
+	will@kernel.org,
+	parri.andrea@gmail.com,
+	stern@rowland.harvard.edu
+Cc: linux-doc@vger.kernel.org,
+	lkmm@lists.linux.dev,
+	linux-arch@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	rdunlap@infradead.org,
+	skhan@linuxfoundation.org,
+	Kunwu Chan <kunwu.chan@gmail.com>
+Subject: [PATCH v2 0/2] Documentation/litmus-tests: Add SRCU fastpath litmus tests
+Date: Sat, 12 Sep 2026 10:42:23 +0800
+Message-ID: <20260912024225.2872265-1-kunwu.chan@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="aseTNSTGn8BecciZ"
-Content-Disposition: inline
-In-Reply-To: <20260911091653.37b22b0f@bootlin.com>
+Content-Transfer-Encoding: 8bit
 
---aseTNSTGn8BecciZ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+This series moves the SRCU fastpath litmus tests from
+tools/memory-model/litmus-tests/ to Documentation/litmus-tests/srcu/,
+as suggested by Paul McKenney.
 
-On Fri, Sep 11, 2026 at 09:16:53AM +0200, Herve Codina wrote:
-> Hi David,
->=20
-> On Thu, 10 Sep 2026 19:32:48 +1000
-> David Gibson <david@gibson.dropbear.id.au> wrote:
->=20
-> > On Thu, Sep 10, 2026 at 09:41:26AM +0200, Herve Codina wrote:
-> > > Hi David,
-> > >=20
-> > > On Thu, 10 Sep 2026 14:51:08 +1000
-> > > David Gibson <david@gibson.dropbear.id.au> wrote:
-> > >  =20
-> > > > On Wed, Aug 26, 2026 at 10:31:37AM +0200, Herve Codina wrote: =20
-> > > > > The goal of structured tag values is to ease the introduction of =
-new
-> > > > > tags in future releases with the capability for an already existi=
-ng
-> > > > > release to ignore those structured tags. In order to do that data=
- length
-> > > > > related to the unknown tag needs to be identified.
-> > > > >=20
-> > > > > Also add a flag to tell an old release if this tag can be simply =
-skipped
-> > > > > or must lead to an error.   =20
-> > > >=20
-> > > > I suggested/insisted on this in the past, but I've since realised t=
-his
-> > > > isn't actually useful.  The "structured tag" format is only useful
-> > > > because it allows you to skip over unknown tags, which means there's
-> > > > no point using it for ags that can't be skipped.  If we need new ta=
-gs
-> > > > that can't be safely skipped, they can be added as old-style tags
-> > > > instead.
-> > > >
-> > > > In which case "old style" versus "new style" is no longer a good
-> > > > characterization: they would exist side by side, so the distinction=
- is
-> > > > more "skippable" versus "non skippable" tags.  Which suggests that
-> > > > "skippable tags" or "metadata tags" might be a better term than
-> > > > "structured tags" - that would focus more on the why than the how. =
-=20
-> > >=20
-> > > Do you mean that the SKIP_SAFE bit should be removed ? =20
-> >=20
-> > Yes.
->=20
-> So, in that case the term "skippable" tags makes sense.
->=20
-> Any non-skippable tag are then defined using the "old style".
+This series splits the two litmus-test patches from the earlier
+[PATCH 00/13] srcu: Round out atomic SRCU support series:
+https://lore.kernel.org/rcu/20260907075829.2073224-1-kunwu.chan@linux.dev/
 
-Right.  I kind of prefer the term "metadata" *if* it's actually
-accurate, but I'm not sure it is.
+The two tests verify the memory ordering required by the reader-free
+synchronize_srcu_atomic() fastpath: the grace-period anchor must be
+ordered before the per-CPU lock-counter scan.
 
-> The only non-skippable tag that will be introduce later by addons is
-> FDT_BEGIN_NODE_REF (patch 51/71 [1]).
+Patch 1 verifies that the anchor-before-scan ordering forbids a reader
+from being missed by the scan, while patch 2 shows that reversing the
+ordering permits the problematic outcome.
 
-Ok.
+Changes in v2:
+- Use a filter for the P0 scan result, as suggested by Paul McKenney.
 
-> Data related to this tag is the symbol name and so a string.
->=20
-> Using the "old style" for this tag, I will remove the 32-bit data lengh.
-> The next tag will be after the end of string '\0' + potential alignment.
->=20
-> This is consistent with "old style" tags which have a string as data. Ind=
-edd
-> no 32-bit data lengh were present for those "old style" tags.
->=20
-> Does it make sense on your side?
+Tested with herd7 7.58 using linux-kernel.cfg.
 
-Yes, that makes sense.
+Kunwu Chan (2):
+  Documentation/litmus-tests: Add SRCU fastpath anchor-before-scan test
+  Documentation/litmus-tests: Add SRCU fastpath scan-before-anchor test
 
-> [1] https://lore.kernel.org/all/20260826094950.1088288-52-herve.codina@bo=
-otlin.com/
->=20
-> >=20
-> > > I like the defined structure with the DATA_LEN_ENCODING part. Even fo=
-r tags
-> > > which are not "skippable".
-> > >=20
-> > > This ensures a kind of standardized format for all future tags instea=
-d of a=20
-> > > specific definition (related to the length of the data) for each new =
-tag. =20
-> >=20
-> > If we were designing the dtb format from scratch, I'd agree.  But
-> > given we already have what we have I think the drawbacks of
-> > introducing a second way of doing tags outweighs the benefits.
-> >=20
-> > > For this kind of information related to the length of data, I prefer =
-a global
-> > > rule instead of tag-specific rules. =20
-> >=20
-> > Right, but it can't truly be global, because we have the existing
-> > tags.
-> >=20
-> > > > > Structured tag value is defined on 32bit and is defined as follow:
-> > > > >=20
-> > > > >   Bits  | 31 | 30        | 29             28 | 27    0|
-> > > > >   ------+----+-----------+-------------------+--------+
-> > > > >   Fields| 1  | SKIP_SAFE | DATA_LEN_ENCODING | TAG_ID |
-> > > > >   ------+----+-----------+-------------------+--------+
-> > > > >=20
-> > > > > Bit 31 is always set to 1 to identify a structured tag value.
-> > > > >=20
-> > > > > Bit 30 (SKIP_SAFE) is set to 1 if the tag can be safely ignored w=
-hen its
-> > > > > TAG_ID value is not a known value (unknown tag). If the SKIP_SAFE=
- bit is
-> > > > > set to 0 this tag must not be ignored and an error should be repo=
-rted
-> > > > > when its TAG_ID value is not a known value (unknown tag).
-> > > > >=20
-> > > > > Bits 29..28 (DATA_LEN_ENCODING) indicates the length of the data =
-related
-> > > > > to the tag. Following values are possible:
-> > > > >   - 0b00: No data.
-> > > > >           The tag is followed by the next tag value.   =20
-> > > >=20
-> ...=20
-> > > > >   - 0b11: Data length encoding
-> > > > >           The tag is followed by a cell (u32) indicating the size=
- of the
-> > > > >           data. This size is given in bytes. Data are available r=
-ight
-> > > > >           after this cell.
-> > > > >=20
-> > > > >           The next tag is available after the data. Padding is pr=
-esent
-> > > > >           after the data in order to have the next tag aligned on=
- 32bits.
-> > > > >           This padding is not included in the size of the data.  =
- =20
-> > > >=20
-> > > > I'm guessing the 1 & 2 cell cases are pretty common so it saves a
-> > > > moderate amount of dtb size to have this encoding.  However, it does
-> > > > come at the cost of greater code complexity.  Is it worth it?  I'm
-> > > > willing to believe it is, but I think the case needs to be made. =
-=20
-> > >=20
-> > > In term of code complexity, FDT_PROPDATA_PHANDLE introduced in the ad=
-dons
-> > > series, patch 7/74 [0], is a 1-cell (or 1-fdt32) "structured" tag.
-> > >=20
-> > > It can be compared with FDT_PROPDATA_PHANDLE_REF, introduced in patch=
- 11/74 [1].
-> > > FDT_PROPDATA_PHANDLE_REF is a "Data length encoding" tag.
-> > >=20
-> > > Modifications in libfdt/fdt.c are pretty similar for both tags. =20
-> >=20
-> > Right, it won't be in the case of specific tag handling.  It's the
-> > general case skipping that's more complex, because it has to consider
-> > both cases.
->=20
-> I don't understand. What do you mean ?
->=20
-> Current implementation for skipping tags is not so complex.
+ Documentation/litmus-tests/README             | 21 +++++++
+ .../SRCU-fastpath-anchor-before-scan.litmus   | 57 +++++++++++++++++++
+ .../SRCU-fastpath-scan-before-anchor.litmus   | 54 ++++++++++++++++++
+ 3 files changed, 132 insertions(+)
+ create mode 100644 Documentation/litmus-tests/srcu/SRCU-fastpath-anchor-before-scan.litmus
+ create mode 100644 Documentation/litmus-tests/srcu/SRCU-fastpath-scan-before-anchor.litmus
 
-Not that complex, no, but still more complex than it would be if we
-always have the 32-bit length field.
+-- 
+2.43.0
 
-> Do you mean that we should avoid the DATA_LEN_ENCODING and always have the
-> 32-bit value right after the tag to give the size for all "skippable" tag=
-s?
-
-Yes.
-
---=20
-David Gibson (he or they)	| I'll have my music baroque, and my code
-david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
-				| around.
-http://www.ozlabs.org/~dgibson
-
---aseTNSTGn8BecciZ
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmqkuh4ACgkQzQJF27ox
-2Gfw2Q//b48hjtTO+dVZW3cWnT3DodCs3xdRej7INVymfZ8YxhlzNnT+lXEa0pDo
-u3BceRkAVoR6J93k58fB0MbxcS3+BGLUEO0YWV+9R0MndzY+YW1JC4inlABmiCPP
-pqfrHsxmhTPa/jCnHLw8H9Jzt0jWzuJaGP81kGnlCClq3CN0hK+R4PRWNn1wNG4w
-Daqf3EsmOZo6FnYmM/gkQiHoFBUoYCj9HxLVX2KPJODa9G4BLWJqD0YwpauJbwAo
-wgFLtH7iq1Tsy1qHHXGkXLFywQymbMHzxDiOn8zDjXNfw96MKY7rtkReGWK/ehUQ
-JpqpdFvmObXJAwhNv4RYGEhvaYS/H3xlR6AIl8FPhtp3D7vMsOfba6i56j4Ub6Dy
-KzPtoSChhKK8oAJqAKhFWRHarijkMBQgRrvW768jZF7X07Em0r/Vwx0OkUD61Lmz
-Bs8PD/jQ5RGJekjge/YKue6H1V9DbVGhCbvoixRrMSYaM8QXFKEh/3TCQruTAMUo
-l7hK6QpC+z0d4H7g4H/QvCb5bSBx3xJb+Eto6KcIvTLCEFaB51S6LswaX+l7BLHx
-07jE0JYRICkYU+0wza04FIdyW47EvAp6pb3BK5oV6idzUK52pvvgVSGhG5M3Do9V
-BKFrPHlEMCjJNiJY8ThNk038vbuHMYdxHt3aY+eWIlSjDXTVHfA=
-=XalL
------END PGP SIGNATURE-----
-
---aseTNSTGn8BecciZ--
