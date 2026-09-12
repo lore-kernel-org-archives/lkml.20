@@ -1,269 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BC3E356744;
-	Sat, 12 Sep 2026 15:43:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789227817; cv=none; b=ZEYY7tWqkQ/Z+Sy/t5Y+Epp5HLq+iw/0ooVcHAp3vOYQquB5udsDLGmdju/mSTI3ZpS+d7Cq+KexyCJNZhCZL7FmDUlxQymMEsJWqPbBdx+XIIcb54p/u68b+TJzI10t7pasX1VPgN+jIMAVhOHj1kjk+tPOPJKeRb/wP90h6I0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789227817; c=relaxed/simple;
-	bh=GKRHTiVQqFPq7UasEnD1vvF/BJRoNZ3dURz/mC3UTaU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=p0MDvcWFAi3OQOd0965l4G0ztluOfPwecRk0TMVYjjr7cwDaNE2beroiQ4JCrbxx1UN2oiB0VAq6THjQnZAogHYhjZqg4uTD13bW0OFXCSaJSDh9VnfmOc0+yqr/pvMtpK+k1Y6Q7zEcQtHZQL7Ugg0i2ldz5SaZNuh1gAt4gsA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E0f4e8om; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B480E317145
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 15:44:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.204
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789227867; cv=pass; b=RpcIXoTJ+59HH2UGg24yJO/xK4T2AfJvLyy4nLeuK290IagiEio8VUnSJamTDTgBfuIC+pNosQTd7bcgm1nUQqkj51JOIDOZYZPpSfdL9ZWfEWxRcFkdyVU/C8wiMF8O984O29bwo4ANwDVd18cVd1KKDSo6kUWXW/UEe2ph9ys=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789227867; c=relaxed/simple;
+	bh=VIbgcSAZRfb3EMsaaEk0Cm7vGUjyRZyM9yj497f//O0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qvHIadqql/3JPA9kgYQctKgAddxWNwk7b74rti7ChvK6C4vLm5CyvJV3ljuAKXOS7q7TX+UxTbnUG8ws/a3ldrdVI4QdjTFcupwWcLy5Yoog72FAHTjzvMq1ZlaTSCGk/lfwWET95lBGOocCInVvZRKClKAshb+eXMy/U57/eKY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lLXHO16v; arc=pass smtp.client-ip=74.125.229.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E0f4e8om"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 24052C2BCF5;
-	Sat, 12 Sep 2026 15:43:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789227817;
-	bh=GKRHTiVQqFPq7UasEnD1vvF/BJRoNZ3dURz/mC3UTaU=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=E0f4e8omCex/xu7lk+yu79nGSyLNG2t7erxvyW6CxNZfD6XuR2cQmoScOgiw3QM9/
-	 63i6Fph5X/ty/ChSeMBSvtIka8Ut1CxpYprTVDx5gEUxfpz88+14I3VsE7lBkOs22e
-	 Uw80h2hI0yFEXACUS9h7RKmr7pbPRrpqggs4RgO+QL39AtJTUtuWrqDM3TmCPCkPFh
-	 PRSefaL0VME60XiMoeULDRITMVOQCmXvtso6HjjialXYX735fz9CGyhARbhrUnIpe0
-	 WiQMIrgZ21YZ6itj4P4acei/AwHmsCWNXgFhIYe2zQcZrDzmfJVYlW4yhWkWPcibcz
-	 uv3DC5P9odHDQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 00925C88E5A;
-	Sat, 12 Sep 2026 15:43:36 +0000 (UTC)
-From: Quanye Yang via B4 Relay <devnull+quanyeyang.proton.me@kernel.org>
-Date: Sat, 12 Sep 2026 23:43:34 +0800
-Subject: [PATCH net-next v3] tcp: annotate lockless access to sk->sk_err
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lLXHO16v"
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f16f13so864555e87.2
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 08:44:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789227864; cv=none;
+        d=google.com; s=arc-20260327;
+        b=OGyGvHjODPkdIugmVMn1pTKlexg3+hz7QAPFYgCpxe0WWnNcr/wqCsJoajauBH5CiW
+         NH+bpLkxy/CYWyFM2zVtpiIq9HAReYgB/397bTXjlHYA0v3cGSgZjgIpxDuSX9tuHs1y
+         8fCmfAOTZ2Pa7VginbQ0w/yISyCYjsuxLO3MwnLlhkURZO0HdV3rWYHqvPPQxPEKK5M8
+         SQEx0w+7Ord8eP0HlhzHHFS7YdiSX7qBpwZ7qVYKxVi3UlEgJq2aLaUr0E5qksquaGTE
+         S6Bqw9jxPy6Rur34jRlYdo09SxKRqMzZ8aLiy6SQxDGpv3NslvZSVukm8TMf5pO+QTM4
+         1giQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=VIbgcSAZRfb3EMsaaEk0Cm7vGUjyRZyM9yj497f//O0=;
+        fh=L/Wtxj4oZQZxJlOX3HRkHkExaSvVDF1pmrPfzrQatK0=;
+        b=UG6buT0MfXAFXFm3cn7mCLIW3S8zGHstxq4zyCrtAQEZdrDZRIXSi8RioxdqVKYiFX
+         ddbH+oIiNPXwSS7tNtulFS1PUuc2bXAbtcOCEvyVwWzIcZsGOs6Eax36lRvVrgEDbl26
+         xrwUk3ywAPa46eiagLiUxeoNiO0CcOz9dabklWYk90NKhfE0OQ6gn3bsHlRj1huPN8iA
+         o2qI3AekjaAYUENUxrKCvUCDHdsMnFVD2v4j1+ItQgOe2uaqF6UvJZAsvVbhFMlaj0NX
+         P8he28xTmdKAck1XoJYVm1+xQ6MzYze0c9AO6KHtnXPxbKICQpsB+aFQ8iYJH350ZDS8
+         zCZw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789227864; x=1789832664; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=VIbgcSAZRfb3EMsaaEk0Cm7vGUjyRZyM9yj497f//O0=;
+        b=lLXHO16vmEipU3iTCm2IB0johNZws/1Jy5hLxCsWZzWOBx4dnS0xu43zl7h+0Qg01U
+         wpFCOWQ+ZpNpkymg0kkU2S9VZrip/EuW495N9HwAPOVZO2C4imK1Q4y3tU1DlsOJh9oC
+         FlHFK1rM2WaO6gK4ndIwwT9tq0FJxqEyUEKwkl1zQ2A1Bb0l3vtdjQ++86bfRJuae60K
+         7/12BdmLzRB1csady1zUwaRCK8L15zWWBlWPIq/r1xMNxWpkdYcp780O1+E+erjInT93
+         fl36N0GlCb4OcvDsFFd0IaCSJKNJu3QrrVhI89lsU5btBAsOakpQrAggtCM99I+qTmpF
+         hmYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789227864; x=1789832664;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VIbgcSAZRfb3EMsaaEk0Cm7vGUjyRZyM9yj497f//O0=;
+        b=AseVgXvVJ0uYpEYGSkfCD9yx3PcRtlMySIZFlvGDb3U7EmzY2Hn6cyVJ1vovJje88A
+         6ZkhoZjSRobcp7OerBZLj1jkvZJxPSaFPkNCO13ZiHFeF+aL5ACNtF62U+dRl93Cthac
+         po+B5wwkLvrMFI/J3DD1AA58J5XIrk9OCbxNzBfr+nOm9yJyvt55d0SDJqtRaZAGElrj
+         2NvQALfo+PkoVYv20R9zRyr9GD1nZaIWM3WE1JxVCYSZ+DQy6PdpSSDzAc79UF5b/Gvw
+         cBvomLzhYrPnZeYqgrGk3wxCRXPcsQFvDtfo0j+q4r0SoHF8OC2nKApzoSOmvUoW4SBd
+         wGig==
+X-Forwarded-Encrypted: i=1; AKwUvBz8W84ZkD6eOP0PnsRd8rFVbMsLT5Mp+QVtbRgiQc3I/gL/CIiw0Uzrd3+k9F4/Kn5os6TWDclLP8jgd5U=@vger.kernel.org
+X-Gm-Message-State: AFuF++nSYUfdSQYtA/qXO/phJZYHY4zFdW810j1+vuGOZgL6+tBj/WV/
+	jneRbtk5Hj4Nzuq4orIaOp1U9LVIcm3UlgPp+gTBFZaHY3N2Oer7jf88YmASAf21wFi+9u3XBjd
+	jcnArp7ho+rdCHyEPsQ6HQ0ZA9Kr9dgg=
+X-Gm-Gg: AYBFou1YnXILUX/VoG3GVxObOioTTOibPFrphk8lX9UUABmHxtkhMRJZ1ZGWd8BAknj
+	D6YKIaEOLyrLsUHDDKhlAzFBYhjV/HRbUfHG6Qpqu8pO8ZLQsbuVGU1KYgyezURitBv5HhGmwfv
+	IrrehCYidAcHclqZ9xV3htnquCRLROt/JZ779JNWJTOEPV7u9AlmYeKHong9v+yEmzdfduy47ug
+	ARjE7SUjyDq1mcu+h37qBlXusxv3w2qnc8/8ccOQA0pRjucSLtIt+VOABUkEFNCelp1c6Dk2C/p
+	noWexKKeom13hbXbxNYVAhOPwao5Xwrq3USiL3Vs8J+cUqH+6iC7LdMtfw==
+X-Received: by 2002:a05:6512:318d:b0:5b6:423:7f0f with SMTP id
+ 2adb3069b0e04-5b8a0339cffmr4190697e87.29.1789227863611; Sat, 12 Sep 2026
+ 08:44:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260912-mptcp-sk-err-net-v3-1-c41383878bde@proton.me>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XOQQ7CIBAF0Ks0rMVQrLa48h7GBaWDRVMggKSm6
- d0F3HShy5+ZeX8W5MEp8OhcLchBVF4ZncJhVyExcn0HrIaUESX0RBjp8GSDsNg/MTiHNQTcStl
- 1IMmRNA1KZ9aBVHMhrygvaJgDun0n/tU/QIQs5t1R+WDcu7THulz8L4o1rvHA25pzEIzL4WKdC
- UbvJyh8pFuA/QBoAvKbvAfBBSNbYF3XD1F12ooNAQAA
-X-Change-ID: 20260908-mptcp-sk-err-net-7ff88ef05044
-To: Eric Dumazet <edumazet@google.com>, 
- Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
- "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
- "Matthieu Baerts (NGI0)" <matttbe@kernel.org>, 
- Geliang Tang <geliang@kernel.org>, Mat Martineau <martineau@kernel.org>, 
- Jiayuan Chen <jiayuan.chen@linux.dev>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789227816; l=7237;
- i=quanyeyang@proton.me; s=20260801; h=from:subject:message-id;
- bh=/TVHWLyjQ1Gp2BZxsaZ2r2VGQqosRER2Bq/lIgTk0VQ=;
- b=NV3pMCvEwnCXyey3N0gWPatws1sUCJbNRLchS+CksVpIf1fqjhRdtuBFoByj4n4XqMwhi8vZI
- A/7bL/lNpZIDpJ3C1wO76pYowk8+wIHq1UALWoeiQLUPh1/2aqb535Q
-X-Developer-Key: i=quanyeyang@proton.me; a=ed25519;
- pk=9L9FrcvzMgxPaBRU6XV0EnqTgjDqVO596rQKSZ9qZoY=
-X-Endpoint-Received: by B4 Relay for quanyeyang@proton.me/20260801 with
- auth_id=963
-X-Original-From: Quanye Yang <quanyeyang@proton.me>
-Reply-To: quanyeyang@proton.me
+References: <20260912010936.12832-1-ricardobarbosamscg@gmail.com> <CAHp75Vfpq7TXcqFfGfqBZSawSSyMdbCj_gdNRkarTHyzbkJL4w@mail.gmail.com>
+In-Reply-To: <CAHp75Vfpq7TXcqFfGfqBZSawSSyMdbCj_gdNRkarTHyzbkJL4w@mail.gmail.com>
+From: ricardo barbosa <ricardobarbosamscg@gmail.com>
+Date: Sat, 12 Sep 2026 11:44:12 -0400
+X-Gm-Features: AcwNN1XRfFcNPuNAyFywkEbj9gVFTQEx20WFI7Say6LdEin3F6clCr5L4UmHlTQ
+Message-ID: <CAOOzAW3+ySKGkSETW7knDLb7=aMTsgpJ4RSmRFcMjCb+gvaJuQ@mail.gmail.com>
+Subject: Re: [PATCH] staging: media: atomisp: remove duplicate blank line
+To: Andy Shevchenko <andy.shevchenko@gmail.com>
+Cc: hansg@kernel.org, mchehab@kernel.org, gregkh@linuxfoundation.org, 
+	andy@kernel.org, sakari.ailus@linux.intel.com, linux-staging@lists.linux.dev, 
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Quanye Yang <quanyeyang@proton.me>
+Thanks for the feedback, Andy.
 
-BUG: KCSAN: data-race in do_recvmmsg / mptcp_recvmsg
+As a beginner taking the LFD103 course, my main goal with this
+submission was simply to validate the workflow and git send-email
+toolchain with a zero-risk change.
 
-read-write (marked) to 0xffff8880134d391c of 4 bytes by task 2619 on cpu 1:
- instrument_atomic_read_write include/linux/instrumented.h:113 [inline]
- sock_error include/net/sock.h:2565 [inline]
- do_recvmmsg+0x50c/0x580 net/socket.c:3049
- __sys_recvmmsg net/socket.c:3144 [inline]
- __do_sys_recvmmsg net/socket.c:3167 [inline]
- __se_sys_recvmmsg net/socket.c:3160 [inline]
- __x64_sys_recvmmsg+0x161/0x180 net/socket.c:3160
- x64_sys_call+0x19c7/0x1ca0 arch/x86/include/generated/asm/syscalls_64.h:300
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0xde/0x3d0 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
+I'll look into more meaningful tasks for my next patch.
 
-read to 0xffff8880134d391c of 4 bytes by task 2620 on cpu 0:
- tcp_recv_should_stop include/net/tcp.h:3086 [inline]
- mptcp_recvmsg+0x54d/0xd50 net/mptcp/protocol.c:2466
- inet_recvmsg+0x204/0x210 net/ipv4/af_inet.c:894
- sock_recvmsg_nosec net/socket.c:1151 [inline]
- sock_recvmsg+0x11a/0x140 net/socket.c:1173
- ____sys_recvmsg+0x14b/0x3c0 net/socket.c:2933
- ___sys_recvmsg+0x116/0x160 net/socket.c:2975
- __sys_recvmsg net/socket.c:3008 [inline]
- __do_sys_recvmsg net/socket.c:3014 [inline]
- __se_sys_recvmsg net/socket.c:3011 [inline]
- __x64_sys_recvmsg+0xeb/0x160 net/socket.c:3011
- x64_sys_call+0x1319/0x1ca0 arch/x86/include/generated/asm/syscalls_64.h:48
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0xde/0x3d0 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-value changed: 0x0000006b -> 0x00000000
-
-Reported by Kernel Concurrency Sanitizer on:
-CPU: 0 UID: 0 PID: 2620 Comm: syz.2.33 Not tainted 7.2.0-g39d4f32c5d53 #76 PREEMPT(full)
-Hardware name: QEMU Ubuntu 26.04 PC (i440FX + PIIX, 1996), BIOS 1.17.0-debian-1.17.0-1ubuntu1 04/01/2014
-
-do_recvmmsg() and getsockopt(SO_ERROR) call sock_error() without the
-socket lock. sock_error() clears sk_err with xchg(), which races with
-unmarked loads of the same field.
-
-KCSAN reported the unmarked peek in tcp_recv_should_stop(). The same
-lockless writer races with the other plain sk_err reads on the
-TCP/MPTCP send, recv and splice paths.
-
-Annotate those peeks with READ_ONCE(). No extra ordering is needed:
-the value is only used to decide whether I/O should stop. This does
-not consume sk_err; the check-then-sock_error() TOCTOU on the no-data
-paths is a separate issue.
-
-Suggested-by: Jiayuan Chen <jiayuan.chen@linux.dev>
-Link: https://lore.kernel.org/netdev/8bbee583-6f21-4817-bfeb-2d60057380a3@linux.dev/
-Reported-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Closes: https://github.com/multipath-tcp/mptcp_net-next/issues/632
-Signed-off-by: Quanye Yang <quanyeyang@proton.me>
----
-Changes in v3:
-- drop the Fixes tag and retarget to net-next
-- annotate the remaining unmarked sk_err peeks on the TCP/MPTCP
-  send, recv and splice paths
-- Link to v2: https://patch.msgid.link/20260909-mptcp-sk-err-net-v2-1-5044abecac90@proton.me
-
-Changes in v2:
-- add Reported-by and Closes for the MPTCP syzkaller report
-- Link to v1: https://patch.msgid.link/20260908-mptcp-sk-err-net-v1-1-da71aaec9afd@proton.me
----
- include/net/tcp.h    | 3 ++-
- net/core/stream.c    | 2 +-
- net/ipv4/tcp.c       | 6 +++---
- net/ipv4/tcp_bpf.c   | 7 +++----
- net/mptcp/protocol.c | 6 +++---
- 5 files changed, 12 insertions(+), 12 deletions(-)
-
-diff --git a/include/net/tcp.h b/include/net/tcp.h
-index 5e5f5f9b89a3..6ee513bdb503 100644
---- a/include/net/tcp.h
-+++ b/include/net/tcp.h
-@@ -3093,7 +3093,8 @@ enum skb_drop_reason tcp_inbound_hash(struct sock *sk,
- 
- static inline int tcp_recv_should_stop(struct sock *sk)
- {
--	return sk->sk_err ||
-+	/* sk_err can be cleared locklessly by sock_error(). */
-+	return READ_ONCE(sk->sk_err) ||
- 	       sk->sk_state == TCP_CLOSE ||
- 	       (sk->sk_shutdown & RCV_SHUTDOWN) ||
- 	       signal_pending(current);
-diff --git a/net/core/stream.c b/net/core/stream.c
-index 2d748581862d..5c0adc3077f0 100644
---- a/net/core/stream.c
-+++ b/net/core/stream.c
-@@ -133,7 +133,7 @@ int sk_stream_wait_memory(struct sock *sk, long *timeo_p)
- 	while (1) {
- 		sk_set_bit(SOCKWQ_ASYNC_NOSPACE, sk);
- 
--		if (sk->sk_err || (sk->sk_shutdown & SEND_SHUTDOWN))
-+		if (READ_ONCE(sk->sk_err) || (sk->sk_shutdown & SEND_SHUTDOWN))
- 			goto do_error;
- 		if (!*timeo_p)
- 			goto do_eagain;
-diff --git a/net/ipv4/tcp.c b/net/ipv4/tcp.c
-index 1c867a302444..9e7fa7e39726 100644
---- a/net/ipv4/tcp.c
-+++ b/net/ipv4/tcp.c
-@@ -843,7 +843,7 @@ ssize_t tcp_splice_read(struct socket *sock, loff_t *ppos,
- 				break;
- 			if (sock_flag(sk, SOCK_DONE))
- 				break;
--			if (sk->sk_err) {
-+			if (READ_ONCE(sk->sk_err)) {
- 				ret = sock_error(sk);
- 				break;
- 			}
-@@ -1228,7 +1228,7 @@ int tcp_sendmsg_locked(struct sock *sk, struct msghdr *msg, size_t size)
- 	mss_now = tcp_send_mss(sk, &size_goal, flags);
- 
- 	err = -EPIPE;
--	if (sk->sk_err || (sk->sk_shutdown & SEND_SHUTDOWN))
-+	if (READ_ONCE(sk->sk_err) || (sk->sk_shutdown & SEND_SHUTDOWN))
- 		goto do_error;
- 
- 	while (msg_data_left(msg)) {
-@@ -2760,7 +2760,7 @@ static int tcp_recvmsg_locked(struct sock *sk, struct msghdr *msg, size_t len,
- 			if (sock_flag(sk, SOCK_DONE))
- 				break;
- 
--			if (sk->sk_err) {
-+			if (READ_ONCE(sk->sk_err)) {
- 				copied = sock_error(sk);
- 				break;
- 			}
-diff --git a/net/ipv4/tcp_bpf.c b/net/ipv4/tcp_bpf.c
-index 2e234d155b5e..a96323e65758 100644
---- a/net/ipv4/tcp_bpf.c
-+++ b/net/ipv4/tcp_bpf.c
-@@ -286,7 +286,7 @@ static int tcp_bpf_recvmsg_parser(struct sock *sk,
- 		if (sock_flag(sk, SOCK_DONE))
- 			goto out;
- 
--		if (sk->sk_err) {
-+		if (READ_ONCE(sk->sk_err)) {
- 			copied = sock_error(sk);
- 			goto out;
- 		}
-@@ -553,10 +553,9 @@ static int tcp_bpf_sendmsg(struct sock *sk, struct msghdr *msg, size_t size)
- 		bool enospc = false;
- 		u32 copy, osize;
- 
--		if (sk->sk_err) {
--			err = -sk->sk_err;
-+		err = -READ_ONCE(sk->sk_err);
-+		if (err)
- 			goto out_err;
--		}
- 
- 		copy = msg_data_left(msg);
- 		if (!sk_stream_memory_free(sk))
-diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
-index e1f08f71cdb1..7631fa582834 100644
---- a/net/mptcp/protocol.c
-+++ b/net/mptcp/protocol.c
-@@ -2028,7 +2028,7 @@ static int mptcp_sendmsg(struct sock *sk, struct msghdr *msg, size_t len)
- 	}
- 
- 	ret = -EPIPE;
--	if (unlikely(sk->sk_err || (sk->sk_shutdown & SEND_SHUTDOWN)))
-+	if (unlikely(READ_ONCE(sk->sk_err) || (sk->sk_shutdown & SEND_SHUTDOWN)))
- 		goto do_error;
- 
- 	pfrag = sk_page_frag(sk);
-@@ -2429,7 +2429,7 @@ static int mptcp_recvmsg(struct sock *sk, struct msghdr *msg, size_t len,
- 			    !timeo)
- 				break;
- 		} else {
--			if (sk->sk_err) {
-+			if (READ_ONCE(sk->sk_err)) {
- 				copied = sock_error(sk);
- 				break;
- 			}
-@@ -4655,7 +4655,7 @@ static ssize_t mptcp_splice_read(struct socket *sock, loff_t *ppos,
- 				break;
- 			if (sock_flag(sk, SOCK_DONE))
- 				break;
--			if (sk->sk_err) {
-+			if (READ_ONCE(sk->sk_err)) {
- 				ret = sock_error(sk);
- 				break;
- 			}
-
----
-base-commit: 211f2a875f6f447745d80d5762d6d614503ac84a
-change-id: 20260908-mptcp-sk-err-net-7ff88ef05044
-
-Best regards,
---  
-Quanye Yang <quanyeyang@proton.me>
-
-
+On Sat, Sep 12, 2026 at 8:36=E2=80=AFAM Andy Shevchenko
+<andy.shevchenko@gmail.com> wrote:
+>
+> On Sat, Sep 12, 2026 at 4:11=E2=80=AFAM Ricardo Barbosa Dias
+> <ricardobarbosamscg@gmail.com> wrote:
+> >
+> > Remove an unnecessary extra blank line to clean up code style
+> > and fix checkpatch CHECK warning.
+>
+> This is the lowest possible priority patch, if even considered. If you
+> want to clean up this driver, there are more interesting tasks.
+>
+> --
+> With Best Regards,
+> Andy Shevchenko
