@@ -1,130 +1,160 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 229CC3921EC;
-	Sat, 12 Sep 2026 20:09:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789243768; cv=none; b=JqFMjYrSdQWimk0tmnQsnHSowTZ5eooE5+XTbok0uDkTm0bcrB388K13ZHYmOfaJ+luDgqK2SDJlwMhzc9xH4GFnT2r6WiiJ547HQ+D6T9L+qWqpJs3OhkapRcCHA6hpSTRw3yBsjKcR3/9DZOhcyfCutYvKcX/DF++53L/TpZk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789243768; c=relaxed/simple;
-	bh=WojAOunnQHua6UevCKUF5uyfoZWpXARk3NtWdHl6fXc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=QuiQC3WVtFFaCNwknUzDRq6lfHUmu60yq2ZKP2dhXgApP23llfyBOerLRVtdsg/A4XXgDyqAGUkbt4pngennr7w99zuQSAt3vn+db4REWhd2nA2TuRzl62bHhg61LpRKoircfjbJPw3C7K92WQfmobZWpYLVpFipBUksoSJh0dQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LM4BT0ge; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A8FB3C2BA2
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 20:09:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789243771; cv=pass; b=XaTKT5ozOzzqa4D+kBocZrYlTxqZ37LPn8rOY7E1+zWzqMkFX1NR4gy0H92WX2wMQvCwAQ4yQzQ343IYuv9I/D1ZKksBBdc3Dgeujlg74Ul+81BcZ7bjYSV6jom4wrInbEkd4SqvRlrjM2SE5KeP6TEC+xi1NUxrKPWiqAGc1a8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789243771; c=relaxed/simple;
+	bh=n3MqhRx/mXenvMytp/ni8E7dPCtfLaiHE2c3yHtK4ds=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ROyQ6dwST2HGdFDGjnDMg0+z/TVH2XLi+fym7q0MfwZeUNiuHgjJM22CI5XatXaWhGWiSq2/vykU9y/aRTutnbXb23xh1YN0lpJ8YmaeJkDiBh47oer5R/WxG4X5y3pF4jXTfZCVLiVIzwMJRXef0zc2IlEooh6KOr4mOmq+h28=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu; spf=pass smtp.mailfrom=asu.edu; dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b=Pu2w6QjS; arc=pass smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LM4BT0ge"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA4DF1F000FF;
-	Sat, 12 Sep 2026 20:09:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789243766;
-	bh=cf69hnfZhyaQSMzcNWdZwVKugIMigrIYQsNwOjVbsO0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=LM4BT0gelq/w7AuPqR949zzcqkfW0y724pqi7ksfUiZEhJeKMcdTJZ/L26Bo7xACJ
-	 6Fpwb4MmMT5H3ky4kkXhJQfqWgDeSVN2BTx7lPK8yZQ9SVPtj9A7pgwztaFduVNALl
-	 RPDWZM0lwlu7DAmZwxZY5zE0e6Y8/vsRXtRuulY2QoWzs0E2XSPSqVNShia49iPI8m
-	 EcODE/ZbKUWxy4UOBoSqcpTtzDfiWrgIDtqbVL4O/vt1eVGmBz7leNqsE/0UZs5usw
-	 xQT17ZXQgAh6Sd2zHazutQTf61PDZE+o40FL0l6ZRFezfTmnBthk6434h1DQwHQvbF
-	 4IyDWEYhGO/RQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/4] ARM: cacheinfo: count external caches in
- early_cache_level()
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Karl Mehltretter" <kmehltretter@gmail.com>
-Cc: linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org
-In-Reply-To: <20260912195552.76673-3-kmehltretter@gmail.com>
-References: <20260912195552.76673-1-kmehltretter@gmail.com>
- <20260912195552.76673-3-kmehltretter@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 12 Sep 2026 20:09:26 +0000
-Message-Id: <20260912200926.AA4DF1F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b="Pu2w6QjS"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-8625b35df89so47379b3a.0
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 13:09:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789243769; cv=none;
+        d=google.com; s=arc-20260327;
+        b=c812x5ove92GaSX4lzCwiavK2MdmpB8AeBu8ke0WCJk4KAPH9EL7+/eHPC50GjEm/W
+         qUUx6aRLRG5KQ/WuRbx0bSS4cN4IlgrYSTGvYG9RxaniS/8tYPXCF0hvmg+svNWQJoUX
+         AzdW+yMrsS9/+UBkjrjJO4+sfRMwGC0pXDLnGGZ7KTT+Zv7H63eqGz8hqNtHhEc4KjAd
+         ltiZ15xH3MQdFozMBIsPokH16T52rw6s6Yi27vTM+3m+ZYZs8nMZXTB9FyeudQ5WD5E1
+         D9Seu6wXUGDHExcxOq6jjk+qnUB3cK/7n9EPMz6osniOQ8NB8d3IjHTlMPb50PEck4Du
+         fgRw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=qB21ANWRxv7n96J1JHu+XhZk0UtWY45/KlWzWPWjsSs=;
+        fh=kMBqXC4TyBeUOLjWFrWmb95H/LP+zBZ1LgmFnxnixVw=;
+        b=rNGZqL7sUHOTtrFY4CA0gsEJAi7DoYD/HjPAntoQ8z+LLi6AeoAsRqApHFVQyipba6
+         DvYjlvC3L+DAk8oDfv+er2BlUm5MCahlcPuv9Td8xOP4USaGFjZi6W79E9swa3IENQye
+         rb3ChirLUVxo4v64KPaahoJPG5PubwKD8ZzclV77DyeZwuC00RhXAB5+pWJvy3DdxU2l
+         IYph7qnS5+7Nc2mrWMhQG2IAmvPVaAW301h7sFQoTFLdklyTALJHz6updcbXtTuOXnDG
+         JP1e2PlkGDOJJO4CMH+dyZ0/IfoiCqffh22MbXpx6MiTL4BfPemKHg++FFKKnlFl/ct7
+         gJXA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=asu.edu; s=google; t=1789243769; x=1789848569; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=qB21ANWRxv7n96J1JHu+XhZk0UtWY45/KlWzWPWjsSs=;
+        b=Pu2w6QjSjr7W/fUpQJmQ5RUyWMljxt0bHbeptdYU7Q2jv+nF0HexMBHMvNh8L2yPoJ
+         TiS6VjhVcWtEIiK7M+RnyX814SoGVi04iVOfo8VRuDx8zAmlM+SxEWqg7Lt4i+EGmuOO
+         rKWtaApxAKPzQHOvHLpySibQZqqjpGzv5y8IUXFrpRr6yrvVKAM6KDWuzayM24JDSDFl
+         Ghwt/cmZMYGNsJJsy2EgzizdM91UvE5XwK8KXNeWrK7DxcEg27X71rOQA2HcePv01srH
+         ccoowyhkoAmVSym2f1xflXIUcTrzA7pXReRvw2ZBQH2H3NVMJA5+l76d48H4N67m7eFV
+         6x0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789243769; x=1789848569;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qB21ANWRxv7n96J1JHu+XhZk0UtWY45/KlWzWPWjsSs=;
+        b=NZKl0r4AuEh5EmxJiTz9mtQYJqKR9dAj3jIeGhJo1i6fF3ysFA2zwx13h419yRF7It
+         ECc3AOSNjt5K+WvbYCKAKxnptzR2FSjTHuSAk6UItVMKNWjvdm6ctWc9ye/8+TYPF3sM
+         JU0hqfzSqwXJF9Qno5yg6LemYEJZtaDE2bj4FJ5sD719gd1XwLB/kDu8WzSfYgDboeYy
+         jfBLr8LxcHVpMAE4YOuoAdLgvx4zjTyM5+AEwE/C5CLCKNeSd97qtT0T+sxcOV12hj4B
+         dk3aP7WYeHg+g6qKFc6fqnHjX+zrP9kvJy7LMCXyxHZ/tWcDBcD0mFJGNO4Fx++GbdLa
+         e3nw==
+X-Forwarded-Encrypted: i=1; AKwUvBziUCPJtkd63Mfipuh2Gei7LpdPuxstC4vXxEc4gxuqiFLU2q6RSR2SgTnVVoUOXNUDWxU3XGvTyjYkuSc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lhwVLiefTC/AFfOZomW+ZhiIMX3fhRKtjwDimTdGHVW7PSdfWm
+	2oydE/FitmCkMpPNl5VpcJYz0nj0QoCuLPr/LTOhscnJTpcuOr/XWRMF/Q6BwN0JtqBRVxlCcpO
+	8ZUTd35gFIePHOXD9DdkdsSfSaWHWRQzENBXKW22x
+X-Gm-Gg: AYBFou3Q6S6RagBAIfarM34gS9CQE94nZgC3NJW94nyDajqHz8Nd66cRgWTV9z/wHCm
+	9Z63SgnOp2m14xriyLppR1kyU0QmMU0MJxDXcB0WbrXa1LCFTsgybO4eqjIo5VnMe1hV7w+c2LP
+	qyBklH2jH+fZmlIs5KvnBCLB4flv5Sc2lq8Urxboe0Op+/+kbOvH6y+jCCWBEBDCn5R6AueJFkz
+	cQEo9anP0ryLwLGUsQmC6S+viCmkpNkSwbHHjooCypCrRmgVAm3SYTQ5/IIVApKdMCkeJDWN+Tt
+	txtd1vnt3V8imjBp61UwmQaaiQ0sS8jUGU/bs8nh8wyYMMmh/seCDglfBHxCKGeU4/tNpGEkTx1
+	ISG9V2nuEg9Q=
+X-Received: by 2002:a05:6a00:2304:b0:851:8bde:7861 with SMTP id
+ d2e1a72fcca58-86b100bc308mr11287669b3a.1.1789243768860; Sat, 12 Sep 2026
+ 13:09:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <22xPn8drvIUtYgVeQnBiNqXuevOTpBAjepLz@bugs.sh> <87wlsq1lfa.wl-tiwai@suse.de>
+In-Reply-To: <87wlsq1lfa.wl-tiwai@suse.de>
+From: Xiang Mei <xmei5@asu.edu>
+Date: Sat, 12 Sep 2026 13:09:18 -0700
+X-Gm-Features: AcwNN1X1dMySvkFBvnf6VyEpz9GV0R43A0JOxk9_7Dhsosx5Nt9vYTNCh5NQHsE
+Message-ID: <CAPpSM+RgpkW7dxWdX0qr0kjVATYxyx2GT_ZD_mgpD6r4WetQJw@mail.gmail.com>
+Subject: Re: [BUG] sound/usb: out-of-bounds in prepare_playback_urb()
+To: Takashi Iwai <tiwai@suse.de>
+Cc: cedalion@bugs.sh, linux-sound@vger.kernel.org, 
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On Sat, Sep 12, 2026 at 9:31=E2=80=AFAM Takashi Iwai <tiwai@suse.de> wrote:
+>
+> On Sat, 12 Sep 2026 04:09:23 +0200,
+> co wrote:
+> >
+> > This is a bug report, not a patch submission.
+> >
+> > We found a bug reachable in:
+> >
+> >     path    sound/usb/endpoint.c` (the overwrite) and `sound/usb
+> >     crash   out-of-bounds in prepare_playback_urb()
+> >     commit  2f1baf1fc892 ("Merge tag 'trace-v7.2-rc7' of git://git.kern=
+el.org/pub/scm/linux/kernel/git/trace/linux-trace")
+> >
+> > Config, environment, the sanitizer report and a C reproducer follow.
+> >
+> > =3D=3D Notes =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> >     If you fix this bug, this tag credits the report and lets us
+> >     close it on our side:
+> >
+> > Reported-by: co+8eacd4fa193b1b28@bugs.sh
+> >
+> >     Everything in this mail is validated by the reproducer below.
+> >
+> >     We also hold an unreviewed LLM-generated analysis and candidate
+> >     patch. The same reproducer panics the unpatched kernel and runs
+> >     clean with that patch applied. Use it as a starting point, or ignor=
+e
+> >     it and write your own:
+> >
+> >         patch.diff  https://bugs.sh/b/8eacd4fa193b1b28/patch.diff
+> >         report.md   https://bugs.sh/b/8eacd4fa193b1b28/report.md
+> >
+> >     A guide to taking it from here to a sendable patch, including the
+> >     trailers to add: https://bugs.sh/patch.html
+> >
+> >     Happy to test patches. Complaints and suggestions about our work
+> >     are welcome at:
+> >
+> >         cedalion@bugs.sh
+>
+> The suggested patch looks reasonable.  Could you just submit it in a
+> proper format for upstream (after verifying that the issue still
+> happens in the latest upstream)?
+>
+Thanks for checking.
+The patch has been tested on the latest upstream (tiwai/sound.git).
 
-Pre-existing issues:
-- [High] Reallocation of cacheinfo memory via kzalloc_objs(..., GFP_ATOMIC)=
- is called with interrupts disabled on secondary CPUs in big.LITTLE systems=
-, which crashes on PREEMPT_RT.
---
+And I have checked related functionality and ensured the patch fixes
+the bug (to my knowledge):
+https://lore.kernel.org/linux-sound/20260912200530.1955491-1-xmei5@asu.edu/=
+T/#u
 
-commit 19c5ea8e9a4a8fc2bc601139e06e4ead6e749ab2
-Author: Karl Mehltretter <kmehltretter@gmail.com>
+Xiang
 
-ARM: cacheinfo: count external caches in early_cache_level()
 
-This commit alters early_cache_level() to directly invoke
-init_cache_level(). This includes device tree-described external
-caches in the early allocation size, attempting to avoid late cacheinfo
-reallocation on secondary CPUs which causes issues on PREEMPT_RT.
-
-> diff --git a/arch/arm/kernel/cacheinfo.c b/arch/arm/kernel/cacheinfo.c
-> index 860eeb03cfe5d..31591c9472548 100644
-> --- a/arch/arm/kernel/cacheinfo.c
-> +++ b/arch/arm/kernel/cacheinfo.c
-
-[ ... ]
-
-> @@ -146,6 +139,11 @@ int init_cache_level(unsigned int cpu)
->  	return 0;
->  }
-> =20
-> +int early_cache_level(unsigned int cpu)
-> +{
-> +	return init_cache_level(cpu);
-> +}
-
-[Severity: High]
-This is a pre-existing issue, but does this CLIDR fallback path still leave
-the kernel vulnerable to a panic on PREEMPT_RT if a secondary CPU happens to
-have more cache leaves than the boot CPU?
-
-On big.LITTLE ARM systems, if a secondary CPU has more cache leaves and no
-device-tree cache specification is used, early_leaves will be smaller than
-the required size. This forces a reallocation while interrupts are disabled
-on the secondary CPU:
-
-arch/arm/kernel/smp.c:secondary_start_kernel() {
-    ...
-	trace_hardirqs_off();
-    ...
-	update_siblings_masks(cpu);
-}
-
-drivers/base/arch_topology.c:update_siblings_masks() {
-    ...
-	ret =3D detect_cache_attributes(cpuid);
-}
-
-drivers/base/cacheinfo.c:init_level_allocate_ci() {
-    ...
-	if (cache_leaves(cpu) <=3D early_leaves && per_cpu_cacheinfo(cpu))
-		return 0;
-
-	kfree(per_cpu_cacheinfo(cpu));
-	return allocate_cache_info(cpu);
-}
-
-drivers/base/cacheinfo.c:allocate_cache_info() {
-    ...
-	per_cpu_cacheinfo(cpu) =3D kzalloc_objs(struct cacheinfo,
-					      cache_leaves(cpu), GFP_ATOMIC);
-}
-
-On PREEMPT_RT, memory allocation with GFP_ATOMIC relies on a sleepable
-slab rt_mutex. Calling this with interrupts disabled results in a BUG
-("sleeping function called from invalid context") and a system panic
-during boot.
-
-Could this reallocation path be avoided or deferred to a context where
-interrupts are enabled for secondary CPUs?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260912195552.7667=
-3-1-kmehltretter@gmail.com?part=3D2
+> thanks,
+>
+> Takashi
+>
