@@ -1,108 +1,158 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1FB71E1DF0
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 01:05:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789175126; cv=none; b=Uhw5aoP+KFryosIR5wzTAK/NL5D04xrlfUHADjHaXlNZQ8eJD/1neo+IGR8EwoaABFzkRshRGU4VgdTk4pZkNy2o7npyrdy4SeaOqAV7DlSpyjLICPfl3+A4mOiE6wYhEer5MpWAT3wjWRXL0seDq8KLA+lUaOQhb6DdVKesRFM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789175126; c=relaxed/simple;
-	bh=B+aC36MelUi7LsScnBQKuyIwAOtKkeIXgtH6gzW2sZE=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=NZaVnnTVNr70TjgB9ENvFDFwfsJ2ejURQKLO8z6daXm33Fz/5jbC2xKwgR05lk8sFfJ+2of90/vmd5YrNcB8ClSPgldQ4kYMYyB6iWeYDgv5ffu9+nI8I03DCAUVWhLpet2JGo8QVANl2oPfBFqLVrRKkNvNhE0Kz49M8hQs3mM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=eOgleL0f; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA2334BEE51
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 01:07:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789175243; cv=pass; b=XOLdf68/Wu1VD4/ZFz8qvokGDJ7OGFrktzPzC6eBN68IKmoE0FXYoqz1Ie+JtE6t+FOI5MoJj/PBYFssKrw0NNWMIRPHi0gLTk6bBzu0+c16rBKB3sLhwV0T28hPJNPjuOsWGRQAbmYjZN6Fp1HKFrZ2oIsPXx731a/qBOIe5jY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789175243; c=relaxed/simple;
+	bh=NoYKk+zfA2Vg0NFqER3/7jFPnk0Q80RgMfB5SuCFhbc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KDpNuJhkEdPUoGY0huTvd2QSHqiW5wGEHxTiWDvLwo2ouqhkfRgJq0MARcqKfXrjbkMqQgeaPCGPdHhzLCO6Zr75qAaWm5yjK/UibpKNrEqsi60v4v1+8qJfFxUjVAzV/TeBQYRS3jvTPHoJ+lxdtf1ZAKMSbYDx8qx1+Mxf8tM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a6zkXI0S; arc=pass smtp.client-ip=74.125.224.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="eOgleL0f"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2dd4b917769so14005ad.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 18:05:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a6zkXI0S"
+Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66e4ab1ba47so169209d50.0
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 18:07:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789175241; cv=none;
+        d=google.com; s=arc-20260327;
+        b=WtJ+Efn+ZrbSXMJ37L4OvutFBf1GPpdGrBP2lSta8MDR6FTFV0pOVsaKhVfTmLJiib
+         netIwoH07FPb7kuBOADXmzK2EKQyNncMByVADK/tsgB6qeaUqWTTzyW1J76BOjXGq3F1
+         hyq142zrms2qb9LGxyEjEQm3s0T6icshTeFZoDue/jIm2ZpC0vb14WKet9mAM3XStaPD
+         eVMWRF+qiI8MXRCSLqTqUrfaQt6w3qm21ItPaEOJl34vGe86NDkZ0YNRAn/tu/WAy9Hw
+         W9xfHdLyTX7vPygJcLR3PCj71152aL75tplRCA/QQj+EDg/Fuz327LUP65RWfil71oI5
+         uWDQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Q42INxzKbcLL2mib11Z2FAWyf7Td8LLy4kQfAr2Vl58=;
+        fh=onlpcrwl1l7MHNIRZoInz+cfc5NTw6Ku8afq2rpyPDg=;
+        b=D66VLXLKwwuPgcUobx0RN6tn2ePJt66zA77RyauuX799MlbiNxD1BrzAjJdsUJ7xU7
+         5BHMLrJZKtgLhC1xsR5dg+WZLfTZMKp/UkFtEfnhm0D3o4yll8XLf8Q0w+p6XmuUk63n
+         YO7v1bZSUw6dVK+vv60mx7f1H+b4hx3E77Tp5wvclLx12MpnB4gnQS3bklzCSJk0ILzq
+         OvKgodhOyk66h7RY7OCnkL3xHGvSVc9SEHOHDZ4iMuRloNEvAr4MZnAxi2At+s3hEpni
+         xtD41kQzTklXhNHgRQvvIrz2iawFh1D1VRvl7U5uN0E1dprOm8wUYivW8lgzSKG6Lhy8
+         FvGA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789175124; x=1789779924; darn=vger.kernel.org;
-        h=content-type:mime-version:references:message-id:in-reply-to:subject
-         :cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yoQ5u4lcyLVs7Z9JVban8aUncHWvoCiIb4xZrCigtXc=;
-        b=eOgleL0fTlZD/ktN8AB8vdotq0PcfK4pjsK14dlH2SJXsjlaJuQ/q/0hFjsJd6vyvf
-         xeETyzEjE4P9W8l6BYm7ZmhmDJZYbkoKk8xkzVQ2RWx8ghPwUTB4IaKAORhQxW7Q1Qxx
-         9XcCHUoinTTj0QqbV6GADJwt5KrGt58pVzLgF5HP7Vi1yESptISMSlPccm8ObfSwY3mA
-         FZOCwBC8V4/A2WF33W6o42sw6eUeBN4Im4q164+wz13wS5SSKU10vJJhGrewMl3WCk7c
-         d5J5ktQoIxQQ+mTGqHiJHS/laEa6WkTgq7gIt7nTLd8E+5+B//xIoSClqdmHAPozSFP/
-         F+AA==
+        d=gmail.com; s=20251104; t=1789175241; x=1789780041; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Q42INxzKbcLL2mib11Z2FAWyf7Td8LLy4kQfAr2Vl58=;
+        b=a6zkXI0SNfN1QS6lAoPF00bv/crDnGeMNIbvI9jct7xFnxe4aOI6lUebSCMHi7iAlU
+         k+MWVzmQDfzqL6RgzAXkuY6sewlkjUBeEU2V06yReL+bVKrxkkLs9C/2Rnw6HqSql4F/
+         MdlWroLqvrVVjJpdIYB3AxOaLkGJ2QfN9EPJ0he5OhU3vkQ9Zr/jCeY7qsueDkYwmatU
+         l3r+mQLEZ8mEkHLI95BHmit5Hrm7TooKb0oo/H0GVgwyRElH1j/ZUnbvtl50/d+V0bkT
+         xyDZKXz8UdH2+A2+J7PvPfL7NeHZwpsanhIKNLDTnbDCJftWtvuIiYYifz+iITb0GB8q
+         UWYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789175124; x=1789779924;
-        h=content-type:mime-version:references:message-id:in-reply-to:subject
-         :cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yoQ5u4lcyLVs7Z9JVban8aUncHWvoCiIb4xZrCigtXc=;
-        b=F8Zv9q+ew3MwwGBOxJTEbyQ9/GP3+94fsqkArEE/gUFL/CBD/tjK+II65KZmuHSFjd
-         s0j3TvSdIAHzxp6xzmhr/iLS83J5/szR118bFhA7movbL7giBv6DBBJb8kLIe3yN4g8v
-         /XjmhKNnrKgt8pt6yhgcOWlT1rwjEDHujlS6dH66saizJ6C+76Fzo/RPHA5/k4G8g0Vf
-         gfl/2aFExDR2EXhU+ArnpnGHoI5pX4/m21Cm23c1T5F38w1L39JUbO6vFCsh0ScByLMC
-         LjtV8NZiYAD4UIT5K/c6GdAOKterZtvfMvBPklpkfdavaWp6AKLs9sCFaPg3zhceNryh
-         OQqQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxE+PO/HPEkrwcCIlX33Mm/QUpfRvOXFspSgmhDj1/2euJh5AN78tyL5lmfNE3en66WmWBMbjfvfsoROPw=@vger.kernel.org
-X-Gm-Message-State: AFuF++lafgMxGzw4ql+1iSqrCUBatbY8JotO/d9rvkPm8BM23iCS1GZI
-	RJSTuz7r3cJ+XJsuQKLfnmEchOvcO1aa/ublbREAK0M9jacQBCKO6LlgIYnhCpWiXA==
-X-Gm-Gg: AYBFou3J2H/5QiEth3fmOWJu4uyohbjcyOY0mDRNXclEDQwmC03rTqPgcw13J2h7LtR
-	1neV1athrcXs/1U/U6Qqsj3vT8hMaVJnt+hEPAKHxuDCyNnZS4IirKw67G74vJeJwqux2dKJ+Ws
-	hRAO2LlfirWY1j/19Lig7ZTpcaVIrNoz9z/GepuHxDgy79H424Bbb3yrQHNpZ4MuXMi4AkjfuU7
-	KUsn3yCpgtvpI2l4rw8VLG7fTPNsncLI51kN2AtBxAABvw6W81ZlZ6GgZmMnE4WHNxgcdpmP3Af
-	T6Ue4xsSqtMQDUqkZKIBZf2SqsZ001JlzpaNAWkALBTUIpVfjaAZ3IdRWpscSG3u84q8LURKcZE
-	Nn/PXgkP9+CQkx/FJz+goUE/+LSNwIDaS/LhWC6KFSQYtegTG5AIRguhuDE9NeDycMyxTZExg+I
-	hvD7l3DobQt1NvVQHiNb92BOJC5d+c4a7ssAjyQMLc3mjySMP8wo42lqO8noufiwfRFinrmZJfo
-	jIYVX006OYynIN88/Vao6RQ78Jqymbp2k4TnyKXifpe1Dzht369Z4/mnEPdK1TYV/FFvKjU/8oZ
-	3DCgcJZTyuShXSM9XilpaBHzkKUcfExMHoZNEIa2vcxImxWnGgsbOuAsMN8uACXWQRFFS7JvGYS
-	KqoRVLYg=
-X-Received: by 2002:a17:903:98d:b0:2bd:3bfd:74f1 with SMTP id d9443c01a7336-2dd47ed79e3mr3343665ad.2.1789175123807;
-        Fri, 11 Sep 2026 18:05:23 -0700 (PDT)
-Received: from [2a00:79e0:2eb4:9:add7:30d3:d3cf:4f91] ([2a00:79e0:2eb4:9:add7:30d3:d3cf:4f91])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2cffb5c5sm17522605ad.80.2026.09.11.18.05.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 18:05:23 -0700 (PDT)
-Date: Fri, 11 Sep 2026 18:05:22 -0700 (PDT)
-From: David Rientjes <rientjes@google.com>
-To: Usama Anjum <usama.anjum@arm.com>
-cc: Andrew Morton <akpm@linux-foundation.org>, 
-    Christoph Lameter <cl@gentwo.org>, Vlastimil Babka <vbabka@kernel.org>, 
-    Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, linux-mm@kvack.org, 
-    linux-kernel@vger.kernel.org, Sarthak Sharma <sarthak.sharma@arm.com>, 
-    "David Hildenbrand (Arm)" <david@kernel.org>
-Subject: Re: [patch 0/3] lib: add synthetic MM benchmarks
-In-Reply-To: <8936784e-9ccb-4c33-9b30-f99552e10f87@arm.com>
-Message-ID: <1af513dc-a33b-9c7c-2827-097e16eac077@google.com>
-References: <d6787a7f-3213-2b2c-2de5-af3b02daa21f@google.com> <cec6f48d-8857-49d6-a24d-b072482bf0c8@kernel.org> <c76621a4-cc8c-b6a7-732f-633d372477ff@google.com> <707b26ac-7f73-430a-a473-cd3409c4505c@kernel.org>
- <8936784e-9ccb-4c33-9b30-f99552e10f87@arm.com>
+        d=1e100.net; s=20251104; t=1789175241; x=1789780041;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Q42INxzKbcLL2mib11Z2FAWyf7Td8LLy4kQfAr2Vl58=;
+        b=ONes00gesJdmYDkzh43a9Yvz+59E4htYfdM7pHVU+7wHZKiokVH9xO69zZGtBC0aG/
+         s9srNfkYiuoSRIXqJpgnPIhE+fITivf0sYVsYIDsJepjfFWDxJeL/D2gscQ48x8l4Dj3
+         YpQbwKYVzLRhHb4g6awb0OCHakixYKETJQjC+hxxK1H3u2PA5NJQogljxtaHwh8v1kih
+         2gTq7VYEnlBaGTMKF8FSAM3ZamNqUxepwGL9FQgUo5gL494mx1q7Y7Cg+ZO5RB9ENmQA
+         TuHsBBXYrzQPOHF3kVSXh+m4CbF0TyYaG2Kt3K994QXi0HW8/2t3BnYeJKmIUZz+4oEU
+         JRwA==
+X-Forwarded-Encrypted: i=1; AKwUvBzcBe2/z1NG3aM7el30bM5kZ8mf5JuHs+wl5Zb5r8Sp1CGVX9FktGGlvzmO26x6YTlCgG1aGgVzugGn+uY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kPkMwjxOZst4U+IoxT7oaHpQmcSBqT38PAH7UCvYandiz8AVo7
+	zZ0CoNgQ+osYCkU7s/meUPQbfXd2yXEQlnLpJiKILYlVmDmQiPLNJ2QNZBajTphIcpIzcxFcyTk
+	I2KtSetEfjN+yFgq8IcWvB0jfjtwf8o8=
+X-Gm-Gg: AYBFou0bwebxxBf6psNU8N0rAWKlZOoZfs7+rV9KWFZCgvIH4zqNV+J91dpBlRqdqsj
+	v/M1sIs3PzwewjoXVdgsYmFCjHXWTZRT80KUWhEUFR0hxTzKx68+6ZfN4dhrZc9apJ3FX0xpzuM
+	1MlasEJQLzPN1XIFjZH5Qf+W3OiBN2Ryw30sPEsSaoU51qiT+gh/TP0qxUkSE/aSHyGXR0rvApQ
+	DoQBKN4OmcjpxH3OvK9OUiggYapYKb50vTrGgqwCbptA2vGjnWu8dnMJMKp6QuCdEknc6w+xBSi
+	uYiy9Q9yph9gieLmBpCej1tmd2zL4liIPXahdyDTIGwxkBI93457u4xUtPJF7Il0lGrT/INoJTv
+	iRoPn7IL+ayJ8uJkbSsz9gop/3qIEByewrtmAhe5hEMzb
+X-Received: by 2002:a05:690e:1186:b0:671:251e:a5b with SMTP id
+ 956f58d0204a3-671251e0df0mr1500697d50.35.1789175240898; Fri, 11 Sep 2026
+ 18:07:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+References: <20260825135717.36369-1-kartikey406@gmail.com>
+In-Reply-To: <20260825135717.36369-1-kartikey406@gmail.com>
+From: Deepanshu Kartikey <kartikey406@gmail.com>
+Date: Sat, 12 Sep 2026 06:37:08 +0530
+X-Gm-Features: AcwNN1UJeXmdb9KknDcsthyIhOBUktSAlTf54RExh80U6BxToohI0BSU73dFvtI
+Message-ID: <CADhLXY4H1NMSQQyHjT55hyEmhoEh6mq3n2w2obKdn2NRVWrfuQ@mail.gmail.com>
+Subject: Re: [PATCH v2] wifi: mac80211: mesh: free pending CSA settings on
+ interface stop
+To: johannes@sipsolutions.net, nico.escande@gmail.com
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzbot+f5752cd6b94fe38be666@syzkaller.appspotmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, 10 Sep 2026, Usama Anjum wrote:
+On Tue, Aug 25, 2026 at 7:27=E2=80=AFPM Deepanshu Kartikey
+<kartikey406@gmail.com> wrote:
+>
+> ifmsh->csa is allocated in ieee80211_mesh_csa_beacon() and normally
+> freed in ieee80211_mesh_finish_csa() once the channel switch
+> completes. If the mesh interface is stopped while a channel switch
+> is still in progress, ifmsh->csa is never freed, leaking the
+> mesh_csa_settings object.
+>
+> Free it in ieee80211_stop_mesh(), the same way ifmsh->beacon is
+> already handled there.
+>
+> Reported-by: syzbot+f5752cd6b94fe38be666@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=3Df5752cd6b94fe38be666
+> Link: https://lore.kernel.org/all/20260824054611.29728-1-kartikey406@gmai=
+l.com/T/ [v1]
+> Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+> ---
+> v2: drop unnecessary NULL check around csa, kfree_rcu() already
+>     handles a NULL pointer (Nicolas Escande)
+> ---
+>  net/mac80211/mesh.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
+>
+> diff --git a/net/mac80211/mesh.c b/net/mac80211/mesh.c
+> index d4507e4e6ec1..48015dcb7add 100644
+> --- a/net/mac80211/mesh.c
+> +++ b/net/mac80211/mesh.c
+> @@ -1201,6 +1201,7 @@ void ieee80211_stop_mesh(struct ieee80211_sub_if_da=
+ta *sdata)
+>         struct ieee80211_local *local =3D sdata->local;
+>         struct ieee80211_if_mesh *ifmsh =3D &sdata->u.mesh;
+>         struct beacon_data *bcn;
+> +       struct mesh_csa_settings *csa;
+>
+>         netif_carrier_off(sdata->dev);
+>
+> @@ -1222,6 +1223,11 @@ void ieee80211_stop_mesh(struct ieee80211_sub_if_d=
+ata *sdata)
+>         RCU_INIT_POINTER(ifmsh->beacon, NULL);
+>         kfree_rcu(bcn, rcu_head);
+>
+> +       /* free any pending, unfinished channel switch */
+> +       csa =3D sdata_dereference(ifmsh->csa, sdata);
+> +       RCU_INIT_POINTER(ifmsh->csa, NULL);
+> +       kfree_rcu(csa, rcu_head);
+> +
+>         /* free all potentially still buffered group-addressed frames */
+>         local->total_ps_buffered -=3D skb_queue_len(&ifmsh->ps.bc_buf);
+>         skb_queue_purge(&ifmsh->ps.bc_buf);
+> --
+> 2.34.1
+>
 
-> >> I thought about the same and just followed what appears to be the standard 
-> >> convention (like test_vmalloc above) for lib/ for now.  If they should all 
-> >> be moved under tools/ somewhere, perhaps we handle that in a separate 
-> >> series?
-> > 
-> > Yes. lib/ is just absolutely the wrong place for that.
-> > 
-> > Maybe lib/tests/mm
-> > 
-> > But then, I wonder if they could just be somewhere in tests/ directly ...
-> > 
-> > Anyhow, it was also raised whether some of these could be written as kunit
-> > tests. It's been a long time since I worked on these, so just mentioning it.
-> 
-> I also think it would be best to try to add them as kunit. I'm not exactly sure if
-> kunit would accept such benchmark kind of code. Some research is required there.
-> 
+Gentle Reminder. Please let me know the status of this patch.
 
-Sounds good, I'll transition these to kunit tests, move to mm/tests/ 
-alongside the other MM kunit test, and send a v3 for just the vmstat test 
-as a separate thread.  If all looks good, I can do this for slab and 
-pgalloc as well as a follow-up step.
+Thanks
+
+Deepanshu
