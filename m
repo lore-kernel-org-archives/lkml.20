@@ -1,70 +1,77 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C2AE2D7380;
-	Sat, 12 Sep 2026 05:10:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 950FF3603EB
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 05:12:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789189842; cv=none; b=bB3kxkbFJ+U2EgDkijPT/0/Fe5B99LdypMRCSfNa+2TSBFrMI7+BcEeMgZvvp37RC9poj2Z9j6EnMlP3aldW5Ej/ASceYaa8iISAtJZvVcfLrNNPXZjjYyrwKZ7tcqX3zc8my3nuvuaPfrklnO45ucSicZzhg0+gk36dlJMZ9vk=
+	t=1789189954; cv=none; b=Hc3VPV2rGpp62ULAvz2/0EBCqx7B9iGYMnM6rLkXXjc7PUOP7e4+BxpjH91nx7D1yCYQTymebh3En45fH0/eT1gEowm/g1IODe0SqWE1+sJ5vTdMm5eJaA4nyvszw8yloT8+0+1HdrKbxm0Af8wtt3ZERYd23uxjgZSnCmaLFzs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789189842; c=relaxed/simple;
-	bh=hVsHNEchk19ZFl5Ele9nkgAwvZ85K0YSzOU9gj44rBU=;
+	s=arc-20240116; t=1789189954; c=relaxed/simple;
+	bh=yTcdsUmAFIRyyngXw0gHQk3+2epJRbLgUj5S5C/JgPY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PDz8JTfpn4vHaU50rVP5r/0OIVg4jFcFHhtqhHpk+qJIrf23empJgDNZvjiB1/E9ddDtbjuWzaUwI5iteUgHgQ1OKzG4SuaHOhD3Dc1L4P7hwe9+lfp5EogfBsVggz/U507o5EhkdrlpV/Qjry3DauY2/OOYN2QR+UxNghJL5mA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OEZphzm3; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=V42R97ulB2SuVlvAlMv+L9JhkVFkWOiq74o0VuBSqlIbEc727h1dwsfBDr83Qttko5VnoWZ5PwV5LlUEmtg4oJ/2qksPFnsbO4e0gOuVw9Z6+Y/ZNrj2oXjUet41Aj3J6CBVzNRmudxcMSfqmHFJR200Mo7r0BVju7RVbvfscvs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WosihMCC; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OEZphzm3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F2201F000FF;
-	Sat, 12 Sep 2026 05:10:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789189841;
-	bh=b7gamaM3ocBB+4O2hg6ustnV02tbiSJQKUzLHib6YK0=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=OEZphzm3wMMRqTwmUnagcM+KkWkkTEvAT3wcp93TZCJkN2dazyFetMFqVZVuf+zV7
-	 drMfqy3/azCvyRO4GZwYRU62gKX9R/h4JnLkota4GImeWvztGmQ6gwzOEl9t+pkiVf
-	 BDyS7frnNnG5/bK6UOHkPheXHOc+Ms5TmGLMpESOjUDdK4nK60SgDxKyQ8zj52lyzc
-	 wcMR2QrQ2oOSEEYg/HXgIsIeY8gxve2Ade2bJEbOR4QQA4BcQ9oOAbXJ23ExBEaMJr
-	 fjuNwfEtxx9Jn4UMZiVSKI/wMEB0jAsmzu3W4RnVLmA/qTJBuYAwblXEdcX6uU/UsY
-	 1IvqTxEnYzpUg==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id C2B99CE1580; Fri, 11 Sep 2026 22:10:40 -0700 (PDT)
-Date: Fri, 11 Sep 2026 22:10:40 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Cc: Josef Bacik <josef@toxicpanda.com>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Boqun Feng <boqun@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>, Jiri Olsa <jolsa@kernel.org>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>, x86@kernel.org,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Puranjay Mohan <puranjay@kernel.org>,
-	Xu Kuohai <xukuohai@huaweicloud.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Zqiang <qiang.zhang@linux.dev>, Juergen Gross <jgross@suse.com>,
-	Luis Chamberlain <mcgrof@kernel.org>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	linux-kernel@vger.kernel.org, rcu@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH RFC v2 08/15] bpf, x86: Maintain Tasks RCU trampoline
- nesting in the BPF trampoline
-Message-ID: <14cb8a91-497d-49f5-aa20-c6cb8b9a27fc@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20260911-b4-rcu-tasks-preempt-qs-v2-0-eaaa61ed2da4@toxicpanda.com>
- <20260911-b4-rcu-tasks-preempt-qs-v2-8-eaaa61ed2da4@toxicpanda.com>
- <DLD0OHX8C4ME.VNR49VC2UYH4@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WosihMCC"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39b9184fa80so454791a91.2
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 22:12:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789189953; x=1789794753; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=pQ7SKUX4iPc/e2EMSLENev8czab9Asgciu1sDxNwcDo=;
+        b=WosihMCCJ+ocKbug+KiEZQ9CgV7rq7wecLhZ7WYnm0iOGw4PfZi8e5tk7xNttoKurs
+         A137NJgcQ4FGU9ugBzXRy+5m14dEENtZ2jAzFZlruKAKRsz2O7x0FJJfSdCq0Qlmvg8t
+         nJJKIPCu8FPs5gkGmFfoLHLKaBKegL/hqZ7RCqw8Gz6K670oAjBIu1CmZZJAivIOivdW
+         NV0rhd5v6R3J8M3eYM3Cm7zApRT6+XgcHYbrC8zwmel2eBiqkdXBQci/hQQ7NfshNoLB
+         Ik5JSa+S1RWGkhnt2p6j4byXaUYQHuOf3KzEAO1DXQC+nWqozNgN7U6hjX1gIxQS/9BB
+         65tw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789189953; x=1789794753;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pQ7SKUX4iPc/e2EMSLENev8czab9Asgciu1sDxNwcDo=;
+        b=QF+qmds98iqVFkr6mAnDFNDvrzJwu/ATD8bZSI6YpJfjvt4Db5g5fZYy0UiUFB8Q5y
+         a8/VBjLEbRhFjow0oblfkOeIT2z5PP5UzICbqWzDzCGhKfUTFVTYFq/sEZLgVkh8sDHq
+         QkJO/HdWsCVWvjRvYOkrWnC2oh+LstoOTsUYKrnOnaYPo3W8axbBS1bk38dUwb1N98uX
+         z7w5n0Bxa0yfg1fgalvTc5DzeKYfv9VNQHy8JW4aH+giyNlwgeg3bsdadHTSc/073Vsg
+         coRCYHhk2TNRJDpe8pLUfo5qSk69gEROf2tL1yls+Fk0lEk1CEseKhJPOiKUjERKZKYB
+         R3bQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzKjcpH/Ex6d65d6hJf5piOZe4HEDWUFdPc2zl3ZMCwNCdexqxVfH9zuykOaDSE6uSC9vFujRHlNXAtmCI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nafnY9c06s2G4EunEPd4AniPbsUlTa4oZwl2D6IKNMz7s21NLz
+	a/+rgSvikCAACSBt/KR0EE+wzhmxQFEZR/TV/2gqkvxQPR4pMgtr5o6v
+X-Gm-Gg: AYBFou3c2PlRZVwQ9rPaXQiOBS4M/dVomsPTvIzexiyMD2OT52pE682KssDhLpCUfyt
+	Cju3FrFFAsNmW9QD32lAB5pgNkrPbvjfsKxJkeV9Krv16HZ2WcK8ynBOB4SKVocEZmd3HAJaBPQ
+	lT/FaZAJjrNJ64QgktMVl7N/bDfh5tqiYnS6sM5ov+cszshnVKHnHEpPCUx8mUz6t3hoQOqV/8c
+	XQlR6hFhNsklKdiw1XOr1fu2o5pgdk2bD2xL1S3KRFfCjOVkcEQ99FimbEp2hb8PtsthXaOV9MC
+	TJKxwWitR0NVYPSe5G7N9wHsmORNKv5f1vPCHcF08X0yMmADzmq84c+nm00Pc72IJ04RRKmBOe1
+	loWlQBTiqfK78Gpjed30a8iGwti7E37bvpYOF5qVBt+57RN966P3rsyasCs7cHP2t8a3VKq3s+J
+	QXS4+wQzTnOYhnWSpoB/BWVPzsvwyzOnGicuu0YMvQp4XWWYzfKOTOdxZU/mSojV0k4mhPSbA=
+X-Received: by 2002:a17:90a:bd7:b0:39d:ba21:fd90 with SMTP id 98e67ed59e1d1-39dba220361mr2148619a91.16.1789189952954;
+        Fri, 11 Sep 2026 22:12:32 -0700 (PDT)
+Received: from gmail.com ([2a03:2880:7ff:57::])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d951d1056sm8134940a91.7.2026.09.11.22.12.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 22:12:32 -0700 (PDT)
+Date: Fri, 11 Sep 2026 22:11:29 -0700
+From: Narcisa Vasile <narcisav.kernel@gmail.com>
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: Narcisa Vasile <narcisav.kernel@gmail.com>, netdev@vger.kernel.org,
+	daniel.zahka@gmail.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+	edumazet@google.com, pabeni@redhat.com, shuah@kernel.org,
+	horms@kernel.org, willemb@google.com, petrm@nvidia.com,
+	anubhavsinggh@google.com, richardbgobert@gmail.com,
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next] selftests: drv-net: add BIG TCP test cases
+Message-ID: <aqTfAVkzWa3P09iZ@gmail.com>
+References: <20260911050659.13367-1-narcisav.kernel@gmail.com>
+ <20260911100101.2c34bdc5@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -73,81 +80,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <DLD0OHX8C4ME.VNR49VC2UYH4@gmail.com>
+In-Reply-To: <20260911100101.2c34bdc5@kernel.org>
 
-On Fri, Sep 11, 2026 at 08:27:56PM -0700, Alexei Starovoitov wrote:
-> On Fri Sep 11, 2026 at 7:08 AM PDT, Josef Bacik wrote:
-> > Emit an increment of current->rcu_tramp_nesting once the trampoline's
-> > frame is set up and a decrement before the final register restore, so
-> > that a task preempted while running fentry/fexit/fmod_ret/LSM programs
-> > or the __bpf_tramp_enter()/__bpf_tramp_exit() glue is not treated as
-> > Tasks-RCU quiescent.  Drop the count around the call to the original
-> > function: that may run arbitrarily long without sleeping and must not pin
-> > a Tasks RCU grace period, and the trampoline frame above it is held by
-> > im->pcref rather than by Tasks RCU (see bpf_tramp_image_put()).  The
-> > fmod_ret early-exit branch and the ip_after_call -> ip_epilogue poke both
-> > skip the decrement/increment pair around the original call, so the count
-> > stays balanced on every path.
-> >
-> > The sequence is "mov r11, gs:[current_task]; inc/dec dword [r11 + off]";
-> > r11 is scratch at every emission point and (u32)&current_task is a valid
-> > sign-extended %gs-absolute with the current per-CPU layout, the same form
-> > the JIT already uses for this_cpu_off.  The image is dynamically
-> > allocated text, so the instructions outside the bracketed region are
-> > covered by the irq-exit IP check.
-> >
-> > Assisted-by: LLM
-> > Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> > ---
-> >  arch/x86/net/bpf_jit_comp.c | 43 +++++++++++++++++++++++++++++++++++++++++++
-> >  1 file changed, 43 insertions(+)
-> >
-> > diff --git a/arch/x86/net/bpf_jit_comp.c b/arch/x86/net/bpf_jit_comp.c
-> > index 2853e87797a7..a375c1b7bd50 100644
-> > --- a/arch/x86/net/bpf_jit_comp.c
-> > +++ b/arch/x86/net/bpf_jit_comp.c
-> > @@ -722,6 +722,31 @@ static void emit_indirect_jump(u8 **pprog, int bpf_reg, u8 *ip)
-> >  	*pprog = prog;
-> >  }
-> >  
-> > +/*
-> > + * Tasks RCU trampoline nesting, see rcu_tasks_trampoline_enter().
-> > + *
-> > + *   mov r11, QWORD PTR gs:[current_task]
-> > + *   inc/dec DWORD PTR [r11 + offsetof(struct task_struct, rcu_tramp_nesting)]
-> > + *
-> > + * r11 (AUX_REG) is scratch in the trampoline at every point this is emitted.
-> > + */
-> > +static void emit_rcu_tasks_tramp_nesting(u8 **pprog, bool enter)
-> > +{
-> > +#ifdef CONFIG_TASKS_RCU
-> > +	u8 *prog = *pprog;
-> > +
-> > +	/* mov r11, gs:[abs32] */
-> > +	EMIT2(0x65, 0x4C);
-> > +	EMIT3(0x8B, 0x1C, 0x25);
-> > +	EMIT((u32)(unsigned long)&current_task, 4);
-> > +	/* inc/dec dword ptr [r11 + disp32] */
-> > +	EMIT3(0x41, 0xFF, enter ? 0x83 : 0x8B);
-> > +	EMIT(offsetof(struct task_struct, rcu_tramp_nesting), 4);
-> > +
-> > +	*pprog = prog;
-> > +#endif
+On Fri, Sep 11, 2026 at 10:01:01AM -0700, Jakub Kicinski wrote:
+> On Thu, 10 Sep 2026 22:06:59 -0700 Narcisa Vasile wrote:
+> > Add four new test cases that validate coalescing
+> > under increased size limits (BIG TCP):
 > 
-> It's not a lot of overhead, but I feel it will be the death by thousand cuts.
-> rcu_read_lock_trace() in bpf_prog_enter_sleepable is doing the same thing...
-> increamenting a variable inside current.
-> Can they be combined? Like treat current->trc_reader_nesting > 0 as
->  current->rcu_tramp_nesting > 0 ?
-> Or replace one with the other?
-> Two current->foo++ operations look redundant.
+> Looks like SW is struggling to aggregate enough. Do we need longer
+> timeouts perhaps? Note that the debug kernel build includes 
+> kernel/configs/debug.config
 > 
-> bpf trampoline is already quite heavy. I'd like to find ways to reduce
-> its overhead instead of adding more.
+> AI says:
+> 
+> Thanks for adding the BIG TCP coalescing coverage to gro_sw.py. CI is
+> flagging the new subtests as failing on our debug-kernel executor
+> (vmksft-net-drv-dbg, gro-sw-py):
+> 
+>   not ok gro_sw.test.ipv4_big_tcp_data_same
+>   not ok gro_sw.test.ipv4_big_tcp_data_lrg_sml
+>   not ok gro_sw.test.ipv4_big_tcp_tcp_seq
+>   not ok gro_sw.test.ipv4_big_tcp_large_max
+>   (and the ipv6 equivalents)
+> 
+> The rx side never fully coalesces the injected segments before the
+> background receiver gives up and the test's retry loop (6 attempts) is
+> exhausted, e.g.:
+> 
+>   Expected {68952 }, Total 1 packets
+>   Received {20280 [!=68952]40560 [!=0]8112 [!=0]}, Total 3 packets.
 
-Replace rcu_read_lock_trace() with Josef's rcu_tasks_trampoline_enter)?
+I've run the tests in a loop on a slower system running a debug kernel using
+10x the previous flush timeout and I still noticed retries every 10-20
+iterations, so I've settled on 15x higher timeout to account for variability
+across different systems.
 
-But if this means reverting the re-implementation of RCU Tasks Trace in
-terms of SRCU, I will be rather annoyed with myself.  ;-)
+1..4
+ok 1 gro_sw.test.ipv4_big_tcp_data_same
+ok 2 gro_sw.test.ipv4_big_tcp_data_lrg_sml
+ok 3 gro_sw.test.ipv4_big_tcp_tcp_seq
+ok 4 gro_sw.test.ipv4_big_tcp_large_max
+# Totals: pass:4 fail:0 xfail:0 xpass:0 skip:0 error:0
 
-							Thanx, Paul
+1..4
+ok 1 gro_sw.test.ipv6_big_tcp_data_same
+ok 2 gro_sw.test.ipv6_big_tcp_data_lrg_sml
+ok 3 gro_sw.test.ipv6_big_tcp_tcp_seq
+ok 4 gro_sw.test.ipv6_big_tcp_large_max
+# Totals: pass:4 fail:0 xfail:0 xpass:0 skip:0 error:0
+> 
