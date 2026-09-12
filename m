@@ -1,92 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E515133A9F3;
-	Sat, 12 Sep 2026 21:14:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAFA739FCCA;
+	Sat, 12 Sep 2026 21:14:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789247662; cv=none; b=hmxq6G/nJkcKHFHraI1gaVPdrStcxZVDjxOEzfymvv98pfzE+xUqe0F9IzmEdRwe52GHjrfoqcnrnNmg/fXOSJcjRNMPXDPzFLwLNczW0xmiyGNjBvmGMyzayEhzFY9rMmR56L/4BhfJvicq++mjwGPOha/Q2iyKvAWoLEC9F8k=
+	t=1789247668; cv=none; b=UQpdZKH7PJrnurbkov8N6Bxg4vsqf5A9eIgmv+7uEo79Pv9jea97Zbrv+jpsQipFO0bockzKUR3gABZtKTHKY0PcMPTDQQZCND3lHTzGm8cgg1fS0dOeCRHpDvdYpX1NE1yA0NhTfwv9EB+ueDc2A8qyZnKohFV16MAn+Ni2mFA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789247662; c=relaxed/simple;
-	bh=O4Xjrp3WUipsxtIk9jCqAED4vSyEsx3wRpQ/nSkM3QA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HOKY/F0xB0o35ZvDKMIT4XnD0eFd4pVY8d3+Opq102HYaWn49Ocq366Xc1U8lKDSJRA5Z8W1aYp6BinrJV7L4a+CQ7PPMNO9XGynLGdzKwZj1CHamKZSw/YS844DIBqiMTTEz/YsnQpQm1AqDq7aDXVOKKgO/QFALh9wVMbfigQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N53qReGz; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N53qReGz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD9F41F00893;
-	Sat, 12 Sep 2026 21:14:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789247660;
-	bh=/8//k2tt/DAzpaRSDYkVVEJC0drkQwp8Q2YveHgNVO8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=N53qReGzBEacqG0KFHEgGPHjZ40KVMKr9Esf+xzdtWIEqd+J56EQYz5Kox6MjxFEW
-	 zpqxX4EjeLZs1rlUuRn+pq5DbHIeetnzjoS8P9zCNzA3gq6OdYQJZGAMX6bIc7JDoy
-	 4EpZPckk6jYw3bGyGSDoTFtvc58ClGFJe40byLOU9Y/DCP6pd60GIkmH2QRHPrpn5m
-	 Dy+Bwu5u8LBgt5xre1asnF8kI3naoQKogFJTxv/S6VxZMeLairz/honP1TMGxGaebx
-	 Tdz3yOXUVI6GcxqwVXFpyGEGxPkjtAyfs1b/xxoF1BVToIzXIE6TzgG964O9ug2oJf
-	 7hyWIbuk/wNnQ==
-Message-ID: <158e15df-f8a0-43a0-9f92-fd4e64b06b1f@kernel.org>
-Date: Sat, 12 Sep 2026 23:14:14 +0200
+	s=arc-20240116; t=1789247668; c=relaxed/simple;
+	bh=HO87r9mgs61dhwtUbn1a1DZMPkYcXRvxOba7oeZ7ukQ=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=cTH82/Vpf/mdk2tQOCYQoqH/RecEBEHOk9Z5GQJDUXFBGkN1dVt5E+0sIN+P6qXHeDT0znw/sXt8our1f7x+xjlXQUVFV5z3HDmn1//MUcEOgvpuvnOPexbQC2WWTPM53BWgwi0WgjiBb9wvttsxTOK02uhmYuJWcSddkD6QZ4o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.helo=mail.mainlining.org; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.helo=mail.mainlining.org
+Date: Sat, 12 Sep 2026 22:11:56 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: paulmck@kernel.org, "Paul E. McKenney" <paulmck@kernel.org>,
+ David Laight <david.laight.linux@gmail.com>
+CC: frederic@kernel.org, neeraj.upadhyay@kernel.org, boqun@kernel.org,
+ joelagnelf@nvidia.com, rcu@vger.kernel.org,
+ Andrew Morton <akpm@linux-foundation.org>, Arnd Bergmann <arnd@arndb.de>,
+ linux-arch@vger.kernel.org, Vineet Gupta <vgupta@kernel.org>,
+ linux-snps-arc@lists.infradead.org, Russell King <linux@armlinux.org.uk>,
+ linux-arm-kernel@lists.infradead.org, Guo Ren <guoren@kernel.org>,
+ linux-csky@vger.kernel.org, Yoshinori Sato <ysato@users.sourceforge.jp>,
+ Rich Felker <dalias@libc.org>,
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+ linux-sh@vger.kernel.org, Chris Zankel <chris@zankel.net>,
+ Max Filippov <jcmvbkbc@gmail.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/6] lib: Add two-byte cmpxchg emulation function
+In-Reply-To: <17a92c0b-8062-48ae-b5fa-f61a3e0ff24c@paulmck-laptop>
+References: <20260911192540.20983-1-brads@mainlining.org> <20260911192540.20983-2-brads@mainlining.org> <20260911231017.550f8cd1@pumpkin> <d0ef7beb-6952-49cc-9b33-e7542e831ba6@paulmck-laptop> <20260912103047.1b95bb03@pumpkin> <17a92c0b-8062-48ae-b5fa-f61a3e0ff24c@paulmck-laptop>
+Message-ID: <4B2AAF0A-0467-4AC7-B206-29178F653AE8@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/7] Initial Apple Silicon A18 Pro device trees and
- dt-bindings
-To: Yureka Lilian <yureka@cyberchaos.dev>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>,
- Hector Martin <marcan@marcan.st>, Thomas Gleixner <tglx@kernel.org>,
- Radu Rendec <radu@rendec.net>, Wim Van Sebroeck <wim@linux-watchdog.org>,
- Guenter Roeck <linux@roeck-us.net>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-watchdog@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-References: <20260911-apple-a18-pro-initial-devicetrees-v2-0-08d06cf011d4@cyberchaos.dev>
-Content-Language: en-US
-From: Sven Peter <sven@kernel.org>
-In-Reply-To: <20260911-apple-a18-pro-initial-devicetrees-v2-0-08d06cf011d4@cyberchaos.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-
-
-On 9/11/26 18:58, Yureka Lilian wrote:
-> Hi,
+On 12 September 2026 19:58:02 BST, "Paul E. McKenney" <paulmck@kernel.org>
+wrote:
+>On Sat, Sep 12, 2026 at 10:30:47AM +0100, David Laight wrote:
+>> On Fri, 11 Sep 2026 16:09:16 -0700
+>> "Paul E. McKenney" <paulmck@kernel.org> wrote:
+>> 
+>> > On Fri, Sep 11, 2026 at 11:10:17PM +0100, David Laight wrote:
+>> > > On Fri, 11 Sep 2026 19:25:34 +0000
+>> > > Bradley Morgan <brads@mainlining.org> wrote:
+>> > >   
+>> > > > cmpxchg_emu_u8() emulates one-byte cmpxchg() in terms of four-byte
+>> > > > cmpxchg() for the architectures lacking native one-byte atomics.
+>> > > > The same architectures also lack native two-byte cmpxchg(), where
+>> > > > such an operation is not supported and either fails to compile via
+>> > > > BUILD_BUG() or fails to link, because the bad pointer sentinels
+>> > > > these architectures declare are never defined.
+>> > > > 
+>> > > > Add cmpxchg_emu_u16(), the two-byte sibling. It reads the
+>enclosing
+>> > > > word with READ_ONCE(), splices the two target bytes through a
+>union
+>> > > > and loops on cmpxchg() of the full word until the compare
+>succeeds.
+>> > > > Like cmpxchg_emu_u8() it is fully ordered.
+>> > > > 
+>> > > > The Kconfig symbol gating this file is renamed from
+>> > > > ARCH_NEED_CMPXCHG_1_EMU to ARCH_NEED_CMPXCHG_1_2_EMU, as it now
+>> > > > selects both the one-byte and the two-byte emulation.
+>> > > > 
+>> > > > Suggested-by: Paul E. McKenney <paulmck@kernel.org>
+>> > > > Signed-off-by: Bradley Morgan <brads@mainlining.org>
+>> > > > ---
+>> > > >  arch/Kconfig                |  2 +-
+>> > > >  arch/arc/Kconfig            |  2 +-
+>> > > >  arch/arm/Kconfig            |  2 +-
+>> > > >  arch/csky/Kconfig           |  2 +-
+>> > > >  arch/sh/Kconfig             |  2 +-
+>> > > >  arch/xtensa/Kconfig         |  2 +-
+>> > > >  include/linux/cmpxchg-emu.h |  1 +
+>> > > >  lib/Makefile                |  2 +-
+>> > > >  lib/cmpxchg-emu.c           | 35
+>++++++++++++++++++++++++++++++++---
+>> > > >  9 files changed, 40 insertions(+), 10 deletions(-)
+>> > > >   
+>> > > ...  
+>> > > > diff --git a/include/linux/cmpxchg-emu.h
+>b/include/linux/cmpxchg-emu.h
+>> > > > index 998deec67740..fee8171fa05e 100644
+>> > > > --- a/include/linux/cmpxchg-emu.h
+>> > > > +++ b/include/linux/cmpxchg-emu.h
+>> > > > @@ -11,5 +11,6 @@
+>> > > >  #define __LINUX_CMPXCHG_EMU_H
+>> > > >  
+>> > > >  uintptr_t cmpxchg_emu_u8(volatile u8 *p, uintptr_t old, uintptr_t
+>new);
+>> > > > +uintptr_t cmpxchg_emu_u16(volatile u16 *p, uintptr_t old,
+>uintptr_t new);  
+>> > > 
+>> > > Why uintptr_t? Shouldn't it just be u16?
+>> > > (Which probably means the code would better if it was just 'unsigned
+>int')  
+>> > 
+>> > I suspect that Bradley is just following my cmpxchg_emu_u8() example,
+>> > which also returns uintptr_t.
+>> > 
+>> > I remember that *something* broke when I made this be u8, but I cannot
+>> > recall what the problem was.
+>> > 
+>> > Bradley, could you please try making it be u16 as David suggests just
+>to
+>> > see what happens?  Who knows?  Maybe it was a compiler issue that has
+>> > since been fixed.  Or maybe the macros and asms using cmpxchg_emu_u8()
+>> > need that uintptr_t for some reason.
+>> 
+>> I think the uintptr (unsigned long) cast is needed to stop a compile
+>> error when exchanging pointers.
+>> But that is an issue with the #define not the called functions.
+>> 
+>> Possibly changing the #define to have:
+>> 	unsigned long ul_old = (unsigned long)(old);
+>> Or even, with the type check from:
+>> 	unsigned long ul_old = (unsigned long)(0 ? *(ptr) : (old));
+>> (with the same for 'new')
+>> and the removing all the casts where the value are used might be better.
 >
-> This series adds initial device trees and dt-bindings for the A18 Pro
-> (t8140) SoC and the MacBook Neo (the only Mac using this SoC).
-> It only covers a minimal amount of hardware, but is nontheless useful
-> for further development work. The hardware added here has remained
-> largely unchanged from the earlier generation Apple Silicon Macs.
+>It does sound worth a try, especially since we have the uintptr_t version
+>to fall back on should that fail, or in case it somehow makes things
+>more complicated.
 >
-> Similar to the M4 devices, changes to the m1n1 bootloader are required
-> to boot Linux on the MacBook Neo.
-> Also, SMP boot depends on further patches to avoid WFI and WFIT
-> instructions [1][2].
+>But we have been living with uintptr_t for some years with the 8-bit
+>code, so this should be able to be a follow-on patch.
 >
-> Merge strategy:
->
-> Since there are no actual driver changes in this series, we'd prefer to
-> merge the dt-bindings changes through the apple-soc tree once Acked by
-> the respective maintainers.
->
-> Link[1]: https://lore.kernel.org/all/20260804-arm64-idle-param-v3-1-d10f8159062b@cyberchaos.dev/
-> Link[2]: https://lore.kernel.org/all/20260811-idreg-override-wfxt-v1-1-1c71228d0719@cyberchaos.dev/
-> Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
-> ---
-
-there's a single typo in one commit message, otherwise for the entire 
-series:
-
-Reviewed-by: Sven Peter <sven@kernel.org>
-
-
-Sven
-
+>							Thanx, Paul
+I'll try u16 and then add another patch tryna fix the issue.
+--- Thanks!
+https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
