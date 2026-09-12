@@ -1,104 +1,117 @@
-Received: from out28-173.mail.aliyun.com (out28-173.mail.aliyun.com [115.124.28.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF46B37FF60;
-	Sat, 12 Sep 2026 11:57:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.173
+Received: from smtpfb2-g21.free.fr (smtpfb2-g21.free.fr [212.27.42.10])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 26FC23BFAF7;
+	Sat, 12 Sep 2026 11:59:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.27.42.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789214256; cv=none; b=kkV4/j2uJh6iyGiBzUvwG3K3IX//lN1stOCUsfIst4XdPxY/KerzI1b5mBXwvCYS0OB134Egi1M2v/Uz2Qv3j10psoltjdV3JVh3bOawor+xA9cEWu66luu1AG4B8XZZcEvH3OHsSzYGkMWX2uxfLovILgR5sZGKyd/kMpfanxw=
+	t=1789214383; cv=none; b=hEasJhjos1573PwDPczV4MM6Gq1MYXLYd8FvUbxWBAfES0et1XUtzOhwjvio8bBRLcVa4EcS41ODxuTo5fmM7QqfUjZSKYyOT4e9wD+110WsEwoxsJfJWIPEkjz6oAgDnqYa6rXTitzqCOsD4F+zTq5CMblVs3mdj3mztUXnCNQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789214256; c=relaxed/simple;
-	bh=oxnaw/S07fLZLNhfUCmG8Jdfft9O1LmkILUr998ltG0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YWCrAow+l6qEl+s185Tf4Dubli/q82VRhB/9l3NV/uyPvmypccfEsHwikRhHKy6MHpeAKJCeCqJQoSeoIQRW9CYKW9djbMod22hJCa8sHXdKalQTSvgOQ+kpM8fn3ziPyMrElcp0PVp0Fl/5LApwXpFiAebknJzBXHVZInsqBLU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=dwoFo4OL; arc=none smtp.client-ip=115.124.28.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="dwoFo4OL"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1789214244; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=1dmRRpmX7RaifRKwzqGF3Fys4RZt3UY5YzhrH7tJyOg=;
-	b=dwoFo4OL+itgG3gQroTAdkNsgt9ihk5c8IjvRG8PKZFgNsWa1noDldiffr4GVqLd/kvX1zX/AKkHVi/Z/jT0TtNB1WKZ5oiNMkQuHWP3aMeZ06bxsGSddfm5W5rN3Mo6ozQZVBpM/GhMzpScS250/E352Uc7FMLDimQA7xdDj1Y=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.1221488|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.00565148-0.00223755-0.992111;FP=12569559143964794011|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037071049;MF=liuc63@xiaopeng.com;NM=1;PH=DS;RN=12;RT=12;SR=0;TI=SMTPD_---.jC.MeCA_1789214242;
-Received: from localhost(mailfrom:liuc63@xiaopeng.com fp:SMTPD_---.jC.MeCA_1789214242 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Sat, 12 Sep 2026 19:57:23 +0800
-From: Liu Chao <liuc63@xiaopeng.com>
-To: David Heidelberg <david@ixit.cz>
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Dan Carpenter <dan.carpenter@linaro.org>,
-	oe-linux-nfc@lists.linux.dev,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Liu Chao <liuc63@xiaopeng.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net] nfc: hci: add bounds checking in nfc_hci_create_pipe()
-Date: Sat, 12 Sep 2026 19:57:20 +0800
-Message-ID: <20260912115720.530715-1-liuc63@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
+	s=arc-20240116; t=1789214383; c=relaxed/simple;
+	bh=G6mmFANjJXAB8RQFP1tL/aszZQhBPwFQSG9j5/5FQWk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Sy01wun/Rs0sXrSEA+CJ6IcASXf0R7a21q9o+NpU6c1eYcXYgKhmMmAKPDXQ9eWl/YvIOjH5Gila9NbmAdEjoKqwPQe396ebyF7B14GvqqMjdyaYXnvvUbDFvU22p233lTgPwdfw8ee/24/cH2wfTcpGdk8zupXU8EUJmsZ0LTM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=droneaud.fr; spf=pass smtp.mailfrom=droneaud.fr; arc=none smtp.client-ip=212.27.42.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=droneaud.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=droneaud.fr
+Received: from smtp5-g21.free.fr (smtp5-g21.free.fr [212.27.42.5])
+	by smtpfb2-g21.free.fr (Postfix) with ESMTP id 707924281F2;
+	Sat, 12 Sep 2026 13:51:15 +0200 (CEST)
+Received: from [IPV6:2a01:e0a:125c:c670:72c:339f:43cb:52bb] (unknown [IPv6:2a01:e0a:125c:c670:72c:339f:43cb:52bb])
+	(Authenticated sender: ydroneaud@free.fr)
+	by smtp5-g21.free.fr (Postfix) with ESMTPSA id E93ED6012F;
+	Sat, 12 Sep 2026 13:50:01 +0200 (CEST)
+Message-ID: <4e447b33-574e-425e-bc92-2b728128cf18@droneaud.fr>
+Date: Sat, 12 Sep 2026 13:50:00 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 17/23] modpost: perform srcversion hashing in parallel
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
+ Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
+ <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ Masahiro Yamada <masahiroy@kernel.org>, Alexey Gladkov <legion@kernel.org>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+ Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Ard Biesheuvel <ardb@kernel.org>,
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+ Josh Poimboeuf <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot
+ <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>
+Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
+ llvm@lists.linux.dev, linux-riscv@lists.infradead.org,
+ linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org,
+ linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>
+References: <20260908-build-speedup-v1-0-5dc1ac01672d@kernel.org>
+ <20260908-build-speedup-v1-17-5dc1ac01672d@kernel.org>
+Content-Language: fr-FR, en-US, en-GB
+From: Yann Droneaud <yann@droneaud.fr>
+In-Reply-To: <20260908-build-speedup-v1-17-5dc1ac01672d@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-The "pipe" value comes from the controller ADM_CREATE_PIPE response
-and can be anything in the 0-255 range, while hdev->pipes[] only has
-NFC_HCI_MAX_PIPES (128) entries.  A response carrying a pipe id above
-127 makes the caller, nfc_hci_connect_gate(), write past the end of
-hdev->pipes[].
+Hi,
 
-The response length is also not validated before the cast to struct
-hci_create_pipe_resp, so a short response leads to reading past the
-end of the received data.
+Le 08/09/2026 à 22:55, Lorenzo Stoakes (ARM) a écrit :
+> modpost does a lot of single-threaded work hashing files from each object's
+> .cmd file.
+>
+> This makes the build slower than it needs to be, so do this work in
+> parallel.
 
-The notification path in nfc_hci_cmd_received() already validates both
-the length and the pipe id for the very same structure; do the same
-for the command response path.  Set *result so that the caller does
-not mistake a rejected pipe for success, which is why this differs
-slightly from the NCI side fix, commit 110b43ef0534 ("NFC: nci: Add
-bounds checking in nci_hci_create_pipe()").
 
-Fixes: 118278f20aa8 ("NFC: hci: Add pipes table to reference them with a tuple {gate, host}")
-Cc: stable@vger.kernel.org
-Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
----
- net/nfc/hci/command.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+If you're going parallel, it would be nicer to do it under make's 
+jobserver supervision.
 
-diff --git a/net/nfc/hci/command.c b/net/nfc/hci/command.c
-index af6bacb3b..9c8bcb98b 100644
---- a/net/nfc/hci/command.c
-+++ b/net/nfc/hci/command.c
-@@ -225,10 +225,19 @@ static u8 nfc_hci_create_pipe(struct nfc_hci_dev *hdev, u8 dest_host,
- 	if (*result < 0)
- 		return NFC_HCI_INVALID_PIPE;
- 
-+	if (skb->len < sizeof(*resp)) {
-+		kfree_skb(skb);
-+		*result = -EPROTO;
-+		return NFC_HCI_INVALID_PIPE;
-+	}
- 	resp = (struct hci_create_pipe_resp *)skb->data;
- 	pipe = resp->pipe;
- 	kfree_skb(skb);
- 
-+	if (pipe >= NFC_HCI_MAX_PIPES) {
-+		*result = -EINVAL;
-+		return NFC_HCI_INVALID_PIPE;
-+	}
- 	pr_debug("pipe created=%d\n", pipe);
- 
- 	return pipe;
 
-base-commit: e6b6078ea1731b05b3b552497b3bce4bf8b014ae
--- 
-2.50.1
+> This is egregious for allmodconfig builds - for instance x86-64 can end up
+> opening 200,000 files individually and hashing them all serially.
+>
+> Parallelise this operation by maintaining a thread pool for the hashing
+> work.
+>
+> Combined with the per-file hashing commit this cuts modpost's run time
+> nearly in half for an allmodconfig build.
+>
+> Module.symvers and every *.mod.S are byte for byte the same.
+>
+> modpost is on the serial tail of every allmodconfig build, however
+> defconfig does not set CONFIG_MODULE_SRCVERSION_ALL and is unchanged.
+>
+> Whole build, 128-thread Threadripper 9980X, best of N runs:
+>
+>                                           before   after     delta
+>                                           -------------------------------
+>    x86 allmodconfig, touch mm/vma.c, gcc    33.4s    30.2s     -3.2s (-10%)
+>    x86 allmodconfig, touch mm/vma.c, clang  31.1s    28.1s     -3.0s (-10%)
+>
+> Assisted-by: LLM
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> ---
+>   scripts/mod/Makefile     |  1 +
+>   scripts/mod/modpost.c    | 72 ++++++++++++++++++++++++++++++++++++++++++++++--
+>   scripts/mod/modpost.h    |  2 ++
+>   scripts/mod/sumversion.c |  3 +-
+>   4 files changed, 74 insertions(+), 4 deletions(-)
+>
+
+Regards.
+
 
