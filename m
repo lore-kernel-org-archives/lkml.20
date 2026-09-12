@@ -1,134 +1,164 @@
-Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
+Received: from mail-oo2-f43.google.com (mail-oo2-f43.google.com [74.125.231.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A9032C08D0
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 19:07:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.171
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789240073; cv=pass; b=TZS0PFPfefqsBunKwzfwomUay2F0I9b5XOf3kgWh+XobvZzbARP7f5AurBRRTsBCBDlzvj+jmR+7AxpxYAQjfbeCm4zJC4wj11eF2fzPTorhzD1caJwKggHHJWMTsA6iLzNVJ6Gf+ElS/uDYutXsUAX0tGlroC301DwDgDsOVlA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789240073; c=relaxed/simple;
-	bh=vBGRoQcJXlxAMtSg/Ev+xruoEjdajUUrjRvI4ba6Pgw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=DWD205Y5aCrimH/5v1Uk8V6WBEUZ/2DHT7fHzXDg7ExbFKiL4AvwzQwtRPqtQLbvDMeM8ZJVT2sjzqJV3XotN40ItPZECKvUbPIDe/AzWwUGWLEUVCAztzY6ntwa9j4JnIBkYN/Aw4s78p1Jv2OEoIE0+wlOhzLecAcfvFOQgb0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JkapOxgQ; arc=pass smtp.client-ip=209.85.128.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 972513AAF7B
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 19:09:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.171
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789240173; cv=none; b=GnGqkwGHvOdfjWtsXtyEX1czLUZfyBEHno8RVar/QRkymjtfxtPRkxp8VdLb1CSuL1LR3pRO1w9ZQV4BEXTN1WvYmGdrezgMZBjV6TvhGGhvdFb4WIGEO1cSURxjuF2MvIUg8H567CEUgpj2l/TTVK12tkvLA5Ogc4uamvvG9n0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789240173; c=relaxed/simple;
+	bh=1GCGviX25TYqPRHmTXuQNh5HBCz3fk4sZ7dXrthU7dQ=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
+	 References:In-Reply-To; b=ZkaRAS+fMtxkLJIW7YnbnmJR4Th8H3JecvTL2MUiKyLy2ZR4p/zMTCMM8CkdzTNNqcFRuKQswOWoDxQ4/Bp4T6EPCEwSDp76YZfgrOARI/r2cC8L0/etHolSGEGPZxL+t2dm14HYKsAb5V/Xbc9d/KWlRTa01+izoG7Th/mCF30=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FhZt8NDj; arc=none smtp.client-ip=74.125.231.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JkapOxgQ"
-Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-87ffa98d4a9so18064717b3.3
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 12:07:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789240070; cv=none;
-        d=google.com; s=arc-20260327;
-        b=iQgA3WyceOEclCotNFIWbnRFd50knUO939u2GMPEMg4EXRuIVGNGAAviONoIMGnNhW
-         k6HZ16ijVmlJcYdgTCT7EAH5+0UBfUQZa/dMYAKi7K3NRc+4EfhSSemOV15qnbPwR4Jk
-         BqCF0l+TyXO63Kfjdb289SMiIzyEWOW9abcwWz8Li/VMt6+usYe7zvXkceQXtam40BZE
-         Obqe4Bez32JCBJIftGBX9RdEkM5pIdvNEvytadx034nJz0RH/qDvisOqwBwyw9IHacV3
-         /rAP7HBhdyX7tapkJa8d1/29ttX+/fYqaiR+DJ60BOPYd/gCv/Mx57WOUp4WVOzhbxtk
-         38xQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=frZxPsvBVeqqB8BxzOhZbWb1UNk2/xKGtRE4rwWtWZ0=;
-        fh=oruRdUAFKMFIoVJJ5g71ua1AuYMKHc/KmQWej0Zrs10=;
-        b=OYH6udMYWv9/i1rV9uIukBL6t22Ylp8wHFTebU6P8ESe9Od1LIUqhOYLw0ORCioiZn
-         bKwdlvSUxaf0ipb/mx0fqXbd7iPnLAgKIZByKesdcMIW08zIKiBM718cAnwdDxoJqjyn
-         1nYuTC4BNbQUGjhNINBjJ4zdQ8uqI8A43un2yKTgdkx4b8MqHSY5kOnLnojgsMeiSSMv
-         KtPkrB7FxIFnBnwykuAwExBf4YnfYY70onUAUtJhybY5SDfZ6QHUfwo8Z8li+QG/ZSxf
-         Sfrl17aWEbbbph5S25p3YdeiUTFpqx1WvoDb6z6RGvbu4jW6dpk588zokwEtR8UOhCsC
-         pozA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FhZt8NDj"
+Received: by mail-oo2-f43.google.com with SMTP id 46e09a7af769-7f4f0cfb29cso487260a34.1
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 12:09:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789240070; x=1789844870; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=frZxPsvBVeqqB8BxzOhZbWb1UNk2/xKGtRE4rwWtWZ0=;
-        b=JkapOxgQXv5ET8Qb94XeyLO5pdOFXllOR0Q2jHzDfQFmE5TApts78X36dzgsP4lV2F
-         AJpPEUcDjvOL9fMptDgklbypBepaL7YvWJbxaU730rnc/MoZzNy6Mhu2h+zxGE+CJc5M
-         k2hgcKXkNs6qxCDziHeQObBXqeI0kQpb+nlsaaUMYz0ugBeDOBKsSZK1/hu3sLnnrDSq
-         hf6LcnHprhEv4+71lL8LrKSogYSjPi/n9si1jW/+mhYjriYOk1P037UAE/S8G2X5R7av
-         pmPULYCr5onjsvJKFLbXL0cmoqgxlAq4gzR6aQ/7jJhtlhxPZVHM9fSYbghe748bl4rL
-         qYZg==
+        d=gmail.com; s=20251104; t=1789240170; x=1789844970; darn=vger.kernel.org;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=freJdhpvvc4lgT92WOat9fEScu2yTzyuoW03t35i2eQ=;
+        b=FhZt8NDjXrdi6tISEa9SYo4gqM1/jGO2MvoWBBC6wDz2S6N9F47dAod3GVVuWm82Kj
+         T5xiOa3ZaqSAhvZJf9Qk54dg3UNSnAECVZE1Zx1M53y+EQqxvTC3jNUBuYxLjpdCTJKW
+         zCbzsS6bgAlpAuubvK+sU0l7m7bRB9v7yauhEf4W75YPa9kkCHUuXMKs/Ib2DMA/zexW
+         pk7TsrTTegv8Rubpb1MS7ihp3DLh16UnF92u4oA5OxXcF56NulYd8TLKRdviQy23eS9N
+         EoAG6QSnevuVPi4Jdc52AoTjgcdr2oBDQ9p5zUm1pnK++oUpMrLUJRQxjcAI6Tu89+jV
+         wsug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789240070; x=1789844870;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1789240170; x=1789844970;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=frZxPsvBVeqqB8BxzOhZbWb1UNk2/xKGtRE4rwWtWZ0=;
-        b=NniKk1PMeCUmhTrLF5+6xGuUbZ6c6bgVCr9l9j4X3QCYLEXEN55GwqQC0AHt3IAA+I
-         pt8dvQrLEmgQFdmIKe/KgkXaSxjf0siVIUQvK5uyekw4EJpKgBFo+4k+3htSP5iRuqnt
-         OW+c8aT5yZcRt0WPq9nQ7vtRmOOONDYVoIg/352MU1Co7Lm5jS2e6DOUYdClqj/knluP
-         HIrYv9JGBL7S9V1O/JFWBe89u92yEyDzBbgvWB8RR6BVb7DAeOgdjutZ6jiSLQT0EEOv
-         xlY8zx+/Om2EeUCmKdrDAb9aTVqb5sohaufNco6MqOsLVS8pUvSLt2MqJ0XLuHIbyNrF
-         iLWg==
-X-Forwarded-Encrypted: i=1; AKwUvBy3mFexXxJZ4hVlS0IASdN4vI92Ua18DySP03Awb8wdAheCI4bu5A5AiWhbxStbUksCjAWsT0aZyQySdIA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kToCuaDgMlXLy9DFfKdTUCMJl0PBu2TCNv/mY1s+yriFvcBgqT
-	M7t3UK6o+zYvN83t/iOcDDu5Hws6+50MLxJ6D2iIGhbMoHAPSPaD3ytmJsZDO5mJE6mdq8WE1oO
-	27RMiqB5HS6QWPkAX3a09xgLXYw+gWhg=
-X-Gm-Gg: AYBFou1wtE3dwyStDq/iAbwY0QA+SYOmSvXR1PKDkRbrUXPKKr4WBqFKk+3b3YnbLJB
-	3Baw8tIMO+iDljJkVZyO0GRhb++4MybzKbv0deJXBjlFpmXWnDkfu5xTRDxdMBFhKolMfcwennJ
-	yoYjgg6727oSf7ne33LRmYhKOaevmsCVPtFMZMNzsanMiL3wyK/tF+0y7HPCNk6U0Zcu+xXuPMY
-	NslqkEDKBFO00tAtJbIXrsAN+fGfzKZyS0FpX1G9/pMJQm+cUn6JEdHtw9ZysAL31mdVNTfZDyd
-	q5+ACkKmvRYLDq+hfHF63ZMwH7kSQ/Mz+G/LXLFvEtaFujENeZM/
-X-Received: by 2002:a05:690c:a790:b0:873:5bb2:6c0a with SMTP id
- 00721157ae682-884b6f29b6bmr21177167b3.52.1789240070580; Sat, 12 Sep 2026
- 12:07:50 -0700 (PDT)
+        bh=freJdhpvvc4lgT92WOat9fEScu2yTzyuoW03t35i2eQ=;
+        b=espnbL9a6Cghngk60ioeHainWYpENYLwlDWp4d136IOPbsQOjQ1YNFodlyGf+oRpI0
+         ytcMOTb8IZ8+0Vwpu6RCK0Oafky7XDWI8mgjH/9kJJ5lGUtGMr833z16pUapOQkLDZsz
+         wzmYO6DvNuY3E0ZxuK3JQOZN7ZhWepxE7Pb3aEr1M+6eu4O4eblwiBPT5HURFT8FqIpU
+         5kj1fOjgvo9NxgCmJygfmgOWb9sUdVCFth4k1XAEfpf9LlNj5arR+abD+WU/gUtuurrn
+         X0sNqVfQ3Dkjlcf1bH60Vh3Kdauyv1ZRuxLDvUbqddC3Ml3iH5a9jzA0LD7a4PuiM0CL
+         2ing==
+X-Forwarded-Encrypted: i=1; AKwUvBxgcSLX3Q2DU25iN8Q+afnTSxCeAQyj66+tFo5+1x8uq7/TPTJDkIBZcJh+xmbSsxc+q5HSksNIXOhb19Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++mFtxOpFjeMm46QCm4L/1mMZwrD1QIflHKy5WmBAoGZEq2l91J/
+	gYNCuGLFNIetsiH4F1IK+82PTbJH0HvXMU14lbmY91VtF9F0shN+3Dvd
+X-Gm-Gg: AYBFou2kUBAFZmPDcr+PZlY3l7oWVi2QSoA74Ac0oLc9oXtF+gKt5sOLFh2v4jN/rY6
+	79KFcx/pAeZ6ie9895n11lVfsp2KV5Jw8J1hvlnIV+3pRvXSZtDq328/57b+tNnqB2DVaXw7Dd2
+	D31vOm1mrmBDOxpQGH/nEbV5qo90sh5zYXNQWPUF3N1BzycPqA5ya/ERFh1UGsLhgfg+lwQHtF9
+	y418l2vCwCV/XiqSeQ0KDH1gnCX4fHRMZ3/VPNd+CNpRDnjT1UJeuGa71dHV5KZd9/5WvMszweu
+	hF9Scwdz/KXUei1z98oCEVFq+StCpRTtOefQoD+kxrm0/W6kBTx6I7UP4NKvDdNf9lc5ILuBHgP
+	8SMkUPbTLQd/fpYrcHAfqqgAdIFI39VpeyWH4aCsGN6KHWcWAhSxD2o9K2I+ckE2lw2QnqDDaiO
+	OShImIvj08VDgb+qRaM9jMawhJ0smw44P+yePUiSCiWZOZijC8kUYNgzzWNYj/FHpycEiV+AhHQ
+	8VN55QuS5k8T4rgDsFppM6MBiX6zmrbQla9LZEPT+6jygIMD3KKhEIqvcKzJZ9Cp4+E+WQeJlYz
+	9g==
+X-Received: by 2002:a05:6830:82c3:b0:7f6:ec23:7956 with SMTP id 46e09a7af769-803fe1bd730mr16167290a34.2.1789240170442;
+        Sat, 12 Sep 2026 12:09:30 -0700 (PDT)
+Received: from localhost ([2a03:2880:10ff:4e::])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-805c4808b18sm2163754a34.5.2026.09.12.12.09.28
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 12 Sep 2026 12:09:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260906061755.5103-1-sumeet4linux@gmail.com> <20260906061755.5103-5-sumeet4linux@gmail.com>
- <98a0dbf7-9724-4ccc-8810-645dfe715656@kernel.org>
-In-Reply-To: <98a0dbf7-9724-4ccc-8810-645dfe715656@kernel.org>
-From: Sumeet Pawnikar <sumeet4linux@gmail.com>
-Date: Sun, 13 Sep 2026 00:37:38 +0530
-X-Gm-Features: AcwNN1XqTP8GoNHaMkR4dokovXZ0UiUGTDkYaF2EyUFt2qLbm2siHwKKSL9BVhQ
-Message-ID: <CAJ9orWStxJLN-0Dk2LqmyxEagC_nH-veS7wWrN_kXvb6WEUWiw@mail.gmail.com>
-Subject: Re: [PATCH 4/5] devfreq: Use %pe to print error pointers symbolically
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: rafael@kernel.org, amit.kachhap@gmail.com, daniel.lezcano@kernel.org, 
-	thara.gopinath@gmail.com, talel@amazon.com, hayashi.kunihiko@socionext.com, 
-	mhiramat@kernel.org, mmayer@broadcom.com, viresh.kumar@linaro.org, 
-	sumitg@nvidia.com, peter.griffin@linaro.org, myungjoo.ham@samsung.com, 
-	kyungmin.park@samsung.com, cw00.choi@samsung.com, Frank.Li@nxp.com, 
-	s.hauer@pengutronix.de, matthias.bgg@gmail.com, 
-	angelogioacchino.delregno@collabora.com, sven@kernel.org, j@jannau.net, 
-	marcan@marcan.st, casey.connolly@linaro.org, sre@kernel.org, wens@kernel.org, 
-	t.schramm@manjaro.org, bcm-kernel-feedback-list@broadcom.com, 
-	linux-samsung-soc@vger.kernel.org, kernel@pengutronix.de, imx@lists.linux.dev, 
-	linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 12 Sep 2026 12:09:28 -0700
+Message-Id: <DLDKPDWY833W.1QJX9MTD6SZG5@gmail.com>
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+To: "Vineet Gupta" <vineet.gupta@linux.dev>, <ast@kernel.org>,
+ <daniel@iogearbox.net>, <andrii@kernel.org>, <eddyz87@gmail.com>,
+ <memxor@gmail.com>
+Cc: <martin.lau@linux.dev>, <song@kernel.org>, <yonghong.song@linux.dev>,
+ <jolsa@kernel.org>, <emil@etsalapatis.com>, <ihor.solodrai@linux.dev>,
+ <john.fastabend@gmail.com>, <shuah@kernel.org>, <bpf@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>
+Subject: Re: [PATCH bpf-next v2 07/13] bpf: track low-32 scalar equality
+ across sign-extending movs
+X-Mailer: aerc
+References: <20260910164635.459558-1-vineet.gupta@linux.dev>
+ <20260910164635.459558-8-vineet.gupta@linux.dev>
+In-Reply-To: <20260910164635.459558-8-vineet.gupta@linux.dev>
 
-On Sun, Sep 6, 2026 at 12:00=E2=80=AFPM Krzysztof Kozlowski <krzk@kernel.or=
-g> wrote:
+On Thu Sep 10, 2026 at 9:46 AM PDT, Vineet Gupta wrote:
+> The zero-extending mov records that dst shares src's low 32 bits. A 32-bi=
+t
+> sign extension shares them too -- it keeps the low half and fills the hig=
+h
+> half from bit 31 -- so the same link applies, with a different rule for
+> rebuilding the high bits:
 >
-> On 06/09/2026 08:17, Sumeet Pawnikar wrote:
-> >               ret =3D -EPROBE_DEFER;
-> > -             dev_err(dev, "failed to add devfreq device: %ld\n",
-> > -                     PTR_ERR(drv->devfreq));
-> > +             dev_err(dev, "failed to add devfreq device: %pe\n",
-> > +                     drv->devfreq);
+>   r6 =3D ...              /* full 64-bit unknown */
+>   r7 =3D (s32)r6          /* 32-bit sign-extending mov */
+>   if w6 =3D=3D -1 goto ...  /* taken: r6's low 32 bits are all ones */
+>   ...                   /* r7 is -1, not deduced today */
 >
-> Instead you should use dev_err_probe and drop the last argument.
+> Add SUBREG_SEXT alongside SUBREG_ZEXT, and sext_32_to_64() alongside
+> zext_32_to_64() to drive the reconstruction. Both work from the base's
+> 32-bit range, which is what a 32-bit compare narrows.
+> coerce_reg_to_size_sx() cannot serve here: it reads smin/smax, which
+> straddle after such a compare and collapse to the full field range.
 >
-Sure. I'll do this suggested usage of dev_err_probe in different patch
-series for *_probe() functions update.
+> tnum_sext() is the counterpart to tnum_cast(). Unlike a tnum_range() over
+> the new bounds it keeps the known low bits.
+>
+> The enum has room for the third value, so bpf_reg_state stays 80 bytes.
+>
+> Unlike the zero-extending arm, a self-mov can form a link here, but only
+> when src is already linked: r0 =3D (s32)r0 is how a sign-extended int ret=
+urn
+> lands. On an unlinked register there is nothing to link to, and minting a=
+n
+> id would leave the register describing itself.
+>
+> Signed-off-by: Vineet Gupta <vineet.gupta@linux.dev>
+> ---
+> v2: was RFC 5/6.
+>  - no forward declaration (Eduard)
+>  - src renamed known_reg (Eduard)
+>  - sext_32_to_64() and tnum_sext() rather than reusing
+>    coerce_reg_to_size_sx(); the sync path needs the base's 32-bit range,
+>    see the cover letter
+>  - tnum_sext() keeps the known low bits a tnum_range() would drop (Eduard=
+)
+>  - a self-mov links only when src already has an id, narrower than the RF=
+C
+>
+>  include/linux/bpf_verifier.h |  1 +
+>  include/linux/tnum.h         |  3 +++
+>  kernel/bpf/log.c             |  2 ++
+>  kernel/bpf/tnum.c            | 15 ++++++++++++
+>  kernel/bpf/verifier.c        | 47 +++++++++++++++++++++++++++++++++---
+>  5 files changed, 65 insertions(+), 3 deletions(-)
+>
+> diff --git a/include/linux/bpf_verifier.h b/include/linux/bpf_verifier.h
+> index f1b01059c5da..920c9490ecc8 100644
+> --- a/include/linux/bpf_verifier.h
+> +++ b/include/linux/bpf_verifier.h
+> @@ -53,6 +53,7 @@ enum bpf_add_const {
+>  enum bpf_subreg {
+>  	SUBREG_NONE =3D 0,
+>  	SUBREG_ZEXT,		/* high bits are zero (32-bit zero-extending mov) */
+> +	SUBREG_SEXT,		/* high bits repeat bit 31 (32-bit sign-extending mov) */
 
-Planning to post V2 for this original series to use %pe to print the
-error pointers symbolically, reverting the change for dev_err under
-*_porbe() function.
+If my earlier suggestion to model SUBREG_ZEXT as add_const32 with delta =3D=
+=3D 0
+works, then sign extension could be:
 
-Thanks,
-Sumeet.
+enum bpf_add_const {
+       ADD_CONST_NONE =3D 0,
+       ADD_CONST_32,    /* delta was added with a 32-bit ALU op */ /* works=
+ as ZERO_EXTEND when delta =3D=3D 0 */
+       ADD_CONST_64,    /* ... with a 64-bit ALU op */
+       SIGN_EXTEND_32, 	/* delta has to be =3D=3D 0 */
+};
 
->
-> Best regards,
-> Krzysztof
+and if we really want to we can track movsx 8 and 16 too.
+Which might be an overkill.
+
