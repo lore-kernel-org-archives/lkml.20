@@ -1,129 +1,143 @@
-Received: from lamorak.hansenpartnership.com (lamorak.hansenpartnership.com [198.37.111.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51BE1299920;
-	Sat, 12 Sep 2026 12:10:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.37.111.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A86A447A86E;
+	Sat, 12 Sep 2026 12:16:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789215010; cv=none; b=R2AfaN88hX6rdzYvIY2i7ZyF8H13pbUI6WkIsGxdzBD+D82nifR/j3j+xPvRvkAPcsx9oPGd5gJWur6H5Ac7PKhj4cxYpqKvFbAfihKtJGa+5AUmAmncJE1jOR5BK1lTisqxEu50zPWNBUCUFyCx7Jflwaw39VTU+3AGtowgI7g=
+	t=1789215408; cv=none; b=kHDsb9wBwCyCdb4lnwAm0nIV36Q9uG8zc0D/8XohwVz5MPgW5ot483BeIgqXkqqeacMGK/ji0INI0sPhQFPzEe5NShOwglGFA7dEfGpe8WmpOQ+M47+uV9eY6riyq0wIaKHnYEgB8EtlRXRbP1dQfEVy0AvO1FP9GYJjoQroojY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789215010; c=relaxed/simple;
-	bh=/k4GRfwmwZKzSvKRwfRpdBLr6CRpzHPGhwfQMUhuJh8=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=UuTOX7mvtnYQwN/tkvm9EeeHIAO1rsUtOlCAkAtadlWzM+/2U+goM6x+V6dh8K5pX+ySo7dpPP1wPjyN2GD8oZ9OJoxFhwP1zj0wnwTrrPLDlX2IFcHe95tI9adQBxbVik49K5CjK6MdpoPxenfdTrRJiSCjzahBq22lMwws/K4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=HansenPartnership.com; spf=pass smtp.mailfrom=HansenPartnership.com; dkim=pass (1024-bit key) header.d=hansenpartnership.com header.i=@hansenpartnership.com header.b=oZM71hHx; arc=none smtp.client-ip=198.37.111.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=HansenPartnership.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=HansenPartnership.com
+	s=arc-20240116; t=1789215408; c=relaxed/simple;
+	bh=QZoGsKopM7ewTBuQY2NBlXw66yV6I/mIQgzwpksTyvo=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=cZXsGw+kDGy8BM0ODY8xFhhEp2mbQKQt2Bwb9DXr6hsX9WHFSqZ2UVlwBBkp/SFOoIaJMilTc8NDmGOEWu+YDHprMYUR/iLpfi14XoAxqLdrfIJ0myNOqoA2P9rug2E/n7qZGUjj/vzuTJwVJNkYTyOnqYjp3xumi05h9Fh2yAs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=f7TAKEKV; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=ce4SFl1e; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=LeQ1zLnc; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=WCadrL9Z; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=hansenpartnership.com header.i=@hansenpartnership.com header.b="oZM71hHx"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-	d=hansenpartnership.com; s=20151216; t=1789215006;
-	bh=/k4GRfwmwZKzSvKRwfRpdBLr6CRpzHPGhwfQMUhuJh8=;
-	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:From;
-	b=oZM71hHxMpR9t+SuGo5js5DAyZlRbQAFVHKU4+7Zb+EqftYdEo0QJgdiRvK/I3YLX
-	 iGTUu+ySHx3yK/Y6KXn1EgbBfyjfuy3DgUKYgonreQK3g7FtI/rWtk7VLNPQJr2H/U
-	 HM16lMnR9WUccxFiyQ7zieUDuecpvOybOD11HMnM=
-Received: from lingrow.int.hansenpartnership.com (unknown [IPv6:2601:5c4:4300:d341::8309])
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="f7TAKEKV";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ce4SFl1e";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="LeQ1zLnc";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="WCadrL9Z"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by lamorak.hansenpartnership.com (Postfix) with ESMTPSA id 1990A1C00A3;
-	Sat, 12 Sep 2026 08:10:06 -0400 (EDT)
-Message-ID: <bdcff6a168e6d4b8e9c9524bd598281817a7df2c.camel@HansenPartnership.com>
-Subject: Re: [PATCH RFC] drivers/rufs: add Rust UFS host controller driver
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Andreas Hindborg <a.hindborg@kernel.org>, Greg KH
-	 <gregkh@linuxfoundation.org>, jaemyung.lee@samsung.com
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo
-	 <gary@garyguo.net>, =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron	
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Alice Ryhl	
- <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo Krummrich	
- <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, Tamir
- Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>,
- Onur =?ISO-8859-1?Q?=D6zkan?=	 <work@onurozkan.dev>,
- linux-kernel@vger.kernel.org, 	rust-for-linux@vger.kernel.org,
- linux-block@vger.kernel.org, 	linux-scsi@vger.kernel.org,
- linux-arm-msm@vger.kernel.org
-Date: Sat, 12 Sep 2026 08:10:05 -0400
-In-Reply-To: <87mrtmvioe.fsf@kernel.org>
-References: <20260912-rufs-private-v1-1-716db733e655@samsung.com>
-	 <YKq4TcQM0v2dXF4wTHEvZKwASII6PDd_R7_UiHWe3NRnR4JsrC_ZS-x6jA_Kl7P6ONehU0REHYk7WaLz8Xv5gA==@protonmail.internalid>
-	 <2026091124-treason-trickily-bc52@gregkh> <87mrtmvioe.fsf@kernel.org>
-Autocrypt: addr=James.Bottomley@HansenPartnership.com;
- keydata=mQENBE58FlABCADPM714lRLxGmba4JFjkocqpj1/6/Cx+IXezcS22azZetzCXDpm2MfNE
- lecY3qkFjfnoffQiw5rrOO0/oRSATOh8+2fmJ6el7naRbDuh+i8lVESfdlkoqX57H5R8h/UTIp6gn
- 1mpNlxjQv6QSZbl551zQ1nmkSVRbA5TbEp4br5GZeJ58esmYDCBwxuFTsSsdzbOBNthLcudWpJZHU
- RfMc0ew24By1nldL9F37AktNcCipKpC2U0NtGlJjYPNSVXrCd1izxKmO7te7BLP+7B4DNj1VRnaf8
- X9+VIApCi/l4Kdx+ZR3aLTqSuNsIMmXUJ3T8JRl+ag7kby/KBp+0OpotABEBAAG0N0phbWVzIEJvd
- HRvbWxleSA8SmFtZXMuQm90dG9tbGV5QEhhbnNlblBhcnRuZXJzaGlwLmNvbT6JAVgEEwEIAEICGw
- MGCwkIBwMCBhUIAgkKCwQWAgMBAh4BAheAAhkBFiEE1WBuc8i0YnG+rZrfgUrkfCFIVNYFAml2ZBI
- FCS3GUMIACgkQgUrkfCFIVNZKjQf/deRzlXZClKxTC/Ee2yEPqqS7mm/INUA49KdQQ5oIhSxkUBy0
- 9J4qjMIo5F8ZFkFTqikBqeL35LKu7O7rn8WETfX8Bxvos3HUsl3jHo34DES4MUFIpoQPgtiLRGwLb
- K0cVCAArR2u2qj4ABmTRrs1I1kvdjEw6gatOuXtEe/j5O2fvfzTq9GBr0Q3n2IAsFXi4hLlx6VPE8
- tyWUZ8BWJKtih3JAeUiXFvASL3McV0rV9RnU0VbjEQEhSE7PMYhWpnDC9AyBb0lXJllQRvC3NSkUB
- 8KVQgNNxRPss0WE/nBoZ4dFA42jTyzTz8lNylxZoAWV7WJb3QxVg4oCodRVrxxrQhSmFtZXMgQm90
- dG9tbGV5IDxqZWpiQGtlcm5lbC5vcmc+iQFVBBMBCAA/AhsDBgsJCAcDAgYVCAIJCgsEFgIDAQIeA
- QIXgBYhBNVgbnPItGJxvq2a34FK5HwhSFTWBQJgS5mYBQkbNYS9AAoJEIFK5HwhSFTWBpwIAL5Bk3
- 5FB34U6iHmDzzgdCbxLTs43T/YQyJpcGIvopBvnI/fDY8oSG6Df64/O6B+1R+A8TDp6ZG5ysUWnCC
- 6GuIaEHemBYkitMPglR6+sGCMQY7O0mlsPvdssvKK1KI9Bno4VU6ogaF2qVzefSqg1Djmf/DcsxWP
- rI/jdJ8FB5AYR2rjIdDFc+zRdAJuavo1/anyY2wgpFh/3R8IOYAEfWV9nGgYkf9+tA4EIn1sxE0I3
- L5oW2N3mbyRrkzuBwO8ztMCwqEPk7moWzhokcZqMXiAIahaZdkashJC+s2X2RZSGCy+g+pvY5NN4B
- BVG5XwLgVBqbHMTcxE0fbmPqz+q6O0LEphbWVzIEJvdHRvbWxleSA8amVqYkBoYW5zZW5wYXJ0bmV
- yc2hpcC5jb20+iQFXBBMBCABBFiEE1WBuc8i0YnG+rZrfgUrkfCFIVNYFAmODZ5ACGwMFCRs1hL0F
- CwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQgUrkfCFIVNZu0Af/TzvL2/NdgAcw9uN3x60H8
- jc4QUq14VpxcFEFEMpcj1morkX/G93V+56HBBaXZj+yK8PhxIA/SIz+sU7C/0YvKuvzakP8ZX/7WJ
- e32SOUtjfr/VTaqjIBzNj6OxLvZpmNbBw7s6DwhhNpHOWqJ/1ml+PtDRDV71IB58yVqQjp1xlNKVl
- ZppcJ5908EJzsFnRIVjiQiDSKoppqB2BCibBbrWcln7CiWMyOC/cco6SIn6twH+f7+aivJ3xGcOE2
- a9gBKF5rNi9TBoX9oyPmshv/TDmnohsVrH7AYXlGYfZTk15SWEiROh1QX8/uD9wl/gcIv5EDUpT/F
- L2jzOsA5663bw==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2 
+	by smtp-out2.suse.de (Postfix) with ESMTPS id A36F91F38E;
+	Sat, 12 Sep 2026 12:16:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789215395; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gQ8h5Ns38rfVqn2AQ/ZhzA82QksiAUDDanFc4ajmf10=;
+	b=f7TAKEKV0kyxENBZDdVOhHSpTa4OY8d7FllUmcBxw0efdXWTmOGd78nYWeas/ikHBDtDrv
+	uQZCDilV0fpf0SM7cjIerGo6pH0BDA1WEqkQzg9Dv2NBZgHo8aeOB8UfGYEKopv50DZDrl
+	BHT3Th4euAn8pZulEB0HxGz968qP4rU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789215395;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gQ8h5Ns38rfVqn2AQ/ZhzA82QksiAUDDanFc4ajmf10=;
+	b=ce4SFl1eL1fwkPcZE1/NE3+wn88YvZk8FpqjCCJ3ye87IdSJ6iuY/M0vuSXeBw8kSyu/2u
+	GfiOMbI5LjYRPbBA==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=LeQ1zLnc;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=WCadrL9Z
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789215391; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gQ8h5Ns38rfVqn2AQ/ZhzA82QksiAUDDanFc4ajmf10=;
+	b=LeQ1zLncMFMXDvVECGX8QKF8By6HRkKzLRLApoJcYR317vkyvrklfHT9LGXB9IfD500Vxg
+	o79kuZYsfjapG0aT96z/TcXWgFIILEbpH/hQovgWEwjBLbYdkDuuukQWz6cwt6c4RwDDmL
+	1mpZUaybkBXZO+U880DCW2vqmGSMTw0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789215391;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gQ8h5Ns38rfVqn2AQ/ZhzA82QksiAUDDanFc4ajmf10=;
+	b=WCadrL9ZYFNJjV0Uk3h/HeysxPS3foqEBcII8S4grYX0g2flxm3PViltDm38Hp9DyJLnSg
+	lClpQvWrt9fdSlAQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4585713687;
+	Sat, 12 Sep 2026 12:16:31 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id l120D59CpWpeegAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Sat, 12 Sep 2026 12:16:31 +0000
+Date: Sat, 12 Sep 2026 14:16:30 +0200
+Message-ID: <87a4pm3bs1.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Krish Gulati <krishgulati7@gmail.com>
+Cc: perex@perex.cz,
+	tiwai@suse.com,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	mazen001.ahmed001@gmail.com
+Subject: Re: [PATCH] ALSA: hda/realtek: Add quirk for HP Victus 15-fa1xxx (MB 8BB1) mute LED
+In-Reply-To: <20260912070618.21272-1-krishgulati7@gmail.com>
+References: <20260912070618.21272-1-krishgulati7@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Score: -2.01
+X-Rspamd-Queue-Id: A36F91F38E
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-2.01 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	TO_DN_SOME(0.00)[];
+	URIBL_BLOCKED(0.00)[suse.de:dkim,suse.de:mid];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_TO(0.00)[gmail.com];
+	ARC_NA(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	FREEMAIL_CC(0.00)[perex.cz,suse.com,vger.kernel.org,gmail.com];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:mid]
+X-Spam-Flag: NO
 
-On Sat, 2026-09-12 at 13:00 +0200, Andreas Hindborg wrote:
-> "Greg KH" <gregkh@linuxfoundation.org> writes:
->=20
-> > On Sat, Sep 12, 2026 at 12:52:55AM +0900, Jaemyung Lee via B4 Relay
-> > wrote:
-> > > Comments on the decision to bypass the SCSI midlayer, the blk-mq
-> > > model used
-> > > in its place, and the proposed prerequisite API boundaries would
-> > > be
-> > > especially welcome.
-> >=20
-> > Many many years ago, the USB subsystem tried to bypass the SCSI
-> > midlayer for its storage driver, and while it was a "quick
-> > solution" at the time, in the end, it didn't work out and we
-> > dropped the driver as it just made no sense to keep duplicating all
-> > of the logic all the time.
-> >=20
-> > So I wouldn't recommend it, as long as UFS builds on top of the
-> > SCSI commands and the like, you should not attempt to duplicate it
-> > in a separate driver, no matter how much "simpler" it initially
-> > seems to be.
->=20
-> The scsi related code in this driver is less than 300 lines and is
-> mostly struct packing/unpacking. I guess we could lift the struct
-> definitions from the scsi layer via bindgen. But at 280 lines I am
-> not sure it is worth it, and it hardly counts as duplication.
+On Sat, 12 Sep 2026 09:06:13 +0200,
+Krish Gulati wrote:
+> 
+> The mute LED on this board does not respond to mute state changes
+> because no fixup is matched for SSID 103c:8bb1. The reporter
+> verified the LED can be toggled manually via COEF index 0x0B.
+> 
+> Reported-by: Mazen Ahmed <mazen001.ahmed001@gmail.com>
+> Closes: https://bugzilla.kernel.org/show_bug.cgi?id=221982
+> Tested-by: Mazen Ahmed <mazen001.ahmed001@gmail.com>
+> Signed-off-by: Krish Gulati <krishgulati7@gmail.com>
 
-You didn't actually read the above did you?  The problem isn't
-necessarily the duplication of code per-se it's the duplication of
-function without understanding the subtlety.   Every fool thinks they
-can duplicate the core features of SCSI in a few hundred lines (and
-they can: the core SCSI model looks beguilingly simple).  They then
-usually spend years adding back the necessary corner cases and quirks
-before finally concluding that actually they shouldn't have tried in
-the first place.  Just because it's in rust doesn't change that
-calculus ... and you're by no means the first people to try this, so
-listen to the voices of experience and don't.
+Applied now.  Thanks.
 
-Regards,
 
-James
+Takashi
