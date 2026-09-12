@@ -1,192 +1,185 @@
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011023.outbound.protection.outlook.com [40.107.208.23])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 407FD357D1D;
-	Sat, 12 Sep 2026 18:02:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.23
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789236133; cv=fail; b=QMO58gcERxESDnobhfHj/rwqYKW/H3FEpRkRK/PKRKX7MgpDKaU6kOEjGH5fRU5yKzRgZEXKw4wVAQ3OTWzlbFQNdFKWOhWWdtwUws/8M5yUtOF3Dgmsa5yAIpZLYCN7WiD57rcCjzhxGQJB54Spk+TeM7+Z/moTSQMTskplxgA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789236133; c=relaxed/simple;
-	bh=1tdn+XyQHy3f91owQnmOnzigRZKxQuLgir+AiKtZ8o0=;
-	h=Content-Type:Date:Message-Id:Cc:To:From:Subject:References:
-	 In-Reply-To:MIME-Version; b=IvrtmDo1bX18A0sDZ0lFzqNDSNbbOGIwuVd8jHDntTnL4mriqv/p9rDyqGLxMPENKAwYRUQQQ5n69WVUf1zLpzFnAFMJ7ovYePf5Udw/gP4onYI/x356YDizsKMkzDY6eVSRC8fZ0OhlbWwiiRwX24ajZ/J8qy/fzWE8BxSwQGw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=rGEKclTc; arc=fail smtp.client-ip=40.107.208.23
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E894389472;
+	Sat, 12 Sep 2026 18:03:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789236216; cv=none; b=V3bB6EQfQrEld7j+UCWIdXp9qpVuY25qYqGpXE0fPbL0kOnUdxQ6EMVNs6BiJnWCWLjFT2LnyFQ+j3OHvtc+o8ALmA6td4Liof7BmUTR7QxNiU38lxrhoIVs1rU4r0aNghVMCc+oCORryjOsP8VmCEmAmFsxCWr1pSU04AHBeok=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789236216; c=relaxed/simple;
+	bh=joF3ztYKIzx01k7L6/NiPJYH8ES7eMqFFJNPCzRjGQg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=T6p1nha5nGjU7XymA66fmslYQUfqGh3sj/Q2jgBJT2WmyIf86CO/2dIhZHwfrTTmNOQ9Ll7pCEJTJDSL3kM5ZM9LulShX5odKtUQczbGpQEDG6GJzlEVT0n3O/drwRu46RQcyhUsZa0Ul7smrHiU/LI4LJHap8BFrZzkELt6HJc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kSa5Drkk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="rGEKclTc"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RwE7XP+sj0KwN7VoiRowb0zyLfNg3yj/PKhWqrQq/P3aIBU24QIriCQIujrUs0J0FHdedx23z3/Qv2ouKFsLlWL20fQEM/xEIl+KO0VoKsyCqRfoXNrTgIcti+jUwCDFEv7uYSqe1g2l6hCAvyJVuzxFiz4UJwXqyGNdV0fTn+zihJqd+WkBCBqleV4+pY/NQ6Cd4z+k235xlxvDaWJwhUQMbruBRRhY9O3vCR5wudTaOoFtGEnF86rbZLTtZDtJpJM0HfnAnTjP5nerMTLizZg7q9H0c7OeQWD7JtY8QeRylcEbdcXKZjIEQNvrmI/jZgNIITANn9zZV0XPZcs4SA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IQHw6h09a9Pq3Ro0Ju4H/VTeR/4oegt+utROR8ZezVM=;
- b=qbkrOSPZibcZxM6p0fsIh1hxlIKYcam5EF7J0t0aHxrArIgjEFf9jiC/4kuPXM479n8mjwVc+Rlv5PmndP6YmVz3JU2SG+2dMIaKRXw0soACDdu03T7mffDWgsJgsf4v/ob0RooDDi22xmQq8d0inal+7DGhJQglmry83oeAqMmpO6+yEzg4pRM9gOHK9FpRyEwAyELv3bCfhA4rxmOf7yhdrttpS6fda2oEg4iQWS1QCDhdsVHxe3bJjDdfmRMH8LSrTK0cH8nlUAUVxQcgD/De81AtqPD19+DRN/W+FXwvnNRaxLh2f+0krS8O8rhhHZ7cl+UrPgeo7w4CiQb+sg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IQHw6h09a9Pq3Ro0Ju4H/VTeR/4oegt+utROR8ZezVM=;
- b=rGEKclTc9MDWt+Be12We13BrGBbOIQaNENVUOANMewKU/un0+UvaRDEfTCOIIWUT++rMIybsOZMc1ZBOXY80IHvoViMcEqSoC+ZfQGk4/23Ch9nRSM6fuZkTF4bNbazUa/xDwhUmLOFYgrZ0enBvIa3KquEJeO4K/81OwaKeDeQa5aKi0SjbFfG32cB19Bs4vvM8NJqYekED2mLnAVhKd6FGzKraO0k4z8Sq8xpS+im737eR3xIOwlxQHMJTeFMLRVik/PXw4KGqtKzbQ0hYVenMC29SB9z8ri1k9AjIfUmVLQy9zeHfqwNpw3C2CUQvEZoO0ffIQBCH5b7FZeAG3A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by LV8PR12MB9231.namprd12.prod.outlook.com (2603:10b6:408:192::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.10; Sat, 12 Sep
- 2026 18:02:07 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0406.007; Sat, 12 Sep 2026
- 18:02:07 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 12 Sep 2026 14:02:06 -0400
-Message-Id: <DLDJ9T369W2V.1W56SZ2PVP5FL@nvidia.com>
-Cc: <linux-kernel@vger.kernel.org>, <kernel-team@meta.com>,
- <akpm@linux-foundation.org>, <liam@infradead.org>, <ljs@kernel.org>,
- <david@kernel.org>, <vbabka@kernel.org>, <jannh@google.com>,
- <matthew.brost@intel.com>, <joshua.hahnjy@gmail.com>, <rakie.kim@sk.com>,
- <byungchul@sk.com>, <ying.huang@linux.alibaba.com>, <apopple@nvidia.com>,
- <peterx@redhat.com>, <jgg@ziepe.ca>, "sashiko-bot"
- <sashiko-bot@kernel.org>, <stable@vger.kernel.org>
-To: "Gregory Price" <gourry@gourry.net>, <linux-mm@kvack.org>
-From: "Zi Yan" <ziy@nvidia.com>
-Subject: Re: [PATCH v2 2/2] mm/madvise: use vm_normal_folio_pmd() in
- cold/pageout PMD range
-X-Mailer: aerc 0.22.0
-References: <20260912034833.2952750-1-gourry@gourry.net>
- <20260912034833.2952750-3-gourry@gourry.net>
-In-Reply-To: <20260912034833.2952750-3-gourry@gourry.net>
-X-ClientProxiedBy: BLAPR05CA0046.namprd05.prod.outlook.com
- (2603:10b6:208:335::26) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kSa5Drkk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 932741F000FF;
+	Sat, 12 Sep 2026 18:03:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789236214;
+	bh=Md9WelEldZZ4Ti1nbWtYRKkv5dq5cYQ/RxA8am4GwnA=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=kSa5DrkkkUmOilrNwX8mCGTqIsVDmG5EHpntNkCXDmLMOllg43ob3k/ThGbGJ9EOG
+	 GARY19upGTuRE1Z4eHkz1Wvr/pU5U8dSsgtRFzDs3B1890zirBY0fVY9lekehb1eC4
+	 lEtYA5YNUS7yDDcmIeYb05T5XJIyLG1HuqMX1ALJjTQaweV716mJCM7q5ZUOwyNDNx
+	 OG9WQMhVUIccN/ZzFvHBcatxhIaI/BrWinZy8c+glAV356FR3lOev4fQD+T+i/dDMj
+	 +EO98mhLF5amoi6CfZZNA4U9OdWRITDloRaUVRbTUpAwzpkn+XnrUjiLLJjsaRKGbz
+	 +pl8bxVsU6yvw==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 56CBCCE0D0D; Sat, 12 Sep 2026 11:03:34 -0700 (PDT)
+Date: Sat, 12 Sep 2026 11:03:34 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Cc: Josef Bacik <josef@toxicpanda.com>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Boqun Feng <boqun@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>, Jiri Olsa <jolsa@kernel.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>, x86@kernel.org,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Puranjay Mohan <puranjay@kernel.org>,
+	Xu Kuohai <xukuohai@huaweicloud.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Zqiang <qiang.zhang@linux.dev>, Juergen Gross <jgross@suse.com>,
+	Luis Chamberlain <mcgrof@kernel.org>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	linux-kernel@vger.kernel.org, rcu@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH RFC v2 08/15] bpf, x86: Maintain Tasks RCU trampoline
+ nesting in the BPF trampoline
+Message-ID: <8c51a669-eb6b-455b-a829-b537da5209f8@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20260911-b4-rcu-tasks-preempt-qs-v2-0-eaaa61ed2da4@toxicpanda.com>
+ <20260911-b4-rcu-tasks-preempt-qs-v2-8-eaaa61ed2da4@toxicpanda.com>
+ <DLD0OHX8C4ME.VNR49VC2UYH4@gmail.com>
+ <14cb8a91-497d-49f5-aa20-c6cb8b9a27fc@paulmck-laptop>
+ <DLDICNLENSRI.2R6EJ0ZFJE45T@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|LV8PR12MB9231:EE_
-X-MS-Office365-Filtering-Correlation-Id: 98133478-f526-4958-9cdb-08df10f7f574
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|366016|18002099003|22082099003|11063799006|56012099006|5023799004|10067099003|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	nE0LbY+08skO0YlP1JlIJF/2HTUdkf+z2kr3QdPec9kxg6i6CjdGc2JKTnC1UxQdJk2GLbuPJRW3OD6Y+wjHeNLBauXK5zh2YHmta0+4m2W4+PrmHV8oGNDDqtRzLsffsIwdi7i8iP7OxMOs12KlNmAjWQwrL3AO8LTSI3bvIPkEOCXA5ikwVXhkJx0SJIQ7uG9hdTkp9x7K9BdkDuf7o8RgugPLQXs4QcVg6/K2sL3Gbpe1cmbnQTrUZfxPE0fdu5R74FcJ8pYvvD21cVejzwusI7l+b86nWvKP1GevC9nzQOXyltU2bABMY0xkTCKKhCQHtkXh8pTbD+qgDVcZD1sRZaFPzdFkE6xQ/PuuaSwnyDYa5QSj+kRnNsDPwXevAQt8gf0s7xqnAk3YKaHiJyu+Pn+foU2YKhJQWd1ZxM+NlznTx60kQlwKm6rO4J6wih3ROFlXMI+yljTgvINjcI6BaiomdzXlcFAhcLLMGT+kGg3cgjZCluh9j0lRpat2uRZ8OtV4mLuunSfiKHTJ4IVBlYIla9h9v8iUL+p/4HsRbKwepzSJU+US0REpFzTQ976rw7LGAFuwv0ydZbvg2YSdRt1AP79f5m0paRgWLvkp7sKk21NDJhQxEI6JDVLmlN7tK/X1x57GPjef3eiSAA==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(366016)(18002099003)(22082099003)(11063799006)(56012099006)(5023799004)(10067099003)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NDJRRnV2Q3ZiejF6dW11MmxKM2tFYTBiSDVsd254ZkhjUDZxajdzcm0yWnlI?=
- =?utf-8?B?anhNU0tJNy9xdEFUZnJxVHZVQnUwRVhNeFc4OXI3ZWkxWFFKQ2lrUUVQM0ZK?=
- =?utf-8?B?LzFqZ3hxU3NOaU9uTGZUQ3lwZm9lT1Fzby9DU1lwcnFWSVFsUnNwUldRZExy?=
- =?utf-8?B?V09KVmxWdE81STZ4cjZxRlExSFBTem1mMmRPK3ZDa3puTEpjTm5qakprNkdQ?=
- =?utf-8?B?bTRXSW5iN2dVbVdWTWNEY3IrN2l3OEVwS0V6bndwbGlWTXFmTXpyMVg1QjRQ?=
- =?utf-8?B?MlBFNDFBQ0xhNGovcEhRSHkreGx4bWF2ZEtXQktDc2grWFVKOThudFArV3NV?=
- =?utf-8?B?cmpWdnNoMXpwMEM3aEFBcUNLZ3RKNE1jOCttaGxOSlg1NGszb1ZDNG9qb0VI?=
- =?utf-8?B?ek55NUFySUNoY3J6a2RmSDFnZVVzNWN6QXpTKzhTVXJBMVM5SVhBMThMUG8r?=
- =?utf-8?B?NGZ0VW1hR2J6YkxLOWxNOXdXSzE4QUdyU2kyMkpRVWk2OCtZaXRWQ1RuazMx?=
- =?utf-8?B?aWJxdEt0QnRvL3VVejlvK0dTNDRoRk5UWmlHbGVIUWd6Zzlpb2Q4MFRvYTA1?=
- =?utf-8?B?aW9zZ0JxRmNGdE1JeWlEU0NKOUJFVitlek0yQlp6YXlhWXBqcnBRVEJHZ0o4?=
- =?utf-8?B?a2gxbDZFU082TWs5cUlRdm12eFF5YWJGbTA4NjUzSkw5YXc1L3I1cEpKNi9V?=
- =?utf-8?B?dXdhd0p3UHZFcnlPWHJqSmpGdUMxc2NvL2JSNmkvYk9qc09OTE5mN1pVWmpa?=
- =?utf-8?B?RVhMVElzRmxuT05ueXEyaG05NG9WUjNXaVE4ZHVsVzFyQjRrYm55MEJJeHMz?=
- =?utf-8?B?N2R5VnRjT21nOWtEMUFSTUY5Z2xzeEhJT0sxeXpSZjhZRlVPL1hwenpPa1Y0?=
- =?utf-8?B?eTlaa3VCZnIzQVNoVEN0S1U4WCszRWM4TXd6eitVZ3pwTXNlc3VxaGNobHNu?=
- =?utf-8?B?TldEK1U5aDU0YzRVZGFXK3lyRjBLekM0VjVROHh2eGZ6YWlwTExGQ2RRWm1I?=
- =?utf-8?B?UDRPQkdPVGltcmE5Ti9qNDF6SHlyMmlsdUUzaC84QjFZTkV0dlhJdW00UWRK?=
- =?utf-8?B?My9UaVY2UTVyMEVSbU5oQWo4Z0FmNkwwTTgxczRqY0hvd2ZaMENoa0NXanF0?=
- =?utf-8?B?WWRTVzBwTndOcGgveVl3d0tKMkk4VWdUZjljQWowd1N4T3pib3NrVmM0TFFy?=
- =?utf-8?B?R241WnNHc0tLSktFUTZXUmMvWDkvV2hRZU5hSU5jSWxwUUp4R3lsT3h2M2t5?=
- =?utf-8?B?bVlUZyt5eXFjcFdlTlpuWnczKzBrWkxLayt2VVNEb0UzNXhEZEFIL2N2aUFy?=
- =?utf-8?B?dXN0Qlg1bEhDQURxNEFXajVkRkJoS3ZCM3Q0U1FSRWZMaytsdHllV1NuV21I?=
- =?utf-8?B?VkJyOFVnUXk4L1VDNkFld1BVN21jWWNpWjNOTlllTlg3MWxxOHBSMmloY0tn?=
- =?utf-8?B?YVRaTDdYM2ZqV1EzQmR0SDJCUGJmWVFtZlhFVFg2RjQ1SjhDWjNGMFg0dm5R?=
- =?utf-8?B?TTByN3Q3M0dCZmx6dmM0VUdoTmxVcXJScDNudHdGbzJET1ZmaUxiak4zeWk3?=
- =?utf-8?B?NDlpT2xVNkZQcnRSalZ4Ym5YYXdjSjJSNUI4SFY4U2drODVoZkMyNkRYa2lI?=
- =?utf-8?B?RUNQNGZDRnRYbnFKQTd5VXg3dERPVmtpWC93SHM5QU84ZGlaTURXakxBdG9F?=
- =?utf-8?B?b3A2ZEl4ZVJRc0ZJOW5oaE1ERVVERHhCRGY1NGNhWFpNOURsOTRpZFR4d09K?=
- =?utf-8?B?dzluM3dqdkZ5TVRmWFB0eTM4Tm1IZTRic3huL0NKNTYxLzg2ejYwMXIwZ051?=
- =?utf-8?B?VVg4ODBKOVlMbU9MWk1WWjFsazZqNDcrdzlSemtlZTNYRWlRZXpma0ZNZWZV?=
- =?utf-8?B?YUZQQWhldFJqTmZFZ3dsWkxIUzRFR1lwdGJuS2g3eDJ4YmpaT1g3NDczSGlS?=
- =?utf-8?B?T3QyamR5Y250aVlwT25xODNLaENHbUpaamxSRTV1UFE2Qm9KU0tNbDZKcld5?=
- =?utf-8?B?a1pWaTN4eTl5NWRiZlJqRkZ3T3J6Ylp0Y1dseVZWZTk5M2FiQWorOFJwYmpD?=
- =?utf-8?B?MFNuZkdmUzdPL09URjZjSm9XRDQwQXB5djl2cDAxMlVQdmh0YjNySFZPVzdS?=
- =?utf-8?B?REZ6SXRqcXRrVWNkNzJJVVp0dzdHNlhPVWwvTmF6UWhFTUZoRDdqUml3MXhy?=
- =?utf-8?B?czdZSEJMc1ZJUjg2bVZMbnNlelFDWUZCc3k2RVo2Sk9uNy9mWDF4MGswQnJq?=
- =?utf-8?B?T0xaRzUrelY4NmQ2RTRaNE1jRzcybW1iSURiNWFuYmthVGZSTFdCS0NiRkE0?=
- =?utf-8?Q?ZpSvjV2uKuRJv7gSjP?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 98133478-f526-4958-9cdb-08df10f7f574
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Sep 2026 18:02:07.3744
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /0B/dfZxmfrZNHpJcmK/W35uKvMWageFRMSqjmuGGQ9zyW2iH4Q33/hC91CTZHh1
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9231
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DLDICNLENSRI.2R6EJ0ZFJE45T@gmail.com>
 
-On Fri Sep 11, 2026 at 11:48 PM EDT, Gregory Price wrote:
-> mmap a VM_MIXEDMAP region whose ->huge_fault installs a PMD through
-> vmf_insert_pfn_pmd() - mshv_vtl_low does this, and needs CAP_SYS_ADMIN
-> to open - then:
->
->   madvise(p, PMD_SIZE, MADV_PAGEOUT);
->
-> With a stand-in module for the driver:
->
->   BUG: unable to handle page fault for address: fffff587c0000008
->   RIP: 0010:madvise_cold_or_pageout_pte_range+0x410/0x9b0
->    walk_pgd_range+0x52b/0xaf0
->    __walk_page_range+0x6a/0x1d0
->    walk_page_range_vma_unsafe+0x8e/0x120
->    madvise_pageout+0xb2/0x180
->    madvise_vma_behavior+0x46b/0xa90
->    do_madvise+0x108/0x190
->    __x64_sys_madvise+0x26/0x30
->
-> Nothing validates the pfn on the way in:
->
->   can_madv_lru_vma()     rejects VM_PFNMAP, but not VM_MIXEDMAP
->   can_fault()            *pfn =3D vmf->pgoff & ~(mask >> PAGE_SHIFT);
->   vmf_insert_pfn_pmd()   no pfn_valid() check
->   pmd_folio()            pfn_to_page() -> unpopulated vmemmap
->
-> Even with a valid pfn the path is wrong.  The mapping carries no rmap, so
-> folio_maybe_mapped_shared() sees mapcount 0, and the walker goes on to
-> folio_deactivate(), or folio_isolate_lru() plus reclaim_pages(), against =
-a
-> folio this mapping does not own.
->
-> Use vm_normal_folio_pmd() and skip on NULL, as the PTE half of this same
-> walker already does with vm_normal_folio().  This also filters the huge
-> zero PMD, so its separate check is no longer needed.
->
-> Fixes: 3c8e44c9b369 ("mm: mark special bits for huge pfn mappings when in=
-ject")
-> Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-> Closes: https://sashiko.dev/#/patchset/20260817220810.1175596-1-gourry%40=
-gourry.net
-> Cc: stable@vger.kernel.org # v6.19+
-> Assisted-by: LLM
-> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-> ---
->  mm/madvise.c | 7 +++----
->  1 file changed, 3 insertions(+), 4 deletions(-)
->
-LGTM.
+On Sat, Sep 12, 2026 at 10:18:48AM -0700, Alexei Starovoitov wrote:
+> On Fri Sep 11, 2026 at 10:10 PM PDT, Paul E. McKenney wrote:
+> > On Fri, Sep 11, 2026 at 08:27:56PM -0700, Alexei Starovoitov wrote:
+> >> On Fri Sep 11, 2026 at 7:08 AM PDT, Josef Bacik wrote:
+> >> > Emit an increment of current->rcu_tramp_nesting once the trampoline's
+> >> > frame is set up and a decrement before the final register restore, so
+> >> > that a task preempted while running fentry/fexit/fmod_ret/LSM programs
+> >> > or the __bpf_tramp_enter()/__bpf_tramp_exit() glue is not treated as
+> >> > Tasks-RCU quiescent.  Drop the count around the call to the original
+> >> > function: that may run arbitrarily long without sleeping and must not pin
+> >> > a Tasks RCU grace period, and the trampoline frame above it is held by
+> >> > im->pcref rather than by Tasks RCU (see bpf_tramp_image_put()).  The
+> >> > fmod_ret early-exit branch and the ip_after_call -> ip_epilogue poke both
+> >> > skip the decrement/increment pair around the original call, so the count
+> >> > stays balanced on every path.
+> >> >
+> >> > The sequence is "mov r11, gs:[current_task]; inc/dec dword [r11 + off]";
+> >> > r11 is scratch at every emission point and (u32)&current_task is a valid
+> >> > sign-extended %gs-absolute with the current per-CPU layout, the same form
+> >> > the JIT already uses for this_cpu_off.  The image is dynamically
+> >> > allocated text, so the instructions outside the bracketed region are
+> >> > covered by the irq-exit IP check.
+> >> >
+> >> > Assisted-by: LLM
+> >> > Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> >> > ---
+> >> >  arch/x86/net/bpf_jit_comp.c | 43 +++++++++++++++++++++++++++++++++++++++++++
+> >> >  1 file changed, 43 insertions(+)
+> >> >
+> >> > diff --git a/arch/x86/net/bpf_jit_comp.c b/arch/x86/net/bpf_jit_comp.c
+> >> > index 2853e87797a7..a375c1b7bd50 100644
+> >> > --- a/arch/x86/net/bpf_jit_comp.c
+> >> > +++ b/arch/x86/net/bpf_jit_comp.c
+> >> > @@ -722,6 +722,31 @@ static void emit_indirect_jump(u8 **pprog, int bpf_reg, u8 *ip)
+> >> >  	*pprog = prog;
+> >> >  }
+> >> >  
+> >> > +/*
+> >> > + * Tasks RCU trampoline nesting, see rcu_tasks_trampoline_enter().
+> >> > + *
+> >> > + *   mov r11, QWORD PTR gs:[current_task]
+> >> > + *   inc/dec DWORD PTR [r11 + offsetof(struct task_struct, rcu_tramp_nesting)]
+> >> > + *
+> >> > + * r11 (AUX_REG) is scratch in the trampoline at every point this is emitted.
+> >> > + */
+> >> > +static void emit_rcu_tasks_tramp_nesting(u8 **pprog, bool enter)
+> >> > +{
+> >> > +#ifdef CONFIG_TASKS_RCU
+> >> > +	u8 *prog = *pprog;
+> >> > +
+> >> > +	/* mov r11, gs:[abs32] */
+> >> > +	EMIT2(0x65, 0x4C);
+> >> > +	EMIT3(0x8B, 0x1C, 0x25);
+> >> > +	EMIT((u32)(unsigned long)&current_task, 4);
+> >> > +	/* inc/dec dword ptr [r11 + disp32] */
+> >> > +	EMIT3(0x41, 0xFF, enter ? 0x83 : 0x8B);
+> >> > +	EMIT(offsetof(struct task_struct, rcu_tramp_nesting), 4);
+> >> > +
+> >> > +	*pprog = prog;
+> >> > +#endif
+> >> 
+> >> It's not a lot of overhead, but I feel it will be the death by thousand cuts.
+> >> rcu_read_lock_trace() in bpf_prog_enter_sleepable is doing the same thing...
+> >> increamenting a variable inside current.
+> >> Can they be combined? Like treat current->trc_reader_nesting > 0 as
+> >>  current->rcu_tramp_nesting > 0 ?
+> >> Or replace one with the other?
+> >> Two current->foo++ operations look redundant.
+> >> 
+> >> bpf trampoline is already quite heavy. I'd like to find ways to reduce
+> >> its overhead instead of adding more.
+> >
+> > Replace rcu_read_lock_trace() with Josef's rcu_tasks_trampoline_enter)?
+> 
+> If necessary...
+> what I don't understand why we need another rcu_tasks_trampoline_enter-like counter.
+> Can existing rcu_read_lock_trace() current be used ?
+> It's already doing current->trc_reader_nesting++
+> so use that as a signal ?
 
-Reviewed-by: Zi Yan <ziy@nvidia.com>
+In the old kernels, yes, we have current->trc_reader_nesting++.
+In the newer kernels, Tasks Trace RCU is instead implemented in terms
+of SRCU-fast, which instead increments per-CPU counters.  Which among
+other thins is a bit faster and does not need to hook into the scheduler.
 
---=20
-Best Regards,
-Yan, Zi
+So we have several ways forward:
 
+1.	Revert the implementation of RCU Tasks Trace in terms of
+	SRCU-fast, and use the existing current->trc_reader_nesting++,
+	as you suggest.
+
+2.	Deprecate RCU Tasks Trace entirely in favor of RCU Tasks
+	augmented by rcu_tasks_trampoline_enter() and friends, as
+	I was suggesting.
+
+3.	Implement rcu_tasks_trampoline_enter() in terms of SRCU-fast,
+	keeping the speedup, and put a synchronize_srcu() in the
+	RCU Tasks grace-period mechanism.  This again deprecates
+	RCU Tasks Trace entirely in favor of the augmented RCU Tasks.
+
+4.	It is always good to explicitly state the apparent status quo,
+	which involves redundant trampoline entry/exit overhead.
+
+5.	As always, your additional ideas here!
+
+							Thanx, Paul
