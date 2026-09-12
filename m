@@ -1,423 +1,194 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazolkn19010016.outbound.protection.outlook.com [52.103.33.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C3D447DF89
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 13:05:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789218307; cv=none; b=In5PSvryoKU3Txg7c81jUq7B+bDIb469MabJO2Ao9L57GPsTmJIsW4N+YEDwiQBTRDSoMO6mlR8whP8JjNy4fwO4rw5nhVX1t5oUSoAWS0XOeooWM0MPyugtKUo9grmPhCTpVFEhtR5SI0Hw7G2h0/T6XS37m5J3ZtuDhNfaTWA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789218307; c=relaxed/simple;
-	bh=79Fr5OwJj3rXBZztb4Irukv1fBUVIxftWbDY0TgTFr0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=cn9WfejGaXG4ic1x+6zPzsEDM8ry39f7FyRkpS/BlpAbNhEzjNxGurSBMG2ne4ztTd10eO/QKmQtRXHCIlDTS16+0NHgpRCgtRPRTMktPH9PnBwa8UiXJhP8HuO/k70OByWYIVraKLEyRz7XdWwSegqvyHNr/xgFWZAXlPKYSdo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QPU1O1TR; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EyInj4ni; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BD7137FF60;
+	Sat, 12 Sep 2026 13:09:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.33.16
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789218555; cv=fail; b=NpgE1Rj421rsLFMXSLTbBIVRLPFoKVkJVhW4eKmJJ4MVM4WuDPZGRXnzEJoXd2lSAQKPQV9SnOQdS1udCOphpajFpiXty+fhCZfb7RcGXlX58kKjXd0udkGN4Yo3vVoo3woEoQxW9BrMtl7rNeIyjWZhIiPSNXF53nuDigWFHFI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789218555; c=relaxed/simple;
+	bh=YFCNLkNoSu9d7IZZogCYE49Ts58xA3j39fphN8xkoHM=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=btlSPPYnjxUVMLKnwb2yaQoqrXUaOtGwSE6X5nJhEzVl5iyED14FzYPv+Up9R3oT1SXyNgcWIAe/wcIAMRMK7JLYSgShRwv6CaLVdSJ/megGzEHuFo3IgBUjGMihMyX82TtMl1axwqx9VcGjr/0nNpi4sVlEHz+MxbCL3vRGNcU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk; spf=pass smtp.mailfrom=hotmail.co.uk; dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b=TJEx6J0w; arc=fail smtp.client-ip=52.103.33.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QPU1O1TR";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EyInj4ni"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68CBdcDh2779792
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 13:05:04 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Q6iPIf53YQku72sisV18OVAO89sx7Fr8T67qn+OtB0Y=; b=QPU1O1TR8YP0bjnF
-	uPBp79wgrYkEvQaQrRoxZMAIFfpSbj7+PhoE4qz6kervXCdbVMTdvoqk0777R4RL
-	6xiwhxexcUZZOsFNnBAkRI/o+/svCV4yIWzetUBucSadAa6nCcsPPJt3fGnc/EZT
-	MxqvvqGRvQ94h1itW6KI8CbjpqGZGt9kRyO0ZYhLoPdpsIU/j73rIsh2jx3uqded
-	qWo4NmWJSbP3U2vtQEwRyjUvGFcUjSG2oMss4VXMPAkq4LTREti4Xnh3dWa3cW3O
-	8u7GgziP9DpkJJJHNvHVnmhVo5NASD5mRXfBmnPy/gnFy3jZ/6uv6/R99QLp+Xt1
-	smaqBA==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9d8ykc-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 13:05:03 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-396b9ef3070so3238839a91.3
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 06:05:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789218303; x=1789823103; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Q6iPIf53YQku72sisV18OVAO89sx7Fr8T67qn+OtB0Y=;
-        b=EyInj4niBMB8gc2wT6mDtdrAqiYGiWOhqRDOshXsWbkveLdWJJBwRyYSOX+QvJ/kEd
-         6fLg25CKQae4uneT97Dc5WgDaPdWJLhWOriIh0asqI2KPAVqpaGKMo4+jkK1V/niBng7
-         0nfJpSrxsSPDAScwz6uf6a/yz8DODbAgrvjXPbXahG69rXzgLlvoEMYbDwp5n5KaKTy5
-         bnVrzyG/4eGVkYxWTCvFucuelzFr/V918pw0gxf5fLs6RvMwAfKgl6R9zrQNy/sFROEo
-         xbf0jBPR0TyAu4Yaob2WEkSq5fChV4Uk6FbMZOpuw/3WazaQpAay/oKv3MA7UNi7R146
-         i9PQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789218303; x=1789823103;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Q6iPIf53YQku72sisV18OVAO89sx7Fr8T67qn+OtB0Y=;
-        b=IMdl5TRALBnwUmrvhYNymSWXLJdjPS8iQwiFHJ0yAY0m0DkrDvW8EctLaIDjpzrD15
-         pwKLCLMYvd2oIj70KKhPkh3bRXLFqp1kClGgVc/Shq2BORV+Q09LYbbN1ybqFlmSgM3U
-         5lqZDSuc+vcOTPyK1O3JAKPV0pcn2QhJIoOK1xwtJC7yqZs7aA0eI4flydTG4/3AzTak
-         rmW15CzexFWfGMdwbhdsjirTf+1faG3I9hOMb9NvF3C6Fz3th10nezYpgoUFeCejRYsv
-         gvWmFovqsTt9lsRR/eg14s0Hm6DT0ndEluRyDgeFTIlN+Cxwocl0f5OR3ejyfpfnQdQY
-         6ZxQ==
-X-Forwarded-Encrypted: i=1; AKwUvByO8SNxAuymrwg/Mq0q4Pi/IMwPX1YmVjEVu4elFxxHC3TtqdnI+oDIge+5G5VNg2M72Mq2C/RXqWuz+Q4=@vger.kernel.org
-X-Gm-Message-State: AFuF++klEiulSifzornPRENlFeIRsM2cISWWNZ3pFdD/+NRfd6Tv+udM
-	RIh2vBnTy77+NB7m9BlmJBDXtesQGgQaZcu6cgUwGUqoa8ZzyUXkvdcAqO8RTpQ0k4SxX3mMelh
-	baTgfHPcAdEgfWZ9I7J3x6xjKiX8vy8F0OBbQXbJdIRXHpHIQcanI8zzoexEKG6Ctbdw=
-X-Gm-Gg: AYBFou0WbbYtLnKTgKh9vyE0v2t+DfRqByIOno9Wv241NtaaXm8hNfen3muYnupL+V7
-	2zXLgN8kYOI0rCFyul28ArBL26KRPEM9BFNRUswo7gOkAZfovapzXiCwUJMUMBcPioFJvRIH7oz
-	ksR4m2OBAXFJQEHqFiqEFugt46yoRVpYnUL5XWuUOLM+suHXMDbqAuxacp3DqSXL42QdSgkvs3Q
-	hR/eZRMB1i/qT7t8SpQGqo6cBSOrbjKiCnoMZgTYH1waGqLqGpiQEPhrdwAM4c0NEOAD/jlrNR6
-	MSIY5iuDSoFzSNcG+Gn1ymIChftaw0W0uI/tQu8R0KmrUWy1KsRIXYjuRREuX9nZBV/qIGMWq2S
-	ZQt2WX1u795Z4RDF+bGoWkGXqT1UJp1vBZ6I=
-X-Received: by 2002:a17:90b:540d:b0:398:ba96:1afd with SMTP id 98e67ed59e1d1-39d9bee4822mr15258935a91.8.1789218302563;
-        Sat, 12 Sep 2026 06:05:02 -0700 (PDT)
-X-Received: by 2002:a17:90b:540d:b0:398:ba96:1afd with SMTP id 98e67ed59e1d1-39d9bee4822mr15258873a91.8.1789218302058;
-        Sat, 12 Sep 2026 06:05:02 -0700 (PDT)
-Received: from hu-jseerapu-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4f1e434sm13665036eec.22.2026.09.12.06.04.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 12 Sep 2026 06:05:01 -0700 (PDT)
-From: Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>
-Date: Sat, 12 Sep 2026 18:34:23 +0530
-Subject: [PATCH v2 2/2] i2c: qcom-geni: Add support for I2C High-Speed mode
+	dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b="TJEx6J0w"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=w/f0Bluulev8CMEszLSBOmvo28S1NROhEXIAuZWG8B1qJulvkEfnSKkWm/rijfoj+yoOpRLPd8CmDZtueExAcp8Dq0dVjIbBvhOVo5iHFR67BgcjlgBcN+JZj+0BpYK78lc8HxSSlXyE7Q/KyONG7EU3tIkOt+RAjCHBv7OIYXSefiQsHQqCkmEFKLsuFa5xaGjpNwrujniqZ0WmA+599FFuM06B/BYpvn03ZpHvkqD20igWrCXfdKnCZ1aYs/ETiK1qRX5hUmsNim3pT41iVo8+wCBXyQLMc6TH4sAEMiTHmUmw2QN4cRGbI8ZEFjZaT1EQjS5GpWNqMt1bfh3rPA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6prBQcJv//Uq3BliPhDut2Bmj7/AmZ6B8oo5icAuUOc=;
+ b=gs3WrWYI4ezPoUi08VaKK35B08HIAtw6gUWOveVgxktet0o6IsSjubZ2Kx0t4L2pRJaIcULbkdgAcOXKoxvJiAtTByWLCGLzQXWcMxhqljIh3lh/7pUTH7714xtmXSMYdhu8q7yuvAmche/YVeLir4yzI7UdD49Ma0LLDivp7SPONOrjFjfjOx4/k3kxtCqy38rYjGlauu+GlTZxq7scext5aPg/8J3vh+FMmJ0sv87Of66bFXoQIsXY5KuzY48vhGdWppEN/azndlbD/apiOXYMt3EmKSkCdBVO0MvpdidL41rWR2bSQvLyI75eYl5olBsC0e1yHSkyOx/bhQ+RBQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=HOTMAIL.CO.UK;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6prBQcJv//Uq3BliPhDut2Bmj7/AmZ6B8oo5icAuUOc=;
+ b=TJEx6J0wm78Lz/qE+dNexF/Xr3fhA14wOwGHDbpbhnRuZGX6at87S75MuarMCjojR7wdjVBbbSon13JMybqz6twKGC5uiYXcVq/RkzO/w4+f1CfG0XkAm6Y/gVNJ099IWroGDgcW4vluxymvE6RvIDRvQ8DTf36DMssb2Axt894keUmiK5XCGXWFBNfPkM2s+2XPmhmhnQsVIrZAe621pUFTj/fTc5b8Mh+B0DRRy3XIMxK8+gARyBn+46bpyPQxgjUWCSy+29VEPOIRmgSouylMl/5IURY87t7s1AORL05wAimFRvFtyC+fxXim7uDWB49CqhOPU0MVb1BB77nDJg==
+Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM (2603:10a6:20b:344::22)
+ by GV2PPFDCA549DEA.EURP251.PROD.OUTLOOK.COM (2603:10a6:158:401::b6c) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.10; Sat, 12 Sep
+ 2026 13:09:08 +0000
+Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+ ([fe80::2952:d4d0:4ba:8352]) by AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+ ([fe80::2952:d4d0:4ba:8352%3]) with mapi id 15.21.0406.007; Sat, 12 Sep 2026
+ 13:09:07 +0000
+From: Aamir Ahmed <elb12345@hotmail.co.uk>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>
+Cc: Luo Jie <jie.luo@oss.qualcomm.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	gustavoars@kernel.org,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>,
+	Kees Cook <kees@kernel.org>,
+	linux-arm-msm@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	linux-hardening@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] clk: qcom: ipq-cmn-pll: Assign .num before accessing .hws
+Date: Sat, 12 Sep 2026 14:09:06 +0100
+Message-ID:
+ <AS8P251MB000187BDFAD98A21F4C356E9C8BD2@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+X-Mailer: git-send-email 2.55.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: LO4P123CA0188.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:1a4::13) To AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+ (2603:10a6:20b:344::22)
+X-Microsoft-Original-Message-ID:
+ <20260912130906.12496-1-elb12345@hotmail.co.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260912-i2c-hs-v2-2-b0901791e244@oss.qualcomm.com>
-References: <20260912-i2c-hs-v2-0-b0901791e244@oss.qualcomm.com>
-In-Reply-To: <20260912-i2c-hs-v2-0-b0901791e244@oss.qualcomm.com>
-To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-        Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
-        Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
-        Andi Shyti <andi.shyti@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
-        Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789218290; l=9959;
- i=jyothi.seerapu@oss.qualcomm.com; h=from:subject:message-id;
- bh=79Fr5OwJj3rXBZztb4Irukv1fBUVIxftWbDY0TgTFr0=;
- b=5bH5F2JZ+Qn5sf6GDPcxFodFCLDd9mwLIxABbAtzWDu2oKoQD3I3LugWXwmUyrRbu7nbpAvqQ
- BzYzMRToK2xBN+1+Vkc28GTwVdRjOZ2wty66Xv7iYjeZrkywNSr1zJb
-X-Developer-Key: i=jyothi.seerapu@oss.qualcomm.com; a=ed25519;
- pk=9vafyYsia0OnBKWSEwhmWe3hPVQfI2T1xOs5dPaFvEo=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEyMDE4OSBTYWx0ZWRfX88RBclN3g93q
- elJhLa/Jq8k/poPmlzYC/L1roYv1okb9+j03HWgvPFoCV0SD15ksGJira8wlKfkdLig1I3ZwG45
- sp7/8elsnRsz641+usU5hHKbSIkgqG/OmYTlo+IzVWJbUdVvOCtb1GHuRBqm78C1WXnw0a0nWHf
- moHF8An8Wz5XlnQwHG9xA98KC61EemGLdjsZv2nlH1C3RDn9NfvU2pTavnJGYsKGFed5yctgamn
- ouc6b6LrQuVxtF+Py7zC92UVMICQVKVnIyjlbaYvdTMkXh1ViPCD5hq0xoJRgdUx9Dw+oM5fSs9
- cvZZWpWjlf/ez1fVNiZ1Q7ob/h0iZp/aK47p6dH5OIuU3e8F9OJbMqQt6DAZsvgsq521Ch4X/3Z
- iDo9qGuJ86zoP3rokw7wnB49jr3iwm/ihrv3toV40XyZC3mEeywGTxFwrYRvxseAamMboWtCaQe
- RzD3nFkyG1ZuSkptgXg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEyMDE4OSBTYWx0ZWRfX4V/8uCHtl6XT
- 0Y4KRn0fFZIovvYq/6gHLz5/Ifb6byYKaJPUXaju3Owb5et+coXVcFvO3w9nFnf3rlMdFSWp6QS
- ZJlUP54y5ol5gi/a9hmLEQ6RlgBBUd8=
-X-Proofpoint-GUID: jHUUv5Y9-z2TZ3RGQSeYc1BLFZN6QYZT
-X-Authority-Analysis: v=2.4 cv=OeUNnRTY c=1 sm=1 tr=0 ts=6aa54dff cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=CVQZEhLW7cNm6rAVh1IA:9 a=QEXdDO2ut3YA:10
- a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-ORIG-GUID: jHUUv5Y9-z2TZ3RGQSeYc1BLFZN6QYZT
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-12_04,2026-09-11_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 malwarescore=0 phishscore=0 bulkscore=0 spamscore=0
- priorityscore=1501 suspectscore=0 impostorscore=0 adultscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609120189
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS8P251MB0001:EE_|GV2PPFDCA549DEA:EE_
+X-MS-Office365-Filtering-Correlation-Id: 531d2d49-7680-4986-9251-08df10cf0725
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|41001999006|24021099003|55001999006|25031999004|37011999003|51005399006|8060799015|19110799012|23021999003|5072599009|5062599005|15080799012|25010399006|40105399003|1602099012|10035399007|2607281247196008|3412199025|4302099013|440099028|26104999009|19061999003;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?99WioDlHBhLGB1LI1wDUWwfVnLLXpq+wJvJngSBWkzBsIQXlGwLjvAJryvzI?=
+ =?us-ascii?Q?upDMrEXRPSTyHr8lFl7VOILVWlmR+iBKPdX9NNStTk5k3+jYwAu5kSC9AKh0?=
+ =?us-ascii?Q?/6IvTfEtneOBFsJRotZdbcqhTWBATyLLRkd0sAI3jhY452HeRqXG5ZUaCcAt?=
+ =?us-ascii?Q?3t9N+sz1MPwv6Wm6E4hJMNnswzCc8IPPzcvRHQNnjb6uEreuwT2YAGhizomA?=
+ =?us-ascii?Q?U4t0c4661ThT6Ay617+5AvyKM7FqaIK9q7KPdHTtd6qrrcGJPGktrsfHGiXI?=
+ =?us-ascii?Q?F0plmsFvqYNuwyxZRN0iTicHzSQ2aHQ4advKoGxb5VVgUyA66Jz65G3mCViW?=
+ =?us-ascii?Q?KaHpSmOlvqFz9VtFT8zAWMHZsXXY5VdEVXIhVK8KZHxeF+GFQvZLlLlN08Zu?=
+ =?us-ascii?Q?ZEMVZ+B0tX9WSAoVwgPVowos7efujmpUMbIxdAk91C/U7kyN+alvDugJdEhG?=
+ =?us-ascii?Q?ZV9sDTPpAgTPW2HsPmCOGKHyJ2NiniXGTjMMSSXM2cqcAk2HJRwhybf1pd4x?=
+ =?us-ascii?Q?sSIUf+vso3RF75SGfU8L7exc+S2BCbnlX2SzGZxneDiMf4Etw+FsHv7YQLEA?=
+ =?us-ascii?Q?qhDovMwLLGRVECKXNv+CdK4ppjRmVST3C4A1whok1CBkvsmXm8HpFbyCUTQK?=
+ =?us-ascii?Q?Vf5FYRNzmAthZLIkrUyJL/KPTIY0HNOSyIcLJvMy96E8muArL/ZFjSKRGc7z?=
+ =?us-ascii?Q?5pDvwS0gPXX9O0S7iEUdgDcTpxpdNhtatXZl1ga8bWCjgtP/EV6pPh0FfQEn?=
+ =?us-ascii?Q?N2gFAHkX1UR4gOD3rBEvFh1LPqsGW0ZoKZAt6+lfz4iM9vt4iYeS9V2HQCRR?=
+ =?us-ascii?Q?EdzpzwKMQaW5kSpQHulvEoiWfS58OV1bgL6cQ4Ikx74FAm2tZbSJz1O0o8KN?=
+ =?us-ascii?Q?dtvVt5rN7/AkpjRyl6Oh6TUPqGydLU+vg3+PeEeloApaCb1OqU2mc5FLf4Hr?=
+ =?us-ascii?Q?iFtBVwOIyQURBpMNWyGqVNIPEftJpUxXCZZxgdpnmY2tFQjU9D1lepLYhZYx?=
+ =?us-ascii?Q?0+mk0iY3EuZU0xWIOlVIzjCLu7RrM9ytp61T1Z4NhudUv5/1bAHZcHQpE3oI?=
+ =?us-ascii?Q?qS78j4FzlAiGZ9c231l2nD6/AfA0hYBhEiQ0cRfwYVmWyossezp32B3pmLDi?=
+ =?us-ascii?Q?dtNAvPZ6r1+OWy3cQwmn8Jg2TIcSdXwGqGr1B53UDKXsqNRd3DOmtMVvd32F?=
+ =?us-ascii?Q?Snq1bwkXeYNbQQWBirfLJ7yXELrltLdOEx5fUJSPOvuCRByeDKMTYzlV+sw?=
+ =?us-ascii?Q?=3D?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?PWT4FXarE3PT+81oC70yv/AA19bHEmehjtE9DP/HKFgotTF2p/HsffbB8G7y?=
+ =?us-ascii?Q?NxDX5dQYwMMRPr7Go1FLri4f0u7924CEa8+r5i4or0/6OP763OxUNXSVShYu?=
+ =?us-ascii?Q?QShZYxRBc9hCBGD8FYtTqPuVKNCGDSwcB9R5OKrIMNBN+g+naAH7jxcruQIi?=
+ =?us-ascii?Q?8bJ0pFF3pnUObifFAlhg3ca+H+C9XWuvyOssa4QwpdG9NTCA/0yxyz9iCDKq?=
+ =?us-ascii?Q?DEC+k2x4VpQ2ustfFiON16XP/8hsjxTubMP8VogieLzXJlEY33plFHSUmGHS?=
+ =?us-ascii?Q?VIoy/vMKlAqPgcmWAiGIaeAtX9H5tbgYiHypq8/hcYi+7EPU3nHFQBEYxEzk?=
+ =?us-ascii?Q?6A+jmfPYQajeEbnliTPNRVzIsu3gWhrDFPy8BXI4xm8zVXYX/rY4XFOij0wx?=
+ =?us-ascii?Q?RHTh3kcInH++9GGnH5pD3e0Bc/xO9IZOhHRIcxUIvcHqYHciHstCOiTIbZe6?=
+ =?us-ascii?Q?t8FnAsYdH6mc4HnMSjVKYB/U7V6yvLTR24CHoEoBwKja7nulC7P5b+4aFsCi?=
+ =?us-ascii?Q?6FmSIF80I82FT8QraAql9oDjDSzPSwE54ADsw5fz4gvP86xtWX4s9N3Ftasn?=
+ =?us-ascii?Q?q3Ylu9XPWhHoa6cj+b+xratJfZwLtKY0iBk1ntOgPMy4pC2CBgJuayURPk/3?=
+ =?us-ascii?Q?m9AY6pOp3bzoZmaz0NCAyDuqu90H4AxQtkmVV61udR6+afR4NJ8vRQbCYLAT?=
+ =?us-ascii?Q?B+f1KqnZO10GY5Z9PogkaKuDXr8RJm3smcaJtSJoLvSZrbN6R2M5MusFqak/?=
+ =?us-ascii?Q?rlL8cGalykWZqlv+ZiTBNWvpGcErVzd57vWBiXofVYWD0zFOqvnupWvF6o4Q?=
+ =?us-ascii?Q?/Y2ta6nOG0ECQsQZxmhe6kpumAhgC1GgOtmtWpBw9f8mdEbxvw2Qo6eukZP+?=
+ =?us-ascii?Q?RAM3WZNozK1nnfTYznqdKyre/hh8wHY+EEEPSwdFHt6+ZjZokysfursaqVNi?=
+ =?us-ascii?Q?WuFo8BchlLKL4mzOdxXjBpeLP/eHSwJhTbDDtLMdgDSVcTZI44X/JxMI7rrF?=
+ =?us-ascii?Q?M/hRrijVEvdgM4TvnlxReMwQM0p3jsw3B8ed9AfUD0yVJtHWk3IHCyBAA9sT?=
+ =?us-ascii?Q?TEncFq4N9yDFadOjDPNsuzwgOXOb9lOSNTH2Y082FqWr4RgTzx+THK0mZQZn?=
+ =?us-ascii?Q?cAfNu/Z3q3Z72ofN07x5LS3YROis4Wo5FEXAOQXbzNdaQEDxEViNK50SF/9J?=
+ =?us-ascii?Q?9YFSfWGcKSB3E94aRfEG6zWT6LlSTj5twbmOw6cvBHweuPoTAn+cAv+6KFc2?=
+ =?us-ascii?Q?nAq+Sxn6ojjFFI0+SJv49IAzwdfFbL1V7u0VBH38p9++YVoRWfpoP6b2zNxx?=
+ =?us-ascii?Q?w2rOwyZZsDeedcXYW5K6S8igJXFGihgk+g7zq6iVn5P5JO/MPdhhZfm2Yqhj?=
+ =?us-ascii?Q?SLiC6Hl+xVA1HayHwss0RSfniWRIgGqBrAqwSx/ZaGu+55hEVWWEzS/uZx6K?=
+ =?us-ascii?Q?SbTPU0MOYmV/T/yL8IsixHij10VWeWg4?=
+X-OriginatorOrg: sct-15-20-9412-3-msonline-outlook-fe3f5.templateTenant
+X-MS-Exchange-CrossTenant-Network-Message-Id: 531d2d49-7680-4986-9251-08df10cf0725
+X-MS-Exchange-CrossTenant-AuthSource: AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Sep 2026 13:09:07.7077
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PPFDCA549DEA
 
-Implement I2C High-Speed (HS) mode for the Qualcomm GENI I2C controller.
-Detect HS mode requests based on 3.4 MHz frequency and configure the
-hardware accordingly. When HS mode is active, set the source clock to
-100 MHz and program timing parameters (TCYCLE=28, TLOW=38).
+hw_data->hws[] is annotated with __counted_by(num), so hw_data->num
+must hold the element count before the array is accessed.
+ipq_cmn_pll_register_clks() assigns it only after storing the fixed
+rate output clocks and the CMN PLL, and the unwind loop under
+unregister_fixed_clk reads .hws[] with .num still zero. Both are
+out-of-bounds accesses under CONFIG_UBSAN_BOUNDS.
 
-For FIFO/SE-DMA transfers, use HS-specific opcodes I2C_HS_WRITE (0xa)
-and I2C_HS_READ (0xb). Transmit the master code at Fast Mode Plus
-timing (1 MHz) before switching to 3.4 MHz for data transfer.
+Move the assignment to right after the allocation.
 
-For GPI DMA, extend the configuration with a CONFIG1 TRE to pass HS
-timing parameters to the DMA engine. Add gpi_i2c_config1 with
-tcycle_cnt and tlow_cnt fields (defaults: 28 and 38).
-Use the set_config1 flag in gpi_i2c_config to send CONFIG1 TRE before
-the GO TRE in HS mode.
-
-Signed-off-by: Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>
+Fixes: f81715a4c87c ("clk: qcom: Add CMN PLL clock controller driver for IPQ SoC")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Aamir Ahmed <elb12345@hotmail.co.uk>
+Reviewed-by: Luo Jie <jie.luo@oss.qualcomm.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Reviewed-by: Gustavo A. R. Silva <gustavoars@kernel.org>
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
 ---
- drivers/i2c/busses/i2c-qcom-geni.c | 127 +++++++++++++++++++++++++++++++++----
- 1 file changed, 113 insertions(+), 14 deletions(-)
+v2:
+  - cut the commit message down (Bjorn)
+  - collect Reviewed-by tags
+v1: https://lore.kernel.org/linux-clk/AS8P251MB0001B905088748016A0965F1C8B42@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM/
 
-diff --git a/drivers/i2c/busses/i2c-qcom-geni.c b/drivers/i2c/busses/i2c-qcom-geni.c
-index 658636c1ee0e..03c7bf95aec6 100644
---- a/drivers/i2c/busses/i2c-qcom-geni.c
-+++ b/drivers/i2c/busses/i2c-qcom-geni.c
-@@ -21,9 +21,21 @@
- #include <linux/spinlock.h>
- #include <linux/units.h>
+Compile-tested only; I have no IPQ hardware.
+
+ drivers/clk/qcom/ipq-cmn-pll.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/clk/qcom/ipq-cmn-pll.c b/drivers/clk/qcom/ipq-cmn-pll.c
+index dafe8c1738df..a9abad9ff4e5 100644
+--- a/drivers/clk/qcom/ipq-cmn-pll.c
++++ b/drivers/clk/qcom/ipq-cmn-pll.c
+@@ -380,6 +380,8 @@ static int ipq_cmn_pll_register_clks(struct platform_device *pdev)
+ 	if (!hw_data)
+ 		return -ENOMEM;
  
-+#define SE_GENI_CFG_REG68		0x210
-+#define SE_I2C_HS_TLOW_REG		0x268
- #define SE_I2C_TX_TRANS_LEN		0x26c
- #define SE_I2C_RX_TRANS_LEN		0x270
- #define SE_I2C_SCL_COUNTERS		0x278
-+#define SE_I2C_HS_TCYCLE_REG		0x27c
++	hw_data->num = num_clks + 1;
 +
-+/* I2C High-Speed mode definitions */
-+#define I2C_HS_MODE_FREQ		3400000
-+#define I2C_HS_SRC_CLK_FREQ		(100 * HZ_PER_MHZ)
-+#define I2C_HS_TCYCLE_CNT		28
-+#define I2C_HS_TLOW_CNT			38
-+/* I2C HS mode support requires QUPv3 core version >= 4.3 per HPG */
-+#define QUP_I2C_HS_MIN_MAJOR		4
-+#define QUP_I2C_HS_MIN_MINOR		3
- 
- #define SE_I2C_ERR  (M_CMD_OVERRUN_EN | M_ILLEGAL_CMD_EN | M_CMD_FAILURE_EN |\
- 			M_GP_IRQ_1_EN | M_GP_IRQ_3_EN | M_GP_IRQ_4_EN)
-@@ -36,6 +48,9 @@
- #define I2C_ADDR_ONLY		0x4
- #define I2C_BUS_CLEAR		0x6
- #define I2C_STOP_ON_BUS		0x7
-+#define I2C_HS_WRITE		0xa
-+#define I2C_HS_READ		0xb
-+
- /* M_CMD params for I2C */
- #define PRE_CMD_DELAY		BIT(0)
- #define TIMESTAMP_BEFORE	BIT(1)
-@@ -138,6 +153,9 @@ struct geni_i2c_dev {
- 	u32 num_msgs;
- 	struct geni_i2c_gpi_multi_desc_xfer i2c_multi_desc_config;
- 	const struct geni_i2c_desc *dev_data;
-+	bool is_hs_mode;
-+	bool config1_sent;
-+	u32 dfs_index;
- };
- 
- struct geni_i2c_err_log {
-@@ -162,9 +180,9 @@ static const struct geni_i2c_err_log gi2c_log[] = {
- struct geni_i2c_clk_fld {
- 	u32	clk_freq_out;
- 	u8	clk_div;
--	u8	t_high_cnt;
--	u8	t_low_cnt;
--	u8	t_cycle_cnt;
-+	u16	t_high_cnt;
-+	u16	t_low_cnt;
-+	u16	t_cycle_cnt;
- };
- 
- /*
-@@ -194,10 +212,30 @@ static const struct geni_i2c_clk_fld geni_i2c_clk_map_32mhz[] = {
- 	{}
- };
- 
-+/* source_clock = 100 MHz */
-+static const struct geni_i2c_clk_fld geni_i2c_clk_map_100mhz[] = {
-+	{ I2C_MAX_STANDARD_MODE_FREQ, 1, 449, 548, 998 },
-+	{ I2C_MAX_FAST_MODE_FREQ, 1, 76, 167, 248 },
-+	{ I2C_MAX_FAST_MODE_PLUS_FREQ, 1, 23, 59, 98 },
-+	{}
-+};
-+
- static int geni_i2c_clk_map_idx(struct geni_i2c_dev *gi2c)
- {
- 	const struct geni_i2c_clk_fld *itr;
- 
-+	/* Check if HS mode is requested */
-+	if (gi2c->clk_freq_out == I2C_HS_MODE_FREQ) {
-+		gi2c->is_hs_mode = true;
-+		/* For HS mode, source clock should be 100 MHz */
-+		itr = geni_i2c_clk_map_100mhz;
-+		/* For HS mode, start with 1MHz for master code */
-+		gi2c->clk_fld = &itr[2];
-+		return 0;
-+	}
-+
-+	gi2c->is_hs_mode = false;
-+
- 	if (clk_get_rate(gi2c->se.clk) == 32 * HZ_PER_MHZ)
- 		itr = geni_i2c_clk_map_32mhz;
- 	else
-@@ -219,7 +257,12 @@ static int qcom_geni_i2c_conf(struct geni_se *se, unsigned long freq)
- 	const struct geni_i2c_clk_fld *itr = gi2c->clk_fld;
- 	u32 val;
- 
--	writel_relaxed(0, gi2c->se.base + SE_GENI_CLK_SEL);
-+	if (gi2c->is_hs_mode) {
-+		writel_relaxed(I2C_HS_TCYCLE_CNT, gi2c->se.base + SE_I2C_HS_TCYCLE_REG);
-+		writel_relaxed(I2C_HS_TLOW_CNT, gi2c->se.base + SE_I2C_HS_TLOW_REG);
-+	}
-+
-+	writel_relaxed(gi2c->dfs_index, gi2c->se.base + SE_GENI_CLK_SEL);
- 
- 	val = (itr->clk_div << CLK_DIV_SHFT) | SER_CLK_EN;
- 	writel_relaxed(val, gi2c->se.base + GENI_SER_M_CLK_CFG);
-@@ -500,7 +543,9 @@ static int geni_i2c_rx_one_msg(struct geni_i2c_dev *gi2c, struct i2c_msg *msg,
- 		geni_se_select_mode(se, GENI_SE_FIFO);
- 
- 	writel_relaxed(len, se->base + SE_I2C_RX_TRANS_LEN);
--	geni_se_setup_m_cmd(se, I2C_READ, m_param);
-+
-+	geni_se_setup_m_cmd(se, gi2c->is_hs_mode ? I2C_HS_READ : I2C_READ,
-+			    m_param);
- 
- 	if (dma_buf && geni_se_rx_dma_prep(se, dma_buf, len, &rx_dma)) {
- 		geni_se_select_mode(se, GENI_SE_FIFO);
-@@ -539,7 +584,9 @@ static int geni_i2c_tx_one_msg(struct geni_i2c_dev *gi2c, struct i2c_msg *msg,
- 		geni_se_select_mode(se, GENI_SE_FIFO);
- 
- 	writel_relaxed(len, se->base + SE_I2C_TX_TRANS_LEN);
--	geni_se_setup_m_cmd(se, I2C_WRITE, m_param);
-+
-+	geni_se_setup_m_cmd(se, gi2c->is_hs_mode ? I2C_HS_WRITE : I2C_WRITE,
-+			    m_param);
- 
- 	if (dma_buf && geni_se_tx_dma_prep(se, dma_buf, len, &tx_dma)) {
- 		geni_se_select_mode(se, GENI_SE_FIFO);
-@@ -689,7 +736,8 @@ static int geni_i2c_gpi(struct geni_i2c_dev *gi2c, struct i2c_msg msgs[],
- 	 * programming an extra TX DMA TRE that would cause an unintended
- 	 * write cycle on the I2C bus before the actual read operation.
+ 	/*
+ 	 * Register the CMN PLL clock, which is the parent clock of
+ 	 * the fixed rate output clocks.
+@@ -406,7 +408,6 @@ static int ipq_cmn_pll_register_clks(struct platform_device *pdev)
+ 	 * is configured to 12 GHZ by DT property assigned-clock-rates-u64.
  	 */
--	if (op == I2C_WRITE && msgs[msg_idx].flags & I2C_M_RD) {
-+	if ((op == I2C_WRITE || op == I2C_HS_WRITE) &&
-+	    msgs[msg_idx].flags & I2C_M_RD) {
- 		peripheral->multi_msg = true;
- 		goto skip_tx_dma_map;
- 	}
-@@ -700,7 +748,7 @@ static int geni_i2c_gpi(struct geni_i2c_dev *gi2c, struct i2c_msg msgs[],
- 		goto out;
- 	}
+ 	hw_data->hws[CMN_PLL_CLK] = cmn_pll_hw;
+-	hw_data->num = num_clks + 1;
  
--	if (op == I2C_WRITE)
-+	if (op == I2C_WRITE || op == I2C_HS_WRITE)
- 		map_dirn = DMA_TO_DEVICE;
- 	else
- 		map_dirn = DMA_FROM_DEVICE;
-@@ -737,7 +785,7 @@ static int geni_i2c_gpi(struct geni_i2c_dev *gi2c, struct i2c_msg msgs[],
- 	peripheral->set_config = 0;
- 	peripheral->multi_msg = true;
- 
--	if (op == I2C_WRITE)
-+	if (op == I2C_WRITE || op == I2C_HS_WRITE)
- 		dma_dirn = DMA_MEM_TO_DEV;
- 	else
- 		dma_dirn = DMA_DEV_TO_MEM;
-@@ -760,7 +808,8 @@ static int geni_i2c_gpi(struct geni_i2c_dev *gi2c, struct i2c_msg msgs[],
- 	desc->callback_result = i2c_gpi_cb_result;
- 	desc->callback_param = gi2c;
- 
--	if (!((msgs[msg_idx].flags & I2C_M_RD) && op == I2C_WRITE))
-+	if (!((msgs[msg_idx].flags & I2C_M_RD) &&
-+	    (op == I2C_WRITE || op == I2C_HS_WRITE)))
- 		gi2c_gpi_xfer->msg_idx_cnt++;
- 
- 	cookie = dmaengine_submit(desc);
-@@ -827,6 +876,7 @@ static int geni_i2c_gpi_xfer(struct geni_i2c_dev *gi2c, struct i2c_msg msgs[], i
- 	peripheral.high_count = itr->t_high_cnt;
- 	peripheral.low_count = itr->t_low_cnt;
- 	peripheral.clk_div = itr->clk_div;
-+	peripheral.clk_src = gi2c->dfs_index;
- 	peripheral.set_config = 1;
- 	peripheral.multi_msg = false;
- 
-@@ -836,6 +886,13 @@ static int geni_i2c_gpi_xfer(struct geni_i2c_dev *gi2c, struct i2c_msg msgs[], i
- 
- 	gi2c->num_msgs = num;
- 	gi2c->is_tx_multi_desc_xfer = false;
-+	gi2c->config1_sent = false;
-+
-+	/* Initialize config1 TRE settings for HS mode */
-+	if (gi2c->is_hs_mode) {
-+		peripheral.config1.tcycle_cnt = I2C_HS_TCYCLE_CNT;
-+		peripheral.config1.tlow_cnt = I2C_HS_TLOW_CNT;
-+	}
- 
- 	tx_multi_xfer = &gi2c->i2c_multi_desc_config;
- 	memset(tx_multi_xfer, 0, sizeof(struct geni_i2c_gpi_multi_desc_xfer));
-@@ -883,14 +940,25 @@ static int geni_i2c_gpi_xfer(struct geni_i2c_dev *gi2c, struct i2c_msg msgs[], i
- 		if (i > 0 && (!(msgs[i].flags & I2C_M_RD)))
- 			peripheral.multi_msg = false;
- 
--		ret =  geni_i2c_gpi(gi2c, msgs, &config,
--				    &tx_addr, &tx_buf, I2C_WRITE, gi2c->tx_c);
-+		/* Set config1 TRE only for HS mode */
-+		if (gi2c->is_hs_mode && !gi2c->config1_sent) {
-+			peripheral.set_config1 = 1;
-+			gi2c->config1_sent = true;
-+		} else {
-+			peripheral.set_config1 = 0;
-+		}
-+
-+		ret =  geni_i2c_gpi(gi2c, msgs, &config, &tx_addr, &tx_buf,
-+				    gi2c->is_hs_mode ? I2C_HS_WRITE : I2C_WRITE, gi2c->tx_c);
- 		if (ret)
- 			goto err;
- 
-+		/* CONFIG1 TRE is only for the TX channel; clear before RX call */
-+		peripheral.set_config1 = 0;
-+
- 		if (msgs[i].flags & I2C_M_RD) {
--			ret =  geni_i2c_gpi(gi2c, msgs, &config,
--					    &rx_addr, &rx_buf, I2C_READ, gi2c->rx_c);
-+			ret =  geni_i2c_gpi(gi2c, msgs, &config, &rx_addr, &rx_buf,
-+					    gi2c->is_hs_mode ? I2C_HS_READ : I2C_READ, gi2c->rx_c);
- 			if (ret)
- 				goto err;
- 
-@@ -1037,6 +1105,7 @@ static int setup_gpi_dma(struct geni_i2c_dev *gi2c)
- static int geni_i2c_init(struct geni_i2c_dev *gi2c)
- {
- 	u32 proto, tx_depth;
-+	unsigned long freq_out;
- 	bool fifo_disable;
- 	int ret;
- 
-@@ -1046,6 +1115,36 @@ static int geni_i2c_init(struct geni_i2c_dev *gi2c)
- 		return ret;
- 	}
- 
-+	/* HS mode requires QUPv3 version >= 4.3 and source clock=100 MHz */
-+	if (gi2c->is_hs_mode) {
-+		u32 hw_ver = geni_se_get_qup_hw_version(&gi2c->se);
-+		u32 major = GENI_SE_VERSION_MAJOR(hw_ver);
-+		u32 minor = GENI_SE_VERSION_MINOR(hw_ver);
-+
-+		if (major < QUP_I2C_HS_MIN_MAJOR ||
-+		    (major == QUP_I2C_HS_MIN_MAJOR && minor < QUP_I2C_HS_MIN_MINOR)) {
-+			dev_err(gi2c->se.dev,
-+				"QUP HW v%u.%u does not support I2C HS mode (requires >= %u.%u)\n",
-+				major, minor,
-+				QUP_I2C_HS_MIN_MAJOR, QUP_I2C_HS_MIN_MINOR);
-+			ret = -EOPNOTSUPP;
-+			goto err;
-+		}
-+
-+		ret = geni_se_clk_freq_match(&gi2c->se, I2C_HS_SRC_CLK_FREQ,
-+					     &gi2c->dfs_index, &freq_out, false);
-+		if (ret) {
-+			dev_err(gi2c->se.dev, "Failed to get DFS index for HS mode: %d\n", ret);
-+			goto err;
-+		}
-+
-+		ret = clk_set_rate(gi2c->se.clk, freq_out);
-+		if (ret) {
-+			dev_err(gi2c->se.dev, "Failed to set HS mode clock rate: %d\n", ret);
-+			goto err;
-+		}
-+	}
-+
- 	proto = geni_se_read_proto(&gi2c->se);
- 	if (proto == GENI_SE_INVALID_PROTO) {
- 		ret = geni_load_se_firmware(&gi2c->se, GENI_SE_I2C);
+ 	ret = devm_of_clk_add_hw_provider(dev, of_clk_hw_onecell_get, hw_data);
+ 	if (ret)
 
+base-commit: df2908090cda368b01ff43709f51890076c56157
 -- 
-2.34.1
+2.55.0
 
