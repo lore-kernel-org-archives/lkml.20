@@ -1,133 +1,170 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazolkn19013084.outbound.protection.outlook.com [52.103.35.84])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 510A439061C;
-	Sat, 12 Sep 2026 22:28:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789252098; cv=none; b=DEBjkGNkfVKtlwH/oXtYKE+ngemfHtK9Zm6imB/U0IfOlZaYf7y/HrneiEqudpEel+JfP5KNE/Xvs2L3Kzl+zAd5FipZoenNtm5/E+/oraoBM3EHXzOJEne74Ujqe7bMbMdrdIPHIigZ4+V0HQbmdwSp+jaWhK6yRp2gS2ZK/9M=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789252098; c=relaxed/simple;
-	bh=lDRrW++5YLemAPMEHTJ8XYtBLQevZUNJYnHc0kqwsp4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mKfTs5cxBiOPRTLpd1qs8ShdfPYmsdceD0FzHPiEfx7dF286kgoAZ9z+X+zQKYz810/s6+xUCmpT6keLskqX5AbgTxSRTcXe7VGB8BL02q4IFPWOclMUh2HJMGAX6qaysWNsSbfhMMmHD9zMHSor6iX+bPqH4aOtU2ixMS8zRgA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CAY8iaMR; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C1EF35C6B2;
+	Sat, 12 Sep 2026 22:29:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.35.84
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789252199; cv=fail; b=lABPQzz+SFbXNmZNDWQyi7XJOFCdopF8PWs2dJlrhAdL3t/R+QVRyS5MudnmIzYBQminLShTVCa/qo/r8x8FenZpE7rSz/uHUxTV6a5/5On98t5eOp3gdZipWNujPkfsIZaD9TzDD7YfBWmkFpCaKezkUaW2uKKWj5S69E5oR/Y=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789252199; c=relaxed/simple;
+	bh=H1S63Oh+gXaVCd4rjxIAHNXzLU9A4Pu359xb+Oe0fak=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=NQ8iefliQ1UJn9f+CZAD16IdH+W5kPiUAcEfqktvZn3ZDtfM81Z+NdmXDspa2luU1ib8R97s0Age86RxSi4upI+zsuzOwRWm9MRR+aJ8ktfCBgWVIpatIqv56qnhOJAyUeowxUtMHt9KKatmSn+v5XrDuFwM5ZXklpnSI/mZxms=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=gk4pRlDI; arc=fail smtp.client-ip=52.103.35.84
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CAY8iaMR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7CDB1F000FF;
-	Sat, 12 Sep 2026 22:28:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789252096;
-	bh=FUSC3/6wZp614V0HmSolX31ACddFJPOtZM6hstYDymE=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=CAY8iaMRIgUEVj2m8qO5yp0DxUv+P5XvE2wHuZpVgEs1aEJozyptLJbfPwIDKU9cG
-	 nZ8lr7em4IssfJNCHthk1CBckof4zi6MPqWd2jJVXxGnpw499vSiEhg0xj7sJOYZgY
-	 8C/0OqEOoxtby2igBkVtTcnZDnI6giwDd39+A3lwn/gzgznfonBDHsvuJ+lNWa/070
-	 UYnUHAEQ18maKO95GoFBGluciXa8xqJjOpILbWWdTFyb/lqEmdWzQ78VurvGX1Z7Sv
-	 KjOJN8mcAIANRvNl//XI9HifNzupXh1acBkdTfKFwO0hryPFkxTNHR9mulXJ+sQ3Rw
-	 OD+q87PDNaJpg==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 9A778CE17BD; Sat, 12 Sep 2026 15:28:16 -0700 (PDT)
-Date: Sat, 12 Sep 2026 15:28:16 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Cc: Josef Bacik <josef@toxicpanda.com>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Boqun Feng <boqun@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>, Jiri Olsa <jolsa@kernel.org>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>, x86@kernel.org,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Puranjay Mohan <puranjay@kernel.org>,
-	Xu Kuohai <xukuohai@huaweicloud.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Zqiang <qiang.zhang@linux.dev>, Juergen Gross <jgross@suse.com>,
-	Luis Chamberlain <mcgrof@kernel.org>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	linux-kernel@vger.kernel.org, rcu@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH RFC v2 08/15] bpf, x86: Maintain Tasks RCU trampoline
- nesting in the BPF trampoline
-Message-ID: <8fbfb3fc-cf5d-4dfb-b144-bc021faa13ff@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20260911-b4-rcu-tasks-preempt-qs-v2-0-eaaa61ed2da4@toxicpanda.com>
- <20260911-b4-rcu-tasks-preempt-qs-v2-8-eaaa61ed2da4@toxicpanda.com>
- <DLD0OHX8C4ME.VNR49VC2UYH4@gmail.com>
- <14cb8a91-497d-49f5-aa20-c6cb8b9a27fc@paulmck-laptop>
- <DLDICNLENSRI.2R6EJ0ZFJE45T@gmail.com>
- <8c51a669-eb6b-455b-a829-b537da5209f8@paulmck-laptop>
- <DLDLDGTSBHA0.32TYNBSKKPFXH@gmail.com>
+	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="gk4pRlDI"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=aQ+nES/CpeVubo9unkWhtYYSZPCvGBLtnrmYY0aR6WwVZGtZ2KiXEM0n7b7J6cqgb0fIWKK9cW7L0UNqb52Ki9x05bevCzUmttsCMel29ixW62am6IKXkAMX0YHY4iFBh+JBp+eUZS3lByZD8JZevQRRzDJCwd24Nq9lBNFh6FxL74GUM8pwEjwqGeUHTuJQL3O8j1gCgqBe/uxMhR3PkYx9auPk8RytO9cgCYfWiquw6B2CjNHovAM1hUfsxJwzNfZ9WfES7dRvDgNhHUogl0KWSJdGJUOAE2l6dexntxerAhORxgtgqQh7m1L8yk95bBjv1q90a5F1paC5/CYxSg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HRDaF2ACg2iR2xEQX1VHQfDJC1h04fgslqGQDVbmoQY=;
+ b=lAIUcCYn8CIZ/TbQEI7FeHCc+yAjfwk4NlghJQGZk4qrhN5Pa2LCKw5f6f6V+5nTkf5YqP1tBMn6Ep3m7G95oK0u1tNk3B9EWPpxerQva/Y7DfuHSSkCRCXttKrHepzZSdn7IOL5w/3Nemz6VbC2lzi30E02gZwMY/pWCqyzZ9fsjwuAM+rh97d1JRGU2zlStIyAwTZaaNlymKIDesDv9kd+UDcQKUGXApCDafAyIz7OIEWKLAsfpRkLysOZuFRivM+2ZBg1rgjmegy9oib1khSHBagheZg7P6ta30ZtOPsD/nvOSljR/nNN8tc1q6wdidfQY/r9bxyZsLvlTJo02A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HRDaF2ACg2iR2xEQX1VHQfDJC1h04fgslqGQDVbmoQY=;
+ b=gk4pRlDIOtaRswFxI3k6261Mhm7ezGN6Abegy52+Z1jY/kCG8t/CoUm6m9kaRKPpTPFkE/I1RxtHMowVjR7yS0NW18CUxynMqMyix3rINJUQoQV5vS2wRT7r0u1OFSm5fa9NLJrIz397M2roOyRTiMoGzACid4/6aBubYcJPanx++XKHhsgw6BJtkzvy5kgKis/DoaGyHI2EU3/CPjTPKbjOzhPJIUjwi2bZbGa3UhoFnOHk8z0d+zTJD7gVNhxohzVxYomvFcn+7eZYK/wCoCPWQjPV2iocioIPcEDUex7GsWP5p2NT5Ln6kC4q5BbwERXZ+qgaqDfJ29279jcEsw==
+Received: from GV1PR08MB8497.eurprd08.prod.outlook.com (2603:10a6:150:81::22)
+ by PAWPR08MB11560.eurprd08.prod.outlook.com (2603:10a6:102:50f::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.7; Sat, 12 Sep
+ 2026 22:29:55 +0000
+Received: from GV1PR08MB8497.eurprd08.prod.outlook.com
+ ([fe80::705b:d4a3:1c1f:b9a2]) by GV1PR08MB8497.eurprd08.prod.outlook.com
+ ([fe80::705b:d4a3:1c1f:b9a2%5]) with mapi id 15.21.0428.004; Sat, 12 Sep 2026
+ 22:29:55 +0000
+From: Manuel Fombuena <fombuena@outlook.com>
+To: lee@kernel.org,
+	pavel@kernel.org,
+	vicentiu.galanopulo@remote-tech.co.uk,
+	linux-leds@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v1 01/11] leds: st1202: Correct the name of the prescaler conversion helper
+Date: Sat, 12 Sep 2026 23:29:43 +0100
+Message-ID:
+ <GV1PR08MB84975AC922A0F9308A5A45F1C5BD2@GV1PR08MB8497.eurprd08.prod.outlook.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <GV1PR08MB8497422B7A44424C4968AEC1C5BD2@GV1PR08MB8497.eurprd08.prod.outlook.com>
+References: <GV1PR08MB8497422B7A44424C4968AEC1C5BD2@GV1PR08MB8497.eurprd08.prod.outlook.com>
+Reply-To: fombuena@outlook.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: LO4P265CA0028.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:2ae::20) To GV1PR08MB8497.eurprd08.prod.outlook.com
+ (2603:10a6:150:81::22)
+X-Microsoft-Original-Message-ID:
+ <20260912222943.3056051-1-fombuena@outlook.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DLDLDGTSBHA0.32TYNBSKKPFXH@gmail.com>
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV1PR08MB8497:EE_|PAWPR08MB11560:EE_
+X-MS-Office365-Filtering-Correlation-Id: 07e717d1-cc78-4218-ff67-08df111d5ed9
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|5072599009|37011999003|19110799012|15080799012|8060799015|23021999003|24021099003|51005399006|41001999006|25010399006|3412199025|440099028|40105399003|2607281247196008;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?FVQgCWrg7MayYDMxufU4X3yuk5RFo/DU41ok3XxZQa7aVc46vuWM/Hk/j2aE?=
+ =?us-ascii?Q?JVLJh/TyomGsAFEfR7RcY6FNwCAZ3pd1hHdHuxQ1FRIIs1f5xB9tfARURb8e?=
+ =?us-ascii?Q?XWFuSTUlwTEh/gREBJZM1SK2vXv3B5Fqt30DcMAd1c8zVSmEnIzINszX4SKN?=
+ =?us-ascii?Q?/uKFHMOEN+UyJEEi6cYicUbOiBisDm02vaWu9qGnCwPqEyGmYw9ZdVyi9R1v?=
+ =?us-ascii?Q?2TJxN+BMxJM+dU63YeJPHXn0EUBlOeYTPMtlY4z8AiHkFHQyJuKRqJ3SVp6k?=
+ =?us-ascii?Q?wkbQUIiWwXrEWfuNgisMhsi3rdhVMb0DhTxP2yGDbMt++RVFU6iR0OQUj245?=
+ =?us-ascii?Q?zUE2ANuPtCWH8nHgfUQGq7r6ZnUcNQmpe03hKQyy4wfg/qufOPaDb6kSuhol?=
+ =?us-ascii?Q?ukUnvqjJJMgnD2W0bpwDIOIuUPF7xiZcUsTQeLHQVyMCLNSMG+AxYKzAh3+l?=
+ =?us-ascii?Q?a+Xk6hU/ExD7+72kW2QAc0hTeC0kQZsuSj1fOPfT9dxegJN5iiYN/bsxrbu2?=
+ =?us-ascii?Q?MmV5o4U4y5Dk4GX1glFyRSGeoONzT1zKLbCcZQqT7CWa0+dVZc7qBBN1Zew/?=
+ =?us-ascii?Q?kfXeUOW1Y5/6l6Wd9hootT41ywflYg0ycMKr2PwHF0OzBKUY0uUGpgBW0lpl?=
+ =?us-ascii?Q?zmgOb0HjctkWUHMC6aIJhc6P35/pO58FPCFthotdAw4C2TIkiMY7zS4RsVIp?=
+ =?us-ascii?Q?dAU5ai0+EYTPDOlHScy3v7bX9c44pnUUONEqjAFDldbyIgmJkP/pcEG99NP2?=
+ =?us-ascii?Q?hHvLwvHnNEPTuBSMq6duHg+FouqudhZaW0wBrA/OKgvh0Z1jysZ/BaKRyIdU?=
+ =?us-ascii?Q?qnfpRhbuRzj4sWwxjcq1hqMuyl3NuNLKq6d3ScO8clQBOuqkvR64t6+b5020?=
+ =?us-ascii?Q?lLZ/fUAE4ilJ0a6jZPEWSNyYVhM98kRRzIWkVe7j6zKgSBFrt1ceDI6c0qlD?=
+ =?us-ascii?Q?fbrIHbxN3VJb5td722wPfsze+OD3F/ejcfnZxMEldmME2vi+pPK3fGvZ6fCy?=
+ =?us-ascii?Q?HVGo?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?807r+Em5VJ+CATFaAiJZ98yreRVWKh//A9EIgtkGy5ln+w6bxV9b/r7zGQV5?=
+ =?us-ascii?Q?ttr9WXlBTWnEDHTVFcLR1H3tBt/asWEgIOTYNnP3G4V9Y7mTeVn7HlJCuPkP?=
+ =?us-ascii?Q?VNJPo7gSHq/rsxDkbAHSaTjOyeZkC7bREZLOGSybzaO1gsnKlEl7OC6YmxMR?=
+ =?us-ascii?Q?EkhDjGh28T02abhJo9zB7RfcOAQ+JJDcGc/IhlSEKQv2IWsutJMlj76Nl40E?=
+ =?us-ascii?Q?PN4bTL36eHTAvho30+Px2dWiEK+De4uAglpmpLkR0Gxp13Q4dTbM9xo4FefD?=
+ =?us-ascii?Q?PlMGs4gSKZb/7lNn2kS4csZnuuHD5BU0TRBG/+0XdYxibW62WGuI+pzMcA1A?=
+ =?us-ascii?Q?XD4ht3XScQxbZPnALOc2cjitCsaj+UE9O+lNJLSYQZ4hB9TSdiujOobrTqHj?=
+ =?us-ascii?Q?4Dx9uhOYPVwp1oI07eTwbwr+dwwqQNXfxbaZdkOCZ3MmOTo574arRsHEgblB?=
+ =?us-ascii?Q?z9i8NDhzIxpGq2/wersadUfs1kqcP4XowNaOR51qe/Xag3Y5+lmfko6s3FnE?=
+ =?us-ascii?Q?tSaSjFx83JAKJF9SnmAreNBGZpyZeG+MPFqXaWHN1+168nZpo6T/xbOd9Qcg?=
+ =?us-ascii?Q?4VJa7x4xQbITzbxUXZtotYqpfEoSc4bq2aaRRbVQVBj1QrAm1xToUuxNUweq?=
+ =?us-ascii?Q?sx7v2Zipbe34kucZDoRr0I4SvNBsSyvkIsbKYapYf6IFB/4uPBOTcvMqDj+Z?=
+ =?us-ascii?Q?G6+PBZgcD3nd4P1gwPCApYsFEAknSeeuPXWDFWxLZcAw9heOFfNpuNz2ytMV?=
+ =?us-ascii?Q?KKeWi09ep2yPkmd1kNgSnKUlrlsopmTu4Sv/ShQvLtUxjBhEfq6GhcaSvf67?=
+ =?us-ascii?Q?QR7TmoQ+DOdPWHijVzMTIOD1gLbXxJYOF55EV6bL0E/fizmYFDgm7A72q19V?=
+ =?us-ascii?Q?+kc8oQaXEQTuUTkk4L88Dp5LimhLNnJHIJKTlYBcGxJzVPrMsPdm5FsVmT9R?=
+ =?us-ascii?Q?lLIEloNWzUne6NGEq9+za/y5v8g3XBelIoH4lQ4vHLJd+nGqXqLV5MpfaN6Y?=
+ =?us-ascii?Q?ZlX9sRnf5y4r5WZchQHqsiDW3uXfn62Bw/ltwJHbsbMfrY233BWlw4q0C0qw?=
+ =?us-ascii?Q?Yi7pG/KI9ZU6C69xnnKuyE5+dClkL9ln7zjxNfmv1RbwxRtZ2LZorWI0uf/a?=
+ =?us-ascii?Q?qHi942NWGQ6eogO3Tu69ZFooyCNm3RHW8qIclnweg1GpqCamUfgh+qY/HArx?=
+ =?us-ascii?Q?4x7WcHc4NeCFdKkRYReD8zpRGdxekZ79ARQzlZsSVg6d+0BTSvp3oucDmJYK?=
+ =?us-ascii?Q?mCQ+E2h2TFZpYK4PyfVIgnFBia5RUFvKWWIJpmtB2sw4pczGoc+82MVoD5+K?=
+ =?us-ascii?Q?DEoXcjQZsYcR9l9xaBfzGQlpJpnmOGmfH6xwXJ1RrfMSkrWVigtxVUN/qgZd?=
+ =?us-ascii?Q?68xvHld8bE94th4eOsycHxhLRG/4t+hRddgnTy5iGcgiAYCVjLvEzuWFY9Fb?=
+ =?us-ascii?Q?oyGcyFj1NysQ7cOEZIFLuPX527PaNh9N?=
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 07e717d1-cc78-4218-ff67-08df111d5ed9
+X-MS-Exchange-CrossTenant-AuthSource: GV1PR08MB8497.eurprd08.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Sep 2026 22:29:55.5651
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR08MB11560
 
-On Sat, Sep 12, 2026 at 12:40:55PM -0700, Alexei Starovoitov wrote:
-> On Sat Sep 12, 2026 at 11:03 AM PDT, Paul E. McKenney wrote:
-> >
-> > In the old kernels, yes, we have current->trc_reader_nesting++.
-> > In the newer kernels, Tasks Trace RCU is instead implemented in terms
-> > of SRCU-fast, which instead increments per-CPU counters.  Which among
-> > other thins is a bit faster and does not need to hook into the scheduler.
-> 
-> old kernels? I'm confused.
-> rcu_read_lock_trace() in bpf-next is doing t->trc_reader_nesting++
-> and then calls __srcu_read_lock_fast().
-> 
-> Are you talking about some RCU branch that you target for next merge window?
+st1202_prescalar_to_miliseconds() converts a duration in milliseconds
+into the prescaler value written to the pattern duration registers, so
+its name states the conversion the wrong way round. It also misspells
+both "prescaler" and "milliseconds".
 
-No, I was thinking of rcu_read_lock_tasks_trace(), forgetting that
-rcu_read_lock_trace() is still used.  (For good reason, just be clear.)
-Your comments are quite correct for rcu_read_lock_trace().
+Rename it to st1202_milliseconds_to_prescaler(). No functional change.
 
-Hmmm...  Josep's using t->trc_reader_nesting would break for
-partially overlapping RCU Tasks and rcu_read_lock_trace() readers.
+Signed-off-by: Manuel Fombuena <fombuena@outlook.com>
+Assisted-by: LLM
+---
+ drivers/leds/leds-st1202.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-But yes, your #5 makes sense:  Deprecate RCU Tasks, upgrade RCU Tasks
-Trace to check for preemption from within trampolines, and move RCU
-Tasks users over to the rcu_read_lock_trace() variant of RCU Tasks Trace.
-(Or am I still missing your point?)
+diff --git a/drivers/leds/leds-st1202.c b/drivers/leds/leds-st1202.c
+index ead144155849..5a2202fb4c22 100644
+--- a/drivers/leds/leds-st1202.c
++++ b/drivers/leds/leds-st1202.c
+@@ -85,7 +85,7 @@ static int st1202_write_reg(struct st1202_chip *chip, int reg, uint8_t val)
+ 	return ret;
+ }
+ 
+-static uint8_t st1202_prescalar_to_miliseconds(unsigned int value)
++static uint8_t st1202_milliseconds_to_prescaler(unsigned int value)
+ {
+ 	return value / ST1202_MILLIS_PATTERN_DUR_MIN;
+ }
+@@ -126,7 +126,7 @@ static int st1202_duration_pattern_write(struct st1202_chip *chip, int pattern,
+ 					unsigned int value)
+ {
+ 	return st1202_write_reg(chip, (ST1202_PATTERN_DUR + pattern),
+-				st1202_prescalar_to_miliseconds(value));
++				st1202_milliseconds_to_prescaler(value));
+ }
+ 
+ static int __st1202_channel_set(struct st1202_chip *chip, int led_num, bool active)
+-- 
+2.55.0
 
-Josef, thoughts?
-
-							Thanx, Paul
-
-> > So we have several ways forward:
-> >
-> > 1.	Revert the implementation of RCU Tasks Trace in terms of
-> > 	SRCU-fast, and use the existing current->trc_reader_nesting++,
-> > 	as you suggest.
-> >
-> > 2.	Deprecate RCU Tasks Trace entirely in favor of RCU Tasks
-> > 	augmented by rcu_tasks_trampoline_enter() and friends, as
-> > 	I was suggesting.
-> >
-> > 3.	Implement rcu_tasks_trampoline_enter() in terms of SRCU-fast,
-> > 	keeping the speedup, and put a synchronize_srcu() in the
-> > 	RCU Tasks grace-period mechanism.  This again deprecates
-> > 	RCU Tasks Trace entirely in favor of the augmented RCU Tasks.
-> >
-> > 4.	It is always good to explicitly state the apparent status quo,
-> > 	which involves redundant trampoline entry/exit overhead.
-> >
-> > 5.	As always, your additional ideas here!
-> >
-> > 							Thanx, Paul
-> 
