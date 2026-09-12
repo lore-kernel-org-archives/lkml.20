@@ -1,115 +1,101 @@
-Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.65])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com [209.85.161.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E9BE386424
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 20:45:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88CC8757EA
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 20:49:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789245918; cv=none; b=prm2s6Fwwy5U6lEVLU9dCaFr4SsUuC8zj6NGRwduiraiRZceyFeDyAtFbpjVAXEYyhCXZGVlIkX44IljBMtvmKeQN9ap+i4XrhKc7h8jTBoGAsyN9qZBxPhzYNkCml1TTuKXDA/pUMzwkNvE/5P7jv1YA/D6dqQJLeSEB+akihg=
+	t=1789246182; cv=none; b=KmBLBs+YSKH8zqbu9WKqURnfIewuyBwXOkBVZUXPkNt1IcbxoYD2/tpzdnTpkSlhJz/8RottI0uSgbzzrGP78F+HU3p3g4zawAP063tQdxTeBRDv3kVwD+33zRB3oZQBExbzFModaiH9j/38Ulm8dEjXMtlwc00kPMhFB0C9v7Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789245918; c=relaxed/simple;
-	bh=mdLhA5ufzgFyJdjNbB3mIf3qPlihGQXIZmLrkRF/DdY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=h8wn54SwTej+Bg7QAYA206QfXiWE70P9nEskGpGu3icBi4a9q9pUGMdvu65vZXMYqFWV2NG+BAasrU55VRpoUFQ1bvN4cx803pGFk2R3PSnUj2tygyfIYMfsJSh2OhyvUWfDgObUuX626f8yiTB8G03vdK5QUG5M5GINj8IPdWE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.net; spf=pass smtp.mailfrom=posteo.net; dkim=pass (2048-bit key) header.d=posteo.net header.i=@posteo.net header.b=G0+WTvy+; arc=none smtp.client-ip=185.67.36.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.net
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=posteo.net header.i=@posteo.net header.b="G0+WTvy+"
-Received: from submission (posteo.de [185.67.36.169]) 
-	by mout01.posteo.de (Postfix) with ESMTPS id A2D9D240028
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 22:45:06 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.net;
-	s=1984.8680eb; t=1789245906;
-	bh=IZpVwh8CIc0ifvK7yjvQ1M5nK/aIW/l8aBs8zK338c4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:
-	 Content-Transfer-Encoding:From;
-	b=G0+WTvy+2rf/ljuurTIEcsXgbldAH3629kcjx2bPHXO3vNqm3Gm/SDuG7YqslS3ON
-	 T7s7dH9t/Yvw8U1VSmb3RB9ED5WmmA9lT7Ig2v/mc7j1uHikp2f5xkhplKyezsNPC0
-	 xK5DrsRh2V7c37nIo5jf44dtWTDp/FGkKJ2DHUVzjSSPB0hQClYCeMItxFnAPUF4Cw
-	 unfk+D98yNRb8+crDPq7PJHvM83ZItoYmDMRPmkUhpDbHdx4yQbepV3TH3jWgz9ah+
-	 CajndEa1Svwc978ktskeNXDfkRSYHGAKbk1vkrRxhcIq/rFTowIiRunYb6MBP/gf+y
-	 eg8IhxqV6s1yw==
-Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4hj3M534q8z9rxB;
-	Sat, 12 Sep 2026 22:45:05 +0200 (CEST)
-From: Mateusz Nowicki <mateusz.nowicki@posteo.net>
-To: alexandre.torgue@foss.st.com,
-	mcoquelin.stm32@gmail.com
-Cc: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 3/3] arm64: dts: st: enable eMMC on stm32mp257f-dk
-Date: Sat, 12 Sep 2026 20:45:06 +0000
-Message-ID: <20260912204454.219606-4-mateusz.nowicki@posteo.net>
-In-Reply-To: <20260912204454.219606-1-mateusz.nowicki@posteo.net>
-References: <20260912204454.219606-1-mateusz.nowicki@posteo.net>
+	s=arc-20240116; t=1789246182; c=relaxed/simple;
+	bh=RCksDI6mcklvZzhqPcWEI8iAHnU7QBEh1z3um95gNw0=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=rF7l9s90iMI+w/UrC37ZVKjIR3i97T4bLx3xLkM/VOX/KXY5t1jW4vn25X8o5Qw50FQvFm/kZ/9I74gjDtkVyQGMZL9fA3gK+XT8x/OHxDxy86QhRJmqJSoOeWYyTnWxiuo0EIV5p/H98zydY/RUkK7Uetl7tVv5SHqBAKepWTs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f70.google.com with SMTP id 006d021491bc7-6c16df7bd53so1513888eaf.0
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 13:49:41 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789246180; x=1789850980;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=1/ZTV4hObFNYAaWwNHEkGHUENWc3He4mt3jK0SseFZE=;
+        b=XU6Zu289m2viw3q0m/ETxF0G1UAlAiEr501ceZfZmOvRajSx1ni2NqUDmB15TQqDfw
+         Ep79lidw8zpzn748dJSYvZp34VFG1wYDNYASZgrDNqC6Z4ynCSHleFWDkKtHjgd1yGIl
+         BmXntjK7mFBfmlU2ubr1czpXcz8n1Lh+gM+zgEoBetLRPw/rNeqsnfjujMB0AxGI7IZe
+         19nmuQI2fgeItiR53ZdFg9zXv94lzQIYb/PqT+CCw/2qm+HkZi8mavBZnd9yFTk2Enlj
+         MrTtjO9pgTHHHy9e/ftUxPuJnjufNy9TXsohsmfk+taKcDkgIKZiZAPaq+HzIRpbFqaU
+         UM3g==
+X-Gm-Message-State: AFuF++mBfgE0F+ABA/idq2mkO18eIHwlOwmj53vRC2VOZM2R6pYsTBkF
+	PRmIuKhen7pRfgrR89btZnKt0/jFj9NDt/MNx0UgsjBQe5j0DjhmupWDXEMaO0HBwu/tGe3P54s
+	hzI7uGBt7m81hOk0eAFNIAuo+4wZOlgAFXmkhffB4Du6uI9GB9b4fwbSS6Es=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6820:161f:b0:6be:731b:5544 with SMTP id
+ 006d021491bc7-6c0bc1d6d86mr6656242eaf.37.1789246180551; Sat, 12 Sep 2026
+ 13:49:40 -0700 (PDT)
+Date: Sat, 12 Sep 2026 13:49:40 -0700
+In-Reply-To: <6aa2d63e.6e6c5f9e.28f11f.0036.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa5bae4.f81106d8.2ab401.0030.GAE@google.com>
+Subject: Forwarded: [PATCH] Bluetooth: RFCOMM: avoid socket lock inversion in
+ listener cleanup
+From: syzbot <syzbot+0cece8fa7d83523f47a3@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Enable the 8-Gbyte eMMC v5.1 connected to SDMMC2 with an 8-bit bus.
-Faster 1.8V modes are not enabled as they could not be tested yet.
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-Signed-off-by: Mateusz Nowicki <mateusz.nowicki@posteo.net>
+***
+
+Subject: [PATCH] Bluetooth: RFCOMM: avoid socket lock inversion in listener cleanup
+Author: jcperdomo100@gmail.com
+
+#syz test
+
+rfcomm_sock_cleanup_listen() closes unaccepted child sockets through
+rfcomm_sock_close(), which takes the RFCOMM socket lock before
+rfcomm_dlc_close() acquires rfcomm_mutex.
+
+The RFCOMM worker takes these locks in reverse order: it holds
+rfcomm_mutex while rfcomm_connect_ind() or a DLC state callback acquires
+an RFCOMM socket lock. Lockdep therefore reports a possible deadlock.
+
+Remove the redundant socket locking from rfcomm_sock_close(). Its only
+caller receives the dequeued child with a reference held, and the
+function is already documented as requiring an unlocked socket. This
+also matches rfcomm_sock_shutdown(), which drops the socket lock before
+closing the DLC.
+
+Reported-by: syzbot+0cece8fa7d83523f47a3@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=0cece8fa7d83523f47a3
+Fixes: b7ce436a5d79 ("Bluetooth: switch to lock_sock in RFCOMM")
+Signed-off-by: Juan Perdomo <jcperdomo100@gmail.com>
 ---
- arch/arm64/boot/dts/st/stm32mp257f-dk.dts | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
+ net/bluetooth/rfcomm/sock.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/st/stm32mp257f-dk.dts b/arch/arm64/boot/dts/st/stm32mp257f-dk.dts
-index 8daf3dfd5133..8c6aabac367e 100644
---- a/arch/arm64/boot/dts/st/stm32mp257f-dk.dts
-+++ b/arch/arm64/boot/dts/st/stm32mp257f-dk.dts
-@@ -21,6 +21,8 @@ / {
- 	aliases {
- 		ethernet0 = &ethernet1;
- 		serial0 = &usart2;
-+		mmc0 = &sdmmc1;
-+		mmc1 = &sdmmc2;
- 	};
+diff --git a/net/bluetooth/rfcomm/sock.c b/net/bluetooth/rfcomm/sock.c
+index 958081adb..1a35fb5fd 100644
+--- a/net/bluetooth/rfcomm/sock.c
++++ b/net/bluetooth/rfcomm/sock.c
+@@ -242,9 +242,7 @@ static void __rfcomm_sock_close(struct sock *sk)
+  */
+ static void rfcomm_sock_close(struct sock *sk)
+ {
+-	lock_sock(sk);
+ 	__rfcomm_sock_close(sk);
+-	release_sock(sk);
+ }
  
- 	chosen {
-@@ -231,6 +233,10 @@ scmi_vddio1: regulator@0 {
- 		regulator-min-microvolt = <1800000>;
- 		regulator-max-microvolt = <3300000>;
- 	};
-+	scmi_vddio2: regulator@1 {
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <3300000>;
-+	};
- 	scmi_vddcore: regulator@11 {
- 		reg = <VOLTD_SCMI_STPMIC2_BUCK2>;
- 		regulator-name = "vddcore";
-@@ -279,6 +285,21 @@ &sdmmc1 {
- 	status = "okay";
- };
- 
-+&sdmmc2 {
-+	pinctrl-names = "default", "opendrain", "sleep";
-+	pinctrl-0 = <&sdmmc2_b8_pins_a>;
-+	pinctrl-1 = <&sdmmc2_b8_od_pins_a>;
-+	pinctrl-2 = <&sdmmc2_b8_sleep_pins_a>;
-+	non-removable;
-+	no-sd;
-+	no-sdio;
-+	st,neg-edge;
-+	bus-width = <8>;
-+	status = "okay";
-+	vmmc-supply = <&scmi_vdd_emmc>;
-+	vqmmc-supply = <&scmi_vddio2>;
-+};
-+
- &usart2 {
- 	pinctrl-names = "default", "idle", "sleep";
- 	pinctrl-0 = <&usart2_pins_a>;
+ static void rfcomm_sock_init(struct sock *sk, struct sock *parent)
 -- 
-2.55.0
-
+2.50.1 (Apple Git-155)
