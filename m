@@ -1,313 +1,142 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 895BE30F55F;
-	Sat, 12 Sep 2026 01:26:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A7B6313545
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 01:28:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789176386; cv=none; b=KUBviEXEX/9UVP41+G753o8iGUkIwpmjc0LK6K7kKBca9cgGgAohJ92EafBDQ/gbwOq+MjkjzXaRqGiInjw+1ol5f8izJEqN3kvgSJKPyiRdaonXyuCPtYFWM8iuFT2E8eHa9nWpKBqf/zM+uy5naikg0CsFT17q+mei0b9hW+Y=
+	t=1789176510; cv=none; b=ujlc6N6DL2on4MzURPLILMFJvOodUwJIf/+GGnOnqHyLR+uBI+idc/SNN+5Q0gNJ8I9lIPYhYbboiRDHtObdXEK+8Pbm1XD0ru8QMDXg+QBGwwMZEjdJeGQ8yrSteHGyY3mPZVeUWAMmBrmtrlV1IdY8OnrCLqXV7ISbSEvuTnE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789176386; c=relaxed/simple;
-	bh=y+SpoHHLdR5p4yjsBLHgFcaRHeUl4a0MzcN0EnaZwak=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=lCJTVBbOmJ42DIoMpcDoRqluQ7lPpwZbPPd7QiZQJ3s4+UXhvNWJC0ug14XxsqIJ8Vt+EvP2ZrgPnoBuNBaC1IOUy1Dl+cqXJ4CmwzZI1AZeSd/a8OFRSh7udmAL1FtMTDUNrWwmwIRsUhMBj9frMH+Zp+xIjehO/l86Tlsva+4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KzyGKX3P; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789176510; c=relaxed/simple;
+	bh=uVvlkd3r7AzFL0bwoPRshRxUVPE5PJY2DyGjC0onaAw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CdU/AH6/hNL+9FDo4OXeebrru5MSnpPiVt0+lboXT8UIsh9gjaNVOACG+w/tZIbMAKBVqasnjcmkn1U2aobpT15q81nSRVLvN19Iu98K80pknYMW9U6kj2uXyVeg1OApcarFvFO5Y5CPaUm6zWtTX25kM430RaIz5HXY0wgvjPo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g03UzGRQ; arc=none smtp.client-ip=74.125.228.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KzyGKX3P"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C7A11F000FF;
-	Sat, 12 Sep 2026 01:26:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789176385;
-	bh=nGIea3oN+xUA/wPW5fe0ETsqasO+YkYKbU/LxCwJUNY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=KzyGKX3PyS/Zz2pvVlVC9WK9lqXEx/l6iiWjamebfLM1rf3ebJyeTNE89aK9KdZzU
-	 LuMp9aEaIZpska95dPDwRdv4/Kk7dS9jlJg1O9JJZm7myXHgHZfc4JE01+315Fs205
-	 dG6qRcKFTihqrE6gFGJ33X8n/UuLvG2kn/+6cWD3lLM9UMMpPIUgpX8/ZcZHCnUFEH
-	 YMG03ZmghM57JSjB+cjFc8+Jl0FyRDUWUA9GH6dcRU7TDol1VNEJ+NhNzDjC/h007O
-	 aaWAkmLSLEnZ+wEmXnqgmEiYrPXxte9TBvEXcP+g+d7C4Dk0qFQNWJuvByE3nSugVx
-	 O85xXCJjhKJ6g==
-Date: Sat, 12 Sep 2026 02:26:17 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Srirangan Madhavan <smadhavan@nvidia.com>
-Cc: Alison Schofield <alison.schofield@intel.com>, Bjorn Helgaas
- <bhelgaas@google.com>, Dave Jiang <dave.jiang@intel.com>, Davidlohr Bueso
- <dave@stgolabs.net>, Ira Weiny <ira.weiny@intel.com>, Vishal Verma
- <vishal.l.verma@intel.com>, linux-cxl@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, Alex Williamson
- <alex.williamson@redhat.com>, vsethi@nvidia.com, alwilliamson@nvidia.com,
- Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>, Vishal Aslot
- <vaslot@nvidia.com>, Manish Honap <mhonap@nvidia.com>, Jiandi An
- <jan@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
- linux-tegra@vger.kernel.org
-Subject: Re: [PATCH v12 06/12] cxl: Add CXL Device Reset helper
-Message-ID: <20260912022617.47860862@jic23-hlaptop>
-In-Reply-To: <20260910070808.1444264-7-smadhavan@nvidia.com>
-References: <20260910070808.1444264-1-smadhavan@nvidia.com>
-	<20260910070808.1444264-7-smadhavan@nvidia.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g03UzGRQ"
+Received: by mail-pz2-f42.google.com with SMTP id d2e1a72fcca58-85469b35601so72266b3a.3
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 18:28:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789176506; x=1789781306; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5Ohl5GXWK7z9PSL07FA+1qnT/VjHf89JQfhIV3tvy2o=;
+        b=g03UzGRQ9ZwuOM24HyaKxUOZBtLeszngZetHR/AM1wKRhPNdOc8dRDPwVpOuKaR/lb
+         P/w3KGQ/fATjOO3sU1bmsrbdbr5GvPHjKRjWT5Jnp3UdMvdvpZk+3j2BsJFY/+CVlKhT
+         66ko0/1OzzCC3zyHvTgsrYRZ5U65thM+N9vsz0SSh7YMIOYaT8l9JIg7MlXpbwV7xMvm
+         IQKM36WfZ48cwoia5ZgwYRQPDyeRP2xCL+/YNGWsRTKkvda27Z2YcgcNt2Hqk6LWo4AR
+         tnPSEndhX+ucn9QwLf2dP0T4cjVk2joD8XgvfsJke9bkvBsqe76dEgqvtdu53i4zAyoQ
+         7CwQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789176506; x=1789781306;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5Ohl5GXWK7z9PSL07FA+1qnT/VjHf89JQfhIV3tvy2o=;
+        b=HlNq/CFZ1C9lVjKCMWcxOnyV4lA7Yzgwrgx/2eIBPX3or0W4Jv+l67c2rt+QTueXwk
+         i+xAUS+E8q+4bZuVpKzl9qWr1Ate68Qtp1gTDWr2C+8jr/jWxLhcHkNUCUS2+sJBBMvP
+         W9HyuC62b4WUfo6yBfJLqhDLWQ87zEYrBfLvcVaDLe8Zas/pegUHsEbJofhC0ubFNAio
+         jse9SnYjlibNFd8qBWGfUh+u7LeyVWVdpTqmAJweKj40CI1KvN9vI9dto3e/ygcJ01Yp
+         PGkme3Xz5NaTx01+xQM/4chlcxK8HJPmd3bJQ0lsUd0tnj/76R1Jf5Is+UgH2KtdoYSw
+         bBEQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwpkZQbphRYFeuDz5rSR8EA1saOnkNSm4kICIns+X0G29tS48o+IwM5kjujLfHIUcdbCNY97ijwSIyJOfU=@vger.kernel.org
+X-Gm-Message-State: AFuF++l9qaORto5I0XAUrZXrHXfEULM9WiuIpbpPR1Ae9YzVXwpR8SRx
+	YEKoGTmuyIHMlWRHMDV2aMkMJSFdkPWfQMIPlsaZXX8d8hQV4cVPgl4=
+X-Gm-Gg: AYBFou3Sd9e1HTohUNebnSu2ZxNG7sLoyYPSVC5ZH4p0WvKv+vadIvAhozjvjyIASqK
+	nKqPRqwM2ZscMYzIDfH743wQj3OSonTyFqWEHBSBG8TQBbkOyAYEKBWZd8xQHH8YxyuApWl3vMc
+	dzFLsJZNYw441Vo6JuNEz0WWDly9lBLLsuUTImiXG+J+jhTdtImQBG46X54zRE5AIEWfbSfuzEq
+	/jWCoPTVsenLRNaWMr6NPFJG8t1xThN5MAcFllSubl0e/cgmEx16t20D8flkTz8oSk0/XtMzQbI
+	d2OdcxYx3qGmAsLMKcYbNEaAPwDKyNO/pR9H4bhwHJauhcCQerYE6ZtP2fnPy+GHv3xdRMAk/cP
+	McE5pVYrfvchO6sIhG5qEvmJ+h54JMRyccJje/w8AycueqQ9ci2c37CvR3cqZyOTQMwdqnhzk92
+	tFiA4+966j94lYmL2e85KPRpBWg4HQZS6LfY9nLIsyoP1679HGOVuL+ph9AwvPli005g+gwnELT
+	1CMirdSxSWRze/lJGdfJPz4jbPa5qT/aDE=
+X-Received: by 2002:a05:6a00:94fd:b0:84e:89a:b8ec with SMTP id d2e1a72fcca58-86cca73e429mr1155632b3a.11.1789176506482;
+        Fri, 11 Sep 2026 18:28:26 -0700 (PDT)
+Received: from ydg-Zenbook-14-UM3406GA ([211.230.25.193])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b291c1601sm1805850b3a.31.2026.09.11.18.28.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 18:28:25 -0700 (PDT)
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+To: Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Russell King <linux@armlinux.org.uk>,
+	netdev@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Sashiko <sashiko-bot@kernel.org>,
+	donggeunyoo.kernel@gmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH net] net: phy: qca808x: handle the active-high LED polarity mode
+Date: Sat, 12 Sep 2026 10:28:19 +0900
+Message-ID: <20260912012819.2072067-1-donggeunyoo.kernel@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Thu, 10 Sep 2026 07:08:02 +0000
-Srirangan Madhavan <smadhavan@nvidia.com> wrote:
+Commit a274465cc3be ("net: phy: support 'active-high' property for PHY
+LEDs") added PHY_LED_ACTIVE_HIGH but did not cover qca808x, so
+qca808x_led_polarity_set() returns -EINVAL for it. phy_probe() propagates
+that, leaving the mdio device unbound and phy_attach_direct() falling back
+to the genphy driver.
 
-> Add an internal CXL Device Reset helper for Type 2 functions that
-> advertise CXL Reset and CXL Reset Memory Clear in the CXL Device DVSEC.
-> The helper disables CXL.cache, performs cache writeback when supported,
-> initiates reset with Memory Clear enabled, waits for completion, and
-> re-enables CXL.cache on exit.
-> 
-> Leave the helper unregistered until range validation and reset-scope
-> validation are in place.
-> 
-> Signed-off-by: Srirangan Madhavan <smadhavan@nvidia.com>
-A few things inline.
-> ---
->  drivers/cxl/core/resource.c   | 251 ++++++++++++++++++++++++++++++++++
->  include/cxl/cxl.h             |   7 +
->  include/uapi/linux/pci_regs.h |  14 ++
->  3 files changed, 272 insertions(+)
-> 
-> diff --git a/drivers/cxl/core/resource.c b/drivers/cxl/core/resource.c
-> index 6d9f8fe14b16..9c1aa0800521 100644
-> --- a/drivers/cxl/core/resource.c
-> +++ b/drivers/cxl/core/resource.c
-> @@ -8,6 +8,8 @@
->  #include <linux/export.h>
->  #include <linux/io.h>
->  #include <linux/ioport.h>
-> +#include <linux/iommu.h>
-> +#include <linux/jiffies.h>
->  #include <linux/kernel.h>
->  #include <linux/pci.h>
->  #include <linux/slab.h>
-> @@ -492,3 +494,252 @@ void pci_cxl_hdm_init(struct pci_dev *pdev)
->  	if (rc && rc != -ENOTTY && rc != -ENODEV)
->  		pci_dbg(pdev, "CXL HDM cache init failed: %d\n", rc);
->  }
-> +/*
-> + * CXL r4.0 sec 9.7.2 defines the reset completion timeout encodings.
-> + * Sec 9.7.3 leaves config-space access behavior undefined for 100 ms after
-> + * initiating CXL Reset, then limits software to CXL Status2 access until
-> + * reset completion, timeout, or error.
-> + */
-> +#define CXL_RESET_RRS_WAIT_MS 100
-> +#define CXL_RESET_STATUS_POLL_MS 20
-> +static const u32 cxl_reset_timeout_ms[] = {
-> +	10, 100, 1000, 10000, 100000,
-> +};
-> +
-> +#define CXL_CACHE_WBI_TIMEOUT_US 100000
-> +#define CXL_CACHE_WBI_POLL_US 100
-> +
-> +static int cxl_reset_get_dvsec(struct pci_dev *pdev, u16 *cap_out)
-> +{
-> +	int dvsec, rc;
-> +	u16 cap, ctrl;
-> +
-> +	dvsec = cxl_pci_get_device_dvsec_cap(pdev, 0, &cap);
+Accepting the mode alone is not enough: led_polarity_mode records
+active_low, so an explicit 'active-high' node stores 0, while
+qca808x_config_init() re-asserts QCA808X_LED_ACTIVE_HIGH only for -1. The
+bit does not survive the reset phy_init_hw() runs first, so the LED would
+come up active-low.
 
-That is an odd function given the control read is separate - why
-should we wrap up the cap read?
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260908105959.70453-1-donggeunyoo.kernel%40gmail.com
+Cc: stable@vger.kernel.org
+Fixes: a274465cc3be ("net: phy: support 'active-high' property for PHY LEDs")
+Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Assisted-by: Claude:claude-fable-5 checkpatch sparse
+---
+Supersedes [PATCH net v3 3/3] (20260908105959.70453-4-donggeunyoo.kernel@gmail.com);
+1/3 and 2/3 are in mainline. Andrew Lunn's Reviewed-by on v3 3/3 is dropped --
+this changes behavior.
 
-I'd just drop this helper and open code the search for the extended
-cap at the few callsites.  A little more code, but less odd and all
-standard PCI stuff not needing an extra helper.
+Compile-tested only (W=1, sparse). I have no QCA808x hardware, and there is no
+KUnit suite or MDIO mock under drivers/net/phy to exercise the MMD7 write
+without it.
+ drivers/net/phy/qcom/qca808x.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-Probably a bit of code evolution caused this given you are up at v12!
-
-> +	if (dvsec < 0)
-> +		return dvsec;
-> +
-> +	if (!(cap & PCI_DVSEC_CXL_CACHE_CAPABLE) ||
-> +	    !(cap & PCI_DVSEC_CXL_MEM_CAPABLE))
-
-Why do we need them both? Sure that's type 2, but a non
-class code matching type3 would I think need the same infrastructure
-you are building here. That would have cxl.mem but not cxl.cache
-- I think some of the CXL SSD prototypes fit in this category.
-
-> +		return -ENOTTY;
-> +
-> +	if (!(cap & PCI_DVSEC_CXL_RST_CAPABLE))
-> +		return -ENOTTY;
-> +	if (!(cap & PCI_DVSEC_CXL_RST_MEM_CLR_CAPABLE))
-> +		return -ENOTTY;
-> +
-> +	rc = pci_read_config_word(pdev, dvsec + PCI_DVSEC_CXL_CTRL, &ctrl);
-> +	if (rc)
-> +		return pcibios_err_to_errno(rc);
-> +
-> +	if (!(ctrl & PCI_DVSEC_CXL_CACHE_ENABLE) ||
-> +	    !(ctrl & PCI_DVSEC_CXL_MEM_ENABLE))
-> +		return -ENOTTY;
-> +
-> +	*cap_out = cap;
-> +	return dvsec;
-> +}
-> +
-> +#define CXL_RESET_CTRL2_CMD_MASK \
-> +	(PCI_DVSEC_CXL_INIT_CACHE_WBI | PCI_DVSEC_CXL_INIT_CXL_RST)
-> +
-> +static int cxl_reset_read_ctrl2(struct pci_dev *pdev, int dvsec, u16 *ctrl2)
-> +{
-> +	int rc;
-> +
-> +	rc = pci_read_config_word(pdev, dvsec + PCI_DVSEC_CXL_CTRL2, ctrl2);
-> +	if (rc)
-> +		return pcibios_err_to_errno(rc);
-> +
-> +	*ctrl2 &= ~CXL_RESET_CTRL2_CMD_MASK;
-I'd rename this. It is doing more than reading crl2.  Or push the code
-inline and avoid need for any name bikeshedding.
-
-> +	return 0;
-> +}
-> +
-> +static int cxl_reset_write_ctrl2(struct pci_dev *pdev, int dvsec, u16 ctrl2)
-> +{
-> +	int rc;
-> +
-> +	rc = pci_write_config_word(pdev, dvsec + PCI_DVSEC_CXL_CTRL2, ctrl2);
-> +	if (rc)
-> +		return pcibios_err_to_errno(rc);
-This helper is also providing little value
-> +
-> +	return 0;
-> +}
-> +
-> +static int cxl_reset_modify_ctrl2(struct pci_dev *pdev, int dvsec, u16 set,
-> +				  u16 clear)
-
-This needs a rename because it has that subtle mask of previous
-state. What is it actually allowing you to modify?
-
-> +{
-> +	u16 ctrl2;
-> +	int rc;
-> +
-> +	rc = cxl_reset_read_ctrl2(pdev, dvsec, &ctrl2);
-> +	if (rc)
-> +		return rc;
-> +
-> +	ctrl2 &= ~clear;
-> +	ctrl2 |= set;
-> +	return cxl_reset_write_ctrl2(pdev, dvsec, ctrl2);
-
-So with them squashed inline this would just be
-{
-	u16 ctrl2;
-	int rc;
-
-	rc = pci_read_config_word(pdev, dvsec + PCI_DVSEC_CXL_CTRL2, ctrl2);
-	if (rc)
-		return pcibios_err_to_errno(rc);
-
-	/* Comment on why this is masked */ 
-	ctrl2 &= ~(PCI_DVSEC_CXL_INIT_CACHE_WBI | PCI_DVSEC_CXL_INIT_CXL_RST);
-	ctrl2 &= ~clear;
-	ctrl2 |= set;
-
-	rc = pci_write_config_word(pdev, dvsec + PCI_DVSEC_CXL_CTRL2, ctrl2);
-	if (rc)
-		return pcibios_err_to_errno(rc);
-
-	return 0;
-}
-
-which is if anything easier to read.
-
-> +}
-> +
-> +static int cxl_reset_enable_cache(struct pci_dev *pdev, int dvsec)
-> +{
-> +	return cxl_reset_modify_ctrl2(pdev, dvsec, 0,
-> +				      PCI_DVSEC_CXL_DISABLE_CACHING);
-> +}
-> +
-> +static int cxl_reset_initiate(struct pci_dev *pdev, int dvsec)
-> +{
-> +	return cxl_reset_modify_ctrl2(pdev, dvsec,
-> +				      PCI_DVSEC_CXL_INIT_CXL_RST |
-> +				      PCI_DVSEC_CXL_RST_MEM_CLR_EN, 0);
-> +}
-
-
-
-> +
-> +static int cxl_reset_execute(struct pci_dev *pdev, int dvsec, u16 cap)
-> +{
-> +	bool target_prepared = false;
-> +	int rc, rc2;
-> +
-> +	rc = cxl_reset_disable_cache(pdev, dvsec, cap);
-> +	if (rc)
-> +		return rc;
-> +
-> +	if (!pci_wait_for_pending_transaction(pdev))
-> +		pci_err(pdev, "timed out waiting for pending transactions\n");
-> +
-> +	rc = pci_dev_reset_iommu_prepare(pdev);
-> +	if (rc)
-> +		pci_err(pdev, "failed to stop IOMMU for CXL reset: %d\n", rc);
-
-Maybe a comment on whether this is even remotely safe to continue.
-My gut feeling is this sort of thing happens, just give up...
-
-
-> +	else
-> +		target_prepared = true;
-> +
-> +	if (!rc)
-> +		rc = cxl_reset_initiate(pdev, dvsec);
-> +	if (!rc)
-> +		rc = cxl_reset_wait_done(pdev, dvsec, cap);
-> +
-> +	rc2 = cxl_reset_enable_cache(pdev, dvsec);
-Can't we delay this until after the iommu is told things are back?
-I'm not keen on the sequence not being a clean tear down then a clean setup
-in the other order. I may well be missing some subtleties. This maybe
-needs some documentation.
-
-> +	if (rc2 && rc)
-> +		pci_warn(pdev, "failed to re-enable CXL caching: %d\n", rc2);
-
-What is logic about not printing if we have another failure sat in rc?
-Is it not true anyway?
-
-> +	else if (rc2)
-> +		rc = rc2;
-
-This code flow is less than ideal I'd use some gotos rather than that if (!rc)
-dance.
-
-> +
-> +	if (target_prepared)
-> +		pci_dev_reset_iommu_done(pdev);
-> +	return rc;
-
-	return rc ? rc : rc2; and some of the complexity above goes away.
-
-> +}
-> +
-> +int cxl_reset_function(struct pci_dev *pdev, bool probe)
-> +{
-> +	int dvsec;
-> +	u16 cap;
-> +
-> +	dvsec = cxl_reset_get_dvsec(pdev, &cap);
-> +	if (dvsec < 0)
-> +		return dvsec;
-> +
-> +	if (probe)
-> +		return 0;
-> +
-> +	return cxl_reset_execute(pdev, dvsec, cap);
-> +}
+diff --git a/drivers/net/phy/qcom/qca808x.c b/drivers/net/phy/qcom/qca808x.c
+index 8eb51b1a006c..68fd4d0fe31b 100644
+--- a/drivers/net/phy/qcom/qca808x.c
++++ b/drivers/net/phy/qcom/qca808x.c
+@@ -200,8 +200,8 @@ static int qca808x_config_init(struct phy_device *phydev)
+ 	struct qca808x_priv *priv = phydev->priv;
+ 	int ret;
+ 
+-	/* Default to LED Active High if active-low not in DT */
+-	if (priv->led_polarity_mode == -1) {
++	/* Set LED Active High unless active-low was requested in DT */
++	if (priv->led_polarity_mode != 1) {
+ 		ret = phy_set_bits_mmd(phydev, MDIO_MMD_AN,
+ 				       QCA808X_MMD7_LED_POLARITY_CTRL,
+ 				       QCA808X_LED_ACTIVE_HIGH);
+@@ -603,6 +603,9 @@ static int qca808x_led_polarity_set(struct phy_device *phydev, int index,
+ 		case PHY_LED_ACTIVE_LOW:
+ 			active_low = true;
+ 			break;
++		case PHY_LED_ACTIVE_HIGH:
++			active_low = false;
++			break;
+ 		default:
+ 			return -EINVAL;
+ 		}
+-- 
+2.53.0
 
