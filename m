@@ -1,74 +1,74 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D031388868
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 08:10:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 475283A1D05
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 08:10:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789200644; cv=none; b=uxs867cYjv4yjTEW8t90D+VdEPzNDHVeYOBaRW/zlYL90agrbJN6gDGbFxUvQgpwPEjLV4So2DmfT/kIQXWVV/RtI0puh0Jgxp0rSP96jm8u1XF/4YUdnZC8Ff6WRxrJV38jIj9yaesN7of9Wf/xiLtbQ24rf8behvgf+/+lpcU=
+	t=1789200648; cv=none; b=ZDYoHOw5WhxVVRi5ToLN+TaoRbErMbzIrWz5sF68NCGf4gr5prdWSmLBpnl8HxbnkDe0WsF3LF6yuhwl6cA4vnWhsiboE1uXqH57daF8a8sIuT7JOrg3zce6UL0CjSvVun+/bBJgF1ereiEmNp9NzH+rXdO8zApEyGLolOULL+U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789200644; c=relaxed/simple;
-	bh=jipvs13dUFb5yrSXQVJH72ueZtpWAQhemw94A0aFTrI=;
+	s=arc-20240116; t=1789200648; c=relaxed/simple;
+	bh=mUKHHlQooGLT59Ah3RqD2AYxc1c/y9A2ALw5tBIdqtU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lQMPs7LmTBMrY5/kPaL+aQRYQKrpUG2Xx7rPnminuSdTLElLG0rhly3f5vwkbbAUSjDhrofs2AkpHxhok9vM2Lo9c/+ugRsAZngTAAItoaxeldwLpTHEYrep6S4E92zsh2OYpyXiHdwfCFlBYO8yo9ZO83Eiw1OYKv34Xo16MZQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z09bmaOE; arc=none smtp.client-ip=74.125.227.141
+	 MIME-Version; b=E1kJZ8N8HaU3CqrHdEE462hti20tYFupXdKN+HTSrasAOblkDNyDY6yCwhAd8w+MQR8F5aMwajWlc9FoxpEMYbU0ovuOTIM3QEzbIbqKifvVUNZqBLuJaknocdMPx4/5ep3arO2RTmvqvdApgmLKtq+dWO8GYQL6LiIDsyYbDXQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FDeOOpX0; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z09bmaOE"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39dbdfaef3cso323545a91.1
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 01:10:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FDeOOpX0"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39d654f02baso302049a91.3
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 01:10:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789200642; x=1789805442; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789200646; x=1789805446; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=eSYO98oHKaatdSJA86Zv/zyqDt8H9puU2z+h8TsbVQM=;
-        b=Z09bmaOEj18jfB5ioDehIVHBdDd6FRqLjUl6PQ87b0zOp9gfDlDO3UF1ibkErXfk50
-         cWqdK7meIPHPK6GRAcOiSMOb2JCKu84Xfc9jXTKDBtuOaLdeC6Z+ZFRDjVmXkkrQ8qPw
-         cbvFr50RYs4wapSx8Xbr/ZHW086pHAi/qRw2yNQed4eCMG70zcAGTHoxU1Llz84QhJKK
-         GyQbtcpw0Vt5U+6/5EK4Q5SOHgSNuuzW82AHzsIeYl0NGcMBkPbNWxSpI/2/T6QWOmBD
-         cJZpu44YKq0lnG+gY464w9nGoZP3h38Hs9YiMOtz88Uq08r0bexyuEX6mlnOk7ZtjBBw
-         5D4g==
+        bh=qekC0MqEXMTW5BJCD+Nqo9MkepvtatwwVDmZuLTl4rg=;
+        b=FDeOOpX0FJG+9c1566VUXdQTzGODd7YY8f7YKjXJEz5g9eGwmueU6iFjvcZCV3+9n8
+         d93l+nVpbYrrsVQ9rdBPZtWaVKfyHvJKvyVT4919NbsSG+0oxI576ju87SQfPl3ukiJO
+         kfUWSr6wntmlp6d2b1K+7PAOEcGbueJRdzO9uerOURGRLoH5CydmanWVt/PuGqCcAt5H
+         7HYBIwEi1M+T23NaSvBQTmwjjzOWxornarBLXVSRN7zlUzt2X9VPwm0SI2b6ejzc1WWo
+         Li1dlloLvImVWUWC0/i6S/4hoxIjnq2DJ/ysgWEQBTh0Vw+AM8mHYWjaYWHcQSUIjLsh
+         b9jg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789200642; x=1789805442;
+        d=1e100.net; s=20251104; t=1789200646; x=1789805446;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eSYO98oHKaatdSJA86Zv/zyqDt8H9puU2z+h8TsbVQM=;
-        b=ZYxpcfUvYt7y8n3oWpuK5xG9LZphZfBwVDfj7Yf2vxPRyqMn77vieih29dB9Wm7Aju
-         J0UrKi3aiVZr0OThOOzYd8lC8+GKRi5Qps+8S3K92B4mSVvoaKJi+WNgx7l5245djyK/
-         4LxCHiGjBFTgPO9dw3Dlnc9vSnZEkxKn/5bmJhTgTcTTJnpiSTQ4/rdbiAn8WooNH06e
-         VyHS/+6Y4Yc9c4dMV3nlFDWSkWoHKne5Fg+vPX8kwSMRqbU+GBZhdlG1m8Lv4A2k31fa
-         YvxylEmJ8dSLH6jSOvuLi1W0YV+/Dw4N522s2h74e4wnhM1RSEljTm81zUbRFzU+Yf5q
-         vHzQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy4mzv3C1bSug5jz+dTj0rTsT1lfE0ovBZqh4yVVMkxG4+w3Kb/1SFag+jZr0tm+rPEqJuTkJqPCAJ0ebU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mUjcdEA+sYMTnORwB3yM0sgKxYCL/nxqCgAm4aejVaDxNUVdFr
-	sory9MQT7b+uCYwvcrjgwehrReZoQVLtCq8vOHNtGahLnHmKl6X8jocA
-X-Gm-Gg: AYBFou0RtboEUEXpxK9vEvFbIFhuGgqJflZAW72T9pCVXyorb7Fk1OFJhgZ8rqUP0yE
-	6v0mjh016St+SLiScP5VkX61RI3PQoe+wnCOCFY8PhELJ0Yku2i9CxyGFi47J3KOh51CTCpLfgE
-	l0dvQJs2JQQ+gKkX8KPE0TObIrXpOd4746YohmfhbLiBRccBXssnRayb3s3EQvaqKOSasDBmPRY
-	r3RpEhf5T+E9gJMcIkyda0e3MusdTX2poyCmitQZmkC1pA/kmRtnDS0ZLVVE2kuqJ0fbq5aLaOx
-	6xyWWyZmmrDQob08Aka4swgWqYOB/KOcTEo9V7IthXYuppvZWKjwcRVqc7Z8KJcfJy2syYkMxvt
-	DEANk/xlPBPNRPZDS8qCoAsTsvKkE3FNkWX+V3UJepHBWFdLLwX0mlks/3yiTB7Izr3sifDof9h
-	mdMz2g5ej28oNr+sR+XLGrzdcX6WiZi7+KjdAFQVkYlcLkhq/yCnUZrC1TOi77oAQYFimbKMBFm
-	kFt8dVB9qgUty7O3csuc/dxVcv/8XcX7yzD/sezqhDZ2BpfS7MrXFU8wpkKk1e3MLr+Mb5rfiAk
-	cF77QQ5zWBSAIEF6PnLSJgp/1d9BM59rDfohca5biYW9
-X-Received: by 2002:a17:90b:28cd:b0:38e:c7b0:84ad with SMTP id 98e67ed59e1d1-39d9b983602mr13970959a91.0.1789200642156;
-        Sat, 12 Sep 2026 01:10:42 -0700 (PDT)
+        bh=qekC0MqEXMTW5BJCD+Nqo9MkepvtatwwVDmZuLTl4rg=;
+        b=MQfKwvEilWSUOd/5m0lWX+2j9gpHQbQyuvTRM7M8lPMQsJ8yUnwSP9dXzOSzqWXPfV
+         YWlXeoy1yl6rPGHBf/CkH2IVriPuqVpVc7v2PExk+y8mPLfuqajs4kbcXa1l2VwJ6xlD
+         UCdRDlcNt/7zmGMsHAnsrUPz5dXU82naUG5/hqbTRMM8QEFfgT0CdXbud7AZVP1ou5xl
+         y3H4wntNPaVi0E2zSqXOSQrMnIRRL4gKptJBRtK9NTRsfChi8E1Sk6fIGRG9ySgehya7
+         lhwP/HD+++fs5gadCkKe49JFDqphZk2QAWQ+lsTH4p8ZYBbP43u0eiU8jHEk5wpcyisz
+         E9eg==
+X-Forwarded-Encrypted: i=1; AKwUvBxU2US5qUGRbjzYgs7WUhmra06td0tmACJ+VnYf0UchLqBNNmVDedImKwfKiCNHsTCfXj4BX9p2qWtqkrM=@vger.kernel.org
+X-Gm-Message-State: AFuF++kmd1GyKSRcVRfxskYqUKsLfoxKvBdEB682TQS0TiTRqEKpTduH
+	z1PNjtkgjsJ3dt4Ta/yMCqEKxTOOTFoc2TYLDSWFJDuN2uuVMVAXKUuyGUuXnsuYbFU=
+X-Gm-Gg: AYBFou2WPz9wo0axCbCe/jXwMneDBTt9jAlbfKXnw3eW9MfsAsFemvNJPVtfRBQzJyA
+	VeUh2z4M3z+5+OKKsLUA37+2ZU6w4q3LPXwYCAdUhl4yWc6fJb65QM8UhRGwmtilBvDYHuxQshO
+	EMGj27EM0qj6d1v0ppazGcmXOGmFY6INMIcKlpaEl6ZvWBVqv/rFrmi082lpN+pdD5OC98tmSgN
+	3vWWOCIizaDysMmjqz+8hbQInOJUoXcH2eGeFMAkrySwCEzbpiQchUs8Bo22sba4WMsw4l9NXHw
+	z9sHBecdF1VNwTass3J7+qZ/x0qEgWkfLGkAiLFBdLwLwDfEvtuT/LE+ztemxevkSiQZq9Ld8f4
+	JIHZPz13AGiqJ2cgsBQg1iINGbpFVKgGUQqzUYhOBv68M25t/3/BoTjpZ8SZye+ChUHCWuOlpUM
+	tjgoib2z1cUg+XabWq7Yje5VJXjYwDsPw56KiR/39AsxepDg7FWhbOZiYzV/N2O2396U4GN8OCj
+	daXDlCCmOhplq92wsJGpITDFpb68y1wUOhTl+XYIdpmXrxazvqQLOmyu4Fi9Ev+zYaFTNla1AN7
+	2wj2spF1dcEc0RMXC4Ek/MIgkfyCnGj+Hyjf0qsDSXGT
+X-Received: by 2002:a17:90b:57c6:b0:381:a766:efc9 with SMTP id 98e67ed59e1d1-39dbbeb57a5mr3434433a91.7.1789200646524;
+        Sat, 12 Sep 2026 01:10:46 -0700 (PDT)
 Received: from 0xiviel.ip (122-63-135-80.mobile.spark.co.nz. [122.63.135.80])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39db7ae6d25sm982474a91.1.2026.09.12.01.10.37
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39db7ae6d25sm982474a91.1.2026.09.12.01.10.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 12 Sep 2026 01:10:41 -0700 (PDT)
+        Sat, 12 Sep 2026 01:10:46 -0700 (PDT)
 From: Eva Crystal <0xiviel@gmail.com>
 To: Min Ma <mamin506@gmail.com>,
 	Lizhi Hou <lizhi.hou@amd.com>
 Cc: dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
 	Eva Crystal <0xiviel@gmail.com>
-Subject: [PATCH 2/4] accel/amdxdna: bound the command error payload length
-Date: Sat, 12 Sep 2026 20:10:10 +1200
-Message-ID: <20260912081012.2274075-3-0xiviel@gmail.com>
+Subject: [PATCH 3/4] accel/amdxdna: release the chained command BO when vmap fails
+Date: Sat, 12 Sep 2026 20:10:11 +1200
+Message-ID: <20260912081012.2274075-4-0xiviel@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260912081012.2274075-1-0xiviel@gmail.com>
 References: <20260912081012.2274075-1-0xiviel@gmail.com>
@@ -80,70 +80,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-amdxdna_cmd_set_error() computes the length of the region it scribbles
-over from the BO size, without a floor:
+When amdxdna_cmd_set_error() follows a command chain it takes a
+reference on the BO named by the chain:
 
-	memset(cmd->data, 0xff, abo->mem.size - sizeof(*cmd));
-	if (err_data)
-		memcpy(cmd->data, err_data, min(size, abo->mem.size - sizeof(*cmd)));
+	abo = amdxdna_gem_get_obj(client, cc->data[0], AMDXDNA_BO_SHARE);
+	if (!abo)
+		return -EINVAL;
+	cmd = amdxdna_gem_vmap(abo);
+	if (!cmd)
+		return -ENOMEM;
 
-abo->mem.size is a size_t and sizeof(struct amdxdna_cmd) is 4 - the
-struct is a u32 header followed by a flexible array. A BO smaller than
-four bytes therefore turns both lengths into a value near SIZE_MAX, and
-the min() in the memcpy offers no protection because the underflowed
-value is the larger operand.
+and drops it at the end of the function under "if (cc)". The -ENOMEM
+path returns before reaching that, so the reference taken by
+amdxdna_gem_get_obj() is leaked and the GEM object is never freed.
 
-No such BO can reach this function today. Command BOs are created by
-drm_gem_shmem_create(), which PAGE_ALIGN()s the size, so mem.size is
-either 0 or at least PAGE_SIZE. Zero is reachable - PAGE_ALIGN() wraps
-for sizes above ULLONG_MAX - PAGE_SIZE + 1, and nothing rejects it on
-the share-BO path - but a zero-sized BO cannot be vmap()ed, because
-vmap() refuses a zero-page mapping, so amdxdna_gem_vmap() returns NULL
-and the !cmd test above rejects the BO before the subtraction. This is
-not a fix for a reachable bug.
+amdxdna_gem_vmap() fails only if drm_gem_vmap() fails, which needs
+memory pressure or an exporter that refuses the mapping, so this is a
+small leak on a rare path rather than something a caller can drive at
+will. It is still a leak, and the chain BO handle comes from a command
+buffer user space can write.
 
-That leaves an unguarded size_t subtraction feeding a memset() length,
-whose safety depends on a property of a different allocator and on
-vmap()'s behaviour for a zero-page request. Compute the length once,
-reject a BO too small to hold the header, and use the result for both
-the memset() and the memcpy() bound.
+Drop the reference before returning.
 
 Signed-off-by: Eva Crystal <0xiviel@gmail.com>
 ---
- drivers/accel/amdxdna/amdxdna_ctx.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
+ drivers/accel/amdxdna/amdxdna_ctx.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/accel/amdxdna/amdxdna_ctx.c b/drivers/accel/amdxdna/amdxdna_ctx.c
-index 163b5fc..c24bf1c 100644
+index c24bf1c..7a61e83 100644
 --- a/drivers/accel/amdxdna/amdxdna_ctx.c
 +++ b/drivers/accel/amdxdna/amdxdna_ctx.c
-@@ -152,6 +152,7 @@ int amdxdna_cmd_set_error(struct amdxdna_gem_obj *abo,
- 	struct amdxdna_client *client = job->hwctx->client;
- 	struct amdxdna_cmd *cmd = amdxdna_gem_vmap(abo);
- 	struct amdxdna_cmd_chain *cc = NULL;
-+	size_t data_size;
- 
- 	if (!cmd)
- 		return -ENOMEM;
-@@ -173,9 +174,16 @@ int amdxdna_cmd_set_error(struct amdxdna_gem_obj *abo,
+@@ -170,8 +170,10 @@ int amdxdna_cmd_set_error(struct amdxdna_gem_obj *abo,
+ 		if (!abo)
+ 			return -EINVAL;
+ 		cmd = amdxdna_gem_vmap(abo);
+-		if (!cmd)
++		if (!cmd) {
++			amdxdna_gem_put_obj(abo);
  			return -ENOMEM;
++		}
  	}
  
--	memset(cmd->data, 0xff, abo->mem.size - sizeof(*cmd));
-+	if (abo->mem.size < sizeof(*cmd)) {
-+		if (cc)
-+			amdxdna_gem_put_obj(abo);
-+		return -EINVAL;
-+	}
-+	data_size = abo->mem.size - sizeof(*cmd);
-+
-+	memset(cmd->data, 0xff, data_size);
- 	if (err_data)
--		memcpy(cmd->data, err_data, min(size, abo->mem.size - sizeof(*cmd)));
-+		memcpy(cmd->data, err_data, min(size, data_size));
- 
- 	if (cc)
- 		amdxdna_gem_put_obj(abo);
+ 	if (abo->mem.size < sizeof(*cmd)) {
 -- 
 2.53.0
 
