@@ -1,192 +1,89 @@
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65CF32F260C
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 19:27:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789241275; cv=pass; b=TrDKM0SLhp1r8jdamTypxxFZiWfs7rR38q6bELkyd2mPkvj4QZtiuwr8TDOhfKYpmp3WXd2pgUY8RkluOVYvheggzo0TLObqzbxDi1F6i6WANxIZ5GTP+UIsB6rZMQlMCcHJ69B379gjKQo1fWvYIPUjVU7UErbFtwoAwtAep40=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789241275; c=relaxed/simple;
-	bh=zYQBQUfSzQO+W8jhwa6ez9qTjs184jpN5iZq07bkuJ4=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A6B22F260C;
+	Sat, 12 Sep 2026 19:28:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789241307; cv=none; b=oHEIPTB0dIPeoNGdyvfN/gb6dijK7/W8g+FBwNhBdKindhFeGMv9+43e/jXFKoU2anGX1Wz5J5ynsKHxpvyXDjLqy8NXkm/UPjTk3f+j4is0icstJYnfXWYoHcLIuY/8h5w/t+XwkeiD8kgCbT9Eje18yd/qgSRCKc5TER/Ct1U=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789241307; c=relaxed/simple;
+	bh=KJFi4oJU9yUXpnVSIOw0LyTxY9gpp0T7eB6UGdEUWyc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sqbpr0E4k169Q9ZfU6+NSqTiG5gNQ4RjtRv66W7+jqGzR156wiyxMdamtMom+JrWYaYERH5Ha1a1lWdT6F12iJqwJOLgXH6D+SeBHIHYJba5e5CjfDy8ftvURp7i6lluTS8ZXmjTS1vc+QeDb1QfgvGczNRf+sntzJkquqNVRyY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=Bi4Yfa/m; arc=pass smtp.client-ip=165.173.180.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZvOl3itoBqIjSMORNEfBFOSbgn5ySMJfI3AoQX6ZVBnSyCtNYzuCrj7KSUEcyv7ESeMtweUUx4FoO3xjQI2PNxB9lxGZ7AkEADy3iqquwDB/Ug9AD78BpPVd6nz0rl3uGew+HbQ4DHjGwUdXdJKB6kt4+yoI80GyAxgn8+jGomk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=MHBZ59YC; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="Bi4Yfa/m"
-ARC-Seal: i=1; a=rsa-sha256; t=1789241254; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=B4CaJ7dUQuCJbR23Nt2XbHCuwV4RDnfdco77oGVLs/g74AbpHNYMpelvmk1fIFdM0irHbcKRSn12BQKzPFTNZf+vy+oV/iNkhZPEXI/54Q1BRurJ+6IEqQGhWtd0gIOF5WkEE8mGL5Vb+IKrOqhZXuekhywdHO4JyGVor7+ci8g=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1789241254; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=bEBDSJzrRr1SVORYP1XOYyIEe3AEhIJwVdb2STNG+Kg=; 
-	b=EGE7glYAzZ+2MZRLJSTFEkizho3ToCevnoRIJOtM/7fTnQhPJfXEJjRTpf64MxQBcjHPKNp5TspmArzQrlNpb7Clgv0CoV9yZl0a7NU9UgkQSQiZ75Wqm9jTMava5yDdQ18ql55nr8q72Au6JR3iKM/lESFqvQ03sEBECIfEeqw=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
-	dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789241254;
-	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
-	bh=bEBDSJzrRr1SVORYP1XOYyIEe3AEhIJwVdb2STNG+Kg=;
-	b=Bi4Yfa/mYcMDQSKonuCfQSDP349qF7UpJTlWTqSIVtbL1vuMBFhNCS+S3/hnoF6u
-	HPHAd3OqqRrad6kTGCGEvVcvoVLh29K7E8xFLrjaRM1zAC8dNT/W2pIc49yPRnP8Rvz
-	R3XroajRSHxIfMnbKC7qcvgc5lSOOVoaGa8w+MXg=
-Received: by mx.zohomail.com with SMTPS id 1789241252677947.9407094368581;
-	Sat, 12 Sep 2026 12:27:32 -0700 (PDT)
-Date: Sat, 12 Sep 2026 20:27:28 +0100
-From: Adrian Larumbe <adrian.larumbe@collabora.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
-	Chris Diamand <chris.diamand@arm.com>, Akash Goel <akash.goel@arm.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 18/18] drm/panthor: Add debugfs knobs to simulate
- reset failures
-Message-ID: <aqWmIbT_46Enz8VH@sobremesa>
-References: <20260826-panthor-unplug-fixes-v4-0-982cc8f4234b@collabora.com>
- <20260826-panthor-unplug-fixes-v4-18-982cc8f4234b@collabora.com>
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="MHBZ59YC"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 81FC41034BF;
+	Sat, 12 Sep 2026 21:28:16 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1789241299;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=y7BOmcPqzwgHNB8tpsuWUR+UQP9k6ozYzdCsqHi/B/w=;
+	b=MHBZ59YCyzMkhyIW/16hAXXXmRkRnwsaY87sFH24wKhGqtduMrpei94/uvvXwdO37HolwP
+	ecH1OIPwsX6f5B8MUrV76RBFXjNtZhlm0XBMWmdDndFyHrv9Zjg7qxg2QQn7P9WLEpAVQ1
+	SsWpup/WFDh3ZOCnNUJufAIiwI+RuLAn8Sa4cNbHDa+g4hgXHlNsZevDlHh7gwfdXN+Plg
+	VAXEp/taH7ThSUV5t0bDmC992o3H2asBGVd5PoT01W7aN9v+gdfYe1NAXcXEtQ1GILHwLD
+	57qa0aSxqbnsgevkLewkLc2tk0t8jhdDIFpSZ59Lcrms/3dVcdFXCtXa6ll2UQ==
+Date: Sat, 12 Sep 2026 21:28:14 +0200
+From: Pavel Machek <pavel@nabladev.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 6.12 0000/1376] 6.12.110-rc1 review
+Message-ID: <aqWnzsSIMkyM46NV@duo.ucw.cz>
+References: <20260912065607.535295758@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="2nd+0nHZsekXluLM"
 Content-Disposition: inline
-In-Reply-To: <20260826-panthor-unplug-fixes-v4-18-982cc8f4234b@collabora.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/289.238.31
+In-Reply-To: <20260912065607.535295758@linuxfoundation.org>
+X-Last-TLS-Session-Version: TLSv1.3
 
-I've tried poking the knob that fakes an error in the reset path and got two different kinds of oputput:
 
-Either
-```
-[ 1950.080236] panthor fb000000.gpu: [drm] *ERROR* Failed to boot MCU after reset, making device unusable.
-[ 1951.167384] panthor fb000000.gpu: [drm] Timed out waiting for MCU to halt
-[ 1951.167543] panthor fb000000.gpu: [drm] Failed to cleanly suspend MCU
-```
-or just
+--2nd+0nHZsekXluLM
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-```
-[ 2022.804466] panthor fb000000.gpu: [drm] *ERROR* Failed to boot MCU after reset, making device unusable.
-```
+Hi!
 
-I guess the former happens when after device unplug, there are still inflight jobs that keep a PM reference.
+> This is the start of the stable review cycle for the 6.12.110 release.
+> There are 1376 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-On 26.08.2026 16:56, Boris Brezillon wrote:
-> It's almost impossible to trigger a situation where the reset
-> doesn't work now that the driver is more mature, so let's add two
-> knobs to exercise this error path:
-> 
-> - a knob to trigger a reset
-> - a knob to fake an error in the reset path
-> 
-> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
-> ---
->  drivers/gpu/drm/panthor/panthor_device.c | 48 +++++++++++++++++++++++++++++++-
->  drivers/gpu/drm/panthor/panthor_device.h |  8 ++++++
->  2 files changed, 55 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
-> index 328e601d80e8..8bdc511310c0 100644
-> --- a/drivers/gpu/drm/panthor/panthor_device.c
-> +++ b/drivers/gpu/drm/panthor/panthor_device.c
-> @@ -5,6 +5,7 @@
->  /* Copyright 2025 ARM Limited. All rights reserved. */
->  
->  #include <linux/clk.h>
-> +#include <linux/debugfs.h>
->  #include <linux/mm.h>
->  #include <linux/platform_device.h>
->  #include <linux/pm_domain.h>
-> @@ -182,7 +183,10 @@ static void panthor_device_reset_work(struct work_struct *work)
->  	panthor_hw_soft_reset(ptdev);
->  	panthor_hw_l2_power_on(ptdev);
->  	panthor_mmu_post_reset(ptdev);
-> -	ret = panthor_fw_post_reset(ptdev);
-> +	if (ptdev->reset.fake_failure)
-> +		ret = -EIO;
-> +	else
-> +		ret = panthor_fw_post_reset(ptdev);
->  	atomic_set(&ptdev->reset.pending, 0);
->  	panthor_sched_post_reset(ptdev, ret != 0);
->  	drm_dev_exit(cookie);
-> @@ -690,8 +694,50 @@ int panthor_device_suspend(struct device *dev)
->  }
->  
->  #ifdef CONFIG_DEBUG_FS
-> +static int panthor_device_fake_fw_reset_failure_get(void *data, u64 *val)
-> +{
-> +	struct panthor_device *ptdev = data;
-> +
-> +	*val = ptdev->reset.fake_failure ? 1 : 0;
-> +	return 0;
-> +}
-> +
-> +static int panthor_device_fake_fw_reset_failure_set(void *data, u64 val)
-> +{
-> +	struct panthor_device *ptdev = data;
-> +
-> +	ptdev->reset.fake_failure = val ? true : false;
-> +	return 0;
-> +}
-> +
-> +DEFINE_DEBUGFS_ATTRIBUTE(panthor_device_fake_fw_reset_failure_fops,
-> +			 panthor_device_fake_fw_reset_failure_get,
-> +			 panthor_device_fake_fw_reset_failure_set, "%llu\n");
-> +
-> +static ssize_t panthor_device_reset_file_write(struct file *file,
-> +					       const char __user *, size_t size,
-> +					       loff_t *)
-> +{
-> +	struct panthor_device *ptdev = file_inode(file)->i_private;
-> +
-> +	panthor_device_schedule_reset(ptdev);
-> +	return size;
-> +}
-> +
-> +static const struct debugfs_short_fops panthor_device_reset_fops = {
-> +	.write = panthor_device_reset_file_write,
-> +};
-> +
->  void panthor_device_debugfs_init(struct drm_minor *minor)
->  {
-> +	struct panthor_device *ptdev = container_of(minor->dev, struct panthor_device, base);
-> +
-> +	debugfs_create_file("fake_fw_reset_failure", 0644,
-> +			    minor->debugfs_root, ptdev,
-> +			    &panthor_device_fake_fw_reset_failure_fops);
-> +	debugfs_create_file("reset", 0200,
-> +			    minor->debugfs_root, ptdev,
-> +			    &panthor_device_reset_fops);
->  	panthor_mmu_debugfs_init(minor);
->  	panthor_gem_debugfs_init(minor);
->  }
-> diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
-> index e12049961912..82ec34347eba 100644
-> --- a/drivers/gpu/drm/panthor/panthor_device.h
-> +++ b/drivers/gpu/drm/panthor/panthor_device.h
-> @@ -294,6 +294,14 @@ struct panthor_device {
->  		 * all FW sections to make sure we start from a fresh state.
->  		 */
->  		bool fast;
-> +
-> +		/**
-> +		 * @fake_failure: When true, pretend the FW boot in the reset path failed.
-> +		 *
-> +		 * This is important to check that we're doing the right thing in this very
-> +		 * unlikely case.
-> +		 */
-> +		bool fake_failure;
->  	} reset;
->  
->  	/** @pm: Power management related data. */
-> 
-> -- 
-> 2.55.0
+We get build errors in -cip testing:
 
-Adrian Larumbe
+https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/pipelines/2842911949
+https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/jobs/16461797877
+
+drivers/soc/ti/knav_qmss_queue.c: In function 'knav_queue_probe':
+drivers/soc/ti/knav_qmss_queue.c:1874:9: error: 'knav_qdev' undeclared (first use in this function); did you mean 'knav_queue'?
+
+Best regards,
+										Pavel
+
+--2nd+0nHZsekXluLM
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCaqWnzgAKCRAw5/Bqldv6
+8nUMAJ4me87pI5wWPjglhm7/+0F1SGbZsACfdUjR+j+Zdy1TMs/BtA31wuXoCBU=
+=H7ZQ
+-----END PGP SIGNATURE-----
+
+--2nd+0nHZsekXluLM--
