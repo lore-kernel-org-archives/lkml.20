@@ -1,113 +1,122 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5B05478E25;
-	Sat, 12 Sep 2026 13:22:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E982B2D23A6
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 13:24:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789219338; cv=none; b=QAqoD5p4tCv9YDUgefX9y+p5Bs5Qgj3P48rr+dRzmiMOSTKBtJkWlFN+9pn/XPDE5EwA25MQrVsZnZGXWo764TTFsQMbaVXCf597g6UMgWjIoxpQ9+tkUxQhHPUkGS9AL4j5JHnfLV6M6aOK9/z4brtgRJaSkRtauLALuzQphP4=
+	t=1789219455; cv=none; b=bV9/hpUnMLo+9vN+T9W3RrG1K7dwul64m6odtVjv/ShgsvL1J12JYTZcQrere4covoYF5AdZv41bBPVkLVO/xCGFv5X2qUtZ1v1eRnEV/+UScnOfALizvwK5hYsCm6jgikrxENvEia1O2cR3f/FTYLjTXpfsVEvVfXLS22WQh6s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789219338; c=relaxed/simple;
-	bh=BOCroOJEaN/c+qJk5JxHZ9/qarv56VFO8jjyDmUDmlY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fkBacL25niAxeyBeUkpRgiAlb9scAUEY4LPtuhTQ+vWp3OYBoGNWgFV078FPqVmRnHLQ444mETBYHW0xvUXX8U1qMohWuFaKvWSlDLgJgKJcViybNyViDor4LFTioxxqmh+T9YpoE+gb5indVTrztnfbxmpfEDnaKGhTvbXbWTI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Y394gTHB; arc=none smtp.client-ip=192.198.163.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789219455; c=relaxed/simple;
+	bh=yK3c9e0zDeIOMm4gAUQkZH3mKRVJqBbXyrMQkQLTbAg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=rnKjXunoOU5RcjEk/GF2MO9ER7vzD7wGMjObx6N9IW2iNRt/mnQTXsFVhChdh7oZHAlnekmTBo1zjN6udrTo/gave7Zb3SdtaSLVcxxQzFpsA6n0Yr8zmU1yupyCTx99PuWvyns6UZKHc2UvOKVFQrAXSgFH+k/+zTNMnGqm+uQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=armMb1qP; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Y394gTHB"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789219336; x=1820755336;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=BOCroOJEaN/c+qJk5JxHZ9/qarv56VFO8jjyDmUDmlY=;
-  b=Y394gTHByj7QPUVqdk+jf2PIPJjxAHfJFbqZWNnCsKLEmp2ajq7w84gx
-   KXU7l3faGZzkqkOUUMwoHt0NhpPbXCGwh4a08vmcO+RVEKSOLerCFBwX1
-   tfPIsBZN9nvHirq0yNmA71Ag+heKTy5IK/SBSBsBLzP5GYZK1mUY6PhuY
-   JLqdsapHKwFfa2qdKVNkimuIWIQoA8nbVovRj7dS8A2YVCJk1ro51/kI8
-   Ap0IxRZfq23cs0DKDrjaaD7xsitEpTKrof7fd6YCLxpj2jYSxFhB0tcYD
-   ATE7QRNIiD8t/2R5h3rKpQZpBlNohjm8LUOlhpl6xiYUS/nbGyp3WjAKg
-   w==;
-X-CSE-ConnectionGUID: Y9lYbDEDRRq5I9EkNxZXlw==
-X-CSE-MsgGUID: Jqo12sXkQ6S9RkHv6bGl0g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11902"; a="100318961"
-X-IronPort-AV: E=Sophos;i="6.27,99,1787036400"; 
-   d="scan'208";a="100318961"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Sep 2026 06:22:14 -0700
-X-CSE-ConnectionGUID: B7LDMt1jQ96Kz7kW5wmCEw==
-X-CSE-MsgGUID: hFNH3Yn6Qq+pFFUYU0vguw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,99,1787036400"; 
-   d="scan'208";a="272158036"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.239])
-  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Sep 2026 06:22:05 -0700
-Date: Sat, 12 Sep 2026 16:22:02 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Meagan Lloyd <meaganlloyd@linux.microsoft.com>
-Cc: linux-i3c@lists.infradead.org, alexandre.belloni@bootlin.com,
-	vitor.soares@toradex.com, samagazaryan@google.com,
-	gregkh@linuxfoundation.org, arnd@arndb.de,
-	boris.brezillon@collabora.com,
-	oleksandr.shulzhenko.viktorovych@intel.com,
-	tgopinath@linux.microsoft.com, corbet@lwn.net,
-	skhan@linuxfoundation.org, linux@roeck-us.net, Frank.Li@nxp.com,
-	jorge.marques@analog.com, pgaj@cadence.com,
-	wsa+renesas@sang-engineering.com, tommaso.merciai.xr@bp.renesas.com,
-	nuno.sa@analog.com, Michael.Hennerich@analog.com, jic23@kernel.org,
-	dlechner@baylibre.com, andy@kernel.org, lorenzo@kernel.org,
-	enelsonmoore@gmail.com, rppt@kernel.org, pratyush@kernel.org,
-	giovanni.cabiddu@intel.com, gabewhigham@gmail.com,
-	haren@linux.ibm.com, pasha.tatashin@soleen.com,
-	jirislaby@kernel.org, adrian.ho.yin.ng@altera.com,
-	ustc.gu@gmail.com, jszhang@kernel.org, adrian.hunter@intel.com,
-	akhilrajeev@nvidia.com, tze.yee.ng@altera.com,
-	manikanta.guntupalli@amd.com, shubhrajyoti.datta@amd.com,
-	jarkko.nikula@linux.intel.com, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
-	linux@analog.com, linux-iio@vger.kernel.org
-Subject: Re: [PATCH 1/3] i3c: master: enable driver_override for I3C
-Message-ID: <aqVR-jBabQKcsfjL@ashevche-desk.local>
-References: <20260911210935.1353126-1-meaganlloyd@linux.microsoft.com>
- <20260911210935.1353126-2-meaganlloyd@linux.microsoft.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="armMb1qP"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469e25187so568347b3a.2
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 06:24:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789219453; x=1789824253; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HKwfTFbzWp8eIFZA2uPvZQvXQp4cwuFO9YpGu6VpEnE=;
+        b=armMb1qPwwsHgfInOPb3tnu/2QQPgqpUEo8QGAmyZM5Oc+hLh9/Ksp3NwUKQSszmia
+         JmZgMnafoYrKAQvgO7AQfa3pDSV5RvA5Qw/cjG4faOa2pEdyv/E+CVXA9YL+qDbgjyxi
+         UGxWlY1lFUyKIJhDha/leez4Jv1mYq2kdMK8JkRo/04742aQf0hcYfVeYK/dofWfjHSz
+         0V4Vx3iICjjJOMmFUQYQusUCUp8Tddh9Plu+Hh8j53sga+Wpzne5gS1PJ0f8chKYWcNK
+         ZcMg/8pWuW0VfD8iB9Pi74JMzz7o9Fz50J0TB5dhi2KCN+SH76j3foUwVQWIAhZJo0yk
+         w3CA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789219453; x=1789824253;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HKwfTFbzWp8eIFZA2uPvZQvXQp4cwuFO9YpGu6VpEnE=;
+        b=II0pYNbmZGw+QXvd68xWfC41P/Rd47zmoJSoS0wt8zAEZbwb6RZzZCxye4M6RGvyZQ
+         sn/fGrQyFN33vjrgUQr9PSfoEMZX0UxvZZDE0YFJ1lHWFOZcZRlHW4xsKdrbAkhwqtJp
+         f1SAdtC9jXJJal1LMepgopQ0K9HTQIfFRL6NUbLyq88s98xpk4kZDiXs2Fx0dSE8dH+C
+         U4oaUl2wVB8tFlqHDbyPhZcvYyWuSuoS7bkvLuUSaF8c2ZmAzG/dMiiLLbZCR77250s1
+         ruUkbRdBsIld9Q5LKbTPXy70S+v4QtAZIA85S56bzbXHdKIXFpL9baKY1LT0AKykA2HU
+         Rd6Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxDNuDu5oVQl0xT+ymZ8owBBJD2VuFEv7jKlc0qX4ts9Um7QRu9PA+QJA7ujqa+XSXeiOzxd1xLOgf8/Mg=@vger.kernel.org
+X-Gm-Message-State: AFuF++mNThS4qnF7ev05Tlz8KeoLb2jcw4GXvm9fKr7JzPGQ/vLeE/NJ
+	0dTsH6Kk4UahI18/HeXndaxnFt+xy0/sgl5wKiQHkD5jQzeEFOQvF0w1
+X-Gm-Gg: AYBFou0TC+cGHp6+3I8+zJCTzhgjjq3bQsCC6zd/BhJtf+JhbL3xDFoZ6XXih41WuJW
+	Kv4aaqCKwLDzsha0jZj1yy57zBt3RlNXtmzGFhBc3E5oHNA7ukdgBE98+VFURQ61mZ0fmXpH6lD
+	mlMKKfjFVKPNYJpvSW48WMVu/6dbenkBo3ZtRmT+p4Swu4T5RQhqBI7R4KARV3o2IACZnG8tGJv
+	wfQtA1XQwO2t6ltWN+idjZJrZ+pJM5m8JjyPYQFi+SkZrpOjzTwFt16gCaB6WGhXujxGeasXlqU
+	+hynseEhsNSz6f1A3GLfLwSRLDw7t+7s5be0ebSl+iOHX3Xo/oHsni3onVg8xO/zSCT378zgwyn
+	5cBw4zsOkfTU7xdUCxoBuGt46Jj6Jw79yDjtDWb2dWgllSLFQnRzITN2dSAi/X929O67EHrvFht
+	VtCC35urd9KMaNtx48yT1SxcPswr4UZQPy5OnYK/I+bVolVjtjgxC9tZDjEo3traC7jlol+lIZk
+	jdN6kzft9zbmcvAYA==
+X-Received: by 2002:a05:6a00:448c:b0:868:e6d3:fc18 with SMTP id d2e1a72fcca58-86b3180648dmr16192224b3a.15.1789219453132;
+        Sat, 12 Sep 2026 06:24:13 -0700 (PDT)
+Received: from thangnn-ASUS.. ([2405:4802:1d38:5c70:dfd9:c41e:7c9b:c69])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b292c9839sm2410819b3a.33.2026.09.12.06.24.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 12 Sep 2026 06:24:12 -0700 (PDT)
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+To: Viacheslav Dubeyko <slava@dubeyko.com>
+Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+	Yangtao Li <frank.li@vivo.com>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+f8ce6c197125ab9d72ce@syzkaller.appspotmail.com
+Subject: [PATCH v4 0/2] hfsplus: fix the extents overflow file recursive tree_lock and its root cause
+Date: Sat, 12 Sep 2026 20:24:05 +0700
+Message-ID: <20260912132407.16856-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <c6b841becc5b1709a9f54a1c0efd0a14f02ad97b.camel@dubeyko.com>
+References: <c6b841becc5b1709a9f54a1c0efd0a14f02ad97b.camel@dubeyko.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260911210935.1353126-2-meaganlloyd@linux.microsoft.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 11, 2026 at 02:09:33PM -0700, Meagan Lloyd wrote:
-> Opt-in to driver_override sysfs functionality for I3C subsystem.
-> 
-> Update some I3C drivers that are assuming that if their .probe is
-> invoked that the bus match function already checked the ID table. Go
-> ahead and verify in .probe that i3c_device_match_id() returns a valid
-> match before using the i3c_device_id pointer.
-> 
-> Signed-off-by: Meagan Lloyd <meaganlloyd@linux.microsoft.com>
-> Assisted-by: Claude:claude-opus-4.8 copilot
+syzbot: WARNING: possible recursive locking in hfsplus_find_init
+https://syzkaller.appspot.com/bug?extid=f8ce6c197125ab9d72ce
 
-Assisted-by: LLM
+This is the whole solution Slava asked for, in one series:
 
-...
+Patch 1 fixes the recursive tree_lock itself: hfsplus_ext_read_extent()
+now refuses to look up an overflow extent for the extents overflow
+file's own inode (it can never have one), and hfsplus_file_extend()
+tests whether the fork actually has room before allocating blocks for
+it, instead of allocating and undoing the allocation on failure.
 
->  drivers/hwmon/lm75.c                        |  7 ++++++-
->  drivers/hwmon/tmp108.c                      |  2 ++
->  drivers/i3c/master.c                        |  6 ++++++
->  drivers/iio/adc/ad4062.c                    | 10 ++++++++--
->  drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_i3c.c |  3 +++
+Patch 2 addresses "how would we check the fork itself" and "how could
+we check the forks of other b-trees", asked across the last few
+rounds: hfsplus_check_fork() validates the eight fork extents of the
+extents, catalog and attributes trees at hfs_btree_open() time,
+following the severity split discussed -- first extent unusable ->
+mount fails; a later extent corrupt (the syzbot image's case) -> open
+read-only.
 
-No, each IIO driver should have its own patch.
+v3 -> v4:
+ - hfsplus_file_extend() tests fork capacity before allocating instead
+   of allocating and freeing on -ENOSPC (Slava)
+ - added hfsplus_check_fork(), called from hfs_btree_open() for all
+   three trees, with the mount-fail/read-only severity split (Slava)
+ - hfsplus_reconfigure() and hfsplus_fill_super() check the resulting
+   per-tree corrupt flag instead of re-deriving it on every remount
+
+Nguyen Ngoc Thang (2):
+  hfsplus: fix recursive tree_lock in hfsplus_file_extend()
+  hfsplus: validate b-tree fork extents at mount time
+
+ fs/hfsplus/btree.c      | 12 ++++++
+ fs/hfsplus/extents.c    | 96 +++++++++++++++++++++++++++++++++++++++--
+ fs/hfsplus/hfsplus_fs.h |  4 ++
+ fs/hfsplus/super.c      |  9 ++++
+ 4 files changed, 117 insertions(+), 4 deletions(-)
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.43.0
 
