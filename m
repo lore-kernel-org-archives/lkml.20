@@ -1,141 +1,132 @@
-Received: from mail-oo2-f5.google.com (mail-oo2-f5.google.com [74.125.231.133])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1746C3AFB1A
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 18:22:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2078490C10
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 18:22:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789237353; cv=none; b=cDnwu0MPJGo2LuqiSYUnFjDOPW31pDzQswgORLA2dWFJhd0MeUs1KlDXnmPOs3XdXelYroR2l2z/dJbJ/eVTUSbAbHVEuZkUzei1Rfw/TccKsjtFNrMyP4x5SEYQuU2BPofCN46psW3pBEd/sa2oBAuBMzb9pHsq+NJcMBYpwSM=
+	t=1789237356; cv=none; b=UrD19wRnDp2o/dnZyMUCv5NrlamDRjplssKYdX1gbsOEiccnL2EfQNvbhGrv888X33il1z6LelubTWWXUGuWPodg6/cpvdKia9hysL2nOxNrVOfooOHsiXUOkx3yWDV2aaYebA8VJpDvKLopaRNWk7Q5dklcGasXa2bq2+6e8GY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789237353; c=relaxed/simple;
-	bh=kKPzi/HLXfog7rBMUGiYLepe2mjam6b/jz1qv/PYobU=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ZCrODnK2L5Ey9Lm1HOb7kwPmbhnSmftDE1wjAGm9AYXlMcY14v/JmwHoYaklbryEWkm1JACZciOCFemhxDOc6aph92WL5gOz9Qoddt1/FlTBsKGj/X5JM7VeDu2yjp008BZwoP9wWpPneYXb2LHbBH2Jw2jyAhUYtkNxQrEMfrk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HFQLSakY; arc=none smtp.client-ip=74.125.231.133
+	s=arc-20240116; t=1789237356; c=relaxed/simple;
+	bh=3Z4yz3FZGni8K4IueGtIHNjXsDdukNVZ0fkuclGutFs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sP471BcpCTZ0PzYs2XTxhLTngVB4cqYzZrIPSjik6gXqXOLxYDq64TNPBYA+eusAN/U4QWgIdzx1uhERL+LSmWDHQ0X7XvepHC7qJCSKunxjZzWyAmZPVTAQG3fzbd63/gnO996DkeYQecw+TZVYPs1XA/JlNxovvSjFCuJFSsQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I4hGXfvD; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HFQLSakY"
-Received: by mail-oo2-f5.google.com with SMTP id 46e09a7af769-7f66624aa21so399932a34.1
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 11:22:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I4hGXfvD"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39b350c69b4so547836a91.2
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 11:22:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789237351; x=1789842151; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=BjdcnniX+ccVQA7cSgS2ONHbmJ0xMV8RyAyGUcD/M60=;
-        b=HFQLSakYXvA8RZ2WbYLU0POVzlbJTcobdV5bHD0ggDuBQR+DFOZQYrj6tZMpTFdfKM
-         4QYMd4xAHpFCuWBWHTOBOiSCvDdoZzh1bp8etVOsC/3z7ApPKzONA2kBwKr41gj8B4+y
-         dA+b6MRsO/U0XErgOkxEavxmWsXGWLZBrEUIvazkiG6+2JgQ9c3hYpFy2iGM3NUFQ7G8
-         N2Wceo1krNP1WbyksR/w0MyNGNx6SqUSEFxonn5k8nSrKuWTVyBUJCy689GeWmGl85mR
-         L0VpMf0CD8FKIKa/qiXEr3Mc2BjjPjDHjqGdeOmd1N50asrO17e7sFRpFUG+WUIyinQN
-         F1+w==
+        d=gmail.com; s=20251104; t=1789237354; x=1789842154; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=QsDGJSn8W3IPc9HLbr26w5Jqm8wz7PGr9NNVjjKLx7w=;
+        b=I4hGXfvDoUs0WCt52O2x5rZZ4pCjccsnWgdpZbVRWsr1XZbGGQCO9VE8M3zgKp+HRI
+         ATRw+pMi1540onNLWSaWZgXdRspz0v1uW12Nu0N7CZUFRGERN5iRGkPrWAyZo4XrAPno
+         4Fu8nhsFHeAbpcJheD9bHm9AgSzjFfOhSLFyveQTrIv0fMpKpLXwlL9ywZFNntEzavrm
+         ozjNHoDf6vOVb0AXrl6f2pXVJIh9S7E1zJYLAYZeGISEh5y7wDp3RABNYuQvNYYJwyJy
+         10O+qGWJr5FgoeN1rIxRBL/tXL7BPAxVWxkvvi68zOfU0HC9iaXKYjnwbHrMjgJ5Iji8
+         XIng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789237351; x=1789842151;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=BjdcnniX+ccVQA7cSgS2ONHbmJ0xMV8RyAyGUcD/M60=;
-        b=YWi9dC+/h4vjnB79hV6/97i4Siq6nNJftUEUTqTZydBdFvU+34b8b1hAcvno8kXrqZ
-         YEIICqMIWbPl8iJIbSxdyA8EnPVJaG2JOHm6pwbxgQk5Rq4dGDvQl2V5+f+5vI8s5ibz
-         IQ7FM6e1BdU/qPgOv3Jm6Wz1umO1vfvpm00fTfa4cGJQDQ0pgUt8VS0fIMDMa4YGtZf2
-         GzBUJz75HdCI9ho6xJxi/0n9963Ca15n0MBMQgT7f4F9iYfXVte3F82UsrVIhI8oJhD2
-         10gy3x8xyPHR5yusOSakucMyBOutUZPkXOG5zJPYEEsIrXLVacbwyGPYua1Fnw4sI1SS
-         JsdA==
-X-Forwarded-Encrypted: i=1; AKwUvBxz/tVdSpxd5P26Z3Ve/9hEEmDO4hRCKTSRiXxFN919REMQjiOfxl+9xdE7VXLj9HH3Xw2CMX4ODqeL5R0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kinQRt7hMbUi4NesNMbMqeALsHxWsqcc0PsHbkhBCuADLU5T87
-	70k1byyqUrpBRJ8dL8R3qX9camHZDbHI4FX7RFyPJoSWf4+xBpzUM7i1
-X-Gm-Gg: AYBFou3iyxZeKL8fnTkyZl1zPK92RiqJGOXblNG8+WHrL3u02V4du9Xb3NuwM6tOqKQ
-	Z1XueCy37MEMX8bpB8NsQSSFBOK9aaszq4/u9bUpfkDWQ8AFsVpbzr4DqBh7fhvB/4N33q46ic7
-	AhE4RGbL20LIhmT9TQQpKUW9IS5thiRcBtUW1QAHCX7XUOW4GxtZMfCgcuLXX/uF35oGDwgiYxK
-	tNNK42F9zPIE+mtFaZyKRCAPGO8lCLhek5MdxI211T+U24UfXGSvZPkmwXuVZ0MiXBiimoaozu6
-	uKwWskDpkYe3Pf/QMY3ahdXkZretltcGlb+4qucbA+WVlqgXl4khiOdYQVu/IEGtQHma7pVaAGM
-	kaNnvOWYR5o515X76Rc3MGO1JvNFXR0xYLD1UcZqktULLnqhtTnBmbtPW7YGzxjDp19rXJgo7ZF
-	o6A5Jy2iPzNlnU5hSEeBT2q+kXHi07pGNz91WAi1k4EI3wPl9Lz6NktCRDJnSmAVuWAdo=
-X-Received: by 2002:a05:6820:214:b0:6bd:cb3f:5896 with SMTP id 006d021491bc7-6c24d39681emr1997214eaf.30.1789237351016;
-        Sat, 12 Sep 2026 11:22:31 -0700 (PDT)
-Received: from [192.168.18.164] ([2600:8804:5716:d800::b712])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-47df64d89b9sm5413898fac.1.2026.09.12.11.22.27
+        d=1e100.net; s=20251104; t=1789237354; x=1789842154;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QsDGJSn8W3IPc9HLbr26w5Jqm8wz7PGr9NNVjjKLx7w=;
+        b=QQlGhVUMsa12qtXNAooW4+YwBO3cvlAnCU+K8pL8CUL1pM5cTI+BODEqHBUeazeTCa
+         hDhb5yuaz3TZHrsgR73RqLna74Z/etQ6OGyCiwIslFRc/xWQCYSD2diDdmH8rhI9Ghq9
+         FPyxAgRsI82a/umUYzd/jMCcErs7QNrrn5TEg3e1WzIoKevR0lbyhbGgLdu630Nxwz6P
+         yuL5TgecCl5I/g/UP0mfNM7rHKp2DENjiCcVXxlYPhf6MFGRkZcp7ejozV7VycxLAyQK
+         wIEDQX9uuvwRDsdD7ODevUWBO+hfsVUNqjoxfBVK+DyNP9+s8vMYvwV6sLCccsRmE7ja
+         XJ3g==
+X-Forwarded-Encrypted: i=1; AKwUvBy2f19fs5BttBfKXunAje29wbsSA3yepdHTRyPGrUUMzbVkvph3xGTytOeF8upKpecEj4vdk10e0YQvYe0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lDF6d8KxqskSDJ3uYwkGzR75jal3xoDQCsnrF/MI394EIVJZ0/
+	lWyWlK9zjduauJNSXgAW8CEKJt9IcdNAaHxbX9dZHGDTK7ikJjxfoi42
+X-Gm-Gg: AYBFou1Toh550jHte2MYnvsc0f+qtYmfSTtvupqp4f9M++vn0Qn1j85vp9RhIQgM5It
+	lCf0EYYjukdv9NTF1HaMg75iD9enzz4gafC/c+N6SCKb5uRYwMjDcrvLUQ/MGxJVxEvpB+RTAgu
+	MkAPjfbxelFJfIMjzW3xKjBM/2y1fF+w3+uwUXJjkqUtIGnxVXLHzWmvX9WTtst89ZR1W97b5n1
+	cc/ygNAcql8/3GA53IlpxHIYdbkAzNQJ60vHkkUUVL/L/MQFnWD9ZhtGIFCpNjJ+cKy+w3xXPyT
+	TxALpzbFwaQvHW689MsA1HLJno0RX/5E9r7rV0/KjZCzJr6OLfzyFAAIGoKyHHWB4N1RaiHxtfL
+	llkb3nksDTwEAmonMqir4FWlvh6ctIWiApS9zcCK52TdNilF1hcEPbWMPvxb/3D9kZUACnPPWv0
+	gOqw64fO8AHBoc6RCO/aBO/LcBZs5RPlq9FFg+r1OrOSZHz0sMrDWHy7HaY09JUzKUtrphFg==
+X-Received: by 2002:a17:90b:582f:b0:396:d28e:bd8 with SMTP id 98e67ed59e1d1-39dbbea2aa4mr7297063a91.3.1789237354308;
+        Sat, 12 Sep 2026 11:22:34 -0700 (PDT)
+Received: from gmail.com ([2a03:2880:7ff:2::])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d987e755fsm11655779a91.0.2026.09.12.11.22.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 12 Sep 2026 11:22:29 -0700 (PDT)
-From: Ryan Brue <ryanbrue.dev@gmail.com>
-Subject: [PATCH 0/2] drm/panel: novatek-nt51021: add the BOE TV101WUM-NM0
-Date: Sat, 12 Sep 2026 13:22:21 -0500
-Message-Id: <20260912-add-boe-tv101wum-nm0-v1-0-3057a08e8b80@gmail.com>
+        Sat, 12 Sep 2026 11:22:33 -0700 (PDT)
+Date: Sat, 12 Sep 2026 11:21:42 -0700
+From: Narcisa Vasile <narcisav.kernel@gmail.com>
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: Narcisa Vasile <narcisav.kernel@gmail.com>, netdev@vger.kernel.org,
+	daniel.zahka@gmail.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+	edumazet@google.com, pabeni@redhat.com, shuah@kernel.org,
+	horms@kernel.org, willemb@google.com, petrm@nvidia.com,
+	anubhavsinggh@google.com, richardbgobert@gmail.com,
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v2] selftests: drv-net: add BIG TCP test cases
+Message-ID: <aqWYNpcPRjTAoDok@gmail.com>
+References: <20260912050327.20616-1-narcisav.kernel@gmail.com>
+ <20260912093226.529ff414@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y2O2W7CMBBFfyXycwd5nEBEhKr+B+LBy5C6xWOwH
- VMJ8e81y+ORzl1uIlPylMXU3USi6rOP3AA/OmG/Nc8E3jUWSqqN3KIC7RyYSFAqSrwuAThIcFq
- iHYZxcGYjWvSc6Oj/nrX7w4vzYn7IlkfX20h0WdpeeWnC6ExgYwi+TF0dVz0kqx5qoJz188jU7
- d4/EC5NBY5VF/oFLmuUCuGsmU4ZqgIJ2K+px63U49F8Be355NnzvIpp/hSH+/0fxNISU/sAAAA
- =
-X-Change-ID: 20260912-add-boe-tv101wum-nm0-da01c4474db6
-To: Nickolay Goppen <setotau@mainlining.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, Ryan Brue <ryanbrue.dev@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789237347; l=1702;
- i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
- bh=kKPzi/HLXfog7rBMUGiYLepe2mjam6b/jz1qv/PYobU=;
- b=zhgopAjqYGTLQfAWgqPnNFDJTigscCfew+z0rKaCkpyo6MuRFZd+vY+oPw5xjQIg8OP5kWijt
- UfJm8fc9c7UDq7WRF3gqj6GifalJJCWcfTHEurQeM7krhqd4d0rbQSa
-X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
- pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260912093226.529ff414@kernel.org>
 
-This series depends on the following series:
-[PATCH v2 0/3] Novatek NT51021 DSI panel IC driver
-https://lore.kernel.org/all/20260911-qcom-novatek-nt51021-panels-v2-0-135e3190a7fb@mainlining.org/
+On Sat, Sep 12, 2026 at 09:32:26AM -0700, Jakub Kicinski wrote:
+> On Fri, 11 Sep 2026 22:03:27 -0700 Narcisa Vasile wrote:
+> > Add four new test cases that validate coalescing
+> > under increased size limits (BIG TCP):
+> > 
+> > big_tcp_data_same
+> >   - validates that equal-sized segments coalesce past
+> >    the legacy IP_MAXPACKET limit.
+> > big_tcp_data_lrg_sml
+> >   - validates that a smaller final segment coalesces into the
+> >     previous chain of large-sized segments while crossing the
+> >     IP_MAXPACKET limit.
+> > big_tcp_tcp_seq
+> >   - validates that a packet with a wrong sequence number doesn't
+> >     coalesce. The test uses a sequence number for which the low 16 bits
+> >     correspond to the correct sequence number to validate against
+> >     truncation bugs, since total aggregate length crosses over the
+> >     legacy size limit for BIG TCP.
+> > big_tcp_large_max
+> >   - validates that coalescing stops at the configured BIG TCP limit.
+>  
+> Still failing:
+> 
+> https://netdev-ctrl.bots.linux.dev/logs/vmksft/net-drv-dbg/results/819882/3-gro-sw-py/stdout
+> 
+> https://netdev-ctrl.bots.linux.dev/logs/vmksft/net-drv-dbg/results/819882/3-gro-sw-py-retry/stdout
+> 
+> Grep gro_lib.py for KSFT_MACHINE_SLOW
 
-The BOE TV101WUM-NM0 is a 10.1" panel present in the Amazon Fire HD 10
-(2017) tablet. It differs from the BOE panels in the dependent series in
-key ways:
+Are you suggesting to just skip the big tcp test cases on slow machines?
+That's the current behavior for the large_* existing tests.
 
-- The pin count is 51 instead of 46
-- The vendor asks for SYNC_EVENT_VDO_MODE with cont_clock=1 instead of
-burst mode.
-- Different timings and flags expected.
+> Then the 15x increase is probably unnecessary/too high as well, since
+> we GRO 64k 128k shouldn't need more than 2x ?
 
-The init sequence, flags and timings are mostly adapted straight from
-Amazon's vendor kernel.
+If I skip them in slow envs, then yes, 2x should be enough.
+Those pre-existing up-to-64K large tests don't pass either in the run
+above. They're skipped, so we don't actually know the proper
+timeout value for them in this test envirnoment. From the test run above:
 
-Tested on the Amazon Fire HD 10 (2017) driven by mediatek-drm: 1200x1920
-at 62.5 Hz across a cold boot, display off and on cycles and a
-suspend/resume, with the MIPI TX PLL reading back at the intended rate
-every time.
+# #           Received {40560 [!=65495]24935 [!=599]599 [!=0]}, Total 3 packets.
+# #           /srv/vmksft/testing/wt-18/tools/testing/selftests/net/lib/gro: incorrect number of packets
+# # Ignoring ipv4/large_max failure due to slow environment
 
-Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
----
-Ryan Brue (2):
-      dt-bindings: display: panel: add the BOE TV101WUM-NM0
-      drm/panel: novatek-nt51021: add the BOE TV101WUM-NM0
-
- .../bindings/display/panel/novatek,nt51021.yaml    |  1 +
- drivers/gpu/drm/panel/panel-novatek-nt51021.c      | 66 +++++++++++++++++++++-
- 2 files changed, 65 insertions(+), 2 deletions(-)
----
-base-commit: 5e036ce12de91c6fd674dad33b169c6150be2a7a
-change-id: 20260912-add-boe-tv101wum-nm0-da01c4474db6
-prerequisite-message-id: <20260911-qcom-novatek-nt51021-panels-v2-0-135e3190a7fb@mainlining.org>
-prerequisite-patch-id: d8b58f07dc5c9e1fcf7c51a14b48eddca2e09090
-prerequisite-patch-id: 79dfdac7b7fa79f7d05a5f3849909c9a7f956398
-prerequisite-patch-id: 79c01de4e67563772dde152cd4c4d0c568b14d17
-
-Best regards,
---  
-Ryan Brue <ryanbrue.dev@gmail.com>
-
+Instead of skipping them, I was thinking to change the approach and
+send packets continuously, enough for more than just one aggregate.
+The the test would verify that at least one aggregate passed the 64K boundary.
+I'd also keep the increased timeout. What do you think?
