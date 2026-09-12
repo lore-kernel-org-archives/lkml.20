@@ -1,154 +1,266 @@
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.170])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6238B27EC7C;
-	Sat, 12 Sep 2026 10:26:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.68.63.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BC5319D8BC;
+	Sat, 12 Sep 2026 10:28:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789208803; cv=none; b=KqPj//bpPHnFWablGTDsZwSKW1Oegq8miHwe4LL4wBop30ktCKfJlNj6ozy/ps+JcYynA2V58mvl9yN1D5PSyX+QlUiqLokx3jZ+A4y9fm1UAZmOw8LtGw1Z818XAYZPLiVxlvCbxzTAH791sKhFyqjgfkqfJg0JDwPO/BX4k9I=
+	t=1789208913; cv=none; b=Way/xeMr8fbGNtFvIuoi8dbwhGqfpfuL06mXsYVQem0LCCCd7esoY6mFthmdf/HI+PZrI37UHRFmPvC7Po1pI0YMn2Ei0GoGsTo1bDde3dcXl/ydiYHIjXkQNU363IXU3brT9qNS+7UzWxs+lLIpr88E/PH+zsfJik0q/E5F7eg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789208803; c=relaxed/simple;
-	bh=d8G+8siRWTaw4oHGN2aZES9/78IL9mdii44AKdP4+Wg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=u55uphtgvI0njH1RDR4lzjORAMTcm4ojVJ5TSvG2MFiSirxxJ+hbSEAAQ4v0EwSJfIOqXmM4/HlU3pSiLyKXy+lyeh2HJBQJlAs1GD5esg032sX1QKmgo29/ihT5lGyhICZztZ/ckJhpEIBgeIgbDB4WRfq7GZI3ZOpkVxR+dac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=b2pu7MFB; arc=none smtp.client-ip=188.68.63.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
+	s=arc-20240116; t=1789208913; c=relaxed/simple;
+	bh=tLEFTsIWr9PBRCDuxXSlgORwhEQ8o/t+rrtg8hpJDlk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=YaMxfl42kcqy1eEDwR5a76V6nGbpbWG2P1pjhtqduXR5b6APrz4TMZOmtKzWVCzpzSIrIF1gKZoU1ZWjHWinbOC1VNNd8uv71l9YLzAJR3au5NWYNQxj+YE3B4Kj6TnmWnX32oZTFhmdMUW4WJD5pKyBMmkCLObbwmf9/dBxhmM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e2l4h1Pm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="b2pu7MFB"
-Received: from mors-relay8203.netcup.net (localhost [127.0.0.1])
-	by mors-relay8203.netcup.net (Postfix) with ESMTPS id 4hhnSn4JHhz8n8s;
-	Sat, 12 Sep 2026 10:19:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
-	s=key2; t=1789208345;
-	bh=d8G+8siRWTaw4oHGN2aZES9/78IL9mdii44AKdP4+Wg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=b2pu7MFBUCSmFMMlstTSLsHaZJR7cZFi8yaD+kfHDt6MFCfqtGkeh6o2L27lwONBK
-	 gPqmAnUeb9OD2bWYXl1ClGSTvqoJOGctd0ARbTF3X91lkqqN6/fRr+LN8oUH7iv0c6
-	 3U37E1zd6PuhYZCjX9NWmmoAwYzb7RZ4188nucYBY05z6cpH1WLLyB5zbKUBPeLCdm
-	 HSpQoC+aHLYaXCfiXpLdWaGy9wCjoUI67k3n4CWQDCsHPQz4QnXeoIASATgVnLShJ7
-	 L2QldoJkGbNvMWZVyQnJxEmQ0PlmyOA+6iVTs1ODxatLnS+qhm/uvG7LKQ2Z+CTHiy
-	 dY4cr8Kw9fwwQ==
-Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
-	by mors-relay8203.netcup.net (Postfix) with ESMTPS id 4hhnSn3ZXzz8n8H;
-	Sat, 12 Sep 2026 10:19:05 +0000 (UTC)
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4hhnSl03dTz8sbH;
-	Sat, 12 Sep 2026 12:19:02 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
-	by mxe9fb.netcup.net (Postfix) with ESMTPSA id A50C25F8E7;
-	Sat, 12 Sep 2026 12:18:57 +0200 (CEST)
-Authentication-Results: mxe9fb;
-        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=linux@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <5babfab4-ebf7-42b8-88f2-ac2f5b6b2d7f@leemhuis.info>
-Date: Sat, 12 Sep 2026 12:18:56 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e2l4h1Pm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 617FE1F000FF;
+	Sat, 12 Sep 2026 10:28:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789208911;
+	bh=At+WeKXtQjeogENKXppQ8RFPEPNYjU9qfcKZa6sKpdk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=e2l4h1Pm+ysCufWt/uQ0dElEbJq/UZQxBeNOLINZ0nWL4VjzyzhGBk7wPagGO9udD
+	 2X3JAIh9PtniXevsaELg2k1qDTKXv+20pk3UJKhBiiq0lmplzFnblhwxy1BKMTJM6p
+	 5cgt0R3BnQJUvBd6uAdVXNF5QfG+55LHVz1anjn3AHDHM6mryPw3gEkoFaDmdmnsyJ
+	 5MhFGqr5Ac9SksS31H7P8Kp8QnpeG0N/WL5yMg669YJMOx1ZYLPWeAjF+4o0acbhCI
+	 j5JP2N0EotWKjUExD864PxDvPcDdB6kXdUqZRqBT6ycZ//pgbs+6c6PGmWqu2mo2Yw
+	 NOgyKu8mYLtUw==
+From: Simon Horman <horms@kernel.org>
+To: zihanx@nebusec.ai
+Cc: Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org,
+	linux-afs@lists.infradead.org,
+	dhowells@redhat.com,
+	marc.dionne@auristor.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	vega@nebusec.ai,
+	root@tr0jan.top
+Subject: Re: [PATCH net v4 1/1] rxrpc: fix encap_rcv skb accounting exhaustion
+Date: Sat, 12 Sep 2026 11:26:59 +0100
+Message-ID: <20260912102659.174546-1-horms@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <ca1d010bc963319d4167b8e985b5afac5912f6da.1788878590.git.zihanx@nebusec.ai>
+References: <ca1d010bc963319d4167b8e985b5afac5912f6da.1788878590.git.zihanx@nebusec.ai>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.2 0000/1815] 7.2.6-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com,
- Linux kernel regressions list <regressions@lists.linux.dev>
-References: <20260912065648.999753832@linuxfoundation.org>
-From: Thorsten Leemhuis <linux@leemhuis.info>
-Content-Language: de-DE, en-US
-Autocrypt: addr=linux@leemhuis.info; keydata=
- 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 MEK4
-In-Reply-To: <20260912065648.999753832@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-PPP-Message-ID: 
- <178920833844.1659599.12775412309326834949@mxe9fb.netcup.net>
-X-Rspamd-Server: rspamd-worker-8404
-X-Rspamd-Queue-Id: A50C25F8E7
-X-NC-CID: l8TEAt+miKn7LL83ewAZEBNk1qllbLtJwEfXIQDBCHaKhRxfKUU=
 
-On 9/12/26 08:29, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.2.6 release.
-> There are 1815 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> [...]
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
+Full review at: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/ca1d010bc963319d4167b8e985b5afac5912f6da.1788878590.git.zihanx@nebusec.ai?part=1
+---
+rxrpc: fix encap_rcv skb accounting exhaustion
 
-My builds failed while compiling perf:
+This charges encapsulated packets against the UDP tunnel socket's receive
+buffer in rxrpc_encap_rcv() and drops them once sk_rcvbuf is reached, then
+orphans PACKET skbs when the I/O thread dequeues them.  It also moves the
+sk_user_data clearing under RCU and defers sock_release() until after the
+local queues are purged.
 
->> ui/browsers/hists.c: In function ‘evsel__hists_browse’:
->> ui/browsers/hists.c:3191:41: error: ‘hotkey_act’ undeclared (first use in this function)
->>  3191 |                                 memset(&hotkey_act, 0, sizeof(hotkey_act));
->>       |                                         ^~~~~~~~~~
->> ui/browsers/hists.c:3191:41: note: each undeclared identifier is reported only once for each function it appears in
-Reverting "perf ui hists: In report UI ensure thread is set with
-reference counting" fixes this. Haven't tried, but maybe including
-bd86119c3ee6ed ("perf ui hists: Fix dso_filter reference leak and exit
-zoom cleanup") will fix this, too.
+Link: https://lore.kernel.org/all/cover.1788539302.git.zihanx@nebusec.ai/
+Link: https://lore.kernel.org/all/cover.1785339953.git.zihanx@nebusec.ai/
+Link: https://lore.kernel.org/all/cover.1784742007.git.zihanx@nebusec.ai/
 
-That got me a little further, but then I ran into this:
+> diff --git a/net/rxrpc/io_thread.c b/net/rxrpc/io_thread.c
+> index dc5184a2fa9d..415b05f5e2b4 100644
+> --- a/net/rxrpc/io_thread.c
+> +++ b/net/rxrpc/io_thread.c
+> @@ -13,6 +13,22 @@ static int rxrpc_input_packet_on_conn(struct rxrpc_connection *conn,
+>  				      struct sockaddr_rxrpc *peer_srx,
+>  				      struct sk_buff *skb);
+>  
+> +/*
+> + * Drop UDP rmem ownership for packets charged in encap_rcv().
+> + * sk_forward_alloc is serialised by sk_receive_queue.lock.
+> + */
+> +static void rxrpc_skb_orphan_udp(struct sk_buff *skb)
+> +{
+> +	struct sock *sk = skb->sk;
+> +
+> +	if (!sk)
+> +		return;
+> +
+> +	spin_lock_bh(&sk->sk_receive_queue.lock);
+> +	skb_orphan(skb);
+> +	spin_unlock_bh(&sk->sk_receive_queue.lock);
+> +}
+> +
+>  /*
+>   * handle data received on the local endpoint
+>   * - may be called in interrupt context
 
->> tools/perf/util/python.c: In function ‘pyrf_evsel__open’:
->> tools/perf/util/python.c:1104:9: error: implicit declaration of function ‘CHECK_INITIALIZED’ [-Wimplicit-function-declaration]
->>  1104 |         CHECK_INITIALIZED(evsel, "evsel");
->>       |         ^~~~~~~~~~~~~~~~~
->> tools/perf/util/python.c: In function ‘pyrf_evsel__set_tracking’:
->> tools/perf/util/python.c:1295:9: error: implicit declaration of function ‘CHECK_INITIALIZED_INT’ [-Wimplicit-function-declaration]
->>  1295 |         CHECK_INITIALIZED_INT(pevsel->evsel, "evsel");
->>       |         ^~~~~~~~~~~~~~~~~~~~~
+[ ... ]
 
-Only looked briefly, but didn't spot a simple way to work around that
-through a simple revert or two (but it's quite likely I missed something).
+> @@ -52,6 +66,22 @@ int rxrpc_encap_rcv(struct sock *udp_sk, struct sk_buff *skb)
+>  	}
+>  #endif
+>  
+> +	spin_lock(&udp_sk->sk_receive_queue.lock);
+> +	if (atomic_read(&udp_sk->sk_rmem_alloc) >= READ_ONCE(udp_sk->sk_rcvbuf) ||
+> +	    !sk_rmem_schedule(udp_sk, skb, skb->truesize)) {
 
-Ciao, Thorsten
+[Severity: High]
+
+Which sk_rcvbuf value does this end up comparing against?  Nothing in
+net/rxrpc/ sizes the tunnel socket's receive buffer.  rxrpc_open_socket()
+calls udp_sock_create() and setup_udp_tunnel_sock(), neither of which touches
+it, so it stays at what sock_init_data() assigned:
+
+net/core/sock.c:sock_init_data() {
+	...
+	sk->sk_rcvbuf		=	READ_ONCE(sysctl_rmem_default);
+	...
+}
+
+That is roughly 208 KiB of truesize for the entire local endpoint, and since
+this is a kernel socket with no fd, the only way to change it is the global
+net.core.rmem_default.
+
+Meanwhile rxrpc keeps advertising a 255 packet receive window per call:
+
+net/rxrpc/misc.c:
+unsigned int rxrpc_rx_window_size = 255;
+
+net/rxrpc/conn_event.c:rxrpc_conn_retransmit_call() {
+	...
+	trailer.rwind		= htonl(rxrpc_rx_window_size);
+	...
+}
+
+with rxrpc_rx_mtu at RXRPC_JUMBO(46).  Both are sysctl-tunable; the new cap
+is not.
+
+The test is a hard >= with no headroom, and the charge is only released one
+skb at a time when the MIN_NICE krxrpcio thread dequeues.  At 2-4 KiB truesize
+per MTU-sized skb, 50-90 queued skbs exhaust the budget, which a single
+softirq round can deliver before the I/O thread runs.
+
+Can a compliant AFS peer that simply fills the window rxrpc advertised to it
+get dropped here, with no EXCEEDS_WINDOW ACK and recovery only via RTO?  The
+resulting threshold, how it was derived, and the disagreement with the
+advertised window aren't mentioned in the commit message or the v2/v3/v4
+changelog.
+
+> +		spin_unlock(&udp_sk->sk_receive_queue.lock);
+> +		sk_drops_inc(udp_sk);
+> +		kfree_skb(skb);
+> +		return 0;
+> +	}
+
+[Severity: Low]
+
+The drop returns 0, which UDP counts as a delivered datagram:
+
+net/ipv4/udp.c:udp_queue_rcv_one_skb() {
+	...
+		ret = encap_rcv(sk, skb);
+		if (ret <= 0) {
+			__UDP_INC_STATS(net, UDP_MIB_INDATAGRAMS);
+			return -ret;
+		}
+	...
+}
+
+So each dropped datagram bumps UDP_MIB_INDATAGRAMS and neither
+UDP_MIB_RCVBUFERRORS nor UDP_MIB_INERRORS is incremented, unlike UDP's own
+rcvbuf-overflow path for the same socket type
+(__udp_enqueue_schedule_skb() -> -ENOMEM -> RCVBUFERRORS + INERRORS).
+Under the flood this patch bounds, netstat -su shows InDatagrams climbing and
+zero receive-buffer errors while sk_drops rises.
+
+The hook return value can't express this (a negative return makes
+udp_queue_rcv_one_skb() resubmit to the protocol and still counts
+INDATAGRAMS), so would an explicit __UDP_INC_STATS(net, UDP_MIB_RCVBUFERRORS)
+plus UDP_MIB_INERRORS here be appropriate, along with a specific
+skb_drop_reason instead of the bare kfree_skb()?
+
+> +
+> +	skb->dev = NULL;
+> +	skb_set_owner_r(skb, udp_sk);
+
+[Severity: Medium]
+
+This consumes the same counter and the same limit that the socket error queue
+is gated on:
+
+net/core/skbuff.c:sock_queue_err_skb() {
+	if (atomic_read(&sk->sk_rmem_alloc) + skb->truesize >=
+	    (unsigned int)READ_ONCE(sk->sk_rcvbuf))
+		return -ENOMEM;
+	...
+}
+
+rxrpc's only ICMP ingress is rxrpc_encap_err_rcv() ->
+ip_icmp_error()/ipv6_icmp_error() -> sock_queue_err_skb().  On -ENOMEM the
+notification is kfree_skb()'d, sk_error_report() is never called, so
+rxrpc_error_report() never queues an RXRPC_SKB_MARK_ERROR skb and
+rxrpc_input_error() never runs.
+
+Does that silently drop port-unreachable (peer-dead) detection and
+ICMP_FRAG_NEEDED path-MTU input for the whole endpoint for as long as the rx
+queue is near full, i.e. exactly the state this patch holds during a flood?
+
+Before this change the encap path never touched sk_rmem_alloc, so the budget
+was effectively reserved for error skbs.  Error skbs also stay charged after
+rxrpc_error_report() moves them onto local->rx_queue, since the patch
+deliberately does not orphan them, which widens the window further.
+
+> +	spin_unlock(&udp_sk->sk_receive_queue.lock);
+> +	skb_dst_force(skb);
+
+[Severity: Low]
+
+What consumes the forced dst reference, and why is skb->dev cleared above?
+
+A git grep for skb_dst and skb->dev in net/rxrpc/ matches only these two new
+lines, and the only dst dereference in rxrpc (dst->dev->gso_max_segs in
+peer_object.c) works on an output route lookup.
+
+Before this change the queued skb carried a SKB_DST_NOREF dst, which
+refdst_drop() skips on free; skb_dst_force() promotes it to a refcounted dst
+held until the skb is finally freed.  UDP's own queueing path drops the dst
+instead:
+
+net/ipv4/udp.c:udp_queue_rcv_one_skb() {
+	...
+	ipv4_pktinfo_prepare(sk, skb, true);
+	return __udp_queue_rcv_skb(sk, skb);
+}
+
+Would skb_dst_drop() be what is wanted here?  rxrpc_skb_orphan_udp() releases
+the rmem charge at dequeue but leaves the dst in place, so DATA packets handed
+to a call's recvmsg queue keep the reference for a
+remote-sender-plus-slow-reader controlled interval that is not covered by the
+new sk_rcvbuf cap, because dst size is not part of skb->truesize.
+
+Neither skb->dev = NULL nor skb_dst_force() is described in the commit message
+or the v2/v3/v4 changelog.
+
+> +
+> +	skb->mark = RXRPC_SKB_MARK_PACKET;
+> +	rxrpc_new_skb(skb, rxrpc_skb_new_encap_rcv);
+>  	skb_queue_tail(rx_queue, skb);
+>  	wake_up_process(io_thread);
+>  	return 0;
+> @@ -471,6 +501,9 @@ int rxrpc_io_thread(void *data)
+>  		/* Distribute packets and errors. */
+>  		while ((skb = __skb_dequeue(&rx_queue))) {
+>  			struct rxrpc_skb_priv *sp = rxrpc_skb(skb);
+> +
+> +			if (skb->mark == RXRPC_SKB_MARK_PACKET)
+> +				rxrpc_skb_orphan_udp(skb);
+>  			switch (skb->mark) {
+>  			case RXRPC_SKB_MARK_PACKET:
+>  				skb->priority = 0;
+
+[ ... ]
