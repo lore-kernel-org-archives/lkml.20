@@ -1,191 +1,107 @@
-Received: from fhigh-b3-smtp.messagingengine.com (fhigh-b3-smtp.messagingengine.com [202.12.124.154])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A218E3603EB;
-	Sat, 12 Sep 2026 06:51:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.154
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 427A035DA6C;
+	Sat, 12 Sep 2026 06:51:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789195880; cv=none; b=scAv5z4R4Yh1p4taZOzn7HqSIRG06EQaq1XEcC8bpyteejZXdzyx13AbhFmnH0+LgZO3QFZLSZSKT/xo3RdgeWkj72a0FKC/Bi3cH9O5WPiyJqAAZYoMLushEo1ScGh24flGvc5sVgDViEQlx/YgazU9g42fw5MeYQQOQc5bvDI=
+	t=1789195888; cv=none; b=sV6ZeZyttGPbIHYs5vCJlwV+e9rP6j7sJ73kmpsRW/E2KlIilEqvV3pJbYEfm8LOYy3wBXzkDHXlw+TVQi0xS1+pSlVluNEbsaDaTQgjKAiX7iYgZlHN2/sOJ401VgJUqrbbBVbomVqI59C+EHr0SHCsT1ndd6pZh02BmiHaGCA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789195880; c=relaxed/simple;
-	bh=NzFBEuKw+edBTPRDPqk05HVymcwE1+Hsrc/T5KLMj4k=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QIPD8JAlRy+nXOtpBYaXrrU3BncjYXVqvWer/wHQXZR8x+NbNujlkcVNY5AajpemBfyn4npI7MNpyZORaDLUEwSBjnpA9WQp0D/OZi75RrwgWFZOy3HsXWsA96LQYBGbstFxBXCBQxfkaHzRAVi/JoxlnzN8Jz7+tf/S9WtvE1Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com; spf=pass smtp.mailfrom=gahingwoo.com; dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b=plxZdsK2; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=C6SAYQ4G; arc=none smtp.client-ip=202.12.124.154
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gahingwoo.com
+	s=arc-20240116; t=1789195888; c=relaxed/simple;
+	bh=TZbRdAU8qt37+Yww0aqvfclqS6X66BELnbHqdg/D0Ug=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Qp1Ke/OL0Xa6ypsSQYSR47Y0/3rXVUPo0dwnng9nNEVVLNept91IK8uRnSf1b95c5YowwDNc70rxdtYTdIj5I+if2lUYOltg+Huuxog3+4L4nTs5zwCBPvO8zUsj/OUqpJ6wbqs7NJoAJNLP90BiNGGFr/IQFYdYjStPGgRXNw4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DYvw6gso; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="plxZdsK2";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="C6SAYQ4G"
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 5B35E7A00D2;
-	Sat, 12 Sep 2026 02:51:17 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-06.internal (MEProxy); Sat, 12 Sep 2026 02:51:18 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
-	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm2; t=1789195877; x=
-	1789282277; bh=bhEwuQXKYWMYM7UfAE9zXDC7PfmHACUKFcOafx5HkO8=; b=p
-	lxZdsK2iSvV5FW1MdCY6tEokp983VtNTVCeChB06QUL7IURbDbPjIl/ACiDyyzdH
-	hEu5cy9aDujp7G5km1DNBFvlzAgpBLsP6BBcYJvYpboPZp+bzayOUbz9cqldaWDH
-	kcP63TVItmRMzorcPzd2vOBSwftv6krxdeYhY7rt6mAMMYips+IozOGhT0lFpY0A
-	j/5sYzCn1pzyRZUmmJKs+SfXMXPssTORqPc3rtYs9MiVqS02/S8vZC6c/LQjwTm8
-	NovqQgpdQLn1vx63+Cv4sU5ZZhVaJdfYxCWMNzrnEy7oKiUAy8lI1cI1/zJaHaHd
-	ormn/ieXnm1dUpl9v2tYA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm1; t=1789195877; x=1789282277; bh=b
-	hEwuQXKYWMYM7UfAE9zXDC7PfmHACUKFcOafx5HkO8=; b=C6SAYQ4GT8ChY1FVu
-	3xVvaqjQpCK1Iv2Jg4BG5D/d+DKnHpuDaMn9xEsCiNquww3OjaDiWYKXeOz+jLZa
-	qcWYID63FsjiN26rV6tKT8de4ssm+wbN5BcuCAQZ4gGYeJ8V7uttv5vxhk39If/6
-	ubPY6CNPM1wZHTxlvUDn0i80xZJ+XdhrJsAyoEjZIKB/VkXnBi5Gp7H+3eo2Ikxv
-	tjFe2i+YEzhuGb35kXtCgyR9rhTQCkLOZsdigicQ7GGKRQG94t6c9eZeX76zYc8V
-	j0UmoRALtZ/yy1espElBfLFO+y1PzRnHLp4l5ANoiHgdWEfrHU1CetyYao+vPrLj
-	2mzEA==
-X-ME-Sender: <xms:ZPakatkLDzEOqtFAhO3RSx9Nu4DndYre3ixIpdhj4hk8amEvf0ZB-w>
-    <xme:ZPakao_hIPBTzmf-9kXsIbnr9P93GV_dw4Y82JMQsZv7DSpMZ2zCMWjayozPns0iz
-    LnCSwSC5vI7u4_KLuQFqnuA5_Gr93ygWDCghDysIUQle8k7ZHdwwzU>
-X-ME-Received: <xmr:ZPakahfiULXKFHQ8WfKc6GWCUb9SGthORUAhfPlNNNBHSIk9NrxKwt1sLcZSVEFoNgvmK15imw>
-X-ME-Proxy-Cause: dmFkZTEPb8qUI/Bch63DUv9Os4CRaZnJidcR38w4lyHY6iaGmzqubjANrD0SeN/gjpgWtD
-    9JpSgLNav7upxo5UY8BD+gTgneuYvtjdT7xUeoI37l3u3ANYgfWTUMIQPTBe+0FGjKZ893
-    EmiED4E9ABLDGP636x+3BNPL+06gHQG63VHM2tKDilhH/OyX7+TagruxeFKd93pQCYj32B
-    BeiQF2P6k05N47Few9BlXMbV3J128+kb4hnRL4hf+Yoc0wDQXXqOQeonbIg1B1tOCqO85x
-    XB7Y9LiCcE2oZkETEXdiacCDRMuKmK7OMtWiJEvsJa8P7QUcJM2B6xHrJPAU/2XBsLk7LU
-    MpW+EDDQJ2Ssp/huf9O4ilhDarGGDooD/tPvjmxA3kV4YuBLbU0NgpsKcM2c3FTAKYnEg0
-    jq5IGrTkmY47BXIoNJPhqR+oduqMGcqhz9nGiw6JhE/5cQUuLXQYPDV/lhGTFsq01TSQ0+
-    D0Rd5roncpHx5JToGc+FO/+IyrU4ThcP5qdZL0/9k0YZQesYtIDta4uUVindQa19N+8vMU
-    ghKOp7XxGNAE2QzZbXQ1G24VOw7zkmCgza6Abzr7xYJij1+jA8wedKIl3szVqlWrKvTM9O
-    LxBTeYBqYWt04zJFlH8p53hyWTHycR1oaZ9Cn2KNybLme2DHZyJfL52F+mzg
-X-ME-Proxy: <xmx:ZPakah0tutHbDPMLwPphicliFXKSa_YsuNNP7uWFogHY6SoDM25-tw>
-    <xmx:ZPakaqDxoqfmHTMMN4A_au1mYEpfBFJDicVbh3HEinj5DPRSPKoZGg>
-    <xmx:ZPakasSUfPRbPWHU0GWPX1LEhskvwO9WNjCx8HP0eUyQgs2b3cAeNA>
-    <xmx:ZPakasKV1QZc6g25RY560Pui9qvHbNmNQtWVWhGCNvQzpAUR8qFmcg>
-    <xmx:Zfakargh2M3UgUp5Rv-BhlcuPy5COn89vsG2A_eu4ssx8mmpg-59lN1p>
-Feedback-ID: i7a5e4b5f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 12 Sep 2026 02:51:08 -0400 (EDT)
-From: Jiaxing Hu <gahing@gahingwoo.com>
-To: tomeu@tomeuvizoso.net,
-	heiko@sntech.de,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	joro@8bytes.org,
-	will@kernel.org,
-	robin.murphy@arm.com,
-	ulfh@kernel.org,
-	p.zabel@pengutronix.de,
-	ogabbay@kernel.org,
-	zhangqing@rock-chips.com
-Cc: royalnet026@gmail.com,
-	abel.vesa@oss.qualcomm.com,
-	sebastian.reichel@collabora.com,
-	sidong.yang@furiosa.ai,
-	u.kleine-koenig@baylibre.com,
-	chaoyi.chen@rock-chips.com,
-	diederik@cknow-tech.com,
-	alchark@flipper.net,
-	dri-devel@lists.freedesktop.org,
-	linux-rockchip@lists.infradead.org,
-	iommu@lists.linux.dev,
-	linux-pm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Jiaxing Hu <gahing@gahingwoo.com>
-Subject: [PATCH v12 01/14] accel/rocket: request the core clocks by name
-Date: Sat, 12 Sep 2026 18:50:40 +1200
-Message-ID: <20260912065053.1519165-2-gahing@gahingwoo.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260912065053.1519165-1-gahing@gahingwoo.com>
-References: <20260912065053.1519165-1-gahing@gahingwoo.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DYvw6gso"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F80C1F00899;
+	Sat, 12 Sep 2026 06:51:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789195886;
+	bh=Z84vkdbwNxegmhKm0R2xQmDE2xY7DFVW66Efhf6koos=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=DYvw6gsoELRpV5Zk+nFitNkGdpp3UJB0K40yABvAnHcpoDfpPU0Nq4c5Fiym6+0tc
+	 Cv9OSGENrXpxlFgyuf6k53fnSRr+CmYeI6T6dJ6P5Ml/WDOnei5VdVHvF4JPU7Y9ZF
+	 5XiwvX9GNoeUHljzvqtQcPHoj5XT+gy3TmoVjlkgJsImc24jZiABBSRchLj4l7jRX5
+	 02pnk5YMkj3u2wVrYE80CAwP/0lZ2djYSOyK4f0OtAFLXwnQ56nGXE4inKKI93Xkuz
+	 Kc1RWE9iupig6wVtHR44XSzmGtQLiEKLs8565qMeUCMRwBOnPY0xceyW6RZujvW/kn
+	 2ocP8MdjyhWMw==
+Date: Fri, 11 Sep 2026 23:51:14 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	Nicolas Schier <nsc@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Masahiro Yamada <masahiroy@kernel.org>,
+	Alexey Gladkov <legion@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Randy Dunlap <rdunlap@infradead.org>, linux-kbuild@vger.kernel.org,
+	linux-kernel@vger.kernel.org, llvm@lists.linux.dev,
+	linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-efi@vger.kernel.org,
+	rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org,
+	Jens Axboe <axboe@kernel.dk>
+Subject: Re: [PATCH 12/23] kbuild: avoid re-running compiler and linker probes
+Message-ID: <20260912065114.GC2002951@ax162>
+References: <20260908-build-speedup-v1-0-5dc1ac01672d@kernel.org>
+ <20260908-build-speedup-v1-12-5dc1ac01672d@kernel.org>
+ <178901395292.3971858.13236774094648272066.b4-review@b4>
+ <aqPW1FsBVYHSWl1r@gremlin>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqPW1FsBVYHSWl1r@gremlin>
 
-From: Igor Paunovic <royalnet026@gmail.com>
+On Fri, Sep 11, 2026 at 11:26:36AM +0100, Lorenzo Stoakes (ARM) wrote:
+> It feels like init is the right place, having actual substantive Kconfig entries
+> in scripts/ feels a bit weird.
 
-rocket_core_init() hands core->clks to devm_clk_bulk_get() without ever
-setting the .id members. The rocket_core array is allocated with
-devm_kcalloc() in rocket_device_init(), and rocket_probe() only fills in
-.rdev, .dev and .index, so all four clk_bulk_data entries are requested
-with a NULL con_id (unlike core->resets, whose ids are set a few lines
-above).
+Yeah, that is valid.
 
-clk_get(dev, NULL) ends up in of_clk_get_hw(np, 0, NULL), and
-of_parse_clkspec() only consults "clock-names" when a name was passed, so
-the index stays 0 for all four entries. Every entry therefore ends up
-holding a handle to the *first* clock of the DT "clocks" property, i.e.
-ACLK_NPUn. Nothing fails: probe succeeds and the driver believes it owns
-four different clocks.
+> I can add an extra patch to move existing entries over before adding these in in
+> the next patch?
 
-The consequence is that rocket_device_runtime_resume() prepares and enables
-the AXI clock four times, while hclk, pclk and - most importantly - the NPU
-compute clock ("npu", SCMI_CLK_NPU on RK3588) are never prepared or enabled
-by this driver at all. The NPU still works only because the Rockchip
-power-domain driver sets GENPD_FLAG_PM_CLK and its attach_dev() callback
-walks the device node with of_clk_get() and adds every clock to the pm_clk
-list, so genpd happens to keep the remaining clocks running. The bug is
-therefore latent today, but it means the driver holds no reference to the
-clock that actually feeds the NPU, which stands in the way of any future
-frequency scaling (OPP/devfreq) work.
+Yes, sounds perfect.
 
-Found on an Orange Pi 5 Plus (RK3588) by reading the live clock tree:
-/sys/kernel/debug/clk/clk_summary shows four "fdab0000.npu" consumer
-handles on aclk_npu0 (and likewise on aclk_npu1/aclk_npu2 for the other two
-cores), while hclk_npu0, pclk_npu_root and scmi_clk_npu have no
-"fdab0000.npu" consumer at all - their only consumers are the
-"npu@fdab0000" handles created by the power-domain driver via of_clk_get().
+> > I also worry about backsliding and growing cc-option checks. Should we
+> > update the documentation to state that it is preferrable for these
+> > checks to live in Kconfig so that they can be properly cached?
+> 
+> Yeah makes sense. I can add a patch to update the docs too?
 
-Set the ids explicitly, in the order mandated by the binding
-(Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml):
-aclk, hclk, npu, pclk. After the change the driver holds one handle per
-distinct clock and clk_bulk_prepare_enable() covers all four.
+Yeah, sounds good to me!
 
-Note that this is a user-visible tightening for out-of-tree DTs: the old
-NULL-id requests resolved by index and succeeded no matter what
-"clock-names" contained, while the named requests fail probe with -ENOENT
-when one of the four names is missing. That is the right outcome for
-in-tree users - the binding requires exactly these four clock-names and
-rk3588-base.dtsi carries them on all three cores - but a DT that relied on
-the permissive lookup goes from silently running on the wrong clock handles
-to not probing at all, so record the change here where git log will find
-it.
-
-Fixes: ed98261b4168 ("accel/rocket: Add a new driver for Rockchip's NPU")
-Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
-Tested-by: Sidong Yang <sidong.yang@furiosa.ai>
-Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # NanoPC-T6 LTS, NanoPC-T6 Plus
-Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-Reviewed-by: Jiaxing Hu <gahing@gahingwoo.com>
-Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
----
- drivers/accel/rocket/rocket_core.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/drivers/accel/rocket/rocket_core.c b/drivers/accel/rocket/rocket_core.c
-index b3b2fa9ba..5dd260bac 100644
---- a/drivers/accel/rocket/rocket_core.c
-+++ b/drivers/accel/rocket/rocket_core.c
-@@ -28,6 +28,10 @@ int rocket_core_init(struct rocket_core *core)
- 	if (err)
- 		return dev_err_probe(dev, err, "failed to get resets for core %d\n", core->index);
- 
-+	core->clks[0].id = "aclk";
-+	core->clks[1].id = "hclk";
-+	core->clks[2].id = "npu";
-+	core->clks[3].id = "pclk";
- 	err = devm_clk_bulk_get(dev, ARRAY_SIZE(core->clks), core->clks);
- 	if (err)
- 		return dev_err_probe(dev, err, "failed to get clocks for core %d\n", core->index);
 -- 
-2.43.0
-
+Cheers,
+Nathan
