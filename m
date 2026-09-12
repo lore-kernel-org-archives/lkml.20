@@ -1,49 +1,53 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+Received: from mail-244108.protonmail.ch (mail-244108.protonmail.ch [109.224.244.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C09132F617C
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 04:29:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28906BA45;
+	Sat, 12 Sep 2026 04:31:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789187385; cv=none; b=TtXJQ2TzMZwuh/8LD5AIfHY5VTWZfZBLv1twsIUZdRLEiHgppsgiN0+3jz/UYx6b/4vLcpsLGcO5xa3cplXBLqwXpghUzWUfkBY5AageBtYviN5Uu6ZLc1pjWMEgOsN/X79DMfrjr4gHUDH8Z6pEE5WXOGShs1Y/ZYPA/ZmI8z0=
+	t=1789187513; cv=none; b=r2Y0FSL3elRoFn4A4b1HRw4ezluiy7/YXAK+PCI22SfHq3KYTUYxUCEleng/+YuCBzIQbaj7D7RLQa4MDarMORINVEgDc7DnVxO//U951B2jOQcHgqAdTyxM+ZpU9LrF2JmbhIuS/+KDpqYwTxwXqbJOXzRhSx+L94prLjENZlk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789187385; c=relaxed/simple;
-	bh=1h6I4wP56U4lHZawweTrmT28rbDD+IQoShOkCRjuxCg=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=s+CvyAfp8e9yWHb1O9tZ9P6LVmPmb9Cuz4K8o0heFI/8kjRiyN084SlouGMte7nfh6ycNf9dBboiG0FcrkAvh7yyZQq9ERwU2IkTeh9roSNUA5YyilYY719uCcUkvfI6jBOolHIXtw4oQgtfbwy++tcjIYK6NRCf9Luqo2fkmnE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=ZExnXoPF; arc=none smtp.client-ip=220.197.31.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789187513; c=relaxed/simple;
+	bh=sfKCzdxaib4+pasocL4R9qT+1CZ6GpvPWb0b0BSuC3E=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=hRwbP21ztzTNcoxf/g/eqVeyFkt/Tkwb4JB3m1H+FnTfKcmAJRxP4y5gqTFunBeSvneUpe/EfPmbFlz1utbI//mI1eFh4QlYcHDjhttRn9mX5LcwIh5YWlCNhLv9UGdrz0DjJ2WW0Um0YRmj3sWRn9KigBd6qYp0V1jji7sshEc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=httpd.dev; spf=pass smtp.mailfrom=httpd.dev; dkim=pass (2048-bit key) header.d=httpd.dev header.i=@httpd.dev header.b=t+5szApF; arc=none smtp.client-ip=109.224.244.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=httpd.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=httpd.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="ZExnXoPF"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Kc
-	cE0UiOp1COOiUg0EVK/qdNpx8ppDmv8Bqqchzc+Qk=; b=ZExnXoPFhGE+t8F2pw
-	6f62++2BqwvdN16Swsa0LuEgCTWVOFLJoaa5sjD1xufrrlwpNriYWhbk+FRORi8/
-	4trb7aZQot5FewfKF0NRP5Lm7gyrv7o6NpEbrMKSrZJwgZODZ6yiGCN+5gYA1NCT
-	exAAgflsSzkow9Kb8M+Hb+Ar4=
-Received: from zhaoxin-MS-7E12.. (unknown [])
-	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wD3HzfU1KRqD3HRAA--.37306S2;
-	Sat, 12 Sep 2026 12:28:05 +0800 (CST)
-From: Xin Zhao <jackzxcui1989@163.com>
-To: vincent.guittot@linaro.org
-Cc: bsegall@google.com,
-	dietmar.eggemann@arm.com,
-	jackzxcui1989@163.com,
-	juri.lelli@redhat.com,
-	kprateek.nayak@amd.com,
+	dkim=pass (2048-bit key) header.d=httpd.dev header.i=@httpd.dev header.b="t+5szApF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=httpd.dev;
+	s=protonmail3; t=1789187500; x=1789446700;
+	bh=sSqoYH0c21mEhcvpAIK0bj7Pj0T2Ip9t6Lb6uBWDPEM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=t+5szApFwbaQf07puBq1wdaNfHt8OmNvVMBDX4683NUam9S1ARn5ywllB5KVYes/n
+	 LiQitvej4j4I5gUR2kQGK3Ln/bkUQhBtNQb55cXh52qgs7BCDIs/KrMJt2E6f323xW
+	 DskuLMkmX5LSPZiYGvlb0J6EA5O2zEziPdrAvouxyZ9JSj2Ze4RbbN++P9HIFSs0z8
+	 aAOsd2tqv0fgx8rQFBohaVDnoZzqUE+hHHdgwJ3P5RwjK+Nm67rbTchIGkJgtRRldL
+	 /pjzky2+aT6ft+bqtGJvppgBlyA4oQGpQQMVvOS08sW6pVgrudpjcgLKtJ2P5O3GVq
+	 Q3EHZXTL1UpCg==
+X-Pm-Submission-Id: 4hhdln4Rlvz1DDLV
+From: Angel J <iamanaws@httpd.dev>
+To: linux-pci@vger.kernel.org,
+	bhelgaas@google.com
+Cc: robh@kernel.org,
+	herve.codina@bootlin.com,
+	lizhi.hou@amd.com,
+	andrea.porta@suse.com,
+	florian.fainelli@broadcom.com,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	mgorman@suse.de,
-	mingo@redhat.com,
-	peterz@infradead.org,
-	rostedt@goodmis.org,
-	vschneid@redhat.com
-Subject: Re: [RFC PATCH RESEND 04/10] sched/fair: Add LB_PROMOTE feature to enhance real-time performance of fair tasks
-Date: Sat, 12 Sep 2026 12:28:04 +0800
-Message-Id: <20260912042804.3403506-1-jackzxcui1989@163.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <CAKfTPtBRLNWu6KyLs_=uLh7fwZpc5fEsGCwcSV2dCXuf6UqucQ@mail.gmail.com>
-References: <CAKfTPtBRLNWu6KyLs_=uLh7fwZpc5fEsGCwcSV2dCXuf6UqucQ@mail.gmail.com>
+	regressions@lists.linux.dev,
+	stable@vger.kernel.org,
+	linux-rpi-kernel@lists.infradead.org,
+	Angel J <iamanaws@httpd.dev>
+Subject: [PATCH v2] PCI: of_property: Omit bus properties without a subordinate bus
+Date: Fri, 11 Sep 2026 21:31:06 -0700
+Message-ID: <20260912043106.10715-1-iamanaws@httpd.dev>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260911230420.26244-1-iamanaws@httpd.dev>
+References: <20260911230420.26244-1-iamanaws@httpd.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,53 +55,59 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3HzfU1KRqD3HRAA--.37306S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Zry8CrW7CFy3Kr4UCw47CFg_yoW8tF1kpa
-	ySvFn8tw4kAa4kta92yw4xZrWrur4fJFy3Jr15Gr1ava98CFy5tF4Sgr13XanrGrs7Za1j
-	vF4Fvw1Dua4YyaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pRTKZAUUUUU=
-X-CM-SenderInfo: pmdfy650fxxiqzyzqiywtou0bp/xtbC6BUuOGqk1NVaGwAA3l
 
-On Fri, 11 Sep 2026 14:32:25 +0200 Vincent Guittot <vincent.guittot@linaro.org> wrote:
+A device can satisfy pci_is_bridge() without having a subordinate bus.
+The dynamic OF helpers for bus-range and interrupt-map dereference
+pdev->subordinate without checking it.
 
-> > Embedded platforms commonly use CONFIG_HZ_250, and testing has revealed
-> > that there are numerous instances of unreasonable CPU idle events on such
-> > platforms. Unreasonable CPU idle refers to situations where the CPU enters
-> > an idle state for a duration of time (t), while there are tasks that can
-> > run on the idle CPU and are not limited by cgroup constraints, yet these
-> > tasks remain unscheduled for a duration greater than (t), t > 2.5 ms.
-> 
-> Which looks reasonable with a 4ms tick
-> 
-> The ILB fixes this at next tick and we have a similar version for slow
-> path wake up
-> 
-> Also you might want to look at the newly idle load balance path
+On a Dell XPS 8940, device 0000:00:00.0 [8086:4c43] has no subordinate
+bus, and enabling CONFIG_PCI_DYNAMIC_OF_NODES causes an early boot hang.
 
-I have already thoroughly reviewed the logic of ILB before working on this series
-of patches. Indeed, according to the current implementation, the scheduling delays
-in a 250Hz can be explained from the code perspective.
+Generate bus-range and interrupt-map only when a subordinate bus exists.
+Keep the node and its remaining properties for bridges without one.
 
-However, when it comes to using Linux for real-time systems in embedded environments,
-I wonder why we can't do better in this area. As far as I know, there are an
-increasing number of players Linux for real-time systems. Sacrificing 0.3% of average
-system consumption in exchange for eliminating scheduling delay cases of 4ms or more,
-as well as significantly reducing cases with scheduling delays between 2.5ms and ms,
-should benefit everyone using Linux for real-time embedded systems. I believe it is
-necessary to consider merging this feature into the mainline for embedded scenarios.
+Boot-tested on Linux 6.18.44 with CONFIG_PCI_DYNAMIC_OF_NODES=y. The
+system boots and the node for 00:00.0 retains device_type, reg and
+compatible. The other bridges retain their nodes and bus ranges.
 
-Of course, there may be better implementations. For instance, I initially thought
-about replacing some of ILB logic with hrtimer, which could trigger checks earlier
-and potentially yield better results. However, the existing logic in load balancing
-certainly has many areas to improve real-time performance. I feel that these
-improvements are not mutually exclusive; at least we enhance the real-time performance
-under the scenario where the LB_PROMOTE feature is enabled.
+Fixes: 407d1a51921e ("PCI: Create device tree node for bridge")
+Cc: stable@vger.kernel.org
+Signed-off-by: Angel J <iamanaws@httpd.dev>
+---
+Changes in v2:
+- Keep the dynamic OF node and skip only bus-range and interrupt-map
+  when no subordinate bus exists, following review of v1.
+- Tested on Linux 6.18.44 with the v1 guard removed.
 
-In addition to modifying the wakeup selection logic, I have also made some changes to
-the load balancing logic, as seen in the subsequent patches 7, 8, 10, particularly in
-patch 10.
+ drivers/pci/of_property.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
 
-
---
-Xin Zhao
+diff --git a/drivers/pci/of_property.c b/drivers/pci/of_property.c
+index 75a358f73..acd2e0f70 100644
+--- a/drivers/pci/of_property.c
++++ b/drivers/pci/of_property.c
+@@ -361,13 +361,15 @@ int of_pci_add_properties(struct pci_dev *pdev, struct of_changeset *ocs,
+ 		if (ret)
+ 			return ret;
+ 
+-		ret = of_pci_prop_bus_range(pdev, ocs, np);
+-		if (ret)
+-			return ret;
++		if (pdev->subordinate) {
++			ret = of_pci_prop_bus_range(pdev, ocs, np);
++			if (ret)
++				return ret;
+ 
+-		ret = of_pci_prop_intr_map(pdev, ocs, np);
+-		if (ret)
+-			return ret;
++			ret = of_pci_prop_intr_map(pdev, ocs, np);
++			if (ret)
++				return ret;
++		}
+ 	} else {
+ 		ret = of_pci_prop_intr_ctrl(pdev, ocs, np);
+ 		if (ret)
+-- 
+2.54.0
 
