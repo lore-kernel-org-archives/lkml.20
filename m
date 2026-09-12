@@ -1,141 +1,217 @@
-Received: from bg-bec.cloudflare-smtp.org (bg-bec.cloudflare-smtp.org [104.30.16.142])
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38B7929CB52
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 02:06:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=104.30.16.142
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19FB235CBCB
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 02:06:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789178786; cv=none; b=t94tMcBwI0RbcOi9n/6IXlNJIC5mquLP/0hfexV0GsqDDQSpAEjMkxJQJh46l0THdV22fVHjIumUbbgofWlB4wm+45DkDQLEkII8wku5VPh9hZxEgYs2VOUVmEE9+hH1HGfttYR1WHfbhwHWt1CoczRVw2+0qCcnO0lBM66gRes=
+	t=1789178789; cv=none; b=AXCp7Yv0ZlMXFkM7Y0Gk0qzdHrofusjhstLml5YQDNDoRguNVatjePogGbLFbBXpr//r1XX9pRQBf1sj0G94h+aJOj1hsY4SxkIfeinM0gmR7Ct8kC0Yw4YuzVRhSTlcHpnOMONO65AQASU+aEq5xHNifIq2jeJb5kdRviFexzo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789178786; c=relaxed/simple;
-	bh=td6GyIwImmGhWT4VTkMW5JClIDoxxRF1qhS/u1XDUec=;
-	h=From:Message-ID:Date:Subject:To:Cc:MIME-Version:Content-Type; b=UBtBy96K9UAF+JnPaw6++6MZ1S4vrPZjUVdCzC3AN8SVzJE6fvMCthgjf72qmbhn490cG8minCU/hQ42jqOv/z23LLsVGrv/XchMFqCrJJO9CJXkDibVtoQFHzpqVprdrBEuVo3Xp5qyVttgxcIwuZ5DEfjlIRE2SfX8zfrRScg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh; spf=pass smtp.mailfrom=cf-bounce.bugs.sh; dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b=S303c/yK; dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b=EakDEQAO; arc=none smtp.client-ip=104.30.16.142
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cf-bounce.bugs.sh
+	s=arc-20240116; t=1789178789; c=relaxed/simple;
+	bh=spVOa9f/F/7Wv09hnrKBTUsoNuao2ZOIwYgjaS7I4kE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NAATl0lG6sop25EuvW2iC/fdTMSTwW4yHarHCl8rHQwTTWJs/yn6MvhN4Y4V/uktdmZUqQeZNB6XLaAhLg/U991hSt4WBVzb1gAGtMGYqCdCugVFnpCVYUzIl6ubZzAZMbwTx2eUy5aVnt5V3Vm8OF52D3uBV6oc3co/zDEdX2o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gz4Nzn47; arc=none smtp.client-ip=209.85.218.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b="S303c/yK";
-	dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b="EakDEQAO"
-DKIM-Signature: v=1; a=rsa-sha256; s=cf2024-1; d=cloudflare-smtp.org; c=relaxed/relaxed;
-	h=Cc:To:Subject:Date:From:Feedback-ID:from:reply-to:resent-date
-	:resent-from:resent-to:resent-cc:in-reply-to:references:list-id:list-help
-	:list-unsubscribe:list-unsubscribe-post:list-subscribe:list-post
-	:list-owner:list-archive; t=1789178784; x=1789783584; bh=s7cEpNPauqEJbdAtq7
-	FQ1mkywOGre6KQOPStKQvdeMU=; b=S303c/yK5numhk9Ketkjo1fzdhophJh7wXa09ZehEfLVO
-	csEkgwNxjvzGmkPMPqivRnLGKPREIRESZsoZ3pAvDEw+cm59hZjQQqXIWdPxTjmhrmXDrqwCl8S
-	C1T6598+bwDlak/Wil14M45LF4ig25l5eYGc+HBvEc+PFnpldZRwMpzg057cc8CBGR3WH+5+5lk
-	YBLlYv3U67UaKpbS/4+VLl/ECKwsjmBy91X4ly51VvAslMmPgg5KrZsDErKtYCDpxzJHEirgbBF
-	pg6nUHzb3w/c4Fa/s6ET9O3outgbCfv1IhhPS23sGTyOPTdFo4oMHlqbUs1RcCmvJVZa9MHA==;
-DKIM-Signature: v=1; a=rsa-sha256; s=cf-bounce; d=bugs.sh; c=relaxed/relaxed;
-	h=Cc:To:Subject:Date:From:Feedback-ID:from:reply-to:resent-date
-	:resent-from:resent-to:resent-cc:in-reply-to:references:list-id:list-help
-	:list-unsubscribe:list-unsubscribe-post:list-subscribe:list-post
-	:list-owner:list-archive; t=1789178784; x=1789783584; bh=s7cEpNPauqEJbdAtq7
-	FQ1mkywOGre6KQOPStKQvdeMU=; b=EakDEQAOzK5YSMGZup5C9elImljMagPIZA6/IJ+vxjpxq
-	Dq8zf4zEIRfEDUE8Je6W3GWT2vpGWrZscsrNWe0IYouN2kZ/oRF+De4LmeK4IOWXz6+L5hg8UnR
-	OKgM1tiTTZHdPFvicN/9zbMvC3x4vNsAkAu1jiJe+WPD0mad8x9sevuGzUvcZCeurO4DL92+MPD
-	7DY/42KrZI45NV3Hp+sYOfnkYzfoNhpNfC3b0QyQViPzrJjsoXP6dMr/VSJkMhE8fHdYWEbrdNo
-	EnD2lZtD/sdgOrI+25Q7I6CzwJWw4zaIVKNu965pGuGbU9H6GijwpFFhDZruOvVKK5UOj12A==;
-Feedback-ID: bugs.sh:5:6:Cloudflare
-From: co <co+66c3f58096d0bde8@bugs.sh>
-Message-ID: <J3vQPnNHSkQ6YUiFvu1bk8ai3Q8aZ7a9J1Y7@bugs.sh>
-Date: Sat, 12 Sep 2026 02:06:13 +0000
-Subject: [BUG] drivers/usb: NULL pointer dereference in
- stub_recv_cmd_submit()
-To: linux-usb@vger.kernel.org, "Valentina Manea" <valentina.manea.m@gmail.com>, "Shuah
- Khan" <shuah@kernel.org>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>
-Cc: "Hongren Zheng" <i@zenithal.me>, "Suwan Kim" <suwan.kim027@gmail.com>, linux-kernel@vger.kernel.org, co <co+66c3f58096d0bde8@bugs.sh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gz4Nzn47"
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c262204cc80so225160266b.3
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 19:06:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789178786; x=1789783586; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:reply-to:message-id:subject:cc:to:from:date
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XjLvs9IRvdKtutQQVUqHinOZTztdopsuXZK8dx8qcRk=;
+        b=gz4Nzn47I4uMkq9nWOLZraIpP5NUd1H2qZ91k465qA1MpbmzGdxF1EBLPOEzxLsA7j
+         +/sbdjoI3xahfydHAJ7jHgdVu8GBU7UCC6QB4x23Z6PwO+/VtHYZ5KobqbyP+vvBNA12
+         JrB77K83wCu7WiSIhxj+ComRqSVddlP3IpvFvnTYJxCQMP1TPlgaafKelR3yMGxBD0W8
+         CI8CS3SwnNoDZY63nehXGYSqU8AS7p1C26beSSudZNvv8gulhEwW6NJjjtk5RtTCF5xk
+         KrbFK6XfmxVH6vasEd/RXLuiXmSel5+qZ0s24FhPbfU9qA1mXw7QDU69jC5upYiXPrHw
+         Ps7w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789178786; x=1789783586;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:reply-to:message-id:subject:cc:to:from:date
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=XjLvs9IRvdKtutQQVUqHinOZTztdopsuXZK8dx8qcRk=;
+        b=G/nHd5luY7LJdxQfMBJH0+qo3GWh93GW1tqSnbwuOLgr0h64+aDkYudoHtWIDaTKL5
+         Lh38Og3xC+MlW5TylefnpRGWOfZB5zL2L3DlIxqwBK2VL7p+sHMnrtaQVlbltHZ2LJnn
+         sVpRExw/9T01cbyJvFttkt0kGz+aPDFZFCWXTdv01/d1tY3tDtJLz9MC0ArzV8IYoG0+
+         cugI0fFz+HkzUGibs6nRJAd793UJ9WAiU8lOK9ln0b9snhYA/AdDkXUTbq4rf82jIOHO
+         uZ2ndEtbsXnPyMeg0/SGI2FafAXfWBejid845NL3mVpuEwemZM2rOmHX2Sbqi/uGuY3O
+         R0vw==
+X-Forwarded-Encrypted: i=1; AKwUvBzp8rdH9SZdGtGQvruNQ2DaM4mUU4dtqquwbO115MSt3+e+xfGhKsofXiyZrR/inXj17vVqCvdAHJqGrgU=@vger.kernel.org
+X-Gm-Message-State: AFuF++n9YTlKVW3SS+0dtvqERo+FqXthlS7UJXRbLYEY2WtWrbhcdKpj
+	Mv80HLffcamxoAz+F3bNzL9KdwghqUGrjzndWz4aFII4ulAvHtOQ0u+H
+X-Gm-Gg: AYBFou3dLlr40P5LJAeCMpcVe9yicF4QEAyWJmkjvHYOW16j25YcOCA1mbSmZV9JzFt
+	Dwg53HSHBBmm6VJU4ZY/mIPXXHXNYtI3LIGME20VRdcpuY63grwWc/GLjNWhmeFKVk+Ws82oSAX
+	9CMfIkqs+29TQfQFG/NllITE6OXdJWyU8ZVUfrlxvxllWk6aQbWtXk3vF8ZW/8lrYaA2A1RmVQC
+	/PjOSYyxBbkwGASPMft8X8tqm5c1BijOF8CKxwaRH8YXBoPvzEDAIGi+D3uADlCsuQAf+gzAOhD
+	KAdaYcCdTzs3LDslHeKuGa9JdWwRQbShQbubu0GDIww2V2PJOkKeMnnLtpwwyU5WcUYocnfeWn9
+	VIzcHXn9sqPi0oOUeMu6R+ZTqo/Zldq40bqxozu6EYQRI+hpMAzsRe6xgOpDUxwS+SB/l6PMK1R
+	ICnaLjc4caWfleZrDxPLeHR0QND3BQ9vkWSvJpGRNuDEzTpbe/wcRlLSby47CuAusnSbUyzycdc
+	LEQnU1d
+X-Received: by 2002:a17:907:3f17:b0:c29:4970:abec with SMTP id a640c23a62f3a-c29665d8281mr318676066b.19.1789178786176;
+        Fri, 11 Sep 2026 19:06:26 -0700 (PDT)
+Received: from localhost ([185.92.221.13])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c29660b29a7sm146651466b.43.2026.09.11.19.06.24
+        (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+        Fri, 11 Sep 2026 19:06:24 -0700 (PDT)
+Date: Sat, 12 Sep 2026 02:06:24 +0000
+From: Wei Yang <richard.weiyang@gmail.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Wei Yang <richard.weiyang@gmail.com>, Yuan Liu <yuan1.liu@intel.com>,
+	Oscar Salvador <osalvador@suse.de>, Mike Rapoport <rppt@kernel.org>,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+	Chen Yu <yu.c.chen@intel.com>, Jason Zeng <jason.zeng@intel.com>,
+	Vlastimil Babka <vbabka@kernel.org>
+Subject: Re: [BUG] mm/memory_hotplug: panic due to race between compaction
+ and memory hot-unplug
+Message-ID: <20260912020624.tyu6gwj3tssxfjp3@master>
+Reply-To: Wei Yang <richard.weiyang@gmail.com>
+References: <20260903095543.3752338-1-yuan1.liu@intel.com>
+ <1d625a60-9473-4f48-a384-7d756ccb7135@kernel.org>
+ <20260910031609.qbn2qcxzbitau5xc@master>
+ <12147238-575e-49ea-aa83-ea25c660ee38@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <12147238-575e-49ea-aa83-ea25c660ee38@kernel.org>
+User-Agent: NeoMutt/20170113 (1.7.2)
 
-This is a bug report, not a patch submission. See
-https://bugs.sh/reporting.html
+On Thu, Sep 10, 2026 at 09:40:32AM +0200, David Hildenbrand (Arm) wrote:
+>On 9/10/26 05:16, Wei Yang wrote:
+>> On Mon, Sep 07, 2026 at 04:27:50PM +0200, David Hildenbrand (Arm) wrote:
+>>> On 9/3/26 11:55, Yuan Liu wrote:
+>>>> Hi all,
+>>>
+>>> Hi!
+>>>
+>>>>
+>>>> While stress testing memory hotplug on a VM guest running an
+>>>> unmodified vanilla mainline kernel (7.3.0-rc1, as reported by
+>>>> uname -r), we hit a kernel panic in the guest when memory
+>>>> hot-unplug runs concurrently with memory compaction.
+>>>>
+>>>> The kernel was built from mainline at commit:
+>>>>
+>>>>     cee9395acd80 ("Linux 7.3-rc1")
+>>>>
+>>>> To be more specific, after a large virtio-mem hot-unplug, the guest
+>>>> kernel takes a fatal page fault in suitable_migration_target(), called
+>>>> from isolate_freepages() during compaction.
+>>>
+>>> Sounds like a real problem we should tackle.
+>>>
+>>>>
+>>>> We are not sure whether this race is reachable under realistic
+>>>> workloads or only under this synthetic stress test. Sharing it here
+>>>> in case it is useful, and in case this is already a known issue.
+>>>> Thanks.
+>>>>
+>>>>
+>>>> Call trace (top to bottom)
+>>>> ==========================
+>>>> - RIP: suitable_migration_target+0x5/0x70
+>>>>    isolate_freepages() <- compaction_alloc() <-
+>>>>    migrate_pages() <- compact_zone() <- compact_node() <-
+>>>>    sysctl_compaction_handler().
+>>>>
+>>>>
+>>>> Why the race happens
+>>>> ====================
+>>>> CPU0 (compaction free-scanner)          CPU1 (virtio-mem hot-unplug)
+>>>> ----                                    ----
+>>>> page = pageblock_pfn_to_page()
+>>>>    /* checks pass, section ONLINE */
+>>>>    /* returns valid struct page* */
+>>>>
+>>>>                                          offline_pages()
+>>>>                                            /* section -> offline */
+>>>>                                          __remove_pages()
+>>>>                                            vmemmap_free()
+>>>>                                            /* struct page UNMAPPED */
+>>>>
+>>>> suitable_migration_target(page)
+>>>>    PageBuddy(page)
+>>>>      read page->page_type
+>>>>      *** not-present fault -> panic ***
+>>>>
+>> 
+>> Does it mean, the combination of pfn_to_online_page() / PageBuddy(page) is not
+>> safe, when there is hot-remove, even for other users. Not only compaction.
+>
+>There is an inherent race between any
+>
+>pfn_to_online_page() user that then takes a look at the memmap (PageBuddy,
+>whatever).
+>
+>Usually, that's not really relevant, because for things to go terrible wrong
+>(instead of only being slightly suboptimal :) )
+>
+>You have to run both, memory offlining *and* memory removal.
+>
+>For things like
+>
+>page = pfn_to_online_page()
+>if (PageBuddy(page))
+>
+>That's unlikely to hit (no reports), and we could likely easily fix it with the
+>help of RCU.
+>
+>It gets more problematic when we do things like
+>
+>page = pfn_to_online_page()
+>... do all other kind of stuff
+>if (PageBuddy(page))
+>
+>(what we have here)
+>
 
-We found a bug reachable in:
+Thanks for the explanation. I still have one confusion.
 
-    path    drivers/usb/usbip
-    crash   NULL pointer dereference in stub_recv_cmd_submit()
-    commit  2f1baf1fc892 ("Merge tag 'trace-v7.2-rc7' of git://git.kernel.o=
-rg/pub/scm/linux/kernel/git/trace/linux-trace")
+What we have here is:
 
-Config, environment, the sanitizer report and a C reproducer follow.
+isolate_freepages(cc)
+    page = pageblock_pfn_to_page()
+        if (zone->contiguous)
+	    return pfn_to_page(pfn)
+        return __pageblock_pfn_to_page()
+            start_page = pfn_to_online_page()                       (1)
+            ... check page_zone(start_page) and page_zone_id()
+            return start_page
+    suitable_migration_target(cc, page)
+        if (PageBuddy(page))                                        (2)
 
-=3D=3D Notes =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-    If you fix this bug, this tag credits the report and lets us
-    close it on our side:
+It looks the extra stuff between (1) and (2) is trivial and they still rely on
+page struct. 
 
-Reported-by: co+66c3f58096d0bde8@bugs.sh
+Do you think it could be caused by the data synchronization between CPUs?
 
-    Everything in this mail is validated by the reproducer below.
+Two possible points:
 
-    We also hold an unreviewed LLM-generated analysis and candidate
-    patch. The same reproducer panics the unpatched kernel and runs
-    clean with that patch applied. Use it as a starting point, or ignore
-    it and write your own:
+  a) zone->contiguous
+  b) section_mem_map's SECTION_IS_ONLINE bit
 
-        patch.diff  https://bugs.sh/b/66c3f58096d0bde8/patch.diff
-        report.md   https://bugs.sh/b/66c3f58096d0bde8/report.md
+At either point, if we get the old data, we would think page is still valid
+and access it.
 
-    A guide to taking it from here to a sendable patch, including the
-    trailers to add: https://bugs.sh/patch.html
+>Using RCU is usually not easily possible. Mostly only comapction does something
+>like that.
+>
+>-- 
+>Cheers,
+>
+>David
 
-    Happy to test patches. Complaints and suggestions about our work
-    are welcome at:
-
-        cedalion@bugs.sh
-
-=3D=3D Environment =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-    Reproduced on  2f1baf1fc892 ("Merge tag 'trace-v7.2-rc7' of git://git.k=
-ernel.org/pub/scm/linux/kernel/git/trace/linux-trace")
-    VM setup       https://bugs.sh/b/66c3f58096d0bde8/run.sh
-    config         https://bugs.sh/b/66c3f58096d0bde8/config.gz
-    poc            https://bugs.sh/b/66c3f58096d0bde8/repro.c
-
-=3D=3D Sanitizer Report =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-Oops: general protection fault, probably for non-canonical address 0xdffffc=
-0000000000: 0000 [#1] SMP KASAN NOPTI
-KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
-CPU: 0 UID: 0 PID: 83 Comm: kworker/u8:5 Not tainted 7.2.0 #1 PREEMPT(full)
-Workqueue: usbip_event event_handler
-RIP: 0010:stub_device_cleanup_urbs (drivers/usb/usbip/stub_main.c:356)
-Call Trace:
-stub_shutdown_connection (drivers/usb/usbip/stub_dev.c:191)
-event_handler (drivers/usb/usbip/usbip_event.c:79)
-process_one_work (kernel/workqueue.c:3322)
-worker_thread (kernel/workqueue.c:3405 kernel/workqueue.c:3486)
-kthread (kernel/kthread.c:436)
-ret_from_fork (arch/x86/kernel/process.c:158)
-ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
-Kernel panic - not syncing: Fatal exception
-
-
----
-The report format is based on syzbot bug report.
-
-This report is generated by a bot. It may contain errors.
-See https://github.com/n132/cedalion for more information.
-
-For any issue with this report, reach out to cedalion@bugs.sh
-
-If the report is already addressed, let us know by replying with:
-#co fix: <commit hash>
-
-If the report is a duplicate of another one, reply with:
-#co dup: <lore link>
-
-If you want to undo deduplication, reply with:
-#co undup
-
-
+-- 
+Wei Yang
+Help you, Help me
