@@ -1,132 +1,271 @@
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E97C51E8332
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 00:53:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789174392; cv=pass; b=uRr1akuBuygH51ux7JXhHDYw2muiP4FgwMjYVd7b1XiaK5ntRl2j2klE6t1RICVWj88TXi36Cg6QTzu+h/xNs3QKBOddTl9MYyP6fd4xO2/KiNX4F2EmEI+lpcW8QtFn47CZqQEe4H7WMQzW9AatvHen5+xJSXDHWnHupJmLdzM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789174392; c=relaxed/simple;
-	bh=CQQ5uxI5LJywT10nnwzEUlbjvcuF9cqEPowouB9NJYM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=AGdvfhj02Aljm7uMUOvuQWUaaoYB6X3LeEY3W0uoKLuxpWUNjrt9NjJekihzxWl7zq9VA8tT4MNYhN3ao630ETzhG2o7WKhZtAmx1Hf4Qy03rOouFu5XdVPdvAeYardIBugM5qy5BD75XxCRSdpUWioPb3mGD2mMR9znU8gfqKg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M6nXHCLg; arc=pass smtp.client-ip=209.85.218.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3751926ED46
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 00:55:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789174533; cv=none; b=O6zg1ylQLHwPmdtDeiDLQ/ddMKjOZ3G+LMNPh4fClvd4nGlilAlZWRI5b48A/+bTlk/tFktyEZLXClvJ//Bei6/tzdhyJNq2LXD1IEa5X1EdyYfstc61AK8drIlWHpr8BCM07sO0aE2JAd0CrFAiIaZzVWUYilt+UB4o86kdhhY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789174533; c=relaxed/simple;
+	bh=zgMYemYJf+nra3NgLmztzLjupl6y5L0a2pMQlK6ootE=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Bozt4DkUohOTPyPHIlGGhOcKRiBkvJXsTWm+K7NEZLrmCEvtsI0Y2v8TS9JKz1Lj1Q1kAz6tHAq2drj6Tc3h6J5+GB29MBAOt0igpSf5A0SnUWksEOWQjrk7Srciv6DeoIlFOhZuDRc1cJTkonakn4XcF5oXeur+xzj111+sYV0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=d6VQVyQR; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M6nXHCLg"
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c2940d16190so224142666b.3
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 17:53:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789174389; cv=none;
-        d=google.com; s=arc-20260327;
-        b=PIhA3/wgXUyMU5kTNCF+CxIvLYp8EWoja2le6m0AxoHUHiBAXgXkw8IeIGYp01meIR
-         TG+cli1EC2uhNtNVzVa4JxNFa6AJkWKMVAaLsn5vPwgazuuBkNXtBKyNXp0ia1KUh0Zc
-         MLu1rDO6cOn95eQ9CrRBLjatn2oXd967i2UJf0Fcx4lSwF+iZ3mIfm+FOtMN6B7o5OOu
-         ExAA24J2VV4nQlnh5TftyyvWPuaab4JA3C40B4R92rtLfkBFYdHlW/frDniR4rqFVGCJ
-         SHm4tD1jnlNaitNd8wo9uH0jqZhWf2Cc67n1+UlTxEoC4NxfRfr21KGvVcgARZ34AtG4
-         6V0w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=CQQ5uxI5LJywT10nnwzEUlbjvcuF9cqEPowouB9NJYM=;
-        fh=QBKr/J7y5EHz0OCZIQgIBf7SRIdrRSM1ceKFJ6tLdSY=;
-        b=IeCpKMYO4HsDmQ9Hyz27FFp2CNoL9u8boBuC6Jn/+bTwzukgdCvBe1R6VkY/Kpn6Sk
-         koByeCYcyrF2DvvtrGtE1zCCPBDn8Y36qv/JYbbtDXi0XmEhwwUr8DVrON+2IcnSxrIh
-         ITbZ/RIrTlDoL2X4qVmEZUsQQePxfnKghATkeo58MTES1xenIOajJeCr/d0uBXtXXwAT
-         EOfJ4B646hoTnD5W/4OLXdg3aR7SE6iFvi+G2Cj2Vj78BK5dMB6kPdVIXfSMn+Bin3nZ
-         LwGCE3DyVCV4qk1FFsEFAUXGX2/5pJrFDyNbQ2to8R24BIORSPVuUbCd5Ipo3AFrTmtK
-         NcYQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789174389; x=1789779189; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CQQ5uxI5LJywT10nnwzEUlbjvcuF9cqEPowouB9NJYM=;
-        b=M6nXHCLgKnJz4RWXriSUPlzYrFaCIph0CapgEoDCVGumdGLXCy9dHgs5YIpz74mfrg
-         b+yNKGpNJgLcRRtb8vi2BC215CfpFuabnyscg/ZCKSw1subIrni867Q56obS505FXtyO
-         yXU/+XqdNsqHNL38TCFRE55ZF4DCGaLHPPBx2E2zKYInrcfNywFh1EBu4axQ32QmgTF8
-         8gCJRwnwS2Qt/Pud4RFTXgZzCC7nF+EoJEXXA2TApZy0MCE0TfnJm87VbZo2fysfA7IV
-         BZ3pjLWYGxHc727jFJRM3UC2twiFfjTaszCR35Gw4CHV05K+tlL9UQutozGzEFuWHhJf
-         kA/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789174389; x=1789779189;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=CQQ5uxI5LJywT10nnwzEUlbjvcuF9cqEPowouB9NJYM=;
-        b=AhPyXe5/WYV2OJvaxT+Z4RwmXhurHI8gncaMYd4IYKiAVfL+yvxrsz6nSHPOxcjbX7
-         MMdGm1b0pquF33y4maWDaPjlzi+RQ2DUZn5obq1eV4TVWaGRfyypRGaW9YPnjPMjNIng
-         iIe74kZDeP3J3qiFfULUn8L/1WcLAJ+8eJy4W+1ItOHeG1/Ilq+yl094Ams5i8RObb3g
-         6dwpEcL2eOgTJ25OgHEhTMrhFoVu1n8OWYUNOzTkqI5bCdr7IcfTNGd9If6o3Asc/se1
-         FIybHIM5T0xFUJ6mXAbBd60codhK5DszPFB0jUOIfNPMAIR+/CqZZOpA3Hu2tlSqs4u9
-         +K7g==
-X-Forwarded-Encrypted: i=1; AKwUvByZMh0MkFfl1c1WF6zFp2SAW6LTBukCdHvqXFfqhj8m6Ssf7Go7VHQPfvkqWPlmTniytnQiyIkpQH0Zv+Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++nKGVrMyPdca3B2ktiFfwsotfyVN7lf7V3ElSZw39DOyucIMv8a
-	R6UQ42+wHyFxFEoaoB+hvru8b0uZ7y2Ldz3JOKlOpuDC/JXZJ8VqkbBoWZwxOLsLXyaT15Tfy+i
-	w3jeLhmaXYvG7Fy6x7kmLiVW2Zs7CrgLt0mHR
-X-Gm-Gg: AYBFou0PwxpSKu/l4bs1okdCPKdnbgLi9jKJYC+AFXZmuNleEps/WeK0/j2ihxDqwyh
-	2i12bxL4Lc7E4FJtNKDUoS09DC04hSeybuBlbfduVgysQDYjEaT8pvLzrE27629dThf1lijruW4
-	2+wk59HqghL8SRMWtW/8ZHi5UJ4lI4melqM43Mq80NSR7bkfQvEoGe2b/gxXpCG9qVf1+90nIsE
-	MQ+Nc3VDcoEOUsLg789U+cA1h99dluTExQ7CTkOAdt4/LyEmfBu9ce1WD/TYo7YTPYt3I79o6xF
-	ZZj9SboQ7lJJ1Po8EEtfo7l9nltncbMaMSxBqJBknyTPbyUb4lMYuAPB/hCW/+7Z
-X-Received: by 2002:a17:907:8b91:b0:c28:f9e4:836c with SMTP id
- a640c23a62f3a-c2966746c86mr293173366b.28.1789174388992; Fri, 11 Sep 2026
- 17:53:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="d6VQVyQR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789174531; x=1820710531;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=zgMYemYJf+nra3NgLmztzLjupl6y5L0a2pMQlK6ootE=;
+  b=d6VQVyQRY0DOCqvP4uZKf/A0c+52DLphVHnuhbYHBYUiodHyssWay9Qt
+   c5OleEWHlmcddcOIi08aMucOgF/syOu1pMRvTKUrKPeIzlCmocvo4MGRq
+   Qdc98WlYM/DClvnvCtIhKJfWRPA56Zk0pP8riTuOdmGSoK15XomuRsVbI
+   w4pFB4soPAW1lpgxvB++t+frWbmLv01ITcynxAqAr5fH3PlZSFDNEg48j
+   B69uAbX0WR/CQ0vlhTn39S6I/A25k364UK5+6mutuB1HDUVwd+rGVtSye
+   CDgEV+Eg+K+rLxnAm4d0dOeW3vMmdaYTrEs2k7A8eZUKDjSEhf9yqfuqD
+   A==;
+X-CSE-ConnectionGUID: X9gRNNXHQM6w5OyJfqOOgg==
+X-CSE-MsgGUID: h2rlgjfEQVurg3RNQK2GFg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11902"; a="112410014"
+X-IronPort-AV: E=Sophos;i="6.27,98,1787036400"; 
+   d="scan'208";a="112410014"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 17:55:31 -0700
+X-CSE-ConnectionGUID: AcBHsqDGRNKWDuv8DXddqw==
+X-CSE-MsgGUID: ULa/oeTOS+WX7M85NIUxag==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,98,1787036400"; 
+   d="scan'208";a="301967444"
+Received: from schen9-mobl4.amr.corp.intel.com (HELO [10.125.108.51]) ([10.125.108.51])
+  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 17:55:30 -0700
+Message-ID: <8da2c1b91baf26b89b37e9cb6ea38af8c4f807cf.camel@linux.intel.com>
+Subject: Re: [PATCH v2] sched/cache: Refresh LLC capacity across CPU hotplug
+From: Tim Chen <tim.c.chen@linux.intel.com>
+To: Davi Chaves Azevedo <davichazbh@gmail.com>, peterz@infradead.org, 
+	mingo@redhat.com
+Cc: Chen Yu <yu.c.chen@intel.com>, Vincent Guittot
+ <vincent.guittot@linaro.org>,  Valentin Schneider	 <vschneid@redhat.com>, K
+ Prateek Nayak <kprateek.nayak@amd.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Danilo Krummrich	 <dakr@kernel.org>, chen.yu@linux.dev,
+ driver-core@lists.linux.dev, 	linux-kernel@vger.kernel.org
+Date: Fri, 11 Sep 2026 17:55:30 -0700
+In-Reply-To: <20260911220229.1368887-1-davichazbh@gmail.com>
+References: <20260911134825.420748-1-davichazbh@gmail.com>
+	 <20260911220229.1368887-1-davichazbh@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.1 (3.58.1-1.fc43) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260911213340.3767930-3-main.kalliope@gmail.com> <c440fa97680eae9966579d51586c2e6b9936bfc3157225269166e1c133515f8c@mail.kernel.org>
-In-Reply-To: <c440fa97680eae9966579d51586c2e6b9936bfc3157225269166e1c133515f8c@mail.kernel.org>
-From: Nicholas Dudar <main.kalliope@gmail.com>
-Date: Fri, 11 Sep 2026 20:52:57 -0400
-X-Gm-Features: AcwNN1Ur_WOJSfWbT1nTjTcNVZl3abwhTBIueEcresXiT5wFs3FL9dx_llrHL2k
-Message-ID: <CAJZwKkgKjSOsHADdupd8cFdyUXKQeVzNmwLyX0jDorru1p1W7A@mail.gmail.com>
-Subject: Re: [PATCH bpf-next v4 2/3] MIPS: uasm: Add signed div/mod and
- sign-extension emitters
-To: bot+bpf-ci@kernel.org
-Cc: tsbogend@alpha.franken.de, ast@kernel.org, daniel@iogearbox.net, 
-	andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com, 
-	johan.almbladh@anyfinetworks.com, paulburton@kernel.org, martin.lau@linux.dev, 
-	song@kernel.org, yonghong.song@linux.dev, jolsa@kernel.org, 
-	emil@etsalapatis.com, ihor.solodrai@linux.dev, linux-mips@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, bpf@vger.kernel.org, philmd@oss.qualcomm.com, 
-	martin.lau@kernel.org, mason@kernel.org
-Content-Type: text/plain; charset="UTF-8"
 
-> This isn't a bug, but would it read better to add the SEB and SEH emitters
-> together with their first caller in the BPF_MOVSX series?
+On Fri, 2026-09-11 at 19:02 -0300, Davi Chaves Azevedo wrote:
+> The scheduler scales LLC capacity by the fraction of cache-sharing CPUs
+> covered by a domain:
+>=20
+>   llc_bytes =3D cache_size * span_weight / shared_weight
+>=20
+> During CPU teardown, sched_cpu_deactivate() rebuilds scheduler domains
+> before cacheinfo_cpu_pre_down() removes the CPU from shared_cpu_map. The
+> new domains therefore use the old sharing weight. The later call to
+> sched_update_llc_bytes() looks up the departing CPU's sd_llc, which has
+> already been detached, and returns without correcting the surviving CPUs.
+>=20
+> On a Ryzen 5 7535U with twelve logical CPUs sharing a 16 MiB LLC,
+> offlining one SMT sibling left the remaining CPUs with:
+>=20
+>   llc_bytes =3D floor(16777216 * 11 / 12) =3D 15379114 bytes
+>=20
+> The correct capacity is still 16777216 bytes. On systems with active
+> cache-aware scheduling, an underestimated capacity can cause
+> exceed_llc_capacity() to reject aggregation for a process whose footprint
+> would fit. Unchanged cpuset partitions sharing the physical cache can
+> also retain stale capacity when a CPU comes online in another partition.
+>=20
+> Pass the cache-sharing mask already retained by cacheinfo to the
+> scheduler update. Refresh every surviving CPU using its own LLC domain
+> so that each partition receives the correct share. This also preserves
+> the correction needed as cache-sharing maps grow during boot.
+>=20
+> Keep the existing CPU-hotplug and scheduler-domain synchronization. The
+> update remains on the hotplug path; no steady-state scheduling operation
+> or persistent allocation is added.
+>=20
 
-I grouped the native-MIPS uasm additions for SDIV/SMOD and MOVSX in one
-preparatory patch, with instruction selection handled by their respective
-JIT changes. MOVSX v3 will declare this series as a dependency. Keeping
-SEB/SEH with their first callers would also be a valid split.
 
-Until those callers arrive, the emitters are unused. Their definitions
-do not generate instructions, and the existing opcode encodings are
-preserved.
+Thanks.  The patch looks good to me.
 
-> and CONFIG_CPU_MICROMIPS kernels would hit build_insn()'s panic for them
-> since arch/mips/mm/uasm-micromips.c isn't updated with their encodings.
+Tim
 
-That requires a microMIPS caller. Neither this series nor the existing
-kernel code calls these emitters, and the planned MOVSX callers cannot
-be built for microMIPS: MIPS only selects HAVE_EBPF_JIT when
-!CPU_MICROMIPS.
-
-I checked this on the posted v4: olddefconfig removes the attempted BPF
-JIT settings with CPU_MICROMIPS enabled, and the microMIPS uasm object
-builds successfully. Compiled-table comparisons also confirm that every
-existing native and microMIPS opcode entry is preserved.
-
-I also ran test_bpf on the official base and standalone v4, without
-MOVSX, under QEMU Malta on little-endian MIPS32 R2 and MIPS64 R2.
-Both showed exactly 14 signed DIV/MOD failures becoming passes, with
-no other test-status changes.
-
-Nicholas
+> Fixes: 7030513a0877 ("sched/cache: Calculate the LLC size and store it in=
+ sched_domain")
+> Signed-off-by: Davi Chaves Azevedo <davichazbh@gmail.com>
+> Reviewed-by: Chen Yu <yu.c.chen@intel.com>
+> ---
+> Changes in v2:
+>   - Restore the original boot-time shared_cpu_map explanation, as Chen Yu
+>     suggested, alongside the CPU-offline and cpuset-partition rationale.
+>     No functional changes from v1.
+>   - Add Chen Yu's Reviewed-by tag and document his multi-LLC testing.
+>=20
+> v1:
+> https://lore.kernel.org/r/20260911134825.420748-1-davichazbh@gmail.com
+> Review:
+> https://lore.kernel.org/r/a3433e6a-0d1f-44a8-99bd-bc63d1a15913@intel.com
+>=20
+> The issue was identified by tracing the scheduler/cacheinfo teardown
+> ordering, then checking live llc_bytes values using the running kernel's
+> BTF layout and /proc/kcore.
+>=20
+> Local validation performed for v1 (no functional changes in v2):
+>   - Reproduced the stale value on 7.2.3-arch1-3 on the Ryzen system above=
+.
+>     The patched kernel retained 16777216 bytes on every surviving CPU.
+>   - Ten SMT-thread and ten whole-core hotplug cycles passed on the patche=
+d
+>     kernel, including capacity checks after each removal and restoration.
+>     The existing limited CPU-hotplug selftest also passed.
+>   - Source-level state fixtures: five failures in eight scenarios before
+>     the fix, eight passes after it. These cover partition changes, unequa=
+l
+>     spans, sparse CPU IDs and boot-time map growth, but not concurrency.
+>   - Full x86-64 baseline and patched bzImage/modules builds passed with
+>     matched configs apart from LOCALVERSION. Focused ARM64, x86 without
+>     CONFIG_SCHED_CACHE, and x86 UP builds also passed.
+>=20
+> Thanks to Chen Yu <yu.c.chen@intel.com> for the additional verification
+> and review. He reproduced the issue and confirmed that v1 restored the
+> expected sd->llc_bytes on:
+>   - AMD Ryzen 8945HX: two LLCs, eight cores per LLC.
+>   - Xeon: four LLCs per node.
+>=20
+> The local tests used a single-LLC host; Chen Yu reported the multi-LLC
+> results above. These checks validate LLC accounting.
+> Builds and hotplug tests were not rerun for this comment revision.
+>=20
+>  drivers/base/cacheinfo.c       | 11 ++++++-----
+>  include/linux/sched/topology.h |  4 ++--
+>  kernel/sched/topology.c        | 22 +++++++++++++---------
+>  3 files changed, 21 insertions(+), 16 deletions(-)
+>=20
+> diff --git a/drivers/base/cacheinfo.c b/drivers/base/cacheinfo.c
+> index 9f9c72727a05..7a47a392568a 100644
+> --- a/drivers/base/cacheinfo.c
+> +++ b/drivers/base/cacheinfo.c
+> @@ -1040,9 +1040,10 @@ static int cacheinfo_cpu_online(unsigned int cpu)
+>  	rc =3D cache_add_dev(cpu);
+>  	if (rc)
+>  		goto err;
+> -	if (cpu_map_shared_cache(true, cpu, &cpu_map))
+> +	if (cpu_map_shared_cache(true, cpu, &cpu_map)) {
+>  		update_per_cpu_data_slice_size(true, cpu, cpu_map);
+> -	sched_update_llc_bytes(cpu);
+> +		sched_update_llc_bytes(cpu_map);
+> +	}
+>  	return 0;
+>  err:
+>  	free_cache_attributes(cpu);
+> @@ -1059,10 +1060,10 @@ static int cacheinfo_cpu_pre_down(unsigned int cp=
+u)
+>  		cpu_cache_sysfs_exit(cpu);
+> =20
+>  	free_cache_attributes(cpu);
+> -	if (nr_shared > 1)
+> +	if (nr_shared > 1) {
+>  		update_per_cpu_data_slice_size(false, cpu, cpu_map);
+> -
+> -	sched_update_llc_bytes(cpu);
+> +		sched_update_llc_bytes(cpu_map);
+> +	}
+> =20
+>  	return 0;
+>  }
+> diff --git a/include/linux/sched/topology.h b/include/linux/sched/topolog=
+y.h
+> index b5d9d7c2b8ad..f96812d71c51 100644
+> --- a/include/linux/sched/topology.h
+> +++ b/include/linux/sched/topology.h
+> @@ -281,9 +281,9 @@ static inline int task_node(const struct task_struct =
+*p)
+>  }
+> =20
+>  #ifdef CONFIG_SCHED_CACHE
+> -extern void sched_update_llc_bytes(unsigned int cpu);
+> +extern void sched_update_llc_bytes(const struct cpumask *cpus);
+>  #else
+> -static inline void sched_update_llc_bytes(unsigned int cpu) { }
+> +static inline void sched_update_llc_bytes(const struct cpumask *cpus) { =
+}
+>  #endif
+> =20
+>  #endif /* _LINUX_SCHED_TOPOLOGY_H */
+> diff --git a/kernel/sched/topology.c b/kernel/sched/topology.c
+> index 0248227d983a..3dab0253976f 100644
+> --- a/kernel/sched/topology.c
+> +++ b/kernel/sched/topology.c
+> @@ -985,8 +985,8 @@ void sched_cache_active_set(void)
+>  }
+> =20
+>  /*
+> - * Update the bottom sched_domain's llc_bytes for @cpu and all its
+> - * LLC siblings. Called from cacheinfo_cpu_online() or
+> + * Update the bottom sched_domain's llc_bytes for @cpus sharing a physic=
+al
+> + * LLC. Called from cacheinfo_cpu_online() or
+>   * cacheinfo_cpu_pre_down() with cpu hotplug lock held.
+>   *
+>   * Note: get_effective_llc_bytes() returns 0 on PowerPC.
+> @@ -996,17 +996,13 @@ void sched_cache_active_set(void)
+>   * and does not populates the per-CPU struct cpu_cacheinfo array
+>   * that get_cpu_cacheinfo_llc() reads.
+>   */
+> -void sched_update_llc_bytes(unsigned int cpu)
+> +void sched_update_llc_bytes(const struct cpumask *cpus)
+>  {
+>  	struct sched_domain *sd, *sdp;
+>  	unsigned int i;
+> =20
+>  	sched_domains_mutex_lock();
+> =20
+> -	sdp =3D rcu_dereference_sched_domain(per_cpu(sd_llc, cpu));
+> -	if (!sdp)
+> -		goto unlock;
+> -
+>  	/*
+>  	 * ci->shared_cpu_map is built incrementally as CPUs come
+>  	 * online, so the first CPU in an LLC initially sees
+> @@ -1014,14 +1010,22 @@ void sched_update_llc_bytes(unsigned int cpu)
+>  	 * get_effective_llc_bytes().  Re-evaluating every LLC
+>  	 * sibling on each online event corrects this once the full
+>  	 * shared_cpu_map is known.
+> +	 *
+> +	 * The departing CPU's domains have already been detached when
+> +	 * cacheinfo removes it. Use the surviving cache siblings instead.
+> +	 * They may belong to different cpuset partitions, so use each CPU's
+> +	 * own LLC domain to scale its share of the physical cache.
+>  	 */
+> -	for_each_cpu(i, sched_domain_span(sdp)) {
+> +	for_each_cpu(i, cpus) {
+> +		sdp =3D rcu_dereference_sched_domain(per_cpu(sd_llc, i));
+> +		if (!sdp)
+> +			continue;
+> +
+>  		sd =3D rcu_dereference_sched_domain(cpu_rq(i)->sd);
+>  		if (sd)
+>  			sd->llc_bytes =3D get_effective_llc_bytes(i, sdp);
+>  	}
+> =20
+> -unlock:
+>  	sched_domains_mutex_unlock();
+>  }
+> =20
+> base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
