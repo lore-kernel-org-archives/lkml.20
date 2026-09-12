@@ -1,118 +1,90 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CE4147887F
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 13:36:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 348CF455639;
+	Sat, 12 Sep 2026 13:37:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789220167; cv=none; b=NeCQStJYZNqgET6OP0KrdqqJxW6CUe75BSX+/Z+Fy9WagNqSy9l07gZoTmdniqjEBABTa7CpVSCkfDltMIQ/CSyAgk+mHtd9ZQ8ens8hCtaa+YitCNr5N1baYjdHe2SAJqVtnkHJRnoZF7ZvSikSDYc9bl190vLFOUy074R6GlI=
+	t=1789220225; cv=none; b=HHQTeYyRGLNcs2+hufXh11obPU9EnA3awpFic1OQRM3HPOpWc5op5EbpFDiEswXIhxhWpeOb3YSotZtr37j8OwgjMVj+k/y3jzO8sJdA1vG+CSC8Vv/MWljEk2w4drt13bOxeCkb/hT3qm0++oDWxtYuny92ya2qlI6BPvC904o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789220167; c=relaxed/simple;
-	bh=jDJyxuQSJq7yMmcZQK0ZnQpYDqlPQN9BTFZbhDw07n8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=f03OzqJW309cFm1teOLJTrma1YNWfJkSrm50lU3bUZN0MpudQKXe40jw9/vy2UIHkKiKAWGNw4WZa+Ll86xj4A/jaL1i9NzBwiN8w23Fq/hongG1RTekbhrE0HCywQKNsi23ME+J1Byz0LVyncrt+QsNAXbd2VEsRINy4gwYNI4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EqsiSjTl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789220225; c=relaxed/simple;
+	bh=oNST79umTYOnUVPeaIvOX5gmne1rcIc1dIFSgwmJbY0=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=WnhEcFP/fS5TuD8OuumS7tiUbD8K1qhEa0jd4TYHcilOqy/tWt5+wFUN5IuhmrDiIMrPbxD0qiQglUkuOL5fWuGfnzXWDwKX/VvldnwP+Xkj5qZNX3ZIt4Na6Q+Tj8lF8GgwDyJ6hr/YfsR7fg8DOtBr2kCxg/jFd1DbPZuj0Jk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lg9J3tjW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EqsiSjTl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 219301F00898
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 13:36:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lg9J3tjW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8BDC1F000FF;
+	Sat, 12 Sep 2026 13:37:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789220166;
-	bh=VIOMCRGrgf499RUPLB6ulTo6LJeLoQVad4u4CeQkZ10=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=EqsiSjTlJhtLWKCveTl9m96RwH2jOXg3RVcoDhG9wC9OpZZ363RaF3Ju72aBLbLNT
-	 b5yYGyGiw5rQDxHf0iB4sgRiUO3qc1jT/twqCbbn/utSeW85XTO04m3H2aqonPPtd2
-	 OBg4oVQ1CVi6tgFEJFxGD00vln2I0B3w/utnSWPNLj2Nhz065y+7k4KZCn/IXcArG4
-	 oubxtcccZvLt/K/UodEtH0AdYEnBfS8J2jQdxcG0NXvGCOqql9u9Zn3C5QfF5OToYM
-	 /3a9Ue+5VfSDs2j116UKffP0t3Xxb4kTc9GT3rcKCvLae7Z+4b4MqgPBZxleaAa4Hm
-	 HaqdjEruthwIg==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b79784a6edso531218e87.1
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 06:36:06 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwIjdNqS7dUkH78DHYiSqsawX/1pm16ivFpSZqO/cOHWcSK4LF8dtaKZrG4U0nBc9xA2QhlhJz82zJ8/0w=@vger.kernel.org
-X-Gm-Message-State: AFuF++kPU0zXjhcNuA6RFGaXLkiSC2zowaxqaS6g9NXQjNK1N6C3FJ+Q
-	KmYwjpmmpC+F7elmSCpRMBG53+iu95E5oJIyse7iCsI5UbyUvAQBjzYnZHqtzQbmBj4zPCvsFmH
-	AJ44uu5Dli0WWOl9g5FSsHz37WnjOm+0=
-X-Received: by 2002:a05:6512:3d0e:b0:5b7:6733:a216 with SMTP id
- 2adb3069b0e04-5b8a8ebe48amr537213e87.10.1789220164432; Sat, 12 Sep 2026
- 06:36:04 -0700 (PDT)
+	s=k20260515; t=1789220224;
+	bh=jwd4Rk+LghulteCFZ22CToEe8Fypa34me6oLaUXnTn4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Lg9J3tjWv8hrtyNST5+hW8b/otbqwiOm6OjnlTpt+7n+lCWW06FZZfpXKLEu/V9dg
+	 q0LFsRJKg0nW7JrKPw0BInBM1iBIKlex33UOc0XsJTGaeJi6BUTakRPQK6X7JHQBee
+	 EeKJTM/b5CzGiQ8OLKq5G2hDgoZ8Ar8hfhifOnWjeVQA+Wseyo4byuVFzcEEujmWv9
+	 +QiMTexATwKHLauFvivoKoarjHfOn1Q8u5hnaldxchV8rr1rKIb8DYVQbEF7wHLSZk
+	 /cRBK5Yp9JPM3tSzLuOfyxgHMtUakohY1o45O96Gl2Ul7Mmr9DDy9NBtZA4uWmMbSB
+	 lzRza60O8j68Q==
+Date: Sat, 12 Sep 2026 22:36:58 +0900
+From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+To: Jinchao Wang <wangjinchao600@gmail.com>
+Cc: Steven Rostedt <rostedt@goodmis.org>, Peter Zijlstra
+ <peterz@infradead.org>, Ingo Molnar <mingo@kernel.org>, x86@kernel.org,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Thomas Gleixner
+ <tglx@linutronix.de>, Borislav Petkov <bp@alien8.de>, Dave Hansen
+ <dave.hansen@linux.intel.com>, "H . Peter Anvin" <hpa@zytor.com>, Alexander
+ Shishkin <alexander.shishkin@linux.intel.com>, Ian Rogers
+ <irogers@google.com>, linux-kernel@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-perf-users@vger.kernel.org
+Subject: Re: [PATCH v15 00/12] tracing: wprobe: x86: Add wprobe for
+ watchpoint
+Message-Id: <20260912223658.c4495241023f72e3cf48bf0c@kernel.org>
+In-Reply-To: <307d6fd5-a8fa-4777-b513-9a8cce46f38a@gmail.com>
+References: <178875277830.93794.14247844688761142429.stgit@devnote2>
+	<307d6fd5-a8fa-4777-b513-9a8cce46f38a@gmail.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <1965933.tdWV9SEqCh@rafael.j.wysocki> <951189ad-71b6-4776-8484-a207f1efe415@gmx.de>
-In-Reply-To: <951189ad-71b6-4776-8484-a207f1efe415@gmx.de>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Sat, 12 Sep 2026 15:34:48 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0gLWT4x44Vbruaf0cKWp0jPTkLuh0pLQ29_O5vfNC4q_A@mail.gmail.com>
-X-Gm-Features: AcwNN1XLJyxVvs6LDrF1qngxz3f1oAUIQeurZ_7Ko4NDINm0cOQRh3m_J7CRT5Q
-Message-ID: <CAJZ5v0gLWT4x44Vbruaf0cKWp0jPTkLuh0pLQ29_O5vfNC4q_A@mail.gmail.com>
-Subject: Re: [PATCH v1 00/10] ACPI: thermal: Register thermal class cooling
- devices under parents
-To: Armin Wolf <W_Armin@gmx.de>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Linux ACPI <linux-acpi@vger.kernel.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Daniel Lezcano <daniel.lezcano@kernel.org>, Hans de Goede <hansg@kernel.org>, 
-	LKML <linux-kernel@vger.kernel.org>, Linux PM <linux-pm@vger.kernel.org>, 
-	Lukasz Luba <lukasz.luba@arm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 11, 2026 at 11:35=E2=80=AFPM Armin Wolf <W_Armin@gmx.de> wrote:
->
-> Am 11.09.26 um 15:00 schrieb Rafael J. Wysocki:
->
-> > Hi All,
-> >
-> > This series generally changes the way in which thermal class cooling de=
-vices
-> > are used by ACPI device drivers registering them (ACPI processor, ACPI =
-fan,
-> > and ACPI video) and by the ACPI thermal zone device driver.
-> >
-> > First, it causes the thermal class cooling devices to be registered und=
-er
-> > parents in specific locations within the device hierarchy which allows
-> > their relationships with other devices to be recognized more easily.  I=
-t
-> > also drops custom sysfs attributes registered by the users of the therm=
-al
-> > class cooling devices because they are not particularly useful any more
-> > when those devices get proper parents.
-> >
-> > Second, it modifies the ACPI thermal zone device driver to use thermal =
-class
-> > cooling device parent information for binding cooling devices to trip p=
-oints
-> > in thermal zones, which was previously done with the help of the devdat=
-a
-> > pointers of the cooling devices and effectively prevented drivers from =
-using
-> > the devdata pointers for their own purposes as originally intended.
-> >
-> > Finally, it updates the ACPI processor and ACPI fan drivers to use the
-> > devdata pointers of thermal class cooling devices in a bit more efficie=
-nt
-> > way.
-> >
-> > The first two patches in the series are preliminary fixes preventing
-> > Sashiko from reporting "pre-existing issues" in the subsequent patches.
-> >
-> > The third patch is a thermal core update allowing thermal class cooling
-> > devices to be registered under proper parents.
-> >
-> > The other patches update the ACPI processor, ACPI video, and ACPI fan
-> > drivers as per the above.
-> >
-> > The details are covered by individual patch changelogs.
-> >
-> > Thanks!
->
-> Nice patch series, it looks mostly good to me.
+On Fri, 11 Sep 2026 15:27:41 +0800
+Jinchao Wang <wangjinchao600@gmail.com> wrote:
 
-Thanks!
+> Hi Masami,
+> 
+> I see the watch address update currently goes irq_work -> workqueue ->
+> on_each_cpu().  I would like to discuss that path.
+> 
+> The race window wprobe may be used to watch can be very narrow --
+> sometimes it lives entirely inside a single function -- and the trigger
+> does not always run in in_task() context.  The current path defers the
+> update to a work item, so by the time the debug registers are updated the
+> window may already be gone.
+> 
+> Now that we have modify_local_hw_breakpoint_addr(), the trigger could arm
+> the local CPU directly and use smp_call_function_single_async() for the
+> remote ones.  That should improve the overlap between the watch and the window.
 
-> Do you plan something similar for thermal zones?
+Hm, that is a good idea. Maybe we can check the current context and if
+possible call modify_local_hw_breakcpoint_addr() directly for current
+CPU core, and kick irq_work for other cores.
+Does this make sense for you?
 
-I do overall, but that is a bit harder due to the hwmon involvement.
+Thanks,
+
+> 
+> What do you think?
+> 
+> Thanks,
+> Jinchao
+
+
+-- 
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
