@@ -1,274 +1,197 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010052.outbound.protection.outlook.com [52.101.85.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5001826A0D5
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 04:36:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789187807; cv=none; b=AzF38fGyJEKM+9uUIW4u97k17NnJczhzn6Jpmtx4Rt0hWujgxRq6EEw5wvFwiFqTGtIjoBQ0ZQaoADmWcgcTrrsQcnUGJZdUbDo0fBjH/XvhOx06oohHA5V0HVSDdJmSGvE/az8QOAPgE6nkeTZNzahPWcXiAXnbGEJuYUcW8J4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789187807; c=relaxed/simple;
-	bh=MeS/gTZ7PTwUcwERhfTEln/D294IBm9UtfgkPE67XX4=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3563128030E
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 04:44:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789188262; cv=fail; b=rljORIFOVAyub1cZ6IKSNyfLKmxdx5QB1FsKWZAKI43d3ejQZTss3LXxSyOvu68/Irmb6K1AGp56gIKoKID1tSmn2uH6jjmLSgP7680pq6z3W+mlgPRoUqsE32JF9IY3WfCyY5Br1DA6IL+v5vX2QEQknsgj/Q5UUsZUWtIHZ6s=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789188262; c=relaxed/simple;
+	bh=PHEEgZlGUSJn8PS45RQxtqM2X4fC4Swm+aR3phUqYHA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TE3169FuRgQJw4JF/S4TX7OLY5huRLvfQYrNOQbB+67KasyxN1HOBJL6/2mjuy1DRM6MRuGOQYNtx3t7bP+y4Le6nQ3VIMGe8XbuOnHDD7KiqHoFIS6jnyXMDx2csHR8ac/y919MVpQ+tDN9QzyfTVKAZ4DQcLOCbGYssVb8iKg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rRebeVE1; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:MIME-Version; b=QxTXixuK/rxDI6nDUKNjIx/CleqEXT4G2dENSfb94eB1pqaaeIbMHKkm/D97tgEMTiPa7WSWhPGy5Uqhv/e7pHtrNiRhTE5xNcw94dXeTo233WEpVpIIZe8h8TYGXqlFB2cCX86UCLAN0O5Jqw4LmXBbirJXAwTjmLZ6FYF4c7I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=V+jpxNPt; arc=fail smtp.client-ip=52.101.85.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rRebeVE1"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6356256so123502f8f.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 21:36:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789187803; x=1789792603; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:sender:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UA9WVjEDN9IXL+AcnME2x3yVc4Y0zRQ+FWtK13UcSNc=;
-        b=rRebeVE13DSJxd2d/tjIM+tf0razOycEmtg/XdWXdW26GhunTJtjHfBmPcOXqI7wyE
-         eKEQebabACsLS8Aq4/VBfbZFVkIXWU2iP2c3mRY4vcgCDbnWtuAiJzD/xNoyo9cAOie6
-         zDSXE5GuYr1CeaR8FtoKeR8Mi6c6p8FELmLpkyZuMf0/eE/UsGmBoZrd/Uuh/R0R2i3o
-         azot1bYCT5WPt/A5Joxca0+MlH1QW7cJUBtZy4Y1e/GUzJDqLhZHd7RIEW52hstf31Ao
-         BXUiqLzRM76HxH/nxKpsggAKT6b3lG7eSg23E09Qfs/dAFBBaeU1EwVrWz64NSV3M19H
-         uCiQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789187803; x=1789792603;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UA9WVjEDN9IXL+AcnME2x3yVc4Y0zRQ+FWtK13UcSNc=;
-        b=ZIzHMOKGF5vf8W5r6QiZj4VyojmxREG9Mt/JylStZ7T18VNB2LE+tuhxKv9AT78qpn
-         SJKltwQGZ1pnI0UnMP59NbsVr8F/AhrPbMqWUIROJu9RAhrMEDo2nzTlt9UTmLKJ5JW8
-         3RlSjSJOqKeLB/hB18SgnK0kYJjMJv8QhWRLWEoSv1KUL4+4NPA07yJ3heIWUaA06oSi
-         rq/I1eXJtif1t2xgcXRUgLCDN2Tu+dvtLDhPl/fzFKocMF3uMv0XMTkH2DpOUW3OzZLm
-         ULEO+pi/rOJfhXiD2MwF3gz3eqDpLVK8ps6/NX4Ff1AJz8WGslHUdCXidvXmLdQATWn9
-         y3vw==
-X-Forwarded-Encrypted: i=1; AKwUvBw/b2UhvfVJyaRNqYGHV5D7UtaYIYgDeT3ISyCH2itxFgO//OvMCYrp6rGqNDPvGCtoY9ki+sQ9mev6CL8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lMtLIPVFGPb8cZHVlfqtpLTKsc+HzlLTDASN2LzTdDN6lkoTVl
-	P3IBnHKDeh4Kgigue3lRer9WlxuyizaRl0PYyVzxZZiypU/OCf7qkk6R
-X-Gm-Gg: AYBFou2mchrUWPhYxPqGFge5MtJ5h1GqQ9EAe9pG9lX3Wn+cmtehmgAzujkkqJNy2xE
-	Z98O6a9fKuRFU0gc7ZTnPvrKKAlPRbERRmskct1MlciuSb+PaLIXzJNhwvxzXalm2dY30LeQEfx
-	v6trKU6rk94wszUc/Ej6TwJAwocQYMP7UkRzEqXcq6dPgvO78KEfvFDGnsDjPN/kDhmAQt2a7ZX
-	u4ybEEVkd8wkO7knIV+VMrL91i0aKaBniOJfo4yHxR/rw8vlFrj3c9iFR4S/ZeQn3oL6zim8pBX
-	tZu6o9Dmylu6ZEf/bCFpF9j4ElYg0aIt8/FyrI/ifLfrc4ft7UwD0SvHljwy7e2tzbcZ6BcM6Dc
-	g2+H91bMQT/wQvNVJV2iqByA43D/K6Co6LuZ7lxS/Q+rcjBYvmqxHWw2vpbj6WNH9DMaZJoLw/9
-	yK9m68PqnNjrjCgsTl7IjqqMw158EGEfeNIfU9Ceu1Yq/YrV7aB6jIr66HpW7ZmR0inGg9vCddJ
-	1DHYPkxaW6ieqEDEEcB0qgY/4SAM9sohookTVDacvyLJrxTgm8+j+he4MMKmnoUBhaRhQI=
-X-Received: by 2002:a05:600c:e547:20b0:49e:63cc:6324 with SMTP id 5b1f17b1804b1-49e63cc640dmr46960215e9.6.1789187803072;
-        Fri, 11 Sep 2026 21:36:43 -0700 (PDT)
-Received: from SVR.localdomain ([158.173.156.155])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e6cc11607sm21988015e9.12.2026.09.11.21.36.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 21:36:42 -0700 (PDT)
-Sender: Semih Baskan <strstgs@gmail.com>
-From: Semih Baskan <strst.gs@gmail.com>
-To: lpieralisi@kernel.org,
-	kwilczynski@kernel.org,
-	mani@kernel.org,
-	robh@kernel.org,
-	bhelgaas@google.com,
-	rjui@broadcom.com,
-	sbranden@broadcom.com,
-	bcm-kernel-feedback-list@broadcom.com,
-	rafal@milecki.pl,
-	zajec5@gmail.com,
-	florian.fainelli@broadcom.com,
-	arnd@arndb.de
-Cc: linux-pci@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	rosenp@gmail.com,
-	rani.hod@gmail.com,
-	Bjorn Helgaas <helgaas@kernel.org>
-Subject: [PATCH] PCI: iproc: Use pci_alloc_host_bridge() on BCMA
-Date: Sat, 12 Sep 2026 07:36:26 +0300
-Message-ID: <20260912043626.437-1-strst.gs@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <CAAsRjR=F7_7M-_tC_u1WRxB4Toj8nbcQh0WeXuNhzCQAs=vbuA@mail.gmail.com>
-References: <CAAsRjR=F7_7M-_tC_u1WRxB4Toj8nbcQh0WeXuNhzCQAs=vbuA@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="V+jpxNPt"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dgwpu+YKdDAH3JaLh6X3qwln6uLqL6teb9rXcyJATolxiIXaNtTVpF1Ghbjs/efA4h6853BIQ3xbROCLWr7T1NCF+2khXucI64MH2TmL320g376/RJX20n+EbCM/0npSosq6iuXWcxFZi3G/qm4xMGbbdH0IIc/lQVTqla6IAW6nvrqaSpU2xKaQ89qAm9q4HdsfCc7f6RCXnz/nlSZ6BA0P2JQTMYYB3KO6YeqeLUOAs+y4J9Z+XggZKdKofbMRtUxEp9ZM8w459lTITXK3iKPsAmOtIAjVVv9tChU+I/6+bcGodnxOOJo/oc32AIGHEVEqltB/bOJ8GWPuBwB/rw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xXmGQXXm1JUMMWqFnRtPDk3zWonekrtMqOZ1UvTJ4jk=;
+ b=YWSCpMG6Em6vUgL9bmGap9/ZzALlnpKo0XwBguKNiBPJ7j7yoEaZnB+KK+k//ZO0z4qnnk9FJlsB+y2quCmQ0yYwaCMUpGA2cr75wbqVrTqMJMFj5UMP5XrtoYEmoKe+1oC64r7XGyPHUM3P+itLXC0Y0nranQIAOjZTbaZSz1f7P1bWF0zFxxCPiXzmFta4PmODOPlGbxRRrvjlSeC/AyCirmuPiSS5yoJFypC0onJ7jO1mXQQLVwbX6LPqNPD+DHGzmU2rmws3/i34UsFUJFpScmexaaSaUJ71+Qw9QTnmzTugpAtMHyK7wU+Y73kIrzxgg8dHuhFuzBiQm0xHLw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xXmGQXXm1JUMMWqFnRtPDk3zWonekrtMqOZ1UvTJ4jk=;
+ b=V+jpxNPtIvIFns45TzS1ZYk/aBlBvynRz0Z+bm2S+oyDXtWEQcBC3iWF0XEmSBNNM9rPi45QqeLe8pwQlZ+MDy/VVQ1kzvx8ll3ki4kU6nroUVaGxTvgnllVZ9EwULpikuLLE/fD4T3JwSOK+d9wlbFJSxFMvd0yBHo2pjvEr09FwvyQXkLdS1Fo17EiwiM2wajm2rBwDeVDBxn7yMLPP+gT1gCqgGh9F4A7DDo3yhRrh2L+kDvVhgxdYu+poJstFCThOoJ8MhbMS2zPI0/qenmUaCGghYQZ5zE4y+amGwV1Mw3mVfvH1CiyTbOMFmeMxLDRAXLMsyYFLqadHdE+8Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
+ PH8PR12MB7229.namprd12.prod.outlook.com (2603:10b6:510:227::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.10; Sat, 12 Sep
+ 2026 04:44:16 +0000
+Received: from DM3PR12MB9416.namprd12.prod.outlook.com
+ ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
+ ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0406.007; Sat, 12 Sep 2026
+ 04:44:16 +0000
+From: John Hubbard <jhubbard@nvidia.com>
+To: Danilo Krummrich <dakr@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>
+Cc: Timur Tabi <ttabi@nvidia.com>,
+	Alistair Popple <apopple@nvidia.com>,
+	Eliot Courtney <ecourtney@nvidia.com>,
+	Zhi Wang <zhiw@nvidia.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Alex Gaynor <alex.gaynor@gmail.com>,
+	Boqun Feng <boqun.feng@gmail.com>,
+	Gary Guo <gary@garyguo.net>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Trevor Gross <tmgross@umich.edu>,
+	nova-gpu@lists.linux.dev,
+	LKML <linux-kernel@vger.kernel.org>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	John Hubbard <jhubbard@nvidia.com>
+Subject: [PATCH v4 02/17] rust: sync: completion: add wait_for_completion_timeout()
+Date: Fri, 11 Sep 2026 21:43:45 -0700
+Message-ID: <20260912044400.677097-3-jhubbard@nvidia.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260912044400.677097-1-jhubbard@nvidia.com>
+References: <20260912044400.677097-1-jhubbard@nvidia.com>
+X-NVConfidentiality: public
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: BYAPR21CA0015.namprd21.prod.outlook.com
+ (2603:10b6:a03:114::25) To DM3PR12MB9416.namprd12.prod.outlook.com
+ (2603:10b6:0:4b::8)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|PH8PR12MB7229:EE_
+X-MS-Office365-Filtering-Correlation-Id: 67fc9aa2-da81-4e2e-b255-08df10887f57
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|7416014|376014|23010399003|366016|10067099003|6133799003|18002099003|11063799006|56012099006|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	vernH6vjmFc7vbas4mGy3U9Kawhnxc7E2wDssnkM5NDQo5t5fGPH+M4l31RYwO+48KPPl076pXFnGnU0Vq9ARgvHFkE0zHKHnaucaivWMh7Z3BrE4Nn8ZOshBqJLfq+/R0MNiIb2S7SlPercZ9gur9zdY0zLrrM1IwjSONaxr+mWyVDg164bpzWj/841i/oXBA6al5xEA7wTKeJ5SqOOA3hbxruZ2W1ZcuobnpEVZwvfYrEjRotPzMKZnQEsf2aE5b2r2qGkbJZNlxXboDKhpBRXuYT82hHOOstH+ovo94nN0sArcpBdPQXeezAgCKZLED39ch5gDxMtr7T2kNF5Gv0mWTHr6elYV1q6maskY3IFog9MTdQKr7KO+g7v0wFLH7pVKxpEMaln1vA3w7AsUnMCvCCo2b/n2xR9BDqj1+qIe23WK9qRTLWRJI8XmEsHa35UmNg9HWcHrjkGodRIM9qbKOO2rey4F60YE8LvXbF6vqgxdLVMaoTk8w8+sND71T3lFWLiPsj1YL1VdEj7sddMaeOFukFk9KPyHGqAJn20a7gMFHrhK94HmNl1VK5JZldshrG3PtFvZqQU0l9iqTpRFXzI/j5UCcZeJpG3xqh3otnL9MDvoNnK9pT2T2C3ow0l0ZBKu4Fi+rs9/p+19WTFqaqKClEAGn0r8wUBvuo=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(23010399003)(366016)(10067099003)(6133799003)(18002099003)(11063799006)(56012099006)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?/1bZS2oP4ddLGvZAORnxe7Cs8Z5JhRJU1O+ecL+qCUn6cAev9vNyQOBHBo0q?=
+ =?us-ascii?Q?SdeX6MEJGCXj+DQ2Vn5f8zwWPthT1Fb8gaqiKaIX8px/u1eVqFXFBj9i1cix?=
+ =?us-ascii?Q?oq+GEeSl6ImZgz/Rd1yhg5cM9FM+lSClbBGJC5Gp0+EfOx24AHMogFpEvR2y?=
+ =?us-ascii?Q?Pa3qn2Wr2+2vHNZfDJbN7CKFzFOcEXW6yJmn9pIEoENejQVwnGOpfWNKflwo?=
+ =?us-ascii?Q?BKl4zmSvQvlJTvEJ+VKjhb0XhHknGmYkOzxIt9bXwkssuwJyC5MvcGAStyBd?=
+ =?us-ascii?Q?w1wJh1OYOK9y/Co5GEFdZ8TRv5wbd9XAhUlJwkV4svEdHGlMBxNZ121JFo7L?=
+ =?us-ascii?Q?QbN85Fk7QiWWanqsS7RUvYviiF86hMVw2/zfbS1eHVuIlaNsTPIt18PzRyST?=
+ =?us-ascii?Q?XnKbEF2aViJd/v5grUyy4ZgkgYOJP4Xchw9hTnTafyFPYh3hx7Vcc72ytkPY?=
+ =?us-ascii?Q?dfmfkt4rm9btQWtXkUN344p+GGda7bYuX/WPopZBhOjb/EEHr3HVq6Q9Xm/z?=
+ =?us-ascii?Q?qtiIFhJ/BxmsV/SNBAhOFCiqBbnC4q0NhFGa5zaEPTOr54CuZV/KIkojS7UK?=
+ =?us-ascii?Q?TenC6KFUgQlEfBz96e7YAwmi1gyKaQEooQHyC8pc9cZyBI75wfFkHYK8jmTD?=
+ =?us-ascii?Q?G3fjjYg17iBCk9PPkDtPfS3YWUIdXvNNykQmvWJHJy21Gcbp5aVTpgEzFaHr?=
+ =?us-ascii?Q?kMm4Dz4xs4YvF8tFonNM0SW4lzBmj+g2S9YevczDZXp3tdvsYEKHtMnSNsRx?=
+ =?us-ascii?Q?L5seOA2cLEiV2xOPbsM5tuAP4qhjaJlFyAztgqVLEcZSETPYP9zZWKCLcOPX?=
+ =?us-ascii?Q?kJPTrdhMI2YFWaIwHoiLJxEMWrr2Re7k9yoe7luBF7Ub4y6t6Li57OCN60/A?=
+ =?us-ascii?Q?kBTh9wXM/i56TRf/JWdCNju2oZUqJ6iyaVfDTkiob9pTtGQ0Pwamr+Rn9OcT?=
+ =?us-ascii?Q?jhbSXE3WsRR8CVJ5pwxsTGSlAjU5NpKr2HE1rvAoZ16C2y8rfR7HeOtnZIub?=
+ =?us-ascii?Q?LoWPnWBdD7lG4muHy83U5tFcYvGGjmU9MM6yMs25fF0KW0z3J/P6naHAY6Pt?=
+ =?us-ascii?Q?y2xXKYrLCsCA69DT58iKIdJUAbLz3zLF7Ed5Ndlk5AlV+G1FrZ55zgboYmuU?=
+ =?us-ascii?Q?cGOKrHubhE/RMIqdaxSTK72gB5enuR+mLlJrtUrko3u/Kx5nXNNhCFdyrqU8?=
+ =?us-ascii?Q?/+GA25npoMA2BWOr2+cwHV2vKlGdnLJbzZEjmeCq7Hf+C6r1EbDzzWjckfgE?=
+ =?us-ascii?Q?vwdX8+cJtOkASAYbxLwgfK4XI2CfmZJvH1BW8ZXDxgE1KfVUj4k27tToKAqX?=
+ =?us-ascii?Q?6nLtTD1ekDjHN62sJVM9eSKGXi4PFu9IPkRjxyWNVrM6HIVGH6Gxwa4vcixX?=
+ =?us-ascii?Q?sqTWFEboV33f/pouw+isCbXW7f5Aaz33MP0dweMmUxqrwmdBbwS1O0ZYEYF1?=
+ =?us-ascii?Q?quQem/AgrMJgHCBNAS2JSpvI2baeV01ZbRtL3pTsAQyDg95FRDO0Kj5vx1K+?=
+ =?us-ascii?Q?MXtcJcXU9QSqzf+1zkndSMOsnUpfrTst+zAMCrtpxZjVwPubhP2Cu11/j34b?=
+ =?us-ascii?Q?8VVmZadpDvhsRgyR6ncqwcSIprCHVGvXUBGgcr6St4wOUplfGG2evSak3jRW?=
+ =?us-ascii?Q?s+aGMQvfOPi8a+nNAkObXMicH1bIcHZwj/TPEfxVmEOTBl7s5frugv/K94tP?=
+ =?us-ascii?Q?hRdWclfrl5jWbS+xZe1CYF3e9noZcvHMJaKHclKkfrAZ3eTVk4/KBfvmCOO3?=
+ =?us-ascii?Q?2Jt5xMA0+Q=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 67fc9aa2-da81-4e2e-b255-08df10887f57
+X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Sep 2026 04:44:14.9143
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: RuSIGm+ypTKVtd9TeEkuOesOKKq7foYxQZnlX1FxiT4N68RuZDgYplk5s4xcNgmxCb/1FHHwypSpi73UBN7BcA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7229
 
-The BCMA driver takes its register base and, since commit 552aa843e4c5
-("PCI: iproc: Use the EROM outbound window on BCMA"), its outbound
-window from what bcma read out of the enumeration ROM. It still
-allocates its host bridge with devm_pci_alloc_host_bridge(), which since
-commit 669cbc708122 ("PCI: Move DT resource setup into
-devm_pci_alloc_host_bridge()") parses ranges, dma-ranges and bus-range
-from the device's OF node and requests the windows it finds. None of
-that reaches the hardware here: need_ob_cfg is only ever set by the
-platform driver, so iproc_pcie_setup() never maps the parsed windows,
-and the EROM commit above had to throw them away again to keep them
-from colliding with its own window.
+From: Joel Fernandes <joelagnelf@nvidia.com>
 
-Allocate the bridge with pci_alloc_host_bridge() instead, so nothing
-from the devicetree is requested or handed to the PCI core, and free it
-on the error paths and in remove(). The driver now sets
-bridge->dev.parent itself, as devm_pci_alloc_host_bridge() did, since
-the wifi nodes under pcie_bridge0 in bcm4709-netgear-r8000.dts are
-resolved through the root bus. The window request
-moves from devm to request_resource() and release_resource() because
-the resource lives inside the bridge allocation and has to be released
-before the bridge is freed.
+A driver that runs an interrupt self-test during probe waits for the
+handler to fire. wait_for_completion() has no timeout, so a broken
+interrupt path stalls probe indefinitely. Add a timeout variant of
+wait_for_completion().
 
-The ranges property is still read, but only to compare. bcm-ns.dtsi
-describes the same window for the platform driver, and on core revision
-0x01 it points at an address the hardware does not decode. The warning
-from the EROM commit stays for that reason: a wrong dts is visible on
-BCMA boots, where nothing else would show it. Without bus-range the
-root bus also logs "No busn resource found for root bus, will use
-[bus 00-ff]" again, which changes nothing else.
-
-With PCIE_IPROC_PLATFORM and PCIE_IPROC_BCMA both enabled, the platform
-driver binds the same nodes first and claims the devicetree window. On
-core revision 0x07 that is the EROM window, so this driver's request
-still fails and the probe backs out as before. On revision 0x01 the
-devicetree window is elsewhere, so this driver now probes as well, next
-to a platform driver instance whose window the hardware does not decode.
-That instance does not work either; the only difference is that the
-second probe is no longer stopped by the collision.
-
-Tested on an ASUS RT-N18U (BCM47081, core revision 0x01): the warning
-lines are identical to the applied version, /proc/iomem and the
-enumerated devices are unchanged.
-
-Suggested-by: Bjorn Helgaas <helgaas@kernel.org>
-Link: https://lore.kernel.org/r/20260911191429.GA549927@bhelgaas/
-Signed-off-by: Semih Baskan <strst.gs@gmail.com>
+Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
+[jhubbard: return the remaining jiffies]
+Signed-off-by: John Hubbard <jhubbard@nvidia.com>
 ---
- drivers/pci/controller/pcie-iproc-bcma.c | 70 +++++++++++++++++-------
- 1 file changed, 49 insertions(+), 21 deletions(-)
+ rust/kernel/sync/completion.rs | 23 ++++++++++++++++++++++-
+ 1 file changed, 22 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/pci/controller/pcie-iproc-bcma.c b/drivers/pci/controller/pcie-iproc-bcma.c
-index 06a471f4a..fcae83ed5 100644
---- a/drivers/pci/controller/pcie-iproc-bcma.c
-+++ b/drivers/pci/controller/pcie-iproc-bcma.c
-@@ -11,6 +11,7 @@
- #include <linux/phy/phy.h>
- #include <linux/bcma/bcma.h>
- #include <linux/ioport.h>
-+#include <linux/of_address.h>
+diff --git a/rust/kernel/sync/completion.rs b/rust/kernel/sync/completion.rs
+index 35ff049ff078..7e8b3c1c880e 100644
+--- a/rust/kernel/sync/completion.rs
++++ b/rust/kernel/sync/completion.rs
+@@ -6,7 +6,12 @@
+ //!
+ //! C header: [`include/linux/completion.h`](srctree/include/linux/completion.h)
  
- #include "pcie-iproc.h"
+-use crate::{bindings, prelude::*, types::Opaque};
++use crate::{
++    bindings,
++    prelude::*,
++    time::Jiffies,
++    types::Opaque, //
++};
  
-@@ -31,18 +32,42 @@ static int iproc_bcma_pcie_map_irq(const struct pci_dev *dev, u8 slot, u8 pin)
- 	return bcma_core_irq(bdev, 5);
+ /// Synchronization primitive to signal when a certain task has been completed.
+ ///
+@@ -111,4 +116,20 @@ pub fn wait_for_completion(&self) {
+         // SAFETY: `self.as_raw()` is a pointer to a valid `struct completion`.
+         unsafe { bindings::wait_for_completion(self.as_raw()) };
+     }
++
++    /// Wait for completion of a task, with a timeout.
++    ///
++    /// This method waits for the completion of a task, or until `timeout` elapses. It is not
++    /// interruptible. Returns the number of jiffies left when the task completed, or [`None`] if
++    /// `timeout` elapsed first.
++    ///
++    /// See also [`Completion::complete_all`].
++    #[inline]
++    pub fn wait_for_completion_timeout(&self, timeout: Jiffies) -> Option<Jiffies> {
++        // SAFETY: `self.as_raw()` is a pointer to a valid `struct completion`.
++        match unsafe { bindings::wait_for_completion_timeout(self.as_raw(), timeout) } {
++            0 => None,
++            remaining => Some(remaining),
++        }
++    }
  }
- 
-+static void iproc_bcma_pcie_check_dt_window(struct iproc_pcie *pcie)
-+{
-+	struct device_node *np = pcie->dev->of_node;
-+	struct of_pci_range_parser parser;
-+	struct of_pci_range range;
-+	struct resource res;
-+
-+	if (!np || of_pci_range_parser_init(&parser, np))
-+		return;
-+
-+	for_each_of_pci_range(&parser, &range) {
-+		if ((range.flags & IORESOURCE_TYPE_BITS) != IORESOURCE_MEM)
-+			continue;
-+
-+		if (of_pci_range_to_resource(&range, np, &res))
-+			continue;
-+
-+		if (res.start != pcie->mem.start || res.end != pcie->mem.end)
-+			dev_warn(pcie->dev, "DT window %pR does not match EROM window %pR, using EROM\n",
-+				 &res, &pcie->mem);
-+	}
-+}
-+
- static int iproc_bcma_pcie_probe(struct bcma_device *bdev)
- {
- 	struct device *dev = &bdev->dev;
- 	struct iproc_pcie *pcie;
- 	struct pci_host_bridge *bridge;
--	struct resource_entry *win, *tmp;
- 	int ret;
- 
--	bridge = devm_pci_alloc_host_bridge(dev, sizeof(*pcie));
-+	bridge = pci_alloc_host_bridge(sizeof(*pcie));
- 	if (!bridge)
- 		return -ENOMEM;
- 
-+	bridge->dev.parent = dev;
-+
- 	pcie = pci_host_bridge_priv(bridge);
- 
- 	pcie->dev = dev;
-@@ -51,7 +76,8 @@ static int iproc_bcma_pcie_probe(struct bcma_device *bdev)
- 	pcie->base = bdev->io_addr;
- 	if (!pcie->base) {
- 		dev_err(dev, "no controller registers\n");
--		return -ENOMEM;
-+		ret = -ENOMEM;
-+		goto err_free_bridge;
- 	}
- 
- 	pcie->base_addr = bdev->addr;
-@@ -60,37 +86,39 @@ static int iproc_bcma_pcie_probe(struct bcma_device *bdev)
- 	pcie->mem.end = bdev->addr_s[0] + SZ_128M - 1;
- 	pcie->mem.name = "PCIe MEM space";
- 	pcie->mem.flags = IORESOURCE_MEM;
--
--	resource_list_for_each_entry_safe(win, tmp, &bridge->windows) {
--		if (resource_type(win->res) != IORESOURCE_MEM)
--			continue;
--
--		if (win->res->start != pcie->mem.start ||
--		    win->res->end != pcie->mem.end)
--			dev_warn(dev, "DT window %pR does not match EROM window %pR, using EROM\n",
--				 win->res, &pcie->mem);
--
--		devm_release_resource(dev, win->res);
--		resource_list_destroy_entry(win);
--	}
--
-+	iproc_bcma_pcie_check_dt_window(pcie);
- 	pci_add_resource(&bridge->windows, &pcie->mem);
--	ret = devm_request_resource(dev, &iomem_resource, &pcie->mem);
--	if (ret)
--		return ret;
-+	ret = request_resource(&iomem_resource, &pcie->mem);
-+	if (ret) {
-+		dev_err(dev, "can't claim %pR\n", &pcie->mem);
-+		goto err_free_bridge;
-+	}
- 
- 	bridge->map_irq = iproc_bcma_pcie_map_irq;
- 
- 	bcma_set_drvdata(bdev, pcie);
- 
--	return iproc_pcie_setup(pcie, &bridge->windows);
-+	ret = iproc_pcie_setup(pcie, &bridge->windows);
-+	if (ret)
-+		goto err_release_mem;
-+
-+	return 0;
-+
-+err_release_mem:
-+	release_resource(&pcie->mem);
-+err_free_bridge:
-+	pci_free_host_bridge(bridge);
-+	return ret;
- }
- 
- static void iproc_bcma_pcie_remove(struct bcma_device *bdev)
- {
- 	struct iproc_pcie *pcie = bcma_get_drvdata(bdev);
-+	struct pci_host_bridge *bridge = pci_host_bridge_from_priv(pcie);
- 
- 	iproc_pcie_remove(pcie);
-+	release_resource(&pcie->mem);
-+	pci_free_host_bridge(bridge);
- }
- 
- static const struct bcma_device_id iproc_bcma_pcie_table[] = {
 -- 
-2.43.0
+2.55.0
 
