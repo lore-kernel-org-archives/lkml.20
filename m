@@ -1,118 +1,134 @@
-Received: from mail-oo2-f42.google.com (mail-oo2-f42.google.com [74.125.231.170])
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B42B637F75E
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 19:33:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.170
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789241598; cv=none; b=pfpF8TM4MhqV/qliHvouqSaGCsRTnLvVsp6kH4efSqMGoKwn64jup83qSwEWkPFhGONN7WcIMRYSXWVMgD2G0RrMozy2St0YCvvsgI/KgzVEGJcsOLLuOluDVDU2IO9C77tW7T9eNKmzfXXHX1p8xftF04o5UrTkvbDYKb7KScs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789241598; c=relaxed/simple;
-	bh=I7Og+9vGtkyMApSATqOVCfx1Bj3bg4Jl2NcFFMMr82A=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=J8gOBu4eD7gF8zIX6FEQBKj5QlfyXB/ML4QyOPGr3K45OVESZ7iwTkLo15QkTLK5qn0bxLki/0bB/fMc/v4KYkcDebNypbf7bJq1JiUorJbB2m2Ml6eRUCZ07TtATe2ghbPhFa8nRJm8NmtzEo94AIgPTPafaS1Ip7T6GGjZ+4g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tDeOobMQ; arc=none smtp.client-ip=74.125.231.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 155CB37883C
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 19:37:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789241837; cv=pass; b=EwTfm7srdX+0UE2d9WtQY1+xH5SxyfH8rqE+ZG1F/E7g3Xg6h1Hwv23hVtzPo9OjT2xF/VEStNMttHcHetvGXncfqh54vuqhSZXDeK+VS+lXCIbF4ADQwqgCKiQrnbQirbC/eqaZ5NBiFMfOXquG0wEkziNv0tlIbcxRB52MiK0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789241837; c=relaxed/simple;
+	bh=rTTsBHK4um1yjRGf2YHu9S8y6qTmA6zHLJxC9T3Jyao=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=nhRK1mWwQmlRcNiKOZKH0xREudDI+nD7WD+JNNRCxQhdhx9uazbwjAALMnce/+/U27VzVIAsvQAHgdCLoNgnkD7vB9vVRN58caIISb844mUon1tP3fLxzr/knUPKpUf/6IFkHMmJ/C3fJjE5UlfjzNbrTI1aUERwCyeAROqKB2w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S5BPX/27; arc=pass smtp.client-ip=74.125.228.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tDeOobMQ"
-Received: by mail-oo2-f42.google.com with SMTP id 46e09a7af769-7f4f0c89e35so565933a34.2
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 12:33:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S5BPX/27"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254fa663c1so126590166b.0
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 12:37:15 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789241834; cv=none;
+        d=google.com; s=arc-20260327;
+        b=LNmM8hbNNeQKTkG1EOA+itd6T92CWDszwh3PrOgfYs90CEfuKnOsRwFc39/eDnUZj1
+         qYYF6RPyZxoJL8t2m/Lq8kgK0DLxJ/kMoZQPdTktd6uWdmmHkmPNnnqy//3hhKkZgqNe
+         1okYeApgeieDKLCz78rknuwjx/c2gyeq9FIf+RVPllkWJHUqrScF0TGqbJ6FLDf79Vju
+         sI+3xs6ft+9pptKlDTgF3gMr3RzlV+D+eoSSj6A5SLGLnyjbjIj49uct4z1gjBG5/l5W
+         iMnvrQ5OrbN6wJoZnnD6UFgDxzldfJTt0Alca2hQS5HrIJ1/+fX0CAjLu1EKZyfsDWqZ
+         vmeA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=rTTsBHK4um1yjRGf2YHu9S8y6qTmA6zHLJxC9T3Jyao=;
+        fh=pcRzWpppAwCj8YkABY7PLEamVp5e8Wvn112TxBy9w2w=;
+        b=gejMhIY8Kq5IiwRCUcpD3bQhaKeDEIZOz567/FGCkmonXTjIinTdfGoyrSJ8E1meri
+         7DJl0QCoymnSBtuwqBaJH3ztfSqfqHfvs5iK1ApSvkypz06CkmfLZc0CqutoSY89lAQg
+         +ruUXcXkyOPQANQrFvC4DwhD8u67G/4cA9Kiq54WkRqTDDdUCa3u9XZHZsaJP1S9cp/j
+         llJpa09ExJm257imjR9CuVqcb3AzOxET0P1pYHpsVhwgLsHE20KmWhhEy5sUDIwz9m7p
+         Gcg+mG3gmvDX7+NvWcr+pN30LkhHWrqVoVWdUEcKGoB2z58uPbdObqpYN1mZfKGakcP/
+         C10w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789241595; x=1789846395; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=I7Og+9vGtkyMApSATqOVCfx1Bj3bg4Jl2NcFFMMr82A=;
-        b=tDeOobMQ1tXo2VcXdtudpww7ZK+qjwx16fcnShR18zkMtmhhAQ9WOqc4ZeOCIqMuMn
-         xOrhiqJlGLOseu9ssptphrWyhTG0UeR0/5/2pf2ZvqFt6f6/Y+l6Q1wyYyKxA/CkRAKJ
-         sj7VGRJ4S8jpvPeGHYO5UUQyfzmBTXt8DBacXZoyuNVZtcQySYKr+lwBI+wugKrLwdug
-         2uclifhnLFD+ZSt0lYlNOHf4d0YKxtq0XF50clMdqAGrEH3ntqpzlPIIyXKvRVOYOvST
-         ixqMGSWURQ9hObiZ4P/Ir6RPlUDXZcKY6hcC0YUJP747MQam6fROTvrxkmhHSHhq87Vr
-         xEvA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789241595; x=1789846395;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1789241834; x=1789846634; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=I7Og+9vGtkyMApSATqOVCfx1Bj3bg4Jl2NcFFMMr82A=;
-        b=Hx2uc45sdBjxlq23nIdKsgwAlQ/Cha+bii4vMLdfMD5Cth9PotLVOpRCb5YySRPq6F
-         lLft2nGE2TO7GqL8waWxXpnOYxlOuXGMl25N8RIoiYuNdD/maIpyyTUZsd14zlQMLNVo
-         zjY0gy5Y2oXW0tJIFOYhcyq+auGKwaq+uCOCpooVqpCQrp5sTrmBGi4tI1mbWyRw0B90
-         7x94zWs/JHNtRlg4tgngHyiCCNrDNSMzayWxPoG89R1w6ChY/qdJLy0mro8cN14kzS/q
-         mvdRz7xkzy1Fgvu5djp1hWcAVqlwbSi+YzgfFdS7b7TSqLvgaXmhV+5kgltZ2fgXzNR/
-         hPkw==
-X-Forwarded-Encrypted: i=1; AKwUvBxCLbmqSPnbIeMQJukTdfpBdlutMj9T4rAkm+DUASKgz5iUeqUyY1MR7biQGARbMIH0pGv/4SG1D8uqjsM=@vger.kernel.org
-X-Gm-Message-State: AFuF++mg8fOuMAQofPhRTCaWT9UjyiVwf2VQ1n2pB+aLnc6RiAw0dNh4
-	o4D++rZ8HdtyaOXjghIapbVgBTPaQ//vukkQOzVr/dGdUCcLatobnoj4
-X-Gm-Gg: AYBFou0Qye0segus9ArhmPSDjqEo4M0otfNoPrI4VDjE+sLvLvYLfxYENdC2gKb5ujy
-	ezgpFZDHbvUfw3pJwiRi5n7bqOImmlw/AxkPTGXLqnyv3G/SSSluWgDVdxQviHD7yqe8djdZ5cd
-	dAOEQvZ3GXBKYjb2eMw9ckgGe0E//qhSHCcUYkSkFI46Eoo0me7oEYHawUcFNVhJ23KVjU6ERjw
-	VFpRmVr81uAYQKGQVXakGajlPhczBhZ+Hwy84KDdVsYi9qeLAUtKvbE8oQQqTocnHw6sQ7E9VWM
-	I9tFrMv8rH3tcAgYbSn6d8ZNP4wVZdogfVgk3x1AylHGkoZFuy8Rgj0y4jBgGtFOne9niKjm455
-	D2JsbQ76uycKlBB+qcMrAYFJq/4Ra+Yz4wHDhKVXIaX4IrLqr0CMBQ825OBQQsGYDAI0ZdZu2yF
-	a1DSqE4kv0x+D4AFMcEMhB6km5X41vcr+T3w3u6Q638JqhGco/WX8w8gn2A+Qf8sE3PmzAneil/
-	iLHdYyhPIfPIpEQe8HzFp/ggliD5gcq+1BNaRrDAXcmNjwDRlt7f8C+fisUDbY9Ww==
-X-Received: by 2002:a05:6820:5706:20b0:6b1:aa44:fc16 with SMTP id 006d021491bc7-6c0b9b54c2cmr4593859eaf.12.1789241595403;
-        Sat, 12 Sep 2026 12:33:15 -0700 (PDT)
-Received: from localhost ([2a03:2880:10ff:47::])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6c09690af1dsm5938278eaf.1.2026.09.12.12.33.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 12 Sep 2026 12:33:14 -0700 (PDT)
+        bh=rTTsBHK4um1yjRGf2YHu9S8y6qTmA6zHLJxC9T3Jyao=;
+        b=S5BPX/273smdf5hGu1RZqsnKIeG9jaEAApfwcb3c3vcOS+iRFwsRGpQq+7OjUMoi15
+         kX4sHxeOONT3uDDQ4eEUuo0CMxSDaCepgYZ5nYxFTdvkhG//sGuoHXn1sgIx/Q+BjQ/Q
+         1CIAkvlwwjlZSYUmNtYzxdBkwVQjHKbVu1FundhKsNpUft/gKcPtSAFTTzcX86GRp7hY
+         oeHg208vN7VnE4fv1maRPx4P22lBp2Y4+ORQ46jrk5NsCPr8G4hSWKl42/gjuuq6EsT5
+         QxrV0CZhcE9wGY5BuOhG1gScvJPw6TKmltQfZNIGOnTrE4sti4I4em7Y9vO2yo2a0CAL
+         tWcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789241834; x=1789846634;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=rTTsBHK4um1yjRGf2YHu9S8y6qTmA6zHLJxC9T3Jyao=;
+        b=QX3ExDWZG/NkRbis5l/tTJZQfB3kwmYQM5eu33oyKQUQAB7T19nzGjYaTxJemGkAdR
+         2xLcmUctUTGq2Kuki1vi0HICWsg33eF7NP1BDKfS0Lme3H9IZcrjEe877ralmRk+iyII
+         F3GmfNaJSng67bgZfLxHfFQbUPv+3/k01CGqdWQUAqppBynISnB0wK0nxWD+Mqq06uVy
+         H7qEzmFCxHdEPGoh5rlS8iSdeM1UGMN2Z+/vzXYuqxi1JyCSlAGTc+E5WLEbdguiNGnr
+         IiJlwVOq26fb9yjiqem3pc+PEslbi3NKyrjHriX0cif9RcQLO0UI+1HMrB/9/mKSIiW5
+         w5Eg==
+X-Forwarded-Encrypted: i=1; AKwUvBweg6wOPk+2dTvYWZiEy4sxvpJV+dAq+Yx+dKsiFpjgGueh35VWYglSAeVH+J1DSckzxAP3/W1y6Y57WLc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lpbdlmToYCVL+vPKrxAOWHq4sZy0Zeb+wuMRn3oxwsw/P1528T
+	ZfD4dlxGv5+9Fd/fJmV4OXxL0NktPBJxwqAbPBMGNJ5hRYRwU8bw/CUVD8da31vPWoNK77rrR9s
+	y4ICMsVYbG2Ip2Wgx+DFdTFovv+aos4w=
+X-Gm-Gg: AYBFou3S80yee6WM35AtdYOQh9dkjJEAdxe34y2PxTtCCzd6TrEn33teCIlgjkViQBL
+	AfZpShp7g+ozAgwp1x1XOLaziw4L4DWpCkIVs2s9TJI51WV15Y9/utbfVhSVSwjkBue9jW8LNNq
+	O9io155P3SWKq10yFEGWp6kE56cTNhp0Qsw8hPZGeqXf4LFINEMpJPBlj6CjHxiPJIRCpi13c+C
+	RGuN3/9FhMiYHncKifRSdN9jm5tBAXPVVkqs0BT5tY3gazknBevqwHFysYWNhwR6emj0LB0ln8f
+	oxjfxPfUciWcFvVzilqg1aK21ge5X0UhEGa1L4nkgwBMh0njtj3MgA==
+X-Received: by 2002:a17:907:7245:b0:c26:2a5:819 with SMTP id
+ a640c23a62f3a-c29666f6d30mr953226066b.18.1789241834024; Sat, 12 Sep 2026
+ 12:37:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 12 Sep 2026 12:33:13 -0700
-Message-Id: <DLDL7KK3FZKU.17ADLLWJVXB5F@gmail.com>
-Cc: "Paul Moore" <paul@paul-moore.com>, <ast@kernel.org>,
- <daniel@iogearbox.net>, <andrii@kernel.org>, <kpsingh@kernel.org>,
- <matt@bobrowski.net>, <mic@digikod.net>, <viro@zeniv.linux.org.uk>,
- <brauner@kernel.org>, <kees@kernel.org>, <casey@schaufler-ca.com>,
- <gnoack@google.com>, <jack@suse.cz>, <song@kernel.org>,
- <yonghong.song@linux.dev>, <martin.lau@linux.dev>, <eddyz87@gmail.com>,
- <memxor@gmail.com>, <jolsa@kernel.org>, <m@maowtm.org>,
- <bpf@vger.kernel.org>, <linux-security-module@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH bpf-next v3 04/15] lsm: Add the bpf_lsm_policy_release
- kfunc and policy object destructor
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: "Justin Suess" <utilityemal77@gmail.com>
-X-Mailer: aerc
-References: <20260909193719.518517-1-utilityemal77@gmail.com>
- <20260909193719.518517-5-utilityemal77@gmail.com>
- <CAHC9VhQHZ+ngFdzKqmnzBh341CGEg-jexu+QYU8=1qXK=u-x-Q@mail.gmail.com>
- <aqHUw6k0Mf83CGFT@zenbox>
- <CAHC9VhTM7emi9vxs+5Za8Hrc_e9dg7fZx+Z6BGUc4VQ1qhEAUA@mail.gmail.com>
- <DLD0VQ3D8CYC.3V5ZT8HDMY4IH@gmail.com> <aqTZdCz6JaoK16Fp@zenbox>
-In-Reply-To: <aqTZdCz6JaoK16Fp@zenbox>
+MIME-Version: 1.0
+References: <20260912041220.444715-3-main.kalliope@gmail.com> <1b4cc37b0ee6e1aa473c372e07c89f8fd60ac5f89bad550275edd3f7dc8f8e24@mail.kernel.org>
+In-Reply-To: <1b4cc37b0ee6e1aa473c372e07c89f8fd60ac5f89bad550275edd3f7dc8f8e24@mail.kernel.org>
+From: Nicholas Dudar <main.kalliope@gmail.com>
+Date: Sat, 12 Sep 2026 15:37:02 -0400
+X-Gm-Features: AcwNN1WgyD2ePwBCZDxRvueIh3zWMk4fdTmPoVsiLcsmEMMRdq6RUEG1P4mLE08
+Message-ID: <CAJZwKkiwTqeVrB=KRYOVrN3h1CD-K60FbYPg7aH-NaqiLecwxA@mail.gmail.com>
+Subject: Re: [PATCH bpf-next v3 2/2] bpf, mips: Add support for BPF_MOVSX in
+ the JITs
+To: bot+bpf-ci@kernel.org
+Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, eddyz87@gmail.com, 
+	memxor@gmail.com, johan.almbladh@anyfinetworks.com, paulburton@kernel.org, 
+	tsbogend@alpha.franken.de, martin.lau@linux.dev, song@kernel.org, 
+	yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com, 
+	ihor.solodrai@linux.dev, bpf@vger.kernel.org, linux-mips@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, martin.lau@kernel.org, mason@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri Sep 11, 2026 at 10:26 PM PDT, Justin Suess wrote:
->
-> If fs/, mm/, drivers/, net/, are permitted to have kfuncs, then why not
-> security/? kfuncs.rst doesn't seem to forbid this.
+> The changelog describes a silent miscompilation of already-loadable BPF
+> programs, which indicates this is a bug fix. Should this include a Fixes:
+> tag pointing to the commit that introduced BPF_MOVSX to the instruction
+> set?
 
-because fs, mm, net see the value in bpf. bpf helps these subsytems
-to focus on their core technologies and moves policy decisions out of
-kernel and into bpf.
-while lsm people treat bpf as arch-enemy.
-kfuncs are not stable. we keep refactoring them.
-while lsm folks treat anything within *lsm* and *security* as stable apis.
-So any kfunc where they have a say, will become a huge burden for further
-bpf development.
+This adds MOVSX support that the MIPS JITs have not previously
+implemented. I classified it as architecture enablement and targeted
+bpf-next on that basis. The incorrect ordinary-MOV lowering described
+in the changelog is real.
 
-> Where would you point me to?
+This distinction was discussed during the RV32 MOVSX review. Pu Lehui
+explicitly requested an "Add support" title and removal of the same
+Fixes: 8100928c8814 tag, treating the change as added JIT support:
 
-landlock was designed for unprivileged users. bpf needs CAP_BPF.
-There is a fundamental disconnect. If you can tolerate CAP_BPF then
-just use bpf-lsm and implement whatever policy you need there.
-If bpf-lsm is missing a feature we can fix that.
+https://lore.kernel.org/bpf/2ca2a85a-d4a9-4459-a534-6159de6e5890@huawei.com/
 
-selinux/landlock shouldn't be calling into bpf
-and bpf shouldn't be calling into selinux/landlock internals.
+> Does this compile? The MIPS uasm assembler appears to have no seb/seh
+> emitter.
 
+Yes, with the prerequisite declared in the cover letter. Patch 2/3 of
+SDIV/SMOD v4 adds the uasm declarations, encodings and emitters for
+seb/seh:
+
+https://lore.kernel.org/bpf/20260911213340.3767930-3-main.kalliope@gmail.com/
+
+The MOVSX cover letter links that series and includes its prerequisite
+patch IDs. Applying MOVSX without it leaves those emitters undefined.
+
+I built the combined stack and ran test_bpf under QEMU Malta on
+little-endian MIPS32 R1/R2/R6 and MIPS64 R2/R6. All five MOVSX cases
+passed with the JIT on each profile and all 16 signed DIV/MOD cases also
+passed.
+
+Nicholas
