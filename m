@@ -1,109 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45E1D3542F8;
-	Sat, 12 Sep 2026 11:33:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 078683A5422
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 11:34:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789212804; cv=none; b=RT/pB7qEKjuvJB2lRoB2Gsgi95MrgC0pj0VVOs6lQ0v42vqkjhrpClK+6HcQSfYI9EhfQ4Zc77hEqARz40Prry0VzY/wY0dukBTbdgvv2v5hJsBDjrkQEov9u3nf4To1Hn8P83c4wiYPL9k7X3eufKSeddZbH3TYGeHr5PPvspI=
+	t=1789212877; cv=none; b=E6m0026SW5+eNfMWZpm8DyANP/z9pTxw5NsVdrqMHIVkx/DQ2BlyqiRInhLklqt3XObaCHSfoaS5k4HE3kJsvMQPm1ZLFQzNMhsw+CQYnMIBhPjLazWfoPTxijrkZStWC0QiiseOSmAK9UD8hFJYt1rlRF5B8d78YP4tJAImRYc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789212804; c=relaxed/simple;
-	bh=jHMpy7W+6pYaxQUIW6oyr569wiZlfptEuuhGKXUk7Nc=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=eaWNPaE9G1DvyFIGSRER7Bn+1MJX1oYEvHH8tNKqWInYJuoNGkosiQkSBV4KAFp/4azvp01TqLaZG7Ik/HSVdtF7TepXnVAqRzcbfGyxmKzM53X0Sq+hzFWqMMhXZof9zR74d+rZjokWgLdYWWYIgs/6kIaCxuBb5pO/dx+YPaQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UHPnf6Vt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789212877; c=relaxed/simple;
+	bh=cC1YOs027YlAqZAqs9J6yM8CSZ469b20i+ByfNS783s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=I15fnr1P7lHmYWQA5U3q0GfpxQ11qc2NVxFiyGC8+8uSkzRmagnnZR8j8W3qjgBmwQshwjsxCu63l+yBO1UF1hOzMzar81wXKIjUpK5UIHI1lCQiN3/d5nPb11rz7lcRQRgmVgobFJSXgDKa1fBY+w61uEskrilm+TXknDH2EU8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dO4U2jF+; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UHPnf6Vt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACE371F00899;
-	Sat, 12 Sep 2026 11:33:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789212803;
-	bh=S47KYQb4Neki++unFILrRCKoWSsYxzIvskBpIQiIYVo=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=UHPnf6VtIgexvSEkgH7cRCPW+V+h6nnlIyA/6OMBVq9AeHJP4uVhy8RXBlpbA4I+m
-	 tI/vj+KJwAcZc9UvEW+6jf1PrrYBkj6hn4ovY9FsQ28HBxPewkfflLGlojPUhrMlLk
-	 VztOcrkja6nRAZXW5NbtP3eeNQN9PIZAgOc5M1BMjgavZ3Bguv34qgJEP5MeaBeCpc
-	 pgK2AkibgD3A2c1aH7Qr0qcJT4DKvhfGu19zQS2wF1eY4S5u+Wl6bj40BBWnJzCmfV
-	 6DbGWlsLFS0UI33Ma+/BvpMcwMJAIYpNxJ9hTWYfherCw2WGqRziRKLvlhsKoygVUk
-	 exe2sP1vwHZWA==
-From: Andreas Hindborg <a.hindborg@kernel.org>
-To: Bart Van Assche <bvanassche@acm.org>, jaemyung.lee@samsung.com, Miguel
- Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo
- <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6rn?= Roy Baron
- <bjorn3_gh@protonmail.com>, Benno
- Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>, Trevor
- Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Daniel
- Almeida <daniel.almeida@collabora.com>, Tamir Duberstein
- <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, Onur
- =?utf-8?Q?=C3=96zkan?=
- <work@onurozkan.dev>, "Martin K. Petersen" <martin.petersen@oracle.com>,
- James Bottomley <james.bottomley@hansenpartnership.com>, Jens Axboe
- <axboe@kernel.dk>
-Cc: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
- linux-block@vger.kernel.org, linux-scsi@vger.kernel.org,
- linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH RFC] drivers/rufs: add Rust UFS host controller driver
-In-Reply-To: <94ee6bd1-8126-4a99-9b9c-d58e16fd9d9e@acm.org>
-References: <20260912-rufs-private-v1-1-716db733e655@samsung.com>
- <94ee6bd1-8126-4a99-9b9c-d58e16fd9d9e@acm.org>
-Date: Sat, 12 Sep 2026 13:33:13 +0200
-Message-ID: <87h5juvh52.fsf@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dO4U2jF+"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccda24afso438841a91.3
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 04:34:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789212874; x=1789817674; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AX3b+/Rd5JBxR9PSq0SxNQZUrSxVi/vmNM1MS2Zuudo=;
+        b=dO4U2jF+uWlD0zxfHqXNtLWuweFU8mwlmiEsl4RAgvLMD72o9K25yAm/sUbCEr4JKu
+         hG07vrMLF7lnBIb4dMfF+Ba3XHLPKkVZYLKphaOsih+VkEZJGPppu1/sbxoVrsCW9dPe
+         uW40yukbc0JrPxBuL6oP8C3DRbTkv7PZs1dF7rqaJqIdBh9VpZq2kjVRzXcKYkgHAiGX
+         pvVpajqzP2woWP683xa5j45OSQAhHOCRLNPgeB9bDAa0wpxWTy3FJw5V7oQjzeJfyjZ2
+         P1POKPF737kdsKt9LFBzRZLLFOIenJI6lpxhWz0EHzC2czOhkmlcTqv1lVbqOETUyyzd
+         lG4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789212874; x=1789817674;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AX3b+/Rd5JBxR9PSq0SxNQZUrSxVi/vmNM1MS2Zuudo=;
+        b=oquY9NGlyL8ioSHtNWfdgm2WcapkG5q9twcP6MF5Q9hrRm/NZH7G4wWKKZr16d5c3L
+         qQ4JL5/Z2vEt35NLFTG2e1i6CNtqRlnjHhCZ5ykCAayO9YyYiwbpesnG3U7t+DLSVwJK
+         Y9iyv3/fUlaDu4jxH4kSAUM95Iwg3Z3auyDu2OfWRlg8a6cAx1q14dmF0tErHMSbZt2D
+         dc3KEtvkcO+vbEZbDBHo1eqWALOIaKFXoVoUxOau4WgPcCMlebU7QCGNjNKTZgIAiNKp
+         XDJO+eKgWBd3D5P8iFHfaUSo3O0CatOEt/wLcBGIptWWA9ZwwW79b1qfOLrGtTOhV7Iz
+         SaeA==
+X-Forwarded-Encrypted: i=1; AKwUvBx5Whde0ZJQOkRHOKh80MiHakRMYxqqSEcZrGOu4Yf1NEEVetNrLxLC7rB5uwOjT+Ik45tpvcdibvO0xNA=@vger.kernel.org
+X-Gm-Message-State: AFuF++ngRjTlSppSLFdIuurQV/uYaH0Qx/2OYjB6fSd0eMhd7JjwDDGY
+	3kGNt9/2uSED5u6rD7ZqBH4F7AP0CvrPil6MQrR/gplcUADrB+77+5NQ
+X-Gm-Gg: AYBFou3oSeLLgyRs1i5+7l1yPCYNGlsz44YxzDtZoa3ksO0HedhLK/lnZSWrTkNu8cm
+	391XSTmc3rLzW7PBRcwsPxzhVsocKD5Q426XRHzpGDdy+4tNg0jSsHVl8ZQ//RlKJv9cL7G3p/W
+	JvQIaOdi/tzELm3m8WSbxboLcxu68SeZRdL6aGKrKT+Nppk7JhO2K497UIQSdY3PNjcE927ET3S
+	fq2IHZ7rc6vD1TLJMWLxnsP4QXX4gLOZVgzKUV5pOi7sBtQR42YvyI/CrTZ4InKFTrRcBzIxDla
+	rfXawb7043MG7gLEzDlceFONK2QLXLttutbvKA7MA57SC1rRWjBvbIQLRMuPj9zm0Q4rnh9DDDj
+	H2qonwFES0sthHIELT0lcQjabATN06NQHMym2D6AJAXalfMatjT8cKixixnyTcA8KYzXrrtWlPh
+	+W9FUmhiTbj9HXyswayKmXuyMTk8Ga1WhLLeG52wMvBLS0PCqsolCthg==
+X-Received: by 2002:a17:90b:1dc9:b0:38f:aab1:5148 with SMTP id 98e67ed59e1d1-39d9c0b79efmr15378795a91.13.1789212874173;
+        Sat, 12 Sep 2026 04:34:34 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d95752809sm10046220a91.13.2026.09.12.04.34.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 12 Sep 2026 04:34:33 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: "Rafael J. Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>,
+	linux-acpi@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] ACPI: SBS: Fix NULL pointer dereference on allocation failure
+Date: Sat, 12 Sep 2026 19:33:55 +0800
+Message-ID: <20260912113355.644238-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-Bart Van Assche <bvanassche@acm.org> writes:
+acpi_sbs_probe() jumps to the common error path when kzalloc_obj()
+fails, but platform_set_drvdata() is only called after the allocation
+succeeds.
 
-> On 9/11/26 8:52 AM, Jaemyung Lee via B4 Relay wrote:
->> Add a Rust UFS host controller driver that exposes UFS logical units as
->> native blk-mq block devices without depending on the SCSI midlayer.
->
-> One of the goals in the Linux kernel is *not* to duplicate code.
-> Decoupling the UFS driver from the SCSI mid-layer implies duplicating
-> the functionality of the SCSI mid-layer. I do not agree with this.
+The error path calls acpi_sbs_remove(), which retrieves the unset
+driver data and dereferences the resulting NULL pointer when locking
+sbs->lock, causing a NULL pointer dereference.
 
-As I answered Greg, the SCSI specific part of this driver is less than
-300 lines of code. The driver is 10k lines. That is not really
-duplication to be worried about.
+Return -ENOMEM directly when the allocation fails, since no resources
+have been initialized at that point and there is nothing to clean up.
 
->> The driver is written in Rust.
->
-> Most UFS driver contributors are not familiar with Rust so I think the
-> choice of Rust will make this driver unpopular.
+This issue was found by manual code inspection.
 
-What an excellent opportunity for those developers to get familiar with
-Rust in a domain they are already experts in :)
+Fixes: 9460eaae2ee42 ("ACPI: SBS: Convert the driver to a platform one")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/acpi/sbs.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-[cut]
-
->> On Intel UFS 2.1 hardware, 4 KiB direct io_uring at QD32/job gave
->> these optimized-mode ranges over 1/2/4 jobs (three samples):
->> 
->>    Workload  Op     RUFS kIOPS   C kIOPS      Difference
->>    --------  -----  -----------  -----------  ---------------
->>    randread  read   48.91-61.26  41.56-41.60  +17.6% to +47.4%
->>    randwrite write  8.19-8.30    8.21-8.22    -0.4% to +1.1%
->>    randrw    read   5.26-5.34    5.28-5.38    -0.9% to -0.4%
->>    randrw    write  5.27-5.34    5.29-5.37    -0.8% to -0.5%
->
-> "Intel UFS 2.1" sounds weird to me since Intel never produced any UFS
-> devices as far as I know. Did you perhaps want to write "Intel UFSHCI
-> 2.1"? If so, these measurements are not representative since UFSHCI
-> 2.1 does not support MCQ. Measurement results for legacy (SDB) mode
-> are highly sensitive to whether or not the I/O submitter runs on the
-> same CPU core as the completion interrupt.
-
-Of course PCIe attached Intel UFSHCI 2.1. As you probably know, this
-target is more simple to bring up due to less platform knobs to turn.
-
-We will provide measurements on recent MCQ based hardware, as soon as
-possible. We elected to start the conversation sooner rather than later.
-
-
-Best regards,
-Andreas Hindborg
+diff --git a/drivers/acpi/sbs.c b/drivers/acpi/sbs.c
+index 86b7c7975852..4b84b3cd11e3 100644
+--- a/drivers/acpi/sbs.c
++++ b/drivers/acpi/sbs.c
+@@ -639,10 +639,8 @@ static int acpi_sbs_probe(struct platform_device *pdev)
+ 		return -ENODEV;
+ 
+ 	sbs = kzalloc_obj(struct acpi_sbs);
+-	if (!sbs) {
+-		result = -ENOMEM;
+-		goto end;
+-	}
++	if (!sbs)
++		return -ENOMEM;
+ 
+ 	mutex_init(&sbs->lock);
+ 
+-- 
+2.43.0
 
