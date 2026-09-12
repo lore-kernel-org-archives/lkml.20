@@ -1,124 +1,207 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EAA2192D8A
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 00:25:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07B6322FF22;
+	Sat, 12 Sep 2026 00:28:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789172723; cv=none; b=DVCtbW17XJ9eNOyXpjwfJB0sZFo5IRlx5TOC2Wjhyn1G+l7XV1peBYVWj1LAa+Hw6B8Xfcpk6w0TIZPelwMQENVjlBKDUe3iHLtm5yxEDVHj5Dx+1kzKOh/Z55/gROU8f+F3ZzdjY/PAeYgYdsm+medxvqrBujh1YPdrJUEVkdk=
+	t=1789172936; cv=none; b=cqtFDOp6uKagJ+5AjJGoqIe88df9Qvp18rfRQXTMYgeFrhj+U9ueBhUGN2t/2vHW8ewubzfGGaLTz4RGtQLKTSvU5wuTvFNVyQmOQLujGQTI7jEtuGjXjZCi3YFV0RnKBAAJVs5+CXnLq3adp99hQleIPMiBTyUC+qX96TzAAPo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789172723; c=relaxed/simple;
-	bh=1a3ZwnBwa1HzobSQmbsDSE0ulkRMx2KM84AVAdNHEiI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pWuWpbHZp3KCrbuBb6QKjrd9CCTWnaZzItKJP8C724BZnQQ8aMXAme/ycxg+NRcYmIe2bAdcyBR6vS6LdNPj6hGXiFu4M2G1UuTmSaHKx186BZ6oUO2WPsfmU+HX7op8Vpnpp3YTpJ4zq1cncaGXDnOkObrYhjxm/LnLwwdfb/E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=cqFq1vtz; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=JxXZvxF6; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789172936; c=relaxed/simple;
+	bh=eToU4BHQ6da9kVpf5qP3yx4Og2UglyPSx3RDqR0I63w=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=WiBWiFvUpA5ibqSnFA21QUyjQ84UDoOC2objkb4wyVTcF74G6Beld/mB1Rm3O20ZQSMXjSZgehl6oSAIQaRdkBceM43uCQ06q2KCmxioQF9YYC4YPTicSkzDoG7OryUuuAE8ofMTDNJLc3nxmcn/bEjiUj1Y6pHjb175A0CR1oY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Upfg1afm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="cqFq1vtz";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="JxXZvxF6"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789172721;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DKGFm6G/TNMn0NvYxTUs0YYbh7R2/WV2gMX4ZNmGb2I=;
-	b=cqFq1vtzE1654P04M+7Sluje9VlF1Mbw7CVxNpXDq7u1eLUHioVW+ejBi2nsc/q80qTLK2
-	FivlBvPT4VMdWmFHPsxxs5PxP7kPkl4q0IQ4fJzFkLIdtulloBYLG6ZwnjsWLp53QWyPLf
-	R/kuTm0JIxZrZaITDur91TmPNeHvTeI=
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-57-h2NtCdjyMuCWsrczL1bT4g-1; Fri, 11 Sep 2026 20:25:19 -0400
-X-MC-Unique: h2NtCdjyMuCWsrczL1bT4g-1
-X-Mimecast-MFC-AGG-ID: h2NtCdjyMuCWsrczL1bT4g_1789172719
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-92e4f946461so312120785a.2
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 17:25:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1789172719; x=1789777519; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=DKGFm6G/TNMn0NvYxTUs0YYbh7R2/WV2gMX4ZNmGb2I=;
-        b=JxXZvxF6tAz7RbNwXnokRBO56YkjuVydSP6Cm4g3N7wmsyGJtbubKT4nYQg32aue/M
-         gnzn5eJjvaHAm0wI16ZJDzr+xtW7NiLG9LUsXYTY9v5Jppv3HsZ4/cLtXIrrZGQ01Ibk
-         7XhgbxjWZYgLzeMfphlqBJIurCN+H/oftR0zUVKLPHgXHGcDH3iadaotQfWBtCTw/uGW
-         yEqgpl/8UKEpuPaGtAVI7wJ67oFLbWfdhrXLzCanOldPfu3DaYreSvb+CG7RxhLxUQe5
-         tjuOLb218Re2MTbAm8bTQQlQJBd1h9j6JRgJzAwvymuL3OfLOvCyt1O1+/8KSp4OhMbV
-         mc6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789172719; x=1789777519;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DKGFm6G/TNMn0NvYxTUs0YYbh7R2/WV2gMX4ZNmGb2I=;
-        b=rnC0xAyhHCXdK6gieHQV5a/A85/AueJdy6aaDq1DGVr0h+HaUYWWQwQ2f7dEXqJEjc
-         tJjCYYn8PH0L/vH2IDu/cgP2lybvb5opAtnAtbG1v35YcFHqeUiLQm5H/yc3lIDUqG2G
-         kFD4/As2IDIDJ0Twkt5W0L/ypO/v4JOMAyeFNhVSVBwMQcaocdBOGGyzbt5KnKqnwRlv
-         uRXDLQI3F1E63Mn1miXZa6MYehoXRVkvWkCcQhYXrF6SMByoTVYlLvvFSi5pNvECg/I8
-         OXc3s6OeL5AwresWT/FZi8kwfhK3V8wELehqR/oSvEHuPQr3YYl6dUYpF4dAaa/4Xj5j
-         mLzQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzNTbFAiMJC4qJPM+xlat/Ij2hr0bZAzp3czzklCCp4Hzr6VUFuU/LR7gD5I/Nis2mOFXjF0874cOsHIwE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kNb/B/hd4mdvv3D5n59BibvLoMBQtuzFfWa2vry5y3NOXWV+iW
-	gE09Mvny75quYOL09MdilBWs+7Tb9f1bhozKsiIEAToFAiWeraP6pwGGuXToYGI3vaUlMJop6u/
-	uAoTQC+xAVx+L6rh3Xp4FziTBUTTC7giWD6RqVxPmXNheEMsUca+HfKfG6wPNLKc1xGHJwyIgmg
-	==
-X-Gm-Gg: AYBFou1DNSDTkb8wESrtd3zJf6ZJyGwzlCPyOMsEU5ModAaFf+X4/Gekz3Xs+mvVIZW
-	qwKalHFXmESlS08T/sX+avnLd3pw26cqwfSdK2Kvicj1wQM0o7VM0nx5hrwBvPL9hD4XBPJJEt+
-	XIjE5CcaKMdLgrJqwJGzXaNKurrTWud4S8ARTzwCx6umWGnofB9LLAVakis5Mo+a83cby2O+tp0
-	Hk2b5BKgarYC9u0PZMJEmpSYy9J+WN80UvD73eX/Yum8OXp9PjCUG4rOuZQZWOdHDKcpXgyGlMu
-	2786HknU6/4OC4wbUpNoSF7u4B1cyqMXYTBQ9KwgORwlSbLTCrT8y+ObNfIOVu+yOO+3eZ4zBe8
-	uAzgAFKwThQ0Qr66Rsk+CBgUhzOu+YZuv2E8=
-X-Received: by 2002:a05:620a:2812:b0:939:1ad2:ce7c with SMTP id af79cd13be357-939ea16b999mr1115567485a.29.1789172719192;
-        Fri, 11 Sep 2026 17:25:19 -0700 (PDT)
-X-Received: by 2002:a05:620a:2812:b0:939:1ad2:ce7c with SMTP id af79cd13be357-939ea16b999mr1115562385a.29.1789172718699;
-        Fri, 11 Sep 2026 17:25:18 -0700 (PDT)
-Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-939e807eba7sm368493185a.29.2026.09.11.17.25.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 17:25:17 -0700 (PDT)
-Date: Fri, 11 Sep 2026 20:25:16 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: Pengpeng Hou <hppiscas@163.com>
-Cc: =?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Andi Shyti <andi@etezian.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	linux-samsung-soc@vger.kernel.org, linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] clk: s2mps11: Propagate OF provider registration failures
-Message-ID: <aqSb7O2gfU0hTuUV@redhat.com>
-References: <20260906033651.84082-1-hppiscas@163.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Upfg1afm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C51D1F000FF;
+	Sat, 12 Sep 2026 00:28:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789172934;
+	bh=CTD3K0LRtS7se4NoRtsizVYkgPim6OQ+nwetjOdhM84=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Upfg1afmn8w66u9POsKP11EqOYbYjnO2qrCGwk32UGLq5FD2MU65RbLcqcwoc43xh
+	 up8fkxF5DWlDnhHks7e6KSQ7T2kpSFj5jf6xIjNry2t4kgTbOn0xJRhuprvbo47kWl
+	 OjmueHPb0gqShW5T0EhIR47uchqzs+JoTLoQ+3RR0i0Sd59GHGy5SvWqWpo5OiHE9h
+	 zbBc5YtN+VfA8h1oYk60/l/fDMvLVDXmy6PAcDHThLwFyjcUUTKiuO5XIoklJOL09L
+	 vP4l7JhAMs/BzZgdJED9/xnUpghQEh87aQ8AtB7S+bHCUA7BXGkIl02UC1qygQMZ7e
+	 fE9prWDRM6X0g==
+Subject: Re: [PATCH net-next v14 1/6] net: dsa: add devlink flash_update
+ callback to dsa_switch_ops
+From: netdev-bot+sashiko@kernel.org
+To: daniel@makrotopia.org
+Cc: jiri@resnulli.us, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, corbet@lwn.net,
+ skhan@linuxfoundation.org, rdunlap@infradead.org, gregkh@linuxfoundation.org,
+ rafael@kernel.org, dakr@kernel.org, andrew@lunn.ch, olteanv@gmail.com,
+ netdev@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, driver-core@lists.linux.dev
+Date: Sat, 12 Sep 2026 00:28:53 +0000
+Message-ID: <178917293319.219967.10417320204779425879@kernel.org>
+In-Reply-To: =?utf-8?q?=3Cd7a5b34bdb1e9c171aa9af94d435dea08c05e363=2E1788976?=
+ =?utf-8?q?064=2Egit=2Edaniel=40makrotopia=2Eorg=3E?=
+References: =?utf-8?q?=3Cd7a5b34bdb1e9c171aa9af94d435dea08c05e363=2E17889760?=
+ =?utf-8?q?64=2Egit=2Edaniel=40makrotopia=2Eorg=3E?=
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260906033651.84082-1-hppiscas@163.com>
-User-Agent: Mutt/2.4.0 (2026-06-19)
 
-On Sun, Sep 06, 2026 at 11:36:04AM +0800, Pengpeng Hou wrote:
-> s2mps11_clk_probe() ignores of_clk_add_hw_provider() failures, stores
-> driver data and returns success even though DT consumers cannot acquire the
-> registered clocks.
-> 
-> Return the provider error through the existing lookup cleanup path. Skip
-> empty lookup slots while unwinding because S2MPS14 omits its CP clock.
-> 
-> The issue was found by our static-analysis tool and manually reviewed.
-> 
-> Fixes: b228fad50c00 ("clk: s2mps11: Migrate to clk_hw based OF and registration APIs")
-> Assisted-by: gpt 5
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider:
 
-Assisted-by: LLM
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-I'll fix this up on merge.
+- [Medium] net/dsa/devlink.c now installs `.flash_update =
+  dsa_devlink_flash_update` unconditionally in the single shared…
 
-Brian
+--
 
+net: dsa: add devlink flash_update callback to dsa_switch_ops
+
+This adds a devlink_flash_update callback to dsa_switch_ops and a
+trampoline in net/dsa/devlink.c that forwards to it, returning
+-EOPNOTSUPP when the driver does not implement the callback.  The
+trampoline is installed unconditionally in the shared dsa_devlink_ops.
+
+(No Link: tags in the commit header.)
+
+> diff --git a/include/net/dsa.h b/include/net/dsa.h
+> index 7507d632e7c6d..9babab92a0fc6 100644
+> --- a/include/net/dsa.h
+> +++ b/include/net/dsa.h
+> @@ -1174,6 +1174,9 @@ struct dsa_switch_ops {
+>  	int	(*devlink_info_get)(struct dsa_switch *ds,
+>  				    struct devlink_info_req *req,
+>  				    struct netlink_ext_ack *extack);
+> +	int	(*devlink_flash_update)(struct dsa_switch *ds,
+> +					struct devlink_flash_update_params *params,
+> +					struct netlink_ext_ack *extack);
+>  	int	(*devlink_sb_pool_get)(struct dsa_switch *ds,
+>  				       unsigned int sb_index, u16 pool_index,
+>  				       struct devlink_sb_pool_info *pool_info);
+> diff --git a/net/dsa/devlink.c b/net/dsa/devlink.c
+> index ed342f345692b..25311a87cbc56 100644
+> --- a/net/dsa/devlink.c
+> +++ b/net/dsa/devlink.c
+> @@ -20,6 +20,18 @@ static int dsa_devlink_info_get(struct devlink *dl,
+>  	return -EOPNOTSUPP;
+>  }
+>  
+> +static int dsa_devlink_flash_update(struct devlink *dl,
+> +				    struct devlink_flash_update_params *params,
+> +				    struct netlink_ext_ack *extack)
+> +{
+> +	struct dsa_switch *ds = dsa_devlink_to_ds(dl);
+> +
+> +	if (!ds->ops->devlink_flash_update)
+> +		return -EOPNOTSUPP;
+> +
+> +	return ds->ops->devlink_flash_update(ds, params, extack);
+> +}
+> +
+>  static int dsa_devlink_sb_pool_get(struct devlink *dl,
+>  				   unsigned int sb_index, u16 pool_index,
+>  				   struct devlink_sb_pool_info *pool_info)
+
+[ ... ]
+
+> @@ -169,6 +181,7 @@ dsa_devlink_sb_occ_tc_port_bind_get(struct devlink_port *dlp,
+>  
+>  static const struct devlink_ops dsa_devlink_ops = {
+>  	.info_get			= dsa_devlink_info_get,
+> +	.flash_update			= dsa_devlink_flash_update,
+
+[Severity: Medium]
+Since dsa_devlink_ops is a single const structure shared by every DSA
+switch, does installing .flash_update unconditionally make the devlink
+core's capability probe always succeed for DSA?
+
+The core uses the presence of the op as the gate, in
+devlink_nl_flash_update_doit():
+
+	if (!devlink->ops->flash_update)
+		return -EOPNOTSUPP;
+
+With the trampoline always present, that check can no longer fire for
+any DSA switch, and the -EOPNOTSUPP from dsa_devlink_flash_update() is
+only reached after the core has already done work:
+
+net/devlink/dev.c:devlink_nl_flash_update_doit() {
+	...
+	ret = request_firmware_direct(&params.fw, file_name, devlink->dev);
+	if (ret) {
+		NL_SET_ERR_MSG_ATTR(info->extack, nla_file_name,
+				    "failed to locate the requested firmware file");
+		return ret;
+	}
+
+	devlink_flash_update_begin_notify(devlink);
+	ret = devlink->ops->flash_update(devlink, &params, info->extack);
+	devlink_flash_update_end_notify(devlink);
+	...
+}
+
+The commit message covers the firmware fetch:
+
+    the devlink core will then have fetched the firmware file from
+    userspace before the request fails, which is acceptable for an
+    operation as infrequent as a firmware update.
+
+Are the other two effects of that ordering intended as well?  A
+FLASH_UPDATE / FLASH_UPDATE_END notification pair is now broadcast to
+monitors for a flash that never reached any hardware, and if the named
+file does not exist the caller gets -ENOENT with the extack "failed to
+locate the requested firmware file" rather than -EOPNOTSUPP, which hides
+the fact that the switch cannot be flashed at all.
+
+There is also a second entry point that the commit message does not
+mention.  DSA user ports have no ethtool_ops->flash_device but do have a
+devlink port, so ETHTOOL_FLASHDEV falls through:
+
+net/ethtool/ioctl.c:ethtool_flash_device() {
+	if (!dev->ethtool_ops->flash_device) {
+		req->devlink = netdev_to_devlink_get(dev);
+		return 0;
+	}
+	...
+}
+
+which lands in devlink_compat_flash_update(), where the same gate is now
+always passed and the op is called with extack == NULL:
+
+net/devlink/dev.c:devlink_compat_flash_update() {
+	...
+	if (!devlink->ops->flash_update) {
+		ret = -EOPNOTSUPP;
+		goto out_unlock;
+	}
+
+	ret = request_firmware_direct(&params.fw, file_name, devlink->dev);
+	...
+	ret = devlink->ops->flash_update(devlink, &params, NULL);
+	...
+}
+
+Should any extack message a DSA driver sets be documented as dropped on
+that path?
+
+Would gating the assignment of the .flash_update pointer on
+ds->ops->devlink_flash_update (for instance a second devlink_ops variant
+selected at registration) keep the core's probe truthful?  The existing
+trampolines this one follows (info_get, sb_*) are pure queries with no
+core-side side effects before the op is called, so the -EOPNOTSUPP-from-
+the-trampoline convention does not carry the same cost there.
+
+For context on the series: at the end of the range mxl862xx does
+implement devlink_flash_update, so that driver has a real
+implementation, but all other DSA drivers (b53, mv88e6xxx, microchip,
+ocelot, sja1105, ...) still advertise flash support without one.
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/cover.1788976064.git.daniel%40makrotopia.org
