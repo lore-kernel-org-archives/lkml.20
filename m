@@ -1,207 +1,159 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CAE147AF6A
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 12:34:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CAB14BEE22;
+	Sat, 12 Sep 2026 12:35:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789216462; cv=none; b=dd4QrdfaUlh7pUykywUTjiYAOFccF1aoz3lKoBMpPESQ4X7IOmxwUAk4XXIznNFLLJOv2ZUzU3pH555U5EaHgvB2ymJ/iy2+5ynt2rPtdIs8XYm2NvunxxrNojg2HIcmESwYBBVA935x5mDhZ4OixGsFyugkePsTmnDhpirL1ts=
+	t=1789216555; cv=none; b=HRg7MbLMCrNoIPoJTtgGgLNwBY6wMr5b0VjjO8hr0TTjFaPBH9ZK7mOayBG8Mv0ApZjw4MEuPfm3PbNVhaLYS0v7AgKFJIK8X190z0pEJibf+QmUsg2dJl0p8PLhcjuIbWbHU0QjE1z2GAoTON4+c9l34u3tYNrrVp1aQr1SvWM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789216462; c=relaxed/simple;
-	bh=tSvHMCx3+Uls2wlNRJyG10pVkL/zjfglm2Gbj+rlc1k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TIWdO8j9eDFiYkK8Ai2nopuzgQ31gOm0n8qTfgm/OTqa5h8xYSdEartVDT80AOOwcyZ4j7XZl/SGahXWDw11AtjiZCWzo9Fb8l0vMOXDwRuPaCg7fjF62PojPfuOELC7xHx8P5sIxB32ppom30wG2YXjBQVaRa6HTayuuAKX6Lk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=bMMT0NHC; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1789216555; c=relaxed/simple;
+	bh=TWZEC54bLK00kXeOtabiyWj+qzrU5BA86uJhYlmW8gU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=t8seQPS/HvhmwTGGG8DPx+/c2HXvw0ECEOyc0FdkPFQjGuoVUBS7qwajjTbn+OQMpKuZkzH/3qnhlXJvXF/skHNwaZYt+HSSlunj1gYEefE6oo15LfOZ8LwfETl2wGnmTKiWuwN2IFGzYWH+VQe51fGqItSBR7SHpm/uNOQ5rAM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WdlQW2kg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="bMMT0NHC"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68CC1mKT509624;
-	Sat, 12 Sep 2026 12:34:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=5fAPVy
-	EPSLKVtmbwcdg9VdhI6ZLUsSvnam/5M5R9uMs=; b=bMMT0NHC0WfD4QxsWIoJQk
-	RqFbQA60u82pYONqdFYNKZmcSHs1ZOQH1p+XDPrea1Fk89Vdsn1BnknQVj6JHFIs
-	lBnjTVyjhdcsrApnKiSIB01o+MeG9yyw5z3+r1wWkaTulTLP7TFY5au27Nq1WIqX
-	v4p5KbV14bSiMhZrFX1pDoEiVeJEiSuk4s8S5Hge2m3W3ftL6e73zGfqt8V6jj46
-	dlGK1gMdhn6xNrKX2ZF2eqbUeCQgXsiS1EYvFhN5Mk+eZ0+UicrhnjPX5jyG1SG8
-	sMrvaCbeoDy/LotSXxcwo3OdUrqwjhjGKI++70mosuWc+ZoL8nVqYc6ooXRFFZAw
-	==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmxcuh9k2-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Sat, 12 Sep 2026 12:34:04 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68CBbO5i3239830;
-	Sat, 12 Sep 2026 12:34:04 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gn3wp0esp-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sat, 12 Sep 2026 12:34:04 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
-	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68CCY0Ea40960326
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Sat, 12 Sep 2026 12:34:00 GMT
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 81E7820043;
-	Sat, 12 Sep 2026 12:34:00 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 2ED7120040;
-	Sat, 12 Sep 2026 12:33:58 +0000 (GMT)
-Received: from [9.43.50.135] (unknown [9.43.50.135])
-	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Sat, 12 Sep 2026 12:33:57 +0000 (GMT)
-Message-ID: <b76f92f0-4728-4b55-81aa-b0851d225c1c@linux.ibm.com>
-Date: Sat, 12 Sep 2026 18:03:57 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WdlQW2kg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4756A1F000FF;
+	Sat, 12 Sep 2026 12:35:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789216553;
+	bh=xNb0L15IXhfLloKf7VB3JE2WPDpU2+nArFv5hqH0SMs=;
+	h=From:To:Cc:Subject:Date;
+	b=WdlQW2kgQ6nhpMp/ElbDXC/6Tbcux+aFtmwfyrAUhB2rvegpnQ0arUmMYcZRmifru
+	 HLsr6dZVoaziY3yzgbRXl6Z/lBESwgc6K/m6AsHkwHjwjO53kKc+PlTc+e2RhZSD/7
+	 H8I78VaqHN9NXsHCjgDSun21fGCSDCs9Xv/mDPrwWPZce8jCnYw87qKh3o/ESxGTDT
+	 jRhRXiB5OUZUAobTNFwCKA2YES30+IAuvWpFIKhIUYQo30rIxjITZS9zNhAiC2uaV8
+	 lCIM/kEbBKKgaYdhluOSIJ75yDN0G6PKG3Kap7m50NGZOmzLiaEBWN5ZT0d05hcp0J
+	 CDj6mSdBGLFpA==
+From: Tzung-Bi Shih <tzungbi@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>
+Cc: Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
+	tzungbi@kernel.org
+Subject: [PATCH v13 0/3] drivers/base: Introduce revocable
+Date: Sat, 12 Sep 2026 20:35:26 +0800
+Message-ID: <20260912123529.7951-1-tzungbi@kernel.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] ppc/fadump: collect dump when CPU_STATE_DATA is less
- than reserved
-To: Shivang Upadhyay <shivangu@linux.ibm.com>, linux-kernel@vger.kernel.org,
-        linuxppc-dev@lists.ozlabs.org
-Cc: adityag@linux.ibm.com, adri.vero.dev@gmail.com,
-        anushree.mathur@linux.vnet.ibm.com, chleroy@kernel.org,
-        maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com
-References: <20260828094942.2439404-1-shivangu@linux.ibm.com>
-Content-Language: en-US
-From: Sourabh Jain <sourabhjain@linux.ibm.com>
-In-Reply-To: <20260828094942.2439404-1-shivangu@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEyMDE4MSBTYWx0ZWRfX6baLTxAhLhc2
- ufF37UVw7rUuJP9jE05VZLay2IEbG14Avs118AziHBkmJr/jceDRayWxg8kVJEIhVsxysr/Naja
- /d0qxZe3auhUvp+YXvYxw+fZ7d6UN80=
-X-Proofpoint-ORIG-GUID: f3XK2WlTqZelRDYWnPD8Rjmqyb-NiOpK
-X-Proofpoint-GUID: kcmijTNr6FX5FT5BELxjpdZST20vTwF8
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEyMDE4MSBTYWx0ZWRfX/20kgRPs6gf3
- Ej5PuX9JPNMWDh5YBKtWBWt3Hm/sPuvLKqLugZAENQWCLXA2bpEljnyE80LTdSABWLERdLxVp+B
- /cbgkc4CkunHG1aYf0U/Iw9jWQkoXQaAHZB9lCowo0aQhj19KPfpFcHOJX6UpTnRY6ufdVPFrNi
- GzEM3uCk5393ttUpJlyreYNW9QhMiRavy0wCXRME3HELmR/gMDBhPcStHmF/4ehls039E05v45k
- MtZwxlE3HaTj0Z7MJONNPoqEReshyZ0msexWWbjcI1MeDjyIyPp9OOmTYOScQYSZCexhQVraHQc
- sSHURp27URdcR88vwGT+6W3bxDeMxO9f3RHJGJ4Jg3brIvl61zTHAKSYVjVCuYXymTs/T/Ao6eE
- 8ODkNYYc3ggCUZSmqmSZXHyPu8+6JqKwJCdODO6ujzHv7wInqegl86BxAgfu5/HXL5FOMbErwrH
- AuI7WTv6vPb7Sq0tUow==
-X-Authority-Analysis: v=2.4 cv=F+7C5ahN c=1 sm=1 tr=0 ts=6aa546bd cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=ZHU0lENvvK8ub83SEc8A:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-12_04,2026-09-11_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 phishscore=0 clxscore=1015 malwarescore=0
- lowpriorityscore=0 bulkscore=0 spamscore=0 impostorscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609120181
+Content-Transfer-Encoding: 8bit
 
+This series introduces the "revocable" mechanism, a synchronization
+primitive designed to prevent Use-After-Free errors.
 
+- Patch 1 introduces the revocable which is an implementation of ideas
+  from the talk [1][2].
 
-On 28/08/26 15:19, Shivang Upadhyay wrote:
-> During Fadump in Qemu VM, when maxcpus value is set to more than current
-> cpus, following failure is observed.
->
->      [    0.045806] [      T1] rtas fadump: Dump taken by platform is
->          incomplete (0)
->
-> This is because the CPU_STATE_DATA is allocated for maxcpus, while the
-> data is only filled for current cpus. As per current implementation
-> of Fadump, dumped_bytes and source_len for a region have to match,
-> Which is failing for qemu's case, Even tough the dumped bytes are
-> reported correctly for only the current cpus. After this /proc/vmcore
-> generatition also fails.
->
-> Allowing dumped_bytes to be lesser than or equal to allocated length, for
-> CPU_STATE_DATA Fadump region.
+- Patch 2 adds KUnit test cases.
 
-Yes, as per PAPR, it is possible for the CPU data to be less than the 
-source length
-due to CPU hotplug. Therefore, it is OK to accept bytes_dumped being 
-less than
-source_len for the CPU region.
+- Patch 3 transitions the UAF prevention logic within the GPIO core
+  (gpiolib) to use the "revocable" mechanism.
 
-I have verified the changes and tested them on LPARs with different 
-partition configurations.
-The dump collection went fine.
+  The existing code aims to prevent UAF issues when the underlying GPIO
+  chip is removed.  The patch replaces that custom logic with the
+  generic "revocable" API, which is designed to handle such lifecycle
+  dependencies.  There should be no changes in behavior.
 
-Feel free to add:
+Since v9, there are two ways to manage the resource provider handle.
+- Embedded allocation: patch 3 is the user.
+- Dynamic allocation: no user yet; I could find it later.
 
-Reviewed-by: Sourabh Jain <sourabhjain@linux.ibm.com>
+[1] https://lpc.events/event/17/contributions/1627/
+[2] https://lpc.events/event/19/contributions/2262/
+---
+v13:
+- Rebase onto next-20260911.
 
+v12: https://lore.kernel.org/all/20260908134223.13638-1-tzungbi@kernel.org
+- Rebase onto next-20260907.
+- Drop patch 4 and 5.
 
-> Reported-by: Anushree Mathur <anushree.mathur@linux.vnet.ibm.com>
-> Closes: https://lore.kernel.org/all/5e66daf4-3f55-4044-94a5-4f50bb040849@linux.ibm.com/T/#u
-> Signed-off-by: Shivang Upadhyay <shivangu@linux.ibm.com>
-> ---
->
-> Changelog:
-> v4:
->      removed extra blank line.
->
-> v3: https://lore.kernel.org/all/20260827075803.2240934-1-shivangu@linux.ibm.com/
->      removed extra variable.
->
-> v2: https://lore.kernel.org/all/20260826125626.2108771-1-shivangu@linux.ibm.com/
->      Only allowing lesser size for CPU_STATE_DATE Fadump region.
->
-> v1: https://lore.kernel.org/qemu-devel/20260429065127.366813-1-shivangu@linux.ibm.com/
->
-> ---
->   arch/powerpc/platforms/pseries/rtas-fadump.c | 16 ++++++++++++++--
->   1 file changed, 14 insertions(+), 2 deletions(-)
->
-> diff --git a/arch/powerpc/platforms/pseries/rtas-fadump.c b/arch/powerpc/platforms/pseries/rtas-fadump.c
-> index 3bb4ac2ab6cc..838e97c24308 100644
-> --- a/arch/powerpc/platforms/pseries/rtas-fadump.c
-> +++ b/arch/powerpc/platforms/pseries/rtas-fadump.c
-> @@ -459,6 +459,8 @@ static int __init rtas_fadump_process(struct fw_dump *fadump_conf)
->   	/* Check if the dump data is valid. */
->   	for (int i = 0; i < be16_to_cpu(fdm_active->header.dump_num_sections); i++) {
->   		int type = be16_to_cpu(fdm_active->rgn[i].source_data_type);
-> +		uint64_t bytes_dumped = be64_to_cpu(fdm_active->rgn[i].bytes_dumped);
-> +		uint64_t source_len = be64_to_cpu(fdm_active->rgn[i].source_len);
->   		int rc = 0;
->   
->   		switch (type) {
-> @@ -469,10 +471,20 @@ static int __init rtas_fadump_process(struct fw_dump *fadump_conf)
->   				pr_err("Dump taken by platform is not valid (%d)\n", i);
->   				rc = -EINVAL;
->   			}
-> -			if (fdm_active->rgn[i].bytes_dumped != fdm_active->rgn[i].source_len) {
-> +
-> +			/*
-> +			 * Make sure that dump is collected for entire region.
-> +			 * CPU_STATE_DATA region is allowed to dump less than allocated space.
-> +			 */
-> +			if (!(bytes_dumped == source_len ||
-> +			(type == RTAS_FADUMP_CPU_STATE_DATA && bytes_dumped <= source_len))) {
-> +
->   				pr_err("Dump taken by platform is incomplete (%d)\n", i);
-> +				pr_debug("type -> %d, bytes_dumped -> %llx, source_len -> %llx\n",
-> +					 type, bytes_dumped, source_len);
->   				rc = -EINVAL;
->   			}
-> +
->   			if (rc) {
->   				pr_warn("Region type: %u src addr: 0x%llx dest addr: 0x%llx\n",
->   					be16_to_cpu(fdm_active->rgn[i].source_data_type),
-> @@ -482,7 +494,7 @@ static int __init rtas_fadump_process(struct fw_dump *fadump_conf)
->   			}
->   			break;
->   		case RTAS_FADUMP_PARAM_AREA:
-> -			if (fdm_active->rgn[i].bytes_dumped != fdm_active->rgn[i].source_len ||
-> +			if (bytes_dumped != source_len ||
->   			    fdm_active->rgn[i].error_flags != 0) {
->   				pr_warn("Failed to process additional parameters! Proceeding anyway..\n");
->   				fadump_conf->param_area = 0;
+v11: https://lore.kernel.org/all/20260513091043.6766-1-tzungbi@kernel.org
+- Rebase onto v7.1-rc3.
+- Squash patches 4 to 7 into patch 3.  A single patch for GPIO.
 
+v10: https://lore.kernel.org/all/20260508105448.31799-1-tzungbi@kernel.org
+- Unify handling of embedded and dynamic allocation.
+
+v9: https://lore.kernel.org/all/20260427135841.96266-1-tzungbi@kernel.org
+- Rebase onto v7.1-rc1.
+- Remove the selftests patch as it makes less sense to test revocable
+  APIs via kselftests.
+- Merge patches 7 to 11 from
+  https://lore.kernel.org/all/20260213092958.864411-1-tzungbi@kernel.org
+  into the series.
+- Merge patch from
+  https://lore.kernel.org/all/20250923075302.591026-5-tzungbi@kernel.org
+- Merge patch from
+  https://lore.kernel.org/all/20250912081718.3827390-6-tzungbi@kernel.org
+
+v8: https://lore.kernel.org/all/20260213092307.858908-1-tzungbi@kernel.org
+- Rework on the revocable APIs.  See changelog in [PATCH v8 1/3] for details.
+
+v7: https://lore.kernel.org/all/20260116080235.350305-1-tzungbi@kernel.org
+- Rebase onto next-20260115.
+
+v6: https://lore.kernel.org/all/20251106152330.11733-1-tzungbi@kernel.org
+- Rebase onto next-20251106.
+- Separate revocable core and use cases.
+
+v5: https://lore.kernel.org/all/20251016054204.1523139-1-tzungbi@kernel.org
+- Rebase onto next-20251015.
+- Add more context about the PoC.
+- Support multiple revocable providers in the PoC.
+
+v4: https://lore.kernel.org/all/20250923075302.591026-1-tzungbi@kernel.org
+- Rebase onto next-20250922.
+- Remove the 5th patch from v3.
+- Add fops replacement PoC in 5th - 7th patches.
+
+v3: https://lore.kernel.org/all/20250912081718.3827390-1-tzungbi@kernel.org
+- Rebase onto https://lore.kernel.org/all/20250828083601.856083-1-tzungbi@kernel.org
+  and next-20250912.
+- The 4th patch changed accordingly.
+
+v2: https://lore.kernel.org/all/20250820081645.847919-1-tzungbi@kernel.org
+- Rename "ref_proxy" -> "revocable".
+- Add test cases in Kunit and selftest.
+
+v1: https://lore.kernel.org/all/20250814091020.1302888-1-tzungbi@kernel.org
+
+Tzung-Bi Shih (3):
+  revocable: Revocable resource management
+  revocable: Add KUnit test cases
+  gpio: Leverage revocable for accessing struct gpio_chip
+
+ .../driver-api/driver-model/index.rst         |   1 +
+ .../driver-api/driver-model/revocable.rst     | 425 +++++++++++++
+ MAINTAINERS                                   |  11 +
+ drivers/base/Makefile                         |   2 +-
+ drivers/base/revocable.c                      | 302 +++++++++
+ drivers/base/test/Kconfig                     |   5 +
+ drivers/base/test/Makefile                    |   4 +
+ drivers/base/test/revocable-test.c            | 576 ++++++++++++++++++
+ drivers/gpio/gpiolib-cdev.c                   |  77 +--
+ drivers/gpio/gpiolib-sysfs.c                  |  31 +-
+ drivers/gpio/gpiolib.c                        | 259 ++++----
+ drivers/gpio/gpiolib.h                        |  28 +-
+ include/linux/revocable.h                     | 220 +++++++
+ 13 files changed, 1700 insertions(+), 241 deletions(-)
+ create mode 100644 Documentation/driver-api/driver-model/revocable.rst
+ create mode 100644 drivers/base/revocable.c
+ create mode 100644 drivers/base/test/revocable-test.c
+ create mode 100644 include/linux/revocable.h
+
+-- 
+2.53.0
 
