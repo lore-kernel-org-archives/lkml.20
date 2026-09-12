@@ -1,151 +1,219 @@
-Received: from mail-oo2-f11.google.com (mail-oo2-f11.google.com [74.125.231.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3917E3603DB
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 20:10:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CC273C4574;
+	Sat, 12 Sep 2026 20:13:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789243827; cv=none; b=axQ2YAnr6SDN5ch2XSxwCXGzVabSFWkgKTm8ljCsan8x6YVTwLfm4gxh0e822/mhYTTjTjedahxUDBUj+Q7nxJSPYqUHZSgwR55rU6auSEWTIF9crQ5FBR2JL+EtQm9rYYX35qst++aZD1yHg9rcJRihenPiTskdbcmXhb2ZBbs=
+	t=1789244008; cv=none; b=NKj/g4XPuBSsaGs+rm+TcVhkRbAax7h04NMbEwNQRYuXPRS7UZq9jV4BTI7Bt58xC2KdWtjImF/z7e4luGaYBw449PRwjayoZEjmMk5a1IhAZ8CsHYBCaH+qA4TbLDsTt7alwP+wBWZalc6nruWPQKzDFDT/w2AqX8hloHgOS2I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789243827; c=relaxed/simple;
-	bh=ezlL/05hTjc59M9JMSnCcVjSLETeIAlX4JiGnhjw1w4=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=U0fQULYFQKt6ILoIdRJlxxU6AuKS0/GgAwKskQS1sKHouAnXV13orsXEYNQ+gMVzkyy9RWtnetSx8s48PY3mDP+GO976/DPvWb7UPwZ7qYUJBBSXTXaSnJK50SiCRxpzUR7Nzf7PywvRs1C8yGw2ZZ7HOxS4c+d9iy0vx0uNGj4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo2-f11.google.com with SMTP id 46e09a7af769-8069d92e182so98807a34.0
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 13:10:25 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789243824; x=1789848624;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=NC5wIFrOLxpILKOliVtJmVWh7MhmLTBGqFSlaBXK+qg=;
-        b=TlMxa2V71INJVEIwPt7p+RvRShFpnUGBI/erayClrqfmWk5QulBOUj6yHiU7nOdVXX
-         h9zrlDTiQLGRMWlvlnECRgYlkm/R9t7QI5teAOfPEt+vz9MavEl/3bia7eOWlbUKa0l4
-         TaP6+tgqZ1pdzvcJXcHxwyRHCJBXG7DCljq/YO7WvzA+K29syGKQ7So6RubI9Xn4EHXc
-         o+j5NPKGUykpEJWqaQemQ/ZUfE3g+l5/CaU5QjuOH40Z122+SqFPgzTHvqUoZkplFc/R
-         9zGXfEYGBms/aD/ae16S/Mks/eR2JHf4hoikJeAWPW4DNalmdKUbN/RodmN63z6X+kc/
-         BJsA==
-X-Forwarded-Encrypted: i=1; AKwUvByePcWvfO6ugHC+EC7LZmbb4xN/Kslr3NJUi3n4yCj7aUbS29gklfVh4JGXsakaXagBKckVP2vRwmZcfw4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lwTjK1lsfb8j6FHLw8nLm86ganN1rz5GDzWLXfr7kuTUiNfMVD
-	JRQEmhohBzqMUMrVhga8U4h627Nk+SYTy8opq+sgjwfitxvL6uOV7abi+1r4nJrOIqlP7KCDpje
-	APW848NvzSdHyyRo6JL4jfk6TcleE7EZaPlZ+7tTuxlyU0byE6m6gwv4F4Qk=
+	s=arc-20240116; t=1789244008; c=relaxed/simple;
+	bh=+LYtuS6GivF/Heaxrik/xAxl7bZ6yvsuxawU1alxXz0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=pSBfw26z8q9Vnsbf8lj5YJnkFZyrXPqgPiiALBQG/DBAzJRHzgsBpLPOd9hvRHFwp8gGtnLYIAOKCCQxw8KdmeROtYtT4JonoZzRhn6v3kjtz+YOF5XLCNI/0Fi9QZnnMYRrB0zXLAeQhhIQFQjib2EZNZNnp9flf1hskRbcmE8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I0MmQ30h; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I0MmQ30h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C9CE1F00893;
+	Sat, 12 Sep 2026 20:13:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789244004;
+	bh=+NJwNoOVu5Lw2f15qRrrWFOurl539RxGcb8Qsu6qCEI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=I0MmQ30h5SiJq+iVMB+LoHrWxU7iu+LRN7wyVVy4A/D7qto9ZHf8XdClVJETygujI
+	 zIW4yw3u6f6RzEL9glKC9/xM/40dnOb0vPNczffwUIM5x8goXwgJal1F/ENE+I73wn
+	 UBXl2nAN1241vMF/GsQNLU5Cdn8mwAu/Plg/jMAO4UuNFNKbJoCTH7l4EChE5ts20U
+	 fASguPrLxwrm0Gf6KIPKGrvIpLP9+O+vO4QxzNYqs56V0PBBP9ZfoO67DRrjC2csQu
+	 k/08PfDMeS2T4CmqNOKx1ihf90sSyvqe+FDKQtjZj0q1ngf7Kh26aQnSMU1iEQuadj
+	 2+Z2XHCPJuxrA==
+From: Jakub Kicinski <kuba@kernel.org>
+To: coiaprant@gmail.com
+Cc: Jakub Kicinski <kuba@kernel.org>,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	pabeni@redhat.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	heiko@sntech.de,
+	vkoul@kernel.org,
+	maxime.chevallier@bootlin.com,
+	mcoquelin.stm32@gmail.com,
+	alexandre.torgue@foss.st.com,
+	prabhakar.mahadev-lad.rj@bp.renesas.com,
+	romain.gantois@bootlin.com,
+	hkallweit1@gmail.com,
+	neil.armstrong@linaro.org,
+	linux@armlinux.org.uk,
+	shawn.lin@rock-chips.com,
+	david@ixit.cz,
+	netdev@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-phy@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH net-next v4 03/10] phy: rockchip: naneng-combphy: add SGMII MAC selection for RK3568
+Date: Sat, 12 Sep 2026 13:13:22 -0700
+Message-ID: <20260912201322.126940-1-kuba@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260907153713.2572547-5-coiaprant@gmail.com>
+References: <20260907153713.2572547-5-coiaprant@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:2d04:b0:6c1:f832:9b6a with SMTP id
- 006d021491bc7-6c24e671d43mr2171106eaf.33.1789243824191; Sat, 12 Sep 2026
- 13:10:24 -0700 (PDT)
-Date: Sat, 12 Sep 2026 13:10:24 -0700
-In-Reply-To: <6a8b254b.91706f20.16b6e3.02c9.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa5b1b0.f81106d8.2ab401.002f.GAE@google.com>
-Subject: Re: [syzbot] [wireless?] memory leak in ieee80211_mesh_csa_beacon
-From: syzbot <syzbot+f5752cd6b94fe38be666@syzkaller.appspotmail.com>
-To: johannes.berg@intel.com, johannes@sipsolutions.net, kartikey406@gmail.com, 
-	linux-kernel@vger.kernel.org, linux-wireless@vger.kernel.org, 
-	netdev@vger.kernel.org, nico.escande@gmail.com, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-syzbot has found a reproducer for the following issue on:
-
-HEAD commit:    5225b8eec4c9 mailmap: update entry for Jens Axboe
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=1172e9f9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=736c81750115a056
-dashboard link: https://syzkaller.appspot.com/bug?extid=f5752cd6b94fe38be666
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=12a9b615580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=15d870c9580000
-
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/12d5d066d792/disk-5225b8ee.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/f9bb3f95e482/vmlinux-5225b8ee.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/84ee8de2ba4a/bzImage-5225b8ee.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+f5752cd6b94fe38be666@syzkaller.appspotmail.com
-
-2026/09/12 20:09:52 executed programs: 5
-BUG: memory leak
-unreferenced object 0xffff888107ffb800 (size 1024):
-  comm "syz.0.18", pid 5913, jiffies 4294943824
-  hex dump (first 32 bytes):
-    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-    d8 23 48 14 81 88 ff ff 00 00 00 00 00 00 00 00  .#H.............
-  backtrace (crc f81fd0):
-    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
-    slab_post_alloc_hook mm/slub.c:4696 [inline]
-    slab_alloc_node mm/slub.c:4996 [inline]
-    __kmalloc_cache_noprof+0x38f/0x420 mm/slub.c:5559
-    _kmalloc_noprof include/linux/slab.h:991 [inline]
-    ieee80211_mesh_csa_beacon+0x2e/0x100 net/mac80211/mesh.c:1547
-    ieee80211_set_csa_beacon net/mac80211/cfg.c:4674 [inline]
-    __ieee80211_channel_switch+0xb22/0xed0 net/mac80211/cfg.c:4795
-    rdev_channel_switch net/wireless/rdev-ops.h:1168 [inline]
-    nl80211_channel_switch+0x39b/0x780 net/wireless/nl80211.c:12388
-    genl_family_rcv_msg_doit+0x12e/0x1a0 net/netlink/genetlink.c:1114
-    genl_family_rcv_msg net/netlink/genetlink.c:1194 [inline]
-    genl_rcv_msg+0x302/0x440 net/netlink/genetlink.c:1209
-    netlink_rcv_skb+0x89/0x1c0 net/netlink/af_netlink.c:2556
-    genl_rcv+0x28/0x40 net/netlink/genetlink.c:1218
-    netlink_unicast_kernel net/netlink/af_netlink.c:1319 [inline]
-    netlink_unicast+0x38f/0x4e0 net/netlink/af_netlink.c:1345
-    netlink_sendmsg+0x335/0x690 net/netlink/af_netlink.c:1900
-    sock_sendmsg_nosec net/socket.c:800 [inline]
-    __sock_sendmsg net/socket.c:815 [inline]
-    ____sys_sendmsg+0x54a/0x580 net/socket.c:2713
-    ___sys_sendmsg+0x101/0x140 net/socket.c:2767
-    __sys_sendmsg+0xcd/0x140 net/socket.c:2799
-    do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-    do_syscall_64+0xe9/0x530 arch/x86/entry/syscall_64.c:84
-    entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-BUG: memory leak
-unreferenced object 0xffff888107ff8400 (size 1024):
-  comm "syz.0.19", pid 5915, jiffies 4294943825
-  hex dump (first 32 bytes):
-    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-    d8 23 48 14 81 88 ff ff 00 00 00 00 00 00 00 00  .#H.............
-  backtrace (crc f81fd0):
-    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
-    slab_post_alloc_hook mm/slub.c:4696 [inline]
-    slab_alloc_node mm/slub.c:4996 [inline]
-    __kmalloc_cache_noprof+0x38f/0x420 mm/slub.c:5559
-    _kmalloc_noprof include/linux/slab.h:991 [inline]
-    ieee80211_mesh_csa_beacon+0x2e/0x100 net/mac80211/mesh.c:1547
-    ieee80211_set_csa_beacon net/mac80211/cfg.c:4674 [inline]
-    __ieee80211_channel_switch+0xb22/0xed0 net/mac80211/cfg.c:4795
-    rdev_channel_switch net/wireless/rdev-ops.h:1168 [inline]
-    nl80211_channel_switch+0x39b/0x780 net/wireless/nl80211.c:12388
-    genl_family_rcv_msg_doit+0x12e/0x1a0 net/netlink/genetlink.c:1114
-    genl_family_rcv_msg net/netlink/genetlink.c:1194 [inline]
-    genl_rcv_msg+0x302/0x440 net/netlink/genetlink.c:1209
-    netlink_rcv_skb+0x89/0x1c0 net/netlink/af_netlink.c:2556
-    genl_rcv+0x28/0x40 net/netlink/genetlink.c:1218
-    netlink_unicast_kernel net/netlink/af_netlink.c:1319 [inline]
-    netlink_unicast+0x38f/0x4e0 net/netlink/af_netlink.c:1345
-    netlink_sendmsg+0x335/0x690 net/netlink/af_netlink.c:1900
-    sock_sendmsg_nosec net/socket.c:800 [inline]
-    __sock_sendmsg net/socket.c:815 [inline]
-    ____sys_sendmsg+0x54a/0x580 net/socket.c:2713
-    ___sys_sendmsg+0x101/0x140 net/socket.c:2767
-    __sys_sendmsg+0xcd/0x140 net/socket.c:2799
-    do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-    do_syscall_64+0xe9/0x530 arch/x86/entry/syscall_64.c:84
-    entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-connection error: failed to recv *flatrpc.ExecutorMessageRawT: EOF
-
-
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
 ---
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+phy: rockchip: naneng-combphy: add SGMII MAC selection for RK3568
+
+This adds a "rockchip,sgmii-mac-sel" DT property to the RK3568 combphy
+driver so the SGMII interface can be routed to GMAC0 or GMAC1 through the
+pipe GRF pipe_sgmii_mac_sel bit. The value defaults to 1 (GMAC1) when the
+property is absent, and is written during PHY_TYPE_SGMII configuration.
+
+Link: https://dl.radxa.com/rock3/docs/hw/datasheet/Rockchip%20RK3568%20TRM%20Part1%20V1.1-20210301.pdf (Page 229)
+
+A few questions below.
+
+> diff --git a/drivers/phy/rockchip/phy-rockchip-naneng-combphy.c b/drivers/phy/rockchip/phy-rockchip-naneng-combphy.c
+> index 7843356a4dd47..919bb97a4b182 100644
+> --- a/drivers/phy/rockchip/phy-rockchip-naneng-combphy.c
+> +++ b/drivers/phy/rockchip/phy-rockchip-naneng-combphy.c
+
+[ ... ]
+
+> @@ -212,6 +213,7 @@ struct rockchip_combphy_priv {
+>  	bool enable_ssc;
+>  	bool ext_refclk;
+>  	struct clk *refclk;
+> +	u32 sgmii_mac_sel;
+>  };
+>  
+>  static void rockchip_combphy_updatel(struct rockchip_combphy_priv *priv,
+> @@ -375,6 +377,9 @@ static int rockchip_combphy_parse_dt(struct device *dev, struct rockchip_combphy
+>  
+>  	priv->ext_refclk = device_property_present(dev, "rockchip,ext-refclk");
+>  
+> +	priv->sgmii_mac_sel = 1;
+> +	device_property_read_u32(dev, "rockchip,sgmii-mac-sel", &priv->sgmii_mac_sel);
+> +
+
+[Severity: Medium]
+Since the return value of device_property_read_u32() is discarded here,
+rockchip_combphy_parse_dt() cannot distinguish "the DT asked for GMAC1"
+from "the DT said nothing about the mux".
+
+The result is that rk3568_combphy_cfg() writes PIPE_GRF 0x0040 bit 1 on
+every PHY_TYPE_SGMII bring-up, including for device trees that do not have
+the new property. Before this patch that bit was never touched, so whatever
+routing the SoC reset or the boot firmware established was left alone.
+
+The commit message states:
+
+  "The hardware reset value is GMAC1 (1). If the property is set to 0,
+  the driver routes SGMII to GMAC0; if set to 1 (or omitted), it
+  remains at GMAC1."
+
+The "or omitted" case now depends entirely on that reset value being 1. If
+the reset value is actually 0, or if firmware routed SGMII to GMAC0 on a
+board wired that way and its DT lacks the property, does phy_init() still
+return success while the XPCS ends up attached to the wrong MAC, giving a
+link that never comes up and no message explaining why?
+
+Would it make sense to only write the bit when the property is actually
+present, for example:
+
+	if (!device_property_read_u32(dev, "rockchip,sgmii-mac-sel",
+				      &priv->sgmii_mac_sel))
+		priv->sgmii_mac_sel_valid = true;
+
+so that omitting the property leaves the mux untouched?
+
+>  	priv->phy_rst = devm_reset_control_get_exclusive(dev, "phy");
+>  	/* fallback to old behaviour */
+>  	if (PTR_ERR(priv->phy_rst) == -ENOENT)
+> @@ -873,6 +878,8 @@ static int rk3568_combphy_cfg(struct rockchip_combphy_priv *priv)
+>  		break;
+>  
+>  	case PHY_TYPE_SGMII:
+> +		rockchip_combphy_param_write(priv->pipe_grf, &cfg->pipe_sgmii_mac_sel,
+> +					priv->sgmii_mac_sel > 0);
+
+[Severity: Low]
+The binding added in the preceding patch of this series declares the
+property as:
+
+  rockchip,sgmii-mac-sel:
+    $ref: /schemas/types.yaml#/definitions/uint32
+    enum: [0, 1]
+    default: 1
+
+but "priv->sgmii_mac_sel > 0" collapses the value to a boolean, and
+rockchip_combphy_parse_dt() does no range check.
+
+Does that mean a device tree setting the property to 2 or 0xffffffff is
+silently treated as GMAC1 rather than rejected? Similarly, a
+present-but-malformed property (wrong length or type) makes
+device_property_read_u32() fail, and the pre-seeded default of 1 is used
+with no diagnostic.
+
+dtschema only validates in-tree device trees, so for bootloader-supplied
+DTs or overlays the driver is the only place the enum can be enforced.
+Would checking the value against {0, 1} and returning an error, or
+alternatively documenting the property as a plain flag, close that gap?
+
+[Severity: Low]
+The mux write is only added to the PHY_TYPE_SGMII case. The adjacent
+PHY_TYPE_QSGMII case in rk3568_combphy_cfg() programs the same pipe-grf
+register (pipe_xpcs_phy_ready at offset 0x0040 bit 2) but never touches
+the MAC-select bit:
+
+	case PHY_TYPE_QSGMII:
+		rockchip_combphy_param_write(priv->pipe_grf, &cfg->pipe_xpcs_phy_ready, true);
+		...
+
+The binding gates the property on the compatible only, not on the PHY
+type, and rockchip_combphy_parse_dt() runs at probe time before the PHY
+type is known from rockchip_combphy_xlate().
+
+If a device tree sets rockchip,sgmii-mac-sel on a combphy that a consumer
+later claims with PHY_TYPE_QSGMII, is the requested routing simply dropped
+with no warning? If the property is meant to be SGMII-only, would
+rejecting or warning about it for other PHY types make that explicit?
+
+>  		rockchip_combphy_param_write(priv->pipe_grf, &cfg->pipe_xpcs_phy_ready, true);
+>  		rockchip_combphy_param_write(priv->phy_grf, &cfg->pipe_phymode_sel, true);
+>  		rockchip_combphy_param_write(priv->phy_grf, &cfg->pipe_sel_qsgmii, true);
+> @@ -984,6 +991,7 @@ static const struct rockchip_combphy_grfcfg rk3568_combphy_grfcfgs = {
+>  	.con3_for_sata		= { 0x000c, 15, 0, 0x00, 0x4407 },
+>  	/* pipe-grf */
+>  	.pipe_con0_for_sata	= { 0x0000, 15, 0, 0x00, 0x2220 },
+> +	.pipe_sgmii_mac_sel	= { 0x0040, 1, 1, 0x00, 0x01 },
+>  	.pipe_xpcs_phy_ready	= { 0x0040, 2, 2, 0x00, 0x01 },
+>  	.u3otg0_port_en		= { 0x0104, 15, 0, 0x0181, 0x1100 },
+>  	.u3otg1_port_en		= { 0x0144, 15, 0, 0x0181, 0x1100 },
+
+For reference on the first two comments: this disable/enable encoding
+({ 0x0040, 1, 1, 0x00, 0x01 }) is what maps the DT value onto GMAC0/GMAC1,
+and rockchip_combphy_param_write() always sets the write-enable mask:
+
+	tmp = en ? reg->enable : reg->disable;
+	mask = GENMASK(reg->bitend, reg->bitstart);
+	val = (tmp << reg->bitstart) | (mask << BIT_WRITEABLE_SHIFT);
+
+so the bit is committed to hardware on every SGMII bring-up regardless of
+whether the device tree expressed a preference. Could the TRM bit polarity
+and the claimed reset value of 1 be confirmed in the commit message?
+
+Note that no in-tree Rockchip device tree requests PHY_TYPE_SGMII before
+this series, and the only user (rk3568-photonicat.dts) is added later in
+the series, so nothing in-tree changes behaviour today.
