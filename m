@@ -1,318 +1,196 @@
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011066.outbound.protection.outlook.com [40.107.208.66])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2559F3630A5;
-	Sat, 12 Sep 2026 08:50:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.66
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789203047; cv=fail; b=SqEIMq0wWjRQMk4H87mPcNPEf0prbswK89Wa2dTr+8N6/+C3tzjj5zwhZSZE/WK40gpoIXP71bBG+Or4hkndPhVU29MqNlQDfvdBchoI4y0NQ1YRwYg11xEH135pD9bHddID4dH6Mx/MTSWkA3s4/95saDISg+dk3XAxUEyoxFc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789203047; c=relaxed/simple;
-	bh=RrhN5Pgr9JBHp4EobJhwEv9BrCt1zRj4whCoND/C/OM=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=DPRyX4cZna+MH+oe+oGhve6k2bIuRR+jfIJPCncKVDSqW6kLQFWpRmdyJChSzcVz2Q+tIrxVT3wkQyM6+Ta9dEpcJRzuGKzUC1L8A88WoKTNP5Kparr3GdnI2e8tdNiWw9XEkar62/ePiuabA5FrMMB2S/WnBXeFPKcOfm92bYw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=EhfAMRNI; arc=fail smtp.client-ip=40.107.208.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC0B837189C
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 08:52:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789203174; cv=none; b=Nmr6Le933LHQD6hxlSQ4WcO/cBIq6qa98RW/kMqKy3UHoXTVMHCW9YzHgGRqRoAQwahKbhggoVl/C4ce4MynQGbUVqc/x0IfQBWD1sjWUmPTxMGeSGGapEMa7eyutzOwOAo4V2D+mYlqNhAkBkE4qJ/y2sNMSxYYOWGVmsYH0lY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789203174; c=relaxed/simple;
+	bh=dquZraZjSq1eNM+T01tcQIrz2JYvFIRH7UkrcXngR/g=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=ERQMp4zbbm0j46TYFHwZqVGq+HyouvTxUij9xQRMmM5dRvXvX9+cL5P+3BDH8xFB4OFj/MxbD3zYRJsqHOcAhrelqq0c1P5UvgBLlDURD5R28yU/R3bUPxT79t6U2EMsI7E8n/b/DbhZB6mkkB1vhbeKAPwiROU3pQomSopLTtE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=cAAHydwN; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=e18SaTpT; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="EhfAMRNI"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HM8pJP2s006WGatT5SZ9GpadKOl6EjUaUc+bGNS+tA6nrVl51EoVFY1vtlyTWcS94eBPmiKS+xfh+2wNeKUJGUGIVOm9Ezidiuw2XasY5y5tLZNV3/w0jKtgD1s+1w3r7SYPMmqP5cMQeydOa3rP+0R+nnh9ZisS8n2vZxDTc7fVv2rMudMcln16zZgsOvNa17SJO13NwWCPw3ZQ2PzKXSjgkOxJ5PJvL8x/ot6C6PioXnw1mZIy82DDPOwxi0Q2joeLND+sbWtvVhlcuYxM7tYyLIMNBR0yqB0AfpoETv4pfKVxUmVaiMjv7mx7Sto81FXozIPSgnrGSzLfwycklw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6QrEV81hEs0XdDmfsFztPPv4A+sFjqm0H86GVY2rbOE=;
- b=WwoNwA7oa9lBveTyMv7kBtotGcoFnf1Iwp/0AQqfx/qdohaCN59S9/U90suSDY3S3cNqw/wCUJn/PdmWT+fKM/kc2MyZ5mwdKi3mN+hbZx2c/7MBngaif/Puway5Kz9Z8/oBUfqaemJ1Ja5xIsMKCD7DmMJrASX92iTyW2GB8rAmY6uS9BNmJ9aMCtEzyTT6XsMWfUuu8jYCrJS2w+BTIVbOXdXT5AytU10/5DvoI7I3s6FSLIth3rN8rwk+MYk/SC5+ShopE6Dw7agn0Z33f8w/JoATMiU1YMHd360F8mPAMcSQXWZuKQYBmkkFVQ/IbAsLsgbhxyAFY2jQ0i6ctw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6QrEV81hEs0XdDmfsFztPPv4A+sFjqm0H86GVY2rbOE=;
- b=EhfAMRNIVNsk/yxKiPS/wvqUyV/mPCrHROt7CaS+Tp6rDvNlIJeVrxKSLEyC90QXkVEzIrAsSSdBHil+pKuSgVAW8wUjUj3hHMBrZo6iCdYQn9uqFygfyAywL1R3o+sHy7jzXTQqu+cofB3bsRPHqeAdhKElUfYAUhH1y8QCQ44=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS2PR12MB9567.namprd12.prod.outlook.com (2603:10b6:8:27c::8) by
- CH3PR12MB7713.namprd12.prod.outlook.com (2603:10b6:610:14d::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.11; Sat, 12 Sep
- 2026 08:50:38 +0000
-Received: from DS2PR12MB9567.namprd12.prod.outlook.com
- ([fe80::636:1b52:24ca:d7e5]) by DS2PR12MB9567.namprd12.prod.outlook.com
- ([fe80::636:1b52:24ca:d7e5%4]) with mapi id 15.21.0406.007; Sat, 12 Sep 2026
- 08:50:38 +0000
-Message-ID: <1d88a835-5417-4314-b166-47e1ad09bead@amd.com>
-Date: Sat, 12 Sep 2026 14:19:34 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/8] soundwire: amd: fix SDW command timeout return value
- handling
-To: Mario Limonciello <mario.limonciello@amd.com>, vkoul@kernel.org
-Cc: yung-chuan.liao@linux.intel.com, pierre-louis.bossart@linux.dev,
- Basavaraj.Hiregoudar@amd.com, Sunil-kumar.Dommati@amd.com,
- venkataprasad.potturu@amd.com, Syed.SabaKareem@amd.com,
- Richard.Gong@amd.com, linux-sound@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260910190240.1604447-1-Vijendar.Mukunda@amd.com>
- <20260910190240.1604447-2-Vijendar.Mukunda@amd.com>
- <813fafd9-64fd-4f0c-9aa6-37fba57a1f4a@amd.com>
-Content-Language: en-US
-From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
-In-Reply-To: <813fafd9-64fd-4f0c-9aa6-37fba57a1f4a@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN2PR01CA0026.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:25::31) To DS2PR12MB9567.namprd12.prod.outlook.com
- (2603:10b6:8:27c::8)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="cAAHydwN";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="e18SaTpT"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68C84wrj2443090
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 08:52:51 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=JBHFKISvb5GpVQD3ZIst72
+	axNU1WVodRSK6PtMFk5sM=; b=cAAHydwN5dNGUGUMFXpisq/Iq0RO/ru1PTNKhK
+	zgjYiDXkNln1quw5I50Sb0gMm+HcficYy3izkgODOkw/NFQtwDGX1JXUJUIWz3Mo
+	/Wtf23DYrFhkN87N6yvH+3JCLxQIBjEZ9NQTMydXhjCjkveTbXv7HxuUHO8YoIAQ
+	zvuWkUX6hPc1M1/no8didy0oBYmUOSZZFBQZfU65re+5FtB1p3HSWXGcfy6rMANp
+	ctPggWEuW9xwZ9MqREqofKCXa+zTGNYOXEYgadusZpCdb2iRvMfNBEklVP6pEqPq
+	Gv9PKaEPu83VwK43p0Fce7HgvaylYYroKO7/TOuO5DLUwjxQ==
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9c0hj3-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 08:52:51 +0000 (GMT)
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc42a07d04aso1499179a12.1
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 01:52:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789203171; x=1789807971; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=JBHFKISvb5GpVQD3ZIst72axNU1WVodRSK6PtMFk5sM=;
+        b=e18SaTpT7w9K4ZnNcaORhoMNCx76gTmRjQv3GXtA5M3MNxNXXsnXnc3RhP5ObMAqnW
+         1OJD/XoQ0hiOUCF8ObU0gxA2S4y1sjOEs9OQIn4nfkE7KTvdRwHXAW1XlC3auW8egpgK
+         1qp7z+JjE7gLrugInazxiL59UF2nisF725LV2CWsCyLG8OBxfk3Pg6TEyun+SOiasS2F
+         vS0+L+uSsBJGNk5QSiRi0yflc6Nl0C03oV3F4CrPbms6+uDmFoje2PASpmd3ky/ZHZLN
+         ZwW/sJ7neqmT4uHEo/C+sm3th2/Kaaz/R6OcrBq1p2HE1Z/RCTxoFGXjXJUHpUhukpTp
+         jdiw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789203171; x=1789807971;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=JBHFKISvb5GpVQD3ZIst72axNU1WVodRSK6PtMFk5sM=;
+        b=klPqcuRorwcFu4lFw+z4UMF2ybE5qgev/55h17YrSCOo9GV8y/xCe/h580WwXWzyvz
+         VA9f4Gv1OkC2eUu13jAycj8iOgvORb5VzgcpJL4UlVQQX2K9+mvfc9CfVqcm75XwufEg
+         +zHwE5u19aV4KYqueuMLkA47EOupbUJY8Wj9EMp7l3TK02PywRp8BaRxg6NO0XiyVV8k
+         bP09FprJicwqiEfVsA3PHds/yqhCTPfM7h2gx4ENMIoggg3R+SKP12gBC6IzRkSmTvg6
+         VncXUglx5zdMLewkE6k/fQW2YDZwyq+pZuiqxxWcip50OAPTLL+X3jHK4i7Efte65lhJ
+         WxpQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwQku+otSuSMKcYJUdaEN76ZHoDWUZyrRoYomR8MTPuSs8dk1d79KkoLbRxj4koR1B0cLhE4/zJHFb5X+0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lspkQZ7ZbMqUKwQx6nA2AuSmR4Qle5i+E7O+deV3sUOmY00weF
+	w1fsRnMpi9A/JMLVsTRxUr5GkyzkmcdfTj1h3x0FoSXqdAIPLf4A7Bokg6ObVUH0zoJBIHR2Kv/
+	xwPM+UzkoWFjZdSgjVQThbzaUQC16yuoLH4MfuY1YNnhnLhaKrkwTCeC8zMO2IhItcpY=
+X-Gm-Gg: AYBFou33vZP6py2QJt8/wJ5C4Yhmy9yftxhHc/K+Wr/OnYSwY07H0jWJ6M3wIljbDpE
+	8tXb0eQtpdf/u1PKXjOCawBmoX9qviasPrHXpx0lfXoUgwrVlIIdC2DmZZ9SeiZLFrTMsjgYs1Q
+	kiI2oY/nmZTSSOBT92XKxv2pRHC74Sf8UYlmmUta9w/I/X42/oMi5Ln1d8Sn5Nf782H9yX3sOBN
+	TTEZx0jyKrZfeakhnN7OVfHBHt36jDR/VWDP8SPjZbxYmqlcqxOP3GHnAt1/Y1V+GxPHAhQ6KmH
+	c26ejBabi3ru1wNH1tM0Lmf9d3ndWhT3E7qtj0wWGm1HY+5gSyl/TV0tzQnprLG8ibHblm2nA+9
+	jkFiM9ZwnzLj+atKY1XuP+PL714zaWQj91tgX6t57S9YP5e+vHhg/BBso1sDEhc65kOnfW/Kt0g
+	==
+X-Received: by 2002:a17:90a:da8f:b0:398:d6e8:f84e with SMTP id 98e67ed59e1d1-39d9bd6976amr12162606a91.9.1789203170740;
+        Sat, 12 Sep 2026 01:52:50 -0700 (PDT)
+X-Received: by 2002:a17:90a:da8f:b0:398:d6e8:f84e with SMTP id 98e67ed59e1d1-39d9bd6976amr12162576a91.9.1789203170296;
+        Sat, 12 Sep 2026 01:52:50 -0700 (PDT)
+Received: from congzhan02.ap.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d9afa367bsm2721832a91.0.2026.09.12.01.52.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 12 Sep 2026 01:52:49 -0700 (PDT)
+From: Cong Zhang <cong.zhang@oss.qualcomm.com>
+Date: Sat, 12 Sep 2026 16:52:44 +0800
+Subject: [PATCH v2] virtio_blk: use synchronous quiesce in
+ virtblk_freeze_priv()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PR12MB9567:EE_|CH3PR12MB7713:EE_
-X-MS-Office365-Filtering-Correlation-Id: 709bfecc-d515-4d63-f35b-08df10aaeaba
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|11063799006|56012099006|4143699003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	WA8FjBSjd4JxXD/ZHCP2yTJRpoX9fDUYUNZ6exG9kQFOImeFybtX3YhXSAimq7rEnz/SJxpGCw1/w/DLmovPjhZDUFysQHyNxhBJNOfRQ/8cUK1DfKwf0BbqS1/YqznTpj/n7F6pyG0FTMUX0PzyX4uUAZKlmUIERBS9Z+Smpzr269ODu+YqpXXB0aAjMt/d1Y9Qrc8CAMBwzJptb8Y60v54mQpHXIc8tJNp9FrV5EI5gBfPDuYZP8RVw/h7v6GxtesbhxXZntl1gMQZoTNs72CuXfMaAucUBybKBXBfy9R/b7XqVwiiymje4g+3qrW6vXD4F2K5tt8N7haeAOxRTg8jOTH4nAzIJDAR+rBHeWLEyPo0tjz7RMAEgtFr7tqHLLKIpwXASyhnSF99A9N6kjk5tzZ3JeKQjWnZ+CuScKOfNP0ya9c3tuUgyH4IkVCZV6DyqpgxCwvbjeUKv8eWjuxd8pXCg2VyXGcB7+TwRjnMOgzb40eFaYbRicy6tgpPA1OtQlKop8aJ/j3AzyfE4XxEruCRe0vjW8H9yZcaLdoXSnO2EHDu6++kAaQEqmf1MLS3A8++ZhZq+MwnkRGbmo6hCAvAb409TKm7/98BAJdRAaTo2by2/BrXkXM2C7qb0V9DJl7bh+8YAkkyiwdgqQTdBDwTRNGIAQvcUAh4oTE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS2PR12MB9567.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(11063799006)(56012099006)(4143699003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RGlrV3FtWll0Vk9TdThWRXhlMGZNdnRsVTNYaHdxVjBud0M5ZFBXZytoM25Y?=
- =?utf-8?B?WFdFSmlaL1Z4a0paRytXU01UZnVCLzhlLzlnYldBK3F6eEFjN0U1S3pOY25E?=
- =?utf-8?B?UEQ0N3BZODNnVTRFeFJ5ZTFkMWVrRzBuS3ZUam8xVU4wZm9TcWV0Nk5SaHF4?=
- =?utf-8?B?MkJlSXN0Rkh6eGhOcWVOVXc5dDlWNHB0WjZhRC9BQWFCeVNWQU0zbzlUZ0Fi?=
- =?utf-8?B?V2ZWVnR3N1dRWmtJT2xJN3hYZUVJQWdKV2hXVi9MNmNHM1dGaTZBZWxXaytV?=
- =?utf-8?B?Tm15OFJ2TEtJZG1IaDVTWlMxWXhmNUdBekdhaTQrWnBUSHdsa1ZqL3c1OC9p?=
- =?utf-8?B?RVczZFpJSGhCaHdDZm1iWTk4STFhK1U2UWtNajVPWVpRK2lLQnVkQS9taExz?=
- =?utf-8?B?RTIxRUtHZlJrVzdnNFc3UUM5WjYwTnJONHJra3hIbVc3U1hnbFVtVS9UM3RY?=
- =?utf-8?B?RFAxVklGNkNaRW5ScXU1V0VwK1JsSzFlYTJ0ckhINnNxRTE1WjJiL2VPU1Bm?=
- =?utf-8?B?R0pOMnhpSUU2MzVnRjU5bTNVT00wRHYwTndGelVZZnhkazZIUllWWGNFdDdw?=
- =?utf-8?B?VkVDQkU5bytybWk1bEpWSjZsUWNVdmxlQUZmcksxR2t2Um44ZHgvMmZHdk42?=
- =?utf-8?B?OVFVSFd4WkRaOENrQTZKNmptc08vVURudncwdUY1czlHNmszZ1c3TUxOT2NO?=
- =?utf-8?B?M3hpTExPZXplTGdCUjZ6SUpQd2U0UUFqWXZJVUNXMTVKR3BINmFiYVVmY3RM?=
- =?utf-8?B?T3VVRmlXMlhtdXR5ZGEwWTFyK0EyK094a0p0N2VBOEc1NlVxeGtoWkFZMmhs?=
- =?utf-8?B?WXZ0ZjFrc3BuQ0pOczdQRWZOc1VxRndhelMvMEZNYktwVmdPUWFwU2FBUkdU?=
- =?utf-8?B?Q3NLNjdvUmxpYWZob3MyVHJ4VU9sSlM4Yi9UK3Q1c3gzUzUwYUtTbkIwK2Fr?=
- =?utf-8?B?SlpTeCtwOTJnV28wcmRyTEZaUHRXaFAyOGVoQXJ6NS9sWmJTRmgycXB5MjNO?=
- =?utf-8?B?a2RONGhqLzZoK1ZKSG5kSnh4TC8vWmtFSUp4aDhsam10bWJQNGdFOTU0SUFB?=
- =?utf-8?B?L3g2aHY1K2ZCTDB6VGQ1Nk1jbTZCQ2xDMkJLckRhMVE4aG9UU1d6MlMrMzlL?=
- =?utf-8?B?SnVHOWloUnFzUHRTaW1EQVFzdTRxQXNsZG9mZnJIYkpSWTViTU1nNThTaU5M?=
- =?utf-8?B?NmdxL2hxNDdwYUU2UGQxUDVwWUVwUXlXNk1xKzUzMFJJWUFSUENSSWl1MktZ?=
- =?utf-8?B?UUVuRllZL3R5RmFjSnNPUlQ4TWZIcEsySTVaeE9sTFVkVWpmNC9DMU5HeGl6?=
- =?utf-8?B?Vy9BSjZnQ0F4YjljdTNqQmx0NVhMSzhmY1hGenFabEVPZ0o5bFdoSEpoZk5E?=
- =?utf-8?B?V0libVM1bFVmeW9BYTJnZXFrclU2YWhNNUZrQjJZZ3BINGQwcXZpZlBqRVNO?=
- =?utf-8?B?NkV5NVJtellvSE53aFhhTUNUalhpQzl5STFxYnFOSU03aFpuOGxpRnpMTlkw?=
- =?utf-8?B?Zjd0UlJnQjJOOTJraUV6VXRsYm1lNU5JRUFiWlN3NTBZRE02b3B2eFlrUVFR?=
- =?utf-8?B?d2RIM2JTYmpvdVlBOTdDNjM5VGIrUitpMlhEb0FBZkowbXZsaWF1dks1aHpN?=
- =?utf-8?B?TERIUnQ0aTM2REQxRnBYVWRPa05aWExEZ2RqbFNXN3dIa29ZWHhtcHpqRE1m?=
- =?utf-8?B?V3NZSFEvUmM5elNJT1FDNzlyT0w3eHZYWS8rOUNzS0xyMjR4b3dnMVBUYjBS?=
- =?utf-8?B?VDdwNnFZK3JvckZPNGJCYUVPRVhzYVc4cm9TZUpabHBLYkdmZTBXWUJjWnYw?=
- =?utf-8?B?cWlQWU9SY3N0UllhT0xPcWE1SGJGYlQ2bWRsRHZFWm1FT0FUSGlsK29JK2lt?=
- =?utf-8?B?R0R2WFpUTFhMS3hpZXhGSHhtZ1ZsNEJZdnkxTjg4dW5hNXIvdXRmRDVNQ2Y2?=
- =?utf-8?B?U1Q2WENqU0x5RjYwVDA3MU04Rll0dXlhSGVMY2E3Ni9sQ3dCMWNnZkQ4Vlgz?=
- =?utf-8?B?ZElEKys4SWRPLzNVbDcxandUWWJ5c0t1WGxaN0RoMGlHRmhCcmN3SjhjaGRq?=
- =?utf-8?B?UWpuRWlMMDNWQXByeUZydVVMVGkreEt3MFVCaThUUTlSUzRGbjJQRHdBL051?=
- =?utf-8?B?ck02Tkk1ZEtsVnhTVFVNZnUwOWNFVkdiSnhpZFZIYmtmUDM5bDliQkYyejcx?=
- =?utf-8?B?UWNaaWw5YUNTN3Zub0NacG11T201YlNRWmY3Nmd2Ym5SZk9MS0NGZEVmNVdI?=
- =?utf-8?B?N0hnRjZ0cG12MGxpZTB0Z1hYZnBZKzlSUzBYWFhYR2xVbWhkY3NhYVhJeWow?=
- =?utf-8?B?YlpoQlovODhoeTY2MHdKZ1N2eSt2azlENW5GeG96WUsyT3dpYXpOdz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 709bfecc-d515-4d63-f35b-08df10aaeaba
-X-MS-Exchange-CrossTenant-AuthSource: DS2PR12MB9567.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Sep 2026 08:50:37.9810
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LYt/sPjjtmmzPMEJrgfeIe9RUHUam4z4dM9E4HEUUWB9aj3lzGyB530bl2KDT1B1/cGbZaVNFpHyqpGXf9Vk8w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7713
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260912-virtblk_sync_quiesce-v2-1-09a001549b72@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIANsSpWoC/22Nyw6CMBREf8XctSW0PFJc+R+GEChFrgKVXmgkh
+ H+3YNy5meQkM3NWIG1RE1xOK1jtkNAMHsT5BKoth7tmWHsGEYo0zHjIHNqp6p4FLYMqxtlvlWZ
+ ZJZSUdZzEPAU/fVnd4Pu4veVfprl6aDXtX3ujRZqMXQ6v43vvp+D/FY4zzkopo0Y2EReJvBqiY
+ JzLTpm+D3xAvm3bByMsulHRAAAA
+X-Change-ID: 20260910-virtblk_sync_quiesce-9b2c88d45416
+To: "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>,
+        =?utf-8?q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>,
+        Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+        Paolo Bonzini <pbonzini@redhat.com>,
+        Stefan Hajnoczi <stefanha@redhat.com>, Jens Axboe <axboe@kernel.dk>,
+        Ming Lei <ming.lei@redhat.com>
+Cc: linux-arm-msm@vger.kernel.org, virtualization@lists.linux.dev,
+        linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+        stable@vger.kernel.org, Cong Zhang <cong.zhang@oss.qualcomm.com>
+X-Mailer: b4 0.15-dev-38bf1
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789203166; l=2165;
+ i=cong.zhang@oss.qualcomm.com; s=20250926; h=from:subject:message-id;
+ bh=dquZraZjSq1eNM+T01tcQIrz2JYvFIRH7UkrcXngR/g=;
+ b=0Ru6H5o7DriZH6nGIn+WEPZQ8StS9Rizbxvz8EIwzzUUBVZ0EF77mcdQDEO7uy9EnjUAdZw7+
+ t7tYlt2DxODCqquyJaKo7mzhK7StK0v9KpZ9C/U5sLB8hfQCB4cYQMQ
+X-Developer-Key: i=cong.zhang@oss.qualcomm.com; a=ed25519;
+ pk=8SBh3ey5igz2nlW+UFC6khFvaNPgG7MmbWtAeO2s6n8=
+X-Proofpoint-ORIG-GUID: pHoohVsiCwLQFxJSctEOqqWgkwGjW-SM
+X-Proofpoint-GUID: pHoohVsiCwLQFxJSctEOqqWgkwGjW-SM
+X-Authority-Analysis: v=2.4 cv=c5Y+0h9l c=1 sm=1 tr=0 ts=6aa512e3 cx=c_pps
+ a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=roso6HiFfYj01OpyUwUA:9 a=QEXdDO2ut3YA:10
+ a=x9snwWr2DeNwDh03kgHS:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEyMDEyNSBTYWx0ZWRfX35ZqUWy7RmfA
+ Dzar+TQETapVdpqg/Umpmv1JU+38iC5d0u8u1zjyPn9gP9WFQMeDzlOflpyW6FqAPtw4fjae/Ts
+ RZWW2p8W0yxWCreImgTFS1pEc9TlGJTrCXQ2yd3JY2UkmtW8zTVUJ6VDZgCj4ltGC+ycMpFQkT8
+ FaB3HfGxy2R7su+9PaPV8PvCcf+1M0/+/fGCY2pg5u8dQiVTSzjfjOljTt86EoKqYPVlhj7V64h
+ +fUBUXIZ/ikSPSeW7XrXknq/lC4Ai5+BFzELwrOtWObEWUvxdziHxu+pQkUsOGrpvnIOgDjtAeQ
+ S1U1yu/9qXT2r1uSqZCI65QXQCD+n5qGKx2hMKStQPFrsYekmmV6NUqXQmwkkbMa7aEHBahP1Mh
+ qfORJ0d6t6dPwgkPmFMgekau9sCbUQWKK0J0T6HZwDSYyWavIi84Dw0m2VPF+7BeupQokDvkXDi
+ +MRID/JT9V9Glon608w==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEyMDEyNSBTYWx0ZWRfXy7/i/lk07AmW
+ JUL56JPFgHGc82YBFDyCCe/Deoc7fiIA/syV2j3/3WLVEdY1JYLB02PCtQgHoLmAuSa7rjS+5z6
+ yiVroB+CsqnRsoU9EF+KFwAWzd/Dops=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-12_03,2026-09-11_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 clxscore=1015 priorityscore=1501 lowpriorityscore=0 bulkscore=0
+ impostorscore=0 suspectscore=0 malwarescore=0 phishscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609120125
 
+Replace blk_mq_quiesce_queue_nowait() with blk_mq_quiesce_queue() in
+virtblk_freeze_priv().
 
+Keep the existing freeze and unfreeze order. The synchronous call waits
+for dispatch code that was already running. The queue remains quiesced
+until virtblk_restore_priv() calls blk_mq_unquiesce_queue().
 
-On 9/11/26 23:18, Mario Limonciello wrote:
->
->
-> On 9/10/26 14:00, Vijendar Mukunda wrote:
->> amd_sdw_send_cmd_get_resp() returned u64 but was returning -ETIMEDOUT
->> (a negative int) on readl_poll_timeout() failures, which silently
->> widens to a large u64 value.
->>
->> Change the return type to int and pass the raw u64 response through an
->> out-parameter. Timeout is detected directly from readl_poll_timeout()
->> return value.
->>
->> Update all callers: amd_program_scp_addr(), _amd_sdw_xfer_msg(),
->> amd_sdw_read_and_process_ping_status(), and amd_sdw_read_ping_status()
->> to check the return value and handle timeout explicitly. In
->> amd_sdw_read_and_process_ping_status(), the mutex unlock is also moved
->> to after amd_sdw_process_ping_status() so the lock is held across the
->> full status processing step.
->>
->> Fixes: d8f48fbdfd9a ("soundwire: amd: Add support for AMD Manager 
->> driver")
->> Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
->> ---
->>   drivers/soundwire/amd_manager.c | 56 +++++++++++++++++++--------------
->>   1 file changed, 33 insertions(+), 23 deletions(-)
->>
->> diff --git a/drivers/soundwire/amd_manager.c 
->> b/drivers/soundwire/amd_manager.c
->> index a3316efdf8ac..fa3f4e797edd 100644
->> --- a/drivers/soundwire/amd_manager.c
->> +++ b/drivers/soundwire/amd_manager.c
->> @@ -250,10 +250,9 @@ static void amd_sdw_ctl_word_prep(u32 
->> *lower_word, u32 *upper_word, struct sdw_m
->>       *lower_word = lower_data;
->>   }
->>   -static u64 amd_sdw_send_cmd_get_resp(struct amd_sdw_manager 
->> *amd_manager, u32 lower_data,
->> -                     u32 upper_data)
->> +static int amd_sdw_send_cmd_get_resp(struct amd_sdw_manager 
->> *amd_manager, u32 lower_data,
->> +                     u32 upper_data, u64 *response)
->>   {
->> -    u64 resp;
->>       u32 lower_resp, upper_resp;
->>       u32 sts;
->>       int ret;
->> @@ -291,9 +290,8 @@ static u64 amd_sdw_send_cmd_get_resp(struct 
->> amd_sdw_manager *amd_manager, u32 lo
->>               amd_manager->instance);
->>           return ret;
->>       }
->> -    resp = upper_resp;
->> -    resp = (resp << 32) | lower_resp;
->> -    return resp;
->> +    *response = ((u64)upper_resp << 32) | lower_resp;
->> +    return 0;
->>   }
->>     static enum sdw_command_response
->> @@ -309,19 +307,22 @@ amd_program_scp_addr(struct amd_sdw_manager 
->> *amd_manager, struct sdw_msg *msg)
->>       scp_msg.buf = &msg->addr_page1;
->>       scp_msg.flags = SDW_MSG_FLAG_WRITE;
->>       amd_sdw_ctl_word_prep(&lower_data, &upper_data, &scp_msg, 0);
->> -    response_buf[0] = amd_sdw_send_cmd_get_resp(amd_manager, 
->> lower_data, upper_data);
->> +    if (amd_sdw_send_cmd_get_resp(amd_manager, lower_data, 
->> upper_data, &response_buf[0])) {
->> +        dev_err_ratelimited(amd_manager->dev,
->> +                    "SCP_addrpage command timeout for Slave %d\n", 
->> msg->dev_num);
->> +        return SDW_CMD_TIMEOUT;
->> +    }
->>       scp_msg.addr = SDW_SCP_ADDRPAGE2;
->>       scp_msg.buf = &msg->addr_page2;
->>       amd_sdw_ctl_word_prep(&lower_data, &upper_data, &scp_msg, 0);
->> -    response_buf[1] = amd_sdw_send_cmd_get_resp(amd_manager, 
->> lower_data, upper_data);
->> +    if (amd_sdw_send_cmd_get_resp(amd_manager, lower_data, 
->> upper_data, &response_buf[1])) {
->> +        dev_err_ratelimited(amd_manager->dev,
->> +                    "SCP_addrpage command timeout for Slave %d\n", 
->> msg->dev_num);
->> +        return SDW_CMD_TIMEOUT;
->> +    }
->>         for (index = 0; index < 2; index++) {
->> -        if (response_buf[index] == -ETIMEDOUT) {
->> -            dev_err_ratelimited(amd_manager->dev,
->> -                        "SCP_addrpage command timeout for Slave %d\n",
->> -                        msg->dev_num);
->> -            return SDW_CMD_TIMEOUT;
->> -        } else if (!(response_buf[index] & AMD_SDW_MCP_RESP_ACK)) {
->> +        if (!(response_buf[index] & AMD_SDW_MCP_RESP_ACK)) {
->>               if (response_buf[index] & AMD_SDW_MCP_RESP_NACK) {
->>                   dev_err_ratelimited(amd_manager->dev,
->>                               "SCP_addrpage NACKed for Slave %d\n",
->> @@ -366,11 +367,7 @@ static enum sdw_command_response 
->> amd_sdw_fill_msg_resp(struct amd_sdw_manager *a
->>           if (msg->flags == SDW_MSG_FLAG_READ)
->>               msg->buf[offset] = FIELD_GET(AMD_SDW_MCP_RESP_RDATA, 
->> response);
->>       } else {
->> -        if (response == -ETIMEDOUT) {
->> -            dev_err_ratelimited(amd_manager->dev, "command timeout 
->> for Slave %d\n",
->> -                        msg->dev_num);
->> -            return SDW_CMD_TIMEOUT;
->> -        } else if (response & AMD_SDW_MCP_RESP_NACK) {
->> +        if (response & AMD_SDW_MCP_RESP_NACK) {
->>               dev_err_ratelimited(amd_manager->dev,
->>                           "command response NACK received for Slave 
->> %d\n",
->>                           msg->dev_num);
->> @@ -390,7 +387,11 @@ static unsigned int _amd_sdw_xfer_msg(struct 
->> amd_sdw_manager *amd_manager, struc
->>       u32 upper_data = 0, lower_data = 0;
->>         amd_sdw_ctl_word_prep(&lower_data, &upper_data, msg, 
->> cmd_offset);
->> -    response = amd_sdw_send_cmd_get_resp(amd_manager, lower_data, 
->> upper_data);
->> +    if (amd_sdw_send_cmd_get_resp(amd_manager, lower_data, 
->> upper_data, &response)) {
->> +        dev_err_ratelimited(amd_manager->dev, "command timeout for 
->> Slave %d\n",
->> +                    msg->dev_num);
->> +        return SDW_CMD_TIMEOUT;
->> +    }
->>       return amd_sdw_fill_msg_resp(amd_manager, msg, response, 
->> cmd_offset);
->>   }
->>   @@ -446,9 +447,14 @@ static void 
->> amd_sdw_read_and_process_ping_status(struct amd_sdw_manager *amd_man
->>       u64 response;
->>         mutex_lock(&amd_manager->bus.msg_lock);
->
-> guard(mutex) might work better here so you don't need to cover every 
-> exit path with a mutex_unlock() manually.
+Fixes: 7678abee0867 ("virtio-blk: don't keep queue frozen during system suspend")
 
-Thanks for the suggestion. I agree that guard(mutex) would simplify
-the locking and make the error paths cleaner.
+Signed-off-by: Cong Zhang <cong.zhang@oss.qualcomm.com>
+---
+blk_mq_run_work_fn() can call blk_mq_sched_dispatch_requests() through
+blk_mq_run_dispatch_ops(). The dispatcher checks QUEUE_FLAG_QUIESCED
+while the flag is clear. It can then be preempted before it gets a
+request. At that time, it has no queue usage reference, so
+blk_mq_freeze_queue() does not wait for it.
 
-For this patch, I wanted to keep the change focused on fixing the
--ETIMEDOUT handling issue and avoid mixing it with unrelated cleanup.
-The driver currently uses explicit mutex_lock() / mutex_unlock() pairs
-throughout amd_manager.c, so introducing guard(mutex) in a single
-function would make the locking style inconsistent.
+virtblk_freeze_priv() then calls blk_mq_quiesce_queue_nowait() and
+blk_mq_unfreeze_queue(). A new request can enter the queue. The old
+dispatcher can run again, use its old flag check, get the new request,
+and call virtio_queue_rq(). At the same time, virtblk_freeze_priv() can
+reset the device, delete the virtqueues, and free vblk->vqs. The old
+dispatcher can then use a deleted virtqueue or a NULL vblk->vqs, and the
+kernel can crash.
+---
+Changes in v2:
+- Cc stable@vger.kernel.org.
+- Link to v1: https://lore.kernel.org/20260911-virtblk_sync_quiesce-v1-1-a883f8f31258@oss.qualcomm.com
+---
+ drivers/block/virtio_blk.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-I'll plan to follow up with a separate cleanup patch that converts the
-eligible mutex-protected paths to guard(mutex) consistently across the
-driver. Keeping that work separate should make both the bug fix and the
-cleanup easier to review and bisect.
->
->> -    response = amd_sdw_send_cmd_get_resp(amd_manager, 0, 0);
->> -    mutex_unlock(&amd_manager->bus.msg_lock);
->> +    if (amd_sdw_send_cmd_get_resp(amd_manager, 0, 0, &response)) {
->> +        mutex_unlock(&amd_manager->bus.msg_lock);
->> +        dev_err_ratelimited(amd_manager->dev, "SDW%x ping status 
->> timeout\n",
->> +                    amd_manager->instance);
->> +        return;
->> +    }
->>       amd_sdw_process_ping_status(response, amd_manager);
->> +    mutex_unlock(&amd_manager->bus.msg_lock);
->>   }
->>     static u32 amd_sdw_read_ping_status(struct sdw_bus *bus)
->> @@ -457,7 +463,11 @@ static u32 amd_sdw_read_ping_status(struct 
->> sdw_bus *bus)
->>       u64 response;
->>       u32 slave_stat;
->>   -    response = amd_sdw_send_cmd_get_resp(amd_manager, 0, 0);
->> +    if (amd_sdw_send_cmd_get_resp(amd_manager, 0, 0, &response)) {
->> +        dev_err_ratelimited(amd_manager->dev, "SDW%x ping status 
->> timeout\n",
->> +                    amd_manager->instance);
->> +        return 0;
->> +    }
->>       /* slave status from ping response */
->>       slave_stat = FIELD_GET(AMD_SDW_MCP_SLAVE_STAT_0_3, response);
->>       slave_stat |= FIELD_GET(AMD_SDW_MCP_SLAVE_STAT_4_11, response) 
->> << 8;
->
+diff --git a/drivers/block/virtio_blk.c b/drivers/block/virtio_blk.c
+index 32bf3ba07a9d..7a570591e040 100644
+--- a/drivers/block/virtio_blk.c
++++ b/drivers/block/virtio_blk.c
+@@ -1595,7 +1595,7 @@ static int virtblk_freeze_priv(struct virtio_device *vdev)
+ 
+ 	/* Ensure no requests in virtqueues before deleting vqs. */
+ 	memflags = blk_mq_freeze_queue(q);
+-	blk_mq_quiesce_queue_nowait(q);
++	blk_mq_quiesce_queue(q);
+ 	blk_mq_unfreeze_queue(q, memflags);
+ 
+ 	/* Ensure we don't receive any more interrupts */
+
+---
+base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
+change-id: 20260910-virtblk_sync_quiesce-9b2c88d45416
+
+Best regards,
+--  
+Cong Zhang <cong.zhang@oss.qualcomm.com>
 
