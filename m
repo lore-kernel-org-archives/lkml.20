@@ -1,131 +1,304 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5507E4BEE32
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 11:20:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 948224BEE32;
+	Sat, 12 Sep 2026 11:21:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789212041; cv=none; b=l7sr/OgYAMEk0AlVLuyShz8L5WUB0hZnakcnRXawbzhCZY77tcbkG1K4x6C92mtw/0WKvJoBN3uhcs6AR8Cl265vdsNW4W65k61eW5ClqCtegdoTB+mIeJz+7pBz/4id/1jtoOZwmJLOWu0UZVV2BHEN2d8d3pAvr+1emJFBc4o=
+	t=1789212066; cv=none; b=ABFIAGJV7cK3Sdj/BkmW2r/y/xizlFqdp5nH53Kl8JbZMs9fm1bFy5Am7MtvYEbGHXOZHo4sv2eiO0WfUUASifdqlhknWjqfwone1WHknlvD5iy8/CNXXq8JRNB+PZFfHNNmZSRLToYVB/Ao2g5/Gq23bE2dE5luTBnOfWHcCVQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789212041; c=relaxed/simple;
-	bh=uz+8o+4CIHiF/v/+wDvIWAodk03cAE6xyHUGgeY/rSg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=PQNyl76qOr2xAj8JEUDNBZCpJngrN8rmHoenahm1QMMq24209ab8ybmf163eFE6PjHbb9B+d4ijcmtuLd9+ObXI3UghAclvbGzxObvE6olEHOkxrvEbLkRu07XNP6XBl5xFQlAWYkLf7par6jX11PEVoWhenwa4gTlVapk/RPMY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AYKMperG; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789212066; c=relaxed/simple;
+	bh=C+Am4wWyRZWkCJzSxMTfxEVDuvTMtFNGm5gvUiXFpTY=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=d2hRu5uSUdCTCgRvAPAfrlqa3U6mAiCAP7wToUuEEJXYzmftir0QsKIVn7Xyl+vEccEVUAQazWyCRwJAzOe7QR+pUL3qH1lzlGQYwyc/rEheiSEnKz9Gn47Ie7iRqOpkqJHCiMjQrcu2qt8jWTjtAC97tgbJnr4/sgJh9iz1Nyo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iV09A33W; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AYKMperG"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6350f88so201931f8f.2
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 04:20:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789212038; x=1789816838; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=seLmMH8w1jJOA6VJ/PN+TysiPYG2r3ONYQCf9mwCHSA=;
-        b=AYKMperG74CdZ4v812hugEc9vFGV54PUUMxBRsvHYa4ALWBIn/ISZLNKZc4L+J6D0r
-         N95nIpgb3hjUSJ5RBO+oEqxy6/ol6FudbkjqXZxfHXweb+fiumKQiZ27/2bJ17bAxM6a
-         DvApRh0EQhi99HBgpi+WSHYbJUnUIXCGnYc00dyS/NIxpJ5j0TwRTsgGLim6eANDi1iE
-         iY1pb5rEggW8wBcdoI6nUwk5oFUDBauiQXKfR74L46xEUAD1ZqWrd0cI4CcaD8GllwO+
-         NCZ7Yi19Cb7JkJQjy1L4P9ThlausxK5cV3rWeSvCqIj0N4RUJ6/MGH7kp1nrFillvvLs
-         kTsQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789212038; x=1789816838;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=seLmMH8w1jJOA6VJ/PN+TysiPYG2r3ONYQCf9mwCHSA=;
-        b=pHgirXv2xW41dSsd4ZupVCDyoox08s5utrkUVcHo8JaV11j1R28NtpJtMheAEQjd5s
-         cJMyfHRC4SBkiZqKhzuzX1QQQpJU3950UQ9+5gbFmFxKjJ2tEqKLj2ONUtDfXDUNyeF/
-         YlCTZOAj7i9W/0Bx7hdZGiQjWyqGHYjLcNCHcaFO+BSlyEqcR6K1MJRzB1jMwdbomVDw
-         OYdbuLm8BLoQHmBOsBsrSfanAr950HN98OeGSwxZFvgLuVh5HUBIMAXLtxuT3TTJqOJW
-         mNmNBRlMrtYaiCQdL8WMDuzObfk+F3+OblzGBjymaLtp3Y6nNQ5CaAMXZa+jFz3AQwMW
-         ZQsg==
-X-Forwarded-Encrypted: i=1; AKwUvBwmX+Y/1hq8vb/TCDctQryKvFcJpK6g7a+MDMEXFNwEKfJ6TgAuGF189MHUw4p6xYaXsXyYtqSsFKi5CBg=@vger.kernel.org
-X-Gm-Message-State: AFuF++liVaJvrhYhV9wTUOQ5wTgo7evmPte2ndc3aW8sqkgts0BLjv4N
-	BWT0ixkPKHP09/yGatRAndcTAt4ALKPRMdUqVEyRKImW5BxaW6zWabXCjdXBDTx0jpk=
-X-Gm-Gg: AYBFou0oTADE38fjDpGnOBWqCcp/RTGfxpmClTkitwTNp/itQI5OUyb17KhWXgGugg1
-	NqghPk1Ap4qF9wMxvzepkgAIGfOi6jICylfhywVkwcuBRsNzzzZXXaQsUYtldk2Q/jvxfRpUccH
-	TGZjzhBd9ZP6Y8KODdmtJJIwekk+NiXDjAxyrRZKlX5H384B+rziq3gbNYDkPN+gajAc9KELBZM
-	7eLI0V0fZnazy9akL0nEXUWf/rycqFbSJn3h9IAQOLgcBQA3B3PbPwxIlCA2zEIVGELfNpdOBX5
-	c5JFgeaVdcOLwXgdKLi+1bhid5yoK80pVRWuQJquO/CLKShmSVbVRsfkeeCdIfpLjw6nu9FM+0p
-	/RyyizmHjqMiOiV9R+UvuAVzHOpolU7pHSkazXrVIbvEE6+G8Vki7G8nhDmGt2SHootVbWQj6hM
-	uIHgKT2zO07FQyXxTOlAit9oFSadlHXsif9r2ot7bwnLQHbujcEppyImu/a4B25DxlDLMHdI+IU
-	qqi48upcuYsQadq+G8YFFeFEAw1maIEsp+RNmHK3yTmLjeuK7JkUvt+Rch1omNNUzVpFiSvmGRX
-	CTFlZ66lHMtOILUhBLsSn0tVKYKS4WidOnFul4H3nt2l/H9Hm4GqTyiAac2wfDET1/AhVVI+J21
-	UFzSj1rXyRD/OIscQ8OOpUMrKJiPhQxwR4ZY=
-X-Received: by 2002:a05:6000:5c8:b0:486:e935:59b with SMTP id ffacd0b85a97d-486f6be9488mr2277654f8f.17.1789212038287;
-        Sat, 12 Sep 2026 04:20:38 -0700 (PDT)
-Received: from [127.0.1.1] (host-95-246-9-241.retail.telecomitalia.it. [95.246.9.241])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb35bed0sm12489438f8f.32.2026.09.12.04.20.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 12 Sep 2026 04:20:37 -0700 (PDT)
-From: Nicola Fiorillo <nicfio@gmail.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: linux-media@vger.kernel.org, mchehab@kernel.org, hverkuil@kernel.org,
- antti.laakso@linux.intel.com, linux-kernel@vger.kernel.org, nicfio@gmail.com
-Subject: Re: [PATCH v2 0/3] media: Two oopses and a hang when unbinding a
- streaming sensor
-Date: Sat, 12 Sep 2026 13:20:36 +0200
-Message-ID: <178921203630.98144.13238972861597227362@gmail.com>
-In-Reply-To: <aqUoLr0JFGEBiJIf@kekkonen.localdomain>
-References: <20260911194854.78894-1-nicfio@gmail.com>
- <aqUoLr0JFGEBiJIf@kekkonen.localdomain>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iV09A33W"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5E4A1F00899;
+	Sat, 12 Sep 2026 11:21:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789212064;
+	bh=C+Am4wWyRZWkCJzSxMTfxEVDuvTMtFNGm5gvUiXFpTY=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=iV09A33WC7aStPTKmzQvLa5iXwGtPWw8W0q4zNblm5kDIZIiIHbjUwqaYPu932UMP
+	 +KUdbxLOduuBadcQUDacJi8PxlVP2Ybtf24eGWEpYSYLNxgGg76NIoQtFKfVIIRalL
+	 m6p+eWyVqyQA5S5HKvjRPOjgI/1o6XImcdX/pDssr0X5Kwlt/KnKCi/NcNPp0JdlUS
+	 65Hs84AjKXmlL10GPF29BOvuzeCAAwsP28Mzsy/Wvvl1vIQVC67EuI/ohYy80pBO1b
+	 E/j+dDd+QfKUsfN9/qISObcdxzzl2tDWZzvZOUNHKkr0CCFFIg+ZvsjrL/i7YSavRF
+	 pICK3nTBbFQBg==
+From: Andreas Hindborg <a.hindborg@kernel.org>
+To: Bean Huo <beanhuo@iokpp.de>, jaemyung.lee@samsung.com, Miguel Ojeda
+ <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary
+ Guo <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6rn?= Roy Baron
+ <bjorn3_gh@protonmail.com>, Benno
+ Lossin <lossin@kernel.org>, Alice
+ Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo
+ Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot
+ <acourbot@nvidia.com>, Onur =?utf-8?Q?=C3=96zkan?= <work@onurozkan.dev>
+Cc: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
+ linux-block@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH RFC] drivers/rufs: add Rust UFS host controller driver
+In-Reply-To: <4c38f13af8f75020fefc35827463e9bc643b99f4.camel@iokpp.de>
+References: <20260912-rufs-private-v1-1-716db733e655@samsung.com>
+ <8mLXEMDMxh8mZQqVywUYUeOiZPZIPmrVGRlOkDbHptW0NEJeszKVpff5h39MjUvD5yyivwY3Z7kCXIH5VlGoiw==@protonmail.internalid>
+ <4c38f13af8f75020fefc35827463e9bc643b99f4.camel@iokpp.de>
+Date: Sat, 12 Sep 2026 13:20:53 +0200
+Message-ID: <87jyoqvhpm.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi Sakari,
+"Bean Huo" <beanhuo@iokpp.de> writes:
 
-On Sat, Sep 12, 2026 at 01:23:42PM +0300, Sakari Ailus wrote:
-> Thanks for the patchset. These are known issues and unfortunately unbinding
-> drivers while streaming isn't supported on MC-enabled drivers currently.
-> This is a MC/V4L2 framework limitation and cannot be meaningfully worked
-> around in drivers.
+> On Sat, 2026-09-12 at 00:52 +0900, Jaemyung Lee via B4 Relay wrote:
+>> From: Jaemyung Lee <jaemyung.lee@samsung.com>
+>>
+>> Add a Rust UFS host controller driver that exposes UFS logical units as
+>> native blk-mq block devices without depending on the SCSI midlayer.
+>>
+>> Implement host controller setup, UIC link startup and power-mode
+>> configuration, device and unit descriptor discovery, query operations, a=
+nd
+>> SCSI protocol command construction. Support normal read, write, flush, a=
+nd
+>> discard I/O with coherent UTP descriptors and owned streaming DMA mappin=
+gs.
+>>
+>> Provide both single-doorbell and multi-circular-queue transfer backends.
+>> Map shared blk-mq tags directly to UFS task tags, retain request ownersh=
+ip
+>> while commands are in flight, dispatch completion per MCQ completion que=
+ue,
+>> and return polled completions through the blk-mq completion batch.
+>>
+>> Add PCI and Qualcomm platform frontends. The PCI frontend supports the Q=
+EMU
+>> UFS controller and existing Intel and Samsung IDs. The Qualcomm frontend
+>> provides the clocks, PHY, reset, interconnect, power-domain, OPP, GPIO, =
+and
+>> controller-specific initialization needed by supported SoCs.
+>>
+>> This establishes normal-I/O support for UFSHCI single-doorbell and MCQ
+>> controllers. Full timeout recovery, error handling, and power management
+>> are left for follow-up work.
+>>
+>> Signed-off-by: Jaemyung Lee <jaemyung.lee@samsung.com>
+>> ---
+>> This RFC introduces RUFS, a UFS host controller driver that sits directly
+>> on the block layer and does not use the SCSI midlayer. UFS logical units
+>> are exposed as native blk-mq block devices, the same way NVMe namespaces
+>> are. The driver is written in Rust.
+>>
+>> Why decouple UFS from SCSI
+>> --------------------------
+>>
+>> The existing UFS driver is built on the SCSI subsystem. That made sense
+>> historically: UFS adopted the SCSI Architecture Model as its application
+>> layer, so reusing the SCSI midlayer's command queuing, error handling,
+>> power management, and logical-unit addressing let UFS reach Linux quickly
+>> and reliably. ufshcd bridges the SCSI midlayer to UFS Protocol Informati=
+on
+>> Units.
+>>
+>> That foundation has become a source of friction. The evolution of UFS is
+>> governed by JEDEC and increasingly includes UFS-specific features outside
+>> the SCSI command set standardized by T10. These features must still be
+>> expressed through, and constrained by, a SCSI-shaped driver. Features th=
+at
+>> are meaningful only to UFS are difficult to land in a subsystem whose
+>> maintainers reasonably want to keep SCSI focused on SCSI, and block layer
+>> or shared infrastructure changes that UFS needs end up mediated through
+>> SCSI's priorities. In practice UFS is treated as an add-on to SCSI rather
+>> than as a first-class storage interface, and a significant amount of UFS
+>> functionality lives off-tree as a result, with the back- and forward-
+>> porting cost that implies.
+>>
+>> We propose to decouple UFS from SCSI with a standalone driver that sits
+>> directly on the block layer, alongside drivers like NVMe. This lets
+>> JEDEC-specific features evolve independently of T10, gives UFS
+>> its own dedicated review surface, and removes the impedance mismatch
+>> between the UFS data model and the SCSI command model. UFS uses a subset=
+ of
+>> the SCSI command set within command UPIUs, so the driver can construct t=
+he
+>> required CDBs directly without depending on the SCSI midlayer.
+>>
+>> The driver is designed around the UFS and UFSHCI specifications rather t=
+han
+>> as a line-by-line translation of ufshcd. Its target is JEDEC UFS 4.1 and
+>> UFSHCI 4.1.
+>>
+>> Why Rust
+>> --------
+>>
+>> The architectural question above would be the same for a C driver. We ch=
+ose
+>> Rust because UFS features arrive at a high pace, and turning new
+>> specification features into stable, validated code on tight timelines is
+>> where memory- and concurrency-safety guarantees pay off: fewer classes of
+>> bugs reach production, and iteration is faster. Rust's growing acceptance
+>> in the kernel makes a block-layer-native UFS driver a realistic
+>> architecture to evaluate.
+>>
+>> Initial feature set
+>> --------------------
+>>
+>> The new driver supports single-doorbell and multi-circular-queue operati=
+on,
+>> PCI and Qualcomm platform frontends, logical-unit discovery, and normal
+>> read, write, flush, and discard I/O. It uses shared blk-mq tags as UFS t=
+ask
+>> tags, keeps request ownership through completion, and uses owned DMA
+>> mappings for the complete I/O lifetime.
+>>
+>> Full timeout recovery, error handling, and power management remain
+>> follow-up work.
+>>
+>> Patch layout and dependencies
+>> -----------------------------
+>>
+>> The single patch contains the complete driver. This keeps review focused=
+ on
+>> the RUFS architecture and the SCSI-independent blk-mq model.
+>>
+>> The driver depends on Rust block, DMA, IRQ, and platform abstractions th=
+at
+>> are intentionally excluded from this posting. Some of these abstractions
+>> have already been posted to the list, most notably in the Rust null block
+>> driver v2 series, the Ownable/OwnableRefCounted page series, and the
+>> impl_flags extensions. The remaining abstractions are new and will be
+>> posted as separate series before the first non-RFC version of this drive=
+r.
+>>
+>> A buildable tree based on v7.3-rc2 with all dependencies and this patch =
+is
+>> at:
+>>
+>> https://github.com/SamsungDS/rufs/tree/rfc/rufs-public
+>>
+>> Testing
+>> -------
+>>
+>> The v7.2 development version has been exercised with SDB and MCQ on the
+>> QEMU UFS model, including ext4 fio workloads and module load/unload cycl=
+es.
+>> SDB probe and normal I/O have also been exercised on Intel PCI and Qualc=
+omm
+>> UFS hardware. The current port has been compile-tested independently with
+>> PCI-only and Qualcomm-platform-only configurations.
+>>
+>> The exact v7.2 tree used for the hardware measurements is available at:
+>>
+>> https://github.com/SamsungDS/rufs/tree/rufs-7.2
+>>
+>> On Intel UFS 2.1 hardware, 4 KiB direct io_uring at QD32/job gave
+>> these optimized-mode ranges over 1/2/4 jobs (three samples):
+>>
+>> =C2=A0 Workload=C2=A0 Op=C2=A0=C2=A0=C2=A0=C2=A0 RUFS kIOPS=C2=A0=C2=A0 =
+C kIOPS=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Difference
+>> =C2=A0 --------=C2=A0 -----=C2=A0 -----------=C2=A0 -----------=C2=A0 --=
+-------------
+>> =C2=A0 randread=C2=A0 read=C2=A0=C2=A0 48.91-61.26=C2=A0 41.56-41.60=C2=
+=A0 +17.6% to +47.4%
+>> =C2=A0 randwrite write=C2=A0 8.19-8.30=C2=A0=C2=A0=C2=A0 8.21-8.22=C2=A0=
+=C2=A0=C2=A0 -0.4% to +1.1%
+>> =C2=A0 randrw=C2=A0=C2=A0=C2=A0 read=C2=A0=C2=A0 5.26-5.34=C2=A0=C2=A0=
+=C2=A0 5.28-5.38=C2=A0=C2=A0=C2=A0 -0.9% to -0.4%
+>> =C2=A0 randrw=C2=A0=C2=A0=C2=A0 write=C2=A0 5.27-5.34=C2=A0=C2=A0=C2=A0 =
+5.29-5.37=C2=A0=C2=A0=C2=A0 -0.8% to -0.5%
+>>
+>> The coefficient of variation (CV), calculated as the sample standard
+>> deviation divided by the sample mean, measures run-to-run variability
+>> relative to the mean. CV is a descriptive statistic; no normal or other
+>> distribution was fitted to model the variation. The accompanying
+>> two-sided 95% confidence intervals for the mean used Student's
+>> t-distribution because each point contains only three samples. Those
+>> intervals assume independent, approximately normally distributed sample
+>> means and should be interpreted cautiously at this sample count.
+>>
+>> RUFS randread had a CV of 28-57%, versus below 0.8% for C. Its apparent
+>> gain therefore has low confidence and should be treated as preliminary.
+>> Both drivers also logged platform UIC errors. Stable write and mixed
+>> points differed by no more than 1.1%.
+>>
+>> Feedback
+>> --------
+>>
+>> Comments on the decision to bypass the SCSI midlayer, the blk-mq model u=
+sed
+>> in its place, and the proposed prerequisite API boundaries would be
+>> especially welcome.
+>
+> Jaemyung,
+>
+> thanks sharing.
+>
+> You still use scsi everywhere in your implementation protocol/scsi.rs bui=
+lds
+> READ_10/16, WRITE_10/16, SYNCHRONIZE_CACHE and UNMAP CDB, so "decouple UF=
+S from
+> SCSI" really means "copy a small part of sd and the SCSI error handling i=
+nto a
+> UFS driver." while JEDEC defines the UFS application layer as SCSI, the S=
+CSI
+> work doesn't go away, you just move somewhere else, and it has to be writ=
+ten
+> again.
 
-Understood, and I won't argue the point for 1/3 and 3/3: both are IPU6
-driver changes for exactly the unsupported scenario you describe. I'll
-drop them.
+See my response to Greg. The SCSI specific code in this driver is very
+minimal.
 
-Could I ask you to look at 2/3 on its own, though? I believe it is a
-different bug, and the cover letter framed it badly -- that is my fault.
+>
+> The "friction" claim is weak. SCSI has already been changed to fit UFS. T=
+wo
+> examples: UFS now uses SCSI simple copy, group number in scsi write comma=
+nd.
+>
+> I doubt how far this can go. do we really need to pay effort for a new RU=
+ST UFS
+> driver, I am not very confident, unless SCSI is removed from the UFS spec=
+ and
+> JEDEC defines native UFS commands, or we talk to the device directly with=
+ UPIU.
+> please name the JEDEC feature that the SCSI midlayer really blocked, or t=
+hat was
+> historial issue which has been fixed.
 
-2/3 is not a driver change and does not involve streaming at all. It is a
-NULL dereference in subdev_open() in the framework itself, caused by the
-ordering inside v4l2_device_unregister_subdev():
+I am sure the UFS experts will be able to answer this better than me.
 
-	sd->v4l2_dev = NULL;
-	/* ... */
-	media_device_unregister_entity(&sd->entity);
-	/* clears sd->entity.graph_obj.mdev via media_gobj_destroy() */
-	/* ... */
-	video_unregister_device(sd->devnode);	/* the node goes away last */
+> I would also like to see the heavy and hard parts, because they are the p=
+arts
+> that decide if this design worrks:
+>
+> 1, error handling: abort, LU reset, retries with limits, sense decoding, =
+this is
+> the very hard part of UFS driver.
 
-Because the device node is removed last, there is a window in which
-/dev/v4l-subdevN can still be opened while both sd->v4l2_dev and
-sd->entity.graph_obj.mdev are already NULL. subdev_open() then runs
+I agree. However, we decided to get the discussion going with a smaller
+feature set. We can build an efficient feature complete driver, but we
+would really like to talk to the community about it first.
 
-	if (sd->v4l2_dev->mdev && sd->entity.graph_obj.mdev->dev)
+> 2, user-space tools interface: SG_IO and bsg (sg3_utils, ufs-utils, FFU w=
+ith
+> WRITE BUFFER), and the UFS sysfs tree..
 
-on those pointers and oopses.
+On the account of this not being a scsi driver, some changes would have
+to be made. But we should be able support
+/sys/bus/platform/drivers/ufshcd/* just fine.
 
-No capture has to be running for this, and it is not specific to IPU6:
-any sub-device with a device node can hit it on any removal path --
-unbind, module unload, or a hot-removed PCI/USB device. Unbinding during
-streaming is simply how I ran into it.
+> Did any AI tool help write this code? If so, please add the Assisted-by: =
+tag.
 
-If you would rather have it resent on its own, with a cover letter that
-doesn't mention unbinding a streaming sensor, I'm happy to do that
-instead.
+We use AI for code review and spell checking, so I guess the tag is warrant=
+ed.
 
-Thanks for taking the time to look.
+Best regards,
+Andreas Hindborg
 
--- 
-Nicola Fiorillo
