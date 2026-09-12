@@ -1,249 +1,192 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011023.outbound.protection.outlook.com [40.107.208.23])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B91A3090D7;
-	Sat, 12 Sep 2026 18:01:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789236071; cv=none; b=tUcfGmow6sqdfgTaZY0368hH2OfqkxIea/pHIuVb/vuwZTuUApyGEG+inv6JjEGY1iytzYWM46nsG2yOV84trjE3kl55wEITHj9msieERdgrkbZDS4Ty7+qLD4irQvQjHoOL8hj3xVDOAlATjHJZcjnCHVJciHm3AB6oOjrf0/w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789236071; c=relaxed/simple;
-	bh=aVW4b4aBnMpmqLvnCQ5g8LsbAVVe6ExW9a3v85odoVs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=bmXo/OG68vfRiHi9eHALJBbUtAtqZDkNv5gk8Q0kbEwl8EU8azVjph8kYCnroAQCMSVN5YxPaA9K38zvlrZPluhqRaFf+aW76HutPeQLZotl5WCnl8C0TFeJVo66v17gQGCryodwEr75zVSjOkoayOWABQV3yb/THPkgJ99xc+c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HGym/KwJ; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 407FD357D1D;
+	Sat, 12 Sep 2026 18:02:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.23
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789236133; cv=fail; b=QMO58gcERxESDnobhfHj/rwqYKW/H3FEpRkRK/PKRKX7MgpDKaU6kOEjGH5fRU5yKzRgZEXKw4wVAQ3OTWzlbFQNdFKWOhWWdtwUws/8M5yUtOF3Dgmsa5yAIpZLYCN7WiD57rcCjzhxGQJB54Spk+TeM7+Z/moTSQMTskplxgA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789236133; c=relaxed/simple;
+	bh=1tdn+XyQHy3f91owQnmOnzigRZKxQuLgir+AiKtZ8o0=;
+	h=Content-Type:Date:Message-Id:Cc:To:From:Subject:References:
+	 In-Reply-To:MIME-Version; b=IvrtmDo1bX18A0sDZ0lFzqNDSNbbOGIwuVd8jHDntTnL4mriqv/p9rDyqGLxMPENKAwYRUQQQ5n69WVUf1zLpzFnAFMJ7ovYePf5Udw/gP4onYI/x356YDizsKMkzDY6eVSRC8fZ0OhlbWwiiRwX24ajZ/J8qy/fzWE8BxSwQGw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=rGEKclTc; arc=fail smtp.client-ip=40.107.208.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HGym/KwJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id C0ED2C2BCB9;
-	Sat, 12 Sep 2026 18:01:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789236070;
-	bh=aVW4b4aBnMpmqLvnCQ5g8LsbAVVe6ExW9a3v85odoVs=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=HGym/KwJ/bw5pnkAvaF5H7uwCqDIDMGYTDHaBsxAQZCBzs1fjhJdkziUvTtievbWj
-	 f2L4SvopWDOfcvuhATK6zX1GUG9oI4s7S5+4EYspgjeUTSDjl+LQLbVOo7ERaNkGCs
-	 xaSFRt3KDojUx9E65/ebu/azNRQ00xkpuJU3MkHltYGrnG1BMtYhfapYMJKI0uxjqv
-	 cojLCqy6vEKFHYe89ec3j77gb4/S3XV5vnMlU3wc1aqUZFSn3rQR6962L/YGw7OL5C
-	 VhZ6Fd2z9KD1ri675aTUHPXiBxXwzXDWLb4sLhc9klhLe+WOwZ2immziu4qls9FjdY
-	 VlAXFyEgG2mhw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AC910C88E53;
-	Sat, 12 Sep 2026 18:01:10 +0000 (UTC)
-From: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
-Date: Sat, 12 Sep 2026 20:59:05 +0300
-Subject: [PATCH] Input: synaptics-rmi4 - add support for reset gpios
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="rGEKclTc"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RwE7XP+sj0KwN7VoiRowb0zyLfNg3yj/PKhWqrQq/P3aIBU24QIriCQIujrUs0J0FHdedx23z3/Qv2ouKFsLlWL20fQEM/xEIl+KO0VoKsyCqRfoXNrTgIcti+jUwCDFEv7uYSqe1g2l6hCAvyJVuzxFiz4UJwXqyGNdV0fTn+zihJqd+WkBCBqleV4+pY/NQ6Cd4z+k235xlxvDaWJwhUQMbruBRRhY9O3vCR5wudTaOoFtGEnF86rbZLTtZDtJpJM0HfnAnTjP5nerMTLizZg7q9H0c7OeQWD7JtY8QeRylcEbdcXKZjIEQNvrmI/jZgNIITANn9zZV0XPZcs4SA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=IQHw6h09a9Pq3Ro0Ju4H/VTeR/4oegt+utROR8ZezVM=;
+ b=qbkrOSPZibcZxM6p0fsIh1hxlIKYcam5EF7J0t0aHxrArIgjEFf9jiC/4kuPXM479n8mjwVc+Rlv5PmndP6YmVz3JU2SG+2dMIaKRXw0soACDdu03T7mffDWgsJgsf4v/ob0RooDDi22xmQq8d0inal+7DGhJQglmry83oeAqMmpO6+yEzg4pRM9gOHK9FpRyEwAyELv3bCfhA4rxmOf7yhdrttpS6fda2oEg4iQWS1QCDhdsVHxe3bJjDdfmRMH8LSrTK0cH8nlUAUVxQcgD/De81AtqPD19+DRN/W+FXwvnNRaxLh2f+0krS8O8rhhHZ7cl+UrPgeo7w4CiQb+sg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=IQHw6h09a9Pq3Ro0Ju4H/VTeR/4oegt+utROR8ZezVM=;
+ b=rGEKclTc9MDWt+Be12We13BrGBbOIQaNENVUOANMewKU/un0+UvaRDEfTCOIIWUT++rMIybsOZMc1ZBOXY80IHvoViMcEqSoC+ZfQGk4/23Ch9nRSM6fuZkTF4bNbazUa/xDwhUmLOFYgrZ0enBvIa3KquEJeO4K/81OwaKeDeQa5aKi0SjbFfG32cB19Bs4vvM8NJqYekED2mLnAVhKd6FGzKraO0k4z8Sq8xpS+im737eR3xIOwlxQHMJTeFMLRVik/PXw4KGqtKzbQ0hYVenMC29SB9z8ri1k9AjIfUmVLQy9zeHfqwNpw3C2CUQvEZoO0ffIQBCH5b7FZeAG3A==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by LV8PR12MB9231.namprd12.prod.outlook.com (2603:10b6:408:192::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.10; Sat, 12 Sep
+ 2026 18:02:07 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0406.007; Sat, 12 Sep 2026
+ 18:02:07 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 12 Sep 2026 14:02:06 -0400
+Message-Id: <DLDJ9T369W2V.1W56SZ2PVP5FL@nvidia.com>
+Cc: <linux-kernel@vger.kernel.org>, <kernel-team@meta.com>,
+ <akpm@linux-foundation.org>, <liam@infradead.org>, <ljs@kernel.org>,
+ <david@kernel.org>, <vbabka@kernel.org>, <jannh@google.com>,
+ <matthew.brost@intel.com>, <joshua.hahnjy@gmail.com>, <rakie.kim@sk.com>,
+ <byungchul@sk.com>, <ying.huang@linux.alibaba.com>, <apopple@nvidia.com>,
+ <peterx@redhat.com>, <jgg@ziepe.ca>, "sashiko-bot"
+ <sashiko-bot@kernel.org>, <stable@vger.kernel.org>
+To: "Gregory Price" <gourry@gourry.net>, <linux-mm@kvack.org>
+From: "Zi Yan" <ziy@nvidia.com>
+Subject: Re: [PATCH v2 2/2] mm/madvise: use vm_normal_folio_pmd() in
+ cold/pageout PMD range
+X-Mailer: aerc 0.22.0
+References: <20260912034833.2952750-1-gourry@gourry.net>
+ <20260912034833.2952750-3-gourry@gourry.net>
+In-Reply-To: <20260912034833.2952750-3-gourry@gourry.net>
+X-ClientProxiedBy: BLAPR05CA0046.namprd05.prod.outlook.com
+ (2603:10b6:208:335::26) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260912-rmi4-reset-v1-1-4a3fc8856830@protonmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDQAxG4atI1h0Yowj2KtLFqL8aQSuJiiDe3
- bFdfov3TjKowOidnKTYxeQ7R6SvhJohzD2ctNHEngtfpux0ktwpDKsrQ9Yyh+A5B8VgUXRy/Gb
- V52/b6hHN+hzoum5syBkebgAAAA==
-X-Change-ID: 20260912-rmi4-reset-9a3d22aa024e
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Roman Vivchar <rva333@protonmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789236069; l=8397;
- i=rva333@protonmail.com; s=20260510; h=from:subject:message-id;
- bh=SC4bkSgscCz+QLd+mGi3E8BCJE+tAFj7zaREBtUQLHs=;
- b=8n+44RCzB8TMGYrpXtr1As+8TbD0RyZSlJY0hiQO3yrSkJX7PAYHBa8ealuSoCh2w5r8Q37hj
- rp9LmF6GOPyBHJqIq0dy1pRzkTZUORANrHBlzFVkqtJsU2vo3t83XaP
-X-Developer-Key: i=rva333@protonmail.com; a=ed25519;
- pk=zww/nWjBGoQ4POXCG0BV6fx2iuXK6jx77rsKPA5YK5Y=
-X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
- auth_id=777
-X-Original-From: Roman Vivchar <rva333@protonmail.com>
-Reply-To: rva333@protonmail.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|LV8PR12MB9231:EE_
+X-MS-Office365-Filtering-Correlation-Id: 98133478-f526-4958-9cdb-08df10f7f574
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|366016|18002099003|22082099003|11063799006|56012099006|5023799004|10067099003|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	nE0LbY+08skO0YlP1JlIJF/2HTUdkf+z2kr3QdPec9kxg6i6CjdGc2JKTnC1UxQdJk2GLbuPJRW3OD6Y+wjHeNLBauXK5zh2YHmta0+4m2W4+PrmHV8oGNDDqtRzLsffsIwdi7i8iP7OxMOs12KlNmAjWQwrL3AO8LTSI3bvIPkEOCXA5ikwVXhkJx0SJIQ7uG9hdTkp9x7K9BdkDuf7o8RgugPLQXs4QcVg6/K2sL3Gbpe1cmbnQTrUZfxPE0fdu5R74FcJ8pYvvD21cVejzwusI7l+b86nWvKP1GevC9nzQOXyltU2bABMY0xkTCKKhCQHtkXh8pTbD+qgDVcZD1sRZaFPzdFkE6xQ/PuuaSwnyDYa5QSj+kRnNsDPwXevAQt8gf0s7xqnAk3YKaHiJyu+Pn+foU2YKhJQWd1ZxM+NlznTx60kQlwKm6rO4J6wih3ROFlXMI+yljTgvINjcI6BaiomdzXlcFAhcLLMGT+kGg3cgjZCluh9j0lRpat2uRZ8OtV4mLuunSfiKHTJ4IVBlYIla9h9v8iUL+p/4HsRbKwepzSJU+US0REpFzTQ976rw7LGAFuwv0ydZbvg2YSdRt1AP79f5m0paRgWLvkp7sKk21NDJhQxEI6JDVLmlN7tK/X1x57GPjef3eiSAA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(366016)(18002099003)(22082099003)(11063799006)(56012099006)(5023799004)(10067099003)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?NDJRRnV2Q3ZiejF6dW11MmxKM2tFYTBiSDVsd254ZkhjUDZxajdzcm0yWnlI?=
+ =?utf-8?B?anhNU0tJNy9xdEFUZnJxVHZVQnUwRVhNeFc4OXI3ZWkxWFFKQ2lrUUVQM0ZK?=
+ =?utf-8?B?LzFqZ3hxU3NOaU9uTGZUQ3lwZm9lT1Fzby9DU1lwcnFWSVFsUnNwUldRZExy?=
+ =?utf-8?B?V09KVmxWdE81STZ4cjZxRlExSFBTem1mMmRPK3ZDa3puTEpjTm5qakprNkdQ?=
+ =?utf-8?B?bTRXSW5iN2dVbVdWTWNEY3IrN2l3OEVwS0V6bndwbGlWTXFmTXpyMVg1QjRQ?=
+ =?utf-8?B?MlBFNDFBQ0xhNGovcEhRSHkreGx4bWF2ZEtXQktDc2grWFVKOThudFArV3NV?=
+ =?utf-8?B?cmpWdnNoMXpwMEM3aEFBcUNLZ3RKNE1jOCttaGxOSlg1NGszb1ZDNG9qb0VI?=
+ =?utf-8?B?ek55NUFySUNoY3J6a2RmSDFnZVVzNWN6QXpTKzhTVXJBMVM5SVhBMThMUG8r?=
+ =?utf-8?B?NGZ0VW1hR2J6YkxLOWxNOXdXSzE4QUdyU2kyMkpRVWk2OCtZaXRWQ1RuazMx?=
+ =?utf-8?B?aWJxdEt0QnRvL3VVejlvK0dTNDRoRk5UWmlHbGVIUWd6Zzlpb2Q4MFRvYTA1?=
+ =?utf-8?B?aW9zZ0JxRmNGdE1JeWlEU0NKOUJFVitlek0yQlp6YXlhWXBqcnBRVEJHZ0o4?=
+ =?utf-8?B?a2gxbDZFU082TWs5cUlRdm12eFF5YWJGbTA4NjUzSkw5YXc1L3I1cEpKNi9V?=
+ =?utf-8?B?dXdhd0p3UHZFcnlPWHJqSmpGdUMxc2NvL2JSNmkvYk9qc09OTE5mN1pVWmpa?=
+ =?utf-8?B?RVhMVElzRmxuT05ueXEyaG05NG9WUjNXaVE4ZHVsVzFyQjRrYm55MEJJeHMz?=
+ =?utf-8?B?N2R5VnRjT21nOWtEMUFSTUY5Z2xzeEhJT0sxeXpSZjhZRlVPL1hwenpPa1Y0?=
+ =?utf-8?B?eTlaa3VCZnIzQVNoVEN0S1U4WCszRWM4TXd6eitVZ3pwTXNlc3VxaGNobHNu?=
+ =?utf-8?B?TldEK1U5aDU0YzRVZGFXK3lyRjBLekM0VjVROHh2eGZ6YWlwTExGQ2RRWm1I?=
+ =?utf-8?B?UDRPQkdPVGltcmE5Ti9qNDF6SHlyMmlsdUUzaC84QjFZTkV0dlhJdW00UWRK?=
+ =?utf-8?B?My9UaVY2UTVyMEVSbU5oQWo4Z0FmNkwwTTgxczRqY0hvd2ZaMENoa0NXanF0?=
+ =?utf-8?B?WWRTVzBwTndOcGgveVl3d0tKMkk4VWdUZjljQWowd1N4T3pib3NrVmM0TFFy?=
+ =?utf-8?B?R241WnNHc0tLSktFUTZXUmMvWDkvV2hRZU5hSU5jSWxwUUp4R3lsT3h2M2t5?=
+ =?utf-8?B?bVlUZyt5eXFjcFdlTlpuWnczKzBrWkxLayt2VVNEb0UzNXhEZEFIL2N2aUFy?=
+ =?utf-8?B?dXN0Qlg1bEhDQURxNEFXajVkRkJoS3ZCM3Q0U1FSRWZMaytsdHllV1NuV21I?=
+ =?utf-8?B?VkJyOFVnUXk4L1VDNkFld1BVN21jWWNpWjNOTlllTlg3MWxxOHBSMmloY0tn?=
+ =?utf-8?B?YVRaTDdYM2ZqV1EzQmR0SDJCUGJmWVFtZlhFVFg2RjQ1SjhDWjNGMFg0dm5R?=
+ =?utf-8?B?TTByN3Q3M0dCZmx6dmM0VUdoTmxVcXJScDNudHdGbzJET1ZmaUxiak4zeWk3?=
+ =?utf-8?B?NDlpT2xVNkZQcnRSalZ4Ym5YYXdjSjJSNUI4SFY4U2drODVoZkMyNkRYa2lI?=
+ =?utf-8?B?RUNQNGZDRnRYbnFKQTd5VXg3dERPVmtpWC93SHM5QU84ZGlaTURXakxBdG9F?=
+ =?utf-8?B?b3A2ZEl4ZVJRc0ZJOW5oaE1ERVVERHhCRGY1NGNhWFpNOURsOTRpZFR4d09K?=
+ =?utf-8?B?dzluM3dqdkZ5TVRmWFB0eTM4Tm1IZTRic3huL0NKNTYxLzg2ejYwMXIwZ051?=
+ =?utf-8?B?VVg4ODBKOVlMbU9MWk1WWjFsazZqNDcrdzlSemtlZTNYRWlRZXpma0ZNZWZV?=
+ =?utf-8?B?YUZQQWhldFJqTmZFZ3dsWkxIUzRFR1lwdGJuS2g3eDJ4YmpaT1g3NDczSGlS?=
+ =?utf-8?B?T3QyamR5Y250aVlwT25xODNLaENHbUpaamxSRTV1UFE2Qm9KU0tNbDZKcld5?=
+ =?utf-8?B?a1pWaTN4eTl5NWRiZlJqRkZ3T3J6Ylp0Y1dseVZWZTk5M2FiQWorOFJwYmpD?=
+ =?utf-8?B?MFNuZkdmUzdPL09URjZjSm9XRDQwQXB5djl2cDAxMlVQdmh0YjNySFZPVzdS?=
+ =?utf-8?B?REZ6SXRqcXRrVWNkNzJJVVp0dzdHNlhPVWwvTmF6UWhFTUZoRDdqUml3MXhy?=
+ =?utf-8?B?czdZSEJMc1ZJUjg2bVZMbnNlelFDWUZCc3k2RVo2Sk9uNy9mWDF4MGswQnJq?=
+ =?utf-8?B?T0xaRzUrelY4NmQ2RTRaNE1jRzcybW1iSURiNWFuYmthVGZSTFdCS0NiRkE0?=
+ =?utf-8?Q?ZpSvjV2uKuRJv7gSjP?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 98133478-f526-4958-9cdb-08df10f7f574
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Sep 2026 18:02:07.3744
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /0B/dfZxmfrZNHpJcmK/W35uKvMWageFRMSqjmuGGQ9zyW2iH4Q33/hC91CTZHh1
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9231
 
-From: Roman Vivchar <rva333@protonmail.com>
+On Fri Sep 11, 2026 at 11:48 PM EDT, Gregory Price wrote:
+> mmap a VM_MIXEDMAP region whose ->huge_fault installs a PMD through
+> vmf_insert_pfn_pmd() - mshv_vtl_low does this, and needs CAP_SYS_ADMIN
+> to open - then:
+>
+>   madvise(p, PMD_SIZE, MADV_PAGEOUT);
+>
+> With a stand-in module for the driver:
+>
+>   BUG: unable to handle page fault for address: fffff587c0000008
+>   RIP: 0010:madvise_cold_or_pageout_pte_range+0x410/0x9b0
+>    walk_pgd_range+0x52b/0xaf0
+>    __walk_page_range+0x6a/0x1d0
+>    walk_page_range_vma_unsafe+0x8e/0x120
+>    madvise_pageout+0xb2/0x180
+>    madvise_vma_behavior+0x46b/0xa90
+>    do_madvise+0x108/0x190
+>    __x64_sys_madvise+0x26/0x30
+>
+> Nothing validates the pfn on the way in:
+>
+>   can_madv_lru_vma()     rejects VM_PFNMAP, but not VM_MIXEDMAP
+>   can_fault()            *pfn =3D vmf->pgoff & ~(mask >> PAGE_SHIFT);
+>   vmf_insert_pfn_pmd()   no pfn_valid() check
+>   pmd_folio()            pfn_to_page() -> unpopulated vmemmap
+>
+> Even with a valid pfn the path is wrong.  The mapping carries no rmap, so
+> folio_maybe_mapped_shared() sees mapcount 0, and the walker goes on to
+> folio_deactivate(), or folio_isolate_lru() plus reclaim_pages(), against =
+a
+> folio this mapping does not own.
+>
+> Use vm_normal_folio_pmd() and skip on NULL, as the PTE half of this same
+> walker already does with vm_normal_folio().  This also filters the huge
+> zero PMD, so its separate check is no longer needed.
+>
+> Fixes: 3c8e44c9b369 ("mm: mark special bits for huge pfn mappings when in=
+ject")
+> Reported-by: sashiko-bot <sashiko-bot@kernel.org>
+> Closes: https://sashiko.dev/#/patchset/20260817220810.1175596-1-gourry%40=
+gourry.net
+> Cc: stable@vger.kernel.org # v6.19+
+> Assisted-by: LLM
+> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+> ---
+>  mm/madvise.c | 7 +++----
+>  1 file changed, 3 insertions(+), 4 deletions(-)
+>
+LGTM.
 
-In some cases, the touchscreen is wired to the always-on regulator, so
-resetting is required for proper I2C communication. Add reset support to
-the rmi_i2c driver.
+Reviewed-by: Zi Yan <ziy@nvidia.com>
 
-Signed-off-by: Roman Vivchar <rva333@protonmail.com>
----
-Tested on Lenovo Vibe X2 (S3528 IC).
-Before:
-[    3.944523] rmi4_i2c 2-0038: rmi_set_page: set page failed: -6.
-[    3.944615] rmi4_i2c 2-0038: Failed to set page select to 0
-[    3.944747] rmi4_i2c 2-0038: Dropping the link to regulator.29
-[    3.944917] rmi4_i2c 2-0038: Dropping the link to regulator.0
-[    3.945052] rmi4_i2c 2-0038: probe with driver rmi4_i2c rejects match -6
-
-After:
-[    3.824640] rmi4_i2c 1-0038: using DT '/soc/i2c@11009000/touchscreen@38' for 'reset' GPIO lookup
-[    3.964557] rmi4_i2c 1-0038: registering I2C-connected sensor
-[    3.964655] device: 'rmi4-00': device_add
-[    3.964682] bus: 'rmi4': add device rmi4-00
-[    3.964716] PM: Adding info for rmi4:rmi4-00
-[    3.964752] rmi4 rmi4-00: bus: 'rmi4': __driver_probe_device: matched device with driver rmi4_physical
-[    3.964768] rmi4 rmi4-00: bus: 'rmi4': really_probe: probing driver rmi4_physical with device
-[    3.964788] rmi4_physical rmi4-00: no default pinctrl state
-[    4.131969] device: 'rmi4-00.fn34': device_add
-[    4.132003] bus: 'rmi4': add device rmi4-00.fn34
-[    4.132041] PM: Adding info for rmi4:rmi4-00.fn34
-[    4.132077] rmi4 rmi4-00.fn34: bus: 'rmi4': __driver_probe_device: matched device with driver rmi4_f34
-[    4.132099] rmi4 rmi4-00.fn34: bus: 'rmi4': really_probe: probing driver rmi4_f34 with device
-[    4.132121] rmi4_f34 rmi4-00.fn34: no default pinctrl state
-[    4.133001] rmi4_f34 rmi4-00.fn34: rmi_f34v7_probe: Unrecognized bootloader version: 29 (\x1d) 16 (\x10)
-[    4.133118] rmi4_f34 rmi4-00.fn34: probe with driver rmi4_f34 failed with error -22
-[    4.134425] device: 'rmi4-00.fn01': device_add
-[    4.134448] bus: 'rmi4': add device rmi4-00.fn01
-[    4.134477] PM: Adding info for rmi4:rmi4-00.fn01
-[    4.134502] rmi4 rmi4-00.fn01: bus: 'rmi4': __driver_probe_device: matched device with driver rmi4_f01
-[    4.134517] rmi4 rmi4-00.fn01: bus: 'rmi4': really_probe: probing driver rmi4_f01 with device
-[    4.134534] rmi4_f01 rmi4-00.fn01: no default pinctrl state
-[    4.141919] rmi4_f01 rmi4-00.fn01: found RMI device, manufacturer: Synaptics, product: X2, fw id: 1730877
-[    4.144846] rmi4_f01 rmi4-00.fn01: driver: 'rmi4_f01': driver_bound: bound to device
-[    4.144898] rmi4_f01 rmi4-00.fn01: bus: 'rmi4': really_probe: bound device to driver rmi4_f01
-[    4.145874] device: 'rmi4-00.fn12': device_add
-[    4.145901] bus: 'rmi4': add device rmi4-00.fn12
-[    4.145935] PM: Adding info for rmi4:rmi4-00.fn12
-[    4.145963] rmi4 rmi4-00.fn12: bus: 'rmi4': __driver_probe_device: matched device with driver rmi4_f12
-[    4.145980] rmi4 rmi4-00.fn12: bus: 'rmi4': really_probe: probing driver rmi4_f12 with device
-[    4.145998] rmi4_f12 rmi4-00.fn12: no default pinctrl state
-[    4.159397] rmi4_f12 rmi4-00.fn12: driver: 'rmi4_f12': driver_bound: bound to device
-[    4.159446] rmi4_f12 rmi4-00.fn12: bus: 'rmi4': really_probe: bound device to driver rmi4_f12
-[    4.161703] device: 'rmi4-00.fn54': device_add
-[    4.161730] bus: 'rmi4': add device rmi4-00.fn54
-[    4.161764] PM: Adding info for rmi4:rmi4-00.fn54
-[    4.164027] device: 'rmi4-00.fn1a': device_add
-[    4.164052] bus: 'rmi4': add device rmi4-00.fn1a
-[    4.164085] PM: Adding info for rmi4:rmi4-00.fn1a
-[    4.164113] rmi4 rmi4-00.fn1a: bus: 'rmi4': __driver_probe_device: matched device with driver rmi4_f1a
-[    4.164128] rmi4 rmi4-00.fn1a: bus: 'rmi4': really_probe: probing driver rmi4_f1a with device
-[    4.164148] rmi4_f1a rmi4-00.fn1a: no default pinctrl state
-[    4.164262] rmi4_f1a rmi4-00.fn1a: driver: 'rmi4_f1a': driver_bound: bound to device
-[    4.164302] rmi4_f1a rmi4-00.fn1a: bus: 'rmi4': really_probe: bound device to driver rmi4_f1a
-[    4.166558] device: 'rmi4-00.fn55': device_add
-[    4.166588] bus: 'rmi4': add device rmi4-00.fn55
-[    4.166619] PM: Adding info for rmi4:rmi4-00.fn55
-[    4.166648] rmi4 rmi4-00.fn55: bus: 'rmi4': __driver_probe_device: matched device with driver rmi4_f55
-[    4.166664] rmi4 rmi4-00.fn55: bus: 'rmi4': really_probe: probing driver rmi4_f55 with device
-[    4.166683] rmi4_f55 rmi4-00.fn55: no default pinctrl state
-[    4.173199] rmi4_f55 rmi4-00.fn55: driver: 'rmi4_f55': driver_bound: bound to device
-[    4.173233] rmi4_f55 rmi4-00.fn55: bus: 'rmi4': really_probe: bound device to driver rmi4_f55
-[    4.175496] device: 'rmi4-00.fn51': device_add
-[    4.175523] bus: 'rmi4': add device rmi4-00.fn51
-[    4.175557] PM: Adding info for rmi4:rmi4-00.fn51
-[    4.180078] input: Synaptics X2 as /devices/platform/soc/11009000.i2c/i2c-1/1-0038/rmi4-00/input/input2
-[    4.184031] rmi4_physical rmi4-00: driver: 'rmi4_physical': driver_bound: bound to device
-[    4.184072] rmi4_physical rmi4-00: bus: 'rmi4': really_probe: bound device to driver rmi4_physical
-[    4.184095] rmi4_i2c 1-0038: driver: 'rmi4_i2c': driver_bound: bound to device
-[    4.184151] rmi4_i2c 1-0038: bus: 'i2c': really_probe: bound device to driver rmi4_i2c
----
- drivers/input/rmi4/rmi_i2c.c | 29 ++++++++++++++++++++++++++---
- 1 file changed, 26 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/input/rmi4/rmi_i2c.c b/drivers/input/rmi4/rmi_i2c.c
-index e11d0acb9b96..da560988f44a 100644
---- a/drivers/input/rmi4/rmi_i2c.c
-+++ b/drivers/input/rmi4/rmi_i2c.c
-@@ -8,6 +8,7 @@
- #include <linux/rmi.h>
- #include <linux/of.h>
- #include <linux/delay.h>
-+#include <linux/gpio/consumer.h>
- #include <linux/regulator/consumer.h>
- #include "rmi_driver.h"
- 
-@@ -40,6 +41,7 @@ struct rmi_i2c_xport {
- 
- 	struct regulator_bulk_data supplies[2];
- 	u32 startup_delay;
-+	struct gpio_desc *reset_gpio;
- };
- 
- #define RMI_PAGE_SELECT_REGISTER 0xff
-@@ -198,6 +200,16 @@ static void rmi_i2c_unregister_transport(void *data)
- 	rmi_unregister_transport_device(&rmi_i2c->xport);
- }
- 
-+static void rmi_i2c_release_reset(struct rmi_i2c_xport *rmi_i2c)
-+{
-+	if (rmi_i2c->reset_gpio) {
-+		usleep_range(10000, 20000);
-+		gpiod_set_value_cansleep(rmi_i2c->reset_gpio, 0);
-+	}
-+
-+	msleep(rmi_i2c->startup_delay);
-+}
-+
- static int rmi_i2c_probe(struct i2c_client *client)
- {
- 	struct rmi_device_platform_data *pdata;
-@@ -235,6 +247,11 @@ static int rmi_i2c_probe(struct i2c_client *client)
- 	if (error < 0)
- 		return error;
- 
-+	rmi_i2c->reset_gpio = devm_gpiod_get_optional(&client->dev, "reset",
-+						      GPIOD_OUT_HIGH);
-+	if (IS_ERR(rmi_i2c->reset_gpio))
-+		return PTR_ERR(rmi_i2c->reset_gpio);
-+
- 	error = regulator_bulk_enable(ARRAY_SIZE(rmi_i2c->supplies),
- 				       rmi_i2c->supplies);
- 	if (error < 0)
-@@ -249,7 +266,7 @@ static int rmi_i2c_probe(struct i2c_client *client)
- 	of_property_read_u32(client->dev.of_node, "syna,startup-delay-ms",
- 			     &rmi_i2c->startup_delay);
- 
--	msleep(rmi_i2c->startup_delay);
-+	rmi_i2c_release_reset(rmi_i2c);
- 
- 	rmi_i2c->client = client;
- 	mutex_init(&rmi_i2c->page_mutex);
-@@ -297,6 +314,9 @@ static int rmi_i2c_suspend(struct device *dev)
- 	if (ret)
- 		dev_warn(dev, "Failed to resume device: %d\n", ret);
- 
-+	if (rmi_i2c->reset_gpio)
-+		gpiod_set_value_cansleep(rmi_i2c->reset_gpio, 1);
-+
- 	regulator_bulk_disable(ARRAY_SIZE(rmi_i2c->supplies),
- 			       rmi_i2c->supplies);
- 
-@@ -314,7 +334,7 @@ static int rmi_i2c_resume(struct device *dev)
- 	if (ret)
- 		return ret;
- 
--	msleep(rmi_i2c->startup_delay);
-+	rmi_i2c_release_reset(rmi_i2c);
- 
- 	ret = rmi_driver_resume(rmi_i2c->xport.rmi_dev, true);
- 	if (ret)
-@@ -333,6 +353,9 @@ static int rmi_i2c_runtime_suspend(struct device *dev)
- 	if (ret)
- 		dev_warn(dev, "Failed to resume device: %d\n", ret);
- 
-+	if (rmi_i2c->reset_gpio)
-+		gpiod_set_value_cansleep(rmi_i2c->reset_gpio, 1);
-+
- 	regulator_bulk_disable(ARRAY_SIZE(rmi_i2c->supplies),
- 			       rmi_i2c->supplies);
- 
-@@ -350,7 +373,7 @@ static int rmi_i2c_runtime_resume(struct device *dev)
- 	if (ret)
- 		return ret;
- 
--	msleep(rmi_i2c->startup_delay);
-+	rmi_i2c_release_reset(rmi_i2c);
- 
- 	ret = rmi_driver_resume(rmi_i2c->xport.rmi_dev, false);
- 	if (ret)
-
----
-base-commit: 68142f986ff04b2b70b31db00f719bf690f64a9a
-change-id: 20260912-rmi4-reset-9a3d22aa024e
-
-Best regards,
---  
-Roman Vivchar <rva333@protonmail.com>
-
+--=20
+Best Regards,
+Yan, Zi
 
