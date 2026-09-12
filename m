@@ -1,170 +1,127 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17DEF4BEE32;
-	Sat, 12 Sep 2026 12:50:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B145A36B924
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 12:50:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789217406; cv=none; b=uQLAYSPMXFrWeLC62Qmn3+4Y11lEr4WhRjITzocnYWwMmIAG6hdBML3ANYA36tIJT9M4Q/vkU0WRIosZE9QJiPYZuQl5hEcXtkk+qBgMZY3xQ57gvUra6HvrUS3sKV3cofB14Bpb8h9GVpWJDifjPxPgsM4Gd/rk99qoWp8vm8k=
+	t=1789217443; cv=none; b=V0iVE0ovRqHIfLL6WkmARVDVKCc9GsuOBKCz7oGfMALWUeuDukohtggM+zFW46F9sxjoqUsTScNMActcD4jGAgRxfBu3CgvaGkJtU8vVZRs0yLLJ6xOd+cxXDMArWf3TRDPKdSMbKFK/DPbdzxdp8vR/zNvZlr5SNNZw1IBtp+Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789217406; c=relaxed/simple;
-	bh=q3T0G97yfWMmccxv2HnzusgWav3z706LG/8Zd0v7pmI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Q9WkFnHAtlIpuMg5+0G4BPgUN302U0F8qmP9WgoOWo9XZccjQDqDHJExfpacxgxXZCaZ7SsxBqSInB+e8FOKHQiHQv2O2YzMViHFbrvJgIIj8calSgDXXFl+U92ISz/d+UthSwPOx7fhohpW9TW9+5j2YYCTmNKY4nIMVLlnYQ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=YB7+xOK5; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=EhmrQHrw; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=sQbbmrRh; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=yi9LkzB9; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1789217443; c=relaxed/simple;
+	bh=hTskU0pOty3fg73gOVtWYEfhrdtDFXkBbS195d7R1/o=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=Pp0TOatzXPQwF0AE4Xt0TUNVDayPZcAIB6lbUuadCEbmw8tuXyBrKjMb2PXn3FuVZz7Ab4vSWMmR8DV1Z/Ela3Ve28HuwCk9Adxo7VSEWEL4+CT5dopUYH8EmU81Cjwk5zfszb8OndLhzLxx2PGUkUm2Cs3xFMmUIebuh15qUUU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ix5uvgYA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="YB7+xOK5";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="EhmrQHrw";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="sQbbmrRh";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="yi9LkzB9"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id A8C231F38E;
-	Sat, 12 Sep 2026 12:49:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789217398; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=WOsmQv99DvjdBTfIEwio9sIJd/aTiSVGfXFN3OZs0jQ=;
-	b=YB7+xOK5jQs/oDmHLR9Gw5ujEA3pM1DPoHbZegUTkPrjTWcHooJrK/F1HAIHFsprmxYZNB
-	G27x8mXLsQTczI+hui2nVBa6MmMxJuXkULmv6hExiVbmvF8PlOXFXyDLZauG0siG4ePBWN
-	qWdbMXIluKCMfV+8MujT1dXiL4A6Iy8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789217398;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=WOsmQv99DvjdBTfIEwio9sIJd/aTiSVGfXFN3OZs0jQ=;
-	b=EhmrQHrw8Pe4XiEjZIswPVte5im19IDrJyCvT1p6bIPQAeTg2zoRYT/6oLvOho4Jd6cCQS
-	TYpk82sdiMOvn/Dw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789217394; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=WOsmQv99DvjdBTfIEwio9sIJd/aTiSVGfXFN3OZs0jQ=;
-	b=sQbbmrRhvrvfEB8JSFjs/XxlSPoddfyRpTOuCSy5WtdGWkbQCpHGy2r7POQtu4hHypauxO
-	PSiyuKYzA50ufzG6CcOZNpTXV/pT9b7MBwxHBAx/8+EAr+bOMwrOvCtV8ZAYVt3XtV94rD
-	oqgg0OpE1tfuAow/6PrAB4p1emQJ9Jk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789217394;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=WOsmQv99DvjdBTfIEwio9sIJd/aTiSVGfXFN3OZs0jQ=;
-	b=yi9LkzB9YAxhy9pMVneWwH89LSulu7nCHtK5SiyfZPddy5f/dx5aq7DIubHYbBsNSEEm0s
-	elWpc/xyQ/Xv9IBA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6673B13687;
-	Sat, 12 Sep 2026 12:49:54 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id AHlFF3JKpWqTGwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Sat, 12 Sep 2026 12:49:54 +0000
-From: Takashi Iwai <tiwai@suse.de>
-To: linux-sound@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH RFC v2] ALSA: seq: Mark OSS sequencer emulation as deprecated
-Date: Sat, 12 Sep 2026 14:49:45 +0200
-Message-ID: <20260912124951.416761-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ix5uvgYA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A16F1F00893;
+	Sat, 12 Sep 2026 12:50:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789217440;
+	bh=eNq1op5ezbt97IUUfSwak+X0tpZtHNmTMqQGd5E3XXg=;
+	h=Date:From:To:Cc:Subject;
+	b=ix5uvgYAHl0eXNMygcQoGz1gHxvqrDHoLPrPEgmcirTwmMuSrixPLlH2JVPr9rNbz
+	 2aYar/z3fqLSDmDpI18WvNr3Ps974LN72D0UeuSf2OBZI7Kz05xlmZi2Remc6yFQt+
+	 JZw6VuFtCTyI+1o5znmPqPn9o3gsvGrh4Yqus9oEZzuAc1BmjfhIX/WxSNqhcsIM6b
+	 50s6/P5dp+3yo19SLaCus8HygHRg0pBjNLQgdPQI0CZRAmJb7mesJ948CyOrDUmDea
+	 tqsD3/uQh8gCAP+B2la2Us/SaMHXfx0bSSfqiyCjtP/MUwQe0H1yZ/UOuncWtYs6Ju
+	 tOmACcpcCMPFQ==
+Date: Sat, 12 Sep 2026 20:50:26 +0800
+From: Gao Xiang <xiang@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: linux-erofs@lists.ozlabs.org, LKML <linux-kernel@vger.kernel.org>,
+	Jingbo Xu <jefflexu@linux.alibaba.com>,
+	Nikhil Gurudasani <nikhilgurudasani314@gmail.com>,
+	Chengyu Zhu <hudsonzhu@tencent.com>,
+	Binglei Wang <l3b2w1@gmail.com>, Chao Yu <chao@kernel.org>
+Subject: [GIT PULL] erofs fixes for 7.3-rc3
+Message-ID: <aqVKkkgDZCBO-0Df@XiangdeMacBook-Pro.local>
+Mail-Followup-To: Linus Torvalds <torvalds@linux-foundation.org>,
+	linux-erofs@lists.ozlabs.org, LKML <linux-kernel@vger.kernel.org>,
+	Jingbo Xu <jefflexu@linux.alibaba.com>,
+	Nikhil Gurudasani <nikhilgurudasani314@gmail.com>,
+	Chengyu Zhu <hudsonzhu@tencent.com>,
+	Binglei Wang <l3b2w1@gmail.com>, Chao Yu <chao@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Level: 
-X-Spam-Score: -2.80
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-2.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_MISSING_CHARSET(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-0.995];
-	MIME_GOOD(-0.10)[text/plain];
-	RCPT_COUNT_TWO(0.00)[2];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:mid];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_DN_NONE(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCVD_TLS_ALL(0.00)[]
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 
-OSS sequencer API emulation has been implemented as a client of ALSA
-sequencer, decades ago, at the time where OSS was still use.  But the
-API itself became very niche, and almost noone using it for a real
-purpose any longer -- only exceptions are AI and fuzzers, who have
-been causing significant maintenance burden for issues they hit &
-found.
+Hi Linus,
 
-Meanwhile, the most features of OSS sequencer API emulation can be
-achieved in user-space, either by ALSA-OSS layer (aoss) or oss-seq-emu
-program:
-  https://github.com/alsa-project/alsa-oss
-  https://github.com/tiwai/oss-seq-emu
-where the former is LD_PRELOAD wrapper and the latter is a CUSE-based
-daemon.  So we can drop the stuff from the kernel sooner or later.
+Could you consider these fixes for 7.3-rc3?
 
-Now, let's mark the OSS sequencer emulation as deprecated and give a
-warning when loaded, so that we can drop it later actually.
+The most impacted one is to disable LZ4 rolling decompression for now:
+AWS folks recently found their systems could get corrupted data with
+some rare, specific LZ4 datasets, and after a deeper analysis, I found
+the root cause is that there could be uncontrolled backward memory
+copies in the current LZ4 implementation and it breaks the assumption
+of the rolling decompression optimization, since the kernel LZ4 codebase
+is out of our control and it needs more time to plan how to do next, so
+disable LZ4 rolling decompression for now to ensure data correctness for
+real production on these rare cases first.  The technical details also
+see the corresponding commit.
 
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
-v1->v2: put the warning for snd-seq-oss at the right place
+Other changes are random minor fixes.  All commits have been in -next
+and no potential merge conflict is observed.
 
- sound/core/seq/Kconfig       | 7 +++++--
- sound/core/seq/oss/seq_oss.c | 3 +++
- 2 files changed, 8 insertions(+), 2 deletions(-)
+Thanks,
+Gao Xiang
 
-diff --git a/sound/core/seq/Kconfig b/sound/core/seq/Kconfig
-index e4f58cb985d4..0d606159103e 100644
---- a/sound/core/seq/Kconfig
-+++ b/sound/core/seq/Kconfig
-@@ -27,14 +27,17 @@ config SND_SEQ_DUMMY
- 	  will be called snd-seq-dummy.
- 
- config SND_SEQUENCER_OSS
--	tristate "OSS Sequencer API"
-+	tristate "OSS Sequencer API (deprecated)"
- 	depends on SND_OSSEMUL
- 	select SND_SEQ_MIDI_EVENT
- 	help
- 	  Say Y here to enable OSS sequencer emulation (both
- 	  /dev/sequencer and /dev/music interfaces).
- 
--	  Many programs still use the OSS API, so say Y.
-+	  The OSS sequencer API is almost nowhere used, hence this option will
-+	  be dropped soon.
-+	  Use user-space wrapper (alsa-oss) or CUSE daemon (oss-seq-emu)
-+	  instead of the kernel-side emulation.
- 
- 	  To compile this driver as a module, choose M here: the module
- 	  will be called snd-seq-oss.
-diff --git a/sound/core/seq/oss/seq_oss.c b/sound/core/seq/oss/seq_oss.c
-index 2835576040ed..64a7e62029cc 100644
---- a/sound/core/seq/oss/seq_oss.c
-+++ b/sound/core/seq/oss/seq_oss.c
-@@ -67,6 +67,9 @@ static int __init alsa_seq_oss_init(void)
- {
- 	int rc;
- 
-+	pr_warn("seq-oss: kernel OSS sequencer emulation is deprecated\n");
-+	pr_warn("seq-oss: Use user-space solution (alsa-oss or oss-seq-emu) instead.\n");
-+
- 	rc = register_device();
- 	if (rc < 0)
- 		goto error;
--- 
-2.55.0
+The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
+
+  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
+
+are available in the Git repository at:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/xiang/erofs.git tags/erofs-for-7.3-rc3-fixes
+
+for you to fetch changes up to 135d84c66f85426299db01a09d93a79a87af18ba:
+
+  erofs: add missing buf->off in erofs_bread() (2026-09-11 12:16:20 +0800)
+
+----------------------------------------------------------------
+Changes since last update:
+
+ - Fix the missing sysfs feature entry for xattr prefixes
+
+ - Fix invalid LZMA decoders on resize failure
+
+ - Disable LZ4 rolling decompression for now due to the uncontrolled
+   LZ4 implementation
+
+ - Rearrange the inode_share cache key to avoid potential collisions
+
+ - Fix erofs_bread() when fsoffset is used on sub-page-block EROFS
+   filesystems
+
+----------------------------------------------------------------
+Binglei Wang (1):
+      erofs: add missing buf->off in erofs_bread()
+
+Chengyu Zhu (1):
+      erofs: delimit inode_share cache key components
+
+Gao Xiang (1):
+      erofs: disable LZ4 rolling decompression for now
+
+Jingbo Xu (1):
+      erofs: add sysfs feature entry for xattr prefixes
+
+Nikhil Gurudasani (1):
+      erofs: preserve LZMA decoders on resize failure
+
+ Documentation/ABI/testing/sysfs-fs-erofs |  2 +-
+ fs/erofs/data.c                          |  2 +-
+ fs/erofs/decompressor.c                  | 55 +++++++-------------------------
+ fs/erofs/decompressor_lzma.c             | 18 ++++++++---
+ fs/erofs/internal.h                      |  6 +---
+ fs/erofs/sysfs.c                         |  2 ++
+ fs/erofs/xattr.c                         |  9 +++---
+ fs/erofs/zdata.c                         | 18 ++---------
+ 8 files changed, 39 insertions(+), 73 deletions(-)
 
