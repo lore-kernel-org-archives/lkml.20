@@ -1,219 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 606D64BEE5E;
-	Sat, 12 Sep 2026 00:22:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 034621E8332
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 00:23:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789172565; cv=none; b=f87eYrJYdyMfyLBiHleTM4YAPDoNT0iCBdNf0BD9PVuPO73x36WMPZVoYWddrf9xMqlLWAIJ35n/oDdM7PeL4Y6yclx46v26tpeYnSZb5SxSYtmueFUXDI1uY+prwpVY0wU9FtnLNJbqZrls6pWK6w5IaL7qftsa0AJZNsj9Rpw=
+	t=1789172584; cv=none; b=mUAL0ktr/Ol/bxrVhDz7jQ8P9MdY5Q8VtaLu8SdboHO6dnUca+HbQ5YuJD2MKyUJcI6s9eAqjTz8bubc57yzV2exQcuwsBMMD8iiiPeKiARC+FvRa1P0CR9JFSQSbugNvglO+0wZoMCuz8Sq8lpgAXQA4zYs4gEfdurvcNPyXfs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789172565; c=relaxed/simple;
-	bh=btP9+w0qpebPWJPdz9AKP0lvnCoqmWzlrNeGOd7T1fk=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=SRanec2agy+v7dJPwBUiuOq4HlbcvKjobl9bo4c1VnJajzWmM5ti4H2mRCH+Y69SGnkKZrv80iz6IAI7yyM3txduSZiAKLxMwbNLQNsoClFSYvAoUAio2iF+0xp05QgkOG0Y/lgjHcVGAKkS5z+bfxDWFk4lMYpkbXMCxHb4QQw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BJ4lE6rJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789172584; c=relaxed/simple;
+	bh=C/ntNuH7/T4V0mo/sAmWBhHUovXH2mX+woiBShNBDfI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=HTVTkrsWKQHSPXr3RXLRYMAqnx7Y/aoMrqnaXFuWcjvFgq8kFD/RsV5kg75eyWUmxirWRBBGVW762tWHZkrNvyeZnsuT6PzR1ys4iNGZcI11MNOJl6ohJc7DCR3wgdocFsRA+sqi6Kv1w8UPKPfzOJd84lUYMZqMwzH1q8H3FJM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FWP47adl; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BJ4lE6rJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 038501F000FF;
-	Sat, 12 Sep 2026 00:22:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789172563;
-	bh=zZ0MkYEQGuqtS9XyXWjCDSbV6aS38Hy2FSrfJOsohMM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=BJ4lE6rJA3K1kikR+JMfRh/jr6lkJNnjE/ipblc2q8jUIUEZSZOjnrIokkom0K7+i
-	 hVrfxstRPSueCxRYDlrCBY+0HmDqT4Cvm/+RHXHBO25pBGkHWMhuyVEA0rkSaTE3K0
-	 u2aqWZbib++QXZyRCJWqm1hahsj+rKfqN1xm9npZqr9C8SPReC4KZin68j4FlLO0Rm
-	 1EpeVHbQLw4jig6kUE/ht1EbgAHWdAC9em1kwXauSu10+hvBKneJdP09q6OtVsDuGY
-	 wFlc/+rf8QGFmDBgJersSMu1oVL8tFyaT2ny2RPK4LM9cf39VX5SNDe2Jmd4KqUoH3
-	 AglgqrV3X9gCQ==
-Date: Sat, 12 Sep 2026 01:22:39 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Srirangan Madhavan <smadhavan@nvidia.com>
-Cc: Alison Schofield <alison.schofield@intel.com>, Bjorn Helgaas
- <bhelgaas@google.com>, Dave Jiang <dave.jiang@intel.com>, Davidlohr Bueso
- <dave@stgolabs.net>, Ira Weiny <ira.weiny@intel.com>, Vishal Verma
- <vishal.l.verma@intel.com>, linux-cxl@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, Alex Williamson
- <alex.williamson@redhat.com>, vsethi@nvidia.com, alwilliamson@nvidia.com,
- Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>, Vishal Aslot
- <vaslot@nvidia.com>, Manish Honap <mhonap@nvidia.com>, Jiandi An
- <jan@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
- linux-tegra@vger.kernel.org
-Subject: Re: [PATCH v12 04/12] cxl: Cache decoder settings on PCI devices
-Message-ID: <20260912012239.7bc32c5a@jic23-hlaptop>
-In-Reply-To: <20260910070808.1444264-5-smadhavan@nvidia.com>
-References: <20260910070808.1444264-1-smadhavan@nvidia.com>
-	<20260910070808.1444264-5-smadhavan@nvidia.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FWP47adl"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485b1d2874fso96371f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 17:23:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789172581; x=1789777381; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=a76hBPXYrcoSmtn4Q7RocQBlCM+IbZbkHYVvSI8P1K4=;
+        b=FWP47adlnxicZz+lZg2e0nRmBhvXFIldq7jGMPwERkXLLfcrWZR7WK0LkTY+GjF2jd
+         LTQgYV+RZ282s2sh+c+zv3BNGXnXtxiSH3/KPmDyndBeYB/qXJd/pPYcj98H94mq6tDe
+         UZUySs9tz3Zwko5zqmndwQpmW2SsoxISk5rzx5bXvpk4y1z93uFN9k6xjtUfefiuyQHf
+         7vfTwcMuClUbJ7PoA80CbyZz6o2VF1Bb67xWlXnRij/TdJbAmAStYt6dwWVVHHc3f08z
+         yDl2fdLR/N8jk9DXLryYDTYjAcQ1JZvQLiEqJAOaNVAdvY8Uhq8fUPECeQ2T3r+Mpopc
+         0+yQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789172581; x=1789777381;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=a76hBPXYrcoSmtn4Q7RocQBlCM+IbZbkHYVvSI8P1K4=;
+        b=sJRh2CX6IQP6fwltLbo6+JLGeaIokv+H3K7XvsFnmYqcG8xDiHY8ql7UE1QBR1NwGp
+         GAF5w4bOMoNQptCf5+SONpQbCER42c8e7ckVchiPT6K6Hpt8zboQNi7yhCsPgk6Bp9kN
+         RLBztF31/fAXhpd+rgUgtIPIrcbzBt7/i/oO61CRUSFR5+GpTXCKssINndDpaGg3K5vV
+         3lMOW+LsDBJgG5VURT2HW2uFt4qoIkxiboCEUYr1FpGQECwab28VvLdwlLMS+GjRNsaT
+         NktmCwu8DyTCZrEj4902yxVdt7lU1EXFe1bhgi3g0aIF9qLT1gu3ov5EF7aGRip3ivj0
+         FdBQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwv9UfUN7d1onKa9Ad+2AnxrbPeIufYKt5uFm4ZHbeSBZJhpe0pNPpGxZLVj3Phf0vioqRQGdt9hzpKI98=@vger.kernel.org
+X-Gm-Message-State: AFuF++mJiSkbEW29zY+KMZNBUABy9y/ZDM/YsyeqlIX2z2Nypp1o+/RX
+	pwAkeLX9XW+4LCEQxpNxtCKs0K9K0p5PoVI+2rv4q8IkTJOgDYorOaJQ
+X-Gm-Gg: AYBFou29QNoslsynlxVZGWpU8PpR64SQ6qw7lSeMkWXR/pIMAMnrnTlxLfE9ukTYk//
+	IhsWx94QFc5Es5/DjU4Nf9LbWWchlza0yfprp6BYSEKp2psP055GJ0tAPsAMmgg80RBP+hJix/Y
+	M5w3M5RVtGVhXeu/3f2Cm197aWev22e9IdXZSUMrWlhqx7CXJDlLJY3x8ap2j8GlRDCilpbUThe
+	QlmjEKGMQpL47af8Mgyjt5d7E3rW1J5M/C7eb+gCu+q+7lNwBCgw+ukiW/Xj+M5HN+C3OVGpwu3
+	5Kosi0XRN5GcRJ0ySrYrKRPf5QH/iK7HClbLVbTyTahhKogGfbhcsnuL38dEYE/P6dnE1hVNjhc
+	Tuby5hmeFV2iQH+f15USOd2XXEaw7RaidKnTf99zINhmhNb6Lj+ct1U8hDgJnaGELiHmAOwqZ7D
+	ariaHIOmKFR6L1LC7DLD8Mz6TmKVCVYEE8xcdTt4YCSUBJiJ93d0a7jRL9Sz1W0hDPck/MXtDNL
+	N6kbN6KekWtG6tkzu5NtlJ1T/E6f/tLsgATflZBexiqp9J+/ijYsts4mvkinZHOdwPIwOkw7ur5
+	vl5uPlZOj14W4zHXrZ+Tu0JTMaXsn71KtApV
+X-Received: by 2002:a05:600c:698d:b0:49e:6865:904e with SMTP id 5b1f17b1804b1-49e6865921amr43495635e9.12.1789172581015;
+        Fri, 11 Sep 2026 17:23:01 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-095-114-033-154.95.114.pool.telefonica.de. [95.114.33.154])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e69f02e0bsm26924275e9.2.2026.09.11.17.22.59
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 11 Sep 2026 17:23:00 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Even Xu <even.xu@intel.com>,
+	Xinpeng Sun <xinpeng.sun@intel.com>,
+	Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] HID: intel-thc-hid: intel-quicki2c: Fix the return value in quicki2c_dev_init() kernel-doc
+Date: Sat, 12 Sep 2026 02:21:43 +0200
+Message-Id: <20260912002143.35091-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Thu, 10 Sep 2026 07:08:00 +0000
-Srirangan Madhavan <smadhavan@nvidia.com> wrote:
+quicki2c_dev_init() returns an ERR_PTR() on failure, but its kernel-doc
+says that failure returns NULL. This mismatch was present in the
+original driver skeleton.
 
-> Add CXL core plumbing to refresh a PCI device HDM decoder cache when
-> decoders are enumerated, committed, or reset. PCI reset paths can use
-> this snapshot to restore HDM programming without walking CXL topology
-> during reset recovery.
-> 
-> The cache is populated by PCI-side discovery in a follow-on patch. Until
-> then, the CXL core update path is a no-op when no PCI HDM cache is
-> present.
-> 
-> Signed-off-by: Srirangan Madhavan <smadhavan@nvidia.com>
-Various comments inline
+Document the error pointer returned by the initialization paths.
 
-Thanks,
+Fixes: 61bb2714dc3a ("HID: intel-thc-hid: intel-quicki2c: Add THC QuickI2C driver skeleton")
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+ drivers/hid/intel-thc-hid/intel-quicki2c/pci-quicki2c.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Jonathan
-> ---
->  drivers/cxl/core/hdm.c | 68 +++++++++++++++++++++++++++++++++++++++++-
->  include/cxl/cxl.h      | 12 ++++++++
->  include/linux/pci.h    |  6 ++++
->  3 files changed, 85 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/cxl/core/hdm.c b/drivers/cxl/core/hdm.c
-> index d621d827f59f..0927036aed27 100644
-> --- a/drivers/cxl/core/hdm.c
-> +++ b/drivers/cxl/core/hdm.c
-> @@ -16,6 +16,9 @@
->   * for enumerating these registers and capabilities.
->  
->  
-> +static bool __cxl_pci_hdm_decoder_count_match(struct pci_dev *pdev,
-> +					      int decoder_count)
-> +{
-> +	struct cxl_hdm_info *info;
-> +	bool match = true;
-> +
-> +	down_read(&cxl_rwsem.dpa);
-
-guard() 
-> +	info = pdev->hdm;
-> +	if (info) {
-
-If !info fails the number of decoders definitely didn't match - so maybe
-print something in that path too.
-
-so far, the local info variable is less readable than pdev->hdm.
-Maybe it becomes more useful later in series.
-
-> +		if (info->decoder_count != decoder_count) {
-> +			pci_warn(pdev,
-> +				 "CXL HDM cache decoder count mismatch: cached=%d hdm=%d\n",
-> +				 info->decoder_count, decoder_count);
-> +			match = false;
-
-> +		}
-> +	}
-> +	up_read(&cxl_rwsem.dpa);
-> +
-> +	return match;
-> +}
-> +
-> +static bool cxl_pci_hdm_decoder_count_match(struct cxl_hdm *cxlhdm)
-> +{
-> +	struct pci_dev *pdev __free(pci_dev_put) =
-> +		cxl_port_get_uport_pci_dev(cxlhdm->port);
-> +
-> +	if (!pdev)
-> +		return true;
-> +
-> +	return __cxl_pci_hdm_decoder_count_match(pdev, cxlhdm->decoder_count);
-
-I went looking and seems like this is the only call. Just bring the implementation
-inline here.
-
-> +}
-> +
-> +static void cxl_hdm_save_decoder_info(struct cxl_hdm *cxlhdm,
-> +				      struct cxl_decoder *cxld)
-> +{
-> +	struct pci_dev *pdev __free(pci_dev_put) =
-> +		cxl_port_get_uport_pci_dev(cxlhdm->port);
-> +	struct cxl_decoder_settings *settings;
-> +	struct cxl_hdm_info *info;
-> +
-> +	if (!pdev)
-> +		return;
-> +
-> +	guard(rwsem_write)(&cxl_rwsem.dpa);
-> +	info = pdev->hdm;
-> +	if (!info || cxld->id >= info->decoder_count)
-> +		return;
-> +
-> +	settings = &info->settings[cxld->id];
-> +	*settings = (struct cxl_decoder_settings) {
-> +		.id = cxld->id,
-> +	};
-> +	if (cxld->flags & CXL_DECODER_F_ENABLE)
-
-Why is it bad to snapshot a non enabled decoder?  Is it pointless
-or harmful.  Add a comment.
-
-> +		cxl_decoder_snapshot(cxld, settings);
-> +}
-
-> diff --git a/include/cxl/cxl.h b/include/cxl/cxl.h
-> index c09492af8fbd..ed5237df510f 100644
-> --- a/include/cxl/cxl.h
-> +++ b/include/cxl/cxl.h
-> @@ -133,6 +133,18 @@ struct cxl_regs {
->  	);
->  };
->  
-> +#define CXL_HDM_DECODER_MAX_COUNT 32
-> +
-> +/**
-> + * struct cxl_hdm_info - PCI device HDM decoder programming cache
-> + * @decoder_count: number of decoder settings entries
-> + * @settings: cached per-decoder programming state
-> + */
-> +struct cxl_hdm_info {
-> +	int decoder_count;
-> +	struct cxl_decoder_settings settings[CXL_HDM_DECODER_MAX_COUNT];
-> +};
-
-This is quite a big structure. Can't we do
-	int decoder_count;
-	struct cxl_decodet setting settings[] __counted_by(decoder_count);
-and allocate the necessary size using struct_size()?
-
-I doubt that many devices will do all 32 decoders - particularly as
-the spec used to allow a smaller number IIRC.
-
-> +
->  struct cxl_reg_map {
->  	bool valid;
->  	int id;
-> diff --git a/include/linux/pci.h b/include/linux/pci.h
-> index d31a8d107b1e..84d058b1b492 100644
-> --- a/include/linux/pci.h
-> +++ b/include/linux/pci.h
-> @@ -339,6 +339,9 @@ struct pcie_link_state;
->  struct pci_sriov;
->  struct pci_p2pdma;
->  struct rcec_ea;
-> +#ifdef CONFIG_CXL_RESET
-> +struct cxl_hdm_info;
-> +#endif
->  
->  /* struct pci_dev - describes a PCI device
->   *
-> @@ -566,6 +569,9 @@ struct pci_dev {
->  #ifdef CONFIG_PCI_DOE
->  	struct xarray	doe_mbs;	/* Data Object Exchange mailboxes */
->  #endif
-> +#ifdef CONFIG_CXL_RESET
-> +	struct cxl_hdm_info *hdm;	/* CXL HDM decoder reset state */
-> +#endif
->  #ifdef CONFIG_PCI_NPEM
->  	struct npem	*npem;		/* Native PCIe Enclosure Management */
->  #endif
+diff --git a/drivers/hid/intel-thc-hid/intel-quicki2c/pci-quicki2c.c b/drivers/hid/intel-thc-hid/intel-quicki2c/pci-quicki2c.c
+index 0d2ad7bc3648a2f227db2ed27ad9cbe18955bc0f..aa601ef613c91729f4fc90bdc1674cb838921421 100644
+--- a/drivers/hid/intel-thc-hid/intel-quicki2c/pci-quicki2c.c
++++ b/drivers/hid/intel-thc-hid/intel-quicki2c/pci-quicki2c.c
+@@ -380,7 +380,7 @@ exit:
+  * If success, enable THC hardware interrupt.
+  *
+  * Return: Pointer to the quicki2c_device structure if success
+- * or NULL on failure.
++ * or an ERR_PTR() on failure.
+  */
+ static struct quicki2c_device *quicki2c_dev_init(struct pci_dev *pdev, void __iomem *mem_addr,
+ 						 const struct quicki2c_ddata *ddata)
+-- 
+2.39.5 (Apple Git-154)
 
