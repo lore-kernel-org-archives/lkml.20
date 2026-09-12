@@ -1,184 +1,276 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C96138736C
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 09:09:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDBBD3BFAF7
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 09:15:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789204195; cv=none; b=DCsiQxnKJCrOpjcY9wFMZdCNeLAR+0o4iF8R52Na17T1KCRIX2V2jtI4wEsxMJOPwvRhTsYOgppkZiaxO2aO5apT2SeCB5v/UjPzBkMzvUIIwjGGOBBTgz4fpA28wRW2indzREuwWsC31Kxi0CavjNmrZbGnwiYeLrDRHShQT6I=
+	t=1789204514; cv=none; b=Rkjv78CQJIW8mgeIdXM83qSVcmlOLcXJQUYUxh4tRIfxEeNR26KXi2JHWO247sAfO0goxMK9c+tlcBXg/ouS51DE4eNywbr+FeY80XramGw/+gXJKsiNYUoNJwyfVzDOF8HdoQX5J7+uQLh1LSAO7Ct3TReDdgyJ1oombO6hORQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789204195; c=relaxed/simple;
-	bh=Udoo0U8Eun6RScJdgOh2tTlkvguARmiSlB0JzgpGvvE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=l9kz1M45YI35PWHOhgC8TlEoEH8qBfgKK6pM1ZRCEKRg5wmu3ZVfZtx002exKbhv5QpRJR0dh25A2bPuhefGJurPNVl2ccoW8kb/K1Khmyi9IzaWekoL8mS8JrP/DNoLoi+B6dYiO/MdneKvJULbM5k1+Qn3aCytZBb+4ds5KTg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=A36Rsk1/; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=tjCJ44WR; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789204514; c=relaxed/simple;
+	bh=Fh/bBgJyBwaSTe9nnuTQMdOkcFhC3tAOkvAZyeumstU=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=Qn3mBO/d5IsNyFnf+btNTHN+JKlGOc0xtuy3HuIfKC2BVLPB6VShp7P7JQrJJ4KfGtuWjTbZPyCziFqtNQWDOvtu4JGyqAXNaWTT5T4xOCQgNjbVYlalnYjE3jhBUQBT9h+fsU9WlnGGMhr2sDuIJ7cBNw7mv8uPS6ay0ugjT60=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lxu1+1ii; arc=none smtp.client-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="A36Rsk1/";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="tjCJ44WR"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789204192;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2fTpUU0/C+r9b31rC+Uhm2IpvHL/cIjBJckoMkgqczM=;
-	b=A36Rsk1/JGGPKhqUdkP2Uzb4X8kroFJyAcjL3JxOwzivEpPtDlCP+nSJ7VBC/8ec7Y9H2W
-	CDeUtp1448Stg6uCGlbG7ZgmoWG+m8zKRGllb+kGWs0c+IWzYlrSiZAv0lStp5YHmBBwsa
-	DSAArsG8P2ke6W7RIQPr7MTTAN0W9YY=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-284-z8NB_SnkOcKIoSY5vwJtoQ-1; Sat, 12 Sep 2026 05:09:50 -0400
-X-MC-Unique: z8NB_SnkOcKIoSY5vwJtoQ-1
-X-Mimecast-MFC-AGG-ID: z8NB_SnkOcKIoSY5vwJtoQ_1789204190
-Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-485afdd5079so1404267f8f.1
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 02:09:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1789204189; x=1789808989; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2fTpUU0/C+r9b31rC+Uhm2IpvHL/cIjBJckoMkgqczM=;
-        b=tjCJ44WRixS3c8wTvizTp2GmGaw6sxq2Adp4xYIfq2XzbTwj4hYNLotvo/ee9Ry1CK
-         AKsv+XZQKkNwOnmPZK5t0sg2+uX7kDQkLIEwf3GZw0Cm6Y7bOeLHQPel+AIUBiqIoVoX
-         SgVzQ4waqpFCeWFjKOQdA1/GUCNTP+M1OCM7anF3zbNacoATipImGmOLL0QpaX0NyCuM
-         RQWmo/qSWrt4KnUrB8BrKhdQkVadjuViCyuHOfS0RNv9wkt5FewICpfegdsk6xBhj6Mm
-         Zj/H32a/zaUo3vstzCcf3AXl+F7qxJAwA90k/+dFXRkO+MS39KjcRyAU6g5hjlpWGJ+N
-         sUWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789204189; x=1789808989;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2fTpUU0/C+r9b31rC+Uhm2IpvHL/cIjBJckoMkgqczM=;
-        b=jBbCmT+GbM99/QVh8Mho1+I+S36kOoroBh28JWgs3SClAaHSFZ/w1UxRksViwfMy5V
-         dmW3rmRZyG0EDu97ZTkGkH4hhmPwxMvqV7YCVSsvsEnTyiI1tlDctMaUJ4TvREBh0yY5
-         w4vIL8V0ptcb52axHD/mVOGqFt/HCjCTdu+N0mmkZrkgfEYaHAdX00JLKOQUoJTqFjzH
-         UBS3SDu0+zoP3W3nr2FIiKCyaMKKyQK3WLPw0xl0ELi5BO1WvqZgwF+8Y/OGeZOuF3ur
-         CjpUY1WsWdFScXDBD+KWXzsndcoVIR/HuvY8Opu8Ol/u5Obq0PFfjP7g4Yu0qo3hNItI
-         RehQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzgPKFYA3KhZtTQu9Pt50mRrlZW9XkAtWN+0jM/UXxCH1p/iUavoGzLftNOlht2POJI2CXjbixFulSNRjE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nv774NILNOaB4jxJlYZnh9dQmcEp0yebS8vpQ9rOX1DyBzMlco
-	1wUPR2xsqknaIkAvZ9/vJ5GFaKJAdfX2jYqXiY6zEKcxv68jxDWgKgWT/G+TKNv2MreSMXhIQUw
-	AU85TARceCkmkgrUawkYMj23S54pHYA8aJeisfHoD/1YfTRAg6euyHpGeRjsSm+qpcA==
-X-Gm-Gg: AYBFou2omEGWpbpoy1Zy1P9ZmG3NDCW2aV57QmACp2EmF6baNv6mraJsBTWZisoTrPK
-	adJYwsEG17njgda8+eGI4eyaZ0MI34ZsQBia7z/7eOVzC0nwMg06axq41poUUSgOFqI4PCL5rEO
-	W9f/gpVTI5iRrq/YCpvA4hU1xBPVp4C6Msp/hw5YRNWanuGzKrK9XQ7KaWVCaO1Px0YA8xGcgRy
-	4o1lXZ0fxfGfQkdb6ekZF7vs5B84helj1wIMhv3YXNLVt17yfxlrsrtJ/0uoo+DXUkgnYxTiF/y
-	zfBt319WkWQJ7/velMoYSXVmxXEOuBmy7jPO1+l7+nexIHtultbnPh9dtmeHXAiTIeI=
-X-Received: by 2002:a05:6000:4008:b0:485:8c16:a32d with SMTP id ffacd0b85a97d-486eb329a0amr8768537f8f.34.1789204189459;
-        Sat, 12 Sep 2026 02:09:49 -0700 (PDT)
-X-Received: by 2002:a05:6000:4008:b0:485:8c16:a32d with SMTP id ffacd0b85a97d-486eb329a0amr8768508f8f.34.1789204188889;
-        Sat, 12 Sep 2026 02:09:48 -0700 (PDT)
-Received: from redhat.com ([147.235.223.59])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb34f1f7sm11666697f8f.24.2026.09.12.02.09.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 12 Sep 2026 02:09:48 -0700 (PDT)
-Date: Sat, 12 Sep 2026 05:09:45 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Cong Zhang <cong.zhang@oss.qualcomm.com>
-Cc: Jason Wang <jasowangio@gmail.com>,
-	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Stefan Hajnoczi <stefanha@redhat.com>, Jens Axboe <axboe@kernel.dk>,
-	Ming Lei <ming.lei@redhat.com>, linux-arm-msm@vger.kernel.org,
-	virtualization@lists.linux.dev, linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] virtio_blk: use synchronous quiesce in
- virtblk_freeze_priv()
-Message-ID: <20260912050459-mutt-send-email-mst@kernel.org>
-References: <20260912-virtblk_sync_quiesce-v2-1-09a001549b72@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lxu1+1ii"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789204512; x=1820740512;
+  h=date:from:to:cc:subject:message-id;
+  bh=Fh/bBgJyBwaSTe9nnuTQMdOkcFhC3tAOkvAZyeumstU=;
+  b=lxu1+1ii+BYUD88Wbdn74bC/8oHPB4B7xjwLWpxLYLbDG+PUybspVunF
+   +Un5pR/UUuEwz3tipYe1WwjwyZaLSXdsYBPVsf81kYOBdGxuTZjv+3hLm
+   kXh9dUJGdYpFjtLQbrr9O9q8ekzJv3f6WQidNM2/PagrMYrUGoY4I2qCI
+   r9bupGFDxDONVIW+zPe20ILIml/KOU4cNBwKgcFaczvTIvhRXxs7x5fll
+   RtQO38v9/B+GAagaDoPjGjzeOtjPXdpBRegezuHBFtbF1WQn/znql8yNT
+   rYTKL5R2bg2uZup84tMJSYCwxMIItA06yIHesFKt1SetsfIwFg2g7dbAC
+   g==;
+X-CSE-ConnectionGUID: NBfDx/khQtCI9/06FwxSuQ==
+X-CSE-MsgGUID: CmcldPpYSuOt/2i4Soec6w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11902"; a="93521269"
+X-IronPort-AV: E=Sophos;i="6.27,99,1787036400"; 
+   d="scan'208";a="93521269"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Sep 2026 02:15:12 -0700
+X-CSE-ConnectionGUID: 16GSCu38S+q/kUkeCA0IlQ==
+X-CSE-MsgGUID: JN5mAdrbQh6U/deDsoE0Hg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,99,1787036400"; 
+   d="scan'208";a="295638575"
+Received: from lkp-server02.sh.intel.com (HELO 0a3643a6ed9d) ([10.239.97.151])
+  by fmviesa002.fm.intel.com with ESMTP; 12 Sep 2026 02:15:10 -0700
+Received: from kbuild by 0a3643a6ed9d with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x5JpD-000000002oN-3HTj;
+	Sat, 12 Sep 2026 09:15:07 +0000
+Date: Sat, 12 Sep 2026 17:14:17 +0800
+From: kernel test robot <lkp@intel.com>
+To: "x86-ml" <x86@kernel.org>
+Cc: linux-kernel@vger.kernel.org
+Subject: [tip:master] BUILD SUCCESS
+ 3d4279fce2cfb39dfa3477dd4fa5d484e98bfcd2
+Message-ID: <202609121713.0PDHHxxs-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260912-virtblk_sync_quiesce-v2-1-09a001549b72@oss.qualcomm.com>
 
-On Sat, Sep 12, 2026 at 04:52:44PM +0800, Cong Zhang wrote:
-> Replace blk_mq_quiesce_queue_nowait() with blk_mq_quiesce_queue() in
-> virtblk_freeze_priv().
-> 
-> Keep the existing freeze and unfreeze order. The synchronous call waits
-> for dispatch code that was already running. The queue remains quiesced
-> until virtblk_restore_priv() calls blk_mq_unquiesce_queue().
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git master
+branch HEAD: 3d4279fce2cfb39dfa3477dd4fa5d484e98bfcd2  Merge branch into tip/master: 'x86/tdx'
 
+elapsed time: 1482m
 
+configs tested: 199
+configs skipped: 2
 
-This repeatition of the code in english is not what we need
-in the commit log.
+The following configs have been built successfully.
+More configs may be tested in the coming days.
 
-Suggested format:
+tested configs:
+alpha                             allnoconfig    gcc-16.1.0
+alpha                            allyesconfig    gcc-16.1.0
+alpha                               defconfig    gcc-16.1.0
+arc                              allmodconfig    clang-24
+arc                               allnoconfig    gcc-16.1.0
+arc                              allyesconfig    clang-24
+arc                                 defconfig    gcc-16.1.0
+arc                   randconfig-001-20260912    clang-17
+arc                   randconfig-002-20260912    clang-17
+arm                               allnoconfig    gcc-16.1.0
+arm                              allyesconfig    clang-24
+arm                         at91_dt_defconfig    clang-17
+arm                                 defconfig    gcc-16.1.0
+arm                            hisi_defconfig    clang-24
+arm                      jornada720_defconfig    clang-24
+arm                            mps2_defconfig    clang-24
+arm                        mvebu_v7_defconfig    clang-24
+arm                           omap1_defconfig    clang-17
+arm                           omap1_defconfig    clang-24
+arm                   randconfig-001-20260912    clang-17
+arm                   randconfig-002-20260912    clang-17
+arm                   randconfig-003-20260912    clang-17
+arm                   randconfig-004-20260912    clang-17
+arm                         s5pv210_defconfig    clang-17
+arm64                            allmodconfig    clang-24
+arm64                             allnoconfig    gcc-16.1.0
+arm64                               defconfig    gcc-16.1.0
+arm64                 randconfig-001-20260912    gcc-15.2.0
+arm64                 randconfig-002-20260912    gcc-15.2.0
+arm64                 randconfig-003-20260912    gcc-15.2.0
+arm64                 randconfig-004-20260912    gcc-15.2.0
+csky                             allmodconfig    gcc-16.1.0
+csky                              allnoconfig    gcc-16.1.0
+csky                                defconfig    gcc-16.1.0
+csky                  randconfig-001-20260912    gcc-15.2.0
+csky                  randconfig-002-20260912    gcc-15.2.0
+hexagon                          allmodconfig    gcc-16.1.0
+hexagon                           allnoconfig    gcc-16.1.0
+hexagon                             defconfig    gcc-16.1.0
+hexagon               randconfig-001-20260912    clang-24
+hexagon               randconfig-002-20260912    clang-24
+i386                             allmodconfig    clang-22
+i386                              allnoconfig    gcc-16.1.0
+i386                             allyesconfig    clang-22
+i386        buildonly-randconfig-001-20260912    gcc-14
+i386        buildonly-randconfig-002-20260912    gcc-14
+i386        buildonly-randconfig-003-20260912    gcc-14
+i386        buildonly-randconfig-004-20260912    gcc-14
+i386        buildonly-randconfig-005-20260912    gcc-14
+i386        buildonly-randconfig-006-20260912    gcc-14
+i386                                defconfig    gcc-16.1.0
+i386                  randconfig-001-20260912    gcc-14
+i386                  randconfig-002-20260912    gcc-14
+i386                  randconfig-003-20260912    gcc-14
+i386                  randconfig-004-20260912    gcc-14
+i386                  randconfig-005-20260912    gcc-14
+i386                  randconfig-006-20260912    gcc-14
+i386                  randconfig-007-20260912    gcc-14
+i386                  randconfig-011-20260912    gcc-14
+i386                  randconfig-012-20260912    gcc-14
+i386                  randconfig-013-20260912    gcc-14
+i386                  randconfig-014-20260912    gcc-14
+i386                  randconfig-015-20260912    gcc-14
+i386                  randconfig-016-20260912    gcc-14
+i386                  randconfig-017-20260912    gcc-14
+loongarch                        allmodconfig    clang-24
+loongarch                         allnoconfig    gcc-16.1.0
+loongarch                           defconfig    clang-24
+loongarch             randconfig-001-20260912    clang-24
+loongarch             randconfig-002-20260912    clang-24
+m68k                             allmodconfig    gcc-16.1.0
+m68k                              allnoconfig    gcc-16.1.0
+m68k                             allyesconfig    clang-24
+m68k                                defconfig    clang-24
+m68k                       m5235evb_defconfig    gcc-16.1.0
+microblaze                        allnoconfig    gcc-16.1.0
+microblaze                       allyesconfig    gcc-16.1.0
+microblaze                          defconfig    clang-24
+mips                             allmodconfig    gcc-16.1.0
+mips                              allnoconfig    gcc-16.1.0
+mips                             allyesconfig    gcc-16.1.0
+mips                  cavium_octeon_defconfig    clang-24
+mips                     decstation_defconfig    gcc-16.1.0
+mips                      fuloong2e_defconfig    gcc-16.1.0
+mips                           jazz_defconfig    clang-24
+mips                       rbtx49xx_defconfig    clang-24
+nios2                            allmodconfig    clang-20
+nios2                             allnoconfig    clang-24
+nios2                               defconfig    clang-24
+nios2                 randconfig-001-20260912    clang-24
+nios2                 randconfig-002-20260912    clang-24
+openrisc                         allmodconfig    clang-20
+openrisc                          allnoconfig    clang-24
+openrisc                            defconfig    gcc-16.1.0
+openrisc                 simple_smp_defconfig    clang-24
+parisc                           allmodconfig    gcc-16.1.0
+parisc                            allnoconfig    clang-24
+parisc                           allyesconfig    clang-17
+parisc                              defconfig    gcc-16.1.0
+parisc                generic-64bit_defconfig    clang-24
+parisc                randconfig-001-20260912    clang-24
+parisc                randconfig-002-20260912    clang-24
+parisc64                         alldefconfig    gcc-16.1.0
+parisc64                            defconfig    clang-24
+powerpc                          allmodconfig    gcc-16.1.0
+powerpc                           allnoconfig    clang-24
+powerpc                    amigaone_defconfig    gcc-16.1.0
+powerpc                      arches_defconfig    clang-17
+powerpc                   lite5200b_defconfig    gcc-16.1.0
+powerpc                      mgcoge_defconfig    clang-17
+powerpc                 mpc837x_rdb_defconfig    clang-17
+powerpc                     mpc83xx_defconfig    clang-24
+powerpc                      pasemi_defconfig    clang-17
+powerpc                         ps3_defconfig    clang-17
+powerpc                     rainier_defconfig    clang-24
+powerpc               randconfig-001-20260912    clang-24
+powerpc               randconfig-002-20260912    clang-24
+powerpc                  storcenter_defconfig    gcc-16.1.0
+powerpc64             randconfig-001-20260912    clang-24
+powerpc64             randconfig-002-20260912    clang-24
+riscv                            allmodconfig    clang-24
+riscv                             allnoconfig    clang-24
+riscv                            allyesconfig    clang-24
+riscv                               defconfig    gcc-16.1.0
+riscv                 randconfig-001-20260912    gcc-11.5.0
+riscv                 randconfig-002-20260912    gcc-11.5.0
+s390                             allmodconfig    clang-17
+s390                              allnoconfig    clang-24
+s390                             allyesconfig    gcc-16.1.0
+s390                                defconfig    gcc-16.1.0
+s390                  randconfig-001-20260912    gcc-11.5.0
+s390                  randconfig-002-20260912    gcc-11.5.0
+sh                               allmodconfig    gcc-16.1.0
+sh                                allnoconfig    clang-24
+sh                               allyesconfig    clang-17
+sh                                  defconfig    gcc-14
+sh                 kfr2r09-romimage_defconfig    clang-24
+sh                    randconfig-001-20260912    gcc-11.5.0
+sh                    randconfig-002-20260912    gcc-11.5.0
+sh                      rts7751r2d1_defconfig    clang-24
+sh                           se7206_defconfig    gcc-16.1.0
+sh                           se7751_defconfig    clang-24
+sparc                             allnoconfig    clang-24
+sparc                               defconfig    gcc-16.1.0
+sparc                 randconfig-001-20260912    gcc-14.3.0
+sparc                 randconfig-002-20260912    gcc-14.3.0
+sparc64                          allmodconfig    clang-20
+sparc64                             defconfig    gcc-14
+sparc64               randconfig-001-20260912    gcc-14.3.0
+sparc64               randconfig-002-20260912    gcc-14.3.0
+um                               allmodconfig    clang-17
+um                                allnoconfig    clang-24
+um                               allyesconfig    gcc-16.1.0
+um                                  defconfig    gcc-14
+um                             i386_defconfig    gcc-14
+um                    randconfig-001-20260912    gcc-14.3.0
+um                    randconfig-002-20260912    gcc-14.3.0
+um                           x86_64_defconfig    gcc-14
+x86_64                           alldefconfig    clang-24
+x86_64                           allmodconfig    clang-22
+x86_64                            allnoconfig    clang-24
+x86_64                           allyesconfig    clang-22
+x86_64      buildonly-randconfig-001-20260912    gcc-14
+x86_64      buildonly-randconfig-002-20260912    gcc-14
+x86_64      buildonly-randconfig-003-20260912    gcc-14
+x86_64      buildonly-randconfig-004-20260912    gcc-14
+x86_64      buildonly-randconfig-005-20260912    gcc-14
+x86_64      buildonly-randconfig-006-20260912    gcc-14
+x86_64                              defconfig    gcc-14
+x86_64                                  kexec    clang-22
+x86_64                randconfig-001-20260912    clang-22
+x86_64                randconfig-002-20260912    clang-22
+x86_64                randconfig-003-20260912    clang-22
+x86_64                randconfig-004-20260912    clang-22
+x86_64                randconfig-005-20260912    clang-22
+x86_64                randconfig-006-20260912    clang-22
+x86_64                randconfig-011-20260912    gcc-14
+x86_64                randconfig-012-20260912    gcc-14
+x86_64                randconfig-013-20260912    gcc-14
+x86_64                randconfig-014-20260912    gcc-14
+x86_64                randconfig-015-20260912    gcc-14
+x86_64                randconfig-016-20260912    gcc-14
+x86_64                randconfig-071-20260912    gcc-14
+x86_64                randconfig-072-20260912    gcc-14
+x86_64                randconfig-073-20260912    gcc-14
+x86_64                randconfig-074-20260912    gcc-14
+x86_64                randconfig-075-20260912    gcc-14
+x86_64                randconfig-076-20260912    gcc-14
+x86_64                               rhel-9.4    clang-22
+x86_64                           rhel-9.4-bpf    gcc-14
+x86_64                          rhel-9.4-func    clang-22
+x86_64                    rhel-9.4-kselftests    clang-22
+x86_64                         rhel-9.4-kunit    gcc-14
+x86_64                           rhel-9.4-ltp    gcc-14
+x86_64                          rhel-9.4-rust    clang-22
+xtensa                            allnoconfig    clang-24
+xtensa                           allyesconfig    clang-20
+xtensa                randconfig-001-20260912    gcc-14.3.0
+xtensa                randconfig-002-20260912    gcc-14.3.0
 
-The following issue was observed by ...: currently .... because ... this is a
-problem because ... and we can not ... because ... to fix ... so that
-... tested by ...: before ... after ...
-
-
-
-
-> Fixes: 7678abee0867 ("virtio-blk: don't keep queue frozen during system suspend")
-> 
-> Signed-off-by: Cong Zhang <cong.zhang@oss.qualcomm.com>
-
-no empty lines between tags please
-
-> ---
-> blk_mq_run_work_fn() can call blk_mq_sched_dispatch_requests() through
-> blk_mq_run_dispatch_ops(). The dispatcher checks QUEUE_FLAG_QUIESCED
-> while the flag is clear. It can then be preempted before it gets a
-> request. At that time, it has no queue usage reference, so
-> blk_mq_freeze_queue() does not wait for it.
-> 
-> virtblk_freeze_priv() then calls blk_mq_quiesce_queue_nowait() and
-> blk_mq_unfreeze_queue(). A new request can enter the queue. The old
-> dispatcher can run again, use its old flag check, get the new request,
-> and call virtio_queue_rq(). At the same time, virtblk_freeze_priv() can
-> reset the device, delete the virtqueues, and free vblk->vqs. The old
-> dispatcher can then use a deleted virtqueue or a NULL vblk->vqs, and the
-> kernel can crash.
-
-
-
-this kind of thing belongs in the commit log.
-
-> ---
-> Changes in v2:
-> - Cc stable@vger.kernel.org.
-
-
-which is no longer there?
-
-> - Link to v1: https://lore.kernel.org/20260911-virtblk_sync_quiesce-v1-1-a883f8f31258@oss.qualcomm.com
-> ---
->  drivers/block/virtio_blk.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/block/virtio_blk.c b/drivers/block/virtio_blk.c
-> index 32bf3ba07a9d..7a570591e040 100644
-> --- a/drivers/block/virtio_blk.c
-> +++ b/drivers/block/virtio_blk.c
-> @@ -1595,7 +1595,7 @@ static int virtblk_freeze_priv(struct virtio_device *vdev)
->  
->  	/* Ensure no requests in virtqueues before deleting vqs. */
->  	memflags = blk_mq_freeze_queue(q);
-> -	blk_mq_quiesce_queue_nowait(q);
-> +	blk_mq_quiesce_queue(q);
->  	blk_mq_unfreeze_queue(q, memflags);
->  
->  	/* Ensure we don't receive any more interrupts */
-> 
-> ---
-> base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
-> change-id: 20260910-virtblk_sync_quiesce-9b2c88d45416
-> 
-> Best regards,
-> --  
-> Cong Zhang <cong.zhang@oss.qualcomm.com>
-
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
