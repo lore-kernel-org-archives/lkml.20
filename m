@@ -1,63 +1,64 @@
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5242737C0ED
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 06:59:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B29EC36B05C
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 06:59:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789196362; cv=none; b=SvpLPBNme9GUsofcHCMWwdKyjTZcmo/Ybha0izMKhu07Gm7/KTwhd+Nbh5sgc8hYdFypyld2k3YMqgbOToDe1q3Q81exIyJpxWK6SRmSd/3SzgYeIRYqtNhf67dyD8St8nmY0xJA5TnlGsR1nhUvziVXW9w3vS7xv3svqgNaOcA=
+	t=1789196374; cv=none; b=JpSGiZGDHQbg4dIGJDtn+H6gFNI8h0BoEr0AOdsbnRyZXEMMV2rFnANymkWfUplkC3cLDo8J2f3ht7H3hQBDCNbTk8L3V1NO7hBOeGN0ZNViIaAE/Aj+s8MfFQ/FdMsDLW9GXe2iyUf65rTSYIXre6fKWcsftLPcOHvK9PK4n64=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789196362; c=relaxed/simple;
-	bh=k5hpwsx+B1BmldwynOEu3ZO95bo2YrG+JYXgr8Zs1C0=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type; b=aWhGE3IN5V2r3MIWwGvmH4sBSmD8mTIw//IObmxyfdjg8VZYGXPyQmN9EiJRCcPVcAdf8K5YrOI0rRu5DEvthr5jyYGt+zgUIiZvDFZeBLEn4GOTWfm96PUQaP16Z0UtD4cOMcQTrxYCYDA2h1mjyfVo0+A2YRwKZIeq+r5Gzgk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Gz6clbIz; arc=none smtp.client-ip=209.85.216.50
+	s=arc-20240116; t=1789196374; c=relaxed/simple;
+	bh=z1KffmHhzElZTDIuvQTwdNMYv2soVYtneJDRupzDxGA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=luHBIv/S5Q/cVOKY7YZTGpWneFvfctasKmNrPNKPx6LMwbMzSbzrUqdUg+BwV88sInZ0OyD1AX1Zl8OL9FrIJi6dTKBpxl9nPz8Slzgxc/E0OiMavx+CGvNdU/dVABJgKRYntgScrRYQaYBgj14w3BQFaBBoLrW6GHv2JznukHg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bkPMmtFV; arc=none smtp.client-ip=74.125.228.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Gz6clbIz"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-398b1e63c49so2419127a91.0
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 23:59:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bkPMmtFV"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4bdf8abdfso217433a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 23:59:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789196359; x=1789801159; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DPtC1KNwT+749TftCz7aP1Y3qEPtVYfk7lU7EbxfQRo=;
-        b=Gz6clbIzGGspqqlV1pC9TEl6pyF1NIwkLQ1PC/5va3Dcbz13hRp4+tkefkcnYa4oXL
-         wzKIM4RxJbz8CG68cqAvMUNl6JtmOoEitYP7xSYDVgXlR3bby18YtLAZtiuBEFhRXo2N
-         Z4NxhBXgftTjS/iRhaScAmzXpEL9U0dpqUPA4T/0CbGwIWRkbALiy6b3FdZ9ryrIoxz9
-         s8hGjNBMeQ7fUFyd9emecrEld4oqAHiAyC6x2LaLrPsY4JZDTGu4YOccCkVzhtI7x0i4
-         FeMtxQLFcA79WwI0iSc8YQwx1Qhcc91Giw0nDcNc48UacFeauU45pMGzJOEFajL3CPf7
-         DDkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789196359; x=1789801159;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1789196372; x=1789801172; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=DPtC1KNwT+749TftCz7aP1Y3qEPtVYfk7lU7EbxfQRo=;
-        b=rN+mXmVpN72QEGx0TeJa13scWgvDz/hywSqLEdCxPuWuxCns26eoc4tpC06VEUnrv8
-         h/GWcw9E+B/ZF7zXP6ZpaVApabJvnLh7Sg1Wk3FbbNcWmc55KWw2ehaC5jxn97eaVIUV
-         3TQaVWsVI/rc6x2oXTUnOdq2kJ1v72LRuKYE6MMFFOtJTRBfrggu2VTKrVhWmTi+a996
-         WCzi2qXaTWIrPR1yT71LsE+M06peKkbTupG9Rv5/MgtVbniEnBAhexKKfFIoHfHkBXHE
-         F+QKVUPr7YRGWi0LD7arLV7EBw5a+po25bSuA7wJaGvsEXtcWpyu/7uU0BpH3TAjm2x0
-         6tow==
-X-Forwarded-Encrypted: i=1; AKwUvBzRWLO0AF63/JQ652a4grX4BEY1u/NSUBIUWJbihvgVuR8NOWw4o0NFzNizdfwyHyF+z6qG7ko0x2/EEq4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mKzADvpACKqcoalHdsI/ocPe6s9xODPFKEzvG+4vRXb+hjxkFt
-	ikHc3uWqhSLNyGlBziCM2yjEyQ4El3PCFAVTEJ70MZT9lq90+q4dSBGp
-X-Gm-Gg: AYBFou3Ke/JR3TocKcByiPRSKv/DxGmKa6XBDbOIQx1BrUn+sljEpD0CpwQLbD3jCp/
-	qT+QxDdjspRP8qwTOrYuJ8vgFeVbegyqLwaDpf90omqKNm8egTdrgsKtUwVLdSKuk4C9MZoFN4H
-	lxPO8cCGZhLBrGa7X/j+jtC3gzQgktVuYDxR7DBx4eaEvzBAdjRO9n2gHJj4UV5JCim3WorW9/t
-	dziYKeQ5ROVlH+88oqikUhV54Dem3zSkxryOvlYPPZBh63thx+Z12jRsTrQ7S2ZyXO4LdEOgo+G
-	hNcf2BC0fb1ohrGhhmU2iYJb0Mq9rFHqOfC8Bd86GHKkuTT3hmSeQv7q8j8y3m4BhWfzzutwXYy
-	X//MC4u5VAdCmhnoeax5Oq3rsM1PaeJHjug1BdvxZWGdx5q47x/0y8TikKUkn9floS1nDgmnUz8
-	LsIqeyQb02oPWbtt9/jeYgeSjDcWXruVy1CtmTjnTyt3VxZpLrbEHgnrRjdE7dyHarFdTu60xIs
-	YECIqSFP/c45aYVklIApqTZX6vZ+qxo0Ur5EmwuWPDvZw==
-X-Received: by 2002:a17:90b:2d82:b0:39d:6c95:7e4 with SMTP id 98e67ed59e1d1-39d77d205f7mr15936166a91.31.1789196359477;
-        Fri, 11 Sep 2026 23:59:19 -0700 (PDT)
+        bh=G3JbySDrX7Qe3HLCVmAQbpZ/Bcq5FNjxxg9MbzFzoSM=;
+        b=bkPMmtFVTlBhA+k0mmRll1DIo0LSzrLL7B6h+JoN7byE6p+F3Qy6Y75NkxLhdRylIf
+         TYDr/ufXpsz1c2pZzQCY4s+VJlG6G/rt6xTPT2hSuEwJ1fErKv0dTPRO2bswY7ILMLeM
+         OOAUD+sFOIrXAMDgDg/UjxvC2bkmyTzE1EM250S8CNwYWnl1GQN74e9xn2H1ZrSenq7p
+         KXTvrgi7SkBjBUTltG7Y5fYmCokRAgprduRewqAdCAn6ahVfVpR0yBE3ABWSzyWlNQv+
+         26qLTjWozwc9JUkXRWmTvy5EKNMQygzg+iXcZaTumgJIrXwlepjp0oNUhYf29aI/I3ve
+         ik8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789196372; x=1789801172;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=G3JbySDrX7Qe3HLCVmAQbpZ/Bcq5FNjxxg9MbzFzoSM=;
+        b=qw610087z3Nvp8XnaX7fx1cUn7i4A/49BOH/id9J7MyZmC+cYy0CKUlthQnW33WMQE
+         zklVQ3PnomWr2xp3Irq9pRM3gyGKRlptJm9w7qk1fDf7RfpqDYhWfhk9PbSNmmbEz4iN
+         u0q+WIoogBn28e9BPPpIg1ILIAwOHIgUsY77lf+zFWdYy4d8CAWvGYReny3jsWUfD7MT
+         TMLV2eeGA6/8LXWDuFQR6k+D03wRoHfzEu92s7p/7UIoTIkfUo8b/wf9Ejn+QEwz98A3
+         nkBzcFxwo6mHaXJQ6Dt+p0ejUo2kzvN3s+KRBRN+xLDVEwhtxbORXJz25UlzYUJN0Kma
+         H0wA==
+X-Forwarded-Encrypted: i=1; AKwUvBx8j2qokL6bLTgrpS7lppyItT98laEnNBsxzn48PxiVKBt1/4dJOwfVFOfMThAKs23U7GH8+mADadOkBZ4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nidC9o+FsPLGBvdiM905gdPPskNpw4Ec1YDkD2GrU0ni3ApBgG
+	YRrHwGvzTziyYn/7THLTJ25ao6pTCEqKNapD64WZLcd1I2NWnRA20GkA
+X-Gm-Gg: AYBFou24uuCkP9Nl4IDqezxiTqcM6GDnpi1j0yiCi9m1il/HANBCLTFYehE6zKXm1dw
+	4q3v1ZhTVOpOhRjoVnLIcFKAjxpdUkIazwvPWgPczRmszhJfUsSL09AeQ5ywkIVBoZIye+4sx5L
+	O7Pru7DGMR5TTwQdmkyKnT2bzrWhZCtI8A8eDoCzmMwf0qLT3xJt4Bkad/mjTfQqUi4V92vK//T
+	hP3OKELmetxw/s4l3MaAhsOeIp3bXcWD08pZc4MKqciL4Mq5BKVN8se9jyTLi4E0ikrp2LXimVz
+	YxSrFwj5kY1b/IsnXm/BrYDUoXMoJRR+IZtBUfNM8iM/JdSlswJhqQEBxHTr2RZZLkQxSA8lEHT
+	uo5GmhGGsyqNfmHQli6qJ64AjvxQnwCXVIePIKGEB6ImHGS6IhrKLk0UWeI9KlQC+K3fWUbKXLP
+	drrlL8Ind/+xIo909mBYO75PFl1SmxsuGQ/o2/q76B+9YziLvxTlGyqxhsTNM9hxE4QyQNlEkKe
+	uVQWKp974kOlUQSVUo3NSTwEJ8Bwt7uJasM8iHFt3sgAw==
+X-Received: by 2002:a05:6a20:cc8e:b0:3bf:7081:9356 with SMTP id adf61e73a8af0-3db0e40edbamr3056849637.17.1789196372133;
+        Fri, 11 Sep 2026 23:59:32 -0700 (PDT)
 Received: from li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com ([106.51.165.23])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14365b78d59sm10777777c88.8.2026.09.11.23.59.07
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14365b78d59sm10777777c88.8.2026.09.11.23.59.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 23:59:19 -0700 (PDT)
+        Fri, 11 Sep 2026 23:59:31 -0700 (PDT)
 From: "Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>
 To: maddy@linux.ibm.com,
 	mpe@ellerman.id.au,
@@ -95,81 +96,151 @@ To: maddy@linux.ibm.com,
 	rust-for-linux@vger.kernel.org,
 	linux-riscv@lists.infradead.org,
 	llvm@lists.linux.dev
-Subject: [PATCH v4 0/2] powerpc: Add ARCH_WARN_ASM and KUnit tests for Rust WARN() support
-Date: Sat, 12 Sep 2026 12:29:00 +0530
-Message-ID: <20260912065902.24017-1-mkchauras@gmail.com>
+Cc: FUJITA Tomonori <tomo@flapping.org>
+Subject: [PATCH v4 1/2] powerpc/bug: Add ARCH_WARN_ASM and refactor _EMIT_BUG_ENTRY for Rust support
+Date: Sat, 12 Sep 2026 12:29:01 +0530
+Message-ID: <20260912065902.24017-2-mkchauras@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260912065902.24017-1-mkchauras@gmail.com>
+References: <20260912065902.24017-1-mkchauras@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-powerpc currently has no ARCH_WARN_ASM or ARCH_WARN_REACHABLE definitions,
-which causes Rust kernel builds on powerpc to fail with a macro expansion
-error when the generic Rust WARN() infrastructure tries to call
-ARCH_WARN_ASM() through generated_arch_warn_asm.rs.S. Every other
-architecture that supports Rust (x86, arm64, s390, riscv) already provides
-these definitions. This series brings powerpc into line.
+The Rust kernel infrastructure generates inline asm for WARN() via
+ARCH_WARN_ASM(file, line, flags, size), expanding it through a C
+preprocessor pass (generated_arch_warn_asm.rs.S) to produce an
+arch-specific asm template string for use in Rust's core::arch macros.
 
-Patch 1 refactors _EMIT_BUG_ENTRY in arch/powerpc/include/asm/bug.h.
-The old macro was a positional-operand template that hardcoded the 1b
-label reference and embedded .org/.previous directives, making it
-impossible to compose as a free string outside an asm operand context.
-The refactored version takes explicit (label, file, line, flags) arguments
-via string concatenation; .org/.previous are moved to each call site so
-BUG_ENTRY() can continue to pass sizeof(struct bug_entry) as an asm
-operand while ARCH_WARN_ASM supplies its own size string. With
-_EMIT_BUG_ENTRY composable as a plain string, adding ARCH_WARN_ASM and
-ARCH_WARN_REACHABLE is then straightforward.
+powerpc currently lacks ARCH_WARN_ASM and ARCH_WARN_REACHABLE, causing
+Rust builds to fail on powerpc with
+```
+error: no rules expected `ARCH_WARN_ASM`
+   --> /home/linkmauve/dev/linux/wii/rust/kernel/generated_arch_warn_asm.rs:1:28
+    |
+  1 | ::kernel::concat_literals!(ARCH_WARN_ASM("{file}", "{line}", "{flags}", "{size}"))
+    |                            ^^^^^^^^^^^^^ no rules expected this token in macro call
+    |
+   ::: ../rust/kernel/lib.rs:279:1
+    |
+279 | macro_rules! concat_literals {
+    | ---------------------------- when calling this macro
+    |
+    = note: while trying to match sequence start
 
-Patch 2 adds five KUnit tests under CONFIG_RUST_BUG_POWERPC_KUNIT_TEST
-(depends on PPC && GENERIC_BUG, covering both ppc32 and ppc64) that
-verify the __bug_table entry emitted by ARCH_WARN_ASM is correctly
-formed. find_bug() is called with the exact virtual address of the twi
-instruction, captured at link time via a .dc.a relocation in a
-global_asm! block. .dc.a emits a pointer-width word (4 bytes on ppc32,
-8 bytes on ppc64); BUG_KUNIT_TRAP_ADDR is declared as usize on the Rust
-side so the same test code is correct on both. The five tests check that
-the entry is found, carries BUGFLAG_WARNING, records the right source
-file and a non-zero line number, and that the trap address lies in
-kernel text.
+error: no rules expected `ARCH_WARN_REACHABLE`
+   --> /home/linkmauve/dev/linux/wii/rust/kernel/generated_arch_reachable_asm.rs:1:28
+    |
+  1 | ::kernel::concat_literals!(ARCH_WARN_REACHABLE)
+    |                            ^^^^^^^^^^^^^^^^^^^ no rules expected this token in macro call
+    |
+   ::: ../rust/kernel/lib.rs:279:1
+    |
+279 | macro_rules! concat_literals {
+    | ---------------------------- when calling this macro
+    |
+    = note: while trying to match sequence start
 
-Changelog:
-V3 -> V4:
- - Fix Label with appending b at end 
- - Add KUnit test patch.
- - Tested on ppc64le pseries:
-   pass:5 fail:0 skip:0.
- - Tested on ppc32 QEMU mac99 G4:
-   pass:5 fail:0 skip:0.
- - Tested on ppc64le QEMU pseries:
-   pass:5 fail:0 skip:0.
-V3: https://lore.kernel.org/all/20260910100801.2159785-2-mkchauras@gmail.com
+error: aborting due to 2 previous errors
+```
 
-V2 -> V3:
- - Add label argument in _EMIT_BUG_ENTRY
-V2: https://lore.kernel.org/all/20260910071252.1950488-2-mkchauras@gmail.com
+To add ARCH_WARN_ASM, _EMIT_BUG_ENTRY first needs to be refactored.
+The old definition was a bare macro with no parameters, relying on
+positional asm operand references (%0-%3), hardcoding the backward
+reference to local label 1b, and including .org/.previous directives
+inline. That made it impossible to compose as a plain string outside of
+an asm operand context, and left an invisible contract that callers must
+always emit their trap at label 1:.
 
-V1 -> V2:
-- commit message now has error, fixes tag and closes tag
-V1: https://lore.kernel.org/all/20260819084825.969116-1-mkchauras@gmail.com
+Refactor _EMIT_BUG_ENTRY to take explicit (label, file, line, flags)
+string arguments via string concatenation. This removes the dependency
+on asm operand numbering and makes the trap label an explicit argument,
+so the caller's intent is visible at the call site and a future caller
+using a different label cannot silently produce a wrong bug table entry.
 
+Move the .org and .previous directives out of _EMIT_BUG_ENTRY and into
+each call site, so BUG_ENTRY() can still pass sizeof(struct bug_entry)
+as an asm operand while ARCH_WARN_ASM can supply its own size string
+independently.
 
+Add ARCH_WARN_REACHABLE as an empty define, matching the arm64
+convention, indicating that no additional reachability annotation is
+needed after a WARN on powerpc.
 
-Mukesh Kumar Chaurasiya (IBM) (2):
-  powerpc/bug: Add ARCH_WARN_ASM and refactor _EMIT_BUG_ENTRY for Rust
-    support
-  rust: kernel: Add KUnit tests for powerpc ARCH_WARN_ASM bug table
-    emission
+This brings powerpc into line with x86, arm64, s390, and riscv, all of
+which already define ARCH_WARN_ASM and ARCH_WARN_REACHABLE.
 
- arch/powerpc/include/asm/bug.h |  36 ++++---
- rust/kernel/Kconfig.test       |  13 +++
- rust/kernel/bug.rs             | 171 +++++++++++++++++++++++++++++++++
- 3 files changed, 204 insertions(+), 16 deletions(-)
+Reported-by: FUJITA Tomonori <tomo@flapping.org>
+Closes: https://lore.kernel.org/all/anG67Q6Y59kDqh-c@desktop
+Fixes: 73b741adb264 ("rust: Add PowerPC support")
+Signed-off-by: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
+---
+ arch/powerpc/include/asm/bug.h | 36 +++++++++++++++++++---------------
+ 1 file changed, 20 insertions(+), 16 deletions(-)
 
+diff --git a/arch/powerpc/include/asm/bug.h b/arch/powerpc/include/asm/bug.h
+index 0db48977c70c..6f0f652d9348 100644
+--- a/arch/powerpc/include/asm/bug.h
++++ b/arch/powerpc/include/asm/bug.h
+@@ -32,34 +32,38 @@
+ #endif /* verbose */
+ 
+ #else /* !__ASSEMBLER__ */
+-/* _EMIT_BUG_ENTRY expects args %0,%1,%2,%3 to be FILE, LINE, flags and
+-   sizeof(struct bug_entry), respectively */
+ #ifdef CONFIG_DEBUG_BUGVERBOSE
+-#define _EMIT_BUG_ENTRY				\
+-	".section __bug_table,\"aw\"\n"		\
+-	"2:	.4byte 1b - .\n"		\
+-	"	.4byte %0 - .\n"		\
+-	"	.short %1, %2\n"		\
+-	".org 2b+%3\n"				\
+-	".previous\n"
++#define _EMIT_BUG_ENTRY(label, file, line, flags)	\
++	".section __bug_table,\"aw\"\n"			\
++	"2:	.4byte " #label " - .\n"		\
++	"	.4byte " file " - .\n"			\
++	"	.short " line ", " flags "\n"
+ #else
+-#define _EMIT_BUG_ENTRY				\
+-	".section __bug_table,\"aw\"\n"		\
+-	"2:	.4byte 1b - .\n"		\
+-	"	.short %2\n"			\
+-	".org 2b+%3\n"				\
+-	".previous\n"
++#define _EMIT_BUG_ENTRY(label, file, line, flags)	\
++	".section __bug_table,\"aw\"\n"			\
++	"2:	.4byte " #label " - .\n"		\
++	"	.short " flags "\n"
+ #endif
+ 
+ #define BUG_ENTRY(cond_str, insn, flags, ...)		\
+ 	__asm__ __volatile__(				\
+ 		"1:	" insn "\n"			\
+-		_EMIT_BUG_ENTRY				\
++		_EMIT_BUG_ENTRY(1b, "%0", "%1", "%2")	\
++		".org 2b+%3\n"				\
++		".previous\n"				\
+ 		: : "i" (WARN_CONDITION_STR(cond_str) __FILE__), "i" (__LINE__),	\
+ 		  "i" (flags),				\
+ 		  "i" (sizeof(struct bug_entry)),	\
+ 		  ##__VA_ARGS__)
+ 
++#define ARCH_WARN_ASM(file, line, flags, size)		\
++		"1:	twi 31, 0, 0\n"			\
++		_EMIT_BUG_ENTRY(1b, file, line, flags)	\
++		".org 2b+" size "\n"			\
++		".previous\n"
++
++#define ARCH_WARN_REACHABLE
++
+ /*
+  * BUG_ON() and WARN_ON() do their best to cooperate with compile-time
+  * optimisations. However depending on the complexity of the condition
 -- 
 2.55.0
+
