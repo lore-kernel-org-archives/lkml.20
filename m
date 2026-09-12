@@ -1,86 +1,201 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D4F2299920;
-	Sat, 12 Sep 2026 10:23:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9237B27EC7C;
+	Sat, 12 Sep 2026 10:25:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789208622; cv=none; b=Ag4HyeHq/B/3EK0lvfFHBNSaT5W196DpZ5Xr6zoaRYu8L/sTMbXb7xjASlF/aPNnzVhIlSu8bH0j7uV3A+fE0xe9/492dDiZvCmckPH6sQXC5vWoSZMTx31uXDw0fsdJqx5KzvHmQpkBPsFr/pctv6eJAMBNX8Yap/AdXKOtur4=
+	t=1789208755; cv=none; b=LCFguhx1sDRINV+gpoXykuubjOYFS1kAZsMUZVOMYI7rDVLr5McQRlLBCsn0H4Xy1xvPGTz0tEjuvnsNH7YgaaE8Fv8KMJFppuwMDxaQncxnQ0k4hy2KzZfE7MB23eWwZ+q8N7hULE6VuRo/BO1UcV4D+KQ3ZxTnld9Mn/+4EgU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789208622; c=relaxed/simple;
-	bh=1MgsdZqFByEuKZbj3wzMFofTkdE4lSy2fbRuCMSFLrs=;
+	s=arc-20240116; t=1789208755; c=relaxed/simple;
+	bh=eqe+0oyBfwwiDPXBm6T1yEoyCTynnJXvTivRorgg22g=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TWcLATBC6LIOJrJnnAeLV/IBidPFlrdFz+Dp2AiXvgKxMYBBZ3fX4As7Fc9VRKppIYZld8HmyDCARstczycRs6YSV9b/VSoOiGZr2t9udTMwsy57hKzOvlPVYbxRR+RAA4FhAsfIJsClQFGlrFLCjRb/TIUIZdq6anw04sMAWl8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=k1+nFDmS; arc=none smtp.client-ip=192.198.163.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=P2RAhMcUYSP8cn0DUsmkECMu1M7z3vsYj9YDw/0kKylHXzd3DUG9SXQR5eYvESdW4TC7MH538wIzpFbiY0XMRwNFLRrN8Gshge27vP4OGXW0OnBA2vHqnIpq5UfuBIRX6KYo6EYKlpWFQmy2Dsh8wDZApiJd6EzBmbQDh+6QlJU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z+zNXvfx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="k1+nFDmS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789208621; x=1820744621;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=1MgsdZqFByEuKZbj3wzMFofTkdE4lSy2fbRuCMSFLrs=;
-  b=k1+nFDmSQc2bYGLMajvM4XRbdhMMrwGy3VxnUvf+HJnAMJGKSUoVa07p
-   1gC3/lk+xeWh2PC2ZpgoL+x3H3YDrRP+gjBI4WYYgSDKs90XaYzge9e8N
-   iMqsVnmEywW7T2XnDBjhj9yMoMIkt+zAQ8ly3Y57sKwkAw47bcgFbA3rW
-   FWfLX8o7QmmcLRS9xklEHsI9bXK72yvFPOqIVWToFJ5alCaXumLpr9JU4
-   5qeusqjo+gMEMXp08jiYDqeeomXqlLz+pu4Cm6WMmVXNFtwX7jmWH3ve3
-   wGA+xCX/56/MYxhbc/JRiSXNhgEafinQLlbkX10i4KRgBizbftet/9zjy
-   g==;
-X-CSE-ConnectionGUID: 3jkKGLxHQ8yT5bsq8h29ng==
-X-CSE-MsgGUID: St51xmwiQgKaEl5gG8wXQQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11902"; a="100314336"
-X-IronPort-AV: E=Sophos;i="6.27,99,1787036400"; 
-   d="scan'208";a="100314336"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Sep 2026 03:23:40 -0700
-X-CSE-ConnectionGUID: gKzK93CnRVCtZfNWW1yRGQ==
-X-CSE-MsgGUID: 4EEHJie0RKySbFwHZdR7OA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,99,1787036400"; 
-   d="scan'208";a="272669528"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.236])
-  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Sep 2026 03:23:39 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id F36FB121BCE;
-	Sat, 12 Sep 2026 13:23:42 +0300 (EEST)
-Date: Sat, 12 Sep 2026 13:23:42 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Nicola Fiorillo <nicfio@gmail.com>
-Cc: linux-media@vger.kernel.org, mchehab@kernel.org, hverkuil@kernel.org,
-	antti.laakso@linux.intel.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/3] media: Two oopses and a hang when unbinding a
- streaming sensor
-Message-ID: <aqUoLr0JFGEBiJIf@kekkonen.localdomain>
-References: <20260911194854.78894-1-nicfio@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z+zNXvfx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6AEC1F00893;
+	Sat, 12 Sep 2026 10:25:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789208754;
+	bh=suJ0uS71GsbfhhW6sx+FaUUox5/Huy7H+9ZmclYomm4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Z+zNXvfxYwdcwi+fNVkkIbEFOlOdsa2H6Z9v82HV3yqZQTntAMXfOzeUh1OJiLL4D
+	 JgKEvVtr0XBXVpYRJbY0CpEC4VPq5oHoo83EW7+EtDlO0L26igZ7xE9+jHPSUvXX9D
+	 Q5qwa5PMS0mgHaR2WXDM9BwyaO66ht9zWkWvtGFfIOkt5PH+akb0+J9iKhMF7Fw8co
+	 6jiopUYKBeCeW7XT126kbOCc1Lmg2cPe/YJPwGzaOicT0svJPD3Jnc3zcrPf10B5Dc
+	 ORDovhaMBzakCvvvldPllZ8xPkIhoJwZSxCpt8g30XAw+JhsF6ctKM3RlRod9UwVTI
+	 /NGMqEI46ltOQ==
+Date: Sat, 12 Sep 2026 11:25:48 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Minda Chen <minda.chen@starfivetech.com>
+Cc: Alim Akhtar <alim.akhtar@samsung.com>,
+	Avri Altman <avri.altman@wdc.com>,
+	Bart Van Assche <bvanassche@acm.org>,
+	Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
+	Ajay Neeli <ajay.neeli@amd.com>,
+	"James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
+	"Martin K . Petersen" <martin.petersen@oracle.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v3 1/3] scsi: ufs: dt-bindings: starfive: Add UFS Host
+ Controller for JHB100 soc
+Message-ID: <aqUorPJziAtWeSG0@squawk>
+References: <20260911102359.83288-1-minda.chen@starfivetech.com>
+ <20260911102359.83288-2-minda.chen@starfivetech.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="E4vetuRmcDP9RnWo"
+Content-Disposition: inline
+In-Reply-To: <20260911102359.83288-2-minda.chen@starfivetech.com>
+
+--E4vetuRmcDP9RnWo
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260911194854.78894-1-nicfio@gmail.com>
+Content-Transfer-Encoding: quoted-printable
 
-Hi Nicola,
+On Fri, Sep 11, 2026 at 06:23:57PM +0800, Minda Chen wrote:
+> Add devicetree document for UFS Host Controller StarFive JHB100 SoC.
+> The UFS controller is based on the Synopsys DesignWare UFS controller.
+>=20
+> Signed-off-by: Minda Chen <minda.chen@starfivetech.com>
+> ---
+>  .../bindings/ufs/starfive,jhb100-ufs.yaml     | 71 +++++++++++++++++++
+>  MAINTAINERS                                   |  5 ++
+>  2 files changed, 76 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/ufs/starfive,jhb100=
+-ufs.yaml
+>=20
+> diff --git a/Documentation/devicetree/bindings/ufs/starfive,jhb100-ufs.ya=
+ml b/Documentation/devicetree/bindings/ufs/starfive,jhb100-ufs.yaml
+> new file mode 100644
+> index 000000000000..a65cc9455a85
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/ufs/starfive,jhb100-ufs.yaml
+> @@ -0,0 +1,71 @@
+> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/ufs/starfive,jhb100-ufs.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Starfive Universal Flash Storage (UFS) Controller
+> +
+> +maintainers:
+> +  - Minda Chen <minda.chen@starfivetech.com>
+> +
+> +allOf:
+> +  - $ref: ufs-common.yaml
+> +
+> +properties:
+> +  compatible:
+> +    const: starfive,jhb100-ufs
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 1
+> +
+> +  clock-names:
+> +    items:
+> +      - const: main
+> +
+> +  resets:
+> +    items:
+> +      - description: UFS main reset
+> +      - description: UFS PHY reset
+> +
+> +  reset-names:
+> +    items:
+> +      - const: main
+> +      - const: phy
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  starfive,syscon:
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +    description:
+> +      The phandle to System Register Controller syscon node.
 
-On Fri, Sep 11, 2026 at 09:48:51PM +0200, Nicola Fiorillo wrote:
-> Unbinding a camera sensor while a capture is running is a scenario that
-> nothing in the IPU6 path handles: the kernel oopses twice, corrupts memory
-> once, and leaves the application blocked forever. None of this is caused by
-> the sensor drivers themselves, and all four failures are present in
-> mainline today.
+This should probably say "that contains xyz" where xyz is the thing that
+you need up access in your driver. The jhb100 has a large number of
+syscons, so knowing what to look for here is essential! (although
+realistically you'll set this in jhb100.dtsi and noone will have to look
+it up themselves)
 
-Thanks for the patchset. These are known issues and unfortunately unbinding
-drivers while streaming isn't supported on MC-enabled drivers currently.
-This is a MC/V4L2 framework limitation and cannot be meaningfully worked
-around in drivers.
+Otherwise,
+Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
 
--- 
-Kind regards,
+pw-bot: changes-requested
 
-Sakari Ailus
+Thanks,
+Conor.
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - clock-names
+> +  - resets
+> +  - reset-names
+> +  - interrupts
+> +  - starfive,syscon
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    ufs@11b10000 {
+> +        compatible =3D "starfive,jhb100-ufs";
+> +        reg =3D <0x11b10000 0x20000>;
+> +        interrupts =3D <105>;
+> +        clocks =3D <&syscrg 4>;
+> +        clock-names =3D "main";
+> +        resets =3D <&syscrg 10>,
+> +                 <&syscrg 7>;
+> +        reset-names =3D "main", "phy";
+> +        starfive,syscon =3D <&syscon>;
+> +    };
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index fc320b373656..10b0d0839ca4 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -28095,6 +28095,11 @@ L:	linux-scsi@vger.kernel.org
+>  S:	Maintained
+>  F:	drivers/ufs/host/ufs-renesas.c
+> =20
+> +UNIVERSAL FLASH STORAGE HOST CONTROLLER DRIVER STARFIVE
+> +M:	Minda Chen <minda.chen@starfivetech.com>
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/ufs/starfive,jhb100-ufs.yaml
+> +
+>  UNIWILL LAPTOP DRIVER
+>  M:	Armin Wolf <W_Armin@gmx.de>
+>  L:	platform-driver-x86@vger.kernel.org
+> --=20
+> 2.17.1
+>=20
+
+--E4vetuRmcDP9RnWo
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaqUorAAKCRB4tDGHoIJi
+0gcdAQDsmQDTi5UxtOtDUn/z/tvkLPR6wxggvel0JcLarSftcAD/fTHQtqCGusgb
+UU3aWxTBuahJd+pECSS11GWWhR3Ewwc=
+=OKh5
+-----END PGP SIGNATURE-----
+
+--E4vetuRmcDP9RnWo--
