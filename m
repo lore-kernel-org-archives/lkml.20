@@ -1,83 +1,83 @@
-Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
+Received: from mail-lr2-f12.google.com (mail-lr2-f12.google.com [74.125.230.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77B8038B15B
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 20:30:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 731883EE1DB
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 20:30:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.76
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789245008; cv=pass; b=rgTl3bvTd9FG/hWsw0TSxwSlvnjcNgpo2ABUqsmmuDhfhPFXP63BODod9mBfxtf0Ldg5J20qOLvH3ii5SvRrmfRIgFCNMY/5CD9F5wPQQKssqOOO4PpHbmNOAZBLi9dZJIciI6gK6C0WerbNoxZj89SPQZW07ee33jyH0OA+vCI=
+	t=1789245021; cv=pass; b=t2Vn7UYBNVJOVWT7Tt1X8hoT+yhJcpnNQLPG+sAg1lfb2VSdAhLCKajFz5iFuVw0ExkFHmMmmqpLqHG2bZ30JyQE0mvAfLaLYzGkLiKZabdTgFvn1rypsYn0eNsZtDnT6dqKRCeMWDmBw45LV7TRxfoUQtGbsfUZy9hCWdyBVYM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789245008; c=relaxed/simple;
-	bh=4BJFZkbbQM/TpEDNgfqVCNZkBAyQZLPvnY6GdgSNQTA=;
+	s=arc-20240116; t=1789245021; c=relaxed/simple;
+	bh=TEbJMMzIIogJg9LII0HnjQZYE7NIbdU378YChfhTp+A=;
 	h=MIME-Version:From:In-Reply-To:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=WekLcVezPn9pKzt3Yf2ozvmFBh1wBB3++asaJdkVobNRJQ/jNEG33ivAvUHlYchSG7Mp7Epm0FT3gubwQbTvGTwzS14a97nxxOmD4q/V2dTlY3OWmFZWf6GU/e15O4HUp0LTTMteOWLSe9m/pcQuYZakdcd1ckWYgyuH1wIzViI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=khu.ac.kr; spf=pass smtp.mailfrom=khu.ac.kr; dkim=pass (1024-bit key) header.d=khu.ac.kr header.i=@khu.ac.kr header.b=GlNoYTu4; arc=pass smtp.client-ip=74.125.229.204
+	 To:Cc:Content-Type; b=d1bYNwoYGiBP2b2bFt9PDh+G4bHJohjqgylXsVS88mugnB9k7TuXyEKqbNtc49W87KkRRCSBqWK+6+shXwOeo+hpbPDJNd+rWAyS2cq4+U4HvppcL35e8VidzvmKZXNfXz2yYKskpdHcW+Tuw1DhvJKlU0JvAzvmjzhjP7JKwm4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=khu.ac.kr; spf=pass smtp.mailfrom=khu.ac.kr; dkim=pass (1024-bit key) header.d=khu.ac.kr header.i=@khu.ac.kr header.b=ehjczFV9; arc=pass smtp.client-ip=74.125.230.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=khu.ac.kr
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=khu.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=khu.ac.kr header.i=@khu.ac.kr header.b="GlNoYTu4"
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f13d7aso765270e87.1
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 13:30:04 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789245002; cv=none;
+	dkim=pass (1024-bit key) header.d=khu.ac.kr header.i=@khu.ac.kr header.b="ehjczFV9"
+Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a59bc470d6so8903081fa.0
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 13:30:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789245015; cv=none;
         d=google.com; s=arc-20260327;
-        b=IzVvYc72lpCO9avgogDjNo3EvUFwCpBrQS6ALbGfGUDWzTLsuXiwWwRmGcYa7qoaMq
-         uqjCC1nrUtYVP68D1S6kSHwn2YcDzlDyNpYDabMpYuLAqf6p2ru1zBk8eh2J0wDQFd19
-         IHHvrV4ycGlfkx9tXVzJuLGg5X0qPfQYxuntNhL5dKBNr2E0Vgulj+OhjSuUOzi59Rv/
-         C8tigl8ZJcKE8eYIA85FXsGcjCOAJkgr3BYOkxbxkY1rJpgj0BAMWYQ98OvE9TpYYKKd
-         QYtRjI/hBX4TZKOBqQSxz5n2s4NKWSVN7pNC2bgFXQX+OSBeUIdM0cUW0yV78/3ohbod
-         ZxnA==
+        b=olAk/2diqS7JhJ1oiqVWtlktxzmXFQSc80FVVP/uqLnL6j6Qq/PtRDe3zqLx9pgMow
+         zxavMWQYriSsHTzCdo0yEcZBAHU6AhxetVa/vedxdItw0NRxoGxz05PWvqzpryfhuxvz
+         lmjNGRu9SFoNLImlWj+5CrhADAoKD3o+o0qtYwDpy6rFm8urBmK0mBPLErmXAQQSjOL7
+         PFdKxI9muUsKibp0dzZI3DlcKFScjgLJVttgEwzzoxQAbCqzxTYpw9OWWjpOqSvw5FZu
+         /fOw4EBkxEieNGXWFiEnS+i0n3GTliNoW5ph8aVnKjbDKe6wJ8C+DONNWVrXB0xLIeW8
+         JRlw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=cc:to:subject:message-id:date:references:in-reply-to:from
          :mime-version:dkim-signature;
-        bh=g6Pm8uj00vDZGpmdO+6bFaNiQGBkyOpHFptkpjaCoQs=;
-        fh=waaIx5dEAVV2pkXZY/WNMv73vMBb2Fbaa9VRh+clABs=;
-        b=c6Vqx0+LQnyR1JRjCCmzd150q0pBUyBH9tleJ9Jj0UiKg0qGtQCRZbNplr2CfsckfQ
-         DKtl08WHGehDdxZ4PK1738ZtTmk4XZGtje7vNUB/4tXcDQInsUswqEJuJRbD7kazxbR4
-         woeDYY0FWOG9JNTUXE4ZONxzdU1R2x5X8ApBd1vZswytoJDFIG6P2fHqQqCUkLQauMcJ
-         R4Gv+sYucxFPOmq7nc2dU3K2HFvvlmlJTZUs0xXAgwuEqpunLK4bVsfnjj6FZ/XJnykb
-         2nn4GQPloiEkY5yP/mqZZ1xwIvcUHYrOOmUjhBife+oleTAr2Sph0GmdoM59JbnPG+hh
-         gP/g==;
+        bh=wwwR6p6sEQJ3aQk1slQ0OuS5zPcXHPa1FuWl+bSWenA=;
+        fh=VMEj+8mp+VxkptzKx14nk0mGiggC//OHaO7z4Tou++c=;
+        b=GL04NXRH2V5yJbtvxjxErFQ9aIjgYqo7KaNpgkRvaJ77wFqYdoJmVvi1DiT5rxaiNm
+         m595JlT7F2Q05pvXLpPnBGAEZGpT0lrqCNw7RtyHTFEwQEI2cPYy1rlddROYPJnGvFkH
+         6BaWD1jvMUPphkn6rfxr4tybShHsT0EvDGOS6Le51dn20ac+jqgNTyXRaBhsW/t2FmeL
+         s4LrhTusSBMipt7hqExn5UyVJFxfyODRNr/J9JytEkp0f2ym5GOaQxpsDVGhvK2QuZQg
+         d1TEcO/mQ2hpXE38362PmvKGBg81+8m32DaK4XWX1U3DQuNFElUkICiGhG4lBpv7opyQ
+         dEXA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=khu.ac.kr; s=google; t=1789245002; x=1789849802; darn=vger.kernel.org;
+        d=khu.ac.kr; s=google; t=1789245015; x=1789849815; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:references:in-reply-to
          :from:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=g6Pm8uj00vDZGpmdO+6bFaNiQGBkyOpHFptkpjaCoQs=;
-        b=GlNoYTu4/tJjOnuuIuVoCg7OKQrZlu3KDrl2/ZpI4abGmS26r8/D7u6Uf9jN+NAlDV
-         HiUM4DWBGMAsukab+biS6AwkuM8BG27YyQ3+93PcOXpN3HZ2ieu1vzecwnsJ2qRqOjA6
-         5gePCXbv1HadLgNn5sOaL8i1+tIgW7dtzDw2M=
+        bh=wwwR6p6sEQJ3aQk1slQ0OuS5zPcXHPa1FuWl+bSWenA=;
+        b=ehjczFV9986wzZ/v+eyo5OOvrtGc7MYzbeTObprznoNXN6JuO3l1YgcjypzCpoa7Um
+         KsELhGTmog6mV51FfCbTPcU0fA9ud/cTN3QWcZZQ07ZsOLoSr2vWIRRtkLh3V/FxaclH
+         k5OsPvvayuqy7TssB8l4mH/8s/nIUV20ySp4o=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789245002; x=1789849802;
+        d=1e100.net; s=20251104; t=1789245015; x=1789849815;
         h=content-type:cc:to:subject:message-id:date:references:in-reply-to
          :from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=g6Pm8uj00vDZGpmdO+6bFaNiQGBkyOpHFptkpjaCoQs=;
-        b=RIkU9h1gzOWUMs12LKZZ0pgRT/cXreCoEv3iUSNpryMNGtuBdK043s+BnUHNumEt9u
-         JhRCJy4kKZLueaWozrlMHVj1HozPISw3W2z+k57z0Z2qjj+gDjm84FeL+AL1D1jEN45J
-         qpYGlr+U9fbrJ3ePyCPc4dmLL2vO4rUxdmDnVpiNXz5SN9Ujuk9ziIrznTc+SjeBLr90
-         oYI9VSRrWtiRl+FZdyroPbakW+1Yg03OCz8YCO+8tQHTIXNJi+5IHIovJdDbV7bLapvq
-         a1Lh3SLKZlpA52kdJ6BX3O3oI3KUh1e4rsdgo8dyPuGvzPhfnu1ePJnzZ70qTFLeDv9h
-         wDJw==
-X-Forwarded-Encrypted: i=1; AKwUvBzxZSi2WGWRCpiDurPn6Ca+w6psSboOQv0p4ja2e5+82SJWLMK8cENSL9YQw1OBX5ZIvFLqXiInXwHKgVg=@vger.kernel.org
-X-Gm-Message-State: AFuF++kHZ4weUUVXxbtt/EMkJWTxxUg6dpfkbUUMCfR7xbj3tNs/Hel8
-	uBoW4swwAPqnDoIyLicmw+JifvG7FrkyRbEZxwPSC+/i3656fkV33KffTOxA69kuV/m60olWlZ3
-	qQoWbQnIbO0lspZohpOvRGM9nMiMSdY8jKV3MTpxWH8U1jg3I5Vny
-X-Gm-Gg: AYBFou0BIzytYBfEKLtQfWg3uuR7uwS6OZJq5tBBwFSgk1SRS+u6oqEtz+0WIzfUgij
-	apzQ/iX+w/M84r1hNkc3lr3/FY5aZ7vNltYLuZfZVHc5eiD7NLCIJlMnpZQNT2vkzpU8RU0MqUg
-	qjgfDNK4IqJvbiqLLI6bNOKBQNQjVF6GwOMRPok5Dr9ojJ6W+P1M44bgcei7X7ykKRilrRnIzbl
-	iUqq9gBXnQ6AMEBnM+biBPmS1KjUILoQpM3tkLlydTdV2BqtrH+6f6O+Y+gIfuYDBtoF7Jal6+v
-	kV3GtML18M2whxo8NQ8YW3ia0HAj+lAV07+6SE7kR7KR2Sk7vEw=
-X-Received: by 2002:a05:6512:aca:b0:5b6:1a7c:27 with SMTP id
- 2adb3069b0e04-5b8a8ebef8bmr688989e87.42.1789245002235; Sat, 12 Sep 2026
- 13:30:02 -0700 (PDT)
+        bh=wwwR6p6sEQJ3aQk1slQ0OuS5zPcXHPa1FuWl+bSWenA=;
+        b=ZW2ZE/sTXiDzfNMaV0ScvTD9RJmRvxZCKcxie/q4VhBoG9oDF2Js7cIuO9dl6DYN8s
+         roA6Y7GdXGthXRb7o3Dp1paq2gFOl+nZCfR4CpD2WNIm4oeiIG+mLexTbidRYu/LoEVF
+         JRmtHL7mFaib/rcaSa4oWxnUB54EHNUGs1UJdI4kdtTrM8L4IyVKTvBjrm1dS1If/Pbt
+         uQYujvXNT5k4qeaporPuT2BcH34QTw5PPDuNk9Q+uBOqtbdQFCD4mbk6DOoBquWbTzZH
+         Dojsr4VMyDNL7QfNQGibmUSQYVXkKnelbrt3A+c0CN0VXozr+Iptu9RAh8fwsTYOgx6j
+         8sqg==
+X-Forwarded-Encrypted: i=1; AKwUvBxzpW5pouRgt3kUVmkJyEOsu6r1AKHYZE7RN+lOuMKHZ7B1fENH3FuXacVD9D6wPMz6plD3et1lccKS3SE=@vger.kernel.org
+X-Gm-Message-State: AFuF++mxQd1klX9ejZFR650qmTAiEEwvEnlRUENQ98wpeXv5uwVTG6ya
+	z0NXvouPVe6+SFU04r2fuxjZmFg+2J/cT/90TI9swkET/l3jOw90cIm2K/36ICp7trnefUOkesm
+	ufN4Sf6JLeMiKB2fI3fpXd8q+P0TGWNyjFzNgFrAxLw==
+X-Gm-Gg: AYBFou37TRovwWKAvT7rKXqp6WQQxonjGtZBz17Aam/9G+5cJBVA+0Oi4Erx72HkDFa
+	q5hxZqRy21HspElVfBq0PoOStrAzCalf44EJKJK8cY/e7RJP8VQBQzEGYTlmwFSM6THnBiuclos
+	PoAZ4QrxeiGEa3RFR2quY92yVnr38cB6CPbJoTOkpuBFZcLsHIWqxOi5Mwo3o6I7joj7+kYxzH+
+	lE5R62Br2raE2oT2DOLM+CSqsAjxVqLcz6CWetlgV4/hhAz8eNAXZO7KQp+bIy+GZgwaKlgFc+U
+	Ll7kswKCKHO/w0Gsi6WeJbLy7EDpz8A0OW38N5hTVVsENrdOsR4=
+X-Received: by 2002:a05:6512:318e:b0:5b4:97db:b740 with SMTP id
+ 2adb3069b0e04-5b8a03149d1mr4423685e87.20.1789245014804; Sat, 12 Sep 2026
+ 13:30:14 -0700 (PDT)
 Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Sat, 12 Sep 2026 16:30:00 -0400
+ Sat, 12 Sep 2026 16:30:13 -0400
 Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Sat, 12 Sep 2026 13:28:22 -0700
+ Sat, 12 Sep 2026 16:28:26 -0400
 Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Sat, 12 Sep 2026 15:20:17 -0500
+ Sat, 12 Sep 2026 16:20:20 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -85,228 +85,803 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Received: from 77377267392	named unknown	by gmailapi.google.com	with HTTPREST;
- Sat, 12 Sep 2026 16:09:52 -0400
+ Sat, 12 Sep 2026 16:09:53 -0400
 From: kimwooseok <5mghybrid@khu.ac.kr>
 In-Reply-To: <CAH1Bc_wBUmmNyzF3c2H1aFBRBbAPSw0hR=1MnPOAcCXypVL_Dg@mail.gmail.com>
 References: <CAH1Bc_wBUmmNyzF3c2H1aFBRBbAPSw0hR=1MnPOAcCXypVL_Dg@mail.gmail.com>
-Date: Sat, 12 Sep 2026 16:30:00 -0400
-X-Gm-Features: AcwNN1WT4aMWlmVlxnGTGx87l59oN-wznF_pEmsob68vpR5yn0wdR6MFNtw3CH4
-Message-ID: <CAH1Bc_y9JSo1w=sM4Rgu9wRmoTiN2axVrz87Ttwmnpnp-XoZ6A@mail.gmail.com>
-Subject: [PATCH wireless 3/4] wifi: rtl8xxxu: preserve RX requests across
- recoverable transfer errors
+Date: Sat, 12 Sep 2026 16:30:13 -0400
+X-Gm-Features: AcwNN1X5amjBl7U2ctbrm9dqJOnYph90GlGZtflpKC3Lk7Jyp_TU-EfL2V0pPQA
+Message-ID: <CAH1Bc_xN+LjETSojhc0MtA=us=_r3EHGpkuWqQx5TvWVPh5N4A@mail.gmail.com>
+Subject: [PATCH wireless 4/4] wifi: rtl8xxxu: test RX ownership and recovery
+ across failures
 To: Jes Sorensen <Jes.Sorensen@gmail.com>
 Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-rtl8xxxu normally reuses 32 RX URBs, scheduling the submission worker when
-more than eight completed requests have accumulated on the pending list.
-Completion errors free URBs instead. A finite error burst can therefore
-leave eight or fewer requests, which cannot reach that threshold after
-they all complete. With no request in flight and no worker pending or
-running, RX stays stopped even after the errors cease.
+Add 11 KUnit cases for the RX allocation, submission, completion and
+retry paths. Cover each retryable completion followed by ENOMEM/EAGAIN,
+batch sizes 1, 8, 9 and 32, skb allocation failure, startup failure
+positions, cancellation and shutdown.
 
-To prevent these errors from shrinking the pool below the number
-needed for normal resubmission, retain URBs after EPROTO, EILSEQ, ETIME,
-EOVERFLOW, ECOMM and ENOSR completions. EHCI can report ENOSR for IN data-buffer
-errors, and FHCI maps RX buffer overrun to ECOMM. Free the failed
-transfer's skb and keep its URB on a separate retry list.
+Run the actual RX helpers and worker with task-scoped stubs for
+allocation and USB submission. Observer references check that the driver
+releases its URB and skb references. A delayed-work case checks that
+one retry request schedules the submission worker.
 
-Keeping the URBs is only part of the fix: the driver must also submit
-them again without waiting for nine requests to accumulate. When the
-first failed request enters the retry list, schedule delayed work for
-100 ms. Further failures join that list while the work is pending.
-When it runs, move the collected requests to normal pending and schedule
-the submission worker even if only one request is waiting. Keeping
-failed requests separate until then prevents normal completions from
-triggering an immediate retry; successful RX keeps its existing batching.
-
-A retry can itself fail with ENOMEM/EAGAIN. Returning that request to
-normal pending would bring back the same threshold problem, so route
-temporary submission failures from both start and the RX worker through
-the delayed retry list as well.
-
-Serialize retry insertion and scheduling with shutdown so late
-completions cannot schedule fresh retries during stop. Cancel retry work
-first, then wait for submission work before killing active URBs, so a
-running worker cannot submit a request after the active requests have
-been drained.
-
-Cancellation and removal keep their release behavior. EPIPE endpoint-halt
-recovery remains outside this change because it requires quiescing
-requests and distinguishing recovery cancellation from shutdown.
-
-Fixes: 26f1fad29ad9 ("New driver: rtl8xxxu (mac80211)")
 Assisted-by: GPT-6 Astra
 Signed-off-by: kimwooseok <5mghybrid@khu.ac.kr>
 ---
- drivers/net/wireless/realtek/rtl8xxxu/core.c  | 71 +++++++++++++++++--
- .../net/wireless/realtek/rtl8xxxu/rtl8xxxu.h  |  3 +
- 2 files changed, 70 insertions(+), 4 deletions(-)
+ .../wireless/realtek/rtl8xxxu/.kunitconfig    |  16 +
+ drivers/net/wireless/realtek/rtl8xxxu/Kconfig |  11 +
+ .../net/wireless/realtek/rtl8xxxu/Makefile    |   3 +
+ drivers/net/wireless/realtek/rtl8xxxu/core.c  |  66 ++-
+ .../net/wireless/realtek/rtl8xxxu/rx-test.c   | 461 ++++++++++++++++++
+ .../net/wireless/realtek/rtl8xxxu/rx-test.h   |  27 +
+ 6 files changed, 569 insertions(+), 15 deletions(-)
+ create mode 100644 drivers/net/wireless/realtek/rtl8xxxu/.kunitconfig
+ create mode 100644 drivers/net/wireless/realtek/rtl8xxxu/rx-test.c
+ create mode 100644 drivers/net/wireless/realtek/rtl8xxxu/rx-test.h
 
+diff --git a/drivers/net/wireless/realtek/rtl8xxxu/.kunitconfig
+b/drivers/net/wireless/realtek/rtl8xxxu/.kunitconfig
+new file mode 100644
+index 0000000000000..decf383c3d51e
+--- /dev/null
++++ b/drivers/net/wireless/realtek/rtl8xxxu/.kunitconfig
+@@ -0,0 +1,16 @@
++CONFIG_MODULES=y
++CONFIG_KUNIT=y
++CONFIG_KUNIT_ALL_TESTS=n
++CONFIG_NET=y
++CONFIG_NETDEVICES=y
++CONFIG_WIRELESS=y
++CONFIG_CFG80211=y
++CONFIG_MAC80211=y
++CONFIG_WLAN=y
++CONFIG_WLAN_VENDOR_REALTEK=y
++CONFIG_USB_SUPPORT=y
++CONFIG_USB=y
++CONFIG_NEW_LEDS=y
++CONFIG_LEDS_CLASS=y
++CONFIG_RTL8XXXU=y
++CONFIG_RTL8XXXU_KUNIT_TEST=y
+diff --git a/drivers/net/wireless/realtek/rtl8xxxu/Kconfig
+b/drivers/net/wireless/realtek/rtl8xxxu/Kconfig
+index 14d0343368ac0..e2c16d62293a4 100644
+--- a/drivers/net/wireless/realtek/rtl8xxxu/Kconfig
++++ b/drivers/net/wireless/realtek/rtl8xxxu/Kconfig
+@@ -35,3 +35,14 @@ config RTL8XXXU_UNTESTED
+ 	  author or reported to be working by third parties.
+
+ 	  Please report your results!
++
++config RTL8XXXU_KUNIT_TEST
++	tristate "KUnit tests for rtl8xxxu RX recovery" if !KUNIT_ALL_TESTS
++	depends on KUNIT && RTL8XXXU
++	default KUNIT_ALL_TESTS
++	help
++	  Exercise RX buffer ownership, startup and recovery with the real
++	  driver functions and controlled allocation and USB submission results.
++	  These tests do not require a USB adapter.
++
++	  If unsure, say N.
+diff --git a/drivers/net/wireless/realtek/rtl8xxxu/Makefile
+b/drivers/net/wireless/realtek/rtl8xxxu/Makefile
+index 580a2fa675ee2..a592a81197857 100644
+--- a/drivers/net/wireless/realtek/rtl8xxxu/Makefile
++++ b/drivers/net/wireless/realtek/rtl8xxxu/Makefile
+@@ -4,3 +4,6 @@ obj-$(CONFIG_RTL8XXXU)	+= rtl8xxxu.o
+ rtl8xxxu-y	:= core.o 8192e.o 8723b.o \
+ 		   8723a.o 8192c.o 8188f.o \
+ 		   8188e.o 8710b.o 8192f.o
++
++obj-$(CONFIG_RTL8XXXU_KUNIT_TEST) += rtl8xxxu-rx-test.o
++rtl8xxxu-rx-test-y := rx-test.o
 diff --git a/drivers/net/wireless/realtek/rtl8xxxu/core.c
 b/drivers/net/wireless/realtek/rtl8xxxu/core.c
-index 1932a9ec1970c..883c9a56f52a4 100644
+index 883c9a56f52a4..323411e7f5e3b 100644
 --- a/drivers/net/wireless/realtek/rtl8xxxu/core.c
 +++ b/drivers/net/wireless/realtek/rtl8xxxu/core.c
-@@ -54,6 +54,7 @@ MODULE_PARM_DESC(dma_agg_pages, "Set DMA aggregation
+@@ -17,6 +17,8 @@
+ #include <linux/iopoll.h>
+ #include "regs.h"
+ #include "rtl8xxxu.h"
++#include "rx-test.h"
++#include <kunit/static_stub.h>
+
+ #define DRIVER_NAME "rtl8xxxu"
+
+@@ -60,8 +62,7 @@ MODULE_PARM_DESC(dma_agg_pages, "Set DMA aggregation
 pages (range 1-127, 0 to di
- #define USB_VENDOR_ID_REALTEK		0x0bda
- #define RTL8XXXU_RX_URBS		32
- #define RTL8XXXU_RX_URB_PENDING_WATER	8
-+#define RTL8XXXU_RX_URB_RETRY_DELAY_MS	100
- #define RTL8XXXU_TX_URBS		64
- #define RTL8XXXU_TX_URB_LOW_WATER	25
  #define RTL8XXXU_TX_URB_HIGH_WATER	32
-@@ -5823,6 +5824,11 @@ static void rtl8xxxu_free_rx_resources(struct
+
+ static void rtl8xxxu_stop(struct ieee80211_hw *hw, bool suspend);
+-static int rtl8xxxu_submit_rx_urb(struct rtl8xxxu_priv *priv,
+-				  struct rtl8xxxu_rx_urb *rx_urb);
++
+
+ static struct ieee80211_rate rtl8xxxu_rates[] = {
+ 	{ .bitrate = 10, .hw_value = DESC_RATE_1M, .flags = 0 },
+@@ -5817,7 +5818,36 @@ void jaguar2_rx_parse_phystats(struct
+rtl8xxxu_priv *priv,
+ 	}
+ }
+
+-static void rtl8xxxu_free_rx_resources(struct rtl8xxxu_priv *priv)
++VISIBLE_IF_KUNIT struct rtl8xxxu_rx_urb *rtl8xxxu_alloc_rx_urb(void)
++{
++	KUNIT_STATIC_STUB_REDIRECT(rtl8xxxu_alloc_rx_urb);
++	return kmalloc_obj(struct rtl8xxxu_rx_urb);
++}
++EXPORT_SYMBOL_IF_KUNIT(rtl8xxxu_alloc_rx_urb);
++
++VISIBLE_IF_KUNIT struct sk_buff *rtl8xxxu_alloc_rx_skb(unsigned int size)
++{
++	KUNIT_STATIC_STUB_REDIRECT(rtl8xxxu_alloc_rx_skb, size);
++	return __netdev_alloc_skb(NULL, size, GFP_KERNEL);
++}
++EXPORT_SYMBOL_IF_KUNIT(rtl8xxxu_alloc_rx_skb);
++
++VISIBLE_IF_KUNIT int rtl8xxxu_rx_usb_submit(struct urb *urb, gfp_t flags)
++{
++	KUNIT_STATIC_STUB_REDIRECT(rtl8xxxu_rx_usb_submit, urb, flags);
++	return usb_submit_urb(urb, flags);
++}
++EXPORT_SYMBOL_IF_KUNIT(rtl8xxxu_rx_usb_submit);
++
++VISIBLE_IF_KUNIT void rtl8xxxu_schedule_rx_retry(struct rtl8xxxu_priv *priv)
++{
++	KUNIT_STATIC_STUB_REDIRECT(rtl8xxxu_schedule_rx_retry, priv);
++	queue_delayed_work(system_wq, &priv->rx_urb_retry_wq,
++			   msecs_to_jiffies(RTL8XXXU_RX_URB_RETRY_DELAY_MS));
++}
++EXPORT_SYMBOL_IF_KUNIT(rtl8xxxu_schedule_rx_retry);
++
++VISIBLE_IF_KUNIT void rtl8xxxu_free_rx_resources(struct rtl8xxxu_priv *priv)
+ {
+ 	struct rtl8xxxu_rx_urb *rx_urb, *tmp;
+ 	unsigned long flags;
+@@ -5838,15 +5868,16 @@ static void rtl8xxxu_free_rx_resources(struct
 rtl8xxxu_priv *priv)
 
- 	spin_lock_irqsave(&priv->rx_urb_lock, flags);
+ 	spin_unlock_irqrestore(&priv->rx_urb_lock, flags);
+ }
++EXPORT_SYMBOL_IF_KUNIT(rtl8xxxu_free_rx_resources);
 
-+	list_splice_tail_init(&priv->rx_urb_retry_list,
-+			      &priv->rx_urb_pending_list);
-+	priv->rx_urb_pending_count += priv->rx_urb_retry_count;
-+	priv->rx_urb_retry_count = 0;
-+
- 	list_for_each_entry_safe(rx_urb, tmp,
- 				 &priv->rx_urb_pending_list, list) {
- 		list_del(&rx_urb->list);
-@@ -5881,6 +5887,47 @@ static void rtl8xxxu_queue_rx_urb(struct
+-static int rtl8xxxu_alloc_rx_urbs(struct rtl8xxxu_priv *priv)
++VISIBLE_IF_KUNIT int rtl8xxxu_alloc_rx_urbs(struct rtl8xxxu_priv *priv)
+ {
+ 	struct rtl8xxxu_rx_urb *rx_urb;
+ 	int i;
+
+ 	/* No RX work is active until the complete pool has been allocated. */
+ 	for (i = 0; i < RTL8XXXU_RX_URBS; i++) {
+-		rx_urb = kmalloc_obj(struct rtl8xxxu_rx_urb);
++		rx_urb = rtl8xxxu_alloc_rx_urb();
+ 		if (!rx_urb)
+ 			return -ENOMEM;
+
+@@ -5859,6 +5890,7 @@ static int rtl8xxxu_alloc_rx_urbs(struct
+rtl8xxxu_priv *priv)
+
+ 	return 0;
+ }
++EXPORT_SYMBOL_IF_KUNIT(rtl8xxxu_alloc_rx_urbs);
+
+ static void rtl8xxxu_queue_rx_urb(struct rtl8xxxu_priv *priv,
+ 				  struct rtl8xxxu_rx_urb *rx_urb)
+@@ -5887,7 +5919,7 @@ static void rtl8xxxu_queue_rx_urb(struct
 rtl8xxxu_priv *priv,
  	spin_unlock_irqrestore(&priv->rx_urb_lock, flags);
  }
 
-+static void rtl8xxxu_rx_urb_retry_work(struct work_struct *work)
-+{
-+	struct rtl8xxxu_priv *priv = container_of(to_delayed_work(work),
-+						struct rtl8xxxu_priv,
-+						rx_urb_retry_wq);
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&priv->rx_urb_lock, flags);
-+
-+	if (!priv->shutdown && priv->rx_urb_retry_count) {
-+		list_splice_tail_init(&priv->rx_urb_retry_list,
-+				      &priv->rx_urb_pending_list);
-+		priv->rx_urb_pending_count += priv->rx_urb_retry_count;
-+		priv->rx_urb_retry_count = 0;
-+		/* An error must not leave a small batch waiting indefinitely. */
-+		schedule_work(&priv->rx_urb_wq);
-+	}
-+
-+	spin_unlock_irqrestore(&priv->rx_urb_lock, flags);
-+}
-+
-+static void rtl8xxxu_queue_rx_urb_retry(struct rtl8xxxu_priv *priv,
-+					struct rtl8xxxu_rx_urb *rx_urb)
-+{
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&priv->rx_urb_lock, flags);
-+
-+	if (!priv->shutdown) {
-+		list_add_tail(&rx_urb->list, &priv->rx_urb_retry_list);
-+		priv->rx_urb_retry_count++;
-+		/* Keep normal completions from bypassing the error backoff. */
-+		queue_delayed_work(system_wq, &priv->rx_urb_retry_wq,
-+				   msecs_to_jiffies(RTL8XXXU_RX_URB_RETRY_DELAY_MS));
-+	} else {
-+		usb_free_urb(&rx_urb->urb);
-+	}
-+
-+	spin_unlock_irqrestore(&priv->rx_urb_lock, flags);
-+}
-+
- static void rtl8xxxu_rx_urb_work(struct work_struct *work)
+-static void rtl8xxxu_rx_urb_retry_work(struct work_struct *work)
++VISIBLE_IF_KUNIT void rtl8xxxu_rx_urb_retry_work(struct work_struct *work)
+ {
+ 	struct rtl8xxxu_priv *priv = container_of(to_delayed_work(work),
+ 						struct rtl8xxxu_priv,
+@@ -5907,6 +5939,7 @@ static void rtl8xxxu_rx_urb_retry_work(struct
+work_struct *work)
+
+ 	spin_unlock_irqrestore(&priv->rx_urb_lock, flags);
+ }
++EXPORT_SYMBOL_IF_KUNIT(rtl8xxxu_rx_urb_retry_work);
+
+ static void rtl8xxxu_queue_rx_urb_retry(struct rtl8xxxu_priv *priv,
+ 					struct rtl8xxxu_rx_urb *rx_urb)
+@@ -5919,8 +5952,7 @@ static void rtl8xxxu_queue_rx_urb_retry(struct
+rtl8xxxu_priv *priv,
+ 		list_add_tail(&rx_urb->list, &priv->rx_urb_retry_list);
+ 		priv->rx_urb_retry_count++;
+ 		/* Keep normal completions from bypassing the error backoff. */
+-		queue_delayed_work(system_wq, &priv->rx_urb_retry_wq,
+-				   msecs_to_jiffies(RTL8XXXU_RX_URB_RETRY_DELAY_MS));
++		rtl8xxxu_schedule_rx_retry(priv);
+ 	} else {
+ 		usb_free_urb(&rx_urb->urb);
+ 	}
+@@ -5928,7 +5960,7 @@ static void rtl8xxxu_queue_rx_urb_retry(struct
+rtl8xxxu_priv *priv,
+ 	spin_unlock_irqrestore(&priv->rx_urb_lock, flags);
+ }
+
+-static void rtl8xxxu_rx_urb_work(struct work_struct *work)
++VISIBLE_IF_KUNIT void rtl8xxxu_rx_urb_work(struct work_struct *work)
  {
  	struct rtl8xxxu_priv *priv;
-@@ -5904,7 +5951,7 @@ static void rtl8xxxu_rx_urb_work(struct work_struct *work)
- 		ret = rtl8xxxu_submit_rx_urb(priv, rx_urb);
- 		/*
- 		 * If out of memory or temporary error, put it back on the
--		 * queue and try again. Otherwise the device is dead/gone
-+		 * delayed queue and try again. Otherwise the device is dead/gone
- 		 * and we should drop it.
- 		 */
- 		switch (ret) {
-@@ -5912,7 +5959,7 @@ static void rtl8xxxu_rx_urb_work(struct work_struct *work)
- 			break;
- 		case -ENOMEM:
- 		case -EAGAIN:
--			rtl8xxxu_queue_rx_urb(priv, rx_urb);
-+			rtl8xxxu_queue_rx_urb_retry(priv, rx_urb);
- 			break;
- 		default:
- 			dev_warn(&priv->udev->dev,
-@@ -5942,7 +5989,7 @@ static int rtl8xxxu_start_rx(struct rtl8xxxu_priv *priv)
- 			break;
- 		case -ENOMEM:
- 		case -EAGAIN:
--			rtl8xxxu_queue_rx_urb(priv, rx_urb);
-+			rtl8xxxu_queue_rx_urb_retry(priv, rx_urb);
- 			break;
- 		default:
- 			usb_free_urb(&rx_urb->urb);
-@@ -6618,7 +6665,20 @@ static void rtl8xxxu_rx_complete(struct urb *urb)
- 		rtl8xxxu_queue_rx_urb(priv, rx_urb);
- 	} else {
- 		dev_dbg(dev, "%s: status %i\n",	__func__, urb->status);
--		goto cleanup;
-+		switch (urb->status) {
-+		case -EPROTO:
-+		case -EILSEQ:
-+		case -ETIME:
-+		case -EOVERFLOW:
-+		case -ECOMM:
-+		case -ENOSR:
-+			dev_kfree_skb(skb);
-+			urb->context = NULL;
-+			rtl8xxxu_queue_rx_urb_retry(priv, rx_urb);
-+			return;
-+		default:
-+			goto cleanup;
-+		}
+ 	struct rtl8xxxu_rx_urb *rx_urb, *tmp;
+@@ -5968,8 +6000,9 @@ static void rtl8xxxu_rx_urb_work(struct work_struct *work)
+ 		}
  	}
- 	return;
+ }
++EXPORT_SYMBOL_IF_KUNIT(rtl8xxxu_rx_urb_work);
 
-@@ -7549,6 +7609,7 @@ static void rtl8xxxu_stop(struct ieee80211_hw
-*hw, bool suspend)
- 	 * it drained via rtl8xxxu_submit_rx_urb(), so a worker still running
- 	 * after the kill could submit a URB that escapes it.
- 	 */
-+	cancel_delayed_work_sync(&priv->rx_urb_retry_wq);
- 	cancel_work_sync(&priv->rx_urb_wq);
+-static int rtl8xxxu_start_rx(struct rtl8xxxu_priv *priv)
++VISIBLE_IF_KUNIT int rtl8xxxu_start_rx(struct rtl8xxxu_priv *priv)
+ {
+ 	struct rtl8xxxu_rx_urb *rx_urb, *tmp;
+ 	unsigned long flags;
+@@ -6006,6 +6039,7 @@ free_remaining:
+ 	}
+ 	return ret;
+ }
++EXPORT_SYMBOL_IF_KUNIT(rtl8xxxu_start_rx);
 
- 	usb_kill_anchored_urbs(&priv->rx_anchor);
-@@ -7861,9 +7922,11 @@ static int rtl8xxxu_probe(struct usb_interface
-*interface,
- 	INIT_LIST_HEAD(&priv->tx_urb_free_list);
- 	spin_lock_init(&priv->tx_urb_lock);
- 	INIT_LIST_HEAD(&priv->rx_urb_pending_list);
-+	INIT_LIST_HEAD(&priv->rx_urb_retry_list);
- 	spin_lock_init(&priv->rx_urb_lock);
- 	priv->shutdown = true;
- 	INIT_WORK(&priv->rx_urb_wq, rtl8xxxu_rx_urb_work);
-+	INIT_DELAYED_WORK(&priv->rx_urb_retry_wq, rtl8xxxu_rx_urb_retry_work);
- 	INIT_DELAYED_WORK(&priv->ra_watchdog, rtl8xxxu_watchdog_callback);
- 	INIT_DELAYED_WORK(&priv->update_beacon_work,
-rtl8xxxu_update_beacon_work_callback);
- 	skb_queue_head_init(&priv->c2hcmd_queue);
-diff --git a/drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu.h
-b/drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu.h
-index eeb18eb0e4c0f..ee55f6cc7f012 100644
---- a/drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu.h
-+++ b/drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu.h
-@@ -1808,8 +1808,11 @@ struct rtl8xxxu_priv {
- 	spinlock_t rx_urb_lock;
- 	struct list_head rx_urb_pending_list;
- 	int rx_urb_pending_count;
-+	struct list_head rx_urb_retry_list;
-+	int rx_urb_retry_count;
- 	bool shutdown;
- 	struct work_struct rx_urb_wq;
-+	struct delayed_work rx_urb_retry_wq;
+ /*
+  * The RTL8723BU/RTL8192EU vendor driver use coexistence table type
+@@ -6646,7 +6680,7 @@ int rtl8xxxu_parse_rxdesc24(struct rtl8xxxu_priv
+*priv, struct sk_buff *skb)
+ 	return RX_TYPE_DATA_PKT;
+ }
 
- 	u8 mac_addr[ETH_ALEN];
- 	char chip_name[8];
+-static void rtl8xxxu_rx_complete(struct urb *urb)
++VISIBLE_IF_KUNIT void rtl8xxxu_rx_complete(struct urb *urb)
+ {
+ 	struct rtl8xxxu_rx_urb *rx_urb =
+ 		container_of(urb, struct rtl8xxxu_rx_urb, urb);
+@@ -6686,9 +6720,10 @@ cleanup:
+ 	usb_free_urb(urb);
+ 	dev_kfree_skb(skb);
+ }
++EXPORT_SYMBOL_IF_KUNIT(rtl8xxxu_rx_complete);
+
+-static int rtl8xxxu_submit_rx_urb(struct rtl8xxxu_priv *priv,
+-				  struct rtl8xxxu_rx_urb *rx_urb)
++VISIBLE_IF_KUNIT int rtl8xxxu_submit_rx_urb(struct rtl8xxxu_priv *priv,
++					    struct rtl8xxxu_rx_urb *rx_urb)
+ {
+ 	struct rtl8xxxu_fileops *fops = priv->fops;
+ 	struct sk_buff *skb;
+@@ -6704,7 +6739,7 @@ static int rtl8xxxu_submit_rx_urb(struct
+rtl8xxxu_priv *priv,
+ 		skb_size = IEEE80211_MAX_FRAME_LEN + rx_desc_sz;
+ 	}
+
+-	skb = __netdev_alloc_skb(NULL, skb_size, GFP_KERNEL);
++	skb = rtl8xxxu_alloc_rx_skb(skb_size);
+ 	if (!skb)
+ 		return -ENOMEM;
+
+@@ -6712,7 +6747,7 @@ static int rtl8xxxu_submit_rx_urb(struct
+rtl8xxxu_priv *priv,
+ 	usb_fill_bulk_urb(&rx_urb->urb, priv->udev, priv->pipe_in, skb->data,
+ 			  skb_size, rtl8xxxu_rx_complete, skb);
+ 	usb_anchor_urb(&rx_urb->urb, &priv->rx_anchor);
+-	ret = usb_submit_urb(&rx_urb->urb, GFP_ATOMIC);
++	ret = rtl8xxxu_rx_usb_submit(&rx_urb->urb, GFP_ATOMIC);
+ 	if (ret) {
+ 		usb_unanchor_urb(&rx_urb->urb);
+ 		dev_kfree_skb(skb);
+@@ -6720,6 +6755,7 @@ static int rtl8xxxu_submit_rx_urb(struct
+rtl8xxxu_priv *priv,
+ 	}
+ 	return ret;
+ }
++EXPORT_SYMBOL_IF_KUNIT(rtl8xxxu_submit_rx_urb);
+
+ static void rtl8xxxu_int_complete(struct urb *urb)
+ {
+diff --git a/drivers/net/wireless/realtek/rtl8xxxu/rx-test.c
+b/drivers/net/wireless/realtek/rtl8xxxu/rx-test.c
+new file mode 100644
+index 0000000000000..aedddcb049cdf
+--- /dev/null
++++ b/drivers/net/wireless/realtek/rtl8xxxu/rx-test.c
+@@ -0,0 +1,461 @@
++// SPDX-License-Identifier: GPL-2.0-only
++#include <kunit/static_stub.h>
++#include <kunit/test.h>
++#include <linux/usb.h>
++
++#include "rtl8xxxu.h"
++#include "rx-test.h"
++
++#define RX_TEST_URBS 32
++#define RX_TEST_SKBS 512
++
++struct rx_test {
++	struct rtl8xxxu_priv priv;
++	struct ieee80211_hw hw;
++	struct rtl8xxxu_fileops fops;
++	struct usb_device udev;
++	struct rtl8xxxu_rx_urb *urbs[RX_TEST_URBS];
++	struct sk_buff *skbs[RX_TEST_SKBS];
++	unsigned int allocated;
++	unsigned int buffers;
++	unsigned int alloc_calls;
++	unsigned int alloc_fail_at;
++	unsigned int submit_calls;
++	unsigned int submit_fail_at;
++	int submit_error;
++	bool fail_skb;
++	bool retry_pending;
++	unsigned int retry_arms;
++	atomic_t normal_runs;
++};
++
++static struct rx_test *rx_current(void)
++{
++	return kunit_get_current_test()->priv;
++}
++
++static struct rtl8xxxu_rx_urb *rx_alloc_object(void)
++{
++	struct rx_test *ctx = rx_current();
++	struct rtl8xxxu_rx_urb *rx;
++
++	ctx->alloc_calls++;
++	if (ctx->alloc_calls == ctx->alloc_fail_at)
++		return NULL;
++	rx = kmalloc_obj(struct rtl8xxxu_rx_urb);
++	if (rx)
++		ctx->urbs[ctx->allocated++] = rx;
++	return rx;
++}
++
++static struct sk_buff *rx_alloc_buffer(unsigned int size)
++{
++	struct rx_test *ctx = rx_current();
++	struct sk_buff *skb;
++
++	if (ctx->fail_skb)
++		return NULL;
++	skb = alloc_skb(size, GFP_KERNEL);
++	if (skb) {
++		/* Retain an observer reference to detect a lost driver reference. */
++		skb_get(skb);
++		ctx->skbs[ctx->buffers++] = skb;
++	}
++	return skb;
++}
++
++static int rx_submit(struct urb *urb, gfp_t flags)
++{
++	struct rx_test *ctx = rx_current();
++
++	ctx->submit_calls++;
++	if (!ctx->submit_fail_at ||
++	    ctx->submit_calls == ctx->submit_fail_at)
++		return ctx->submit_error;
++	return 0;
++}
++
++static void rx_schedule_retry(struct rtl8xxxu_priv *priv)
++{
++	struct rx_test *ctx = rx_current();
++
++	/* Model the single pending delayed-work ticket, not a submission. */
++	if (!ctx->retry_pending) {
++		ctx->retry_pending = true;
++		ctx->retry_arms++;
++	}
++}
++
++static void rx_observe_work(struct work_struct *work)
++{
++	struct rtl8xxxu_priv *priv;
++	struct rx_test *ctx;
++
++	priv = container_of(work, struct rtl8xxxu_priv, rx_urb_wq);
++	ctx = container_of(priv, struct rx_test, priv);
++	atomic_inc(&ctx->normal_runs);
++}
++
++static struct rx_test *rx_init(struct kunit *test, bool fake_timer)
++{
++	struct rx_test *ctx;
++
++	ctx = kunit_kzalloc(test, sizeof(*ctx), GFP_KERNEL);
++	if (!ctx)
++		return NULL;
++	test->priv = ctx;
++	ctx->hw.priv = &ctx->priv;
++	ctx->priv.hw = &ctx->hw;
++	ctx->priv.udev = &ctx->udev;
++	ctx->priv.fops = &ctx->fops;
++	ctx->fops.rx_desc_size = sizeof(struct rtl8xxxu_rxdesc16);
++	spin_lock_init(&ctx->priv.rx_urb_lock);
++	INIT_LIST_HEAD(&ctx->priv.rx_urb_pending_list);
++	INIT_LIST_HEAD(&ctx->priv.rx_urb_retry_list);
++	init_usb_anchor(&ctx->priv.rx_anchor);
++	INIT_WORK(&ctx->priv.rx_urb_wq, rx_observe_work);
++	INIT_DELAYED_WORK(&ctx->priv.rx_urb_retry_wq,
++			  rtl8xxxu_rx_urb_retry_work);
++	atomic_set(&ctx->normal_runs, 0);
++
++	kunit_activate_static_stub(test, rtl8xxxu_alloc_rx_urb, rx_alloc_object);
++	kunit_activate_static_stub(test, rtl8xxxu_alloc_rx_skb, rx_alloc_buffer);
++	kunit_activate_static_stub(test, rtl8xxxu_rx_usb_submit, rx_submit);
++	if (fake_timer)
++		kunit_activate_static_stub(test, rtl8xxxu_schedule_rx_retry,
++					   rx_schedule_retry);
++	return ctx;
++}
++
++static void rx_get_observers(struct rx_test *ctx)
++{
++	unsigned int i;
++
++	for (i = 0; i < ctx->allocated; i++)
++		usb_get_urb(&ctx->urbs[i]->urb);
++}
++
++static int rx_pool(struct rx_test *ctx, unsigned int count)
++{
++	struct rtl8xxxu_rx_urb *rx;
++	unsigned int i;
++	int ret;
++
++	ret = rtl8xxxu_alloc_rx_urbs(&ctx->priv);
++	rx_get_observers(ctx);
++	if (ret)
++		return ret;
++
++	/* A reduced pool also tests recovery without the normal watermark. */
++	for (i = count; i < ctx->allocated; i++) {
++		rx = ctx->urbs[i];
++		list_del_init(&rx->list);
++		ctx->priv.rx_urb_pending_count--;
++		usb_free_urb(&rx->urb);
++	}
++	return 0;
++}
++
++static void rx_giveback(struct rx_test *ctx, unsigned int i, int status)
++{
++	struct urb *urb = &ctx->urbs[i]->urb;
++
++	/* The fake USB boundary does not emulate HCD giveback. */
++	usb_unanchor_urb(urb);
++	urb->status = status;
++	urb->actual_length = 0;
++	rtl8xxxu_rx_complete(urb);
++}
++
++static void rx_finish(struct kunit *test, struct rx_test *ctx)
++{
++	struct urb *urb;
++	unsigned int i;
++
++	ctx->priv.shutdown = true;
++	cancel_delayed_work_sync(&ctx->priv.rx_urb_retry_wq);
++	cancel_work_sync(&ctx->priv.rx_urb_wq);
++	for (i = 0; i < ctx->allocated; i++) {
++		urb = &ctx->urbs[i]->urb;
++		if (urb->anchor)
++			rx_giveback(ctx, i, -ENOENT);
++	}
++	rtl8xxxu_free_rx_resources(&ctx->priv);
++	KUNIT_EXPECT_EQ(test, ctx->priv.rx_urb_pending_count, 0);
++	KUNIT_EXPECT_EQ(test, ctx->priv.rx_urb_retry_count, 0);
++	KUNIT_EXPECT_TRUE(test, usb_anchor_empty(&ctx->priv.rx_anchor));
++	for (i = 0; i < ctx->allocated; i++) {
++		urb = &ctx->urbs[i]->urb;
++		KUNIT_EXPECT_EQ(test, refcount_read(&urb->kref.refcount), 1);
++		usb_free_urb(urb);
++	}
++	for (i = 0; i < ctx->buffers; i++) {
++		KUNIT_EXPECT_EQ(test, refcount_read(&ctx->skbs[i]->users), 1);
++		kfree_skb(ctx->skbs[i]);
++	}
++}
++
++static void rx_retry_step(struct kunit *test, struct rx_test *ctx)
++{
++	KUNIT_ASSERT_TRUE(test, ctx->retry_pending);
++	ctx->retry_pending = false;
++	rtl8xxxu_rx_urb_retry_work(&ctx->priv.rx_urb_retry_wq.work);
++	flush_work(&ctx->priv.rx_urb_wq);
++	/* Execute the actual worker in the test task so boundary stubs apply. */
++	rtl8xxxu_rx_urb_work(&ctx->priv.rx_urb_wq);
++}
++
++static void rx_completion_submit_chain(struct kunit *test)
++{
++	static const int errors[] = {
++		-EPROTO, -EILSEQ, -ETIME, -EOVERFLOW, -ECOMM, -ENOSR,
++	};
++	static const int submissions[] = { -ENOMEM, -EAGAIN };
++	struct rx_test *ctx;
++	unsigned int e, f, i;
++	int runs;
++
++	for (e = 0; e < ARRAY_SIZE(errors); e++) {
++		for (f = 0; f < ARRAY_SIZE(submissions); f++) {
++			ctx = rx_init(test, true);
++			KUNIT_ASSERT_NOT_NULL(test, ctx);
++			KUNIT_ASSERT_EQ(test, rx_pool(ctx, RX_TEST_URBS), 0);
++			KUNIT_ASSERT_EQ(test, rtl8xxxu_start_rx(&ctx->priv), 0);
++			for (i = 0; i < RX_TEST_URBS; i++)
++				rx_giveback(ctx, i, errors[e]);
++			KUNIT_EXPECT_EQ(test, ctx->priv.rx_urb_retry_count, 32);
++			ctx->submit_error = submissions[f];
++			rx_retry_step(test, ctx);
++			runs = atomic_read(&ctx->normal_runs);
++			flush_work(&ctx->priv.rx_urb_wq);
++			KUNIT_EXPECT_EQ(test, atomic_read(&ctx->normal_runs), runs);
++			KUNIT_EXPECT_EQ(test, ctx->priv.rx_urb_pending_count, 0);
++			KUNIT_EXPECT_EQ(test, ctx->priv.rx_urb_retry_count, 32);
++			KUNIT_EXPECT_TRUE(test, ctx->retry_pending);
++			for (i = 0; i < ctx->buffers; i++)
++				KUNIT_EXPECT_EQ(test,
++						refcount_read(&ctx->skbs[i]->users), 1);
++			ctx->submit_error = 0;
++			rx_retry_step(test, ctx);
++			KUNIT_EXPECT_FALSE(test, ctx->retry_pending);
++			KUNIT_EXPECT_EQ(test, ctx->priv.rx_urb_retry_count, 0);
++			KUNIT_EXPECT_FALSE(test, usb_anchor_empty(&ctx->priv.rx_anchor));
++			rx_finish(test, ctx);
++		}
++	}
++}
++
++static void rx_worker_batch_sizes(struct kunit *test)
++{
++	static const unsigned int sizes[] = { 1, 8, 9, 32 };
++	struct rx_test *ctx;
++	unsigned int n, pass;
++	int runs;
++
++	for (n = 0; n < ARRAY_SIZE(sizes); n++) {
++		ctx = rx_init(test, true);
++		KUNIT_ASSERT_NOT_NULL(test, ctx);
++		KUNIT_ASSERT_EQ(test, rx_pool(ctx, sizes[n]), 0);
++		ctx->submit_error = -EAGAIN;
++		rtl8xxxu_rx_urb_work(&ctx->priv.rx_urb_wq);
++		for (pass = 0; pass < 3; pass++) {
++			runs = atomic_read(&ctx->normal_runs);
++			flush_work(&ctx->priv.rx_urb_wq);
++			KUNIT_EXPECT_EQ(test, atomic_read(&ctx->normal_runs), runs);
++			KUNIT_EXPECT_EQ(test, ctx->priv.rx_urb_retry_count, sizes[n]);
++			KUNIT_EXPECT_EQ(test, ctx->priv.rx_urb_pending_count, 0);
++			rx_retry_step(test, ctx);
++		}
++		ctx->submit_error = 0;
++		rx_retry_step(test, ctx);
++		KUNIT_EXPECT_EQ(test, ctx->priv.rx_urb_retry_count, 0);
++		rx_finish(test, ctx);
++	}
++}
++
++static void rx_skb_allocation_failure(struct kunit *test)
++{
++	struct rx_test *ctx;
++
++	ctx = rx_init(test, true);
++	KUNIT_ASSERT_NOT_NULL(test, ctx);
++	KUNIT_ASSERT_EQ(test, rx_pool(ctx, 8), 0);
++	ctx->fail_skb = true;
++	rtl8xxxu_rx_urb_work(&ctx->priv.rx_urb_wq);
++	KUNIT_EXPECT_EQ(test, ctx->submit_calls, 0);
++	KUNIT_EXPECT_EQ(test, ctx->buffers, 0);
++	KUNIT_EXPECT_EQ(test, ctx->priv.rx_urb_retry_count, 8);
++	ctx->fail_skb = false;
++	rx_retry_step(test, ctx);
++	KUNIT_EXPECT_EQ(test, ctx->submit_calls, 8);
++	rx_finish(test, ctx);
++}
++
++static void rx_start_allocation_failure(struct kunit *test)
++{
++	static const unsigned int positions[] = { 1, 8, 32 };
++	struct rx_test *ctx;
++	unsigned int i;
++
++	for (i = 0; i < ARRAY_SIZE(positions); i++) {
++		ctx = rx_init(test, true);
++		KUNIT_ASSERT_NOT_NULL(test, ctx);
++		ctx->alloc_fail_at = positions[i];
++		KUNIT_EXPECT_EQ(test, rtl8xxxu_alloc_rx_urbs(&ctx->priv), -ENOMEM);
++		rx_get_observers(ctx);
++		KUNIT_EXPECT_EQ(test, ctx->allocated, positions[i] - 1);
++		KUNIT_EXPECT_EQ(test, ctx->submit_calls, 0);
++		KUNIT_EXPECT_FALSE(test, ctx->retry_pending);
++		rx_finish(test, ctx);
++	}
++}
++
++static void rx_start_temporary_failure(struct kunit *test)
++{
++	static const int errors[] = { -ENOMEM, -EAGAIN };
++	struct rx_test *ctx;
++	unsigned int i;
++
++	for (i = 0; i < ARRAY_SIZE(errors); i++) {
++		ctx = rx_init(test, true);
++		KUNIT_ASSERT_NOT_NULL(test, ctx);
++		KUNIT_ASSERT_EQ(test, rx_pool(ctx, 32), 0);
++		ctx->submit_error = errors[i];
++		KUNIT_EXPECT_EQ(test, rtl8xxxu_start_rx(&ctx->priv), 0);
++		KUNIT_EXPECT_EQ(test, ctx->priv.rx_urb_retry_count, 32);
++		KUNIT_EXPECT_EQ(test, ctx->priv.rx_urb_pending_count, 0);
++		KUNIT_EXPECT_TRUE(test, ctx->retry_pending);
++		ctx->submit_error = 0;
++		rx_retry_step(test, ctx);
++		rx_finish(test, ctx);
++	}
++}
++
++static void rx_start_fatal_failure(struct kunit *test)
++{
++	static const unsigned int positions[] = { 1, 8, 32 };
++	struct rx_test *ctx;
++	unsigned int i;
++
++	for (i = 0; i < ARRAY_SIZE(positions); i++) {
++		ctx = rx_init(test, true);
++		KUNIT_ASSERT_NOT_NULL(test, ctx);
++		KUNIT_ASSERT_EQ(test, rx_pool(ctx, 32), 0);
++		ctx->submit_fail_at = positions[i];
++		ctx->submit_error = -ENODEV;
++		KUNIT_EXPECT_EQ(test, rtl8xxxu_start_rx(&ctx->priv), -ENODEV);
++		KUNIT_EXPECT_EQ(test, ctx->submit_calls, positions[i]);
++		KUNIT_EXPECT_EQ(test, ctx->priv.rx_urb_pending_count, 0);
++		KUNIT_EXPECT_FALSE(test, ctx->retry_pending);
++		rx_finish(test, ctx);
++	}
++}
++
++static void rx_terminal_completion(struct kunit *test)
++{
++	static const int errors[] = {
++		-ENOENT, -ECONNRESET, -ENODEV, -ESHUTDOWN, -EPIPE,
++	};
++	struct rx_test *ctx;
++	unsigned int i;
++
++	for (i = 0; i < ARRAY_SIZE(errors); i++) {
++		ctx = rx_init(test, true);
++		KUNIT_ASSERT_NOT_NULL(test, ctx);
++		KUNIT_ASSERT_EQ(test, rx_pool(ctx, 1), 0);
++		KUNIT_ASSERT_EQ(test, rtl8xxxu_start_rx(&ctx->priv), 0);
++		rx_giveback(ctx, 0, errors[i]);
++		KUNIT_EXPECT_FALSE(test, ctx->retry_pending);
++		KUNIT_EXPECT_EQ(test, ctx->priv.rx_urb_retry_count, 0);
++		rx_finish(test, ctx);
++	}
++}
++
++static void rx_shutdown_completion(struct kunit *test)
++{
++	struct rx_test *ctx;
++
++	ctx = rx_init(test, true);
++	KUNIT_ASSERT_NOT_NULL(test, ctx);
++	KUNIT_ASSERT_EQ(test, rx_pool(ctx, 1), 0);
++	KUNIT_ASSERT_EQ(test, rtl8xxxu_start_rx(&ctx->priv), 0);
++	ctx->priv.shutdown = true;
++	rx_giveback(ctx, 0, -EPROTO);
++	KUNIT_EXPECT_FALSE(test, ctx->retry_pending);
++	KUNIT_EXPECT_EQ(test, ctx->priv.rx_urb_retry_count, 0);
++	rx_finish(test, ctx);
++}
++
++static void rx_shutdown_pending_retry(struct kunit *test)
++{
++	struct rx_test *ctx;
++
++	ctx = rx_init(test, true);
++	KUNIT_ASSERT_NOT_NULL(test, ctx);
++	KUNIT_ASSERT_EQ(test, rx_pool(ctx, 8), 0);
++	ctx->submit_error = -ENOMEM;
++	rtl8xxxu_rx_urb_work(&ctx->priv.rx_urb_wq);
++	ctx->priv.shutdown = true;
++	rtl8xxxu_rx_urb_retry_work(&ctx->priv.rx_urb_retry_wq.work);
++	flush_work(&ctx->priv.rx_urb_wq);
++	KUNIT_EXPECT_EQ(test, atomic_read(&ctx->normal_runs), 0);
++	KUNIT_EXPECT_EQ(test, ctx->priv.rx_urb_retry_count, 8);
++	rx_finish(test, ctx);
++}
++
++static void rx_shutdown_submission_failure(struct kunit *test)
++{
++	struct rx_test *ctx;
++
++	ctx = rx_init(test, true);
++	KUNIT_ASSERT_NOT_NULL(test, ctx);
++	KUNIT_ASSERT_EQ(test, rx_pool(ctx, 8), 0);
++	ctx->priv.shutdown = true;
++	ctx->submit_error = -ENOMEM;
++	rtl8xxxu_rx_urb_work(&ctx->priv.rx_urb_wq);
++	KUNIT_EXPECT_FALSE(test, ctx->retry_pending);
++	KUNIT_EXPECT_EQ(test, ctx->priv.rx_urb_retry_count, 0);
++	rx_finish(test, ctx);
++}
++
++static void rx_real_delayed_bridge(struct kunit *test)
++{
++	struct rx_test *ctx;
++
++	ctx = rx_init(test, false);
++	KUNIT_ASSERT_NOT_NULL(test, ctx);
++	KUNIT_ASSERT_EQ(test, rx_pool(ctx, 1), 0);
++	KUNIT_ASSERT_EQ(test, rtl8xxxu_start_rx(&ctx->priv), 0);
++	rx_giveback(ctx, 0, -EPROTO);
++	flush_delayed_work(&ctx->priv.rx_urb_retry_wq);
++	flush_work(&ctx->priv.rx_urb_wq);
++	KUNIT_EXPECT_EQ(test, ctx->priv.rx_urb_retry_count, 0);
++	KUNIT_EXPECT_EQ(test, ctx->priv.rx_urb_pending_count, 1);
++	KUNIT_EXPECT_EQ(test, atomic_read(&ctx->normal_runs), 1);
++	rx_finish(test, ctx);
++}
++
++static struct kunit_case rx_cases[] = {
++	KUNIT_CASE(rx_completion_submit_chain),
++	KUNIT_CASE(rx_worker_batch_sizes),
++	KUNIT_CASE(rx_skb_allocation_failure),
++	KUNIT_CASE(rx_start_allocation_failure),
++	KUNIT_CASE(rx_start_temporary_failure),
++	KUNIT_CASE(rx_start_fatal_failure),
++	KUNIT_CASE(rx_terminal_completion),
++	KUNIT_CASE(rx_shutdown_completion),
++	KUNIT_CASE(rx_shutdown_pending_retry),
++	KUNIT_CASE(rx_shutdown_submission_failure),
++	KUNIT_CASE(rx_real_delayed_bridge),
++	{}
++};
++
++static struct kunit_suite rx_suite = {
++	.name = "rtl8xxxu-rx",
++	.test_cases = rx_cases,
++};
++
++kunit_test_suite(rx_suite);
++MODULE_IMPORT_NS("EXPORTED_FOR_KUNIT_TESTING");
++MODULE_DESCRIPTION("rtl8xxxu RX recovery KUnit tests");
++MODULE_LICENSE("GPL");
+diff --git a/drivers/net/wireless/realtek/rtl8xxxu/rx-test.h
+b/drivers/net/wireless/realtek/rtl8xxxu/rx-test.h
+new file mode 100644
+index 0000000000000..295befdfe8144
+--- /dev/null
++++ b/drivers/net/wireless/realtek/rtl8xxxu/rx-test.h
+@@ -0,0 +1,27 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++#ifndef RTL8XXXU_RX_TEST_H
++#define RTL8XXXU_RX_TEST_H
++
++#include <kunit/visibility.h>
++#include <linux/gfp_types.h>
++
++struct rtl8xxxu_priv;
++struct rtl8xxxu_rx_urb;
++struct sk_buff;
++struct urb;
++struct work_struct;
++
++VISIBLE_IF_KUNIT struct rtl8xxxu_rx_urb *rtl8xxxu_alloc_rx_urb(void);
++VISIBLE_IF_KUNIT struct sk_buff *rtl8xxxu_alloc_rx_skb(unsigned int size);
++VISIBLE_IF_KUNIT int rtl8xxxu_rx_usb_submit(struct urb *urb, gfp_t flags);
++VISIBLE_IF_KUNIT void rtl8xxxu_schedule_rx_retry(struct rtl8xxxu_priv *priv);
++VISIBLE_IF_KUNIT int rtl8xxxu_alloc_rx_urbs(struct rtl8xxxu_priv *priv);
++VISIBLE_IF_KUNIT int rtl8xxxu_start_rx(struct rtl8xxxu_priv *priv);
++VISIBLE_IF_KUNIT int rtl8xxxu_submit_rx_urb(struct rtl8xxxu_priv *priv,
++					    struct rtl8xxxu_rx_urb *rx_urb);
++VISIBLE_IF_KUNIT void rtl8xxxu_free_rx_resources(struct rtl8xxxu_priv *priv);
++VISIBLE_IF_KUNIT void rtl8xxxu_rx_complete(struct urb *urb);
++VISIBLE_IF_KUNIT void rtl8xxxu_rx_urb_work(struct work_struct *work);
++VISIBLE_IF_KUNIT void rtl8xxxu_rx_urb_retry_work(struct work_struct *work);
++
++#endif
 -- 
 2.48.1
