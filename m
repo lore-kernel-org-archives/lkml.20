@@ -1,81 +1,58 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2732435B12B
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 04:24:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8B942576E
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 04:25:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789187057; cv=none; b=VtaTFk6sHp5SdWz16Spq8ojOOcl9DujkN/dZNw7D7wk8qrx7fLDnCEZjOOPVR6zPp2aHNguHQFmdlu+5b8V/v+v940NM1SCz/y3yAh/zHYv15uQZM7RBERro3dWtAJkEwgwvgJAp83sS0ZkYEJrgkcOwptkgMTuZ7xoK1ff/icU=
+	t=1789187106; cv=none; b=DXCr9p8IfgjkVL3hCy36aJ8njHOz1Zy0zHCcdVszBePQqBwpuoCfP+Aa+lQ5oLlrhpsaZcjBEanJ/nIWbWCPMhaqdRpuOGMC8Nk4zvxBC/hmeZXo35iGGVohyj96PZjB357CRHGPtUuxLeSAPqeDp60ZY9KHU32Rvm0kI3lWjHA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789187057; c=relaxed/simple;
-	bh=ZAVbFGMrA6COIKq4H6CsiDZNmq5cq9F1IWhQqwC2FKg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RK90eeyuo68KNI5EE5qzh5OGmQNb7ZelktfUkDNBuf7KYUHq9dVb9ayLYEovV6a/aQatQHrrxG4oQq7cZ3bQP/nPvoRCw47XxrJ9Q20BV8Wbl1irTtk/tpnTcTDeuCZkfLSdLTAQsN3nYXMDHxVMlZ7JpvcEKCn5xAjTmpksOkU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=IPXmON90; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1789187106; c=relaxed/simple;
+	bh=SmvdaJdHjccHn3fm6k8hW5KRkIkJM+J+coardOZYz2s=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=St9EnjalyEVEY0u2TqmulsHR4Ylkkem+6aemtEwipI/P7nA3x2uB7grMeXv4PKeuuDjrNLd2uFt7NHG8pBtgO0AfscbWvJFnf4po0eafSIqMUS9O8kw87MnT5jlybokTfYyyPrEtDetRu1C1wZj62o4JG9YW2oKVHeeTm8BxYC4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=BwBMXooH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="IPXmON90"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id CC39A40E00B8;
-	Sat, 12 Sep 2026 04:24:12 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id P2gl04w5ebSV; Sat, 12 Sep 2026 04:24:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1789187043; bh=h9NCuiU4M2f4ImwfbY8Zzs8SJu8nmPYRsgPeElKgGfo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=IPXmON90R2NqE1jSS1EaSE1TYjd+6vdiMfbr/u0KEsWnloy7VsxLkyVju7LKTHZuU
-	 f6kKwwBigELkJsgxyZafDPliaqy2fAzHOEA4BOW9GXLVPIUnJ+/gIzxbfiMUbVmOZA
-	 j2KE+0ErO50tb4k0mUrhBAI2GcEupCpPTHcYVKQwdmPM1CDUr4hRkiz07Xbe5Ch5cT
-	 oDQGkMqoFtsJSmbjzSRVUZNKcGnMkQOd6Eq1Ie9t5gY9nX9bL4e1q9xoJnhhy566d2
-	 G3QYu98r3c/Dls3QWlWpq4R7jGdvd7ibgEdqmyIN0gJLWZmzDMaORLB8I2KFGgRWgq
-	 3yEshMz4VXsYKpoXfjJrxQor5hemXQeu0ygn/ECMrfWj9pl3BehGJT/7o/p7aD5oRI
-	 HuPbGmbexo8Dj7qM8zsejO0BnhPwpAnM4jUWOG/Elz5Y/9wwJoTcPf1sRi84DMGaxt
-	 9ctNsyrJkn0ULL8oLI5ATe8EITgdV/8rxOiDlk2GbUP6BxGvwUIFaoYnhS2tYWK4fp
-	 xQBmHOLib+RVVJm2DEqzH39XTHXvkP+5GLrK0CXe9YiUQApGBjkwTnd8f1K7lm8uHE
-	 atWI+/faGTzddWjGo2ZCAVOPWAn7uDa9qwg1Pk8IVW1i6N86AIesZv6vuh0JmfJsQ7
-	 f5vjb8henVWyO/fXo31t9wT8=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::1a])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 7177340E00E8;
-	Sat, 12 Sep 2026 04:23:58 +0000 (UTC)
-Date: Fri, 11 Sep 2026 21:23:54 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: A Kundu <avikalpa@yahoo.com>
-Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
-	Mario Limonciello <superm1@kernel.org>
-Subject: Re: TSC marked unstable on AMD Zen4 (Ryzen 7 250, ThinkBook 16 G9
- AHP): 15.6G-cycle warp CPU0->CPU2 at boot, 7.1.12
-Message-ID: <20260912042354.GBaqTT2mNIq09XRXff@fat_crate.local>
-References: <1789149772593550955.2470305.ref@yahoo.com>
- <1789149772593550955.2470305@yahoo.com>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="BwBMXooH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C86D01F000FF;
+	Sat, 12 Sep 2026 04:25:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1789187104;
+	bh=WD2psr2yzjyCJK4w/2X5moNA7VDH939yz28Da2OB/Wg=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=BwBMXooHh/FNWX+eVvSFWRbzYe6GxMeInSjLfY6+Uh9LrW8QyR6o6r0+nH+La9maz
+	 b4H+drJ6+Gacit9buekB7BqVmjK0WJWa7BwKTcv7DOFGdtVXy8KSOZdZNjfMHdgOMB
+	 jgsKImFGNu+YneeknvNigWDwqdNFh/vSUHU/NFhc=
+Date: Fri, 11 Sep 2026 21:25:03 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Gregory Price <gourry@gourry.net>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
+ liam@infradead.org, ljs@kernel.org, david@kernel.org, vbabka@kernel.org,
+ jannh@google.com, ziy@nvidia.com, matthew.brost@intel.com,
+ joshua.hahnjy@gmail.com, rakie.kim@sk.com, byungchul@sk.com,
+ ying.huang@linux.alibaba.com, apopple@nvidia.com, peterx@redhat.com,
+ jgg@ziepe.ca, sashiko-bot <sashiko-bot@kernel.org>
+Subject: Re: [PATCH v2 0/2] mm: stop calling pmd_folio() on special PMDs
+Message-Id: <20260911212503.bcf8461db17ebbf51233826a@linux-foundation.org>
+In-Reply-To: <20260912034833.2952750-1-gourry@gourry.net>
+References: <20260912034833.2952750-1-gourry@gourry.net>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <1789149772593550955.2470305@yahoo.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 11, 2026 at 11:32:52PM +0530, A Kundu wrote:
-> On an AMD Zen4 laptop, kernel 7.1.12 (x86_64) marks the TSC unstable at
+On Fri, 11 Sep 2026 23:48:31 -0400 Gregory Price <gourry@gourry.net> wrote:
 
-Can you send full dmesg from that machine to Mario and me?
+> Reproducer
+> ==========
+> 
+> No hardware needed.  An out of tree module stands in for the drivers above:
+> three misc devices, each with a ->huge_fault calling vmf_insert_pfn_pmd(),
+> plus VM_HUGEPAGE so the fault path takes the PMD branch.
 
-Privately is fine too.
-
-Thx.
-
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+I take it there's no known way of triggering this in current mainline?
