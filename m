@@ -1,131 +1,199 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41E5B47AF6A
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 12:28:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4FED47ACDD;
+	Sat, 12 Sep 2026 12:34:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789216117; cv=none; b=k4Ci/8PVIGXm7GVpqxyHq1BoV+jxcfM/AzmEciy8aqFxBV8qRjyLii0rxTJxN5rp3eDgkL4z4AxZmXVXw0dIVlqNdOlVbxq3ABdSsYAHhy0IpgYRpwfSKi4QJlujIMgbvhskL+CFBfxWNuWXcnf/C2PbfefKBFqJs9q4dp8oXZo=
+	t=1789216459; cv=none; b=JxIvYI3o5+KqMNTcc3FT++/uYGtQH2HtStEG4dxpHDDwnxI4w3atjKw+jHayGgUGMmoWxxQwgMI6dfCL7FEPVBtNSUgKIWDzYoveNphISKFU3mVk0H3k+mKKjtF6THiV1wQ2x+IOkK9JDI4hmD/0dtK5CFfGBnksBguZnGux1tE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789216117; c=relaxed/simple;
-	bh=yUyedlztWXbA3lwvxrO/styw1IzAPB86ioonRT5zCKQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=eW1vylMhIW+2pnsokOhwWClVZbKc3q9Qnx/JURI5ecBgba1dhEmg9oyjd4/vlfnXT0DeuuY2w9lw4jJFmK9LnuGsJTcSG8A0kdUwbWPwb4PlM7wjWHs5FUe3723fio7JLRvrbE/ifEL/80SuCBX/WCXTYsR5quGutR+lKBgPo5Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FQMGHtNX; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789216459; c=relaxed/simple;
+	bh=kCOhI9Y8dNnSwx5/91OI5NKkgojCQKJBcnLap64Pat0=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=VMSUX42ZXD+yfvebEL2eR0sa+GnZRt/z+Yol7p3K/gfzjOQM9ldKYFUJfPhN+wtijmQXhadwdgB3F4hkO/uyqxu7/5d5rt73mSI2J/9dao+uPxgqMH3Jo4jxfKyWII78X581fxSZqk+Y8/gTVKgJd+u6KAHBl0PY3Z0oQzzk5I0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=1MPI2fwT; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Uuz8BKpW; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Bi0EqLfM; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=3M3om3xf; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FQMGHtNX"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-8631d0023daso241503b3a.2
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 05:28:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789216114; x=1789820914; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NujR5wP2r0gRxOSsqzPbYYRli2E0gkVnbRP1/4DKQ0s=;
-        b=FQMGHtNXnLSv3hx05ZffmV9mTCQwmOmkig6m+l4oAeJJIyusqLx6maD60McHA53IG4
-         CohFJbO11R593vSPuqvVtGgMDf3U5sjV2ZH6FeSihHI99PXnltnrUZZGBUWpoayo4XhZ
-         8x1HLTsiuskSsls5XWpQ9F+1s6lioJnZRA4FBy5bjwKUi/cHnyqMOelT+CPIctt5K2ZX
-         Zvub1Rox9JK8pmnKpIYhd9lRD1+LtCzIl04rAYW/vRt0c/dBp95fe0T5g3VVAuSBGDgv
-         yyZEg9QScLZcxDMF90TZIQG34imUmf5DEtIy6L2dI5Nl7gR0Pbzgoiherc8KKVElmZTG
-         asHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789216114; x=1789820914;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NujR5wP2r0gRxOSsqzPbYYRli2E0gkVnbRP1/4DKQ0s=;
-        b=Ma/2LpiwUlwITfwpu3L/Y5GGXgVdX71MFTGsThsqij1XANfmWwonj4+u9sFT8p0u1l
-         D6hVG1XaLQPZ+NB6QEkqyeWFJkgRHNxlMBSLGe33SkapGW+IPY+ON9dxCQj3lIV9GV2D
-         xXvScqGhsVDgRMbVSQaY7jMekRSQN0EJCHs/pUM6AxYFseeXBE+vCMwWsMLWXlQynsDt
-         0GrKu36tdfzN/rLREcvmCs9GRUWgLPFvGdlGn0WYHybR5PLVoKCOOf+VCu4kZA3Ti9b7
-         uU7xXzjyWoraFGzs86ooO1HTn0QcDNYeff8SUsyKChbEbqM6rRm4JmbqDnwBx/R3yMlu
-         Apbg==
-X-Forwarded-Encrypted: i=1; AKwUvBwD+ksO+LmeCg+W8OmbFO4oFm6jliS4xfJ/wQHqbsBP1BWQnQrEkD0SHS8TspmCWZ24vFLeEpb9T9XlcJI=@vger.kernel.org
-X-Gm-Message-State: AFuF++l0S7OEewzwci2gy5VzDzmZ9HgIPCiLvI9s1iKzlQM9AbAZOVVA
-	9/z9xneWEnhNS4jlkoHncy32Y1Fn+F09AurfUBgIZxr5UrhW0CTK0c3m
-X-Gm-Gg: AYBFou0pZfJl5GlUzrgX9tUi1HW4ruDoAXyacrj/XkTLv9OWE7u4LXOjWgYc5aO1sK1
-	9PseHrdv4CtmMGrb9G1wUWUEBnHKDTUHoGqPgIbykwd7L65DhIil8JLXN74n1B+uuA+mn6wo9Eq
-	36zuAwSpHh85SXwGX3Nq3lqdYOPjmeFqrR/H/NGQV2JyvlmPOGLacqYQoG5MTICUnrJPM7bZZI3
-	8GFAevZ2EG6Ixl1VA2D9cuPTkAz4MLHBdx6oNeN804aIxZCmDNvKufP0SyFeCCxCGkC0friu5OJ
-	PS/TpHR4bPBgeJfcCOARYmj/1vBmgDpnAoOnMsguAApM/LZgxepRgPH0fsBB6drAMYeBRC/p+tZ
-	UX1L/EOZYbDBcOP+OzViPtEEqVcKtOCjiJiZlleNGcrlKsctQDRuuQAJCtZ9Za2TU5z0IxF0m8o
-	4HkIUdzFdoqV7K4LH0FLJEUCKzi6cg+5LUGs0q0AvEHcG2yAJO6RVXx/RBfWmbqQA=
-X-Received: by 2002:a05:6300:6684:b0:3bf:9b3d:61bb with SMTP id adf61e73a8af0-3db0e1f7d7bmr4991615637.16.1789216114472;
-        Sat, 12 Sep 2026 05:28:34 -0700 (PDT)
-Received: from [127.0.0.2] ([2404:c0:701d:4e35:aab7:8c01:68f1:4912])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4c65b1a63sm2512427a12.31.2026.09.12.05.28.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 12 Sep 2026 05:28:33 -0700 (PDT)
-From: Reza Kurniawan <imkyufie@gmail.com>
-Date: Sat, 12 Sep 2026 12:27:34 +0000
-Subject: [PATCH 2/2] arm64: dts: qcom: msm8917-xiaomi-riva: Enable USB
- support (peripheral mode)
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="1MPI2fwT";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Uuz8BKpW";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Bi0EqLfM";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="3M3om3xf"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 7069B21D33;
+	Sat, 12 Sep 2026 12:34:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789216445; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qNVwZ3JmFclZeYHLps49T6yXw5/ApBLAYr6fcNpekaE=;
+	b=1MPI2fwTjqtLw3f47dnZxS9cAUjZURlCV0/7hprf5q9sjiNpZZX3BoUs1RSt4GQIjl7mS5
+	tGdpE8f3Yg27Yv/dCPekIN2dORN1Z4zEPJPpvM85wPzB8kTghqGmXdVG40rx+eXvBNyQcS
+	5CDIor59Mt/14+ep8BUtE9x40k42n8c=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789216445;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qNVwZ3JmFclZeYHLps49T6yXw5/ApBLAYr6fcNpekaE=;
+	b=Uuz8BKpWPeu++993J+R6oXRki9w7fLG9z80pT1HYen7cT18sjln2thBDbqidtzjaiJSWLf
+	F9++DNWeseZvkNDg==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=Bi0EqLfM;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=3M3om3xf
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789216441; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qNVwZ3JmFclZeYHLps49T6yXw5/ApBLAYr6fcNpekaE=;
+	b=Bi0EqLfMP5Bf/LyyE7WX/REkB/v2X09e3xu62BQlhzQxvrhn3Y1IaTctk+2eIkJpfTvN/x
+	+sC25g1Vh95lSHLMbNEhrmJ451rn6tjKN9dGIBaZi2+29ppsc36+OeD4XUhfEITzOhSLL8
+	09lt5MpMwk6BNGP2XyAkC8/ozC7wfMw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789216441;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qNVwZ3JmFclZeYHLps49T6yXw5/ApBLAYr6fcNpekaE=;
+	b=3M3om3xfv5ImWCsbIcuKyuHi+nOzUWjkHXUnMyy7A0s9pXG0P0b8P7cJ71GPXgWZ8YcHkX
+	g/b2mr6+7kIEU9CA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0749C13693;
+	Sat, 12 Sep 2026 12:34:01 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id Y62RALlGpWq3DAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Sat, 12 Sep 2026 12:34:01 +0000
+Date: Sat, 12 Sep 2026 14:34:00 +0200
+Message-ID: <875x0a3ayv.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Farhad Alemi <farhad.alemi@berkeley.edu>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [BUG] KASAN: slab-use-after-free Read in usx2y_async_seq04_init
+In-Reply-To: <CA+0ovChexj4TrZL_2iG_P0WBEbZc5+73GfB3DkciQi=R8pZOnA@mail.gmail.com>
+References: <CA+0ovChexj4TrZL_2iG_P0WBEbZc5+73GfB3DkciQi=R8pZOnA@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260912-riva-usb-v1-2-0acd5cf8c62a@gmail.com>
-References: <20260912-riva-usb-v1-0-0acd5cf8c62a@gmail.com>
-In-Reply-To: <20260912-riva-usb-v1-0-0acd5cf8c62a@gmail.com>
-To: Sebastian Reichel <sre@kernel.org>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- Reza Kurniawan <imkyufie@gmail.com>
-X-Mailer: b4 0.15.2
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Score: -3.51
+X-Rspamd-Queue-Id: 7069B21D33
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-3.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Flag: NO
 
-Enable USB node and PHY. Since VBUS is wired to the charger IC, also
-set extcon of the USB node to inform the USB driver of cable events
-emitted by the charger driver.
+On Fri, 11 Sep 2026 17:53:55 +0200,
+Farhad Alemi wrote:
+> 
+> Hello,
+> 
+> We are reporting the following crash (reproducer attached):
+> Linux version 7.3.0-rc2 50d05c7c76c96b90462f24debacca971d2e86713
+> Build Config: UpstreamAppArmorKASAN (KASAN + UBSAN, panic_on_warn=1)
+> 
+> [   44.599577][ T9507] BUG: KASAN: slab-use-after-free in
+> usx2y_async_seq04_init+0x2b8/0x360
+(snip)
 
-Signed-off-by: Reza Kurniawan <imkyufie@gmail.com>
+Both this one and your another report ("[BUG] KASAN:
+slab-use-after-free Read in __snd_ctl_add_replace") are basically the
+same issue -- UAFs after the card release of USB drivers that are done
+asynchronously from the disconnect callback.
+
+Below is the fix patch for both.
+
+
+thanks,
+
+Takashi
+
+-- 8< --
+From: Takashi Iwai <tiwai@suse.de>
+Subject: [PATCH] ALSA: core: Fix potential UAF after asynchronous card release
+
+Usually a sound driver releases the resources assigned to the card via
+snd_card_free(), and it synchronizes with the whole release procedure.
+However, when the card is released asynchronously via
+snd_card_free_when_closed() like USB-audio driver, the situation is
+slightly different; although the snd_card_disconnect() call at the
+disconnection guarantees that any newer accesses will be gated, the
+in-flight tasks might be still accessing to the underlying card->dev
+device even after the disconnection, which would cause a
+use-after-free in the end, as reported by fuzzers.
+
+For addressing the bug above, this patch takes the refcount of
+card->dev at initialization of the card object, and releases at its
+destructor.   This assures the availability of the card->dev in its
+whole lifecycle.
+
+Reported-by: Farhad Alemi <farhad.alemi@berkeley.edu>
+Closes: https://lore.kernel.org/CA+0ovChexj4TrZL_2iG_P0WBEbZc5+73GfB3DkciQi=R8pZOnA@mail.gmail.com
+Closes: https://lore.kernel.org/CA+0ovCgQUQNN=Z1tJTouiCsDaXR5M-3-SQEGk-cpPXQkM5Xh+w@mail.gmail.com
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts | 17 ++++++++++++++++-
- 1 file changed, 16 insertions(+), 1 deletion(-)
+ sound/core/init.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts b/arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts
-index 7c323214a..c47aad978 100644
---- a/arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts
-+++ b/arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts
-@@ -69,7 +69,7 @@ power-monitor@55 {
- 		monitored-battery = <&battery>;
- 	};
- 
--	charger@6b {
-+	bq25601_charger: charger@6b {
- 		compatible = "ti,bq25601";
- 		reg = <0x6b>;
- 		interrupts-extended = <&tlmm 61 IRQ_TYPE_EDGE_FALLING>;
-@@ -89,3 +89,18 @@ bq25601_int_default: bq25601-int-default-state {
- 		bias-pull-up;
- 	};
- };
-+
-+&usb {
-+	dr_mode = "peripheral";
-+	extcon = <&bq25601_charger>;
-+
-+	status = "okay";
-+};
-+
-+&usb_hs_phy {
-+	vdd-supply = <&pm8937_l2>;
-+	vdda1p8-supply = <&pm8937_l7>;
-+	vdda3p3-supply = <&pm8937_l13>;
-+
-+	status = "okay";
-+};
-
+diff --git a/sound/core/init.c b/sound/core/init.c
+index 2f7f83a7611b..bffa94b7b956 100644
+--- a/sound/core/init.c
++++ b/sound/core/init.c
+@@ -310,7 +310,7 @@ static int snd_card_init(struct snd_card *card, struct device *parent,
+ 			kfree(card); /* manually free here, as no destructor called */
+ 		return err;
+ 	}
+-	card->dev = parent;
++	card->dev = get_device(parent);
+ 	card->number = idx;
+ 	WARN_ON(IS_MODULE(CONFIG_SND) && !module);
+ 	card->module = module;
+@@ -605,6 +605,7 @@ static int snd_card_do_free(struct snd_card *card)
+ 	}
+ 	if (card->release_completion)
+ 		complete(card->release_completion);
++	put_device(card->dev);
+ 	if (!managed)
+ 		kfree(card);
+ 	return 0;
 -- 
 2.55.0
 
