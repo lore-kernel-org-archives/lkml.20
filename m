@@ -1,48 +1,48 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A5D51A268
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 00:34:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 989CA2C1586
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 00:35:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789173300; cv=none; b=C5zfs9NvXMQdJgnaZH+gBFhjObMvjsUUT8YUrdg/3oFABxUf9IYWnkpPfk16QEyHI/W3rl7zkz4/yak0epQLNnWVQrVM5Z9JQBHytreIxDHlW+VYTtsyMmaPIjUX2Ql0tog7D5WYXMeuhvH8KJumDbxM0RsRXScceJ3c8eD0cyI=
+	t=1789173304; cv=none; b=mB9T0GAkuUlZETup9YsrVEtb9AOlOzaLdFNj+WbhJYAvI2wZ2ojhn+mb/CXCtkxkaO4w56KjbhwO2tEWNTYkjVQkHcQYj88lF9Rd1RzhQ+I0in7eaDK1WMZq03TnquKbWma6EWLmW1k5rkSuNjoiszRSWvRNVSPV3bKMcGfTx00=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789173300; c=relaxed/simple;
-	bh=qe7XIhIewwHBV/9KsEFxItJNJXwxG5s13s91Wa/n9Zo=;
+	s=arc-20240116; t=1789173304; c=relaxed/simple;
+	bh=YXa0l6c+grZX2/LjoqW0DnFyjiTq9oXDwuC3+9M8yDo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XhyxTm61ZBiZ/WR8SMHCsTu0HZgr7fwISrbez3Hsfm8ifcUwrsFneiyL9uDOjWwTwWcYPcdVxI3EqljjsoYz4je4TmX4nFqai/cKgOSl3XHQ1G4vf7ocrbQmq7xUXPmUC5wbseDVVsVtkvqePM8zP5aYoUC98xSG4C01trqUB1s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=V4qsL3ok; arc=none smtp.client-ip=192.198.163.7
+	 MIME-Version; b=FE7qvr5vVzb8jOfVUWlt4N011OkxxM+MAls1BJPExwJPScUd+elEwXdKFpoOVnOkA/AJLTJoSSQvXpwyYMf2TySyGn3YymJu5xy7FI1HKxg0Dvb5t6HMIzvNuwBDoPk5vtK/q9iwilJa7JT1csFJ5VQpIR0zEZDRf5J23HNY+3o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fF00PUDk; arc=none smtp.client-ip=192.198.163.7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="V4qsL3ok"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fF00PUDk"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789173299; x=1820709299;
+  t=1789173302; x=1820709302;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=qe7XIhIewwHBV/9KsEFxItJNJXwxG5s13s91Wa/n9Zo=;
-  b=V4qsL3ok28g9BqAdEnlxty8fijovmgDxXmVqIcUnoMFqEdfCEeJ7BzU7
-   jhCyuh5NbBz5lEKkWXwlnbv7zaM3XqDrJO4AcFUAfdfdcfVBr+H7bsU9Q
-   qpVIVq7F/505lBV9N4X1gSpbgTN7RdiG3MAvWB8MtQDXzJEceRJf82rsF
-   vCMGp3CcPJJcB0lMQSkny2GxCjDaOuaY2nQzfHESrAo8REwoUBzFDwiGE
-   qYLU9Nmo+iQgtKJog9dlaDnEx92nA1oKJqAtj0oHUZCNShJFQfR6FWpC5
-   lWieKDZ4IgegrKKwzEe04Yxuvw7wKZM2YKDkavrCJlXkpic85yFLKv5pt
+  bh=YXa0l6c+grZX2/LjoqW0DnFyjiTq9oXDwuC3+9M8yDo=;
+  b=fF00PUDk8QfU5RvQCXy3mkjEoU/YNEEy4p8ApbaJpG1V4IysDTHuBqks
+   hm3X2VjC6H5CvGhT9FNjcFSk4Qg4k3YHjOZHQrRfGzYkCwV9IjC2XCJ13
+   K7b4z3cJJS29qGKxrWAMszxwKHeJlr3vtiYjfDNEgUxHXlDAdy3GMvGGu
+   kItH22GXAerBKsCgFU9WHO8Vvq0hh+pdFjSLZLMsN/JiAfq4CR5JTFEhp
+   a1ByRx3o5yWwxu71A0wLgLiYI0PXhGLp1lqoAdF/W1c1T5b1MyXsI7px9
+   clKnDO4PlsUuBjZqRorsOzNQm9vrOZ+v/wFI8Jn1BgCWac3bgULBGS+Te
    Q==;
-X-CSE-ConnectionGUID: alvGDlsGQmOXqDI6teOI8w==
-X-CSE-MsgGUID: 67+7oD/CSFWdG15rfB2QhQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11902"; a="115174947"
+X-CSE-ConnectionGUID: LqObo6ctTfOgSz9BGBv5rw==
+X-CSE-MsgGUID: IUYdzcs5TPaMNgaqpCwpWg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11902"; a="115174959"
 X-IronPort-AV: E=Sophos;i="6.27,98,1787036400"; 
-   d="scan'208";a="115174947"
+   d="scan'208";a="115174959"
 Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 17:34:59 -0700
-X-CSE-ConnectionGUID: L2XRBnIeRhWnh7Yd+ZvHbA==
-X-CSE-MsgGUID: 3QoVzrcJSk644q0wHhcdKA==
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 17:35:01 -0700
+X-CSE-ConnectionGUID: ZKPuPMpFQfWZWh1dcMKf8w==
+X-CSE-MsgGUID: HR/NXSeCS+C4Ql386ozhFA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,98,1787036400"; 
-   d="scan'208";a="276217561"
+   d="scan'208";a="276217578"
 Received: from chang-linux-3.sc.intel.com (HELO chang-linux-3) ([172.25.66.174])
-  by orviesa005.jf.intel.com with ESMTP; 11 Sep 2026 17:34:58 -0700
+  by orviesa005.jf.intel.com with ESMTP; 11 Sep 2026 17:35:01 -0700
 From: "Chang S. Bae" <chang.seok.bae@intel.com>
 To: linux-kernel@vger.kernel.org
 Cc: x86@kernel.org,
@@ -52,9 +52,9 @@ Cc: x86@kernel.org,
 	dave.hansen@linux.intel.com,
 	kevin.shu@intel.com,
 	chang.seok.bae@intel.com
-Subject: [PATCH RFC v1 1/8] cpu/hotplug: Allow architecture-specific primary CPU bringup
-Date: Sat, 12 Sep 2026 00:08:07 +0000
-Message-ID: <20260912000815.997720-2-chang.seok.bae@intel.com>
+Subject: [PATCH RFC v1 2/8] x86/hotplug: Implement SMT-primary selection for parallel bringup
+Date: Sat, 12 Sep 2026 00:08:08 +0000
+Message-ID: <20260912000815.997720-3-chang.seok.bae@intel.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260912000815.997720-1-chang.seok.bae@intel.com>
 References: <20260912000815.997720-1-chang.seok.bae@intel.com>
@@ -66,93 +66,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Parallel CPU bringup currently proceeds in two phases: first for the SMT
-primary threads and then second for the remaining secondary threads. This
-ordering avoids race conditions, specifically for x86 microcode loading.
-
-Upcoming x86 changes expand the microcode loading scope beyond a single
-core to package scope or even system-wide updates. Introduce architecture
-hooks that allow customizing which CPUs participate in the first phase:
-
- * arch_cpuhp_primary_aware() - indicates whether the architecture
-   provides a custom primary CPU selection scheme, or not.
-
- * arch_cpuhp_get_primary_cpus() - returns a CPU mask for the first
-   bringup iteration.
+Parallel CPU bringup executes in two phases to avoid microcode loading
+races between SMT siblings. The core code now supports architecture-
+specific customization of the first bringup phase. Implement the x86 logic
+to preserve the existing behavior.
 
 Signed-off-by: Chang S. Bae <chang.seok.bae@intel.com>
 ---
- arch/Kconfig        | 4 ++++
- include/linux/cpu.h | 9 +++++++++
- kernel/cpu.c        | 8 ++++++--
- 3 files changed, 19 insertions(+), 2 deletions(-)
+Note:
+With this change, the generic SMT-aware two-phase parallel bringup logic
+appears redundant since it was originally introduced for the x86
+microcode loader path.
 
-diff --git a/arch/Kconfig b/arch/Kconfig
-index 45c657772362..f38d80d583bf 100644
---- a/arch/Kconfig
-+++ b/arch/Kconfig
-@@ -102,6 +102,10 @@ config HOTPLUG_PARALLEL
- 	bool
- 	select HOTPLUG_SPLIT_STARTUP
+But, another architecture, MIPS, also adopted the primary-aware parallel
+bringup model in:
+
+    76c43eb507bc ("MIPS: SMP: Implement parallel CPU bring up for EyeQ")
+
+So the generic fallback path still appears to have valid users.
+---
+ arch/x86/Kconfig                     |  1 +
+ arch/x86/kernel/cpu/microcode/core.c | 18 ++++++++++++++++++
+ 2 files changed, 19 insertions(+)
+
+diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
+index 15fd9ec5ecac..cd6d4dfe3349 100644
+--- a/arch/x86/Kconfig
++++ b/arch/x86/Kconfig
+@@ -1319,6 +1319,7 @@ config MICROCODE
+ 	def_bool y
+ 	depends on CPU_SUP_AMD || CPU_SUP_INTEL
+ 	select CRYPTO_LIB_SHA256 if CPU_SUP_AMD
++	select HOTPLUG_PARALLEL_ARCH_PRIMARY if HOTPLUG_PARALLEL
  
-+config HOTPLUG_PARALLEL_ARCH_PRIMARY
-+	bool
-+	depends on HOTPLUG_PARALLEL
-+
- config GENERIC_IRQ_ENTRY
- 	bool
- 
-diff --git a/include/linux/cpu.h b/include/linux/cpu.h
-index 9b6b0d87fdb0..11e375d00df7 100644
---- a/include/linux/cpu.h
-+++ b/include/linux/cpu.h
-@@ -19,6 +19,7 @@
- #include <linux/cpuhotplug.h>
- #include <linux/cpuhplock.h>
- #include <linux/cpu_smt.h>
-+#include <linux/cpumask.h>
- 
- struct device;
- struct device_node;
-@@ -233,4 +234,12 @@ int arch_prctl_get_branch_landing_pad_state(struct task_struct *t, unsigned long
- int arch_prctl_set_branch_landing_pad_state(struct task_struct *t, unsigned long state);
- int arch_prctl_lock_branch_landing_pad_state(struct task_struct *t);
+ config MICROCODE_INITRD32
+ 	def_bool y
+diff --git a/arch/x86/kernel/cpu/microcode/core.c b/arch/x86/kernel/cpu/microcode/core.c
+index 0dd0c7241c57..36f08e2c99fb 100644
+--- a/arch/x86/kernel/cpu/microcode/core.c
++++ b/arch/x86/kernel/cpu/microcode/core.c
+@@ -869,6 +869,24 @@ static int mc_cpu_down_prep(unsigned int cpu)
+ 	return 0;
+ }
  
 +#ifdef CONFIG_HOTPLUG_PARALLEL_ARCH_PRIMARY
-+bool __init arch_cpuhp_primary_aware(void);
-+const struct cpumask *__init arch_cpuhp_get_primary_cpus(void);
-+#else
-+static inline bool arch_cpuhp_primary_aware(void) { return false; }
-+static inline const struct cpumask *arch_cpuhp_get_primary_cpus(void) { return cpu_none_mask; }
-+#endif
 +
- #endif /* _LINUX_CPU_H_ */
-diff --git a/kernel/cpu.c b/kernel/cpu.c
-index b3c8553d7bd6..5225f91c4d8c 100644
---- a/kernel/cpu.c
-+++ b/kernel/cpu.c
-@@ -1837,15 +1837,19 @@ static bool __init cpuhp_bringup_cpus_parallel(unsigned int ncpus)
- 	if (!__cpuhp_parallel_bringup)
- 		return false;
- 
--	if (cpuhp_smt_aware()) {
--		const struct cpumask *pmask = cpuhp_get_primary_thread_mask();
-+	if (arch_cpuhp_primary_aware() || cpuhp_smt_aware()) {
- 		static struct cpumask tmp_mask __initdata;
-+		const struct cpumask *pmask;
- 
- 		/*
- 		 * X86 requires to prevent that SMT siblings stopped while
- 		 * the primary thread does a microcode update for various
- 		 * reasons. Bring the primary threads up first.
- 		 */
-+		pmask = arch_cpuhp_primary_aware() ?
-+			arch_cpuhp_get_primary_cpus() :
-+			cpuhp_get_primary_thread_mask();
++/*
++ * Queried by the parallel bringup code to determine whether x86 provides a
++ * custom primary CPU mask for early loading.
++ */
++bool __init arch_cpuhp_primary_aware(void)
++{
++	return __max_threads_per_core > 1;
++}
 +
- 		cpumask_and(&tmp_mask, mask, pmask);
- 		cpuhp_bringup_mask(&tmp_mask, ncpus, CPUHP_BP_KICK_AP);
- 		cpuhp_bringup_mask(&tmp_mask, ncpus, CPUHP_ONLINE);
++const struct cpumask *__init arch_cpuhp_get_primary_cpus(void)
++{
++	return cpu_primary_thread_mask;
++}
++
++#endif /* CONFIG_HOTPLUG_PARALLEL_ARCH_PRIMARY */
++
+ static struct attribute *cpu_root_microcode_attrs[] = {
+ #ifdef CONFIG_MICROCODE_LATE_LOADING
+ 	&dev_attr_reload.attr,
 -- 
 2.53.0
 
