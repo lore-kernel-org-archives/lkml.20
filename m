@@ -1,127 +1,219 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4161D1E1DF0
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 00:21:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.173
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789172471; cv=pass; b=nFT2ttY5zkuFr9B5/CLDoAiF1tnQq6JGlM9XRRQzzSneMYg9epIOa2L8IYGSYpThyNrzOH051DMX4yU8AsOBpxlwMPJQlx44zUIdj6doZxQ3iqAX6UdqAbzrx8uVNgrYWcya7bzCvzqzhn3hEXpFSxvvVODmZLU69lMJ226TudM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789172471; c=relaxed/simple;
-	bh=yiO5TV0bwTKJtEwFyHk1KmMv4NJpSMLcyyEMsZ+nsFU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=G0hEc2D0xotVzOvtVoGrQPkTnRoQMPriEoTOwmAooasClKUj1hP3yN7jKJ47dg2JIiMAJTbxjNtcVGv+xJh334xEuuidijMgo0Z0CjupwIVR5MYd0w7cPV0V9RhUIlP7+ab0Nsa4fnIzjlcCmwUHxoCYNxrIpu+8+HpfYU3nupo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cZSf2oyg; arc=pass smtp.client-ip=209.85.214.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 606D64BEE5E;
+	Sat, 12 Sep 2026 00:22:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789172565; cv=none; b=f87eYrJYdyMfyLBiHleTM4YAPDoNT0iCBdNf0BD9PVuPO73x36WMPZVoYWddrf9xMqlLWAIJ35n/oDdM7PeL4Y6yclx46v26tpeYnSZb5SxSYtmueFUXDI1uY+prwpVY0wU9FtnLNJbqZrls6pWK6w5IaL7qftsa0AJZNsj9Rpw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789172565; c=relaxed/simple;
+	bh=btP9+w0qpebPWJPdz9AKP0lvnCoqmWzlrNeGOd7T1fk=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=SRanec2agy+v7dJPwBUiuOq4HlbcvKjobl9bo4c1VnJajzWmM5ti4H2mRCH+Y69SGnkKZrv80iz6IAI7yyM3txduSZiAKLxMwbNLQNsoClFSYvAoUAio2iF+0xp05QgkOG0Y/lgjHcVGAKkS5z+bfxDWFk4lMYpkbXMCxHb4QQw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BJ4lE6rJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cZSf2oyg"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2d715f4a587so20178015ad.2
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 17:21:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789172469; cv=none;
-        d=google.com; s=arc-20260327;
-        b=loQkPbhQ+kijYCU0Sc747vOhBhiAK2H4wZG3hUwPua1noxgXRoLfeMRXVqyIs/kyvF
-         WqS7x+dMxu4pXChrN3r/MvZOM80Z/FHvFlmvBD65K5vZgvXDBBRJZhz5tS3ESRkxU8Pk
-         T3GgpuYdMQSMB39Wfo+evXbMYvwX5zWAmdQJHWhn1MDSEHBlXd5SX9GC1cpf+JZFxpeh
-         lRbKmscAtYCT4+CRsscHx3LfP1c7XVmflgnGRK7VBe/z4qJ/LZtHqN7j3rIj5nRIWPij
-         UoR+5XLQhq/BTBgDiTjuukKizL4qewnb8AODc7A7oSZw9hEGI63LyZlZMbucDXrUfaWs
-         bAQw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=yiO5TV0bwTKJtEwFyHk1KmMv4NJpSMLcyyEMsZ+nsFU=;
-        fh=RaN5FZ2twRGpLQxOkH9ohInF56Ivt7xnO3PD4DDjxxU=;
-        b=DjYhRXyQ33cHqYA/6b3RhmZAMCsMFmKaWEwS4Wlf1qPEXwmRruompwcwSRTTF+yih9
-         6SGcFAjeLvMs6kxAMvMf9iEG9EUqPXOLToLVg1u0kbKTtaZBTt7hbLu3yggHPc2cjxw/
-         iEPzOms9FKTN+6MphJ3uKxF9ufUnF0gNscBrZbEavo9/kSGA7uEgWUpolwoJysZdL2T7
-         WYPM6XqfAU87LEXVO9blPGcWuq1lxMNB+anADCDiqhOiZwaPsW+YBEwcy0RC6daf8BEZ
-         WNCh1p9VbubMhkP9syefk6sthjq/fNIbzdn3utSvnXNnxu4Jx8XGcP2AhjhW849iul3e
-         n1qA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789172469; x=1789777269; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=yiO5TV0bwTKJtEwFyHk1KmMv4NJpSMLcyyEMsZ+nsFU=;
-        b=cZSf2oyg4vqiJK0oNy50rXu7Jdi3uqS8aZvYiQIlLc/qxPEWvjTVfufbD9OTukguL7
-         qQ5LApi3yKUwLbId667EXHstaKGLILbkBz8ky0A6xOPmjteCMsQngj913YUJ+IJcqGk8
-         rjyCbvfFV7UzhT9v8KoSDGxOnISMEpz564WVVnU43I2rksvOqmprMplcx/hkq1dKqCU+
-         iJbS32sAvVCZ1kTFmbNAf3XEHmZkVauTMpJ6RJYxDqvdWldEhOS4rM21Fcy/o9xpXwtZ
-         qtIx4BuESVdYTnw6mJB48hYWd/OODiE7u2gaVMtr0BYqa37236BKmiYfcTwcrQqCGar6
-         8GDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789172469; x=1789777269;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yiO5TV0bwTKJtEwFyHk1KmMv4NJpSMLcyyEMsZ+nsFU=;
-        b=GEiZMKK2IsDkl2ub64R0YtSxUpL3WWBfRB9ZFYlkHPGEERtG36ZG2XIyAL9CzYrGNr
-         mmL8EJYWqugRvv1w2sqeQMKwfpym2hEX1Cf4Lsh3s0OcgTUJJOfUzC5Hu3wYOt3zT5iU
-         gTE/+a0Ap2ZcyLhjiNWnjt3jWIPtrGbFAUr0a1+qDxG5+0e+/cU3MAXPrO48DoNTzE+h
-         pITStYj/l8JuPd8zYS5gUfBYUXgngEoNvpRSU+WDeNSCgdKNTPe6rxd4Fz7zgVj6cDOQ
-         tBg0ZxgN7qQX+xEbu5I8XYn9vdO94f4/K35y1mO6mg43i5e6VeJwwxIVLRLIV2dZpvvz
-         u3qQ==
-X-Forwarded-Encrypted: i=1; AKwUvByHUUF8a+puF5AXMJDlt9uoTQLCsfJ8NXAUupuaI90/vzfY5TozbBjhis5TVUXQJIJdbSqGh4HiW55tLzg=@vger.kernel.org
-X-Gm-Message-State: AFuF++l3PS6quY125tkIG/Pno+ii1C/WWlgJazxJMRPYkJ3Wr9H52n4m
-	4JF7a2ezBpDEDoa4xGhyoW9/1i5/EuaNcgJzFFY1G3PrTn8LIs4Kse/fyiOJN8tEKm6sSZi5YyM
-	kCheT64dchmtyMYEXWSRPeOUoCWG+2oo=
-X-Gm-Gg: AYBFou2FMFeLkiUfVDb3Mye+8kG/nC3j5T5omzG308DccfraXSKWw2hNgbb4J1igSkQ
-	j/7Aua7dwihAmuDeEigzm/nC3+Hv/iJQT4XY/v5jxInr8Q9RMGPsZL7HhjQS+RvfQrL1agBMnwl
-	XqY3X8MH5w+4Ki7zKTymnz/oJ5ozSeI4EQk/Qrs3zNWjllNfW67irc1vOdzKy9tI0YaB6K8X122
-	Jbf9QIjKxoypmBBnw8tVhvgBwzOWLNceQ8/u0AXB/sJaSBFDs5YTb2hEP0+O+TaydYm/wujPabT
-	Npr1Er/rlOw8OMUsN+nQAv2aeeY/XfgFrcUNZXAuS8Bz+0snCLccGAFJ2jiuqU+XPWiWtSx7Jdn
-	rgTMQDOelfrMECrKjtANI6yKM/CebkBenXOVXLSg=
-X-Received: by 2002:a17:902:cec3:b0:2db:5f00:ff52 with SMTP id
- d9443c01a7336-2dd2a45c363mr109249375ad.22.1789172469306; Fri, 11 Sep 2026
- 17:21:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BJ4lE6rJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 038501F000FF;
+	Sat, 12 Sep 2026 00:22:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789172563;
+	bh=zZ0MkYEQGuqtS9XyXWjCDSbV6aS38Hy2FSrfJOsohMM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=BJ4lE6rJA3K1kikR+JMfRh/jr6lkJNnjE/ipblc2q8jUIUEZSZOjnrIokkom0K7+i
+	 hVrfxstRPSueCxRYDlrCBY+0HmDqT4Cvm/+RHXHBO25pBGkHWMhuyVEA0rkSaTE3K0
+	 u2aqWZbib++QXZyRCJWqm1hahsj+rKfqN1xm9npZqr9C8SPReC4KZin68j4FlLO0Rm
+	 1EpeVHbQLw4jig6kUE/ht1EbgAHWdAC9em1kwXauSu10+hvBKneJdP09q6OtVsDuGY
+	 wFlc/+rf8QGFmDBgJersSMu1oVL8tFyaT2ny2RPK4LM9cf39VX5SNDe2Jmd4KqUoH3
+	 AglgqrV3X9gCQ==
+Date: Sat, 12 Sep 2026 01:22:39 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Srirangan Madhavan <smadhavan@nvidia.com>
+Cc: Alison Schofield <alison.schofield@intel.com>, Bjorn Helgaas
+ <bhelgaas@google.com>, Dave Jiang <dave.jiang@intel.com>, Davidlohr Bueso
+ <dave@stgolabs.net>, Ira Weiny <ira.weiny@intel.com>, Vishal Verma
+ <vishal.l.verma@intel.com>, linux-cxl@vger.kernel.org,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, Alex Williamson
+ <alex.williamson@redhat.com>, vsethi@nvidia.com, alwilliamson@nvidia.com,
+ Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>, Vishal Aslot
+ <vaslot@nvidia.com>, Manish Honap <mhonap@nvidia.com>, Jiandi An
+ <jan@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
+ linux-tegra@vger.kernel.org
+Subject: Re: [PATCH v12 04/12] cxl: Cache decoder settings on PCI devices
+Message-ID: <20260912012239.7bc32c5a@jic23-hlaptop>
+In-Reply-To: <20260910070808.1444264-5-smadhavan@nvidia.com>
+References: <20260910070808.1444264-1-smadhavan@nvidia.com>
+	<20260910070808.1444264-5-smadhavan@nvidia.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260819122252.1782790-1-florent.revest@linux.dev>
- <DL27QZ6SEZKT.1CV2HAX4A3WI4@gmail.com> <CAADnVQLxi-R1KDUXJJjpq69SpV8UcNJVqBi7uicO=V0WhAvyQA@mail.gmail.com>
- <DL2S878KSOI5.1SZMLIAWMCNUJ@gmail.com> <DL3FIBQNP6AU.1HO08FMI292UX@linux.dev>
- <CAADnVQLMm43qJxuiHUuuh51wAL4kH0+fRoaM7YfbZEXT7LHn0A@mail.gmail.com>
- <DL4R2YXF9J8G.203VBANYFFSET@linux.dev> <CAADnVQJ+OJKmgaDM9B58g30M_-pkZgGmbDuvEWmrg8U_ZkxbSg@mail.gmail.com>
- <DL57W17T3VEC.1EJMWXYOB7JFU@linux.dev> <CAADnVQJLNW=FqPrWq7MX28iA_Qsw_N1mT923WrVkoqES1ZArjA@mail.gmail.com>
-In-Reply-To: <CAADnVQJLNW=FqPrWq7MX28iA_Qsw_N1mT923WrVkoqES1ZArjA@mail.gmail.com>
-From: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Date: Fri, 11 Sep 2026 17:20:57 -0700
-X-Gm-Features: AcwNN1VKgqAgYGqyMG-DgnJAxbrComiDzG6Y23_NRHjcQt0zpiMmYJ15gSn1F6k
-Message-ID: <CAADnVQJfvKmtD=jcOjaYaNAcfmujQm_oE7oNefTGiAAbTFj4Jg@mail.gmail.com>
-Subject: Re: [PATCH bpf] bpf: Keep progs alive until the trampoline image
- calling them is freed
-To: Florent Revest <florent.revest@linux.dev>
-Cc: Kumar Kartikeya Dwivedi <memxor@gmail.com>, bpf <bpf@vger.kernel.org>, 
-	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
-	Andrii Nakryiko <andrii@kernel.org>, Martin KaFai Lau <martin.lau@linux.dev>, 
-	Eduard Zingerman <eddyz87@gmail.com>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
-	KP Singh <kpsingh@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>, 
-	John Fastabend <john.fastabend@gmail.com>, "Paul E. McKenney" <paulmck@kernel.org>, 
-	Jose Fernandez <jose.fernandez@linux.dev>, LKML <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 2, 2026 at 5:48=E2=80=AFPM Alexei Starovoitov
-<alexei.starovoitov@gmail.com> wrote:
->
-> Let's extend ip_after_call concept.
-> Instead of using a single NOP after the call to skip fexit progs
-> let's add NOPs in front of every invoke_bpf() including fentry and fmod_r=
-et.
->
-> Then on tramp destroy patch all nop-s to jmp epilogue.
->
-> llm-s helped me realize that fentry has the same issue.
-> fentry prog A can sleep
-> while non-sleepable fentry prog B can detach and things will crash.
+On Thu, 10 Sep 2026 07:08:00 +0000
+Srirangan Madhavan <smadhavan@nvidia.com> wrote:
 
-Florent,
+> Add CXL core plumbing to refresh a PCI device HDM decoder cache when
+> decoders are enumerated, committed, or reset. PCI reset paths can use
+> this snapshot to restore HDM programming without walking CXL topology
+> during reset recovery.
+> 
+> The cache is populated by PCI-side discovery in a follow-on patch. Until
+> then, the CXL core update path is a no-op when no PCI HDM cache is
+> present.
+> 
+> Signed-off-by: Srirangan Madhavan <smadhavan@nvidia.com>
+Various comments inline
 
-are you planning to respin with the above fix or should I ask my clanker ?
+Thanks,
+
+Jonathan
+> ---
+>  drivers/cxl/core/hdm.c | 68 +++++++++++++++++++++++++++++++++++++++++-
+>  include/cxl/cxl.h      | 12 ++++++++
+>  include/linux/pci.h    |  6 ++++
+>  3 files changed, 85 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/cxl/core/hdm.c b/drivers/cxl/core/hdm.c
+> index d621d827f59f..0927036aed27 100644
+> --- a/drivers/cxl/core/hdm.c
+> +++ b/drivers/cxl/core/hdm.c
+> @@ -16,6 +16,9 @@
+>   * for enumerating these registers and capabilities.
+>  
+>  
+> +static bool __cxl_pci_hdm_decoder_count_match(struct pci_dev *pdev,
+> +					      int decoder_count)
+> +{
+> +	struct cxl_hdm_info *info;
+> +	bool match = true;
+> +
+> +	down_read(&cxl_rwsem.dpa);
+
+guard() 
+> +	info = pdev->hdm;
+> +	if (info) {
+
+If !info fails the number of decoders definitely didn't match - so maybe
+print something in that path too.
+
+so far, the local info variable is less readable than pdev->hdm.
+Maybe it becomes more useful later in series.
+
+> +		if (info->decoder_count != decoder_count) {
+> +			pci_warn(pdev,
+> +				 "CXL HDM cache decoder count mismatch: cached=%d hdm=%d\n",
+> +				 info->decoder_count, decoder_count);
+> +			match = false;
+
+> +		}
+> +	}
+> +	up_read(&cxl_rwsem.dpa);
+> +
+> +	return match;
+> +}
+> +
+> +static bool cxl_pci_hdm_decoder_count_match(struct cxl_hdm *cxlhdm)
+> +{
+> +	struct pci_dev *pdev __free(pci_dev_put) =
+> +		cxl_port_get_uport_pci_dev(cxlhdm->port);
+> +
+> +	if (!pdev)
+> +		return true;
+> +
+> +	return __cxl_pci_hdm_decoder_count_match(pdev, cxlhdm->decoder_count);
+
+I went looking and seems like this is the only call. Just bring the implementation
+inline here.
+
+> +}
+> +
+> +static void cxl_hdm_save_decoder_info(struct cxl_hdm *cxlhdm,
+> +				      struct cxl_decoder *cxld)
+> +{
+> +	struct pci_dev *pdev __free(pci_dev_put) =
+> +		cxl_port_get_uport_pci_dev(cxlhdm->port);
+> +	struct cxl_decoder_settings *settings;
+> +	struct cxl_hdm_info *info;
+> +
+> +	if (!pdev)
+> +		return;
+> +
+> +	guard(rwsem_write)(&cxl_rwsem.dpa);
+> +	info = pdev->hdm;
+> +	if (!info || cxld->id >= info->decoder_count)
+> +		return;
+> +
+> +	settings = &info->settings[cxld->id];
+> +	*settings = (struct cxl_decoder_settings) {
+> +		.id = cxld->id,
+> +	};
+> +	if (cxld->flags & CXL_DECODER_F_ENABLE)
+
+Why is it bad to snapshot a non enabled decoder?  Is it pointless
+or harmful.  Add a comment.
+
+> +		cxl_decoder_snapshot(cxld, settings);
+> +}
+
+> diff --git a/include/cxl/cxl.h b/include/cxl/cxl.h
+> index c09492af8fbd..ed5237df510f 100644
+> --- a/include/cxl/cxl.h
+> +++ b/include/cxl/cxl.h
+> @@ -133,6 +133,18 @@ struct cxl_regs {
+>  	);
+>  };
+>  
+> +#define CXL_HDM_DECODER_MAX_COUNT 32
+> +
+> +/**
+> + * struct cxl_hdm_info - PCI device HDM decoder programming cache
+> + * @decoder_count: number of decoder settings entries
+> + * @settings: cached per-decoder programming state
+> + */
+> +struct cxl_hdm_info {
+> +	int decoder_count;
+> +	struct cxl_decoder_settings settings[CXL_HDM_DECODER_MAX_COUNT];
+> +};
+
+This is quite a big structure. Can't we do
+	int decoder_count;
+	struct cxl_decodet setting settings[] __counted_by(decoder_count);
+and allocate the necessary size using struct_size()?
+
+I doubt that many devices will do all 32 decoders - particularly as
+the spec used to allow a smaller number IIRC.
+
+> +
+>  struct cxl_reg_map {
+>  	bool valid;
+>  	int id;
+> diff --git a/include/linux/pci.h b/include/linux/pci.h
+> index d31a8d107b1e..84d058b1b492 100644
+> --- a/include/linux/pci.h
+> +++ b/include/linux/pci.h
+> @@ -339,6 +339,9 @@ struct pcie_link_state;
+>  struct pci_sriov;
+>  struct pci_p2pdma;
+>  struct rcec_ea;
+> +#ifdef CONFIG_CXL_RESET
+> +struct cxl_hdm_info;
+> +#endif
+>  
+>  /* struct pci_dev - describes a PCI device
+>   *
+> @@ -566,6 +569,9 @@ struct pci_dev {
+>  #ifdef CONFIG_PCI_DOE
+>  	struct xarray	doe_mbs;	/* Data Object Exchange mailboxes */
+>  #endif
+> +#ifdef CONFIG_CXL_RESET
+> +	struct cxl_hdm_info *hdm;	/* CXL HDM decoder reset state */
+> +#endif
+>  #ifdef CONFIG_PCI_NPEM
+>  	struct npem	*npem;		/* Native PCIe Enclosure Management */
+>  #endif
+
