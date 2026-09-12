@@ -1,97 +1,150 @@
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-2-46.ptr.blmpb.com (va-2-46.ptr.blmpb.com [209.127.231.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AAFF2D8382;
-	Sat, 12 Sep 2026 07:48:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA40438DC71
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 07:48:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789199294; cv=none; b=T/dOAgX0RNoU+dw8W3SA4+xbbSzXf0Qv+gGo2OALMlWeIdg/CIATYpBgF+O6Bama/iJlMY2KwEIBLpZPITllf5wt4SIBA4DVxBep5loT+heAOetcq9lVx1ZEtLaKY6axpJGOd2L68cl8XdMSrWhXEGq7pg5szF8aOVAo4sEKxFE=
+	t=1789199298; cv=none; b=Q8wYkZEzp/5wfCV7JmJbp8wPztLeT9j568bTn3m8EEKklNCRAhyj0j3iYvd4YJauop9iEcgD7devHE6yxeSr8MuN+Y7LrPHiNK/6j5wwilvw0DqfS/A7VopQ0CDmoNDdY3K+HleZxU/zcTp4NKizuxh1TyFQmzD63pdUINOSkIk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789199294; c=relaxed/simple;
-	bh=g+thXLaVzZeLKjj7wi7oagUK+H7sISWDAQKOPEGzHy0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Ac8BrxQfW1UC2qY4KtWEWermGUy9nk0SLG1NKO1dn1e+Bm0AoUuNKY5H0I0MiRBeqQdaLw1EIfFxX4LFhNbYRkW5ip3tvk/0DDy5A5H1y2QmwV/8iHVZ5JdhXEyaJof1ccG3ACLgozjee6HAFk3+MtbRMihLGhVKw/sDbge8aV4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn; spf=pass smtp.mailfrom=tju.edu.cn; dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b=liQu4yD7; arc=none smtp.client-ip=45.254.49.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tju.edu.cn
+	s=arc-20240116; t=1789199298; c=relaxed/simple;
+	bh=j7DPIT46L3jwPBs/m4i9dXxYp91/V5WPUKCQ73DO1cs=;
+	h=Subject:In-Reply-To:From:Mime-Version:Message-Id:References:Date:
+	 To:Cc:Content-Type; b=CqO5zhTSyvtxIW5Z77C96m47XfnZG5CHGJOTWOI64byb0TiF6LvTGib6l/9zkHMK4Oqx887aNs4E6Mx/JvtKQs7YqQNnSCEiW35LHRH8Brx0XWaGRuuq5W4oYUJZueqk9fvZjBJ4SC/l+igj9CWjRa8fA6VBBqGXLtADIDGfceA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io; spf=pass smtp.mailfrom=fygo.io; dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b=NikpzdR0; arc=none smtp.client-ip=209.127.231.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b="liQu4yD7"
-Received: from tju.edu.cn (gy-adaptive-ssl-proxy-1-entmail-virt204.gy.ntes [183.242.150.9])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4d8263c19;
-	Sat, 12 Sep 2026 15:47:54 +0800 (GMT+08:00)
-From: Yibo Tan <lhfff@tju.edu.cn>
-To: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
-	"Martin K. Petersen" <mkp@kernel.org>
-Cc: Wenchao Hao <haowenchao2@huawei.com>,
-	Douglas Gilbert <dgilbert@interlog.com>,
-	linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v1] scsi: scsi_debug: Drain RCU callbacks before module exit
-Date: Sat, 12 Sep 2026 15:47:37 +0800
-Message-Id: <20260912074737.972055-1-lhfff@tju.edu.cn>
+	dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b="NikpzdR0"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1789199285;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=1VyD7DaC6wasXE9S7pArhsSgm3Sx7MaWSQX/kiC/gJ4=;
+ b=NikpzdR09/F8jjEurW0CDFTH6PkpC4QLjhIWtGTyY2EGlJjBO5bIcO6Bd2yb2gL4q7SfCQ
+ xljC87r0sRehHc+iFA1dUhhc6f4MJjddtcf1o9sOkPRHza6hi9M/IYpH29fwaVOtAvrpHK
+ srW+p7PHZlNXRg9cPxBtjTU1lwoikkIzQMcx3y91mp2brO1uxFCkEstSTb7jhX0f97McF0
+ F9ALnFYNx7/MpiWh/ZKDPO/5yFLiz/EyoUmb04lRICLngIJWhpFRMJT0ngOE7LTovgQ9pO
+ aulCGlzLnrh63Ui0JyG9cZKR2LqMMbCUD6NOAKaJCeZlW4HS5+Nlxvs0/d2HIA==
+Subject: Re: [PATCH] md/raid5: don't BUG() on an inconsistent reshape state from the superblock
+In-Reply-To: <20260910131103.988-1-yogeshgaur.83@gmail.com>
+Received: from [192.168.1.104] ([39.182.0.161]) by smtp.larksuite.com with ESMTPS; Sat, 12 Sep 2026 07:48:04 +0000
+From: "yu kuai" <yukuai@fygo.io>
+User-Agent: Mozilla Thunderbird
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0949650ab03a1kunmba0e1024207ae7
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCTRpJVkMfSh4ZSkhDHxgdSVYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKQ0hVSU9JVUpOS1VCWVdZFhoPEhUdFFlBWU9LSFVKS0lPT0
-	9LVUpLS1VLWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=liQu4yD7kKD/BFGg0wmr9vOjOc7ARkgsxlP+Wws7kR9jUtqNpqO5hDsXwpSMwDVYKRnKc2ywJkOMBlOXCACq11dARzu+lfBIATh4HKCW07/KbEkwTEsVHpaKPD4ZYXTKGLu8/mB1vWe2PARouBr5GYnx8/vpyFlVOjc1AsYYHVU=; c=relaxed/relaxed; s=default; d=tju.edu.cn; v=1;
-	bh=0HcXmb4vP4kcSsXp8HlCncD4DDQeBwH68MBh/XEiDwc=;
-	h=date:mime-version:subject:message-id:from;
+Mime-Version: 1.0
+Message-Id: <15056940-2572-4395-a72b-8cba7d8d11b7@fygo.io>
+X-Original-From: yu kuai <yukuai@fygo.io>
+References: <20260910131103.988-1-yogeshgaur.83@gmail.com>
+X-Lms-Return-Path: <lba+26aa503b4+1d33de+vger.kernel.org+yukuai@fygo.io>
+Date: Sat, 12 Sep 2026 15:48:00 +0800
+To: "Yogesh Gaur" <yogeshgaur.83@gmail.com>, "Song Liu" <song@kernel.org>, 
+	"yu kuai" <yukuai@fygo.io>
+Cc: "Li Nan" <magiclinan@didiglobal.com>, "Xiao Ni" <xiao@kernel.org>, 
+	<linux-raid@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	<syzbot+1f5a7de91d547763f4c8@syzkaller.appspotmail.com>
+Content-Type: text/plain; charset=UTF-8
+Reply-To: yukuai@fygo.io
 
-Replacing or removing a debugfs error-injection rule queues
-sdebug_err_free() through call_rcu(). Device teardown also queues this
-callback for every remaining rule. The callback resides in scsi_debug
-module text, but scsi_debug_exit() does not wait for queued callbacks
-before returning.
+=E5=9C=A8 2026/9/10 21:11, Yogesh Gaur =E5=86=99=E9=81=93:
 
-With lazy, offloaded RCU callbacks enabled, two runs replaced the same
-error-injection rule 16 times and successfully unloaded scsi_debug.
-Eleven seconds later rcuop/0 executed at the former module text base plus
-0x1f0, the exact ELF offset of sdebug_err_free(), and hit the module
-unload poison.
+> raid5_run() branches on mddev->reshape_position. When it is MaxSector --
+>
+> no reshape in progress -- the else branch asserts that nothing else
+>
+> describes one:
+>
+>
+>
+> 	BUG_ON(mddev->level !=3D mddev->new_level);
+>
+> 	BUG_ON(mddev->layout !=3D mddev->new_layout);
+>
+> 	BUG_ON(mddev->chunk_sectors !=3D mddev->new_chunk_sectors);
+>
+> 	BUG_ON(mddev->delta_disks !=3D 0);
+>
+>
+>
+> Nothing enforces that invariant. Both superblock validators copy the
+>
+> reshape fields straight off disk without cross-checking them against
+>
+> each other: super_1_validate() takes reshape_position, delta_disks,
+>
+> new_level, new_layout and new_chunk from the superblock whenever
+>
+> MD_FEATURE_RESHAPE_ACTIVE is set, and super_90_validate() does the same
+>
+> for minor version 91. A superblock that sets the reshape feature while
+>
+> leaving reshape_position at the MaxSector sentinel therefore reaches the
+>
+> else branch with a non-zero delta_disks, and assembling the array takes
+>
+> the machine down:
+>
+>
+>
+>    kernel BUG at drivers/md/raid5.c:8117!
+>
+>    Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
+>
+>    RIP: 0010:raid5_run+0x11a7/0x1670 drivers/md/raid5.c:8117
+>
+>    Call Trace:
+>
+>     md_run+0xc2f/0x2510 drivers/md/md.c:6779
+>
+>     do_md_run+0x36/0x660 drivers/md/md.c:6880
+>
+>     array_state_store+0x9c5/0xcf0 drivers/md/md.c:4765
+>
+>     md_attr_store+0x1c5/0x330 drivers/md/md.c:6158
+>
+>     sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
+>
+>     kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
+>
+>
+>
+> This is reachable by anyone who can present an md superblock, so BUG()
+>
+> is the wrong response. Refuse to start the array instead, the way the
+>
+> reshape_position !=3D MaxSector branch a few lines above already refuses =
+a
+>
+> reshape it cannot resume. Nothing has been allocated at this point --
+>
+> the journal-and-bitmap check just above returns -EINVAL the same way --
+>
+> so there is nothing to unwind.
+>
+>
+>
+> Reported-by:syzbot+1f5a7de91d547763f4c8@syzkaller.appspotmail.com
+>
+> Closes:https://syzkaller.appspot.com/bug?extid=3D1f5a7de91d547763f4c8
+>
+> Fixes: 91adb56473fe ("md/raid5: refactor raid5 "run"")
+>
+> Assisted-by: LLM
+>
+> Signed-off-by: Yogesh Gaur<yogeshgaur.83@gmail.com>
+>
+> ---
+>
+>   drivers/md/raid5.c | 16 +++++++++++-----
+>
+>   1 file changed, 11 insertions(+), 5 deletions(-)
+Applied to md-7.3
 
-Call rcu_barrier() after teardown has stopped future callback submissions
-so that all queued callbacks finish before the module text is released.
-Two runs with the fix completed the 30-second post-unload observation
-without an Oops, KASAN report, warning or panic.
-
-The tested scsi_debug.c is byte-identical to the file in current mainline
-and the current SCSI for-next branch.
-
-A source reproducer, kernel configuration, complete serial logs and the
-vulnerable/fixed result table are available at:
-
-https://github.com/kimaiden1984-boop/linux-kernel-poc-collections/tree/main/cases/scsi-debug-rcu-callback-after-unload
-
-Fixes: a9996d722b11 ("scsi: scsi_debug: Add interface to manage error injection for a single device")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:GPT-5
-Signed-off-by: Yibo Tan <lhfff@tju.edu.cn>
----
- drivers/scsi/scsi_debug.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/scsi/scsi_debug.c b/drivers/scsi/scsi_debug.c
-index 3346562275f8..2fdb1cbe470b 100644
---- a/drivers/scsi/scsi_debug.c
-+++ b/drivers/scsi/scsi_debug.c
-@@ -8676,6 +8676,7 @@ static void __exit scsi_debug_exit(void)
- 	sdebug_erase_all_stores(false);
- 	xa_destroy(per_store_ap);
- 	debugfs_remove(sdebug_debugfs_root);
-+	rcu_barrier();
- }
- 
- device_initcall(scsi_debug_init);
--- 
-2.39.5
-
+--=20
+Thanks,
+Kuai
