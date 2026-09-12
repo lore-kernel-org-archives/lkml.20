@@ -1,135 +1,150 @@
-Received: from mail-oa1-f65.google.com (mail-oa1-f65.google.com [209.85.160.65])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE88539CCEA
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 21:44:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 852AF2F260C
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 21:54:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789249494; cv=none; b=LxlqmPvO7xoT7NBOAIGgTKuwIuAOv9Rle9oy0VIwNoBExh+aoxNe0rKBBBR2/XLGhWzXYi/7bLMWdmYhi1DWMAbFecv2rghwGww3843QHegUjYxXlc31HtuyEoQEhPUYYikO3rmltuGEfU2zQMTSWgjthVGGpf4p802vX8wlLDw=
+	t=1789250047; cv=none; b=m9y+McJs/wGP9pI1f/wcEe40XXFB125AffXU6r7PSYRDumMZDP1PylsQqTYYG+oLwAaeWNl1bswmz/LTuM9o4oG2cpNGBRyrLql8UlGrl1oaa/4oR8Cul+ABw4Yf7+i4t9xwNMW16Pu8LtXptw2f3nWL1viiV+r96/HUIwnNX/0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789249494; c=relaxed/simple;
-	bh=kecUb0pDwLA3hY9/mqgnFWz1AIwI3Kabqzm0uxvNC3g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WAgUemQhdONtIVkbsx83tAy8DWJqVgldR557CfirNguueMN++2V3bQHvpxr9o+pajjxQvokhEZgSDg1YwOnXGUYS1Fil972lJEgwqDkAPbemIBzJGF39yiwheqIKMT6MOE/L292ibwP+Pc4Lnh5G8oqV4D22aV6EtDBrJRY8nYs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UT/ehlUK; arc=none smtp.client-ip=209.85.160.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789250047; c=relaxed/simple;
+	bh=2w2Xokvxv3Zza1WDoW8p2uRdZXNP1otSV6DskpOG3dI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=d2dQOwh5NpitVWueC20JY1pj5qAZ2BvHkNGOYv5sply2DQwdFGDhMJK4A7nq49QsH2xTIdBbwq4WHrJ7OqDcEgPKdRyJfzwWLarRJw7hDgpcqPor0e91qAq4/tAHTElRvwFw+bj/lRoy4cLUnjE2VoS3uSYLjxCX7ZSgQrD1fYI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu; spf=pass smtp.mailfrom=asu.edu; dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b=DdKdcAs4; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UT/ehlUK"
-Received: by mail-oa1-f65.google.com with SMTP id 586e51a60fabf-46556b9e02cso1388657fac.1
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 14:44:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b="DdKdcAs4"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747eb79fbso4992025ad.3
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 14:54:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789249491; x=1789854291; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HhWhTVqsOkpUdCAWPzbi+pVqLfh+oq55gUD464xfMJg=;
-        b=UT/ehlUKiXKL0Z1mhtYHh9tv3SrIK488nAFPWA4XusbWDpLxUAqAu62tLcKcAP4sjM
-         rfJNefj7Lh49C3Tk9HWCm+fHL3rJMfU8sPY+FMlKx8Zjg1YX7f4Jz4JDKoWa5v/UoVeV
-         P5luHM4ER618xOSMHGDWqEDzzFaXlq7k459EE/Q9ZgEsGZyaDN4KH89g8/MqaMuZP5si
-         lGLfV8p8pvX+Qxyc8QZf4hnH41Darn8ogmTalIjdLmdPr3smcOr2uFw53wUQP3iuRsQa
-         48jWCAsgXMWgnMWKl7QNZNdz+D6Q92y3RyjWNFhi0d83ECDYxbyTGZCp3JofxDkWs8tb
-         ZE2w==
+        d=asu.edu; s=google; t=1789250045; x=1789854845; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LExfl2fEFs87Gnc/CJkjB7Li4LuphLalhWsojqEvmUw=;
+        b=DdKdcAs4Mkks026c4JirbiMixV+VsGamJLs0A3tnPo8pyDznWN6I8epdMOHy2xRDIe
+         I8u13BrmTf4HnT13J8EmO/5+eiRiiHDHzdhjpCVgfFykDGDPD0PEJ+ncX1VMGG9ZQXFA
+         UyipmaCrHpK4St1rYih95O5EOgNjRjaZmgOyp4/2WtGfKJ5vqPWThpztHdsBgLz4rUa8
+         xyKw1cvR3rufdAaUFNmjYDnxMcX+TqMURtLTMMudPm2uby5+4cSMPC7T727SJUZrNRwy
+         EaUfge23gyjPo00VpGQ2a4CW/71LWMw5bYrHCcodVvx6toH52YNF0PLaHFg4J/CIx+aZ
+         MNgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789249491; x=1789854291;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1789250045; x=1789854845;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=HhWhTVqsOkpUdCAWPzbi+pVqLfh+oq55gUD464xfMJg=;
-        b=CfLzLQbKdE7EnU+sQkqsrMW4DeUtPSfyfZBF9mPfH3ds4ewzwrtkP9180GZk0nqL5Z
-         OlzjDdu3ep/Erd7oQkVKcYVh20RC+5C626kI/TD25T4EbpYpujNBeEdOccGIirBwbYN9
-         IzpiGxy4eANyCOJPKCsemzHxMSg6fN7E9m0d22Glqbqw9WB8KVkdPXQ5CkMDP0EQTNzu
-         QwhjfXEBywk90sqRmNmeKcZSiRmZkFrD++xxQK16WfWRMw7hEYqRBvhwUXmUWg+C5rTA
-         s9Kyq1M+IhgFAH15THrera4jzvuM+lP7jtN2Txf79Y3eLQM7e43NL5EidciKbHbOuTjP
-         FcEQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxZE4OaFLDtEEHOhikEWwIm1FKHKR4dweCwuO4dahG9aWxePip3yPF/9XSfUYIkw8SHQeC9uqpgAhHLHJk=@vger.kernel.org
-X-Gm-Message-State: AFuF++l6ELId1nuLscfaYRk4w2Hzs6syUxe3IEC1Pu6iVsvAgcsIA4pq
-	nIlFXEsJ/ImhlOtvZ+Hz0iWXVncOMOFkBlokffE4W91JQqEdxU6LldPL
-X-Gm-Gg: AYBFou0SYfe5MP2NPzyALEE0YzfkZWgaAgnct5cDVAUuGtAjZZiE+SoePQurrgZmcyZ
-	eOp1ebGnGRq/50+/JgMtSdLnjL2C1vH0hI8HDX8GbF2DWcrWDV4jihD5OqJu4+F3nXl4JwSKroP
-	LWZqTLNWVTIiHPiupTwIvrVaq8bzZ0Qji/hj/7rGCfiMg88UONwLG3cTGmHgbtzXC6ZGxzrADGY
-	BnnPzPjFQVQRePtZ+KdY0F1s8hjZv0MlCqQ+YPE2tzJlEJ03+fK4y/Xq4D4gR0xBrEqUzT0kubq
-	Fr1yCYzC7VkZ+rKRZTM84KlocOfjsxLOsObVMLj9bK70iXb8mnHq+ksSGjkOlNdKIxESRn083XJ
-	nPpxRi7DxT7hGDvPEe+CJ4zvv6Kxq3+UNhMDXPcJ4FT89122sg/U3lRdvN5YUjZAIPsbpNRgmqP
-	cR/qypiYucjabHk3UEi6S6beyWiVxOaHRv1jfg9zjZkH78k1BlPJTl/jklgmSLP+CsRif7RevCn
-	b57VUJy3ABMsQ5l4q3sOqEvSs4=
-X-Received: by 2002:a05:6870:e89:b0:469:fb8a:b5b0 with SMTP id 586e51a60fabf-47c978e0ae3mr8164063fac.9.1789249491570;
-        Sat, 12 Sep 2026 14:44:51 -0700 (PDT)
-Received: from ?IPV6:2600:8804:5716:d800::c389? ([2600:8804:5716:d800::c389])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-47df42b4699sm6246514fac.0.2026.09.12.14.44.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 12 Sep 2026 14:44:50 -0700 (PDT)
-Message-ID: <688b15d1-a85b-492e-ba1e-b4da548ebd06@gmail.com>
-Date: Sat, 12 Sep 2026 16:44:48 -0500
+        bh=LExfl2fEFs87Gnc/CJkjB7Li4LuphLalhWsojqEvmUw=;
+        b=QJJ6VjJ0LNpTwhss841WycaOz7tlSeZzQd/vJQyu/8tzMsnelfbNN4JewFymU4eetE
+         4j88gHYlGuOFzanqnawHZ7HzXC3ygynJrEmY3Bs+EpZDmzbFDTNx53rFahXBwrmH/Ufr
+         7oQfdbOjsQt9Lmmepim+57oF34gBCPI3Z0Nluw2+SufuOUIutKv5eEQtMG7NP9w6xKWR
+         r2Lco8Qa7RI5cE33b2NV8UqEbkPjRWckDkRiB/HvE2Lh9snENubHSF5gba1h9gy/tYFy
+         mSMfsivi5PG8IzUt03HLnxXM5XoHrUgmJQC0Ppsh4qciGsP8e5tlPYHxVcil3ZP+jaOS
+         Myhw==
+X-Forwarded-Encrypted: i=1; AKwUvBzGGJ95ptp/7J5kCQxbbB4/fHGcCIc+D6NAcXGcAtEG4qrcduV50P6h/yXjTiqap1KIX0/LPqGh3dhhbww=@vger.kernel.org
+X-Gm-Message-State: AFuF++lAKVWIfdI5FbHo7K+mkZJItBWbtBq/fZyL83cAXVPLaLmJrQhm
+	GvzD3L4bVWpgxwg4eGXeSRMMeH987K519IIdjTXczHTybrvj5yiPfrZEOrDwClj2uw==
+X-Gm-Gg: AYBFou1+NFj7vw6jP7wb4YdeKh5FOxquIKIwwaaeaKu45vQ+CLyZBzS/46zgiNDc8um
+	mwtduzJ3HPZHQnfQMUsO7K4HQjnNvvGQUD0bo5rpcLN8ElaIs65SzHFKkcLh2njYDBFwgQlXFHc
+	/YKCgaGjASyx0LO4foWJyab5N46gKmckWT9kNFmMlY6PJ32aoYMJ8qJR6ghjyMsu262VUaF4RIi
+	yoP5TYX7r5+xFolebpV4N7CCLo6NOn+xmHVHCy20IIul/ZOG8XtnypS2rNHIALa+d0wf23IhL4q
+	RPKw4+GXMHTpAczldQYkoCv+9PxUuMcNnSsSC+7ANT5bb/p+3NEBFy9YcTzGbO+/LyXgz71+zyl
+	eYfwJDMqJVdVyqRZrBvFA/kvnCdeXsjAp1rQ57fmV5Y8J86UAplWqF9e/C4TpPa2ZvCBqvh1DG5
+	k3Yqo/k6Z1IRf5iK99FExoxigSXriGqPuMMwR/WKCmyKp77RjrFpP8+HdAHGBOJG6LEFF6EiFxx
+	lUWnGRt4PsKGbIhbrNT8VOfYiGABcQS2PXLqhRzzRZQ5tXOSbPis6Lw
+X-Received: by 2002:a17:903:19cf:b0:2c9:e9db:8167 with SMTP id d9443c01a7336-2dd2a1ea679mr208126375ad.7.1789250044780;
+        Sat, 12 Sep 2026 14:54:04 -0700 (PDT)
+Received: from xps.tailc0aff1.ts.net (149-169-99-5.nat.asu.edu. [149.169.99.5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4efc398sm18474475eec.19.2026.09.12.14.54.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 12 Sep 2026 14:54:04 -0700 (PDT)
+From: Xiang Mei <xmei5@asu.edu>
+To: mst@redhat.com,
+	jasowangio@gmail.com,
+	eperezma@redhat.com,
+	xuanzhuo@linux.alibaba.com
+Cc: virtualization@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	co+6dcbccedc9ec6452@bugs.sh,
+	Xiang Mei <xmei5@asu.edu>
+Subject: [PATCH] vdpa: fix double free of the reply skb in vdpa_nl_cmd_dev_config_get_doit()
+Date: Sat, 12 Sep 2026 14:54:01 -0700
+Message-ID: <20260912215401.126194-1-xmei5@asu.edu>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] pci: Add broken-GPE quirk for Lenovo Legion 16APH8 and
- 16AHP9 Nvidia GPUs
-To: Lyude Paul <lyude@redhat.com>, dri-devel@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org
-Cc: Mark Pearson <mpearson-lenovo@squebb.ca>, Timur Tabi <ttabi@nvidia.com>,
- John Hubbard <jhubbard@nvidia.com>, stable@vger.kernel.org
-References: <20260821200607.621341-1-lyude@redhat.com>
-Content-Language: en-US
-From: Ryan Brue <ryanbrue.dev@gmail.com>
-In-Reply-To: <20260821200607.621341-1-lyude@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 8/21/26 3:04 PM, Lyude Paul wrote:
-> On the Lenovo Legion Slim 5 16APH8 and 16AHP9, the firmware appears to enjoy
-> firing a GPE on the parent PCIe port of the nvidia GPU very shortly after the
-> GPU enters D3Cold. This means that every time the GPU is runtime suspended,
-> ACPI firmware immediately wakes up its parent PCIe port, which then wakes up
-> the GPU. Once it falls asleep again, the cycle repeats.
->
-> See: https://github.com/NVIDIA/open-gpu-kernel-modules/issues/905
->
-> Note, this bug doesn't require Nvidia's driver. It happens on nouveau and
-> nova as well, and it even seems possible for this to happen without any
-> driver loaded.
->
-> This seems to simply be a bug. Luckily, there is nothing that we actually
-> need ACPI wakeup events for on the GPU. Events such as display connector
-> hotplug events in D3Cold come through as ACPI_VIDEO events which aren't
-> affected by this quirk.
->
-> Reported-by: Ryan Brue <ryanbrue.dev@gmail.com>
-> Co-authored-by: Ryan Brue <ryanbrue.dev@gmail.com>
-> Signed-off-by: Lyude Paul <lyude@redhat.com>
-> Cc: stable@vger.kernel.org
-> Fixes: https://github.com/NVIDIA/open-gpu-kernel-modules/issues/905
->
-> ---
-> V2:
-> * Don't forget to actually use parent_adev with acpi_remove_pm_notifier()
-> * Check if parent_adev is NULL (could happen if booted with acpi=off), just
->    consider it a no-op if it is.
-> * Base the patch off Linux master instead, I based it off drm-misc-next by
->    mistake because I'm too used to working on DRM drivers :).
->
->   drivers/pci/quirks.c | 79 ++++++++++++++++++++++++++++++++++++++++++++
->   1 file changed, 79 insertions(+)
-FWIW, this has been tested by me, with positive results, on my Lenovo 
-Legion Slim 5 16APH8. Not sure if this warrants a Tested-by trailer 
-since I'm a co-author, but just in case.
+genlmsg_reply() consumes the reply skb on every outcome: netlink_unicast()
+frees it whether it queues it, drops it, or bails out early.
+vdpa_nl_cmd_dev_config_get_doit() lets its return value fall through to the
+shared error label, which calls nlmsg_free(msg) again and double-frees the
+sk_buff on any reply failure. The failure is reachable unprivileged:
+VDPA_CMD_DEV_CONFIG_GET carries no GENL_ADMIN_PERM, so batching several
+requests into one sendto() on a socket with a shrunken SO_RCVBUF fills the
+receive queue, and netlink_attachskb() then takes its MSG_DONTWAIT path,
+freeing the skb and returning -EAGAIN.
 
-In the thread [1], we have had another user report positive results on 
-their 16AHP9 (note that Lenovo seems to have switched the P and the H 
-around for the laptop one generation up for some reason). Said user 
-tested on both OpenRM and nouveau on top of kernel 7.1.10.
+Set msg to NULL once genlmsg_reply() has consumed it so the shared exit
+path frees the skb only on the early error gotos that still own it;
+nlmsg_free(NULL) is a no-op.
 
-This means we have tested 16APH8 on nouveau, and 16AHP9 on both OpenRM 
-and nouveau.
+  BUG: KASAN: slab-use-after-free in sk_skb_reason_drop (net/core/skbuff.c:1220)
+  Read of size 4 at addr ffff88800d99d49c by task exploit/147
+  Call Trace:
+   sk_skb_reason_drop (net/core/skbuff.c:1220)
+   vdpa_nl_cmd_dev_config_get_doit (drivers/vdpa/vdpa.c:1324)
+   genl_family_rcv_msg_doit (net/netlink/genetlink.c:1114)
+   genl_rcv_msg (net/netlink/genetlink.c:1194)
+   netlink_rcv_skb (net/netlink/af_netlink.c:2556)
+   genl_rcv (net/netlink/genetlink.c:1218)
+   netlink_unicast (net/netlink/af_netlink.c:1345)
+   netlink_sendmsg (net/netlink/af_netlink.c:1900)
+   __sys_sendto (net/socket.c:2281)
+   __x64_sys_sendto (net/socket.c:2284)
+   entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
 
-[1] 
-https://github.com/NVIDIA/open-gpu-kernel-modules/issues/905#issuecomment-5444071160 
+  The buggy address belongs to the object at ffff88800d99d3c0
+   which belongs to the cache skbuff_head_cache of size 232
+  The buggy address is located 220 bytes inside of
+   freed 232-byte region [ffff88800d99d3c0, ffff88800d99d4a8)
+
+Fixes: ad69dd0bf26b ("vdpa: Introduce query of device config layout")
+Reported-by: co+6dcbccedc9ec6452@bugs.sh
+Closes: https://lore.kernel.org/all/ILTHcT8oe1HP47sY25JVxssvKmkCTjYlX9Hs%40bugs.sh/
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Xiang Mei <xmei5@asu.edu>
+---
+ drivers/vdpa/vdpa.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/vdpa/vdpa.c b/drivers/vdpa/vdpa.c
+index 47c6c3d23f5c..6455f837dd26 100644
+--- a/drivers/vdpa/vdpa.c
++++ b/drivers/vdpa/vdpa.c
+@@ -1313,15 +1313,16 @@ static int vdpa_nl_cmd_dev_config_get_doit(struct sk_buff *skb, struct genl_info
+ 	}
+ 	err = vdpa_dev_config_fill(vdev, msg, info->snd_portid, info->snd_seq,
+ 				   0, info->extack);
+-	if (!err)
++	if (!err) {
+ 		err = genlmsg_reply(msg, info);
++		msg = NULL;
++	}
+ 
+ mdev_err:
+ 	put_device(dev);
+ dev_err:
+ 	up_read(&vdpa_dev_lock);
+-	if (err)
+-		nlmsg_free(msg);
++	nlmsg_free(msg);
+ 	return err;
+ }
+ 
+-- 
+2.43.0
 
