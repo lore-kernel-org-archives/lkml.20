@@ -1,172 +1,132 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FC81349CE7
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 15:17:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EADE3264D4
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 15:18:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789226260; cv=none; b=RYgOoNuaPJb6L8GTdfvdgKAEVk/DWeBhVkkXOtDN7gjJeWejpsFs8d0V3V0nG1vwI2lAqY99k2ump1EJt/qPrfDeXF0eajMRSS28RdfQfxt2KqeEQqr+rngILmfUHO3lApi60knxbuFU7p7N403kfFkWkeHdKqoo6W12NSZwA48=
+	t=1789226322; cv=none; b=FQJCxIbE8KBe7M9u9fssEgTe76cL32L+tvNMFaDZ7Ch0B8xgNnTs2JQ2i5lTmqTXZ4/JfpJ9MQXqwf7MDwg0jWLlqeKuwiMwWcrOpooZ3xqa9KYuU+hDJ7C+y9ikPG/l01DQXnEI5onC639ICEOMn4lvVVZ058Pkew4/dGQP7oQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789226260; c=relaxed/simple;
-	bh=ZqyAgQy3kf+Kwftw4i05WlYUQ7whJq1EaoEVarCuMt8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UwpQdxyHnu3F5fyVHDtxuLOQlHIpGY/eQ/qrrzdHpZNbJCG/SuNr0Lw54AXpMyHad01B+QI94GIwWNrl9b6Dlny1G598valP/E7KMVo1p2ybKBCquFWDTWRy9e1uV/sZ8tHfoEbwKX/1fFWuJaCB/+FQohv23yG/Aa7A+bICCsM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=pfqv5n9H; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cjb6x8cZ; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789226322; c=relaxed/simple;
+	bh=HO8dOn5XSt8bUjw1LP6GJ0iDeCxa9iOwIjXje+HTSwQ=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=u1LCpOLHqUJGo/dXUOd3SVnGiJ9ZNJU41Ctsy7sINOOJlKqmAz61sW0iIO28K3wDH9A+m7JvbbVQxmSh1bytWoo2/KOBz9gfl5ixoBgDhKk4ESJzhHUIkWn0/Cj4G6S1jBq3z+EHio1MZrmS8/apywQdaMWQmHwG+Y6dCZbm1Uc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Pqe3OtfQ; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="pfqv5n9H";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cjb6x8cZ"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68CEe6Dk3149445
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 15:17:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	DxV8IeqIQCW45D15BdZkPDG3iBvqGgjXMxRH57fUWiU=; b=pfqv5n9HZ3L6Uvic
-	C1+bM5SMpH34M657wyw0PdhK+YeNjqHuFiyM+wU97Xf81JPnyFZ+OHT1hOYLBfyh
-	y0666Me3uKm4B0ijzco2TACGTqFzXjXMYIvtj5PQm6whnLFu9Q24kuJEh6UhfGtj
-	AvwZJJ6Tg/ZxRsfMtfLeiPiF6D9GG2gtlhibHi1n2kHj+cJPCIuAr0auxROy4gaB
-	kY/0nU1B8VL3LRPIY1L+w4E62ET/czloZ6ONxv2LZkiw9h9XwPtND+O2PQqwlp2f
-	Fwny9WNEmM56gXEpFCSyOvTAXGQ9sJbdwLBoqDy1FOPkjq8Xhpr3tbsxCnV5ueg0
-	xl+LRg==
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9d97yd-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 15:17:37 +0000 (GMT)
-Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-868f443cbd0so1589980b3a.2
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 08:17:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Pqe3OtfQ"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-398c066106cso536240a91.1
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 08:18:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789226257; x=1789831057; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DxV8IeqIQCW45D15BdZkPDG3iBvqGgjXMxRH57fUWiU=;
-        b=cjb6x8cZTR65+3KJssR4mpblMPXGESspgRlixbAAHX/KXhxb5iK99unXKZGhTzK5uq
-         qNPZQSY1ernzk9Tmo3T1hv56RAf7dzF6WQiWWqfLBFmyJd7V7Voy6pr8at5/xvEyxfi9
-         J/an0iUNNC7ZHTAFeGKw0hchx+aeUpNebFVuPE6Aego99QhXMh8rulROZd0yQ9WVmHeF
-         T8pgirTXdAwxJesZ+ZHerdxURdE3v//KmX7fi1XPYI2LtQ9u7eAFceknNtKOqCA9KtGS
-         15qroXyaYzajspXy1wYzjH9ic8J528nWi561vVEmey2XpOulQY3XNPnZ9iYjIjn3CpFP
-         Ztvg==
+        d=gmail.com; s=20251104; t=1789226320; x=1789831120; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=zHFsO42ibf5oQHYbBFQXH2drbhJs53f8vZr6nPk5Rs0=;
+        b=Pqe3OtfQJi+ClP/ac1dtXPl53r5lKNPM9+yGoyE1YQzJZ1K4eURSF75K4fBP9hUA0G
+         uBXG2SJMhX9G7h5nCsvuOEQ6R8ZBG/MVaDsab4+HOtrwiTPPSg9ufrdbeos0J5Zg3fut
+         4cVaGN8aHOedQLHLKmszhJz6Z6wwg1ANErYWHo8QJ54WlaMx9qmrXMF/7ORG2Gpi2+vX
+         1/o6GHu3VttaK7xAJWXmYFx8x9udyE+rKsJPi29L0pziZcXdUbeQzfuoK/GjuTxP0R0C
+         z9WBt9TsjmhHX/6HXgHa7EWw6+IIPOJxVXpiFr91zGYGT9CJo0mrtZP/z4AffsD+bSG6
+         0QdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789226257; x=1789831057;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DxV8IeqIQCW45D15BdZkPDG3iBvqGgjXMxRH57fUWiU=;
-        b=Jq3boDT0IOPttrTi9ZQCjN5Zv5P7NkEN7tLz7A+jVd7FiY8KAkpZvcWU8u5HBAS1bJ
-         /mYeR/BLF6eyB/XayQZSmc1Jv1rLzrjTJuYgRrEw8uQvoVdbdDnYmwDpIIMG5n+5sGCG
-         fq0bSTaIqxmKpxzAX5TDKao+obxxjowShPvjP0FQgqN2ZLgdSZ2EnPCWmtXA2xJsnYQN
-         eMfFhshrxkl6iugrqrWZs/Gzd4eNecr2YAACYj+ILz4qO4un33PAXU399HmmNejGUHre
-         6xLRqtG3qtpb6dQm6XGSkaQLXQEEkMizu/ZgrqGDNc/yGEz/vyphtg5OpeUIK2YinycN
-         XRsg==
-X-Forwarded-Encrypted: i=1; AKwUvBwJFBml8Kkgk7duoV+qhTAYHSIpcHlB2j4fS16YdQSeHWHYEJcdXEnEOt9ELUc9qI8UH9G3+NsRZaBX8kI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kl7F0z1iMEXbQ/zcSGcC+2b5EWS8IBix7fYcoMf1pfPOOlRjpF
-	3YD7PRDs5M4pTFEeeuRdrHqzupEBnXVfL1xyCJwbg62NvZngFG4mHvXd8VEPkQpk8tA74Dj9p44
-	nPaB7O7ym0CHB9T0vYeOI5mT49fU4WGkKRXcUXfRpTqJ4ry6Fmxe6UcBDSmEVxuutRA0=
-X-Gm-Gg: AYBFou1u98TJS3oZNpQD8KcJfHLk1ogNzSRT/lHgLAeh5IAuK9PKkcMCvbRpZ4O1OAk
-	/dmswFmdn6ooN4c5Wx2H+f1Aw09ZtFLtDKpMMHWiglm3+8jZYd/EajmmkZ0txLsilId9xHBUu9o
-	Jt9FuCV/5xBLSc997wSpNUu+/ilGAnV3d71cel9wLgGlVcO0Kh1QMA7IjAzByY+HkozNlWRFD9F
-	H6Ifp4wS4gDXQgu+uY1LUuHhzZfwMvMm2d20XwQZuMLrF/k44F13vunoSLgrfi0ZqQ6HuHgDRq5
-	cA4MTvV66IuxxKlf8Uob5S0M+KnbzbNpB5lSq93mNlCM09BResV4tEVBsivSb+4ywP47Cra3pkk
-	w+W/fXb6nBMadJaWitn4cvufzFA==
-X-Received: by 2002:a05:6a20:1441:b0:3cc:eea9:f757 with SMTP id adf61e73a8af0-3daed5d254cmr18886651637.16.1789226256748;
-        Sat, 12 Sep 2026 08:17:36 -0700 (PDT)
-X-Received: by 2002:a05:6a20:1441:b0:3cc:eea9:f757 with SMTP id adf61e73a8af0-3daed5d254cmr18886587637.16.1789226256341;
-        Sat, 12 Sep 2026 08:17:36 -0700 (PDT)
-Received: from [192.168.1.12] ([106.222.234.218])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4e51449sm12386938eec.5.2026.09.12.08.17.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 12 Sep 2026 08:17:35 -0700 (PDT)
-Message-ID: <8c23a2a5-cfa0-46f3-b8c8-61487093d3e4@oss.qualcomm.com>
-Date: Sat, 12 Sep 2026 20:47:29 +0530
+        d=1e100.net; s=20251104; t=1789226320; x=1789831120;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=zHFsO42ibf5oQHYbBFQXH2drbhJs53f8vZr6nPk5Rs0=;
+        b=GxJDDO8cJ33505iKVmHlhR7R3oMK7qdhix+y+IrtP5yFjFLCD7yPTfMdBzsxADO5um
+         wF4EbtpLdsOT6sEf3nV/Cq70GegaeihR7ZohBVSnxTeb4KLCpgigGEdMF0ixqpgiatm0
+         YT47jc0KsQEtqagN8pZXXpHgFi1w/anYjKcm8HZ7glbY9c1EtCUbRUv6JqpiEN1fjh8a
+         GOB6jh20OEcSViQjHdF0KSS02cAZXlBnSlnqO3C777PDsQUssZ8tkgC1dsWv0oUh71JW
+         /oxQxa/QBQEFDqT0KHzxeZ540rbiPDgRVGA1dd7w9+Q1SuwNm5HRkEte65Ad3WbSggpx
+         6Dhw==
+X-Forwarded-Encrypted: i=1; AKwUvBygy8gKSazxeqJGNeobySiiqnKdH8R0UhSjzq9krly0fut/wuL+KJagJeVPLsSMB/DaREwLrZPCPDm7U1I=@vger.kernel.org
+X-Gm-Message-State: AFuF++n44brXUde77SXlSo1iSxICL5gBS+qcKsl4IOgQe916dzv3eDhI
+	DsjDRsKkN1GgmrUk/HzpzkwD92ecEFWGOLHkHakET97w/yektOD6CWUX
+X-Gm-Gg: AYBFou0k/sOaZdiJ9DXSshytz0DL0AoJkIDyqI5pVzBZtQsNO2OPqTNFr0yfGiX6ahS
+	jEs1+EfIyZ9WaaMjYau5eCe8ElZ0omp2kx9Shy8HAD77o3EAnvNV5xtQayL76tN80AH43sKxSwu
+	Us8HgKFi1bVfnqJgtjRGYqt564CjxlGaoWFGxJfCrkwHgsQ99p9PcGtHjFL6i8Zsj1qdt92sUzx
+	3TLY4i/h4gxMczdxgIKACoMMNZundvXQ6UbqKXES0EWRE3HCHkE1Y3a8vSAk8ee4IxZfrT6QNab
+	b6H7hjApPi3FjwplZSGTrpMJnY8zReLyOivRawQ9KKpL0QKdNEqtiVX75EXkMNzgHj0ePXVx6dT
+	LO14+uBdASH9gmF3K1hF2B+0FlM6BfhC8kaUVOgzm3npcefhIsWZF/p8ewjnozbpMqYDbmS5dFq
+	bNy97PlDEJ4D3JN9ME+eZ9vSe63FjwUCwHv5xOkYwJLqrGe9TTRUhrc737Fi34FzI=
+X-Received: by 2002:a17:90b:582b:b0:39d:9b53:112a with SMTP id 98e67ed59e1d1-39d9c378f02mr17421863a91.23.1789226320389;
+        Sat, 12 Sep 2026 08:18:40 -0700 (PDT)
+Received: from [127.0.0.2] ([2404:c0:701d:4e35:f53f:aaab:9e63:54e8])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d951d1056sm10635924a91.7.2026.09.12.08.18.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 12 Sep 2026 08:18:39 -0700 (PDT)
+From: Reza Kurniawan <imkyufie@gmail.com>
+Subject: [PATCH v2 0/2] Enable USB support (peripheral mode) for Xiaomi
+ Redmi 5A (riva)
+Date: Sat, 12 Sep 2026 22:18:10 +0700
+Message-Id: <20260912-riva-usb-v2-0-997fe0171ee5@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/msm/a6xx+: Increase GMU FW init timeout
-To: Rob Clark <robin.clark@oss.qualcomm.com>, dri-devel@lists.freedesktop.org
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
-        Greg Ociepka <greg@ferrisoft.com>, Sean Paul <sean@poorly.run>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        open list <linux-kernel@vger.kernel.org>
-References: <20260912150915.28700-1-robin.clark@oss.qualcomm.com>
-Content-Language: en-US
-From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-In-Reply-To: <20260912150915.28700-1-robin.clark@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEyMDIyMSBTYWx0ZWRfX8uohDpPpwKEy
- rfbsPgY/KpAY8CdjCHFxSZ0ksJa1vS89nGM3qIJiy/cKKnY2KwVb2TMrSuDMLMDmC6WE//eqkZs
- dnbAjLjY09EmmWOblxeGQM4w6YC13NszWOMve173J2hx1Z1h3rxnUJ2ENVIDtFeSqWQyO94LqlK
- HQgyS22MalTY6S8KSnlUhKiC5Udeh7srP/iGRoc7rOn1EbR5ygMg+AxX3u3tMt0UaELsThFxwsa
- QJ08NJzzbEI1haLLyr3yH544SCEqNnWZ4SlpQ17ox5p2y6CiujtmJnConKLhQ8Sji2vwGk0JvxO
- ssie+xVRpB1DDbvwsj9Q9ufFE+OBzCl8cQrWsZfUV3802l6KiF43MBFLz3fXDMgtWOIuXR2ttyj
- rMhRx4K6kGxBAPepf4Qz6v9RXuZ3lWuK0fu5Vw9y+4GCGjKWaSiMug3DQn25kQz2Ahx8vb4J3pA
- y21Vxv5MaXpeuDE4JZw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEyMDIyMSBTYWx0ZWRfX4ukdnMWQWxWZ
- nQeTI7Qx0AqfPq03JJN0c4p0lhGW+UJm14ipcwZSP2/6wFQag2G0dIEL2dlEjZEDXx6PDwhNdVm
- 2Ls+Bj7xHc1A/iyWcTg2IwZnvO2HdpA=
-X-Proofpoint-GUID: Q1qwD8Kl0Xc8ZVgWJRNx7vX-vlD3ZLpw
-X-Authority-Analysis: v=2.4 cv=OeUNnRTY c=1 sm=1 tr=0 ts=6aa56d11 cx=c_pps
- a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=O4klB1SvihdYS1QJdo4Llw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=flHQxk_lLiAmmIxDZ5oA:9 a=QEXdDO2ut3YA:10
- a=2VI0MkxyNR6bbpdq8BZq:22
-X-Proofpoint-ORIG-GUID: Q1qwD8Kl0Xc8ZVgWJRNx7vX-vlD3ZLpw
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-12_05,2026-09-11_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 malwarescore=0 phishscore=0 bulkscore=0 spamscore=0
- priorityscore=1501 suspectscore=0 impostorscore=0 adultscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609120221
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NQQqDMBBFryKzbkocULSr3qO4iONEp1QtiQaL5
+ O41dtvlg/ff38GzE/Zwy3ZwHMTLPB2AlwxoMFPPSrqDATWWus5ROQlGrb5VTDVbLKiqCoJDfzu
+ 2sp2pR/Njv7ZPpiXtkzGIX2b3Ob9Cnrw/2ZArrbShriBbUYnm3o9GXleaR2hijF/0IOPhsgAAA
+ A==
+X-Change-ID: 20260912-riva-usb-ec9ef25c885c
+To: Sebastian Reichel <sre@kernel.org>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ Reza Kurniawan <imkyufie@gmail.com>
+X-Mailer: b4 0.15.2
 
+The purpose of this series is to enable the device to act as a USB peripheral.
+It enables USB-related DT nodes (controller and PHY) and modifies the
+charger driver (BQ256XX) to expose its VBUS state through extcon.
 
+Driver change is required since the device has its VBUS connected to the
+charger IC, which means cable connection/disconnection events must be fed
+from the charger IC, to the controller driver to dynamically enable/disable
+the USB gadget functionality.
 
-On 9/12/2026 8:39 PM, Rob Clark wrote:
-> We were using 10ms, kgsl uses 100ms.  In practice it is usually takes
-> less than 10ms, but very occasionally goes a bit above 10ms, leading to
-> a "GMU firmware inialization timed out", from which point things go
-> south.
-> 
-> There are probably some things that could be done to speed up init, like
-> increasing GMU freq.  But to be safe, increase the timeout to match
-> kgsl.
-> 
-> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
+Signed-off-by: Reza Kurniawan <imkyufie@gmail.com>
+---
+Changes in v2:
+- Make extcon feature optional
 
-Reviewed-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+- Link to v1: https://patch.msgid.link/20260912-riva-usb-v1-0-0acd5cf8c62a@gmail.com
 
--Akhil
+To: Sebastian Reichel <sre@kernel.org>
+To: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+To: Abel Vesa <abelvesa@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+Cc: linux-pm@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org
+Cc: devicetree@vger.kernel.org
 
-> ---
->  drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> index 2170bf7bb045..9290010c8cdd 100644
-> --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-> @@ -320,7 +320,7 @@ static int a6xx_gmu_start(struct a6xx_gmu *gmu)
->  	gmu_write(gmu, REG_A6XX_GMU_CM3_SYSRESET, 0);
->  
->  	ret = gmu_poll_timeout(gmu, REG_A6XX_GMU_CM3_FW_INIT_RESULT, val,
-> -		(val & mask) == reset_val, 100, 10000);
-> +		(val & mask) == reset_val, 100, 100000);
->  
->  	if (ret)
->  		DRM_DEV_ERROR(gmu->dev, "GMU firmware initialization timed out\n");
+---
+Reza Kurniawan (2):
+      power: supply: bq256xx: Expose VBUS state through extcon
+      arm64: dts: qcom: msm8917-xiaomi-riva: Enable USB support (peripheral mode)
+
+ arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts | 17 ++++-
+ drivers/power/supply/Kconfig                     |  1 +
+ drivers/power/supply/bq256xx_charger.c           | 96 ++++++++++++++++++++++--
+ 3 files changed, 105 insertions(+), 9 deletions(-)
+---
+base-commit: 68142f986ff04b2b70b31db00f719bf690f64a9a
+change-id: 20260912-riva-usb-ec9ef25c885c
+
+Best regards,
+--  
+Reza Kurniawan <imkyufie@gmail.com>
 
