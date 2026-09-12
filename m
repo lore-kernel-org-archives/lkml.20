@@ -1,129 +1,100 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E6492882AB;
-	Sat, 12 Sep 2026 16:34:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C34A11FBEA6
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 16:35:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789230874; cv=none; b=Ooi8wOCJyIDc3EVJkmJQgzP/YGuw+yb523y4rrKolUh+PBTfcH4cz1kI707p6HCif/zRFfL5W2Aam/aQLncf96RfMnHrFTKrxgXEvypA7Zm7PSUnqwA0+vv7eGqq+iEN10CSmb7vrFqadxylhcvLn4fFk469KmBBE1SWAIffeWU=
+	t=1789230915; cv=none; b=GL8z/qw6B5h9jCVd4W1uAtQm5+FiCcjOZrAJeCVxFqajSTWliJX5aa0HMEfIVQr6QsTo/qD0zoZmsoxJYK7aKNMRSyycdrlqkvKiBC/K3ljgvHaLVrITc6nOOgb+rRbdbDULgbEZZHpwa6gqfDgrNZcvsS56YCVMlHO8I5RHHwI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789230874; c=relaxed/simple;
-	bh=Yie+mJnDEilKyGl5HeUOcuQYPRDUHOU+iRANw1a0OBw=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=J8oecm47igRmtTeUWvBg6ipsMCZXshqs1jxR5eRR1Yknde7G1/2gE9O7VzFgyT75P0g2lQQTS4Ko5Yw5+n56jBiMI2OIU31x8TjAwQf9IGcHAuPpagAyYAVIIUDNLAlUUsmPuzZ3TCe8QHXd1mmSICrHroRnjzOTRmiECTNbH4U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=XyVttXRj; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=6G+FxVlR; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=AubiiP5H; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=LPNqlA4p; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1789230915; c=relaxed/simple;
+	bh=/UkmLIKvxg7NPpJFYsnzEJkxXFF+3MH9bf98JmAddXw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ly+Sq212oWZHYm97gb9TovBp6jOFjmaZpIMFOOsOiCTslm9DcASSKiqfENojv9SoU05RLXBnCISFSm1Ao/ETtnMwLa5IZVuBdQJnjtiXm40mXAIMpvsyc7gCWk54pD2ZCw3fGDZFT1SIPntVJocnSiLWBNvCdM7ovYL3wUpyAug=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GAJ03NXA; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="XyVttXRj";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="6G+FxVlR";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="AubiiP5H";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="LPNqlA4p"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 81AA421B17;
-	Sat, 12 Sep 2026 16:34:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789230867; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PuQ3AS6XjTcJ0b4vEGWExByymXZuijsT7Gzt/j7Mi3g=;
-	b=XyVttXRjU0PkXn67JIXKOjO8AVvzYsArmBKocDe1g7qFJxFBZzj++8VfScbATRbaMAcVT2
-	qod3CvUa9GLTbeAVjX/pF/THIZ6WH+aiEP2aBQSCiGJnEMdwqXE3zF37hWJpTqg6z9WaOF
-	0ZuBn+sWyl+NVkc7ydwXdKmKJ6DaHAQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789230867;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PuQ3AS6XjTcJ0b4vEGWExByymXZuijsT7Gzt/j7Mi3g=;
-	b=6G+FxVlRbmX3XeToDWMhBKT6rzoL9D0ayiItmL9wO3Hs8ILNU4ui+QkAEnL+dcyOZEaBzZ
-	UN8bsEMhur/lhTAg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789230863; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PuQ3AS6XjTcJ0b4vEGWExByymXZuijsT7Gzt/j7Mi3g=;
-	b=AubiiP5HZkvL7xX7kjwr3L/UTO3fEz8VsQWNIq5n5iANTAszwJ/DN+BFDE7Cb7/yxNWBtA
-	VEmjyrWywIpcmm7GzDGtpWS/TNvQvFf89u9zwXXJw/M7cVuctT+F5lsi+lhjlLi+t1aYy3
-	GDau6u/Q1r1zYKI5h9gBjyJbxu6IPD0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789230863;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PuQ3AS6XjTcJ0b4vEGWExByymXZuijsT7Gzt/j7Mi3g=;
-	b=LPNqlA4pansjQpoI8zhOgR1kThuHrlgw5fI6TvCd+F04VpKHera/CYIKgd9XT5SHa7cpUp
-	sNxgeMBGZRuEcvCw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3895313687;
-	Sat, 12 Sep 2026 16:34:23 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id YLl+DA9/pWrGcgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Sat, 12 Sep 2026 16:34:23 +0000
-Date: Sat, 12 Sep 2026 18:34:22 +0200
-Message-ID: <87tsnu1l9t.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ALSA: control: Fix virtual master creation reference in kernel-doc
-In-Reply-To: <20260912100548.86134-1-kmehltretter@gmail.com>
-References: <20260912100548.86134-1-kmehltretter@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GAJ03NXA"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e69b9e16aso5533965e9.1
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 09:35:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789230912; x=1789835712; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=lyDyzwXLDdcuGlMTGZyNhCieQRVuG7gzmR1vCWknrTU=;
+        b=GAJ03NXAHbz90vhYFb2Fg2y5NhIgW3LE8NrlxntdWejWxjtTYwQKMQXtP8CO+KsaAH
+         HGJUR7iqjkWlqaG/XthxdSR4dkI3oc7cV7/rNLt1I1Gi22IzQaCS6FdqkM3hg3rN6k/p
+         nDidTgE62kQ17ZV0lvO9F2QJKBIsLwqXFlY//UlqTY8EwKjJB0gFEoDe9NfMZPZv2Y1i
+         9AF60NgpUnujbTFYWElixKc9dOgA/rp54TLJRPVHYh2sEFL1CjFDoEXwXMV4NpkmDBt/
+         GSldcOXHesTWDW8KskC0KOCNbCeQ7omDHd7IT8rYD97vi71XsTQZ4Vy9sZOVWcdB9g8B
+         QbpA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789230912; x=1789835712;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lyDyzwXLDdcuGlMTGZyNhCieQRVuG7gzmR1vCWknrTU=;
+        b=Qg+YR2V1QvkcDVwIE3f9IQ2Esz/16HmkAHJPnIoX+EywN97c94/Mkuw05sqNbpUAXq
+         f6YaGHXcTx6zck5wa3XJ/fQPWoYlUKi/IFZhpc39vUS4lcrHdP8yzmaQ8qN/2J9ckpye
+         9wSQdU6zoiFlbPswLXd32DNty1NBVz6/nHTOID4QaI4pWQvRQku5SIxdI+sMnvNX3Qj7
+         wNQVMTGis2YHSuGQjEcmsHwf4uadMaIpIh7SbYvPV70t/KDnkOCoxzJXN9PKy6hL4cZn
+         xWias37ehuMKO8EvYb0Lx0/NJjPWI21u6YrovgxJuAM/dXK+tj8kSeYSAxIRKijEW507
+         VcNg==
+X-Forwarded-Encrypted: i=1; AKwUvBy3HqQ8kIlC2ofwpUKJ+m6L0/JBH4l412iqZt2vkJ2WpuEL0Y2irrCiG/qhVtkcc1y2CGrUbj31bbwqhro=@vger.kernel.org
+X-Gm-Message-State: AFuF++kcYWXWCgqkUj+Ljofzi3fSrvGbvmaXJgIlVLWLh2iPHYbqYUJE
+	mpK/UhMT7vPhdoqIB56p4z2eEgckWi8yagZl9wXOf8ZAlcz1NyjUYqh4
+X-Gm-Gg: AYBFou01zd7DbD0fqsgT+HNfjuMtlN6QthhjyV2bvK/dHD64o9vHnaNpOHbWkPUaQtt
+	DEFFGAnXo4W+sLdQBEN/jHmV9Pq2TasEqcmPZyk1FTt6p0fpm6iIWJWEumB7AJOVPOnZMzCAnCs
+	PDXMIJas5dHXpwODvsQB/AzqRjpaSMTL719wbw6yshntRfUzcUBnkno3olmH8VD1EMnSiiHaEFa
+	WJs+IeHB1J2M1KaExoTRlux9ZV2aZ2BAH5Hrf3Q8ZsqlvF6mfjHmDvKs+dnmyK6fNANM4JQPXlg
+	jAT02XFUr2OtM4VgAi7nqvXSrhf5tAPoF7Lz8UhaXho4xI0XHwqbeHndcpVULxeNx5LSNMrzDYM
+	1xET93jJbQc/4+iwrUEGFykxbkn5xK4kDHQJpQgCrfVk7sEVEdhge7BSRxNgSs8ftwXyRG1JJv1
+	fKdvkRlCK1VVR3MPS3TLdoylZvma4FCcQya+aDFnhIMMmy2ihO5SIKXPvNNZMGpN69W6U2jyQB3
+	rS4ijGHnT1nQbZiti+cOBOGATVa9vumXi8X7qYwmoSTZhtHQ/d7PFWJhByqICx2SnF0n2j1+fIb
+	KJ1rMYoDS10wmmSLJa/16miCLwQCkmSYmkNHGulc/0yo25ud9b9nl9/xDgFjaNZH5GFCdMq3iEk
+	=
+X-Received: by 2002:a05:6000:384:b0:486:e708:2e57 with SMTP id ffacd0b85a97d-486f6d4b39amr3108656f8f.39.1789230911707;
+        Sat, 12 Sep 2026 09:35:11 -0700 (PDT)
+Received: from unknown748F3CBA5068 (dynamic-2a02-3100-b260-f201-9983-e8c4-aff5-7a36.310.pool.telefonica.de. [2a02:3100:b260:f201:9983:e8c4:aff5:7a36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb34e74esm13986020f8f.25.2026.09.12.09.35.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 12 Sep 2026 09:35:11 -0700 (PDT)
+Date: Sat, 12 Sep 2026 18:35:09 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Sam Ravnborg <sam@ravnborg.org>, 
+	Danilo Krummrich <dakr@kernel.org>, Liviu Dudau <liviu.dudau@arm.com>, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/gem-dma: Correct GEM object wrapper documentation
+Message-ID: <aqV-2xxp3Zy5IWqL@gmail.com>
+References: <20260912063258.43169-1-kmehltretter@gmail.com>
+ <20260912162516.GA1892234@killaraus.ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Score: -3.30
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	FREEMAIL_TO(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCVD_TLS_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Flag: NO
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260912162516.GA1892234@killaraus.ideasonboard.com>
 
-On Sat, 12 Sep 2026 12:05:48 +0200,
-Karl Mehltretter wrote:
+On Sat, Sep 12, 2026 at 07:25:16PM +0100, Laurent Pinchart wrote:
+> > Fixes: e580ea25c08d ("drm/cma-helper: Pass GEM CMA object in public interfaces")
+> > Fixes: 05b1de51df07 ("drm/cma-helper: Export dedicated wrappers for GEM object functions")
+> > Assisted-by: LLM
 > 
-> The snd_ctl_add_follower() comment refers to
-> snd_ctl_create_virtual_master(), but virtual master controls are created
-> with snd_ctl_make_virtual_master(). Correct the helper name.
+> Throwing LLMs at this kind of things is neither a good use of computing
+> resources nor a good use of maintainer time. Please refrain from doing
+> so in the future.
 > 
-> Fixes: 79c7cdd5441f ("ALSA: Add kernel-doc comments to vmaster stuff")
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 
-Applied to for-next branch.  Thanks.
+I view it differently but respect your wish for drm.
 
-
-Takashi
+Thanks,
+Karl
