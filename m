@@ -1,266 +1,193 @@
-Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11021092.outbound.protection.outlook.com [40.107.74.92])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3698C352022
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 14:52:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.92
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789224753; cv=fail; b=jl28C/psq4Kn5RC3EykQeMILP8RD92yJlcH5KpyAj2ZQYukRn/WnEHpBdhJ1I36Cjympe06IizK2OpM2aUGLn4KODY0X+n36NtnLsHOvEfXu4F1u+W+IBmlu99v/vl+i4ENDVg+ufpbyhgOE17vL0KcN4rS+E2akDs3/A3Fvvb4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789224753; c=relaxed/simple;
-	bh=9Lz1o0Wf4IubEXSq5eoQbQLacqhKC288FCKoRnVZ25s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=aO/orgr+tcauGjrkVayg9exKAB+cwaC7EKTgn2ZLSNB9LAJy0QFnVDrTIk1xv+8BxqviQQApoycoPEtuaixxA7k1Fuj0U4JzlgGW3mW6ZSoY2AeKLmvicTZpfdu/yjKyYnedWDPQ9aBlkWmjP7BLzq5JJElIjL6IYWeDMafrpKM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp; spf=pass smtp.mailfrom=valinux.co.jp; dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b=dSp9Oeaq; arc=fail smtp.client-ip=40.107.74.92
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id F12AC332EAE
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 14:53:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789224805; cv=none; b=cJpFhSy/Z+oNX4l3r5G0taPZYsSIwv0KrQR0bgcZgy0HMA+nTp2yc+lLB/1QFY/bo6DiaV9OWWVL2Vb4UBQR31fZI2GyCKUo08pJbYMyn/tw/Vlncas72S81auCl5+AZbbDDgEMHs4bmvBnQnuHDps+bOXq8nRgPCWYMPJc6VbU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789224805; c=relaxed/simple;
+	bh=OO6eskRTwuBuWZE7eMe57H+rRYhb+rU2YCFwX0X3WEg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=NpHem/+jAK1/wDuitaVO1M4yxvu64N/xjujCjuR1B/j4CMYx4VJbsj+umIDAzbv9uXk2mwSrLL7D7ZpuZ9kUeNEdZtrd+uzE29U4U4CZjFokOCD5FlwxxiM8XgQMafIYtnOLsvjGlPq4sJsR2TsSKXLkX5jLGi/NC6N6tzjnY+g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=aTk6HILc; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b="dSp9Oeaq"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cMDns5WyLuwjXVibhr/3QB4QIzuOxKIhFDut+MnPpjPwBm1tKduNikXWOOtEglwamtRQGrl12u3syxUH00VMVTo5bnHBXut1vPz/4zbOMTiMcnwaRsg3WiNVlD64wKlMSZ8rVfuWYoL+6TULwez+4USRkQenPSPsxLBvfsEXGce2mmpiwGmPxvIYZZx3jomtabwyPqCuuTQERMxJuN+6ys/eN7VTgnYNsNw3wBxfRnbvY847juX6jvj6iu8HJk8KlBVEN/LFXVCUeTHP1RbJLF1MlfFHvnv62K3v6OvlYqNkIHqWoUPjdrpvp82tLRdV/+SSvJQ2o6V7qonbxnAO4A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fBG5TqE3JlxdZBa5TILKXFvT8bezE10kN8jVN+grVLc=;
- b=IYuzz8AKq4qHIq21OnLXhb01ZAgOD/1zp7dgfJ+AWFHTJtp7/1T6lY13FgSvJnu9XdiQ9+A2L/8GeleKVJH6B0QKil2a1RoDa1Qf0Nl/qgLK6hboRzpHmu7Vcp84m1z12Hlkx4x2Ox5bntqxb9fONyF7zIVfsSJ/Z+tq9nzomgoQdVoRYGC6BQd9Ar9nmrIclXRe6HDjNT+FFAEtxEgmVh6mm49ZbukRZdX+gWzxEOTFhtSOSbgzeC6dWkDWyYiYJIoRtk4M5ztcBYMaIspV7VwUyfeIO5OnLI36TgFoMQIEvdBWAWakeF5oRWqfDPwMJqy1K3QNrjjGlcU61jwavg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
- header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fBG5TqE3JlxdZBa5TILKXFvT8bezE10kN8jVN+grVLc=;
- b=dSp9Oeaq6R1ayRQqsUoI1LadDPS+it02qwk5YMPbaLJtWy6gxR7o9wbf6Ygk7nUbRlh2gQ1Ue/HB1L88vZl6EG8bNHwGJAdq0JJs9HICjDEE9qhMYRalwEgvCqrAo37VVMO2EFJm8VUaZ0ADYKkV7bIYHnPMSTHHKCsw3ogfTRw=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=valinux.co.jp;
-Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:38f::10)
- by TY7P286MB7233.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:365::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.11; Sat, 12 Sep
- 2026 14:52:28 +0000
-Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
- ([fe80::2305:327c:28ec:9b32]) by TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
- ([fe80::2305:327c:28ec:9b32%4]) with mapi id 15.21.0406.007; Sat, 12 Sep 2026
- 14:52:28 +0000
-Date: Sat, 12 Sep 2026 23:52:26 +0900
-From: Koichiro Den <den@valinux.co.jp>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Jon Mason <jdmason@kudzu.us>, Dave Jiang <dave.jiang@intel.com>, 
-	Allen Hubbe <allenbh@gmail.com>, Frank Li <Frank.Li@kernel.org>, 
-	Logan Gunthorpe <logang@deltatee.com>, fuyuanli <fuyuanli0722@gmail.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Nicholas Bellinger <nab@linux-iscsi.org>, 
-	Joey Zhang <joey.zhang@microchip.com>, ntb@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 05/14] NTB: ntb_transport: Avoid losing QP link-up
- requests
-Message-ID: <i3b4kyeuwyjssav2kne5uhxmltwl2bmug2weyfaujxtrwlkuox@ms6ozb55tmz5>
-References: <20260910040836.3792333-1-den@valinux.co.jp>
- <20260910040836.3792333-6-den@valinux.co.jp>
- <aqQyEbLbABhhvFTO@SMW015318>
- <ciucjqvb7qbendlxqdya2wigyivgj4bvqbxtc4cidulr4knq6j@xbwucjdsiayy>
- <l5xf2iuwxgfa4xmtm2l3wn6nce5onfjxxkzfsj627k5xp3snmp@er6fkwlb3sgs>
- <aqTFAi8uo4LwzSj0@SMW015318>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqTFAi8uo4LwzSj0@SMW015318>
-X-ClientProxiedBy: TY4P301CA0052.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:36b::15) To TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:38f::10)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="aTk6HILc"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6169B1692;
+	Sat, 12 Sep 2026 07:53:18 -0700 (PDT)
+Received: from e127648.arm.com (unknown [10.57.81.151])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 3851D3F7B4;
+	Sat, 12 Sep 2026 07:53:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789224802; bh=OO6eskRTwuBuWZE7eMe57H+rRYhb+rU2YCFwX0X3WEg=;
+	h=From:To:Cc:Subject:Date:From;
+	b=aTk6HILcukfCR/pIIQxpUixLV2GgxbDNBxxEkNVxnClYAkAPO1px+kuuNUq9KpDjY
+	 3cwODDl/kZDajP+bG6SFIrvcQK8JNa6aoB8w9rhV1mOycIpxuxf8VmDpungBqk5KOW
+	 kisegiS9/mHuQaQ8nK+KcgIvuNkJwOiOBcHNdonk=
+From: Christian Loehle <christian.loehle@arm.com>
+To: phillip@squashfs.org.uk
+Cc: linux-kernel@vger.kernel.org,
+	Christian Loehle <christian.loehle@arm.com>
+Subject: [PATCH] squashfs: identify device in mount errors
+Date: Sat, 12 Sep 2026 15:53:14 +0100
+Message-Id: <20260912145314.788588-1-christian.loehle@arm.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY7P286MB7722:EE_|TY7P286MB7233:EE_
-X-MS-Office365-Filtering-Correlation-Id: 058ecf66-2327-46e4-ca70-08df10dd76e2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|7416014|10070799003|23010399003|366016|6133799003|56012099006|4143699003|18002099003|22082099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	4XTZGvgZGtFsa0pvKchjAGsD9XchkOXY//f8p0c6ZtoXgKjenYut4IvmI0EUrhep94xYudZ4xFjWQu1k4gyRAa/1oXSQZq/1+emid6bsdTlNWsbwHo3bD5ZdKmfGsdz3fnP1YHyFAXDeQi5O3DClvJJlR+2PIIXElydVsBkCR2F8o8H4wWPNNxdsUE6xe84608Pl8OaYE4CgB4EZUIEuk1Xu5Y5mHRShFbGhFON17fn//bxmEahobAWwatfmP8o39vf1cQdhv0Pns66dVFzF/lGmC9VlZdM0/gUC2CzGc1BmVtteE2Yc2CkCMiLHX3Cs7o1gOcVQtZ7vMdMqTxGzCd01RvNluQGHbNr7cXClZXZbbwh1KVq57HnQN3fnU6NAgA0oFkFYfOfyi7Y8MCKFY/pJufg3gvipp5xDiL3/sNGBeyl9afAhDp9Wa+MmOeVfw7gVGd7fZStubjG7FOTDQTRD+UJ/x3xrEkWwevzgXTWDs8GNLUDYHyR/dV8G7D46IiwXRoeE9lKIya6FKfMT7pBH5DQoxd70WHJTyQOwrt8I20JzwzoBRc/lsMr528j8f45iUIgLCIOGQduZvnvLzX0ZlFVGhDzhy/NaBTcycY1wgMNWLpVfoNQe8sCmZK7a
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(10070799003)(23010399003)(366016)(6133799003)(56012099006)(4143699003)(18002099003)(22082099003)(10067099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?MXjJgi+fosjS86m9sYD3lUu8DQhocXl+m6ANlD2uGIfQ3dvJV5rSw/PxZ644?=
- =?us-ascii?Q?Shu2dtDJG7D8+VWx0SBIyVFArai9qNOUiQVTII+x00HU3/uboqDgBae9hvZA?=
- =?us-ascii?Q?EkVV1ImHZeD/+MQyTXWGJaebu2cPo7qjeS3IJJHOkvkha+hjcA6ee19HcOkG?=
- =?us-ascii?Q?wpS4ClIGU0M/pB63tnhirNeX7hit0486FfRDHVTMAWsJgp56eVs80RcBn8n7?=
- =?us-ascii?Q?Z5ZsJBXHGDdAF8JY0jF+ws9llx0IjLkU+zrD7ywNS14LxalYqiFDgo2x321k?=
- =?us-ascii?Q?Yu1VLmJY9VMiz4ITfJ+HJ3gBPRFo6UOrlz9REHJ9zzn9fJWrbWnUBAvn9GW3?=
- =?us-ascii?Q?UZqreaDrku+Se7tynX+/oUDtfOiAKarlXVxxrsHgRE8a9p39eSQyG5HvZx2H?=
- =?us-ascii?Q?JSmt2mRLYpzp3ERwceypcltC9+gSp5FXm0POhXoA7P/Om3pu15JKEzP7J2mi?=
- =?us-ascii?Q?kevbwVGcdFbrmGlKwSxy5f0vrZUhyBap5n+zvLwPfzQ1U4V7b/lhCGwttZg4?=
- =?us-ascii?Q?MPvJj/ujb1/jwGl7Drd24Y720jW5qyRdkvjh7Mxe+19mwcHMcoh7UPpaoTGS?=
- =?us-ascii?Q?4Pjr2Aa7a5DK8oOIqU89Nh4pRHGMcmmhoW+KBlN54jLGVqMeEa4SSgDol/QI?=
- =?us-ascii?Q?2HMdYixv/uUyAwq/Xn4RSnjIJRDotd4XnKI9KAQAAxocj5vhjkY6H1FKorj0?=
- =?us-ascii?Q?GqFQ94NA7q7ZmJ0d1TXvbMIazYIqM37VCcjixLiaMQ012WXiMTsAggckfVHO?=
- =?us-ascii?Q?9mY32RhIF08UXvZNvzo7eVjCIJIsfm/S3GnKEmbqLyoTEhtG8ete+9DZk/p1?=
- =?us-ascii?Q?gbL8DAfkeb8kOQjE4hgYn8hIDz2iUvac3gY7Qw4opGjSyX2iylREUDhfKGmT?=
- =?us-ascii?Q?MOsg8LM46CDX46R8Lh5AjQRF1S7zVr5GaJ1/wHlf9eUsfmZ0OiN82LM8sWSv?=
- =?us-ascii?Q?/mpZ5dImq2AI5CYTiaoILxWC8yV/oO3uA5p0Jyt7QoXJ//EH9h9SAwJFBhJj?=
- =?us-ascii?Q?f/Gu9W8H0G3W97IoqjJ4zxspVbjn1j0ndvHXVe+CQRSU1Zv7iv7O+XBbRuLg?=
- =?us-ascii?Q?yksiwEeOshpAc6tvX69+riGXkKkTprujXZ9w78li0dX+YTvpg3Y5hcOkvUQk?=
- =?us-ascii?Q?yKUsy4bXn2ClTVAeYIFMlUFz6xUzy5WLaWzjOlzzlT5zh1D2O5tPoF+tDDT6?=
- =?us-ascii?Q?tGHxhaPNPcvuEkphjsqumrTreDYzzgLngVYDbcDf8PWf4udZMGMMg/ffAr/i?=
- =?us-ascii?Q?C7Rn2nXb1KqLFszVKaOp/kJxZMS/U+0nCg5/9wY3jiRKhLAyQLEeV3U2vxkM?=
- =?us-ascii?Q?V6CYcJToTTatXASuwoOgwUDx2VFzsWdQPeiMsdGyvY/iFhQdU1XGpsErYyPX?=
- =?us-ascii?Q?NhrMFS4XTz8az/Vkztnzju9LVjoXWAnWyuzuL1gVtMZBjVNo2y9tVuoRz4vi?=
- =?us-ascii?Q?jHiGwiI+4p6zLz6pr5mrP2QsKmHocLAfuGZacXyTfSFZIbWe3cXJ81uh5xJE?=
- =?us-ascii?Q?Guls9scsyc6aB+e7DQ3s2jEck8gsq8clEY99TRFtBxDGhnCRE+EOc4tb+C0c?=
- =?us-ascii?Q?NFqv0qo+VnDt2Tya/uo/H33nBm1VevKayob6m9KpoW2X94P3jfqk0HVyHZ69?=
- =?us-ascii?Q?qwy055hXNj6XBCrzuhQej6AsMJEJQIHG4BY0k9H330pPXSTSkWlj/q5xhLqv?=
- =?us-ascii?Q?TOcI/touSI3vh9gyEe5iaBDE0MZQf+iX232krG9R6nVj8ZuYYj+BkkkuQlRJ?=
- =?us-ascii?Q?/F3EdrUnbiEOReNg+WMle1hKxfYYgaa+QODbWf7ZC75ukOwKCvQH?=
-X-OriginatorOrg: valinux.co.jp
-X-MS-Exchange-CrossTenant-Network-Message-Id: 058ecf66-2327-46e4-ca70-08df10dd76e2
-X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Sep 2026 14:52:27.9419
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: neZdkzSqtXjuLt7jqPNdsYKuaiBo5P//32rx5OiwI/bGYbjStdVmxF9su7UqV19TBBfk08yEh/p1JhjLaotsHQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY7P286MB7233
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 11, 2026 at 10:20:34PM -0500, Frank Li wrote:
-> On Sat, Sep 12, 2026 at 03:21:08AM +0900, Koichiro Den wrote:
-> > On Sat, Sep 12, 2026 at 03:04:21AM +0900, Koichiro Den wrote:
-> > > On Fri, Sep 11, 2026 at 11:53:37AM -0500, Frank Li wrote:
-> > > > On Thu, Sep 10, 2026 at 01:08:27PM +0900, Koichiro Den wrote:
-> > > > > ntb_netdev_open() can call ntb_transport_link_up() while the transport
-> > > > > worker is completing setup on another CPU. Concurrent transport setup
-> > > > > and a client link-up request can both read the other's flag as false and
-> > > > > leave QP link work unqueued. The QP then stays down until another link
-> > > > > event or client link-up request.
-> > > > >
-> > > > > This is the store-buffering pattern described in
-> > > > > tools/memory-model/Documentation/recipes.txt ("Store buffering").
-> > > > >
-> > > > > Add a full barrier between the store and load on each side, and
-> > > > > mark the client_ready accesses with READ_ONCE()/WRITE_ONCE().
-> > > > >
-> > > > > Fixes: fce8a7bb5b4b ("PCI-Express Non-Transparent Bridge Support")
-> > > > > Cc: stable@vger.kernel.org
-> > > > > Reported-by: Sashiko <sashiko-bot@kernel.org>
-> > > > > Link: https://lore.kernel.org/r/20260907144701.702E41F00A3A@smtp.kernel.org/
-> > > > > Signed-off-by: Koichiro Den <den@valinux.co.jp>
-> > > > > ---
-> > > > > Changes in v2:
-> > > > >   - New patch (Sashiko)
-> > > > >
-> > > > >  drivers/ntb/ntb_transport.c | 13 +++++++++++--
-> > > > >  1 file changed, 11 insertions(+), 2 deletions(-)
-> > > > >
-> > > > > diff --git a/drivers/ntb/ntb_transport.c b/drivers/ntb/ntb_transport.c
-> > > > > index 75d4a2e021f4..1332d53bcfe7 100644
-> > > > > --- a/drivers/ntb/ntb_transport.c
-> > > > > +++ b/drivers/ntb/ntb_transport.c
-> > > > > @@ -1104,10 +1104,16 @@ static void ntb_transport_link_work(struct work_struct *work)
-> > > > >  	/* Publish the link only after every QP has been set up. */
-> > > > >  	smp_store_release(&nt->link_is_up, true);
-> > > > >
-> > > > > +	/*
-> > > > > +	 * Prevent both sides from missing each other's flag. Pairs with
-> > > > > +	 * the barrier in ntb_transport_link_up().
-> > > > > +	 */
-> > > > > +	smp_mb();
-> > > > > +
-> > > > >  	for (i = 0; i < nt->qp_count; i++) {
-> > > > >  		struct ntb_transport_qp *qp = &nt->qp_vec[i];
-> > > > >
-> > > > > -		if (qp->client_ready)
-> > > > > +		if (READ_ONCE(qp->client_ready))
-> > > >
-> > > > I think it'd better change to use atomic variable for client_ready to avoid
-> > > > manual handle smp sync.
-> > >
-> > > AFAICT converting client_ready to atomic_t and using atomic_set()/atomic_read()
-> > > instead of WRITE_ONCE()/READ_ONCE() would not free us from the smp sync, as
-> > > those operations are unordered.
-> 
-> there are acquire version for atomic
-> 
-> atomic_set_release()
-> 
-> atomic_read_acquire()
-> 
-> My key point is use existing higher level sync APIs to avoid consider
-> barrier problem, which need more brain cell to think it.
-> 
-> this is just sync state, which don't impact performance.
+Squashfs mount failures reported through fs_context do not identify the
+backing device, fix this y printing the block device.
 
-I agree with the idea of changing both flags to atomic_t for cleaner code, but
-I'm not sure if it frees us from "the smp sync" or the "barrier problem". We'd
-still need both smp_mb()s and still have to think about *_release/*_acquire when
-revisiting the code and maybe scratching our heads, right?
+Repeated automount failures used to be ambiguous, for example:
+  Filesystem uses "xz" compression. This is not supported
 
-BTW, I once wondered whether it might be worth consolidating
-link_work/link_cleanup into a single state machine worker per transport or QP.
-That could simplify synchronization between setup and cleanup, which aren't
-really performance-critical, as you say. However, that would possibly require a
-larger rework, so for now I've put together this fix series as a small step. I
-would be interested to hear what NTB maintainers think about the possibility of
-such a rework.
+All of the affected errors occur after get_tree_bdev() has opened the
+block device and setup_bdev_super() has assigned sb->s_bdev.
+Use it to identify the failing Squashfs image even when the mount is
+retried. For example, the error above now reads:
+  Filesystem on loop0 uses "xz" compression. This is not supported
 
-Best regards,
-Koichiro
+Signed-off-by: Christian Loehle <christian.loehle@arm.com>
+---
+ fs/squashfs/super.c | 36 ++++++++++++++++++------------------
+ 1 file changed, 18 insertions(+), 18 deletions(-)
 
-> 
-> Frank
-> 
-> > > So to illustrate this in litmus test like form:
-> > >
-> > >    # L = nt->link_is_up
-> > >    # R = qp->client_ready
-> > >    # Both initially false
-> > >
-> > >    Transport setup                  Client link-up
-> > >    ---------------                  --------------
-> > >     smp_store_release(&L, true);     WRITE_ONCE(R, true);
-> > >     smp_mb(); /* added */            smp_mb(); /* added */
-> > >     r0 = READ_ONCE(R);               r1 = smp_load_acquire(&L);
-> > >
-> > >    Both reads return false?
-> > >     Before: allowed
-> > >     After:  forbidden
-> > >
-> > > I might be misunderstanding your suggestion though. If you have something
-> > > different in mind, please let me know.
-> >
-> > Just for the record, smp_store_release/smp_load_acquire depicted above, instead
-> > of WRITE_ONCE()/READ_ONCE(), is intentional. They are for MP ordering to publish
-> > the QP setup, which is needed by an earlier patch:
-> > https://lore.kernel.org/r/20260910040836.3792333-5-den@valinux.co.jp/
-> >
-> > Best regards,
-> > Koichiro
-> >
-> > >
-> > > Thanks for the review.
-> > > Koichiro
-> > >
-> > > >
-> > > > Frank
-> > > >
-> > > > >  			ntb_transport_schedule_qp_link(qp, 0);
-> > > > >  	}
-> > > > >
-> > > > > @@ -2401,7 +2407,10 @@ void ntb_transport_link_up(struct ntb_transport_qp *qp)
-> > > > >  	if (!qp)
-> > > > >  		return;
-> > > > >
-> > > > > -	qp->client_ready = true;
-> > > > > +	WRITE_ONCE(qp->client_ready, true);
-> > > > > +
-> > > > > +	/* Pairs with the barrier in ntb_transport_link_work(). */
-> > > > > +	smp_mb();
-> > > > >
-> > > > >  	ntb_transport_schedule_qp_link(qp, 0);
-> > > > >  }
-> > > > > --
-> > > > > 2.51.0
-> > > > >
+diff --git a/fs/squashfs/super.c b/fs/squashfs/super.c
+index 5dabc5770f1b..90b9d5b18153 100644
+--- a/fs/squashfs/super.c
++++ b/fs/squashfs/super.c
+@@ -150,26 +150,26 @@ static int squashfs_parse_param(struct fs_context *fc, struct fs_parameter *para
+ }
+ 
+ static const struct squashfs_decompressor *supported_squashfs_filesystem(
+-	struct fs_context *fc,
++	struct super_block *sb, struct fs_context *fc,
+ 	short major, short minor, short id)
+ {
+ 	const struct squashfs_decompressor *decompressor;
+ 
+ 	if (major < SQUASHFS_MAJOR) {
+-		errorf(fc, "Major/Minor mismatch, older Squashfs %d.%d "
+-		       "filesystems are unsupported", major, minor);
++		errorf(fc, "Unsupported older Squashfs %d.%d filesystem on %pg",
++		       major, minor, sb->s_bdev);
+ 		return NULL;
+ 	} else if (major > SQUASHFS_MAJOR || minor > SQUASHFS_MINOR) {
+-		errorf(fc, "Major/Minor mismatch, trying to mount newer "
+-		       "%d.%d filesystem", major, minor);
++		errorf(fc, "Major/Minor mismatch, trying to mount newer %d.%d filesystem on %pg",
++		       major, minor, sb->s_bdev);
+ 		errorf(fc, "Please update your kernel");
+ 		return NULL;
+ 	}
+ 
+ 	decompressor = squashfs_lookup_decompressor(id);
+ 	if (!decompressor->supported) {
+-		errorf(fc, "Filesystem uses \"%s\" compression. This is not supported",
+-		       decompressor->name);
++		errorf(fc, "Filesystem on %pg uses \"%s\" compression. This is not supported",
++		       sb->s_bdev, decompressor->name);
+ 		return NULL;
+ 	}
+ 
+@@ -192,7 +192,7 @@ static int squashfs_fill_super(struct super_block *sb, struct fs_context *fc)
+ 	TRACE("Entered squashfs_fill_superblock\n");
+ 
+ 	if (!devblksize) {
+-		errorf(fc, "squashfs: unable to set blocksize\n");
++		errorf(fc, "squashfs: unable to set blocksize on %pg\n", sb->s_bdev);
+ 		return -EINVAL;
+ 	}
+ 
+@@ -221,7 +221,7 @@ static int squashfs_fill_super(struct super_block *sb, struct fs_context *fc)
+ 	sblk = squashfs_read_table(sb, SQUASHFS_START, sizeof(*sblk));
+ 
+ 	if (IS_ERR(sblk)) {
+-		errorf(fc, "unable to read squashfs_super_block");
++		errorf(fc, "unable to read squashfs_super_block on %pg", sb->s_bdev);
+ 		err = PTR_ERR(sblk);
+ 		sblk = NULL;
+ 		goto failed_mount;
+@@ -246,7 +246,7 @@ static int squashfs_fill_super(struct super_block *sb, struct fs_context *fc)
+ 
+ 	/* Check the MAJOR & MINOR versions and lookup compression type */
+ 	msblk->decompressor = supported_squashfs_filesystem(
+-			fc,
++			sb, fc,
+ 			le16_to_cpu(sblk->s_major),
+ 			le16_to_cpu(sblk->s_minor),
+ 			le16_to_cpu(sblk->compression));
+@@ -270,8 +270,8 @@ static int squashfs_fill_super(struct super_block *sb, struct fs_context *fc)
+ 	 * block size (by default 128K).  This is currently not supported.
+ 	 */
+ 	if (PAGE_SIZE > msblk->block_size) {
+-		errorf(fc, "Page size > filesystem block size (%d).  This is "
+-		       "currently not supported!", msblk->block_size);
++		errorf(fc, "Page size > filesystem block size (%d) on %pg is not supported",
++		       msblk->block_size, sb->s_bdev);
+ 		goto failed_mount;
+ 	}
+ 
+@@ -330,7 +330,7 @@ static int squashfs_fill_super(struct super_block *sb, struct fs_context *fc)
+ 	msblk->read_page = squashfs_cache_init("data",
+ 		SQUASHFS_READ_PAGES, msblk->block_size);
+ 	if (IS_ERR(msblk->read_page)) {
+-		errorf(fc, "Failed to allocate read_page block");
++		errorf(fc, "Failed to allocate read_page block for %pg", sb->s_bdev);
+ 		err = PTR_ERR(msblk->read_page);
+ 		goto failed_mount;
+ 	}
+@@ -369,7 +369,7 @@ static int squashfs_fill_super(struct super_block *sb, struct fs_context *fc)
+ 	msblk->xattr_id_table = squashfs_read_xattr_id_table(sb,
+ 		xattr_id_table_start, &msblk->xattr_table, &msblk->xattr_ids);
+ 	if (IS_ERR(msblk->xattr_id_table)) {
+-		errorf(fc, "unable to read xattr id index table");
++		errorf(fc, "unable to read xattr id index table on %pg", sb->s_bdev);
+ 		err = PTR_ERR(msblk->xattr_id_table);
+ 		msblk->xattr_id_table = NULL;
+ 		if (err != -ENOTSUPP)
+@@ -382,7 +382,7 @@ static int squashfs_fill_super(struct super_block *sb, struct fs_context *fc)
+ 	msblk->id_table = squashfs_read_id_index_table(sb,
+ 		le64_to_cpu(sblk->id_table_start), next_table, msblk->ids);
+ 	if (IS_ERR(msblk->id_table)) {
+-		errorf(fc, "unable to read id index table");
++		errorf(fc, "unable to read id index table on %pg", sb->s_bdev);
+ 		err = PTR_ERR(msblk->id_table);
+ 		msblk->id_table = NULL;
+ 		goto failed_mount;
+@@ -398,7 +398,7 @@ static int squashfs_fill_super(struct super_block *sb, struct fs_context *fc)
+ 	msblk->inode_lookup_table = squashfs_read_inode_lookup_table(sb,
+ 		lookup_table_start, next_table, msblk->inodes);
+ 	if (IS_ERR(msblk->inode_lookup_table)) {
+-		errorf(fc, "unable to read inode lookup table");
++		errorf(fc, "unable to read inode lookup table on %pg", sb->s_bdev);
+ 		err = PTR_ERR(msblk->inode_lookup_table);
+ 		msblk->inode_lookup_table = NULL;
+ 		goto failed_mount;
+@@ -423,7 +423,7 @@ static int squashfs_fill_super(struct super_block *sb, struct fs_context *fc)
+ 	msblk->fragment_index = squashfs_read_fragment_index_table(sb,
+ 		le64_to_cpu(sblk->fragment_table_start), next_table, fragments);
+ 	if (IS_ERR(msblk->fragment_index)) {
+-		errorf(fc, "unable to read fragment index table");
++		errorf(fc, "unable to read fragment index table on %pg", sb->s_bdev);
+ 		err = PTR_ERR(msblk->fragment_index);
+ 		msblk->fragment_index = NULL;
+ 		goto failed_mount;
+@@ -470,7 +470,7 @@ static int squashfs_fill_super(struct super_block *sb, struct fs_context *fc)
+ 	return 0;
+ 
+ insanity:
+-	errorf(fc, "squashfs image failed sanity check");
++	errorf(fc, "squashfs image on %pg failed sanity check", sb->s_bdev);
+ failed_mount:
+ 	squashfs_cache_delete(msblk->block_cache);
+ 	squashfs_cache_delete(msblk->fragment_cache);
+-- 
+2.34.1
+
