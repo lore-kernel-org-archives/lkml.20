@@ -1,113 +1,188 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3324972618
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 00:04:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789171467; cv=none; b=sIjIxNkGA1/hxh1uZSKEHNKbmSoEw4v7eYTSq29fuE6ZfLZ2MjkW+WjLhd6yMbasRkG4THA/6bXpk1oI5AhTjH6qsRmtD1ICZvyPxUAT8clFk/eWJXiyrmnwkMxPd/AYKWgGfpdYHhwg9hun5UL+OJeVdyR/OcQ7wkV9YHFK7ak=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789171467; c=relaxed/simple;
-	bh=n82F2pPmPahB5H5p9ewC4ejFVmfTVZNABSsI4Qn1j80=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Jws9p44uK+tByB9RPExqeNXDzPqsDeMmay1imQ8vijBcOHpdv352WxzrqKSTmS/ExEtOwNufvoDMsPRbv+M6d+qNlGDTxeR0iX+jh4h1AqX9gRMt7QoKJoM5iUCjO5dnGfA3p8igWUjCViF/KzS5WS5LotTX9ATfdlmwERwHXVQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g/jYKkrJ; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF98E81ACD
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 00:05:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.169
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789171509; cv=pass; b=e5tyRszKtPm1kA2SrQ7c0L+nU8Z5NZYXcQX8txWK8fowBx1gbnn8h1eH95112tej2RuJ7VDoFHlRZ9S5l5OF7yelPTNi2vdtlFLcSL/h8Yvr6LxPR9liNPZD8zOr5/gIt9eil+qQiFch0XM3UjXsR2AXDFp7SiOhpQTqj/JO1PE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789171509; c=relaxed/simple;
+	bh=S9T+DmYc+qxQrzaKN9l3RbSiFsILLsDPZCDFtVs2ENQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=JtGxLRvb/KRpCdwH1UuKtfNKvzGOOszB5CFKj3zPTTpehNshlW/YMOjA3LZZzqXJBGydDI4Mo44YxFQLwMkiVvsGx3GuHLsIxDPJdvQ1ml/oQ1W5dYorxZvneG1IrkdFxO1qzr9CiEUmHXAKmrxMzol2B7WWY7rFPCnHm2l7Cqc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kM9yNUhf; arc=pass smtp.client-ip=209.85.215.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g/jYKkrJ"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd6185db7so1948385e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 17:04:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kM9yNUhf"
+Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cc4c7fab7b6so1705293a12.0
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 17:05:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789171507; cv=none;
+        d=google.com; s=arc-20260327;
+        b=qHIG6QNgQK7922ksSRJDfgQj+atJbWimMGSfDC7JDjQA1MfdbJTamggrLVXIGSKnK2
+         t2DWmaHRALCNli5XaS1i7JoqShPkcStyVjUAZK+kbOsA7dGtEVoh/YS3pPS4Fd7tzjpC
+         45VvtaPcOtcL2q37LqJ4jRaoGc7Oc0NMP1qbrweHR/o+wtDBGZv2OvwNrWmqCdPudcoa
+         GF5uFaMddqzM05Rmz/B5O/lwgaszy7m/HQNcwcFbidycHL8+cFmOVroQ5VOJZmH+Kqf1
+         RSrY6IaNEmt+ULcegIwWWn7mMqHggbWVitM9pDhkYc5N7MOzOGW6877cYHSyuiNvOXDr
+         4TMg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=S9T+DmYc+qxQrzaKN9l3RbSiFsILLsDPZCDFtVs2ENQ=;
+        fh=fZZnex7Nca2vN9NI/fCDZyNc/WswpzCNcwTqZIeBAX8=;
+        b=HAmmun13dWMs5+eY7t7RGHPAe1cykJv8H8kWhUU3E5+GWI97UPv+mMbbdd1MHjwwwu
+         I8Dne4VQtNIK3Ww8/3LH5j5Ot2KqikvqwVYBkwhtMXe/G3ySiIvpP3Lgekw5XOgdgnn4
+         zX7UaTYWdrorh398Uu2qOxCl2NURJvDEqEbcfuRJj5a4c+ifEUxBrJw5JcYwJpKc5a0F
+         saN2rX6JiMsWa1+Liu38nDV7Djm9LNE17PDqzNXG9ApKSk1WtVLjvTXU5VrAdBQUS3m2
+         O5EGwA1/Qu+10nZNSelck+gySnlEquTZN59XZG+vxxWIpbyF1GdG/bORfGv13dzz8sHy
+         H4WQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789171464; x=1789776264; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RWmViMmNo6OPinFA/8hMYl/DXoZAHUCdFKUGuJNPOrE=;
-        b=g/jYKkrJRpJnUCt/JoeTgVYP5tJQMjms7y2KoUTnx9WSXP736OjNDY2C3NLqKJa9j/
-         5kLCqEPrLvUzFBcda0HtxiWllcZO9MFVkv6ueLLE6xTYwhDtnlB5z4M5kcf+IVHesTUY
-         n1dVmWgq+jv98jMatXg6cG1h3iHiZOLYfDL+hyq/kKsmul3mfsYeMkG1uzXASJpFXYQi
-         anYiT4h87DLgyNfy2a7UtRUPGl5gmlfpWFdUr8hbp4laq4pMNCtUsCy0rlvxQ58gOWMR
-         UCUSwNdoc5Si+3RU9LlCS9VJ/kvDmXy9dKO4aF5AUrd9XAgODbRX9+qW5phnpQwG1yKR
-         M0Sg==
+        d=gmail.com; s=20251104; t=1789171507; x=1789776307; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=S9T+DmYc+qxQrzaKN9l3RbSiFsILLsDPZCDFtVs2ENQ=;
+        b=kM9yNUhfcUDWuGsAwweczxrbNmbJ8fy+/A2s2oRPRuSBdj4YYMO3WS5UMVpPZomzxv
+         p0VPz16tioWSxbX55zlLSJGMcyp0pusorpIqWREPRwciK+t4dF1uqlql6ZQjHzBOLP+e
+         A0CHk4dZjWXbqK76ghaihOXA6unGVqdWoAhc0SnVhPT2oVpDXikjsbrFrPiNmntYv61N
+         eOfXyfF8aoyoteDCOiaP2T6X3GzW9w1fqCCYDNU0fGQaf/Yajw7vAio7DlWE4Uo4xBl+
+         5YMNIfD3rr4CGI//vNJKp0jP1Tn6LLNPBN9oGEs/nSnt3a2c2mAyvbxUdKDQvmKeizCc
+         l4oA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789171464; x=1789776264;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RWmViMmNo6OPinFA/8hMYl/DXoZAHUCdFKUGuJNPOrE=;
-        b=Y7drf9ZMWUHvREbNtAulpbdFJHUDdV6emM1+v3esBrKzrBMKvUbif/eKhtZadez5k4
-         AP7riSF6G7bQ6D5g8onpHz7z83QfZiMoRsKC2ujOCU0RUGmDezW4NU+QJJ+Cy+uOpYA2
-         3++75K8JuTvOOoxoj5jpgWxTjya9cFkiOl1qBtFUsUJEhd2gbZRCvk3yX2F3K49LiV0K
-         yusFsyBiGSpXPs0v4F3IAYSfKPiOcng3W7m4VIF6YxHOVP5oz1NgvZxXdtLprYUr8kyt
-         vTrtNAbte31+2wkJZLz/5o2g+sCAynGx3y6vwCIYW9k0HLIWZYemlpkuqOnEtePJjnn+
-         Iguw==
-X-Forwarded-Encrypted: i=1; AKwUvByB0aAuzMCMnApuLXGRPZh/NSfGOl/J2yf3yVecXScLKgM8Q0LZXsjfdLV2UxFyI3PJlddAfwb8U7IVcMw=@vger.kernel.org
-X-Gm-Message-State: AFuF++nGCAyKTJAZEIQzqPyZCTV48dDofotLJoAYtHGkDschS3RcT71n
-	R8uvobms2UGRow2BWvW4sT4Z9wPrd2+1pG7Yc1s+/6ozMZoJ47eG3DjL
-X-Gm-Gg: AYBFou0SxL/oRNXXDlN/j0C4RRYrxk8pEiDQ2mPWkNUEFPYGkPZ3qO3XM/mzgoC2jVP
-	KEatq1MaMS8R/qstwXKGnPrw1sKXwEE+N22qqoInnFRuIvT/qfqeFBnZmo0gW1UuK3v8pBklKns
-	l7jfOHg3wAMlzhidxjRJwInqMsvnJkbuJOLMTwTJHnDUboCSUlcvmXZyu0+SwMO6TwoQPuqP7zg
-	HGMocnnOMvldoe5R3AQw+jN2w+I9VqkQOatySporWxBABg15ODOYF0k6VcquSb3Vz7QB90wDmCQ
-	PNFLkmflm8M3w5mTmBt/hBIEJPGE3dNEMWMd9ApDtyyIHigQF2GKDvbTvAHW0wyMsk7oYcgGV9G
-	7+e0jUR9XTxLjdnDkdRCPMU/Hq0nqsy8dzh90WqNtt5rGppbE2HZcFxG461ACI7sNnBTIBg9w8Q
-	Y7gmSMFy2xEyUPHAnuzaGzfEwkT9T7r39/cGHFXIQ+KujhZs7fJ7xI03m7MHaKL458t6/IQzeae
-	rf453TwnPkK5DGc3F/+ACr0WC3csNSkfTzc4hZhPUWqC5IgeMbVIWUGPcTkl2fK+wkoN47ws45M
-	RtU5m2O2edv/BMDY9FFd9tMVC+vOfQNX0htK
-X-Received: by 2002:a05:600c:4683:b0:49d:1916:2133 with SMTP id 5b1f17b1804b1-49e6106d393mr77113675e9.8.1789171464161;
-        Fri, 11 Sep 2026 17:04:24 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-095-114-033-154.95.114.pool.telefonica.de. [95.114.33.154])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e60a8a89esm108675645e9.1.2026.09.11.17.04.23
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 11 Sep 2026 17:04:23 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: John Johansen <john.johansen@canonical.com>,
-	Georgia Garcia <georgia.garcia@canonical.com>,
-	Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	apparmor@lists.ubuntu.com,
-	linux-security-module@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] apparmor: Fix the return value in split_token_from_name() kernel-doc
-Date: Sat, 12 Sep 2026 02:03:02 +0200
-Message-Id: <20260912000302.34565-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+        d=1e100.net; s=20251104; t=1789171507; x=1789776307;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=S9T+DmYc+qxQrzaKN9l3RbSiFsILLsDPZCDFtVs2ENQ=;
+        b=MR7hD8Wz1YdGy9iSjlq5+LCLzP84o4ChRy6I0+CzUUDlEsOc+SU+lKiPpXGNREBSAh
+         6HRXhBnOtPzmp2I8Th9det07OPUC4ZrGz65+1EYsJfyk/zlyDiPH3JqYiv1/96+2xxVo
+         VK8aeouOwsR5qVXB5OQLBEtihHBryLWNFbYBsy1trZA0AoSIiNxuqdMecRRXU8oXdd6C
+         9lTGiXa3qgPziVCw0W8IIRcN0GmnSWJaCLrbl1GyyTBmDX1761PcT6zSIS78KdkGMGDF
+         qFmLI7zIok4+WTcGe+kLZMgC+HadLPWW3oXTh/3r+xsyW45ZCaJMyDSS2USkWaDLOFDn
+         0tig==
+X-Forwarded-Encrypted: i=1; AKwUvBznDBHVSfXVaA6S0GQ5gp9OoxyGNTdxQ7aFfNqn6gU7PBgWJ6BjrFHeW34WMtw3ZB960Ch0pYEsu0lwemA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nQ+texezPv/spMnY24JDHKao9Beb47IxL4mNmP+GOgVYDidj97
+	UN/q4YxrNVDvIIXDzbIFOu2qo6/2qUhyGUmr0gZpxNPUb8XKUNgdvbkNKJ0SqwXYEwz05ShgOV2
+	SIyi2l8QDB9Sfx/phKyOP9aWszi804nY=
+X-Gm-Gg: AYBFou33NAT2+4dTRCfddDP11DfuC8stl0c7v2rt7JYjW4lLZh8tCf6/p4t2fR494yf
+	EUe3a0LoFDdJQm6T63t0dVDNJcwftSATKWylcv+/Yl+QZM0HydP6b0xNg6Y5yjkYhWq1NjFFVph
+	d+QoNS9t5QA/Kw6UuYDsuUh6Gq9hEzJdXRm0ylmRVtsPdBL+NSWsZ9AQ0vqf+K2YQKhHaPBzSib
+	Hmf+POb+gE8KU/c6BtiBaQU6sD/1yrZW72Ol8LEoiGDlUpTGhN4fB8bzHF18YKdzCCApi+TkWjt
+	AsELjbTjQaGMu6Lc6aosBUQ0xA0Sx3T9AKg3mv52L2IVGd13tH9kKB1+W/m5ezwKKyx7sYgndo9
+	Y9YQULxRqzFlN8BR6R8jyMsa3w/iL1q9FjkBf
+X-Received: by 2002:a17:90a:ec86:b0:38e:70d5:b12d with SMTP id
+ 98e67ed59e1d1-39d9bc67655mr11774219a91.6.1789171507258; Fri, 11 Sep 2026
+ 17:05:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260815091819.3651099-1-gaoxiang17@xiaomi.com>
+ <04f3ce2f-67f5-4829-9551-a69b9df29854@kernel.org> <CAEf4BzbwZkoacX-iP1j4+p8YNbWsq0pc3eTermh2uT5ir66zbw@mail.gmail.com>
+ <8d2e20842c24460296e4c83e6dc0dde3@xiaomi.com> <CAEf4BzYQvhSVN=Hggg5FHzFdkRr4UNBD6yXaBsOaAwbsRpXpsw@mail.gmail.com>
+ <aqSNkbhIuaB5D0H0@google.com>
+In-Reply-To: <aqSNkbhIuaB5D0H0@google.com>
+From: Andrii Nakryiko <andrii.nakryiko@gmail.com>
+Date: Fri, 11 Sep 2026 17:04:55 -0700
+X-Gm-Features: AcwNN1UEr63Wxp7MKqMET22sJl2gNoghCd52hruir0AgkgtHxzDzVIaVqxthCq8
+Message-ID: <CAEf4BzbAOgwQqsRQnY4yxvubLtioQNL_BBHer4ExvNF7Rvvu4w@mail.gmail.com>
+Subject: Re: [External Mail]Re: [RFC] bpf: account ring buffer backing pages
+ separately from Lost RAM
+To: Isaac Manjarres <isaacmanjarres@google.com>
+Cc: =?UTF-8?B?6auY57+U?= <gaoxiang17@xiaomi.com>, 
+	"David Hildenbrand (Arm)" <david@kernel.org>, Xiang Gao <gxxa03070307@gmail.com>, 
+	Andrii Nakryiko <andrii@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, Andrew Morton <akpm@linux-foundation.org>, 
+	=?UTF-8?B?5Y2w6Zev?= <yinchuang1@xiaomi.com>, 
+	"bpf@vger.kernel.org" <bpf@vger.kernel.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>, 
+	"linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Lorenzo Stoakes (Arm)" <ljs@kernel.org>, 
+	Steven Rostedt <rostedt@goodmis.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-split_token_from_name() returns ERR_PTR(-EINVAL) for malformed input,
-but its kernel-doc describes NULL as the failure result. NULL is instead
-a successful result when the name following the token is empty.
+On Fri, Sep 11, 2026 at 4:24=E2=80=AFPM Isaac Manjarres
+<isaacmanjarres@google.com> wrote:
+>
+> On Wed, Aug 19, 2026 at 10:24:28AM -0700, Andrii Nakryiko wrote:
+> > On Tue, Aug 18, 2026 at 6:46=E2=80=AFAM =E9=AB=98=E7=BF=94 <gaoxiang17@=
+xiaomi.com> wrote:
+> > >
+> > > Thanks for the pointer. Understood =E2=80=94 no new NR_* counter or
+> > > /proc/meminfo entry.
+> > >
+> > >
+> > > The remaining question is on the consumer side: Android's Lost RAM
+> > > accounting would need to enumerate all live BPF ringbuf maps
+> > > (BPF_MAP_GET_NEXT_ID) and read each map's fdinfo memlock to sum them.
+> > >
+> >
+> > For BPF ringbufs specifically, you should be fine just iterating all
+> > map with BPF_MAP_GET_NEXT_ID, getting its FD with
+> > BPF_BTF_GET_FD_BY_ID, and then passing that fd to
+> > BPF_OBJ_GET_INFO_BY_FD to get map's size.
+> >
+> Hi Andrii,
+>
+> Thanks for the suggestion on this! I did want to express a couple of
+> concerns with this:
+>
+> Scalability
+>
+> I counted the number of maps on one of our devices, and there are 112
+> maps, meaning that there will be between 224-336 syscalls with this
+> approach. eBPF is becoming more popular, so I'm concerned about how well
+> this will scale, if we have to invoke 2-3 syscalls per map.
+>
+> I had a test program that implemented your suggestion, and it took about
+> 2 ms to identify 39/112 ringbufs. As the number of maps in the system
+> grows, I'm concerned that the latency associated with computing the
+> memory usage from ringbufs will become even more expensive. This is
+> something we had an issue with before on Android, where we had to
+> iterate through various sysfs files to gather wakeupsource metrics [1].
+>
+> To improve on this, I was wondering if we could expose the ringbuf
+> memory usage and potentially other bpf stats through bpffs
+> (/sys/fs/bpf/stats)? This counter could be a lightweight counter that is
+> incremented/decremented on ringbuf allocation/freeing so that when it is
+> read, there aren't any expensive computations.
+>
+> For this specific metric, we could just use a counter to track how much
+> memory is being used by ringbufs and have userspace read that. That also
+> brings me to my next point.
+>
 
-Document all three results: the name, NULL for an empty name, and an
-error pointer for malformed input.
+I just don't see a good enough reason to single out ringbuf maps
+specifically. other map types also use memory, why would they be
+excluded?
 
-Fixes: 63e2b423771a ("AppArmor: userspace interfaces")
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
- security/apparmor/procattr.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+If you are worried about too many syscalls, look into map iterator
+program types (grep for SEC("iter/bpf_map") in selftests). That will
+be super fast and way more generic than what you propose. You can ping
+such program in bpffs and that will be you custom /sys/fs/bpf/stats
+implementation that you have full control and customizability of
 
-diff --git a/security/apparmor/procattr.c b/security/apparmor/procattr.c
-index c07b6e8fd9c93c73ea82361af83337774e6d1bdf..cfc45db43aa0c7418604fbba0e4c30a90f0f6cbd 100644
---- a/security/apparmor/procattr.c
-+++ b/security/apparmor/procattr.c
-@@ -74,7 +74,8 @@ int aa_getprocattr(struct aa_label *label, char **string, bool newline)
-  * @args: string to parse  (NOT NULL)
-  * @token: stores returned parsed token value  (NOT NULL)
-  *
-- * Returns: start position of name after token else NULL on failure
-+ * Returns: the name following the token, %NULL if the name is empty, or
-+ * ERR_PTR(-EINVAL) if the input is malformed.
-  */
- static char *split_token_from_name(const char *op, char *args, u64 *token)
- {
--- 
-2.39.5 (Apple Git-154)
-
+> Correctness
+>
+> The max_entries value is the size of the data in the ringbufs.
+> However, it doesn't capture the 3 metadata pages associated with each
+> ringbuf, which leaves a gap of ~468 KB, and that gap can keep growing
+> as the number of ringbufs increases. It's important to have as much
+> information as to where memory is being allocated to, as there are
+> devices with as little as 2 GB of memory that we need to be able to
+> profile memory usage with.
+>
+> I think exposing the sum of ringbuf data + metadata pages through the
+> node I proposed earlier would help achieve this.
+>
+> [1] https://lore.kernel.org/all/20260511174559.659782-1-wusamuel@google.c=
+om/
+>
+> Thanks,
+> Isaac
