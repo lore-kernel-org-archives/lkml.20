@@ -1,137 +1,194 @@
-Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com [209.85.161.50])
+Received: from mta0.migadu.com (out-41.mta0.migadu.com [91.218.175.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 101943382CB
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 19:40:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1641D3839BA
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 19:50:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789242060; cv=none; b=fhMXkrMbzZYxq8a5ODvDdXApJ14JrQlIzEqvceHjv6cCmv987v3DC06hq1/dxQTRycPOO3wehUh+RFu3v+lyMSh5Xo4GQUraEF5BwYxJlY1dTgOmpL82K49zo/D/mvwxQJbAJ5rKt9Oo1w83ASFX4FC8qKBqKmNHC9Pe1a+x8y4=
+	t=1789242626; cv=none; b=AkGmZtUQ/lXcm8ibs0PNdSA63MoYBYxR754mYTxlHBAyYMDcQPOwFFPGMhDSxTqPLpVEM4rITHVgSAizb2qdM5RS4nG9W08tOfgCOSebpCHQ4ee9C5XGHUmB+JU92FOsgErsGG6uLC4pILK4SYIMksIoh0uOm5ckiz7vwYEB+tE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789242060; c=relaxed/simple;
-	bh=Fg3k93J+NnauWx+3Z+BYbTT2WHUzh/cuAEcclS6y3ms=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=H16RVmCxE3eSmQVjioNUHKaDlwr4/sJR3MH51Twazhe7/0xNi59ARXzeFCKXZtHfGUo2sYAuj1YYz4tDMnaTqEUT3kg9PPYNwS6/YlS3sCy8bGAvduW/icgmt6oMGeuEXbxdrpFOsDfJFyq6rf+12yij37pU8EoMedAJ/SdetbU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hdL8Tpdf; arc=none smtp.client-ip=209.85.161.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789242626; c=relaxed/simple;
+	bh=xj5HW2/JOE89pE436b8pIPlE/VRt03TZ7+Dwvo04iEI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GrLK7yReAXnezpS6XCoYm5QXG7C+B4coeXAk2+MDQo2eObKz5baBjqQaGcCZr9Hlx81RhiSjLx5FcoxQNERDzi7utA38AkRzM813raoK41qvv7SphMvQH9XZ6Tna9q4LeIcMHONNCcyGzJqaby4tE8X9SOuG+IV5OdVGMRBQ31w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=DG1wY6Z4; arc=none smtp.client-ip=91.218.175.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hdL8Tpdf"
-Received: by mail-oo1-f50.google.com with SMTP id 006d021491bc7-6c1983dfaffso1229182eaf.2
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 12:40:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789242058; x=1789846858; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=/mW9uIl4IQ84J3enCrJFqvgB+YMh25zxbJWRDQHZcYo=;
-        b=hdL8TpdfrOnsp8icWzp7H9iP1o4b4ff7BeOjoL79h4VOB7Mi6IPUtkUAsdZtSvGWwY
-         G5S4oixFN/qeznuCur5B4gc2bSVe1MLjnzZkQ7sCtiMWHNDvIpW7Njy83RaekEGJfsR8
-         uBar9fpNP8lY8JkBGfS5tr+LkGAtKGPJe5TmeIp8OLJfC6ZUfW1aY64veWs450nV/hiG
-         lAAeDTT4Nb6gB9crfFPc3Hnu0lUOghQtcutwfJGRfdY/gWa0Rle4PGL5cYr/WxeqduxL
-         t9HwIy3rA8i+vi44eDI2IZZE+xh853xSBvG4vdqzZ5ApW6bDRml9lMb+xYwImLjcHGLM
-         YUyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789242058; x=1789846858;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/mW9uIl4IQ84J3enCrJFqvgB+YMh25zxbJWRDQHZcYo=;
-        b=JtiMs0XRUuxjSSmIqFkgX6bcBWTnvnPKtOs9xYtBVpfuPqpTQU3FK1dSlWKgWNvQ6c
-         t6ZTQ5xWcM0iTR4U8UcTmqqrVPXgEN5SK9U21vaQrR0+nnVDCkfxYPyuJNVU62Yzlw66
-         zkC1SUYVqRWCwoCvpGiOXd3bxvXT7dwipi/b8Yvl17x/TjL4aUmHjGjP3YtV5UWou0qU
-         Repv8ZmQJ1BlQDUCEPMqWwGbwDuQu9ztoRLBVX8CHrckjJdtG5wPvF+lTHIFqOf3aLu7
-         bMhS6NouQoX55FVRtWmV8k4Vi4ZySdvEljeQoytUbLTeckBrHvwH2qgPdnfgLQQ0kijt
-         sWkQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwi68kR7/C7LGjaG02LnymI66tjguKenN95ZuI1ck/KRq8XcN4Rs7M3kU/eZv5HVyTtz0f7TEbv3P9JEVk=@vger.kernel.org
-X-Gm-Message-State: AFuF++kzS45FmshM5YKJ3Br0E5rHnVkgM/aCCCCIMkB2pzFu/cVJ+ehm
-	uP2vc0q0jK3R5tECSsrxpBckKITW1l/C3fTMXPwPVF1Dz8jvwtI1DFYp
-X-Gm-Gg: AYBFou0Cu91uyo/+2ombWJ5vN0z4yXLfYRqBvBp9OyUjpBeVw/yQoL4TnfQO14xdaUi
-	pXTunau5fLrjVbyPlumidLt4eMwM/H1CUt6getetJUp+EWmJZK3d6JqPbSz2MqVK/GjivdaEdUo
-	OnWnuJnz0nTYfMbyAIIrdwA7yZ0B9dKferCalGtMmPQ+q4Qbv/Z2Qwql3sZ2JF9Imc+boMT52R/
-	1a41sK0IrQYmvjdwIM1sIGepaBgvmPJw0AJHIXWt36EL8xo0hrXL//FwdfhqnrgK9nopSpV/kN6
-	NwC5LnEMyTe5B8ufgwecitFl2sxid052h5Hsi3y/fqWkwP7NwM8JXmOCgiiFydXhYbGHopveAfR
-	nR9sxlPYjXo/9bcUF1JCH6mHwOZrTMupYhPa8DNqyX16dbvqRfh+aoSssoBkxUYcAcU2fKhibUn
-	zkVkPF9TyGcozXb+HIAkzkdyguNJxMtM04CiFKPPU4FFrFOPNFUocCmd6WzznRALsnEdrgjRvm6
-	tC85OUICYOay/3eDDijDiIpxeJpElhrmVmMl41i70yBN5w4ryWK+1tS8FfSo4RyirI+WE74rVM=
-X-Received: by 2002:a05:6820:f034:b0:6c0:c954:e534 with SMTP id 006d021491bc7-6c0c9550c4dmr5760632eaf.38.1789242057820;
-        Sat, 12 Sep 2026 12:40:57 -0700 (PDT)
-Received: from localhost ([2a03:2880:10ff:5::])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6c0996dc5a6sm6404372eaf.6.2026.09.12.12.40.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 12 Sep 2026 12:40:57 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="DG1wY6Z4"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=xj5HW2/JOE89pE436b8pIPlE/VRt03TZ7+Dwvo04iEI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789242619; v=1; x=1789847419;
+ b=DG1wY6Z4iIpHeWxx3Z1iFwNeL5oqcUSCHTnmamUXMwC3L4oBoo109vi3SfhDX8uS3yqrcDmW
+ 6OY4qbxxu/eKc6DreXPU3B92feDl3W+29xa8oY8+yXzKjPH/rv6qBUqucbDdfTpKHdm8rbOhdCm
+ JShBB8WNXCOUjgNG2SkqawGY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id fd67c0cc06b11572;
+	Sat, 12 Sep 2026 19:50:17 +0000
+X-Mizu-Trace-ID: fd67c0cc06b11572
+X-Migadu-Flow: FLOW_OUT
+From: Ilya Gladyshev <ilya.gladyshev@linux.dev>
+To: ilya.gladyshev@linux.dev
+Cc: akpm@linux-foundation.org,
+	andrew+netdev@lunn.ch,
+	apopple@nvidia.com,
+	artem.kuzin@huawei.com,
+	baolin.wang@linux.alibaba.com,
+	david@kernel.org,
+	Liam.Howlett@oracle.com,
+	edumazet@google.com,
+	harry.yoo@oracle.com,
+	hramamurthy@google.com,
+	ivgorbunov@me.com,
+	joshwash@google.com,
+	kirill@shutemov.name,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	lorenzo.stoakes@oracle.com,
+	mhocko@suse.com,
+	muchun.song@linux.dev,
+	pfalcato@suse.de,
+	rppt@kernel.org,
+	surenb@google.com,
+	torvalds@linuxfoundation.org,
+	vbabka@suse.cz,
+	willy@infradead.org,
+	yuzhao@google.com,
+	ziy@nvidia.com
+Subject: [PATCH v6 0/3] mm: improve folio refcount scalability 
+Date: Sat, 12 Sep 2026 22:50:07 +0300
+Message-ID: <cover.1789239015.git.ilya.gladyshev@linux.dev>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 12 Sep 2026 12:40:55 -0700
-Message-Id: <DLDLDGTSBHA0.32TYNBSKKPFXH@gmail.com>
-Cc: "Josef Bacik" <josef@toxicpanda.com>, "Frederic Weisbecker"
- <frederic@kernel.org>, "Neeraj Upadhyay" <neeraj.upadhyay@kernel.org>,
- "Joel Fernandes" <joelagnelf@nvidia.com>, "Boqun Feng" <boqun@kernel.org>,
- "Thomas Gleixner" <tglx@kernel.org>, "Peter Zijlstra"
- <peterz@infradead.org>, "Steven Rostedt" <rostedt@goodmis.org>, "Masami
- Hiramatsu" <mhiramat@kernel.org>, "Mark Rutland" <mark.rutland@arm.com>,
- "Jiri Olsa" <jolsa@kernel.org>, "Alexei Starovoitov" <ast@kernel.org>,
- "Daniel Borkmann" <daniel@iogearbox.net>, "Andrii Nakryiko"
- <andrii@kernel.org>, <x86@kernel.org>, "Catalin Marinas"
- <catalin.marinas@arm.com>, "Will Deacon" <will@kernel.org>, "Puranjay
- Mohan" <puranjay@kernel.org>, "Xu Kuohai" <xukuohai@huaweicloud.com>, "Andy
- Lutomirski" <luto@kernel.org>, "Josh Triplett" <josh@joshtriplett.org>,
- "Uladzislau Rezki" <urezki@gmail.com>, "Mathieu Desnoyers"
- <mathieu.desnoyers@efficios.com>, "Lai Jiangshan" <jiangshanlai@gmail.com>,
- "Zqiang" <qiang.zhang@linux.dev>, "Juergen Gross" <jgross@suse.com>, "Luis
- Chamberlain" <mcgrof@kernel.org>, "Ihor Solodrai"
- <ihor.solodrai@linux.dev>, <linux-kernel@vger.kernel.org>,
- <rcu@vger.kernel.org>, <linux-trace-kernel@vger.kernel.org>,
- <bpf@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH RFC v2 08/15] bpf, x86: Maintain Tasks RCU trampoline
- nesting in the BPF trampoline
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: <paulmck@kernel.org>
-X-Mailer: aerc
-References: <20260911-b4-rcu-tasks-preempt-qs-v2-0-eaaa61ed2da4@toxicpanda.com> <20260911-b4-rcu-tasks-preempt-qs-v2-8-eaaa61ed2da4@toxicpanda.com> <DLD0OHX8C4ME.VNR49VC2UYH4@gmail.com> <14cb8a91-497d-49f5-aa20-c6cb8b9a27fc@paulmck-laptop> <DLDICNLENSRI.2R6EJ0ZFJE45T@gmail.com> <8c51a669-eb6b-455b-a829-b537da5209f8@paulmck-laptop>
-In-Reply-To: <8c51a669-eb6b-455b-a829-b537da5209f8@paulmck-laptop>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Sat Sep 12, 2026 at 11:03 AM PDT, Paul E. McKenney wrote:
->
-> In the old kernels, yes, we have current->trc_reader_nesting++.
-> In the newer kernels, Tasks Trace RCU is instead implemented in terms
-> of SRCU-fast, which instead increments per-CPU counters.  Which among
-> other thins is a bit faster and does not need to hook into the scheduler.
+From: Gladyshev Ilya <ilya.gladyshev@linux.dev>
 
-old kernels? I'm confused.
-rcu_read_lock_trace() in bpf-next is doing t->trc_reader_nesting++
-and then calls __srcu_read_lock_fast().
+Recap
+-----
 
-Are you talking about some RCU branch that you target for next merge window=
-?
+This patchset addresses a scalability issue of a folio's add_unless() operation,
+noticeable during contended IO reads from the same page [folio_try_get()]. The
+main idea is to replace CAS loop with optimistic increment (and deal with
+failure later). This requires splitting refcount into counter and separate
+"dead/frozen" bit.
 
->
-> So we have several ways forward:
->
-> 1.	Revert the implementation of RCU Tasks Trace in terms of
-> 	SRCU-fast, and use the existing current->trc_reader_nesting++,
-> 	as you suggest.
->
-> 2.	Deprecate RCU Tasks Trace entirely in favor of RCU Tasks
-> 	augmented by rcu_tasks_trampoline_enter() and friends, as
-> 	I was suggesting.
->
-> 3.	Implement rcu_tasks_trampoline_enter() in terms of SRCU-fast,
-> 	keeping the speedup, and put a synchronize_srcu() in the
-> 	RCU Tasks grace-period mechanism.  This again deprecates
-> 	RCU Tasks Trace entirely in favor of the augmented RCU Tasks.
->
-> 4.	It is always good to explicitly state the apparent status quo,
-> 	which involves redundant trampoline entry/exit overhead.
->
-> 5.	As always, your additional ideas here!
->
-> 							Thanx, Paul
+To allow for such modification, this patchset also slightly refactors page_ref
+API, consolidating all implementation logic inside mm headers. For more
+information, check individual commit messages. The original performance issue
+and previous attempts by other people can be found in [1][2].
+
+Performance
+-----------
+
+To my regret, I don't have any access to high-core CPUs that I can
+benchmark on, and a 12 vcpu laptop isn't really a scalability test. So,
+here I can only paste my previous measurements on Linux 6.15. To be fair,
+none of the related code paths really changed, so I don't expect any changes in the
+numbers here.
+
+Performance was measured using a simple custom benchmark based on
+will-it-scale[3]. This benchmark spawns N pinned threads/processes that
+execute the following loop:
+``
+char buf[]
+fd = open(/* same file in tmpfs */);
+
+while (true) {
+    pread(fd, buf, /* read size = */ 64, /* offset = 0 */)
+}
+``
+While this is a synthetic load, it does highlight existing issue and
+doesn't differ much from the benchmarking in patch [2].
+
+This benchmark measures operations per second in the inner loop and the
+results across all workers. Performance was tested on top of v6.15 kernel
+on two platforms. Since threads and processes showed similar performance on
+both systems, only the thread results are provided below. The performance
+improvement scales linearly between the CPU counts shown.
+
+Platform 1: 2 x E5-2690 v3, 12C/12T each [disabled SMT]
+
+#threads | vanilla | patched | boost (%)
+       1 | 1343381 | 1344401 |  +0.1
+       2 | 2186160 | 2455837 | +12.3
+       5 | 5277092 | 6108030 | +15.7
+      10 | 5858123 | 7506328 | +28.1
+      12 | 6484445 | 8137706 | +25.5
+         /* Cross socket NUMA */
+      14 | 3145860 | 4247391 | +35.0
+      16 | 2350840 | 4262707 | +81.3
+      18 | 2378825 | 4121415 | +73.2
+      20 | 2438475 | 4683548 | +92.1
+      24 | 2325998 | 4529737 | +94.7
+
+Platform 2: 2 x AMD EPYC 9654, 96C/192T each [enabled SMT]
+
+#threads | vanilla | patched | boost (%)
+       1 | 1077276 | 1081653 |  +0.4
+       5 | 4286838 | 4682513 |  +9.2
+      10 | 1698095 | 1902753 | +12.1
+      20 | 1662266 | 1921603 | +15.6
+      49 | 1486745 | 1828926 | +23.0
+      97 | 1617365 | 2052635 | +26.9
+         /* Cross socket NUMA */
+     105 | 1368319 | 1798862 | +31.5
+     136 | 1008071 | 1393055 | +38.2
+     168 |  879332 | 1245210 | +41.6
+               /* SMT */
+     193 |  905432 | 1294833 | +43.0
+     289 |  851988 | 1313110 | +54.1
+     353 |  771288 | 1347165 | +74.7
+
+Changes since v4 (last significant checkpoint)
+---
+- Lower Google GVE pagecnt_bias
+- VM_BUG_ON -> VM_WARN_ON_ONCE
+- Refactor missing API calls in mm/memory-failure.c
+- rebase
+- Make __page_is_frozen() public and introduce folio_is_frozen()
+  counterpart [3].
+- Make commit messages more informative
+
+Link to v4: https://lore.kernel.org/linux-mm/df26082871b4c65b2bd38d409026237c08572836@linux.dev/
+
+[1]: https://lore.kernel.org/linux-mm/CAHk-=wj00-nGmXEkxY=-=Z_qP6kiGUziSFvxHJ9N-cLWry5zpA@mail.gmail.com/
+[2]: https://lore.kernel.org/linux-mm/20251017141536.577466-1-kirill@shutemov.name/
+[3]: https://lore.kernel.org/all/aqAIFV4nOGPbWiDS@thinkstation/
+
+---
+
+Ilya Gladyshev (3):
+  gve: reduce pagecnt_bias to USHRT_MAX
+  mm: drop page refcount zero state semantics
+  mm: implement page refcount locking via dedicated bit
+
+ .../ethernet/google/gve/gve_buffer_mgmt_dqo.c |  4 +-
+ drivers/net/ethernet/google/gve/gve_rx.c      |  8 +--
+ drivers/net/ethernet/google/gve/gve_utils.c   |  6 +-
+ drivers/net/ethernet/google/gve/gve_utils.h   |  2 +-
+ drivers/pci/p2pdma.c                          |  4 +-
+ drivers/virtio/virtio_mem.c                   |  2 +-
+ include/linux/mm.h                            |  2 +-
+ include/linux/page-flags.h                    | 13 ++++
+ include/linux/page_ref.h                      | 69 ++++++++++++++++---
+ kernel/liveupdate/kexec_handover.c            |  6 +-
+ lib/test_hmm.c                                |  4 +-
+ mm/hugetlb.c                                  |  2 +-
+ mm/internal.h                                 |  2 +-
+ mm/memory-failure.c                           |  8 +--
+ mm/memremap.c                                 |  4 +-
+ mm/mm_init.c                                  |  6 +-
+ mm/page_alloc.c                               | 10 +--
+ mm/page_frag_cache.c                          |  2 +-
+ 18 files changed, 108 insertions(+), 46 deletions(-)
+
+-- 
+2.55.0
 
