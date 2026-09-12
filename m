@@ -1,194 +1,263 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazolkn19010016.outbound.protection.outlook.com [52.103.33.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f69.google.com (mail-oo1-f69.google.com [209.85.161.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BD7137FF60;
-	Sat, 12 Sep 2026 13:09:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.33.16
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789218555; cv=fail; b=NpgE1Rj421rsLFMXSLTbBIVRLPFoKVkJVhW4eKmJJ4MVM4WuDPZGRXnzEJoXd2lSAQKPQV9SnOQdS1udCOphpajFpiXty+fhCZfb7RcGXlX58kKjXd0udkGN4Yo3vVoo3woEoQxW9BrMtl7rNeIyjWZhIiPSNXF53nuDigWFHFI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789218555; c=relaxed/simple;
-	bh=YFCNLkNoSu9d7IZZogCYE49Ts58xA3j39fphN8xkoHM=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=btlSPPYnjxUVMLKnwb2yaQoqrXUaOtGwSE6X5nJhEzVl5iyED14FzYPv+Up9R3oT1SXyNgcWIAe/wcIAMRMK7JLYSgShRwv6CaLVdSJ/megGzEHuFo3IgBUjGMihMyX82TtMl1axwqx9VcGjr/0nNpi4sVlEHz+MxbCL3vRGNcU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk; spf=pass smtp.mailfrom=hotmail.co.uk; dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b=TJEx6J0w; arc=fail smtp.client-ip=52.103.33.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.co.uk
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b="TJEx6J0w"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=w/f0Bluulev8CMEszLSBOmvo28S1NROhEXIAuZWG8B1qJulvkEfnSKkWm/rijfoj+yoOpRLPd8CmDZtueExAcp8Dq0dVjIbBvhOVo5iHFR67BgcjlgBcN+JZj+0BpYK78lc8HxSSlXyE7Q/KyONG7EU3tIkOt+RAjCHBv7OIYXSefiQsHQqCkmEFKLsuFa5xaGjpNwrujniqZ0WmA+599FFuM06B/BYpvn03ZpHvkqD20igWrCXfdKnCZ1aYs/ETiK1qRX5hUmsNim3pT41iVo8+wCBXyQLMc6TH4sAEMiTHmUmw2QN4cRGbI8ZEFjZaT1EQjS5GpWNqMt1bfh3rPA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6prBQcJv//Uq3BliPhDut2Bmj7/AmZ6B8oo5icAuUOc=;
- b=gs3WrWYI4ezPoUi08VaKK35B08HIAtw6gUWOveVgxktet0o6IsSjubZ2Kx0t4L2pRJaIcULbkdgAcOXKoxvJiAtTByWLCGLzQXWcMxhqljIh3lh/7pUTH7714xtmXSMYdhu8q7yuvAmche/YVeLir4yzI7UdD49Ma0LLDivp7SPONOrjFjfjOx4/k3kxtCqy38rYjGlauu+GlTZxq7scext5aPg/8J3vh+FMmJ0sv87Of66bFXoQIsXY5KuzY48vhGdWppEN/azndlbD/apiOXYMt3EmKSkCdBVO0MvpdidL41rWR2bSQvLyI75eYl5olBsC0e1yHSkyOx/bhQ+RBQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=HOTMAIL.CO.UK;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6prBQcJv//Uq3BliPhDut2Bmj7/AmZ6B8oo5icAuUOc=;
- b=TJEx6J0wm78Lz/qE+dNexF/Xr3fhA14wOwGHDbpbhnRuZGX6at87S75MuarMCjojR7wdjVBbbSon13JMybqz6twKGC5uiYXcVq/RkzO/w4+f1CfG0XkAm6Y/gVNJ099IWroGDgcW4vluxymvE6RvIDRvQ8DTf36DMssb2Axt894keUmiK5XCGXWFBNfPkM2s+2XPmhmhnQsVIrZAe621pUFTj/fTc5b8Mh+B0DRRy3XIMxK8+gARyBn+46bpyPQxgjUWCSy+29VEPOIRmgSouylMl/5IURY87t7s1AORL05wAimFRvFtyC+fxXim7uDWB49CqhOPU0MVb1BB77nDJg==
-Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM (2603:10a6:20b:344::22)
- by GV2PPFDCA549DEA.EURP251.PROD.OUTLOOK.COM (2603:10a6:158:401::b6c) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.10; Sat, 12 Sep
- 2026 13:09:08 +0000
-Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
- ([fe80::2952:d4d0:4ba:8352]) by AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
- ([fe80::2952:d4d0:4ba:8352%3]) with mapi id 15.21.0406.007; Sat, 12 Sep 2026
- 13:09:07 +0000
-From: Aamir Ahmed <elb12345@hotmail.co.uk>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>
-Cc: Luo Jie <jie.luo@oss.qualcomm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	gustavoars@kernel.org,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>,
-	Kees Cook <kees@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	linux-hardening@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] clk: qcom: ipq-cmn-pll: Assign .num before accessing .hws
-Date: Sat, 12 Sep 2026 14:09:06 +0100
-Message-ID:
- <AS8P251MB000187BDFAD98A21F4C356E9C8BD2@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
-X-Mailer: git-send-email 2.55.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: LO4P123CA0188.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:1a4::13) To AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
- (2603:10a6:20b:344::22)
-X-Microsoft-Original-Message-ID:
- <20260912130906.12496-1-elb12345@hotmail.co.uk>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66E8842586B
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 13:12:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.69
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789218751; cv=none; b=Ti9DHcpNg6o2B4f3vRthtMqj0evqJsvcfaPfrQs2FzCyDiuZY3ryxsT5V4Xgp/+fGIkkXQH7sWqm2r7lKnP3ZWf7DpjmSFkGc0gkYpK92v9ffHj3BitCUgq+V9tvtq9SbXcf4uzFJeIY8W2X/IhykYnc1l4PeuRss0u+Ae+6T3I=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789218751; c=relaxed/simple;
+	bh=pf8vft2OCRXfyVBhB/1xms9mjJbuVLOVRj6rx1v/t3o=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=MBCsv3ZfejCsWETvGcscENhST+aAj9llvn9ZQFUR1L+90EEuckWIgyB8cperLoTHnxWO3csRF1VRFm6IzJfyBor0DDBe9PNKn9QJzmWZuzoDI4JPNmJUt4uHdzY5WkAEDXBgZzl+keWbkVENjlvtxZCzghRI64V2tqaP/CKvOt0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f69.google.com with SMTP id 006d021491bc7-6bc3374cb0cso923452eaf.1
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 06:12:29 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789218748; x=1789823548;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=OOOHAReRcyjsStR8QbdtPKY9OMu0/G8QzfemZB555nw=;
+        b=ROxJTVS1vrQ8r/I1RY3GRJ5utQXUrrjvKy7qPz+kaCPLiVKLZM7CuS1OO+wJT7fInR
+         w1DERwK/Lh4jY9NDaqAz/tBnTUdh1tEc4dVIr1WaWSxB+dP19kJ9dB7Sd+HB4XIOmnkF
+         PEtBeFppExV32XOjf7u9W1hKTq5BDMCEAdk0cpfWqJknXxtn2AzXAr7eqKijDs8MZiAf
+         nvQgNamGsDJTCuNZ8kiDUxIXtDh2ifzU2d20NgcY+2C/u7N65vS76St4VjjzKMP0E/oq
+         g+nXn0wlk3qs8rHAHvX30a0+6jaZ4xrMFW/DrO0ZKqOckWasjfx3VzrchlZHcw8Xcbwp
+         ug1w==
+X-Forwarded-Encrypted: i=1; AKwUvBwRyzzFklpJaMP55Hv6VPauzzYLUIQC42VyXYTpkgibESUYqNo576c3+RKTsmL4DR3knPZ2Jnisw+amQlw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kEIeVG+WjjVWFZBov0zOMRhwz6NqVHb5wlYVNXTfdpwwPT91tA
+	vk2iecBrd7BibTGyHzsrTKorhtIch9C3XdvEHIejrnOEZSv+Ryv4haUqOrVfQf8BP5rkv5Sa5v0
+	j6MczxpEvPsi5twFMA9vjNuxn61s+fFjs8cYuq79OzODQK9YEUSsQQJ5YDuE=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS8P251MB0001:EE_|GV2PPFDCA549DEA:EE_
-X-MS-Office365-Filtering-Correlation-Id: 531d2d49-7680-4986-9251-08df10cf0725
-X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|41001999006|24021099003|55001999006|25031999004|37011999003|51005399006|8060799015|19110799012|23021999003|5072599009|5062599005|15080799012|25010399006|40105399003|1602099012|10035399007|2607281247196008|3412199025|4302099013|440099028|26104999009|19061999003;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?99WioDlHBhLGB1LI1wDUWwfVnLLXpq+wJvJngSBWkzBsIQXlGwLjvAJryvzI?=
- =?us-ascii?Q?upDMrEXRPSTyHr8lFl7VOILVWlmR+iBKPdX9NNStTk5k3+jYwAu5kSC9AKh0?=
- =?us-ascii?Q?/6IvTfEtneOBFsJRotZdbcqhTWBATyLLRkd0sAI3jhY452HeRqXG5ZUaCcAt?=
- =?us-ascii?Q?3t9N+sz1MPwv6Wm6E4hJMNnswzCc8IPPzcvRHQNnjb6uEreuwT2YAGhizomA?=
- =?us-ascii?Q?U4t0c4661ThT6Ay617+5AvyKM7FqaIK9q7KPdHTtd6qrrcGJPGktrsfHGiXI?=
- =?us-ascii?Q?F0plmsFvqYNuwyxZRN0iTicHzSQ2aHQ4advKoGxb5VVgUyA66Jz65G3mCViW?=
- =?us-ascii?Q?KaHpSmOlvqFz9VtFT8zAWMHZsXXY5VdEVXIhVK8KZHxeF+GFQvZLlLlN08Zu?=
- =?us-ascii?Q?ZEMVZ+B0tX9WSAoVwgPVowos7efujmpUMbIxdAk91C/U7kyN+alvDugJdEhG?=
- =?us-ascii?Q?ZV9sDTPpAgTPW2HsPmCOGKHyJ2NiniXGTjMMSSXM2cqcAk2HJRwhybf1pd4x?=
- =?us-ascii?Q?sSIUf+vso3RF75SGfU8L7exc+S2BCbnlX2SzGZxneDiMf4Etw+FsHv7YQLEA?=
- =?us-ascii?Q?qhDovMwLLGRVECKXNv+CdK4ppjRmVST3C4A1whok1CBkvsmXm8HpFbyCUTQK?=
- =?us-ascii?Q?Vf5FYRNzmAthZLIkrUyJL/KPTIY0HNOSyIcLJvMy96E8muArL/ZFjSKRGc7z?=
- =?us-ascii?Q?5pDvwS0gPXX9O0S7iEUdgDcTpxpdNhtatXZl1ga8bWCjgtP/EV6pPh0FfQEn?=
- =?us-ascii?Q?N2gFAHkX1UR4gOD3rBEvFh1LPqsGW0ZoKZAt6+lfz4iM9vt4iYeS9V2HQCRR?=
- =?us-ascii?Q?EdzpzwKMQaW5kSpQHulvEoiWfS58OV1bgL6cQ4Ikx74FAm2tZbSJz1O0o8KN?=
- =?us-ascii?Q?dtvVt5rN7/AkpjRyl6Oh6TUPqGydLU+vg3+PeEeloApaCb1OqU2mc5FLf4Hr?=
- =?us-ascii?Q?iFtBVwOIyQURBpMNWyGqVNIPEftJpUxXCZZxgdpnmY2tFQjU9D1lepLYhZYx?=
- =?us-ascii?Q?0+mk0iY3EuZU0xWIOlVIzjCLu7RrM9ytp61T1Z4NhudUv5/1bAHZcHQpE3oI?=
- =?us-ascii?Q?qS78j4FzlAiGZ9c231l2nD6/AfA0hYBhEiQ0cRfwYVmWyossezp32B3pmLDi?=
- =?us-ascii?Q?dtNAvPZ6r1+OWy3cQwmn8Jg2TIcSdXwGqGr1B53UDKXsqNRd3DOmtMVvd32F?=
- =?us-ascii?Q?Snq1bwkXeYNbQQWBirfLJ7yXELrltLdOEx5fUJSPOvuCRByeDKMTYzlV+sw?=
- =?us-ascii?Q?=3D?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?PWT4FXarE3PT+81oC70yv/AA19bHEmehjtE9DP/HKFgotTF2p/HsffbB8G7y?=
- =?us-ascii?Q?NxDX5dQYwMMRPr7Go1FLri4f0u7924CEa8+r5i4or0/6OP763OxUNXSVShYu?=
- =?us-ascii?Q?QShZYxRBc9hCBGD8FYtTqPuVKNCGDSwcB9R5OKrIMNBN+g+naAH7jxcruQIi?=
- =?us-ascii?Q?8bJ0pFF3pnUObifFAlhg3ca+H+C9XWuvyOssa4QwpdG9NTCA/0yxyz9iCDKq?=
- =?us-ascii?Q?DEC+k2x4VpQ2ustfFiON16XP/8hsjxTubMP8VogieLzXJlEY33plFHSUmGHS?=
- =?us-ascii?Q?VIoy/vMKlAqPgcmWAiGIaeAtX9H5tbgYiHypq8/hcYi+7EPU3nHFQBEYxEzk?=
- =?us-ascii?Q?6A+jmfPYQajeEbnliTPNRVzIsu3gWhrDFPy8BXI4xm8zVXYX/rY4XFOij0wx?=
- =?us-ascii?Q?RHTh3kcInH++9GGnH5pD3e0Bc/xO9IZOhHRIcxUIvcHqYHciHstCOiTIbZe6?=
- =?us-ascii?Q?t8FnAsYdH6mc4HnMSjVKYB/U7V6yvLTR24CHoEoBwKja7nulC7P5b+4aFsCi?=
- =?us-ascii?Q?6FmSIF80I82FT8QraAql9oDjDSzPSwE54ADsw5fz4gvP86xtWX4s9N3Ftasn?=
- =?us-ascii?Q?q3Ylu9XPWhHoa6cj+b+xratJfZwLtKY0iBk1ntOgPMy4pC2CBgJuayURPk/3?=
- =?us-ascii?Q?m9AY6pOp3bzoZmaz0NCAyDuqu90H4AxQtkmVV61udR6+afR4NJ8vRQbCYLAT?=
- =?us-ascii?Q?B+f1KqnZO10GY5Z9PogkaKuDXr8RJm3smcaJtSJoLvSZrbN6R2M5MusFqak/?=
- =?us-ascii?Q?rlL8cGalykWZqlv+ZiTBNWvpGcErVzd57vWBiXofVYWD0zFOqvnupWvF6o4Q?=
- =?us-ascii?Q?/Y2ta6nOG0ECQsQZxmhe6kpumAhgC1GgOtmtWpBw9f8mdEbxvw2Qo6eukZP+?=
- =?us-ascii?Q?RAM3WZNozK1nnfTYznqdKyre/hh8wHY+EEEPSwdFHt6+ZjZokysfursaqVNi?=
- =?us-ascii?Q?WuFo8BchlLKL4mzOdxXjBpeLP/eHSwJhTbDDtLMdgDSVcTZI44X/JxMI7rrF?=
- =?us-ascii?Q?M/hRrijVEvdgM4TvnlxReMwQM0p3jsw3B8ed9AfUD0yVJtHWk3IHCyBAA9sT?=
- =?us-ascii?Q?TEncFq4N9yDFadOjDPNsuzwgOXOb9lOSNTH2Y082FqWr4RgTzx+THK0mZQZn?=
- =?us-ascii?Q?cAfNu/Z3q3Z72ofN07x5LS3YROis4Wo5FEXAOQXbzNdaQEDxEViNK50SF/9J?=
- =?us-ascii?Q?9YFSfWGcKSB3E94aRfEG6zWT6LlSTj5twbmOw6cvBHweuPoTAn+cAv+6KFc2?=
- =?us-ascii?Q?nAq+Sxn6ojjFFI0+SJv49IAzwdfFbL1V7u0VBH38p9++YVoRWfpoP6b2zNxx?=
- =?us-ascii?Q?w2rOwyZZsDeedcXYW5K6S8igJXFGihgk+g7zq6iVn5P5JO/MPdhhZfm2Yqhj?=
- =?us-ascii?Q?SLiC6Hl+xVA1HayHwss0RSfniWRIgGqBrAqwSx/ZaGu+55hEVWWEzS/uZx6K?=
- =?us-ascii?Q?SbTPU0MOYmV/T/yL8IsixHij10VWeWg4?=
-X-OriginatorOrg: sct-15-20-9412-3-msonline-outlook-fe3f5.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: 531d2d49-7680-4986-9251-08df10cf0725
-X-MS-Exchange-CrossTenant-AuthSource: AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Sep 2026 13:09:07.7077
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PPFDCA549DEA
+X-Received: by 2002:a05:6820:2083:b0:6c2:3441:9b03 with SMTP id
+ 006d021491bc7-6c24ceaf609mr1530618eaf.21.1789218748306; Sat, 12 Sep 2026
+ 06:12:28 -0700 (PDT)
+Date: Sat, 12 Sep 2026 06:12:28 -0700
+In-Reply-To: <6aa178fc.f2639fcc.29487d.0008.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa54fbc.f2639fcc.29487d.003d.GAE@google.com>
+Subject: Re: [syzbot] [fs?] possible deadlock in ovl_create_object (2)
+From: syzbot <syzbot+7cab6a19619f1b8efc00@syzkaller.appspotmail.com>
+To: dakr@kernel.org, driver-core@lists.linux.dev, gregkh@linuxfoundation.org, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	rafael@kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-hw_data->hws[] is annotated with __counted_by(num), so hw_data->num
-must hold the element count before the array is accessed.
-ipq_cmn_pll_register_clks() assigns it only after storing the fixed
-rate output clocks and the CMN PLL, and the unwind loop under
-unregister_fixed_clk reads .hws[] with .num still zero. Both are
-out-of-bounds accesses under CONFIG_UBSAN_BOUNDS.
+syzbot has found a reproducer for the following issue on:
 
-Move the assignment to right after the allocation.
+HEAD commit:    5225b8eec4c9 mailmap: update entry for Jens Axboe
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=104c82d1580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
+dashboard link: https://syzkaller.appspot.com/bug?extid=7cab6a19619f1b8efc00
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=144c82d1580000
 
-Fixes: f81715a4c87c ("clk: qcom: Add CMN PLL clock controller driver for IPQ SoC")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Aamir Ahmed <elb12345@hotmail.co.uk>
-Reviewed-by: Luo Jie <jie.luo@oss.qualcomm.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Reviewed-by: Gustavo A. R. Silva <gustavoars@kernel.org>
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+7cab6a19619f1b8efc00@syzkaller.appspotmail.com
+
+block2mtd: error: cannot open device /tmp/ovl_bug_7ivaQs/merged/nonexistent
+======================================================
+WARNING: possible circular locking dependency detected
+syzkaller #0 Not tainted
+------------------------------------------------------
+syz-executor469/6041 is trying to acquire lock:
+ffff888024d8c460 (sb_writers#6){.+.+}-{0:0}, at: ovl_create_object+0x130/0x3b0 fs/overlayfs/dir.c:705
+
+but task is already holding lock:
+ffff88805802a7a8 (&ovl_i_mutex_dir_key[depth]){++++}-{4:4}, at: inode_lock include/linux/fs.h:1024 [inline]
+ffff88805802a7a8 (&ovl_i_mutex_dir_key[depth]){++++}-{4:4}, at: lookup_open+0xb13/0x1990 fs/namei.c:4458
+
+which lock already depends on the new lock.
+
+
+the existing dependency chain (in reverse order) is:
+
+-> #4 (&ovl_i_mutex_dir_key[depth]){++++}-{4:4}:
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       down_read+0x99/0x4c0 kernel/locking/rwsem.c:1574
+       inode_lock_shared include/linux/fs.h:1039 [inline]
+       lookup_slow+0x42/0x70 fs/namei.c:1935
+       walk_component fs/namei.c:2282 [inline]
+       lookup_last fs/namei.c:2789 [inline]
+       path_lookupat+0x5e8/0xc40 fs/namei.c:2813
+       filename_lookup+0x202/0x590 fs/namei.c:2842
+       kern_path+0x37/0x50 fs/namei.c:3036
+       lookup_bdev+0xd8/0x2a0 block/bdev.c:1268
+       bdev_file_open_by_path+0x82/0x330 block/bdev.c:1123
+       add_device drivers/mtd/devices/block2mtd.c:279 [inline]
+       block2mtd_setup2.isra.0+0x2ee/0xbd0 drivers/mtd/devices/block2mtd.c:459
+       block2mtd_setup+0xbd/0xd0 drivers/mtd/devices/block2mtd.c:476
+       param_attr_store+0x199/0x300 kernel/params.c:591
+       module_attr_store+0x58/0x80 kernel/params.c:906
+       sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
+       kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
+       iter_file_splice_write+0x830/0x10b0 fs/splice.c:736
+       do_splice_from fs/splice.c:936 [inline]
+       do_splice+0x109c/0x1fa0 fs/splice.c:1349
+       __do_splice+0x33b/0x370 fs/splice.c:1431
+       __do_sys_splice fs/splice.c:1634 [inline]
+       __se_sys_splice fs/splice.c:1616 [inline]
+       __x64_sys_splice+0x187/0x250 fs/splice.c:1616
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #3 (param_lock){+.+.}-{4:4}:
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
+       kernel_param_lock kernel/params.c:604 [inline]
+       param_attr_store+0xec/0x300 kernel/params.c:589
+       module_attr_store+0x58/0x80 kernel/params.c:906
+       sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
+       kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
+       new_sync_write fs/read_write.c:595 [inline]
+       vfs_write+0x6af/0x1050 fs/read_write.c:687
+       ksys_write+0x12a/0x250 fs/read_write.c:739
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #2 (&of->mutex){+.+.}-{4:4}:
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
+       kernfs_fop_write_iter+0x2c2/0x5f0 fs/kernfs/file.c:336
+       iter_file_splice_write+0x830/0x10b0 fs/splice.c:736
+       do_splice_from fs/splice.c:936 [inline]
+       do_splice+0x109c/0x1fa0 fs/splice.c:1349
+       __do_splice+0x33b/0x370 fs/splice.c:1431
+       __do_sys_splice fs/splice.c:1634 [inline]
+       __se_sys_splice fs/splice.c:1616 [inline]
+       __x64_sys_splice+0x187/0x250 fs/splice.c:1616
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #1 (&pipe->mutex){+.+.}-{4:4}:
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
+       pipe_lock fs/pipe.c:91 [inline]
+       pipe_lock+0x69/0x80 fs/pipe.c:88
+       iter_file_splice_write+0x1fd/0x10b0 fs/splice.c:682
+       do_splice_from fs/splice.c:936 [inline]
+       do_splice+0x109c/0x1fa0 fs/splice.c:1349
+       __do_splice+0x33b/0x370 fs/splice.c:1431
+       __do_sys_splice fs/splice.c:1634 [inline]
+       __se_sys_splice fs/splice.c:1616 [inline]
+       __x64_sys_splice+0x187/0x250 fs/splice.c:1616
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #0 (sb_writers#6){.+.+}-{0:0}:
+       check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3209
+       check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+       validate_chain kernel/locking/lockdep.c:3952 [inline]
+       __lock_acquire+0x1528/0x1f40 kernel/locking/lockdep.c:5288
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       percpu_down_read_internal include/linux/percpu-rwsem.h:53 [inline]
+       percpu_down_read_freezable include/linux/percpu-rwsem.h:83 [inline]
+       __sb_start_write include/linux/fs/super.h:19 [inline]
+       sb_start_write include/linux/fs/super.h:125 [inline]
+       mnt_want_write+0x6f/0x420 fs/namespace.c:494
+       ovl_create_object+0x130/0x3b0 fs/overlayfs/dir.c:705
+       lookup_open+0x1255/0x1990 fs/namei.c:4567
+       open_last_lookups fs/namei.c:4767 [inline]
+       path_openat+0xa2c/0x2440 fs/namei.c:4997
+       do_file_open+0x20e/0x430 fs/namei.c:5029
+       do_sys_openat2+0x10f/0x1e0 fs/open.c:1417
+       do_sys_open fs/open.c:1423 [inline]
+       __do_sys_openat fs/open.c:1439 [inline]
+       __se_sys_openat fs/open.c:1434 [inline]
+       __x64_sys_openat+0x12d/0x210 fs/open.c:1434
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+other info that might help us debug this:
+
+Chain exists of:
+  sb_writers#6 --> param_lock --> &ovl_i_mutex_dir_key[depth]
+
+ Possible unsafe locking scenario:
+
+       CPU0                    CPU1
+       ----                    ----
+  lock(&ovl_i_mutex_dir_key[depth]);
+                               lock(param_lock);
+                               lock(&ovl_i_mutex_dir_key[depth]);
+  rlock(sb_writers#6);
+
+ *** DEADLOCK ***
+
+locks held by syz-executor469/6041: 2, last CPU#2:
+ #0: ffff88802a68c460 (sb_writers#13){.+.+}-{0:0}, at: lookup_open+0x150/0x1990 fs/namei.c:4451
+ #1: ffff88805802a7a8 (&ovl_i_mutex_dir_key[depth]){++++}-{4:4}, at: inode_lock include/linux/fs.h:1024 [inline]
+ #1: ffff88805802a7a8 (&ovl_i_mutex_dir_key[depth]){++++}-{4:4}, at: lookup_open+0xb13/0x1990 fs/namei.c:4458
+
+stack backtrace:
+CPU: 2 UID: 0 PID: 6041 Comm: syz-executor469 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_circular_bug.cold+0x178/0x1be kernel/locking/lockdep.c:2087
+ check_noncircular+0x146/0x160 kernel/locking/lockdep.c:2219
+ check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3209
+ check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+ validate_chain kernel/locking/lockdep.c:3952 [inline]
+ __lock_acquire+0x1528/0x1f40 kernel/locking/lockdep.c:5288
+ lock_acquire kernel/locking/lockdep.c:5942 [inline]
+ lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+ percpu_down_read_internal include/linux/percpu-rwsem.h:53 [inline]
+ percpu_down_read_freezable include/linux/percpu-rwsem.h:83 [inline]
+ __sb_start_write include/linux/fs/super.h:19 [inline]
+ sb_start_write include/linux/fs/super.h:125 [inline]
+ mnt_want_write+0x6f/0x420 fs/namespace.c:494
+ ovl_create_object+0x130/0x3b0 fs/overlayfs/dir.c:705
+ lookup_open+0x1255/0x1990 fs/namei.c:4567
+ open_last_lookups fs/namei.c:4767 [inline]
+ path_openat+0xa2c/0x2440 fs/namei.c:4997
+ do_file_open+0x20e/0x430 fs/namei.c:5029
+ do_sys_openat2+0x10f/0x1e0 fs/open.c:1417
+ do_sys_open fs/open.c:1423 [inline]
+ __do_sys_openat fs/open.c:1439 [inline]
+ __se_sys_openat fs/open.c:1434 [inline]
+ __x64_sys_openat+0x12d/0x210 fs/open.c:1434
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fadca23e437
+Code: 48 89 fa 4c 89 df e8 98 1d 00 00 8b 93 08 03 00 00 59 5e 48 83 f8 fc 74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44 24 10 0f 05 <5b> c3 0f 1f 80 00 00 00 00 83 e2 39 83 fa 08 75 de e8 23 ff ff ff
+RSP: 002b:00007fff380044d0 EFLAGS: 00000202 ORIG_RAX: 0000000000000101
+RAX: ffffffffffffffda RBX: 000055555dddf400 RCX: 00007fadca23e437
+RDX: 0000000000000042 RSI: 00007fadca277192 RDI: ffffffffffffff9c
+RBP: 00007fadca2770fe R08: 0000000000000000 R09: 0000000000000000
+R10: 00000000000001a4 R11: 0000000000000202 R12: 000055555dde1770
+R13: 0000000000000026 R14: 00007fff380045a0 R15: 0000000000000002
+ </TASK>
+
+
 ---
-v2:
-  - cut the commit message down (Bjorn)
-  - collect Reviewed-by tags
-v1: https://lore.kernel.org/linux-clk/AS8P251MB0001B905088748016A0965F1C8B42@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM/
-
-Compile-tested only; I have no IPQ hardware.
-
- drivers/clk/qcom/ipq-cmn-pll.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/clk/qcom/ipq-cmn-pll.c b/drivers/clk/qcom/ipq-cmn-pll.c
-index dafe8c1738df..a9abad9ff4e5 100644
---- a/drivers/clk/qcom/ipq-cmn-pll.c
-+++ b/drivers/clk/qcom/ipq-cmn-pll.c
-@@ -380,6 +380,8 @@ static int ipq_cmn_pll_register_clks(struct platform_device *pdev)
- 	if (!hw_data)
- 		return -ENOMEM;
- 
-+	hw_data->num = num_clks + 1;
-+
- 	/*
- 	 * Register the CMN PLL clock, which is the parent clock of
- 	 * the fixed rate output clocks.
-@@ -406,7 +408,6 @@ static int ipq_cmn_pll_register_clks(struct platform_device *pdev)
- 	 * is configured to 12 GHZ by DT property assigned-clock-rates-u64.
- 	 */
- 	hw_data->hws[CMN_PLL_CLK] = cmn_pll_hw;
--	hw_data->num = num_clks + 1;
- 
- 	ret = devm_of_clk_add_hw_provider(dev, of_clk_hw_onecell_get, hw_data);
- 	if (ret)
-
-base-commit: df2908090cda368b01ff43709f51890076c56157
--- 
-2.55.0
-
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
