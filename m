@@ -1,150 +1,195 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 852AF2F260C
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 21:54:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8506C30ACEE
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 22:00:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789250047; cv=none; b=m9y+McJs/wGP9pI1f/wcEe40XXFB125AffXU6r7PSYRDumMZDP1PylsQqTYYG+oLwAaeWNl1bswmz/LTuM9o4oG2cpNGBRyrLql8UlGrl1oaa/4oR8Cul+ABw4Yf7+i4t9xwNMW16Pu8LtXptw2f3nWL1viiV+r96/HUIwnNX/0=
+	t=1789250421; cv=none; b=gSPWfx4WQ4vd/e5VqeKB3blIojAW9OHG6H/LthYmuO77xYHcIra28TtfJoK5ZMKae/CPWihFX3ukMtrcoCwSn0FIdgE6MH8+kMub0SLRtWeIGORflDR3UuR1ZUh0Mm8+ZnSWP71zSVAy8sgn4i5SOy6tbY8jYIKZ1i1UULWEdYc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789250047; c=relaxed/simple;
-	bh=2w2Xokvxv3Zza1WDoW8p2uRdZXNP1otSV6DskpOG3dI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=d2dQOwh5NpitVWueC20JY1pj5qAZ2BvHkNGOYv5sply2DQwdFGDhMJK4A7nq49QsH2xTIdBbwq4WHrJ7OqDcEgPKdRyJfzwWLarRJw7hDgpcqPor0e91qAq4/tAHTElRvwFw+bj/lRoy4cLUnjE2VoS3uSYLjxCX7ZSgQrD1fYI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu; spf=pass smtp.mailfrom=asu.edu; dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b=DdKdcAs4; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
+	s=arc-20240116; t=1789250421; c=relaxed/simple;
+	bh=VSjoq7DHQbKtAdXTo08YR1Ci+Z/OuPpj5YnrQdVytbE=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=IG2mFzq59OUqvBHxm0eF5Ok+cUXEdqcO0qThD3lvm3GmNVVFg1i8p6KQmTDJZJQa7pPcB8PahAX3900F+fp4qvh0JLWgZ4ZBPLPBfGpw4G05kCRsIPEapyKcBE16I6N+lK9O1Wsh+V56WzN+r8Hr5MQjPKxSP1mVq3DhXXzE+fI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Tvpxxhm9; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b="DdKdcAs4"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747eb79fbso4992025ad.3
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 14:54:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Tvpxxhm9"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd6185db7so4744105e9.1
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 15:00:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=asu.edu; s=google; t=1789250045; x=1789854845; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LExfl2fEFs87Gnc/CJkjB7Li4LuphLalhWsojqEvmUw=;
-        b=DdKdcAs4Mkks026c4JirbiMixV+VsGamJLs0A3tnPo8pyDznWN6I8epdMOHy2xRDIe
-         I8u13BrmTf4HnT13J8EmO/5+eiRiiHDHzdhjpCVgfFykDGDPD0PEJ+ncX1VMGG9ZQXFA
-         UyipmaCrHpK4St1rYih95O5EOgNjRjaZmgOyp4/2WtGfKJ5vqPWThpztHdsBgLz4rUa8
-         xyKw1cvR3rufdAaUFNmjYDnxMcX+TqMURtLTMMudPm2uby5+4cSMPC7T727SJUZrNRwy
-         EaUfge23gyjPo00VpGQ2a4CW/71LWMw5bYrHCcodVvx6toH52YNF0PLaHFg4J/CIx+aZ
-         MNgA==
+        d=google.com; s=20251104; t=1789250418; x=1789855218; darn=vger.kernel.org;
+        h=content-type:mime-version:references:message-id:in-reply-to:subject
+         :cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ShFFlTNrkhtcTY1WEEF9s6hCAewZPx0n3fIe5hLvRZo=;
+        b=Tvpxxhm9rJ8WYRsBiT/xjrzlhS8DbT5GvMsIGw4HPVU5QKIJmMRgcsppKv9nv2phYu
+         Smm/6rEmmKyBtuARBmoOEVXmW5ZriVYBlP7EEQ5PKrRkG742u4jbetZ/Dfqp9yyn60+3
+         SKhPb2LbNnF9MLFn2nUFE29SIgp+5w/pG9aboVgbVSmhCsSjzx3/3b9Q+/C5gM3QGpnc
+         CIdR2WGwKyN/4T2f6Ds7cHMU4y8vdDgqRtdmwmapMz3PA5SIOaMtgB+8hAkpwk/+HNEF
+         gYeASik22FtEXcjOZFnKZEEZ0z2+femILPQUMSHbk2C14J9qhK4aKSwtCDujKL42xvcG
+         e1XA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789250045; x=1789854845;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1789250418; x=1789855218;
+        h=content-type:mime-version:references:message-id:in-reply-to:subject
+         :cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=LExfl2fEFs87Gnc/CJkjB7Li4LuphLalhWsojqEvmUw=;
-        b=QJJ6VjJ0LNpTwhss841WycaOz7tlSeZzQd/vJQyu/8tzMsnelfbNN4JewFymU4eetE
-         4j88gHYlGuOFzanqnawHZ7HzXC3ygynJrEmY3Bs+EpZDmzbFDTNx53rFahXBwrmH/Ufr
-         7oQfdbOjsQt9Lmmepim+57oF34gBCPI3Z0Nluw2+SufuOUIutKv5eEQtMG7NP9w6xKWR
-         r2Lco8Qa7RI5cE33b2NV8UqEbkPjRWckDkRiB/HvE2Lh9snENubHSF5gba1h9gy/tYFy
-         mSMfsivi5PG8IzUt03HLnxXM5XoHrUgmJQC0Ppsh4qciGsP8e5tlPYHxVcil3ZP+jaOS
-         Myhw==
-X-Forwarded-Encrypted: i=1; AKwUvBzGGJ95ptp/7J5kCQxbbB4/fHGcCIc+D6NAcXGcAtEG4qrcduV50P6h/yXjTiqap1KIX0/LPqGh3dhhbww=@vger.kernel.org
-X-Gm-Message-State: AFuF++lAKVWIfdI5FbHo7K+mkZJItBWbtBq/fZyL83cAXVPLaLmJrQhm
-	GvzD3L4bVWpgxwg4eGXeSRMMeH987K519IIdjTXczHTybrvj5yiPfrZEOrDwClj2uw==
-X-Gm-Gg: AYBFou1+NFj7vw6jP7wb4YdeKh5FOxquIKIwwaaeaKu45vQ+CLyZBzS/46zgiNDc8um
-	mwtduzJ3HPZHQnfQMUsO7K4HQjnNvvGQUD0bo5rpcLN8ElaIs65SzHFKkcLh2njYDBFwgQlXFHc
-	/YKCgaGjASyx0LO4foWJyab5N46gKmckWT9kNFmMlY6PJ32aoYMJ8qJR6ghjyMsu262VUaF4RIi
-	yoP5TYX7r5+xFolebpV4N7CCLo6NOn+xmHVHCy20IIul/ZOG8XtnypS2rNHIALa+d0wf23IhL4q
-	RPKw4+GXMHTpAczldQYkoCv+9PxUuMcNnSsSC+7ANT5bb/p+3NEBFy9YcTzGbO+/LyXgz71+zyl
-	eYfwJDMqJVdVyqRZrBvFA/kvnCdeXsjAp1rQ57fmV5Y8J86UAplWqF9e/C4TpPa2ZvCBqvh1DG5
-	k3Yqo/k6Z1IRf5iK99FExoxigSXriGqPuMMwR/WKCmyKp77RjrFpP8+HdAHGBOJG6LEFF6EiFxx
-	lUWnGRt4PsKGbIhbrNT8VOfYiGABcQS2PXLqhRzzRZQ5tXOSbPis6Lw
-X-Received: by 2002:a17:903:19cf:b0:2c9:e9db:8167 with SMTP id d9443c01a7336-2dd2a1ea679mr208126375ad.7.1789250044780;
-        Sat, 12 Sep 2026 14:54:04 -0700 (PDT)
-Received: from xps.tailc0aff1.ts.net (149-169-99-5.nat.asu.edu. [149.169.99.5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4efc398sm18474475eec.19.2026.09.12.14.54.04
+        bh=ShFFlTNrkhtcTY1WEEF9s6hCAewZPx0n3fIe5hLvRZo=;
+        b=W8292vijOMi5j+rx2wDHXLG4fV1Ag4/a6HbE/x4muBV18IhMyCwO9YnhfCYKVCJgsE
+         Q8waxkb+RetlTQ049f6JiHVwyQZRPsossKKUs2bNrstOlNvCecYKaXvdI4wjY+xzPK0E
+         hGg5q3o3fqkR4D1S33z9276gpOgFaR63kKsHYJb3en1SsmpV3v6BS+27f9x+E4KXR5h2
+         QZdKOaMUGvoYouBeNuMG3u41e86iE7BXxJ5Bv7G6Nuk819bgTfjw5kqg9Ed82rMFZ2mN
+         Jal5iQa5DupSaTOhlb9rKdcfnvRG92dimVQWSRqIXFvTgNPkuUsUksoDCJIFiZkMgFJM
+         fxlg==
+X-Forwarded-Encrypted: i=1; AKwUvBw4aCbYLXSVsOaRI+2UtDVfZuN5lBC/ZauSoe9psxbVL0ra5hHxABBHyiq0O5FZHo+N8ebnD0OxQz/vkvY=@vger.kernel.org
+X-Gm-Message-State: AFuF++nbebrFTM+iA94WYyd8iz+SY6ZXxVgSlnCQqLtdGt/wQZKkE8S6
+	5BnSK9pHnXepabBEhpMM7n6jay9CyUtcvQNddRgAwf1Fo/ha4VILRrQcFk9s8k0HnA==
+X-Gm-Gg: AYBFou2DlYwWBmvf3qmixcaIVVOFZDOKtEE7yNH8yXkaU8XDWBUqR5vxY3HxY0QMsrq
+	FxqZlwu/7GuU7d/Bmu/ixb6npbaNeBwKg9D1fezjAl1VDWETMiXo5XLZdlrpT5pKs5uIhG02zuK
+	zv0d11fvRcF/nZpbcKS5u2RtdRqKQdi6TEEe3/ztBYcVxEOya0QJ8WOadFNP8GgxlyRrq4urw3K
+	Z9C44f/l8Vg+u5akZNlOmSzb6/+3YL+Kz0/rEAhnjXxgUoeWST3uA64RyNlTrTzu8rlGJgNP+az
+	KSeuPI5uCdHxn5iXKk2hduLFjPmKKplPFd76S8eKWmNoO2l+AuAXHnFABV3opF93+OZIM2wmWg8
+	9xyxHu04KdMJ+ob0/+TQI4VpTqqp3vGkJ8TFG6MjZRaoDT5KLmxKrlxZ6Bx96haJjwZpTmf2tkV
+	Zh20vFE6JN6kxGECLBFc+jb07uvcSy0Mf6sjtTO0S3YBBg5iq5NSY9Jo/Y8t8P3wTmCP4ukIUHM
+	3vEEcFbBiEn9CGtMxHI
+X-Received: by 2002:a05:600c:3115:b0:49d:1e79:35d6 with SMTP id 5b1f17b1804b1-49e61094b9bmr117724205e9.14.1789250416975;
+        Sat, 12 Sep 2026 15:00:16 -0700 (PDT)
+Received: from darker.lan (104.157.125.91.dyn.plus.net. [91.125.157.104])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e64221639sm67265195e9.4.2026.09.12.15.00.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 12 Sep 2026 14:54:04 -0700 (PDT)
-From: Xiang Mei <xmei5@asu.edu>
-To: mst@redhat.com,
-	jasowangio@gmail.com,
-	eperezma@redhat.com,
-	xuanzhuo@linux.alibaba.com
-Cc: virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	co+6dcbccedc9ec6452@bugs.sh,
-	Xiang Mei <xmei5@asu.edu>
-Subject: [PATCH] vdpa: fix double free of the reply skb in vdpa_nl_cmd_dev_config_get_doit()
-Date: Sat, 12 Sep 2026 14:54:01 -0700
-Message-ID: <20260912215401.126194-1-xmei5@asu.edu>
-X-Mailer: git-send-email 2.43.0
+        Sat, 12 Sep 2026 15:00:16 -0700 (PDT)
+Date: Sat, 12 Sep 2026 14:59:23 -0700 (PDT)
+From: Hugh Dickins <hughd@google.com>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+cc: Hugh Dickins <hughd@google.com>, Andrew Morton <akpm@linux-foundation.org>, 
+    Ackerley Tng <ackerleytng@google.com>, 
+    Alexander Viro <viro@zeniv.linux.org.uk>, Alexandre Ghiti <alex@ghiti.fr>, 
+    Baolin Wang <baolin.wang@linux.alibaba.com>, 
+    Barry Song <baohua@kernel.org>, Binbin Wu <binbin.wu@linux.intel.com>, 
+    Christian Brauner <brauner@kernel.org>, Christoph Hellwig <hch@lst.de>, 
+    Christoph Lameter <cl@gentwo.org>, 
+    Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+    David Hildenbrand <david@kernel.org>, JP Kobryn <jp.kobryn@linux.dev>, 
+    Jan Kara <jack@suse.cz>, Jens Axboe <axboe@kernel.dk>, 
+    Johannes Weiner <hannes@cmpxchg.org>, Kairui Song <ryncsn@gmail.com>, 
+    Kiryl Shutsemau <kas@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+    Leonardo Bras <leobras.c@gmail.com>, Lorenzo Stoakes <ljs@kernel.org>, 
+    Marcelo Tosatti <mtosatti@redhat.com>, 
+    Matthew Wilcox <willy@infradead.org>, 
+    Mel Gorman <mgorman@techsingularity.net>, 
+    Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@suse.com>, 
+    Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+    Oscar Salvador <osalvador@suse.de>, Peter Zijlstra <peterz@infradead.org>, 
+    Qi Zheng <qi.zheng@linux.dev>, Rik van Riel <riel@surriel.com>, 
+    Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+    Shakeel Butt <shakeel.butt@linux.dev>, 
+    Suren Baghdasaryan <surenb@google.com>, 
+    Yang Shi <yang@os.amperecomputing.com>, Yu Zhao <yuzhao@google.com>, 
+    Zach O'Keefe <zokeefe@google.com>, Zi Yan <ziy@nvidia.com>, 
+    linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+    linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH v2 05/26] mm/fbatch: lru_add_del_folio()+folio_add_lru()
+ after clear_lru()
+In-Reply-To: <af864862-90f9-4b16-a06e-1c189c4c4d6b@kernel.org>
+Message-ID: <5c943056-cf6b-788f-aa45-b7c0da28ecf2@google.com>
+References: <e28f9a94-4339-f8ac-8301-6be3c9b5b7ce@google.com> <b2e312f3-6909-5496-195f-ab71b45970ac@google.com> <af864862-90f9-4b16-a06e-1c189c4c4d6b@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-genlmsg_reply() consumes the reply skb on every outcome: netlink_unicast()
-frees it whether it queues it, drops it, or bails out early.
-vdpa_nl_cmd_dev_config_get_doit() lets its return value fall through to the
-shared error label, which calls nlmsg_free(msg) again and double-frees the
-sk_buff on any reply failure. The failure is reachable unprivileged:
-VDPA_CMD_DEV_CONFIG_GET carries no GENL_ADMIN_PERM, so batching several
-requests into one sendto() on a socket with a shrunken SO_RCVBUF fills the
-receive queue, and netlink_attachskb() then takes its MSG_DONTWAIT path,
-freeing the skb and returning -EAGAIN.
+On Wed, 9 Sep 2026, Vlastimil Babka (SUSE) wrote:
+> On 9/9/26 11:51, Hugh Dickins wrote:
+> > Most callers of folio_test_clear_lru() then proceed to remove the folio
+> > from its lru, and add it back at the end when they're done (if still in
+> > use). But isolate_migratepages_block() and check_move_unevictable_pages()
+> > sometimes decide against, and release immediately with a folio_set_lru().
+> > 
+> > Which usually works fine: but there's now a small chance that while they
+> > held the folio with lru bit cleared, an lru_add fbatch drain came along,
+> > and had to skip that folio because its lru bit was transiently cleared
+> > (previously, the lru_add fbatch drain relied on finding lru bit never yet
+> > set). This risks leaving that folio off lru, unreclaimable until freed.
+> 
+> So this makes the previous patch a somewhat bisection hazard? I guess it's
+> acceptable given it's not fatal.
 
-Set msg to NULL once genlmsg_reply() has consumed it so the shared exit
-path frees the skb only on the early error gotos that still own it;
-nlmsg_free(NULL) is a no-op.
+Not what I would call a bisection hazard. Yes, the preceding patch
+is not perfect, but more reviewable that way, and then come corrections
+to edge cases best considered by themselves. Nobody bisecting unrelated
+issues would get held up by this gap, and it won't crash any bisections.
 
-  BUG: KASAN: slab-use-after-free in sk_skb_reason_drop (net/core/skbuff.c:1220)
-  Read of size 4 at addr ffff88800d99d49c by task exploit/147
-  Call Trace:
-   sk_skb_reason_drop (net/core/skbuff.c:1220)
-   vdpa_nl_cmd_dev_config_get_doit (drivers/vdpa/vdpa.c:1324)
-   genl_family_rcv_msg_doit (net/netlink/genetlink.c:1114)
-   genl_rcv_msg (net/netlink/genetlink.c:1194)
-   netlink_rcv_skb (net/netlink/af_netlink.c:2556)
-   genl_rcv (net/netlink/genetlink.c:1218)
-   netlink_unicast (net/netlink/af_netlink.c:1345)
-   netlink_sendmsg (net/netlink/af_netlink.c:1900)
-   __sys_sendto (net/socket.c:2281)
-   __x64_sys_sendto (net/socket.c:2284)
-   entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
+> 
+> > Fix such cases by trying lru_add_del_folio() (which only takes action and
+> > returns true if the folio was on an lru_add fbatch), then folio_add_lru()
+> 
+> Oh ok, that's one detail I didn't realize on the previous patch, and
+> explains the name of the function. But it's still IMHO confusing.
+> 
+> > if it succeeded: invalidating the old fbatch slot, appending in a new one.
+> > 
+> > Signed-off-by: Hugh Dickins <hughd@google.com>
+> 
+> In general, LGTM.
+> Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 
-  The buggy address belongs to the object at ffff88800d99d3c0
-   which belongs to the cache skbuff_head_cache of size 232
-  The buggy address is located 220 bytes inside of
-   freed 232-byte region [ffff88800d99d3c0, ffff88800d99d4a8)
+Thanks.
 
-Fixes: ad69dd0bf26b ("vdpa: Introduce query of device config layout")
-Reported-by: co+6dcbccedc9ec6452@bugs.sh
-Closes: https://lore.kernel.org/all/ILTHcT8oe1HP47sY25JVxssvKmkCTjYlX9Hs%40bugs.sh/
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Xiang Mei <xmei5@asu.edu>
----
- drivers/vdpa/vdpa.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+> 
+> Nit below:
 
-diff --git a/drivers/vdpa/vdpa.c b/drivers/vdpa/vdpa.c
-index 47c6c3d23f5c..6455f837dd26 100644
---- a/drivers/vdpa/vdpa.c
-+++ b/drivers/vdpa/vdpa.c
-@@ -1313,15 +1313,16 @@ static int vdpa_nl_cmd_dev_config_get_doit(struct sk_buff *skb, struct genl_info
- 	}
- 	err = vdpa_dev_config_fill(vdev, msg, info->snd_portid, info->snd_seq,
- 				   0, info->extack);
--	if (!err)
-+	if (!err) {
- 		err = genlmsg_reply(msg, info);
-+		msg = NULL;
-+	}
- 
- mdev_err:
- 	put_device(dev);
- dev_err:
- 	up_read(&vdpa_dev_lock);
--	if (err)
--		nlmsg_free(msg);
-+	nlmsg_free(msg);
- 	return err;
- }
- 
--- 
-2.43.0
+> > diff --git a/mm/vmscan.c b/mm/vmscan.c
+> > index f11491ee9ed5..4e8d5cc34f07 100644
+> > --- a/mm/vmscan.c
+> > +++ b/mm/vmscan.c
+> > @@ -8093,17 +8093,19 @@ void check_move_unevictable_folios(struct folio_batch *fbatch)
+> >  			folio_clear_unevictable(folio);
+> >  			lruvec_add_folio(lruvec, folio);
+> >  			pgrescued += nr_pages;
+> > +		} else if (lru_add_del_folio(folio)) {
+> > +			lruvec_unlock_irq(lruvec);
+> > +			folio_add_lru(folio);
+> > +			lruvec = NULL;
+> >  		}
+> > -		folio_set_lru(folio);
+> > +		if (lruvec)
+> > +			folio_set_lru(folio);
+> >  	}
+> >  
+> > -	if (lruvec) {
+> > -		__count_vm_events(UNEVICTABLE_PGRESCUED, pgrescued);
+> > -		__count_vm_events(UNEVICTABLE_PGSCANNED, pgscanned);
+> > +	if (lruvec)
+> >  		lruvec_unlock_irq(lruvec);
+> > -	} else if (pgscanned) {
+> > -		count_vm_events(UNEVICTABLE_PGSCANNED, pgscanned);
+> > -	}
+> > +	count_vm_events(UNEVICTABLE_PGRESCUED, pgrescued);
+> > +	count_vm_events(UNEVICTABLE_PGSCANNED, pgscanned);
+> 
+> AFAIU this is done because we can no longer rule out that !lruvec means
+> pgrescued is 0.
+> But we can still distinguish the cheaper __count_vm_events vs
+> count_vm_events? Probably all the same on x86, but I hear on arm64 this_cpu*
+> ops have a cost worth proposing rather elaborate schemes to deal with...
 
+Yes, it was just looking a bit baroque to still be deciding whether to
+use the __count or the count there. Could be done of course, and with
+"if (pgrescued)" and "if (pgscanned)"; but I haven't noticed anywhere
+else in the source where we go to such lengths to use __count versus
+count, and I don't think this is on anyone's hotpath (IIRC this is
+just SHM_UNLOCK).
+
+Now you've got me worried, no, fractionally worried, about Shakeel's
+recent __count to count fix to NR_MLOCK.
+
+I am much more familiar with x86, and have noticed the recent tussles
+over improving arm64 this_cpus, so that confirms you're right; but I'd
+look for juicier low-hanging fruit than this, if we're going to
+embark on an "if (x) __count() else count()" spree.
+
+Hugh
