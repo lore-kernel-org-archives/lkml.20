@@ -1,313 +1,106 @@
-Received: from mail-43172.protonmail.ch (mail-43172.protonmail.ch [185.70.43.172])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 537E937DEBF
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 07:55:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C31D37DEBF;
+	Sat, 12 Sep 2026 07:57:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789199731; cv=none; b=pBfZIMwh0m7tPnyMfKNq2B1LTEHkKKvyHaRPmbV9PBLes4KipwReBb5ZZD42dpbXuLVn0aVY910IYg2H2eoOQZkYB3kJ97kSVEjepTBd1kTD7ebZMPxoxn0eRjYzppID9eUNCHZTojLlABOPUkuGupB7lexJMMlTOyi+uBEz7OY=
+	t=1789199881; cv=none; b=UjR2V2rQ8vPWEOiFkMWI8gqO8nTsgT2w7LEM/onihS5RoMhS+GkCMnUmq6I3K0S/9TPWMYVB4vd8LyKt5/RFNw+u71Z3bKlyETM5C6AEuyzzRfQBQS39q1/oAb0sfIwHDK17Y54Ecve+xOLOD1Ez3Ps8eV+th85qJwX+0X1GxyQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789199731; c=relaxed/simple;
-	bh=KD4QiSI0HX2frZKgY1bL3VQtH86/CXOzShOKXocO/Yk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=hJdXsWkxt0t8GY7utu7NVuKclBDthZs1OgvXwB9OTLnpbKZqQ3Ys2dcp/G+4GUmYPzJO9FBlONqa9CvAjM/Eah+M9J5Ie3ZlelJwh0RUmpHsN8YfRXaat/a9fHHOfYOgePld6KfQcW2k3Sxwb5sd04tZHb6L8QRhsUHgV+MGJf0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=onurozkan.dev; spf=pass smtp.mailfrom=onurozkan.dev; dkim=pass (2048-bit key) header.d=onurozkan.dev header.i=@onurozkan.dev header.b=FnlgvXu5; arc=none smtp.client-ip=185.70.43.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=onurozkan.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onurozkan.dev
+	s=arc-20240116; t=1789199881; c=relaxed/simple;
+	bh=vXC/lz8sDS7vIK7kkmOHAKB95vRwZ8MKI1dgipjQ6uY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kCNSmBw6V+voclRDN5Xh5a3hlD+2tRat/jMFoDgDuoONPuHUZZ40dHnMGFZXfDmeZF0BRsEuongK549b6/0IoSADbfvO7kzGpvp/y77NSmdYWvOIKodMag1wpkiEQfmRmpT5agi4v+OpKatVZjM4vtXhbWmyLa7VAKK+SVWgLyc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ht9POEgX; arc=none smtp.client-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=onurozkan.dev header.i=@onurozkan.dev header.b="FnlgvXu5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onurozkan.dev;
-	s=protonmail; t=1789199720; x=1789458920;
-	bh=Nhjin6tMRCiwQViCTXHCJ3Nu7Cr9PpgLWgcVZJJQHgM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=FnlgvXu5RkTBRIQNkTH8kLYWwokAXaokQ2sCyECPFcoXvWY+LD0mUlSJ4bGM2IqOe
-	 SNVrNzDvLsS+2XCfKi3F02pUw5fBJZGFXis8hLbH+mVD+YgMVKSOdlqVttgnEiLxKr
-	 MhgC1WPRyoognF+FA7AxoRbi1xptLvpDKv8mFoLX7L+wSer6ztZvRw1ZNMunHkfdBT
-	 UYW8KyFZnkBIOCbXMQd5XTHi5msMpD8wDOqe4L0KS/HkI6Yx+M+jWkBtlihPBKF52J
-	 0IJ+2frlO6NtExc5mg/JgluaJZ3ksV11IHbwDRrSyZCIiQW+MJ/geG1wRdpVJ4VzWA
-	 aayKFCVDL1kOw==
-X-Pm-Submission-Id: 4hhkGs3mfxz1DFFJ
-From: =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
-To: Alice Ryhl <aliceryhl@google.com>
-Cc: Danilo Krummrich <dakr@kernel.org>,
-	tj@kernel.org,
-	jiangshanlai@gmail.com,
-	ojeda@kernel.org,
-	boqun@kernel.org,
-	gary@garyguo.net,
-	bjorn3_gh@protonmail.com,
-	lossin@kernel.org,
-	a.hindborg@kernel.org,
-	tmgross@umich.edu,
-	daniel.almeida@collabora.com,
-	tamird@kernel.org,
-	acourbot@nvidia.com,
-	jhubbard@nvidia.com,
-	rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	driver-core@lists.linux.dev
-Subject: Re: [PATCH v2 5/6] rust: workqueue: add ScopedQueue for lifetime bound items
-Date: Sat, 12 Sep 2026 10:54:59 +0300
-Message-ID: <20260912075516.66479-1-work@onurozkan.dev>
-X-Mailer: git-send-email 2.51.2
-In-Reply-To: <apg1c4GdVrhYDK1P@google.com>
-References: <20260807165252.3849875-1-dakr@kernel.org> <20260807165252.3849875-6-dakr@kernel.org> <apg1c4GdVrhYDK1P@google.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ht9POEgX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789199880; x=1820735880;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=vXC/lz8sDS7vIK7kkmOHAKB95vRwZ8MKI1dgipjQ6uY=;
+  b=ht9POEgXKcHmKZo7I0ktgshOt0zC1r8r/afn9pimGXd/4VFLHmLX+tTy
+   GSRIzXIz0brWxjub5auIjcg6MvwmdQkk+4ZH6CG0XwANen6hJGEKURYvj
+   U1BUy4ulD8CfZXs8N5qXjHFb0JLNFYiYz9jqxsF7KgquG/5/gikTBKANN
+   okueqA13XqqdLFB67J2JKEwQ9fQDft+IDT1848TUlc9toid6fEg1A7HOv
+   QYSX4SMTctahvViCIO6IvTJpqAnOgLlu8qrYnugk2yV4FQWtX1KtrMrva
+   Wix1vlAspb4NViYLiHqdyQOw2Rb42EVX0FbteRKSrYr52XhrlvuLfUExt
+   w==;
+X-CSE-ConnectionGUID: w6QEx3CBR3eFAVOujKjVVA==
+X-CSE-MsgGUID: d63wBIUCTDia6j95pD3LBA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11902"; a="89691825"
+X-IronPort-AV: E=Sophos;i="6.27,98,1787036400"; 
+   d="scan'208";a="89691825"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Sep 2026 00:57:59 -0700
+X-CSE-ConnectionGUID: bR4opzlKQVmHrLrg7T0zlQ==
+X-CSE-MsgGUID: wAgTxgzzQDaNadMqh9H5pQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,98,1787036400"; 
+   d="scan'208";a="268851514"
+Received: from cpetruta-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.230])
+  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Sep 2026 00:57:54 -0700
+Date: Sat, 12 Sep 2026 10:57:51 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>
+Cc: linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org, linux-iio@vger.kernel.org,
+	linux-sound@vger.kernel.org, linux-spi@vger.kernel.org,
+	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	Lars-Peter Clausen <lars@metafoo.de>,
+	Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
+	=?iso-8859-1?Q?Am=E9lie?= Delaunay <amelie.delaunay@foss.st.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>
+Subject: Re: [PATCH v4 01/10] dmaengine: Move enum dma_slave_buswidth to a
+ new header
+Message-ID: <aqUF_8g-DG7GB1pM@ashevche-desk.local>
+References: <20260911-dmaengine-support-wider-dma-masks-v4-0-72b8fd4cc78e@analog.com>
+ <20260911-dmaengine-support-wider-dma-masks-v4-1-72b8fd4cc78e@analog.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260911-dmaengine-support-wider-dma-masks-v4-1-72b8fd4cc78e@analog.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Wed, 02 Sep 2026 14:40:51 +0000=0D
-Alice Ryhl <aliceryhl@google.com> wrote:=0D
-=0D
-> On Fri, Aug 07, 2026 at 06:52:48PM +0200, Danilo Krummrich wrote:=0D
-> > From: Onur =C3=96zkan <work@onurozkan.dev>=0D
-> > =0D
-> > Add a workqueue wrapper for work items that are not 'static.=0D
-> > =0D
-> > Tyr reset work is queued from a handle that owns a Controller<'bound>=0D
-> > where the work item holds references tied to the lifetime of the bound=
-=0D
-> > device and its mapped IO state. The existing API only accepts 'static=0D
-> > work items which cannot express that relationship.=0D
-> > =0D
-> > Introduce ScopedQueue for this case. It owns the underlying workqueue=0D
-> > and ties enqueued work to the queue lifetime so borrowed state cannot=0D
-> > outlive the queue that may still run it.=0D
-> > =0D
-> > Construction is unsafe because the queue must not be leaked.=0D
-> > =0D
-> > `compile_fail` doc-tests are ignored for now as KUnit doesn't support=0D
-> > that. Enabling those tests as regular code block would raise this error=
-:=0D
-> > =0D
-> >     ERROR:root:error[E0597]: `data` does not live long enough=0D
-> > 	 --> rust/doctests_kernel_generated.rs:22029:44=0D
-> > 	  |=0D
-> >     22027 |         let data =3D ();=0D
-> > 	  |             ---- binding `data` declared here=0D
-> >     22028 |         // SAFETY: Queue is not leaked.=0D
-> >     22029 |         queue =3D unsafe { new_queue(&data)? };=0D
-> > 	  |                                            ^^^^^ borrowed value do=
-es not live long enough=0D
-> >     22030 |     }=0D
-> > 	  |     - `data` dropped here while still borrowed=0D
-> >     ...=0D
-> >     22034 | }=0D
-> > 	  | - borrow might be used here, when `queue` is dropped and runs the =
-`Drop` code for type `ScopedQueue`=0D
-> > 	  |=0D
-> > 	  =3D note: values in a scope are dropped in the opposite order they a=
-re defined=0D
-> =0D
-> The '^^^^^' on the warning doesn't quite point at the right location.=0D
-> =0D
-> > =0D
-> > which is exactly the constraint ScopedQueue is meant to enforce.=0D
-> > =0D
-> > Suggested-by: Danilo Krummrich <dakr@kernel.org>=0D
-> > Signed-off-by: Onur =C3=96zkan <work@onurozkan.dev>=0D
-> > [ Move from scoped_queue.rs to scoped.rs, which can be shared with=0D
-> >   ScopedWork; add missing inline annotations. - Danilo ]=0D
-> > Signed-off-by: Danilo Krummrich <dakr@kernel.org>=0D
-> > ---=0D
-> >  rust/kernel/workqueue/mod.rs    |   3 +=0D
-> >  rust/kernel/workqueue/scoped.rs | 190 ++++++++++++++++++++++++++++++++=
-=0D
-> >  2 files changed, 193 insertions(+)=0D
-> >  create mode 100644 rust/kernel/workqueue/scoped.rs=0D
-> > =0D
-> > diff --git a/rust/kernel/workqueue/mod.rs b/rust/kernel/workqueue/mod.r=
-s=0D
-> > index 8eb2d037be83..551fa1401b85 100644=0D
-> > --- a/rust/kernel/workqueue/mod.rs=0D
-> > +++ b/rust/kernel/workqueue/mod.rs=0D
-> > @@ -212,6 +212,9 @@=0D
-> >  mod builder;=0D
-> >  pub use self::builder::Builder;=0D
-> >  =0D
-> > +mod scoped;=0D
-> > +pub use self::scoped::ScopedQueue;=0D
-> > +=0D
-> >  /// Creates a [`Work`] initialiser with the given name and a newly-cre=
-ated lock class.=0D
-> >  #[macro_export]=0D
-> >  macro_rules! new_work {=0D
-> > diff --git a/rust/kernel/workqueue/scoped.rs b/rust/kernel/workqueue/sc=
-oped.rs=0D
-> > new file mode 100644=0D
-> > index 000000000000..18a4b6f6cf18=0D
-> > --- /dev/null=0D
-> > +++ b/rust/kernel/workqueue/scoped.rs=0D
-> > @@ -0,0 +1,190 @@=0D
-> > +// SPDX-License-Identifier: GPL-2.0=0D
-> > +=0D
-> > +//! Lifetime-scoped workqueues.=0D
-> > +//!=0D
-> > +//! Provides [`ScopedQueue`] for work items that may borrow data with =
-some=0D
-> > +//! non-`'static` lifetime.=0D
-> > +//!=0D
-> > +//! Unlike [`Queue`] which only accepts `'static` work items, [`Scoped=
-Queue`]=0D
-> > +//! owns its underlying queue and relies on that queue being dropped t=
-o drain=0D
-> > +//! pending and running work before borrowed data can go out of scope.=
-=0D
-> > +//!=0D
-> > +//! TODO: Remove `ignore` once KUnit supports `compile_fail` on doc-te=
-sts.=0D
-> > +//! ```compile_fail,ignore=0D
-> > +//! use kernel::prelude::*;=0D
-> > +//! use kernel::workqueue::ScopedQueue;=0D
-> > +//!=0D
-> > +//! /// # Safety=0D
-> > +//! ///=0D
-> > +//! /// Returned queue must not be leaked.=0D
-> > +//! unsafe fn new_queue<'bound>(_: &'bound ()) -> Result<ScopedQueue<'=
-bound>> {=0D
-> > +//!     // SAFETY: Caller guarantees that the returned queue is not le=
-aked.=0D
-> > +//!     unsafe { ScopedQueue::new(c"scoped_queue") }=0D
-> > +//! }=0D
-> > +//!=0D
-> > +//! fn queue_outlives_borrowed_data() -> Result {=0D
-> > +//!     let queue;=0D
-> > +//!=0D
-> > +//!     {=0D
-> > +//!         let data =3D ();=0D
-> > +//!         // SAFETY: Queue is not leaked.=0D
-> > +//!         queue =3D unsafe { new_queue(&data)? };=0D
-> > +//!     }=0D
-> > +//!     // Here the `compile_fail` is fulfilled as `queue` would be dr=
-opped=0D
-> > +//!     // after `data`.=0D
-> > +//!     Ok(())=0D
-> > +//! }=0D
-> > +//! ```=0D
-> > +//!=0D
-> > +//! TODO: Remove `ignore` once KUnit supports `compile_fail` on doc-te=
-sts.=0D
-> > +//! ```compile_fail,ignore=0D
-> > +//! use kernel::prelude::*;=0D
-> > +//! use kernel::sync::Arc;=0D
-> > +//! use kernel::workqueue::{=0D
-> > +//!     impl_has_work,=0D
-> > +//!     new_work,=0D
-> > +//!     ScopedQueue,=0D
-> > +//!     Work,=0D
-> > +//!     WorkItem,=0D
-> > +//! };=0D
-> > +//!=0D
-> > +//! #[pin_data]=0D
-> > +//! struct BorrowedWork<'bound> {=0D
-> > +//!     data: &'bound (),=0D
-> > +//!     #[pin]=0D
-> > +//!     work: Work<BorrowedWork<'bound>>,=0D
-> > +//! }=0D
-> > +//!=0D
-> > +//! impl_has_work! {=0D
-> > +//!     impl{'bound} HasWork<BorrowedWork<'bound>> for BorrowedWork<'b=
-ound> { self.work }=0D
-> > +//! }=0D
-> > +//!=0D
-> > +//! impl<'bound> WorkItem for BorrowedWork<'bound> {=0D
-> > +//!     type Pointer =3D Arc<Self>;=0D
-> > +//!=0D
-> > +//!     fn run(_this: Arc<Self>) {}=0D
-> > +//! }=0D
-> > +//!=0D
-> > +//! impl<'bound> BorrowedWork<'bound> {=0D
-> > +//!     fn new(data: &'bound ()) -> Result<Arc<Self>> {=0D
-> > +//!         Arc::pin_init(=0D
-> > +//!             pin_init!(Self {=0D
-> > +//!                 data,=0D
-> > +//!                 work <- new_work!("BorrowedWork::work"),=0D
-> > +//!             }),=0D
-> > +//!             GFP_KERNEL,=0D
-> > +//!         )=0D
-> > +//!     }=0D
-> > +//! }=0D
-> > +//!=0D
-> > +//! struct Handle<'bound> {=0D
-> > +//!     work: Arc<BorrowedWork<'bound>>,=0D
-> > +//!     wq: ScopedQueue<'bound>,=0D
-> > +//! }=0D
-> > +//!=0D
-> > +//! impl<'bound> Handle<'bound> {=0D
-> > +//!     /// # Safety=0D
-> > +//!     ///=0D
-> > +//!     /// Returned handle must not be leaked.=0D
-> > +//!     unsafe fn new(data: &'bound ()) -> Result<Self> {=0D
-> > +//!         Ok(Self {=0D
-> > +//!             work: BorrowedWork::new(data)?,=0D
-> > +//!             // SAFETY: Caller guarantees that the returned handle =
-is not leaked.=0D
-> > +//!             wq: unsafe { ScopedQueue::new(c"handle_wq")? },=0D
-> > +//!         })=0D
-> > +//!     }=0D
-> > +//! }=0D
-> > +//!=0D
-> > +//! fn handle_outlives_borrowed_data() -> Result {=0D
-> > +//!     let handle;=0D
-> > +//!=0D
-> > +//!     {=0D
-> > +//!         let data =3D ();=0D
-> > +//!         // SAFETY: Handle is not leaked.=0D
-> > +//!         handle =3D unsafe { Handle::new(&data)? };=0D
-> > +//!=0D
-> > +//!         let _ =3D handle.wq.enqueue(handle.work.clone());=0D
-> > +//!     }=0D
-> > +//!     // Here the `compile_fail` is fulfilled as `handle` would be d=
-ropped=0D
-> > +//!     // after `data`.=0D
-> > +//!     Ok(())=0D
-> > +//! }=0D
-> > +//! ```=0D
-> > +=0D
-> > +use super::{=0D
-> > +    OwnedQueue,=0D
-> > +    Queue,=0D
-> > +    RawWorkItem, //=0D
-> > +};=0D
-> > +=0D
-> > +use crate::{=0D
-> > +    bindings,=0D
-> > +    ffi,=0D
-> > +    prelude::*, //=0D
-> > +};=0D
-> > +=0D
-> > +use core::marker::PhantomData;=0D
-> > +=0D
-> > +/// An owned workqueue that can enqueue work items borrowing from `'sc=
-ope`.=0D
-> > +///=0D
-> > +/// A `ScopedQueue` must not outlive data borrowed by its work items.=
-=0D
-> > +pub struct ScopedQueue<'scope> {=0D
-> > +    inner: OwnedQueue,=0D
-> > +    _scope: PhantomData<&'scope mut &'scope ()>,=0D
-> > +}=0D
-> =0D
-> A Queue is the same as a ScopedQueue<'static>, so we don't necessarily=0D
-> need a new type if we add a lifetime to Queue and add two constructors:=0D
-> =0D
-> 	fn new() -> Queue<'static>;=0D
-> 	unsafe fn new_scoped() -> Queue<'a>;=0D
-=0D
-Sounds reasonable. Should I pull this series and do that approach directly =
-on=0D
-it, or send another version for [1]?=0D
-=0D
-[1]: https://lore.kernel.org/all/20260617144645.253444-1-work@onurozkan.dev=
-=0D
-=0D
-	Onur=0D
-=0D
-> =0D
-> Alice=0D
+On Fri, Sep 11, 2026 at 06:25:36PM +0100, Nuno Sá wrote:
+> In preparation for the bitmap based bus width capabilities, move
+> enum dma_slave_buswidth out of linux/dmaengine.h into a new
+> include/linux/dma/engine/types.h.
+> 
+> linux/dmaengine.h is included nearly everywhere, so growing it with the
+> new interface would make every one of its users pay for it. Keeping the
+> basic types in a separate header lets the new interface live next to it
+> without that cost. linux/dmaengine.h includes the new header, so its
+> users are unaffected.
+> 
+> While at it, add the missing kernel-doc for the enum members. The block
+> already opened with /**, so kernel-doc expected every member to be
+> described and warned about each one of them. Describe the UNDEFINED case
+> in particular, as its meaning depends on where the value is used.
+> 
+> No functional change intended.
+
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
