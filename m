@@ -1,151 +1,222 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE9892F531B
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 17:26:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7681E345EA7
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 17:32:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789234018; cv=none; b=QpKj6gCCZxRncazP6Baoa4CaYNRuv4+D8ky176l8hyGJXCuAnVr62/S9rAAteMALwkrk1OLJKrERN4SckLi+Eld7CsjyPV23Z3PTlEwgxONo8xTBb0UEEWs116fVUclkAovriJlu3Ya0Mkt5L54+/ILMknK1l4lAOoS+EaHmJ2c=
+	t=1789234326; cv=none; b=cO44AhhuW+5i6ZXt0dsLQ77kTQ7nbn2sgngY9rKD+osGAupczN8mCaBQvXE+Qah+Kg6FwaVtfAvx4BCiyv++/V+ulmFQyFoRLDd1Bhio7ZttLJFuoNeH7TSkgsGzhtjCr9ykLBmNKii10Vux35tnCYFbk0oYv1KVTi+53JfEr/4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789234018; c=relaxed/simple;
-	bh=rlJh0u0B5uXaLSRb3Je2heQLBIx1OTDyKuGrvNW7S74=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sTZgvfGh2r6MEQ82eIL5strVN/ayW/daHPi6727dpRAcURm8vXSZpy80B5n2cfVHu94bhwKvAYXAQ7VNFb4C6n7ewc8Lzm4jtcDVNoui9o6FsrGVsMz06FL4uPREPK3SWK82BSg+u+M/ECl93M6S+mdNo+hWU511hqAE9nqKP/g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LJ1114Wy; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789234326; c=relaxed/simple;
+	bh=Jkf0YZSlcFgLfLyrbr0OSFkYg9rN+0VYiQJO3omdIxg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gWZvCGcLmnmKlaypLkW2EWGUTm80xPbTipjlxIfOYIMdsq4k+Fh35MuVpKRXpF2gEz/lkIp2W2JStZcRB7JfgvX0HfyT+GfWeK4b6jaPZNen1CIQINoChksYaXx1jHVP/UwMAXegd3/H4NzEa25feBFeBajiTuf0DN9Z4jWeLlE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=O9RO2c1M; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LJ1114Wy"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccc09d65so769462a91.3
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 10:26:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="O9RO2c1M"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747ee1f38so9756135ad.2
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 10:32:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789234010; x=1789838810; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7izVhFPU5f2Mxv3Dnub39YzR+1KtOurbwyZEjfxW9ME=;
-        b=LJ1114WyKjN4OLoNKor/EtXD6ncwNKDmBtfbrA8vvgAQvGEM7U4abKvGv1Tq0kETwE
-         ctSzvBgou4B5LM0X24hNsfJ4eKIGW64e7retWYks2B0d2P32DoR84J3GzKZXbU2M1xND
-         eTl425Ir9ZhiMoQ+nPFIw/xaz6RMkvokE8QDV3eIcni7QHCqR8TIu4UiON+P0Oj5La8P
-         zTdyVUyvs/yM2iVzK+5Cm2NxfMakx5o8o7fcPjJy3TqdpKWAsY4K7si6rHWS+MUc7cSV
-         DIgSTFrNYiMgP1xuhm9V4V/IxwzePNv38AUcRy8lYzqXO2tTgTiNB9wLCEGmnkcF9hvp
-         BJSQ==
+        d=google.com; s=20251104; t=1789234325; x=1789839125; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=pBslPyab51IM3cN1q+WywRAJYOzHWq5eKWBrdVKUM1w=;
+        b=O9RO2c1MyVoyN+roDjyRKZktvn3cO4hWzs1y5cUL9Tj/EPMQhmnRLpKDA+fOySHYBQ
+         HffLRJpq7cQC0+a5m0fHp7jx5qeEIQ/4KpxwFzdC/mPiaGMZznC80KZ4eAv9389vH5XI
+         +iZcys2TuxOCRa1JeKWLOt/2zYa9M7HmNEAbhgY1CH4oRnc1OFoIT1UhZZAkzutbeJMi
+         zTIiTVMpNWk06hdxoU7YT1wzrqwOavEnSZ+Hpg+NApE1j7EiegOF+sJd+TmWKfbtxZ1A
+         bRPtswuMw9GK9FYLYGs4Dm6RwDEmNPGZm6hcMl0p/y67EbpsDfI+r3NxwaLJYSF1c2SJ
+         /33g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789234010; x=1789838810;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7izVhFPU5f2Mxv3Dnub39YzR+1KtOurbwyZEjfxW9ME=;
-        b=axtYvE3imdnbN27H7Hue+3IWZU8JlNp76fQQzz6cua6QabrKQKATk8mbQY1YNc+e6b
-         CAMO0mQobEADddfgY5eQMaH+2MXKMXLAKTUbDurqqiPmVOulr2yd8mHGZpjSkURafklh
-         LuZiqvuWuxLTvIei+dFBW+lW5AaNyzP4rEC8PquBSY1o69tqY/5W/83frIJTw1qVGkFX
-         dxKsYvJIzERJXEtgaWDVFBqGLQ9fIQdFAbNY647QBZZU2ow85ZvzT3HIRlVU2h4n/w2u
-         pQrchtoShFNCj1HYMVMFPgdBVxwVQElzuFhnya1+GV5U2nh1p2jZDBP7JZOBGBuEUM+r
-         2Xuw==
-X-Forwarded-Encrypted: i=1; AKwUvBx7xDbJWnhb9k6H9ThQxat6NMDdIe79trff4wS/J7SOr9bc9l9hV0UhN1VeStn1na8wZ1kl44tdoIh4XEs=@vger.kernel.org
-X-Gm-Message-State: AFuF++mVpB+YtSnUCTTdtyKDB1DDpIBC7HM5/4+X1rPkeVyKe66iP4sd
-	qLnjrtui4B1JRrMTd3AvvY+Jdtk8QyM4BIIhx6rElOTPtBaSrdMoQcs0
-X-Gm-Gg: AYBFou26KVOOtXh5+TYNGWzBJK0D6U40uj/dmbcXvj8Idqpu7ayB6o2Nz0U40aDBKV3
-	EqvZ0dsqyj0RMdYkNac2eoYdEPiepXPqDYnJ/c/5MDTg4HfS6DE1SjbObX2qAnwNM0/Y+f9OyAl
-	COrbfryES6FGD7X2nXVNqBklFjN23UIAi2kf1yeQe4EcwcCaaPGVgnM+n+8IS5Wf9GbOPvM3Usx
-	1u5rJC4VgGUIqoecTsN88gUXAue4MIN0wGjbS3nCTHs25/VvlR3hzIR5WQbohh4JX8AGPi5SKag
-	H5CVYv2P9uyM0BzT861t3NkCKKYmsG7xt20HmyoG0eI7YAcbNICNqDoskau9fU71yCImdSOhMLA
-	Jp9F+XeFTCP61u3LKV8hlYIqU/In0ijlOuTUKHsWE+ONGF1DNj1ifvCXOvEJQu76FL52smVovxS
-	CdJopXdPj8lI+51DMjJe13zg09x3pHyrLRiQF/q9FlcS87AMblg4KHVmpS270YQCb0Et8BmUNc9
-	NRf/PnPMJ0=
-X-Received: by 2002:a17:90b:2741:b0:393:19a3:4f1 with SMTP id 98e67ed59e1d1-39d9bdbb0e4mr16432141a91.6.1789234010571;
-        Sat, 12 Sep 2026 10:26:50 -0700 (PDT)
-Received: from G15-5520 ([103.206.144.35])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-143659a9a06sm14279263c88.0.2026.09.12.10.26.47
+        d=1e100.net; s=20251104; t=1789234325; x=1789839125;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pBslPyab51IM3cN1q+WywRAJYOzHWq5eKWBrdVKUM1w=;
+        b=eFZxVbCRTxRb1rOrYoiYtQQZZdRCqpuqrCVIKyF5d4rLO0XJgZcu1lJ5d/9p391mmq
+         DHzip5bjsmgSJq2VrwH6HSN4EUstFMb77Ss7qRvAzK5fr9UKsKMAihIt0HRe+366pbQz
+         ZPNoUGePKongLHdRUeDWzzepXZ+fYrJTKKEY+tk7+1q8cRMzUMlK8wCMK86wstRKPsCL
+         WJ5aOB5ad/aO/36DetYaiCL2VTx0NWwBKRgPa9ZtQSaerUKI7GD5umYpdBGPODS2e9qb
+         Ed+dYJdaAYMMYfCMNOIUUfZ+bbsXDltdrl1eORsLosBc21+J7CqLI1B5q2iP4YVLlMG0
+         1clQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwZsYDH30GF24FF8dF/PGmbtciUxBs1QlMCy2OpPVLWg9IcuhHM+EBRnUBKDx+8wiJiGYGCqHsfFa4sspk=@vger.kernel.org
+X-Gm-Message-State: AFuF++k9b8CTLFHy+xI8xhzzaOCTbwxGaLtXF4btJ7EiZT+lP/T/Zt7J
+	cvWHpDDmi97TFxfNMy8jai8XWV0gAv5+uTydJKtKOMEAISBjvp72ZpJdhvY2UGhBzA==
+X-Gm-Gg: AYBFou1LfqFyx4tt1FhkkPC+JTtytXyw0lI00DBAU2xgkjysYKCF8t8vD6JZLL3Vr2I
+	Y9x/9Z2cytbSKollf6TYpUaoVwa5064rho3VWELLoQ4IPr6XMKb7GObr7jPcmA+tMpWoUFgVeID
+	r3ZmNTFVebhiLm9lJBtAqIHRlkpc2iH6LSkbouDLXAKR13gbCo+0QujguZAFecj0q1DyDxGo14w
+	1mIqsUvSg8tpFmxxGiEXseSPQxr4bJK3Fh7v8pmo/QsfzHOiSHTpR46kHXbAB3CGQfWqTt0zwcp
+	vzFArVm1cOv7tt5o3SFwqXAHFDbMCmLXDKguuQt59/iuUH6qS4CQKwzAMtlH2fsPaAogCgDPvVf
+	Bog9TN6NxPPId3Q3otEsoyjV5NE/CFldwtlERp6ct2alXDGucY6b+wlsMtK+JgUa8z8j6zlGFTr
+	hQVx6hZrono3mTi19bUWajGHAA3Dnq+ylOEkei8eN6bZLU+DXrN3TuFEVJEzJjRtuF9N9slf+xD
+	cxeS3t7Z/KZBc4Hq1uVJAI6xd5h/YfmjI4p1sYK
+X-Received: by 2002:a17:902:e881:b0:2d8:d4cc:be64 with SMTP id d9443c01a7336-2dd2a35a58cmr165076475ad.17.1789234324159;
+        Sat, 12 Sep 2026 10:32:04 -0700 (PDT)
+Received: from google.com (192.150.203.35.bc.googleusercontent.com. [35.203.150.192])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2cfc5c7bsm25731245ad.51.2026.09.12.10.32.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 12 Sep 2026 10:26:50 -0700 (PDT)
-From: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
-	dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
-	linux-kernel@vger.kernel.org (open list)
-Cc: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
-Subject: [PATCH] drm/amdgpu: replace kmalloc_array with kmalloc_objs
-Date: Sat, 12 Sep 2026 17:25:52 +0000
-Message-ID: <20260912172552.70502-1-lalitshankarch@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        Sat, 12 Sep 2026 10:32:02 -0700 (PDT)
+Date: Sat, 12 Sep 2026 17:31:58 +0000
+From: David Matlack <dmatlack@google.com>
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: kexec@lists.infradead.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+	linux-pci@vger.kernel.org,
+	Adithya Jayachandran <ajayachandra@nvidia.com>,
+	Alexander Graf <graf@amazon.com>,
+	Alex Williamson <alex@shazbot.org>,
+	Bjorn Helgaas <bhelgaas@google.com>, Chris Li <chrisl@kernel.org>,
+	David Rientjes <rientjes@google.com>,
+	Jacob Pan <jacob.pan@linux.microsoft.com>,
+	Jason Gunthorpe <jgg@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
+	Josh Hilke <jrhilke@google.com>,
+	Leon Romanovsky <leonro@nvidia.com>, Lukas Wunner <lukas@wunner.de>,
+	Mike Rapoport <rppt@kernel.org>, Parav Pandit <parav@nvidia.com>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pranjal Shrivastava <praan@google.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Saeed Mahameed <saeedm@nvidia.com>,
+	Samiullah Khawaja <skhawaja@google.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Vipin Sharma <vipinsh@google.com>, William Tu <witu@nvidia.com>,
+	Yi Liu <yi.l.liu@intel.com>
+Subject: Re: [PATCH v8 05/12] PCI: liveupdate: Preserve bus numbers during
+ Live Update
+Message-ID: <aqWMjrea2MMMZHxr@google.com>
+References: <20260728221007.2098560-6-dmatlack@google.com>
+ <20260910235104.GA367522@bhelgaas>
+ <aqRIJs1SdJwoV_cf@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqRIJs1SdJwoV_cf@google.com>
 
-Replace the remaining kmalloc_array instances with kmalloc_objs.
+On 2026-09-11 06:30 PM, David Matlack wrote:
+> On 2026-09-10 06:51 PM, Bjorn Helgaas wrote:
+> > On Tue, Jul 28, 2026 at 10:09:59PM +0000, David Matlack wrote:
 
-No functional changes.
+> > > +bool pci_liveupdate_preserve_bus_numbers(struct pci_bus *bus, struct pci_dev *dev)
+> > > +{
+> > > +	struct pci_dev *parent = bus->self;
+> > > +
+> > > +	if (dev->liveupdate.preserve_bus_numbers)
+> > > +		return true;
+> > > +
+> > > +	if (parent && parent->liveupdate.preserve_bus_numbers) {
+> > > +		/*
+> > > +		 * Preserve bus numbers if the parent bridge is required to
+> > > +		 * preserve bus numbers. Otherwise the PCI core could expand
+> > > +		 * this bridge's reservation beyond its parent (which cannot
+> > > +		 * expand).
+> > > +		 */
+> > > +		dev->liveupdate.preserve_bus_numbers = true;
+> > > +	} else {
+> > > +		/*
+> > > +		 * Otherwise preserve bus numbers if there are any incoming
+> > > +		 * preserved devices. This ensures that the PCI core does not
+> > > +		 * allocate a bus number to a non-preserved device that
+> > > +		 * conflicts with the bus number already assigned to a preserved
+> > > +		 * device.
+> > > +		 *
+> > > +		 * This is slightly more restrictive than it needs to be. For
+> > > +		 * example, each host bridges have their own range of bus
+> > > +		 * numbers that won't conflict with other host bridges. But the
+> > > +		 * previous kernel should have assigned a sane bus topology and
+> > > +		 * it is simpler to just adopt that entire topology.
+> > > +		 */
+> > > +		dev->liveupdate.preserve_bus_numbers =
+> > > +			pci_has_incoming_preserved_devices();
+> > > +	}
+> > > +
+> > > +	return dev->liveupdate.preserve_bus_numbers;
+> > 
+> > I'm not sure why you don't just return
+> > pci_has_incoming_preserved_devices() in all cases, which is what the
+> > commit log suggests this patch does.  What's gained by all the logic
+> > here?  It's not like devices will be hot-added during the kexec.
+> 
+> To protect against pci_has_incoming_preserved_devices() flipping from
+> true to false while the PCI core is in the middle of a scan. It is not
+> likely to ever happen given most host bridge scanning should happen
+> during early boot, but theoretically possible with the way the PCI core
+> code is structured. I did not see way to structurally ensure these 2
+> things cannot race. A lot of the host bridge scanning happens without
+> taking the rescan lock, for example.
 
-Signed-off-by: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c     | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c         | 3 +--
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c | 9 +++------
- 3 files changed, 5 insertions(+), 9 deletions(-)
+After working on this more, I do see a way to simplify the logic in
+pci_liveupdate_preserve_bus_numbers().
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-index 132d054900b5..f2427bf07905 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-@@ -986,7 +986,7 @@ static ssize_t amdgpu_debugfs_gca_config_read(struct file *f, char __user *buf,
- 	if (size & 0x3 || *pos & 0x3)
- 		return -EINVAL;
- 
--	config = kmalloc_array(256, sizeof(*config), GFP_KERNEL);
-+	config = kmalloc_objs(*config, 256);
- 	if (!config)
- 		return -ENOMEM;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index 242c48e85912..f67caa255327 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -900,8 +900,7 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- 		if (info->read_mmr_reg.count > 128)
- 			return -EINVAL;
- 
--		regs = kmalloc_array(info->read_mmr_reg.count, sizeof(*regs),
--				     GFP_KERNEL);
-+		regs = kmalloc_objs(*regs, info->read_mmr_reg.count);
- 		if (!regs)
- 			return -ENOMEM;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-index 743b41db5b7c..cbdbd8196eb2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-@@ -486,8 +486,7 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
- 	if (IS_ERR(syncobj_handles))
- 		return PTR_ERR(syncobj_handles);
- 
--	syncobj = kmalloc_array(num_syncobj_handles, sizeof(*syncobj),
--				GFP_KERNEL);
-+	syncobj = kmalloc_objs(*syncobj, num_syncobj_handles);
- 	if (!syncobj) {
- 		r = -ENOMEM;
- 		goto free_syncobj_handles;
-@@ -726,13 +725,11 @@ amdgpu_userq_wait_return_fence_info(struct drm_device *dev, struct drm_file *fil
- 	struct drm_exec exec;
- 	int i, cnt, r;
- 
--	fence_info = kmalloc_array(wait_info->num_fences, sizeof(*fence_info),
--				   GFP_KERNEL);
-+	fence_info = kmalloc_objs(*fence_info, wait_info->num_fences);
- 	if (!fence_info)
- 		return -ENOMEM;
- 
--	fences = kmalloc_array(wait_info->num_fences, sizeof(*fences),
--			       GFP_KERNEL);
-+	fences = kmalloc_objs(*fences, wait_info->num_fences);
- 	if (!fences) {
- 		r = -ENOMEM;
- 		goto free_fence_info;
--- 
-2.53.0
+pci_liveupdate_preserve_bus_numbers() is used in 2 places during
+scanning. First to decide if the PCI core should preserve bus numbers or
+is free to allocate new ones, and second to decide if the PCI core is
+allowed to assign bus numbers to bridges that are missing bus numbers.
 
+The latter case should never happen during initial scanning unless a
+bridge was somehow reset during the kexec, but could legitimately happen
+if a bridge is later hot-plugged and I did not want Live Update to
+unnecessarily break that scenario. But then that creates this problem
+where pci_has_incoming_preserved_devices() can suddenly flip from true
+to false at any time and I needed all the complex logic to keep it
+consistent for a given scan.
+
+Instead we can split the handling of these cases:
+
+ 1. When the PCI core needs to decide if it should preserve bus numbers
+    due to Live Update, pci_liveupdate_preserve_bus_numbers() can return
+    true forever if any device was preserved by the previous kernel,
+    which simplifies the logic.
+
+ 2. Then to handle the case of a bridge is enumerated that does not have
+    bus numbers assigned, we can handle that separately. If we reorder this
+    with the next commit so the PCI core knows exactly which bridges have
+    preserved downstream endpoints, then it is possible to determine if it
+    is safe for the PCI core to allow bus numbers to be assigned to an
+    unconfigured bridge.
+
+After re-ordering, we can end up with something like this:
+
+  bool pci_liveupdate_preserve_bus_numbers(void)
+  {
+  	return pci_liveupdate.had_incoming;
+  }
+
+  bool pci_liveupdate_refuse_bus_numbers(struct pci_bus *bus, struct pci_dev *dev)
+  {
+  	struct pci_dev *bridge;
+
+  	for_each_pci_bridge(bridge, bus) {
+  		if (!bridge->liveupdate.was_incoming || bridge->subordinate)
+  			continue;
+
+  		pci_err(dev, "Not assigning bus numbers, preserved bridge %s lost its bus number configuration\n",
+  			pci_name(bridge));
+  		return true;
+  	}
+
+  	return false;
+  }
+
+The net effect on pci_scan_bridge_extend() is:
+
+  bool preserve_bus_numbers = !pcibios_assign_all_busses() ||
+  			    pci_liveupdate_preserve_bus_numbers();
+  ...
+  	if (pci_liveupdate_refuse_bus_numbers(bus, dev))
+  		goto out;
+
+We could further scope pci_liveupdate_preserve_bus_numbers() to only
+return true for host bridges with preserved endpoints downstream, but
+that doesn't seem worth the extra complexity. It also seems nice to keep
+the pci_liveupdate_preserve_bus_numbers() policy global to match how the
+existing pcibios_assign_all_busses() policy is global.
+
+Does that look reasonable?
