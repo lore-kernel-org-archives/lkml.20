@@ -1,101 +1,119 @@
-Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com [209.85.167.51])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF2172E7631
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 16:26:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07BC638398F
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 16:27:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789230409; cv=none; b=k8c8bXH5YtmZfx80CaE+Jvj2D3KF1Q4c6AJuXxwcyVcCDb+lP7HQwWkv0mfodn72+LLbQIjWLi4p48a28cy0zPENMufupLRy9b0o0rUD8u18fTxI+Y5Odxbc4KcTq7pM3p3dIY3OiA8t2n0pI10hX85xKrLbydbeOuOP57lBAUM=
+	t=1789230474; cv=none; b=CnSHlL8c+z8QzbHOZKjh1jF6dLcgk2DfgljAJmThtt4exlip24uzpsS0amnTlSNapOTYoeimvtrrSXkqWosFDYJiVk7001/oEKkZ+qb1PPk8NeQBoWbCf7drrRITWbQzzUgD7CLoBxClmigjJOjCBn2iYOIEwy+nsuQVnuxHvQ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789230409; c=relaxed/simple;
-	bh=2ybGNvtRPmELIiuqpy4MyXSFl7zacEdOM8euYoyTYNA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=a9Ari/nQEAMDi2eQVMATmaczv4g0m8HZEnEcr3uvl3VyNGFCo3ut42oaG62Yx8pa9oQIuDApcUf8Fg6ffeWRlhP2ndwW9KRtfsRZo+FVdSDdCtiUMbM4eOCjdutFVy2F5XOHKF2U8Yeliwz8tfqg2WLnxGgqUWF8lrsHYh6Ap7c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qQpDjRLg; arc=none smtp.client-ip=209.85.167.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789230474; c=relaxed/simple;
+	bh=SB+7ZypI2a/DHX9aPHHGLY95kw1SSDbas/xPaFVh4bA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=qwck1NVGVlGp74Jt3NhvVWokQieRunXY0SsKgkVuEYlrq4kvTBtMxh20MMc5KiCHGBGv0FS4rfL4AjvYSzyk+9S/m/RRfvYVr63WX9lRuYCyVbNpLq1lZji/z81HusYPemst4O3hxXJdNYcKd3VO0z5Ovc9xiS2zAZ5keRgMsvU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=fXBL9xkO; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qQpDjRLg"
-Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5b76694fb7aso1790363e87.0
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 09:26:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="fXBL9xkO"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ccf3ca94bso2538715e9.3
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 09:27:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789230405; x=1789835205; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+        d=googlemail.com; s=20251104; t=1789230470; x=1789835270; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=CgEC75mikLCwF5cE3ExQ9CoPkC0/OMRsItLfyWpU9YY=;
-        b=qQpDjRLg8IZhUfvWBmMMysx9/KgCXzz3LvK1OTkBIOE0Lpdp3gMCunkLg8f5Q5Pvu8
-         EsC3+DrdZx2EXIvZJV8frQPPWFe9N8Vqx5RobQrHYqtdAU+n0G2ARbITIzoZDp+ufrW+
-         WWs3KQ//4QBiXKDy6mfqHe79EazeO/6Ul/UnFl5G4PPdIpfKBw41z6y+6mjaOb7n762V
-         nxIzP6Pm9ECqH+j3bwUF8ERtHGmfsqg5PP5NX18EbXIbxAIU5fnN1Md14KAk7VgQ+gYF
-         4o1NS2JN9Itxr8ud1GnTYoAf+TKDpCitZf5ax/O4AU4jmt9b3eM66Ow1sVxlv0cg0TZ4
-         xglg==
+        bh=uLwPFVSH6fenxtAVKVtDZP5Su/rpOuHfnYhbGoS9nnQ=;
+        b=fXBL9xkO4jZy1f4XIa58x20MJVNE2mGboeZSwUQv/AjD3VqWBzuyea8Xnj3l7WZ4eX
+         vKeI4iwW54VI7CYHiQM9gsCvDSCgxvcv3yayt5Q0uuFcFtKmnFhUg8qmzee5LCbJCxM6
+         0MFAfVCiB6NLY0oD9UQumIW38KsixAvzd5VEDwhqTJNedqjZ8LNqQva9pLZoLzbSSKVV
+         /gcNrS4G57LhVe2MjjSmaAvO+KkMcZHVEVV/miFZvuvNP2WJ5UXgCmpB9jl6Uv4Wk+9R
+         WdyTlsIrUVX4NUD8sjYQph8wPo1UWDo4B4XfxHMLdqpkJM8Yb67Ir1loOYvYNlxBjp5e
+         NGnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789230405; x=1789835205;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CgEC75mikLCwF5cE3ExQ9CoPkC0/OMRsItLfyWpU9YY=;
-        b=az2AXfehL5Vl8Jw8vrq0KICaPdR4Lx/7QwOq1biBJWWEGS77dFx7f+nc3WqLdHSwxU
-         DcPfO6INNtG3mK1+D+LPINVQV38peJmijKopf1Vs3lYXPRgb/owyDBv2ZJTMvv6rDRWu
-         8BV0px01QzcRfqhc5v06YZ0O92JgbLoLyXYUB55rrI5bEgFeSvNID2cb838FkKWR1Ful
-         j9ksFbz4eNJnbwOB48/u/R+0sQHfMC8eJZWwPGJceOLTN499xyEgCvEnf5hnTANzI8Xf
-         2T7QvgvVjl+TJ6ijbsKHR6K5VZmR67HE9/UbXsIsrLvddqo0oUM9WgcHhITs/Tl1svYI
-         pSLw==
-X-Gm-Message-State: AFuF++nmWAVm4dByZr/CJDmoYYjNt86rKmcERfT0MfSoQ0JwuZdvpNny
-	1CQsW97C0edeykYVwac5tn112/RDoliZR4RXR0iymSQBmPi10UjeBFjU6JejW0ukCYY=
-X-Gm-Gg: AYBFou0UgFClyPVF85Qqf006S6rOmxAtrdTTBBbbDtyOcdMtpAUmnjUiRi+McjgNZ/2
-	ub8yZF/iFLsU7Hv2mVTCweFMEp02XcFDK95Hs7NBwIez7ljpqxnhWIsjEZe+fOX/JP63Tteh7FR
-	m/AzcWSN24UZVNBvudd7KAHS0w8TJWKf88Q8GvFn43SvufIDAONW6Bja7keseZ3Em/rX95kRfD3
-	LfrOgodkTmxLZ5mvhxCS+uS1+28aXTk7u80RbmSb0/LM63hv6pSt+3dhoVyaMW90M2JwM5rYete
-	B2CjRjYvk1WT/MMec2EuF9oZjGSLIDACtIah3sNvpcfJ++F79z45diZwk/2SxPKPRJ3grAzG9CW
-	27Nxmzi7PwiMyvb1EoJLkNdU846E3StGmoxg+kHW4tYqx7L8yc1AeaRdUy+0FE12UuBhCYCqis+
-	fPqaoEYfGPF6DY/oG/irsgMPVLIqFhPsjwOw4dBUKyXeYYc1HeMgTRabRk9U29myWlYn0PikzYy
-	oKm/xX+A6Lk2ekkAetbsa8BO9efbZjSDA==
-X-Received: by 2002:a05:6512:3d9f:b0:5b4:ab0c:f606 with SMTP id 2adb3069b0e04-5b89a2e7c1bmr2727737e87.2.1789230405156;
-        Sat, 12 Sep 2026 09:26:45 -0700 (PDT)
-Received: from localhost (host-80-73-162-2.rev.as20985.net. [80.73.162.2])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8a047aba2sm1364112e87.73.2026.09.12.09.26.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 12 Sep 2026 09:26:44 -0700 (PDT)
-From: Andrey Golovko <andrey.golovko@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH] mailmap: update email address for Andrey Golovko
-Date: Sat, 12 Sep 2026 19:26:30 +0300
-Message-ID: <20260912162630.7731-1-andrey.golovko@gmail.com>
+        d=1e100.net; s=20251104; t=1789230470; x=1789835270;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uLwPFVSH6fenxtAVKVtDZP5Su/rpOuHfnYhbGoS9nnQ=;
+        b=g7LYyVtlEXq1K7pxnhwBNG7hDt+dPjH5KJrlnQFht3rN5dm3osObDHxL9lSNH8Rq2b
+         6uCQZuimU9srA1Dn8QImVxvOn5JoIfUONEKcczXo1agsmp+376D34Bp4pBYAqemF/93V
+         pN/1wwVAsE1pym3IHLuoUcERrySaoRbDJeOl909CsvcHS6cpzSPmgrFOa4XgeYxmrlFz
+         e+y1rA5NElUWlMZJm0v2l77ZM+YXxUKJAOVI2AEwT25DIZ+Y+n7+QEPut9qKkOARgmf6
+         +nEML7jejR4l8alWK6WZcMEG6XVT+GOY7n/6VBnM6GfRbRGx2Ze7XbWOWqyov40Sa40R
+         c+bA==
+X-Forwarded-Encrypted: i=1; AKwUvBwDAV6QJoPxxlhlPmuGyUwwRLNyIFKANugY7BI4Z0a+B+NaJ6Rd3kmRFTaclKdA1z4s8BZIVnV7MKjXBIk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lQye0CYa2muUgiwAgoyyf0zLLXdSgFyXMaz7RTBFbxer4UfivW
+	sWHKMv8V/L2kNdnqNc8v6MfI3ODQKzgU0eTXPCgTvyd6gmQ71i/nJFL9EnHT
+X-Gm-Gg: AYBFou1cszocbL5Spv6DXMPE6QGdORIp6fUnVk9KcOzPtACGd0KRTDNZKaUK0F1rT26
+	ohX11xuz0KmxJ6IVlPSiq54wgUOKst5o+9RdYJjFVGFBfNdxlV21F4UqjRzAnBfDIOwL8IabbSc
+	HGZa314QRmYgcvQtV/NqJPZCEjLvulsmbXy0f837YkcsSc7z9+LiGMg5m5eroOUCB+HiQmslv6Z
+	o9lb+1nP7uCk13QJZUTeMwGdOVl+HNHk43HjrEedf2eb8Ai48NABHOh6S9o99VfmWcJfHZIvrMR
+	SMTMVgEuLlY+CIMP7eLiByvWSh3HsAbFeBn47ilSSN9Fp6wcEzVstpVe2nk+DpT97Cp7Nb27VA9
+	+z3kDh0wGEf4iYk5OqzM+GM0aNIb9SP3/eXopzQAQ8Yl++b1ufUsIMb3l8KF+YVql7BHKrb3Qo3
+	ScWTZqKcBL2l9WiSE/EkLF6CMYy8w0U7idvYukX3m5nzYD8MUGrGih6u2om+/lNHbsWhNVxfjUz
+	QFzDzXQvQ+V4gmTKFtqx+VmTLpEOdENFEpZrVx0FhoV5nXPJU0=
+X-Received: by 2002:a05:600c:a04:b0:49e:63cd:31fb with SMTP id 5b1f17b1804b1-49e6caa2662mr32416415e9.9.1789230469857;
+        Sat, 12 Sep 2026 09:27:49 -0700 (PDT)
+Received: from [192.168.1.3] (p5b2ac4da.dip0.t-ipconnect.de. [91.42.196.218])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e60ad0614sm183298795e9.10.2026.09.12.09.27.48
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 12 Sep 2026 09:27:49 -0700 (PDT)
+Message-ID: <473b0515-41b9-45cd-823c-11c759a7ada4@googlemail.com>
+Date: Sat, 12 Sep 2026 18:27:48 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH 6.12 0000/1376] 6.12.110-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260912065607.535295758@linuxfoundation.org>
+Content-Language: de-DE
+From: Peter Schneider <pschneider1968@googlemail.com>
+In-Reply-To: <20260912065607.535295758@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Patches sent from andrey.golovko@gmail.com carry the authorship of my
-commits, but some of the tags I gave on other people's patches use
-andrey@golovko.me.  Map the second address onto the first so the two do
-not look like two different contributors.
+Am 12.09.2026 um 08:40 schrieb Greg Kroah-Hartman:
+> This is the start of the stable review cycle for the 6.12.110 release.
+> There are 1376 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-Signed-off-by: Andrey Golovko <andrey.golovko@gmail.com>
----
- .mailmap | 1 +
- 1 file changed, 1 insertion(+)
+Builds, boots and seems to work on my 2-socket Ivy Bridge Xeon E5-2697v2 server.
+However, I see the following dmesg warnings in this rc1:
 
-diff --git a/.mailmap b/.mailmap
-index 37aad399e4e0..bcc092fd83af 100644
---- a/.mailmap
-+++ b/.mailmap
-@@ -91,6 +91,7 @@ Andrew Morton <akpm@linux-foundation.org>
- Andrew Murray <amurray@thegoodpenguin.co.uk> <amurray@embedded-bits.co.uk>
- Andrew Murray <amurray@thegoodpenguin.co.uk> <andrew.murray@arm.com>
- Andrew Vasquez <andrew.vasquez@qlogic.com>
-+Andrey Golovko <andrey.golovko@gmail.com> <andrey@golovko.me>
- Andrey Konovalov <andreyknvl@gmail.com> <andreyknvl@google.com>
- Andrey Ryabinin <ryabinin.a.a@gmail.com> <a.ryabinin@samsung.com>
- Andrey Ryabinin <ryabinin.a.a@gmail.com> <aryabinin@virtuozzo.com>
+[    2.357525] Driver 'sr' needs updating - please use bus_type methods
+...
+[   82.818407] Driver 'ses' needs updating - please use bus_type methods
 
-base-commit: df2908090cda368b01ff43709f51890076c56157
+These warnings are not present when booting into 6.12.109. I don't know if they are significant or not.
+
+
+Tested-by: Peter Schneider <pschneider1968@googlemail.com>
+
+
+Beste Grüße,
+Peter Schneider
+
 -- 
-2.53.0
+Climb the mountain not to plant your flag, but to embrace the challenge,
+enjoy the air and behold the view. Climb it so you can see the world,
+not so the world can see you.                    -- David McCullough Jr.
 
+OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
+Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
