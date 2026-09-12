@@ -1,167 +1,342 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83CF3364E85
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 23:46:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2B232BD59C
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 23:51:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789256804; cv=none; b=SbHjMTVONMwk0+H+XHOYZlNmjCovWzJaXsr0x8bnsXpnMhqofu21fh/ut+t6HbxtGcNv9qnoh6e9Mt0a5IeBtMmCAIkEWOv7775k9KPCPoxpfQfC3dDStW/xnrIlQ0XGB1nIqq++9SireveRMk4zWKIQKctXuObDwBWkdO/AVw4=
+	t=1789257094; cv=none; b=Db3TcPHz6gQukQwHt8bxwM7YmSFFja8tghmXt8pGjTxZYcPDDqe5ei/T+2BdSyyHwNbKACk+KGeEKiA36VCM6JxPle4j9x3jXCBYQ6omXhCU55MaaDTk+4hZmV6ZkIcqXzFh/KFUF8kI9rVPZnu+cwtY6aFQcE5KIxeetFHaMqo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789256804; c=relaxed/simple;
-	bh=Y+Y7jFaIBY1fqvsHyMrlaVgN8ji3JyM0UKEwR2MldH0=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=WGRuP/tUvzJvpdYX55kRwMt+1FdJVqyOkGbc/cl4ZJPHo4k1hZkl3ehQnLSInHwRXC7WhTF0EcatcYk7ZIPeQvUNdQQq8fvrqLC7QkXDszBNuTm6mdKHCCmEWXgk59ChLIEu8cwKq4N8orv4msxnYd3rIQctUtLpPCr8zqHzvsY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=tdDKYYxh; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1789257094; c=relaxed/simple;
+	bh=fD9xegSujnsT4NKnlfjWBz0getfDwxDziPE/OzXLPzU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pNkO+x1GJ1B4OAb4va7CcPz8uyg0Z+QuGbNOPNLc2ce4qBBm+0dAecyMNsXLvnPe5YyPesb09OJPux8cqDpEtaVt/Z/y2K0dRkmPG1Wzgn83ZT0wdnOMddkuuBkMnC5mlqbedv/2C8YnHnR9WvG6pfHuov/id/zauN1Qt0tRIJk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o3VAHv82; arc=none smtp.client-ip=74.125.230.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="tdDKYYxh"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49cd77e0f95so15465975e9.3
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 16:46:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o3VAHv82"
+Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfcbe207so11588226d6.3
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 16:51:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789256798; x=1789861598; darn=vger.kernel.org;
-        h=content-type:mime-version:references:message-id:in-reply-to:subject
-         :cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pVsvS8oPhpD7RsA/j/bC9uAynbPr4/hmIZdqzmX+oJs=;
-        b=tdDKYYxhhG3Q90T+T2I74scQd0QZpaj6bXd9gYJnQlvUn1k0SfH6l7Use+mSwwH2cS
-         1MitrMX39+bM1n75/I5lvVvhFKbf3Fxs+EAquS4dUxmDfK1l3zwO37W7HQ4zykCU5+ze
-         S6wOCYQmKGbXiBPx5opCsm+TSd8mY1n0q57udrEmuVrwtwljIlpTXj7rvh79FpCH7+XD
-         O0D3Iq4kjdPHoM5On1qOggbJtGYdZcno605QkeJZr25AKVats0RAmol+ZdrD1Ha21Z7R
-         ZszssoDSUVMRoSxrjWdNAiL7m5WA1BhhMp85M0KxHyPup9PCDgvP7MwASYoUTCMWgTrn
-         Lt+w==
+        d=gmail.com; s=20251104; t=1789257090; x=1789861890; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=P9J6NG/MV7DU9c7t3z7uXv1DPj7gHWd/klA6eHMwHZo=;
+        b=o3VAHv82RPTcsoGv+o/rwriT8Rva/nR2SAw4/upykMRGJPLF9EX7VKV/34/zJx6MzR
+         u64cxRQM0MnVQZ0T5ACzOHRHPFQsfI9N6SOUj8jAn4Z1K7rxwqxF9OxHkERVcaXSzZaP
+         jVOuM1pirXlmy+FE8ao4pcHQEeCyvrgfKOfMe/vtHRCbbpRooqUtEeRHBgpA9r7VQ+QP
+         bwNqeQ1Er574ASxtAhyQ057IKCzUZm94Qmx8IleLYt6x94VG68ARPib4uo/jEIiKfUZ+
+         J5FzBs09TxNcnWAxZ9k9Q8Cu68x6aBnbXUYrp9jzWgjpYZOR4pdZlccQg56l5KBG1fAF
+         vuEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789256798; x=1789861598;
-        h=content-type:mime-version:references:message-id:in-reply-to:subject
-         :cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1789257090; x=1789861890;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=pVsvS8oPhpD7RsA/j/bC9uAynbPr4/hmIZdqzmX+oJs=;
-        b=WxZNrc4hShYPeeInFuDEJnuFbd5a+NZjMHiZqE32vsyIr4HSxX8dUwv3z73at8lFBD
-         tnkf3PsXY1RsXq1k6IRXTo9donUUaLxo4PL6FpvLNzOiEo6oYqzPBd/+1tLZZQwVUWzJ
-         QYNykiOhwHwEwzUk5gVCklfHMt+Yx9eWPqwsIV5Yk3aQoybCxpEXryFuns9Y+iEkMK35
-         tv7+NArQNucXCnmhrb1IGxyYSBd4G9+m5VzEa9pTZlp9STuboIY00GZ7y/JfBuPB2225
-         sdDDhwOBXE2mwhWjSRoQzsquWLTi1asJz13CSog5x+o9iGkqAt6+oajdW9NIe2z4DxcY
-         96Ug==
-X-Forwarded-Encrypted: i=1; AKwUvBysN0QJaMwgBNkoNUAciAWvs5lx78nkGu6faCP4EdK1hipumgRpa5dBb1R11MdkRiGPme61gBqBUc2+hTM=@vger.kernel.org
-X-Gm-Message-State: AFuF++mgWP5blhrMWPxIFfcb8Na93tHmLDArU/4cqRpcDAdwVpCCJ7xo
-	8iBX2aS6S3vUuav8f3fTBWjcmmRNBS+gknRFhJo5xChmPNZWfccQCI4lNSHC15JCxA==
-X-Gm-Gg: AYBFou04SCDycA8QekK6s38Q9shJG01IxV1CllZZE/pCttmC9o7pvVLXk7WGdWFsFi5
-	5CgW2FKK4ZDIHzYbGb9BItSIaRWa25FgREvS/Wa/hiHy/gFEh+1Hxkr+dCkX9inOi4Zn84Ya+Th
-	qiaYKwGQW+gCrYBOWtsCFZF8rsCq9m6icuo9Lq3jgSyzHHMVHvmFqWuvcvVc4aF92eUEx1V6OaO
-	HitIULu+8nhO/rVyj6tcw+Og7bnNQ6jHNDa8RxAwvygfO79aSE5ccEZRdmFPaRxCvEJfA6aHmkO
-	Uof/6t9RkSMWYOYh5Mqe73aAvu4Ioqu4Pos74BczkN1mkmWgV1TFVrJDvigzbyoHo5V544pi2RI
-	JfT8aUHX03Po9ksKF8HJiXjw/66VdX28ZM+ySszCtQ1YGidfHnT0SDP1E5oQiifljECWh8WmQbU
-	n2oT80Os0VxecOHX6bLBdJTgGMa/V+K7ft97OVMYDE8SgYPIackWHy7zq3D36GiPetxrcUA4Waa
-	gBCS6ds486LF1xKD9Bh
-X-Received: by 2002:a05:600c:3b1f:b0:49c:fc89:59cb with SMTP id 5b1f17b1804b1-49e61983468mr118820705e9.5.1789256798142;
-        Sat, 12 Sep 2026 16:46:38 -0700 (PDT)
-Received: from darker.lan (104.157.125.91.dyn.plus.net. [91.125.157.104])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e6221ffb0sm139496775e9.3.2026.09.12.16.46.34
+        bh=P9J6NG/MV7DU9c7t3z7uXv1DPj7gHWd/klA6eHMwHZo=;
+        b=WH3xtFM7i+MPqtnI1TGdPyzhByLsNxJLH5E8O13C5Y42JVcaiMVDQVHDv6Ku0Z0vcW
+         IW/lBiH5SCMtrNhMHUFVJ9SqWa5vN7dvGa+x+PXAimnTj7xOfNeJMvB04xwrTKDFxB/w
+         ajLcdRw67QBwDHpq6h35t+WPgYpr4iGVenRXmmVztgCElZGFbFX2TuEQeFYK50vxxONW
+         tE2W3qQDxVHiPF4hnbEXT8RHhwkkfxh0y8kK63IO1UIFIti484T8n38jDBXMpsRpM6d0
+         gRhEj1VpQt6+PcoStED7cXRQa6Nnta/q5+R0gSamWcswq7Z/HAOCadBxSciU4AzXbZXI
+         q++A==
+X-Forwarded-Encrypted: i=1; AKwUvBz7zl5c6X9QWNFz4AKaS+6wXwEj3G3TDb/uzPJtgyrlK+QjUi2Z5K0D7xanLs9FneVk2kdq/QIqgMS5dzQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++l9G32VTdQFWE9prniborrJMDW+1qkCx2pSCrOkCsIgHKKBscVN
+	KsEu97VkRirVFJOJVMbH+dpTn4jfu7mp8G2s0SjdiPNF2Uyk52A3OXQfWFOnHg==
+X-Gm-Gg: AYBFou3Dr0y/PpkvmHGekXM50iWBBx432AnLI6DzzAXpZLCy3ae3ibzNrhjFs64tdNA
+	UrJGll3WgGUiLZut/VegrO7aZTbhYbhXpjL9qBpIvRDCFf5hYv9tEfNttoF6VlianOLKvSkJ70n
+	ci+JEb/LQuAUsyb9MQiIsy29KwQAbqkW1Wyba1UF8zAprTJuepl0StEOLuoZ6CtaxV8VGt1c522
+	TsbfBXSYv8SKWYHMF8yjgq3xOMy7DjNue7yBSa6njgtMz3Arocs1ALSrJKdBW3v6s9AIkt0AYc3
+	kkTR+YaNq8jbRPrWrtd7mEuXp5+JU4I1tO9HYOvhMIKXT3qTN+hRizaYtfMNllF6t2nAJubH5c0
+	/5/yPmdbDX13fU5Bo8AURmrkKj7L+9xaCsFbXCfnZjYwuypIRyTNedUT20Q8Tpa48w3VlmVVs/M
+	hfqw7dnh1+Up76PwTZCtiFPTryvm/JUi2wpZygqspZGTqJ40+rCQRTn4HomROJg+Cd+5bN7K8ny
+	saMN3h9JwcGgyKKaUSWl64AtlYK0YHa61+Uda5w0Xnv5iAPry5SDUFK6YW1g6k2Mw4H3qjghdna
+	LVVbwmV863pPktgunD67Bd04K4TxfASRWf8YDedsz8HETe/c1yg1oWZi6xM=
+X-Received: by 2002:a05:622a:64a:b0:530:4310:53a3 with SMTP id d75a77b69052e-530e81d49c7mr71418151cf.48.1789257090557;
+        Sat, 12 Sep 2026 16:51:30 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e34])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-530cd3ab1d1sm54050791cf.17.2026.09.12.16.51.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 12 Sep 2026 16:46:36 -0700 (PDT)
-Date: Sat, 12 Sep 2026 16:46:34 -0700 (PDT)
-From: Hugh Dickins <hughd@google.com>
-To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-cc: Hugh Dickins <hughd@google.com>, Andrew Morton <akpm@linux-foundation.org>, 
-    Ackerley Tng <ackerleytng@google.com>, 
-    Alexander Viro <viro@zeniv.linux.org.uk>, Alexandre Ghiti <alex@ghiti.fr>, 
-    Baolin Wang <baolin.wang@linux.alibaba.com>, 
-    Barry Song <baohua@kernel.org>, Binbin Wu <binbin.wu@linux.intel.com>, 
-    Christian Brauner <brauner@kernel.org>, Christoph Hellwig <hch@lst.de>, 
-    Christoph Lameter <cl@gentwo.org>, 
-    Claudio Imbrenda <imbrenda@linux.ibm.com>, 
-    David Hildenbrand <david@kernel.org>, JP Kobryn <jp.kobryn@linux.dev>, 
-    Jan Kara <jack@suse.cz>, Jens Axboe <axboe@kernel.dk>, 
-    Johannes Weiner <hannes@cmpxchg.org>, Kairui Song <ryncsn@gmail.com>, 
-    Kiryl Shutsemau <kas@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-    Leonardo Bras <leobras.c@gmail.com>, Lorenzo Stoakes <ljs@kernel.org>, 
-    Marcelo Tosatti <mtosatti@redhat.com>, 
-    Matthew Wilcox <willy@infradead.org>, 
-    Mel Gorman <mgorman@techsingularity.net>, 
-    Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@suse.com>, 
-    Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-    Oscar Salvador <osalvador@suse.de>, Peter Zijlstra <peterz@infradead.org>, 
-    Qi Zheng <qi.zheng@linux.dev>, Rik van Riel <riel@surriel.com>, 
-    Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
-    Shakeel Butt <shakeel.butt@linux.dev>, 
-    Suren Baghdasaryan <surenb@google.com>, 
-    Yang Shi <yang@os.amperecomputing.com>, Yu Zhao <yuzhao@google.com>, 
-    Zach O'Keefe <zokeefe@google.com>, Zi Yan <ziy@nvidia.com>, 
-    linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-    linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [PATCH v2 09/26] mm/fbatch: restore mlock+munlock batching,
- without extra ref
-In-Reply-To: <ce1e07aa-5600-46c1-b35a-d7df09a84521@kernel.org>
-Message-ID: <96fa2371-8a9e-8fcb-08f0-2977320bbbe8@google.com>
-References: <e28f9a94-4339-f8ac-8301-6be3c9b5b7ce@google.com> <69ba633c-8fd5-1f4b-2e1e-b9b15b8946be@google.com> <ce1e07aa-5600-46c1-b35a-d7df09a84521@kernel.org>
+        Sat, 12 Sep 2026 16:51:29 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: netdev@vger.kernel.org
+Cc: Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH net-next] net: phy: marvell: wake the system only from the WoL event
+Date: Sat, 12 Sep 2026 16:51:25 -0700
+Message-ID: <20260912235125.151370-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
 
-On Thu, 10 Sep 2026, Vlastimil Babka (SUSE) wrote:
-> On 9/9/26 11:59, Hugh Dickins wrote:
-> > Update mlock_folio(), munlock_folio() and their fbatch callouts and
-> > helpers, to do folio_try_get()s at batch processing time, instead of
-> > holding a folio reference all the while in mlock_fbatch: as in folio.c.
-> > 
-> > But more interesting is the use of mod_mlock_count(), using try_cmpxchg()
-> > to update folio->mlock_count safely when possible (now when on lru_add
-> > fbatch as well as when unevictable). While __mlock_folio() is as hard to
-> > think about as before, __munlock_folio() simpler because munlock_folio()
-> > can adjust mlock_count itself without clear_lru() or lruvec lock, and so
-> > do the folio_test_clear_mlocked() immediately for itself (without which
-> > unevictable_pgs_cleared was likely to appear high, when it should be 0
-> > or low to indicate good mlock health).
-> > 
-> > __munlock_folio() is safe for use even when the unreferenced folio has
-> > been freed and reused. It appears that __mlock_folio() could affect a
-> > folio which has been freed and reused, but only if it is reused as an
-> > mlocked folio, in which case its mlock_count is spuriously incremented
-> > (but usually a spurious munlock decrement will follow).  How grave is
-> > this? If unevictable_pgs_cleared remains low, not so bad.
-> > 
-> > I've gone back and forth on whether to move mlock_fbatch and these
-> > functions into mm/folio.c: for now they stay here in mm/mlock.c.
-> > 
-> > Signed-off-by: Hugh Dickins <hughd@google.com>
-> > ---
-> >  mm/mlock.c | 147 +++++++++++++++++++++++++++++++----------------------
-> >  1 file changed, 86 insertions(+), 61 deletions(-)
-> > 
-> > diff --git a/mm/mlock.c b/mm/mlock.c
-> > index 2c690f18031e..1050010bbe0b 100644
-> > --- a/mm/mlock.c
-> > +++ b/mm/mlock.c
-> > @@ -58,6 +58,20 @@ EXPORT_SYMBOL(can_do_mlock);
-> >   * indicate the unevictable state.
-> >   */
-> >  
-> > +static long mod_mlock_count(struct folio *folio, long incdec)
-> > +{
-> > +	long mlock_count = READ_ONCE(folio->mlock_count);
-> > +
-> > +	while (mlock_count & MLOCK_COUNT_0) {
-> > +		if (mlock_count + incdec < MLOCK_COUNT_0)
-> > +			return MLOCK_COUNT_0;
-> > +		if (try_cmpxchg(&folio->mlock_count, &mlock_count,
-> > +				mlock_count + incdec))
-> > +			return mlock_count + incdec;
-> > +	}
-> 
-> This never rereads folio->mlock_count to mlock_count inside the loop, so it
-> can spin forever?
+Enable waking the system from a WoL event on the 88E1318S/88E1510.
 
-You give me a nasty moment, have I misunderstood? Isn't it part of the
-try_cmpxchg() contract, that it reads folio->mlock_count into mlock_count
-when it fails? Hence the "&mlock_count" rather than just "mlock_count"?
+When WoL is enabled, m88e1318_set_wol() now calls enable_irq_wake()
+on the PHY's IRQ and marks the MDIO device as a wakeup source so the
+underlying GPIO interrupt raises the system from suspend, and reverses
+both on disable.
 
-> 
-> (too late here for me to understand the rest today)
+With WoL active the PHY must stay powered to detect a magic packet,
+but without masking, phy_suspend() would leave every interrupt
+enabled, so a link status change or any other PHY event would assert
+INTn and spuriously wake the system. Set PHY_ALWAYS_CALL_SUSPEND on
+the 88E1318S/88E1510 drivers so that phy_suspend() still calls their
+suspend callbacks with WoL enabled, and have those callbacks keep the
+PHY awake while writing the interrupt enable register (CSIER/IMASK)
+down to only the WoL event bit.
 
-But that I understand very weil: thanks for all that you have managed.
+marvell_config_intr() rewrites the whole CSIER register with
+MII_M1011_IMASK_INIT on resume, clearing the WoL enable bit. Re-arm
+WOL_EIE in the resume callbacks so the WoL interrupt stays active for
+the next sleep cycle.
 
-Hugh
+Assisted-by: LLM
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ drivers/net/phy/marvell.c | 145 ++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 138 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/net/phy/marvell.c b/drivers/net/phy/marvell.c
+index f71cffa88406..70aaa09f2047 100644
+--- a/drivers/net/phy/marvell.c
++++ b/drivers/net/phy/marvell.c
+@@ -30,6 +30,8 @@
+ #include <linux/ethtool_netlink.h>
+ #include <linux/phy.h>
+ #include <linux/phy_port.h>
++#include <linux/pm_wakeirq.h>
++#include <linux/property.h>
+ #include <linux/marvell_phy.h>
+ #include <linux/bitfield.h>
+ #include <linux/of.h>
+@@ -1902,6 +1904,61 @@ static int marvell_resume(struct phy_device *phydev)
+ 	return err;
+ }
+ 
++/* marvell_wol_suspend_intrs
++ *
++ * With WoL enabled the PHY has to stay powered to keep detecting a WoL
++ * packet, so instead of entering low power mode, mask all interrupt
++ * sources except the WoL event. On the 88E1318S/88E1510 the interrupt
++ * mask (MII_M1011_IMASK) is the same register as the Copper Specific
++ * Interrupt Enable Register (MII_88E1318S_PHY_CSIER), so writing only
++ * the WoL event enable bit unmask just that event.
++ */
++static int marvell_wol_suspend_intrs(struct phy_device *phydev)
++{
++	int oldpage, ret;
++
++	oldpage = phy_save_page(phydev);
++	if (oldpage < 0)
++		return oldpage;
++
++	ret = marvell_write_page(phydev, MII_MARVELL_COPPER_PAGE);
++	if (ret < 0)
++		goto out;
++
++	ret = __phy_write(phydev, MII_88E1318S_PHY_CSIER,
++			  MII_88E1318S_PHY_CSIER_WOL_EIE);
++out:
++	return phy_restore_page(phydev, oldpage, ret);
++}
++
++/* marvell_wol_resume_intrs
++ *
++ * marvell_config_intr() rewrites the whole MII_M1011_IMASK register
++ * (which is MII_88E1318S_PHY_CSIER) with MII_M1011_IMASK_INIT on
++ * resume, clearing the WoL event interrupt enable bit. Re-arm it if
++ * WoL is still enabled so a later WoL event keeps waking the system.
++ */
++static int marvell_wol_resume_intrs(struct phy_device *phydev)
++{
++	int oldpage, ret;
++
++	if (!phydev->wol_enabled)
++		return 0;
++
++	oldpage = phy_save_page(phydev);
++	if (oldpage < 0)
++		return oldpage;
++
++	ret = marvell_write_page(phydev, MII_MARVELL_COPPER_PAGE);
++	if (ret < 0)
++		goto out;
++
++	ret = __phy_set_bits(phydev, MII_88E1318S_PHY_CSIER,
++			     MII_88E1318S_PHY_CSIER_WOL_EIE);
++out:
++	return phy_restore_page(phydev, oldpage, ret);
++}
++
+ /* m88e1510_resume
+  *
+  * The 88e1510 PHY has an erratum where the phy downshift counter is not cleared
+@@ -1934,9 +1991,25 @@ static int m88e1510_resume(struct phy_device *phydev)
+ 
+ 		/* downshift enabled, with previous counter value */
+ 		err = m88e1011_set_downshift(phydev, cnt);
++		if (err < 0)
++			return err;
+ 	}
+ 
+-	return err;
++	return marvell_wol_resume_intrs(phydev);
++}
++
++/* m88e1510_suspend
++ *
++ * If WoL is enabled the PHY receiver has to keep running to detect a
++ * magic packet, so keep it awake and unmask only the WoL event at the
++ * PHY. Otherwise suspend both the fiber and copper interfaces as usual.
++ */
++static int m88e1510_suspend(struct phy_device *phydev)
++{
++	if (phydev->wol_enabled)
++		return marvell_wol_suspend_intrs(phydev);
++
++	return marvell_suspend(phydev);
+ }
+ 
+ static int marvell_aneg_done(struct phy_device *phydev)
+@@ -1969,8 +2042,12 @@ static void m88e1318_get_wol(struct phy_device *phydev,
+ static int m88e1318_set_wol(struct phy_device *phydev,
+ 			    struct ethtool_wolinfo *wol)
+ {
++	struct device *dev = &phydev->mdio.dev;
++	bool wol_enable;
+ 	int err = 0, oldpage;
+ 
++	wol_enable = !!(wol->wolopts & (WAKE_MAGIC | WAKE_PHY));
++
+ 	oldpage = phy_save_page(phydev);
+ 	if (oldpage < 0)
+ 		goto error;
+@@ -2075,7 +2152,49 @@ static int m88e1318_set_wol(struct phy_device *phydev,
+ 	}
+ 
+ error:
+-	return phy_restore_page(phydev, oldpage, err);
++	err = phy_restore_page(phydev, oldpage, err);
++	if (err < 0)
++		return err;
++
++	if (device_can_wakeup(dev) && wol_enable != device_may_wakeup(dev)) {
++		err = device_set_wakeup_enable(dev, wol_enable);
++		if (err < 0) {
++			/* Roll back the PHY WoL config if the PM state update failed */
++			struct ethtool_wolinfo wol_off = { .wolopts = 0 };
++			int rollback_err = m88e1318_set_wol(phydev, &wol_off);
++
++			if (rollback_err < 0)
++				phydev_err(phydev,
++					   "Failed to disable WoL after wakeup enable error %d\n",
++					   rollback_err);
++		}
++	}
++
++	return err;
++}
++
++/* m88e1318_suspend
++ *
++ * If WoL is enabled keep the PHY awake so it can detect a magic packet
++ * while the system is asleep, unmasking only the WoL event at the PHY.
++ * Otherwise suspend the PHY normally.
++ */
++static int m88e1318_suspend(struct phy_device *phydev)
++{
++	if (phydev->wol_enabled)
++		return marvell_wol_suspend_intrs(phydev);
++
++	return genphy_suspend(phydev);
++}
++
++static int m88e1318_resume(struct phy_device *phydev)
++{
++	int err = genphy_resume(phydev);
++
++	if (err < 0)
++		return err;
++
++	return marvell_wol_resume_intrs(phydev);
+ }
+ 
+ static int marvell_get_sset_count(struct phy_device *phydev)
+@@ -3587,14 +3706,25 @@ static int m88e1318_led_hw_control_get(struct phy_device *phydev, u8 index,
+ 
+ static int marvell_probe(struct phy_device *phydev)
+ {
++	struct device *dev = &phydev->mdio.dev;
+ 	struct marvell_priv *priv;
+ 
+-	priv = devm_kzalloc(&phydev->mdio.dev, sizeof(*priv), GFP_KERNEL);
++	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+ 	if (!priv)
+ 		return -ENOMEM;
+ 
+ 	phydev->priv = priv;
+ 
++	if (device_property_present(dev, "wakeup-source") &&
++	    phy_interrupt_is_valid(phydev)) {
++		int ret = devm_pm_set_wake_irq(dev, phydev->irq);
++
++		if (ret)
++			return ret;
++
++		device_set_wakeup_capable(dev, true);
++	}
++
+ 	return marvell_hwmon_probe(phydev);
+ }
+ 
+@@ -3813,6 +3943,7 @@ static struct phy_driver marvell_drivers[] = {
+ 		.phy_id_mask = MARVELL_PHY_ID_MASK,
+ 		.name = "Marvell 88E1318S",
+ 		/* PHY_GBIT_FEATURES */
++		.flags = PHY_ALWAYS_CALL_SUSPEND,
+ 		.probe = marvell_probe,
+ 		.config_init = m88e1318_config_init,
+ 		.config_aneg = m88e1318_config_aneg,
+@@ -3821,8 +3952,8 @@ static struct phy_driver marvell_drivers[] = {
+ 		.handle_interrupt = marvell_handle_interrupt,
+ 		.get_wol = m88e1318_get_wol,
+ 		.set_wol = m88e1318_set_wol,
+-		.resume = genphy_resume,
+-		.suspend = genphy_suspend,
++		.resume = m88e1318_resume,
++		.suspend = m88e1318_suspend,
+ 		.read_page = marvell_read_page,
+ 		.write_page = marvell_write_page,
+ 		.get_sset_count = marvell_get_sset_count,
+@@ -3920,7 +4051,7 @@ static struct phy_driver marvell_drivers[] = {
+ 		.name = "Marvell 88E1510",
+ 		.driver_data = DEF_MARVELL_HWMON_OPS(m88e1510_hwmon_ops),
+ 		.features = PHY_GBIT_FIBRE_FEATURES,
+-		.flags = PHY_POLL_CABLE_TEST,
++		.flags = PHY_POLL_CABLE_TEST | PHY_ALWAYS_CALL_SUSPEND,
+ 		.probe = marvell_probe,
+ 		.config_init = m88e1510_config_init,
+ 		.config_aneg = m88e1510_config_aneg,
+@@ -3930,7 +4061,7 @@ static struct phy_driver marvell_drivers[] = {
+ 		.get_wol = m88e1318_get_wol,
+ 		.set_wol = m88e1318_set_wol,
+ 		.resume = m88e1510_resume,
+-		.suspend = marvell_suspend,
++		.suspend = m88e1510_suspend,
+ 		.read_page = marvell_read_page,
+ 		.write_page = marvell_write_page,
+ 		.get_sset_count = marvell_get_sset_count,
+-- 
+2.55.0
+
