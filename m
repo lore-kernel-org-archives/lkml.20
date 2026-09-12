@@ -1,167 +1,114 @@
-Received: from mail-pz2-f39.google.com (mail-pz2-f39.google.com [74.125.228.39])
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12DEE3A4F47
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 19:12:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.39
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789240341; cv=none; b=IDUgP6KR7iMELXSVLWw+3foKVnIUsrbfgYOfJlht9CU6S5yXduO0cu1bHv0eI3nYbB1Ph6tkwieHihaukQBfCiZaBdOo5oePMdtfsON7K/8wHCijKfnt0xIvAnqOLmJIsoju5VwykCUuqap9PKm8jKfUpdMDDe0WAkN6SsAC1ms=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789240341; c=relaxed/simple;
-	bh=JlupTLV8Cln4XfTiHb4RxwCt6Slbwqs/r3cqkHuWFwc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qJOUeqEutokzOOFCMNeh7XAMpd0E7Hw8XtHw7lSR2fOQXpz6G0NlyP3KG/5xIEQcjUuz97tjd7AN1r0XSnmEVwOQbjCk4YuNE/q/6c82asOMUljM0aJ44EAtc7ydBQ8oPUBSPv///f1qOh2JneRjvDxD6ihHLFFQyTtleN2U298=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E7liz1hB; arc=none smtp.client-ip=74.125.228.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39D2B3B3BE9
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 19:12:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789240344; cv=pass; b=HO4kLlv+ihgbcVCddN/fu6xGrngtMNLOXuF6uNEjiuTOmyf0Eb+ZflYsjWdfcNiE65ciqWeoh5EBEYvIhhQ3dIptPu2EnHXLrY7lFVVwiYmv92obNFPmfzNfLJptzkjpHICVNDMJ/Q8gYAFiKui279Q5r/ZW3ijMMS9n5yxoVV4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789240344; c=relaxed/simple;
+	bh=u+xWrGD8mImT1Cc4PS08HKI81seYVirb45TJpAtTjAQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=o45V6e2QV9b/e0AX57FJuNl0odUKknA1PUc4UKCz8v3TtBjTNubMOFcv1xtAr4G7/Lv4yaC+Mhd5SRJcX+OdrqfPFGX6AjMDZ3DzsBSDLA2/V3Yhc9gbbbP0yvlIpn/7IQZqcoxkxqHNlfJmmcxiWiGfvkrXppLXvucKFAqXlfA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lBBDpAbm; arc=pass smtp.client-ip=209.85.216.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E7liz1hB"
-Received: by mail-pz2-f39.google.com with SMTP id 41be03b00d2f7-cc4b29fa803so806274a12.1
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 12:12:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lBBDpAbm"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-398a5aad413so2046806a91.3
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 12:12:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789240343; cv=none;
+        d=google.com; s=arc-20260327;
+        b=QKaBjker0K8vpJndrgXMeO8+boSecOOpxON1Uxpj11PYbV3AeZ9o47TeDsvjRcN37E
+         7eqb6nw+2OiUu0WEs/Ru4xKDIN9d+xsPg1mQIJam1IouU2A+2JQqSKRXtqVQSnJXUBw5
+         9m6uMm7m/DOQYLXhaG8mjBPpvY9ij8hyByppTjaYmD2u1GWJyWLs4HOH5uzsXryHrR6J
+         iPr0g4BCClClaMtsaxfqM9DOHWTiKTwdieNQOeBUJSYUXCoX/sDDWAhTIAxexQK41NUA
+         RL7AJ5EV54huSG8EynLjr/E/dycaO6d5Ihskmx1lEObteWekxCGMaJMHAsHrOnWSzPAE
+         8nlw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=/KtTlnq25tSukH1If3c69APSfMIY3/nD2byRCukec/E=;
+        fh=nbgsQNqT33dtNDvMUgpKnZuV3jJ7g3P//Zk8b2aMgoM=;
+        b=bhYnDmByPyjl6kQrxIzu+Oan3tLnk4iKw7D/r/JvXUGn+9nsrz7GgIysYpF21tLnw+
+         11wVYqKJaH4eo7B0GADzaj7VQPf6WoqqWZtrr4p8yfL5aqm0udlsS26FmX7lcs7bfbx1
+         NS2CIuiv1yzyxXGdRFNOuK0Ff0JN3RLr9HXz+CBOKlvyFFmKswgnvS93BWtqD3eKwqmV
+         CWQKX6Gi/N/FaCbNiUyQSk89JmSg/5ejtM7LLBT1KDHYk7WFf2m6aVJiwu1KcU+hHQwP
+         c595I1f8lT2Y9EG6I9nV9nmUP5ggZykffnHQTOT0ynerbMdXnaPFYbZptYShTeHIrntT
+         O9DQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789240339; x=1789845139; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ghx8XBCWnxG/J6Ds3c+N5I7YNs+hz5/VoWXUJ3eWQPY=;
-        b=E7liz1hBcWKo9hD9cGxwgGiA0VBvzMAku2mG+BjnGkXXdeYy5H0ACIvXObYuRp64ZM
-         tG6UlEVFPxWa4VnOaAdBdnD+a3tSefi+71h/Bd53KYZ3wiLM0CbsuPTG08XmlafY7Vfl
-         xKMtsp86hGj8pKPdTe4imcKy92ikjNJsZp0DJVBPdiZ5SHATA/fq2HVKrP69mJ65vfjj
-         hpGJFk+0Hsq0XTvrLIN8YmQuhZ7aZd/6GXUkvCfTuiEaLIzgRgWnt535qBUWcFRqtNL8
-         G3yoCiyh1t3TfNU8O7BOrnQhUiV7Rhm/NA3025Byw364eUoBxhftggbG+QRVmsRJZ8u9
-         pUkA==
+        d=gmail.com; s=20251104; t=1789240343; x=1789845143; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/KtTlnq25tSukH1If3c69APSfMIY3/nD2byRCukec/E=;
+        b=lBBDpAbm4Ot3Zs/rwU1IxXpesS7eLJ15kjCfFvgzE+m/8pJNEofW7wTPnuviUyzLuo
+         7gp+F1Xub8iPk3/lC1HYPZV+PoPkLsEeanmcrpt+Hl+PV2U8j9eRZztFHi3FnbnYFVKG
+         ih/SqA9B6p4N3b8+hVmLHSOcHj1jtVBWwMQWdohQMpUGD/h2KAWtdKEue1G9HFUJxm1Q
+         X1TuXjlDa7rHIvrV/pgD9Z8xdHM+CCIqvIuzsb/dwNEVIMepy1B8UhBgAW1XA5lsUIHg
+         DKUZRAqIi1KABjW3xxEj+TEl8owBW1VfDxyclR3hKth14VoH+myNeOYSPreivErGe6jw
+         iIHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789240339; x=1789845139;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ghx8XBCWnxG/J6Ds3c+N5I7YNs+hz5/VoWXUJ3eWQPY=;
-        b=rcgGS7EocScl7KhapVtzIeCyvZ755dehSHR0IfEuO/ybikm/RI1MXhB5JTG3m1U5+f
-         /glq2VdKsu98CqNqG770MQYTE2d4g7D3b37i6EEbTnPt6SfJc5uTHdThJYKn53n9rNfO
-         kVwLTz80KjwteV2OqJ04sa4mU7L0otGLg3J3nBzWAt5izZfh7bpf1qJ35B5IiBdPNuCT
-         CYIiUX/bgrUNxN7QC7UkZtyMqxGG7KxZWBqdtxJNB5/okfZuCihu6UBIZtU5EN4Ip8E+
-         CIU71YFGZKM92M9XnbC8wM57fmNh0453Y91xpWq+/zZ6lA+GZ4PB8GIyvykDMv2pwApd
-         Answ==
-X-Forwarded-Encrypted: i=1; AKwUvBzgJbXTjE8u8ypKabw7nOXmPvugl7pN63l8qyQuMN/6sGgCGPY6kUUhsA3TuX1jk947Bh6/S1WfJLJxtGk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lFKXuxA9H8SQunrS5sCdVI/It8zekKpLT23hY2TAaG0w5jwvJU
-	BXIkKogesVEdSeqxYjacNEpOlN2kAqo8owWClVuj1OCHGZnkLPv2z5AE
-X-Gm-Gg: AYBFou2q8TFkgbueOQUSpFRaxToYSc1GGu2xa+FEbpZcSYbchuLaRgMrajcmz+l8giw
-	D+cDx6jRsMj+9wGAMKsVbRuDBacOLU+FKQVRPGEmy4WJ1eeiFnX9oGM9SIlcR+Z9qVhlaHUTwRm
-	Tkbz2IWy1etebozaaMzOcpIjkQdRHcXg6PrSwGLEUv4WU1IL4MjTgAano+qVCF/epCcPc/vZ8ty
-	9qeIf0BxTenlmYnlAvfkNmrbzH+DezRfu0bGbaZwIafHt65rO09jvldt3jVujD0ka+vsENzr5ng
-	icLYcgI9M6mtvkQuNlug4gFCziEDMXqkRLVBN6gwP/QmBYjxcqJtzIOUj48gYnYWxOzGZba7ky9
-	VztwuaqonsxfooTQNAQ1EJTpu1lBuhN0wWe4jnAuvHt478pKwQdJ0i7eY8RMdyB+GOTAzgz9uI/
-	U69GRqvDySg9OQx+cldY3k/pDn6+F4ITAL3PHuHANqcgVwxddEHQ6pjhnjJvZHEIAhvTOW
-X-Received: by 2002:a05:6a20:a128:b0:3cd:67e9:8565 with SMTP id adf61e73a8af0-3daed19f362mr18812158637.9.1789240339105;
-        Sat, 12 Sep 2026 12:12:19 -0700 (PDT)
-Received: from gmail.com ([58.84.61.98])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14365b348cbsm14722239c88.3.2026.09.12.12.12.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 12 Sep 2026 12:12:18 -0700 (PDT)
-From: Sumeet Pawnikar <sumeet4linux@gmail.com>
-To: rafael@kernel.org,
-	krzk@kernel.org,
-	amit.kachhap@gmail.com,
-	daniel.lezcano@kernel.org,
-	thara.gopinath@gmail.com,
-	talel@amazon.com,
-	hayashi.kunihiko@socionext.com,
-	mhiramat@kernel.org,
-	mmayer@broadcom.com,
-	viresh.kumar@linaro.org,
-	sumitg@nvidia.com,
-	peter.griffin@linaro.org,
-	myungjoo.ham@samsung.com,
-	kyungmin.park@samsung.com,
-	cw00.choi@samsung.com,
-	Frank.Li@nxp.com,
-	s.hauer@pengutronix.de,
-	matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com,
-	sven@kernel.org,
-	j@jannau.net,
-	marcan@marcan.st,
-	casey.connolly@linaro.org,
-	sre@kernel.org,
-	wens@kernel.org,
-	t.schramm@manjaro.org
-Cc: bcm-kernel-feedback-list@broadcom.com,
-	linux-samsung-soc@vger.kernel.org,
-	kernel@pengutronix.de,
-	imx@lists.linux.dev,
-	linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	sumeet4linux@gmail.com
-Subject: [PATCH v2 0/5] PM: Use %pe to print error pointers symbolically
-Date: Sun, 13 Sep 2026 00:41:50 +0530
-Message-ID: <20260912191156.185448-1-sumeet4linux@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20251104; t=1789240343; x=1789845143;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=/KtTlnq25tSukH1If3c69APSfMIY3/nD2byRCukec/E=;
+        b=foocKTxa3FfLbwpwTHZUQM3PCQVrOwFi29TVSmGc/UXCHlCYI/A75TsdiLqUy/84u2
+         u6g2WEqJbUZC/deg5FhMUE+KpTXjHY+TLhOnmAhfgVdauJO7sqZZZbFVuQ3zwIM/HU/X
+         Dpez+PmjDtr6PLjZ4nNkTTVyKKpxd+kr1KlB4UpLnunSOPAzpMC070wf1S8+CREK6GTc
+         hxlVRfvo8U2hChXyEahuCH4YVi3O9x9dzsYiUOn49RD+xrWTEACNpnGr9pPq60wgO16N
+         Smh+0nB0TaP53+nSIho+iwbrTY5lst6CVw3B3heO/ADTqgoq/vxq8ZJikayi7ytG3GRZ
+         r/2A==
+X-Forwarded-Encrypted: i=1; AKwUvByOywCp3SOzSZyNujuKGnqZRe/n4WJ9iB3kRVV78/OzCd2Fro9EHOuUhxZ/+hUiuuvHiJhW2AEDbAOfQfY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kwN1BaxLzXYomvtHU7HADL8F5q0gb2OskNWTmZ42iiTKO9H5DA
+	LvA62+R64tJdsyejljmorIHfwsYHbx/wbM/GJTiwqR1t3AAYNePJ9/b9JKVj0t4YVwOZN5yCuWd
+	eNfEy0qfw5/JkCkLZ3FPWr6mij0Qc2VQ=
+X-Gm-Gg: AYBFou0R8tYawcLyrAUNjNfAMAh0NcOLijvIK/JatTTeoa66dJJ4BTCe9jRgvw7QGNo
+	y9kkjMQD3s995h1UjjLiWBy5S6KETShKc92QOJyGAR8wGkxbKivWLf6XbHp4AeWA3/bSUGcgpft
+	dyL0qb+wFUPM9oZBfEjOVWYb30UPHQXsL5u3BZmosyGX63VF/TSfVKj3+wYxtoch0ERAfzu3m6c
+	4x4p1Sk9OOcv32gJT+q/Cm+V1gR7aN0ng58BMLiLJxEDy8kx/jVt0S6jV43rj+z+Lg/ZqmvcULm
+	XgWsnfnDAkFQkeZwSeWvwgzgXbVK6i8fmTMSg76t+R6NJFMs8Q4RaKPwb8rzQHbAFaZbVX5y9Go
+	mKmhtZ7kYmF6p01SRQAtb8XA=
+X-Received: by 2002:a17:90b:3885:b0:398:c794:ca26 with SMTP id
+ 98e67ed59e1d1-39d9c3944aamr16279860a91.25.1789240342643; Sat, 12 Sep 2026
+ 12:12:22 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260910124403.95741-1-7israr.work@gmail.com> <aqKzBTM-CdBqQzXi@stanley.mountain>
+ <CAGKr8w2e4YGF41X5mv5Mf2FDvoezpzeKmFMKaHKf43eypCKdFg@mail.gmail.com> <aqVSfA_Ns_plwCpK@stanley.mountain>
+In-Reply-To: <aqVSfA_Ns_plwCpK@stanley.mountain>
+From: Muhammad Israr <7israr.work@gmail.com>
+Date: Sun, 13 Sep 2026 00:12:11 +0500
+X-Gm-Features: AcwNN1VUFJ5oW7vzR94ZpY5ACDu7fbIXWq2PXETpg099etoVmWp67h8nKH2Oho4
+Message-ID: <CAGKr8w2TSt0z2K5JDKViHVMf3fGpDtNEwqhedR10JoiXLB=MUw@mail.gmail.com>
+Subject: Re: [PATCH] staging: most: video: add comments to mutex and spinlock definitions
+To: Dan Carpenter <error27@gmail.com>
+Cc: parthiban.veerasooran@microchip.com, christian.gromm@microchip.com, 
+	gregkh@linuxfoundation.org, linux-staging@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-This patch series is a cleanup for subsystems under power management
-(linux-pm) that converts several instances of error pointer printing
-to use the `%pe` format specifier instead of explicitly casting with
-`PTR_ERR()`.
+On Sat, Sep 13, 2026 at 12:09:00PM +0000, Dan Carpenter wrote:
+> Imagine one thread is calling get_top_mbo() which reads:
+> list_first_entry(&mdev->pending_mbos, struct mbo, list);
+> but the other thread is calling:
+> list_del(&mbo->list);
+> It's a race condition.
 
-Currently, many drivers use `PTR_ERR()` paired with `%ld` or `%li` to
-print error codes returned as pointers. By switching to `%pe` and passing
-the error pointer directly, the logging subsystem will automatically
-print the symbolic error name (e.g., `-ENOMEM`, `-EPROBE_DEFER`) when
-`CONFIG_SYMBOLIC_ERRNAME` is enabled, and gracefully fall back to the
-numeric value otherwise.
+Right, that's the exact interleaving the mutex prevents  with
+read_lock held for the whole of comp_vdev_read(), a second thread
+can never be inside get_top_mbo() while a first is inside
+list_del(), since both calls happen inside the same
+mutex-protected function body.
+I'll write it up and send it as a patch.
 
-This change significantly improves the readability of kernel logs and
-dmesg traces during debugging, without introducing any functional changes
-or side effects.
-
-The cleanup has been applied across the following PM subsystems/drivers:
-* powercap (intel_rapl_msr)
-* thermal (cpufreq_cooling, devfreq_cooling, qcom)
-* cpufreq (bmips, cppc, qoriq, s3c64xx)
-* devfreq (imx-bus, imx8m-ddrc)
-* power/supply (various battery and charger drivers)
-
----
-changes in v2:
- - Krzysztof kozlowski suggested to use dev_err_probe instead of dev_err
-   for *_probe() functions during review of v1 series. This will be done
-   in different patch series.
- - Here in v2, reverted the changes for dev_err under *_probe() functions. 
-
- - Link to v1: https://lore.kernel.org/all/20260906061755.5103-1-sumeet4linux@gmail.com/
-
----
-
-Sumeet Pawnikar (5):
-  power: Use %pe to print error pointers symbolically
-  devfreq: Use %pe to print error pointers symbolically
-  cpufreq: Use %pe to print error pointers symbolically
-  thermal: Use %pe to print error pointers symbolically
-  powercap: intel_rapl: Use %pe to print error pointers symbolically
-
- drivers/cpufreq/bmips-cpufreq.c            | 4 ++--
- drivers/cpufreq/cppc_cpufreq.c             | 4 ++--
- drivers/cpufreq/qoriq-cpufreq.c            | 4 ++--
- drivers/cpufreq/s3c64xx-cpufreq.c          | 5 ++---
- drivers/devfreq/imx-bus.c                  | 4 ++--
- drivers/devfreq/imx8m-ddrc.c               | 3 +--
- drivers/power/reset/macsmc-reboot.c        | 4 ++--
- drivers/power/supply/cpcap-charger.c       | 4 ++--
- drivers/power/supply/intel_dc_ti_battery.c | 2 +-
- drivers/power/supply/qcom_smbx.c           | 2 +-
- drivers/powercap/intel_rapl_msr.c          | 4 ++--
- drivers/thermal/cpufreq_cooling.c          | 4 ++--
- drivers/thermal/devfreq_cooling.c          | 4 ++--
- drivers/thermal/qcom/qcom-spmi-adc-tm5.c   | 4 ++--
- 14 files changed, 25 insertions(+), 27 deletions(-)
-
--- 
-2.43.0
-
+regards,
+Muhammad Israr
