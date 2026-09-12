@@ -1,304 +1,160 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 948224BEE32;
-	Sat, 12 Sep 2026 11:21:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C27C47124F
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 11:29:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789212066; cv=none; b=ABFIAGJV7cK3Sdj/BkmW2r/y/xizlFqdp5nH53Kl8JbZMs9fm1bFy5Am7MtvYEbGHXOZHo4sv2eiO0WfUUASifdqlhknWjqfwone1WHknlvD5iy8/CNXXq8JRNB+PZFfHNNmZSRLToYVB/Ao2g5/Gq23bE2dE5luTBnOfWHcCVQ=
+	t=1789212586; cv=none; b=QOA9XeT2CT2TfEOs1Pqtxf8NlLmXMdGTiNjubujas07gMe8crg92wv2XByXb6KYqqyGkGUesxhgxaBLxTYwYVyaQb3MiZxo1NOnAeSpXkvnVCBgwhgWGB2jA3z7mJQFsN6WU5FN3tI6o0xwOS8CQ54ieP/t2h2/EKJsVa2ypHoo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789212066; c=relaxed/simple;
-	bh=C+Am4wWyRZWkCJzSxMTfxEVDuvTMtFNGm5gvUiXFpTY=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=d2hRu5uSUdCTCgRvAPAfrlqa3U6mAiCAP7wToUuEEJXYzmftir0QsKIVn7Xyl+vEccEVUAQazWyCRwJAzOe7QR+pUL3qH1lzlGQYwyc/rEheiSEnKz9Gn47Ie7iRqOpkqJHCiMjQrcu2qt8jWTjtAC97tgbJnr4/sgJh9iz1Nyo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iV09A33W; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789212586; c=relaxed/simple;
+	bh=04IioIo4FXEjyXFkideFX3t2R14xVaRdnpbk0q61OoM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=c5D9aab2vuMlcyUJrXWGxJTMYgZhdAfgkiG9Keik/p3QmovdH4G3YeoDPUhH4HqzKOTASTumHd45u0rzCEdt2Vl3QSAbAt5lJ95qwLx9FSY1X8T0WVQ22C+6FAoqmVV5X2IhImsruLL3mpHhWUkvVFnGnPlBCjZAwfGSA/YDegM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=furiosa.ai; spf=none smtp.mailfrom=furiosa.ai; dkim=pass (1024-bit key) header.d=furiosa.ai header.i=@furiosa.ai header.b=nsDwZtUf; arc=none smtp.client-ip=209.85.214.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=furiosa.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=furiosa.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iV09A33W"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5E4A1F00899;
-	Sat, 12 Sep 2026 11:21:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789212064;
-	bh=C+Am4wWyRZWkCJzSxMTfxEVDuvTMtFNGm5gvUiXFpTY=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=iV09A33WC7aStPTKmzQvLa5iXwGtPWw8W0q4zNblm5kDIZIiIHbjUwqaYPu932UMP
-	 +KUdbxLOduuBadcQUDacJi8PxlVP2Ybtf24eGWEpYSYLNxgGg76NIoQtFKfVIIRalL
-	 m6p+eWyVqyQA5S5HKvjRPOjgI/1o6XImcdX/pDssr0X5Kwlt/KnKCi/NcNPp0JdlUS
-	 65Hs84AjKXmlL10GPF29BOvuzeCAAwsP28Mzsy/Wvvl1vIQVC67EuI/ohYy80pBO1b
-	 E/j+dDd+QfKUsfN9/qISObcdxzzl2tDWZzvZOUNHKkr0CCFFIg+ZvsjrL/i7YSavRF
-	 pICK3nTBbFQBg==
-From: Andreas Hindborg <a.hindborg@kernel.org>
-To: Bean Huo <beanhuo@iokpp.de>, jaemyung.lee@samsung.com, Miguel Ojeda
- <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary
- Guo <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6rn?= Roy Baron
- <bjorn3_gh@protonmail.com>, Benno
- Lossin <lossin@kernel.org>, Alice
- Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo
- Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot
- <acourbot@nvidia.com>, Onur =?utf-8?Q?=C3=96zkan?= <work@onurozkan.dev>
-Cc: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
- linux-block@vger.kernel.org, linux-scsi@vger.kernel.org,
- linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH RFC] drivers/rufs: add Rust UFS host controller driver
-In-Reply-To: <4c38f13af8f75020fefc35827463e9bc643b99f4.camel@iokpp.de>
-References: <20260912-rufs-private-v1-1-716db733e655@samsung.com>
- <8mLXEMDMxh8mZQqVywUYUeOiZPZIPmrVGRlOkDbHptW0NEJeszKVpff5h39MjUvD5yyivwY3Z7kCXIH5VlGoiw==@protonmail.internalid>
- <4c38f13af8f75020fefc35827463e9bc643b99f4.camel@iokpp.de>
-Date: Sat, 12 Sep 2026 13:20:53 +0200
-Message-ID: <87jyoqvhpm.fsf@kernel.org>
+	dkim=pass (1024-bit key) header.d=furiosa.ai header.i=@furiosa.ai header.b="nsDwZtUf"
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2dcff8f44f2so26409185ad.1
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 04:29:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=furiosa.ai; s=google; t=1789212584; x=1789817384; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=w255+3K8FAv+3tRtSRmVnHCmz5J/V0IKovZZCjW8Bfc=;
+        b=nsDwZtUfsU1Ew8WHB+vWkPIJBy7hJ4UyxYmyjGoY0j3MgbOqex7RkYeY/6nHVxN4Ke
+         gxVt7FcmGekzU49jZsCM1eKMgcUj6vYnCYq1awXSXyQvPoGyTWA7wYwdcpn9gYwLm80H
+         XozOpUMw+0h7HYhXWBfwNEl7g95N6qvIfWgnk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789212584; x=1789817384;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=w255+3K8FAv+3tRtSRmVnHCmz5J/V0IKovZZCjW8Bfc=;
+        b=hMko/W//IHvVarrqkaekNQnZoXstu+qiTOnog5QbdKECKrBUXhoXQszWvUxKnmlDMM
+         APtXLOJpMCpcVdwuBBmEmlSPiTxN5yNJArxRBBX2LojzmP7JucMkaAe2/o3rwBVWS+0w
+         lRUsmeDVYNUm3IzZLx7xrW2YLJgN6IhWVRbK1ULOnAhmO5ZGWpnivKqgfHNasfIfjDez
+         KT/L/OzhyYXxUbc8225qUT+3n0hXUv59ehSFvuwDFGcjEpTNzuzR4PdK3CeIbjwx8D72
+         LECUuwGBsbZW1Ye6nbrplBTmWxPPpj8ILkLF+fjMyA3b+OB7FzTZbkAIAauHLaOV0eWp
+         Kwsw==
+X-Forwarded-Encrypted: i=1; AKwUvBzC4oJTiURQ0iXowmgO6p/EvVFN+b2SaMK2do+VH5rQQCGsxPeWfO/S9KfYQP+rNZ0RJcfeEltfm0jka8g=@vger.kernel.org
+X-Gm-Message-State: AFuF++mNQ9JglgntA6xQ5KJ2OXBIT2IKUONl99nliTBrB/hCBLJe2Kn3
+	vmHGUtFDLCmDjuo1tFibW168lyzMyaA3s/AD6ZtitJWeZWYQlizeUyt9HmIYgleHxrM=
+X-Gm-Gg: AYBFou1tBEjVo6MH/La/jDlzlDN4XvQG3KAIt+MjJkVMiE0YmfKTgcoc6cuMlebqtjK
+	1doiNMs7xODNvYieOPNRKWWHjK/welr2r/bIR2uvIPbvTXjy3G/ffWHs/lCjWcGY9Ehf0Q+ecdg
+	UBAuvjSPggCmxYMH88dfCDEeXzca1yfI/Pk5w2GlZA9sPNI+lAsBNjvJPBrphe+mqOFRzljE6zs
+	VHlwPxnQL4/PlXC+3AHUBtQd3MXBu49WJZejjNNxVya7QflHdrbT3wn6HEITWh8M5rOGJvoKMhT
+	/ln2CNbMv8RKTCnqBnJOpuW/o3EskxnJssSHPIwCJnV8BxAk0QBxnS5eQ4hMJNBNyIAu9smYW+r
+	FNadAnXnCCzvFKTrv6mDvsNV4M6oJ6x3y0X3VGkG5e2Y1kmTfaJS7BXVDSzuPV/O0PjebebksTl
+	DC17AknaGoU3eFQLVv7do/HZVoD2c4sp3MNIfsbC2PZb+4z7igF72OXRiFzS+HLRb2pTR4CKNMa
+	w==
+X-Received: by 2002:a17:903:198e:b0:2bf:dd0:c8b1 with SMTP id d9443c01a7336-2dd29ffa6b4mr164443135ad.0.1789212584566;
+        Sat, 12 Sep 2026 04:29:44 -0700 (PDT)
+Received: from rock-5b-plus ([61.83.209.48])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2cec7ee5sm23666565ad.42.2026.09.12.04.29.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 12 Sep 2026 04:29:44 -0700 (PDT)
+From: Sidong Yang <sidong.yang@furiosa.ai>
+To: Tomeu Vizoso <tomeu@tomeuvizoso.net>
+Cc: Sidong Yang <sidong.yang@furiosa.ai>,
+	Oded Gabbay <ogabbay@kernel.org>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH RESEND] accel/rocket: Validate task regcmd address and count on submission
+Date: Sat, 12 Sep 2026 20:29:22 +0900
+Message-ID: <178921240194.10.15893724064993644797.rocket-regcmd-resend@furiosa.ai>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-"Bean Huo" <beanhuo@iokpp.de> writes:
+The regcmd fields in drm_rocket_task come from userspace and are
+programmed into the PC unit without any validation.
 
-> On Sat, 2026-09-12 at 00:52 +0900, Jaemyung Lee via B4 Relay wrote:
->> From: Jaemyung Lee <jaemyung.lee@samsung.com>
->>
->> Add a Rust UFS host controller driver that exposes UFS logical units as
->> native blk-mq block devices without depending on the SCSI midlayer.
->>
->> Implement host controller setup, UIC link startup and power-mode
->> configuration, device and unit descriptor discovery, query operations, a=
-nd
->> SCSI protocol command construction. Support normal read, write, flush, a=
-nd
->> discard I/O with coherent UTP descriptors and owned streaming DMA mappin=
-gs.
->>
->> Provide both single-doorbell and multi-circular-queue transfer backends.
->> Map shared blk-mq tags directly to UFS task tags, retain request ownersh=
-ip
->> while commands are in flight, dispatch completion per MCQ completion que=
-ue,
->> and return polled completions through the blk-mq completion batch.
->>
->> Add PCI and Qualcomm platform frontends. The PCI frontend supports the Q=
-EMU
->> UFS controller and existing Intel and Samsung IDs. The Qualcomm frontend
->> provides the clocks, PHY, reset, interconnect, power-domain, OPP, GPIO, =
-and
->> controller-specific initialization needed by supported SoCs.
->>
->> This establishes normal-I/O support for UFSHCI single-doorbell and MCQ
->> controllers. Full timeout recovery, error handling, and power management
->> are left for follow-up work.
->>
->> Signed-off-by: Jaemyung Lee <jaemyung.lee@samsung.com>
->> ---
->> This RFC introduces RUFS, a UFS host controller driver that sits directly
->> on the block layer and does not use the SCSI midlayer. UFS logical units
->> are exposed as native blk-mq block devices, the same way NVMe namespaces
->> are. The driver is written in Rust.
->>
->> Why decouple UFS from SCSI
->> --------------------------
->>
->> The existing UFS driver is built on the SCSI subsystem. That made sense
->> historically: UFS adopted the SCSI Architecture Model as its application
->> layer, so reusing the SCSI midlayer's command queuing, error handling,
->> power management, and logical-unit addressing let UFS reach Linux quickly
->> and reliably. ufshcd bridges the SCSI midlayer to UFS Protocol Informati=
-on
->> Units.
->>
->> That foundation has become a source of friction. The evolution of UFS is
->> governed by JEDEC and increasingly includes UFS-specific features outside
->> the SCSI command set standardized by T10. These features must still be
->> expressed through, and constrained by, a SCSI-shaped driver. Features th=
-at
->> are meaningful only to UFS are difficult to land in a subsystem whose
->> maintainers reasonably want to keep SCSI focused on SCSI, and block layer
->> or shared infrastructure changes that UFS needs end up mediated through
->> SCSI's priorities. In practice UFS is treated as an add-on to SCSI rather
->> than as a first-class storage interface, and a significant amount of UFS
->> functionality lives off-tree as a result, with the back- and forward-
->> porting cost that implies.
->>
->> We propose to decouple UFS from SCSI with a standalone driver that sits
->> directly on the block layer, alongside drivers like NVMe. This lets
->> JEDEC-specific features evolve independently of T10, gives UFS
->> its own dedicated review surface, and removes the impedance mismatch
->> between the UFS data model and the SCSI command model. UFS uses a subset=
- of
->> the SCSI command set within command UPIUs, so the driver can construct t=
-he
->> required CDBs directly without depending on the SCSI midlayer.
->>
->> The driver is designed around the UFS and UFSHCI specifications rather t=
-han
->> as a line-by-line translation of ufshcd. Its target is JEDEC UFS 4.1 and
->> UFSHCI 4.1.
->>
->> Why Rust
->> --------
->>
->> The architectural question above would be the same for a C driver. We ch=
-ose
->> Rust because UFS features arrive at a high pace, and turning new
->> specification features into stable, validated code on tight timelines is
->> where memory- and concurrency-safety guarantees pay off: fewer classes of
->> bugs reach production, and iteration is faster. Rust's growing acceptance
->> in the kernel makes a block-layer-native UFS driver a realistic
->> architecture to evaluate.
->>
->> Initial feature set
->> --------------------
->>
->> The new driver supports single-doorbell and multi-circular-queue operati=
-on,
->> PCI and Qualcomm platform frontends, logical-unit discovery, and normal
->> read, write, flush, and discard I/O. It uses shared blk-mq tags as UFS t=
-ask
->> tags, keeps request ownership through completion, and uses owned DMA
->> mappings for the complete I/O lifetime.
->>
->> Full timeout recovery, error handling, and power management remain
->> follow-up work.
->>
->> Patch layout and dependencies
->> -----------------------------
->>
->> The single patch contains the complete driver. This keeps review focused=
- on
->> the RUFS architecture and the SCSI-independent blk-mq model.
->>
->> The driver depends on Rust block, DMA, IRQ, and platform abstractions th=
-at
->> are intentionally excluded from this posting. Some of these abstractions
->> have already been posted to the list, most notably in the Rust null block
->> driver v2 series, the Ownable/OwnableRefCounted page series, and the
->> impl_flags extensions. The remaining abstractions are new and will be
->> posted as separate series before the first non-RFC version of this drive=
-r.
->>
->> A buildable tree based on v7.3-rc2 with all dependencies and this patch =
-is
->> at:
->>
->> https://github.com/SamsungDS/rufs/tree/rfc/rufs-public
->>
->> Testing
->> -------
->>
->> The v7.2 development version has been exercised with SDB and MCQ on the
->> QEMU UFS model, including ext4 fio workloads and module load/unload cycl=
-es.
->> SDB probe and normal I/O have also been exercised on Intel PCI and Qualc=
-omm
->> UFS hardware. The current port has been compile-tested independently with
->> PCI-only and Qualcomm-platform-only configurations.
->>
->> The exact v7.2 tree used for the hardware measurements is available at:
->>
->> https://github.com/SamsungDS/rufs/tree/rufs-7.2
->>
->> On Intel UFS 2.1 hardware, 4 KiB direct io_uring at QD32/job gave
->> these optimized-mode ranges over 1/2/4 jobs (three samples):
->>
->> =C2=A0 Workload=C2=A0 Op=C2=A0=C2=A0=C2=A0=C2=A0 RUFS kIOPS=C2=A0=C2=A0 =
-C kIOPS=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Difference
->> =C2=A0 --------=C2=A0 -----=C2=A0 -----------=C2=A0 -----------=C2=A0 --=
--------------
->> =C2=A0 randread=C2=A0 read=C2=A0=C2=A0 48.91-61.26=C2=A0 41.56-41.60=C2=
-=A0 +17.6% to +47.4%
->> =C2=A0 randwrite write=C2=A0 8.19-8.30=C2=A0=C2=A0=C2=A0 8.21-8.22=C2=A0=
-=C2=A0=C2=A0 -0.4% to +1.1%
->> =C2=A0 randrw=C2=A0=C2=A0=C2=A0 read=C2=A0=C2=A0 5.26-5.34=C2=A0=C2=A0=
-=C2=A0 5.28-5.38=C2=A0=C2=A0=C2=A0 -0.9% to -0.4%
->> =C2=A0 randrw=C2=A0=C2=A0=C2=A0 write=C2=A0 5.27-5.34=C2=A0=C2=A0=C2=A0 =
-5.29-5.37=C2=A0=C2=A0=C2=A0 -0.8% to -0.5%
->>
->> The coefficient of variation (CV), calculated as the sample standard
->> deviation divided by the sample mean, measures run-to-run variability
->> relative to the mean. CV is a descriptive statistic; no normal or other
->> distribution was fitted to model the variation. The accompanying
->> two-sided 95% confidence intervals for the mean used Student's
->> t-distribution because each point contains only three samples. Those
->> intervals assume independent, approximately normally distributed sample
->> means and should be interpreted cautiously at this sample count.
->>
->> RUFS randread had a CV of 28-57%, versus below 0.8% for C. Its apparent
->> gain therefore has low confidence and should be treated as preliminary.
->> Both drivers also logged platform UIC errors. Stable write and mixed
->> points differed by no more than 1.1%.
->>
->> Feedback
->> --------
->>
->> Comments on the decision to bypass the SCSI midlayer, the blk-mq model u=
-sed
->> in its place, and the proposed prerequisite API boundaries would be
->> especially welcome.
->
-> Jaemyung,
->
-> thanks sharing.
->
-> You still use scsi everywhere in your implementation protocol/scsi.rs bui=
-lds
-> READ_10/16, WRITE_10/16, SYNCHRONIZE_CACHE and UNMAP CDB, so "decouple UF=
-S from
-> SCSI" really means "copy a small part of sd and the SCSI error handling i=
-nto a
-> UFS driver." while JEDEC defines the UFS application layer as SCSI, the S=
-CSI
-> work doesn't go away, you just move somewhere else, and it has to be writ=
-ten
-> again.
+Bits 31:4 of PC_BASE_ADDRESS hold the register command DMA address
+and bit 0 selects slave mode, so a misaligned regcmd silently drops
+its low bits, and an odd address flips the PC unit into slave mode.
+Similarly, pc_data_amount is a 16-bit field holding
+(regcmd_count + 1) / 2 - 1, so a larger regcmd_count is silently
+truncated by the register encoding.
 
-See my response to Greg. The SCSI specific code in this driver is very
-minimal.
+Reject unaligned regcmd addresses and out-of-range regcmd_count with
+-EINVAL at submission time. Existing userspace is not affected: Mesa
+places regcmd buffers at 64-byte aligned offsets, and its regcmd
+counts stay far below the limit.
 
->
-> The "friction" claim is weak. SCSI has already been changed to fit UFS. T=
-wo
-> examples: UFS now uses SCSI simple copy, group number in scsi write comma=
-nd.
->
-> I doubt how far this can go. do we really need to pay effort for a new RU=
-ST UFS
-> driver, I am not very confident, unless SCSI is removed from the UFS spec=
- and
-> JEDEC defines native UFS commands, or we talk to the device directly with=
- UPIU.
-> please name the JEDEC feature that the SCSI midlayer really blocked, or t=
-hat was
-> historial issue which has been fixed.
+Signed-off-by: Sidong Yang <sidong.yang@furiosa.ai>
+---
+Resending unchanged since the July 11 submission.
+Applies cleanly to drm-misc-next at
+9d4c98219598e77ca7044c453ae6994519ac0a96.
 
-I am sure the UFS experts will be able to answer this better than me.
+Previous submission:
+https://lore.kernel.org/dri-devel/20260711062137.36044-1-sidong.yang@furiosa.ai/
 
-> I would also like to see the heavy and hard parts, because they are the p=
-arts
-> that decide if this design worrks:
->
-> 1, error handling: abort, LU reset, retries with limits, sense decoding, =
-this is
-> the very hard part of UFS driver.
+A review would be appreciated.
 
-I agree. However, we decided to get the discussion going with a smaller
-feature set. We can build an efficient feature complete driver, but we
-would really like to talk to the community about it first.
+ drivers/accel/rocket/rocket_job.c | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
-> 2, user-space tools interface: SG_IO and bsg (sg3_utils, ufs-utils, FFU w=
-ith
-> WRITE BUFFER), and the UFS sysfs tree..
+diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
+index bb77b6bf0f23..9ebabf86fe97 100644
+--- a/drivers/accel/rocket/rocket_job.c
++++ b/drivers/accel/rocket/rocket_job.c
+@@ -7,6 +7,7 @@
+ #include <drm/drm_file.h>
+ #include <drm/drm_gem.h>
+ #include <drm/rocket_accel.h>
++#include <linux/align.h>
+ #include <linux/interrupt.h>
+ #include <linux/overflow.h>
+ #include <linux/iommu.h>
+@@ -21,6 +22,15 @@
+ 
+ #define JOB_TIMEOUT_MS 500
+ 
++/*
++ * The PC unit fetches two 64-bit register commands per pc_data_amount unit,
++ * and the field holds (regcmd_count + 1) / 2 - 1.
++ */
++#define ROCKET_MAX_REGCMDS	((PC_REGISTER_AMOUNTS_PC_DATA_AMOUNT__MASK + 1) * 2U)
++
++/* Bits 3:0 of PC_BASE_ADDRESS hold the mode selection bit and reserved bits */
++#define ROCKET_REGCMD_ALIGN	16
++
+ static struct rocket_job *
+ to_rocket_job(struct drm_sched_job *sched_job)
+ {
+@@ -95,6 +105,20 @@ rocket_copy_tasks(struct drm_device *dev,
+ 			goto fail;
+ 		}
+ 
++		if (task.regcmd_count > ROCKET_MAX_REGCMDS) {
++			drm_dbg(dev, "regcmd_count field in drm_rocket_task should be <= %u.\n",
++				ROCKET_MAX_REGCMDS);
++			ret = -EINVAL;
++			goto fail;
++		}
++
++		if (!IS_ALIGNED(task.regcmd, ROCKET_REGCMD_ALIGN)) {
++			drm_dbg(dev, "regcmd field in drm_rocket_task should be aligned to %u bytes.\n",
++				ROCKET_REGCMD_ALIGN);
++			ret = -EINVAL;
++			goto fail;
++		}
++
+ 		rjob->tasks[i].regcmd = task.regcmd;
+ 		rjob->tasks[i].regcmd_count = task.regcmd_count;
+ 	}
 
-On the account of this not being a scsi driver, some changes would have
-to be made. But we should be able support
-/sys/bus/platform/drivers/ufshcd/* just fine.
+base-commit: a284476db2653ae893f46cbea408eb412db54eb0
+-- 
+2.42.0
 
-> Did any AI tool help write this code? If so, please add the Assisted-by: =
-tag.
-
-We use AI for code review and spell checking, so I guess the tag is warrant=
-ed.
-
-Best regards,
-Andreas Hindborg
 
