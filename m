@@ -1,160 +1,94 @@
-Received: from mx.ssi.bg (mx.ssi.bg [193.238.174.39])
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68D8935F184;
-	Sat, 12 Sep 2026 17:50:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.238.174.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 619519463;
+	Sat, 12 Sep 2026 17:54:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789235453; cv=none; b=H+4eEwc0/LeC648t8KGxF7d5Rvr9D5nZlPfJtUi7ZgiI5a+8aDDaJ/mRGg0XrwT3sPsizcOw8ejn/ZiKJTFOLC5nd1XPE1sJ3be6s2RlzGGltupcYqHB2RspxsgXS19oaQJeQaa62RtW0JG/cg6bCHc0/Hz4Y2A0ZyQg+yIc+ik=
+	t=1789235676; cv=none; b=Tj7abiPSrDejes8VMVXTjdeZh4XmYJMCuknjGtoeaPkP1untTmVTerKmJamV3e80vORBGJAGCyBymAWZPFa1hJUrWKM4xs/jcxPQkTR/WrgDS8iRnkV7Uo1D3o8SSgSI3NL9HUfPXWG9epvHWf42St1w25WaBT8hSzosNsk9deo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789235453; c=relaxed/simple;
-	bh=52mxefBNL18TSW0EPrMFo62pk6fFfbgczGcDISCects=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=FMTSJ6FVGGTgsCwSfvvJax92gQlCDLk8ub6Jv+EwHS2JfgobJWz5ereAGsgZxJdsIZD94Ib5Zba/ratuHsQUeTLqtbq1B/xPqFEX640YUbXmm/rVxk77HS/dRNgHCbA+oJpwnpDQGrVq3cVXHusgU/uK4VWQnIrCjjWwzuxCiU8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg; spf=pass smtp.mailfrom=ssi.bg; dkim=pass (4096-bit key) header.d=ssi.bg header.i=@ssi.bg header.b=OJGID+qA; arc=none smtp.client-ip=193.238.174.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ssi.bg
+	s=arc-20240116; t=1789235676; c=relaxed/simple;
+	bh=NuDhMiuXjUDPsvc1rMiisSOBLgbGolSicgyeSQRAP8c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qEQ0HvxS4NLqn396EWgjdUiIp2fgyAgT+wJ3ohbMDS1xefN8nVw7jUj500DmoAi9/FVOxGFP4YCfDv/J63LKUBS94iXUlPxmjEUmWI5L+RM9/3Nv6EDv0HFvo8NLyFeQLKJvYPSnS7wk+DUOE9ay7VsQvPfL8v8sTdfG82CbmzQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=SV1jhgZZ; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=ssi.bg header.i=@ssi.bg header.b="OJGID+qA"
-Received: from mx.ssi.bg (localhost [127.0.0.1])
-	by mx.ssi.bg (Potsfix) with ESMTP id 55DB222741;
-	Sat, 12 Sep 2026 20:50:31 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ssi.bg; h=cc:cc
-	:content-type:content-type:date:from:from:in-reply-to:message-id
-	:mime-version:references:reply-to:subject:subject:to:to; s=ssi;
-	 bh=7r8oFDAgjy8muNhyo4CeqelFFPqnHlw5fWun4gzb8Z4=; b=OJGID+qAQy2Y
-	3zRJitxMU8ygncW89pWOrD56ChopmCF9pL6S2/KCzTmVuwkoAl8tB7gOHfwfIPvV
-	Tz8PH7mliLoxvSJznImrkM+WH7tIJNHQZqDDvELTwvRJjU1cLAXdGR1Bqx5AEtUa
-	Ibnq+7AJTu3dNqv98Yf/1WoPFQUcLVs4v1Xt9cCZZC5B7y+NjdXMJir96VlEz3/F
-	0GrS2tymlWH2o8RrFKmWIAsPxalOU+u0cF1ooah0+PCfqKkM0BklZq3TSPFAfWHQ
-	4ZAAC+09kyIs5Xf+jSI4Emm8RSqFi8EVMK6GJqBz2bnSjC28c2FD4wUDYp76AldX
-	/qQ9AR+IGV2Ocow5r3H+vwe7KIVa4X3IFwAiaSyPgWQAsQAbPuI0GMIKFfK0E18Z
-	YYdBWmSZXWZX+sfXk0Zz1u6wiW9/9YK6zuM0ByBEFZ8AJHOH8GGweuhkjIQJfwZi
-	Sv+sBJAVHnCNh0ONZkfqOY2djeMThUkVf0YVZb9SDq+fN28ycGKm55/0ex67ISZC
-	4X+ydQQJNiBeWps5Y5ZURX0/brPsoCYRdNGAT2DbaCtU2X4ju6P02wY+wnvyYxHM
-	JD9IdVmKfnBwb6AcFQQxPTb/jxHfnddP25B2i2SzeLNDr+0MsH+Z4oseuBq9oHpi
-	iOkSdgK97iKT9ky1uDlvnEY4t/FwNIA=
-Received: from box.ssi.bg (box.ssi.bg [193.238.174.46])
-	by mx.ssi.bg (Potsfix) with ESMTPS;
-	Sat, 12 Sep 2026 20:50:31 +0300 (EEST)
-Received: from ja.ssi.bg (unknown [213.16.62.126])
-	by box.ssi.bg (Potsfix) with ESMTPSA id E2A0360898;
-	Sat, 12 Sep 2026 20:50:32 +0300 (EEST)
-Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by ja.ssi.bg (8.18.2/8.18.2) with ESMTP id 68CHoTkT030622;
-	Sat, 12 Sep 2026 20:50:29 +0300
-Date: Sat, 12 Sep 2026 20:50:29 +0300 (EEST)
-From: Julian Anastasov <ja@ssi.bg>
-To: Zihan Xi <zihanx@nebusec.ai>
-cc: horms@verge.net.au, pablo@netfilter.org, fw@strlen.de, davem@davemloft.net,
-        edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, phil@nwl.cc,
-        netdev@vger.kernel.org, lvs-devel@vger.kernel.org,
-        netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH nf 0/1] ipvs: avoid stack overflow from recursive connection
- expiration
-In-Reply-To: <cover.1789110326.git.zihanx@nebusec.ai>
-Message-ID: <d99cb205-24fc-7446-55ad-4ec9d79aac1d@ssi.bg>
-References: <cover.1789110326.git.zihanx@nebusec.ai>
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="SV1jhgZZ"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 8AFE740E022C;
+	Sat, 12 Sep 2026 17:54:30 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id cKapIw-jtpu0; Sat, 12 Sep 2026 17:54:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1789235660; bh=zKIKkC+gkaHV0EF1bnyPpxID0VcZErDzjbOFlvEE/EE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=SV1jhgZZv2LcJQpG4AojPe7aJqtpVaObgDPcNMYOC/a4Wp937O1wH869ePf5gd1V2
+	 ChxCjsEV9TY4dhwyeIFzgx5cAY5uUJd3pevHgjaTCzRV0Xca1dSO0hdIAGcpsiuOZP
+	 /4djKa81pxzQfJl1olkcv3OJfaIWDFk5jcZhQ7Q5cD8lne7teYvqmSRLTl1Cy9Xorc
+	 xK/rqPBjDo8a0Q0x4YVjhLsS9h5citgdnPR5qqdwYVRS7LfzZjTzio/wxMWyjCz4RQ
+	 D6DhK8qEP2vMzHT6VL/Mg1BXwFY7LQ/Q6AJhZbtJPf2yOebMyKx+XQbUfHHkxDSq4U
+	 rwO2De8ArvlV4POlPKYoU0qjh+wqsvW+orhhSrhP63syauMPmcPnQAbqDtxSegq8cl
+	 69esYRN2SRRpydWEFQ2R1YWOmWv17/cRT16qCG1MjkkYTjbA6t0TjnRyzOV6C9oktn
+	 iTdYFXSw00xUFPkjJK3zaNfnQ/B+mFLLGeu9q+168csF2DUsrHhh/rbiq4L9EtHqwB
+	 aI8fgEaGztjCTeqp3pjOs+HBcidPsGNL8Q44a8SVoHqsdURnUfvIaWaO0PxDX27mwh
+	 A5GWpdcAlU2uOlD/xNSH60/h+MX3fJFsoReycL5biweobLx3nk7Dvc1A1P9wDBkNzt
+	 Dhn7PBs+0I7msRz8j0IQas5A=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::e])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 2882C40E00B8;
+	Sat, 12 Sep 2026 17:54:12 +0000 (UTC)
+Date: Sat, 12 Sep 2026 10:54:10 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Ard Biesheuvel <ardb@kernel.org>
+Cc: Kiryl Shutsemau <kirill@shutemov.name>,
+	Ard Biesheuvel <ardb+git@google.com>, linux-efi@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Vincent Mailhol <mailhol@kernel.org>,
+	x86@kernel.org
+Subject: Re: [PATCH v2 01/10] x86/boot: Drop pointless re-implementation of
+ panic()
+Message-ID: <20260912175410.GAaqWRwnz7bHUtXYSs@fat_crate.local>
+References: <20260909115530.1924665-12-ardb+git@google.com>
+ <20260909115530.1924665-13-ardb+git@google.com>
+ <20260909191410.GAaqGwAsCewrdVZZ0s@fat_crate.local>
+ <cee2e02b-3817-44cf-857f-62a148290367@app.fastmail.com>
+ <aqKrhNQ3mZMs5-Dy@thinkstation>
+ <b24b9785-b790-476d-985d-e8c5405d192b@app.fastmail.com>
+ <20260912061005.GDaqTsveevVkzxRJoI@fat_crate.local>
+ <b259aff1-1fb1-4819-88ca-9b47dac036cd@app.fastmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <b259aff1-1fb1-4819-88ca-9b47dac036cd@app.fastmail.com>
 
+On Sat, Sep 12, 2026 at 10:41:56AM +0200, Ard Biesheuvel wrote:
+> If you're not taking it as a fix, then yes, please.
 
-	Hello,
+Help me understand the exact problem pls: 
 
-On Sat, 12 Sep 2026, Zihan Xi wrote:
+That panic() function gets called by arch_accept_memory() and *that* gets
+called only by code in drivers/firmware/efi/libstub/unaccepted_memory.c or
+drivers/firmware/efi/unaccepted_memory.c (but that uses the kernel proper
+panic() one).
 
-> Hi Linux kernel maintainers,
-> 
-> We found and validated an issue triggered through
-> net/netfilter/ipvs/ip_vs_ftp.c. An unprivileged user can trigger it by
-> creating a user namespace and a network namespace. We tested the fix with
-> the same trigger. The change applies to the generic
-> ip_vs_conn_expire() control-chain cleanup path. For the reported trigger,
-> it only defers recursive controller expiration; testing showed no change to
-> other IPVS behavior.
-> 
-> We will provide detailed information about the bug
-> in this email, along with a PoC to trigger it.
-> 
-> ---- details below ----
-> 
-> Bug details:
-> 
-> The trigger entry point is ip_vs_ftp_out() in
-> net/netfilter/ipvs/ip_vs_ftp.c. It parses an EPSV reply and creates a
-> wildcard data connection using the advertised port. If that port is 21,
-> ip_vs_conn_new() binds the new connection to the FTP helper a second time,
-> because 21 is the helper's control port. The connection has
-> IP_VS_CONN_F_NO_CPORT, so the next connection from the same client to the
-> VIP on port 21 matches the wildcard entry instead of creating a new
-> top-level entry. Repeating EPSV builds a chain of controlled connections.
+So we *are* in the context of EFI boot services.
 
-	Hm, may be we should also avoid such long chains.
-Probably in separate patch, for example:
+What am I missing?
 
-diff --git a/net/netfilter/ipvs/ip_vs_ftp.c b/net/netfilter/ipvs/ip_vs_ftp.c
-index 9e3e005a8263..0622169b5970 100644
---- a/net/netfilter/ipvs/ip_vs_ftp.c
-+++ b/net/netfilter/ipvs/ip_vs_ftp.c
-@@ -237,6 +237,17 @@ static int ip_vs_ftp_get_addrport(char *data, char *data_limit,
- 	return 1;
- }
- 
-+static bool is_control_port(u16 port)
-+{
-+	int i;
-+
-+	for (i = 0; i < ports_count; i++) {
-+		if (ports[i] == port)
-+			return true;
-+	}
-+	return false;
-+}
-+
- /* Look at outgoing ftp packets to catch the response to a PASV/EPSV command
-  * from the server (inside-to-outside).
-  * When we see one, we build a connection entry with the client address,
-@@ -293,6 +304,9 @@ static int ip_vs_ftp_out(struct ip_vs_app *app, struct ip_vs_conn *cp,
- 
- 		IP_VS_DBG(7, "PASV response (%pI4:%u) -> %pI4:%u detected\n",
- 			  &from.ip, ntohs(port), &cp->caddr.ip, 0);
-+		/* Do not redirect data to control ports */
-+		if (!port || is_control_port(ntohs(port)))
-+			return 0;
- 	} else if (cp->app_data == (void *) IP_VS_FTP_EPSV) {
- 		data = ip_vs_ftp_data_ptr(skb, ipvsh);
- 		data_limit = skb_tail_pointer(skb);
-@@ -529,6 +543,9 @@ static int ip_vs_ftp_in(struct ip_vs_app *app, struct ip_vs_conn *cp,
- 		return 1;
- 	}
- 
-+	if (!port)
-+		return 0;
-+
- 	/* Passive mode off */
- 	cp->app_data = (void *) IP_VS_FTP_ACTIVE;
+-- 
+Regards/Gruss,
+    Boris.
 
-	The only problem I see with your proposed change is
-that we may need 2-3 timer ticks to expire a DATA->CTL->TPL
-chain. Or it expires on the same tick?
-
-	Alternative would be to jump to the beginnig of the
-function after successful timer_delete() for our cp->control,
-i.e. to use loop instead of recursion. I.e. ip_vs_conn_del_put()
-can be converted to function that returns bool instead of
-calling ip_vs_conn_expire(), so that we can know if to loop.
-
-	If ip_vs_conn_flush() demands faster expiring, a
-loop will work faster. What do you think?
-
-Regards
-
---
-Julian Anastasov <ja@ssi.bg>
-
+https://people.kernel.org/tglx/notes-about-netiquette
