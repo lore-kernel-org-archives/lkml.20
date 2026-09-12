@@ -1,446 +1,239 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com [209.85.222.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B19F344DBD
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 18:06:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 246DD3CDBB5
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 18:06:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789236404; cv=none; b=gBTYYpmyNbv/cm8F5s8yE9kt6g83MCccPm4XNwj8RM4tpQGjMclAgVK30ZY7pRqllQID6g5IEmSZEObn4CIOjeabFOHYIsLCK6ffU4HhgSr3AMaw+OHeQfQM+QkPxPRoV/f0SHhsRu2ZQ7DJSIgYNfLIG05fJC3+ygS0VlhLU/s=
+	t=1789236410; cv=none; b=lMPLpC8j7nJOiaL/q0jnfX96L64XuibLrovh+PdQPNEW8Vz/e8OAA0GHlt+D0cdrPbWa6/b5wnI2cJX72V461XZ4rY6DBZirQiaoBC6aFv0xPXT3gA8C7XPsCvIcCYCvTvi35K4XcPBedsB6kWX4F5h3gucZElqe6dQCXvtgqYM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789236404; c=relaxed/simple;
-	bh=5LyXheGwkVod9oSkzW580o/jJRJxoRxXas19ZHmA5Rs=;
-	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Disposition; b=kZ+tog7dgc+irb3qrGcc7tZRn7Mzx6iHLlTMRTvFzP6oOkYQ+cf6p9wc4gDHq8RHIbh0WxphVbJUXFfjUE78h30fUbi3Dwday76c5TOwk4vubwXMvpni5ZH/aYb4xFZwr3uKcwkRgcMm7ELWrR5z41aVs37VR9/YIT04g5B/I5g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=lcVsvUQL; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789236410; c=relaxed/simple;
+	bh=/5jPAsRewIdGgu+LxuKzqOqmQ1yzsxrBGt667KiAUMg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NK46FrcH0+/5LbMIiiQRahAmbe6GA42Dtztpumu70xGbjPGSo64eu6ASCzdk5GH6/3EfP9yTYhBIDdfxMvEmTMajmp7ZDA5Xe9scN13VqoHaVbOnXP0bWy8ZBwvskMcWug/drDn5N1qFJcf6xl0VdRlLrMhVbnqeiU6+9/c3fd8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QteO3Z7B; arc=none smtp.client-ip=209.85.222.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="lcVsvUQL"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:From:To:Subject:Date:MIME-Version:
-	Content-Type; bh=KRPZfJXNJS/wVDiiOGPcYZdtHA8B4I9Kxglp+kJDh/Y=;
-	b=lcVsvUQL0KtVxepcVVzjFszclM3AiVsdBq56sJeLW2xi8hVSSEitz1u8PEB9Ps
-	x9iPa+92WnSw7xL/u/lnVhllGyke98mNrJO+oO8G1FhM+GEXaxGowmLHcTiZonly
-	qOj/aCS1wedRiKvvSauGw4Omarrjp7aYA52KU2Y3oX7/Y=
-Received: from localhost (unknown [])
-	by gzsmtp5 (Coremail) with SMTP id QCgvCgCXfrTvk6VqXk4IRQ--.23765S2;
-	Sun, 13 Sep 2026 02:03:29 +0800 (CST)
-Message-ID: <c8b457d91942d655cea763b6094c9df4.sh_def@163.com>
-From: Hui Su <sh_def@163.com>
-To: Peter Zijlstra <peterz@infradead.org>,
-	Zhidao Su <soolaugust@gmail.com>, Andrea Righi <arighi@nvidia.com>
-Cc: mingo@redhat.com, tim.c.chen@linux.intel.com, yu.c.chen@intel.com,
-	kprateek.nayak@amd.com, juri.lelli@redhat.com,
-	vincent.guittot@linaro.org, dietmar.eggemann@arm.com,
-	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
-	vschneid@redhat.com, connoro@google.com, jstultz@google.com,
-	tj@kernel.org, void@manifault.com,
-	changwoo@igalia.com, linux-kernel@vger.kernel.org,
-	sched-ext@lists.linux.dev
-Subject: Re: [PATCH v4 4/5] sched/rt: Fix RT watchdog accounting for proxy execution
-Date: Sun, 13 Sep 2026 02:30:00 +0900
-In-Reply-To: <20260909110438.GA4120091@noisy.programming.kicks-ass.net>
-References: <20260909092901.2989564-1-sh_def@163.com>
- <20260909092901.2989564-5-sh_def@163.com>
- <20260909110438.GA4120091@noisy.programming.kicks-ass.net>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QteO3Z7B"
+Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-939f5f82829so135473785a.1
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 11:06:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789236408; x=1789841208; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=e24a776gn0DcMsvc/+/qG//5+4evMyX5zSw5dUPmVig=;
+        b=QteO3Z7BnGo9wAhBI7p4BOAI3ow1qynU4Aiy2L/JIVMy4OrmdI3XvVtT2jiQ4dukBp
+         cP57LazDDPy2N6BPa4HU+oLcNdqe6aGUP54cN5nU494yQIQWn9KuGDcfJuMAaLADjxbR
+         v6TvgWFohZD9yY9+nozJ4q2c+qSWrO5Rj/HObLkPBA0NC/GP1VHnUGl6iwrLe/AslUZ7
+         BR1Lb+MyCnIt8oMTwhJTVy3OQp7ij96b8C0M52ADlpoq+BypA6nNPzIKDGgalxsESCiZ
+         3cPRiFK3XB+wl3wDbx2/wegiCvjlxjjx6gNeepZxJ4M5DDhUIjBrcw9PVWHGLHZD+elo
+         oHzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789236408; x=1789841208;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=e24a776gn0DcMsvc/+/qG//5+4evMyX5zSw5dUPmVig=;
+        b=f5UOFCV/kfnez+IuQbXT0ePhAu0jzhyPzEt2+53MfxoWGok0IAJMvtMc7HzoGyzpTZ
+         gH2Zq7ULCCS5G3uP+h05MkzNhR3OgwrzJTWff+vDXvIdERj5sMceeBVPIUhnTZv8kimp
+         qw1PcHAKiXs5X4qFrdMJAFRP8HQcfTlo2cUigNxNwgZVKx3Rg3E/d+zb78NRP0EPlhr3
+         UltWDjsMZFk1Lx+2tJyB5EBlTb/Ve6B7E0TuTYANKVShNYtFBSZNBt11yQR12E4eNjEX
+         O1zhTHQwRZ2ztqqeZlYKQHznivs4oVFc3rBkON36MKVctjk35ff7HgU/I/kdwch3Ej96
+         jiAQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwHUn3HHninANyLIuNDgNuPtNMSPRmprmSXFnGrQ2qgYtAuZ/TNsEfI9b3i4yV6UN/p+P/YwD1PCPFjcwQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++n4Rf/8xUALs7yyAGWiXaQrNvTw++he0CUBW6ZjotSxiWnBBZps
+	8DetWzcX/dQ9mYGGCiVB0zv06O9WkKZ42GCMKxNNa6u5kW4BNYWeiKrt
+X-Gm-Gg: AYBFou1SZMdU7ueRw/6DQrkNI2KJo0ZDJzGdueQF1gWUzq3RYQZQKDfC7WbkMRzucBE
+	EWPj++66CDKzSpUNU2oZftUkFpqctRGsCNbvh+BOAgjdPG0XqV8vX/2iqqRUzxfQ/IlSSiIcbOc
+	MwYpEL2lO4aDCCSjatNtmYGdOqAHOA5pZ50lLoVRKlhVCdQXkAlDkXIZ0+j6Vh5kFmUcPOsC3Vf
+	UP4Ug819vMDhyd1DwHTlqj0n2Bsq15wnehgH7xWnHQAoz+MTx42Z3kA3HNtKogV6RfvMFI9xNBj
+	w8CzNcYd04k8PhG0eXDSZeO0oIMIYCTn4kY+EeKBgDGSa8tCkqufEo9GfSzCxFr2JfeTDo2KE9d
+	BbGgijC72DGa2dSqT1yQnk/0UXfqV3MYHC/nlsi4T744HG6ALWhwpLvRGklnLUjTGRHDaoXQpP4
+	6A1g6W/IcRoLyTD6tjE3TaPuofUYFW94YLLCoiAU5q75+g/QSQBxgi+2j6YkBHssOu
+X-Received: by 2002:a05:620a:394b:b0:939:5d22:d1f0 with SMTP id af79cd13be357-939d7e3fec6mr1881656785a.2.1789236407716;
+        Sat, 12 Sep 2026 11:06:47 -0700 (PDT)
+Received: from Turin ([187.15.143.6])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-939e8080404sm551110185a.28.2026.09.12.11.06.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 12 Sep 2026 11:06:47 -0700 (PDT)
+From: Nicholas Dudar <main.kalliope@gmail.com>
+To: ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	eddyz87@gmail.com,
+	memxor@gmail.com,
+	johan.almbladh@anyfinetworks.com,
+	paulburton@kernel.org,
+	tsbogend@alpha.franken.de
+Cc: martin.lau@linux.dev,
+	song@kernel.org,
+	yonghong.song@linux.dev,
+	jolsa@kernel.org,
+	emil@etsalapatis.com,
+	ihor.solodrai@linux.dev,
+	bpf@vger.kernel.org,
+	linux-mips@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH bpf-next v2] bpf, mips: Add BPF_MEMSX support to the JITs
+Date: Sat, 12 Sep 2026 14:06:43 -0400
+Message-ID: <20260912180643.1426488-1-main.kalliope@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-CM-TRANSID:QCgvCgCXfrTvk6VqXk4IRQ--.23765S2
-X-Coremail-Antispam: 1Uf129KBjvAXoW3ZFW7uw4kurWkuFWxWr43Awb_yoW8Gr13to
-	Zavayqvw1ktwnrZ3y7AF18tF97ur4DGryDXr4Sgwn5WayxWw1UW3y7Kwn8Za4xX3WUCayx
-	Aa48tan8Zr45Ja1fn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
-	AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjxUw5l1DUUUU
-X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbC6hIlhGqlk-L9lAAA3e
+Content-Transfer-Encoding: 8bit
 
-Hi Peter,
+The MIPS JITs reject BPF_MEMSX loads, preventing programs that use them
+from running where JIT compilation is required.
 
-> It might come as no surprise that this isn't going to fly. I've not
-> though about the problem yet, but we're not going to be sprinkling rt
-> bits like this in the middle of __schedule().
+Codex-assisted analysis of public test output identified the missing
+MEMSX support.
 
-I took another look at this after your comment above, as well as at the
-lifecycle-based WIP I posted afterwards.
+Add signed byte, half-word and word loads using lb, lh and lw. On
+MIPS64 these produce the full result. On MIPS32, propagate the loaded
+word's sign into the high word after the required load delay. Keep
+signed loads separate from ordinary loads, which can clear the high
+word in the load-delay slot.
 
-I agree that putting RT-specific reset handling directly in __schedule() is
-the wrong abstraction. The current WIP instead exposes generic proxy
-relationship lifecycle events from the scheduler core and lets the RT class
-consume those events.
-
-The original attribution issue is relatively small: the RT scheduling
-context belongs to rq->donor, while the watchdog state needs to follow the
-execution context in rq->curr.
-
-The harder part is defining the watchdog interval reset boundaries under
-proxy execution. The current version therefore has generic START/STOP/BLOCK
-notifications and propagates proxy-context changes through
-find_proxy_task().
-
-Compared with the previous WIP, this version no longer invokes the
-lifecycle callback directly from the mutex handoff path. The handoff only
-changes the blocked_donor relation, and the resulting STOP is reported when
-the execution task next enters __schedule(), with the rq lock held. It also
-preserves the previous effective root when an intermediate retained donor
-is promoted, so that root changes can be propagated to downstream execution
-owners.
-
-While working through this, I noticed that this is also the same area
-touched by Zhidao Su's pending proxy-walk cycle handling:
-https://lore.kernel.org/r/20260722120346.93000-1-soolaugust@gmail.com/
-
-In particular, the new retained blocked_donor walks in this WIP assume an
-acyclic chain. Zhidao's work adds cycle detection in find_proxy_task(),
-while the new walks here rely on the retained blocked_donor chain being
-acyclic. The lifecycle handling therefore needs to be reconciled with that
-work before I consider the RT patch ready.
-
-There is a separate integration issue around patch 1 of this series: its
-task_tick() donor/curr ownership changes overlap with Andrea's pending
-sched_ext/proxy-execution work:
-https://lore.kernel.org/r/20260831134338.1531664-1-arighi@nvidia.com/
-
-Rather than coupling that integration work with the independent
-RT/find_proxy_task() issue, I am inclined to make the next revision a
-four-patch series containing the current patches 1, 2, 3 and the core-slice
-patch (patch 5 in v4, renumbered as 4/4), while continuing the RT watchdog
-work separately.
-The task_tick()/sched_ext overlap can then be handled on its own without
-being tied to the RT lifecycle changes.
-
-In the meantime, I would appreciate any thoughts on the current RT
-lifecycle approach. I have included the current WIP diff below. It is not
-intended for merging as-is; in particular, I still need to reconcile the
-find_proxy_task() changes with the pending proxy-walk cycle handling.
-
-The WIP diff below is based on patches 1-3 of this series, so task_tick()
-already uses the updated callback interface.
-
-The main idea is:
-
-* watchdog accounting follows rq->curr while RT scheduling remains
-  donor-owned;
-* blocking terminates the current watchdog interval;
-* START/STOP mark changes to the effective proxy scheduling context;
-* native RT-policy tasks keep their existing timeout semantics;
-* non-RT execution owners reset their timeout when entering or leaving an
-  RT proxy context;
-* root changes in a retained proxy chain are propagated to downstream
-  execution owners.
-
-If this direction looks reasonable, I will keep the RT work separate,
-reconcile it with the cycle handling, and let the remaining four-patch
-series continue without being tied to the RT lifecycle changes.
-
-Thanks,
-Hui
-
+Suggested-by: Johan Almbladh <johan.almbladh@anyfinetworks.com>
+Assisted-by: Codex:gpt-6
+Signed-off-by: Nicholas Dudar <main.kalliope@gmail.com>
 ---
+Changes in v2:
+- Keep unsigned LDX and signed LDSX as separate complete emitters.
+- Drop the helper-only preparatory patch from v1.
 
- kernel/sched/core.c  | 138 ++++++++++++++++++++++++++++++++++++++++++++++++---
- kernel/sched/rt.c    |  35 ++++++++++++-
- kernel/sched/sched.h |  15 ++++++
- 3 files changed, 180 insertions(+), 8 deletions(-)
+This patch depends on SDIV/SMOD v4 and MOVSX v3, in that order.
+Enabling MEMSX lets mixed programs reach JIT execution, so their
+signed arithmetic and register moves must also be implemented.
 
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index 05e599665fdd..57d24cbd8eea 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -4647,6 +4647,93 @@ static void __sched_fork(u64 clone_flags, struct task_struct *p)
- 	init_sched_mm(p);
+https://lore.kernel.org/bpf/20260911213340.3767930-1-main.kalliope@gmail.com/
+https://lore.kernel.org/bpf/20260912041220.444715-1-main.kalliope@gmail.com/
+
+I ran the full test_bpf suite on both the prerequisite stack and this patch
+under QEMU Malta, using little-endian MIPS32 R2 and MIPS64 R2. An out-of-tree
+fixture strengthens the signed/unsigned load comparisons and adds negative
+and sign-clear loads with dst == src. All five MEMSX tests move from JIT
+rejection to passing: MIPS32 goes from 1050/14 to 1055/9 pass/fail, and
+MIPS64 from 1049/14 to 1054/9. The remaining failures are 8 BSWAP and
+1 JMP32_JA cases. No other test verdict changes.
+
+Additional test_bpf fixtures passed on MIPS32 R2 big-endian and
+MIPS64 R2 little-endian, covering signed boundaries, aliasing,
+R6-R9 preservation across a helper call, and large signed offsets.
+JIT disassembly confirmed the load and register-save sequences.
+These tests exercise the JIT directly, bypassing the verifier.
+
+Earlier comparisons covered MIPS32 R1/R2/R6 and MIPS64 R2 in both byte
+orders, plus MIPS64 R6 little-endian. Those results predate this rebase;
+the signed-load emitters and their delay/clobber helpers are identical.
+No physical hardware or MIPS I CPU was tested.
+
+Link to v1:
+https://lore.kernel.org/bpf/20260821024640.1601299-1-main.kalliope@gmail.com/
+
+ arch/mips/net/bpf_jit_comp32.c | 29 +++++++++++++++++++++++++++++
+ arch/mips/net/bpf_jit_comp64.c | 26 ++++++++++++++++++++++++++
+ 2 files changed, 55 insertions(+)
+
+diff --git a/arch/mips/net/bpf_jit_comp32.c b/arch/mips/net/bpf_jit_comp32.c
+index 8f1ab851863fc9aaa4a107dcd3633c5f51f219ea..f72cd21eb5ccbb6eaba15439958c12eb072b3900 100644
+--- a/arch/mips/net/bpf_jit_comp32.c
++++ b/arch/mips/net/bpf_jit_comp32.c
+@@ -757,6 +757,29 @@ static void emit_ldx(struct jit_context *ctx,
+ 	clobber_reg64(ctx, dst);
  }
  
-+#ifdef CONFIG_SCHED_PROXY_EXEC
-+/*
-+ * Follow the blocked_donor stack built by the current donor-pick cycle.
-+ * The stack is stable while rq->lock is held.
-+ */
-+static inline struct task_struct *
-+proxy_root_donor(struct rq *rq, struct task_struct *exec)
++/* Load operation with sign extension: dst = *(signed size *)(src + off) */
++static void emit_ldsx(struct jit_context *ctx,
++		      const u8 dst[], u8 src, s16 off, u8 size)
 +{
-+	struct task_struct *donor = exec;
-+
-+	lockdep_assert_rq_held(rq);
-+
-+	while (donor->blocked_donor)
-+		donor = donor->blocked_donor;
-+
-+	return donor;
-+}
-+
-+/* Notify the classes owning the proxy scheduling and execution contexts. */
-+static inline void proxy_event(struct rq *rq, struct task_struct *donor,
-+			       struct task_struct *exec, enum sched_proxy_event event)
-+{
-+	const struct sched_class *donor_class, *exec_class;
-+
-+	lockdep_assert_rq_held(rq);
-+
-+	donor_class = donor->sched_class;
-+	exec_class = exec->sched_class;
-+
-+	if (donor_class->proxy_event)
-+		donor_class->proxy_event(donor, exec, event);
-+	if (exec_class != donor_class && exec_class->proxy_event)
-+		exec_class->proxy_event(donor, exec, event);
-+}
-+
-+/* Notify every execution context in the current proxy chain. */
-+static inline void
-+proxy_event_chain(struct rq *rq, struct task_struct *donor, enum sched_proxy_event event)
-+{
-+	struct task_struct *exec = rq->curr;
-+
-+	if (exec == donor)
-+		return;
-+
-+	for (; exec && exec != donor;
-+	     exec = READ_ONCE(exec->blocked_donor))
-+		proxy_event(rq, donor, exec, event);
-+}
-+
-+/* Promote @p from a retained proxy owner to the new scheduling root. */
-+static inline struct task_struct *
-+proxy_promote_root(struct rq *rq, struct task_struct *p)
-+{
-+	struct task_struct *old_root = NULL;
-+
-+	if (READ_ONCE(p->blocked_donor)) {
-+		old_root = proxy_root_donor(rq, p);
-+
-+		if (old_root != p)
-+			proxy_event(rq, old_root, p, SCHED_PROXY_STOP);
-+		else
-+			old_root = NULL;
++	switch (size) {
++	/* Load a byte */
++	case BPF_B:
++		emit(ctx, lb, lo(dst), off, src);
++		break;
++	/* Load a half word */
++	case BPF_H:
++		emit(ctx, lh, lo(dst), off, src);
++		break;
++	/* Load a word */
++	case BPF_W:
++		emit(ctx, lw, lo(dst), off, src);
++		break;
 +	}
-+
-+	p->blocked_donor = NULL;
-+
-+	return old_root;
++	emit_load_delay(ctx);
++	emit(ctx, sra, hi(dst), lo(dst), 31);
++	clobber_reg64(ctx, dst);
 +}
 +
-+#else
-+static inline struct task_struct *
-+proxy_root_donor(struct rq *rq, struct task_struct *exec)
-+{
-+	return exec;
-+}
-+
-+static inline void proxy_event(struct rq *rq, struct task_struct *donor,
-+			       struct task_struct *exec, enum sched_proxy_event event) {}
-+static inline void
-+proxy_event_chain(struct rq *rq, struct task_struct *donor, enum sched_proxy_event event) {}
-+static inline struct task_struct *
-+proxy_promote_root(struct rq *rq, struct task_struct *p)
-+{
-+	return NULL;
-+}
-+#endif
-+
- DEFINE_STATIC_KEY_FALSE(sched_numa_balancing);
- 
- #ifdef CONFIG_NUMA_BALANCING
-@@ -6768,6 +6855,9 @@ static bool try_to_block_task(struct rq *rq, struct task_struct *p,
- 		return false;
- 	}
- 
-+	if (sched_proxy_exec())
-+		proxy_event(rq, rq->donor, p, SCHED_PROXY_BLOCK);
-+
- 	p->is_blocked = 1;
- 
- 	/*
-@@ -6925,11 +7015,12 @@ static void proxy_migrate_task(struct rq *rq, struct rq_flags *rf,
-  * Returns the task that is going to be used as execution context (the one
-  * that is actually going to be run on cpu_of(rq)).
-  */
--static struct task_struct *
--find_proxy_task(struct rq *rq, struct task_struct *donor, struct rq_flags *rf)
-+static struct task_struct *find_proxy_task(struct rq *rq, struct task_struct *donor,
-+		struct task_struct *old_root, struct rq_flags *rf)
- 	__must_hold(__rq_lockp(rq))
- {
- 	struct task_struct *owner = NULL;
-+	bool context_changed = old_root != NULL;
- 	bool curr_in_chain = false;
- 	int this_cpu = cpu_of(rq);
- 	struct task_struct *p;
-@@ -7056,7 +7147,24 @@ find_proxy_task(struct rq *rq, struct task_struct *donor, struct rq_flags *rf)
- 		 * rq, therefore holding @rq->lock is sufficient to
- 		 * guarantee its existence, as per ttwu_remote().
- 		 */
--		owner->blocked_donor = p;
-+		/*
-+		 * The relation survives ordinary preemption and resumption. Once
-+		 * an upstream relation changes, however, all downstream owners
-+		 * inherit a new proxy scheduling context as well.
-+		 */
-+		if (owner->blocked_donor != p) {
-+			old_root = proxy_root_donor(rq, owner);
-+
-+			if (old_root != owner)
-+				proxy_event(rq, old_root, owner, SCHED_PROXY_STOP);
-+
-+			owner->blocked_donor = p;
-+			context_changed = true;
-+		} else if (context_changed && old_root != owner) {
-+			proxy_event(rq, old_root, owner, SCHED_PROXY_STOP);
-+		}
-+		if (context_changed)
-+			proxy_event(rq, donor, owner, SCHED_PROXY_START);
- 	}
- 	WARN_ON_ONCE(owner && !owner->on_rq);
- 	return owner;
-@@ -7069,8 +7177,8 @@ find_proxy_task(struct rq *rq, struct task_struct *donor, struct rq_flags *rf)
- 	return NULL;
+ /* Store operation: *(size *)(dst + off) = src */
+ static void emit_stx(struct jit_context *ctx,
+ 		     const u8 dst, const u8 src[], s16 off, u8 size)
+@@ -1728,6 +1751,12 @@ int build_insn(const struct bpf_insn *insn, struct jit_context *ctx)
+ 	case BPF_LDX | BPF_MEM | BPF_DW:
+ 		emit_ldx(ctx, dst, lo(src), off, BPF_SIZE(code));
+ 		break;
++	/* LDSX: dst = *(signed size *)(src + off) */
++	case BPF_LDX | BPF_MEMSX | BPF_W:
++	case BPF_LDX | BPF_MEMSX | BPF_H:
++	case BPF_LDX | BPF_MEMSX | BPF_B:
++		emit_ldsx(ctx, dst, lo(src), off, BPF_SIZE(code));
++		break;
+ 	/* ST: *(size *)(dst + off) = imm */
+ 	case BPF_ST | BPF_MEM | BPF_W:
+ 	case BPF_ST | BPF_MEM | BPF_H:
+diff --git a/arch/mips/net/bpf_jit_comp64.c b/arch/mips/net/bpf_jit_comp64.c
+index 4507841a922484cda126e57d52d6a2924ef33a72..7bba0d4b0b2c04a742dec6234e4c6e610532e132 100644
+--- a/arch/mips/net/bpf_jit_comp64.c
++++ b/arch/mips/net/bpf_jit_comp64.c
+@@ -431,6 +431,26 @@ static void emit_ldx(struct jit_context *ctx, u8 dst, u8 src, s16 off, u8 size)
+ 	clobber_reg(ctx, dst);
  }
- #else /* SCHED_PROXY_EXEC */
--static struct task_struct *
--find_proxy_task(struct rq *rq, struct task_struct *donor, struct rq_flags *rf)
-+static struct task_struct *find_proxy_task(struct rq *rq, struct task_struct *donor,
-+		struct task_struct *old_root, struct rq_flags *rf)
- {
- 	WARN_ONCE(1, "This should never be called in the !SCHED_PROXY_EXEC case\n");
- 	return donor;
-@@ -7208,11 +7316,19 @@ static void __sched notrace __schedule(int sched_mode)
- 	rq->next_class = next->sched_class;
- 	if (sched_proxy_exec()) {
- 		struct task_struct *prev_donor = rq->donor;
-+		struct task_struct *old_root;
-+
-+		/*
-+		 * A mutex handoff may clear the backlink outside rq->lock.
-+		 * Report the resulting proxy STOP once serialized here.
-+		 */
-+		if (prev != prev_donor && !READ_ONCE(prev->blocked_donor))
-+			proxy_event(rq, prev_donor, prev, SCHED_PROXY_STOP);
  
- 		rq_set_donor(rq, next);
--		next->blocked_donor = NULL;
-+		old_root = proxy_promote_root(rq, next);
- 		if (unlikely(next->is_blocked)) {
--			next = find_proxy_task(rq, next, &rf);
-+			next = find_proxy_task(rq, next, old_root, &rf);
- 			if (!next) {
- 				zap_balance_callbacks(rq);
- 				goto pick_again;
-@@ -11277,6 +11393,10 @@ struct sched_change_ctx *sched_change_begin(struct task_struct *p, unsigned int
- 
- 	lockdep_assert_rq_held(rq);
- 
-+	/* End proxy service before changing the donor's scheduling class. */
-+	if ((flags & DEQUEUE_CLASS) && task_current_donor(rq, p))
-+		proxy_event_chain(rq, p, SCHED_PROXY_STOP);
-+
- 	if (!(flags & DEQUEUE_NOCLOCK)) {
- 		update_rq_clock(rq);
- 		flags |= DEQUEUE_NOCLOCK;
-@@ -11335,6 +11455,10 @@ void sched_change_end(struct sched_change_ctx *ctx)
- 		if (p->sched_class->switched_to)
- 			p->sched_class->switched_to(rq, p);
- 
-+		/* Restart proxy service with the donor's new scheduling class. */
-+		if (ctx->running)
-+			proxy_event_chain(rq, p, SCHED_PROXY_START);
-+
- 		if (ctx->running) {
- 			/*
- 			 * If this was a class promotion; let the old class
-diff --git a/kernel/sched/rt.c b/kernel/sched/rt.c
-index dd058a6ca06b..14595f632b17 100644
---- a/kernel/sched/rt.c
-+++ b/kernel/sched/rt.c
-@@ -2530,6 +2530,36 @@ static void watchdog(struct rq *rq, struct task_struct *p)
- static inline void watchdog(struct rq *rq, struct task_struct *p) { }
- #endif /* !CONFIG_POSIX_TIMERS */
- 
-+#ifdef CONFIG_SCHED_PROXY_EXEC
-+static void
-+proxy_event_rt(struct task_struct *donor, struct task_struct *exec, enum sched_proxy_event event)
++/* Load operation with sign extension: dst = *(signed size *)(src + off) */
++static void emit_ldsx(struct jit_context *ctx, u8 dst, u8 src, s16 off, u8 size)
 +{
-+	/* A new relation or a blocking edge terminates the prior interval. */
-+	switch (event) {
-+	case SCHED_PROXY_START:
-+		/*
-+		 * A proxy START begins an RT watchdog interval only when
-+		 * the scheduling context itself is RT. This callback may also
-+		 * be reached through an RT execution context while another
-+		 * class supplies the donor.
-+		 */
-+		if (donor->sched_class == &rt_sched_class &&
-+		    !task_has_rt_policy(exec))
-+			exec->rt.timeout = 0;
++	switch (size) {
++	/* Load a byte */
++	case BPF_B:
++		emit(ctx, lb, dst, off, src);
 +		break;
-+	case SCHED_PROXY_BLOCK:
-+		exec->rt.timeout = 0;
++	/* Load a half word */
++	case BPF_H:
++		emit(ctx, lh, dst, off, src);
 +		break;
-+	case SCHED_PROXY_STOP:
-+		/* Stop the interval when RT proxy service ends for this task. */
-+		if (donor->sched_class == &rt_sched_class &&
-+		    !task_has_rt_policy(exec))
-+			exec->rt.timeout = 0;
++	/* Load a word */
++	case BPF_W:
++		emit(ctx, lw, dst, off, src);
 +		break;
 +	}
++	clobber_reg(ctx, dst);
 +}
-+#endif
 +
- /*
-  * scheduler tick hitting a task of our scheduling class.
-  *
-@@ -2550,7 +2580,7 @@ static void task_tick_rt(struct rq *rq, int queued)
- 	update_curr_rt(rq);
- 	update_rt_rq_load_avg(rq_clock_pelt(rq), rq, 1);
- 
--	watchdog(rq, p);
-+	watchdog(rq, rq->curr);
- 
- 	/*
- 	 * RR tasks need a special form of time-slice management.
-@@ -2625,6 +2655,9 @@ DEFINE_SCHED_CLASS(rt) = {
- 	.find_lock_rq		= find_lock_lowest_rq,
- 
- 	.task_tick		= task_tick_rt,
-+#ifdef CONFIG_SCHED_PROXY_EXEC
-+	.proxy_event		= proxy_event_rt,
-+#endif
- 
- 	.get_rr_interval	= get_rr_interval_rt,
- 
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index f2f1e3642831..426cc466e813 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -2623,6 +2623,12 @@ struct affinity_context {
- 
- extern s64 update_curr_common(struct rq *rq);
- 
-+enum sched_proxy_event {
-+	SCHED_PROXY_START,
-+	SCHED_PROXY_BLOCK,
-+	SCHED_PROXY_STOP,
-+};
-+
- struct sched_class {
- 
- #ifdef CONFIG_UCLAMP_TASK
-@@ -2721,6 +2727,15 @@ struct sched_class {
- 	 * sched_tick_remote: rq->lock
- 	 */
- 	void (*task_tick)(struct rq *rq, int queued);
-+#ifdef CONFIG_SCHED_PROXY_EXEC
-+	/*
-+	 * Proxy execution transitions. Callbacks run with the rq lock held and
-+	 * must not sleep. Donor and execution task lifetime is protected by the
-+	 * caller.
-+	 */
-+	void (*proxy_event)(struct task_struct *donor, struct task_struct *exec,
-+			    enum sched_proxy_event event);
-+#endif
- 	/*
- 	 * sched_cgroup_fork: p->pi_lock
- 	 */
+ /* Store operation: *(size *)(dst + off) = src */
+ static void emit_stx(struct jit_context *ctx, u8 dst, u8 src, s16 off, u8 size)
+ {
+@@ -903,6 +923,12 @@ int build_insn(const struct bpf_insn *insn, struct jit_context *ctx)
+ 	case BPF_LDX | BPF_MEM | BPF_DW:
+ 		emit_ldx(ctx, dst, src, off, BPF_SIZE(code));
+ 		break;
++	/* LDSX: dst = *(signed size *)(src + off) */
++	case BPF_LDX | BPF_MEMSX | BPF_W:
++	case BPF_LDX | BPF_MEMSX | BPF_H:
++	case BPF_LDX | BPF_MEMSX | BPF_B:
++		emit_ldsx(ctx, dst, src, off, BPF_SIZE(code));
++		break;
+ 	/* ST: *(size *)(dst + off) = imm */
+ 	case BPF_ST | BPF_MEM | BPF_W:
+ 	case BPF_ST | BPF_MEM | BPF_H:
 
+base-commit: c1ff425d625eb2a4d2967e9889b85f202f24eb5d
+prerequisite-patch-id: aa8ca3f50fc4b0160c5fdba43a92e4b7ec3f2e07
+prerequisite-patch-id: 9f324d79755bae54c56ce6c90769acc8595c9ad6
+prerequisite-patch-id: 35236f563c0536859077709d52b345b696e5c26e
+prerequisite-patch-id: c0f282b0e57ecd60e9582fb1e89e4b3112ae7893
+prerequisite-patch-id: 528eee53fa86686e7e69fa8a12c605b386381a33
