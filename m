@@ -1,96 +1,130 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B4363C9EDD;
-	Sat, 12 Sep 2026 20:08:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 229CC3921EC;
+	Sat, 12 Sep 2026 20:09:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789243707; cv=none; b=MWMkbhdyyiBdktIZJ3VBJ7BLFl71BEOQvXPs/m60nFOGa4wOZ3HgAi1hSGSzFGvu95sG1xCoyc272xbxMg9gmtVFiwP6h8WJamr7bGa/dbTnWBhe65Ci2a37nexI3uZVy03aj39XkSqcI0nvM7tLe3VO6q5sGrEU2I4/bYnyhfk=
+	t=1789243768; cv=none; b=JqFMjYrSdQWimk0tmnQsnHSowTZ5eooE5+XTbok0uDkTm0bcrB388K13ZHYmOfaJ+luDgqK2SDJlwMhzc9xH4GFnT2r6WiiJ547HQ+D6T9L+qWqpJs3OhkapRcCHA6hpSTRw3yBsjKcR3/9DZOhcyfCutYvKcX/DF++53L/TpZk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789243707; c=relaxed/simple;
-	bh=igpDaY7ogL2MgVVbjENuSqoGZ/pGU0a0jlFbiEYZX+M=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bz2OLe4l/924lv/smqrsq+2nqc2KhU9l9+HG9dT26y6gZ7cWUFHMZV5UvyJ5AfSrZat4t3N6AxxHOHcjsXRuqizEOz1NdXkUCzr1fknrEYpl0kWXuhiPOB7bemlVRCEgLeZmWD6E17ZGz57zp0U9CV5l1JhwN54t8PSoYyGgR5E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LAzxcZNz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789243768; c=relaxed/simple;
+	bh=WojAOunnQHua6UevCKUF5uyfoZWpXARk3NtWdHl6fXc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=QuiQC3WVtFFaCNwknUzDRq6lfHUmu60yq2ZKP2dhXgApP23llfyBOerLRVtdsg/A4XXgDyqAGUkbt4pngennr7w99zuQSAt3vn+db4REWhd2nA2TuRzl62bHhg61LpRKoircfjbJPw3C7K92WQfmobZWpYLVpFipBUksoSJh0dQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LM4BT0ge; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LAzxcZNz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D01E1F00899;
-	Sat, 12 Sep 2026 20:08:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LM4BT0ge"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA4DF1F000FF;
+	Sat, 12 Sep 2026 20:09:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789243705;
-	bh=qMM9iy6IrAL3WXWLU7jycgpdPbxivoB9SIapWH0R9Ko=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LAzxcZNzJcohmCNK4xFBtqQSjGg7ODGYWfX3bVmzoMoQOH9cpF8zoL5WaLrJuY8y8
-	 2hi/QB6NaEPk5644YSxYUoRJyy36J7+m6ZQLlJqAo9opluc+/hphS8gHAnYUR79TF+
-	 838IYEgaTYUFxXSHRPb5W+0f+kYnf4w5ddg4Ltuz/hqpIQCjn1YCvo2cYnXhLB5Xrb
-	 lahBliozSjDX1ltQwc07yPC+hq3loR6CEKvFKlCHvacIP/ET8y2QLCgskroSof8bq+
-	 JpeeATQkg99Pn08yG384ij2/tNqTVIAz4tsVP4eFx6bXOvxlR2PfN22sEQMm4gFvgG
-	 VRy10MZJogqBA==
-From: SJ Park <sj@kernel.org>
-To: 
-Cc: SJ Park <sj@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Michal Hocko <mhocko@suse.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	damon@lists.linux.dev,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [RFC PATCH 9/9] Docs/mm/damon/design: clarify bp is basis point
-Date: Sat, 12 Sep 2026 13:08:10 -0700
-Message-ID: <20260912200814.145612-10-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260912200814.145612-1-sj@kernel.org>
-References: <20260912200814.145612-1-sj@kernel.org>
+	s=k20260515; t=1789243766;
+	bh=cf69hnfZhyaQSMzcNWdZwVKugIMigrIYQsNwOjVbsO0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=LM4BT0gelq/w7AuPqR949zzcqkfW0y724pqi7ksfUiZEhJeKMcdTJZ/L26Bo7xACJ
+	 6Fpwb4MmMT5H3ky4kkXhJQfqWgDeSVN2BTx7lPK8yZQ9SVPtj9A7pgwztaFduVNALl
+	 RPDWZM0lwlu7DAmZwxZY5zE0e6Y8/vsRXtRuulY2QoWzs0E2XSPSqVNShia49iPI8m
+	 EcODE/ZbKUWxy4UOBoSqcpTtzDfiWrgIDtqbVL4O/vt1eVGmBz7leNqsE/0UZs5usw
+	 xQT17ZXQgAh6Sd2zHazutQTf61PDZE+o40FL0l6ZRFezfTmnBthk6434h1DQwHQvbF
+	 4IyDWEYhGO/RQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/4] ARM: cacheinfo: count external caches in
+ early_cache_level()
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Karl Mehltretter" <kmehltretter@gmail.com>
+Cc: linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org
+In-Reply-To: <20260912195552.76673-3-kmehltretter@gmail.com>
+References: <20260912195552.76673-1-kmehltretter@gmail.com>
+ <20260912195552.76673-3-kmehltretter@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 12 Sep 2026 20:09:26 +0000
+Message-Id: <20260912200926.AA4DF1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-DAMON design document uses "bp" for "basis point" in multiple places.
-Because it is not clearly mentioned, it is difficult to understand what
-"bp" stands for.  Add the clarification.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Reported-by: Randy Dunlap <rdunlap@infradead.org>
-Closes: https://lore.kernel.org/107dc6ba-697e-4b25-ba3e-8ce2499cac9a@infradead.org
-Signed-off-by: SJ Park <sj@kernel.org>
----
- Documentation/mm/damon/design.rst | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+Pre-existing issues:
+- [High] Reallocation of cacheinfo memory via kzalloc_objs(..., GFP_ATOMIC)=
+ is called with interrupts disabled on secondary CPUs in big.LITTLE systems=
+, which crashes on PREEMPT_RT.
+--
 
-diff --git a/Documentation/mm/damon/design.rst b/Documentation/mm/damon/design.rst
-index 0a86792f90a18..e82390e77a70a 100644
---- a/Documentation/mm/damon/design.rst
-+++ b/Documentation/mm/damon/design.rst
-@@ -445,7 +445,7 @@ users to set the aimed amount of access events to observe via DAMON within
- given time interval.  The target can be specified by the user as a ratio of
- DAMON-observed access events to the theoretical maximum amount of the events
- (``access_bp``) that measured within a given number of aggregations
--(``aggrs``).
-+(``aggrs``).  The ratio is in basis point (bp or 1/10,000).
- 
- The DAMON-observed access events are calculated in byte granularity based on
- DAMON :ref:`region assumption <damon_design_region_based_sampling>`.  For
-@@ -717,7 +717,8 @@ mechanism tries to make ``current_value`` of ``target_metric`` be same to
-   in microseconds that measured from last quota reset to next quota reset.
-   DAMOS does the measurement on its own, so only ``target_value`` need to be
-   set by users at the initial time.  In other words, DAMOS does self-feedback.
--- ``node_mem_used_bp``: Specific NUMA node's used memory ratio in bp (1/10,000).
-+- ``node_mem_used_bp``: Specific NUMA node's used memory ratio in basis point
-+  (bp or 1/10,000).
- - ``node_mem_free_bp``: Specific NUMA node's free memory ratio in bp (1/10,000).
- - ``node_memcg_used_bp``: Specific cgroup's node used memory ratio for a
-   specific NUMA node, in bp (1/10,000).
--- 
-2.47.3
+commit 19c5ea8e9a4a8fc2bc601139e06e4ead6e749ab2
+Author: Karl Mehltretter <kmehltretter@gmail.com>
+
+ARM: cacheinfo: count external caches in early_cache_level()
+
+This commit alters early_cache_level() to directly invoke
+init_cache_level(). This includes device tree-described external
+caches in the early allocation size, attempting to avoid late cacheinfo
+reallocation on secondary CPUs which causes issues on PREEMPT_RT.
+
+> diff --git a/arch/arm/kernel/cacheinfo.c b/arch/arm/kernel/cacheinfo.c
+> index 860eeb03cfe5d..31591c9472548 100644
+> --- a/arch/arm/kernel/cacheinfo.c
+> +++ b/arch/arm/kernel/cacheinfo.c
+
+[ ... ]
+
+> @@ -146,6 +139,11 @@ int init_cache_level(unsigned int cpu)
+>  	return 0;
+>  }
+> =20
+> +int early_cache_level(unsigned int cpu)
+> +{
+> +	return init_cache_level(cpu);
+> +}
+
+[Severity: High]
+This is a pre-existing issue, but does this CLIDR fallback path still leave
+the kernel vulnerable to a panic on PREEMPT_RT if a secondary CPU happens to
+have more cache leaves than the boot CPU?
+
+On big.LITTLE ARM systems, if a secondary CPU has more cache leaves and no
+device-tree cache specification is used, early_leaves will be smaller than
+the required size. This forces a reallocation while interrupts are disabled
+on the secondary CPU:
+
+arch/arm/kernel/smp.c:secondary_start_kernel() {
+    ...
+	trace_hardirqs_off();
+    ...
+	update_siblings_masks(cpu);
+}
+
+drivers/base/arch_topology.c:update_siblings_masks() {
+    ...
+	ret =3D detect_cache_attributes(cpuid);
+}
+
+drivers/base/cacheinfo.c:init_level_allocate_ci() {
+    ...
+	if (cache_leaves(cpu) <=3D early_leaves && per_cpu_cacheinfo(cpu))
+		return 0;
+
+	kfree(per_cpu_cacheinfo(cpu));
+	return allocate_cache_info(cpu);
+}
+
+drivers/base/cacheinfo.c:allocate_cache_info() {
+    ...
+	per_cpu_cacheinfo(cpu) =3D kzalloc_objs(struct cacheinfo,
+					      cache_leaves(cpu), GFP_ATOMIC);
+}
+
+On PREEMPT_RT, memory allocation with GFP_ATOMIC relies on a sleepable
+slab rt_mutex. Calling this with interrupts disabled results in a BUG
+("sleeping function called from invalid context") and a system panic
+during boot.
+
+Could this reallocation path be avoided or deferred to a context where
+interrupts are enabled for secondary CPUs?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260912195552.7667=
+3-1-kmehltretter@gmail.com?part=3D2
