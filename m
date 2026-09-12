@@ -1,108 +1,240 @@
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazolkn19013078.outbound.protection.outlook.com [52.103.35.78])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5BAE3D6493
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 22:27:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D34743C0A0F;
+	Sat, 12 Sep 2026 22:27:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.35.78
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789252041; cv=pass; b=rTWOmrDa0EMa/AGfK4c8/r+ZEI9Z7SUrgka4dDy4Z05JVAik4ajXV82TDw5f1qxEqLdtLDwhMGZSMAa/nQ0rkRkN98QCFwPNHXfZmAOPwxWgtfUerOb2CU99a300tGu1jkwgic3i7yC2bg9OfADTf8qvedIGNM4vH9u9eO2UdIA=
+	t=1789252080; cv=fail; b=cLVtCoMaXSJh2p6sBQFchQ3q1iodLhaU9ZrPyZIGcpzcC+wdCtikEb5hR9uoxkTw53ugeWqV4IfRrIIKqCNbXARGHS722SBCe+DBwZI1Lh05BJ4jVUjympBdhEf24g3XMEcLtuHMJTUETWk2rH7NvMQhrbxmpBn6q63/PYpLsao=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789252041; c=relaxed/simple;
-	bh=s1NoDAASJu12CTH1pP05uATarRtW42V8k/Pmv15QtlA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=o7ZsD9SCP2WpPQW0UFpo2ucYsvWF4eEodVcViqdExiU6Vim4SDRrPhrCsSCptdtgrd67mmnCXHLFygtQhIkrzfkMNh+N4Y1QbN+BRei/kHP32ooaC4ATxId+CyX2b2uiz+zY/zslkRcMWR1qd0lACSZpvR1f6TYffXmrciGUaz4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a5BY09Ek; arc=pass smtp.client-ip=209.85.218.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789252080; c=relaxed/simple;
+	bh=k8Ivl43S90om8AtVYAr9kflOKH/DmStKA7131rGtO9s=;
+	h=From:To:Subject:Date:Message-ID:Content-Type:MIME-Version; b=MrluhHjiMXXLwCmeaqAqcnuG0s58a6dpzKHIBWPlJS6eZbURBbsvcqIaAUs0qrjmF8qit/d+aWHmia9eJiOtpJ1efaorXgFf9PYGd/S++dhC7ZrkB/wYElv/2VzNhW9zmIwRjp0fDYVHfaCNCiyGizQXPaQRtwQrF8yupq5Uau8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=ZCOZJcCN; arc=fail smtp.client-ip=52.103.35.78
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a5BY09Ek"
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c299de66a99so30022366b.2
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 15:27:19 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789252038; cv=none;
-        d=google.com; s=arc-20260327;
-        b=WbtNtst3hpEMI3RLljYrJZ1w0bM3JJgEzwIQ4tSsWdiufVjHd8Z82KMw+/Lx8g39Pn
-         vCdKGQAuoXtsYEzler/10wfMYXdSh1Q34QJLxyUchSj7IyCsNU/1rzEed7KbfWe1ihQ1
-         p+BmBHex13PL1FXpjSwm8r+QPuip/8N/0jJg9tmR7L5WG7msbOYAw/pEEEZpIFX674HF
-         ngSj2UamkIf/lCMY08KHsVhNH5QJHxos406YAdiVd04giVKhk6QFKUCIrJtm4Wg9iorK
-         QBT0nPAfZ9xZEegia/jv994Ye/jocrhsYQDstCaq28IDff/+zROcfHc7R2GIcvuy7wpR
-         4pVA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=s1NoDAASJu12CTH1pP05uATarRtW42V8k/Pmv15QtlA=;
-        fh=K6vx2ZPR7yjq9OXpjFkV+zU0IUA+ilXxKXzHDCn1Lgo=;
-        b=F0lOZa/AGSF9KjrmSeiHPO/thm9spFPNiIpVqM4Gq01C2rsu8LxnBKpEddFUJcBaiH
-         80DVq9X8NKWpFVEHIDtyJNMmDqaK+U3Zs5zVtwEczYF8jlD0VRoPpbtujY9LI9PsXoTR
-         osmNApgMUlWeI93WKnhIR/2HMimJlYLS2oxbe5AsAkWhdcA5z7Uacc1PvVeztTPAYdCy
-         yjgl30ZNtneaNow66bPmeBW+2ahqjHaCalhcJZ/qvtLDVw6rAkv9QSTzHJ4/U/RZJSxf
-         phWKdLxZdkzwU43LomUmLLIjvjMERMoASCcvnU9U22EkXVhoGr8AsTPYpWAPuCR7EFYw
-         ZtCg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789252038; x=1789856838; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=s1NoDAASJu12CTH1pP05uATarRtW42V8k/Pmv15QtlA=;
-        b=a5BY09Ekq5mJNpcdv0VJkGxoqqfySN6Y24UDsQOTy7yJoyUREL5ZDwbbXG6/742ney
-         Q3Rz33g9/8aAxwwAHmVdeFXOvcvsewk3qcUzJ/TO09yJ2eh1xwLwtWLQxtP5xLEXYYUp
-         rZUcbysVeJDNNy5SlrUJO97TfJs1XCm9Qex0/Dkbgpnr5jT1xQUnlZ6mmABUYQhN9qi3
-         MYmR0MT5qiaK+plTUv9LASDAf//F910l1Dq0jA2qEDB2bzw7fPUfzLCNnZtsAi2vGOvC
-         QcyAlWYdwiatbM/VS7Dl+5/9VTdp3RE4EKf8Up0eUiMyRxKaFeXD5et/A/8mHSEmU8Dr
-         3i7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789252038; x=1789856838;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=s1NoDAASJu12CTH1pP05uATarRtW42V8k/Pmv15QtlA=;
-        b=FCugcC0UDsjOqSgLcpe16fl1WpnjFb6O+I18a5UQ23mE4dm/DZms8niI7wX0/2h96B
-         lAmGCEIl+GnULuL5y4jqEYKWqnl8aMV9V1z8lVs2hWXh21sMHK5TFQROUSXdrIvrDUNm
-         tLOYo+/2TzLpGF4BTAVAS6s+Nn21X/tFpUIe0JjyOuY8rdFl0NMCyv/SI57E+ggXhaaE
-         yOoOzT99/9NA+6u3gAUpUmvDwOwBft2GXmECEBvCLC9pglpzMRJn0VM1fnjYdvjeDSh6
-         iQNxQwRY6CEajY0q3RtAkFOsbRcEw0LfY6A1c/5NTc73TaEGmTbLlPUz3FxK4PewL9MF
-         BSRw==
-X-Forwarded-Encrypted: i=1; AKwUvBxY+JQMoU0eOR8bo8qwNXZc8m8KAkYwVv0HijtG66uSCAo7+PiW6GpcrqEyuhtuhVpzYibRFs2eYTCPdHg=@vger.kernel.org
-X-Gm-Message-State: AFuF++mLXPYzVCHM3ip6QRWI4Ex/FXnLedOWHnuuGJ2DtEwN5b8AS6cY
-	it28heSc6ORnG0wfOPr+gl+9i43+SO+j9euS88y7F/3wtAq1XFEQDKW4t8/oDGBlLEWIJoVh9Hd
-	SqTRNE+n0h3fut5Ju3hry4gK6F+vHrd4=
-X-Gm-Gg: AYBFou0lqGwuMLJQUMD1pCXoYN5GcmPOGoolf6Le8rEuqp6f/nwfXxUxptpA3Zj+Yd0
-	UKUBo96MOW3sllx/9rPu6cBoo8QpbAWyUnULiwUh98pmJ7hgGX2Fri4nbBHkw4a0F//mgE40NvD
-	6AQQAVqQIFyxFvWpjYMCopdtqZY/j/eAetHRDa16LkgHNO52nOM0eVICWzW0MLdZ++obtt8ZMRf
-	h4wH4o4VQ56dtLTtLxS2HapcU5Th0uWnWRMaSfytMcnqZeZzkcSkF6OqcYIMhjH/dL74EIAye7j
-	x/oMrNkzTc1UqM4qCyRX23FBYMgriH4dqNv/nxaJ2vQVqEEkRKyCrg==
-X-Received: by 2002:a17:907:3f15:b0:c26:19e3:e98d with SMTP id
- a640c23a62f3a-c29667b44bemr515837966b.45.1789252037884; Sat, 12 Sep 2026
- 15:27:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="ZCOZJcCN"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wLpk3AQTCdAgRSyVjKUbfVyNdk/kByWZO+u3ZA0iqQnwUuqRnsKVebQJR4Wt6Ln3ytzb/J2r+KbAVsvyqAyw4TicOcS67D8+AlM/m375smZyUDD3tuSj8bGY4HCMUVtyftLkUvOpObRWqh+xF/9qWIDF354bU475fqHh1PGktsiLXqnS5MOkCrT491TptnHsI2rSB4rU5MUly9Cyll3z1GU4Um4tqqFMY38O0HNtuINTF1SLGTX84nVklu+ATc7ehWEK55xYQBVTLNA7+AR7p1c1pbnzWGwj7K4kw2RXHDNixZ5G3gUvKtztA1cdgc1ADp9l7ib3EF0tz2MaI4OIdA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Ghu0Ql4s1zcAQncBXoWOOSNVer+ZoiRtGsCv0BHAzmY=;
+ b=CieNeQdgwDy2MWxL0GUAZMXu5D1XVJIJiH8uQ9mET/iOifZEsPpfbY+WP3XXCKUy6OacFdh2AX0Is14C9pNsEuD7TxOcKa1gVuPMESx5ujbzB/bjMBHKy7e2R/h9QQxUNc7DL7M24avy07b7y5UH04oSwaFUTGj+sewxatmMDkqDIGJU+EOW1eLAXipbek4FL2PnMRG0prCdXK5oVi/8xLOmqhLGx7W/ZDhJjJMUI/h9DCjBl015HIkzFrGS5/gA7ROdK0ej+fUvrgsKYrNO3aRTjBvU+8SpxlGmIU03KABhXy+Oyn8oM70EWcfxPLeJ0XZE3QHee46fo0VS94eHDQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Ghu0Ql4s1zcAQncBXoWOOSNVer+ZoiRtGsCv0BHAzmY=;
+ b=ZCOZJcCNXn5rXRziZuCO4KOUMZiLePaWzIHVtnR12BNJHBJUop2ONGw/wfg1yfB2I4FTR4n87lu2GEAVArV7OEHaUhABxUowNnoHjtN5NsphuUHGlV0tLV3k7SP88j8zALaSZEDV3WBMcy4VFaSVg7T9626YVGK3kyq2QuRCkikMEoZhw+IEHXeR8D5E1nE6gWb0BzEbqZ/wqLDGurHiNySPeYHzvAE4T9M/pDiAujTA2ReCekuRQMLE2XhjXvpKxGJWRM6mNz0oW9IpjBG1xlnwHFKAk0lmc1cOif+I0gkoMkycY03uzja2Y99uxhhfW8MDowTopbkchQvCbHdvQg==
+Received: from GV1PR08MB8497.eurprd08.prod.outlook.com (2603:10a6:150:81::22)
+ by PAWPR08MB11560.eurprd08.prod.outlook.com (2603:10a6:102:50f::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.7; Sat, 12 Sep
+ 2026 22:27:54 +0000
+Received: from GV1PR08MB8497.eurprd08.prod.outlook.com
+ ([fe80::705b:d4a3:1c1f:b9a2]) by GV1PR08MB8497.eurprd08.prod.outlook.com
+ ([fe80::705b:d4a3:1c1f:b9a2%5]) with mapi id 15.21.0428.004; Sat, 12 Sep 2026
+ 22:27:54 +0000
+From: Manuel Fombuena <fombuena@outlook.com>
+To: lee@kernel.org,
+	pavel@kernel.org,
+	vicentiu.galanopulo@remote-tech.co.uk,
+	linux-leds@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v1 00/11] leds: st1202: Naming cleanups and pre-existing fixes
+Date: Sat, 12 Sep 2026 23:27:41 +0100
+Message-ID:
+ <GV1PR08MB8497422B7A44424C4968AEC1C5BD2@GV1PR08MB8497.eurprd08.prod.outlook.com>
+X-Mailer: git-send-email 2.55.0
+Reply-To: fombuena@outlook.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: PR3P250CA0002.EURP250.PROD.OUTLOOK.COM
+ (2603:10a6:102:57::7) To GV1PR08MB8497.eurprd08.prod.outlook.com
+ (2603:10a6:150:81::22)
+X-Microsoft-Original-Message-ID:
+ <20260912222741.3044463-1-fombuena@outlook.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260731002950.179573-1-main.kalliope@gmail.com>
-In-Reply-To: <20260731002950.179573-1-main.kalliope@gmail.com>
-From: Nicholas Dudar <main.kalliope@gmail.com>
-Date: Sat, 12 Sep 2026 18:27:06 -0400
-X-Gm-Features: AcwNN1UqgW-Opt4xQd9BdYy2ScqYUvtjx3sk3AD9u1sWDpZjldnDls8e5e9Ytzo
-Message-ID: <CAJZwKkgrEjkKAHVcGxvnAGm0iJ+5+g+AzyV6GKtWoirbUzi20A@mail.gmail.com>
-Subject: Re: [PATCH bpf-next v3] bpf, x86: Add support for BPF_SDIV and
- BPF_SMOD in the i386 JIT
-To: bpf@vger.kernel.org, udknight@gmail.com, x86@kernel.org
-Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, eddyz87@gmail.com, 
-	memxor@gmail.com, martin.lau@linux.dev, song@kernel.org, 
-	yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com, 
-	ihor.solodrai@linux.dev, tglx@kernel.org, mingo@redhat.com, bp@alien8.de, 
-	dave.hansen@linux.intel.com, hpa@zytor.com, linux-kernel@vger.kernel.org, 
-	visitorckw@gmail.com
-Content-Type: text/plain; charset="UTF-8"
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV1PR08MB8497:EE_|PAWPR08MB11560:EE_
+X-MS-Office365-Filtering-Correlation-Id: f3d45baa-d512-4ead-01fd-08df111d16c0
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|5062599005|5072599009|37011999003|19110799012|15080799012|8060799015|23021999003|24021099003|51005399006|41001999006|25010399006|4302099013|3412199025|440099028|1602099012|40105399003|2607281247196008|10035399007;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?h9Oi5parxMQhuptXGKwEfhqDgXr1NM5gb8EEhMrORfokE1IjRfLtT1Zubj6M?=
+ =?us-ascii?Q?h720E3AOswNMS/xWwvw7v5ixjamGbRiJ+VFy9YaTHdyc7bjvStF+BFa1OulI?=
+ =?us-ascii?Q?CzT47sxdFcIqmbGFV3G7da5koQYLebNIzXacwcKlP4sQtjoSgfqqILjUbtGQ?=
+ =?us-ascii?Q?WEMzulF1GbRns6c26YMCy4Y3gk4UTU2s5Zs50FNcyBXYjPYlUy5fnhyeQUPc?=
+ =?us-ascii?Q?bJl75qaXuIgIY9s5oCgr2+NUM+q+YAhNtbYc9ehtQg3yFJYPzFQsESKJjpVF?=
+ =?us-ascii?Q?pfbqX0MGcHIPkBBUtpvcP50rQIQo+75tsekDEX9tGALGwfw6OmZQLTRsC8u2?=
+ =?us-ascii?Q?natAQWiFiHgBf0imkd+vWiYMVJEVJNW4YxR8mJ6uC/l9RCsWg6j1R1AqECRO?=
+ =?us-ascii?Q?W5a8a+wM62ji2WeSo6JBfQFS5ZRwhEGj7z+QVZ88UmzI3e3DPqsnM3TN/luf?=
+ =?us-ascii?Q?DzQXg5gxbsUAovObWi7OFPYWQCFvM93hWw442vFfA1Od2Q5My4p0Rrv3umLd?=
+ =?us-ascii?Q?oI9LxnIeJC2quRgf2RGFeWvYeMc3uKl/wNiX78E8+Cnb9iS3ADQqDABIJ+mj?=
+ =?us-ascii?Q?ltcIvJJSNT2XTeXMFTu8doN9z3OwbZt6qB/WYQkAqjfUE69ljvb4IUwx0gza?=
+ =?us-ascii?Q?mygMqIZo0RkWXg4K6gjyUEmBK2GPRVsjN92usTa/ogGSveo6iJgRY7BNCbkm?=
+ =?us-ascii?Q?MQJud/ruX8ivtry53suFxmndH0636UwjMPw3IfoFyMaCM8LDB2+Q7MYPGyWi?=
+ =?us-ascii?Q?zVMisiYaH35BZFy5xCjamhR3NsCsDIkBGONn+JBf8tAT+eYIitdvX3Y+U8jU?=
+ =?us-ascii?Q?MbJQmY7YnFq0USaLA3EeJQ7EpFaxtLYwxYFpinScbDtLSWaBL3LAHdL96Zin?=
+ =?us-ascii?Q?m3kMP9PDz+5qqfg3tNp/GrjBuUJX0Lx+HDAdXfPI6b0ernk44jGLfebLQEjk?=
+ =?us-ascii?Q?AnkMR4gG1MLQctC9PcqqHR9/c41o2ibar0ACPmI0p+pvVn7q1SkYeCAMMDVS?=
+ =?us-ascii?Q?uAVBfenR1Gp+MtY0blMMLcw0ujQcwc0kq1+brZr3vT/jZRvUgAYr/m3xZ2II?=
+ =?us-ascii?Q?hnwvMtIjRfEKKw4ihcWYf+jOn5LNxEJLvcA8NkNpgaXwhoVwGKzFhEW2pjXd?=
+ =?us-ascii?Q?g0vHlykL3IQ7?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?J5T5RjveRgttVmXhN1wYl1u6bwTv++TP3saE0gBrB3s7FV7Y53l04RjKyTYY?=
+ =?us-ascii?Q?7rFb4S8xWwfvYt4r/GxY/Jauzwi35/SqRaYpk324Kzd2RVRXX9+ttICxapQF?=
+ =?us-ascii?Q?FbjSSdZitMRrWKH+YCuzSj3CnsIAnmuCsazpFi4A2rDmL+LjuUf4rWSIxcy4?=
+ =?us-ascii?Q?r3m9nYoL3llaJdRK8qsl51rNQfK/NE04gXxgZbEA23izIBFmmt74ajPEFV++?=
+ =?us-ascii?Q?1Bsq/3BPaUktcJlax7P3AYycxfP1njFEoMgQ1Oc3An5z0YixW/eGmZSShLEs?=
+ =?us-ascii?Q?iCvEOT9YH6648iSgsnUpvjcU5RY0ggskhHSMRGo9uBl6Pjc+SItdLqIfaC9K?=
+ =?us-ascii?Q?/XfXFRugsZ+tJGtu94ltIbpcdi0rr9aFQ4K/hHBaE6f0ZvqBzzrSy93rvICo?=
+ =?us-ascii?Q?ZOMvzJ1bCjvInK+zpjtXTOLaF0802S8Qk9kVRrRWRwRpw4CbsxT8ktNv6UKW?=
+ =?us-ascii?Q?1izbcl/o8+XO2/hFTeQsfEZ9648wASoFTry55D4nDK5pbRO68K0KUv/1oPbP?=
+ =?us-ascii?Q?Jaq6YtMUIvojOn37su3hkmiL1ohmHmlhC6HWndemLMMapOFt3EguHxJ/gT/d?=
+ =?us-ascii?Q?wcdkjP7BxbIQdpxm14axt/kWMVfcf//xsqc8R1FxCAsm5HAPyVoe1jp0kKM9?=
+ =?us-ascii?Q?9r4xupZghd/mc4mc7CuK+FA8H1Z0Tob32OPmu60zJmt1QFwZr1lQirpb+Y+T?=
+ =?us-ascii?Q?5lIjByjEfrH8JsuVB1SZP1GcheaxfqfLcsWYtgu/gUvlxtOOTlqMIRUjUHTo?=
+ =?us-ascii?Q?LdaQyJQ20+7UxBZ4JYwnZliOclC67JWstRWWhVrQeBvBD1U2cQqjsejy0s/I?=
+ =?us-ascii?Q?UX/NcOZvxnaPEFli3nNxr67D+Z+535kEIJgtiyOfOH3XbPajG6ultwZyVdfc?=
+ =?us-ascii?Q?7ip6oQqf5O2v340osVZFUUgQEgDA11xHbkcjTZqytt8aHd6Pok8sIXriTCmS?=
+ =?us-ascii?Q?KMrC/Ey7m3HEGkc1MaqgINNJqAGp1Of5BcZi9JiXWBHIFO0q2sT1Z5NukTr5?=
+ =?us-ascii?Q?GZumyLVrisfAG+e85gAvd32gDh+OQmBeel/6OCqT0Madfz9E8ZB3A+1Izsvc?=
+ =?us-ascii?Q?YRjZyBroMt/Q1OoH/DiaaTJNI7k2JFfY3Vf5wfeqcmslOjx34AdFvpo39JqK?=
+ =?us-ascii?Q?+JRRDlfraeXHB1LzTZDT4Rl+x4w1/ZqDNdpa9iGgdpXcut2RmkncoTP5mS0w?=
+ =?us-ascii?Q?BGbSr+IJGgHrN9WDL/UxK06JYvz8TbVCCM4ZFkclMW3udGoXw6SqOXK+cdc0?=
+ =?us-ascii?Q?pGQj6mIwD9xfxPMCZYZ75ADxd8k6A5asA7Ch1Jth8+xlzoX0omW7OQ6nKrkc?=
+ =?us-ascii?Q?jRlmND+rPqlBCqteK4l1QAfkxJ0aqbasbtLBYlIekrXO1r6cC1zEGS/r8dUB?=
+ =?us-ascii?Q?UgepeGLaKbNb/Yu75ADzbiMJRwT2bAUQjRQskZQvsZT43S8jrvnRkifteFBb?=
+ =?us-ascii?Q?T/PAn68a7CTfhP41nLP1/7PvZbvCbwy4?=
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f3d45baa-d512-4ead-01fd-08df111d16c0
+X-MS-Exchange-CrossTenant-AuthSource: GV1PR08MB8497.eurprd08.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Sep 2026 22:27:54.8057
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR08MB11560
 
-Hi,
+This series collects the issues identified during review of the two
+previous ST1202 submissions, the pattern engine fix series and the
+hardware-accelerated blink support:
 
-Following up on this patch. Patchwork marks it as "handled-elsewhere",
-but doesn't list a commit. Is it queued in another tree, or is anything
-further needed for bpf-next?
+https://lore.kernel.org/all/GV1PR08MB8497C0B898789BB73ACE6EE3C5F52@GV1PR08MB8497.eurprd08.prod.outlook.com/
+https://lore.kernel.org/all/GV1PR08MB84974C7ACD911E66864C5008C5DA2@GV1PR08MB8497.eurprd08.prod.outlook.com/
 
-Thanks,
-Nicholas
+Both left behind pre-existing problems that were out of scope at the
+time and deferred to a follow-up. They are grouped here because they
+share that origin, rather than being sent as a string of two and three
+patch series.
+
+Patches 1 to 4 are naming and readability only, with no functional
+change; two of them address comments from the blink support review.
+Patches 5 to 11 are fixes and carry Fixes tags.
+
+Patch 5 is worth a note. The eight pattern duration registers are
+chip-wide while the PWM registers are per-channel, so a channel can
+inherit a sequencer timeline another channel programmed and then sit at
+full brightness for the slots it never set up. It clears the channel's
+own PWM for those slots rather than the shared durations, which would
+have truncated a longer pattern still running elsewhere on the device.
+
+Patches 6 and 7 belong together. Pattern brightness values were written
+into the 12-bit PWM registers unscaled, so a step asking for full
+brightness produced about 6% duty cycle; and the analog current register
+was never programmed at all, so a channel whose current had been left at
+zero stayed dark however bright the pattern. Together they make a
+pattern step of N produce the same output as writing N to brightness,
+which is what the documented hw_pattern range implies. Patch 7 takes the
+current up in pattern_set() and releases it in pattern_clear(), so a
+rejected hw_pattern write cannot leave a channel latched on, and a board
+declaring a lower ceiling through max-brightness keeps it.
+
+Patch 9 is the one worth the most attention. st1202_brightness_set()
+takes a mutex and performs I2C transfers while installed as the
+non-blocking brightness_set callback, so it can sleep in atomic context.
+brightness_set_blocking is installed as well, but the core only falls
+back to it when brightness_set is absent, and that callback ignored the
+requested brightness in any case. Neither can be fixed without the other.
+
+Patches 10 and 11 do for st1202_blink_set() what patches 5 and 7 do for
+the pattern path.
+
+blink_set() programs only the two slots its on and off cycle needs, and
+leaves the other six at full scale. Those six are normally invisible
+because their duration registers are zero. Durations are shared across
+the chip, though, so another channel can set them again, and the
+blinking channel then lights during steps it never programmed. This was
+reproduced on hardware by blinking one channel and giving a second one a
+four step pattern.
+
+blink_set() also drives the current register to full scale, ignoring a
+lower ceiling from the max-brightness property. Patch 11 makes it use
+the same value the brightness and pattern paths already use.
+
+Two points raised in earlier reviews are deliberately left alone:
+
+  - brightness_set() programming every PWM slot to full scale, and so
+    overriding a running pattern, is intended. It is what makes the
+    brightness visible while the global sequencer runs, per
+    commit 7cbe470366bd ("leds: st1202: Fix brightness having no effect
+    while pattern mode is active"). Stopping the sequencer instead would
+    halt the patterns of every other channel.
+
+  - Only the pattern timing is shared; the per-channel PWM envelopes are
+    independent, and running patterns on several channels at once is
+    what the hardware is designed for. A channel whose pattern is
+    shorter than the active timeline therefore keeps the longer period.
+    Correcting that needs the driver to track sequencer usage across
+    channels, which is outside the scope of this series.
+
+Tested on LED1202 hardware over I2C, on a Linksys MX4200v2 router
+running OpenWrt: brightness values reaching the current register, the
+atomic-context path via the heartbeat trigger, hw_pattern on two
+channels of one device with different pattern lengths, a pattern
+programmed on a channel whose current had been left at zero, timer
+trigger delay quantisation, and driver unbind/rebind cycles for the
+firmware node reference counting. dmesg clean throughout.
+
+Patch 6 was additionally checked at the register level with i2cget. Left
+unscaled, a pattern step asking for full brightness programs 0x0FF of a
+12-bit register, 6.25% duty cycle; with the patch it programs 0x0FFF.
+The datasheet (DS12875 rev 2, Table 7) confirms the PWM register pair is
+a plain little endian 12-bit value, low byte followed by the high
+nibble. Its helper scales against max_brightness, clamps both ends of a
+signed input, and guards the division, although the LED core never
+registers a zero max_brightness.
+
+Manuel Fombuena (11):
+  leds: st1202: Correct the name of the prescaler conversion helper
+  leds: st1202: Spell out the phase-shift configuration bit
+  leds: st1202: Name pattern index variables consistently
+  leds: st1202: Use u8 consistently for 8-bit values
+  leds: st1202: Clear unused pattern slots in pattern_set()
+  leds: st1202: Scale pattern brightness to the 12-bit PWM range
+  leds: st1202: Program the channel current for hardware patterns
+  leds: st1202: Take a reference on the LED firmware node
+  leds: st1202: Do not set brightness from atomic context
+  leds: st1202: Clear unused pattern slots in blink_set()
+  leds: st1202: Honour max_brightness when blinking
+
+ Documentation/leds/leds-st1202.rst |   3 +
+ drivers/leds/leds-st1202.c         | 145 +++++++++++++++++++----------
+ 2 files changed, 101 insertions(+), 47 deletions(-)
+
+-- 
+2.55.0
+
