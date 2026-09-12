@@ -1,177 +1,136 @@
-Received: from mail-qv1-f100.google.com (mail-qv1-f100.google.com [209.85.219.100])
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABE3F348C6E
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 14:59:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F79020ED
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 15:03:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789225170; cv=none; b=E8q5JDNtqbp/DxrVFo0dhbrJCyd+h6MRQDAQA+H7ZvQrPwyqg1vfAiCKs5j6IPjNy0DhpXxQ7iDafY6zOdcph3MziC9+5N1RX7fkZ2wrzmAP/cJ4AX80ZFIR3+S3N8h+9b5qiMowhTe3/Ilq/EQjjKqXlg+g+WDpY8GJM5LvPNI=
+	t=1789225439; cv=none; b=BAHptrbZqGJApIz+vEMz9kfju/LXNeyGiX1mtN74Cov0KZVXGGGVvWpwTYzv9dOnpA+DHqLuk9+knKrIZWdSE1ljqGkAqIveCwX+nrvjS/zoAzTapYoXmSFi/Vx4eBZF/XAAX1rUS4EV2RuP68MgH2rmhJnto4a7MqgxVnggZkA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789225170; c=relaxed/simple;
-	bh=Um2SLWGFQ309ggQXSjB/9VtiQD2g+1hMiPAQ4LtCX0s=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=tH+Oxlouv6e74C+WrV64TgUHpDcz7VQqybE8cwwhMUhgL0XlC6tClV+jS/dPCAZlUGOGDVgJXLamJM77lzY+EKswHtn6ab1seouDCI8NSVPPJBaK/xZzvusQJO7dQn5OqIDr7i+ccDiKz/Rp3u0tzF4caBD/G62bd5er+VlnIAU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=Qy+woBp5; arc=none smtp.client-ip=209.85.219.100
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	s=arc-20240116; t=1789225439; c=relaxed/simple;
+	bh=4BtzjXbv8TXFdy0rBId0wD7zpu+rk1xUtAGVvFyK3/g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ksNlEp1Wwxj3MNQSoazQynToPhZyvat6bjuFdaRTLb4jH0zPXjhfD81RJZ9m0t19uSmyVWRdwPKx+/TzUARXDiXkn2HFBzchx67zYVDQwEecaB80HozbMPOHos01vm0ELsY0s/CH/hLvssMdH2TAYE+aoXx2HDIMPLu1dofEu/Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cquISq0k; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="Qy+woBp5"
-Received: by mail-qv1-f100.google.com with SMTP id 6a1803df08f44-9120eda2195so20628156d6.1
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 07:59:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cquISq0k"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-49e63568bfbso14582295e9.2
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 08:03:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1789225167; x=1789829967; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mSH+PXY7tNw2pFxhes4voQUOqmS+asUClkbTsJy7w5o=;
-        b=Qy+woBp5TSUZNMsoiQw+sHuSE0o7X4O9EIfrke9FI37GwRtHlxhM006iexohwM9Ak1
-         bzT+hJazVRno4dgRT5iLL1qQIU5G1f9BbjCrbimhzuRTucyEe3l2t6vqplszXYvpJ9uS
-         8LqmDqKv1im89pz53ZUgKHl57qyaS98t+d3gD9c9jCSFlanXBIwVtI5TEyNhp7N7KERb
-         kuDvSmy3Medcw0POZ8IuWeA09y+oWEA3HE6WIvIdunx2PMg/GA8KaearKD+O/BHpl1zI
-         WJ+PEfpZrs56LZItYxIINRGuV6IpqLs4agge5IcyppK8aVY1KrIPOOhX+X3qE3CkkH+/
-         +I/g==
+        d=gmail.com; s=20251104; t=1789225436; x=1789830236; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=W/ljStNwe21EAHMT5pfp7bjQZDrUvNzZwLlTRaNK94Q=;
+        b=cquISq0kIPECTT1wbeNIdRkb2cbZG8esKDmaIfo1v5dUuf2lT0PJE7aZs/Ew3JUTIJ
+         rCL6kxRgVRPCpm4ZB7VODDYrF0Vn3JJuzm5OoGxRgvBlViOpUH+DfdnplWhwkBEKGe0V
+         dRbb8V7MRQsOYbK0wRWLgmRzfZ4htu/oEELPrTZL6Gsq+fm8SWRZyL1hy5US+UQRh/73
+         +y8Y3Pp5hfqueem8vH/peByWQFzPW7GWoLjwDFgYNtuUML1iWSsmJ8EPXGlkBzKtdGiT
+         50FAVdRsS49c/JQl2ZmLFzHRWxLJl5NajOzRgohz1EO6Q2yurDieFVkKvzVhQj+s/7X7
+         12qQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789225167; x=1789829967;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mSH+PXY7tNw2pFxhes4voQUOqmS+asUClkbTsJy7w5o=;
-        b=nOccsA2/8IJvsFbCCxfPn90n3yIiOp9wmke4mwM/DZntuzPwK6UUTobfM0IrefMqTz
-         tyQP+mZVPPtHZYXP48YI6jyp0rGKCFpL9/DC9Qy/6YaOng2kkDAIZQZ3wdfn9R5V7iOZ
-         D6e2eOneGi7AikuyhJVZlOjKgiXHDa5nMAp3R+soVCsqH2JNPYZlsKVeu/thxSF2KpSH
-         24O/DaXCcgY3AF5boGS7VL65rc78winmiSLZvTWI5+LsoUkXDOFPTYqks3FLnFAgQXQ0
-         Q3XgC/Snj0UOgg3ukSxPPpzydeML5kmweuyXaBIN/2v3gHM0pn832TZEwEB6Qq1k0TKo
-         sL6Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwZx6T48BMKX4Rwybp+ZeFB1Cr7mX5mltUShhIV7GiCcCPn4a9+49bzlH7zAFFMGY2Ns/ig1itcHBRWMs0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kkiWTb6RfORKrIJKxPZ2Q4BREHCKQ+ZHIz460vXxBf1IMy3K5m
-	6JOUTIEsDQo4pDdByvUoMqCMp2NtCMS986Nnfn+6QaTvmTIWBggO6b5dun8yLMtEf4XpeTPKri0
-	RvWzgrSG9x65T6e0s1A68lr7QXYalvI8XnE/r
-X-Gm-Gg: AYBFou16HfL5oDKCnbmwJ8lykXhLlVjZvRuVFqKj/OV0iYEHMGzoUnQBFCFtDRo2XQM
-	LdYH9O1HJplp4O3sV5jVoDgHfdhkCfjZ//7vtcHADzQwk0lVALUGY8ofroW6+NeozXhizNABkhd
-	Eo/mdfi/svRDVJBr3vicf2do2xsoNw9Xh8yAkQzqtA5bNt5x9DTkdH8LKQadHC3AQBxlE+LMBFc
-	Jxd6+GCqCfEqFzj8cySVMI6E99mVofZriZdki7d5R63HuTh4ESeykXXsM2sTtLPVGw7TV7EL/91
-	ZIdECC1jGa83w3M5mBYSyhZr4VhnUxUfduNhcmAjx7D9DshSAXaey7l2QjiT+huHpOftTfi9zXL
-	yXppELf/nl6JPn6OEyCv9bdOKcj/rFg2M1GH8+Q==
-X-Received: by 2002:a05:620a:404a:b0:939:a45:8c96 with SMTP id af79cd13be357-939d7eb5ef0mr1680637085a.19.1789225167413;
-        Sat, 12 Sep 2026 07:59:27 -0700 (PDT)
-Received: from c14-smtp-2023.dev.purestorage.com ([208.88.158.128])
-        by smtp-relay.gmail.com with ESMTPS id af79cd13be357-939e824312csm47711185a.4.2026.09.12.07.59.27
+        d=1e100.net; s=20251104; t=1789225436; x=1789830236;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=W/ljStNwe21EAHMT5pfp7bjQZDrUvNzZwLlTRaNK94Q=;
+        b=J0gDYnRvG1X24tLhuvN2WuR8D/HZbyZLFErbq8MhX33qrdgq0YGGxdF3TG2GzvVQZT
+         o12OZbBQwIc9nP3+QoMANGMQ9NljsoMh9zQpCXdxKQEc5wxw19PV8khyiqGmYERYQcfG
+         FnXDiqjkzFmLVpoSOZIR76CeNgW5CbR9TgS7Y9R4q2KvOfalOwxXZlBJXuy2KY6JRGdU
+         XsDZ/Cb8d+W+6QMsAYO4DrJsehjzVCNhrbdha4eNOTDNlS/aNyX3TOOZ+bchSyA1UbMs
+         vNIfpRbdyXZcA3XOrf/teqPcibLigEpKhqeK/Q7/ZNPB5CvQFKetjPsNxz83Jt2Zt9cU
+         Nj8Q==
+X-Forwarded-Encrypted: i=1; AKwUvByEAOTJ6JB4RRv6AcwgRHeZToiJTce5eDqJeJlA7x9e/8i/GmolITcFot4DVOeI0isYIQnOGBmal23hCVU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nHbyjg6msG+80mHay983Tss5GS8OHXDc81IZJZmgoFmMhe0WKs
+	c5lBIn3A0VZzvW0Rn41PGUrivGCfu2srnGdQJJz8Y4ULaqwS48VUGy2R
+X-Gm-Gg: AYBFou3bzPHXPZ/tiYImGQNTxleyYwj5YnR9W4TLqdmAC+e3ecnKfskCEUBSu/5A+Jo
+	QkenDbfdsUXSV8nv08paiJg2QGUbuFDyPJ8UKo8jLHfeulil5SAgRJYK7VFi6Y38BW8ISD8VdFF
+	6OU6TmndMsB9Kei8w2XvcZB3IocCCmJEO69sadz7KtAgRDpLNK7KMvZhiqXLIyok3kW3Uvkxacv
+	a/xKNhTskOb2CYbjiru+9VODNb8lMDCX4u8LesQm1vcEGINdynY9uxdoar08KivvnP9rm9irgfU
+	6yDTW2O82Vs13hczH7tk34M1renJ510HHerVVVXwlTLXljr1/FI1VW3vExPNn5NGy51lE/4DOTh
+	cPnlAKAKg0ctBBuLffV2E8o/H8lgg2XlhMjDr+Is/KzU8j0SjZaoO2o2cPs1/394ctUd3mpCf3H
+	+rSxfyDQ2TjDIgcf/yr0kgl/iMfGYGqN8dR+vZ74Ed30vXidJtSXFCF9+wQ1sT7duJimA9r9O8b
+	jUb8g==
+X-Received: by 2002:a05:600c:3b8c:b0:49e:73d3:78ab with SMTP id 5b1f17b1804b1-49e73d379e4mr9568925e9.0.1789225435447;
+        Sat, 12 Sep 2026 08:03:55 -0700 (PDT)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e6420de77sm69964935e9.3.2026.09.12.08.03.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 12 Sep 2026 07:59:27 -0700 (PDT)
-X-Relaying-Domain: purestorage.com
-Received: from irdv-tmenninger.dev.purestorage.com (irdv-tmenninger.dev.purestorage.com [10.32.149.15])
-	by c14-smtp-2023.dev.purestorage.com (Postfix) with ESMTPS id 619E73406B3;
-	Sat, 12 Sep 2026 07:59:26 -0700 (PDT)
-From: tmenninger@purestorage.com
-To: Chuck Lever <cel@kernel.org>
-Cc: Trond Myklebust <trondmy@kernel.org>,
-	Anna Schumaker <anna@kernel.org>,
-	Tejun Heo <tj@kernel.org>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	linux-nfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Eric Badger <ebadger@everpuredata.com>,
-	Jon Curley <jcurley@everpuredata.com>
-Subject: Re: [PATCH RFC 6/8] SUNRPC: Reduce rpciod workqueue contention
-Date: Sat, 12 Sep 2026 14:59:26 +0000
-Message-Id: <20260912145926.208269-1-tmenninger@purestorage.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <48e8b6c6-dc62-4630-b7c9-19cdcc5cbf11@slotpi15m67>
-References: <48e8b6c6-dc62-4630-b7c9-19cdcc5cbf11@slotpi15m67>
+        Sat, 12 Sep 2026 08:03:54 -0700 (PDT)
+Date: Sat, 12 Sep 2026 18:03:51 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Asad Kamal <asad.kamal@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Hawking Zhang <Hawking.Zhang@amd.com>,
+	Lijo Lazar <lijo.lazar@amd.com>, Likun Gao <Likun.Gao@amd.com>,
+	Sonny Jiang <sonny.jiang@amd.com>,
+	Gabriel Almeida <gabrielsousa230@gmail.com>,
+	amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 1/1] drm/amdgpu: Remove redundant mode2 restore check
+Message-ID: <94ccd0e0f47be9ec1985cbc786093c01d7693aa5.1789224159.git.error27@gmail.com>
+References: <cover.1789224159.git.error27@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cover.1789224159.git.error27@gmail.com>
 
-Sorry for the delay, I've been without internet.
+The "r" variable is checked twice.  We already know it is zero/success
+at this point so there is no need to check again.  Delete the redundant
+check and pull the code in a tab.
 
-> 1. Check that sheaves are actually on for that cache:
->
->       cat /sys/kernel/slab/nfs_page/sheaf_capacity
->
->    A zero means your kernel predates sheaves or the cache has debug
->    flags, and the contention is the older remote-free slab
->    transition path. That is a different report.
+Fixes: 208e5d4b3f1e2 ("drm/amd/amdgpu: Add soc_v1_0 reset handler")
+Assisted-by: Codex:GPT-5
+Signed-off-by: Dan Carpenter <error27@gmail.com>
+---
+In retrospect, I probably could have deleted these tabs without AI help.
 
-    root@irp309-h02:/sys/kernel/slab/nfs_page# cat sheaf_capacity
-    60
+ drivers/gpu/drm/amd/amdgpu/soc_v1_0.c | 21 +++++++++------------
+ 1 file changed, 9 insertions(+), 12 deletions(-)
 
-> 2. Build with CONFIG_SLUB_STATS=y and sample these before and after
->    a 10-second all-local window:
->
->    ```
->    cd /sys/kernel/slab/nfs_page
->    grep . free_fastpath free_slowpath sheaf_flush barn_put \
->        barn_put_fail barn_get barn_get_fail alloc_slowpath
->    ```
->
->    If barn_put_fail and sheaf_flush track the contention count, the
->    barn limit is the bottleneck. If free_slowpath dominates and the
->    sheaf counters are quiet, the frees are bypassing sheaves
->    entirely and my analysis is wrong.
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c b/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c
+index 757da0a30fdc..39a748e38e9c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc_v1_0.c
+@@ -729,19 +729,16 @@ soc_v1_0_mode2_restore_hwcontext(struct amdgpu_reset_control *reset_ctl,
+ 
+ 		amdgpu_ras_resume(tmp_adev);
+ 
+-		if (!r) {
+-			amdgpu_set_init_level(tmp_adev,
+-					      AMDGPU_INIT_LEVEL_DEFAULT);
+-			amdgpu_irq_gpu_reset_resume_helper(tmp_adev);
++		amdgpu_set_init_level(tmp_adev, AMDGPU_INIT_LEVEL_DEFAULT);
++		amdgpu_irq_gpu_reset_resume_helper(tmp_adev);
+ 
+-			r = amdgpu_ib_ring_tests(tmp_adev);
+-			if (r) {
+-				dev_err(tmp_adev->dev,
+-					"ib ring test failed (%d).\n", r);
+-				r = -EAGAIN;
+-				tmp_adev->asic_reset_res = r;
+-				goto end;
+-			}
++		r = amdgpu_ib_ring_tests(tmp_adev);
++		if (r) {
++			dev_err(tmp_adev->dev,
++				"ib ring test failed (%d).\n", r);
++			r = -EAGAIN;
++			tmp_adev->asic_reset_res = r;
++			goto end;
+ 		}
+ 	}
+ 
+-- 
+2.53.0
 
-10-second deltas:
-
-    free_fastpath:    +49,161,373
-    free_slowpath:    +70,391,872
-    sheaf_flush:       +1,582,440
-    barn_put:            +673,877
-    barn_put_fail:        +26,374
-    barn_get:            +673,860
-    barn_get_fail:     +1,199,576
-    alloc_slowpath:             0
-
-> 3. Run perf lock contention with -l on the same window so the lock
->    shows up by address, and note whether the callers under
->    list_lock are sheaf_flush_unused / __kmem_cache_free_bulk or
->    direct __slab_free from kmem_cache_free.
-
-    contended       total wait     avg wait      address
-    3,346,091       5.05 min       90.48 us      ff1db88b8f578b80
-
-Filtering the perf lock data to that address gives:
-
-    2,845,710   __slab_free+0x126
-      318,458   get_partial_node_bulk+0x9c
-      181,842   __refill_objects_node+0x4d0
-           71   alloc_from_new_slab+0x183
-           10   __slab_free+0x126
-
-The next most contended lock had only 23 contentions.
-
-So about 85% of the contention on the dominant lock is coming directly
-from __slab_free. I don't see sheaf_flush_unused or
-__kmem_cache_free_bulk among the callers. get_partial_node_bulk is
-about 9.5% and __refill_objects_node about 5.4%.
-
-That seems to put this much more firmly in the direct
-kmem_cache_free -> __slab_free case you mentioned rather than a barn
-limit / sheaf flush bottleneck.
-
-> 4. Tell me the I/O pattern: direct reads, I assume, but the I/O
->    size, number of threads, and how they are spread across the two
->    nodes. I would like to attempt to reproduce the
->    alloc-here-free-there imbalance rather than speculate.
-
-Yes, direct reads. The workload is:
-
-    elbencho \
-        --iter 1 \
-        --threads 160 \
-        --files 16 \
-        --size 512G \
-        --block 1m \
-        --dropcache \
-        --iodepth 64 \
-        --direct \
-        --read \
-        --lat \
-        --latpercent \
-        --log 1 \
-        <16 files>
-
-I'm not pinning the elbencho threads to CPUs or NUMA nodes. I just waited
-for a run where all of the CQs landed on node 0.
