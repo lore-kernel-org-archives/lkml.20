@@ -1,395 +1,173 @@
-Received: from mail-43171.protonmail.ch (mail-43171.protonmail.ch [185.70.43.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D933386C0D
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 07:59:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.171
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789199961; cv=none; b=S+GW4mWK18ZR8HZF5I6oICVgyPB8TZk5qDmyA900S5cU6gIP6SCGANMdD+IR76avcJLx//ULYgVDKMTE22oKeoJ0VA3c6KMA0slu4bfhe/OEBoYWZK9zr7EYpcEYM17IPM1A2Lgcc05wB049RECJ0A0UjxYYRl6GWf25lwbxUa4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789199961; c=relaxed/simple;
-	bh=pDQrQguQSlaPhR+a0oxdJHKngZ+uGL7wsuc4ncPR0KY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ZmMuTiemKlX1PO3DqI/01LrSRCxUmAUccGin2+MvNNNeTixaAObA69zwyaMrXG7FQsJbuTC3Mf6dq6mHXoAMwyyLo5I1ybcqJVVOCxcXiIReqE6RjcvflKIT+Y3BhvGVY1+grxLqS82mJIWL7ujU9LCQ88uu0AtnyNrgUtyJxMg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=onurozkan.dev; spf=pass smtp.mailfrom=onurozkan.dev; dkim=pass (2048-bit key) header.d=onurozkan.dev header.i=@onurozkan.dev header.b=CHikJR92; arc=none smtp.client-ip=185.70.43.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=onurozkan.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onurozkan.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 055862F0C7E
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 08:00:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.141
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789200013; cv=pass; b=Ov7Tesnr2O9615C+fb2xp5UyTCxTNWqNEMIYhzfm5L6YatzuZ4zBb+ci+fZRts7vEt0IseUsPGQI2wXpGBOWPl6LL4X6jMdIPpwHlxoc66vZ+ozBz5DhfLk3dyDAtxMF3Z+Y7KNG8ZD/ALKNOPBemUzpJeqE4xgo2FkgzP+4xmo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789200013; c=relaxed/simple;
+	bh=lNG0pLZ+wo+cSF8I520AmAHE0RgBsp7COmnBBEQPkd8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=S63QiDZkfjxqdjJETU00u8JOZre7ZyqLP9GXPGEi6aiJ2SYsmcl/Q8qajpsZ1diOUS79ySWrheF7cyqcC24rRdulGUJa37VDM0oUKBRPHM1Lt4dAAxYn9iO6Yz4ez9TVL1TN7Rmpdj6rVHfogEcdWR+HdsqIylMEX8FvXxygCDI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZFH/0HFw; arc=pass smtp.client-ip=74.125.224.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=onurozkan.dev header.i=@onurozkan.dev header.b="CHikJR92"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onurozkan.dev;
-	s=protonmail; t=1789199955; x=1789459155;
-	bh=oPqvRqdTw4PjG0YO3a1qkc3sLfEWCvuKueebkOVWgxQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=CHikJR92tHudH0L2HQSny8+msMDoZyIC8im5L+ZfQkQZ0vZ2YsaUfuCLL0dV6B80E
-	 OVxycRTuwk14NQuvU0kIlRtWm52LhEkGlA/Mx3rWaedqTf0l2OT/pP9Ivj5AyYsfi/
-	 fN2QkULwjwWPO+DhTEYjUYUUxnxIgJ5hI+ms83cNk6RQMDOH84owsRgqJHpB82LbPk
-	 0MSZjjmkDRW3fv5txwtWaJECndGtXmpbe6f1Qe3dcOhgtMUP9XkBlsztSvSuEzYx8O
-	 aaO5TTlkhDQqf/rl4KskQLdJWyWfT0AG20dRPoFZrtqXHycAaj4XX6hhB0uNOshxvg
-	 F/+iRmEfUgSkQ==
-X-Pm-Submission-Id: 4hhkML6jFbz2ScN7
-From: =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
-To: Daniel Almeida <daniel.almeida@collabora.com>
-Cc: Danilo Krummrich <dakr@kernel.org>,
-	tj@kernel.org,
-	jiangshanlai@gmail.com,
-	aliceryhl@google.com,
-	ojeda@kernel.org,
-	boqun@kernel.org,
-	gary@garyguo.net,
-	bjorn3_gh@protonmail.com,
-	lossin@kernel.org,
-	a.hindborg@kernel.org,
-	tmgross@umich.edu,
-	tamird@kernel.org,
-	acourbot@nvidia.com,
-	jhubbard@nvidia.com,
-	rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	driver-core@lists.linux.dev
-Subject: Re: [PATCH v2 5/6] rust: workqueue: add ScopedQueue for lifetime bound items
-Date: Sat, 12 Sep 2026 10:58:55 +0300
-Message-ID: <20260912075909.72005-1-work@onurozkan.dev>
-X-Mailer: git-send-email 2.51.2
-In-Reply-To: <AC117B3B-1C56-4EB5-A6CB-61670614E12A@collabora.com>
-References: <20260807165252.3849875-1-dakr@kernel.org> <20260807165252.3849875-6-dakr@kernel.org> <AC117B3B-1C56-4EB5-A6CB-61670614E12A@collabora.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZFH/0HFw"
+Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66e4ab20a33so259621d50.1
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 01:00:11 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789200011; cv=none;
+        d=google.com; s=arc-20260327;
+        b=X+DIMfb68AO5KvxvEfbQP8M40KSmgvejDhr3dOr8VIDZgSXEqrGlMbSlHIjhEcl6Cc
+         ZEwkNal4vhmPzqLcxH/A+PhAtxLei7a4blnh3bJ9vtrBzLs5Gat/BgK937mE3rBHCTiZ
+         a+4tjcM4ikmjjxqH5nabhKdBEMRp28f5cWwxaFqcSAGVmZiIN9AjlZrHmCY9DuA1EPGo
+         Yy9ZPLZNDhkJEeV2R5cO/tc74b1Yq3/OX7izGCHuqDdNBfCsWdyKMccYTasGJ4vstyaN
+         4E7KlxrTzHo9L6T6TkPPxl9KuW3oVpWnoWnySjm1u5GkiBQJ3Vcn/QFy5BMAKeeNKfA+
+         KpHw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=oTqbRJVt84EGCV9WE0vPswWimELlakVhJJBstpXzZFg=;
+        fh=D/ZYvtPSoRzQuUymkTg1EnR+1YfPqesHoJyJPHS6T3k=;
+        b=bvK3a+LMaL6Tuvm0jVNE4E6Tiz4+UJXE/kyfsj/Kwbs+85XF8TpS3xDlEOjx4D4GDU
+         Jty4EFrDklkgU7fEmhME7tvfSxEox+sWUw6hIjqWf6DRBQrFFtccdHQ+yK06iCmRYfZN
+         BZhJ46RE3LHPy0pXNmk2mI2g8Jzj+IXNzjTQZ83yck2CSR1VUlOf6vWRCEpDDDsDHQpP
+         dhF/aMk3IpgwVirHvrx3XnLJvO6MA353nxWdOcJQz6q0LneArXbZH30wbaoRgw/EwJT2
+         FMe2zX5H/3IvK3vQIufjKUOdrrW1+Am0KWY07FQfOIEM+pim+LDFHLZohsMMlStIaD/J
+         oa4w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789200011; x=1789804811; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=oTqbRJVt84EGCV9WE0vPswWimELlakVhJJBstpXzZFg=;
+        b=ZFH/0HFw+8i/ggrjOtRoe4k2kiYd4pbjMxLqz/NTY8ENSbatfpAJ3Dj45ZNINTfNs2
+         /Tta4FzQjPgKGncm4thb+J263GHpLpmiJbCstM2oC85n8HpJVl1UrIPPr5hHDWaqsXpS
+         SWcD3aSm06rw5CgqAA7y+xk42M4ZXm/G6HQaTUExMLOrCp1X9bz6rozgzHbXQORrEQUM
+         sYr2jvfAMonQn6Ofzy4ay9dXH/esRs6im854FsacGHqGnaroSqIZzywzjWnR4ROp+/EW
+         6cOH6iEfAJ62QTZXZ+DLqeG1Y7S0uytoiFzEwrVCOgFh/xjHMJjpCOEtd/tdVWCsfnpv
+         Atng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789200011; x=1789804811;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oTqbRJVt84EGCV9WE0vPswWimELlakVhJJBstpXzZFg=;
+        b=Nb/Yy9IXmSamu6JWR6kRT1KHsIZzXsYqk+2VkxSAGhKdqnjnT8saXKHt8gOXUi9Mur
+         kVLLwhCIs5d7p0z0p4zg24jQJv6WGSx7upW4lYvIVa4RRqIluL+oYpWZZcfagk9KjElZ
+         S8Z5UV9OEqdNT5dyxPr3/ZY7AdCyfIg2yHfI1CTQwDa9fDpUHYeUSwFbfCRDVoWMtO45
+         LxC7tdjc86DIaXBBioCTqkMXryeMDgqJXKe9xbeauv5z3UHzm2Ka3do8v88YUQpTemsv
+         VphJDvBPbTFqXGxzDYVfCg2TQf4ianaXiuO+VCG3rzDfE1WDzQwRPotu8EPb2onhLXxO
+         ezEA==
+X-Forwarded-Encrypted: i=1; AKwUvBxGJgc18ZWVZj9NIYUNwia4T9EleQRTgdtEN6Q8ToVZaYZPCxnPu1Wqo/i0sqJ6qSjFkczIT9ko2S05oNs=@vger.kernel.org
+X-Gm-Message-State: AFuF++kAdfgOUzoosqCY5v+59XSeTiwnzDoSGuGaR8+pen9JRBh3Lqj+
+	MAOjo382sKCO4qgxQPz0lUw4q3mDkgw+7cR8RJbtPfxyNGKCv+5L5TB/v9BXeoVwRKocKAPDzoQ
+	Fidm6n77i4UZcmdFh4LGo/Livzb9RoWA=
+X-Gm-Gg: AYBFou2kMROsTWv6NuGdLyJlWpwXb8kQ2ZLpgUYt6G5TvzPWRpSAQkmDPvblCjybvIG
+	ua5ZHpwXW3cR1bCaGfYzbCeY6T2gKle5BjjXHea/APh5OljAGglveBWRnB5ShFYVg0P8Qo2ukHt
+	VWhXgcYpQ5NHuuX1wGzlpED9oDDCchL0LLIEQkx6d1mEogK+AMpzCD/bQFvk4v3JfZkURyD3jiR
+	C6BWcLvJNuI0jkywFnxKBXabzCJ7fLm5W0Z0jy1Lops4Kgj3ZmmigNhT3kuug7CbKUAGdlqXv3b
+	+fCg7EgnWkBaR3kEhkCKwO/6YSR/1fbMZYgtN+Tq1lPXHhbJzcsT5AEEzp4+oipmkz0kIm+1fuk
+	Liwu6bHej41IFrlwTDk/6Zi3zmQXqY74Ea38Kmxc8Pe2c4g==
+X-Received: by 2002:a05:690e:134c:b0:671:2114:2bf6 with SMTP id
+ 956f58d0204a3-67135aa5837mr325455d50.48.1789200010722; Sat, 12 Sep 2026
+ 01:00:10 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+References: <20260823152648.23136-1-kartikey406@gmail.com> <CADhLXY5uco9Wq8ZmW5UnvGgTrrcLtj+X5Ne+AqaNyyBdKrQ8qg@mail.gmail.com>
+ <mty190q3.779eb778-4fb7-41bb-9c12-561cc0980b10@nod.at>
+In-Reply-To: <mty190q3.779eb778-4fb7-41bb-9c12-561cc0980b10@nod.at>
+From: Deepanshu Kartikey <kartikey406@gmail.com>
+Date: Sat, 12 Sep 2026 13:29:59 +0530
+X-Gm-Features: AcwNN1VuzI_b1oLLTOSxq0zOitpCnoW1EI2NKFmM2KiR-zUQ1n_nMB6an1I_pcE
+Message-ID: <CADhLXY44kq1XamTjXgrfcLc-_HnK3T2b9TVPxjzB4kc0fKdEqQ@mail.gmail.com>
+Subject: Re: [PATCH] jffs2: fix double-free of f->target in jffs2_alloc_inode()
+To: Richard Weinberger <richard@nod.at>
+Cc: dwmw2@infradead.org, kees@kernel.org, viro@zeniv.linux.org.uk, 
+	linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	syzbot+675e84fdf3dde67b4946@syzkaller.appspotmail.com
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, 27 Aug 2026 18:39:40 -0300=0D
-Daniel Almeida <daniel.almeida@collabora.com> wrote:=0D
-=0D
-> =0D
-> =0D
-> > On 7 Aug 2026, at 13:52, Danilo Krummrich <dakr@kernel.org> wrote:=0D
-> > =0D
-> > From: Onur =C3=96zkan <work@onurozkan.dev>=0D
-> > =0D
-> > Add a workqueue wrapper for work items that are not 'static.=0D
-> > =0D
-> > Tyr reset work is queued from a handle that owns a Controller<'bound>=0D
-> > where the work item holds references tied to the lifetime of the bound=
-=0D
-> > device and its mapped IO state. The existing API only accepts 'static=0D
-> > work items which cannot express that relationship.=0D
-> > =0D
-> > Introduce ScopedQueue for this case. It owns the underlying workqueue=0D
-> > and ties enqueued work to the queue lifetime so borrowed state cannot=0D
-> > outlive the queue that may still run it.=0D
-> > =0D
-> > Construction is unsafe because the queue must not be leaked.=0D
-> > =0D
-> > `compile_fail` doc-tests are ignored for now as KUnit doesn't support=0D
-> > that. Enabling those tests as regular code block would raise this error=
-:=0D
-> > =0D
-> >    ERROR:root:error[E0597]: `data` does not live long enough=0D
-> > --> rust/doctests_kernel_generated.rs:22029:44=0D
-> >  |=0D
-> >    22027 |         let data =3D ();=0D
-> >  |             ---- binding `data` declared here=0D
-> >    22028 |         // SAFETY: Queue is not leaked.=0D
-> >    22029 |         queue =3D unsafe { new_queue(&data)? };=0D
-> >  |                                            ^^^^^ borrowed value does=
- not live long enough=0D
-> >    22030 |     }=0D
-> >  |     - `data` dropped here while still borrowed=0D
-> >    ...=0D
-> >    22034 | }=0D
-> >  | - borrow might be used here, when `queue` is dropped and runs the `D=
-rop` code for type `ScopedQueue`=0D
-> >  |=0D
-> >  =3D note: values in a scope are dropped in the opposite order they are=
- defined=0D
-> > =0D
-> > which is exactly the constraint ScopedQueue is meant to enforce.=0D
-> > =0D
-> > Suggested-by: Danilo Krummrich <dakr@kernel.org>=0D
-> > Signed-off-by: Onur =C3=96zkan <work@onurozkan.dev>=0D
-> > [ Move from scoped_queue.rs to scoped.rs, which can be shared with=0D
-> >  ScopedWork; add missing inline annotations. - Danilo ]=0D
-> > Signed-off-by: Danilo Krummrich <dakr@kernel.org>=0D
-> > ---=0D
-> > rust/kernel/workqueue/mod.rs    |   3 +=0D
-> > rust/kernel/workqueue/scoped.rs | 190 ++++++++++++++++++++++++++++++++=
-=0D
-> > 2 files changed, 193 insertions(+)=0D
-> > create mode 100644 rust/kernel/workqueue/scoped.rs=0D
-> > =0D
-> > diff --git a/rust/kernel/workqueue/mod.rs b/rust/kernel/workqueue/mod.r=
-s=0D
-> > index 8eb2d037be83..551fa1401b85 100644=0D
-> > --- a/rust/kernel/workqueue/mod.rs=0D
-> > +++ b/rust/kernel/workqueue/mod.rs=0D
-> > @@ -212,6 +212,9 @@=0D
-> > mod builder;=0D
-> > pub use self::builder::Builder;=0D
-> > =0D
-> > +mod scoped;=0D
-> > +pub use self::scoped::ScopedQueue;=0D
-> > +=0D
-> > /// Creates a [`Work`] initialiser with the given name and a newly-crea=
-ted lock class.=0D
-> > #[macro_export]=0D
-> > macro_rules! new_work {=0D
-> > diff --git a/rust/kernel/workqueue/scoped.rs b/rust/kernel/workqueue/sc=
-oped.rs=0D
-> > new file mode 100644=0D
-> > index 000000000000..18a4b6f6cf18=0D
-> > --- /dev/null=0D
-> > +++ b/rust/kernel/workqueue/scoped.rs=0D
-> > @@ -0,0 +1,190 @@=0D
-> > +// SPDX-License-Identifier: GPL-2.0=0D
-> > +=0D
-> > +//! Lifetime-scoped workqueues.=0D
-> > +//!=0D
-> > +//! Provides [`ScopedQueue`] for work items that may borrow data with =
-some=0D
-> > +//! non-`'static` lifetime.=0D
-> > +//!=0D
-> > +//! Unlike [`Queue`] which only accepts `'static` work items, [`Scoped=
-Queue`]=0D
-> > +//! owns its underlying queue and relies on that queue being dropped t=
-o drain=0D
-> > +//! pending and running work before borrowed data can go out of scope.=
-=0D
-> > +//!=0D
-> > +//! TODO: Remove `ignore` once KUnit supports `compile_fail` on doc-te=
-sts.=0D
-> > +//! ```compile_fail,ignore=0D
-> > +//! use kernel::prelude::*;=0D
-> > +//! use kernel::workqueue::ScopedQueue;=0D
-> > +//!=0D
-> > +//! /// # Safety=0D
-> > +//! ///=0D
-> > +//! /// Returned queue must not be leaked.=0D
-> > +//! unsafe fn new_queue<'bound>(_: &'bound ()) -> Result<ScopedQueue<'=
-bound>> {=0D
-> =0D
-> nit: is it me, or =E2=80=9Cbound=E2=80=9D sounds out of place here? Perha=
-ps =E2=80=99scope instead?=0D
-> =0D
-> Same comment throughout the whole example.=0D
-=0D
-We shouldn't use "bound" lifetime in this implementation. I will fix them i=
-n the=0D
-next version.=0D
-=0D
-> =0D
-> > +//!     // SAFETY: Caller guarantees that the returned queue is not le=
-aked.=0D
-> > +//!     unsafe { ScopedQueue::new(c"scoped_queue") }=0D
-> > +//! }=0D
-> > +//!=0D
-> > +//! fn queue_outlives_borrowed_data() -> Result {=0D
-> > +//!     let queue;=0D
-> > +//!=0D
-> > +//!     {=0D
-> > +//!         let data =3D ();=0D
-> > +//!         // SAFETY: Queue is not leaked.=0D
-> > +//!         queue =3D unsafe { new_queue(&data)? };=0D
-> > +//!     }=0D
-> > +//!     // Here the `compile_fail` is fulfilled as `queue` would be dr=
-opped=0D
-> > +//!     // after `data`.=0D
-> > +//!     Ok(())=0D
-> > +//! }=0D
-> > +//! ```=0D
-> > +//!=0D
-> > +//! TODO: Remove `ignore` once KUnit supports `compile_fail` on doc-te=
-sts.=0D
-> > +//! ```compile_fail,ignore=0D
-> > +//! use kernel::prelude::*;=0D
-> > +//! use kernel::sync::Arc;=0D
-> > +//! use kernel::workqueue::{=0D
-> > +//!     impl_has_work,=0D
-> > +//!     new_work,=0D
-> > +//!     ScopedQueue,=0D
-> > +//!     Work,=0D
-> > +//!     WorkItem,=0D
-> > +//! };=0D
-> > +//!=0D
-> > +//! #[pin_data]=0D
-> > +//! struct BorrowedWork<'bound> {=0D
-> > +//!     data: &'bound (),=0D
-> > +//!     #[pin]=0D
-> > +//!     work: Work<BorrowedWork<'bound>>,=0D
-> > +//! }=0D
-> > +//!=0D
-> > +//! impl_has_work! {=0D
-> > +//!     impl{'bound} HasWork<BorrowedWork<'bound>> for BorrowedWork<'b=
-ound> { self.work }=0D
-> > +//! }=0D
-> > +//!=0D
-> > +//! impl<'bound> WorkItem for BorrowedWork<'bound> {=0D
-> > +//!     type Pointer =3D Arc<Self>;=0D
-> > +//!=0D
-> > +//!     fn run(_this: Arc<Self>) {}=0D
-> > +//! }=0D
-> > +//!=0D
-> > +//! impl<'bound> BorrowedWork<'bound> {=0D
-> > +//!     fn new(data: &'bound ()) -> Result<Arc<Self>> {=0D
-> > +//!         Arc::pin_init(=0D
-> > +//!             pin_init!(Self {=0D
-> > +//!                 data,=0D
-> > +//!                 work <- new_work!("BorrowedWork::work"),=0D
-> > +//!             }),=0D
-> > +//!             GFP_KERNEL,=0D
-> > +//!         )=0D
-> > +//!     }=0D
-> > +//! }=0D
-> > +//!=0D
-> > +//! struct Handle<'bound> {=0D
-> > +//!     work: Arc<BorrowedWork<'bound>>,=0D
-> > +//!     wq: ScopedQueue<'bound>,=0D
-> > +//! }=0D
-> > +//!=0D
-> > +//! impl<'bound> Handle<'bound> {=0D
-> > +//!     /// # Safety=0D
-> > +//!     ///=0D
-> > +//!     /// Returned handle must not be leaked.=0D
-> > +//!     unsafe fn new(data: &'bound ()) -> Result<Self> {=0D
-> > +//!         Ok(Self {=0D
-> > +//!             work: BorrowedWork::new(data)?,=0D
-> > +//!             // SAFETY: Caller guarantees that the returned handle =
-is not leaked.=0D
-> > +//!             wq: unsafe { ScopedQueue::new(c"handle_wq")? },=0D
-> > +//!         })=0D
-> > +//!     }=0D
-> > +//! }=0D
-> > +//!=0D
-> > +//! fn handle_outlives_borrowed_data() -> Result {=0D
-> > +//!     let handle;=0D
-> > +//!=0D
-> > +//!     {=0D
-> > +//!         let data =3D ();=0D
-> > +//!         // SAFETY: Handle is not leaked.=0D
-> > +//!         handle =3D unsafe { Handle::new(&data)? };=0D
-> > +//!=0D
-> > +//!         let _ =3D handle.wq.enqueue(handle.work.clone());=0D
-> > +//!     }=0D
-> > +//!     // Here the `compile_fail` is fulfilled as `handle` would be d=
-ropped=0D
-> > +//!     // after `data`.=0D
-> > +//!     Ok(())=0D
-> > +//! }=0D
-> > +//! ```=0D
-> > +=0D
-> > +use super::{=0D
-> > +    OwnedQueue,=0D
-> > +    Queue,=0D
-> > +    RawWorkItem, //=0D
-> > +};=0D
-> > +=0D
-> > +use crate::{=0D
-> > +    bindings,=0D
-> > +    ffi,=0D
-> > +    prelude::*, //=0D
-> > +};=0D
-> > +=0D
-> > +use core::marker::PhantomData;=0D
-> > +=0D
-> > +/// An owned workqueue that can enqueue work items borrowing from `'sc=
-ope`.=0D
-> > +///=0D
-> > +/// A `ScopedQueue` must not outlive data borrowed by its work items.=
-=0D
-> > +pub struct ScopedQueue<'scope> {=0D
-> > +    inner: OwnedQueue,=0D
-> > +    _scope: PhantomData<&'scope mut &'scope ()>,=0D
-> > +}=0D
-> > +=0D
-> > +impl<'scope> ScopedQueue<'scope> {=0D
-> > +    /// Creates an ordered scoped workqueue.=0D
-> > +    ///=0D
-> > +    /// # Safety=0D
-> > +    ///=0D
-> > +    /// The caller must not leak the returned queue or otherwise preve=
-nt its=0D
-> > +    /// [`Drop`] implementation from running since dropping the queue =
-drains=0D
-> > +    /// pending and running work that may borrow from `'scope`.=0D
-> > +    #[inline]=0D
-> > +    pub unsafe fn new(name: &'static CStr) -> Result<Self> {=0D
-> =0D
-> Does this really need to be =E2=80=99static?=0D
-=0D
-It doesn't, will fix it in the next version.=0D
-=0D
-> =0D
-> > +        Ok(Self {=0D
-> > +            inner: Queue::new_ordered().build(name)?,=0D
-> > +            _scope: PhantomData,=0D
-> > +        })=0D
-> > +    }=0D
-> > +=0D
-> > +    /// Enqueues a work item on this scoped queue.=0D
-> > +    #[inline]=0D
-> > +    pub fn enqueue<W, const ID: u64>(&self, work: W) -> W::EnqueueOutp=
-ut=0D
-> > +    where=0D
-> > +        W: RawWorkItem<ID> + Send + 'scope,=0D
-> > +    {=0D
-> > +        let queue_ptr =3D self.inner.0.get();=0D
-> > +=0D
-> > +        // SAFETY:=0D
-> > +        // - Closure returns `false` only if `queue_work_on` returns `=
-false`=0D
-> > +        //   and that means `work_ptr` is already in a workqueue.=0D
-> > +        //=0D
-> > +        // - `W: 'scope` and dropck keep borrowed data alive until thi=
-s queue is=0D
-> > +        //   dropped. The constructor requires that the queue is not l=
-eaked and=0D
-> > +        //   dropping `inner` drains pending and running work so the f=
-unction=0D
-> > +        //   pointer is not called after any lifetime in `W` expires.=
-=0D
-> > +        //=0D
-> > +        // - The last requirement of `__enqueue` is not relevant here =
-because `W`=0D
-> > +        //   is `Send`.=0D
-> > +        unsafe {=0D
-> > +            work.__enqueue(move |work_ptr| {=0D
-> > +                bindings::queue_work_on(=0D
-> > +                    bindings::wq_misc_consts_WORK_CPU_UNBOUND as ffi::=
-c_int,=0D
-> > +                    queue_ptr,=0D
-> > +                    work_ptr,=0D
-> > +                )=0D
-> > +            })=0D
-> > +        }=0D
-> > +    }=0D
-> > +}=0D
-> > +=0D
-> > +impl Drop for ScopedQueue<'_> {=0D
-> > +    #[inline]=0D
-> > +    fn drop(&mut self) {=0D
-> > +        // This impl makes dropck require `'scope` to outlive `OwnedQu=
-eue`.=0D
-> > +        // See: https://doc.rust-lang.org/nomicon/phantom-data.html#ge=
-neric-parameters-and-drop-checking=0D
-> > +        let _ =3D &self._scope;=0D
-> > +    }=0D
-> > +}=0D
-> > -- =0D
-> > 2.55.0=0D
-> > =0D
-> =0D
-> Would a conversion from OwnedQueue to ScopedQueue=0D
-> make sense in the future?=0D
-=0D
-With Alice's suggestion [1], this wouldn't be needed.=0D
-=0D
-[1]: https://lore.kernel.org/all/apg1c4GdVrhYDK1P@google.com=0D
-=0D
-	Onur=0D
-=0D
-> =0D
-> Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>=0D
+On Sat, Sep 12, 2026 at 12:28=E2=80=AFPM Richard Weinberger <richard@nod.at=
+> wrote:
+>
+> Am Sat, Sep 12, 2026, 03:08 schrieb Deepanshu Kartikey <kartikey406@gmail=
+.com>:
+>
+> > On Sun, Aug 23, 2026 at 8:57=E2=80=AFPM Deepanshu Kartikey
+> > <kartikey406@gmail.com> wrote:
+> > >
+> > > jffs2_alloc_inode() does not initialize f->target before returning
+> > > the new inode. It is normally cleared later by
+> > > jffs2_init_inode_info(), called from jffs2_iget(), but that runs
+> > > only after alloc_inode() has already returned successfully.
+> > >
+> > > If inode_init_always() fails in between, alloc_inode() calls
+> > > ->free_inode() directly on the half-initialized inode.
+> > > jffs2_free_inode() then does kfree(f->target) on whatever stale
+> > > value was left in the reused slab object, which can be a pointer
+> > > that was already freed, causing a double-free.
+> > >
+> > > Initialize f->target to NULL in jffs2_alloc_inode() to close this
+> > > window, and clear it in jffs2_free_inode() after freeing it so a
+> > > reused or re-freed object can never carry a dangling pointer.
+> > >
+> > > Fixes: 4fdcfab5b553 ("jffs2: fix use-after-free on symlink traversal"=
+)
+> > > Reported-by: syzbot+675e84fdf3dde67b4946@syzkaller.appspotmail.com
+> > > Closes: https://syzkaller.appspot.com/bug?extid=3D675e84fdf3dde67b494=
+6
+> > > Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+> > > ---
+> > >  fs/jffs2/super.c | 2 ++
+> > >  1 file changed, 2 insertions(+)
+> > >
+> > > diff --git a/fs/jffs2/super.c b/fs/jffs2/super.c
+> > > index 81396a092ba8..30d753d4c263 100644
+> > > --- a/fs/jffs2/super.c
+> > > +++ b/fs/jffs2/super.c
+> > > @@ -42,6 +42,7 @@ static struct inode *jffs2_alloc_inode(struct super=
+_block *sb)
+> > >         f =3D alloc_inode_sb(sb, jffs2_inode_cachep, GFP_KERNEL);
+> > >         if (!f)
+> > >                 return NULL;
+> > > +       f->target =3D NULL;
+> > >         return &f->vfs_inode;
+> > >  }
+> > >
+> > > @@ -50,6 +51,7 @@ static void jffs2_free_inode(struct inode *inode)
+> > >         struct jffs2_inode_info *f =3D JFFS2_INODE_INFO(inode);
+> > >
+> > >         kfree(f->target);
+> > > +       f->target =3D NULL;
+> > >         kmem_cache_free(jffs2_inode_cachep, f);
+> > >  }
+> > >
+> > > --
+> > > 2.34.1
+> > >
+> >
+> > Gentle Reminder. Please let me know the status of this patch.
+>
+> We got lot's of identical fixes this issue.
+> I had no time yet to sort out who was the first.
+> This is maybe the first report with fix suggestions, but the reporter
+> vanished:
+> https://lore.kernel.org/linux-mtd/CAFLxGvyZO_EDo-YM_EybZG3u7aNUoNiThhvbhQ=
+CrOPD7mPV6GA@mail.gmail.com/
+>
+> Thanks,
+> //richard
+>
+
+I feel the patch you are pointing at fixes a different kind of issue ?
