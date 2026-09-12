@@ -1,321 +1,117 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D6B3416870
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 08:39:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F2A041A508;
+	Sat, 12 Sep 2026 08:39:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789202347; cv=none; b=T9YWmxwLrJG1JulNwo9itbXzKVJ6QPCx3Do4xyILimQgEn2MmiWYDcCQGU1WJUTClkBIauUjmM6wCr7BziCnnGKhXJDST/00hOoXAzrxm2wb/eAKZ8eAx1HDshicUKUxvKuDp+hLm7I2TJRNuSRvtXb5tJEjV86cvuTIA4oEynI=
+	t=1789202358; cv=none; b=BVRu9gmHDds36/ahuXF1IwCnzjk/IXNJzgBSCGXOib5peN9L0yHiX3MDL17/4uQb/uB4ZTDtdjT5DKTRVJBhgMkAtYB4xhi5DFZq+0FOnQwi0KZAeWR13L8FxYlmo2YiK/Y+FxlsrUk6our3w8QV5CWl9ah0Qbtx/TonUgNqy44=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789202347; c=relaxed/simple;
-	bh=Pq+5Vgu1VB3PWyZZeir7bDV2i2ybWv7icU+9Zp4/3Gg=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=hDOiQOG+NeYj49G0+jK4KlOl87W1RkOwbmxeiBsizGB4Jm8Jq8kYf+xfvTB1XZVkClXUqnK1Yd6qQM+EyWPU++6D2VREgqRKcU4kCxNh4ncP/H+2Jf0A66D1rv5LuUvjzd4klALRB3ZHfflE5P6adh63gOV/W8zVfdEH2UAHzNQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EyXtX6kI; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789202358; c=relaxed/simple;
+	bh=WqyeewKom7P7COh88TTOK1qoXNFMd40eFyYNGK/7f3M=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=VSJcCu8IK9T1Ut0coDqRwtPlcHPvi60qQiW2agquKEWIH93YPkAPGugqTGVizlTqRawwciz29E6bXJFW8WnZEhyqlQv/7e3SRV6ZgZib9l3dK3Hr0zo2stc0Vdbg30psJbxBGn2OWqcnqo4Qxm3a8E2ZgpoJAhB3KHQ0tZmWq+E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KYFNi8rp; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EyXtX6kI"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccdaea75so167626a91.1
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 01:39:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789202345; x=1789807145; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GH+ZENoy9aMe0Fnez7m6DVSvXxhL01eGLIJjn3AWd2o=;
-        b=EyXtX6kI1Gm4WJ1XS2riJPETYUt7+wK/1vBKP0AvXJ+GjlsTDkYQcib/A90Z1Nor17
-         i9PO7oiHPl0pMm/0HRb0zQ5EdN0qx5FyIXoAm21as+QZpTVvzP6eMIAV9JBbJXCu/9tj
-         izAHu/ggJQh7OvZYnEzw8M8vr/CrPixADSoCIx6ATAjqOq6W36kiBwtORoNlbSewl8MH
-         c3esuRIF+5p9Kv7dDiWdp5WuDFq0ai8p1iHcTPwm/aN7AHuMA6INf0BWVo5sCJx+8DRm
-         aafbfLcLUTHIzhpVWvQLAyNHmMgYwACXx3gv1p1TyYPKO1daCdn8FoxatPzgz5zGb3la
-         RVeQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789202345; x=1789807145;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GH+ZENoy9aMe0Fnez7m6DVSvXxhL01eGLIJjn3AWd2o=;
-        b=s7CoHx/H1wH5O75BMbDYSn87NeuEcCy4bN8/qtTQI+E6hBlQUE8ZT0wp2RK/FbI8Sc
-         34A/P2xA/TUtO+L38SKaYOMi8wWmWwOqLpU3wQ2p2eq0VERTx8Rak8Vjs7eNtziJ5Zt9
-         8OR0jlnYv0SyeaToEWiR+IsTR/cu4BkzZig6hBgndV4Sai0MTsTiHAkb1/g3sh9VQ4c/
-         ZAlvNkl3OcmXNf13X83vFOs82lS249SVhXaST1Onh6vQ1EulBUqggc47XcY3NrCBqHUi
-         Fto5V558WgZJKceMrDjMxZ5zAfyyHownRD0SkQi0qw3NhBj/B/FhxxQx2nKUS/ZxSBrl
-         pSnw==
-X-Forwarded-Encrypted: i=1; AKwUvBy8Pafuj5z2nIRbypaObTcKzcgx140wuOQ+N2VorQUWAuTWJOUBVAANvqNRCfUbiT4p5R1MOUEWCTyIymk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lfFhuY+sVex5rHan4BGuKkm6Vlj7j5tv1qK/6kwzyh01Ngzjmi
-	uqKSLLgIbmlPlyj8qyKnumVFwSC+w1sPxUl7XmpBhsYKvT9rBS+GJk2a
-X-Gm-Gg: AYBFou1HBhgmlQIZ4LBqWQRKDwhGzIVWMSsKbw4VGeAbfpBfq8xi5rv+KB2NkWbT/hg
-	2k1y37kAHFBObNqQV8eFima1g0upluSvEgA2HGL62G2uw/NhpMOD6d2C36vBE4AnYmJ6H0Gyx6Q
-	jIZ94pDMR6Ztkv+vMTpFBknlynX5YbzoB7x6oMNFTpaDO2SE1ByzrAube4Vqlby3ElUKqpDEnmZ
-	C8LYYmx4/dERfefV3cNJPILBJcQ/TESqhiocHunla776n/kjLDj20xJ1Cqy48JmHEoYKgBozwPm
-	dMFePQ1X4UE+bDru6rL6++KUTaaGdLyhz7xgBGv3LtkwXVfGF+AmRMAhDjZhYCw/R6dBbex+muJ
-	gGltI8HyDHDEytWNROGWpzCdYr0cz0q6+eXpBhD4a88g6P0u8Qh+KaodVVrD0wyWQsXGcY3KVUP
-	U7EW7m0mAQlvMBf9lUzu/U/yDq3AI3/LoT+LYTnoW8WG9Jxw+6stKlBj8l4QyXI+3Vl9E2Uwn8W
-	YtsJ+e9kENVoQJCV7QXVtSefWyQLD3EOrRA/xeV
-X-Received: by 2002:a17:90b:28c7:b0:390:84db:888e with SMTP id 98e67ed59e1d1-39d97f34734mr7587196a91.7.1789202344778;
-        Sat, 12 Sep 2026 01:39:04 -0700 (PDT)
-Received: from lipengfei28-ThinkStation-P368.mioffice.cn ([2408:8607:1b00:8:16a3:d08b:6ddb:dec6])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d95091214sm9790583a91.3.2026.09.12.01.38.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 12 Sep 2026 01:39:02 -0700 (PDT)
-From: Li Pengfei <ljdlns1987@gmail.com>
-X-Google-Original-From: Li Pengfei <lipengfei28@xiaomi.com>
-To: rostedt@goodmis.org,
-	mhiramat@kernel.org
-Cc: mathieu.desnoyers@efficios.com,
-	mark.rutland@arm.com,
-	corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	lkp@intel.com,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	zhangbo56@xiaomi.com,
-	lipengfei28@xiaomi.com
-Subject: [RFC PATCH v7 03/10] trace: add stackmap statistics interface
-Date: Sat, 12 Sep 2026 16:37:46 +0800
-Message-Id: <20260912083753.3426176-4-lipengfei28@xiaomi.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260912083753.3426176-1-lipengfei28@xiaomi.com>
-References: <20260912083753.3426176-1-lipengfei28@xiaomi.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KYFNi8rp"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 1735CC4AF1A;
+	Sat, 12 Sep 2026 08:39:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789202358;
+	bh=WqyeewKom7P7COh88TTOK1qoXNFMd40eFyYNGK/7f3M=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=KYFNi8rpdaBuE5Rk5sEKltTtnr8LUL1b/rzSaOPU7xPGXavKGJUzb5ECBGhK4lf52
+	 R0TgDun12TYO5Nu7kCw3P4hkQqTZTitA6ELUbRhswrlRmORR4Hzkx4j31X13rI3vZw
+	 aqHZqIz/znpyXMHy1Kl9ql0f7nML936js4W+zvrOXNRdmQ2CWd1A1iB39puFOCq9FZ
+	 yx7NVWrSn+pVAXczEiLGfU+0M25rdQK6xrbiKZFmBb6xtB7vYaI9wQmSLa1s9ukgL2
+	 U16M4npOBW0FZuCMyYNZgqsnWjiWeFreD8bZXXiPh6RbT7zmL6t6dJRjYRU50h46lH
+	 6KOimrKYSe0jQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F235FC88E56;
+	Sat, 12 Sep 2026 08:39:17 +0000 (UTC)
+From: Muzaffer Kadir via B4 Relay <devnull+muzafferkadir.mainlining.org@kernel.org>
+Date: Sat, 12 Sep 2026 11:39:13 +0300
+Subject: [PATCH RFC 04/20] dt-bindings: power: rpmpd: Add MSM8952 power
+ domains
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260912-msm8952-initial-support-v1-4-0e742578b524@mainlining.org>
+References: <20260912-msm8952-initial-support-v1-0-0e742578b524@mainlining.org>
+In-Reply-To: <20260912-msm8952-initial-support-v1-0-0e742578b524@mainlining.org>
+To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Srinivas Kandagatla <srini@kernel.org>, 
+ Ulf Hansson <ulfh@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, Lee Jones <lee@kernel.org>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Robert Marko <robimarko@gmail.com>, Guru Das Srinagesh <linux@gurudas.dev>, 
+ Amit Kucheria <amitk@kernel.org>, Thara Gopinath <thara.gopinath@gmail.com>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
+ Lukasz Luba <lukasz.luba@arm.com>, Kees Cook <kees@kernel.org>, 
+ Tony Luck <tony.luck@intel.com>, 
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>, 
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: David Heidelberg <david@ixit.cz>, Dang Huynh <danct12@riseup.net>, 
+ phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org, 
+ iommu@lists.linux.dev, mfd@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, Krzysztof Kozlowski <krzk@kernel.org>, 
+ linux-pm@vger.kernel.org, linux-input@vger.kernel.org, 
+ Muzaffer Kadir <muzafferkadir@mainlining.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789202354; l=754;
+ i=muzafferkadir@mainlining.org; s=20260816; h=from:subject:message-id;
+ bh=6ZI51ceEaOIY/u/VVB+l7JnsBp7inUEcGIBHgiYAiBE=;
+ b=dztDjXymTNo98gMcgzcAM1ZlmGVG6mQv95qqYW9EttJLlaVnbTxsMMBF33je4lABvOJ+nHxUo
+ gFM1b8UvYs5BFp5RzBbSVzQruiYPNmdITMMrXf0e6F6EM7uMpa5ttXT
+X-Developer-Key: i=muzafferkadir@mainlining.org; a=ed25519;
+ pk=4zkv4suQ3cYcO4Z7CrV8JSSjEGLBGepUtvQCFjgnYIU=
+X-Endpoint-Received: by B4 Relay for muzafferkadir@mainlining.org/20260816
+ with auth_id=954
+X-Original-From: Muzaffer Kadir <muzafferkadir@mainlining.org>
+Reply-To: muzafferkadir@mainlining.org
 
-From: Pengfei Li <lipengfei28@xiaomi.com>
+From: Muzaffer Kadir <muzafferkadir@mainlining.org>
 
-Export stackmap counters through stack_map_stat: entries, table size,
-successes, drops and success rate.
+Document the compatible for the rpmpd found on MSM8952.
 
-entries is the element-pool allocation cursor: the number of element
-records claimed since the last reset. It is not a strict unique-stack
-count. Concurrent insertion races can claim duplicate records, and a
-sample can include a record claimed before it is published in the hash
-table.
-
-successes counts map operations that returned a stack id, while drops
-counts capacity and probe-limit failures. The rate is
-successes / (successes + drops), so it excludes bypasses that never
-call the map, including deep stacks, reset windows and ring-buffer
-reservation failures. A fresh or reset map reports 0%.
-
-Take the complete sample under reader_sem. Reset clears next_elt and
-the per-CPU atomic_long_t counters under the write side; read those
-counters with atomic_long_read() under the read side to avoid combining
-values from different generations.
-
-The file is auxiliary. Failure to create it does not disable
-stackmap because stack_map remains available to resolve and reset ids.
-
-Signed-off-by: Pengfei Li <lipengfei28@xiaomi.com>
+Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
 ---
- kernel/trace/trace.c          |  14 +++-
- kernel/trace/trace_stackmap.c | 137 ++++++++++++++++++++++++++++++++++
- kernel/trace/trace_stackmap.h |   1 +
- 3 files changed, 151 insertions(+), 1 deletion(-)
+ Documentation/devicetree/bindings/power/qcom,rpmpd.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
-index 06ae8ed11475..17df5f85da7a 100644
---- a/kernel/trace/trace.c
-+++ b/kernel/trace/trace.c
-@@ -2199,7 +2199,7 @@ void __ftrace_trace_stack(struct trace_array *tr,
- 	 *   - get_id() fails      -> discard the reserved slot, then try
- 	 *                            full-stack fallback
- 	 * A failed stack-id reservation therefore never consumes a map slot
--	 * or updates the map counters.
-+	 * or updates stack_map_stat.
- 	 */
- 	if (tr->trace_flags & TRACE_ITER(STACKMAP)) {
- 		struct ftrace_stackmap *smap;
-@@ -9411,6 +9411,18 @@ static __init void tracer_init_tracefs_work_func(struct work_struct *work)
- 				 */
- 				smp_store_release(&global_trace.stackmap, smap);
- 				WRITE_ONCE(stackmap_init_state, STACKMAP_INIT_DONE);
-+				/*
-+				 * stat is an auxiliary observability
-+				 * surface. If it fails to be created we keep
-+				 * dedup enabled -- the kernel side still
-+				 * works and stack_map alone is enough to
-+				 * resolve and reset; trace_create_file()
-+				 * already pr_warn()s on failure.
-+				 */
-+				trace_create_file("stack_map_stat",
-+						  TRACE_MODE_READ, NULL,
-+						  smap,
-+						  &ftrace_stackmap_stat_fops);
- 			}
- 		} else {
- 			pr_warn("ftrace stackmap init failed, dedup disabled\n");
-diff --git a/kernel/trace/trace_stackmap.c b/kernel/trace/trace_stackmap.c
-index b2e2115a15f9..2382c7459712 100644
---- a/kernel/trace/trace_stackmap.c
-+++ b/kernel/trace/trace_stackmap.c
-@@ -56,6 +56,8 @@
- #include <linux/random.h>
- #include <linux/rcupdate.h>
- #include <linux/log2.h>
-+#include <linux/math64.h>
-+#include <linux/overflow.h>
- #include <asm/local.h>
- 
- #include "trace.h"
-@@ -716,3 +718,138 @@ const struct file_operations ftrace_stackmap_fops = {
- 	.llseek		= seq_lseek,
- 	.release	= stackmap_release,
- };
-+
-+/* --- Stats --- */
-+
-+static u64 stackmap_u64_add_sat(u64 left, u64 right)
-+{
-+	u64 sum;
-+
-+	return check_add_overflow(left, right, &sum) ? U64_MAX : sum;
-+}
-+
-+static int stackmap_scaled_cmp(u64 left, u32 left_scale,
-+			       u64 right, u32 right_scale)
-+{
-+	u64 left_hi = mul_u64_u64_shr(left, left_scale, 64);
-+	u64 right_hi = mul_u64_u64_shr(right, right_scale, 64);
-+	u64 left_lo = left * left_scale;
-+	u64 right_lo = right * right_scale;
-+
-+	if (left_hi != right_hi)
-+		return left_hi < right_hi ? -1 : 1;
-+	if (left_lo != right_lo)
-+		return left_lo < right_lo ? -1 : 1;
-+	return 0;
-+}
-+
-+static u64 stackmap_success_rate(u64 successes, u64 drops)
-+{
-+	u32 low = 0, high = 100;
-+
-+	if (!successes)
-+		return 0;
-+	if (!drops)
-+		return 100;
-+
-+	/*
-+	 * Find the largest percentage p satisfying
-+	 *
-+	 *   p * drops <= (100 - p) * successes
-+	 *
-+	 * which is equivalent to p <= 100 * successes / (successes + drops),
-+	 * without forming the potentially 65-bit denominator. Compare the
-+	 * products as 128-bit values split into high and low halves.
-+	 */
-+	while (low < high) {
-+		u32 mid = (low + high + 1) / 2;
-+
-+		if (stackmap_scaled_cmp(drops, mid, successes, 100 - mid) <= 0)
-+			low = mid;
-+		else
-+			high = mid - 1;
-+	}
-+
-+	return low;
-+}
-+
-+static int stackmap_stat_show(struct seq_file *m, void *v)
-+{
-+	struct ftrace_stackmap *smap = m->private;
-+	u64 successes = 0, drops = 0;
-+	u64 cpu_successes, cpu_drops;
-+	u32 entries;
-+	int cpu;
-+
-+	if (!smap) {
-+		seq_puts(m, "stackmap not initialized\n");
-+		return 0;
-+	}
-+
-+	/*
-+	 * Sample every counter under the read side of reader_sem. Reset
-+	 * clears next_elt and the per-CPU counters under the write side,
-+	 * so without this an unserialized read could straddle a reset and
-+	 * report a mix of the two generations -- a non-zero entry count
-+	 * next to counters that have already been zeroed, for instance.
-+	 */
-+	down_read(&smap->reader_sem);
-+
-+	entries = atomic_read(&smap->next_elt);
-+	for_each_possible_cpu(cpu) {
-+		cpu_successes = atomic_long_read(
-+			per_cpu_ptr(smap->successes, cpu));
-+		cpu_drops = atomic_long_read(per_cpu_ptr(smap->drops, cpu));
-+		successes = stackmap_u64_add_sat(successes, cpu_successes);
-+		drops = stackmap_u64_add_sat(drops, cpu_drops);
-+	}
-+
-+	seq_printf(m, "entries:      %u / %u\n", entries, smap->max_elts);
-+	seq_printf(m, "table_size:   %u\n", smap->map_size);
-+	seq_printf(m, "successes:    %llu\n", successes);
-+	seq_printf(m, "drops:        %llu\n", drops);
-+	seq_printf(m, "success_rate: %llu%%\n",
-+		   stackmap_success_rate(successes, drops));
-+
-+	up_read(&smap->reader_sem);
-+	return 0;
-+}
-+
-+static int stackmap_stat_open(struct inode *inode, struct file *file)
-+{
-+	struct ftrace_stackmap *smap = inode->i_private;
-+	int ret;
-+
-+	if (!smap)
-+		return -ENODEV;
-+
-+	/* Same open-time tracing policy as the other stackmap files. */
-+	ret = tracing_check_open_get_tr(smap->tr);
-+	if (ret)
-+		return ret;
-+
-+	ret = single_open(file, stackmap_stat_show, smap);
-+	if (ret) {
-+		trace_array_put(smap->tr);
-+		return ret;
-+	}
-+	return 0;
-+}
-+
-+static int stackmap_stat_release(struct inode *inode, struct file *file)
-+{
-+	struct seq_file *m = file->private_data;
-+	struct ftrace_stackmap *smap = m->private;
-+	int ret;
-+
-+	ret = single_release(inode, file);
-+	trace_array_put(smap->tr);
-+	return ret;
-+}
-+
-+const struct file_operations ftrace_stackmap_stat_fops = {
-+	.open		= stackmap_stat_open,
-+	.read		= seq_read,
-+	.llseek		= seq_lseek,
-+	.release	= stackmap_stat_release,
-+};
-diff --git a/kernel/trace/trace_stackmap.h b/kernel/trace/trace_stackmap.h
-index 979d6fd76460..7615e346dfa6 100644
---- a/kernel/trace/trace_stackmap.h
-+++ b/kernel/trace/trace_stackmap.h
-@@ -19,6 +19,7 @@ int ftrace_stackmap_get_id(struct ftrace_stackmap *smap,
- 			   unsigned long *ips, unsigned int nr_entries);
- 
- extern const struct file_operations ftrace_stackmap_fops;
-+extern const struct file_operations ftrace_stackmap_stat_fops;
- 
- #else
- 
+diff --git a/Documentation/devicetree/bindings/power/qcom,rpmpd.yaml b/Documentation/devicetree/bindings/power/qcom,rpmpd.yaml
+index a70bfacbc5d1..8ee1c25a7c9d 100644
+--- a/Documentation/devicetree/bindings/power/qcom,rpmpd.yaml
++++ b/Documentation/devicetree/bindings/power/qcom,rpmpd.yaml
+@@ -76,6 +76,7 @@ properties:
+       - items:
+           - enum:
+               - qcom,msm8937-rpmpd
++              - qcom,msm8952-rpmpd
+           - const: qcom,msm8917-rpmpd
+       - items:
+           - enum:
+
 -- 
-2.34.1
+2.54.0
+
 
