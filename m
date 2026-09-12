@@ -1,182 +1,162 @@
-Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com [209.85.222.180])
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37C4C47A0CD
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 11:51:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D247343893
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 11:55:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789213919; cv=none; b=IsnbYg/WRji+yarmlkgE2Zfr+yG9uDUZf7bK3T26zzhvFzVOBubCzLdH3UzgHQBd/KOu64UE45YkWsP/1bD2lJt1MeUok/09dBn15cEnpBIRBhJODfb0h2ekLRE4erdua6fIvsEj+5NEjMxjxH8jCF69fWQHm+nhYHuEnwcRZBw=
+	t=1789214103; cv=none; b=LDvsu+fVGc5AudydkZH947jdOSOwpRm87iQvpy1DB0981m18/60ORMvXnwg13AKAZ3Ub1tMlyeAIORkUXsFXf3bfS3XdCOMeaVfztejDNJ7O1kOs6YVL9H8/UDg3B0bVMDApAUdmqZ6q2QQad1SgET62T5BH7+xzBPLXSC2tITI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789213919; c=relaxed/simple;
-	bh=bMr4wFVrCL5Uq8NJ+XMirZznWyUkydJB1wO+gPO26N0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hy6LfLwYr10gYJDPcHUBIUmgCXeWoe7Bdmlo3Xz+hWJaJx6ArKNo2lE/R+IdjEBOXtnQJ13cbgVSS6A4rovegV0slLEUN7jazg6nwiJ+W4qeLIlg+j+RSPsMQc5RbVkK7m1RXqltJGRsNuOu+2b33YuS51TXgRapOj0NNygm1RM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=Gj0HBzqD; arc=none smtp.client-ip=209.85.222.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
+	s=arc-20240116; t=1789214103; c=relaxed/simple;
+	bh=wjrfmzwCB2Vf8FRU6UVIgozAzhd2ZwXNpub4sYKeexg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Ief5i8e0kH+5m9q7QB2W0CntJTzTWYBKROoX7v/3Vrf9eIAPdGPopT8MfMeeyKCQnkzXZnGT2G4N+bkEvnPQK9UrcxzyZ/lWBovRJbv3/EJ5NuYGsSHX/LPUrdqlnxkHp/vvzkW5U1o1iNTYI7JzjsOmWZJd5Swuwxj5xr+0QoA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rCASUYaE; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="Gj0HBzqD"
-Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-9399a1c21c1so166360185a.3
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 04:51:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rCASUYaE"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49e6b280cadso8838065e9.1
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 04:55:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cmpxchg.org; s=google; t=1789213915; x=1789818715; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bcAx2yrZ5W43UEp0p7bdF0l1dDSK9D0U9mKNzi+eSEk=;
-        b=Gj0HBzqDjNHCbLUcfpEvKmBRLm2yYR37MjPBOqH0LsvasIzBsxpnaCBkVckPkhqKJl
-         gCEMi9zNegxqI8a4zS64OsivGN/FRdn9c6J/rdqu2CiBxanfS0FSPfp1jPHLCAuefL0n
-         KeISDJqLavs7m1v7H9xJjYinxn3gMRzm8rgVLeT7OMlhHFQxuaf895bawTkNeUEe31Je
-         V6fnTcYo4iQvRx/XlLP7if6DFan+FuXtHCmjlgyKWhCF5UXXG4oJUrG8RIBmUubzf7Hy
-         YYMIMU8SfLJoSPm9pFwi7S58b5osSunPL+cXVnAnnufx8dWL2cuytR7ufWllKIJxod/0
-         wNCg==
+        d=gmail.com; s=20251104; t=1789214100; x=1789818900; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HHQY0It3MNtGCYNfDhAD2naKxs+6llSjkNyX4pY9SfU=;
+        b=rCASUYaEbNTpyMF0BRRBGNHkvqnYUVBAI8gLyHmp6U2/zglnuMC/vPuKbRWvBmveBV
+         ZXH6RdLZTS2l/1FbYjXkD6FP4W2WkXlN9Wv+O0g6hPfg/9gq57CYZtt2xjXCNS96Dyt4
+         92jR2Xo+xrVe70Rqxh4PUgBpuDEGUDDH2SNODN4NZcdBs5a00OEDymBgC3m2p5vYVlCs
+         kqxfsBJfkXiligRzntEqlnt3jpboxmCHd79uPV91Xgi1KVTSEjHtH4Ekx72xasL52fK2
+         wARWNa6gU8bzFZpOPWfT3QkT2YES/znDwBMhvIwFmgEkydKlsZMAYERv8rB6ZwsrVxz8
+         voZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789213915; x=1789818715;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=bcAx2yrZ5W43UEp0p7bdF0l1dDSK9D0U9mKNzi+eSEk=;
-        b=oA4HRV6FKC/0jfsdRrPUJP12G9IwGeKiGH6JiuAbfRh7ds/1ppZcfDs0VoAOqRAbQm
-         LnDYJUhp+leaDsxvwSLd+EinbOzTb9P9OhBXh9xyTr7aP4ft1FLx01/D6mF4kxdDUpPl
-         2801zHSl1moOdplIpH4Gx8hNcOkhOL6Qcj7ManA8rqzVsMA01yo33Nj+b5pBWMQWNDJn
-         ZPxNTFCuouFuFbn5oVkYki4U6y7bhpCkmzqpS6awzJVqWn1Dg5UcIkK3OkbKmDHJZmbA
-         HeWB2FU8PeF48hjUVEUgFFKmzeKP5HBahKZWFtvNUSZJBCqsftdVzqTqm4WGzLkwUtV0
-         J0UQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwUw7QTK9eynZBLWu1ga5+zuNYDfBEIhJl0jvoPtwQRhXkDuNe/fCY7Etn5iqEqVydN9QEmqL5jmReFqq0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kL4Zfo52p448PScnhVSW9XiX90jXwroA+vw6c7KDUz1i7U2FSy
-	hHS3FcbsFzzpG+jZigD+paG9cUA6GcKE9vxs9s8j+ZsbrqfemermFElU15kySBKkp/o=
-X-Gm-Gg: AYBFou1lMeqrIiExO69pdVm4AE5zUHMeW0gLk2SlA3TqB9Ik/6T7P7TIycOPzkj2oBe
-	vffes/HMdTqj/LaGCODBjXCcIQzkAONoiXS/YZmzPi0qMLLLn9e4gbxQ9QRXngh0gnHS8J9aB2V
-	OcGqLHwu3ZTzF+TCFBdrfdQU8Ihf8cUpJcUaPBJ/L7bJfE/avX4YsCLcYBsH4qB+iCVQjrlNxWI
-	dpR9XCnE1FS6YyHqdqbmEpVIPPZ3NbN9UW+cBAvqYdZccfTh4gOmOm05VwouO3jt42PypsJF5xA
-	1sAzAiYqUuxUtzWWRIgpHLrqbIg96+AZ6CF8FA7odPEn33z4QG2X63AjrDWA/bZJFWea8l+4MlV
-	PlVxnuyzDxU7TcTA5/9612av5qvASDFjGJ4BK4vIccOq8I4GhORtDeSHZHmEveRrrfEzzxKnD+5
-	zWXOybUCp404tCuA/5fp1bilt8cZt40eNLETdG1/DVPJoPo5GS86AP0l4csgp3X2/Em86EKw==
-X-Received: by 2002:a05:620a:700f:b0:936:e702:51a9 with SMTP id af79cd13be357-939ea275a08mr1168041885a.36.1789213914937;
-        Sat, 12 Sep 2026 04:51:54 -0700 (PDT)
-Received: from localhost ([2603:7001:f100:500:365a:60ff:fe62:ff29])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-939e7f18628sm481437485a.13.2026.09.12.04.51.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 12 Sep 2026 04:51:54 -0700 (PDT)
-Date: Sat, 12 Sep 2026 07:51:50 -0400
-From: Johannes Weiner <hannes@cmpxchg.org>
-To: Kairui Song <ryncsn@gmail.com>
-Cc: Nhat Pham <nphamcs@gmail.com>, Chris Li <chrisl@kernel.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Yosry Ahmed <yosry@kernel.org>,
-	David Hildenbrand <david@kernel.org>,
-	Muchun Song <muchun.song@linux.dev>,
-	Kemeng Shi <shikemeng@huaweicloud.com>,
-	Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
-	YoungJun Park <youngjun.park@lge.com>,
-	Chengming Zhou <chengming.zhou@linux.dev>,
-	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren =?utf-8?B?QmFnaGRhc2FyeWFu77+8?= <surenb@google.com>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
-	Rik van Riel <riel@surriel.com>, Gregory Price <gourry@gourry.net>,
-	Wenchao Hao <haowenchao22@gmail.com>,
-	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Tejun Heo <tj@kernel.org>,
-	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Kunwu Chan <kunwu.chan@linux.dev>,
-	Meta kernel team <kernel-team@meta.com>,
-	Linux Memory Management List <linux-mm@kvack.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	linux-doc@vger.kernel.org,
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>
-Subject: Re: Path forward for Virtualized Swap?
-Message-ID: <aqU81l1oqGItb-0C@cmpxchg.org>
-References: <CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
- <CAMgjq7AHRzBsbmGOx0s=TQFBwcn=DEU1naR443sO6x+pJd6hAg@mail.gmail.com>
- <aqBT_35E-eSoN_zj@cmpxchg.org>
- <CAKEwX=N4aaq_oD2agTUNrUNXhaYGeQ9vxu+dywFvEFgWFi4uQg@mail.gmail.com>
- <CAMgjq7AfNBUpMamcv29JFzpX=7ApNYVLtPjWT4Sm8cXjSLYL9g@mail.gmail.com>
+        d=1e100.net; s=20251104; t=1789214100; x=1789818900;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HHQY0It3MNtGCYNfDhAD2naKxs+6llSjkNyX4pY9SfU=;
+        b=DfqKGZZTSEF+30FYmH2Wb9SG3PqQqWuWuM9O9bBKlgAsaArhZVnOKphV8JH4YGKkaH
+         aOf6YzLhaOY7SmjxyxVNaDtRyAFqOBhUwr+3hjd6tcjqumQsl5XNeaDu+evj0z5ghpaK
+         GBxdr9uLU4FAntRWludpmup+kXVRaWVArbjo2DA4U2xnkYO5PPn7L6gVr+rQ9O6bGgNk
+         5y7/oKtepeImxOO47PDLU5YsJ2tXH+qlCJhxsOxcJVICwd4HaJOppbU/Hdu/QDju5xwT
+         3m7AOpIEHe+UVnSrAg6kJ/62eoMbaGGDufoHDbCUl1yVSmtIIHV2WC48XDdJZhDtKBNe
+         K2tw==
+X-Forwarded-Encrypted: i=1; AKwUvBwJUV5iRKOwGneuAZg6gX8w+WCC67UP8iWA1ufoCly4UDuCP61cV6UoUZ/nKFPRiwgiKsRXFJu7B0wE8fY=@vger.kernel.org
+X-Gm-Message-State: AFuF++nl80MqwNXmhHmzouDRqgy5KO43c53kaNY3R3EeRIEx6xKxo98/
+	XJRYqC4wQQVlKk4z+0Sg19T//EX1/nKRzRnvrLWwNX6UELRFtIOdNz2x
+X-Gm-Gg: AYBFou04g7J91tfzMtkfs2kepS+NrdBrBcRMDGnpk5M3OpKkiJjfBGdtlg7KJhN4PBi
+	q09VZlrofv4F7GMU97WAc9Zpnq4LCnRsVeKz7S5OC8dp2IQczSXXXfvdm9gNT+yefc8zHdL63uZ
+	b5HtMwYpEmJ9YVZ/FMf6j9/q4PLIRjBz+bymGiCIsMmqoO9/Ohtgw4/bQcvc38o8qPF4SCNQOwn
+	+8tZGpbJXF0ahBE+H2ntFkD5xAOBB5WanTN7xVxxmmL4aY5xPgGvAwVr1izwTpduQ1LwmyG5/aK
+	do2im9KxPGM+Zby/1u3e1ZXO5/L9a5iBoPVUQyhmCHpmQAqn/hlO0c6ql2Py6d8vwezkQmFlvpZ
+	DE7xc6PM4yrAHqJqUZ/R5T2Al0Wx4FCeJ9b0/FrqJOmTM98ng6woYg2B/rKL0Whn6pvr2VVpUbD
+	gjliQhAmTvODMF7MrbqDtrAE1Lh2AFwkn+qdTeVf4knn53oIJKsERU5b3s9uoB5VRBVLmkN9tv7
+	j2sZnOjsyG5D2IwAMryIaUsoorYcMT3Fx/9wpgJdQmzcXfCQf7LwGj1DHYtMfkpKBvkoMPn1WGa
+	r+qnlb0qh2hbOGcKrVMpUtYQgzlX4zYg2wTJrINKv9iF3oyZVleoF8wcinZ+wDA9DZNP98pDQTx
+	Iae03jLQfFtpf
+X-Received: by 2002:a05:6000:2c0e:b0:484:3313:fd86 with SMTP id ffacd0b85a97d-486eb2eb014mr9316892f8f.27.1789214099433;
+        Sat, 12 Sep 2026 04:54:59 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-b260-f201-9983-e8c4-aff5-7a36.310.pool.telefonica.de. [2a02:3100:b260:f201:9983:e8c4:aff5:7a36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb350686sm13413575f8f.27.2026.09.12.04.54.58
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 12 Sep 2026 04:54:59 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Georgi Djakov <djakov@kernel.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Kuan-Wei Chiu <visitorckw@gmail.com>
+Subject: [PATCH v2] interconnect: Add kernel-doc for devm_of_icc_get(), icc_enable() and icc_disable()
+Date: Sat, 12 Sep 2026 13:54:56 +0200
+Message-Id: <20260912115456.89169-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAMgjq7AfNBUpMamcv29JFzpX=7ApNYVLtPjWT4Sm8cXjSLYL9g@mail.gmail.com>
 
-On Sat, Sep 12, 2026 at 05:00:42PM +0800, Kairui Song wrote:
-> On Thu, Sep 10, 2026 at 12:42 AM Nhat Pham <nphamcs@gmail.com> wrote:
-> >
-> > On Tue, Sep 8, 2026 at 11:30 AM Johannes Weiner <hannes@cmpxchg.org> wrote:
-> > >
-> > > On Mon, Sep 07, 2026 at 01:51:31PM +0800, Kairui Song wrote:
-> > > > Where I've ended up is that unbounded growth is a real concern. On a
-> > > > host with no memcg limit (root cgroup, and most desktop and embedded
-> > > > setups), an unlimited pool means usage can keep growing, with no
-> > > > admin visible ceiling at all. I'm not attached to xswap's percent of RAM
-> > > > knob specifically, but I do think some kind of bound makes sense.
-> > >
-> > > Swap space is just process virtual address space, no?
-> > >
-> > > Swap entries already have one or more page table entries pointing to
-> > > them, which in turn are managed by trees of vm_area_structs. That
-> > > means rlimits apply, overcommit protection applies, and OOM killer
-> > > attribution works as well (oom_badness()).
-> >
-> > I tested this theory. I spinned up a process, and let it spam 0-filled
-> > memory + swap these pages out continually.
-> >
-> > As you predicted, oom-killer picked it up eventually. The host was
-> > (and is) intact otherwise :)
-> 
-> Good to know the kill path works. But I think the accounting side cuts the
-> other way? Won't that conversely underestimate the host's ability to
-> handle memory alloc? Not to mention a lot of application are
-> swap  space aware, some built in logics like e.g. with vm_enough_memory:
-> 
-> On a 1G machine with vswap enabled:
-> [    0.241906] vswap: created virtual swap device (2199023255040 pages)
-> 
-> a 2G sparse anonymous allocation fails:
-> [   46.044002] __vm_enough_memory: pid: 1129, comm: search_agent,
-> bytes: 2147483648 not enough memory for the allocation.
-> 
-> The default "Heuristic overcommit handling" policy is meant to handle
-> seriously wild allocation (as documented, and it's named as
-> OVERCOMMIT_GUESS).
-> totalram_pages() + total_swap_pages
-> 
-> Is the limit, the heuristic exists only to make "a seriously wild
-> allocation fail" (as documented). But on a vswap-only machine,
-> reasonable allocations fail. Common swap devices, zram, or xswap don't
-> have this problem. One could argue that the size there is just an
-> optimistic guess, the compression ratio is not controllable. But that
-> heuristic is a guess by design, and a plausible number serves it fine.
-> "Unlimited" seems break that.
+Documentation/driver-api/interconnect.rst lists devm_of_icc_get(),
+icc_enable() and icc_disable() in its kernel-doc directive for
+drivers/interconnect/core.c, but none of the three functions has a
+kernel-doc comment. The directive silently produces nothing for them, so
+the consumer API section of the rendered documentation never shows
+them.
 
-That cuts both ways, though. If the configured compression space is
-large and compression ratio is poor, it lets through allocations that
-can be considered "seriously wild" for this machine.
+Add kernel-doc comments in the style of the neighbouring functions.
 
-It's a filter. I wouldn't say that letting things through is evidence
-that it's working.
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+Changes in v2:
+- Describe @path as an interconnect path and explicitly state that
+  passing NULL is a no-op returning 0 for both icc_enable() and
+  icc_disable() (Kuan-Wei Chiu).
 
-Since compression space is backed by memory, it still makes sense to
-me to reference this heuristic to RAM. Cut it off at 2xRAM or 3xRAM
-tops if compression space is available.
+v1: https://lore.kernel.org/r/20260907020504.24783-1-kmehltretter@gmail.com/
 
-That all being said, I've laid out implications and concerns around
-limiting compression space in this thread, too. Collecting pros and
-cons is fine, but if you bring up cons for the unlimited case, it's
-fair to ask that you engage with cons brought up on the limited case,
-too, so that we can weigh the tradeoffs.
+ drivers/interconnect/core.c | 32 ++++++++++++++++++++++++++++++++
+ 1 file changed, 32 insertions(+)
+
+diff --git a/drivers/interconnect/core.c b/drivers/interconnect/core.c
+index 4aa991a54101..802f07e806d5 100644
+--- a/drivers/interconnect/core.c
++++ b/drivers/interconnect/core.c
+@@ -423,6 +423,17 @@ static void devm_icc_release(struct device *dev, void *res)
+ 	icc_put(*(struct icc_path **)res);
+ }
+ 
++/**
++ * devm_of_icc_get() - get a path handle from a DT node based on name
++ * @dev: device pointer for the consumer device
++ * @name: interconnect path name
++ *
++ * This function is the resource managed version of of_icc_get(). The path
++ * is released with icc_put() automatically when @dev is unbound.
++ *
++ * Return: icc_path pointer on success or ERR_PTR() on error. NULL is returned
++ * when the API is disabled or the "interconnects" DT property is missing.
++ */
+ struct icc_path *devm_of_icc_get(struct device *dev, const char *name)
+ {
+ 	struct icc_path **ptr, *path;
+@@ -786,12 +797,33 @@ static int __icc_enable(struct icc_path *path, bool enable)
+ 			  path->reqs[0].peak_bw);
+ }
+ 
++/**
++ * icc_enable() - enable a path
++ * @path: interconnect path
++ *
++ * Mark all requests on the path as enabled and reapply the bandwidth that
++ * was last set with icc_set_bw().
++ * Passing a NULL @path is a no-op and returns 0.
++ *
++ * Return: 0 on success, or an appropriate error code otherwise.
++ */
+ int icc_enable(struct icc_path *path)
+ {
+ 	return __icc_enable(path, true);
+ }
+ EXPORT_SYMBOL_GPL(icc_enable);
+ 
++/**
++ * icc_disable() - disable a path
++ * @path: interconnect path
++ *
++ * Mark all requests on the path as disabled, so that they no longer count
++ * towards the aggregated bandwidth, and reapply the constraints. The
++ * requested bandwidth is kept and restored by icc_enable().
++ * Passing a NULL @path is a no-op and returns 0.
++ *
++ * Return: 0 on success, or an appropriate error code otherwise.
++ */
+ int icc_disable(struct icc_path *path)
+ {
+ 	return __icc_enable(path, false);
+
+base-commit: 986c24e0fe44f844b44d365b71ce831947f50298
+-- 
+2.39.5 (Apple Git-154)
+
