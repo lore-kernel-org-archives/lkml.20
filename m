@@ -1,147 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f178.google.com (mail-oi1-f178.google.com [209.85.167.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AD8E2C08D0;
-	Sat, 12 Sep 2026 18:58:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2313C48C8A3
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 18:59:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789239484; cv=none; b=W+jqHYHvIOKsB4iGlTCmGPU5KyQsow8KyBAJjbTJrWBLh+61wJUWM2+V0mrNF5Q6W0hwcpljD8aBnPbpmCx9pw9eyDhPxEQ4Qk6cPNHIuFbEdVINwJkzDK4nqrFoLm9Vm6TyHLEPZcIotByL8pZ90cenocqEG9Gr+X3r46JlmEg=
+	t=1789239597; cv=none; b=X0RRVVuKDZrfASO+kzMyr5ZG1BkcKCFVlrftQ/TsXegT8CFLeRj/66wj4GfNZBuOEsLWNVmGYQl3kHdw0CYbe5asi0579rD6wMatFptnN6AJBSeAHWdo4gvuFksbo9TP3ueND4Dx1wyixw0Ua1R7uhh87yVoZ9iuxawFRHdTNJU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789239484; c=relaxed/simple;
-	bh=y3CQirMNKJQfcwKc4KuXVIcD4nkiaw5eX7+nHt9Rmz8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UgeCRQjhdX9Ukol/KJx6HNLGQ3iLu6hp0DzahC/Ak8+AxYz1CDscCsvZh18twz+KmI/60QkiLb1qr6MqNkc72p/K3mKqvb1uTtjUO49mIf1+QnDadyLxi3VcEygYd3DReB8V++kxuFAN+6yIm/72L1GZCQ3eUqnZvhCj4wSmTls=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b129hE7D; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789239597; c=relaxed/simple;
+	bh=W5pYYkFbHu8gvCgwzbJArz6TGx07mjzoqi/91WuzJU4=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=XnJSYAKZfzoPZS6rhGqKglKYwqh0lvT64X65u7C3MHcTKPo49TRqv03xMc3v5lD/grVChyKXdoC/huDc64wHIOn14G31hgwjrDKqnnMzndOX8YNbCu6Ues3xZq+GcyjLPil/lG1ylQyQcUunQ5vUscR7pCkndc9hZHNbmiGz3NQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gT11OAU3; arc=none smtp.client-ip=209.85.167.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b129hE7D"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B3411F000FF;
-	Sat, 12 Sep 2026 18:58:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789239483;
-	bh=6BluU+mCWJjFo1z+n6s87f5KoVwieJ3DCesot+22iUM=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=b129hE7DRPv2I9AH7m/fRZZ/wUraKivazDVqrrdnPPQTFkC4bOPRxSFQ921pq+u1x
-	 cGQkMb6MKHfzBNpFFu9GL8/4I146UwIzNCQt+WAS7CsRsoRRUfAPNubcl71S8L93/T
-	 M4BxXA2lx75Yt6sFb7qTFJM3fkyQTG7/VCGedhz8RGzs5iM0+wGZ6iy3eDAI/3jJhb
-	 HBXihJbQv+/HFP/CY31Aq+Ze+g0B0G+g5Nr9EsIqty/z7SMqrf6FAQQndY7tYg6Nv2
-	 Tughn9iBXX5fCq4stHOZiAfKrE2zDe1NEUpSQS1R739nv5jL0eK4meZvyKZABMuXt1
-	 T4Ysbtv5zQTRA==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 01B51CE1578; Sat, 12 Sep 2026 11:58:02 -0700 (PDT)
-Date: Sat, 12 Sep 2026 11:58:02 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Bradley Morgan <brads@mainlining.org>, frederic@kernel.org,
-	neeraj.upadhyay@kernel.org, boqun@kernel.org, joelagnelf@nvidia.com,
-	rcu@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
-	Arnd Bergmann <arnd@arndb.de>, linux-arch@vger.kernel.org,
-	Vineet Gupta <vgupta@kernel.org>,
-	linux-snps-arc@lists.infradead.org,
-	Russell King <linux@armlinux.org.uk>,
-	linux-arm-kernel@lists.infradead.org, Guo Ren <guoren@kernel.org>,
-	linux-csky@vger.kernel.org,
-	Yoshinori Sato <ysato@users.sourceforge.jp>,
-	Rich Felker <dalias@libc.org>,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	linux-sh@vger.kernel.org, Chris Zankel <chris@zankel.net>,
-	Max Filippov <jcmvbkbc@gmail.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/6] lib: Add two-byte cmpxchg emulation function
-Message-ID: <17a92c0b-8062-48ae-b5fa-f61a3e0ff24c@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20260911192540.20983-1-brads@mainlining.org>
- <20260911192540.20983-2-brads@mainlining.org>
- <20260911231017.550f8cd1@pumpkin>
- <d0ef7beb-6952-49cc-9b33-e7542e831ba6@paulmck-laptop>
- <20260912103047.1b95bb03@pumpkin>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gT11OAU3"
+Received: by mail-oi1-f178.google.com with SMTP id 5614622812f47-495c49f8eccso2313338b6e.3
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 11:59:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789239595; x=1789844395; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=m0hkFL/zZs+ga9gIE1b00ZBTTiY2auR/sNm0zFmpqW8=;
+        b=gT11OAU3g0F4I6b0hBH48880CH9HvugutKIxYDKPRy7TdUII16F6pBPHpAyU447iw0
+         J9r8+tnNb0xJlD0rf20WKlVjORVZUYPl6cC1vfnJQPAscqYiMjMtpoHPgTn6Ca7bBJ9r
+         0qsGd8ewvpAClNXRIb+FIwK4w6NAXv8gMv/sKSrDS00mJ8mmnB/52JM1NAreq8tx+Zvd
+         x2smqwqG+Aa9K9zV4zvzLBP0HIPySaA8V+MVkek5rlBCHeUu1GsewJbDaXli5AIkZNqp
+         NXyQksM/9xAQmLBMuyDsJFZiOMcCS4O/OeM4E/sCZ5K1Ya1yUy3lJYYhxUmD7mn95ikq
+         lwyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789239595; x=1789844395;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=m0hkFL/zZs+ga9gIE1b00ZBTTiY2auR/sNm0zFmpqW8=;
+        b=KGQJL/wZuuf/Uy5rQJXqKVsSS/gwd18M656BTaCBQOX4VM+DZxzjjRCAMJb3raT63e
+         vx6+bB3ry9YmdmhYqkg837+vZlf8I0KnP+UgIuy9/jTEjxc73LtdPbGM/fZsD9kVIVny
+         U7ADXHpfmiNLziTRSoDtC5LgZjKMSAd1fYy3QfkQD36bhS9IJv3WcrVQXxQmd98SXeRU
+         gTP///ZlzpNjVcnM0eFNnCuA2ZzBMB4QqSuVhpkDneEUl5BHP1vFzAaKFoFm+xSL5Sbu
+         Ef6xM6mdKY0IQoGpwg3XO+cswtisgGw329DbXW+TVG6IiYw93KvLGoHBnZKZTMmX0VGJ
+         GNDA==
+X-Forwarded-Encrypted: i=1; AKwUvBwVZKSY65HoMTAItlP/EBhLm77JgfE7XFpASR0x08EdUybUig/ARlIXgNG9xuLmLzp6QGJhWNO+l8afZ2s=@vger.kernel.org
+X-Gm-Message-State: AFuF++nF62aBmYm+fLvPeiqtk2w7AIMpJRVLV0U3UbZljsR5mv8yzAxd
+	795AdkJvNhJrDGGdlC/68dpVnCQSVCIHTvPJDHsvGDEvxclo/BBifCbQ
+X-Gm-Gg: AYBFou3F8T11GZMgBpYSPgNpFC0dGwbh/5QcupzqZC2zxrpTiGmPoSDWULy/kvdVCSX
+	sIKo57plZSUH1F6ec3mE5KoiBN3CvpA+yRSrzZiAmrujTZK9KzHgvolu1N/tVASuxYs+BMehKpQ
+	lGZMcaxcYjMdoAlEHswbc6wG+wwijQnCxNF/JOnAsSIaEN8w9ifPm61m1lJ9xjRJFub1IYg2RKf
+	wPBAnQdhIbZzFZdNlvks1ROM/peRG8Wquvg9VkwChh6zWqmXQ9QKUd0ZR5RxmmOo4q9DLV4JTrO
+	T810AHg39IKUgxKZgGz2i2UJ/Z0q8izzqFI07FkfuR6xWYsFPcmSrOnk+G7zhJe5MWSEm8pivqL
+	CZ6qEKQPFmmASlGBcXdQkCqg5LB8eY0vomE/OO7O5Fb/8cqLOgfQ9pcec4secDFXORA7dV6AvnB
+	cVf0L/UK1A4AyjGhN4cgOF0PUd32lKGc6Re32aZjfLhTHuO0rTb2q6UMYlM4VEfg/O8bXgkiB0I
+	3TwehcZWovRNZgKjF1STPmr5xTlUP2wv0qXWMFpVBCXGcoHPX9r/zwkeIw9wGr9sQ==
+X-Received: by 2002:a05:6820:3393:20b0:6b7:83c5:fde9 with SMTP id 006d021491bc7-6c0bb1f316emr5155273eaf.42.1789239594641;
+        Sat, 12 Sep 2026 11:59:54 -0700 (PDT)
+Received: from localhost ([2a03:2880:10ff:41::])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6c342ec1ff5sm1030996eaf.14.2026.09.12.11.59.51
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 12 Sep 2026 11:59:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260912103047.1b95bb03@pumpkin>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 12 Sep 2026 11:59:51 -0700
+Message-Id: <DLDKI0ZXYI7H.1XQZZE2RCU7IF@gmail.com>
+Cc: <martin.lau@linux.dev>, <song@kernel.org>, <yonghong.song@linux.dev>,
+ <jolsa@kernel.org>, <emil@etsalapatis.com>, <ihor.solodrai@linux.dev>,
+ <john.fastabend@gmail.com>, <shuah@kernel.org>, <bpf@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>
+Subject: Re: [PATCH bpf-next v2 03/13] bpf: track low-32 scalar equality
+ across zero-extending movs
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+To: "Vineet Gupta" <vineet.gupta@linux.dev>, <ast@kernel.org>,
+ <daniel@iogearbox.net>, <andrii@kernel.org>, <eddyz87@gmail.com>,
+ <memxor@gmail.com>
+X-Mailer: aerc
+References: <20260910164635.459558-1-vineet.gupta@linux.dev>
+ <20260910164635.459558-4-vineet.gupta@linux.dev>
+In-Reply-To: <20260910164635.459558-4-vineet.gupta@linux.dev>
 
-On Sat, Sep 12, 2026 at 10:30:47AM +0100, David Laight wrote:
-> On Fri, 11 Sep 2026 16:09:16 -0700
-> "Paul E. McKenney" <paulmck@kernel.org> wrote:
-> 
-> > On Fri, Sep 11, 2026 at 11:10:17PM +0100, David Laight wrote:
-> > > On Fri, 11 Sep 2026 19:25:34 +0000
-> > > Bradley Morgan <brads@mainlining.org> wrote:
-> > >   
-> > > > cmpxchg_emu_u8() emulates one-byte cmpxchg() in terms of four-byte
-> > > > cmpxchg() for the architectures lacking native one-byte atomics.
-> > > > The same architectures also lack native two-byte cmpxchg(), where
-> > > > such an operation is not supported and either fails to compile via
-> > > > BUILD_BUG() or fails to link, because the bad pointer sentinels
-> > > > these architectures declare are never defined.
-> > > > 
-> > > > Add cmpxchg_emu_u16(), the two-byte sibling. It reads the enclosing
-> > > > word with READ_ONCE(), splices the two target bytes through a union
-> > > > and loops on cmpxchg() of the full word until the compare succeeds.
-> > > > Like cmpxchg_emu_u8() it is fully ordered.
-> > > > 
-> > > > The Kconfig symbol gating this file is renamed from
-> > > > ARCH_NEED_CMPXCHG_1_EMU to ARCH_NEED_CMPXCHG_1_2_EMU, as it now
-> > > > selects both the one-byte and the two-byte emulation.
-> > > > 
-> > > > Suggested-by: Paul E. McKenney <paulmck@kernel.org>
-> > > > Signed-off-by: Bradley Morgan <brads@mainlining.org>
-> > > > ---
-> > > >  arch/Kconfig                |  2 +-
-> > > >  arch/arc/Kconfig            |  2 +-
-> > > >  arch/arm/Kconfig            |  2 +-
-> > > >  arch/csky/Kconfig           |  2 +-
-> > > >  arch/sh/Kconfig             |  2 +-
-> > > >  arch/xtensa/Kconfig         |  2 +-
-> > > >  include/linux/cmpxchg-emu.h |  1 +
-> > > >  lib/Makefile                |  2 +-
-> > > >  lib/cmpxchg-emu.c           | 35 ++++++++++++++++++++++++++++++++---
-> > > >  9 files changed, 40 insertions(+), 10 deletions(-)
-> > > >   
-> > > ...  
-> > > > diff --git a/include/linux/cmpxchg-emu.h b/include/linux/cmpxchg-emu.h
-> > > > index 998deec67740..fee8171fa05e 100644
-> > > > --- a/include/linux/cmpxchg-emu.h
-> > > > +++ b/include/linux/cmpxchg-emu.h
-> > > > @@ -11,5 +11,6 @@
-> > > >  #define __LINUX_CMPXCHG_EMU_H
-> > > >  
-> > > >  uintptr_t cmpxchg_emu_u8(volatile u8 *p, uintptr_t old, uintptr_t new);
-> > > > +uintptr_t cmpxchg_emu_u16(volatile u16 *p, uintptr_t old, uintptr_t new);  
-> > > 
-> > > Why uintptr_t? Shouldn't it just be u16?
-> > > (Which probably means the code would better if it was just 'unsigned int')  
-> > 
-> > I suspect that Bradley is just following my cmpxchg_emu_u8() example,
-> > which also returns uintptr_t.
-> > 
-> > I remember that *something* broke when I made this be u8, but I cannot
-> > recall what the problem was.
-> > 
-> > Bradley, could you please try making it be u16 as David suggests just to
-> > see what happens?  Who knows?  Maybe it was a compiler issue that has
-> > since been fixed.  Or maybe the macros and asms using cmpxchg_emu_u8()
-> > need that uintptr_t for some reason.
-> 
-> I think the uintptr (unsigned long) cast is needed to stop a compile
-> error when exchanging pointers.
-> But that is an issue with the #define not the called functions.
-> 
-> Possibly changing the #define to have:
-> 	unsigned long ul_old = (unsigned long)(old);
-> Or even, with the type check from:
-> 	unsigned long ul_old = (unsigned long)(0 ? *(ptr) : (old));
-> (with the same for 'new')
-> and the removing all the casts where the value are used might be better.
+On Thu Sep 10, 2026 at 9:46 AM PDT, Vineet Gupta wrote:
+> Linked-scalar equality is full-64-bit only. A 32-bit mov from a source
+> with unknown high bits therefore has to drop the relationship, and a late=
+r
+> narrowing of the source never reaches the destination:
+>
+>   r6 =3D ...              /* full 64-bit unknown */
+>   w7 =3D w6               /* 32-bit zero-extending mov */
+>   if w6 !=3D 0 goto ...   /* not taken: r6's low 32 bits are 0 */
+>   if w7 =3D=3D 0 goto ...   /* not deduced today */
+>
+> Record a low-32-only link instead: dst shares src's low 32 bits and its
+> high half is zero. On a later narrowing, sync_linked_regs() rebuilds such
+> a register from the base rather than copying it, by re-applying the same
+> zext_32_to_64() the mov used. The reverse direction is skipped: a ->subre=
+g
+> base knows nothing about a full register's high half.
 
-It does sound worth a try, especially since we have the uintptr_t version
-to fall back on should that fail, or in case it somehow makes things
-more complicated.
+at the first glance SUBREG_ZEXT is exactly the same as ADD_CONST32 delta =
+=3D=3D 0.
+no?
+Both are unidirectional:
+w6->id =3D=3D 1
+w7->id =3D=3D 1, add_const =3D=3D 32, delta =3D=3D 0
 
-But we have been living with uintptr_t for some years with the 8-bit
-code, so this should be able to be a follow-on patch.
+will zero extend w7.
 
-							Thanx, Paul
+This new SUBREG_ZEXT will do the same.
+What am I missing?
+
