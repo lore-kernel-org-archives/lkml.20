@@ -1,109 +1,272 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mail-oo2-f4.google.com (mail-oo2-f4.google.com [74.125.231.132])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 042461B808
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 00:47:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 892B91C84DC
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 00:47:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.132
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789174044; cv=none; b=o9D2e6YWCVuOidcNg6L8HNZLG4lEWHgdUAQgsRX207h9cTly9qFqFUdyLjQr4uRWGJTpOzK6sGAai3kSuLqiEu12/Brot9SFnUtz2y3dTQ9uPpY14ZnjjaOy/R69I64t4NDpZ2ITAwxgTtq5ojCWhENF8C5r+qKJU2doSdwEr9s=
+	t=1789174066; cv=none; b=CcqRsrFRt13j/cJu7D7abzfvirV0p2NlRBTVhZaC+kxDkD0+Sm9zFggFNXDfNyIXJ1TQRQxpgDbg1MRF9+tVz0aZnebNBccv0G+Ffv/hIatxzULa/ATXvk/S37+axxCUzdRAvLBjjF8ckVLf6elDDf5GYlxX8FijzHm15PSikI8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789174044; c=relaxed/simple;
-	bh=UM4owinUOMoIRCg48l083DCebXwOaCZOmO/zB8KlSow=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=KBLzX/JS94Sz5xJArzGCDKX/lzPrxm3utvmb0p9U/e5vSvV5DTK1dYTljoagSxrRsF6I+2nL+pxGqXkf+w98dsbVwSWi9ePTYqlQVXs9kn2ohosKS0tGD4vU8P91L8qzIfrdqBaylnY8q5/yBt8Hist1pqERaopf0nHR59Qduy4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ov/kTBvT; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ov/kTBvT"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469a34907so118454b3a.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 17:47:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789174042; x=1789778842; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=UM4owinUOMoIRCg48l083DCebXwOaCZOmO/zB8KlSow=;
-        b=ov/kTBvTRbUOzEiD3AWH57jR2+uQNkFZwi9cfNCEDAbM4Oc48yrHxgyxsMgR84Dj1m
-         M7shOwQF55+gomRpEsO4MTW5w5S2pnHwH6uGeRB8EG0zDLCiCSsDp67bnDXH1L81rKy4
-         uP0nQd2D32OelNPh9su6lME7237aD5RVTtl0ucgpF8oAwkdjr07eszs2oI5lpbuaPhu/
-         xU8R6KXv3QH/h1sXflKIlSGzjLYHPAVvy980A5jcpcjlczojs0L4J3BmuIFuVyW/NqOP
-         calXwUbqqc4rvwCa6DHmSYMjbxcdVnHzBl/6wCVADMNrGnTRYKcqnCQuVIE1K/JOIorD
-         PwGg==
+	s=arc-20240116; t=1789174066; c=relaxed/simple;
+	bh=gMuliW5QjP2cRZymyy5ef4oU1RFUpLf2LDkUinKWE8Y=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=Lwhj+mN+EPrGe2kTTmdIcmC3+gGpOS15tHNaoXec2s9BGgiGuxGbCczK4E6Fe0Pp6OJjmq46n8RKqM0u5VknwHR4SVzNXfAn3FcpL9xbW2YFhPwCNtMUZy6h5zu+9RhjP8norNY3DlErZCCcKD3a+WIFsbmS4zxeCvOorN5cNFc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.132
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo2-f4.google.com with SMTP id 46e09a7af769-7f4e2118db8so528151a34.1
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 17:47:43 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789174042; x=1789778842;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20251104; t=1789174061; x=1789778861;
+        h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=UM4owinUOMoIRCg48l083DCebXwOaCZOmO/zB8KlSow=;
-        b=eF4hAqPu+AbP4xkoBDj17Hi04ZZMywgU1Y4W1YFwQi2/bjD9SXy91d41Vy4GkEztak
-         kXIbx9lh2RXpsf+EdLrA6G4or+dNpE27mV93TVn7GFrhBXtmuGzCChph8nY9SSVimXol
-         KtBilhWMFFAKvejH6gjnULZ9e4Jm0BcVR+XWYhPlqoWe1muiQFFJLtIqnL+Mm7GnHYBw
-         wR9zytH+4fgwZatVaH6/z/ytAlVZyyTkX6Z5K8ArfMjQaXsI3MgAJxgb4QrV4hnbt8/a
-         1Hg+vVSSsTP7qMu0z7ii1qQa1hgl9NPKuumHRys+rZo26FppsjLuH0KxmWPl+3KMBrfD
-         E9QA==
-X-Forwarded-Encrypted: i=1; AKwUvByVoUAyAzt2yP9GeJ2IYA2Go2rK7IH4Owe7kHfLvX+THF2JNsdvP3m1koxvsYbkEyCnHEanqTsizeTbaQ8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mozestHrpWK6VLY6Jax8/vaY/J9fKSiBPC1gicuUnJ1461c8Wk
-	8m2pBNKc9JZZ7vVzbQ+X2aMS/Mco0YzGCpOJxf5t3kKxx9I6BFZASZyK
-X-Gm-Gg: AYBFou2UNXcz9Sm3+ednIiafODXyYwwrU30eIoDIxkBtmiyjvP/sqCC1Z1dRfDhZzUW
-	pALBHdDs5FeW4VSwdZysf45XYJAYsAevr2+Cd8f0+7J79BJ2KAh5BK4hZwh1817RWMGedyYrkVK
-	5xo42i4dfF3aWSE8t0sYyH3FbTXDOrI4Ty5vPIGjbZ2G0vmDqL62y6a0IVUnuwWLdy1X5X5RKj4
-	cML8DRFXkVyBM5d09+ne2etCTcaouxRVMBS4CQUSgOCAKFo3DtImP9NWVX7FdHXPOmiJro79LvK
-	jfX9qfZO7ZFbO0M2IhWZ1ohPa0JOJxZ2igkLeSe81xNDtBLut693rdZUNyW5L8RLUu0b/psWxpz
-	SARboolew4GVbY3j60YfDsG/E7WzMuft1fra4VYTUuosy02SmyhbWwG6uCyUyRbfKSAGmW7fFjU
-	Alju514Q9ypDjAoNJVU++AbeQpPzXyzKrfoopsFlVeXbPjM0b9yKoGa3ptn+IwOGL7kglic1vyP
-	P7I5uyCg9Y8xz/y5nQaaxV9+gT6/ZFbvH+XI64lKjtYgKp+bPdiJSeJXiy8N/gmXeU9aEFwpoKB
-	VXFSIV51inw=
-X-Received: by 2002:a05:6300:220c:b0:3d0:57c3:65f4 with SMTP id adf61e73a8af0-3db0e0ad192mr1140052637.5.1789174042271;
-        Fri, 11 Sep 2026 17:47:22 -0700 (PDT)
-Received: from nugod-NUC15CRHU5.tail9f095a.ts.net ([218.237.104.87])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4c6572ecasm1800565a12.22.2026.09.11.17.47.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 17:47:21 -0700 (PDT)
-From: HyeongJun An <sammiee5311@gmail.com>
-To: =?UTF-8?q?Ricardo=20B=20=2E=20Marli=C3=A8re?= <ricardo@marliere.net>
-Cc: bpf@vger.kernel.org,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Mykola Lysenko <nickolay.lysenko@gmail.com>,
-	Shuah Khan <shuah@kernel.org>,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH bpf-next] selftests/bpf: Tolerate libarena skeleton failures under BPF_STRICT_BUILD=0
-Date: Sat, 12 Sep 2026 09:47:15 +0900
-Message-ID: <20260912004716.2042864-1-sammiee5311@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <DLCONMRV8YJN.2JBF36K590AXX@marliere.net>
-References: <DLCONMRV8YJN.2JBF36K590AXX@marliere.net>
+        bh=seRlCS++4FDyl1r7S13VogHo/qZgqTrgoFbcFWoWHnI=;
+        b=A97DN/3/SvHxsP3vabDcWguEaKkhZwECXNe3D9QfYweXIU36n4Rf/7jVWOVh8bk9yu
+         5XjyMMHcKuOKcqss24jE+h31mBUitUSjmZbHFKtqnlAYF8vEl9So7yrtKculUjIuqWmi
+         DbjKB8nTAsNp4aG36otfjVjN28BZIbBwkI4OTkJah/ePwC2F6WbAoQ3UhS/gTqUMCzj+
+         LtoL4QoQwy3JCqI2cxMBNS0CZ0+l7yHDgsjwyEFXtxqQRkkh+IbSmC2L8DaF23iR2i10
+         Y7GUkBrIV1njjA5Ftg/+dfJi4QsDpqD4utGp5FTcSoIHs98EiJ84pWvRPx9YTUqgDIO8
+         lQog==
+X-Forwarded-Encrypted: i=1; AKwUvBw2wpv7QHD+FcwIv6fIMoMhK3TYJOFAyNGITXRoL/f/lTUP4TD4GDQljeyZbdm7KM+eID9MtBFNrMDpECk=@vger.kernel.org
+X-Gm-Message-State: AFuF++nwFytB+CBg5IomSUm5xvApbAsAG+b9GwwuP2RApRG8nQ7F8SNv
+	kggW+SY4R1dNB8zi9PVweITCTVGhOeJ9l9fg6DE52pQqrzLm7t4vctJEOmZ6hiPEmS0L72VGd8O
+	zAhq1Hb0f9TFdgEUMmpMKs82fTnKqOw7+q7McgFZ8er1HRE3LRUTrcYGeHU8=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6820:5605:b0:6b1:b33a:db69 with SMTP id
+ 006d021491bc7-6c0bb3f863cmr6673662eaf.15.1789174061360; Fri, 11 Sep 2026
+ 17:47:41 -0700 (PDT)
+Date: Fri, 11 Sep 2026 17:47:41 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa4a12d.f81106d8.2ab401.0023.GAE@google.com>
+Subject: [syzbot] [cifs?] KASAN: slab-use-after-free Read in smb2_reconnect_server
+From: syzbot <syzbot+5003556314abc915a71f@syzkaller.appspotmail.com>
+To: bharathsm@microsoft.com, linkinjeon@kernel.org, linux-cifs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, pc@manguebit.org, ronniesahlberg@gmail.com, 
+	samba-technical@lists.samba.org, sprasad@microsoft.com, 
+	syzkaller-bugs@googlegroups.com, tom@talpey.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri Sep 11, 2026 at 03:02:35PM -0300, Ricardo B. Marlière (SUSE) wrote:
+Hello,
 
-> Under which circumstances does this happen to you? I missed this because I
-> was using defconfig + DEBUG_INFO_DWARF_TOOLCHAIN_DEFAULT + DEBUG_INFO_BTF +
-> BPF_SYSCALL + BPF_JIT
+syzbot found the following issue on:
 
-Building against the distro kernel's BTF rather than one from the tree.
-On Ubuntu 6.17, /sys/kernel/btf/vmlinux carries no bpf_kfunc DECL_TAGs,
-so the vmlinux.h generated from it has 5 __ksym declarations where a
-tree-built kernel gives 269, and all six libarena BPF sources fail on
-undeclared bpf_preempt_disable, bpf_preempt_enable and
-bpf_stream_vprintk. It seems that is why you did not run into it with a
-kernel you built yourself.
+HEAD commit:    df2908090cda Linux 7.3-rc2
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=172f6af9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=19560cab9a915237
+dashboard link: https://syzkaller.appspot.com/bug?extid=5003556314abc915a71f
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
 
-Thanks for the ack. I checked what the two bots raised and they are both
-right, including the Fixes: tag, so the patch needs more work than this.
+Unfortunately, I don't have any reproducer for this issue yet.
 
-HyeongJun
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/16e15edbf5cd/disk-df290809.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/7ccece7686f7/vmlinux-df290809.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/d0faf024d724/bzImage-df290809.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+5003556314abc915a71f@syzkaller.appspotmail.com
+
+==================================================================
+BUG: KASAN: slab-use-after-free in smb2_reconnect_server+0x1a9a/0x1b80 fs/smb/client/smb2pdu.c:4257
+Read of size 4 at addr ffff888021aca078 by task kworker/1:1/30
+
+CPU: 1 UID: 0 PID: 30 Comm: kworker/1:1 Tainted: G             L      syzkaller #0 PREEMPT(full) 
+Tainted: [L]=SOFTLOCKUP
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/05/2026
+Workqueue: cifsiod smb2_reconnect_server
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_address_description mm/kasan/report.c:378 [inline]
+ print_report+0x13d/0x4b0 mm/kasan/report.c:482
+ kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
+ smb2_reconnect_server+0x1a9a/0x1b80 fs/smb/client/smb2pdu.c:4257
+ process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
+ process_scheduled_works kernel/workqueue.c:3479 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+
+Allocated by task 9709:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
+ __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
+ kasan_kmalloc include/linux/kasan.h:263 [inline]
+ __kmalloc_cache_noprof+0x2f8/0x6d0 mm/slub.c:5563
+ _kmalloc_noprof include/linux/slab.h:991 [inline]
+ _kzalloc_noprof include/linux/slab.h:1312 [inline]
+ cifs_get_tcp_session+0x144/0x1f20 fs/smb/client/connect.c:1758
+ cifs_mount_get_session+0xc9/0x460 fs/smb/client/connect.c:3570
+ get_session fs/smb/client/dfs.c:65 [inline]
+ dfs_mount_share+0x200/0x1e20 fs/smb/client/dfs.c:275
+ cifs_mount+0xc4/0xdb0 fs/smb/client/connect.c:3860
+ cifs_smb3_do_mount+0x2c0/0x1b10 fs/smb/client/cifsfs.c:1026
+ smb3_get_tree_common fs/smb/client/fs_context.c:897 [inline]
+ smb3_get_tree fs/smb/client/fs_context.c:917 [inline]
+ smb3_get_tree+0x1fd/0x440 fs/smb/client/fs_context.c:909
+ vfs_get_tree+0x92/0x320 fs/super.c:1947
+ fc_mount fs/namespace.c:1198 [inline]
+ do_new_mount_fc fs/namespace.c:3772 [inline]
+ do_new_mount fs/namespace.c:3848 [inline]
+ path_mount+0x7d0/0x24c0 fs/namespace.c:4168
+ do_mount fs/namespace.c:4181 [inline]
+ __do_sys_mount fs/namespace.c:4397 [inline]
+ __se_sys_mount fs/namespace.c:4374 [inline]
+ __x64_sys_mount+0x293/0x310 fs/namespace.c:4374
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+Freed by task 9713:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ kasan_save_free_info+0x3b/0x70 mm/kasan/generic.c:584
+ poison_slab_object mm/kasan/common.c:253 [inline]
+ __kasan_slab_free+0x5f/0x80 mm/kasan/common.c:285
+ kasan_slab_free include/linux/kasan.h:235 [inline]
+ slab_free_hook mm/slub.c:2748 [inline]
+ slab_free mm/slub.c:6499 [inline]
+ kfree+0x22b/0x6d0 mm/slub.c:6792
+ clean_demultiplex_info+0x98a/0xe90 fs/smb/client/connect.c:1146
+ cifs_demultiplex_thread+0x5b5/0x2ea0 fs/smb/client/connect.c:1439
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+Last potentially related work creation:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_record_aux_stack+0xa7/0xc0 mm/kasan/generic.c:556
+ insert_work+0x36/0x230 kernel/workqueue.c:2272
+ __queue_work+0xa60/0x1370 kernel/workqueue.c:2448
+ __queue_delayed_work+0x357/0x450 kernel/workqueue.c:2617
+ mod_delayed_work_on+0x195/0x1c0 kernel/workqueue.c:2705
+ mod_delayed_work include/linux/workqueue.h:730 [inline]
+ cifs_queue_server_reconn fs/smb/client/cifsglob.h:2340 [inline]
+ cifs_queue_server_reconn fs/smb/client/cifsglob.h:2336 [inline]
+ __cifs_reconnect+0x51d/0xa80 fs/smb/client/connect.c:431
+ _cifs_reconnect fs/smb/client/connect.c:590 [inline]
+ cifs_reconnect fs/smb/client/connect.c:604 [inline]
+ cifs_readv_from_socket+0x7c1/0xa30 fs/smb/client/connect.c:743
+ cifs_read_from_socket+0xb8/0x100 fs/smb/client/connect.c:798
+ cifs_demultiplex_thread+0x2db/0x2ea0 fs/smb/client/connect.c:1288
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+The buggy address belongs to the object at ffff888021aca000
+ which belongs to the cache kmalloc-4k of size 4096
+The buggy address is located 120 bytes inside of
+ freed 4096-byte region [ffff888021aca000, ffff888021acb000)
+
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x21ac8
+head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
+flags: 0xfff00000000040(head|node=0|zone=1|lastcpupid=0x7ff)
+page_type: f5(slab)
+raw: 00fff00000000040 ffff88801c02e140 dead000000000100 dead000000000122
+raw: 0000000000000000 0000000000040004 00000000f5000000 0000000000000000
+head: 00fff00000000040 ffff88801c02e140 dead000000000100 dead000000000122
+head: 0000000000000000 0000000000040004 00000000f5000000 0000000000000000
+head: 00fff00000000003 fffffffffffffe01 00000000ffffffff 00000000ffffffff
+head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000008
+page dumped because: kasan: bad access detected
+page_owner tracks the page as allocated
+page last allocated via order 3, migratetype Unmovable, gfp_mask 0xd2040(__GFP_IO|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 4981, tgid 4981 (udevadm), ts 33953960392
+ set_page_owner include/linux/page_owner.h:33 [inline]
+ post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1871
+ prep_new_page mm/page_alloc.c:1879 [inline]
+ get_page_from_freelist+0x110d/0x35d0 mm/page_alloc.c:3943
+ __alloc_frozen_pages_noprof+0x2eb/0x3300 mm/page_alloc.c:5436
+ alloc_slab_page mm/slub.c:3347 [inline]
+ allocate_slab mm/slub.c:3462 [inline]
+ new_slab+0xa9/0x6e0 mm/slub.c:3513
+ refill_objects+0xe3/0x410 mm/slub.c:7410
+ refill_sheaf mm/slub.c:2885 [inline]
+ __pcs_replace_empty_main+0x35e/0x650 mm/slub.c:4774
+ alloc_from_pcs mm/slub.c:4850 [inline]
+ slab_alloc_node mm/slub.c:4984 [inline]
+ __do_kmalloc_node mm/slub.c:5413 [inline]
+ __kmalloc_noprof+0x67c/0x840 mm/slub.c:5439
+ _kmalloc_noprof include/linux/slab.h:995 [inline]
+ tomoyo_realpath_from_path+0xb6/0x690 security/tomoyo/realpath.c:251
+ tomoyo_get_realpath security/tomoyo/file.c:151 [inline]
+ tomoyo_check_open_permission+0x2af/0x3c0 security/tomoyo/file.c:776
+ tomoyo_file_open+0x6b/0x90 security/tomoyo/tomoyo.c:334
+ security_file_open+0xb5/0x1e0 security/security.c:2739
+ do_dentry_open+0x588/0x14d0 fs/open.c:973
+ vfs_open+0x82/0x3f0 fs/open.c:1101
+ do_open fs/namei.c:4837 [inline]
+ path_openat+0x19fa/0x2440 fs/namei.c:5000
+ do_file_open+0x20e/0x430 fs/namei.c:5029
+ do_sys_openat2+0x10f/0x1e0 fs/open.c:1417
+page last free pid 4981 tgid 4981 ts 33942031212 stack trace:
+ reset_page_owner include/linux/page_owner.h:26 [inline]
+ __free_pages_prepare mm/page_alloc.c:1418 [inline]
+ __free_frozen_pages+0x79f/0x10f0 mm/page_alloc.c:2962
+ qlink_free mm/kasan/quarantine.c:163 [inline]
+ qlist_free_all+0x47/0xf0 mm/kasan/quarantine.c:179
+ kasan_quarantine_reduce+0x1a0/0x1f0 mm/kasan/quarantine.c:286
+ __kasan_slab_alloc+0x69/0x90 mm/kasan/common.c:350
+ kasan_slab_alloc include/linux/kasan.h:253 [inline]
+ slab_post_alloc_hook mm/slub.c:4683 [inline]
+ slab_alloc_node mm/slub.c:4996 [inline]
+ __kmalloc_cache_noprof+0x278/0x6d0 mm/slub.c:5559
+ _kmalloc_noprof include/linux/slab.h:991 [inline]
+ _kzalloc_noprof include/linux/slab.h:1312 [inline]
+ kernfs_get_open_node fs/kernfs/file.c:536 [inline]
+ kernfs_fop_open+0x9fa/0xd50 fs/kernfs/file.c:711
+ do_dentry_open+0x6ab/0x14d0 fs/open.c:996
+ vfs_open+0x82/0x3f0 fs/open.c:1101
+ do_open fs/namei.c:4837 [inline]
+ path_openat+0x19fa/0x2440 fs/namei.c:5000
+ do_file_open+0x20e/0x430 fs/namei.c:5029
+ do_sys_openat2+0x10f/0x1e0 fs/open.c:1417
+ do_sys_open fs/open.c:1423 [inline]
+ __do_sys_openat fs/open.c:1439 [inline]
+ __se_sys_openat fs/open.c:1434 [inline]
+ __x64_sys_openat+0x12d/0x210 fs/open.c:1434
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+Memory state around the buggy address:
+ ffff888021ac9f00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+ ffff888021ac9f80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+>ffff888021aca000: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+                                                                ^
+ ffff888021aca080: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+ ffff888021aca100: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+==================================================================
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
