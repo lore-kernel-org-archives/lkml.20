@@ -1,132 +1,134 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from bg-bec.cloudflare-smtp.org (bg-bec.cloudflare-smtp.org [104.30.16.142])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFA6447C10B
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 12:57:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72863479887
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 12:58:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=104.30.16.142
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789217867; cv=none; b=HD5dLV/O/wqXQQ1oilia9GLfRZTzX430YmUes1wfKLtGOGyE+pwwpie4wSxVgHcslNOpnV9xOu9TkarfDpryulbVgfSs81ZUkbcx0RPggsUcTK0HU3EEsWuqKA/AENlq0R9xbyMH+GZYs3YCvWRCY01T/0SAsykgUMkeHQUVwkk=
+	t=1789217913; cv=none; b=CBgcRWpNG/qGKJ7yY6wplp2mBI6NB+qgkJkWUkfJ31KfsLRf0zsgIQ7WiRW35DBM5W9XoN4qaB0k3CAyEAIhA7zk4di6NgyvMHP/O30X/G+uo1XrGYNevMGqX6X7OXvMiONyDW3oyFqKzvsK9MQ8zst6vUl1wEEiq5Up+QgSg0g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789217867; c=relaxed/simple;
-	bh=6N0ifHQ8O4u0BOZ6EF0w79HnCW/yPo/3nI3uyCXuO9A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UlpBQ8cj8bVrKfXHUyp0gbnY8Lbhmg/E8qRQFSg9Wn4zH69IpPFUyBc//TyZMW5Btb6AIQ4Mz/SFyYxSC7v7jfUQcpXq8LCDEeCZuDZuVxNvjIX9yZOZVYVOBSbhJ5Pap9NoRPm91lt/mdsP312Bt3TXHhra1Ph2MGc56jhL2JI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EbjKGRPl; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789217913; c=relaxed/simple;
+	bh=CiR+odxiVwuzgwSo3ojh+uMzBJIy7yqYBxOC8VZM+1o=;
+	h=From:Message-ID:Date:Subject:To:Cc:MIME-Version:Content-Type; b=AHBRACUlWI/wNy0SrYBeE5yiDxRIVZq9JbEY66aMLK1YWaA6DdwQcAKqoryHUX0asMsK3l42HIGpCm07Ss8lOPjW9X2wdnXT1fkorExCqfno30KL2egEDuifIYIeJVXpAFHmnbRK3CMW6XxFuvgpCIE0uF9C52t4BENYFKgtVLA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh; spf=pass smtp.mailfrom=cf-bounce.bugs.sh; dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b=Dcb5CzXA; dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b=OLbXOyiH; arc=none smtp.client-ip=104.30.16.142
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cf-bounce.bugs.sh
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EbjKGRPl"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e620fa473so2333865e9.1
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 05:57:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789217863; x=1789822663; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fAOw7eoVc0zYvL/f6e+XZRwdegk97u7KcjQYPN92otE=;
-        b=EbjKGRPljO2qrPEBnoEgqtDd0zQR2r+b3aOlfB3jgvjj/jbfwJIrJQ/YRGqeY1ghsY
-         8R+xMJzvmtU2vUoJgWCVLu3zb/Si657b8n2c9b/2fvU1Rjvl1Qo2syKdJ5MtwsU97aHr
-         JR0/hflFEuGPvsfbVLaFsNkvbhYrfgrgTqjTfuLpevFO8i4fQAk0T6JI95zVtLxGvKRW
-         5D9+WCEMSJYDHpBsGWwjOjB3CaRaoOMio/XI2tsfyi4PWplk2/n+kcXATlHyAq+fEKqV
-         SZo3UrNg/gcthiubYF3MfmZGXIb3f2UnBhSrMpz1o07zsIMs79YhTc9n5SXdQi1W5E7B
-         m8qw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789217863; x=1789822663;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fAOw7eoVc0zYvL/f6e+XZRwdegk97u7KcjQYPN92otE=;
-        b=CuOQ7t55ecj8e+IxiGbr5+6BVOrMfAT1SYE2D6yf4Y/Vj/RgRM0nBm4+tjfd4QQXao
-         edbkq07X1ugOorm1RVsCtgvru/ExfrTnfN8bsURA2XtFaulx1HjzE+vZJMC22EKYWqhX
-         MM3PJNLuO91irrow/1twkucLsqh9k5wkvaOfznwLPe8A3gsEdVHSihGCM7/cNY6LzJG+
-         /JBAfzvdWUSKVXI5f7QI+4xzHS81sbApSs0H8v44C9TCyispgs+30Zj0ghTscbik9Cai
-         AIuuAk2BtgyW9rNKaxj9hibKpLjUCZeO6xOEaYVV3Qtx9aRLVTkPQH4rzDKVSt2e0bub
-         HniQ==
-X-Forwarded-Encrypted: i=1; AKwUvByQQutNObabThj73NHi5+BP52wLfib2jzjqkVdi8an6+J5ezSwtOvw4YAUN09tYRAF68vj7BWs/ppVX3+A=@vger.kernel.org
-X-Gm-Message-State: AFuF++l/6HIwZiJb2rNPf55sv96xh7//IG6vTIx6Yk43PZQG8LlypKBy
-	4Z+mQ9KpY4NDuVJ4hBdK9apyhnNZ+5EitwqLtonVkG8GgirV3p6Q9UoX
-X-Gm-Gg: AYBFou28uMzDDlPZnCemqtCJOKvEd2NDwS/5fjG58i8LoGnXgYSbPmCf8wdLFsjAI3Q
-	k3xFI/fgm0u5bWfbZawX4ug3GQJYyfShaECaAH8nl7VwKWEU04Ee9YVk9M1pPJWkK0tzQGSDiGq
-	nhqZJPFau69kCZjwr7t7B4eFpxO4zs8xLVGaqFHXvRn9fAsBSHS8zWJJ2Qn1+9gzCVoaxh07hHY
-	yxSnhyPcuDT/i2vlXwFMSJxDf8NqN61vVusmB3JCHyesMgX+QVsLn+Gfl6BbAyb1uC71pdi6Kw3
-	WNhTiHxWLwaELMAS/N9bIItOXzh6g6znYONQdgTDqO1/8mOLSN16GBZovF2KKz9DMYbJrhIZJLD
-	+Ak4Pj6zUEBP+tPrIggZlvhciCSkYT2OT/oUYsa+t8nEeP6OeYhOPj/NXmX8JwBSBPbM22iQOlh
-	JinFSexDe2LOXiVLXgtls1nj6KYQ9c0DUkYKwHhZo1EhS4w49ZUZO5zqHuOZtC+mijbWqQW2bz2
-	9uy6IbliClfwVdDYKhcb0Haxtr86ARmLwUK47ffF/WKpyx/FcRDcYhvGdwnp85GMKXF5Ua+dykL
-	I5qHxHSg/o+cmc+6q6HZXi8nKTY=
-X-Received: by 2002:a05:600c:6812:b0:49d:1d7e:4085 with SMTP id 5b1f17b1804b1-49e6cbec30dmr21535245e9.22.1789217862965;
-        Sat, 12 Sep 2026 05:57:42 -0700 (PDT)
-Received: from [10.192.161.217] (82-132-213-27.dab.02.net. [82.132.213.27])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb32e7f5sm12751635f8f.9.2026.09.12.05.57.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 12 Sep 2026 05:57:42 -0700 (PDT)
-Message-ID: <0c787163-dd07-4389-b9d5-916b8753f388@gmail.com>
-Date: Sat, 12 Sep 2026 13:57:37 +0100
+	dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b="Dcb5CzXA";
+	dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b="OLbXOyiH"
+DKIM-Signature: v=1; a=rsa-sha256; s=cf2024-1; d=cloudflare-smtp.org; c=relaxed/relaxed;
+	h=Cc:To:Subject:Date:From:Feedback-ID:from:reply-to:resent-date
+	:resent-from:resent-to:resent-cc:in-reply-to:references:list-id:list-help
+	:list-unsubscribe:list-unsubscribe-post:list-subscribe:list-post
+	:list-owner:list-archive; t=1789217911; x=1789822711; bh=sm+60t/kvXHkjPoj/g
+	Rh4LpJ8m7VfGdzadTUcCuTxRM=; b=Dcb5CzXAJr8WnSsIaiz2DWQjoDMWTlp4uIqgn5WmU6m/I
+	ghKalv0S360IS2/V8s5CtudzxQzwqL0caKaslw6zHlRs+j1z22OTdBTDSfu3WPqiVevOD9W+TwK
+	Q6otS8AxPQ3n0ZRhNynrCtopUJFX4zTuRVSeTc3dcq+gz5deTsvuYxM9SabwvXkQjioo/b2zCLu
+	e579kK2lIg7/7XtpQxIwkebIF3Cba/4js81yfsd0gqNFcJjPje1HaHzrwG2T1ENQ4PqQVGCDX2l
+	RcCcJT6oHXkKT6Svw5x4eRE15B+xk7XMCNIueSnEsv7glXqvPFfTG2olkUQlizufjO7f0+rg==;
+DKIM-Signature: v=1; a=rsa-sha256; s=cf-bounce; d=bugs.sh; c=relaxed/relaxed;
+	h=Cc:To:Subject:Date:From:Feedback-ID:from:reply-to:resent-date
+	:resent-from:resent-to:resent-cc:in-reply-to:references:list-id:list-help
+	:list-unsubscribe:list-unsubscribe-post:list-subscribe:list-post
+	:list-owner:list-archive; t=1789217911; x=1789822711; bh=sm+60t/kvXHkjPoj/g
+	Rh4LpJ8m7VfGdzadTUcCuTxRM=; b=OLbXOyiHsOBRlaHVxprHulkacxAryToDBP80IJAgfG95z
+	DiPePuYDwAloRfzeVlUs+8EUVXIvIb8sKxfrecg+o3lqEC6kA+AGVKF7TMaYhSJSAzCKJp0uKiJ
+	fVxJEwFl50x+KuViKI/1NNW+Fb9CLEq1sWpR/eMPqi3KVB9524wW069NkqPdwJUvJvNtxaFMEOz
+	aJbynmzap2dQ29+rSO8/q+qik5T1W3R6BkLAUMrDwGhZKqcO+YMIJcGrrVzV6o+eInC5CfiQug/
+	2zd7/9CXi/bn7TeUFGMkBI1dGwrOWR4cYlITsWtJgCZZzRJnzWp4NDpxzLhfJuOQMANEJB+w==;
+Feedback-ID: bugs.sh:5:6:Cloudflare
+From: co <co+9782320f78c23f40@bugs.sh>
+Message-ID: <51lCz4R7QyTUKbh4mhXNaNzX0evpk0siOzbh@bugs.sh>
+Date: Sat, 12 Sep 2026 12:58:27 +0000
+Subject: [BUG] drivers/media: divide-by-zero in em28xx_audio_init()
+To: linux-media@vger.kernel.org, "Mauro Carvalho Chehab" <mchehab@kernel.org>
+Cc: linux-kernel@vger.kernel.org, co <co+9782320f78c23f40@bugs.sh>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 00/16] Add dmabuf read/write via io_uring
-To: Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>,
- Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
- linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-nvme@lists.infradead.org, linux-fsdevel@vger.kernel.org,
- io-uring@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Nitesh Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>,
- Anuj Gupta <anuj20.g@samsung.com>, Tushar Gohad <tushar.gohad@intel.com>,
- William Power <william.power@intel.com>, Phil Cayton
- <phil.cayton@intel.com>, Damien Le Moal <dlemoal@kernel.org>,
- Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
- Mikulas Patocka <mpatocka@redhat.com>,
- Benjamin Marzinski <bmarzins@redhat.com>,
- Vishal Verma <vishal.l.verma@intel.com>, David Sterba <dsterba@suse.com>,
- Ilya Dryomov <idryomov@gmail.com>, dm-devel@lists.linux.dev,
- nvdimm@lists.linux.dev, linux-btrfs@vger.kernel.org,
- ceph-devel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>
-References: <cover.1785596451.git.asml.silence@gmail.com>
- <178907372259.484803.15807864431748251506.b4-ty@b4>
- <eb469580-509a-4895-a819-e7f3e4fa0b0a@kernel.dk>
-Content-Language: en-US
-From: Pavel Begunkov <asml.silence@gmail.com>
-In-Reply-To: <eb469580-509a-4895-a819-e7f3e4fa0b0a@kernel.dk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 9/10/26 21:58, Jens Axboe wrote:
-> On 9/10/26 2:55 PM, Jens Axboe wrote:
->>
->> On Sat, 01 Aug 2026 16:46:12 +0100, Pavel Begunkov wrote:
->>> The patch set allows to register a dmabuf to an io_uring instance for
->>> a specified file and use it with io_uring read / write requests. The
->>> infrastructure is not tied to io_uring and there could be more users
->>> in the future. A similar idea was attempted some years ago by Keith [1]
->>> (from where I borrowed a good number of changes). Later it was brough
->>> back up to life by Tushar and Vishal.
->>>
->>> [...]
->>
->> Applied, thanks!
-> 
-> Eh no it is not applied, was just looking at the series locally and I
-> guess it got added to the b4 ty pile.
-> 
-> I am, however, wondering if we'll see a v6 of this soon? I had some
-> comments on the nvme dma mapping, that can be improved, but I'd rather
-> defer that to post getting this included.
+This is a bug report, not a patch submission.
 
-Working on it
+We found a bug reachable in:
 
--- 
-Pavel Begunkov
+    path    drivers/media/usb/em28xx
+    crash   divide-by-zero in em28xx_audio_init()
+    commit  2f1baf1fc892 ("Merge tag 'trace-v7.2-rc7' of git://git.kernel.o=
+rg/pub/scm/linux/kernel/git/trace/linux-trace")
+
+Config, environment, the sanitizer report and a C reproducer follow.
+
+=3D=3D Notes =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+    If you fix this bug, this tag credits the report and lets us
+    close it on our side:
+
+Reported-by: co+9782320f78c23f40@bugs.sh
+
+    Everything in this mail is validated by the reproducer below.
+
+    We also hold an unreviewed LLM-generated analysis and candidate
+    patch. The same reproducer panics the unpatched kernel and runs
+    clean with that patch applied. Use it as a starting point, or ignore
+    it and write your own:
+
+        patch.diff  https://bugs.sh/b/9782320f78c23f40/patch.diff
+        report.md   https://bugs.sh/b/9782320f78c23f40/report.md
+
+    Happy to test patches. Complaints and suggestions about our work
+    are welcome at:
+
+        cedalion@bugs.sh
+
+=3D=3D Environment =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+    Reproduced on  2f1baf1fc892 ("Merge tag 'trace-v7.2-rc7' of git://git.k=
+ernel.org/pub/scm/linux/kernel/git/trace/linux-trace")
+    VM setup       https://bugs.sh/b/9782320f78c23f40/run.sh
+    config         https://bugs.sh/b/9782320f78c23f40/config.gz
+    poc            https://bugs.sh/b/9782320f78c23f40/repro.c
+
+=3D=3D Sanitizer Report =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+Oops: divide error: 0000 [#1] SMP NOPTI
+CPU: 0 UID: 0 PID: 795 Comm: kworker/0:2 Not tainted 7.3.0-rc1 #1 PREEMPT(f=
+ull)
+Workqueue: events request_module_async
+RIP: 0010:em28xx_audio_init (drivers/media/usb/em28xx/em28xx-audio.c:718 dr=
+ivers/media/usb/em28xx/em28xx-audio.c:870)
+Call Trace:
+em28xx_init_extension (drivers/media/usb/em28xx/em28xx-core.c:1248)
+process_one_work (kernel/workqueue.c:3396)
+worker_thread (kernel/workqueue.c:3479 kernel/workqueue.c:3560)
+kthread (kernel/kthread.c:436)
+ret_from_fork (arch/x86/kernel/process.c:158)
+ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
+Kernel panic - not syncing: Fatal exception
+
+
+---
+The report format is based on syzbot bug report.
+
+This report is generated by a bot. It may contain errors.
+See https://github.com/n132/cedalion for more information.
+
+For any issue with this report, reach out to cedalion@bugs.sh
+
+If the report is already addressed, let us know by replying with:
+#co fix: <commit hash>
+
+If the report is a duplicate of another one, reply with:
+#co dup: <lore link>
+
+If you want to undo deduplication, reply with:
+#co undup
+
 
