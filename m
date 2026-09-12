@@ -1,133 +1,97 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33D9537F8DD;
-	Sat, 12 Sep 2026 07:47:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AAFF2D8382;
+	Sat, 12 Sep 2026 07:48:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789199264; cv=none; b=RziEV23Z9ucJmn+oVqvc104qyWho1m14Vm/2V15SlaFRh5cMWtCcSTUgjnR4Pj72sOL7S7j3VsNgd9yyBCifl/a8ncTqew4+7EbZQna1rlT75ZD2KZTx2R0hd9V/o0MV+NdKJ3yPJd7zXyZ5SlqDaSueLxgUIWXnrapQiFQ1z6A=
+	t=1789199294; cv=none; b=T/dOAgX0RNoU+dw8W3SA4+xbbSzXf0Qv+gGo2OALMlWeIdg/CIATYpBgF+O6Bama/iJlMY2KwEIBLpZPITllf5wt4SIBA4DVxBep5loT+heAOetcq9lVx1ZEtLaKY6axpJGOd2L68cl8XdMSrWhXEGq7pg5szF8aOVAo4sEKxFE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789199264; c=relaxed/simple;
-	bh=R/Wd26fZOArpDS0VCiW2VIg+U6TfjdnRy5lUqkHrXds=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WovVo9mYxiJBzjipr8aelWmajXIt6nulIgM+VAZuokirvODZHbejitYqvnwlEOJHYCI2Div7mLAy4URthlVLFfbH6wOaGoDwJQTlSI+I6Nyn2+8kLNy95pqV0ntCOdILw+EzMth4FsaYdZ63AOJOME/vGQxDdmD6GZkPrgOWXfs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j/uoTbdk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789199294; c=relaxed/simple;
+	bh=g+thXLaVzZeLKjj7wi7oagUK+H7sISWDAQKOPEGzHy0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Ac8BrxQfW1UC2qY4KtWEWermGUy9nk0SLG1NKO1dn1e+Bm0AoUuNKY5H0I0MiRBeqQdaLw1EIfFxX4LFhNbYRkW5ip3tvk/0DDy5A5H1y2QmwV/8iHVZ5JdhXEyaJof1ccG3ACLgozjee6HAFk3+MtbRMihLGhVKw/sDbge8aV4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn; spf=pass smtp.mailfrom=tju.edu.cn; dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b=liQu4yD7; arc=none smtp.client-ip=45.254.49.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tju.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j/uoTbdk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2CDB1F000FF;
-	Sat, 12 Sep 2026 07:47:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789199263;
-	bh=fEk/+hjIO0JPeORZMXigoTsG7Twv5Bvnn+lcX8uIdUA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=j/uoTbdkemp1lTBkEdp7a5iePn6loWnzURddGH+pHmbp3TdI+Ht9vKB5+5HDaMkTz
-	 4XMNQMCixVIjSJgIUIpdDJkP3e+Zk7Zp6DLG8R0pbbNCMi+vNKMW8vXDXOqhrK+f5T
-	 4ubb7OTc080BSuVU8WcfJykWnX7f5Z0WoVW04LQG4n3ICAqaFQYrolJW1Id7gDkGyT
-	 9XdoNxIDMO+1FxLFBT1mCMBpRGz0RyDmtz4V9EskILs09SHmK1bOxAd64LIXEduN84
-	 G01WKPddNVoqYjlumTombMlc6OK9zmDzR1HpVKwt+t7qHgrMeljIhAzddIk6rPIX4a
-	 HVtiSFigUNPcQ==
-Message-ID: <0e917c61-8be9-4919-9173-0dd92e1c0d22@kernel.org>
-Date: Sat, 12 Sep 2026 09:47:38 +0200
+	dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b="liQu4yD7"
+Received: from tju.edu.cn (gy-adaptive-ssl-proxy-1-entmail-virt204.gy.ntes [183.242.150.9])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4d8263c19;
+	Sat, 12 Sep 2026 15:47:54 +0800 (GMT+08:00)
+From: Yibo Tan <lhfff@tju.edu.cn>
+To: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+	"Martin K. Petersen" <mkp@kernel.org>
+Cc: Wenchao Hao <haowenchao2@huawei.com>,
+	Douglas Gilbert <dgilbert@interlog.com>,
+	linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v1] scsi: scsi_debug: Drain RCU callbacks before module exit
+Date: Sat, 12 Sep 2026 15:47:37 +0800
+Message-Id: <20260912074737.972055-1-lhfff@tju.edu.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/3] arm64: dts: qcom: sdm845-oneplus: use generic fuel
- gauge compatible
-To: Andrew Davis <afd@ti.com>,
- Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Sebastian Reichel <sre@kernel.org>,
- David Heidelberg <david@ixit.cz>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, =?UTF-8?Q?Pali_Roh=C3=A1r?= <pali@kernel.org>,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260829205258.26955-1-rinat.muhamedgaliev@gmail.com>
- <20260909234744.1177153-1-rinat.muhamedgaliev@gmail.com>
- <20260909234744.1177153-4-rinat.muhamedgaliev@gmail.com>
- <20260911-relaxed-dexterous-hummingbird-72dfbe@quoll>
- <6c45cfd5-ac37-4f8e-bde3-0391512df982@ti.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <6c45cfd5-ac37-4f8e-bde3-0391512df982@ti.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa0949650ab03a1kunmba0e1024207ae7
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCTRpJVkMfSh4ZSkhDHxgdSVYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKQ0hVSU9JVUpOS1VCWVdZFhoPEhUdFFlBWU9LSFVKS0lPT0
+	9LVUpLS1VLWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=liQu4yD7kKD/BFGg0wmr9vOjOc7ARkgsxlP+Wws7kR9jUtqNpqO5hDsXwpSMwDVYKRnKc2ywJkOMBlOXCACq11dARzu+lfBIATh4HKCW07/KbEkwTEsVHpaKPD4ZYXTKGLu8/mB1vWe2PARouBr5GYnx8/vpyFlVOjc1AsYYHVU=; c=relaxed/relaxed; s=default; d=tju.edu.cn; v=1;
+	bh=0HcXmb4vP4kcSsXp8HlCncD4DDQeBwH68MBh/XEiDwc=;
+	h=date:mime-version:subject:message-id:from;
 
-On 11/09/2026 15:37, Andrew Davis wrote:
-> On 9/11/26 3:21 AM, Krzysztof Kozlowski wrote:
->> On Thu, Sep 10, 2026 at 02:47:44AM +0300, Rinat Muhamedgaliev wrote:
->>> OnePlus 6 and OnePlus 6T battery packs may contain either a TI
->>> bq27411 or bq27541 fuel gauge. Use the generic ti,bq27xxx compatible
->>> so the driver can select the register map from DeviceType at probe
->>> time.
->>>
->>> Tested on OnePlus 6T (fajita) with a bq27541 (DeviceType 0x0541):
->>> after booting the new kernel, the battery reported 4.360 V, 100% state
->>> of charge, 27.8 C, and Full status.
->>>
->>> Fixes: 12dfb002ca01 ("arm64: dts: qcom: sdm845-oneplus-*: add fuel gauge")
->>
->> What is the bug here? Your commit msg should be specific about it.
->>
-> 
-> Commit msg seems pretty clear about the bug (to me at least), the DT
-> says the fuel gauge is a BQ27411 but that isn't the case, some shipped
-> with a BQ27541 fuel gauge.
-> 
-> (I do agree though this shouldn't have a fixes tag as back-porting this
-> without also back-porting the driver-side change would break users)
+Replacing or removing a debugfs error-injection rule queues
+sdebug_err_free() through call_rcu(). Device teardown also queues this
+callback for every remaining rule. The callback resides in scsi_debug
+module text, but scsi_debug_exit() does not wait for queued callbacks
+before returning.
 
-But different model is not a bug by itself. If devices are compatible
-how would it be a bug? if everything is working fine with different
-model how would that be a bug?
+With lazy, offloaded RCU callbacks enabled, two runs replaced the same
+error-injection rule 16 times and successfully unloaded scsi_debug.
+Eleven seconds later rcuop/0 executed at the former module text base plus
+0x1f0, the exact ELF offset of sdebug_err_free(), and hit the module
+unload poison.
 
+Call rcu_barrier() after teardown has stopped future callback submissions
+so that all queued callbacks finish before the module text is released.
+Two runs with the fix completed the 30-second post-unload observation
+without an Oops, KASAN report, warning or panic.
 
-Best regards,
-Krzysztof
+The tested scsi_debug.c is byte-identical to the file in current mainline
+and the current SCSI for-next branch.
+
+A source reproducer, kernel configuration, complete serial logs and the
+vulnerable/fixed result table are available at:
+
+https://github.com/kimaiden1984-boop/linux-kernel-poc-collections/tree/main/cases/scsi-debug-rcu-callback-after-unload
+
+Fixes: a9996d722b11 ("scsi: scsi_debug: Add interface to manage error injection for a single device")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:GPT-5
+Signed-off-by: Yibo Tan <lhfff@tju.edu.cn>
+---
+ drivers/scsi/scsi_debug.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/scsi/scsi_debug.c b/drivers/scsi/scsi_debug.c
+index 3346562275f8..2fdb1cbe470b 100644
+--- a/drivers/scsi/scsi_debug.c
++++ b/drivers/scsi/scsi_debug.c
+@@ -8676,6 +8676,7 @@ static void __exit scsi_debug_exit(void)
+ 	sdebug_erase_all_stores(false);
+ 	xa_destroy(per_store_ap);
+ 	debugfs_remove(sdebug_debugfs_root);
++	rcu_barrier();
+ }
+ 
+ device_initcall(scsi_debug_init);
+-- 
+2.39.5
+
