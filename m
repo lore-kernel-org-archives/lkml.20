@@ -1,108 +1,123 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch [109.224.244.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07A4336729D
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 06:26:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16D2C3603C3;
+	Sat, 12 Sep 2026 06:25:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789194382; cv=none; b=EHKPj6X1veIvpbL5XG8xPW0RMM14l+4zmGjYH+k1YQSINwRwwW4ZbAexAayqui3H6vVb4u69Ltf6Jw5+K0PBv7Id7rstaZ6kcBjV5mDcfyYiP1QLe+fXHs0hKxW7G7inTQQ3IIV5LKJEhLc2pRKB40APKyp+4dZhbBdUEh3MugQ=
+	t=1789194364; cv=none; b=qdDOwBzo6tqxgoFZRntc9hJMnkfMECNKswMVTJW5lfrme8IuvdmVEBiJstBSJ68CwEyiyk3ARz8vBynWGGfxKQuiNuds7aPCJBc5QaJFFkNN2AsuqykE4hni+bay2VNjI50+SDRJDwAST+N3Stljrtf3HoPaDyZjUWVW+xZ7L38=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789194382; c=relaxed/simple;
-	bh=4+N7cdDhN3844Z1q8z+zFikbwV4LBr5lVJ1YjHeeoFs=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=g+B5lNAGYGfqCCuoj58Cb++V0GJDzISylL2vveEmc/FbZ0SUqtkgjdDYvA3b3Ea+EzBBU/OFXpZpXeMpUDk5STUQfzQ/TncfrJEVFLHbebbxZ+0glamCP5eMJd+4ESlKmaIbiIlapfbJlPTTjxEp5RrHASd1FO8erGyWsz1D9fA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f8tdQYhB; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789194364; c=relaxed/simple;
+	bh=LXFB/ZwOqDYyjksqQ2b0dmXeG+8rjPHlC4T+NYMGW5I=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=IeCIhM55a3qrjHI47Nkg9ruxOD0uwG85GyOZcYI0AURFXDbTREr8vGWX+DZyI2RgaenzyfqdijRF62KInEcf+p7kCmLZXqmuGlJglGOqTIvei2MtyOF7bK27qTtryhUynm5Z4XuL48ki9+SoeKvNafsMHp3RDz5lbxABzogqxjQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=CqvRM8QL; arc=none smtp.client-ip=109.224.244.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f8tdQYhB"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccff31419so2168175e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 23:26:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789194379; x=1789799179; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ztIntik1xeW8jWQz7bcwpnWQ4yK2/dDMrcPOzey+VHE=;
-        b=f8tdQYhBBfOJUEvFAA3vjecV13jPgs2zZXXymqBFS034ofTkKRXXtNTOYbY2oQ6sdB
-         SyRUgShgwBASRUeof1HO92zIXscqdaljlKsQ0ugfsvTUop1zlXDIrxx/bVloPiUySZvt
-         anwf8ukJ7AFMETsoIRkext14/P8alAS3DKLZstvRjxPfAndFsBU/yoZQMvlXYgUqcFRn
-         OFtTfkJP/aY2uFqPY+P0D+5Uo13rpIQmYy50OupNcxqs2Ir7HWVPnNMvwFGDv7E8UV3l
-         OY+EGTaQSatgh/Vb66APo5+hXNYjstGX6Z2+Qy0wgHwAolSX9V4PLuSsarqFJj/HI2mh
-         MrGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789194379; x=1789799179;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ztIntik1xeW8jWQz7bcwpnWQ4yK2/dDMrcPOzey+VHE=;
-        b=kZ330ImiJABGMZek9SN3UtPVBgN9feevE/EX77FfhvwzX6agBB+MNm7jAkNS7rc0dJ
-         ZY5VGEnwUFis89IfNQLNKqPA71ZMGo7LhJE3dJxBClNuowNeydGnplgccEfu336DQa5K
-         3ko4OJMbtbLZnItx7zQdYsQ4K53c7i4nbbmmpPbyg5j97jRmpsgwd4MuXk5FEDohpo4I
-         O9aVvW4wyJh6Al9NrO8LAP3HSZSlyIP9Ynb6x9f+T1UfzndoLRDDyAe3g/uobnz/dYMs
-         bQyD+4gj0cutbf3yEV+yJYZJSBchp7uIO0fsA4uly82+1w7XmmO0x7skLU5im0wN8dbx
-         5img==
-X-Forwarded-Encrypted: i=1; AKwUvBwnfpNRW8GdcxsCSwIWGvCjeeBZm2ceJpCO8r+7IOZs4aKJS8D6CUqv10ZNjVx/Hk8tVUDzSqNNRudB5TM=@vger.kernel.org
-X-Gm-Message-State: AFuF++mA3mUz79cJEfQ9Po+dTchvbDbOZfdLP78V90N1gOjLZ7t/0HFf
-	mbJmkXwLfv4niVfpkW2P9k6GYe1iI6miVkXetCU7NyLCUUZp0WbZfXhz
-X-Gm-Gg: AYBFou2kiv2CNT5KOsd4lCCSRxWi9103SxH5fPFX0Rqom0osFwph7P2NvTEmKVq+5CN
-	hWu8L41UUIx/zIue6bfvmx9f2jrcJfXuEjB8EVslx0eg7e3O1JPzwICkVVqUj2pQ7sFLC5RiQWY
-	DBzfyABidyEFkCaCQJMEwep6BVrFfIFhyLWfsIzPdK0MRo+Q5MXzSNQt/8HLBbUwlUhnqi4SOVI
-	ltQ6/WJshyzcmIlZNsMk/mh0gxsnyX1fd3tW1e5Z50FTPwwZIiu0M9ha3J8WcI6pTqCS27GLaNb
-	SLHI5ryUSZMcwCMKB5mpSaUD8W3m5BRbt2vo5415mv0aczXxSVY31XV5dOL0MEU6cZGfQUKuqnE
-	utKcuJeq4Pi4NQVgea4ZssaAxjLajMnztip9V5ZAyMuX/9gUGxrKyYWUzNLe6Z+U62hOnCykQwE
-	RX/D5PvNfArNlEYao6ugjyux2AO1kjW6QupdukdhyF4f4fWRyMfYZOZNMDfailz+ntNeSyNAqVK
-	zp2VU0Omqse/2daR05cW4TtyFANIShIOP2y+j/5/nqwD4MiLhcWhKcCYJfsjDQKNPQA9sfP7YXZ
-	YvaFLyN1rPA2J7JEZ8EVYtFUM3+nppGes9F7wOxfvmIdEK73ZIbH8jNzvfm6iCeE057XI5eDIVX
-	qzA==
-X-Received: by 2002:a05:600c:190b:b0:49c:dada:30b7 with SMTP id 5b1f17b1804b1-49e6caa6f6bmr12779215e9.2.1789194379075;
-        Fri, 11 Sep 2026 23:26:19 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-b260-f201-9983-e8c4-aff5-7a36.310.pool.telefonica.de. [2a02:3100:b260:f201:9983:e8c4:aff5:7a36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e60adaeefsm130212965e9.12.2026.09.11.23.26.18
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 11 Sep 2026 23:26:18 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Andreas Gruenbacher <agruenba@redhat.com>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Al Viro <viro@zeniv.linux.org.uk>,
-	gfs2@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] gfs2: Fix the return value in gfs2_get_link() kernel-doc
-Date: Sat, 12 Sep 2026 08:26:14 +0200
-Message-Id: <20260912062614.42899-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="CqvRM8QL"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=umyhfihd7raclp6qpvkn3iaxra.protonmail; t=1789194350; x=1789453550;
+	bh=2Ln0c+cFT05cfCP/yMw4EfUk9itFzGT2tqOdce2BmS8=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=CqvRM8QLQi+3tntgR/hLfo4OXkJKcnbL5ZpLS1ki62eT57pC5I55cv3vCIkOzM4lc
+	 fwM5yKzqV+5QQVDE/be1XqQbelLrDzQ/gvWoU1IlyIMjIdnmfkLp2uZqZImqURn8RR
+	 /vxAQBf83397UbEoDs9RuvRufnNI4OQrmUEXs4QfevzsMGyeELF1c+Ji0EuBcthomJ
+	 zl5h5iFSetPJ5cm1tKFPGdY/KeyjbJts7B2yIbcXZtsttPcPAyvnZ4yxDE3nJNZRS9
+	 t40JjuXDbKB2l5tPJ1M1YfBhIp5YTdUR0SiPFtXPbHAHJrhhnMZ6R0xWB9yMK0G/Hg
+	 mwr9/nsSlXX7A==
+Date: Sat, 12 Sep 2026 06:25:45 +0000
+To: "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, netdev@vger.kernel.org, rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
+From: Sagar Taunk <sagartaunk@proton.me>
+Cc: Sagar Taunk <sagartaunk@proton.me>
+Subject: [PATCH] rust: net: netlink: Migrate to zerocopy's `IntoBytes`
+Message-ID: <20260912062536.363720-1-sagartaunk@proton.me>
+Feedback-ID: 130121444:user:proton
+X-Pm-Message-ID: d76dbb697311a0626cdb87e99dc332e72c880d27
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-gfs2_get_link() returns the link target or an error pointer, but its
-kernel-doc still describes an integer status. The mismatch dates back to
-the change in its predecessor's follow_link calling convention.
+Replace the kernel's own `transmute::FromBytes` and `AsBytes` traits
+with their zerocopy equivalents. Specifically, this updates
+`GenlMsg::put` to rely on `IntoBytes` for converting attributes into
+byte slices.
 
-Describe the returned pointer and error value.
+Also, add `Immutable` trait bound on `GenlMsg::put` as zerocopy
+splits the `no interior mutability` guarantee that `AsBytes` bundled
+together.
 
-Fixes: 680baacbca69 ("new ->follow_link() and ->put_link() calling conventions")
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Moreover, shashiko pointed out `put()` trusted an unchecked `as` cast
+from `usize` to `c_int` for the attribute length. A length larger than
+`i32::MAX` wraps to a negative value in that cast, which can pass
+`nla_put()`'s own signed `skb_tailroom()` check and then be reinterpreted
+as an enormous unsigned length via `__nla_reserve()`/`skb_put()`, leading
+to a kernel panic via `skb_over_panic()`. Validate the length with
+`c_int::try_from()` and reject it with `EMSGSIZE` instead.
+
+Link: https://github.com/Rust-for-Linux/linux/issues/1241
+Signed-off-by: Sagar Taunk <sagartaunk@proton.me>
 ---
- fs/gfs2/inode.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ rust/kernel/net/netlink.rs | 23 ++++++++++++++++-------
+ 1 file changed, 16 insertions(+), 7 deletions(-)
 
-diff --git a/fs/gfs2/inode.c b/fs/gfs2/inode.c
-index f361876c5583353a1196ed35be1c95af33a90c02..d5e03ec89127254654dceaff56322ed617a3400a 100644
---- a/fs/gfs2/inode.c
-+++ b/fs/gfs2/inode.c
-@@ -1900,7 +1900,7 @@ static int gfs2_rename2(struct mnt_idmap *idmap, struct inode *odir,
-  *
-  * This can handle symlinks of any size.
-  *
-- * Returns: 0 on success or error code
-+ * Returns: the link target on success, an ERR_PTR() on failure
-  */
- 
- static const char *gfs2_get_link(struct dentry *dentry,
--- 
-2.39.5 (Apple Git-154)
+diff --git a/rust/kernel/net/netlink.rs b/rust/kernel/net/netlink.rs
+index 22ef3dde36fa..f929f63b32c1 100644
+--- a/rust/kernel/net/netlink.rs
++++ b/rust/kernel/net/netlink.rs
+@@ -12,11 +12,12 @@
+     alloc::{self, AllocError},
+     error::to_result,
+     prelude::*,
+-    transmute::AsBytes,
+     types::Opaque,
+     ThisModule,
+ };
+=20
++use zerocopy::{Immutable, IntoBytes};
++
+ use core::{
+     mem::ManuallyDrop,
+     ptr::NonNull, //
+@@ -84,14 +85,22 @@ impl GenlMsg {
+     #[inline]
+     fn put<T>(&mut self, attrtype: c_int, value: &T) -> Result
+     where
+-        T: ?Sized + AsBytes,
++        T: ?Sized + IntoBytes + Immutable,
+     {
+         let skb =3D self.skb.skb.as_ptr();
+-        let len =3D size_of_val(value);
+-        let ptr =3D core::ptr::from_ref(value).cast::<c_void>();
+-        // SAFETY: `skb` is valid by `NetlinkSkBuff` type invariants, and =
+the provided value is
+-        // readable and initialized for its `size_of` bytes.
+-        to_result(unsafe { bindings::nla_put(skb, attrtype, len as c_int, =
+ptr) })
++        let bytes =3D value.as_bytes();
++        // `nla_put()` takes attrlen as a plain `c_int`. If `bytes.len()`
++        // doesn't fit, an `as` cast would wrap around a negative value.
++        // Which then, would feed a huge unsigned length to `__nla_reserve=
+()`
++        // and `skb_put()` causing it to panic via `skb_over_panic()`. So,
++        // the following check will reject it instead.
++        let len =3D c_int::try_from(bytes.len()).map_err(|_| EMSGSIZE)?;
++        let ptr =3D bytes.as_ptr().cast::<c_void>();
++        // SAFETY: `skb` is valid as per `NetlinkSkBuff` type invariants.
++        // `bytes` is a valid Rust slice, so `ptr` is readable for `len`
++        // bytes, and `T: Immutable` guarantees nothing can mutate `*value=
+`
++        // while `nla_put()` copies it.
++        to_result(unsafe { bindings::nla_put(skb, attrtype, len, ptr) })
+     }
+=20
+     /// Puts a `u32` attribute into the message.
+--=20
+2.55.0
+
 
