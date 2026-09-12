@@ -1,112 +1,82 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48C522931FB;
-	Sat, 12 Sep 2026 08:03:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBAED36404D;
+	Sat, 12 Sep 2026 08:04:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789200223; cv=none; b=R33TCw95PbQM2EBeJOLm0XaGEbvf3bfI2PqW4rimvJFDllLkUlfNcFxL03zISFPQqlUWAvbZ5UqLwiKfBTf+YdU4bCRGmBh7mFy+eQRsj4OjUbqHvmNBKjLpVu5d495wIzTEBd1JI2L8x0aRY3RN6SV9LounxK7CWmira/7CsPk=
+	t=1789200300; cv=none; b=JHF6SSww5BiapKRkdIwFFTCLlndPbs0ui/fPeCtiVxwAkyTSIne3VlpKkqiZaOzWspuMkDLC0Ix2Rq9kjgpZHx7HBKZ3xpO8mMUtzoe0iR8z/F/hSEhlE1pXiu8najZeTsaJGQk89Dv7HS3FKvVV5xZQvQC+ROXqeAy1XojR3LM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789200223; c=relaxed/simple;
-	bh=ILKNp+WUMz7m60Cj2U3b3QKfAIuTdzWdXrka2tpZqXw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=BCOtiIlVRoywWSkShR7kfnGl3Eo20ACu0HTaIEViNanOU6ZWZmKIQynkCBXNQ5YiEOA2x+SViEsywqbAoOfVL0nKdPFczXuNRtiy0suAoISGI21B+s5iMaIc6TkAM8826Im5xiVdh14J6ttmCSwor8RV+uIM+QcG+Jn034TRFGA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bkZiD4uF; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789200300; c=relaxed/simple;
+	bh=4+THOZS0vuucX1GtvwsUqalQ26e4hn0JKpJvj3JFnU0=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=dKE/ALwnhbhDL3aftZQMWYgRtjDKHXguMyHtPcRW9ds+yFrzpMDcZErvjlkJO/kfheGMZ1fCU2Kv0XcmPSAVT9pcApG1tl/54Tex60a2hh1afWA9C68hPO7IDRHSMTDpLOs1+sPW+sY1M3C15OlWRjLbs4CvBx3q69nYilF2VOA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=PA0tsTU1; arc=none smtp.client-ip=45.254.49.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bkZiD4uF"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id D0EC2C2BCF4;
-	Sat, 12 Sep 2026 08:03:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789200222;
-	bh=ILKNp+WUMz7m60Cj2U3b3QKfAIuTdzWdXrka2tpZqXw=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=bkZiD4uF5TCVrUKm68zSiu3UsGrSnIROJB8jRqeUX0SgnekRupH45MgAKqAVHFzhn
-	 uVOVmxgy4NCSHafnrSf+sICm8tSeYW6jG1ziihWox+nY96AmlBZ+KoA3qf8mjbVBjv
-	 o9QcxiNQnyKwSXX9mk6879UnB9WzT8bk658znHSEuh+GX/Rlq5CrUylHVvhYbcKflu
-	 +B7KKIAJ3i6EvnaAPvVhmsU+fEiUlAPmfmK2+LIS/3XLuFk+oh9Ah4IiDK/A66yxW5
-	 rXGP5taFECRp98rp2yAX8taCg+51fiipg1DhzM03AZTQ2XNlqzV0EW2C//7B6+acKf
-	 9YKlDMmbU/0Pw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AE2F1C88E4D;
-	Sat, 12 Sep 2026 08:03:42 +0000 (UTC)
-From: Myria Sarvay via B4 Relay <devnull+myrialsarvay.gmail.com@kernel.org>
-Date: Sat, 12 Sep 2026 18:03:35 +1000
-Subject: [PATCH] drivers/perf: apple_m1: Add macOS 27 M2 Event
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="PA0tsTU1"
+Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4d8263d52;
+	Sat, 12 Sep 2026 16:04:51 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Jeff Johnson <jjohnson@kernel.org>,
+	linux-wireless@vger.kernel.org,
+	ath12k@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Johannes Berg <johannes@sipsolutions.net>,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v3 ath-current] wifi: ath12k: convert scan timeout to wiphy delayed work
+Date: Sat, 12 Sep 2026 16:04:45 +0800
+Message-Id: <20260912080445.14184-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <dded65dd-56df-4637-b3f5-c244651435a6@oss.qualcomm.com>
+References: <20260717025602.262916-1-runyu.xiao@seu.edu.cn> <49600545-3e13-452c-8940-c3e775ac3856@oss.qualcomm.com> <dded65dd-56df-4637-b3f5-c244651435a6@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260912-m2-9f-pmu-name-v1-1-da682557453c@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBA0avIrB3QKajjVYoLm07aEZJKYkQQ7
- 96oy7f4f4coQSVCX+wQZNWoP59RlwWY7+g/gvrOBqqoqbgmdIRscXYJ/egE246NbejBtmXI0Rz
- E6nYNn8PtmF6TmOW8wHH8AWdXnI5yAAAA
-X-Change-ID: 20260912-m2-9f-pmu-name-789cf6239f79
-To: Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-perf-users@vger.kernel.org, 
- linux-kernel@vger.kernel.org, asahi@lists.linux.dev, 
- Myria Sarvay <myrialsarvay@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1883;
- i=myrialsarvay@gmail.com; h=from:subject:message-id;
- bh=WE/9S0PEWj724ZfvllqIPRhYse7Qz5ha7AiDrC/FTsg=;
- b=owJ4nJvAy8zAJRbk4iixYu2/l4yn1ZIYspayxz65P616LZ9MUu9hz417PhrzyN/98Wr2pZPXq
- g4Kqv4IMn/eUcrCIMbFICumyKJvmqY9ma3hUuky1y0wc1iZQIYwcHEKwET0rRgZlv4v+ytisH/V
- bqWbC7UP50ttuHTvbs7Vdjcvb+b+oMU3lBgZdvy9F5kzfcrGTY6/DLfXWXYdFnbz/DBZV4Jt0QP
- NvyEKzADqTksT
-X-Developer-Key: i=myrialsarvay@gmail.com; a=openpgp;
- fpr=2F35662B930680D275A645B452444118A8ADFEE9
-X-Endpoint-Received: by B4 Relay for myrialsarvay@gmail.com/default with
- auth_id=1027
-X-Original-From: Myria Sarvay <myrialsarvay@gmail.com>
-Reply-To: myrialsarvay@gmail.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa094a5d59503a1kunm70f9fefd2086a4
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDQ0xNVktKTkoeTE5LGBkdTlYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUJCSU5LVU
+	pLS1VKQktCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=PA0tsTU1+tX07cBxPpVlFFJKU5ONDffvsLfa+qV+ZEk3drZnFhvE7oAEnqYTaF71l5JVfsLuV/XPGgS56no8RnTPWGaFlgdGNFIxHydNc1SH0BCVPkxNgxCNLu1KE/Qn7pyzSJWQgKdGSXAvtp+kIbi+gtbd1BSKN17pyXE03+k=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=4+THOZS0vuucX1GtvwsUqalQ26e4hn0JKpJvj3JFnU0=;
+	h=date:mime-version:subject:message-id:from;
 
-From: Myria Sarvay <myrialsarvay@gmail.com>
+On Fri, Sep 11, 2026 at 01:36:47PM -0700, Jeff Johnson wrote:
+> You never responded to my response. However, since this seems to be a
+> legitimate issue I did a little more research and now see why the
+> finish_queued flag is needed. A better commit text should explain that since
+> the current commit text is confusing
 
-This patch adds another known PMU event that can be found under
-/usr/share/kpep on macOS 27 for M2 macs. INST_SIMD_ALU_VEC purports to
-count "Retired non-load/store vector Advanced SIMD instructions", and as
-we already noted, can only be registered on counter 7. Though this event
-only shows up on the M2 kpep records, it can be set on M1 CPUs, and
-records something.
+Sorry for the delay. I was unsure how this part should be resolved, so I
+held off on replying.
 
-Link: https://github.com/0ax1/apmc/blob/9cff99a9df2ae055f1e3065c64f633e38bb6beec/counters/m2.md
-Signed-off-by: Myria Sarvay <myrialsarvay@gmail.com>
----
- drivers/perf/apple_m1_cpu_pmu.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+> There is, however, one additional issue with the scan complete path.
+> wiphy_delayed_work_cancel() requires the wiphy mutex, but
+> __ath12k_mac_scan_finish() is called from WMI event handlers under
+> data_lock only, without the wiphy mutex. The existing code can call
+> cancel_delayed_work() there directly, but that is no longer valid when
+> using wiphy_delayed_work. Instead, set a finish_queued flag and queue
+> vdev_clean_wk, which runs under the wiphy mutex and performs the
+> cancel. Add a check in the timeout worker so that if it was already
+> queued before finish_queued was set, it exits without aborting a scan
+> that is already finishing.
 
-diff --git a/drivers/perf/apple_m1_cpu_pmu.c b/drivers/perf/apple_m1_cpu_pmu.c
-index 81b6f1a62349..1f73c8a77462 100644
---- a/drivers/perf/apple_m1_cpu_pmu.c
-+++ b/drivers/perf/apple_m1_cpu_pmu.c
-@@ -81,7 +81,7 @@ enum m1_pmu_events {
- 	M1_PMU_PERFCTR_INST_SIMD_ALU				= 0x9a,
- 	M1_PMU_PERFCTR_INST_LDST				= 0x9b,
- 	M1_PMU_PERFCTR_INST_BARRIER				= 0x9c,
--	M1_PMU_PERFCTR_UNKNOWN_9f				= 0x9f,
-+	M1_PMU_PERFCTR_INST_SIMD_ALU_VEC			= 0x9f,
- 	M1_PMU_PERFCTR_L1D_TLB_ACCESS				= 0xa0,
- 	M1_PMU_PERFCTR_L1D_TLB_MISS				= 0xa1,
- 	M1_PMU_PERFCTR_L1D_CACHE_MISS_ST			= 0xa2,
-@@ -150,7 +150,7 @@ static const u16 m1_pmu_event_affinity[M1_PMU_PERFCTR_LAST + 1] = {
- 	[M1_PMU_PERFCTR_INST_SIMD_ALU]				= BIT(7),
- 	[M1_PMU_PERFCTR_INST_LDST]				= BIT(7),
- 	[M1_PMU_PERFCTR_INST_BARRIER]				= ONLY_5_6_7,
--	[M1_PMU_PERFCTR_UNKNOWN_9f]				= BIT(7),
-+	[M1_PMU_PERFCTR_INST_SIMD_ALU_VEC]			= BIT(7),
- 	[M1_PMU_PERFCTR_L1D_CACHE_MISS_LD_NONSPEC]		= ONLY_5_6_7,
- 	[M1_PMU_PERFCTR_L1D_CACHE_MISS_ST_NONSPEC]		= ONLY_5_6_7,
- 	[M1_PMU_PERFCTR_L1D_TLB_MISS_NONSPEC]			= ONLY_5_6_7,
+Agreed. Your explanation clarifies why the finish_queued flag is needed.
 
----
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-change-id: 20260912-m2-9f-pmu-name-789cf6239f79
+I will keep the finish_queued logic and update the commit message accordingly
+in the next revision.
 
-Best regards,
---  
-Myria Sarvay <myrialsarvay@gmail.com>
-
-
+Thanks for taking another look.
