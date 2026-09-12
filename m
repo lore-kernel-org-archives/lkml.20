@@ -1,57 +1,57 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC8FA2C3251
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 04:10:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEEB4374A0A
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 04:10:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789186251; cv=none; b=FLYHCuGcLC8i8onJFYwPf3Tm0Meqd6f6PwjZg0G9uBVY8uTwbB8PQUi4jue41IfI6dcRL98BO/PIeK8eTYcdGeaxDdXuo8bYj6s6zpjahHZzftoAxNkRmlIBd+/omhGH/x4Gf9e0EgP7qt26LehkQQpv8qAZ7WcUAJnqQlsOoyI=
+	t=1789186256; cv=none; b=IKcozBDbXc3thZAc4hUXD6DnCCmcC8WSBvZ28ap09+dASKeM09JmjBFrsswhT+1qnNhIzsuR/7MTG49AE0do0nPKirf+qWeCOFMCkc1eMte/cqGuOA9owpMgpKUc0zCngCo+jjxwzulzd+35iPsCRyrzmML7t/K6wGyAhcIHW3M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789186251; c=relaxed/simple;
-	bh=BaeI6uPa3i7I/O9A9vfdYLrGsAdRoWevil7UIaJSC44=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=ItD8oxRzRahlWKUTe5ocQD+Ph25jQYWV81aJE/TyYGKH0G4rRQkZ+cod96IzdFTurF4MlzFT6yXwlow9b5DBA94dGgwgz8nkwnLbBb9HjNOsxQ8+lNgU5SOPxO3Uy4FYn20Um2p+RmGwh1gyOZcY0g9dRHjSPAO8panYUMvOnFc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Sp8QuuzA; arc=none smtp.client-ip=192.198.163.18
+	s=arc-20240116; t=1789186256; c=relaxed/simple;
+	bh=QLKSmLzuiD6k6mkoZtVA3h+SmkHTCjYXQVrlkKVDa24=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=qM/my/hCptGPyr5ZbqBN4OXfqNBzBI3eDNWqjMMoicyZwUoNqbaP//fmPvOQIsOxObNOWC8ewr0SFy/upFh5287i1ZvrsIbOT5IaQF0tX8wq4SQek24irSzC5HUsoWOizLq3KPQaF8bh+F6XKykQsTAS0D7MXOtbSvWcLGKQPX4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Fq6GUuUY; arc=none smtp.client-ip=192.198.163.18
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Sp8QuuzA"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Fq6GUuUY"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789186250; x=1820722250;
+  t=1789186254; x=1820722254;
   h=date:from:to:cc:subject:message-id;
-  bh=BaeI6uPa3i7I/O9A9vfdYLrGsAdRoWevil7UIaJSC44=;
-  b=Sp8QuuzABKXd3UDvEiPjkVC39v7IjJHpm2uruhA7prIpM/DUbzLl/ruS
-   NY8qs6BFvqSymqpiOTbE+KTpV2UWF4oO11vKZoWMZrsDxaMu/JGxhr4AV
-   z8h7LKVIXae7NICyxNwCOd08VO+fD82Zy03FRO/hC0g5QQqsm2XzRpvGR
-   Q2POHiWjhKyoOUO5RSz+7rNGt62+Uciy54eIGLLoXOZ8zyN+Qa37JAYJ4
-   ULtI6J8h/yxwXiBT9djv2k4i0YfylB5gNMtM5jqCwJn5GPxOfBkl0uYND
-   ZNz+CJ8teDh/cG4z6O9+OEahwyXHMlHjGG/CER+m4a4+D66v+QXXSCCFF
+  bh=QLKSmLzuiD6k6mkoZtVA3h+SmkHTCjYXQVrlkKVDa24=;
+  b=Fq6GUuUY5jGBRM7AMaSMlMu2T/ccyr0ryhgQUoyn+uWdM+a1DkCqTlQD
+   tfC28ab8OfKkB2ZcFDiQsx0Aw+yvjo7ECmBh0jj6/fMN/Apeb6v+vECk+
+   Uv68uI1wg4og2wsOel6mEq0O+a7Gk6uvd3h9UW9C8oqZYVcTDHAHDFc74
+   FEpiIHbqpVeUjx0x8jVwd+OoKGwHEnLTbsi9H47ZHpn3pbP4NfP0lX17U
+   e4VAf9jG9DtlVkL3idRMyzkWBF9n9y2kp4ROw3L3GvBHfjlJfxiy8fGwd
+   rK4WIzWYOFunKsz97WMw1habz59iDlpHWhe4Vxb8ebMS+9mTzAkY4bf2L
    A==;
-X-CSE-ConnectionGUID: jqRf5ZIxTuWElH1iFTeDRg==
-X-CSE-MsgGUID: a8KUoiwBRj+x+pKwA3LvNw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11902"; a="88785627"
+X-CSE-ConnectionGUID: 4mcA0C6FQBSRfcMfzy0/Eg==
+X-CSE-MsgGUID: P37yrp0/T1a8PWWT/p2ucg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11902"; a="88785633"
 X-IronPort-AV: E=Sophos;i="6.27,98,1787036400"; 
-   d="scan'208";a="88785627"
+   d="scan'208";a="88785633"
 Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 21:10:49 -0700
-X-CSE-ConnectionGUID: hxlo6Gc0S+27ABEcu7lkrA==
-X-CSE-MsgGUID: EMMM8JQ+SkS8glGBOGzllA==
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 21:10:53 -0700
+X-CSE-ConnectionGUID: tPR5s2g3SBOnZQifdExfww==
+X-CSE-MsgGUID: NwhpVVMdQM2JYelqWxqTAA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,98,1787036400"; 
-   d="scan'208";a="272609969"
+   d="scan'208";a="272609975"
 Received: from lkp-server02.sh.intel.com (HELO 0a3643a6ed9d) ([10.239.97.151])
-  by orviesa009.jf.intel.com with ESMTP; 11 Sep 2026 21:10:48 -0700
+  by orviesa009.jf.intel.com with ESMTP; 11 Sep 2026 21:10:52 -0700
 Received: from kbuild by 0a3643a6ed9d with local (Exim 4.98.2)
 	(envelope-from <lkp@intel.com>)
-	id 1x5F4a-000000002ci-3Apg;
-	Sat, 12 Sep 2026 04:10:42 +0000
-Date: Sat, 12 Sep 2026 12:07:12 +0800
+	id 1x5F4f-000000002cm-2zvy;
+	Sat, 12 Sep 2026 04:10:47 +0000
+Date: Sat, 12 Sep 2026 12:07:24 +0800
 From: kernel test robot <lkp@intel.com>
 To: "x86-ml" <x86@kernel.org>
 Cc: linux-kernel@vger.kernel.org
-Subject: [tip:timers:urgent] BUILD SUCCESS
- c5dcb3aadc18d7b82ba64790721b005d18193d35
-Message-ID: <202609121209.QLw6xt9L-lkp@intel.com>
+Subject: [tip:tip:urgent] BUILD SUCCESS
+ dafa99e678822d2ce214fdf0d9973b23efd7b35a
+Message-ID: <202609121221.l7Ki88Z4-lkp@intel.com>
 User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -59,8 +59,8 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git timers/urgent
-branch HEAD: c5dcb3aadc18d7b82ba64790721b005d18193d35  hrtimer: Use hard expiry when updating timers on the same base
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git tip/urgent
+branch HEAD: dafa99e678822d2ce214fdf0d9973b23efd7b35a  Merge branch into tip/master: 'x86/mm'
 
 elapsed time: 1175m
 
