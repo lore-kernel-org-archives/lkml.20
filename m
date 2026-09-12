@@ -1,110 +1,101 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77076343889
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 10:34:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9BA6371887
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 10:35:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789209276; cv=none; b=MAsTLSSdiHpuYjMIjPDB8CXD8ADicpo7j/Oj70a4V8ZKEIIZm0OCGljEUxJbwsPQ4Y+5LfwYGIy3aBHTzV/giTH6AeVN8vaFoeaXvSsHV1K5JS5YrVe/9lAz/aJ6JNSGAxFXdMHlnGHnOi9ivFXUWo+ytlm6vCfwsqJfokt1Qns=
+	t=1789209313; cv=none; b=ME0MILtkZfihNmVicmQZKRB8NB5T4tqZ1+lJsHPCQfwTobE3Mrs8oNlYHUqB3Rkp0t5s7Xp6YozcCuPaQi8jmlGPQAjpTHgMZreK8G4xYSbhbJAE/Qmc7wQSPFK2/9xDiXVh8W0fP/AqgNcikbr3DJKP1FASDerZlRD7P+0ZPKo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789209276; c=relaxed/simple;
-	bh=AkHj1D4uvAnTsmY9xvMRqq1u98CJm1B/o0kzjYgyjxk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZNJNmBNIF3lyiRV/JIjeZ+N/jXwUukQfcdVtusBAlk7BXgP9DZiqEzxMIPPD+l1Wm23kJnjDC17zkj86YpNYmBMT/HelxSXP5qT7Q0pc8Gz7ghcXcKdNgbO3skmBk4tXEowbPLWEjIqwJGug/syssfqIwBl/C3ZjX0Y1hfDqI6I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bCl+RJe8; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789209313; c=relaxed/simple;
+	bh=oxOOXvXAOWeu+5M5xhwFj9GPUxJrD4NtD21BFf4uuaM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=itEgoLN9B8hFJls9Cx0c75AIpt+ITbYYYDDy6FEoH03o5LSZHmsjM3q0t3TZCz4MDwDMVA+3QZF0ZnRUSsqLc6nt9seJeHtEF7WoFUdXgZB/oRjSrni3GfmpESxhEw2MuXpy6u8ISYba2OTpXnbsbBixzB7ySjMdt9d/6lNoY80=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=Yn/qX6Bs; arc=none smtp.client-ip=74.125.230.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bCl+RJe8"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48583cc7ab1so241482f8f.2
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 03:34:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="Yn/qX6Bs"
+Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfc6db0aso10115536d6.1
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 03:35:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789209273; x=1789814073; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lT1aNi2yWSuhDHg5i67jYaSBLUSPiuVZ7hWziwrLgCQ=;
-        b=bCl+RJe8/3SbHbUIgnKkxuh+PzDGeswNM0rNqN0QOEMgzFUYow+oj1Sy9WcIp5k1Fd
-         XLRZ4WdzgC25QpEzObEL+O/84i0VRxDX5HuRFTQYyXJERK0qgJ0IlLqATceNZce5yQCJ
-         injDVfyi8oCWydJCv9YrFsS/9XKgejz8cNE910f/ESogKOBTy9Ue1TIT/umikgmhhCts
-         Y7U0HA7OoLcGCrWwDBGccTK8yKw8IFeFzunDSwHF6Q9nhLeiV5fGJkhO8HRq4zPk3FL6
-         M2ngDoy40sB4HbBJ5SHP3dAMB9dFYffWsteCcgwUO4cVFHot2EzyS29qMDhY9/KjA0a7
-         sccA==
+        d=gourry.net; s=google; t=1789209310; x=1789814110; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=TpM6eT1qzg3MP+tpnO3cMXPs7X9oqBa+IzWYgCHuf2Q=;
+        b=Yn/qX6BsgiidJ/SO0H/eFwZjt409W9MW3f7qwF4woXjVB07nYO29ov176KW3p/exox
+         SZp3ScskkE8eJ3tIcjPaVq+4lJBjhnfr5s4/iFLVcMB8NWLkRrFfy8wE2QeRcN+plD2w
+         Zr/sjrvChV4tgzzoUUX2/xnTrNzUYcQRxQ3KHwyRtUSqVnR+xU4K2j4dHhAiI+iNQz9A
+         p9iebLDrzlK8x3GrfBpfjbOJtqOJjORTCyTmZqjR7Q+cnvpshmLJoUrmEpS/7jCQwcdH
+         JD7SytQeQNEFrmboJAalUHZmZ1MyWW+hHrMcKQke1Q8g586RVp0pfFj2TnGJdm2QUq8i
+         mERw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789209273; x=1789814073;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lT1aNi2yWSuhDHg5i67jYaSBLUSPiuVZ7hWziwrLgCQ=;
-        b=JarMs/q+hkFWUqNHO7HTqV4GaEnlDO2jIZNqDoX4A5771zuk98GyDm/onp3GCqKOvQ
-         0ilAMIYM5fFpQo+zKasdJxhtgr7+ZRHGRVDA5LwBnm1dN6R9PGEZMkucH0bHLojft1cZ
-         DbNia4e/v10/qzgUq46R9Bf+1u4qvhWvetF3GS+qJy6pxh78R+SZkZ2zsBSHGsrsLxci
-         SA++DXs1T72gMIbzfYIDgBXFY+U5bg46FseLmWxHD6yNVM5Ldi8W8IVfDTsdm9n4Ue+R
-         3fplHjAknFAXly1hxI4afRtp77wEDbwDKanBG/lPXyixwEXLYtN0r/2JQ6zH2nzlQ+7R
-         uppg==
-X-Forwarded-Encrypted: i=1; AKwUvByrx6U9FHm7S+Vu6k9jk6h+6CNkT3JJpCDE591IjqXH9W4B79Mxg/e0e60k5i3bNUffWQgRD1PtaYnqePU=@vger.kernel.org
-X-Gm-Message-State: AFuF++l8ji/wgiYLa1aWzwl4CU4bhFbQ4zrbNaL74G5ysCMqhKKo8k8l
-	+c1TYC/QtFxWL+8ExdsD8VUtR43YRYsl6gYalKger7HT5rIlAg5U+lHu
-X-Gm-Gg: AYBFou0S6sCTgA3sTrDujrib0uuKaNq68AhJGe5Z/5JbgLYf9lvayxzMg2j2cZP263Y
-	BoWahAPRU0FcHFCKBV7B5PGqWs+sXP10ds7k3EHHQ8ylbyZIr0nVnpRnUwqXlab+w4J1JiFHOCt
-	BwEHKs4EH0LSIwXFe8nUEjNJ5ycGzoR9h0yRs5hVOy9zdqNJUbOSJGXLaUX2nWknoJB6JJIhWRO
-	TSVdZm7fJAUIAdm8nGFiPF0hqF5G6uINSZPYtl+H0cxiCSX7MkKImhkxtNGkf+pqAwdn5EZjaGP
-	Oufmq3CsDz3LLkYIzlI0E/Wlvzq0hMwrF7HVInRghB0aFaFTZYa31BOVlY6xzF6VE+vYMETs9u7
-	meV2oT8/OEB1IgEEWAiT4DE97PtoYqdBTERgY8gpgFaohdWZ2Sx08Ebhzf6geK3za4o2ghck9oD
-	XgymAvWc0F12D33zToF7S7u14u8DTdpvrlP+PdX/XSlZ+FDtW/stMImpIc2lqJUp+V0yqM4XkAC
-	Yl2CdIxeJsgSwXjeqVbgt836n68ft4+70/jduMNZJgTmisBND02NJ8=
-X-Received: by 2002:a05:6000:2501:b0:486:e5f7:89ca with SMTP id ffacd0b85a97d-486eb1d99c5mr9475191f8f.8.1789209273438;
-        Sat, 12 Sep 2026 03:34:33 -0700 (PDT)
-Received: from DA14250.lan (tonb-05-b2-v4wan-173165-cust581.vm24.cable.virginm.net. [80.194.6.70])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb2ecfc3sm11641445f8f.4.2026.09.12.03.34.32
+        d=1e100.net; s=20251104; t=1789209310; x=1789814110;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TpM6eT1qzg3MP+tpnO3cMXPs7X9oqBa+IzWYgCHuf2Q=;
+        b=WvhUhmUtzmyqN386fRh583AWVAgKOGwwqwljceO/j7HwM7wyL4SO7Dly49MleVlzPN
+         ZGaLAA/1b7MaUTYqWZgdKinqxbO4h6NAZz8CJ5LFNlZWA14IoUiacBDWS7fhFJHg4IGY
+         VSPhtLbGPDa5eQe9XZGy1P8kiq3JVVV2uxuTtzhi6mhaV1whIhR8I4tdmj6QaUAvb6yd
+         dz+mj27C+42DoOCaHL0Rrxuileh0S/1sUhBj/dPI7lqkPOSfiw/fiAJJgLXl9fWXFK0f
+         c+NyjpUY0Lsybkq9QiTzqsVyntvAU1bC35GfL2NGGKrA75U8Fdqu0kCmrcStRbX4RWH0
+         7t0Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxySv0putN2+SNEyCvxm0CEGackFopxt8fo+n051fI/EYUSCJ9kvRBninAoXzYmSeUi7ISf8enUMI7zq1c=@vger.kernel.org
+X-Gm-Message-State: AFuF++nzM8ubIR98DDoUljWF9BLd9re1VW/zS0KltgfAnjOmGXoTC4UT
+	voZP7DbF0FU9dADbDHWDBhyAutrK9AKZud4n4T8ZwFQrhwVzyt3y4nmFINuGZ1CSMIo=
+X-Gm-Gg: AYBFou1WJ5Q0T+IuHpflKH+p/AVrqnPC8/j4t9mNZgEJz+KSRxNS6SQoCeK8sBGukSW
+	8jtDG1HmBhBXDODKJSNIBQ9NUtGUlun7hoW5RguVcKfLMvEzJ2Tf7Y1LjXnxx8geaQQtUvjKIN8
+	m2/1BK3JHnb7NR5Z51XvFSrBAZQLvJHkeh3aDDJMxM2nNRFzxhJGDqoNLjqExdCPJ4KfPwfdYUk
+	nakn9i7X1hcFv6rfbi1m+XXRn6T84uAMc2uQYVoe3KWFhf0VxTbMJ/wieAafYIuGDPc6ecv3qyh
+	L1wrb3InU7Is0CHLz6+fNHP4WPXGhJ8IK7IQyfmeSBrHEBpYzzC1OXGgrZQ+06iSs4hofgaNmYF
+	YRi/KiQNGyZ3LrfrnyGhgbAAv6tb+3Y3hdp+Upz6j6t1i5pPxuuSSL90sbv6dA68osOLuHj1VcY
+	ktYVbd6luVBB7CHyDZO9yJN70VKMjngS2xQjwZ1f4cwMkJ2zHYS/750Go8mS11bVeKTY/V2GnVn
+	311F+c2stXY4RymsgzT94bOxFJfecxk8lP490kNEZp+SSoTFUUDuLmX4j9OqT92Rg==
+X-Received: by 2002:a05:6214:6283:b0:912:12cc:33d with SMTP id 6a1803df08f44-91212cc038emr101201246d6.23.1789209310586;
+        Sat, 12 Sep 2026 03:35:10 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f203320sm43584706d6.1.2026.09.12.03.35.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 12 Sep 2026 03:34:32 -0700 (PDT)
-From: Keith Harvey <kthhrv@gmail.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Hans de Goede <hansg@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] media: ipu-bridge: Add DMI quirk for Dell 14 Premium DA14250
-Date: Sat, 12 Sep 2026 11:34:31 +0100
-Message-ID: <20260912103431.15388-1-kthhrv@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Sat, 12 Sep 2026 03:35:10 -0700 (PDT)
+Date: Sat, 12 Sep 2026 06:35:08 -0400
+From: Gregory Price <gourry@gourry.net>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
+	liam@infradead.org, ljs@kernel.org, david@kernel.org, vbabka@kernel.org, 
+	jannh@google.com, ziy@nvidia.com, matthew.brost@intel.com, joshua.hahnjy@gmail.com, 
+	rakie.kim@sk.com, byungchul@sk.com, ying.huang@linux.alibaba.com, 
+	apopple@nvidia.com, peterx@redhat.com, jgg@ziepe.ca, 
+	sashiko-bot <sashiko-bot@kernel.org>
+Subject: Re: [PATCH v2 0/2] mm: stop calling pmd_folio() on special PMDs
+Message-ID: <aqUqefve3AEiJiPq@gourry-fedora-PF4VCD3F>
+References: <20260912034833.2952750-1-gourry@gourry.net>
+ <20260911212503.bcf8461db17ebbf51233826a@linux-foundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260911212503.bcf8461db17ebbf51233826a@linux-foundation.org>
 
-The Dell 14 Premium DA14250 has its OV02C10 front sensor mounted upside
-down, like the Dell 16 Premium DA16250 and the other Dell models already
-present in upside_down_sensor_dmi_ids[]. The rotation is reported as 0 in
-both the SSDB and the _PLD, so without a DMI quirk the image is presented
-upside down.
+On Fri, Sep 11, 2026 at 09:25:03PM -0700, Andrew Morton wrote:
+> On Fri, 11 Sep 2026 23:48:31 -0400 Gregory Price <gourry@gourry.net> wrote:
+> 
+> > Reproducer
+> > ==========
+> > 
+> > No hardware needed.  An out of tree module stands in for the drivers above:
+> > three misc devices, each with a ->huge_fault calling vmf_insert_pfn_pmd(),
+> > plus VM_HUGEPAGE so the fault path takes the PMD branch.
+> 
+> I take it there's no known way of triggering this in current mainline?
 
-Add a DMI quirk entry for this model so that a rotation of 180 degrees is
-reported for its OVTI02C1 sensor.
+As far as I can tell there are no in-tree modules that reach this state,
+at least not obviously.  
 
-Signed-off-by: Keith Harvey <kthhrv@gmail.com>
----
- drivers/media/pci/intel/ipu-bridge.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -145,6 +145,13 @@
- 		},
- 		.driver_data = "OVTI02C1",
- 	},
-+	{
-+		.matches = {
-+			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
-+			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "Dell 14 Premium DA14250"),
-+		},
-+		.driver_data = "OVTI02C1",
-+	},
- 	/*
- 	 * The first four characters of DMI_BOARD_NAME identify the Lenovo
- 	 * machine type/model. For example, a DMI_BOARD_NAME starting with
--- 
-2.43.0
-
+~Gregory
