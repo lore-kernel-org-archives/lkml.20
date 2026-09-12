@@ -1,110 +1,93 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 615332C21F7;
-	Sat, 12 Sep 2026 08:11:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 796BF19E7F7
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 08:17:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789200678; cv=none; b=rDFHQkAecm7Rpe34HDTKDZSlvl8azvX43deyVR+bJYOrAUVBMkl/GLiO98cjhJ+lG7+Zw6H7exUQfo/RZgpHBKwIJFUwej/rE57nZA6QTgJr+39DFnSo4THfOXBJQMHpnYXK3hK2hLH3jaxKvYyQSW6B93jxmuXHmyTneuDYKec=
+	t=1789201081; cv=none; b=bUkkkvH9Q0t0o4P7B3iKMIqmrXpjpCHkLdIVoStEAwLBRF8zphmj8YOjwWRQk1MCf6NXjnkIx08ztZn951V5NfZZcqiNcxGQWQw11oNblEjMZDlZrYRZokyaTtvX5HRLb40QYawwj4n6n9Pgdfv8Ot7pxxdrFARIQoZuFm5TOak=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789200678; c=relaxed/simple;
-	bh=XSrT2COdjM6o3ukdHGjuLEHAtqbc8/Yj1eyf2RNMwJI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=R1StdvMWhlTwYSlOSONYKepxnXq7YLevgOS1fVHzGot5arWPe2JRJvWtZiQAvsoJcH8yn/a+Rp4UvG+92zwfBMJ2QnSEb7tR09RX8TFEOBpJqhJgHAxy9fRwBCorIPt6d1oCwVN3idJXDL/iQJt5ybpZJZGHLojVrFYt+DMPvNo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dUWmYI+b; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789201081; c=relaxed/simple;
+	bh=cCyZMqpzmrpqPfFCTh1oJgClCJY3tu6401ICl76MZx8=;
+	h=Date:From:To:Cc:Subject:Content-Type:MIME-Version:Message-ID; b=gwqbFlTuGvE05awk6H4Dpw9NOp3vT2Vcy6tqdtZxQYJoNyUjXSkyS6rUn+7iHHRx+KlMjDfSYcnBBfATylu6ceL+UkQFHBqw/b3J/OBhIVXWo0wKbfhuaTdW/malURAihagFVk8n3LeBIMl4G8vwR7RuXjut8orV8gzpTdE6Xh0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Xo1EyPef; arc=none smtp.client-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dUWmYI+b"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 3C784C2BCF5;
-	Sat, 12 Sep 2026 08:11:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789200678;
-	bh=XSrT2COdjM6o3ukdHGjuLEHAtqbc8/Yj1eyf2RNMwJI=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=dUWmYI+bhXcP8Qo8M76IvkM2HG0kVkZc0AFefPZGt12L5Vpoj0+7qsdeNFeN2trhF
-	 K4WB50KrJCZTYUA4MCD3BX3CrqdzWeHOjlptRvzyEVSVut6ilrzSGy5Z6SfZDrdub1
-	 33eX12iUDv8tT7qTvSvdQWUa9Qjiu5Yd+XS4VYfQFRPQAc4pLItIMgi725LhLHAVOX
-	 RvMw0JULS8D5eGAbtM1Z0VLZXYlIshkeiSP+8+mvLnnFoOOZCsBqK7mGPGwsT0qVNS
-	 TpChnNzwxZvF31pUe1ra7VYycJ1bcOh5Hi2IQTNsQ+E0fWW82ipV0C9rRnGNSpvpSL
-	 OxDRs6cIzqFUg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 29F07C88E56;
-	Sat, 12 Sep 2026 08:11:18 +0000 (UTC)
-From: Mark Amirkan via B4 Relay <devnull+markdamirkan.gmail.com@kernel.org>
-Date: Sat, 12 Sep 2026 01:11:14 -0700
-Subject: [PATCH] crypto: af_alg/hash: Report errors that discard hash state
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Xo1EyPef"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=cCyZMqpzmrpqPfFCTh1oJgClCJY3tu6401ICl76MZx8=; b=X
+	o1EyPefcbxnAde5xZbiQrFZvm4PTMwRaBw5Nny3DRyMBbumLTkQbol0xAt8iPvYb
+	KxRHRWiHcChIhb7sguKtr0D//2WYxTOaEuN8hK20U3QSI/1bc+FYPj0+F03wwS8A
+	AyB5zoVMlwjs3gdzPo5/1RCbGU/Ki48XBYwh1cg9es=
+Date: Sat, 12 Sep 2026 16:17:38 +0800 (CST)
+From: CJ <firefly0158@163.com>
+To: mikulas@artax.karlin.mff.cuni.cz
+Cc: linux-kernel@vger.kernel.org,
+	syzbot+fa88eb476e42878f2844@syzkaller.appspotmail.com
+Subject: [BUG] hpfs: KASAN use-after-free in hpfs_get_ea still reproducible
+ on v7.3-rc1
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+X-NTES-SC: AL_Qu2TC/6bvkgu7iOfZOkdnk0WheY5W8G0vvwk1YJec+0EnCnA4x8nW35OGljH9OSwKQeeojOyQjNp7cR6YpBKbMK6ldRvEwsXbpobPPNtDQ==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=GBK
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260912-afalg-b4-send-20260912-v1-1-c6cf966d3f1a@gmail.com>
-X-B4-Tracking: v=1; b=H4sIACEJpWoC/z2MQQrCMBBFr1Jm7UASaqFeRVzMpJM2IlEyVoTSu
- 5vY6vI9/n8LqOQoCqdmgSyvqPGeCthDA36iNArGoTA44zrTW4cU6DYit6iSBvzrzvVi2hAMHy2
- U8yNLiO9v+HzZWGe+in/WWl0wqSBnSn6qau9W+YvCun4A8eM/HKAAAAA=
-X-Change-ID: 20260912-afalg-b4-send-20260912-629e04ff0b51
-To: "David S. Miller" <davem@davemloft.net>, 
- Herbert Xu <herbert@gondor.apana.org.au>
-Cc: David Howells <dhowells@redhat.com>, Paolo Abeni <pabeni@redhat.com>, 
- linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789200677; l=1532;
- i=markdamirkan@gmail.com; s=pscsi-20260818; h=from:subject:message-id;
- bh=UF6Le/jUVT/fxnhJHG6G7FxL9hFdSTl92xjIHL6gpDk=;
- b=uf6R7cz671hAJYDC58+wvlpj5pkJe6Xs9n1KM/a+eJopY7h8DSPxJLdsqFekaSixNU/zxy323
- E4hEbOZj1jeCXZBK8fLkhBvgsdInnhReOqjyka5gwHuC7ih44pvcFnS
-X-Developer-Key: i=markdamirkan@gmail.com; a=ed25519;
- pk=/wb49ibt4gZFDncmhFQBYtjPvzT1tfJtvK4Mqt1P2Wc=
-X-Endpoint-Received: by B4 Relay for markdamirkan@gmail.com/pscsi-20260818
- with auth_id=961
-X-Original-From: Mark Amirkan <markdamirkan@gmail.com>
-Reply-To: markdamirkan@gmail.com
+Message-ID: <1730ac3f.2047.1a094b18a4a.Coremail.firefly0158@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:ZigvCgDnjw6jCqVqoUZFAA--.16353W
+X-CM-SenderInfo: piluvw1o1qikqy6rljoofrz/xtbC3QOuYGqlCqM2vAAA38
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-From: Mark Amirkan <markdamirkan@gmail.com>
-
-hash_sendmsg() processes large requests in several batches.  If a later
-batch fails, the common error path calls hash_free_result() and clears
-ctx->more.  The next operation therefore starts a new hash request.
-
-The function nevertheless returns the number of bytes processed by earlier
-batches.  With failslab, a 262144-byte SHA-1 send without MSG_MORE returns
-262128 when the result allocation fails.  A digest read then returns the
-digest of an empty input.  Retrying the last 16 bytes instead returns the
-digest of only those 16 bytes.
-
-Return the error whenever the request state is discarded.  This also
-restores the error-first behavior used before the request batching code was
-reworked.
-
-Fixes: c662b043cdca ("crypto: af_alg/hash: Support MSG_SPLICE_PAGES")
-Cc: stable@vger.kernel.org
-Assisted-by: Symbolic
-Signed-off-by: Mark Amirkan <markdamirkan@gmail.com>
----
- crypto/algif_hash.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/crypto/algif_hash.c b/crypto/algif_hash.c
-index 6e8b5fb82a7f1..7c1910c370ad6 100644
---- a/crypto/algif_hash.c
-+++ b/crypto/algif_hash.c
-@@ -184,7 +184,7 @@ static int hash_sendmsg(struct socket *sock, struct msghdr *msg,
- 	err = 0;
- unlock:
- 	release_sock(sk);
--	return copied ?: err;
-+	return err ?: copied;
- 
- unlock_free:
- 	af_alg_free_sg(&ctx->sgl);
-
----
-base-commit: 5225b8eec4c9bb21aecff6295fab6346a3c3738e
-change-id: 20260912-afalg-b4-send-20260912-629e04ff0b51
-
-Best regards,
---  
-Mark Amirkan <markdamirkan@gmail.com>
-
-
+CkhpLAoKCkkgYW0gcmVwb3J0aW5nIGEgS0FTQU4gdXNlLWFmdGVyLWZyZWUgcmVhZCBpbiBocGZz
+X2dldF9lYSwgdHJpZ2dlcmVkIGJ5IGEKc3l6a2FsbGVyIHJlcHJvZHVjZXIgdGhhdCBtb3VudHMg
+YSBjcmFmdGVkIEhQRlMgaW1hZ2UuICBUaGUgaXNzdWUgaXMKcmVwcm9kdWNpYmxlIHdpdGggSEVB
+RCBjb21taXQgY2VlOTM5NWFjZDgwNDNiZTA2NDRiMjVjMzRiZmE4NjYyM2YyYjkzNQoodjcuMy1y
+YzEsIExpbnV4IDcuMy4wLXJjMSkuCgoKVGhlIHJlcHJvZHVjZXIgbW91bnRzIGEgc21hbGwgSFBG
+UyBpbWFnZSB0aGF0IGNhcnJpZXMgYSBtYWxmb3JtZWQgZXh0ZW5kZWQKYXR0cmlidXRlIGNoYWlu
+IGluIGFuIGZub2RlLiAgRHVyaW5nIG1vdW50LCBocGZzX2ZpbGxfc3VwZXIgcmVhZHMgdGhlIHJv
+b3QKaW5vZGUgdGhyb3VnaCBocGZzX3JlYWRfaW5vZGUsIHdoaWNoIGNhbGxzIGhwZnNfZ2V0X2Vh
+IHRvIGxvb2sgdXAgdGhlIFVJRCwgR0lECmFuZCBNT0RFIGF0dHJpYnV0ZXMuCgoKaHBmc19nZXRf
+ZWEgd2Fsa3MgdGhlIGF0dHJpYnV0ZXMgaW4gdGhlIGZub2RlIHdpdGgKImZvciAoZWEgPSBmbm9k
+ZV9lYShmbm9kZSk7IGVhIDwgZWFfZW5kOyBlYSA9IG5leHRfZWEoZWEpKSIgYW5kIGNvbXBhcmVz
+IGVhY2gKbmFtZSB3aXRoIHN0cmNtcChlYS0+bmFtZSwga2V5KSBiZWZvcmUgdmFsaWRhdGluZyBh
+bnl0aGluZyBhYm91dCB0aGUgZW50cnkuClRoZSB0YXJnZXQgY29uc29sZSBzaG93cyAiQlVHOiBL
+QVNBTjogdXNlLWFmdGVyLWZyZWUgaW4gc3RyY21wKzB4YTcvMHhiMCIsClJlYWQgb2Ygc2l6ZSAx
+LCB3aXRoIHRoZSBmYXVsdGluZyBmcmFtZXMgaHBmc19nZXRfZWEgLT4gaHBmc19yZWFkX2lub2Rl
+IC0+CmhwZnNfZmlsbF9zdXBlci4gIEtBU0FOIHJlcG9ydHMgdGhlIGJ5dGUgYmVpbmcgcmVhZCBh
+cyBiZWxvbmdpbmcgdG8gZnJlZWQKbWVtb3J5LCBzbyB0aGUgd2FsayBoYXMgYWR2YW5jZWQgb3V0
+c2lkZSB0aGUgZm5vZGUncyBhdHRyaWJ1dGUgYXJlYSBhbmQKc3RyY21wIGlzIHJlYWRpbmcgYSBu
+YW1lIGZyb20gbWVtb3J5IHRoYXQgaXMgbm8gbG9uZ2VyIGxpdmUuCgoKT25lIHBvc3NpYmxlIGNh
+dXNlIGlzIHRoYXQgdGhlIGxvb3AgdHJ1c3RzIHRoZSBvbi1kaXNrIGF0dHJpYnV0ZSBjaGFpbi4g
+IFRoZQplYS0+bmFtZWxlbiBmaWVsZCBpcyB1c2VkIHRvIGNvbXB1dGUgdGhlIG5leHQgcG9zaXRp
+b24gYnkgbmV4dF9lYSgpIHdpdGhvdXQgYQpib3VuZCBvbiBuYW1lbGVuLCBhbmQgdGhlIGxvb3Ag
+Y29uZGl0aW9uIG9ubHkgY29tcGFyZXMgYWdhaW5zdCBlYV9lbmQsIHdoaWNoIGlzCml0c2VsZiBk
+ZXJpdmVkIGZyb20gdGhlIHNhbWUgZm5vZGUuICBBIGNyYWZ0ZWQgaW1hZ2UgY2FuIHRoZXJlZm9y
+ZSBtYWtlIHRoZQppdGVyYXRvciBzdGVwIHBhc3QgdGhlIGF0dHJpYnV0ZSBhcmVhOyB0aGUgc3Vi
+c2VxdWVudCBzdHJjbXAgcmVhZHMgb3V0IG9mCmJvdW5kcy4gIFRoaXMgbG9va3MgbGlrZSBhIG1p
+c3NpbmcgdmFsaWRhdGlvbiBvbiB0aGUgYXR0cmlidXRlIGVudHJ5IHJhdGhlcgp0aGFuIGEgbGlm
+ZXRpbWUgYnVnIGluIHRoZSBmbm9kZSBpdHNlbGYuCgoKVGhpcyBhcHBlYXJzIHRvIGJlIGEgcmVj
+dXJyZW5jZSBvZiBhIHByZXZpb3VzbHkgcmVwb3J0ZWQgc3l6Ym90IGlzc3VlICh0aXRsZQoiS0FT
+QU46IHVzZS1hZnRlci1mcmVlIFJlYWQgaW4gaHBmc19nZXRfZWEiLCByZXBvcnRlZCBvbiA2LjE2
+LjAtcmM2KS4gIEEgZml4CmFkZGluZyBib3VuZHMgY2hlY2tzIHRvIHRoZSBFQSBpdGVyYXRpb24g
+bG9vcCB3YXMgcG9zdGVkIGluIEp1bHkgMjAyNSBhbmQKc3l6Ym90IHJlcG9ydGVkIG9uIDIwMjUt
+MTAtMTQgdGhhdCB0aGUgcmVwcm9kdWNlciBubyBsb25nZXIgdHJpZ2dlcmVkIHdpdGggdGhhdApw
+YXRjaCBhcHBsaWVkLCBidXQgdGhlIGNoYW5nZSBpcyBub3QgaW4gbWFpbmxpbmU6IGZzL2hwZnMv
+ZWEuYyBpbiB2Ny4zLXJjMQpzdGlsbCBjb250YWlucyB0aGUgdW5ndWFyZGVkIGxvb3AsIGFuZCB0
+aGUgYnVnIHJlbWFpbnMgcmVwcm9kdWNpYmxlLiAgSSBhbQpyZXBvcnRpbmcgdGhpcyBiZWNhdXNl
+IHRoZSBmaXggZG9lcyBub3QgYXBwZWFyIHRvIGhhdmUgYmVlbiBtZXJnZWQuCgoKUmVwcm9kdWNl
+cjoKCgpzeXogcmVwcm9kdWNlcjpodHRwczovL3Bhc3RlYmluLmNvbS9yYXcvRmF1ekZCOVcKCgpj
+b25zb2xlIG91dHB1dDogaHR0cHM6Ly9wYXN0ZWJpbi5jb20vcmF3L2NzVndpMFQxCmtlcm5lbCBj
+b25maWc6IGh0dHBzOi8vcGFzdGViaW4uY29tL3Jhdy9nWlF4UEhuQgoKCktlcm5lbDoKCgpIRUFE
+IGNvbW1pdDogY2VlOTM5NWFjZDgwNDNiZTA2NDRiMjVjMzRiZmE4NjYyM2YyYjkzNQpnaXQgdHJl
+ZTogaHR0cHM6Ly9naXQua2VybmVsLm9yZy9wdWIvc2NtL2xpbnV4L2tlcm5lbC9naXQvdG9ydmFs
+ZHMvbGludXguZ2l0Cmtlcm5lbCB2ZXJzaW9uOiA3LjMuMC1yYzEKdGVzdGVkIHRhZzogdjcuMy1y
+YzEKCgpMZXQgbWUga25vdyBpZiB5b3UgbmVlZCBtb3JlIGRldGFpbHMgb3IgdGVzdGluZy4KCgpC
+ZXN0IHJlZ2FyZHMsCgo=
