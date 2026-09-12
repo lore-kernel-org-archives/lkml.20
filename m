@@ -1,274 +1,455 @@
-Received: from CWXP265CU010.outbound.protection.outlook.com (mail-ukwestazon11022103.outbound.protection.outlook.com [52.101.101.103])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9840A28B7C8
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 01:00:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.101.103
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789174837; cv=fail; b=QE2SfccDrRFuWYOr2XKgYd6uOxcYTMYgHKXHpgj572qBWFElMqPyluRDkzFkUO3R5gxXWX5/fGAN2uWF9I9ef0UmOnBznSgaSvpP2e1p0GjY7Hq4PE5pT4EKWhUm++98mNmucR6HY44O29MFHoEUKCzS750F5yY7nvr5Lxi/e/Q=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789174837; c=relaxed/simple;
-	bh=w9p0sdZv8B7Q92XRhFc+S9/49j6Doe3GgqLRqL5/uxA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=M+YtYGW0dI4LRbY53hYM4KOtDxP3JVAX89OOb4+R8+SL34I2q4/T0fKJdREW3AHlh1sRyOqNaQMyXWZliI2OowIFQvnkoaLQU1q6Y+H51Cv4cWQTGKxYpSiVkog1nEq0maq9e8F/SZx/DMb1xWK71DXjLDgIvD8bMXWAwxdbxXE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.101.103
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=C/84ttKrx0Xfe2tSrO4tNgsq0zwv56SpbzaZZ2191AdjqwJizQmOGyaGciRX5XDJg4WcnZ9hN3N8+gPvzlxhO7dmP9He/CJDkq/OiijvbMzCADfnfxrcPpbxFUf1L3ngxmNlDw6i8Th6/gMFhRiPv6S8OSkoiRwWOK1wkG7rQhy7qLiYO/eSafg78oX2n4wCHolONbgHMcbRlFtNQ/0f0I0WCBRAxViwcWhNViDvCjtgSMsWGzJSnAfAs/Wx5xezdBMJjDm1G0+xPerg7Jc4PES4E5jMNyfgIxN95SZTYHMSPWxJJlYq3NXP898pVF8g9mDG5j5cmrxjEMkGjwAboQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
- bh=LHWt9MpNXzPcnN0Ox8SwN0xuQkB11QxFa/tjzru4AbM=;
- b=kSbDUV9cdJQaGZAf63vVOGvsjHoV8RSURRIvJOQtyGQzD0NWOIePKk45uC1MLuwIv/dXCAEvRYDNr+6uyg9eJmwvX1850GLx/DpIR7NAF9k44GqWryvJFGewrYqR8hcGF+cXyn7sXKqev3ekz04ihH6f/16+tf/XhEJTEaBSkUcz3GBwYYSeou4aEqiWzRM+7TycMjoqUHKnwGSZOmQUpWy6HJoibCextawBJz6Gk3gwryOdcgiFnJnAt1vU6woau9bdqVS6dqsfh3RaVnF0bzI7P78Y+1yw3+fyCuLSgi5Mba23O7l5XeWxFqHGO3IODcQciZvd8KLZ64MRh1ftRA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
- dkim=pass header.d=atomlin.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=atomlin.com;
-Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
- by LO0P123MB6476.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:249::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.10; Sat, 12 Sep
- 2026 01:00:31 +0000
-Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- ([fe80::cec4:77ab:262e:d230%4]) with mapi id 15.21.0406.007; Sat, 12 Sep 2026
- 01:00:30 +0000
-Date: Fri, 11 Sep 2026 21:00:26 -0400
-From: Aaron Tomlin <atomlin@atomlin.com>
-To: kernel test robot <lkp@intel.com>, peterz@infradead.org, 
-	akpm@linux-foundation.org
-Cc: akpm@linux-foundation.org, mingo@redhat.com, peterz@infradead.org, 
-	juri.lelli@redhat.com, vincent.guittot@linaro.org, oe-kbuild-all@lists.linux.dev, 
-	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de, 
-	vschneid@redhat.com, feng.tang@linux.alibaba.com, pmladek@suse.com, 
-	kprateek.nayak@amd.com, linux-kernel@vger.kernel.org, rishil1999@outlook.com
-Subject: Re: [PATCH] sched/debug, sys_info: Introduce SYS_INFO_CPU_RUNQUEUES
-Message-ID: <duj4ijalt7aef7523les6sfqsf7ryhq5quwjoekrtkigws6iyb@2i7ufubk23ws>
-References: <20260911022844.521413-1-atomlin@atomlin.com>
- <202609120421.J3jtss6v-lkp@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <202609120421.J3jtss6v-lkp@intel.com>
-X-ClientProxiedBy: BN9PR03CA0216.namprd03.prod.outlook.com
- (2603:10b6:408:f8::11) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:400:183::5)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A89F61D63F3;
+	Sat, 12 Sep 2026 01:03:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789174994; cv=none; b=b9VsTRaLUzNLYIk9QO4wdBj7YKaL9KuCb8FbvHwzOhD1W9PdPCcz2aci9ZaGT/Ry8hoSjiPZ6+MKtcpwcilGxZJXKP3dltfwCUKFWJ4DpUHby4cxXvpKZ9uITgFMGin0Shk0kjuTAmbrcUx7tAcyW0I7nKhwXy8au3Mn+1QrwyE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789174994; c=relaxed/simple;
+	bh=8MkNwe5RstKs9Kd2HvvwPHFzjCuvRoRcQpOVrYM0pc8=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=fmUQGhQCKKiZCjDTOwGbSG9P4dxQHChKeftKhM+FDVIod5ep6mkGdmrxMgun5REmK8JP2Eyxk8pNHjkRjuPQBPDpI53NNS8misXPnON6FKwtF+RHitaqrl/uAyI8u0vbxBK6/KY7LlFBzHIZlsjh90EAU26kXln228bThGCD3h4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XW39ZZUw; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XW39ZZUw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 426931F000FF;
+	Sat, 12 Sep 2026 01:03:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789174992;
+	bh=AJ46AAeoNGVFUj9R6LYnyRog+WYh7ZcgP75I2J2b0og=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=XW39ZZUwu0G4g0c03wd1172SHr91Hw8XvR0KwrVYBMkzLV/phBpWVTZwlaBHSJeGQ
+	 czRoGb1tU/0wqv6G0evwVQeWPEQ6BG3iLLGH1nFm9Xg6Zf3Juq5hIleDCdvZQJUYib
+	 1wZ4a49nsM4fPsX0fD9jJBz4lEP2xtbLUdQF7sLcPUCRJihvm4E3muYyEp/YAove74
+	 O1CiXepzFoO+2TQT/QLxaIxVSFDJsuZVtjsc4qIYU6y5rFy4JHi8talNGfOZ882ZfS
+	 AphwRPOAgPZG4YaoZ8NnGOYWheLfEm+nTeb5lpjKbbW5I933M+MPrB7JCCiTA6/ozJ
+	 yeYK3BlCKChOQ==
+Date: Sat, 12 Sep 2026 02:03:05 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Srirangan Madhavan <smadhavan@nvidia.com>
+Cc: Alison Schofield <alison.schofield@intel.com>, Bjorn Helgaas
+ <bhelgaas@google.com>, Dave Jiang <dave.jiang@intel.com>, Davidlohr Bueso
+ <dave@stgolabs.net>, Ira Weiny <ira.weiny@intel.com>, Vishal Verma
+ <vishal.l.verma@intel.com>, linux-cxl@vger.kernel.org,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, Alex Williamson
+ <alex.williamson@redhat.com>, vsethi@nvidia.com, alwilliamson@nvidia.com,
+ Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>, Vishal Aslot
+ <vaslot@nvidia.com>, Manish Honap <mhonap@nvidia.com>, Jiandi An
+ <jan@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
+ linux-tegra@vger.kernel.org
+Subject: Re: [PATCH v12 05/12] cxl: Cache endpoint decoder settings during
+ PCI enumeration
+Message-ID: <20260912020305.64278c3e@jic23-hlaptop>
+In-Reply-To: <20260910070808.1444264-6-smadhavan@nvidia.com>
+References: <20260910070808.1444264-1-smadhavan@nvidia.com>
+	<20260910070808.1444264-6-smadhavan@nvidia.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|LO0P123MB6476:EE_
-X-MS-Office365-Filtering-Correlation-Id: 929c9850-1835-4cbd-12d9-08df10693d93
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|366016|22082099003|18002099003|4143699003|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	tRqLQweC9sjRHYF6qwpA/upeI5AH47MK2NVyup1klcDNC4XWxC0dKTasxS0zD1A28TWQEAF9Fpp8P2LZbZSuQ3FR2E5gD3plmcNXSuX48TNsNTvwz6NNuQz76img9QWmN/hx1sVFFQ7jpj9r6kD5t4n+ZXxsipBC1fZ7r41OWxhU+uRmRB/stEqmDOTil0tYdKRNVwKKn2edtwFjrm37Xr3I/pl1ux5wC3dC+xMlW+w3wvFFGAAkays886pVroZtpKBjuCknWZcS+H6z24f3Dbq9H/YjyxmIQJapoxXL/ChgnKwMvSH6L4MjHC5T6orsrqwD7l7mdGU1CP1r9qkoUeLFWAaw3JthLEm0ZG4MUo/n1kavmnzSQA7q5kz+jacd5n/9LLBOUkEA5AETrRWuXREJ0lOPj0gUnd7DM3eHe60BWLJrUo6cqSS+9Xk5N2mmMrzCZHRHFosHN+GrNWyetWgl+Svvv6i05JK7bnp/yh1ION2G306ia7Uv5bhya8vDw+Iqv9SJue+rFpN90Pws8UZhP8xO0nDDRbhnybvClEaPJ5Fll32NaAJwn6VDp2xU9XXnXhTxHgh2yFKYWcZMucNRDOiXLw0jhpkralxB00TMFAumy7Fvkrp56CYoXROe
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(366016)(22082099003)(18002099003)(4143699003)(10067099003)(56012099006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bkNVWFM1WHJvSjZXMWtEVE83Q3JTOEFoL0NsZXlOTEFJTjZEK25oZ29BcVla?=
- =?utf-8?B?R2UvT2QwQjJySHh1dEVJMzh0VFlNRU9yT3dyREhBTlpQRVFoN05nbi9teFJh?=
- =?utf-8?B?bXRnRWM4S3FiMDlKOWlLT1IxazFxbysrWUVzZ3U0RkxjSzNSQmd2bUM5QnIy?=
- =?utf-8?B?RmR1M2M2YTNuQ2RMVGpPT05FYjY2TUc1OGZhdUZwVHM2K0JxSjJiU1VFUkM1?=
- =?utf-8?B?Z1JhMEo1ak9aZ2xmRFJIbmp6azQ4dkJMeUJSQ3FPc2xxNHkyL0hPWlUzbHFz?=
- =?utf-8?B?Sk0rOWdadGhPNmRNWlNlam44TkxReFFlNHFtUi9yeEhZRWhscW1na1JpOTFK?=
- =?utf-8?B?SGxXaFVlY3FOTmUxUmJjL3VuWDRGeXBTMUM4dTNBRERHZ0ZPS2xqK0JLZGc1?=
- =?utf-8?B?OGRObStVeWUxSnBXNEdtRGtTcUZRTXB4M0kxWVhPNVdFZkI5RlhsbkhxQWNv?=
- =?utf-8?B?RFd1Vis5VzBDdzZxaGJjZlBnUHU2c3BoZkhGUkZ1M2NQVW5IZ2FIYnc1YUd0?=
- =?utf-8?B?U0crbjEzMTJUbUVuWk9jZjlSbUVZMmdmSVNSZmVjUTRCVnRJSFRKZ25BUFRh?=
- =?utf-8?B?bjhmNFlVaDBlbWFvWHJyb3BzQkpCZWw2eFRMM3Arbk5DYnh3a1NReGVVOGFP?=
- =?utf-8?B?MFoyZG9FYk9CejJUaExCN2xia2NXdDRPMGdNbVJqL1V6UW1nR1ZrcVdQckNm?=
- =?utf-8?B?b1N2dk9LdGVQVXZmWmxSSUhYdVd5Z0wyN3dOMXNZbmFuQ3R6b1phM0cvUVA2?=
- =?utf-8?B?VHpnVFFGaE1hdm9PQWVSeG5SZnY2N2VEcGFjUUk3WlF1bGhHa1JWdkRFeU8w?=
- =?utf-8?B?OE0zWjFEckVOVWQ2RkFLd1ZGSGJXMEJQenlZZGtTcGVXNFZaQnNvV1RPeHBC?=
- =?utf-8?B?N0QxSlFZU3orK2VrS3VmNXJFN0NHa1lPNXBRTmViRnUyZmJmeUhMWEFFQWFj?=
- =?utf-8?B?ckdtSDVlUmJ1Um8xUWNkNDdtcDJtUklZQXlwKyswZnJuQUlYR0YvY3J2c29i?=
- =?utf-8?B?Sjd3L1NRTVM3TjFQdXNidi8vNys4Vitsdng4Q0pPUXB2KzBqZ1BvYVdiQmF5?=
- =?utf-8?B?UGQyL3lIZ2pIRmp4bEFmcjZPaUFxL0FtYjJOQjJ4VlBCM1hMTlZHdCt0TEFt?=
- =?utf-8?B?WVh4VVVLVjhMR2ZraVRkTEJFLzFyRVhqY3NTbG9jYzdXSWFPdVpQOXNLejh5?=
- =?utf-8?B?THk3WWpRdkZsOENRQ0N1UzYrcXlrQ0x6emYyeFN2RmdUQkdaamlSd2lHMlly?=
- =?utf-8?B?L0ZjS214cWh4cHJVUDlpbDhCWUp0dmZWeFA3NGppZXJzYVp2WWsrOStNL3RT?=
- =?utf-8?B?YVBTMEZiZ3djVUUrcFVtWU5pQnQxRzdYd1ZTVlVXbHJxbUxYcmhoNys5ajBz?=
- =?utf-8?B?Z1gxR2E3ZjdSS3dnN1lzUWJ4YTJnWWltVTRYL0NhYnNkYkgvV0pndUFGVVdR?=
- =?utf-8?B?VFhwc3luNG4vUURBMU5ZY1FZU2pmakxQVWh6RXNXcW1CQU1GUzRQVkEwYjla?=
- =?utf-8?B?M3R2ajhUVzAvb0YvYmtBMlNna0pkNTBZYkN4YWx5cStESElxR3dLVGRxZVZL?=
- =?utf-8?B?OUdlVDErTzI1bmRJTG1JaU0ySFZNcWJBZXFFcWh5THM3WnF1clNiaEx1UU9w?=
- =?utf-8?B?d2xzalpBVCs1blNQTU9aYmc3MnJVTFJaWTlrY2RRUk5GbDRUdjZwZDlGeVRt?=
- =?utf-8?B?STlhM2dnRWNFb2tHUVc2R3gyN2FFZnpKWE1Nang4WjJxaUN1aFFVVXhLRThr?=
- =?utf-8?B?TFIyTWJzdHhFcDJqckxTN1NhcHhXNFBmMktlZi9FeFlaUFFpSll4Nll5aFdP?=
- =?utf-8?B?VXcrcjFFWHpMQ3YxSTBoWDFjb2RPbFFmSFNNZUwvZFJFQi94dTJLQmtXaUc3?=
- =?utf-8?B?eHgvWVZEMzlzSU5vZTNlcUoxaVpUc2NHOU9taWNRNnlzMDdUdlNyV1VsVUpq?=
- =?utf-8?B?WVIzT1ZybDR0RENDWnJURnFhUmlZbXdvRlFIdTVJdzhwaE9QQVROdHVrWmto?=
- =?utf-8?B?eFc3L25tUm1sYVZLMnRMdFQzd3dDdDVmV2lnRXpaYzR4UW5pVnc0MTRrR3hX?=
- =?utf-8?B?OW00VmMvZzR0UFl3QWxDN1A3M2hWYS9qS0VSU0I2bWJWSC9HT0NhV0pxRDgv?=
- =?utf-8?B?K01LeC9UcWQxaHFIUG1hYnlCbkc3WVpLdW5nZ0taN0kyRUhtelVPcnJIZE8w?=
- =?utf-8?B?MGFYZ2R2UVd3SG9aRXFYb3EwcVZYSmVGd1FVTEtTZzN1bDRKcUg2M3NzS3py?=
- =?utf-8?B?RHBjK3RSZjdPZHFlZENIK1E2QlIvWldkRjRXNDBsNFRDeDdVMlVra1lEbFFL?=
- =?utf-8?B?WCt3aG5lYUhjNjNqU29HbXZRSWV4MnNiUE9oTmdjK0Vlb3JsRWZrUT09?=
-X-OriginatorOrg: atomlin.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 929c9850-1835-4cbd-12d9-08df10693d93
-X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Sep 2026 01:00:30.4039
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5lysbFBXBQHoPPmWgxvvh35bV4oxJQ1f6QfsQR3cnf8UNqumbGdqP1yRxDqHohFb8RgmKGzbcNx2rRTX5oRcSQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P123MB6476
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Sat, Sep 12, 2026 at 04:45:18AM +0800, kernel test robot wrote:
-> Hi Aaron,
-> 
-> kernel test robot noticed the following build warnings:
-> 
-> [auto build test WARNING on akpm-mm/mm-everything]
-> [also build test WARNING on tip/sched/core akpm-mm/mm-nonmm-unstable linus/master v7.3-rc2 next-20260909]
-> [If your patch is applied to the wrong git tree, kindly drop us a note.
-> And when submitting patch, we suggest to use '--base' as documented in
-> https://git-scm.com/docs/git-format-patch#_base_tree_information]
-> 
-> url:    https://github.com/intel-lab-lkp/linux/commits/Aaron-Tomlin/sched-debug-sys_info-Introduce-SYS_INFO_CPU_RUNQUEUES/20260910-222844
-> base:   https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git mm-everything
-> patch link:    https://lore.kernel.org/r/20260911022844.521413-1-atomlin%40atomlin.com
-> patch subject: [PATCH] sched/debug, sys_info: Introduce SYS_INFO_CPU_RUNQUEUES
-> config: microblaze-randconfig-r132-20260911 (https://download.01.org/0day-ci/archive/20260912/202609120421.J3jtss6v-lkp@intel.com/config)
-> compiler: microblaze-linux-gcc (GCC) 8.5.0
-> sparse: v0.6.5-rc1
-> reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260912/202609120421.J3jtss6v-lkp@intel.com/reproduce)
-> 
-> If you fix the issue in a separate patch/commit (i.e. not just a new version of
-> the same patch/commit), kindly add following tags
-> | Reported-by: kernel test robot <lkp@intel.com>
-> | Closes: https://lore.kernel.org/oe-kbuild-all/202609120421.J3jtss6v-lkp@intel.com/
-> 
-> sparse warnings: (new ones prefixed by >>)
->    kernel/sched/build_utility.c: note: in included file:
->    kernel/sched/debug.c:868:17: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *[assigned] sd @@     got struct sched_domain [noderef] __rcu *parent @@
->    kernel/sched/debug.c:868:17: sparse:     expected struct sched_domain *[assigned] sd
->    kernel/sched/debug.c:868:17: sparse:     got struct sched_domain [noderef] __rcu *parent
->    kernel/sched/debug.c:1220:9: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected struct task_struct *tsk @@     got struct task_struct [noderef] __rcu *curr @@
->    kernel/sched/debug.c:1220:9: sparse:     expected struct task_struct *tsk
->    kernel/sched/debug.c:1220:9: sparse:     got struct task_struct [noderef] __rcu *curr
->    kernel/sched/debug.c:1220:9: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected struct task_struct *tsk @@     got struct task_struct [noderef] __rcu *curr @@
->    kernel/sched/debug.c:1220:9: sparse:     expected struct task_struct *tsk
->    kernel/sched/debug.c:1220:9: sparse:     got struct task_struct [noderef] __rcu *curr
-> >> kernel/sched/debug.c:1355:30: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct task_struct *curr @@     got struct task_struct [noderef] __rcu *curr @@
->    kernel/sched/debug.c:1355:30: sparse:     expected struct task_struct *curr
->    kernel/sched/debug.c:1355:30: sparse:     got struct task_struct [noderef] __rcu *curr
-> >> kernel/sched/debug.c:1360:30: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct task_struct *curr @@     got struct task_struct [noderef] __rcu * @@
->    kernel/sched/debug.c:1360:30: sparse:     expected struct task_struct *curr
->    kernel/sched/debug.c:1360:30: sparse:     got struct task_struct [noderef] __rcu *
->    kernel/sched/build_utility.c: note: in included file:
->    kernel/sched/topology.c:118:56: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected struct sched_domain *sd @@     got struct sched_domain [noderef] __rcu *child @@
->    kernel/sched/topology.c:118:56: sparse:     expected struct sched_domain *sd
->    kernel/sched/topology.c:118:56: sparse:     got struct sched_domain [noderef] __rcu *child
->    kernel/sched/topology.c:137:60: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected struct sched_domain *sd @@     got struct sched_domain [noderef] __rcu *parent @@
->    kernel/sched/topology.c:137:60: sparse:     expected struct sched_domain *sd
->    kernel/sched/topology.c:137:60: sparse:     got struct sched_domain [noderef] __rcu *parent
->    kernel/sched/topology.c:160:20: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *sd @@     got struct sched_domain [noderef] __rcu *parent @@
->    kernel/sched/topology.c:160:20: sparse:     expected struct sched_domain *sd
->    kernel/sched/topology.c:160:20: sparse:     got struct sched_domain [noderef] __rcu *parent
->    kernel/sched/topology.c:470:19: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected struct perf_domain *pd @@     got struct perf_domain [noderef] __rcu *pd @@
->    kernel/sched/topology.c:470:19: sparse:     expected struct perf_domain *pd
->    kernel/sched/topology.c:470:19: sparse:     got struct perf_domain [noderef] __rcu *pd
->    kernel/sched/topology.c:654:49: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected struct sched_domain *parent @@     got struct sched_domain [noderef] __rcu *parent @@
->    kernel/sched/topology.c:654:49: sparse:     expected struct sched_domain *parent
->    kernel/sched/topology.c:654:49: sparse:     got struct sched_domain [noderef] __rcu *parent
->    kernel/sched/topology.c:753:50: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected struct sched_domain *parent @@     got struct sched_domain [noderef] __rcu *parent @@
->    kernel/sched/topology.c:753:50: sparse:     expected struct sched_domain *parent
->    kernel/sched/topology.c:753:50: sparse:     got struct sched_domain [noderef] __rcu *parent
->    kernel/sched/topology.c:775:55: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain [noderef] __rcu *[noderef] __rcu child @@     got struct sched_domain *[assigned] tmp @@
->    kernel/sched/topology.c:775:55: sparse:     expected struct sched_domain [noderef] __rcu *[noderef] __rcu child
->    kernel/sched/topology.c:775:55: sparse:     got struct sched_domain *[assigned] tmp
->    kernel/sched/topology.c:788:29: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *[assigned] tmp @@     got struct sched_domain [noderef] __rcu *parent @@
->    kernel/sched/topology.c:788:29: sparse:     expected struct sched_domain *[assigned] tmp
->    kernel/sched/topology.c:788:29: sparse:     got struct sched_domain [noderef] __rcu *parent
->    kernel/sched/topology.c:793:20: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *sd @@     got struct sched_domain [noderef] __rcu *parent @@
->    kernel/sched/topology.c:793:20: sparse:     expected struct sched_domain *sd
->    kernel/sched/topology.c:793:20: sparse:     got struct sched_domain [noderef] __rcu *parent
->    kernel/sched/topology.c:826:13: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *[assigned] tmp @@     got struct sched_domain [noderef] __rcu *sd @@
->    kernel/sched/topology.c:826:13: sparse:     expected struct sched_domain *[assigned] tmp
->    kernel/sched/topology.c:826:13: sparse:     got struct sched_domain [noderef] __rcu *sd
->    kernel/sched/topology.c:1069:38: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected struct sched_domain *sdp @@     got struct sched_domain [noderef] __rcu *parent @@
->    kernel/sched/topology.c:1069:38: sparse:     expected struct sched_domain *sdp
->    kernel/sched/topology.c:1069:38: sparse:     got struct sched_domain [noderef] __rcu *parent
->    kernel/sched/topology.c:1076:21: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *sdp @@     got struct sched_domain [noderef] __rcu *parent @@
->    kernel/sched/topology.c:1076:21: sparse:     expected struct sched_domain *sdp
->    kernel/sched/topology.c:1076:21: sparse:     got struct sched_domain [noderef] __rcu *parent
->    kernel/sched/topology.c:1223:70: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected struct sched_domain *sd @@     got struct sched_domain [noderef] __rcu *child @@
->    kernel/sched/topology.c:1223:70: sparse:     expected struct sched_domain *sd
->    kernel/sched/topology.c:1223:70: sparse:     got struct sched_domain [noderef] __rcu *child
->    kernel/sched/topology.c:1252:59: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected struct sched_domain *sd @@     got struct sched_domain [noderef] __rcu *child @@
->    kernel/sched/topology.c:1252:59: sparse:     expected struct sched_domain *sd
->    kernel/sched/topology.c:1252:59: sparse:     got struct sched_domain [noderef] __rcu *child
->    kernel/sched/topology.c:1298:57: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected struct sched_domain *sd @@     got struct sched_domain [noderef] __rcu *child @@
->    kernel/sched/topology.c:1298:57: sparse:     expected struct sched_domain *sd
->    kernel/sched/topology.c:1298:57: sparse:     got struct sched_domain [noderef] __rcu *child
->    kernel/sched/topology.c:1300:25: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *sibling @@     got struct sched_domain [noderef] __rcu *child @@
->    kernel/sched/topology.c:1300:25: sparse:     expected struct sched_domain *sibling
->    kernel/sched/topology.c:1300:25: sparse:     got struct sched_domain [noderef] __rcu *child
->    kernel/sched/topology.c:1308:55: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected struct sched_domain *sd @@     got struct sched_domain [noderef] __rcu *child @@
->    kernel/sched/topology.c:1308:55: sparse:     expected struct sched_domain *sd
->    kernel/sched/topology.c:1308:55: sparse:     got struct sched_domain [noderef] __rcu *child
->    kernel/sched/topology.c:1310:25: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *sibling @@     got struct sched_domain [noderef] __rcu *child @@
->    kernel/sched/topology.c:1310:25: sparse:     expected struct sched_domain *sibling
->    kernel/sched/topology.c:1310:25: sparse:     got struct sched_domain [noderef] __rcu *child
->    kernel/sched/topology.c:1380:62: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected struct sched_domain *sd @@     got struct sched_domain [noderef] __rcu *child @@
->    kernel/sched/topology.c:1380:62: sparse:     expected struct sched_domain *sd
->    kernel/sched/topology.c:1380:62: sparse:     got struct sched_domain [noderef] __rcu *child
->    kernel/sched/topology.c:1484:40: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected struct sched_domain *child @@     got struct sched_domain [noderef] __rcu *child @@
->    kernel/sched/topology.c:1484:40: sparse:     expected struct sched_domain *child
->    kernel/sched/topology.c:1484:40: sparse:     got struct sched_domain [noderef] __rcu *child
->    kernel/sched/topology.c:1620:9: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *[assigned] sd @@     got struct sched_domain [noderef] __rcu *parent @@
->    kernel/sched/topology.c:1620:9: sparse:     expected struct sched_domain *[assigned] sd
->    kernel/sched/topology.c:1620:9: sparse:     got struct sched_domain [noderef] __rcu *parent
->    kernel/sched/topology.c:1877:52: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *[assigned] sd @@     got struct sched_domain [noderef] __rcu *parent @@
->    kernel/sched/topology.c:1877:52: sparse:     expected struct sched_domain *[assigned] sd
->    kernel/sched/topology.c:1877:52: sparse:     got struct sched_domain [noderef] __rcu *parent
->    kernel/sched/topology.c:1987:43: sparse: sparse: incorrect type in initializer (different address spaces) @@     expected struct sched_domain [noderef] __rcu *child @@     got struct sched_domain *child @@
->    kernel/sched/topology.c:1987:43: sparse:     expected struct sched_domain [noderef] __rcu *child
->    kernel/sched/topology.c:1987:43: sparse:     got struct sched_domain *child
->    kernel/sched/topology.c:2791:31: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain [noderef] __rcu *parent @@     got struct sched_domain *sd @@
->    kernel/sched/topology.c:2791:31: sparse:     expected struct sched_domain [noderef] __rcu *parent
->    kernel/sched/topology.c:2791:31: sparse:     got struct sched_domain *sd
->    kernel/sched/topology.c:2919:16: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *parent @@     got struct sched_domain [noderef] __rcu *[noderef] __rcu parent @@
->    kernel/sched/topology.c:2919:16: sparse:     expected struct sched_domain *parent
->    kernel/sched/topology.c:2919:16: sparse:     got struct sched_domain [noderef] __rcu *[noderef] __rcu parent
->    kernel/sched/topology.c:2921:24: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *parent @@     got struct sched_domain [noderef] __rcu *parent @@
->    kernel/sched/topology.c:2921:24: sparse:     expected struct sched_domain *parent
->    kernel/sched/topology.c:2921:24: sparse:     got struct sched_domain [noderef] __rcu *parent
->    kernel/sched/topology.c:2926:16: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *parent @@     got struct sched_domain [noderef] __rcu *parent @@
->    kernel/sched/topology.c:2926:16: sparse:     expected struct sched_domain *parent
->    kernel/sched/topology.c:2926:16: sparse:     got struct sched_domain [noderef] __rcu *parent
->    kernel/sched/topology.c:2931:24: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *parent @@     got struct sched_domain [noderef] __rcu *parent @@
->    kernel/sched/topology.c:2931:24: sparse:     expected struct sched_domain *parent
->    kernel/sched/topology.c:2931:24: sparse:     got struct sched_domain [noderef] __rcu *parent
->    kernel/sched/topology.c:3008:25: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *[assigned] sd_asym @@     got struct sched_domain [noderef] __rcu *parent @@
->    kernel/sched/topology.c:3008:25: sparse:     expected struct sched_domain *[assigned] sd_asym
->    kernel/sched/topology.c:3008:25: sparse:     got struct sched_domain [noderef] __rcu *parent
->    kernel/sched/topology.c:3143:57: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *[assigned] sd @@     got struct sched_domain [noderef] __rcu *parent @@
->    kernel/sched/topology.c:3143:57: sparse:     expected struct sched_domain *[assigned] sd
->    kernel/sched/topology.c:3143:57: sparse:     got struct sched_domain [noderef] __rcu *parent
->    kernel/sched/topology.c:3165:28: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *[assigned] sd @@     got struct sched_domain [noderef] __rcu *parent @@
->    kernel/sched/topology.c:3165:28: sparse:     expected struct sched_domain *[assigned] sd
->    kernel/sched/topology.c:3165:28: sparse:     got struct sched_domain [noderef] __rcu *parent
->    kernel/sched/topology.c:3191:57: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected struct sched_domain *[assigned] sd @@     got struct sched_domain [noderef] __rcu *parent @@
->    kernel/sched/topology.c:3191:57: sparse:     expected struct sched_domain *[assigned] sd
->    kernel/sched/topology.c:3191:57: sparse:     got struct sched_domain [noderef] __rcu *parent
+On Thu, 10 Sep 2026 07:08:01 +0000
+Srirangan Madhavan <smadhavan@nvidia.com> wrote:
 
-Hi Andrew, Peter,
+> Populate pci_dev->hdm for CXL.mem functions from pci_bus_add_device(),
+> after final PCI fixups and state save but before driver binding. This
+> gives driver-free reset paths an early HDM snapshot while avoiding the
+> pre-resource-assignment window in PCI capability initialization.
+> 
+> Use the CXL Register Locator BAR Indicator to find the component register
+> BAR, reject unassigned, disabled, or zero memory BAR resources before
+> temporarily enabling Memory Space, and restore the original PCI_COMMAND
+> value before returning. Cache the CXL Device DVSEC control register with
+> the HDM state for reset recovery before a driver can alter it.
+> 
+> CXL core refreshes the cache as decoders are committed or reset, and keeps
+> the cached DVSEC control synchronized when CXL.mem is enabled or disabled.
+> Move the register helpers into the built-in CONFIG_CXL_RESET set so the
+> early cache path is available without cxl_core, and keep the cxl-test mock
+> core from building a duplicate regs.o.
+> 
+> Signed-off-by: Srirangan Madhavan <smadhavan@nvidia.com>
+Hi Srirangan,
 
-Thanks test robot! I will fix these __rcu Sparse warnings
-(make C=2 kernel/sched/) on rq->curr using rcu_dereference() and send a
-version 2.
+Unless I'm reading this wrong, this has evolved to the point that it
+needs a step back and a rethink.  There is complexity in here I
+don't think you need at all.  I may well be missing something
+though given it's Friday evening!
 
-Kind regards,
--- 
-Aaron Tomlin
+Jonathan
+
+
+> diff --git a/drivers/cxl/core/resource.c b/drivers/cxl/core/resource.c
+> index e6aa55079c76..6d9f8fe14b16 100644
+> --- a/drivers/cxl/core/resource.c
+> +++ b/drivers/cxl/core/resource.c
+> @@ -2,9 +2,17 @@
+>  /* Copyright (c) 2026 NVIDIA Corporation & Affiliates */
+>  #include <linux/delay.h>
+>  #include <linux/bug.h>
+> +#include <linux/bitfield.h>
+> +#include <linux/cleanup.h>
+>  #include <linux/errno.h>
+>  #include <linux/export.h>
+> +#include <linux/io.h>
+> +#include <linux/ioport.h>
+>  #include <linux/kernel.h>
+> +#include <linux/pci.h>
+> +#include <linux/slab.h>
+> +
+> +#include <cxl/pci.h>
+>  
+>  #include "cxl.h"
+>  #include "core.h"
+> @@ -156,3 +164,331 @@ int cxl_hdm_decode_decoder(struct cxl_decoder_settings *settings, int id,
+>  				  &settings->interleave_granularity);
+>  }
+>  EXPORT_SYMBOL_FOR_MODULES(cxl_hdm_decode_decoder, "cxl_core");
+> +
+> +struct cxl_hdm_decoder_state {
+> +	u32 ctrl;
+> +	u32 base_low;
+> +	u32 base_high;
+> +	u32 size_low;
+> +	u32 size_high;
+> +	u32 target_low;
+> +	u32 target_high;
+> +};
+> +
+> +static void cxl_pci_hdm_info_free(struct cxl_hdm_info *info)
+> +{
+> +	if (!info)
+> +		return;
+> +
+> +	kfree(info->decoder_state);
+> +	kfree(info);
+> +}
+> +
+> +DEFINE_FREE(cxl_pci_hdm_info, struct cxl_hdm_info *,
+> +	    cxl_pci_hdm_info_free(_T))
+> +
+> +void pci_cxl_hdm_release(struct pci_dev *pdev)
+> +{
+> +	struct cxl_hdm_info *info = pdev->hdm;
+> +
+> +	pdev->hdm = NULL;
+
+If the order here matters, you need a barrier or WRITE_ONCE() might
+do it.
+
+> +	cxl_pci_hdm_info_free(info);
+> +}
+> +
+> +static bool cxl_pci_bar_usable(struct pci_dev *pdev, int bar)
+
+This doesn't seem to have anything CXL specific about it.  Maybe
+give it a more generic name and move it to pci.c?
+However, see later - I'm not sure you need this.
+
+> +{
+> +	struct resource *res = &pdev->resource[bar];
+> +
+> +	if (!pci_resource_len(pdev, bar))
+> +		return false;
+> +	if (res->flags & (IORESOURCE_UNSET | IORESOURCE_DISABLED))
+> +		return false;
+> +	if (resource_type(res) != IORESOURCE_MEM)
+> +		return false;
+> +	if (!res->start || !res->end)
+> +		return false;
+> +
+> +	return true;
+> +}
+> +
+> +static int cxl_pci_hdm_find_bar(struct pci_dev *pdev, resource_size_t hdm_start,
+> +				resource_size_t hdm_size, int *bar,
+> +				resource_size_t *offset)
+> +{
+> +	resource_size_t hdm_end;
+> +
+> +	if (!hdm_size)
+> +		return -EINVAL;
+> +
+> +	hdm_end = hdm_start + hdm_size - 1;
+> +	if (hdm_end < hdm_start)
+> +		return -EINVAL;
+> +
+> +	for (int i = 0; i < PCI_STD_NUM_BARS; i++) {
+
+This feels unduly painful and overly specific to this case.
+It is just looking for a resource to bar and offset.
+
+It is not CXL specific so maybe ask Bjorn if such a helper might go
+in pci.c (assuming not discussed and dismissed in earlier rounds of
+review!)  I'd still like it to mention hdm or anything even if
+local to here.
+static int cxl_pci_find_resource_bar(struct pci_dev *pdev,
+				     resource_size_t start, resource_size_t size,
+				     int *bar, resource_size_t *offset)
+
+Noted later, you can skip this entirely as this is going in a circle.
+
+> +		struct resource *res = &pdev->resource[i];
+> +
+> +		if (!cxl_pci_bar_usable(pdev, i))
+> +			continue;
+> +		if (hdm_start < res->start || hdm_end > res->end)
+> +			continue;
+> +
+> +		if (bar)
+> +			*bar = i;
+> +		if (offset)
+> +			*offset = hdm_start - res->start;
+> +		return 0;
+> +	}
+> +
+> +	return -ENODEV;
+> +}
+
+> +
+> +static void cxl_pci_hdm_read_decoder_state(struct cxl_hdm_decoder_state *state,
+> +					   void __iomem *hdm, int id)
+> +{
+> +	state->ctrl = readl(hdm + CXL_HDM_DECODER0_CTRL_OFFSET(id));
+> +	state->base_low = readl(hdm + CXL_HDM_DECODER0_BASE_LOW_OFFSET(id));
+> +	state->base_high = readl(hdm + CXL_HDM_DECODER0_BASE_HIGH_OFFSET(id));
+> +	state->size_low = readl(hdm + CXL_HDM_DECODER0_SIZE_LOW_OFFSET(id));
+> +	state->size_high = readl(hdm + CXL_HDM_DECODER0_SIZE_HIGH_OFFSET(id));
+> +	state->target_low = readl(hdm + CXL_HDM_DECODER0_TL_LOW(id));
+> +	state->target_high = readl(hdm + CXL_HDM_DECODER0_TL_HIGH(id));
+> +}
+> +
+> +static int cxl_pci_hdm_read_decoder(struct pci_dev *pdev,
+> +				    struct cxl_hdm_decoder_state *state,
+> +				    struct cxl_decoder_settings *settings,
+> +				    void __iomem *hdm, int id)
+> +{
+> +	u64 target_or_skip, base, size;
+> +	int rc;
+> +
+> +	cxl_pci_hdm_read_decoder_state(state, hdm, id);
+> +
+> +	base = ((u64)state->base_high << 32) | state->base_low;
+> +	size = ((u64)state->size_high << 32) | state->size_low;
+> +	target_or_skip = ((u64)state->target_high << 32) | state->target_low;
+
+I'm not sure I get why we cache the registers and the stuff derived from them.
+Why isn't one source of info enough? Or do the have different lifetimes?
+If they do then add a comment to structure definition on that.
+
+> +
+> +	rc = cxl_hdm_decode_decoder(settings, id, state->ctrl, base, size,
+> +				    target_or_skip, NULL);
+> +	if (rc) {
+> +		pci_err(pdev, "CXL HDM decoder %d has invalid configuration: %d\n",
+> +			id, rc);
+> +		return rc;
+> +	}
+> +	return 0;
+> +}
+
+> +
+> +static int __cxl_pci_hdm_read_info(struct pci_dev *pdev,
+> +				   struct cxl_register_map *map,
+> +				   struct cxl_hdm_info *info)
+> +{
+> +	struct cxl_decoder_settings *settings;
+> +	int decoder_count;
+> +	int rc;
+> +
+> +	rc = cxl_setup_regs(map);
+> +	if (rc)
+> +		return rc;
+> +
+> +	if (!map->component_map.hdm_decoder.valid)
+> +		return -ENODEV;
+> +
+> +	void __iomem *hdm __free(cxl_hdm_iounmap) =
+> +		cxl_pci_hdm_map(pdev, map, info);
+> +	if (IS_ERR(hdm))
+> +		return PTR_ERR(no_free_ptr(hdm));
+> +
+> +	decoder_count = cxl_hdm_decoder_count(readl(hdm +
+> +						    CXL_HDM_DECODER_CAP_OFFSET));
+
+Go long on lines like this.  As long as you stay only a bit over 80 no one will
+mind.
+
+> +	if (decoder_count < 0)
+> +		return decoder_count;
+> +
+> +	if (decoder_count > ARRAY_SIZE(info->settings))
+> +		return -ENXIO;
+> +
+> +	if (CXL_HDM_DECODER0_CTRL_OFFSET(decoder_count - 1) + 0x10 >
+
+That 0x10 needs to be a define or other useful code. I have no idea what
+it is...
+
+> +	    info->hdm_size) {
+> +		pci_err(pdev,
+> +			"CXL HDM decoder count exceeds mapped register block\n");
+> +		return -ENXIO;
+> +	}
+> +
+> +	info->decoder_count = decoder_count;
+> +	info->global_ctrl = readl(hdm + CXL_HDM_DECODER_CTRL_OFFSET);
+> +	info->decoder_state = kcalloc(decoder_count,
+> +				      sizeof(*info->decoder_state),
+> +				      GFP_KERNEL);
+
+That's same size as settings, so put the two of them a struct at the end of
+cxl_hdm_info with a short name (e.g. decoder[].state, decoder[].settings) and
+use a struct_size() allocation for them both.
+
+> +	if (!info->decoder_state)
+> +		return -ENOMEM;
+> +
+> +	settings = info->settings;
+> +	for (int i = 0; i < info->decoder_count; i++) {
+> +		rc = cxl_pci_hdm_read_decoder(pdev, &info->decoder_state[i],
+> +					      &settings[i], hdm, i);
+> +		if (rc)
+> +			return rc;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int cxl_pci_hdm_read_info(struct pci_dev *pdev,
+> +				 struct cxl_register_map *map,
+> +				 struct cxl_hdm_info *info)
+> +{
+> +	bool restore_command;
+> +	u16 command;
+> +	int rc, rc2;
+> +
+> +	guard(pci_dev)(pdev);
+> +
+> +	rc = pci_read_config_word(pdev, PCI_COMMAND, &command);
+> +	if (rc)
+> +		return pcibios_err_to_errno(rc);
+> +
+> +	restore_command = !(command & PCI_COMMAND_MEMORY);
+> +	if (restore_command) {
+> +		rc = pci_write_config_word(pdev, PCI_COMMAND,
+> +					   command | PCI_COMMAND_MEMORY);
+> +		if (rc)
+> +			return pcibios_err_to_errno(rc);
+> +	}
+> +
+> +	rc = __cxl_pci_hdm_read_info(pdev, map, info);
+> +
+> +	if (!restore_command)
+> +		return rc;
+> +
+> +	rc2 = pci_write_config_word(pdev, PCI_COMMAND, command);
+> +	if (rc2) {
+> +		rc2 = pcibios_err_to_errno(rc2);
+> +		pci_err(pdev,
+> +			"failed to restore PCI_COMMAND after CXL HDM cache init: %d\n",
+> +			rc2);
+
+> +		if (!rc)
+> +			rc = rc2;
+> +	}
+Dance is more complex to read than just duplicating a little.
+
+	if (rc)
+		goto reset_command_reg
+
+	return pci_write_config_word(pdev, PCI_COMMAND, command);
+
+reset_command_reg:
+	if (pci_write_config_word(pdev, PCI_COMMAND, command) !=
+	    PCIBIOS_SUCCESSFUL)
+		pci_err(pdev, ...);
+
+I doubt we care about what return of that is given we are on fire.
+
+	return rc;
+
+> +
+> +	return rc;
+> +}
+> +
+> +static int __pci_cxl_hdm_init(struct pci_dev *pdev)
+> +{
+> +	struct cxl_register_map map = { 0 };
+
+The 0 doesn't add anything = { };
+
+> +	int dvsec;
+> +	int rc;
+> +
+> +	if (!cxl_pci_hdm_capable(pdev))
+> +		return -ENOTTY;
+> +
+> +	rc = cxl_find_regblock(pdev, CXL_REGLOC_RBI_COMPONENT, &map);
+> +	if (rc)
+> +		return rc;
+So this reads the regblock locator to get where the component regs are
+by decodeing the bar and offset then finding the resource form that...
+> +
+> +	rc = cxl_pci_hdm_find_bar(pdev, map.resource, map.max_size, NULL, NULL);
+> +	if (rc)
+> +		return rc;
+This takes the resource and finds the bar and offset?
+
+Going in circles. Can't you pull a helper out of the start of
+cxl_decode_regblock() and get the bar and offset directly.
+Even if you need the sanity checks along the way, I think you can
+do them more directly and only go in one direction.
+
+> +
+> +	struct cxl_hdm_info *info __free(cxl_pci_hdm_info) =
+> +		kzalloc_obj(*info, GFP_KERNEL);
+> +	if (!info)
+> +		return -ENOMEM;
+
+Why allocate here when so much can still fail?  We don't need
+it for a few more calls.
+
+> +
+> +	dvsec = pci_find_dvsec_capability(pdev, PCI_VENDOR_ID_CXL,
+> +					  PCI_DVSEC_CXL_DEVICE);
+> +	if (!dvsec)
+> +		return -ENOTTY;
+> +
+> +	rc = pci_read_config_word(pdev, dvsec + PCI_DVSEC_CXL_CTRL,
+> +				  &info->dvsec_ctrl);
+> +	if (rc)
+> +		return pcibios_err_to_errno(rc);
+> +	info->dvsec_ctrl_valid = true;
+> +
+
+I'd make this read and allocate - having found the size so we don't
+allocate more than necessary.  If any crazy device changes number of
+decoders on reset then we can just clamp it and print a rude message.
+
+> +	rc = cxl_pci_hdm_read_info(pdev, &map, info);
+> +	if (rc)
+> +		return rc;
+> +
+> +	pdev->hdm = no_free_ptr(info);
+> +
+> +	return 0;
+> +}
+> +
+> +void pci_cxl_hdm_init(struct pci_dev *pdev)
+> +{
+> +	int rc;
+> +
+> +	rc = __pci_cxl_hdm_init(pdev);
+> +	if (rc && rc != -ENOTTY && rc != -ENODEV)
+> +		pci_dbg(pdev, "CXL HDM cache init failed: %d\n", rc);
+> +}
+
+
