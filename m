@@ -1,158 +1,194 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D25341A57D
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 15:09:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72176303A35
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 15:11:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789225767; cv=none; b=Aw08ZfslvCyBN2bEGJVHmnTptQx+uT3N7WzpwFjhm9epkdK1dzxGdwgJdyNbilqUa1KGNpZfCoOMNeO9NKVgNo73UzPPmobjo7RegIrpj98UojJjGZYyQar/+Is3WGQf7TCzbqbtbriIkFkVT4DtgHJuEtHY37KlJpxQtAnjVwo=
+	t=1789225864; cv=none; b=Is6ruAIBcZOHWAkURMbiVs1pgt801stE4AdXM6nhap/X0JPldnk582kEj8uY5Hoxk9NqoV0T4yVftu7X/qmig4nfKDkrwUld0D2m0yJJ8PT1QCHkhpUIQh80Yd0BzX9aLbe25QxT/YIUHDvpNZadZ85JPxkAsDMObsss+/cyNXE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789225767; c=relaxed/simple;
-	bh=E+pgQfat9DwTCUXUsfDAxoX0Sb4N2yvLcFrtGR2PfNA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WLObXFQ4nV03WU2O4lnkZmvmwewSHUTd9g8x5NStoRYHRuwsIBL54d8C/ZKslkG6vBGKl6j9S2mchEClCMt7tt5Fwm03uFWTDJZEvEBRkvfNnGbzvLuR39+Mb1l6iHJwXhCeKsKBM9Ffk6qOoUhECrup6R6mKXjikYATa0le7bU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TT0/FNeN; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=H0FAgUA+; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789225864; c=relaxed/simple;
+	bh=454gOSjSPXq1dlADuv5BT6iCdaMAuIelnQuaGmfZOwA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=BIfEzWMqdGxhcm1kEa8H+3aKnusWfdmTJAKHce+/9bzxcVeErB/Xs/LyPTMC81lL+V7VZrjHvN3Xvwu7X97hR0jReqmWAdAsurWMk6hDrDfcnt7pkK6+n3rNCOpOJns/R1wBTpc3tT7BajyTPmfj8rdiwtpqn7Wzg1O66tKlyTg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CoIAAmjm; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TT0/FNeN";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="H0FAgUA+"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68CEeMF23829996
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 15:09:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=Y86yJvxE2YzZDSDBzkxgu7LIWB5oUTdTWrV
-	QFoYNlZk=; b=TT0/FNeN1dsS79JksacI3EvHp0CovXEJEt6QGB7lEjvOWzxQqpl
-	Gl/8W1SzHH18cQ4ymfen7V/dJUesODf0zWAlg4elwA4xH6ZkijtfNeQ/eTQ3MRXD
-	soJNgh4mTEVbzY2WvZOLnAQmh02srKNypq9b7Hhdr6CWdPTc/jDO+2qV2Au0QINt
-	hXLlcH2/i6BozM/eFtfNkk7p3tu3NhMbxzt4BgMoGYvvbAknCgBIQ+6myYRP/Z1O
-	LjodWYLxbSpgr41gBaEFsYNfYAAdwofSWkkkZGReAzjHqCB8bwL6pBS078hAaXCh
-	BaRh1ASLbHaHaeZYZUGk5F1PC4kn03pwuCw==
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9dh7s4-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 15:09:21 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc1b8088202so1645241a12.3
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 08:09:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CoIAAmjm"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cebad4afso886080a12.0
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 08:11:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789225761; x=1789830561; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Y86yJvxE2YzZDSDBzkxgu7LIWB5oUTdTWrVQFoYNlZk=;
-        b=H0FAgUA+NMaXKbsgIqDVdCnDU/EdBXyM7jeUfd1lNb55WAvISNLfCAM0a1TRsTK3Oz
-         6XRjhM+rwy7a59bAYXVemTJqwgIilLZxa8iDSVtuGBoV0ZgsNcnGG4pggy3V5SDqkoI6
-         3DDMq+1+kP8szItN9nKpDG6FiOQbICY+W/nsOE7oifw/ny7g3+nmduavChlG0Z58OSIf
-         VXu0dJERzwyFNWQru4zrsRpXv1myMVe+gPmJSfewi/Ps9CVWT5SibOtYfSuPJKPYDmIO
-         lb8lkueZc3HwpORilQuCm1IMBzM8vdiS8o0Z+b6TCY7RyVkeH6oRnTzXgT/huPT9LcWt
-         sK8A==
+        d=gmail.com; s=20251104; t=1789225861; x=1789830661; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lwWJbmOTPaeL9kmJZ34Rm916nOQbLgwTXi0dTNNuCMI=;
+        b=CoIAAmjmk2S4f/ZChAm9MrULOCt9GzJbPZGWEvs4kVTg6NmoiSgAvE3VMn7FENX3xg
+         0u6WzJY1HQHdpiWoh1RlRDsPA0N+UrCZrRxNYs//El8JW4sqJDJEhCXBJahTWuV2S8in
+         Cs58/vJU7hhcQiqpXZfb0pVjcmYo98jgk7cFz0ZfTQMuBeXRdc5hooJikho8crOuaNML
+         F0taJtqbdAy8PLJh/NczDm+Ns8H9/F+HUSaahvL5zC1XAe0nE6PLnZyDTcYfs1bC5pIF
+         zds1qLtBTuKph5vJ2etshSpq6ubHe4SXxvtFLCc7E+gQlArfEVRTpRyRAIadrQYZPnZG
+         hiBw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789225761; x=1789830561;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Y86yJvxE2YzZDSDBzkxgu7LIWB5oUTdTWrVQFoYNlZk=;
-        b=kiMCjuhgzXo01enG9ulzQjEFqs0hgZP6TnJn64xNF3rRDX5rjKXOwlR3QaRH34lJX9
-         8j4FeOCtUFhOS36AXlRDylEqDK6bidebkqvVGSZ/APG37UmqIJUa9HCL+/B9Rl2WyW9u
-         jywoRJL+toDJlnHqSks0lXrH/c9ZijqyRdvIMIKdr+yYtarzbFTVCwFzOhTPcAvMwGPB
-         9gH8HRNj8FcmK+uWYVD3RHxiNDX4xXx94xmWQ2DJgdlXQlRJZoT+4Svmq5dqnnu8LBJf
-         WfPnGDJ70fv52d9tj76856cGIlhTLLTeU/z7IHRUj/vVf9J3PXyj11oe1+qu3ZCfr8V8
-         HgNw==
-X-Forwarded-Encrypted: i=1; AKwUvBxVu+SJedBTTQXa8ZBqgtcqoKXMrFNygLJtkM5WVzyN2Hfzl9hc8CvNFY8ECSgmowELWCLGUB8weHvS+8M=@vger.kernel.org
-X-Gm-Message-State: AFuF++lTfx6GpHLrOfNFkOwC6qP2hiQOAGNF6zPLoOThSY5hzDIfSaEL
-	2f/Ad51aRIOYYCR96UBY5BL4UwiaZ6kzTr5sjcWE/AnKmg2kEhYfmaEnxqhKSQ4a1bM8jWD2QQ4
-	pIxkFQ3vfRIV/DmbtGHJqXD2GU5g1i9ultmlLiPm9Oz5KycZgeMIBqWl44tZEjj8csW0=
-X-Gm-Gg: AYBFou0T7EAYl52UT1d2/aj0xcyhr6AMZFxvrkHAX+tzZXgI3dud0KVU4bl3x6xV5K4
-	Zls2nKPh5NN1X10KTlqBlI/nUuz4LRwS7zzRdnMIWmfIXRI2Nhx87x7KVp/8+MLsOrGPoV9IdhJ
-	XHUyJOp+YitNUvsSnLU3HbGA5liEUOLGb2TmgIyCe57kZGihvhwktzNBSfvJrS2sHlLguB3mZws
-	uyIqducuDu2iaorwqy2RTMz9g3wRC+PXuj3x4NGfFeo/geNLo2p3glRVNvYnvunSgHEE6Jyk0wO
-	cmlcnialYGjDwz2cyCicBy2v836CN9bQOec6nk/xLER/J3gvlMQMkEr0wH5Vn0+hI6ai+3VC1lm
-	1u/eGkTUIDSeUlxLxQJio6Q/xN011A46tcd4jjdq0aY+gyGE=
-X-Received: by 2002:a05:6a21:6016:b0:3d1:39e9:b261 with SMTP id adf61e73a8af0-3daecb013demr18650578637.0.1789225760841;
-        Sat, 12 Sep 2026 08:09:20 -0700 (PDT)
-X-Received: by 2002:a05:6a21:6016:b0:3d1:39e9:b261 with SMTP id adf61e73a8af0-3daecb013demr18650511637.0.1789225760410;
-        Sat, 12 Sep 2026 08:09:20 -0700 (PDT)
-Received: from localhost (c-73-37-105-206.hsd1.or.comcast.net. [73.37.105.206])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4c6549d95sm2564095a12.12.2026.09.12.08.09.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 12 Sep 2026 08:09:19 -0700 (PDT)
-From: Rob Clark <robin.clark@oss.qualcomm.com>
-To: dri-devel@lists.freedesktop.org
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
-        Greg Ociepka <greg@ferrisoft.com>,
-        Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH] drm/msm/a6xx+: Increase GMU FW init timeout
-Date: Sat, 12 Sep 2026 08:09:14 -0700
-Message-ID: <20260912150915.28700-1-robin.clark@oss.qualcomm.com>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20251104; t=1789225861; x=1789830661;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=lwWJbmOTPaeL9kmJZ34Rm916nOQbLgwTXi0dTNNuCMI=;
+        b=YE3+ZKRqbqMUxB2OaePTZKzCAUwNeVfi8ripxZAhlhAUoW38otXAWC8kzNeznz6Hmy
+         rpO80Kco2IOIBbl9PNFO0ZbJ1gJyroWN8EoUSQCye/QzSTdz2Dhch6vD/15Z3nMNs3bd
+         +Ns354yWM8k41mh+/KAvKJS1doU+SNk4dUQuQwspvPo2j0MOnquvxxkF8v5BFr9DGYl4
+         ILEOKC6531+MScr3ZJZU7Gs3b2sEjSskr3J5T5fLpFPEBtkiiJVeGfzn9Bk/Hq1Mrnk2
+         zuneD3IRR2EVFdkn1xnIadszP3ahCVMGWC5Br3i1rpr6NvslFfp160GA9bSOQzO4stcv
+         dFcA==
+X-Forwarded-Encrypted: i=1; AKwUvBz1ceukaS8xVjyNY9FgA/FP8wMN59A83ZFQ27UMNCKp2MTIcOYdduA0DY3NFHVvkdJGlczyZTXSO2vPJhU=@vger.kernel.org
+X-Gm-Message-State: AFuF++k24BWEzD2auT3qlOb1C8fdci5GrZhEScx5T9D4IhCJY5r7axrZ
+	02Tv7GZb2ibO6x/WqnC+aSf5b0GB5fkrQRrUnyP52AQJIPawUYEWBNlg
+X-Gm-Gg: AYBFou1SW3vkQOSU8IDsY7zdQWjQyEe0jhgxoZZhX03KY2s7nwLyfu0/J0YXzKskgXn
+	9XK0QqtVVLmT7J6cVOXDInrU4z5Ac3yimIo6j0NGra6/OMhqiMAAkCkP3XZRSqQAZMQaw9wCpK7
+	yU1Sk8ZYocRiUZ0zcBm9fKeY2hHUm/0WZAP7gNmoG4XT7Ce95Cmv/h6BhIg/RihtrGJ1VmswIId
+	sfAIb/ceC2BetP09XaiPERtsOENBVt68Qq3XqKcOpnnFr+ZMqilWzxtpsEorLE1/XpjbijXdE70
+	T9pCEHe9aWjx/w8SQ63mieVELhvdr7pHJ6tgh2OUuDOE3Vk+rZuDs9b0TM2zbUaga3tTCktYlx5
+	ZRZrJv0THEkJhzNL8oTFxwbjGpGoYpJovn/FESleJ9gCwPm+A01/k7eolDNWp+XLenTmZ2YTNqp
+	Miy9igAeWqPQNhlJuxvlZaFI3EwBNfYlF2IK+58IfFR7gxRZ1nYhIyLi5hLLo5CxoWns/YnXMOw
+	3Qp7NzNBe8EQrEiJjJ3vsPViqs7Xrmbc2WanPkdH8s7HnKs
+X-Received: by 2002:a17:90b:1f8e:b0:398:b88c:2b7b with SMTP id 98e67ed59e1d1-39d9bd9917cmr18150781a91.8.1789225860997;
+        Sat, 12 Sep 2026 08:11:00 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d994cf9a6sm10595547a91.10.2026.09.12.08.10.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 12 Sep 2026 08:11:00 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <c89f582d-57fe-40d5-835b-5e5ce38daccb@roeck-us.net>
+Date: Sat, 12 Sep 2026 08:10:59 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: 1wsL8-dp_odTffDzibVKWVGUIoW6kjQ5
-X-Proofpoint-ORIG-GUID: 1wsL8-dp_odTffDzibVKWVGUIoW6kjQ5
-X-Authority-Analysis: v=2.4 cv=NelzRGD4 c=1 sm=1 tr=0 ts=6aa56b21 cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=19Wyn7e3V/0aNffMjNCMQw==:17
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
- a=8lTVeMJbxB4f0FvlbnAA:9 a=_Vgx9l1VpLgwpw_dHYaR:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEyMDIyMCBTYWx0ZWRfX9obIhuW+gsmF
- SOiq9qD2rNCN8v+PT94mNbTDS+miMjYazJG7qQrWfVKk7e/vdoVCI+q/6WURiyYDj9i++/ujCTS
- hJ1O8FqCOkDX5Absg9yFORmOdWRAOzw=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEyMDIyMCBTYWx0ZWRfX0tshi1HXTcVm
- 6x13ryq0Dnhi7Ov4yXkI+duewSJkNh7n+3AbWClW/jGo6Ze6ecK4jDqIEVzjYjSDPXfrjLiYqrB
- bNCkE8Acl8AQJWfpyTAS5qJ2Sn5Py3xE1CUvCeZlEgDAwXe4zJ1gxChpR3HkP0wisVSH3PDGLWA
- GtCTMuhjHL1TqtdTrjIDezZSCuG4qigCpVb+L9wV/pMuUDQRXqB5loCWD0HY2k38fty1XYSJgdI
- xj7BWIAc5N+18oRETbzMUa75x+dZBBMLvQLwpsXoYcMIdVOL58zjZCtoL36Ngzr8+8k0KQG/YfW
- 2ptoHw5USIoGtUzk92+FwWgVoWIXADhKN9J1R1r8iUXBqC2ugxxkma1qkzDNcyUTcjG10nAQDq5
- WxsDW5VW9okYRiVHVE84Pyz3MHZbQPhby2C2fKhLjVfBmsxp4cLb4NMvR7xZKEAw4co4dom9HNm
- UWJUeeOBmIFDGN8XvWw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-12_05,2026-09-11_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 adultscore=0 impostorscore=0 priorityscore=1501 clxscore=1015
- spamscore=0 malwarescore=0 suspectscore=0 lowpriorityscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609120220
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 6/6] hwmon: (peci/dimmtemp) Add support for Granite
+ Rapids (GNR)
+To: Changhuang Liang <changhuang.liang@starfivetech.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Iwona Winiarska <iwona.winiarska@intel.com>
+Cc: openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ Philipp Zabel <p.zabel@pengutronix.de>
+References: <20260903133408.110847-1-changhuang.liang@starfivetech.com>
+ <20260903133408.110847-7-changhuang.liang@starfivetech.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ xsFNBE6H1WcBEACu6jIcw5kZ5dGeJ7E7B2uweQR/4FGxH10/H1O1+ApmcQ9i87XdZQiB9cpN
+ RYHA7RCEK2dh6dDccykQk3bC90xXMPg+O3R+C/SkwcnUak1UZaeK/SwQbq/t0tkMzYDRxfJ7
+ nyFiKxUehbNF3r9qlJgPqONwX5vJy4/GvDHdddSCxV41P/ejsZ8PykxyJs98UWhF54tGRWFl
+ 7i1xvaDB9lN5WTLRKSO7wICuLiSz5WZHXMkyF4d+/O5ll7yz/o/JxK5vO/sduYDIlFTvBZDh
+ gzaEtNf5tQjsjG4io8E0Yq0ViobLkS2RTNZT8ICq/Jmvl0SpbHRvYwa2DhNsK0YjHFQBB0FX
+ IdhdUEzNefcNcYvqigJpdICoP2e4yJSyflHFO4dr0OrdnGLe1Zi/8Xo/2+M1dSSEt196rXaC
+ kwu2KgIgmkRBb3cp2vIBBIIowU8W3qC1+w+RdMUrZxKGWJ3juwcgveJlzMpMZNyM1jobSXZ0
+ VHGMNJ3MwXlrEFPXaYJgibcg6brM6wGfX/LBvc/haWw4yO24lT5eitm4UBdIy9pKkKmHHh7s
+ jfZJkB5fWKVdoCv/omy6UyH6ykLOPFugl+hVL2Prf8xrXuZe1CMS7ID9Lc8FaL1ROIN/W8Vk
+ BIsJMaWOhks//7d92Uf3EArDlDShwR2+D+AMon8NULuLBHiEUQARAQABzTJHdWVudGVyIFJv
+ ZWNrIChMaW51eCBhY2NvdW50KSA8bGludXhAcm9lY2stdXMubmV0PsLBgQQTAQIAKwIbAwYL
+ CQgHAwIGFQgCCQoLBBYCAwECHgECF4ACGQEFAmgrMyQFCSbODQkACgkQyx8mb86fmYGcWRAA
+ oRwrk7V8fULqnGGpBIjp7pvR187Yzx+lhMGUHuM5H56TFEqeVwCMLWB2x1YRolYbY4MEFlQg
+ VUFcfeW0OknSr1s6wtrtQm0gdkolM8OcCL9ptTHOg1mmXa4YpW8QJiL0AVtbpE9BroeWGl9v
+ 2TGILPm9mVp+GmMQgkNeCS7Jonq5f5pDUGumAMguWzMFEg+Imt9wr2YA7aGen7KPSqJeQPpj
+ onPKhu7O/KJKkuC50ylxizHzmGx+IUSmOZxN950pZUFvVZH9CwhAAl+NYUtcF5ry/uSYG2U7
+ DCvpzqOryJRemKN63qt1bjF6cltsXwxjKOw6CvdjJYA3n6xCWLuJ6yk6CAy1Ukh545NhgBAs
+ rGGVkl6TUBi0ixL3EF3RWLa9IMDcHN32r7OBhw6vbul8HqyTFZWY2ksTvlTl+qG3zV6AJuzT
+ WdXmbcKN+TdhO5XlxVlbZoCm7ViBj1+PvIFQZCnLAhqSd/DJlhaq8fFXx1dCUPgQDcD+wo65
+ qulV/NijfU8bzFfEPgYP/3LP+BSAyFs33y/mdP8kbMxSCjnLEhimQMrSSo/To1Gxp5C97fw5
+ 3m1CaMILGKCmfI1B8iA8zd8ib7t1Rg0qCwcAnvsM36SkrID32GfFbv873bNskJCHAISK3Xkz
+ qo7IYZmjk/IJGbsiGzxUhvicwkgKE9r7a1rOwU0ETofVZwEQALlLbQeBDTDbwQYrj0gbx3bq
+ 7kpKABxN2MqeuqGr02DpS9883d/t7ontxasXoEz2GTioevvRmllJlPQERVxM8gQoNg22twF7
+ pB/zsrIjxkE9heE4wYfN1AyzT+AxgYN6f8hVQ7Nrc9XgZZe+8IkuW/Nf64KzNJXnSH4u6nJM
+ J2+Dt274YoFcXR1nG76Q259mKwzbCukKbd6piL+VsT/qBrLhZe9Ivbjq5WMdkQKnP7gYKCAi
+ pNVJC4enWfivZsYupMd9qn7Uv/oCZDYoBTdMSBUblaLMwlcjnPpOYK5rfHvC4opxl+P/Vzyz
+ 6WC2TLkPtKvYvXmdsI6rnEI4Uucg0Au/Ulg7aqqKhzGPIbVaL+U0Wk82nz6hz+WP2ggTrY1w
+ ZlPlRt8WM9w6WfLf2j+PuGklj37m+KvaOEfLsF1v464dSpy1tQVHhhp8LFTxh/6RWkRIR2uF
+ I4v3Xu/k5D0LhaZHpQ4C+xKsQxpTGuYh2tnRaRL14YMW1dlI3HfeB2gj7Yc8XdHh9vkpPyuT
+ nY/ZsFbnvBtiw7GchKKri2gDhRb2QNNDyBnQn5mRFw7CyuFclAksOdV/sdpQnYlYcRQWOUGY
+ HhQ5eqTRZjm9z+qQe/T0HQpmiPTqQcIaG/edgKVTUjITfA7AJMKLQHgp04Vylb+G6jocnQQX
+ JqvvP09whbqrABEBAAHCwWUEGAECAA8CGwwFAmgrMyQFCSbODQkACgkQyx8mb86fmYHlgg/9
+ H5JeDmB4jsreE9Bn621wZk7NMzxy9STxiVKSh8Mq4pb+IDu1RU2iLyetCY1TiJlcxnE362kj
+ njrfAdqyPteHM+LU59NtEbGwrfcXdQoh4XdMuPA5ADetPLma3YiRa3VsVkLwpnR7ilgwQw6u
+ dycEaOxQ7LUXCs0JaGVVP25Z2hMkHBwx6BlW6EZLNgzGI2rswSZ7SKcsBd1IRHVf0miwIFYy
+ j/UEfAFNW+tbtKPNn3xZTLs3quQN7GdYLh+J0XxITpBZaFOpwEKV+VS36pSLnNl0T5wm0E/y
+ scPJ0OVY7ly5Vm1nnoH4licaU5Y1nSkFR/j2douI5P7Cj687WuNMC6CcFd6j72kRfxklOqXw
+ zvy+2NEcXyziiLXp84130yxAKXfluax9sZhhrhKT6VrD45S6N3HxJpXQ/RY/EX35neH2/F7B
+ RgSloce2+zWfpELyS1qRkCUTt1tlGV2p+y2BPfXzrHn2vxvbhEn1QpQ6t+85FKN8YEhJEygJ
+ F0WaMvQMNrk9UAUziVcUkLU52NS9SXqpVg8vgrO0JKx97IXFPcNh0DWsSj/0Y8HO/RDkGXYn
+ FDMj7fZSPKyPQPmEHg+W/KzxSSfdgWIHF2QaQ0b2q1wOSec4Rti52ohmNSY+KNIW/zODhugJ
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260903133408.110847-7-changhuang.liang@starfivetech.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-We were using 10ms, kgsl uses 100ms.  In practice it is usually takes
-less than 10ms, but very occasionally goes a bit above 10ms, leading to
-a "GMU firmware inialization timed out", from which point things go
-south.
+On 9/3/26 06:34, Changhuang Liang wrote:
+> Add support for Granite Rapids (GNR) platform in PECI DIMM temperature
+> monitoring driver.
+> 
+> The GNR platform has different DIMM topology from previous generations,
+> with 12 channel ranks (CHAN_RANK_MAX_ON_GNR) and 2 DIMM indexes per
+> channel. Define these new constants and update CHAN_RANK_MAX to use
+> the GNR value since it represents the maximum across all supported
+> platforms.
+> 
+> I am not sure whether it differs from previous models, but on GNR,
+> requests to read DIMM temperature thresholds (DIMM_TEMP_MAX/
+> DIMM_TEMP_CRIT) via PECI are rejected with completion code 0x90
+> (invalid request). To handle this, the read_thresholds callback is not
+> defined for GNR, and the visibility logic is updated to skip exposing
+> the max and crit temperature attributes when thresholds are not
+> supported.
+> 
 
-There are probably some things that could be done to speed up init, like
-increasing GMU freq.  But to be safe, increase the timeout to match
-kgsl.
+Are you sure this doesn't just require different parameter conversion
+when calling peci_pci_local_read() ? The translation from dimm_order
+and chan_rank to the register number seems to be different for each
+architecture.
 
-Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
----
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> The minimum PECI revision required for GNR is 0x40.
+> 
+> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+> ---
+>   drivers/hwmon/peci/dimmtemp.c | 36 +++++++++++++++++++++++++++++++----
+>   1 file changed, 32 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/hwmon/peci/dimmtemp.c b/drivers/hwmon/peci/dimmtemp.c
+> index bd3e8715dfec..9e98effeb928 100644
+> --- a/drivers/hwmon/peci/dimmtemp.c
+> +++ b/drivers/hwmon/peci/dimmtemp.c
+> @@ -34,8 +34,10 @@
+>   #define DIMM_IDX_MAX_ON_SPR	2
+>   #define CHAN_RANK_MAX_ON_EMR	8
+>   #define DIMM_IDX_MAX_ON_EMR	2
+> +#define CHAN_RANK_MAX_ON_GNR	12
+> +#define DIMM_IDX_MAX_ON_GNR	2
+>   
+> -#define CHAN_RANK_MAX		CHAN_RANK_MAX_ON_HSX
+> +#define CHAN_RANK_MAX		CHAN_RANK_MAX_ON_GNR
+>   #define DIMM_IDX_MAX		DIMM_IDX_MAX_ON_HSX
+>   #define DIMM_NUMS_MAX		(CHAN_RANK_MAX * DIMM_IDX_MAX)
+>   
+> @@ -125,6 +127,9 @@ static int update_thresholds(struct peci_dimmtemp *priv, int dimm_no)
+>   	if (!peci_sensor_need_update(&priv->dimm[dimm_no].thresholds.state))
+>   		return 0;
+>   
+> +	if (!priv->gen_info->read_thresholds)
+> +		return -EOPNOTSUPP;
+> +
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-index 2170bf7bb045..9290010c8cdd 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-@@ -320,7 +320,7 @@ static int a6xx_gmu_start(struct a6xx_gmu *gmu)
- 	gmu_write(gmu, REG_A6XX_GMU_CM3_SYSRESET, 0);
- 
- 	ret = gmu_poll_timeout(gmu, REG_A6XX_GMU_CM3_FW_INIT_RESULT, val,
--		(val & mask) == reset_val, 100, 10000);
-+		(val & mask) == reset_val, 100, 100000);
- 
- 	if (ret)
- 		DRM_DEV_ERROR(gmu->dev, "GMU firmware initialization timed out\n");
--- 
-2.55.0
+This check is unnecessary: The attributes are marked as not visible
+if read_thresholds is NULL, and this code will never be called.
+
+Thanks,
+Guenter
 
