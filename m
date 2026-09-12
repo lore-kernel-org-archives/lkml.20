@@ -1,64 +1,64 @@
 Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E982B2D23A6
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 13:24:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2836647DFB0
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 13:24:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789219455; cv=none; b=bV9/hpUnMLo+9vN+T9W3RrG1K7dwul64m6odtVjv/ShgsvL1J12JYTZcQrere4covoYF5AdZv41bBPVkLVO/xCGFv5X2qUtZ1v1eRnEV/+UScnOfALizvwK5hYsCm6jgikrxENvEia1O2cR3f/FTYLjTXpfsVEvVfXLS22WQh6s=
+	t=1789219457; cv=none; b=tQfc5zDc2UGRg3oqa3gJREFotecXOJ/O7TEdmh0znOSB9OX507mbs5KT1vLuAOm2iLvXxOfBfaaWG/5Tvu968zJsDid+qbmRz/rSZyNPiV/+q0ufluqAqSUpjzQkdTIJFIy12UMlg15tN9f6IIb8LK1RGFEl/2KiupJ9QL0SFOM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789219455; c=relaxed/simple;
-	bh=yK3c9e0zDeIOMm4gAUQkZH3mKRVJqBbXyrMQkQLTbAg=;
+	s=arc-20240116; t=1789219457; c=relaxed/simple;
+	bh=cHwswaLHS63EipwJZ5k7IuKeyHsjmD0CMBOGzoXUuo8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rnKjXunoOU5RcjEk/GF2MO9ER7vzD7wGMjObx6N9IW2iNRt/mnQTXsFVhChdh7oZHAlnekmTBo1zjN6udrTo/gave7Zb3SdtaSLVcxxQzFpsA6n0Yr8zmU1yupyCTx99PuWvyns6UZKHc2UvOKVFQrAXSgFH+k/+zTNMnGqm+uQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=armMb1qP; arc=none smtp.client-ip=74.125.228.12
+	 MIME-Version; b=JcElJ2JZ2gWSAbff/4S/+wBbR/EsONWrV8E4iHAYpZ2tKDda02uIWEfStuSeyVXnOigFbDLPlVIVEN2P+LFd1HuzzzKpioE1augIgPH7nVQJiQ2m5muXcLZhKM8gH0lfaCg2bjjzApUC2ddKA8mfegsM2Bay0jE4adJMkpBkK28=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rCOvvFZq; arc=none smtp.client-ip=74.125.228.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="armMb1qP"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469e25187so568347b3a.2
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 06:24:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rCOvvFZq"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-8631d0023daso256072b3a.2
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 06:24:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789219453; x=1789824253; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789219455; x=1789824255; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=HKwfTFbzWp8eIFZA2uPvZQvXQp4cwuFO9YpGu6VpEnE=;
-        b=armMb1qPwwsHgfInOPb3tnu/2QQPgqpUEo8QGAmyZM5Oc+hLh9/Ksp3NwUKQSszmia
-         JmZgMnafoYrKAQvgO7AQfa3pDSV5RvA5Qw/cjG4faOa2pEdyv/E+CVXA9YL+qDbgjyxi
-         UGxWlY1lFUyKIJhDha/leez4Jv1mYq2kdMK8JkRo/04742aQf0hcYfVeYK/dofWfjHSz
-         0V4Vx3iICjjJOMmFUQYQusUCUp8Tddh9Plu+Hh8j53sga+Wpzne5gS1PJ0f8chKYWcNK
-         ZcMg/8pWuW0VfD8iB9Pi74JMzz7o9Fz50J0TB5dhi2KCN+SH76j3foUwVQWIAhZJo0yk
-         w3CA==
+        bh=R/LNreBp2TtdR9tBywqnjgXm+zGPC2XwaiQWB1Gl4ag=;
+        b=rCOvvFZqWHjQtWcbBiMf61NN819ATfjo38Rj4FD3xrkOtcacXymGX5iQM+t90ZAXuF
+         Rf+ZPYd9zhGIjbfMPidG8Y/JI2Mkl9yIP4weNBy+Iymp5OjhG+CtAhUs8wYsRwaaeETv
+         iBD9ZKyZk8Ec8y3BgYi+BxIZ3gdc3DCDsJtBM81Y88ftOcg2x8YglOi9z0/116QyW1bp
+         odjcL8xaAUNwoMRdAQcupoZrf58T2ox+xVG/q7YRxVEMwO4n8kZjHC7QkyU/crKGGGQf
+         lDbmJvKiDAbMtCfjmzzEwf+TWO6dBzdwSFF4Ff8QsreQEF2pwNtM7a7UH7q6L6xKoYu+
+         ZXdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789219453; x=1789824253;
+        d=1e100.net; s=20251104; t=1789219455; x=1789824255;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HKwfTFbzWp8eIFZA2uPvZQvXQp4cwuFO9YpGu6VpEnE=;
-        b=II0pYNbmZGw+QXvd68xWfC41P/Rd47zmoJSoS0wt8zAEZbwb6RZzZCxye4M6RGvyZQ
-         sn/fGrQyFN33vjrgUQr9PSfoEMZX0UxvZZDE0YFJ1lHWFOZcZRlHW4xsKdrbAkhwqtJp
-         f1SAdtC9jXJJal1LMepgopQ0K9HTQIfFRL6NUbLyq88s98xpk4kZDiXs2Fx0dSE8dH+C
-         U4oaUl2wVB8tFlqHDbyPhZcvYyWuSuoS7bkvLuUSaF8c2ZmAzG/dMiiLLbZCR77250s1
-         ruUkbRdBsIld9Q5LKbTPXy70S+v4QtAZIA85S56bzbXHdKIXFpL9baKY1LT0AKykA2HU
-         Rd6Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxDNuDu5oVQl0xT+ymZ8owBBJD2VuFEv7jKlc0qX4ts9Um7QRu9PA+QJA7ujqa+XSXeiOzxd1xLOgf8/Mg=@vger.kernel.org
-X-Gm-Message-State: AFuF++mNThS4qnF7ev05Tlz8KeoLb2jcw4GXvm9fKr7JzPGQ/vLeE/NJ
-	0dTsH6Kk4UahI18/HeXndaxnFt+xy0/sgl5wKiQHkD5jQzeEFOQvF0w1
-X-Gm-Gg: AYBFou0TC+cGHp6+3I8+zJCTzhgjjq3bQsCC6zd/BhJtf+JhbL3xDFoZ6XXih41WuJW
-	Kv4aaqCKwLDzsha0jZj1yy57zBt3RlNXtmzGFhBc3E5oHNA7ukdgBE98+VFURQ61mZ0fmXpH6lD
-	mlMKKfjFVKPNYJpvSW48WMVu/6dbenkBo3ZtRmT+p4Swu4T5RQhqBI7R4KARV3o2IACZnG8tGJv
-	wfQtA1XQwO2t6ltWN+idjZJrZ+pJM5m8JjyPYQFi+SkZrpOjzTwFt16gCaB6WGhXujxGeasXlqU
-	+hynseEhsNSz6f1A3GLfLwSRLDw7t+7s5be0ebSl+iOHX3Xo/oHsni3onVg8xO/zSCT378zgwyn
-	5cBw4zsOkfTU7xdUCxoBuGt46Jj6Jw79yDjtDWb2dWgllSLFQnRzITN2dSAi/X929O67EHrvFht
-	VtCC35urd9KMaNtx48yT1SxcPswr4UZQPy5OnYK/I+bVolVjtjgxC9tZDjEo3traC7jlol+lIZk
-	jdN6kzft9zbmcvAYA==
-X-Received: by 2002:a05:6a00:448c:b0:868:e6d3:fc18 with SMTP id d2e1a72fcca58-86b3180648dmr16192224b3a.15.1789219453132;
-        Sat, 12 Sep 2026 06:24:13 -0700 (PDT)
+        bh=R/LNreBp2TtdR9tBywqnjgXm+zGPC2XwaiQWB1Gl4ag=;
+        b=HKL9seIUeJkehMvaRswOctY1KSGBzeLRajbi/BI6JA3cqJxE3/QiG9yn4GKuLDy5rt
+         TAIrYyNypOxW7eboRJTlEkB+E8/e3EYnEjocgZ7nSTHO0pTznrf53IFiQITl7QnOhVGv
+         i4zvQcJimPt/Utjyee7Sc73eZvO5mTN2a7EIxmg4p2lG5a4Nv8pJ7jDsU9W1Oxb79iY5
+         RxRZsK8zPcE9P3U77sNlU41796CsXmGhS6EkCehrnoaeM604/EqqGN4TK4C6jHUO5FBP
+         ddbDPXI9lZnKedPYgi1M1dJ7yf1QFs511ecqXzAGsZkHDEaw851HHAAy6F99zcUVEoK0
+         ln7Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxVvESru5gFLh4dh7U/lvruobZz5k1gVG6169iWUtx6O4LUJ8tZ8nyFxKYNldLZsHauXljOyBszWWNpM44=@vger.kernel.org
+X-Gm-Message-State: AFuF++kjTqRK4BnsqMv9S8+g0PVfJceT9/Jok3DnbT/3p7L5L9UYvbLr
+	J5gZYBfh51cgCBA4atCyWVw2TEgsb9XonSruIpuRRyxE4hHt4j2PnCe2
+X-Gm-Gg: AYBFou3Psnzq7VZjgRXqxOQutYO1OPb2cQ9FOEujBnsBBW5pubZfd3xmoqFVeQDIcKR
+	NmIbcymLil7cBdn9QJizrXhrQOXOuECEMcIu4qmG5lUGSQWz4GmOrLjOvCKawo3jA4WigQWXI2Y
+	rRjKKf3qhfd4Lv6xepcGGBQXD/sCJzyJSklWqKXEG8Cw9PjoQvnt0rZYpqCNk0rUlbjJqsRDZsn
+	YM3BKShAJil/lRIU6vG9d2tBL2zRzLoivu82PGkB6ajHOI16cZy+LiEgqqCJp5fi+3VXQ6rDNnp
+	p/Vm+Tz2us41DoImBxKCyQFjjWtTYTC3Vmw9XmeOccAVFI5B6SStjTEPCjAjmS6VIVJwLPE0Oql
+	Va5cnzCRjVMYFbU4p87lGYDaREIcxN2lO4ZwM8mdrdmKXCZoemUTAuwzGPcjU9Fklv4AsJZvUWo
+	b43DY8ZSKLoExuaucETWE3CCDBO/3ncWfeTGJDh16WsATlODT1NShMe+lO0rf+3T3wW7YAgqdxR
+	FYTvGevZVtQGT+LBiC2wjTMqFXh
+X-Received: by 2002:a05:6a00:1906:b0:842:5b66:3c7f with SMTP id d2e1a72fcca58-86cc59a9c7emr4306818b3a.0.1789219455392;
+        Sat, 12 Sep 2026 06:24:15 -0700 (PDT)
 Received: from thangnn-ASUS.. ([2405:4802:1d38:5c70:dfd9:c41e:7c9b:c69])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b292c9839sm2410819b3a.33.2026.09.12.06.24.11
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b292c9839sm2410819b3a.33.2026.09.12.06.24.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 12 Sep 2026 06:24:12 -0700 (PDT)
+        Sat, 12 Sep 2026 06:24:15 -0700 (PDT)
 From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
 To: Viacheslav Dubeyko <slava@dubeyko.com>
 Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
@@ -66,12 +66,13 @@ Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
 	linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	syzbot+f8ce6c197125ab9d72ce@syzkaller.appspotmail.com
-Subject: [PATCH v4 0/2] hfsplus: fix the extents overflow file recursive tree_lock and its root cause
-Date: Sat, 12 Sep 2026 20:24:05 +0700
-Message-ID: <20260912132407.16856-1-ngocthang2710.1999@gmail.com>
+Subject: [PATCH v4 1/2] hfsplus: fix recursive tree_lock in hfsplus_file_extend()
+Date: Sat, 12 Sep 2026 20:24:06 +0700
+Message-ID: <20260912132407.16856-2-ngocthang2710.1999@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <c6b841becc5b1709a9f54a1c0efd0a14f02ad97b.camel@dubeyko.com>
+In-Reply-To: <20260912132407.16856-1-ngocthang2710.1999@gmail.com>
 References: <c6b841becc5b1709a9f54a1c0efd0a14f02ad97b.camel@dubeyko.com>
+ <20260912132407.16856-1-ngocthang2710.1999@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,43 +81,139 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-syzbot: WARNING: possible recursive locking in hfsplus_find_init
-https://syzkaller.appspot.com/bug?extid=f8ce6c197125ab9d72ce
+hfs_bmap_reserve() calls hfsplus_file_extend() on tree->inode with
+tree->tree_lock already held. For the extents overflow B-tree's own
+inode, growing it can call hfsplus_ext_read_extent() -> hfs_find_init()
+on that same tree, taking tree_lock a second time (lockdep: "possible
+recursive locking ... &tree->tree_lock/1"). This happens two ways:
 
-This is the whole solution Slava asked for, in one series:
+ - the fork already claims more blocks than its eight extents
+   describe (a corrupted on-disk fork), so hfsplus_ext_read_extent()
+   is called immediately to look up the rest; or
+ - the fork's eight extents get exhausted during this call, and
+   inserting a new overflow extent record for the file would need
+   the same lookup.
 
-Patch 1 fixes the recursive tree_lock itself: hfsplus_ext_read_extent()
-now refuses to look up an overflow extent for the extents overflow
-file's own inode (it can never have one), and hfsplus_file_extend()
-tests whether the fork actually has room before allocating blocks for
-it, instead of allocating and undoing the allocation on failure.
+Per the HFS+ format the extents overflow file is fully described by
+its eight fork extents and can never legitimately have overflow
+extents of its own, so both cases mean it cannot grow any further.
 
-Patch 2 addresses "how would we check the fork itself" and "how could
-we check the forks of other b-trees", asked across the last few
-rounds: hfsplus_check_fork() validates the eight fork extents of the
-extents, catalog and attributes trees at hfs_btree_open() time,
-following the severity split discussed -- first extent unusable ->
-mount fails; a later extent corrupt (the syzbot image's case) -> open
-read-only.
+Move the check into hfsplus_ext_read_extent() itself, the one place
+that actually re-enters hfs_find_init(), rather than duplicating it at
+each caller, and report -ENOSPC.
 
-v3 -> v4:
- - hfsplus_file_extend() tests fork capacity before allocating instead
-   of allocating and freeing on -ENOSPC (Slava)
- - added hfsplus_check_fork(), called from hfs_btree_open() for all
-   three trees, with the mount-fail/read-only severity split (Slava)
- - hfsplus_reconfigure() and hfsplus_fill_super() check the resulting
-   per-tree corrupt flag instead of re-deriving it on every remount
+For the second case, don't allocate blocks on the chance the fork
+still has room and undo it if not: hfsplus_ext_fork_full() tests the
+fork first. If it does have a free extent slot, any free space works,
+same as before. If it's already full, the only way to grow is a
+contiguous extension of the last extent, so only search for free
+space starting exactly at the block right after it, and fail with
+-ENOSPC immediately if that block isn't free -- nothing gets
+allocated in that case, so there's nothing to undo. The prior
+allocate-then-free-on-failure code stays at the insert_extent label
+as a backstop, in case this reasoning has a gap.
 
-Nguyen Ngoc Thang (2):
-  hfsplus: fix recursive tree_lock in hfsplus_file_extend()
-  hfsplus: validate b-tree fork extents at mount time
+Reported-by: syzbot+f8ce6c197125ab9d72ce@syzkaller.appspotmail.com
+Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+---
+ fs/hfsplus/extents.c | 59 +++++++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 55 insertions(+), 4 deletions(-)
 
- fs/hfsplus/btree.c      | 12 ++++++
- fs/hfsplus/extents.c    | 96 +++++++++++++++++++++++++++++++++++++++--
- fs/hfsplus/hfsplus_fs.h |  4 ++
- fs/hfsplus/super.c      |  9 ++++
- 4 files changed, 117 insertions(+), 4 deletions(-)
-
+diff --git a/fs/hfsplus/extents.c b/fs/hfsplus/extents.c
+index eb7c11524d18..236f2d9a7a2d 100644
+--- a/fs/hfsplus/extents.c
++++ b/fs/hfsplus/extents.c
+@@ -84,6 +84,17 @@ static u32 hfsplus_ext_lastblock(struct hfsplus_extent *ext)
+ 	return be32_to_cpu(ext->start_block) + be32_to_cpu(ext->block_count);
+ }
+ 
++/* True if all eight extents of a fork are in use (no free slot left) */
++static bool hfsplus_ext_fork_full(struct hfsplus_extent *ext)
++{
++	int i;
++
++	for (i = 0; i < 8; ext++, i++)
++		if (!ext->block_count)
++			return false;
++	return true;
++}
++
+ static int __hfsplus_ext_write_extent(struct inode *inode,
+ 		struct hfs_find_data *fd)
+ {
+@@ -217,6 +228,15 @@ static int hfsplus_ext_read_extent(struct inode *inode, u32 block)
+ 	    block < hip->cached_start + hip->cached_blocks)
+ 		return 0;
+ 
++	/*
++	 * The extents overflow file is fully described by its own fork
++	 * extents; looking up an overflow extent for it would re-enter
++	 * hfs_find_init() on the extents tree, whose tree_lock may already
++	 * be held by the caller.
++	 */
++	if (inode->i_ino == HFSPLUS_EXT_CNID)
++		return -ENOSPC;
++
+ 	res = hfs_find_init(HFSPLUS_SB(inode->i_sb)->ext_tree, &fd);
+ 	if (!res) {
+ 		res = __hfsplus_ext_cache_extent(&fd, inode, block);
+@@ -465,13 +485,30 @@ int hfsplus_file_extend(struct inode *inode, bool zeroout)
+ 	}
+ 
+ 	len = hip->clump_blocks;
+-	start = hfsplus_block_allocate(sb, sbi->total_blocks, goal, &len);
+-	if (start >= sbi->total_blocks) {
+-		start = hfsplus_block_allocate(sb, goal, 0, &len);
+-		if (start >= goal) {
++	if (inode->i_ino == HFSPLUS_EXT_CNID &&
++	    hip->alloc_blocks == hip->first_blocks &&
++	    hfsplus_ext_fork_full(hip->first_extents)) {
++		/*
++		 * No free slot is left in the fork, and the extents overflow
++		 * file can't record an overflow extent of its own: the only
++		 * way to grow it is a contiguous extension of the last
++		 * extent, so only accept free space starting exactly at
++		 * goal instead of allocating anywhere and having to undo it.
++		 */
++		start = hfsplus_block_allocate(sb, goal + 1, goal, &len);
++		if (start != goal) {
+ 			res = -ENOSPC;
+ 			goto out;
+ 		}
++	} else {
++		start = hfsplus_block_allocate(sb, sbi->total_blocks, goal, &len);
++		if (start >= sbi->total_blocks) {
++			start = hfsplus_block_allocate(sb, goal, 0, &len);
++			if (start >= goal) {
++				res = -ENOSPC;
++				goto out;
++			}
++		}
+ 	}
+ 
+ 	if (zeroout) {
+@@ -526,6 +563,20 @@ int hfsplus_file_extend(struct inode *inode, bool zeroout)
+ 	return res;
+ 
+ insert_extent:
++	/*
++	 * The fork-full precheck above keeps the extents overflow file's
++	 * own inode from ever landing here with blocks already allocated;
++	 * this is a backstop, so still free what was allocated rather
++	 * than leak it.
++	 */
++	if (inode->i_ino == HFSPLUS_EXT_CNID) {
++		if (hfsplus_block_free(sb, start, len))
++			pr_err("can't free extent: start %u, count %u\n",
++				start, len);
++		res = -ENOSPC;
++		goto out;
++	}
++
+ 	hfs_dbg("insert new extent\n");
+ 	res = hfsplus_ext_write_extent_locked(inode);
+ 	if (res)
 -- 
 2.43.0
 
