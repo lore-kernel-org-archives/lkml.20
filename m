@@ -1,89 +1,332 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A6B22F260C;
-	Sat, 12 Sep 2026 19:28:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 891EE369D7C
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 19:31:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789241307; cv=none; b=oHEIPTB0dIPeoNGdyvfN/gb6dijK7/W8g+FBwNhBdKindhFeGMv9+43e/jXFKoU2anGX1Wz5J5ynsKHxpvyXDjLqy8NXkm/UPjTk3f+j4is0icstJYnfXWYoHcLIuY/8h5w/t+XwkeiD8kgCbT9Eje18yd/qgSRCKc5TER/Ct1U=
+	t=1789241474; cv=none; b=dcq9GRMaIpSgEMVfnyG6JX03Ky4pTk6kL/txv5QxXuubuDBEpYTlO9Tk3rVKRrcDVWsvPirAsNdOLU3huRv5t49NusI50QAOKCkiwVlVEElWvCjghuxVkMiHO1KL0AZ1uQ7TLSDOi7xa7KeLtXxE9v6Ut/6aZQPeCJqyWRuyHbY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789241307; c=relaxed/simple;
-	bh=KJFi4oJU9yUXpnVSIOw0LyTxY9gpp0T7eB6UGdEUWyc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZvOl3itoBqIjSMORNEfBFOSbgn5ySMJfI3AoQX6ZVBnSyCtNYzuCrj7KSUEcyv7ESeMtweUUx4FoO3xjQI2PNxB9lxGZ7AkEADy3iqquwDB/Ug9AD78BpPVd6nz0rl3uGew+HbQ4DHjGwUdXdJKB6kt4+yoI80GyAxgn8+jGomk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=MHBZ59YC; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	s=arc-20240116; t=1789241474; c=relaxed/simple;
+	bh=8lx6LVjmp56AOVJzWPzpXm0AcxXitfBUG6x5hr2rDNo=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=cdq0AQ2xVMNFsJzPZoJk/keikY+pLdjcwTcgL9aq2rUHtGDQJVXLOn9fbFmm7LDYoOtABW6CEA+Wlwbj9ngSkQPdCKid8IoXom4hFVO+fbAAUIMbaCNwHPuJlpPcMTdYc6ONt6PVWGFhAELSpuHodr+1NuGOv8oEl/Vzug32QW8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=cASTkCIS; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="MHBZ59YC"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 81FC41034BF;
-	Sat, 12 Sep 2026 21:28:16 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1789241299;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=y7BOmcPqzwgHNB8tpsuWUR+UQP9k6ozYzdCsqHi/B/w=;
-	b=MHBZ59YCyzMkhyIW/16hAXXXmRkRnwsaY87sFH24wKhGqtduMrpei94/uvvXwdO37HolwP
-	ecH1OIPwsX6f5B8MUrV76RBFXjNtZhlm0XBMWmdDndFyHrv9Zjg7qxg2QQn7P9WLEpAVQ1
-	SsWpup/WFDh3ZOCnNUJufAIiwI+RuLAn8Sa4cNbHDa+g4hgXHlNsZevDlHh7gwfdXN+Plg
-	VAXEp/taH7ThSUV5t0bDmC992o3H2asBGVd5PoT01W7aN9v+gdfYe1NAXcXEtQ1GILHwLD
-	57qa0aSxqbnsgevkLewkLc2tk0t8jhdDIFpSZ59Lcrms/3dVcdFXCtXa6ll2UQ==
-Date: Sat, 12 Sep 2026 21:28:14 +0200
-From: Pavel Machek <pavel@nabladev.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 6.12 0000/1376] 6.12.110-rc1 review
-Message-ID: <aqWnzsSIMkyM46NV@duo.ucw.cz>
-References: <20260912065607.535295758@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="cASTkCIS"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd5462b69so5058415e9.1
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 12:31:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789241469; x=1789846269; darn=vger.kernel.org;
+        h=content-type:mime-version:references:message-id:in-reply-to:subject
+         :cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rLVkHvOWbB51eDgPhMWwdk82cYQfFBh7T+AR6YqhuhI=;
+        b=cASTkCISqxn0Cm1ulRhj+JxX5QI4UA+ajahSea0+E4wUt4K1YH0Fo+gSIdyXMyIvN3
+         ll4D0KqzN93TgixPbmfii2bxwxgBUX0DubiQH3bsycG5irRMHcFUrKemH7m0dOrmOvbd
+         4TCd1gQEfWuerCZQHCBfxmqj7R7g8zC1G1u3+6DcLbB1LCGknkazwPLicdjCaqj1vjIF
+         tKqsPKyTMS8hN2D0TO5dsOttMfbEaQNCDMz3EuSS0kfyq0Vb+Kunfu7dNrEudbWGG/7b
+         ZImk6wNNGoz8LysdAh7Thizj6zfqkxY7yhnV+0z8aPcXHWAyhfPZ2ZEeA+CqzEgZlMvB
+         YiTQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789241469; x=1789846269;
+        h=content-type:mime-version:references:message-id:in-reply-to:subject
+         :cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rLVkHvOWbB51eDgPhMWwdk82cYQfFBh7T+AR6YqhuhI=;
+        b=MAw9UhliVr/o9elBil2I3/RRUbVM5q/OA6ia1IzmlZNPNiJ4BnLk//P3+7OcHIJ0i2
+         RZYgrkhYIjjqa1H1vTqqZoH0f3tty3N6cO7z99U8axlI+TU1/zg0BHQM5MUqV3yFxTBq
+         mWIDxO7IdXHfjAUbdDdC0t8glvw4JULPKzjC0ih/BRSS+Pk4JLuw0Z2WpgEJfJuWYoLS
+         EWPzkk/Nnihv9K93+CF/8T/3EMyxlvQOc8CAXQk9NcGimDUu1bRBfGY15aHZtBS9rPsV
+         7pHfcjFYg8nABKrf3LeU4MEWRO6FzUsF8J27HlBUKXiIOUxyxM/6fP3auENXbyjMGjga
+         8OWg==
+X-Forwarded-Encrypted: i=1; AKwUvBwxWrfnUFnqDBpp6UCN8SDa3V8jwGz8DaWgzMKoYp8ukao0Nex2rBs4ibeAVL6cOK6+mMohnJMVblExphM=@vger.kernel.org
+X-Gm-Message-State: AFuF++mmBwPu/2GYb6xvMpnBohZjkLET6SAmVwoP6xDCeKzs0Rr0MYwZ
+	RaYnqQqYR0i7gfcxCdGFBSubrM56pES6aNsZscyp5vXxG8sKg6Iutbfjjwki5+IPkQ==
+X-Gm-Gg: AYBFou0xp8pjYUxV2j2qHEmvkbYmnDWDaEstB7r1/Dw4TjlBMEkkFE/fyFgNBw9z5o2
+	xJhYA6nnjljL/OEkgIK5VmD7JvglMwDgaUQPwB+RFn56N4ups0foGH6BWbfYaCPNR6LAoOe65xm
+	LavkrGMmOj9rV4D5ZlgyVl8DouVdRUgorcgLuQdm0A7ml8haQbj20ThxvmRyMSnm+0HxXBJLoA2
+	K+SbNYAW8uzwap4kinEfZG1HED/6ehq3xYaZtnb/XFu+hVKjqziUtO6tPG+uoEWWt+576mUVUeK
+	OVXD0zolKhY52Yu0zf6Ecw9sGzeillMIOIE26HmMKmSd4BnMcsC1fCWfLv/uk20X6rnx6+c8tgY
+	muvafDbLPD6YBZzKxwlbyzxVPlU31udPL42NljEgKXsbR73ebwtIpK1ECt+WoMppVU7i/f2Y/4/
+	qvrhGvrXh0HPTYPAxkyF/HoXRY5r2raUqPXASrJCMYgKdnsTRJCwevG5ptv45hkuoM1A+vJXzBY
+	+t8MhXStZBvCIshpuTC
+X-Received: by 2002:a05:600c:540e:b0:49e:6692:27fd with SMTP id 5b1f17b1804b1-49e66922810mr158471375e9.2.1789241468146;
+        Sat, 12 Sep 2026 12:31:08 -0700 (PDT)
+Received: from darker.lan (104.157.125.91.dyn.plus.net. [91.125.157.104])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb34f1f7sm14806240f8f.24.2026.09.12.12.31.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 12 Sep 2026 12:31:06 -0700 (PDT)
+Date: Sat, 12 Sep 2026 12:30:55 -0700 (PDT)
+From: Hugh Dickins <hughd@google.com>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+cc: Hugh Dickins <hughd@google.com>, Andrew Morton <akpm@linux-foundation.org>, 
+    Ackerley Tng <ackerleytng@google.com>, 
+    Alexander Viro <viro@zeniv.linux.org.uk>, Alexandre Ghiti <alex@ghiti.fr>, 
+    Baolin Wang <baolin.wang@linux.alibaba.com>, 
+    Barry Song <baohua@kernel.org>, Binbin Wu <binbin.wu@linux.intel.com>, 
+    Christian Brauner <brauner@kernel.org>, Christoph Hellwig <hch@lst.de>, 
+    Christoph Lameter <cl@gentwo.org>, 
+    Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+    David Hildenbrand <david@kernel.org>, JP Kobryn <jp.kobryn@linux.dev>, 
+    Jan Kara <jack@suse.cz>, Jens Axboe <axboe@kernel.dk>, 
+    Johannes Weiner <hannes@cmpxchg.org>, Kairui Song <ryncsn@gmail.com>, 
+    Kiryl Shutsemau <kas@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+    Leonardo Bras <leobras.c@gmail.com>, Lorenzo Stoakes <ljs@kernel.org>, 
+    Marcelo Tosatti <mtosatti@redhat.com>, 
+    Matthew Wilcox <willy@infradead.org>, 
+    Mel Gorman <mgorman@techsingularity.net>, 
+    Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@suse.com>, 
+    Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+    Oscar Salvador <osalvador@suse.de>, Peter Zijlstra <peterz@infradead.org>, 
+    Qi Zheng <qi.zheng@linux.dev>, Rik van Riel <riel@surriel.com>, 
+    Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+    Shakeel Butt <shakeel.butt@linux.dev>, 
+    Suren Baghdasaryan <surenb@google.com>, 
+    Yang Shi <yang@os.amperecomputing.com>, Yu Zhao <yuzhao@google.com>, 
+    Zach O'Keefe <zokeefe@google.com>, Zi Yan <ziy@nvidia.com>, 
+    linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+    linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH v2 04/26] mm/fbatch: lru bit set, no extra ref, while
+ folio on per-cpu fbatch
+In-Reply-To: <296bf543-23e0-417a-a729-c222392a1777@kernel.org>
+Message-ID: <3f712e41-78a8-5622-67dc-f462d2c97d11@google.com>
+References: <e28f9a94-4339-f8ac-8301-6be3c9b5b7ce@google.com> <61e15506-940f-3532-5fc9-4086f7612c10@google.com> <296bf543-23e0-417a-a729-c222392a1777@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="2nd+0nHZsekXluLM"
-Content-Disposition: inline
-In-Reply-To: <20260912065607.535295758@linuxfoundation.org>
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=US-ASCII
 
+On Wed, 9 Sep 2026, Vlastimil Babka (SUSE) wrote:
+> On 9/9/26 11:49, Hugh Dickins wrote:
+> > Treat folios on a per-cpu fbatch as if they were already on the lruvec:
+> > with PG_lru set, without holding an extra reference. This will enable
+> > the removal of most lru_add_drain() and lru_add_drain_all() calls soon.
+> > 
+> > Recognize such a folio by 0x02 set in the folio->lru.next pointer by
+> > folio_add_lru(). Then lruvec_del_folio() (aided by "lru_add_del_folio")
+> 
+> I admit I find the name lru_add_del_folio() quite confusing. What it does is
+> AFAIU try to delete from a folio_batch, which is not necessarily the lru_add
+> one?
 
---2nd+0nHZsekXluLM
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+It is to delete from the lru_add fbatch: that's the one where a folio
+is put into the LRU system initially, and it's the one which has this
+special LRU_NEXT_BATCHED linkage to the fbatch, not any proper next,prev
+linkage into a real LRU list.
 
-Hi!
+Which is not to say that that folio could not also occur in some of the
+other fbatches (for this or other CPUs) at the same time: it might,
+because of the un-refcoount-raised folio getting freed and reused;
+and it might, as the same instance of the folio, be acted upon by one
+of the other LRU manipulation functions. Those latter tend to have
+"!folio_test_lru" checks in, but now the lru_add ones do have lru set;
+they tend to be reached through a real LRU list of folios (e.g. deciding
+to deactivate something found on an active list), but I don't think that's
+necessarily the case.
 
-> This is the start of the stable review cycle for the 6.12.110 release.
-> There are 1376 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+As to be name: I did try out several alternatives, but was most satisfied
+by "lru_add_del_folio". I'll certainly grant that it's amusing, and maybe
+too confusing if it were to be a widely-used API; but it mostly ends up
+just nestling inside lruvec_del_folio().
 
-We get build errors in -cip testing:
+> I don't have an alternative proposal ready though, naming is hard.
+> 
+> > can pretend to unlink it, and folio_batch_move_lru()'s lru_add case can
+> > check whether one of the others has already moved it to lruvec.
+> > 
+> > (That bit is also used in a transient way by set_page_pfmemalloc(), to
+> > inform interested callers whether page_is_pfmemalloc(): but those callers
+> > are in networking, not putting folios on LRU; and accept that any use of
+> > the page->lru field already erases page_is_pfmemalloc() information.)
+> > 
+> > Let folio->lru.next point to the lru_add fbatch entry, but this is now
+> > just for debugging: it seemed to be important for folio_batch_move_lru()
+> > to distinguish fresh from stale entries, but then it turned out that it
+> > has to processs them identically.
+> > 
+> > Activate, deactivates and move_tail, holding no reference on the folio,
+> > might come to act on a stale folio when the fbatch is drained: but it's
+> > acquired by try_get and test_clear_lru, so safe even when suboptimal.
+> > 
+> > Reclaim is not an exact science, and there have been no complaints of
+> > missed actions since 5.11 commit fc574c23558c ("mm/swap.c: serialize
+> > memcg changes in pagevec_lru_move_fn") introduced the TestClearPageLRU
+> > protocol: so don't expect complaints of a few surprisingly taken actions.
+> > 
+> > Signed-off-by: Hugh Dickins <hughd@google.com>
+> 
+> Tricky, and I guess my questions below will betray I didn't grasp all the
+> nuances...
 
-https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/pipelines/2842911949
-https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/jobs/16461797877
+Many thanks for looking: it is the core, and the hardest to review.
+> 
+> > ---
+> >  include/linux/mm_inline.h |  25 ++++++++
+> >  include/linux/mm_types.h  |   6 +-
+> >  mm/folio.c                | 119 +++++++++++++-------------------------
+> >  mm/huge_memory.c          |   6 +-
+> >  4 files changed, 74 insertions(+), 82 deletions(-)
+> > 
+> > diff --git a/include/linux/mm_inline.h b/include/linux/mm_inline.h
+> > index 621c8653d8f7..8420b1276535 100644
+> > --- a/include/linux/mm_inline.h
+> > +++ b/include/linux/mm_inline.h
+> > @@ -343,6 +343,29 @@ static inline void folio_migrate_refs(struct folio *new, const struct folio *old
+> >  }
+> >  #endif /* CONFIG_LRU_GEN */
+> >  
+> > +enum {
+> > +	LRU_NEXT_NEVER_TAIL = 0,	/* Used by a tail's compound_head */
+> > +	LRU_NEXT_BATCHED = 1,		/* Not used by any aligned pointer */
+> > +	NR_LRU_NEXT_FLAGS
+> > +};
+> > +
+> > +static __always_inline
+> > +bool lru_add_del_folio(struct folio *folio)
+> > +{
+> > +	unsigned long lru_next = READ_ONCE(folio->lru_next);
+> > +
+> > +	/* BUG_ON(folio_test_lru(folio) && folio_ref_count(folio)); */
+> 
+> Maybe do it as VM_WARN_ON_ONCE() and then it's acceptable for mainline and
+> gets excercised by bots?
 
-drivers/soc/ti/knav_qmss_queue.c: In function 'knav_queue_probe':
-drivers/soc/ti/knav_qmss_queue.c:1874:9: error: 'knav_qdev' undeclared (first use in this function); did you mean 'knav_queue'?
+All I want there is the comment; but I thought the most concise and
+helpful way to write the comment would be to write it as a BUG_ON().
+I'm not keen on bloating inlines with assertions, and _ONCEs have
+their cost on top - all mitigated by the VM_, true. I can change
+it if asked, but all I want to put there myself is the comment.
 
-Best regards,
-										Pavel
+> 
+> > +	if (!(lru_next & BIT(LRU_NEXT_BATCHED)))
+> > +		return false;
+> > +
+> > +	WRITE_ONCE(folio->lru.next, LIST_POISON1);
+> > +	/* BUG_ON(folio->lru_next & BIT(LRU_NEXT_BATCHED)); */
+> 
+> Is this a test for unexpected LIST_POISON1 definitions (in which case
+> BUILD_BUG_ON would work?) or a test for a race that should not happen,
+> however with a very tiny detection window?
 
---2nd+0nHZsekXluLM
-Content-Type: application/pgp-signature; name="signature.asc"
+Again, it's just a comment, that things will go wrong if someone one
+day decides to redefine LIST_POISON1 in a way which conflicts. Yes,
+if it were uncommented, then I'd prefer to put a BUILD_BUG_ON instead.
 
------BEGIN PGP SIGNATURE-----
+> > --- a/mm/folio.c
+> > +++ b/mm/folio.c
+> > @@ -152,57 +152,34 @@ static void folio_batch_move_lru(struct folio_batch *fbatch, move_fn_t move_fn)
+> >  	int i;
+> >  	struct lruvec *lruvec = NULL;
+> >  	unsigned long flags = 0;
+> > -	struct folio_batch free_fbatch;
+> > -	bool is_lru_add = (move_fn == lru_add);
+> > -
+> > -	/*
+> > -	 * If we're adding to the LRU, preemptively filter dead folios. Use
+> > -	 * this dedicated folio batch for temp storage and deferred cleanup.
+> > -	 */
+> > -	if (is_lru_add)
+> > -		folio_batch_init(&free_fbatch);
+> >  
+> >  	for (i = 0; i < folio_batch_count(fbatch); i++) {
+> >  		struct folio *folio = fbatch->folios[i];
+> >  
+> > -		/* block memcg migration while the folio moves between lru */
+> > -		if (!is_lru_add && !folio_test_clear_lru(folio))
+> > -			continue;
+> > -
+> > -		/*
+> > -		 * Filter dead folios by moving them from the add batch to the temp
+> > -		 * batch for freeing after this loop.
+> > -		 *
+> > -		 * We're bypassing normal cleanup. Clear flags that are not
+> > -		 * applicable to dead folios.
+> > -		 *
+> > -		 * Since the folio may be part of a huge page, unqueue from
+> > -		 * deferred split list to avoid a dangling list entry.
+> > -		 */
+> > -		if (is_lru_add && folio_ref_freeze(folio, 1)) {
+> > -			__folio_clear_active(folio);
+> > -			__folio_clear_unevictable(folio);
+> > -			folio_unqueue_deferred_split(folio);
+> > +		if (!folio_try_get(folio)) {
+> >  			fbatch->folios[i] = NULL;
+> > -			folio_batch_add(&free_fbatch, folio);
+> >  			continue;
+> >  		}
+> >  
+> > +		if (!folio_test_clear_lru(folio))
+> > +			continue;
+> > +
+> > +		/* Do not add to LRU if it has already been added */
+> > +		if (move_fn == lru_add && !lru_add_del_folio(folio))
+> > +			goto restore_lru;
+> > +
+> >  		folio_lruvec_relock_irqsave(folio, &lruvec, &flags);
+> >  		move_fn(lruvec, folio);
+> >  
+> > +		/* Do add to LRU if not already there (move_fn skipped) */
+> > +		if (lru_add_del_folio(folio))
+> > +			lruvec_add_folio(lruvec, folio);
+> 
+> AFAICS the previous code didn't do anything like this (and move_fn could
+> skip or not all the same?) , and I wonder if it's now (sorry) load-bearing,
+> or an optimization?
 
-iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCaqWnzgAKCRAw5/Bqldv6
-8nUMAJ4me87pI5wWPjglhm7/+0F1SGbZsACfdUjR+j+Zdy1TMs/BtA31wuXoCBU=
-=H7ZQ
------END PGP SIGNATURE-----
+Good question, an optimization or essential? I'd have to ask for more
+time, to give you a definitive answer on that. What I can easily do is
+give the thinking behind it. We're the lucky one who got to clear lru
+bit, it's conceivable that a racing task (particularly or necessarily?
+when the folio has got freed and reused meanwhile) wanting to put this
+folio on real LRU failed to clear lru bit and so skipped this entry,
+and in that case it is our responsibilty to do so (usually the move_fn
+does an lruvec del and add which accomplishes that, but not when it
+skipped the folio as having unsuitable flags).
 
---2nd+0nHZsekXluLM--
+Those lines were not in my initial attempt, and I never noticed any
+badness from not having them (folio unreclaimable and unmigratable
+until freed, I presume); but when working on the mlock+munlock I
+became more aware of this need for the lru-bit-clearer to do the
+work others are expecting. (And I do not pretend that munlock is
+complete in that respect yet: no more imperfect than before,
+I think, but more work to do if perfection is needed.)
+
+> > diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> > index afbb5974bd22..c7510d875433 100644
+> > --- a/mm/huge_memory.c
+> > +++ b/mm/huge_memory.c
+> > @@ -3995,8 +3995,12 @@ static int __folio_freeze_and_split_unmapped(struct folio *folio, unsigned int n
+> >  		}
+> >  
+> >  		/* lock lru list/PageCompound, ref frozen by page_ref_freeze */
+> > -		if (do_lru)
+> > +		if (do_lru) {
+> >  			lruvec = folio_lruvec_lock(folio);
+> > +			/* Move from fbatch to lruvec before lru_add_split_folio()s */
+> > +			if (lru_add_del_folio(folio))
+> > +				lruvec_add_folio(lruvec, folio);
+> 
+> This is not mentioned in the changelog. Why is it necessary now?
+> 
+> > +		}
+> >  
+> >  		ret = __split_unmapped_folio(folio, new_order, split_at, xas,
+> >  					     mapping, split_type);
+
+It caught me by surprise too,
+I was very lucky that our internal testing crashed without that, it's a
+narrow race when we're not batching large folios. But you only have to
+look at lru_add_split_folio() to see, that it does (very reasonably)
+expect a folio with the lru bit set to have sensible next,prev.
+(WHereas most others isolate a folio before working on it, hugepage
+splitting is peculiar in having a mode where folio is left on lru,
+but frozen to refcount zero while the work is done).
+
+Thanks! More replies later...
+Hugh
