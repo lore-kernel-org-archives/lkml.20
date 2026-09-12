@@ -1,71 +1,62 @@
-Received: from CWXP265CU009.outbound.protection.outlook.com (mail-ukwestazon11021132.outbound.protection.outlook.com [52.101.100.132])
+Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11021095.outbound.protection.outlook.com [40.107.74.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C02D23D2A1;
-	Sat, 12 Sep 2026 17:39:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.100.132
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0DDB37DE9B;
+	Sat, 12 Sep 2026 17:40:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.95
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789234792; cv=fail; b=FFIa1JPNENZp9HJVx0wxv1dvgHEePaRnNRxCuJswxRMvHXyeJ+43yu0cvXp8PL1Q1QeO8Ky7GSP8oyVv5vraiE7SrHk0qdepN/qAHQRzHZ1eruYaPDbZ6bY782M2hBiZSBh4JvYmxu3SSk5CoQHUuas1SsCBB3dYtnPY5GSrQqY=
+	t=1789234834; cv=fail; b=VXw4frBMpR5/EW36JBBdMbFlfO4k1KcJvbZXY6alJj5NhriccIRgR9PWch2AJeMwkuaKPx/7aiIbQMOrwlliYoExswmGe/ewHjIavegr0BQR1Z3+kE19cwMH/BmN7umw2a9Q9+8iOR2nvnqfmV62MaP/D00HNEXlBUgbVqKzvUw=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789234792; c=relaxed/simple;
-	bh=H+XG90/7YoRW0b2JK6QrKYfY4geWdHn3+qiWJulnOuc=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=ioEi0jt4pL/2nAPAF2+uToWYjDiQDmF8xnM485rhgnmYeMzNwPT98xyBIIDy4MfrzBmfRY4dZLGGzHQJg1C6x7HhxVLhKWQ9SxEoMYJgH1XaZdYcmpuZcP7iU3JXpPPuqDXxhWMTSxGWZ9YYzIS5oaYxY8EXQwH2s2Ra+5mjb8o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=atChAgJQ; arc=fail smtp.client-ip=52.101.100.132
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+	s=arc-20240116; t=1789234834; c=relaxed/simple;
+	bh=W9weQjlMwkAjnnnkqoB0AK1iL+U2WQ72EbBqVcyIr0I=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=Szb2aBBYMoBBhltYFHO93nQVzBflsrjf3ewc8//LKoXK2RJkesTTt+qk43be59NfD80aDSWsfKy8FvnRlTBQAf6ghmuiyffojhbzUfAQMazcbERH7oRTJ+1jAzBuqsyyaVay6IA0qNF96LppiGhVjTVhPQynFdwgj5W+5Izn1+A=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp; spf=pass smtp.mailfrom=valinux.co.jp; dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b=rZIo54UC; arc=fail smtp.client-ip=40.107.74.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="atChAgJQ"
+	dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b="rZIo54UC"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=v+0azxdl/rJVDe+7uf7nCReaAMPKLtEcgSzJi0NAxhDPbWZqJhNtcfrCdCuCGzL8raDOTse1ynk3SMuxrBKf3c5/dfYUeN/Pw76ROya+W/yM6DYWSR5trWmXPNdy5y5R7QjMvEFtcMlwMT1wY+kNynhJa9POadqgm9iTa7nQ5d2t4qfcInS+YM/eKbcTeBYWmVbJnx6hjQzwwjk6fOKt7unPCHdYIEAfnLkOhhACAmyDJE2qlEutfg3Rup5ITQUdWtXJXFj3ZBF8Py+YKB0AHMebXxk1KAkZGtQSdNRhcokRI8yPd+7zTK2STnUGFYYeRuHducaQ9BniAOsUg6gaOA==
+ b=cTKnYTHWkcneZRm0G386L3hMHGkZNg5ZODnzUyH2rLU0h/Gt1jnyJaglz9fwNmH0F9NoO0S8EEUdlQWau4UzIld6dlpOj6fP8r09rTaMcGJvkiMReqH4F2L/JImVBI6X3lgN1Q6U20oXhoJuvQC5fScC7FWt6Eo7qi+4f3HxwCTn7xzxzBF1pjctY7nw7L0uri+dcTyrXpysy+KV5bEZg3FYgAH9N+mninCMzWNXXqud/P+citK5CIkDXVrgDMh5KmUEkAan+cyYUfT3D3UV0ZywJ3cTFdJa5tz6CfRERkuSyTRhQBPJ6Gc5y+dmzuTfISy4DSNvVKLrJv1ZiPbzRQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Z05uSBo08IR08FjLYJ4u9HVrYPk2Idgk6e5MH/4Bce4=;
- b=TtC6aN394HXTuHoyfh3vLJYzdjg8ZalS0uXj1+z7Cr1gvrmQfCG6WetX/1Uvgcfp1gQZHqq+SVeoa3GyyIPzWSSM1OgwvgdMPnVpom+z4cbDsNziQfnRoDwd0JNH3+k3tSdNA9Q6FgxT/quCT41S82rs0yuUfQhVBHwinhUVFFZdA8fJ4zCuAauYY/qxeyBvbjp6ENepPVG/aTd2lTwav5NYpx2lzBHYL2SLLbIaE7X4cm9qK7UfDVmS4OYE4SNQ58mGhjK+4CHEhhed1RedXfEa6q/d+hSQqHCspeOZ8XchT6CYdEjO9QZGFHOomshhGTlKuv+ROgUaZD+slQ6iyA==
+ bh=F95/qXHaJ5GfhXxuQhcu+JG77pBylwrc5G1h4NgXzLM=;
+ b=dB8lhclgyp7CH0WxGKHJa+//mDcj/pxzdDlc0OWnboi07T0zoVfTadUHpaON2UvGD9QrCdwRf1IrUKvHgsXvXB7e5a4ILvuPlzM1qbrInOLqWp8V0HRH7FjW0fK8GI4S07LE/8BVSIyrxWBPElwiGP0XDasbXWpRc0TNTWA5IwaEVj3TUdKA7w6I0Ij8tF2nPeR3YenPMa8cznfMwiIlnrB0ujLqT4N/1uR/zZQ1mnVruD8YSmuTdcXsYgnkUQC7z3sxglBqOJhHgrNvfaRYot3ieIVr+swDq1XSaXFLd2s5myip17mBb0GzzgFxyb4Yg/v5DiyLn/Bk4gE1n3XlxA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
+ header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Z05uSBo08IR08FjLYJ4u9HVrYPk2Idgk6e5MH/4Bce4=;
- b=atChAgJQz1CGV4UcDZRtYq7dLBqjiXCkHP9jhis10KL4HnqEbpmUl3pafS0N3DQwOTP3+xjED5i5T87TPewRtZagUXOcRqPfPFdFn5iSAUg3/SB7KRA6m7FuVKpIlgRMcuL+khI8ijiykarKV+DFDRzi67NiCtALif724z3NGuk=
+ bh=F95/qXHaJ5GfhXxuQhcu+JG77pBylwrc5G1h4NgXzLM=;
+ b=rZIo54UCvpIPK7VrpDaoJgaFtxgtYsZA5U/wk/qd2Os3q6BUL0GCGTr2zl8K/xovkrPZI7YsTuf1lGVmxkiIihnL1TNxxt8CQVZYXlf3ePnR3REV0jUfGojoaSVa9Z5GLKoFgneE5B1pcaDOtPONqTkXs1Mk8nk2Fdn9mJp4RA8=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by CWLP265MB2196.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:68::13) with
+ header.d=none;dmarc=none action=none header.from=valinux.co.jp;
+Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:38f::10)
+ by OSCP286MB5822.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:3ed::11) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.11; Sat, 12 Sep
- 2026 17:39:46 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0406.007; Sat, 12 Sep 2026
- 17:39:46 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 12 Sep 2026 18:39:45 +0100
-Message-Id: <DLDISP0KIJKW.1VD0GUGOT9XL9@garyguo.net>
-Cc: "Filipe Xavier" <felipe_life@live.com>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] rust: impl_flags: add conversions for raw flag
- representations
-From: "Gary Guo" <gary@garyguo.net>
-To: "Filipe Xavier" <felipeaggger@gmail.com>, "Miguel Ojeda"
- <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>,
- "Daniel Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
- <tamird@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
-X-Mailer: aerc 0.22.0
-References: <20260912-add-from-raw-conversions-v1-1-0cee34684d24@gmail.com>
-In-Reply-To: <20260912-add-from-raw-conversions-v1-1-0cee34684d24@gmail.com>
-X-ClientProxiedBy: LO4P265CA0126.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:2c6::17) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
+ 2026 17:40:28 +0000
+Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::2305:327c:28ec:9b32]) by TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::2305:327c:28ec:9b32%4]) with mapi id 15.21.0406.007; Sat, 12 Sep 2026
+ 17:40:28 +0000
+From: Koichiro Den <den@valinux.co.jp>
+To: Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>
+Cc: Devendra K Verma <devverma@amd.com>,
+	dmaengine@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4 0/3] dmaengine: dw-edma: Prepare channels for remote use
+Date: Sun, 13 Sep 2026 02:40:20 +0900
+Message-ID: <20260912174023.1227397-1-den@valinux.co.jp>
+X-Mailer: git-send-email 2.51.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: TY4P301CA0058.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:36a::18) To TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:38f::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -73,277 +64,113 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CWLP265MB2196:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1555fa2b-086b-4c02-03af-08df10f4d600
+X-MS-TrafficTypeDiagnostic: TY7P286MB7722:EE_|OSCP286MB5822:EE_
+X-MS-Office365-Filtering-Correlation-Id: f3cbffdc-b1e2-44ef-ea18-08df10f4ef55
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|366016|10070799003|6133799003|22082099003|18002099003|3023799007|921020|10067099003|56012099006;
+	BCL:0;ARA:13230040|376014|10070799003|23010399003|1800799024|366016|6133799003|10067099003|56012099006|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	58ggwmFYtQOb4IzaTeqp8xn8Bj/dtSFg5JzTdAqQF7yBAssXDtedKOTEuh4lLru2O3WEp87tbeVGGUh5WlhKCe/qZ2Yzqp2EFUK65Zx+WUTEgaWSyoDwSn0nwgIPy27wzHYBm3QGQxJ8p3TLM9HD3RE2sUdpqOBLLRepvV8CPhne+ckPQd4i5uZz3VJUXPm+BGntWqwD25WbWdjyW/YU8NpgQHv2Fdk/WlUsjq6PXT0dLYdj4AZQmQLJeyj1f/g4wE1XanejRVfLfjEca9Cf05Uiygf6fAn2kBwwsdpqJZVexMjh6LjpG33HT2IXVWvpI+1McwMo1vqotW44X4w4es8cp5HYtE98T0HtddorTYEzi9uRwPIOmEs2CnR/tuFy6jAHM2X+QqHEvcrFAM72eUbbbpTNxK+72OX7KFTaA4vNA8FjlHnSxpT7fxJdi3FWm5LC2Pt++5TNAB6h/cUdnB0UK+CqmxKBZvWPVBi7PGRJy9LDPolY6uvu/i86ATUOqER1E+9PRn29tZb/UiTpW9pKtdrPZeqa7h4CEAcJlhF96H54MFayiIGAx8df+/srObHhQSYvCJ+FyIbXDqdmdn/b/6DN3pREquiYW9xnC+yD2uyMK9BkyddnW2/hpxhfLLB2SuLN7jmRZ1f/3SzE37bvCcUNDPqz7rhTLAFAl3KpILk0YmrYYAUn/Df1R4vQUgXd7elu53fg1p2Q9tJXCw==
+	J9Mxj0LjnzQJvNUtoQ4RVf/dUEDcnaIWDbfhsg1J9M/6rw9VXJjg/CowVqkDpxXu0GL5kNVyXQLyw8w9A4NKiszYn6vZzUCMvEIoUGivpoEaE9E9S/XnsPV5M7kLgiRKNl6Yf6/b5unSucpqsYt329PAfI0kk++B4eamJNY4VhK70rMDJfMBRL9VFrUFfMr09IyD1CpYKN/LrwNItNvc0LxcxVPjyanEx7kVvwl4ppl3pkzYMfs0xtYCdc3Py5FgDHIiMQpGsMN2e68/1r63pDIjpHWSRN7ZQ+/+TszLCfMgghuTL/ALfe2WTgk0RFJPk5mi/CNWjU9bEG6pUKsY5IAStUjDhcnpz/kFkyPMneubHevXppD78VEnugPtL4Hv9/9sUVVYPJKIc1hA4Z4fzU3fIQFiaA5lFuF9tM3Fo+jzNPzBHWsZJppwfKH9YsZe5t2fTC/4Vg5mXyXhUoAN2O9I+rozbEBy/8tz95ip+yamzjv4ZtHeEv3jo++A3wB/FTtyCUy7Koiau0IDS3e2bqk81i8GSi81N9oIVbtuwVJzDPQZIBJzTghpkxhYFEZFDK2BSgjNC54J7xIv2HBbMsuVYXIQInM/1cy13UT/98c2vZo+aEgR7pkMc/wv4QVc
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(366016)(10070799003)(6133799003)(22082099003)(18002099003)(3023799007)(921020)(10067099003)(56012099006);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(10070799003)(23010399003)(1800799024)(366016)(6133799003)(10067099003)(56012099006)(18002099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SkttYlc1YTRpQXYrKzZaT0tEc1F0bmJDdzJJSUFGVUdRZXd0VU9ob0JGdWwz?=
- =?utf-8?B?dkRRNWFLay9nK0VqbGk5ZTB0UExmeTBEU2VicFEvMmlsU1d1NWNncWQxaWQ4?=
- =?utf-8?B?alJ5VEFtWlBTMXdVdHlveUNEbmdWL0FOWFFMY2ZGaVdZb3pSaEFWc09DRGtn?=
- =?utf-8?B?dWh5UXNmbzNGN0kwUzM5eGY0bzJhQ3FpMndoL0NsSnpoZHNDUmRmVXFoUGEr?=
- =?utf-8?B?bUVRQzFLeThUMHRRNjBPOGh2M3N6YjVhRFM2alNTcEJmK3haODVJSjFRVFMz?=
- =?utf-8?B?VytnNDR2bzJPZjYyT3lNcjNxUG9WYXZhdVcwaGc4SVdhTnl3QitrYVBHbjgr?=
- =?utf-8?B?YVIybDNUYUl2Y3JFRDFjNllJanRZRHFZTjB6a0NFTFJFc3ZxMjlBQ0lJaU9m?=
- =?utf-8?B?UUxVakV6NVlnbnV2QUlTb1U0ZWNudVpHYkxyaCtkVld2TnE3dkVRQkpoZmNX?=
- =?utf-8?B?Vzd2Y1BqN0liamk3MmR6alZFOThKN3ZDQm9URW51WVNYcGh1MWlPR0xXUkJS?=
- =?utf-8?B?TEFrOVpSSmR2RUM4aUJETE1jWFM2c2Y1QzFWWlJOMklvTHhpWkRzaHNpbWNV?=
- =?utf-8?B?QjdIQXNYVWwrVldMQ1B1dlUrQml2dEtMR2RBT2xIL1d3blJaOGcyZUd1ajQ5?=
- =?utf-8?B?Q3VpSFhyMXR6YUhoZGdyQk1Ea1d4a1dHSU1QbmdtcWpLT1NxNDBHa25RcFJH?=
- =?utf-8?B?QW1rUFJDbnh1QnJYZzZJWUhWRHdOa2taR3huRzQyVmIxbnVyclgrUHBRRExL?=
- =?utf-8?B?WGx4Rlp5N2h1dTZiMFV2Zkx3QVJWUVRqMHJ2TGpjVS9RUGFUM3B4cmFITk9G?=
- =?utf-8?B?MFB5VW1xZVpqcGlTWkRvVWEwRDlldm1xeUdpOGdkV1hqS1JYRXo2bkkzSXA3?=
- =?utf-8?B?Yk1LWTg2TXVYSlJWc0VIak9ndlhPb3hHWnpDMEdNT091a0Y4aDlSa05oZlY3?=
- =?utf-8?B?S1IzRmxmOHpsY2ZSNzJpbkpSbG1KWXAwVmNlOUNnTC90eWZvYnJCVXd1S3Zw?=
- =?utf-8?B?Um5PRnQ0REhrcHY2WVlGMml3T1YzcVRwWk5HT05WeVoyT08yWnZPMUp5MFpv?=
- =?utf-8?B?NzJ5SUZtVUE1UFc4Y0w1RHplNWNDcklLWUM0NWVtc2JyK3NJczBHZTY5d1lM?=
- =?utf-8?B?d0wvUmJMQzBxREVaZEdsb2hBNyswOW9lbzFoeEhWQjVQL3NWYk53bE5YNjlO?=
- =?utf-8?B?UCtzVXZyTzIxWkxtZXBoWi9VM1NiM0dDZStzTFovZzF0aFViNkF3UGJzbW5Q?=
- =?utf-8?B?MGR1U055MFdROFVqQUloOHh6bVNTTWJTUEd6NW1CZjR4YjRxbHVYYmpLME54?=
- =?utf-8?B?ZG1HR3I5UHVwdWNqNEptalNnNFhSUnA1dk5EUThBSy9ybzBXelhYZVZGSzQ1?=
- =?utf-8?B?UHZqbjg4OHlLaXM4NWMyN29YQXIxMHB6akJ3UDdWenBCZUgyRlY0Y1I4dFdT?=
- =?utf-8?B?T3JFUUcyUUMvcTJLYzlYQVg5R1hMNlU1VXAxRGZIaXJiLzJSbE9iYnhUekNU?=
- =?utf-8?B?TmtCOHEvekY4R01KaFpZTDBCNGVBNW9PY0FQTThpek8rWUxZbVR1S1dHMDBi?=
- =?utf-8?B?WGNBUXllajA3TFdLeFBpSXB3ZmdNM3ZFUW9KNjQ5Z0NieWhEdUxwUWVBMUdz?=
- =?utf-8?B?eEdIN05IZjNQZ3FKbjllM1RXeEJ6cGZIR1dYM3RYcXdPYjZlZHZhZldodE54?=
- =?utf-8?B?K1VhaDA0dEtmd1FpMXNEUUFvaTlRdVYzSmpUNnZxbnRHMVh1NWNTUDZ6TDJv?=
- =?utf-8?B?TXlRNWpCOStzeEFGN3ZlUEJUaWF3U0lWOElicDFCb3hDSVBFcGdxUUt3VHky?=
- =?utf-8?B?VHVQS3JYM0hxK1JHRHNZdVhML3A1eWpya2Q0YkczVE54aW1TMXdxYjhuOGNz?=
- =?utf-8?B?RWFNWGtwdXByWlZnbHZxMndJTkZwY0pORHdHclBkNndMbG1VQUhGSG1NNXl5?=
- =?utf-8?B?ODBUN1N3TFJjM2ZNbzdzWjdyTEpjQTRQb2djNUZYbVpZM1hCd2lJK2Z6SURG?=
- =?utf-8?B?NlE0MS9ZNWVrVnB6VnZKdmNlVk5yZ2pxRXphaUt6bnNLYm1GMFpvYTA5dHR6?=
- =?utf-8?B?T0tSNmp1cVVXOVFXTWg5Vm1pSTdpTllKdEo4SWlqTmtLTDdzTlZaK1V5UVFQ?=
- =?utf-8?B?SURUTGxPdTJkbjdDU21HZ0hUU1RqT0FtK1NNR3NkdkNaa2grY041T3dab3Jp?=
- =?utf-8?B?bVJtTHNjTWRnajIwbzRIb1hzaTlOR3FKSmlSYlM0VTZkU2UzclZnUE5TajN1?=
- =?utf-8?B?TTd2VzdsK2NOM2lKME1wcHhkUGNpODI1NDVtb25XM05jTnFuOHRSaDluWkc0?=
- =?utf-8?B?L1lzVHpEQ1lGa25nK1l0M0dmT0N1eFZzSTA5UEdZNnNSeEo4VjJCZz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1555fa2b-086b-4c02-03af-08df10f4d600
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+	=?us-ascii?Q?cyz6BovNyHMAI3mI+AAtPr+d5a+Q079scgnffzBk8sRmRbhEQPXiSTtOID7V?=
+ =?us-ascii?Q?SI/AnOz1NlPDCpuJbo0XaJGAmgXg3YfmvnRDaVUY/fn2VhJjid+f9onKaNjl?=
+ =?us-ascii?Q?wbFCANItU3BZQbw2LjJ11bYal3KJcejWrb2cUdOv7aCTEVFMst/GS8cfF3lg?=
+ =?us-ascii?Q?PD5x/srG3VjRI2Kv01huZlna6wPxURUw41rs9w04sJsLIqJLqyDsar8NYZMi?=
+ =?us-ascii?Q?Ygv4g0+7VCylE8EZejkyJs4FQTOQ5dygWexYlLR151XinewD4ZAKzOZnxj/1?=
+ =?us-ascii?Q?kKHACfF99lDxAX9Kgyh3EJ4mC3wi/wuFNm+J+ZsETd4KES+V95uRcM0zmS91?=
+ =?us-ascii?Q?30uAmnvHG9Sb05oGdAydVRgqxJPuwhW8o0jdFyTzZiUxZDbz4N0BAfSdIUUC?=
+ =?us-ascii?Q?ze4Th28i7WzcZlyVJ7IQ8lJSeTIwqiRtwF08CC5MoKkzi3rwDvCeHUM+Xvwj?=
+ =?us-ascii?Q?BRjZTJrdihXwBqD36kldckF8zS7OMDYVbsAkvYUTrO3hfHyqYwQ66KilypeO?=
+ =?us-ascii?Q?lPfDZMFKCtqBL4YhHR0Cfq342fkeZpf2Lu08tR2HfdwcHOywfQ3zDYE+IqO9?=
+ =?us-ascii?Q?z6kThur65D81rjJMgp29ooC1DjGhpU59hVjMA9uvnO6CFSU7FHfqLz1Z2+Xj?=
+ =?us-ascii?Q?q8tU0yeYiQ7HCKtKPEk+eRV34xY6SaS/hBwVToko2ZJZEsFXTRp+RFFKPsvs?=
+ =?us-ascii?Q?XEfY6qsMHyuVVm3+I6iNZCGP4vA6h4wMZkhNNki36DPGeEcz5gKv+QGYjuGa?=
+ =?us-ascii?Q?dJSBH8SZvJZy0pH79cVug4d5ZxzSa+kRhinxNo1GudqefySBabihklcD+UAD?=
+ =?us-ascii?Q?Wzmohi8dNZ1e5hCyxaTnAo298oLeImzxYlZt2nR3ivtIWBPmkl5VQ/4r9cSp?=
+ =?us-ascii?Q?y2bwRAhiLbuE/i4NFTDWHJ4rNSro5S9pVY7LYctssS7hxJvekCNsNMb4YSI7?=
+ =?us-ascii?Q?FTaykJ7hB3fsad8LBliL/pGDos1Q8Zk9tMXN5E9lyxHZ38D/NEeKfikhUVmt?=
+ =?us-ascii?Q?A4z02UfIgZFJRosVqUvbwLUHrA3CCMWBxmRXp2Ue2XxRC3hFld0ei7vxArgN?=
+ =?us-ascii?Q?qWTEqB7yr1AvVUrgo5sp3sbY+Iy8dFz5Olk0RTQ6su/mpqNOO1flFuOaBi6a?=
+ =?us-ascii?Q?a3gA/+IQyAuWo5fgaW/lSFdQ35wkTmIx4W1NeV5S+P9btHWHuvoaIrye4Bey?=
+ =?us-ascii?Q?Htt7f/trMmTAsaSFOW6TnO4N3VzMGh/s6wGSfooCMxlBXyxzm0SBhZ+wzvyh?=
+ =?us-ascii?Q?L+VpphOgmlu/Np66z4/fItY/js5KoSvOeX94iy9wq+meI+P1Ek0GUkxvddSy?=
+ =?us-ascii?Q?rPFS0FfrDnnCjLL7daWIMZaBsK+VXiBJY5FXDi1IyNcoEofdGwfRP8ENKex3?=
+ =?us-ascii?Q?hwz2NOyUlHhrtyTNnJnav7kMQMlnvIwH7vo2NgzVAOBRxg3rmgROzHz6Afl7?=
+ =?us-ascii?Q?xbVeTvbQ5vgJiFLyQlPevQdUl/ztE4fBj/9ERmW4ooEffT43VUnp/gSrCKyZ?=
+ =?us-ascii?Q?+Op5MAS8xHvz7AoED2cdDpz6Q5jOBsf3dgY0MtEd6TnltaYgwG00kHpl2CCH?=
+ =?us-ascii?Q?Qk2MwLfA9AYhQVt2gJ7dKQ5MnAYL24bDKCMUulBR/syY74IcHudaDsmnBWhZ?=
+ =?us-ascii?Q?Aa5ku+4wOPIZAeNk4hfOUtYhXYK+sm2KAbRtvwIE/PfRfNxWSv75JYTxLdIV?=
+ =?us-ascii?Q?ciy+pybNsQgEXDnx8wvzRxPpQgzagU4Mt292OFA627IkdRwV4NRYOs5d1a0s?=
+ =?us-ascii?Q?/jKj44B+aEbN4KIEC2jE4VQATYCo5mILxM41G/dMyRswwUePmT1O?=
+X-OriginatorOrg: valinux.co.jp
+X-MS-Exchange-CrossTenant-Network-Message-Id: f3cbffdc-b1e2-44ef-ea18-08df10f4ef55
+X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Sep 2026 17:39:45.9243
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Sep 2026 17:40:28.3978
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VoulEk1bQlMtXGJFeNNfijfX583EriB2dTVZwyX/vGw8cWFH1x3zD6A2x+FbDgLPUYyZkARJCt92rgAjyHWZ8g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP265MB2196
+X-MS-Exchange-CrossTenant-UserPrincipalName: MwvyI8DoXIjj2c1mz0FcNzIf15ZbEla4FCfPXssR/RJm6Pynznph4ZM7AtlaVoO1CEmYWCAQKsgFGV6DJX9Ajg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSCP286MB5822
 
-On Sat Sep 12, 2026 at 5:54 PM BST, Filipe Xavier wrote:
-> Extend the impl_flags! macro to support conversions between generated fla=
-g
-> types and raw C/UAPI integers. Implement TryFrom<Repr> for individual fla=
-gs
-> (exact variant match) and flag sets (rejecting unknown bits), along with =
-an
-> unsafe from_raw() constructor for flag sets. Additionally, add BitOr and
-> BitOrAssign implementations between the raw representation and flag types=
-.
->
-> Suggested-by: Daniel Almeida <daniel.almeida@collabora.com>
-> Suggested-by: Andreas Hindborg <a.hindborg@kernel.org>
-> Signed-off-by: Filipe Xavier <felipeaggger@gmail.com>
-> ---
->  rust/kernel/impl_flags.rs | 103 ++++++++++++++++++++++++++++++++++++++++=
-------
->  1 file changed, 91 insertions(+), 12 deletions(-)
->
-> diff --git a/rust/kernel/impl_flags.rs b/rust/kernel/impl_flags.rs
-> index fdf44d5eea9cb907f6d8d209792a1d9b74b55be6..b6cce7318766419efbe18d291=
-5bd8f949c1c7c19 100644
-> --- a/rust/kernel/impl_flags.rs
-> +++ b/rust/kernel/impl_flags.rs
-> @@ -14,6 +14,8 @@
->  /// - The struct and enum types with appropriate `#[repr]` attributes.
->  /// - Implementations of common bitflag operators
->  ///   ([`::core::ops::BitOr`], [`::core::ops::BitAnd`], etc.).
-> +/// - Conversions between the Rust-native types and their raw representa=
-tion.
-> +/// - Validation when converting raw values back into Rust-native types.
->  /// - Utility methods such as `.contains()` to check flags.
->  ///
->  /// # Examples
-> @@ -68,6 +70,22 @@
->  /// let negated =3D !read_only;
->  /// assert!(negated.contains(Permission::Write));
->  /// assert!(!negated.contains(Permission::Read));
-> +///
-> +/// // Convert individual flags and flag sets to their raw representatio=
-n.
-> +/// let raw: u32 =3D Permission::Read.into();
-> +/// assert_eq!(raw, 1);
-> +/// let raw: u32 =3D read_write.into();
-> +///
-> +/// // Raw values can be validated before entering the Rust-native API.
-> +/// assert_eq!(Permission::try_from(1), Ok(Permission::Read));
-> +/// assert!(Permission::try_from(3).is_err());
-> +/// assert!(Permissions::try_from(3).is_ok());
-> +///
-> +/// // Raw C/UAPI fields can be updated without an intermediate conversi=
-on.
-> +/// let mut raw =3D 0u32;
-> +/// raw |=3D Permission::Read;
-> +/// raw |=3D Permission::Write;
-> +/// assert_eq!(raw, 3);
->  /// ```
->  #[macro_export]
->  macro_rules! impl_flags {
-> @@ -103,6 +121,13 @@ fn from(value: $flag) -> Self {
->              }
->          }
-> =20
-> +        impl ::core::convert::From<$flag> for $ty {
-> +            #[inline]
-> +            fn from(value: $flag) -> Self {
-> +                value as $ty
-> +            }
-> +        }
-> +
->          impl ::core::convert::From<$flags> for $ty {
->              #[inline]
->              fn from(value: $flags) -> Self {
-> @@ -110,32 +135,45 @@ fn from(value: $flags) -> Self {
->              }
->          }
-> =20
-> -        impl ::core::ops::BitOr for $flags {
-> -            type Output =3D Self;
-> +        impl ::core::convert::TryFrom<$ty> for $flag {
-> +            type Error =3D ::kernel::error::Error;
-> +
->              #[inline]
-> -            fn bitor(self, rhs: Self) -> Self::Output {
-> -                Self(self.0 | rhs.0)
-> +            fn try_from(value: $ty) -> Result<Self, Self::Error> {
-> +                match value {
-> +                    $(
-> +                        v if v =3D=3D ($value as $ty) =3D> Ok($flag::$na=
-me),
-> +                    )+
-> +                    _ =3D> Err(::kernel::error::code::EINVAL),
+Hi,
 
-This shouldn't be just EINVAL, but rather a new error type that is converti=
-ble
-to it.
+This small series contains standalone refactoring and new infrastructure
+for dmaengine and dw-edma.
 
-Best,
-Gary
+It prepares PCIe EPC-local DMA channels for remote use. The upcoming
+vNTB-embedded DMA support [1] will be the first user and depend on this
+series.
 
-> +                }
->              }
->          }
-> =20
-> -        impl ::core::ops::BitOrAssign for $flags {
-> +        impl ::core::convert::TryFrom<$ty> for $flags {
-> +            type Error =3D ::kernel::error::Error;
-> +
->              #[inline]
-> -            fn bitor_assign(&mut self, rhs: Self) {
-> -                *self =3D *self | rhs;
-> +            fn try_from(value: $ty) -> Result<Self, Self::Error> {
-> +                if value & !Self::all_bits() !=3D 0 {
-> +                    return Err(::kernel::error::code::EINVAL);
-> +                }
-> +
-> +                // SAFETY: All bits set in `value` are valid flag bits.
-> +                Ok(unsafe { Self::from_raw(value) })
->              }
->          }
-> =20
-> -        impl ::core::ops::BitOr<$flag> for $flags {
-> +        impl ::core::ops::BitOr for $flags {
->              type Output =3D Self;
->              #[inline]
-> -            fn bitor(self, rhs: $flag) -> Self::Output {
-> -                self | Self::from(rhs)
-> +            fn bitor(self, rhs: Self) -> Self::Output {
-> +                Self(self.0 | rhs.0)
->              }
->          }
-> =20
-> -        impl ::core::ops::BitOrAssign<$flag> for $flags {
-> +        impl ::core::ops::BitOrAssign for $flags {
->              #[inline]
-> -            fn bitor_assign(&mut self, rhs: $flag) {
-> +            fn bitor_assign(&mut self, rhs: Self) {
->                  *self =3D *self | rhs;
->              }
->          }
-> @@ -155,6 +193,21 @@ fn bitand_assign(&mut self, rhs: Self) {
->              }
->          }
-> =20
-> +        impl ::core::ops::BitOr<$flag> for $flags {
-> +            type Output =3D Self;
-> +            #[inline]
-> +            fn bitor(self, rhs: $flag) -> Self::Output {
-> +                self | Self::from(rhs)
-> +            }
-> +        }
-> +
-> +        impl ::core::ops::BitOrAssign<$flag> for $flags {
-> +            #[inline]
-> +            fn bitor_assign(&mut self, rhs: $flag) {
-> +                *self =3D *self | rhs;
-> +            }
-> +        }
-> +
->          impl ::core::ops::BitAnd<$flag> for $flags {
->              type Output =3D Self;
->              #[inline]
-> @@ -240,6 +293,22 @@ fn not(self) -> Self::Output {
->              }
->          }
-> =20
-> +        impl ::core::ops::BitOr<$flag> for $ty {
-> +            type Output =3D Self;
-> +
-> +            #[inline]
-> +            fn bitor(self, rhs: $flag) -> Self::Output {
-> +                self | (rhs as $ty)
-> +            }
-> +        }
-> +
-> +        impl ::core::ops::BitOrAssign<$flag> for $ty {
-> +            #[inline]
-> +            fn bitor_assign(&mut self, rhs: $flag) {
-> +                *self |=3D rhs as $ty;
-> +            }
-> +        }
-> +
->          impl $flags {
->              /// Returns an empty instance where no flags are set.
->              #[inline]
-> @@ -253,6 +322,16 @@ pub const fn all_bits() -> $ty {
->                  0 $( | $value )+
->              }
-> =20
-> +            /// Creates a flag set from its raw representation without v=
-alidation.
-> +            ///
-> +            /// # Safety
-> +            ///
-> +            /// All bits set in `value` must correspond to valid flags.
-> +            #[inline]
-> +            pub const unsafe fn from_raw(value: $ty) -> Self {
-> +                Self(value)
-> +            }
-> +
->              /// Checks if a specific flag is set.
->              #[inline]
->              pub fn contains(self, flag: $flag) -> bool {
->
-> ---
-> base-commit: 08df884136f1c1197bab2a27814404fd329d9aac
-> change-id: 20260912-add-from-raw-conversions-4647d890bb77
->
-> Best regards,
+[1] https://lore.kernel.org/r/20260903082327.2345602-1-den@valinux.co.jp/
 
+Best regards,
+Koichiro
+---
+Changes in v4:
+  - Drop unnecessary READ_ONCE()/WRITE_ONCE() for irq_mode. (Frank)
+  - Allow repeated dmaengine_slave_config() calls on idle channels when
+    the IRQ mode is unchanged. (Sashiko)
+  - Extend patch 2 to support native HDMA.
+  - Simplify IRQ mode handling, assuming the channel has no pending
+    interrupt status when its mode changes. Treat racing reads by shared
+    IRQ handlers and same-value stores on release as harmless.
+  - No changes in patches 1 and 3.
+
+Changes in v3:
+  - Rework patch 2 to use a common channel configuration, retain generic
+    dma_slave_config fields, and close the shared-IRQ routing race.
+    (Frank, Sashiko)
+  - No code changes in patches 1 and 3.
+
+Changes in v2:
+  - Split and rework vNTB v1 patches 1, 4, and 5 into this prerequisite
+    series.
+  - Fold in the relevant PCI DMA EPF v7 review.
+
+v3: https://lore.kernel.org/r/20260903064533.2269557-1-den@valinux.co.jp/
+v2: https://lore.kernel.org/r/20260828163611.2691264-1-den@valinux.co.jp/
+v1: https://lore.kernel.org/r/20260312165005.1148676-1-den@valinux.co.jp/
+
+
+Koichiro Den (3):
+  dmaengine: Allow drivers to assign static channel IDs
+  dmaengine: dw-edma: Configure remote interrupt routing
+  dmaengine: dw-edma: Account for the MSI vector offset
+
+ drivers/dma/dmaengine.c            |  13 ++-
+ drivers/dma/dw-edma/dw-edma-core.c | 161 +++++++++++++++++++++--------
+ include/linux/dma/edma.h           |  21 ++++
+ include/linux/dmaengine.h          |  20 ++++
+ 4 files changed, 169 insertions(+), 46 deletions(-)
+
+
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+-- 
+2.51.0
 
