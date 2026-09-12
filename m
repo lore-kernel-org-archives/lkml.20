@@ -1,111 +1,172 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83FB033EAF3;
-	Sat, 12 Sep 2026 18:40:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789238439; cv=none; b=JqQ/FfjC1jdEu+HCi6Mgxe3PWERs2rTtdTFNbBI5abwHg7KM4utqywe1DrnhY/Tu0wI6A628SLdfjpREurXPeEbF1nXXAlyZmeJoTFDR/0s1US71IhBy7J8UrImg2atMDfWE++H/103epZVRKPb5oNm2C3u6kw+NIn8xrKHmihs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789238439; c=relaxed/simple;
-	bh=feGQjLsjp9QR+P8XbdIRYHpjRLB04VfdxUjH1AfHsW4=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=hODKoJ6ca8AO1e/7O7VuO5+D8VYiD9mGSE0+ivzAxafzZY+MLRh6t8K8tHlPc22PKVe4IKU1BV6zK31Q6EflwzIPCKphpSW0OFol1lAdmtSfuORkoy2+T6ZCGugXa6Nt9Qm2Xq3NOztUGIAtphriS4ABgQhrSxZlzmFq6skAeCI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G6I9qaVI; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A603732D7F8
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 18:41:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.181
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789238498; cv=pass; b=FygIanUvmPPKdze3R+bcbZ0qz2+o9qmrw68lKBE4ozftTcP6QefXKNVt62ycCY9TKzqN3NQdt2GLjkjKiAQRwI/POy1EbcEOJOj8Af0qy/VoLPY+fPAEyr5ECXYLTLWGq5W2ic4Yrj44ENmiRIgqMbsxn9NQo9oQ7M1brNFikxE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789238498; c=relaxed/simple;
+	bh=qtjD8mGNVxf7mZ2NIHBiWN/l2X+eK3VcVypAVVOeFfk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ndpLBOaVqp6V/WE+jBlecIfCaCmJs0OgxtaDiLFlmAcum8+Aflh+23lHe8KNvXsQ0rMC3UaeF63LqFEuY3KvUJi0u0B4WUUM1rUYmopZzAnkwGOn3+/f4YZbPqqj/4L2dtXyWT+4q5/n2B0KRYBKqkjDV0xSiUhdfzl7iQaOvqo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu; spf=pass smtp.mailfrom=asu.edu; dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b=YA/c8vZQ; arc=pass smtp.client-ip=209.85.210.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G6I9qaVI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CE981F000FF;
-	Sat, 12 Sep 2026 18:40:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789238427;
-	bh=PyVUkoEzTYYgdYhMfWVlTxZE00BQsQtl3tpKIEMb6KE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=G6I9qaVIIxavxCzZxKS0RHdqQrO8/fIaUP+iZZX2t5yMP8yGfj1MWcpJst/PnmrTU
-	 fhNFy1wThxie3BEqI/zw0YH1eeUp6q3mhTD3Pj8X+AqbfcvRER6qRmdh2rdYQEei3L
-	 17kJcMTrDm+rc/vEiWhRvFRKwP4g62NvellUivh49ClI7FIY+gZ93RmVmN9izMn9DT
-	 exMHaEIcwTIeB0MgFv/phK8ZE/5txFGs4BM3iEdybKFQBPWD+BOOl6C7ryWvauoEI2
-	 xDbLNkmAJw67BiueH8q8AiWMU6ZEc6lRs66CSsP5J+Od390zaUJP12zqq0hhTxJJMV
-	 Cvx/lgmn91yNA==
-Date: Sat, 12 Sep 2026 11:40:26 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Narcisa Vasile <narcisav.kernel@gmail.com>
-Cc: netdev@vger.kernel.org, daniel.zahka@gmail.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
- shuah@kernel.org, horms@kernel.org, willemb@google.com, petrm@nvidia.com,
- anubhavsinggh@google.com, richardbgobert@gmail.com,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v2] selftests: drv-net: add BIG TCP test cases
-Message-ID: <20260912114026.6a39fb91@kernel.org>
-In-Reply-To: <aqWYNpcPRjTAoDok@gmail.com>
-References: <20260912050327.20616-1-narcisav.kernel@gmail.com>
-	<20260912093226.529ff414@kernel.org>
-	<aqWYNpcPRjTAoDok@gmail.com>
+	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b="YA/c8vZQ"
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-86265451beeso1269593b3a.0
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 11:41:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789238495; cv=none;
+        d=google.com; s=arc-20260327;
+        b=bdpMOPvI23P6+d7rvK7InZIa5/FduK7TW6m4jXsd73dd1C73+BuWxf+uMOhvdF3GYW
+         +J6V420IMSFVO2y8H4uFA43nM+dgynFemvX6SGEl82jkddW1C1MkBDdCCDw01K453K5k
+         7dlokAMbZNnMtOoOBH763iKHeRCyZqOuYKx5u+dO6blkn/1Gk9cwA+FiHH00nSWscxTY
+         AfA/UK9zPRziC2I4wQDqkMLyI8wwYxiw6FELfPR2bDQbN0gHAbMYL/VmtG+V/+ei3I8u
+         lJ2TBeNB2O6nxeX9QdlQ1fMHa+WTCBDnpcCPuFVYR3TelPBFV8RcMEAHL+FvBCry7mZo
+         6pKg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Q5HxYaGLmH6quZJ16ng/1tdJU0o/ciJH2LOZdATejjA=;
+        fh=wdWMKT3JEtWwPZok9g7tCrGVLRFyiX8HUiMeA1AVgoA=;
+        b=T+ahwnq6C0ugnnhh7v3nTNblghWadLk608KLpT4erg95TT5A16GOJ2XhMHYkcKgg9S
+         Tg5MbBCagqsf6dRhabdpKTggVarZgNla3/XTfdf3ccUKMd0lmkubhr8LhYbyCIP0rhqy
+         SL5+ug1Qk5Cti8VZeQiW0+7MCFYSQWSBrwnlpV/Rv9csG7WU1ozWtXf8ZSoxR1D1qy+O
+         k8hSGdTQKWgwpyyrKJJKdgsNWjo09zfDiMIveVdqP2km64jLaaswnhTSU5B9ExuaIyhn
+         6eMh5FHkozM/7PiYCIaeRFUvxNhUfdG2qMVuoYUVsaDLgDjQwowYRMMUGhsfklUJlIjf
+         UXIQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=asu.edu; s=google; t=1789238495; x=1789843295; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Q5HxYaGLmH6quZJ16ng/1tdJU0o/ciJH2LOZdATejjA=;
+        b=YA/c8vZQzIjbBNSsrIznsbARA0mR57HjDigMF86p3o5ebQd9Hi/u0TLnxze2yL5mXO
+         ge1ZxvHwFDpHX/Dc5s7ACpy1rbK4lAY2VZtxIuXe6uIFdiIILhAI7PQTYtAvCzXpbfV0
+         ZgcJBMZbzYz4N/aUAWaX8aOkMsMJR/Zc5Kbvm1Wyo93NtjBhVwMi3tKi6fiZRPi7ro9x
+         ggvbcyboX9mRGPVCv4TMsBqsw7JSHEjp5MEqRlvcP37JwsDadAQZjJAzEmasYaZJ4NsA
+         rr5jFA/JaAPRHw9aYjb3IVlwohFXEz9Y1przch0uAE9LunlxleiB/3X1vIKEgJfZfpzo
+         M4EQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789238495; x=1789843295;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Q5HxYaGLmH6quZJ16ng/1tdJU0o/ciJH2LOZdATejjA=;
+        b=aSekKmITxDYVSjo8hL7yu/JOh2B+x46m6TuqlQgIWr3r3AqwD0MDLGdJbDK8WmpCY9
+         kAybvFC3Bo7kJabhGIJEQlJd4tCcovqeuiWekSB4wQjcfrnxOjHy5EmOxKRmRFQKl0TE
+         TuFvZKJ/OLRUQCtdWdCYjK7rjOjnSAnCJmRnw8LAQkrTkaydyN2zA2WbaN2ZmHgUfnan
+         tQp7WgwZKf1UCcjEKeJzXbnzQCh+wGjitgBWyiDhVbxc12lRqxEMjvgpqsFd9L6QnUlH
+         1mtw+g2Og1ADCKb94685pynCxSK4VNHbSVbPRjwE3p36pUm4zMYkcA5gujZweBOh5yMl
+         PD0g==
+X-Forwarded-Encrypted: i=1; AKwUvBxH/CJb0GXFpLzcKlWB2JTpYesp/plzivXZbb0Sp7Kf/lbUQP3GurXhXgBKV6buRl0hVariQRAbJ21j1X0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kkIR6DRGRjH2fNob6lRvHmvh/UPbz4xZ985BOPdmf9Z12HmLqb
+	/g6ukJ2JEw2Uvme9gt4FX6LVgkpRmuOykznJwSut27f1P1MTXjiV5l5+mS00Mqibpsc9Uv3//U/
+	xrzV8v5Gmp7bFHZgRDiETBEaUISre90mcKZigEaQ5
+X-Gm-Gg: AYBFou3AWvGMcwUYu+UifSShHEnHHcicBoQYY06k2ZmEA70Q1O3iztSTO6uYo5EUL+K
+	cXB15DDzDZng67lCNFxHM4B2WkKQck8m8Qg/jaMWVPeY0uqoeG/FrrRzxhKEiqyaD1nmz9xeGCC
+	5sdlx86aEW0xMvm5Axm8nhZ1rPbnMjhR1f3ZAC4t46cbJfEn0Qy9aM4jx7uZMcfTD4UIu7nO7bc
+	BANfxjuzj992BHYjfjuaRilDYi14XxbBgdBESQAuuIJHZcKNqwVFsl9R8mmy9yS4VMehWfruTHe
+	hVxqZ9UkUBAOLNgO4HQfVVO10juiwXsiGRt9RS+QpqKEPMAVlJP+oI/2aWTiVcMZTGs6CByz9n4
+	uSr/lLOKLLC0DwvEXoHw9ppAhJge+93EB2L3Yww8eYDDgTg==
+X-Received: by 2002:a05:6a21:3397:b0:3bf:b84c:2984 with SMTP id
+ adf61e73a8af0-3daed206213mr20273722637.11.1789238495108; Sat, 12 Sep 2026
+ 11:41:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <J3vQPnNHSkQ6YUiFvu1bk8ai3Q8aZ7a9J1Y7@bugs.sh> <2026091217-almighty-slouching-de2c@gregkh>
+In-Reply-To: <2026091217-almighty-slouching-de2c@gregkh>
+From: Xiang Mei <xmei5@asu.edu>
+Date: Sat, 12 Sep 2026 11:41:00 -0700
+X-Gm-Features: AcwNN1VRko1QhfcNpXUHrgWahCKVmFdRFEfCWoiFBe39F7TD0MRyo3ctkWNOmGs
+Message-ID: <CAPpSM+TjBEDy0zpkeNfz2ZeCZxYBHSKrw3spDBYS-kBw=EXL8g@mail.gmail.com>
+Subject: Re: [BUG] drivers/usb: NULL pointer dereference in stub_recv_cmd_submit()
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: co <co+66c3f58096d0bde8@bugs.sh>, linux-usb@vger.kernel.org, 
+	Valentina Manea <valentina.manea.m@gmail.com>, Shuah Khan <shuah@kernel.org>, 
+	Hongren Zheng <i@zenithal.me>, Suwan Kim <suwan.kim027@gmail.com>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, 12 Sep 2026 11:21:42 -0700 Narcisa Vasile wrote:
-> On Sat, Sep 12, 2026 at 09:32:26AM -0700, Jakub Kicinski wrote:
-> > On Fri, 11 Sep 2026 22:03:27 -0700 Narcisa Vasile wrote:  
-> > > Add four new test cases that validate coalescing
-> > > under increased size limits (BIG TCP):
-> > > 
-> > > big_tcp_data_same
-> > >   - validates that equal-sized segments coalesce past
-> > >    the legacy IP_MAXPACKET limit.
-> > > big_tcp_data_lrg_sml
-> > >   - validates that a smaller final segment coalesces into the
-> > >     previous chain of large-sized segments while crossing the
-> > >     IP_MAXPACKET limit.
-> > > big_tcp_tcp_seq
-> > >   - validates that a packet with a wrong sequence number doesn't
-> > >     coalesce. The test uses a sequence number for which the low 16 bits
-> > >     correspond to the correct sequence number to validate against
-> > >     truncation bugs, since total aggregate length crosses over the
-> > >     legacy size limit for BIG TCP.
-> > > big_tcp_large_max
-> > >   - validates that coalescing stops at the configured BIG TCP limit.  
-> >  
-> > Still failing:
-> > 
-> > https://netdev-ctrl.bots.linux.dev/logs/vmksft/net-drv-dbg/results/819882/3-gro-sw-py/stdout
-> > 
-> > https://netdev-ctrl.bots.linux.dev/logs/vmksft/net-drv-dbg/results/819882/3-gro-sw-py-retry/stdout
-> > 
-> > Grep gro_lib.py for KSFT_MACHINE_SLOW  
-> 
-> Are you suggesting to just skip the big tcp test cases on slow machines?
-> That's the current behavior for the large_* existing tests.
+On Fri, Sep 11, 2026 at 10:47=E2=80=AFPM Greg Kroah-Hartman
+<gregkh@linuxfoundation.org> wrote:
+>
+> On Sat, Sep 12, 2026 at 02:06:13AM +0000, co wrote:
+> > This is a bug report, not a patch submission. See
+> > https://bugs.sh/reporting.html
+> >
+> > We found a bug reachable in:
+> >
+> >     path    drivers/usb/usbip
+> >     crash   NULL pointer dereference in stub_recv_cmd_submit()
+> >     commit  2f1baf1fc892 ("Merge tag 'trace-v7.2-rc7' of git://git.kern=
+el.org/pub/scm/linux/kernel/git/trace/linux-trace")
+> >
+> > Config, environment, the sanitizer report and a C reproducer follow.
+> >
+> > =3D=3D Notes =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> >     If you fix this bug, this tag credits the report and lets us
+> >     close it on our side:
+> >
+> > Reported-by: co+66c3f58096d0bde8@bugs.sh
+> >
+> >     Everything in this mail is validated by the reproducer below.
+> >
+> >     We also hold an unreviewed LLM-generated analysis and candidate
+> >     patch. The same reproducer panics the unpatched kernel and runs
+> >     clean with that patch applied. Use it as a starting point, or ignor=
+e
+> >     it and write your own:
+> >
+> >         patch.diff  https://bugs.sh/b/66c3f58096d0bde8/patch.diff
+>
+> Please just submit patches like normal, in a format that can be applied,
+> and do not make us go to random links to attempt to get any information.
+> That's not how kernel development works at all.
+>
 
-Yup!
+Hi Greg,
 
-> > Then the 15x increase is probably unnecessary/too high as well, since
-> > we GRO 64k 128k shouldn't need more than 2x ?  
-> 
-> If I skip them in slow envs, then yes, 2x should be enough.
-> Those pre-existing up-to-64K large tests don't pass either in the run
-> above. They're skipped, so we don't actually know the proper
-> timeout value for them in this test envirnoment. From the test run above:
-> 
-> # #           Received {40560 [!=65495]24935 [!=599]599 [!=0]}, Total 3 packets.
-> # #           /srv/vmksft/testing/wt-18/tools/testing/selftests/net/lib/gro: incorrect number of packets
-> # # Ignoring ipv4/large_max failure due to slow environment
+Sorry about this. We may have misunderstood your earlier reply in this thre=
+ad:
 
-Exactly, that's what made me remember the MACHINE_SLOW hack :S
+"But sure, posting bug reports is fine, but again, patches are better :)"
 
-> Instead of skipping them, I was thinking to change the approach and
-> send packets continuously, enough for more than just one aggregate.
-> The the test would verify that at least one aggregate passed the 64K boundary.
-> I'd also keep the increased timeout. What do you think?
+https://lore.kernel.org/all/2026090139-shortlist-junkie-9bee@gregkh/#t
 
-Probably not worth it? The SLOW machines testing is primarily
-aimed at catching debug asserts/WARNINGS/kasan issues etc.
-Here we are trying to test the receiver behavior but the SLOW
-machine is slowing down the sender. We could try to optimize
-the sender somehow but it will probably add complexity to the
-test and catch no additional bugs?
+We interpreted this as meaning that sending bug reports without
+patches was acceptable. We understand your concern with the current
+format, and we will stop sending reports in this format to you and
+linux-usb@vger.kernel.org.
+
+To make sure we understand correctly and follow the appropriate
+practice going forward, should we:
+
+1. Send pure bug reports without any LLM-generated analysis or
+candidate patch, similar to the bug reports syzbot sends to kernel
+mailing lists;
+2. For USB, do not send bug reports and only submit patches in the
+normal kernel format; or
+3. More generally, do not send bug reports to Linux kernel mailing
+lists and only submit patches in the normal kernel format?
+
+Sorry again for the misunderstanding, and thanks for taking the time
+to clarify this despite your busy schedule.
+
+Xiang
+
+> thanks,
+>
+> greg k-h
+>
