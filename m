@@ -1,72 +1,106 @@
-Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3007847B43F
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 19:12:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5429D493624
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 19:12:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789240360; cv=none; b=aGJV0xrDkLe+zbhrYqFE/DSbKQZt1uaVBFHY6gwGI8OOEKebgO1SXH8001Um8sj4SvGBDf/PEAsPDeo7NakUT+eCEmODeEPGhRWa1q27OlI7tsvfUwPdZDoDLEDgt5NOaXUlzs+tfQBJVHXvjkGGZALYr9t0V3LdRbkxCjGlu+Y=
+	t=1789240366; cv=none; b=Iky+dfT90WEU50GLXer4K1gvARfwBRaZsU9LTbWw2TMvlqnvxGITaPodORlBKHT779mQ3eLe+TsbKQ1VyVuZgET5XXcTwMu21CgPRZnuDLr7HI0lE5izoVRLuQGfZJskZDA87Dfli703PArxISEAgonAiWwcz/tRsU/1EIJDiYI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789240360; c=relaxed/simple;
-	bh=MVDg6heCaoD/DZvcXr/Fgow4fDzqYEbNs3IMvtWRxe0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=msBhUtit1gFCq/V9idQNn7UtM7PFGDFGEL+wysJV60D11rbZFL5+ceCTHmexcv3DtVZcWqZgZ3jFUZS3oiO8u6Gc4NdB5zvi3gUlcrHZzrqHlzC8a8kd4VFAc0GyPDHfcibyUjrSLh2BcGKbEHjjLKm1B+hJuyQovR8Fydz9A4Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M0XnZ23y; arc=none smtp.client-ip=74.125.230.205
+	s=arc-20240116; t=1789240366; c=relaxed/simple;
+	bh=XXK3kAlnkBqlC6TMzeafV9pfZQv3eyi+PkhO2AfD8ZE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=NrT18o7rk2SHGQoLUWhHKkfnTNr/ubrRIS/i/MKplkC8Ai6iYye6b1YxIQJ6RLMoQRQGwFHIxy0Cc10BF4x0DgFTl+B5E84Sh4z5L0oGeouLPvq2Ajg7o10gG+FMXq8Bu+4F0NwzS4cquJge2vLggHT4+neFBGh5mINoqwE5xaM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y8Qg3hHe; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M0XnZ23y"
-Received: by mail-qk2-f13.google.com with SMTP id d75a77b69052e-5309ce58730so13401001cf.2
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 12:12:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y8Qg3hHe"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccda24afso580231a91.3
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 12:12:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789240356; x=1789845156; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cVFk+dJpAVuL1BqlzjfuC680+HsicXDkJSDggWI8BGI=;
-        b=M0XnZ23yf7WiGPaTcWUQPvTwXUEkH7SucknTKI6aZdQL+ET4A+cusO1FA0itzAXIbW
-         qtByB6eEhycSN7f6ABiIUSi52FpbuN5ZKLCm5k0TNYjGZNeMvFtl/2wGXOxKoljWhz7i
-         horP3IMKMMkR/MPQMjspueUHc29E1vKiy0McgCrSaXz/pfljICnoQ8RMftpwkgSw5YH9
-         yhVSVWj0W5sWJfo6bmAPzPCwFkyhySQ6RSirs89WfQ6pIGRMGQGYSBDKdLJa5w9cDozR
-         2mtHl8PT/2dIrZFl3dMWbYzP90dKcfZknfN0GXo9y/LUcsrMHEIlwAR+Rv5ZCytCNksb
-         kPYw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789240356; x=1789845156;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1789240364; x=1789845164; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=cVFk+dJpAVuL1BqlzjfuC680+HsicXDkJSDggWI8BGI=;
-        b=UBXggfIHlVqjnyKpOYAbfUK+Z7LoZCsvcgcaAqOSTe3eRqRLw6T7P2fBpMXrJfLuVK
-         sFC7eyKrFTtgsduIbLfS1Vr4uPDabJBouSUw6fFFPpBuXxC4bUHLUEWXJl0Nzu6+OewP
-         ZdDie4nGY3CoZPJmy0tm3dzPci7avKgJ5sQzmWcoOZErSehSvxrT7LwhZwyHSlLLk4kB
-         UuRrUXkSol+Noa7fS0hFHl7LCnvH3LBaB4OSdKs/YkjUtK4/VCjSBbgRnzwPeLrfCSPg
-         F7Pildj2CNoQlT7bJZMPH734UKsGIkX9bpS7a4Urvkmuso3cS0zwNaIT2jiXT3w2ezvz
-         Ifvg==
-X-Forwarded-Encrypted: i=1; AKwUvBxo/7zNc9kmKFPQHGL6rxZtkSBsWK45uzgLNLytrrEvicFmQJ9oQ2T8HQG4lIw5pmuTtY0I3qR6c2KmkFg=@vger.kernel.org
-X-Gm-Message-State: AFuF++nQWE0HrEQZcseGPr1NBBQ72r26+Gi+1MrmKlpVzgwkIphBmSZt
-	XUoyDKPgkngUo7cEiYRahNBoCke1R7kebQa4l3mkhDtnHD8FnptlTfg=
-X-Gm-Gg: AYBFou0BoOVlNs7jrsYWRSrnNELjFFxQ5oXZsjaX8zGa8pm4pWDwp53jjqe7Fsd2ATl
-	Gc5qzKLPmL/saUGja5AHK4c334n5U3H8sS/dqIj21AN5g08w8rpypH0c5On+kVsAopUO1XoWoIS
-	LqOPps4wu/fbABhsWxrqhfRK/Y57XNVqlRZwP34g8/W9vkMtJQopQtCh0+3KPxKMWfw2Eou/2O0
-	1+Eu2zxidJ2CE81il+uo3cd+GCHMCko3C9NerZ7L/klLJqSdVJkJkKHMxmxT312nI3iWGxqoyU3
-	qAzBTYU1B0xldSvJRuzLceKikdJ8bdrCI6zUdf6mgVy7AVBRPf8f0HgKCYzzajnXszWZdZFCZaI
-	hqfs05c9/Qktq5jhxNaxcoPYV75Yaenb1ohsChVZBbYjYm7SlSN9XXe+QxUHmsCEGx3joFkXoOD
-	CQY8+4WV2itlaTooRIMXHK/MD5iJ791YpHAaQmu1UW12IeNqTjf9wJrH4wlo8GC+2xxxNQexRE+
-	ak09gOGsJiHfMY5RAAKom4byXJg4gJ+0kSUljy9ZiapdUnFJxh1cWAwTBz+z24uogAYDA2X7s7w
-	SO1AIbgZOHlIZMTc4W7DPMzgL1m9FjiGxQ==
-X-Received: by 2002:a05:622a:4116:b0:51c:1a46:9148 with SMTP id d75a77b69052e-530e819aa1dmr60250491cf.34.1789240356210;
-        Sat, 12 Sep 2026 12:12:36 -0700 (PDT)
-Received: from localhost.localdomain ([104.39.73.78])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f49661asm52023006d6.30.2026.09.12.12.12.35
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 12 Sep 2026 12:12:35 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Lee Jones <lee@kernel.org>
-Cc: mfd@lists.linux.dev,
+        bh=4ji3o+ulSbP+i9U1/Xrwb9df+nl0gS/1m0flRPEBpn8=;
+        b=Y8Qg3hHe5BKQFRiaGRhb5Wmc/xkXv7VVSbL6DwCrELX/WI/y8OlEvdYr1d4t0JgWIf
+         Md9X7o4pMyCG2KWZFvUeu+GWm2FqyFdLbAWLQxRbFo9v8VxKCWQxZyrbLmHzUKa24+C6
+         WVzhWSEnPxZc//645MyM5z2Fh6sMrUYmpJktDhH8T9xDbtQKA7YBPpfZr/WdgMQCHULn
+         MEIEHJK2u5wftp+Ormo+9UlpTh0mrDXhMG1XBR2tzrRExXdnsofPRbrUAo1/ENO5UMuV
+         4hgUMVw0XpBddPJLHVnQtn7JS6ULh4Df3xw22sZxd5GXKIRHFWokURfUf9KmasJ4hm73
+         EKRw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789240364; x=1789845164;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4ji3o+ulSbP+i9U1/Xrwb9df+nl0gS/1m0flRPEBpn8=;
+        b=XwpfonWznNX6KvbtTenio+3FXXs4h5J+5ERjru8CCt2DCdQszUsu6DqNvuK6J2mLYv
+         LvfUjz07n2BT6v6+d0zBxyPztC+jOg10p77riyE5O35Ly/8ht6yHlAvDLTDenaDI1taq
+         KU14Z29i2VmTcTYL63IQNLNOyHviWRk3ziDQ83ZODWwABtXUwsJ3LkdpBubhPDTVOWQW
+         P5LN3tcL+UfMZzvlf5loyihFp3CJwuDJDg4jGvi9zmzM4wSJTf/N/NUm5d9TvJw4ZKQQ
+         FDMJIR01+oM7LU0MJlqgpGUWpbMmxZA8YRbgrz8dIBXjkBIuQ6sbfVit57/A2scvabeR
+         qGaA==
+X-Forwarded-Encrypted: i=1; AKwUvBwTuPa5Et1K0+X3HVQXgigmwYp6QNu1U1V7fIUg+aSMgHjeTErfuVb6zOzYABVhbethGRcVle40/ETUPqQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++kayyrLmb3soWdCu+Wi9ap9rvbKHTH8R1OptqnP9M+JIuRUb0S9
+	CKtUePDr7GQzabMm3Pwu4FBuLMneTPed5K+89T5vHdLxtQTFI6vdbQQd
+X-Gm-Gg: AYBFou0V2htlro/5+wYR0CQf4o3wZ1YepiDj4B+nKQ0N1nZrbHMBQpxPh0hDNInHUxS
+	vwLavX0N6E6PMq4BDfdg622q0idJcD6P12VjjwKkkaEuF3h7uqkF79A/toO59w5e2vJmXDeJw2H
+	cwdXrFLbBtIJ8eeY/FD7FQbpmcDDzoTOEETZ2/3RhgKA2mzJz0yVT2DO+ucdMrEyFVu2mw1HysF
+	eQjwUx7f86punfR/Lg8qYUeUdWrICjjC8byVZRLx85rwVY01VMfJ1oeVG4p2LC32yJjjlcymQn2
+	3T3ipJi5clCLMxF5jQkOYhY8jXPpnR5K3tJ8oGTXwFvOpIglclHucFdWBtxHsHPMOmZVvQ8nFFM
+	LWroiXVf3vEuVGhPJjQWtpSFZx+UllZ6N8g4Z/8ttS/ECIKBPFCrbcRNrkXj3x5AtbW4RiaTIaL
+	xS7KOkr9YZlK8JM4T8daE2MrR3oAnqNHTmeiOrHklzlFNex4UCeswPakazCVBY5kfuVilF
+X-Received: by 2002:a17:90b:498c:b0:39b:2b10:d05c with SMTP id 98e67ed59e1d1-39d9bbfa327mr18115862a91.5.1789240363673;
+        Sat, 12 Sep 2026 12:12:43 -0700 (PDT)
+Received: from gmail.com ([58.84.61.98])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14365b348cbsm14722239c88.3.2026.09.12.12.12.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 12 Sep 2026 12:12:43 -0700 (PDT)
+From: Sumeet Pawnikar <sumeet4linux@gmail.com>
+To: rafael@kernel.org,
+	krzk@kernel.org,
+	amit.kachhap@gmail.com,
+	daniel.lezcano@kernel.org,
+	thara.gopinath@gmail.com,
+	talel@amazon.com,
+	hayashi.kunihiko@socionext.com,
+	mhiramat@kernel.org,
+	mmayer@broadcom.com,
+	viresh.kumar@linaro.org,
+	sumitg@nvidia.com,
+	peter.griffin@linaro.org,
+	myungjoo.ham@samsung.com,
+	kyungmin.park@samsung.com,
+	cw00.choi@samsung.com,
+	Frank.Li@nxp.com,
+	s.hauer@pengutronix.de,
+	matthias.bgg@gmail.com,
+	angelogioacchino.delregno@collabora.com,
+	sven@kernel.org,
+	j@jannau.net,
+	marcan@marcan.st,
+	casey.connolly@linaro.org,
+	sre@kernel.org,
+	wens@kernel.org,
+	t.schramm@manjaro.org
+Cc: bcm-kernel-feedback-list@broadcom.com,
+	linux-samsung-soc@vger.kernel.org,
+	kernel@pengutronix.de,
+	imx@lists.linux.dev,
+	linux-mediatek@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-pm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH] mfd: intel_quark_i2c_gpio: manage the fixed-rate clock
-Date: Sat, 12 Sep 2026 15:12:23 -0400
-Message-ID: <20260912191223.46136-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.50.1
+	sumeet4linux@gmail.com
+Subject: [PATCH v2 2/5] devfreq: Use %pe to print error pointers symbolically
+Date: Sun, 13 Sep 2026 00:41:52 +0530
+Message-ID: <20260912191156.185448-3-sumeet4linux@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260912191156.185448-1-sumeet4linux@gmail.com>
+References: <20260912191156.185448-1-sumeet4linux@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -75,132 +109,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The I2C clock is allocated by clk_register_fixed_rate(), but cleanup uses
-clk_unregister(), leaving the fixed-rate provider allocation behind.
+Replace PTR_ERR() and %ld with %pe and pass the original pointer directly
+to dev_err(). The %pe format specifier prints a symbolic error name (e.g.
+-ENOMEM) when CONFIG_SYMBOLIC_ERRNAME is enabled, otherwise it falls back
+gracefully and prints the raw integer value. This makes messages more
+readable without any functional change.
 
-Manage the provider with devm_clk_hw_register_fixed_rate() and its lookup
-with devm_clk_hw_register_clkdev(). Managed resources release the lookup
-before the provider, after the MFD children have been removed.
-
-Remove the manual clock cleanup and the private structure that only
-stored the clock and lookup pointers.
-
-This issue was identified during our ongoing static-analysis research while
-reviewing kernel code.
-
-Fixes: 60ae5b9f5cdd ("mfd: intel_quark_i2c_gpio: Add Intel Quark X1000 I2C-GPIO MFD Driver")
-Assisted-by: OpenAI:GPT-5.6
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+Signed-off-by: Sumeet Pawnikar <sumeet4linux@gmail.com>
 ---
- drivers/mfd/intel_quark_i2c_gpio.c | 52 +++++---------------------------------
- 1 file changed, 6 insertions(+), 46 deletions(-)
+ drivers/devfreq/imx-bus.c    | 4 ++--
+ drivers/devfreq/imx8m-ddrc.c | 3 +--
+ 2 files changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/mfd/intel_quark_i2c_gpio.c b/drivers/mfd/intel_quark_i2c_gpio.c
-index 9b9c76bd067b8198553013af70c9123e33fb9041..443a1a0cf7778d400b40e0c75439e3c7235f8ec5 100644
---- a/drivers/mfd/intel_quark_i2c_gpio.c
-+++ b/drivers/mfd/intel_quark_i2c_gpio.c
-@@ -35,11 +35,6 @@
- /* The Quark I2C controller source clock */
- #define INTEL_QUARK_I2C_CLK_HZ	33000000
+diff --git a/drivers/devfreq/imx-bus.c b/drivers/devfreq/imx-bus.c
+index 49798f542d68..dba76d8b9e5a 100644
+--- a/drivers/devfreq/imx-bus.c
++++ b/drivers/devfreq/imx-bus.c
+@@ -75,8 +75,8 @@ static int imx_bus_init_icc(struct device *dev)
+ 	priv->icc_pdev = platform_device_register_data(
+ 			dev, icc_driver_name, -1, NULL, 0);
+ 	if (IS_ERR(priv->icc_pdev)) {
+-		dev_err(dev, "failed to register icc provider %s: %ld\n",
+-				icc_driver_name, PTR_ERR(priv->icc_pdev));
++		dev_err(dev, "failed to register icc provider %s: %pe\n",
++				icc_driver_name, priv->icc_pdev);
+ 		return PTR_ERR(priv->icc_pdev);
+ 	}
  
--struct intel_quark_mfd {
--	struct clk		*i2c_clk;
--	struct clk_lookup	*i2c_clk_lookup;
--};
--
- static const struct property_entry intel_quark_i2c_controller_standard_properties[] = {
- 	PROPERTY_ENTRY_U32("clock-frequency", I2C_MAX_STANDARD_MODE_FREQ),
- 	{ }
-@@ -160,37 +155,12 @@ MODULE_DEVICE_TABLE(pci, intel_quark_mfd_ids);
- 
- static int intel_quark_register_i2c_clk(struct device *dev)
- {
--	struct intel_quark_mfd *quark_mfd = dev_get_drvdata(dev);
--	struct clk *i2c_clk;
--
--	i2c_clk = clk_register_fixed_rate(dev,
--					  INTEL_QUARK_I2C_CONTROLLER_CLK, NULL,
--					  0, INTEL_QUARK_I2C_CLK_HZ);
--	if (IS_ERR(i2c_clk))
--		return PTR_ERR(i2c_clk);
--
--	quark_mfd->i2c_clk = i2c_clk;
--	quark_mfd->i2c_clk_lookup = clkdev_create(i2c_clk, NULL,
--						INTEL_QUARK_I2C_CONTROLLER_CLK);
--
--	if (!quark_mfd->i2c_clk_lookup) {
--		clk_unregister(quark_mfd->i2c_clk);
--		dev_err(dev, "Fixed clk register failed\n");
--		return -ENOMEM;
--	}
--
--	return 0;
--}
--
--static void intel_quark_unregister_i2c_clk(struct device *dev)
--{
--	struct intel_quark_mfd *quark_mfd = dev_get_drvdata(dev);
--
--	if (!quark_mfd->i2c_clk_lookup)
--		return;
-+	struct clk_hw *hw;
- 
--	clkdev_drop(quark_mfd->i2c_clk_lookup);
--	clk_unregister(quark_mfd->i2c_clk);
-+	hw = devm_clk_hw_register_fixed_rate(dev, INTEL_QUARK_I2C_CONTROLLER_CLK,
-+					     NULL, 0, INTEL_QUARK_I2C_CLK_HZ);
-+	return devm_clk_hw_register_clkdev(dev, hw, NULL,
-+					 INTEL_QUARK_I2C_CONTROLLER_CLK);
- }
- 
- static int intel_quark_i2c_setup(struct pci_dev *pdev)
-@@ -238,19 +208,12 @@ static int intel_quark_gpio_setup(struct pci_dev *pdev)
- static int intel_quark_mfd_probe(struct pci_dev *pdev,
- 				 const struct pci_device_id *id)
- {
--	struct intel_quark_mfd *quark_mfd;
- 	int ret;
- 
- 	ret = pcim_enable_device(pdev);
- 	if (ret)
- 		return ret;
- 
--	quark_mfd = devm_kzalloc(&pdev->dev, sizeof(*quark_mfd), GFP_KERNEL);
--	if (!quark_mfd)
--		return -ENOMEM;
--
--	dev_set_drvdata(&pdev->dev, quark_mfd);
--
- 	ret = intel_quark_register_i2c_clk(&pdev->dev);
- 	if (ret)
- 		return ret;
-@@ -260,7 +223,7 @@ static int intel_quark_mfd_probe(struct pci_dev *pdev,
- 	/* This driver only requires 1 IRQ vector */
- 	ret = pci_alloc_irq_vectors(pdev, 1, 1, PCI_IRQ_ALL_TYPES);
- 	if (ret < 0)
--		goto err_unregister_i2c_clk;
-+		return ret;
- 
- 	ret = intel_quark_i2c_setup(pdev);
- 	if (ret)
-@@ -282,8 +245,6 @@ static int intel_quark_mfd_probe(struct pci_dev *pdev,
- 	software_node_unregister_node_group(intel_quark_gpio_node_group);
- err_free_irq_vectors:
- 	pci_free_irq_vectors(pdev);
--err_unregister_i2c_clk:
--	intel_quark_unregister_i2c_clk(&pdev->dev);
- 	return ret;
- }
- 
-@@ -292,7 +253,6 @@ static void intel_quark_mfd_remove(struct pci_dev *pdev)
- 	mfd_remove_devices(&pdev->dev);
- 	software_node_unregister_node_group(intel_quark_gpio_node_group);
- 	pci_free_irq_vectors(pdev);
--	intel_quark_unregister_i2c_clk(&pdev->dev);
- }
- 
- static struct pci_driver intel_quark_mfd_driver = {
+diff --git a/drivers/devfreq/imx8m-ddrc.c b/drivers/devfreq/imx8m-ddrc.c
+index 52beeb5b7d65..28d7c595fa17 100644
+--- a/drivers/devfreq/imx8m-ddrc.c
++++ b/drivers/devfreq/imx8m-ddrc.c
+@@ -340,8 +340,7 @@ static int imx8m_ddrc_check_opps(struct device *dev)
+ 	for (i = 0, freq = 0; i < opp_count; ++i, ++freq) {
+ 		opp = dev_pm_opp_find_freq_ceil(dev, &freq);
+ 		if (IS_ERR(opp)) {
+-			dev_err(dev, "Failed enumerating OPPs: %ld\n",
+-				PTR_ERR(opp));
++			dev_err(dev, "Failed enumerating OPPs: %pe\n", opp);
+ 			return PTR_ERR(opp);
+ 		}
+ 		dev_pm_opp_put(opp);
 -- 
-2.53.0
+2.43.0
+
