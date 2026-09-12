@@ -1,173 +1,155 @@
-Received: from mail-oo2-f40.google.com (mail-oo2-f40.google.com [74.125.231.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazolkn19010000.outbound.protection.outlook.com [52.103.20.0])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0480D32B126
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 19:02:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.168
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789239754; cv=none; b=PT97PDra4QgDqHmSaXucyIcRjJZdsTceYoLUJ5BivNJNtiv05DWAmtEIP6W2IVqv0Px0Vp7cAOP0f+jeSMfrlChhshXS+JRud0LQ5f6IZ3vGMwFcZIy9TqB9IpI13fCa6VHRJKiKns1nFccs2rYQLm36wS/4kctawawPXXMWpEc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789239754; c=relaxed/simple;
-	bh=AbNN817+yuaC+BzzgKrfL2gQ21t93Sb1UgSXxdqY7ow=;
-	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
-	 References:In-Reply-To; b=WBWqZU+xEZzYc+8FVJ1RLVDpkbUSTv3Xc8SPpITdt8t5q7QRYboLb1xwO/wzM9W58FP/ySPd5oowKxe+NimiD/TJGn7TxMS9Umo8HZOgJlC1vSyGIe1WZeRvvmPExyaqBJ8egAXYJeapbypFSe4Y3TR2IRoi5o+unmF6pJbMh70=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ipBZIOyC; arc=none smtp.client-ip=74.125.231.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CE363939B3;
+	Sat, 12 Sep 2026 19:04:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.20.0
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789239880; cv=fail; b=fjapNGwDXkF6jcfkDA6fuHNnIVUvWWYxrKXNFIRoDhU/3Fm2hS2FNX1AJKWsjbbUDUuL7t9S7UcceB/bcV7pXtamQLyW/2r19KhLn7z9VeleLtQLHun2d5dzo54GEbE3f6Ws6LB/wlDzG3FrRYVRK626EWyCco/13QT1Dn9Nvos=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789239880; c=relaxed/simple;
+	bh=SDofauKbK8LocVjLQDWFTOCexgk/KTgFnVO1FhAI0+8=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=XMQ45yyydeN/ijmJXPgqwVGlTy9abboYr+0FbJdkuFjGVg/fvYqGY8g5jlAFMu/rVs4Zbjc3FI+0d62OtBMP+fiBULjtulk2wOdu9L7ZyBqoJZH27lkVsvgJggPybfF1L7g766j6VwuPtTp3TVXGf8Ss3/nIAuwTWLpKFWJSX7U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.it; spf=pass smtp.mailfrom=outlook.it; dkim=pass (2048-bit key) header.d=OUTLOOK.IT header.i=@OUTLOOK.IT header.b=dawghkGv; arc=fail smtp.client-ip=52.103.20.0
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ipBZIOyC"
-Received: by mail-oo2-f40.google.com with SMTP id 46e09a7af769-80527255583so196984a34.1
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 12:02:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789239752; x=1789844552; darn=vger.kernel.org;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ka8L1Rv1PUyLBtiS267m6t/G+O4eiU0e+/Fx1513ee8=;
-        b=ipBZIOyCBRLkIZjNvmE97/0LziWsI6a6Ybo9DcuyPSB/iCH73DaCKJZyPUmsZCFpc0
-         8xu8TgSg8aQlSKg9+QG9A3FMvknUTkyNbAkzgGoHcfDFTI7kqW/LPIoNxNVi267eXAnn
-         x6sZYkIojr3AaKp8vCQReL5i6HiOcHWVU908vG28666wtfNiCLHKkhJIjCfX6xt77nUu
-         AbL6j/I6aTMJU0+YvNqZHbxs/k03+g9lUBge5RgLHUQQBM+CsfwcGcZ+542AC77VOw34
-         jQxNdKhfxwrFYbsIO9cbAKRcnLngEYAR9sogpRspHPFxLjzKHxQ4gCo0pi3/PMY4LcUE
-         jshQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789239752; x=1789844552;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ka8L1Rv1PUyLBtiS267m6t/G+O4eiU0e+/Fx1513ee8=;
-        b=BRpRDgP8OdTOZO0KlJPAn9QB8ilWmJ4nQZyx7WFSIMmiy0xPNHHtSGruJdOwOHQNIH
-         GQvHg2iK2nGMVMeaYvMjjk9HMkT5hUhJkQUbGnbhGXFaPHPM9I6Pvh8Hh0oN0rLXtUhK
-         PrDEzQYYuYenKhfrQcw/ZifaMR1zKRGvBKXBOvox2AZe+SZ47gBoTFgrWQzObb04n+2c
-         z1zlj+dJijhPzHSeN51IW/YyMjWP6UUhcz0JJ3hWLIkozk2E50FiaC2PIKkLC6qZmV2C
-         c2P/nQzuDAnkHJQskm66nJ32TTJApADycWAp+6eoLypHu+P15amcWPrh8ruO16ve1h81
-         crCg==
-X-Forwarded-Encrypted: i=1; AKwUvBzlb8YFlgcq+Sr6tTzHKOj40qNcTgOUiJaVhCdWdzVzJoqo4N5HacXDTJSBXZ95qALgAakEXL3n2R5lplQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kfhjoLRplugUT7SWnOqPDPxXevgLUIXqg69R4OdCVuZzSqJQdV
-	htCaA8cohRktsnTOnUSL6PhZ8G4ZT0bTCHjMfgmw5uH0dqGXFiqi9kr7
-X-Gm-Gg: AYBFou0xPVXd3aYKFabxPIw+IMeT/M6Pssi4ssn7bMYIgZ9yz5rZyMs4hp69iQTcgqB
-	TjN+letCBAvY/UedIdaPvQKlc9IhEXM2QIAKfKizWAo+dsTj43R2Rsgl9CZHWnHmiezWGiWRzl7
-	EBB55HSQ8QPSTdSedoeXCPPUwXgX5clKsorKXdFwADo/WBioU0K9IxTxbc7NrIgDyUb3PnJxur9
-	uMN0SLkLiIZdMM9E509EgWpSrCeOyCLT+Lb0Bq2lC0pK/Nh506irUsrGC9P5uM5y8r89OHc3bhs
-	JR8xbZL8DaH/e+GSidYe4Gd+gi9mas0EVU2LSnASflAbrvzhpLijn2XfqSx3V5fLQcq6FLreRZc
-	5Scf1kgOxf8M80kPcIqNF3pAIRT3SQOOCw8ZQiNvIGbMpekpEq9D9EKDj9ZcYlQXd73Uy/rIJth
-	DxK24SkeJ1UUpDLhvezAyxHTRNj4MJLii4SebVGFbxck5IGApDI5RgblF527arc7xoQ5Ys4xSjC
-	KKzapjRHoVOl4oqQa+H6A4wS5TLlaxhu/0tuTKsSaLQpite7Yvpk5C3PRDt6WoLQA==
-X-Received: by 2002:a05:6830:b87:b0:7fa:5c68:d04c with SMTP id 46e09a7af769-805a0502ca8mr2108995a34.22.1789239751843;
-        Sat, 12 Sep 2026 12:02:31 -0700 (PDT)
-Received: from localhost ([2a03:2880:10ff:14::])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-803f60fe54asm6922575a34.15.2026.09.12.12.02.29
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 12 Sep 2026 12:02:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=OUTLOOK.IT header.i=@OUTLOOK.IT header.b="dawghkGv"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ItAtLgQ7kvZN/3HwhWwrHvqNM7ENUiOqKYqyW9Bb83rUumWZMblkaAUyfk+Cg/McupMo4mRxbLKUz2Fj4xCF5b/HNKLOHLSWEkP6JBYE7mpV3JekBv8TaMcJkZ3ssYCYpyKpElfbjK9JrVzQQ+PUx50K3rrjY8YyN0DF7c1VY3im/8KZnFgguF7TYLt+8OJtv9vRlonE1GiinbWGU2g0Oavtg0l8pm5ORyYAKquBGzb8xKnVDb/IjrltowLhv0V3/MCVp6XGqz55/zzxvy2kQXvzqdEf0Xnsfs0eWhYj9fEl+2k5hjaXoMN75dI9T/0DIyTXJID7rvB16WiFC+ZY9A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=z6/J7CJorG8K0rK8jo5y9aWU7KrBN94CdgMqa574wXc=;
+ b=oTzybOsL365jZGdg5GXTvwcKa1uuk1PnhGHWueT2lVlqUtbbKEN9e3aS4zJmvx5z4wIzpQeXwVPW8VIiAYk9GLvNDwzascIJeb0s4kAtx9bJSpHQquDKVVzJeILyd8wfWk1S9862klIpR4x8HKM4h2+MbwMxzj9fVBD9T45pCCUSsKIryNgpZtNYaXpVuA7nqRJMZ4fQr1SXin3JN00psTa9pg1XLxFO2m81c0W01t6b8Smw0TxIg/ohte8N0uNMNw7C949GKlcG1R3MtWMa9/nFKEAE88N4KMW/PqIIJmx4abCDtB/y7eODjVV5lZVrzI3PH+iZiShifZOAPAXOcg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=OUTLOOK.IT;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=z6/J7CJorG8K0rK8jo5y9aWU7KrBN94CdgMqa574wXc=;
+ b=dawghkGvoruDTlC1aCQpEU6WlzV/HKfX25vEXhToHZzsk4g8zq3bYz7KRcGb7OujpdkITKOkokr0D7OReStuwJMIe56i9VJ5YGc6/DOJRmDSz9zBnEL7VBePJn3aFIgArGyLLyR0s/xfVNiP7L9ZIqWTiJ7n9PlONHpzC8xRXSZtOgz4x6B742RcD097Nx/oWnSO8McJLbXLdoHYOSJWKzoHLpn1CujCjeqOuq8bXxtEu5TjiEjmAgOlRR9VtqDAiWzv1jQHaoVHR9QbwJvEnDSO3xxuTLGNNxNpbPb6r1pRM+BqwelcWgrvCTMVtL5/0KPf53RGBceidc4j+TtRcg==
+Received: from SN6PR19MB2303.namprd19.prod.outlook.com (2603:10b6:805:56::19)
+ by PH0PR19MB7604.namprd19.prod.outlook.com (2603:10b6:510:26f::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.11; Sat, 12 Sep
+ 2026 19:04:36 +0000
+Received: from SN6PR19MB2303.namprd19.prod.outlook.com
+ ([fe80::805c:7f80:c69f:876a]) by SN6PR19MB2303.namprd19.prod.outlook.com
+ ([fe80::805c:7f80:c69f:876a%5]) with mapi id 15.21.0406.007; Sat, 12 Sep 2026
+ 19:04:36 +0000
+From: Marco Giunta <marco_giunta@outlook.it>
+To: Takashi Iwai <tiwai@suse.com>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Marco Giunta <marco_giunta@outlook.it>
+Subject: [PATCH] ALSA: hda/scodec: imply SERIAL_MULTI_INSTANTIATE for AW88399
+Date: Sat, 12 Sep 2026 21:04:21 +0200
+Message-ID:
+ <SN6PR19MB2303BF65050B51AE7217BB9AFCBD2@SN6PR19MB2303.namprd19.prod.outlook.com>
+X-Mailer: git-send-email 2.55.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: MI1P293CA0022.ITAP293.PROD.OUTLOOK.COM
+ (2603:10a6:290:3::19) To SN6PR19MB2303.namprd19.prod.outlook.com
+ (2603:10b6:805:56::19)
+X-Microsoft-Original-Message-ID:
+ <20260912190421.23514-1-marco_giunta@outlook.it>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 12 Sep 2026 12:02:29 -0700
-Message-Id: <DLDKK1NH3BO1.SZN02MHQTX00@gmail.com>
-To: "Vineet Gupta" <vineet.gupta@linux.dev>, <ast@kernel.org>,
- <daniel@iogearbox.net>, <andrii@kernel.org>, <eddyz87@gmail.com>,
- <memxor@gmail.com>
-Cc: <martin.lau@linux.dev>, <song@kernel.org>, <yonghong.song@linux.dev>,
- <jolsa@kernel.org>, <emil@etsalapatis.com>, <ihor.solodrai@linux.dev>,
- <john.fastabend@gmail.com>, <shuah@kernel.org>, <bpf@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>
-Subject: Re: [PATCH bpf-next v2 05/13] bpf: keep the range across a sign
- extension that cannot change it
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-X-Mailer: aerc
-References: <20260910164635.459558-1-vineet.gupta@linux.dev>
- <20260910164635.459558-6-vineet.gupta@linux.dev>
-In-Reply-To: <20260910164635.459558-6-vineet.gupta@linux.dev>
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN6PR19MB2303:EE_|PH0PR19MB7604:EE_
+X-MS-Office365-Filtering-Correlation-Id: e83e5a21-7b4b-4f70-7738-08df1100af76
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|23021999003|51005399006|19110799012|8060799015|25010399006|15080799012|55001999006|5072599009|24021099003|5062599005|40105399003|2607281247196008|3412199025|440099028|1710799026;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?EZ0Ep5eFrqq7PVuRb6MJyG1GV/7d2v7XM0lI2ZxaAmQ81mR6iQwFnVVLQcJo?=
+ =?us-ascii?Q?qOEVOa1rSZvYehLyoY98MnHAQiR8cygLfzJbc50ZMO79ZNgRUOiYMQ15ptsz?=
+ =?us-ascii?Q?cA1sZokUgdTdFW6b/j1cbinCm19JmwIyuJE2aCHEEaf0Q6RcvL82caBxudz6?=
+ =?us-ascii?Q?OFYlUe7DTFQkBAuhwYPV6QpzR00YlSQFGDDpRh3IuvtlbP2cLco/1iVR1pY0?=
+ =?us-ascii?Q?Z7pN+sbxDEw2Xtu9TL/gMu06mk/d3KVNOWxx7n0sKc0k7fIUeUHXwJCBQARC?=
+ =?us-ascii?Q?BnDKVVckR4CgoV6i5jleZjHEf5FOCNuFvDV5H5bcJDgUIMXaHLRVAp6JRKfr?=
+ =?us-ascii?Q?1zOT4mm0Co2546Vi+NGtR9jt86HfBDvE3EKj+QlQAxl5De8PQYN1Bi6WSxeR?=
+ =?us-ascii?Q?I9SqWCAi/od29SPsFd2gl5ED/FiOiP76blT8lJGdbi+uomOHyMwCqFoFI8of?=
+ =?us-ascii?Q?u2+uGM+CasnrKh52STCjAPIJrwDVEQsJ6CwbnFmbRL5d55eTFI0Vnal0ubta?=
+ =?us-ascii?Q?iy8KFKexrkE/BmZCK4XM9RqF71FEcoTeO146PsBTkt4iAHHHJ57p+E/27NQk?=
+ =?us-ascii?Q?tImQGrFTdDUnsbVp3fmVlJmibczlRyuxz5BeCzYq/8qFh32NmIWP5LAV3C3X?=
+ =?us-ascii?Q?8Ku2J4M2xErrMeiEQoHWkwOqm6iXxo2ovLctIWuQ0uFBZk/+rBxJn+0uvl21?=
+ =?us-ascii?Q?hFmGl3xCEn/a9iTwDwEDDXY4ZZnblEr3wbVeCmpkiJG5NcHqUlXl9ARPQR+q?=
+ =?us-ascii?Q?Hd+cl+FKkK6VmqRQRslZuzaXLmQmZ40SZk+kURNIaS6cpQYbJl4g2VBp+nQr?=
+ =?us-ascii?Q?fv1BXYGdY3CnX3K5QYPNhvOy2NDOCdyH8+gAng06iuoQ70HTHcGdHOqifFhM?=
+ =?us-ascii?Q?agIk1wFgpUaQ/g/9+nmRkUr07zZjwqTKW76CvNyY2TgmVmZwVl1hqRQNQM6y?=
+ =?us-ascii?Q?TGr18o9YgRnpjEPm26YM2S0L16qKjnp0ZFdW2marb/d8m+waSXQxOnl2S/Hj?=
+ =?us-ascii?Q?Epp1xSmtBQ/fcO5Ga919tG6GGw=3D=3D?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?8K6Bt7SZZbVoy8TOEzdj6hHUfscXRCLlI81L7sOkyiseg63xJVkpPlxhr955?=
+ =?us-ascii?Q?eYaMuXmRLLWG57RX2seBg5END7Z4KmiDbaS0265b3sGv1x5RlNpBsUgDFJct?=
+ =?us-ascii?Q?5S2Mun0yikpcDzrt2BhYXpud3fFeQzMjRGOPJuBGFfUcCKVS3tHr6RRQDeuP?=
+ =?us-ascii?Q?oCkj6joV+NEIaVfGKyi/n/qSHBEbk7koMcmEYcbNnHHYya3ziZQewVIKOjws?=
+ =?us-ascii?Q?d3NewGVm8FbNxX3l+sOeNuAfsgj2UdDrvJmu5bOoD23RTbW8zFHhqdbrzc4E?=
+ =?us-ascii?Q?VetseeBqJ7U4fMaFWhoymL/0BkGxwH6LHSNsYfsxaKSJ5hDywlrYlc0we05I?=
+ =?us-ascii?Q?7WMUtLzgdahljDZi0mBy3f7nNYjeFrXD0TH2Qb6z7lR9JW9EvzHhGY5wmh7f?=
+ =?us-ascii?Q?dApYPJH0+Sipla2ZZc/5cEEDvalwMjnnaIghD7kpJEia2RjBRLUGuFAC7R8s?=
+ =?us-ascii?Q?cEEnLI6qNbq9H03S8HyY6TP33kiWLO+tFIrkm0/FRV8TvMppp636SlN8VyMY?=
+ =?us-ascii?Q?aV68tzgiivyOFsrDJKrem+l72WeOqxFs70v8/ZxDhq2DDn3DSXwI1gdgYPAF?=
+ =?us-ascii?Q?lZAeDja1jLEKL5MY7hJKUik0gDXsQnFRfspstTIQNH1jqWAAGPmzKEEHa0mZ?=
+ =?us-ascii?Q?pYFFNVlXvrpVfrQaQbf76K2z677u3kvtbOdGOCG87n/mpXZh5PVzkPCkaOaq?=
+ =?us-ascii?Q?UmObPFBfDLf9y4hjgpBDdn0OzzCP2O4tSRQQkdpcwywIPH3c5S2asTv18Xzx?=
+ =?us-ascii?Q?hsYzp2219hqCQtccyiagerQPTqB5fX1pB+U3PPAPiftXCmUhpN/o8vu46Lzt?=
+ =?us-ascii?Q?56kCwweHRBnv2UYyN7f2qpoSZUFwr3TCPLlBXa+OVVtu/bL99Uk1Ehj41fPL?=
+ =?us-ascii?Q?vyXnjdW958oxQyFhhmcnEYOmH2CCWv/+plubnfKdaX1AX09U/isRXBFoFttf?=
+ =?us-ascii?Q?adsSPpdwcu0qAqZhgwkRh4JM0WQUJDpWbfILFkl3vBLygD0g5edFHSaFjIgh?=
+ =?us-ascii?Q?iamdzLMhhmdZj9ayrt1YJF6z1E7J4iqMli983hasmGgDkEsDMYdXXcbwzt8S?=
+ =?us-ascii?Q?1hhFTYBFfRMpNACnZGjTL2KfaukEeJmrFEmya6ATyF4Jh4pVWQhPBD6o8PhM?=
+ =?us-ascii?Q?4Dky5diIJTuFHU+Bsr7DF3VsdZ1iWQG+5J33s24Hc+Fqa/h3Xmv/7/bOTQLq?=
+ =?us-ascii?Q?VuiDcSxS/5NsrNR8qir8QzJFJwWW8epcQTpPh767ffDUfzjyx+4h4LXJOSI2?=
+ =?us-ascii?Q?6pIrfbOUYCB7p0TVe2+6x6yU8qBU/7rd3YlrPPPwOge9EHv/NGztXbdLjSly?=
+ =?us-ascii?Q?BzgSzvbhHWZhuEQv7fXMc62G1j9+CQzSpFrhB1dv9zPmM0OS9PjSF77LFO/F?=
+ =?us-ascii?Q?8eNHxTk=3D?=
+X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-990eb.templateTenant
+X-MS-Exchange-CrossTenant-Network-Message-Id: e83e5a21-7b4b-4f70-7738-08df1100af76
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR19MB2303.namprd19.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Sep 2026 19:04:35.8069
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR19MB7604
 
-On Thu Sep 10, 2026 at 9:46 AM PDT, Vineet Gupta wrote:
-> coerce_reg_to_size_sx() decides whether a sign extension is lossless by
-> comparing the bits above the field in smin and smax:
->
-> 	top_smax_value =3D ((u64)reg_smax(reg) >> num_bits) << num_bits;
-> 	top_smin_value =3D ((u64)reg_smin(reg) >> num_bits) << num_bits;
-> 	if (top_smax_value !=3D top_smin_value)
-> 		goto out;
->
-> Equal high bits do imply the truncation is lossless, but the converse doe=
-s
-> not hold. Whenever the range straddles zero the high bits necessarily
-> differ -- smin sign-extends to all ones, smax to all zeroes -- even when
-> every value in the range fits the field and (sN)v =3D=3D v throughout. Th=
-e
-> second gate, "both of s64_max/s64_min positive or negative", rejects the
-> same shape again for the same reason.
->
-> So a register holding an errno-or-zero value, [-4095, 0], comes out of r0
-> =3D (s32)r0 as the full [S32_MIN, S32_MAX] even though the instruction is=
- a
-> no-op on it. The no_sext test at the call site does not help: it is an
-> unsigned check, so it only covers non-negative values that fit.
->
-> Test the range against the field directly and return early when it fits.
-> Sign extension is then the identity, so nothing needs updating -- which
-> also preserves var_off, where the existing path would have replaced known
-> bits with a coarse tnum_range().
->
-> This only tightens: the early return fires exactly where the value is
-> provably unchanged, and the cases the current tests do accept still take
-> the same path and produce the same bounds.
->
-> Signed-off-by: Vineet Gupta <vineet.gupta@linux.dev>
-> ---
-> v2: new. coerce_reg_to_size_sx() is fixed rather than special-cased,
-> which is what was asked on RFC 5/6; it removes the RFC's
-> call-then-overwrite at the mov site.
->
->  kernel/bpf/verifier.c | 22 ++++++++++++++++++++++
->  1 file changed, 22 insertions(+)
->
-> diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-> index 58e788f53ae5..eb093194e2a3 100644
-> --- a/kernel/bpf/verifier.c
-> +++ b/kernel/bpf/verifier.c
-> @@ -5754,6 +5754,7 @@ static void set_sext64_default_val(struct bpf_reg_s=
-tate *reg, int size)
->  static void coerce_reg_to_size_sx(struct bpf_reg_state *reg, int size)
->  {
->  	s64 init_s64_max, init_s64_min, s64_max, s64_min, u64_cval;
-> +	s64 field_smin, field_smax;
->  	u64 top_smax_value, top_smin_value;
->  	u64 num_bits =3D size * 8;
-> =20
-> @@ -5773,6 +5774,27 @@ static void coerce_reg_to_size_sx(struct bpf_reg_s=
-tate *reg, int size)
->  		return;
->  	}
-> =20
-> +	if (size =3D=3D 1) {
-> +		field_smin =3D S8_MIN;
-> +		field_smax =3D S8_MAX;
-> +	} else if (size =3D=3D 2) {
-> +		field_smin =3D S16_MIN;
-> +		field_smax =3D S16_MAX;
-> +	} else {
-> +		/* size =3D=3D 4 */
-> +		field_smin =3D S32_MIN;
-> +		field_smax =3D S32_MAX;
-> +	}
-> +
-> +	/*
-> +	 * The range already fits the field, so (sN)v =3D=3D v for every value =
-the
-> +	 * register can hold and the sign extension changes nothing. The tests
-> +	 * below cannot reach this case once smin is negative: a negative smin
-> +	 * and a non-negative smax never share their high bits.
-> +	 */
-> +	if (reg_smin(reg) >=3D field_smin && reg_smax(reg) <=3D field_smax)
-> +		return;
-> +
+The AW88399 HDA side codec driver relies on the serial-multi-instantiate
+driver to create I2C devices from the "AWDZ8399" ACPI HID entry.
+Add imply SERIAL_MULTI_INSTANTIATE to help kernel configuration tools
+suggest the correct dependency, matching the CS35L41 and CS35L56
+HDA side codec entries.
 
-This patch can be a patch 1, since it looks unrelated to the rest?
-Would be good to test it individually. veristat run before/after.
+Signed-off-by: Marco Giunta <marco_giunta@outlook.it>
+---
+ sound/hda/codecs/side-codecs/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/sound/hda/codecs/side-codecs/Kconfig b/sound/hda/codecs/side-codecs/Kconfig
+index f90f1dfcec68..b7e2a6fa4258 100644
+--- a/sound/hda/codecs/side-codecs/Kconfig
++++ b/sound/hda/codecs/side-codecs/Kconfig
+@@ -22,6 +22,7 @@ config SND_HDA_SCODEC_AW88399_I2C
+ 	depends on I2C
+ 	depends on ACPI
+ 	depends on SND_SOC
++	imply SERIAL_MULTI_INSTANTIATE
+ 	select SND_HDA_SCODEC_AW88399
+ 	select SND_SOC_AW88399_LIB
+ 	help
+
+base-commit: db9952017633482f445d162a1442c917b160ef87
+-- 
+2.55.0
 
