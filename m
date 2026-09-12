@@ -1,455 +1,345 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A89F61D63F3;
-	Sat, 12 Sep 2026 01:03:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 494951D63F3
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 01:03:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789174994; cv=none; b=b9VsTRaLUzNLYIk9QO4wdBj7YKaL9KuCb8FbvHwzOhD1W9PdPCcz2aci9ZaGT/Ry8hoSjiPZ6+MKtcpwcilGxZJXKP3dltfwCUKFWJ4DpUHby4cxXvpKZ9uITgFMGin0Shk0kjuTAmbrcUx7tAcyW0I7nKhwXy8au3Mn+1QrwyE=
+	t=1789175002; cv=none; b=tHRgosBx7+aZsgCNrBZXrd6eE0sftxGUR1/pw7irxNrEknt5VrTuH7hNFZup2GtcXvJqbNZQt16snOvLapATpdWFWnxjfOr9vG3L7NS9AtWVlnKFMH+4JpNBGYoFvjou5zu0fOsfBHPTUCkoyQiruMaWhhJSfhDIjQft+VJwAf8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789174994; c=relaxed/simple;
-	bh=8MkNwe5RstKs9Kd2HvvwPHFzjCuvRoRcQpOVrYM0pc8=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fmUQGhQCKKiZCjDTOwGbSG9P4dxQHChKeftKhM+FDVIod5ep6mkGdmrxMgun5REmK8JP2Eyxk8pNHjkRjuPQBPDpI53NNS8misXPnON6FKwtF+RHitaqrl/uAyI8u0vbxBK6/KY7LlFBzHIZlsjh90EAU26kXln228bThGCD3h4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XW39ZZUw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789175002; c=relaxed/simple;
+	bh=oFfqZvYLio7A+6wel10I6Ob7085xXMt1PBVf6Pa4Htk=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=GR4Im9TzruTmucdrE9XHCAu3bGbLk1FAGjrpbuVSVi34Al+7XwEDkDust947ezaW+6t0bReVefEz/+/R3NMCkA2KtXgnkNqlc5lUoEii02TA12BBXqyr5Ace9xukdVDJ9qf1wanTBanDxsUbY0lHzb30DC+6KzxrmEE+0K3h9U0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=TL1Br0Fd; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XW39ZZUw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 426931F000FF;
-	Sat, 12 Sep 2026 01:03:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789174992;
-	bh=AJ46AAeoNGVFUj9R6LYnyRog+WYh7ZcgP75I2J2b0og=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=XW39ZZUwu0G4g0c03wd1172SHr91Hw8XvR0KwrVYBMkzLV/phBpWVTZwlaBHSJeGQ
-	 czRoGb1tU/0wqv6G0evwVQeWPEQ6BG3iLLGH1nFm9Xg6Zf3Juq5hIleDCdvZQJUYib
-	 1wZ4a49nsM4fPsX0fD9jJBz4lEP2xtbLUdQF7sLcPUCRJihvm4E3muYyEp/YAove74
-	 O1CiXepzFoO+2TQT/QLxaIxVSFDJsuZVtjsc4qIYU6y5rFy4JHi8talNGfOZ882ZfS
-	 AphwRPOAgPZG4YaoZ8NnGOYWheLfEm+nTeb5lpjKbbW5I933M+MPrB7JCCiTA6/ozJ
-	 yeYK3BlCKChOQ==
-Date: Sat, 12 Sep 2026 02:03:05 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Srirangan Madhavan <smadhavan@nvidia.com>
-Cc: Alison Schofield <alison.schofield@intel.com>, Bjorn Helgaas
- <bhelgaas@google.com>, Dave Jiang <dave.jiang@intel.com>, Davidlohr Bueso
- <dave@stgolabs.net>, Ira Weiny <ira.weiny@intel.com>, Vishal Verma
- <vishal.l.verma@intel.com>, linux-cxl@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, Alex Williamson
- <alex.williamson@redhat.com>, vsethi@nvidia.com, alwilliamson@nvidia.com,
- Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>, Vishal Aslot
- <vaslot@nvidia.com>, Manish Honap <mhonap@nvidia.com>, Jiandi An
- <jan@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
- linux-tegra@vger.kernel.org
-Subject: Re: [PATCH v12 05/12] cxl: Cache endpoint decoder settings during
- PCI enumeration
-Message-ID: <20260912020305.64278c3e@jic23-hlaptop>
-In-Reply-To: <20260910070808.1444264-6-smadhavan@nvidia.com>
-References: <20260910070808.1444264-1-smadhavan@nvidia.com>
-	<20260910070808.1444264-6-smadhavan@nvidia.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="TL1Br0Fd"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789175000; x=1820711000;
+  h=date:from:to:cc:subject:message-id;
+  bh=oFfqZvYLio7A+6wel10I6Ob7085xXMt1PBVf6Pa4Htk=;
+  b=TL1Br0Fdu7mz1C9MsZW352x0mFdo/6EP5/s0w73YokrqdMOPM1S6kpq3
+   hdQj7L47NVIrs9j4I4swbtVdOyCuFVRQwOEiGu8ofgWZPJFTZJ8iucPgR
+   PMbystDeF4kDDpLD95X3F/JhT+Su8sN7tfkSFkWNX1cXUisT1C28/hPbp
+   PHDcTpsFZ5ofgthOmEablAJy0vIil4SAps2hxe9Zx/Gy+qm26ijA803z7
+   fjr1ivf0yqtYUNICxMFGFVhggoIgjXZoTnx+wIt+F1WeLGYsrinjpLmbk
+   vG7rzLXkjwV5Il5eC4wo51OPt7F7XC5QGM+L9XMTGrHjfc5qioDBeeXoe
+   Q==;
+X-CSE-ConnectionGUID: IWFghQHpTP+FzP9VvLFEDQ==
+X-CSE-MsgGUID: R5aqbentQberNtpisktMCQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11902"; a="115176056"
+X-IronPort-AV: E=Sophos;i="6.27,98,1787036400"; 
+   d="scan'208";a="115176056"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 18:03:19 -0700
+X-CSE-ConnectionGUID: cuPSrFV0S2OYwVQhCvq53A==
+X-CSE-MsgGUID: SGgo9SkiSyO28FM1wbohKw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,98,1787036400"; 
+   d="scan'208";a="272580980"
+Received: from lkp-server02.sh.intel.com (HELO 0a3643a6ed9d) ([10.239.97.151])
+  by orviesa009.jf.intel.com with ESMTP; 11 Sep 2026 18:03:18 -0700
+Received: from kbuild by 0a3643a6ed9d with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x5C97-000000002TF-2jdL;
+	Sat, 12 Sep 2026 01:03:12 +0000
+Date: Sat, 12 Sep 2026 09:00:24 +0800
+From: kernel test robot <lkp@intel.com>
+To: "Paul E. McKenney" <paulmck@kernel.org>
+Cc: linux-kernel@vger.kernel.org
+Subject: [paulmck-rcu:dev.2026.09.09a] BUILD REGRESSION
+ d61d9b5dd56c6cf72b70bb5fb52b213ead9f7765
+Message-ID: <202609120920.AJsi8BFn-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Thu, 10 Sep 2026 07:08:01 +0000
-Srirangan Madhavan <smadhavan@nvidia.com> wrote:
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/paulmck/linux-rcu.git dev.2026.09.09a
+branch HEAD: d61d9b5dd56c6cf72b70bb5fb52b213ead9f7765  rcu: Drop the private tick-internal.h include from tree.c
 
-> Populate pci_dev->hdm for CXL.mem functions from pci_bus_add_device(),
-> after final PCI fixups and state save but before driver binding. This
-> gives driver-free reset paths an early HDM snapshot while avoiding the
-> pre-resource-assignment window in PCI capability initialization.
-> 
-> Use the CXL Register Locator BAR Indicator to find the component register
-> BAR, reject unassigned, disabled, or zero memory BAR resources before
-> temporarily enabling Memory Space, and restore the original PCI_COMMAND
-> value before returning. Cache the CXL Device DVSEC control register with
-> the HDM state for reset recovery before a driver can alter it.
-> 
-> CXL core refreshes the cache as decoders are committed or reset, and keeps
-> the cached DVSEC control synchronized when CXL.mem is enabled or disabled.
-> Move the register helpers into the built-in CONFIG_CXL_RESET set so the
-> early cache path is available without cxl_core, and keep the cxl-test mock
-> core from building a duplicate regs.o.
-> 
-> Signed-off-by: Srirangan Madhavan <smadhavan@nvidia.com>
-Hi Srirangan,
+Error/Warning (recently discovered and may have been fixed):
 
-Unless I'm reading this wrong, this has evolved to the point that it
-needs a step back and a rethink.  There is complexity in here I
-don't think you need at all.  I may well be missing something
-though given it's Friday evening!
+    https://lore.kernel.org/oe-kbuild-all/202609112046.0850pdpM-lkp@intel.com
+    https://lore.kernel.org/oe-kbuild-all/202609120047.u7Af769s-lkp@intel.com
 
-Jonathan
+    kernel/rcu/../locking/rtmutex_common.h:231:35: error: conflicting types for 'rt_mutex_owner'
+    kernel/rcu/../locking/rtmutex_common.h:231:35: error: conflicting types for 'rt_mutex_owner'; have 'struct task_struct *(struct rt_mutex_base *)'
+    kernel/rcu/tree_stall.h:332:29: error: implicit declaration of function 'rt_mutex_owner'; did you mean 'rt_mutex_init'? [-Werror=implicit-function-declaration]
+    kernel/rcu/tree_stall.h:332:48: warning: comparison between pointer and integer ('int' and 'struct task_struct *') [-Wpointer-integer-compare]
+    kernel/rcu/tree_stall.h:332:69: warning: comparison between pointer and integer
+    kernel/rcu/tree_stall.h:332:8: error: call to undeclared function 'rt_mutex_owner'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
 
+Error/Warning ids grouped by kconfigs:
 
-> diff --git a/drivers/cxl/core/resource.c b/drivers/cxl/core/resource.c
-> index e6aa55079c76..6d9f8fe14b16 100644
-> --- a/drivers/cxl/core/resource.c
-> +++ b/drivers/cxl/core/resource.c
-> @@ -2,9 +2,17 @@
->  /* Copyright (c) 2026 NVIDIA Corporation & Affiliates */
->  #include <linux/delay.h>
->  #include <linux/bug.h>
-> +#include <linux/bitfield.h>
-> +#include <linux/cleanup.h>
->  #include <linux/errno.h>
->  #include <linux/export.h>
-> +#include <linux/io.h>
-> +#include <linux/ioport.h>
->  #include <linux/kernel.h>
-> +#include <linux/pci.h>
-> +#include <linux/slab.h>
-> +
-> +#include <cxl/pci.h>
->  
->  #include "cxl.h"
->  #include "core.h"
-> @@ -156,3 +164,331 @@ int cxl_hdm_decode_decoder(struct cxl_decoder_settings *settings, int id,
->  				  &settings->interleave_granularity);
->  }
->  EXPORT_SYMBOL_FOR_MODULES(cxl_hdm_decode_decoder, "cxl_core");
-> +
-> +struct cxl_hdm_decoder_state {
-> +	u32 ctrl;
-> +	u32 base_low;
-> +	u32 base_high;
-> +	u32 size_low;
-> +	u32 size_high;
-> +	u32 target_low;
-> +	u32 target_high;
-> +};
-> +
-> +static void cxl_pci_hdm_info_free(struct cxl_hdm_info *info)
-> +{
-> +	if (!info)
-> +		return;
-> +
-> +	kfree(info->decoder_state);
-> +	kfree(info);
-> +}
-> +
-> +DEFINE_FREE(cxl_pci_hdm_info, struct cxl_hdm_info *,
-> +	    cxl_pci_hdm_info_free(_T))
-> +
-> +void pci_cxl_hdm_release(struct pci_dev *pdev)
-> +{
-> +	struct cxl_hdm_info *info = pdev->hdm;
-> +
-> +	pdev->hdm = NULL;
+recent_errors
+|-- powerpc-tqm8xx_defconfig
+|   |-- kernel-rcu-..-locking-rtmutex_common.h:error:conflicting-types-for-rt_mutex_owner
+|   |-- kernel-rcu-tree_stall.h:error:call-to-undeclared-function-rt_mutex_owner-ISO-C99-and-later-do-not-support-implicit-function-declarations
+|   `-- kernel-rcu-tree_stall.h:warning:comparison-between-pointer-and-integer-(-int-and-struct-task_struct-)
+`-- s390-randconfig-r133-20260911
+    |-- kernel-rcu-..-locking-rtmutex_common.h:error:conflicting-types-for-rt_mutex_owner-have-struct-task_struct-(struct-rt_mutex_base-)
+    |-- kernel-rcu-tree_stall.h:error:implicit-declaration-of-function-rt_mutex_owner
+    `-- kernel-rcu-tree_stall.h:warning:comparison-between-pointer-and-integer
 
-If the order here matters, you need a barrier or WRITE_ONCE() might
-do it.
+elapsed time: 1478m
 
-> +	cxl_pci_hdm_info_free(info);
-> +}
-> +
-> +static bool cxl_pci_bar_usable(struct pci_dev *pdev, int bar)
+configs tested: 247
+configs skipped: 2
 
-This doesn't seem to have anything CXL specific about it.  Maybe
-give it a more generic name and move it to pci.c?
-However, see later - I'm not sure you need this.
+tested configs:
+alpha                             allnoconfig    gcc-16.1.0
+alpha                            allyesconfig    gcc-16.1.0
+alpha                               defconfig    gcc-16.1.0
+arc                              allmodconfig    clang-24
+arc                               allnoconfig    gcc-16.1.0
+arc                              allyesconfig    clang-24
+arc                          axs103_defconfig    gcc-16.1.0
+arc                                 defconfig    gcc-16.1.0
+arc                   randconfig-001-20260911    clang-24
+arc                   randconfig-002-20260911    clang-24
+arm                               allnoconfig    gcc-16.1.0
+arm                              allyesconfig    clang-24
+arm                       aspeed_g5_defconfig    gcc-16.1.0
+arm                        clps711x_defconfig    gcc-16.1.0
+arm                                 defconfig    gcc-16.1.0
+arm                          pxa3xx_defconfig    gcc-16.1.0
+arm                   randconfig-001-20260911    clang-24
+arm                   randconfig-002-20260911    clang-24
+arm                   randconfig-003-20260911    clang-24
+arm                   randconfig-004-20260911    clang-24
+arm                           sama7_defconfig    gcc-16.1.0
+arm64                            allmodconfig    clang-24
+arm64                             allnoconfig    gcc-16.1.0
+arm64                               defconfig    gcc-16.1.0
+arm64                 randconfig-001-20260911    gcc-16.1.0
+arm64                 randconfig-001-20260912    gcc-15.2.0
+arm64                 randconfig-002-20260911    gcc-16.1.0
+arm64                 randconfig-002-20260912    gcc-15.2.0
+arm64                 randconfig-003-20260911    gcc-16.1.0
+arm64                 randconfig-003-20260912    gcc-15.2.0
+arm64                 randconfig-004-20260911    gcc-16.1.0
+arm64                 randconfig-004-20260912    gcc-15.2.0
+csky                             allmodconfig    gcc-16.1.0
+csky                              allnoconfig    gcc-16.1.0
+csky                                defconfig    gcc-16.1.0
+csky                  randconfig-001-20260911    gcc-16.1.0
+csky                  randconfig-001-20260912    gcc-15.2.0
+csky                  randconfig-002-20260911    gcc-16.1.0
+csky                  randconfig-002-20260912    gcc-15.2.0
+hexagon                          allmodconfig    gcc-16.1.0
+hexagon                           allnoconfig    gcc-16.1.0
+hexagon                             defconfig    gcc-16.1.0
+hexagon               randconfig-001-20260911    gcc-12.5.0
+hexagon               randconfig-001-20260912    clang-24
+hexagon               randconfig-002-20260911    gcc-12.5.0
+hexagon               randconfig-002-20260912    clang-24
+i386                             allmodconfig    clang-22
+i386                              allnoconfig    gcc-16.1.0
+i386                             allyesconfig    clang-22
+i386        buildonly-randconfig-001-20260911    clang-22
+i386        buildonly-randconfig-001-20260912    gcc-14
+i386        buildonly-randconfig-002-20260911    clang-22
+i386        buildonly-randconfig-002-20260912    gcc-14
+i386        buildonly-randconfig-003-20260911    clang-22
+i386        buildonly-randconfig-003-20260912    gcc-14
+i386        buildonly-randconfig-004-20260911    clang-22
+i386        buildonly-randconfig-004-20260912    gcc-14
+i386        buildonly-randconfig-005-20260911    clang-22
+i386        buildonly-randconfig-005-20260912    gcc-14
+i386        buildonly-randconfig-006-20260911    clang-22
+i386        buildonly-randconfig-006-20260912    gcc-14
+i386                                defconfig    gcc-16.1.0
+i386                  randconfig-001-20260911    clang-22
+i386                  randconfig-002-20260911    clang-22
+i386                  randconfig-003-20260911    clang-22
+i386                  randconfig-004-20260911    clang-22
+i386                  randconfig-005-20260911    clang-22
+i386                  randconfig-006-20260911    clang-22
+i386                  randconfig-007-20260911    clang-22
+i386                  randconfig-011-20260911    clang-22
+i386                  randconfig-011-20260912    gcc-14
+i386                  randconfig-012-20260911    clang-22
+i386                  randconfig-012-20260912    gcc-14
+i386                  randconfig-013-20260911    clang-22
+i386                  randconfig-013-20260912    gcc-14
+i386                  randconfig-014-20260911    clang-22
+i386                  randconfig-014-20260912    gcc-14
+i386                  randconfig-015-20260911    clang-22
+i386                  randconfig-015-20260912    gcc-14
+i386                  randconfig-016-20260911    clang-22
+i386                  randconfig-016-20260912    gcc-14
+i386                  randconfig-017-20260911    clang-22
+i386                  randconfig-017-20260912    gcc-14
+loongarch                        allmodconfig    clang-24
+loongarch                         allnoconfig    gcc-16.1.0
+loongarch                           defconfig    clang-24
+loongarch             randconfig-001-20260911    gcc-12.5.0
+loongarch             randconfig-001-20260912    clang-24
+loongarch             randconfig-002-20260911    gcc-12.5.0
+loongarch             randconfig-002-20260912    clang-24
+m68k                             allmodconfig    gcc-16.1.0
+m68k                              allnoconfig    gcc-16.1.0
+m68k                             allyesconfig    clang-24
+m68k                                defconfig    clang-24
+m68k                       m5235evb_defconfig    gcc-16.1.0
+m68k                       m5275evb_defconfig    gcc-16.1.0
+microblaze                        allnoconfig    gcc-16.1.0
+microblaze                       allyesconfig    gcc-16.1.0
+microblaze                          defconfig    clang-24
+mips                             allmodconfig    gcc-16.1.0
+mips                              allnoconfig    gcc-16.1.0
+mips                             allyesconfig    gcc-16.1.0
+mips                     decstation_defconfig    gcc-16.1.0
+mips                      fuloong2e_defconfig    gcc-16.1.0
+mips                      loongson1_defconfig    gcc-16.1.0
+mips                      loongson3_defconfig    gcc-16.1.0
+mips                       rbtx49xx_defconfig    gcc-16.1.0
+nios2                            allmodconfig    clang-20
+nios2                             allnoconfig    clang-24
+nios2                               defconfig    clang-24
+nios2                 randconfig-001-20260911    gcc-12.5.0
+nios2                 randconfig-001-20260912    clang-24
+nios2                 randconfig-002-20260911    gcc-12.5.0
+nios2                 randconfig-002-20260912    clang-24
+openrisc                         allmodconfig    clang-20
+openrisc                          allnoconfig    clang-24
+openrisc                            defconfig    gcc-16.1.0
+parisc                           allmodconfig    gcc-16.1.0
+parisc                            allnoconfig    clang-24
+parisc                           allyesconfig    clang-17
+parisc                              defconfig    gcc-16.1.0
+parisc                randconfig-001-20260911    gcc-8.5.0
+parisc                randconfig-001-20260912    clang-24
+parisc                randconfig-002-20260911    gcc-8.5.0
+parisc                randconfig-002-20260912    clang-24
+parisc64                         alldefconfig    gcc-16.1.0
+parisc64                            defconfig    clang-24
+powerpc                          allmodconfig    gcc-16.1.0
+powerpc                           allnoconfig    clang-24
+powerpc                    amigaone_defconfig    gcc-16.1.0
+powerpc                   lite5200b_defconfig    gcc-16.1.0
+powerpc               randconfig-001-20260911    gcc-8.5.0
+powerpc               randconfig-001-20260912    clang-24
+powerpc               randconfig-002-20260911    gcc-8.5.0
+powerpc               randconfig-002-20260912    clang-24
+powerpc                  storcenter_defconfig    gcc-16.1.0
+powerpc                      tqm8xx_defconfig    gcc-16.1.0
+powerpc64             randconfig-001-20260911    gcc-8.5.0
+powerpc64             randconfig-001-20260912    clang-24
+powerpc64             randconfig-002-20260911    gcc-8.5.0
+powerpc64             randconfig-002-20260912    clang-24
+riscv                            allmodconfig    clang-24
+riscv                             allnoconfig    clang-24
+riscv                            allyesconfig    clang-24
+riscv                               defconfig    gcc-16.1.0
+riscv                 randconfig-001-20260911    gcc-16.1.0
+riscv                 randconfig-001-20260912    gcc-11.5.0
+riscv                 randconfig-002-20260911    gcc-16.1.0
+riscv                 randconfig-002-20260912    gcc-11.5.0
+s390                             allmodconfig    clang-17
+s390                              allnoconfig    clang-24
+s390                             allyesconfig    gcc-16.1.0
+s390                          debug_defconfig    gcc-16.1.0
+s390                                defconfig    gcc-16.1.0
+s390                  randconfig-001-20260911    gcc-16.1.0
+s390                  randconfig-001-20260912    gcc-11.5.0
+s390                  randconfig-002-20260911    gcc-16.1.0
+s390                  randconfig-002-20260912    gcc-11.5.0
+sh                               allmodconfig    gcc-16.1.0
+sh                                allnoconfig    clang-24
+sh                               allyesconfig    clang-17
+sh                                  defconfig    gcc-14
+sh                    randconfig-001-20260911    gcc-16.1.0
+sh                    randconfig-001-20260912    gcc-11.5.0
+sh                    randconfig-002-20260911    gcc-16.1.0
+sh                    randconfig-002-20260912    gcc-11.5.0
+sh                      rts7751r2d1_defconfig    gcc-16.1.0
+sh                   rts7751r2dplus_defconfig    gcc-16.1.0
+sh                           se7206_defconfig    gcc-16.1.0
+sh                           se7722_defconfig    gcc-16.1.0
+sh                             shx3_defconfig    gcc-16.1.0
+sparc                             allnoconfig    clang-24
+sparc                               defconfig    gcc-16.1.0
+sparc                 randconfig-001-20260911    gcc-13.4.0
+sparc                 randconfig-001-20260912    gcc-14.3.0
+sparc                 randconfig-002-20260911    gcc-13.4.0
+sparc                 randconfig-002-20260912    gcc-14.3.0
+sparc64                          allmodconfig    clang-20
+sparc64                             defconfig    gcc-14
+sparc64               randconfig-001-20260911    gcc-13.4.0
+sparc64               randconfig-001-20260912    gcc-14.3.0
+sparc64               randconfig-002-20260911    gcc-13.4.0
+sparc64               randconfig-002-20260912    gcc-14.3.0
+um                               allmodconfig    clang-17
+um                                allnoconfig    clang-24
+um                               allyesconfig    gcc-16.1.0
+um                                  defconfig    gcc-14
+um                             i386_defconfig    gcc-14
+um                    randconfig-001-20260911    gcc-13.4.0
+um                    randconfig-001-20260912    gcc-14.3.0
+um                    randconfig-002-20260911    gcc-13.4.0
+um                    randconfig-002-20260912    gcc-14.3.0
+um                           x86_64_defconfig    gcc-14
+x86_64                           allmodconfig    clang-22
+x86_64                            allnoconfig    clang-24
+x86_64                           allyesconfig    clang-22
+x86_64      buildonly-randconfig-001-20260911    gcc-14
+x86_64      buildonly-randconfig-001-20260912    gcc-14
+x86_64      buildonly-randconfig-002-20260911    gcc-14
+x86_64      buildonly-randconfig-002-20260912    gcc-14
+x86_64      buildonly-randconfig-003-20260911    gcc-14
+x86_64      buildonly-randconfig-003-20260912    gcc-14
+x86_64      buildonly-randconfig-004-20260911    gcc-14
+x86_64      buildonly-randconfig-004-20260912    gcc-14
+x86_64      buildonly-randconfig-005-20260911    gcc-14
+x86_64      buildonly-randconfig-005-20260912    gcc-14
+x86_64      buildonly-randconfig-006-20260911    gcc-14
+x86_64      buildonly-randconfig-006-20260912    gcc-14
+x86_64                              defconfig    gcc-14
+x86_64                                  kexec    clang-22
+x86_64                randconfig-001-20260911    clang-22
+x86_64                randconfig-002-20260911    clang-22
+x86_64                randconfig-003-20260911    clang-22
+x86_64                randconfig-004-20260911    clang-22
+x86_64                randconfig-005-20260911    clang-22
+x86_64                randconfig-006-20260911    clang-22
+x86_64                randconfig-011-20260911    gcc-14
+x86_64                randconfig-012-20260911    gcc-14
+x86_64                randconfig-013-20260911    gcc-14
+x86_64                randconfig-014-20260911    gcc-14
+x86_64                randconfig-015-20260911    gcc-14
+x86_64                randconfig-016-20260911    gcc-14
+x86_64                randconfig-071-20260911    gcc-14
+x86_64                randconfig-071-20260912    gcc-14
+x86_64                randconfig-072-20260911    gcc-14
+x86_64                randconfig-072-20260912    gcc-14
+x86_64                randconfig-073-20260911    gcc-14
+x86_64                randconfig-073-20260912    gcc-14
+x86_64                randconfig-074-20260911    gcc-14
+x86_64                randconfig-074-20260912    gcc-14
+x86_64                randconfig-075-20260911    gcc-14
+x86_64                randconfig-075-20260912    gcc-14
+x86_64                randconfig-076-20260911    gcc-14
+x86_64                randconfig-076-20260912    gcc-14
+x86_64                               rhel-9.4    clang-22
+x86_64                           rhel-9.4-bpf    gcc-14
+x86_64                          rhel-9.4-func    clang-22
+x86_64                    rhel-9.4-kselftests    clang-22
+x86_64                         rhel-9.4-kunit    gcc-14
+x86_64                           rhel-9.4-ltp    gcc-14
+x86_64                          rhel-9.4-rust    clang-22
+xtensa                            allnoconfig    clang-24
+xtensa                           allyesconfig    clang-20
+xtensa                randconfig-001-20260911    gcc-13.4.0
+xtensa                randconfig-001-20260912    gcc-14.3.0
+xtensa                randconfig-002-20260911    gcc-13.4.0
+xtensa                randconfig-002-20260912    gcc-14.3.0
 
-> +{
-> +	struct resource *res = &pdev->resource[bar];
-> +
-> +	if (!pci_resource_len(pdev, bar))
-> +		return false;
-> +	if (res->flags & (IORESOURCE_UNSET | IORESOURCE_DISABLED))
-> +		return false;
-> +	if (resource_type(res) != IORESOURCE_MEM)
-> +		return false;
-> +	if (!res->start || !res->end)
-> +		return false;
-> +
-> +	return true;
-> +}
-> +
-> +static int cxl_pci_hdm_find_bar(struct pci_dev *pdev, resource_size_t hdm_start,
-> +				resource_size_t hdm_size, int *bar,
-> +				resource_size_t *offset)
-> +{
-> +	resource_size_t hdm_end;
-> +
-> +	if (!hdm_size)
-> +		return -EINVAL;
-> +
-> +	hdm_end = hdm_start + hdm_size - 1;
-> +	if (hdm_end < hdm_start)
-> +		return -EINVAL;
-> +
-> +	for (int i = 0; i < PCI_STD_NUM_BARS; i++) {
-
-This feels unduly painful and overly specific to this case.
-It is just looking for a resource to bar and offset.
-
-It is not CXL specific so maybe ask Bjorn if such a helper might go
-in pci.c (assuming not discussed and dismissed in earlier rounds of
-review!)  I'd still like it to mention hdm or anything even if
-local to here.
-static int cxl_pci_find_resource_bar(struct pci_dev *pdev,
-				     resource_size_t start, resource_size_t size,
-				     int *bar, resource_size_t *offset)
-
-Noted later, you can skip this entirely as this is going in a circle.
-
-> +		struct resource *res = &pdev->resource[i];
-> +
-> +		if (!cxl_pci_bar_usable(pdev, i))
-> +			continue;
-> +		if (hdm_start < res->start || hdm_end > res->end)
-> +			continue;
-> +
-> +		if (bar)
-> +			*bar = i;
-> +		if (offset)
-> +			*offset = hdm_start - res->start;
-> +		return 0;
-> +	}
-> +
-> +	return -ENODEV;
-> +}
-
-> +
-> +static void cxl_pci_hdm_read_decoder_state(struct cxl_hdm_decoder_state *state,
-> +					   void __iomem *hdm, int id)
-> +{
-> +	state->ctrl = readl(hdm + CXL_HDM_DECODER0_CTRL_OFFSET(id));
-> +	state->base_low = readl(hdm + CXL_HDM_DECODER0_BASE_LOW_OFFSET(id));
-> +	state->base_high = readl(hdm + CXL_HDM_DECODER0_BASE_HIGH_OFFSET(id));
-> +	state->size_low = readl(hdm + CXL_HDM_DECODER0_SIZE_LOW_OFFSET(id));
-> +	state->size_high = readl(hdm + CXL_HDM_DECODER0_SIZE_HIGH_OFFSET(id));
-> +	state->target_low = readl(hdm + CXL_HDM_DECODER0_TL_LOW(id));
-> +	state->target_high = readl(hdm + CXL_HDM_DECODER0_TL_HIGH(id));
-> +}
-> +
-> +static int cxl_pci_hdm_read_decoder(struct pci_dev *pdev,
-> +				    struct cxl_hdm_decoder_state *state,
-> +				    struct cxl_decoder_settings *settings,
-> +				    void __iomem *hdm, int id)
-> +{
-> +	u64 target_or_skip, base, size;
-> +	int rc;
-> +
-> +	cxl_pci_hdm_read_decoder_state(state, hdm, id);
-> +
-> +	base = ((u64)state->base_high << 32) | state->base_low;
-> +	size = ((u64)state->size_high << 32) | state->size_low;
-> +	target_or_skip = ((u64)state->target_high << 32) | state->target_low;
-
-I'm not sure I get why we cache the registers and the stuff derived from them.
-Why isn't one source of info enough? Or do the have different lifetimes?
-If they do then add a comment to structure definition on that.
-
-> +
-> +	rc = cxl_hdm_decode_decoder(settings, id, state->ctrl, base, size,
-> +				    target_or_skip, NULL);
-> +	if (rc) {
-> +		pci_err(pdev, "CXL HDM decoder %d has invalid configuration: %d\n",
-> +			id, rc);
-> +		return rc;
-> +	}
-> +	return 0;
-> +}
-
-> +
-> +static int __cxl_pci_hdm_read_info(struct pci_dev *pdev,
-> +				   struct cxl_register_map *map,
-> +				   struct cxl_hdm_info *info)
-> +{
-> +	struct cxl_decoder_settings *settings;
-> +	int decoder_count;
-> +	int rc;
-> +
-> +	rc = cxl_setup_regs(map);
-> +	if (rc)
-> +		return rc;
-> +
-> +	if (!map->component_map.hdm_decoder.valid)
-> +		return -ENODEV;
-> +
-> +	void __iomem *hdm __free(cxl_hdm_iounmap) =
-> +		cxl_pci_hdm_map(pdev, map, info);
-> +	if (IS_ERR(hdm))
-> +		return PTR_ERR(no_free_ptr(hdm));
-> +
-> +	decoder_count = cxl_hdm_decoder_count(readl(hdm +
-> +						    CXL_HDM_DECODER_CAP_OFFSET));
-
-Go long on lines like this.  As long as you stay only a bit over 80 no one will
-mind.
-
-> +	if (decoder_count < 0)
-> +		return decoder_count;
-> +
-> +	if (decoder_count > ARRAY_SIZE(info->settings))
-> +		return -ENXIO;
-> +
-> +	if (CXL_HDM_DECODER0_CTRL_OFFSET(decoder_count - 1) + 0x10 >
-
-That 0x10 needs to be a define or other useful code. I have no idea what
-it is...
-
-> +	    info->hdm_size) {
-> +		pci_err(pdev,
-> +			"CXL HDM decoder count exceeds mapped register block\n");
-> +		return -ENXIO;
-> +	}
-> +
-> +	info->decoder_count = decoder_count;
-> +	info->global_ctrl = readl(hdm + CXL_HDM_DECODER_CTRL_OFFSET);
-> +	info->decoder_state = kcalloc(decoder_count,
-> +				      sizeof(*info->decoder_state),
-> +				      GFP_KERNEL);
-
-That's same size as settings, so put the two of them a struct at the end of
-cxl_hdm_info with a short name (e.g. decoder[].state, decoder[].settings) and
-use a struct_size() allocation for them both.
-
-> +	if (!info->decoder_state)
-> +		return -ENOMEM;
-> +
-> +	settings = info->settings;
-> +	for (int i = 0; i < info->decoder_count; i++) {
-> +		rc = cxl_pci_hdm_read_decoder(pdev, &info->decoder_state[i],
-> +					      &settings[i], hdm, i);
-> +		if (rc)
-> +			return rc;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int cxl_pci_hdm_read_info(struct pci_dev *pdev,
-> +				 struct cxl_register_map *map,
-> +				 struct cxl_hdm_info *info)
-> +{
-> +	bool restore_command;
-> +	u16 command;
-> +	int rc, rc2;
-> +
-> +	guard(pci_dev)(pdev);
-> +
-> +	rc = pci_read_config_word(pdev, PCI_COMMAND, &command);
-> +	if (rc)
-> +		return pcibios_err_to_errno(rc);
-> +
-> +	restore_command = !(command & PCI_COMMAND_MEMORY);
-> +	if (restore_command) {
-> +		rc = pci_write_config_word(pdev, PCI_COMMAND,
-> +					   command | PCI_COMMAND_MEMORY);
-> +		if (rc)
-> +			return pcibios_err_to_errno(rc);
-> +	}
-> +
-> +	rc = __cxl_pci_hdm_read_info(pdev, map, info);
-> +
-> +	if (!restore_command)
-> +		return rc;
-> +
-> +	rc2 = pci_write_config_word(pdev, PCI_COMMAND, command);
-> +	if (rc2) {
-> +		rc2 = pcibios_err_to_errno(rc2);
-> +		pci_err(pdev,
-> +			"failed to restore PCI_COMMAND after CXL HDM cache init: %d\n",
-> +			rc2);
-
-> +		if (!rc)
-> +			rc = rc2;
-> +	}
-Dance is more complex to read than just duplicating a little.
-
-	if (rc)
-		goto reset_command_reg
-
-	return pci_write_config_word(pdev, PCI_COMMAND, command);
-
-reset_command_reg:
-	if (pci_write_config_word(pdev, PCI_COMMAND, command) !=
-	    PCIBIOS_SUCCESSFUL)
-		pci_err(pdev, ...);
-
-I doubt we care about what return of that is given we are on fire.
-
-	return rc;
-
-> +
-> +	return rc;
-> +}
-> +
-> +static int __pci_cxl_hdm_init(struct pci_dev *pdev)
-> +{
-> +	struct cxl_register_map map = { 0 };
-
-The 0 doesn't add anything = { };
-
-> +	int dvsec;
-> +	int rc;
-> +
-> +	if (!cxl_pci_hdm_capable(pdev))
-> +		return -ENOTTY;
-> +
-> +	rc = cxl_find_regblock(pdev, CXL_REGLOC_RBI_COMPONENT, &map);
-> +	if (rc)
-> +		return rc;
-So this reads the regblock locator to get where the component regs are
-by decodeing the bar and offset then finding the resource form that...
-> +
-> +	rc = cxl_pci_hdm_find_bar(pdev, map.resource, map.max_size, NULL, NULL);
-> +	if (rc)
-> +		return rc;
-This takes the resource and finds the bar and offset?
-
-Going in circles. Can't you pull a helper out of the start of
-cxl_decode_regblock() and get the bar and offset directly.
-Even if you need the sanity checks along the way, I think you can
-do them more directly and only go in one direction.
-
-> +
-> +	struct cxl_hdm_info *info __free(cxl_pci_hdm_info) =
-> +		kzalloc_obj(*info, GFP_KERNEL);
-> +	if (!info)
-> +		return -ENOMEM;
-
-Why allocate here when so much can still fail?  We don't need
-it for a few more calls.
-
-> +
-> +	dvsec = pci_find_dvsec_capability(pdev, PCI_VENDOR_ID_CXL,
-> +					  PCI_DVSEC_CXL_DEVICE);
-> +	if (!dvsec)
-> +		return -ENOTTY;
-> +
-> +	rc = pci_read_config_word(pdev, dvsec + PCI_DVSEC_CXL_CTRL,
-> +				  &info->dvsec_ctrl);
-> +	if (rc)
-> +		return pcibios_err_to_errno(rc);
-> +	info->dvsec_ctrl_valid = true;
-> +
-
-I'd make this read and allocate - having found the size so we don't
-allocate more than necessary.  If any crazy device changes number of
-decoders on reset then we can just clamp it and print a rude message.
-
-> +	rc = cxl_pci_hdm_read_info(pdev, &map, info);
-> +	if (rc)
-> +		return rc;
-> +
-> +	pdev->hdm = no_free_ptr(info);
-> +
-> +	return 0;
-> +}
-> +
-> +void pci_cxl_hdm_init(struct pci_dev *pdev)
-> +{
-> +	int rc;
-> +
-> +	rc = __pci_cxl_hdm_init(pdev);
-> +	if (rc && rc != -ENOTTY && rc != -ENODEV)
-> +		pci_dbg(pdev, "CXL HDM cache init failed: %d\n", rc);
-> +}
-
-
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
