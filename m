@@ -1,234 +1,159 @@
-Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
+Received: from bg-bec.cloudflare-smtp.org (bg-bec.cloudflare-smtp.org [104.30.16.142])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFA8A3803C3
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 05:39:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7240733AD88
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 05:40:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=104.30.16.142
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789191598; cv=none; b=ZOwOMLJE4hKsNTqenHWsufmkWvdmbZmy/a0+cMHXUk1UM5sDYod3f7p36VaimzjSIHqkBeUYbr4uPo5bxJt2LPdUf7GIesYY55rHRvLIf141431ZR36EAdbquoGHtTCwSEffkGW5DVjjOpSUVXDmNY3F+LK+2iXHSW32fYLs6WE=
+	t=1789191641; cv=none; b=DDqu8obhHP0G/7s6+Oli2rjNMj+lnr87VRqA2UgHvQw/rF21nIira9Y5FIU4eSOCK2uMj/OIYnHpDLnVUz4XngJlvkkR3lyJqpv6rJGudR3gEpPzenlvJe+rfxvybMtHlN/uYDm+betBQSPDFr6PWKIGObFRSC1e/slGBQBjHYA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789191598; c=relaxed/simple;
-	bh=EkFebyEhROfUpGMY14FIxRPanKfoSxiWxg0RxsaITyw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YPK2MeiHxFZ0F3YhQmi3r/xdhANbkVmHJ71Gka+Hilynh3Pc6r4lvZYmUbbk6XJDyj2f320ViCayu6M9QHK8tWZYazeOP5qHmuSzy38iGMMTeH4kI0l8SR+ql1ipzevoCq4kn1XO5ghW2QqOIr6l7ULUP5ajNUF5uZ1Jjbmnn9I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YCVzpFMf; arc=none smtp.client-ip=74.125.224.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789191641; c=relaxed/simple;
+	bh=AVFTtRNF3h7s9IW7PSnoIBm7DbhIh0gOiCqVQ/5um5Q=;
+	h=From:Message-ID:Date:Subject:To:Cc:MIME-Version:Content-Type; b=q+h02XgQmmHn7zckr4KgsufSvWzpqnvLtzOpfx9eHjnf8bovzMXK9e+/CRSaw1BMmVy7bBua7ZcbXrdlXJmAy+ywGcUg5xn+6nMxxy9mHo7hzdA89no4USq4D4CKZvGr4m9z8KgL8Gm9hlTS37QiyFsJwHS6zuMbl/WQOFVKvMM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh; spf=pass smtp.mailfrom=cf-bounce.bugs.sh; dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b=OT817POt; dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b=NhRsWway; arc=none smtp.client-ip=104.30.16.142
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cf-bounce.bugs.sh
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YCVzpFMf"
-Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66e4aaf2ecfso209705d50.1
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 22:39:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789191596; x=1789796396; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CYxmSci5RsA6cvKpTRXhPLC+rNBAf6+Oj4ac05xenYM=;
-        b=YCVzpFMfN71QA0n9Z4B5YekyPAAYtNWA9WYZ3IT3SPiSgE1js6BeRuHSmopaIMMmRP
-         GwZpf98kq1bHvt9/XlIRjcd/BlpUbjZux6XUbrVlylgeV3TtJ9kz1hKJGhDa7bB6C26x
-         9j4NcQrpdq2nx+VVvgfzr9odi9i2JT6Eyc8t7fbMQzqXmAKjnNF/URUr84zbqUqR2XOc
-         mUks2JWU40G5TC1uI1Tglz5ALxZ8L09+VkNTEBN/3Pi93n7fVskgdUpfQDMlWT2/n2CK
-         6kadvaBuMaA8nbSSUES8Pa/UbNKoX8RKgvkObSNthYl8RTlZBCC5hCGAjEXn52QdYn23
-         pZkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789191596; x=1789796396;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CYxmSci5RsA6cvKpTRXhPLC+rNBAf6+Oj4ac05xenYM=;
-        b=dnzMT3jPWZJdck/9Cw/74ho8aZSbyMZMYDoAbGGh+ZVza5OYASatO4AQpEqqqvzc6Z
-         uU1TFtd8CAhfsOaxq1YMG/qbNCAO+pQEFbPPM5wZ7XSv4IrKPds8uWxzbdxlq6d/Njw9
-         WkrYlyC/P3PZN+/Ai2WpOKe5AXZONtz2Ap/I+0MDS5J1nlQn26iwc2C3AlvD1LFrczzz
-         BWu0aX36tbIefjG0gehj2UI0YPbEhlGd9RaY6DI6v1S5tx3E944/q59pFgGmgTOlJH8D
-         LJbgraYmkbJFNPkXIQ6LMhOKpvwK/PZ/XrWrBXkHlwW1t4PqbCRm3mI/Friiux7yOmWt
-         8Jfw==
-X-Forwarded-Encrypted: i=1; AKwUvBzRYUOwZPK6Gg4FdRemOCWeJ/KUt7vHy5Evjk0z0dzjyBFNW/xNleC/Vbhpaoe5vrMRojtWqFAzpzFXt1M=@vger.kernel.org
-X-Gm-Message-State: AFuF++kfZilwxFVti3G6IhgJImxePFYGBZnYqsCkPbwXE6z1yFFpyenW
-	iFe5IJEyxwFsMWepo5OyzPJ+4sQltVk+9f0q4fpBmb3Ofdho/+IuBbug
-X-Gm-Gg: AYBFou1YuykZEeqonQmoUWKacuvkVOTZrSUiRz3aw1pThNqq5NLEK7GWu8+x/aPyRb9
-	NgxMmRN9JYHUhxtBpOKFSUmAe6k+kGk4ksshQJne1bySnmJn6fmbQcTo0TppH6/HaGxrxNrCkxY
-	7nBUpeAgUrcYRpp2e493WMqz+o5/ezJkuxaULBOc+dJrAsOgl/+7iduS8M2JN3/T4sXaTZFtC+k
-	Rc2A2qoJ/JsFfW9FeMkqljoHH1/uKyXUqonWbwcJtCufiCOpaIN/yw55kiGERtFBV9dX8cs19Gx
-	IzSgcN5rvHz+v4HCqyRQCAKggRDt+vzD1EpwKECZDzC4izmk/RS6BAffcrb97v+DFBgkdVR3TP4
-	HZ0ZGP648vcVTvuTGfVKcgSpk+bIoY5g4Exs+ElFCc99huYSdaEGmv0S3G0asK6cEbvkd0it0uD
-	uJt+Lr65jOlY9fn26XYDeSNv91XL5Ws21au/ylt7ThkAlDgvOJGtfCFCiz4H7hTlHxLj4zFQ0r1
-	ucn5uOp39S3ynUpIp6ZChAtzzOXF4NToMjxUFanEL4t
-X-Received: by 2002:a05:690e:c4c:b0:671:2c69:78aa with SMTP id 956f58d0204a3-67135997185mr282518d50.42.1789191595731;
-        Fri, 11 Sep 2026 22:39:55 -0700 (PDT)
-Received: from zenbox ([2600:1700:18fb:6011:70da:1bc0:eb81:aa1b])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67125e3159fsm1940360d50.12.2026.09.11.22.39.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 22:39:55 -0700 (PDT)
-Date: Sat, 12 Sep 2026 01:39:54 -0400
-From: Justin Suess <utilityemal77@gmail.com>
-To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, 
-	kpsingh@kernel.org, matt@bobrowski.net, paul@paul-moore.com, mic@digikod.net, 
-	viro@zeniv.linux.org.uk, brauner@kernel.org, kees@kernel.org, casey@schaufler-ca.com, 
-	gnoack@google.com, jack@suse.cz, song@kernel.org, yonghong.song@linux.dev, 
-	martin.lau@linux.dev, eddyz87@gmail.com, memxor@gmail.com, jolsa@kernel.org, 
-	m@maowtm.org, bpf@vger.kernel.org, linux-security-module@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH bpf-next v3 07/15] lsm: Add the bpf_lsm_policy_apply_bprm
- kfunc
-Message-ID: <aqTiqL2QCJtzwW_x@zenbox>
-References: <20260909193719.518517-1-utilityemal77@gmail.com>
- <20260909193719.518517-8-utilityemal77@gmail.com>
- <DLD0WER9K97K.2V2NOAJ840CR7@gmail.com>
+	dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b="OT817POt";
+	dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b="NhRsWway"
+DKIM-Signature: v=1; a=rsa-sha256; s=cf2024-1; d=cloudflare-smtp.org; c=relaxed/relaxed;
+	h=Cc:To:Subject:Date:From:Feedback-ID:from:reply-to:resent-date
+	:resent-from:resent-to:resent-cc:in-reply-to:references:list-id:list-help
+	:list-unsubscribe:list-unsubscribe-post:list-subscribe:list-post
+	:list-owner:list-archive; t=1789191639; x=1789796439; bh=0skql6IxB9Cx5z7fbO
+	/hUts1ldZLaqznB9PxRbUjB3A=; b=OT817POt5SeXJTZR6NBRWgXQdMnNgKLKaLkpAlO0Ov1IB
+	ZsL/u6FuMDfwrealcanhFfo6SYnONVPHYetkns4e7ZueUTfOo8koOvVcTKBJacPw8bR1mhRa2C7
+	MpjlDQYY1yTkwj58zTEKTbwLZqeU/QgNdY0jd5OtRu/Q/1rpkO9oS1VAb3rNkD4RqSrGzlt0fIV
+	JKNATdkC0JlE8v4x5DFYHNS989t1UdOi/QVMKb0sfVaHyo8qgN8bULi5y7hIk2orweoAxDt1clz
+	CB21cT9QIAtk8X1dwe9S0Mlqh4PhG6M4DBzhKNLSVCfFbUnw8+/aOw7LMAzf6ebc5ZtYp/Qg==;
+DKIM-Signature: v=1; a=rsa-sha256; s=cf-bounce; d=bugs.sh; c=relaxed/relaxed;
+	h=Cc:To:Subject:Date:From:Feedback-ID:from:reply-to:resent-date
+	:resent-from:resent-to:resent-cc:in-reply-to:references:list-id:list-help
+	:list-unsubscribe:list-unsubscribe-post:list-subscribe:list-post
+	:list-owner:list-archive; t=1789191639; x=1789796439; bh=0skql6IxB9Cx5z7fbO
+	/hUts1ldZLaqznB9PxRbUjB3A=; b=NhRsWwaydeeu+cpfI99ktzoTx16tN8GjDWqAIhoMvT0pi
+	rgfg7Y4RyHCLcOUlLkxwZmfN8kyTo6yHouCwL7goiVUUUzvmHfbgF1C2J6hcScdSf2HqT1lD3dk
+	JSKEFPeqwOipQm899DOLApEqgYa29HN5JXHPgh3S6rWI8D+OX+Mm7u2QKKnqI5ZgJI//IDwCnxZ
+	mgYYSG3XcZ046s6sHMIejAHtijqOdmKW+wmYCEdLGC4sy6/g0J3N2bBFJePmEA2v5iJv0mEbRh6
+	gcKVVf2OSG3huXOc5M+orgQ7QlyFAY8fSWvVdgo71hdFKl5HOHPYMZO87DC9dQIu2LoyAPlA==;
+Feedback-ID: bugs.sh:5:6:Cloudflare
+From: co <co+24304d323d28f156@bugs.sh>
+Message-ID: <NsHiC1aDlk3ubZhtmWTOpc86mDwYEy9nkk6V@bugs.sh>
+Date: Sat, 12 Sep 2026 05:40:34 +0000
+Subject: [BUG] sound/usb: out-of-bounds in start_usb_playback()
+To: linux-sound@vger.kernel.org, "Clemens Ladisch" <clemens@ladisch.de>, "Jaroslav
+ Kysela" <perex@perex.cz>, "Takashi Iwai" <tiwai@suse.com>
+Cc: linux-kernel@vger.kernel.org, co <co+24304d323d28f156@bugs.sh>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DLD0WER9K97K.2V2NOAJ840CR7@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 11, 2026 at 08:38:16PM -0700, Alexei Starovoitov wrote:
-> On Wed Sep 9, 2026 at 12:37 PM PDT, Justin Suess wrote:
-> > Add the kfunc applying a policy object to an execution:
-> >
-> >   bpf_lsm_policy_apply_bprm(object, bprm, flags)        KF_SLEEPABLE
-> >
-> > It asks the LSM owning @object, through the bprm_apply_policy_object
-> > hook, to restrict the credentials prepared in @bprm, so that the
-> > executed task starts confined by the policy.  The meaning of @flags
-> > and the composition with restrictions the credentials already carry
-> > are the owning LSM's; an LSM without execution policy support makes
-> > the call fail with -EOPNOTSUPP.
-> >
-> > The kfunc runs the hook in a root memcg charging scope: the policy
-> > restricts the execution on behalf of the BPF program, not of the
-> > mediated task, so what the owning LSM allocates to compute it, e.g.
-> > Landlock's merged domain, is not charged to the task the program
-> > supervises.
-> >
-> > The filter makes the kfunc exclusive to the sleepable LSM programs
-> > attached to the bprm_creds_for_exec() or bprm_creds_from_file()
-> > hooks, the only contexts where the bprm's credentials are prepared
-> > but not yet committed.  The verifier's argument typing does not draw
-> > this boundary on its own: a trusted struct linux_binprm pointer is
-> > also available at the other bprm hooks -- bprm_check_security(),
-> > which runs per binfmt while an interpreter may still rewrite the
-> > execution, and bprm_committing_creds()/bprm_committed_creds(), which
-> > run at or past the point of no return, where the prepared
-> > credentials are frozen or installed -- and to tp_btf programs via
-> > the sched_prepare_exec and sched_process_exec tracepoints, which
-> > resolve kfuncs from the same registration bucket as LSM programs.
-> > The attach-point filter, not the argument type, is the authorization
-> > boundary.
-> >
-> > No filter case is needed for BPF_LSM_CGROUP programs: since
-> > commit 5b038319be44 ("bpf: Reject sleepable BPF_LSM_CGROUP programs
-> > at load time") they cannot be sleepable, so KF_SLEEPABLE already
-> > excludes them.
-> >
-> > Cc: Paul Moore <paul@paul-moore.com>
-> > Cc: KP Singh <kpsingh@kernel.org>
-> > Signed-off-by: Justin Suess <utilityemal77@gmail.com>
-> > ---
-> >
-> > Notes:
-> >     v2->v3:
-> >         - Drop the BPF_LSM_CGROUP case from the kfunc filter: since
-> >           commit 5b038319be44 ("bpf: Reject sleepable BPF_LSM_CGROUP
-> >           programs at load time") such programs cannot be sleepable, so
-> >           KF_SLEEPABLE already excludes them from the apply kfunc.
-> >         - Document, in the commit message and the filter comment, why the
-> >           attach-point filter rather than the verifier's argument typing
-> >           is the authorization boundary.
-> >
-> >  security/bpf_lsm_kfuncs.c | 68 +++++++++++++++++++++++++++++++++++++++
-> >  1 file changed, 68 insertions(+)
-> >
-> > diff --git a/security/bpf_lsm_kfuncs.c b/security/bpf_lsm_kfuncs.c
-> > index 43a4bf57fd31..857e9a316d1c 100644
-> > --- a/security/bpf_lsm_kfuncs.c
-> > +++ b/security/bpf_lsm_kfuncs.c
-> > @@ -2,16 +2,25 @@
-> >  
-> >  /* BPF kfuncs exposing LSM policy objects. */
-> >  
-> > +#include <linux/binfmts.h>
-> >  #include <linux/bpf.h>
-> >  #include <linux/btf.h>
-> >  #include <linux/btf_ids.h>
-> >  #include <linux/cfi.h>
-> >  #include <linux/init.h>
-> >  #include <linux/lsm_hooks.h>
-> > +#include <linux/memcontrol.h>
-> > +#include <linux/sched/mm.h>
-> >  #include <linux/security.h>
-> >  
-> >  #include "lsm.h"
-> >  
-> > +/* The sleepable LSM hooks bpf_lsm_policy_apply_bprm() may be called from. */
-> > +BTF_SET_START(bpf_lsm_policy_bprm_hooks)
-> > +BTF_ID(func, bpf_lsm_bprm_creds_for_exec)
-> > +BTF_ID(func, bpf_lsm_bprm_creds_from_file)
-> > +BTF_SET_END(bpf_lsm_policy_bprm_hooks)
-> > +
-> >  __bpf_kfunc_start_defs();
-> >  
-> >  /**
-> > @@ -44,6 +53,49 @@ bpf_lsm_policy_acquire(struct lsm_policy_object *object)
-> >  	return NULL;
-> >  }
-> >  
-> > +/**
-> > + * bpf_lsm_policy_apply_bprm - Apply a policy object to exec credentials
-> > + * @object: policy object to apply
-> > + * @bprm: execution context providing the prepared credentials to
-> > + *        restrict
-> > + * @flags: flags defined by the LSM owning @object
-> > + *
-> > + * Ask the LSM owning @object to restrict the credentials prepared in
-> > + * @bprm with it, so that the executed task starts confined by the
-> > + * policy.  How the policy composes with restrictions the credentials
-> > + * already carry, and the meaning of @flags, are defined by the owning
-> > + * LSM.  @object is only borrowed: the caller keeps its reference.
-> > + * The hook runs in a root memcg charging scope: policy the LSM
-> > + * computes on behalf of the program is not charged to the mediated
-> > + * task.
-> > + *
-> > + * Return: 0 on success, -EOPNOTSUPP if the LSM owning @object does
-> > + * not support applying policy to an execution, -EINVAL on unsupported
-> > + * @flags, other negative values on LSM-specific failures.
-> > + */
-> > +__bpf_kfunc int bpf_lsm_policy_apply_bprm(struct lsm_policy_object *object,
-> > +					  struct linux_binprm *bprm, u32 flags)
-> > +{
-> > +	struct lsm_static_call *scall;
-> > +	struct mem_cgroup *old_memcg;
-> > +	int err;
-> > +
-> > +	lsm_for_each_hook(scall, bprm_apply_policy_object) {
-> > +		if (scall->hl->lsmid->id != object->lsmid)
-> > +			continue;
-> > +		/*
-> > +		 * The hook runs on behalf of the BPF program, not of the
-> > +		 * mediated task: charge its allocations to the root memcg.
-> > +		 */
-> > +		old_memcg = set_active_memcg(root_mem_cgroup);
-> > +		err = scall->hl->hook.bprm_apply_policy_object(bprm, object,
-> > +							       flags);
-> > +		set_active_memcg(old_memcg);
-> > +		return err;
-> > +	}
-> > +	return -EOPNOTSUPP;
-> 
-> Nack.
+This is a bug report, not a patch submission.
 
-It was hard to tell why you Nack'd this patch in particular from the
-context.
+We found a bug reachable in:
 
-If you wouldn't mind, providing some guidance as to why the code is
-unacceptable in the current form would give a direction to work
-towards...
+    path    sound/usb/misc
+    crash   out-of-bounds in start_usb_playback()
+    commit  2f1baf1fc892 ("Merge tag 'trace-v7.2-rc7' of git://git.kernel.o=
+rg/pub/scm/linux/kernel/git/trace/linux-trace")
 
-(This is for the kfunc placement in security/ I assume?)
+Config, environment, the sanitizer report and a C reproducer follow.
 
-Thanks,
-Justin
+=3D=3D Notes =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+    If you fix this bug, this tag credits the report and lets us
+    close it on our side:
+
+Reported-by: co+24304d323d28f156@bugs.sh
+
+    Everything in this mail is validated by the reproducer below.
+
+    We also hold an unreviewed LLM-generated analysis and candidate
+    patch. The same reproducer panics the unpatched kernel and runs
+    clean with that patch applied. Use it as a starting point, or ignore
+    it and write your own:
+
+        patch.diff  https://bugs.sh/b/24304d323d28f156/patch.diff
+        report.md   https://bugs.sh/b/24304d323d28f156/report.md
+
+    Happy to test patches. Complaints and suggestions about our work
+    are welcome at:
+
+        cedalion@bugs.sh
+
+=3D=3D Environment =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+    Reproduced on  2f1baf1fc892 ("Merge tag 'trace-v7.2-rc7' of git://git.k=
+ernel.org/pub/scm/linux/kernel/git/trace/linux-trace")
+    VM setup       https://bugs.sh/b/24304d323d28f156/run.sh
+    config         https://bugs.sh/b/24304d323d28f156/config.gz
+    poc            https://bugs.sh/b/24304d323d28f156/repro.c
+
+=3D=3D Sanitizer Report =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+BUG: KASAN: slab-out-of-bounds in start_usb_playback (sound/usb/misc/ua101.=
+c:586 (discriminator 3))
+Write of size 2048 at addr ffff88802322f700 by task exploit/5017
+CPU: 1 UID: 0 PID: 5017 Comm: exploit Not tainted 7.2.0-rc7 #1 PREEMPT(full)
+Call Trace:
+dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
+print_report (mm/kasan/report.c:378 mm/kasan/report.c:482)
+kasan_report (mm/kasan/report.c:595)
+kasan_check_range (mm/kasan/generic.c:186 mm/kasan/generic.c:200)
+__asan_memset (mm/kasan/shadow.c:84 (discriminator 1))
+start_usb_playback (sound/usb/misc/ua101.c:586 (discriminator 3))
+playback_pcm_open (sound/usb/misc/ua101.c:679)
+snd_pcm_open_substream (sound/core/pcm_native.c:2827)
+snd_pcm_open (sound/core/pcm_native.c:2863 sound/core/pcm_native.c:2928)
+snd_pcm_playback_open (sound/core/pcm_native.c:2888 sound/core/pcm_native.c=
+:2880)
+snd_open (sound/core/sound.c:166)
+chrdev_open (fs/char_dev.c:411)
+do_dentry_open (fs/open.c:947)
+vfs_open (fs/open.c:1052)
+path_openat (fs/namei.c:4700 fs/namei.c:4863)
+do_file_open (fs/namei.c:4892)
+do_sys_openat2 (fs/open.c:1368 (discriminator 1))
+__x64_sys_openat (fs/open.c:1374 fs/open.c:1390 fs/open.c:1385 fs/open.c:13=
+85)
+do_syscall_64 (arch/x86/entry/syscall_64.c:63 arch/x86/entry/syscall_64.c:9=
+4)
+entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
+Allocated by task 10:
+__kmalloc_noprof (./include/linux/kasan.h:263 mm/slub.c:5334 mm/slub.c:5359)
+hcd_buffer_alloc (./include/linux/slab.h:992 drivers/usb/core/buffer.c:134)
+usb_alloc_coherent (drivers/usb/core/usb.c:1011)
+alloc_stream_buffers (sound/usb/misc/ua101.c:1031)
+ua101_probe (sound/usb/misc/ua101.c:1244)
+usb_probe_interface (drivers/usb/core/driver.c:396)
+The buggy address belongs to the object at ffff88802322f700
+which belongs to the cache kmalloc-192 of size 192
+The buggy address is located 0 bytes inside of
+
+
+---
+The report format is based on syzbot bug report.
+
+This report is generated by a bot. It may contain errors.
+See https://github.com/n132/cedalion for more information.
+
+For any issue with this report, reach out to cedalion@bugs.sh
+
+If the report is already addressed, let us know by replying with:
+#co fix: <commit hash>
+
+If the report is a duplicate of another one, reply with:
+#co dup: <lore link>
+
+If you want to undo deduplication, reply with:
+#co undup
+
+
