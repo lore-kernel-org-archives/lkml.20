@@ -1,228 +1,241 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazolkn19013074.outbound.protection.outlook.com [52.103.51.74])
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012020.outbound.protection.outlook.com [52.101.43.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6861125B083;
-	Sat, 12 Sep 2026 22:30:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.51.74
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E52229DB64;
+	Sat, 12 Sep 2026 22:31:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.20
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789252254; cv=fail; b=ttDQFhh8KkcQb1t0ESyTBiaNZs7x+IGHb0zR5QRbKSvfLE9RBTfeAuX7/6rbyIDnKHivd3wIc75Cs43PN/0g/V1WI8HmbOpnZkCQigx+68FW0KME4fvxRi0BVmmeQrH+UQbMoZe2qrPBry09IdSrr00pw/m/BCudB95FQda3goU=
+	t=1789252271; cv=fail; b=jX2Y31gollDg3PF8kaUrTt0/XwDT+M7xRgpviM3FVuN1rHLbKmBixv834jG+iwDmssOp5BY5cKiELHI2jMlfFx5aFciQHZ1wUWK49iMyYToqEnZXzlG8GXL1G4+JcPf5y9wDs5huDz8y2oMMk6Q9F9gmjH/uj/YmwT+U4KChMPY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789252254; c=relaxed/simple;
-	bh=QcxsksoMjeg3NJWPk10wfRFoN4TAJoTA6kF5lOL4apw=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=rV9jnYLA+E5nuM4AWhVnc8Grc9jeQ8BNzIR87wvfB7+qdaGZXb2Jf1ZoZDdHiIoo/oWRRM8e6L5b5wplkrvvIoZwI3jxcFnumkzeQaJkTZSvhIouN9pA7YPzuK0S3lY5L2oWroANEy3XlA83r5HsxYXenkMaOEhc9BLTLkYy0lg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=bahJnpSl; arc=fail smtp.client-ip=52.103.51.74
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
+	s=arc-20240116; t=1789252271; c=relaxed/simple;
+	bh=3LaWu1MC5ZC99FIHglfrpoazTZDiuhW88vEFu8adU84=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=Pe/1OrSqegvQ3LaxnBDEZ1TQZI06qF3aegVbc4W0+yjGyhD1j45CFeBVl+Ao9HT8UTkrk8gspu9hFLAB7c+2bDocC+hZnT/kVAokC0dkeO2LTAheQV7dSFw1Qfy5p34ACc2d5vLtGR+z1HSxx5cB0rVm3JxaaGxjeZnW0mZLClU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=DbLv3GMc; arc=fail smtp.client-ip=52.101.43.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="bahJnpSl"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="DbLv3GMc"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=s1v6W+tIc1XLU1TyttIyEsS9S7BBh2yAY/R2L5kvjJyBXj1ncc+YAKcpV1vwIwYXtT0TKIMnJ3ISUi6/Vewxzl91UwDIhnLJd5HIKLm28KancanNoLzum1SEFwkL731PNuGEqHYHwL4kf7LHreMWDB1CqRim8IGnbLZsnhHhR5gWAx4fSvMpDYMwwRa5GZG0xmi78oMBXhTCrUjP/r4P1BKIVLIkBJJJG9hEJO3RkxSCsBQXPxS0R8Lvn6/OSQCF41vYZ0LxPOe2+q26F69+cYcM173Z0TRABqlPblC0dTlIkZG65dnPLomYZpzpuQLi4zyf4Pp7Lqcy86+bAcuesQ==
+ b=D75EtOLXzy7PZcAFFQ+QWEJI6qYABNyXKtalXrCm0hHiPt42hMr0YdC+t6/B043VPE+QWSY7g5AC8EBEZSsc9C35lnq5EbYJml9RKHQtNrdlsoOhnfCiqZ04IRZL/mD7uXcM91iKzacnLYpn12n1hTOOhJiscg7KNuXSRAGGHQ1qehSJolgwT2zb+tvyY/Sj547ZrRdO29gR2WmIpafaSLUyUAE6OZy1ejCs0zQ7/ygumwmnDqL7af5S03NG2gWDHRf3PV4/USztFmlHxvqowUGuQf8pFzTrpWQFnSBVlG5vnLUmhFwAsoEcgnMH5Dq8CtZtWisd/JOU0sEsVh+5oQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zzXFXYlEnY14+sALfJFArf1cbVBixY4nEONDy6wsckM=;
- b=emUpFBAx3ebfJhLkoarBn5eN65Y1ZahD0CT73sU3scwgfOsM9kcWG92VQwP7gmMvXtPmnsTIDx4WtZj5Fg3XmgK38cjDfkfY+5HC9BO+pVREx+GDPCCB+7ilJbIb+hFrh/IXLKW2iX76Ldod8sUde4ZlzpKHEprMQfu5DaarnRolQIYQjTDGevOWxVgvaYKbxV7Ob3kKu624D8HtxHfKA/ihvcdrlnDHgLUDSNP107vSG7HT8kNVM0MpWAtyJ7U5qQsx0BjgKFb7lgeY8Z9zFu19xnhNEVOT22AEkOHTybONgNIeoqt8SroOk2KsXrDVeqF9z+TVwKerEoEAu7jj2g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
+ bh=RHEjjqc8wgzXRK5/Xi5pns/Gr7ESKUCrsNtBKl2anBw=;
+ b=eUbmjHdiDb0MtKgux5TK/S+LX2QI1f8RZ8f3ZEqziFiCRoNzoBam0Rbs42cynIR/lgn7MRR5NhTn1LNyil0IfML91C3OXiFRNVwIkAvHMkYUiGJoOUAxUWxmuwVZQLKlxOAud/v3/3IJ8DgX5eekzSKXTExnGqMxqHt7YS3JG0f07g9ipRL7hQftl+OfcWrGjHSU/YwWs6pC6z9DBNDD9WyAPqmEvnD2LRJ4G+eb8yIxyHzmslZMEXnrRpWJuLbt/OriRbKvXbmpJHemfRP7XWZRA44MxcjNxp/XBjw6oRYXQR/RWgmjXCxQ+0HHduyOBUgPA3zet7HfDutizanJgw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zzXFXYlEnY14+sALfJFArf1cbVBixY4nEONDy6wsckM=;
- b=bahJnpSlJVC6KsR01rpw4eVdihzhgbC+brAkmkK0FW6XxgkosXWFKPDXMNZzkAt7DL/qSuYNEa/S5IySHiXb42zQuaSHDqPn3MdypPdpn2M8BGsp991qpFnwSJF+LwKWCqmN0qFTUaNxAw9nw4vxhhkMn01hpYsuIob6j3W9JGVBxynfp41MvYJyhClMZvhD7lv2kJKkBLrpDgUp46f24bhjCavmMq90Bz5euC/0NnBUxWkugDLMG9jRKRVfTK9+QagZESLoWMvxxcm7X85Kf6BKrVjExpYOTnXZZHuKugif7bqvPQT3NYTVnT6Kxevs3uTouR03T/gldfgEjp1y1w==
-Received: from GV1PR08MB8497.eurprd08.prod.outlook.com (2603:10a6:150:81::22)
- by GVXPR08MB11096.eurprd08.prod.outlook.com (2603:10a6:150:1ff::14) with
+ bh=RHEjjqc8wgzXRK5/Xi5pns/Gr7ESKUCrsNtBKl2anBw=;
+ b=DbLv3GMc/nfU/lMG2zrG/sLj7ClxwTKJf1hdD5Lz21gZ+IqathWHS6+Z5v1NJw2ZcnIAho6OHtfA1FfGfLW7B8XCPAYttK+yoRDagfGCTAO2BaaG3tghyPM7khoYX2pOte5F1d2w7EMZXpQTc1KH2bfJdLniSjgQ0RaxhuvW1GaGG5mZXrFiGKfzlaeX90wMKhkhWQc9Yv/q923kv+ElMbWRaKt9AOB+VYjB5qBqL6VC8Xacg/m1vL8fZhBmv6L4j0MQXEo2aIrbv4kW1/cPOQ+FhxmUvz+KegcWjkju5u+LM/xGGVZkKoeW+zjX4AZiey/v6jgOFThM2Rkv2vfB5Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV3PR12MB9356.namprd12.prod.outlook.com (2603:10b6:408:20c::21)
+ by DS2PR12MB413088.namprd12.prod.outlook.com (2603:10b6:8:400::9) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Sat, 12 Sep
- 2026 22:30:50 +0000
-Received: from GV1PR08MB8497.eurprd08.prod.outlook.com
- ([fe80::705b:d4a3:1c1f:b9a2]) by GV1PR08MB8497.eurprd08.prod.outlook.com
- ([fe80::705b:d4a3:1c1f:b9a2%5]) with mapi id 15.21.0428.004; Sat, 12 Sep 2026
- 22:30:50 +0000
-From: Manuel Fombuena <fombuena@outlook.com>
-To: lee@kernel.org,
-	pavel@kernel.org,
-	vicentiu.galanopulo@remote-tech.co.uk,
-	linux-leds@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v1 02/11] leds: st1202: Spell out the phase-shift configuration bit
-Date: Sat, 12 Sep 2026 23:30:38 +0100
-Message-ID:
- <GV1PR08MB8497C0EF1F3979EEC073AAAEC5BD2@GV1PR08MB8497.eurprd08.prod.outlook.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <GV1PR08MB8497422B7A44424C4968AEC1C5BD2@GV1PR08MB8497.eurprd08.prod.outlook.com>
-References: <GV1PR08MB8497422B7A44424C4968AEC1C5BD2@GV1PR08MB8497.eurprd08.prod.outlook.com>
-Reply-To: fombuena@outlook.com
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Sat, 12 Sep
+ 2026 22:31:06 +0000
+Received: from LV3PR12MB9356.namprd12.prod.outlook.com
+ ([fe80::1c36:31b4:c420:6286]) by LV3PR12MB9356.namprd12.prod.outlook.com
+ ([fe80::1c36:31b4:c420:6286%5]) with mapi id 15.21.0406.007; Sat, 12 Sep 2026
+ 22:31:06 +0000
+Date: Sat, 12 Sep 2026 18:31:03 -0400
+From: Yury Norov <ynorov@nvidia.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Yury Norov <yury.norov@gmail.com>, Matthew Wilcox <willy@infradead.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Chris Li <sparse@chrisli.org>, Alice Ryhl <aliceryhl@google.com>,
+	Andrew Ballance <andrewjballance@gmail.com>,
+	linux-sparse@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
+	maple-tree@lists.infradead.org
+Subject: Re: [PATCH 1/3] compiler.h: add ASSERT_STATIC_STORAGE()
+Message-ID: <aqXSkthkUVJNu2FD@yury>
+References: <20260911221444.1523311-1-ynorov@nvidia.com>
+ <20260911221444.1523311-2-ynorov@nvidia.com>
+ <20260911225749.8727d23eb76b93141f08e574@linux-foundation.org>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: PR3P193CA0040.EURP193.PROD.OUTLOOK.COM
- (2603:10a6:102:51::15) To GV1PR08MB8497.eurprd08.prod.outlook.com
- (2603:10a6:150:81::22)
-X-Microsoft-Original-Message-ID:
- <20260912223038.3061327-1-fombuena@outlook.com>
+In-Reply-To: <20260911225749.8727d23eb76b93141f08e574@linux-foundation.org>
+X-ClientProxiedBy: SJ0PR03CA0337.namprd03.prod.outlook.com
+ (2603:10b6:a03:39c::12) To LV3PR12MB9356.namprd12.prod.outlook.com
+ (2603:10b6:408:20c::21)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV1PR08MB8497:EE_|GVXPR08MB11096:EE_
-X-MS-Office365-Filtering-Correlation-Id: b53fd29c-d323-48df-ce2c-08df111d7f8f
+X-MS-TrafficTypeDiagnostic: LV3PR12MB9356:EE_|DS2PR12MB413088:EE_
+X-MS-Office365-Filtering-Correlation-Id: 62acbefe-5c72-4241-698b-08df111d892e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|41001999006|15080799012|5072599009|23021999003|25010399006|51005399006|8060799015|19110799012|24021099003|37011999003|440099028|3412199025|40105399003|2607281247196008;
+	BCL:0;ARA:13230040|23010399003|366016|7416014|1800799024|376014|6133799003|10067099003|4143699003|22082099003|11063799006|56012099006|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?JR8/R+kwXAp9SXtvp7xtatssYWxzAZ7rEAxAog9kmNMmK+t1B2GNhGsW4NY4?=
- =?us-ascii?Q?3abO5AQ4Ejw1pmCW8RP1rBuhgXg3Do9qQRlurzwk8kuKL5w8jNJemnZBeIy1?=
- =?us-ascii?Q?G+pG7k8UKNNV7fCiUFUE65fs+khe+fDw2Ovw/tqFF9zywQ32uHEfH0N7AKRD?=
- =?us-ascii?Q?8oAd4+dMdERaRUcBxnmFEaYQWg47jLk4ttqlURq7irSinKB45miRkJBOi6pz?=
- =?us-ascii?Q?LN/M2GNUbBtyuHzI/VEW+cvtXIoK0kk+PsM9LyK9lVy5IKKxDJGx8WCMnbi6?=
- =?us-ascii?Q?6s4NTDm+N099UjdsSHo3derLpXGipQ5Cf8YKk1l69UnsISuRo2o4UUZAGxfu?=
- =?us-ascii?Q?v+HnLe8RxehoaWwVDdhaEkX9x2ivAXfazQbmp1HDIEMbNBEum2JUnmP1zFDK?=
- =?us-ascii?Q?jKLklCmdnznTcR6wZrnYGafjzEnn+W1N/0ss5fVHHRnW53fA7uwoN/lSdedq?=
- =?us-ascii?Q?q8pkPR7DTbIG+8BIHOITLvl2PjABJ2s2JqMThAvWHKNzNq22t4hpu2SfwHEU?=
- =?us-ascii?Q?/54cf+5kIqg43PLN4xspmPo3r99esXUzi3WIAFewXv+U+i1Vl5MtSr2aj9Zi?=
- =?us-ascii?Q?poGrHPZ5HODOLK0ersnlqi+X1LIqKCYLe6uBUBmI0eB1WVnwJ6FUTdp4IFNw?=
- =?us-ascii?Q?bgx08te14Yxf1+0XIxczsP8KJHPwXQcigrR4FeRO8dqF5cXTI0XycGvO57yp?=
- =?us-ascii?Q?AzAxn7ilPEF1GFD2623lt00AU6dU9eUG1XL184p5sHzyRy4an2NVZytFfD2d?=
- =?us-ascii?Q?/bgnH4V9Hbp35CdgwVxEXX7odEL7M5fUsYwelQGnHBvRUPR2gBMPyd00OBcT?=
- =?us-ascii?Q?1+fWHqlYCxQskbS60/rAsMUY9ycozGlXz2PB7enUqAEjJ42JeAFzDAbKbXFG?=
- =?us-ascii?Q?yaDd4LKvQ+gCtQgQUu0RvmOEFhbyu5KOTeYQDVJS1bJX0UogVgDPhMCbTVpn?=
- =?us-ascii?Q?sVcM+8fZam9ise+p+deYuxLUfls9nZBP7nqkf0CrUpjT0Qtne8i4dQLOG/o2?=
- =?us-ascii?Q?BFrS?=
+	fG0cwBWrHGTO6myXt8bFnL5wmW8Fq+aPvHWAuUEaQIPbeQf2k0/ZG09yvo4d2kmYnvUDxPkwbEcKqrT1QrKfPRTivtVH4KuR5sRnLIBvGbqhCvMBbwxKkAP/Q7s0wc69y71C4rn9dST4qkqjHYHWRU99bd5aikGraC+FtOsY/+VJLzFedGGWu1K+pDLJWfhjV8JR8GaBroaX+8Wgt/K6cLchpDyFEujI2gE0yulZYey5d+S+XEH1V+66ydmWuh/jthm0EipHt7prZwnLTBC+Usn4iMtkKluo6BC5ZDdgI8591ONIUr+tyicRhyFgUn6/7+Q4tCaLzGWNka5kFIk2ihQymGvENHIUstXoVrUW/7y2BZYpP9JbXf7zfv1gryt9nc0lGYT1lkjzE3zqJbI2UYqUrF8xiy0mC84WwA/eNdQyaN2JZHgLv13+SrPzUjV9jPX4tqmGh9vlW8X15rFU1Gc1Pbwuyos55sJ9PyzBXSBb63TnOxKhUR6Y+wuea17JzOWK4yjUIgDwmArQRc3qbYbVxK6SM5NjklddP9FKnvK/BUzsMNSgsl1kT2SvX5MBw46TTYlY3XRZgE6tMpEY2AhGhjoWfqezW2tR4a5NgaD4vINc72YdyaVG5yCpHzm0FQ5PqwrjA3KYeyumrWx/1+BorrvjAN0swB7Ym0rjc48=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV3PR12MB9356.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(7416014)(1800799024)(376014)(6133799003)(10067099003)(4143699003)(22082099003)(11063799006)(56012099006)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?nTLvlrw+oQ1LrEqBdNF2TTgHjHe5S7q+cO+Iu/NGfgr+Sm/98x3OS07dH2hE?=
- =?us-ascii?Q?UBuvyeD0l6pry9/rAkDIqliyMfs9Ps6XuFXQ32Lrxyz54Iewp3WwauLXOiqy?=
- =?us-ascii?Q?52RboUTZOFzminaVQ/x/uYUU2x/8sgpAdWjzKTGTQMcRxi/bXz5Bn0y3valI?=
- =?us-ascii?Q?yufEpKU/V4vtH5Ms8VgsvLjLoKcTH6qwsJX60uarPLffG5rzng2B2lDnknzl?=
- =?us-ascii?Q?hMGNqPxHtBh4bsiM6H5UJSttEGF2Yao8FJeX4f9tkUbjJdjU9eZzndmcGu4+?=
- =?us-ascii?Q?T+MAupoqGgGPSiZRntFM6YcvoLu+Q3lvVqUt0C0k5nikCPWqiqNKn3p5Hbri?=
- =?us-ascii?Q?8oAV3j3WOMU+nZ67cX96Jak/cQJpugSgISratnURehLo3NPjBaIJ4mDoOhcb?=
- =?us-ascii?Q?p5zd833IRL+md4Gy/4RgvCSjzc0eo+2vjlj2Vf9lhq3/5IA2HPfU29voh0Ja?=
- =?us-ascii?Q?SbV6jZIrJgHyKZZom6IXtuxNyQFesi2SvDjryOKt18KAuVpbX24Auu4mrQbN?=
- =?us-ascii?Q?5qFFTe8PuHK6ksIwBQy4MNRajAlnSMAcqmyEBpZpgWzy5u1Zgn75+W9MLRUM?=
- =?us-ascii?Q?rmozdYtYARXQAds4lsuxUfuXNwxAaiIuFn65imXKwZA0pDpJCTcK9Rzgq4Qk?=
- =?us-ascii?Q?XzZZF6xlHUMnxtUjhpb1k1phsa2uJ2n//wKv2aMUJZi52NyeoN6OqQWsaIfw?=
- =?us-ascii?Q?Tlpa44bhDGePXq3NNePgSJv6n4zRQZUyGgdA4Jb1T5a/KeeMoYb6Toyga2Cm?=
- =?us-ascii?Q?dmjzBvopZ/UKFIPX3bbMMO49kjgTubZVaJu8/5cXTR8iCIQj2T9mvT9R+fV6?=
- =?us-ascii?Q?OcLI5aorYwqwiik3xA1RIgRETQbU25BpjdUH1o1PW+lTfwlIrevjN3vbTX6S?=
- =?us-ascii?Q?2LbR/rSxIfDrKj8ogvWveV+cSyVOtfaxutV6nZKs8c1JcEMdi9h9xLnAzBtv?=
- =?us-ascii?Q?3Iy17AFYjoXcBAo/+tvEsuhL8OzGfeXYd6iIZkRAxUuoQkg1dF+oaDSRi5h8?=
- =?us-ascii?Q?6vxENYZ4e83dLXQfMExlohFHaWWCJbH90x4y0NZc5ET7XdA8pLfUMm9xhx0J?=
- =?us-ascii?Q?AeoeJFAfJRxeqeH9f1ZFzrz2/bIQLhFkX1iR8javVXf0IlMwzUS79UYzT3Ps?=
- =?us-ascii?Q?XWj620o9TG/GIR9M1FmF6roAszJmzrx0wW/TWzM7/NN7qXhiKCMQaZtsvNOL?=
- =?us-ascii?Q?yWNzFOCoBy/LWL8P3v85GYAXJLFl0JIPWBY8uzYkwoy6hma/p48k8AaT3MPg?=
- =?us-ascii?Q?4oNp+Nc3du5EA9vkMqkxA9elfDmfHnKiEjCGGMZAhtiwvYw0vpJYBvFqxwDr?=
- =?us-ascii?Q?+Xb+CFOTYXZdxbcPjp4ypHrd4NxxHtBhb0qPcAHJBt60Nqe7Ep1uj10azkzo?=
- =?us-ascii?Q?uilquxe4et0MjqvOkOdJswcpDzqH3LpnhBMf/4HBrrmaWGZc3trNk1YSysBF?=
- =?us-ascii?Q?CwjS75E3A5Wa/eOaYeprQvCbEnrLDAmD?=
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b53fd29c-d323-48df-ce2c-08df111d7f8f
-X-MS-Exchange-CrossTenant-AuthSource: GV1PR08MB8497.eurprd08.prod.outlook.com
+	=?utf-8?B?bUpROVVYcDVSS0tTTTV2UTNGK0d0dmpMbWJOd1VodkdDV29odUhsR1B5dDFD?=
+ =?utf-8?B?TDRGeUZNcmt0N2xhaVNaVFZjL2VSZHp5dm54T09CMGxaaExERnlBK0VxY1lp?=
+ =?utf-8?B?K0R0dERQaExJMlJQOXVyMGJNay9mUjk0WUMxTWU1SlVnSW95emc0ZzF4KzR0?=
+ =?utf-8?B?b0JBZUtwOWRXMWNWM1ZUSHdaTkM3QXpMamdpL3UwS3VyV1ducmlWa0xTU1gv?=
+ =?utf-8?B?M3BqRTVhQzhQWUV1SGRscjFnOWVDN1RqeHRzR2RhZUxDaW5JTVk0Z0U5NHBI?=
+ =?utf-8?B?aDNvUytGRTBNcHlSU215USt2VEZ4SDdlbURrVm5SM2FBZ0F0V2xLRzZSMU1i?=
+ =?utf-8?B?WWdxYWNUcTBIdGRlcTJESlpuSXNnalRFTmVlZTkwcEt5SjdkR0ZZMDg5bGRK?=
+ =?utf-8?B?aU04RUdaZUh3Y1hIRzFNcVZROW8yTzYzNXUyaEFOY0hjRno0K0hjak10MmF5?=
+ =?utf-8?B?S2E3VEwvZE0xZ3B1cktyVFByS1cwT2QwSE9idG9zdVZycWU3MXZwUkQyQkpx?=
+ =?utf-8?B?eXdxeXBsM0FIUWtjazAxRTROemoxOWRWSWdabGRCWWo1ZnFTTGY3ck5hNStN?=
+ =?utf-8?B?bDZRK2hQWVBmWEtRZUoySE4yN29xelVpV0pHNzV3dTlzOHJ0alIwRHBlUFJz?=
+ =?utf-8?B?cG5TRzVJeUxwV0creWFOR0ZzdTl0aFFncy9Ya0psQ3FmL2gvU3ZMRmhqb2Y0?=
+ =?utf-8?B?aWR3TzZnclhZUDVucGgzbnFISnBWMzE3Zm53ankzUGpxMFJJeUZ1SldzMjJz?=
+ =?utf-8?B?bjdkMko2ajkyNlc5Q0pLY2hpVG4rcDRyT1lNWnhPY3YwREUvMVp0c0QwWVh4?=
+ =?utf-8?B?OEJmYTB6VUk3Q3N4Ny9tNFJhUFFwQUEzcGFIQURHb1huZDdWellxcVd4Z0Zn?=
+ =?utf-8?B?SkppdFBobmlNRmlVNXRZcHZWVTZjSVU1YzN1YXYvQzMrODYrSlBJTDhHQzdF?=
+ =?utf-8?B?SXZQT3FKVU1ydDlEcERyQmlTWWdkQTdUY1QvQjFRdGUySE41Y3d3YVNzZWV5?=
+ =?utf-8?B?WnVxUk10QlFUNzc2SThlb0dObzVzK0owS3JxbDJrQnZhVDNZUlV3M0s4ejdu?=
+ =?utf-8?B?Q1FrQjBRMzhYTnZDK2M0c3N1bnowN3FZS0J6L09Od1cxZ2RkTUpRMmdoZzJE?=
+ =?utf-8?B?Mmh0OEk1ZVBnUjdiTWxsZ0NMeHN4VndNaEdISWE4TWpZTkRSUFBINDNFak9R?=
+ =?utf-8?B?M0ZyZ1ZDQTNGUm5GZXI0NmMySWMwdWc5WE91VHA1Tk1yVXUrMkY0QWpweWlv?=
+ =?utf-8?B?ZldhSHR0UXVSbTJzT3VmYzZTYU5WSkltMXo2ZmhweXoxMnRtWjRLMVV1YVk0?=
+ =?utf-8?B?MUVtYUg4L0lkb3FoY1BVUmxlYXVUSHFVdFQ3NTJnaHFmUTV2aGMwOW5kaXFq?=
+ =?utf-8?B?MnJBK1Nzck1SYnRlVnVsWThBSzJFUXpPdFlkcGpCM1RNVVhCcldIS3lTcmlp?=
+ =?utf-8?B?b1FWYkNreUFKSVJ5MllFTkp3czE5bGZsajRJZUphbFlxdFJ3bW1FYzlDY2g1?=
+ =?utf-8?B?am5ET3pEdjdYVXNiV0cvUGJIMzZCZmlPYTc3ZjhuUDlhWEo4OUt0S2hvK1RD?=
+ =?utf-8?B?SWlkWW9WSXM1c0FmS0hJS0FpU2k1MnBmcFI1L2J2QVgyZnNpN3FvU3haaFJ4?=
+ =?utf-8?B?MVdRSFp1MWIvSGNaQit5OEthR0VLaWNYdkRFYnNSMnBocWgrUFhUQzZLZ2x3?=
+ =?utf-8?B?T1VFeUthRG1iNUlQeFRvQ1gvWFk5aVQ5TmdFRkhVWlFQd1djRDhPS0VZTGps?=
+ =?utf-8?B?S2RaT3FjakYranVWZ0lOT0pBQ0VtT0lYUjlESjJNcFVialRMM1grenBMM2U1?=
+ =?utf-8?B?dTJIV0Z4UzFyUnA0bGorei9uM0kvRlNYVUlwOURyQlVlOHVFQk9GSEVJb3ho?=
+ =?utf-8?B?T0w5TGE2QzA1ZG9Kb0hKckthWndkWG0wQTRmellNeC9Na00yYjdua0paUHZQ?=
+ =?utf-8?B?WTduZ2xrWjNzM3BzN2NjcVYxM1JoWDYwaEdHSTExSmNMQnR5S0xYbFpDNnlt?=
+ =?utf-8?B?WS9YTzFlZVc5Nk83UkhTOUJveHBjMU9ORTZvbmxEbG1lLzlqUCs0dFh1b002?=
+ =?utf-8?B?R1ZqanhNN0pkaDhoVWNNUlBzejJLeGt4RXBlV2FiLytibkVhMlRuekFOTEsr?=
+ =?utf-8?B?TGxqRDJiMUZYckRiMWZMRGYwTWtHR2RpKytzUDg5Ykhqd1pEZ0RJU3RqRmc5?=
+ =?utf-8?B?ejR1dUxHM0NxY0s2OVROS09jTXFyRDFJanE4ano0dmRteUFEcTJUNGpUdHFM?=
+ =?utf-8?B?NE5OWVJkbm9kU1ZQd1dJRjZ2M0VpcU1WUmwvUEVOUUdLaytGY3ZTanNvU0sx?=
+ =?utf-8?B?U2lWSUR6cEViS1FkKysyL0MzenlWRHFwY1MzRnhMK25TSStKSFlWQT09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 62acbefe-5c72-4241-698b-08df111d892e
+X-MS-Exchange-CrossTenant-AuthSource: LV3PR12MB9356.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Sep 2026 22:30:50.5472
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Sep 2026 22:31:06.4448
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR08MB11096
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZlQURjnOEj8mvWImdxWEEFklfIhSB6Zok1w4zrs9xw15UrvE5lz0QrZXBobFyPhcGrPnsU56e6gm5LuvwlJFdA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB413088
 
-ST1202_CONFIG_REG_SHFT is abbreviated to the point of being unreadable
-and, unlike the neighbouring PATS and PATSR bits, carries no comment
-explaining what it controls.
+On Fri, Sep 11, 2026 at 10:57:49PM -0700, Andrew Morton wrote:
+> On Fri, 11 Sep 2026 18:14:41 -0400 Yury Norov <yury.norov@gmail.com> wrote:
+> 
+> > Static lock initializers rely on a persistent object address when lockdep
+> > assigns a lock-class key. Using such an initializer for an automatic local
+> > object can compile successfully but disable lockdep on the first lock
+> > acquisition.
+> > 
+> > Add ASSERT_STATIC_STORAGE() for declaration macros that require
+> > static storage duration. It declares an unused static pointer initialized
+> > with the object's address. An automatic local object's address is not a
+> > valid static initializer, so the compiler rejects it.
+> > 
+> > Mirror the helper in tools/include/linux/compiler.h because the userspace
+> > radix-tree tests include the kernel IDA and Maple Tree headers with the
+> > tools compiler definitions.
+> > 
+> > For example:
+> > 
+> >   void example(void)
+> >   {
+> >           int object;
+> >           ASSERT_STATIC_STORAGE(object);
+> >   }
+> > 
+> > GCC reports:
+> > 
+> >   error: initializer element is not constant
+> >     name##_storage_check = &(name)
+> >                            ^
+> >   note: in expansion of macro 'ASSERT_STATIC_STORAGE'
+> >     ASSERT_STATIC_STORAGE(object);
+> > 
+> > File-scope objects and static local objects remain valid. The helper takes
+> > an object identifier and must be used as a declaration after that object
+> > has been declared.
+> > 
+> 
+> Thanks, I'll queue it.
+> 
+> Sashiko wants the same treatment for a few other macros:
+> 	https://sashiko.dev/#/patchset/20260911221444.1523311-1-ynorov@nvidia.com
 
-Rename it to ST1202_CONFIG_REG_PHASE_SHIFT and document it in the same
-style as the other configuration bits, retaining the datasheet name in
-the comment so it remains searchable.
+Below is the list of candidates that my AI finds relevant:
 
-The longer name no longer fits the existing layout in
-st1202_led_pattern_set(), where the continuation line was already 106
-columns wide. Re-wrap that register write to match the layout
-st1202_blink_set() uses for the same operation and drop the redundant
-parentheses around the bit mask.
+ /* Primitive locks */
+  DEFINE_RAW_SPINLOCK()
+  DEFINE_SPINLOCK()                /* both non-RT and RT definitions */
+  DEFINE_RWLOCK()                  /* both non-RT and RT definitions */
+  DEFINE_MUTEX()                   /* both non-RT and RT definitions */
+  DEFINE_RT_MUTEX()
+  DECLARE_RWSEM()                  /* both non-RT and RT definitions */
+  DEFINE_SEMAPHORE()
+  DEFINE_SEQLOCK()
 
-No functional change.
+  /* Wait queues and completions — preserve _ONSTACK aliases */
+  DECLARE_WAIT_QUEUE_HEAD()
+  DECLARE_SWAIT_QUEUE_HEAD()
+  DECLARE_COMPLETION()
 
-Signed-off-by: Manuel Fombuena <fombuena@outlook.com>
-Assisted-by: LLM
----
- drivers/leds/leds-st1202.c | 18 ++++++++++--------
- 1 file changed, 10 insertions(+), 8 deletions(-)
+  /* Containers */
+  DEFINE_XARRAY_FLAGS()            /* covers DEFINE_XARRAY(),
+                                   * DEFINE_XARRAY_ALLOC(),
+                                   * DEFINE_XARRAY_ALLOC1() */
+  DEFINE_IDA()                     /* already enforced */
+  DEFINE_MTREE()                   /* already enforced */
+  DEFINE_KLIST()
 
-diff --git a/drivers/leds/leds-st1202.c b/drivers/leds/leds-st1202.c
-index 5a2202fb4c22..d8a04e96fb46 100644
---- a/drivers/leds/leds-st1202.c
-+++ b/drivers/leds/leds-st1202.c
-@@ -24,7 +24,8 @@
- #define ST1202_CONFIG_REG_PATS             BIT(7)
- /* PATSR: Pattern sequence runs (self-clear when sequence is finished) */
- #define ST1202_CONFIG_REG_PATSR            BIT(6)
--#define ST1202_CONFIG_REG_SHFT             BIT(3)
-+/* SHFT: Phase-shift delay enable */
-+#define ST1202_CONFIG_REG_PHASE_SHIFT      BIT(3)
- #define ST1202_DEV_ENABLE                  0x01
- #define ST1202_DEV_ENABLE_ON               BIT(0)
- #define ST1202_DEV_ENABLE_RESET            BIT(7)
-@@ -210,7 +211,7 @@ static int st1202_led_pattern_clear(struct led_classdev *ldev)
- 
- 	guard(mutex)(&chip->lock);
- 
--	ret = st1202_write_reg(chip, ST1202_CONFIG_REG, ST1202_CONFIG_REG_SHFT);
-+	ret = st1202_write_reg(chip, ST1202_CONFIG_REG, ST1202_CONFIG_REG_PHASE_SHIFT);
- 	if (ret != 0)
- 		return ret;
- 
-@@ -246,7 +247,7 @@ static int st1202_led_pattern_set(struct led_classdev *ldev,
- 
- 	guard(mutex)(&chip->lock);
- 
--	ret = st1202_write_reg(chip, ST1202_CONFIG_REG, ST1202_CONFIG_REG_SHFT);
-+	ret = st1202_write_reg(chip, ST1202_CONFIG_REG, ST1202_CONFIG_REG_PHASE_SHIFT);
- 	if (ret != 0)
- 		return ret;
- 
-@@ -268,8 +269,9 @@ static int st1202_led_pattern_set(struct led_classdev *ldev,
- 	if (ret != 0)
- 		return ret;
- 
--	ret = st1202_write_reg(chip, ST1202_CONFIG_REG, (ST1202_CONFIG_REG_PATSR |
--							ST1202_CONFIG_REG_PATS | ST1202_CONFIG_REG_SHFT));
-+	ret = st1202_write_reg(chip, ST1202_CONFIG_REG,
-+				ST1202_CONFIG_REG_PATSR | ST1202_CONFIG_REG_PATS |
-+				ST1202_CONFIG_REG_PHASE_SHIFT);
- 	if (ret != 0)
- 		return ret;
- 
-@@ -299,7 +301,7 @@ static int st1202_blink_set(struct led_classdev *led_cdev,
- 
- 	guard(mutex)(&chip->lock);
- 
--	ret = st1202_write_reg(chip, ST1202_CONFIG_REG, ST1202_CONFIG_REG_SHFT);
-+	ret = st1202_write_reg(chip, ST1202_CONFIG_REG, ST1202_CONFIG_REG_PHASE_SHIFT);
- 	if (ret)
- 		return ret;
- 
-@@ -353,7 +355,7 @@ static int st1202_blink_set(struct led_classdev *led_cdev,
- 
- 	ret = st1202_write_reg(chip, ST1202_CONFIG_REG,
- 				ST1202_CONFIG_REG_PATSR | ST1202_CONFIG_REG_PATS |
--				ST1202_CONFIG_REG_SHFT);
-+				ST1202_CONFIG_REG_PHASE_SHIFT);
- 	if (ret)
- 		return ret;
- 
-@@ -419,7 +421,7 @@ static int st1202_setup(struct st1202_chip *chip)
- 		return ret;
- 
- 	/* Enable phase-shift delay feature */
--	ret = st1202_write_reg(chip, ST1202_CONFIG_REG, ST1202_CONFIG_REG_SHFT);
-+	ret = st1202_write_reg(chip, ST1202_CONFIG_REG, ST1202_CONFIG_REG_PHASE_SHIFT);
- 	if (ret < 0)
- 		return ret;
- 
--- 
-2.55.0
+  /* Work and timers */
+  DECLARE_WORK()
+  DECLARE_DELAYED_WORK()
+  DECLARE_DEFERRABLE_WORK()
+  DEFINE_TIMER()
+  DEFINE_KTHREAD_DELAYED_WORK()
 
+  /* Other objects containing locks */
+  DEFINE_RATELIMIT_STATE()
+  ATOMIC_NOTIFIER_HEAD()
+  BLOCKING_NOTIFIER_HEAD()
+  DEFINE_RCU_SYNC()
+  DEFINE_CTL_TABLE_POLL()
+  DEFINE_BPF_STORAGE_CACHE()
+
+  Lower-priority or configuration-dependent candidates:
+
+  DEFINE_IDR()                    /* normal operations don't use embedded lock */
+  RADIX_TREE()                    /* normal operations don't use embedded lock */
+
+  __DEFINE_PERCPU_RWSEM()          /* covers DEFINE_PERCPU_RWSEM(),
+                                   * DEFINE_STATIC_PERCPU_RWSEM() */
+
+  __DEFINE_SRCU()                  /* Tree SRCU: covers all six wrappers */
+  DEFINE_SRCU()                    /* Tiny SRCU: shared non-static declaration */
+
+  _SRCU_NOTIFIER_HEAD()            /* covers SRCU_NOTIFIER_HEAD(),
+                                   * SRCU_NOTIFIER_HEAD_STATIC() */
+
+I planned to submit this hardening for them per the relevant subsystems
+after at least landing the ASSERT_STATIC_STORAGE() in -next.
+
+If you're OK to move that material through your tree all in one,
+I can prepare it as a single series.
+
+Thanks,
+Yury
