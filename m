@@ -1,125 +1,261 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E35A4369A;
-	Sat, 12 Sep 2026 06:44:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAFBD320CBE
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 06:50:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789195491; cv=none; b=uPwhF4sB+5/bdohzOaeohnRphr1tAWA6uZW09pZAB2S0YiCOEDFRR3b7oN7O0nENo54zjdRRyElX7OJsLqEhIu5AtGTj5eWGTTOV3h1uBZSY6QL1lVfkz8/+0DgF0pAvdjbfVW4i2Q5YDLJfiIp7kb5rNtc8LwOkLOrcHBMaVO0=
+	t=1789195807; cv=none; b=KPB3mZ0KuWI8X7d/lv3tk+0/lknemD+B9WfayMDf2vDXTlAAP/b8H7B8BZu3PqdL79fPUpbJ0FgGkorJyI6pGu+zaX2Izl0YEWPFtWwsIiRSFgmwHKeMO1qHTHV1kI8tXESiwVBByMb98vZ0QcbFp/BBGO8zMsw44IN1fySm4KU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789195491; c=relaxed/simple;
-	bh=tTNhIt/2Ld9YNVw0GTkyuXYb619+hSzvboXagJI0tSI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=knXrBgn7BgDYx9ngMwt6O1IC8wj2ZNBAgmC+2BaThC9zne0flzkeIz+taOS+GEm9kW6XQKcNuzo3bSklTVw3HOQUzUrpot3gSHc94lg0UcNGXuGD7wLBuHxYd0d6YvY9XTh11HRFzMabF648DVsBosY0zmD8pTz0nsGWjlnaYvA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N2Bi/5zE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789195807; c=relaxed/simple;
+	bh=sCdpZe2i/QHdtW679jX9SdR4a7+kZzZrKxfkIQPem7s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QjlorKV1xvF9z/TzmZ0fTkFFOo/bI7R3DfB7nd5hY0FfXB4+3xzuH6MrS3gfeDEZUQ/pXwHeOIGtjPcsv8g/jqq3xbFL3QNMN/xXXj7UYuK9sUNgcE/eNCP/orkiqWQWLKqIdp546tR9K8xMrSTQ9OkpfkQBRjbQlvZNjp1YylA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=Bssf86yg; arc=none smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N2Bi/5zE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43D3F1F000FF;
-	Sat, 12 Sep 2026 06:44:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789195489;
-	bh=KxaeJYmz4IdI2IIHmqchQdajHKy6Zs771P/FPguuVpg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=N2Bi/5zE6FzP7AovVq0ROouwmcr2zpuMYJ/ewjhq59jZqei0S8amk2jxC+/ZgjWP3
-	 AaptvB9VAe75PdStlXkwI7l0RBz8KeqgNl0kz8LaX+a7d1yKSshQvXTkAouGOOpcDC
-	 TRW3uqQNZuzDEMe3zlQPptV7QN2T6eFI88tLETBhUCOrdX8ZVRvO4lhBbrOURfPKfP
-	 kDNyvjYJbYySIJtdnNEwgU1kLZtxQxsTd4EQsWGkC5BWh2pEuCBuG2VqiU6REavtIb
-	 cGh8BTVzx6Xl6W38We3zbRZWqORKPwWtkab+G5KjlOinAcw5F32Mq3vdvWXFklGJDy
-	 4fUlbAi0mw5jg==
-Date: Fri, 11 Sep 2026 23:44:37 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Nicolas Schier <nsc@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	Masahiro Yamada <masahiroy@kernel.org>,
-	Alexey Gladkov <legion@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
-	Josh Poimboeuf <jpoimboe@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Randy Dunlap <rdunlap@infradead.org>, linux-kbuild@vger.kernel.org,
-	linux-kernel@vger.kernel.org, llvm@lists.linux.dev,
-	linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-efi@vger.kernel.org,
-	rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org,
-	Jens Axboe <axboe@kernel.dk>
-Subject: Re: [PATCH 00/23] kbuild: significantly speed up kernel builds
-Message-ID: <20260912064437.GB2002951@ax162>
-References: <20260908-build-speedup-v1-0-5dc1ac01672d@kernel.org>
- <a4167b18-f1ea-48bb-9287-210bdd4f35eb@broadcom.com>
- <aqPlUt6aIvof2LcM@gremlin>
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="Bssf86yg"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f9f0b1fso94660366b.2
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 23:50:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1789195804; x=1789800604; darn=vger.kernel.org;
+        h=content-type:in-reply-to:autocrypt:from:content-language:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=sCdpZe2i/QHdtW679jX9SdR4a7+kZzZrKxfkIQPem7s=;
+        b=Bssf86ygnNcIOdpsdU4WXEa1ReCtbz3TI1Wl3uGEaUZtS7UPlvJQrdmweV/MNyXtEl
+         yGbLEIYe+cLmLKuv+fwPCHwsvj40VRZWz9OC2opd2HS2aJf5O8QRupaW4mP3h9l0kgiB
+         qwuThS3MR1F28jCuJ6i/q/7Ao0ozfRzUGV6h5Tg7P76wGtS37F0fzm1PxjbHCcuBxR1y
+         ug094VTjCBsXaH8STSHhVxJLtrKA1saOnfhOfI5M+mIWlfzt2Gd0Qsb3oXu39qLrQiCs
+         7RD+fZP6KLagHedMyx1Y9LtmElGDv0phG8KeQiztLO3T5sHAkprIzEpewBrtsiG/HtUz
+         s61w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789195804; x=1789800604;
+        h=content-type:in-reply-to:autocrypt:from:content-language:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sCdpZe2i/QHdtW679jX9SdR4a7+kZzZrKxfkIQPem7s=;
+        b=hMTXLl3haz2t3G4tLE9ojpy+aQNJr3ULwWP9DoEHG7pwjIeQ8NdGQsL/WhHFguS23R
+         PM2pd3C+QJugnrHYqwD+tRwU2tTLMBy1BbhLzV+gp9rsylA4enou9H+Pw/prgc2gCle4
+         K1O1gyworZjISliovTyG8mYHayjDmWDyCsj2qmZTbkKWra/P1W5DfvOBlz1XtHN1D9CM
+         lVgRuAI7+Lqt6hxPqTVvYC7vXgbNQde7bhf5puP6hx6Y/87cntINxWZvNcjc6ushM5AS
+         A00Q2zXTiu15RN5av4mHVJx4z2mEqePRR3i1PzVpU0DOudkdTQLymjkcHH8m3AghjKWG
+         sreA==
+X-Forwarded-Encrypted: i=1; AKwUvBzZRxgvyDW2Y2swAbb5Zp9AUoD558/yaPNrpCrFK6UGp6Z9XPHstX9GlF5VOR7esUjlNbftRi0KEI8okm8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nI8RqV9wZnL1pSd3MqqQtuOM96fC0LNLS5WtU5jSqOJujW2OGD
+	eWHFdGHDXhXNf4m2yz1P1hdy+RSWhlBiQsM/SdHJbQ/L55sLn0fB+8qhC18OkZoyZbg=
+X-Gm-Gg: AYBFou1ye5SBqmM5xqLWK2nxrtXCKUrQoNwhuFgss8JbyVH0q9iZBULPRBJES0X36f1
+	osNy1YAbIBbfiSxAMKZXRsm8UgfmSTwakBzb7UOCK2aCI14VstQufVW18wGYlmYPBBOl81E7cuo
+	g0l+E7KTxWxpB2NWBHy1814usy4RTU/Ec2bDYL3qr31KDddKnkq45gBlxKAzXRAVVcGqL/8s65R
+	BBoaZIJ9viyXYMCzdTiwW0KhTkNFQe6FQvUnMF4d2f5G7FWw16S6Dh2/c2fx7OswjAOlD3v+0pQ
+	spMGzCMCsBeoc+R0+VgrYBrqGxCJQ+eyZ/4sqHV/xTRaEYHxpoQQoD1MlPehUYYw22rgW3H5L+G
+	7Ep6lvcP8VDzscrYMAku5nKwuPQQOAf6YB/Kq3igqYgMRxqKS82eUotmwaI704aBAy067W+BwbT
+	y4PBCJrfmtq6rMqMEFMNFAGY6ROTrdP8Cbdqd88HJmZk3aedO6m43QzNSbmXVUcxvaHO5EoYeAO
+	qha5w84Q+L6rnNoSKDDZnOvyxAipy/vRD8jGoIIlLRx+ESloedFPlAMTpXrD1GrtBqLESYCyZaS
+	xuas8XEF4f2zVzqvxIzgPBri
+X-Received: by 2002:a17:906:f591:b0:c29:462b:f917 with SMTP id a640c23a62f3a-c29666f739cmr698707866b.14.1789195804064;
+        Fri, 11 Sep 2026 23:50:04 -0700 (PDT)
+Received: from ?IPV6:2a00:12d0:af5d:ad01:5d3f:14e6:9bcb:5112? (2a00-12d0-af5d-ad01-5d3f-14e6-9bcb-5112.ip.tng.de. [2a00:12d0:af5d:ad01:5d3f:14e6:9bcb:5112])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2965c4e1ffsm159761166b.7.2026.09.11.23.50.03
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 11 Sep 2026 23:50:03 -0700 (PDT)
+Message-ID: <1e2adc53-87f4-42f3-8eda-cce828009e88@suse.com>
+Date: Sat, 12 Sep 2026 08:50:02 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqPlUt6aIvof2LcM@gremlin>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 13/13] x86/msr: Simplify some rdmsrq() use cases
+To: Shreshth Srivastava <shreshth.srivastava@intel.com>,
+ linux-kernel@vger.kernel.org, x86@kernel.org,
+ linux-perf-users@vger.kernel.org, linux-hyperv@vger.kernel.org,
+ kvm@vger.kernel.org, linux-coco@lists.linux.dev
+Cc: acme@kernel.org, adrian.hunter@intel.com,
+ alexander.shishkin@linux.intel.com, bp@alien8.de,
+ dave.hansen@linux.intel.com, decui@microsoft.com, haiyangz@microsoft.com,
+ hpa@zytor.com, irogers@google.com, james.clark@linaro.org, jolsa@kernel.org,
+ kas@kernel.org, kys@microsoft.com, longli@microsoft.com,
+ mark.rutland@arm.com, mhklinux@outlook.com, mingo@redhat.com,
+ namhyung@kernel.org, pbonzini@redhat.com, peterz@infradead.org,
+ rick.p.edgecombe@intel.com, seanjc@google.com, tglx@kernel.org,
+ wei.liu@kernel.org
+References: <20260821105709.1671132-1-jgross@suse.com>
+ <20260911213310.381839-1-shreshth.srivastava@intel.com>
+Content-Language: en-US
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Autocrypt: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+In-Reply-To: <20260911213310.381839-1-shreshth.srivastava@intel.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------faqU8D6UM6LZgyWtdNphe2F6"
 
-On Fri, Sep 11, 2026 at 12:28:34PM +0100, Lorenzo Stoakes (ARM) wrote:
-> On Wed, Sep 09, 2026 at 02:58:59PM -0700, Florian Fainelli wrote:
-> > On 9/8/26 13:55, Lorenzo Stoakes (ARM) wrote:
-> > > A typical kernel build consists of a frustratingly large amount of time
-> > > spent stuck in single-threaded bottlenecks.
-> > >
-> > > It turns out that there's a lot we can do about this and doing so
-> > > significantly impacts kernel build times.
-> > >
-> > > This series makes allmodconfig builds up to 36% faster, incremental builds
-> > > up to ~70% faster, and noop builds up to ~90% faster.
-> > >
-> > > Builds are faster across the board on every device I tested.
-> > >
-> > > Machines used for perf testing:
-> > >
-> > > * Threadripper -   x86, AMD Threadripper 9980X, 64 cores, 128 threads
-> > > * EPYC         -   x86, 2 socket EPYC 9754, 256 cores, 512 threads
-> > > * M2           - arm64, 2022 M2 macbook pro, 8 cores, 8 threads
-> > >                          (4 perf, 4 efficiency)
-> >
-> > My AMD EPYC 9454P server shows an improvement in the order of 13% using the
-> > arm64's defconfig and make -j97. Thanks for doing this!
-> 
-> Nice thanks! Good to confirm others are seeing the benefits :)
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------faqU8D6UM6LZgyWtdNphe2F6
+Content-Type: multipart/mixed; boundary="------------dL8jxm9dVU7kKr5WHApU9RgD";
+ protected-headers="v1"
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+To: Shreshth Srivastava <shreshth.srivastava@intel.com>,
+ linux-kernel@vger.kernel.org, x86@kernel.org,
+ linux-perf-users@vger.kernel.org, linux-hyperv@vger.kernel.org,
+ kvm@vger.kernel.org, linux-coco@lists.linux.dev
+Cc: acme@kernel.org, adrian.hunter@intel.com,
+ alexander.shishkin@linux.intel.com, bp@alien8.de,
+ dave.hansen@linux.intel.com, decui@microsoft.com, haiyangz@microsoft.com,
+ hpa@zytor.com, irogers@google.com, james.clark@linaro.org, jolsa@kernel.org,
+ kas@kernel.org, kys@microsoft.com, longli@microsoft.com,
+ mark.rutland@arm.com, mhklinux@outlook.com, mingo@redhat.com,
+ namhyung@kernel.org, pbonzini@redhat.com, peterz@infradead.org,
+ rick.p.edgecombe@intel.com, seanjc@google.com, tglx@kernel.org,
+ wei.liu@kernel.org
+Message-ID: <1e2adc53-87f4-42f3-8eda-cce828009e88@suse.com>
+Subject: Re: [PATCH v3 13/13] x86/msr: Simplify some rdmsrq() use cases
+References: <20260821105709.1671132-1-jgross@suse.com>
+ <20260911213310.381839-1-shreshth.srivastava@intel.com>
+In-Reply-To: <20260911213310.381839-1-shreshth.srivastava@intel.com>
 
-I see similar gains on an 80-core Ampere Altra system
+--------------dL8jxm9dVU7kKr5WHApU9RgD
+Content-Type: multipart/mixed; boundary="------------VU1m0sOTKOmOlXUOKddZrxGl"
 
-  6h 21m 42s -> 5h 31m 15s (-13.22%)
+--------------VU1m0sOTKOmOlXUOKddZrxGl
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-and a 32-core AMD system.
+T24gMTEuMDkuMjYgMjM6MzMsIFNocmVzaHRoIFNyaXZhc3RhdmEgd3JvdGU6DQo+IEhpIEp1
+ZXJnZW4sDQo+IA0KPiBJJ20gd29ya2luZyBvbiBhIHYzIG9mIERhdmUncyAieDg2L21zcjog
+Q29uc29saWRhdGUgbmF0aXZlL3BhcmF2aXJ0IE1TUg0KPiBmdW5jdGlvbnMiIHNlcmllcyBv
+biB0b3Agb2YgeW91cnMsIHNvIEkgdHJpZWQgdGVzdGluZyB0aGlzIHBhdGNoLg0KDQpZb3Ug
+c2hvdWxkIGxvb2sgYXQgWzFdIGFuZCBbMl0gYXMgd2VsbC4NCg0KPiANCj4gV2hpbGUgSSdt
+IGhlcmU6IHlvdSBtZW50aW9uZWQgeW91J2Qgc2VuZCBhIFYzIGFmdGVyIHJjMSBpZiBjb25m
+bGljdHMNCj4gdHVybmVkIHVwLiBJcyB0aGF0IHN0aWxsIHRoZSBwbGFuPyBJIHdhc24ndCBz
+dXJlIHdoZXRoZXIgdG8gYmFzZSBvbiB2Mg0KPiBwbHVzIHRoZSByZXNwaW5zIG9mIDQgYW5k
+IDEzLCBvciB3YWl0Lg0KDQpJIGRpZCBzZW5kIG91dCBWMyB5ZXN0ZXJkYXkgWzNdLg0KDQo+
+IA0KPiBNb3N0IG9mIHRoZSBjb2RlIHRoaXMgdG91Y2hlcyBjYW4ndCBydW4gb24gbXkgYm94
+LCBzbyBJIGNvbXBhcmVkIGNvbXBpbGVkDQo+IG91dHB1dCBpbnN0ZWFkLiBCdWlsdCBwYXRj
+aGVzIDEtMTIsIHRoZW4gMS0xMywgd2l0aCB0aGUgc2FtZSAuY29uZmlnIGFuZA0KPiBjb21w
+aWxlciwgYW5kIGRpZmZlZCAib2JqZHVtcCAtZCIgb3V0cHV0IGZvciBldmVyeSAubyBpbiBi
+b3RoIHRyZWVzLiBBbGwNCj4gOTM5NiBvYmplY3RzIGNhbWUgb3V0IGlkZW50aWNhbC4gVGhl
+IDEtMTMga2VybmVsIGJvb3RzIGZpbmUgdW5kZXIgS1ZNLg0KPiANCj4gT25seSB0cmllZCB0
+aGUgb25lIGNvbmZpZzogeDg2XzY0LCBnY2MgMTEuNS4wLA0KPiBDUFVfU1VQX3tJTlRFTCxB
+TUQsWkhBT1hJTn09eSwgSFlQRVJWPXksIEtWTV9JTlRFTD15LCBLVk1fSU5URUxfVERYPXku
+DQo+IA0KPiBUZXN0ZWQtYnk6IFNocmVzaHRoIFNyaXZhc3RhdmEgPHNocmVzaHRoLnNyaXZh
+c3RhdmFAaW50ZWwuY29tPg0KDQpUaGFua3MuDQoNCg0KSnVlcmdlbg0KDQpbMV06IGh0dHBz
+Oi8vbG9yZS5rZXJuZWwub3JnL2xrbWwvMjAyNjA5MTEwNzUyMTYuMzE0MjMwOS0xLWpncm9z
+c0BzdXNlLmNvbS9ULyN0DQpbMl06IGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2xrbWwvMjAy
+NjA5MTEwODQyMTEuMzE0OTk1Ny0xLWpncm9zc0BzdXNlLmNvbS9ULyN0DQpbM106IGh0dHBz
+Oi8vbG9yZS5rZXJuZWwub3JnL2xrbWwvMjAyNjA5MTEwNzQ1MzAuMzE0MDgzMC0xLWpncm9z
+c0BzdXNlLmNvbS9ULyN0DQo=
+--------------VU1m0sOTKOmOlXUOKddZrxGl
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-  3h 38m 55s -> 3h 13m 18s (-11.7%)
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-The build matrices were different between machines but it is good to see
-similar numbers across different environments.
+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
+kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
+=3DeeAB
+-----END PGP PUBLIC KEY BLOCK-----
 
--- 
-Cheers,
-Nathan
+--------------VU1m0sOTKOmOlXUOKddZrxGl--
+
+--------------dL8jxm9dVU7kKr5WHApU9RgD--
+
+--------------faqU8D6UM6LZgyWtdNphe2F6
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmqk9hsFAwAAAAAACgkQsN6d1ii/Ey/S
+1wf/QTQ5woUenjuZ7QkJEXIuWDT7pJrQQt4dQPrJUah9M9GRZ1uIegM3263zRi5Yv09bbadrYuM3
+oLSnH3FWqDCembBNmlwXTlL+fkoRnIoAZZUApZHUyVZDqQZmyfjPpogjHlUhDfwnKZMJYRX5P/rH
+AilfznPtW63O4zPeeCDF/q803mUv3UBxtP9PA4+Bhta4b9zcRpSHouBFVgOj/Eq6uj4bs9YPdYvE
+jUpqgPbVXQzL6HUq79PPAUxs/Is+2tusB7d/OwA4UzeY0VN8Ky6zeJNAOv7xMxiFZeVh8RZ5Dk5w
+ak4YEaJmufWhu4w8Bgx3uV5J/SvArlMv2MnItpdDew==
+=kgkG
+-----END PGP SIGNATURE-----
+
+--------------faqU8D6UM6LZgyWtdNphe2F6--
