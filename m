@@ -1,78 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2263C3515C7
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 21:09:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFF89368D62;
+	Sat, 12 Sep 2026 21:11:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.210.214.84
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789247358; cv=none; b=KBaikCF9BVM01lNlzkVl08+DUr5H0HOFqRojIaNJtZbaxwe/SK9RcKzYqxy1MLiXIStNUIn6jMzp16kocDT4bMHeZPM57NMucLk0GRux7vQabJxQItkgQf7PkEtjob1mgbsW3bWPDUqq9wG5s2VJ/Mn3PvsMbITXqa4bP4PaeHY=
+	t=1789247509; cv=none; b=RLwzKaLU/paadIX+cDbKNK+ukb8fG5+AeBO5BgeTQBLN6a4cKdRKRpO4aX9xMtZ/Orv/JI1ryomTBoEveX/kelBlVVPCNgbT9Ze4m+1GbrugOvBroIWXEg4ISukvAbId02TwxzLHMl+FeGbNRgRfbStSv+1/RUivkvVgal94BnM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789247358; c=relaxed/simple;
-	bh=j4wvyXGkZnRPWSEpzxIlzwr4OCUpO/FLREsU7uo1AHk=;
+	s=arc-20240116; t=1789247509; c=relaxed/simple;
+	bh=8BBQ6kjnp+uP5XIue0haE/J//P2ZW6vcDmkaSWv0rJU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ky7kzeeQTwCP/AGnVY3AJ62LEtNC6sa44bFkmh1pJ4tde0t0M+FjXw1pC/42NrQX4nKeuIg/4IO2lIvUGjBYkePSYCXlLRWvVp/sA16lZtyMbSiFJZNaOa84kCc6NtPbCNytFUqeihdgscVGLTTnZfgdBDaMlGGBidfxa/n5Mc4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gKpC9NHr; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=LrYfZ0PTu9XSLDfBQjA7ySB0CPnL4OhYnjkS1w0abQ5Lkd/hBtVJGTvSnSQCyX4t4RgE5xxY/NXs3qbT20AJuQf1Z6ux6njDq5GpIn47rVoi+Kh8L9pxGaQqy1SSUN8AK7eY5QWczs8VoTyOuMP/vyDMc02P78+RCI3Bl/tbtYg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org; spf=pass smtp.mailfrom=codewreck.org; dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b=mNWXpPBU; arc=none smtp.client-ip=62.210.214.84
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gKpC9NHr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28A731F000FF;
-	Sat, 12 Sep 2026 21:09:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789247356;
-	bh=DILXPtS7lOGZqt12513sDInHNRSeU0MZe87J4DW5oi4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gKpC9NHr3KLJUk6ukegCet2KgEB4ZqlAjA45L1FsO6od6r/Dr5wn3KjSbNpcwNg2P
-	 X0XUoIH47LYFx/0Ue4Raq42sV0SgOEd8w4BtgX/TJK33cCBcm+j+EkvtoQvROSCGdK
-	 8nf+UeS7nABHqYyridllP6DmP9Z2lPACOMR0pLOujJAOM1h7TaOmuboQY/PlYbsMb/
-	 loKvIjSe6DchZkdyLMnKTh742Z60ML+XmsXbNBm9Z8z6rYb+riKDs4D+5lE0vCBi5O
-	 le7zGSO6CE31xLfonAFBrTan5DyxaaWC7xhZgADrQu3Ioho55vnwba1EN5XxCJmR3O
-	 k/4KIKZQIYpTw==
-Date: Sat, 12 Sep 2026 23:09:13 +0200
-From: Frederic Weisbecker <frederic@kernel.org>
-To: Thomas Gleixner <tglx@kernel.org>
-Cc: LKML <linux-kernel@vger.kernel.org>, Hyunwoo Kim <imv4bel@gmail.com>,
-	Oleg Nesterov <oleg@redhat.com>,
-	Christian Brauner <brauner@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	"Eric W. Biederman" <ebiederm@xmission.com>,
-	Alan Stern <stern@rowland.harvard.edu>
-Subject: Re: [patch V3 7/8] posix-cpu-timers: Prevent enqueueing when
- PF_EXITING is set
-Message-ID: <aqW_eWURNJYtFwmB@pavilion.home>
-References: <20260911090341.949101445@kernel.org>
- <20260911090541.892445443@kernel.org>
+	dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b="mNWXpPBU"
+Received: from gaia.codewreck.org (localhost [127.0.0.1])
+	by submarine.notk.org (Postfix) with ESMTPS id 54C8414C2D6;
+	Sat, 12 Sep 2026 23:11:38 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
+	s=2; t=1789247503;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Mab7f1B9PnjhcruwvAv5KUtu38AlUoK6V3lDJRX9oSM=;
+	b=mNWXpPBU48wU5cpMmum60E6bnS7i3SuUGPwflZPnD98B4m84mED8zUSMjs3LF0GVib//85
+	FAPWzqtJEgekrbUmQKHHhkkmmgH0L94MmO5LWfPSEKUSUSTk1+MspsD5F7I6CLkYWg6/4E
+	baShRVKFL5QVig9IaaQFWaapw/BMga02eSYjRXRA50bygUfd1CASMNBislCo9Q63WvWmr2
+	QsjaCUky94n1FaLATa38qmJM/D2jOHd38XeovZzjW2o+MM2dmbxf8dhz7LeVw9dQZo67mm
+	fLjtrOH96exPnuk6WMOlF7kR1liEC1NPjrbGu3qqv/22NBuXOqiSVYD8tKrH+w==
+Received: from localhost (gaia.codewreck.org [local])
+	by gaia.codewreck.org (OpenSMTPD) with ESMTPA id d69e7534;
+	Sat, 12 Sep 2026 21:11:36 +0000 (UTC)
+Date: Sun, 13 Sep 2026 06:11:21 +0900
+From: Dominique Martinet <asmadeus@codewreck.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 6.12 0000/1376] 6.12.110-rc1 review
+Message-ID: <aqW_-W2l3YYARUJE@codewreck.org>
+References: <20260912065607.535295758@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260911090541.892445443@kernel.org>
+In-Reply-To: <20260912065607.535295758@linuxfoundation.org>
 
-Le Fri, Sep 11, 2026 at 11:09:40AM +0200, Thomas Gleixner a écrit :
-> From: Thomas Gleixner <tglx@kernel.org>
+Greg Kroah-Hartman wrote on Sat, Sep 12, 2026 at 08:40:26AM +0200:
+> This is the start of the stable review cycle for the 6.12.110 release.
+> There are 1376 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 > 
-> To prepare for cleaning up POSIX CPU timers in do_exit(), prevent
-> enqueueing POSIX CPU timers on a task which has PF_EXITING set.  Queueing a
-> timer on such a task is pointless because the task won't expire the timer
-> anymore.
+> Responses should be made by Mon, 14 Sep 2026 06:54:17 +0000.
+> Anything received after that time might be too late.
 > 
-> The same applies to process wide timers when tsk::signal::flags has
-> SIGNAL_GROUP_EXIT set.
-> 
-> Pretending that the timer is armed allows to keep the POSIX timer mechanism
-> "working" so that the timer stays accessible up to the point where a task
-> is unhashed.
-> 
-> Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-> Reviewed-by: Oleg Nesterov <oleg@redhat.com>
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.110-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
+> and the diffstat can be found below.
 
-Reviewed-by: Frederic Weisbecker <frederic@kernel.org>
+Tested 5915db8cc000 ("Linux 6.12.110-rc1") on:
+- arm i.MX6ULL (Armadillo 640)
+- arm64 i.MX8MP (Armadillo G4)
+- arm64 i.MX8ULP (Armadillo IoT A9E)
 
+No obvious regression in dmesg or basic tests:
+Tested-by: Dominique Martinet <dominique.martinet@atmark-techno.com>
+
+(didn't actually check patch content yet, but there are way too many
+commits for a sunday morning so will reply again later this week if
+I spot anything concerning)
 -- 
-Frederic Weisbecker
-SUSE Labs
+Dominique Martinet
