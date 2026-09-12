@@ -1,93 +1,181 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D35A4611E1
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 15:45:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F36BF475334;
+	Sat, 12 Sep 2026 15:45:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789227920; cv=none; b=cvIzPavepfuPHpw/hdWD3hf1vTPALaSj1fqjPbKEHFfLIPXBWLdxudQI+pd7D3ZpLwbHfK6UXnuo8Me/A2iAXdfag5eGcekb0RC1apdyLRjQBEnjVHzeBesH6KUo1R2MuDolpinVpM9GM2gUiRCeTIHU+HQQJPHFL2wEqZgVepY=
+	t=1789227959; cv=none; b=NekZH8g9dK4RuvYH+KBRCTXgILfpZSRuaAVzkJBVcKnggRm+pVQ0rroXn8mvYZLzPzPsPHrovdpOi+FwosHrtXW773T5PdV56GHo3dRDiRV9PGzpmOZ4jN/Aa2pmBjDkU1C804FV97VN8iN0AbSs9n3mP/da55d6c20mYiVYFww=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789227920; c=relaxed/simple;
-	bh=1/dJm69p382Dvf64y//SEA6x/Du7hGEAXUvp4FFRMB4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=T5pXfun7h5fYOLWIVvrhXmXie0RIo8bPHRUiORZ14w7bpKWFawQsD/MJKwtqEzag8lZlv4wbyLF/6T2CV/38LIT834ehf/y5gMMU2KlNLrkUsoEG90Sibe3cJTTxN5M/QAi9LhDH5/x3aXsx7PR60jDimKCYMGuPRPfSftQm0vo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hdGhCklv; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789227959; c=relaxed/simple;
+	bh=8ER3or0aXOIo0/gTiBp/Gq/PHHeOUbuTmPzvW2r3QXE=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=L9qxIbFs7+msMNpvyTumuXY/rGFKpYkG/CS2+pdtmmIMaB8u5eAaUKPHtDZfZ8Fbc0dL0KgQDJV71XL8CfUcxMWyedDoBRnF+56Yvw0WvzJpGbklIc/QO72+LMHQ4RXkt+Fj6EEm3E09xUgT6bgFEdVs44G8aT1wy47tjrdkWS8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CkeJklpE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hdGhCklv"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469e211a0so517892b3a.1
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 08:45:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789227918; x=1789832718; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pqAbgy3z4RzCxK+ybMctxWmgKaCsfUSkdmdpAtfX4kk=;
-        b=hdGhCklvQ4BRAxSbyb20ep3tG+89UEyQRluwB2BBzEOcgRfx6qZ+bCIrnBQGu4hOW2
-         Obc0znYyBH2S6200pFgNZ4DjwvDwF7RRvaQTIBc3+5NZb52FYO/mor/uQhHCqyEXOyUs
-         P8jFxM7tza2YFFYE6fb5Zw4JPlBodoZF+v9J92JcyVSRuvJSkvzLieo/cWFEoRxHt98L
-         667NrJ7kxXc/Db8gyrI29OhFKRg/kNWRp2yXVGinDbgxjv5kolGPAxDldIVOQ0WThAjb
-         jkxeWvrikIMXpKM6k2updcS1RJ/XIVJkIeJ3c2Z6avE+u2U8LIkX9Wv+5fwjU3+1krhZ
-         jJnA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789227918; x=1789832718;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pqAbgy3z4RzCxK+ybMctxWmgKaCsfUSkdmdpAtfX4kk=;
-        b=acSLC+bqIVCW0T8+H8nnEHLg4XARKM9G9yovcdOSr+F+v0Zuoz3E0E8BqaX73nzDbc
-         8TEiCclxTDgOqiXm09XHSxckOBp5t1QgA1W63BOloGKDmvAS/kOiQWIkVn3QC9K3swIC
-         1fHljTgsOlcFM1oq6TGOjU0HQ4k6B81m5/8DwPOXZ0PLB7wKWc1xYD4BgOH01p4cOanR
-         VTJp2PhUN4jAs9ya/Vj/wdtSZQwU9H5vMkKIbq/LJFffQ+K13FYdGnBonYruQo3RCWqI
-         TA0pLMNbvC8zrPoamgNwR4yJcqQI/KisX7nWoeZIuYg6GlBNPMzjrqOLEVBK+TfPiRi9
-         I7Zg==
-X-Gm-Message-State: AFuF++mp+Mckehk11Or79Pm3emZbMNhYfrJrttUCZb1fWWP2mPOObgGm
-	AG/XNRm0h6BnEMEPsQGC1rgVUPDQBLfeJcWqUJOxrPfUH+HBUxH0KyhtvICGBbVA+Ss=
-X-Gm-Gg: AYBFou3WEcrthANK1cGi+fnrMfbICOnDM/yWxniSGSCXBsMYEavOMczPyICkfh4tKcq
-	5S6+45VTgLzUlrqnzbxEOUlOf0eEaqLUdtR5LIVG2Hn2M2xRRIdvZ9fV4Opsk2TsGyVmtP6RA5F
-	LUhR3dsGsFg1Wf2Fh1zaYVNKi16BApxtqCo8tcY+oUKBdUi5Aq59pvruTRW/2nXeCaUmZCqQPuX
-	kRieRhoifOaLdgQNSEUDTPSqrnXwvI5fijezQI2P26ajgtTbLCD6/U6W2VZA52M6UrpA567dbnK
-	F4JfhWCnfUCx7w836KbMaQJk5fLh/DGf2WajE45vuYGPY24uoEPX2b3DYAGmXPMwfe33TUjGBzd
-	1EyDbG+z0PVouAunTcd4bpFDZ6dFc3VkwnGR/+7jbM72Kg9eqtYqHDOfTnaMYI7xhR3EmAmiF5j
-	QIttAi9FUvrf7A5RFa3thBALiLrPMPbqAFCwciijtV/iAZ47J4O4jCvXuum5Tyb5ohsMIPOY6b
-X-Received: by 2002:a05:6300:2288:b0:3d9:6f0:b42f with SMTP id adf61e73a8af0-3db0e448502mr6609880637.17.1789227918241;
-        Sat, 12 Sep 2026 08:45:18 -0700 (PDT)
-Received: from rxsakthi.. ([2401:4900:8fe5:a1fa:bca4:d2ab:82a4:7ddb])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14365b8ead8sm14065701c88.10.2026.09.12.08.45.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 12 Sep 2026 08:45:17 -0700 (PDT)
-From: rxsakthii <s97998973@gmail.com>
-To: corbet@lwn.net
-Cc: linux-kernel@vger.kernel.org,
-	rxsakthii <s97998973@gmail.com>
-Subject: [PATCH] README: fix awkward wording
-Date: Sat, 12 Sep 2026 21:15:07 +0530
-Message-ID: <20260912154507.9690-1-s97998973@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CkeJklpE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFE201F00893;
+	Sat, 12 Sep 2026 15:45:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789227957;
+	bh=gpE7hpvn6MeyqhNqz6cqrOOcN1VuNhouP3veEi9dIbg=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=CkeJklpEnRwbNrIxrKlLQnEuLzgdLELqJF1eB/s+4eS7jLuzzVGSXv2L/zkCtJVcB
+	 0Olv8XzAmLMSX1tpUITfj12F32msiFralKrN8PbiOKs4Bb5ewkANjrAO5k8HzXjAFW
+	 J4HQFV9XRXFaYDj/HbU2OeJeGS+C5CbtD9vaTcYWW9eDqYUS+9aexjllTf5ZG46GWx
+	 dxgkuPWTp2VhzZ+CtZ/stz+EbdbZbBgmoQ7Zi5fCjab5oHm1y7zbbwujCGB+ahWfGh
+	 eLIRit3CWFjw4spA9hN77HJ6fnNSzbPhWYA2oBxrRUDrNjDFeZMLd/5kKx9GNi4gQH
+	 mhdhSA1padJ3g==
+From: Andreas Hindborg <a.hindborg@kernel.org>
+To: James Bottomley <James.Bottomley@HansenPartnership.com>, Greg KH
+ <gregkh@linuxfoundation.org>, jaemyung.lee@samsung.com
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6rn?= Roy Baron
+ <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>, Alice
+ Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo
+ Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>, Onur =?utf-8?Q?=C3=96zkan?=
+ <work@onurozkan.dev>,
+	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
+	linux-block@vger.kernel.org, linux-scsi@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	Bart Van Assche <bvanassche@acm.org>, Bean Huo <beanhuo@iokpp.de>
+Subject: Re: [PATCH RFC] drivers/rufs: add Rust UFS host controller driver
+In-Reply-To: <77e00073a9254d5ea1ade771590da81a859b75a6.camel@HansenPartnership.com>
+References: <20260912-rufs-private-v1-1-716db733e655@samsung.com>
+ <YKq4TcQM0v2dXF4wTHEvZKwASII6PDd_R7_UiHWe3NRnR4JsrC_ZS-x6jA_Kl7P6ONehU0REHYk7WaLz8Xv5gA==@protonmail.internalid>
+ <2026091124-treason-trickily-bc52@gregkh> <87mrtmvioe.fsf@kernel.org>
+ <6JMwZ4EuSfQ8V4TGaPwatQ31m30TceLJblORsuILQmy4VV8Fx2lHbihL8ARsRUuJmaSUqek8L54y4Nk6DuZMXQ==@protonmail.internalid>
+ <bdcff6a168e6d4b8e9c9524bd598281817a7df2c.camel@HansenPartnership.com>
+ <87eceyvdnv.fsf@kernel.org>
+ <RJ3H-1s-vh5YR7DRuPZ6p050ld3umNGcKNeBigg7n3KUQt1WJ2C-sR9kEqrF6f4ubj5AHoHNvB0MRGJyw6tf_Q==@protonmail.internalid>
+ <77e00073a9254d5ea1ade771590da81a859b75a6.camel@HansenPartnership.com>
+Date: Sat, 12 Sep 2026 17:45:45 +0200
+Message-ID: <87bja2v5g6.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
----
- README | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+"James Bottomley" <James.Bottomley@HansenPartnership.com> writes:
 
-diff --git a/README b/README
-index 010c58722422..f6de5b3ee965 100644
---- a/README
-+++ b/README
-@@ -1,7 +1,7 @@
- Linux kernel
- ============
- 
--The Linux kernel is the core of any Linux operating system. It manages hardware,
-+The Linux kernel is the core of a Linux-based operating system. It manages hardware,
- system resources, and provides the fundamental services for all other software.
- 
- Quick Start
--- 
-2.43.0
+> On Sat, 2026-09-12 at 14:48 +0200, Andreas Hindborg wrote:
+>> "James Bottomley" <James.Bottomley@HansenPartnership.com> writes:
+>>
+>> > On Sat, 2026-09-12 at 13:00 +0200, Andreas Hindborg wrote:
+>> > > "Greg KH" <gregkh@linuxfoundation.org> writes:
+>> > >
+>> > > > On Sat, Sep 12, 2026 at 12:52:55AM +0900, Jaemyung Lee via B4
+>> > > > Relay
+>> > > > wrote:
+>> > > > > Comments on the decision to bypass the SCSI midlayer, the
+>> > > > > blk-mq model used in its place, and the proposed prerequisite
+>> > > > > API boundaries would be especially welcome.
+>> > > >
+>> > > > Many many years ago, the USB subsystem tried to bypass the SCSI
+>> > > > midlayer for its storage driver, and while it was a "quick
+>> > > > solution" at the time, in the end, it didn't work out and we
+>> > > > dropped the driver as it just made no sense to keep duplicating
+>> > > > all of the logic all the time.
+>> > > >
+>> > > > So I wouldn't recommend it, as long as UFS builds on top of the
+>> > > > SCSI commands and the like, you should not attempt to duplicate
+>> > > > it in a separate driver, no matter how much "simpler" it
+>> > > > initially seems to be.
+>> > >
+>> > > The scsi related code in this driver is less than 300 lines and
+>> > > is mostly struct packing/unpacking. I guess we could lift the
+>> > > struct definitions from the scsi layer via bindgen. But at 280
+>> > > lines I am not sure it is worth it, and it hardly counts as
+>> > > duplication.
+>> >
+>> > You didn't actually read the above did you?
+>>
+>> Yes.
+>>
+>> > The problem isn't necessarily the duplication of code per-se it's
+>> > the duplication of function without understanding the subtlety.=C2=A0=
+=C2=A0
+>> > Every fool thinks they can duplicate the core features of SCSI in a
+>> > few hundred lines (andthey can: the core SCSI model looks
+>> > beguilingly simple).
+>>
+>> Yes, it's really just encoding/decoding. Not much semantics or logic.
+>>
+>> > They then usually spend years adding back the necessary corner
+>> > cases and quirks before finally concluding that actually they
+>> > shouldn't have tried in the first place.
+>>
+>> Please educate this fool then. I am curious what SCSI logic we would
+>> spend years re-implementing in a detached ufshci driver.
+>
+> The "duplication" is incomplete (it's actually only sense code handling
+> in scsi.rs, but the rest of the duplication is sprayed all over the
+> driver).
+
+The SCSI logic is the CDB encoding in scsi.rs and about 50 lines of
+completion disposition in queue.rs (status to block status, unit
+attention requeue). I agree that the latter is the start of what
+scsi_decide_disposition and sd_done do, and that it is incomplete. What
+I am not yet convinced of is that the complete version for UFS is large
+or subtle compared to scsi midlayer combined with current ufshcd.
+
+> The incompleteness is fine if you never test for it, but your
+> users will run into it in the field (almost certainly in error
+> handling), which is when you begin the reinvention.
+
+Correct, the RFC deliberately leaves out recovery and task management.
+We wanted to get this discussion going sooner rather than later.
+
+Of course we would validate the driver with proper testing before
+declaring it stable.
+
+And yes, the encoding/decoding surface will expand a bit once we
+implement TMF and recovery. And there would have to be a bit of logic to
+handle that as well. And that logic would be similar in semantics to
+code in the scsi midlayer. I doubt it will be many lines, but I feel
+like I have to build it first to convince you of that.
+
+> As Greg said, this
+> is the exact path USB storage tried ... and they did it because their
+> devices barely behave like SCSI ones so they seemed different enough
+> that there was little overlap with core SCSI (i.e. exactly like the
+> JEDEC comment in the cover letter).
+>
+> What I don't quite get is this isn't a criticism of the language or the
+> rust project, it's a criticism of the implementation methodology of
+> this particular driver; and it isn't a theoretical criticism: it's
+> practical; this path has been tried before and failed.  The definition
+> of insanity is doing the same thing over and expecting different
+> results.
+
+Agreed, and I did not read it as a criticism of the language.
+
+For ub, the deprecation commit from 2012 says it was removed because
+every device it handled was also handled by usb-storage. Not because the
+SCSI midlayer turned out to be deep. The UFS situation is different. The
+device population is a handful of vendors behind one host controller
+spec.
+
+If we expected this new driver to be a strict subset of ufshcd, we would
+not build it. The reason to do it is the features that do not fit the
+scsi midlayer.
+
+Here is what I count the midlayer doing for UFS today: sense to
+retry/errno disposition (scsi_decide_disposition, scsi_check_sense,
+sd_done), the abort to LU reset to host reset escalation in scsi_eh with
+ufshcd supplying the handlers, the sd device model (capacity, write
+cache, UNMAP, runtime PM), and the SG_IO ioctl plus the scsi_device
+sysfs tree. Which of these is the part you expect to take years?
+
+Best regards,
+Andreas Hindborg
+
 
