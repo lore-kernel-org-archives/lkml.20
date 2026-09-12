@@ -1,88 +1,123 @@
-Received: from mta0.migadu.com (out-3.mta0.migadu.com [91.218.175.3])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B57D441A785
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 15:48:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB399309F08;
+	Sat, 12 Sep 2026 15:50:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789228140; cv=none; b=mLx7finSpEqGTOU9qS+kbhaXLadWnwJwsEpnk8+pKBXdk8h2c5LVFm8qx+cqaASORzSi4UZvzXeKNpHEayTIBJ59uooi6uvVzScBaSaoxsN2uTFgOibupPAfRRk7jRjOJExEFnTvHV5ep/OIvz2np3WN+ACgxacgGPKrQwm2UNU=
+	t=1789228211; cv=none; b=sftykAY9VGIIEg2ljpx5nETcRrbqXyeMUUZCEFFKrrOkMhQ2R63PX68jB3yOnP6P0K9ida4+mVNAv8U+6EIdvr5esX3w5U52mg7LdY2BzD4FAqmFAj5NN2lrP2lyrdNGu6vHLVDUmDmohPO42GiaiLl8cWNpXIt2Y99qMPltmHY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789228140; c=relaxed/simple;
-	bh=7Xxdw0BpYVeSsVYvjnUMpQGHZK67v9pQzvF+pta/r2k=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=nh+DwWI2Ne8oLt9stdTzypwFry6EuJErpBA07egWVWS3x6xO7sKu45Zt3c3DFSH7xseeC4oNGsGKg2eGkpwaQfkMJVVWULKFn/Y7sGhxl0OooLRV4VTLxi0yk4lGluwAvd9Gx3+OK8SOjg31Mo4RYi3oB0I7n0nsRek9SmsqMik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=jtWBlZvu; arc=none smtp.client-ip=91.218.175.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
+	s=arc-20240116; t=1789228211; c=relaxed/simple;
+	bh=SqX45cSexAwma2sfoPrWq11l59nyG2V0B5+reMu3PpI=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=GpVCqIthr6/E6EYO3YP3OCS7hoOjCBWTLS8tGOouAT2mtLhe8QgRgqRODMxV3v3T3PPIvL53hObRZ2u8Ikp95Q6910DYIOBWQvDW+z+3LinV/KmKMKBEx1svljv51ytW21DRigHpkw9TRSJS+/T/quRHwOsu837rD6AhxOzuzjU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZHy6FG+0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="jtWBlZvu"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=7Xxdw0BpYVeSsVYvjnUMpQGHZK67v9pQzvF+pta/r2k=;
- c=simple/simple; d=cknow-tech.com;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789228135; v=1; x=1789832935;
- b=jtWBlZvuvS7+BgGr4dZSQnEoaFTAqoHZWo6YPzn/vDM9GNWzVDcTl2BhEe6g+dwbTRNTvbnd
- RZavAPp0l7kVXvovMev9f/5LS9mng2aTS0kPhhWwUalRtyugeUCWTmiFF4j/jUrVECRwMS3RhSC
- iqNtBV6xanaGzUlH1blXIkHTnkAjx1T3VtQDmMusmhQR7r7WuBx769LptoJivx1UgrCNnvuNxjj
- 7wtkB8dg1nsfcYiANnors7R+d8rH34krSDFUr9xX6Rf4PL3TU0O4wO/CZcJL4IOkmmKfucXjQVy
- +wY9PVMEHd9n7XRJNqAh+xxYgPqz/uxZYOAexsulVUBdg==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 835f230ca6fc7137;
-	Sat, 12 Sep 2026 15:48:55 +0000
-X-Mizu-Trace-ID: 835f230ca6fc7137
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZHy6FG+0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29A321F00893;
+	Sat, 12 Sep 2026 15:50:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789228210;
+	bh=/jXriT0LBtwCGebid8xL0Vq86DNF4IhBfxaOu4ms12I=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=ZHy6FG+0D3RiiTN34quBEaXnPhDsjAWhcGGC4gz4xAQpBtkR8JLcv8MOObe50K0EM
+	 hcwoWhUzKwrdxHrT+GAdpBnMTGvlRMd6tgonKD+0akNqB+uDelwxI6NEunQQK0+KOy
+	 x3oVQWYGAJyT7PlnkD70deRlTr9Y+VppggvuuKzprEMLxendYw3XHDIKCYwNzskQCt
+	 AOiqkIAWMR8cdXu4fiE7BlF+ppcNfuiVpJKGH/fxNTDTNLlfIS5e2C4sv4FeFk2r/R
+	 xTCOcqkZ7YlOzhDIucv8NTwlJyit8a/vdFFBJZayD8CQOOQqcbRaZSyiq3VpT9lOmJ
+	 uKvTadc4prWVw==
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfauth.phl.internal (Postfix) with ESMTP id 31B7CF40066;
+	Sat, 12 Sep 2026 11:50:09 -0400 (EDT)
+Received: from phl-imap-15 ([10.202.2.104])
+  by phl-compute-10.internal (MEProxy); Sat, 12 Sep 2026 11:50:09 -0400
+X-ME-Sender: <xms:sXSlag3tcFvmghcP65QibBbGsPDdXf1xkzm7nSaJEdqUJ-b8crBq-w>
+    <xme:sXSlal5wmQ3wrTgJg3HX0QRCETODFUilRjGsi38tsBqfpwJwmaUhMcsfjOFNxYgRH
+    qVbiEeBij7vScFZxH9zHVjjx430QtEVfQvIowYXyqHT_kHhBHmQVyA>
+X-ME-Proxy-Cause: dmFkZTGVwn5kOo/uZq5shYrwT5pZn57c9Il78RFXvR5MxG768BWMf/RLTlbjYvwXrP8YQ/
+    h6GERoCOfwWttJd5YXoYzG9wB18+8l2OESXiJuUEYWP5yyKxmC2RTfebu1tyICZVB+B4uO
+    N5EReYOc7B6A4vAHr0yG8hWP521B0URtKfu9qv/7jf7wbBXr3toPZ05SmlgDPb/1KtJZbe
+    W/1h0AkqQ5nZ+eMNpiEnXfvCQgPZnyy50PY0RvRmPcnUPV0gr/RUSLofw9KlG5LHmPGIbp
+    PT4Do6FnynEUeUy4wcmU0FOHiIphVaR8UUSt6mPy0ltnITNASiGND7hXLJDY2I41GVpoUo
+    fCU8bvYQaPiqDsyLVTJVm+QzUJQTNaUAXxPMzkv8vfgrkj3zeGWZYjAPmTz0iTKG74RMSZ
+    rweK2d94PMf+pkBsH1mzrF2IuVhozxW5GSAkL0p40+DIouR+rFb9nnL4//9Og4K1pXAfcq
+    jMPL9qoatgxEqDxMvYooPUG1YOHcWPyEj3YfRPWjlVrtCFFpyC2cvdWBA42j3exYJNvKgF
+    pDtYLkLQw0b5i/MIxgkCMuuUR4AZ/L+WLNgD3VRSPj3JfMcJt3f0Rf3i/5x+UMceiDphdD
+    hfZPrAKiL0Sqpjc2b/USuAdvz6ZV9aOmard8Oby8hTITNlxuLkf7saWzO54g
+X-ME-Proxy: <xmx:sXSlalFSejhhpqfpF45vdQ6eHaBGGoQD0jXwHb7NuhaGjgG3LjarDQ>
+    <xmx:sXSlaqyIVyT79WKmsSoJWxGuDX8ddmB3gCGQoj4dauZP6R3h2dZDxw>
+    <xmx:sXSlan21pg2xn4juRn15Lrji9TgEGFAHxd4z54K7M8QcUCzcdnkrnQ>
+    <xmx:sXSlaip7EcTNXhmnOjDj9Y6PwU6h6wZfE004m3nZ8EuhdKxeki3Lqw>
+    <xmx:sXSlasVld5rwPWyBdWEphnweQ2FjPf1Ju5Qd97Vkz_biaLKV_vSTHZM7>
+Feedback-ID: ifa6e4810:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id 05333780070; Sat, 12 Sep 2026 11:50:09 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 12 Sep 2026 17:48:52 +0200
-Message-Id: <DLDGFSSZUIKQ.19CS0SRKYOKOJ@cknow-tech.com>
-Cc: "Ricardo Pardini" <ricardo@pardini.net>, <devicetree@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>,
- <linux-rockchip@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] arm64: dts: rockchip: Fix i2c6 clock-frequency on
- NanoPC-T6
-From: "Diederik de Haas" <diederik@cknow-tech.com>
-To: "Diederik de Haas" <diederik@cknow-tech.com>, "Heiko Stuebner"
- <heiko@sntech.de>, "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
- <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>
-X-Mailer: aerc 0.22.0-9-ge948bb7230f4
-References: <20260911152911.2088363-1-diederik@cknow-tech.com>
- <2071782.usQuhbGJ8B@phil> <DLDEGZ68QQ19.1MJEB7QOK4G7T@cknow-tech.com>
-In-Reply-To: <DLDEGZ68QQ19.1MJEB7QOK4G7T@cknow-tech.com>
+MIME-Version: 1.0
+X-ThreadId: AgpFG2YqzZmg
+Date: Sat, 12 Sep 2026 11:49:44 -0400
+From: "Chuck Lever" <cel@kernel.org>
+To: tmenninger@purestorage.com
+Cc: "Trond Myklebust" <trondmy@kernel.org>,
+ "Anna Schumaker" <anna@kernel.org>, "Tejun Heo" <tj@kernel.org>,
+ "Lai Jiangshan" <jiangshanlai@gmail.com>, linux-nfs@vger.kernel.org,
+ linux-kernel@vger.kernel.org, "Eric Badger" <ebadger@everpuredata.com>,
+ "Jon Curley" <jcurley@everpuredata.com>
+Message-Id: <e18e121c-5c05-4caa-96ea-e0886594ee07@slotpi15m67>
+In-Reply-To: <20260912145926.208269-1-tmenninger@purestorage.com>
+References: <48e8b6c6-dc62-4630-b7c9-19cdcc5cbf11@slotpi15m67>
+ <20260912145926.208269-1-tmenninger@purestorage.com>
+Subject: Re: [PATCH RFC 6/8] SUNRPC: Reduce rpciod workqueue contention
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-On Sat Sep 12, 2026 at 4:16 PM CEST, Diederik de Haas wrote:
-> On Sat Sep 12, 2026 at 2:41 PM CEST, Heiko Stuebner wrote:
->> Am Freitag, 11. September 2026, 17:28:33 Mitteleurop=C3=A4ische Sommerze=
-it schrieb Diederik de Haas:
->>> The i2c6 bus needs to run at 200kHz, because at the default frequency o=
-f
->>> 100kHz it may fail to find the RTC resulting in warnings/errors like
->>>=20
->>>   rtc-hym8563 6-0051: no valid clock/calendar values available
->>>   rtc-hym8563 6-0051: hctosys: unable to read the hardware clock
->>>=20
->>> But only sometimes. This should not happen when there is a battery back=
-ing
->>> the RTC, yet it does ... sometimes.
->>
->> I'm confused, shouldn't a slower clock always work?
->> Like I understand how a clock that is too fast can cause issues due
->> to hardware limitations, but running the bus slower somehow shouldn't
->> cause issues?
+On Sat, 12 Sep 2026, Tim Menninger wrote:
+> 10-second deltas:
 >
-> Impeccable timing ... as I was just about to retract this patch.
->
-> So please ignore/drop this and sorry for the noise.
+>     free_fastpath:    +49,161,373
+>     free_slowpath:    +70,391,872
+>     sheaf_flush:       +1,582,440
+>     barn_put:            +673,877
+>     barn_put_fail:        +26,374
+>     barn_get:            +673,860
+>     barn_get_fail:     +1,199,576
+>     alloc_slowpath:             0
 
-https://github.com/rockchip-linux/kernel/commit/815c9a084e62d700ab5487974b6=
-3035e772a29a4
-"remove the buf[0] & HYM8563_SEC_VL, it's unsuitable for some hym8563.
-set rtc init time for first power on."
+Thanks. No worries on the delayed response, IMO there is something
+here worth digging out.
 
-I guess I have 'some hym8563' in both my NanoPC-T6 LTS & Plus :-/
-The one in my NanoPi R5S works great, so I'll just use/depend on that one.
+Your results confirm the barn-limit theory was wrong. The frees are
+bypassing the sheaves.
+
+can_free_to_pcs() refuses any object whose slab is on a different
+NUMA node than the freeing CPU. A remote free goes directly to
+__slab_free and never refills a barn. With elbencho unpinned and
+every CQ on node 0, rpciod on node 0 frees every nfs_page object
+that a node 1 thread allocated. That is the 59% slowpath share.
+Node 1's barn stays empty, so its allocators refill from partial
+slabs via __refill_objects_node and get_partial_node_bulk, the
+other two callers under the contended lock. The contention count
+fits as well: __slab_free takes list_lock only on a full-to-partial
+or partial-to-empty transition, and the bulk refills keep slabs
+full.
+
+Still unknown is whether this lock bounds throughput or only
+absorbs idle CPU time. __slab_free led the lock profile in both
+placements, and the split placement still ran at 46 GB/s.
+
+To separate the two, keep the all-local CQ placement and pin the
+workload to node 0:
+
+    numactl --cpunodebind=0 --membind=0 elbencho <same args>
+
+Sample the same nfs_page counters and perf lock -l over the same
+10-second window. free_slowpath should drop toward zero.
+
+
+-- 
+Chuck Lever (Come to NFS bake-a-thon! https://nfsv4bat.org)
