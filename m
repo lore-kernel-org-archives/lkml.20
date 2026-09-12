@@ -1,154 +1,124 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F8C14BEE5E
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 00:23:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EAA2192D8A
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 00:25:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789172612; cv=none; b=ICN1Nw0zkKuKWmPsfDp+kiJaFzS+COPfehv6pSgAYp4GKW8Lfr5k1Uptbd8UjpJERYd8WmmMX97i+L2ESQoEDGQi0LlFc53s05tFOHiBgoeLsk11Xk90+r71qZkcHnbejw2ruQQ3pr6Y+k+icZrawOA/KPNIawRKzlzmOFRPnMU=
+	t=1789172723; cv=none; b=DVCtbW17XJ9eNOyXpjwfJB0sZFo5IRlx5TOC2Wjhyn1G+l7XV1peBYVWj1LAa+Hw6B8Xfcpk6w0TIZPelwMQENVjlBKDUe3iHLtm5yxEDVHj5Dx+1kzKOh/Z55/gROU8f+F3ZzdjY/PAeYgYdsm+medxvqrBujh1YPdrJUEVkdk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789172612; c=relaxed/simple;
-	bh=0nPcm+58pJfEAXygSakPQx72e6W/l6Dp/b8T+CvBjD8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aL8B1Y+mKnKo1ah8ijzolmmKjWQbkBB9t3mtIL7ibP5SkmUMkQlNJl35sym++QZPkLY/kwbGwkgVjyenH/tgr8/d37WS9hLVPyIXZAp3ibHKt01ik9eg2puBpGo3uFwBe6Kt4yxGTKTasc6KjzIeLzk4j+zzCPo+ap+RmArUtyM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WQ0KvVJo; arc=none smtp.client-ip=209.85.216.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789172723; c=relaxed/simple;
+	bh=1a3ZwnBwa1HzobSQmbsDSE0ulkRMx2KM84AVAdNHEiI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pWuWpbHZp3KCrbuBb6QKjrd9CCTWnaZzItKJP8C724BZnQQ8aMXAme/ycxg+NRcYmIe2bAdcyBR6vS6LdNPj6hGXiFu4M2G1UuTmSaHKx186BZ6oUO2WPsfmU+HX7op8Vpnpp3YTpJ4zq1cncaGXDnOkObrYhjxm/LnLwwdfb/E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=cqFq1vtz; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=JxXZvxF6; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WQ0KvVJo"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-38a0c7e841fso2192511a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 17:23:31 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="cqFq1vtz";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="JxXZvxF6"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789172721;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DKGFm6G/TNMn0NvYxTUs0YYbh7R2/WV2gMX4ZNmGb2I=;
+	b=cqFq1vtzE1654P04M+7Sluje9VlF1Mbw7CVxNpXDq7u1eLUHioVW+ejBi2nsc/q80qTLK2
+	FivlBvPT4VMdWmFHPsxxs5PxP7kPkl4q0IQ4fJzFkLIdtulloBYLG6ZwnjsWLp53QWyPLf
+	R/kuTm0JIxZrZaITDur91TmPNeHvTeI=
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-57-h2NtCdjyMuCWsrczL1bT4g-1; Fri, 11 Sep 2026 20:25:19 -0400
+X-MC-Unique: h2NtCdjyMuCWsrczL1bT4g-1
+X-Mimecast-MFC-AGG-ID: h2NtCdjyMuCWsrczL1bT4g_1789172719
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-92e4f946461so312120785a.2
+        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 17:25:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789172611; x=1789777411; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eigGeAMP83LxrsKBiSA2Uv71rHDhlLqddwKc16SH2gs=;
-        b=WQ0KvVJooAObOPgWZunfr4YKCQ7VUR3DdhiM1jrbU49c9y+W2x+VKHbj0880qjB8xO
-         TH90u2cwGdR9jO2sDgrX35/l5+tl4AM8D9VZRgNfPpBH8Rne1QUZPrK6tX+ysBY+LPR0
-         RrUOCUNfgotX0hcWg/vMqRi/iNz0MnzRd+tZdo/vC4LQ4pIaEtF2V6GEFzxQsy8v0kBu
-         JPUbHF+dgds0fxBTEEJQ3JtRl5t9Flk4uVYtn7W731tKmDdXo7hX6IZL2tSj14IA6Oc+
-         0NOiyixns9q4hn+/k0eSiqSaYV6aHPXazkPbo91nqWMx/Y2EG2bt+JyD9qYZROZe5wia
-         mUyA==
+        d=redhat.com; s=google; t=1789172719; x=1789777519; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=DKGFm6G/TNMn0NvYxTUs0YYbh7R2/WV2gMX4ZNmGb2I=;
+        b=JxXZvxF6tAz7RbNwXnokRBO56YkjuVydSP6Cm4g3N7wmsyGJtbubKT4nYQg32aue/M
+         gnzn5eJjvaHAm0wI16ZJDzr+xtW7NiLG9LUsXYTY9v5Jppv3HsZ4/cLtXIrrZGQ01Ibk
+         7XhgbxjWZYgLzeMfphlqBJIurCN+H/oftR0zUVKLPHgXHGcDH3iadaotQfWBtCTw/uGW
+         yEqgpl/8UKEpuPaGtAVI7wJ67oFLbWfdhrXLzCanOldPfu3DaYreSvb+CG7RxhLxUQe5
+         tjuOLb218Re2MTbAm8bTQQlQJBd1h9j6JRgJzAwvymuL3OfLOvCyt1O1+/8KSp4OhMbV
+         mc6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789172611; x=1789777411;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eigGeAMP83LxrsKBiSA2Uv71rHDhlLqddwKc16SH2gs=;
-        b=Ew2sCdfYShgs5C3xpgGW5WMJD5XQGjDWtiedFmJw8OQkqTfZkE/8RyVZz3FnQI/TS2
-         NUME4uAXsLwdNHZO/0asorL+6qXYkFhb7rqZwS0jm90ieY3s1WaXqto902VYt1fKH1HL
-         5oQ5FZCqVC72fE2AxcNisGOVzH99GdljkWuAi8j7wwnAtywfrBBXkuUSpkyF2E8QZzxN
-         52AvJ165ONQ4dbko02fO+IdGZOZB+umZ+6DqJw2n+60n6WjSxcxupmF34gaD0ev6XKj7
-         k3WBcDNhTLYLhZNL61lzJUFXeCEbQNqAlVpg8vEJB4VDxlaYJKV42skp+6uNjgNopk6s
-         J/zw==
-X-Forwarded-Encrypted: i=1; AKwUvBzftB1XGHlDlgcKzxCLTeN6DgbecWLsYHF6TEfAlio0243/bEx9k3mlYO6s7aDga8DkWx0M+DhZD07mfjU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nMKQ05wG7/XiWWDEpnxMviNbafLqz5PbmyPpeQAtU5DV5WE2VL
-	DZu/jEv802NaGFTAcQtIa+lepzErDHCJwS85trJuY4xiBBjSx+lnN0u1
-X-Gm-Gg: AYBFou2lJIxHr2N+3G/R4p50i4PfPCLGHUHZoKRto6pTf/KCnR9uC9pvPFlZvo+qUb0
-	lnwVC12I7tPF6bJPzTVahxJPyQEekKPJai08sH+U3PzOb7MS0rBwivzLwyO8sVQ3qeplPyGNrG2
-	aOnyo5QbB316RZ4PxDo/0POdP1YtZiNE7kD+6lcDxQi2jbXMGzHWwl7Fa7C1Y6MJrlk70qgXYdB
-	7cpYc+lJ7CEoQtnSTI64o8T80SWscWhkhlGfe7fDRcWhjBKkSZVsoB8VWxEDBLSkoi6xTdROE6h
-	syGwU8fJeX3ByDPgFKNpgtIkv9n/LuH9cyyxWs3ntLblI8hMebO2GftiSdJN/XbsuaRWh5Gdo1Q
-	IgC2CxDJ38KlMRxtM5YyNHUiNOr97AZBTPo+BegxjybLak9t25szTS87ovHK2JAHM3gwKmdQ1nQ
-	DX4m5e6LChC87IKbIqhRc1Yg48SqNyvq8WozBPezhCsYXlKF58atPcSJ5gw9Wqx0lHK3ZZPb9l3
-	Nuw2/Svtc4cd8uuV05/trwpluPRXT2ZKchK965ocVtqV6CqsR/oLjcfhnFswB0F6wzpCejrPZ7G
-	B/Gni4w6IxOqzG+h2+B2OF7KL5CzL3PDCEMMVvtNDJ06+rn1
-X-Received: by 2002:a17:90b:270c:b0:39b:a8d8:985 with SMTP id 98e67ed59e1d1-39d9c0ad3edmr11221696a91.12.1789172610740;
-        Fri, 11 Sep 2026 17:23:30 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e35])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2cff6780sm17510475ad.76.2026.09.11.17.23.27
+        d=1e100.net; s=20251104; t=1789172719; x=1789777519;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DKGFm6G/TNMn0NvYxTUs0YYbh7R2/WV2gMX4ZNmGb2I=;
+        b=rnC0xAyhHCXdK6gieHQV5a/A85/AueJdy6aaDq1DGVr0h+HaUYWWQwQ2f7dEXqJEjc
+         tJjCYYn8PH0L/vH2IDu/cgP2lybvb5opAtnAtbG1v35YcFHqeUiLQm5H/yc3lIDUqG2G
+         kFD4/As2IDIDJ0Twkt5W0L/ypO/v4JOMAyeFNhVSVBwMQcaocdBOGGyzbt5KnKqnwRlv
+         uRXDLQI3F1E63Mn1miXZa6MYehoXRVkvWkCcQhYXrF6SMByoTVYlLvvFSi5pNvECg/I8
+         OXc3s6OeL5AwresWT/FZi8kwfhK3V8wELehqR/oSvEHuPQr3YYl6dUYpF4dAaa/4Xj5j
+         mLzQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzNTbFAiMJC4qJPM+xlat/Ij2hr0bZAzp3czzklCCp4Hzr6VUFuU/LR7gD5I/Nis2mOFXjF0874cOsHIwE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kNb/B/hd4mdvv3D5n59BibvLoMBQtuzFfWa2vry5y3NOXWV+iW
+	gE09Mvny75quYOL09MdilBWs+7Tb9f1bhozKsiIEAToFAiWeraP6pwGGuXToYGI3vaUlMJop6u/
+	uAoTQC+xAVx+L6rh3Xp4FziTBUTTC7giWD6RqVxPmXNheEMsUca+HfKfG6wPNLKc1xGHJwyIgmg
+	==
+X-Gm-Gg: AYBFou1DNSDTkb8wESrtd3zJf6ZJyGwzlCPyOMsEU5ModAaFf+X4/Gekz3Xs+mvVIZW
+	qwKalHFXmESlS08T/sX+avnLd3pw26cqwfSdK2Kvicj1wQM0o7VM0nx5hrwBvPL9hD4XBPJJEt+
+	XIjE5CcaKMdLgrJqwJGzXaNKurrTWud4S8ARTzwCx6umWGnofB9LLAVakis5Mo+a83cby2O+tp0
+	Hk2b5BKgarYC9u0PZMJEmpSYy9J+WN80UvD73eX/Yum8OXp9PjCUG4rOuZQZWOdHDKcpXgyGlMu
+	2786HknU6/4OC4wbUpNoSF7u4B1cyqMXYTBQ9KwgORwlSbLTCrT8y+ObNfIOVu+yOO+3eZ4zBe8
+	uAzgAFKwThQ0Qr66Rsk+CBgUhzOu+YZuv2E8=
+X-Received: by 2002:a05:620a:2812:b0:939:1ad2:ce7c with SMTP id af79cd13be357-939ea16b999mr1115567485a.29.1789172719192;
+        Fri, 11 Sep 2026 17:25:19 -0700 (PDT)
+X-Received: by 2002:a05:620a:2812:b0:939:1ad2:ce7c with SMTP id af79cd13be357-939ea16b999mr1115562385a.29.1789172718699;
+        Fri, 11 Sep 2026 17:25:18 -0700 (PDT)
+Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-939e807eba7sm368493185a.29.2026.09.11.17.25.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 17:23:29 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: linux-clk@vger.kernel.org
-Cc: Jacky Huang <ychuang3@nuvoton.com>,
-	Shan-Chun Hung <schung@nuvoton.com>,
+        Fri, 11 Sep 2026 17:25:17 -0700 (PDT)
+Date: Fri, 11 Sep 2026 20:25:16 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: Pengpeng Hou <hppiscas@163.com>
+Cc: =?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>,
 	Stephen Boyd <sboyd@kernel.org>,
 	Brian Masney <bmasney+clk@redhat.com>,
 	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	linux-arm-kernel@lists.infradead.org (moderated list:ARM/NUVOTON MA35 ARCHITECTURE),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH RESEND] clk: nuvoton: ma35d1-divider: simplify allocation
-Date: Fri, 11 Sep 2026 17:23:26 -0700
-Message-ID: <20260912002326.237419-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	Andi Shyti <andi@etezian.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	linux-samsung-soc@vger.kernel.org, linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] clk: s2mps11: Propagate OF provider registration failures
+Message-ID: <aqSb7O2gfU0hTuUV@redhat.com>
+References: <20260906033651.84082-1-hppiscas@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260906033651.84082-1-hppiscas@163.com>
+User-Agent: Mutt/2.4.0 (2026-06-19)
 
-Use a flexible array member instead of kcalloc + pointer that is not
-actually const.
+On Sun, Sep 06, 2026 at 11:36:04AM +0800, Pengpeng Hou wrote:
+> s2mps11_clk_probe() ignores of_clk_add_hw_provider() failures, stores
+> driver data and returns success even though DT consumers cannot acquire the
+> registered clocks.
+> 
+> Return the provider error through the existing lookup cleanup path. Skip
+> empty lookup slots while unwinding because S2MPS14 omits its CP clock.
+> 
+> The issue was found by our static-analysis tool and manually reviewed.
+> 
+> Fixes: b228fad50c00 ("clk: s2mps11: Migrate to clk_hw based OF and registration APIs")
+> Assisted-by: gpt 5
 
-Simplifies allocation slightly.
+Assisted-by: LLM
 
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- drivers/clk/nuvoton/clk-ma35d1-divider.c | 20 +++++++-------------
- 1 file changed, 7 insertions(+), 13 deletions(-)
+I'll fix this up on merge.
 
-diff --git a/drivers/clk/nuvoton/clk-ma35d1-divider.c b/drivers/clk/nuvoton/clk-ma35d1-divider.c
-index e992e7c30341..6eaca5b35dd8 100644
---- a/drivers/clk/nuvoton/clk-ma35d1-divider.c
-+++ b/drivers/clk/nuvoton/clk-ma35d1-divider.c
-@@ -17,9 +17,9 @@ struct ma35d1_adc_clk_div {
- 	u8 shift;
- 	u8 width;
- 	u32 mask;
--	const struct clk_div_table *table;
- 	/* protects concurrent access to clock divider registers */
- 	spinlock_t *lock;
-+	struct clk_div_table table[];
- };
- 
- static inline struct ma35d1_adc_clk_div *to_ma35d1_adc_clk_div(struct clk_hw *_hw)
-@@ -83,30 +83,25 @@ struct clk_hw *ma35d1_reg_adc_clkdiv(struct device *dev, const char *name,
- {
- 	struct ma35d1_adc_clk_div *div;
- 	struct clk_init_data init;
--	struct clk_div_table *table;
- 	struct clk_parent_data pdata = { .index = 0 };
- 	u32 max_div, min_div;
- 	struct clk_hw *hw;
- 	int ret;
- 	int i;
- 
--	div = devm_kzalloc(dev, sizeof(*div), GFP_KERNEL);
--	if (!div)
--		return ERR_PTR(-ENOMEM);
--
- 	max_div = clk_div_mask(width) + 1;
- 	min_div = 1;
- 
--	table = devm_kcalloc(dev, max_div + 1, sizeof(*table), GFP_KERNEL);
--	if (!table)
-+	div = devm_kzalloc(dev, struct_size(div, table, max_div + 1), GFP_KERNEL);
-+	if (!div)
- 		return ERR_PTR(-ENOMEM);
- 
- 	for (i = 0; i < max_div; i++) {
--		table[i].val = min_div + i;
--		table[i].div = 2 * table[i].val;
-+		div->table[i].val = min_div + i;
-+		div->table[i].div = 2 * div->table[i].val;
- 	}
--	table[max_div].val = 0;
--	table[max_div].div = 0;
-+	div->table[max_div].val = 0;
-+	div->table[max_div].div = 0;
- 
- 	memset(&init, 0, sizeof(init));
- 	init.name = name;
-@@ -122,7 +117,6 @@ struct clk_hw *ma35d1_reg_adc_clkdiv(struct device *dev, const char *name,
- 	div->mask = mask_bit ? BIT(mask_bit) : 0;
- 	div->lock = lock;
- 	div->hw.init = &init;
--	div->table = table;
- 
- 	hw = &div->hw;
- 	ret = devm_clk_hw_register(dev, hw);
--- 
-2.55.0
+Brian
 
