@@ -1,93 +1,104 @@
-Received: from mta0.migadu.com (out-197.mta0.migadu.com [91.218.175.197])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45DC12DB7B8
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 14:16:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03856340D9D
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 14:20:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789222590; cv=none; b=IGISOyBLz9F5r44+yLN3CkK+9vRZcXCKLpqHVAaqhid7/+nGSozV2+W1qsFOvWoPg8yBC+NODJPzLPf0zLPdozk0QGHMAl5/YFsa5O37TGgIxHYLizu0XGzDzVGt0eFzNeUXjRzku9QnVrxjEemoVwpcanr56IZ4QE3YTYr0+vg=
+	t=1789222823; cv=none; b=Rplcpt+AyfpUKx5jTi7xmqTMf8D0PU5jtPWP5VoGQeyTDrurdaGtKO3OZLScfbMIAKi3aOSJz4IEqPhoj5105GOFiRSBQOXF2HDuXp2O5DxVpYc2V+i+MvQYsL5+I27Ifu3zp2zj9BhTYzSfkT1b97DcROIzJuCv9wleG4mP5Bs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789222590; c=relaxed/simple;
-	bh=gWTv9m159o9tqPhsbO31jxi6b8U5wx9tbWutAlj+Ycc=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=YUzgW5h4MyALzlcOomMG3Z7x1A+28gjR8ugEZmzDf4lzhaGXP1QQ41yYn0pND1nNDO/cjV3/v6sxqzbxB2X/sy+D4aHe54TDSXN74NxgjKns8lLa02EYNv9ofx6M+9RYHje9PnSxMJe+0GUseBtZpV/t+HknCUuhdHBa1+NAMt0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=Pf/FMT+s; arc=none smtp.client-ip=91.218.175.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
+	s=arc-20240116; t=1789222823; c=relaxed/simple;
+	bh=biqxF2WqF9FsEWFi0SeRE5ItXS6SATDbQxMgWQtNwgc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lO61woYv011jiT29ijbdewwmAWvF29Lv91MqZE5skPH+3cmYlH0FgQW3xPoIeHTtnVKo1EnHmYekLbotvfvc8JWHgesZbPIdPSHZHMUeL2HhrJbjZ5iho9tRNJpGv5V2kGZihmiMSchB5Ed/5j0xac+QMapJGxNKmuH25sJd/P0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X9wS6sgy; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="Pf/FMT+s"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=gWTv9m159o9tqPhsbO31jxi6b8U5wx9tbWutAlj+Ycc=;
- c=simple/simple; d=cknow-tech.com;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789222584; v=1; x=1789827384;
- b=Pf/FMT+szYm1C4slkIL1AF2TsUmqIYizkP1pOg5AzF9KLVjHmE53rDd5eygW2NYJLrvEyKpD
- S3afT/SP68ZH3YxA1LdSwrKLFEoVt5L4rTVTEtEt4TDTf5t6g1KuC9SxxhjdusU4HuIn87MGWxs
- pK7W/gzv8yFWrmLE2+m8kBqcNsJzTw7x0oR9xO1QEZAxA5WMsPYhumtrKtG38eNnEcsOGbWCn9Z
- NFszoRXJnx5n7aFkj+7NRDldtr2GxSCe1zBFFPLak1YbmlsiGz6ifWHr88tlb8JOEhnWfQybrUh
- ZgKR5VJKFwJhlDTxmNXarAdveD8147OvllSxL/VvDqLbQ==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 771c737939bb75a4;
-	Sat, 12 Sep 2026 14:16:24 +0000
-X-Mizu-Trace-ID: 771c737939bb75a4
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X9wS6sgy"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39d654f02baso458868a91.3
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 07:20:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789222821; x=1789827621; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=we0ycuhD13NPMWrxsYvOqSZt4f6T+4762jU+NZLRKXc=;
+        b=X9wS6sgyPv70YucXExX/1Ce4CRnkgEBlcbO4tXFe2BDHC5ArRqa3qtidYPXbc+Eb86
+         t0mtTuUgnC3wg6ofDeOJ0aTvX3bUhY5Ktd7u/+uecMOcrv+vBAhjk/aq9zz+u/HFyO+/
+         j35JVG5kq7mNh+HuEE3Yye9zQxxnTCTJ+GuoOyhGUkS5sUPnXXGr4/ZHm0BPUWIbpty1
+         Kq4WauWQpzAb/3mjBQtH6WP4wQm4W4uV+2X8I5QHGgF3Jgx7UaiH3mOKt2who7ft2dck
+         plOwJ3A5714iuVwbgSw5ymHhx7MgqNunxTATC7VsY4aQe6zVBWd+3OgROJDd1P+Xs1Yr
+         XOsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789222821; x=1789827621;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=we0ycuhD13NPMWrxsYvOqSZt4f6T+4762jU+NZLRKXc=;
+        b=jW+cqhq4je13QUvQhBDCJ0H7WHWCMieRC+/2dglNKGmsRBLdZBuRDry8eqN70vYTF8
+         v823vJFa7tuP63km4wOBZX3XGi2v35NZUdkcJc2nUjsNV3bgUpP9KiR0JRIs55j50REe
+         7tdlqnFZ0w0Ou8KlsRl+SE2QtLD6RGcdSp+bbuQjkdhLW6ReqEw5DGT12o/JRLpCWXlT
+         0fc27yCtFAiiNeXOmgLibavAhYGN4BA1nPde3Rv6ZZF2Jp2zi/Wh3aiojO/nrP4Ze7OH
+         yBIF8n8gGMMNs3vQgmoBSfLAQCQ3aOU+XLF+30QyJqMZk2uctcV39C7L/HTfK5tr8vqY
+         qhzA==
+X-Forwarded-Encrypted: i=1; AKwUvBz2rwA7xH9sLWCBVSRR5Fe/9F8XklFt6dtwFvWNts6pXHF/1lVC+SM54+nNhxRP0npf4y/OdK1V1aFdsZQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++kDeJBj4rIhM2pSYxElBWL0hW/wowSQDl/vFkFtkp6VBqzwltN7
+	M191CR8OGAjlkQ6bJXzx+Wtdejavyc0rITtmYwH63occ9FZJo+bOSV/a
+X-Gm-Gg: AYBFou0el6sf+eqVvfvtLC2F3qO02Q5HpxHs0VCjTA5IUfY1TGn31IZquXLz/UzDIMR
+	Xwl0hIOkN2i4VzwuZPKBP6KJjow1NwR7szaYbLsqaKY5N2IPH14p8drycu3RTNsjJF155AMHvNb
+	b1zzjdFWt4/AWPCTbU4pN9eQsYoioZvUQ7O4DJ6DH5mApdUvRYyRsqYohWIk/DvTejWaDSjfCgA
+	TuCujvhVplBm3wDlBMcCRP6X+exLTmigLmZ6ZoCnQu3Xtd/NmosPm8JedUybUMMYqM3Kv43OCfK
+	wfi2JSiexMzSF+bLi1agewCuUzlbpt1z3+Mma+8tzcYJw1yfTqh/YRTbgHOrdloJzPhgHHYawrL
+	W9bw0or6nLSqVm7HTpdcDe+WYthgO2lEIVASb7AXo8GPSdCHT58QtR72fmQRvmsJTwOYuYnwvsk
+	8rNfAJTEGe0cO9WBIhHWZ4ZjbRGv+sZcLIq3+F77Dts2x8qYYLNULpWzh40u+H5mNiBEn9qhgbI
+	hidPb0LM7PL
+X-Received: by 2002:a17:90b:2dcd:b0:398:dcfe:967a with SMTP id 98e67ed59e1d1-39dbc6d53e5mr5724044a91.17.1789222821301;
+        Sat, 12 Sep 2026 07:20:21 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d95994375sm10641268a91.17.2026.09.12.07.20.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 12 Sep 2026 07:20:20 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Sat, 12 Sep 2026 07:20:19 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>
+Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-doc@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>
+Subject: Re: [PATCH v2 1/4] hwmon: (pmbus/core) increase number of phases and
+ add new mask
+Message-ID: <5d6bb7de-5cd2-4708-b894-fe8648a9c49c@roeck-us.net>
+References: <20260911-hwmon-max20826-support-v2-0-5e30cbd97d84@analog.com>
+ <20260911-hwmon-max20826-support-v2-1-5e30cbd97d84@analog.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 12 Sep 2026 16:16:22 +0200
-Message-Id: <DLDEGZ68QQ19.1MJEB7QOK4G7T@cknow-tech.com>
-Cc: "Ricardo Pardini" <ricardo@pardini.net>, <devicetree@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>,
- <linux-rockchip@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] arm64: dts: rockchip: Fix i2c6 clock-frequency on
- NanoPC-T6
-From: "Diederik de Haas" <diederik@cknow-tech.com>
-To: "Heiko Stuebner" <heiko@sntech.de>, "Rob Herring" <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
- <conor+dt@kernel.org>, "Diederik de Haas" <diederik@cknow-tech.com>
-X-Mailer: aerc 0.22.0-9-ge948bb7230f4
-References: <20260911152911.2088363-1-diederik@cknow-tech.com>
- <2071782.usQuhbGJ8B@phil>
-In-Reply-To: <2071782.usQuhbGJ8B@phil>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260911-hwmon-max20826-support-v2-1-5e30cbd97d84@analog.com>
 
-On Sat Sep 12, 2026 at 2:41 PM CEST, Heiko Stuebner wrote:
-> Am Freitag, 11. September 2026, 17:28:33 Mitteleurop=C3=A4ische Sommerzei=
-t schrieb Diederik de Haas:
->> The i2c6 bus needs to run at 200kHz, because at the default frequency of
->> 100kHz it may fail to find the RTC resulting in warnings/errors like
->>=20
->>   rtc-hym8563 6-0051: no valid clock/calendar values available
->>   rtc-hym8563 6-0051: hctosys: unable to read the hardware clock
->>=20
->> But only sometimes. This should not happen when there is a battery backi=
-ng
->> the RTC, yet it does ... sometimes.
->
-> I'm confused, shouldn't a slower clock always work?
-> Like I understand how a clock that is too fast can cause issues due
-> to hardware limitations, but running the bus slower somehow shouldn't
-> cause issues?
+On Fri, Sep 11, 2026 at 02:53:37PM +0100, Nuno Sá wrote:
+> Increase the number of phases to 16 as a new upcoming device supports
+> such a number.
+> 
+> While at it, add a new mask for controlling the source of the output
+> voltage.
+> 
+> Signed-off-by: Nuno Sá <nuno.sa@analog.com>
 
-Impeccable timing ... as I was just about to retract this patch.
+Applied.
 
-In all my testing I regularly got those error/warning on 100kHz and not
-once with 200kHz ... until just now.
-My reasoning was that it was too slow to respond making the system/driver
-think it wasn't there and thus causing those error/warning.
-
-In the downstream kernel it is set to 200kHz and in my testing the downstre=
-am
-image (with that kernel), I have not once seen those error/warning.
-So I figured that the 100kHz was the problem.
-
-But that's all null and void as I now did get the error/warning with 200kHz=
-.
-
-So please ignore/drop this and sorry for the noise.
-
-Diederik
+Thanks,
+Guenter
