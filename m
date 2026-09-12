@@ -1,116 +1,99 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36A244BEE5E
-	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 00:05:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3851E8635D
+	for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 00:05:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.202.193.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789171532; cv=none; b=ZdWUWAe0CpfGX+/V2IUB/ktzLG23J8TmU8oym1vmFDrx3DvBE5RmrQBwKr2luuapyIXfEqwE0tHEyCNZkJfIZ5kc/nwY+GScjECSVGSd5pk/04iPYlhQa5VOY7KzEiHJar9cz75XO6RHRk8qer7kORkzC4ydROb/Z8F++sO4N0o=
+	t=1789171552; cv=none; b=sSUS6PG00fwEfohMtbZW1Hza7HOGy5sUHF3Iezy+tibIuuPMn30+kN6UlYuSnkGS7eO4J7L2EUTyM0dyMKoZwOC8Tjo5FnkAznL137ioBxI+Olb9q97VejfRR4UcWITzTPZDedF7cvWgiVRkZZ1jiBBQQQVp6Ln5KF3pLNZKBzc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789171532; c=relaxed/simple;
-	bh=/rAmJh/EIGGw58+WmpOp3WZLjb4iciRyMYt4abh+ONQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lmGzZSiO3ZfM6265iOEBQDgbHgqzouhZZqjn4haXHENZigos4p6w8vrnVr+FbjCisfKG/sjNllaD55S4T8RQV9jSSJ3Q6fmujN1qvNyWYabonYfzVf3eSCPN0Y/7/Lz+DrY4nl7D+tIVc3lxqC5djH4ivf8JCtOV4dFwXjmtLnk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K4xlz+km; arc=none smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789171552; c=relaxed/simple;
+	bh=bEuJl6tbZwwTV8fGbs7IcdzniD+J04Zd/HtTkYcb35c=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ag6gs3T7IZhH11LrO+XMv+76zC3848TeqbsnBW/j9uysWznpBJTrUOR1XV2kIBmF+74t5Og2LlabnONB/bhVJTYBuaOeOHYS0EdB8VS0WI47OvU9usZMu+u8XGUujeg1QTCk4gPemFoRpYoBS0c7LKStr9+6cPSW3AIG8euzd74=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=c127.dev; spf=pass smtp.mailfrom=c127.dev; dkim=pass (2048-bit key) header.d=c127.dev header.i=@c127.dev header.b=pSUHe7qL; dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b=JPTE+ygz; arc=none smtp.client-ip=34.202.193.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=c127.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=c127.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K4xlz+km"
-Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-5309d6188e1so5462801cf.2
-        for <linux-kernel@vger.kernel.org>; Fri, 11 Sep 2026 17:05:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789171530; x=1789776330; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kXFkUUSERusmiOZxFKcpCM04OYHSm47q3Lv6FIZm0GU=;
-        b=K4xlz+km1Skegega25yy4h9wPGY94a7XNqS2RjAiO3K3R/032e5s6m9lqJ2ERRx2HI
-         Vhn3+XpFZUdjy0IrYJWD8otSathNu4U5tRCkhU/pnEZyp8BbvOMTHfSkyxOEq2RdvmDj
-         s8krs5pOOev7d6VDfPaUNFFoLGKw1FDaMFXdhauRh9nltkOE/rW/1ObS93SVODuQI1lU
-         27monnh5Rwom6B039liTE8CKz+yVow8Tfq7iNg4h462JMkRUzbDnnIo7fNEvR4uIqikW
-         UQXyP3u/cdgGvsZfeM2NVjmnDq7XATuxXxJIh0Dp30t+xKfDHgy+D9QyJqLM2AP1xXbw
-         vgbA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789171530; x=1789776330;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kXFkUUSERusmiOZxFKcpCM04OYHSm47q3Lv6FIZm0GU=;
-        b=WrOa64EdXTS+nRSA2YxZAopqszoAVnruAVOiSxzI9Jwyb5JUi79GD64dOJPQPG8NNg
-         I/yzX6KkjgxOv69i031EWNFHbO5t9tfzuAHUhXH4q9MBNMo308TxOAPevEVHdjAOfiTf
-         EUoBbfr+DXImm8NfAtJrAqfWSzaW4JqRfSgsuGhrgLQanlFY6VujKQDcbgHAq/lsRGoG
-         fOs/oTs8uJJpaqeC+GyzS/SwDi2yjfTDHFpsvzTIUW91mGmzStNMjN/dv/AOloJ4nZMa
-         Yzzrb+b+hvB4RoU2Kx2KnfPsMqOKBAcp513SezBth/YqzcJd7Zsw7siYEAa2hbLaYkAr
-         UM3g==
-X-Forwarded-Encrypted: i=1; AKwUvBxMQgX0yOlYMcGlqprOuoIvZwSp9D1QNBRW54pOnqCidec/Kkmmz4KL16BcWFMUknDMbHqvZoMS1LooSuA=@vger.kernel.org
-X-Gm-Message-State: AFuF++khaWaInG6P5e/Kbe9wkisvuueD5y4jDOKfTnidfYxmQz9nJ3Rs
-	E3p5uRh74Aj97ybHgpzYRGhmbrJ+h7IjTLW4TLJfwoQ1pWcuIker46Rr
-X-Gm-Gg: AYBFou17WOz047h2Nik011DU42MI8SlVpLMKpwtCJBdC/AN/U4dgJUCASX8U+TJRP7l
-	wcug8odNStldUU6WYawWLStfqnNTcW2I3LGT3BiaFQgW/smruSp4CmG3evb1zC38mnvCPStG/rD
-	sVi/U6muVbC/g7MObeiUcM9xbUTbBdL57Z38TxO/5p3pjFVX1zclDqoxSOO4vGOHBoZqCL2DwV+
-	MXP8iUeCRpewRleyW3Vmxg3z+WQsVZNq6PoedntNYA5dHbvekIcOwQDi7e2zU+FzuPu+MKweKkq
-	MQeibdmc5PYCW+54il24SBbOarLwg2hE1juaXKKEfBPs1S/r0rID2lgbHasbenWA/JLabWU/J5Z
-	04zxOorDvAegWNAr+L31UQg5Z9FueeNx7xNTkYqgkzp/Cjwb1gvjbBXgsDOMNp4pkX3mj6H9OBP
-	uAc3icJWJfi6ul1HVF38mdV0W3XTp9xCk3TgheEOrFUJLNpXUY4qJuDFjX8d7y8vM2eUb8rBbeH
-	M68UoqfGbPShHptmPCPaOmd/h+aOrD8nfLGcGhj5nZw/4np9qQ3Mm6kjN5nXv8r6U0NlThJu6bW
-	9KCeQkZJxYKFCy+8Hszjae2XBoPSspH2PwPIsCStrnFk7HE0
-X-Received: by 2002:a05:622a:4d8d:b0:530:430e:8126 with SMTP id d75a77b69052e-530c876fcfemr131514161cf.47.1789171530137;
-        Fri, 11 Sep 2026 17:05:30 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e35])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f47a239sm32910836d6.26.2026.09.11.17.05.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 17:05:29 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: linux-clk@vger.kernel.org
-Cc: Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	=?UTF-8?q?Andreas=20F=C3=A4rber?= <afaerber@suse.de>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	linux-arm-kernel@lists.infradead.org (moderated list:ARM/ACTIONS SEMI ARCHITECTURE),
-	linux-actions@lists.infradead.org (moderated list:ARM/ACTIONS SEMI ARCHITECTURE),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCHv2] clk: actions: owl-pll: cast delay to unsigned long for udelay()
-Date: Fri, 11 Sep 2026 17:05:27 -0700
-Message-ID: <20260912000527.231245-1-rosenp@gmail.com>
+	dkim=pass (2048-bit key) header.d=c127.dev header.i=@c127.dev header.b="pSUHe7qL";
+	dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b="JPTE+ygz"
+DKIM-Signature: a=rsa-sha256; b=pSUHe7qL9M6cTkt/HKYb3eo5nQep5aPmRqx+xKIfyKoactwZMtXDM3J4Xw0wEZTUMKhYI04+TaEOCJ+QTyvJMKFpWHwR90M78mn9AqqPDuztPky73kW/d53ETqIcvhLkGop/vd+hTESAY68KmWXNFLDOLLa0tbDHfw4CKZrsi22PToL2Oii9w+OqReEUAmUODD716e9xd6pXHeoZPYHO5p7M5rCTjGlnGRU6FPFuTQVHg4zC50jJk7wZkVIBNWGoBPo9ghEvKFIN4EsUtLtvgBFZE6VS9tnnHFK2vaHLohZJJ+201F8aZ+MZqr3QS1YOivBjxFJ7e+uPLZbo5V+tPQ==; s=purelymail1; d=c127.dev; v=1; bh=bEuJl6tbZwwTV8fGbs7IcdzniD+J04Zd/HtTkYcb35c=; h=Received:From:To:Subject:Date;
+DKIM-Signature: a=rsa-sha256; b=JPTE+ygzkg1E+W5yILE+IuWPVnn595+I5i8x/RVe/uXOaInPVKPdTfA+woNA0mMC7UxyuMnBUGMZaCs+IW/L3cDHfAp/hPhiTjeO6IABDyXEJCE87OefZcfuW/X/GqBWyXS6YLCdxGSc50QmEoL0AMnvdE9idrCDej3d6o5m7vgaMHqkKqr6Vd6f7RfxK94504OZHMOMbesjsqbmOH9W9K74FjUrDqcCj+f3aOkSEd04ajkq0WZb5/XSW60gMOqJ78e+uqLEzwzv9kcJt+VYTjzAgYBdk01SX1etbutbOraJtgKQLJOmRAu24QPuUj42za3XkH+LKaZ8gwrYcuukgQ==; s=purelymail1; d=purelymail.com; v=1; bh=bEuJl6tbZwwTV8fGbs7IcdzniD+J04Zd/HtTkYcb35c=; h=Feedback-ID:Received:From:To:Subject:Date;
+Feedback-ID: 1017243:43747:null:purelymail
+X-Pm-Original-To: linux-kernel@vger.kernel.org
+Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id -621174798;
+          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+          Sat, 12 Sep 2026 00:05:21 +0000 (UTC)
+From: Johan Alvarado <contact@c127.dev>
+To: broonie@kernel.org,
+	md.alam@oss.qualcomm.com
+Cc: Johan Alvarado <contact@c127.dev>,
+	sashiko-reviews@lists.linux.dev,
+	j4g8y7@gmail.com,
+	konradybcio@kernel.org,
+	pengpeng@iscas.ac.cn,
+	miquel.raynal@bootlin.com,
+	quic_varada@quicinc.com,
+	quic_srichara@quicinc.com,
+	linux-spi@vger.kernel.org,
+	linux-mtd@lists.infradead.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] spi: spi-qpic-snand: drop the redundant ECC context handling
+Date: Fri, 11 Sep 2026 19:05:13 -0500
+Message-ID: <20260912000516.653989-1-contact@c127.dev>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260911191010.990EE1F000FF@smtp.kernel.org>
+References: <20260911184416.109790-1-contact@c127.dev> <20260911184416.109790-3-contact@c127.dev> <20260911191010.990EE1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+X-MIME-Autoconverted: from 8bit to quoted-printable by Purelymail
+Content-Type: text/plain; charset=UTF-8
 
-The 'delay' field in struct owl_pll_hw is u8, but udelay() internally
-compares its argument against MAX_UDELAY_MS * 1000 (2000). Since a u8
-can never exceed 255, the compiler warns of a tautological comparison
-that is always false:
+On Fri, Sep 11, 2026 at 07:10:10PM +0000, sashiko-bot@kernel.org wrote:
+> Is this assumption accurate for all configurations?
+> If the device tree specifies ON-DIE or software ECC (nand,ecc-engine =3D
+> "on-die"), or if a non-NAND SPI memory device (like spi-nor) is attached =
+to
+> this controller, won't the host's init_ctx be bypassed?
 
-  drivers/clk/actions/owl-pll.c:189:2: error: result of comparison of
-  constant 2000 with expression of type 'u8' is always false
+The engine is selected by the nand-ecc-engine phandle, or by
+nand-no-ecc-engine and nand-use-soft-ecc-engine; the core does not read a
+nand,ecc-engine =3D "on-die" property. A chip node that phandles itself, or
+that omits the property and takes the SPI-NAND default, does land on the
+on-die engine, and qcom_spi_ecc_init_ctx_pipelined() is then never called.
 
-Cast the delay value to unsigned long to widen the type and silence the
-W=1 warning without changing behavior.
+That configuration has never worked. The page helpers are gated on
+qspi->page_rw and qspi->oob_rw, which only
+qcom_spi_ecc_prepare_io_req_pipelined() sets, so qcom_spi_read_page()
+returns 0 with the buffer untouched while spi_mem_no_dirmap_read() reports
+the full length as read. Removing the phandle on an IPQ5018 board confirms
+it: the chip probes, then UBI reports "no valid UBI magic found inside
+mtd15" and "failed to attach mtd13, error -22". A block erase there took
+cfg0_raw and cfg1_raw from the zeroed scratch struct, which is a wrong
+erase configuration rather than a working one. So this patch changes no
+configuration that works today, and the three in-tree boards using this
+controller all set nand-ecc-engine =3D <&qpic_nand>.
 
-Assisted-by: LLM
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- v2: fix uelay typo. mention W=1.
- drivers/clk/actions/owl-pll.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+For spi-nor, the binding documents a spi-nand child only, and
+qcom_spi_cmd_mapping() returns -EOPNOTSUPP for opcodes outside the
+SPI-NAND set, RDSR 0x05 and SFDP 0x5A among them, so such a probe fails
+before an mtd is registered.
 
-diff --git a/drivers/clk/actions/owl-pll.c b/drivers/clk/actions/owl-pll.c
-index 869690b79cc1..5e30ce35f2f5 100644
---- a/drivers/clk/actions/owl-pll.c
-+++ b/drivers/clk/actions/owl-pll.c
-@@ -186,7 +186,7 @@ static int owl_pll_set_rate(struct clk_hw *hw, unsigned long rate,
- 
- 	regmap_write(common->regmap, pll_hw->reg, reg);
- 
--	udelay(pll_hw->delay);
-+	udelay((unsigned long)pll_hw->delay);
- 
- 	return 0;
- }
--- 
-2.55.0
+A mismatched device tree should still not panic, and the silent read is
+the worse half of it. Refusing page access and block erase in
+qcom_spi_exec_op() while the context is NULL covers both. I have that
+patch ready and will send it on top once this series is applied, so it
+does not hold anything here up. It cannot go in qcom_spi_supports_op():
+spinand_select_op_variant() uses that callback to choose the cache op
+templates during detection, long before any ECC context exists, so
+rejecting page operations there leaves no variant supported and the chip
+fails to probe with "unknown raw ID".
 
+Best regards,
+Johan
