@@ -1,47 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D6A138333F
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 17:17:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD7B338655D;
+	Sun, 13 Sep 2026 17:17:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789319849; cv=none; b=ttuQ7pghPcP+q6JLeWHPAc4MOev0iJt8XKaN47guKvHuwk0LK20xFL+8+ApiBqDd/MYMdTF0b8rtwDjkIbeZMrwOivrphaAS1T4Jv3Wx7/XXHw08wfbSJ+l++g/SyYgtssfkBLKgvoYDv+XHPkvp9kMkxOHFs8GelnDj3KYEgAw=
+	t=1789319851; cv=none; b=dlEKoqwjPc1qL/kCRvoeaOZduyE9gj+k99YLZ9ZgojUlaupVATz1Pqv+I4075iKhGzqMlDGF/2ZREQDt2NeVNhCuadWW6wbxPoPiEHbgigyR9TJdxgxFXzAPMx68S1Z6O5dPvJISfManRwE82/sKhBh0Tt6H6e5/CFp8E18guOA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789319849; c=relaxed/simple;
-	bh=shyFsPe6/+8qpbPdileocoW4dxnfkSl2KYeEpR/6IUs=;
+	s=arc-20240116; t=1789319851; c=relaxed/simple;
+	bh=Hjb3jb3USV71UqUDGp095Qnz40Hf9kgKYHVuv3k5n7s=;
 	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type; b=DNuTuencmwAki7SwSaGAZkXW29guZJYZj5e64WdHtvKlyHpRLXwRo7/atulUHpGRRkd2CQ17vrNsur3p6JtS3idCXXnj5ibfJe9j/71EReYrrqao8YsZeIctGlYuj4HKcC2MsNu+7VYyGKfYrzpdFDzZQThnac3ZVIGWzINwDW4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nJCzminw; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type; b=MLMwOjEZFpJdg5/KMCXeVxz+cckVAzNJsNPfWjuAVWs6KrMqlX1+xC1IF4p/U9XASNIwCGLd58wAOololuwdE+PnrPXe22tNwslsk+IbISDtxRVJ17GGu2jb+5gWJWIYZthBZ1k77kKGoWdzQHlHnPUaHz2C0/5jlNpkd1G6GDc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nL2fkYtQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nJCzminw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D9701F00899;
-	Sun, 13 Sep 2026 17:17:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nL2fkYtQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3BFE1F00898;
+	Sun, 13 Sep 2026 17:17:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789319844;
-	bh=rjxp0fEObwYxGRblo6C9NEX7rlxIdttxKlcZc1d/Dps=;
+	s=k20260515; t=1789319843;
+	bh=Raxewkw96Z82Y9nRPZmzJgCe1hQ47cf/cMMXBMB6o0o=;
 	h=Date:From:To:Cc:Subject:References;
-	b=nJCzminwRh4mI57BQ+FvqEb+9enEcIy5Ml9ZLp587+OyANiN2VnoI3sB0apL+nf3C
-	 Pg/GnkgX6raGgsiVCWWrQFHPcNNVyLz2CU9XBmSltaGqr3tqaDD3HcCzVURKACdlQo
-	 K5QSnJklKMiYsJskX4itEDr9xmP2w9pZHcl53eFVt9QraHc4KVCPOQnZEJ5nBue1Zu
-	 7+s7iOlzixqNWbfmWWHUpQKgNBfhdN+rqj3mR46M50e/apQisBXffcGmdiqUYcFJ/3
-	 NgYugUF1XrDQ4e4YzEJfsqtqHcxQt05Nbh2lLL0Q44Vu0FttcY0voToDGprTLhD8H6
-	 B5+hYfs2zrJmg==
+	b=nL2fkYtQ8ohLg8H5gnFrc29W83XppU0ipP2Riu+6c88MNitCroygteSukxj/cqAKr
+	 94lMk263pDoVyHIfRW2O5VATDjVFjAq43EvYrihLWCrtddTcH3Gq7ttSIIgMYpGy/g
+	 ZSDCV/QK/m5zUU6UTpLx8YDHcDguRUc1g0+ldFs8eY5zS27IFzedrnXyQ2pMkSc5O9
+	 8K1OLQ8wpmrlHWikZOjBKsIHxkNW72favqWKn5GQ5+7SbCt3qHm0s5KwXh76kJP+ce
+	 rm73oyPzU8xk/LSbM4TQPL6N/P++5D0qYwgYSz2R7V1mp5ObTI6EUiBed8KrFTUucN
+	 Olr/y2IsT3u2w==
 Received: from rostedt by gandalf with local (Exim 4.99.4)
 	(envelope-from <rostedt@kernel.org>)
-	id 1x5nqs-0000000AQaA-0Ogv;
-	Sun, 13 Sep 2026 13:18:50 -0400
-Message-ID: <20260913171849.896180781@kernel.org>
+	id 1x5nqr-0000000AQZc-3fRE;
+	Sun, 13 Sep 2026 13:18:49 -0400
+Message-ID: <20260913171849.676672435@kernel.org>
 User-Agent: quilt/0.69
-Date: Sun, 13 Sep 2026 13:18:02 -0400
+Date: Sun, 13 Sep 2026 13:18:01 -0400
 From: Steven Rostedt <rostedt@kernel.org>
 To: linux-kernel@vger.kernel.org
 Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  Mark Rutland <mark.rutland@arm.com>,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
  Andrew Morton <akpm@linux-foundation.org>,
- Vincent Donnefort <vdonnefort@google.com>
-Subject: [for-linus][PATCH 3/5] tracing/remotes: Account for ring buffer page header in size
- calculation
+ stable@vger.kernel.org,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ =?UTF-8?q?Ali=20Ahmet=20Memi=C5=9F?= <aliamemis@disroot.org>
+Subject: [for-linus][PATCH 2/5] tracing: Dont dereference trace_event_file in deferred trigger free
 References: <20260913171759.469375546@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -51,73 +52,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 
-From: Vincent Donnefort <vdonnefort@google.com>
+From: =?UTF-8?q?Ali=20Ahmet=20Memi=C5=9F?= <aliamemis@disroot.org>
 
-trace_buffer_desc_size() and trace_remote_alloc_buffer() undercount the
-required pages because every ring buffer page contains a header
-(BUF_PAGE_HDR_SIZE). Account for that header to ensure allocated remote
-ring buffers aren't smaller than requested by the user.
+The enable_event trigger defers trace_event_put_ref() to the
+trigger free kthread, but the trace_event_file can already be freed
+when the instance is removed.
 
-The newly introduced helper __calc_nr_pages_ring_buffer_desc() can
-return a value that overflows the descriptor nr_pages field (32 bits).
+Keep the trace_event_call directly in enable_trigger_data so the
+deferred free does not access the freed trace_event_file.
 
-Link: https://patch.msgid.link/20260911193937.602202-2-vdonnefort@google.com
-Fixes: 2e67fabd8b77 ("ring-buffer: Introduce ring-buffer remotes")
-Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
+Cc: stable@vger.kernel.org
+Fixes: e091351b3881 ("tracing: Delay module ref count for "enable_event" trigger")
+Reported-by: Alexander Gordeev <agordeev@linux.ibm.com>
+Closes: https://lore.kernel.org/all/20260828134340.2501683A24-agordeev@linux.ibm.com/
+Link: https://patch.msgid.link/20260911155650.354844-1-aliamemis@disroot.org
+Signed-off-by: Ali Ahmet Memiş <aliamemis@disroot.org>
 Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 ---
- include/linux/ring_buffer.h | 15 +++++++++++++--
- kernel/trace/trace_remote.c |  2 +-
- 2 files changed, 14 insertions(+), 3 deletions(-)
+ kernel/trace/trace.h                | 1 +
+ kernel/trace/trace_events_trigger.c | 4 +++-
+ 2 files changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/include/linux/ring_buffer.h b/include/linux/ring_buffer.h
-index afc7daa6ee7d..11bffb6a142d 100644
---- a/include/linux/ring_buffer.h
-+++ b/include/linux/ring_buffer.h
-@@ -3,8 +3,9 @@
- #define _LINUX_RING_BUFFER_H
+diff --git a/kernel/trace/trace.h b/kernel/trace/trace.h
+index bd3c8f80300f..3749485a7d85 100644
+--- a/kernel/trace/trace.h
++++ b/kernel/trace/trace.h
+@@ -1953,6 +1953,7 @@ struct event_trigger_data {
  
- #include <linux/mm.h>
--#include <linux/seq_file.h>
- #include <linux/poll.h>
-+#include <linux/ring_buffer_types.h>
-+#include <linux/seq_file.h>
+ struct enable_trigger_data {
+ 	struct trace_event_file		*file;
++	struct trace_event_call		*call;
+ 	bool				enable;
+ 	bool				hist;
+ };
+diff --git a/kernel/trace/trace_events_trigger.c b/kernel/trace/trace_events_trigger.c
+index 149300cc5e8a..4d2fde996c0f 100644
+--- a/kernel/trace/trace_events_trigger.c
++++ b/kernel/trace/trace_events_trigger.c
+@@ -1728,7 +1728,8 @@ static void enable_trigger_private_data_free(struct event_trigger_data *data)
+ {
+ 	struct enable_trigger_data *enable_data = data->private_data;
  
- #include <uapi/linux/trace_mmap.h>
- 
-@@ -279,9 +280,19 @@ static inline struct ring_buffer_desc *__first_ring_buffer_desc(struct trace_buf
- 	return (struct ring_buffer_desc *)(&desc->__data[0]);
+-	trace_event_put_ref(enable_data->file->event_call);
++	/* The file may already be freed here, only the call is kept alive */
++	trace_event_put_ref(enable_data->call);
+ 	kfree(enable_data);
  }
  
-+/*
-+ * Returns the number of pages for a ring_buffer_desc. The caller must ensure it
-+ * does not overflow ring_buffer_desc::nr_page_va.
-+ */
-+static inline unsigned long __calc_nr_pages_ring_buffer_desc(size_t size)
-+{
-+	/* Takes into account the reader page */
-+	return max(DIV_ROUND_UP(size, PAGE_SIZE - BUF_PAGE_HDR_SIZE), 2UL) + 1;
-+}
-+
- static inline size_t trace_buffer_desc_size(size_t buffer_size, unsigned int nr_cpus)
- {
--	unsigned int nr_pages = max(DIV_ROUND_UP(buffer_size, PAGE_SIZE), 2UL) + 1;
-+	unsigned long nr_pages = __calc_nr_pages_ring_buffer_desc(buffer_size);
- 	struct ring_buffer_desc *rbdesc;
+@@ -1801,6 +1802,7 @@ int event_enable_trigger_parse(struct event_command *cmd_ops,
+ 	enable_data->hist = hist;
+ 	enable_data->enable = enable;
+ 	enable_data->file = event_enable_file;
++	enable_data->call = event_enable_file->event_call;
  
- 	return size_add(offsetof(struct trace_buffer_desc, __data),
-diff --git a/kernel/trace/trace_remote.c b/kernel/trace/trace_remote.c
-index 75fa1ffc4c96..c17902e42ef1 100644
---- a/kernel/trace/trace_remote.c
-+++ b/kernel/trace/trace_remote.c
-@@ -980,7 +980,7 @@ int trace_remote_alloc_buffer(struct trace_buffer_desc *desc, size_t desc_size,
- 			      const struct cpumask *cpumask)
- {
- 	size_t min_desc_size = trace_buffer_desc_size(buffer_size, cpumask_weight(cpumask));
--	unsigned int nr_pages = max(DIV_ROUND_UP(buffer_size, PAGE_SIZE), 2UL) + 1;
-+	unsigned int nr_pages = __calc_nr_pages_ring_buffer_desc(buffer_size);
- 	struct ring_buffer_desc *rb_desc;
- 	int cpu, ret = -ENOMEM;
- 
+ 	trigger_data = trigger_data_alloc(cmd_ops, cmd, param, enable_data);
+ 	if (!trigger_data)
 -- 
 2.53.0
