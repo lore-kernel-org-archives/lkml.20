@@ -1,353 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42E2E376BCC;
-	Sun, 13 Sep 2026 02:38:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53C97372B45;
+	Sun, 13 Sep 2026 02:45:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789267089; cv=none; b=BBJTifS8Kt6K4JZkk3GjwMcoZlYTHe88meg/OiejM/qdX4du40KoPjLZBrDbeknILSv1oh/uFYB7opeeln94E9miaTDIeHXCQUHAkybB9fddr5HFEXu0mJvmFNTAe9k144saOFIqrDhJWMKL/RQffU50z+4AaOrVZC5/y/YSWws=
+	t=1789267541; cv=none; b=gTtNBnVqTYy/nCSMqFrqkfayO89fRVoNPvsfwTUFzZZbKIhoJEcTpQYNpPtUpjB+bUdyrl1G39Jc1/bJsk7xwdm76IGysCzS68x/7LpXmcvL3NaLxEQe9mhdYwqE9GCnRsV9l65eKDvXWH47R1g5lBUVkoQ7+rQE2oxYnHNiXLk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789267089; c=relaxed/simple;
-	bh=1p96QVsI041xiggk+9kJfF92XF3Bp24d0J5zfXI9ZeM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=SDLRny7ZkuhVylPIO++3SHvXAGFf8M0JjkcWhZMGy/5Fwgi0xCC3yy8jXuThpD+7DdOinJOaPeNXqJoONCr0F9HXePPFLzMF4VyajwvB5eOpTtvmhKOOa3WMZzKvG5G0hV7G8wK4d+Aignqh11dTR96z9C7i+yh0OQ5YiksDtcs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MGkpKVjs; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789267541; c=relaxed/simple;
+	bh=VC/aVvWNe9yF/F0uJGe9mcJyfiXLtmymO5ZxbXs2Sgk=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=GmlLzizrf9JFmExgNNbwJKjVl3eAjf6Zk+4IyCbpuA7MQC19L4wP3ZF3FI8SruzrLXafNKSmwPswBA7IVY0lMz2GGzpkoZkr3Bu2pN1ElX8/wCMEg3A8FgK51l8Zi5XtQ6z8AkyQ2UtRCP81oRGR3zkwvjjSRbGhrvWJPDsYoi4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=oXadYL+1; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MGkpKVjs"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 953BFC2BCFB;
-	Sun, 13 Sep 2026 02:38:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789267088;
-	bh=1p96QVsI041xiggk+9kJfF92XF3Bp24d0J5zfXI9ZeM=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=MGkpKVjsIBWwt11yYCFoTnpzjJ4i6BEXNwW5TnYfETVtC8xGW+2nWD9o35SB7+xhz
-	 K6G8aqSShAy6rYD3gKsYZCM4VeQ9FUEMxHvp4Yv5ED/WFQpSl6iUB/DzYnYOHL9Bq7
-	 c1B9R8gs7XfLTxHnKL0xyWMpo4CRc68nXFx2fJNY1mPyTbqi1ToPLFrWr+CWUT+x/L
-	 JZsDM2XaofJahfdaHd9EhSuRTzCQ6OkPj4o1QGln3su/7rpyiyS8OK8obbbJenDSFj
-	 qYS83WXud9ZIw8WrbQcpsIoaCDl9RrJ7Stv9O605jcVOKT3ZG1tzwS8HYopmADo+Qu
-	 ZiDL2uWnaQuhg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 74043C88E56;
-	Sun, 13 Sep 2026 02:38:08 +0000 (UTC)
-From: Rudraksha Gupta via B4 Relay <devnull+guptarud.gmail.com@kernel.org>
-Date: Sat, 12 Sep 2026 19:38:09 -0700
-Subject: [PATCH v7 2/3] leds: flash: rt8515: Support single-GPIO flash ICs
- with vin supply
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="oXadYL+1"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68D2inSuB3606827, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1789267489; bh=VC/aVvWNe9yF/F0uJGe9mcJyfiXLtmymO5ZxbXs2Sgk=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=oXadYL+1BHR06sg0a4qUKnhQZt/yMpH9OPayuxrNPOTZdbM+unCpeQ9JO26eTS4aJ
+	 pUAO2Prp91pkiCgaNDBe9G27hEVo8rzmlmgBo3oq35PRikSWKCB9K0w17BPlF4o4NE
+	 8Y/JNExo0nvxdhe6/Ty2mTQGgdRX9E4tSRCP+Soaxe5vA1SDxDP3RO/0nJKk+lrzrW
+	 aKzeVjuetHcetC3Qh+ChZ/3wD7V3IxIjSiYDFZNA0K0ATpaXq7ybSxEztnNPo4/RqE
+	 CAyVUw3dEvEgh4culvfcx4nMS6PVSEhB+aPB5895bcCdZ/Zp9Dp+c791uszhZOg5ug
+	 DzEucIFFbu0Ng==
+Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68D2inSuB3606827
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Sun, 13 Sep 2026 10:44:49 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Sun, 13 Sep 2026 10:44:49 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
+ 15.02.2562.049; Sun, 13 Sep 2026 10:44:49 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Cristian Deluxe <me@cristiandeluxe.dev>
+CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH 1/2] wifi: rtw88: 8703b: complete the card-disable to
+ card-emulation transition
+Thread-Topic: [PATCH 1/2] wifi: rtw88: 8703b: complete the card-disable to
+ card-emulation transition
+Thread-Index: AQHdQgqq1aVdXqHk80agk1anab5WYLbLzraA
+Date: Sun, 13 Sep 2026 02:44:48 +0000
+Message-ID: <e78eb1e6ce404a04a3001b13a1f87002@realtek.com>
+References: <178914109042.64584.1681714272474754544@cristiandeluxe.dev>
+ <178914109042.64584.1377616159988360897@cristiandeluxe.dev>
+In-Reply-To: <178914109042.64584.1377616159988360897@cristiandeluxe.dev>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260912-expressatt_camera_flash-v7-2-e1fd2edc8d84@gmail.com>
-References: <20260912-expressatt_camera_flash-v7-0-e1fd2edc8d84@gmail.com>
-In-Reply-To: <20260912-expressatt_camera_flash-v7-0-e1fd2edc8d84@gmail.com>
-To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
- Mark Brown <broonie@kernel.org>
-Cc: linux-leds@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- phone-devel@vger.kernel.org, Rudraksha Gupta <guptarud@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789267087; l=8605;
- i=guptarud@gmail.com; s=20240916; h=from:subject:message-id;
- bh=skylHszTLWKkxhvTfuJWw+lsWyDXTn0YaNbK6ScaP3M=;
- b=LJgoC1eV0Q2KJCIvx9SlazOf4UjuPfh5blxHB7+vcLE43bqgjU3hzRd4JhpX2omRYro4sUeTL
- +pyO8/D/fpBBcPMzcVwhtzBf6p+Jdj7ISbqefKynxzhhXw9Rt93yTA2
-X-Developer-Key: i=guptarud@gmail.com; a=ed25519;
- pk=ETrudRugWAtOpr0OhRiheQ1lXM4Kk4KGFnBySlKDi2I=
-X-Endpoint-Received: by B4 Relay for guptarud@gmail.com/20240916 with
- auth_id=211
-X-Original-From: Rudraksha Gupta <guptarud@gmail.com>
-Reply-To: guptarud@gmail.com
 
-From: Rudraksha Gupta <guptarud@gmail.com>
-
-Extend the RT8515 driver to support flash ICs that use only a single
-GPIO for both flash and torch modes (no separate ENT pin), with an
-optional vin regulator that gates power to the flash IC.
-
-Assisted-by: Claude:claude-opus-4.6
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-Signed-off-by: Rudraksha Gupta <guptarud@gmail.com>
----
- drivers/leds/flash/leds-rt8515.c | 147 ++++++++++++++++++++++++++++-----------
- 1 file changed, 107 insertions(+), 40 deletions(-)
-
-diff --git a/drivers/leds/flash/leds-rt8515.c b/drivers/leds/flash/leds-rt8515.c
-index 00904cc90ed6..541f61e13f01 100644
---- a/drivers/leds/flash/leds-rt8515.c
-+++ b/drivers/leds/flash/leds-rt8515.c
-@@ -30,6 +30,7 @@
- #include <linux/platform_device.h>
- #include <linux/property.h>
- #include <linux/regulator/consumer.h>
-+#include <linux/workqueue.h>
- 
- #include <media/v4l2-flash-led-class.h>
- 
-@@ -43,6 +44,9 @@
- #define RT8515_TIMEOUT_US	250000U
- #define RT8515_MAX_TIMEOUT_US	300000U
- 
-+#define RT8515_OFF		0
-+#define RT8515_ON		1
-+
- struct rt8515 {
- 	struct led_classdev_flash fled;
- 	struct device *dev;
-@@ -51,7 +55,7 @@ struct rt8515 {
- 	struct regulator *reg;
- 	struct gpio_desc *enable_torch;
- 	struct gpio_desc *enable_flash;
--	struct timer_list powerdown_timer;
-+	struct delayed_work powerdown_work;
- 	u32 max_timeout; /* Flash max timeout */
- 	int flash_max_intensity;
- 	int torch_max_intensity;
-@@ -62,27 +66,50 @@ static struct rt8515 *to_rt8515(struct led_classdev_flash *fled)
- 	return container_of(fled, struct rt8515, fled);
- }
- 
--static void rt8515_gpio_led_off(struct rt8515 *rt)
-+static int rt8515_gpio_led_off(struct rt8515 *rt)
- {
--	gpiod_set_value(rt->enable_flash, 0);
--	gpiod_set_value(rt->enable_torch, 0);
-+	gpiod_set_value(rt->enable_flash, RT8515_OFF);
-+	gpiod_set_value(rt->enable_torch, RT8515_OFF);
-+
-+	if (!rt->reg)
-+		return 0;
-+
-+	return regulator_is_enabled(rt->reg) > 0 ? regulator_disable(rt->reg) : 0;
- }
- 
--static void rt8515_gpio_brightness_commit(struct gpio_desc *gpiod,
--					  int brightness)
-+static int rt8515_gpio_brightness_commit(struct rt8515 *rt, struct gpio_desc *gpiod, int brightness)
- {
--	int i;
-+	int ret;
-+
-+	/*
-+	 * Reset the IC to start brightness from zero,
-+	 * then re-enable and pulse to the desired level.
-+	 */
-+	ret = rt8515_gpio_led_off(rt);
-+	if (ret)
-+		return ret;
-+
-+	/* IC needs time to reset its brightness counter */
-+	usleep_range(100, 200);
-+
-+	if (rt->reg) {
-+		ret = regulator_enable(rt->reg);
-+		if (ret)
-+			return ret;
-+	}
- 
- 	/*
- 	 * Toggling a GPIO line with a small delay increases the
- 	 * brightness one step at a time.
- 	 */
--	for (i = 0; i < brightness; i++) {
--		gpiod_set_value(gpiod, 0);
-+	for (int i = 0; i < brightness; i++) {
-+		gpiod_set_value(gpiod, RT8515_OFF);
- 		udelay(1);
--		gpiod_set_value(gpiod, 1);
-+		gpiod_set_value(gpiod, RT8515_ON);
- 		udelay(1);
- 	}
-+
-+	return 0;
- }
- 
- /* This is setting the torch light level */
-@@ -91,23 +118,37 @@ static int rt8515_led_brightness_set(struct led_classdev *led,
- {
- 	struct led_classdev_flash *fled = lcdev_to_flcdev(led);
- 	struct rt8515 *rt = to_rt8515(fled);
-+	int ret = 0;
- 
- 	mutex_lock(&rt->lock);
- 
- 	if (brightness == LED_OFF) {
--		/* Off */
--		rt8515_gpio_led_off(rt);
-+		ret = rt8515_gpio_led_off(rt);
-+		if (ret)
-+			goto out;
- 	} else if (brightness < RT8515_TORCH_MAX) {
--		/* Step it up to movie mode brightness using the flash pin */
--		rt8515_gpio_brightness_commit(rt->enable_torch, brightness);
-+		/*
-+		 * Step it up to movie mode brightness.
-+		 * If there is no separate torch pin, use the flash pin
-+		 * for torch as well.
-+		 */
-+		ret = rt8515_gpio_brightness_commit(rt,
-+				rt->enable_torch ?: rt->enable_flash, brightness);
-+		if (ret)
-+			goto out;
- 	} else {
--		/* Max torch brightness requested */
--		gpiod_set_value(rt->enable_torch, 1);
-+		/*
-+		 * Max torch brightness requested.
-+		 * If there is no separate torch pin, use the flash pin
-+		 * for torch as well.
-+		 */
-+		gpiod_set_value(rt->enable_torch ?: rt->enable_flash, RT8515_ON);
- 	}
- 
-+out:
- 	mutex_unlock(&rt->lock);
- 
--	return 0;
-+	return ret;
- }
- 
- static int rt8515_led_flash_strobe_set(struct led_classdev_flash *fled,
-@@ -116,27 +157,35 @@ static int rt8515_led_flash_strobe_set(struct led_classdev_flash *fled,
- 	struct rt8515 *rt = to_rt8515(fled);
- 	struct led_flash_setting *timeout = &fled->timeout;
- 	int brightness = rt->flash_max_intensity;
-+	int ret;
-+
-+	if (!state) {
-+		cancel_delayed_work_sync(&rt->powerdown_work);
-+		mutex_lock(&rt->lock);
-+		ret = rt8515_gpio_led_off(rt);
-+		if (!ret)
-+			fled->led_cdev.brightness = LED_OFF;
-+		mutex_unlock(&rt->lock);
-+		return ret;
-+	}
- 
- 	mutex_lock(&rt->lock);
- 
--	if (state) {
--		/* Enable LED flash mode and set brightness */
--		rt8515_gpio_brightness_commit(rt->enable_flash, brightness);
--		/* Set timeout */
--		mod_timer(&rt->powerdown_timer,
--			  jiffies + usecs_to_jiffies(timeout->val));
--	} else {
--		timer_delete_sync(&rt->powerdown_timer);
--		/* Turn the LED off */
--		rt8515_gpio_led_off(rt);
--	}
-+	/* Enable LED flash mode and set brightness */
-+	ret = rt8515_gpio_brightness_commit(rt, rt->enable_flash, brightness);
-+	if (ret)
-+		goto out;
-+
-+	/* Set timeout */
-+	schedule_delayed_work(&rt->powerdown_work, usecs_to_jiffies(timeout->val));
- 
- 	fled->led_cdev.brightness = LED_OFF;
- 	/* After this the torch LED will be disabled */
- 
-+out:
- 	mutex_unlock(&rt->lock);
- 
--	return 0;
-+	return ret;
- }
- 
- static int rt8515_led_flash_strobe_get(struct led_classdev_flash *fled,
-@@ -144,7 +193,7 @@ static int rt8515_led_flash_strobe_get(struct led_classdev_flash *fled,
- {
- 	struct rt8515 *rt = to_rt8515(fled);
- 
--	*state = timer_pending(&rt->powerdown_timer);
-+	*state = delayed_work_pending(&rt->powerdown_work);
- 
- 	return 0;
- }
-@@ -162,12 +211,17 @@ static const struct led_flash_ops rt8515_flash_ops = {
- 	.timeout_set = rt8515_led_flash_timeout_set,
- };
- 
--static void rt8515_powerdown_timer(struct timer_list *t)
-+static void rt8515_powerdown_work(struct work_struct *work)
- {
--	struct rt8515 *rt = timer_container_of(rt, t, powerdown_timer);
-+	struct rt8515 *rt = container_of(work, struct rt8515, powerdown_work.work);
-+	int ret;
-+
-+	mutex_lock(&rt->lock);
-+	ret = rt8515_gpio_led_off(rt);
-+	mutex_unlock(&rt->lock);
- 
--	/* Turn the LED off */
--	rt8515_gpio_led_off(rt);
-+	if (ret)
-+		dev_err(rt->dev, "failed to turn off LED (%d)\n", ret);
- }
- 
- static void rt8515_init_flash_timeout(struct rt8515 *rt)
-@@ -297,11 +351,19 @@ static int rt8515_probe(struct platform_device *pdev)
- 		return dev_err_probe(dev, PTR_ERR(rt->enable_flash),
- 				     "cannot get ENF (enable flash) GPIO\n");
- 
--	/* ENT - Enable Torch line */
--	rt->enable_torch = devm_gpiod_get(dev, "ent", GPIOD_OUT_LOW);
-+	/* ENT - Enable Torch line (optional for single-GPIO flash ICs) */
-+	rt->enable_torch = devm_gpiod_get_optional(dev, "ent", GPIOD_OUT_LOW);
- 	if (IS_ERR(rt->enable_torch))
- 		return dev_err_probe(dev, PTR_ERR(rt->enable_torch),
--				     "cannot get ENT (enable torch) GPIO\n");
-+				     "Failed to obtain the Enable Torch GPIO\n");
-+
-+	rt->reg = devm_regulator_get_optional(dev, "vin");
-+	if (IS_ERR(rt->reg)) {
-+		ret = PTR_ERR(rt->reg);
-+		if (ret != -ENODEV)
-+			return dev_err_probe(dev, ret, "Failed to obtain the input supply\n");
-+		rt->reg = NULL;
-+	}
- 
- 	child = device_get_next_child_node(dev, NULL);
- 	if (!child) {
-@@ -327,12 +389,17 @@ static int rt8515_probe(struct platform_device *pdev)
- 		dev_warn(dev,
- 			 "flash-max-timeout-us property missing\n");
- 	}
--	timer_setup(&rt->powerdown_timer, rt8515_powerdown_timer, 0);
-+	INIT_DELAYED_WORK(&rt->powerdown_work, rt8515_powerdown_work);
- 	rt8515_init_flash_timeout(rt);
- 
- 	fled->ops = &rt8515_flash_ops;
- 
--	led->max_brightness = rt->torch_max_intensity;
-+	/*
-+	 * If there is no separate torch pin, use flash max intensity
-+	 * as max brightness instead.
-+	 */
-+	led->max_brightness = rt->enable_torch ?
-+		rt->torch_max_intensity : rt->flash_max_intensity;
- 	led->brightness_set_blocking = rt8515_led_brightness_set;
- 	led->flags |= LED_CORE_SUSPENDRESUME | LED_DEV_CAP_FLASH;
- 
-@@ -371,7 +438,7 @@ static void rt8515_remove(struct platform_device *pdev)
- 	struct rt8515 *rt = platform_get_drvdata(pdev);
- 
- 	rt8515_v4l2_flash_release(rt);
--	timer_delete_sync(&rt->powerdown_timer);
-+	cancel_delayed_work_sync(&rt->powerdown_work);
- 	mutex_destroy(&rt->lock);
- }
- 
-
--- 
-2.55.0
-
-
+Q3Jpc3RpYW4gRGVsdXhlIDxtZUBjcmlzdGlhbmRlbHV4ZS5kZXY+IHdyb3RlOg0KPiBTZW50OiBG
+cmlkYXksIFNlcHRlbWJlciAxMSwgMjAyNiAxMTozOCBQTQ0KPiBPbiBhbiBSVEw4NzIzQ1MgdGhl
+IGRyaXZlciBjYW5ub3QgcG93ZXIgdGhlIE1BQyBvbiBhZnRlciBhIHdhcm0gcmVib290Og0KPiB0
+aGUgcG93ZXItb24gc2VxdWVuY2Ugd2FpdHMgZm9yZXZlciBmb3IgcG93ZXIgcmVhZHkgYW5kIHBy
+b2JlIGZhaWxzLg0KPiANCj4gICBydHc4OF84NzIzY3MgbW1jMjowMDAxOjE6IGZhaWxlZCB0byBw
+b2xsIG9mZnNldD0weDYgbWFzaz0weDIgdmFsdWU9MHgyDQo+ICAgcnR3ODhfODcyM2NzIG1tYzI6
+MDAwMToxOiBtYWMgcG93ZXIgb24gZmFpbGVkDQo+IA0KPiB0cmFuc19jYXJkZGlzX3RvX2NhcmRl
+bXVfODcwM2IgaGFzIGEgc2luZ2xlIGVudHJ5LCBjbGVhcmluZyB0aGUgaGFyZHdhcmUNCj4gcG93
+ZXItZG93biBiaXQuIEl0cyBzaWJsaW5nIHRyYW5zX2NhcmRkaXNfdG9fY2FyZGVtdV84NzIzZCBo
+YXMgc2l4IG1vcmUsDQo+IGFuZCA4ODIyYiBhbmQgODgyMmMgY2FycnkgdGhlIHNhbWUgU0RJTyBw
+YWlyOiB3aXRoZHJhdyB0aGUgU0RJTyBzdXNwZW5kDQo+IHJlcXVlc3Qgb24gbG9jYWwgcmVnaXN0
+ZXIgMHg4NiBhbmQgd2FpdCBmb3IgdGhlIGludGVyZmFjZSB0byBsZWF2ZSB0aGUNCj4gc3VzcGVu
+ZGVkIHN0YXRlLCBjbGVhciB0aGUgV0wgc3VzcGVuZCBiaXQgYWxvbmdzaWRlIHRoZSBwb3dlci1k
+b3duIGJpdCwNCj4gYW5kIHRha2UgdGhlIDEySCBMRE8gb3V0IG9mIHNsZWVwIG1vZGUuIFRoZSB0
+cmFuc2l0aW9uIGlzIHRoZSByZXZlcnNlIG9mDQo+IHRyYW5zX2NhcmRlbXVfdG9fY2FyZGRpc184
+NzAzYiwgd2hpY2ggc2V0cyAweDIzWzRdIGFuZCBhc2tzIHRoZQ0KPiBpbnRlcmZhY2UgdG8gc3Vz
+cGVuZCwgc28gd2l0aCB0aG9zZSBvcGVyYXRpb25zIG1pc3NpbmcgbmVpdGhlciBpcyBldmVyDQo+
+IHVuZG9uZS4NCg0KSSBmZWVsIHlvdSBjYW4ganVzdCBkZXNjcmliZSB5b3Ugc3luYyB0aGUgc2V0
+dGluZyBmcm9tIHZlbmRvciBkcml2ZXIuDQoNCj4gDQo+IFRoZSBjaGlwIHRoZW4gY29tZXMgYmFj
+ayB3aXRoIHRoZSBXTEFOIE1BQyB1bnBvd2VyZWQgd2hpbGUgdGhlIFNESU8NCj4gZnVuY3Rpb24g
+c3RpbGwgZW51bWVyYXRlcyBhbmQgQ01ENTIgc3RpbGwgd29ya3MsIGFuZCBub3RoaW5nIGluIHRo
+ZQ0KPiBzZXF1ZW5jZSB3YWtlcyBpdC4gcnR3X21hY19wcmVfc3lzdGVtX2NmZygpIGRvZXMgbm90
+IGNvdmVyIGl0IGVpdGhlcjogaXQNCj4gcmV0dXJucyBlYXJseSBmb3IgODA1MSB3Y3B1IGNoaXBz
+LCBvZiB3aGljaCB0aGlzIGlzIG9uZS4NCj4gDQo+IEl0IHN1cnZpdmVzIGEgcmVib290IG9uIGFu
+eSBib2FyZCB3aGVyZSBXTF9SRUdfT04gaXMgdGhlIG9ubHkgcmVzZXQgdGhlDQo+IGhvc3QgaGFz
+IGFuZCB0aGUgY2hpcCdzIHJhaWwgaXMgbm90IHN3aXRjaGFibGUuIE9uIHRoZSBEZW52ZXIgVEFR
+LTEwMg0KPiB0aGUgcHdyc2VxIHJlc2V0IGxpbmUsIHRoZSBCVCBlbmFibGUgbGluZSwgdGhlIDMy
+Ljc2OCBrSHogY2xvY2sgYW5kDQo+IGV2ZXJ5IHN3aXRjaGFibGUgUE1JQyByYWlsIHdlcmUgZWFj
+aCB0b2dnbGVkIGFnYWluc3QgYSB3ZWRnZWQgY2hpcCBhbmQNCj4gbm9uZSBvZiB0aGVtIGNsZWFy
+ZWQgaXQsIHdoaWxlIHRoZSB2ZW5kb3IgZHJpdmVyIHJlY292ZXJlZCBpdCBldmVyeQ0KPiB0aW1l
+Lg0KPiANCj4gVGFrZSB0aGUgb3BlcmF0aW9ucyA4NzIzZCBoYXMgYW5kIHRoaXMgdGFibGUgbGFj
+a3MuIFRoYXQgdGFibGUncyBVU0Itb25seQ0KPiBhbmQgUENJLW9ubHkgZW50cmllcyBhcmUgbGVm
+dCBvdXQ6IHRoaXMgY2hpcCBoYXMgbm8gc3VjaCB2YXJpYW50Lg0KDQpJIHNlZS4gT3RoZXJzIGFy
+ZSB0aGUgc2FtZSBhcyB2ZW5kb3IgZHJpdmVyIGRvZXMuIA0KDQo+IA0KPiBUZXN0ZWQgb24gYW4g
+UlRMODcyM0NTIG92ZXIgU0RJTzogcmVjb3ZlcnMgYSBjaGlwIGxlZnQgd2VkZ2VkIGJ5IGENCj4g
+cHJldmlvdXMgYm9vdCwgYW5kIHN1cnZpdmVzIHJlcGVhdGVkIHdhcm0gcmVib290cyBhbmQgbG9h
+ZGVyLW1vZGUgZmxhc2gNCj4gY3ljbGVzLg0KPiANCj4gU2lnbmVkLW9mZi1ieTogQ3Jpc3RpYW4g
+RGVsdXhlIDxtZUBjcmlzdGlhbmRlbHV4ZS5kZXY+DQoNCkFja2VkLWJ5OiBQaW5nLUtlIFNoaWgg
+PHBrc2hpaEByZWFsdGVrLmNvbT4NCg0KDQoNCg==
