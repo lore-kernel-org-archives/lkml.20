@@ -1,283 +1,139 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ECC0274B46;
-	Sun, 13 Sep 2026 08:39:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29B5F29CB52
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 08:40:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789288800; cv=none; b=KUahRllCr5c5WZE4TRCwTPsvt5hKRiZ1TkaU5EdTE6dFWZCnsnlel+luHpuEAPI8A6U8n4Meed1szn0ksw9yMpFBLSoB+FWC99isCEkVHvrS6kl6pmaVcuQP8KgH6Q5zk8g7x7cn5BlOJjUBABRBd4R2MLS6grmADE1vr8jLSVg=
+	t=1789288819; cv=none; b=GaUwCEyuBiLkxW5GjNvXeQijDB6sIT5eZP2loRecTPFk/5kAS4QyeQxw8rucvLOD2QQ2te0DiE8Ie1l5w/RZii3Qg8ZiZzl8lGD1n8OT71XfVgqNvauc9w1l6iDk9fkr6BGioG/o9bBJvdy+h2YC/vkzkp4k//FvIGbfC9Mp1nk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789288800; c=relaxed/simple;
-	bh=GcDONFtA9uFftvDMqsy1bLwSBJDvs9N9/hF7GORDYAE=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Q4XYsEWmXo475G9a4SY3pVj59JP41NbVW/TLinlVa0kHHxAvn01nrtcT4E83rFvh+qULua1HvnHzsuKhQlN0q3kQ0yxCTRxnuwfIjXYfLVN7Ab2BmBNoAcmxLjJk8mO5QYk2Ht5l+ib0hV5iH4yFvC/RRRlhc0U0oJwrVlhER8Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=mAVeEcwr; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=hDXXIM2H; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=J79JnvjN; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=T3V0T1cT; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1789288819; c=relaxed/simple;
+	bh=HDNH2cjI7F71IWvak5BxNUu8opnLuo1m5MrEF5g6Mys=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GHfQFJnAGQSNKhzjrq0g5DvjPIGr/UTSXWhD3nGnpzmH4Dfyw8IRabQ8jvoqXwDLb51FIMmXc2P/1vJCZtKtidybrOWxZvWbw61C2pXhJ3UwoI8q2Kw9lhvlSiup3fWvzZSVwQyZS+CcDJGJRW8yUyhYI6NVQjeeuhJVXKINMGs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=VQo2dsOu; arc=none smtp.client-ip=209.85.210.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="mAVeEcwr";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="hDXXIM2H";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="J79JnvjN";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="T3V0T1cT"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 8130C21DAC;
-	Sun, 13 Sep 2026 08:39:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789288792; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=V2dAduLDXqL4CBdl1hLYbGkPK83sCAoA6B2hqpb3nhI=;
-	b=mAVeEcwrX++rh1hErpjsosXs8s55nWbeWtBrYColQeAjlgFmb+Isg5GjVFeUSYsAf0+for
-	qi8fl3Vnv+PRBZcVB4UUhYwThcdI13NiF85vurSEP7ZxOU20rL8UEcACVCSAT1SwPwjpuy
-	bqPgj0hdSXA0F+nCIJrC5bCt73rwvIE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789288792;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=V2dAduLDXqL4CBdl1hLYbGkPK83sCAoA6B2hqpb3nhI=;
-	b=hDXXIM2HY9Qq3978IBCvPxede2rufV1DZg2NYCkGx2dIbFlOLLvuUCxT+OCj2tPeSr9icl
-	M12FoyyW3OZwADAg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789288788; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=V2dAduLDXqL4CBdl1hLYbGkPK83sCAoA6B2hqpb3nhI=;
-	b=J79JnvjNdPgjOOrJdeEo8AzxsA2dIbXpfJQFpPXZ8I0UZrfU2skNqvLxInUJp+DgqvPynM
-	vJuHpC7xhFjlxZPlLWokALFmTj3Vnb5Ibiu2DmRoxZjnR1RSH5tM04+8deBpfnI9IkKgT/
-	SdqELC33kfrOmTdv0+JhRw90Op52jao=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789288788;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=V2dAduLDXqL4CBdl1hLYbGkPK83sCAoA6B2hqpb3nhI=;
-	b=T3V0T1cT+mD9ZiWkM1iZUViC1qDwCcDLDF/o+9hCIhyQZDI3yk8USv2hTjEHejA+HTWcM3
-	k6q7NmtqOh5EuTDQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2F98813675;
-	Sun, 13 Sep 2026 08:39:48 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id uoQ9ClRhpmqPEwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Sun, 13 Sep 2026 08:39:48 +0000
-Date: Sun, 13 Sep 2026 10:39:47 +0200
-Message-ID: <878q55sfxo.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Chris Lew <christopher.lew@oss.qualcomm.com>
-Cc: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>,
-	Pranav Mahesh Phansalkar <pranav.phansalkar@oss.qualcomm.com>,
-	netdev@vger.kernel.org,
-	linux-wireless@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="VQo2dsOu"
+Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-8692be1cda4so1844700b3a.1
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 01:40:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bytedance.com; s=google; t=1789288816; x=1789893616; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XEYszFcJNVmbdBdKEoxiw48cXUFgR+bqS4N4pNtc0Jk=;
+        b=VQo2dsOulCiAFyksPQMsUvOwsKBw8WEMpWj1Wuo5PiQy3e2lBPofF98C1mShOVMsMt
+         A6o5SfQMuraNSp133pKufanFvfhLbhvuadc6Xj6q0QYCv4vZ7gAVwJ1qlW7zi09jKEZN
+         0U5zDjBxl+1Xls+dwQ76h8S8VAomvr2LXzsK4Jc0TUZBJ4NbzDX8cep/j7aM4hF2TQzy
+         zRZeLvw0TyRhX/PAGNc8+d26guaIgA4rngSVxZfI5uEDGnw+KHE/XY4kSdAhFD0Y63sK
+         9vkNovxA1aOggIbm/5CWRU0UrPMDZ2B/6kWEVjfPHqr8km64ROLK34raLHvZsTBExfGP
+         orsg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789288816; x=1789893616;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XEYszFcJNVmbdBdKEoxiw48cXUFgR+bqS4N4pNtc0Jk=;
+        b=c6eMMnraf1QyEeTd47rD2nes79roxDDWauhtw+ePvMenMTrjCQCoRtEub4JSZQ7v2Y
+         706VrEVZWR3GSO1/rrID2vWPjTwqymB7pstPFSad6tOt2t4qa1eOZq39uebX8yRopOPM
+         G145Lw1XorCqVUxMxwsmfSs6VLLNo5XfhWsRHGMiNBhSbH3ImQVscWBsVK4DKU9MKq6b
+         dgEH9+X4q4r+IJ8kSiS7UeTXEjYRHjK+CNixEMrOm90WmXzyc00oqXzsVMXlBVkNkLkA
+         4Cf5Sl7Cy50q0IWThoK9VOtnr9ZHtePiDxj01P9Lya7ucXiGspCHRK8Ait2GayDgVoC8
+         xsKA==
+X-Forwarded-Encrypted: i=1; AKwUvBy1AqWujvznyxmAhuN0M+Q9kvGbVy4quuZuz2zRVJA08gCjYeGSrZWBeiZH54PVFQgP6DpbyJerZp2j6N8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nX/D9BcWfq3/ygadfsWYvhAxgKhY5VI/9O2hqGtYVpfcWFDxt9
+	+fF4EGL+H3udycH1X2czv11XXu2QXLk8852Q0l6oCawKgQf4oOqU/65T85sQNRhxd2k=
+X-Gm-Gg: AYBFou13J8xmyjJ3fIwQqvAXWaXRZBreoeuIw6FtI6VlO1pIXkTRWxmwuX7+cNIsEx9
+	wzaBxSlTMWc32KAvzr5dp3Vb3s+lEu/jnwgG/ckXp7HS7N+yG675h2pQUbn3xnHqsYES2mTfvqO
+	jEQC0cHXYD3HcvNNLVRW352Bmsk/RAGwTuLahdW6sDwLz6G9O8PE6cWlgDRqcqHQaYBpCyMrX9J
+	QfDIhRk2JHzAceifHekMxgpGuiFcnifLn80e2/1oNLjnHkQZLQZo0G5Q/htV1xZIwmioQPdWyQZ
+	W5mpwR74iShc4v0pXiquwFba1QI3FxZfPxnbRG2ty1YlQobnmEx14rarKFeVUxULPemXIr9OsbB
+	LYCQgPE5sitegFsVN0SpI79N0ryf65aGbdt0d2R5Nlmnv7uMwcnTCwsUlBm5tzJf46l6rligxFl
+	X4W3ldH0ew5gLmajFBDFo1VkF1lrJSLnMoePeNlrO6dDk7Ux2ccsONtXDqOpiML/J86xFzNfPeC
+	6Bafzy0hgpwDUofCpqAW8TNsuZPLhuNxKaDZw==
+X-Received: by 2002:a05:6a00:6c97:b0:868:7a65:d92d with SMTP id d2e1a72fcca58-86b32fef08emr19801366b3a.26.1789288816421;
+        Sun, 13 Sep 2026 01:40:16 -0700 (PDT)
+Received: from G6L4RL2QG9 ([2409:8a00:1832:cf0:5137:990:100e:cc7e])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b29cbb0d3sm3070531b3a.42.2026.09.13.01.40.07
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 13 Sep 2026 01:40:15 -0700 (PDT)
+From: Muchun Song <songmuchun@bytedance.com>
+To: Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Mike Rapoport <rppt@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>
+Cc: Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <chleroy@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	linuxppc-dev@lists.ozlabs.org,
 	linux-kernel@vger.kernel.org,
-	regressions@lists.linux.dev
-Subject: Re: [REGRESSION] ath12k suspend/resume breakage on 7.3-rc2
-In-Reply-To: <87a4plsg4w.wl-tiwai@suse.de>
-References: <87a4plsg4w.wl-tiwai@suse.de>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	linux-mm@kvack.org,
+	Muchun Song <songmuchun@bytedance.com>,
+	muchun.song@linux.dev
+Subject: [PATCH 0/6] mm: Unify Device DAX and HugeTLB vmemmap population paths
+Date: Sun, 13 Sep 2026 16:37:28 +0800
+Message-ID: <20260913083734.86802-1-songmuchun@bytedance.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Score: -3.30
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.996];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	RCVD_TLS_ALL(0.00)[];
-	URIBL_BLOCKED(0.00)[suse.de:mid,suse.de:email,imap1.dmz-prg2.suse.org:helo];
-	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:email]
-X-Spam-Flag: NO
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Sun, 13 Sep 2026 10:35:27 +0200,
-Takashi Iwai wrote:
-> 
-> Hi,
-> 
-> on 7.3-rc2, the suspend/resume of ath12k WiFi on Lenovo Thinkpad T14s
-> Gen6 AMD model is broken.  Upon suspend, the network isn't recovered,
-> and the desktop got eventually frozen.
-> 
-> The git bisect pointed to the commit
-> 544d85de4dc22c01badfd8cefa59829ce35c4858
->     net: qrtr: Send HELLO message on endpoint register
-> 
-> and reverting this fixed the problem.
-> 
-> Below is the (stripped) dmesg output after the resume showing the
-> problem.
-> 
-> As far as I understand, the problem seems to be the change of the code
-> flow: ath12k uses mhi_power_down_keep_dev() during suspend, so the
-> qcom_mhi_qrtr_remove() and *_probe() won't be called.  This makes the
-> driver endlessly waiting for the HELLO handshake upon resume with the
-> commit above.
+This series is split out from the earlier, larger series "mm: Generalize
+HVO for HugeTLB and device DAX" [1]. While the parent series generalizes
+vmemmap optimization across HugeTLB and device DAX, this subset addresses
+a single, self-contained step: unifying their vmemmap population paths.
 
-... and below is a quick fix I tested.  It seems working so far.
+After the preceding Device DAX conversion, both HugeTLB and Device DAX
+describe optimized vmemmap mappings through memory-section metadata and
+use per-zone shared tail vmemmap pages. The generic code, however, still
+carries a Device DAX-specific population flag and compound-page population
+path, along with arguments and helpers needed only by that path.
+
+This series first removes VMEMMAP_POPULATE_DAX and moves selection and
+reference handling for the shared tail page into the common vmemmap
+population path. It then removes the generic Device DAX-specific
+compound-page population path and routes section vmemmap population
+through vmemmap_populate(). The powerpc radix implementation retains its
+architecture-specific compound-page population and selects it directly
+for optimizable sections.
+
+The remaining patches remove the unused ptpfn argument, make the
+powerpc compound-page helper local to radix_pgtable.c, and open-code
+vmemmap_populate_address() now that no caller needs its returned PTE.
+
+This is the fourth smaller step toward the broader HVO generalization.
+After this series, HugeTLB and Device DAX use the same population model
+instead of parallel generic paths, while powerpc keeps its
+architecture-specific implementation.
+
+[1] https://lore.kernel.org/all/20260513130542.35604-1-songmuchun@bytedance.com/
+
+Muchun Song (6):
+  mm/sparse-vmemmap: drop VMEMMAP_POPULATE_DAX
+  mm/sparse-vmemmap: support device DAX in common vmemmap path
+  mm/sparse-vmemmap: drop Device DAX-specific population path
+  mm/sparse-vmemmap: remove the unused ptpfn argument
+  powerpc/mm: make vmemmap_populate_compound_pages() static
+  mm/sparse-vmemmap: open-code vmemmap_populate_address()
+
+ arch/powerpc/include/asm/book3s/64/radix.h |   6 -
+ arch/powerpc/mm/book3s64/radix_pgtable.c   |  14 +-
+ mm/mm_init.c                               |   2 +-
+ mm/sparse-vmemmap.c                        | 188 +++++----------------
+ 4 files changed, 50 insertions(+), 160 deletions(-)
 
 
-Takashi
-
--- 8< --
-From: Takashi Iwai <tiwai@suse.de>
-Subject: [PATCH] net: qrtr: Fix suspend/resume regression in HELLO handshake
-
-Commit 544d85de4dc2 ("net: qrtr: Send HELLO message on endpoint register")
-broke suspend/resume for ath12k (wcn7850 over MHI/QRTR).
-
-The new protocol from the commit works on first boot: the host sends a
-proactive HELLO at endpoint registration, firmware replies, and ath12k
-waits for fw_ready.  However, ath12k uses mhi_power_down_keep_dev()
-during suspend so that the MHI device (and the QRTR endpoint) remain
-registered across the power cycle.  This means qcom_mhi_qrtr_remove()
-and qcom_mhi_qrtr_probe() are never called on resume: qrtr_endpoint_
-register() never runs, and hello_sent stays true from the initial probe.
-
-On resume, the wcn7850 firmware restarts and sends a HELLO to the host NS,
-expecting a reply to re-establish the QRTR connection.  Without that reply,
-the firmware's handshake never completes, fw_ready is never sent, and
-ath12k_core_resume() times out waiting for restart_completed (-ETIMEDOUT).
-mac80211 then emits WARNINGs about hardware unavailability and cfg80211
-tries to stop interfaces that were never started.
-
-This patch fixes the regression by restoring say_hello() in
-ctrl_cmd_hello() so the NS again replies to an incoming HELLO from a
-remote node.  Also the patch removes the proactive HELLO from
-qrtr_endpoint_register(); with both the proactive HELLO and the NS
-reply active, the firmware receives two HELLOs from the host on first
-boot, which confuses its state machine.  Since wcn7850 always
-initiates the HELLO itself, the proactive HELLO is redundant.
-The retry machinery in qrtr_send_hello() is retained to handle the
-case where the HELLO reply fails transiently.
-
-Fixes: 544d85de4dc2 ("net: qrtr: Send HELLO message on endpoint register")
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- net/qrtr/af_qrtr.c | 25 +++++++++++--------------
- net/qrtr/ns.c      | 29 +++++++++++++++++++++++++++++
- 2 files changed, 40 insertions(+), 14 deletions(-)
-
-diff --git a/net/qrtr/af_qrtr.c b/net/qrtr/af_qrtr.c
-index 78347c937af7..88cfc116dbdf 100644
---- a/net/qrtr/af_qrtr.c
-+++ b/net/qrtr/af_qrtr.c
-@@ -598,29 +598,29 @@ static void qrtr_hello_work(struct work_struct *work)
- 	struct qrtr_ctrl_pkt *pkt;
- 	struct qrtr_node *node;
- 	struct qrtr_sock *ctrl;
-+	bool reschedule = true;
- 	struct sk_buff *skb;
- 
- 	node = container_of(to_delayed_work(work), struct qrtr_node, say_hello);
- 
--	/* NS must be bound before we can send; retry with backoff if not ready */
- 	ctrl = qrtr_port_lookup(QRTR_PORT_CTRL);
--	if (!ctrl) {
--		schedule_delayed_work(&node->say_hello, msecs_to_jiffies(100));
--		return;
--	}
-+	if (!ctrl)
-+		goto out_reschedule;
- 
- 	skb = qrtr_alloc_ctrl_packet(&pkt, GFP_KERNEL);
--	if (!skb) {
--		qrtr_port_put(ctrl);
--		schedule_delayed_work(&node->say_hello, msecs_to_jiffies(100));
--		return;
--	}
-+	if (!skb)
-+		goto out_put;
- 
- 	pkt->cmd = cpu_to_le32(QRTR_TYPE_HELLO);
- 	from.sq_node = qrtr_local_nid;
- 	to.sq_node = node->nid;
--	qrtr_node_enqueue(node, skb, QRTR_TYPE_HELLO, &from, &to);
-+	if (!qrtr_node_enqueue(node, skb, QRTR_TYPE_HELLO, &from, &to))
-+		reschedule = false;
-+out_put:
- 	qrtr_port_put(ctrl);
-+out_reschedule:
-+	if (reschedule)
-+		schedule_delayed_work(&node->say_hello, msecs_to_jiffies(100));
- }
- 
- /**
-@@ -661,9 +661,6 @@ int qrtr_endpoint_register(struct qrtr_endpoint *ep, unsigned int nid)
- 	mutex_unlock(&qrtr_node_lock);
- 	ep->node = node;
- 
--	/* Initiate HELLO handshake from the core layer */
--	schedule_delayed_work(&node->say_hello, 0);
--
- 	return 0;
- }
- EXPORT_SYMBOL_GPL(qrtr_endpoint_register);
-diff --git a/net/qrtr/ns.c b/net/qrtr/ns.c
-index bcb090ee79d4..fe2dfc05e380 100644
---- a/net/qrtr/ns.c
-+++ b/net/qrtr/ns.c
-@@ -327,8 +327,37 @@ static int server_del(struct qrtr_node *node, unsigned int port, bool bcast)
- 	return 0;
- }
- 
-+static int say_hello(struct sockaddr_qrtr *dest)
-+{
-+	struct qrtr_ctrl_pkt pkt;
-+	struct msghdr msg = { };
-+	struct kvec iv;
-+	int ret;
-+
-+	iv.iov_base = &pkt;
-+	iv.iov_len = sizeof(pkt);
-+
-+	memset(&pkt, 0, sizeof(pkt));
-+	pkt.cmd = cpu_to_le32(QRTR_TYPE_HELLO);
-+
-+	msg.msg_name = (struct sockaddr *)dest;
-+	msg.msg_namelen = sizeof(*dest);
-+
-+	ret = kernel_sendmsg(qrtr_ns.sock, &msg, &iv, 1, sizeof(pkt));
-+	if (ret < 0)
-+		pr_err("failed to send hello msg\n");
-+
-+	return ret;
-+}
-+
- static int ctrl_cmd_hello(struct sockaddr_qrtr *sq)
- {
-+	int ret;
-+
-+	ret = say_hello(sq);
-+	if (ret < 0)
-+		return ret;
-+
- 	return announce_servers(sq);
- }
- 
+base-commit: 383fc05d4650b021f3c17e36a145106dcc61a294
 -- 
-2.55.0
+2.54.0
 
