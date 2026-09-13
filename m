@@ -1,153 +1,159 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from ewsoutbound.kpnmail.nl (ewsoutbound.kpnmail.nl [195.121.94.167])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F39ED37DAD5;
-	Sun, 13 Sep 2026 18:48:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E232F3624A5
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 18:49:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.121.94.167
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789325333; cv=none; b=WA5+pwjRIX2B+BhPs63of++TeOv7yMaSLPuB+TZf+DU87HdixaVdca4fD0eU9Uc+EYfnv1ohMdHLM3oRunKLxYPyoPKNNBSWhA3rlnrACQw6JwAKNx8I7PArsc28AhjkqR723Cf2hFst6HBj6EIqbBXVulqVAW4maD9hwyi1bz8=
+	t=1789325358; cv=none; b=r8IOePM16VEkrt7NKB2aJ0Ec4sPYxDrSHL0EixfAmxSdGsMhLQzVfVtr+Bmsll6Ml6m7mVQRcrr+czUIs+Rc2b19+AYnkF9AFtKqu354qgKfKiTWvWQoKfZiU1EYktYLbqFpC2L7UlravSRihxoXbhNwXSbA96QomBEM95dNppQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789325333; c=relaxed/simple;
-	bh=YpHQsc2Iy2Bk0FTSZfSYiNgSZKWCUQ3aj1Ad5T/x6Os=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CGJR7a2FT23XtmmL/idjCtMvVcpOLVQXODkfpoIFNCrtc4hbwwGqzIN5Z0ZVC77QQM671Df+pcMFccwEzcx5mnmlOQw3OvPt8rMsL3+74+sn4ISrbCnSoGpeFAziNMQmgtXKuNC+99Dn24Qol9uz385HfCYzzQbBt04KEVnyphw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ItY4COLM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789325358; c=relaxed/simple;
+	bh=vnNK3pm4U0gCQYsYGeSX40DN5pna76SwFCd/QsuxnXs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hUfLZ7nkkF8xeOgNn6EhcnWIhT+WdmSjR0Lm/VSf0y/QaiS4rcpI9B011XntHqdyyb1v36Uvck2nF2rrdUboFUYJISF3e0FcEjbcI+CbxAoM7heQzM/lKVz8pU+B3+gYwbOyc1up7zw5d6AXlX/yMbB5CO9wK7QHXaIGdUroGCs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl; spf=pass smtp.mailfrom=xs4all.nl; dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b=VvZLXSTL; arc=none smtp.client-ip=195.121.94.167
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xs4all.nl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ItY4COLM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E79701F000FF;
-	Sun, 13 Sep 2026 18:48:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789325331;
-	bh=jb/hhwiK/UcdPAYGlSzJUb1U4vkmWKdi+D5nmTCyiwc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ItY4COLMkAOPfq5upFo8+NRTEgTDJTWe71lMpMoYvx0ForD2G2ynjMLUv2Mnqq/Jo
-	 C6CeqeBAIXxivARXiF0/4f1ecs//FHJoa5wN0EJkQq+rGGS9/FtWk79Jh/I5fzCZqr
-	 hwZMMnyXadBtXtpmEgWarpdPi/AIA3J8c2CWRh5gPKngo4zKqcGydp/CKNne6/zAAA
-	 xhozv6PlZTBw0YRIbYlFzREHen/VOfCFQhbe5rxQ9EHEZqVlV/OGyByRAIrjc6ugl4
-	 2+ME+jKjjsts8211xwWo0ZHPTCfQl7vVJN1Ht8x9Tq0kbu4rKkT8V0GtXuT6+HfY08
-	 SX9dpAjXFMf0g==
-Date: Sun, 13 Sep 2026 19:48:44 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>, 
-	David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R . Howlett" <liam@infradead.org>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, Matthew Wilcox <willy@infradead.org>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, Jan Kara <jack@suse.cz>, 
-	Hugh Dickins <hughd@google.com>
-Subject: Re: [PATCH v2] khugepaged: hold invalidate_lock across
- collapse_file() readahead
-Message-ID: <aqbvFtlXd3Jdnfbm@gremlin>
-References: <DLEBZ0GIGNQ8.17U563YYJ37AA@nvidia.com>
- <20260913163644.122133-1-ngocthang2710.1999@gmail.com>
- <20260913111700.6de78b5834842f7dd3f12d07@linux-foundation.org>
+	dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b="VvZLXSTL"
+X-KPN-MessageId: ca4aaee7-afa3-11f1-b2a8-005056abbe64
+Received: from smtp.kpnmail.nl (unknown [10.31.155.38])
+	by ewsoutbound.so.kpn.org (Halon) with ESMTPS
+	id ca4aaee7-afa3-11f1-b2a8-005056abbe64;
+	Sun, 13 Sep 2026 20:49:03 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xs4all.nl; s=xs4all01;
+	h=mime-version:message-id:date:subject:to:from;
+	bh=VrQ/72DWEkUD9WmDiM0L0xRV0BLDfb4wOia7BMMgbNM=;
+	b=VvZLXSTLGxAF1Dc7rn43uMJR7Ns5smVA6Td5M5RSyHRXNs8MxvezQSayTpz/9+CryXT/mHTepHmIf
+	 hC4/VvGyU9URSrMQrp9h2dbgFMsYQp2M9AZwwYQoRgi6rm59Kh4zGQFZYlAKgcr2Z/FXrUH6S/Wuvz
+	 c8vlW6NG/cBzWnuTnxqkeh72Z0dYbwr0/bpcIhzQ6OxeblYAI59cf7J+zE/sb2wZZynQ7TnEbH7q/0
+	 LO1yNuvCpVweF/1RS8p6HuwQN3lH5mJMW+i4GuPUmYUgEKlLwhlx7+JlbjQP4j+gLkFYrVG4xt0DTk
+	 fi5JdiyOailDb4BhGhRNWD+XIJFLpYA==
+X-KPN-MID: 33|u8BGK/9jJ/f7k3PruIOET9q5+fmEuHy1PH44nKUhZXutmNkVG/aUgKKoF2FZ0db
+ QuEJp5wbvsm57qlDft0IB8aEohI35ds00VRjXf9aAaDg=
+X-KPN-VerifiedSender: Yes
+X-CMASSUN: 33|ctHD9IKRDCzRjYGqE/vENoio9NHHjxv3ciMKRj90hRaF0kdxRHRO8V4PZXYqhZY
+ LK+e1BnQj8boTOG6gLR2y9A==
+Received: from daedalus.home (unknown [178.231.250.207])
+	by smtp.xs4all.nl (Halon) with ESMTPSA
+	id c791f3d1-afa3-11f1-bd2b-005056abf0db;
+	Sun, 13 Sep 2026 20:49:03 +0200 (CEST)
+From: Jori Koolstra <jkoolstra@xs4all.nl>
+To: Christian Brauner <brauner@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Aleksa Sarai <aleksa@amutable.com>,
+	NeilBrown <neil@brown.name>,
+	Amir Goldstein <amir73il@gmail.com>,
+	Jan Kara <jack@suse.cz>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Jori Koolstra <jkoolstra@xs4all.nl>
+Subject: [PATCH v6 00/12] vfs: add O_CREAT|O_DIRECTORY to open*(2)
+Date: Sun, 13 Sep 2026 20:50:04 +0200
+Message-ID: <20260913185016.523376-1-jkoolstra@xs4all.nl>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260913111700.6de78b5834842f7dd3f12d07@linux-foundation.org>
+Content-Transfer-Encoding: 8bit
 
-(Nguyen - do not send v2 in reply to v1, look across mm and see how things are
-done here).
+Hi Christian/Neil,
 
-somebody who has a
+Finally got back from holiday. I know Neil is also attempting to make
+changes to the same code paths as the O_CREAT|O_DIRECTORY series touch,
+so I hope, now that I have a bit more time, that I can push this
+forwards before I have to do more rebasing.
 
-On Sun, Sep 13, 2026 at 11:17:00AM -0700, Andrew Morton wrote:
-> On Sun, 13 Sep 2026 23:36:44 +0700 Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com> wrote:
->
-> > collapse_file() calls page_cache_sync_readahead() to fault in missing
-> > pages before collapsing them into a THP. That helper takes
-> > mapping->invalidate_lock itself for the duration of the call, then
-> > drops it -- but truncate (e.g. ext4_setattr() -> truncate_pagecache())
-> > takes invalidate_lock and then waits on each page's folio lock while
-> > holding it. If collapse_file() has already locked one of those folios
-> > by the time truncate reaches it, and then tries to acquire
-> > invalidate_lock again (e.g. on the first readahead call, since
-> > invalidate_lock is not yet held at that point), the two paths can
-> > deadlock/hang on each other's lock: truncate blocked on the folio lock
-> > collapse holds, and collapse blocked waiting for invalidate_lock that
-> > truncate holds.
-> >
-> > Reproducing this over ~150,000 collapse iterations with truncate
-> > racing concurrently reliably hits hung_task: blocked tasks within
-> > about 20 seconds on an unpatched kernel.
-> >
-> > Fix it by taking invalidate_lock_shared once for the whole scan, after
-> > alloc_charge_folio() succeeds and before locking any folio, and using
-> > page_cache_ra_unbounded() directly in the readahead call site instead
-> > of page_cache_sync_readahead(), since the latter would try to retake
-> > the lock we already hold. page_cache_ra_unbounded() does not clamp to
-> > EOF like the helper it replaces, so clamp the requested range
-> > explicitly.
-> >
-> > 730633f0b7f9 added invalidate_lock acquisition around readahead but
-> > missed collapse_file(), which already locks pages while calling
-> > readahead; later filesystem conversions made the deadlock reachable by
-> > taking invalidate_lock before waiting on page locks during truncate.
-> >
-> > Reported-by: syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com
-> > Closes: https://syzkaller.appspot.com/bug?extid=16bf7cd0ebeb1de93aa5
-> > Fixes: 730633f0b7f9 ("mm: Protect operations adding pages to page cache with invalidate_lock")
->
-> (You forgot to cc the original author)
+This series implements new semantics for the O_CREAT|O_DIRECTORY flag
+combination for open*(2): perform a mkdir and open the resulting
+directory; return a pinning fd (which mkdir does not).
 
-Also a change log, and that mm doesn't like sending a respin in-reply-to a
-previous version. Which is all consistent with somebody using e.g. openclaw to
-pepper generated patches across the kernel...
+Most of the work happens in "vfs: add O_CREAT|O_DIRECTORY to open*(2),"
+as may be expected. Before that there is some clean-up work and
+preparation. The "vfs: short-circuit MAY_WRITE access for O_DIRECTORY
+opens" patch is also worth paying extra attention to as it
+short-circuits doomed opening of directories as writable. This check (to
+prevent one from opening directories as writable) is currently done very
+late in do_open(), after an inode has been obtained. However, when
+introducing O_CREAT|O_DIRECTORY this is unacceptable as it would create
+the directory and then still fail. This patch does however change some
+user visible error codes.
 
->
-> Five years.
->
-> I wonder why this hasn't been discovered by lockdep, AI, syzbot or any
-> other of the tools we've been using for so long.
->
-> Thanks for doing all this.
+Moreover, "vfs: change ->create/->mkdir operations unavailable errno"
+also changes the ->create and ->mkdir unavailable errnos to -EOPNOTSUPP.
+A previous attempt to do this more widely stranded before.[1] However,
+that regression was only for vfat and does seem specific to changing the
+return code from vfs_symlink(). We can drop this patch if needed, but it
+would be _really_ ugly.
 
-See https://lore.kernel.org/linux-mm/aqbtfms0_2ULBIT7@gremlin/
+Changes from vn to v(n+1):
+v5: https://lore.kernel.org/linux-fsdevel/20260823160706.358293-1-jkoolstra@xs4all.nl/
+   - Uniformize ->create and ->mkdir unavailable errnos to -EOPNOTSUPP.
+   - Return -EOPNOTSUPP instead of -ENOENT when O_CREAT|O_DIRECTORY is
+     not supported by a ->atomic_open filesystem.
+   - Added test cases for dangling symlink and sticky directory
+     behaviour, and a test that verifies O_TMPFILE|O_CREAT is still
+     -EINVAL.
+   - Split off "vfs: lookup_open(): lock the parent as I_MUTEX_PARENT"
+     as a separate patch.
+   - Fixed the issues pointed out by Brauner in v5.
+v4: https://lore.kernel.org/linux-fsdevel/20260712175539.1565444-1-jkoolstra@xs4all.nl/
+   - rebased on 7.2, which includes my changes to auditing in
+     lookup_open() as well as Neil Brown's changes to the same function
+     for the implementation of vfs_lookup_open().
+v3: https://lore.kernel.org/linux-fsdevel/20260704164149.3480051-1-jkoolstra@xs4all.nl/
+   - address the inconsistency in calling audit_inode_child() in
+     lookup_open() versus vfs_create() in a separate series.
+   - fclog.c selftest header fix moved to separate patch.
+   - add a "with trailing slash test" success test to the included
+     selftests. 
+   - pass struct qstr by pointer to trailing_slashes() and add a comment
+     on what it does
+   - changed commit message of "vfs: add O_CREAT|O_DIRECTORY to
+     open*(2)" to address comments of Brauner
 
-I am not really entirely happy with somebody who has sent a flurry of patches
-across disparate subsystems with no previous track record being in charge of a
-potentially backported fix.
+[1]: https://lore.kernel.org/linux-fsdevel/90228c39-04e7-41ef-ad91-84a8bb866650@sirena.org.uk/
 
-It's David's decision but I think this fix should be taken over by somebody
-else.
+Jori Koolstra (12):
+  fs/namei.c: use trailing_slashes()
+  vfs: prepare vfs_creat|mkdir_no_perm for reuse in lookup_open()
+  vfs: lookup_open(): move setting FMODE_CREATED down
+  vfs: move ->create check in lookup_open() to before try_break_deleg()
+  vfs: lookup_open(): use vfs_create_no_perm()
+  vfs: lookup_open(): lock the parent as I_MUTEX_PARENT
+  vfs: add O_CREAT|O_DIRECTORY to open*(2)
+  vfs: change ->create/->mkdir operations unavailable errno
+  vfs: move O_IS_MKDIR check from lookup_open() into individual
+    filesystems
+  vfs: refuse O_CREAT for directories through a dangling symlink
+  vfs: short-circuit MAY_WRITE access for O_DIRECTORY opens
+  selftest: add tests for open*(O_CREAT|O_DIRECTORY)
 
-See https://lore.kernel.org/all/?q=f%3ANguyen+Ngoc+Thang
+ fs/9p/vfs_inode.c                             |   5 +
+ fs/9p/vfs_inode_dotl.c                        |   5 +
+ fs/ceph/file.c                                |   5 +
+ fs/fuse/dir.c                                 |   5 +
+ fs/gfs2/inode.c                               |   5 +
+ fs/namei.c                                    | 247 ++++++++++-----
+ fs/nfs/dir.c                                  |  10 +
+ fs/open.c                                     |  32 +-
+ fs/smb/client/dir.c                           |   5 +
+ fs/vboxsf/dir.c                               |   5 +
+ include/linux/fcntl.h                         |   6 +
+ include/uapi/asm-generic/errno.h              |   2 +-
+ .../testing/selftests/filesystems/.gitignore  |   1 +
+ tools/testing/selftests/filesystems/Makefile  |   2 +-
+ .../filesystems/open_o_creat_o_dir.c          | 296 ++++++++++++++++++
+ .../testing/selftests/filesystems/wrappers.h  |  11 +
+ 16 files changed, 554 insertions(+), 88 deletions(-)
+ create mode 100644 tools/testing/selftests/filesystems/open_o_creat_o_dir.c
 
->
-> > --- a/mm/khugepaged.c
-> > +++ b/mm/khugepaged.c
-> > @@ -2257,6 +2257,7 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
-> >  	enum scan_result result = SCAN_SUCCEED;
-> >  	int nr_none = 0;
-> >  	bool is_shmem = shmem_file(file);
-> > +	bool need_unlock = false;
-> >
-> >  	/*
-> >  	 * MADV_COLLAPSE ignores shmem huge config, so do not check shmem
-> > @@ -2271,6 +2272,15 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
-> >  	if (result != SCAN_SUCCEED)
-> >  		goto out;
-> >
-> > +	/*
-> > +	 * Take invalidate_lock before any folio lock: the readahead below
-> > +	 * needs it, and truncate holds it while waiting on folio locks.
-> > +	 */
-> > +	if (!is_shmem) {
->
-> Is the shmem special-case a red flag?
->
-> Probably this fix an acceptable minimal-thing-for-backporting.
->
-> Question for maintainers as well as for yourself: but does this
-> indicate a need for a more architected redo?
->
 
---
-Cheers, Lorenzo
+base-commit: 2f0c1cf72f4682178506f513bbf015e591b1aa4a
+-- 
+2.55.0
+
