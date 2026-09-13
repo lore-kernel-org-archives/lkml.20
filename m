@@ -1,97 +1,201 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com [209.85.161.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D734834EF07
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 15:52:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4492E3624A5
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 15:54:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789314764; cv=none; b=Qhma3kkcQXX05Atwth6dzAwLwJh3qFGfafTtGZA5KnsrQZu3be8XQs48jSDxjqp2QKee6HJ2E2flV/hi3i0L34olOpeSYk6h2IOQj/ESLa5DZYHDS2Iti7A9Vn0XguVoT1R58LZKPIJ6sX3Pq7H2Sa8znfglrsSk9DMMijuiVng=
+	t=1789314875; cv=none; b=Yzqo/nFJLp8TpzB4x4EOn34bYM4QsJ7NKLUfQLaEoKIEYZFezeetRMkDUe6LbxGmI+cLf9gMAdQ/jIaimILLJ4gSI8QlXawr/VhN2Z75RIsKBH1dRHKsOZR7uvmgXWfa1oqkeIvvLUdU6BkAmrMAdDk6KvPmTeNelgBTggNzzkg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789314764; c=relaxed/simple;
-	bh=dg+2Qr+O5bIrEbgfYW8CzPaMnOhuJfox7xoYSIkTiT0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=iD5ED4CnWgYVDK24d09MpzCBTKmnYzA9N4jDKiaQWkR2DK6+TuRYLOwohjuEJ/pGsI2J+UaA8bs2aE6X2kvk9Oicp6X4bfAdrshaFwUrn3//G0s/lolpeBXO61MVCuKGLO3dfbeYBNqhqgbJqz8Jsh1+xgNuJAi24MwjzF9QBDw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WnMqGFnD; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WnMqGFnD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A71F21F008A0
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 15:52:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789314763;
-	bh=J64BL22WjRfKK811Ckzq8S42IJIbfd0VtAbWuMwxY04=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
-	b=WnMqGFnDDFnHlfAReCslPgEvYzB1pDtjLj7mEgkFE4I6gUASFAo3u0ckrUZmGhDYy
-	 gVlfUH14BrgNT0TBB1QZuuUSZECSYFtL8PlwxDubxicNJqC8iJmDizon+Uu+TBJIpi
-	 /od0RWCSuOu8LOZ1NBdk0J8h1lxyyFNow3UG9BnR76uk31HIe8E6qP3J5NRoiOvyxY
-	 5CwLbWSP5QIjFZwPFo45DN7Whc5y4vMVOMOLLirjDu1Tm8cGVd5HFosZtORdTZa4Eb
-	 VJdKpbNDf9vxhiT0c4ybTOkAuzb1z+WlAagvUZH8WWhZyVflr1YNfyRDJSsT0ZVdE9
-	 7YWgaIJ76z8HQ==
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a3156692e3so3873321fa.0
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 08:52:43 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwEjDz4eh8Y76F7LeyDBgVCkEO6GdgQOvPxQwVsldr4jSDDumRYqbZZgo6skkXh2TqjNDi+MEJh+WPFiyg=@vger.kernel.org
-X-Gm-Message-State: AFuF++npTXnmn6guWZbCGjeUOGoXF5hmQzl+WdU3Pw3n6u4V51UhDPed
-	5LUxXaluyD3WNyh5X+rZBzCzc9Jrtect/rulmLtr+C39gCLQ2zOz64JmPpqYIIMw70bGcv/I0Ss
-	Fun1Uqc8v3jmjhoiqZJRhpbOKF53g/3k=
-X-Received: by 2002:a05:651c:a205:20b0:3a3:61ec:7db5 with SMTP id
- 38308e7fff4ca-3a5be1d65e6mr1540031fa.11.1789314761967; Sun, 13 Sep 2026
- 08:52:41 -0700 (PDT)
+	s=arc-20240116; t=1789314875; c=relaxed/simple;
+	bh=RDKaKOuPxS/QzxQFvPQRdgvIU1ShlLWf0Nb+q2Yx5+4=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=RXDbIwEfVjn5X5Z1B5C/YchYucZ9omEE2pHF2TgQm3rntYxUeexB6A7XhgW78t31WRSsro86AsmrZI1QSOZXLfFMLNPPJLtGMurW+PB2eQqFXNvcykSVKU85zS0jz9RG78W3aUutS/Ooo5ToS4KJ6byh6uTguYtIM8lX4UfHx6Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f72.google.com with SMTP id 006d021491bc7-6c1e5079d43so1714472eaf.3
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 08:54:32 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789314872; x=1789919672;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=XyI7tP6BV3ZQw5PxaOMpv7ruNgnlTIM69B675BjVVIw=;
+        b=FNYhHSGNB1VVu5iLEL5fBl7X6OVxYGaec9wTDeWI09mK1EUSax2pz8eOw1E4UqSlSX
+         dYawFPQPWHGT9pzlty0EAH13eE4AMgX4HYmJFh5jWxchyPmysSjjxG1wCZqTOZjWm0dx
+         DnWesfC9aW5MuHo4hhDlSGMD6m7OtVFlvAg7PmoKOZ0gkRZh3YmC3sDiQN+Ejk9fEKXJ
+         XpUYBm2ug9aK+nAvRapRhiAiZqhdXZaM/GnhsjArFcFVJwkfWJcIK4P2GcU391uJQnVC
+         kvRRMkhsNfgBiH26BvMhWaOKChkWUX5GwKnsBAHQyop/oPMjugL8txIw4VjB18VaGqgN
+         ZD4Q==
+X-Forwarded-Encrypted: i=1; AKwUvBz/Gh3hkSQUZ2Qh/LhAOLEVzYjdVKwzqyj+o9m5+9ykof9TXWbkG0aEA+0iF+3s5zmXWD9XJN7B+HXZmzI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lbjYSVB8G14kPP4ix50Nk8xxATT/20JT4xm/xcJZVx+bql6G0L
+	IoEboGkBG/Q4gjJTdStM30pMu7DAf9B1+Grp+s+qXouXrzjaZrG7Jl1M7bESW8KGbnphcKQ4J7H
+	REuwc7++s2vZytj/RbGDXsOIoxmJGGl5B0YhxOTh1j/koxRRGeXbFbGCBNV0=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260905133452.64544-1-hppiscas@163.com>
-In-Reply-To: <20260905133452.64544-1-hppiscas@163.com>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Sun, 13 Sep 2026 23:52:28 +0800
-X-Gmail-Original-Message-ID: <CAGb2v65mRj72OrcCqXy3-Yo1UFJsLoeEiB0E_JhbYBuj-e182A@mail.gmail.com>
-X-Gm-Features: AcwNN1WDCOy2sNndiTJTzu6mT4VBlt5N2NICbAPIS69BxHec14lNArKCHBdII7k
-Message-ID: <CAGb2v65mRj72OrcCqXy3-Yo1UFJsLoeEiB0E_JhbYBuj-e182A@mail.gmail.com>
-Subject: Re: [PATCH] clk: sunxi-ng: a523: Publish the main CCU module alias
-To: "hpp.iscas" <hppiscas@163.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Samuel Holland <samuel@sholland.org>, linux-clk@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, Andre Przywara <andre.przywara@arm.com>
+X-Received: by 2002:a05:6820:1f07:b0:6b1:b867:1a1 with SMTP id
+ 006d021491bc7-6c0bb2f3cadmr16804045eaf.12.1789314872182; Sun, 13 Sep 2026
+ 08:54:32 -0700 (PDT)
+Date: Sun, 13 Sep 2026 08:54:32 -0700
+In-Reply-To: <6a8278d8.dbb3a75c.20434b.0041.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa6c738.f81106d8.2ab401.0037.GAE@google.com>
+Subject: Re: [syzbot] [kernel?] KASAN: slab-use-after-free Read in disable_device
+From: syzbot <syzbot+4393dfdddf166f2de2b0@syzkaller.appspotmail.com>
+To: dakr@kernel.org, driver-core@lists.linux.dev, gregkh@linuxfoundation.org, 
+	linux-kernel@vger.kernel.org, rafael@kernel.org, 
+	syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Sat, Sep 5, 2026 at 9:35=E2=80=AFPM hpp.iscas <hppiscas@163.com> wrote:
->
-> The A523 main CCU driver supports module builds and registers an OF
-> match table. The table is not exported, leaving the module without an
-> alias for its OF device.
->
-> Publish the main CCU table without changing clock initialization.
->
-> Fixes: 7cae1e2b5544 ("clk: sunxi-ng: Add support for the A523/T527 CCU PL=
-Ls")
-> Signed-off-by: hpp.iscas <hppiscas@163.com>
+syzbot has found a reproducer for the following issue on:
 
-This and the patch author needs to be your actual name. Same for your other
-patch.
+HEAD commit:    2f0c1cf72f46 Merge tag 's390-7.3-3' of git://git.kernel.or..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=17ccf615580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
+dashboard link: https://syzkaller.appspot.com/bug?extid=4393dfdddf166f2de2b0
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=15fb19f9580000
 
-See Documentation/process/submitting-patches.rst
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+4393dfdddf166f2de2b0@syzkaller.appspotmail.com
 
-> ---
->  drivers/clk/sunxi-ng/ccu-sun55i-a523.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/clk/sunxi-ng/ccu-sun55i-a523.c b/drivers/clk/sunxi-n=
-g/ccu-sun55i-a523.c
-> index 20dad06..d0c4c70 100644
-> --- a/drivers/clk/sunxi-ng/ccu-sun55i-a523.c
-> +++ b/drivers/clk/sunxi-ng/ccu-sun55i-a523.c
-> @@ -1685,6 +1685,7 @@ static const struct of_device_id sun55i_a523_ccu_id=
-s[] =3D {
->         { .compatible =3D "allwinner,sun55i-a523-ccu" },
->         { }
->  };
-> +MODULE_DEVICE_TABLE(of, sun55i_a523_ccu_ids);
->
->  static struct platform_driver sun55i_a523_ccu_driver =3D {
->         .probe  =3D sun55i_a523_ccu_probe,
->
+smbdirect: ib_dev[rxe10] removed
+======================
+==================================================================
+BUG: KASAN: slab-use-after-free in kobject_uevent_net_broadcast lib/kobject_uevent.c:415 [inline]
+BUG: KASAN: slab-use-after-free in kobject_uevent_env+0x1383/0x18b0 lib/kobject_uevent.c:611
+Read of size 8 at addr ffff8880386e9fd0 by task kworker/u33:4/75
+
+CPU: 3 UID: 0 PID: 75 Comm: kworker/u33:4 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Workqueue: ib-unreg-wq ib_unregister_work
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_address_description mm/kasan/report.c:378 [inline]
+ print_report+0x13d/0x4b0 mm/kasan/report.c:482
+ kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
+ kobject_uevent_net_broadcast lib/kobject_uevent.c:415 [inline]
+ kobject_uevent_env+0x1383/0x18b0 lib/kobject_uevent.c:611
+ device_del+0x605/0x9b0 drivers/base/core.c:3983
+ remove_one_compat_dev drivers/infiniband/core/device.c:1036 [inline]
+ remove_compat_devs drivers/infiniband/core/device.c:1047 [inline]
+ disable_device+0x1ea/0x280 drivers/infiniband/core/device.c:1339
+ __ib_unregister_device+0x2b4/0x480 drivers/infiniband/core/device.c:1571
+ ib_unregister_work+0x19/0x30 drivers/infiniband/core/device.c:1683
+ process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
+ process_scheduled_works kernel/workqueue.c:3479 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+
+Allocated by task 6226:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
+ __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
+ kasan_kmalloc include/linux/kasan.h:263 [inline]
+ __kmalloc_cache_noprof+0x2f8/0x6d0 mm/slub.c:5563
+ _kmalloc_noprof include/linux/slab.h:991 [inline]
+ _kzalloc_noprof include/linux/slab.h:1312 [inline]
+ uevent_net_init+0xd3/0x330 lib/kobject_uevent.c:782
+ ops_init+0x1e2/0x5f0 net/core/net_namespace.c:137
+ setup_net+0x118/0x3a0 net/core/net_namespace.c:443
+ copy_net_ns+0x345/0x7a0 net/core/net_namespace.c:582
+ create_new_namespaces+0x3ea/0xac0 kernel/nsproxy.c:132
+ unshare_nsproxy_namespaces+0xf2/0x220 kernel/nsproxy.c:234
+ ksys_unshare+0x4a2/0xa70 kernel/fork.c:3292
+ __do_sys_unshare kernel/fork.c:3356 [inline]
+ __se_sys_unshare kernel/fork.c:3354 [inline]
+ __x64_sys_unshare+0x31/0x40 kernel/fork.c:3354
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+Freed by task 5751:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ kasan_save_free_info+0x3b/0x70 mm/kasan/generic.c:584
+ poison_slab_object mm/kasan/common.c:253 [inline]
+ __kasan_slab_free+0x5f/0x80 mm/kasan/common.c:285
+ kasan_slab_free include/linux/kasan.h:235 [inline]
+ slab_free_hook mm/slub.c:2748 [inline]
+ slab_free mm/slub.c:6508 [inline]
+ kfree+0x22b/0x6d0 mm/slub.c:6801
+ ops_exit_list net/core/net_namespace.c:200 [inline]
+ ops_undo_list+0x2ee/0xab0 net/core/net_namespace.c:253
+ cleanup_net+0x499/0x920 net/core/net_namespace.c:706
+ process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
+ process_scheduled_works kernel/workqueue.c:3479 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+The buggy address belongs to the object at ffff8880386e9fc0
+ which belongs to the cache kmalloc-32 of size 32
+The buggy address is located 16 bytes inside of
+ freed 32-byte region [ffff8880386e9fc0, ffff8880386e9fe0)
+
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0xffff8880386e9980 pfn:0x386e9
+flags: 0xfff00000000200(workingset|node=0|zone=1|lastcpupid=0x7ff)
+page_type: f5(slab)
+raw: 00fff00000000200 ffff88801c042780 ffffea0000d14c90 ffffea0000dfb110
+raw: ffff8880386e9980 000000000040003e 00000000f5000000 0000000000000000
+page dumped because: kasan: bad access detected
+page_owner tracks the page as allocated
+page last allocated via order 0, migratetype Unmovable, gfp_mask 0xd2800(GFP_NOWAIT|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 4516, tgid 4516 (kworker/u33:10), ts 10789616045
+ set_page_owner include/linux/page_owner.h:33 [inline]
+ post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1871
+ prep_new_page mm/page_alloc.c:1879 [inline]
+ get_page_from_freelist+0x110d/0x35d0 mm/page_alloc.c:3943
+ __alloc_frozen_pages_noprof+0x2eb/0x3300 mm/page_alloc.c:5436
+ alloc_slab_page mm/slub.c:3347 [inline]
+ allocate_slab mm/slub.c:3462 [inline]
+ new_slab+0xa9/0x6e0 mm/slub.c:3513
+ refill_objects+0xe3/0x410 mm/slub.c:7417
+ refill_sheaf mm/slub.c:2885 [inline]
+ __pcs_replace_empty_main+0x35e/0x650 mm/slub.c:4774
+ alloc_from_pcs mm/slub.c:4850 [inline]
+ slab_alloc_node mm/slub.c:4984 [inline]
+ __kmalloc_cache_noprof+0x4f4/0x6d0 mm/slub.c:5559
+ _kmalloc_noprof include/linux/slab.h:991 [inline]
+ slab_free_hook mm/slub.c:2700 [inline]
+ slab_free mm/slub.c:6508 [inline]
+ kmem_cache_free+0x40f/0x6c0 mm/slub.c:6635
+ __cleanup_sighand kernel/fork.c:1723 [inline]
+ __cleanup_sighand+0x6a/0xa0 kernel/fork.c:1715
+ __exit_signal kernel/exit.c:222 [inline]
+ release_task+0xcb8/0x1b80 kernel/exit.c:272
+ exit_notify kernel/exit.c:812 [inline]
+ do_exit+0x13ba/0x2ae0 kernel/exit.c:1023
+ call_usermodehelper_exec_async+0x35d/0x4b0 kernel/umh.c:120
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+page_owner free stack trace missing
+
+Memory state around the buggy address:
+ ffff8880386e9e80: 00 00 00 00 fc fc fc fc fa fb fb fb fc fc fc fc
+ ffff8880386e9f00: fa fb fb fb fc fc fc fc fa fb fb fb fc fc fc fc
+>ffff8880386e9f80: fa fb fb fb fc fc fc fc fa fb fb fb fc fc fc fc
+                                                 ^
+ ffff8880386ea000: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+ ffff8880386ea080: fb fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
+==================================================================
+
+
+---
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
