@@ -1,384 +1,235 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 205D3238D54;
-	Sun, 13 Sep 2026 03:25:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DD834BEE58;
+	Sun, 13 Sep 2026 03:26:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789269957; cv=none; b=FPbseP88YF4H3XVS/QUeuowytFBghFJHxHIbIlEOQhGmiQnUNbAlEiDDUCjkkA65fe+VTizX7Dea5z725PQjMIS5xwMi20LDXEM9a5cn299dodu3SNGPdmXOVZPjE2UEvASUDmZEcFf0ulwopiA3kt2aBYhLtdoBJTGdD5i2PWM=
+	t=1789270002; cv=none; b=PqU4TuEtorLFTdfu0K8+yZ+Cb5tyrODFW60JQWlwYFjacfXwukw0E3XhgNfnZrHPW1m/PMKFYIGFMW1jfrJ4W5rCVSZekTgTnbiyAUul9hi1HClUh3jwftAahsZtcRJqeGyaezqC2yoEMn5QxBnnkTG6c73P6/a3Dww5VLRb9Ys=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789269957; c=relaxed/simple;
-	bh=n+ysqi0a1NX5c/YyASHQUb1duMHa7O4AEB3NUgadjZI=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=t/OOX56oa8uMeCFQK3ViCsy+uGs3BnTFtvpgkQbniSHKgpeWs8kS6ulZr82KzQqjeWuMogoPNmQpTOl9nvpm133XPV6FCG60yGU63OmxXs8s8rpv9m0cxKaZ2hWGsVUxNrImqy0X+IQ7XcVGYv4PHthPSjNlsoynMRdAEIw5Bic=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K5OdDYaX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789270002; c=relaxed/simple;
+	bh=WE5LxN/bAI8vM0bC+VjVhIXOzDsnX2IQFa6cquQ1ye0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=a1LgXy6M/aOhMFQ0VsdMtJr2dtJLjVpoNVEyIkyc2I1MrzWp2Uj84zcWvqz4feEQidOfcOj8CFIriE0oqOmNpvZnywYqVcAVaFXOYkmY8rFZka1J/C/XcCHpmeRWfyGENDtQZKDAA5B8Gd2sTnkutYmwtgWT0BaNdqOTLnqND9g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OYTH1oVC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K5OdDYaX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 460AF1F000FF;
-	Sun, 13 Sep 2026 03:25:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OYTH1oVC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F37E1F000FF;
+	Sun, 13 Sep 2026 03:26:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789269954;
-	bh=qUIb14/0OAjAHlQSJSidqNaWRphPPmrzD+AXNTOoLe4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=K5OdDYaXz71j1JtHhqb4irKRXamfBZLkRP6okXK1bfB/W11/Lkw7lAbdvHqifexHF
-	 k9AMbpbpw2p5ZpdWjKv2XOtpjWXJ4+HuJHvRb7MeMasVrd8QGSxQ5+bJyrdoda2O5r
-	 aP6HnpL4EY8tI900qc8YLWlSBqGHEU/4B5UlO+UdXBKTrlA/YIxRkX6FbnvI/uEjp7
-	 EadxsmBbMmTbIEz1SpMItZwwbOo5SlO3Kh2quBrJlLF54C9FI8JolXaCWCKpT6hkfh
-	 iZrtLINmsZ9rm40L/MgwIe8Q3FBAuD71u7jDQgXgXPSOGeSoQd/1Og0EJRnsG5MnLp
-	 v9XhjbSi1BMOg==
-Date: Sun, 13 Sep 2026 04:25:48 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, "Andy Shevchenko" <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, "Maxime Coquelin" <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, Marek Vasut
- <marex@nabladev.com>, <linux-iio@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
- Cheick Traore <cheick.traore-ext@st.com>, Olivier Moysan
- <olivier.moysan@foss.st.com>
-Subject: Re: [PATCH 3/8] iio: adc: stm32-adc: add support for stm32mp23 and
- stm32mp25
-Message-ID: <20260913042548.299b1109@jic23-hlaptop>
-In-Reply-To: <20260911-adc-stm32mp25-v1-v1-3-cef26eecdef2@foss.st.com>
-References: <20260911-adc-stm32mp25-v1-v1-0-cef26eecdef2@foss.st.com>
-	<20260911-adc-stm32mp25-v1-v1-3-cef26eecdef2@foss.st.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1789270001;
+	bh=A/+am1mr4ycZkKVAVIg25nwNAmf5601E1yrxiDAH2Mg=;
+	h=From:To:Cc:Subject:Date;
+	b=OYTH1oVCkAof+psRdTEMMLm2R8nnxRrvipb5W52d/klrDwkZvU1V3gA/Oi+ISJIpl
+	 MQMhzUJ22oNLNXlekYoKoxO8Z9B+epo2N83ianJolqgvuW7Qi/Y8omexTIlNV9P4iI
+	 S/0fdrNsZu0EvUyjGdQ1Tw7lWPSIbgW+5rb4PTQefpoopkUpxhMazEP9zCZBOT9Hw8
+	 ogls5JaPoE/x3ObQ0xwLOUO8nKhtsqcK4FzRUnSb8pczOCEQ2JInIiJ+cJz8+NosDW
+	 0lD5KPa2QalcJWDmSNSdQWorI/O3iow3DhXhuyGqRr9iVEluTrU69Ds8kxWyWHyewX
+	 nn5MWblX54AlQ==
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Namhyung Kim <namhyung@kernel.org>
+Cc: Ingo Molnar <mingo@kernel.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	James Clark <james.clark@linaro.org>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Clark Williams <williams@redhat.com>,
+	linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	Arnaldo Carvalho de Melo <acme@kernel.org>
+Subject: [PATCH v2 0/8] perf tools: Annotate fixes, stdio progress indication, debuginfo-client in more places
+Date: Sun, 13 Sep 2026 00:26:20 -0300
+Message-ID: <20260913032632.116277-1-acme@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, 11 Sep 2026 17:51:25 +0200
-Fabrice Gasnier <fabrice.gasnier@foss.st.com> wrote:
+Hi,
 
-> Add support for STM32MP23 STM32MP25 SoCs. They have 3 ADCs, split into
-> two blocks:
-> - ADC12 (ADC1 & ADC2) are tightly coupled.
-> - ADC3 is managed independently.
-> Trigger list slightly changes between STM32MP23 and STM32MP25.
-> 
-> Each ADC is a 12-bits successive approximation analog-to-digital converter,
-> with up to 20 multiplexed channels that can be configured as single ended
-> or differential. ADC resolution ranges from 6 to 12 bits.
-> 
-> It introduces diversity regarding IRQs, clocks, software calibration
-> procedure, internal voltage channels, sampling time (prescaler) and
-> trigger list. Most of the architecture, and the driver engine remains
-> similar. So, handle the differences w.r.t. other STM32 ADCs family with
-> a dedicated compatible and compatible data.
-> 
-> Trigger list depends on ADC instance, retrieved with "st,adc-trigger-sel"
-> property.
-> 
-> Add support for vddcpu and vddgpu internal channels on stm32mp25.
-> These channels are enabled by using ADC option register.
-> Add VDDGPU to the list of supported channels in this driver and made
-> available on stm32mp25. So update sampling information for all variants
-> (with zero'ed data when it's not available).
-> 
-> Co-developed-by: Cheick Traore <cheick.traore-ext@st.com>
-> Signed-off-by: Cheick Traore <cheick.traore-ext@st.com>
-> Co-developed-by: Olivier Moysan <olivier.moysan@foss.st.com>
-> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
-> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+This came out of work on data type profiling, but none of them depends on that
+work and nothing in this series needs anything from it, so sending them
+separately.
 
-Hi. various comment inline. Some stuff will change if the two
-compatible solution works out instead of the trigger array
-stuff.  There are also some bits I'd like as enabling refactors
-where you add the new stuff to support extra variability before
-bringing in a the device support that uses it.  Tends to end up more
-readble.
+The fixes:
 
->  /* STM32F4 ADC internal common clock prescaler division ratios */
->  static int stm32f4_pclk_div[] = {2, 4, 6, 8};
->  
-> +/* STM32MP25 ADC internal common clock prescaler division ratios */
-> +static int stm32mp25_presc_div[] = {1, 2, 4, 6, 8, 10, 12, 16, 32, 64, 128, 256};
+  - 'perf report -s type' spins forever, burning all of a CPU with no
+    output, on the dwz compressed debug info of zlib-ng (libz.so.1):
+    die_collect_vars() saves the dwarf_dieoffset() of the type DIE,
+    which is relative to the file that DIE lives in, the dwz common
+    file for the types shared by more than one CU, and resolving one of
+    those offsets in the main debug file does not fail, it parses
+    whatever is at that offset there, in this case a typedef whose
+    DW_AT_type refers to itself, which is what makes the "follow the
+    typedefs and qualifiers until a pointer or an array type" loop in
+    die_get_pointer_type() spin.  The offset is now resolved in the file
+    it was recorded as coming from, which the CU of the collected DIE
+    tells exactly rather than having to be inferred from what is at the
+    offset, and the type chases and the struct/union member nesting are
+    bounded, so a debug info file broken in some other way makes perf
+    give up on a type with a pr_debug instead of looking like it hung
+    (patch 7);
 
-Spaces after { and before } 
-I don't mind the line being a bit longer. Hmm. Local style so maybe leave it
-for now.
+  - the data type browser prints, in its samples view (-n,
+    annotate.show_nr_samples), a local variable initialized to zero and
+    never updated, so every member shows up as having no samples while
+    the period and percent columns for the same entry are filled in
+    (patch 4);
 
-> +
->  /**
-> - * stm32f4_adc_clk_sel() - Select stm32f4 ADC common clock prescaler
-> + * stm32_adc_clk_sel() - Select stm32f4 ADC common clock prescaler
->   * @pdev: platform device
->   * @priv: stm32 ADC core private data
->   * Select clock prescaler used for analog conversions, before using ADC.
->   */
-> -static int stm32f4_adc_clk_sel(struct platform_device *pdev,
-> -			       struct stm32_adc_priv *priv)
-> +static int stm32_adc_clk_sel(struct platform_device *pdev,
-> +			     struct stm32_adc_priv *priv)
->  {
->  	unsigned long rate;
->  	u32 val;
->  	int i;
->  
-> -	/* stm32f4 has one clk input for analog (mandatory), enforce it here */
-> +	/* stm32f4/mp25 has one clk input for analog (mandatory), enforce it here */
->  	if (!priv->aclk) {
->  		dev_err(&pdev->dev, "No 'adc' clock found\n");
->  		return -ENOENT;
-> @@ -153,20 +166,20 @@ static int stm32f4_adc_clk_sel(struct platform_device *pdev,
->  		return -EINVAL;
->  	}
->  
-> -	for (i = 0; i < ARRAY_SIZE(stm32f4_pclk_div); i++) {
-> -		if ((rate / stm32f4_pclk_div[i]) <= priv->max_clk_rate)
-> +	for (i = 0; i < priv->cfg->num_presc; i++) {
-> +		if ((rate / priv->cfg->presc[i]) <= priv->max_clk_rate)
->  			break;
->  	}
-> -	if (i >= ARRAY_SIZE(stm32f4_pclk_div)) {
-> +	if (i >= priv->cfg->num_presc) {
->  		dev_err(&pdev->dev, "adc clk selection failed\n");
->  		return -EINVAL;
->  	}
->  
-> -	priv->common.rate = rate / stm32f4_pclk_div[i];
-> -	val = readl_relaxed(priv->common.base + STM32F4_ADC_CCR);
-> -	val &= ~STM32F4_ADC_ADCPRE_MASK;
-> -	val |= i << STM32F4_ADC_ADCPRE_SHIFT;
-> -	writel_relaxed(val, priv->common.base + STM32F4_ADC_CCR);
-> +	priv->common.rate = rate / priv->cfg->presc[i];
+  - the 'perf data type profiling' shell test turns "this PMU cannot
+    record these events" into a test failure: the script runs under
+    'set -e', so the bare 'perf mem record' aborts it through the EXIT
+    trap, which reports a signal that never happened, instead of
+    reaching the code right below meant to report the failure (patch 1).
 
-Where a refactor is needed do it first in an enabling patch
-with no new device support, then follow up with the new devices stuff.
+The features:
 
-You might want to break that enabling up into a couple of patches as there
-are multiple things that need to become configurable and it will get
-complex in one patch.
+  - 'perf report --progress' prints the phase it is in and how far
+    along it is to stderr: the TUI shows that with a progress bar, but
+    in the stdio case the ui_progress updates that are already there are
+    dropped on the floor.  It is what makes a slow run tell itself apart
+    from a stuck one (patch 5);
 
-> +	val = readl_relaxed(priv->common.base + priv->cfg->regs->ccr);
-> +	val &= ~priv->cfg->regs->presc_msk;
-> +	val |= i << priv->cfg->regs->presc_shift;
-> +	writel_relaxed(val, priv->common.base + priv->cfg->regs->ccr);
->  
->  	dev_dbg(&pdev->dev, "Using analog clock source at %ld kHz\n",
->  		priv->common.rate / 1000);
-> @@ -314,6 +327,8 @@ static const struct stm32_adc_common_regs stm32f4_adc_common_regs = {
->  	.ovr_msk = { STM32F4_OVR1, STM32F4_OVR2, STM32F4_OVR3 },
->  	.ier = STM32F4_ADC_CR1,
->  	.eocie_msk = STM32F4_EOCIE,
-> +	.presc_msk = STM32F4_ADC_ADCPRE_MASK,
-> +	.presc_shift = STM32F4_ADC_ADCPRE_SHIFT,
->  };
+  - the debuginfo for a DSO, and the kernel symbols, can now be fetched
+    keyed by the build ID recorded in the perf.data file, using the
+    debuginfod client, for the cases where they are not available
+    locally under the name the DSO was opened with: a vmlinux for a
+    kernel that since got upgraded, or a profile recorded on another
+    machine.  Both are off with --no-debuginfod, with
+    core.debuginfod=false, and when the build-id cache is turned off
+    (patches 2 and 3);
 
+  - 'perf mem record' asks for PERF_SAMPLE_CPU by default, as without
+    it the cpu field is the (u32)-1 "no CPU info" sentinel and
+    per-sample analysis cannot tell accesses from different cores apart
+    from same-CPU traffic (patch 8).
 
-> +
->  static const struct of_device_id stm32_adc_of_match[] = {
->  	{
->  		.compatible = "st,stm32f4-adc-core",
-> @@ -895,6 +948,12 @@ static const struct of_device_id stm32_adc_of_match[] = {
->  	}, {
->  		.compatible = "st,stm32mp13-adc-core",
->  		.data = (void *)&stm32mp13_adc_priv_cfg
-> +	}, {
-> +		.compatible = "st,stm32mp23-adc-core",
-> +		.data = (void *)&stm32mp25_adc_priv_cfg
-> +	}, {
-> +		.compatible = "st,stm32mp25-adc-core",
-> +		.data = (void *)&stm32mp25_adc_priv_cfg
->  	}, {
->  	},
-Feel free to delete this trailing comma whilst you are here.
+Which file a saved type DIE offset belongs to is settled with
+dwarf_cu_getdwarf(), new in elfutils 0.160, so the libdw feature test
+now probes for it and the message in Makefile.config says 0.160 where it
+said 0.157: 0.157 to 0.159 is from 2014 and has no such symbol, and
+those versions now lose dwarf support with that message instead of
+failing to link util/dwarf-aux.c.
 
->  };
->
-> diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
-> index 183b3474cad1..42827ce489dd 100644
-> --- a/drivers/iio/adc/stm32-adc.c
-> +++ b/drivers/iio/adc/stm32-adc.c
+Best regards,
 
->  
->  enum stm32_adc_int_ch {
-> @@ -86,6 +97,7 @@ enum stm32_adc_int_ch {
->  	STM32_ADC_INT_CH_VDDQ_DDR,
->  	STM32_ADC_INT_CH_VREFINT,
->  	STM32_ADC_INT_CH_VBAT,
-> +	STM32_ADC_INT_CH_VDDGPU,
->  	STM32_ADC_INT_CH_NB,
+- Arnaldo
 
-That one shouldn't have a comma as it's just there for counting and must
-always be last. Feel free to tidy that up whilst you are here!
+What changed from v1 (060dccedab1617dc):
 
->  };
->  
-> @@ -105,6 +117,7 @@ static const struct stm32_adc_ic stm32_adc_ic[STM32_ADC_INT_CH_NB] = {
->  	{ "vddq_ddr", STM32_ADC_INT_CH_VDDQ_DDR },
->  	{ "vrefint", STM32_ADC_INT_CH_VREFINT },
->  	{ "vbat", STM32_ADC_INT_CH_VBAT },
-> +	{ "vddgpu", STM32_ADC_INT_CH_VDDGPU },
+  PATCH 2/8, "perf debuginfo: Fetch debuginfo keyed by build ID using
+  debuginfod" [sashiko-bot review of PATCH 2/8]:
 
-A precursor making all these arrays use
-	[STM32_ADC_INT_CH_VBAT] = { "...." } would help avoid the need for static
-magic below.
+  - Included <limits.h> for PATH_MAX, that was coming in through a
+    glibc transitive include and fails to build with musl libc.
 
+  - debuginfod__setup_urls_env() now goes through pthread_once, so that
+    the setenv() of DEBUGINFOD_URLS happens exactly once: setenv() is
+    not thread safe and this is on the fetch path, which
+    dso__debuginfo() deliberately takes outside dso__lock.
 
->  };
-...
+  - The fetch now runs with debuginfod__fetch_lock held, so that the
+    process global state it uses — the terminal settings, the SIGINT/
+    SIGTERM dispositions and the progress and cancellation state — is
+    only ever touched by one fetch at a time.  A second concurrent
+    fetch would otherwise have taken the first one's raw mode as the
+    state to restore, leaving the terminal broken when it was done, and
+    would reset the cancellation state from under the fetch already in
+    progress.  Serializing also keeps two fetches from racing for the
+    same keypresses and the same progress line, and a second fetch has
+    nothing to gain from running in parallel with a first one reading
+    the same kind of file off the same servers.
 
-> +/* STM32MP25 external trigger sources for ADC12 */
-> +static struct stm32_adc_trig_info stm32mp25_adc12_trigs[] = {
-> +	{ TIM1_TRGO, STM32_EXT0 },
-> +	{ TIM1_TRGO2, STM32_EXT1 },
+  - An interrupt that lands after the fetch already succeeded is no
+    longer swallowed: at that point the terminal and the signal
+    dispositions are the original ones again, so the signal is re-raised,
+    the same way the failure path does, instead of perf carrying on as
+    if the user had not asked it to stop.
 
-> +	{ LPTIM5_OUT, STM32_EXT28 },
-> +	{},
-As below. Look for others.
+  PATCH 6/8, "perf scripts: Add perf-stuck, to tell where a running perf
+  is stuck" [sashiko-bot review of PATCH 6/8]:
 
-> +};
-> +
-> +/* STM32MP25 external trigger sources for ADC3 */
-> +static struct stm32_adc_trig_info stm32mp25_adc3_trigs[] = {
+  - /proc/<pid>/stat is now parsed with the parenthesized command name
+    removed first, so that a process with spaces in its name no longer
+    shifts every field after it: watching a process named 'my sleep'
+    used to report "sleep)" as its state and a garbage RSS.
 
-> +	{ LPTIM1_CH1, STM32_EXT24 },
-> +	{ LPTIM2_CH1, STM32_EXT25 },
-> +	{ LPTIM3_CH1, STM32_EXT26 },
-> +	{ LPTIM4_CH1, STM32_EXT27 },
-> +	{ LPTIM5_OUT, STM32_EXT28 },
-> +	{},
+  - The CPU time is printed with awk's printf "%d" instead of relying on
+    its default output format, that switches to scientific notation,
+    which the bash arithmetic below cannot parse, once the sum of utime
+    and stime goes past six digits, i.e. some 16 minutes of CPU at
+    100 Hz.
 
-No comma on terminating entries like this +
-	{ }
-preferred as style for IIO drivers. (random choice but I'd
-like consistency across drivers eventually!)
+  - The process can go away between the '-d /proc/<pid>' check and the
+    read of /proc/<pid>/stat, so the read is now checked: a failed or
+    empty one reports "process gone" instead of 'set -u' aborting the
+    script on an unbound field, which is what would have hidden the
+    very exit the script is meant to report.
 
-> +};
+  - The command line printed when the script starts has its control
+    characters stripped, so that a process started with escape sequences
+    in its arguments, e.g. one replaying a log line, does not get them
+    replayed on the terminal of whoever runs this.
 
-> @@ -970,7 +1162,8 @@ static int stm32h7_adc_exit_pwr_down(struct iio_dev *indio_dev)
->  
->  	/* Exit deep power down, then enable ADC voltage regulator */
->  	stm32_adc_clr_bits(adc, STM32H7_ADC_CR, STM32H7_DEEPPWD);
-> -	stm32_adc_set_bits(adc, STM32H7_ADC_CR, STM32H7_ADVREGEN);
-> +	if (adc->cfg->has_vregen)
+  - The two pre-existing issues sashiko-bot raised that are outside the
+    scope of this series, the child entries and their hists arrays
+    leaked by the data type browser teardown and the missing <stdio.h>
+    and <stdlib.h> includes in ui/browsers/annotate-data.c, are
+    recorded as items 178 and 179 of the perf TODO list for follow-up
+    work.
 
-I'd prefer this extra flag came in during a percursor patch (and was
-always set during that).  Will reduce the complexity of this patch a touch.
+  - Patches 1, 3, 4, 5, 7 and 8 are unchanged from v1: sashiko-bot
+    found no issues in them.
 
-> +		stm32_adc_set_bits(adc, STM32H7_ADC_CR, STM32H7_ADVREGEN);
->  
->  	if (adc->cfg->has_boostmode &&
->  	    adc->common->rate > STM32H7_BOOST_CLKRATE)
-> @@ -1310,6 +1503,163 @@ static void stm32h7_adc_unprepare(struct iio_dev *indio_dev)
->  	stm32h7_adc_enter_pwr_down(adc);
->  }
->  
-> +/*
-> + * STM32MP25 offset calibration software procedure. Basically the calibration routine is
-> + * expected to average (for example) 8 samples in calibration mode, for single-ended  and
-> + * differential channels, to calibrate the zero offset. In case offset is "negative", an
-> + * additional offset can be added, to determine calibration factor. It must be kept later
-> + * for all conversions.
-> + */
-> +static int stm32mp25_adc_calib_get_average_data(struct iio_dev *indio_dev, u32 *average)
-> +{
-> +	struct stm32_adc *adc = iio_priv(indio_dev);
-> +	const struct stm32_adc_regspec *regs = adc->cfg->regs;
-> +	u32 val, avg = 0;
-> +	int i, ret;
-> +
-> +	/* Repeat several conversions in calibration mode, average the results */
-> +	for (i = 0; i < STM32MP25_CALIB_LOOP; i++) {
+Arnaldo Carvalho de Melo (8):
+  perf test: Skip data_type_profiling when the PMU cannot record memory
+    events
+  perf debuginfo: Fetch debuginfo keyed by build ID using debuginfod
+  perf symbol: Fall back to fetching the vmlinux by build ID
+  perf annotate-data: Show the sample count in the data-type browser
+  perf report: Add --progress option
+  perf scripts: Add perf-stuck, to tell where a running perf is stuck
+  perf annotate-data: Resolve type DIEs in the debug file they came from
+  perf mem record: Request PERF_SAMPLE_CPU by default
 
-	for (unsigned int i = 0; i...
+ tools/build/feature/test-libdw.c              |  15 +-
+ tools/perf/Documentation/perf-annotate.txt    |  10 +
+ tools/perf/Documentation/perf-config.txt      |  19 ++
+ tools/perf/Documentation/perf-mem.txt         |   4 +
+ tools/perf/Documentation/perf-report.txt      |  28 ++
+ tools/perf/Documentation/perf-top.txt         |  14 +
+ tools/perf/Makefile.config                    |   2 +-
+ tools/perf/builtin-annotate.c                 |   2 +
+ tools/perf/builtin-mem.c                      |   9 +
+ tools/perf/builtin-report.c                   |  17 +
+ tools/perf/builtin-top.c                      |   6 +
+ tools/perf/scripts/perf-stuck.gdb             | 104 ++++++
+ tools/perf/scripts/perf-stuck.sh              | 194 +++++++++++
+ tools/perf/tests/shell/data_type_profiling.sh |  46 ++-
+ tools/perf/ui/Build                           |   1 +
+ tools/perf/ui/browsers/annotate-data.c        |   2 +-
+ tools/perf/ui/progress.h                      |   2 +
+ tools/perf/ui/stdio/progress.c                | 162 ++++++++++
+ tools/perf/util/annotate-data.c               |  55 +++-
+ tools/perf/util/annotate-data.h               |   3 +
+ tools/perf/util/config.c                      |   3 +
+ tools/perf/util/debuginfo.c                   | 447 ++++++++++++++++++++++++++
+ tools/perf/util/debuginfo.h                   |  36 +++
+ tools/perf/util/dso.c                         |  19 ++
+ tools/perf/util/dwarf-aux.c                   | 161 ++++++++--
+ tools/perf/util/dwarf-aux.h                   |  33 ++
+ tools/perf/util/ordered-events.c              |  17 +-
+ tools/perf/util/session.c                     |  12 +-
+ tools/perf/util/symbol.c                      |  40 ++-
+ tools/perf/util/symbol_conf.h                 |   1 +
+ 30 files changed, 1411 insertions(+), 53 deletions(-)
 
-Look for other cases of this that can be simplified given this style
-is now allowed in the kernel (has been for last few years).
-
-> +		stm32_adc_set_bits(adc, STM32H7_ADC_CR, STM32H7_ADSTART);
-> +		ret = stm32_adc_readl_poll_timeout(STM32H7_ADC_CR, val,
-> +						   !(val & (STM32H7_ADSTART)),
-> +						   100, STM32_ADC_TIMEOUT_US);
-> +		if (ret) {
-> +			dev_err(&indio_dev->dev, "calibration average error %d\n", ret);
-> +			return ret;
-> +		}
-> +
-> +		val = stm32_adc_readl(adc, regs->dr);
-> +		dev_vdbg(&indio_dev->dev, "dr[%d]=0x%08x\n", i, val);
-> +		avg += val;
-> +	}
-> +
-> +	*average = DIV_ROUND_CLOSEST(avg, STM32MP25_CALIB_LOOP);
-> +	dev_vdbg(&indio_dev->dev, "average=0x%08x\n", *average);
-> +
-> +	return 0;
-> +}
-
-...
-
->  
-> -static const unsigned int stm32_adc_min_ts_h7[] = { 0, 0, 0, 4300, 9000 };
-> +/* Internal channel indexes are mapped on stm32_adc_int_ch enum */
-> +static const unsigned int stm32_adc_min_ts_h7[] = { 0, 0, 0, 4300, 9000, 0 };
->  static_assert(ARRAY_SIZE(stm32_adc_min_ts_h7) == STM32_ADC_INT_CH_NB);
-Given we only care about some entries, maybe we should have a precursor
-that drops all these static asserts and instead does
-
-static const unsigned int stm32_adc_min_ts_h7[STM32_ADC_INT_CH_NB] = {
-	[STM32_ADC_INT_CH_VDDQ_DDR] = 4300,
-	.. Only the ones that need to be non 0.
-};
-
-> @@ -2728,18 +3098,19 @@ static const struct stm32_adc_cfg stm32h7_adc_cfg = {
->  	.vref_charac = 3300,
->  };
->  
-> -static const unsigned int stm32_adc_min_ts_mp1[] = { 100, 100, 100, 4300, 9800 };
-> +static const unsigned int stm32_adc_min_ts_mp1[] = { 100, 0, 0, 4300, 9800, 0 };
-
-As below.  If these need to change for some reason, precursor patch. If it were just the
-extra entry that would be fine but numbers are changing for earlier entries.
-
->  static_assert(ARRAY_SIZE(stm32_adc_min_ts_mp1) == STM32_ADC_INT_CH_NB);
->  
->  static const struct stm32_adc_cfg stm32mp1_adc_cfg = {
->  	.regs = &stm32mp1_adc_regspec,
->  	.adc_info = &stm32h7_adc_info,
-> -	.trigs = stm32h7_adc_trigs,
-> +	.trigs = { stm32h7_adc_trigs, },
->  	.has_vregready = true,
->  	.has_boostmode = true,
->  	.has_linearcal = true,
->  	.has_presel = true,
->  	.has_oversampling = true,
-> +	.has_vregen = true,
->  	.start_conv = stm32h7_adc_start_conv,
->  	.stop_conv = stm32h7_adc_stop_conv,
->  	.prepare = stm32h7_adc_prepare,
-> @@ -2751,14 +3122,15 @@ static const struct stm32_adc_cfg stm32mp1_adc_cfg = {
->  	.vref_charac = 3300,
->  };
->  
-> -static const unsigned int stm32_adc_min_ts_mp13[] = { 100, 0, 0, 4300, 9800 };
-> +static const unsigned int stm32_adc_min_ts_mp13[] = { 1000, 1000, 1000, 4300, 9800, 0 };
-
-Why is this existing entry changing?
-
->  static_assert(ARRAY_SIZE(stm32_adc_min_ts_mp13) == STM32_ADC_INT_CH_NB);
->  
->  static const struct stm32_adc_cfg stm32mp13_adc_cfg = {
->  	.regs = &stm32mp13_adc_regspec,
->  	.adc_info = &stm32mp13_adc_info,
-> -	.trigs = stm32h7_adc_trigs,
-> +	.trigs = { stm32h7_adc_trigs, },
->  	.has_oversampling = true,
-> +	.has_vregen = true,
->  	.start_conv = stm32mp13_adc_start_conv,
->  	.stop_conv = stm32h7_adc_stop_conv,
->  	.prepare = stm32h7_adc_prepare,
-> @@ -2770,11 +3142,50 @@ static const struct stm32_adc_cfg stm32mp13_adc_cfg = {
->  	.vref_charac = 3300,
->  };
-
-
+base-commit: aa18964dd64511305de0711fed912054da6f5d18
+v1-head: 060dccedab1617dcbf6e2be64ed97afe3f3fac63
+--
+Assisted-by: LLM
