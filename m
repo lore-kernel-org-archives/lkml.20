@@ -1,62 +1,64 @@
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E5D62E06E4
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 20:31:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3FBD33D6FA
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 20:31:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789331498; cv=none; b=UPjOHiUdOPgANHyQ4COHQdgLZq/hwA7velbS8FVUpgzmRdhq7LMfzZZCkihMI1rALBnxmHAyJUCrGxYG09PRFYpHcm7cjpkO75VtmB1Cqz/iJq7F5GTKnAyl3OJ4Rtqwf02U3JDVOF0zbKD9nEqUMLKFV+7KGtWsnpKhqMyq2mM=
+	t=1789331502; cv=none; b=lW1NMakmR855evk8pLfNXHwcGOePRp81vQmk+rE1XcDVfCCdgFwRn1fibSZ1cCOZoxj3/KHK61GyMeV6V4MhtgTpzopj5Z8d2JsaTmYSM/7PII8InJCqb/77DwlFPMZAfUJzqIhI7mIq3xbvJyJPvbFLBSywk/AaVKeuPYXGxc8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789331498; c=relaxed/simple;
-	bh=yDn7QK/ba+3RLVHPMTBb8o7wMnI8vkCF4rNDGAc/jgc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DNF1CajSCuG6LWlojRt+wV/gMECKK6ez/5GcJTlBbuiiekBibGzuD2v+Y2cqXUL3xe1Rqv8IF+YJUU82xtvXHu2Ivx4tgg4YoWOlyZgYVBgl3bSCYIwFKHi32fTVXlVKEj5ocVKIeDDSW+aCvi/NvPF8epW1RwnklOMTLx07R2A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dg1MKUOP; arc=none smtp.client-ip=209.85.216.43
+	s=arc-20240116; t=1789331502; c=relaxed/simple;
+	bh=TCDyOJseK6qPBPCx1hp8gZvbnaru+qTNFkWXDDYtmTM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ZzQJwRA5gWld3JsOcEDL9P0LEkzGFLvGEc5c1anOKSS71cLlaiEQhMP49MjpgBN+WfYv40ebnDSpXYb2MkgtzJptAiumk39uO3nFiF+N83MLMu9gXZMwulEVIkn5Aze9ai+TPgse88spXTpfAdza8piX1j1KM4fBSbKSrROooAU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F/dJ0OMY; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dg1MKUOP"
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-38ec1402b05so2536989a91.2
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 13:31:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F/dJ0OMY"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-398b3b189e0so964383a91.2
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 13:31:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789331497; x=1789936297; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6LszAmsFoGsrZf03eXVx9RZkN93lj99VFwvSyBMy7+c=;
-        b=dg1MKUOPm/Jf/HEBRknTTsIHbkbEzm8H3MerCbHX9gG88ZTZ4d5Bp0y1/SAyGnUYzJ
-         sdnIHukSRgxQSoqHcRLpN7dV9+AmKFIaXk/D3dEPVTDWfuQTFHQqK+XhPvDA4zv41SAL
-         yMqlr44N7s99jWBrv7+5Gv7t8qz8BaebtCutfZex5BDWpT60EbibbfpYW3+hqsAxY6SQ
-         iJmxvqBcTEsGicSREc1L5mL1yIm+FJYviyod36tyrSy3Yiuy+Tt0dU3QirCFQAhrEaFL
-         8tqCC1f/gCQmUEzRBV/ZC7wd6C3HgZJMwda0PmRtD4uDMXp/kLbDEchaE+sRaU0WFE/o
-         4VFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789331497; x=1789936297;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1789331500; x=1789936300; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6LszAmsFoGsrZf03eXVx9RZkN93lj99VFwvSyBMy7+c=;
-        b=c7UQKqROZkfX8ThtdfdPBCaKkM6+fxWwnQxK3w0yV3v0Wwg2nWHdvZhkNMrDw2BhXe
-         32cCPYhZyPFNmiwD2Ib2qRsZE/LBRpGMFjCNdp8qEUpn8EsFbrwbAWVYZgrkVn5Ax/Qa
-         19QJW2WYh3pdGw3O5apgsimNlavqOjuaH5PNIE6j6AineyhjotplB6XwjBzIw1oQnKt9
-         GyPcjnH+NXNFG7nEYgb0qyFeYehllR69bIM6f3cGyFz5UgPXwIBvqqA6tQA8DjoNqKCb
-         Dp3vREU6SdLFYpfuPF8dN8g+vp/58R7+/u1PLl+6XAvsuZnTI2SRrhmlu7k+0uGqMzc/
-         y63w==
-X-Forwarded-Encrypted: i=1; AKwUvBzAlJxgM/xFIJWimNCl777Fs5zHNVWa5XF6TUJraRwRYlYsbqSGWjv61UawWe8ZzSr+pkMW87eHdt3mSXA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lDmsZqMv5qYU/eus1aJsZA462w1UeADKyMn74NdNFB7MEzO9J9
-	N67CHb/upyVgooHS0sp7uIug84REF4VrHwMDkmTLBqp1jONB9mvszf0=
-X-Gm-Gg: AYBFou3oFW998+uchtd/DfnEfoiG8JaOQUafP6Zo6x6HzFo7cCFCku5lzkyIlmkgrxU
-	9NA6kDK6ZReF0ii622gnjU9TKxMl+Xv5Y0Qe8/HcYOWK5wFKMN4Sz4/T4C5tmvArs8tOgP5T5Kc
-	oiyZW4JEWHBzGGe+qiqlXjkByXhvZSa4X9C3602y5rSaLHMWu5W+Q19qYDrIAq3AeHaQBnntiAz
-	K83ehAU+Nm1xEd0puaHzSv3B+Iu9xkJAAga+o6f/B/DIVbSw/X6u2b9zuzA+ZgqBSGe1JZmdZ26
-	H5+EvTrk12CaSLkvhfbwVHqwfZVN3fcQ3c9jYnDb7tyFZxgamsA/tgj/6CvWi/OZZ6XxCiwxRcv
-	bUZbB9XBoGIXd2jD4HVxx9LxN8e8G2EZxL3NKskQvkyiOeDDnEhjWASeqNVZu1yEJcA4RDCqcuf
-	8UUXJsg9Lk7B2vIByKCXWzBUW0fDuPrlIvrA+WIsM8tQc5YNwrIqLvvN9qyx1dSKtmj730f78Yv
-	Ll1/0A1b6IqaT+xARgt13k2+2cL9I4g0uAl
-X-Received: by 2002:a17:90b:51c8:b0:38e:5b59:c2ff with SMTP id 98e67ed59e1d1-39d9bbc802bmr24389520a91.3.1789331496799;
-        Sun, 13 Sep 2026 13:31:36 -0700 (PDT)
+        bh=zhR7p+wss/jt6zjE9pDS80Sv1ZxId2hdmHkP0DmuGW4=;
+        b=F/dJ0OMYCv/BbXBbfgVtRuW1ei2HjYvfeE7x/S34wTEkXQQ50aC3qr8a37jZynAIPr
+         5zRbvMyuyVbeZqDEsPHjlSKKhbexhz/F+l5ifP+zmRQ2Nn1xqj/POIf+2eX/D/3EB3Jh
+         AhEUZLFlg8aad+b4Z5Gti7DEwJOpQp4ImOvcWv04Tnxw84qvCnP0aILHsAuoNj/lGelG
+         3I4G2sn9eMK3dWJAy/wd01wFXWACdOOpGebNyPgOte8tpw7wigIa094sdOKgAfGuie47
+         6aSqd1CAeiY3W2my5XKYvRw6lp+XQLFaZ4aXMkP8Kqhf5nYDStXsaXd9kkDzQQeiUUN9
+         RN+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789331500; x=1789936300;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zhR7p+wss/jt6zjE9pDS80Sv1ZxId2hdmHkP0DmuGW4=;
+        b=bpDdxlHYks6iLa12zOF5MulOlogSojAvKxSMvYpuPkat/u1tM7BEdGPCiEV0nQaDM4
+         Can8csV2dEa8NOEb7+nKGJA/OJtQW7hfqxPYhM47jCO4q8XUF/4IzDNAGue0G1QF1y/8
+         8drD2n0VvKDE4JShTEo9IZg/AikN2tpl17dTmGPjczNClwX7RQET9fG2wiLXnU5/Qxac
+         p2MRK9+xc+w0cNqzdRjrgw13Mens8kGhBdzDxdWdzT+cYRVXxMgtOmcypubvBRvD9j/S
+         HOi4ykiVmtnszinmrrRriFJ9g33AmwkHQBv3rCZvcMq+IDla4nVAM7/0r6nHXx1xUfd9
+         h8YQ==
+X-Forwarded-Encrypted: i=1; AKwUvByTkRpxO64yHPdUyMJtRHGYbdYPWnjircAdLrfx9+Ni+3J/wLEoFd3hvhZGjQx00Hry3+5V64TUWdx/DE0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kuWE4Q2wXM1Vl/GtzTc5biboUUqxW04XZVQCXT+Lb0lcPDgITD
+	2sz1mkOslPfcsOj+D1uG8yaVZA/eqX1sd8qTge4IFAFzHuQ3BtwkuKY=
+X-Gm-Gg: AYBFou0srBoVxgW3o8xMbhRZ0qFITejXWMrlbHtkO9NvFZMvNwEDiT8YQh773Fsmk6g
+	a+E7n1vcgxiLbO5E0zjjXpOccrhCFbj2fK1Q0qIMf1qTlMzNmjvD36lfano5ZpuXP/zeg87BahO
+	PJY75Kr5SSuM+v+QrgGZ8nR11D62BxJY+b5qMfglWIKzA1+wtWwZ0FZCvz6SCUNLTgCdw6sRTfU
+	mbyiM+VMIfL2vYKAUyHYUwpCFaQahrSMQDpWVkeaFveISbs8JkQyyMQfm+KD+IKK+Vax1RuHyvB
+	pF4+J0OySJ4vpked0He/LREp/KLnv6gG8y/F1ixb6jVMXqebU2UIR9Yto4Wd1KrYkpqk2ZPaW0v
+	DgnFO4RmFqUkqRKHoYnebihw0hbBpbjboQcuh42duQGPOSdfis6torcrRLlgVx3KAIFZ9U/l2Xx
+	XX0b1vv12qzJyb2EssHqZ8YcKvbjmvpkLXLDqzE3PZc3aT/WENhv3cMxMZD8MWZfA36+Hbxq6WU
+	GcIf9L/3UT/JqtGYToR/yEhsQ==
+X-Received: by 2002:a17:90b:2246:b0:39b:92bb:9eef with SMTP id 98e67ed59e1d1-39dbc6f8b29mr15621791a91.22.1789331500331;
+        Sun, 13 Sep 2026 13:31:40 -0700 (PDT)
 Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:7f00:8c85:b91:ff81:c860:362e])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d94744dfdsm17530220a91.0.2026.09.13.13.31.32
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d94744dfdsm17530220a91.0.2026.09.13.13.31.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 13:31:36 -0700 (PDT)
+        Sun, 13 Sep 2026 13:31:39 -0700 (PDT)
 From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
 To: Steven Rostedt <rostedt@goodmis.org>,
 	Masami Hiramatsu <mhiramat@kernel.org>
@@ -64,11 +66,14 @@ Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
 	Tom Zanussi <zanussi@kernel.org>,
 	linux-trace-kernel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Subject: [PATCH v2 0/2] tracing: Fix NULL dereference when copying keys for a field variable
-Date: Mon, 14 Sep 2026 05:31:27 +0900
-Message-ID: <20260913203129.941270-1-donggeunyoo.kernel@gmail.com>
+	Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/2] tracing: Add the bucket size to expr_field_str()
+Date: Mon, 14 Sep 2026 05:31:28 +0900
+Message-ID: <20260913203129.941270-2-donggeunyoo.kernel@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260913203129.941270-1-donggeunyoo.kernel@gmail.com>
+References: <20260913203129.941270-1-donggeunyoo.kernel@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,52 +82,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A hist trigger with an onmatch() action copies the key list of the
-compatible histogram it finds on the matched event.  Reading each key's
-name straight out of key_field->field->name faults on any pseudo-field
-key.  2/2 renders the key with expr_field_str() instead; 1/2 teaches that
-renderer to emit a bucket count, which 2/2 needs before it can use it.
+expr_field_str() renders a HIST_FIELD_FL_BUCKET field as "pid.buckets",
+dropping the count, and parse_field() rejects that spelling.
 
-Link: https://lore.kernel.org/linux-trace-kernel/20260912094722.3271147-1-donggeunyoo.kernel@gmail.com/
+get_hist_field_flags() returns the bare string "buckets" and keeps the
+count in hist_field->buckets. hist_field_print() appends it,
+expr_field_str() never did. Nothing reaches it today, since .buckets is
+refused on a value and no expression can carry one, but the next patch
+renders histogram keys with expr_field_str(), where a .buckets key is
+legal.
 
-Changes since v1:
- - Split the single patch in two.
- - Dropped the third change, which gated the ".stacktrace" arm of
-   get_hist_field_flags() on hist_field->field.  It fixes nothing:
-   hist_field_print() excludes FL_STACKTRACE before it ever calls
-   get_hist_field_flags(), and parse_field() takes the "stacktrace"
-   modifier on any field.  Measured with and without it: identical
-   generated command on all nine key kinds below.
- - 1/2 is not separable from 2/2.  .buckets is refused on a value, so no
-   expression can reach expr_field_str() with a bucketed field, and 2/2
-   alone turns a working .buckets key into a refused one.  In this order
-   no bisection point regresses.
+Append the count, as hist_field_print() does.
 
-The command create_field_var_hist() generates, for each kind of key the
-copied histogram can carry:
+Cc: stable@vger.kernel.org
+Fixes: de9a48a360b7 ("tracing: Add linear buckets to histogram logic")
+Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Assisted-by: Claude:claude-fable-5
+---
+ kernel/trace/trace_events_hist.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-  WK key                  unpatched   patched
-  pid                     keys=pid    keys=pid
-  pid.log2                keys=pid    keys=pid.log2
-  pid.buckets=10          keys=pid    keys=pid.buckets=10
-  common_cpu              oops        keys=common_cpu
-  common_comm             oops        keys=common_comm
-  common_timestamp        oops        keys=common_timestamp
-  common_timestamp.usecs  oops        keys=common_timestamp.usecs
-  common_stacktrace       oops        keys=common_stacktrace.stacktrace
-  hitcount                oops        keys=hitcount
-
-x86_64 under QEMU, CONFIG_KASAN=y, 4 CPUs, base 2f0c1cf72f46.  A compatible
-histogram on sched_waking keyed on WK, an onmatch() target on sched_switch
-keyed on SK, my_synth($wakeup_lat,prio) forcing a field variable.
-
-Donggeun Yoo (2):
-  tracing: Add the bucket size to expr_field_str()
-  tracing: Fix NULL dereference when copying keys for a field variable
-
- kernel/trace/trace_events_hist.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
+diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
+index 963e0d6b61fd..9d7ce01fda36 100644
+--- a/kernel/trace/trace_events_hist.c
++++ b/kernel/trace/trace_events_hist.c
+@@ -1755,6 +1755,9 @@ static bool expr_field_str(struct hist_field *field, struct seq_buf *s)
+ 			seq_buf_printf(s, ".%s", flags_str);
+ 	}
+ 
++	if (field->buckets)
++		seq_buf_printf(s, "=%ld", field->buckets);
++
+ 	return !seq_buf_has_overflowed(s);
+ }
+ 
 -- 
 2.53.0
 
