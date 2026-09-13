@@ -1,98 +1,74 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10130274B46;
-	Sun, 13 Sep 2026 08:20:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0032438A720;
+	Sun, 13 Sep 2026 08:21:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.210.214.84
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789287651; cv=none; b=lMPU2xWdxdFNby2BTl9ZmYuPFtr4pD0jjm1QprEv5xEpCCXKhgIlri7ZkYg8kr9hIRU5+29MavTKAavyoF7uS1PAkVSDJb9yAGuS6D8vugD+oK/wrcuMbxOCbr9dx3+TXWOCWaEDV7ZpF9KTljhsRMBgjjlUSw8KdtTckDAhJbQ=
+	t=1789287685; cv=none; b=D1iykcC7xWna3IxZstZfDWBel9IC/KY1gWiprCHEQjqSOvHSkN2ap137bQshSDZn19VtMOKiiqIeu6VYWYFE6Muvc2kFMqLYDVJHhLALAjU0AgSxVMlcgp/dCd2jQA7hGt5W+krPI1Jmj39y3N49/r4IbuaGmznWBEoW38Lp4OI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789287651; c=relaxed/simple;
-	bh=SrTpzxPAmfDfyp6nEqRVjHRq3/IdHCzeCJjs0O4ehso=;
+	s=arc-20240116; t=1789287685; c=relaxed/simple;
+	bh=6opBgASTH4c9wtBE0J12MK/g0Dae2SB+t0VczvLDbm4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ElW61f04niyFqLG/QSKmDTusgdAdmkHnP+0zC1vBjnxbcWSg906LWP382aoJuocBgZ2uGSGSb8ubBKncIsrd3odUzEVEVG/8EkfTvXaFCx8eP4mQDarGM+Rul49lEhPvAuBmzDflZK7/t/ymiaf25aUt15qHuqMbpjkPqWY/WTU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=grkhJxoI; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=J+d5DVT5aV7HOTjtvMRWss9NDX4BEC4/5BK+EhMsyXdsAsx2wMPgamRHs1mJtW/GU+CIJR77+guL7090Oqu9cofsIBKzqlEVQqxh8AHk16+0cIv6KDGd5o3pOAoaKsRZnf2MfAWVZvP3ISwBeGA1TNGC1ehMvgdqg5e3pUomFlA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org; spf=pass smtp.mailfrom=codewreck.org; dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b=H1vAsHii; arc=none smtp.client-ip=62.210.214.84
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="grkhJxoI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789287650; x=1820823650;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=SrTpzxPAmfDfyp6nEqRVjHRq3/IdHCzeCJjs0O4ehso=;
-  b=grkhJxoIPVMmYjYjoysZlMEr5OAnBlcrJ65nDSx/HaJypqzqIcaBdUJs
-   bfHIDlL0t3v4klgygyWg14dbUEnbsHJqk/LN2J22rvhVGJTwKHmeupcKW
-   E/H0qKz3XC6vfxnnBQgttv1SGLTW6GMuZi8yG9eazTEy6OCE2b7LgOjAa
-   v2DpoqtbGrXALPrlEE3eCUhlrHO2UI/cdGQgn4cEqo7vEJnzwRvzo/3zK
-   esYZcaK/ZRym3+oIuigvyHhbwk++HyIWxKjGUYxOfX8R5aOH4GXztgB/v
-   LWmlfJzxd0kzSwB8heTBh1ffXypLV9Nkf82Y6jbZvg9vOYy5zv4YcpNlA
-   w==;
-X-CSE-ConnectionGUID: XnaB4MG4Sv6en1TFfeuqdg==
-X-CSE-MsgGUID: 022UmeGYRUGj5lOPAt2/8w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11903"; a="100278232"
-X-IronPort-AV: E=Sophos;i="6.27,100,1787036400"; 
-   d="scan'208";a="100278232"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Sep 2026 01:20:49 -0700
-X-CSE-ConnectionGUID: 6qY+Km4kSv+rH67L9HMUpA==
-X-CSE-MsgGUID: 8FtHbhXyT5eRMK9S5EDDpA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,100,1787036400"; 
-   d="scan'208";a="295835377"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.245.0])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Sep 2026 01:20:47 -0700
-Date: Sun, 13 Sep 2026 11:20:44 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
-Cc: jic23@kernel.org, gregkh@linuxfoundation.org, nuno.sa@analog.com,
-	Michael.Hennerich@analog.com, dlechner@baylibre.com,
-	andy@kernel.org, linux@analog.com, linux-iio@vger.kernel.org,
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
-	joshua.crofts1@gmail.com
-Subject: Re: [PATCH v6 2/3] staging: iio: adc: ad7816: Serialize SPI read
- operations
-Message-ID: <aqZc3LR0s0I2S27b@ashevche-desk.local>
-References: <20260912132517.55686-1-abdelnasserhussein11@gmail.com>
- <20260912132517.55686-3-abdelnasserhussein11@gmail.com>
+	dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b="H1vAsHii"
+Received: from gaia.codewreck.org (localhost [127.0.0.1])
+	by submarine.notk.org (Postfix) with ESMTPS id 54FBA14C2D6;
+	Sun, 13 Sep 2026 10:21:19 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
+	s=2; t=1789287681;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=E6lLAj4jNnUyYWs4m94XCrV0CGJPFSCyUlXJiWNX7/8=;
+	b=H1vAsHiiDRNDfWR8BsHB5iA6BF9W7shrK+ZN0w3hjoguZ0MdprkAKMrZsyYuLwpd1vGxoA
+	u31fuuA4Ut9U6TC7jZcex2El7gOMpUFuBzmEiY9rRbVdcdc83Fidq53wUpBOBlj3H10wCr
+	lPC8xhsyDuTdELo2FleJmCocWJ1YJr0ppGOYXjrO/F3GDvYrWqtCvSp3PupaFSbm4LkG8x
+	DwcEU6SHEM89Rq5O3mmtve+s3wI/I645VNYWv5UsfFAhb3FYuePLH8YiPSQTCSbQvNnraQ
+	tAPO6AsuZKDsMOXFhs9cOjMvYauLqshkETY7WTTQtMJdYu1ZB1f5AerOFLXRww==
+Received: from localhost (gaia.codewreck.org [local])
+	by gaia.codewreck.org (OpenSMTPD) with ESMTPA id 2a8d3203;
+	Sun, 13 Sep 2026 08:21:17 +0000 (UTC)
+Date: Sun, 13 Sep 2026 17:21:02 +0900
+From: Dominique Martinet <asmadeus@codewreck.org>
+To: Stefano Garzarella <sgarzare@redhat.com>
+Cc: v9fs@lists.linux.dev, Latchesar Ionkov <lucho@ionkov.net>,
+	Eric Sandeen <sandeen@redhat.com>,
+	Christian Schoenebeck <linux_oss@crudebyte.com>,
+	linux-kernel@vger.kernel.org,
+	Eric Van Hensbergen <ericvh@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH] 9p: fix privport option setting wrong RDMA field
+Message-ID: <aqZc7upMWGFKdbxW@codewreck.org>
+References: <20260703102254.114446-1-sgarzare@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260912132517.55686-3-abdelnasserhussein11@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20260703102254.114446-1-sgarzare@redhat.com>
 
-On Sat, Sep 12, 2026 at 04:25:16PM +0300, Abdelnasser Hussein wrote:
-> The ad7816_spi_read() function performs a sequence of GPIO state
-> changes followed by an SPI transfer. If multiple read operations
-> occur simultaneously, the GPIO state could be changed by one thread
-> while another is in the middle of a read. This leads to a race
-> condition where the sensor state is disrupted.
+Stefano Garzarella wrote on Fri, Jul 03, 2026 at 12:22:54PM +0200:
+> From: Stefano Garzarella <sgarzare@redhat.com>
 > 
-> Introduce a mutex to serialize the read sequence, ensuring that the
-> GPIO toggling and the SPI transfer are treated as a single atomic
-> operation.
+> While reviewing a patch adding vsock transport to 9p, I noticed that
+> since commit 1f3e4142c0eb ("9p: convert to the new mount API"), the
+> Opt_privport case incorrectly sets rdma_opts->port instead of
+> rdma_opts->privport, so mounting with the privport option overwrites
+> the RDMA port number instead of enabling privileged port usage.
+> 
+> Fixes: 1f3e4142c0eb ("9p: convert to the new mount API")
+> Cc: stable@vger.kernel.org
+> Cc: sandeen@redhat.com
+> Signed-off-by: Stefano Garzarella <sgarzare@redhat.com>
 
-...
-
-> struct ad7816_chip_info {
-
->  	u8  oti_data[AD7816_CS_MAX + 1];
->  	u8  channel_id;	/* 0 always be temperature */
->  	u8  mode;
-> +	struct mutex lock; /* protect device state during SPI transfers */
->  };
-
-Is `pahole` happy with the chosen layout?
+Sorry for the delay/thanks for the patch, picked up for 7.4
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
+Dominique
