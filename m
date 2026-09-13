@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCF7A4BEE4A;
-	Sun, 13 Sep 2026 17:30:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95263361DD0;
+	Sun, 13 Sep 2026 17:31:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789320655; cv=none; b=RAHH4uxfeVleZsrWED2gtNbZud0Ibd1cP7IZnu8Z07t/1ChXV8wf34XrV6YOFij0AKxM/NcH2i8Xn61cnXlcJcEtCA4c3pv2vS9qo2QAAiAbNNy+oNb1W0ENhFjJ7iUchtaKHaoKh+u1BAA+sSVSdkgHB1qTVPHf+COAGPktTeE=
+	t=1789320698; cv=none; b=Xnk9FJSZQc3gzdCdtfEH0ZpwI/8EjoK2ne5R3F3kCmZJcEMyXVWEHC7AHzl+NdWMID5wanPkhailtdm0zhmOPGSqW+aXSpK3dtswDmxLb25qf4vSRli1/u5CkJFlOElqLLJNczA+akan7iDJrSwZqxnEVtZz4al6X3VqdtPVZW4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789320655; c=relaxed/simple;
-	bh=JCrB2UXI80SDTh9PAgR/JetaFVOnr/Mszdz9kdanAxU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=e381VICcKdRFn1rXhZUbnQtpDzCz/+GRIL+uzWqkGoslqNp2dVbeioNoNO6Lmu9uVtYyMy6+qqaWDVUMHGECOqGgjnntluG77QtvhbVC+wp0p4Jrlirg1+TNx4etSMU66ogUhZ5ICE94TtNWiJzir8I41l4R9bL7daYIYeuKAyI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q7rFDWPd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789320698; c=relaxed/simple;
+	bh=8d2+m3RIhQdv9fu7/cp//uLQWnN81+IzegaKc0Zauvc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rm9stzUGy8WNNj1w4KCafGuYNkhFbQrA6sD/qhlWVQBX44Uwvg56EJkE5f3VQGwKUhX+SRsAJVlzFveq7i932Lix5PmrvolnKo1aKj52Qi9xjh6r7o5eEmGcwuCBtRLzuA7U7T3yxxykPL+DSBQL9xpUPoH8mKXsvxq/IzpSWBs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M6JO80qL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q7rFDWPd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5B0E1F000FF;
-	Sun, 13 Sep 2026 17:30:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M6JO80qL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 519D01F000FF;
+	Sun, 13 Sep 2026 17:31:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789320654;
-	bh=A6AUN94MAlxAX8IqgRMbzH0Yc/Vc1OmqedWomem2MAc=;
+	s=k20260515; t=1789320697;
+	bh=n8LeTvK1MWh7o6kvrjkW+A/XmHvMCozngXmjK59ZQv0=;
 	h=From:To:Cc:Subject:Date;
-	b=Q7rFDWPdyOS/hrSzM4jaWxQ3LIjInWyMLG1p4pPUXOyLvc0SOXJsVp2dv//dzxboA
-	 p6g/c6zUV/vdXFPCeOwI3XXpJEj5tsRfOs8N/rZSDMH0VC85lu0cS+mnAhLJAg0TTo
-	 Ho0kLH4c2g6wHimaaLt4KiAtzR2nCr5FQ1OQYi4eBeV9X7WahboiV81GESk35K3oMV
-	 G/pWlPn3c7HcgjOFl+93M4cD2SRRKyHSVmahFQ8dLJZpjbMq4/eU1vmmTYFhlBDF4F
-	 fsDvhSsKS9RhL1k/8DDkzfro0YlhDQBOGJ2gm4qL6CTWUfLTPFjy0h4d05uKGhQZeR
-	 wbSoqhm8SvLkQ==
+	b=M6JO80qLlJnE26MW1y0hfXll3be8IxYLFpT0zse2Lq5i65B6PRWcVz4JOrJ/anHAJ
+	 /4T1i2hDrCDUCoP5AoNQ4tAQhddokn9IAlPhlW7DSQ0cKDE0g0eALo6UTEsVKzQHDy
+	 IkaOk/1RZI0vLS5m185MWVDkwfv7AcV9SR6ItFktUx+YSToI1Sy/PHMWJOIUZ/NcH1
+	 ZddbutjluKmNshg9ArpUAKdLLWeFMhRPNDFFpJD7lcHB9npBziEF8BGjfynbE1j6ra
+	 HTTRazCyDT6MxZx282AKkJ4lykOuBL8l0e0YyPkspbadVYRuDrTZ8NZXu6klSaEWNe
+	 kaER2NRTEZSGA==
 From: Sasha Levin <sashal@kernel.org>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Sumit Garg <sumit.garg@oss.qualcomm.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Linus Walleij <linusw@kernel.org>
 Cc: Sasha Levin <sashal@kernel.org>,
 	kernel test robot <lkp@intel.com>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org,
+	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] firmware: qcom: scm: Hide QCOM_SCM instead of depending on ARCH_QCOM
-Date: Sun, 13 Sep 2026 13:30:49 -0400
-Message-ID: <20260913173049.1168963-1-sashal@kernel.org>
+Subject: [PATCH] ASoC: ux500: Parenthesize MSP_{RX,TX}_CLKPOL_BIT() arguments
+Date: Sun, 13 Sep 2026 13:31:32 -0400
+Message-ID: <20260913173132.1172003-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -48,62 +47,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-imx_v6_v7_defconfig fails to link:
+arm allmodconfig fails to build with gcc:
 
-  arm-linux-gnueabihf-ld: drivers/firmware/qcom/qcom_scm.o: in function
-  `qcom_scm_pas_init_image':
-  qcom_scm.c:(.text+0xecc): undefined reference to `qcom_tzmem_alloc'
-  qcom_scm.c:(.text+0x2b0): undefined reference to `qcom_tzmem_free'
-  qcom_scm.c:(.text+0x1514): undefined reference to `qcom_tzmem_to_phys'
+  In file included from sound/soc/ux500/ux500_msp_i2s.c:20:
+  sound/soc/ux500/ux500_msp_i2s.h:151:38: error: suggest parentheses
+  around arithmetic in operand of '^' [-Werror=parentheses]
+  sound/soc/ux500/ux500_msp_i2s.c:204:21: note: in expansion of macro
+  'MSP_TX_CLKPOL_BIT'
+  cc1: all warnings being treated as errors
 
-QCOM_SCM gained a "depends on ARCH_QCOM || COMPILE_TEST", but it is
-selected from 20 places in the tree and several of those are reachable
-without ARCH_QCOM. DRM_MSM is one of them, via SOC_IMX5, which is how
-imx_v6_v7_defconfig ends up here:
+The macros never parenthesized their argument:
 
-  WARNING: unmet direct dependencies detected for QCOM_SCM
-    Depends on [n]: ARCH_QCOM [=n] || COMPILE_TEST [=n]
-    Selected by [y]:
-    - DRM_MSM [=y] && ... && (ARCH_QCOM [=n] || SOC_IMX5 [=y] ||
-      COMPILE_TEST [=n]) && ...
+  #define MSP_TX_CLKPOL_BIT(n)  ((n & TCKPOL_MASK) << TCKPOL_SHIFT)
 
-kconfig still honours the select and sets QCOM_SCM=y, but it does not
-propagate the selects of a symbol whose own dependencies are unmet, so
-QCOM_TZMEM is left unset, qcom_tzmem.c is not built, and the
-unconditional qcom_tzmem_*() calls in qcom_scm.c and qcom_scm-smc.c
-have nothing to bind to.
+That went unnoticed while every caller passed a plain variable, but
+configure_protocol() now passes an XOR expression, which binds as
+"a ^ (b & MASK)" rather than "(a ^ b) & MASK", and gcc rightly
+complains.
 
-The point of the dependency was only to stop asking the user about
-Qualcomm firmware interfaces when configuring a non-Qualcomm kernel.
-Express that as a prompt condition, which is what the same commit
-already did for QCOM_PAS: the symbol stays invisible, but it no longer
-carries a dependency that silently drops its selects.
+No functional change: tx_clk_pol and rx_clk_pol only ever hold
+MSP_FALLING_EDGE (0) or MSP_RISING_EDGE (1), and bclk_inverted is a
+bool, so masking before or after the XOR gives the same 0/1 result.
+Parenthesize the argument anyway - it fixes the build and stops the
+macros from silently mis-evaluating a future composite argument.
 
-Found by KernelCI builds of the linus-next tree.
-
-Fixes: 8fecd3194de3 ("firmware: QCOM interfaces should depend on ARCH_QCOM")
+Fixes: 9ccbacf5a012 ("ASoC: ux500: Validate MSP DAI configuration")
 Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202609120634.g0HMAp3g-lkp@intel.com/
+Closes: https://lore.kernel.org/oe-kbuild-all/202609051547.G9SJp8UQ-lkp@intel.com/
 Assisted-by: LLM
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/firmware/qcom/Kconfig | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ sound/soc/ux500/ux500_msp_i2s.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/firmware/qcom/Kconfig b/drivers/firmware/qcom/Kconfig
-index 691db0ded8e8c..b50e1309ced5f 100644
---- a/drivers/firmware/qcom/Kconfig
-+++ b/drivers/firmware/qcom/Kconfig
-@@ -26,8 +26,7 @@ config QCOM_PAS_TEE
- 	  by the firmware TEE implementation as the backend.
+diff --git a/sound/soc/ux500/ux500_msp_i2s.h b/sound/soc/ux500/ux500_msp_i2s.h
+index 2bf2699bdc49f..c66ef455e1380 100644
+--- a/sound/soc/ux500/ux500_msp_i2s.h
++++ b/sound/soc/ux500/ux500_msp_i2s.h
+@@ -147,8 +147,8 @@ enum msp_direction {
+ #define RCKPOL_MASK		BIT(0)
+ #define TCKPOL_MASK		BIT(0)
+ #define SPICKM_MASK		(BIT(1) | BIT(0))
+-#define MSP_RX_CLKPOL_BIT(n)     ((n & RCKPOL_MASK) << RCKPOL_SHIFT)
+-#define MSP_TX_CLKPOL_BIT(n)     ((n & TCKPOL_MASK) << TCKPOL_SHIFT)
++#define MSP_RX_CLKPOL_BIT(n)     (((n) & RCKPOL_MASK) << RCKPOL_SHIFT)
++#define MSP_TX_CLKPOL_BIT(n)     (((n) & TCKPOL_MASK) << TCKPOL_SHIFT)
  
- config QCOM_SCM
--	tristate "Qualcomm PAS SCM interface driver"
--	depends on ARCH_QCOM || COMPILE_TEST
-+	tristate "Qualcomm PAS SCM interface driver" if ARCH_QCOM || COMPILE_TEST
- 	select QCOM_PAS
- 	select QCOM_TZMEM
- 	default y if ARCH_QCOM
+ #define P1ELEN_SHIFT		0
+ #define P1FLEN_SHIFT		3
 -- 
 2.53.0
 
