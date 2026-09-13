@@ -1,286 +1,244 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E00B43C1D4F;
-	Sun, 13 Sep 2026 06:55:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C91A83BCD0A
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 06:56:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789282534; cv=none; b=HxD6r7EDuavjw8JQZFTKT4eAMrx6a5DduTs+iCUNQBDjyJlgXCyDyfFpsbSrbWuTql8Q+XPdGf+ZFrTy8NR3e0QNLSNt+GgTIGWwJfZsT/QM4rltcHY81BKtUt5fpDkI3n+Ew5TaCOhzEN6sXzYHELCv7Fu61i8/AEj+LET8C8s=
+	t=1789282615; cv=none; b=rnZT+Gzjwso8kmVoP7pG2DCl8HLBRdnVLGlitOR0vBR2WdGxo8xY+aIKKwX9P9TOSb2XjEjRyjIdEcD510HHSzQ7nQ8gVo8zEu/K4Q5UUeSMugA/YNI2UcOUCHjaWGiDZhC3r6RHXB1Wi2Kh5JMyI7J/+xvjns4YuCRmEAbIxN0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789282534; c=relaxed/simple;
-	bh=SWJ50Samts+m7KaPf4XIxu1KYbP4c8FQ95Ihg3WUIDE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hUbrKC+XH/Fln9ARdPqBg1nMktFI47sm2J5Ciw2FmX5vwgxh6BdetY1X7JabCrkwfQkZ/A2RTyS6CXHmYYeI4+7IYa5kNPg9cH4TEWkE8j6FFPtyz6LPzQZbVFNwM6GZkM8m16UwlEoVhTByrngxZnY6Sd2kMHjCGCeMBuiKf98=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S1GYpsNA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789282615; c=relaxed/simple;
+	bh=oiS2jewzdPKj/6jIPFXw8M3ztv49TOAXErEPpum1RF4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Ler30Bk8rVGbgFnn7HTARC4ts5+wkNDn4MMwTk9wNYHv6Ba8okJ+ebExxkBInBNUt1uSX9ZjJ0ghbG/wLfdeuha4lxKpkSyLxmQlP9OdOuXHw6aPfvF3PnW4QuVMLq324jj4yT5xXiNN3JYUmKGgxqtYNyWQpJs/w/XvBJQY9dY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=B2kHd5kI; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S1GYpsNA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 313601F00893;
-	Sun, 13 Sep 2026 06:55:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789282532;
-	bh=wT6gN/IxgPOdTmMhpo1rniCpWE+wufTMXpH4Yd2onlI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=S1GYpsNAcUx0FM53lU9XD7zterbc/p52NIZV+fMTVTYJ6erepuX41g85L5n7PvkJJ
-	 8DyqyQIpmcHLylqfO6XWSo0DEA74+IpDKPoFtNYUtRB2pWX32grlDMgBXojD3u4IRA
-	 gRyjRQo1pb8uRFp4YpNOf1t41jIGgXTqlRrEqjT/OXqf1ggIqCgLWhKi941OwoGx35
-	 DFO0DSBsqJJL6qE9ZmvHNqdpd4Jp5KJ0wFJRbWNE0xbxnJ861QQSROnV/Z28ij51aB
-	 FNQN15OXDwCd1LRcPVcXgP3w52Grw6b/cwXBW5KAkci5pkWdZe4ltunpTvsVf82b6P
-	 11r3CWL8qVYeQ==
-From: Yu Kuai <yukuai@kernel.org>
-To: Jens Axboe <axboe@kernel.dk>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Tejun Heo <tj@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Coly Li <colyli@fygo.io>,
-	Kent Overstreet <kent.overstreet@linux.dev>,
-	Alasdair Kergon <agk@redhat.com>,
-	Mike Snitzer <snitzer@kernel.org>,
-	Mikulas Patocka <mpatocka@redhat.com>,
-	Benjamin Marzinski <bmarzins@redhat.com>,
-	Song Liu <song@kernel.org>,
-	Li Nan <magiclinan@didiglobal.com>,
-	Xiao Ni <xiao@kernel.org>,
-	Andreas Gruenbacher <agruenba@redhat.com>,
-	Matthew Wilcox <willy@infradead.org>,
-	Jan Kara <jack@suse.cz>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Chris Li <chrisl@kernel.org>,
-	Kairui Song <kasong@tencent.com>,
-	Kemeng Shi <shikemeng@huaweicloud.com>,
-	Nhat Pham <nphamcs@gmail.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Barry Song <baohua@kernel.org>,
-	Youngjun Park <youngjun.park@lge.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>
-Cc: Yu Kuai <yukuai@fygo.io>,
-	Christoph Hellwig <hch@lst.de>,
-	Nilay Shroff <nilay@linux.ibm.com>,
-	Tao Cui <cuitao@kylinos.cn>,
-	linux-block@vger.kernel.org,
-	cgroups@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-bcache@vger.kernel.org,
-	dm-devel@lists.linux.dev,
-	linux-raid@vger.kernel.org,
-	gfs2@lists.linux.dev,
-	linux-fsdevel@vger.kernel.org,
-	linux-mm@kvack.org,
-	llvm@lists.linux.dev
-Subject: [PATCH v2 3/3] blk-cgroup: move async bio punt state to blkcg
-Date: Sun, 13 Sep 2026 14:54:40 +0800
-Message-ID: <326e4904402440323532168095f2eb0c6f697836.1789237877.git.yukuai@fygo.io>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <cover.1789237876.git.yukuai@fygo.io>
-References: <cover.1789237876.git.yukuai@fygo.io>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="B2kHd5kI"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 9C41DC6344C;
+	Sun, 13 Sep 2026 06:57:30 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id E903E60435;
+	Sun, 13 Sep 2026 06:56:47 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E880111C7AFCC;
+	Sun, 13 Sep 2026 08:56:42 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789282607; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=b5I9g1zp8n9vjy1Bhi+svCxeKGvGM7VWX/Ux3SZ9tqg=;
+	b=B2kHd5kIir+SEiNt/X3A1dJcazq2E7eNDtCsdzU/tbzBmjH2LdyQMWm6bDIZ8UCiDAMNVe
+	yPzmShRxrPFt7P84VPBPoyT8HZKWM49K9cFSy1b09CkkpluFc0Km6os9bmTs1f5BS00/wt
+	nsPAvHl8udEtbyIwY9RBfYR80/iGx+WULPNQRMjAnYVbz8BXfSDog98ar92dwnENQEgH7J
+	Y5RsKScJyoSvHHgwdxGyrvjZ3/yRzonRyM0whyDojsHAMNQJQ/jE78RyyNgVgQp2YGeft6
+	w2IvKd2SIF8LZUXtz/Y/xjraxufQy+TWCpjyaKFxVRbpbXI+fh7MkF1U/58shA==
+Message-ID: <9c483965-beee-4fd6-adad-5ff1c9eae163@bootlin.com>
+Date: Sun, 13 Sep 2026 08:56:41 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next] net: phy: marvell: wake the system only from the
+ WoL event
+To: Rosen Penev <rosenp@gmail.com>, netdev@vger.kernel.org
+Cc: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20260912235125.151370-1-rosenp@gmail.com>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20260912235125.151370-1-rosenp@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Yu Kuai <yukuai@fygo.io>
+Hi Rosen,
 
-blkcg_punt_bio_submit() currently queues punted bios on blkg->async_bios,
-so it has to call bio_blkg() to find or create a queue-local blkg.  Bios
-now carry and pin the blkcg css, so punted bio lifetime no longer needs to
-be anchored by a blkg.
+On 9/13/26 01:51, Rosen Penev wrote:
+> Enable waking the system from a WoL event on the 88E1318S/88E1510.
+> 
+> When WoL is enabled, m88e1318_set_wol() now calls enable_irq_wake()
+> on the PHY's IRQ and marks the MDIO device as a wakeup source so the
+> underlying GPIO interrupt raises the system from suspend, and reverses
+> both on disable.
+> 
+> With WoL active the PHY must stay powered to detect a magic packet,
+> but without masking, phy_suspend() would leave every interrupt
+> enabled, so a link status change or any other PHY event would assert
+> INTn and spuriously wake the system. Set PHY_ALWAYS_CALL_SUSPEND on
+> the 88E1318S/88E1510 drivers so that phy_suspend() still calls their
+> suspend callbacks with WoL enabled, and have those callbacks keep the
+> PHY awake while writing the interrupt enable register (CSIER/IMASK)
+> down to only the WoL event bit.
+> 
+> marvell_config_intr() rewrites the whole CSIER register with
+> MII_M1011_IMASK_INIT on resume, clearing the WoL enable bit. Re-arm
+> WOL_EIE in the resume callbacks so the WoL interrupt stays active for
+> the next sleep cycle.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> ---
+>  drivers/net/phy/marvell.c | 145 ++++++++++++++++++++++++++++++++++++--
+>  1 file changed, 138 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/net/phy/marvell.c b/drivers/net/phy/marvell.c
+> index f71cffa88406..70aaa09f2047 100644
+> --- a/drivers/net/phy/marvell.c
+> +++ b/drivers/net/phy/marvell.c
+> @@ -30,6 +30,8 @@
+>  #include <linux/ethtool_netlink.h>
+>  #include <linux/phy.h>
+>  #include <linux/phy_port.h>
+> +#include <linux/pm_wakeirq.h>
+> +#include <linux/property.h>
+>  #include <linux/marvell_phy.h>
+>  #include <linux/bitfield.h>
+>  #include <linux/of.h>
+> @@ -1902,6 +1904,61 @@ static int marvell_resume(struct phy_device *phydev)
+>  	return err;
+>  }
+>  
+> +/* marvell_wol_suspend_intrs
+> + *
+> + * With WoL enabled the PHY has to stay powered to keep detecting a WoL
+> + * packet, so instead of entering low power mode, mask all interrupt
+> + * sources except the WoL event. On the 88E1318S/88E1510 the interrupt
+> + * mask (MII_M1011_IMASK) is the same register as the Copper Specific
+> + * Interrupt Enable Register (MII_88E1318S_PHY_CSIER), so writing only
+> + * the WoL event enable bit unmask just that event.
+> + */
 
-Keeping the punt state in blkg can instantiate a blkg even when no blkcg
-policy is enabled, just to bounce submission from a shared kthread.  Move
-async_bio_lock, async_bios and async_bio_work to struct blkcg, and queue
-punted bios on bio_blkcg() for non-root cgroups.  Root or unassociated bios
-are submitted directly.
+Please tone down the verbosity of the LLM used, this explanation is
+repeated in lots of introduced comments. The code is explicit enough
+TBH, I don't think these comments add much value.
 
-This preserves the priority-inversion avoidance while preventing
-blkcg_punt_bio_submit() from creating blkgs that are not needed by any
-policy.
+Same goes on all function docs added in this patch :/
 
-Signed-off-by: Yu Kuai <yukuai@fygo.io>
----
- block/blk-cgroup.c | 52 ++++++++++++++++++++++++++--------------------
- block/blk-cgroup.h | 14 ++++++-------
- 2 files changed, 35 insertions(+), 31 deletions(-)
+> +static int marvell_wol_suspend_intrs(struct phy_device *phydev)
+> +{
+> +	int oldpage, ret;
+> +
+> +	oldpage = phy_save_page(phydev);
+> +	if (oldpage < 0)
+> +		return oldpage;
+> +
+> +	ret = marvell_write_page(phydev, MII_MARVELL_COPPER_PAGE);
+> +	if (ret < 0)
+> +		goto out;
+> +
+> +	ret = __phy_write(phydev, MII_88E1318S_PHY_CSIER,
+> +			  MII_88E1318S_PHY_CSIER_WOL_EIE);
+> +out:
+> +	return phy_restore_page(phydev, oldpage, ret);
+> +}
+> +
+> +/* marvell_wol_resume_intrs
+> + *
+> + * marvell_config_intr() rewrites the whole MII_M1011_IMASK register
+> + * (which is MII_88E1318S_PHY_CSIER) with MII_M1011_IMASK_INIT on
+> + * resume, clearing the WoL event interrupt enable bit. Re-arm it if
+> + * WoL is still enabled so a later WoL event keeps waking the system.
+> + */
+> +static int marvell_wol_resume_intrs(struct phy_device *phydev)
+> +{
+> +	int oldpage, ret;
+> +
+> +	if (!phydev->wol_enabled)
+> +		return 0;
+> +
+> +	oldpage = phy_save_page(phydev);
+> +	if (oldpage < 0)
+> +		return oldpage;
+> +
+> +	ret = marvell_write_page(phydev, MII_MARVELL_COPPER_PAGE);
+> +	if (ret < 0)
+> +		goto out;
+> +
+> +	ret = __phy_set_bits(phydev, MII_88E1318S_PHY_CSIER,
+> +			     MII_88E1318S_PHY_CSIER_WOL_EIE);
+> +out:
+> +	return phy_restore_page(phydev, oldpage, ret);
+> +}
+> +
+>  /* m88e1510_resume
+>   *
+>   * The 88e1510 PHY has an erratum where the phy downshift counter is not cleared
+> @@ -1934,9 +1991,25 @@ static int m88e1510_resume(struct phy_device *phydev)
+>  
+>  		/* downshift enabled, with previous counter value */
+>  		err = m88e1011_set_downshift(phydev, cnt);
+> +		if (err < 0)
+> +			return err;
+>  	}
+>  
+> -	return err;
+> +	return marvell_wol_resume_intrs(phydev);
+> +}
+> +
+> +/* m88e1510_suspend
+> + *
+> + * If WoL is enabled the PHY receiver has to keep running to detect a
+> + * magic packet, so keep it awake and unmask only the WoL event at the
+> + * PHY. Otherwise suspend both the fiber and copper interfaces as usual.
+> + */
+> +static int m88e1510_suspend(struct phy_device *phydev)
+> +{
+> +	if (phydev->wol_enabled)
+> +		return marvell_wol_suspend_intrs(phydev);
+> +
+> +	return marvell_suspend(phydev);
+>  }
+>  
+>  static int marvell_aneg_done(struct phy_device *phydev)
+> @@ -1969,8 +2042,12 @@ static void m88e1318_get_wol(struct phy_device *phydev,
+>  static int m88e1318_set_wol(struct phy_device *phydev,
+>  			    struct ethtool_wolinfo *wol)
+>  {
+> +	struct device *dev = &phydev->mdio.dev;
+> +	bool wol_enable;
+>  	int err = 0, oldpage;
+>  
+> +	wol_enable = !!(wol->wolopts & (WAKE_MAGIC | WAKE_PHY));
+> +
+>  	oldpage = phy_save_page(phydev);
+>  	if (oldpage < 0)
+>  		goto error;
+> @@ -2075,7 +2152,49 @@ static int m88e1318_set_wol(struct phy_device *phydev,
+>  	}
+>  
+>  error:
+> -	return phy_restore_page(phydev, oldpage, err);
+> +	err = phy_restore_page(phydev, oldpage, err);
+> +	if (err < 0)
+> +		return err;
+> +
+> +	if (device_can_wakeup(dev) && wol_enable != device_may_wakeup(dev)) {
+> +		err = device_set_wakeup_enable(dev, wol_enable);
+> +		if (err < 0) {
+> +			/* Roll back the PHY WoL config if the PM state update failed */
+> +			struct ethtool_wolinfo wol_off = { .wolopts = 0 };
+> +			int rollback_err = m88e1318_set_wol(phydev, &wol_off);
+> +
+> +			if (rollback_err < 0)
+> +				phydev_err(phydev,
+> +					   "Failed to disable WoL after wakeup enable error %d\n",
+> +					   rollback_err);
+> +		}
+> +	}
 
-diff --git a/block/blk-cgroup.c b/block/blk-cgroup.c
-index 59ccfefe16a8..aa3cee107ebe 100644
---- a/block/blk-cgroup.c
-+++ b/block/blk-cgroup.c
-@@ -180,14 +180,10 @@ static void blkg_free(struct blkcg_gq *blkg)
- 
- static void __blkg_release(struct rcu_head *rcu)
- {
- 	struct blkcg_gq *blkg = container_of(rcu, struct blkcg_gq, rcu_head);
- 
--#ifdef CONFIG_BLK_CGROUP_PUNT_BIO
--	WARN_ON(!bio_list_empty(&blkg->async_bios));
--#endif
--
- 	blkg_free(blkg);
- }
- 
- /*
-  * A group is RCU protected, but having an rcu lock does not mean that one
-@@ -226,23 +222,23 @@ static void blkg_release(struct percpu_ref *ref)
- }
- 
- #ifdef CONFIG_BLK_CGROUP_PUNT_BIO
- static struct workqueue_struct *blkcg_punt_bio_wq;
- 
--static void blkg_async_bio_workfn(struct work_struct *work)
-+static void blkcg_async_bio_workfn(struct work_struct *work)
- {
--	struct blkcg_gq *blkg = container_of(work, struct blkcg_gq,
--					     async_bio_work);
-+	struct blkcg *blkcg = container_of(work, struct blkcg, async_bio_work);
- 	struct bio_list bios = BIO_EMPTY_LIST;
- 	struct bio *bio;
- 	struct blk_plug plug;
- 	bool need_plug = false;
- 
--	/* as long as there are pending bios, @blkg can't go away */
--	spin_lock(&blkg->async_bio_lock);
--	bio_list_merge_init(&bios, &blkg->async_bios);
--	spin_unlock(&blkg->async_bio_lock);
-+	/* as long as there are pending bios, @blkcg can't go away */
-+	{
-+		guard(spinlock)(&blkcg->async_bio_lock);
-+		bio_list_merge_init(&bios, &blkcg->async_bios);
-+	}
- 
- 	/* start plug only when bio_list contains at least 2 bios */
- 	if (bios.head && bios.head->bi_next) {
- 		need_plug = true;
- 		blk_start_plug(&plug);
-@@ -259,19 +255,20 @@ static void blkg_async_bio_workfn(struct work_struct *work)
-  * cgroup.  Use this helper instead of submit_bio to punt the actual issuing to
-  * a dedicated per-blkcg work item to avoid such priority inversions.
-  */
- void blkcg_punt_bio_submit(struct bio *bio)
- {
--	struct blkcg_gq *blkg = bio_blkg(bio);
-+	struct blkcg *blkcg = bio_blkcg(bio);
- 
--	if (blkg && blkg->parent) {
--		spin_lock(&blkg->async_bio_lock);
--		bio_list_add(&blkg->async_bios, bio);
--		spin_unlock(&blkg->async_bio_lock);
--		queue_work(blkcg_punt_bio_wq, &blkg->async_bio_work);
-+	if (blkcg && cgroup_parent(blkcg->css.cgroup)) {
-+		{
-+			guard(spinlock)(&blkcg->async_bio_lock);
-+			bio_list_add(&blkcg->async_bios, bio);
-+		}
-+		queue_work(blkcg_punt_bio_wq, &blkcg->async_bio_work);
- 	} else {
--		/* Never bounce if there is no non-root blkg to queue on. */
-+		/* Never bounce if there is no non-root blkcg to queue on. */
- 		submit_bio(bio);
- 	}
- }
- EXPORT_SYMBOL_GPL(blkcg_punt_bio_submit);
- 
-@@ -350,15 +347,10 @@ static struct blkcg_gq *blkg_alloc(struct blkcg *blkcg, struct gendisk *disk,
- 	blkg->q = disk->queue;
- 	INIT_LIST_HEAD(&blkg->q_node);
- 	blkg->blkcg = blkcg;
- 	blkg->blkcg_id = blkcg->css.id;
- 	blkg->iostat.blkg = blkg;
--#ifdef CONFIG_BLK_CGROUP_PUNT_BIO
--	spin_lock_init(&blkg->async_bio_lock);
--	bio_list_init(&blkg->async_bios);
--	INIT_WORK(&blkg->async_bio_work, blkg_async_bio_workfn);
--#endif
- 
- 	u64_stats_init(&blkg->iostat.sync);
- 	for_each_possible_cpu(cpu) {
- 		u64_stats_init(&per_cpu_ptr(blkg->iostat_cpu, cpu)->sync);
- 		per_cpu_ptr(blkg->iostat_cpu, cpu)->blkg = blkg;
-@@ -1399,10 +1391,16 @@ static void blkcg_css_free(struct cgroup_subsys_state *css)
- 		if (blkcg->cpd[i])
- 			blkcg_policy[i]->cpd_free_fn(blkcg->cpd[i]);
- 
- 	mutex_unlock(&blkcg_pol_mutex);
- 
-+#ifdef CONFIG_BLK_CGROUP_PUNT_BIO
-+	{
-+		guard(spinlock)(&blkcg->async_bio_lock);
-+		WARN_ON(!bio_list_empty(&blkcg->async_bios));
-+	}
-+#endif
- 	free_percpu(blkcg->lhead);
- 	kfree(blkcg);
- }
- 
- static struct cgroup_subsys_state *
-@@ -1447,10 +1445,18 @@ blkcg_css_alloc(struct cgroup_subsys_state *parent_css)
- 	}
- 
- 	spin_lock_init(&blkcg->lock);
- 	refcount_set(&blkcg->online_pin, 1);
- 	INIT_HLIST_HEAD(&blkcg->blkg_list);
-+#ifdef CONFIG_BLK_CGROUP_PUNT_BIO
-+	spin_lock_init(&blkcg->async_bio_lock);
-+	{
-+		guard(spinlock)(&blkcg->async_bio_lock);
-+		bio_list_init(&blkcg->async_bios);
-+	}
-+	INIT_WORK(&blkcg->async_bio_work, blkcg_async_bio_workfn);
-+#endif
- #ifdef CONFIG_CGROUP_WRITEBACK
- 	INIT_LIST_HEAD(&blkcg->cgwb_list);
- #endif
- 	list_add_tail(&blkcg->all_blkcgs_node, &all_blkcgs);
- 
-diff --git a/block/blk-cgroup.h b/block/blk-cgroup.h
-index f68ea21958f5..7d73085503d5 100644
---- a/block/blk-cgroup.h
-+++ b/block/blk-cgroup.h
-@@ -75,18 +75,11 @@ struct blkcg_gq {
- 
- 	struct blkg_iostat_set __percpu	*iostat_cpu;
- 	struct blkg_iostat_set		iostat;
- 
- 	struct blkg_policy_data		*pd[BLKCG_MAX_POLS];
--#ifdef CONFIG_BLK_CGROUP_PUNT_BIO
--	spinlock_t			async_bio_lock;
--	struct bio_list			async_bios;
--#endif
--	union {
--		struct work_struct	async_bio_work;
--		struct work_struct	free_work;
--	};
-+	struct work_struct		free_work;
- 
- 	atomic_t			use_delay;
- 	atomic64_t			delay_nsec;
- 	atomic64_t			delay_start;
- 	u64				last_delay;
-@@ -111,10 +104,15 @@ struct blkcg {
- 	/*
- 	 * List of updated percpu blkg_iostat_set's since the last flush.
- 	 */
- 	struct llist_head __percpu	*lhead;
- 
-+#ifdef CONFIG_BLK_CGROUP_PUNT_BIO
-+	spinlock_t			async_bio_lock; /* protects async_bios */
-+	struct bio_list			async_bios __guarded_by(&async_bio_lock);
-+	struct work_struct		async_bio_work;
-+#endif
- #ifdef CONFIG_BLK_CGROUP_FC_APPID
- 	char                            fc_app_id[FC_APPID_LEN];
- #endif
- #ifdef CONFIG_CGROUP_WRITEBACK
- 	struct list_head		cgwb_list;
--- 
-2.51.0
+It's unusual to recurse for error handling. If you need to run some
+parts of this WoL config logic to disable WoL, put that logic in a separate
+helper.
+
+And this can be split into a dedicated patch, as this doesn't seem to be
+related to the issue at stake here ?
+
+Maxime
 
