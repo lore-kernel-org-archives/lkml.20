@@ -1,172 +1,152 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F3CC344052;
-	Sun, 13 Sep 2026 07:04:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9163C3905E6;
+	Sun, 13 Sep 2026 07:05:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789283072; cv=none; b=KDgGIl5ppZmhvf5h6+2/ZnMVYsf8+WWwjJUYbVhA/UIK3Xjpf+1fuRXtbhWqmyILXsGS/pgp2vitY3rSHlidstT26zcXH/VGQi1WCXQU+Myaa8MpwfJ8nMxH/An8YCv0o8j/eY/ckvplUSRisNQa//M21itooQgDoRqkicPN0a4=
+	t=1789283123; cv=none; b=MlgkWm4ZPkFWxWWYirv645Rw6mIIjj/91Hz5bxUTCLyKxlbtr8SH3ZdUqRIztm2KISfh0Ij9KhtW8FdhBGXjrh18ZcTcXyOTagmi/VaZidKskPq9MFkG9HF27VR1uFz8IoNih3ZUK6UsHV4oAZSSTynQF+xh1xI2BCDhNYaDUYo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789283072; c=relaxed/simple;
-	bh=I4vV30Zpm7PauTZC5lFaXzIa8btLq4CYX5a2vWjYN20=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=UfWc6hc29cEBSvaYzwehinHy3juXAxR+xj/Bod/xiyKTjclsvMWkO6ljk1XKbrJr2NZePl5/KD4frgsaV5yywkVRuPRpUjSzBC3u2IcSFRogkxmIjYS47SwpJXBLN2H3csxbZj01cvmsKP/aL44e12d4W0mabFbgnCFSRhl0Vz4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=rvfa8quf; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=1fn6akyY; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=TJ+Aff86; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Bbbm2T+t; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1789283123; c=relaxed/simple;
+	bh=tXmzQ9/0zxImuwG5nlQfSSjAFgmIBS5AnTHtSJv6yLk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JFqmI/YEpx5XghzQSbwwSvlrZwTnGZ6N/gL5GncyBk5KDFWqZY02Tbme4KtGGCLsEPToQMgrW2eRrGM1z6WIp+CeLO8LJlKghzUNoj15STDehF+sHznw8fd+ql4mwl268/8CelGkj2wjPOFsz+M1Zvx8GaXkf2eo1cUPGdftkg4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=fKYeFqPh; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="rvfa8quf";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="1fn6akyY";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="TJ+Aff86";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Bbbm2T+t"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id E5BB421D99;
-	Sun, 13 Sep 2026 07:04:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789283065; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aRiFTAndlUGuh+OTZkbMYfDScOYvMLrE1x0o093ABfo=;
-	b=rvfa8qufY42YlK8BQ3h1DVIJRIR0R2eOLSh0MtGwlNIhcmP/wntvTl6LNNrTPZGUyiiYhv
-	bX1cpjpcenG0WzO1zANoCXlieg7bMGS50u3arP+O6KvUncej6ibFbACq9ZOVZXz0aB0Hba
-	H9fABEt7Ewo6u9K11TAoiQbZFfWnSgM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789283065;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aRiFTAndlUGuh+OTZkbMYfDScOYvMLrE1x0o093ABfo=;
-	b=1fn6akyYr304hUxkOXUKmDmG66kza6tMa0Mi42wVxrsgleowYMUIKTp7HtkIxiH2HS+B06
-	cxXqq+SbA4UFwwBQ==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=TJ+Aff86;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Bbbm2T+t
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789283060; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aRiFTAndlUGuh+OTZkbMYfDScOYvMLrE1x0o093ABfo=;
-	b=TJ+Aff86ykIpc5uE1sj6tjw9ng0BcNbOTuWQ0stgANIBSA4dAmn7n2XpkNMdWTihhKFmWb
-	4OZC7MKIjSPeS2vJHLjd4ouhCRpjhlHQv+h6dtN0E/CxHcBJNa+01klSWPeWVhv20RJsgd
-	0H3FSJ4IxhW2TKXQCewCLa+ZEZ0uEvA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789283060;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aRiFTAndlUGuh+OTZkbMYfDScOYvMLrE1x0o093ABfo=;
-	b=Bbbm2T+tIKQRbroI/hkI//D9MzuugGiHa5mT3qWu1bR0f8sq1jHQvYhsRUVhxexlN7uSr4
-	k0ToZKlQtqSFr5Bg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 679BF1368C;
-	Sun, 13 Sep 2026 07:04:20 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id g0NsF/RKpmpGNwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Sun, 13 Sep 2026 07:04:20 +0000
-Date: Sun, 13 Sep 2026 09:04:19 +0200
-Message-ID: <87mrtlws24.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Xiang Mei <xmei5@asu.edu>
-Cc: perex@perex.cz,
-	tiwai@suse.com,
-	linux-sound@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="fKYeFqPh"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D88F5153B;
+	Sun, 13 Sep 2026 00:05:16 -0700 (PDT)
+Received: from ewhatever.cambridge.arm.com (ewhatever.cambridge.arm.com [10.2.197.99])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 096833F7D8;
+	Sun, 13 Sep 2026 00:05:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789283120; bh=tXmzQ9/0zxImuwG5nlQfSSjAFgmIBS5AnTHtSJv6yLk=;
+	h=From:To:Cc:Subject:Date:From;
+	b=fKYeFqPh3Nbti/qjh+YehqPr6Aca/4iAqF2MXvYA0u+kaAREt8vNj+T8KAi3a6Rly
+	 rBcuzC95jeKQhJCf5FDEUVOmoK/RbImi7u0g+hnQr9U8v3H4AdsrkPf2FIlVF851S2
+	 DZzNOKDUFBta4oUb0hFRQDPRg0PpDM0aJ8FiPpsE=
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+To: kvm@vger.kernel.org,
+	kvmarm@lists.linux.dev
+Cc: maz@kernel.org,
+	will@kernel.org,
+	catalin.marinas@arm.com,
 	linux-kernel@vger.kernel.org,
-	co+8eacd4fa193b1b28@bugs.sh,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] ALSA: usb-audio: Clamp implicit feedback packet count to URB capacity
-In-Reply-To: <20260912200530.1955491-1-xmei5@asu.edu>
-References: <20260912200530.1955491-1-xmei5@asu.edu>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	linux-arm-kernel@lists.infradead.org,
+	steven.price@arm.com,
+	aneesh.kumar@kernel.org,
+	oupton@kernel.org,
+	gshan@redhat.com,
+	joey.gouly@arm.com,
+	tabba@google.com,
+	yuzenghui@huawei.com,
+	linux-coco@lists.linux.dev,
+	gankulkarni@os.amperecomputing.com,
+	sdonthineni@nvidia.com,
+	alpergun@google.com,
+	fj0570is@fujitsu.com,
+	WeiLin.Chang@arm.com,
+	lpieralisi@kernel.org,
+	enju.kohei@fujitsu.com,
+	Suzuki K Poulose <suzuki.poulose@arm.com>
+Subject: [PATCH v18] arm64: mm: Handle Granule Protection Faults (GPFs)
+Date: Sun, 13 Sep 2026 08:04:58 +0100
+Message-ID: <20260913070459.2547407-1-suzuki.poulose@arm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: E5BB421D99
-X-Spamd-Result: default: False [-2.01 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	TAGGED_RCPT(0.00)[8eacd4fa193b1b28];
-	RCVD_TLS_ALL(0.00)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RCVD_COUNT_TWO(0.00)[2];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Flag: NO
-X-Spam-Score: -2.01
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Sat, 12 Sep 2026 22:05:30 +0200,
-Xiang Mei wrote:
-> 
-> data_ep_set_params() allocates each data URB for exactly u->packets
-> isochronous frames, so urb->iso_frame_desc[] has u->packets slots and
-> ctx->packets is the driver's only record of that limit. For an implicit
-> feedback sink, snd_usb_queue_pending_output_urbs() overwrites it with the
-> sync source's packet count, which is calculated independently from the
-> capture endpoint's parameters. When that count is larger,
-> prepare_playback_urb() and prepare_silent_urb() can write
-> iso_frame_desc[] past the allocation; their existing bounds limit payload
-> bytes, not the descriptor index.
-> 
-> The reproducer uses a high-speed UAC2 device declaring bInterval 1 for
-> implicit feedback capture (8 packets) and bInterval 4 for playback
-> (1 packet). On the first capture completion after the stream starts, it
-> accesses seven descriptors spanning 112 bytes beyond the one-packet URB:
-> 
->   BUG: KASAN: slab-out-of-bounds in prepare_playback_urb (sound/usb/pcm.c:1560)
->   Write of size 4 at addr ffff88801e696ad0 by task vhci_rx/178
->    prepare_playback_urb (sound/usb/pcm.c:1560)
->    prepare_outbound_urb (sound/usb/endpoint.c:340)
->    snd_usb_queue_pending_output_urbs (sound/usb/endpoint.c:501)
->    snd_complete_urb (sound/usb/endpoint.c:1834)
->    __usb_hcd_giveback_urb (drivers/usb/core/hcd.c:1657)
->    usb_hcd_giveback_urb (drivers/usb/core/hcd.c:1741)
->    vhci_rx_loop (drivers/usb/usbip/vhci_rx.c:107)
->    kthread (kernel/kthread.c:436)
->   The buggy address belongs to the object at ffff88801e696a00
->    which belongs to the cache kmalloc-256 of size 256
->   The buggy address is located 0 bytes to the right of
->    allocated 208-byte region [ffff88801e696a00, ffff88801e696ad0)
-> 
-> Record the allocated packet count per endpoint and clamp both the adopted
-> count and the packet-size copy to it. Fold the Format Type II delimiter
-> into urb_packs before the allocation loop so the recorded limit matches
-> every URB.
-> 
-> Fixes: cf044e441902 ("ALSA: usb-audio: Update the number of packets properly at receiving")
-> Reported-by: co+8eacd4fa193b1b28@bugs.sh
-> Closes: https://lore.kernel.org/all/22xPn8drvIUtYgVeQnBiNqXuevOTpBAjepLz%40bugs.sh/
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-5
-> Signed-off-by: Xiang Mei <xmei5@asu.edu>
+From: Steven Price <steven.price@arm.com>
 
-Applied now.  Thanks.
+If the host attempts to access granules that have been delegated for use
+in a realm these accesses will be caught and will trigger a Granule
+Protection Fault (GPF).
 
+A fault during a page walk signals a bug in the kernel and is handled by
+oopsing the kernel. A non-page walk fault could be caused by user space
+having access to a page which has been delegated to the kernel and will
+trigger a SIGBUS to allow debugging why user space is trying to access a
+delegated page.
 
-Takashi
+There is work in progress to unmap the guest_memfd backed private pages from the
+linear map. Until we get that support, we could get spurious GPFs from within
+the kernel, e.g., load_unaligned_zeropad(). So, try to fix them up for now.
+
+Reviewed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+Reviewed-by: Gavin Shan <gshan@redhat.com>
+Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+Signed-off-by: Steven Price <steven.price@arm.com>
+Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+---
+Changes since v17:
+ * Pass untagged address to die_kernel_fault() - Sashiko
+ * Explicitly check !user_mode() for fixups - Catalin
+ * Switch to BUS_OBJERR for si_code from SI_KERNEL - Catalin
+ * Clarify the commit description about the upcoming work on
+   unmapping guest_memfd backed pages from linear map
+Changes since v16:
+ * Update the commit description to indicate why we try to fixup GPFs
+Changes since v10:
+ * Don't call arm64_notify_die() in do_gpf() but simply return 1.
+Changes since v2:
+ * Include missing "Granule Protection Fault at level -1"
+---
+ arch/arm64/mm/fault.c | 30 ++++++++++++++++++++++++------
+ 1 file changed, 24 insertions(+), 6 deletions(-)
+
+diff --git a/arch/arm64/mm/fault.c b/arch/arm64/mm/fault.c
+index 75c3e463df2ef..dc3a87902a60c 100644
+--- a/arch/arm64/mm/fault.c
++++ b/arch/arm64/mm/fault.c
+@@ -914,6 +914,24 @@ static int do_tag_check_fault(unsigned long far, unsigned long esr,
+ 	return 0;
+ }
+ 
++static int do_gpf_ptw(unsigned long far, unsigned long esr, struct pt_regs *regs)
++{
++	const struct fault_info *inf = esr_to_fault_info(esr);
++	unsigned long addr = untagged_addr(far);
++
++	die_kernel_fault(inf->name, addr, esr, regs);
++	return 0;
++}
++
++static int do_gpf(unsigned long far, unsigned long esr, struct pt_regs *regs)
++{
++	if (!user_mode(regs) && !is_el1_instruction_abort(esr) &&
++	    fixup_exception(regs, esr))
++		return 0;
++
++	return 1;
++}
++
+ static const struct fault_info fault_info[] = {
+ 	{ do_bad,		SIGKILL, SI_KERNEL,	"ttbr address size fault"	},
+ 	{ do_bad,		SIGKILL, SI_KERNEL,	"level 1 address size fault"	},
+@@ -950,12 +968,12 @@ static const struct fault_info fault_info[] = {
+ 	{ do_bad,		SIGKILL, SI_KERNEL,	"unknown 32"			},
+ 	{ do_alignment_fault,	SIGBUS,  BUS_ADRALN,	"alignment fault"		},
+ 	{ do_bad,		SIGKILL, SI_KERNEL,	"unknown 34"			},
+-	{ do_bad,		SIGKILL, SI_KERNEL,	"unknown 35"			},
+-	{ do_bad,		SIGKILL, SI_KERNEL,	"unknown 36"			},
+-	{ do_bad,		SIGKILL, SI_KERNEL,	"unknown 37"			},
+-	{ do_bad,		SIGKILL, SI_KERNEL,	"unknown 38"			},
+-	{ do_bad,		SIGKILL, SI_KERNEL,	"unknown 39"			},
+-	{ do_bad,		SIGKILL, SI_KERNEL,	"unknown 40"			},
++	{ do_gpf_ptw,		SIGKILL, SI_KERNEL,	"level -1 granule protection fault (translation table walk)" },
++	{ do_gpf_ptw,		SIGKILL, SI_KERNEL,	"level 0 granule protection fault (translation table walk)" },
++	{ do_gpf_ptw,		SIGKILL, SI_KERNEL,	"level 1 granule protection fault (translation table walk)" },
++	{ do_gpf_ptw,		SIGKILL, SI_KERNEL,	"level 2 granule protection fault (translation table walk)" },
++	{ do_gpf_ptw,		SIGKILL, SI_KERNEL,	"level 3 granule protection fault (translation table walk)" },
++	{ do_gpf,		SIGBUS,  BUS_OBJERR,	"granule protection fault" },
+ 	{ do_bad,		SIGKILL, SI_KERNEL,	"level -1 address size fault"	},
+ 	{ do_bad,		SIGKILL, SI_KERNEL,	"unknown 42"			},
+ 	{ do_translation_fault,	SIGSEGV, SEGV_MAPERR,	"level -1 translation fault"	},
+-- 
+2.43.0
+
