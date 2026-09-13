@@ -1,90 +1,91 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5B2441D635;
-	Mon, 14 Sep 2026 09:24:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8C13427F85;
+	Mon, 14 Sep 2026 09:24:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789377850; cv=none; b=ck8nuqS8ThaN5qG9pWl6GM7Sje3dRHyN+QEIXqd5yu46SlzjDMd/M1NpwZOIcVW5/hy/hhTgv7Oeeqr3sGAt3/k86OhWzcJxJueKkvAK7GBgLnIVRZthXTkzoXhRdFKGgLTxFcTEUczjdlrDeSUL4hAMyFT4PVS1BNMmhMi9wF0=
+	t=1789377852; cv=none; b=EOi09NjEMlHvmDya54hNG9pdLXqnqfPWEQyRKwu00wBAxS/r9argm6rSX28BLjZwDzrkvfPg0wbJq+uS1kKx6sqipRsJ7xbjphaI73FxX7uPKEKaWmocWEi58gEx9TD1IALOdQpLfpMQMhuQTvrHZ33Tx4AuPpHT74ygx66qXWE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789377850; c=relaxed/simple;
-	bh=kaCqdNgN89TN2w1NW0LlW558cYaGbiiV47kWTtXaz1w=;
-	h=Date:From:To:Cc:Subject:Content-Type:MIME-Version:Message-ID; b=oNUeE+E1KDYiAoA9s23IgBF8QM6mlrBAj5aZyWE8E9ZOFbqF0L06CrktuY2MwTBveiQNyZy3N8+q+Wr2HWpXtFL6C+aXORL7vvfBuPutbKkTIArfGM0UzAf5Tu867xnvmWteHqX80eVMh68f4PiyVzoq9x5+LhRJBNIQ+uRxRgM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=cdyF6CHs; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789377852; c=relaxed/simple;
+	bh=Yk5Q/bYA/6cID9EgtmiSFYx9/ovYne5/e3SkuBlPoBw=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=Ms5kLwZ72vicBvEPtsmB8+C34Zbs48pTqLWrfxLKiOkxZaQbMYflWBkKB6WWBpbgtOrHLbahy93ETPII+fgJYjxWaebtMPLHt2fN5xFWR+12vHHBoShclNSipE9awQtkPoTuFwRyjUHOevx2mkGmtncPUZa7jPISXdXS7Nc9D2g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k12sInqw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="cdyF6CHs"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=kaCqdNgN89TN2w1NW0LlW558cYaGbiiV47kWTtXaz1w=; b=c
-	dyF6CHsQ9t1PMJndbKDDOeFfj8Zl0rQbv8cvzuJNhjQs8NBWG27Wc+i4CZtErBZn
-	pw4qVMfIsdAqkGCNnYaDqM8u5mz3GWNuaTiNn0YMj/7TIfRIyokQU3ViXkdigqeC
-	8USDFzwzXtcmZo0J68CBAiv3tmF5Z72+7YMxoLD83o=
-Date: Mon, 14 Sep 2026 17:23:54 +0800 (CST)
-From: CJ <firefly0158@163.com>
-To: idryomov@gmail.com, amarkuze@redhat.com, slava@dubeyko.com
-Cc: ceph-devel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [BUG] ceph: WARNING in ceph_con_v1_try_read on a malformed banner
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-X-NTES-SC: AL_Qu2TC/+cuEAo4iiaZ+kdmEsTju82UcS4ufQl245Xc98Figbk+QAgeFpPNFDG1NiRKyuJkh+TdQFs6cJxc45/STTY1beTBA8Yw+EGKfbJDg==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k12sInqw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A65A1F00893;
+	Mon, 14 Sep 2026 09:24:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789377851;
+	bh=YrdWWwQUG3SsodlqBZSPibvJpFetR98ZO0yc7T5ekyA=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=k12sInqw//QK9CH6m966bqvVChhDwiqaEKNyubbPYqoOE0174j4HJk7IKcJ1O6ebe
+	 tA9yj7M6FNBS95PETB8WFugr+Fmmu06X+0ofrcEqv1efEUBOyucn+pIQh6zURpPY51
+	 s3cEycummftpLwCWE1PBQzvoOrsBPwvUBI8n32cmYbcuR8E9rXyTSpku7HwFLrEcoG
+	 ENYQfiv8nB7eOv7K8BFfaHNShLqWY1COR0f89yxxCU3U9qGkocHvudJD0hlsNdE9nv
+	 /QOnpbUudKnxcYwsQODjVr2ErthexpC5+4tkTIbHAEv9BgV/e69+nQMCa1hZhovLQJ
+	 XkXTwjpufRKDw==
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, 
+ Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Douglas Anderson <dianders@chromium.org>, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260912000606.34614-1-kmehltretter@gmail.com>
+References: <20260912000606.34614-1-kmehltretter@gmail.com>
+Subject: Re: [PATCH] regulator: qcom-rpmh: Fix the return value in
+ rpmh_regulator_vrm_get_optimum_mode() kernel-doc
+Message-Id: <178934257805.1239410.12118428099167170260.b4-ty@b4>
+Date: Mon, 14 Sep 2026 00:36:18 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <3b8d4918.8e95.1a09f3aef51.Coremail.firefly0158@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:hygvCgD3P7YqvadqNEkPAA--.19097W
-X-CM-SenderInfo: piluvw1o1qikqy6rljoofrz/xtbC3Qr9r2qnvSrMpwAA30
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1218; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=Yk5Q/bYA/6cID9EgtmiSFYx9/ovYne5/e3SkuBlPoBw=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqp7032ZUryO3shj1GF+HkhTdpsbtICDXMs0jdi
+ WmJKC7+nkWJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCaqe9NwAKCRAk1otyXVSH
+ 0ImqB/4ndWGnJyU+h5vr0n3b78MA8yOOkkL+wptzAVQ72jBToNkcmBbFjkXm5eFhe9XdKFF/6pD
+ pW8Q0UyXHzt9ZGc9vn0VpNT+Z/2VtfrrjkS6jWIT5xrTLV2QtqLWS+/CbPn3/DR7Xaplls9oksk
+ QnApr8RZkvXYWt23jEn/ZqYIRuL5dnDgwId2VXY5D8W6sMfWc6QsKIvOhlqB90OSAtCOXrXgzov
+ edre6y3ffQw7vgPaTyp4OhTFivoYL9fajWHSOsVtLRZgR9KNCjgwORJJU2/T/OTz23mVocSuae+
+ SQ3yC4+1r7mpACfHCuCLCXVHGWOjNQrcWJ1l5TDFGo0d70aO
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-CkhpLAoKCkkgYW0gcmVwb3J0aW5nIGEgV0FSTklORyBpbiB0aGUgY2VwaCBtZXNzZW5nZXIgdjEg
-cmVhZCBwYXRoLCB0cmlnZ2VyZWQgYnkgYQpzeXprYWxsZXIgcmVwcm9kdWNlciB0aGF0IHBsYXlz
-IGEgbWFsZm9ybWVkIGNlcGggc2VydmVyLiAgVGhlIGlzc3VlIGlzCnJlcHJvZHVjaWJsZSB3aXRo
-IEhFQUQgY29tbWl0IGNlZTkzOTVhY2Q4MDQzYmUwNjQ0YjI1YzM0YmZhODY2MjNmMmI5MzUKKHY3
-LjMtcmMxLCBMaW51eCA3LjMuMC1yYzEpLgoKClRoZSByZXByb2R1Y2VyIG9wZW5zIGEgbGlzdGVu
-aW5nIFRDUCBzb2NrZXQgb24gdGhlIGxvb3BiYWNrIGFkZHJlc3MsIG1vdW50cyBjZXBoCnRocm91
-Z2ggZnNvcGVuL2ZzY29uZmlnIHdpdGggc291cmNlIDEyNy4wLjAuMTo2Nzg5Oi8sIGFjY2VwdHMg
-dGhlIGNvbm5lY3Rpb24gdGhlCmNsaWVudCBtYWtlcywgYW5kIHRoZW4gd3JpdGVzIGEgYmFubmVy
-IGZvbGxvd2VkIGJ5IGEgc2hvcnQgaGFuZHNoYWtlIG1lc3NhZ2UKd2l0aCBhbiBpbmNvbnNpc3Rl
-bnQgbGVuZ3RoIGZpZWxkLgoKClRoZSBXQVJOSU5HIGZpcmVzIGluIHRoZSBjZXBoLW1zZ3Igd29y
-a3F1ZXVlIChXb3JrcXVldWU6IGNlcGgtbXNncgpjZXBoX2Nvbl93b3JrZm4pLCBub3QgaW4gdGhl
-IHN5c2NhbGwgdGFzay4gIFRoZSBjb25zb2xlIHNob3dzIGEgV0FSTklORyBhdApuZXQvY2VwaC9t
-ZXNzZW5nZXJfdjEuYzo5MDEgd2l0aCBSSVAgaW4gY2VwaF9jb25fdjFfdHJ5X3JlYWQ7IGluIHRo
-ZSBvcmlnaW5hbApyZXBvcnQgdGhlIHNhbWUgd2FybmluZyB3YXMgYXR0cmlidXRlZCB0byB0aGUg
-aW5saW5lZCBwcm9jZXNzX2Nvbm5lY3QgcGF0aCBhdAptZXNzZW5nZXJfdjEuYzo5MTEvOTEyLCB3
-aGljaCBpcyB0aGUgc2FtZSBoYW5kc2hha2UgcHJvY2Vzc2luZyBpbnNpZGUgdGhpcwpmdW5jdGlv
-bi4KCgpPbmUgcG9zc2libGUgY2F1c2UgaXMgdGhhdCB0aGUgbGVuZ3RoIG9yIHRhZyBmaWVsZCB0
-YWtlbiBmcm9tIHRoZSBwZWVyJ3MKaGFuZHNoYWtlIG1lc3NhZ2UgaXMgbm90IHZhbGlkYXRlZCBh
-Z2FpbnN0IHRoZSBieXRlcyBhY3R1YWxseSByZWNlaXZlZCBiZWZvcmUgaXQKaXMgdXNlZCwgc28g
-YSBjcmFmdGVkIHNlcnZlciByZXNwb25zZSBkcml2ZXMgdGhlIGNvbm5lY3Rpb24gc3RhdGUgbWFj
-aGluZQp0aHJvdWdoIGFuIHVuZXhwZWN0ZWQgdHJhbnNpdGlvbiBhbmQgdHJpcHMgdGhlIHdhcm5p
-bmcuICBUaGlzIGxvb2tzIGxpa2UgbWlzc2luZwp2YWxpZGF0aW9uIG9mIHVudHJ1c3RlZCBwZWVy
-IGlucHV0IG9uIHRoZSBjb25uZWN0IHBhdGguICBJIGFtIHJlcG9ydGluZyB0aGUKd2FybmluZyBh
-bmQgdGhlIHBhdGggYXMgb2JzZXJ2ZWQuCgoKVGhpcyBhcHBlYXJzIHRvIGJlIGEgcmVjdXJyZW5j
-ZSBvZiB0aGUgc3l6Ym90IGlzc3VlIHdob3NlIGV4dGVybmFsIGlkIGlzCjdlMzBhNGI1NWRjZmVh
-YjliMjFkLiAgSXQgcmVtYWlucyByZXByb2R1Y2libGUgb24gdjcuMy1yYzEuCgoKUmVwcm9kdWNl
-cjoKCgpzeXogcmVwcm9kdWNlcjoKcjAgPSBzb2NrZXQkaW5ldF90Y3AoMHgyLCAweDEsIDB4MCkK
-YmluZCRpbmV0KHIwLCAmKDB4N2YwMDAwMDAwMDAwKT17MHgyLCAweDFhODUsIEBsb29wYmFja30s
-IDB4MTApCmxpc3RlbihyMCwgMHg1KQpyMSA9IGZzb3BlbigmKDB4N2YwMDAwMDAwMTAwKT0nY2Vw
-aFx4MDAnLCAweDApCmZzY29uZmlnJEZTQ09ORklHX1NFVF9TVFJJTkcocjEsIDB4MSwgJigweDdm
-MDAwMDAwMDE0MCk9J3NvdXJjZVx4MDAnLCAmKDB4N2YwMDAwMDAwMTgwKT0nMTI3LjAuMC4xOjY3
-ODk6L1x4MDAnLCAweDApCmZzY29uZmlnJEZTQ09ORklHX0NNRF9DUkVBVEUocjEsIDB4NiwgMHgw
-LCAweDAsIDB4MCkKcjIgPSBhY2NlcHQkaW5ldChyMCwgMHgwLCAweDApCndyaXRlKHIyLCAmKDB4
-N2YwMDAwMDAwMzAwKT0nY2VwaCB2MDI3XHgwMCcvMjc4LCAweDExOSkKd3JpdGUocjIsICYoMHg3
-ZjAwMDAwMDA4MDApPSIwMWZmZmZmZmZmZmZmZmZmZmYwMCIvMjksIDB4MWUpCgoKY29uc29sZSBv
-dXRwdXQ6IGh0dHBzOi8vcGFzdGViaW4uY29tL3Jhdy9FckVQeWREdgprZXJuZWwgY29uZmlnOiBo
-dHRwczovL3Bhc3RlYmluLmNvbS9yYXcvd2MyVjFtcXUKCgpLZXJuZWw6CgoKSEVBRCBjb21taXQ6
-IGNlZTkzOTVhY2Q4MDQzYmUwNjQ0YjI1YzM0YmZhODY2MjNmMmI5MzUKZ2l0IHRyZWU6IHVwc3Ry
-ZWFtIChsaW51eC5naXQpLCB0ZXN0ZWQgdGhyb3VnaCB0aGUgdjcuMy1yYzEgYW5ub3RhdGVkIHRh
-ZyBvYmplY3QKwqAgwqAgwqAgwqAgwqAgwqBlNWUwNDcyNmNkZDA0M2UzMDk2NzcwNzFhYjFiNjVh
-NGIxOGY0MjJiCmtlcm5lbCB2ZXJzaW9uOiA3LjMuMC1yYzEgIzEgUFJFRU1QVChmdWxsKQp0ZXN0
-ZWQgdGFnOiB2Ny4zLXJjMSAoTGludXggNy4zLXJjMSwgMjAyNi0wOC0zMCkKCgpMZXQgbWUga25v
-dyBpZiB5b3UgbmVlZCBtb3JlIGRldGFpbHMgb3IgdGVzdGluZy4KCgpCZXN0IHJlZ2FyZHMsCkNo
-YW5namlhbgoK
+On Sat, 12 Sep 2026 02:06:06 +0200, Karl Mehltretter wrote:
+> regulator: qcom-rpmh: Fix the return value in rpmh_regulator_vrm_get_optimum_mode() kernel-doc
+
+Applied to
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-7.4
+
+Thanks!
+
+[1/1] regulator: qcom-rpmh: Fix the return value in rpmh_regulator_vrm_get_optimum_mode() kernel-doc
+      https://git.kernel.org/broonie/regulator/c/51d6888b51e0
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
