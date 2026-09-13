@@ -1,287 +1,433 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from ewsoutbound.kpnmail.nl (ewsoutbound.kpnmail.nl [195.121.94.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE15D3F788F
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 18:49:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9531E3FB7E1
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 18:49:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.121.94.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789325389; cv=none; b=ko4ZSpuo38YbTdVpyqGFTh2qRoAaEMEm4i4/LSil4NFoTz6bdgFUMVzuZe2KRSUz5S02ed2Q09x7bfwoSnvuWFfsOCMRTq7/RL0QUKcPO5R4asn4NafPMmaKLm7V3PdGMQauG7f3e0bbcHYFG870//bA0bVPx0ECmoHCd2/Rr2Q=
+	t=1789325393; cv=none; b=pssI+N6yQ0kIz+ftAeuSe7MSIbp3zDqJzaEohhpwrA7Rg/x4tMKSMe02VngsE4m/fofz/br0WS7CdalfavZfctrEvWU/UpiubFqLNruF/QNOeJjEE1PdOzKeatvhF3TrlkTBTgd4L7/yanHQ5XjDJxuPeU55syv0L5y8UHCmVXk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789325389; c=relaxed/simple;
-	bh=SL4rHg0ckqjS7yflKo0/gzXQtpbTOEX0iMMjHPfQoGs=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ZRRq2kR+6hFx+gpd791gNh8hzKqnlz6uOBuoOL0In9BA1IPhfAnDPu9owb/NrUWw0A3XWce3yFJl0iT2RZyZDChXkPkjT+EIMhXrzDLdpQM3K8z8c3VdaKSsIi0n4jGNB3tdxE99275eqa5NtBLGUJLgOo4T9qwu3Dv/VNX5BVc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JOrbATl/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NN3ZzyHg; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789325393; c=relaxed/simple;
+	bh=gj8FpkHlNchhad14rh8EiQmkgwFXQ7brK5SW03B67jw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=bT6bR2S3bs+R7DUMDd0TYPcFW8eipLgV7PdecJEX3wzjXbGAn0oJrIzF0dvJLlAk8B4ZXmfFD7pgVQazodEOqDJVJZMi5Bgu/WZYgClT7E77wQ7lMAxZRwq2eV+8G0f3GfPcPpAfBKbBVpmUdHossXtkbL2TRk36Cz+9yDyWrgY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl; spf=pass smtp.mailfrom=xs4all.nl; dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b=YgI9kZ/K; arc=none smtp.client-ip=195.121.94.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xs4all.nl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xs4all.nl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JOrbATl/";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NN3ZzyHg"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68DI2a5T2800789
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 18:49:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=tBdLbgUXMSrCBPS1AhsoRZ
-	HgTYdkKAJPrOORzltLXkU=; b=JOrbATl/TF0mbBHHB4XXCi9wyH/IvU5HIQ6VLX
-	GeuBkKnMW1iDT1U/9vnsXlZTJiSgg+6yt6YsDbgoX3G8+Or6tksl8H86MF5gWsVb
-	c1dXJ1gsH7lOCugBLWhLE5gZq44xhwtEuM5eSzn+kLKG04HSux7rLs7a03vbcf6R
-	55Z1DIutYzSzHvY03jf60hZKxyCSfBXQluUNPp9ifSOwh1RzFeLhcYjyD2tVEwlk
-	7mdZ071Fh4JBUYxRkO+FHkd5xPy1B3cH5oGspp/aUDYdrYneWj+xBzjxpm94hSvp
-	9DV37bgELtnswISlLPoTfM4aciOb56DNbbmhIDxWSjqEIYpQ==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9dkyfb-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 18:49:46 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-395543dc382so3414727a91.0
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 11:49:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=xs4all.nl header.i=@xs4all.nl header.b="YgI9kZ/K"
+X-KPN-MessageId: e3c6b669-afa3-11f1-83b4-005056ab378f
+Received: from smtp.kpnmail.nl (unknown [10.31.155.38])
+	by ewsoutbound.so.kpn.org (Halon) with ESMTPS
+	id e3c6b669-afa3-11f1-83b4-005056ab378f;
+	Sun, 13 Sep 2026 20:49:46 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789325385; x=1789930185; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=tBdLbgUXMSrCBPS1AhsoRZHgTYdkKAJPrOORzltLXkU=;
-        b=NN3ZzyHgBZTULhuTlhCZ96C/GNSWQOXRJ6+SYBGSLwORv/+31LGy4uOwPdpgRL854J
-         UKXHoOYnk6qTwdAaL5VYeAz+iMTwD7Qx3AzxnwseOSXw2OAmpwdmTxdoiK9YOFAaOJe/
-         NRzMd6iEIIoaHw4JylDxjeH+T1mD+cnwVGi/EAEMlUZDpCskuubiJcobbQhpS3FSnm9W
-         r6kqcXs7xW32fA2ENHRLs9MChuHu17f1LpClnXIbBRuR/XhYn2nEiIG1L+P9Cyh83BNS
-         9XxUuXJfKGPFOXBc4XnxDHo4bW5RkLO8IHKrGMBHI1OYac4JqsBSuQaQ/jg/2RYwThJR
-         L3iQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789325385; x=1789930185;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=tBdLbgUXMSrCBPS1AhsoRZHgTYdkKAJPrOORzltLXkU=;
-        b=TnFwJmW6+NlFEhfh/gOYoZy4gk09Olj2utJ49MnYEbybthlYFwLgVSf5zvOw4BZ+1o
-         YCV23FxlfdFqoO0WD0YQcQMF/NcltjePYHiwJTrd5OATSYL2f/FQfu9b8MUXpcPcwBhK
-         v0F1QcWyUS4LbLAC5H58ZSS+nt/2SHRJlpLb380H08IvwYKebo+V2yyyuKJNLL3WFg+W
-         yyg2Zz4FY46aJXnjJgf9gVqB8xDMRwf3WqZO38EhCSaSrEIcxW+6MIt4gV7V68GK0L0G
-         8FUcBodefxKs/WuV0FiBJUA7XrspbgI/fB2BrzbfQU8lUKC+FMLz2ZbbTdWdil4crEw+
-         bH8g==
-X-Forwarded-Encrypted: i=1; AKwUvBx8jplAaOXz1HMzXDL9d/WhhJZFau66t+awUMqW8TR5dbIRlqoQ9M2cHiE0TUqxTmwj8SNnT9T5GNTgI4o=@vger.kernel.org
-X-Gm-Message-State: AFuF++kiCd5A92DPFI4cjxEDGT3Rjb4tJobM0I/fWgn13kqe0/uKUpC0
-	SFeSjHQX9Db/UH3B4A3fcqbtV6y7BxzyWlixNn4o5aIRX8vt0tSq+0VSSD9OFn0FD4Z9WJLVzz9
-	sgLwOiFam2++bBHZ7nmm9DfemspxaQ7+jJZra9M9NDpSFwZzsBUAHAPwGG0/FaVMs+DE=
-X-Gm-Gg: AYBFou1J/om7jfHYILBttsgUBSTCYb/eaRpyAjenzby8lBmoadYdnmHlAlPhXM2mkC7
-	ET65Uo4sR9IT4L20CcpO53u5iNBxi0wN1s5g/L9VwtQAw8kF041v9Iup8i0UyStAYYcH2TygTBN
-	ttCq+zSvY1GL0s6kk+adoYLAyYn9IXBVRMaNd7bZhVd1EgxkaKTjnhuYzY9lVw9EG5ppt7sjQvz
-	G9TODdURgB/Pu7LzVO3EqMfAs24H6jxBNdc5Itw/V3KWdXNIdtJzca/mxb3oZc/cT4gi6ASO60e
-	R3Q02ItpaYoFJcxth+UaBei4Rx0zIyukknq+hSC8oVsZQGTt+4mFpwDIlR7WVPgch7WOWRRitXL
-	kl7nH9Kt93bZWXKG9V9sujSsHPszXdMvrwoU=
-X-Received: by 2002:a17:90a:c01:b0:39d:e1f2:33ff with SMTP id 98e67ed59e1d1-39de1f2630fmr1887005a91.9.1789325385118;
-        Sun, 13 Sep 2026 11:49:45 -0700 (PDT)
-X-Received: by 2002:a17:90a:c01:b0:39d:e1f2:33ff with SMTP id 98e67ed59e1d1-39de1f2630fmr1886947a91.9.1789325384618;
-        Sun, 13 Sep 2026 11:49:44 -0700 (PDT)
-Received: from hu-vgarodia-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4f55735sm22473130eec.24.2026.09.13.11.49.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 11:49:44 -0700 (PDT)
-From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-Subject: [PATCH v4 00/13] media: iris: Migrate iommus to iris sub nodes
-Date: Mon, 14 Sep 2026 00:19:17 +0530
-Message-Id: <20260914-vpu_iommu_iova_handling-v4-0-9b9074a73c41@oss.qualcomm.com>
+	d=xs4all.nl; s=xs4all01;
+	h=mime-version:message-id:date:subject:to:from;
+	bh=1IpoTYMP5XRS0Wf6GLJilFPg/98gMh0ulmw5TiujizI=;
+	b=YgI9kZ/KoM+R3qGqyCTf3RLqmocCUA9WRPMH69B4uU4xnHTagYqSjKaFOTdROFxn6DH/gCi1ZaZht
+	 Np8eo9LM0+QoBK3+2gXplT5UYbhNtDwMIEYxaI5tPi/lI5ahh61vxgitrEjL/7q453MNBKSBP2bPfd
+	 AYXeN1jA8djzPVs3coAm0o4g+x6pwRQnE5+snGTGBSyW/tL6ShurKoXgsKcEMroG/VKSxhhnteqOHb
+	 zIrBadalXDxdF0NXzm+R0otBuvPN1Qfqo6UJ+zV67QKj1tJg5KnaFM4IN/rk+Mvj4ywbLiZ3DdCJO3
+	 sY9Vyqwu6mjhqBvXNB4n1s6kpu2jwJg==
+X-KPN-MID: 33|ldoESv9g3OVOzxiIcxj7sWh6WP0D2bmUBHncWy/7ao0bf0otTwKKD7tla01awFw
+ NMPCMGxK1ATK23pEgWCu2ZbsfGP1MIvHSzdL/Ekqm6Kg=
+X-KPN-VerifiedSender: Yes
+X-CMASSUN: 33|lsZE0lg7Soh+BV+Erg8/LCoEAP3VSULJbzBQQIYRlOoJlh/i2hHyIQC3hRFabKG
+ qAOSmDNiGYr0SFP+HZJCyJQ==
+Received: from daedalus.home (unknown [178.231.250.207])
+	by smtp.xs4all.nl (Halon) with ESMTPSA
+	id e38b5477-afa3-11f1-bd2b-005056abf0db;
+	Sun, 13 Sep 2026 20:49:46 +0200 (CEST)
+From: Jori Koolstra <jkoolstra@xs4all.nl>
+To: Christian Brauner <brauner@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Aleksa Sarai <aleksa@amutable.com>,
+	NeilBrown <neil@brown.name>,
+	Amir Goldstein <amir73il@gmail.com>,
+	Jan Kara <jack@suse.cz>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Jori Koolstra <jkoolstra@xs4all.nl>
+Subject: [PATCH v6 12/12] selftest: add tests for open*(O_CREAT|O_DIRECTORY)
+Date: Sun, 13 Sep 2026 20:50:16 +0200
+Message-ID: <20260913185016.523376-13-jkoolstra@xs4all.nl>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260913185016.523376-1-jkoolstra@xs4all.nl>
+References: <20260913185016.523376-1-jkoolstra@xs4all.nl>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAC3wpmoC/33OzQ6CMAwH8FchOzvCCgPnyfcwhmxswBK+ZLJoC
- O9uITF6EC9N/k37a2fizGiNI6dgJqPx1tm+w5AcAlLUsqsMtRozgQjSKIsY9cOU275t1+pljjO
- 6sV1FOU+NSIVkJSsIbg+jKe1jky9XzLV19358boc8W7tvU+yantGIZqBUCoUCXepz71x4m2RT4
- HSIhay0hy8u3n/RA3JaclAc4KjVHhd/OPHvuxg5KE0SS5PwRPAf3LIsL1fFLttjAQAA
-X-Change-ID: 20260701-vpu_iommu_iova_handling-556e969a1f1c
-To: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Stephan Gerhold <stephan.gerhold@linaro.org>,
-        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>, Abel Vesa <abelvesa@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzk@kernel.org>, iommu@lists.linux.dev,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789325376; l=7094;
- i=vikash.garodia@oss.qualcomm.com; s=20241104; h=from:subject:message-id;
- bh=SL4rHg0ckqjS7yflKo0/gzXQtpbTOEX0iMMjHPfQoGs=;
- b=icnT2Qww/PAXHwR4L2TMMCi0IjERQDEJ8e9uiC4dCui4lKVV87Zg0gkSsi9L/Wupl4Y3yBvQ7
- pL21LZ2JOlfDmVqbJDkWuqVqQsPbb3U3B0yRwkzcpxCi7Jmg/ScLFK/
-X-Developer-Key: i=vikash.garodia@oss.qualcomm.com; a=ed25519;
- pk=LY9Eqp4KiHWxzGNKGHbwRFEJOfRCSzG/rxQNmvZvaKE=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEzMDI2NyBTYWx0ZWRfX/DJROj7eOQWl
- MkmXvcs9EhW6f0tVJt8q47++DQglKdJLLs5m+kje+45zbqiETCvj9jWOxB3U88F0M25ll23MoYn
- AKPxItefzVH9gtApiZFoeH8dII5x8o4cMhc08ETqTM0DxY1eggEYN9TrYEbAI8/w0JMwlF7S4zj
- 2MX0q695cqeLtEW7VhQq6sf9gYCPzX5AQYZN21RfXZJi5tvslE6XpfkvtdXw6b+RVvYGTmH2RcY
- df433KTALqNktDTtf0JbrUkLcbJZaR0MmfWotcgqFycTkVKVnqnSVZFrXKzi5VspXasi6rlh3Cn
- 84qMz/4DLqu3RNcqm1vVLFDwvE4ASAFV3EM+sHMt1As6OLdnQ3Cz5ua8koIy8YhG0uch27zDNqs
- Wt6PsX/8560MWpFcyOPyeqK4oFw/vMCIPZZInYjyWtV86eqvR9hlWnk7ERNAxixapAde+Fl02bY
- lNbFV4/2BLdd0XQclpQ==
-X-Proofpoint-ORIG-GUID: q_JM7UPVNLF57GCT8N9cBnJ-UVuyboW8
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEzMDI2NyBTYWx0ZWRfXzh8t22L/JraJ
- y+np14bAL/5Z5mN/eODudSzopPkTANl9cfpiRDJN5q7Ks1EZNHynCLS2LpxJFX3hfI7N5lJadhG
- iW4gg2CvP+YnxtaJuUvOupfBsfiaAIY=
-X-Authority-Analysis: v=2.4 cv=Y6htIReN c=1 sm=1 tr=0 ts=6aa6f04a cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=e5mUnYsNAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=NEAV23lmAAAA:8
- a=Mirq-BLilzHILghaBF8A:9 a=QEXdDO2ut3YA:10 a=rl5im9kqc5Lf4LNbBjHf:22
- a=Vxmtnl_E_bksehYqCbjh:22
-X-Proofpoint-GUID: q_JM7UPVNLF57GCT8N9cBnJ-UVuyboW8
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-13_06,2026-09-11_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 adultscore=0 spamscore=0 impostorscore=0
- bulkscore=0 clxscore=1015 suspectscore=0 priorityscore=1501 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609130267
+Content-Transfer-Encoding: 8bit
 
-The VPU issues DMA through several SMMU streams, and the hardware does 
-not restricts specific streams with specific addressable range. The 
-non-pixel stream is restricted to use 0-600MB of IOVA space, while the 
-pixel stream can address the full range:
-    +-----------------------------------------------------------+
-    | non-pixel stream addressable range (600 MB - 3.5 GB)      |
-    | 0x25800000 - 0xe0000000                                   |
-    +-----------------------------------------------------------+
-    | pixel stream addressable range (0 - 3.5 GB)               |
-    | 0x00000000 - 0xe0000000                                   |
-    +-----------------------------------------------------------+
+Add some tests for the new valid O_CREAT|O_DIRECTORY flag combination for
+open*(2) to test compliance and to showcase its behaviour.
 
-A single "iommus" property on the video-codec node puts every stream in
-one IOMMU domain sharing one IOVA allocator, so nothing keeps a
-non-pixel buffer inside the low 600 MB. Once an allocation lands below
-that boundary the hardware faults, which shows up as unhandled SMMU page
-faults and spontaneous reboots:
-https://gitlab.freedesktop.org/drm/msm/-/work_items/100
-
-Fix was made in iris/venus driver to reserve the 0-600MB range and 
-thereby prevent iova allocation from that range. 
-https://lore.kernel.org/all/20260818-reserve_iova_in_driver-v2-0-5005a1154408@oss.qualcomm.com
-
-Given that the address range restriction is for specific VPU stream, it 
-should be ideally moved to that stream. To achieve the same, a subset 
-of streams is now represented as subnodes, so that each can be 
-associated with its respective addressable range.
-
-In the past, this limitation was addressed with an iommu-map approach,
-with the iris driver dynamically creating the devices. That approach
-was later concluded to be a hack to avoid having subnodes, and was NAKed
-by the iommu maintainers. It was discussed in detail here:
-https://lore.kernel.org/all/c7b956a9-d3e8-4e18-b780-5d08f5cd2ca1@kernel.org/
-
-The maintainers agreed to proceed with the subnode approach to address
-the VPU hardware limitation.
-
-Reserving the iova address using "iommu-addresses" requires it to be 
-placed in the reserved-memory node. But when "iommu-addresses" is the 
-*only* property being described and there is no backing "reg" (i.e. no
-actual reserved system memory), it does not really belong to 
-reserved-memory node. A device IOVA range is very much specific to the 
-way device own address space is mapped, and not a description of memory
-shared across the system. Given this, "iommu-addresses" backed by a 
-"reg", should be placed inside reserved-memory, otherwise, it should be 
-defined within the device node. More info on this discussion can be 
-found at
-https://lore.kernel.org/all/662f7093-fb0a-4564-9ca0-98e03e68ba9a@kernel.org
-
-"iommu-addresses" property expects a phandle, which does not make sense 
-when the same is defined within individual device node itself. 
-Introduced a new property, "iommu-ranges", for the IOVA ranges required 
-for DMA memory mapping to that device node and when there is no physical 
-memory reservation.
-
-"iommu-ranges" is defined with the schema PR
-https://github.com/devicetree-org/dt-schema/pull/207
-
-This series migrate vpu3x platforms to subnodes. All new SOC having 
-iris3x or onwards(4x 5x..) should follow the subnode approach.
-For VPU2x and AR50Lite SOCs, which are being migrated to iris, the 
-subnode support would be added once the SOC is migrated away from venus 
-to iris. There is no plan to upgrade venus enabled SOC to subnodes.
-
-Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Signed-off-by: Jori Koolstra <jkoolstra@xs4all.nl>
 ---
-Changes in v4:
-- Dropped Daniel tested by tag (Krzysztof)
-- Removed depends-on info from the commit description ((Krzysztof)
-- Dropped the soc {} in example (Dmitry)
-- Addressed review comments which seems valid (Sashiko)
-- Binding patches depends-on: https://github.com/devicetree-org/dt-schema/pull/207
-- Link to v3: https://lore.kernel.org/r/20260909-vpu_iommu_iova_handling-v3-0-2fe43ae45495@oss.qualcomm.com
+ .../testing/selftests/filesystems/.gitignore  |   1 +
+ tools/testing/selftests/filesystems/Makefile  |   2 +-
+ .../filesystems/open_o_creat_o_dir.c          | 296 ++++++++++++++++++
+ .../testing/selftests/filesystems/wrappers.h  |  11 +
+ 4 files changed, 309 insertions(+), 1 deletion(-)
+ create mode 100644 tools/testing/selftests/filesystems/open_o_creat_o_dir.c
 
-Changes in v3:
-- Drop iommu-addresses from reserved memory (Rob)
-- Defined a new property iommu-ranges (Krzysztof, Dmitry)
-- Moved the vpu specific context bank handling to common(Dmitry)
-- Dropped fixes tag.
-- Link to v2: https://lore.kernel.org/r/20260731-vpu_iommu_iova_handling-v2-0-da52b5228dbd@oss.qualcomm.com
-
-Changes in v2:
-- Fixed sashiko issues.
-- Moved subnodes into common schema (Dmitry)
-- Kept the firmware name as the one defained earlier (Dmitry)
-- Added dma-ranges to specify parent-child address translation
-- Moved context bank hooks to VPU ops (Dmitry)
-- Updated commit description.
-- Link to v1: https://lore.kernel.org/r/20260709-vpu_iommu_iova_handling-v1-0-72bb62cb2dfd@oss.qualcomm.com
-
----
-Vikash Garodia (13):
-      dt-bindings: media: qcom,venus: Add context bank subnodes to common schema
-      dt-bindings: media: qcom,sm8550-iris: Add context bank subnodes
-      dt-bindings: media: qcom,sm8750-iris: Add context bank subnodes
-      iommu: of_iommu: Add support for "iommu-ranges" on a device node
-      media: iris: Add non-pixel and pixel context bank devices
-      media: iris: Route buffers to the matching context bank device
-      media: iris: Skip DMA mask setup when the core device has no IOMMU
-      arm64: dts: qcom: hamoa: Add Iris context bank subnodes
-      arm64: dts: qcom: sm8550: Add Iris context bank subnodes
-      arm64: dts: qcom: lemans: Add Iris context bank subnodes
-      arm64: dts: qcom: monaco: Add Iris context bank subnodes
-      arm64: dts: qcom: sm8650: Add Iris context bank subnodes
-      arm64: dts: qcom: sm8750: Add Iris context bank subnodes
-
- .../bindings/media/qcom,sc7180-venus.yaml          |  15 ---
- .../bindings/media/qcom,sm8550-iris.yaml           |  17 ++-
- .../bindings/media/qcom,sm8750-iris.yaml           |  16 ++-
- .../bindings/media/qcom,venus-common.yaml          |  97 +++++++++++++++++
- arch/arm64/boot/dts/qcom/hamoa.dtsi                |  15 ++-
- arch/arm64/boot/dts/qcom/lemans.dtsi               |  15 ++-
- arch/arm64/boot/dts/qcom/monaco.dtsi               |  15 ++-
- arch/arm64/boot/dts/qcom/sm8550.dtsi               |  15 ++-
- arch/arm64/boot/dts/qcom/sm8650.dtsi               |  16 ++-
- arch/arm64/boot/dts/qcom/sm8750.dtsi               |  15 ++-
- drivers/iommu/of_iommu.c                           | 115 +++++++++++++++++++--
- drivers/media/platform/qcom/iris/iris_buffer.c     |   8 +-
- drivers/media/platform/qcom/iris/iris_core.h       |   4 +
- drivers/media/platform/qcom/iris/iris_hfi_queue.c  |  16 +--
- drivers/media/platform/qcom/iris/iris_probe.c      |  79 +++++++++++++-
- drivers/media/platform/qcom/iris/iris_resources.c  |  41 ++++++++
- drivers/media/platform/qcom/iris/iris_resources.h  |   1 +
- drivers/media/platform/qcom/iris/iris_vidc.c       |   4 +-
- 18 files changed, 446 insertions(+), 58 deletions(-)
----
-base-commit: 68142f986ff04b2b70b31db00f719bf690f64a9a
-change-id: 20260701-vpu_iommu_iova_handling-556e969a1f1c
-
-Best regards,
+diff --git a/tools/testing/selftests/filesystems/.gitignore b/tools/testing/selftests/filesystems/.gitignore
+index 9eb185fb2f9d..01c588d4c84f 100644
+--- a/tools/testing/selftests/filesystems/.gitignore
++++ b/tools/testing/selftests/filesystems/.gitignore
+@@ -1,4 +1,5 @@
+ # SPDX-License-Identifier: GPL-2.0-only
++open_o_creat_o_dir
+ dnotify_test
+ devpts_pts
+ fclog
+diff --git a/tools/testing/selftests/filesystems/Makefile b/tools/testing/selftests/filesystems/Makefile
+index 03be337c1f35..0959bd26875a 100644
+--- a/tools/testing/selftests/filesystems/Makefile
++++ b/tools/testing/selftests/filesystems/Makefile
+@@ -1,7 +1,7 @@
+ # SPDX-License-Identifier: GPL-2.0
+ 
+ CFLAGS += $(KHDR_INCLUDES)
+-TEST_GEN_PROGS := devpts_pts file_stressor anon_inode_test kernfs_test fclog ustat_test
++TEST_GEN_PROGS := open_o_creat_o_dir devpts_pts file_stressor anon_inode_test kernfs_test fclog ustat_test
+ TEST_GEN_PROGS += idmapped_tmpfile
+ TEST_GEN_PROGS_EXTENDED := dnotify_test
+ 
+diff --git a/tools/testing/selftests/filesystems/open_o_creat_o_dir.c b/tools/testing/selftests/filesystems/open_o_creat_o_dir.c
+new file mode 100644
+index 000000000000..538a7f7c5803
+--- /dev/null
++++ b/tools/testing/selftests/filesystems/open_o_creat_o_dir.c
+@@ -0,0 +1,296 @@
++// SPDX-License-Identifier: GPL-2.0
++#include <sys/stat.h>
++#include <errno.h>
++#include <limits.h>
++#include <fcntl.h>
++
++#include "kselftest_harness.h"
++#include "wrappers.h"
++
++#define openat_o_mkdir_checked_flags(dfd, pathname, flags) ({	\
++	struct stat __st;						\
++	int __fd = openat_o_mkdir(dfd, pathname, flags, S_IRWXU);	\
++	ASSERT_GE(__fd, 0);						\
++	ASSERT_EQ(fstat(__fd, &__st), 0);				\
++	EXPECT_TRUE(S_ISDIR(__st.st_mode));				\
++	__fd;								\
++})
++
++#define openat_o_mkdir_checked(dfd, pathname) \
++	openat_o_mkdir_checked_flags(dfd, pathname, O_RDONLY)
++
++FIXTURE(open_o_creat_o_dir) {
++	char dirpath[PATH_MAX];
++	int dfd;
++};
++
++FIXTURE_SETUP(open_o_creat_o_dir)
++{
++	strcpy(self->dirpath, "/tmp/open_o_creat_o_dir_test.XXXXXX");
++	ASSERT_NE(mkdtemp(self->dirpath), NULL);
++	self->dfd = open(self->dirpath, O_DIRECTORY);
++	ASSERT_GE(self->dfd, 0);
++}
++
++FIXTURE_TEARDOWN(open_o_creat_o_dir)
++{
++	close(self->dfd);
++	rmdir(self->dirpath);
++}
++
++/* Does open_o_creat_o_dir return a fd at all? */
++TEST_F(open_o_creat_o_dir, returns_fd)
++{
++	int fd = openat_o_mkdir_checked(self->dfd, "newdir");
++	EXPECT_EQ(close(fd), 0);
++	EXPECT_EQ(unlinkat(self->dfd, "newdir", AT_REMOVEDIR), 0);
++}
++
++/* The fd must refer to the directory that was just created. */
++TEST_F(open_o_creat_o_dir, fd_is_created_dir)
++{
++	int fd;
++	struct stat st_via_fd, st_via_path;
++	char path[PATH_MAX];
++
++	fd = openat_o_mkdir_checked(self->dfd, "checkdir");
++
++	ASSERT_EQ(fstat(fd, &st_via_fd), 0);
++
++	snprintf(path, sizeof(path), "%s/checkdir", self->dirpath);
++	ASSERT_EQ(stat(path, &st_via_path), 0);
++
++	EXPECT_EQ(st_via_fd.st_ino, st_via_path.st_ino);
++	EXPECT_EQ(st_via_fd.st_dev, st_via_path.st_dev);
++
++	EXPECT_EQ(close(fd), 0);
++	EXPECT_EQ(rmdir(path), 0);
++}
++
++/* Missing parent component must fail with ENOENT. */
++TEST_F(open_o_creat_o_dir, enoent_missing_parent)
++{
++	EXPECT_EQ(openat_o_mkdir(self->dfd, "nonexistent/child", O_RDONLY, S_IRWXU), -1);
++	EXPECT_EQ(errno, ENOENT);
++}
++
++/* An invalid dfd must fail with EBADF. */
++TEST_F(open_o_creat_o_dir, ebadf)
++{
++	EXPECT_EQ(openat_o_mkdir(FD_INVALID, "badfdir", O_RDONLY, S_IRWXU), -1);
++	EXPECT_EQ(errno, EBADF);
++}
++
++/* A dfd that points to a file (not a directory) must fail with ENOTDIR. */
++TEST_F(open_o_creat_o_dir, enotdir_dfd)
++{
++	int file_fd;
++
++	file_fd = openat(self->dfd, "file",
++			 O_CREAT | O_RDONLY, S_IRWXU);
++	ASSERT_GE(file_fd, 0);
++
++	EXPECT_EQ(openat_o_mkdir(file_fd, "subdir", O_RDONLY, S_IRWXU), -1);
++	EXPECT_EQ(errno, ENOTDIR);
++
++	EXPECT_EQ(close(file_fd), 0);
++	EXPECT_EQ(unlinkat(self->dfd, "file", 0), 0);
++}
++
++/*
++ * O_EXCL together with O_CREAT|O_DIRECTORY should succeed if the target
++ * directory does not yet exist. After directory creation, repeating this
++ * call must fail with EEXIST, but should succeed if the O_EXCL is dropped.
++ */
++TEST_F(open_o_creat_o_dir, o_excl_eexist)
++{
++	int excldir_fd;
++
++	excldir_fd = openat_o_mkdir_checked_flags(self->dfd, "excldir", O_EXCL);
++
++	EXPECT_EQ(openat_o_mkdir(self->dfd, "excldir", O_EXCL, S_IRWXU), -1);
++	EXPECT_EQ(errno, EEXIST);
++
++	int excldir_reopen_fd = openat_o_mkdir_checked(self->dfd, "excldir");
++
++	EXPECT_EQ(close(excldir_reopen_fd), 0);
++	EXPECT_EQ(close(excldir_fd), 0);
++	EXPECT_EQ(unlinkat(self->dfd, "excldir", AT_REMOVEDIR), 0);
++}
++
++/*
++ * O_CREAT|O_DIRECTORY on a path that already exists as a regular file
++ * must fail with ENOTDIR.
++ */
++TEST_F(open_o_creat_o_dir, existing_file_enotdir)
++{
++	int file_fd;
++
++	file_fd = openat(self->dfd, "regfile",
++			 O_CREAT | O_RDONLY, S_IRWXU);
++	ASSERT_GE(file_fd, 0);
++	EXPECT_EQ(close(file_fd), 0);
++
++	EXPECT_EQ(openat_o_mkdir(self->dfd, "regfile", O_RDONLY, S_IRWXU), -1);
++	EXPECT_EQ(errno, ENOTDIR);
++
++	EXPECT_EQ(unlinkat(self->dfd, "regfile", 0), 0);
++}
++
++/*
++ * O_CREAT|O_DIRECTORY combined with a writable access mode must be
++ * rejected: a directory cannot be opened for writing.
++ */
++TEST_F(open_o_creat_o_dir, rejects_writable_acc_mode)
++{
++	EXPECT_EQ(openat_o_mkdir(self->dfd, "rdwrdir", O_RDWR, S_IRWXU), -1);
++	EXPECT_EQ(errno, ENOTDIR);
++	/* Clean up if the kernel created the directory anyway. */
++	unlinkat(self->dfd, "rdwrdir", AT_REMOVEDIR);
++}
++
++/*
++ * openat(O_CREAT|O_DIRECTORY) with a trailing slash should work.
++ */
++TEST_F(open_o_creat_o_dir, trailing_slash)
++{
++	int fd = openat_o_mkdir_checked(self->dfd, "newdir/");
++	EXPECT_EQ(close(fd), 0);
++	EXPECT_EQ(unlinkat(self->dfd, "newdir", AT_REMOVEDIR), 0);
++}
++
++/*
++ * openat(O_CREAT) with a trailing slash but without O_DIRECTORY
++ * must fail with EISDIR and must not create anything at the path.
++ */
++TEST_F(open_o_creat_o_dir, trailing_slash_no_o_dir)
++{
++	int fd;
++	struct stat st;
++
++	fd = openat(self->dfd, "trailing/", O_CREAT | O_RDONLY, S_IRWXU);
++	EXPECT_EQ(fd, -1);
++	EXPECT_EQ(errno, EISDIR);
++
++	EXPECT_EQ(fstatat(self->dfd, "trailing", &st, 0), -1);
++	EXPECT_EQ(errno, ENOENT);
++
++	/* Best-effort cleanup in case the kernel left a file behind. */
++	if (fd >= 0)
++		close(fd);
++	unlinkat(self->dfd, "trailing", 0);
++}
++
++/*
++ * The returned fd must be usable as a dfd for further *at() calls.
++ */
++TEST_F(open_o_creat_o_dir, fd_usable_as_dfd)
++{
++	int parent_fd, child_fd;
++	char path[PATH_MAX];
++
++	parent_fd = openat_o_mkdir_checked(self->dfd, "parent");
++	child_fd = openat_o_mkdir_checked(parent_fd, "child");
++
++	EXPECT_EQ(close(child_fd), 0);
++	EXPECT_EQ(close(parent_fd), 0);
++
++	snprintf(path, sizeof(path), "%s/parent/child", self->dirpath);
++	EXPECT_EQ(rmdir(path), 0);
++	snprintf(path, sizeof(path), "%s/parent", self->dirpath);
++	EXPECT_EQ(rmdir(path), 0);
++}
++
++/*
++ * O_CREAT|O_DIRECTORY must refuse to create through a dangling trailing
++ * symlink, and must not create anything at the symlink target.
++ */
++TEST_F(open_o_creat_o_dir, dangling_symlink_eexist)
++{
++	struct stat st;
++
++	ASSERT_EQ(symlinkat("danglink_target", self->dfd, "danglink"), 0);
++
++	EXPECT_EQ(openat_o_mkdir(self->dfd, "danglink", O_RDONLY, S_IRWXU), -1);
++	EXPECT_EQ(errno, EEXIST);
++
++	/* Nothing must have been created at the target. */
++	EXPECT_EQ(fstatat(self->dfd, "danglink_target", &st, 0), -1);
++	EXPECT_EQ(errno, ENOENT);
++
++	EXPECT_EQ(unlinkat(self->dfd, "danglink", 0), 0);
++}
++
++/*
++ * A trailing symlink that resolves to an existing directory must still open.
++ */
++TEST_F(open_o_creat_o_dir, symlink_not_dangling_ok)
++{
++	int fd;
++
++	ASSERT_EQ(mkdirat(self->dfd, "realdir", 0700), 0);
++	ASSERT_EQ(symlinkat("realdir", self->dfd, "dirlink"), 0);
++
++	/* Trailing symlink resolving to an existing directory. */
++	fd = openat_o_mkdir_checked(self->dfd, "dirlink");
++	EXPECT_EQ(close(fd), 0);
++
++	EXPECT_EQ(unlinkat(self->dfd, "dirlink", 0), 0);
++	EXPECT_EQ(unlinkat(self->dfd, "realdir", AT_REMOVEDIR), 0);
++}
++
++/*
++ * An O_CREAT|O_DIRECTORY open of an existing directory owned by someone else,
++ * inside a sticky world-writable directory, must be refused.
++ */
++TEST_F(open_o_creat_o_dir, sticky_dir_eacces)
++{
++	int sticky_fd, fd;
++
++	if (geteuid() != 0)
++		SKIP(return, "needs root for fchownat");
++
++	ASSERT_EQ(mkdirat(self->dfd, "sticky", 01777), 0);
++	ASSERT_EQ(fchmodat(self->dfd, "sticky", 01777, 0), 0);
++	sticky_fd = openat(self->dfd, "sticky", O_DIRECTORY | O_RDONLY);
++	ASSERT_GE(sticky_fd, 0);
++
++	ASSERT_EQ(mkdirat(sticky_fd, "otherdir", 0700), 0);
++	if (fchownat(sticky_fd, "otherdir", 1, 1, 0)) {
++		int err = errno;
++
++		unlinkat(sticky_fd, "otherdir", AT_REMOVEDIR);
++		close(sticky_fd);
++		unlinkat(self->dfd, "sticky", AT_REMOVEDIR);
++		SKIP(return, "cannot chown to uid 1: %s", strerror(err));
++	}
++
++	EXPECT_EQ(openat_o_mkdir(sticky_fd, "otherdir", O_RDONLY, S_IRWXU), -1);
++	EXPECT_EQ(errno, EACCES);
++
++	/* Without O_CREAT the very same open must still succeed. */
++	fd = openat(sticky_fd, "otherdir", O_DIRECTORY | O_RDONLY);
++	EXPECT_GE(fd, 0);
++	if (fd >= 0) {
++		EXPECT_EQ(close(fd), 0);
++	}
++
++	EXPECT_EQ(unlinkat(sticky_fd, "otherdir", AT_REMOVEDIR), 0);
++	EXPECT_EQ(close(sticky_fd), 0);
++	EXPECT_EQ(unlinkat(self->dfd, "sticky", AT_REMOVEDIR), 0);
++}
++
++/*
++ * O_TMPFILE is encoded as __O_TMPFILE|O_DIRECTORY.  Now that O_CREAT is no
++ * longer rejected alongside O_DIRECTORY, O_TMPFILE|O_CREAT must still be
++ * rejected explicitly so that it cannot create a persistent file on kernels
++ * that predate O_TMPFILE.
++ */
++TEST_F(open_o_creat_o_dir, tmpfile_with_o_creat_einval)
++{
++	EXPECT_EQ(openat(self->dfd, ".", O_TMPFILE | O_CREAT | O_RDWR, S_IRWXU),
++		  -1);
++	EXPECT_EQ(errno, EINVAL);
++}
++
++TEST_HARNESS_MAIN
+diff --git a/tools/testing/selftests/filesystems/wrappers.h b/tools/testing/selftests/filesystems/wrappers.h
+index 420ae4f908cf..abe5b85cebdc 100644
+--- a/tools/testing/selftests/filesystems/wrappers.h
++++ b/tools/testing/selftests/filesystems/wrappers.h
+@@ -13,6 +13,10 @@
+ #define STATX_MNT_ID_UNIQUE 0x00004000U /* Want/got extended stx_mount_id */
+ #endif
+ 
++#ifndef FD_INVALID
++#define FD_INVALID -10009
++#endif
++
+ static inline int sys_fsopen(const char *fsname, unsigned int flags)
+ {
+ 	return syscall(__NR_fsopen, fsname, flags);
+@@ -105,4 +109,11 @@ static inline int sys_open_tree(int dfd, const char *filename, unsigned int flag
+ 	return syscall(__NR_open_tree, dfd, filename, flags);
+ }
+ 
++static inline int openat_o_mkdir(int dfd, const char *pathname,
++				 unsigned int flags, mode_t mode)
++{
++	return syscall(__NR_openat, dfd, pathname,
++		       flags | O_DIRECTORY | O_CREAT, mode);
++}
++
+ #endif
 -- 
-Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+2.55.0
 
