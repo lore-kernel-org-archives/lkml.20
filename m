@@ -1,164 +1,197 @@
-Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com [74.125.224.41])
+Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com [209.85.160.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5C04388E61
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 04:11:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.41
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789272674; cv=none; b=ucIEEktiPx3t/pmi+weX3NOYEGe2ECHzN+eJMMPi+WqCT7YBGPDeopnm8U9HWuLvzkZwBhXYBHIgJExPS6AUYPjn/Im0zGjyqf+TcpNdpRFfqu4k1zzJ6IuBHw9N2CbFovVOfQDKVKM425mD/s0pPiXxcAv7yLlnZcL1KodhJv4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789272674; c=relaxed/simple;
-	bh=dITn8nBKmb8Bi6swkoIWrqcRcTGIhThkiYu+S9L/Hls=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ho1atkHGghKhNv913yo4JYs40gFqkIc9Gu2WnckXQVfWEv4jh7b1y4UOZl5Cc/B3+8gdA+BLXhyoTxs5w1cutqMdF9LTMu9oOc0FGRH4YWtlPwTvuWvXPmVcF+UWVYaSwOVr2yuxCahXr+swCgFOa3CM/Ut7FpE0aMDK6pC1GLk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gdplOKGf; arc=none smtp.client-ip=74.125.224.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 481AE38B15E
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 04:14:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.170
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789272887; cv=pass; b=J3D5bcQreVLF+E+lVDdY7PWYAH8ip3d0htXNHZz5hg7YPT2/QAgKhTSzf1I/vfBR+ymCcnPtPrK2sSkEHRufLg4/r+OATqMIy4XzIraGdl8ikDj7svqA/s99djxAWZImEbVI/1nB9mx4Wl3cLWJZJveqx1lFdSW51zw/OC94gR4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789272887; c=relaxed/simple;
+	bh=aUDsLpihMC8AfClUqBSsvhaMDZoSQupSjow+fr1hzKo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=E1XsZ9sXQgaaNhLxkIUniG69VWluTk18ROO/SAnYbkOdFVxeAmgrV6d/5InYWi2cZyHScgfbvx41GyuVCrLwB5ErUagEvTAl8AryKpDrrUGDfP5GTg3zONI3fHlSCOU2+FpjhXpBA2J1leUGf/7oxc7UlUQy7CivHO/ODNId7WE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=voufvrI+; arc=pass smtp.client-ip=209.85.160.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gdplOKGf"
-Received: by mail-yx1-f41.google.com with SMTP id 956f58d0204a3-671061b015eso2181975d50.1
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 21:11:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="voufvrI+"
+Received: by mail-qt1-f170.google.com with SMTP id d75a77b69052e-5301db51586so26803451cf.1
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 21:14:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789272884; cv=none;
+        d=google.com; s=arc-20260327;
+        b=g3Irv8UgwJDBT79BQAcplVXA9mX4VX/meyT9WCyJGPmwwTGqACBxybccO/AOWhpz6D
+         tXS6oVmR8KUOLto4801013qaSNHNxlsdU5h3VBw1Jy/2670DU3cYUpPbta+ERe6/KqsA
+         eYMydWUXRZfQAEFEY3SBlwEa1xve1yTSZ0CzXvryIooUuK9gnA2Z5+KIBm+nf05ZeR/S
+         pdcp8cR7gR5v5mJwxMvePb3ecu1XtSXXkqqf3eF5bxIP9B0H+CV6/KEIAlIkcekjzy56
+         mXVn1izDy8fIlh9vqy1Stt6vmLTK5Fc3Vsp1wSc7mjvOiVBP70kRYFMI1g4aPDNd6U4/
+         74Bg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=TcgeooS9DqrC6P6k5y+0MJSSvjSsZ9UJn7nTw2UMf70=;
+        fh=sBkMPaAdsnLCCM6X0eyorPemR2oZ9Vd//gZvoqPddpk=;
+        b=ej+e99kp+MC/wQ7Kkw9EQN5OqTwXwlnmn0XSt8B9GK5ihpB+497Z1Np+xd0A6A5vJG
+         geWTivRFD7tt/gNCRB8aiVLVdTJ5CZRX36kXwGYe9JzrgeoQUTKc8n4iedzFco9ePfbK
+         Ly1FusJllPAY55fn4KxxMjbcUY5uYpqgGRYulMSdRqnIS6pvToqarxZPc5j/z1vd2mT2
+         ju8LGVtoCnttvAfpwMJ+YiWbwGKnJVOg1EVZ//d4y1683Vx7ZaTuWgADdmMS30FPi/xK
+         ZfDCmKVdGXsf/4Xy4oyc2iPTv42HGmvJJaPQVFkfAyX1a4Ow5pbPxbph9nP7zn0dSj+U
+         Op3Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789272671; x=1789877471; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=google.com; s=20251104; t=1789272884; x=1789877684; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=5TpSaHdCFjKeeELu+etDHas8LKbQ4ME9nbIH5rOB2kM=;
-        b=gdplOKGfgDz0/2jcHas+of03nOvM//0D1EaLK9ujokSKESUCpvJ1MVLdh3GPAEIuyq
-         IUOK6NqwTCZEuoF+NMqbgGMnBhScBYQhb6EDB/VcSy2ijG/NzmWk46NuXa3X7XB73xSh
-         nnTGXdFhISGn9Dru1/zlmNInudPN4JwJzPxE2VN+3UsQ93vrOtDKG++cTi/EJwonYoc6
-         6seHA69swvP3mydqdAYyUsyDVgmAJWYXI75R0wkAbKqb4hdd5BzCaNi11B2jN23GY25N
-         CcMg0xuAqS8tCd5UA5YICe/N+Q6QfR45SB+jKMUqOdTSMznl2FgOjM7gmW6O05o4Cjdv
-         Z9OA==
+        bh=TcgeooS9DqrC6P6k5y+0MJSSvjSsZ9UJn7nTw2UMf70=;
+        b=voufvrI+89AadJazLpr4G5STlaOcrkQahPegXTxwZuOg3nFgGcGAiPKd1TBVV2pivV
+         H4dir0HznEqFzaQbquXsHfq+kr+toRDjp48qPUC9jNzKLLkUq21i5a1mB6ThpsrJJ/nQ
+         giqg80fw47pk8Tb9AglJ9wQ8kMiDAfsChXcRevp5j0M1vKCSSC/JK1+a0teFXUcuCMPw
+         Ryqxqen0r8NB5JTUQdrxLNi/GyjgzeHjJ5yKrcDcjFjhz07JiFqO0xDCewbZftNErdhX
+         gfF9fphezkVNzYo3fUnjzDsplHkejNcZyeQtQpI3ucYYmvqyx2odaFP0DxQpIb2fXy4W
+         HuGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789272671; x=1789877471;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1789272884; x=1789877684;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=5TpSaHdCFjKeeELu+etDHas8LKbQ4ME9nbIH5rOB2kM=;
-        b=KKD6wlxO+shYil11qJiRDK+U7ZGBXr2Z7HF1+6E1oQOpJlNvzuNxU46d6yAh6fbmTU
-         AS/ex+Nmalk9TQo9AOhgFqrPJvUzqmEaJoYwJhbwL4GfCmtfHJ8Kp2o+PagIvGMJlY3C
-         q593KTPW6ET2fpG/5DwyWRORqhOz/TTS03tOJ6b+fxR6OXlF09N53acW12VfLwhB8Bio
-         uGs4Ym6B8RvEiKgljW4T1fi7kIJ5W2XuSwFKDHyGnaWVJ4u65nWJp5zyecsmeoE+WwOF
-         wOGV2kKu58ozVHL6WncSz25of4dk65c8SAStR9CclgDDSWumOmiQ7XoNkGJaCzh1TTb8
-         16Dw==
-X-Forwarded-Encrypted: i=1; AKwUvBwp1zMVpTgGXq1V887wkHrGGBdLr877Wv2ZdKN8b8ojZxL+uNkoiby2WHz2Qk49DmJy6xoeUqWIz/dusr8=@vger.kernel.org
-X-Gm-Message-State: AFuF++k4nerSvJjN+5e2bybo+lb8LtqW1Hp6LUWH9PXHdugPNo78HUZM
-	fW2Ioyo6wl5LdOtx6UiQSiBj60ozBqsx8tlyAHvc32APfi/URAkuAJ8v
-X-Gm-Gg: AYBFou2/i1XO34kQjyoQWoy9NUhfGcKCLqB3SSMkZSURzAA1Pr+on4ak78Jts5akC94
-	38TUkVVzUFcOfBGLh+hufCZMgXZkvrBE7lPjDkTAcJpBL6H8L3zQYY7PxmUR6v9ZcrQZVJgG+5J
-	N7Tg+GDEUDhh4y1X4+fMxBv9faDNu1Unltx+Oe/D/sDZLVdxoax+rcxDg+ym4EqRV/JWnXhmcgJ
-	KEd4PgSBUzzbBCCDwANUioeiWfmQfiAzrSFTiXKHviiGnkm/SfBBO1N7G9iRcAJK7lK6pPLFWm4
-	EjDU86QOd4TFqocyKQ54jxCGOSrkMzpI8h65b5HjQm5SUpIY8eLDXgw0RWTsfcrWKXRJRrozmt2
-	Ra3xqt40KHyHAIM/iZ79gQiCo9Npk2fKdBLt9nxo81FEBeAh5C8jpxLjE85Zamm0W1UEoW/WAiz
-	96S0PrHTrURj/+JZxZLhWh8vzUnKnvXJ9d9miOuiyAyP5Zva6b2pq/rrY=
-X-Received: by 2002:a05:690e:14c7:b0:671:2eed:f701 with SMTP id 956f58d0204a3-6712eedfdd3mr2190714d50.71.1789272671600;
-        Sat, 12 Sep 2026 21:11:11 -0700 (PDT)
-Received: from gmail.com ([2600:1700:5431:250::3e])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-884871190acsm25559397b3.23.2026.09.12.21.11.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 12 Sep 2026 21:11:10 -0700 (PDT)
-Date: Sat, 12 Sep 2026 21:11:07 -0700
-From: Chang Yu <marcus.yu.56@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Chang Yu <marcus.yu.56@gmail.com>, Andy Shevchenko <andy@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Shi Hao <i.shihao.999@gmail.com>,
-	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
-	Joshua Crofts <joshua.crofts1@gmail.com>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 2/2] iio: light: add AS7343 multi-spectral sensor
- driver
-Message-ID: <aqYiWwIkP1HQtRrk@gmail.com>
-References: <20260912013912.51887-1-marcus.yu.56@gmail.com>
- <20260912013912.51887-3-marcus.yu.56@gmail.com>
- <20260913034714.2fa2fcb5@jic23-hlaptop>
+        bh=TcgeooS9DqrC6P6k5y+0MJSSvjSsZ9UJn7nTw2UMf70=;
+        b=TwKbrCtFB1NSxnOHpKcewuEqxaHekmgnz0805FLuPckkd6Rz+Dect67hclpu5VwxE0
+         FcfPoHoVL1Y2TIaGjhcDaPFtECQZMnD3/sneIn9BqnMRb+PXoQqCBvtSt0jZGIyzfyGh
+         sEsGZdLuggaG3d3hrC9wVfiqy+BcNHiOtLqYxWYTXkaoDm60/tF+2isMvpEO3RMH5J4J
+         NOrmrM05B6JnalAMU4GQFSa6YtQ1jvvt4I9563CTjfWNPPhloc4d/ZHYm2w04Rrk6iic
+         sUKIZi81bjE5/c2S3UephvIWsoVzHFdTU1yRdaI0h1xT3FRd9i0X7gXRQ6BsAUOJUiim
+         64NA==
+X-Forwarded-Encrypted: i=1; AKwUvBwwOyWu8ojvl+36Pf8rJm3n6ar/lZu5AoEWxEVeJvo27tds7/ZL3M7RImJiIkc+AnSwInqZ5cciuRoEAsY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kGimr3+7oj4MsliSA4/6W/1QYXAsySnzPIfZtUL57H89sipEHT
+	i/bdqjjET3jO3Fk1Fqpt2lqTVCN2f/BNjLeeDqgD5SqlwzPNvq9fX+0TUObglqpYYdeA11Pun9a
+	eL5wDBOj5D1yAKdlpLM7Pvbbo+LJ4xep5MhZ/Yklw
+X-Gm-Gg: AYBFou3s/BIQm8BfZvsPFbHSSvOZC4TSW+veNcoahrWYm4TZ6FOyc6aKh57D94CKDp8
+	upoyBoSwiEzozkcbi5t6LCif21bQO+EGczJ7ztLccr31Bol5dflBzyNdIy1kYhw6NNswK8D2mT8
+	wBvXm6c2wj368SQgsVQ6oC9D53BZ0r+sje++NgowLuBFfrsegGAfnCq65pny9hu7ANvRVoHKfO9
+	iFt+b0piXnhwhTXP7kIO2+lLbyAahUd0bl5zo77C5OIQ4SiN056GMcFvj/f5/XlEvH+zG3nnJP4
+	hgZFF3H1wTbbPiXYeAy4rFLCzTI7x/FcThWTsb56auNmcKWSaWHjfwE4/Y8uJoTn3ESNK3bOVbl
+	R9tiRIbkjc2XYoM8+w/qSduqG83QL12LGh96LhnMLwkBDmP/Ma8Qvm08DNbYruravTDM=
+X-Received: by 2002:a05:622a:1816:b0:530:f986:7d36 with SMTP id
+ d75a77b69052e-530f9867fbfmr22653761cf.32.1789272883445; Sat, 12 Sep 2026
+ 21:14:43 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260913034714.2fa2fcb5@jic23-hlaptop>
+References: <20260908060410.3982-1-nashuiliang@gmail.com> <20260908133636.2ea807d9@kernel.org>
+ <CACueBy4BvJ6E0RuUDsQmwPq_zt9Xh6T19DOAkA5MW-uU1yNpKQ@mail.gmail.com>
+In-Reply-To: <CACueBy4BvJ6E0RuUDsQmwPq_zt9Xh6T19DOAkA5MW-uU1yNpKQ@mail.gmail.com>
+From: Eric Dumazet <edumazet@google.com>
+Date: Sat, 12 Sep 2026 21:14:32 -0700
+X-Gm-Features: AcwNN1V8Rwz7o8JbHZS1bOyPmJgc_MK8ZwrxVjNAkOVMHCJsis9H7ZgXQppIETY
+Message-ID: <CANn89iKYQMPm_LyYY4v48QmoFc0MwkkKQwggd_BLGDJL78=8qA@mail.gmail.com>
+Subject: Re: [PATCH net-next v9] net: reduce RFS/ARFS flow updates by checking
+ LLC affinity
+To: chuang <nashuiliang@gmail.com>
+Cc: Jakub Kicinski <kuba@kernel.org>, "David S. Miller" <davem@davemloft.net>, 
+	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Kuniyuki Iwashima <kuniyu@google.com>, Willem de Bruijn <willemb@google.com>, 
+	Stanislav Fomichev <sdf.kernel@gmail.com>, Hangbin Liu <liuhangbin@gmail.com>, 
+	Samiullah Khawaja <skhawaja@google.com>, Neal Cardwell <ncardwell@google.com>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, Sep 13, 2026 at 03:47:14AM +0100, Jonathan Cameron wrote:
-> On Fri, 11 Sep 2026 18:39:12 -0700
-> Chang Yu <marcus.yu.56@gmail.com> wrote:
-> > +static int as7343_read_raw(struct iio_dev *indio_dev,
-> > +			   struct iio_chan_spec const *chan,
-> > +			   int *val, int *val2, long mask)
-> > +{
-> > +	struct as7343_data *data = iio_priv(indio_dev);
-> > +	unsigned int unused;
-> > +	struct regmap *map;
-> 	struct regmap *map = data->regmap;
-> 	struct device *dev = regmap_get_device(map);
-> 
-> Neither is checked so no point in waiting until a few lines
-> later to initialize them.
-> 
+On Sat, Sep 12, 2026 at 8:50=E2=80=AFPM chuang <nashuiliang@gmail.com> wrot=
+e:
+>
+> Hi, let me restructure the issues.
+>
+> > 1) Also not sure why you're trying to touch RFS, the change only helps
+> aRFS and you could avoid bulk of the refactoring issues.
+>
+> The scenario is similar to the one described in "[RFC] problems with
+> RFS on bRPC applications"[1].
+>
+> I attempted to enable ARFS on a Mellanox CX-6 NIC. While it performs
+> well for simple workloads, performance degrades significantly when
+> running a bRPC[2]  workload on a 2-node NUMA machine. After tracing, I
+> identified patterns that ARFS/RFS fails to handle efficiently:
+>
+> - Multiple threads use epoll to read from the same socket, causing
+> frequent flow updates in sock_flow_table.
+> - Threads reading from the socket migrate frequently between CPUs.
+>
+> I tested a PoC version using a bRPC service, utilizing funccount [3]
+> to monitor execution frequency and perf top to observe hotspots:
+>
+> Before Patch
+>
+> The mlx5e_rx_flow_steer frequency is over 380k/s, and queued_spin_lock
+> is a major hotspot (6.30% in perf top). The application also suffers
+> from a noticeable drop.
+>
+> FUNC                                     COUNT
+> mlx5e_rx_flow_steer              387594
+>
+> FUNC                                     COUNT
+> mlx5e_rx_flow_steer              390142
+>
+> FUNC                                     COUNT
+> mlx5e_rx_flow_steer              386694
+>
+> FUNC                                     COUNT
+> mlx5e_rx_flow_steer              389094
+>
+> # perf top hotspot:
+> queued_spin_lock                         6.30%
+>
+> After Patch
+>
+> The ARFS update frequency is significantly reduced. queued_spin_lock
+> is no longer a hotspot in perf top, and the application's overall
+> performance has improved.
+>
+> FUNC                                     COUNT
+> mlx5e_rx_flow_steer                      43
+>
+> FUNC                                     COUNT
+> mlx5e_rx_flow_steer                        9
+>
+> FUNC                                     COUNT
+> mlx5e_rx_flow_steer                    207
+>
+> FUNC                                     COUNT
+> mlx5e_rx_flow_steer                      26
+>
+> > 2) You put a very fast path function out-of-line, why ?
+>
+> The reason is that tun uses sock_rps_record_flow_hash(). When I moved
+> all rps_record_sock_flow and rps_record_cond modifications into
+> include/net/rps.h, it triggered the following compilation errors due
+> to symbol visibility:
+>
+> ERROR: modpost: "cpus_share_cache" [drivers/net/tun.ko] undefined!
+> ERROR: modpost: "cpus_share_cache" [net/sctp/sctp.ko] undefined!
+> make[2]: *** [scripts/Makefile.modpost:147: Module.symvers] Error 1
+>
+> This arises because the patch uses cpus_share_cache() to limit the
+> RFS/ARFS update frequency at the LLC level. To keep this in the fast
+> path, I could move cpus_share_cache() to
+> include/linux/sched/topology.h.
 
-I was trying to preserve the reverse christmas tree order and
-was unsure how the rules apply here. Is the following OK:
+Hmmm
 
-  struct as7343_data *data = iio_priv(indio_dev);
-  struct regmap *map = data->regmap;
-  struct device *dev = regmap_get_device(map);
+If the LLC affinity check is performed in set_rps_cpu() inside
+net/core/dev.c before triggering ndo_rx_flow_steer:
 
-  struct device *dev;
-  __le16 result;
-  int ret;
+net/core/dev.c is built-in, so it can call cpus_share_cache() directly
+without any module export issues.
 
-> ...
-> > +	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	switch (mask) {
-> > +	case IIO_CHAN_INFO_RAW: {
-> > +		/* Wait until integration time passes for all 3 cycles. */
-> > +		msleep(160);
-> > +
-> > +		/*
-> > +		 * Reading ASTATUS latches all data registers to this read.
-> > +		 * We don't care about the returned saturation/gain status for
-> > +		 * now.
-> 
-> Why do we care given only reading one channel and...
-> 
-> > +		 */
-> > +		guard(mutex)(&data->mutex);
-> > +		ret = regmap_read(map, AS7343_ASTATUS, &unused);
-> > +		if (ret)
-> > +			return ret;
-> > +
-> > +		ret = regmap_bulk_read(map, chan->address,
-> .. it seems that if you read the low byte first (as this does) it is latched anyway.
-> There is a statement about this in the i2c intro part section 9.
-> 
-> so we get a consistent register pair.  Thus not needing the latch astatus
-> gives us.
-> With that in place reads can't stomp on each other as only
-> one regmap read is required, so the mutex isn't needed either.
-> It may be necessary once you add more features - hard to tell yet.
-> 
-When testing on hardware I discovered, for whatever reason, register
-values for other channels won't refresh unless I read ASTATUS or the
-FZ channel first. The only thing I can find in the datasheet pertaining
-to this is 10.2.7 page 41.
+sock_rps_record_flow() and sock_rps_record_flow_hash() in
+include/net/rps.h remain 100% inline, retaining the zero-cost static
+key NOP in the TCP/socket fast path.
 
-"Reading the ASTATUS register (0x94) latches all 36 spectral data bytes
-to that status read. Reading these bytes consecutively (0x94 to 0xB8)
-ensures that the data is concurrent."
-
-My most charitable interpretation is that by "latches" they also mean
-"updates". I have no idea why reading FZ also works though. Could be
-a hardware bug since ASTATUS (0x94) and FZ DATA_0_L (0x95) are next
-to each other.
+No exports, no refactoring of tun.ko or sctp.ko, and no fast-path degradati=
+on.
