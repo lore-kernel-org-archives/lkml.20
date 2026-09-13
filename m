@@ -1,151 +1,156 @@
-Received: from brightrain.aerifal.cx (brightrain.aerifal.cx [104.156.224.86])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-244122.protonmail.ch (mail-244122.protonmail.ch [109.224.244.122])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E3A237F8AF
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 21:08:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=104.156.224.86
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D889636657B
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 21:09:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.122
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789333738; cv=none; b=BOYeFtoqclbQP3P6cKj8f+VzeuI0ukqFOuSjO37Rmmza7TOhoGl7iqJKIg0ciGKlyOW/pCdB0YhBZ/itjrZnejzuGDoF+EhPVq0Tek0gHcLhsh3yghD4GJRUHCKhSPRDiEfzof/7vEU6hea4EJZeNkyScIyj4RNHIQ+6P8FGt2c=
+	t=1789333746; cv=none; b=eNZFxUu5zda2rh0n68XWMUxtYCwsSGsPHMndSKLpCOWKmGVABxlKXxCFfDuc8taq/crSiScTgnnAWu9MXE+KcfhFmwltKn4aDIknwV6uEniQo2wl18leb97IN7fmSkCfmVWDiJTghVOHHa2wpAOuMQcDF7bQ1Vx/R1QTVG9bYP4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789333738; c=relaxed/simple;
-	bh=VDF7+IRoUFHLhJBkL2NWrpn0d6stf7JY0L3jAz/idOE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qOk9XnHUWAkhKjnl5EYjDXyDEh2AyVzee5mQQgSBDOnXvefa2IyTT+tuC8dp6dD/aKRC8xNrUkH2tI7QgJIpCoLkWKSm3S1sWfyEezgL09w2bGLcH29LAcXIQAHRCoVjEfd2/H2rxwx6IxWodrvLPJ7irYgRDkZ6aMq/ZacpCbs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=libc.org; spf=pass smtp.mailfrom=aerifal.cx; arc=none smtp.client-ip=104.156.224.86
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=libc.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aerifal.cx
-Date: Sun, 13 Sep 2026 16:53:58 -0400
-From: Rich Felker <dalias@libc.org>
-To: Mikko Rantalainen <mikko.rantalainen@peda.net>
-Cc: linux-fsdevel@vger.kernel.org, linux-api@vger.kernel.org,
-	linux-kernel@vger.kernel.org, brauner@kernel.org,
-	viro@zeniv.linux.org.uk, jack@suse.cz, alx@kernel.org
-Subject: Re: [RFC PATCH 0/1] close(): stop exposing non-retryable EINTR
-Message-ID: <20260913205358.GX25906@brightrain.aerifal.cx>
-References: <20260913193815.2862366-1-mikko.rantalainen@peda.net>
+	s=arc-20240116; t=1789333746; c=relaxed/simple;
+	bh=hpza5gQaEVXQ69SN8PAS4UtGZzUmazRr8gFB7uKht5c=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=PWiePP9Xjqi7jSc8jcIvIimL7wz/T22wH07FodZRsMTDsNn0ptEx+SSuontcleMMDkapM6+1dPz7Yu+VPXGlUeNREeDj+noBhDHWBVS9a9Oa4m4Z/hcoe+GkPVh73Zoaj9HeRSeV25xeEPFH7wTpmhVPr4Nv1Bq6RpU4gazWNfw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=rm2vMNab; arc=none smtp.client-ip=109.224.244.122
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="rm2vMNab"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1789333741; x=1789592941;
+	bh=GDHm+oYs40oe2FEBNdGtp6Ozo+b9a2HBUfZ2vnJxyrk=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=rm2vMNabcQDQETl7f5V9m8F0FWCJNhm0a88yv1kOMD6rajhWQ8IEr6Krkk3jqx6XB
+	 kF3Crr26mSxJz7bG0UjfHDO37jVhcCssnpV9Q/c5bbv+aXj7Qj/79sWcleEnEvr7hH
+	 Knce61GDYKk2+wx9LnmBX6LrA+9o4oGJk6Clneut9LhtVLH+i6NcMmSkzx+Bi7cnZR
+	 MXZmsrGRRF204wY9UEIXMNC3fC8ujSbSM4kTKYFRqZMb4lZmcmyoptiMDhPz3P9rxu
+	 RtLzw7oJvWAx1yLT6cucVNgHAnUPSMxAvC3wMEXYxxAhfgSNe9NftacbsgzLjreibF
+	 WF46exDkRYWFQ==
+Date: Sun, 13 Sep 2026 21:08:55 +0000
+To: Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>, Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Bard Liao <bard.liao@intel.com>, Amaan Lalani <zlzzm2014@outlook.com>, linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v4] soundwire: dmi-quirks: drop the ghost RT1320 on the Surface Pro 11 (Intel)
+Message-ID: <20260913210849.6446-1-lsa.uz@pm.me>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: f35380da33acda98db5c21e75963b1a6048311c0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260913193815.2862366-1-mikko.rantalainen@peda.net>
-User-Agent: Mutt/1.9.5 (2018-04-13)
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, Sep 13, 2026 at 10:38:14PM +0300, Mikko Rantalainen wrote:
-> This is an RFC because it deliberately changes a long-established raw
-> syscall ABI. Jan Kara raised userspace-regression concerns when this was
-> discussed in 2025:
-> 
->     https://lore.kernel.org/linux-fsdevel/ddqmhjc2rpzk2jjvunbt3l3eukcn4xzkocqzdg3j4msihdhzko@fizekvxndg2d/
-> 
-> while musl and Android bionic already normalize this result to success
-> in libc.
-> 
-> The Linux implementation of close() will always close the file descriptor
-> given as argument, except for the invalid file descriptor which will
-> return -EBADF.
-> 
-> However, currently Linux kernel will return EINTR in some cases for
-> close(). There is no good way for caller to recover from this case using
-> the original fd. Whatever action was actually interrupted cannot be
-> resumed or retried through this fd, because the fd has already been
-> consumed. Even worse, EINTR conventionally invites retrying an operation,
-> but retrying close() is unsafe: the same file descriptor number may
-> already refer to another file opened by another thread by the time
-> close() returns EINTR.
-> 
-> In addition, POSIX.1-2024 requires that if close() reports EINTR, the
-> descriptor must remain open. It also explicitly permits an interrupted
-> close() to return success after closing the descriptor.
-> 
-> This patch is about implementing the second option to be compatible with
-> both POSIX.1-2024 and real-world applications.
-> 
-> Since close() on Linux first relinquishes the file descriptor and only
-> then performs ->flush() work, interruption of that later work cannot be
-> recovered through the original fd. No matter how important that
-> close-time work was, ownership of the fd has already been irrevocably
-> relinquished.
-> 
-> For regular files, applications requiring durability already need an
-> explicit synchronization operation such as fsync() or fdatasync() before
-> relinquishing the fd. This proposal does not suppress meaningful
-> delayed-I/O errors such as EIO, ENOSPC, or EDQUOT; it only changes
-> interruption results whose conventional recovery action (retrying the
-> operation) is unsafe for close().
-> 
-> Historical discussions about this subject:
-> 
-> - https://inbox.sourceware.org/libc-alpha/efaffc5a404cf104f225c26dbc96e0001cede8f9.1747399542.git.alx@kernel.org/T/
-> 
-> - https://sourceware.org/pipermail/libc-alpha/2025-May/166675.html
-> 
-> - https://lkml.rescloud.iu.edu/hypermail/linux/kernel/2205.3/06731.html
-> 
-> - https://lwn.net/Articles/576478/
-> 
-> - https://yarchive.net/comp/linux/must_check.html
-> 
-> - https://sourceware.org/pipermail/libc-alpha/2025-May/166907.html
-> 
-> - https://sourceware.org/pipermail/libc-alpha/2025-May/166722.html
-> 
-> 
-> POSIX.1-2024 also allows EINPROGRESS after the descriptor has been closed.
-> I considered using that result, but it appears less useful than success
-> for Linux. It would preserve diagnostic information about interrupted
-> close-time work, but there is no operation the caller can perform on the
-> original fd to resume or complete that work. It would therefore turn an
-> irrevocably completed ownership transfer into an apparent failure without
-> providing a recovery path. Returning success avoids that ambiguity and
-> still leaves genuinely useful delayed-I/O errors such as EIO, ENOSPC, and
-> EDQUOT untouched.
-> 
-> This also matches the direction taken by musl, which initially used
-> EINPROGRESS for this case and later changed to success because existing
-> applications were prone to interpret EINPROGRESS as a failure and could
-> incorrectly infer that the fd was still open.
-> 
-> Automatically replacing EINTR with success does change the *observable*
-> raw syscall ABI for applications that distinguish EINTR from successful
-> close(). For applications that already treat the descriptor as consumed,
-> this changes control flow to the normal successful-close path. I would be
-> particularly interested in concrete examples where distinguishing EINTR
-> provides useful recovery semantics, given that the original fd has
-> already been consumed and cannot be used to resume the interrupted
-> close-time work.
-> 
-> Mikko Rantalainen (1):
->   fs: don't return EINTR from close()
-> 
->  fs/open.c | 11 ++++++++---
->  1 file changed, 8 insertions(+), 3 deletions(-)
-> 
-> -- 
-> 2.43.0
+The Microsoft Surface Pro 11 for Business (Intel, Lunar Lake) carries a
+single physical RT1320 amplifier on link 0 and describes it twice:
 
-Hi! I'm one of the first people who pressed this issue while tracking
-down the POSIX model for how side effects are supposed to work with
-respect to EINTR and how that relates to thread cancellation, and how
-glibc was getting all this stuff wrong, back around 2011-2012.
+  SWRA  _ADR 0x000030025D132000   SDCA class 0
+  SWRB  _ADR 0x000030025D132001   SDCA class 1
 
-I don't think there is serious concern about userspace regressions
-making this change. It would not be changing the meaning of any
-existing result code or adding a new error condition applications need
-to be aware of (like the EINPROGRESS mess).
+Identical apart from the class id: same link, same manufacturer, part and
+version, same unique id 0. The part reports class 1, so only SWRB
+enumerates. SWRA never attaches on any boot or firmware version tested,
+including the November 2025 bundle.
 
-But I'm also not sure how helpful the change would be. It's already
-possible to patch this up in userspace, and as you noted, we already
-do that in musl and so does Bionic. So the main practical effect of
-this change would be just forcing the right behavior on glibc systems
-even when glibc doesn't want to fix it. Maybe that's a good idea? I'm
-not sure. I think it would be best to have everyone on the same page
-that this should be fixed, with both glibc fixing it so it's right on
-old-kernel/new-glibc, and the kernel fixing it so it's right on
-new-kernel/old-glibc. That would also avoid hard feelings from a
-unilateral action perceived as dictatorial.
+The ghost is not harmless. It consumes an amplifier index in
+find_acpi_adr_device(), so the real part is named "rt1320-2" and the stock
+sof-soundwire UCM profile enables switches on a device that is not there.
+Its endpoints also reach create_sdw_dailink(), which builds DAI link names
+from link id and function type alone; the ghost declares the same SmartMic
+function as the real part, so the card fails to register at all:
 
-Rich
+  sysfs: cannot create duplicate filename
+    '.../sof_sdw/SDW0-Capture-SmartMic'
+  kobject_add_internal failed for SDW0-Capture-SmartMic with -EEXIST
+  sof_sdw sof_sdw: probe with driver sof_sdw failed with error -12
+
+Remap its _ADR to zero so sdw_acpi_find_slaves() never creates the
+peripheral, which is how ghost devices are handled already - see
+ghost_realtek and global_ghost_adr in this file. Both failures then
+disappear, because neither path is reached.
+
+Matched on DMI_PRODUCT_SKU rather than the product name. A later batch of
+the same model could carry a different RT1320 version, which would change
+the _ADR; keying on the SKU keeps this remap to the hardware it was
+verified on, and follows dell_sku_0A3E above.
+
+Link: https://lore.kernel.org/linux-sound/20260830151516.44629-1-lsa.uz@pm.=
+me/
+Suggested-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
+Suggested-by: Bard Liao <bard.liao@intel.com>
+Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
+---
+v4: resent on its own. v3 was a two-patch series whose 1/2 had already been
+    applied as 9b30521074f0, which makes the series awkward to pick up; thi=
+s
+    is the remaining patch.
+
+    No code change since v3, and it still applies to dmi-quirks.c as that f=
+ile
+    stands today. Carries Pierre-Louis Bossart's Reviewed-by from the v3
+    thread.
+
+ drivers/soundwire/dmi-quirks.c | 28 ++++++++++++++++++++++++++++
+ 1 file changed, 28 insertions(+)
+
+diff --git a/drivers/soundwire/dmi-quirks.c b/drivers/soundwire/dmi-quirks.=
+c
+index d75037558..8b3c5c8d1 100644
+--- a/drivers/soundwire/dmi-quirks.c
++++ b/drivers/soundwire/dmi-quirks.c
+@@ -111,6 +111,25 @@ static const struct adr_remap ghost_realtek[] =3D {
+ =09{}
+ };
+=20
++/*
++ * The Microsoft Surface Pro 11 (Intel) describes its single physical RT13=
+20
++ * amplifier twice on link 0, as two _ADR entries differing only in SDCA c=
+lass
++ * id and sharing the same unique id. Only the class 1 entry enumerates; t=
+he
++ * class 0 entry is a ghost.
++ *
++ * Matched on the product SKU rather than the product name: a later batch =
+of the
++ * same model could carry a different RT1320 version, which would change t=
+he
++ * _ADR. Keying on the SKU keeps this remap to the hardware it was verifie=
+d on.
++ */
++static const struct adr_remap microsoft_sp11_intel[] =3D {
++=09/* ghost rt1320 on link0 */
++=09{
++=09=090x000030025d132000ull,
++=09=090x0000000000000000ull
++=09},
++=09{}
++};
++
+ static const struct dmi_system_id adr_remap_quirk_table[] =3D {
+ =09/* TGL devices */
+ =09{
+@@ -207,6 +226,15 @@ static const struct dmi_system_id adr_remap_quirk_tabl=
+e[] =3D {
+ =09=09},
+ =09=09.driver_data =3D (void *)ghost_realtek,
+ =09},
++=09/* LNL devices */
++=09{
++=09=09.matches =3D {
++=09=09=09DMI_MATCH(DMI_SYS_VENDOR, "Microsoft Corporation"),
++=09=09=09DMI_EXACT_MATCH(DMI_PRODUCT_SKU,
++=09=09=09=09=09"Surface_Pro_11th_Edition_With_Intel_For_Business_2103")
++=09=09},
++=09=09.driver_data =3D (void *)microsoft_sp11_intel,
++=09},
+ =09{}
+ };
+=20
+--=20
+2.50.1 (Apple Git-155)
+
+
