@@ -1,51 +1,29 @@
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [185.244.194.184])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 045F037998A;
-	Sun, 13 Sep 2026 08:30:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.244.194.184
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A300F37F75E;
+	Sun, 13 Sep 2026 08:32:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789288257; cv=none; b=kpyfPS6uOnNoyBIqZBR9uKcLStwe16YBu0yByQwLgmIfkzoxTE+ZInHeuPCCMmzowHvtqI8XIqNtJ8dwov+bizfkudgvz//49DT3AaWI5WaQoqKQBqWl7Y8ElOkob26JVbh06cF6QA4xwDUowyO6O4UmCKJ7UVzkukMhRa2eYZo=
+	t=1789288330; cv=none; b=MYYZip0PJX6VwmfnQhWlJkB99qrZDqWt9/eZ0fKm/+RWTzN5nRBWl8OQhZVQ6eZbVGG5/ikOSILBVpvkQ08gkZZ0iM3r9H9ci3OlicJIZvG6VpBe9wgVngMSzRHCcbHNte1q0giBZfGjdga8wL0P1RzCjrGNcGMSUaw58olsbhs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789288257; c=relaxed/simple;
-	bh=Z5z6bLqwiLc1VA1HLy5fnos6G9gmup/7LK7VZ8qLVGE=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=dCG5m+H8O8V3J/9F9h0T8SB6e6R8vL5wffvPsCend1Ez3/DZSrJjDXFCPIoRBCHoreK3M/a8cU78jFA1QYDpbZgeK8UTYHB34++s54PgGbHPwqevy6rTmf5k7orTac91/MwsfSpSkNJuFQrkJxRTfga74UFWKGwC8jL6i1JMyyk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=JshStNX9; arc=none smtp.client-ip=185.244.194.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
+	s=arc-20240116; t=1789288330; c=relaxed/simple;
+	bh=ca2utnnX+Y8ZEYCh36nAYGG+AA5aAxBPEc2YY+527xg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=M4Ro3rUPhL2lDeEXJ/bawZab8hk1ZLhVikaREgVkFI0YHenVIYhTzZ57hVW/X3Yzmw8JmGXnbKTYdGqO7/B5n7MaiktDwK0GAG1ZNeha5GZapHDgTPzK1RnxZIJTyalYTRbK6G2yRnhJMLZpIDQ+ztaGR9lshypF76udBkaIgdA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=p9dyxLWf; arc=none smtp.client-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="JshStNX9"
-Received: from relay01-mors.netcup.net (localhost [127.0.0.1])
-	by relay01-mors.netcup.net (Postfix) with ESMTPS id 4hjLyr5JmBz967P;
-	Sun, 13 Sep 2026 10:28:36 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
-	s=key2; t=1789288116;
-	bh=Z5z6bLqwiLc1VA1HLy5fnos6G9gmup/7LK7VZ8qLVGE=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
-	b=JshStNX9k56QwkYNjs8i8jFQJ5jhqklRtRH/BDlG8T8Yy3GIRRMx2xMJw9PJBRhc9
-	 t02H2f/aWCeaMSRiBWuoya+G5eeDOlRv09uLfISGHh6x2Yezq9K29X/nkFkNLTQdEO
-	 E62oXQUHGHgWwTt/d2gbSYE0bb18InjIJRxTa7YtTeU4nJU2T0ozcHkDwpelGlGi/s
-	 adZkWxZ3NCgAzwn5tVe/SegeDh7wzthDLtR3xg5q0pcNMI1nev5eUOqdEJPk9Zuyyo
-	 Ihs57OQ38vccA1miaJgtXli8Z0dnQR7fhXnF12kOexfhtOhsho/yqn4g/P2ko/pyO/
-	 qy813ZldYUP/g==
-Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
-	by relay01-mors.netcup.net (Postfix) with ESMTPS id 4hjLxQ6gCJz7xL3;
-	Sun, 13 Sep 2026 10:27:22 +0200 (CEST)
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4hjLxP6yjJz8svb;
-	Sun, 13 Sep 2026 10:27:21 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
-	by mxe9fb.netcup.net (Postfix) with ESMTPSA id B1FB05F8E7;
-	Sun, 13 Sep 2026 10:27:16 +0200 (CEST)
-Authentication-Results: mxe9fb;
-        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <d7f4a573-1a2e-4274-8c8f-41d398592356@leemhuis.info>
-Date: Sun, 13 Sep 2026 10:27:15 +0200
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="p9dyxLWf"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=EhKP3q7j5/PeKZlGCYhZp7NN0HKYU1247v3yj1hxhpA=;
+	b=p9dyxLWfUvGRClUVj7yDZOAvpedDY9/IOVsLUmg2fh78IDMm5yrlcKf/FbUGsE
+	ALMTgSCfaAx8FzKrHrEkOVd/RSlkrcv1q3/l2/zzUBU3c2wmzNzqDaEyDqXDFBW3
+	4F95OSRYXUlVHFqLjjhncB3uqVXLRu195Gqx9Iuvjvp2E=
+Message-ID: <b15c039b-5acd-4be4-88a1-50d4495fdf2d@163.com>
+Date: Sun, 13 Sep 2026 16:31:30 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -53,95 +31,233 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ACPI: scan: Honor _DEP for Intel CVS devices
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-To: Miguel Vadillo <miguel.vadillo@intel.com>, linux-acpi@vger.kernel.org
-Cc: rafael@kernel.org, lenb@kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, sakari.ailus@linux.intel.com,
- mehdi.djait@linux.intel.com, wei.a.xu@intel.com, atul.raut@intel.com,
- Linux kernel regressions list <regressions@lists.linux.dev>
-References: <20260601194040.18223-1-miguel.vadillo@intel.com>
- <6e450fa2-8b40-48b6-b0b0-a1c4b72a383d@leemhuis.info>
-Content-Language: de-DE, en-US
-In-Reply-To: <6e450fa2-8b40-48b6-b0b0-a1c4b72a383d@leemhuis.info>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-PPP-Message-ID: 
- <178928803725.1306370.15081822844060054080@mxe9fb.netcup.net>
-X-Rspamd-Server: rspamd-worker-8404
-X-Rspamd-Queue-Id: B1FB05F8E7
-X-NC-CID: c4Zsd3J8r7IoqcAnfSthMgCT2G7U/9e5HQYyWt7mswx8/zn/Kg0=
+Subject: Re: [PATCH v9 2/4] ntfs: set the volume dirty bit unconditionally on
+ metadata changes
+To: Hongling Zeng <zenghongling@kylinos.cn>, linkinjeon@kernel.org,
+ hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
+ zhongling0719@126.com, Baolin Liu <liubaolin@kylinos.cn>,
+ stable@vger.kernel.org
+References: <20260911020908.2376222-1-zenghongling@kylinos.cn>
+ <20260911020908.2376222-3-zenghongling@kylinos.cn>
+Content-Language: en-US
+From: liubaolin <liubaolin12138@163.com>
+In-Reply-To: <20260911020908.2376222-3-zenghongling@kylinos.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wC338tiX6ZqhkmmAQ--.27316S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW3AF4fKF4xZw4kGw4fZFyxXwb_yoW3AFyDpr
+	saya1ak3ykJry7Wwn2qF4rZryFv34UGr48CrWrK3Wavwn5tr48XFn2g3WS9a4Fyr93Cw4v
+	qF45Kr45uw17ZrUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UsqXLUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6gM0-mqmX2OaQgAA3L
 
-On 9/12/26 18:50, Thorsten Leemhuis wrote:
-> On 6/1/26 21:40, Miguel Vadillo wrote:
->> CVS (Computer Vision Sensing) is an ACPI-enumerated device that sits
->> inline in the CSI-2 path between the camera sensor and Intel IPU.
->> On platforms where CVS is present, the camera sensor's ACPI node
->> declares a _DEP dependency on the CVS device.
->>
->> The CVS driver must be fully initialized before camera sensor drivers
->> probe, because CVS controls the CSI-2 link ownership handshake (via
->> GPIO REQ/RESP), the MIPI/CSI-2 lane configuration, and the camera
->> power domain. Without CVS ready, the sensor driver can bind but the
->> CSI-2 stream will not function correctly.
->>
->> The CVS driver calls acpi_dev_clear_dependencies() at the end of its
->> probe() to unblock waiting consumers once it is ready.
->>
->> Move the CVS HIDs from acpi_ignore_dep_ids[] to acpi_honor_dep_ids[]
->> so that camera sensor enumeration is deferred until the CVS driver has
->> finished probing, matching the behavior already in place for IVSC.
-> 
-> TWIMC, there is a bug report where one or two people claim that this
-> change caused a regression; the report is quite verbose (guess LLM
-> assisted) and hard to grasp for me as outsider; requests for
-> clarifications from my side were not really fruitful. Not sure what to
-> make of this, but I thought I'd let you know; for details see:
-> 
-> https://bugzilla.kernel.org/show_bug.cgi?id=221988
 
-For completeness, a report that is more straight forward to read (at
-least for me) was now posted here:
-https://lore.kernel.org/all/20260912185836.309071-1-manuel.knitza@googlemail.com/
 
-Cia, Thorsten
+在 2026/9/11 10:09, Hongling Zeng 写道:
+> The callers in file.c and namei.c skip ntfs_set_volume_flags() when
+> the in-memory vol_flags already show VOLUME_IS_DIRTY, but that check
+> runs without any lock: if it observes the bit set and ntfs_sync_fs()
+> clears it under the mrec_lock before the caller's metadata update
+> completes, the set is skipped and the volume can end up clean on disk
+> despite the modification, so chkdsk will not run on the next mount.
+> 
+> Drop the caller-side checks and call ntfs_set_volume_flags()
+> unconditionally: ntfs_write_volume_flags() already skips the write
+> under the mrec_lock when the combined value is unchanged.  That
+> unconditional call costs one mrec_lock acquisition per metadata
+> operation even in the already-dirty steady state; it cannot be
+> avoided, because deciding to skip the call without the lock is itself
+> what allows a concurrent ntfs_sync_fs() clear to lose the set.
+> 
+> The IOCB_NOWAIT path in ntfs_file_write_iter() goes through the same
+> sleeping call: a RWF_NOWAIT write can block in the marking, as it
+> already could before this change whenever the volume appeared clean.
+> Giving that path a non-blocking variant is left as follow-up work.
+> The callers keep the pre-existing behavior of proceeding when the
+> marking fails, so the dirty bit remains best-effort.
+> 
+> This closes the variant where the set is skipped outright.  A clear
+> for a concurrent, error-free sync can still land between the set and
+> the end of the metadata operation; that mark-at-start lifecycle is
+> pre-existing and is not changed by this patch.
+> 
+> Reported-by: Baolin Liu <liubaolin@kylinos.cn>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+> ---
+>   fs/ntfs/file.c  | 20 +++++++++++---------
+>   fs/ntfs/namei.c | 24 ++++++++----------------
+>   2 files changed, 19 insertions(+), 25 deletions(-)
+> 
+> diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
+> index 007d1614b9ac..cfc7b36b7dff 100644
+> --- a/fs/ntfs/file.c
+> +++ b/fs/ntfs/file.c
+> @@ -325,8 +325,7 @@ int ntfs_setattr(struct mnt_idmap *idmap, struct dentry *dentry,
+>   		goto out;
+>   	}
+>   
+> -	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+> -		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+> +	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+>   
+>   	if (ia_valid & ATTR_SIZE) {
+>   		err = ntfs_setattr_size(vi, attr);
+> @@ -620,8 +619,13 @@ static ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
+>   		goto out_lock;
+>   	}
+>   
+> -	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+> -		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+> +	/*
+> +	 * The volume must be marked dirty before the modification is made,
+> +	 * without an unlocked check of the in-memory flag: ntfs_sync_fs()
+> +	 * can clear the bit concurrently and the modification would then
+> +	 * land on a volume that is clean on disk.
+> +	 */
+> +	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
 
->> Signed-off-by: Miguel Vadillo <miguel.vadillo@intel.com>
->> ---
->> Note: this patch has a functional dependency on the CVS driver and its
->> IPU bridge support, which are queued in media-next for v7.2. Without
->> those drivers, no code will call acpi_dev_clear_dependencies() for the
->> CVS HIDs and camera sensors will remain deferred indefinitely.
->>
->> The CVS driver series (v5) can be found at:
->>   https://lore.kernel.org/linux-media/20260527170531.383871-1-miguel.vadillo@intel.com/
->>
->>  drivers/acpi/scan.c | 5 +++--
->>  1 file changed, 3 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/acpi/scan.c b/drivers/acpi/scan.c
->> index 530547cda8b2..1463eb3a4f6e 100644
->> --- a/drivers/acpi/scan.c
->> +++ b/drivers/acpi/scan.c
->> @@ -848,8 +848,6 @@ static bool acpi_info_matches_ids(struct acpi_device_info *info,
->>  static const char * const acpi_ignore_dep_ids[] = {
->>  	"PNP0D80", /* Windows-compatible System Power Management Controller */
->>  	"INT33BD", /* Intel Baytrail Mailbox Device */
->> -	"INTC10DE", /* Intel CVS LNL */
->> -	"INTC10E0", /* Intel CVS ARL */
->>  	"LATT2021", /* Lattice FW Update Client Driver */
->>  	NULL
->>  };
->> @@ -861,6 +859,9 @@ static const char * const acpi_honor_dep_ids[] = {
->>  	"INTC1095", /* IVSC (ADL) driver must be loaded to allow i2c access to camera sensors */
->>  	"INTC100A", /* IVSC (RPL) driver must be loaded to allow i2c access to camera sensors */
->>  	"INTC10CF", /* IVSC (MTL) driver must be loaded to allow i2c access to camera sensors */
->> +	"INTC10DE", /* CVS (LNL) driver must be loaded to allow camera streaming */
->> +	"INTC10E0", /* CVS (ARL) driver must be loaded to allow camera streaming */
->> +	"INTC10E1", /* CVS (PTL) driver must be loaded to allow camera streaming */
->>  	"RSCV0001", /* RISC-V PLIC */
->>  	"RSCV0002", /* RISC-V APLIC */
->>  	"RSCV0005", /* RISC-V SBI MPXY MBOX */
-> 
-> 
+Hi Hongling,
+   The added call removes the unlocked check, but it does not close the 
+writer/sync lifecycle race. ntfs_set_volume_flags() protects only the 
+read-modify-write of the $Volume record while mrec_lock is held, and 
+releases the lock before ntfs_file_write_iter() enters the actual write 
+path (ntfs_file_buffered_write() or the direct-I/O path) that modifies 
+file data and related MFT metadata.
+
+   For example, the following execution is still possible:
+
+   Writer                                      ntfs_sync_fs()
+   ------                                      ------------
+   ntfs_set_volume_flags()
+       acquire $Volume mrec_lock
+       set VOLUME_IS_DIRTY
+       update $Volume record
+       release $Volume mrec_lock
+
+                                                acquire $Volume mrec_lock
+                                            observe NVolErrors() == false
+                                                clear VOLUME_IS_DIRTY
+                                                release $Volume mrec_lock
+                                                commit clean volume flags
+
+   continue ntfs_file_write_iter()
+   enter ntfs_file_buffered_write()
+   or the direct-I/O write path
+   modify file data and related MFT metadata
+   commit dirty pages/MFT records
+
+   Thus, the metadata modification can still reach disk after 
+ntfs_sync_fs() has persisted a clean on-disk dirty bit. The mrec_lock 
+serializes only individual $Volume flag updates; it does not cover the 
+subsequent write operation. Therefore, the guarantee described in the 
+comment above is incomplete, and the same race applies to the other 
+unconditional dirty-bit calls added by this patch.
+
+Thanks,
+Baolin.
+
+>   
+>   	pos = iocb->ki_pos;
+>   	count = ret;
+> @@ -1153,11 +1157,9 @@ static long ntfs_fallocate(struct file *file, int mode, loff_t offset, loff_t le
+>   			return err;
+>   	}
+>   
+> -	if (!(vol->vol_flags & VOLUME_IS_DIRTY)) {
+> -		err = ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+> -		if (err)
+> -			return err;
+> -	}
+> +	err = ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+> +	if (err)
+> +		return err;
+>   
+>   	old_size = i_size_read(vi);
+>   
+> diff --git a/fs/ntfs/namei.c b/fs/ntfs/namei.c
+> index fdf52fac4329..3e0adb9a0ea4 100644
+> --- a/fs/ntfs/namei.c
+> +++ b/fs/ntfs/namei.c
+> @@ -757,8 +757,7 @@ static int ntfs_create(struct mnt_idmap *idmap, struct inode *dir,
+>   		return err;
+>   	}
+>   
+> -	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+> -		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+> +	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+>   
+>   	ni = __ntfs_create(idmap, dir, uname, uname_len, S_IFREG | mode, 0, NULL, 0);
+>   	kmem_cache_free(ntfs_name_cache, uname);
+> @@ -1032,8 +1031,7 @@ static int ntfs_unlink(struct inode *dir, struct dentry *dentry)
+>   		return err;
+>   	}
+>   
+> -	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+> -		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+> +	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+>   
+>   	err = ntfs_delete(ni, NTFS_I(dir), uname, uname_len, true);
+>   	if (err)
+> @@ -1076,8 +1074,7 @@ static struct dentry *ntfs_mkdir(struct mnt_idmap *idmap, struct inode *dir,
+>   		return ERR_PTR(err);
+>   	}
+>   
+> -	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+> -		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+> +	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+>   
+>   	ni = __ntfs_create(idmap, dir, uname, uname_len, mode, 0, NULL, 0);
+>   	kmem_cache_free(ntfs_name_cache, uname);
+> @@ -1118,8 +1115,7 @@ static int ntfs_rmdir(struct inode *dir, struct dentry *dentry)
+>   		return err;
+>   	}
+>   
+> -	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+> -		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+> +	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+>   
+>   	err = ntfs_delete(ni, NTFS_I(dir), uname, uname_len, true);
+>   	if (err)
+> @@ -1305,8 +1301,7 @@ static int ntfs_rename(struct mnt_idmap *idmap, struct inode *old_dir,
+>   		new_dir_first = is_subdir(new_dentry->d_parent,
+>   					  old_dentry->d_parent);
+>   
+> -	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+> -		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+> +	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+>   
+>   	mutex_lock_nested(&old_ni->mrec_lock, NTFS_INODE_MUTEX_NORMAL);
+>   	if (new_ni)
+> @@ -1429,8 +1424,7 @@ static int ntfs_symlink(struct mnt_idmap *idmap, struct inode *dir,
+>   		goto out;
+>   	}
+>   
+> -	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+> -		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+> +	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+>   
+>   	ni = __ntfs_create(idmap, dir, usrc, usrc_len, S_IFLNK | 0777, 0,
+>   			   symname, symlen);
+> @@ -1474,8 +1468,7 @@ static int ntfs_mknod(struct mnt_idmap *idmap, struct inode *dir,
+>   		return err;
+>   	}
+>   
+> -	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+> -		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+> +	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+>   
+>   	switch (mode & S_IFMT) {
+>   	case S_IFCHR:
+> @@ -1521,8 +1514,7 @@ static int ntfs_link(struct dentry *old_dentry, struct inode *dir,
+>   		return -ENOMEM;
+>   	}
+>   
+> -	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+> -		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+> +	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+>   
+>   	ihold(vi);
+>   	mutex_lock_nested(&ni->mrec_lock, NTFS_INODE_MUTEX_NORMAL);
 
