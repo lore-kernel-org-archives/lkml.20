@@ -1,239 +1,123 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8062A374721;
-	Sun, 13 Sep 2026 21:28:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 057D7368D4A;
+	Sun, 13 Sep 2026 21:30:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789334940; cv=none; b=AfTZR18vyfoyqfIApSjZ82wIYVc0qxgh4b7ppw53ejFTyzpLbot8cZWjLbWy0udG3aSsbD1P8Ikntj0RaCU5gU7y32ccJZPhY1w20DNSJR61OaeR95OoR2ECIq4iUe4M8XZhKyc6jNC5kPm9WNVwtIU/9i67Fim/wyTBKbOm4Z4=
+	t=1789335053; cv=none; b=dEsuFXHbvOCFV68B2sbQeVeazVqhQFnld/5Q0HvF8t9aaIOxdrUKgelebwbk2/YMBHzNxWnjSLkZxbB/4olrbIF/PlnXABVKNp+nre0SJcMZbq0L2BF38yAHlFQ4mYvDZlI/ec1JeB0fb6ZYU33JAXgvVVg/AHgR5RIJJI3YzMw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789334940; c=relaxed/simple;
-	bh=hdl0HPgZWp5OFcEjPYJMMYkM6HAAD3lRbSgzmiZteKk=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=mExH/e7OERgL8z5n0bl83OPXSReE+0HcStG96MmNgpWbeihbQVVvIywQh1pSrYD4G0ZOdGgzYEPF+RfqPDkFmFZJ+BLYYAJiJMYI+ailCabVh83L2CQFfZ3ShRcSrzXGA4kWpQgkNydbtsn6bVntIi98UEhmJwYt1SdzARe9xxc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WGNNrgqb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789335053; c=relaxed/simple;
+	bh=zHj4TrfScp8NUQmY2H3hh9ODOhBU5G/V6DHM3N4sOLo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jxqqqMJs13gYqkHHf8YnfaikdBTfi6BX9XIk2pI2c9IsCStz7nl/HlYXupC+KYhWTVMhVT2VlSS0QkesAQK2sqSWLBXmbW9uIPpdWBTgAVEBcj3xmo13XKxa/Lv1TjiZsT77/kzOxz/iEb/q8lSWPyjZd9ALyzgd5owy/6gJHP4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AogI6zYE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WGNNrgqb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF7DF1F000FF;
-	Sun, 13 Sep 2026 21:28:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AogI6zYE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D97D1F000FF;
+	Sun, 13 Sep 2026 21:30:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789334939;
-	bh=xEY92NMXVVGlBTh4xsh7r/mT2eimuxnC3W7iwuky1Vo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=WGNNrgqbmZDCTX4MUxRtxtW0qpIn6Is3YbPyPIy6hf4MbIiVVywZZmaRzjzlU2DfG
-	 ME9zKKMOc3VDV0K7ZQU5HzomGiTyJ0ykEoCxQXfl3FFPc/sUVcMv7mG7uadqiBlTDx
-	 9GxkHKn2ktHDNdnhgH4cuzqJIdNm4cDOT5io19j0/OPNohB4QDmiAFKUfKi7LK6wv6
-	 3AcuJutwBJ1/pp6i/JnrkIhir2tqvEAhVf1xQH3R274ly2uLdhDLv2RnMT9Bj8KjNY
-	 BupErsAp0En67buJKyu0k6DWO15fRGlFRXOUDp/kyplaFk9zs3LT3xBJZLh5TyEv9n
-	 kRBOjBC7VdK4Q==
-Date: Sun, 13 Sep 2026 22:28:55 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Fabio Cesari <fabio.cesari@gmail.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Brian Masney
- <bmasney@redhat.com>, Joshua Crofts <joshua.crofts1@gmail.com>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] iio: light: isl29028: fix runtime PM reference leak
- on error paths
-Message-ID: <20260913222855.6db3932c@jic23-hlaptop>
-In-Reply-To: <20260910062449.331749-1-fabio.cesari@gmail.com>
-References: <20260910062449.331749-1-fabio.cesari@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1789335051;
+	bh=8Op6TT+ye7ilPzZZhA+0bF/cZnCKFVYCxqoH+Jt7ciM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=AogI6zYE9Khh/gIeznHIfBrXAQbQqM+AaREGLZTqRZLUXl9A0qLUp9IGQpoYOxnfT
+	 Oprg5UR25Yk95sS2NoceDjN8dTCPDlZedl/7TNdrQFaiPXp4pI6WxVjIRtyg6ghG9o
+	 xhfO11NvrCEN8U6/RYoBgoSQhjru0JOW0O9RDtKvQta9cH4V1Ps/6dSAe4j/7IWR2J
+	 OGS3s0ARLZc5A2jUPQYso8SxtcRzmH+F6XTUFnlGHKIcBp2b1AsMuYfRLZp98b9tr6
+	 /1Xkwktlq11CX8GXfzTt/2uMWdKY/9D1nNe0QENXcuSOjkppbxgVch47KcNShfKS6M
+	 oWYhL+Qadgcjg==
+Date: Sun, 13 Sep 2026 22:30:41 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Nicolas Schier <n.schier@fritz.com>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
+	Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
+	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+	Masahiro Yamada <masahiroy@kernel.org>, Alexey Gladkov <legion@kernel.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Arnd Bergmann <arnd@arndb.de>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	Gary Guo <gary@garyguo.net>, =?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, Jonathan Corbet <corbet@lwn.net>, 
+	Randy Dunlap <rdunlap@infradead.org>, linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	llvm@lists.linux.dev, linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+	linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>
+Subject: Re: [PATCH 20/23] kbuild: rust: parallelise rustc front end
+Message-ID: <aqcTSgN7Qui-NYKS@gremlin>
+References: <20260908-build-speedup-v1-0-5dc1ac01672d@kernel.org>
+ <20260908-build-speedup-v1-20-5dc1ac01672d@kernel.org>
+ <20260911-impressive-heavy-bobcat-6ceeb1@l-nschier-aarch64>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260911-impressive-heavy-bobcat-6ceeb1@l-nschier-aarch64>
 
-On Thu, 10 Sep 2026 08:24:35 +0200
-Fabio Cesari <fabio.cesari@gmail.com> wrote:
+On Fri, Sep 11, 2026 at 09:00:40PM +0200, Nicolas Schier wrote:
+> On Tue, Sep 08, 2026 at 09:55:20PM +0100, Lorenzo Stoakes (ARM) wrote:
+> > Rust crates are compiled in a serial chain on the critical path - core,
+> > bindings, kernel crates and then the drivers - each a rustc invocation.
+> >
+> > With CONFIG_RUST set and every rust driver enabled, the entire chain takes
+> > around 25 seconds on a 128-thread machine, with the associated C code
+> > taking 24 seconds.
+> >
+> > Each time a change is made to any of the bindings, it triggers a rebuild.
+> >
+> > Use the -Zthreads option to have rustc perform builds in parallel. This has
+> > been available since rust 1.84 (rust-lang/rust#132282), and the kernel
+> > requires rust 1.85 or above.
+> >
+> > A future -j/--jobs option is planned for
+> > rustc:(rust-lang/compiler-team#1005), so check to see if this available and
+> > if so use it.
+> >
+> > If the user's rustc supports neither, then it falls back gracefully and
+> > neither are used.
+> >
+> > The threads are taken from make's jobserver, so a parallel build is not
+> > oversubscribed. It was found that benefits level off at 8 threads (16 was
+> > found to be around the same, and 32 slower).
+> [...]
+>
+> > diff --git a/Makefile b/Makefile
+> > index 997fc7ebe096..7d23d7b64be3 100644
+> > --- a/Makefile
+> > +++ b/Makefile
+> > @@ -1204,6 +1204,10 @@ KBUILD_RUSTFLAGS += --remap-path-prefix=$(srcroot)/= --remap-path-scope=macro
+> >  endif
+> >  endif
+> >
+> > +ifdef CONFIG_RUST
+> > +KBUILD_RUSTFLAGS += $(if $(CONFIG_RUSTC_HAS_JOBS),-j8,$(if $(CONFIG_RUSTC_HAS_ZTHREADS),-Zthreads=8))
+> > +endif
+>
+> Is there a reason for the 'ifdef CONFIG_RUST'?
+>
+> Hard-coding '8' feels a bit odd.  If some kind of KBUILD_RUST_JOBS would
+> be used, it could allow users to disable or override the parallelism for
+> rust.  Does it make sense to have rust parallelism configurable?
 
-> isl29028_read_raw() and isl29028_write_raw() take a runtime PM reference
-> with pm_runtime_resume_and_get() but return directly on their error
-> paths without dropping it. The usage count never balances again and the
-> device stops entering autosuspend for good. In isl29028_read_raw() this
-> needs a regmap access to fail; in isl29028_write_raw() one rejected
-> sysfs write is enough, for example
-> 
->   echo 200 > in_proximity_sampling_frequency
-> 
-> which is outside the [1:100] range and returns -EINVAL with the
-> reference still held.
-> 
-> Take the reference with PM_RUNTIME_ACQUIRE_AUTOSUSPEND() instead, so it
-> is released on every return path.
-> 
-> This also stops the return value of pm_runtime_put_autosuspend() from
-> reaching userspace. That value only says whether the device could be
-> suspended right away, so -EAGAIN or -EPERM turns a successful access
-> into a failure, and with CONFIG_PM=n the stub returns -ENOSYS on every
-> access.
-> 
-> PM_RUNTIME_ACQUIRE_AUTOSUSPEND() exists since v6.19. Older trees need
-> the manual form instead: keep pm_runtime_resume_and_get() and drop the
-> reference on all paths with an unchecked pm_runtime_put_autosuspend().
+Have decided to go with a build var for v2 - KBUILD_RUST_THREADS=n - which
+solves the default thread count, the instability issues and the confiigurability
+all at once! :)
 
-No need to talk about how to backport.  That just bloats the patch
-description. By all means add that info below the ---
+>
+> --
+> Nicolas
 
-If you fancy doing it, a follow up cleanup would be a nice to have (see inline).
-
-I'll take this the slow route so applying it to the testing branch of iio.git
-for the next merge window.
-
-> 
-> Fixes: 2db5054ac28d ("staging: iio: isl29028: add runtime power management support")
-> Suggested-by: Joshua Crofts <joshua.crofts1@gmail.com>
-> Cc: <stable@vger.kernel.org> # see patch description, needs adjustments for < 6.19
-Will drop that comment as well.  It's kind of obvious and may not be true
-as often these macros get backported to make it easier to backport fixes like
-this one.
-
-> Assisted-by: LLM coccinelle
-> Signed-off-by: Fabio Cesari <fabio.cesari@gmail.com>
-> ---
-> 
-> Changes in v3, from the review of v2:
->   - use PM_RUNTIME_ACQUIRE_AUTOSUSPEND() rather than the _IF_ENABLED_
->     variant
->   - sent as its own thread rather than as a reply to v2
-> 
-> v1: https://lore.kernel.org/linux-iio/20260906131203.125407-1-fabio.cesari@gmail.com/
-> v2: https://lore.kernel.org/linux-iio/20260906223737.206730-1-fabio.cesari@gmail.com/
-> 
-> Found by auditing IIO drivers with a Coccinelle semantic patch for
-> runtime PM acquire/release imbalances.
-> 
-> Compile-tested only: arm64 (native) and x86_64 (cross), defconfig plus
-> CONFIG_SENSORS_ISL29028=m, plus an arm64 CONFIG_PM=n build to cover the
-> stubs, with gcc 15.2.0, W=1 and sparse v0.6.5-rc1: no warnings. I have no
-> isl29028 hardware, so this is untested at runtime.
-> 
->  drivers/iio/light/isl29028.c | 33 ++++++++-------------------------
->  1 file changed, 8 insertions(+), 25 deletions(-)
-> 
-> diff --git a/drivers/iio/light/isl29028.c b/drivers/iio/light/isl29028.c
-> index 33deb1726689..e481ac908fc1 100644
-> --- a/drivers/iio/light/isl29028.c
-> +++ b/drivers/iio/light/isl29028.c
-> @@ -342,8 +342,9 @@ static int isl29028_write_raw(struct iio_dev *indio_dev,
->  	struct device *dev = regmap_get_device(chip->regmap);
->  	int ret;
->  
-> -	ret = pm_runtime_resume_and_get(dev);
-> -	if (ret < 0)
-> +	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(dev, pm);
-> +	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
-> +	if (ret)
->  		return ret;
->  
->  	mutex_lock(&chip->lock);
-> @@ -392,14 +393,7 @@ static int isl29028_write_raw(struct iio_dev *indio_dev,
->  
->  	mutex_unlock(&chip->lock);
-Seeing this manual unlock made me take a closer look.
-Given your patch takes uses the cleanup stuff already maybe we can
-do better on the rest. We could leave the lock where it is, or reduce the scope.
-Something like ...
-
-	
-
-	switch (chan->type) {
-	case IIO_PROXIMITY: {
-		if (mask != IIO_CHAN_INFO_SAMP_FREQ) {
-			dev_err(dev,
-				"%s(): proximity: Mask value 0x%08lx is not supported\n",
-				__func__, mask);
-			return -EINVAL;
-		}
-
-		if (val < 1 || val > 100) {
-			dev_err(dev,
-				"%s(): proximity: Sampling frequency %d is not in the range [1:100]\n",
-				__func__, val);
-			return -EINVAL;
-		}
-		guard(mutex)(&chip->lock);
-
-		return isl29028_set_proxim_sampling(chip, val, val2);
-	}
-	case IIO_LIGHT: {
-		if (mask != IIO_CHAN_INFO_SCALE) {
-			dev_err(dev,
-				"%s(): light: Mask value 0x%08lx is not supported\n",
-				__func__, mask);
-			break;
-		}
-
-		if (val != 125 && val != 2000) {
-			dev_err(dev,
-				"%s(): light: Lux scale %d is not in the set {125, 2000}\n",
-				__func__, val);
-			break;
-		}
-		guard(mutex)(&chip->lock);
-
-		ret = isl29028_set_als_scale(chip, val);
-		break;
-	}
-	default:
-		dev_err(dev, "%s(): Unsupported channel type %x\n",
-			__func__, chan->type);
-		return -EINVAL;
-Though the print can probably go as well as I assume this path can't
-be hit.
-
-	}
->  
-> -	if (ret < 0)
-> -		return ret;
-> -
-> -	ret = pm_runtime_put_autosuspend(dev);
-> -	if (ret < 0)
-> -		return ret;
-> -
-> -	return 0;
-> +	return ret;
->  }
->  
->  static int isl29028_read_raw(struct iio_dev *indio_dev,
-> @@ -408,10 +402,11 @@ static int isl29028_read_raw(struct iio_dev *indio_dev,
->  {
->  	struct isl29028_chip *chip = iio_priv(indio_dev);
->  	struct device *dev = regmap_get_device(chip->regmap);
-> -	int ret, pm_ret;
-> +	int ret;
->  
-> -	ret = pm_runtime_resume_and_get(dev);
-> -	if (ret < 0)
-> +	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(dev, pm);
-> +	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
-> +	if (ret)
->  		return ret;
->  
->  	mutex_lock(&chip->lock);
-> @@ -461,18 +456,6 @@ static int isl29028_read_raw(struct iio_dev *indio_dev,
->  
->  	mutex_unlock(&chip->lock);
->  
-> -	if (ret < 0)
-> -		return ret;
-> -
-> -	/**
-> -	 * Preserve the ret variable if the call to
-> -	 * pm_runtime_put_autosuspend() is successful so the reading
-> -	 * (if applicable) is returned to user space.
-> -	 */
-> -	pm_ret = pm_runtime_put_autosuspend(dev);
-> -	if (pm_ret < 0)
-> -		return pm_ret;
-> -
->  	return ret;
->  }
->  
-> 
-> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-
+--
+Cheers, Lorenzo
