@@ -1,78 +1,89 @@
-Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com [209.85.161.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D38313E1701
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 23:45:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.210.214.84
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5966B38CFE8
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 23:46:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789343147; cv=none; b=QflFNIHpx7U2PK2vUYwPFDnzlG34AQQ/ZBWyZ0V5zJdXa8oW31C+mU9Z4+FohxzKcO4eS0Nx1PXgTWL3XuFiJCZgGuS1O6/wE4uP3qU8Q3KlqzAf8Ocx2cecR0VLq3OIcbyggymGRteNrqK5WI/UwjvBa1HAThgiI8C+btnOjWM=
+	t=1789343198; cv=none; b=EtnrmP4xx/zpWpn4UF7o++Zz6GwYn7gGdWRQCbAUduLmpHi2O0b0DgK8xpa8gF+hF/RtIRMkf/BuK/UcKkMHhLE1H4/nrTD22kkrW3IG2ITFlFfxyRWMdK0p8gmGeMHxUiu6jMY+M5hO6fvIcguj4IdYc6LGs7rh5LL+RDMqVpI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789343147; c=relaxed/simple;
-	bh=pIvyuvQzIUwAk7xF8c3nNL20NcXbjGHOFvR2oLZAO3o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=q08jbteHbbnpjTCR2I2+3qX+I323ZfVCg7U213LgXlr+cKfaAkI0Oxg6CaJOjgKAJIFkfEwFdw/ZZfFjEfUqMXs8webRumuxL15qxSK3BX+9k/v+lqS0/1OeNBGOVIztH43S5lPI3Jx708MRfPE11P8oqeMw7HU/nsOkwMyWnRQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org; spf=pass smtp.mailfrom=codewreck.org; dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b=C4htPd/w; arc=none smtp.client-ip=62.210.214.84
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b="C4htPd/w"
-Received: from gaia.codewreck.org (localhost [127.0.0.1])
-	by submarine.notk.org (Postfix) with ESMTPS id 5BF3F14C2D6;
-	Mon, 14 Sep 2026 01:45:38 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
-	s=2; t=1789343140;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=h44ylbH2rdPCaOucz8jQTCsVnOEZX7O3Bowqom7l/mo=;
-	b=C4htPd/wOczkji4TjN/XiA8yqWBsqIMVvz3VEzddINH9T7+w00nDn/4Vt6BASQT/2OOmfQ
-	8LURq+hfwdjTCEzDauHRQWmLgAxBSVVcLq2Uv9N4crn3+qAa6aGxB11MNfI/pueVIVW2po
-	tqV2KulPVbVbs8YfoEuNceqA0WmxX0f92BGszwpHyBVi/6UrBotcXSUHnUOIC9TXr3NwQj
-	8SM+uqNhse794MO8M5/Xx09tAiVfP8S/Uo6JqYIe+GtSgf7yn1xZstDagyVa7XTMq3SdJI
-	A3YD9GqM27NfC6gLz+HOM/1Mw1/oXg91Sf3Bxfvxq3LCCSicszG1m/+ikMcmJQ==
-Received: from localhost (gaia.codewreck.org [local])
-	by gaia.codewreck.org (OpenSMTPD) with ESMTPA id b3313532;
-	Sun, 13 Sep 2026 23:45:36 +0000 (UTC)
-Date: Mon, 14 Sep 2026 08:45:21 +0900
-From: Dominique Martinet <asmadeus@codewreck.org>
-To: Rosen Penev <rosenp@gmail.com>
-Cc: v9fs@lists.linux.dev, Eric Van Hensbergen <ericvh@kernel.org>,
-	Latchesar Ionkov <lucho@ionkov.net>,
-	Christian Schoenebeck <linux_oss@crudebyte.com>,
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCHv2] 9p/xen: Use array for data rings
-Message-ID: <aqc1kSDTP1_2HPjx@codewreck.org>
-References: <20260913192740.29668-1-rosenp@gmail.com>
+	s=arc-20240116; t=1789343198; c=relaxed/simple;
+	bh=Qn9lIkgmGdmg09kU+H9Bzm5YtdGfa5a/RA3U99GBCpk=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:Cc:
+	 Content-Type; b=TDPtb0D0tQHSUyDVDjDwtGoHY+dDy2j2OGaRmUQ0HSneLBVvPcAjlHrL54pcZyd/ldqfYPmsLfZgoOqA2L42/dz/Z5ysFhXyXSIcF2N1sKnLQwj0lTl88RSqv+Mdd3J8ZUmkQU9+6qLi0F153OUHKrxrwYqRU5KxrNQhVdx8144=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-6b352d9062fso3483818eaf.3
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 16:46:37 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789343196; x=1789947996;
+        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=cjOiu+m9w1SzNUGZg72zZnORRd0gFlaMH0tXwn0wV5g=;
+        b=EVp0jpScH77+dFouiCEad2ADV/B+SdsASwfHzbrzOMT0FxwnI3EToz5ncbT/KDJy81
+         Z/qQzkMUmUAG9kFN5HsFqPd1d/1k/ZY5g7UxajoJbgX1J1rUdbOkTGBAZhf2TSx0dV8h
+         re+mEdRRoKolF16plGFCJ93AaUMSjjdq2oOJUWxyxsViiHBsPNr3SOZSwlyaf8cJWafF
+         z9W/H/rSV2rZaeVbqhm1p3aGwuha3hm21SyV+eN5+IFzewZ3UK9RiHrDUuC/ZYfbybsR
+         1HA5lnWsoB/2/eCHLG1HcUFj2XoknluYEqw5F8xTU8RucPZC1mC3X0IFR5f6LtcT59Ji
+         BOvQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy483/F/EGzRvPOIC/xYa6hkmrJFUirTVkaVyRgO0uBxqj3X82+BqpB4A7/Z3v12x3nqms473d+rfH/Bt8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mUQEQbLTDOBKHrHY0ejr2LuaSSuVXf/TkLe9l1AtSLLcde5OuI
+	2RDRe1Df7rN84TmUfjLywRHxjznutb7cMc602L+sz+jqllZEPSnBBgW7zjlWTzclyIBFwC+ZWHV
+	ye60IM8qorDmhurgZSrOiiWwR6U8i7ix78OT7J8AyvTY5E23Wnrt+Ol+xR48=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260913192740.29668-1-rosenp@gmail.com>
+X-Received: by 2002:a4a:e842:0:b0:6bd:e592:2c66 with SMTP id
+ 006d021491bc7-6c544cac0demr5509eaf.46.1789343196358; Sun, 13 Sep 2026
+ 16:46:36 -0700 (PDT)
+Date: Sun, 13 Sep 2026 16:46:36 -0700
+In-Reply-To: <20260913234627.465492-1-aadityakansal390@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa735dc.3aa11909.1a03b8.0004.GAE@google.com>
+Subject: Re: [PATCH] md: add max_disks bound check in older version
+From: syzbot <syzbot+9e3014263a35700ab49b@syzkaller.appspotmail.com>
+To: aadityakansal390@gmail.com
+Cc: aadityakansal390@gmail.com, linux-raid@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Rosen Penev wrote on Sun, Sep 13, 2026 at 12:27:40PM -0700:
-> Store the fixed set of Xen 9p data rings in the frontend private
-> allocation instead of allocating a separate rings array.
-> 
-> This keeps the data ring storage tied to the frontend lifetime and
-> simplifies the allocation and cleanup paths.
-> 
-> Assisted-by: Codex:GPT-5.5
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> ---
->  v2: switch to normal array.
+> #syz test
 
-Thanks, looks good to me, picked up.
+"" does not look like a valid git branch or commit.
 
-> -				for (j = 0; j < (1 << ring->intf->ring_order);
-> -				     j++) {
-> +			for (j = 0; j < (1 << ring->intf->ring_order);
-> +			     j++) {
-
-^ now fits in a single line within 80 chars so I've rewrapped it
-
--- 
-Dominique
+>
+> diff --git a/drivers/md/md.c b/drivers/md/md.c
+> index 680b34a63cb3..f5fce41637f1 100644
+> --- a/drivers/md/md.c
+> +++ b/drivers/md/md.c
+> @@ -1693,6 +1693,12 @@ static void super_90_sync(struct mddev *mddev, struct md_rdev *rdev)
+>  			desc_nr = rdev2->raid_disk;
+>  		else
+>  			desc_nr = next_spare++;
+> +
+> +		if (desc_nr >= MD_SB_DISKS) {
+> +			pr_warn("md: raid_disks = %d exceeds max_disks = %d for version 0.90\n",
+> +					desc_nr, MD_SB_DISKS);
+> +			continue;
+> +		}
+>  		rdev2->desc_nr = desc_nr;
+>  		d = &sb->disks[rdev2->desc_nr];
+>  		nr_disks++;
+> @@ -1722,7 +1728,7 @@ static void super_90_sync(struct mddev *mddev, struct md_rdev *rdev)
+>  			d->state |= (1<<MD_DISK_FAILFAST);
+>  	}
+>  	/* now set the "removed" and "faulty" bits on any missing devices */
+> -	for (i=0 ; i < mddev->raid_disks ; i++) {
+> +	for (i = 0; i < mddev->raid_disks && i < MD_SB_DISKS; i++) {
+>  		mdp_disk_t *d = &sb->disks[i];
+>  		if (d->state == 0 && d->number == 0) {
+>  			d->number = i;
+> --
+> 2.55.0
+>
