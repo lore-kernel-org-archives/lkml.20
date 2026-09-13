@@ -1,77 +1,100 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5CF2389460;
-	Sun, 13 Sep 2026 23:10:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1585389E05
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 23:11:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789341013; cv=none; b=fxPhxU5LX/q3q4FWvwCyZFUsvao/vw7dYiHO9o9zQWTWZB1I6oVdyK1wo+vAbmlYIw5xgDG8FSQuIiV2TAEgrUJUAhvJiG6cRpomBD8NldxfftBAKv0iRZKmrl0K09coQ4ebnQwoie40yVzjldGtmlPDnPMFllNN0Th6LvyLV0Y=
+	t=1789341066; cv=none; b=rksH9PPFkt24GHm9/VbRb6uEWA1xdImqcOIhY6ABDUmVztxgaYNxrnIXp1JckFVQXfwFk/6AgyZ3FmC/UoE+9mC3xB6cZedeNI95AEFaFPIy+S4idkpuTMC9Ac/WDmwdJah6dVnI5HYJUUk2NHD7i1dQk4fi9ydXgpMM3wSFnxc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789341013; c=relaxed/simple;
-	bh=JovhkEGc49m08i3QruZE95i136J5ceZGjBAIjri5/As=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OmoDdx+VDLunTvCWl7cKAPgml9j8deIIz5g64wuJX/xE2u3q8LCJTUJmzoUk0/sm5MrJEZ1mXDOD4JIgQYWIyb6rQ3zSt2lqnzcY5uD1SAqjUaPJpElhQV+DpTfH66MmPndc5XGdCnmB1KnKL7uc4Qls6sJXCdLx4ten47eC9TM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=SI396ToJ; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1789341066; c=relaxed/simple;
+	bh=7VRqRnWh3lGbL9kPUFthPS5dsgsRMwml6qaXfw5FMHg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=B4BGIVNzYwTW7ZC/mL7c8tl/sTeBr9WgcR+SNkMYK8VCclNg9NtIwM2sAS3B7z01IlsF4k3ijP9B9VPxQTqqb80IGmCdsXFduozwuxkct7xcJsnPGyWlmh+KnpT4iX8/P/+L7KiZNZRc6Jb4+ijIYQOh9iFydrU51GnHhvlwLME=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=W0oAEPBy; arc=none smtp.client-ip=209.85.208.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="SI396ToJ"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
-	Content-ID:Content-Description:In-Reply-To:References;
-	bh=pGJNvAGV4/Il1YF4g+q03KS8GPSVHq/XLbwQYYi2pFM=; b=SI396ToJ28joaN9NR5srWPPjse
-	zKA9hiof31o8RtEJ9SPquhUawksFX0XVN4aAsvHfelwHdqZBJoWc+1ZcRgT1n0GSy63qCNFvZyOHO
-	UATFNZoWSKa75mp4OfD4vC9LQWw83FmdS4bwg54qs15eB1AHHCDk5mlIfAXbdiOCNDPk/9hGW5RLe
-	UMQ6Ouckw7/0Xljt+RmXplN4/WrxSqiF+DKToHMA5LfCwbMzOlpm+i2KdEMd8Xg0j2aY6NgvcCa66
-	F9dgPFBEPgacOIESPPu1ZwIqiUR8A3jHDvGschYqUxNHdWXnP1DRaKiZrgE05+Fks0XQreHPwbYfR
-	wfBJi94Q==;
-Received: from [50.53.43.113] (helo=bombadil.infradead.org)
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x5tKo-000000025jN-02j0;
-	Sun, 13 Sep 2026 23:10:06 +0000
-From: Randy Dunlap <rdunlap@infradead.org>
-To: linux-kernel@vger.kernel.org
-Cc: Randy Dunlap <rdunlap@infradead.org>,
-	"Derek J. Clark" <derekjohn.clark@gmail.com>,
-	Jiri Kosina <jkosina@suse.com>,
-	Benjamin Tissoires <bentiss@kernel.org>,
-	linux-input@vger.kernel.org
-Subject: [PATCH] HID: correct typos in hid-lenovo-go-s ABI doc.
-Date: Sun, 13 Sep 2026 16:10:04 -0700
-Message-ID: <20260913231004.1007869-1-rdunlap@infradead.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="W0oAEPBy"
+Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6a9ac6aa620so3711828a12.1
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 16:11:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linux-foundation.org; s=google; t=1789341060; x=1789945860; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=otUdbuSiFhBRkZCEqyxGlxc0YCwlt0UQ0qDbBI/rBSk=;
+        b=W0oAEPByLFQy4aoJWGWJ1cf6S8c9OXFeWSNgQzyFcfrTS8QDoB0mSL+2ZxWsb8T55K
+         /sSYo+3K6uS4MqrLGAOnOk1dDmjAXnFvJ52ILJIAu8MbOViKF1b22E11B3uZXtSuHoAb
+         iUOFmhcLqF7uHnhAYXaMKxaq9/8EQarEPiWLQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789341060; x=1789945860;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=otUdbuSiFhBRkZCEqyxGlxc0YCwlt0UQ0qDbBI/rBSk=;
+        b=Petl7uCBi72MVsYzk4ADBoQmagqsaTd/AbAFC4lRM+Bt82GQ/Cd/Q46xRuZ1bvnxWZ
+         9lua06eBzPU6BiZIGCGMYEtRDeSGVryUBGDPX7Ly5NQF9rSTOqhYMfk76UHwJb6TmJkv
+         3eY45tteA0EZPGUGCSOOUhb1ADsUVEMF2Rf4wxvCF4/rjh/UsZlRtdlIbvAiXBt+Aye2
+         7pIVRh7DhiK0/i7YU02g7x1prqAJiHNoFBbwny9kHqZhPjV6lWuSXfDdcLB2jg25cjkN
+         m2urBu+mAbqvFvqfwVQ2AQhejwtsWjwQThIweDFk7UNXAikutwSbROIJ5f6HbtnoY9ST
+         n98Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxiRw9sxl/c+VAN5BCQ7e4UMwy4BZu8552RXmvcdvKFEuIWYRkqsAGE3QuuerwmsHPFEVVa3qia+PCeVNE=@vger.kernel.org
+X-Gm-Message-State: AFuF++k5VlH3QHAj/zcCgQhVSbAE6XI+Y3kSh+Zn0ufTrHlR/xQvfiok
+	ZvNq7Iq5hJvLTNJzwUqpr/IO0KwW1w2GvIc+83IP0y2AVf0pvzLGtNCsFCVa3sI12akaMIO4sad
+	FVVtywwc=
+X-Gm-Gg: AYBFou2THi3DAS4Rdh3WWIJF0oaB9yW2gcmjOggAhlowdq8REIghu3XW/07uXN1J+uA
+	bcZ+njzYo/RTn2+fT567Y6aYpyo3r4V6ci+HgxL7+whp737s52+0vCwu3LlVVI8BYDd/l5WofSg
+	VC77zoiechqvErXznQx6YWJ3ZYaNqs6ku6canNtB+GnJh8kWxW5/NbYc/XJBDviKiF1uJ3trh85
+	zVaUG9EQPdym6tWZrKFHgrcp4rmxi56/mxZQxJ4IjbsOULe8Ttu7qQWA3KBHDAPqu4DsfUGIcyg
+	6QERd9xMQ/qPq2iWqayzNrsMg02SluqoaiLGdutry6HIe7um4ofL3kdl6PF2raiUVIJhfN/nhc4
+	19t4iJuMMJluXdHAcr24FkQUrL1BLKSQM+a+Jq3hF1VJmHlzL47btjzVsdN00ktz71maDvJQ55n
+	/B3ykduadwk+mc8HcsGQ1sIpbtrIX6RyQLFLsQHn39hc0tesEcJxRMzeKTWhRr8KYkRnB7ELIpH
+	NnsXA/XNxebrKC9n9sQKG5l9dJr6/WBGR9xYjNmk0XWHLqG6Q==
+X-Received: by 2002:a17:907:7b8a:b0:c29:519b:3aee with SMTP id a640c23a62f3a-c29a44696d8mr181892266b.33.1789341059722;
+        Sun, 13 Sep 2026 16:10:59 -0700 (PDT)
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com. [74.125.228.76])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2965c56183sm346154666b.3.2026.09.13.16.10.59
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 13 Sep 2026 16:10:59 -0700 (PDT)
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a6056be4d1so1195606a12.0
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 16:10:59 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByRsuiGk3eWHZTgymhd/CGTBpUwYT80dR5QTDXJLf1teBF5WKrdgLwFPg0i+TlfLNo7wFqSuS2AXEZITk0=@vger.kernel.org
+X-Received: by 2002:a05:6402:234e:b0:6a9:8a53:48a8 with SMTP id
+ 4fb4d7f45d1cf-6a9f6493112mr22906a12.2.1789341059245; Sun, 13 Sep 2026
+ 16:10:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260913225356.1033865-1-dave.hansen@linux.intel.com>
+In-Reply-To: <20260913225356.1033865-1-dave.hansen@linux.intel.com>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Sun, 13 Sep 2026 16:10:41 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wiSPMB4tZB4mngU5wUJ3qJj5HwKc7x2E1dj4YnxCGadeQ@mail.gmail.com>
+X-Gm-Features: AcwNN1WJn2dIcRKTxWI2NK9TWM5_XuOac1c5JTWVWQ4cNm7_m43QgkjCaj8QrlY
+Message-ID: <CAHk-=wiSPMB4tZB4mngU5wUJ3qJj5HwKc7x2E1dj4YnxCGadeQ@mail.gmail.com>
+Subject: Re: [GIT PULL] x86/urgent for 7.4-rc4
+To: Dave Hansen <dave.hansen@linux.intel.com>
+Cc: x86@kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Fix spellos/typos as reported by codespell:
+On Sun, 13 Sept 2026 at 15:54, Dave Hansen <dave.hansen@linux.intel.com> wrote:
+>
+> The MADV_FREE one is notable for silently losing user data and having
+> been around for a couple of years.
 
-sysfs-driver-hid-lenovo-go-s:185: intertial ==> inertial
-sysfs-driver-hid-lenovo-go-s:185: measurment ==> measurement
+That explanation rewards horribly badly.
 
-Fixes: 168c91839139 ("HID: Add documentation for Lenovo Legion Go drivers")
-Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
----
-Cc: Derek J. Clark <derekjohn.clark@gmail.com>
-Cc: Jiri Kosina <jkosina@suse.com>
-Cc: Benjamin Tissoires <bentiss@kernel.org>
-Cc: linux-input@vger.kernel.org
+MADV_FREE itself is fine. It's *supposed* to drop dirty bits and lose
+user data. That is the whole -m and only - point of MADV_FREE in the
+first place.
 
- Documentation/ABI/testing/sysfs-driver-hid-lenovo-go-s |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+The bug seems to be elsewhere in non-MADV_FREE code that then just is
+confused about things. But both your pull request and that commit
+message seem to try to blame MADV_FREE. What's up?
 
---- linux-next-20260911.orig/Documentation/ABI/testing/sysfs-driver-hid-lenovo-go-s
-+++ linux-next-20260911/Documentation/ABI/testing/sysfs-driver-hid-lenovo-go-s
-@@ -182,7 +182,7 @@ Description:	This displays the available
- What:		/sys/bus/usb/devices/<busnum>-<devnum>:<config num>.<interface num>/<hid-bus>:<vendor-id>:<product-id>.<num>/imu/manufacturer
- Date:		April 2026
- Contact:	linux-input@vger.kernel.org
--Description:	This displays the manufacturer of the intertial measurment unit.
-+Description:	This displays the manufacturer of the inertial measurement unit.
- 
- 		Values are Bosch or ST.
- 
+                Linus
