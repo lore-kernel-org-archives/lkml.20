@@ -1,174 +1,165 @@
-Received: from CWXP265CU010.outbound.protection.outlook.com (mail-ukwestazon11022125.outbound.protection.outlook.com [52.101.101.125])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13BA6349CC1;
-	Sun, 13 Sep 2026 19:37:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.101.125
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789328275; cv=fail; b=MfKeeIUQDyW71HT1a2sMmW4eByGwYEyBlxAPGs0hecen8Nwm1fi3t4dSxVWI2qXzk3XLcXbVunJRs3pG7StZ8DTqd//MW0xB+iM2SYTuQohrwRH6+YspG8s0rq9en6F8ZMgGBKVP88a6B29FPVL16x3lF1mTpbENKnSOQaziJXs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789328275; c=relaxed/simple;
-	bh=HoEqz1rRdBK4asl/mRma5i1KaZtiUQODkQjQ5V1ooUI=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=jtKiz5ZTeMoxUBUJa31ETm1kQWuZEDO4xGhZnEAxeAnK9zCn4eHp7p60rIbXPqVNiIfFhscOu+hG9MYN+yKFV2co5haZ1oKyqYn89jWV04RKVZH8d+LnvoixEMxfk4mUbHFh1omY884DDoDh/VbW5QCObENj2sZV0Gy8cUhos5U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=iQWUuZpH; arc=fail smtp.client-ip=52.101.101.125
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C99334C134
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 19:38:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789328341; cv=none; b=cUoc6JgLwexr8H7v52V1P4S7oNGAzDf5fD1uxLSAH3Xa9ajybe/IaJXqPN681wdnQWVMtBOowWc54WldvYNqy6gQ49tQdYWzzDpu3DgH1n5g62VP1xRGO6B/jmoA86Y3xpuWA7bXWXbZm+jTxfSkYlCcT+jFfxT/Txq+ibB7CJA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789328341; c=relaxed/simple;
+	bh=re3NJ+Jsd05aIRZR/hmrtpLB8vZj1nW+xprxkuiwqfA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sYvxzgblQIY0QBEhG65NDihJxk9kOizJl8kIIkp05T/LLZdHszeeQhivmHAoP8XX5sHZukY3vWiHDlLsiKeBKHwomWySLimPt1vO+Ed0BS+RWipiekbch9oewneaY3KVHxPJqVWuQv2ZLdzmEuIjOChrOGpq7R9UN0KIVOP5yN4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WTCeQqvl; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="iQWUuZpH"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=coNSm2cC+x3XFE+75kkaSqSoN1vKvZKIVJ2Q0oAP8EWarytOVx5IGrNO2dNMGb9IacEafZIbKEOmO08dorlDI+76+7KKkuKh1XMcfVZ8P5lEAafqY43WVHFAWu5XU5sheS6681Ru7YHE8qvvjse+yHIxx4LYVewwtBBzLvLoToO/q6OABU4B1xb8eoZpNBI8cnSY1ZWBoCXfvm019iES0dH3k6Prp+BbSwemBh/3Akph5CVd3pVeH44KfBHtFFRT6+6VmwqGrh+8BGRSA9vanYSUipjWbNogzc8GYTc7q5aTEdzfFXRYfNrNKED3rdWvuvN5NOkZ1APbI0Rv9NdGYA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0zm4C379jvKCN7l8vEn51YQeS5WRoy0a/VxdhyWbnqQ=;
- b=JZlXw+MFg6bG3cCzuEqeaAsyHsuej4wJksDzm3pXzVrhKnjkxChdV2xI2EDyPier4b/5IQfyFLBMEDe9M0OrXLRerFhtD6RSFiAF3XvDKdnUy5ZjN45JL5SQfnEsJuolQgPlAsflW9TALtr9/5f/dkj6zcc0kmZVMMS5jqCJGJPWnz8wphEpIvXCulrEhwTwnQKKK/yPuT8l65alZhRRsbYug5wdClG9kJnBFEY5IdlhqvYAxUK4Lm4Z37m4AYwVwQhRGT9+7uui2vceCF9nQ+L//icS+V0cHkG7rkb8mAmndICW31auAckbN/r+B26kDSOeJr85YDktkTCSP978jg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0zm4C379jvKCN7l8vEn51YQeS5WRoy0a/VxdhyWbnqQ=;
- b=iQWUuZpHlaq50DWqilg3fXNNMIrxGpeXIPElSghvYcsW8Jv9lU8VcaZc4JewznFl8PynKG1TCYzZtM2ED82L9f+wVeY5cUT1WtSEJhz7PqeYafA2XAdSNjUOppQehJ67sMZ3NT5WDLW5BTcryMsb98yFE99zLBoxYdTGP16y0gk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by LO6P265MB6476.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:2d2::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Sun, 13 Sep
- 2026 19:37:50 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0406.007; Sun, 13 Sep 2026
- 19:37:50 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sun, 13 Sep 2026 20:37:49 +0100
-Message-Id: <DLEFXN8E20PU.3GJN24VECD90Z@garyguo.net>
-Cc: <linux-kernel@vger.kernel.org>, <acourbot@nvidia.com>,
- <yury.norov@gmail.com>, <ojeda@kernel.org>
-Subject: Re: [PATCH] rust: bitfield: require Zeroable storage for Zeroable
- impl
-From: "Gary Guo" <gary@garyguo.net>
-To: "Yilin Chen" <1479826151@qq.com>, <rust-for-linux@vger.kernel.org>
-X-Mailer: aerc 0.22.0
-References: <tencent_AA30574AC78ECFD88D7E042A49371119ED08@qq.com>
-In-Reply-To: <tencent_AA30574AC78ECFD88D7E042A49371119ED08@qq.com>
-X-ClientProxiedBy: LO4P123CA0341.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:18c::22) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WTCeQqvl"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e79a408deso5465e9.2
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 12:38:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789328338; x=1789933138; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wqld+C8LvUG/lCaEhAE1S24AuEqbvNc9EFv8rG0tUzU=;
+        b=WTCeQqvlJyppviaQq+U4Al/A8fkLWy3Oio/lKhnRzjCMC+OYvEL+yEYBcM7cGVj92W
+         1IOhbtvx7NQGBh/GeDEWypQkuzI2oj7pBvePtRY+PKCag6WJlxVU0jlxpEIEvlqEfF1M
+         bDIPbA3BWZqldFFdZAUo0O/fZGu6DrSAt8Qdxt5sb3nstvVMIG03g2JWNd1mCWDUz/eo
+         AL4b8IwMMF2iRFd4bRiS6eEXJhdCcawqQ4qFZMZYKOoAR+DSzUWjSQaNrmnFiTIzaNC8
+         akvAyQFOvP1SSCDiai+0PzuQM43IQrrUCdiKzMSycnop4BOQinkQgaRhJ+YzR+8JeFP2
+         wWBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789328338; x=1789933138;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wqld+C8LvUG/lCaEhAE1S24AuEqbvNc9EFv8rG0tUzU=;
+        b=PwJrmHMrMxW46gLmYoERS4ZXY+srAlVq7lJrh6y5s3xB8VVIfMI2gLUim6/FYYxdwE
+         /Czl0YA7Ge+lGnSiKUH2yWXjgSA5qBdkT8pSiRBAOwYWJHeyq1M/YS9vImM342kKodiJ
+         Iclr94G88evYPf7pM2cxdURfC/p42LPT2qqfqc/6fEdzDvJD6Bxbn0H1pTIxtjY5U9Ya
+         iY88cXBD5wPiIirMaTBRlEJet4BgyY6yUgNxR8HyYetEuRfbQ7XuHo9/5uPqUmNw2Z+O
+         OmxRp6Hty1DTdmaqm6o5I6PpoTiJJLWDGFoavAPjHR46+Xpq+vphDi0WKxfWy7dW86+D
+         JD4g==
+X-Forwarded-Encrypted: i=1; AKwUvByBl1TfL+M/8f9x9e28Qe9XQg9PoNxTcppvHIoW/fO8NUkcdzj/gnmYVfAnGg3I5hdRQ7yUGXH/LtgEBdA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nDFvyEsmGrNqPNB1k5g0qhEDPp9qwgWQAoV+H0C3MPkoNLoV3h
+	aHTMcAs822XNBduGfolGxWnqGBwoUXhBF0F0XhexepZkr9Qooq9bdMo0
+X-Gm-Gg: AYBFou0MTD8w2hmTpaG+sGEMHgtapUkO2swhPh3NzCyPbda8eMu/zP3RUIh0Cn33Ca1
+	hsYSy82LonMWRopthrmgRa/uzDOsBIH6slrf3elHM/u32lrBzyHifMr2Bo2YKkyeX23/GLm7RKw
+	ImN/XlnxkMVxVKkmqsv7b6fqp91II46w1AtgNw11qmLppDxjH4ubSJwHXtyNZdGhRWNQCEwpzYm
+	iQ72Q2RdatSqqDBCkn3rMh7t7RvE1gXE+TitilODgd7TpgxB/oA8S/sP12Zl0US7uFcVuqht2Sa
+	oAk8saf/vVVI0W+qhHKs+Mzc/nor2Kjw4Vja9BxZsS57BSHcPG7Fwp0nqXiFly82NApteSYf1pL
+	g+gjx0zKsh06XfNSOKmIi0X81ihhlZGTcTumb9HdZkWXeCuGwio3/WpsKM/3lBGa9ik9w6JUlLA
+	wCK7/oyOPDYQ46rNQ6wsZLRtXpPH3GD1bfUPMoNSgcNnQLqChHvWWJlrSTziQmFeeuHAvCFJC1+
+	bbuKZtiObWJrWxNUeuLQ1/oc8nL0UxV
+X-Received: by 2002:a05:600c:3b8e:b0:49e:719e:e215 with SMTP id 5b1f17b1804b1-49e719eeafcmr85068285e9.26.1789328337445;
+        Sun, 13 Sep 2026 12:38:57 -0700 (PDT)
+Received: from raviolimobile.tail5f26fd.ts.net ([84.65.89.105])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e60ababd5sm334233445e9.4.2026.09.13.12.38.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 13 Sep 2026 12:38:57 -0700 (PDT)
+From: Fernando Rimoli <fernandorimoli11@gmail.com>
+To: linux-media@vger.kernel.org
+Cc: sakari.ailus@linux.intel.com,
+	dan.scally@ideasonboard.com,
+	mchehab@kernel.org,
+	linux-kernel@vger.kernel.org,
+	Fernando Rimoli <fernandorimoli11@gmail.com>,
+	"D . Manresa" <dmanresa@gmail.com>
+Subject: [PATCH] media: ipu-bridge: Keep the clock-noncontinuous property name out of rodata
+Date: Sun, 13 Sep 2026 20:38:40 +0100
+Message-ID: <20260913193840.75686-1-fernandorimoli11@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO6P265MB6476:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8ece404a-84c1-402f-2a78-08df11ce7f15
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|10070799003|23010399003|1800799024|366016|6133799003|10067099003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	UJMfj/xXcTQEDNmnYhd8V0MvGPGoeBVcCf3fBG/icDIoIgXM/TmMiZUA0x0sO2tpUuynm4mWFNchkpijhsithpi5gY3jbeKlkn+6dKg3SpNnyJhFx4qVYJVshSYM9NDt9PRlOLnp8uP3QqRqPYLDvUFVXqoSOtK2EBvKoJEzbEcPaCI7WtNn0drUOFh2LU/7P6592QIQ+I5C3E6Qc85rwYvigOZmN56oXeTfz21JV24Dd8XcUuT3V0AWm1HfgXo0cWW6F/xp/wbL3aoJOuYqnn+n7Zv0x9vOpr/Ost8MZBu3HyVXpKUygARakGMaWvcOcFf7kMSL29cB09nDXlevtVMpRQnz1bx4FYze2Zut8ZpIjdjNeiNr6wsbGvg7gT3QP4YK8MBML2vF9jEqa5XqbDTOqrGhJ0dgi7wo1M/W+hj5HymROP7x9umFsygNqENXfaf0mnONc13NGEymQEkTzIGj4Z0hJCXHsF80QOBtUlJoMvntkqC1Jj+P0bgePCngLSx2EJCaniXP3DD8cLDJPd1tbxXSall//jdYPn0Gm+pjFJHycl11USM1iJ8IF5t3YJ9gvMZJCjAP5xtqGQQYWoV5qO98/+F3+Bmo+refjW3XSSciGHseZ/I/ZywxlnqnSrehnYgXNWGFHUmke6ipBKdZmX99hfgE5AR54cZ2GOw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(10070799003)(23010399003)(1800799024)(366016)(6133799003)(10067099003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UWExUnpsOGp4OENJcG15TE1ka0dDVXQxcDM4c3pRejMwaFA2MFljWExvMUt1?=
- =?utf-8?B?enVtZWNQb3p5elBLZWhwVkZRaDFwUm5EZk5XNmVoTnJrMGRoMElzZDV1SU9q?=
- =?utf-8?B?OEZhR1QzaFNZSGRCOFQwVzJXTVFxVE80ZUQwZ1lJZFNtdnJkVjNVNkZ5NStu?=
- =?utf-8?B?VVdqTFNZRjcrTjZlb09JSVdyNm5lbkY0SXR6MVcxUTVwQWwxYVZpV0RBbHJZ?=
- =?utf-8?B?cDRzcDFnZ3RPdVNuc2Z5Yk1nUFlOcW4vMENGTFB2aDBsZWFiZHBoU08yNEFF?=
- =?utf-8?B?bkQvaFRJVGI4M21La3Y0N0xONWlSZVluZ1lyWXBwaHRhYkV1TW8ydmYyQzZM?=
- =?utf-8?B?blMxZkx4SUplTTdHclpTcmpBSjBlVWl4NFBrc2dkRFpuemdGL2NwVWExcUNz?=
- =?utf-8?B?NFlETWVIak5HYVYyd2owWGo3b2t5OGN1ejlPMXJZMVEzTzgxT0R0MmU0ck5S?=
- =?utf-8?B?YVZDZ3F3WDREWkQydmxicVBQWjg5T1ZOTFNKdnNZb0VWSWFvNG1PSjhnME03?=
- =?utf-8?B?a3VHc2dpUG5tMEdCdjUrY1NTTGhscjJaSnExYWxtL3ZxanpOMHhTbWV3WGUv?=
- =?utf-8?B?MWt2b05yRWswU1JubTVkS2NXUDlCb0Z4V21qSGsxY1RhaWFNYXd0WmpSTFlx?=
- =?utf-8?B?REE2K2lvVDJ2d2hvM0NkbDUwd0tFSW9QQTFrOWFReGVEVTFIZklTcXh4UTZZ?=
- =?utf-8?B?cUpJWGV5N0Jzbm1nb2Qyb0NQbHRkNmRuNUxiVWtiRXhWbzlLMSt5emg2dEJG?=
- =?utf-8?B?VHFzSFJrNlJ2azZlcU9XK2F3Znl2eVJtSjIvS2VjU09iKzNORmttbXROYUk0?=
- =?utf-8?B?NG5BdXVETHFabEVxYmUwbE8rOUVCeE9BT2RneGlYU0FURkNzVVpVUW5BMzk5?=
- =?utf-8?B?bWIvemtkY0xHNUhZaE9mcTZzVDRibWhlRGN2NzlmNU5mQ1NoRS9UcEMyR0ZF?=
- =?utf-8?B?WnR4dFplNXZ6WUdwM0tRYm9PRzlTbXZWRGY2UnhHeUhVRyt5TnkweHJQbXBR?=
- =?utf-8?B?TnFDMTNYV0pGNXVYZFNjZ05RblB4OTNkVkxnWFRlUFNDdXliWlRBOFVsT3Jz?=
- =?utf-8?B?R1RDbkZhN01XZzF6V1NJekdqSTJ6OC9iOFVabkE0Wm9xaW5JSk5xWkxwYnFD?=
- =?utf-8?B?MWJWaFp2UlJzQUZXSlRhTFBubENjVUx2T3lhWEN1MkM4QXZLQUI3TTV6bWhw?=
- =?utf-8?B?bERydzcwbW5oRFp1MDhyL3lrMkV6ZytzZmxGeE01S0lTeEpESlRxbFpZRDV4?=
- =?utf-8?B?Tlg5c3pQTm1mRkxqaW1EbitkU1JLQ0RSWExjWFZHYWlXUFZFMmhCZStmNEZv?=
- =?utf-8?B?Y1N0eGZrRG1XUXRqVkZVKzBDZzd4M1phVk9VL3lLTFNzVEIvU2JnR29nTGNv?=
- =?utf-8?B?ZVRZRkdEQjdnVGYxZ1liL0hPWFFBSVY1a2x1NDAwb1R3RWN4MVNyWi9KVnRK?=
- =?utf-8?B?WXJtV1BlakNPa1lqTEVnVk1FeE4zMkh6Mk5teTBxSXhzWm1hdGZVYTN5dmp1?=
- =?utf-8?B?bHBwYit6d3pnOEhORGpKaFFoZzk3STNNODFVeGJTQ1F3KzFwVHJsczVqMmJZ?=
- =?utf-8?B?LzAwOVF5ZDZwYy81K2lsOU5EY2xWb3prRjYyVEdpZ25OVWl3czBXblo4dWd0?=
- =?utf-8?B?V0UxT2JyNXNVaFJVak51dWV2dDRkLy9WUEVQYzB0MS9INm5UOGJxTG5EUmJ4?=
- =?utf-8?B?aFJtRHFUSUFlK1JWZkdWc2NPY2lad2lOc2lUeWh4cE1sVTZ5a3VscHVZOW9r?=
- =?utf-8?B?enMwS3dQaUpSQ09iMTFFOE9DUnJDWExJaFliN0RxWGtNdDhlNG5mQWxQUk1D?=
- =?utf-8?B?VTJIbTMweC85T3J6UlF0b1lHNXB5cnlMVnJNRnBuU1ZKUjhPTHhXaEM1bi9j?=
- =?utf-8?B?UUJ2eVUybW5aYVlBUEtkKzN1RVFJU2s0eEtCeVY2RkYzZjdiaU8rU241R1Vi?=
- =?utf-8?B?MEI4LzlZNHNpN2t5aUZCbVNERE5wQjM1bHJldUJINWVIYm5iL0NYb1htVHla?=
- =?utf-8?B?NHFSRzFKTXJnYXI2eWt6a0E5Zkx1ZGRuNGt1b3BTeHRUWEEwaXlET1kwbW9L?=
- =?utf-8?B?N0JMNG10dGJqY0pmZzc5eUt0REpsR0s4enNYUU9pMWlTZWhlSVJyUDdyUWtp?=
- =?utf-8?B?WWNtKys2cU93REd2cWNVTmhXaVVjZXpqZ1h4aWp1TkdlVHB2aTNuWHlzSktJ?=
- =?utf-8?B?eXJWOVdIL0ZwT1NvTVZXUEtHTlZmZnRNWUpUaVkwWWlGc0tLb1BEVkZLS0Zw?=
- =?utf-8?B?dGtsZXBCWThhM2wyRFRiWXN3VFBCUVp2TXp5N1ExZTcwMzNGMkJxMGp4QjNW?=
- =?utf-8?B?VXg0WlA5RWVBeGxIbXREVTVIRVVOYWtZOVUrSUxSYllBaC9lYWoyUT09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8ece404a-84c1-402f-2a78-08df11ce7f15
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Sep 2026 19:37:50.3753
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dRE48swFVR93DWm+7QqJyWmSb/roKR+KvNL8QFryc+cRK42VRkvJ7V09WDMGSDM/DASNw4kmkj6UjdLuvzC9GQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO6P265MB6476
+Content-Transfer-Encoding: 8bit
 
-On Sun Sep 13, 2026 at 4:34 PM BST, Yilin Chen wrote:
-> The bitfield! macro implements Zeroable for generated wrapper
-> types. This assumes the storage type accepts an all-zero bit
-> pattern. However, the macro accepts any type and does not encode
-> that requirement.
+The software nodes ipu-bridge registers on a successful init are never
+unregistered. There is no module_exit and no remove hook, and every
+software_node_unregister_node_group() call sits on an error unwind label
+inside ipu_bridge_init(), so on success the nodes stay registered and
+readable after the module is unloaded, which a later rebind relies on.
 
-How? The bitfield macro will fail for types other than primtive integers.
+Nothing reachable from a registered node may therefore point into the
+module image. PROPERTY_ENTRY_BOOL() stores a pointer to its name, so the
+"clock-noncontinuous" string literal leaves the surviving node carrying a
+dangling property name once ipu-bridge is gone.
 
-Best,
-Gary
+Add the name to struct ipu_property_names, which is copied by value into
+each struct ipu_sensor, and use that copy, as every other endpoint
+property name already does.
 
->
-> Add a Zeroable bound to the generated implementation. This prevents
-> invalid storage types from obtaining an unsound Zeroable implementation.
->
-> Fixes: b7b8b4ccdad4 ("rust: extract `bitfield!` macro from `register!`")
-> Assisted-by: Codex:GPT-5.6 Sol
-> Signed-off-by: Yilin Chen <1479826151@qq.com>
-> ---
->  rust/kernel/bitfield.rs | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
->
-> diff --git a/rust/kernel/bitfield.rs b/rust/kernel/bitfield.rs
-> index a0d0894..3dd4dea 100644
-> --- a/rust/kernel/bitfield.rs
-> +++ b/rust/kernel/bitfield.rs
-> @@ -330,8 +330,12 @@ macro_rules! bitfield {
->              }
->          }
-> =20
-> -        // SAFETY: `$storage` is `Zeroable` and `$name` is transparent.
-> -        unsafe impl ::pin_init::Zeroable for $name {}
-> +        // SAFETY:
-> +        // - `$storage: Zeroable` guarantees that the all-zero bit patte=
-rn is valid.
-> +        // - `$name` is `repr(transparent)` over `$storage`.
-> +        unsafe impl ::pin_init::Zeroable for $name
-> +        where $storage: ::pin_init::Zeroable
-> +        {}
-> =20
->          impl ::core::convert::From<$name> for $storage {
->              #[inline(always)]
+Fixes: 8e3def7bf410 ("media: ipu-bridge: Request non-continuous clock for ov5693 on IPU6")
+Reported-by: D. Manresa <dmanresa@gmail.com>
+Closes: https://lore.kernel.org/linux-media/20260905211307.542810-1-dmanresa@gmail.com/
+Signed-off-by: Fernando Rimoli <fernandorimoli11@gmail.com>
+---
+The series is already in next, so this is a follow-up rather than a respin.
 
+Two things below would both need 8e3def7bf410 itself to be amended. I do not
+know whether you rebase that branch, so please treat them as questions, and 
+just apply this patch as it stands if the answer is no.
 
+1. This could be squashed into 8e3def7bf410 instead of landing on top of it.
+   The bug has never been in a released kernel, so there is nothing for stable
+   to pick up, and the Fixes: SHA above is from next and would not survive a
+   rebase in any case. One correct commit seems better, but a separate
+   commit is entirely fine by me.
+
+   If you do squash it, please carry the Reported-by and Closes: across.
+
+2. D. Manresa sent a tested tag for patches 4-7 on 2026-09-06, five days
+   before the series was applied and it didn't reach the commits. It is in
+   the thread here:
+
+     https://lore.kernel.org/linux-media/20260906073932.24090-1-dmanresa@gmail.com/
+
+   His is the only report that exercises the sensor's 2x2 binned readout
+   through the IPU6 hardware ISP; the other four are all raw ISYS capture.
+
+Neither is a reason to hold up the fix itself.
+
+For anyone testing by swapping modules under CONFIG_MODVERSIONS: this grows
+struct ipu_property_names, and therefore struct ipu_sensor, so the CRCs of
+ipu_bridge_init() and ipu_bridge_parse_ssdb() move again. intel-ipu6 needs
+rebuilding alongside ipu-bridge.
+ drivers/media/pci/intel/ipu-bridge.c | 3 ++-
+ include/media/ipu-bridge.h           | 1 +
+ 2 files changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
+index 952868a..233c513 100644
+--- a/drivers/media/pci/intel/ipu-bridge.c
++++ b/drivers/media/pci/intel/ipu-bridge.c
+@@ -237,6 +237,7 @@ static const struct ipu_property_names prop_names = {
+ 	.data_lanes = "data-lanes",
+ 	.remote_endpoint = "remote-endpoint",
+ 	.link_frequencies = "link-frequencies",
++	.clock_noncontinuous = "clock-noncontinuous",
+ };
+ 
+ static const char * const ipu_vcm_types[] = {
+@@ -591,7 +592,7 @@ static void ipu_bridge_create_fwnode_properties(
+ 
+ 	if (cfg->flags & IPU_BR_FL_CSI2_CLK_NONCONTINUOUS)
+ 		sensor->ep_properties[IPU_BRIDGE_NEXT_PROPERTY(i, EP_CLOCK_NONCONTINUOUS)] =
+-			PROPERTY_ENTRY_BOOL("clock-noncontinuous");
++			PROPERTY_ENTRY_BOOL(names->clock_noncontinuous);
+ 
+ 	sensor->ipu_properties[0] = PROPERTY_ENTRY_U32_ARRAY_LEN(
+ 					sensor->prop_names.data_lanes,
+diff --git a/include/media/ipu-bridge.h b/include/media/ipu-bridge.h
+index 760f076..3ef94c2 100644
+--- a/include/media/ipu-bridge.h
++++ b/include/media/ipu-bridge.h
+@@ -135,6 +135,7 @@ struct ipu_property_names {
+ 	char data_lanes[11];
+ 	char remote_endpoint[16];
+ 	char link_frequencies[17];
++	char clock_noncontinuous[20];
+ };
+ 
+ struct ipu_node_names {
