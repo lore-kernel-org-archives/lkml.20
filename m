@@ -1,106 +1,94 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0A29348C77
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 02:53:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7E5035950;
+	Sun, 13 Sep 2026 02:54:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789268024; cv=none; b=BeQNlCVkD9XgXV6/CpWP5gO/NEbgNf1rJr4GDnNUFNvPHrkdodLm9Set77nxjH9+8iYsl3TwuaJXeoN2UWDA3bZCbBfTqncIxb3G6SYj672g/Jc2ZNiV1dM1UZk9tEzDstIR2PACVZWMSvoGUcAhw/ZZr5+sajD8H0G4CBRnTCo=
+	t=1789268048; cv=none; b=saxJuCaj/lyAiuT830PQ944H4D/ciZIrFhXfvR/FFUpAXLA4GXAVcAEAVebEhO0a9ziSA67TTnRsMXs2F84NcXIC9vV27ApbeeI+4KoNecxXSN86XwngRzCraeHEt70WMBFyKUYjb9F0f2sp53+36W8mu1B6xOLM6hfJt7/4Mmc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789268024; c=relaxed/simple;
-	bh=99+8qAxXumynnT8V+szCRmIxjW4nfNsu8JOEFvWAOkE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jaIHmfWuRATVWvW5i54TzNM20GrzxisnXn4u/HplG+cnRU5xk1JWhbGOt26x2ZL1M0Wm0yAn85FocUiI9d3p9h+1Ro1fjr1YFD1WDrrh93Qy1pHXMYl2d5vSQehxBr1m4taI5XoqGnIgXRWWfArtoWK8WHG/pPdjST7KFrCacWk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kmaDuE+h; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789268048; c=relaxed/simple;
+	bh=dHI11/TI5fzZelbUvf/t1tvscaO1BD1SxK08WCsT+uU=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=uIF2EFc9ZFLuikaM57FxtkZ2GWNIg4MbbA9CBkHcwpOOuU89OSi7UvHFOgRzaUFGa7pSDvQoRoQxdwuI/pJqhV8xDvITzml0UwvvyzYv8Qb/EFvlycf5AmHP3XQW9FVR+Fj+wNTnd1HWYfQJ/h8kIPeI6W8hCHBusCURzgWOaRA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=Y96BzZyk; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kmaDuE+h"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 712F91F00893
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 02:53:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789268023;
-	bh=2vMKjuTOQPXeBhior+kJdtwBkgOzYn1x8pvpdCVImmU=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=kmaDuE+hb6dQ2Nkn1CtRmSv9ObNcEVaUEnp4VpNIMfpYDmKWY0mPkejIwXoRTiiPd
-	 xmnLiiEfTR98UJUFQ1PKXAuBjYGo9Tbq8WzGlSiDAlFU+/cTKJc1ckrp3IvVWujl6y
-	 gGoUmSS7EcSTIlox6VQudZNW2QZV2BEwHsVOU4eGdhm3ZVmyEYKr0QJcz1DjkoY2oI
-	 729xP8Lbq1suOXRZ2RofqMo0+U0FSDx6v087BTpGEAuXcyiHV/7kd2VVozcgY5H1Jf
-	 E1k9rKqybyhrxeeb3akszgW65g0jXN+eumqYgrhzTHQg+Olp+tSQVPyQiklrpiDDKM
-	 //XLIxERNbWSA==
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a9c4c3e3b2so1297016a12.0
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 19:53:43 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxQvRyT174HHP/xP/p2k3mTsrSDtNo+Ay1p6pbCjtV7ZEojbQ7yX/sV6s01YCBb+vNomUMeipEh4674TLU=@vger.kernel.org
-X-Gm-Message-State: AFuF++kC9XMj77zIBSWc/h5JgDi2A3ohO51xPLxOuRZ9VncEbYd1M8Iv
-	z1e1SoIG4IMOh2rgs8HqTs2/t1EkklQHI0BS2W1kqz9L81Yu8B8+FL+Lk5/GStYr9ESMYGCuYpW
-	60a6DJhI0wepfb5j8DmJN9UOlb15EDbU=
-X-Received: by 2002:a05:6402:1588:b0:6a9:93b9:f098 with SMTP id
- 4fb4d7f45d1cf-6a9b56a7951mr11081281a12.16.1789268021965; Sat, 12 Sep 2026
- 19:53:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="Y96BzZyk"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68D2rrd273609071, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1789268033; bh=dHI11/TI5fzZelbUvf/t1tvscaO1BD1SxK08WCsT+uU=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=Y96BzZykI+tCQGB2oEvNzNq3gPIhRSBHrWY6/T2Jdhu5lHN4c3u4FTKOd2q51zuF8
+	 ZHAihzIJvF/Iw0UWCT3cBazucEOiNOBupduuhRHWm7Xs3uQHs57BOqavqV1JOkKJvV
+	 Zk80RJO0sM+Wgb2ZvQNODaT3gv4tYJJGUg8vvW//FtdkEANygCv+ZR6otPxoZ9Dc55
+	 O2z3Orxtc/jgMVhEmPbDWrwvj2pTdMrLFKI+5EyrBM/uNo2AasU4WUvfnHh30PnbQ3
+	 Jo6sHHyflGoTPHVbAZzDIxQKiqKDuG+x3vgZypRyo1UWr9CJ+/TwF02etIwSWxifmZ
+	 ojl1cSaQsN+nQ==
+Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68D2rrd273609071
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Sun, 13 Sep 2026 10:53:53 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Sun, 13 Sep 2026 10:53:53 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Sun, 13 Sep 2026 10:53:53 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
+ 15.02.2562.049; Sun, 13 Sep 2026 10:53:53 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Luka Gejak <luka.gejak@linux.dev>
+CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Michael
+  Straube" <straube.linux@gmail.com>, Peter Robinson <pbrobinson@gmail.com>,
+	Bitterblue Smith <rtl8821cerfe2@gmail.com>
+Subject: RE: [PATCH v11 4/7] wifi: rtw88: sdio: zero the padding added to a TX
+ transfer
+Thread-Topic: [PATCH v11 4/7] wifi: rtw88: sdio: zero the padding added to a
+ TX transfer
+Thread-Index: AQHdQC9VHG8DgIV+fU6Rc/HoW7uZv7bHFi4ggABMaYCAAA+IAIABFupQgAAGCmD//+wzgIAAhxzg//+KBICAA0g6YA==
+Date: Sun, 13 Sep 2026 02:53:53 +0000
+Message-ID: <e9ff5a0c9d7a41ecb0fa1c4c37031ed0@realtek.com>
+References: <20260909074556.55709-1-luka.gejak@linux.dev>
+ <20260909074556.55709-5-luka.gejak@linux.dev>
+ <d6507fd0447c4c09a9c80bb57dfef35c@realtek.com>
+ <DLBQ2H40DC71.2Z3B32X9JQ17I@linux.dev> <DLBR915C5L0S.1TEYXZ8LADNTH@linux.dev>
+ <2294d792e937441fbf4ef8169c03df18@realtek.com>
+ <a17a665d7d4c47fbb33e038d122ed200@realtek.com>
+ <DLCBFNKN09SW.2SIEDXTB4PGJD@linux.dev>
+ <a0a617f1b7e34b979a801e7c10ad98f3@realtek.com>
+ <108d4da2ab381d6e22d4f84f1c1254aa59b20d88@linux.dev>
+In-Reply-To: <108d4da2ab381d6e22d4f84f1c1254aa59b20d88@linux.dev>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260913010236.17541-1-liubaolin12138@163.com> <6cdf40b3-1910-45f9-a3f0-2c41782ab267@163.com>
-In-Reply-To: <6cdf40b3-1910-45f9-a3f0-2c41782ab267@163.com>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Sun, 13 Sep 2026 11:53:30 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd9CoXPV3LrXwzhtdgjuBbyc8Y9K-eiv54_YZiNhW18Rhw@mail.gmail.com>
-X-Gm-Features: AcwNN1XeTif4kiZ9cOp89fGy0xcyauMXW2p_M4NqA2zwSwrOVQ-udN7dx1L5C18
-Message-ID: <CAKYAXd9CoXPV3LrXwzhtdgjuBbyc8Y9K-eiv54_YZiNhW18Rhw@mail.gmail.com>
-Subject: Re: [PATCH v1] ntfs: fix lookup of POSIX names with Windows-invalid characters
-To: liubaolin <liubaolin12138@163.com>
-Cc: hyc.lee@gmail.com, ntfs@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	Baolin Liu <liubaolin@kylinos.cn>
-Content-Type: text/plain; charset="UTF-8"
 
-> Hi Namjae and Hyunchul,
-Hi Baolin,
->
->    Hyunchul, I noticed that the patch you posted in GitHub issue #87 had
-> not yet been sent to the mailing list, so I assumed you might not have
-> had time to send it.
->
->    I am helping submit your patch. I preserved your authorship and
-> Signed-off-by line, and added only my Tested-by trailer:
->
->      Tested-by: Baolin Liu <liubaolin@kylinos.cn>
-Thanks for the test and sending the patch to the list instead of Hyunchul!
->
->    I applied the patch on top of commit 9a05b5715cfa("ntfs: remove
-> unreachable code in load_and_init_attrdef/upcase"),which was the latest
-> commit on the ntfs-next branch when I performed the tests.
->
->    After applying the patch, I successfully built a kernel with the
-> legacy NTFS driver built in. I then booted this kernel in QEMU and
-> tested it using an NTFS test image.
->
->    In a small directory, I tested the following filenames:
->      1. The complete filename reported in issue #87
->      2. question?mark
->      3. asterisk*mark
->      4. less<than
->      5. greater>than
->      6. double"quote
->
->    For each filename, I created the file, ran sync, dropped the
-> page,inode, and dentry caches, read the file again to verify lookup
-> after reload, deleted it, and confirmed that it no longer existed.
->
->    I also created 1000 filler files to exercise the large-directory
-> lookup path. In that directory, middle?entry was created, read
-> successfully after dropping the caches, and deleted successfully.
->
->    All the tests above passed. The kernel log contained
-> neither"Collation error" nor "Delete failed".
-Thanks, I will check it.
->
->    Namjae and Hyunchul, if you need any assistance with further work, I
-> would be very happy to help.
-Thank you very much for your active participation in NTFS development!
-
-Can you work 64bit cluster support for ntfs if you have the room?
-Since this is not urgent, please feel free to work on it without
-feeling pressured.
-
-Thanks!
+THVrYSBHZWphayA8bHVrYS5nZWpha0BsaW51eC5kZXY+IHdyb3RlOg0KPiBTZXB0ZW1iZXIgMTEs
+IDIwMjYgYXQgOTo0NSBBTSwgIlBpbmctS2UgU2hpaCIgPHBrc2hpaEByZWFsdGVrLmNvbQ0KPiBt
+YWlsdG86cGtzaGloQHJlYWx0ZWsuY29tP3RvPSUyMlBpbmctS2UlMjBTaGloJTIyJTIwJTNDcGtz
+aGloJTQwcmVhbHRlay5jb20lM0UgPiB3cm90ZToNCj4gDQo+IA0KPiA+DQo+ID4gTHVrYSBHZWph
+ayA8bHVrYS5nZWpha0BsaW51eC5kZXY+IHdyb3RlOg0KPiA+DQo+ID4gPg0KPiA+ID4gSSBjYW4g
+d3JpdGUgdGhhdCB1cCBmb3IgSm9oYW5uZXMgYXMgYSBzZXBhcmF0ZSBtYWM4MDIxMSBwYXRjaCwg
+d2l0aCB0aGUNCj4gPiA+ICBydHc4OCBzaWRlIGFzIGEgZm9sbG93IHVwLiBJdCBpcyBpbmRlcGVu
+ZGVudCBvZiB0aGlzIHNlcmllcywgYnV0IGNvbnNpZGVyaW5nDQo+ID4gPiAgeW91ciBxdWVzdGlv
+biB3YXMgYWJvdXQgQ1BVIHVzYWdlIGFuZCB0aGlzIGNoYW5nZSBkb2Vzbid0IG92ZXJhbGwgcmVk
+dWNlIGl0LA0KPiA+ID4gIGl0IGlzIHByb2JhYmx5IG5vdCB3b3J0aCBpdC4NCj4gPiA+DQo+ID4g
+VGhhbmtzIGZvciB0aGUgZXhwZXJpbWVudHMuIEkgdGhpbmsgaXQgaXMgbm90IHdvcnRoLi4uDQo+
+ID4NCj4gDQo+IEkgYWdyZWUsIGp1c3QgbGV0IG1lIGtub3cgd2hlbiB0aGUgc2VyaWVzIGlzIG1l
+cmdlZCBzbyBJIGNhbiBzZW5kIGRyaXZlciBzZXJpZXMuDQoNCkknbGwgbWVyZ2UgdGhpcyBzZXJp
+ZXMgaW4gY29taW5nIGRheXMuIEJhc2VkIG9uIHJldmlldyBleHBlcmllbmNlIG9mIHRoaXMgc2Vy
+aWVzLA0KeW91IGNhbiByZXZpZXcgdGhlbSB5b3Vyc2VsZiBhZ2FpbiBiZWZvcmUgc2VuZGluZyBk
+cml2ZXIgc2VyaWVzLg0KDQpQaW5nLUtlDQoNCg==
