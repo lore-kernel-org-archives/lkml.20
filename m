@@ -1,126 +1,75 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 785202765D7;
-	Sun, 13 Sep 2026 03:00:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97F437E0FF;
+	Sun, 13 Sep 2026 03:03:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789268401; cv=none; b=Q60IZmctLbRolQsNbEKDK5af3UH5YZTEQHJQymF/myZKxq07RIlLtTKhYY34rasHDtDX+5nT5WcD8R9AfGrgUjtkyQr53JPoVq41HFwKQv0k60ExwxppyMRZzkAk1iL/OkV/Mgi4vlm3ehJMtYyafGmRXpzQ7QBb5WshZ2TEN9M=
+	t=1789268585; cv=none; b=hEHbJl9rtTQent+PNCsetctdq3ZHcArX51Sp+a6VGBDYt8q4rcfgIPI5jO7OgkCabc1yykIGCLa4CzDT67Y1omTf84c7Hfokz1Fn6lF9zhZuojT+kWodiTW0a4RCOxPlf7A9W6yEonGeA8NnT9C5dC/mRWD6CRhtVvWqI0fI8/M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789268401; c=relaxed/simple;
-	bh=nebcldvjasnNIaE8xLDrcml/O7iGT6X4/ykys5IcfuQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=H6QuXWcaCbdCYL3vRYAec+nBhqyCHD/vCFEJoArQlSSbH+OJ4WLBuYQSuaneSFsWGNO+3LBe91+rCqWpiWJd8SaIKTGJKyUDE7rSoPqIF9FZ5s5a4jkdANKoWesK3EgPVL8opNarklnUeR3FUpK3Ti1vFQDyqw8t/cD+z9HeiRY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AnNpgQFr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789268585; c=relaxed/simple;
+	bh=b4gOxGcEIfLAYCLNPTVEM0GYPnhqvyknQ48/77IfXIo=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=HlYuDd9ZVcTmvXNobxNZ+KaEJyWPCg91e0lcwYg1FIbNhIkGLvI6jy3pDogCfv8usUgi6fG5u93+tMA3b6TFtGmRyHgMheg2yhZ+xdq1DROBjjGrJ4hbZOTQvIg5/mcFL2K3qXSeK2og1DM18xSZCjVnJMebu5CXz8NocvWxi5E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=Qa56y0SH; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AnNpgQFr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9AD01F000FF;
-	Sun, 13 Sep 2026 02:59:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789268400;
-	bh=45E+0rPqi4Q5EA4SZ6KErOV5kKZDAlhBMi5yePEo1ZU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=AnNpgQFr54Usir0fOZgHzFHteOa78dYAJSQZGu+zwZcxDdPwy5OMReLp+WpoxnvhA
-	 VRElaRBM8vEG61jZM6hw4RduYsZAx9ZjvnSjsKLzlhhY48e2iTkOwtO67eFktwM+Q+
-	 xg+9ynaGLsdQoQDlktsi7mZoNE3X1K0HtNDgzD7IKfosSI29OtWeIpkJLowmkv7gLo
-	 l+SsEt7Qaw90TR2yl2wUpK7KNNJ+7+Ix/9hR4FS8xrrztqDUDl3HvHO2SyXxNH/zPl
-	 pcY2a8wmgfudp8Bg8/oPKIeVpLV9A4dENwIqyq3SYzejppkcHgM0DRqPC3zXNbDd+3
-	 5EYFRc7Eg5c0Q==
-Date: Sun, 13 Sep 2026 03:59:57 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
-Cc: gregkh@linuxfoundation.org, nuno.sa@analog.com,
- Michael.Hennerich@analog.com, dlechner@baylibre.com, andy@kernel.org,
- linux@analog.com, linux-iio@vger.kernel.org, linux-staging@lists.linux.dev,
- linux-kernel@vger.kernel.org, joshua.crofts1@gmail.com
-Subject: Re: [PATCH v6 3/3] staging: iio: adc: ad7816: Use DMA-safe buffer
- for SPI read
-Message-ID: <20260913035957.7eb0dd2b@jic23-hlaptop>
-In-Reply-To: <20260912132517.55686-4-abdelnasserhussein11@gmail.com>
-References: <20260912132517.55686-1-abdelnasserhussein11@gmail.com>
-	<20260912132517.55686-4-abdelnasserhussein11@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="Qa56y0SH"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68D32vZK23629900, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1789268578; bh=b4gOxGcEIfLAYCLNPTVEM0GYPnhqvyknQ48/77IfXIo=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=Qa56y0SHWkzbdHKIvq55EEaL+7Ig6hMznAxp0+A/tv/1kFnuVzcBmL8DrSStl5RLc
+	 E2rkKat7ebufP+TQg3tqupEqEhjBy/X0DJuuENAn7IUnypw72ePPCUVWebA2kLMjTQ
+	 8urr7ulY7Z0HLW3xllo+w+Zluo77H1rKOEQ4gsdZ6eO824udQ/JzFcsNAvdzJAYlXs
+	 5UOlpfRZkIFsm9Qm8K5LI8x2WqZDxAsy3MCewR/ca/PSMnYXjvLFZtsNBaVX/5oFGF
+	 ZcAtHCJUOKEHjaBRq3BYiWCmmkw+rDfONDGjC83jMgbQzC6T6GHvsWFQ6vymaVruDi
+	 L5fGTo2Ta4KUA==
+Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68D32vZK23629900
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Sun, 13 Sep 2026 11:02:57 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Sun, 13 Sep 2026 11:02:58 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Sun, 13 Sep 2026 11:02:57 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
+ 15.02.2562.049; Sun, 13 Sep 2026 11:02:57 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: kimwooseok <5mghybrid@khu.ac.kr>, "linux-wireless@vger.kernel.org"
+	<linux-wireless@vger.kernel.org>
+CC: "Jes.Sorensen@gmail.com" <Jes.Sorensen@gmail.com>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH RESEND wireless 1/4] wifi: rtl8xxxu: free RX skb when URB
+ submission fails
+Thread-Topic: [PATCH RESEND wireless 1/4] wifi: rtl8xxxu: free RX skb when URB
+ submission fails
+Thread-Index: AQHdQwNzVbXJAZy0LEOjDiLsjEfukbbL0kmA
+Date: Sun, 13 Sep 2026 03:02:57 +0000
+Message-ID: <2637a1d25de6431c89c4670b000fb9a9@realtek.com>
+References: <CAH1Bc_yJ1e_nHk9tP2qP_4D8MHEve1R2EF5cYCEXRwc+1xVAxw@mail.gmail.com>
+ <CAH1Bc_zqe_a93WcmksWBfmBkW2JGdhuRHcLECpLtznXA_dTWEA@mail.gmail.com>
+In-Reply-To: <CAH1Bc_zqe_a93WcmksWBfmBkW2JGdhuRHcLECpLtznXA_dTWEA@mail.gmail.com>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Sat, 12 Sep 2026 16:25:17 +0300
-Abdelnasser Hussein <abdelnasserhussein11@gmail.com> wrote:
-
-> Stack buffers are unsafe for DMA with VMAP_STACK enabled because
-> they are not physically contiguous and can share cache lines. This
-> causes data corruption.
-
-This one has come up a few times as a false or at least misleading
-explanation.  It really doesn't have anything to do with VMAP_STACK
-as that only a most deals with pages and cachelines which matter here
-are much smaller.
-
-Any stack variable is a problem simply because we don't control the
-data layout and pretty much anything else can end up in the same
-cache line. 
-
-> 
-> Fix this by using a dedicated rx_buf aligned with IIO_DMA_MINALIGN
-> in the device state structure to ensure cache coherency. This also
-> corrects the size argument in spi_read() to match the new buffer.
-
-Make sure you understand why this alignment marking works to ensure
-the buffer is in a cache line on it's own.
-
-However, don't do this for a single use small buffer.
-Use spi_write_then_read() (with 0 sized write) but also make
-sure you understand why that works.
-
-Jonathan
-
-
-> 
-> Fixes: 7024425db64a ("staging: iio: adc: new driver for AD7816 devices")
-> Signed-off-by: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
-> ---
->  drivers/staging/iio/adc/ad7816.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/staging/iio/adc/ad7816.c b/drivers/staging/iio/adc/ad7816.c
-> index acf26c5a267a..2fd2d6796603 100644
-> --- a/drivers/staging/iio/adc/ad7816.c
-> +++ b/drivers/staging/iio/adc/ad7816.c
-> @@ -53,6 +53,7 @@ struct ad7816_chip_info {
->  	u8  channel_id;	/* 0 always be temperature */
->  	u8  mode;
->  	struct mutex lock; /* protect device state during SPI transfers */
-> +	__be16 rx_buf __aligned(IIO_DMA_MINALIGN);
->  };
->  
->  enum ad7816_type {
-> @@ -68,7 +69,6 @@ static int ad7816_spi_read(struct ad7816_chip_info *chip, u16 *data)
->  {
->  	struct spi_device *spi_dev = chip->spi_dev;
->  	int ret;
-> -	__be16 buf;
->  
->  	guard(mutex)(&chip->lock);
->  
-> @@ -96,13 +96,13 @@ static int ad7816_spi_read(struct ad7816_chip_info *chip, u16 *data)
->  
->  	gpiod_set_value(chip->rdwr_pin, 0);
->  	gpiod_set_value(chip->rdwr_pin, 1);
-> -	ret = spi_read(spi_dev, &buf, sizeof(*data));
-> +	ret = spi_read(spi_dev, &chip->rx_buf, sizeof(chip->rx_buf));
->  	if (ret < 0) {
->  		dev_err(&spi_dev->dev, "SPI data read error\n");
->  		return ret;
->  	}
->  
-> -	*data = be16_to_cpu(buf);
-> +	*data = be16_to_cpu(chip->rx_buf);
->  
->  	return ret;
->  }
-
+a2ltd29vc2VvayA8NW1naHlicmlkQGtodS5hYy5rcj4gd3JvdGU6DQo+ICBkcml2ZXJzL25ldC93
+aXJlbGVzcy9yZWFsdGVrL3J0bDh4eHh1L2NvcmUuYyB8IDE2ICsrKysrLS0tLS0tLS0tLS0NCj4g
+IDEgZmlsZSBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKyksIDExIGRlbGV0aW9ucygtKQ0KDQpQbGVh
+c2Ugc2VuZCBwYXRjaCBsaWtlIG5vbi1SRVNFTkQgdmVyc2lvbiB3aXRob3V0IHBhdGNoIGF0dGFj
+aGVkLg0KDQpQaW5nLUtlDQoNCg==
