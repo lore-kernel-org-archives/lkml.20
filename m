@@ -1,382 +1,98 @@
-Received: from sm24.hosting.reg.ru (sm24.hosting.reg.ru [31.31.198.150])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09C0A3AB26D;
-	Sun, 13 Sep 2026 05:37:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=31.31.198.150
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6ED83AE1BC
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 05:46:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789277878; cv=none; b=UPvsutmHWCOPLJ5cOn3XFQfk4LqIAD/fzefKjbQXoNd9qpquu527rXewlfvbd998FzCZE4JSOCuJKWe/PGr3p8RVYAbS0xoKMaLmSoaApimcLn8Rb/TgiBT/X/+VgxScXlQQYUQrhECXp+qbd70r0o9CbaSbOTnlrD39LgqV+vs=
+	t=1789278406; cv=none; b=HRC2lKZymbm6QRyUW/ceewxa/mtATbDFON3VargTotkvO2XABfSe3xS5YCEx4z/Awfy20nRTQtoxKWyhwUKbSimEd3c5mfmXOCXsOd3+tUeYJZh9pEBs/g3LeDky0o1WDiHt6Eqh0d+/knLmYoRIOjHmdHmSO8K3po39Z+b5YFE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789277878; c=relaxed/simple;
-	bh=wmHscblbvieQjxhwekDpz+VgQ83qYl5W1uHeWq0Gk7I=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=vBYNW4HgYoAC++OBBqPOBwka2dx66ztHiwTMBhLsNj4eXyi936UVhkJDPkWrJDv8mAVHgxGrMPmb6ElaRx0RQVpiorSXq5QJF1lXAKrWq5O0+gS+zhrvti9m7BW6fDWa5mdoXFN2c43aH2+VHhuKnGZOD2hgen4ZhO38E+5hzFs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=minlexx.ru; spf=none smtp.mailfrom=minlexx.ru; dkim=pass (1024-bit key) header.d=minlexx.ru header.i=@minlexx.ru header.b=FQQPXeEc; arc=none smtp.client-ip=31.31.198.150
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=minlexx.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=minlexx.ru
+	s=arc-20240116; t=1789278406; c=relaxed/simple;
+	bh=go6oz8+xCXd4w3muWW/18hv9nuLa13rdSkVXoFj2oUo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=B41J9aEuwMCAsxOQMLQQFbAglSJLJ7Chb5WOp8ECQdzORaX2sx0s6shG0ZHzXsfNbh2VRMvOfTboRkOX+BuHOPTZg/Dok6oecACYz/MT3Vg2Xaqx+EK6W8DkJpBwPBWU/zil2MnkxbHNz3OiROF7xOxMaD3hCH+cq+MjxyAqZWE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=asTRFj6d; arc=none smtp.client-ip=209.85.210.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=minlexx.ru header.i=@minlexx.ru header.b="FQQPXeEc"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=minlexx.ru;
-	s=dkim; h=Cc:To:In-Reply-To:References:Message-Id:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:Subject:Date:From:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
-	List-Post:List-Owner:List-Archive;
-	bh=SviEnXkeFfRT6kRHLnGw4Lil24Bc7uBCfTBWHzqIfvY=; b=FQQPXeEczn900pW2tgo8GdeUQq
-	VpPSRNxpoElKN1bJ29tCab/R1erznu8AstrfAS9YLjJdxNYKouKAC+e/plVu5H9DFlG87rQPyfSho
-	t04z0e5a2kJXy7Bgsv5XXy52iOE+AQpyAsoz55cVhbWECvwt4HWcvSPinSTyNsbNyORA=;
-Received: 
-	by sm24.hosting.reg.ru with esmtpsa (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(envelope-from <alexeymin@minlexx.ru>)
-	id 1x5cuL-0000000Dxg1-3Sj2;
-	Sun, 13 Sep 2026 08:37:42 +0300
-From: Alexey Minnekhanov <alexeymin@minlexx.ru>
-Date: Sun, 13 Sep 2026 08:36:40 +0300
-Subject: [PATCH 8/9] drm/panel: novatek-nt36672a: Add panel for Asus
- Zenfone Max Pro M1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="asTRFj6d"
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-86309e1a213so953395b3a.0
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 22:46:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789278401; x=1789883201; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VaHndl2K0pFULmTR4xlAbGHwp91x25cpvpgq3imyoWI=;
+        b=asTRFj6dUc6F8B8mUOx7OACjuszcaPYx7VvKy8TaY0H7sWrV7aoWOyMJyExukvwVDr
+         NiATn3aEew5BrbbyASHdG3YjKY1SHDcKq13/gwAm90+5hMV2FrKblSwglQWm+yAsFIBv
+         dbLqTdCUStpmCLiBAKO71TG6DlM+A9DoGPXpw+D+ljxDvfGVlcapV12ZmVQKyWL5lZ1Y
+         izdi8/PNeT/j9799HlfwVFi3nFAegly78JnJyanLAI4VRqQROtN9IwNnWnCMKaSt16Te
+         j+3KC/ef0aSCt0nBXblZv/7kMmA+jtOON+wQJqm2rriZPFD5Jx8qbBeBJgpjxt7zw+kZ
+         H97A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789278401; x=1789883201;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=VaHndl2K0pFULmTR4xlAbGHwp91x25cpvpgq3imyoWI=;
+        b=jFkCdRwQwDwF2thwQivf5aRvoEXCPcqY099iTwgBOSSPz/X9aCG00QttFQPBg3vHSB
+         B1RlHwREEM2l2LgUtiKAj6CVje39okvonkqt+Yj5w25hmbw8LJnr+mmbnckwU+NxK3uS
+         NK0H1RbhA/fkr1PMM2N2zx6cFDQTbRvTlG3ilGOS9gmlNtih3cBvTfHKDTrkGI+aO0jR
+         ioO5kFV6VVt3RrXxphRmaYuwKSoMJGnXpc3tddUtQ++zinU6MbYHdSkgp65hlDvEuohR
+         ztMBe7/8paizvBtFD1voOEU1lcFzVaJaOjYHiTIuRsE4kG8gwMf1ZqHfA2YlQiHwxRY5
+         9wgg==
+X-Forwarded-Encrypted: i=1; AKwUvBz0xb/DoLyPlxegAHCYiR2nAYdNoXtQE2rVUqFfJyuvuMACdY/+mWho4vBrC2Pg6DenA4cWSYxsFV8g8v8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kXuDY1wrXc9wCSk3f5TFVSy4u/iMrxdpC3xQKQD37J8nzkQdXu
+	UoZD/wUW92d/8X5BjL10fAdg/bvUh6GA35iFFrj3C8d6F5ZTZPMYP5g4
+X-Gm-Gg: AYBFou2DTQM/aKZ6H0DYDSx6dV5LmdjXwb5eDaVUWgBj6nVv6ldNGYubYnDDTS9Koks
+	mNFtmEHNPlgY13kNpEYU8vBE5+4EUowjJ6vOnZvCC85ftrkKeP0IDRlyDVQy2kmZaIlnikJyXDq
+	ZlNZX4y6/CbfC3DS/TSnepCzucKItmiBtR1jdUvgyJFsBgNrBh368LiJcFDtZCD/BaDytO5NvGV
+	TbZxbY1XG6ClCjSZMpo4FAUJUbDQyqH8OjfDiPVxv54ePCYQqTFffiYZ8zIRMHqcCHke/XtshTf
+	6HkG8dVXbDSVSi/1mIs5gRk8NK4lEoS3yzsysrZ6XbmC6trVOaAuj2D2mexarogZ4k74XqeWPbm
+	vKF/0w3VgxiQhqG1bnCbDqNcjckyYGWRvqBuoApU1D2dXTc8CISB7ZRkURdkOTyRXVULwafnTUf
+	QRPMn6W3CnNOpa0GEmrc2pKtgSfiPKyttBKwHzRQ4oVkHeK6h2kRrYTFiKZii7pthzrAngipjrX
+	n65xzTmqtYdwKNoAgHhUf/V4VHTrnnd+GnvDLzm
+X-Received: by 2002:a05:6a21:3a83:b0:3cd:7ba2:e669 with SMTP id adf61e73a8af0-3daed4bba12mr23004520637.10.1789278401414;
+        Sat, 12 Sep 2026 22:46:41 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:318c:d45a:8797:2b03])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4e4fb3esm17772221eec.7.2026.09.12.22.46.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 12 Sep 2026 22:46:40 -0700 (PDT)
+Date: Sat, 12 Sep 2026 22:46:37 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: =?utf-8?B?yJh0ZWZhbiBHaGXIm3U=?= <stefanghetu9@gmail.com>
+Cc: Mika =?utf-8?B?UGVudHRpbMOk?= <mpenttil@redhat.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, linux-input@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: input: touchscreen: convert sis_i2c to DT
+ schema
+Message-ID: <aqY4tgXZzfiHczw6@google.com>
+References: <20260821131039.37525-1-stefanghetu9@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260913-nt36672a-panels-v1-8-ce097402c6ea@minlexx.ru>
-References: <20260913-nt36672a-panels-v1-0-ce097402c6ea@minlexx.ru>
-In-Reply-To: <20260913-nt36672a-panels-v1-0-ce097402c6ea@minlexx.ru>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: David Heidelberg <david@ixit.cz>, Joel Selvaraj <foss@joelselvaraj.com>, 
- Chintan Patel <chintanlike@gmail.com>, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- phone-devel@vger.kernel.org, Alexey Minnekhanov <alexeymin@minlexx.ru>, 
- iAboothahir <aboothahirpkd@gmail.com>
-X-Mailer: b4 0.16.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260821131039.37525-1-stefanghetu9@gmail.com>
 
-Add support for TXD TXDI600YANPA-43V3 video mode panel based on
-Novatek NT36672A, used in Asus Zenfone Max Pro M1 smartphone
-(asus-x00td).
+On Fri, Aug 21, 2026 at 04:10:39PM +0300, Ștefan Ghețu wrote:
+> Convert the SiS 9200 family I2C touchscreen binding from free-form
+> text to DT schema format.
+> 
+> While at it, fix the example which referenced a non-existent
+> "irq-gpios" property; the driver looks up "attn" via
+> devm_gpiod_get_optional(), so the correct property is "attn-gpios".
+> 
+> Signed-off-by: Ștefan Ghețu <stefanghetu9@gmail.com>
 
-Co-developed-by: iAboothahir <aboothahirpkd@gmail.com>
-Signed-off-by: iAboothahir <aboothahirpkd@gmail.com>
-Signed-off-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
----
- drivers/gpu/drm/panel/panel-novatek-nt36672a.c | 281 +++++++++++++++++++++++++
- 1 file changed, 281 insertions(+)
-
-diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
-index 1bfa808365874..954ab24c9d00a 100644
---- a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
-+++ b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
-@@ -468,6 +468,252 @@ static void tianma_jasmine_init_cmds(struct mipi_dsi_multi_context *dsi_ctx)
- 	usleep_range(5000, 6000);
- }
- 
-+static void txd_x00td_init_cmds(struct mipi_dsi_multi_context *dsi_ctx)
-+{
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x20);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x06, 0x9e);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x07, 0x94);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x0e, 0x35);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x0f, 0x24);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x6d, 0x66);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x69, 0x99);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x95, 0xf5);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x96, 0xf5);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x23);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x12, 0x6c);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x15, 0xe6);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x16, 0x0c);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x24);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x00, 0x20);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x01, 0x20);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x02, 0x20);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x03, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x04, 0x0b);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x05, 0x0c);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x06, 0xa9);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x07, 0x06);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x08, 0x04);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x09, 0x20);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x0a, 0x0f);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x0b, 0x20);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x0c, 0x20);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x0d, 0x20);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x0e, 0x20);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x0f, 0x17);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x10, 0x15);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x11, 0x13);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x12, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x13, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x14, 0x20);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x15, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x16, 0x0b);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x17, 0x0c);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x18, 0xa9);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x19, 0x05);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x1a, 0x03);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x1b, 0x20);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x1c, 0x0f);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x1d, 0x20);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x1e, 0x20);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x1f, 0x20);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x20, 0x20);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x21, 0x17);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x22, 0x15);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x23, 0x13);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x2f, 0x04);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x30, 0x08);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x31, 0x04);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x32, 0x08);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x33, 0x02);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x34, 0x02);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x35, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x37, 0x02);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x38, 0x72);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x39, 0x72);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x3b, 0x40);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x3f, 0x72);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x60, 0x10);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x61, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x68, 0x83);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x78, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x79, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x7a, 0x08);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x7b, 0x9c);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x7d, 0x06);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x7e, 0x02);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x80, 0x45);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x81, 0x06);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x8e, 0xf0);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x90, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x92, 0x76);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x93, 0x0a);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x94, 0x0a);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x99, 0x33);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x9b, 0xff);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb3, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb4, 0x04);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb5, 0x04);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xdc, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xdd, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xde, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xdf, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xe0, 0x75);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xe9, 0x08);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xed, 0x40);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x20);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb0,
-+				     0x00, 0x00, 0x00, 0x15, 0x00, 0x37, 0x00,
-+				     0x54, 0x00, 0x6d, 0x00, 0x84, 0x00, 0x98,
-+				     0x00, 0xac);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb1,
-+				     0x00, 0xbd, 0x00, 0xf9, 0x01, 0x25, 0x01,
-+				     0x6b, 0x01, 0x9c, 0x01, 0xec, 0x02, 0x22,
-+				     0x02, 0x25);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb2,
-+				     0x02, 0x5e, 0x02, 0x9e, 0x02, 0xc9, 0x02,
-+				     0xfd, 0x03, 0x21, 0x03, 0x4d, 0x03, 0x5a,
-+				     0x03, 0x68);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb3,
-+				     0x03, 0x78, 0x03, 0x8b, 0x03, 0xa1, 0x03,
-+				     0xbd, 0x03, 0xd6, 0x03, 0xda);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb4,
-+				     0x00, 0x00, 0x00, 0x15, 0x00, 0x37, 0x00,
-+				     0x54, 0x00, 0x6d, 0x00, 0x84, 0x00, 0x98,
-+				     0x00, 0xac);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb5,
-+				     0x00, 0xbd, 0x00, 0xf9, 0x01, 0x25, 0x01,
-+				     0x6b, 0x01, 0x9c, 0x01, 0xec, 0x02, 0x22,
-+				     0x02, 0x25);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb6,
-+				     0x02, 0x5e, 0x02, 0x9e, 0x02, 0xc9, 0x02,
-+				     0xfd, 0x03, 0x21, 0x03, 0x4d, 0x03, 0x5a,
-+				     0x03, 0x68);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb7,
-+				     0x03, 0x78, 0x03, 0x8b, 0x03, 0xa1, 0x03,
-+				     0xbd, 0x03, 0xd6, 0x03, 0xda);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb8,
-+				     0x00, 0x00, 0x00, 0x15, 0x00, 0x37, 0x00,
-+				     0x54, 0x00, 0x6d, 0x00, 0x84, 0x00, 0x98,
-+				     0x00, 0xac);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb9,
-+				     0x00, 0xbd, 0x00, 0xf9, 0x01, 0x25, 0x01,
-+				     0x6b, 0x01, 0x9c, 0x01, 0xec, 0x02, 0x22,
-+				     0x02, 0x25);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xba,
-+				     0x02, 0x5e, 0x02, 0x9e, 0x02, 0xc9, 0x02,
-+				     0xfd, 0x03, 0x21, 0x03, 0x4d, 0x03, 0x5a,
-+				     0x03, 0x68);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xbb,
-+				     0x03, 0x78, 0x03, 0x8b, 0x03, 0xa1, 0x03,
-+				     0xbd, 0x03, 0xd6, 0x03, 0xda);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x21);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb0,
-+				     0x00, 0x00, 0x00, 0x15, 0x00, 0x37, 0x00,
-+				     0x54, 0x00, 0x6d, 0x00, 0x84, 0x00, 0x98,
-+				     0x00, 0xac);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb1,
-+				     0x00, 0xbd, 0x00, 0xf9, 0x01, 0x25, 0x01,
-+				     0x6b, 0x01, 0x9c, 0x01, 0xec, 0x02, 0x22,
-+				     0x02, 0x25);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb2,
-+				     0x02, 0x5e, 0x02, 0x9e, 0x02, 0xc9, 0x02,
-+				     0xfd, 0x03, 0x21, 0x03, 0x4d, 0x03, 0x5a,
-+				     0x03, 0x68);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb3,
-+				     0x03, 0x78, 0x03, 0x8b, 0x03, 0xa1, 0x03,
-+				     0xbd, 0x03, 0xd6, 0x03, 0xda);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb4,
-+				     0x00, 0x00, 0x00, 0x15, 0x00, 0x37, 0x00,
-+				     0x54, 0x00, 0x6d, 0x00, 0x84, 0x00, 0x98,
-+				     0x00, 0xac);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb5,
-+				     0x00, 0xbd, 0x00, 0xf9, 0x01, 0x25, 0x01,
-+				     0x6b, 0x01, 0x9c, 0x01, 0xec, 0x02, 0x22,
-+				     0x02, 0x25);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb6,
-+				     0x02, 0x5e, 0x02, 0x9e, 0x02, 0xc9, 0x02,
-+				     0xfd, 0x03, 0x21, 0x03, 0x4d, 0x03, 0x5a,
-+				     0x03, 0x68);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb7,
-+				     0x03, 0x78, 0x03, 0x8b, 0x03, 0xa1, 0x03,
-+				     0xbd, 0x03, 0xd6, 0x03, 0xda);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb8,
-+				     0x00, 0x00, 0x00, 0x15, 0x00, 0x37, 0x00,
-+				     0x54, 0x00, 0x6d, 0x00, 0x84, 0x00, 0x98,
-+				     0x00, 0xac);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb9,
-+				     0x00, 0xbd, 0x00, 0xf9, 0x01, 0x25, 0x01,
-+				     0x6b, 0x01, 0x9c, 0x01, 0xec, 0x02, 0x22,
-+				     0x02, 0x25);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xba,
-+				     0x02, 0x5e, 0x02, 0x9e, 0x02, 0xc9, 0x02,
-+				     0xfd, 0x03, 0x21, 0x03, 0x4d, 0x03, 0x5a,
-+				     0x03, 0x68);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xbb,
-+				     0x03, 0x78, 0x03, 0x8b, 0x03, 0xa1, 0x03,
-+				     0xbd, 0x03, 0xd6, 0x03, 0xda);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x25);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x05, 0x0c);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x0a, 0x81);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x0b, 0xd7);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x0c, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x17, 0x82);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x21, 0x1c);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x22, 0x1c);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x24, 0x76);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x25, 0x76);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x5c, 0x25);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x5d, 0x80);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x5e, 0x80);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x5f, 0x22);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x65, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x69, 0x60);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x6b, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x71, 0x2d);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x80, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x8d, 0x04);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xd7, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xd8, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xd9, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xda, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xdb, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xdc, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x26);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x06, 0xc8);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x12, 0x5a);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x19, 0x0a);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x1a, 0x97);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x1d, 0x0a);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x1e, 0x1e);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x99, 0x20);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x27);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x13, 0x0e);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x16, 0xb0);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x17, 0xd0);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x10);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
-+	mipi_dsi_dcs_exit_sleep_mode_multi(dsi_ctx);
-+	mipi_dsi_msleep(dsi_ctx, 70);
-+	mipi_dsi_dcs_set_display_on_multi(dsi_ctx);
-+	mipi_dsi_usleep_range(dsi_ctx, 10000, 11000);
-+}
-+
-+static void txd_x00td_off(struct mipi_dsi_multi_context *dsi_ctx)
-+{
-+	mipi_dsi_dcs_set_display_off_multi(dsi_ctx);
-+	mipi_dsi_msleep(dsi_ctx, 50);
-+	mipi_dsi_dcs_enter_sleep_mode_multi(dsi_ctx);
-+	mipi_dsi_msleep(dsi_ctx, 120);
-+}
-+
- static const struct drm_display_mode tianma_fhd_video_panel_default_mode = {
- 	.clock		= 161331,
- 
-@@ -612,6 +858,40 @@ static const struct nt36672a_panel_desc tianma_jasmine_panel_desc = {
- 	.send_deinit_cmds = lavender_tulip_deinit_cmds,
- };
- 
-+static const struct drm_display_mode txd_x00td_mode = {
-+	.clock		= (1080 + 122 + 8 + 76) * (2160 + 20 + 4 + 28) * 60 / 1000,
-+
-+	.hdisplay	= 1080,
-+	.hsync_start	= 1080 + 122,
-+	.hsync_end	= 1080 + 122 + 8,
-+	.htotal		= 1080 + 122 + 8 + 76,
-+
-+	.vdisplay	= 2160,
-+	.vsync_start	= 2160 + 20,
-+	.vsync_end	= 2160 + 20 + 4,
-+	.vtotal		= 2160 + 20 + 4 + 28,
-+
-+	.width_mm	= 68,
-+	.height_mm	= 136,
-+
-+	.type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
-+};
-+
-+static const struct nt36672a_panel_desc txd_x00td_panel_desc = {
-+	.display_mode = &txd_x00td_mode,
-+
-+	.width_mm = 68,
-+	.height_mm = 136,
-+
-+	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
-+			  MIPI_DSI_MODE_VIDEO_HSE | MIPI_DSI_MODE_NO_EOT_PACKET |
-+			  MIPI_DSI_CLOCK_NON_CONTINUOUS | MIPI_DSI_MODE_LPM,
-+	.format = MIPI_DSI_FMT_RGB888,
-+	.lanes = 4,
-+	.send_init_cmds = txd_x00td_init_cmds,
-+	.send_deinit_cmds = txd_x00td_off,
-+};
-+
- static int nt36672a_panel_add(struct nt36672a_panel *pinfo)
- {
- 	struct device *dev = &pinfo->link->dev;
-@@ -693,6 +973,7 @@ static const struct of_device_id panel_nt36672a_match[] = {
- 	{ .compatible = "tianma,tl060fvxs16-00", .data = &tianma_jasmine_panel_desc },
- 	{ .compatible = "tianma,tl063fvmca01-00", .data = &tianma_lavender_panel_desc },
- 	{ .compatible = "tianma,tl063fvmc43-02", .data = &tianmaplus_e7t_tulip_panel_desc },
-+	{ .compatible = "txd,txdi600yanpa-43v3", .data = &txd_x00td_panel_desc },
- 	{ },
- };
- MODULE_DEVICE_TABLE(of, panel_nt36672a_match);
+Applied, thank you.
 
 -- 
-2.55.0
-
+Dmitry
