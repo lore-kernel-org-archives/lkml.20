@@ -1,55 +1,82 @@
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.73])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fhigh-a7-smtp.messagingengine.com (fhigh-a7-smtp.messagingengine.com [103.168.172.158])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82BF43E120B
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 10:13:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=121.127.44.73
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6090130D41B
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 10:14:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789294429; cv=none; b=mhu+2YfTm3p7eY6bccXhyEoRTVu2sM5hG1MUrtjpphiVOWVgG5LzV6CGLjKra6t/RkZtXS/5+IEbQUTrf3Z3XmDHqZKLAzeaPQfvxXHr6th7Ye2/0QsuugOVe71CRTENkEyJRIykIYvx1gbUDovQqjjLGYsQ2fIqS+u8wYjx854=
+	t=1789294445; cv=none; b=Ps/A2JFl2LqewpST++q7+hCGaTTR/YS8LVQD+j0ZGM3HHfaThDKDy6Oz+y9HeCxmxns4QCW2zNwIvWgJ6K3UccvTD+zvttDIibIE+VmbrpB+s4XXR6rl4TFA8bUOw0F977nIX9ZnSMmEy/V1LqksHAZWWHnaR8hFvX7pCtp9k70=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789294429; c=relaxed/simple;
-	bh=E/QiXPXlUVYSHwVS0L9lYnegQ29uywV3HbRa+8/6OWA=;
+	s=arc-20240116; t=1789294445; c=relaxed/simple;
+	bh=dhOHOd5iaY1ZqxvsmmHDO+43mejiMHcT4jgTkHlKHV8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=C9whNB8wINCy38/ZRgOrfrljaeKCVUsO/MAHl6kGrp3wRM8f4IO/GBAW9wLpGUXBkzIKfX0CpR1/GFQ5iVA1u6CuVqH0bdlIFBCnxcH4gT8jCjxGo1Cqyc16XbVVbHlZw3v2cpi2EihIBw/knVAjsW9iEiA0/n80W7vwuNF611g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lineageos.org; spf=pass smtp.mailfrom=fe-bounces.lineageos.org; dkim=pass (1024-bit key) header.d=lineageos.org header.i=@lineageos.org header.b=uFiPfTm1; arc=none smtp.client-ip=121.127.44.73
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lineageos.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.lineageos.org
+	 MIME-Version; b=S2LbTGBMXv3ws9a0u0xntrd9XEQAkaYExcjK0jee9Vty8EHToj2RwEAKakm9uolNVcf6mSjHgWnqgBgCkPEqtuFmiSSwHZGX2TWHI5i5IPY80w4e/r0UFeWr955mWtNKPH5g3Il/UolRt4A5hsPl7JIu2tb6iLQYO8nK0o152OQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=7LH3xAvc; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=BxuKOdWh; arc=none smtp.client-ip=103.168.172.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lineageos.org header.i=@lineageos.org header.b="uFiPfTm1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lineageos.org;
- h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To:
- Message-ID: Date: Subject: Cc: To: From; q=dns/txt; s=fe-2eefaa527c;
- t=1789294421; bh=/PPiEA1FGyaFHtzx0qxn1LM8VQhVacT/5QWpKmp70MI=;
- b=uFiPfTm1b45p5sUFBQ51SMKISE7djZ6ZTquk5YnoQZTu+oYkWfydeUPeXHGACoBIDRJNdAlCl
- KdT1TmY5qXHEOhG10BT8+SaRAwkR5PjISbFVmdptq+WeGMUfD1IlMvN9Tl1i0FQ+57/LtOuVM8t
- pe38PicvMYajWiEOf5qw648=
-X-Forward-Email-ID: 6aa677545d6bf3657bd82aa0
-X-Forward-Email-Sender: rfc822; tturner@lineageos.org,
- smtp.forwardemail.net, 121.127.44.73
-X-Forward-Email-Version: 2.14.2
-X-Forward-Email-Website: https://forwardemail.net
-X-Complaints-To: abuse@forwardemail.net
-X-Report-Abuse: abuse@forwardemail.net
-X-Report-Abuse-To: abuse@forwardemail.net
-From: Thomas Turner <tturner@lineageos.org>
-To: semen.protsenko@linaro.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	peter.griffin@linaro.org
-Cc: alim.akhtar@samsung.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	thomas_turner@talktalk.net,
-	alexey.klimov@linaro.org
-Subject: [PATCH 2/2] arm64: dts: exynos: Add initial support for Samsung Galaxy A21s (SM-A217F)
-Date: Sun, 13 Sep 2026 11:13:31 +0100
-Message-ID: <20260913101331.198835-3-tturner@lineageos.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260913101331.198835-1-tturner@lineageos.org>
-References: <20260913101331.198835-1-tturner@lineageos.org>
+	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="7LH3xAvc";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="BxuKOdWh"
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 3AEC0140005D;
+	Sun, 13 Sep 2026 06:14:02 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-05.internal (MEProxy); Sun, 13 Sep 2026 06:14:02 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
+	:from:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm1; t=1789294442; x=
+	1789380842; bh=qQoWl2DdoztWHBwxZPjC62IJTGMp8AXdnfB8ORilBcs=; b=7
+	LH3xAvcnSviMgFv7bapAO+JggpHCSlJU9KK/qmtvUda3Wo/q4dSsC5h2Fzvh3j3o
+	QK2ofRTr1K5mXpAb/4qHG40e8ktmqeE6fJRqcLpVF2WbWBMpO2LXvYbcwPeVkENQ
+	gIU96koKXB5mYDqA+4mLTDFOPUKjeZYnecGodgEm++9MoQZUO5N4h/x/O+ZDKNH/
+	BK8KeKzTBE4aykr/jQrg9OU2wRs7O/FsQrZVR0XkWw8P3wmilc4gMtkyUdLXEwxT
+	VNPoEYqfkB/YdzXU7NqFc3ZbMG05zRMGlyfNTpBs7eclLH74HCuwIlPuUxiwh+Au
+	8tCsb9wVRuJfVAsy57vFg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm1; t=1789294442; x=1789380842; bh=q
+	QoWl2DdoztWHBwxZPjC62IJTGMp8AXdnfB8ORilBcs=; b=BxuKOdWhRv8kEubxn
+	8hNqApGforOF3mXSX8GPKSoM9c2EcYT8uGxQS1sqzTV+qunXEdn1RBBKhJhJN1tU
+	yrW9Y3AlSQvFrCfTPsz7AyVKLzyQORammxeNV/WahZEG6/56Cl5RdZ2lMbjwRFfK
+	xgP9zpOEV2Zw35tYog3XfpMJu0cnWTTxmE80OofsfMIiow4NfGirHkn7n4hHUvXK
+	dNCyA2naOKKu3iBS6TGahtWvko6bHTMZ1AIk+C+aKytRefanfvoUbQ/mCBPRoL5W
+	JXg15njAAddt30oirhyZaM1fdchZ6UptxPXi9y7dbtB7lfUqSdp06zk+7Fp105FY
+	nMOsg==
+X-ME-Sender: <xms:anemaskf7DnHy_CFqb7fTOAl7wylIY1r9weLUxZADEhqTAVpP-QODA>
+    <xme:anemapxnPpG6OhtxTwanNFoQVlhbUXYcMoDH2w61kKgYHcTxzQ1xZdaG0tH73TvV4
+    FGcqoFBgeW-9yKGdCI0xVmOZ5UQPgRMqp4R9rcX5NH6BII-KK2wPMoR>
+X-ME-Received: <xmr:anemaiPDPp5WD6QcWdUp_DsKolWhCDgB338OlcjbXln-YymHR_blG-RyW1d3mrKsKBwobH-BROtt-Jmb7tMZ5HvZexgQeTS-VPPlm8kTAytgCQ>
+X-ME-Proxy-Cause: dmFkZTG2/vy8D0TbaMZOOhOpGNWwOGVtNK7N3/Ngp133it+bhfjOwGH+I3f6TifYcbFCix
+    d+aExY2U0cYC7fsd7F/Fw21a1yBHo7Ftaz2iRM2h3gfR5T7dXWR8r+smeEK8E28yK4bIYd
+    ixLHKJoqK4EZNfSK1zEMlMFiFzl5g6Jx8QVFNKC3RJa2Os6FyyhShJlD7ix43o2qA7rLeH
+    OUwVltsbra+ufek/Q756DmmV1U+01AJ3ER4g0bUtgnCg5AB941tbiwQ3ExpQ4AI1Dh8OQh
+    oY6X9VjBXg0YPP0riUEHb6zHa1SaebZS3x/r/3AjkMhIWic2pIMC15GtHju9uGnUtrHKoW
+    XXSD93dI1L08C/skWwJqbqpiJaw898QkkTTD0SVXiXDj03xIpid6AEhKn192r/tl5lsFXs
+    Eoec9bWwPRb3khMFAdUJ9W29x9M943T7ReMw5mexno7bme2xcLDhhiCh4gAhbx7ThSAByg
+    64+rQeNMm6Y/yAhfUFY8U4ye1jhvX53A5iK3DdKyQqo5FVkkNZ0Ue8VMsEcsGDF+U4h00L
+    nsvGoSsPnhFpJZ8VQpE1eKvGVsJiF4oJmDG8dKNOMeFbIJBV8x8ATW+ocSVpBjIl8OL8i8
+    3ffwmVykmRISb6UAfkZWJZz23tr97MTgOG6t/tlT3wZvCK+Cv30swLlWafWA
+X-ME-Proxy: <xmx:anemalRz5p9GKyE5JKUFl3gDjISfhazgBDFPW8j5PFhZwXb1s_mA0Q>
+    <xmx:anemaoZFwSWClE236FSbSemRYBvIRh20l8Ne4Udad6upHoVJZt6xLA>
+    <xmx:anemaq31GrVAh9VZv4eJfAqd33gv1U4A6rCWZhFSkP53L2WCp6jzMA>
+    <xmx:anemagURLgvYgmUt_yjfy8oKWUFvpQ58O4MB19EzKm4R1KMA2dHn6w>
+    <xmx:anemam6_soo9ZjaeDr_jfKUjJlzGad7IgxYjJ_F0vIWb4WsgfbnyKhPG>
+Feedback-ID: ie8e14432:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 13 Sep 2026 06:14:01 -0400 (EDT)
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: linux1394-devel@lists.sourceforge.net
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH 1/5] firewire: ohci: use in_range() macro to detect CSR address ranges
+Date: Sun, 13 Sep 2026 19:13:52 +0900
+Message-ID: <20260913101356.156420-2-o-takashi@sakamocchi.jp>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260913101356.156420-1-o-takashi@sakamocchi.jp>
+References: <20260913101356.156420-1-o-takashi@sakamocchi.jp>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -58,262 +85,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add initial support for the Samsung Galaxy A21s (a21s) phone. It was
-launched in 2020, and it's based on the Exynos 850 SoC. It has multiple
-RAM configurations: 3GB, 4GB and 6GB.
+The current implementation handles asynchronous packets sent to the two
+CSR address ranges on the local node specially. To decide whether a packet
+is destined for either range, the destination offset needs to be checked
+according to the IEEE 1394 and 1394 OHCI specifications.
 
-Since our bootloader does not set up memory nodes beforehand, default to
-the 3GB variant. Custom bootloaders can be used to initialise other
-nodes per RAM configuration.
+The current implementation uses both conditional and switch statements to
+check the offset, which makes the range checks difficult to reuse.
 
-The Exynos DPU clocks required by simple-framebuffer are not kept
-enabled during boot. Add the DECON, DMA, DPP, PPMU and SSMU DPU clocks
-to the simple-framebuffer node so simpledrm maintains references to
-them. Without these clocks, the framebuffer fails to remain operational
-further into boot.
+Add two helper functions for the range checks using the in_range() macro.
 
-This device tree adds support for the following:
-
-- SimpleFB
-- 3GB RAM
-- Buttons
-- Ramoops
-- MMC
-- USB
-- Watchdog
-
-Signed-off-by: Thomas Turner <tturner@lineageos.org>
+Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- arch/arm64/boot/dts/exynos/Makefile           |   1 +
- .../arm64/boot/dts/exynos/exynos850-a217f.dts | 193 ++++++++++++++++++
- arch/arm64/boot/dts/exynos/exynos850.dtsi     |   2 +-
- 3 files changed, 195 insertions(+), 1 deletion(-)
- create mode 100644 arch/arm64/boot/dts/exynos/exynos850-a217f.dts
+ drivers/firewire/ohci.c | 33 ++++++++++++++++++---------------
+ 1 file changed, 18 insertions(+), 15 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/exynos/Makefile b/arch/arm64/boot/dts/exynos/Makefile
-index 76cc23acb9b2..f197f8eb633b 100644
---- a/arch/arm64/boot/dts/exynos/Makefile
-+++ b/arch/arm64/boot/dts/exynos/Makefile
-@@ -13,6 +13,7 @@ dtb-$(CONFIG_ARCH_EXYNOS) += \
- 	exynos7870-j7xelte.dtb		\
- 	exynos7870-on7xelte.dtb		\
- 	exynos7885-jackpotlte.dtb	\
-+	exynos850-a217f.dtb		\
- 	exynos850-e850-96.dtb		\
- 	exynos8895-dreamlte.dtb		\
- 	exynos9810-starlte.dtb		\
-diff --git a/arch/arm64/boot/dts/exynos/exynos850-a217f.dts b/arch/arm64/boot/dts/exynos/exynos850-a217f.dts
-new file mode 100644
-index 000000000000..f1d11f91a353
---- /dev/null
-+++ b/arch/arm64/boot/dts/exynos/exynos850-a217f.dts
-@@ -0,0 +1,193 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Samsung Galaxy A21s (a21s/SM-A217F) device tree source
-+ *
-+ * Copyright (c) 2026, Thomas Turner <tturner@lineageos.org>
-+ */
-+
-+/dts-v1/;
-+#include "exynos850.dtsi"
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/input/input.h>
-+
-+/ {
-+	model = "Samsung Galaxy A21s";
-+	compatible = "samsung,a217f", "samsung,exynos850";
-+
-+	chosen {
-+		#address-cells = <2>;
-+		#size-cells = <1>;
-+		ranges;
-+
-+		framebuffer0: framebuffer@fa000000 {
-+			compatible = "simple-framebuffer";
-+			reg = <0x0 0xfa000000 (720 * 1600 * 4)>;
-+			width = <720>;
-+			height = <1600>;
-+			stride = <(720 * 4)>;
-+			format = "a8r8g8b8";
-+			clocks = <&cmu_dpu CLK_GOUT_DPU_DECON0_ACLK>,
-+				 <&cmu_dpu CLK_GOUT_DPU_DMA_ACLK>,
-+				 <&cmu_dpu CLK_GOUT_DPU_DPP_ACLK>,
-+				 <&cmu_dpu CLK_GOUT_DPU_PPMU_ACLK>,
-+				 <&cmu_dpu CLK_GOUT_DPU_PPMU_PCLK>,
-+				 <&cmu_dpu CLK_GOUT_DPU_SMMU_CLK>;
-+		};
-+	};
-+
-+	memory@80000000 {
-+		device_type = "memory";
-+		reg = <0x0 0x80000000 0x3c900000>,
-+		      <0x0 0xc0000000 0x20000000>,
-+		      <0x0 0xe0d00000 0x1f300000>,
-+		      <0x8 0x80000000 0x20000000>,
-+		      <0x8 0xa0000000 0x20000000>;
-+	};
-+
-+	gpio-keys {
-+		compatible = "gpio-keys";
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&key_voldown &key_volup>;
-+
-+		voldown-key {
-+			label = "Volume Down";
-+			linux,code = <KEY_VOLUMEDOWN>;
-+			gpios = <&gpa1 0 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		volup-key {
-+			label = "Volume Up";
-+			linux,code = <KEY_VOLUMEUP>;
-+			gpios = <&gpa0 7 GPIO_ACTIVE_LOW>;
-+		};
-+	};
-+
-+	/* TODO: Remove this once PMIC is implemented  */
-+	reg_dummy: regulator-0 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "dummy_reg";
-+	};
-+
-+	reserved-memory {
-+		#address-cells = <2>;
-+		#size-cells = <1>;
-+		ranges;
-+
-+		ramoops@f0000000 {
-+			compatible = "ramoops";
-+			reg = <0x0 0xf0000000 0x200000>;
-+			record-size = <0x20000>;
-+			console-size = <0x20000>;
-+			ftrace-size = <0x100000>;
-+			pmsg-size = <0x20000>;
-+		};
-+
-+		cont_splash_mem: framebuffer@fa000000 {
-+			reg = <0x0 0xfa000000 (720 * 1600 * 4)>;
-+			no-map;
-+		};
-+	};
-+
-+	/*
-+	 * RTC clock (XrtcXTI); external, must be 32.768 kHz.
-+	 *
-+	 * TODO: Remove this once RTC clock is implemented properly as part of
-+	 *       PMIC driver.
-+	 */
-+	rtcclk: clock-rtcclk {
-+		compatible = "fixed-clock";
-+		clock-output-names = "rtcclk";
-+		#clock-cells = <0>;
-+		clock-frequency = <32768>;
-+	};
-+};
-+
-+&cmu_hsi {
-+	clocks = <&oscclk>, <&rtcclk>,
-+		 <&cmu_top CLK_DOUT_HSI_BUS>,
-+		 <&cmu_top CLK_DOUT_HSI_MMC_CARD>,
-+		 <&cmu_top CLK_DOUT_HSI_USB20DRD>;
-+	clock-names = "oscclk", "rtcclk", "dout_hsi_bus",
-+		      "dout_hsi_mmc_card", "dout_hsi_usb20drd";
-+};
-+
-+&mmc_0 {
-+	compatible = "samsung,exynos7-dw-mshc";
-+	mmc-hs200-1_8v;
-+	mmc-hs400-1_8v;
-+	cap-mmc-highspeed;
-+	non-removable;
-+	mmc-hs400-enhanced-strobe;
-+	card-detect-delay = <200>;
-+	clock-frequency = <800000000>;
-+	bus-width = <8>;
-+	samsung,dw-mshc-ciu-div = <3>;
-+	samsung,dw-mshc-sdr-timing = <0 4>;
-+	samsung,dw-mshc-ddr-timing = <2 4>;
-+	samsung,dw-mshc-hs400-timing = <0 2>;
-+
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&sd0_clk_pins &sd0_cmd_pins &sd0_rdqs_pins &sd0_nreset_pins
-+		     &sd0_bus1_pins &sd0_bus4_pins &sd0_bus8_pins>;
-+
-+	status = "okay";
-+};
-+
-+&oscclk {
-+	clock-frequency = <26000000>;
-+};
-+
-+&pinctrl_alive {
-+	key_voldown: key-voldown-pins {
-+		samsung,pins = "gpa1-0";
-+		samsung,pin-function = <EXYNOS_PIN_FUNC_EINT>;
-+		samsung,pin-pud = <EXYNOS_PIN_PULL_NONE>;
-+		samsung,pin-drv = <EXYNOS5420_PIN_DRV_LV1>;
-+	};
-+
-+	key_volup: key-volup-pins {
-+		samsung,pins = "gpa0-7";
-+		samsung,pin-function = <EXYNOS_PIN_FUNC_EINT>;
-+		samsung,pin-pud = <EXYNOS_PIN_PULL_NONE>;
-+		samsung,pin-drv = <EXYNOS5420_PIN_DRV_LV1>;
-+	};
-+};
-+
-+&rtc {
-+	clocks = <&cmu_apm CLK_GOUT_RTC_PCLK>, <&rtcclk>;
-+	clock-names = "rtc", "rtc_src";
-+
-+	status = "disabled";
-+};
-+
-+&timer {
-+	/*
-+	 * Non-updatable, broken stock Samsung bootloader does not
-+	 * configure CNTFRQ_EL0
-+	 */
-+	clock-frequency = <26000000>;
-+};
-+
-+&usbdrd {
-+	vdd10-supply = <&reg_dummy>;
-+	vdd33-supply = <&reg_dummy>;
-+
-+	status = "okay";
-+};
-+
-+&usbdrd_dwc3 {
-+	dr_mode = "otg";
-+	maximum-speed = "high-speed";
-+};
-+
-+&usbdrd_phy {
-+	status = "okay";
-+};
-+
-+&watchdog_cl0 {
-+	status = "okay";
-+};
-+
-+&watchdog_cl1 {
-+	status = "okay";
-+};
-diff --git a/arch/arm64/boot/dts/exynos/exynos850.dtsi b/arch/arm64/boot/dts/exynos/exynos850.dtsi
-index 3881f573ec08..8de135807aa7 100644
---- a/arch/arm64/boot/dts/exynos/exynos850.dtsi
-+++ b/arch/arm64/boot/dts/exynos/exynos850.dtsi
-@@ -147,7 +147,7 @@ psci {
- 		method = "smc";
- 	};
+diff --git a/drivers/firewire/ohci.c b/drivers/firewire/ohci.c
+index 7d797755bbd6..c8cb7bdcb4ed 100644
+--- a/drivers/firewire/ohci.c
++++ b/drivers/firewire/ohci.c
+@@ -1534,35 +1534,38 @@ static void handle_local_lock(struct fw_ohci *ohci,
+ 	fw_core_handle_response(&ohci->card, &response);
+ }
  
--	timer {
-+	timer: timer {
- 		compatible = "arm,armv8-timer";
- 		/* Hypervisor Virtual Timer interrupt is not wired to GIC */
- 		interrupts =
++static bool in_config_rom_csr_registers(u64 offset)
++{
++	return in_range(offset, CSR_CONFIG_ROM, CONFIG_ROM_SIZE);
++}
++
++// 5.5.1 Bus Management CSR Registers.
++static bool in_bus_management_csr_registers(u64 offset)
++{
++	// 0x22c = CSR_MAINT_CONTROL following to CSR_CHANNELS_AVAILABLE_LO.
++	return in_range(offset, CSR_BUS_MANAGER_ID, 0x22c - CSR_BUS_MANAGER_ID);
++}
++
+ static void handle_local_request(struct at_context *ctx, struct fw_packet *packet)
+ {
+ 	struct fw_ohci *ohci = ctx->context.ohci;
+-	u64 offset, csr;
+ 
+ 	if (ctx == &ohci->at_request_ctx) {
+ 		packet->ack = ACK_PENDING;
+ 		packet->callback(packet, &ohci->card, packet->ack);
+ 	}
+ 
+-	offset = async_header_get_offset(packet->header);
+-	csr = offset - CSR_REGISTER_BASE;
++	u64 csr_offset = async_header_get_offset(packet->header) - CSR_REGISTER_BASE;
+ 
+-	/* Handle config rom reads. */
+-	if (csr >= CSR_CONFIG_ROM && csr < CSR_CONFIG_ROM_END)
+-		handle_local_rom(ohci, packet, csr);
+-	else switch (csr) {
+-	case CSR_BUS_MANAGER_ID:
+-	case CSR_BANDWIDTH_AVAILABLE:
+-	case CSR_CHANNELS_AVAILABLE_HI:
+-	case CSR_CHANNELS_AVAILABLE_LO:
+-		handle_local_lock(ohci, packet, csr);
+-		break;
+-	default:
++	if (in_config_rom_csr_registers(csr_offset)) {
++		handle_local_rom(ohci, packet, csr_offset);
++	} else if (in_bus_management_csr_registers(csr_offset)) {
++		handle_local_lock(ohci, packet, csr_offset);
++	} else {
+ 		if (ctx == &ohci->at_request_ctx)
+ 			fw_core_handle_request(&ohci->card, packet);
+ 		else
+ 			fw_core_handle_response(&ohci->card, packet);
+-		break;
+ 	}
+ 
+ 	if (ctx == &ohci->at_response_ctx) {
 -- 
-2.47.3
+2.53.0
 
