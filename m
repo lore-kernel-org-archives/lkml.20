@@ -1,113 +1,220 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E3F525B0A5
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 21:25:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5274F2D739C;
+	Sun, 13 Sep 2026 21:27:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789334711; cv=none; b=kCHgDnBiUTyBa4NoTYvOQ/DteG1Z79ec9/AQjxPV5EaTdI0oJUwUYNipXBaJkN7y30PExw6yz0IjcDtvUXQVWatt9DMRHy7DFGUf9Ehlp7ap0rPpmwf5iEZOykiG1Oqxqlzb9gn/cucyntSlB7A2hVFuDOmutYU6fmMwGlvrcYM=
+	t=1789334870; cv=none; b=VJqV0r4vUxRfYmiS/Jiti8hGe18C7vzNlG8Mv970qBia3fZKxup+slvlq9aOC8exncpAnXwaUptPhUHxYBNN6qOjyUmeDo1EekSRm29UB/oXa2KemvfJODYo+FfCDvyX6j1uOIT+YfFwmoJzze64i8kU4YNlTHYx+a3M/Lou7o4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789334711; c=relaxed/simple;
-	bh=AAAwelguTPfjpAnL+vqAqkkChfEV0ObjfpvLg0+5NtE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Nh+6v5H+q9DMiEIbQ2rYxDFAN/i3u3Vt9xM+i8akfb6s/Pg49moTU18B2WFA92eYJS4VMBeVC/RKdp9Gtde26d984FJ0ubrpNGjuFhB5m9nC08RZGwZHuJB6hrGiE9fUJgTz7WHKoLa7GszCZc9VdzwETf3SCy5lWr+w2Llm7ZA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WWSY9HYU; arc=none smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789334870; c=relaxed/simple;
+	bh=2eLtFdwPKYWVNM0KNzYGZkOpik29kQi1mV3QJjpI6/s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LFwgW6IO8pqn7qfbPxhYoBd+FZz39ddPmWeBcvEkTwMZ0ut2gyj3zv8vj+G0fRQ7bpDfGGDYXDE2jkDuhdzcoevOZRK9qFsmw/37l7gVxRj+IOS5zXf/ThAsi4iMa8OFGXlgsPiUiB08U2LsdAbARmU1yi2JTAyCaRgmF1IKhoE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RH2qe/Z3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WWSY9HYU"
-Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-5309ce58730so26323301cf.2
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 14:25:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789334709; x=1789939509; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OTFAKxEPG/XZ7jFrqWix1l3HMof1CHgUjJhMCCQjkn8=;
-        b=WWSY9HYUprVN2qPVLIUXCM4/ayDUfB9dCpyKu+RLYZ6Shi5fZyDb9E7dmO6/AYH8ap
-         +8R0q4KnASc8Emux7UAXuFpTXGm8r36ExMWGo3bJZ17/kkcHcfT5alFVm68qlePsYm9Q
-         nRwPod1L81Hgx/FMhjZNMAtG6CaUl4BA815vxzTWVKF/b/MyaWIqYcH1zRJfAMALwt8X
-         BECouX8dp70EgwWD7VzAPmxEWKUiARbZTMjdU8HNt2ShaTnSwDxNI9yovChek1udNuAP
-         5seowIkMO7izLQuisnHTwjH5DKRgaDpEQ0KxCmrAwUN/je87BJcoMCGZKX0xjq/OgBmQ
-         7c/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789334709; x=1789939509;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OTFAKxEPG/XZ7jFrqWix1l3HMof1CHgUjJhMCCQjkn8=;
-        b=DhDMRw2/1XWihNB4x42pT2vFgsqukyub5cd9ZQTNCVCBXs+e//giCrnT+rDyJ/rPeG
-         34n6vnOcwu1+dTZx0HnWt26+AP5ZWkyATm/gXMABv+z8eGcaEWyZO8WlcW2gYNVXGqK8
-         T2UIKiRbulU76+dpl8OllH+lVnHmjwoB6rjueXh0S8mJXcKLi+pJv2FOu/bknoyDa0i2
-         c51l0trp5ZDTZdpkHEde711CZM59vSyyQ73WkX4uUCvdvoeejvTIn4Znt26o+8V6E7sM
-         9FVNwhNZ1WXX3ikoQBaHFWHumgPvNSBmtMiNaHahZGyewNFyihAohM29LPwcpQyOreo7
-         Mv9w==
-X-Forwarded-Encrypted: i=1; AKwUvBwifVVStaivXZthhjBcSEH0UWKRR96GWlGWhHUeN+2jvAfYJAmtincHtk4LlxPaRk9cBMSZpOoP/Xtxjf0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lygwKgpcCvchfn12vLMU4wBXtG7B+tM62hbDCXmBdwdH9M2iR4
-	2MDJA6+CIoJUgYguWZDRezbk5GHsRLZQv1VFf0+/3xunbsdl3onHq0xPFdFA9OGZNoBV
-X-Gm-Gg: AYBFou3ehizSVSNUNwizZMp2TLwaVGtq977mi8QYcPqqkJUZU9h8BhQLe4vQMy35qkL
-	vA8DYrjFD1ja776HEtBChTz83X2ylTSe1hBPDJVegezSxuEx/hjpzynyGq7oB6FafygEip0f9Ml
-	qhUSvZ7qcNiaP4gLnHJ1djgG/gcHbdTYx9hI6sR9isql+0J2cECfwNB4scEixOM1It2d1cXEi3m
-	Kif5xlakrUG+dokCVGp5AovolCMSYP3zt+6D+8nU8tRm9DK8BRECAfjyo8ElN319U7pSwt3fu0b
-	AL37+xmwxNRYho/8XCeC3zH8BdCgUkttxEmXkOkNsGwD0r2/GzJ47zIR2Bwep1e35V6WYxEAA/J
-	J5G1jvvha1LDQTny5vY7fuiokDCHywPS3ahGQpFynKM9PgQm9F79esyhjNicRi2CUQCiryGP/GL
-	D3jZ9GqTUJCQG2sGXxrn5CWD13O46Ze711ziW5RvSSIEmc6esvGkaFyJIeeXZeVRfOp1RuQ9DbX
-	kOkdz9JmahACiJj8zbglxaF2qnfd8AUqwXBGvJeg0vrohScV8oUyf5VS5yg4YtKAfMic3l7AmeQ
-	dXRP8O2qzV/j41mjQM5pGUxxhR80rJcveA==
-X-Received: by 2002:a05:622a:1207:b0:531:273:b5d8 with SMTP id d75a77b69052e-5310273bb19mr34117131cf.24.1789334709267;
-        Sun, 13 Sep 2026 14:25:09 -0700 (PDT)
-Received: from localhost.localdomain ([104.39.73.78])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-530ca45b61dsm80714641cf.6.2026.09.13.14.25.08
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 13 Sep 2026 14:25:08 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Jason Baron <jbaron@akamai.com>
-Cc: Borislav Petkov <bp@alien8.de>,
-	Tony Luck <tony.luck@intel.com>,
-	linux-edac@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH] EDAC/ie31200: Disable PCI device when probing fails
-Date: Sun, 13 Sep 2026 17:25:00 -0400
-Message-ID: <20260913212500.60272-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RH2qe/Z3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 431751F000FF;
+	Sun, 13 Sep 2026 21:27:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789334868;
+	bh=Wq5CvnEl1ewY213ZDBAozwO3EEBpYPHHPC4ml3gchzw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RH2qe/Z3TudtVZ1E/xt5TO6qLeb9kUWsmWaBDOw/Ql8Wb3pUKA6FsX68HD/FZQb0u
+	 /kV6c0bbDVNfOmhMJ+IcwVoezG8z3umgwmTe2opMrTCWyDlY/CkWPY/8wex995s/GH
+	 jNk9OS2rHKY6n0IOUUUx0AF2c62WCrNT2fEOEopr9CwElLkfeUYJM1rObsnj8afWdl
+	 Mi95UgzREFbnZM7uRMG5GgIEBCs9dgoa2vggdBYbhrqq/PV+pIJVlz9/RcFZb24F6p
+	 e73Giz44OVq7dpYJVJHLBQGGx2NgWV5YqoJaV6fZCwuW9TGsLk39Q1BKivswTMxxj3
+	 mFxRm57x+jKhw==
+Date: Sun, 13 Sep 2026 23:27:44 +0200
+From: Alejandro Colomar <alx@kernel.org>
+To: Rich Felker <dalias@libc.org>
+Cc: Mikko Rantalainen <mikko.rantalainen@peda.net>, 
+	linux-fsdevel@vger.kernel.org, linux-api@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	brauner@kernel.org, viro@zeniv.linux.org.uk, jack@suse.cz
+Subject: Re: [RFC PATCH 0/1] close(): stop exposing non-retryable EINTR
+Message-ID: <aqcVK5OGbvIRNUNP@devuan>
+References: <20260913193815.2862366-1-mikko.rantalainen@peda.net>
+ <20260913205358.GX25906@brightrain.aerifal.cx>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="57k27f4uxik2pcox"
+Content-Disposition: inline
+In-Reply-To: <20260913205358.GX25906@brightrain.aerifal.cx>
 
-ie31200_init_one() enables the PCI device before calling ie31200_probe1().
-If probing fails, it returns without balancing the successful enable,
-leaving the PCI enable count elevated.
 
-Call pci_disable_device() on that failure path. This also covers the
-direct ie31200_init_one() call from the module initialization fallback,
-while preserving the existing return values and successful probe path.
+--57k27f4uxik2pcox
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx@kernel.org>
+To: Rich Felker <dalias@libc.org>
+Cc: Mikko Rantalainen <mikko.rantalainen@peda.net>, 
+	linux-fsdevel@vger.kernel.org, linux-api@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	brauner@kernel.org, viro@zeniv.linux.org.uk, jack@suse.cz
+Subject: Re: [RFC PATCH 0/1] close(): stop exposing non-retryable EINTR
+Message-ID: <aqcVK5OGbvIRNUNP@devuan>
+References: <20260913193815.2862366-1-mikko.rantalainen@peda.net>
+ <20260913205358.GX25906@brightrain.aerifal.cx>
+MIME-Version: 1.0
+In-Reply-To: <20260913205358.GX25906@brightrain.aerifal.cx>
 
-This issue was identified during our ongoing static-analysis research while
-reviewing kernel code.
+> Date: 2026-09-13 16:53:58-0400
+> From: Rich Felker <dalias@libc.org>
+>
+> On Sun, Sep 13, 2026 at 10:38:14PM +0300, Mikko Rantalainen wrote:
+> > This is an RFC because it deliberately changes a long-established raw
+> > syscall ABI. Jan Kara raised userspace-regression concerns when this was
+> > discussed in 2025:
+> >=20
+> >     https://lore.kernel.org/linux-fsdevel/ddqmhjc2rpzk2jjvunbt3l3eukcn4=
+xzkocqzdg3j4msihdhzko@fizekvxndg2d/
+> >=20
+> > while musl and Android bionic already normalize this result to success
+> > in libc.
+> >=20
+> > The Linux implementation of close() will always close the file descript=
+or
+> > given as argument, except for the invalid file descriptor which will
+> > return -EBADF.
+> >=20
+> > However, currently Linux kernel will return EINTR in some cases for
+> > close(). There is no good way for caller to recover from this case using
+> > the original fd. Whatever action was actually interrupted cannot be
+> > resumed or retried through this fd, because the fd has already been
+> > consumed. Even worse, EINTR conventionally invites retrying an operatio=
+n,
+> > but retrying close() is unsafe: the same file descriptor number may
+> > already refer to another file opened by another thread by the time
+> > close() returns EINTR.
+> >=20
+> > In addition, POSIX.1-2024 requires that if close() reports EINTR, the
+> > descriptor must remain open. It also explicitly permits an interrupted
+> > close() to return success after closing the descriptor.
+> >=20
+> > This patch is about implementing the second option to be compatible with
+> > both POSIX.1-2024 and real-world applications.
+> >=20
+> > Since close() on Linux first relinquishes the file descriptor and only
+> > then performs ->flush() work, interruption of that later work cannot be
+> > recovered through the original fd. No matter how important that
+> > close-time work was, ownership of the fd has already been irrevocably
+> > relinquished.
+> >=20
+> > For regular files, applications requiring durability already need an
+> > explicit synchronization operation such as fsync() or fdatasync() before
+> > relinquishing the fd. This proposal does not suppress meaningful
+> > delayed-I/O errors such as EIO, ENOSPC, or EDQUOT; it only changes
+> > interruption results whose conventional recovery action (retrying the
+> > operation) is unsafe for close().
+> >=20
+> > Historical discussions about this subject:
+> >=20
+> > - https://inbox.sourceware.org/libc-alpha/efaffc5a404cf104f225c26dbc96e=
+0001cede8f9.1747399542.git.alx@kernel.org/T/
+> >=20
+> > - https://sourceware.org/pipermail/libc-alpha/2025-May/166675.html
+> >=20
+> > - https://lkml.rescloud.iu.edu/hypermail/linux/kernel/2205.3/06731.html
+> >=20
+> > - https://lwn.net/Articles/576478/
+> >=20
+> > - https://yarchive.net/comp/linux/must_check.html
+> >=20
+> > - https://sourceware.org/pipermail/libc-alpha/2025-May/166907.html
+> >=20
+> > - https://sourceware.org/pipermail/libc-alpha/2025-May/166722.html
+> >=20
+> >=20
+> > POSIX.1-2024 also allows EINPROGRESS after the descriptor has been clos=
+ed.
+> > I considered using that result, but it appears less useful than success
+> > for Linux. It would preserve diagnostic information about interrupted
+> > close-time work, but there is no operation the caller can perform on the
+> > original fd to resume or complete that work. It would therefore turn an
+> > irrevocably completed ownership transfer into an apparent failure witho=
+ut
+> > providing a recovery path. Returning success avoids that ambiguity and
+> > still leaves genuinely useful delayed-I/O errors such as EIO, ENOSPC, a=
+nd
+> > EDQUOT untouched.
+> >=20
+> > This also matches the direction taken by musl, which initially used
+> > EINPROGRESS for this case and later changed to success because existing
+> > applications were prone to interpret EINPROGRESS as a failure and could
+> > incorrectly infer that the fd was still open.
+> >=20
+> > Automatically replacing EINTR with success does change the *observable*
+> > raw syscall ABI for applications that distinguish EINTR from successful
+> > close(). For applications that already treat the descriptor as consumed,
+> > this changes control flow to the normal successful-close path. I would =
+be
+> > particularly interested in concrete examples where distinguishing EINTR
+> > provides useful recovery semantics, given that the original fd has
+> > already been consumed and cannot be used to resume the interrupted
+> > close-time work.
+> >=20
+> > Mikko Rantalainen (1):
+> >   fs: don't return EINTR from close()
+> >=20
+> >  fs/open.c | 11 ++++++++---
+> >  1 file changed, 8 insertions(+), 3 deletions(-)
+> >=20
+> > --=20
+> > 2.43.0
+>=20
+> Hi! I'm one of the first people who pressed this issue while tracking
+> down the POSIX model for how side effects are supposed to work with
+> respect to EINTR and how that relates to thread cancellation, and how
+> glibc was getting all this stuff wrong, back around 2011-2012.
+>=20
+> I don't think there is serious concern about userspace regressions
+> making this change. It would not be changing the meaning of any
+> existing result code or adding a new error condition applications need
+> to be aware of (like the EINPROGRESS mess).
+>=20
+> But I'm also not sure how helpful the change would be. It's already
+> possible to patch this up in userspace, and as you noted, we already
+> do that in musl and so does Bionic. So the main practical effect of
+> this change would be just forcing the right behavior on glibc systems
+> even when glibc doesn't want to fix it. Maybe that's a good idea? I'm
+> not sure. I think it would be best to have everyone on the same page
+> that this should be fixed, with both glibc fixing it so it's right on
+> old-kernel/new-glibc, and the kernel fixing it so it's right on
+> new-kernel/old-glibc. That would also avoid hard feelings from a
+> unilateral action perceived as dictatorial.
 
-Assisted-by: OpenAI:GPT-5.6
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
- drivers/edac/ie31200_edac.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Acked-by: Alejandro Colomar <alx@kernel.org>
 
-diff --git a/drivers/edac/ie31200_edac.c b/drivers/edac/ie31200_edac.c
-index 6f5fdf43e7732cd23d54dc8392caed4ca7990fcd..88af77ee07fe367f692a89dd55f188aefe912e44 100644
---- a/drivers/edac/ie31200_edac.c
-+++ b/drivers/edac/ie31200_edac.c
-@@ -660,7 +660,9 @@ static int ie31200_init_one(struct pci_dev *pdev,
- 	if (pci_enable_device(pdev) < 0)
- 		return -EIO;
- 	rc = ie31200_probe1(pdev, (struct res_config *)ent->driver_data);
--	if (rc == 0 && !mci_pdev)
-+	if (rc)
-+		pci_disable_device(pdev);
-+	else if (!mci_pdev)
- 		mci_pdev = pci_dev_get(pdev);
- 
- 	return rc;
+>=20
+> Rich
+
+--=20
+<https://www.alejandro-colomar.es>
+
+--57k27f4uxik2pcox
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmqnFUoACgkQ64mZXMKQ
+wqkBRw//df2SrR2tZspLc5dKF85tQo+uta1DKIEZUJ9Mgz+gTOMcNqEshLMs13nJ
+zf7egelrg28x+tuk8Sofu6dW13MnPBEgQuoYCMulIWKKf8Ah0+Whrh3BeTlVLMJC
+Gg4beJxWW67CNgF46kjDUWTEyXCmqQtCizu7OKCF+nOsD1/mNw6Jse3LSTxob7bR
+wE40OGnXj+pZvMjWjjWCbrhEUnroTltxS6DVhr+jePfJN4om7doNYfKJD/+eE2cL
+A7mqHlkkKK2V37miCYXQN021I122ark6Go1dZEuwQFCLSp2+iT9ZrQxrescCqvBO
+ErQWxU97Ndt7T9y5ndLLhUdP7KeLINHbqDMgp6hswL2RTmFh7W7C35FhBmBGHlc4
+XIzcxdRkldMWvs/tAF0PrneKSOpC8XPTIDx3srXrRhA0iLR/RHNFcE9HI2178KSs
+o3U8nI/f7ZREzyFRvCN9BBVcQph704NMcTmEFxoLeTwdC8BW7q1r2ekdQ7xNUmQU
+hnF9o3PjdZ/1HbLXvsWN/0sDeycMXf6zjEkOuF1sHkkroqArbidT97HYioFlZqh8
+kiy7ar1oiaGwtWuaXddgYvWvgxVssgIoycKCAtcbXgbL2QIcq028FnTNXBPAK1uK
+K/+o2ThvMWBMCD/k5p9rf/WimEdfCG2mB7DvrwfixFzzFHhXnY8=
+=OUOx
+-----END PGP SIGNATURE-----
+
+--57k27f4uxik2pcox--
