@@ -1,81 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [46.38.247.119])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DC8A348C7C;
-	Sun, 13 Sep 2026 09:03:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8DE839BFFE;
+	Sun, 13 Sep 2026 09:04:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.38.247.119
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789290236; cv=none; b=sNCExle9lb++GmpSkPXATrRnEvpJtbYPLQGw0pWBzt+gj9lVHEccHyR4M2EEKOvj96lN8AM8pckqn2wn3K1KfbLegwbc/phnBPB4nJloEADxvsJp4RUVZ6/vJw2Tx5r6gBzgfV4H2cJk3O09vgsX7fd62ogfj9vQ7vGOkQ4yf8A=
+	t=1789290257; cv=none; b=PMPVpKQho9T6afPzjWyExEVbuZqXMF+S56QMjHD1omEIM/5sO0b21xoJc/UFaTHQpR+5nTCBaiQ8YRx2wkEwYQvYgk12kmBx36cZJc5886lpvhPeFJ1Bhp5I0I4KaJJrpm2X0C5ex5NSQdU1n4P1fSv0jEfuQL0JjilfGqH66PM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789290236; c=relaxed/simple;
-	bh=s7FNHjOA38LQ1O46rmec34YUBzRGFpAorX8iHulUSLE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kDE2CHk9JFJjEZ4rKhlYSQktTWJwzQEm8l3SXIKWUiYe7GfxVTFofOJNf23Zx0VD9jdldI0tT8KmHpKU3tnOViruEUjYNtFirqsLHWxyPbPeNRJYu0lKuCzkF2fROYPW2yx4+HY8SFYbX109d1i1n+t/ZqJkDlXbVakZRxgPEBg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DA8LP5ll; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789290257; c=relaxed/simple;
+	bh=FqRABiScQWTUVxOxsOnT35qcLBrYzvgdptPhwHgTIIM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=KsyT++4LWMzSiHWXS6lcFXD71lNumBw+arq/A+S+BaKbqoo6Kw8HZdSLqaCyEti+g9rvIYlHVxPIxAw/AXb/s1t9ncphrtfwfvgyeRowWwlraJ3q9leeWHdc5BaUz+3r6NgrcEXUyi/5mDtevMrBzZ0G7tcmO8trTyyOua/It+E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=NfDXsNLY; arc=none smtp.client-ip=46.38.247.119
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DA8LP5ll"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDE8C1F000FF;
-	Sun, 13 Sep 2026 09:03:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789290235;
-	bh=HOCVCoUbZ3n/ApxFbJdyqu/tiiYlAtevu9P9fyqmEWo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DA8LP5lleW298yNT/I3q4vqLVtG60kVYWFGIdHbGeitPHZw3N5aKTd5JB7sIfLcjd
-	 23xpU5kKtO2bqa3Ln4h+0HEQUHddp8GSNcvJ7kvJ9n+TiCkKQmKdLrkuWRU+LduKiN
-	 0/P4yuP1kiB1cmlamRZbZQme2JRS7tIKOU+1wrPhzCRtpLfJh/28vGKBk3drZPkHlR
-	 jqjza0d7Hs/rVd7dLsmqmDPuvVeAMHLze7SEp+fOJJvTly682/m6scTeR5d/V3GYNt
-	 YJ5A0ytlK0m1B6rCm1CrazlfXBX8yMXN04s39tCVkE8LpMcFplVkQ6JMAlpx1FPeXb
-	 ci2rgPu86TapQ==
-Date: Sun, 13 Sep 2026 11:03:52 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Chuan Liu <chuan.liu@amlogic.com>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
-	Jerome Brunet <jbrunet@baylibre.com>, Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 01/10] dt-bindings: soc: amlogic: Add compatible to
- support more SoCs
-Message-ID: <20260913-resilient-terrier-of-sympathy-e50c85@quoll>
-References: <20260911-more-socs-to-support-clk_measure-v1-0-940e269aa52f@amlogic.com>
- <20260911-more-socs-to-support-clk_measure-v1-1-940e269aa52f@amlogic.com>
+	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="NfDXsNLY"
+Received: from mors-relay-8404.netcup.net (localhost [127.0.0.1])
+	by mors-relay-8404.netcup.net (Postfix) with ESMTPS id 4hjMlq2FQTz8LkW;
+	Sun, 13 Sep 2026 11:04:07 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1789290247;
+	bh=FqRABiScQWTUVxOxsOnT35qcLBrYzvgdptPhwHgTIIM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=NfDXsNLYDv6qLkPrEgyeVTdyerUILbYpsDpfWE5+PsIrPdxtm+3aLA1UCvJOazLNG
+	 BD/LrEWI3wAA3eV3Ph3i1uHcsF27Q+UwAp/N6ghx+BbZNMjvaoDJQELP80LEBy2CgA
+	 iAPsoDVa5tyeRpR1vIgBdw4C1Xxa4Ph82PEvsHev6QcTMbdh6vX004jjTkoF5F80Yc
+	 cyadQ03vP7FSrb7ulUUSY0ffwfke47+szcYNy9WJbIQ5T7kjAAQzSrvj3fQdutdHkE
+	 x7odM0CR6up4uAQl0qXF637gk/WmMfgnmIQuIoh6U3fQ2wTURXokAs6xVAU9tMooef
+	 fyeCLY4qIVLag==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+	by mors-relay-8404.netcup.net (Postfix) with ESMTPS id 4hjMlq1XDwz5012;
+	Sun, 13 Sep 2026 11:04:07 +0200 (CEST)
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4hjMlp5Cjyz8tHq;
+	Sun, 13 Sep 2026 11:04:06 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id DA63C5FAA6;
+	Sun, 13 Sep 2026 11:03:57 +0200 (CEST)
+Authentication-Results: mxe9fb;
+        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <2741f995-dca0-4645-848c-34752d62574f@leemhuis.info>
+Date: Sun, 13 Sep 2026 11:03:57 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260911-more-socs-to-support-clk_measure-v1-1-940e269aa52f@amlogic.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [REGRESSION] ath12k suspend/resume breakage on 7.3-rc2
+To: Takashi Iwai <tiwai@suse.de>, Chris Lew <christopher.lew@oss.qualcomm.com>
+Cc: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>,
+ Pranav Mahesh Phansalkar <pranav.phansalkar@oss.qualcomm.com>,
+ netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
+ linux-kernel@vger.kernel.org, regressions@lists.linux.dev
+References: <87a4plsg4w.wl-tiwai@suse.de> <878q55sfxo.wl-tiwai@suse.de>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Content-Language: de-DE, en-US
+In-Reply-To: <878q55sfxo.wl-tiwai@suse.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-PPP-Message-ID: <178929023825.1374849.273701538115019544@mxe9fb.netcup.net>
+X-NC-CID: nzkLd+oddwYESOweEoSZjOL4kVB7Z+cQ0KIRx63bqlfq7OVK+p8=
 
-On Fri, Sep 11, 2026 at 04:28:28PM +0800, Chuan Liu wrote:
-> Add clk-measure compatible for amlogic A5, A4, S7, S7D, S6 and A9 SoCs.
+On 9/13/26 10:39, Takashi Iwai wrote:
+> On Sun, 13 Sep 2026 10:35:27 +0200,
+> Takashi Iwai wrote:
+>>
+>> on 7.3-rc2, the suspend/resume of ath12k WiFi on Lenovo Thinkpad T14s
+>> Gen6 AMD model is broken.  Upon suspend, the network isn't recovered,
+>> and the desktop got eventually frozen.
+>>
+>> The git bisect pointed to the commit
+>> 544d85de4dc22c01badfd8cefa59829ce35c4858
+>>     net: qrtr: Send HELLO message on endpoint register
+>>
+>> and reverting this fixed the problem.
+>>
+>> Below is the (stripped) dmesg output after the resume showing the
+>> problem.
+>>
+>> As far as I understand, the problem seems to be the change of the code
+>> flow: ath12k uses mhi_power_down_keep_dev() during suspend, so the
+>> qcom_mhi_qrtr_remove() and *_probe() won't be called.  This makes the
+>> driver endlessly waiting for the HELLO handshake upon resume with the
+>> commit above.
 > 
-> Although the clk-measure IP itself has little hardware difference across
-> SoCs, the clock inputs connected to the clk-measure block vary between
-> SoCs. Therefore, it is difficult to fall back to the configuration used
-> by previous SoCs.
-> 
-> Signed-off-by: Chuan Liu <chuan.liu@amlogic.com>
-> ---
->  .../bindings/soc/amlogic/amlogic,meson-gx-clk-measure.yaml          | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/soc/amlogic/amlogic,meson-gx-clk-measure.yaml b/Documentation/devicetree/bindings/soc/amlogic/amlogic,meson-gx-clk-measure.yaml
-> index b1200e6940ac..125be01e3b2c 100644
-> --- a/Documentation/devicetree/bindings/soc/amlogic/amlogic,meson-gx-clk-measure.yaml
-> +++ b/Documentation/devicetree/bindings/soc/amlogic/amlogic,meson-gx-clk-measure.yaml
-> @@ -26,6 +26,12 @@ properties:
->        - amlogic,s4-clk-measure
->        - amlogic,a1-clk-measure
->        - amlogic,t7-clk-measure
-> +      - amlogic,a5-clk-measure
+> ... and below is a quick fix I tested.  It seems working so far.
+Not my area of expertise, as you know, but have you see this fix for the
+culprit? Or is your problem a different one?
 
-Why is a5 after a1? Are you all adding here to the end of the list all
-the time?
+net: qrtr: resend HELLO on MHI resume
+https://lore.kernel.org/all/20260909055846.16539-1-daniel@quora.org/
 
-Best regards,
-Krzysztof
+Ciao, Thorsten
 
