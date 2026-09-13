@@ -1,63 +1,63 @@
 Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84F193EB819
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 12:52:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB3353EDAA0
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 12:53:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789303981; cv=none; b=nP8fA8FJrMS5YWx+HHJDlIeYKSw6bT3NHOPszCB8AEyEkyra6r5yl5ESbCGbyqgyACB69F2uacJwI/g30s6hjxLmhUqGGRq8+xDQTLZKnv4KSVAx+aWhIX/cXcPpeMcDmrjALGzNce2hZk2alSZCHLvz3/gzTAM1z8Ir9OtsCc8=
+	t=1789303983; cv=none; b=Au4Ck6DRwISV//PuSwIA8eIlBAcJuAD/z1gReplMkHFdeCUe2juXUJaebtbeyvSLGm//kD7/jNmqEi2C8D/mNVdGfoq8yogygVvx0riqjTq7ykdnnWVcusJTfQNoMFkbexCik67EGlS45EjNbIeBjVy7LIFLfyu7fLCql8iqjy4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789303981; c=relaxed/simple;
-	bh=qwRW5YP/OsxI03pqmCcnKn2ESNhEIHF0NnfugvT2Rec=;
+	s=arc-20240116; t=1789303983; c=relaxed/simple;
+	bh=uqSZ9vaYLLr+IlpI+wNqRUJ19lOtB5XlEKHqPxDiWeM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SPKnullwO1+bXt8ZXdb3eUhZn3+lZO+qEd6ynDong6M05Np97l2GWbtb4cx4Cs/jddosTMyZHmlZlurTBZRamLnJibZ3aJS20t4op7KPikVwqv4O2V3ploQn4N890fxHi1uGA7r7dxwCBEvlHC5mZIZ0U3ryBlj90/qQoo8MsYk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LUDsGS5N; arc=none smtp.client-ip=74.125.229.204
+	 MIME-Version; b=JI+d9S5MwH6ETwY5CMRFff2xci/Ef9QyqSWitGwxECUa0uP08pFQN+x7kT+u/Uu6yjgndNUznE67xRZTIimHAJwQCKALRZ1lQl5BOf6kM5ejE2oS7WJZ+FwtUH+tNNhCg2bjK9saSsHGX+fWOCn47RsNTHV+4Mt9jMA66/rrlhA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ouJNpdD8; arc=none smtp.client-ip=74.125.229.204
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LUDsGS5N"
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f16f16so1363670e87.0
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 05:52:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ouJNpdD8"
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f16f16so1363679e87.0
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 05:53:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789303977; x=1789908777; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789303980; x=1789908780; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=SRE517es95kbkROai5n0sLeTok/JKNa+OL5tekr+lZM=;
-        b=LUDsGS5N3P5+jgUabSqC4MAmSG4JN9jMk2LeMPwAYvkDOUrPFNsgtRFwKOUTswHTTv
-         QU18CJ8xfEs4GoaihrflAWKUh2xwbxk+wJlxrdLBpbSdIO1lqVnIFGttvHZbSXWD6nKG
-         WOh42QWCIgUikzXX+Erm385/7m2AUNx3ED4j+vdMBO/T8KxevlB7AZQqIq6TQvx1zNXs
-         ettfrt0RzxHJKxdS910GrE2HNSjQ2jBiN6ajLs99gclNjAz9qwSxjiQ9ZDapBIdMX7ww
-         JuzLB6+S/5Xdrbw5NPo1ZwlRon2cDzJsd/dCwtHT/d1wEGXEJNauK7VnmUV6q9dWZzKm
-         X9WA==
+        bh=pjCp7DsLa8JOzDd9QVc9nOTCPNziCux3eLTHVXVPDfY=;
+        b=ouJNpdD8I11bkZFl2GYdEx2p1znfZF4lskK/OyWMEuhnduVqnlbqU32osjRApFaCBh
+         Dy6/n3g91MXmVXfbECEf6anBgHIhvBKzoi/jtg4L+eCp1QCK/OYqlMPRLjhlmf+BCDws
+         K3KavWc9QzikLiXxEIX2oJCTKQ4gCAZ3Dd8zrO1hoZeugtU3yhuWKSi4mSIn/Hkx721+
+         9zg2/2csPEFsSk0zCHPVUTQ6kN8coWxkMJb/tq7rFiQaVLCcphjCv63JIjBLFx/tplnh
+         B59Kl6rr6G3BGil6YedOs/OR/1fPNeX64nEyqLCauJ6y1JMViN/dbqjz58o4WG/bg2RU
+         iGyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789303977; x=1789908777;
+        d=1e100.net; s=20251104; t=1789303980; x=1789908780;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SRE517es95kbkROai5n0sLeTok/JKNa+OL5tekr+lZM=;
-        b=ENTjZTOiSuMUwJyCP8l0cqP4lbb/qyt1KShzRB3F0fMxhkR4VXj1DNlC5pzyHHNkd9
-         9x1UQ8NfjEISDhtPNcVfDvRTgI1eHc7OMTcjbx7DE32JQ2rH4EtM+sHBEPxPm2O92L5M
-         n0hXaURudJSX1GDDvxTNHg6q5OSH7nKhcrGu5RSBMraR4joPkfH2N0966ibKP6c3E1iT
-         CNv03m5xEJ4JMQ/E1EXzQxoWw0fvbnT/bDv57bN49srpDIQpZUBUYElltIgVBBZj+HI6
-         awVicnPZu05YJl23FHBF/haowDzd0W+Ya237xjFaY3lVIicvuMncz2qhqVs+0S+lHIUG
-         OmSg==
-X-Forwarded-Encrypted: i=1; AKwUvBzNInWyPtR2bfDh2UMMcf7ke1oeHR2ZYijRDrQqgQ4ccPcVGqZdTx5FfY6+zFYr6fXqb+dygW3g6MQWUR0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kNOhBWNdjsD2uviCc6H5qxEHd6KVvQvN17YdDhm2Nc8hChOWft
-	wMi/eglxS8mrVx3cVX0C+UWeBYD8+hKQT5fDpKepShsZCLJ87Gu9eCQ=
-X-Gm-Gg: AYBFou2AhGeD3MnD+ubxpv1DY5gmRLaFhwIeMCegewiIcr9Y1ebJdLZ76Q41Bkk+Ff9
-	4mkGTYrG1oYCs3vQh8ZsjUIcABtzR2IVIOeyvIJsptuT7CtHHkwU7qUN0I03MgT/qc+hgL8IcsT
-	RWtleF1wBd0ecFQRftxHTa3z1GbRQCj5jENg0Ruasc+yMJRgYrUWUJ1I3YSz63msc/GlCfDETC4
-	POk7uvRvscFwG2x62L+3UA7jSnbXpiHatSMlzSnDR9DEDZ2SoTOyy7YYP9CYbA7MyRwbDiOBg/7
-	AagW8XiMjUU+mcClEEv9kmnkfrVneoWCjtRqsLcQnELOCDXnpn7MrNNYpx6Z4oBuyE12APkLW2O
-	anKrJ0afjkE8ecnX7aGEQrGTN7egdHv09Jf6L6dZttw5rdXwkwJwHJU9RtqAxTMFDlE+0ep2qYw
-	rq2r3ACqS49NKr2WGiJO3eUku9eifgSpQkJqUvLGWSEqAY3id568dgzjm76P0AxVkUog3eAdKg
-X-Received: by 2002:a05:6512:39c5:b0:5b8:99a2:9f2d with SMTP id 2adb3069b0e04-5b8a0325821mr4604271e87.17.1789303977336;
-        Sun, 13 Sep 2026 05:52:57 -0700 (PDT)
+        bh=pjCp7DsLa8JOzDd9QVc9nOTCPNziCux3eLTHVXVPDfY=;
+        b=NyshrFyM/LZy64HwPzP2uh35d4Y2Wp8rorJ2OA07uAf0f5Dto6UdqfGl07Yv9K35AC
+         AHJHjlsWYF+PfrYFQAhG7VhT50YcAk7CB6H/uwDFdqmLDXu02mQR2AgsW23ePaamjrwb
+         C1L3o5UQkD1giGGcYfLL4JhMa2bbWFOdeVaZ6vYcFtTeIripjCoXSIEJkB7yBRc2jTuI
+         uA/THEP43g3LufUbJJ90g845YXsgsinZ1AHeYmqScGFbY+a21ODNgsYgXhHtcQMWzatI
+         lVUQ4SixXwPt0A7PaeN6scHwLztBsqUk8nizzxzFHe5BftKXJVqx99ntoOVp8Uk7vOeV
+         A9/A==
+X-Forwarded-Encrypted: i=1; AKwUvBwB24tUXWEDILUnL/W0vOrLglZ435Xmn31r3nF3IyyuZkECmX9fjRmGuJT+wMfrEzxaG4w0EdWS0gzMe4Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++mqe8x43Ipoqhi1JqyEICyob8yBGjmIDNhyJiYuq/ibLrDHzqX3
+	lcjG+ei71n1LwMcy5V6Ye3if5PfLq7RwmtuqYH8TGCRUnXrWPHtcp1U=
+X-Gm-Gg: AYBFou0EXOjJ2Q8HnjodQvFaiGh4J6aWbidya3nP+6/Tm8x472P1WFIAWZa6d/jbN4T
+	6KrkD5Pz3UQASax4Orwhf5fkSbYV1SMeaM84ZICkWvn2fIZrUMUaM42sRjveyxpF7w9qTKvRYCy
+	BKFgq8cbihL/WP5JoDZqK2zVoTV+1LTfMg93S6Md/XxVn9i1TnU+m2QZtAPQ9ZC5aWgKGsk51fT
+	jx94qr6+XQMvCOPpFRNwYFD2gXrgoVxSbHXEyaC1l2i8Zbw9fgfVFkViIbK7+yTilxWP2Ac7132
+	ILr8fN4KP1n+zD8AccVyGlJ6A5C91qAeUghJFJ2viMdaf8ODnUPXdHarnQm0KYSysEOzeO8m5p7
+	6yjIpuNUx9SlnKys8ImG3rlRrUlyDw6hJGKL/oUmgfGI01JHwmIc3pQVOgkYGRSzVXQ5AN3tcxB
+	ytEiZARX7U8jTtTUZWp7HvdjhReUpIITjvT8It/7aGx3PQrl+Bp0GlcXc9zyKmWlJjYm8eg65E
+X-Received: by 2002:a05:6512:2344:b0:5b4:ab2f:5bd5 with SMTP id 2adb3069b0e04-5b8a02fa1e4mr5509677e87.8.1789303979805;
+        Sun, 13 Sep 2026 05:52:59 -0700 (PDT)
 Received: from fedora ([46.8.219.5])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8a0469a8esm1762844e87.50.2026.09.13.05.52.56
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8a0469a8esm1762844e87.50.2026.09.13.05.52.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 05:52:57 -0700 (PDT)
+        Sun, 13 Sep 2026 05:52:59 -0700 (PDT)
 From: Vitaliy Sochnev <sochnev.v.74@gmail.com>
 To: "Rafael J. Wysocki" <rafael@kernel.org>,
 	Daniel Lezcano <daniel.lezcano@kernel.org>
@@ -72,9 +72,9 @@ Cc: Zhang Rui <rui.zhang@intel.com>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Vitaliy Sochnev <sochnev.v.74@gmail.com>
-Subject: [PATCH 1/4] thermal/drivers/airoha: Fix AN7583 ADC mux field mapping
-Date: Sun, 13 Sep 2026 15:52:23 +0100
-Message-ID: <20260913145226.34643-2-sochnev.v.74@gmail.com>
+Subject: [PATCH 3/4] dt-bindings: arm: airoha: Allow one thermal sensor cell for AN7583
+Date: Sun, 13 Sep 2026 15:52:25 +0100
+Message-ID: <20260913145226.34643-4-sochnev.v.74@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260913145226.34643-1-sochnev.v.74@gmail.com>
 References: <20260913145226.34643-1-sochnev.v.74@gmail.com>
@@ -86,54 +86,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On AN7583, bits 3:1 of 0x2e4 select the sensor (0 bandgap, 5 GbE, 6 CPU)
-and bits 3:2 of 0x2a0 select the diode (0 D0, 1 ZERO, 2 D1). The driver
-names them the other way round: MUX_TADC is 0x2e4, MUX_SENSOR is 0x2a0.
+AN7583 has three temperature sensors behind the chip SCU: bandgap, GbE
+and CPU. Allow one cell to select the sensor. Zero cells stay valid and
+refer to the bandgap sensor.
 
-v5 of the AN7583 series swapped the airoha_set_thermal_mux() arguments
-to match these names. The diode index now goes to the sensor selector,
-so the zone reads mux positions 1, 0 and 2 (PAD_AVS, bandgap, core
-voltage) instead of the bandgap diodes. On a Nokia XG-040G-MF the result
-crosses the critical trip and the board powers off during boot.
-
-Swap the field definitions. MUX_TADC then selects the diode, as on
-EN7581, and the existing call order is correct.
-
-Fixes: b20d9782756a ("thermal/drivers/airoha: Add support for AN7583 Thermal Sensor")
 Signed-off-by: Vitaliy Sochnev <sochnev.v.74@gmail.com>
 ---
- drivers/thermal/airoha_thermal.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ .../devicetree/bindings/arm/airoha,en7581-chip-scu.yaml      | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/thermal/airoha_thermal.c b/drivers/thermal/airoha_thermal.c
-index 77b3a1af271f..2934d6aba0ed 100644
---- a/drivers/thermal/airoha_thermal.c
-+++ b/drivers/thermal/airoha_thermal.c
-@@ -18,10 +18,10 @@
- #define EN7581_DOUT_TADC			0x2f8
- #define   EN7581_DOUT_TADC_MASK			GENMASK(15, 0)
+diff --git a/Documentation/devicetree/bindings/arm/airoha,en7581-chip-scu.yaml b/Documentation/devicetree/bindings/arm/airoha,en7581-chip-scu.yaml
+index cc564dc7b414..da159b7572f3 100644
+--- a/Documentation/devicetree/bindings/arm/airoha,en7581-chip-scu.yaml
++++ b/Documentation/devicetree/bindings/arm/airoha,en7581-chip-scu.yaml
+@@ -26,7 +26,10 @@ properties:
+     maxItems: 1
  
--#define AN7583_MUX_SENSOR			0x2a0
-+#define AN7583_MUX_TADC				0x2a0
- #define   AN7583_LOAD_ADJ			GENMASK(3, 2)
--#define AN7583_MUX_TADC				0x2e4
--#define   AN7583_MUX_TADC_MASK			GENMASK(3, 1)
-+#define AN7583_MUX_SENSOR			0x2e4
-+#define   AN7583_MUX_SENSOR_MASK		GENMASK(3, 1)
- #define AN7583_DOUT_TADC			0x2f0
+   '#thermal-sensor-cells':
+-    const: 0
++    description:
++      0 refers to the bandgap sensor. 1 selects the sensor with one cell,
++      0 bandgap, 1 GbE, 2 CPU.
++    enum: [0, 1]
  
- /* PTP_THERMAL regs */
-@@ -634,8 +634,8 @@ static const struct thermal_zone_device_ops an7583_tz_ops = {
- 
- static const struct reg_field an7583_chip_scu_fields[AIROHA_THERMAL_FIELD_MAX] = {
- 	[AIROHA_THERMAL_DOUT_TADC] = REG_FIELD(AN7583_DOUT_TADC, 0, 31),
--	[AIROHA_THERMAL_MUX_TADC] = REG_FIELD(AN7583_MUX_TADC, 1, 3),
--	[AIROHA_THERMAL_MUX_SENSOR] = REG_FIELD(AN7583_MUX_SENSOR, 2, 3),
-+	[AIROHA_THERMAL_MUX_TADC] = REG_FIELD(AN7583_MUX_TADC, 2, 3),
-+	[AIROHA_THERMAL_MUX_SENSOR] = REG_FIELD(AN7583_MUX_SENSOR, 1, 3),
- };
- 
- static int an7583_thermal_probe(struct platform_device *pdev,
+ required:
+   - compatible
 -- 
 2.55.0
 
