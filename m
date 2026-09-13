@@ -1,243 +1,127 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mail.mindbit.ro (xs1.mindbit.ro [80.86.107.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E7C93B4E9D
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 18:25:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 961ED3314C3
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 18:31:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.86.107.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789323914; cv=none; b=M/Ry/5++4KGn/uDLivRCu4vggTLQdF8gZuj4Z4JfyAfSkxKEQsrinFaYSy64Su3emBU5u2G9TcV4jYf8s7nKWCvyRlWrdr3qw82bzfcoHYxLTblEdMsa0g21zj+ehHyhZHM5wzv39HaJP8UWZ2DI+SI7vbXJNRNezVoOmE4YRIk=
+	t=1789324299; cv=none; b=nu4GT2caDEA1wA43TcynNx8CsJ8l6YTHOvbB7mH+oyPcuYlnOSXCnhotS/nMJx1iVWC3vxtQTPVl27GJZMksRoB37fhV5HgMvMPf19OplITjyLPKgl+qrcxw1QZABgfazZSYaZnxlLlnKKQJkSoRqGgtEOGQDq6HyepLTgfGefw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789323914; c=relaxed/simple;
-	bh=Oua4x0xBd8TZMilI1qAPMvSZRZQ82sr3amusq4fS9Bo=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=NKaJcGOFhflifB87TM+AKWH8iW9FaU62orgoQNtToCsQJGua6QMySazxlEFzC/ohqDfeyJdnjgHFxjjDIr3B3uFiRHVI4gD3/sTxah2+RExNoWMqEvzbVcYQh+26plXhHKnpb19fncEQjR1e/wSCi4a++FzTPI6RmVGrfojzjaE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KJB0+VLI; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=c15km01r; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789324299; c=relaxed/simple;
+	bh=yUHWt84lY+sWF2W06UjT35rIVWbFLcjD0lQAwnnKGhk=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=TavPzFTIGjbdv1jV62pajGOMO/ANdud2Vdk3qzOZ7KId8vrEB2+Yh8g4XlkI4ClJALK+CVs1NdUW9wCvJNq4s2QF3MtKdAeD8pOcqlsDb7RNsK/9/IZC9piQzLyL22ilxw8U76OJrFOq2owtL06fkHpCI3aJFVSitFFq5KOov9M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net; spf=pass smtp.mailfrom=rendec.net; dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b=YcbeyvW7; arc=none smtp.client-ip=80.86.107.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rendec.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KJB0+VLI";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="c15km01r"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68DI2f8D3284739
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 18:25:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	GkLKYhzdmWx8ASPEw+bfyEGrvJszZcX0ihy3/m9xYe4=; b=KJB0+VLID+cSRmJc
-	EIWHRn+VH954/zglrkOFq0tU03iOMtCk3ZmbQ1nHHCR7xGASsfHWNfQzFHb6SL8F
-	hB3ePZ9kXc70wJrEGbmCVFCaTZxBtAWG9i+7hs/u4fTdvL7KmApI8X6QgmazBr21
-	XFrx8wSTeIMym88Phf2iEdH/oPL/dSa/JBqgjxS3IyII/CBoFp5JGZ74Et9K3lgw
-	rorHUMAZYOvgZ1fSFTdMKjSjX4cn0XaH9S/qLAaEMuW9JF3ufYY3whAgKr9Im115
-	er5/s5kUXytHDQdXAOqKKibQnyFR2fLZGvu6YZmoPcODjCylab61rPc68nsMLyFJ
-	8FSXRg==
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9cbwvh-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 18:25:11 +0000 (GMT)
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cb11535e6a1so2029222a12.0
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 11:25:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789323911; x=1789928711; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=GkLKYhzdmWx8ASPEw+bfyEGrvJszZcX0ihy3/m9xYe4=;
-        b=c15km01rh9dxCgzbMwfau49BlN1syrlQyLvDsc/xWHMGUugH3kVZeET6GgLiNwagSP
-         oLaRxzTeT8DLr06yGQ1Dzr59eo3w3wES2IMoTQ3tvwDZg7DzAyMUcvIDIvOdaZ4lVeMR
-         KR+KSZA0XDbr2U1K+X/AujjS/V7o858TZd30gxZQykO2tFJLxlrGPxMtqGUYyeY+vv1z
-         HLJMeHJoRBzIBNNq+aDzy7f/w+8woBFjWvi4E3Emb0PKQh0J/K0Ala04EUIMAG+H/p40
-         lbwE7pedpb3w9+QRZ0hidNB6qev9xsY3GS/Vuh1aNaTBMupeGZUNyrQdFeAI3qyn1P4f
-         1tmQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789323911; x=1789928711;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GkLKYhzdmWx8ASPEw+bfyEGrvJszZcX0ihy3/m9xYe4=;
-        b=XLAQN9B4sD0tmscEU6bPCotb8M+FE/hinec/WrzVNWupaXEjP+gYnRW9ZRuZdrcPKl
-         RLpr6Ak57pe5O611aMeaM1YypH6oEw9BKz+JOemdAcavjq65yVGH35up+QOuAAdjRYoq
-         hEHmqcaRTOWhjB7vaMe5M+fWqjmWFdR3xcA19TPz5rV8DJpgUwrFaleTRas9xpuVGAJx
-         rpfjTCpQCqGNnKVXT33LU2culvwzZV7/eOgb72Bt0jGaMJ93bd9737uCVAONyBh/evS/
-         kppKbGYX3l9Wup+cUaoB9Ing5eochB+WxU0xmOTri23qFzhtMGtZwRH4aSNnNM/L26ze
-         KEDw==
-X-Forwarded-Encrypted: i=1; AKwUvBy9Ld1mGvOCp6i8nHH9paz8bKLI2Iq4IuQ2FtI429UQZEALI5ARKnzW/9VgnIQlke5CiLJegNt/T9ZHXxY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lryImrM2D2lBWDPPcRs8+2T6yx2aLVM0N88lB6JqFktvNm4N2k
-	4ktJKoN2sH9ZzRQ6FSG4GxcHRclo2CYglz8GdUZN691mX3Srj8ZC+CLyxF2i5z26VINpJ7XxsyK
-	HLu+J2rfHY2R8Lb1Zy+M8dQRgaha4jTnyM35czhh0nXnNzBI7nQmjCxE4iBlkxTh7Dyk=
-X-Gm-Gg: AYBFou2b9xN6v/oxDhmeK9bmsWW8CWtN6PCfCJm940KYKwJ0Ab0PO+Xn0RO2mwoZWuj
-	T2+gEO8kEGiXiD4WXX12BX9M50DeY9xhzprNVE4hWNJtvTLMTHERr5QvHlqGYPiiPgXA5bxsNX7
-	d0r+EyxL1spCiuEtMbgwQs3OSchJIkxeV97eZPmuYG3uja/XFwL40ikUWs3MHSzQ0GicGPY6l+a
-	cToTj3+qaLV6/8VUJdL5VQmks1kPWfNE+PkL5Exf5iJp/vT8ayMb/eHFoRqY2cy/pLbWOtimaGi
-	3c6TsDqE1XLoaiz2ZbffBa1PsiphjsTOXuuDwCRIRTPZNkcVxSmC9ID4qgoHOh81KtUKAHGh6PF
-	pZDI=
-X-Received: by 2002:a05:6a21:6016:b0:3cc:9618:f51a with SMTP id adf61e73a8af0-3db0e0ea40amr13919542637.8.1789323910649;
-        Sun, 13 Sep 2026 11:25:10 -0700 (PDT)
-X-Received: by 2002:a05:6a21:6016:b0:3cc:9618:f51a with SMTP id adf61e73a8af0-3db0e0ea40amr13919502637.8.1789323910173;
-        Sun, 13 Sep 2026 11:25:10 -0700 (PDT)
-Received: from localhost ([155.117.96.35])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4cf72dbsm23050289eec.3.2026.09.13.11.25.03
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 13 Sep 2026 11:25:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b="YcbeyvW7"
+Received: from dog.kanata.rendec.net (pool-174-112-193-187.cpe.net.cable.rogers.com [174.112.193.187])
+	by mail.mindbit.ro (Postfix) with ESMTPSA id AAD2ACF9C9;
+	Sun, 13 Sep 2026 21:31:33 +0300 (EEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.mindbit.ro AAD2ACF9C9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rendec.net;
+	s=default; t=1789324295;
+	bh=9dER/J/8MdqEP/M3Ls+38r00y1seRCBppFrIe7sL3Ak=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=YcbeyvW7sSnnTfZTr/uCbcnFTlenGpzO6ymRZncRXn46x5A4ETMeyTu1u76htinxb
+	 HNHqDW2pA2lRL/+B2wINBujBetFK7t8nC33MvgFUaud2K1lH65XirYDPGFGST8KBg0
+	 P/Yqj8zKBqNjaNnkjfdpGsyVrylFggefTJykvBAdpRuuzNA/ZzXuia19AL3vHJvZ+R
+	 ehkm+GzmviHEaV5QJJM2J4q7lpReWTj/n+ksNLXKSwgzFCTpHC3oyE9Ncbl2b0ADvv
+	 7B4ICR/9eRUXKwBAvUdwCoetgsY8bJI3OLvb7LsQISqBExAXXfOQSHi6iCtfeyMRox
+	 2WGKHRSqJDAsQ==
+Message-ID: <159c52926a01c84a24d039b234bd1d3450fe5a9c.camel@rendec.net>
+Subject: Re: [PATCH 02/14] irqchip: fix typos in comments
+From: Radu Rendec <radu@rendec.net>
+To: Hemanth Selam <hemanth.selam@gmail.com>, Thomas Gleixner
+ <tglx@kernel.org>,  Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,  Paul
+ Walmsley	 <pjw@kernel.org>, Samuel Holland <samuel.holland@sifive.com>,
+ Linus Walleij	 <linusw@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-mediatek@lists.infradead.org, linux-riscv@lists.infradead.org
+Date: Sun, 13 Sep 2026 14:31:32 -0400
+In-Reply-To: <20260907065328.32009-1-hemanth.selam@gmail.com>
+References: <20260907065328.32009-1-hemanth.selam@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 14 Sep 2026 02:24:58 +0800
-Message-Id: <DLEEDV17BW1I.2QLKNNOLNOTGS@oss.qualcomm.com>
-Cc: <dri-devel@lists.freedesktop.org>, <linux-riscv@lists.infradead.org>,
-        <devicetree@vger.kernel.org>, <spacemit@lists.linux.dev>,
-        <linux-kernel@vger.kernel.org>, <linux-phy@lists.infradead.org>,
-        <linux-clk@vger.kernel.org>
-Subject: Re: [PATCH v2 00/17] drm/spacemit: add SpacemiT K3 display support
-From: "Ze Huang" <ze.huang@oss.qualcomm.com>
-To: <codykang.hk@gmail.com>, "David Airlie" <airlied@gmail.com>,
-        "Simona
- Vetter" <simona@ffwll.ch>,
-        "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>,
-        "Maxime Ripard" <mripard@kernel.org>,
-        "Thomas Zimmermann" <tzimmermann@suse.de>,
-        "Rob Herring" <robh@kernel.org>,
-        "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
-        "Conor Dooley"
- <conor+dt@kernel.org>, "Yixun Lan" <dlan@kernel.org>,
-        "Vinod Koul"
- <vkoul@kernel.org>,
-        "Neil Armstrong" <neil.armstrong@linaro.org>,
-        "Haylen
- Chu" <heylenay@4d2.org>,
-        "Michael Turquette" <mturquette@baylibre.com>,
-        "Stephen Boyd" <sboyd@kernel.org>, "Brian Masney" <bmasney@redhat.com>,
-        "Philipp Zabel" <p.zabel@pengutronix.de>,
-        "Paul Walmsley" <pjw@kernel.org>,
-        "Palmer Dabbelt" <palmer@dabbelt.com>,
-        "Albert Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>,
-        "Yao Zi" <me@ziyao.cc>,
-        =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
-        "Guodong
- Xu" <docular.xu@gmail.com>
-X-Mailer: aerc 0.22.0.r10.g73f20125
-References: <20260809-k3-display-v2-0-327d7910bf71@gmail.com>
-In-Reply-To: <20260809-k3-display-v2-0-327d7910bf71@gmail.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEzMDI1OSBTYWx0ZWRfX4CvhzwHKr5pd
- j5pVBR0LVoE5wCW7y1xYHiT2WYpNQaSYVHqM6nDCwlh5LaHWx2JKIMWgiLp9LnZYjNr+0RgL6E6
- 2qTOBJvmkm1IECK6aChuanimcJW62To=
-X-Proofpoint-GUID: IJKcf_zwkEFvldWra-gRddJYnITXCCiU
-X-Authority-Analysis: v=2.4 cv=BdZNQbt2 c=1 sm=1 tr=0 ts=6aa6ea87 cx=c_pps
- a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=Ilsi1XWDFcrB9FjxRIUvHg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=rqWh80hda8-QOrsfWKMA:9 a=QEXdDO2ut3YA:10
- a=x9snwWr2DeNwDh03kgHS:22
-X-Proofpoint-ORIG-GUID: IJKcf_zwkEFvldWra-gRddJYnITXCCiU
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEzMDI1OSBTYWx0ZWRfX1Dk8Fnt//DjE
- VsLmtqakjqkNdO32Y3NUDZEBbqBfJBtfhL+ZsFQc+7PjoZC3jtJN5u+467t3lCBMCQRoLb/K6rT
- B298kEmPJGo0CGv7iTq+W2boFv14PNFYicLVjNVKburvI/qFe07PvuHL5ki5Ey76EfzBltaK3sp
- MZ5ILHDPffdMoMeM5FggKVopgOy/qolZOexLIwjzbkmLv8xmOORpqYxX/doeK+btlD0DNmz87et
- InQm20q10jZdEp6M8IoDDCH8EGYAioHZe++cln6JloCHlfLRqppMChgJYg8oveyjwFYjliY0whe
- IziiL2F9VLGUARJWJT5jxJOb5B9O7WyLtc0cUOWZDCTXcu8JB0Y4r9hcmNYZMDOKJW6knW7+Glt
- 1LJ4mP5CJlNOHE4dusYL5HYpwjv45SoirsAJUe24adIPROFvno2FsKSG5U1zCtBSs89jUd4Vc9j
- cTHFsWczy0iGAVnd7VA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-13_06,2026-09-11_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 adultscore=0 malwarescore=0 clxscore=1011
- spamscore=0 bulkscore=0 lowpriorityscore=0 phishscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609130259
+MIME-Version: 1.0
 
-On Sun Aug 9, 2026 at 9:14 PM CST, Cody Kang via B4 Relay wrote:
-> This series adds display support for the SpacemiT K3 [2], a RISC-V SoC:
-> a new DRM driver, a new PHY driver and three new bindings.
->
-> The display path is three blocks deep:
->
->   Saturn DPU -> Innosilicon DP/eDP controller -> Innosilicon DP PHY
->
-> In v2, two major improvements:
->
-> - Module unload is now robust.
-> - The bindings now require the controller's output port (port@1).
->
-> The rest of the v2 changes please see below, with details in each patch's
-> changelog.
->
-> Sashiko AI review contributed total review comments: 57 items, which I
-> accepted: 14 items.
->
-> v2 repeated the full v1 test matrix on both boards, in built-in and
-> modular configurations, plus the new module load/unload rounds.
->
-> The v1 cover letter follows below, unchanged, to provide some backgroud
-> (I can remove them from cover letter in next version):
->
-> The Saturn DPU is SpacemiT's own display processing unit. It has a privat=
+On Mon, 2026-09-07 at 12:23 +0530, Hemanth Selam wrote:
+> Fix typos in comments, reported by scripts/checkpatch.pl using the
+> misspelling list in scripts/spelling.txt.=C2=A0 Only touches comments, no=
+ code
+> changes.
+>=20
+> Assisted-by: Cursor:claude-opus-5
+> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+> ---
+> =C2=A0drivers/irqchip/irq-mtk-cirq.c=C2=A0=C2=A0=C2=A0 | 2 +-
+> =C2=A0drivers/irqchip/irq-sifive-plic.c | 2 +-
+> =C2=A0drivers/irqchip/irq-vic.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 | 2 +-
+> =C2=A03 files changed, 3 insertions(+), 3 deletions(-)
+
+The changes look good, but in my opinion should be split into 3
+different patches, one per driver, and grouped into a series. Not that
+it matters too much in this particular case (where only comments are
+touched), but it's common practice in the Linux kernel development.
+
+There are multiple reasons. The main one is that different drivers can
+be reviewed/maintained by different people, and patches to them may be
+picked up via different (Git) maintainer trees. Also, some companies
+selectively port patches against specific drivers to the kernel trees
+they maintain.
+
+> diff --git a/drivers/irqchip/irq-mtk-cirq.c b/drivers/irqchip/irq-mtk-cir=
+q.c
+> index 914d1d639fe3..d30c34ce0f56 100644
+> --- a/drivers/irqchip/irq-mtk-cirq.c
+> +++ b/drivers/irqchip/irq-mtk-cirq.c
+> @@ -247,7 +247,7 @@ static int mtk_cirq_suspend(void *data)
+> =C2=A0		writel_relaxed(mask, reg);
+> =C2=A0	}
+> =C2=A0
+> -	/* set edge_only mode, record edge-triggerd interrupts */
+> +	/* set edge_only mode, record edge-triggered interrupts */
+> =C2=A0	/* enable cirq */
+> =C2=A0	reg =3D mtk_cirq_reg(cirq_data, CIRQ_CONTROL);
+> =C2=A0	value =3D readl_relaxed(reg);
+> diff --git a/drivers/irqchip/irq-sifive-plic.c b/drivers/irqchip/irq-sifi=
+ve-plic.c
+> index 5b0dac104814..a7cddadddf40 100644
+> --- a/drivers/irqchip/irq-sifive-plic.c
+> +++ b/drivers/irqchip/irq-sifive-plic.c
+> @@ -452,7 +452,7 @@ static irq_hw_number_t cp100_get_hwirq(struct plic_ha=
+ndler *handler, void __iome
+> =C2=A0		return 0;
+> =C2=A0
+> =C2=A0	/*
+> -	 * Interrupts delievered to hardware still become pending, but only
+> +	 * Interrupts delivered to hardware still become pending, but only
+> =C2=A0	 * interrupts that are both pending and enabled can be claimed.
+> =C2=A0	 * Clearing the enable bit for all interrupts but the first pendin=
+g
+> =C2=A0	 * one avoids a hardware bug that occurs during read from the clai=
+m
+> diff --git a/drivers/irqchip/irq-vic.c b/drivers/irqchip/irq-vic.c
+> index e38104c5064e..607e3284f700 100644
+> --- a/drivers/irqchip/irq-vic.c
+> +++ b/drivers/irqchip/irq-vic.c
+> @@ -478,7 +478,7 @@ static void __init __vic_init(void __iomem *base, int=
+ parent_irq, int irq_start,
+> =C2=A0/**
+> =C2=A0 * vic_init() - initialise a vectored interrupt controller
+> =C2=A0 * @base: iomem base address
+> - * @irq_start: starting interrupt number, must be muliple of 32
+> + * @irq_start: starting interrupt number, must be multiple of 32
+> =C2=A0 * @vic_sources: bitmask of interrupt sources to allow
+> =C2=A0 * @resume_sources: bitmask of interrupt sources to allow for resum=
 e
-> address translation unit and a command-list composer that replays a batch
-> of register writes when a flush is latched. It exposes one CRTC with one
-> primary plane. The K3 instantiates two DPUs, one per display path.
->
-> The DPU driver arrives as five staged patches to keep each one a
-> reasonable size. The driver only becomes buildable with that last patch.
-> Bisect safe.
->
-> The DP/eDP controller and its PHY are Innosilicon IP, also two instances
-> of each. An instance behaves as embedded DisplayPort or as external
-> DisplayPort purely according to what its output port is wired to, so the
-> bindings do not distinguish them. The PHY's registers are interleaved
-> with the controller's inside one MMIO window, which is why it is
-> described as a child node and shares the controller's regmap.
->
-> The pixel clock is generated by the DP PHY's PLL, and the SoC's APMU
-> pixel-clock mux takes that PLL as an input. Rather than let the display
-> driver reach into PHY registers, the PHY registers its PLL as a clock
-> provider and the APMU mux is parented to it through the clock framework.
-> That is what patches 2, 4, 5 and 6 are for, and it is also what keeps the
-> APMU and the DP/eDP controller out of a devicetree provider cycle.
->
-> As a first posting of the K3 display subsystem, this patchset supports:
-> a single primary plane per CRTC, linear RGB scanout (no plane scaling,
-> rotation, YUV or writeback). It does not support DSI, DSC or DP audio,
-> and link rates are capped at HBR2.
->
-> Based on drm-misc-next at commit 5b9af25f2d0b ("accel/ivpu: Remove
-> unnecessary min_t()/max_t() usage"), v7.2-rc2 based.
->
-> Testing this series needs a SpacemiT u-boot carrying display support
-> [1]. SpacemiT expects to add that support into an official u-boot
-> release in August 2026.
->
-> Tested on two K3 boards:
->
->   - Pico-ITX: an eDP panel and an external DisplayPort monitor.
->   - CoM260-IFX: DisplayPort only, no eDP.
->
-> Note: The eDP panel DTS enablement is not part of this series; a separate
->       series will follow showing how eDP can be verified.
->
-> What was run on both boards, with modetest from libdrm and with kmscube:
->
->   - modetest -s, looped over 1920x1080, 1280x720 and 3840x2160
->     on DisplayPort and 2560x1600 on eDP
->   - kmscube, on each head and on both at once
->   - hot-plug and sink swap on the DisplayPort connector
-
-Hi Cody,
-
-Tested the series on a K3 Pico-ITX (mainline v7.3-rc2 + these patches,
-display drivers built in). On the DisplayPort output:
-
-- modetest -s: 1920x1080 and 1280x720 OK (native 2560x1440 as well);
-3840x2160 not tested: my monitor has no such mode.
-- kmscube: OK.
-- hot-plug: unplug/replug detected, output re-enables fine.
-
-Tested with the stock vendor U-Boot (2022.10); DP works fine with it.
-
-Tested-by: Ze Huang <ze.huang@oss.qualcomm.com>
+> =C2=A0 */
