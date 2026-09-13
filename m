@@ -1,111 +1,43 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B18E36EAA4
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 23:47:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0237738CFE8;
+	Sun, 13 Sep 2026 23:49:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789343248; cv=none; b=pHjZ1sMxm+3Zy3fvwwkEkkr888xAnkGCx2Y4ZmSiPO+DB55ir/IeBDb1DCrmVOp4N97by0FOCjSjkBYaSrfpHK+SHl0BkGBYgNmjaEgsDpdbGghGDwn4nThbcMogXfpDbCmv9xM12+gw/fPF4uWpphifqIAtY/CvXYloRtuaZLo=
+	t=1789343381; cv=none; b=u1W1C21ByNos2Mc0M0GkfV6ogFodlIZJt92Qf+CaTwPyXMHP2jGIyTsJxmKXAyKzva6giFkRvc8c25eBdjUMY1+s4sfuTIeR5QAl7Wmyv1yDyZnKxO8JGPrESUiGFZ7Nv5rZFb861egZZsJ/fJhZsMB/IRyOiPgmOEPW3CDGAKU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789343248; c=relaxed/simple;
-	bh=zANzVCAprn9b4vOB7ZnqBQISuHyZ8f0zuVKXch8qKcI=;
+	s=arc-20240116; t=1789343381; c=relaxed/simple;
+	bh=2gIVsqYlD3RbA81DQENcb6ETDNa+QTUtPsbIxQbZXR4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZQ0lW9eX5IWN5bSGqktjMR4YoGxNd6b11IRxILEjuT9fS+WHzaoyf0OWDSQZvgsfcakkl6hf4f+Ww7lK+6rrJmjpgBWpYmbz+ChGPpn0kyQXb6xXuBXJ0WSqO6MIbjdmqBT0+kDrmjcZ4EpJyp21ohB9GZ7qQP1+c4ORSQK6UsQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hx+8GYib; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VdaqPbiZ; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=lMyZVqE3jFbzdL+hJtn4hYL7A+ihiOrTXkiFbBffj0MunmDOQWOTiQgQr1oAbNhT93xusPzj23pbaESqfZSCOUCOgAfU9DohZmVMoOH+GFKtPNnSiw2g0N6iJTOqI6Isok1Kmi2zH2s8zrMyArN0octOV0gQE2Rmv422xwQh5hM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P0kBSPGQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hx+8GYib";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VdaqPbiZ"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68DNYYLp3652204
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 23:47:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=cmOd/wtJBwDY+aB9upH1uIT8
-	B7lNgLS/AKryTS4QZfQ=; b=hx+8GYib+ZSJR2XplPITMr2FMSVazDbcRgI1G5C0
-	MZrAOyPg3Ub5sE3XWE/7QYp8XUCb65kofTRdd6UyY7xmGpOQNq+mtAXV406YoN8t
-	sRAEub4enFRNX5Eqo0WoHPOUw7QAzSEJMoy6wJgvsmPjOVlq1GH0FsheffvcZO+y
-	iMIFhMq/lahMqvzqGo/fdcgtsCxWOb3SAXMXxiHlsOjxJFH5IlMQX4bi79k6ERdu
-	LGdxL0N4r3p8g3aUZzl5EWgg0Pv1y9z6UD/9Ta5dJ7HMEd23WlxWPOzcN4s42R5Y
-	fc3RuWZIK1QdPn21WPFCWnPKGwipDY0JsOpSq1j6qSQaAw==
-Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9dmcen-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 23:47:25 +0000 (GMT)
-Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-78fb9f59781so2406676137.1
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 16:47:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789343245; x=1789948045; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=cmOd/wtJBwDY+aB9upH1uIT8B7lNgLS/AKryTS4QZfQ=;
-        b=VdaqPbiZIZZ3ZPB611qfKMvbVAEbqEVz3zIwPXR6e1v5g8WKnVXmZSdh1/4wB7z/GW
-         Wao5wSZ9I5PrrUvZ6DE8kSM5tZ0kWg8Yawx5Nfd65hJCDuNXDwlqTJAtFG2hugA42ErQ
-         KSTs0PBUSJZQRhRbZM6XHAIMh803ivcNDXUMVKxSauZFY7U2RIyrY0ulUU/C6mWsQPdG
-         PIxpuPvS+nKk5WuvZLMiYLQMDSyCV1EmjHYbbgznCZbmEbHbKVuYcuRjPQ0w6rP3xrsn
-         W7Qb9txwfa6NrqnL7m4/xGhuB0CEYW65NOLm3aVp5hF1iO6mP+AB6I/E43lckEa18cB4
-         8E7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789343245; x=1789948045;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cmOd/wtJBwDY+aB9upH1uIT8B7lNgLS/AKryTS4QZfQ=;
-        b=i1oNAZYbtMoomkXVZvyJU+Ed8L5dbddPW815tT9+fUs0GujxoR6AmlUhFlDZUUXo2T
-         JuluveB3HmZiWGGxXYCUvtgLMEuHStU+sYhb5zFHYYjlR4aNVGJWX4qfiM7j3g4WMAw4
-         zOVeZF16lpMrZS3zhOj5nGRvecBO8ullsu+UZIv2kcmv3UUiDqPWiJUMztRiF2QY/U9O
-         xCCpw3Mm+EAkXi79BFXhbao8SjJHSenLBH4ZLr7goz+HXMhjrYNZNYKDE6tSuFpV+P5l
-         g8bt4Z2Qmbw6NeetBGQ8ePvWlaR5PPm8+XShoAplp+GyrHiiJQDqxvK5jKmoCYmUbaxV
-         9UHA==
-X-Forwarded-Encrypted: i=1; AKwUvBxSSpQFuBoJli+H0sn45NhGhg3bISlAtjwE3KNkTtLmn0QlgeNptB4/zBB8koqY++uq94OmI2KsGPRwoRA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mD1RdtSexSTdOLueJZOxTZhZCn7stGCJ1rEhvIt42NGl+Zhv4n
-	1wZoXCdvwunme98/cUi9eNROexc65tPepgLWuJIKO1EaGhmvXedoBpXy/hInW6rO/psrX5prmt1
-	A8lKLmPMNXK4bKUQsWmW6yko2CRnBiTMFqxbDE6G2aqOit9jube3WByg0VyFheGnxBJ0=
-X-Gm-Gg: AYBFou3SB+3gr/ss3xrB2GR5dhWMrBTl3x5TB7GtVrXatRarrv/ZmHECYTvQ5vbwTXd
-	C1l4tbUkO6DYTBvWMAX9O1UyTcH3rzcx58Vy+DPp9rzjC8QBYs8XIBDwwIZgA71WU183IRVnI5Y
-	/O+F1vNzpOPIXHly7oIDTHdWtRXFJr+torw7aPzd4quoHFQHDpsOBM9R/8VR9wyTnSEKkAgOuFg
-	AZo+prX4PLlbMPuRFYo3l3rVvcFfHxDX9m71N2EUw7a4LcFDlXyc5aaD0eodLy92q3xN7yUbLyR
-	83U2dp6eZu16LSe8FfDS2MseLohDJc6m4Hyk6SilE31YRA3oNicyWwxCLvsSdWKojm8u3nntpoD
-	0rocd3/sb83IGJiWGmAW5T58QEjwmeGGyXCNn7MsBG35SOmfA9KNWh3IaqyjZCjXgYy7VWLqyHK
-	4kyUjqKPMwg5Si
-X-Received: by 2002:a05:6102:918:b0:786:dfa:c5ea with SMTP id ada2fe7eead31-79b57cb42f6mr40901137.5.1789343244862;
-        Sun, 13 Sep 2026 16:47:24 -0700 (PDT)
-X-Received: by 2002:a05:6102:918:b0:786:dfa:c5ea with SMTP id ada2fe7eead31-79b57cb42f6mr40887137.5.1789343244498;
-        Sun, 13 Sep 2026 16:47:24 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a5a33263e0sm21888431fa.15.2026.09.13.16.47.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 16:47:21 -0700 (PDT)
-Date: Mon, 14 Sep 2026 02:47:18 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Nabige Aala <nabige.aala@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Kuogee Hsieh <quic_khsieh@quicinc.com>, linux-arm-msm@vger.kernel.org,
-        linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org,
-        Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>,
-        Mahadevan P <mahadevan.p@oss.qualcomm.com>
-Subject: Re: [PATCH 05/17] drm/msm: mdss: Add support for MDSS on Nord
-Message-ID: <xmrrgh62hk4kdhfxt4xa5ngn7kc4f3p44dpvf2yfqdhkoxlis6@iftzpwpcc3qk>
-References: <20260911-nord-drv-dt-v1-0-e25c073cf1b6@oss.qualcomm.com>
- <20260911-nord-drv-dt-v1-5-e25c073cf1b6@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P0kBSPGQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A5941F000FF;
+	Sun, 13 Sep 2026 23:49:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789343379;
+	bh=x8fOrj6wzOOxNgJeLcwyT2n7DSBIHsT0BqcGuuPnDPc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=P0kBSPGQLxPc2XuVV6q4lG2oCxbQ8i+MhWGDvThKo1mM3DEOYlErrQGAmrr6/E0EY
+	 wT3Oym+t9/WE3SEqkmZ4rle4JAjst/l1yNoiOFxNIk+0B3E4BzwL+Mr8p4Wke2tOy6
+	 X48n3GMqTYCaCVNP0ZCq3VLV1Pxkv98gT2Z/qpoLpjCXN/ein5fcnSMBp0Z+PIQWB8
+	 5QTXs0R1JorESYUu4ZKut/tBSYdswvyqorcZAsC9wvjwtvfWY4DWL8Pt4RcWMNCWL9
+	 Iyk+gNBn0qviS3C2M6EfUXuuEmGfFEzCBtcFFEEDIxCU1RdNUPCSFlZ6M6Ck5LjtGs
+	 Kl8k5RyRxRTBg==
+Date: Mon, 14 Sep 2026 09:49:30 +1000
+From: Dave Chinner <dgc@kernel.org>
+To: Weiming Shi <bestswngs@gmail.com>
+Cc: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Chandan Babu R <chandanrlinux@gmail.com>,
+	"Darrick J . Wong" <darrick.wong@oracle.com>,
+	Xiang Mei <xmei5@asu.edu>, co+af981e62f5c7171a@bugs.sh,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] xfs: validate buffer log item before reordering
+Message-ID: <aqc2igMKBhpiEeSp@dread>
+References: <20260913114528.842015-3-bestswngs@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -114,66 +46,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260911-nord-drv-dt-v1-5-e25c073cf1b6@oss.qualcomm.com>
-X-Proofpoint-GUID: E2NKO7bnEgkXegutxsKveZawutqqidJd
-X-Proofpoint-ORIG-GUID: E2NKO7bnEgkXegutxsKveZawutqqidJd
-X-Authority-Analysis: v=2.4 cv=NelzRGD4 c=1 sm=1 tr=0 ts=6aa7360d cx=c_pps
- a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
- a=ReDZFTIDzEE4zWO0opkA:9 a=CjuIK1q_8ugA:10 a=-aSRE8QhW-JAV6biHavz:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEzMDM0MSBTYWx0ZWRfX+BjWtlCp9UZl
- xVF6sHJs+3eG7vf3qBmgCug7gRQdiQXdCYHYs6viZeioWR1mq+7h8PbyU9+luuz3hDk5uzenvbG
- 3FCZbYsyL7XW57PQXN4dq58vSjetr0I=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEzMDM0MSBTYWx0ZWRfX12c7hk0AyKc7
- B329gsiuGT6rxNGRmdJD5l/E3ZouwiySAnLdIt18uroH0pzU8jwFGup+dW9dLZ50Ua4wOZyXBi5
- oqMZcz514m8P5wZiYaJkaEtIdG7bdTp2lgwTQ+FxPTRkwiOhhFefj/KEqZR6sIEhz3HHO91abWZ
- UwSQcwKCrNPqFCJ9rCLAmyg5EO071UK0brKgK2f3ZEgdpJVk9d6dEOR+aAIHODvFOQ/IAGdRulW
- /Oy5aXBk++ozrLOgf9AZAiy1Bl2OpEEtEMioGyjCdE536YUyILxIRKUJHfNcL6GTNrIzAEEJOwE
- /pGslDox6JT8EAgsZ56AtsLpTm8vVx1DOLEBMf0Na0H46CZPAICXOk2ExmYPlWqOYNKcmaMdYX0
- V5giCce6t0ppEJmJhOvYcqdME2UBBel1RbknWxZfeYJsNTIykevpHNxT5yNdTUDYRq/eSgnGNU5
- 4i95SvE2JMBSFD7D2cA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-13_07,2026-09-13_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 adultscore=0 impostorscore=0 priorityscore=1501 clxscore=1015
- spamscore=0 malwarescore=0 suspectscore=0 lowpriorityscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609130341
+In-Reply-To: <20260913114528.842015-3-bestswngs@gmail.com>
 
-On Fri, Sep 11, 2026 at 09:06:36PM +0530, Nabige Aala wrote:
-> From: Mahadevan P <mahadevan.p@oss.qualcomm.com>
+On Sun, Sep 13, 2026 at 07:45:30PM +0800, Weiming Shi wrote:
+> Log recovery reorders transaction items before buffer item pass1 validates
+> the format of region 0.  A corrupt log can therefore supply a four-byte
+> region containing only blf_type and blf_size.  xlog_recover_buf_reorder()
+> then reads blf_flags immediately past the allocation:
 > 
-> Add the MDSS compatible for the Qualcomm Nord SoC, reusing the 57 MBps
-> register bus bandwidth setting shared with the other recent platforms.
+>   BUG: KASAN: slab-out-of-bounds in xlog_recover_buf_reorder
+>   Read of size 2 at addr ffff88800e40e364 by task poc/133
+>   Call Trace:
+>    kasan_report mm/kasan/report.c:595
+>    xlog_recover_buf_reorder fs/xfs/xfs_buf_item_recover.c:164
+>    xlog_recover_reorder_trans fs/xfs/xfs_log_recover.c:1929
+>    xlog_recover_commit_trans fs/xfs/xfs_log_recover.c:2053
+>    xlog_recovery_process_trans fs/xfs/xfs_log_recover.c:2319
+>    xlog_recover_process_data fs/xfs/xfs_log_recover.c:2510
+>    xlog_do_recovery_pass fs/xfs/xfs_log_recover.c:3253
+>    xlog_do_log_recovery fs/xfs/xfs_log_recover.c:3340
+>    xlog_do_recover fs/xfs/xfs_log_recover.c:3377
+>    xlog_recover fs/xfs/xfs_log_recover.c:3502
+>    xfs_log_mount fs/xfs/xfs_log.c:617
+>    xfs_mountfs fs/xfs/xfs_mount.c:1031
+>   The buggy address is located 0 bytes to the right of
+>   allocated 4-byte region [ffff88800e40e360, ffff88800e40e364)
+> 
+> Validate region 0 before inspecting the flags.  Keep a malformed item on
+> the regular item list so that xlog_recover_buf_commit_pass1() reports the
+> corrupt log through the existing error path.
+> 
+> Fixes: 86ffa471d9ce ("xfs: refactor log recovery item sorting into a generic dispatch structure")
+> Reported-by: co+af981e62f5c7171a@bugs.sh
+> Closes: https://lore.kernel.org/all/aqZALi7GdVprcNOh@cronus.toxiclabs.cc/
+> Cc: stable@vger.kernel.org
+> Assisted-by: Codex:gpt-5
+> Signed-off-by: Weiming Shi <bestswngs@gmail.com>
 
-Why?
+That's pretty poor form - taking a bug reported by someone else and
+then reposting their proposed fix as if it was your own before
+they've even had a chance to respond to the maintainer's comments.
 
-> 
-> Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
-> Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
-> ---
->  drivers/gpu/drm/msm/msm_mdss.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
-> index 9087c4b290db..90bcc8c28dc2 100644
-> --- a/drivers/gpu/drm/msm/msm_mdss.c
-> +++ b/drivers/gpu/drm/msm/msm_mdss.c
-> @@ -531,6 +531,7 @@ static const struct of_device_id mdss_dt_match[] = {
->  	{ .compatible = "qcom,kaanapali-mdss", .data = &data_57k },
->  	{ .compatible = "qcom,milos-mdss", .data = &data_14k },
->  	{ .compatible = "qcom,msm8998-mdss", .data = &data_76k8 },
-> +	{ .compatible = "qcom,nord-mdss", .data = &data_57k },
->  	{ .compatible = "qcom,qcm2290-mdss", .data = &data_76k8 },
->  	{ .compatible = "qcom,qcs8300-mdss", .data = &data_74k },
->  	{ .compatible = "qcom,sa8775p-mdss", .data = &data_74k },
-> 
-> -- 
-> 2.34.1
-> 
+And that's even before I take into account that the proposed fix is
+an extremely poor one. It basically punts the broken log item down
+the road where some future processing operation happens to catch it
+and abort journal recovery with EFSCORRUPTED before bad things
+happen.
 
+i.e. you didn't review it, nor did your directions to the LLM that
+"helped" you direct it to determine if this was the right way to fix
+this issue.
+
+To compound this all, I've previously asked you directly to stop
+sending patches that add random verification checks to random parts
+of log recovery and instead spend time on actually addressing the
+root cause of these issues.  i.e. that we lack robust on-disk format
+verification of the journal contents.
+
+Last week, when someone else posted a random 'log vector is broken'
+hack, I said the same thing (yet again!) and posted the design doc I
+wrote a while back to provide robust, generic log item validation
+for the entire journal:
+
+https://lore.kernel.org/linux-xfs/ap8ucHIw-pKLhh9c@dread/
+
+I posted a link to the git repo where I've started this work further
+down that discussion:
+
+| Ok, I just posted my current WIP to the log-verification-1 branch
+| in my kernel.org repo
+| (https://git.kernel.org/pub/scm/linux/kernel/git/dgc/linux-xfs.git)
+
+That's the work we need to do to get rid of -all- the journal
+corruption issues in one go; once we have that in place then almost
+all corruptions will be caught long before any of the recovery
+parsing code can trip over it....
+
+-Dave.
 -- 
-With best wishes
-Dmitry
+Dave Chinner
+dgc@kernel.org
