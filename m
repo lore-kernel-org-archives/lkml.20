@@ -1,58 +1,73 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9571E2F8BC3
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 13:37:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA7433EE1C5
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 13:38:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789306646; cv=none; b=sJvjAHixJJvH394KYDlzsa2LhvWjym4Qxug3AcI4FmwnrOFkUFr5l1yXFkV6MUMLhx2+PVqWjNCJHMJsaoux6oMMGsvDLIZQVdAnA9JmKcdxEAIhkPQcQCtFUJt239wsTvYH5dbdm8yrlhvX12uY6ae9jSHO09oDr5xU5IoYxQ4=
+	t=1789306715; cv=none; b=Ezu7VNXjefsXGSCWlfECCCeo427L4T2cRQYU2q3gD7dw0w1EWCs4+KYqziL1NBkhhixbSEl8VEXjve0hSOjalmP8W45ROp/LhuN4vJO/WcdNAoAryNOP4ZczyDVB1ShryUG20fyR3yx6jkOc0Wxmc7bgP5cepAI6hD9BaSKJmRI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789306646; c=relaxed/simple;
-	bh=et5AaVl1GGw7u21SrV5WZcepSMG5oem3/WgVlHyAmqk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=O0gvVLT9V6kuZZ4v3zOFrMUrBA0tzlxp1DESh7HPFjjXbOWGuBm06TvqvPMbZyjNaJF0fnWQXLxW9EGRYFbDGY5emsJ99gS0UWiH38acxO2XJN+lCjQR9bEedFC+4rDgFaK7/5ydOqHxTSooYC3FTaPLKoxsmYkpW6PICgNs590=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=DCN144VQ; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789306715; c=relaxed/simple;
+	bh=Ci44wgDN0GN7PC0pFLwh2qIUZhXRf/cUbP346xyKCR8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XrJv8Ni3/8x641RISGiYXC5EfMPWImcu1UpXXiVei5WUMpaEbaxZe9Jf13owLfMRSibNfST2Oo3zXh6GttO4jeBtospVA+RjGh5KqnRGC9UIGdN/4ieAVyQ+IjZ52YjYomUOorZ0kgECp8qpO0Hqh4LLTzpUnZzahqer1b66lvU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X3SgTIMf; arc=none smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="DCN144VQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789306642;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=+NWO1Hub6RBRUSQmKYFmH/2juClvSCDZCkaUOtzmRRo=;
-	b=DCN144VQy9PkyWfO7wAvMu5KsI//2V9Z7cku6OG06COo1cY70th7tUCBpxIsesdhLsUNbC
-	wAOzSvtym+QQre+kuqNFpauNE7ySEAEDLi4ZGO7fyzzPVubf83IjkO6JoDFNNP2UTvLTPX
-	1+JXoLQB8wGMKW6hG6R+Vr6KjiCDbsA=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-477-TX1bL66jPCuDfPA-yerwnA-1; Sun,
- 13 Sep 2026 09:37:19 -0400
-X-MC-Unique: TX1bL66jPCuDfPA-yerwnA-1
-X-Mimecast-MFC-AGG-ID: TX1bL66jPCuDfPA-yerwnA_1789306637
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 17026195423D;
-	Sun, 13 Sep 2026 13:37:17 +0000 (UTC)
-Received: from F43 (unknown [10.64.240.27])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 8DC82180049F;
-	Sun, 13 Sep 2026 13:37:12 +0000 (UTC)
-From: Juhee Kang <juhee.kang@redhat.com>
-To: Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>,
-	NXP S32 Linux Team <s32@nxp.com>,
-	Dustin Black <dblack@redhat.com>,
-	stable@vger.kernel.org,
-	Juhee Kang <juhee.kang@redhat.com>
-Subject: [PATCH] clocksource/drivers/nxp-stm: Register sched_clock once
-Date: Sun, 13 Sep 2026 22:36:45 +0900
-Message-ID: <20260913133645.1102997-1-juhee.kang@redhat.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X3SgTIMf"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f9f0b20so269783666b.3
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 06:38:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789306712; x=1789911512; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MNT4kKLCYJ3hMXnGWz3Nru1slAulvkgUfWcgV9YmQ6k=;
+        b=X3SgTIMfYgCcgIv8hL3Z5GPOAgQ3VrUzmFd7LHFRZnbcmBtPPPHkPMfAHUI3NuEN+H
+         22YFdtG+A+eJQy4/C5UnzTJOgwen2Y02U4OaF2AqZWnizjFuVHGIZ4/a7MmV6qaFkBX9
+         lGMdscULSDlDX3BrO7aWFdb4dha6eBHBZdqLgS8lhsbqcTNe97EHrzAoQuB2OSl/ihXU
+         FuL91YAZ7vYC2XJlY57l5f3SD2e7X6AdPvVcaWVidyh+mNqaSXi0qexPa3XKuBE12MRw
+         hSjK2Rr88ZpxcO7imihnUKiF1DT8aEwWTdHyTif7D1f8HtXcEGO1Lc7fEYrP8tQGXKvg
+         d0tg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789306712; x=1789911512;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MNT4kKLCYJ3hMXnGWz3Nru1slAulvkgUfWcgV9YmQ6k=;
+        b=NoXIH5BAisgynpy/33tFUpClGChBXEGCY9h11s6WPXPFeabk1UDvavvfzzB/4O/rJz
+         KSQp8Iqd3H4UV5vejeGb22Hj5aWuuNUP4ENciO9XfBd75ILcfn/eFkPsNJBnWfcRcsc8
+         k+n3FHwovHn2c620hIlY03FFmjR12pk3IP9qam5I7/lvaanYJ9zuqoKbmxTCjm0L5QC0
+         yoEwCrEUGe4DV3VozalTUuxIVE8b9PIt9rw5fIwTAiCVTM75wOcJ+D85cIa1/KCRqYoj
+         veIKChKL7lCOahnL0JWdGGdQXX2hq2rceQ7oP2BJvOym8IKJmbrmh/v4Szh2ZeB8swZr
+         hD9g==
+X-Forwarded-Encrypted: i=1; AKwUvBwM4YoqKIfnBme5Gvm5fBnfnoOIVlmmBlCsxa3uxtQH2t1HDaK6D2A27tSMVqLN4kV2A45nH9NuornIfxo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mEc3g0jvHAguUonJMgyCxYAcAHaJo06C7K1KiR75fmBPWvdGPy
+	ArKUIqMLBuJ9dFa7r4tFjDia5g2y9azrrgmHtCpYlj6hawtMvYtzRErr
+X-Gm-Gg: AYBFou0MIZwF3uyCyB4bAHMgo8Fok7z6B8EqYEoIoYxPbpie59WJEe5DVnUJPgCnpTC
+	WDsMZtoH7KCkd6OjcXzX42NYNB6/kzsm04HyDA8D2Ed5ypVkpISAEN0QymTql5h2fUD6IcSUX9c
+	0eNW1hBB13ANpxBeZ7Ko3vRxUVaO6fVF1qRcVQ4MZO72lpnghLiEYzp+NkYBdVVmfLzeAJUADCn
+	AmgMjjuw56wglP9tjjFLGcEbEQqxkmiLa0Vo3Yrp7kzEkEvI6TZPTU9MSPCGbuJ3OA7hGQ8bkeA
+	tX4kTxR/sWr0Rtq9bZsxXTwZBkiE+6p7mqNj5pyscnuMDErQQ6e6KyzWXLRGWRHi+V0mPWd8YHh
+	FUD05cZBeG6SSxmx3kXWGw6vx4br6tOYsxItl5A+9FvQkt7K5fLNmMt+Nhx28mcKsrH/xLNOAa1
+	BbbGlz118NoweE39QGjKgZhysNEWktptPlP8m5JJOQTyOpXTFB6M6P7JDe4xekZywzM9k1FTCyd
+	mt1VufMCi0o3pIXfbGNgXZD0SimP7mXaSgvcyyoEgcO0L80x0wFiTVpDvI=
+X-Received: by 2002:a17:907:724d:b0:c25:5114:c832 with SMTP id a640c23a62f3a-c29665acdeemr1295728466b.3.1789306711662;
+        Sun, 13 Sep 2026 06:38:31 -0700 (PDT)
+Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2966021c63sm295852866b.13.2026.09.13.06.38.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 13 Sep 2026 06:38:31 -0700 (PDT)
+From: David Carlier <devnexen@gmail.com>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	David Carlier <devnexen@gmail.com>
+Subject: [PATCH] tracing: Take trace_types_lock when dropping the buffer_meta reference
+Date: Sun, 13 Sep 2026 14:38:29 +0100
+Message-ID: <20260913133829.15307-1-devnexen@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -60,55 +75,29 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-Each probe updates stm_sched_clock before calling sched_clock_register()
-again. The call then subtracts the counter value saved during the
-previous registration from the new STM's counter. If the new counter is
-smaller, the subtraction wraps and the timestamp jumps forward.
-(e.g. from 0.4 to 32.9 seconds below)
+tracing_buffer_meta_open() drops the trace_array reference with
+__trace_array_put() when ring_buffer_meta_seq_init() fails, without
+holding trace_types_lock. Use trace_array_put() like every other open
+error path.
 
-  [    0.403653] sched_clock: 32 bits at 132MHz, resolution 7ns, wraps every 16243448316ns
-  [    0.404056] clocksource: timer@40120000: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 14456668980 ns
-  [   32.890509] sched_clock: 32 bits at 132MHz, resolution 7ns, wraps every 16243448316ns
-  [   32.890882] clocksource: timer@40124000: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 14456668980 ns
-
-To fix this, register sched_clock once at the end of the first
-successful probe. Clocksource and per-CPU clockevent registration
-remain unchanged.
-
-Fixes: cec32ac75827 ("clocksource/drivers/nxp-timer: Add the System Timer Module for the s32gx platforms")
-Reported-by: Dustin Black <dblack@redhat.com>
-Signed-off-by: Juhee Kang <juhee.kang@redhat.com>
+Fixes: 950032ffcee7 ("ring-buffer: Add output of ring buffer meta page")
+Signed-off-by: David Carlier <devnexen@gmail.com>
 ---
- drivers/clocksource/timer-nxp-stm.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+ kernel/trace/trace.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/clocksource/timer-nxp-stm.c b/drivers/clocksource/timer-nxp-stm.c
-index 6fe098a4a33f..7572cd20732f 100644
---- a/drivers/clocksource/timer-nxp-stm.c
-+++ b/drivers/clocksource/timer-nxp-stm.c
-@@ -211,10 +211,6 @@ static int nxp_stm_clocksource_init(struct device *dev, struct stm_timer *stm_ti
- 	if (ret)
- 		return ret;
+diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
+index 8658cad53cb5..c8295324ffaa 100644
+--- a/kernel/trace/trace.c
++++ b/kernel/trace/trace.c
+@@ -5881,7 +5881,7 @@ static int tracing_buffer_meta_open(struct inode *inode, struct file *filp)
  
--	stm_sched_clock = stm_timer;
--
--	sched_clock_register(nxp_stm_read_sched_clock, 32, stm_timer->rate);
--
- 	dev_dbg(dev, "Registered clocksource %s\n", name);
- 
- 	return 0;
-@@ -473,6 +469,11 @@ static int nxp_stm_timer_probe(struct platform_device *pdev)
- 			return ret;
- 	}
- 
-+	if (!stm_sched_clock) {
-+		stm_sched_clock = stm_timer;
-+		sched_clock_register(nxp_stm_read_sched_clock, 32, stm_timer->rate);
-+	}
-+
- 	return 0;
+ 	ret = ring_buffer_meta_seq_init(filp, tr->array_buffer.buffer, cpu);
+ 	if (ret < 0)
+-		__trace_array_put(tr);
++		trace_array_put(tr);
+ 	return ret;
  }
  
 -- 
