@@ -1,122 +1,105 @@
-Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11658376A1F
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 04:26:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3EB83B1B3
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 04:37:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.30.148.35
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789273598; cv=none; b=qsWIebeSxzQBsPWt5JZNKn1s+X3jr1HrKEsB+MPXjKKPRqZSTtSOgEhXBAOKC/02p/uj6ORmqSL26bU7EDGnZDQDdOu5MPA+e4b5OFG5orZHedbEh/vQyJoAnjjY1BEmXxdEp2QetJSfyVznuPYgHhT0IykRaXwXKdOikB8HMIM=
+	t=1789274264; cv=none; b=KXxfLpuvDx7w93qz1A67LXOZ04fC9ZXqZ6QEcx5vnlqx3ZLwN/Zf11OplRWe3FBOXh31A0J4rnzMv1RcT24+ikzVpjm1dcTNPliuXcZxnxMjqiro/VXwlgny4pN2s/mzE0O8Es4cVCi4+WXnBcN/h1uA2W6PFVD4VhHjecgkEq0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789273598; c=relaxed/simple;
-	bh=l0EqM8munegQGAWYoLgSWbJr+elV0QzsYM8QaNsLACM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DzVmRUg/MaYQs2VL/ltAjws+JBmNFenfQYxOcl8mhhcgcUkBfNQXGGVyPa1Q8PLqOEcU1WbSBf8BF+J9oos2nU+uZiSjJqNzHcLz+6Gcwr9e3ytHdZI4QAGGOWbBn+dxKxcwnCoV9yZBorBR94ZMv9lNFRCst4gEREi+rQPmpKo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R2dGO1kO; arc=none smtp.client-ip=74.125.230.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R2dGO1kO"
-Received: by mail-qk2-f13.google.com with SMTP id d75a77b69052e-52fb76c9deeso17063501cf.1
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 21:26:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789273596; x=1789878396; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aWc5ORGBMLSs59eoqsaA5DPnuqtjSJQmTTKP2X4y/Io=;
-        b=R2dGO1kO0USDCB1Ru/oyWQGtAjnYQ0bUMxS6fCh6cpcgYiBn2lN6RdnvmZW8fz10Uq
-         Dp77ehPJirvBD+d5ZDsKphaTsIakBtoh4CCub+02aOmZ1yjZOUW+9NVs8z2cIV5gYRAc
-         M0BxEBpUwt9HwR0Tq324JBLph06iWhLEHexFGzjmnFYR1X8fPc3ybTc6rgWltgF19g9X
-         UYXFdb982yhQ1uacPnnWtBng5zmO+0WZBtrkcSJIqZXVr+GEfDlWZSGVseHTIQJBcx4C
-         05DXUwHSN0qUYWQN4m1g7jz/ozO7YUaOSohQHoMnDIV7kkAetTi4AWMl8q7H2W4wA2QZ
-         lUOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789273596; x=1789878396;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aWc5ORGBMLSs59eoqsaA5DPnuqtjSJQmTTKP2X4y/Io=;
-        b=HQr7YW2IrGJvheLyJIJ5ssqVoMw0dYQifnJzXHN5U3IKzKD74+573BHwvoUkJP3vRx
-         lIT2R2nLGUciP4cPCb3S0wbyKvFaN149xhBKWrzLnQKLNTCsd7wDn9+5kFLMdjUjzdzI
-         7coZ4XkJphA1Xsjz/JtZ7QfDmUSEFta/X3iJQ8Q6BNcnMI6+yRFvDopvK7witpGXWOJr
-         DXM3gVQRNNPIXe1KKe7vDbaruDJXxLiPayoSgz4WY//OxQLpVOvDG7taqfgyPJmzV71j
-         V313Db5gk1Klj6oFCMMO04JakisbgMc2S8qNNH7+mQt8EPBjYf4e6lj8JzLPkwgiG9HF
-         PD6w==
-X-Forwarded-Encrypted: i=1; AKwUvBwMX7nDukHdnWXAbBpNa+XCQ0Re5sGDeacFgOCluFsieCFrUZkFXl8Vp10AKo8ND5dJNfgQsx7bPIiULJA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mMNbHWr4Dk+Xjt1ENoFF+blMJtWRl1+fiiyiVGyaasL1kOQFSG
-	bTtzLCxiFt6yaM2zC4Tax6/1IZn+Qgua06idh7FinGD5w/K/RVXvXok=
-X-Gm-Gg: AYBFou3eDvP5kpfVe6stwL1ggT/3y5V4fP2maFkPXTZh9PQUddB7Ozh8XZKfvD+gtP6
-	86knCvzhtCQHADN8EOZl4QFpd8vnwyxhKXrQ6ZEybb/C0SctmVPoALVnhda7PEtV9cFTCzoqC1y
-	F1SzHz1O5GgW+1TffMLp66NY59yacPPpIe5YDTAlcGD9sDMaTNepbADAPuzbRHBfX6desUI+ZTc
-	F6/3IPcENv00XoBqYcDflagIrVsRXrUgUma3i3bCK0qz+zHh9328AoDy+xcZZICalVlsySguVuw
-	lfasXjr1dmUE26MCk+fJuikcPUAmzZtwhD1qbDC9y21otR3yhidz755Vc47a98evsU9El9f00kR
-	JvZvep+ZxpdpkbOWmjivuuNR7tQNyzXZASuZCB3/P201hBT2cf1mDg8bLaAyc13hke0t+a+Ou3b
-	UCjRMc8KWtbUhoiLEYh40Yz5XgIz9ArfnIQWiqzd99OvoYT2nlnYRV5pCl/2D2YGBxcOHgJQOB5
-	u1nZcMEfgR7kZFhVlHapQ4Q6MyeuZMcndNDEGmOOYXJR2yjSBJD1Nc0mhxbHrNmBaAbkwkJPzZ6
-	M1y6bHmAqPKoF0pCEpYJUP6BGhwH
-X-Received: by 2002:a05:622a:295:b0:530:e01d:6003 with SMTP id d75a77b69052e-530e81ecc85mr78423631cf.49.1789273595966;
-        Sat, 12 Sep 2026 21:26:35 -0700 (PDT)
-Received: from localhost.localdomain ([104.39.73.78])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f2033e7sm62784096d6.4.2026.09.12.21.26.34
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 12 Sep 2026 21:26:34 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Mark Greer <mgreer@animalcreek.com>,
-	David Heidelberg <david@ixit.cz>
-Cc: Paul Geurts <paul.geurts@prodrive-technologies.com>,
-	linux-wireless@vger.kernel.org,
-	oe-linux-nfc@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH] nfc: trf7970a: power down on startup RX gain failure
-Date: Sun, 13 Sep 2026 00:26:25 -0400
-Message-ID: <20260913042625.31296-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.50.1
+	s=arc-20240116; t=1789274264; c=relaxed/simple;
+	bh=N5DU3jE9Ha+pEFiVOQIIbHbM4Utlx8c95dxYDvh8YaM=;
+	h=Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
+	 Subject:Content-Type; b=O+j25rz6vo2AQMa/b9hNbrqbHCtlqzIlfiIWc8OWXI4WnLFMN9tPURYKtmjNqAYT5XqVevFALqTBQZexXcX3v4KlyuQj5WvlOTTMLvgfmewFSTqAMNStdu953Ifo7T2T+bHV5uQiX5STzGHVK5j89BoSwgYf6WKMDOxY/wklpEo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn; spf=pass smtp.mailfrom=zte.com.cn; arc=none smtp.client-ip=160.30.148.35
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4hjFrG0NNpz8Xrnt;
+	Sun, 13 Sep 2026 12:37:34 +0800 (CST)
+Received: from xaxapp05.zte.com.cn ([10.99.98.109])
+	by mse-fl1.zte.com.cn with SMTP id 68D4bQe7054530;
+	Sun, 13 Sep 2026 12:37:26 +0800 (+08)
+	(envelope-from xu.xin16@zte.com.cn)
+Received: from mapi (xaxapp04[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Sun, 13 Sep 2026 12:37:26 +0800 (CST)
+X-Zmail-TransId: 2afb6aa62886b18-d40f3
+X-Mailer: Zmail v1.0
+Message-ID: <20260913123726763Xj9aQ4CLYQy2_J5ovIJCG@zte.com.cn>
+In-Reply-To: <20260912082407.75875-1-xialonglong2025@163.com>
+References: 20260911160421076_KNXun8Mpp9Xj7fxHG0i7@zte.com.cn,20260912082407.75875-1-xialonglong2025@163.com
+Date: Sun, 13 Sep 2026 12:37:26 +0800 (CST)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+From: <xu.xin16@zte.com.cn>
+To: <xialonglong2025@163.com>
+Cc: <akpm@linux-foundation.org>, <baohua@kernel.org>,
+        <baolin.wang@linux.alibaba.com>, <borntraeger@linux.ibm.com>,
+        <chengming.zhou@linux.dev>, <david@kernel.org>, <dev.jain@arm.com>,
+        <gourry@gourry.net>, <harry@kernel.org>, <lance.yang@linux.dev>,
+        <liam@infradead.org>, <linux-kernel@vger.kernel.org>,
+        <linux-mm@kvack.org>, <nico.pache@linux.dev>, <peterz@infradead.org>,
+        <rppt@kernel.org>, <surenb@google.com>, <usama.arif@linux.dev>,
+        <vbabka@kernel.org>, <ziy@nvidia.com>, <ljs@kernel.org>,
+        <xialonglong@kylinos.cn>
+Subject: =?UTF-8?B?UmU6IFtQQVRDSCBSRkMgMC8zXSBtbS9rc206IHNjYW4gd2l0aCBwZXItVk1BIGxvY2tz?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl1.zte.com.cn 68D4bQe7054530
+X-TLS: YES
+X-ENVELOPE-SENDER: xu.xin16@zte.com.cn
+X-SOURCE-IP: 10.5.228.132 unknown Sun, 13 Sep 2026 12:37:34 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AA6288E.000/4hjFrG0NNpz8Xrnt
 
-trf7970a_startup() powers up the device before applying the optional RX
-gain reduction. If the register read or write fails, it returns without
-undoing that power-up. Probe's unwind only drops the separate regulator
-references acquired by probe, leaving the additional VIN enable from
-startup unbalanced. The system resume caller also has no power-down on
-this error.
+> From: Longlong Xia <xialonglong@kylinos.cn>
+> 
+> This work was developed independently before I saw the above series.
+> After comparing the two implementations, I found that the approaches
+> overlap, so I am posting this draft version as an alternative 
+> implementation and would be happy to combine the useful parts.
+> 
+>   The main differences are:
+> 
+>   - use per-VMA locking in the ksmd VMA scanner;
+>   - revalidate the mmap-lock sequence before skipping the fallback walk;
+>   - avoid repeating a completed VMA traversal when no candidate page is
+>     found.
+> 
+> Benchmark (QEMU q35, TCG multi-thread, 4 vCPUs, 8 GiB, x86_64 guest on
+> Ubuntu 24.04, 7.3-rc2 base, CONFIG_KSM=y + CONFIG_PER_VMA_LOCK=y;
+> victim: 32 MiB anon, 2048 unique pages x4 duplicates,
+> pages_to_scan=100000, sleep_millisecs=0, 3 runs each; churners: 4
+> threads mmap/munmaping 256 MiB in the same mm. Microbenchmark as
+> posted in [3]; relative numbers only, TCG is not native hardware):
+> 
+>                        0 churners      4 churners (mean)   
+>   7.3-rc2              1.21-1.41 s     90.9 s             
+>   + patch 2/3          1.41 s          48.7 s   (-46%)   
+>   + patch 2/3 + 3/3    1.21-1.41 s     30.1 s   (-67%)  
+> 
+> 
+>  1. mm/pagewalk: allow folio_walk_start() under a vma read lock
+> 
+>  2. mm/ksm: use the VMA lock when looking up mergeable pages
+> 
+>  3. mm/ksm: scan VMAs with per-VMA locks
+> 
 
-Call trf7970a_power_down() before returning the RX gain error to deassert
-the enable GPIOs, release the startup VIN reference and restore the
-powered-off state. Runtime PM has not been enabled yet, so the full
-shutdown helper is not appropriate here. Preserve the original SPI error.
+it seems your patches may not be rebased on the latest mm-unstable or linux-next. 
+It might also be worth double-checking any AI-generated code before sending it out.
 
-This issue was identified during our ongoing static-analysis research while
-reviewing kernel code.
+I also noticed that the content of patches 1 and 2 is already included in my patch series.
+Perhaps it would be better to focus on my series for those and I'd appreciate your help
+reviewing them. For patch 3, feel free to start a separate email thread if that works better.
 
-Fixes: 5d69351820ea ("NFC: trf7970a: Create device-tree parameter for RX gain reduction")
-Cc: stable@vger.kernel.org
-Assisted-by: OpenAI:GPT-5.6
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
- drivers/nfc/trf7970a.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/nfc/trf7970a.c b/drivers/nfc/trf7970a.c
-index 60883001f..ddfc58c29 100644
---- a/drivers/nfc/trf7970a.c
-+++ b/drivers/nfc/trf7970a.c
-@@ -1997,8 +1997,10 @@ static int trf7970a_startup(struct trf7970a *trf)
- 		return ret;
- 
- 	ret = trf7970a_update_rx_gain_reduction(trf);
--	if (ret)
-+	if (ret) {
-+		trf7970a_power_down(trf);
- 		return ret;
-+	}
- 
- 	pm_runtime_set_active(trf->dev);
- 	pm_runtime_enable(trf->dev);
+Thanks
