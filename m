@@ -1,115 +1,190 @@
-Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D641A341ABB;
-	Sun, 13 Sep 2026 15:49:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.210.214.84
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31589341ABB;
+	Sun, 13 Sep 2026 15:50:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789314588; cv=none; b=CWViRT90b6P8n+OFvKNxmRen+N+WZ4h755ml2DNxKMVsvFpKL2wXA5SMpM6xXYm8OoQ+kqqZX4/0y+Y4AsBhrnm/EjSYfcytM6jSWKHw1VsE2pZ16EPGdfZqzQq32RPv0X/M+jKsroPin8gSo1QFKqCcw/vGtZvcL4tUihSyrLk=
+	t=1789314639; cv=none; b=obFGOBftVfqZqyEjV0LDSugA2naXd6v7dwVURNbe5bh6FRlT9Qsrp14LSeUoJBsLJ0ErGZBcrNHvzEixfmazv23ddcaLpzEijNFCBO1FK7pTB4mA2JfHjZmC9f6E/KARo5wJMUat7UpMxBKFK/S/g+iw71CAuD1/kpbUnkjSPc4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789314588; c=relaxed/simple;
-	bh=b575kUcLFx6W86FIDcyoHI6OwWxW++ZDO6mldLyBzFI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=akIMZ9ekVw45Zuto3JrymR76gdvXAG6z9ohzzPVfKVPigdxzRmCeUmeIMUf/fWRGRwJ9tBJSArpx8UiU9rSsHGvN3yXJ/I2Pi5mc6W/26ERAJx99VWqh7QJ5MzhjZf311y2gI0GWlG6U/A1hsRdOXiCQ4le246mzxzQHETBg1Kc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org; spf=pass smtp.mailfrom=codewreck.org; dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b=nlEWD3Ah; arc=none smtp.client-ip=62.210.214.84
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
+	s=arc-20240116; t=1789314639; c=relaxed/simple;
+	bh=dRteHYasmjthFzv5sHQomdySo23tvUJL1a7vD9geNzU=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ILfl76AbCFxeedjG2oFAEInQsOLtuDVXQrHehtfcUWzS7n7bYP3DukPDB0Nvt7uCRJ9Bn1qVoKPcwjqOPVvEVlaSyTytaT5ZTPAz19+J+tTfvz1X7du+hQRvHfdn0NlCmJ3Jr4elrpEkKvvGBS87ln2Xw0azQfZxTiPsCqbcev4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ONZ02eX8; arc=none smtp.client-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b="nlEWD3Ah"
-Received: from gaia.codewreck.org (localhost [127.0.0.1])
-	by submarine.notk.org (Postfix) with ESMTPS id B757714C2D6;
-	Sun, 13 Sep 2026 17:49:41 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
-	s=2; t=1789314584;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ZbYcnwCQHJ/1hYTl1u1L0A3/zi83h13LUtfR6PoX5Ok=;
-	b=nlEWD3AhioAbCMcVazifVtxqrCLfphBeoyugxnq3McgZR6SGaqDarsmPTP7iknD6tXmiyU
-	vf82KVz34lj5PC29tSjegp8eGGuyVHYFirY+KE7ssDR8E03WDUv2wYanCZ8HtuIayuOCE+
-	EuCkX7ZRFv22zG9TLOoQ9S20IgHIeFGjeSStmBLa3c4zgzXu9J83yKHU4Hw+HY/OZ3yet4
-	fHD/ysObJVsCG+f5sxQxGHVUXx7UbJ6uw/e5ty+cQNoRzvUYL/VvaIj35jrpC3YemnHgNm
-	RHYPZSB2r7wh9UvXC/22PsRit8dSjSZL/nSsveQ76vVdE32zhlG4VicMxJNrqg==
-Received: from localhost (gaia.codewreck.org [local])
-	by gaia.codewreck.org (OpenSMTPD) with ESMTPA id a21989a5;
-	Sun, 13 Sep 2026 15:49:40 +0000 (UTC)
-Date: Mon, 14 Sep 2026 00:49:24 +0900
-From: Dominique Martinet <asmadeus@codewreck.org>
-To: David Howells <dhowells@redhat.com>, Barret Rhoden <brho@google.com>
-Cc: Eric Van Hensbergen <ericvh@kernel.org>,
-	Latchesar Ionkov <lucho@ionkov.net>,
-	Christian Schoenebeck <linux_oss@crudebyte.com>,
-	v9fs@lists.linux.dev, linux-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org
-Subject: Re: [PATCH] 9p: treat read return values of 0 as EOF
-Message-ID: <aqbGBMJ6bntYB1t2@codewreck.org>
-References: <akfHGcqke9qixd3Q@codewreck.org>
- <20260702090941.1298188-1-brho@google.com>
- <2237820.1783934942@warthog.procyon.org.uk>
- <f7005841-80a9-4c21-a114-6cfd6ee63a58@google.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ONZ02eX8"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789314637; x=1820850637;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=dRteHYasmjthFzv5sHQomdySo23tvUJL1a7vD9geNzU=;
+  b=ONZ02eX8UU1R+suoFE5wiCvCEGi4Yzg4mOVPp0Xv6Osif/Wx8Psw/Lrp
+   7Lh89DUudL9jBezYHVZSIYvqGJGphCTX1iNUGYh4T1euvCXZo1EXKl7bV
+   DbFYMdvJCRwwLFpHEf3BOGUOafoXDURsIP47pj022FqtAWD3XtS+hxj/X
+   NPuHhYwepTSqyXmIuK42VuKRbIdj7rOuFQwce3DJ/DS28B8tQ0bP9lACy
+   uWrVAGqcNE89Wz2+iMvzjpSPVZZUDtchqBUYXG6spwhw+08rbDpZkesmF
+   gOdCH9bdO0yCJPfHmO1yH1CaSSh+YZfH5lFf6rzEZquVIzU4x6BwdM68w
+   A==;
+X-CSE-ConnectionGUID: TIo51lXoQ5auxBDdm/0pvg==
+X-CSE-MsgGUID: dea/sK+XRDSW9p1wngsk6g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="101212720"
+X-IronPort-AV: E=Sophos;i="6.27,100,1787036400"; 
+   d="scan'208";a="101212720"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Sep 2026 08:50:37 -0700
+X-CSE-ConnectionGUID: wgGW3RYCTRqv+6VtHKXX0Q==
+X-CSE-MsgGUID: oCNbfysJThCNIWUZA71gGQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,100,1787036400"; 
+   d="scan'208";a="269122611"
+Received: from dnelso2-mobl.amr.corp.intel.com (HELO [10.125.108.113]) ([10.125.108.113])
+  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Sep 2026 08:50:36 -0700
+Message-ID: <5b28a9e82b8f3d4458b678505ef7063525ce1141.camel@linux.intel.com>
+Subject: Re: [PATCH v3] HID: sensor-hub: Fail unfinished multi-value reads
+ on removal
+From: srinivas pandruvada <srinivas.pandruvada@linux.intel.com>
+To: Yibo Tan <lhfff@tju.edu.cn>, Jiri Kosina <jikos@kernel.org>, Jonathan
+ Cameron <jic23@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>
+Cc: Andy Shevchenko <andriy.shevchenko@intel.com>, Zhang Lixu	
+ <lixu.zhang@intel.com>, linux-input@vger.kernel.org,
+ linux-iio@vger.kernel.org, 	linux-kernel@vger.kernel.org
+Date: Sun, 13 Sep 2026 08:50:35 -0700
+In-Reply-To: <20260913072910.1944300-1-lhfff@tju.edu.cn>
+References: <20260913045411.5e2f5b25@jic23-hlaptop>
+	 <20260913072910.1944300-1-lhfff@tju.edu.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <f7005841-80a9-4c21-a114-6cfd6ee63a58@google.com>
 
-Sorry for dropping the ball here, I haven't had any time to do 9p stuff
-at all recently and the wave of LLM generated patches hasn't helped...
+On Sun, 2026-09-13 at 15:29 +0800, Yibo Tan wrote:
+> sensor_hub_remove() completes pending reads after stopping the HID
+> device,
+> but does not record why they completed.=C2=A0 A successful completion wai=
+t
+> therefore returns zero even if no complete input report was received.
+> Multi-value IIO callers then format their untouched automatic buffer
+> as a
+> successful result.
+>=20
+> With a valid four-element signed 32-bit quaternion report descriptor,
+> an
+> unprivileged reader received all 16 bytes of the untouched buffer.=C2=A0
+> Across
+> 11 independent KASLR-enabled boots, four reads exposed exact pointers
+> to
+> dev_rot_channels or dev_sysfs_ops.=C2=A0 Subtracting the matching link-
+> time
+> symbol address recovered the kernel KASLR slide in all four cases.
+>=20
+> The reader ran as UID/GID 65534 with no effective capabilities
+> through the
+> mode-0644 IIO attribute.=C2=A0 The test used a privileged UHID broker to
+> create
+> and remove the provider; it does not demonstrate unprivileged
+> provider
+> removal.
+>=20
+> Mark a pending request as shut down before completing it from the
+> removal
+> path, and return -ENODEV from a multi-value read that observes the
+> marker
+> after a successful wait.=C2=A0 Let removal win even if a response raced
+> with
+> teardown, since the device is no longer available.
+>=20
+> The Root B-only repair returned -ENODEV with no payload or kernel
+> diagnostic in 3/3 matching signed-32-bit runs.=C2=A0 The source
+> reproducer,
+> complete vulnerable and fixed serial logs, result tables, and
+> checksums are
+> available in [1].
+>=20
+> Link:
+> https://github.com/kimaiden1984-boop/linux-kernel-poc-collections/tree/ma=
+in/cases/hid-sensor-quaternion-root-b-kaslr
+> =C2=A0[1]
+> Fixes: f784fcea4506 ("HID: sensor-hub: Add
+> sensor_hub_input_attr_read_values() for multi-byte reads")
+> Cc: stable@vger.kernel.org
+> Suggested-by: Jonathan Cameron <jic23@kernel.org>
+> Assisted-by: LLM
+> Signed-off-by: Yibo Tan <lhfff@tju.edu.cn>
 
-Barret Rhoden wrote on Mon, Jul 27, 2026 at 01:38:16PM -0400:
-> On 7/13/26 5:29 AM, David Howells wrote:
-> > This is kind of a weird situation.  We're caching locally the content of files
-> > aren't really regular files and probably shouldn't be cached.  I'm not sure
-> > what the best way to deal with that is.  I wonder if there's some way to
-> > detect that and mark then non-cacheable.  (Assuming the server can be told not
-> > to even serve them).
-> > 
-> > Can we detect that the EOF length doesn't match i_size and set a flag to say
-> > "don't cache" in netfs_inode::flags?
-> Possibly, but could you have false positives from this?  e.g. if a file's
-> size is changed concurrently with a read returning EOF?
-> 
-> As far as detecting EOF in the first place, my patch had the 9p client doing
-> it.  Not sure, but Dominique's question might have been whether netfs should
-> have done the detecting instead?
->
-> From what I can see, the netfs clients were responsible for setting EOF
-> (except in netfs_clear_unread()).  Some in response to an ENODATA error,
-> others due to the "did we read past the end of the file size."  Not sure
-> whose responsibility it is to detect these cases: netfs or the FSes
-> themselves.
 
-Right, that was my question; I honestly just don't understand the
-requirement/promises of the netfs layer.
+Acked-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
 
-In this particular case we have two patterns to address:
-- synthetic files with stat size > actual size,
-e.g. /sys/devices/system/cpu/online
-- synthetic files with stat size = 0 (rarer),
-e.g. /sys/devices/virtual/net/br0/brforward
 
-For two at least two modes:
-- cache=none
-- cache=loose (writeback I guess)
-
-Right now, none of these work, with various degrees of not working;
-I'm not sure we can do much about some of them (e.g. stat size=0 with
-cache enabled I'm fine getting empty data), but imo
-- cache=none should just try reading as userspace request anyway and
-stop as soon as the server returns 0, that's not a 9p specific behavior
-and I wouldn't have expected having to do any special handling for it.
-(but if you tell me it's to be done in 9p case, then sure, we'll do it
-here)
-- cache=writeback + stat size > read size should also stop when the
-server returns 0 and truncate its view of the size to that; the problem
-in 9p is that we'll reset the size again to the remote size shortly
-afterwards so that will need more thinking (and overlaps with the other
-cache size bugs we have in flight), so let's focus on cache=none for now
-
-Thanks,
--- 
-Dominique Martinet | Asmadeus
+> ---
+> Changes in v3:
+> - Replace the raw_size error sentinel with a dedicated teardown flag,
+> as
+> =C2=A0 suggested by Jonathan Cameron.
+> - Let teardown win if it races with a completed response.
+>=20
+> v2:
+> https://lore.kernel.org/r/20260912050257.837340-1-lhfff@tju.edu.cn/
+>=20
+> =C2=A0drivers/hid/hid-sensor-hub.c=C2=A0=C2=A0 | 6 +++++-
+> =C2=A0include/linux/hid-sensor-hub.h | 2 ++
+> =C2=A02 files changed, 7 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/hid/hid-sensor-hub.c b/drivers/hid/hid-sensor-
+> hub.c
+> index 6470a290ebfc..a9bd72218c07 100644
+> --- a/drivers/hid/hid-sensor-hub.c
+> +++ b/drivers/hid/hid-sensor-hub.c
+> @@ -334,6 +334,8 @@ int sensor_hub_input_attr_read_values(struct
+> hid_sensor_hub_device *hsdev,
+> =C2=A0			ret =3D -ETIMEDOUT;
+> =C2=A0		else if (cycles < 0)
+> =C2=A0			ret =3D cycles;
+> +		else if (hsdev->pending.shutdown)
+> +			ret =3D -ENODEV;
+> =C2=A0
+> =C2=A0		hsdev->pending.status =3D false;
+> =C2=A0	}
+> @@ -805,8 +807,10 @@ static int sensor_hub_finalize_pending_fn(struct
+> device *dev, void *data)
+> =C2=A0{
+> =C2=A0	struct hid_sensor_hub_device *hsdev =3D dev->platform_data;
+> =C2=A0
+> -	if (hsdev->pending.status)
+> +	if (hsdev->pending.status) {
+> +		hsdev->pending.shutdown =3D true;
+> =C2=A0		complete(&hsdev->pending.ready);
+> +	}
+> =C2=A0
+> =C2=A0	return 0;
+> =C2=A0}
+> diff --git a/include/linux/hid-sensor-hub.h b/include/linux/hid-
+> sensor-hub.h
+> index ab5cc8db3fbb..5aecf4474183 100644
+> --- a/include/linux/hid-sensor-hub.h
+> +++ b/include/linux/hid-sensor-hub.h
+> @@ -38,6 +38,7 @@ struct hid_sensor_hub_attribute_info {
+> =C2=A0/**
+> =C2=A0 * struct sensor_hub_pending - Synchronous read pending information
+> =C2=A0 * @status:		Pending status true/false.
+> + * @shutdown:		The device is being removed.
+> =C2=A0 * @ready:		Completion synchronization data.
+> =C2=A0 * @usage_id:		Usage id for physical device, e.g. gyro
+> usage id.
+> =C2=A0 * @attr_usage_id:	Usage Id of a field, e.g. X-axis for a gyro.
+> @@ -48,6 +49,7 @@ struct hid_sensor_hub_attribute_info {
+> =C2=A0 */
+> =C2=A0struct sensor_hub_pending {
+> =C2=A0	bool status;
+> +	bool shutdown;
+> =C2=A0	struct completion ready;
+> =C2=A0	u32 usage_id;
+> =C2=A0	u32 attr_usage_id;
