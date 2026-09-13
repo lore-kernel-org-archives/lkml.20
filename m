@@ -1,183 +1,217 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011017.outbound.protection.outlook.com [40.107.74.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0511738F92F
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 21:16:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789334173; cv=none; b=Rqk+pIGgI0MFqmW7/qef+NuEHiZGkFkxpTJIqnjRw3S9rBhwcv2syLaGqtmiPXrooO+jhCwHpy76qEA3/N83QAXLWC32VjibLsD4YK69mj/P5b9/B9tC1/yzE1IrNWOTI3zB0A+Ym/Q6SFy98fuBpb2jvnZ02nrHWHjbaM08dkQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789334173; c=relaxed/simple;
-	bh=rKcyrmt+sA4c3JIZSSDiJ/ica+9PH5/ZEv9TDdkdr8I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=j4YiVWNm84wMaGO63JfTJ4YxWA5JX2v6Zfk3+l1N/Gm7q3YqfSUjA91uWA+LP5WFu9tzWLXrR+L8JD4h0wAlpGmDgjdJ0AMWj+woFrSuRmPsELLd/1oEYN8twRGRIHV/tSs7BoKoycipQH0O3QD3W/oyY7SI3caaLPEc+898T+U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=eyGzXy9y; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WdI7WyBB; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAC7117A586;
+	Sun, 13 Sep 2026 21:20:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.17
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789334450; cv=fail; b=Le8HjCDCpn1eJ9hWgqq2N3QBI01nVkfm8IJ0nGJm0Rd6A6v2LwfR/W4HmFmGYzABGD6khMwLlHkxAym4UeRC/i6LtDmbMXgRumBOWV6dCPCMpk5xAM+RHgVN7+l9JXWMVItB1J0gMS/rIgNdVNxJVAuNdyssHi7kZPNp0mlNsUk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789334450; c=relaxed/simple;
+	bh=uqtFV9UxJgwD0K7l/Qj4R7QsEimvxR4ec3SyvbcFwhs=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=Ipvyz90xfcS/fafemnL/ycJYqewEHTewfngDmjKoMY/gG/nT6eTqzYWFKXWqw0NEZT5nk9JQoQZJOKN83XXa8b13P12GlIaiFM1kG0C6H1h9XaNsYjbSkV3CNggNc9Tcv7ec7oUCCNEK9TbCh9CBJHgcnZ8U242njshF4XPgtq0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=JvhaPjN8; arc=fail smtp.client-ip=40.107.74.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="eyGzXy9y";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WdI7WyBB"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68DK0RuO3218581
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 21:16:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=wpeg4tsULyvmQiKySynkFQbT
-	OmdnvDQyhOwFobjVtL8=; b=eyGzXy9yCmSIC1dmb0L56WHzbG3zxvbGUh2RXfWV
-	wWFwpK+0jAwTXYhODUxQl4jVb1OR3A4QCLmCB6qaaUqpFG21rCFwJw+ijSHaBONz
-	PM2cmiOr54uM1tID4Q7N3LabPpv7Pw7tbJk0yN1p8497R6d0cbRIIN6RaHYyNywx
-	imz+g5TMvPXGMLOQsUM0MAYQLGR4z3xj2uV7nnjuYQ+TixqO4Tt0NsQIZ9+m9edp
-	dv/0MExZ25PyKZqXU6Fj/ilarW9oAHnAHXoG6vVCmz89zqSA+wjXJNJMxphraIPY
-	ChMtjTAVm5mkv/yHh0WOarKmjpjdtoTL3WHKKz37HnQNCQ==
-Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com [209.85.222.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9dm5pb-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 21:16:08 +0000 (GMT)
-Received: by mail-ua1-f71.google.com with SMTP id a1e0cc1a2514c-9806756ea40so2350243241.1
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 14:16:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789334167; x=1789938967; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=wpeg4tsULyvmQiKySynkFQbTOmdnvDQyhOwFobjVtL8=;
-        b=WdI7WyBBpOtlOogqr1v+Ywcp61TruURaRuFliUnbx/YbDf062WBCdf0nMFyChEMNTI
-         Bcn2DtrV/19v0AabUvIMj3Vt1bedqfmBfTQDygCMVCD1m0BiivKK3idj7O6PNCQPWODP
-         TsCJTgxphdwy3JwT7pR2jx+GjZ+8blgatssGIlQjZffUNoR9LvWsQl1lgE+UaMYGxC5o
-         10yqNm9DNLabWeMlIUmM3r3m/2LVbRCS0JCowmSeV8k+JRv86Taom8cJv5UJK7cHNhRK
-         RoWdeFWHR22dlyXsLsYncp1Nt/9QuItAdGapaFe4dxCB+oNUp7w/+k5i7OcGfEAPb4zA
-         fO+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789334167; x=1789938967;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wpeg4tsULyvmQiKySynkFQbTOmdnvDQyhOwFobjVtL8=;
-        b=Bv8CGi6YTn1VeA6jBj3KWq7Pji0F1LolGjLkWSeT4JcxkfHI6HLUe6+ytbZdnpyqN1
-         3tprD2wXemSNyO+N91gFzAp+r7tYsMpoVDU7LOGjKF1Z8nEp5jprws1ILjNFRq9uJqAb
-         wXw8CAOzQRDUCGWZD7KZMsjJPO0MTYW6WZU9VgVU0dktPte3DfxSvlLfClBpgH9FatnG
-         HSFHPm+iadYyQJbhtC1rgyQ8nkQ5SkPwbA6lx+Sp7oZO8S2JR0OGU0ecAEt/v6R8D4pL
-         xuR1lYDcG6l+2bqDNz70P8L7A6DJK0TgAojdK1/DDgf5SppONp3UMBz+8c0BYznYgoXr
-         Vtrw==
-X-Forwarded-Encrypted: i=1; AKwUvBwvIX7PpUv+CKK2IHQw573t8TNVSnjlCgwnTv/aFCNKA9DeQQOk+NgChran0Ucj52HFtk9dwx+1Rowv0iQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mod8DcAZdJmJL4hSm4GABhnK8BwzCQRXIs8BiNpvHT+wOat/t0
-	2eUL2Jp7anflDlW/OEql61UZVg8EZv9C3cXbtlSE4oIs0qb8iNKhh9zfEbzAkhz/4/9aHmUR0S6
-	JI0HfSFbjLJtjCEXQ3Va5/fQy365UhMemCbbjsEViw/F2UiIAZ7EHi3H4sHNp3vVO4N8=
-X-Gm-Gg: AYBFou0mJbm0WV1M7TVhGJH5bMACoMIYuDo4NBCs0IY/4MlhxtrFaNDWtfAqmdlAMHK
-	PkawMQ4ETwdGVTOe3lUteQcq9IQVt0xWoeGvASmbyA/C/iUox5iU0pVnv2cpE754e/O2JkAdtQ5
-	Fqrx+Q9WjdOgFmum0hLLoLepSlO+KOJIHtBn49sv7t0o35mJu2l1fAKC5oFY0Rwod+niobQtHZD
-	mFyN7hL1qxrv+CLDLrOPauRKW40ARhQ5FV0foqacY8le2wGlygRgZ+vIvR3J9CWNMH9myFuUXBq
-	lCKi2a8l7nt5Fg1m83MNnfMiH5wa5OHbGT4FcF5znMh0Vw7Q/JN3vkSFM0tN9UOF/NARVYTyxu5
-	OfFfAvHtjWafX/qRUbet5c7M38srhkPiFfCui9lekKwqnIaOKhrKNnzUiEJ08xUImCF2e80sXYl
-	xadWwhO65v7Eo2
-X-Received: by 2002:a05:6102:f88:b0:796:1ed:ba3f with SMTP id ada2fe7eead31-79601edbb2bmr6668213137.0.1789334167506;
-        Sun, 13 Sep 2026 14:16:07 -0700 (PDT)
-X-Received: by 2002:a05:6102:f88:b0:796:1ed:ba3f with SMTP id ada2fe7eead31-79601edbb2bmr6668197137.0.1789334167150;
-        Sun, 13 Sep 2026 14:16:07 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a5a334baf8sm22310821fa.25.2026.09.13.14.16.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 14:16:06 -0700 (PDT)
-Date: Mon, 14 Sep 2026 00:16:04 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Jesse Casco <jesse.casco@gmail.com>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/msm/dp: skip PUSH_IDLE when the link was never
- enabled
-Message-ID: <kf43s2b4bt6q555leqyy3xlsv4ccqhapmcsesa535rmsnth4eb@zlz24kv7v4r3>
-References: <20260808171325.133041-1-jesse.casco@gmail.com>
- <8728ddab-ec45-48a3-b2e0-93b85938d8b5@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="JvhaPjN8"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KkUu/UUj64VMIzrjKS73ZiHezozF7Nf0E3JvcO16LK45ltUbZ+F00liaqcpkQ0SnroXpUZ+L7Gi4FnjesAtynbLogxAl+A0rnNJ18l8Dxg50jRjDuzNoablAzNr/tTPZ2hlEncdlcxOFEf6BCX4DCeeXk8r1YKBtyQtzsVmFck+9i5IvWj+7bn4URt2XCGlATPm/7UdgCV9f1pVJHSBJpq3/j9DykIjTKfIL0aUQ2jdaaEkSTbK10+b622HQXHxdHKd9aS7hRk5trsrIExAaf5jX/ThpQhGzwPr6Tq6KAX0M8kHQClD/VOgMZOr+jkvDuZGY5kx4qzSCL6536V/IvA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=opti67Ivj0BQULmuMjCUYDWffcNylb0cgOOzaXNhd+Y=;
+ b=VRTlKKRqav01QvTFCNFJYfXMwbFSMrfgSNNhQqBsk5MzoOq/HNlhQlDZVkuMv/rdG+r7kL0wFOgKk7h6SxivhzFfEnINkCRU0bus8DnRugPVv0o9H9kS+F28BXXOOZl4YyqvR7wEdiUzG6DcyQQ0uYpMEQ+GIjfzfh9DSPFRLlAyjPR42EM2RrmVu+DAbyL/8K8HqsuDRWBop9oi7PxJHkZ3eqoGWQfz35vC1J8YFB1S1+kGThoUNtOkOS98fk5g6/YPaABx0KRay2Ml6oFYW/RwKLfqrZnWFLo0Gsn37KQ4bDwmASRLX6vgWSMrv568OS/6p6riCH2qazvx4BEinw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=opti67Ivj0BQULmuMjCUYDWffcNylb0cgOOzaXNhd+Y=;
+ b=JvhaPjN8ycYEqQc6N+2Ea7Y3GrgdzdUs8U2cXmhg3OzXCez/EtN6hODmid7rljTzIjTKjH6KBu+34Ahann9Ngvm5/mO6dE7FyK8Tmir1YdHhEj6hnCXkf69wBB7wu+c+o6tbEAkem+NjtZakP4g99q2FeRPwIsbYIgZdOhHL5z8=
+Received: from TYRPR01MB15619.jpnprd01.prod.outlook.com
+ (2603:1096:405:29b::10) by TYCPR01MB6820.jpnprd01.prod.outlook.com
+ (2603:1096:400:b7::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Sun, 13 Sep
+ 2026 21:20:43 +0000
+Received: from TYRPR01MB15619.jpnprd01.prod.outlook.com
+ ([fe80::a68f:5c9:9de8:4fa4]) by TYRPR01MB15619.jpnprd01.prod.outlook.com
+ ([fe80::a68f:5c9:9de8:4fa4%3]) with mapi id 15.21.0406.007; Sun, 13 Sep 2026
+ 21:20:38 +0000
+From: Cosmin-Gabriel Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+To: Jonathan Cameron <jic23@kernel.org>
+CC: David Lechner <dlechner@baylibre.com>, =?iso-8859-1?Q?Nuno_S=E1?=
+	<nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	<conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
+	"magnus.damm" <magnus.damm@gmail.com>, "linux-iio@vger.kernel.org"
+	<linux-iio@vger.kernel.org>, "linux-renesas-soc@vger.kernel.org"
+	<linux-renesas-soc@vger.kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH v2 6/9] iio: adc: rzt2h: expose sampling frequency
+Thread-Topic: [PATCH v2 6/9] iio: adc: rzt2h: expose sampling frequency
+Thread-Index: AQHdQQI9gAPc1wZWh0q4YdXu0OwgXbbNBzMAgAAAspA=
+Date: Sun, 13 Sep 2026 21:20:38 +0000
+Message-ID:
+ <TYRPR01MB15619A10C9AAFC6C5FBC9D7F585BC2@TYRPR01MB15619.jpnprd01.prod.outlook.com>
+References: <20260910085430.3173166-1-cosmin-gabriel.tanislav.xa@renesas.com>
+ <20260910085430.3173166-7-cosmin-gabriel.tanislav.xa@renesas.com>
+ <178933396021.413489.9480922200160073497.b4-review@b4>
+In-Reply-To: <178933396021.413489.9480922200160073497.b4-review@b4>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TYRPR01MB15619:EE_|TYCPR01MB6820:EE_
+x-ms-office365-filtering-correlation-id: d90eced2-91b7-4f53-4302-08df11dcdb8a
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|7416014|23010399003|1800799024|366016|38070700021|6133799003|10067099003|4143699003|56012099006|11063799006|18002099003|22082099003;
+x-microsoft-antispam-message-info:
+ scNXy/d392n2hDmWBrD7rtfdKc9RNIJcWMMswxMgTz9uI6y67xhHCUnPQPGHhbLOLxfn7pLAhkUlfSgyR34earKo2c7CailbkdRbt+f+zzbKPgxw+S/KKxzuiTYTY4U3mYzP9ei6KflxuK6ffegxCtzScUZtMGR9dTib+201kvaEcOelafb/pJn1Zo10f+j0rKBZWsQXTBiXk2de7OqR0zrjbMN8Ea15p/86f8rAmuz3R3yx6PBKVUwTp0PuFr2SYWir0JkgoYO/oyA8d4Ef1mCw/e4gypiZYhkS7YH+c1VFTX8ZcUpKcset5Hlq8LIgyzbZ7kJG08/XjNIbBWLfZgKnawc+2BUOucaoSNJx5ARXJ/YPxRHJl1UV9ji2bJWNlw69wBpJrEBMo6gwCvfMBQkjIl0w8lbEv7mUu8Vtav/8khDbrGxJIkKkv6L0MzIQsjWGCGgx9RpfgEsYPYOXox/MOC9kGy8s4ilCPKQTbwk5xLmcXDiIfN/4WJyxGaf+4wmq1VtU+2/VGjDXaBC11IU0UmA7JUAuBf4Rw/3KWIwbFrx5q/VyzaSQRkHusxj1uUAVUoP3O6AJLMMhzobbQRqfmZa6K+SMW1HwIdan/yl5CP8nIpropHvFAOLwNPCOFiTVTMX/7J5xFmH+154drNI94YYOPeLC+W7MCXMLav8B26A4duLufCXKt3h+TVsJmnyJCfnfKT++6EPA/1MBoksfoHOvWcsUN6H/blBJp6k=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYRPR01MB15619.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(1800799024)(366016)(38070700021)(6133799003)(10067099003)(4143699003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?X4OxEiNnq1dqG1Xwp5Yksw4BYifQsrnW6DEocXQwjnLVgDrciOhr2nrge6?=
+ =?iso-8859-1?Q?fHeFBNFXXo7k9Kudrduah2UJbRBAFL1HZ63AM7typI/Ls6xa1WJu48WvcJ?=
+ =?iso-8859-1?Q?c4Y4OsTi/PHO5EmYe4JzU25rDMzioqll2YycF+wqNCNN7mq3bCKfz9JNRH?=
+ =?iso-8859-1?Q?zPU7loD81zJApQs+y+dU9SusVMoSo9xhDjLa7pJiVJ87IV4TgznSLbleEw?=
+ =?iso-8859-1?Q?3McoL5RAsk/Cp1NEissATRWPodtt1Ah0g9rNOu+QV0RUjEKMoxS1TfjZro?=
+ =?iso-8859-1?Q?SCOUsK9UkrHa1GR+ILNATqSKihtA5d6iGZqnxR6iOdwul6YpAmwRBo5d4H?=
+ =?iso-8859-1?Q?twH8fs0bm6nTqfvdrfD9jBWetx6aYZQwfZLMj7aeIozRdDAm5SCrZjY9fT?=
+ =?iso-8859-1?Q?v5PDtaV8P5VISKajgaQISlbsLIphHjg8dQXjooLlBhapi08C3y2Ahfjt0l?=
+ =?iso-8859-1?Q?d8CMmzmm2WrvAG77kLzLuqxerQ3QrEXLFK/tEGiaHTGOZE6N+LGybuatju?=
+ =?iso-8859-1?Q?z0Mcd4J/Ho+4hmXFAJ8aFYpYqTfskUz+GWYIxJEmmDCHULrMEzyxERKaCe?=
+ =?iso-8859-1?Q?1TV6FRpzf0Ciy8LvVVDIAtz3H/E0EUIvatMCjic6dVb91Copw8h9ZmL24O?=
+ =?iso-8859-1?Q?dzqPVGERqrZUHB20AyPlXpjBst2KUlgKzFtr16LBvwVm6ASJ8Ize9jQVMC?=
+ =?iso-8859-1?Q?PI+jne3u0Dzb30bDZNJRUYf+qo0BkKSnU27qgtgQkuyX9vKH0i1+FWXS7f?=
+ =?iso-8859-1?Q?iUt/WOitIvlbsqGP1lOdlry9Po1rCP2v5mB9n9pVRP6BNekAMkIfW67e0H?=
+ =?iso-8859-1?Q?1lRO94iWFzJkMDMNdsz/w27MGaIwOtBuDlrhQUPN9aVgZh8QJHUMYQjRO8?=
+ =?iso-8859-1?Q?VMeAD9iNw886ZCdyCTCi7voyHSw+PBmnYE0rYr7mmznCvKTHkaht7MAw8d?=
+ =?iso-8859-1?Q?yVmIuoUyKZb89v1zgHbgtqOyyfdKayU15rtTZQ19KkxaorPMkpnRPVqXdL?=
+ =?iso-8859-1?Q?ZY+QNs6S7ts9gzcGxvA/MGPJWHGKilSa8MFsNNqOxvD6LoC+bnIxIUuBW7?=
+ =?iso-8859-1?Q?XXQVWkOlvGJ6QfcS9gC8W4Pw4bLx2edaZTzRAF94jiUqJjy4SW9PriwnCH?=
+ =?iso-8859-1?Q?+j7pZ0r8u5sN+EOSpMDj8pt3EFq58mnz2ZhuUePaXuZaTQ7znnFmR2vo0a?=
+ =?iso-8859-1?Q?ZWDAi2JoKYY3NBJBAZPrH2pb9Cc4wIMgIFHB3zZbm9qbcibQZATckv1F0k?=
+ =?iso-8859-1?Q?aXM72zSzmX6onvYzxssiZCBHg9Enqc3OzXWvWh83VdnBaKl7PoibWlYNcZ?=
+ =?iso-8859-1?Q?63/P4ANdREjwtFn86AqCXT3sREVocvXVScCytde2jkkQAgftG4XjmaZ8rK?=
+ =?iso-8859-1?Q?hAY+ekNaJdJ02dGqnsnKSVKQfFXWr6cGUvczvETgIVnsrx0yKR4XvT/KWZ?=
+ =?iso-8859-1?Q?Ogl6e8LuqVKGosmT700tPI//CRauSmtnMlvAg3XszbOIWgQdJEhm5P1yNz?=
+ =?iso-8859-1?Q?nzWcXxgeXmASbz0atSZLYnak7VW0muMTVY6Pxt5QF5bfI858g8VrAvey+D?=
+ =?iso-8859-1?Q?xWvtc8Q2mteS9IFl2Rkl/E0dG0CQU1u7BZNUWnWyjOau7e41Dj4ITXRnlZ?=
+ =?iso-8859-1?Q?IAXAWZrJewLXSpw3jt7Pj8+4ilOOIB7nhPS+nJk9gysDIM9ne7HwwWkMRB?=
+ =?iso-8859-1?Q?4xEI41Qj7fpsGxijIE+DcQnnsBb9i/FTwSuzc/l5Tjms5uCwoo/v6I8jg9?=
+ =?iso-8859-1?Q?NL2oIkAc19K6BlhH9R2gtWszH2OovPRG4ZESfa/A7Itxhojjr0w/VXsHHg?=
+ =?iso-8859-1?Q?qyE9EZ8AMY9QwSFbaE5vWJSCAduy/f/6PUSNZkLpohCGe3nh2mml?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <8728ddab-ec45-48a3-b2e0-93b85938d8b5@oss.qualcomm.com>
-X-Proofpoint-GUID: V0rbWywevrjXpMnV2xfCF0LxJ2Ci2pfR
-X-Proofpoint-ORIG-GUID: V0rbWywevrjXpMnV2xfCF0LxJ2Ci2pfR
-X-Authority-Analysis: v=2.4 cv=NelzRGD4 c=1 sm=1 tr=0 ts=6aa71298 cx=c_pps
- a=KB4UBwrhAZV1kjiGHFQexw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
- a=bqXh0vLP62WSRRxxKw8A:9 a=CjuIK1q_8ugA:10 a=o1xkdb1NAhiiM49bd1HK:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEzMDMwMyBTYWx0ZWRfX4T0RWGhiIglg
- J31Lq5JpIgT7by4XyqO7CCLDU1z+SKY3WQlpEMvCKoxuhWuKAAK+jfXucjz98D7j7nFSKPInezZ
- 2lbOrsgP2vU1IJeBUfy+AEtUB3r+vQg=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEzMDMwMyBTYWx0ZWRfXwGNZF/AgO32p
- bjy+d+kjd6UfEOtgj2mvvqOfAav6SNdJxZFzyQ7Onlj1ms3OtRd5ZOvJDfbTVg5KIghrbH5jh53
- B4cCulfUTX2QnBp4YkadkZJGmfvsYjy9cIhYgxXgIN/34WhJeqasqi+x4now6n6pBESV15Hk1gc
- BK9LTfb1Cg2+utVFAsHQu4y6gfF/L7Ft+B0GzSt/byxh80QxWlbS8EgCUqkJpzcKDl10EbUk87h
- M4Sq4yxgP44RDyAYGnv8cdLgRyuCKvdBmOT/pIJ0QfRqEdUuB68LVGJi63mGUIfiMh22BiiryrL
- BEa/95h5vH/AwafnnL9HPa+slnuFfdJq3DTrRv24Rip6RjZvaDuRzIUDAQogUlbZO6lqkZxyDOh
- mxBtqdNiYohDvBwofGJlATf5ZvrS1kR2p6XD2+yHc93KXjcyrAJ90TKuASiSQeLXDLLriaWzXMy
- m1b6s/bvZ4iNaQFp7WA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-13_07,2026-09-11_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 adultscore=0 impostorscore=0 priorityscore=1501 clxscore=1015
- spamscore=0 malwarescore=0 suspectscore=0 lowpriorityscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609130303
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TYRPR01MB15619.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d90eced2-91b7-4f53-4302-08df11dcdb8a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Sep 2026 21:20:38.3320
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: HzWvedr0FVE0y/jJMHVJcYxlclp1nl0JzGL8fl7t9+xMV7OIK8QUtCRccAbF4m9XIFYSBqFRIBaYVUbCP1kuSbg4pobQ85NwWyVfKBC/KmHl60BdaaSnndaA3dZAjjvT
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB6820
 
-On Tue, Aug 18, 2026 at 11:48:58AM +0200, Konrad Dybcio wrote:
-> On 8/8/26 7:13 PM, Jesse Casco wrote:
-> > msm_dp_display_atomic_enable() returns early when link training fails,
-> > leaving ->power_on false and the main link down.
-> > msm_dp_display_atomic_disable() nevertheless writes DP_STATE_CTRL_PUSH_IDLE
-> > and waits for an idle-pattern completion that cannot arrive, so every failed
-> > enable is followed by "PUSH_IDLE pattern timedout".
-> > 
-> > Every other step of the teardown is already gated on that flag:
-> > msm_dp_display_disable(), called from .atomic_post_disable(), returns early
-> > on !power_on. The PUSH_IDLE write is the only one that is not, so the
-> > controller's runtime-PM reference is then dropped without the link having
-> > been taken down.
-> > 
-> > On glymur (Snapdragon X2 Elite) the consequence is not a warning. The SoC
-> > does not survive it: TrustZone force-stops the SOCCP and ADSP remote
-> > processors and the machine resets silently about 50 ms later, with no oops
-> > and no panic. On an ASUS Zenbook A16 (UX3607OA), whose eDP panel does not
-> > currently train, this reproduces without any compositor or GPU involvement:
-> > 
-> 
-> > +	/*
-> > +	 * If .atomic_enable() bailed out - link training failure is the common
-> > +	 * case - the mainlink was never brought up and ->power_on stayed false.
-> > +	 * Driving the PUSH_IDLE pattern into a controller that was never
-> > +	 * enabled times out, and .atomic_post_disable() then drops the
-> > +	 * controller's runtime-PM reference without tearing the PHY back down,
-> > +	 * because msm_dp_display_disable() returns early on !power_on.  On
-> > +	 * glymur (Snapdragon X2 Elite) that combination is answered by a
-> > +	 * TrustZone-level SOCCP/ADSP force-stop and a silent SoC reset.
-> > +	 * There is nothing to push idle, so leave it alone.
-> > +	 */
-> > +	if (!dp->power_on)
-> > +		return;
-> 
-> Dmitry, should we even be reaching atomic_disable if lt fails before?
+> From: Jonathan Cameron <jic23@kernel.org>
+> Sent: Monday, September 14, 2026 12:13 AM
+>=20
+> > Expose the sampling frequency as a per-channel IIO_CHAN_INFO_SAMP_FREQ
+> > to let userspace control conversion time.
+> >
+> > Each channel conversion takes a fixed 13 ADCLK cycles plus the sample
+> > time programmed in ADSSTRn, giving a rate of ADCLK / (13 + ADSSTRn).
+> >
+> > Read the ADCLK rate from the "adclk" clock to derive the frequency.
+> >
+> > Claim direct mode while writing so the rate cannot change during a
+> > capture.
+> >
+> > Program the sample time into ADSSTRn for each enabled channel on single
+> > reads and on buffer enable.
+> >
+> > Wait for the maximum amount of time a conversion can take + 1 jiffy for
+> > the completion event to come after triggering a single read.
+> >
+> > Signed-off-by: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+>=20
+> There is a sashiko comment on this one (See below) but I think it's
+> in the category of things that we don't are about if a timeout
+> has occured.  Please sanity check but I'll not hold series for that
+> one.
+>=20
+> >
+> > diff --git a/drivers/iio/adc/rzt2h_adc.c b/drivers/iio/adc/rzt2h_adc.c
+> > index 0460dffe189e..8ba7b0fde8a1 100644
+> > --- a/drivers/iio/adc/rzt2h_adc.c
+> > +++ b/drivers/iio/adc/rzt2h_adc.c
+> > @@ -2,6 +2,7 @@
+> >
+> >  #include <linux/bitfield.h>
+> >  #include <linux/cleanup.h>
+> > +#include <linux/clk.h>
+> >  #include <linux/completion.h>
+> >  #include <linux/delay.h>
+> >  #include <linux/dma-mapping.h>
+>=20
+> ..
+>=20
+> > -	ret =3D wait_for_completion_timeout(&adc->completion, usecs_to_jiffie=
+s(1));
+> > +	ret =3D wait_for_completion_timeout(&adc->completion, usecs_to_jiffie=
+s(5) + 1);
+> >  	if (!ret) {
+> >  		ret =3D -ETIMEDOUT;
+> >  		goto disable;
+>=20
+> Sashiko:
+> [Severity: High]
+> This is a pre-existing issue, but does branching to the disable path on a
+> timeout leave the driver vulnerable to a race with the interrupt handler?
+>=20
+> If the timeout expires and the hardware interrupt fires immediately after=
+,
+> the ISR can execute locklessly and call complete(&adc->completion).
+>=20
+> Since the disable path calls rzt2h_adc_stop(), which only masks the inter=
+rupt
+> at the device level without waiting for executing handlers via
+> synchronize_irq(), could the delayed interrupt complete the structure aft=
+er
+> the next read operation calls reinit_completion() in rzt2h_adc_read_singl=
+e()?
+>=20
+> If this sequence occurs, the next read could return immediately with stal=
+e
+> data, and its own triggered conversion could eventually interrupt and cor=
+rupt
+> the subsequent read, leading to a persistent desynchronization.
+> -
+> With a timeout we never expect to see I don't think it makes sense
+> to care too much about stale data.
+>=20
 
-Unfortuately. The atomic_disable() always comes after atomic_enable(),
-there is no way to fail the enable path (you can see the outcome in
-other drivers where the _enable path ends up setting flags which
-_disable path checks before shutting down corresponding hardware).
+If a timeout occurs with 1-2 jiffies of leeway at standard CONFIG_HZ
+values (plus however much time it takes for the user to read the next
+value), something is terribly wrong. I don't think we need to handle
+this situation.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-
-
-
--- 
-With best wishes
-Dmitry
