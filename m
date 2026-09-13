@@ -1,111 +1,146 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD7B338655D;
-	Sun, 13 Sep 2026 17:17:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DFEB370D41;
+	Sun, 13 Sep 2026 17:17:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789319851; cv=none; b=dlEKoqwjPc1qL/kCRvoeaOZduyE9gj+k99YLZ9ZgojUlaupVATz1Pqv+I4075iKhGzqMlDGF/2ZREQDt2NeVNhCuadWW6wbxPoPiEHbgigyR9TJdxgxFXzAPMx68S1Z6O5dPvJISfManRwE82/sKhBh0Tt6H6e5/CFp8E18guOA=
+	t=1789319855; cv=none; b=GzBPua05ut0OUInUTgkKpj3uM1YMjGgRYDccB0KWIPetRJbwURHupOtrWwB0ocUNhRmJBmygXMPKpeuJZwsybupQJ4SFENCz//Z5IyPG5f4JwpxvMMGFqpMpHhdg8ZYLhY7t/Rch0lZkZLjceXLCYh2LXHmyWEdDxTAsjf4IoVQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789319851; c=relaxed/simple;
-	bh=Hjb3jb3USV71UqUDGp095Qnz40Hf9kgKYHVuv3k5n7s=;
-	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type; b=MLMwOjEZFpJdg5/KMCXeVxz+cckVAzNJsNPfWjuAVWs6KrMqlX1+xC1IF4p/U9XASNIwCGLd58wAOololuwdE+PnrPXe22tNwslsk+IbISDtxRVJ17GGu2jb+5gWJWIYZthBZ1k77kKGoWdzQHlHnPUaHz2C0/5jlNpkd1G6GDc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nL2fkYtQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789319855; c=relaxed/simple;
+	bh=7Uycex3LCN1FJ1tpM3J6AmnYLXeePVEr5yT34cOEJKU=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=nY5PrG3O1kxnm3N115AxbRXbEbAyOajEukqshoAADIvmBARvDvaPHhNkJz+7Qu8iwxv/wJQlBOWFUqk1bghnwQPe7vycXEYPJLfY8GBk6BXBkKPrdUUludVhAr2G4lHDerMB1UuzjAtLkMsukiFAfcQJnhdRHbf1bGYbisTKTPk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P91RrsZ8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nL2fkYtQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3BFE1F00898;
-	Sun, 13 Sep 2026 17:17:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P91RrsZ8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 843A41F000FF;
+	Sun, 13 Sep 2026 17:17:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789319843;
-	bh=Raxewkw96Z82Y9nRPZmzJgCe1hQ47cf/cMMXBMB6o0o=;
-	h=Date:From:To:Cc:Subject:References;
-	b=nL2fkYtQ8ohLg8H5gnFrc29W83XppU0ipP2Riu+6c88MNitCroygteSukxj/cqAKr
-	 94lMk263pDoVyHIfRW2O5VATDjVFjAq43EvYrihLWCrtddTcH3Gq7ttSIIgMYpGy/g
-	 ZSDCV/QK/m5zUU6UTpLx8YDHcDguRUc1g0+ldFs8eY5zS27IFzedrnXyQ2pMkSc5O9
-	 8K1OLQ8wpmrlHWikZOjBKsIHxkNW72favqWKn5GQ5+7SbCt3qHm0s5KwXh76kJP+ce
-	 rm73oyPzU8xk/LSbM4TQPL6N/P++5D0qYwgYSz2R7V1mp5ObTI6EUiBed8KrFTUucN
-	 Olr/y2IsT3u2w==
-Received: from rostedt by gandalf with local (Exim 4.99.4)
-	(envelope-from <rostedt@kernel.org>)
-	id 1x5nqr-0000000AQZc-3fRE;
-	Sun, 13 Sep 2026 13:18:49 -0400
-Message-ID: <20260913171849.676672435@kernel.org>
-User-Agent: quilt/0.69
-Date: Sun, 13 Sep 2026 13:18:01 -0400
-From: Steven Rostedt <rostedt@kernel.org>
-To: linux-kernel@vger.kernel.org
-Cc: Masami Hiramatsu <mhiramat@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- stable@vger.kernel.org,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- =?UTF-8?q?Ali=20Ahmet=20Memi=C5=9F?= <aliamemis@disroot.org>
-Subject: [for-linus][PATCH 2/5] tracing: Dont dereference trace_event_file in deferred trigger free
-References: <20260913171759.469375546@kernel.org>
+	s=k20260515; t=1789319853;
+	bh=dmnvs32wn3SFLDnQCJhlmy4+ncYr398rO2qSAaucqP0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=P91RrsZ824GmYPi26b8v+I9Gz9HwYsYUhvHgZjehDPS9bHMPsPQxaOtw7SiMDq2ZW
+	 GQrw70/IeYZEVCdyHyPOQ/Wy7KSJ5W+uLA7tciG632NXQ117+TDpsRXohV7ukZ1xVK
+	 vCWMpJFx+av/hmeQowuevYcWwFjyeGX+7Bho4mqJ8rnHrjHXuiAxC69bNNvKHD2lGR
+	 SzJfREIZr8dYNgbbxlqo49w+bbQ0jjkYaaonx3O42pQvGiOK5VMb3nZMxV0GAwolQ9
+	 ACxRRRYXjBnzqKIag3DvaqU8sHA3UAh6lha3K9TpozB/EB4cMxakPnEoNZxFngmsx3
+	 VkmCUQSgMVZZg==
+Date: Sun, 13 Sep 2026 18:17:26 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Chang Yu <marcus.yu.56@gmail.com>
+Cc: Andy Shevchenko <andy@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Rob
+ Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
+ Dooley <conor+dt@kernel.org>, Shi Hao <i.shihao.999@gmail.com>, "Jose A.
+ Perez de Azpillaga" <azpijr@gmail.com>, Joshua Crofts
+ <joshua.crofts1@gmail.com>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 2/2] iio: light: add AS7343 multi-spectral sensor
+ driver
+Message-ID: <20260913181726.0e29c865@jic23-hlaptop>
+In-Reply-To: <aqYiWwIkP1HQtRrk@gmail.com>
+References: <20260912013912.51887-1-marcus.yu.56@gmail.com>
+	<20260912013912.51887-3-marcus.yu.56@gmail.com>
+	<20260913034714.2fa2fcb5@jic23-hlaptop>
+	<aqYiWwIkP1HQtRrk@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-From: =?UTF-8?q?Ali=20Ahmet=20Memi=C5=9F?= <aliamemis@disroot.org>
+On Sat, 12 Sep 2026 21:11:07 -0700
+Chang Yu <marcus.yu.56@gmail.com> wrote:
 
-The enable_event trigger defers trace_event_put_ref() to the
-trigger free kthread, but the trace_event_file can already be freed
-when the instance is removed.
+> On Sun, Sep 13, 2026 at 03:47:14AM +0100, Jonathan Cameron wrote:
+> > On Fri, 11 Sep 2026 18:39:12 -0700
+> > Chang Yu <marcus.yu.56@gmail.com> wrote:  
+> > > +static int as7343_read_raw(struct iio_dev *indio_dev,
+> > > +			   struct iio_chan_spec const *chan,
+> > > +			   int *val, int *val2, long mask)
+> > > +{
+> > > +	struct as7343_data *data = iio_priv(indio_dev);
+> > > +	unsigned int unused;
+> > > +	struct regmap *map;  
+> > 	struct regmap *map = data->regmap;
+> > 	struct device *dev = regmap_get_device(map);
+> > 
+> > Neither is checked so no point in waiting until a few lines
+> > later to initialize them.
+> >   
+> 
+> I was trying to preserve the reverse christmas tree order and
+> was unsure how the rules apply here. Is the following OK:
+> 
+>   struct as7343_data *data = iio_priv(indio_dev);
+>   struct regmap *map = data->regmap;
+>   struct device *dev = regmap_get_device(map);
+> 
+No line break
+>   struct device *dev;
+>   __le16 result;
+>   int ret;
 
-Keep the trace_event_call directly in enable_trigger_data so the
-deferred free does not access the freed trace_event_file.
+Yes this is fine.  Reverse xmas tree is just for when there are no
+dependencies.
 
-Cc: stable@vger.kernel.org
-Fixes: e091351b3881 ("tracing: Delay module ref count for "enable_event" trigger")
-Reported-by: Alexander Gordeev <agordeev@linux.ibm.com>
-Closes: https://lore.kernel.org/all/20260828134340.2501683A24-agordeev@linux.ibm.com/
-Link: https://patch.msgid.link/20260911155650.354844-1-aliamemis@disroot.org
-Signed-off-by: Ali Ahmet Memiş <aliamemis@disroot.org>
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
----
- kernel/trace/trace.h                | 1 +
- kernel/trace/trace_events_trigger.c | 4 +++-
- 2 files changed, 4 insertions(+), 1 deletion(-)
+> 
+> > ...  
+> > > +	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
+> > > +	if (ret)
+> > > +		return ret;
+> > > +
+> > > +	switch (mask) {
+> > > +	case IIO_CHAN_INFO_RAW: {
+> > > +		/* Wait until integration time passes for all 3 cycles. */
+> > > +		msleep(160);
+> > > +
+> > > +		/*
+> > > +		 * Reading ASTATUS latches all data registers to this read.
+> > > +		 * We don't care about the returned saturation/gain status for
+> > > +		 * now.  
+> > 
+> > Why do we care given only reading one channel and...
+> >   
+> > > +		 */
+> > > +		guard(mutex)(&data->mutex);
+> > > +		ret = regmap_read(map, AS7343_ASTATUS, &unused);
+> > > +		if (ret)
+> > > +			return ret;
+> > > +
+> > > +		ret = regmap_bulk_read(map, chan->address,  
+> > .. it seems that if you read the low byte first (as this does) it is latched anyway.
+> > There is a statement about this in the i2c intro part section 9.
+> > 
+> > so we get a consistent register pair.  Thus not needing the latch astatus
+> > gives us.
+> > With that in place reads can't stomp on each other as only
+> > one regmap read is required, so the mutex isn't needed either.
+> > It may be necessary once you add more features - hard to tell yet.
+> >   
+> When testing on hardware I discovered, for whatever reason, register
+> values for other channels won't refresh unless I read ASTATUS or the
+> FZ channel first. The only thing I can find in the datasheet pertaining
+> to this is 10.2.7 page 41.
+> 
+> "Reading the ASTATUS register (0x94) latches all 36 spectral data bytes
+> to that status read. Reading these bytes consecutively (0x94 to 0xB8)
+> ensures that the data is concurrent."
+> 
+> My most charitable interpretation is that by "latches" they also mean
+> "updates". I have no idea why reading FZ also works though. Could be
+> a hardware bug since ASTATUS (0x94) and FZ DATA_0_L (0x95) are next
+> to each other.
+It is curious as if they are latched anyway what is the text about latching
+if read from lower byte about.  Who knows!  This is definitely a less
+than ideal datasheet but I don't think we have anyone active currently
+upstream who works for AMS.
 
-diff --git a/kernel/trace/trace.h b/kernel/trace/trace.h
-index bd3c8f80300f..3749485a7d85 100644
---- a/kernel/trace/trace.h
-+++ b/kernel/trace/trace.h
-@@ -1953,6 +1953,7 @@ struct event_trigger_data {
- 
- struct enable_trigger_data {
- 	struct trace_event_file		*file;
-+	struct trace_event_call		*call;
- 	bool				enable;
- 	bool				hist;
- };
-diff --git a/kernel/trace/trace_events_trigger.c b/kernel/trace/trace_events_trigger.c
-index 149300cc5e8a..4d2fde996c0f 100644
---- a/kernel/trace/trace_events_trigger.c
-+++ b/kernel/trace/trace_events_trigger.c
-@@ -1728,7 +1728,8 @@ static void enable_trigger_private_data_free(struct event_trigger_data *data)
- {
- 	struct enable_trigger_data *enable_data = data->private_data;
- 
--	trace_event_put_ref(enable_data->file->event_call);
-+	/* The file may already be freed here, only the call is kept alive */
-+	trace_event_put_ref(enable_data->call);
- 	kfree(enable_data);
- }
- 
-@@ -1801,6 +1802,7 @@ int event_enable_trigger_parse(struct event_command *cmd_ops,
- 	enable_data->hist = hist;
- 	enable_data->enable = enable;
- 	enable_data->file = event_enable_file;
-+	enable_data->call = event_enable_file->event_call;
- 
- 	trigger_data = trigger_data_alloc(cmd_ops, cmd, param, enable_data);
- 	if (!trigger_data)
--- 
-2.53.0
+Jonathan
+
+
