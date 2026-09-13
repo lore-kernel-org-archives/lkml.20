@@ -1,107 +1,79 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B3151FBC8C;
-	Sun, 13 Sep 2026 03:04:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F4D51FBC8C;
+	Sun, 13 Sep 2026 03:05:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789268663; cv=none; b=uObHNWF+qo7nE90FKQZYWwJdN4onKosimRuvPJUd+uvByH+WwfauUld7+/ufjroYU1SrM18uMrEXNSqc2KZfGMOMowt6F2eSyAEjlTbtwRN7n2+OLRXyAwWmTt/WHE5jAQZE3Dcu6nJ/FPNASTBZ8beiWx2jsSAKv7KCRz/6Gbs=
+	t=1789268732; cv=none; b=keLY9psxDW9P9K/nad4sV24FgiGPoJqldQ/xgeEhIPUA0jjTuNe4/6lQVPfaLNcmJqe4vohUWqpUVR71GxLMy+eOZnCzHAlKwtIqAcK0jeNBPzvTr+yruPdfCqzFx55YhIXr4vta5tPcIwG1bizLq3dbP5Y4oFy+ZxYgVPHlB5U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789268663; c=relaxed/simple;
-	bh=gRRkKE0fulyNwqplE8fkM64FWgkQMqJLaKEoav16UYA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=utDaUWQVX5vzSWQRc1euD6TzckXGFtYmXyN9LANcmMCqI0qqKPR772SLS8ravccvzXdMT2TSI3cPBDqHGYnQyEexLguIHLXkepv3cngVj0v0MYEGOp0iWjpJQYg4egK1J2y75mGuCQyy1+OQ0n7tgApylD37mtKxqj7dFLe3kME=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=ImCoAi7F; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	s=arc-20240116; t=1789268732; c=relaxed/simple;
+	bh=VxKpDM0WLrcU2FWE5MC+aSck89lGpzVJMvJPx5bAwA8=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=myuaQVRT+VHWTx3JF4rYtpx4mLKPrVvwEp5zZuWadG9G0LZJ6H4lHu4xuekxfZOu97Amua1Kj5huwhRILEBcwUk1oPw7fveqzFD6TfJEoOhBQhkSgeI96NcaxCeKydQK6eSrog5yySPD7QjXlO1iw3MUUtWxncTfSgst1f0OrCs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=uVDopKmi; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="ImCoAi7F"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 33256103CE0;
-	Sun, 13 Sep 2026 05:04:19 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1789268659;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=kMD9p5TTIjgCEBU21mlko+Fs1QpjbWq8gAPH4kWw+U8=;
-	b=ImCoAi7FcXODL5F2t+gDvjcxKKHiullY1lFwR7bYIZ2AGgwbXkaMyiY/8vAO+rXcaSGhov
-	8bXjhqHfIA69Ipl67lhWOsMkcngtcLtsC+4TehWSLq4thztJPbm35hLSrPH+zdgQLoHBkb
-	s3jlAQ4dI/SPDFtYa33K88i6jkb3uBA16uPgbhGulms4LyTdgyIDbjPvwf9ePPGgg46LaP
-	9OgEDGELfW+VnktC1W3BxD+T8DF7EKAjTos6iVacfbwxRc9XwfIYzxqOe4yq77Hc++xTbZ
-	bxisJaVJNqmF/SRAYKjvNXdAjA4hTsc+xNNhy/GZXC6DfTrnAnJKm7z+6OURZA==
-Message-ID: <f80845ae-9ab8-474e-89b2-80ac3fbd184c@nabladev.com>
-Date: Fri, 11 Sep 2026 17:54:44 +0200
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="uVDopKmi"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68D35P2603630326, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1789268725; bh=VxKpDM0WLrcU2FWE5MC+aSck89lGpzVJMvJPx5bAwA8=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=uVDopKmi81ysaH+GKEJWD1ZbpRmK95nWgsgjVG2kiB2VI/kbnxIK6vbMgWiMOrk/M
+	 yjiGnulPUmfQZTC8yhudXT1tUSfqZOWcDz9Dk7/TxCqZROl/QObYPAcm2X4gWzyJjv
+	 RxurLdPpk6kSYQyAeJTBXJc7CQmCy5jl4mpio5QnhY2ki5FBhZesViZ78iv6jLqpMV
+	 9EOsNIUx4A25xv+pYVnJaER4XR9zm+bhzDcyfP2FgXLWOvnOGat5aLpzDRmTim7nOR
+	 lFV3w2dRoP3aemLuy0xCuRiHvuJky3c7gTNG2S0bHIEGZcZzDt+SqmiViKphO5ivGi
+	 eruW+52pCxjZQ==
+Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68D35P2603630326
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Sun, 13 Sep 2026 11:05:25 +0800
+Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
+ RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Sun, 13 Sep 2026 11:05:26 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS05.realtek.com.tw (10.21.1.55) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Sun, 13 Sep 2026 11:05:25 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
+ 15.02.2562.049; Sun, 13 Sep 2026 11:05:25 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: kimwooseok <5mghybrid@khu.ac.kr>, "linux-wireless@vger.kernel.org"
+	<linux-wireless@vger.kernel.org>
+CC: "Jes.Sorensen@gmail.com" <Jes.Sorensen@gmail.com>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH RESEND wireless 1/4] wifi: rtl8xxxu: free RX skb when URB
+ submission fails
+Thread-Topic: [PATCH RESEND wireless 1/4] wifi: rtl8xxxu: free RX skb when URB
+ submission fails
+Thread-Index: AQHdQwNzVbXJAZy0LEOjDiLsjEfukbbL0kmAgAAAy4A=
+Date: Sun, 13 Sep 2026 03:05:25 +0000
+Message-ID: <09990db399dc4a76b08b41eb59325c76@realtek.com>
+References: <CAH1Bc_yJ1e_nHk9tP2qP_4D8MHEve1R2EF5cYCEXRwc+1xVAxw@mail.gmail.com>
+ <CAH1Bc_zqe_a93WcmksWBfmBkW2JGdhuRHcLECpLtznXA_dTWEA@mail.gmail.com>
+ <2637a1d25de6431c89c4670b000fb9a9@realtek.com>
+In-Reply-To: <2637a1d25de6431c89c4670b000fb9a9@realtek.com>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] dt-bindings: soc: xilinx: Document ifm ZynqMP
- VHIP6 EvalBoard
-To: Michal Simek <michal.simek@amd.com>, linux-arm-kernel@lists.infradead.org
-Cc: Conor Dooley <conor+dt@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260909182641.165383-1-marex@nabladev.com>
- <082df9b0-0517-4580-8ba8-cf6f4d3e0713@amd.com>
- <1c39be54-c931-40a2-a806-fa963b2188ec@nabladev.com>
- <e305b607-76ca-489c-b27f-bf45b6fdb59c@amd.com>
- <7b957072-df73-4fab-91ba-9835285ff8c5@nabladev.com>
- <a0d23fc9-6f7b-4c19-9f6f-9cc0c7cce3f5@amd.com>
-Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <a0d23fc9-6f7b-4c19-9f6f-9cc0c7cce3f5@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-On 9/11/26 10:38 AM, Michal Simek wrote:
-> 
-> 
-> On 9/11/26 01:39, Marek Vasut wrote:
->> On 9/10/26 9:17 AM, Michal Simek wrote:
->>
->>>>>> +++ b/Documentation/devicetree/bindings/soc/xilinx/xilinx.yaml
->>>>>> @@ -44,6 +44,11 @@ properties:
->>>>>>             - const: xlnx,zynq-zed
->>>>>>             - const: xlnx,zynq-7000
->>>>>> +      - items:
->>>>>> +          - const: ifm,zynqmp-vhip6-evalboard
->>>>>> +          - const: ifm,zynqmp-vhip6
->>>>>> +          - const: xlnx,zynqmp
->>>>>> +
->>>>>>         - items:
->>>>>>             - enum:
->>>>>>                 - xlnx,zynqmp-zc1751
->>>>>
->>>>> Can you please provide any link to public documentation about this 
->>>>> board?
->>>>> I wasn't able to find anything through google..
->>>>
->>>> I do not know whether there is any, it is an internal board from 
->>>> which other boards get derived.
->>>>
->>>> What would you like to know ?
->>>
->>> I would like to know value for me to maintain it. Why should I care 
->>> about board which don't have any public documentation and none can buy? 
->>
->> I think because the users of this board actually do benefit from 
->> having the support upstream, instead of having to lug around random 
->> downstream patches in assorted state of decay.
->>
->>> There will be thousands of similar boards out there and I am 
->>> definitely not going to have all of them in the tree.
->> Why not ? There are users who benefit from having their board support 
->> upstream. This is what other SoC vendors do as well, it does not seem 
->> to be a problem, rather it is a good indicator that the SoC has users 
->> who care about it and about upstream.
-> 
-> If there is public documentation about it I don't have any problem with it.
-
-I do not think there is, but no public documentation is the case with 
-many boards/DTs that are upstream, and it does not diminish their 
-usefulness to their users.
-
-What do you need to know ?
+UGluZy1LZSBTaGloIDxwa3NoaWhAcmVhbHRlay5jb20+IHdyb3RlOg0KIA0KPiBraW13b29zZW9r
+IDw1bWdoeWJyaWRAa2h1LmFjLmtyPiB3cm90ZToNCj4gPiAgZHJpdmVycy9uZXQvd2lyZWxlc3Mv
+cmVhbHRlay9ydGw4eHh4dS9jb3JlLmMgfCAxNiArKysrKy0tLS0tLS0tLS0tDQo+ID4gIDEgZmls
+ZSBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKyksIDExIGRlbGV0aW9ucygtKQ0KPiANCj4gUGxlYXNl
+IHNlbmQgcGF0Y2ggbGlrZSBub24tUkVTRU5EIHZlcnNpb24gd2l0aG91dCBwYXRjaCBhdHRhY2hl
+ZC4NCj4gDQoNCkZvcmdvdCB0byBzYXkgdGhlIGNvZGViYXNlIHNob3VsZCBiZSBydHctbmV4dCBi
+cmFuY2ggb2YNCmh0dHBzOi8vZ2l0aHViLmNvbS9wa3NoaWgvcnR3LmdpdCwgYW5kIHBhdGNoIHRh
+ZyBpcyAncnR3LW5leHQnLg0KDQpQaW5nLUtlDQoNCg==
