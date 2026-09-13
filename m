@@ -1,178 +1,144 @@
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011034.outbound.protection.outlook.com [52.101.52.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6442C29DB64
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 20:57:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.34
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789333030; cv=fail; b=sDrFX3LQikgQpssk2qNV6QEVj4OmeJbJbAR7M81yE1aSQH6sLKijwLKgl3YiGlq7kK9/sUxXccDHNA2e1eV3UCxAErMVOtBznzvpeR9Dlcj0BOmRk19ZU0AhtUT31YA6D6aw3gvUcuSt9nwGzdWPyKB2tndnTtWcJCD5G4B42FE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789333030; c=relaxed/simple;
-	bh=BdqvZNZ+ncebm+Lt8i7LUkOf1OqfRqEsarQKsi9j5TQ=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=IVHnyfH6J4KREx22Xa8m+LEFa3iLDdih4nAJLIFmKb0Oot6QiKLpW4yOmeGxWkNp+TltDHBDYsjQRZx7s6/9qlOdAsstUYcoa7i93prjfilf/GXv8n938PwLPWhRZ5CRQS/5G423Lxukfks6YFC5K7/KlKmK3oRa8/ZST3WVeek=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=TuBk/Ouy; arc=fail smtp.client-ip=52.101.52.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B835078C9C
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 20:57:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789333078; cv=none; b=KWyA3fxXUUQF/q5I5WgSWSvXFQaBXZCFqPScUhZ5MEhRtBsskDacEAof+HW71Q2CW/ZEYpf6DDWjaO9ZbI/2D9WJlcShkbedcj8zOoxB/WVIuA6x4ZC111H7S12PjPunbtCZHB2Otn2JRMdYv6ajph5tpeMM2S0v/Vu42x5SSGk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789333078; c=relaxed/simple;
+	bh=mf93YlN/XE96GK0N1kC2CPR39oh9Xn4J9PXaEedZizc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=A4kiHtq7/3YvAdoAHozHW0imhm9YVweTCB4+bLz50LXO5EMEW8qLQo74Otj34++BKgxfB909UDxX44tQgWSK+m5WQc93YX43BAg/FNFOLJOSRzpwgUsTvW8RgK/p48Q69lt+bkmdQFMUN7QfDGk4f392YqRsXdNR+cRfRig/KPE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tM7k4Upa; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="TuBk/Ouy"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XWQJ1Wz26xaGFsBdc26h90nq1AnaSAw4WbHm1G6tbyGSTJsyWlaSEUVlEyuUB7OneXXECHXFbF4kqVeVAoqyYdNarNSoaseZ65jz//KB/uiiHbNBrZXLmp1lqLF4tCCW640yiZ7DjtoaNFgC0WjHZu6ccMOc+Xe8ByqC9fUdo4TJRfbsqoc7u3F1hKLUxoczdEdk33oRebmZX/R4IC9T39FmpHVAvbsZLCL0RxS9hXFL3JpKw+w4OQgXAKbL9IJkgmeig4M4YuRr81xd4tT2Ld/pDfJGgWy8xSh+Sf3AhylUjfJsDCNl+yFUVa/ZHptumee4bdPCkK3FbNBbC7qYIg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gdMR+Lv+orPQHdowxuvkPRkhDe3L4XiXq1k/d0XgslA=;
- b=acAmNP4vWZUVSj9l7eQCVeSwfPHrzsGO4j9r/zpF4xwLzTaZcQqsSpsPHmXtXpHxLGeDibCjNFFFbrPzP1iFNJmrZP4P47MPbhkwI8M6X3L1cH4ahtYnekeT0XkDGWmHiUg63uqJ2uuTVMXHAksM2GVmDAJJHtlPChBIQuXAnNuyQNLS+ImnplKWpIM7b/zvBsJe/fmK6Ka60nxu2twZIGySvVChLoiG3TI4LtFKtfAkv1497Q6+4KZsFigWmOeXwBWvY7QRZEOmhKV7ACsYW4IJkA1b2X82kd6Yw5U7yWJiPEyM3YtaZHErYj5GgJPKNUelaWdJIeM+FcHQPKcIQQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gdMR+Lv+orPQHdowxuvkPRkhDe3L4XiXq1k/d0XgslA=;
- b=TuBk/Ouyfwb/nKuilR02gwtmKq/Uk6OMUfWBQ+7yxA5IVdnHtsibue43o12DC0cnByxcEgn2EM44OubEQ12kqATC86IC5DoO3NJWUY8p6IaKTIaQNfQapvoB7BYSLZm2nRWTUBwdZwxZqy1+e1UN+RN+pr/fMUHfjqLOcD0bsGTva6S+qqM4yBmQP+gxzsWx7MxqLPeKAk6uQta2+C/YGUBjW5fyuAg+0GdiBZFLEa8yeB5j8V27GhKZo7Whq+cno0C/DqyeBWMNiXQsBfMlNFyBKMn1ishVV9sjoSt+5pt55D4G1McYoP/srcuo7sCLxjVadg5DVEYTStOEnVtalw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
- DS0PR12MB7926.namprd12.prod.outlook.com (2603:10b6:8:14a::10) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.9; Sun, 13 Sep 2026 20:57:01 +0000
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0406.007; Sun, 13 Sep 2026
- 20:57:00 +0000
-Message-ID: <edc3647d-62b2-4172-99be-7bce01eb3ac7@nvidia.com>
-Date: Sun, 13 Sep 2026 13:56:57 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] gpu: nova-core: extract radix3 page table into its
- own module
-To: Gary Guo <gary@garyguo.net>, Danilo Krummrich <dakr@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>
-Cc: Timur Tabi <ttabi@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Eliot Courtney <ecourtney@nvidia.com>, Zhi Wang <zhiw@nvidia.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Bjorn Helgaas <bhelgaas@google.com>, Miguel Ojeda <ojeda@kernel.org>,
- Alex Gaynor <alex.gaynor@gmail.com>, Boqun Feng <boqun.feng@gmail.com>,
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- nova-gpu@lists.linux.dev, LKML <linux-kernel@vger.kernel.org>
-References: <20260913195413.742143-1-jhubbard@nvidia.com>
- <20260913195413.742143-2-jhubbard@nvidia.com>
- <DLEH6H1Q3IPA.2WVRSLX0LL2F6@garyguo.net>
-Content-Language: en-US
-From: John Hubbard <jhubbard@nvidia.com>
-In-Reply-To: <DLEH6H1Q3IPA.2WVRSLX0LL2F6@garyguo.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PH7P222CA0016.NAMP222.PROD.OUTLOOK.COM
- (2603:10b6:510:33a::7) To DM3PR12MB9416.namprd12.prod.outlook.com
- (2603:10b6:0:4b::8)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tM7k4Upa"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39b9184fa80so1317981a91.2
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 13:57:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789333075; x=1789937875; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=X0tnZg4ciozzZFeiLauyInjWDuzOBWpSsbusg1RKLpM=;
+        b=tM7k4Upag3JFaY5On56kJeVae4fznMoE87ES7ava7A0cB+TH0lZye4tBY6F7ftCrXy
+         KTJH74fBbObMOt3wKYkPqdiraAwJGM5M2I8BnXuAb2bDdPyvIO3bu+KbgsgjJsbXog1i
+         lIABeqOlL8nRMEqOFp9tYSzfwt5CKaqIcUo7c03nRD8OcS+ntuU7tXhlCunjw0cUpqgC
+         BdoYSLz2zfXdrROhJhj1NC4oW0q7gCOoKLmNZ4REbwxyzxwiy/myGSZAFuvw/E3yfRVV
+         xLGoh21uc5pKFou3ip5CwTjuCijv3HcVpLnBkepodVt0GqzVwgbH/PSk5epKvLM06csI
+         UhVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789333075; x=1789937875;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=X0tnZg4ciozzZFeiLauyInjWDuzOBWpSsbusg1RKLpM=;
+        b=Bz+ymfDuR88PoOUWSlrDVBgTHkhxDfcA/GDNMdSKevKyd8kE4F26egWa9MXiqyE2+e
+         /hKwau23Koar+AnpefDisjPZBK6CYwmrs+cyqZYi8TWRak1NjvWYux7rQHAzBlEMOlip
+         NyMYysvdPhUErzZJUHRqt6/2BAEe6jz8988rAMtKiIH691vsh5MAw6rA1ZuKdQq/1bh9
+         +yRCvY1FSg+1d3M9MxzX0h/K+0JGZuYJMvYuJQXZMz66f1ZlAZFFDvPsLM2CtSF5ZMzT
+         gN800uFQMHbC41U5euNUFJqShmX8xFMEADhlS0+cBZsLJPetS2s5YDP6G1FfjuzwIvdu
+         8kVg==
+X-Forwarded-Encrypted: i=1; AKwUvBwdhXZJu/i3R37Wp483SPhTc9tCMcX+xKNn8xuTo3Ucfr3EyUG+eJOT+NJkh4gI2QLBVWAh44rQul+8lmQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++kcrstXa66fMJO9lMjUGQWiOXdvDonQwioeS5DVAeps4kEHJHKB
+	SnsAgBTHxIQqENEOmFKHakgCJXpBE89YUe9B7pexnvQSem7cU/3R+1L2
+X-Gm-Gg: AYBFou1ETRvEvJahrS9tFgazIqxlf1B6XkL4qPBa1hnf4IgOKSeBRmOcdnVu7KCCx1d
+	8AzwDhROTgBECDLVIHobRYdFVqUrE7OsBQbAkqVyp8WKCfvyxn7IX90HuMs/JGorqfRnjt6CJ6E
+	IWq9QqIgP/L3zCQwJCp2oNs2dd0cpMRsU8AdqJ8i1cL2lkWvEwIJikHtBURLjQr5Sruk8FN2Xqh
+	bZdq7/mcH6yw09pu3bpM1xAZvRm58Z8cvL60T25W74l6aW8jNxx/1pGSmr/7JzqcVFPInCWBVP9
+	QYT03xC+9eWboNyJFoRZntVA9BztMaD4KjQd4Jh6QaQ3uubY7WcZXMYw43H3VGY21o5PIN23Cu3
+	D8k5SUzhCf6cVKSiQ9V20HSrYJG2pxA19+dewc98jWrrhGYgJON++VYZz92lVHb6b13ewcNhn0f
+	CQGrTUAyBFOLU8mWUTP18VVG0LbfBO14MA307C9xUmQdXDtyXmfcy//Ct1Th33zrzpd9o3k76DX
+	TQ77qZaMtf9eXUcOdwXomQNL4OwDGxqrwcwxrhnMi5BkdNaNw52QcKPpL8No5FouP37Y5Y1K+bv
+	I/l5/+dIL8pIiSA+9lOAsG/hUDW5ssxM54suy4tE9pma7oBnybma4a7PH4Q=
+X-Received: by 2002:a17:90b:560e:b0:39b:34ef:3b2b with SMTP id 98e67ed59e1d1-39d9c0ba635mr26460010a91.14.1789333075056;
+        Sun, 13 Sep 2026 13:57:55 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e35])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d951d6b08sm17281800a91.8.2026.09.13.13.57.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 13 Sep 2026 13:57:53 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: netdev@vger.kernel.org
+Cc: Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH net-next] net: phy: marvell: undo WoL setup when Wake-on-LAN is disabled
+Date: Sun, 13 Sep 2026 13:57:51 -0700
+Message-ID: <20260913205751.81163-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|DS0PR12MB7926:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2cd0152d-6636-4cb1-02eb-08df11d98e08
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|366016|1800799024|376014|10070799003|18002099003|22082099003|4143699003|10067099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	fYtsN+70wNVwJ8Owe+46tcj4vc8EV2VHgD4Hy1Rruc+6JJLuV4ZKdib/8G0C3eOSlYGzGLqYR67J+brCriAWj5AKStIObMCHV8wBiYJZCvILfv6F1Xkro6uiRvLynmaHrbYHNC12kI4W0Ze5WtxMNTa+OIgeaSGJ/Yt7UwoBbrrVOGoC0KCq4OkooyxMX0kXTVCxI1TGpcpe0fH1eOnTcijj5YieKCb6DQaEmn4LgDYvda3vRTRtoz/Dq8LBEPdWDfutJ6oUhJUiiPdijuXAxgEYQfVOEJ7cLD0prjeUwXZcm6kqGUWyJTnY+h8hPA0hLyFNHvsJYSEKk1jGMQsCoaTv6Uexrq0FD+9NEP9DG+DAk1HX53RrcyzBTpCGxO+1uUkUS5ty2QLgMvpBVUiOXRXt4z3iu2pnBNrnBmh1QLBxAlXLNznCyWh6J+clNtD3s49afr0pqgzLxLm4Db+Pvv85pYkwny2lH7fyBEUsD9SxRBFSbdmR2jkA4A0eLoZGlf4CSmDZRcKHWuA8X6QDH30DTJmIrCMvnoUmWvKrqBEaILFej92Vjsz4DoB69tMNRfvTswFWlhI68Une3u50/gddrM8OASy5xUBmLu7M7QfHzCSC5shFP1Olnhv3bxWhRbf6fMVNgPCtkxtQmsHsqgbspVUwLKSTKlBQwvR2tK0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(366016)(1800799024)(376014)(10070799003)(18002099003)(22082099003)(4143699003)(10067099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NFFjZDdtWUY0MWVmcHlqYi9ZQjF0ei9YSDlWNE1NcEN6SUpHK215N2xPamx0?=
- =?utf-8?B?K0x1dldyMHpBSkQzaWxvREZvR2NKanc4ZUQ4dnY1K1BCR3FRTTRFRGZCdW1y?=
- =?utf-8?B?MFZ2TzlHbnRNZmcvWHhJVklrYkprWnJFZ3MrTTNZZVBUQWlMbzVKZUg3NTVF?=
- =?utf-8?B?TXpCbmRRYkdTOFh5Q1NQWm5nMlZXaUpzSVVqTG5icVhVRmZZYnRlY1VER3dH?=
- =?utf-8?B?RDlvcWNTY1FGbUJGcUFLc3phaG1UNUZieS9wcVFYY3VVb0NiMjVKL2gxcnVV?=
- =?utf-8?B?VHVTZm5mNi9ic2R5SWJIeHpYQkkweGQxemd4ZEZ5SUhXZ3dGQjFqUjF1UGFv?=
- =?utf-8?B?aWNvVmJ5NVRvaVlVdDE5UFQxUVREU201dCtqa2dyNWd5ZWJjTFZBVjk0NWhX?=
- =?utf-8?B?ZDhDWmZFOTBObUNDRXdNV1AzSm9HTXMrUS9UQmRtakJlV0VjTjE2Rk94anNj?=
- =?utf-8?B?ajJDYU1RSkJKNktnL3VxdVZoNW9wNUVnaEJrSXp6RVZ2RW94OVhiOGdLWVZ6?=
- =?utf-8?B?STdyQ25LNjE5K3dQQVpHWnFBTkFCRExOV3k2V29QWFFFMU1MSHF3YUx6WCtI?=
- =?utf-8?B?TXB3ZlowRzNiRlBrL0RNSjNhK052d3luaitJeWliUG15cXZGNjBuMkRYZVZj?=
- =?utf-8?B?bnZJY3BxRlJENWdiaGFOdldlRG1NT3Npa0E0dXgvamFvVEQ4a2x0YzBsTEUz?=
- =?utf-8?B?b1pubEhQbENYWEQzTHYyK1N6RXY0dlYzTEpmL2htM3RQVVFVVHBValgxNU85?=
- =?utf-8?B?WUdoMFVvK29FMXJ1cFNTcnlqQzhWaW8rMy9YelViRjJodU92Y1NJb21WRktT?=
- =?utf-8?B?STBPNGEvNmF0Ui9FampFUHR4aDZQNU1Ta2tJeFhrKzcwRGZzSDNLT3ZGclNJ?=
- =?utf-8?B?amkvYSsyRE5WdzZ0TUkrSW9aVG5XenhDaVl4OWhVSnp5NU1YTDdkNXFTMGg2?=
- =?utf-8?B?VnVMM0liOFZqUGZTM3JQNktJL01FSlZta0JjRmN3dVpPa2p5blRYY3BmSW83?=
- =?utf-8?B?bjNId3creTJPeHVscjVHT21vUkpOZ0svREVjcERyenhZampDQlRlUlJiMWJu?=
- =?utf-8?B?Z1FxYnZkUmtvYVAzZ0IwNlFmMkFGUHBPT0VldFg5TFBmMXFQRGZXOHZDTmRF?=
- =?utf-8?B?WkN6dURCQ2xWa3Z6RHpZek9TaFYwR20wTVlCMFpqV2NNenlsME9OZ1Q0V0RK?=
- =?utf-8?B?dUJ2YkNBbk9zTURiM1V6TlFyYVk4azlBaHJybzEreDRmV1NUVFE2TTlwK1ZB?=
- =?utf-8?B?cWxrcGxtbnYvMWY1N3hQSEYyb2N3U2xpMWVZNFpGa3lZR0FsUXRUMHd2Vkhi?=
- =?utf-8?B?S1RMMTVESmxMVFp0cXlUTy8xNHNiNFpaeFFoNW5tL3Y4bFpadjVzb1kybmMv?=
- =?utf-8?B?VVVpVVNYWUxId29EcHFnMERnWmt2QmdYdVRrK2FTRUQzVjBnVWFHUVh2QXA4?=
- =?utf-8?B?SGQ4cXZVQWJtYVU3RVZ4ckdNVFVuamV5RCtPOFhLdk1TYmJQT2x2MEg5Mkpn?=
- =?utf-8?B?aGNURUw3cW44WUJ4WWFWWmVZdC9wSmYrUk1pcXlUUzdBakt2MENNQVVJY3g4?=
- =?utf-8?B?NnVpUUFzenNnMkFWZ2lOWGVKK05SQVNxN3ZXKzhNYUxsOXozS093WG1mUFpv?=
- =?utf-8?B?WkgzYSs4aHFWWmdwREhFTk9wNzN4RVQrdGs3Z0plYVZqWGNUK3Y2bnlQeG9K?=
- =?utf-8?B?TXhWOXI3T093RGJLMEEvUEhub0VoVHJ4ZG9wVFNnVFE3V3YreDZ5M3BvSGZr?=
- =?utf-8?B?ekdpdUpETlVTbWZOcy9jNGNZc1ppVmRTOXBTSDhhWC9XNjI0aGM1ZUpXY2gv?=
- =?utf-8?B?aTVOOXF1c1NaMFgycC91dVZjQ0ZadE1WSkRxTS92Wi9ndW9IbDFDWGFiWThi?=
- =?utf-8?B?czN4NG0wcWpTNncrYi9UNmtUUlJ5QWtma0tmVTBmNEN1R1oxWDBjZ1FYalBM?=
- =?utf-8?B?SWdVQnBOZDhFV3pERjRySkVMU3Zwd0JmcW5CYktzbERtM2M0UE95bkFLOUEx?=
- =?utf-8?B?UVdTU2RKdTVMYVZvRnVhVU9CSDc3TS9LOThxOFprcU1jQnBDWHlCVDFVdy9O?=
- =?utf-8?B?MnNZR1d0d0QwUU1tb1FsTmZWeGsrSVE0NmZnOUFzOWd4V0dWRXhXY1hTQU5V?=
- =?utf-8?B?dEQ1OGQvT3ZpZGhNaUR2dmJ0N25oYlVSRGk4UWNrZnpPeE4rRGpScVVmUjBk?=
- =?utf-8?B?SEZGQ2h2bEIvZTVVc3N2eGJxTTZTeEpZWjhZbldFbVl1eVplZ0FMblFCcDIw?=
- =?utf-8?B?MVJDZjlsTjNmZndGaEpnSi9jMjhFb2FoUlNXNkhicUN4RU1oV0dQdnFxYysz?=
- =?utf-8?B?cWRpSC9aSTFudTcvclNNcmVhaGFqUE5LTWwvM2ZkTXZZOXlPaVorVkFNQkVk?=
- =?utf-8?Q?gY9xI+xdubMvB03g=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2cd0152d-6636-4cb1-02eb-08df11d98e08
-X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Sep 2026 20:57:00.0057
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xadmrlyC2j1dANnjrWRBcOhMUhuW+b5viaadl163Fe+yOqr1SBEiNGWwBr4jHkDJG1wKQkqtPwGpZGdetq4xdA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7926
+Content-Transfer-Encoding: 8bit
 
-On 9/13/26 1:36 PM, Gary Guo wrote:
-> On Sun Sep 13, 2026 at 8:54 PM BST, John Hubbard wrote:
->> In order to boot the GSP, nova-core loads the GSP firmware image into
->> system memory, and the GPU copies it into the framebuffer, the GPU's own
->> memory. The GPU finds the GSP firmware image's pages via "radix3", a
->> three-level page table of 4 KiB pages that the driver builds. Today the
->> table exists as fields within the GSP firmware wrapper, which is fine
->> because there is only one radix3 consumer.
->>
->> The upcoming r000 series[1], however, introduces a second radix3 caller:
->> the ucodes firmware image. That is because the GSP has been changed, so
->> that it automatically fetches the subset of ucodes that it requires,
->> thus reducing the size of the GSP image. This is a helpful change for
->> the firmware situation overall, but it will require nova-core to load
->> and provide ucodes, in much the same way that it was loading and
->> providing the GSP firmware image.
->>
->> Therefore, split out radix3 into its own module.
-> 
-> I find the name itself confusing if I don't read the docs. The radix in "radix3"
-> is actually 512 (given 4 KiB page and 64-bit entry) and definitely not 3.
-> 
-> Perhaps name this "radixlv3" or something similar instead? Or perhaps call it
-> GspPageTable?
-Right, it's all about the number of levels, not the radix value, that's
-true. Open RM loves "radix3" so much that I've become tone-deaf to the
-name. :)
+Fully disabling Wake-on-LAN on the 88E1318S/88E1510 used to leave
+the WoL interrupt enable bit (CSIER.WOL_EIE) set and LED[2]
+configured as the INTn pin. A magic packet arriving after "wol d"
+would still assert INTn, and a later "wol g" re-enabled WoL from a
+dirty register state.
 
-three_level_radix works, but is silly long for this.
+Undo the WoL interrupt setup once all WoL options are cleared:
+clear CSIER.WOL_EIE and restore LED[2] to its prior use - the INTn
+output on interrupt-driven PHYs, the plain LED function otherwise.
+Never set the FORCE_INT bit while disposing of the pin: it holds
+the interrupt line asserted and turns the shared PHY interrupt into
+a "nobody cared" IRQ storm when the PHY interrupt is in use.
 
-Do we really care enough to insist on this, though? I'd be inclined
-to ask to just leave it alone.
+Assisted-by: LLM
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ drivers/net/phy/marvell.c | 29 +++++++++++++++++++++++++++++
+ 1 file changed, 29 insertions(+)
 
-thanks,
+diff --git a/drivers/net/phy/marvell.c b/drivers/net/phy/marvell.c
+index f71cffa88406..6f7c190880f2 100644
+--- a/drivers/net/phy/marvell.c
++++ b/drivers/net/phy/marvell.c
+@@ -2074,6 +2074,35 @@ static int m88e1318_set_wol(struct phy_device *phydev,
+ 			goto error;
+ 	}
+ 
++	if (!(wol->wolopts & (WAKE_MAGIC | WAKE_PHY))) {
++		/* Fully disabled: undo the WoL interrupt setup done above,
++		 * so a later re-enable starts from a clean state.
++		 */
++		err = marvell_write_page(phydev, MII_MARVELL_COPPER_PAGE);
++		if (err < 0)
++			goto error;
++
++		err = __phy_clear_bits(phydev, MII_88E1318S_PHY_CSIER,
++				       MII_88E1318S_PHY_CSIER_WOL_EIE);
++		if (err < 0)
++			goto error;
++
++		err = marvell_write_page(phydev, MII_MARVELL_LED_PAGE);
++		if (err < 0)
++			goto error;
++
++		err = __phy_modify(phydev, MII_88E1318S_PHY_LED_TCR,
++				   MII_88E1318S_PHY_LED_TCR_FORCE_INT |
++				   MII_88E1318S_PHY_LED_TCR_INTn_ENABLE |
++				   MII_88E1318S_PHY_LED_TCR_INT_ACTIVE_LOW,
++				   phy_interrupt_is_valid(phydev) ?
++					MII_88E1318S_PHY_LED_TCR_INTn_ENABLE |
++					MII_88E1318S_PHY_LED_TCR_INT_ACTIVE_LOW :
++					0);
++		if (err < 0)
++			goto error;
++	}
++
+ error:
+ 	return phy_restore_page(phydev, oldpage, err);
+ }
 -- 
-John Hubbard
+2.55.0
 
