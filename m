@@ -1,52 +1,69 @@
-Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E87138F255;
-	Sun, 13 Sep 2026 08:15:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.210.214.84
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E64F939656D;
+	Sun, 13 Sep 2026 08:15:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789287328; cv=none; b=aUTwnP1kh+qASojch1WI5vw0i9M7ZVY0yWzl9uxoSov9gYhVbmaw9fATYXMHJLCEIgNpbrmbzb3uNba99Xj7ClauxVGJbiFtsNM+wxIuwnR7sFN9rjtgw4DbIm3UW7NXK302D9axsJysStjkp5dA1R2J2CW/gNQNuahml4z5wME=
+	t=1789287345; cv=none; b=Xu0Y7QzPw8MUVx4bgium5aLk0+Bh/8BqqmkJ7wuWu9+XOw/Akwu/AhELoQPT002M7GBPNsYj5hSxBn7tBgcQALGwHJ4jwagqbcTTS33Yz3HBFKmMxfrAW77171m6MXE+u2IRWGVl6wAUSWlj2BVZMptBUTuN53IadfHy+tCjvK8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789287328; c=relaxed/simple;
-	bh=ZwX/sKgD4G0VcC4XB1mDDk2M+5z62rV/m7lm8c/UpSw=;
+	s=arc-20240116; t=1789287345; c=relaxed/simple;
+	bh=8whL5rfu7ItpVPYbWw8d50VN3Lnehka9GqryvGSY4ek=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=p5rI/lvtI/2/+lpZQgN4yzlVMVe/dotl/AKXSFUwy2C58wrkcJu/yjPGUOK8oV6jMqV0SaNSg75Nx9GnzM3hfs0gnY6NWjdigE2BuC2cv0+AE+EsEts7j1hytWRupQphA2cuvRZf06XYGdwxofiu5RyxoAfiybk53xZw1QtKDhs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org; spf=pass smtp.mailfrom=codewreck.org; dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b=zdd5PH1A; arc=none smtp.client-ip=62.210.214.84
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=ErsKiJk6v7hsZzLW7yK4B90oFSwsHa1fD0mT6U5drGhbximByGC+IVyRRuGT8EavThr381hJluQ54rKKd1wxRJlEt6Ilqih41tZkJmiMStSnjVgKAaB6LSch5oeuDkAql0iU3bCvT32s4W6R3fK6x84yMA5hRZRbYOo87Z63d9E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kA5xc+cj; arc=none smtp.client-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b="zdd5PH1A"
-Received: from gaia.codewreck.org (localhost [127.0.0.1])
-	by submarine.notk.org (Postfix) with ESMTPS id 240A314C2D6;
-	Sun, 13 Sep 2026 10:15:18 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
-	s=2; t=1789287322;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=dNwiMx4hsnzXWsqlz16b37QsaalOt2bbFOd/Ze1iAQM=;
-	b=zdd5PH1AHt8amEEtXEnufc2EzB3aaiKzE3TOs+egOvIkK6oiPMmhXU3HEjvXgmePQkmjGz
-	3cuhbgB6Rz4aMdjCsE4FhUqgBzwb2lvBVmuP7LHQyGQ8F8l+Nj19zbCXFMUKev80naGU8L
-	9veVYLD0Slj42savNP9y5L5CcpvrJlpeurmm7LgTQzsxUJIVeVvfpIzQokigeETQJ5Uvcy
-	bZlEx8vk12JkgfU7S090JYNCglJ5aecl6seHO4il0hGsE7WAXDrvmAurLswA4eXYo3le7X
-	ikRbHDDZ5Hfx7o2eVQbU05FyrCBnYL4ZKjxxaN/ggZ90YPIq7IURSANOdudZ1Q==
-Received: from localhost (gaia.codewreck.org [local])
-	by gaia.codewreck.org (OpenSMTPD) with ESMTPA id 2ec5db01;
-	Sun, 13 Sep 2026 08:15:17 +0000 (UTC)
-Date: Sun, 13 Sep 2026 17:15:02 +0900
-From: Dominique Martinet <asmadeus@codewreck.org>
-To: Hemanth Selam <hemanth.selam@gmail.com>
-Cc: Eric Van Hensbergen <ericvh@kernel.org>,
-	Latchesar Ionkov <lucho@ionkov.net>,
-	Christian Schoenebeck <linux_oss@crudebyte.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, linux-kernel@vger.kernel.org,
-	v9fs@lists.linux.dev, netdev@vger.kernel.org
-Subject: Re: [PATCH] net: fix typos in comments
-Message-ID: <aqZbhtKEsHe2KY1c@codewreck.org>
-References: <20260904112100.34541-1-hemanth.selam@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kA5xc+cj"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789287344; x=1820823344;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=8whL5rfu7ItpVPYbWw8d50VN3Lnehka9GqryvGSY4ek=;
+  b=kA5xc+cjP9fO14rL5tVU+aK0lxGwRVU9nHJJonx8RF77vWu9gKtopw2c
+   wQc0LSltPLeX6xsoLFbag/1nuOC5hWzn24zJgCnsqvWAcDX31ggr+EPjw
+   DP5/qzMlLGb6p8lUXA0X5JcFv1SFNORSVCuILFZkDB4ubgInZNXUUhFTM
+   /8hnaV1vaWPy70B3A0ZUnBZB7gtfXHLfqjvJN/KfGGZ/ly3hTOCXFCkLe
+   AYbIVFlv857N1s+M5PtyFD6+l/imQY4hzUBF9tGfjVRnaXShZXYP1Z0RR
+   +rd9PrmtgOADCfhAzvawcKggHPyZFITHgOefvCzWDUJtQrjbiSiOyKXgp
+   Q==;
+X-CSE-ConnectionGUID: jIuG6uXNQj6TCFShrsOMmQ==
+X-CSE-MsgGUID: AOqMNMHRRaOuayB6QvtCBg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11903"; a="100012139"
+X-IronPort-AV: E=Sophos;i="6.27,100,1787036400"; 
+   d="scan'208";a="100012139"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Sep 2026 01:15:43 -0700
+X-CSE-ConnectionGUID: boYKGEARTvWRjz0uMCRndg==
+X-CSE-MsgGUID: uFkRTUl6REuTCmAbN0qRZw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,100,1787036400"; 
+   d="scan'208";a="268666557"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.245.0])
+  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Sep 2026 01:15:40 -0700
+Date: Sun, 13 Sep 2026 11:15:37 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Armin Wolf <W_Armin@gmx.de>
+Cc: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>,
+	Linux ACPI <linux-acpi@vger.kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	LKML <linux-kernel@vger.kernel.org>,
+	Linux PM <linux-pm@vger.kernel.org>,
+	Lukasz Luba <lukasz.luba@arm.com>
+Subject: Re: [PATCH v1 04/10] ACPI: processor: thermal: Use
+ thermal_cooling_device_create()
+Message-ID: <aqZbqbSsRlsjjRPB@ashevche-desk.local>
+References: <1965933.tdWV9SEqCh@rafael.j.wysocki>
+ <2362345.iZASKD2KPV@rafael.j.wysocki>
+ <aqQtIMm-gdJoZAsq@ashevche-desk.local>
+ <CAJZ5v0j5B4LFbrhSuw0j=fLcY+cFFTEMvyt_ED-+9j1dvQEqLw@mail.gmail.com>
+ <aqQwf3y66lPhTTyf@ashevche-desk.local>
+ <CAJZ5v0jV-cMDt0Hhhw8Nnea1jhXfGVUajaomAmSUcmx2sZLb6Q@mail.gmail.com>
+ <aqRDC2LZ7m3caTSn@ashevche-desk.local>
+ <5b54b08a-4dfd-4efe-b646-821adcd235b2@gmx.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -55,17 +72,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260904112100.34541-1-hemanth.selam@gmail.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <5b54b08a-4dfd-4efe-b646-821adcd235b2@gmx.de>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hemanth Selam wrote on Fri, Sep 04, 2026 at 04:50:59PM +0530:
-> Fix typos in comments, reported by scripts/checkpatch.pl using the
-> misspelling list in scripts/spelling.txt.  Only touches comments, no code
-> changes.
+On Fri, Sep 11, 2026 at 11:14:09PM +0200, Armin Wolf wrote:
+> Am 11.09.26 um 20:06 schrieb Andy Shevchenko:
+> > On Fri, Sep 11, 2026 at 07:01:23PM +0200, Rafael J. Wysocki (Intel) wrote:
+> > > On Fri, Sep 11, 2026 at 6:47 PM Andy Shevchenko
+> > > <andriy.shevchenko@linux.intel.com> wrote:
+> > > > On Fri, Sep 11, 2026 at 06:36:28PM +0200, Rafael J. Wysocki (Intel) wrote:
+> > > > > On Fri, Sep 11, 2026 at 6:32 PM Andy Shevchenko
+> > > > > <andriy.shevchenko@linux.intel.com> wrote:
+> > > > > > On Fri, Sep 11, 2026 at 03:02:53PM +0200, Rafael J. Wysocki wrote:
+
+...
+
+> > > > > > Is any user space ABI breakage expected as an outcome of this change?
+> > > > > Not really.
+> > > > Maybe makes sense to state this clearly in the cover letter?
+> > > I guess you specifically mean the manually created symbolic links in
+> > > sysfs that get removed.
+> > > 
+> > > If so, I'm not aware of anyone using them for anything, but the lack
+> > > of observation is not proof of nonexistence.
+> > Yes, I refer to the changes in the sysfs layout / presence / absence.
 > 
-> Assisted-by: Cursor:claude-opus-5
-> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+> AFAIK those custom sysfs attributes are not even documented under Documentation/ABI, and
+> thermald also does not seem to use them. I thus think we can safely remove them.
 
-Thanks, picked up for 7.4
+There is Debian source code browser (that covers hundreds of OSS projects) [1],
+have you tried to seek any matches there? Otherwise the assumption that nobody
+uses them might be wrong even if they were never documented.
+
+[1]: https://codesearch.debian.net/
 
 -- 
-Dominique Martinet | Asmadeus
+With Best Regards,
+Andy Shevchenko
+
+
