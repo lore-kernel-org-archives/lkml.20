@@ -1,163 +1,184 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mail.mindbit.ro (xs1.mindbit.ro [80.86.107.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2301338330F
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 21:46:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FFC62F28FC
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 21:46:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.86.107.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789335971; cv=none; b=G4VWSx1WRSZcQVRmqt6PIwfyxiIU9xo9KVopVys/t3U9D6qJXf+Es0ZuzUhjsBdQngPNhAYFPQjXfIP99AupnuImPjKX/NAGxVKxf1tuePP+sJGGrmLE9qDc40xw0Pn1+szTxikVFhePayze6sR8mg+q6M5ebRVEsY5yvnhlAqY=
+	t=1789335991; cv=none; b=bKrvm57Einrdfrrj0/1ihebuWGwmUgUgrGVxzG7Uvvj0gPreZrp26K2SRgGjSduY8ieypKR9kNFyTnSttwEKRZdPEwm+6XdtfpoapQ2iZggx2LAHODSwL44xdCcq3fONPnprO5nsHJsbwKh+pCoIUxGSXdFOuI/DDaXDYCo9N34=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789335971; c=relaxed/simple;
-	bh=ZkAksoF7ZmwppBOX4liC5lkJMiOS/s1heEZxMpA7zt4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cEYqq/1Zp8M4awfdVz9IhYvQx7Luz+LTRFYW8VIcf16DKVwt56H/0r4s3wo4DkPOtmmGJyiacA1raIgfIB7zmSCOlC2cAgF33/NmsukvBJ7goXkg5Ywpp2MiY1wG57PHSEnva7Oby5RisiI3z2k2PlK2aXX0uHGjXUvNrAc1rB0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NQ70ZX31; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=TAz4rLQI; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789335991; c=relaxed/simple;
+	bh=6P7SU3DeWsusdNXTo+ioE1QFTJnJPflHicOUcSp2fTQ=;
+	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=YJbJckMdx+Hc/CitqVWudU3n2WruiV9O+Tw5gjwn9kooCzsQ2/RDUF5wYG7tJPPv9NKpq52e104dnWfZUBib9Bae0e1Q7sjO6y3sTja0Thfq+F5Y/JTM2EauhVCCB4zJyWXlYIqiPqWickLRJvjc7aBovT0HTYFLPOUORkH7FHU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net; spf=pass smtp.mailfrom=rendec.net; dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b=YRVwVFL6; arc=none smtp.client-ip=80.86.107.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rendec.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NQ70ZX31";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TAz4rLQI"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68DJxlju1986008
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 21:46:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=vbAlXC0DW5rovY2mimpWnBtg
-	9Fpne77lgrVF++LV5Ls=; b=NQ70ZX31srNGMLUNu1TbIFmX017U5TDAwdZh4+IT
-	GHgBjBs6FEe4oLQwvAEt7OLthE0zK0FQRx/Tb2lmqC6xeipYB8OpoYKaK5t8gGUl
-	szMg4hhlXrJXNlsLY+YOKXCsjuX66gTAxEiNMJiG+KBzxE6hdzTdfQlZexG0Wxnx
-	RDAfgGPwT07AEBCJd9hR/4+sEAzV8+x+AxwD+JHhXhx1k6d4lj33Sr4HrgMS/Lid
-	9ZS30EfGICfwJBPGpe9ErLt1xOVxRLvj9cJs3qUhaYwfsC6GcqZWfL7/STrTPTTV
-	vTT/m40rlPjxtWX8iZUeWx2TFRw8PyO1VxHt8iir3X7O2A==
-Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com [209.85.222.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9cc5vk-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 21:46:08 +0000 (GMT)
-Received: by mail-ua1-f71.google.com with SMTP id a1e0cc1a2514c-97cb32961e3so1934613241.2
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 14:46:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789335968; x=1789940768; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vbAlXC0DW5rovY2mimpWnBtg9Fpne77lgrVF++LV5Ls=;
-        b=TAz4rLQIWuZ2cU1BRCPHC9rXtnT8VCNmCjwd04cTb+kGOKAD/opzSBAP7QiF6PBP75
-         lpVVWAAII+cCUxnOMU3uEqmgKxH2f8h0+grewKhGDAiw1DJppl4pdu3e7miJLCTIY4Ba
-         dnctihWDl7SOwD45MScCq5Ce02i8rNwBTbo4G+Y7sySuYn0XB3OHXQyM5PIQe9DUoHdA
-         hpiPZB9ZM3Mog3bDkXmbmkrQQkPdT9eh6fuQcu36pulxWTP3iPL63l5/mkWDT1p1AQzZ
-         JcKIq1QUA5IMe6gENNVQFbs5E61+P7Kq79TOHGYF72HUwTvW/tytJWJOCFK40f1wdDAK
-         DWyA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789335968; x=1789940768;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vbAlXC0DW5rovY2mimpWnBtg9Fpne77lgrVF++LV5Ls=;
-        b=Qj6a8Cs6+nezrD4dKZTlHCdDYm6CpbiVYo8Pku5B5CfjkPPkeHmJJQ8tLV0v/6iHsX
-         ZeU5a/VeKlCcbPT6pzUxSH2enfpcfYQsRxCGPeB0XA7M3qYPni2kdet7qGGfmeiTBFdL
-         aYFJSFJEGXEwARtp9UBqNmW83QJe0deLIbrTGxyvZUjiwq8+EuRhoG5Gqhl3NPGgLZya
-         z7PjDDsWk7+fmmIix6f8lo0uUGhTQBOpKYeLZFqPaly5KLWaf1RbSiDAZweMvx9px9hb
-         FoMxdXgmedAj/exz5DiA+Kkj3YG54u5zZZ9BP4BI1+6W97ln3hnFq3murADb9yABWx3/
-         gGcQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxC2zayNpxlBwLlZ3+aK3+gUM4mkt8dAnzlKlKW7o3OBtLxG34yw6AG56+2nYfj2xIHCvnYRdmg0WMQnoc=@vger.kernel.org
-X-Gm-Message-State: AFuF++lPgP7hKIefakuZaPGquauY8TvmTKx/P+IfwApaXYZ3QNMWz+ef
-	yxr9Tn0+7PGTRoeAUN1YiG2NCf4Z1AmHP6Vz7D/qC02sHqxRx+x+lNtWTRxOFEv+8q4ETgwG0JX
-	FgoqweTj1WGXRlziUeV8wlgoFc1DJQnDL3Devugsn6+5aWw8wbFhwA+UGk3ZeGzzZY8c=
-X-Gm-Gg: AYBFou0wpftFVPCfxYvLpKsjmUNo6ICdQVW1S1468SD6sUJfZsReLR3YROeRZIEt2S+
-	KDm1MwEgA90/brfmkMbrZbXkYlHlZPd5CIi8GgZqwTO2j20vfWMCLmn7Z092DGZuazQEO3azvk9
-	ZtTSAztKpS5zurcGQdmVGZvFCdzgb7eQ7dCNMFGSuq5BVEwHwkAdB4ipGgDAum0ADtqlkuWbdFs
-	SXSvexFO635leBFE64mRIZoAM9XrxFvnrFI/xLWU5IKE4SzkuvddYgAZf/M3F5/fTYiKQZOP8Ui
-	g5qrdFLtvFTtdlafKdewC9AXxA1Fxp++uW91q6nLM2A/3pkNWqzutWMMKC5s0P1X3w2cUPfGhXA
-	bkiWa+T2SFJV6OksP95MiJTcmdTNmHUu4jxKCoaaGFPLVhzDhCLXdqo6tMU2NQH1ZSpOM7nwdL/
-	O9dDcIKTerwPyP
-X-Received: by 2002:a05:6102:578f:b0:79b:1b6c:4f66 with SMTP id ada2fe7eead31-79b1b6c5faemr48533137.1.1789335968038;
-        Sun, 13 Sep 2026 14:46:08 -0700 (PDT)
-X-Received: by 2002:a05:6102:578f:b0:79b:1b6c:4f66 with SMTP id ada2fe7eead31-79b1b6c5faemr48479137.1.1789335966559;
-        Sun, 13 Sep 2026 14:46:06 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8a0474df5sm1981637e87.64.2026.09.13.14.46.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 14:46:04 -0700 (PDT)
-Date: Mon, 14 Sep 2026 00:46:00 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Saim Shujah <saimzst@gmail.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Kuogee Hsieh <quic_khsieh@quicinc.com>,
-        Paloma Arellano <quic_parellan@quicinc.com>,
-        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org
-Subject: Re: [PATCH] drm/msm/dpu: clear pending peripheral flush state
-Message-ID: <skz4w7uewtxgmiuhyfav6krul6b7itlfb6io2ysmcypql4dka7@ar5hawrzijaw>
-References: <20260828065440.140410-1-saimzst@gmail.com>
+	dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b="YRVwVFL6"
+Received: from dog.kanata.rendec.net (pool-174-112-193-187.cpe.net.cable.rogers.com [174.112.193.187])
+	by mail.mindbit.ro (Postfix) with ESMTPSA id 0204CCCFC6;
+	Mon, 14 Sep 2026 00:46:25 +0300 (EEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.mindbit.ro 0204CCCFC6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rendec.net;
+	s=default; t=1789335987;
+	bh=IZDHqGUqBM67D0nu55PufyI2aLLqp/QwNXJoxPq6ALA=;
+	h=Subject:From:To:Date:In-Reply-To:References:From;
+	b=YRVwVFL6rdW+h/lViOxGyMckBC1xxVRIq1Xv3s1A/NSKZMYgeeMACqV9Tn2/8iJ+f
+	 slZ615aAMZg1NhS2Q2mkwNq02nYlJ4U8cwcLv0lTUDB7oqCv3R4r2W/TiIbxrwwIjq
+	 yqDg9jsvOdr1mjGApwTXNdKVvDwu1+CMEKXHcjK7lpjMiEitLTMGd7h23hfE8W5ndW
+	 Pu7uO59vM5OG5ZXrwyaIBlhoFD2RVPOC6hQ9qvYnXC0iAJQBO16qBR5IX9WiPq3Rn+
+	 SeLoqEIrqEsiEbFo+swmOjETmQxfdWkTO8eZdSITRBfuhMEl/Vjf2J80ACnLPfnHHK
+	 GLdKjSSdbJGcg==
+Message-ID: <a1f8942ee367e28b176031ef9bbe717d053d6b6e.camel@rendec.net>
+Subject: Re: [PATCH] irqchip/sifive-plic: Panic if initialization fails
+From: Radu Rendec <radu@rendec.net>
+To: Nam Cao <namcao@linutronix.de>, Thomas Gleixner <tglx@kernel.org>, Paul
+ Walmsley <pjw@kernel.org>, Samuel Holland <samuel.holland@sifive.com>, Anup
+ Patel	 <anup@brainfault.org>, linux-kernel@vger.kernel.org, 
+	linux-riscv@lists.infradead.org
+Date: Sun, 13 Sep 2026 17:46:24 -0400
+In-Reply-To: <20260911145037.427896-1-namcao@linutronix.de>
+References: <20260911145037.427896-1-namcao@linutronix.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260828065440.140410-1-saimzst@gmail.com>
-X-Proofpoint-GUID: AzHNJke3-fKhVJiXaFm8t0Iu10fPTJxA
-X-Authority-Analysis: v=2.4 cv=Pv4G/AM3 c=1 sm=1 tr=0 ts=6aa719a0 cx=c_pps
- a=KB4UBwrhAZV1kjiGHFQexw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=VwQbUJbxAAAA:8
- a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=RN2DTS20WyuIpY-t6BoA:9 a=CjuIK1q_8ugA:10
- a=zgiPjhLxNE0A:10 a=o1xkdb1NAhiiM49bd1HK:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEzMDMxMSBTYWx0ZWRfX2ZYFII4104tu
- 0gblvlADCtuxVzXnCaRxQn1Cao4mGwiRyGqlWM1nJzI0TlF1Ns8KiMIcuvoXeaKRhja9f7pL3rt
- 6khDjq5lXpv6OSlDh5zaylhRfUrqZEE=
-X-Proofpoint-ORIG-GUID: AzHNJke3-fKhVJiXaFm8t0Iu10fPTJxA
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEzMDMxMSBTYWx0ZWRfX1ICVuCnj3fyF
- yoFJ9n+WZcJ5IKvHjgrVhiDuMSQJ7RhzpoD98TyetjPiwwwZeGUaq5BPms3QBZ7fWerF3R/Coik
- Ok2XkXdPurVSaZV6mHNp5vRX21PkbXT4par87m6KMM3qzWsNncl93dp6tVKLKKBV+O2QbGgM807
- xTGJ3h+Xlo1LRHSuj81Jl5dYnc/WCDKWnVLJPUasXK+fSiKj7BS0e9IslXanbTA+SPj/w4D+sJ8
- clmd8f6sT+KAulBEtmeXhIwaYLxQBhHrPdQGHaFZQIS9Du4JoNRgtsBYzH8Oao7jPCtnNWvDnFq
- 9qdKatg1caGvEI2oaRAv0IW93G/K6/nBTA2+zNrKbTqJ0eXx9OO/UTtdDV2qd8B1DYDtB5fFeLv
- vjZJmqVoJZKoTIavVRDcAJ4C9O13o18uHmyKAMwDpu9JeU5mBUG7UdcJ1O094k/mbt2AVEA+onp
- uWFDOT8IAeFJPNpCJ7Q==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-13_07,2026-09-11_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 bulkscore=0 adultscore=0 suspectscore=0 malwarescore=0
- priorityscore=1501 spamscore=0 clxscore=1015 impostorscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609130311
 
-On Fri, Aug 28, 2026 at 11:54:40AM +0500, Saim Shujah wrote:
-> dpu_hw_ctl_clear_pending_flush() resets the cached per-block state after a
-> flush transaction, but misses pending_periph_flush_mask.
-> 
-> The peripheral flush updater accumulates interface bits in this mask. A
-> later transaction which sets the top-level peripheral flush bit can write
-> stale interface bits to CTL_PERIPH_FLUSH together with the current state.
-> 
-> Peripheral flush support was added after the helper started clearing every
-> individual pending flush mask. Clear the peripheral mask together with the
-> other cached child masks.
-> 
-> Fixes: 64f7b81f0358 ("drm/msm/dpu: add support of new peripheral flush mechanism")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Saim Shujah <saimzst@gmail.com>
+On Fri, 2026-09-11 at 16:50 +0200, Nam Cao wrote:
+> If PLIC initialization fails, the driver unwinds and returns an error.
+> However, that is futile because the system cannot function without the
+> PLIC: all device interrupts are routed through it.
+>=20
+> Instead of the unnecessary cleanups, panic when PLIC initialization fails=
+.
+>=20
+> Signed-off-by: Nam Cao <namcao@linutronix.de>
 > ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_ctl.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
+> =C2=A0drivers/irqchip/irq-sifive-plic.c | 56 +++++++++-------------------=
+---
+> =C2=A01 file changed, 15 insertions(+), 41 deletions(-)
+>=20
+> diff --git a/drivers/irqchip/irq-sifive-plic.c b/drivers/irqchip/irq-sifi=
+ve-plic.c
+> index a7cddadddf40..70a7478373e4 100644
+> --- a/drivers/irqchip/irq-sifive-plic.c
+> +++ b/drivers/irqchip/irq-sifive-plic.c
+> @@ -643,13 +643,11 @@ static int plic_probe(struct fwnode_handle *fwnode)
+> =C2=A0
+> =C2=A0	error =3D plic_parse_nr_irqs_and_contexts(fwnode, &nr_irqs, &nr_co=
+ntexts, &gsi_base, &id);
+> =C2=A0	if (error)
+> -		goto fail_free_regs;
+> +		return error;
+> =C2=A0
+> =C2=A0	priv =3D kzalloc_obj(*priv);
+> -	if (!priv) {
+> -		error =3D -ENOMEM;
+> -		goto fail_free_regs;
+> -	}
+> +	if (!priv)
+> +		return -ENOMEM;
+> =C2=A0
+> =C2=A0	priv->fwnode =3D fwnode;
+> =C2=A0	priv->plic_quirks =3D plic_quirks;
+> @@ -668,10 +666,8 @@ static int plic_probe(struct fwnode_handle *fwnode)
+> =C2=A0	priv->acpi_plic_id =3D id;
+> =C2=A0
+> =C2=A0	priv->prio_save =3D bitmap_zalloc(nr_irqs, GFP_KERNEL);
+> -	if (!priv->prio_save) {
+> -		error =3D -ENOMEM;
+> -		goto fail_free_priv;
+> -	}
+> +	if (!priv->prio_save)
+> +		return -ENOMEM;
+> =C2=A0
+> =C2=A0	for (i =3D 0; i < nr_contexts; i++) {
+> =C2=A0		error =3D plic_parse_context_parent(fwnode, i, &parent_hwirq, &cp=
+u,
+> @@ -735,10 +731,8 @@ static int plic_probe(struct fwnode_handle *fwnode)
+> =C2=A0
+> =C2=A0		handler->enable_save =3D kcalloc(priv->irq_groups, sizeof(*handle=
+r->enable_save),
+> =C2=A0					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 GFP_KERNEL);
+> -		if (!handler->enable_save) {
+> -			error =3D -ENOMEM;
+> -			goto fail_cleanup_contexts;
+> -		}
+> +		if (!handler->enable_save)
+> +			return -ENOMEM;
+> =C2=A0done:
+> =C2=A0		for_each_device_irq(hwirq, priv) {
+> =C2=A0			plic_toggle(handler, hwirq, 0);
+> @@ -748,10 +742,8 @@ static int plic_probe(struct fwnode_handle *fwnode)
+> =C2=A0	}
+> =C2=A0
+> =C2=A0	priv->irqdomain =3D irq_domain_create_linear(fwnode, nr_irqs, &pli=
+c_irqdomain_ops, priv);
+> -	if (WARN_ON(!priv->irqdomain)) {
+> -		error =3D -ENOMEM;
+> -		goto fail_cleanup_contexts;
+> -	}
+> +	if (!priv->irqdomain)
+> +		return -ENOMEM;
+> =C2=A0
+> =C2=A0	/*
+> =C2=A0	 * We can have multiple PLIC instances so setup global state
+> @@ -799,33 +791,13 @@ static int plic_probe(struct fwnode_handle *fwnode)
+> =C2=A0	pr_info("%pfwP: mapped %d interrupts with %d handlers for %d conte=
+xts.\n",
+> =C2=A0		fwnode, nr_irqs, nr_handlers, nr_contexts);
+> =C2=A0	return 0;
+> -
+> -fail_cleanup_contexts:
+> -	for (i =3D 0; i < nr_contexts; i++) {
+> -		if (plic_parse_context_parent(fwnode, i, &parent_hwirq, &cpu, priv->ac=
+pi_plic_id))
+> -			continue;
+> -		if (parent_hwirq !=3D RV_IRQ_EXT || cpu < 0)
+> -			continue;
+> -
+> -		handler =3D per_cpu_ptr(&plic_handlers, cpu);
+> -		handler->present =3D false;
+> -		handler->hart_base =3D NULL;
+> -		handler->enable_base =3D NULL;
+> -		kfree(handler->enable_save);
+> -		handler->enable_save =3D NULL;
+> -		handler->priv =3D NULL;
+> -	}
+> -	bitmap_free(priv->prio_save);
+> -fail_free_priv:
+> -	kfree(priv);
+> -fail_free_regs:
+> -	iounmap(regs);
+> -	return error;
+> =C2=A0}
+> =C2=A0
+> =C2=A0static int plic_platform_probe(struct platform_device *pdev)
+> =C2=A0{
+> -	return plic_probe(pdev->dev.fwnode);
+> +	if (plic_probe(pdev->dev.fwnode))
+> +		panic("%pfwP: Failed to initialize\n", pdev->dev.fwnode);
+> +	return 0;
+> =C2=A0}
+> =C2=A0
+> =C2=A0static struct platform_driver plic_driver =3D {
+> @@ -842,7 +814,9 @@ builtin_platform_driver(plic_driver);
+> =C2=A0static int __init plic_early_probe(struct device_node *node,
+> =C2=A0				=C2=A0=C2=A0 struct device_node *parent)
+> =C2=A0{
+> -	return plic_probe(&node->fwnode);
+> +	if (plic_probe(&node->fwnode))
+> +		panic("%pfwP: Failed to initialize\n", &node->fwnode);
+> +	return 0;
+> =C2=A0}
+> =C2=A0
+> =C2=A0IRQCHIP_DECLARE(riscv, "allwinner,sun20i-d1-plic", plic_early_probe=
+);
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-
-> 
-
--- 
-With best wishes
-Dmitry
+Reviewed-by: Radu Rendec <radu@rendec.net>
