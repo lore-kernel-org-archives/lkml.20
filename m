@@ -1,24 +1,24 @@
-Received: from mta0.migadu.com (out-82.mta0.migadu.com [91.218.175.82])
+Received: from mta0.migadu.com (out-96.mta0.migadu.com [91.218.175.96])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1897C2DCF67
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 07:50:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.82
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCC537E0E4
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 07:50:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.96
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789285853; cv=none; b=h5Ea+n2kBUBThyUFXI4yEqBXj+jGYAFZIV2KkcWKkFPfRZHI2SK1gNvxJmPHAp+KaMCta4w4f0datKv9h2Go0VbPairZApwhGGxO++CJDxTIEs4h8PIfTdZCwtOnhz53KJjSrgs7cRQwmxTru9JworpKwXGcCyOwYgqBMo8G2o4=
+	t=1789285857; cv=none; b=hlTHe62TK2s1u3f4t+QOLZjjJcMiZzMBCEm68VPRzenBnvYUjobTrZLKlPJPddmljnmQAdXl0nhnozOH1gGUgRsDKneyXKAWm0qKWrU2/1LjYsYaRF84iIKHU6c0DRPlbAdN9s+AlJGYHyeQ0iDZ1TXXQHro3SDL9Z/Nfu02slQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789285853; c=relaxed/simple;
-	bh=L7aLkS2dQpH1Y8dhKfJintYKAN3CJbU9qeXoBXU60po=;
+	s=arc-20240116; t=1789285857; c=relaxed/simple;
+	bh=tdsZOf25ZLpCfCvoWIxaO6ASt2dG3hTJrOfLSNFoK58=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-type; b=gGg2JQjLpuF/xeX+r/ZFPcIO+qMNQfGScQC9AZT9CVzfSLUpztFVOPOPHFf+gsg9w0VIAjnTWj1gztcQ52AauVgYS6pHG3cm7Qx9FCnU3ky3sJk/RiqUUEGYtBWINyDdCpyCxXrBilWMzAt9lEX0e74cuzCCznwA0513q0j5xrE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=linux.dev; arc=none smtp.client-ip=91.218.175.82
+	 MIME-Version:Content-type; b=r+XDDUoMmKfyCp9DwrO8FFvepmZAqY0riNLONmWUMgqdHwXkXJhG/XKHGLIVKfSX/DzWzIgkbsJr1ogoHdSb5KJ06awfNkhnUt5pvXig7sTp0UidGLYlVHXlfCywvQHaLJhRUHOXMeXZeWgYqlq32ju1nwyKGuKmDeyle3u/U24=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=linux.dev; arc=none smtp.client-ip=91.218.175.96
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 X-Envelope-To: linux-kernel@vger.kernel.org
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id a3aade24c9dce5ce;
-	Sun, 13 Sep 2026 07:50:48 +0000
-X-Mizu-Trace-ID: a3aade24c9dce5ce
+Received: by mta10.migadu.com with ESMTPS id 59fb4a7e4ef5c624;
+	Sun, 13 Sep 2026 07:50:53 +0000
+X-Mizu-Trace-ID: 59fb4a7e4ef5c624
 X-Migadu-Flow: FLOW_OUT
 From: Baoquan He <hebaoquan@kylinos.cn>
 To: linux-mm@kvack.org
@@ -36,9 +36,9 @@ Cc: akpm@linux-foundation.org,
 	david@kernel.org,
 	linux-kernel@vger.kernel.org,
 	Baoquan He <hebaoquan@kylinos.cn>
-Subject: [PATCH v2 05/12] mm, swap: add sysfs create interface for xswap
-Date: Sun, 13 Sep 2026 15:50:07 +0800
-Message-ID: <20260913075014.1732524-6-hebaoquan@kylinos.cn>
+Subject: [PATCH v2 06/12] mm, swap: add xswap grow trigger on cluster allocation
+Date: Sun, 13 Sep 2026 15:50:08 +0800
+Message-ID: <20260913075014.1732524-7-hebaoquan@kylinos.cn>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260913075014.1732524-1-hebaoquan@kylinos.cn>
 References: <20260913075014.1732524-1-hebaoquan@kylinos.cn>
@@ -51,274 +51,87 @@ MIME-Version: 1.0
 Content-type: text/plain
 Content-Transfer-Encoding: 8bit
 
-xswap devices have no backing storage, so there is no file to swapon.
-Add a sysfs interface to create them directly:
-  /sys/kernel/mm/xswap/create    write an optional priority to create
-                                 a device (empty = DEF_SWAP_PRIO)
+When cluster_alloc_swap_entry() fails to find a free cluster and
+the xswap device still has room to grow, expand the mapped range
+by XSWAP_GROW_CLUSTERS clusters.
 
-A new device is created with si->max and nr_clusters_max both equal to
-full RAM: the cluster_info array is a sparse VM_SPARSE area mapped
-lazily, so an idle device costs nothing. The runtime size can be
-lowered per device afterwards via
-/sys/kernel/mm/xswap/type<N>/limit (added later in this series).
-The optional priority follows swapon(2)'s -p semantics (default
-DEF_SWAP_PRIO, valid range -1..SWAP_FLAG_PRIO_MASK). The device shows
-up in /proc/swaps as "xswap<N>".
+Since xswap is always SWP_SOLIDSTATE, global_cluster_lock is never
+held on this path.
 
-Hibernation device discovery skips xswap devices: they have no bdev
-to carry a resume image.
+This makes the xswap cluster space grow transparently as swap usage
+increases, without any userspace intervention.
+
+Growing maps pages into the VM_SPARSE area, which can sleep. The caller
+holds local_lock(&percpu_swap_cluster.lock) across the whole slow path,
+so drop it around xswap_map_clusters() and take it again afterwards; it
+only protects the per-cpu cluster cache, which this path does not touch.
 
 Signed-off-by: Baoquan He <hebaoquan@kylinos.cn>
 ---
- mm/swapfile.c | 165 ++++++++++++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 160 insertions(+), 5 deletions(-)
+ mm/swapfile.c | 50 ++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 50 insertions(+)
 
 diff --git a/mm/swapfile.c b/mm/swapfile.c
-index 5140b3f846b2..4861e2d49e36 100644
+index 4861e2d49e36..f603f8c4b599 100644
 --- a/mm/swapfile.c
 +++ b/mm/swapfile.c
-@@ -16,6 +16,8 @@
- #include <linux/kernel_stat.h>
- #include <linux/swap.h>
- #include <linux/vmalloc.h>
-+#include <linux/kobject.h>
-+#include <linux/sysfs.h>
- #include <linux/pagemap.h>
- #include <linux/namei.h>
- #include <linux/shmem_fs.h>
-@@ -48,6 +50,7 @@
- #include "swap_table.h"
- #include "internal.h"
- #include "swap.h"
-+#define DEF_SWAP_PRIO  -1
- 
- #ifdef CONFIG_XSWAP
- /*
-@@ -66,7 +69,70 @@ static int xswap_map_clusters(struct swap_info_struct *si,
- static void xswap_unmap_clusters(struct swap_info_struct *si,
- 				 unsigned long start_idx, unsigned long nr);
- static int xswap_mapped_end(pte_t *pte, unsigned long addr, void *data);
--#endif
-+
-+#ifdef CONFIG_SYSFS
-+static int xswap_create(int prio);
-+
-+static ssize_t xswap_create_store(struct kobject *kobj,
-+				  struct kobj_attribute *attr,
-+				  const char *buf, size_t count)
-+{
-+	int prio = DEF_SWAP_PRIO;
-+	int err;
-+
-+	if (!capable(CAP_SYS_ADMIN))
-+		return -EPERM;
-+
-+	/* "[<prio>]" is optional; empty means DEF_SWAP_PRIO, i.e. the same
-+	 * default as swapon(2) without SWAP_FLAG_PREFER.
-+	 */
-+	if (*skip_spaces(buf)) {
-+		err = kstrtoint(buf, 10, &prio);
-+		if (err)
-+			return err;
-+	}
-+
-+	err = xswap_create(prio);
-+	if (err < 0)
-+		return err;
-+
-+	return count;
-+}
-+
-+static struct kobj_attribute xswap_create_attr = __ATTR(create, 0200, NULL,
-+							xswap_create_store);
-+
-+static struct attribute *xswap_attrs[] = {
-+	&xswap_create_attr.attr,
-+	NULL,
-+};
-+
-+static const struct attribute_group xswap_attr_group = {
-+	.attrs = xswap_attrs,
-+};
-+
-+static struct kobject *xswap_kobj;
-+
-+static void xswap_sysfs_init(void)
-+{
-+	xswap_kobj = kobject_create_and_add("xswap", mm_kobj);
-+	if (!xswap_kobj) {
-+		pr_err("xswap: failed to create sysfs kobject\n");
-+		return;
-+	}
-+	if (sysfs_create_group(xswap_kobj, &xswap_attr_group))
-+		pr_err("xswap: failed to create sysfs group\n");
-+}
-+#else
-+static inline void xswap_sysfs_init(void)
-+{
-+}
-+#endif /* CONFIG_SYSFS */
-+#else /* !CONFIG_XSWAP */
-+static inline void xswap_sysfs_init(void)
-+{
-+}
-+#endif /* CONFIG_XSWAP */
- 
- static void swap_range_alloc(struct swap_info_struct *si,
- 			     unsigned int nr_entries);
-@@ -94,7 +160,6 @@ atomic_t nr_real_swapfiles;
- EXPORT_SYMBOL_GPL(nr_swap_pages);
- /* protected with swap_lock. reading in vm_swap_full() doesn't need lock */
- long total_swap_pages;
--#define DEF_SWAP_PRIO  -1
- unsigned long swapfile_maximum_size;
- #ifdef CONFIG_MIGRATION
- bool swap_migration_ad_supported;
-@@ -2255,6 +2320,9 @@ static int __find_hibernation_swap_type(dev_t device, sector_t offset)
- 
- 		if (!(sis->flags & SWP_WRITEOK))
- 			continue;
-+		/* xswap has no bdev to match a resume device */
-+		if (sis->flags & SWP_XSWAP)
-+			continue;
- 
- 		if (device == sis->bdev->bd_dev) {
- 			struct swap_extent *se = first_se(sis);
-@@ -2381,6 +2449,8 @@ int find_first_swap(dev_t *device)
- 
- 		if (!(sis->flags & SWP_WRITEOK))
- 			continue;
-+		if (sis->flags & SWP_XSWAP)
-+			continue;
- 		*device = sis->bdev->bd_dev;
- 		spin_unlock(&swap_lock);
- 		return type;
-@@ -3313,7 +3383,7 @@ static void *swap_start(struct seq_file *swap, loff_t *pos)
- 		return SEQ_START_TOKEN;
- 
- 	for (type = 0; (si = swap_type_to_info(type)); type++) {
--		if (!(si->swap_file))
-+		if (!(si->swap_file) && !(si->flags & SWP_XSWAP))
- 			continue;
- 		if (!--l)
- 			return si;
-@@ -3334,7 +3404,7 @@ static void *swap_next(struct seq_file *swap, void *v, loff_t *pos)
- 
- 	++(*pos);
- 	for (; (si = swap_type_to_info(type)); type++) {
--		if (!(si->swap_file))
-+		if (!(si->swap_file) && !(si->flags & SWP_XSWAP))
- 			continue;
- 		return si;
+@@ -1270,6 +1270,56 @@ static unsigned long cluster_alloc_swap_entry(struct swap_info_struct *si,
+ 		if (found)
+ 			goto done;
  	}
-@@ -3376,7 +3446,14 @@ static int swap_show(struct seq_file *swap, void *v)
- 	inuse = K(swap_usage_in_pages(si));
- 
- 	file = si->swap_file;
--	len = seq_file_path(swap, file, " \t\n\\");
-+	if (file)
-+		len = seq_file_path(swap, file, " \t\n\\");
-+	else {
-+		char name[16];
 +
-+		len = scnprintf(name, sizeof(name), "xswap%d", si->type);
-+		seq_puts(swap, name);
-+	}
- 	seq_printf(swap, "%*s%s\t%lu\t%s%lu\t%s%d\n",
- 			len < 40 ? 40 - len : 1, " ",
- 			swap_type_str(si),
-@@ -3926,6 +4003,82 @@ static int setup_swap_clusters_info(struct swap_info_struct *si,
- 	return err;
- }
- 
 +#ifdef CONFIG_XSWAP
-+#ifdef CONFIG_SYSFS
-+/* Create a file-less xswap device.  si->max and the initial nr_clusters
-+ * ceiling both equal full RAM; the runtime size can be lowered afterwards
-+ * via /sys/kernel/mm/xswap/type<N>/limit.
-+ */
-+static int xswap_create(int prio)
-+{
-+	struct swap_info_struct *si;
-+	unsigned long ram, maxpages;
-+	int error;
++	/*
++	 * For xswap: if no free cluster was found and more clusters
++	 * can be mapped, grow the cluster_info array and retry.
++	 */
++	if (!found && (si->flags & SWP_XSWAP) &&
++	    READ_ONCE(si->nr_clusters_mapped) < READ_ONCE(si->nr_clusters_max) &&
++	    list_empty(&si->free_clusters)) {
++		unsigned long nr_new = min(READ_ONCE(si->nr_clusters_max) -
++					  READ_ONCE(si->nr_clusters_mapped),
++					  XSWAP_GROW_CLUSTERS);
++		unsigned long start = READ_ONCE(si->nr_clusters_mapped);
++		unsigned long i;
++		int ret;
 +
-+	if (prio != DEF_SWAP_PRIO && (prio < 0 || prio > SWAP_FLAG_PRIO_MASK))
-+		return -EINVAL;
++		/*
++		 * Mapping pages into the VM_SPARSE area can sleep, which is
++		 * not allowed under local_lock.  The lock only protects the
++		 * per-cpu cluster cache, which this path does not touch, so
++		 * it can be dropped across the call.
++		 */
++		local_unlock(&percpu_swap_cluster.lock);
++		ret = xswap_map_clusters(si, start, nr_new);
++		local_lock(&percpu_swap_cluster.lock);
 +
-+	si = alloc_swap_info();
-+	if (IS_ERR(si))
-+		return PTR_ERR(si);
++		if (!ret) {
++			for (i = start; i < start + nr_new; i++) {
++				struct swap_cluster_info *ci = &si->cluster_info[i];
 +
-+	INIT_WORK(&si->discard_work, swap_discard_work);
-+	INIT_WORK(&si->reclaim_work, swap_reclaim_work);
++				/*
++				 * A concurrent grower may have already added
++				 * these clusters to the free list.  Only add
++				 * clusters that are still off-list (NONE).
++				 * Lock ci->lock first: move_cluster() takes
++				 * si->lock internally.
++				 */
++				spin_lock(&ci->lock);
++				if (ci->flags == CLUSTER_FLAG_NONE)
++					move_cluster(si, ci, &si->free_clusters,
++						     CLUSTER_FLAG_FREE);
++				spin_unlock(&ci->lock);
++			}
 +
-+	ram = totalram_pages();
-+	maxpages = min_t(unsigned long, ram, swapfile_maximum_size);
-+	if ((unsigned int)maxpages == 0)
-+		maxpages = UINT_MAX;
-+	/* Cluster-aligned, so no cluster holds a slot past si->max. */
-+	if (maxpages > SWAPFILE_CLUSTER)
-+		maxpages = rounddown(maxpages, SWAPFILE_CLUSTER);
-+	if (maxpages < 2)
-+		maxpages = 2;
-+
-+	si->bdev = NULL;
-+	si->flags |= SWP_XSWAP | SWP_SOLIDSTATE;
-+	si->max = maxpages;
-+	si->pages = maxpages - 1;
-+	/* no backing file: mirror the xswap branch of setup_swap_extents() */
-+	si->ops = &swap_bdev_ops;
-+
-+	error = setup_swap_clusters_info(si, NULL, maxpages);
-+	if (error)
-+		goto bad_swap;
-+
-+	error = zswap_swapon(si->type, si->max);
-+	if (error)
-+		goto bad_swap;
-+
-+	mutex_lock(&swapon_mutex);
-+	si->prio = prio;
-+	si->list.prio = -si->prio;
-+	si->avail_list.prio = -si->prio;
-+	/* si->swap_file stays NULL: this is a file-less device */
-+	enable_swap_info(si);
-+	mutex_unlock(&swapon_mutex);
-+
-+	pr_info("xswap: adding extendable swap type %d (prio %d, %u pages, max %lu)\n",
-+		si->type, prio, si->pages, maxpages);
-+	atomic_inc(&proc_poll_event);
-+	wake_up_interruptible(&proc_poll_wait);
-+
-+	return si->type;
-+
-+bad_swap:
-+	kfree(si->global_cluster);
-+	si->global_cluster = NULL;
-+	destroy_swap_extents(si, NULL);	/* safe: xswap never sets SWP_ACTIVATED */
-+	free_swap_cluster_info(si);
-+	si->cluster_info = NULL;
-+	spin_lock(&swap_lock);
-+	si->flags = 0;
-+	spin_unlock(&swap_lock);
-+	return error;
-+}
-+#endif /* CONFIG_SYSFS */
-+#endif /* CONFIG_XSWAP */
-+
- SYSCALL_DEFINE2(swapon, const char __user *, specialfile, int, swap_flags)
- {
- 	struct swap_info_struct *si;
-@@ -4269,6 +4422,8 @@ static int __init swapfile_init(void)
- 		swap_migration_ad_supported = true;
- #endif	/* CONFIG_MIGRATION */
- 
-+	xswap_sysfs_init();
-+
- 	return 0;
- }
- subsys_initcall(swapfile_init);
++			/* Retry allocation from the free list */
++			found = alloc_swap_scan_list(si, &si->free_clusters,
++						    folio, false);
++		}
++	}
++#endif
+ done:
+ 	if (!(si->flags & SWP_SOLIDSTATE))
+ 		spin_unlock(&si->global_cluster_lock);
 -- 
 2.54.0
 
