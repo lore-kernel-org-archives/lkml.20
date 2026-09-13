@@ -1,248 +1,112 @@
-Received: from mail-oo2-f7.google.com (mail-oo2-f7.google.com [74.125.231.135])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D7E12F28FC
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 21:48:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.135
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3553C35F184;
+	Sun, 13 Sep 2026 21:51:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789336085; cv=none; b=BOkyhw9j0/6/miKk9PvBH9gJ4zLdQARlX6VTLdQzcJoiHloG0BdBkwL97gE77mJbMslaRbfCoqV7LNXGnaB5qW4nhHDkgKCIwnvIDYswy5cAR5NolkE+QHrTXZa/GjgCf6CkBba8hxrqq0Ag7OpotKXZJeYgZUyopqTM3GMwGlw=
+	t=1789336272; cv=none; b=Rack+gA1NOSyGDM0fVwYe9lEXxCGVo8tDLvetoLzfxfUhxwFsGX/skL+A4m/GE5ogM6SKkbUXOPmtgcfQM7QpWy1wQV5tJrbPlxXohGhDKaYFY2c83rDCaBOIAxvZ3gEsQ+fglcGQY0pyVt+i2e4bvv7O0Dn9E9cgpl2CZAlrEo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789336085; c=relaxed/simple;
-	bh=nfq4xKN/U3UCWCePBLPoeRZgNdv9ADYvF1h2MfVGoe0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=F/DKLTale3VqQWz2AjiEqQdUolo0Y45JYQAr9bxOTAzPN3+6pIZ2ETS0y1+Iyq6TX2LPbYk3NeFDOZLJqCFK2ODYjwnBW/QN3uXiKDhQK+SZJThN0dl2xmt7XWMLW9pP+E7mpP0xEM5zU+N6UWDJZtmE8kOcD4rTKxFLhYiH6Og=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qYgBJlay; arc=none smtp.client-ip=74.125.231.135
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789336272; c=relaxed/simple;
+	bh=8rg2eNOTtt+zLL4lGwFAEGPEP1P8+2A8Dn6MGVVNcic=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Whh35KE9e3jnhpytIVx70VXIrj4yWJzGLC5Y4OGT3MMgl8W40Y+F25sa2qyUTatCCAgTfSRLMXo3YAKqmlk87lN18qLJcFonTcryZVMgT2MXtxpBFDKoxwHCf4tjIcH6nQ0bd8ttCRnyinYUtpPJOLSJMKvgCSfQLJKqN4yElyc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jVx2DUeA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qYgBJlay"
-Received: by mail-oo2-f7.google.com with SMTP id 006d021491bc7-6c197ff1f3aso636423eaf.0
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 14:48:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789336082; x=1789940882; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=LiFj+YViXnUILO1Xl8u0yjE4yvh4W8pLQubMdsa1jkQ=;
-        b=qYgBJlayux4JyU6cVWoqBK9yQw84uejiPoPBY6VaO5LSWDFt7mGEYEEtYjuRkr/bej
-         6R46zyNYcaFeTv+u2OVavZ1RbvaoHKOAfPRrvMB0UlDg/n3rJvgn96PnhjJQIg4uIu/5
-         JEiLlBn960kXGNEzd6FhSzxu6rqAgS3EW6P9NoiAQ71mUVC1DBP3OzRD5YOjV9cSn3dr
-         YCQIR0yScGeAmGLdYCBwCQ8dq/NAOeH5uarpHWKD+1NcjjEyvt8yM165yiS5V5Wq8OWa
-         v1wro/XcyIlSg5PQKmkR+F/1IKwO6WRjK6syB0Czb51cO40dQFRpCvXibZeaNBf/qdtf
-         3REw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789336082; x=1789940882;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=LiFj+YViXnUILO1Xl8u0yjE4yvh4W8pLQubMdsa1jkQ=;
-        b=fyDLzpRuqHcOtK3ioyadXcTXVd+fzyYDe13P4xAkhe83Y0As/CwCC22FQdwiw8G310
-         mO0XKhtBW3a6xRIloYYCY3bDIFTv41VlJHuRcxT3cPQvOdfYawJlVwMzKI75lz1LfUCl
-         ipyer5qBzICZuxb6QgMxrE7HhnTHlHoS+UQfJuSqIGL7UvRrUSQVQLSDXLUIdlDXGtGn
-         vQ8OzDGnPfo2SlV+0Rfu4bMttvnNwmdBTtx0ixlRKhFTa4HIIaginYU2/FXiUfWcRGeg
-         HLjVPvZ9dyyv+1NRy0gD/W6OVAe55Y+2hzEULS+U5Xshog81KujvdWlNiux2WD3nDa9X
-         k1hg==
-X-Forwarded-Encrypted: i=1; AKwUvByvIhhntLEivQ1xm8qKEZSpcAlNmEVxgumKzmPWG+snOpmNX9amECTI23KnNFgD6xyg7eaYcfj93WQbTGs=@vger.kernel.org
-X-Gm-Message-State: AFuF++kCmTPwx2j0YDsrCBKeyvOjzshoqtglakBk8q3peGIC5edHiJHs
-	1EnQaCMeGOnNItDWwnSP6Z08aZP8BAGBU4QHh2OGYB+lmnh/9ngdLrmA
-X-Gm-Gg: AYBFou27owbArEjAGou62eFC4kLxr+pa2mpFbazYahspK/O3br/j99Fkv62xe78mbUv
-	vn6ZHe7tTkZ5DrXwASGm7SjRfaaL5FbpapjGeDyuJfZQ3RSL8rc8me50R6Ln8QRLF9G4UR7aDIl
-	eUMsmwixf4ecNe1T917R9ypmk/ALExJS/DoAGs9nazpitYdzq4lruRCu9euAj1xx4BJSQIIYl5v
-	wam/9qmEtvtX+9ZxuqlGkfoxkN4pc/la/kDJ1Fx019EA6F2rdZcuhOHnwm2reEjH61w4q90bljo
-	xkB+5Ss2r3zYIdmiw0/xajbQMVzkbG5hqiLwISh7xEPu/m10gOAHgdv1CrK7JHOL9a6ZiuMeVe3
-	rG3WQJV6LYy/bqMemoAocTk+w9mJKyP2Y2L+F77Rq2U0QWQaRllzwbvtRqRCowTTRRxHE/LG+Da
-	Jlt8luqB6QjzRLIGn/ibYGeDVuINKi4ynZthUJpAs84krVw3m/OUEyX4oULAG4ycfIpx0dLEre/
-	dDKCrM=
-X-Received: by 2002:a05:6820:2213:b0:6c2:5e92:b599 with SMTP id 006d021491bc7-6c25e92c715mr7185528eaf.4.1789336082388;
-        Sun, 13 Sep 2026 14:48:02 -0700 (PDT)
-Received: from [192.168.18.164] ([2600:8804:5716:d800::b712])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6c0990cc05fsm8928296eaf.3.2026.09.13.14.47.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 14:48:01 -0700 (PDT)
-From: Ryan Brue <ryanbrue.dev@gmail.com>
-Date: Sun, 13 Sep 2026 16:47:53 -0500
-Subject: [PATCH v2] clk: mediatek: mt8173-mfgtop: do not use the clk API
- from power_on
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jVx2DUeA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BF7F1F000FF;
+	Sun, 13 Sep 2026 21:51:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789336270;
+	bh=udMt21nwWf9/TleZjkb2wzEX6bNIyeF8qHE5tvvW1qA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=jVx2DUeAkPA+HHl2H+C2NWQ4j1+leNTqHynShnZ/F+ZuKWK8GpwajwAlD8KYwEBWx
+	 rcOkI/17eOULo5lpq0UcFjpKsjOc+8DIiQ8w4vLw1US8O9Z4iSwi6Tz7acT+FbXg/W
+	 6UuoU1627fip7OKvLPdecJnhl0Iwzt2Ogz13q3ajwkQ57xa9hmLD9Xf5zTKk/kkkzE
+	 HflUaMmnyT0MlypNU7Cf3sZuS/q5DgwdD64CL1OZ3sJGncfStHWVRnCqui0P58M3eM
+	 sj6BjI4jXkHKdaUE1X4QvDZ+ckwgIavOvL3PBvpZipRy+haF9CoIX1eGxAIiYFuzfU
+	 jbCspstmqFsEA==
+Date: Sun, 13 Sep 2026 22:51:08 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Ariana Lazar <ariana.lazar@microchip.com>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, "Andy Shevchenko" <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>
+Subject: Re: [PATCH v5 08/10] iio: dac: mcp47feb02: refactor MCP47FEB02 I2C
+ driver into two modules
+Message-ID: <20260913225108.7356ccb2@jic23-hlaptop>
+In-Reply-To: <20260909-mcp47feb02_refactor-v5-8-8b67bcab93d1@microchip.com>
+References: <20260909-mcp47feb02_refactor-v5-0-8b67bcab93d1@microchip.com>
+	<20260909-mcp47feb02_refactor-v5-8-8b67bcab93d1@microchip.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260913-mfgtop-no-clk-api-power-on-v2-1-b84771a3d5bd@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42NQQ6CMBAAv0J6dg1tRaIn/mE4lLLAKnSbFlFD+
- LuAH/A4yWRmFhEDYRTXZBYBJ4rEbgV1SITtjGsRqF5ZqFSd04tUMDTtyB4cg+0fYDyB5xcGYAc
- mw9Roc9KV1mIN+IANvff4rfxxfFZ3tONW3IyO4sjhs98nuXl/jSYJEmpsZJabWqo8L9rBUH+0P
- IhyWZYvjqeF0tYAAAA=
-X-Change-ID: 20260912-mfgtop-no-clk-api-power-on-a5e0a3a43b33
-To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Chen-Yu Tsai <wenst@chromium.org>
-Cc: Brian Masney <bmasney@redhat.com>, linux-clk@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, Ryan Brue <ryanbrue.dev@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789336079; l=6274;
- i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
- bh=nfq4xKN/U3UCWCePBLPoeRZgNdv9ADYvF1h2MfVGoe0=;
- b=vmOHX9MbkBdVuDpyVXNrpAACjzRmh8NFH++7aqIkxLDNaUdOwDwWdteL6obQKE5zRwy2+rwS/
- aywx2+gD5K0DV1qhZwo9lOccQKn78Ow5Vp+8xyhd3YiddwHrJZXr6wv
-X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
- pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
 
-clk_mt8173_mfgtop_power_on() calls clk_prepare_enable() on the mfg_26m gate
-that this same driver provides. That is a layering inversion which cannot
-work: clk_core_prepare() calls clk_pm_runtime_get() on the clock provider
--- this driver's own device -- and genpd power transitions run at _noirq
-time, where runtime PM is disabled and pm_runtime_resume_and_get() returns
--EACCES.
+On Wed, 9 Sep 2026 17:18:51 +0300
+Ariana Lazar <ariana.lazar@microchip.com> wrote:
 
-Measured on mt8173 (amazon-suez) during resume from suspend-to-RAM,
-immediately after the secondary CPUs come back up:
+> Prepare the driver for the bus-specific code by refactoring into separate
+> files. The renamed file will contain the common DAC functionality shared by
+> the MCP47FxBy1/2/4/8 I2C and MCP48FxBy1/2/4/8 SPI drivers. The MCP47FEB02
+> driver was refactored into two modules: mcp47feb02-core.c and
+> mcp47feb02-i2c.c in order to prepare the support for SPI MCP48FxBy1/2/4/8
+> DAC family on top of the current implementation.
+> 
+> Signed-off-by: Ariana Lazar <ariana.lazar@microchip.com>
 
-  clk-mt8173-mfgtop 13fff000.clock-controller: 26 MHz clock enable failed: -13
+One thing inline.
 
-The failure is not survivable, because genpd_sync_power_on() ignores what
-power_on() returns and marks the domain on regardless. The clock is then
-left ungated-but-unprepared, and the next power_off() underflows its
-refcount:
+> diff --git a/drivers/iio/dac/mcp47feb02.c b/drivers/iio/dac/mcp47feb02-core.c
+> similarity index 73%
+> rename from drivers/iio/dac/mcp47feb02.c
+> rename to drivers/iio/dac/mcp47feb02-core.c
+> index fb66bd2664a9e6dd938eacc90547403041e258a4..4ef64a3408033501c724c7c52fd20686cc53722a 100644
+> --- a/drivers/iio/dac/mcp47feb02.c
+> +++ b/drivers/iio/dac/mcp47feb02-core.c
+> @@ -1,8 +1,8 @@
+>  // SPDX-License-Identifier: GPL-2.0+
+>  /*
+> - * IIO driver for MCP47FEB02 Multi-Channel DAC with I2C interface
+> + * IIO driver for MCP47FEB02 Multi-Channel DAC with I2C and SPI interface
+>   *
+> - * Copyright (C) 2025 Microchip Technology Inc. and its subsidiaries
+> + * Copyright (C) 2025-2026 Microchip Technology Inc. and its subsidiaries
+>   *
+>   * Author: Ariana Lazar <ariana.lazar@microchip.com>
+>   *
+> @@ -16,12 +16,10 @@
+>  #include <linux/bitfield.h>
+>  #include <linux/delay.h>
+>  #include <linux/err.h>
+> -#include <linux/i2c.h>
+>  #include <linux/iio/iio.h>
+>  #include <linux/iio/sysfs.h>
+>  #include <linux/kstrtox.h>
+>  #include <linux/module.h>
+> -#include <linux/mod_devicetable.h>
+This surprised me because I thought this was no longer included
+from any drivers using i2c.  Indeed it is gone since :
+995832b2cebe "(Replace <linux/mod_devicetable.h> by more specific <linux/device-id/*.h> (c files)")
 
-  mfg_26m already disabled
-  mfg_26m already unprepared
-  WARNING: drivers/clk/clk.c:1048 at clk_core_unprepare
-  Workqueue: pm genpd_power_off_work_fn
-    clk_unprepare / clk_mt8173_mfgtop_power_off / _genpd_power_off
+Hence please rebase on 7.3-rc1. I don't think we have anything
+more recent that touches this driver and a mainline rc is an
+easy base to deal with.
 
-Gate the bit with a direct regmap write instead. The vendor driver
-(mtk_mfgsys.c) also drives the four MFG CG bits with raw register writes
-from its power sequencing. The runtime-PM path was never affected, only the
-_noirq transitions of system suspend and resume. mfg_26m stays registered
-as a clock for any consumer that wants it; nothing currently does.
 
-Because the gate is now driven from the domain callbacks, its enable count
-in the clock framework stays 0 while the domain is on. Mark it
-CLK_IGNORE_UNUSED so that clk_disable_unused() does not gate the 26 MHz
-clock under an already-powered domain when a consumer probes before late
-init; the domain callbacks are the only writers.
-
-Fixes: ebd0b73d2137 ("clk: mediatek: Add mt8173-mfgtop driver")
-Assisted-by: LLM
-Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
----
-Changes in v2:
-- Mark mfg_26m CLK_IGNORE_UNUSED: with the gate driven from the domain
-  callbacks its CCF enable count stays 0, so clk_disable_unused() would gate
-  the 26 MHz clock under an already-powered domain if a consumer probed
-  before late init (reported by the Sashiko review of v1). Verified on the
-  Fire HD 10: the gate follows the domain (hardware Y with the GPU active, N
-  after unbind) while the enable count stays 0, and the GPU keeps working.
-- Link to v1: https://patch.msgid.link/20260912-mfgtop-no-clk-api-power-on-v1-1-def157ad1277@gmail.com
----
- drivers/clk/mediatek/clk-mt8173-mfgtop.c | 29 +++++++++++------------------
- 1 file changed, 11 insertions(+), 18 deletions(-)
-
-diff --git a/drivers/clk/mediatek/clk-mt8173-mfgtop.c b/drivers/clk/mediatek/clk-mt8173-mfgtop.c
-index 5669ca9954dc..53918ad7f402 100644
---- a/drivers/clk/mediatek/clk-mt8173-mfgtop.c
-+++ b/drivers/clk/mediatek/clk-mt8173-mfgtop.c
-@@ -30,6 +30,8 @@ static const struct mtk_gate_regs mfg_cg_regs = {
- 	.set_ofs = 0x0004,
- };
- 
-+#define MFG_CG_26M	BIT(3)
-+
- #define GATE_MFG(_id, _name, _parent, _shift, _flags)	\
- 	GATE_MTK_FLAGS(_id, _name, _parent, &mfg_cg_regs, _shift, &mtk_clk_gate_ops_setclr, _flags)
- 
-@@ -38,7 +40,8 @@ static const struct mtk_gate mfg_clks[] = {
- 	GATE_MFG(CLK_MFG_AXI, "mfg_axi", "axi_mfg_in_sel", 0, CLK_SET_RATE_PARENT),
- 	GATE_MFG(CLK_MFG_MEM, "mfg_mem", "mem_mfg_in_sel", 1, CLK_SET_RATE_PARENT),
- 	GATE_MFG(CLK_MFG_G3D, "mfg_g3d", "mfg_sel", 2, CLK_SET_RATE_PARENT),
--	GATE_MFG(CLK_MFG_26M, "mfg_26m", "clk26m", 3, 0),
-+	/* Driven by the power domain callbacks, not by a clk consumer */
-+	GATE_MFG(CLK_MFG_26M, "mfg_26m", "clk26m", 3, CLK_IGNORE_UNUSED),
- };
- 
- struct mt8173_mfgtop_data {
-@@ -46,7 +49,6 @@ struct mt8173_mfgtop_data {
- 	struct regmap *regmap;
- 	struct generic_pm_domain genpd;
- 	struct of_phandle_args parent_pd, child_pd;
--	struct clk *clk_26m;
- };
- 
- /* Delay count in clock cycles */
-@@ -66,12 +68,12 @@ struct mt8173_mfgtop_data {
- static int clk_mt8173_mfgtop_power_on(struct generic_pm_domain *domain)
- {
- 	struct mt8173_mfgtop_data *data = container_of(domain, struct mt8173_mfgtop_data, genpd);
--	int ret;
- 
--	/* drives internal power management */
--	ret = clk_prepare_enable(data->clk_26m);
--	if (ret)
--		return ret;
-+	/*
-+	 * Drives internal power management. Written directly: the clk API
-+	 * needs runtime PM, which is disabled during _noirq transitions.
-+	 */
-+	regmap_write(data->regmap, mfg_cg_regs.clr_ofs, MFG_CG_26M);
- 
- 	/* Power on/off delays for various signals */
- 	regmap_write(data->regmap, MFG_ACTIVE_POWER_CON0,
-@@ -103,7 +105,7 @@ static int clk_mt8173_mfgtop_power_off(struct generic_pm_domain *domain)
- 	regmap_write(data->regmap, 0xec, 0);
- 
- 	/* drives internal power management */
--	clk_disable_unprepare(data->clk_26m);
-+	regmap_write(data->regmap, mfg_cg_regs.set_ofs, MFG_CG_26M);
- 
- 	return 0;
- }
-@@ -155,16 +157,10 @@ static int clk_mt8173_mfgtop_probe(struct platform_device *pdev)
- 		goto put_pm_runtime;
- 	}
- 
--	data->clk_26m = clk_hw_get_clk(data->clk_data->hws[CLK_MFG_26M], "26m");
--	if (IS_ERR(data->clk_26m)) {
--		ret = dev_err_probe(dev, PTR_ERR(data->clk_26m), "Failed to get 26 MHz clock\n");
--		goto unregister_clks;
--	}
--
- 	ret = of_clk_add_hw_provider(node, of_clk_hw_onecell_get, data->clk_data);
- 	if (ret) {
- 		dev_err_probe(dev, ret, "Failed to add clk OF provider\n");
--		goto put_26m_clk;
-+		goto unregister_clks;
- 	}
- 
- 	data->genpd.name = "mfg-top";
-@@ -197,8 +193,6 @@ static int clk_mt8173_mfgtop_probe(struct platform_device *pdev)
- 	pm_genpd_remove(&data->genpd);
- del_clk_provider:
- 	of_clk_del_provider(node);
--put_26m_clk:
--	clk_put(data->clk_26m);
- unregister_clks:
- 	mtk_clk_unregister_gates(mfg_clks, ARRAY_SIZE(mfg_clks), data->clk_data);
- put_pm_runtime:
-@@ -217,7 +211,6 @@ static void clk_mt8173_mfgtop_remove(struct platform_device *pdev)
- 	of_genpd_del_provider(node);
- 	pm_genpd_remove(&data->genpd);
- 	of_clk_del_provider(node);
--	clk_put(data->clk_26m);
- 	mtk_clk_unregister_gates(mfg_clks, ARRAY_SIZE(mfg_clks), data->clk_data);
- 	of_node_put(data->parent_pd.np);
- }
-
----
-base-commit: df2908090cda368b01ff43709f51890076c56157
-change-id: 20260912-mfgtop-no-clk-api-power-on-a5e0a3a43b33
-
-Best regards,
---  
-Ryan Brue <ryanbrue.dev@gmail.com>
+>  #include <linux/mutex.h>
+>  #include <linux/property.h>
+>  #include <linux/regmap.h>
+> @@ -30,6 +28,8 @@
+>  #include <linux/types.h>
+>  #include <linux/units.h>
+>  
+> +#include "mcp47feb02.h"
 
