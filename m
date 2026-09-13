@@ -1,39 +1,39 @@
 Received: from sm24.hosting.reg.ru (sm24.hosting.reg.ru [31.31.198.150])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E022123ABBF;
-	Sun, 13 Sep 2026 05:37:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AA4A1C5799;
+	Sun, 13 Sep 2026 05:37:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=31.31.198.150
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789277861; cv=none; b=TuUkzJhzGa2L07B0iCAToDgHcEdvNzDuSTjfbGk/pmzHqEU2jahaN8rvYfctxkR0xEo/3iBEGYlcBSOu4R/Iv8n0P5H/oyWJmaF6hg4po8691a71MnOz+0IPcFxqLwelVnmuYYP/+uiyxd8z6IyyzHPBzoYtuWeyZmmfld7iRF8=
+	t=1789277862; cv=none; b=BHbXZXLjmVu5pezPX1bYxp16EiiCDYBXiWui1W2zAPOFkdZmSTEV8Y09yZvf8AtppYKqLMQd+1c9qdyYrBKaoFVcVwqXp/+8oQp5NHYkHoWJs03gsK1dMuKfGuuMzxaplYn3maA1R96YtBKeF5oC0Ylvcf3FykfaEd7T0L6xkuo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789277861; c=relaxed/simple;
-	bh=U1lVp8kaQloX/LWpP4jy3QS2BFcDs+VgKv84PLhO+vU=;
+	s=arc-20240116; t=1789277862; c=relaxed/simple;
+	bh=ZlkByB6dsSCg1vGFiI2LFeu/MRssORg05ev9IV3F2aQ=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=pb0pASo06HkutYaECPABv6i8iWPjd78eutDgsyKnp1x4ETHcYAKNe40mA4TFqIcIy68FY0wGthkRIN6/79C0caEPMiRFfHzpnbK3wGKMMAAdtOd9YTweHVH/e49SRqXa4dZuq6dsBHYRNGInf3NCwPsZD7Od4TlvAp5jwps3MqU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=minlexx.ru; spf=none smtp.mailfrom=minlexx.ru; dkim=pass (1024-bit key) header.d=minlexx.ru header.i=@minlexx.ru header.b=iCmu0pjM; arc=none smtp.client-ip=31.31.198.150
+	 In-Reply-To:To:Cc; b=KZQJn5kp8QlIXc8qEUIg/gn6A9GeWkTdMBAKSpe7wfiOc37HgUWf+x2m+hoALAakUEQ5k7V16yEm9UBahoyy3KtM0+e8F0GjSMfOW3EoLWaNJ+VuRURo3lshBFr+ZNC6WJpj8t/aTy1t5u7hzInSj4VpgqN+c85WveIKcXGz0Dg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=minlexx.ru; spf=none smtp.mailfrom=minlexx.ru; dkim=pass (1024-bit key) header.d=minlexx.ru header.i=@minlexx.ru header.b=pGF7jf1Q; arc=none smtp.client-ip=31.31.198.150
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=minlexx.ru
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=minlexx.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=minlexx.ru header.i=@minlexx.ru header.b="iCmu0pjM"
+	dkim=pass (1024-bit key) header.d=minlexx.ru header.i=@minlexx.ru header.b="pGF7jf1Q"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=minlexx.ru;
 	s=dkim; h=Cc:To:In-Reply-To:References:Message-Id:Content-Transfer-Encoding:
 	Content-Type:MIME-Version:Subject:Date:From:Sender:Reply-To:Content-ID:
 	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
 	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
 	List-Post:List-Owner:List-Archive;
-	bh=b3p0QEWuHBXAXgvSKtH/feowvJNCBzLhkqHHOOl3Ieg=; b=iCmu0pjMcg9maWbQHefYgjMwii
-	9Wd/abzMg/hIxdJ/zvaTu43Pxk12sho1rXLdOsobiWyCwP1izfUMMnl/e0mWTDtP4jXdu53RyXN+T
-	FZbNd06KTdnySvFNXA2NEj4eL+bjfD3A+u0JFTG9BV5T9QSlxC4OvTgBnvDPbhBuABRo=;
+	bh=7dYWsdxGnuQpPz+ltIlRzQtSY4Ol6wjxycrTs1kf/Cw=; b=pGF7jf1QxG0ifmyCa3Tuwa7K6X
+	cJurF3rSrZzxoVgpFY5nMBHtM8EV2FzFwn2bxum+ia/98vYCdPcV04jQixbeZvhdCkTETvLVIagIJ
+	LnDOqs5FHxFK8XgSx8tILpn7AhVMpgN5mXhCNuFZ8IElT7lVKhMwsCGxHHRPW6o7CNcI=;
 Received: 
 	by sm24.hosting.reg.ru with esmtpsa (TLS1.3) tls TLS_AES_256_GCM_SHA384
 	(envelope-from <alexeymin@minlexx.ru>)
-	id 1x5cuF-0000000Dxg1-1rP9;
-	Sun, 13 Sep 2026 08:37:36 +0300
+	id 1x5cuA-0000000Dxg1-3hux;
+	Sun, 13 Sep 2026 08:37:35 +0300
 From: Alexey Minnekhanov <alexeymin@minlexx.ru>
-Date: Sun, 13 Sep 2026 08:36:36 +0300
-Subject: [PATCH 4/9] drm/panel: novatek-nt36672a: Set driver name to
- novatek for consistency
+Date: Sun, 13 Sep 2026 08:36:35 +0300
+Subject: [PATCH 3/9] dt-bindings: display: novatek,nt36672a: Add 5 new
+ panels
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,7 +42,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260913-nt36672a-panels-v1-4-ce097402c6ea@minlexx.ru>
+Message-Id: <20260913-nt36672a-panels-v1-3-ce097402c6ea@minlexx.ru>
 References: <20260913-nt36672a-panels-v1-0-ce097402c6ea@minlexx.ru>
 In-Reply-To: <20260913-nt36672a-panels-v1-0-ce097402c6ea@minlexx.ru>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -58,45 +58,38 @@ Cc: David Heidelberg <david@ixit.cz>, Joel Selvaraj <foss@joelselvaraj.com>,
  phone-devel@vger.kernel.org, Alexey Minnekhanov <alexeymin@minlexx.ru>
 X-Mailer: b4 0.16.0
 
-Since this driver should represent not only devices manufactured by
-Tianma Micro-electronics, but also from other companies, it makes more
-sense to name it according to what driver file name already is: novatek.
+Document 5 new panels used in 4 different smartphones produced by
+Xiaomi and ASUS:
 
-This does not change neither module file name nor Kconfig symbol, only
-driver identification in dmesg. This makes it possible to e.g. grep
-dmesg for "novatek" and get messages from both nt36672a-based panel and
-Novatek touchscreen.
+ * Shenchao panel used in Xiaomi Redmi Note 7 (xiaomi-lavender), the
+  exact model string is unknown
+ * Tianma TL063FVMCA01-00 for Xiaomi Redmi Note 7 (xiaomi-lavender)
+ * Tianma TL063FVMC43-02 for Xiaomi Redmi Note 6 Pro (xiaomi-tulip)
+ * Tianma TL060FVXS16-00 for Xiaomi Mi A2 smartphone (xiaomi-jasmine)
+ * TXD TXDI600YANPA-43V3 Asus Zenfone Max Pro M1 (asus-x00td)
 
 Signed-off-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
 ---
- drivers/gpu/drm/panel/panel-novatek-nt36672a.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ .../devicetree/bindings/display/panel/novatek,nt36672a.yaml          | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
-index 464d9ce47d87d..73bec4f47ec60 100644
---- a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
-+++ b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
-@@ -479,16 +479,16 @@ static void nt36672a_panel_remove(struct mipi_dsi_device *dsi)
- 	drm_panel_remove(&pinfo->base);
- }
- 
--static const struct of_device_id tianma_fhd_video_of_match[] = {
-+static const struct of_device_id panel_nt36672a_match[] = {
- 	{ .compatible = "tianma,fhd-video", .data = &tianma_fhd_video_panel_desc },
- 	{ },
- };
--MODULE_DEVICE_TABLE(of, tianma_fhd_video_of_match);
-+MODULE_DEVICE_TABLE(of, panel_nt36672a_match);
- 
- static struct mipi_dsi_driver nt36672a_panel_driver = {
- 	.driver = {
--		.name = "panel-tianma-nt36672a",
--		.of_match_table = tianma_fhd_video_of_match,
-+		.name = "panel-novatek-nt36672a",
-+		.of_match_table = panel_nt36672a_match,
- 	},
- 	.probe = nt36672a_panel_probe,
- 	.remove = nt36672a_panel_remove,
+diff --git a/Documentation/devicetree/bindings/display/panel/novatek,nt36672a.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt36672a.yaml
+index 5d16d85117254..3671fd788a818 100644
+--- a/Documentation/devicetree/bindings/display/panel/novatek,nt36672a.yaml
++++ b/Documentation/devicetree/bindings/display/panel/novatek,nt36672a.yaml
+@@ -22,7 +22,12 @@ properties:
+   compatible:
+     items:
+       - enum:
++          - shenchao,fhdplus-video
+           - tianma,fhd-video
++          - tianma,tl060fvxs16-00
++          - tianma,tl063fvmca01-00
++          - tianma,tl063fvmc43-02
++          - txd,txdi600yanpa-43v3
+       - const: novatek,nt36672a
+     description: This indicates the panel manufacturer of the panel that is
+       in turn using the NT36672A panel driver. This compatible string
 
 -- 
 2.55.0
