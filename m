@@ -1,141 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B2111A6816;
-	Sun, 13 Sep 2026 09:49:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 962EA34CFDA
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 09:51:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789292969; cv=none; b=GExvjF2FS6EeXrEs0CgDO4m0/mAwR3iGvMMtG+bcTMWWRuqNz6Oz+sTf7zoxoqIkFNxU8cYFGfvnEUdmfdyCU6AiLJYs5BPdw0AcrNZqjyTGPL/YRwX7EXjUeJ5dga8TtMfkg+c9IZWEsHfjbyE2xYGSKaXhP9J1ww3Lp0E1N4Y=
+	t=1789293080; cv=none; b=M4kNV/a/HJcr0sXij5qDlleFmfOgLV+OYnas12Q0cc2S9hGXNIKAzEq6hejiIyzLzNwJZQjVKyc9egcNE95D3XyL5l24lpMMrDd3VUI4ATr1n9oZHfkSN5RULn3jU3RZJtEoCUsseJoNGRMUR+sX9kc0f5xwHvw8XeWVUaDEUpY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789292969; c=relaxed/simple;
-	bh=mGAg4rKunkIul1QDQuUassVbQndYIl+aQxGofMURzUU=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=j1e5p6dHcuhzvGG3zBN5qpb7Syoo4ew9znIajUKqZavGbH5IOrAT6bSYOdasCqrTpVgVS17Lwle6H370aL1VSlW/kHfAYbLrmMPooG20oR0c3qsWEH7EwhXg1dP+jBHeruJlPWBd0XFkky/wgYgky197VPX1Tox9FjpsOaNO/Vo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PfBvxpKE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789293080; c=relaxed/simple;
+	bh=jbVm0RLVeDlU9P10OCDpld57tDHcD90z/kytGFhXC6k=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=H4AkMmtOsHPmjM1PVJEX+oBNi0L6UYNsmfcRmXC/f7HVRqmm7ffGqUt5puE5bPKHfylm9W0RCmWFRHurajIl0k5l9ppbBZBKsHtxA1Fevnv1xD9GcUFtqcVIDEBoWqywBJGeR5fArZeXX+sPQRz2XOHspMeX5giWJ592TonUe2A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nw/4EyLQ; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PfBvxpKE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1DC51F000FF;
-	Sun, 13 Sep 2026 09:49:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789292967;
-	bh=Tg5IU0+H9KMkSOpIVEYusfjm6bIb4fQEllwynyz0EVc=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=PfBvxpKEvpJ5VLvXhFNDyHaYXB+ow/oOmmQUHohuPRTQ5OidCuKr72NVna21Lhj74
-	 r5JNth+EicGcrCC7nWRPU3KP7VvVO3pSw3SMgGmOSz4IhFnNf6O4Pe/2yjIehooC1j
-	 V5gfQBN3V7CSTiFObippk57pdzCBTAaYjhpBs8h86PcRmrAVE5mHCe8CBXR8sdZ9lI
-	 hOiIl8GhtQRUZJhWmq4v0gpGo2yCDfi4JJ5+JCDbKJMzUMLQpHEY7eL23wcPEXXOYK
-	 YUZArZv4sXfKDhvHqKab4q5jTSS5LAjaBXREtzk2jtVz45lYaQ3li0P61UqlG1ww9i
-	 AGBthjzkxuVUQ==
-From: Andreas Hindborg <a.hindborg@kernel.org>
-To: Gary Guo <gary@garyguo.net>, Alice Ryhl <aliceryhl@google.com>
-Cc: Danilo Krummrich <dakr@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Vlastimil Babka <vbabka@kernel.org>, "Liam R. Howlett"
- <liam@infradead.org>, Uladzislau Rezki <urezki@gmail.com>, Miguel Ojeda
- <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo
- <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6rn?= Roy Baron
- <bjorn3_gh@protonmail.com>, Benno
- Lossin <lossin@kernel.org>, Trevor
- Gross <tmgross@umich.edu>, Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot
- <acourbot@nvidia.com>, Onur =?utf-8?Q?=C3=96zkan?= <work@onurozkan.dev>,
- Lyude Paul
- <lyude@redhat.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Arve
- =?utf-8?B?SGrDuG5uZXbDpWc=?= <arve@android.com>, Todd Kjos
- <tkjos@android.com>, Christian
- Brauner <brauner@kernel.org>, Carlos Llamas <cmllamas@google.com>, "Rafael
- J.
- Wysocki" <rafael@kernel.org>, Dave Ertman <david.m.ertman@intel.com>, Leon
- Romanovsky <leon@kernel.org>, Paul Moore <paul@paul-moore.com>, Serge
- Hallyn <sergeh@kernel.org>, David Airlie <airlied@gmail.com>, Simona
- Vetter <simona@ffwll.ch>, Alexander Viro <viro@zeniv.linux.org.uk>, Jan
- Kara <jack@suse.cz>, Igor Korotin <igor.korotin@linux.dev>, Viresh Kumar
- <vireshk@kernel.org>, Nishanth
- Menon <nm@ti.com>, Stephen Boyd <sboyd@kernel.org>, Bjorn Helgaas
- <bhelgaas@google.com>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>,
- Pavel Tikhomirov <ptikhomirov@virtuozzo.com>, Michal Wilczynski
- <m.wilczynski@samsung.com>, Ira Weiny <iweiny@kernel.org>, Matthew Brost
- <matthew.brost@intel.com>, Thomas =?utf-8?Q?Hellstr=C3=B6m?=
- <thomas.hellstrom@linux.intel.com>, Philipp Stanner <phasta@kernel.org>,
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, driver-core@lists.linux.dev,
- linux-block@vger.kernel.org, linux-security-module@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-fsdevel@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-pwm@vger.kernel.org, linux-usb@vger.kernel.org, Oliver Mangold
- <oliver.mangold@pm.me>, Viresh Kumar <viresh.kumar@linaro.org>
-Subject: Re: [PATCH v21 4/9] rust: rename `AlwaysRefCounted` to `RefCounted`.
-In-Reply-To: <DLCHKYBQ3WF1.B8YPUTAKNM7@garyguo.net>
-References: <20260910-unique-ref-v21-0-e83257373062@kernel.org>
- <20260910-unique-ref-v21-4-e83257373062@kernel.org>
- <CAH5fLghUQW5urTfLCCDT4BhuqoFVoLUAG46TS-SxaS37bJcgWQ@mail.gmail.com>
- <DLCHKYBQ3WF1.B8YPUTAKNM7@garyguo.net>
-Date: Sun, 13 Sep 2026 11:49:12 +0200
-Message-ID: <875x09v5uv.fsf@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nw/4EyLQ"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843af75de5so193525f8f.3
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 02:51:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789293076; x=1789897876; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gcs5SoEwbG5DjCJj0LVT0Z2R1O7xtBNzbwteyqKUk8E=;
+        b=nw/4EyLQCkwYfTO5vXLsjIHg8oWDopE6qgjNyiU6hL/cLbwFTeFG9MnCSG5O7SwpKV
+         9CCwIUoSa7pd2xxsDWHj3ezcRfrxb+uBrdV6woLkRplgmGkfnti9BrSlRinXQTZBXyG4
+         G+c1z43+41VOop36KotSePgGb/2pIf4pim847+TvN8m88HXPmB0RvpuDitYX0U2xkUKs
+         7HILPXEC1B/aYpFATI98vCdoXVXLf0ElQPt964bdt8Y2jq3qaprVAFeHNNDzNff4a6SX
+         tg4+mJn/auZWVfAPSkSlS0lI4J+qBhh0RTGGbEkwwBuotxN0zNL7s5iHYWinOy6xp7gh
+         SlRg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789293076; x=1789897876;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gcs5SoEwbG5DjCJj0LVT0Z2R1O7xtBNzbwteyqKUk8E=;
+        b=h/3yVeofbbWAsGz12i+A+8HtZfphdB4Cmujgha+o9Bl4j9nyzuAq6yBnxjcfOw5In8
+         XUYUupg3JS+NAIL+cI0kMUlNjvMVhBObtPr6k3l4SFfSkiJVGlJnMbYN//ZdMD2a3Yej
+         VFr824NQq6yhQpFdzAuI3Nctjep2eDeRVP6paTbbB6eSB7jWvt+9FQudxC39fQtxiLP0
+         0fgEQyzg5m/5PWDzXT9tv8qRIetdD7wE6ZKXkAeV2sik9pxmCBSZUmmnurXEEQ9eG++n
+         z4bLnEvEkE29dK7Oc5surm+FGLukLMcmnaBrVl+9x6zEdoP7+LCWKI635OA5y94IWyD1
+         /McQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzh8gntvIZpLy57y2RVID7Yj6ztyDN2vHrrPcSl0F3JxLO9boF8v5ag2h7TcnFqgKLK35Zzlu8ZwFSjuew=@vger.kernel.org
+X-Gm-Message-State: AFuF++lfHHvXNqqaGWWXvCkQQs5VkRJ/VGc15yHZD7h6lupZHmB/+ff8
+	tAVvw80eGJ7GCFZNGQ5a3oj0r/DFew34ZBjvtqJiGrXd60PWvJJY8W2O
+X-Gm-Gg: AYBFou1KqR8D9DI1/i5jXw+S8/Y53/buLKSosgMkLVpRsWHKvNgxmuqcWKzBTeuBVDH
+	CtAAN4PJzIFVtyReNv0yyQWXOidMdcBsRA9eIAyj0d4bQjzQD7A0G4CGSx9/W0GaDjoYzLElB+b
+	MnqwX+hZS7DphzzuD1PbHAPglsq8It2yANJhOXkv/I+l0xMGq6Xk8kM8WeflUiZmOCXN54h1N6I
+	FfVmHdd7v3XEudqsP6w9m5zGQu7oDJ+7YfKLAihnj4Irz3z0c+/875NKdAWkXha4LlseBeKU4vj
+	71IRrYAuBORT4UxGBlCiJg79nAjvSFdPRHNa5pQFzQ8MwNg9V1WpiWT7MpI4/0Z+69OUNPpnRUy
+	6CkuXSOAOhW80Sugu135lgCx289J7giFUrSwE9oX/CFbsLGQ5mYqaKryLV8GC3dJWrqAzZ5dlON
+	Z3o3w4dmmJ6s18s5B0EFc3t6Os7yfWvsz7gFOwnZJfryfVKbu9GQAj9VDtxIBMawAH4K6hbjNOM
+	TjvcWGVPOWcfTXs4T/VdlFkqlKnvEpY2Yri7cumnDYi9k9eM2TRyxjsDydX0ytxxNCgyFmCvUfs
+	eYo7goDzYCI/YazsyPcqVgOG
+X-Received: by 2002:a5d:5d0b:0:b0:486:f768:395b with SMTP id ffacd0b85a97d-486f768400emr6172871f8f.0.1789293075665;
+        Sun, 13 Sep 2026 02:51:15 -0700 (PDT)
+Received: from pop-os.. (98.102.222.87.dynamic.jazztel.es. [87.222.102.98])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb3602eesm17401532f8f.34.2026.09.13.02.51.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 13 Sep 2026 02:51:15 -0700 (PDT)
+From: Miguel Garcia <miguelgarciaroman8@gmail.com>
+To: rafael@kernel.org,
+	u.kleine-koenig@baylibre.com
+Cc: kmehltretter@gmail.com,
+	andriy.shevchenko@linux.intel.com,
+	corbet@lwn.net,
+	linux-acpi@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Miguel Garcia <miguelgarciaroman8@gmail.com>
+Subject: [PATCH] ACPI: device-id: document struct acpi_device_id
+Date: Sun, 13 Sep 2026 11:51:05 +0200
+Message-ID: <20260913095111.2543502-1-miguelgarciaroman8@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-"Gary Guo" <gary@garyguo.net> writes:
+struct acpi_device_id lacks kernel-doc, so extracting documentation from
+its header describes ACPI_DEVICE_CLASS but not the matching table entry.
 
-> On Fri Sep 11, 2026 at 10:08 AM BST, Alice Ryhl wrote:
->> On Thu, Sep 10, 2026 at 11:01=E2=80=AFAM Andreas Hindborg <a.hindborg@ke=
-rnel.org> wrote:
->>>
->>> From: Oliver Mangold <oliver.mangold@pm.me>
->>>
->>> There are types where it may both be reference counted in some cases and
->>> owned in others. In such cases, obtaining `ARef<T>` from `&T` would be
->>> unsound as it allows creation of `ARef<T>` copy from `&Owned<T>`.
->>>
->>> Therefore, we split `AlwaysRefCounted` into `RefCounted` (which `ARef<T=
->`
->>> would require) and a marker trait to indicate that the type is always
->>> reference counted (and not `Ownable`) so the `&T` -> `ARef<T>` conversi=
-on
->>> is possible.
->>>
->>> - Rename `AlwaysRefCounted` to `RefCounted`.
->>> - Add a new unsafe trait `AlwaysRefCounted`.
->>> - Implement the new trait `AlwaysRefCounted` for the newly renamed
->>>   `RefCounted` implementations. This leaves functionality of existing
->>>   implementers of `AlwaysRefCounted` intact.
->>>
->>> Suggested-by: Alice Ryhl <aliceryhl@google.com>
->>> Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
->>> Signed-off-by: Oliver Mangold <oliver.mangold@pm.me>
->>> [ Andreas: Updated commit message and rebase on rust-next (7.2) ]
->>> Acked-by: Igor Korotin <igor.korotin.linux@gmail.com>
->>> Acked-by: Danilo Krummrich <dakr@kernel.org>
->>> Acked-by: Viresh Kumar <viresh.kumar@linaro.org>
->>> Reviewed-by: Gary Guo <gary@garyguo.net>
->>> Assisted-by: LLM
->>> Co-developed-by: Andreas Hindborg <a.hindborg@kernel.org>
->>> Signed-off-by: Andreas Hindborg <a.hindborg@kernel.org>
->>
->> This has a lot of safety comments of the form "This does not implement
->> Ownable, *therefore* it can implement AlwaysRefcounted". But I think
->> the safety comment should instead explain that it's okay to create an
->> ARef<_> from an &_ for this type. The fact that Ownable is not
->> implemented is not sufficient argument.
->>
->> Alice
->
-> Yeah, I think for types that currently implement `AlwaysRefCounted` and d=
-oes not
-> have a new `Ownable` form, it should keep saying that "this is always ref=
-erence
-> counted".
+Document the four members, ID and class-code matching, and the table
+terminator. This complements the pending documentation header-split
+update without changing its include directives.
 
-Makes sense, I will fix them.
+An LLM drafted this comment and changelog after being asked to address
+the missing documentation noted in the header-split discussion. The
+field descriptions were checked against the ACPI matching code. The
+extracted documentation passes kernel-doc and a focused Sphinx HTML
+build with warnings treated as errors; checkpatch reports no warnings.
 
-Best regards,
-Andreas Hindborg
+Link: https://lore.kernel.org/all/aqEWUBf1pewPP_K2@monoceros/
+Assisted-by: LLM
+Signed-off-by: Miguel Garcia <miguelgarciaroman8@gmail.com>
+---
+ include/linux/device-id/acpi.h | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-
+diff --git a/include/linux/device-id/acpi.h b/include/linux/device-id/acpi.h
+index 65800cefd..8c3b30ebf 100644
+--- a/include/linux/device-id/acpi.h
++++ b/include/linux/device-id/acpi.h
+@@ -9,6 +9,16 @@ typedef unsigned long kernel_ulong_t;
+ 
+ #define ACPI_ID_LEN	16
+ 
++/**
++ * struct acpi_device_id - ACPI device matching table entry
++ * @id: NUL-terminated hardware ID (_HID) or compatible ID (_CID) to match.
++ * @driver_data: Data private to the driver.
++ * @cls: PCI-defined class, subclass and programming interface code (_CLS).
++ * @cls_msk: Mask selecting the class-code fields to match.
++ *
++ * Use @id for ID matching or ACPI_DEVICE_CLASS() for class-code matching.
++ * Terminate the table with an entry whose @id is empty and @cls is zero.
++ */
+ struct acpi_device_id {
+ 	__u8 id[ACPI_ID_LEN];
+ 	kernel_ulong_t driver_data;
+-- 
+2.43.0
 
