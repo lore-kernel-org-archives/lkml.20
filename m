@@ -1,244 +1,172 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C91A83BCD0A
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 06:56:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F3CC344052;
+	Sun, 13 Sep 2026 07:04:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789282615; cv=none; b=rnZT+Gzjwso8kmVoP7pG2DCl8HLBRdnVLGlitOR0vBR2WdGxo8xY+aIKKwX9P9TOSb2XjEjRyjIdEcD510HHSzQ7nQ8gVo8zEu/K4Q5UUeSMugA/YNI2UcOUCHjaWGiDZhC3r6RHXB1Wi2Kh5JMyI7J/+xvjns4YuCRmEAbIxN0=
+	t=1789283072; cv=none; b=KDgGIl5ppZmhvf5h6+2/ZnMVYsf8+WWwjJUYbVhA/UIK3Xjpf+1fuRXtbhWqmyILXsGS/pgp2vitY3rSHlidstT26zcXH/VGQi1WCXQU+Myaa8MpwfJ8nMxH/An8YCv0o8j/eY/ckvplUSRisNQa//M21itooQgDoRqkicPN0a4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789282615; c=relaxed/simple;
-	bh=oiS2jewzdPKj/6jIPFXw8M3ztv49TOAXErEPpum1RF4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Ler30Bk8rVGbgFnn7HTARC4ts5+wkNDn4MMwTk9wNYHv6Ba8okJ+ebExxkBInBNUt1uSX9ZjJ0ghbG/wLfdeuha4lxKpkSyLxmQlP9OdOuXHw6aPfvF3PnW4QuVMLq324jj4yT5xXiNN3JYUmKGgxqtYNyWQpJs/w/XvBJQY9dY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=B2kHd5kI; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789283072; c=relaxed/simple;
+	bh=I4vV30Zpm7PauTZC5lFaXzIa8btLq4CYX5a2vWjYN20=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=UfWc6hc29cEBSvaYzwehinHy3juXAxR+xj/Bod/xiyKTjclsvMWkO6ljk1XKbrJr2NZePl5/KD4frgsaV5yywkVRuPRpUjSzBC3u2IcSFRogkxmIjYS47SwpJXBLN2H3csxbZj01cvmsKP/aL44e12d4W0mabFbgnCFSRhl0Vz4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=rvfa8quf; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=1fn6akyY; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=TJ+Aff86; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Bbbm2T+t; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="B2kHd5kI"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 9C41DC6344C;
-	Sun, 13 Sep 2026 06:57:30 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id E903E60435;
-	Sun, 13 Sep 2026 06:56:47 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E880111C7AFCC;
-	Sun, 13 Sep 2026 08:56:42 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789282607; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=b5I9g1zp8n9vjy1Bhi+svCxeKGvGM7VWX/Ux3SZ9tqg=;
-	b=B2kHd5kIir+SEiNt/X3A1dJcazq2E7eNDtCsdzU/tbzBmjH2LdyQMWm6bDIZ8UCiDAMNVe
-	yPzmShRxrPFt7P84VPBPoyT8HZKWM49K9cFSy1b09CkkpluFc0Km6os9bmTs1f5BS00/wt
-	nsPAvHl8udEtbyIwY9RBfYR80/iGx+WULPNQRMjAnYVbz8BXfSDog98ar92dwnENQEgH7J
-	Y5RsKScJyoSvHHgwdxGyrvjZ3/yRzonRyM0whyDojsHAMNQJQ/jE78RyyNgVgQp2YGeft6
-	w2IvKd2SIF8LZUXtz/Y/xjraxufQy+TWCpjyaKFxVRbpbXI+fh7MkF1U/58shA==
-Message-ID: <9c483965-beee-4fd6-adad-5ff1c9eae163@bootlin.com>
-Date: Sun, 13 Sep 2026 08:56:41 +0200
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="rvfa8quf";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="1fn6akyY";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="TJ+Aff86";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Bbbm2T+t"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id E5BB421D99;
+	Sun, 13 Sep 2026 07:04:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789283065; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=aRiFTAndlUGuh+OTZkbMYfDScOYvMLrE1x0o093ABfo=;
+	b=rvfa8qufY42YlK8BQ3h1DVIJRIR0R2eOLSh0MtGwlNIhcmP/wntvTl6LNNrTPZGUyiiYhv
+	bX1cpjpcenG0WzO1zANoCXlieg7bMGS50u3arP+O6KvUncej6ibFbACq9ZOVZXz0aB0Hba
+	H9fABEt7Ewo6u9K11TAoiQbZFfWnSgM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789283065;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=aRiFTAndlUGuh+OTZkbMYfDScOYvMLrE1x0o093ABfo=;
+	b=1fn6akyYr304hUxkOXUKmDmG66kza6tMa0Mi42wVxrsgleowYMUIKTp7HtkIxiH2HS+B06
+	cxXqq+SbA4UFwwBQ==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=TJ+Aff86;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Bbbm2T+t
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789283060; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=aRiFTAndlUGuh+OTZkbMYfDScOYvMLrE1x0o093ABfo=;
+	b=TJ+Aff86ykIpc5uE1sj6tjw9ng0BcNbOTuWQ0stgANIBSA4dAmn7n2XpkNMdWTihhKFmWb
+	4OZC7MKIjSPeS2vJHLjd4ouhCRpjhlHQv+h6dtN0E/CxHcBJNa+01klSWPeWVhv20RJsgd
+	0H3FSJ4IxhW2TKXQCewCLa+ZEZ0uEvA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789283060;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=aRiFTAndlUGuh+OTZkbMYfDScOYvMLrE1x0o093ABfo=;
+	b=Bbbm2T+tIKQRbroI/hkI//D9MzuugGiHa5mT3qWu1bR0f8sq1jHQvYhsRUVhxexlN7uSr4
+	k0ToZKlQtqSFr5Bg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 679BF1368C;
+	Sun, 13 Sep 2026 07:04:20 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id g0NsF/RKpmpGNwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Sun, 13 Sep 2026 07:04:20 +0000
+Date: Sun, 13 Sep 2026 09:04:19 +0200
+Message-ID: <87mrtlws24.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Xiang Mei <xmei5@asu.edu>
+Cc: perex@perex.cz,
+	tiwai@suse.com,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	co+8eacd4fa193b1b28@bugs.sh,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] ALSA: usb-audio: Clamp implicit feedback packet count to URB capacity
+In-Reply-To: <20260912200530.1955491-1-xmei5@asu.edu>
+References: <20260912200530.1955491-1-xmei5@asu.edu>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next] net: phy: marvell: wake the system only from the
- WoL event
-To: Rosen Penev <rosenp@gmail.com>, netdev@vger.kernel.org
-Cc: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
- Russell King <linux@armlinux.org.uk>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- open list <linux-kernel@vger.kernel.org>
-References: <20260912235125.151370-1-rosenp@gmail.com>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <20260912235125.151370-1-rosenp@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: E5BB421D99
+X-Spamd-Result: default: False [-2.01 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	TAGGED_RCPT(0.00)[8eacd4fa193b1b28];
+	RCVD_TLS_ALL(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	RCVD_COUNT_TWO(0.00)[2];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Flag: NO
+X-Spam-Score: -2.01
 
-Hi Rosen,
-
-On 9/13/26 01:51, Rosen Penev wrote:
-> Enable waking the system from a WoL event on the 88E1318S/88E1510.
+On Sat, 12 Sep 2026 22:05:30 +0200,
+Xiang Mei wrote:
 > 
-> When WoL is enabled, m88e1318_set_wol() now calls enable_irq_wake()
-> on the PHY's IRQ and marks the MDIO device as a wakeup source so the
-> underlying GPIO interrupt raises the system from suspend, and reverses
-> both on disable.
+> data_ep_set_params() allocates each data URB for exactly u->packets
+> isochronous frames, so urb->iso_frame_desc[] has u->packets slots and
+> ctx->packets is the driver's only record of that limit. For an implicit
+> feedback sink, snd_usb_queue_pending_output_urbs() overwrites it with the
+> sync source's packet count, which is calculated independently from the
+> capture endpoint's parameters. When that count is larger,
+> prepare_playback_urb() and prepare_silent_urb() can write
+> iso_frame_desc[] past the allocation; their existing bounds limit payload
+> bytes, not the descriptor index.
 > 
-> With WoL active the PHY must stay powered to detect a magic packet,
-> but without masking, phy_suspend() would leave every interrupt
-> enabled, so a link status change or any other PHY event would assert
-> INTn and spuriously wake the system. Set PHY_ALWAYS_CALL_SUSPEND on
-> the 88E1318S/88E1510 drivers so that phy_suspend() still calls their
-> suspend callbacks with WoL enabled, and have those callbacks keep the
-> PHY awake while writing the interrupt enable register (CSIER/IMASK)
-> down to only the WoL event bit.
+> The reproducer uses a high-speed UAC2 device declaring bInterval 1 for
+> implicit feedback capture (8 packets) and bInterval 4 for playback
+> (1 packet). On the first capture completion after the stream starts, it
+> accesses seven descriptors spanning 112 bytes beyond the one-packet URB:
 > 
-> marvell_config_intr() rewrites the whole CSIER register with
-> MII_M1011_IMASK_INIT on resume, clearing the WoL enable bit. Re-arm
-> WOL_EIE in the resume callbacks so the WoL interrupt stays active for
-> the next sleep cycle.
+>   BUG: KASAN: slab-out-of-bounds in prepare_playback_urb (sound/usb/pcm.c:1560)
+>   Write of size 4 at addr ffff88801e696ad0 by task vhci_rx/178
+>    prepare_playback_urb (sound/usb/pcm.c:1560)
+>    prepare_outbound_urb (sound/usb/endpoint.c:340)
+>    snd_usb_queue_pending_output_urbs (sound/usb/endpoint.c:501)
+>    snd_complete_urb (sound/usb/endpoint.c:1834)
+>    __usb_hcd_giveback_urb (drivers/usb/core/hcd.c:1657)
+>    usb_hcd_giveback_urb (drivers/usb/core/hcd.c:1741)
+>    vhci_rx_loop (drivers/usb/usbip/vhci_rx.c:107)
+>    kthread (kernel/kthread.c:436)
+>   The buggy address belongs to the object at ffff88801e696a00
+>    which belongs to the cache kmalloc-256 of size 256
+>   The buggy address is located 0 bytes to the right of
+>    allocated 208-byte region [ffff88801e696a00, ffff88801e696ad0)
 > 
-> Assisted-by: LLM
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> ---
->  drivers/net/phy/marvell.c | 145 ++++++++++++++++++++++++++++++++++++--
->  1 file changed, 138 insertions(+), 7 deletions(-)
+> Record the allocated packet count per endpoint and clamp both the adopted
+> count and the packet-size copy to it. Fold the Format Type II delimiter
+> into urb_packs before the allocation loop so the recorded limit matches
+> every URB.
 > 
-> diff --git a/drivers/net/phy/marvell.c b/drivers/net/phy/marvell.c
-> index f71cffa88406..70aaa09f2047 100644
-> --- a/drivers/net/phy/marvell.c
-> +++ b/drivers/net/phy/marvell.c
-> @@ -30,6 +30,8 @@
->  #include <linux/ethtool_netlink.h>
->  #include <linux/phy.h>
->  #include <linux/phy_port.h>
-> +#include <linux/pm_wakeirq.h>
-> +#include <linux/property.h>
->  #include <linux/marvell_phy.h>
->  #include <linux/bitfield.h>
->  #include <linux/of.h>
-> @@ -1902,6 +1904,61 @@ static int marvell_resume(struct phy_device *phydev)
->  	return err;
->  }
->  
-> +/* marvell_wol_suspend_intrs
-> + *
-> + * With WoL enabled the PHY has to stay powered to keep detecting a WoL
-> + * packet, so instead of entering low power mode, mask all interrupt
-> + * sources except the WoL event. On the 88E1318S/88E1510 the interrupt
-> + * mask (MII_M1011_IMASK) is the same register as the Copper Specific
-> + * Interrupt Enable Register (MII_88E1318S_PHY_CSIER), so writing only
-> + * the WoL event enable bit unmask just that event.
-> + */
+> Fixes: cf044e441902 ("ALSA: usb-audio: Update the number of packets properly at receiving")
+> Reported-by: co+8eacd4fa193b1b28@bugs.sh
+> Closes: https://lore.kernel.org/all/22xPn8drvIUtYgVeQnBiNqXuevOTpBAjepLz%40bugs.sh/
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude:claude-opus-5
+> Signed-off-by: Xiang Mei <xmei5@asu.edu>
 
-Please tone down the verbosity of the LLM used, this explanation is
-repeated in lots of introduced comments. The code is explicit enough
-TBH, I don't think these comments add much value.
+Applied now.  Thanks.
 
-Same goes on all function docs added in this patch :/
 
-> +static int marvell_wol_suspend_intrs(struct phy_device *phydev)
-> +{
-> +	int oldpage, ret;
-> +
-> +	oldpage = phy_save_page(phydev);
-> +	if (oldpage < 0)
-> +		return oldpage;
-> +
-> +	ret = marvell_write_page(phydev, MII_MARVELL_COPPER_PAGE);
-> +	if (ret < 0)
-> +		goto out;
-> +
-> +	ret = __phy_write(phydev, MII_88E1318S_PHY_CSIER,
-> +			  MII_88E1318S_PHY_CSIER_WOL_EIE);
-> +out:
-> +	return phy_restore_page(phydev, oldpage, ret);
-> +}
-> +
-> +/* marvell_wol_resume_intrs
-> + *
-> + * marvell_config_intr() rewrites the whole MII_M1011_IMASK register
-> + * (which is MII_88E1318S_PHY_CSIER) with MII_M1011_IMASK_INIT on
-> + * resume, clearing the WoL event interrupt enable bit. Re-arm it if
-> + * WoL is still enabled so a later WoL event keeps waking the system.
-> + */
-> +static int marvell_wol_resume_intrs(struct phy_device *phydev)
-> +{
-> +	int oldpage, ret;
-> +
-> +	if (!phydev->wol_enabled)
-> +		return 0;
-> +
-> +	oldpage = phy_save_page(phydev);
-> +	if (oldpage < 0)
-> +		return oldpage;
-> +
-> +	ret = marvell_write_page(phydev, MII_MARVELL_COPPER_PAGE);
-> +	if (ret < 0)
-> +		goto out;
-> +
-> +	ret = __phy_set_bits(phydev, MII_88E1318S_PHY_CSIER,
-> +			     MII_88E1318S_PHY_CSIER_WOL_EIE);
-> +out:
-> +	return phy_restore_page(phydev, oldpage, ret);
-> +}
-> +
->  /* m88e1510_resume
->   *
->   * The 88e1510 PHY has an erratum where the phy downshift counter is not cleared
-> @@ -1934,9 +1991,25 @@ static int m88e1510_resume(struct phy_device *phydev)
->  
->  		/* downshift enabled, with previous counter value */
->  		err = m88e1011_set_downshift(phydev, cnt);
-> +		if (err < 0)
-> +			return err;
->  	}
->  
-> -	return err;
-> +	return marvell_wol_resume_intrs(phydev);
-> +}
-> +
-> +/* m88e1510_suspend
-> + *
-> + * If WoL is enabled the PHY receiver has to keep running to detect a
-> + * magic packet, so keep it awake and unmask only the WoL event at the
-> + * PHY. Otherwise suspend both the fiber and copper interfaces as usual.
-> + */
-> +static int m88e1510_suspend(struct phy_device *phydev)
-> +{
-> +	if (phydev->wol_enabled)
-> +		return marvell_wol_suspend_intrs(phydev);
-> +
-> +	return marvell_suspend(phydev);
->  }
->  
->  static int marvell_aneg_done(struct phy_device *phydev)
-> @@ -1969,8 +2042,12 @@ static void m88e1318_get_wol(struct phy_device *phydev,
->  static int m88e1318_set_wol(struct phy_device *phydev,
->  			    struct ethtool_wolinfo *wol)
->  {
-> +	struct device *dev = &phydev->mdio.dev;
-> +	bool wol_enable;
->  	int err = 0, oldpage;
->  
-> +	wol_enable = !!(wol->wolopts & (WAKE_MAGIC | WAKE_PHY));
-> +
->  	oldpage = phy_save_page(phydev);
->  	if (oldpage < 0)
->  		goto error;
-> @@ -2075,7 +2152,49 @@ static int m88e1318_set_wol(struct phy_device *phydev,
->  	}
->  
->  error:
-> -	return phy_restore_page(phydev, oldpage, err);
-> +	err = phy_restore_page(phydev, oldpage, err);
-> +	if (err < 0)
-> +		return err;
-> +
-> +	if (device_can_wakeup(dev) && wol_enable != device_may_wakeup(dev)) {
-> +		err = device_set_wakeup_enable(dev, wol_enable);
-> +		if (err < 0) {
-> +			/* Roll back the PHY WoL config if the PM state update failed */
-> +			struct ethtool_wolinfo wol_off = { .wolopts = 0 };
-> +			int rollback_err = m88e1318_set_wol(phydev, &wol_off);
-> +
-> +			if (rollback_err < 0)
-> +				phydev_err(phydev,
-> +					   "Failed to disable WoL after wakeup enable error %d\n",
-> +					   rollback_err);
-> +		}
-> +	}
-
-It's unusual to recurse for error handling. If you need to run some
-parts of this WoL config logic to disable WoL, put that logic in a separate
-helper.
-
-And this can be split into a dedicated patch, as this doesn't seem to be
-related to the issue at stake here ?
-
-Maxime
-
+Takashi
