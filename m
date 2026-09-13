@@ -1,180 +1,140 @@
-Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender5-op-o15.zoho.com (sender5-op-o15.zoho.com [165.173.182.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FBDB37E5CD
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 20:50:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789332626; cv=none; b=XWCLEzDsthMQou6LT3U/6JrB+HcQ4cBZczfPQOojL3YRqpAa+bhNVus+sR4V71cJWLdGa8Mdhxmm/zsm2w+H2HlzwtSSsOZv9vgdfsQ0YY3zJTyfjDNESryfWDBkt8FknmHTwH5qwJg/dNBQcxmjQiapOl6c5n8LHL1j2Jf7jwA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789332626; c=relaxed/simple;
-	bh=cjSdxH7baFihtM/V1AMCnUMKfob28Q3GgdzY21w2Wkw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PwRHLJ5DCiQNDYPCR4+S/OytdClzDbxu9vpLZv1tIGkl4O8OYCCxZUuiy59N/IotSd5Z/AkvOaYMoHD7FIA50Ky8oQXhTZPGV835bkTHGtYmxO6hSbiNpQG5XyTzVH8aejAgngNI6Li+4/Jy1vYlfDOspccZwYO5u+RN1sLv8cQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rgYAjW+p; arc=none smtp.client-ip=74.125.230.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82CCA37E5E9;
+	Sun, 13 Sep 2026 20:50:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789332642; cv=pass; b=LIsYVI1PGybITG0OWtHDAvs6qx2IIzRBBm/TDdX9TJl6qdZWhr+5dJa7pdY/nvIZQmffuiZBH/wDyqMDTQ5jTEpKtGHcjre8+kCXIwlRmWgON5uZ/yORKcjq49dxHUsXsH/OZdEDADyQeeIvvVJqUXnc9Bd3aTfRDMwEZYRxfyw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789332642; c=relaxed/simple;
+	bh=OAoTlJ0e/DOmFNuUR0Q+Dil5JYAx+Ys2tYgVMivrNTs=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Avf4jNSpA7aQIFgiUrVjx4Em4JUgX0dPE0jw7f8HljbKz3OUNR5TgMlTNBoWvHOU2484LdTHN2IOMQgcNGaV/t9ERfaERDpcTqEfTeN7nVrLWstNISrRSiNwy8K09UvMoPdnJPC5fDu/kRVFzCiCVxKuImuoD4lfgUUZ+SXUHCk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe; spf=pass smtp.mailfrom=rong.moe; dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b=lpWg1lfE; arc=pass smtp.client-ip=165.173.182.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rgYAjW+p"
-Received: by mail-qk2-f13.google.com with SMTP id d75a77b69052e-530301ff353so14893741cf.2
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 13:50:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789332624; x=1789937424; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FMTgWivp0e7gelEPDHuWnCELoEKFxvhsWudexAHdLaU=;
-        b=rgYAjW+pVNZoKaN9MRpHGtgEaRWlfwxDn5USyH4j+xgkWLa0f+idy+PW83mktI0fWA
-         F5Z3t21dSe0Gnj/jl/EGeFLS2MccVIMrBWMLYG7gfqpWb+tmc7VToz+nD4ZQA+80Nmag
-         dbgowVCqAaH9m9SDJFluappms85Tc+dkEvL8DoAkFZhl6asn8DicYq2B705p0grGFrvT
-         T2XtnmK2/jTNKXfwB88wr293pUkbnc3Esq0ysyRMh7hK9CVTzhSiikXQpMvbSb6C1BF7
-         VkMqq1l+2UTQvPjd7KiJ42+6aX7IMI31JcYNadwaWmeWlxg8KTGYc/8H/gOOQZQUSMJ4
-         vhAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789332624; x=1789937424;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FMTgWivp0e7gelEPDHuWnCELoEKFxvhsWudexAHdLaU=;
-        b=gOP1y7Xr+3hSPITTRST7tPkzAXtMbti476JkK54cd4WBppfVbYkutC2hq7CBL/fRaT
-         i+7g8h0oDHozaxE/jmPSmBk+86bqYkeHSpptOJHErcMDpeXVgcNJY0AcAbE3P/QnDLym
-         c486TIW/UkiOflydFdYhqySbM7FZJcO2aT0dUSzQoHIKr0T/4C9lCqmvfr3h5nK1SKM7
-         6cjBs0WWZO1foOuOFwJqIJMrqTeYyMKd59jmMgE0kBeMPnfC8yCd9+jldrMKfnYdLkfs
-         F/VA7pJdtJcnu5dfu7VGKC24IewhDcMQ8p7UnQYLqbNM+FDSa5HQp/wfn31KmgJwsqdn
-         Yzww==
-X-Forwarded-Encrypted: i=1; AKwUvBwIixmOd51NnQgjrvv/Prxg3HDS7Adz4VFaR7XaF3z//1fS/N/Vk16Jx6CbGtS5g6wI9eqSdhyVLRKVMaY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mRd80Wq9ikByNESO9D7MEyVZNdRkUqb6KP+WFLqxLwL459MyXT
-	Lx9CgPajtxPRDopcqpx4FK7/LiCjszibnvljJHOvRxf/Ng9uPW1P8VE=
-X-Gm-Gg: AYBFou3N3NVOfLAVIbBA6Szr09ccnXs/rRk1tkBFTpNnqxeh/J6TCCJNgxf0Lue2Q4u
-	JoeYNu6piH52TaTqmWTKmynh48OtHKqzTMhQDiHpg4wcQP+PYuzmL8dxKz0DaQz7vbdf0Uk2k2r
-	gSQ9TjkS9D4c6zmnKo4AUePcrEeSxkYZYl10M58UGyXpFILS2Oxi4kubfZHuLFIahxd2wZdHiDP
-	Qyy8pGKkBgX+irwFzoqq/gBgwfYYxmFhxBFzE8/xL4mERVCXfWii5k61G6AYby3XAa1OaZ6nNnq
-	LgvaE6b8u/CNcqtBUJEEKQE5qLik24/e8ZO59ER2Sq0NF8hxH+0vUDBSul5WqlKfH9HCW3QW+oF
-	VPSdQJXwvcLktq+J1VOyCfzDZm4M/8QQgBWsWEyZBIk86lcAe41vNiv19l5WixSy+IKRiOnJVYX
-	sWyMHlzIojzgxTlAGHUATvNyO6ew5owHxW7s1xqAt/SsxJtT7E7f4olxbdFo2bFzOSWe/MvDQSv
-	UqRn1iNc+tSOIpUClWnlVyXEgEQX61JHmh7IBNYcpNa5gPByCS0gzi0kOPoV/jxl3UbVSQqg0W+
-	RJj1Ar4xM5BoGMigfSTdVPTcLBXESg1P6w==
-X-Received: by 2002:a05:622a:1355:b0:530:ba79:edd3 with SMTP id d75a77b69052e-530e832fe99mr121931421cf.62.1789332624296;
-        Sun, 13 Sep 2026 13:50:24 -0700 (PDT)
-Received: from localhost.localdomain ([104.39.73.78])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-530ca4ba156sm79460671cf.19.2026.09.13.13.50.22
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 13 Sep 2026 13:50:22 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Lee Jones <lee@kernel.org>
-Cc: Aaro Koskinen <aaro.koskinen@iki.fi>,
-	Andreas Kemnade <andreas@kemnade.info>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Roger Quadros <rogerq@kernel.org>,
-	Tony Lindgren <tony@atomide.com>,
-	linux-omap@vger.kernel.org,
-	mfd@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH] mfd: twl-core: unregister the auxiliary platform device on unbind
-Date: Sun, 13 Sep 2026 16:50:12 -0400
-Message-ID: <20260913205013.54777-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b="lpWg1lfE"
+ARC-Seal: i=1; a=rsa-sha256; t=1789332630; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=F0Ax5rBUVKXys3pFtc0NHqxBi0ozscDo6c2t/67X13GUiVJeOVkx7pfikHbalpd9K8tcgZamGRL3cVV3L5bKvzYUxRi0SDm5Xh44MQS1qfdKMoZK74USJrFbFdyaraFFsZBxdgJpw2ZB6Q6wsW8mclDCycU+airHYSp4+3Pf4bI=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1789332630; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=9fotXMfI0cS4OmWaKcl7eY1y8qx1kOWgz+wfFQG4e3A=; 
+	b=W+jtMiUFrKjsqhjAlOBzJcezRkWD+5yr6zreFE8D5w31s6K/INNVxSFCb4SQrgNEzaIDdSV3O71JrN8YoXmlYcmTjDDuOU3Fk36+TQuJ89XJA3+a5Pdeh93eV/yqgT8Bo/UgpZ11QeVj5XrAf/lvW99ZYXf5iwGKc/gxYgVm2Vs=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=rong.moe;
+	spf=pass  smtp.mailfrom=i@rong.moe;
+	dmarc=pass header.from=<i@rong.moe>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789332630;
+	s=zmail2048; d=rong.moe; i=i@rong.moe;
+	h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
+	bh=9fotXMfI0cS4OmWaKcl7eY1y8qx1kOWgz+wfFQG4e3A=;
+	b=lpWg1lfEQKgncVS2v7D8b9As6SuoUj6fRDTKTH0/GUsACeO8sqh32riSaafdwl/d
+	pLmR08iDJp82bBFqhqI52AJTY310p/2U699Qh9d96rUvTplpyIzSW6jhifIqEeAJYTk
+	dShb4mgkEVVPIUQ0p36+dG5lsSxLjD8rfk+XxUmDqMmbikMQH3LxNDzZp1jdJCSIh0y
+	sZ4Y4qX8V4xNnAMWgGJHFiffLmm+enk1QYZbmBRTgVBsx7sXzfioDZCFilKNrY7EFsc
+	A4Ph4Frl/uoO431PUiX/QNcgMu/nyLmgdgBDCtZlOq5Bm9h5vFL2NBdu50+lHK/VCgA
+	b4TTrBdVkg==
+Received: by smtp.zohomail.com with SMTPS id 1789332628830702.6404180281911;
+	Sun, 13 Sep 2026 13:50:28 -0700 (PDT)
+From: Rong Zhang <i@rong.moe>
+Subject: [PATCH 0/9] platform/x86: lenovo-wmi-{other,capdata,helpers}:
+ Improve robustness on buggy firmware
+Date: Mon, 14 Sep 2026 04:50:21 +0800
+Message-Id: <20260914-lwmi-wmi-new-api-v1-0-7a400f2f69f8@rong.moe>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8pURTA5NESyNL3Zzy3ExdEM5LLddNLMjUTTM1NjFJMbFItDBLVAJqKyhKTcusABs
+ ZHQvhF5cmZaUml4DMUaqtBQDC+J+cdAAAAA==
+X-Change-ID: a504a929-lwmi-wmi-new-api-f5344d48a86a
+To: Mark Pearson <mpearson-lenovo@squebb.ca>, 
+ "Derek J. Clark" <derekjohn.clark@gmail.com>, 
+ Hans de Goede <hansg@kernel.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Armin Wolf <W_Armin@gmx.de>
+Cc: Charles <hanker007@gmail.com>, platform-driver-x86@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Rong Zhang <i@rong.moe>
+X-Mailer: b4 0.17-dev-1f2f7
+X-ZohoMailClient: External
 
-twl_probe() registers a standalone platform device named "twl", but keeps
-its pointer only in a local variable. Probe errors unregister the device,
-while successful probe leaves no way for twl_remove() to release it. The
-platform device therefore remains registered after the I2C driver unbinds.
+Some devices do not support LENOVO_CAPABILITY_DATA_01 and define the
+query method as a stub that returns zero buffer. Unfortunately, some
+devices do not implement the stub properly, causing WMI errors
+(including ACPI errors).
 
-Register a managed action on the I2C device immediately after adding the
-platform device. This unregisters it on probe failure and driver unbind,
-and also handles failure to register the action itself. Remove the manual
-error-path unregister to avoid releasing the device twice.
+The current lenovo-wmi-* implementation enforces the binding between
+LENOVO_CAPABILITY_DATA_00+01 and LENOVO_OTHER_MODE because of a
+limitation of the device component framework. When the capdata device
+bailing out due to a WMI error, lenovo-wmi-other becomes unbound and
+unable to provide firmware-attributes or hwmon device for the other
+functional capdata device.
 
-This issue was identified during our ongoing static-analysis research while
-reviewing kernel code.
+Therefore, WMI errors must be non-fatal in order not to break the
+assumptions made by the device component famrework.
 
-Fixes: defa6be1c821 ("mfd: Fix compile for twl-core.c by removing cpu_is_omap usage")
-Cc: stable@vger.kernel.org
-Assisted-by: OpenAI:GPT-5.6
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+Poison the capdata device by releasing the capability data list in this
+case. After that, NULL list will be passed to lenovo-wmi-other on bind.
+The latter will provide whatever is available, or unbind the components
+if nothing is available.
+
+A poisoned capdata device releases or skips allocating most resources,
+e.g., the capability data list and the debugfs directory. The device
+itself is only used to satisfy the component dependency of lenovo-wmi-
+other and coordinate with the latter about the absence of the capability
+data.
+
+Meanwhile, for devices that properly stubs the WMI query method (but
+still declares >0 instances), keeping the capability data list with
+empty data is meaningless and causes lenovo-wmi-other to call
+lwmi_cd*_get_data() to retrieve nonexistent capdata in vain. These
+capdata devices are poisoned as well to save resources.
+
+In order to release or skip allocating most resources for poisoned
+devices, some preparatory work is done in prior. With the preparatory
+work, it also skips allocating most resources for the WMI devices that
+declare 0 instance.
+
+The new WMI API is also adopted to conform to the behavior of the
+Windows WMI-ACPI driver and improve robustness on various WMI ACPI
+method implementation.
+
+Finally, add myself as a LENOVO drivers maintainer as previously
+suggested by Derek.
+
+Reported-by: Charles <hanker007@gmail.com>
+Link: https://msgid.link/CAKtz0s8UYRQYW_0bh=0TMx47Axm-W-muEay-r3rqUBS1NHMPVw@mail.gmail.com/
+Suggested-by: Derek J. Clark <derekjohn.clark@gmail.com>
+Link: https://msgid.link/782FE636-A06A-4E12-9563-786374805947@gmail.com
+Signed-off-by: Rong Zhang <i@rong.moe>
 ---
- drivers/mfd/twl-core.c | 23 +++++++++++++++--------
- 1 file changed, 15 insertions(+), 8 deletions(-)
+Rong Zhang (9):
+      platform/x86: lenovo-wmi-capdata: Only allocate sub-master info when necessary
+      platform/x86: lenovo-wmi-capdata: Store a pointer to component info
+      platform/x86: lenovo-wmi-capdata: Defer mutex initialization
+      platform/x86: lenovo-wmi-{capdata,other}: Only allocate capdata list when necessary
+      platform/x86: lenovo-wmi-capdata: Adopt new WMI API
+      platform/x86: lenovo-wmi-capdata: Register component even on WMI error
+      platform/x86: lenovo-wmi-capdata: Detect stubbed capdata device
+      platform/x86: lenovo-wmi-helpers: Adopt new WMI API
+      platform/x86: Add myself as LENOVO drivers maintainer
 
-diff --git a/drivers/mfd/twl-core.c b/drivers/mfd/twl-core.c
-index c024a28b0..128cd3f6c 100644
---- a/drivers/mfd/twl-core.c
-+++ b/drivers/mfd/twl-core.c
-@@ -719,6 +719,11 @@ static const struct mfd_cell twl6032_cells[] = {
- 	{ .name = "twl6032-clk" },
- };
- 
-+static void twl_unregister_device(void *data)
-+{
-+	platform_device_unregister(data);
-+}
-+
- /* NOTE: This driver only handles a single twl4030/tps659x0 chip */
- static int
- twl_probe(struct i2c_client *client)
-@@ -754,17 +759,22 @@ twl_probe(struct i2c_client *client)
- 		return status;
- 	}
- 
-+	status = devm_add_action_or_reset(&client->dev, twl_unregister_device,
-+					  pdev);
-+	if (status)
-+		return status;
-+
- 	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C)) {
- 		dev_dbg(&client->dev, "can't talk I2C?\n");
- 		status = -EIO;
--		goto free;
-+		goto out;
- 	}
- 
- 	twl_priv = devm_kzalloc(&client->dev, sizeof(struct twl_private),
- 				GFP_KERNEL);
- 	if (!twl_priv) {
- 		status = -ENOMEM;
--		goto free;
-+		goto out;
- 	}
- 
- 	if ((id->driver_data) & TWL6030_CLASS) {
-@@ -784,7 +794,7 @@ twl_probe(struct i2c_client *client)
- 					 GFP_KERNEL);
- 	if (!twl_priv->twl_modules) {
- 		status = -ENOMEM;
--		goto free;
-+		goto out;
- 	}
- 
- 	for (i = 0; i < num_slaves; i++) {
-@@ -880,7 +890,7 @@ twl_probe(struct i2c_client *client)
- 		status = devm_mfd_add_devices(&client->dev, PLATFORM_DEVID_NONE,
- 					      cells, num_cells, NULL, 0, NULL);
- 		if (status < 0)
--			goto free;
-+			goto out;
- 
- 		if (of_device_is_system_power_controller(node)) {
- 			if (!pm_power_off)
-@@ -896,10 +906,7 @@ twl_probe(struct i2c_client *client)
- fail:
- 	if (status < 0)
- 		twl_remove(client);
--free:
--	if (status < 0)
--		platform_device_unregister(pdev);
--
-+out:
- 	return status;
- }
- 
--- 
-2.39.5
+ MAINTAINERS                               |   1 +
+ drivers/platform/x86/lenovo/wmi-capdata.c | 369 +++++++++++++++++++++---------
+ drivers/platform/x86/lenovo/wmi-helpers.c |  61 ++---
+ drivers/platform/x86/lenovo/wmi-other.c   |  11 +-
+ 4 files changed, 290 insertions(+), 152 deletions(-)
+---
+base-commit: 22098763a10d9c1340827fcf6edab66f153b27f0
+change-id: a504a929-lwmi-wmi-new-api-f5344d48a86a
+
+Thanks,
+Rong
+
