@@ -1,72 +1,169 @@
-Received: from dvalin.narfation.org (dvalin.narfation.org [213.160.73.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 985392FF672
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 20:40:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.160.73.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1771331E84B
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 20:41:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789332052; cv=none; b=C3dkvwlXbB+sxYrTDWCpW0tcUI60JXv1VeNzZ1Tpwz3ww5fHZeRx5369Tm2s8W4BLRyKyy/x+VE+D/oSlXG6ya71G7Lkc/Wrayi7nuI4lnwl8Qhs6tZzCD8JWfIAgeI5iJXGmzxIojVfKVUlQPXLCOfQI6pRKRgTPjsEnxhIK9M=
+	t=1789332079; cv=none; b=lCzQZPlXNBfSaX56V6XvWZvkFP0plt0AGrMWwvCLLpWoCN32Re1W0JTygbDM+l3mDVVsQ8surOFR/xX8eQ7AoDSUCJLB5B0q44FtzLVTKM2FaZGKf0Q6jy3mv+0pLRVWdwJIVKDSg3t4koCBV4V5iF0QSs0wJdD3Zf6o2StzfFo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789332052; c=relaxed/simple;
-	bh=9foP9rHIso+yrh+AnWJbgJEpeUKiqbmmhaOFdx2M8Rk=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=fsfCZ0RsU8wNqK5kNWJyOPRhpr6u/ZpWyjGxLIm7Y2DFsyx5+vqL728kvpJeJ1Cct+hRJ+WKi2Exo/Hjfe0qFJAQowK9cVgXwTi1FxcRfZQRrP7xoOosocRJay92H8xCFP+9U79BXQukXVPDRVyUf8BTs2hren5aR8QtNhdMUCI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org; spf=pass smtp.mailfrom=narfation.org; dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b=nL6S+nb+; arc=none smtp.client-ip=213.160.73.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narfation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narfation.org
+	s=arc-20240116; t=1789332079; c=relaxed/simple;
+	bh=iKlS5rdEb+K1g+xyBv39aa4hkcRyjb3P19zjf0ocvlw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=D9tldEWRxyYaJdZzwEd5TKy5AqWweJqt3nyocBBTTwa1JuyEm8Pt9ighc8h9cx7aSQqWXZDv29W79hc4zdy/pR9Bz/8LK/9WNisc3f4A+S/bMw5v2dypqphLOzd0F71FwTcClwjyxYwjY0wTqaTyNJFZ9XrtHM+V4A2YnYhvCZ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cLtbhiYk; arc=none smtp.client-ip=209.85.219.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=narfation.org header.i=@narfation.org header.b="nL6S+nb+"
-Received: by dvalin.narfation.org (Postfix) id A1A7320494;
-	Sun, 13 Sep 2026 20:40:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=narfation.org;
-	s=20121; t=1789332042;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zOivew53lYQimag25k053P+EGewrJVVN5pwPAic17W8=;
-	b=nL6S+nb+fUmyRyHdw8cG7JrsO+RGb5a3Cu7uTS8aHwKBfFQUhD1i4AtRSWLvNQuuy4V5mw
-	qv1l4O52+WvpRITmboURKy3xjNFeR8ozogKCMqmq7Feya5+AeN2P2uzlyzUV+CjY+xyU47
-	w3MyOBLu+IjV0xPHVHlrch1iOTrkH9g=
-From: Sven Eckelmann <sven@narfation.org>
-To: marek.lindner@mailbox.org, sw@simonwunderlich.de, antonio@mandelbit.com, 
- Deepanshu Kartikey <kartikey406@gmail.com>
-Cc: b.a.t.m.a.n@lists.open-mesh.org, linux-kernel@vger.kernel.org, 
- syzbot+a079f084653164a652d1@syzkaller.appspotmail.com
-In-Reply-To: <20260913031906.14809-1-kartikey406@gmail.com>
-References: <20260913031906.14809-1-kartikey406@gmail.com>
-Subject: Re: [PATCH] batman-adv: avoid WARN_ON for orig_ifinfo allocation
- failure
-Message-Id: <178933202450.57204.5532409907448313172.b4-ty@b4>
-Date: Sun, 13 Sep 2026 22:40:24 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cLtbhiYk"
+Received: by mail-qv1-f48.google.com with SMTP id 6a1803df08f44-9120eda2195so28613016d6.1
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 13:41:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789332077; x=1789936877; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+CNpe8/W4LNtmYoGjyzLBCqquLi4Tz0KDmEKn8Ugoaw=;
+        b=cLtbhiYky5zh7WwC0yVMxqQNxjTTDzjQ29CCFR+XunrI4kO+UVXvOeMH/+460FF9SC
+         snuckyNZ8fWInezdOOQ/GUuvY0YxQ2e3G0ra24V4cmYtBExAi40D9/yPkrPZ+UjWJQW1
+         dXb7clrR92Zt8m40rIitfW3r9hH1zNH6QPAOM1pmHy8dCKu7oDBprXSfgaDtWn74ijQy
+         Vuh7xnpCCSUH8DN4R/p/TuqVlzY6ZImf87tksin0i+SapHU5UaOJpp7YX6I7Mvji9WOJ
+         C0Owjuul95OoWSLL5WZVWK1/6FfJcg+9xrEHTADlFrles/l0ZhP32dOyV8sWwc26fOuY
+         xnDg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789332077; x=1789936877;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+CNpe8/W4LNtmYoGjyzLBCqquLi4Tz0KDmEKn8Ugoaw=;
+        b=Cx7EbeWQ22R3VKZImqyNLRpsAi5+qwrPsDkn/vDy0fFnUk+4uXvnDs3iHVHJQavxa/
+         mLGhJtAm8BfAaK8Bhx/rZA99JtIhazOYtFNHwxq47FzYW6s4+GlJ9FrY6OoiMxWqXioA
+         qwzdoSDyJu4cF8EDRedyE0juhWSaEby1BHAqopjqw5aTgFx0VL1Eg2niW2+EQBJHxIoG
+         XwlpN2Iq4md0XGAvnzazzxgEdf94/TjcU8krsa3qn7OrSisSuUJYC9cV12SAa09jsA9D
+         M2E3AuaHIAJuz328KrYwcNQNb9RYd5IqwOw3pBKhFubXRukSufdWAZJqKf6PmS7dVBll
+         tUFw==
+X-Forwarded-Encrypted: i=1; AKwUvBz1WCRrKUUXYXTBstCpoFtJE7YGtNpiFhKOjEH4w0cwbfKyPz31UpPzklGCDbFmUSejjoAuLxodN6tfkAM=@vger.kernel.org
+X-Gm-Message-State: AFuF++mEWYR5O8G1cRqjFczQlYhjEKB13ZRrTkxRLdtuOi8ikDVgoHwC
+	BPHnIMHKt9BV3eqwNYj8cydSOKPobuElg5eOwCalLnqnIG/McNsBDig=
+X-Gm-Gg: AYBFou1COc62/NVbFhVofq3fUr3sdmbKtApasicSn8x4xhbyV/zWIOE+3w6Fcqmui7C
+	Kd1P/ofxCtt6zmG6CZ4vmlRPze27W+W5IC5aoJIt0ux5i+CmfoX87fGBCHuDqC5mESPrHRAJnYI
+	4cz1yqz/u32b9ln3ZHeVv+KY1DWy21WGgPGuJ8MCg0UHDH8kg/I5aXVL4qsstPyelaDXqzSCKS1
+	gypsHbAtUb2IIv744caFiVmDEJXiSGNo7QCV+fArepUUt/ciYJNgiUPAnzFIK++ixnmF5BaxllZ
+	SHk/VtYO/SfivoaVC4MU+ziq8FIIKj3GiHCB0ulT7aPmDown3YvA7izSP3iJrLpLE5ynKecs0do
+	BHHglA8BGCd7usDAAgmzAX5mQtoBnKqzRdQsA/QV2FKcBtxgocPAodyi9ETQwGSPM/FnxHhQLLS
+	IJMDML3lTzPjxozo+zWTDf1Cz6Mf+6D2afTxk63qERkBcv4yvD4s9SbZrmwOzsvTrKFy/vpoAFV
+	JZiNEOKu8gE0H5mKmqwEGKhlrUtClr2WMAZ0MPjq+L1LhOFpacmRkQ6jAXzU8MC8mzqghXYcY48
+	PZDpSmNPR8xjqgVRVf5gQlKMw4X8YWPqmEE=
+X-Received: by 2002:ad4:5c85:0:b0:910:3923:cc6d with SMTP id 6a1803df08f44-91226bba65cmr48657356d6.22.1789332076955;
+        Sun, 13 Sep 2026 13:41:16 -0700 (PDT)
+Received: from localhost.localdomain ([104.39.73.78])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f478bf1sm78134706d6.25.2026.09.13.13.41.14
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 13 Sep 2026 13:41:15 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: Dominik Brodowski <linux@dominikbrodowski.net>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Simon Horman <horms@kernel.org>,
+	Myeonghun Pak <mhun512@gmail.com>,
+	Ijae Kim <ae878000@gmail.com>
+Subject: [PATCH net-next v3] net: 8390: pcnet_cs: release PCMCIA window on setup_shmem_window() error
+Date: Sun, 13 Sep 2026 16:41:04 -0400
+Message-ID: <20260913204104.53408-1-mhun512@gmail.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=331; i=sven@narfation.org;
- h=from:subject:message-id; bh=eYsNVsNB9+bsKCx0GV0fy9SH21fqFrQU7cvFVnwiqy0=;
- b=owGbwMvMwCXmy1+ufVnk62nG02pJDFnLuVx49/Md39MUp7360LFf0r1CMqaes+8U7GYVWfftR
- a63c8f+jlIWBjEuBlkxRZY9V/LPb2Z/K/952sejMHNYmUCGMHBxCsBEMpcwMqxa8nKrmbxMiFHT
- /hmBfqGV59dkS263uGGe1vClUzLXlYXhD0+nkuKO7gqfmAtzGk1tuHa1nH0d92+SyOlMu8rfM5Z
- WcgIA
-X-Developer-Key: i=sven@narfation.org; a=openpgp;
- fpr=522D7163831C73A635D12FE5EC371482956781AF
+Content-Transfer-Encoding: 8bit
 
+setup_shmem_window() acquires a PCMCIA memory window using
+pcmcia_request_window(). If pcmcia_map_mem_page() or the subsequent
+ioremap() fails, the function returns without releasing the requested
+window.
 
-On Sun, 13 Sep 2026 08:49:06 +0530, Deepanshu Kartikey wrote:
-> batman-adv: avoid WARN_ON for orig_ifinfo allocation failure
+pcnet_config() treats shared-memory setup failure as non-fatal and falls
+back to setup_dma_config(). Probe can therefore continue while socket
+window 3 and its reserved iomem range remain unnecessarily held for the
+rest of the bound lifetime of the device. pcmcia_disable_device()
+eventually releases the window during teardown.
 
-Applied, thanks!
+Route error paths after a successful request through a new release label
+that calls pcmcia_release_window(). Fold the existing buffer-verification
+cleanup into the same path, keeping iounmap() before the window release
+when a mapping exists. Leave the request failure path unchanged.
 
-[1/1] batman-adv: avoid WARN_ON for orig_ifinfo allocation failure
-      https://git.open-mesh.org/batadv/c/abfe281aeab4
+This issue was identified during our ongoing static-analysis research while
+reviewing kernel code.
 
-Best regards,
+Assisted-by: OpenAI:GPT-5.6
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+Reviewed-by: Simon Horman <horms@kernel.org>
+---
+Changes in v3:
+- Drop Fixes and stable Cc as suggested by Simon Horman.
+- Add Simon Horman's Reviewed-by tag.
+
+Link: https://lore.kernel.org/netdev/20260910231400.31919-1-mhun512@gmail.com/
+
+Changes in v2:
+- Clarify that the window remains reserved only until device teardown.
+- Make the DMA fallback and continued probe description conditional.
+- Avoid claiming that every request failure leaves no resource held.
+- Restore the surrounding indentation for the new goto statements.
+
+Link: https://lore.kernel.org/netdev/20260731161740.44955-1-mhun512@gmail.com/
+---
+ drivers/net/ethernet/8390/pcnet_cs.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/net/ethernet/8390/pcnet_cs.c b/drivers/net/ethernet/8390/pcnet_cs.c
+index 19f9c5db3..0cf3c0f3c 100644
+--- a/drivers/net/ethernet/8390/pcnet_cs.c
++++ b/drivers/net/ethernet/8390/pcnet_cs.c
+@@ -1434,14 +1434,14 @@ static int setup_shmem_window(struct pcmcia_device *link, int start_pg,
+     offset -= offset % window_size;
+     ret = pcmcia_map_mem_page(link, link->resource[3], offset);
+     if (ret)
+-	    goto failed;
++	    goto release;
+ 
+     /* Try scribbling on the buffer */
+     info->base = ioremap(link->resource[3]->start,
+ 			resource_size(link->resource[3]));
+     if (unlikely(!info->base)) {
+ 	    ret = -ENOMEM;
+-	    goto failed;
++	    goto release;
+     }
+ 
+     for (i = 0; i < (TX_PAGES<<8); i += 2)
+@@ -1452,9 +1452,8 @@ static int setup_shmem_window(struct pcmcia_device *link, int start_pg,
+     pcnet_reset_8390(dev);
+     if (i != (TX_PAGES<<8)) {
+ 	iounmap(info->base);
+-	pcmcia_release_window(link, link->resource[3]);
+ 	info->base = NULL;
+-	goto failed;
++	goto release;
+     }
+ 
+     ei_status.mem = info->base + offset;
+@@ -1475,6 +1474,8 @@ static int setup_shmem_window(struct pcmcia_device *link, int start_pg,
+     info->flags |= USE_SHMEM;
+     return 0;
+ 
++release:
++	pcmcia_release_window(link, link->resource[3]);
+ failed:
+     return 1;
+ }
 -- 
-Sven Eckelmann <sven@narfation.org>
-
+2.47.1
