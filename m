@@ -1,192 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fout-b3-smtp.messagingengine.com (fout-b3-smtp.messagingengine.com [202.12.124.146])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D72C381AE2;
-	Sun, 13 Sep 2026 17:21:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A56F036998A;
+	Sun, 13 Sep 2026 17:21:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789320087; cv=none; b=lUm9Gw29IQCs58Rd6GslTLjr8J53/I0Nbl3suWHeiLVxgrUBAoq78XXhVWgvR/QtfcKuZPjJQDKBKqgpDif3VbP/Kc0VLewBxcPJUNSt4m2cHQ0+eysrqfo6Hc9MEc0GOceZmTyuhnVl2OpwmU+/yVfxjvjtpIi+3ws/5wRrKSw=
+	t=1789320101; cv=none; b=RU0eKN5BvtftGM6o1cIRwX/Hi669XBdV1dVjrDdBs6XKu91cXcrmZrraqjYkUzA1GWPT1KiioioNa8WWO0IACnCQ2dW5U+ImDFsMX18piyuIyj7GuAdPI03Bdtfwc6O+ANoYct2w94WfD5E6+WHWTf+uOoP9PQoy+lmCiWewQAs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789320087; c=relaxed/simple;
-	bh=ibsyCQUx5JJPZjKjymm6etyfq6eZ+zNFfvVnk0Szs+4=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=bm+EfAWf2noTzEYzeK3/mnLvAT/rxKkfbniylnJ3KZC8Tq5p0mb0kJzAsWd4cHFq0OE4NTOxZfFx/mgwk/B2dqUmm77ES+24vrLIiyl1EM+v8pp84BCbsdAlx4rEY8DHoBfLdESXBwF6DHZIdanG+IutFbitoLrgwn7s4AQPVAA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=io2G0+3f; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789320101; c=relaxed/simple;
+	bh=9HtwBV3HnwCxn/Qf8Px3hIWck2pVOB4dC7tfkLsWUHg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=uuT3R5S3mc76AnvnjoP5465VBhN2cUybdUFl0u0DJjNOUV7YKC0g+Af4Bv/hanDOXC/QvmUrYFZvNliNWn6+r5k4L2/ly4ApxY019PpcNknMiPLBdIX76q3aerxIIrVnzXkeEVYkgWB+KHwNV2NvmZE7hMqREOm1wifn5n/jcjY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=WmMlGfnN; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=A1OkUX8n; arc=none smtp.client-ip=202.12.124.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="io2G0+3f"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D46D41F000FF;
-	Sun, 13 Sep 2026 17:21:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789320083;
-	bh=/AQhHGpDS3GlYnXDOLzqUJHUjBnTWicJ4ANeSkeCGBw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=io2G0+3fMSguheHjoA/bAKYKo43btvSOkzeOMvLWXKjC2PM1PzK+NS/lQJFkRfyg8
-	 RuMhIKKAMiUTV3b3MDu4vXaUsKDp7IXHepdGwssICBXh47qRgAMdo00/tZY3npFDPt
-	 tgaUOxBbvMtnbd9DL1hBDxVsGPTOJKNxb/EXxoilnStUeC3G2N5vem6NGgBwwCDnpG
-	 Mua6Lye29ynXdkyUqjuxFZqyHduAL5Aj71qzbwYvg95YYlU4D35K04lc54qYe0ue9p
-	 T7Cn7z8RJha9I0frkSaAs10vQ3siD4e4Oyw00JbkkeTOF36Tq41OKt88vS5vElpbz+
-	 Kjol6hd8qHvvw==
-Date: Sun, 13 Sep 2026 18:21:20 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: srinivas pandruvada <srinivas.pandruvada@linux.intel.com>
-Cc: Yibo Tan <lhfff@tju.edu.cn>, Jiri Kosina <jikos@kernel.org>, Benjamin
- Tissoires <bentiss@kernel.org>, Andy Shevchenko
- <andriy.shevchenko@intel.com>, Zhang Lixu	 <lixu.zhang@intel.com>,
- linux-input@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] HID: sensor-hub: Fail unfinished multi-value reads
- on removal
-Message-ID: <20260913182120.01bac5c3@jic23-hlaptop>
-In-Reply-To: <5b28a9e82b8f3d4458b678505ef7063525ce1141.camel@linux.intel.com>
-References: <20260913045411.5e2f5b25@jic23-hlaptop>
-	<20260913072910.1944300-1-lhfff@tju.edu.cn>
-	<5b28a9e82b8f3d4458b678505ef7063525ce1141.camel@linux.intel.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="WmMlGfnN";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="A1OkUX8n"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfout.stl.internal (Postfix) with ESMTP id 55DF51D0005A;
+	Sun, 13 Sep 2026 13:21:38 -0400 (EDT)
+Received: from phl-frontend-02 ([10.202.2.161])
+  by phl-compute-04.internal (MEProxy); Sun, 13 Sep 2026 13:21:38 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1789320098;
+	 x=1789406498; bh=TO9UayksEEuo4YhH0WxyJHcYITEpfQTBzFu//ymT7fg=; b=
+	WmMlGfnN0cOysNeR9OKGHhroxsqNhWLB3J8saLxfwBEU5RkZuEEWLqoif8j+Beji
+	ZZIv6sq19pQjLZ7uz3hP/iv7fnnOHOgGrpbazhd8eS/valf3qaGSJSNI3F3Y6j5y
+	0FlJfemx8gVdSNQC3sMsSlcSwp8QpGP0w0RuVK25/WZquwV6loDytFYRXQd07YWR
+	QQf8o3SHZ39X4V6VLPyEZfUxAZHc84f2JUa4/hfVjx6tWiG4BfpilV1U1cLiBUNm
+	UkRQtdXNukWqTfg1J7rcdY7aOGo4LEAvVNNgB5hzEfFZ4FdqYh86q1Wm7wCVY+Sl
+	zA2Nj9NQRcOVc3CbOmdqzw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789320098; x=
+	1789406498; bh=TO9UayksEEuo4YhH0WxyJHcYITEpfQTBzFu//ymT7fg=; b=A
+	1OkUX8nTB+fjCMmjRnQb2JX+8a3T9Jl4bvtcznUP18+mc65TNmf3wdN9ZlonNnpy
+	iW65cgahoYwDjuCPczlpVNAQ+ELVcdYni+sz0/UZcRWvWyc9m7fEaybQk8luTFCW
+	C3Cstw0hLvogg7rCyeo7mawD+wSFUSVJvznTFNXqObci1C9GBCN3doPW9Bj7ajq+
+	+hNrmD5ao2FMe1Dr7bdqw4JnbkLtqQo7SlhwPSvilDWjqr6AR2d3quTl+9tMTRCV
+	N6s15MjlNUcat6upy+XhL/kkwRo+TmhQrvEhWBTd/WFG2sdGp0RXDw2Z2i0a2Zl2
+	/j5ACrtSgDBQ6OYkAqXsw==
+X-ME-Sender: <xms:oNumah82HKK6w-jEsFwXiwXU7rXCnZNvIbZPB04RMiBKw1lNHVRRlg>
+    <xme:oNumahk0OgFSPDUxalmzM8uO42wZKcTGmToxX0bq-1RN6cG27q2DJVRwgbYoRdd6b
+    BxfiZm-oJ9EIq7yTNG3XE3qKSHkBY15ZoSmoJSuCJ3JFa4VGMsp8gtJ>
+X-ME-Received: <xmr:oNumaqiLto6SSsuyO-qgb1mAV8dnQZ8kwXz5N9ebQkJaXc6HTMQR_K1TsZ7-CiKO73WOWg-6l89C7pP1NoHqRVf0Ixq-NUST>
+X-ME-Proxy-Cause: dmFkZTG1P5L/qc8Ww8ObqIaRahkcjWAlSIQoDJh1N1/amAGyEVrpLILRnaS54SDZVVPZtG
+    PZ/eQUJ8O3QqqdvY4u8Ex05dZie4MFfBhB3zMYb9cpq9xs5xkdHnmpoMPnrjkf3IgPG/Tl
+    k49S+eDqB4X1nxpgVn2JwpX438YTl3fQS6FP8p3ExegP5KzX3s/pfZyAxC5r7ScnnmYrYz
+    Q5JM56SSTMTV+d1t1zvEYSFt+99GICuRv2/Mclm5t/eR7xS7+dm7Zf2XxA3rKWNVnJs6Fp
+    4lZdoblR6OJSSV/3unzZaRrqrcE0cUrqauGM37hCnKINnH1fvmGjjEXz3uNejFinS4caHp
+    et3i9fdS/WjtRlWo1dcbfS+mtHcVlMOrLyAzIz/gzS8z8ujNJrY1ni3J4MGXVWJvPOtNJj
+    h29Ee6qaS8WZZ9qIrv032j2GbotBeOZU9F4yVr4GbXBfZKR9AwAK9BmvzM+LACOJv2ZOjF
+    8GTRsX11+1U8vI+cqW9DgpzsbDN01Vdg5DILeEf4Tb8il805B8Yzhr021xm3NteNmk97Mz
+    Kv2qT4lXMD0Yvqv/eXqGjXkLLkPfqtPyF1wEOONBepEUqxX1C64LfE46W9Z1NsQN5GIbw1
+    +oHHttIdAuA5D6bx0nTzNKYXOWlRLiSuUYESC2i5GfJmEEtrhQcDRS8CBl3g
+X-ME-Proxy: <xmx:oNumapZQhYeAReeq1ShLbZhRVP-KtFkUHRuad1mthT-Hyo3Y0gx2cQ>
+    <xmx:oNumauHM3VPJByNhHT8PruCwX9wKSrpN6xDhl6K_A66yxtB3szUKdQ>
+    <xmx:oNumamb4Sblrlm0ny19aXgb5fdhgsMGWPmd7WzoiHgY3RrM3BUtqjQ>
+    <xmx:oNumav2IfNXGTf8IRPANlQ7j8XggmxHPt-g8wzHFpw9-BpLt_U4Sww>
+    <xmx:otumagQOY5LSn7XGZ9drH2fwHbaa3XEBadB18BA-Q0rAkejAJx1knIGJ>
+Feedback-ID: i6289494f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 13 Sep 2026 13:21:34 -0400 (EDT)
+Message-ID: <fcd0319e-02a4-4975-996c-fa74f521814d@pobox.com>
+Date: Sun, 13 Sep 2026 10:21:33 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.18 0000/1518] 6.18.52-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260912065623.398859879@linuxfoundation.org>
+Content-Language: en-US
+From: "Barry K. Nathan" <barryn@pobox.com>
+In-Reply-To: <20260912065623.398859879@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sun, 13 Sep 2026 08:50:35 -0700
-srinivas pandruvada <srinivas.pandruvada@linux.intel.com> wrote:
+On 9/11/26 11:36 PM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.18.52 release.
+> There are 1518 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Mon, 14 Sep 2026 06:54:17 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.52-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-> On Sun, 2026-09-13 at 15:29 +0800, Yibo Tan wrote:
-> > sensor_hub_remove() completes pending reads after stopping the HID
-> > device,
-> > but does not record why they completed.=C2=A0 A successful completion w=
-ait
-> > therefore returns zero even if no complete input report was received.
-> > Multi-value IIO callers then format their untouched automatic buffer
-> > as a
-> > successful result.
-> >=20
-> > With a valid four-element signed 32-bit quaternion report descriptor,
-> > an
-> > unprivileged reader received all 16 bytes of the untouched buffer.=C2=A0
-> > Across
-> > 11 independent KASLR-enabled boots, four reads exposed exact pointers
-> > to
-> > dev_rot_channels or dev_sysfs_ops.=C2=A0 Subtracting the matching link-
-> > time
-> > symbol address recovered the kernel KASLR slide in all four cases.
-> >=20
-> > The reader ran as UID/GID 65534 with no effective capabilities
-> > through the
-> > mode-0644 IIO attribute.=C2=A0 The test used a privileged UHID broker to
-> > create
-> > and remove the provider; it does not demonstrate unprivileged
-> > provider
-> > removal.
-> >=20
-> > Mark a pending request as shut down before completing it from the
-> > removal
-> > path, and return -ENODEV from a multi-value read that observes the
-> > marker
-> > after a successful wait.=C2=A0 Let removal win even if a response raced
-> > with
-> > teardown, since the device is no longer available.
-> >=20
-> > The Root B-only repair returned -ENODEV with no payload or kernel
-> > diagnostic in 3/3 matching signed-32-bit runs.=C2=A0 The source
-> > reproducer,
-> > complete vulnerable and fixed serial logs, result tables, and
-> > checksums are
-> > available in [1].
-> >=20
-> > Link:
-> > https://github.com/kimaiden1984-boop/linux-kernel-poc-collections/tree/=
-main/cases/hid-sensor-quaternion-root-b-kaslr
-> > =C2=A0[1]
-> > Fixes: f784fcea4506 ("HID: sensor-hub: Add
-> > sensor_hub_input_attr_read_values() for multi-byte reads")
-> > Cc: stable@vger.kernel.org
-> > Suggested-by: Jonathan Cameron <jic23@kernel.org>
-> > Assisted-by: LLM
-> > Signed-off-by: Yibo Tan <lhfff@tju.edu.cn> =20
->=20
->=20
-> Acked-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+Tested on 2 different amd64 systems and an arm64 virtual machine.
 
-Applied to the fixes branch of iio.git.
+I'm seeing the same "needs updating" warnings in dmesg that Peter
+Schneider reported on 6.12.110-rc1 and 6.18.52-rc1, but otherwise it's
+working well and I have not observed any other regressions.
 
-It might or might not go upstream before the next merge windows. In practice
-I'm going to assume these devices are typically not hotplugable except in
-dev kits so we are unlikely to see this on production devices unless
-someone manually removes?  That does affect whether to fix it, but only how
-fast we rush it upstream!
+Tested-by: Barry K. Nathan <barryn@pobox.com>
 
-Jonathan
-
->=20
->=20
-> > ---
-> > Changes in v3:
-> > - Replace the raw_size error sentinel with a dedicated teardown flag,
-> > as
-> > =C2=A0 suggested by Jonathan Cameron.
-> > - Let teardown win if it races with a completed response.
-> >=20
-> > v2:
-> > https://lore.kernel.org/r/20260912050257.837340-1-lhfff@tju.edu.cn/
-> >=20
-> > =C2=A0drivers/hid/hid-sensor-hub.c=C2=A0=C2=A0 | 6 +++++-
-> > =C2=A0include/linux/hid-sensor-hub.h | 2 ++
-> > =C2=A02 files changed, 7 insertions(+), 1 deletion(-)
-> >=20
-> > diff --git a/drivers/hid/hid-sensor-hub.c b/drivers/hid/hid-sensor-
-> > hub.c
-> > index 6470a290ebfc..a9bd72218c07 100644
-> > --- a/drivers/hid/hid-sensor-hub.c
-> > +++ b/drivers/hid/hid-sensor-hub.c
-> > @@ -334,6 +334,8 @@ int sensor_hub_input_attr_read_values(struct
-> > hid_sensor_hub_device *hsdev,
-> > =C2=A0			ret =3D -ETIMEDOUT;
-> > =C2=A0		else if (cycles < 0)
-> > =C2=A0			ret =3D cycles;
-> > +		else if (hsdev->pending.shutdown)
-> > +			ret =3D -ENODEV;
-> > =C2=A0
-> > =C2=A0		hsdev->pending.status =3D false;
-> > =C2=A0	}
-> > @@ -805,8 +807,10 @@ static int sensor_hub_finalize_pending_fn(struct
-> > device *dev, void *data)
-> > =C2=A0{
-> > =C2=A0	struct hid_sensor_hub_device *hsdev =3D dev->platform_data;
-> > =C2=A0
-> > -	if (hsdev->pending.status)
-> > +	if (hsdev->pending.status) {
-> > +		hsdev->pending.shutdown =3D true;
-> > =C2=A0		complete(&hsdev->pending.ready);
-> > +	}
-> > =C2=A0
-> > =C2=A0	return 0;
-> > =C2=A0}
-> > diff --git a/include/linux/hid-sensor-hub.h b/include/linux/hid-
-> > sensor-hub.h
-> > index ab5cc8db3fbb..5aecf4474183 100644
-> > --- a/include/linux/hid-sensor-hub.h
-> > +++ b/include/linux/hid-sensor-hub.h
-> > @@ -38,6 +38,7 @@ struct hid_sensor_hub_attribute_info {
-> > =C2=A0/**
-> > =C2=A0 * struct sensor_hub_pending - Synchronous read pending informati=
-on
-> > =C2=A0 * @status:		Pending status true/false.
-> > + * @shutdown:		The device is being removed.
-> > =C2=A0 * @ready:		Completion synchronization data.
-> > =C2=A0 * @usage_id:		Usage id for physical device, e.g. gyro
-> > usage id.
-> > =C2=A0 * @attr_usage_id:	Usage Id of a field, e.g. X-axis for a gyro.
-> > @@ -48,6 +49,7 @@ struct hid_sensor_hub_attribute_info {
-> > =C2=A0 */
-> > =C2=A0struct sensor_hub_pending {
-> > =C2=A0	bool status;
-> > +	bool shutdown;
-> > =C2=A0	struct completion ready;
-> > =C2=A0	u32 usage_id;
-> > =C2=A0	u32 attr_usage_id; =20
->=20
-
+-- 
+-Barry K. Nathan  <barryn@pobox.com>
