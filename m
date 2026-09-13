@@ -1,157 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD2A43EF0AA;
-	Sun, 13 Sep 2026 13:44:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E1E2330B14
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 13:44:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789307086; cv=none; b=WQ+ju4xY/LWQ1oauEzxdbwtxy8bEBm7w103DibE+m2+B6hznjTZ8QUYyFYWyYycjZPuMkFFv/1GJ/fGSKgw5G4+BINXvQx4K2ow7jwRW9ZdJuPLvmOIJSNtUsXlezD2qmwFQFheZWqmb73z9uaXBH5lXac1mJ0rdByBp6eDDotI=
+	t=1789307094; cv=none; b=gESNN7dVpLbbkESPh6ZX1oYoFD9WEQWjjnZo2DphRWW1CG2XzgvB9aRHBgbbXMf8xpsizTjSQdIT1QvYRDNhefiUeJIaEjIzuhoSbpqyMXM286V1RgGXk2pgiI7bEmaS8e5ZQfnfAjhbDpwmurTN42uh5zImdC7l3ySsvqHI1KQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789307086; c=relaxed/simple;
-	bh=i2WGeqQH68Q4Ba86qdnwpKbZXbPbJYs0hfODq/KlDsU=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=Iggc+jpt35L5zEIhfzW3lZH4/EaI24FJSKgbYZKP8B3YGZIyGVXy7j23/Cgpnt35BnFAxsM21HlxJlmLU5u5OKlDz+ggmk+XTQF13sFRSTUw3WtO/jOlR+t6rn02TpWSvsN+jVdQeUdM2ydd+l6Vh6WxCTTYZsPnHhNZJzDeE90=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OwtMfMHk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789307094; c=relaxed/simple;
+	bh=5u1iNb3hhaMKq5M3sBr8uvcPMeMiKlIXiJ9KCIHCSJY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BSNHBc603g3Fz6x5SrNb9bsDpF4vgYBdo+G378y1QOzOUq2GNH/OH36vjlpU3YFOm0ufwKO0Sq1qgHzBBhOj596leGmnwsLTDNx8iK41oVD8Q8y0AEXzWwPJdhAMakPdXDxZF8+AacbiWBRWW3DvIcSTgCsdCSiD8srbZtFoWvY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GJ0OE+UA; arc=none smtp.client-ip=209.85.210.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OwtMfMHk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BEEE1F000FF;
-	Sun, 13 Sep 2026 13:44:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789307084;
-	bh=i2WGeqQH68Q4Ba86qdnwpKbZXbPbJYs0hfODq/KlDsU=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=OwtMfMHkaeK8fzy6kMxd7McWxngHxwVyMbJomdrceij5d7CFaOoym9OYvBpu7+KIi
-	 gLA8FFrqhysldQgBcT5sSM6xGSbTsRl5cMjn7VyUGF4AAtlVvYco+L4NY8NQ8QrkFT
-	 TbR2/EBwb9nD+iJYpY5r1fylzLNPjw07Z7yolLH+np68kttOQhls7MwpInQ9VF31W0
-	 NO4n7gkhel3KMjmafMADvEwjHcHuEIgzHd07/LzVBRdvOKZaLQ14PcqZi16BnXNPgn
-	 PpnXSpTg++v5IXhJFafKPDfRM2q8mv/iJ0Jh7W3q5UeaDlibUwtgZwwn7dcis6zPw8
-	 yFCESRSN+1xHg==
-From: Andreas Hindborg <a.hindborg@kernel.org>
-To: Bean Huo <huobean@gmail.com>, Greg KH <gregkh@linuxfoundation.org>,
- jaemyung.lee@samsung.com
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo
- <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6rn?= Roy Baron
- <bjorn3_gh@protonmail.com>, Benno
- Lossin <lossin@kernel.org>, Alice
- Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo
- Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot
- <acourbot@nvidia.com>, Onur =?utf-8?Q?=C3=96zkan?= <work@onurozkan.dev>,
- linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
- linux-block@vger.kernel.org, linux-scsi@vger.kernel.org,
- linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH RFC] drivers/rufs: add Rust UFS host controller driver
-In-Reply-To: <182679ae5437916095a4b04187e350c80235c088.camel@gmail.com>
-References: <20260912-rufs-private-v1-1-716db733e655@samsung.com>
- <YKq4TcQM0v2dXF4wTHEvZKwASII6PDd_R7_UiHWe3NRnR4JsrC_ZS-x6jA_Kl7P6ONehU0REHYk7WaLz8Xv5gA==@protonmail.internalid>
- <2026091124-treason-trickily-bc52@gregkh> <87mrtmvioe.fsf@kernel.org>
- <raUHMVWl_mMP5ffB5hk9eDe5BVvmO01q_9zfZ4NqJ3CymLnRO3EL0_X_K044vKerqwrwXshEVE-o45MXSlGVbw==@protonmail.internalid>
- <182679ae5437916095a4b04187e350c80235c088.camel@gmail.com>
-Date: Sun, 13 Sep 2026 15:44:26 +0200
-Message-ID: <87zexltged.fsf@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GJ0OE+UA"
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-8692be1cda4so1934101b3a.1
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 06:44:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789307093; x=1789911893; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hSYoRdUaLcILeZ/Zm0aWvKlTfSaQSuBQlZD7r76kq7s=;
+        b=GJ0OE+UA9lRo0n3I6zTNdKSZ6FZhG4TNt1vgGSbwXFwATHxkVmASChN9OiccuuJko8
+         8VbVdydD51D9xRpvjf6HxMWze01DjuUij/pXwSZMwa2fMtMwvfbh3aEqZnv8x0B3gGZS
+         JgUpEcFpGpz5qOjIvh0QuKWHryFN7qO0NaV667oCMRtJ22V8S2hDI/FEV4E+/0lMkfOz
+         shYzLc5px5fn/Dp8cxQG4owcFaw/SGAuQHKxqCYDJ9Jnf9vUFQ8b4hzUeuuwxeKqI2XA
+         OTZcXwRVTJ8l4p9oeq9Fn551z1fOF+3FvpeRfZpi8ueBNSIVnKwyDynUufHDoVgA3qaX
+         4ahA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789307093; x=1789911893;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hSYoRdUaLcILeZ/Zm0aWvKlTfSaQSuBQlZD7r76kq7s=;
+        b=EYhqRIv9HrRsSGhuZTZ3gD7Z0eWQj5JRvkFHArFHJHkYwRje0qIxEicKfehjC+jBfP
+         18DWih28LR/V+Pycm1yvX1wELRXnw1ZKI9p/Ij4w2dApOCUEhyJizByAFwqQ5cz7X4zf
+         xqCyYkHeKpEFrIFWfrtUUiVFj8pcEuxY6YS+MO/5QZsXhG7dCrpaYOaCBk2OVwdMIEJk
+         PYT7Tj6zPhL4Xux4cTrip1txeEJiqZJYV7pdNOuCzhpEj9FJxk5zmGm8VxcXvLomCzJa
+         nwpG744CWm39b5CsSkCkYvwRAtA+Fr/oCI8L2Z/2awpj4pfgjAPaBSDCP5434pyPuFBa
+         cXMA==
+X-Forwarded-Encrypted: i=1; AKwUvBwnSwrqp9P+/I6jE4E1q0x0AHCUlIzSPwHGS9YuVZkBhi655zqa5phpcxzVUhpUurAC73bMBPs8OzSkcwI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nuF078Gyui3me40bWD1VU6KXseXqSKFhvK9Ny1RWzdC7vDU8oC
+	5JsY0f02mDUL02WDWckCcCapqiRDRWqSH10cKwQ0ZVmaL3SIVokEqO2f
+X-Gm-Gg: AYBFou1h+1KxBPpzUccdFJDJVvmKnVTVUa3GpjfoyqgRMazrapwd5Zdjgxb3Ej6cjKT
+	+zBVvJvdUXfqYvpPRhj1oRVxNaagjpTbj03xdCa1oz2fxzSFUGb/9b3KqdTFdHfLcRuRmjrlR6w
+	dMpoybuP9/yBrvW9hESAKCAYNM/ovPi1UtUHXw9HHXJ19wFn8qedQgoz8UW+aY5gz3E34pqfo/8
+	1GyaNZ145dfcIgbyZEpDgKlyGi+KqM4AFh8acAGAeU9amLg4uYQBcUkcUCMEmN35UzEhLjTTUoP
+	eGJL59zRKJpkPodsTBeX+WyzpZagGs6nAQ7AJL1XVc6QJT2EuyMw3hEqkQZ35eDXBsYqVWFo6TC
+	yh/5GOx6h5AgAyfIMK6Trx5DJ5q5QHNZMcbzWViZKv25YshYhsu+XLkwC/LQVdLoAcLpINZoLvX
+	VREOkQbfR4w1YLMVqTGlYa08wt/s2VuhSvHjq3Tw/+CXQNHCczTwVyzKXOdopExAqsMeDwDjCx4
+	WiswFcg7L+zLnfC1Q==
+X-Received: by 2002:a05:6a00:1c95:b0:85a:bc69:bfc4 with SMTP id d2e1a72fcca58-86b2c0e9a55mr22954656b3a.0.1789307092765;
+        Sun, 13 Sep 2026 06:44:52 -0700 (PDT)
+Received: from thangnn-ASUS.. ([2405:4802:1d38:5c70:f608:4e94:6df6:c8b4])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b250c019dsm3340944b3a.7.2026.09.13.06.44.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 13 Sep 2026 06:44:52 -0700 (PDT)
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+To: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+Cc: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+19da64013c46df87f971@syzkaller.appspotmail.com
+Subject: [PATCH] ALSA: pcm: set timer->private_data before registering the PCM timer
+Date: Sun, 13 Sep 2026 20:44:46 +0700
+Message-ID: <20260913134446.114724-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-"Bean Huo" <huobean@gmail.com> writes:
+snd_pcm_timer_init() calls snd_device_register() to link the new
+struct snd_timer into the global timer list while it still carries
+hw.c_resolution = snd_pcm_timer_resolution (and hw.start/hw.stop),
+and only afterwards sets timer->private_data = substream.
 
-> On Sat, 2026-09-12 at 13:00 +0200, Andreas Hindborg wrote:
->> "Greg KH" <gregkh@linuxfoundation.org> writes:
->>
->> > On Sat, Sep 12, 2026 at 12:52:55AM +0900, Jaemyung Lee via B4 Relay wrote:
->> > > Comments on the decision to bypass the SCSI midlayer, the blk-mq model
->> > > used
->> > > in its place, and the proposed prerequisite API boundaries would be
->> > > especially welcome.
->> >
->> > Many many years ago, the USB subsystem tried to bypass the SCSI midlayer
->> > for its storage driver, and while it was a "quick solution" at the time,
->> > in the end, it didn't work out and we dropped the driver as it just made
->> > no sense to keep duplicating all of the logic all the time.
->> >
->> > So I wouldn't recommend it, as long as UFS builds on top of the SCSI
->> > commands and the like, you should not attempt to duplicate it in a
->> > separate driver, no matter how much "simpler" it initially seems to be.
->>
->> The scsi related code in this driver is less than 300 lines and is
->> mostly struct packing/unpacking. I guess we could lift the struct
->> definitions from the scsi layer via bindgen. But at 280 lines I am not
->> sure it is worth it, and it hardly counts as duplication.
->
-> I agree the SCSI code in this RFC is small today. But I think it is small
-> because the hard parts are not ready in your RFC yet, not because UFS does not
-> need them.
->
-> The SCSI logic is also not only in protocol/scsi.rs. upiu.rs decodes SAM status,
-> and queue.rs parses sense data and decides retries.
+Once the timer is on the list under register_mutex, a concurrent
+reader can already reach it through the same mutex and invoke these
+callbacks. /proc/asound/timers does this via c_resolution(), and
+snd_timer_open()+snd_timer_start() reach start()/stop() the same way.
+All three dereference timer->private_data, which for this brief
+window is NULL, giving a NULL-pointer dereference:
 
-Yes, you are right. But it is still very minimal bits of logic. I
-definitely want to encapsulate all SCSI logic in a single place now, so
-it is more clear.
+  substream = timer->private_data;
+  return substream->runtime ? ...   // substream is NULL
 
-> And some things are already
-> missing because the driver does not use sd and the SCSI error handling:
->
-> 1, VPD block limits are not read, and a discard of 4 GiB or more fails with
-> EOVERFLOW
-> 2, the cache mode page is not read, so FLUSH/FUA are likely never sent
-> 3, the residual count is ignored, so a short transfer completes as success
-> 4, UNIT ATTENTION and BUSY are requeued without a limit
-> 5, LUs are found by 0..bNumberLU, not REPORT LUNS, so sparse LUs are missed
-> 6, no START STOP UNIT at shutdown
->
-> Each of these needs more SCSI code in your RUFS. For comparison, sd.c,
-> scsi_error.c, scsi_lib.c and scsi_scan.c are about 15000+ lines today, and
-> ufshcd uses all of them. Once RUFS has error handling, power management, RPMB
-> and SG_IO, I expect the SCSI part will be large, and it will be a second copy of
-> code we already have and maintain.
+Move the private_data/private_free assignment before
+snd_device_register() so the timer is never visible on the list
+without its private_data set. On the snd_device_register() failure
+path, private_free() (snd_pcm_timer_free()) can now run, but it only
+does substream->timer = NULL, which is already NULL at that point
+since substream->timer is set to the new timer just once, after a
+successful registration -- so the failure path stays safe.
 
-I cannot counter this argument without proof of existence. But I don't think
-we will be anywhere near 15k lines extra to add these features.
+Reported-by: syzbot+19da64013c46df87f971@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=19da64013c46df87f971
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+---
+ sound/core/pcm_timer.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-> I suggest you samsung first works in JEDEC, together with the other UFS vendors
-> and host controller vendors, to remove scsi from the UFS spec as the application
-> layer.
-
-I appreciate the input.
-
-> As long as scsi is the UFS application layer, every UFS device must still
-> uses scsi, decode scsi in FW, and RUFS must still send SCSI commands and handle
-> SCSI status and sense data, as it does today. Moving this SCSI work out of the
-> SCSI midlayer and into a new driver does not make the whole ecosystem simpler.
-
-It may not make the ecosystem simpler at first, but I do believe it will
-make the driver more simple.
-
-> It only means the same SCSI work is done in two places, and it can even make
-> things worse.
-
-It's a very small part though, so it should be fairly easy to manage. I
-do acknowledge that our RFC driver has bits sprinkled about, and that
-making it feature complete will make these bits grow. I don't think it
-will grow as much as you hint at.
-
-> If the spec changes, then a new driver built on native UFS commands would make
-> much more sense. That is the first thing to do, not just post an RFC
-> patch.
-
-We did send this patch with the intention of starting this exact
-conversation, so there is that. I appreciate your input that you would
-prefer the conversation to be started in a different channel.
-
-> I
-> could send a Rust based UFS driver as well with AI assist, but that does not
-> make it sensible to change the base of our current UFS ecosystem.
-
-I am not sure what to read from this. I want to make it very clear that
-this patch is not some kind of vibe coded pile of AI slop. I'd love to
-discuss responsible and efficient use of LLMs for kernel work, but this
-thread is not the place for that conversation.
-
-Best regards,
-Andreas Hindborg
+diff --git a/sound/core/pcm_timer.c b/sound/core/pcm_timer.c
+index ab0e5bd70f8f..18bedd66435d 100644
+--- a/sound/core/pcm_timer.c
++++ b/sound/core/pcm_timer.c
+@@ -111,12 +111,15 @@ void snd_pcm_timer_init(struct snd_pcm_substream *substream)
+ 			snd_pcm_direction_name(substream->stream),
+ 			tid.card, tid.device, tid.subdevice);
+ 	timer->hw = snd_pcm_timer;
++	/* Set before registering: a concurrent reader can invoke our hw
++	 * callbacks as soon as the timer is on the global list.
++	 */
++	timer->private_data = substream;
++	timer->private_free = snd_pcm_timer_free;
+ 	if (snd_device_register(timer->card, timer) < 0) {
+ 		snd_device_free(timer->card, timer);
+ 		return;
+ 	}
+-	timer->private_data = substream;
+-	timer->private_free = snd_pcm_timer_free;
+ 	substream->timer = timer;
+ }
+ 
+-- 
+2.43.0
 
