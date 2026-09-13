@@ -1,75 +1,68 @@
-Received: from fout-b3-smtp.messagingengine.com (fout-b3-smtp.messagingengine.com [202.12.124.146])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f11.google.com (mail-oo2-f11.google.com [74.125.231.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A56F036998A;
-	Sun, 13 Sep 2026 17:21:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.146
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72D04305680
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 17:23:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789320101; cv=none; b=RU0eKN5BvtftGM6o1cIRwX/Hi669XBdV1dVjrDdBs6XKu91cXcrmZrraqjYkUzA1GWPT1KiioioNa8WWO0IACnCQ2dW5U+ImDFsMX18piyuIyj7GuAdPI03Bdtfwc6O+ANoYct2w94WfD5E6+WHWTf+uOoP9PQoy+lmCiWewQAs=
+	t=1789320232; cv=none; b=DvysER+IdGEc91osANbiPcjqhuKC9cRSV78HOXWx6oZho4f2IQx6HzLI6EYw8QKGhYnmB6yvqu9gHszG4mfwGf6huoZnNdiWmU1EYDXG1Hzx1c7VVl5FmJcK1sPX2ftpDu6h4aflisFeK9KxZOPVCgJLkY+wTlacAJXwJUseGpE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789320101; c=relaxed/simple;
-	bh=9HtwBV3HnwCxn/Qf8Px3hIWck2pVOB4dC7tfkLsWUHg=;
+	s=arc-20240116; t=1789320232; c=relaxed/simple;
+	bh=nK2g6PCG8RmaEW0yEszSpyDSTDIVp2sQ/UCkE4rggGE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uuT3R5S3mc76AnvnjoP5465VBhN2cUybdUFl0u0DJjNOUV7YKC0g+Af4Bv/hanDOXC/QvmUrYFZvNliNWn6+r5k4L2/ly4ApxY019PpcNknMiPLBdIX76q3aerxIIrVnzXkeEVYkgWB+KHwNV2NvmZE7hMqREOm1wifn5n/jcjY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=WmMlGfnN; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=A1OkUX8n; arc=none smtp.client-ip=202.12.124.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	 In-Reply-To:Content-Type; b=XeU9eDS0EPaEAlrcvqWFzC5UzAjz7zKjscWCo+ISjSeuZRT6yaCDLa6ffVOAwMv/+He0d4vEgVHlONxlGvIVCEZbvvxcFYGeSEhuJxX7TQMWzU5uvzdbJBXvdqNWAlOEvaMGHDN//Gmuy4R3ru+ituy2jMLWfH7JCL/om3IZhcY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hPWg8v4a; arc=none smtp.client-ip=74.125.231.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="WmMlGfnN";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="A1OkUX8n"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfout.stl.internal (Postfix) with ESMTP id 55DF51D0005A;
-	Sun, 13 Sep 2026 13:21:38 -0400 (EDT)
-Received: from phl-frontend-02 ([10.202.2.161])
-  by phl-compute-04.internal (MEProxy); Sun, 13 Sep 2026 13:21:38 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1789320098;
-	 x=1789406498; bh=TO9UayksEEuo4YhH0WxyJHcYITEpfQTBzFu//ymT7fg=; b=
-	WmMlGfnN0cOysNeR9OKGHhroxsqNhWLB3J8saLxfwBEU5RkZuEEWLqoif8j+Beji
-	ZZIv6sq19pQjLZ7uz3hP/iv7fnnOHOgGrpbazhd8eS/valf3qaGSJSNI3F3Y6j5y
-	0FlJfemx8gVdSNQC3sMsSlcSwp8QpGP0w0RuVK25/WZquwV6loDytFYRXQd07YWR
-	QQf8o3SHZ39X4V6VLPyEZfUxAZHc84f2JUa4/hfVjx6tWiG4BfpilV1U1cLiBUNm
-	UkRQtdXNukWqTfg1J7rcdY7aOGo4LEAvVNNgB5hzEfFZ4FdqYh86q1Wm7wCVY+Sl
-	zA2Nj9NQRcOVc3CbOmdqzw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789320098; x=
-	1789406498; bh=TO9UayksEEuo4YhH0WxyJHcYITEpfQTBzFu//ymT7fg=; b=A
-	1OkUX8nTB+fjCMmjRnQb2JX+8a3T9Jl4bvtcznUP18+mc65TNmf3wdN9ZlonNnpy
-	iW65cgahoYwDjuCPczlpVNAQ+ELVcdYni+sz0/UZcRWvWyc9m7fEaybQk8luTFCW
-	C3Cstw0hLvogg7rCyeo7mawD+wSFUSVJvznTFNXqObci1C9GBCN3doPW9Bj7ajq+
-	+hNrmD5ao2FMe1Dr7bdqw4JnbkLtqQo7SlhwPSvilDWjqr6AR2d3quTl+9tMTRCV
-	N6s15MjlNUcat6upy+XhL/kkwRo+TmhQrvEhWBTd/WFG2sdGp0RXDw2Z2i0a2Zl2
-	/j5ACrtSgDBQ6OYkAqXsw==
-X-ME-Sender: <xms:oNumah82HKK6w-jEsFwXiwXU7rXCnZNvIbZPB04RMiBKw1lNHVRRlg>
-    <xme:oNumahk0OgFSPDUxalmzM8uO42wZKcTGmToxX0bq-1RN6cG27q2DJVRwgbYoRdd6b
-    BxfiZm-oJ9EIq7yTNG3XE3qKSHkBY15ZoSmoJSuCJ3JFa4VGMsp8gtJ>
-X-ME-Received: <xmr:oNumaqiLto6SSsuyO-qgb1mAV8dnQZ8kwXz5N9ebQkJaXc6HTMQR_K1TsZ7-CiKO73WOWg-6l89C7pP1NoHqRVf0Ixq-NUST>
-X-ME-Proxy-Cause: dmFkZTG1P5L/qc8Ww8ObqIaRahkcjWAlSIQoDJh1N1/amAGyEVrpLILRnaS54SDZVVPZtG
-    PZ/eQUJ8O3QqqdvY4u8Ex05dZie4MFfBhB3zMYb9cpq9xs5xkdHnmpoMPnrjkf3IgPG/Tl
-    k49S+eDqB4X1nxpgVn2JwpX438YTl3fQS6FP8p3ExegP5KzX3s/pfZyAxC5r7ScnnmYrYz
-    Q5JM56SSTMTV+d1t1zvEYSFt+99GICuRv2/Mclm5t/eR7xS7+dm7Zf2XxA3rKWNVnJs6Fp
-    4lZdoblR6OJSSV/3unzZaRrqrcE0cUrqauGM37hCnKINnH1fvmGjjEXz3uNejFinS4caHp
-    et3i9fdS/WjtRlWo1dcbfS+mtHcVlMOrLyAzIz/gzS8z8ujNJrY1ni3J4MGXVWJvPOtNJj
-    h29Ee6qaS8WZZ9qIrv032j2GbotBeOZU9F4yVr4GbXBfZKR9AwAK9BmvzM+LACOJv2ZOjF
-    8GTRsX11+1U8vI+cqW9DgpzsbDN01Vdg5DILeEf4Tb8il805B8Yzhr021xm3NteNmk97Mz
-    Kv2qT4lXMD0Yvqv/eXqGjXkLLkPfqtPyF1wEOONBepEUqxX1C64LfE46W9Z1NsQN5GIbw1
-    +oHHttIdAuA5D6bx0nTzNKYXOWlRLiSuUYESC2i5GfJmEEtrhQcDRS8CBl3g
-X-ME-Proxy: <xmx:oNumapZQhYeAReeq1ShLbZhRVP-KtFkUHRuad1mthT-Hyo3Y0gx2cQ>
-    <xmx:oNumauHM3VPJByNhHT8PruCwX9wKSrpN6xDhl6K_A66yxtB3szUKdQ>
-    <xmx:oNumamb4Sblrlm0ny19aXgb5fdhgsMGWPmd7WzoiHgY3RrM3BUtqjQ>
-    <xmx:oNumav2IfNXGTf8IRPANlQ7j8XggmxHPt-g8wzHFpw9-BpLt_U4Sww>
-    <xmx:otumagQOY5LSn7XGZ9drH2fwHbaa3XEBadB18BA-Q0rAkejAJx1knIGJ>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 13 Sep 2026 13:21:34 -0400 (EDT)
-Message-ID: <fcd0319e-02a4-4975-996c-fa74f521814d@pobox.com>
-Date: Sun, 13 Sep 2026 10:21:33 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hPWg8v4a"
+Received: by mail-oo2-f11.google.com with SMTP id 46e09a7af769-8048c50724eso675971a34.0
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 10:23:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789320230; x=1789925030; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AE5k/kG8YJbF9+P0eXSyvzyutUhB0PHETgWhH6QKTKQ=;
+        b=hPWg8v4a2iMQMdHsn128VXbUDJH/mn1Ls8iJf4DgChshPpVV/tCIl64v88pQiIVhj6
+         D9LZthxEXGAasfmfWSaD2wLqWtB6YwNnzTSOoR75g6MikTFFh+n5YS5jXfYjIRKWpN9T
+         rw5IRGolSVtdEb1jCGhtMRhZyOvEsIcn0DYTlV4nC0SXcf3TkBx009H0cI1RUCBtkwIz
+         rWgvYduc8JZdkl3O5HkaNmT8t9TejdRzln+ODn4kcOU6zwXvqJw9ZP2+1W3pLRNC97jl
+         CwMx1KIYPP5JzJk7dAsiQTvdVNowqrOHwaVkm+XUWlWEcBGZb66QzjiyAE215cM7N3co
+         QRQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789320230; x=1789925030;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AE5k/kG8YJbF9+P0eXSyvzyutUhB0PHETgWhH6QKTKQ=;
+        b=aXwew+vWbKDC9yull4u6A/ju38tr2eURTWbqDpnT19er9jrwtMboBuqkMhkDmNZynf
+         9YK8j+Qk0Zadrn5ZXJAjv+8aSaFtpmkmGs7deuhh8i9viGum4/Bzw5iSOppxFw+kuc4i
+         wdfuyeVxDuCtfMBxJk5hTcBqhrD++Ptbr7aSHG9XNdg2e7b01eXHyqDaEwBrHWgNWKga
+         MrCFHzcEBy/58qAWc5WTV4UsmNOPIHFXMGixw0i9wS1XE5i0gckzcI0Vv5h4uEcKrF/u
+         gVcDLsGJ2PjNKgfdmwwJtWzexB+EY4N2W4KPKAIGFWVCQycvLeyoBDE0hGgqJkvLCv85
+         7YSg==
+X-Forwarded-Encrypted: i=1; AKwUvBxDzaligraXDq94n6OT2f2OWE4oq6UCLmu4qTo+Haia1PKWbfkvWxYGz3i0E/BiBwMYUVJ+Isy4oLGeAyg=@vger.kernel.org
+X-Gm-Message-State: AFuF++ksMY9d0kN8Ixwg2Z9I/0JPwLK/tdSW3IkY5aSTDEOdBrfozYNY
+	j3yct3v2hGjrsWLOtwYkHMkspnbrP1rFm05aZT1bvUBojNhZ+KZo6ErN
+X-Gm-Gg: AYBFou0/aKE8rt2wyoSC9B9zPJBzdigOrLpN/m0o7JtcbgkgTVZaL7O9zTSwhHZINSF
+	MJO3DgYpHgeVPzaGb8X1kCZiu1PY2XzzE0N2NUodOR3qx7owKpuOzmepQQ71iNv73OwyTlOy2EI
+	iZpLIa5zM0/209eqm2Usc1edPrzHCCANDh+f4zxzGzqr+kmy05gafI23LtOpA4zVMtLqiVwHIDF
+	gMTXH2LrJsOmgiE5GMbBoxjSz5jrEi0aza6zkLnWgfO1w7aMIFjsLVKuO7n81g4egF1ZiZLNYyi
+	5wLThayhXoKehdzfW/kcNE6vKsVdCbRWY7i8HghU3UZOTlRfrnKFJ42V31GISLfKaxig3gCb5Mh
+	aQFUtx8lvEdGoBbaRbywHeiVoNQwP520nMWziX3nHYeyS5KOK73GJvO/r//o230ouTdwRYiVbPo
+	9tQ7H92GIU7bVsspwXCfUlUVgFJ2Lb2VHKZmVFihctom9KtP4oSulTsHvFvDVg6XpXHfyEBfkmx
+	Bd4NYvby1sGtPR0
+X-Received: by 2002:a05:6820:3411:10b0:6ba:5d2e:cdbc with SMTP id 006d021491bc7-6c0b9d4e352mr11117155eaf.7.1789320230280;
+        Sun, 13 Sep 2026 10:23:50 -0700 (PDT)
+Received: from ?IPV6:2600:8804:5716:d800::b712? ([2600:8804:5716:d800::b712])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-47df8bc8884sm6899818fac.10.2026.09.13.10.23.46
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 13 Sep 2026 10:23:48 -0700 (PDT)
+Message-ID: <2ac704f5-40e5-4212-8b16-6b23912ef4b8@gmail.com>
+Date: Sun, 13 Sep 2026 12:23:46 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,48 +70,36 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.18 0000/1518] 6.18.52-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260912065623.398859879@linuxfoundation.org>
+Subject: Re: [PATCH v3 0/3] Novatek NT51021 DSI panel IC driver
+To: Nickolay Goppen <setotau@mainlining.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
+ <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Alexey Minnekhanov <alexeymin@minlexx.ru>,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+References: <20260913-qcom-novatek-nt51021-panels-v3-0-266bc5d7e8c9@mainlining.org>
 Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20260912065623.398859879@linuxfoundation.org>
+From: Ryan Brue <ryanbrue.dev@gmail.com>
+In-Reply-To: <20260913-qcom-novatek-nt51021-panels-v3-0-266bc5d7e8c9@mainlining.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 9/11/26 11:36 PM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.18.52 release.
-> There are 1518 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Mon, 14 Sep 2026 06:54:17 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.52-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+Tested-by: Ryan Brue <ryanbrue.dev@gmail.com> # Amazon Fire HD 10 
+(2017), boe,tv101wum-nm0
 
-Tested on 2 different amd64 systems and an arm64 virtual machine.
-
-I'm seeing the same "needs updating" warnings in dmesg that Peter
-Schneider reported on 6.12.110-rc1 and 6.18.52-rc1, but otherwise it's
-working well and I have not observed any other regressions.
-
-Tested-by: Barry K. Nathan <barryn@pobox.com>
-
--- 
--Barry K. Nathan  <barryn@pobox.com>
+On the CABC teardown for the nm0 variant that Sashiko found: the write 
+is a single DSI generic command to the panel IC just before it is 
+powered off, so there is nothing on I2C for it to collide with (the 
+LP8557 backlight is a different device and is already off by then). On 
+the Fire HD 10 the full disable/unprepare then prepare/enable path runs 
+on every DPMS cycle and system suspend, and the panel comes back cleanly 
+every time. Skipping the call for variants that never turn CABC on would 
+be tidier, though, and I am fine either way; I'll let it be your call 
+Nickolay. Thanks for pulling in my patches!
