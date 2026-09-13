@@ -1,82 +1,71 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8791390615;
-	Sun, 13 Sep 2026 08:14:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E87138F255;
+	Sun, 13 Sep 2026 08:15:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.210.214.84
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789287298; cv=none; b=uqO46FU1HujdoR4go192SPuTF1uD91wXK8ndfbHGe5tVX3xDR7xDZ0oRWIRAOzwQSOdrNXMdVeelbPZEMzCUrqTyN1+K9IHRFeHTTReE/OYH0YN3daG/hs/uqtcAygsNkVXEaRfG2nEUTWvtG7hJh9gtVOvPx9son+USjOnDbXk=
+	t=1789287328; cv=none; b=aUTwnP1kh+qASojch1WI5vw0i9M7ZVY0yWzl9uxoSov9gYhVbmaw9fATYXMHJLCEIgNpbrmbzb3uNba99Xj7ClauxVGJbiFtsNM+wxIuwnR7sFN9rjtgw4DbIm3UW7NXK302D9axsJysStjkp5dA1R2J2CW/gNQNuahml4z5wME=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789287298; c=relaxed/simple;
-	bh=m5swu6BEex9V5AaPMHfNsr/iBf+bVORmSIXFDz+GKk0=;
+	s=arc-20240116; t=1789287328; c=relaxed/simple;
+	bh=ZwX/sKgD4G0VcC4XB1mDDk2M+5z62rV/m7lm8c/UpSw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=If8tK8QQ719YEi8inQG1igvlRvB3FofwNRxflT9b/iE9kxv/LXcQtL2O/EDTYxbPHb2zMRpEPBE5FKwwoC4aIdmbZUROPk8EKCug5SecRTz6yRbksso84ffUaLzfqCFUizmPW0NqNGpyeYT7vUQyWQOorNg8/XRdOG06Tda0pWw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=ECszoUmK; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	 Content-Type:Content-Disposition:In-Reply-To; b=p5rI/lvtI/2/+lpZQgN4yzlVMVe/dotl/AKXSFUwy2C58wrkcJu/yjPGUOK8oV6jMqV0SaNSg75Nx9GnzM3hfs0gnY6NWjdigE2BuC2cv0+AE+EsEts7j1hytWRupQphA2cuvRZf06XYGdwxofiu5RyxoAfiybk53xZw1QtKDhs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org; spf=pass smtp.mailfrom=codewreck.org; dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b=zdd5PH1A; arc=none smtp.client-ip=62.210.214.84
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="ECszoUmK"
-Received: from francesco-nb (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
-	by mail11.truemail.it (Postfix) with ESMTPA id 78F1F1FA4C;
-	Sun, 13 Sep 2026 10:14:43 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1789287284;
-	bh=SFvb+Qhfs5IVjsdclCKp9xV59tobJTv2o9FsR4gXA+8=; h=From:To:Subject;
-	b=ECszoUmK+2dQV2l5wnwH2qM4K7AXvUb7xu8X/9ZsT48QT2R/PkrWXeevl3zuBAo/n
-	 RB/wt9mWMSiobtJ+TvymjfPF6+VKftGCXg+tNw+qVfTKZK/zpoxoQMnbk2CB6+XHUO
-	 10DE+NxdjFJCd0z0QWFJwXpT9c8cnqjmMqgTOJowH6v/wwsElAHyFydIuGQkR+zg48
-	 M4sUHutVbZcTeCgZuXkjYI61rzw9SzNQNdrj3BMGf1LKrL0LIdAwU9wqsHCdl3H55+
-	 /fWpbFPdRaAnfta2xD7l1BrP27RfVljzHIsdFYzJDZUXhpHeeRMz95hmVlMIB4TtPu
-	 lsLbIngD1VuSg==
-Date: Sun, 13 Sep 2026 10:14:39 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 6.1 0000/1191] 6.1.188-rc1 review
-Message-ID: <20260913081439.GA8024@francesco-nb>
-References: <20260912065548.086904252@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b="zdd5PH1A"
+Received: from gaia.codewreck.org (localhost [127.0.0.1])
+	by submarine.notk.org (Postfix) with ESMTPS id 240A314C2D6;
+	Sun, 13 Sep 2026 10:15:18 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
+	s=2; t=1789287322;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dNwiMx4hsnzXWsqlz16b37QsaalOt2bbFOd/Ze1iAQM=;
+	b=zdd5PH1AHt8amEEtXEnufc2EzB3aaiKzE3TOs+egOvIkK6oiPMmhXU3HEjvXgmePQkmjGz
+	3cuhbgB6Rz4aMdjCsE4FhUqgBzwb2lvBVmuP7LHQyGQ8F8l+Nj19zbCXFMUKev80naGU8L
+	9veVYLD0Slj42savNP9y5L5CcpvrJlpeurmm7LgTQzsxUJIVeVvfpIzQokigeETQJ5Uvcy
+	bZlEx8vk12JkgfU7S090JYNCglJ5aecl6seHO4il0hGsE7WAXDrvmAurLswA4eXYo3le7X
+	ikRbHDDZ5Hfx7o2eVQbU05FyrCBnYL4ZKjxxaN/ggZ90YPIq7IURSANOdudZ1Q==
+Received: from localhost (gaia.codewreck.org [local])
+	by gaia.codewreck.org (OpenSMTPD) with ESMTPA id 2ec5db01;
+	Sun, 13 Sep 2026 08:15:17 +0000 (UTC)
+Date: Sun, 13 Sep 2026 17:15:02 +0900
+From: Dominique Martinet <asmadeus@codewreck.org>
+To: Hemanth Selam <hemanth.selam@gmail.com>
+Cc: Eric Van Hensbergen <ericvh@kernel.org>,
+	Latchesar Ionkov <lucho@ionkov.net>,
+	Christian Schoenebeck <linux_oss@crudebyte.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, linux-kernel@vger.kernel.org,
+	v9fs@lists.linux.dev, netdev@vger.kernel.org
+Subject: Re: [PATCH] net: fix typos in comments
+Message-ID: <aqZbhtKEsHe2KY1c@codewreck.org>
+References: <20260904112100.34541-1-hemanth.selam@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260912065548.086904252@linuxfoundation.org>
+In-Reply-To: <20260904112100.34541-1-hemanth.selam@gmail.com>
 
-On Sat, Sep 12, 2026 at 08:45:28AM +0200, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.1.188 release.
-> There are 1191 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+Hemanth Selam wrote on Fri, Sep 04, 2026 at 04:50:59PM +0530:
+> Fix typos in comments, reported by scripts/checkpatch.pl using the
+> misspelling list in scripts/spelling.txt.  Only touches comments, no code
+> changes.
+> 
+> Assisted-by: Cursor:claude-opus-5
+> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 
-6.1.188-rc1 fails to build for us: the tools/perf host build breaks
+Thanks, picked up for 7.4
 
-  | util/hisi-ptt-decoder/hisi-ptt-pkt-decoder.c:14:10: fatal error: linux/unaligned.h: No such file or directory
-  |    14 | #include <linux/unaligned.h>
-  | compilation terminated.
-  ...
-  | util/hisi-ptt-decoder/hisi-ptt-pkt-decoder.h:13:10: fatal error: linux/bitfield.h: No such file or directory
-  |    13 | #include <linux/bitfield.h>
-  | compilation terminated.
-  make[4]: *** [.../tools/build/Makefile.build:96: .../util/hisi-ptt.o] Error 1
-  make[4]: *** [.../tools/build/Makefile.build:143: hisi-ptt-decoder] Error 2
-  ERROR: perf-1.0-r9 do_compile: oe_runmake failed
-
-
-  [PATCH 6.1 0302/1191] perf hisi-ptt: Fix PTT trace TLP header parsing
-  (upstream commit 2b8a2e5d4240 "perf hisi-ptt: Fix PTT trace TLP
-  header parsing")
-
-I would drop this patch.
-
-Francesco
-
+-- 
+Dominique Martinet | Asmadeus
