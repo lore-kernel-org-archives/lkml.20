@@ -1,169 +1,115 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from omta40.uswest2.a.cloudfilter.net (omta40.uswest2.a.cloudfilter.net [35.89.44.39])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02340345CCE
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 23:08:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.204
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789340894; cv=pass; b=E7QG6BATKbrT8f/hlC4pfOFvk/HWeB9nv3kvtqbGpRJhQjoowf1xk0BYZWwJMe3YzM1MpwMjwba9l2Mj/pQZc/ECVW7tAnO0MKJP4ro0kFFVi7KeLRVMbkoHwrqMOcQR4YH1OXeEQ3yV7MhMkg+Ba1rs9KOnz4JazG2kLLialsQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789340894; c=relaxed/simple;
-	bh=DXes9xsnyMTyzixU1rmSeIaBDLxOPxqOwPIfYET+/jA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=cE/1ZUrv1IThZsA1/gKOL4rW0S2SV7w7nfuf9XzHs/DEfenfpqGrsgvjKAiShkyroM6UfUFpTsJec0cHgnedRrBi5AkwFU7Smk89Gs4d9shvZ8tiglKU7N2RWlHrepiW0S8PDfHwRYrr/0q1qfRJ8IhRM9zgKpITf/NtBWSynrQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Hn5toEpe; arc=pass smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE7C6296BD3
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 23:08:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.89.44.39
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789340908; cv=none; b=Vqw+6VtZ+3kePxu57kSHN4Cqz4lUXasBMyCoIA3dUsfJYcc4LzsDth2XzqgheurU7C1EqXYUIxGGHgrcM/BIovgXDcFrTy9OEA0OZstB9+l7Nd3LdnuGJ0kTdRyb+24Y5KR5enFD5dgpNarLnVMi5GeuPqGWpJfFNgFqohZLo5U=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789340908; c=relaxed/simple;
+	bh=JXgNPJjU5kG/MXiqV5bI+ezcqPEx0Pz7C3BlJsgAwcM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jH2wduTSXKdYLZBJWieoGmzmhTzB1/Jod0yJ6nzOYIEMWNOutYUAsl0NtQ7TzC/Pq99KkPMsbMdIOSAB8YTeAp/DiFT+QIAvlwvYh65OukibQ2bpt13nT8GGwvZK4WLBj/JHhDcDK+2slW9emA6eEA5iMFH3V/n2stIMEFZ/goE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=q7nDpKUB; arc=none smtp.client-ip=35.89.44.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Hn5toEpe"
-Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-52fb76906adso21481871cf.0
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 16:08:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789340892; cv=none;
-        d=google.com; s=arc-20260327;
-        b=i5AKx2DXzEGd9xq2Xw6ougwn9d+lu/KtctLcgNMxNnWW4bSaJ+LwA8Im2/UO5h0nrH
-         CsxF3eElxGtvxdLp23xrstsCn0VNZJeRpbKEZlNJpKhkbyNIzU8XJjhdTJ7DlTwx2Fht
-         oDYxNSM+OKAxRBVUoVVeUWjLCy7l3TXLvuWxmIuF1CiVFL7pwfmNZDJgXiw2SPQe1BRJ
-         mUljo1X0bvzJVTHO8Xz12Qw+JxqQaUr/FdEdpQnYJ2txbLK9WG8xtdsS+1WuqIiNDpVz
-         jR5UKjq1vj76ovOy9zzkeYZvaxIkMKoBMmcnD9ldiAFk9EuW6Jv7XIHUwbHnGEE1scJU
-         vbDA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=xRbG0DVQ5VHY3qqALlMkPrYtIobPfZTAAIFgs1QLm4A=;
-        fh=91pJ/9rx2Pc1jIF9MML6gFUyhUYgD52An/2v18N//4U=;
-        b=LT4DaUMMPhqCJPx8m5FsPE8rdccof6ti5Vt7VxvqxVSr5AbarjBo4WtMW8+vrNEOKH
-         xWrBmZh4FO82ZrgJMbwCnPgrKdZdbq6O07L1x1yC6D+ZjokOVMW9qoRKey8EICQuY8Xn
-         Of0vJ9On9TT0yaJA6VgmHpgn9+46XmmTDGxRJVVFAAPm4KsT5rEAU/TUDdYImMnJ8L9Z
-         EaQA9c+J3547CU1PaYc+zF4wpLRBrs1rQnomkfHEtyJhOFdWyhOxgGfG0hCx8tJYB3H+
-         +ADNfm9pEED56JxWfl9LNuMJy7vXZXwt1jZp1sPvhY+68XhEiA/LK+o0grDSjESNon9k
-         KPxw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789340892; x=1789945692; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=xRbG0DVQ5VHY3qqALlMkPrYtIobPfZTAAIFgs1QLm4A=;
-        b=Hn5toEpeGOh2oMptvnwj1kHad8duX7cPO3qapr2BUXzDQHXVeQLTmh1ePl60IcNJmI
-         HRGPeHzYYIvlM8PxAkyAUROlq88FqZcpdWu+6vs2xojdeAS7dPFArBOwzBRjolze6b7b
-         qewT+Ixx4cwK1+4CbT7iWxRBkvIhGlyiJrT/dTck2Qu2ew55i4W6Q7ssYHXXY8JxOjMu
-         uIyjzb6RSajpfqpGiWr5Sb8guOcK/bbbOPSMd7FytKru3HHUoXLrBDnPXXytQE40KAl4
-         bRoohPtYfPFOKsuSuIBS5gBnI4kyvqBLyNSrOLGITdViYTtE9QLtiq5QK/B4VN4nmgbL
-         MlZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789340892; x=1789945692;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xRbG0DVQ5VHY3qqALlMkPrYtIobPfZTAAIFgs1QLm4A=;
-        b=S/alVUfxjtexC63lCc3VwkRkYGy/M9ref9559CaNBskiLfbI6aahOMfk76HQ3PIgZc
-         9uSQF5X9PP2fiefEFAIcJXKYa234Y1kPrzivdTMxFA6GRe5xZL7ZS0+wo8c7tOypdr5+
-         OV929leUZxeUOQK2HNbhwAYvZtlbKweJhCWweWf+Dy/ICAD2O9quLa1oYY9gnEkUigww
-         Fi+Fv6QazFNGOQw5C5ge6iBIWTO1AcX6jW2D2r3YxOha3Y6+AfvLecyyo7PDpMukcvTD
-         ocKCi/DWn33j9z+llBqI2GelgHhmc8ZLgxfh4BFHMAgmQT/v0PETeAKbbtow8Fn46/zM
-         u9Qg==
-X-Forwarded-Encrypted: i=1; AKwUvBw/j6B63TKF+d1BsmbQTBDKJyEKAPksYhozYIGU9NKG0hfzr+6FU/WalukFITnhqHCvVOhV4KwIGw8loec=@vger.kernel.org
-X-Gm-Message-State: AFuF++lXpGEvsTQxb+V9/dSv5I3yVMB0bjlujiV5Y/ms+VGAJpWKaY0l
-	p65wJ4vupb5rik1t/SHDtR0ZDrJr1OoNaC8jsnl6qm6wjw/dZlmBWcpEWfsDocxzh9b2YuRIk0q
-	xfPq92dhRqa6ObjilMpgybZUNECH79c1qm1EotQWGt7hOcpBifbfMWpFHLhY=
-X-Gm-Gg: AYBFou3lDZhezYaGrj2/PfqegVHXT9FOdtH3VkAFDY5izpdy85aXlqWE8TgEmQBTYUm
-	pAvHlvJImvTIUmliqMPcBuQ/avETJE5999gOlyVhtkn56ZEN5qN6Qomxi9RE9Imh1Y5VK6rZSmZ
-	Pcouo7wD9KspTeJjK20DmY2KerbwKPfOMShwfDrPtp/wD6VWmcZpQnsbOgQ1LTHIOWkGgfLyQO8
-	myoI5y23mk5tp/qcgBOozM+R24HnUPJkohw5u3CL+bgrKn6cDUyzpupeF1BNkoelC0Bzk05UyAM
-	i1suz9ZsbXWlvX8Siq5aJVyVGUiv/EaPimJ+AlwhffJwPLHbaRLhAbvTrxMqv+dMedqPw3hTTF9
-	iv+1h1ShA8Hu4N+wLEt3fVJWj7KD8d+Bdt1Phz57b6POVKBadAbPljKZZ4sp5WLwPHc8=
-X-Received: by 2002:a05:622a:1904:b0:530:b2e4:d5a1 with SMTP id
- d75a77b69052e-5310d08ebd9mr1666031cf.60.1789340891034; Sun, 13 Sep 2026
- 16:08:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="q7nDpKUB"
+Received: from eig-obgw-5001b.ext.cloudfilter.net ([10.0.29.181])
+	by cmsmtp with ESMTPS
+	id 5RhWxDJ9hc3Xs5tJCxsc1W; Sun, 13 Sep 2026 23:08:26 +0000
+Received: from box5620.bluehost.com ([162.241.219.59])
+	by cmsmtp with ESMTPS
+	id 5tJBxps8bfDqY5tJBxfJWH; Sun, 13 Sep 2026 23:08:26 +0000
+X-Authority-Analysis: v=2.4 cv=HKbDFptv c=1 sm=1 tr=0 ts=6aa72cea
+ a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
+ a=HaFmDPmJAAAA:8 a=Y4NyFCxO9-uqU50Sy_0A:9 a=QEXdDO2ut3YA:10
+ a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
+	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=GOd6y96kVrE/9kYqh/fJpM4z/XyMm6/LN6OwNgEuHuQ=; b=q7nDpKUBVpPNZJDAYZ2PiTEVgr
+	FzOMQI21g8AzWP8H+WfUu9KV2AKZxIaGXDh2Jf7dgEnGRqU0IFTyUJ13N5YC3tpl9gQvECMo5CiAr
+	Fkbg0F/hXJsDj4YghqP5vvBOaIlnNUZJhAaOD5EnbCYBAlrmc3xMPUtG4CS6ZZYDWMyRel/IriRuu
+	vt55uNu3wqFHGWZKhLW32p2eR/CTkYiVXnU/QwejLDfdH+ZCS6NWt7GqvJSmUzOnde9cXaVSr+dLk
+	LTaISmSvL+rYaCUkpVLn62a7WdNwWAhK6gfo3IOvouptsexB1s60xpkBSg91xP0kTuDaHahb/YsZP
+	g21J7zZw==;
+Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:53188 helo=[10.0.1.180])
+	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.100)
+	(envelope-from <re@w6rz.net>)
+	id 1x5tJA-00000002Lve-3qgE;
+	Sun, 13 Sep 2026 17:08:24 -0600
+Message-ID: <09a8c5d7-9712-4d09-82e5-84b7bd78a9c2@w6rz.net>
+Date: Sun, 13 Sep 2026 16:08:23 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1789302084.git.zihanx@nebusec.ai> <a4f108b00c7d3c0997bfcee84a9e7e481c07ad5b.1789302084.git.zihanx@nebusec.ai>
- <willemdebruijn.kernel.57ad3a4d0955@gmail.com>
-In-Reply-To: <willemdebruijn.kernel.57ad3a4d0955@gmail.com>
-From: Eric Dumazet <edumazet@google.com>
-Date: Sun, 13 Sep 2026 16:08:00 -0700
-X-Gm-Features: AcwNN1XPieBwHmTcaQqSQYQyOFNrmOUAYYi4uLA-4au3SSGhTImp2iLuqjRICx4
-Message-ID: <CANn89i+QqU5sw=WPrcki8W=-HoyNLpHGj2C568VHDU1CyZgodQ@mail.gmail.com>
-Subject: Re: [PATCH net 1/1] net: gso: limit recursive IP-in-IP segmentation
-To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-Cc: Zihan Xi <zihanx@nebusec.ai>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
-	dsahern@kernel.org, idosch@nvidia.com, willemb@google.com, kuniyu@google.com, 
-	kees@kernel.org, richardbgobert@gmail.com, jiayuan.chen@linux.dev, 
-	stable@vger.kernel.org, Vega <vega@nebusec.ai>, Luxing Yin <root@tr0jan.top>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.6 0000/1424] 6.6.157-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260912065607.279695368@linuxfoundation.org>
+Content-Language: en-US
+From: Ron Economos <re@w6rz.net>
+In-Reply-To: <20260912065607.279695368@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - box5620.bluehost.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - w6rz.net
+X-BWhitelist: no
+X-Source-IP: 73.162.206.103
+X-Source-L: No
+X-Exim-ID: 1x5tJA-00000002Lve-3qgE
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:53188
+X-Source-Auth: re@w6rz.net
+X-Email-Count: 37
+X-Org: HG=bhshared;ORG=bluehost;
+X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfDqxhniPMYxVbZd9KCFSa0yo+pvrj4Sd9M9tyczrivuekRiXFTpf8fROQPsyA/GdusELHcg36COnAheroRENTZ41OpToZcVgl4JNl42ZNJbIr0HZdcem
+ FwbyRKdn1C9q0/LTCNCn+NKQgMWP6OrHHIB7i7v54t+EiK0ExPleHoZiQJs31XLC1SWcB99+jI0CEdkIu10ftOF16zrQJwtxyWQ=
 
-On Sun, Sep 13, 2026 at 3:46=E2=80=AFPM Willem de Bruijn
-<willemdebruijn.kernel@gmail.com> wrote:
+On 9/11/26 23:40, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.6.157 release.
+> There are 1424 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 >
-> Zihan Xi wrote:
-> > IPIP GSO/TSO support makes IP-in-IP GSO dispatch re-enter
-> > inet_gso_segment() or ipv6_gso_segment() for every nested IP header. Th=
-e
-> > only state that tracks this nesting is encap_level, which records heade=
-r
-> > bytes and has no recursion bound. A sufficiently deep chain can consume=
- the
-> > kernel stack before a transport GSO callback is reached.
-> >
-> > The unbounded callback nesting was introduced when inet_gso_segment() w=
-as
-> > made stackable by "ipv4: gso: make inet_gso_segment() stackable". GRE G=
-SO
-> > support predated that change, and IP-in-IP GSO/TSO support later made t=
-he
-> > affected path reachable.
-> >
-> > Track the number of IP GSO callbacks in skb_gso_cb and reject the 15th
-> > callback entry. Thus 14 callback entries are allowed to complete;
-> > GSO_RECURSION_LIMIT is the rejection threshold, not the number of
-> > successful callbacks. Initialize the counter for each top-level GSO
-> > operation and check it in both IPv4 and IPv6 handlers so mixed IP-in-IP
-> > nesting is bounded.
-> >
-> > Fixes: 3347c9602955 ("ipv4: gso: make inet_gso_segment() stackable")
-> > Cc: stable@vger.kernel.org
-> > Reported-by: Vega <vega@nebusec.ai>
-> > Assisted-by: LLM
-> > Co-developed-by: Luxing Yin <root@tr0jan.top>
-> > Signed-off-by: Luxing Yin <root@tr0jan.top>
-> > Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
-> > ---
-> >  include/net/gso.h      | 9 +++++++++
-> >  net/core/gso.c         | 1 +
-> >  net/ipv4/af_inet.c     | 3 +++
-> >  net/ipv6/ip6_offload.c | 3 +++
-> >  4 files changed, 16 insertions(+)
-> >
-> > diff --git a/include/net/gso.h b/include/net/gso.h
-> > index 29975440cad5..2665acbb9205 100644
-> > --- a/include/net/gso.h
-> > +++ b/include/net/gso.h
-> > @@ -19,10 +19,19 @@ struct skb_gso_cb {
-> >       int     encap_level;
-> >       __wsum  csum;
-> >       __u16   csum_start;
-> > +     /* Number of GSO callbacks this packet already went through. */
-> > +     u8      recursion_counter;
-> >  };
-> >  #define SKB_GSO_CB_OFFSET    32
-> >  #define SKB_GSO_CB(skb) ((struct skb_gso_cb *)((skb)->cb + SKB_GSO_CB_=
-OFFSET))
-> >
-> > +#define GSO_RECURSION_LIMIT  15      /* First callback depth to reject=
-. */
-> > +static inline int gso_recursion_inc_test(struct sk_buff *skb)
+> Responses should be made by Mon, 14 Sep 2026 06:54:17 +0000.
+> Anything received after that time might be too late.
 >
-> What is 15 based on? Is that where in your test stack overflow occurs?
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.6.157-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.6.y
+> and the diffstat can be found below.
 >
-> A realistic practical limit would likely already be smaller.
+> thanks,
+>
+> greg k-h
 
-An alternative would be to limit total header sizes (nhoff) to 256 bytes or=
- so.
+Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
+
+Tested-by: Ron Economos <re@w6rz.net>
+
