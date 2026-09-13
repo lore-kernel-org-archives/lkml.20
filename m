@@ -1,71 +1,373 @@
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEA433EC824;
-	Sun, 13 Sep 2026 13:04:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 836202F28FC
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 13:05:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789304690; cv=none; b=grb+73ewvz08W+H6rubQm//KnSr+7U8toxlis8DBIBhkWkXfsP5b0cUHHWr283GT8QFb9o7hNRqm6F4rAkLOppT/EPlcbpCKxqrOnQeFG1xYL4IfmtOfIjkZZs3emHMf7lJH3cqOK6U76NWnPEofqzv3tBCkOUuxZMNtgJ2IofA=
+	t=1789304732; cv=none; b=imDJrLkIZrTQSFfQQAy9AkUepDMFXqD76KbOxuw3gtuVl8mgPv6JnLnEtPIY6iFPbRLenMZuzp4xgBVyeLb+KAZG5PRCdoWwSVKisKKgiH15aJeAKOLPo9nnyo8H/UC21rbzv0BPvwBMatK1rnYZpO8Qu7WoSoj1e9e28KRydo8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789304690; c=relaxed/simple;
-	bh=BN+LCmYTlQ7QRUUr/X/TkpZUcB+cbrrZNxjtaiHYttM=;
+	s=arc-20240116; t=1789304732; c=relaxed/simple;
+	bh=y3XytUCzFPOzJmOW3qwO5ptWzQIM9alzkawtzNUIezE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZbURdLnrdf7XaVJZ3hyh9lt3CZZww3FrWQ+RPakRUEPAk7WhsOeLX0AI0J3reKfS8CD7/WmVMfLyLZvm6AvIvDXeHtrRXxlRhkyEcaoco4hqd3h+2G4vyatndzf8shP/AYgKJVf7r6eUql9ODNZa7t5eyr/kB2wufnL/wZNBjsE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=T1uxbt5G; arc=none smtp.client-ip=80.241.56.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=X1hFgd0uaXMLNtyNNhGSSljjlQ+An3YJGGtFJaLb27KtUkl7QYab0zbhiZM/AHwvUFhKX9uEOvqeVKQikTPJ+XXUYv0Xg7SfXfgCKoDGWk97ouW+SeTCF4cpwWL6/0HUfIFGFiC8W/Kg5qglSsBTuP4fVwxZkqI9OQBQScIS3d4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=oz3CoE1E; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Ge25AXjc; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="T1uxbt5G"
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hjT5L6PXKzKp2P;
-	Sun, 13 Sep 2026 15:04:38 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1789304678;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=A7omPkq/GEt3RWx+PUwe6C3e6zmtx+VVdL4qPMq8VkA=;
-	b=T1uxbt5GaxNDxeO48kC7xTz5RYiENgt2wc581Ak35Ks/TxF5XoRyWhI+aGkgaH3XyR8SDv
-	kdPSko5kDMw26KX33/SuDfQ+SqopYio8Aj1BE/fSyqvAVp4/5CyOVSmmStH5sRINQRFezD
-	KVLdogVc5qailuMZEwkLaONpRkzSXyNzP6gGKUHPooUdpvyx1GOvB+D0SN75PRL+KbY7fl
-	Uw1APy3Thjk/w74EPY/vhEdCtO+XsbQct7gRo39U8dUmIkYURvgtTAmn+5CQQAWxPOOU7N
-	53suuNGA6KKg1A/1jR4Iwjm/i+KsTxMD9CpobZ+YH7ZR34VjFs31fJArD1CjBw==
-Date: Sun, 13 Sep 2026 15:04:32 +0200
-From: Benjamin Boortz <bennib@mailbox.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, akpm@linux-foundation.org, 
-	linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org, 
-	lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com, 
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, 
-	broonie@kernel.org, achill@achill.org, sr@sladewatkins.com
-Subject: Re: [PATCH 7.2 0000/1815] 7.2.6-rc1 review
-Message-ID: <aqafOCD5Jo5knwPB@bb-82jq>
-References: <20260912065648.999753832@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="oz3CoE1E";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Ge25AXjc"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68DAU37I821468
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 13:05:29 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=JELls357oROzry/uaF5NiB3H
+	IAkTSZxgZJvFFmqQnWk=; b=oz3CoE1EymzymXg0gk2BuuNfRruq2znV3UzWzZVd
+	QcWJE3ZWvx7sb5vw/S9LmyhETpx3MQJivH8fMuQpONyN+7MhDp+bnQ56OdMNT3HR
+	5YTYAmlqm0mZGxxrJUaIxeOvdMGHX6DWADjLAo1gd5cAfcqO0/cOQ+QVRXtPKKTQ
+	Zk9Z209tvVy1xtqfMwIzR81DwGu4WVAXbijuMYiAC86Wx5DMHAyrlfHRA7ISt6uB
+	9S0dle2tBkw3cCIl+GQtfDJDdRu2PyU3NtQFihI1+1wuBZte+LqKBPn2Fel36s7U
+	rZleCMQk1oDTsc45JiT+vPonPrcauqXcJhraf/8L5p33HA==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9cb7ku-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 13:05:29 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93a1d44c437so33847185a.1
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 06:05:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789304728; x=1789909528; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=JELls357oROzry/uaF5NiB3HIAkTSZxgZJvFFmqQnWk=;
+        b=Ge25AXjc4WqEF2MgSAitQyf7fB62Ilu6n+JkYQ0kFxPtC+qbJ0bC8mn4LEAdwq/Pfc
+         X39LWjVqPg19SbejtVYBtDnzpUWIjn7saTfHrPY3GKlWe7CEE3VAzoO8g5SMh5ej3svt
+         ajdFyZWPVISqRm5vSuPY0h0loELTwTNGMSKZfvdC5Yv82JvWRk60s0jCuqcVXSrWiPaI
+         nY/EgLFKfQsPTQS/2TOoepEu/War+hBWKrSMvv/Q079HfwB2U44Bu/MIk/26YlilLp4s
+         /ImOzyQ2KErtKp+Ofock+TEeIZaiWKH2mi+2ew/RMll169zJL2q4cPGUrSwfDWisatkF
+         NaQg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789304728; x=1789909528;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JELls357oROzry/uaF5NiB3HIAkTSZxgZJvFFmqQnWk=;
+        b=JxGW4rUVlUFU8Sf/G1Rhg1eirvUyNQ2IrX6bOa8PJR5/IeH5CzLdDdrE5k4OcqfHYP
+         zU/a6o0afA2W9ZqDndDVSyaDzSK29tTIITe1oRZt1Mgp3dIi7vydDXD9HwLBsVU/YG8O
+         jL3nyOqNoQ3VCnUgC2sssNVt08oKUOzjQy8diMOCzV+mlDhkc8rcVFNOTdDXeZ+4UAAY
+         Xb65pUI0FjsYCxkNAqDZIcK3Lp2HibMwpKXJlbGjT5+HVYm4tTawzQtC5khlovc2Jgte
+         xcdAmjb4pgqXYHDmNO0CqYVeNzRudV8bcbYDWsghhyckYnk164MMBytdq6Kqn2LjixJJ
+         WkDw==
+X-Forwarded-Encrypted: i=1; AKwUvBzbMRI1vb2DOcqtkC+aWpy1EWiJEGlYa+znDUeQsmsRynPOAj6QD0pFTK0g3q9X9pT0KNFJ3xDcP3TrijY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kZqyogebiLAFkyeJ6JeBNfhQUMR4CGGENHrcy7VdUclAXr4J7n
+	FOOo9rly6rbr//LrTk9fZ25+mCuuNQU1n+f+QsBQA/M6S5wWDuuBL/8vj+pI7jw2BFLUijLEZUL
+	5X2DTGm5LP7dloy1/2Uy/m/NvZz2zk2fdlWJXpX3M7k0D8oyLunXWttrD6eSx2AWJkA8=
+X-Gm-Gg: AYBFou1DFRNuR32NV9e1AIxUEkeHGzzSa6pdj+Q15sacWkmX5bbsALOy1dRxap2mpvO
+	2NEogafD2E9xO5ELv7y947f4ByG0fwpoqp19uJNZdEAgUP1kumMl6KI8scrfAkE1fKELANLRTaa
+	KoSuyIvGqx7INqfSd1SOKK7c9hNmed1iVrFiOcnnJB4FUHIp4fnLiiXRJ9Di5USnHIAIIBx3+hy
+	S6cOY0Ek+ciXfXJrUaqolFW1IOWVNQ4KUt489zMiYcmFkm2H+O9HNj4BNTF31r5TPNCr2DLmEI/
+	mLMVLpe/08Qf/1kjgHgpDhRxU2al+pepJRy/UgiyXyQDtYsurEZ2fozjkTNioPkcsxLwezH+vlI
+	ZwIi5ea9WtNxOHQ==
+X-Received: by 2002:a05:620a:459f:b0:939:feaa:949c with SMTP id af79cd13be357-939feaa986emr1225215885a.36.1789304728308;
+        Sun, 13 Sep 2026 06:05:28 -0700 (PDT)
+X-Received: by 2002:a05:620a:459f:b0:939:feaa:949c with SMTP id af79cd13be357-939feaa986emr1225204485a.36.1789304727663;
+        Sun, 13 Sep 2026 06:05:27 -0700 (PDT)
+Received: from localhost ([188.216.77.92])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb34f1f7sm19426713f8f.24.2026.09.13.06.05.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 13 Sep 2026 06:05:25 -0700 (PDT)
+Date: Sun, 13 Sep 2026 15:05:24 +0200
+From: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
+To: Jiayuan Chen <jiayuan.chen@linux.dev>
+Cc: bpf@vger.kernel.org, syzbot+237bbeed8dfe0699b7f5@syzkaller.appspotmail.com,
+        Andrew Lunn <andrew+netdev@lunn.ch>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, Alexei Starovoitov <ast@kernel.org>,
+        Daniel Borkmann <daniel@iogearbox.net>,
+        Jesper Dangaard Brouer <hawk@kernel.org>,
+        John Fastabend <john.fastabend@gmail.com>,
+        Stanislav Fomichev <sdf@fomichev.me>, Simon Horman <horms@kernel.org>,
+        Andrii Nakryiko <andrii@kernel.org>,
+        Eduard Zingerman <eddyz87@gmail.com>,
+        Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+        Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+        Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
+        Emil Tsalapatis <emil@etsalapatis.com>,
+        Ihor Solodrai <ihor.solodrai@linux.dev>, Shuah Khan <shuah@kernel.org>,
+        Kuniyuki Iwashima <kuniyu@google.com>,
+        Hangbin Liu <liuhangbin@gmail.com>,
+        Martin Karsten <mkarsten@uwaterloo.ca>,
+        Toke =?iso-8859-1?Q?H=F8iland-J=F8rgensen?= <toke@redhat.com>,
+        Eelco Chaudron <echaudro@redhat.com>, linux-kernel@vger.kernel.org,
+        netdev@vger.kernel.org, linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH bpf v3 1/2] bpf, veth: xdp: fix page_pool page leak on
+ skb-backed XDP
+Message-ID: <aqaflCbYxNRe-13p@lore-desk>
+References: <20260911135711.109338-1-jiayuan.chen@linux.dev>
+ <20260911135711.109338-2-jiayuan.chen@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="IhgM8RfCWRss2EoK"
 Content-Disposition: inline
-In-Reply-To: <20260912065648.999753832@linuxfoundation.org>
-X-MBO-RS-META: h4z554icxbd3h7idfxdd7hx8xpxniii9
-X-MBO-RS-ID: 9a7677f3c588cff4b4b
+In-Reply-To: <20260911135711.109338-2-jiayuan.chen@linux.dev>
+X-Proofpoint-GUID: IjFGKUjKiLoESk4JJv-v60XmvlWVSWdy
+X-Authority-Analysis: v=2.4 cv=Pv4G/AM3 c=1 sm=1 tr=0 ts=6aa69f99 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=WpTaRW6qxYHRGzLzQsVYzg==:17
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=edf1wS77AAAA:8
+ a=hSkVLCK3AAAA:8 a=LSqRACfL7P9x1fQBVswA:9 a=CjuIK1q_8ugA:10
+ a=MsDrpbGXjJa3Vg-UeTYA:9 a=PEH46H7Ffwr30OY-TuGO:22 a=DcSpbTIhAlouE1Uv7lRv:22
+ a=cQPPKAXgyycSBL8etih5:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEzMDE4NyBTYWx0ZWRfX9gT01IeYt+lv
+ bXvbZwohaqu4TrRUzUuesq3x9gkyLol6+vaKFVODczeersCQY3hKhz77dXibWY+XOctRJKxx8By
+ fJm2BELvlCEMDVno/o+pD6NOqTzQGdA=
+X-Proofpoint-ORIG-GUID: IjFGKUjKiLoESk4JJv-v60XmvlWVSWdy
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEzMDE4NyBTYWx0ZWRfX/sO0PRM7cGyS
+ Xeoc4IU8D5dVmvKJr6soBJyy3MD72qCuiBHmoctGzbLifcFUWarmpAyaH9enMonqaw63OS+mpXk
+ PEVlr5QzzQd8yb0e/Q41W73oWpUJj/YFYTMhnSHjlFGfXrjiwUP6XsPJmz2pHyaSLCucyjXt/Al
+ G+w5y9hGcJvb2RUr08DLiOVEYxCdHp7U1wcIlZX0J7SEuyaWIBFKiOfkDMy9e8e1C89zoHt/DqY
+ UP2MWtnyca43hWlwLLjc1B6MMZGUupJLaKMe/3B6CmlsDGjsaSZEtLQ8ICdOd8ZvhWjT4WbcssO
+ Xc41CtS0X8tKj7HNgs7aOQgX9pac9dVF78Af3mt4NEB6321yck0PCNkjbGiI/xxkTTIndKIV/LL
+ waHxR30DqOhzEh/awEBXvOZuxWuTrvUuSL/0KgpCKP6F2Z+I2GG+IkiTwI3A5DlpuGHnwczjs0T
+ 8VKRJy3OymPdeSCysvg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-13_04,2026-09-11_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 bulkscore=0 adultscore=0 suspectscore=0 malwarescore=0
+ priorityscore=1501 spamscore=0 clxscore=1015 impostorscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609130187
 
-On Sat, Sep 12, 2026 at 08:29:10AM +0200, Greg Kroah-Hartman wrote:
+--IhgM8RfCWRss2EoK
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
->This is the start of the stable review cycle for the 7.2.6 release.
->There are 1815 patches in this series, all will be posted as a response
->to this one.  If anyone has any issues with these being applied, please
->let me know.
+> bpf_xdp_shrink_data() frees a released frag via __xdp_return() using
+> xdp->rxq->mem.type, but that type is wrong for skb-backed XDP: the skb is
+> cow'd into page_pool memory while the rxq still says MEM_TYPE_PAGE_SHARED,
+> so the page_pool page is freed with page_frag_free() and we hit
+> "Bad page state ... page_pool leak".
+>=20
+> Both generic XDP and veth are affected. A non-linear skb is cow'd into
+> page_pool memory (skb_cow_data_for_xdp() -> skb_pp_cow_data() for generic
+> XDP, veth_convert_skb_to_xdp_buff() for veth), so its frags become
+> page_pool pages while the rxq keeps MEM_TYPE_PAGE_SHARED.
+>=20
+> We can't just fix rxq->mem.type in place:
+> - generic XDP: xdp->rxq is dev->_rx[queue].xdp_rxq (see
+>   bpf_prog_run_generic_xdp()), a shared rxq that other CPUs may access in
+>   parallel, so we must not write to it.
+> - veth: rq->xdp_rxq.mem is shared per-queue state that veth resets on XDP
+>   teardown, and with GRO that reset runs without stopping in-flight NAPI,
+>   so a type stashed there can be clobbered under a packet still in flight.
+>=20
+> Adding a check in __xdp_return() or bpf_xdp_shrink_data() itself is not an
+> option either: without recording it somewhere, both can only guess the
+> frag's memory type, which quickly gets confusing.
+>=20
+> So record it in the xdp_buff. A dedicated mem_type field (mirroring
+> xdp_frame->mem_type) would read more naturally, but it grows xdp_buff, and
+> struct xdp_page_head embeds two of them, which shifts the layout the
+> xdp_do_redirect live-frames selftest hard-codes (MAX_PKT_SIZE). So use a
+> flag bit: add XDP_FLAGS_FRAGS_PAGE_POOL, the two skb-cow sites set it, and
+> bpf_xdp_shrink_data() frees the frag to the page_pool when it is set,
+> otherwise it keeps falling back to xdp->rxq->mem.type unchanged.
 
-Build and boot tested with QEMU for x86_64, i386, arm64, and riscv
-across multiple configurations, and boots on AMD Ryzen 7 5800H.
-No regressions observed.
+I have not looked into the details yet, but I am wondering if it is possible
+to just move xdp_mem_info type (or ever the full xdp_mem_info) in xdp_buff =
+and
+remove it from xdp_rxq_info struct. What do you think?
 
-Tested-by: Benjamin Boortz <bennib@mailbox.org>
+>=20
+> The flag describes the buff, so the buff <-> frame conversions have to ke=
+ep
+> it consistent:
+> - buff -> frame: xdp_update_frame_from_buff() copies xdp->flags into the
+>   frame. veth XDP_TX/XDP_REDIRECT hand the frame to the peer, and cpumap
+>   and devmap run a second program on it, so the peer would inherit a stale
+>   tag; strip it, an xdp_frame describes its memory with ::mem_type.
+> - frame -> buff: xdp_convert_frame_to_buff() rebuilds a buff, and veth and
+>   devmap then run a program whose rxq says MEM_TYPE_PAGE_SHARED even for a
+>   page_pool frame (only cpumap copies mem_type into the rxq). A shrink
+>   there leaks the same way (this predates the series: bpf_xdp_adjust_tail=
+()
+>   frees frags by rxq->mem.type), so re-derive the flag from the frame's
+>   ::mem_type.
+>=20
+> Fixes: e6d5dbdd20aa ("xdp: add multi-buff support for xdp running in gene=
+ric mode")
+> Fixes: 0ebab78cbcbf ("net: veth: add page_pool for page recycling")
+> Fixes: bf25146a5595 ("bpf: add frags support to the bpf_xdp_adjust_tail()=
+ API")
+> Reported-by: syzbot+237bbeed8dfe0699b7f5@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=3D237bbeed8dfe0699b7f5
+> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+> ---
+>  drivers/net/veth.c |  6 ++++++
+>  include/net/xdp.h  | 30 +++++++++++++++++++++++++++++-
+>  net/core/dev.c     |  6 ++++++
+>  net/core/filter.c  |  7 +++++++
+>  4 files changed, 48 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/net/veth.c b/drivers/net/veth.c
+> index 6ed3ee81153fb..a3fdf1959b76c 100644
+> --- a/drivers/net/veth.c
+> +++ b/drivers/net/veth.c
+> @@ -775,6 +775,12 @@ static int veth_convert_skb_to_xdp_buff(struct veth_=
+rq *rq,
+>  	if (skb_shinfo(skb)->nr_frags) {
+>  		skb_shinfo(skb)->xdp_frags_size =3D skb->data_len;
+>  		xdp_buff_set_frags_flag(xdp);
+> +		/*
+> +		 * A nonlinear skb was cow'd into rq->page_pool above, so the
+> +		 * frags must be freed to that pool, not via the rxq's
+> +		 * MEM_TYPE_PAGE_SHARED.
+> +		 */
+> +		xdp_buff_set_frag_pp(xdp);
+
+Even if it is not a real problem at the moment, I still think we should
+set it not just if we have a non-liner skb, but for all skb returned by
+skb_pp_cow_data().
+
+>  	} else {
+>  		xdp_buff_clear_frags_flag(xdp);
+>  	}
+> diff --git a/include/net/xdp.h b/include/net/xdp.h
+> index aa742f413c358..8fd4139e9cbd3 100644
+> --- a/include/net/xdp.h
+> +++ b/include/net/xdp.h
+> @@ -81,6 +81,14 @@ enum xdp_buff_flags {
+>  	 * XDP program is not attached.
+>  	 */
+>  	XDP_FLAGS_FRAGS_UNREADABLE	=3D BIT(2),
+> +	/*
+> +	 * frags are page_pool memory even though rxq->mem.type is not: a
+> +	 * skb-backed XDP buff (generic XDP, veth) is cow'd into a page_pool.
+> +	 * xdp_buff only: an xdp_frame describes its memory with ::mem_type, so
+> +	 * this is stripped in xdp_update_frame_from_buff() and re-derived from
+> +	 * ::mem_type in xdp_convert_frame_to_buff().
+> +	 */
+> +	XDP_FLAGS_FRAGS_PAGE_POOL	=3D BIT(3),
+>  };
+> =20
+>  struct xdp_buff {
+> @@ -131,6 +139,16 @@ static __always_inline void xdp_buff_set_frag_unread=
+able(struct xdp_buff *xdp)
+>  	xdp->flags |=3D XDP_FLAGS_FRAGS_UNREADABLE;
+>  }
+> =20
+> +static __always_inline void xdp_buff_set_frag_pp(struct xdp_buff *xdp)
+> +{
+> +	xdp->flags |=3D XDP_FLAGS_FRAGS_PAGE_POOL;
+> +}
+> +
+> +static __always_inline bool xdp_buff_is_frag_pp(const struct xdp_buff *x=
+dp)
+> +{
+> +	return !!(xdp->flags & XDP_FLAGS_FRAGS_PAGE_POOL);
+> +}
+> +
+>  static __always_inline u32 xdp_buff_get_skb_flags(const struct xdp_buff =
+*xdp)
+>  {
+>  	return xdp->flags;
+> @@ -394,6 +412,15 @@ void xdp_convert_frame_to_buff(const struct xdp_fram=
+e *frame,
+>  	xdp->data_meta =3D frame->data - frame->metasize;
+>  	xdp->frame_sz =3D frame->frame_sz;
+>  	xdp->flags =3D frame->flags;
+> +	/*
+> +	 * frame->flags never carries XDP_FLAGS_FRAGS_PAGE_POOL (it is stripped
+> +	 * in xdp_update_frame_from_buff()); re-derive it from the frame's own
+> +	 * memory type. veth and devmap rebuild a buff here and run a program
+> +	 * whose rxq says MEM_TYPE_PAGE_SHARED, so without this a shrink would
+> +	 * free a page_pool frag through page_frag_free().
+> +	 */
+> +	if (frame->mem_type =3D=3D MEM_TYPE_PAGE_POOL)
+> +		xdp_buff_set_frag_pp(xdp);
+>  }
+> =20
+>  static inline
+> @@ -420,7 +447,8 @@ int xdp_update_frame_from_buff(const struct xdp_buff =
+*xdp,
+>  	xdp_frame->headroom =3D headroom - sizeof(*xdp_frame);
+>  	xdp_frame->metasize =3D metasize;
+>  	xdp_frame->frame_sz =3D xdp->frame_sz;
+> -	xdp_frame->flags =3D xdp->flags;
+> +	/* XDP_FLAGS_FRAGS_PAGE_POOL is xdp_buff only, don't carry it over */
+> +	xdp_frame->flags =3D xdp->flags & ~XDP_FLAGS_FRAGS_PAGE_POOL;
+
+IIUC this is only necessary for the veth case, right? If so, I would sugges=
+t to
+move it in veth driver (or to have a helper function called just in veth).
+
+Regards,
+Lorenzo
+
+> =20
+>  	return 0;
+>  }
+> diff --git a/net/core/dev.c b/net/core/dev.c
+> index 290e0f099e6bf..94268f4d3c5f7 100644
+> --- a/net/core/dev.c
+> +++ b/net/core/dev.c
+> @@ -5532,6 +5532,12 @@ u32 bpf_prog_run_generic_xdp(struct sk_buff *skb, =
+struct xdp_buff *xdp,
+>  	if (skb_is_nonlinear(skb)) {
+>  		skb_shinfo(skb)->xdp_frags_size =3D skb->data_len;
+>  		xdp_buff_set_frags_flag(xdp);
+> +		/*
+> +		 * A nonlinear skb was cow'd into page_pool memory by
+> +		 * skb_cow_data_for_xdp() before we got here, so the frags must
+> +		 * be freed to that pool, not via the rxq's MEM_TYPE_PAGE_SHARED.
+> +		 */
+> +		xdp_buff_set_frag_pp(xdp);
+>  	} else {
+>  		xdp_buff_clear_frags_flag(xdp);
+>  	}
+> diff --git a/net/core/filter.c b/net/core/filter.c
+> index 61940e7535523..d34ba56d79d8f 100644
+> --- a/net/core/filter.c
+> +++ b/net/core/filter.c
+> @@ -4378,6 +4378,13 @@ static bool bpf_xdp_shrink_data(struct xdp_buff *x=
+dp, skb_frag_t *frag,
+>  	if (mem_type =3D=3D MEM_TYPE_XSK_BUFF_POOL) {
+>  		netmem =3D 0;
+>  		zc_frag =3D bpf_xdp_shrink_data_zc(xdp, shrink, tail, release);
+> +	} else if (xdp_buff_is_frag_pp(xdp)) {
+> +		/*
+> +		 * Skb-backed XDP (generic XDP, veth) cow's the frags into a
+> +		 * page_pool while the rxq stays MEM_TYPE_PAGE_SHARED, so free
+> +		 * the frag to the pool, not via page_frag_free().
+> +		 */
+> +		mem_type =3D MEM_TYPE_PAGE_POOL;
+>  	}
+> =20
+>  	if (release) {
+> --=20
+> 2.43.0
+>=20
+
+--IhgM8RfCWRss2EoK
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCaqaflAAKCRA6cBh0uS2t
+rHNBAPkBHi09tn1jQ/byaHiBeGbsxzmeuu/TzTI7dk6V/wHKxQEA67Ovgsf+Cg4A
+oXBSPVc4vic9RMJpfzh6FXJYmpdXSwk=
+=NGTU
+-----END PGP SIGNATURE-----
+
+--IhgM8RfCWRss2EoK--
