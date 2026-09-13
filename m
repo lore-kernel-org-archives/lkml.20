@@ -1,248 +1,157 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF8152F361E;
-	Sun, 13 Sep 2026 13:43:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD2A43EF0AA;
+	Sun, 13 Sep 2026 13:44:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789307008; cv=none; b=UQa/jUox8oG4ZwBEixTnVGC0FpCsTDbB+R7DOjxlvIYCTgIYaQJMikrP6Wfi5R8pTdgT31cWqAazKdWmmX9v8oR/Bx4PPBs9BVUiVn7fk9wPPXJmXfuBRMLlb/US3XNXmS9ZFYMF4BXz9A6qMFt0cJTToZkiiGMMbxwUQsjhXgA=
+	t=1789307086; cv=none; b=WQ+ju4xY/LWQ1oauEzxdbwtxy8bEBm7w103DibE+m2+B6hznjTZ8QUYyFYWyYycjZPuMkFFv/1GJ/fGSKgw5G4+BINXvQx4K2ow7jwRW9ZdJuPLvmOIJSNtUsXlezD2qmwFQFheZWqmb73z9uaXBH5lXac1mJ0rdByBp6eDDotI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789307008; c=relaxed/simple;
-	bh=fAGIE4dT8cfOhwhEcRUdMERfTsTdpAs5FYvUvI4j8L0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kBwaLGlVPRkWgSidglb8e7RJWGQ5CMjEWIDUtsaQoPiBnI86Jix3eQH6+isRZx2y+n695JapwPtWItIq2Vd/Cyuja/9sqXMepDiO4uheoLd+VOVamP2RQ3ASqf1gNi09bcssDpG01xyBKhsLOc5MnbpFBG04Mp6m/Js9osiNV8I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=HV/cuNZI; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=NrrMSvLh; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1789307086; c=relaxed/simple;
+	bh=i2WGeqQH68Q4Ba86qdnwpKbZXbPbJYs0hfODq/KlDsU=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=Iggc+jpt35L5zEIhfzW3lZH4/EaI24FJSKgbYZKP8B3YGZIyGVXy7j23/Cgpnt35BnFAxsM21HlxJlmLU5u5OKlDz+ggmk+XTQF13sFRSTUw3WtO/jOlR+t6rn02TpWSvsN+jVdQeUdM2ydd+l6Vh6WxCTTYZsPnHhNZJzDeE90=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OwtMfMHk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="HV/cuNZI";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="NrrMSvLh"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Date:Subject:To:From; t=1789306981; bh=Kt1MqXVAMn5d6Yn/sEKLaLJ
-	cBinFJCRvDSK8+PRZtSU=; b=HV/cuNZIRl6eNMZltL5ivqvq+2OADkk2MkOg25QJVLPBt+C9nc
-	OygFy1Xx5t5nrWf/hPoXQEhJeqPymJS+ivY2aZVL3WgOGzpxF15MeM/yFocnsMtHiDCU/f1gfm0
-	mrVviYiQbJc8VpmEFK59Rl0Djh5yWeMSt0V0rsH9865tsimmOMVmC5PmlhmbxqJf9m8UP4qWUSE
-	aGDgEiy8ntHnt6tCXTJFLKpDAiNl3IYfXZTe/wPpY0+M2TkLbfo/hx7itMVNJNLJSkN2Hi1GNWq
-	+xc9e7xjvPLtiZbag1pNpKNi8jU7t73QX4mQDSs70xM29qxdcAqEWi8N0iHb10yEEIA==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Date:Subject:To:From; t=1789306981; bh=Kt1MqXVAMn5d6Yn/sEKLaLJ
-	cBinFJCRvDSK8+PRZtSU=; b=NrrMSvLhhOPCgLhEEb3zp536JplI5qTgU0366AThViVPKh57Mq
-	iiiZGr7ng8M6nI3YAd1BBUzHpjnAHYah/BAw==;
-From: Bradley Morgan <brads@mainlining.org>
-To: "Paul E. McKenney" <paulmck@kernel.org>
-Cc: jiangshanlai@gmail.com,
-	josh@joshtriplett.org,
-	work@onurozkan.dev,
-	rostedt@goodmis.org,
-	mathieu.desnoyers@efficios.com,
-	rcu@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	brads@mainlining.org
-Subject: [PATCH] srcutiny: Add reader flavor checking for atomic SRCU
-Date: Sun, 13 Sep 2026 13:43:01 +0000
-Message-ID: <20260913134301.7236-1-brads@mainlining.org>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OwtMfMHk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BEEE1F000FF;
+	Sun, 13 Sep 2026 13:44:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789307084;
+	bh=i2WGeqQH68Q4Ba86qdnwpKbZXbPbJYs0hfODq/KlDsU=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=OwtMfMHkaeK8fzy6kMxd7McWxngHxwVyMbJomdrceij5d7CFaOoym9OYvBpu7+KIi
+	 gLA8FFrqhysldQgBcT5sSM6xGSbTsRl5cMjn7VyUGF4AAtlVvYco+L4NY8NQ8QrkFT
+	 TbR2/EBwb9nD+iJYpY5r1fylzLNPjw07Z7yolLH+np68kttOQhls7MwpInQ9VF31W0
+	 NO4n7gkhel3KMjmafMADvEwjHcHuEIgzHd07/LzVBRdvOKZaLQ14PcqZi16BnXNPgn
+	 PpnXSpTg++v5IXhJFafKPDfRM2q8mv/iJ0Jh7W3q5UeaDlibUwtgZwwn7dcis6zPw8
+	 yFCESRSN+1xHg==
+From: Andreas Hindborg <a.hindborg@kernel.org>
+To: Bean Huo <huobean@gmail.com>, Greg KH <gregkh@linuxfoundation.org>,
+ jaemyung.lee@samsung.com
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo
+ <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6rn?= Roy Baron
+ <bjorn3_gh@protonmail.com>, Benno
+ Lossin <lossin@kernel.org>, Alice
+ Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo
+ Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot
+ <acourbot@nvidia.com>, Onur =?utf-8?Q?=C3=96zkan?= <work@onurozkan.dev>,
+ linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
+ linux-block@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH RFC] drivers/rufs: add Rust UFS host controller driver
+In-Reply-To: <182679ae5437916095a4b04187e350c80235c088.camel@gmail.com>
+References: <20260912-rufs-private-v1-1-716db733e655@samsung.com>
+ <YKq4TcQM0v2dXF4wTHEvZKwASII6PDd_R7_UiHWe3NRnR4JsrC_ZS-x6jA_Kl7P6ONehU0REHYk7WaLz8Xv5gA==@protonmail.internalid>
+ <2026091124-treason-trickily-bc52@gregkh> <87mrtmvioe.fsf@kernel.org>
+ <raUHMVWl_mMP5ffB5hk9eDe5BVvmO01q_9zfZ4NqJ3CymLnRO3EL0_X_K044vKerqwrwXshEVE-o45MXSlGVbw==@protonmail.internalid>
+ <182679ae5437916095a4b04187e350c80235c088.camel@gmail.com>
+Date: Sun, 13 Sep 2026 15:44:26 +0200
+Message-ID: <87zexltged.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-Tiny SRCU stubs out srcu_check_read_flavor() as a nop.  So if you
-DEFINE_SRCU_ATOMIC() a struct and then call srcu_read_lock() on it
-by mistake, nothing warns you.  Tree SRCU has
-__srcu_check_read_flavor() which splats when the flavor changes.
+"Bean Huo" <huobean@gmail.com> writes:
 
-Add a srcu_reader_flavor field to Tiny's srcu_struct, gated on
-CONFIG_PROVE_RCU.  DEFINE_SRCU_ATOMIC() bakes in the flavor at
-build time via __SRCU_STRUCT_INIT_ATOMIC(), and the runtime init
-paths set it too.
+> On Sat, 2026-09-12 at 13:00 +0200, Andreas Hindborg wrote:
+>> "Greg KH" <gregkh@linuxfoundation.org> writes:
+>>
+>> > On Sat, Sep 12, 2026 at 12:52:55AM +0900, Jaemyung Lee via B4 Relay wrote:
+>> > > Comments on the decision to bypass the SCSI midlayer, the blk-mq model
+>> > > used
+>> > > in its place, and the proposed prerequisite API boundaries would be
+>> > > especially welcome.
+>> >
+>> > Many many years ago, the USB subsystem tried to bypass the SCSI midlayer
+>> > for its storage driver, and while it was a "quick solution" at the time,
+>> > in the end, it didn't work out and we dropped the driver as it just made
+>> > no sense to keep duplicating all of the logic all the time.
+>> >
+>> > So I wouldn't recommend it, as long as UFS builds on top of the SCSI
+>> > commands and the like, you should not attempt to duplicate it in a
+>> > separate driver, no matter how much "simpler" it initially seems to be.
+>>
+>> The scsi related code in this driver is less than 300 lines and is
+>> mostly struct packing/unpacking. I guess we could lift the struct
+>> definitions from the scsi layer via bindgen. But at 280 lines I am not
+>> sure it is worth it, and it hardly counts as duplication.
+>
+> I agree the SCSI code in this RFC is small today. But I think it is small
+> because the hard parts are not ready in your RFC yet, not because UFS does not
+> need them.
+>
+> The SCSI logic is also not only in protocol/scsi.rs. upiu.rs decodes SAM status,
+> and queue.rs parses sense data and decides retries.
 
-The check itself is simple: warn if the flavor changes after first
-use.  Tiny is UP so there is no race on first write, no cmpxchg
-needed.
+Yes, you are right. But it is still very minimal bits of logic. I
+definitely want to encapsulate all SCSI logic in a single place now, so
+it is more clear.
 
-This catches the case where a normal reader sneaks into an atomic
-domain.  synchronize_srcu_atomic() would then return early while
-that reader is still in its section, which is a UAF waiting to
-happen.
+> And some things are already
+> missing because the driver does not use sd and the SCSI error handling:
+>
+> 1, VPD block limits are not read, and a discard of 4 GiB or more fails with
+> EOVERFLOW
+> 2, the cache mode page is not read, so FLUSH/FUA are likely never sent
+> 3, the residual count is ignored, so a short transfer completes as success
+> 4, UNIT ATTENTION and BUSY are requeued without a limit
+> 5, LUs are found by 0..bNumberLU, not REPORT LUNS, so sparse LUs are missed
+> 6, no START STOP UNIT at shutdown
+>
+> Each of these needs more SCSI code in your RUFS. For comparison, sd.c,
+> scsi_error.c, scsi_lib.c and scsi_scan.c are about 15000+ lines today, and
+> ufshcd uses all of them. Once RUFS has error handling, power management, RPMB
+> and SG_IO, I expect the SCSI part will be large, and it will be a second copy of
+> code we already have and maintain.
 
-Signed-off-by: Bradley Morgan <brads@mainlining.org>
----
- include/linux/srcu.h     |  4 ++--
- include/linux/srcutiny.h | 39 +++++++++++++++++++++++++++++++++++----
- kernel/rcu/srcutiny.c    | 36 ++++++++++++++++++++++++++++++++++++
- 3 files changed, 73 insertions(+), 6 deletions(-)
+I cannot counter this argument without proof of existence. But I don't think
+we will be anywhere near 15k lines extra to add these features.
 
-diff --git a/include/linux/srcu.h b/include/linux/srcu.h
-index 1a8a465a5650..649a44d1cd00 100644
---- a/include/linux/srcu.h
-+++ b/include/linux/srcu.h
-@@ -36,9 +36,9 @@ static inline int __init_srcu_struct(struct srcu_struct *ssp, const char *name,
- int __init_srcu_struct_fast(struct srcu_struct *ssp, const char *name, struct lock_class_key *key);
- int __init_srcu_struct_fast_updown(struct srcu_struct *ssp, const char *name,
- 				   struct lock_class_key *key);
-+#endif // #ifndef CONFIG_TINY_SRCU
- int __init_srcu_struct_atomic(struct srcu_struct *ssp, const char *name,
- 			      struct lock_class_key *key);
--#endif // #ifndef CONFIG_TINY_SRCU
- 
- #define init_srcu_struct_fast(ssp) \
- ({ \
-@@ -73,8 +73,8 @@ static inline int __init_srcu_struct(struct srcu_struct *ssp, const char *name,
- #ifndef CONFIG_TINY_SRCU
- int init_srcu_struct_fast(struct srcu_struct *ssp);
- int init_srcu_struct_fast_updown(struct srcu_struct *ssp);
--int init_srcu_struct_atomic(struct srcu_struct *ssp);
- #endif // #ifndef CONFIG_TINY_SRCU
-+int init_srcu_struct_atomic(struct srcu_struct *ssp);
- 
- #define __SRCU_DEP_MAP_INIT(srcu_name)
- #endif /* #else #ifdef CONFIG_DEBUG_LOCK_ALLOC */
-diff --git a/include/linux/srcutiny.h b/include/linux/srcutiny.h
-index 47a368f945e3..6b14511d09f2 100644
---- a/include/linux/srcutiny.h
-+++ b/include/linux/srcutiny.h
-@@ -20,6 +20,9 @@ struct srcu_struct {
- 	u8 srcu_gp_running;		/* GP workqueue running? */
- 	u8 srcu_gp_waiting;		/* GP waiting for readers? */
- 	u8 srcu_atomic_gp_flag;		/* Serialize atomic GP work.*/
-+#ifdef CONFIG_PROVE_RCU
-+	u8 srcu_reader_flavor;		/* Reader flavor for srcu_struct? */
-+#endif /* #ifdef CONFIG_PROVE_RCU */
- 	unsigned long srcu_idx;		/* Current reader array element in bit 0x2. */
- 	unsigned long srcu_idx_max;	/* Furthest future srcu_idx request. */
- 	struct swait_queue_head srcu_wq;
-@@ -39,6 +42,12 @@ void srcu_drive_gp(struct work_struct *wp);
- void srcu_tiny_irq_work(struct irq_work *irq_work);
- void srcu_defer_drain(struct irq_work *irq_work);
- 
-+#ifdef CONFIG_PROVE_RCU
-+#define __SRCU_READER_FLAVOR_INIT	.srcu_reader_flavor = SRCU_READ_FLAVOR_ATOMIC,
-+#else
-+#define __SRCU_READER_FLAVOR_INIT
-+#endif
-+
- #define __SRCU_STRUCT_INIT(name, __ignored, ___ignored, ____ignored)	\
- {									\
- 	.srcu_wq = __SWAIT_QUEUE_HEAD_INITIALIZER(name.srcu_wq),	\
-@@ -51,6 +60,19 @@ void srcu_defer_drain(struct irq_work *irq_work);
- 	__SRCU_DEP_MAP_INIT(name)					\
- }
- 
-+#define __SRCU_STRUCT_INIT_ATOMIC(name)					\
-+{									\
-+	.srcu_wq = __SWAIT_QUEUE_HEAD_INITIALIZER(name.srcu_wq),	\
-+	.srcu_cb_tail = &name.srcu_cb_head,				\
-+	.srcu_work = __WORK_INITIALIZER(name.srcu_work, srcu_drive_gp),	\
-+	.srcu_irq_work = { .func = srcu_tiny_irq_work },		\
-+	.defer_cbs = LLIST_HEAD_INIT(name.defer_cbs),			\
-+	.defer_iw = { .node = { .u_flags = IRQ_WORK_HARD_IRQ },		\
-+		      .func = srcu_defer_drain },			\
-+	__SRCU_READER_FLAVOR_INIT					\
-+	__SRCU_DEP_MAP_INIT(name)					\
-+}
-+
- /*
-  * This odd _STATIC_ arrangement is needed for API compatibility with
-  * Tree SRCU, which needs some per-CPU data.
-@@ -65,20 +87,19 @@ void srcu_defer_drain(struct irq_work *irq_work);
- #define DEFINE_SRCU_FAST_UPDOWN(name) DEFINE_SRCU(name)
- #define DEFINE_STATIC_SRCU_FAST_UPDOWN(name) \
- 	static struct srcu_struct name = __SRCU_STRUCT_INIT(name, name, name, name)
--#define DEFINE_SRCU_ATOMIC(name) DEFINE_SRCU(name)
-+#define DEFINE_SRCU_ATOMIC(name) \
-+	struct srcu_struct name = __SRCU_STRUCT_INIT_ATOMIC(name)
- #define DEFINE_STATIC_SRCU_ATOMIC(name) \
--	static struct srcu_struct name = __SRCU_STRUCT_INIT(name, name, name, name)
-+	static struct srcu_struct name = __SRCU_STRUCT_INIT_ATOMIC(name)
- 
- // Dummy structure for srcu_notifier_head.
- struct srcu_usage { };
- #define __SRCU_USAGE_INIT(name) { }
- #define __init_srcu_struct_fast __init_srcu_struct
- #define __init_srcu_struct_fast_updown __init_srcu_struct
--#define __init_srcu_struct_atomic __init_srcu_struct
- #ifndef CONFIG_DEBUG_LOCK_ALLOC
- #define init_srcu_struct_fast init_srcu_struct
- #define init_srcu_struct_fast_updown init_srcu_struct
--#define init_srcu_struct_atomic init_srcu_struct
- #endif // #ifndef CONFIG_DEBUG_LOCK_ALLOC
- 
- void synchronize_srcu(struct srcu_struct *ssp);
-@@ -147,7 +168,17 @@ static inline void synchronize_srcu_expedited(struct srcu_struct *ssp)
- void srcu_barrier(struct srcu_struct *ssp);
- 
- static inline void srcu_expedite_current(struct srcu_struct *ssp) { }
-+
-+#ifdef CONFIG_PROVE_RCU
-+void __srcu_check_read_flavor(struct srcu_struct *ssp, int read_flavor);
-+
-+static inline void srcu_check_read_flavor(struct srcu_struct *ssp, int read_flavor)
-+{
-+	__srcu_check_read_flavor(ssp, read_flavor);
-+}
-+#else /* #ifdef CONFIG_PROVE_RCU */
- #define srcu_check_read_flavor(ssp, read_flavor) do { } while (0)
-+#endif /* #else #ifdef CONFIG_PROVE_RCU */
- 
- /* Defined here to avoid size increase for non-torture kernels. */
- static inline void srcu_torture_stats_print(struct srcu_struct *ssp,
-diff --git a/kernel/rcu/srcutiny.c b/kernel/rcu/srcutiny.c
-index 76411562366f..76a276de07ee 100644
---- a/kernel/rcu/srcutiny.c
-+++ b/kernel/rcu/srcutiny.c
-@@ -52,6 +52,25 @@ static int init_srcu_struct_fields(struct srcu_struct *ssp)
- 	return 0;
- }
- 
-+#ifdef CONFIG_PROVE_RCU
-+int __init_srcu_struct_atomic(struct srcu_struct *ssp, const char *name,
-+			      struct lock_class_key *key)
-+{
-+	ssp->srcu_reader_flavor = SRCU_READ_FLAVOR_ATOMIC;
-+	return __init_srcu_struct(ssp, name, key);
-+}
-+EXPORT_SYMBOL_GPL(__init_srcu_struct_atomic);
-+
-+#ifndef CONFIG_DEBUG_LOCK_ALLOC
-+int init_srcu_struct_atomic(struct srcu_struct *ssp)
-+{
-+	ssp->srcu_reader_flavor = SRCU_READ_FLAVOR_ATOMIC;
-+	return init_srcu_struct_generic(ssp);
-+}
-+EXPORT_SYMBOL_GPL(init_srcu_struct_atomic);
-+#endif /* #ifndef CONFIG_DEBUG_LOCK_ALLOC */
-+#endif /* #ifdef CONFIG_PROVE_RCU */
-+
- #ifdef CONFIG_DEBUG_LOCK_ALLOC
- 
- int init_srcu_struct_lockdep(struct srcu_struct *ssp, const char *name,
-@@ -212,6 +231,23 @@ void srcu_tiny_irq_work(struct irq_work *irq_work)
- }
- EXPORT_SYMBOL_GPL(srcu_tiny_irq_work);
- 
-+#ifdef CONFIG_PROVE_RCU
-+/*
-+ * Check for consistent reader flavor.  Tiny SRCU is UP only, so no
-+ * cmpxchg is needed to set the flavor on first use.
-+ */
-+void __srcu_check_read_flavor(struct srcu_struct *ssp, int read_flavor)
-+{
-+	int old_read_flavor = ssp->srcu_reader_flavor;
-+
-+	WARN_ON_ONCE(read_flavor & (read_flavor - 1));
-+	WARN_ON_ONCE(old_read_flavor && read_flavor != old_read_flavor);
-+	if (!old_read_flavor)
-+		ssp->srcu_reader_flavor = read_flavor;
-+}
-+EXPORT_SYMBOL_GPL(__srcu_check_read_flavor);
-+#endif /* #ifdef CONFIG_PROVE_RCU */
-+
- static void srcu_gp_start_if_needed(struct srcu_struct *ssp)
- {
- 	unsigned long cookie;
--- 
-2.47.3
+> I suggest you samsung first works in JEDEC, together with the other UFS vendors
+> and host controller vendors, to remove scsi from the UFS spec as the application
+> layer.
+
+I appreciate the input.
+
+> As long as scsi is the UFS application layer, every UFS device must still
+> uses scsi, decode scsi in FW, and RUFS must still send SCSI commands and handle
+> SCSI status and sense data, as it does today. Moving this SCSI work out of the
+> SCSI midlayer and into a new driver does not make the whole ecosystem simpler.
+
+It may not make the ecosystem simpler at first, but I do believe it will
+make the driver more simple.
+
+> It only means the same SCSI work is done in two places, and it can even make
+> things worse.
+
+It's a very small part though, so it should be fairly easy to manage. I
+do acknowledge that our RFC driver has bits sprinkled about, and that
+making it feature complete will make these bits grow. I don't think it
+will grow as much as you hint at.
+
+> If the spec changes, then a new driver built on native UFS commands would make
+> much more sense. That is the first thing to do, not just post an RFC
+> patch.
+
+We did send this patch with the intention of starting this exact
+conversation, so there is that. I appreciate your input that you would
+prefer the conversation to be started in a different channel.
+
+> I
+> could send a Rust based UFS driver as well with AI assist, but that does not
+> make it sensible to change the base of our current UFS ecosystem.
+
+I am not sure what to read from this. I want to make it very clear that
+this patch is not some kind of vibe coded pile of AI slop. I'd love to
+discuss responsible and efficient use of LLMs for kernel work, but this
+thread is not the place for that conversation.
+
+Best regards,
+Andreas Hindborg
 
