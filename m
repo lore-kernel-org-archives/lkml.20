@@ -1,202 +1,274 @@
-Received: from www5210.sakura.ne.jp (www5210.sakura.ne.jp [133.167.8.150])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f7.google.com (mail-ej2-f7.google.com [74.125.228.135])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84F4B37AA65;
-	Sun, 13 Sep 2026 15:56:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=133.167.8.150
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789314968; cv=none; b=KG7gOr+9ULRtggb1KY3Gn0s7GECx5LFEksLNxIOQiaUmJk7xDqCtiSvhuKXTu15KqSi8llfYMtagkzz7LHca10Vwlq2xijY6SFelv9HMq1FXo1IcM6hFGaqQ2Ku/6PAsfGov26LHOa/qO4/qtUjgBVW6CYQu2gjokcJGzK1mdGE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789314968; c=relaxed/simple;
-	bh=foVvBTZGZiEy5Y1kEdmNf1VrmnTJmUtwTC9xMqYUlio=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JQXr+ioN0pwhWAlfeNRaev5ZtpSJ/ywp1UzmPbyq4Z5D35ogx0R99VdAUl8ZWLhjfdktPcgMZG/aS6K3nBHLdjJmjtIjV1P+3jtNoRQdUb67GLRSTEH1jTnqUgrLE/U+Q82sy96ctsvmjErY+NWemNpq7y2xpsDIyWATy4Q79Cw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mgml.me; spf=pass smtp.mailfrom=mgml.me; dkim=pass (2048-bit key) header.d=mgml.me header.i=@mgml.me header.b=gzHO04Ae; arc=none smtp.client-ip=133.167.8.150
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mgml.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mgml.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1325B368D76
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 15:59:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.135
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789315147; cv=pass; b=a99KtUd5wgclXrvjLMPKhBtgSo2N4hOeUaEbgoNj4yuHsHOMjXEeca9YyBiiXe+FdgrvROKPndAhOPPdahprnRqJuNelyb+AjLEPhOqhzXju5VBs7TAPdpekGUOyapgOXAgXyZxCzyDfdtC2m+3of3NIgirAEk+M5veFKr+qZEg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789315147; c=relaxed/simple;
+	bh=GwskXz/4lUAOU/7p13jVmuQ8myr6xowZ5XA7iUxaLtk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=tu1B4rSKO1z+vAIuuvzdM1z6GAMGVGDNq4Vvx7w6Vo1pBJvNYfwRJKrdpTc5YJXYKmgj/1tJTKlzDtCiWtcO2lIJBeuhlAc6QV8WV4bBH0qb9kzMz47qONEqEasD59shRElybBm20xAh8Gjxqq/fT82Hiq/xSU1WD4ZBh/z25HU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WWg1nTvY; arc=pass smtp.client-ip=74.125.228.135
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mgml.me header.i=@mgml.me header.b="gzHO04Ae"
-Received: from fedora (p3233127-ipxg00b01tokaisakaetozai.aichi.ocn.ne.jp [180.17.90.127])
-	(authenticated bits=0)
-	by www5210.sakura.ne.jp (8.16.1/8.16.1) with ESMTPSA id 68DFtZEB020593
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
-	Mon, 14 Sep 2026 00:55:48 +0900 (JST)
-	(envelope-from k@mgml.me)
-DKIM-Signature: a=rsa-sha256; bh=0meUkPycroKNsH/2KAUZCp1jRFq4WmTTXqEz0it/ReU=;
-        c=relaxed/relaxed; d=mgml.me;
-        h=From:Message-ID:To:Subject:Date;
-        s=rs20250315; t=1789314948; v=1;
-        b=gzHO04AeVgHcRnYldIG2qzeH6jYLxJsgR1Hhh0i1tgIIpOuuZN5dqzZvfB/n3Ea7
-         3NinJLuGAZvEwglgNJ01X01Z0l0CSnDZeeV8JRAWqceWMWSU+/wtg/zZKboFzMll
-         KzzYAUU0X1veZBsrZXQIDLa+4+6OdjVEs0qTX5C2KeUizwlqsIQ3MeYB3X2o5vA9
-         X3TTSm2rXAiL9VsQ7uNH/j9UvgkXoEVN7WlQXVAjMLOGzIHiQwzW84mQqCVjl7Mw
-         kGANPf9LANNSV173EqD2QSibz4jR5S1Gxe63nMQ1PEPZP+phej0k52H5ES71+ix0
-         Oie9szYxfkfCBSDx+E1uVw==
-From: Kenta Akagi <k@mgml.me>
-To: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, stable@vger.kernel.org
-Cc: Paolo Bonzini <pbonzini@redhat.com>,
-        Sean Christopherson <seanjc@google.com>,
-        Alexander Bulekov <bkov@amazon.com>,
-        Fred Griffoul <fgriffo@amazon.co.uk>, Kenta Akagi <k@mgml.me>
-Subject: [PATCH 5.15.y v3 6/7] KVM: x86: Fix shadow paging use-after-free due to unexpected GFN
-Date: Mon, 14 Sep 2026 00:55:22 +0900
-Message-ID: <20260913155523.7423-7-k@mgml.me>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260913155523.7423-1-k@mgml.me>
-References: <20260913155523.7423-1-k@mgml.me>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WWg1nTvY"
+Received: by mail-ej2-f7.google.com with SMTP id a640c23a62f3a-c28e3998eb7so156391366b.1
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 08:59:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789315144; cv=none;
+        d=google.com; s=arc-20260327;
+        b=WbUZQf6RdjHvnl7pBMoQoMI6HZmCdCBmpiOwiGZqv2mDmJwg4NGTS4ASSy2IDa1uwh
+         r8aXiHSjqzFr4MmIGDUZpOgYZ5stsz0xvoKFC8E75qxPUxZ5mdi+4QZkvHHwNotA6M4y
+         rhfjSAsNc8Ek3xge32or4Wh7wp3dwJTuWiIzsEn5KzuOshKN18TusFkfBSW1MtG2vNuV
+         cImuB6PE9Ukv5y9ecUnNTsZso5NVL3/ZvDdBoZaqkqhg4+iCT6znBFXxPnbzOT/ByK+N
+         9VQS8Vsq4uoVFsZZxGxpVVtWookex4D4S/arjONTr2oh49q9zy9fZyzcpVlZydIvqIfO
+         G7BQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=QtQwQGv8F8oJXhyzp/mmJrRotQmL7KJWiE3zhpMTfrU=;
+        fh=G9EJ/F0evdgHKZSWtRH30oavZdT6OWqz08xoiDcQT8k=;
+        b=A17H6xFxFWUyayJcQkjiwONgJtYqEy2kwsES2yZYdr5jl31ufDIfK5VhY9KSrgJczg
+         EQrs9YlnPbUasXVbLT5SDuWiLE9fNuy27F77Do33MuZ9+3qlUfOJpcB9AVWaMsfjbLTI
+         STxFgGclf81FRxzou33aozIJMgA/92bDabmqvpEzPcsSSA4ai0wUX7MQ20tOaFQgGz/l
+         1qsYDpbZQCqg+Wr4dsh7KO2TiKQH1Vuf5A58KRbZ/EVstR/RVuYHZTocSBQcnhwMFB1a
+         uKZ8wYfRJIbxwa5KIdhD2IfZlS911uYZ4HYWc5kdooe9yT/YA+GxiVkbNM0sILHXAApY
+         hFrg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789315144; x=1789919944; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=QtQwQGv8F8oJXhyzp/mmJrRotQmL7KJWiE3zhpMTfrU=;
+        b=WWg1nTvYL+9Ouz7+KipH2gQpYVHVyY/n0XtPsa42WcbfDxm7cSdOQFUtSRwA5Hcyfq
+         2LG//KqwbOEZongiSKa3DXoun1ndDqPtePsK2tE945hkt+jBt0Ot6dsW9CWEKmHHFs3t
+         PYB4aiQZBycQJkDR6IlvPx7RhIKI9e3hgQOin/DCJV9mRZsAZBLv/Xkl48YaWmRrE0ej
+         RRy9AFVTF4Trvxnh5Q8d8u9xI621lJAgGSLdUEceg3vnhLqjuf1N0kRl0QOmKY9Gp/PE
+         57vw+mzR8nS3uf9DN4u1gOv07b6eYAVa1dE07EL4FVChQKez635fL+vGPRl8vdXLKIJ4
+         uGDg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789315144; x=1789919944;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QtQwQGv8F8oJXhyzp/mmJrRotQmL7KJWiE3zhpMTfrU=;
+        b=o0fibKm5nh/wZ9r3cMv7BCknSj/e5g5sdZ2KN0qqaorOWWR3isjDH+y2yl0/jz0ivB
+         cAeO0G24ogx5VaK4jenqGRveDHDt0SnKhaU1eF3jHddYpxH/ijPxqOCkRkIy6OOK5N0T
+         VSA8iRXM42TgzH+8+5xW2xnUEQBhe/RU8kVxOPYw1y/Xl90ZxyILVUBBlNiPhfqIbg5q
+         LvtJoC0Q3GHcf4zJk8hpOG4i+ZGY2nk/+YoJKK0aNfj0DWEdgvjBraThyiFC66yRg8K/
+         jDGUYs7tNKagrgPiRbSTH/P+xLehxoR4rfNU/8p230h+n83U6ZqM9HRGO7twF3tq1dVM
+         vz1w==
+X-Forwarded-Encrypted: i=1; AKwUvByLUGn33xlbv3z8KY1xir5w9A0SAKZIBeqsO1itcBmCSMI0AN8tnsWsDsdsNCPHORhnG9VAiCEPhS90mZU=@vger.kernel.org
+X-Gm-Message-State: AFuF++k/R8769QApKWjSD2Y/dMDxqsuCTwTkqsnPgdFbgcD3u0E3IpQF
+	+kx5LXVlWXaTnCXYZmJFDVoQSr5KaXVcT9i8J8iXPRdcmcadhcYNeWXCs7cqC3dwxGmvNGQDs03
+	DoKDDxj1uH1ZqbspVTOh3V4Lcg0SZwjI=
+X-Gm-Gg: AYBFou1Vk68ZvCbCiERkaw2fDh8YmvqikUh610tCcCyAdNCI9nL/9y6rbXpMCSPiyre
+	4l2XIZXP//sIUJO7GFNxtadJnRSkQkiUicqytWUvSxJtzj7+WjeWYAIqn7hUh8HGgBkMtVgmb2W
+	wOcGEXO6ZXtv1w0JOjdKBg0hjSIG2ey67MxyhHvOm/Yv/izqiRLP5hX0VUC90oP1lxUcR9bYi8R
+	+eljsJC3GgXHK2uNhNpsKXnNs3TE76z5AbM1d9890eigN26I/TJNQpZo0Gjk4MyKLWfwsXLm7V1
+	7Q+O2EpR1l7tmG+B4PXIc7RzbfI527ZhJWxMz4+BW6GcCkpWeTBRoedD+Q==
+X-Received: by 2002:a17:907:1992:b0:c19:6104:e5e4 with SMTP id
+ a640c23a62f3a-c2985769204mr414384566b.20.1789315143958; Sun, 13 Sep 2026
+ 08:59:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260907153713.2572547-8-coiaprant@gmail.com> <20260912201327.127042-1-kuba@kernel.org>
+In-Reply-To: <20260912201327.127042-1-kuba@kernel.org>
+From: Coia Prant <coiaprant@gmail.com>
+Date: Sun, 13 Sep 2026 23:58:51 +0800
+X-Gm-Features: AcwNN1XAulIb65_nNmPJqWeqm6n78LTScmm_BZJth6ooN4ELABvEb2CnyYjxeFw
+Message-ID: <CALj3r0gRtJJMzZKW1DAyYJR3WQUX+JsBNH23VULhgLvopyHADQ@mail.gmail.com>
+Subject: Re: [PATCH net-next v4 06/10] net: pcs: xpcs: add ANRESTART support
+ for SGMII link recovery
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com, 
+	pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	heiko@sntech.de, vkoul@kernel.org, maxime.chevallier@bootlin.com, 
+	mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com, 
+	prabhakar.mahadev-lad.rj@bp.renesas.com, romain.gantois@bootlin.com, 
+	hkallweit1@gmail.com, neil.armstrong@linaro.org, linux@armlinux.org.uk, 
+	shawn.lin@rock-chips.com, david@ixit.cz, netdev@vger.kernel.org, 
+	linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com, 
+	linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Sean Christopherson <seanjc@google.com>
+Jakub Kicinski <kuba@kernel.org> =E4=BA=8E2026=E5=B9=B49=E6=9C=8813=E6=97=
+=A5=E5=91=A8=E6=97=A5 04:13=E5=86=99=E9=81=93=EF=BC=9A
+>
+> This is an AI-generated review of your patch. The human sending this
+> email has considered the AI review valid, or at least plausible.
+> ---
+> net: pcs: xpcs: add ANRESTART support for SGMII link recovery
+>
+> The patch sets BMCR_ANRESTART together with BMCR_ANENABLE when configurin=
+g
+> C37 SGMII in-band negotiation, and clears the latched CL37 AN complete
+> status before doing so.  It also restarts negotiation from
+> xpcs_get_state_c37_sgmii() when AN completion is latched but the link is
+> reported down.
+>
+> >     On some hardware using the DesignWare XPCS IP (e.g., RK3568 MAC sid=
+e
+> >     SGMII), the PCS does not automatically restart auto-negotiation whe=
+n the
+> >     link goes down and comes back up. Without an explicit ANRESTART, th=
+e link
+> >     stays down forever.
+>
+> [Severity: Low]
+> The changelog describes a user visible failure ("the link stays down
+> forever") in long standing shared code, but there is no Fixes: tag and no
+> statement about which histories are affected.
+>
+> The only hardware named here, RK3568 XPCS, does not exist in the baseline
+> tree: searching for xpcs_rk, rk3568-xpcs or pcs-xpcs-rk under drivers/net=
+ at
+> 879e280b8486 returns nothing, and the glue driver arrives later in this
+> series ("net: pcs: xpcs: add Rockchip RK3568 platform glue driver").
+>
+> Could the changelog either name the pre-existing commit being fixed, or s=
+ay
+> explicitly that the affected platform is introduced later in the same
+> series, so that stable tooling does not have to guess?
 
-commit 0cb2af2ea66ad8ff195c156ea690f11216285bdf upstream.
+The affected platform (RK3568 XPCS) is introduced later in the same
+series. I'll make that explicit in the changelog so stable tooling does
+not have to guess.
 
-The shadow MMU computes GFNs for direct shadow pages using sp->gfn plus
-the SPTE index. This assumption breaks for shadow paging if the guest
-page tables are modified between VM entries (similar to commit
-aad885e77496, "KVM: x86/mmu: Drop/zap existing present SPTE even
-when creating an MMIO SPTE", 2026-03-27).  The flow is as follows:
+> > diff --git a/drivers/net/pcs/pcs-xpcs.c b/drivers/net/pcs/pcs-xpcs.c
+> > index 0337e2bcc0125..50b9cdf94fdaa 100644
+> > --- a/drivers/net/pcs/pcs-xpcs.c
+> > +++ b/drivers/net/pcs/pcs-xpcs.c
+> > @@ -816,9 +816,14 @@ static int xpcs_config_aneg_c37_sgmii(struct dw_xp=
+cs *xpcs,
+> >       if (ret < 0)
+> >               return ret;
+> >
+> > +     /* Clear CL37 AN complete status */
+> > +     ret =3D xpcs_write(xpcs, MDIO_MMD_VEND2, DW_VR_MII_AN_INTR_STS, 0=
+);
+> > +     if (ret < 0)
+> > +             return ret;
+> > +
+> >       if (neg_mode =3D=3D PHYLINK_PCS_NEG_INBAND_ENABLED)
+> >               ret =3D xpcs_write(xpcs, MDIO_MMD_VEND2, MII_BMCR,
+> > -                              mdio_ctrl | BMCR_ANENABLE);
+> > +                              mdio_ctrl | BMCR_ANENABLE | BMCR_ANRESTA=
+RT);
+>
+> [Severity: Medium]
+> Should the comment at the top of xpcs_config_aneg_c37_sgmii() be updated
+> along with this change?  It still says the opposite of what the code now
+> does:
+>
+> drivers/net/pcs/pcs-xpcs.c:xpcs_config_aneg_c37_sgmii() {
+>         /* For AN for C37 SGMII mode, the settings are :-
+>          ...
+>          * 5) VR_MII_MMD_CTRL Bit(12) [AN_ENABLE] =3D 1b (Enable SGMII AN=
+)
+>          *
+>          * Note that VR_MII_MMD_CTRL is MII_BMCR.
+>          *
+>          * Note: Since it is MAC side SGMII, there is no need to set
+>          *       SR_MII_AN_ADV. ... There is also no need to
+>          *       trigger AN restart for MAC-side SGMII.
+>          */
+>
+> On the default path this same function selects MAC side SGMII:
+>
+>         } else {
+>                 tx_conf =3D DW_VR_MII_TX_CONFIG_MAC_SIDE_SGMII;
+>         }
+>
+> so the restart is now issued for exactly the case the comment says does n=
+ot
+> need it.  The new DW_VR_MII_AN_INTR_STS write is also a sixth step that t=
+he
+> enumerated sequence does not mention.
+>
+> If the databook statement no longer holds for these parts, could the
+> comment be corrected, so that a later reader does not remove the ANRESTAR=
+T
+> bit as a mistake?
 
-- a PDE is installed for a 2MB mapping, and a page in that area is
-  accessed.  KVM creates a kvm_mmu_page consisting of 512 4KB pages;
-  the kvm_mmu_page is marked by FNAME(fetch) as direct-mapped because
-  the guest's mapping is a huge page (and thus contiguous).
+You're right. The comment still states that AN restart is not needed for
+MAC side SGMII, which now contradicts the code. I'll update it to note
+that on some hardware (e.g. RK3568) the PCS does not restart AN
+automatically when the link comes back, so an explicit ANRESTART is
+required.
 
-- the PDE mapping is changed from outside the guest.
+> > @@ -1093,10 +1098,15 @@ static int xpcs_get_state_c37_sgmii(struct dw_x=
+pcs *xpcs,
+> >               return 0;
+> >       }
+> >
+> > -     /* Clear AN complete status or interrupt */
+> > -     if (state->an_complete)
+> > +     if (state->an_complete) {
+> > +             /* Clear AN complete status or interrupt */
+> >               xpcs_write(xpcs, MDIO_MMD_VEND2, DW_VR_MII_AN_INTR_STS, 0=
+);
+> >
+> > +             /* Initiate the next round of AN */
+> > +             xpcs_modify(xpcs, MDIO_MMD_VEND2, MII_BMCR, BMCR_ANRESTAR=
+T,
+> > +                         BMCR_ANRESTART);
+> > +     }
+> > +
+> >       return 0;
+> >  }
+>
+> [Severity: Medium]
+> Can this sequence get stuck if the xpcs_modify() fails?
+>
+> The latched status is cleared first, and DW_VR_MII_AN_STS_C37_ANCMPLT_INT=
+R
+> is the only thing that brings execution back into this branch:
+>
+>         state->an_complete =3D ret & DW_VR_MII_AN_STS_C37_ANCMPLT_INTR;
+>
+> So if the clear succeeds but the restart does not, every later poll reads
+> ANCMPLT as 0, state->an_complete stays false, and the restart is never
+> retried, leaving the port down with AN idle until something calls
+> pcs_config again.
+>
+> mdiodev_c45_modify() does a read followed by a write, so there are two
+> places it can return an error, for example a bus -ETIMEDOUT, or with the
+> Rockchip glue added later in this series the pm_runtime_resume_and_get()
+> error path in xpcs_rk_read_reg() / xpcs_rk_write_reg().
+>
+> Both return values are also discarded and the function still ends with
+> return 0, so the diagnostic in the caller can never fire for them:
+>
+>         case DW_AN_C37_SGMII:
+>                 ret =3D xpcs_get_state_c37_sgmii(xpcs, state);
+>                 if (ret)
+>                         dev_err(&xpcs->mdiodev->dev, "%s returned %pe\n",
+>                                 "xpcs_get_state_c37_sgmii", ERR_PTR(ret))=
+;
+>
+> Would it be better to assert BMCR_ANRESTART before clearing the latched
+> status, and to propagate both return codes to xpcs_get_state()?
 
-- the guest accesses another page in the same 2MB area.  KVM installs
-  a new leaf SPTE and rmap entry; the SPTE uses the "correct" GFN
-  (i.e. based on the new mapping, as changed in the previous step) but
-  that GFN is outside of the [sp->gfn, sp->gfn + 511] range; therefore
-  the rmap entry cannot be found and removed when the kvm_mmu_page
-  is zapped.
+The current order (clear the latched status first, then restart AN) is
+intentional. If the restart is issued first, the newly completed AN status
+could be cleared by the subsequent write, losing the completion event.
 
-- the memslot that covers the first 2MB mapping is deleted, and the
-  kvm_mmu_page for the now-invalid GPA is zapped.  However, rmap_remove()
-  only looks at the [sp->gfn, sp->gfn + 511] range established in step 1,
-  and fails to find the rmap entry that was recorded by step 3.
+I'll keep the original order and propagate the return value of
+xpcs_modify() so the caller can observe errors on the restart path.
 
-- any operation that causes an rmap walk for the same page accessed
-  by step 3 then walks a stale rmap and dereferences a freed kvm_mmu_page.
-  This includes dirty logging or MMU notifier invalidations (e.g., from
-  MADV_DONTNEED).
-
-The underlying issue is that KVM's walking of shadow PTEs assumes that
-if a SPTE is present when KVM wants to install a non-leaf SPTE, then the
-existing kvm_mmu_page must be for the correct gfn.  Because the only way
-for the gfn to be wrong is if KVM messed up and failed to zap a SPTE...
-which shouldn't happen, but *actually* only happens in response to a
-guest write.
-
-That bug dates back literally forever, as even the first version of KVM
-assumes that the GFN matches and walks into the "wrong" shadow page.
-However, that was only an imprecision until 2032a93d66fa ("KVM: MMU:
-Don't allocate gfns page for direct mmu pages") came along.
-
-Fix it by checking for a target gfn mismatch and zapping the existing
-SPTE.  That way the old SP and rmap entries are gone, KVM installs
-the rmap in the right location, and everyone is happy.
-
-Fixes: 2032a93d66fa ("KVM: MMU: Don't allocate gfns page for direct mmu pages")
-Fixes: 6aa8b732ca01 ("kvm: userspace interface")
-Reported-by: Alexander Bulekov <bkov@amazon.com>
-Reported-by: Fred Griffoul <fgriffo@amazon.co.uk>
-Cc: stable@vger.kernel.org
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-Link: https://patch.msgid.link/20260503201029.106481-1-pbonzini@redhat.com/
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-Signed-off-by: Kenta Akagi <k@mgml.me>
----
- arch/x86/kvm/mmu/mmu.c  | 33 ++++++++++++++-------------------
- arch/x86/kvm/mmu/spte.h |  5 +++++
- 2 files changed, 19 insertions(+), 19 deletions(-)
-
-diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-index 78c7e77bfdd0..0610198b1f74 100644
---- a/arch/x86/kvm/mmu/mmu.c
-+++ b/arch/x86/kvm/mmu/mmu.c
-@@ -188,6 +188,8 @@ static struct percpu_counter kvm_total_used_mmu_pages;
- static void mmu_spte_set(u64 *sptep, u64 spte);
- static union kvm_mmu_page_role
- kvm_mmu_calc_root_page_role(struct kvm_vcpu *vcpu);
-+static int mmu_page_zap_pte(struct kvm *kvm, struct kvm_mmu_page *sp,
-+			    u64 *spte, struct list_head *invalid_list);
- 
- struct kvm_mmu_role_regs {
- 	const unsigned long cr0;
-@@ -1180,18 +1182,6 @@ static void drop_spte(struct kvm *kvm, u64 *sptep)
- 		rmap_remove(kvm, sptep);
- }
- 
--static void drop_large_spte(struct kvm *kvm, u64 *sptep)
--{
--	struct kvm_mmu_page *sp;
--
--	sp = sptep_to_sp(sptep);
--	WARN_ON(sp->role.level == PG_LEVEL_4K);
--
--	drop_spte(kvm, sptep);
--	kvm_flush_remote_tlbs_with_address(kvm, sp->gfn,
--			KVM_PAGES_PER_HPAGE(sp->role.level));
--}
--
- /*
-  * Write-protect on the specified @sptep, @pt_protect indicates whether
-  * spte write-protection is caused by protecting shadow page table.
-@@ -2192,7 +2182,8 @@ static struct kvm_mmu_page *kvm_mmu_get_child_sp(struct kvm_vcpu *vcpu,
- {
- 	union kvm_mmu_page_role role;
- 
--	if (is_shadow_present_pte(*sptep) && !is_large_pte(*sptep))
-+	if (is_shadow_present_pte(*sptep) && !is_large_pte(*sptep) &&
-+	    spte_to_child_sp(*sptep) && spte_to_child_sp(*sptep)->gfn == gfn)
- 		return ERR_PTR(-EEXIST);
- 
- 	role = kvm_mmu_child_role(sptep, direct, access);
-@@ -2270,12 +2261,16 @@ static void __link_shadow_page(struct kvm_vcpu *vcpu,
- 
- 	BUILD_BUG_ON(VMX_EPT_WRITABLE_MASK != PT_WRITABLE_MASK);
- 
--	/*
--	 * If an SPTE is present already, it must be a leaf and therefore
--	 * a large one.  Drop it and flush the TLB before installing sp.
--	 */
--	if (is_shadow_present_pte(*sptep))
--		drop_large_spte(vcpu->kvm, sptep);
-+	if (is_shadow_present_pte(*sptep)) {
-+		struct kvm_mmu_page *parent_sp;
-+		LIST_HEAD(invalid_list);
-+
-+		parent_sp = sptep_to_sp(sptep);
-+		WARN_ON_ONCE(parent_sp->role.level == PG_LEVEL_4K);
-+
-+		mmu_page_zap_pte(vcpu->kvm, parent_sp, sptep, &invalid_list);
-+		kvm_mmu_remote_flush_or_zap(vcpu->kvm, &invalid_list, true);
-+	}
- 
- 	spte = make_nonleaf_spte(sp->spt, sp_ad_disabled(sp));
- 
-diff --git a/arch/x86/kvm/mmu/spte.h b/arch/x86/kvm/mmu/spte.h
-index 31d6456d8ac3..31d03d15415c 100644
---- a/arch/x86/kvm/mmu/spte.h
-+++ b/arch/x86/kvm/mmu/spte.h
-@@ -267,6 +267,11 @@ static inline bool is_executable_pte(u64 spte)
- 	return (spte & (shadow_x_mask | shadow_nx_mask)) == shadow_x_mask;
- }
- 
-+static inline struct kvm_mmu_page *spte_to_child_sp(u64 spte)
-+{
-+	return to_shadow_page(spte & PT64_BASE_ADDR_MASK);
-+}
-+
- static inline kvm_pfn_t spte_to_pfn(u64 pte)
- {
- 	return (pte & PT64_BASE_ADDR_MASK) >> PAGE_SHIFT;
--- 
-2.53.0
-
+Best,
+Coia
