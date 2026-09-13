@@ -1,62 +1,42 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B9F83876D6;
-	Sun, 13 Sep 2026 08:08:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83F3C38B7D1
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 08:12:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789286891; cv=none; b=nuhaGvcl8lgJ5J6cHMQ6lmvs8pg+w8fqsW6u2FXhplqJaW5kIdcM5HybdXLKrBlHhgLM8QepEEu4ctwDt04z0s99BvX4v3xdfhwdVomIV5/Zm20z/vUSLof6fT8AUigI9PLGgd9yKCi+8880USrqPmh2bQ69ag3sXrl2xrzrZwY=
+	t=1789287145; cv=none; b=ZiOiuqMB+pwwU0Fizuck3Lq0r52O3uqyL5FIg7SHCylHFMt+Yy1qaU6hg4TV96iivxEhq4Gma+cXaLysLbzcvDrSQPZNQfPM0aBPhSel4vCC/gffUH8M/w67SEOnV6DvFLBnMlIMK14ttx25h+XAYwmBoaS51vYiK2j7+G9w93s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789286891; c=relaxed/simple;
-	bh=KVXWnXKt18yT+rXsHFFgdU4B/qSR3ZMAvaJWAP+J3SU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Cdu6FUtGq367rkU872hjDOM6u1FwsOr68g38szI1ud44oQFYhlomtosLHxF/NGP9HVRxoeh02dEtu3WsUyqSgEuGlQZfT10vhR9j9QZrvG1v2rCoLLc3LU9Tgjq1SmqMhi3OxKBFycP/JtR6FL+ftrjdmEW+5N6chto1C67m2oI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lvpmDIVj; arc=none smtp.client-ip=198.175.65.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789287145; c=relaxed/simple;
+	bh=LCXFAOk/C8B61f+JOz0OmDoxPmfklZapCkwIPsMVpS8=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=QNxRcQR1yQ4uTPs9hnVlDP2wum5s9bin6/AqfbOeOY2kk6zgpBUj8qaaGWHPJnWIhY2xBNfFs696R/IlEaGAnetxGStMFtjH5iOGnNJ+pKdGG4EoizM3upoh6QURNVwz3Niw30uzEro7XYM1uUjyDstZBTkWuJrCVZjY2D71u9Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qg9CfB7b; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lvpmDIVj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789286887; x=1820822887;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=KVXWnXKt18yT+rXsHFFgdU4B/qSR3ZMAvaJWAP+J3SU=;
-  b=lvpmDIVju2dyo+sDqNAn1JwEcAISjpixFNUGRjzuV8knVLwcPqe/eu4+
-   nOAfegYnnb8RKY5kRHXDjOw2QU8THt2dSL4kH0M20JakNXyVivPuN4R9C
-   fHvzJYxkccu/zAzaOpmIxBOj6K08b6RGBntYkd+CApIm1heBqUZELIbkK
-   5wsq1ZvXLyJ/m7MbCNaBPYgJdnaciZnSFH/V8P6eYAA2770YHl6Hj8AJa
-   t1WUxz2QUOQyQQTSZUR6DueCJqX8h07PoNmIhmfXY6zH5bCkr5g7nqju4
-   sxCykWKj5KjaH+ontq2cOBYwPUus9gB8Wl3LxPu2enkXKiUcSHDWQkI7j
-   g==;
-X-CSE-ConnectionGUID: ILO/MHpvSV6b2KABGLRO7g==
-X-CSE-MsgGUID: 1pZMWrbQRtqzfBYCR7vIxQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11903"; a="89447270"
-X-IronPort-AV: E=Sophos;i="6.27,100,1787036400"; 
-   d="scan'208";a="89447270"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Sep 2026 01:07:58 -0700
-X-CSE-ConnectionGUID: WQ+86aOoSMCb4Tgzhk3VjQ==
-X-CSE-MsgGUID: EsBqSr5VTFesXKPO+1FgRA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,100,1787036400"; 
-   d="scan'208";a="271858118"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa008.jf.intel.com with ESMTP; 13 Sep 2026 01:07:56 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1003)
-	id 0541B99; Sun, 13 Sep 2026 10:07:55 +0200 (CEST)
-Date: Sun, 13 Sep 2026 10:07:55 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	linux-renesas-soc@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 4/4] pinctrl: renesas: rzt2h: reuse helpers
-Message-ID: <aqZZ29nvQb-A627J@black.igk.intel.com>
-References: <20260910160226.489183-1-cosmin-gabriel.tanislav.xa@renesas.com>
- <20260910160226.489183-5-cosmin-gabriel.tanislav.xa@renesas.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qg9CfB7b"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A67D41F000FF;
+	Sun, 13 Sep 2026 08:12:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789287134;
+	bh=UjaG8gp1CFyRN1dpryjLaFjTQYGtGmz0HDIgBOwCpns=;
+	h=Date:From:To:Cc:Subject;
+	b=Qg9CfB7bgKmnQDQQENCEHJI1Pbmd9FU9vQBip9SM72PfrsGneI5TU5lv4Ohc7RI/A
+	 IPg3jHgM/xPZI/zOuK62ghlGr44AeVMmTkvdBlQrn0J43bfBmioNJhxM1YtEZ6L2p1
+	 bsfOS+VidjYbyfo+idSS9p+O+9uL1o1YsuYQJKNobyhInkXUQb2JZKgQRHbvRKvY5v
+	 0T/JUD+u5y8XK2sAjnZ1Fj7yWQuNOgGSlRSzBJycVPLVJ9iNlLtWmkhP0W/74AWHUq
+	 +iXPhs/MLeNF4fscVZj9Hr9DJITCcFsB3wFnAkmXMt5AMIneiQiQLRzCZJY8u3OJ2C
+	 3HTh8h2UbcxGQ==
+Date: Sun, 13 Sep 2026 10:12:10 +0200
+From: Ingo Molnar <mingo@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Namhyung Kim <namhyung@kernel.org>
+Subject: [GIT PULL] perf events fixes
+Message-ID: <aqZa2mwcibFd9w1A@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -65,28 +45,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260910160226.489183-5-cosmin-gabriel.tanislav.xa@renesas.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 
-On Thu, Sep 10, 2026 at 07:02:26PM +0300, Cosmin Tanislav wrote:
-> The PMCm peripheral-mode test, the PFCm function read, the PINm input
-> read, the PMm write, and the PMm read are open-coded in several places.
+Linus,
 
-> Reuse the already existing helpers.
+Please pull the latest perf/urgent Git tree from:
 
-...
+   git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git perf-urgent-2026-09-13
 
-> -		reg64 = rzt2h_pinctrl_readq(pctrl, port, PFC(port));
-> -		reg64 = (reg64 >> (bit * 8)) & PFC_MASK;
-> -		if (reg64 == PFC_FUNC_INTERRUPT)
-> +		if (rzt2h_pin_read_pfc(pctrl, port, bit) == PFC_FUNC_INTERRUPT)
->  			return GPIO_LINE_DIRECTION_IN;
+for you to fetch changes up to a56c03a397e2cd0c4cf8da96dcd6214f7d0e7d8c:
 
-Basically this part with the helper should be split into a separate patch w/o
-Fixes tag.
+Miscellaneous perf events fixes:
 
--- 
-With Best Regards,
-Andy Shevchenko
+ - Fix sched_cb_list corruption on PMU callbacks that
+   invoke list_del() during perf_event_overflow()
+   calls (Thomas Richter)
+
+ - Fix PEBS pt_regs->flags snapshot data that was
+   regressed with the introduction of adaptive
+   PEBS v4 support (Dapeng Mi)
+
+ - Fix possible drain_pebs() re-entry bug
+   when intel_pmu_drain_pebs_buffer() is called from
+   process context (Dapeng Mi)
+
+ Thanks,
+
+	Ingo
+
+------------------>
+Dapeng Mi (2):
+      perf/x86/intel: Correct pt_regs->flags update for PEBS path
+      perf/x86/intel: Prevent drain_pebs() reentry
+
+Thomas Richter (1):
+      perf/core: Allow list_del during perf_event_overflow()
 
 
+ arch/x86/events/intel/core.c | 33 ++++++++++++++++++++++++---------
+ arch/x86/events/intel/ds.c   | 18 ++++++++++++++++--
+ arch/x86/events/perf_event.h |  3 +++
+ kernel/events/core.c         |  4 ++--
+ 4 files changed, 45 insertions(+), 13 deletions(-)
