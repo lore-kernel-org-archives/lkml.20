@@ -1,97 +1,122 @@
-Received: from mail-oo1-f69.google.com (mail-oo1-f69.google.com [209.85.161.69])
+Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 520CC34BA24
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 03:21:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.69
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789269684; cv=none; b=E2Uef1nx5Xj1KbDYfDiofGiEl6nZ40um4M/e2ghr/yS4S03rQTaWS9dhl5lHRWMRt5Vr9yW2jPfWG86fcGsPwPcvEq+IpNB+2DuRSP4UjzVTg57WOgDX6SQEdq5U5nS4By7lA8KLdjesi7/c5Vv1HkPcDU+XBm4ay2WF0hvZrLY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789269684; c=relaxed/simple;
-	bh=WnDAO2pahEmp53CG7kf3TIvvqAhNEjSG0Sa9sgrAcrU=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=G6xKEeDsVwWNKzqWDcBA+FqnWGm6Dsg4dsFtOQmTo3DP3cjBX7fD86rdvKKlyU5PR/lgaGnpEJpXyh+7bu6BVok/kOUKxt8nMTnzL1mHJPnNHUTNfPoO60bPRPwLZBmXI5g5spZ8s8SrGIM9oG2DijXHnA79/C0V8DslI5Ry5BI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f69.google.com with SMTP id 006d021491bc7-6c27804563dso1182748eaf.2
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 20:21:22 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B655A1D5CC9
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 03:25:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.141
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789269910; cv=pass; b=KxLOhKa10Sd2/dZmA13v4Szwot/aVq0GISO9ceL36+c2AFIoSmoSjnV0qsWq5cq/9JaTJa1j1WNYsAebZYfh0D2S8HCM5sNsubZgZk/ki6lgDLT2n6+xXk/uWua5Ml0zbV2eGRU8O3rktbf74m+z9EPjKmBe9z5cTG/7qyfRDpw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789269910; c=relaxed/simple;
+	bh=6nDNbSvI1oAQW6gb33g8D+mLb9dmbyZqIg94bx2Kv9Y=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Z7Yfm1pHqaYmGmfrwpir/U0BtT1nyGaJk0w1H8md9xs2zcmUNURWOP+DpaEKFW/o3SIMexa6V/4HOPko+4IGyp0EbkApNNCBlfTCXf4bYV1XwZO5TY1MCe2h64yGxJPW33NpiRdqtptlc0Ye6qlijmJiIYzJRhzNp8b8e597ZLY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JXkNAqG1; arc=pass smtp.client-ip=74.125.224.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JXkNAqG1"
+Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66e4ab201ecso798025d50.2
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 20:25:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789269907; cv=none;
+        d=google.com; s=arc-20260327;
+        b=JVdi7w699PzJ3AHOv4u1ok9dJTW9rX7K9wUOE/YfC/AzsCRriuBoGWW4As1tGMM4Yq
+         9jIAhfXEdV2VIMne2mMxm3OIoQWymhT+2yMtGjZpc8tc3WoSM/vYCXB1ldjEYp6GZGSk
+         yHevXanVXM9k88u2PKg/mOerACu2LWEMlbiNy1glPW3Ztd9izb+Yz6F5ZFS37SQJlkqZ
+         SiwwpSpDlpIYQHxySkY1gXln9Nh+EAqrUB21f0wezq++vWXzOxPeFd3S9JeyzbSgU7hg
+         eq+abwMGpBlD2Wrj9qc795zzLz44oyhxwSNUYm5TBmgO5pNdjBt2ckDdVLtVmzHwtRZE
+         zrSQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=6nDNbSvI1oAQW6gb33g8D+mLb9dmbyZqIg94bx2Kv9Y=;
+        fh=2RLGVrpjtH6Zt/RzIZUu3CAAgAaXe954NWSr/dGOzXA=;
+        b=D7PpYOAfyENfayzorubscLIP1UQyQ+drSTsMriT7c7YUwF7idSM3etMV2t6JXVnWqo
+         wmJrH16TA4Jz4ilTk4nGhYiYz+CeRHP8TVuEeMtKbDFthRCfezMlz2oKRcR0sNajIWjm
+         x3GCU2CRyDmSZxC2zSr4LQ+NPJsgmKkN52A/AhFY6Ilmbo529PKP//rdIqyybv+lj0fX
+         g/6Pev6V1Xg/35xX7StLEkGrvUqMgpuaNC1/XNDltrVzdfboB5zMBZmIt60e8hIOYpQ+
+         yNjJitKmKc3UeJYspSqF7G95T/L+t8wz7AOx1WrBBo0UFur+RPyivgyf5kRsl8T7iYnO
+         OEyw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789269907; x=1789874707; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6nDNbSvI1oAQW6gb33g8D+mLb9dmbyZqIg94bx2Kv9Y=;
+        b=JXkNAqG1SNGE6UlN+Mm5apZ8GNahKCvfmOZhPQ2Xe1XpxXio6/jcP1ajRBx5qYvbZK
+         +miXjuZS4PJyFWqshl+a/TkOhl71EcBHC8MgFJmQMTAVB6dszPOYgSM83chKUE9Ub3Gt
+         /MXP3FSW0kivWOwAHgFXutEyhA+NTV3LXByUD3nnIWra0AFcwvd6G2a9R9fhzashGhW8
+         LJ0gqsBCGBQQe7XswlRQtJSUWTGvVuO+ZnhTVTstL9pATtdKmrZMoKFLYWPgtish6S9a
+         sXh9rCnorQ3Q+/ty0dDTXlgTI1H8m4Y3NWqdPz26foAKg/UiSzTpKars2J4udbzSVD6X
+         0rDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789269682; x=1789874482;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Ny9uJQfZ0S+wsuo1UQkd7f0g8UW1hVkJm/1jKqwJkmE=;
-        b=iK9gJnAwYdmkdtm5Z/A+xajlCkcSexJlISMoigKT9XC1Gi+CeDGQohzQPkZybZ6mrg
-         sX8WQ2DyX2CWZ1sHZIeW4SDwc1jEQpZh1lTV6Y2wc/VVo/qWokTovgO89h36LN+W/vWb
-         LrH8ZCtQWR3yVQonPAtfVb8EaUB7diljJflD0wtIfhuTd8ZCs/Bi7GVECxd1BqhYyjQf
-         xwNTK+dP+pqSPoQxrO75sSqotA4Q8e/l9zBKp1keUIBVj7YVdyZVGo/J+xwtx8niGwS8
-         PgqWi6+0Ql/DbKQ6FC1ooi6qImnVkR9MIe3J3VUe1dS2r9T2yMV6Pfb3bN3pSRuczpTl
-         JVUQ==
-X-Gm-Message-State: AFuF++liGlOftu5xuOmE6a6HhJQkEZSVKe83ykT0oYjjZHzXGGf2uyvm
-	rihH0OsrFszTR7kZ5D8c4j7EK9ED/8RFqThCDd5vEazK4ac21m6osh+BnDIgkFdVEJLQQ9MwZTA
-	/eEJXRrbxZLX/5h8DUwXYIVODeKTH8YA+3EoKiYHqkhmQM+dV4iC5MnJi12k=
+        d=1e100.net; s=20251104; t=1789269907; x=1789874707;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6nDNbSvI1oAQW6gb33g8D+mLb9dmbyZqIg94bx2Kv9Y=;
+        b=B0wSy3DhDcRA27Ur47i6Mk5NlBAH2eI7vdDSG2LgbG4vGVqjHJehMCrFgWsyEroSwL
+         LmstH5BLaQBOWx+GIFSaHl/4dGDW0v1ngOsptydKuhpj5WXLg/TUCnuJpU/Z4oVRxodP
+         SYYNxKK5P7/IlQqbgvmEmREtBaOvch5F7KCUTOyfWGhEaKb8mDwLXT/lTrYrN4pkJjAY
+         hy1dVgWfuzDFdo5w43WWeFZBtDh2E6e53y8LpCEE+fLn+bSEuAv6djqKBikyI4YvdfpN
+         3IS5YSt9p6Vyw6hEHyiaC0J8elRMzAj+W6DvByYiUhbOf3AxpwQTrvzMKnZXGdjBMf+y
+         rdJQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwh7nl7yF9O3P8pu2HX1ZRcSWIpuTPwDd+pMGzNbXx+pX6zbgubS8RszhtBuz5YlDU1nOhOki5OrzX59t8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lSRAAWZG7pUu3ztaskhFaXdyI06nuknPRShxAy7dpvRC8TLlIQ
+	wgiHC5bmUe83UcVCx/HQetrO9HWLfbzjpnIXq883otnepZTeAukoohkP4gZr/aa/tU6bBqXRLJw
+	20cnq/ZJFaxgvGpejROTcrkx68nqMDwPX7g==
+X-Gm-Gg: AYBFou0qMVNygARNPXZh0GVKfB928FpPOYzp7ArDq5RPExhiQxm6yws+oRiOCw7bqP+
+	IuliQfazNx5FrdPRxOPxubQlPAFT0jbxfCWGPFGfZ3rQPbr9XYZnhDuH7sjg3OZ3Ydeq1w96fup
+	xUuA+WWTGbnOSE07Uo2Wr1KFRuGH2tWFSUd1MDqXNO44cWSorgarULY4udQYYcKUnTEQUixglD/
+	MNRCA+/tFsX8nA8HmHqYk7PR2zN32/n33WYiSs5lfvMCfVAM+ny2IhfRlFPAvA+u8RtaFOsf8Ec
+	h2Nu7b6QfRD136KDw0wqh0S7/poQcFEyExGC2LPIRHSZxFZzv0gc6FVlWmrnmqUoBTa6U6s0JnU
+	bRLIlLBrsNsJVfdAUQWFr54PFe2VAc2mtUQkD49CoxIHi
+X-Received: by 2002:a05:690e:13cc:b0:671:27d8:d90c with SMTP id
+ 956f58d0204a3-67127d8da7bmr2600769d50.30.1789269907560; Sat, 12 Sep 2026
+ 20:25:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:5715:20b0:6bd:af9e:a7f8 with SMTP id
- 006d021491bc7-6c0b9a5fbcamr4774947eaf.10.1789269682012; Sat, 12 Sep 2026
- 20:21:22 -0700 (PDT)
-Date: Sat, 12 Sep 2026 20:21:21 -0700
-In-Reply-To: <6aa60ec9.f81106d8.2ab401.0032.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa616b1.f2639fcc.29487d.004c.GAE@google.com>
-Subject: Forwarded: [PATCH] batman-adv: avoid WARN_ON for orig_ifinfo
- allocation failure
-From: syzbot <syzbot+a079f084653164a652d1@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+References: <20260823152648.23136-1-kartikey406@gmail.com> <CADhLXY5uco9Wq8ZmW5UnvGgTrrcLtj+X5Ne+AqaNyyBdKrQ8qg@mail.gmail.com>
+ <mty190q3.779eb778-4fb7-41bb-9c12-561cc0980b10@nod.at> <CADhLXY44kq1XamTjXgrfcLc-_HnK3T2b9TVPxjzB4kc0fKdEqQ@mail.gmail.com>
+ <mtymovca.dedd95e8-081c-455b-aec6-7abc19484945@nod.at>
+In-Reply-To: <mtymovca.dedd95e8-081c-455b-aec6-7abc19484945@nod.at>
+From: Deepanshu Kartikey <kartikey406@gmail.com>
+Date: Sun, 13 Sep 2026 08:54:55 +0530
+X-Gm-Features: AcwNN1XiRNbAZtdhi1uNwfykdYWRX_q-o-ZwIZOZBR03b_Yjpbu8sob0aGSORwg
+Message-ID: <CADhLXY7otiYPCw+fzzqNWw8P4dPx2xTm+zUeGwc=Lc3tZq=6Fw@mail.gmail.com>
+Subject: Re: [PATCH] jffs2: fix double-free of f->target in jffs2_alloc_inode()
+To: Richard Weinberger <richard@nod.at>
+Cc: dwmw2@infradead.org, kees@kernel.org, viro@zeniv.linux.org.uk, 
+	linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	syzbot+675e84fdf3dde67b4946@syzkaller.appspotmail.com
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+On Sat, Sep 12, 2026 at 10:27=E2=80=AFPM Richard Weinberger <richard@nod.at=
+> wrote:
+>
+> Am Sat, Sep 12, 2026, 10:00 schrieb Deepanshu Kartikey <kartikey406@gmail=
+.com>:
+> > On Sat, Sep 12, 2026 at 12:28=E2=80=AFPM Richard Weinberger <richard@no=
+d.at> wrote:
+> > I feel the patch you are pointing at fixes a different kind of issue ?
+>
+> Well, different symptoms of a common root cause.
+>
+> Thanks,
+> //richard
 
-***
+Totally understood this. But it is good to have a defensive check so that
+there is no dangling pointer. It will prevent future [UAF, double free bugs=
+].
 
-Subject: [PATCH] batman-adv: avoid WARN_ON for orig_ifinfo allocation failure
-Author: kartikey406@gmail.com
+Thanks
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-
-
-
-batadv_orig_ifinfo_new() returns NULL only when its GFP_ATOMIC
-allocation fails, which is a normal runtime condition and not a bug.
-batadv_v_ogm_forward() already handles this the same way, simply
-checking for NULL without a WARN_ON.
-
-Do the same in batadv_iv_ogm_update_seqnos() to avoid a spurious
-WARN_ON splat when the allocation fails (e.g. under fault injection).
-
-Fixes: 7351a4822d42 ("batman-adv: split out router from orig_node")
-Reported-by: syzbot+a079f084653164a652d1@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=a079f084653164a652d1
-Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
----
- net/batman-adv/bat_iv_ogm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/net/batman-adv/bat_iv_ogm.c b/net/batman-adv/bat_iv_ogm.c
-index 53fbdbbe8f4f..d8a6a0f64ce2 100644
---- a/net/batman-adv/bat_iv_ogm.c
-+++ b/net/batman-adv/bat_iv_ogm.c
-@@ -1410,7 +1410,7 @@ batadv_iv_ogm_update_seqnos(const struct ethhdr *ethhdr,
- 		return BATADV_NO_DUP;
- 
- 	orig_ifinfo = batadv_orig_ifinfo_new(orig_node, if_outgoing);
--	if (WARN_ON(!orig_ifinfo)) {
-+	if (!orig_ifinfo) {
- 		batadv_orig_node_put(orig_node);
- 		return 0;
- 	}
--- 
-2.43.0
-
+Deepanshu
