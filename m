@@ -1,232 +1,197 @@
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013054.outbound.protection.outlook.com [40.107.201.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21D973A2E2B
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 19:54:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789329274; cv=fail; b=eHnzIuzg1NpMIQrhAIvBtc1HL6mXNb3cUGAULb95LSNLZ90iT13y2iX74qoBTRvaZso1FQfhfIhj/XKvrIQ/kyWXzFOhVHPkKp9oqMjp/mWMRgWXOLolB64bWApReFg5eAeyoYZjPClwdJkfQhI54YhDX+7zaeMndy3KVY9ARug=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789329274; c=relaxed/simple;
-	bh=QHhK6cA2AIHElx85id2NgxZUlGcOBuEOYH4TQP1iIbM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=DkrGPR8tIndR8YO9IAwKmGZ2WXr0DhS1g5r6D2ElTQI4gmp4HM9YSgWFlZp8uWdZ3QI6Z3uFNseEMS+uQIbYAeElsaDcLOzlMNkrLK9Saz4H7i9IpPBzs7RGuldbK7LNOtHVc2JLIBLKP5VpKoS2kkNzgxrladKeOROuST9nODc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=rF8ttHIV; arc=fail smtp.client-ip=40.107.201.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61FB736B07C
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 19:55:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789329353; cv=none; b=Cmcm+XRQGyiLdjyoB48A7hlwqAgdxmqnw0DgWb89r/W+UVtimziYoKqjkf554JfGwwourkvEvG3xoKpw20stGtZ6qIFgF5qM97eunYRCIbhdNUrdKVhjLVFisqwe8U3YfqvQjtKmTn45A60XFmdDiM+mnQ5SIXUgOpBYTW9pzug=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789329353; c=relaxed/simple;
+	bh=QFoxZ466Caks+EI4SYrrKcFa463Pz1cC+OaV8EuuB1c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cMr8LSEB3dV9A1kw8NQufSNf+htuHzpJneK7VSnNflo4bkaSg9+72/v8nHKRDFS4eKN0p5c78uCBoGlibLF42Ok0OSOUeu60mVGBIzXxyArIMJvpXrptx+D3Y+MkpgJE1V2Kv5lw4IGKnxgZIM7NI/RxiM1PyVQaZH4dOq7Zqvk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PH9uP14m; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="rF8ttHIV"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UN5s1dJEO0EgPa7GRWXJvFs6ubUyxTtBkBKjf1H7Y2gjg1jw5Htj7jjumXB8NJFGHTYsUx/rR12lldH7HmFtcEfIPELp0zu5DXoW790DIi6JcO8/g9uAt9OOdInTMz7RK99cmcrHdx/nx63MYQel9VG+mCvE52a+53XsqxU4bmQO1OwNVfX9Hx+S4Yvp2156KlSNdJNwroUcTWCpXon4Hs5xj2SGBWzsPPKi0npXMlk6PQR9nj4WnSizhZguJd+A8MJNsHjzR0zCOdciXEdS3ra5Yjp05QaMTeLaZjD+BcuLhEihKAHeAf/7muva3gGEVZgbzbAFSY/hNXkdkhc28A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3ywGS2gmhnS4HbGH3xV6D1D/Y2mOKJS09pD3kGKSGtE=;
- b=Junt07ZDDx/C7fYSEkicNrnZvxbR56dIe47rvOXuFcSdGzixHmS3TF4CA5FYLXQYfPP/gu/rLkWqR0Dzw3zoWhkWpPTQGYYN0UPW4JqW+WImbG3OdqjzjXKLeboV1uWugz2uo7V2pqTGrwwfzEtRtop9WltrJAPSgljazWnbwUykOz99yy4mbLRXoi5IlIscWxCQikJa6xl3HTXBQr48seIeMvDSmALxXSA9pY8JmGs6gN4Qj8q0y4zrEaH2h/c9xSwt5IlIdJ7P/DOeVidc2DpjUu/9jcGiPA6fQuq95+RIum9CEGxgM624Ukn0ECAOp9Eio3SE5bbLy31wSkcw6w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3ywGS2gmhnS4HbGH3xV6D1D/Y2mOKJS09pD3kGKSGtE=;
- b=rF8ttHIVb22rpo979EYPQwwIdZFlf/wCeoP4iC4+p2fneQQ02pnyFPZjCVAkOBa82FI1/Nl7USunGOxwnysdRhUL5J10FqOgDW4EKl93SvdPazYbWSv4+9FqXjcRL2eODe+RUrjWbZ5k11XZqBRbrLIcxB/vkFWYSr45WpzQGTOzU4faOse8oZsKKpg/edbXpxHJlyyKyGGLpr4hwcRq+8FeQSBQGlW5hj3JdX+BtJCZC7Qk7d8wRb7X6Jg5Q/dw36+rG6lqp11KjuWDNPTnWszFw7QwI/0p1DA79QrQ3qAmUBbWhuLVTe7a+G3xje/85D/uRwaMRYWDpQKfpMSTCw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
- SA0PR12MB4352.namprd12.prod.outlook.com (2603:10b6:806:9c::9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.8; Sun, 13 Sep 2026 19:54:24 +0000
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0406.007; Sun, 13 Sep 2026
- 19:54:24 +0000
-From: John Hubbard <jhubbard@nvidia.com>
-To: Danilo Krummrich <dakr@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>
-Cc: Timur Tabi <ttabi@nvidia.com>,
-	Alistair Popple <apopple@nvidia.com>,
-	Eliot Courtney <ecourtney@nvidia.com>,
-	Zhi Wang <zhiw@nvidia.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Alex Gaynor <alex.gaynor@gmail.com>,
-	Boqun Feng <boqun.feng@gmail.com>,
-	Gary Guo <gary@garyguo.net>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Trevor Gross <tmgross@umich.edu>,
-	nova-gpu@lists.linux.dev,
-	LKML <linux-kernel@vger.kernel.org>,
-	John Hubbard <jhubbard@nvidia.com>
-Subject: [PATCH 3/3] gpu: nova-core: rename the FbRanges elf field to fw_image
-Date: Sun, 13 Sep 2026 12:54:13 -0700
-Message-ID: <20260913195413.742143-4-jhubbard@nvidia.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PH9uP14m"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccdaea76so551884a91.0
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 12:55:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789329352; x=1789934152; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zP/flU6LxzcXkCBWdWRdaNlDvIYWNpZBuwaTNPtJjVA=;
+        b=PH9uP14m9o4WApAzd9bYijrKHG62dvKYCubHkEXS+AgV4vH5/Uq+LXRzgiiMa1CMao
+         vlvZj31GOKjaU25pExfkbO6ZuA02nSWLGnxIQad7N1acICWb6UrN+aV99CjyVlWJEs5o
+         9uXIJnsl11zLvt6+hsQs+2i63Kq8JXTmAwhb+Ay9X3PZtDVTR/4p7OiT8xG9M6rbT3X3
+         5qnDUnJTBQmKKhrd2ldyMnDtvYoqAt96oUl1Xhp9buTHh8QkCMnSeTzgVd/rAsBqYVtZ
+         uR4rAO7IMXZIXf7QRXNAXgSHgiQFHH6JiSnU1/vDn1E+n1PFTMlApuADkvAtv5woTgsP
+         39zw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789329352; x=1789934152;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zP/flU6LxzcXkCBWdWRdaNlDvIYWNpZBuwaTNPtJjVA=;
+        b=ilSjr40LHH3BbacFByVC4N9zDMNX9kSqSaRYKnXgzAjlbsSA8QyG/DNGP3FgGU/akS
+         mVeryew4h8YVEZqheouo0L8cJuvyOLwTYUkmLxlEVmitGJRQrqP1weyGoaaMtPojZ0TA
+         JNCm3UCd+05BUpz/KoATgDw5aM1H5bKCg1baQQrGgdxbJODZ913kaTyKrnb+7xaBq49q
+         n1jzK0sBkhdDjNcTIaMvMXNfdYjs6YMf6rUDISBFSEVaw1KAatb7gXhjSIlJZmIXJLOI
+         XR/kEexbHI5kGeUmW8NJ2ectEmjOxCLrgvpfqqsY7/jTsJKfvMYWbkW3vikR7sQKzX6O
+         sr/w==
+X-Forwarded-Encrypted: i=1; AKwUvBwCubEm/kn5Hea0wohL09M2PdN2DFzH/OrdG1ir3tvpdENFy5d42mdkXuRguNoA7qd2z63VCPsuqo14Jgo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mM9+ca0zHiljRiNH91ioGJ06lOzfzyZVw3QWVLKdeaNjLbaT6B
+	6aQ6kRNfYlMw6hocE8g89ku6o/bS6kKF5ZvernfJWZIbGD4Ql9y75wQ7
+X-Gm-Gg: AYBFou1hwQ6f3mZWaX05woP/3ZKkIGuSGveFFTV5ePC0+ar9UeO6nOUlisI3H3EkiF+
+	MGhUi6Tx1jBRWQb17mD6l7gRLGcXNg5Ynpy9JZZoTjAhgWgtwHMwJhfpumsIH0BjLcwLTTpchtH
+	XDPc1Gr62nzsurkqGP/hQf58hg4TDW3AunFi7dbU5ywUPCdZx9fkN6IgaKpp1JB5Fzdo8iHWPEP
+	sxQi463fO+vf0s4hNZszZ64urI0rG0o5PrD1PvBT9GOaggX+va1c9aJ8ywdQEtQZw8fQ946NWfn
+	c13tBhzU0nvTX+PYxb3r/JnItPX6cZg207G61sV2oYgRzlSr3DNN7y7JHumqkoVQ4VP4XohIFlQ
+	TFl7S4WBo0m4Kjj9ANAxFVpyjjwu2p+5LlH01Hc8e14PwtTONTIDD2IDwWV0mYgH6oDgSig6bRM
+	DYVLJMm4GIPEHE5IeW5l/6Ahj4k49sME2/KXpGA47WmTwzKC7T2twsA5QV3RIYm0ZUCugLglPlE
+	Z+iMl4fJgsDKdw3bW2w5tCVs4cVIRvjjIwnl3JRq2Itl3vFLyHoXQ96EPXrYUMZ0XFH7X1B9z9D
+	1MeQcqyUnRjp9n1Fs1vyaNLQvnTiUEaAZm4ZcFGHeEEY6r6y
+X-Received: by 2002:a17:90b:2f84:b0:395:8124:ac53 with SMTP id 98e67ed59e1d1-39dd5570100mr3842479a91.6.1789329351633;
+        Sun, 13 Sep 2026 12:55:51 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e35])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d95424fccsm16469994a91.10.2026.09.13.12.55.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 13 Sep 2026 12:55:49 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: dmaengine@vger.kernel.org
+Cc: Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCHv2] dmaengine: ppc4xx: convert irq_of_parse_and_map to platform_get_irq
+Date: Sun, 13 Sep 2026 12:55:47 -0700
+Message-ID: <20260913195547.41579-1-rosenp@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260913195413.742143-1-jhubbard@nvidia.com>
-References: <20260913195413.742143-1-jhubbard@nvidia.com>
-X-NVConfidentiality: public
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SJ0PR03CA0202.namprd03.prod.outlook.com
- (2603:10b6:a03:2ef::27) To DM3PR12MB9416.namprd12.prod.outlook.com
- (2603:10b6:0:4b::8)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|SA0PR12MB4352:EE_
-X-MS-Office365-Filtering-Correlation-Id: f5aa7b4b-201c-4cbc-39ed-08df11d0cfb1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|10070799003|1800799024|23010399003|376014|7416014|11063799006|10067099003|18002099003|22082099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	c2xqI1Xp2LrxRTTP4gxIISwKoImAsBMgzNb2M7GtfQpfdDz70T3hxtQYC3g8v/C5vibzNf7y96eX74ru/O9aCRnN/DmIWXaMq6b2ETRvovQ/yuRWlr9al6lpdqULNVpdle5Q/W+4oMbkxLlGbKWxyG/fZ7lZ5VNeWjDj8MU2plnNwaEKPwxRJyEJIvwUYAfLNZARZXekUhdrF98Q+lubX2TChBMgrSl4iDQtsPBoJeAMLAvdDg/pS/tF/+gQovhgDmnMgvpBJZZ7g4LfIBGN8kyPxE7QJ4qivwT0yGzc5ak0T4ivme4oUWGMdnNhP2mp0W1mTuewdjuKm/kaGb4YZHIeACd1MW9E/TwNxCQ9bMzs56blHgeeFQ5sfyGaU4KUAz4/6te/OEq6cWB8g09mU2EoIDLVq+r/faJuUXtQ/NS7dkq1e8dgnQMbOlOS9eSS1lQiz92B0+8J8gifQGxoAeyKgeoVySKSVDpjwSDtUeCQS1bom3TIxRZK9xjw2+y9smcSoYRVNH4AD6Z5tjiTdHvGPjx+I/bqIGRptDKjiVwft7NCwQ1+aWh/GYkf0DcM2WoKaMk8ExAEnNk9j2By9tnksLfHkq9AvWhWPyC+htg6FZCB9TyLm4pmJtDYAvKV/lPPNUK95uTQSiQSKR9JUBdJ3Gj34FAIz1aoR0+rVoI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(10070799003)(1800799024)(23010399003)(376014)(7416014)(11063799006)(10067099003)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?GxyAHR/ia+T+owskygNrDS47CaWBIf0wRs1M+WkecN/w+VpyJSqngGOqNXgw?=
- =?us-ascii?Q?3/wQdjg26lj9L/PLjAnvSi5bR/cO8SCgylk6O8ETsI5I4xuw9n7ydzb6NMX2?=
- =?us-ascii?Q?VAbOY0Ty8HCFwkfQhw2liWmH08oAqGG0ARGgFmfgVLf7p6b40IOqrSmLUjxX?=
- =?us-ascii?Q?mwr+NDXARDAV3y4/PZzCHkc9WWijRFJHfwYBh4AKhqP2XsQANMPR+Z300UiK?=
- =?us-ascii?Q?J0k6thO9Ri2nmollQqBZLemknD2k7Xo/MR4ZPdIIPNm2JnalF/LJrNfWQie6?=
- =?us-ascii?Q?w3pKk27KYPhEtUdacePU/sVgmgBA1tAbgX1KTnEHOh/GAutzzXvSAPVXJIZ+?=
- =?us-ascii?Q?48BlfXyVrhWQlr8H7HAzLjX02dam/GlRdVxeJGp+r0Vs57qW8ZBBNFefV2Xv?=
- =?us-ascii?Q?EtFh8oUKaqmnFz9WbBfZJYUNQ365zfHTHvTXF4zDRtG3dzApq6Xr2k9Jmryj?=
- =?us-ascii?Q?q+GsiredkWc508tHVubv48h026kalVofWf47zuHKBl+9q1qKoilcsMPFa2up?=
- =?us-ascii?Q?MYqfb6B07qEnPhw2abidXcqQi/7mOeiNqf0uZUbHfd5oOpUOnzfhYl1VBrPx?=
- =?us-ascii?Q?zqzxc/88GA4oONaYRX4IwhWN0LppGcPJ5mhZX1zEMGwwzOaTttwnIQ089tcO?=
- =?us-ascii?Q?34HwKrPcdk26PI+LZIdzNpCpS0TpTAJk1ze8Mxw8GgiY7/CndpjSko8FcJQB?=
- =?us-ascii?Q?Lqk8BMZILzXYAxlAy1Q3vhre0QpM5JdRThSjD06RVQdAU3fuecOrQ+0+j20Y?=
- =?us-ascii?Q?krjv0laujamAOcmB+rieN+k3+0CyRtbJfffijsDWgwydxBiGBFEnXM9a5d4K?=
- =?us-ascii?Q?WpHvRUgtCWucsx7K4nloDwzMy2RMaNVtuBY7Y+4AJ8aA2Lqnu4mx3GKs0ALy?=
- =?us-ascii?Q?R5PfmwxNFeTvTIx4wl1LNwAWytU94QKBfcYLWA2CIiHxggYjptVD60raCde3?=
- =?us-ascii?Q?fhYMCdO/clnPlbcFCk2qMTnXW5Q1UWOichvCDfWBGtuoUuOBNP41TgfudwG/?=
- =?us-ascii?Q?dwjRkoO5o5B9cwdCuurlkX5qw1HU5MuYrAvsFW84BwWAf4uPNhC1GWa54+7F?=
- =?us-ascii?Q?uT6SIvJWFHRgwyVeSv+iXxzqE4OoJpzlE7p6AXp+KoA0I4NoGZ3gxu8dzk97?=
- =?us-ascii?Q?cCSJI0/IL1b84vcoV+sZqxTK5d+dtrte5Clc45KS3tY7e+md2d9tCA/0koVU?=
- =?us-ascii?Q?mCfMnDNmc5b6BTeLCqAZbLICQ6VszQYdqRGomuBYVcUDzxhwY6VIAfPlLm6q?=
- =?us-ascii?Q?DMO0jM3XaRBT5aqhPWAGMQBwGWkYe6R+2ZP2a+EyYVpYyOIEyDqUQIZ88Dwv?=
- =?us-ascii?Q?q1CvF/4b2PNCSDnEMmtVId4INWJMRTunHv+ZTqU6BXuQlUORVN5GIxwXJ9/8?=
- =?us-ascii?Q?rmS0VOSIX00Eo4z7nN3omDr7LyAbbeUBMnldr27suJ0o2mk8atF/SjgIqtkd?=
- =?us-ascii?Q?FlGc1kg4Ap+t2duMAQ6eQp3cKlSmh4EMcQW+sHQm46AiyQGyZazH7FG9kDbZ?=
- =?us-ascii?Q?wUlDDQ1apK/vFNKhlfQCc3L5WSEOSIeRF2fYUcqi7I1hVX4wfyhwvtJrUlcf?=
- =?us-ascii?Q?oGES9ejzMc5BsYxp7sGOx/A2olS8MsD1vbjnW4gA9z2dbebKBX6+TKF3Snlz?=
- =?us-ascii?Q?E4Art2AHaZBkmiVKdgH8/Mt080nm1abE/ABv7o1QlAAcY7oYZQEX6PVYLGM/?=
- =?us-ascii?Q?goQV1J+3kr3hBHmbeMf2baJsRWvlVy2f+zHm6HZdKvoyVrNdJ9NMQoE5IfRE?=
- =?us-ascii?Q?viMIzVro3N0afwxhZdENgOw2vSZc9Ug=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f5aa7b4b-201c-4cbc-39ed-08df11d0cfb1
-X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Sep 2026 19:54:24.6386
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: byuJGZMjLVZmZ2PUU882oWXGoVeexnpnnHQqY8n9GQB4poYycwE3RHQt9b215fRH3JJVZWs9/81mMzRsY5s0BQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4352
+Content-Transfer-Encoding: 8bit
 
-A TLV firmware file carries the GSP firmware image as a section
-extracted from the original ELF, and the section is not itself an ELF.
+Replace irq_of_parse_and_map() with platform_get_irq(), which is the
+preferred way to obtain IRQ resources from platform devices.  This
+eliminates the corresponding irq_dispose_mapping() calls since the
+framework manages the mapping.
 
-Before the driver moved to TLV firmware files, it parsed that ELF
-itself, and it named the framebuffer range that holds the image for the
-ELF. The range kept the name through the move.
+While here, fix a latent bug in the err_req2 error path: the error IRQ
+was not freed when a subsequent step (I2O setup) failed.
 
-Rename the field for the framebuffer range that holds the GSP firmware
-image, from elf to fw_image. After this, the following:
-
-    $ cd drivers/gpu/nova-core
-    $ grep -iw ELF
-
-comes up empty. :)
+The struct device_node *np declaration is moved to the scope where
+it is still needed (I2O register lookup).
 
 Assisted-by: LLM
-Reviewed-by: Timur Tabi <ttabi@nvidia.com>
-Signed-off-by: John Hubbard <jhubbard@nvidia.com>
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
- drivers/gpu/nova-core/fb.rs     | 18 +++++++++---------
- drivers/gpu/nova-core/gsp/fw.rs |  2 +-
- 2 files changed, 10 insertions(+), 10 deletions(-)
+ v2: use _optional
+ drivers/dma/ppc4xx/adma.c | 35 ++++++++++++++---------------------
+ 1 file changed, 14 insertions(+), 21 deletions(-)
 
-diff --git a/drivers/gpu/nova-core/fb.rs b/drivers/gpu/nova-core/fb.rs
-index b18dc5447a73..b0c0b8fe6008 100644
---- a/drivers/gpu/nova-core/fb.rs
-+++ b/drivers/gpu/nova-core/fb.rs
-@@ -159,7 +159,7 @@ pub(crate) struct FbRanges {
-     /// Memory area containing the GSP bootloader image.
-     pub(crate) boot: FbRange,
-     /// Memory area containing the GSP firmware image.
--    pub(crate) elf: FbRange,
-+    pub(crate) fw_image: FbRange,
-     /// WPR2 heap.
-     pub(crate) wpr2_heap: FbRange,
-     /// WPR2 region range, starting with an instance of `GspFwWprMeta`.
-@@ -234,25 +234,25 @@ pub(crate) fn new(
-             FbRange(bootloader_base..bootloader_base + bootloader_size)
-         };
+diff --git a/drivers/dma/ppc4xx/adma.c b/drivers/dma/ppc4xx/adma.c
+index 279a431ccae3..99aee726644e 100644
+--- a/drivers/dma/ppc4xx/adma.c
++++ b/drivers/dma/ppc4xx/adma.c
+@@ -3865,28 +3865,24 @@ static int ppc440spe_adma_setup_irqs(struct ppc440spe_adma_device *adev,
+ 				     int *initcode)
+ {
+ 	struct platform_device *ofdev;
+-	struct device_node *np;
+ 	int ret;
  
--        let elf = {
--            const ELF_DOWN_ALIGN: Alignment = Alignment::new::<SZ_64K>();
--            let elf_size = u64::from_safe_cast(gsp_fw.size());
--            let elf_addr = (boot.start - elf_size).align_down(ELF_DOWN_ALIGN);
-+        let fw_image = {
-+            const FW_IMAGE_DOWN_ALIGN: Alignment = Alignment::new::<SZ_64K>();
-+            let fw_image_size = u64::from_safe_cast(gsp_fw.size());
-+            let fw_image_addr = (boot.start - fw_image_size).align_down(FW_IMAGE_DOWN_ALIGN);
+ 	ofdev = container_of(adev->dev, struct platform_device, dev);
+-	np = ofdev->dev.of_node;
+ 	if (adev->id != PPC440SPE_XOR_ID) {
+-		adev->err_irq = irq_of_parse_and_map(np, 1);
+-		if (!adev->err_irq) {
++		adev->err_irq = platform_get_irq_optional(ofdev, 1);
++		if (adev->err_irq < 0) {
+ 			dev_warn(adev->dev, "no err irq resource?\n");
+ 			*initcode = PPC_ADMA_INIT_IRQ2;
+-			adev->err_irq = -ENXIO;
+ 		} else
+ 			atomic_inc(&ppc440spe_adma_err_irq_ref);
+ 	} else {
+ 		adev->err_irq = -ENXIO;
+ 	}
  
--            FbRange(elf_addr..elf_addr + elf_size)
-+            FbRange(fw_image_addr..fw_image_addr + fw_image_size)
-         };
+-	adev->irq = irq_of_parse_and_map(np, 0);
+-	if (!adev->irq) {
+-		dev_err(adev->dev, "no irq resource\n");
++	adev->irq = platform_get_irq(ofdev, 0);
++	if (adev->irq < 0) {
+ 		*initcode = PPC_ADMA_INIT_IRQ1;
+-		ret = -ENXIO;
++		ret = adev->irq;
+ 		goto err_irq_map;
+ 	}
+ 	dev_dbg(adev->dev, "irq %d, err irq %d\n",
+@@ -3899,7 +3895,7 @@ static int ppc440spe_adma_setup_irqs(struct ppc440spe_adma_device *adev,
+ 			adev->irq);
+ 		*initcode = PPC_ADMA_INIT_IRQ1;
+ 		ret = -EIO;
+-		goto err_req1;
++		goto err_irq_map;
+ 	}
  
-         let (vf_partition_count, wpr2_heap_size) = wpr2_heap_params(chipset, vgpu_state, fb.end)?;
+ 	/* only DMA engines have a separate error IRQ
+@@ -3917,7 +3913,7 @@ static int ppc440spe_adma_setup_irqs(struct ppc440spe_adma_device *adev,
+ 				adev->err_irq);
+ 			*initcode = PPC_ADMA_INIT_IRQ2;
+ 			ret = -EIO;
+-			goto err_req2;
++			goto err_req1;
+ 		}
+ 	}
  
-         let wpr2_heap = {
-             const WPR2_HEAP_DOWN_ALIGN: Alignment = Alignment::new::<SZ_1M>();
--            let wpr2_heap_addr = elf
-+            let wpr2_heap_addr = fw_image
-                 .start
-                 .checked_sub(wpr2_heap_size)
-                 .ok_or(EOVERFLOW)?
-                 .align_down(WPR2_HEAP_DOWN_ALIGN);
+@@ -3927,6 +3923,7 @@ static int ppc440spe_adma_setup_irqs(struct ppc440spe_adma_device *adev,
+ 			    XOR_IE_ICIE_BIT | XOR_IE_RPTIE_BIT,
+ 			    &adev->xor_reg->ier);
+ 	} else {
++		struct device_node *np;
+ 		u32 mask, enable;
  
--            FbRange(wpr2_heap_addr..(elf.start).align_down(WPR2_HEAP_DOWN_ALIGN))
-+            FbRange(wpr2_heap_addr..(fw_image.start).align_down(WPR2_HEAP_DOWN_ALIGN))
-         };
+ 		np = of_find_compatible_node(NULL, NULL, "ibm,i2o-440spe");
+@@ -3956,14 +3953,13 @@ static int ppc440spe_adma_setup_irqs(struct ppc440spe_adma_device *adev,
+ 	return 0;
  
-         let wpr2 = {
-@@ -273,7 +273,7 @@ pub(crate) fn new(
-             vga_workspace,
-             frts,
-             boot,
--            elf,
-+            fw_image,
-             wpr2_heap,
-             wpr2,
-             non_wpr_heap,
-diff --git a/drivers/gpu/nova-core/gsp/fw.rs b/drivers/gpu/nova-core/gsp/fw.rs
-index ae98da42410b..918a7ae809eb 100644
---- a/drivers/gpu/nova-core/gsp/fw.rs
-+++ b/drivers/gpu/nova-core/gsp/fw.rs
-@@ -205,7 +205,7 @@ pub(crate) fn from_ranges<'a>(
-             gspFwWprStart: ranges.wpr2.start,
-             gspFwHeapOffset: ranges.wpr2_heap.start,
-             gspFwHeapSize: ranges.wpr2_heap.len(),
--            gspFwOffset: ranges.elf.start,
-+            gspFwOffset: ranges.fw_image.start,
-             bootBinOffset: ranges.boot.start,
-             frtsOffset: ranges.frts.start,
-             frtsSize: ranges.frts.len(),
+ err_req2:
+-	free_irq(adev->irq, chan);
++	if (adev->err_irq > 0)
++		free_irq(adev->err_irq, chan);
+ err_req1:
+-	irq_dispose_mapping(adev->irq);
++	free_irq(adev->irq, chan);
+ err_irq_map:
+-	if (adev->err_irq > 0) {
+-		if (atomic_dec_and_test(&ppc440spe_adma_err_irq_ref))
+-			irq_dispose_mapping(adev->err_irq);
+-	}
++	if (adev->err_irq > 0)
++		atomic_dec(&ppc440spe_adma_err_irq_ref);
+ 	return ret;
+ }
+ 
+@@ -3987,13 +3983,10 @@ static void ppc440spe_adma_release_irqs(struct ppc440spe_adma_device *adev,
+ 		iowrite32(mask, &adev->i2o_reg->iopim);
+ 	}
+ 	free_irq(adev->irq, chan);
+-	irq_dispose_mapping(adev->irq);
+ 	if (adev->err_irq > 0) {
+ 		free_irq(adev->err_irq, chan);
+-		if (atomic_dec_and_test(&ppc440spe_adma_err_irq_ref)) {
+-			irq_dispose_mapping(adev->err_irq);
++		if (atomic_dec_and_test(&ppc440spe_adma_err_irq_ref))
+ 			iounmap(adev->i2o_reg);
+-		}
+ 	}
+ }
+ 
 -- 
 2.55.0
 
