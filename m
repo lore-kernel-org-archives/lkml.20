@@ -1,150 +1,124 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 605973B14A3
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 05:58:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789279119; cv=pass; b=jvTotcIOviJW2vI871U0ma+WoL7CGNjpC3ubD3RyoVt114Wqw9vAh0SB2iSO28F3SsdpwAgzYVqtorkBS3PShT5iHktlcfzODoVdeBiQdr0MZzI20vaORu+wRUuepSryIhjgiEdXNb5z3nOrLHROWfGOzoA6e/m7xGKJC6cDZFs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789279119; c=relaxed/simple;
-	bh=XL2BqdaDbBQGl2le1+e15CvxQeIuTY32niH1hZcA9BI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=lt9rw6N0R9FeuZPnAIbLizt8D3RTGSg32M/GCWOVQqZefQ6nLhvfAEEDpJV9RCTk930SiyefoCxTuW3NUacTOGoM44jdwk5kT6/Fy9rHPYNHRkwil3jwkNKN4JiWsOqLUs8uu8W0EkGkD8Eyzd8DX0t2AYtiy61U0qT/Omor1vI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RBuD8yye; arc=pass smtp.client-ip=74.125.228.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1CAC372EF0
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 06:02:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789279376; cv=none; b=tEq/gYlPvJ6o4v408B0V/qR/0gyPWelh/orBfAFrkHdbQLRgekUkH2TWwrPXtbmlHDgBDi8uh6n+2qfTaTwav05e1QfxB+JEWQMLq7Q5LHR63kxQN3fVrRM9mr8MEec7VaB/mCtpAEqwxswNdjSrShvXN9n2/s6QIu4JGaFM9Q4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789279376; c=relaxed/simple;
+	bh=65cEKXKhhuEzXufrrcDn2PycVDgDexj8cymvAewKMgg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Etn2VXp5QhmUbRfAzN8TgmB0jiCNdxGh/zMam09meKFE3I1e6SANCdpJuWk7PAs/DrIg+h+MUX0hgvKg9jhVWoIuOrlGVLxTKwXCifu5qqJbjsgyreQHRHHwwas6N//bthbtgNcMNYgAk2fwsXakERqGWGwC+zmIUw+oyHq+u98=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dJZHjbiY; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RBuD8yye"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a9adea43b6so1010819a12.0
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 22:58:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789279116; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GYl1qkC8NrOubO5PEHL4PDmAEuQ5G2LInPHyx3ovIID72qe5H4xlMz2Be02/nsCaf2
-         +YeFu56zHxXZuGqfQ2F3/xqcVMIG+CSP1C/qG+CwDzCEw5RWhjZNtV1alO4DhUhrxhBz
-         2XP8SnAaAkGJ8U+ytpuPQ+SPVxqvCkIHmUPQaQ+bHXTKkXI9wkHmWSYxnIJwS30DLXdN
-         aNpsyuXqfsooM2fhpptJNOpFq+bTjM5I9eAKwI63TbJpjZ9iWWJiC465qQpt978nkOSu
-         v4mir4l5qjYGyG/WGXlSl6j2/pgwr9p2rOvZRcApFNCLpoQnVUFsA4h2d72/Nbb+Kev9
-         urBA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=IUEiueZZV2yqlkScy30M7jIekL7G0zJhj9udl2hgLjA=;
-        fh=TrPdbOV6YNWQAU8Vs8VWjiwcJANxjhs3pdJ3vQOo/RY=;
-        b=iAAwnSNwMhKVxDGrnk29V1K9JgK41Y/q3t4Zk482XQVXu2CJ2txupd0q885V/CZ01I
-         QB1t9OB452fLYP9VKW0OL/PBZN+K6kyOpQsWETruZeqHY84LCtna3zAWqHEdaLwiRbVs
-         xe1dh/mCkmfarpZx6i0PAo6+YPARCcCgmLSjwpj1lcCwRzRwnFWqwWh7hDCjSb2JcXu7
-         oRSFRCBxoME8S89OIe1dpkQ8Tn2dOZLyZ/NumtwARQmU4QDVPaRJqYrpZDLXpUARa4EF
-         9Rb4IL0dcU8IACENsAp9KY5ccEpkCvwO9sI3CirDSBSawNH54nEbIWSON7CuyYrX0duV
-         3AtQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dJZHjbiY"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747ed6d6eso5480985ad.2
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 23:02:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789279116; x=1789883916; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=IUEiueZZV2yqlkScy30M7jIekL7G0zJhj9udl2hgLjA=;
-        b=RBuD8yyeGqJZW6JT2zXOEdjG709cS90bvQPawkony/4PHo31VpQBXplb/XzfihFiMT
-         sf3joOUpOWsqZk68cgVD0pfoDowMHFVHZK2DyrB7lyZn8oOWZgOycO8FYpZRQvQDfbsf
-         UvGY0eQ3iMSasHWbPtczfK89PQpMqa5MQWkJPf8GvG559F5KDEREe2GQ5/hyFNmHOEas
-         JOl4OOp7CLIF8ktKpsKXAi9nL48Lk1zy7tQT+f8m8Rs2dE+AGme59El+XEHNBbsyZ9YX
-         zKMJJfLk3dK7zat+niAAZh6Lx5nCsI9jo/557tOVqA0RSPcKq771BoIuYBwmQ58WoyAB
-         M7eQ==
+        d=gmail.com; s=20251104; t=1789279374; x=1789884174; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QgMX8CiibWPEaVVcLSm85/QfWicxIoxBAscuNI56DwY=;
+        b=dJZHjbiYA982A4Nt7rpwU7CjA5bYkKwfWzA+oEzq7RKzd/yiIMdD0Zc30eixHEGgIP
+         2RGiJ+Cn/l1Q1IdoW0Spe55OnEuBIlnsSeH1cWSeIKRBk//eDw2qF+NkoMmN0GRDXFU1
+         MWus2VxSxGEL6cy5J2tGEQPxFh9LqLEDq96WD87Ux0sX80Dy3DQ6vj77vrS6DkJFRPyl
+         oFEXJPRjrh5V//8TomAmSkJkVcki2nOfk6WdQKys9WNedfdvtO9GdBZTNEwYtytN9okp
+         LxgUR2aP+Y/boJt9l76JZgoNSwaJ6hUi9PYW/IZgRDm/cnjdvIn1oJOW5if1k//19y2P
+         YB4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789279116; x=1789883916;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IUEiueZZV2yqlkScy30M7jIekL7G0zJhj9udl2hgLjA=;
-        b=rTpukvdYzsyCLhrCxz5Xl9vB0gVYaHhpzGKzyLg1Kksx1lWuZc7PubxgateFDrFVX2
-         nt6QjApUConTQzXY023oLMP+14axlH8WopmxqPkVcz8lU0nsaiMZXlAxVkGO5lV/E5u2
-         vG94OlPPqElUVo/+7V4XTZHkLEvpRWTWnUBZ65hhz2JlOIMbq0qJeavO+RlUME8LqR8S
-         ffV6uMWHZtdW1+fwIGBHkoYKXDhcZpuorqgwvbEfdOptkiJHOqsFZlfjvMM8UfrOmYbc
-         qz1kTQQhxbgPyFxoOT/uaWvXOq6UA2IcMv37zOU5KgUuIFOL3vhOeybLYrmiYO+qCJZi
-         zG8Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzilTVzkvgcfxlVYqSUHxqFbkRuPHU5B62xgmKuSiuCavt7pGEJM58+K7hODD44eCz7WzZHrvdaMrT6JdI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mnFtV7cYW357YLty+zJVnKk5EVCCVKsYR/j9wo1HEmqejiuXoB
-	gQBxtR/2tWTSh0ph44whV9kHtaKXg9bNjCNchrOVzDKZ63vFyTqEySlEsg1+TA/1/2ZJ8O2dc2k
-	IQcWCYlce1CYN4QOI66oG8S7L2Tbu8tplYtHS
-X-Gm-Gg: AYBFou1sb1SNlwi0D9jBWAXB5YDjJyG3v3S7Bcz0WWjILUbVNs7JiZvdz6W3uKpbPnD
-	1lcmJlAxhhJH+re1rICiaSDIxjQDhmmG+lEd0OmUtXhtW+xpdZQfdhBTkcK4mRvu6cV1WvDYWPm
-	ekoaOajib/hlX1VZnDdSK9rPB8IMdMthgqmIrdTFYJjgRhyC6itOlnkSlwEJXaBiUo0pXe6xfnz
-	fWx3sJoJwNwjem6+W4UE99qGL+uO14aEd5gedaaAdiu4zdUB9ke657lDBysLzmwxqe7w98mUola
-	DeB90yGG7J4NESSI65Rob5nm0ItlcR5A5YgZkcbFRJ0B3cb8EvvRcyTLZMBsyjQfPeoSzGhsKmJ
-	dmQXoy/3FdiXJfQ==
-X-Received: by 2002:a17:907:1c8c:b0:c29:5340:182e with SMTP id
- a640c23a62f3a-c2985725e75mr277141166b.2.1789279116193; Sat, 12 Sep 2026
- 22:58:36 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1789279374; x=1789884174;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QgMX8CiibWPEaVVcLSm85/QfWicxIoxBAscuNI56DwY=;
+        b=qBo7maWiVNpEyl+3quZF40YwtL5+5sVmlWYoeF14x4dHT7cr37kyt8/D5QYVfcCUeZ
+         JFNBFqBRDdw7rs5TVa5nYqw1Q2YviARiT+U0q3ZuhQzPtH5NvMGn/DcpQ3H2Lp1f8YhL
+         MDCG7irRVukjx8EtwzmeJk9+1jHJtFsIImtYMzaOYaBS41zIfM8FY9I3t1dykwoFFiFt
+         OcTxPYUb7gXsgePr0G+mIqxV7ez6uW2YtE8Y8a7lGDgOPPqfJgoqXv+H9NeIMDcrp4On
+         4lMX+9T1Abari7xK8++Wo77dzVpxiUTPL8n/msA27Dw/SgkgNp5GYsrOSpZsdcanfFkR
+         VV+A==
+X-Forwarded-Encrypted: i=1; AKwUvByepUwJP/5YGRVZY2ehsFLDA1wxkzRQFZ1Lpwre9olJFDiAUlhFZ8nZ9yDj3riYiGiijDxDGuv2vu93h3w=@vger.kernel.org
+X-Gm-Message-State: AFuF++ncKA84HrrpXr8DAuBZS2sv/iCQkZyDIYjYOUxLkJtDxMcE9lDN
+	SeYwZhPHyQKWEhtvJt1cwJg0mVuHyz4oQxWot4YpB0TXh1f/L3rgbCvW
+X-Gm-Gg: AYBFou1h3x0+UtUOdpzuEoJWRtKfBtXeiao0HMHdUFW6z1uqYvNJ1ZjbrYuE4gkzl3W
+	3hBeauCEcxcAdd8l4BjIUIs6wnLqgiiYUEaKNgtprFMO/3V03N+j5KfyC02fREBhWaFZSqmipWH
+	PmZkL0o8qvxxBgVZj+lSKGpVufr7QtRH+Aj4mAks0E0HWUFMPJ/W/Um1ROZ4Ztvb+kZJBtoqxdq
+	NNuY5nZAhZDg9bqgtUif2waMlOGlLKgR28BfClPYVTzicmWQENts7naK8pesogcGCn1ylGNXtxZ
+	WL6azBXRTz1NvOOaMXzgd8XVAK7FmU5qz17u9G7URDq6SB8ECLOzw8X0gf1ABT8syHs0OJGy/cL
+	kxtFIyyW30ZuRvm6Vdi+JFCIC2vDzdoOtctw4t5glCtgiddyIB0hXZ933nmHjBzxayu86+PP3cM
+	c44r9b/8GCwJLP8uWwZNwfflcRdRYAsFOAVJSK/VD/qoPykXbKgLZG6A==
+X-Received: by 2002:a17:902:c947:b0:2d8:d4d3:3fc0 with SMTP id d9443c01a7336-2dd4bdaf9bfmr98050145ad.20.1789279374119;
+        Sat, 12 Sep 2026 23:02:54 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd3f0faf19sm23811575ad.12.2026.09.12.23.02.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 12 Sep 2026 23:02:53 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Eddie James <eajames@linux.ibm.com>,
+	Ninad Palsule <ninad@linux.ibm.com>,
+	Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Ryan Chen <ryan_chen@aspeedtech.com>,
+	Billy Tsai <billy_tsai@aspeedtech.com>,
+	Alistair Popple <alistair@popple.id.au>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-fsi@lists.ozlabs.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-aspeed@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] fsi: aspeed: fix memory leak on remove
+Date: Sun, 13 Sep 2026 14:02:42 +0800
+Message-ID: <20260913060242.1426845-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <c8efa35aeff7b6ee4f66f1d48d4392976dbde128.1783329551.git.u.kleine-koenig@baylibre.com>
-In-Reply-To: <c8efa35aeff7b6ee4f66f1d48d4392976dbde128.1783329551.git.u.kleine-koenig@baylibre.com>
-From: Ping Cheng <pinglinux@gmail.com>
-Date: Sat, 12 Sep 2026 22:57:15 -0700
-X-Gm-Features: AcwNN1VGFA-W-o06oLsLxlJUvDoT8ZSEjCsjMCAPFTIzYsU6qr0WR_WS1UZO_W4
-Message-ID: <CAF8JNhKhL3pC2yvMxg87R9TKJ4-b1vQ8Y7J8hWmKOLHCp0on8g@mail.gmail.com>
-Subject: Re: [PATCH v1] HID: wacom: #include <linux/device-id/hid.h> instead
- of <linux/mod_devicetable.h>
-To: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>
-Cc: Ping Cheng <ping.cheng@wacom.com>, Jason Gerecke <jason.gerecke@wacom.com>, 
-	Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, linux-input@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Jul 6, 2026 at 4:39=E2=80=AFAM Uwe Kleine-K=C3=B6nig (The Capable H=
-ub)
-<u.kleine-koenig@baylibre.com> wrote:
->
-> The single device-id structure that is used by drivers/hid/wacom.h and
-> its users (drivers/hid/wacom_sys.c + drivers/hid/wacom_wac.c) is struct
-> hid_device_id. So #include the much more lightweight
-> <linux/device-id/hid.h> instead the full <linux/mod_devicetable.h>.
->
-> Signed-off-by: Uwe Kleine-K=C3=B6nig (The Capable Hub) <u.kleine-koenig@b=
-aylibre.com>
+fsi_master_aspeed_probe() takes an extra reference to master.dev with
+get_device() after registering the FSI master so that the aspeed object
+remains valid while the remove path performs its cleanup.
 
-Acked-by: Ping Cheng <ping.cheng@wacom.com>
-Tested-by: Ping Cheng <ping.cheng@wacom.com>
+However, fsi_master_aspeed_remove() never drops this extra reference.
+After fsi_master_unregister() releases the reference held by device
+registration, the extra reference remains and prevents the device
+release callback from being invoked. As a result,
+aspeed_master_release() is never called and the fsi_master_aspeed
+object is leaked.
 
-Cheers,
-Ping
+Drop the extra device reference with put_device() after the clock has
+been disabled. This allows the reference count to reach zero and
+aspeed_master_release() to free the aspeed object.
 
-> ---
-> Hello,
->
-> there is no coordination needed, just make sure to apply it to v7.2-rc2 o=
-r
-> later. So please take it via the hid tree for the next merge window.
->
-> Best regards
-> Uwe
->
->  drivers/hid/wacom.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/hid/wacom.h b/drivers/hid/wacom.h
-> index 1deacb4568cb..d2398b1cdbb2 100644
-> --- a/drivers/hid/wacom.h
-> +++ b/drivers/hid/wacom.h
-> @@ -82,7 +82,7 @@
->  #include <linux/kernel.h>
->  #include <linux/slab.h>
->  #include <linux/module.h>
-> -#include <linux/mod_devicetable.h>
-> +#include <linux/device-id/hid.h>
->  #include <linux/hid.h>
->  #include <linux/kfifo.h>
->  #include <linux/leds.h>
->
-> base-commit: 8cdeaa50eae8dad34885515f62559ee83e7e8dda
-> --
-> 2.55.0.11.g153666a7d9bb
->
->
+This issue was found by manual code inspection.
+
+Fixes: 606397d67f41 ("fsi: Add ast2600 master driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/fsi/fsi-master-aspeed.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/fsi/fsi-master-aspeed.c b/drivers/fsi/fsi-master-aspeed.c
+index aa1380cdff33..d21d06b44350 100644
+--- a/drivers/fsi/fsi-master-aspeed.c
++++ b/drivers/fsi/fsi-master-aspeed.c
+@@ -652,6 +652,7 @@ static void fsi_master_aspeed_remove(struct platform_device *pdev)
+ 
+ 	fsi_master_unregister(&aspeed->master);
+ 	clk_disable_unprepare(aspeed->clk);
++	put_device(&aspeed->master.dev);
+ }
+ 
+ static const struct of_device_id fsi_master_aspeed_match[] = {
+-- 
+2.43.0
+
