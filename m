@@ -1,75 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from omta038.useast.a.cloudfilter.net (omta038.useast.a.cloudfilter.net [44.202.169.37])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78FFE367F3A;
-	Sun, 13 Sep 2026 22:59:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7147A3BA237
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 23:00:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.202.169.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789340341; cv=none; b=TU5OoPqB7uAxrqU2gTLsFmRYUDIqF3qsgUgckJspaZKkF1WMqWPiBM1AxZxpPFIJat8m+meoLMoh3cz9xYrBSLrdlKSS0R2eoBmJldwXnJxhM5OSzhB6CkRLn5XWw4qRDoXH3qJBd42HGQdHNcUGGaVUTmaT6L0fPTOcVMp7hyI=
+	t=1789340408; cv=none; b=HXzr4kPyiLzDs/pDcxcGYut9eOT7RupMeUrGQHeZaagveoEnn2yQpAbJk6n/yxqZoQh89qhhHSXyXQsfxcF0vx4x1ruCugmaFVKWkALOo6eq7WYE3z5sM+eeY/drzRlxwoGHOib0GX9Ek2U+1LznfGkPLZVN5vbpAHtqRNu4zwY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789340341; c=relaxed/simple;
-	bh=Oi0kJRqHz97fGcDtqHeiokEjhF4U+9eWn/vQWLkjEXE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=f4WPvzD9NmG3f4KAkSqQS5cOuz5wqE0nA2KWAzBolssIoJwBKg6m+UPeBAJVNXh4Z3I/AdJxyDc1S1zIFPH8tXKB9xjb0LY0yh1BKVNraCvaYjq+P9DYwJQ7lwCtbSnFZeIDyiPJCxoGC79DfEoCAhrGW+JBSJ3yaJKuyYL6Ly0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UT3NnnER; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789340408; c=relaxed/simple;
+	bh=E25GtAn4WzVc2FZV9R5oZdwwb7KG0qqFAtxVTjM8IXk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ae4kgW5pYHSShLAO8MdEcED+9akc2HU51ZfQK/L6ad+J7mSJfwD4HeZAU231sqdlljT2lnWowwHylGSD3VbLS4g2WngboVmJlsBgUbImnZIaoDA1mdQ3LeQAbxUoPq/uJziHTx3wGoyefvjhH7USMzLyx+XH/mENYvSdx1oqM+Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=fFKUjyx+; arc=none smtp.client-ip=44.202.169.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UT3NnnER"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E66961F000FF;
-	Sun, 13 Sep 2026 22:58:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789340340;
-	bh=uEl1/Y+y13fSKP4CZn0HofyZ8xEWWRvmTzNdAamYRo4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UT3NnnERRgG5NQF3sT594WOTY04mlH/PO4dtcbLaC7AD+Gd5Qs4kltFMX8V2yFPE0
-	 sCWSrAErusAiZhnzDLkcIZjVTpOLeuBsXD47j/bB62Fn31SLjjxnDnTLR1jjNLFSc0
-	 rMys5IBXP4WG5qhO/c34WLL2/vdpXlnJV8zbuRMj8DED7MnqY1Jnv+MbluGwVIMDHv
-	 Ou2FWWqkN2qdt7XI61LkFvKEHF/4IAzSZ/yBks4NoYupC7QZEQeEjNFqcbB1OvQePc
-	 UYyLHPJ1Gisa7QQd7eockzoRxXrFinyv9YNeOx9fsKqnDwJSy2z6j20xWAxX+MBuMN
-	 idIrPbL8IEwBA==
-Date: Sun, 13 Sep 2026 15:58:58 -0700
-From: Wei Liu <wei.liu@kernel.org>
-To: mhklinux@outlook.com
-Cc: kys@microsoft.com, haiyangz@microsoft.com, wei.liu@kernel.org,
-	decui@microsoft.com, longli@microsoft.com,
-	linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/1] Drivers: hv: Don't reset VMBus connection state on
- error/exit paths
-Message-ID: <20260913225858.GI2219269@liuwe-devbox-debian-v2.local>
-References: <20260901034514.457089-1-mhklinux@outlook.com>
+	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="fFKUjyx+"
+Received: from eig-obgw-5006b.ext.cloudfilter.net ([10.0.29.217])
+	by cmsmtp with ESMTPS
+	id 5oRJxOIX8JFmF5tB7xVJNZ; Sun, 13 Sep 2026 23:00:05 +0000
+Received: from box5620.bluehost.com ([162.241.219.59])
+	by cmsmtp with ESMTPS
+	id 5tB6xC9Pu5NF35tB7xUjrH; Sun, 13 Sep 2026 23:00:05 +0000
+X-Authority-Analysis: v=2.4 cv=GaMXnRXL c=1 sm=1 tr=0 ts=6aa72af5
+ a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
+ a=HaFmDPmJAAAA:8 a=Y4NyFCxO9-uqU50Sy_0A:9 a=QEXdDO2ut3YA:10
+ a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
+	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=mLYvAt0OcCY+2SqLeYDe4lTxu+rpN11hpHmIW/uE2Wg=; b=fFKUjyx+Hp0jEGBlI/CLQFov7F
+	nP/d7SzYA1W2+hqkArGjhqgktOMnRRRO3EiSqLPCgONIf5bL4GxTwIzhghyT/IOtk8+CMURdwDUKh
+	n+PkgTETtgyPiFpLTadRyZdZbcX+XsFC+74lKbVhjK4lMmKutih+vEtaCReG5tNCkx0Bo/vUZ1fe4
+	HWYKgX8VVEB45aup3JtvzfFCxI/4USvoXtPRxS1QJnWqNZyC0gypp62CoZSyCeMiXr7eRTF45Hm6K
+	L4Jx+MvzTVIDXMhOfJp6tC3aWTsxp6yupMQ+pqjBneWfnqBCH+4gpnTpsXIquKzJY7cRQHYAQmFDH
+	MxJLZb6w==;
+Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:35474 helo=[10.0.1.180])
+	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.100)
+	(envelope-from <re@w6rz.net>)
+	id 1x5tB6-00000002IDG-0TlR;
+	Sun, 13 Sep 2026 17:00:04 -0600
+Message-ID: <d0e20d32-456b-434f-bc37-518ae18f5811@w6rz.net>
+Date: Sun, 13 Sep 2026 16:00:02 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260901034514.457089-1-mhklinux@outlook.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.12 0000/1376] 6.12.110-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260912065607.535295758@linuxfoundation.org>
+Content-Language: en-US
+From: Ron Economos <re@w6rz.net>
+In-Reply-To: <20260912065607.535295758@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - box5620.bluehost.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - w6rz.net
+X-BWhitelist: no
+X-Source-IP: 73.162.206.103
+X-Source-L: No
+X-Exim-ID: 1x5tB6-00000002IDG-0TlR
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:35474
+X-Source-Auth: re@w6rz.net
+X-Email-Count: 17
+X-Org: HG=bhshared;ORG=bluehost;
+X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfBlQ+zUNW+TNbB2frdLTgKGojrTTrtujdyg/VxloAk2pdfkoBykA7CI1j7XJN4JsWRGQSAKYz4vJaeTHuEqgsWU5Li94O2Fbfv+XY8Vsn72L/dfDeu2n
+ huuUMX1GrpdvqhBht9yeqwkqG/fjfxB7WtVI4i/j+U+8nTSzJpDaLUONXfWU1fCRm7HX3V5v+IwHIR8w5aEJlbu2ptzqON8qa3A=
 
-On Mon, Aug 31, 2026 at 08:45:14PM -0700, Michael Kelley wrote:
-> In two places, current code forces vmbus_connection.conn_state to
-> DISCONNECTED prior to calling vmbus_disconnect(). But vmbus_disconnect()
-> calls vmbus_initiate_unload(), which unloads the VMBus connection
-> only if the conn_state is CONNECTED. Consequently, the connection
-> remains and the Hyper-V host might continue to send messages or post
-> VMBus interrupts.
-> 
-> The problem was introduced in commit 74347a99e73ae ("x86/Hyper-V:
-> Unload vmbus channel in hv panic callback"), in that
-> vmbus_initiate_unload() started checking the current connection
-> state before doing the unload. This commit removed some occurrences
-> where conn_state was forced to DISCONNECTED, but these two remained,
-> apparently due to an oversight at the time.
-> 
-> Fix this by not forcing conn_state to DISCONNECTED during VMBus exit,
-> or if a failure occurs when establishing the connection in the first
-> place. Whatever value conn_state has at the time is then read by
-> vmbus_initiate_unload() to determine if there is a connection to
-> be unloaded.
-> 
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/linux-hyperv/20260805205806.B5AC31F000E9@smtp.kernel.org/
-> Fixes: 74347a99e73ae ("x86/Hyper-V: Unload vmbus channel in hv panic callback")
-> Signed-off-by: Michael Kelley <mhklinux@outlook.com>
+On 9/11/26 23:40, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.12.110 release.
+> There are 1376 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Mon, 14 Sep 2026 06:54:17 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.110-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
 
-Applied. Thanks.
+Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
+
+Tested-by: Ron Economos <re@w6rz.net>
+
