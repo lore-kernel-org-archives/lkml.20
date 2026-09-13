@@ -1,106 +1,132 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f6.google.com (mail-oo2-f6.google.com [74.125.231.134])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE8AB14AD0D
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 13:08:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36FCF3CC7D8
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 13:09:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.134
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789304936; cv=none; b=BmA2u8z1sy/IMGf4TbG8g8gONSC1k2xbDWPz+kc9R5JtvNmsRbvsa7x7gJz7uszfS6TZKUbVCEf/k+blLwIdWNafpc0jpdVrdPRIdS0xYHcAxYoHLB398jI9T4TmvxPvAxgCjHITjHKB7S6oyOWHfUsrSzySOQ8q310p7kXdj54=
+	t=1789304981; cv=none; b=Qw6YogyxW5MlRjd4mUNSIk8uCK+RM34SYZwxJmx44bjeSnLxROhAJX44/eukGeyvl7Kn4gi8HKus0UY3MllWyt1/OrvpuW2Ts0a6PC8soNb30B06yS0UxCzvCoSTe2A7R5SoMroUPCvj6WcypoyceLc89tJItAga5XZqopjTWOY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789304936; c=relaxed/simple;
-	bh=25VHASD5cjOlWczoHO+wvaD9h9veY1XdGejCGPyH0T0=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References; b=UWpPzgSV/uxlHCAFyYWUF9ARnr8d6bCJthgg/U9bEmMKDtyUCXlQK8n9rZOYC0JKI5hoVk/enc4FyVo7RhryaYgIwRmiY1qadN2dGX2CFdV/UMGXraNUunPWU3CIKak6qlbrqfWMrsSuCc0WBp6rgMn2CyrA5tx2eoGr3Qg2clk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=TTIz/Ff2; arc=none smtp.client-ip=117.135.210.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="TTIz/Ff2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:Message-ID:From:To:Subject; bh=iq+j5Y36IPqCTqi
-	wN5sH389DCis42pzhKcSl9IbT1M0=; b=TTIz/Ff2YUJBDunsFxd6/0vVHqMfhwp
-	QV3VLs+CEmJfTlxEToqG1rqJx2g+Jmoq1h4xiXuER4zPSRdEg6v86zSHXu91G5nN
-	qWU+xoL57EuQuJ+xScH0LuDuh6vLhdavsZfPFyAk/2gHcsk0EBsQ2I54xdE12wWD
-	kJLTrZBEBLEo=
-Received: from localhost (unknown [])
-	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wD3N7gMoKZqT7TlAQ--.26916S2;
-	Sun, 13 Sep 2026 21:07:25 +0800 (CST)
-Date: Sun, 13 Sep 2026 22:07:24 +0900
-Message-ID: <36503a3fb742ca20fa218ec190a50932.sh_def@163.com>
-From: Hui Su <sh_def@163.com>
-To: Kayra Cizmeci <kayracizmeci@gmail.com>
-Cc: arighi@nvidia.com,
-	bsegall@google.com,
-	connoro@google.com,
-	dietmar.eggemann@arm.com,
-	jstultz@google.com,
-	juri.lelli@redhat.com,
-	kprateek.nayak@amd.com,
-	linux-kernel@vger.kernel.org,
-	mgorman@suse.de,
-	mingo@redhat.com,
-	peterz@infradead.org,
-	rostedt@goodmis.org,
-	sched-ext@lists.linux.dev,
-	soolaugust@gmail.com,
-	vincent.guittot@linaro.org,
-	vschneid@redhat.com
-Subject: Re: [PATCH v5 1/4] sched: Dispatch task ticks for donor and execution classes
-In-Reply-To: <20260913120814.1273086-1-kayracizmeci@gmail.com>
-References: <20260913064722.1534766-2-sh_def@163.com>
-	<20260913120814.1273086-1-kayracizmeci@gmail.com>
-X-CM-TRANSID:_____wD3N7gMoKZqT7TlAQ--.26916S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7KF43GFykWr1UCF1Uur1xXwb_yoW8Zr4rpF
-	ZYgF4rJw4kJFWFkr12y3Z0ga45Ca1fGFyDGrs8Gr48Zr98Xr109ryIqa40kFW3Grn8K3W2
-	vr4qvas3Ja4jyrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UAwIgUUUUU=
-X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbCwg1vzmqmoA1jvQAA3R
+	s=arc-20240116; t=1789304981; c=relaxed/simple;
+	bh=gaocr8UoasL6UglbmSn3uEOdpHrdNXVg8LYJh76Bhf8=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=hZrzFQ6UoahBMmSHWcD8+UDpmyfy5KLw/3VlB3SUrbSWMnf5OSB8mhlAxebRHYhPJZEq5xVwcwfgPAhMoUh+6NX0KCqAXYQxLp62OUpziYcKWWU9CZYX66XxYV1Ec8bJ8tgWhYk9F9m3fhihGDPSN8q+QLMg+17cMXx+OTQnf2c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.134
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo2-f6.google.com with SMTP id 006d021491bc7-6aafac56856so913895eaf.1
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 06:09:38 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789304977; x=1789909777;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dQaYbYfap6O7/j9L4Qh3SfVtO+gJY/NxKbXAfMPqRrA=;
+        b=nPxXU7lQfBt32PzMOEpK7ke0rONmz4JShaEJQM1rOCcySdGbIRHf4gaKYcYIE6VP9G
+         20uy/EHFpfcGTAk+wNXtykRgX/h54PfSdlG/86bnx+S9K8wENPqyqf7WHbHgLHX1qhzD
+         UyB8QlhqQbpqoa/AnL2qqqrsEKkijmQEb0SvlZA70nOTFNt82599otZRbEjbzqzIqPa5
+         zhMG3BqdVuT7EV1moht02QURdyNGr23XyIKb+0xGFTOzsZxPuv0ffhSk3KdI8AjxEwDV
+         eKoMtM9b5hrAfbgpi4Y65NKlgusiKf0D4H8dCaysgzF3U+E3pauvmIsLQwIkqU3RWcb0
+         2rBw==
+X-Gm-Message-State: AFuF++l+V8vf19Hu19Fm4F46GBggjNH/a285BmaEjcMDGzSqHZpsjpKV
+	ZId6kb+pfrJ5FZrBbeoW1lEV/sHLRW6urQs8iYZ0ote9Wg50TeIzDJKWB6in9F1tzecdC38VUbr
+	GwJ/rYLQg0BRzevgeUiMwqbpKLC9ISKRvSf68pKUdnp3raUDG0a1EhoGs7ZHlwQ==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-Received: by 2002:a05:6820:c452:10b0:6aa:cce3:ab61 with SMTP id
+ 006d021491bc7-6c0ba923c37mr10682676eaf.9.1789304977630; Sun, 13 Sep 2026
+ 06:09:37 -0700 (PDT)
+Date: Sun, 13 Sep 2026 06:09:37 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa6a091.f670cee1.72fc4.0012.GAE@google.com>
+Subject: [syzbot] [raid?] UBSAN: array-index-out-of-bounds in super_90_sync
+From: syzbot <syzbot+9e3014263a35700ab49b@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, linux-raid@vger.kernel.org, 
+	magiclinan@didiglobal.com, song@kernel.org, syzkaller-bugs@googlegroups.com, 
+	xiao@kernel.org, yukuai@fnnas.com, yukuai@fygo.io
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Kayra,
+Hello,
 
-> Wouldn't it be better to merge this patch and it's use case together?
->
-> The commit message is confusing too "Scheduler ticks therefore need to
-> reach both the class which owns the scheduling context and the class which
-> owns the execution context." But the patch doesn't do this on it's own.
+syzbot found the following issue on:
 
-You are right that patch 1 alone does not enable useful execution-context
-work in the FAIR callback: the callback is still donor-gated there, so a FAIR
-callback reached only as the execution class returns without doing FAIR
-scheduling work.
+HEAD commit:    893e11787f78 Merge tag 'x86_urgent_for_7.3-rc3' of git://g..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=11af7af9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
+dashboard link: https://syzkaller.appspot.com/bug?extid=9e3014263a35700ab49b
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
 
-That is intentional. I split the series so that patch 1 is a
-behavior-preserving conversion of the sched_class::task_tick() interface and
-the common dispatcher:
+Unfortunately, I don't have any reproducer for this issue yet.
 
-  - patch 1: generic donor/execution callback dispatch
-  - patch 2: move NUMA tick work to the execution context
-  - patch 3: move cache tick work to the execution context
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/7d6d05cecce7/disk-893e1178.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/f4fa34852d36/vmlinux-893e1178.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/5a45af623528/bzImage-893e1178.xz
 
-Keeping patch 1 donor-gated makes the API and dispatcher change independently
-reviewable, while patches 2 and 3 introduce the execution-context users.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+9e3014263a35700ab49b@syzkaller.appspotmail.com
 
-I agree that the patch 1 commit message is confusing because its opening
-paragraph can read as if patch 1 itself already enables useful
-execution-context tick work. I will reword it to make the preparatory nature
-explicit, for example:
+md: async del_gendisk mode will be removed in future, please upgrade to mdadm-4.5+
+------------[ cut here ]------------
+UBSAN: array-index-out-of-bounds in drivers/md/md.c:1697:17
+index 124 is out of range for type 'mdp_disk_t [27]'
+CPU: 1 UID: 0 PID: 10197 Comm: syz.3.1362 Tainted: G             L      syzkaller #0 PREEMPT(full) 
+Tainted: [L]=SOFTLOCKUP
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/05/2026
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ ubsan_epilogue+0xa/0x30 lib/ubsan.c:233
+ __ubsan_handle_out_of_bounds+0xcc/0xf0 lib/ubsan.c:455
+ super_90_sync+0x1eed/0x1ff0 drivers/md/md.c:1697
+ sync_super drivers/md/md.c:2505 [inline]
+ sync_sbs drivers/md/md.c:2747 [inline]
+ md_update_sb+0xbba/0x2840 drivers/md/md.c:2923
+ state_store+0x31e/0x1340 drivers/md/md.c:3245
+ rdev_attr_store+0x465/0x560 drivers/md/md.c:3768
+ sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
+ kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x6af/0x1050 fs/read_write.c:687
+ ksys_write+0x12a/0x250 fs/read_write.c:739
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f977e59e159
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f977f3cb028 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
+RAX: ffffffffffffffda RBX: 00007f977e825fa0 RCX: 00007f977e59e159
+RDX: 000000000000000b RSI: 0000200000000a00 RDI: 0000000000000006
+RBP: 00007f977e63503b R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f977e826038 R14: 00007f977e825fa0 R15: 00007ffef91f5d68
+ </TASK>
+---[ end trace ]---
 
-  This patch adds the common donor/execution task_tick() dispatcher and
-  updates the callback interface. Class-specific tick work remains
-  donor-owned here; subsequent patches use the new dispatch path for
-  execution-context NUMA and cache work.
 
-I would prefer to keep patch 1 separate from patch 2 for now. It keeps the
-sched_class::task_tick() interface conversion and cross-class dispatcher
-separate from the NUMA semantic fix, and keeps the NUMA and cache fixes as
-separate changes with their own Fixes: tags. If there is a preference for
-introducing the dispatcher together with its first execution-context user,
-I can fold patch 2 into patch 1.
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-Thanks,
-Hui
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
