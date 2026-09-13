@@ -1,145 +1,248 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-oo2-f7.google.com (mail-oo2-f7.google.com [74.125.231.135])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21D6C2F28FC
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 21:47:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D7E12F28FC
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 21:48:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.135
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789336041; cv=none; b=LHY8tQIkjOtwDTsjpA5ZyjFQfUx8GGaPkX2ESo5LchfRLuw8OJTCI3+3E1LLOrahLxqYseMLUHBq7PsDOJ+jHSTjqDsGObF2QnkhSvGLv9Np4Ib1nz7RJ9tYyK1QZA4dybl4U5M3i1rPHV+k7tOtE1r0+bIi9su1vfEHU4zAJ04=
+	t=1789336085; cv=none; b=BOkyhw9j0/6/miKk9PvBH9gJ4zLdQARlX6VTLdQzcJoiHloG0BdBkwL97gE77mJbMslaRbfCoqV7LNXGnaB5qW4nhHDkgKCIwnvIDYswy5cAR5NolkE+QHrTXZa/GjgCf6CkBba8hxrqq0Ag7OpotKXZJeYgZUyopqTM3GMwGlw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789336041; c=relaxed/simple;
-	bh=UzW8n1UIqvlycxK3DIgwi9ka7lkaiEVYC5acDEsV6go=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Jg0d1L3GdhRWxcWGtfFas4D7pYz+hVzTs3DBMmUMSIWFA5EeHICphG6cV4XFwWvHJZ3QR4SjuGroBnIn2w3ztR3NhFX513M5e/W2iRTtnaIG2FB7a0n8zFTDnvxHOw/tAiIvrK4x1zl5Nhx+CVeHC/lu6QB43g4zsk0PJ3ZMzWs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hffu8BL9; arc=none smtp.client-ip=74.125.227.141
+	s=arc-20240116; t=1789336085; c=relaxed/simple;
+	bh=nfq4xKN/U3UCWCePBLPoeRZgNdv9ADYvF1h2MfVGoe0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=F/DKLTale3VqQWz2AjiEqQdUolo0Y45JYQAr9bxOTAzPN3+6pIZ2ETS0y1+Iyq6TX2LPbYk3NeFDOZLJqCFK2ODYjwnBW/QN3uXiKDhQK+SZJThN0dl2xmt7XWMLW9pP+E7mpP0xEM5zU+N6UWDJZtmE8kOcD4rTKxFLhYiH6Og=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qYgBJlay; arc=none smtp.client-ip=74.125.231.135
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hffu8BL9"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39d67a9ae5bso317007a91.0
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 14:47:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qYgBJlay"
+Received: by mail-oo2-f7.google.com with SMTP id 006d021491bc7-6c197ff1f3aso636423eaf.0
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 14:48:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789336039; x=1789940839; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NUbAlL8/ncSi/xHkVdLyT8Bq19fax5BvNGFOBoCZR6E=;
-        b=hffu8BL993S1vSrRFdRWGSfOl0VJOuGu8rrSvRd3bU93cGnert4UroTjV+20Poc7S3
-         catVXVP1hhkH86iWRHxCe4grz6WHcqRmSbjDIA+DpjqWdKoaramql/bpmnryC1TayQTg
-         WXRf/gXKF0PjbIrmBxfXOWCL/ncaoreSnln/UIxrRRuii/cfQIpEMrLzItf83VA7SrsE
-         bsma2aLL6V8niyTXyUgDpo/qGBiLhPDJiKcuItVRg1lR+jA/XnI5B0ux0bnspQUbJcBx
-         +mXiScugXgsQGLY4VfnRek3EfaxMVS/qhjbVdBCM55tBxAFoSKMoxzBF/iC/0svukEln
-         j6yA==
+        d=gmail.com; s=20251104; t=1789336082; x=1789940882; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=LiFj+YViXnUILO1Xl8u0yjE4yvh4W8pLQubMdsa1jkQ=;
+        b=qYgBJlayux4JyU6cVWoqBK9yQw84uejiPoPBY6VaO5LSWDFt7mGEYEEtYjuRkr/bej
+         6R46zyNYcaFeTv+u2OVavZ1RbvaoHKOAfPRrvMB0UlDg/n3rJvgn96PnhjJQIg4uIu/5
+         JEiLlBn960kXGNEzd6FhSzxu6rqAgS3EW6P9NoiAQ71mUVC1DBP3OzRD5YOjV9cSn3dr
+         YCQIR0yScGeAmGLdYCBwCQ8dq/NAOeH5uarpHWKD+1NcjjEyvt8yM165yiS5V5Wq8OWa
+         v1wro/XcyIlSg5PQKmkR+F/1IKwO6WRjK6syB0Czb51cO40dQFRpCvXibZeaNBf/qdtf
+         3REw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789336039; x=1789940839;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NUbAlL8/ncSi/xHkVdLyT8Bq19fax5BvNGFOBoCZR6E=;
-        b=Ymu1CKBzu3DypG/hCsU1g3ZaYN39GhAB2cgi9WKSP8GCcor9Aw9YqBYvEnh5YwzTH0
-         wCkbFR4n/IHlZfZ5RpgnFfoMavI6dKUOVSyOcDrohOxIilDexaGwKxVPNyOW+L+R1rNd
-         UuCorC+BoguBNtFvFlv6HrJM1p5bPR357/r4l3Rzd1Ge9GC7bzjLIS69SBNsv/SGPUQG
-         rCQadnUeDbJYWe7XypmT2nVvmkFQEa1GSp0NH3E6QXMzdSOO8axfpEMCtJLAfIJ0HHdH
-         WXXWX6kEDdgVq1uHizDeLF7z8G3HJIRXTgIEM2fSSw1XKGgv46SagufjVsR13+JnFjLa
-         4RBw==
-X-Forwarded-Encrypted: i=1; AKwUvBwI9bGyWNekOt9nRo8nqY2nINnqz65FndO6eSmTyInTtO/WR1KmPqM141HS7t+V0sbQU8DwBKYZfS9Zohk=@vger.kernel.org
-X-Gm-Message-State: AFuF++mnXtuPEzNpyFR4AHo8swjZvrKZa2SB1VRy8T+T/DjYlhVXFW/s
-	22BpA8guDE6sR2uZfYOZzDcLQeSF0MmyS+0Wk/YRAS6RRSaM59s27Uqs
-X-Gm-Gg: AYBFou3NTcLJdgLKJBJBDXY6tqbloVZJD1hekmxj9uuuuG3CJIUvjDQ2S+J3TIM6oTO
-	G+NnUTXO2txLThAPHcZSDdOiacs+NvUEjU0a73RKTEtALUfTBpgBfY+Xv+kmseYDHw4OY3twlGr
-	SHpEk1cS8y34DNMjb+fFRoc3vR9gNIJzD2gwosl7Yh6Ev8ae3LJ/CV7CJNfHiitx1azAABt7wYX
-	y+kFtlPDZsVQOERt1KZnBsmSzWpUNTi0EYm8+uaeafFBpFYt7Bbrtl9OVs2M4IghPpoUZqPTXkW
-	mnolqBYTNybPPp+5NQhA2HC4WHVQ8zNxurL74bjTLCegOqOwZDpWa1x0E6wQvtv5EcuvzOUScyy
-	Yx4jxxk/6fsXyPR0RaPOCcyP38XdWbuQfEjGkWLZaejefQx7t8vUOb136x8LCLfLcrcQMWBP02j
-	39rxChAD0kBJ4l7shaYvCeWDh+dcYKsQ7BiJ8+xgncAvkrfuCClz895LmcT5BU+MOlzH+0zXTmo
-	1bYC3MNW2JmgjKKv9zjQqabU5keVSx3HneKK9gwIXeg6YWsa/kv35PHYziN8zU0ThW1D2BweeAQ
-	fqUSJf3ag01RADfh3LibRv4OdEqcxfY=
-X-Received: by 2002:a17:90b:4c08:b0:39b:3510:4af7 with SMTP id 98e67ed59e1d1-39d9bbbe877mr16153253a91.1.1789336039466;
-        Sun, 13 Sep 2026 14:47:19 -0700 (PDT)
-Received: from cachyos-aura ([45.112.148.109])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bc03778c7sm11549002eec.9.2026.09.13.14.47.16
+        d=1e100.net; s=20251104; t=1789336082; x=1789940882;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=LiFj+YViXnUILO1Xl8u0yjE4yvh4W8pLQubMdsa1jkQ=;
+        b=fyDLzpRuqHcOtK3ioyadXcTXVd+fzyYDe13P4xAkhe83Y0As/CwCC22FQdwiw8G310
+         mO0XKhtBW3a6xRIloYYCY3bDIFTv41VlJHuRcxT3cPQvOdfYawJlVwMzKI75lz1LfUCl
+         ipyer5qBzICZuxb6QgMxrE7HhnTHlHoS+UQfJuSqIGL7UvRrUSQVQLSDXLUIdlDXGtGn
+         vQ8OzDGnPfo2SlV+0Rfu4bMttvnNwmdBTtx0ixlRKhFTa4HIIaginYU2/FXiUfWcRGeg
+         HLjVPvZ9dyyv+1NRy0gD/W6OVAe55Y+2hzEULS+U5Xshog81KujvdWlNiux2WD3nDa9X
+         k1hg==
+X-Forwarded-Encrypted: i=1; AKwUvByvIhhntLEivQ1xm8qKEZSpcAlNmEVxgumKzmPWG+snOpmNX9amECTI23KnNFgD6xyg7eaYcfj93WQbTGs=@vger.kernel.org
+X-Gm-Message-State: AFuF++kCmTPwx2j0YDsrCBKeyvOjzshoqtglakBk8q3peGIC5edHiJHs
+	1EnQaCMeGOnNItDWwnSP6Z08aZP8BAGBU4QHh2OGYB+lmnh/9ngdLrmA
+X-Gm-Gg: AYBFou27owbArEjAGou62eFC4kLxr+pa2mpFbazYahspK/O3br/j99Fkv62xe78mbUv
+	vn6ZHe7tTkZ5DrXwASGm7SjRfaaL5FbpapjGeDyuJfZQ3RSL8rc8me50R6Ln8QRLF9G4UR7aDIl
+	eUMsmwixf4ecNe1T917R9ypmk/ALExJS/DoAGs9nazpitYdzq4lruRCu9euAj1xx4BJSQIIYl5v
+	wam/9qmEtvtX+9ZxuqlGkfoxkN4pc/la/kDJ1Fx019EA6F2rdZcuhOHnwm2reEjH61w4q90bljo
+	xkB+5Ss2r3zYIdmiw0/xajbQMVzkbG5hqiLwISh7xEPu/m10gOAHgdv1CrK7JHOL9a6ZiuMeVe3
+	rG3WQJV6LYy/bqMemoAocTk+w9mJKyP2Y2L+F77Rq2U0QWQaRllzwbvtRqRCowTTRRxHE/LG+Da
+	Jlt8luqB6QjzRLIGn/ibYGeDVuINKi4ynZthUJpAs84krVw3m/OUEyX4oULAG4ycfIpx0dLEre/
+	dDKCrM=
+X-Received: by 2002:a05:6820:2213:b0:6c2:5e92:b599 with SMTP id 006d021491bc7-6c25e92c715mr7185528eaf.4.1789336082388;
+        Sun, 13 Sep 2026 14:48:02 -0700 (PDT)
+Received: from [192.168.18.164] ([2600:8804:5716:d800::b712])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6c0990cc05fsm8928296eaf.3.2026.09.13.14.47.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 14:47:18 -0700 (PDT)
-From: Navon John Lukose <navonjohnlukose@gmail.com>
-To: linux@roeck-us.net,
-	sergiomelas@gmail.com
-Cc: linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Navon John Lukose <navonjohnlukose@gmail.com>
-Subject: [PATCH] hwmon: (yogafan) Fix fan paths for Yoga Pro 7 14IAH10
-Date: Mon, 14 Sep 2026 03:17:13 +0530
-Message-ID: <20260913214713.205208-1-navonjohnlukose@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        Sun, 13 Sep 2026 14:48:01 -0700 (PDT)
+From: Ryan Brue <ryanbrue.dev@gmail.com>
+Date: Sun, 13 Sep 2026 16:47:53 -0500
+Subject: [PATCH v2] clk: mediatek: mt8173-mfgtop: do not use the clk API
+ from power_on
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260913-mfgtop-no-clk-api-power-on-v2-1-b84771a3d5bd@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42NQQ6CMBAAv0J6dg1tRaIn/mE4lLLAKnSbFlFD+
+ LuAH/A4yWRmFhEDYRTXZBYBJ4rEbgV1SITtjGsRqF5ZqFSd04tUMDTtyB4cg+0fYDyB5xcGYAc
+ mw9Roc9KV1mIN+IANvff4rfxxfFZ3tONW3IyO4sjhs98nuXl/jSYJEmpsZJabWqo8L9rBUH+0P
+ IhyWZYvjqeF0tYAAAA=
+X-Change-ID: 20260912-mfgtop-no-clk-api-power-on-a5e0a3a43b33
+To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Chen-Yu Tsai <wenst@chromium.org>
+Cc: Brian Masney <bmasney@redhat.com>, linux-clk@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org, Ryan Brue <ryanbrue.dev@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789336079; l=6274;
+ i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
+ bh=nfq4xKN/U3UCWCePBLPoeRZgNdv9ADYvF1h2MfVGoe0=;
+ b=vmOHX9MbkBdVuDpyVXNrpAACjzRmh8NFH++7aqIkxLDNaUdOwDwWdteL6obQKE5zRwy2+rwS/
+ aywx2+gD5K0DV1qhZwo9lOccQKn78Ow5Vp+8xyhd3YiddwHrJZXr6wv
+X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
+ pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
 
-The Yoga Pro 7 14IAH10 entry names \_SB.PC00.LPCB.EC0.FANS, which this
-machine's DSDT does not have, so probe matches on DMI, fails to resolve the
-path and returns -ENODEV. The EC exposes its two fan tachometers as FA1S
-and FA2S, and loq_15iax9_8bit_dual_cfg already describes that layout. Point
-the entry at it, and update the reference table row to match.
+clk_mt8173_mfgtop_power_on() calls clk_prepare_enable() on the mfg_26m gate
+that this same driver provides. That is a layering inversion which cannot
+work: clk_core_prepare() calls clk_pm_runtime_get() on the clock provider
+-- this driver's own device -- and genpd power transitions run at _noirq
+time, where runtime PM is disabled and pm_runtime_resume_and_get() returns
+-EACCES.
 
-Fixes: 9c110a467686 ("hwmon: (yogafan) Add support for new Lenovo models")
-Signed-off-by: Navon John Lukose <navonjohnlukose@gmail.com>
+Measured on mt8173 (amazon-suez) during resume from suspend-to-RAM,
+immediately after the secondary CPUs come back up:
+
+  clk-mt8173-mfgtop 13fff000.clock-controller: 26 MHz clock enable failed: -13
+
+The failure is not survivable, because genpd_sync_power_on() ignores what
+power_on() returns and marks the domain on regardless. The clock is then
+left ungated-but-unprepared, and the next power_off() underflows its
+refcount:
+
+  mfg_26m already disabled
+  mfg_26m already unprepared
+  WARNING: drivers/clk/clk.c:1048 at clk_core_unprepare
+  Workqueue: pm genpd_power_off_work_fn
+    clk_unprepare / clk_mt8173_mfgtop_power_off / _genpd_power_off
+
+Gate the bit with a direct regmap write instead. The vendor driver
+(mtk_mfgsys.c) also drives the four MFG CG bits with raw register writes
+from its power sequencing. The runtime-PM path was never affected, only the
+_noirq transitions of system suspend and resume. mfg_26m stays registered
+as a clock for any consumer that wants it; nothing currently does.
+
+Because the gate is now driven from the domain callbacks, its enable count
+in the clock framework stays 0 while the domain is on. Mark it
+CLK_IGNORE_UNUSED so that clk_disable_unused() does not gate the 26 MHz
+clock under an already-powered domain when a consumer probes before late
+init; the domain callbacks are the only writers.
+
+Fixes: ebd0b73d2137 ("clk: mediatek: Add mt8173-mfgtop driver")
+Assisted-by: LLM
+Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
 ---
-Tested on a Lenovo Yoga Pro 7 14IAH10 (83KF), BIOS QGCN35WW. The EC field
-block declares FA1S at offset 0x104 and FA2S at 0x137, both 8 bits, and
-FANS does not appear anywhere in the table.
+Changes in v2:
+- Mark mfg_26m CLK_IGNORE_UNUSED: with the gate driven from the domain
+  callbacks its CCF enable count stays 0, so clk_disable_unused() would gate
+  the 26 MHz clock under an already-powered domain if a consumer probed
+  before late init (reported by the Sashiko review of v1). Verified on the
+  Fire HD 10: the gate follows the domain (hardware Y with the GPU active, N
+  after unbind) while the enable count stays 0, and the GPU keeps working.
+- Link to v1: https://patch.msgid.link/20260912-mfgtop-no-clk-api-power-on-v1-1-def157ad1277@gmail.com
+---
+ drivers/clk/mediatek/clk-mt8173-mfgtop.c | 29 +++++++++++------------------
+ 1 file changed, 11 insertions(+), 18 deletions(-)
 
-Both fans report after the patch, 0 when stopped and 5600 RPM with the fans
-driven to maximum through the vendor WMI method. The multiplier stays at
-100, and the AML agrees, reading the fields as (FA1S * 0x64) and
-(FA2S * 0x64).
-
-The table also lists the XiaoXinPro 13ARE as machine type 83KF, which is
-this machine's DMI product name. I left that row alone.
-
- Documentation/hwmon/yogafan.rst | 3 ++-
- drivers/hwmon/yogafan.c         | 8 +-------
- 2 files changed, 3 insertions(+), 8 deletions(-)
-
-diff --git a/Documentation/hwmon/yogafan.rst b/Documentation/hwmon/yogafan.rst
-index 6395c94..84c5d2a 100644
---- a/Documentation/hwmon/yogafan.rst
-+++ b/Documentation/hwmon/yogafan.rst
-@@ -102,7 +102,8 @@ immediately to ensure the user knows the fan has stopped.
-  83KF           | XiaoXinPro 13ARE | 0x06/0xFE | \_SB.PCI0.LPC0.EC0.FANS/FA2S   |  8-bit | 100
-  82KU           | IdeaPad 3 15ALC6 | 0x06      | \_SB.PCI0.LPC0.EC0.FAN0        |  8-bit | 100
-  83RU           | Legion Pro 7 16  | 0x03/0x06 | \_SB.PCI0.LPC0.EC0.FANS/FA2S   |  8-bit | 100
-- 83KF           | Yoga Pro 7 14IAH | 0x06      | \_SB.PC00.LPCB.EC0.FANS        |  8-bit | 100
-+ 83KF           | Yoga Pro 7 14IAH | 0x104     | \_SB.PC00.LPCB.EC0.FA1S (Fan1) |  8-bit | 100
-+ 83KF           | Yoga Pro 7 14IAH | 0x137     | \_SB.PC00.LPCB.EC0.FA2S (Fan2) |  8-bit | 100
-  83BS           | Yoga 7 16ARP8    | 0x03/0x06 | \_SB.PCI0.LPC0.EC0.FANS/FA2S   |  8-bit | 100
-  *Legacy*       | Pre-2020 Models  | 0x06      | \_SB.PCI0.LPC.EC.FAN0          |  8-bit | 100
-  ----------------------------------------------------------------------------------------------------
-diff --git a/drivers/hwmon/yogafan.c b/drivers/hwmon/yogafan.c
-index 278cb08..3fcad00 100644
---- a/drivers/hwmon/yogafan.c
-+++ b/drivers/hwmon/yogafan.c
-@@ -84,12 +84,6 @@ static const struct yogafan_config xiaoxin_8bit_dual_cfg = {
- 	.paths = { "\\_SB.PCI0.LPC0.EC0.FANS", "\\_SB.PCI0.LPC0.EC0.FA2S" }
+diff --git a/drivers/clk/mediatek/clk-mt8173-mfgtop.c b/drivers/clk/mediatek/clk-mt8173-mfgtop.c
+index 5669ca9954dc..53918ad7f402 100644
+--- a/drivers/clk/mediatek/clk-mt8173-mfgtop.c
++++ b/drivers/clk/mediatek/clk-mt8173-mfgtop.c
+@@ -30,6 +30,8 @@ static const struct mtk_gate_regs mfg_cg_regs = {
+ 	.set_ofs = 0x0004,
  };
  
--static const struct yogafan_config yoga_pro_7_14iah10_cfg = {
--	.multiplier = 100,
--	.fan_count = 1,
--	.paths = { "\\_SB.PC00.LPCB.EC0.FANS", NULL }
--};
--
- static void apply_rllag_filter(struct yoga_fan_data *data, int idx, long raw_rpm)
++#define MFG_CG_26M	BIT(3)
++
+ #define GATE_MFG(_id, _name, _parent, _shift, _flags)	\
+ 	GATE_MTK_FLAGS(_id, _name, _parent, &mfg_cg_regs, _shift, &mtk_clk_gate_ops_setclr, _flags)
+ 
+@@ -38,7 +40,8 @@ static const struct mtk_gate mfg_clks[] = {
+ 	GATE_MFG(CLK_MFG_AXI, "mfg_axi", "axi_mfg_in_sel", 0, CLK_SET_RATE_PARENT),
+ 	GATE_MFG(CLK_MFG_MEM, "mfg_mem", "mem_mfg_in_sel", 1, CLK_SET_RATE_PARENT),
+ 	GATE_MFG(CLK_MFG_G3D, "mfg_g3d", "mfg_sel", 2, CLK_SET_RATE_PARENT),
+-	GATE_MFG(CLK_MFG_26M, "mfg_26m", "clk26m", 3, 0),
++	/* Driven by the power domain callbacks, not by a clk consumer */
++	GATE_MFG(CLK_MFG_26M, "mfg_26m", "clk26m", 3, CLK_IGNORE_UNUSED),
+ };
+ 
+ struct mt8173_mfgtop_data {
+@@ -46,7 +49,6 @@ struct mt8173_mfgtop_data {
+ 	struct regmap *regmap;
+ 	struct generic_pm_domain genpd;
+ 	struct of_phandle_args parent_pd, child_pd;
+-	struct clk *clk_26m;
+ };
+ 
+ /* Delay count in clock cycles */
+@@ -66,12 +68,12 @@ struct mt8173_mfgtop_data {
+ static int clk_mt8173_mfgtop_power_on(struct generic_pm_domain *domain)
  {
- 	ktime_t now = ktime_get_boottime();
-@@ -227,7 +221,7 @@ static const struct dmi_system_id yogafan_quirks[] = {
- 			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
- 			DMI_MATCH(DMI_PRODUCT_FAMILY, "Yoga Pro 7 14IAH10"),
- 		},
--		.driver_data = (void *)&yoga_pro_7_14iah10_cfg,
-+		.driver_data = (void *)&loq_15iax9_8bit_dual_cfg,
- 	},
- 	{
- 		.ident = "Lenovo Yoga 7 16ARP8",
+ 	struct mt8173_mfgtop_data *data = container_of(domain, struct mt8173_mfgtop_data, genpd);
+-	int ret;
+ 
+-	/* drives internal power management */
+-	ret = clk_prepare_enable(data->clk_26m);
+-	if (ret)
+-		return ret;
++	/*
++	 * Drives internal power management. Written directly: the clk API
++	 * needs runtime PM, which is disabled during _noirq transitions.
++	 */
++	regmap_write(data->regmap, mfg_cg_regs.clr_ofs, MFG_CG_26M);
+ 
+ 	/* Power on/off delays for various signals */
+ 	regmap_write(data->regmap, MFG_ACTIVE_POWER_CON0,
+@@ -103,7 +105,7 @@ static int clk_mt8173_mfgtop_power_off(struct generic_pm_domain *domain)
+ 	regmap_write(data->regmap, 0xec, 0);
+ 
+ 	/* drives internal power management */
+-	clk_disable_unprepare(data->clk_26m);
++	regmap_write(data->regmap, mfg_cg_regs.set_ofs, MFG_CG_26M);
+ 
+ 	return 0;
+ }
+@@ -155,16 +157,10 @@ static int clk_mt8173_mfgtop_probe(struct platform_device *pdev)
+ 		goto put_pm_runtime;
+ 	}
+ 
+-	data->clk_26m = clk_hw_get_clk(data->clk_data->hws[CLK_MFG_26M], "26m");
+-	if (IS_ERR(data->clk_26m)) {
+-		ret = dev_err_probe(dev, PTR_ERR(data->clk_26m), "Failed to get 26 MHz clock\n");
+-		goto unregister_clks;
+-	}
+-
+ 	ret = of_clk_add_hw_provider(node, of_clk_hw_onecell_get, data->clk_data);
+ 	if (ret) {
+ 		dev_err_probe(dev, ret, "Failed to add clk OF provider\n");
+-		goto put_26m_clk;
++		goto unregister_clks;
+ 	}
+ 
+ 	data->genpd.name = "mfg-top";
+@@ -197,8 +193,6 @@ static int clk_mt8173_mfgtop_probe(struct platform_device *pdev)
+ 	pm_genpd_remove(&data->genpd);
+ del_clk_provider:
+ 	of_clk_del_provider(node);
+-put_26m_clk:
+-	clk_put(data->clk_26m);
+ unregister_clks:
+ 	mtk_clk_unregister_gates(mfg_clks, ARRAY_SIZE(mfg_clks), data->clk_data);
+ put_pm_runtime:
+@@ -217,7 +211,6 @@ static void clk_mt8173_mfgtop_remove(struct platform_device *pdev)
+ 	of_genpd_del_provider(node);
+ 	pm_genpd_remove(&data->genpd);
+ 	of_clk_del_provider(node);
+-	clk_put(data->clk_26m);
+ 	mtk_clk_unregister_gates(mfg_clks, ARRAY_SIZE(mfg_clks), data->clk_data);
+ 	of_node_put(data->parent_pd.np);
+ }
 
-base-commit: 22098763a10d9c13
+---
+base-commit: df2908090cda368b01ff43709f51890076c56157
+change-id: 20260912-mfgtop-no-clk-api-power-on-a5e0a3a43b33
+
+Best regards,
+--  
+Ryan Brue <ryanbrue.dev@gmail.com>
+
