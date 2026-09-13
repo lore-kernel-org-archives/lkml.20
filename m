@@ -1,129 +1,101 @@
-Received: from mail-43101.protonmail.ch (mail-43101.protonmail.ch [185.70.43.101])
+Received: from out162-62-57-210.mail.qq.com (out162-62-57-210.mail.qq.com [162.62.57.210])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E80531E824
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 15:35:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40F74369D75;
+	Sun, 13 Sep 2026 15:35:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.210
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789313746; cv=none; b=g0Pixi+4apfRVRjoVmCEa67LZxSdelz0PYNKXi7BXc0osgns5B81IReSiAEhWEr7KnwNHW/dtiLXJwP8YlrITKeAVFbDRv0uBygPuIb//bOCNIAf2//4sLJGCViWzYLmO021XWbnO1Bv2OvfY8lEnrmCyE8WNoO5iz29kyqE8HM=
+	t=1789313751; cv=none; b=f8nsBQcq8Wx6jRAueAD4f52czeHvniYxpmCk0Jg2zmYb1ydoAQCD53hkiEfUvR5My2akZGw3f8cNXkHIleWMT/x/yiuAOknu+7BZo4yVbmK/UxlxXz6IpTad5DmrfHQl5ysf9RUILcLLpx6qmo2VbloZySTVqXhxJR1wSN3+FDc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789313746; c=relaxed/simple;
-	bh=sNN45jwN4P5GOX8mewg8wxBsaXBXEoltuY+cPXXvEPA=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=tBfEbbd60dZg1wtgsP5z5SMlslsA6DU+SjNjzzqpYe8cibMw+J1rXxGc2gXJbsb+KAZ5Q05lQCXxBTGV8vsue98ETAjHVq6mwo0xnfj1QWHlkR7GaZqhRfu8wqjr15JSCYMd6tU1Wz22NIhKWHMYL1fRhC+gRJeX7vP9ZvMALnA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=Yi1569ev; arc=none smtp.client-ip=185.70.43.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1789313751; c=relaxed/simple;
+	bh=1OboO4uEvOz/a5KE+QeqEmDeWyOpiSB0NhjaWV2SiWc=;
+	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=HrVuK4R6pAEO/b7otr054WxQAFsFJZmiqaKX2ZzY/kwM0ygomYGmlr0QuQnEchPkeMaxcsOUOUlic+aPIWINbgVDVEJVx2HBsmd8sQdhGoWYgb9bogs++XW9fFyjwPLOxdnxOJhLc/draTsQilt4VT59h1HksztCDRk1odJef7w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=M3WH4SH5; arc=none smtp.client-ip=162.62.57.210
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="Yi1569ev"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1789313735; x=1789572935;
-	bh=Vgjob02lUSyZ+lnl7P1ZMfyaUqoKEe0KNjeCU4nnXbo=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=Yi1569evf7XV0qQQDNkwen0QVpVTy7qZ4ve+4B4YAdmb4FXgm/dj/MnyKkfm0XiHa
-	 FJUjPHe4CNBdTWWl/MnFe0J4q2/7S8IkBENbn1wT+rAVOAgi8PU13jDseCVVHBjfDd
-	 4+XycroIAmw1vZPWqUm6VZ9q51/hWIDflk751rltptsFcZGWhFMy3ssfTWKvm+GVcX
-	 /l4M31Kw3cRbRTInqugs7x4jiSZeo0jFwSqbxT+q2ERYRxtrU+T2bMERu/I2gGDGPz
-	 EE6Z308YGdZvdb/V4PsZenNtGfDA/gWH83EixwmmfBI9NXZVt/w03/9233C+sXBm2M
-	 B+kZ1OKuYgdaQ==
-Date: Sun, 13 Sep 2026 15:35:32 +0000
-To: linux-media@vger.kernel.org
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Hans de Goede <hansg@kernel.org>, Dan Scally <dan.scally@ideasonboard.com>, German Pablo Lindo <germanpapulindez@gmail.com>, linux-kernel@vger.kernel.org
-Subject: [PATCH] media: ipu-bridge: the Surface Pro 11 rear sensor is mounted upside down
-Message-ID: <20260913153526.80287-1-lsa.uz@pm.me>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 135248b5e06c9c1b7983f7430215e3282822633f
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="M3WH4SH5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1789313737; bh=rOJD5bqY+dsD1LRjOw90rAEvNSHdnLVanZNmnrCmvno=;
+	h=From:To:Cc:Subject:Date;
+	b=M3WH4SH5x1vdfN3sVfxnGVIPWUCo1gy6s9kIzsrGL+GbpK3eq+3xgIyYoNb04SYTd
+	 OTqxVrOLEk214V9vLJHvnGKuOil41AZQenga511YhUpAm8Jycgrp2+nk8K5S4os/Q5
+	 dmSmZulOy42aP1OgT90D34Vgt9z3bz20aDHYew0A=
+Received: from localhost.localdomain ([202.120.234.146])
+	by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
+	id 8968A66D; Sun, 13 Sep 2026 23:34:22 +0800
+X-QQ-mid: xmsmtpt1789313662tzfy2dnrs
+Message-ID: <tencent_AA30574AC78ECFD88D7E042A49371119ED08@qq.com>
+X-QQ-XMAILINFO: OBlHcmIAkWj9xmcj01MLmNje1lhHchkpOQ/BOaFD+nSfB/QErkP2YgeMaiNaJf
+	 buZp5cE4/PWLnZ8qoYCY3qGyufkexdqVkLv+iUvwFp1AqusGUKXA9gn/lFJHwodSzso4g6s7thhx
+	 OX2JkPbPODnhx/qc7pwK9g3Mol45s22aw2Vc1qomDK12vBghdd/CBA0oJfRTKyB/r9oT8FmPAqzV
+	 LPg8Nl9GO7YCKcWZRODyf60gXruf/U2pRGQm2uwFy8/WGfLiqkqxrCECL28bRQ6d2UP7u+FmLBKn
+	 U3YC+fPk0CNz6mchs06AA4HXC1ngfLDcZB4i/0lTSWhZnJtSFkabRs5xnnCE/Me9MfuwDzX+KQ4o
+	 K3gcyvTka9SFsA/62u0wnsXgV7k7TADJim/x7J9Kk7h79rNtfVfltO/NoNhE7UVgLJcp9MwChXH9
+	 VdA5pIzM86WDg8aiuEs2vHmaV4NXgy7+VGPf5HdZnxRl2hYl7VSOCSyqzBWTEvJkT4YuFsm21/cd
+	 m2hGPHsF5hacGNxj2efPgtXWqs3Adlwl0n2Uv/uExf1RaUQ5bPgeEPHCVBX+LD8MLjZmevZcJy0R
+	 pJGo4ZrblKukIMS53yE1b/Rx4Hpa9LE0qzoRcck2QawJv45aoMf4DxCj4Mg2/h61+Zaqdb3dp4pR
+	 kfmaXg4+FG2QlWXj+IZokg8hvhOBmXY7UxWplwPrRX9xWa5tG25j2L0AtRRgXbZhcfJZ91KFd3pp
+	 W0YSmUKlkCmsanvtAlawyD/DD7t4jLUe6CDDaU6oy+VRmrenCgFt/ZlVJtQXlCEN2A8Ncn2k8Vn3
+	 jyTYz0hZjwvyjlzHggPezI61eJ2xALAKybg/epqDBWUVonqQgZ4EE9y5qHuQc1VUJuDOm1U6UAb5
+	 5W7DEwFV8zlacwqVG3xeV6a+6vNl9JH9ydSqDv46z9BYiU6BULKAPKng5iBvHb5154/YJ46W5NOm
+	 +22bTSGgUDlpua1WVmkS9E5s325LWOwB+UJ3r0j8KYeRIfUVT+elctkfBj4V+n4HtSc2AbEW4Rfp
+	 MeMUlrygWueEPBmWxJQe/XdkQXBlmsV49gdByje1gBcUdHOdy5kEDRZim/pG5jck0so0JFbKKMN8
+	 AejqmF9DZVSuKUcTs=
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+From: Yilin Chen <1479826151@qq.com>
+To: rust-for-linux@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	acourbot@nvidia.com,
+	yury.norov@gmail.com,
+	ojeda@kernel.org,
+	Yilin Chen <1479826151@qq.com>
+Subject: [PATCH] rust: bitfield: require Zeroable storage for Zeroable impl
+Date: Sun, 13 Sep 2026 15:34:17 +0000
+X-OQ-MSGID: <20260913153417.1918185-1-1479826151@qq.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-The Microsoft Surface Pro for Business 11th Edition with Intel mounts its
-OV13858 rear sensor rotated 180 degrees and declares it in neither the SSDB
-nor a matching _PLD, so the rotation reads as 0 and every frame arrives
-inverted with nothing to say so.
+The bitfield! macro implements Zeroable for generated wrapper
+types. This assumes the storage type accepts an all-zero bit
+pattern. However, the macro accepts any type and does not encode
+that requirement.
 
-Add it to upside_down_sensor_dmi_ids, the table that exists for this class
-of firmware. Matched on DMI_PRODUCT_NAME as the rest of that table is; the
-entry only takes effect when the ACPI HID matches too, so a machine of the
-same model that shipped a different rear sensor is left alone.
+Add a Zeroable bound to the generated implementation. This prevents
+invalid storage types from obtaining an unsound Zeroable implementation.
 
-Measured on the machine. Before:
-
-  camera_sensor_rotation  min=3D0 max=3D0 value=3D0
-  libcamera: Property: Rotation =3D 0
-
-After:
-
-  camera_sensor_rotation  min=3D180 max=3D180 value=3D180
-  libcamera: Property: Rotation =3D 180
-
-and the front sensor is untouched at 0.
-
-This makes the kernel report the mounting truthfully, and that is all it
-does. The pixels are unchanged: capturing one static scene through
-libcamera with the property at 0 and at 180 and correlating the vertical
-brightness profile gives +0.995 the same way up and -0.781 flipped, so
-libcamera delivers the same buffer either way. The sensor has no flip
-controls, so nothing is corrected in hardware either.
-
-An application that reads the property can now rotate; one that ignores it
-still shows the image inverted. That is a userspace matter and is not
-addressed here.
-
-Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
+Fixes: b7b8b4ccdad4 ("rust: extract `bitfield!` macro from `register!`")
+Assisted-by: Codex:GPT-5.6 Sol
+Signed-off-by: Yilin Chen <1479826151@qq.com>
 ---
-Written 2026-08-31 against a variant of upside_down_sensor_dmi_ids that
-takes a struct with a match type and an id list. No such variant exists in
-media/next, so the patch could never have applied and was never sent;
-rewritten today in the form the table actually uses, and measured.
+ rust/kernel/bitfield.rs | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-Applies to media/next on its own and on top of
-
-  https://lore.kernel.org/linux-media/20260913142034.5632-1-lsa.uz@pm.me/
-
-which adds the OVTID858 bridge entry the same machine needs.
-
-A second machine reporting the same DMI product name independently reports
-the same inverted image, in three different applications:
-
-  https://lore.kernel.org/linux-media/20260913144127.17995-1-germanpapulind=
-ez@gmail.com/
-  https://lore.kernel.org/linux-media/20260903080854.16266-1-germanpapulind=
-ez@gmail.com/
-
-I have asked its owner to confirm the string and to say whether any of thos=
-e
-three applications turns the picture the right way up once the property is
-set. It would surprise me if they did.
-
- drivers/media/pci/intel/ipu-bridge.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel=
-/ipu-bridge.c
-index 7e65491faf..a5de450284 100644
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -192,6 +192,14 @@ static const struct dmi_system_id upside_down_sensor_d=
-mi_ids[] =3D {
- =09=09},
- =09=09.driver_data =3D "OVTI02E1",
- =09},
-+=09{
-+=09=09.matches =3D {
-+=09=09=09DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Microsoft Corporation"),
-+=09=09=09DMI_EXACT_MATCH(DMI_PRODUCT_NAME,
-+=09=09=09=09=09"Surface Pro for Business 11th Edition with Intel"),
-+=09=09},
-+=09=09.driver_data =3D "OVTID858",
-+=09},
- =09{} /* Terminating entry */
- };
-=20
+diff --git a/rust/kernel/bitfield.rs b/rust/kernel/bitfield.rs
+index a0d0894..3dd4dea 100644
+--- a/rust/kernel/bitfield.rs
++++ b/rust/kernel/bitfield.rs
+@@ -330,8 +330,12 @@ macro_rules! bitfield {
+             }
+         }
+ 
+-        // SAFETY: `$storage` is `Zeroable` and `$name` is transparent.
+-        unsafe impl ::pin_init::Zeroable for $name {}
++        // SAFETY:
++        // - `$storage: Zeroable` guarantees that the all-zero bit pattern is valid.
++        // - `$name` is `repr(transparent)` over `$storage`.
++        unsafe impl ::pin_init::Zeroable for $name
++        where $storage: ::pin_init::Zeroable
++        {}
+ 
+         impl ::core::convert::From<$name> for $storage {
+             #[inline(always)]
+-- 
+2.25.1
 
