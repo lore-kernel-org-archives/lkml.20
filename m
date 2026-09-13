@@ -1,151 +1,148 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE8AF35F184;
-	Sun, 13 Sep 2026 22:20:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C85F038E8AD
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 22:20:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789338013; cv=none; b=JK2t4nOxG/nZJchQ/B3H970bPtHQxRhVw8e3SvVYxToaHttWzwfbysnwsWwlEFk5GooQfeaWbf2AWEEHoDpBUEx/hQugGG3pxjQfdx+fznGf/rriWUuvC+60gyhMMo3dhJIgh7EOljwpXJlx08T5XiNPCVtCWhjoI/rpJbH+WIg=
+	t=1789338014; cv=none; b=IQ9b2CXttgBZBNiSVmqERbUkMkh7Yi3FG7cXCXCEz3JidDWWKlDZLwBnPeogPwl6ctNCJyfsMqig/psRnBSwpTYSj6/hq23YgjQxbGlF3NKYXMZaySrCLO/nblpJSQbxly+3Y8kGB3sJJkJ0flpjI1CvGc/bgjWYCoJaqb4AH9A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789338013; c=relaxed/simple;
-	bh=RFOro6QVHDcunk2o3UnELuOAM6IKs+wwwzhPXU1/RA4=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=nFa7JLwprm7no2G7iVhJsWA6QTUivVNNeAw5g3qbBE2vtvnnjoSUoyozMMfK5I4oFtowG/NN8QukQEKVLdcI6Pg9AcdDCFOOUVNZfDVXvKdfyj9QLusez4v+SE/eyRR9JfKZDHjatsYzK+YaP2dYNS0JUPFYM7/k5h3pz6k1CBI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RYVdDcQy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789338014; c=relaxed/simple;
+	bh=3Q2i0jpjPgJWyOfN2ps8ATc7g5rJV/FdIA+P1pwUXO8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gpXhfTjLpScEIN2JIamgTcpG2hX3ykO9KptwL3MzCFJHOdP1jdKHjEqvS+SXBUTfNVRQWpE6R4No9hG7GnPeAwCVW7XOJq4eCjnuNLLJnP6/G83y3WL3OvOit57IDf/KDCltxzBQEWUVFwbFeGSec+FpBa3YKazSOB92qNFw7sM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=northecho.dev; spf=none smtp.mailfrom=northecho.dev; dkim=pass (2048-bit key) header.d=northecho-dev.20251104.gappssmtp.com header.i=@northecho-dev.20251104.gappssmtp.com header.b=ZI8womty; arc=none smtp.client-ip=74.125.224.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=northecho.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=northecho.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RYVdDcQy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C1041F000FF;
-	Sun, 13 Sep 2026 22:20:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789338011;
-	bh=5hemrtBh2CDtniobT5qNYSO4xDn8QKhb778zrAY+Yis=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=RYVdDcQynk8G+5gCitsNoMdUmsUqbB2cmT3zOnosm4sIpa+qSXfWKVYAFR2ftCcL1
-	 3XEzNVz+Ck5O3H3cEGkM1Fe4nO+HGLOomXMXFR8G1S0KmR/2HmaC1rcfoTq1FWHiZF
-	 tkhF+Scdqu59Q7nFPlC6vxSVP7QW4ooabJKlfOFDvb/JdUsH99KDLtOWDHPGtgNpRu
-	 U0GXs3LMx5b8c1KviT6rq8hvcwueGG46J85Mkoy4LZf70PvqaNxmKeltOSHCEg0ICp
-	 1PR9sNYpIVCMo+8UCsvDAJl0dFW8AHJzwq+IoKWfuonyY7BVWEnRtJJOEW489zT2VP
-	 tgQLww9AInqWw==
-Date: Sun, 13 Sep 2026 23:20:06 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Antoniu Miclaus <antoniu.miclaus@analog.com>
-Cc: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Michael Hennerich
- <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, Rob
- Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
- Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, "Shuah
- Khan" <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
- Marcelo Schmitt <marcelo.schmitt@analog.com>, Joshua Crofts
- <joshua.crofts1@gmail.com>, Radu Sabau <radu.sabau@analog.com>, Salih Erim
- <salih.erim@amd.com>, Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
- "Jakub Szczudlo" <jakubszczudlo40@gmail.com>, <linux@analog.com>,
- <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>
-Subject: Re: [PATCH 4/4] docs: iio: ade9000: document ADE9430 support
-Message-ID: <20260913232006.43ab5a3b@jic23-hlaptop>
-In-Reply-To: <20260907101623.8730-5-antoniu.miclaus@analog.com>
-References: <20260907101623.8730-1-antoniu.miclaus@analog.com>
-	<20260907101623.8730-5-antoniu.miclaus@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=northecho-dev.20251104.gappssmtp.com header.i=@northecho-dev.20251104.gappssmtp.com header.b="ZI8womty"
+Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66d20e86cfeso138084d50.2
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 15:20:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=northecho-dev.20251104.gappssmtp.com; s=20251104; t=1789338012; x=1789942812; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=E8ge3U9xNywezlJGA++PqIty96zLoa0cQYn9Az2YiYY=;
+        b=ZI8womtysJP7jKvnzuss8CciDCoVExte1+UzCnffhyzmQG/deTZcjIX1kGCZoRCSok
+         YaJ1wC0GotXeS6Vtmk93JqQVtbE7Tmibe/EqczlvTpIE+o/LedYxJ0uBzat7kq/1Xc3V
+         usI0nZ8UJMT2OOZ//9DOFIIEaAf+pf9ifdOi3RCpzihnZ9Znzrw1aiNAHyykVfcSzqDS
+         pePTV0bLRHoft566tOGzQSnJPHc62Ki4DAmu5fBYMDPvE4mS1oTf3vzbVriNqrfFsXfy
+         w2cNmZBer48qYKDn2Ug0ECiTnrDbA2LKTk1r4F2Vlt7w7RB96M5uxPhMEVGZLmtdVXdX
+         gpvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789338012; x=1789942812;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=E8ge3U9xNywezlJGA++PqIty96zLoa0cQYn9Az2YiYY=;
+        b=dB1Qp4sqEqjrFCfW0GK0AAnEtLE8u0reBVvNRTbjP1UIs6xQq844vSu8ZiBqyvg+G2
+         46CyTpOqD3RcdnYq7UE4Sew4Wpp0ThZXNb+Jg8zUfMjNA1qvgo2xo7ZlJTW83MSjmy95
+         a78i2NPmH6z3IFiqYPxAVVZR51qLn113CMlZoo2KOPMHaXoeBFK99OnWeXV9gecxzsYK
+         yPk3moKF9G724oh5QwKb4e/Vx00J/3ya0gz+hO1VElXdJyCIQJMHxv3HIaiNzP4bkNmY
+         EMD6bM0kroyMMReZDROXOWWu40ZmyqBEisbOtUY51+pdIy21QqvSzdqMAY8wTK+kYcta
+         i4lg==
+X-Forwarded-Encrypted: i=1; AKwUvBypevmVZSvRlVlPGqwnPZEF/Ca9K+drq1xYd4rLWKktpsWBOVvRlJaVm//AETixnHmw5A4gMkw4IvVdYgM=@vger.kernel.org
+X-Gm-Message-State: AFuF++mGoK104L+4FrGBPeMknL+JZnDt/AuE1E34nwX/JzbNF9GOcRHc
+	GkEefUUMzwLSDbnxjbld/Hb3i4avcT0q9yI42iJQ46hlPmCP3nT5RmVH7aPyqhQgZNf9
+X-Gm-Gg: AYBFou1MFDUwfMFerBhVa7R+nflGRMdh6lZ/ZCkSGT9CXvAJXSwgTV0Fizqxrau8Cmo
+	lP2yxJcFKFuSmvrdUCWN3Ray9eOGSvjMtjv6FSSf1or6PtNRTcO8DKz0u8zlvok92cMsDUE84VI
+	b9KJTRjTfKSEonSmJiJDdDfbcqC2LaKUK+DkrOkEAZ2IxyhIH6hI2GR0duh62WHqEtDBo4mzU2A
+	BYIjaZBGlirJzEPfil/SPpvfdzncy5sP3q+ABLcdNgJ72JvoCsVjkzrATBtjoWMHgixZ3j+l7yJ
+	bh945J2ouCC1ozYhqJEpxqHazhJslgLz6gdmad34bRnNq9TrTHSKKgTNdDN70sRnVM2Z53/ax03
+	gqYzyCR2rqxpmRpIQ6BsDgVLzD+99D60DO8dsYAxJZ6ddyv15HWJUWMBoMpXze/1eC+wvQ2Vi7E
+	fpqDHqmWcfsbkeOBkjCGpczCyHUkfI+VbexfMLqtLS85q/eQHLP5NYQbVpjqjJuD3hs/uFjnx7r
+	hMTIwcaIWxuuqfA9Z9Klb8t5zbWW49OCiwfFRM=
+X-Received: by 2002:a53:be49:0:b0:66f:c852:209f with SMTP id 956f58d0204a3-671245ff4e9mr3870451d50.2.1789338011698;
+        Sun, 13 Sep 2026 15:20:11 -0700 (PDT)
+Received: from kelso (99-10-92-174.lightspeed.rlghnc.sbcglobal.net. [99.10.92.174])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67125ea8a35sm3737883d50.19.2026.09.13.15.20.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 13 Sep 2026 15:20:11 -0700 (PDT)
+From: Christopher Lusk <clusk@northecho.dev>
+To: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
+Cc: =?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack@google.com>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	Tahera Fahimi <fahimitahera@gmail.com>,
+	Paul Moore <paul@paul-moore.com>,
+	Casey Schaufler <casey@schaufler-ca.com>,
+	John Johansen <john.johansen@canonical.com>,
+	linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [RFC PATCH 0/2] Landlock signal scope and TIOCSIG
+Date: Sun, 13 Sep 2026 18:19:56 -0400
+Message-ID: <20260913221958.839429-1-clusk@northecho.dev>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, 7 Sep 2026 13:16:21 +0300
-Antoniu Miclaus <antoniu.miclaus@analog.com> wrote:
+Landlock documents LANDLOCK_SCOPE_SIGNAL as limiting signal delivery to
+processes in the same or a nested Landlock domain.  A retained PTY master
+can currently use TIOCSIG to deliver SIGINT, SIGQUIT, or SIGTSTP to an
+out-of-domain slave foreground process group because the privileged TTY
+signal path never reaches security_task_kill().
 
-> Add the ADE9430 to the list of supported devices and note that, like the
-> ADE9078, it does not provide the on-chip dip/swell voltage events. Also
-> note that the ADE9430 has no on-chip digital integrator and instead uses
-> an external analog integrator for Rogowski coils.
->=20
-> Signed-off-by: Antoniu Miclaus <antoniu.miclaus@analog.com>
-> ---
->  Documentation/iio/ade9000.rst | 36 ++++++++++++++++++-----------------
->  1 file changed, 19 insertions(+), 17 deletions(-)
->=20
-> diff --git a/Documentation/iio/ade9000.rst b/Documentation/iio/ade9000.rst
-> index 72737b5ec59c..881b7ff2ad3e 100644
-> --- a/Documentation/iio/ade9000.rst
-> +++ b/Documentation/iio/ade9000.rst
-> @@ -1,29 +1,31 @@
->  .. SPDX-License-Identifier: GPL-2.0
-> =20
-> -=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> -ADE9000/ADE9078 driver
-> -=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D
-> +ADE9000/ADE9078/ADE9430 driver
-> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D
-> =20
-> -This driver supports Analog Device's ADE9000 and ADE9078 energy measurem=
-ent
-> -ICs on SPI bus.
-> +This driver supports Analog Device's ADE9000, ADE9078 and ADE9430 energy
-> +measurement ICs on SPI bus.
-> =20
->  1. Supported devices
->  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> =20
->  * `ADE9000 <https://www.analog.com/media/en/technical-documentation/data=
--sheets/ADE9000.pdf>`_
->  * `ADE9078 <https://www.analog.com/media/en/technical-documentation/data=
--sheets/ADE9078.pdf>`_
-> -
-> -The ADE9000 and ADE9078 are highly accurate, fully integrated, multiphas=
-e energy
-> -and power quality monitoring devices. Superior analog performance and a =
-digital
-> -signal processing (DSP) core enable accurate energy monitoring over a wi=
-de
-> -dynamic range. An integrated high end reference ensures low drift over
-> -temperature with a combined drift of less than =C2=B125 ppm/=C2=B0C maxi=
-mum for the entire
-> -channel including a programmable gain amplifier (PGA) and an analog-to-d=
-igital
-> -converter (ADC).
-> -
-> -The ADE9078 does not provide the on-chip dip/swell (sag) detection avail=
-able on
-> -the ADE9000, so the RMS voltage swell/dip events described below are only
-> -available on the ADE9000.
-> +* `ADE9430 <https://www.analog.com/media/en/technical-documentation/data=
--sheets/ADE9430.pdf>`_
-> +
-> +The ADE9000, ADE9078 and ADE9430 are highly accurate, fully integrated,
+This RFC asks two questions before proposing a final interface.
 
-Maybe change it to
+First, should this be classified as SCOPE_SIGNAL under-enforcement, or as
+part of Landlock's documented inherited-TTY limitation?  The "Current
+limitations / IOCTL support" section says that IOCTL_DEV does not affect
+pre-existing descriptors, names TIOCSTI and TIOCLINUX, and recommends
+closing inherited TTY descriptors.  That text discusses the filesystem
+IOCTL_DEV right rather than SCOPE_SIGNAL, and unlike the two named ioctls,
+TIOCSIG is not CAP_SYS_ADMIN-gated.  Commit 4b80320ca7ed fixed the same
+effect-level class for SIGIO rather than treating the retained signal
+source as exempt.
 
-The supported parts are...
+Second, if this is a bug, should TIOCSIG use the existing task_kill hook as
+patch 1 demonstrates, or should it gain a dedicated TTY-signal hook which
+Landlock can implement without changing other LSM policies?  The prototype
+is atomic with process-group delivery and behaviorally narrow to TIOCSIG,
+but calling task_kill means SELinux, Smack, AppArmor, BPF LSM programs, and
+future implementations also mediate this operation.  The series does not
+claim that cross-LSM policy change is settled.
 
-So this doesn't need updating for each new one added.
+The demonstrated generic impact is low:
+CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:C/C:N/I:N/A:L = 3.8.  Scope is changed
+because the effect reaches a process outside the sandbox authority, but
+the primitive is limited to three job-control signals and no independent
+integrity impact has been reproduced.
 
-> +multiphase energy and power quality monitoring devices. Superior analog
-> +performance and a digital signal processing (DSP) core enable accurate e=
-nergy
-> +monitoring over a wide dynamic range. An integrated high end reference e=
-nsures
-> +low drift over temperature with a combined drift of less than =C2=B125 p=
-pm/=C2=B0C maximum
-> +for the entire channel including a programmable gain amplifier (PGA) and=
- an
-> +analog-to-digital converter (ADC).
-> +
-> +The ADE9078 and ADE9430 do not provide the on-chip dip/swell (sag) detec=
-tion
-> +available on the ADE9000, so the RMS voltage swell/dip events described =
-below are
-> +only available on the ADE9000. The ADE9430 additionally has no on-chip d=
-igital
-> +integrator and instead uses an external analog integrator for Rogowski c=
-oils.
-> =20
->  2. Device attributes
->  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+Patch 1 is the behaviorally validated proof-of-concept fix.  Patch 2 is a
+minimal regression test; further test polishing should follow the chosen
+interface direction.
 
+Validation used the same userspace image against the affected and patched
+kernels.  Across three boots per image and 32 iterations per cell:
+
+  affected: 96/96 cross-domain TIOCSIG deliveries
+  patched:  96/96 cross-domain TIOCSIG denials
+  both:     96/96 unconfined deliveries
+            96/96 same-domain deliveries
+            96/96 scoped direct-kill denials
+
+The regression test separately fails on the affected image and passes on
+the patched image, with exactly one TAP test executed in each run.
+
+No external report or patch has been sent before this RFC.  Guidance on
+both classification and hook direction would be appreciated.
+
+Christopher Lusk (2):
+  tty: mediate TIOCSIG through task_kill LSM hooks
+  selftests/landlock: cover TIOCSIG signal scoping
+
+ drivers/tty/pty.c                             |   8 +-
+ include/linux/sched/signal.h                  |   1 +
+ kernel/signal.c                               |  30 +++-
+ .../selftests/landlock/scoped_signal_test.c   | 142 ++++++++++++++++++
+ 4 files changed, 177 insertions(+), 4 deletions(-)
+
+-- 
+2.55.0
