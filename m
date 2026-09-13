@@ -1,117 +1,164 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9EA73C76A0;
-	Sun, 13 Sep 2026 06:46:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B23E8356750
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 06:48:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789281998; cv=none; b=PaxZlwowrBVo5hE7suxR9/tpJQsuR8r84KH5fJja0+1RaHTWv8L57xvVOyFZxxT0j/eaDPH9q7JpwYpuOvKAbAU8Op/M7ZoXHvh65JI2zaKimfjJGigburExSWxTrZiXhDQYXCqxdQ+39/OEGjQRRr9ujNlzdZflsmTcr6TIpB0=
+	t=1789282132; cv=none; b=W7XRfcVEjhRUCUIbJhPXQKU7TTjqjC4iu+M3VZpgpxJNzpD7GSWXIJA6nTsq20xE6oI7kK7eN7lTpZPA6Sjr7BrBO5JEpgPZpnBPZzVojcmvgtQvS1ehV/KUV7LrESw/4uWMZMKzuVin/XG0KLRZPiT9ZqVpMnUwuRKgaC/aE9w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789281998; c=relaxed/simple;
-	bh=7eJhp5fg3ifvTFQXzhHVslkmtPAfvcRpoNkduDSINWk=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=OsIplz7C3o3dyVlavkdiWoHkmE/4k93vuQ3ucnBb8IetZjqg99rby4kh6O4jsrNvuSNmJeetVta7DlwXhdw954ov+hquLSi1dfCucB7r+E3LvPVHq+61pWUgFrkUCiGok+CvZP7a7OY6BzxNBPaWWO3pGXitiC4xz7Iql9CfZ2g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=XAnBHG8a; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789282132; c=relaxed/simple;
+	bh=N5ToNp5LZjfiYCgANS1U7zesxQ9cbBbdJ9qJa4nhuoc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=m84MtLC8vAbKks1SvgBiRZvSISryOEOOuXLGtvxZzZinT3ea7nG9WzS89rX2ZG+3s3o6YyTNDgTaNGH/WbldjsqvViPBmsghSmopo9J641xmMv9KPIOVGghhMNBnQktE0hXUXYKpfo0Kw8/GNFFV21/Nupr3xSfM2OnknUzfvuI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=cq/H7W41; arc=none smtp.client-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="XAnBHG8a"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A72A81F000FF;
-	Sun, 13 Sep 2026 06:46:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1789281996;
-	bh=xQwdvU95FrXRFZwRBjEBFe2/Hx2FqUUlTLasQMUqqps=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=XAnBHG8aaIJf3Qg7JPHialtHJS0edKVR9YxPGIF64eWU5k+ntxHydQKfUl+NAY0Nd
-	 9o9UYmJ8HPCNiCz6K64j9IsAo7b8DqvCGwAt17PZsa82RYoIXM9oOW4ik23SPITNqm
-	 jv/7UJh2FCC4QPLUCjPrEFiyUV5vMhR2lGYhmqns=
-Date: Sat, 12 Sep 2026 23:46:35 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Lance Yang <lance.yang@linux.dev>
-Cc: david@kernel.org, ziy@nvidia.com, baolin.wang@linux.alibaba.com,
- liam@infradead.org, nico.pache@linux.dev, ryan.roberts@arm.com,
- dev.jain@arm.com, baohua@kernel.org, usama.arif@linux.dev, kas@kernel.org,
- ljs@kernel.org, surenb@google.com, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 1/1] mm/huge_memory: fix pgtable withdrawal for huge
- zero PMDs
-Message-Id: <20260912234635.db50397364858aa15f58f4d7@linux-foundation.org>
-In-Reply-To: <20260913051942.40889-1-lance.yang@linux.dev>
-References: <20260913051942.40889-1-lance.yang@linux.dev>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="cq/H7W41"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=z6
+	VU2sEzMZnU3iYO4KQfIiHIv73H1TxSzgtCCUe/gSg=; b=cq/H7W41JvviZ/6lZT
+	j746NyVWszYL6zQ0lAoUh2GNg1Hfbq7tz84ym6udd0XJZEm1+Mgpmb3DCfF20SGn
+	npQJtaqKFLfw3nfkK47I4LaZ0Fkv/0IQVvvDfRuiovos0cP34nLd3rH19GsrtVUg
+	kMXot8clPn273EWAnwGoaGEdI=
+Received: from localhost (unknown [])
+	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wD3V0ADR6ZqhX2YAQ--.37172S2;
+	Sun, 13 Sep 2026 14:47:32 +0800 (CST)
+From: Hui Su <sh_def@163.com>
+To: peterz@infradead.org,
+	soolaugust@gmail.com,
+	arighi@nvidia.com
+Cc: mingo@redhat.com,
+	kprateek.nayak@amd.com,
+	juri.lelli@redhat.com,
+	vincent.guittot@linaro.org,
+	dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	connoro@google.com,
+	jstultz@google.com,
+	linux-kernel@vger.kernel.org,
+	sched-ext@lists.linux.dev
+Subject: [PATCH v5 2/4] sched/numa: Drive NUMA task tick from execution context
+Date: Sun, 13 Sep 2026 15:47:20 +0900
+Message-ID: <20260913064722.1534766-3-sh_def@163.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260913064722.1534766-1-sh_def@163.com>
+References: <20260913064722.1534766-1-sh_def@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3V0ADR6ZqhX2YAQ--.37172S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxJw1kGryUXF48Gr18WrW5Awb_yoW5uFW7pF
+	Z0ka4aqrZrKa1YqF17ZrWDX3WfGwn7A347WF4DGF48ur1Ut39Y9rn3KFWSqF4YyrW0kFy2
+	vrWj9r17Cr1UKw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UtrchUUUUU=
+X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbC6QQXdmqmRwSX4wAA33
 
-On Sun, 13 Sep 2026 13:19:42 +0800 Lance Yang <lance.yang@linux.dev> wrote:
+Proxy execution separates the scheduling context in rq->donor from the
+execution context in rq->curr. The task tick dispatcher can therefore
+invoke task_tick_fair() for either side of a cross-class proxy
+relationship.
 
-> From: Lance Yang <lance.yang@linux.dev>
-> 
-> has_deposited_pgtable() uses !vma_is_dax() to decide whether a huge zero
-> PMD has a deposited PTE page table. That also accepts raw PFN mappings
-> of huge_zero_pfn, although vmf_insert_pfn_pmd() does not deposit a page
-> table on x86.
-> 
-> Zapping such a mapping would call pgtable_trans_huge_withdraw() without
-> a corresponding deposit. With pmd_huge_pte(mm, pmd) == NULL, that causes
-> a NULL pointer dereference.
+task_tick_numa() operates on state associated with the task actually
+executing, including its mm and NUMA work state. Task-level execution
+runtime is likewise accounted to rq->curr, and task_tick_numa() uses that
+runtime to drive periodic NUMA scanning.
 
-That's the sort of thing we'd prefer to avoid.
+Order task_tick_fair() as one donor-owned block followed by one
+execution-context block. Keep the cache tick in the donor block for this
+patch; the following patch moves it with the other execution-context work.
+Run the NUMA tick only when rq->curr belongs to the fair scheduling class.
+The donor class tick runs first, so execution runtime is accounted before
+the NUMA tick consumes it.
 
-> Use vma_is_anonymous() for the huge zero PMD check. This matches how PTE
-> page tables are allocated, deposited and moved.
-> 
-> - For anonymous page faults that install a huge zero PMD,
->   do_huge_pmd_anonymous_page() allocates a PTE page table and
->   set_huge_zero_folio() deposits it before installing the PMD.
-> 
-> - On fork, copy_huge_pmd() allocates and deposits a PTE page table when
->   copying a huge zero PMD into an anonymous VMA.
-> 
-> - Raw PFN mappings use vmf_insert_pfn_pmd(), and DAX file holes use
->   vmf_insert_folio_pmd() to map the huge zero folio. Both use insert_pmd(),
->   which deposits a PTE page table only when arch_needs_pgtable_deposit()
->   requires it.
-> 
-> - Moving an anonymous huge PMD preserves its deposited PTE page table.
->   move_huge_pmd() transfers the deposit when necessary. For UFFD MOVE,
->   both VMAs must be anonymous, and move_pages_huge_pmd() transfers the
->   deposit as well.
-> 
-> Keep arch_needs_pgtable_deposit() first so architectures that require a
-> deposited PTE page table still return true regardless of the VMA type.
-> 
-> Commit d80a9cb1a64a ("mm/huge_memory: add and use
-> normal_or_softleaf_folio_pmd()") removed the vma_is_special_huge() check
-> in zap_huge_pmd(). That check skipped the huge zero PMD deposit test for
-> non-DAX VM_PFNMAP and VM_MIXEDMAP mappings. Removing it exposed these
-> mappings to the incorrect !vma_is_dax() test.
-> 
-> Fixes: d80a9cb1a64a ("mm/huge_memory: add and use normal_or_softleaf_folio_pmd()")
-> Cc: stable@vger.kernel.org
+Fixes: 7de9d4f94638 ("sched: Start blocked_on chain processing in find_proxy_task()")
+Suggested-by: K Prateek Nayak <kprateek.nayak@amd.com>
+Suggested-by: Tim Chen <tim.c.chen@linux.intel.com>
+Suggested-by: Peter Zijlstra <peterz@infradead.org>
+Link: https://lore.kernel.org/r/20260909110348.GZ4120091@noisy.programming.kicks-ass.net
+Signed-off-by: Hui Su <sh_def@163.com>
+---
+ kernel/sched/fair.c | 46 +++++++++++++++++++++++----------------------
+ 1 file changed, 24 insertions(+), 22 deletions(-)
 
-How real is this?  Is there a reported-by:?  Do you have a reproducer? 
-Is it a theoretical, LLM-found-this thing which can't really happen?
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index 6f1777799371..002456cf9f8d 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -15061,41 +15061,43 @@ static inline void task_tick_core(struct rq *rq, struct task_struct *curr) {}
+  */
+ static void task_tick_fair(struct rq *rq, int queued)
+ {
+-	struct task_struct *donor = rq->donor;
+-	struct sched_entity *se;
++	struct task_struct *curr = rq->curr, *donor = rq->donor;
+ 
+-	if (donor->sched_class != &fair_sched_class)
+-		return;
++	if (donor->sched_class == &fair_sched_class) {
++		struct sched_entity *se = &donor->se;
+ 
+-	se = &donor->se;
++		if (se->on_rq) {
++			unsigned long weight = NICE_0_LOAD;
++			struct cfs_rq *cfs_rq;
+ 
+-	if (se->on_rq) {
+-		unsigned long weight = NICE_0_LOAD;
+-		struct cfs_rq *cfs_rq;
++			for_each_sched_entity(se) {
++				cfs_rq = cfs_rq_of(se);
++				entity_tick(cfs_rq, se, queued);
+ 
+-		for_each_sched_entity(se) {
+-			cfs_rq = cfs_rq_of(se);
+-			entity_tick(cfs_rq, se, queued);
++				weight = __calc_prop_weight(cfs_rq, se, weight);
++			}
+ 
+-			weight = __calc_prop_weight(cfs_rq, se, weight);
++			se = &donor->se;
++			reweight_eevdf(cfs_rq, se, weight, se->on_rq);
+ 		}
+ 
+-		se = &donor->se;
+-		reweight_eevdf(cfs_rq, se, weight, se->on_rq);
++		if (!queued) {
++			task_tick_cache(rq, donor);
++			update_misfit_status(donor, rq);
++			check_update_overutilized_status(task_rq(donor));
++
++			task_tick_core(rq, donor);
++		}
+ 	}
+ 
+ 	if (queued)
+ 		return;
+ 
+-	if (static_branch_unlikely(&sched_numa_balancing))
+-		task_tick_numa(rq, donor);
+-
+-	task_tick_cache(rq, donor);
+-
+-	update_misfit_status(donor, rq);
+-	check_update_overutilized_status(task_rq(donor));
++	/* Update state owned by the execution context. */
++	if (curr->sched_class == &fair_sched_class &&
++	    static_branch_unlikely(&sched_numa_balancing))
++		task_tick_numa(rq, curr);
+ 
+-	task_tick_core(rq, donor);
+ }
+ 
+ /*
+-- 
+2.55.0
 
-> --- a/mm/huge_memory.c
-> +++ b/mm/huge_memory.c
-> @@ -2529,11 +2529,11 @@ static bool has_deposited_pgtable(struct vm_area_struct *vma, pmd_t pmdval,
->  		return true;
->  
->  	/*
-> -	 * Huge zero always deposited except for DAX which handles itself, see
-> -	 * set_huge_zero_folio().
-> +	 * Huge zero PMDs have a deposited page table only for anonymous VMAs,
-> +	 * see set_huge_zero_folio().
->  	 */
->  	if (is_huge_zero_pmd(pmdval))
-> -		return !vma_is_dax(vma);
-> +		return vma_is_anonymous(vma);
->  
->  	/*
->  	 * Otherwise, only anonymous folios are deposited, see
-
-Thanks, I'll add it for test-n-review.
