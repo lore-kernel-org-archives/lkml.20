@@ -1,95 +1,129 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E857385D7E;
-	Sun, 13 Sep 2026 22:13:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 622C72AD35
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 22:16:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789337581; cv=none; b=eP0ukIcIrGxU2+NyIAsheIrVGp+2NLozokA+LjBcH2JZc2XxlI0B5h3aubH3Z8g25whpP1jgtZLBPxPnUHlYLxtCWnPqkNwQwOTL2LtyQnoA/hb9vY7rJ1myDuKAoeU9mqtissa1SMAy9Og/leulCEIyl1yBD9tRyqvb53A7J1o=
+	t=1789337806; cv=none; b=cxcgUE3O5qx932SpZWjxU7miVKt6epfJCoxoay0NpTwLid90p2nwbqGfA42qjAFeskdOJ3Qemg0AviLVWfpwP2ptAW08kI1xQy9jGCbShZQigkXrQJXAEBL3sYd9rTTOcAHsSir59wntBdOZlWgmIXmTnQIc0vVnHr4jQS0SL7Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789337581; c=relaxed/simple;
-	bh=0rbFvorL0Du/euB+4vx4r86cYkWnhaRhySS7yjK4Vcg=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=gF8QoD04gxPYgugKHmSA100Ou9qv82BFFINvHuBgrQFkrpQEJLJBqrt7VEQvTX708gs7WpNijASCoIiRfvc6h261MLqIEss7rAYOewba3tTtQQ69dicCvuHg4olnGboypOwwOLm0n3+3L3YdRboBiTNQTsSi3bsM+qqOBi/zdyY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UqDEiZtE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789337806; c=relaxed/simple;
+	bh=12saGpQCsyPvcyoHas0G7a63bhlRxUB1+FfgpNhnIjc=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type; b=tgVkImWROy8ozM8YX207AK68Zlam4gWofR4Bp/pfIIdy8FW9CHKTUmaq7ED7QYNa6YM4FhD26/SrczGakCgPSNRP+WY4QLYd8BRoQictjaeaANTCMxjroCploWigtBN7rCXCDX0n4buxDOfhGgfK9SpBt2jfWOzu/49a9+E51tE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RbZlQCv/; arc=none smtp.client-ip=74.125.224.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UqDEiZtE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 055C31F000FF;
-	Sun, 13 Sep 2026 22:12:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789337580;
-	bh=JsD2EE4lsoHYAQP6NY5gIjFuae5qmCmIRSey9o/2VII=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=UqDEiZtEjon6I5Kp6ooo0AjXeMpHUi1fjoMP8mQlQS4OoktXKCU1qdJQLbh9R8lIh
-	 0H30wHy/1VeNojPIYGwLl27DbKpKGaVm75wMm96PN1/A9/uGwsIEH+i+DTVck2f6BD
-	 3LqYVNkruTN52HmG9oLZpAqCzyhoPmNuIhSfb6GdlEgHW+tsLS/RBzvY4hZ1xxHxVP
-	 FpgL38Madf6ss4DcQW6j+F/+ncZvQAxeDN1QqUg4NihG86dcfK4gcd2QwVO57bUaOJ
-	 5VbmprCY28nOtoIGmdKfJUNJIA9K+ciYk4sCzBJ1J2weqOt/L7gB6jjP5JwnHSTQK7
-	 UBjYV6u/D2OzA==
-Date: Sun, 13 Sep 2026 23:12:53 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Antoniu Miclaus <antoniu.miclaus@analog.com>
-Cc: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Michael Hennerich
- <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, Rob
- Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
- Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
- <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, Marcelo
- Schmitt <marcelo.schmitt@analog.com>, Joshua Crofts
- <joshua.crofts1@gmail.com>, Radu Sabau <radu.sabau@analog.com>, Salih Erim
- <salih.erim@amd.com>, Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
- Jakub Szczudlo <jakubszczudlo40@gmail.com>, <linux@analog.com>,
- <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>
-Subject: Re: [PATCH 0/4] iio: adc: ade9000: add ADE9430 support
-Message-ID: <20260913231253.5b6f0ae2@jic23-hlaptop>
-In-Reply-To: <20260907101623.8730-1-antoniu.miclaus@analog.com>
-References: <20260907101623.8730-1-antoniu.miclaus@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RbZlQCv/"
+Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66e50968489so1002759d50.0
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 15:16:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789337804; x=1789942604; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=KwJQ6M25sDzikcUA36ZvZh5n4DhA78o4GRWDhlmgmoc=;
+        b=RbZlQCv/e41tUD02a3AzvcXzRB5AcOHgbw96AaKkkrRupwNvwAE18SU76Y2vnGPquz
+         xAeqUEiw4Upo5O2ekz8uc4jFYTNwAagz8582DzY2hXmOkUiNrASBeJCOUEaFVHREEpXQ
+         z1SjMqy1+25rsuGtk3Qft0jcFgutQntSdcm5nG9xOvwTcSpDWPYtDtvKe8ofc6np4djJ
+         NAByFOBEUkLmXmGanCWpRNABT1UDwvpCll61/reC5wPviICZ2zFcEn20q3aMCus/XKqg
+         t90jJPAPniyBI4SN9d49KPIPfRgwvmBLS70SMXRdzA+V1qYX//Ya9DdAZpeHOWvW3s5O
+         YWsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789337804; x=1789942604;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KwJQ6M25sDzikcUA36ZvZh5n4DhA78o4GRWDhlmgmoc=;
+        b=naAWzb+o4ZDhCY+xA5MxPcVs9NDzqCM9tfxdu4CZRzi+S39F4NADZj5EUXXqQ5Ik5w
+         C6ZRDv6zp1ucF274hvZlJM+CGqPkPt0gxmVAd3rKZSwXEHQ7aY1DDA7Ig9IDL4EHit0w
+         zMdoNX6K6pfuZLV0+DPZUuTsU0eCsndpC5qJ5Ro6NfV5AhSFndrIq2gJzpKNfwIhossy
+         b8Z2LaJRZPqOG6n+B1zTqId7anEV8//eX3k8lfs3cITLkxAg2uMd0OKFxGBClerB4AO4
+         sdjXq93qLTLhh6Sb+TemsNalNu0XQcBwJCS8XoIU9Hf+6N8Oh+IjrX2diXESw1VoCe7B
+         N5qA==
+X-Gm-Message-State: AFuF++kmGt6LWXhmAceI9gcP51U881IEsrDcMmeThim2LsKtcKxN7tfT
+	BFGJ8xw0Nj9vaQjh2j9EuokTWha3hLoLdAOZyjdggDdCHoULbpbwIDBm
+X-Gm-Gg: AYBFou31G8MtMxGxQ8Rq2juyv7Do8VVsji/n1ci5RJGppJiWhJQcYWjgMVT+riE2D9H
+	ugjeQcbLFUQUJ6AIwfmTfkJomuP2Pqx9sJZbN3EsfqsIL9n7AIaYkkvWolG0YRUjj5U7MaHZ4C3
+	AWh4LKjBwtPXkgg9XhV2Z0qUHDXhaMm1FXTLollLH2hO857K5AjcT448COVZsJNhqUfEigJoPsr
+	5/TMqH0hCGuxTKUyS9+K6udXLlXibmET3M9UUFsVfaH/GVwhW8Pdrl6JrezVEXB3AzikHRSLMCF
+	QUyOAssDceb7ZOcACt5nTQ8Rsz4oTNur9F2SgJTd+GdLGMJgHUuTY+0z+/D2dXC7qEc+fATq4vV
+	/kPXpIxODtsDMFrm44sFjlMFLYbTcO8mY1SGoejEMsEi6KzT5ssYFuSO3pdp9KQEtFdKvSkWXT3
+	/F1yLv1bA0739nOOFhiuarVZIreXQBh9BHugfpGZFkdYZ/cMSOd1fuUwl3Xj8ASeuE7pXdb12kj
+	jI+6GyTivdjHkznt524Hy2wP8gLE06gKsewHfqOED8pv+bcpyDl
+X-Received: by 2002:a05:690e:1509:b0:66f:bc5b:1d33 with SMTP id 956f58d0204a3-671245110d7mr4867599d50.9.1789337804364;
+        Sun, 13 Sep 2026 15:16:44 -0700 (PDT)
+Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67125db3459sm3754086d50.6.2026.09.13.15.16.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 13 Sep 2026 15:16:42 -0700 (PDT)
+Date: Sun, 13 Sep 2026 18:16:42 -0400
+From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+To: Mark Amirkan via B4 Relay <devnull+markdamirkan.gmail.com@kernel.org>, 
+ Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
+ netdev@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, 
+ Paolo Abeni <pabeni@redhat.com>, 
+ Eric Dumazet <edumazet@google.com>, 
+ Simon Horman <horms@kernel.org>, 
+ Chetan Loke <loke.chetan@gmail.com>, 
+ Jakub Kicinski <kuba@kernel.org>, 
+ "David S. Miller" <davem@davemloft.net>
+Message-ID: <willemdebruijn.kernel.1288a752aca73@gmail.com>
+In-Reply-To: <20260913-b4-send-packet-private-v1-1-925eab2cd388@gmail.com>
+References: <20260913-b4-send-packet-private-v1-1-925eab2cd388@gmail.com>
+Subject: Re: [PATCH net] net/packet: avoid truncating TPACKET_V3 private size
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: 7bit
 
-On Mon, 7 Sep 2026 13:16:17 +0300
-Antoniu Miclaus <antoniu.miclaus@analog.com> wrote:
+Mark Amirkan via B4 Relay wrote:
+> From: Mark Amirkan <markdamirkan@gmail.com>
+> 
+> tpacket_req3.tp_sizeof_priv is an unsigned int, and packet_set_ring()
+> validates the full value against the block size.  init_prb_bdqc() then
+> stores it in the unsigned short blk_sizeof_priv field.
+> 
+> Commit 2b6867c2ce76 ("net/packet: fix overflow in check for priv area
+> size") fixed the validation arithmetic, but an accepted value above
+> USHRT_MAX still narrows when it is stored.
+> 
+> For a 131072-byte block, tp_sizeof_priv=65536 is valid.  The narrowing
+> makes offset_to_first_pkt 48 instead of 65584, so packet records can be
+> placed in the private area that userspace asked the kernel to preserve.
+> 
+> blk_sizeof_priv is internal state, so widen it to hold the validated
+> UAPI value.
+> 
+> Fixes: f6fb8f100b80 ("af-packet: TPACKET_V3 flexible buffer implementation.")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Symbolic
+> Signed-off-by: Mark Amirkan <markdamirkan@gmail.com>
 
-> The ADE9430 is a polyphase energy metering device from the same family as
-> the ADE9000. It is register-compatible with the ADE9000 but omits the
-> on-chip dip/swell detection and has no on-chip digital integrator; it
-> relies on an external analog integrator for Rogowski coil current sensors.
-> 
-> This series adds ADE9430 support to the existing ade9000 driver, reusing
-> the dip/swell-less channel table introduced for the ADE9078 and adding a
-> matching chip_info for the ADE9430 full-scale codes. A has_digital_integrator
-> flag in chip_info gates the DICOEFF register write so it is skipped on the
-> ADE9430.
-> 
-> Patch 1 is a standalone fix included with this series because it corrects
-> the ADE9000 full-scale RMS/PCF codes to the same family-A values the
-> ADE9430 uses. It carries a Fixes: tag and Cc: stable and can be applied
-> independently of the rest of the series.
+Reviewed-by: Willem de Bruijn <willemb@google.com>
 
-Make sure to check what sashiko called out.
-https://sashiko.dev/#/patchset/20260907101623.8730-1-antoniu.miclaus%40analog.com
+> ---
+>  net/packet/internal.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/net/packet/internal.h b/net/packet/internal.h
+> index b76e645cd7..f5c8cd0eed 100644
+> --- a/net/packet/internal.h
+> +++ b/net/packet/internal.h
+> @@ -21,7 +21,7 @@ struct tpacket_kbdq_core {
+>  	unsigned int	hdrlen;
+>  	unsigned char	reset_pending_on_curr_blk;
+>  	unsigned short	kactive_blk_num;
+> -	unsigned short	blk_sizeof_priv;
+> +	unsigned int	blk_sizeof_priv;
 
-I'm not going to look at all on a v1 :)
-> 
-> Antoniu Miclaus (4):
->   iio: adc: ade9000: fix ADE9000 full-scale RMS and PCF codes
->   dt-bindings: iio: adc: adi,ade9000: add adi,ade9430 compatible
->   iio: adc: ade9000: add support for ADE9430
->   docs: iio: ade9000: document ADE9430 support
-> 
->  .../bindings/iio/adc/adi,ade9000.yaml         | 22 +++++++-----
->  Documentation/iio/ade9000.rst                 | 36 ++++++++++---------
->  drivers/iio/adc/Kconfig                       |  1 +
->  drivers/iio/adc/ade9000.c                     | 29 +++++++++++++--
->  4 files changed, 59 insertions(+), 29 deletions(-)
-> 
-> 
-> base-commit: 26bdafb3bdf58436579a1f6f0ef1ddb9011015ea
-
+This could be moved to avoid growing the struct. There is a 4B hole
+further down. But it's no big deal for this struct.
