@@ -1,68 +1,108 @@
-Received: from relay.hostedemail.com (smtprelay0011.hostedemail.com [216.40.44.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com [209.85.210.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2507536F90C;
-	Sun, 13 Sep 2026 17:32:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68D91334C39
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 17:34:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789320745; cv=none; b=nymc47bbqVXBjd6PMZAQ5LpUdMiihJD8Q330czYz6a0Q60HgqFM1WsGyxLl/KchTBvQmbfrmvcd0dF1QlX55odsXuLWVr8wrKTC0XnBtUIhVDoT4mwzGgnypiMg0DJOY2xGpZTlwhztoiFqeGFieAXaoiUrMXsGnRU5mGwnwyiU=
+	t=1789320878; cv=none; b=a3LEfFiCL1g0BI6rS+A9bWwCMG0SLbOxze6IihbzVw/Ii2cfgnImSKMp0ceWzH3N+c1w+Qngfzu1bGR6lQhYy+N588vGVV9cICUyVuUx1Ggdl1q06g2t1uan0UXU5ws80yPmI97xQqe4wC4HvgqXaHvVd5z+fvMOoyTox9Aupjo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789320745; c=relaxed/simple;
-	bh=Al1A2jEJx9Ax3hjHbkwl4XDTMg8gmfAfspqn+Yo9li4=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=kNlwQ7i66kH0KcqIhUV0O2yL62mcFF8X4jvRmDgs+vJPi+vO10gIgXYj+TVuM+nWb25w+hb5X1GMOS8Q/46lPUT27yvSEdzSTwiYEP3jB4Y9eHpp7i6xPvADDEtOdDEustQ97fD/X5xgsPkdiO8oNWrgXaPNmIWOXg8PiCBaOnA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=Qkku2Nol; arc=none smtp.client-ip=216.40.44.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="Qkku2Nol"
-Received: from omf12.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay07.hostedemail.com (Postfix) with ESMTP id 219D2160907;
-	Sun, 13 Sep 2026 17:32:14 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf12.hostedemail.com (Postfix) with ESMTPA id 1605A17;
-	Sun, 13 Sep 2026 17:32:12 +0000 (UTC)
-Date: Sun, 13 Sep 2026 13:32:10 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, Tom Zanussi <zanussi@kernel.org>,
- linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] tracing: Fix NULL dereference when copying keys for a
- field variable
-Message-ID: <20260913133210.5561852b@robin>
-In-Reply-To: <20260913122523.30f487d9@robin>
-References: <20260912094722.3271147-1-donggeunyoo.kernel@gmail.com>
-	<20260913122523.30f487d9@robin>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	s=arc-20240116; t=1789320878; c=relaxed/simple;
+	bh=JHMzTYc7xnB9zR6xsWPnUDoHDmX0Io39tZbvpflxwCw=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=TNnxweKq71W7IjIi8lbrWsZ0FvAmAayDBsUukTPMwSh38CoTmGTwcVF4F5Wp6WSAwt8tgjyjFNl4JGw7uIcnTjFDqKr5KQi6hTq64PjWbdwmX0A3k2A4hGIe5UNnu4UD51cMTFdxHGgySa3jZPRw3B5JAyUTx3cSyxb80X/00Ow=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f69.google.com with SMTP id 46e09a7af769-807383233b9so324482a34.3
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 10:34:37 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789320876; x=1789925676;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=F1FCP5X1xegelBdBRFJWgucE9l3lpvEosm7PW1WQ55o=;
+        b=Ze/yISZvXfYrzbsg3yNtS0AJLo1Say7AtS1RDYlY02kWDwlv9ZnMPPDapll0fmr9pw
+         4A/CEWZEg3PyDE3RwAb1oARrdS8a5zN4ZRbYj1ocjDSFiBTUSKBR+SDxppTu1bo7szJy
+         M9iAFMw3IC/OaD5RLb1k3p+wg7rkNjuTA73nwapsCiyoB6OZcdeRXmzooCbgzOW1t782
+         Dw86jIuYzgXA2icc07GTdCs749Y5tUHrnLXzO9CCe+Lb7osWJ1X6u1eDrOTIEtyCvOXo
+         TdZ3tWMNr5ymhGhR3FPgMjuoPZjigMeW/lRGCAVrZm4NxJ0+RSBxBx/ADpTok7ldVaAJ
+         HjTA==
+X-Gm-Message-State: AFuF++kQQV0mEEpvZB5kqkLd8l8nEniLRgC+uPdFggs010HZ4hq/3A0Z
+	wcQOQoT4XtxzOCqCPAq0yVO7X3u85cDHnvU8I8QaWZAMh2yFO0H7ZOJN3mawdlJ8+RGU7rmaDLi
+	4dbRtG5uzQFaPmzSGFsB/Gm+HFCgYyEvXr0w14O6Adx07iji5aRsbJk7mj5s=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Stat-Signature: hc17cpjw7kuhaz39niowb9q6posbniw1
-X-Rspamd-Server: rspamout08
-X-Rspamd-Queue-Id: 1605A17
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX19ogCWbzM9BgxZ0sfvYrv3PtFQRAFABtPQ=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=sQJR/9ahAbHC3Al6QjAsogGKhzLDVZ5ABLzCD81BeJY=; b=Qkku2Nol9sshs+MtkPJoIQ9lEbXVf9PUklH1LoBlzjfXMSOCHf1Ijdd8mK4CJPeXNDWQ2W9MRjOlijSOuj+W5A+Csxgj2nlQHI1c6aaJJveW3KwNacZ1d7z5V//44EKC4NFgv9i2yIHzpAAxFeHxjdBgYruRt/gZw92t2eDew74=
-X-HE-Tag: 1789320732-294274
-X-HE-Meta: U2FsdGVkX1+hdw3uIB23a6j5lHlvvixl1HSTAnZ4h8DCAkb6p/K2US0EE776tXDBJRl67XQThLVMQqYpRaLax9tc88mFKEZoGOToZpjIbvXhPhMLJEgdn9nr6aZ+yvvX8bl91fXelJtimfUbOKNcc9h47THScY2y8cSO68HBP/EfFSgUm+L4ueFOfBsf1Y85HYL8dge9iliiHEVZtNKIEIoaIpNSak/OoBaS4ONLUh/mEVlb62A13nLNhYdsV0C1zXWomi3NU0SZGZMLZGxJc/9dyNZ6KRG+ztO2jOT/lnJVAsXP/v0MYNMbYIshvm3dqwqKVhy6eVJ8QZZeuFPFQRuPYuXZoCyxScpwiH0uxGjdAdFOKMHY3zIO+pSh0I2S
+X-Received: by 2002:a05:6820:1988:b0:6b1:4b76:1c18 with SMTP id
+ 006d021491bc7-6c24d399401mr3976271eaf.24.1789320876397; Sun, 13 Sep 2026
+ 10:34:36 -0700 (PDT)
+Date: Sun, 13 Sep 2026 10:34:36 -0700
+In-Reply-To: <6aa6a091.f670cee1.72fc4.0012.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa6deac.f670cee1.72fc4.0013.GAE@google.com>
+Subject: Re: [syzbot] [raid?] UBSAN: array-index-out-of-bounds in super_90_sync
+From: syzbot <syzbot+9e3014263a35700ab49b@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, linux-raid@vger.kernel.org, 
+	magiclinan@didiglobal.com, song@kernel.org, syzkaller-bugs@googlegroups.com, 
+	xiao@kernel.org, yukuai@fnnas.com, yukuai@fygo.io
+Content-Type: text/plain; charset="UTF-8"
 
-On Sun, 13 Sep 2026 12:25:23 -0400
-Steven Rostedt <rostedt@goodmis.org> wrote:
+syzbot has found a reproducer for the following issue on:
 
-> Oh, and there's another bug here. With your example, where you used
-> "prio" for sched_switch (which isn't a field), there's an error message
-> created, but the command still errors out.
+HEAD commit:    2f0c1cf72f46 Merge tag 's390-7.3-3' of git://git.kernel.or..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=14afd5f9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
+dashboard link: https://syzkaller.appspot.com/bug?extid=9e3014263a35700ab49b
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=12afd5f9580000
 
-I meant the command still succeeds, it doesn't error out.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+9e3014263a35700ab49b@syzkaller.appspotmail.com
 
--- Steve
+------------[ cut here ]------------
+UBSAN: array-index-out-of-bounds in drivers/md/md.c:1697:17
+index 124 is out of range for type 'mdp_disk_t [27]'
+CPU: 1 UID: 0 PID: 6018 Comm: syz-executor186 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ ubsan_epilogue+0xa/0x30 lib/ubsan.c:233
+ __ubsan_handle_out_of_bounds+0xcc/0xf0 lib/ubsan.c:455
+ super_90_sync+0x1eed/0x1ff0 drivers/md/md.c:1697
+ sync_super drivers/md/md.c:2505 [inline]
+ sync_sbs drivers/md/md.c:2747 [inline]
+ md_update_sb+0xbba/0x2840 drivers/md/md.c:2923
+ state_store+0x31e/0x1340 drivers/md/md.c:3245
+ rdev_attr_store+0x1d9/0x560 drivers/md/md.c:3768
+ sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
+ kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x6af/0x1050 fs/read_write.c:687
+ ksys_write+0x12a/0x250 fs/read_write.c:739
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f84634ad6f7
+Code: 48 89 fa 4c 89 df e8 98 1d 00 00 8b 93 08 03 00 00 59 5e 48 83 f8 fc 74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44 24 10 0f 05 <5b> c3 0f 1f 80 00 00 00 00 83 e2 39 83 fa 08 75 de e8 23 ff ff ff
+RSP: 002b:00007fff04c70ef0 EFLAGS: 00000202 ORIG_RAX: 0000000000000001
+RAX: ffffffffffffffda RBX: 00005555934c5400 RCX: 00007f84634ad6f7
+RDX: 0000000000000008 RSI: 00007f84634e9c12 RDI: 0000000000000003
+RBP: 00007f84634e9c12 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000202 R12: 00007fff04c70fc0
+R13: 00007f84634e9b5f R14: 00007fff04c710d0 R15: 0000000000000002
+ </TASK>
+---[ end trace ]---
 
-> 
-> [  415.300003] hist:sched:sched_switch: error: Couldn't parse field variable
->   Command: hist:keys=stacktrace:wakeup_lat=common_timestamp.usecs-$ts0:onmatch(sched.sched_waking).my_synth($wakeup_lat,prio)
 
+---
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
