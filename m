@@ -1,181 +1,312 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-140.mta0.migadu.com [91.218.175.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52DFF3D47A1;
-	Sun, 13 Sep 2026 10:00:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F23B3D649F
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 10:00:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789293630; cv=none; b=YgGGkZrzjeX6wE/TSm60mVPEUBOdm+gusnbyN5PkUTalxxRFPtHXRmefVciWAn1F+n6PzMbhl4XxRErrDr/+1pEu6aXBVsQiE9DlVAAJ40lvIBJXeUPisJMqqhRy+8MMiU5sTN5aifnv+ktqDhkRmM5QaiIf5G9DR9i+B8hUU+Q=
+	t=1789293636; cv=none; b=qgV3HDGF/5YtLBhbV1VVGtjdUXptO1e3yjWgwT5vPaSCx0FWvi3EFZY6gLfN2kcQJKwzpUZrMhug95s5N5OkmmzRGZV2vuUKWvLylf4Z0kTYZcaaDqLerk0eppBzYirLf0fvQS9C5wGcG/eTNBwlJ7nJmpOJ42XFb7xAcAU8qmo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789293630; c=relaxed/simple;
-	bh=9iHFkTGe08yADbf2MXnHpT84LIP8xl+f6E9L6ji2wWg=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=tF80U9DMxyGtV4cTyvRFkBdAdA/MteshCEnZk5adCw9uQaUdRNCLPnBDXQT4j2rbDAosAA1PyBSNJ8qRuVkdfOp3Kx0ZH/JHm35+8hcMNHsgIBlALNlI3Lku00a70hRxLjn+5s80qc1v1YWBX+3ZGaPAKGasYlqDHSHwmV3q45E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Uc6NE47J; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789293636; c=relaxed/simple;
+	bh=x4lEeuutQHw04q5eI2IDt5aS0x/LR+hbJclQ4L+Pbmw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=PEbli0W0R7QsyEfYKTkrfIGvwp7l8K73oZuoPUcbywaQ+53EM3NW7M+hV9MedDYg8CJWcg4XZL6bhI7tywvCHTnuxWz4UuQmpidHANXjpBzf2Gsy94d7+nnjiRFI3Si0dbqXyuPnqYWU8Vcz8Cd0NsXMjXGXv5GL5NsuvLFBC3U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=JfyQkN+4; arc=none smtp.client-ip=91.218.175.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Uc6NE47J"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E47681F000FF;
-	Sun, 13 Sep 2026 10:00:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789293628;
-	bh=yUhB/Xmeg30XhsREq6iJc4tei3Cw+4oVMaJgqTQh/Fc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Uc6NE47JoD/TgSICJzC9SdlxuYriLqEXrEj0yirkshjjUGO6AHRmOAQjrGSAmHuQs
-	 OW1o6PG5y9h2o+0vr708O/w9wlf+IYDBHfH0+me2FHMjD5AdpIVzuGI2NsPsfslrC0
-	 riPzzTtYiGDNn8ml/Q6kbT9ApTq92plRWS73gaNWOyt83mO2Yi5l3BVoEZ03ilITWF
-	 NHUfCiUsMdsPzoQOo3rUdrHiRsgeNK0qPMjgTTVIKNi8S8YSqvpVAEph9NQAs7k/Vv
-	 Sm4OPvzPQxllggLz4EKAPOVzRuKxZtOPxmZxHaPunPtYl0HZEOYq9Ix7BbYvTheHQQ
-	 M/lqZ1qsO1E4A==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1x5h0c-00000008GHI-39tq;
-	Sun, 13 Sep 2026 10:00:26 +0000
-Date: Sun, 13 Sep 2026 11:00:26 +0100
-Message-ID: <868q5579ol.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Oliver Upton <oupton@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	James Morse <james.morse@arm.com>,
-	Ben Horgan <ben.horgan@arm.com>,
-	Xi Ruoyao <xry111@xry111.site>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Gavin Shan <gshan@redhat.com>,
-	Yuan Yao <yaoyuan@linux.alibaba.com>,
-	Fuad Tabba <tabba@google.com>,
-	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] KVM: arm64: Trap guest MPAM accesses whenever MPAM is implemented
-In-Reply-To: <20260911104715.307500-1-fuad.tabba@linux.dev>
-References: <20260911104715.307500-1-fuad.tabba@linux.dev>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="JfyQkN+4"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=x4lEeuutQHw04q5eI2IDt5aS0x/LR+hbJclQ4L+Pbmw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789293630; v=1; x=1789898430;
+ b=JfyQkN+4QySyq7Ez2HNeGJerzThkpfw6WZ2/FLdeZo9n0kVBgb71ujlE3M9ocE3Fu+qSBqeT
+ Vc3eODKGZqWggFOPVAkW0SMN5qyuA5qg7OhF6nsUgCAC6mtrFzkwPeIqIL7K3dTaJTuLuoou2E0
+ zl3XOZ+S/ynCrd6ebgUFYfwg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 84f15a5693f4a091;
+	Sun, 13 Sep 2026 10:00:30 +0000
+X-Mizu-Trace-ID: 84f15a5693f4a091
+X-Migadu-Flow: FLOW_OUT
+From: Ridong Chen <ridong.chen@linux.dev>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Johannes Weiner <hannes@cmpxchg.org>
+Cc: Kairui Song <kasong@tencent.com>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Wei Xu <weixugc@google.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	David Hildenbrand <david@kernel.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	linux-mm@kvack.org (open list:MEMORY MANAGEMENT - MGLRU (MULTI-GEN LRU)),
+	linux-kernel@vger.kernel.org,
+	Ridong Chen <ridong.chen@linux.dev>,
+	Ridong Chen <chenridong@xiaomi.com>
+Subject: [PATCH v8] mm: vmscan: retry folios written back while isolated for traditional LRU
+Date: Sun, 13 Sep 2026 18:00:13 +0800
+Message-Id: <20260913100013.3603815-1-ridong.chen@linux.dev>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: fuad.tabba@linux.dev, oupton@kernel.org, catalin.marinas@arm.com, will@kernel.org, james.morse@arm.com, ben.horgan@arm.com, xry111@xry111.site, mark.rutland@arm.com, joey.gouly@arm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, seiden@linux.ibm.com, gshan@redhat.com, yaoyuan@linux.alibaba.com, tabba@google.com, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Fri, 11 Sep 2026 11:47:15 +0100,
-Fuad Tabba <fuad.tabba@linux.dev> wrote:
-> 
-> finalise_el2_state() clears the EL2 MPAM traps whenever the ID
-> registers advertise MPAM, while KVM sets them only under ARM64_MPAM,
-> which also requires MPAMEN. Without EL3 nothing sets that enable, so a
-> guest reaches the MPAM registers while ID_AA64PFR0_EL1.MPAM reads 0
-> for it.
-> 
-> Gate on what finalise_el2_state() tests instead: this CPU's ID
-> registers with the arm64.nompam override applied, and its
-> MPAMIDR_EL1.HAS_HCR before writing MPAMHCR_EL2, which is UNDEFINED
-> without it. MPAMEN isn't a term in any MPAM accessor, so the traps
-> take effect without it.
-> 
-> Fixes: 31ff96c38ea3 ("KVM: arm64: Fix missing traps of guest accesses to the MPAM registers")
-> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-> ---
-> 
-> Notes:
->     Changes since v2:
->      - A per-CPU flag in kvm_host_data, set at KVM's CPU init from the ID
->        registers with the override applied, instead of a third cpucap
->        (Will). The probe checks presence only, since MPAM3_EL3.TRAPLOWER
->        can't be read at EL2.
->      - The MPAMHCR_EL2 branch reads this CPU's MPAMIDR_EL1 rather than the
->        sanitised ARM64_MPAM_HCR, which would otherwise have been the one
->        system-wide test left in a per-CPU function.
->      - Fixes: names the KVM commit that left this case open, rather than
->        the head.S commit that cleared the traps.
->      - Yuan's Reviewed-by dropped, since the mechanism changed.
->     
->     v2: https://lore.kernel.org/all/20260908145651.2828597-1-fuad.tabba@linux.dev/
->     v1: https://lore.kernel.org/all/20260903160819.831518-1-fuad.tabba@linux.dev/
-> 
->  arch/arm64/include/asm/kvm_host.h       |  1 +
->  arch/arm64/kvm/arm.c                    |  7 +++++++
->  arch/arm64/kvm/hyp/include/hyp/switch.h | 13 ++++++++-----
->  3 files changed, 16 insertions(+), 5 deletions(-)
-> 
-> diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
-> index 27fe0cd5b2d7a..98ca2d9b9e18d 100644
-> --- a/arch/arm64/include/asm/kvm_host.h
-> +++ b/arch/arm64/include/asm/kvm_host.h
-> @@ -755,6 +755,7 @@ struct kvm_host_data {
->  #define KVM_HOST_DATA_FLAG_VCPU_IN_HYP_CONTEXT		4
->  #define KVM_HOST_DATA_FLAG_L1_VNCR_MAPPED		5
->  #define KVM_HOST_DATA_FLAG_HAS_BRBE			6
-> +#define KVM_HOST_DATA_FLAG_HAS_MPAM			7
->  	unsigned long flags;
->  
->  	struct kvm_cpu_context host_ctxt;
-> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-> index 8b080804bc90b..fde75a63cf045 100644
-> --- a/arch/arm64/kvm/arm.c
-> +++ b/arch/arm64/kvm/arm.c
-> @@ -2281,9 +2281,16 @@ static void cpu_set_hyp_vector(void)
->  
->  static void cpu_hyp_init_context(void)
->  {
-> +	u64 pfr0 = __read_sysreg_by_encoding(SYS_ID_AA64PFR0_EL1);
-> +	u64 pfr1 = __read_sysreg_by_encoding(SYS_ID_AA64PFR1_EL1);
-> +
+From: Ridong Chen <chenridong@xiaomi.com>
 
-Why not directly read_sysreg(id_aa64pfr0_el1) and co?
-__read_sysreg_by_encoding() is useful when the encoding comes from a
-variable, but it looks odd in the case of a literal sysreg.
+As commit 359a5e1416ca ("mm: multi-gen LRU: retry folios written back
+while isolated") mentioned:
 
->  	kvm_init_host_cpu_context(host_data_ptr(host_ctxt));
->  	kvm_init_host_debug_data();
->  
-> +	/* The traps take effect without MPAMEN, which ARM64_MPAM requires. */
-> +	if (id_aa64pfr0_mpam(pfr0) || id_aa64pfr1_mpamfrac(pfr1))
-> +		host_data_set_flag(HAS_MPAM);
-> +
->  	if (!is_kernel_in_hyp_mode())
->  		cpu_init_hyp_mode();
->  }
-> diff --git a/arch/arm64/kvm/hyp/include/hyp/switch.h b/arch/arm64/kvm/hyp/include/hyp/switch.h
-> index 1ce7130e25490..2cb611e2bd69b 100644
-> --- a/arch/arm64/kvm/hyp/include/hyp/switch.h
-> +++ b/arch/arm64/kvm/hyp/include/hyp/switch.h
-> @@ -298,14 +298,17 @@ static inline void  __activate_traps_mpam(struct kvm_vcpu *vcpu)
->  	u64 clr = MPAM2_EL2_EnMPAMSM;
->  	u64 set = MPAM2_EL2_TRAPMPAM0EL1 | MPAM2_EL2_TRAPMPAM1EL1;
->  
-> -	if (!system_supports_mpam())
-> +	if (!host_data_test_flag(HAS_MPAM))
->  		return;
->  
->  	/* trap guest access to MPAMIDR_EL1 */
-> -	if (system_supports_mpam_hcr()) {
-> +	if (read_sysreg_s(SYS_MPAMIDR_EL1) & MPAMIDR_EL1_HAS_HCR) {
+  The page reclaim isolates a batch of folios from the tail of one of the
+  LRU lists and works on those folios one by one.  For a suitable
+  swap-backed folio, if the swap device is async, it queues that folio for
+  writeback.  After the page reclaim finishes an entire batch, it puts back
+  the folios it queued for writeback to the head of the original LRU list.
 
-This is going to suck under NV. The host hypervisor is of course going
-to set MPAMHCR_EL2.TRAP_MPAMIDR_EL1, and we're in for a recursive trap
-on the hottest possible path in KVM. Which is silly as the actual
-write to MPAMHCR_EL2 is free (it lands in NVMem[]).
+  In the meantime, the page writeback flushes the queued folios also by
+  batches.  Its batching logic is independent from that of the page
+  reclaim. For each of the folios it writes back, the page writeback calls
+  folio_rotate_reclaimable() which tries to rotate a folio to the tail.
 
-This really should be replaced by a flag called HAS_MPAM_HCR, just
-like you have HAS_MPAM.
+  folio_rotate_reclaimable() only works for a folio after the page reclaim
+  has put it back.  If an async swap device is fast enough, the page
+  writeback can finish with that folio while the page reclaim is still
+  working on the rest of the batch containing it.  In this case, that folio
+  will remain at the head and the page reclaim will not retry it before
+  reaching there".
 
-Thanks,
+The commit 359a5e1416ca ("mm: multi-gen LRU: retry folios written back
+while isolated") only fixed the issue for mglru. However, this issue
+also exists in the traditional active/inactive LRU and was found at [1].
 
-	M.
+It can be reproduced with below steps:
 
+1. Compile with CONFIG_TRANSPARENT_HUGEPAGE=y
+2. Mount memcg v1, and create memcg named test_memcg and set
+   limit_in_bytes=1G, memsw.limit_in_bytes=2G.
+3. Create a 1G swap file, and allocate 1.35G anon memory in test_memcg.
+
+It was found that:
+
+  cat memory.usage_in_bytes
+  1073700864
+  cat memory.memsw.usage_in_bytes
+  1413124096
+
+  free -h
+                total        used        free
+  Mem:           1.6Gi       1.2Gi       299Mi
+  Swap:          1.0Gi       678Mi       346Mi
+
+As shown above, the test_memcg charged about 324M swap (memsw.usage minus
+usage), but almost 678M swap memory was used, which means that 350M+ may
+be wasted because other memcgs can not use these swap memory.
+
+This issue should be fixed in the same way as mglru. Therefore, the common
+logic was extracted to the 'find_folios_written_back' function firstly,
+which is then reused in the 'shrink_inactive_list' function. Finally,
+retry reclaiming those folios that may have missed the rotation for
+traditional LRU.
+
+After change, the same test case only wasted about 2M swap. The swap
+device usage matches what the memcg actually charged.
+
+  cat memory.usage_in_bytes
+  1070301184
+  cat memory.memsw.usage_in_bytes
+  1412448256
+
+  free -h
+                total        used        free
+  Mem:           1.6Gi       1.2Gi       299Mi
+  Swap:          1.0Gi       327Mi       696Mi
+
+[1] https://lore.kernel.org/linux-kernel/20241010081802.290893-1-chenridong@huaweicloud.com/
+[2] https://lore.kernel.org/linux-kernel/CAGsJ_4zqL8ZHNRZ44o_CC69kE7DBVXvbZfvmQxMGiFqRxqHQdA@mail.gmail.com/
+Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+---
+v8: Rebase to the -next tree, adapt to the current reclaim API, and retest.
+
+[v7]: https://lore.kernel.org/linux-mm/20250111091504.1363075-1-chenridong@huaweicloud.com/
+
+ mm/vmscan.c | 104 ++++++++++++++++++++++++++++++++++++----------------
+ 1 file changed, 73 insertions(+), 31 deletions(-)
+
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index d1495a7d469d..6e13e570aab8 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -181,6 +181,10 @@ struct scan_control {
+ 	struct reclaim_state reclaim_state;
+ };
+ 
++static void find_folios_written_back(struct list_head *list,
++				     struct list_head *clean, struct lruvec *lruvec,
++				     int type, bool skip_retry);
++
+ #ifdef ARCH_HAS_PREFETCHW
+ static inline void prefetchw_prev_lru_folio(struct folio *folio,
+ 		struct list_head *base)
+@@ -2013,14 +2017,16 @@ static unsigned long shrink_inactive_list(unsigned long nr_to_scan,
+ 		enum lru_list lru)
+ {
+ 	LIST_HEAD(folio_list);
++	LIST_HEAD(clean_list);
+ 	unsigned long nr_scanned;
+-	unsigned int nr_reclaimed = 0;
+-	unsigned long nr_taken;
++	unsigned int nr_reclaimed, total_reclaimed = 0;
++	unsigned long nr_taken, isolated;
+ 	struct reclaim_stat stat;
+ 	bool file = is_file_lru(lru);
+ 	enum node_stat_item item;
+ 	struct pglist_data *pgdat = lruvec_pgdat(lruvec);
+ 	bool stalled = false;
++	bool skip_retry = false;
+ 
+ 	while (unlikely(too_many_isolated(pgdat, file, sc))) {
+ 		if (stalled)
+@@ -2052,25 +2058,42 @@ static unsigned long shrink_inactive_list(unsigned long nr_to_scan,
+ 	if (nr_taken == 0)
+ 		return 0;
+ 
++	isolated = nr_taken;
++retry:
+ 	nr_reclaimed = shrink_folio_list(&folio_list, pgdat, sc, &stat, false,
+ 					 lruvec_memcg(lruvec));
++	total_reclaimed += nr_reclaimed;
++
++	/* Retry pass is only meant for clean folios without new isolation */
++	if (isolated)
++		handle_reclaim_writeback(isolated, pgdat, sc, &stat);
++	trace_mm_vmscan_lru_shrink_inactive(pgdat->node_id,
++			nr_scanned, nr_reclaimed, &stat, sc->priority, file);
++
++	find_folios_written_back(&folio_list, &clean_list, lruvec, file, skip_retry);
+ 
+ 	move_folios_to_lru(&folio_list);
+ 
+ 	mod_lruvec_state(lruvec, PGDEMOTE_KSWAPD + reclaimer_offset(sc),
+ 					stat.nr_demoted);
+-	mod_node_page_state(pgdat, NR_ISOLATED_ANON + file, -nr_taken);
+ 	item = PGSTEAL_KSWAPD + reclaimer_offset(sc);
+ 	mod_lruvec_state(lruvec, item, nr_reclaimed);
+ 	mod_lruvec_state(lruvec, PGSTEAL_ANON + file, nr_reclaimed);
+-	if (nr_scanned > nr_reclaimed)
++
++	if (!list_empty(&clean_list)) {
++		list_splice_init(&clean_list, &folio_list);
++		skip_retry = true;
++		/* Retry folios were already isolated and accounted above */
++		isolated = 0;
++		goto retry;
++	}
++
++	mod_node_page_state(pgdat, NR_ISOLATED_ANON + file, -nr_taken);
++	if (nr_scanned > total_reclaimed)
+ 		mod_lruvec_state(lruvec, PGROTATE_ANON + file,
+-				 nr_scanned - nr_reclaimed);
++				 nr_scanned - total_reclaimed);
+ 
+-	handle_reclaim_writeback(nr_taken, pgdat, sc, &stat);
+-	trace_mm_vmscan_lru_shrink_inactive(pgdat->node_id,
+-			nr_scanned, nr_reclaimed, &stat, sc->priority, file);
+-	return nr_reclaimed;
++	return total_reclaimed;
+ }
+ 
+ /*
+@@ -5006,8 +5029,6 @@ static int evict_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
+ {
+ 	LIST_HEAD(list);
+ 	LIST_HEAD(clean);
+-	struct folio *folio;
+-	struct folio *next;
+ 	enum node_stat_item item;
+ 	struct reclaim_stat stat;
+ 	struct lru_gen_mm_walk *walk;
+@@ -5046,26 +5067,7 @@ static int evict_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
+ 			type_scanned, reclaimed, &stat, sc->priority,
+ 			type ? LRU_INACTIVE_FILE : LRU_INACTIVE_ANON);
+ 
+-	list_for_each_entry_safe_reverse(folio, next, &list, lru) {
+-		DEFINE_MIN_SEQ(lruvec);
+-
+-		/* move_folios_to_lru() culls unevictable folios via folio_putback_lru() */
+-		if (!folio_evictable(folio))
+-			continue;
+-
+-		/* retry folios that may have missed folio_rotate_reclaimable() */
+-		if (!skip_retry && !folio_test_active(folio) && !folio_mapped(folio) &&
+-		    !folio_test_dirty(folio) && !folio_test_writeback(folio)) {
+-			list_move(&folio->lru, &clean);
+-			continue;
+-		}
+-
+-		/* don't add rejected folios to the oldest generation */
+-		if (lru_gen_folio_seq(lruvec, folio, false) == min_seq[type]) {
+-			folio_set_lru_refs(folio, 0);
+-			folio_set_active(folio);
+-		}
+-	}
++	find_folios_written_back(&list, &clean, lruvec, type, skip_retry);
+ 
+ 	move_folios_to_lru(&list);
+ 
+@@ -6108,6 +6110,46 @@ static void lru_gen_shrink_node(struct pglist_data *pgdat, struct scan_control *
+ 
+ #endif /* CONFIG_LRU_GEN */
+ 
++/**
++ * find_folios_written_back - Find and move the written back folios to a new list.
++ * @list: folios list
++ * @clean: the written back folios list
++ * @lruvec: the lruvec
++ * @type: LRU type (only used for CONFIG_LRU_GEN)
++ * @skip_retry: whether skip retry.
++ */
++static void find_folios_written_back(struct list_head *list,
++				     struct list_head *clean, struct lruvec *lruvec,
++				     int type, bool skip_retry)
++{
++	struct folio *folio;
++	struct folio *next;
++
++	list_for_each_entry_safe_reverse(folio, next, list, lru) {
++#ifdef CONFIG_LRU_GEN
++		DEFINE_MIN_SEQ(lruvec);
++#endif
++		/* move_folios_to_lru() culls unevictable folios via folio_putback_lru() */
++		if (!folio_evictable(folio))
++			continue;
++
++		/* retry folios that may have missed folio_rotate_reclaimable() */
++		if (!skip_retry && !folio_test_active(folio) && !folio_mapped(folio) &&
++		    !folio_test_dirty(folio) && !folio_test_writeback(folio)) {
++			list_move(&folio->lru, clean);
++			continue;
++		}
++#ifdef CONFIG_LRU_GEN
++		/* don't add rejected folios to the oldest generation */
++		if (lruvec->lrugen.enabled &&
++		    lru_gen_folio_seq(lruvec, folio, false) == min_seq[type]) {
++			folio_set_lru_refs(folio, 0);
++			folio_set_active(folio);
++		}
++#endif
++	}
++}
++
+ static void shrink_lruvec(struct lruvec *lruvec, struct scan_control *sc)
+ {
+ 	unsigned long nr[NR_LRU_LISTS];
 -- 
-Without deviation from the norm, progress is not possible.
+2.34.1
+
