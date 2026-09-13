@@ -1,132 +1,124 @@
-Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76EB53E2AD1;
-	Sun, 13 Sep 2026 13:10:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.210.214.84
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A3633E2AD1;
+	Sun, 13 Sep 2026 13:11:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789305049; cv=none; b=rphbMC38n23O2AJrtSvXjKv3rafh55P3PRz6tpgTOMXVQHZli49Ly0ZNwW2b8g2azvTtlP8EeCzyNFJ92jCYLswNZVYmyYOaDsCmaX/losLlYFRNFrH1wpSjRIMIVQOZptJhyAWA+UCZCtLtrczDXkPIHL6sWfO1djibvADqzaM=
+	t=1789305068; cv=none; b=P+Uz7r5LdWdVX+IC6b50gJ52J/6EBNmTOz+CKiDe4gnZs9mIJCCg7b4sg1vv5rMksZb1Qi3zYCPw1k3S5ycXSsmxghA9x9lRynmdtcDR1ZHih1akuC58MZCfAtOBGbmf0iGiYWHdQnUypPR/oQ+Nf6S5FHdnEi69WbIaB5RlzQ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789305049; c=relaxed/simple;
-	bh=oKRATY12sMnEnSjWFEGAAU0cx7hfiK0kmulnJCGbS60=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RgtjzkCI64t3lotZ7N4T3RMB4ZTWy74/6tCOZ1bkBbioCbPD7JyFbOp6Z52oLp+XStHSm4NM6oBDi7Ba41vEMxlhHqFo6rnDB8768C5ZCYZtqJzhpGI5K58WofhoQHiVJS0Xw9O6VDfi520H4WdwO3Rh/jV2hvBU+hYdrNpxets=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org; spf=pass smtp.mailfrom=codewreck.org; dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b=cvprfNXy; arc=none smtp.client-ip=62.210.214.84
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
+	s=arc-20240116; t=1789305068; c=relaxed/simple;
+	bh=7LqoacasArToHW8EBZ+BbyUhaJRWJbi5UTgqUiX4QmU=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=V/PawHcwWVWUSSP38+dWgQ7c8E7/y6eTtnzbC4bDdJlFaLiDQHygachdzy+SXlSUplyF4Ecg2rY699340roD5o7MDw3sBVssjKfpcZaEXotzZp04X6WaRryFLuhaVpOmK+ceYd9H4VB5OUVrlOKjdJu6gPn0G1HUp+mODNrSKaw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K4WbhqY4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b="cvprfNXy"
-Received: from gaia.codewreck.org (localhost [127.0.0.1])
-	by submarine.notk.org (Postfix) with ESMTPS id C41B814C2D6;
-	Sun, 13 Sep 2026 15:10:37 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
-	s=2; t=1789305041;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8eLEPccw6mZF4b+5Xtr8EKUEwESuHcReeXBXIeuoGe4=;
-	b=cvprfNXyLKf3GM/tCddF6/dDAJ+r63auAWsUsQ9iLf+cx3XCCSTFrP2e3cmyQNtnzqAICB
-	YJFts1YqTFxGPGt52fs6+RYo253FPuE3iMLydIWoG7NnKWietWPe1EvzuBY+ygUnabijvo
-	1v8WI9QRDid2D3fnl4GtQGq5GVan8AZCJKDt32vwO7in91dlEeN4lHw5nEjYhbUa4PVdiz
-	IuXtol0wS5lGRrcaMDopTWSZPmQfhmIZ4RON96vEyjRWHGVGkyPLu9Y/dW7hH0Ei54+kL6
-	FUyphgDsIfqZJANop+F/5CHiUA3+I//y5fZ20Dc2HtdM9Q2tk7nVA9H70JYubw==
-Received: from localhost (gaia.codewreck.org [local])
-	by gaia.codewreck.org (OpenSMTPD) with ESMTPA id e8935d42;
-	Sun, 13 Sep 2026 13:10:36 +0000 (UTC)
-Date: Sun, 13 Sep 2026 22:10:21 +0900
-From: Dominique Martinet <asmadeus@codewreck.org>
-To: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-Cc: v9fs@lists.linux.dev, Eric Van Hensbergen <ericvh@kernel.org>,
-	Latchesar Ionkov <lucho@ionkov.net>,
-	Christian Schoenebeck <linux_oss@crudebyte.com>,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
-	Ao Wang <wangao@seu.edu.cn>, Xuewei Feng <fengxw06@126.com>,
-	Qi Li <qli01@tsinghua.edu.cn>, Ke Xu <xuke@tsinghua.edu.cn>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	=?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Subject: Re: [PATCH] 9p/xen: drain response work after unbinding IRQ
-Message-ID: <aqagvTnrIOGl8nfi@codewreck.org>
-References: <20260609155202.1706-1-zhaoyz24@mails.tsinghua.edu.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K4WbhqY4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0017A1F000FF;
+	Sun, 13 Sep 2026 13:11:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789305066;
+	bh=FoXI7tUIwvAH0hgDQPDMq5KaxZw7gRoW9bqX5f5mb4w=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=K4WbhqY4/88Fn5sp1tjdFDjgPvDVnpiy3ybEMmYc9v5ByVwyK148jgeViEVG9Ns2V
+	 KawgqvZUc5vwlRAQcWRTeS9jcfpPnxXdo25HL31ZGjuDEMsFTyZvKQpSbqrw2bxkbf
+	 DN55P/K1YsKumYKDCap057M/eAXPgjXRoTejUUSrFcjFcM/6HGDTfW4GO6avW/Lzcc
+	 3rw19IjHPtOkUD9hVHPb19pHPRERGJmTpDhmrLu/q3oj/b0TPlrZu1d0D5G/ng9WEj
+	 I3n5N8+c4EqL8J9AYNgF2n/XhREIuVA4juB2Yk7yYUs+lOfwHBEDZ/k1Zy6JgVNLnF
+	 FAw2iSqe9uZrA==
+From: Andreas Hindborg <a.hindborg@kernel.org>
+To: Bean Huo <beanhuo@iokpp.de>, jaemyung.lee@samsung.com, Miguel Ojeda
+ <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo
+ <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6rn?= Roy Baron
+ <bjorn3_gh@protonmail.com>, Benno
+ Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>, Trevor
+ Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Daniel
+ Almeida <daniel.almeida@collabora.com>, Tamir
+ Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>,
+ Onur =?utf-8?Q?=C3=96zkan?= <work@onurozkan.dev>
+Cc: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
+ linux-block@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH RFC] drivers/rufs: add Rust UFS host controller driver
+In-Reply-To: <01d56517261d397f5e17101f03554f91529e23f0.camel@iokpp.de>
+References: <20260912-rufs-private-v1-1-716db733e655@samsung.com>
+ <8mLXEMDMxh8mZQqVywUYUeOiZPZIPmrVGRlOkDbHptW0NEJeszKVpff5h39MjUvD5yyivwY3Z7kCXIH5VlGoiw==@protonmail.internalid>
+ <4c38f13af8f75020fefc35827463e9bc643b99f4.camel@iokpp.de>
+ <87jyoqvhpm.fsf@kernel.org>
+ <01d56517261d397f5e17101f03554f91529e23f0.camel@iokpp.de>
+Date: Sun, 13 Sep 2026 15:10:56 +0200
+Message-ID: <8733vduwin.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260609155202.1706-1-zhaoyz24@mails.tsinghua.edu.cn>
+Content-Type: text/plain
 
-Yizhou Zhao wrote on Tue, Jun 09, 2026 at 11:52:01PM +0800:
-> commit ea4f1009408e ("9p/xen : Fix use after free bug in
-> xen_9pfs_front_remove due to race condition") added cancel_work_sync()
-> to keep xen_9pfs_front_free() from freeing a ring while
-> p9_xen_response() is still running.
-> 
-> The work is currently drained before the event channel IRQ is unbound.
-> That leaves a race window where xen_9pfs_front_event_handler() can run
-> after cancel_work_sync() returns and queue p9_xen_response() again.  The
-> following unbind_from_irqhandler() synchronizes with the IRQ handler, but
-> it does not cancel work that the handler already queued.  The teardown
-> can then free the ring and private data while the response work remains
-> pending, and the worker later dereferences ring->priv and priv->client.
-> 
-> Unbind the event channel IRQ before draining the work.  Once the IRQ is
-> unbound, no new response work can be queued by the backend event channel,
-> and cancel_work_sync() waits for any work that was queued before or
-> during the unbind.  It is then safe to release the ring resources.
-> 
-> Fixes: ea4f1009408e ("9p/xen : Fix use after free bug in xen_9pfs_front_remove due to race condition")
-> Cc: stable@vger.kernel.org
-> Reported-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-> Reported-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
-> Reported-by: Ao Wang <wangao@seu.edu.cn>
-> Reported-by: Xuewei Feng <fengxw06@126.com>
-> Reported-by: Qi Li <qli01@tsinghua.edu.cn>
-> Reported-by: Ke Xu <xuke@tsinghua.edu.cn>
-> Assisted-by: GLM:GLM-5.1
-> Signed-off-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+Bean Huo <beanhuo@iokpp.de> writes:
 
-This one makes sense to me and I've picked it up, but I think
-"9p/xen: fix use-after-free in p9_xen_request"[1] adding a refcount to
-the front_priv is too much complexity vs. my understanding of the
-current threat model -- I can pick it up if someome who understands xen
-better than me has a proper look.
+> On Sat, 2026-09-12 at 13:20 +0200, Andreas Hindborg wrote:
 
-Stefano or Jürgen if you care / have time?
+[cut]
 
-[1] https://lore.kernel.org/r/20260529103416.81378-1-zhaoyz24@mails.tsinghua.edu.cn
+>
+>> > I would also like to see the heavy and hard parts, because they are the
+>> > parts
+>> > that decide if this design worrks:
+>> > 
+>> > 1, error handling: abort, LU reset, retries with limits, sense decoding,
+>> > this is
+>> > the very hard part of UFS driver.
+>> 
+>> I agree. However, we decided to get the discussion going with a smaller
+>> feature set. We can build an efficient feature complete driver, but we
+>> would really like to talk to the community about it first.
+>> 
+>
+> I understand you want to start small. But error handling is not only a missing
+> feature. It decides the design. Things like getting a free tag for a device
+> command while I/O is stuck, abort, LU reset, and what happens when recovery
+> fails, are the parts the SCSI midlayer gives us today. In this RFC, when
+> recovery fails the queue stays quiesced and I/O hangs forever. So I would like
+> to see at least a design for this before we discuss the rest.
 
-Thanks,
+I understand. I'd love to help flesh out the current draft if people are
+interested in seeing the result upstream. Maybe as an experimental
+driver for a while.
 
-> ---
->  net/9p/trans_xen.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/net/9p/trans_xen.c b/net/9p/trans_xen.c
-> index f9fb2db7a066..73c75fbdfa21 100644
-> --- a/net/9p/trans_xen.c
-> +++ b/net/9p/trans_xen.c
-> @@ -281,14 +281,14 @@ static void xen_9pfs_front_free(struct xen_9pfs_front_priv *priv)
->  		for (i = 0; i < XEN_9PFS_NUM_RINGS; i++) {
->  			struct xen_9pfs_dataring *ring = &priv->rings[i];
->  
-> -			cancel_work_sync(&ring->work);
-> -
->  			if (!ring->intf)
->  				break;
->  			if (ring->irq >= 0) {
->  				unbind_from_irqhandler(ring->irq, ring);
->  				ring->irq = -1;
->  			}
-> +			cancel_work_sync(&ring->work);
-> +
->  			if (ring->data.in) {
->  				for (j = 0; j < (1 << ring->intf->ring_order);
->  				     j++) {
+>
+>> > 2, user-space tools interface: SG_IO and bsg (sg3_utils, ufs-utils, FFU with
+>> > WRITE BUFFER), and the UFS sysfs tree..
+>> 
+>> On the account of this not being a scsi driver, some changes would have
+>> to be made. But we should be able support
+>> /sys/bus/platform/drivers/ufshcd/* just fine.
+>> 
+>
+> the host attributes in sysfs are only a small part. The per-LU attributes are
+> documented under /sys/class/scsi_device//device/unit_descriptor/, and ufs-bsg is
+> named after the SCSI host number. More important, FFU with WRITE BUFFER, RPMB
+> with SECURITY PROTOCOL, and vendor tools all use SG_IO through  /dev/sg. These
+> are user-space interfaces people use in products today, so "some changes" here
+> means breaking them. How do you plan to keep them working? Also, the sysfs path
+> contains "ufshcd", while RUFS registers as "rufs".
 
--- 
-Dominique Martinet | Asmadeus
+Right. I don't think we should build a ufshci driver outside the scsi
+midlayer and still provide (linux) scsi compatible interfaces for it. I
+understand that userland tools need to be updated, and that carries
+cost. I don't imagine enabling a standalone ufshci driver being an over
+night switch. If we go down this road, I would assume the legacy driver
+and a new driver would coexist for some time.
+
+When that is said, I do think we can provide efficient user space
+interfaces that would require minimal code changes for user space
+tooling.
+
+For instance, `ufs-bsg` is not really scsi related, it is just a
+pass-through interface to the ufs host controller. How you find it would
+be the primary change.
+
+Best regards,
+Andreas Hindborg
+
