@@ -1,214 +1,239 @@
-Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
+Received: from mail-oo2-f11.google.com (mail-oo2-f11.google.com [74.125.231.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D41930D41F
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 01:30:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A5B51862
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 01:31:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789263010; cv=none; b=qznkByZwkvAospE8Sq8+hHlZCnd8muAMFGZl+YR3D0fG+oFwe4hMcTG/ULzoG+5AqJbLk7nT1jtzxM8wijJqN5Fq4aIwc+OpBh8Z6rUoPwa2KPyTLxHMeLAx7lEZ93gEmeDJrbUIwoyjeFADzgLr3WaXrVQ1bDiGdT4jqzATDeU=
+	t=1789263096; cv=none; b=kPsi6XU7c2tZfNTggJxECM5IaAmY1FfKSDlPi5ehCadks7flTxuwlZibaMV5fXIdVrecbMqHkc2P0g5TIIYJwqQkvPVHcpAQtdRSrRuOt14bisnRgtXG4vXYbMmjpMyutyqDe6bp++k9UBi10x7jimDRUdq4fX9n82OItq+3IeE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789263010; c=relaxed/simple;
-	bh=1uJAt4wQPmIzBJv34V4aLu8zX0+/alOO1XYGdRyKYoQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=c3BbHGmBLcbcXvBVEcd1YV8EJC4643NnzmQNoGNzZOcLnEwRXB9ZZvGi2fXriUYtc3ZlwkeMDYAWSw6G927UA0mol0Za6ZqBcoR/rk7oKKP/lP6JzP3o75Fvi9fm9ChgHZWjqM032WIfy/jex0Ji6dPdS8a8pjE86QuD6C2goSI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KYw0qplu; arc=none smtp.client-ip=209.85.219.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KYw0qplu"
-Received: by mail-qv1-f48.google.com with SMTP id 6a1803df08f44-9106f4c3a4dso27439776d6.1
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 18:30:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789263008; x=1789867808; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZIz8W3XWQuQCmfLKcI01vhlNgiPsUi971VDJOXuNLRo=;
-        b=KYw0qpluHBew0aOdOyFGn7DH31MfZUJ27Vd2PjQUpMzXccg5QOPrDU3O7QZ/MCy1kJ
-         TNLed3zxUf5+HqmwwRPEvTPZIOtWZq9pPJplfmtRg3sqVdhUs5UcYv+1dBdRM5Bb48jP
-         RrvdytzW6iSigZ0vUI04Gf6uL0sDDXcRZLXOoLB6yRhdApFmLhp9IwhCWvCeNiLUmc4V
-         ZX8TbL5/Ici3KE7+Kbl3Bv0lyEZ8YH5IdznhOzZLGEAnEfUYNo7nLJIisXN2VuKZwO6/
-         insIZJIrYetmMrqKGQxzlTaeGDeLVHx8jpK/vaAfgl2gZAgJFapMBmSNNdcRDDEjCQIt
-         E7VA==
+	s=arc-20240116; t=1789263096; c=relaxed/simple;
+	bh=95MGt0HZYqffJwT5rtnedtXz7zhgit7A214Ryl4v+xs=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=pk2X67jxeDMtv7d7z9CV/1AbqqkamnprancfbBj6oPT5nW8yHmOlOkT18lMDd25ZvrbJ+quAGf8VzFbYJRqMzUvz04HClnnIIt1mWcLmS6UIw4Zi8vinXvsWF2XFeIM+C5J1CVzZZNDirOML1fO5qXuS6flMmoJrfX5QgIiUo/E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo2-f11.google.com with SMTP id 46e09a7af769-8069d92e182so167883a34.0
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 18:31:34 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789263008; x=1789867808;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZIz8W3XWQuQCmfLKcI01vhlNgiPsUi971VDJOXuNLRo=;
-        b=CEJfe+S2xKYb2xkDgIyYRNDDQ5LGyfB0Jqxt1238W1OsrHmYcZZ3gx+d65wuddYsnc
-         49UjrLYC5QU8wBNztRVmlLxV4JajvxSGj9+JUrKpXRmHtfuxDf3n+E8Kp1XeLzjnJcO+
-         i8sjyxjXMfNmzpG2wtrjAHcu4p+4lHdoncLqIH2k1SZ7H9MHBwLa4l4d9wfsjvsbCw6X
-         9q04NUbGkDMYOMJYkyvl06kV6pww7aID4lWVPlL145NvHo4MSCBJL6fEeNEW8OHpUqJP
-         LzrqHqs7+EQumcOrdFsMxQEvJZXQbSOzstOOHHTJSohi1CkUC1Wqzvtpvp51B/s3WNe4
-         YDIA==
-X-Forwarded-Encrypted: i=1; AKwUvBzEJZAFsOB1fGdHRPdQzfno2+ZGJJMoG2H/ipqHr7gN+aAAIMGUd04BtLAgz/ZJjevqlIVGGiC8/9SuMWc=@vger.kernel.org
-X-Gm-Message-State: AFuF++l0/RpS2unD679zDMS+5eeugGwAkh31d2p/RE5hhp4p0OKosCqg
-	Rk/quqGaOKyhgVESszowcd+Xh4t/ojEYujt0MZFJTJJ7OUo3puSuPE0=
-X-Gm-Gg: AYBFou1hSM9Q4oayXvQK0UL7BLcbdJQwv50eC73C4sV6xhRzGuZpBeEcIpqd0UfXBDv
-	pSjGXcckBtSh9S/4MVE3mytpHEiskydLOmX1N81SQ5Fg72NLLSOw+SudDIBtab9+2OH5SPU6n1d
-	o8vxxME8Hklv5pSRslNdq9D9vgfWMgMtc9jEwROvgyBrRb7akVPmEmLvi6Ye9qPeOWMFIup+Ewg
-	LJP4FccpVOO0NzR8kqYgffrr2pb9yBdDpQLbqsRpFpqu7CKTdXY+cVd1zGks/cYJoA8owDk7j5Y
-	oH7NtqBFJBuBBkVapmgvWQ8+RBs0rohl2BPofwMgnn5PNMl/1Bgwgrp4JU1a6yehwU5S6M7q5Z4
-	1iuyoCFMIQV/X5ymUb4+L4jBVajYDs528g4VmpcY/wVEmeZ2BwzunOy0OTMfVutcI+DrPQu9jej
-	NuDr456WdUYIsjk5MAXzB0czFTz1eESAVQtGJhZjelxU26CPfyywO4nu+2vBSMjlrT5Uy/tfb7y
-	4Y2XCj1uaJok8Y1H0xPCs6NJCeBTIMJFqoajPInHk+pcYjwYQ3sDLBcMIJnpUzhNInDtnP4cG0d
-	oAZUuiUeN9pexime/hB7qYCkFPX/Ucp4sw==
-X-Received: by 2002:a05:6214:5d8d:b0:910:345c:b7e5 with SMTP id 6a1803df08f44-91212116f7fmr164517656d6.36.1789263007716;
-        Sat, 12 Sep 2026 18:30:07 -0700 (PDT)
-Received: from localhost.localdomain ([104.39.73.78])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f49444bsm58549556d6.29.2026.09.12.18.30.06
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 12 Sep 2026 18:30:06 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Justin Chen <justin.chen@broadcom.com>,
-	Al Cooper <alcooperx@gmail.com>,
-	Vinod Koul <vkoul@kernel.org>
-Cc: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	linux-phy@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Myeonghun Pak <mhun512@gmail.com>,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH] phy: broadcom: brcm-usb: unwind clocks on probe failure
-Date: Sat, 12 Sep 2026 21:29:56 -0400
-Message-ID: <20260913012956.16443-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.47.1
+        d=1e100.net; s=20251104; t=1789263094; x=1789867894;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RMsHE5/zXRdmTcppBYZecH1Szld/jb42UiBCQemOLyc=;
+        b=SPilyGCSpX5Z0PtKzo9CCIVIEs+1CmGcmrk8YpJU/oqihI/EtcWGtavgNbYdktN//b
+         SCd2eOpmiBWgZkBI1TQHfQ9ps8L2F94p62Dmcqu55zFoX18wnt58vszJC3DANQEYsRPQ
+         1ZE8z8PiwK4uW/WgKEP4WVlR2CABWH8JAUOxUmcErM+sWHQDzWUFv8m23Tu9rp9WqEIN
+         85tsUfQXmJcLT7qxf12zyXnKQ233oSN0e3LvrWm6yp6/xmrox9eUhQjRSfzssyVQbXKI
+         VqqgZqUsVDxmIYlRlxWRAS1ChJAXLty5CrO/t1TwJPqqhQR2l4bCxZJVBK9Mvj5lABqo
+         ercg==
+X-Forwarded-Encrypted: i=1; AKwUvBzLBOLV556Fc7+SaBK3GBHakBvb/1itEKeq5yX5sLoPIEKWZk/Hs8uJEy3XD2KKogo/1oOpVjg2mwmwdlU=@vger.kernel.org
+X-Gm-Message-State: AFuF++knoiB9fyujw6aIKjR/EICy5Wd4QxSOncou5j3VHxDhZu9kktg5
+	lMozurxmo4vl18FS1AMZMiDL+aWELGAzmd6cFeoLCOq7KTOONY1zI0MpK1WklMcZuPyOvYbM3Zp
+	jzZHBIxZS1zk5nh8dC74fYrsaOKx/icySX3t2TTetxXQlhf3t1gx5ExOnjO4=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6820:810b:b0:6c1:6080:f32f with SMTP id
+ 006d021491bc7-6c24f650f4dmr2428675eaf.64.1789263094127; Sat, 12 Sep 2026
+ 18:31:34 -0700 (PDT)
+Date: Sat, 12 Sep 2026 18:31:34 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa5fcf6.f2639fcc.29487d.0048.GAE@google.com>
+Subject: [syzbot] [bridge?] WARNING: locking bug in match_held_lock
+From: syzbot <syzbot+4d0e4d2db6dfde01b52f@syzkaller.appspotmail.com>
+To: bridge@lists.linux.dev, davem@davemloft.net, edumazet@google.com, 
+	herbert@gondor.apana.org.au, horms@kernel.org, idosch@nvidia.com, 
+	kuba@kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+	pabeni@redhat.com, razor@blackwall.org, steffen.klassert@secunet.com, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-brcm_usb_phy_dvr_init() enables the optional USB2 and USB3 clocks before
-creating all PHYs and acquiring the remaining probe resources.  Several
-later failures return without disabling clocks that were already enabled,
-and deferred probe retries can keep increasing their enable counts.
+Hello,
 
-Track each successful clock enable and unwind only those clocks, in reverse
-order, when initialization fails.  Keep the existing successful probe path
-unchanged.  This is limited to the BCM4908 and Broadcom STB USB PHY driver.
+syzbot found the following issue on:
 
-This issue was identified during our ongoing static-analysis research while
-reviewing kernel code.
+HEAD commit:    a9d7ced84989 Add linux-next specific files for 20260908
+git tree:       linux-next
+console output: https://syzkaller.appspot.com/x/log.txt?x=10880f49580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=17eeb09695a2b3c9
+dashboard link: https://syzkaller.appspot.com/bug?extid=4d0e4d2db6dfde01b52f
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
 
-Fixes: 49859e55e364 ("phy: usb: phy-brcm-usb: Add Broadcom STB USB phy driver")
-Assisted-by: OpenAI:GPT-5.6
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+Unfortunately, I don't have any reproducer for this issue yet.
+
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/4f470407358e/disk-a9d7ced8.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/858b9d7ba687/vmlinux-a9d7ced8.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/ef971d22d75f/bzImage-a9d7ced8.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+4d0e4d2db6dfde01b52f@syzkaller.appspotmail.com
+
+------------[ cut here ]------------
+Looking for class "&ht->mutex" with key xfrm_policy_init.__key.84, but found a different class "key" with the same key
+WARNING: kernel/locking/lockdep.c:958 at look_up_lock_class+0x8c/0x110 kernel/locking/lockdep.c:955, CPU#1: kworker/1:6/5751
+Modules linked in:
+CPU: 1 UID: 0 PID: 5751 Comm: kworker/1:6 Tainted: G             L      syzkaller #0 PREEMPT(full) 
+Tainted: [L]=SOFTLOCKUP
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+Workqueue: usb_hub_wq hub_event
+RIP: 0010:look_up_lock_class+0x9a/0x110 kernel/locking/lockdep.c:955
+Code: 00 00 49 3b 46 18 0f 84 82 00 00 00 49 81 3e d0 44 58 94 74 79 48 8d 3d 44 f2 94 04 49 8b 16 49 8b 76 18 48 8b 8b b8 00 00 00 <67> 48 0f b9 3a eb 5d 90 89 f3 e8 67 0a f4 f8 e8 32 5c be f5 48 c7
+RSP: 0018:ffffc90000a38070 EFLAGS: 00010002
+RAX: ffffffff8c6bb940 RBX: ffffffff94478508 RCX: ffffffff8c6bb940
+RDX: ffffffff9af23440 RSI: ffffffff8c6bb900 RDI: ffffffff907ddb20
+RBP: 00000000ffffffff R08: 0000000000000100 R09: 0000000000000004
+R10: 0000000000000003 R11: 0000000000000300 R12: 0000000000000246
+R13: ffff8880307a8000 R14: ffffffff9af232c8 R15: ffffffff9af23440
+FS:  0000000000000000(0000) GS:ffff888124db7000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b3401aff8 CR3: 0000000074540000 CR4: 00000000003526f0
+Call Trace:
+ <IRQ>
+ match_held_lock+0x9a/0x120 kernel/locking/lockdep.c:5364
+ __lock_is_held kernel/locking/lockdep.c:5654 [inline]
+ lock_is_held_type+0x89/0x150 kernel/locking/lockdep.c:6016
+ __rhashtable_lookup include/linux/rhashtable.h:623 [inline]
+ rhashtable_lookup include/linux/rhashtable.h:668 [inline]
+ xfrm_policy_inexact_lookup_rcu+0x60/0x750 net/xfrm/xfrm_policy.c:2068
+ xfrm_policy_lookup_bytype+0xb35/0x1840 net/xfrm/xfrm_policy.c:2193
+ xfrm_policy_lookup net/xfrm/xfrm_policy.c:2225 [inline]
+ xfrm_bundle_lookup net/xfrm/xfrm_policy.c:3100 [inline]
+ xfrm_lookup_with_ifid+0x416/0x1db0 net/xfrm/xfrm_policy.c:3241
+ xfrmi_xmit2 net/xfrm/xfrm_interface_core.c:456 [inline]
+ xfrmi_xmit+0x72d/0x1b80 net/xfrm/xfrm_interface_core.c:572
+ __netdev_start_xmit include/linux/netdevice.h:5433 [inline]
+ netdev_start_xmit include/linux/netdevice.h:5442 [inline]
+ xmit_one net/core/dev.c:3937 [inline]
+ dev_hard_start_xmit+0x2cd/0x830 net/core/dev.c:3953
+ __dev_queue_xmit+0x14c0/0x3820 net/core/dev.c:4926
+ NF_HOOK_COND include/linux/netfilter.h:314 [inline]
+ ip6_output+0x337/0x540 net/ipv6/ip6_output.c:248
+ dst_output include/net/dst.h:471 [inline]
+ NF_HOOK include/linux/netfilter.h:325 [inline]
+ ndisc_send_skb+0xcb2/0x1650 net/ipv6/ndisc.c:513
+ addrconf_rs_timer+0x2d2/0x6c0 net/ipv6/addrconf.c:4078
+ call_timer_fn+0x18d/0x5f0 kernel/time/timer.c:1748
+ expire_timers kernel/time/timer.c:1799 [inline]
+ __run_timers kernel/time/timer.c:2374 [inline]
+ __run_timer_base+0x652/0x8b0 kernel/time/timer.c:2386
+ run_timer_base kernel/time/timer.c:2395 [inline]
+ run_timer_softirq+0xb7/0x170 kernel/time/timer.c:2405
+ handle_softirqs+0x223/0x840 kernel/softirq.c:645
+ __do_softirq kernel/softirq.c:679 [inline]
+ invoke_softirq kernel/softirq.c:519 [inline]
+ __irq_exit_rcu+0xcb/0x220 kernel/softirq.c:758
+ irq_exit_rcu+0x9/0x30 kernel/softirq.c:775
+ instr_sysvec_apic_timer_interrupt arch/x86/kernel/apic/apic.c:1062 [inline]
+ sysvec_apic_timer_interrupt+0xa6/0xc0 arch/x86/kernel/apic/apic.c:1062
+ </IRQ>
+ <TASK>
+ asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:674
+RIP: 0010:finish_task_switch+0x413/0xc60 kernel/sched/core.c:5378
+Code: 04 00 00 41 c7 84 24 20 0e 00 00 00 00 00 00 0f 1f 44 00 00 49 83 c4 48 4c 89 e7 e8 57 48 55 0a e8 d2 1b 3a 00 fb 4c 8b 65 c8 <49> 8d bc 24 10 17 00 00 48 89 f8 48 c1 e8 03 42 0f b6 04 30 84 c0
+RSP: 0018:ffffc900043ad940 EFLAGS: 00000206
+RAX: 000000000004ba5f RBX: ffff8880b873cb20 RCX: 8000000000000001
+RDX: 0000000000000006 RSI: ffffffff8e47d8da RDI: ffffffff8c6dc080
+RBP: ffffc900043ad990 R08: ffffffff907a9cbf R09: 1ffffffff20f5397
+R10: dffffc0000000000 R11: fffffbfff20f5398 R12: ffff8880307a8000
+R13: ffff8880b873cae8 R14: dffffc0000000000 R15: 1ffff110170e7964
+ context_switch kernel/sched/core.c:5530 [inline]
+ __schedule+0x17e5/0x5940 kernel/sched/core.c:7295
+ preempt_schedule_common+0x7f/0xd0 kernel/sched/core.c:7474
+ preempt_schedule_thunk+0x16/0x40 arch/x86/entry/thunk.S:12
+ __mutex_lock_common kernel/locking/mutex.c:656 [inline]
+ __mutex_lock+0x31b/0x15a0 kernel/locking/mutex.c:821
+ clear_eld drivers/gpu/drm/drm_edid.c:5691 [inline]
+ update_display_info+0x455/0x9630 drivers/gpu/drm/drm_edid.c:6934
+ drm_edid_connector_update+0x9b/0x13d0 drivers/gpu/drm/drm_edid.c:7338
+ drm_connector_update_edid_property+0xde/0x140 drivers/gpu/drm/drm_edid.c:7396
+ drm_helper_probe_single_connector_modes+0x126b/0x1880 drivers/gpu/drm/drm_probe_helper.c:644
+ drm_client_modeset_probe+0x4e8/0x60c0 drivers/gpu/drm/drm_client_modeset.c:869
+ __drm_fb_helper_initial_config_and_unlock+0x10e/0x1b50 drivers/gpu/drm/drm_fb_helper.c:1717
+ drm_fbdev_client_hotplug+0x16c/0x230 drivers/gpu/drm/clients/drm_fbdev_client.c:66
+ drm_client_register+0x16e/0x200 drivers/gpu/drm/drm_client.c:143
+ drm_fbdev_client_setup+0x1a0/0x450 drivers/gpu/drm/clients/drm_fbdev_client.c:168
+ drm_client_setup+0x107/0x220 drivers/gpu/drm/clients/drm_client_setup.c:46
+ udl_usb_probe+0x137/0x150 drivers/gpu/drm/udl/udl_drv.c:105
+ usb_probe_interface+0x788/0xe50 drivers/usb/core/driver.c:399
+ call_driver_probe drivers/base/dd.c:-1 [inline]
+ really_probe+0x254/0xae0 drivers/base/dd.c:706
+ __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
+ driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
+ __device_attach_driver+0x270/0x410 drivers/base/dd.c:1026
+ bus_for_each_drv+0x258/0x2f0 drivers/base/bus.c:500
+ __device_attach+0x2c4/0x450 drivers/base/dd.c:1098
+ device_initial_probe+0xa1/0xd0 drivers/base/dd.c:1153
+ bus_probe_device+0x12a/0x220 drivers/base/bus.c:620
+ device_add+0x7d7/0xb80 drivers/base/core.c:3776
+ usb_set_configuration+0x1ad8/0x2180 drivers/usb/core/message.c:2268
+ usb_generic_driver_probe+0x8d/0x150 drivers/usb/core/generic.c:250
+ usb_probe_device+0x1c3/0x3b0 drivers/usb/core/driver.c:293
+ call_driver_probe drivers/base/dd.c:-1 [inline]
+ really_probe+0x254/0xae0 drivers/base/dd.c:706
+ __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
+ driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
+ __device_attach_driver+0x270/0x410 drivers/base/dd.c:1026
+ bus_for_each_drv+0x258/0x2f0 drivers/base/bus.c:500
+ __device_attach+0x2c4/0x450 drivers/base/dd.c:1098
+ device_initial_probe+0xa1/0xd0 drivers/base/dd.c:1153
+ bus_probe_device+0x12a/0x220 drivers/base/bus.c:620
+ device_add+0x7d7/0xb80 drivers/base/core.c:3776
+ usb_new_device+0x9aa/0x1690 drivers/usb/core/hub.c:2708
+ hub_port_connect drivers/usb/core/hub.c:5580 [inline]
+ hub_port_connect_change drivers/usb/core/hub.c:5720 [inline]
+ port_event drivers/usb/core/hub.c:5884 [inline]
+ hub_event+0x28e8/0x4d30 drivers/usb/core/hub.c:5966
+ process_one_work kernel/workqueue.c:3407 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3490
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3571
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+----------------
+Code disassembly (best guess):
+   0:	00 00                	add    %al,(%rax)
+   2:	49 3b 46 18          	cmp    0x18(%r14),%rax
+   6:	0f 84 82 00 00 00    	je     0x8e
+   c:	49 81 3e d0 44 58 94 	cmpq   $0xffffffff945844d0,(%r14)
+  13:	74 79                	je     0x8e
+  15:	48 8d 3d 44 f2 94 04 	lea    0x494f244(%rip),%rdi        # 0x494f260
+  1c:	49 8b 16             	mov    (%r14),%rdx
+  1f:	49 8b 76 18          	mov    0x18(%r14),%rsi
+  23:	48 8b 8b b8 00 00 00 	mov    0xb8(%rbx),%rcx
+* 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
+  2f:	eb 5d                	jmp    0x8e
+  31:	90                   	nop
+  32:	89 f3                	mov    %esi,%ebx
+  34:	e8 67 0a f4 f8       	call   0xf8f40aa0
+  39:	e8 32 5c be f5       	call   0xf5be5c70
+  3e:	48                   	rex.W
+  3f:	c7                   	.byte 0xc7
+
+
 ---
- drivers/phy/broadcom/phy-brcm-usb.c | 48 +++++++++++++++++++++--------
- 1 file changed, 35 insertions(+), 13 deletions(-)
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/drivers/phy/broadcom/phy-brcm-usb.c b/drivers/phy/broadcom/phy-brcm-usb.c
-index 59d756a10..273f7b586 100644
---- a/drivers/phy/broadcom/phy-brcm-usb.c
-+++ b/drivers/phy/broadcom/phy-brcm-usb.c
-@@ -404,6 +404,8 @@ static int brcm_usb_phy_dvr_init(struct platform_device *pdev,
- {
- 	struct device *dev = &pdev->dev;
- 	struct phy *gphy = NULL;
-+	bool usb_20_clk_enabled = false;
-+	bool usb_30_clk_enabled = false;
- 	int err;
- 
- 	priv->usb_20_clk = of_clk_get_by_name(dn, "sw_usb");
-@@ -413,15 +415,19 @@ static int brcm_usb_phy_dvr_init(struct platform_device *pdev,
- 		dev_info(dev, "Clock not found in Device Tree\n");
- 		priv->usb_20_clk = NULL;
- 	}
--	err = clk_prepare_enable(priv->usb_20_clk);
--	if (err)
--		return err;
-+	if (priv->usb_20_clk) {
-+		err = clk_prepare_enable(priv->usb_20_clk);
-+		if (err)
-+			return err;
-+		usb_20_clk_enabled = true;
-+	}
- 
- 	if (priv->has_eohci) {
- 		gphy = devm_phy_create(dev, NULL, &brcm_usb_phy_ops);
- 		if (IS_ERR(gphy)) {
- 			dev_err(dev, "failed to create EHCI/OHCI PHY\n");
--			return PTR_ERR(gphy);
-+			err = PTR_ERR(gphy);
-+			goto err_disable_clks;
- 		}
- 		priv->phys[BRCM_USB_PHY_2_0].phy = gphy;
- 		priv->phys[BRCM_USB_PHY_2_0].id = BRCM_USB_PHY_2_0;
-@@ -432,7 +438,8 @@ static int brcm_usb_phy_dvr_init(struct platform_device *pdev,
- 		gphy = devm_phy_create(dev, NULL, &brcm_usb_phy_ops);
- 		if (IS_ERR(gphy)) {
- 			dev_err(dev, "failed to create XHCI PHY\n");
--			return PTR_ERR(gphy);
-+			err = PTR_ERR(gphy);
-+			goto err_disable_clks;
- 		}
- 		priv->phys[BRCM_USB_PHY_3_0].phy = gphy;
- 		priv->phys[BRCM_USB_PHY_3_0].id = BRCM_USB_PHY_3_0;
-@@ -440,21 +447,28 @@ static int brcm_usb_phy_dvr_init(struct platform_device *pdev,
- 
- 		priv->usb_30_clk = of_clk_get_by_name(dn, "sw_usb3");
- 		if (IS_ERR(priv->usb_30_clk)) {
--			if (PTR_ERR(priv->usb_30_clk) == -EPROBE_DEFER)
--				return -EPROBE_DEFER;
-+			if (PTR_ERR(priv->usb_30_clk) == -EPROBE_DEFER) {
-+				err = -EPROBE_DEFER;
-+				goto err_disable_clks;
-+			}
- 			dev_info(dev,
- 				 "USB3.0 clock not found in Device Tree\n");
- 			priv->usb_30_clk = NULL;
- 		}
--		err = clk_prepare_enable(priv->usb_30_clk);
--		if (err)
--			return err;
-+		if (priv->usb_30_clk) {
-+			err = clk_prepare_enable(priv->usb_30_clk);
-+			if (err)
-+				goto err_disable_clks;
-+			usb_30_clk_enabled = true;
-+		}
- 	}
- 
- 	priv->suspend_clk = clk_get(dev, "usb0_freerun");
- 	if (IS_ERR(priv->suspend_clk)) {
--		if (PTR_ERR(priv->suspend_clk) == -EPROBE_DEFER)
--			return -EPROBE_DEFER;
-+		if (PTR_ERR(priv->suspend_clk) == -EPROBE_DEFER) {
-+			err = -EPROBE_DEFER;
-+			goto err_disable_clks;
-+		}
- 		dev_err(dev, "Suspend Clock not found in Device Tree\n");
- 		priv->suspend_clk = NULL;
- 	}
-@@ -467,7 +481,7 @@ static int brcm_usb_phy_dvr_init(struct platform_device *pdev,
- 				       brcm_usb_phy_wake_isr, 0,
- 				       dev_name(dev), dev);
- 		if (err < 0)
--			return err;
-+			goto err_disable_clks;
- 		device_set_wakeup_capable(dev, 1);
- 	} else {
- 		dev_info(dev,
-@@ -475,6 +489,14 @@ static int brcm_usb_phy_dvr_init(struct platform_device *pdev,
- 	}
- 
- 	return 0;
-+
-+err_disable_clks:
-+	if (usb_30_clk_enabled)
-+		clk_disable_unprepare(priv->usb_30_clk);
-+	if (usb_20_clk_enabled)
-+		clk_disable_unprepare(priv->usb_20_clk);
-+
-+	return err;
- }
- 
- static int brcm_usb_phy_probe(struct platform_device *pdev)
--- 
-2.47.1
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
