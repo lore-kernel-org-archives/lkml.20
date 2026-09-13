@@ -1,125 +1,138 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+Received: from mail-ot1-f42.google.com (mail-ot1-f42.google.com [209.85.210.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F14BB23BCED
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 01:26:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E70629AB02
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 01:26:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789262789; cv=none; b=ejV75A3UBxQ/TpPlP4dR1DPGFP9q56DS/gF2rNAqE6zK2atTKwFGRK64s8QFSr7cqAEmL8uvsjneFq3k4ggz9yyPPVNPXD6Xlt9PGWyNalmC1Ouk6Ux1J1QfZSAcsiwlmakVQcoxlIOpDRzrH+Slz1AR+8H+Pl8/2AbugqaccCA=
+	t=1789262820; cv=none; b=Ph5iUi2fTMxXgCsjJ50f6skoQfnM/f6yTm4B0X3xYtDB0fAO7Isd0t7JAuO2iMiajvqSoAiI0dC8I9FYoXABmKL66n5GyMxL+VXq0xIZMcfygBsULkKk1/evZuPivDgFGpgTzLW7N90QWInfdh1cRRypqXphkl1y0C0AnDx+uMI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789262789; c=relaxed/simple;
-	bh=vq0BLZJKQQeXcOLMrECiZQUoz/qRm0wp8uFG6cl/bUs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QfN7qnrbtY27y9W7X6EJFGEU2KPxp0jepsfDUrqI9qBLWz45du5dqlQtRM9n5To+Y4URYCXG2zwCYfb+RKJQQy/MAm6OqkINX1tu4ZUyeFmJmWPgrFgV/Q0fGm74jysXooGVf4ctA5bcMHq6DK3qCs3njZ5L22DT+SwRjATU5EA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MJECNUtV; arc=none smtp.client-ip=74.125.230.204
+	s=arc-20240116; t=1789262820; c=relaxed/simple;
+	bh=TSHs88GMB6DHBXH5X+N97OQWghhZeYcRWgEaIBLM84o=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=lO5UGnD+VPk1Pa40nYJ2ZaJD1IWJ1c++e7oMqzHaMXgULNfWVDzbL0w3lJNnZ5vHiEWyunbs0EktvQf2sMZ9DfNEbKuYfsNH17Cm6ABpJmU0pdLIb3BUicpCLOlxEl2TOSSnsslG4GBkC3JZDPJLi91G9SJzoqixtFzTBtRQu/I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b1A0Tq4q; arc=none smtp.client-ip=209.85.210.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MJECNUtV"
-Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-5309ce58730so16289141cf.2
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 18:26:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b1A0Tq4q"
+Received: by mail-ot1-f42.google.com with SMTP id 46e09a7af769-7f57db8b5a4so1959698a34.2
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 18:26:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789262787; x=1789867587; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OrmWLT4Zwpo2KcrRAH9rEocONFRPlYSL9C/P1/i0Lis=;
-        b=MJECNUtVbPGBdzcoYV+rPPFrAXTTLCddaVay0l+OeDCl1kE4PSC0rwdjK+ILF00gDH
-         avSLIHw6Cr7pZPUOGzYe3HJaTWr9EPAffSSX0rxNP6HzK+4K4UkAYfwx7/uXN+GDioeB
-         tI9Dem56XYz26DzlEDSX053UGtJ9R3QjWaFevhv8CGLtxffBfBdE5ntZsyQtkTheLAou
-         nELisOjQfCsy07UOeHk8lHbI51toIU+ISFbsMzCqYP/Y6j/QUzLM1XoB/a1CQYelhDlB
-         1s0uDn4JQ/ZznSUvaeAXuiYjuIonyg3Td2G2jWr9ldhzxLCnrUpe8Z+eCGQxn2ABKagN
-         07AQ==
+        d=gmail.com; s=20251104; t=1789262817; x=1789867617; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=TSHs88GMB6DHBXH5X+N97OQWghhZeYcRWgEaIBLM84o=;
+        b=b1A0Tq4qeTahp1fZe74KI3PV5/kpr0BjIYOKlgrhpVIgvZctHXmrIKiDoUKMzgvfoy
+         Ezv6LVhfXyQhFawgeYB73T5QQNtRgwDL7gpMca09Qfw686QJTGcJycl19HWP+Yc3UNhW
+         uiAFXPkrGGCH3WgZvgWHmeo/faag6bKTZ3BcjBWgAw8/acS/KRyqBcaiG4rwRvupY8WK
+         tXnPt/N52F4NJ8fqZqmuPCidrGFx76zT9RUWECuvUtV/Fuy7sKBlk28uAwCX/vGiewNi
+         B0qWM2VPo0OjQdFlhPd7a3aVgG/sGU7iNXViVH9cRmPmyo13gtpxNc8fEwzVe5UcSiCV
+         Qsyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789262787; x=1789867587;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OrmWLT4Zwpo2KcrRAH9rEocONFRPlYSL9C/P1/i0Lis=;
-        b=Oh7kBUZESbXCrGf9P5RBtWt9rd22ALcwylo+LcZ7G74rSPZ6gWrGfJV+2YIy612feE
-         l5q+M8lMcLZSmxVFg7Vd7Gppxxai2fQzeoLmpy5rN90YeivClm9lxff/gNuZPo4qOkTX
-         +4NiT0uLXevh2V3VraM/VcZ5Z1BRG7q1Fi5MLj6ZYCPZEIzDdsDbfF6btWTMVrOIU9Fh
-         WB3RBClXaTbXfOE4ieyZFG+0xGd/W2myMcXMuEJ7yJwpY3nZY91uUrF0gve1b3UemI9s
-         QwzxaBZkxy9ULK+urdwY2caw1YJEedAHHir8jnXwdUFPS30G8YelGyrXkG3gmqMdUGkf
-         /ftw==
-X-Forwarded-Encrypted: i=1; AKwUvBxbi5kJySbPiE4UrXWqzM3oXw8lxiWf3up7N2sKzoBQvAaZp2sDHBMafO+75dJu4SoTxkEQfmIJEiTGlZ8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kOCt2XCP+cdpzY40j6gqUX4K0vA4BJJiknU0eZlgTyQzuIV3O1
-	jul9djQVS/qj2hWRNeYGxZZae9hHPLeD9Yu145D37HSKMSMoEn3uZn8=
-X-Gm-Gg: AYBFou1Lkn5VcM+f5jLVDER4ljd+qvssBk8UgBg58TW37I7OE2wCdbWyghE1rOPQi+J
-	Hrt8XwvUI7Cp1lIadEgMkbWCNIdDAsDEScSk58F9ce6CCdr5wEULFIDiWpIf7K1lzt2L36Obr/i
-	vnb2ngltsH34Aj97KdEut+p6awiFx5hhwtPbRcaOUXcvO7p+maSmlGISYNyFCS3nHHMuYwL8OkD
-	lXD2sXtvxGK3jeO0Www3sQzsHXqHYoMhJclFPKriLF99flmuECv12hq6M69Fze/wSsKaWReePJU
-	VyGEjrNfsdQ59tq68Bjh5wiXTtW29C1xcNuc0nTir2dlz9jwuSR7vwE2LpRMIRfTRuPrdtwFqMc
-	dSc4VgEk+vlQScFWXGzBrYEyC7TbrE5DcpCcE87bFZS+4sO3Hcqep0B4522aVPM7j+5qvfUwuHH
-	nJYviEYHTAcRkVmTiKWbvzFysfSBa4T8/h9XlR295qiVZU3fokG94+p/MxjooOwR5i4mVr5EYWD
-	Z48PZYJigXjWUI5uWHybpF3bsxI7uCJt99kn50mZavCCE+AT0QYEvnN8y7pxy2yUlmseMVb9qbt
-	mNdmmRuGvGq1U2tJoOUL2e6C4Nque5rB7g==
-X-Received: by 2002:a05:622a:1ba5:b0:530:db17:b1b1 with SMTP id d75a77b69052e-530e7da1b86mr73978581cf.8.1789262786856;
-        Sat, 12 Sep 2026 18:26:26 -0700 (PDT)
-Received: from localhost.localdomain ([104.39.73.78])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-530ca511ff0sm59610871cf.31.2026.09.12.18.26.25
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 12 Sep 2026 18:26:26 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Roger Quadros <rogerq@kernel.org>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Myeonghun Pak <mhun512@gmail.com>,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH] usb: dwc3-am62: shut down refclk on remove
-Date: Sat, 12 Sep 2026 21:26:20 -0400
-Message-ID: <20260913012620.13593-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.47.1
+        d=1e100.net; s=20251104; t=1789262817; x=1789867617;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TSHs88GMB6DHBXH5X+N97OQWghhZeYcRWgEaIBLM84o=;
+        b=AN/10lM60ffwd5BJfhmZadd5QRdjju/VeG7T+clTd5u+hTIuDfoFWH0seNwOW2vdcn
+         1anJ+eBJrWSjVycFKOiyo4ynUEEEaziMdwVaoUJ7Tqdb7wKbj39pTS0RX5/EvwQvkz+F
+         fF7gDXulfgFlW6ppIGrh9Ze/AfJ0EDF49gn3A/wIQho82yfM8odanOuh6yc+SXneJ81m
+         P3mt2AMnY43/nJtGh8lFwrkCnNuM3A8uRPMeLj8SCz/pZIhxNmY6HIQRBkE9rvkqGVfQ
+         kEsGMJVOs7VoPOTIhtpPVx2xIIeCto8XJfoIQZtpf6YjoiICwERqMM5q4rLlusGl0U6v
+         WZFw==
+X-Forwarded-Encrypted: i=1; AKwUvBwTdtDSl/ihyUVxjX4mFPjZJWcW2cEJKOP+Uv3DjqXbqPG0GM31hiQfXkMjHK83NXtYw3eHrtKq1Sy8Jy0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nxaz2Dmuzy2vlkFluzIsZJ9FHXftJO3K1sDNcnFNlTdGw4sW5T
+	QTIO4qHBQT5f7fssI4O9yHPjaIq8+Y9mJin2+b3B3mDUtRCfgdZ4vQH2903tMA==
+X-Gm-Gg: AYBFou3AEYswBkIHLFHSaI/5PzMY1tQ8+btDDc4caypyEgyNihrQszZ72dT7Tq0cZXT
+	gh1qv1HZKU7HqnCre8f/snjTHvkNOnFDEjeJF18Q2JPTLUolVlnljBCs0QblogeNKE8k5Uo74zh
+	FR89Kfqj9W/IZPp586O6bHXj3REkclCrGZF38QCGGmEC6UlyoiGBLgFM6/d9Hi+5ItGEamQNTAB
+	mW/OkttB2jnB/FsQt/xFmVOtti5zg0hL1ZZO/rAwWEQYLD7PTD1WJmWilWUJRIJKBxp8+ovkjLh
+	HCrn4CWZ6dTy+8jsU7TFW5yPaVvhbINOO3rjeVvVrV/yzTwJ1pvs3PtsmaBUiwzfGibk0TuAQ1r
+	r7hwmmB+9WYBXQBmphFDY/jLSBnhJKe7Oh2n77aeWWSx7YAK094+YbK0MbVK6DyWV6APKKT7Al4
+	jOHWHoL+2ZF7NvBPN8hsKoPeJHMfJOMCPWuS0u+Ogim8xmYOnwOLzCNqnp+prFjD3dZuI8ybIZ8
+	yY6FmTlbwn2eH9GeTnbGDETI+hOCIX4bdbFis4+DhWD7VbD7E+2w37XS4C4tq0o8Q==
+X-Received: by 2002:a05:6820:160e:b0:6c2:3bff:3ef6 with SMTP id 006d021491bc7-6c23bff5dfdmr3227980eaf.29.1789262817080;
+        Sat, 12 Sep 2026 18:26:57 -0700 (PDT)
+Received: from localhost ([2a03:2880:10ff:17::])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-47df90faa62sm5431368fac.12.2026.09.12.18.26.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 12 Sep 2026 18:26:56 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 12 Sep 2026 18:26:55 -0700
+Message-Id: <DLDSQDSVXFHF.18X2UQUL5Y42D@gmail.com>
+Cc: "Nam Cao" <namcao@linutronix.de>, "LKML" <linux-kernel@vger.kernel.org>,
+ "linux-trace-kernel" <linux-trace-kernel@vger.kernel.org>, "bpf"
+ <bpf@vger.kernel.org>, "Wen Yang" <wen.yang@linux.dev>, "Tobias Schaffner"
+ <tobias.schaffner@siemens.com>, "Viktor Malik" <vmalik@redhat.com>, "Linus
+ Torvalds" <torvalds@linux-foundation.org>
+Subject: Re: [RFC PATCH 00/20] rv: Add support for BPF monitors
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+To: "Gabriele Monaco" <gmonaco@redhat.com>, "Steven Rostedt"
+ <rostedt@goodmis.org>
+X-Mailer: aerc
+References: <20260831090524.106845-1-gmonaco@redhat.com>
+ <87se3sakgi.fsf@yellow.woof>
+ <df6e9168cb06c35e21db7f9d17cfbca6bd87005b.camel@redhat.com>
+ <DL5B40CU17WD.3KD75URQZ6RRR@gmail.com>
+ <eb3dd8158942d663ec8ad4c529eacd666c5f96d9.camel@redhat.com>
+ <20260903090211.50d15220@gandalf.local.home>
+ <CAADnVQK8e1Qp9rf1zThZxb3vr4Gc_bpo0nqpEO2LdnEwHdKokA@mail.gmail.com>
+ <20260904074317.01b2c0e1@robin> <DL6O0KLPXLTA.2HJJUXQUVCP5@gmail.com>
+ <20260904123108.1fa1d815@gandalf.local.home>
+ <20260904132421.111c0279@gandalf.local.home>
+ <DL6XBKITK7ZT.3RXK9YGGUYZZE@gmail.com>
+ <20260904194620.0c7a8363@gandalf.local.home>
+ <CAADnVQJH1SYR_GN6gewF3w_z_Sex9HFE1T1oXkQe6+v18bDTWA@mail.gmail.com>
+ <20260904201741.2986efca@gandalf.local.home>
+ <CAADnVQ+x4iRNXOg69nUmuJ53pB3-JtroePcyoReATy9+V1aRPg@mail.gmail.com>
+ <228FE969-EBFF-4B60-B0E7-C1E4FD82FB8B@redhat.com>
+In-Reply-To: <228FE969-EBFF-4B60-B0E7-C1E4FD82FB8B@redhat.com>
 
-dwc3_ti_remove() relies on pm_runtime_put_sync() to invoke the
-runtime-suspend callback and disable the USB2 reference clock.  The
-callback is not guaranteed to run: autosuspend may defer it, and a
-reference held by pm_runtime_forbid() keeps the usage count above zero.
-The following pm_runtime_disable() then cancels pending work while the
-clock remains enabled.
+On Fri Sep 4, 2026 at 9:53 PM PDT, Gabriele Monaco wrote:
+>
 
-Balance only the reference acquired by remove without requesting a suspend,
-then disable runtime PM to drain any operation in progress.  Disable the
-clock explicitly when the stable runtime status shows that the device was
-not already suspended.  This also handles CONFIG_PM=n, where the runtime-PM
-calls are stubs, without double-disabling the clock after a failed resume.
+Sorry for the delay.
 
-This issue was identified during our ongoing static-analysis research while
-reviewing kernel code.
+> Alexei, what I read from your opinion is: if you really want to do this R=
+V thing, then you should just implement it all in BPF.
 
-Fixes: 6661befe4100 ("usb: dwc3-am62: fix module unload/reload behavior")
-Assisted-by: OpenAI:GPT-5.6
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
- drivers/usb/dwc3/dwc3-am62.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+yes.
 
-diff --git a/drivers/usb/dwc3/dwc3-am62.c b/drivers/usb/dwc3/dwc3-am62.c
-index 632634d6e..2fb9e088f 100644
---- a/drivers/usb/dwc3/dwc3-am62.c
-+++ b/drivers/usb/dwc3/dwc3-am62.c
-@@ -319,9 +319,11 @@ static void dwc3_ti_remove(struct platform_device *pdev)
- 	reg &= ~USBSS_MODE_VALID;
- 	dwc3_ti_writel(am62, USBSS_MODE_CONTROL, reg);
- 
--	pm_runtime_put_sync(dev);
-+	pm_runtime_put_noidle(dev);
- 	pm_runtime_disable(dev);
- 	pm_runtime_dont_use_autosuspend(dev);
-+	if (!pm_runtime_status_suspended(dev))
-+		clk_disable_unprepare(am62->usb2_refclk);
- 	pm_runtime_set_suspended(dev);
- }
- 
--- 
-2.47.1
+> like the panic() one. Something BPF just shouldn't do, as I get it.
 
+There is a disconnect here.
+we have one KF_DESTRUCTIVE kfunc already. bpf_panic() can be another one.
+It will require CAP_SYS_BOOT.
+
+> I'd rather discuss on what is the best approach /today/. And that's preci=
+sely why I submitted the talk for LPC.
+
+Excellent. We can start this discussion over email and continue at LPC.
+My understanding of RV is primitive, but from reading kernel/trace/rv/*.c
+it seems to me that it's a thin glue between tracepoints and monitors,
+a bit of boiler plate code via tracefs to enable monitors and seq file for =
+visibility.
+What you're proposing is "yet another monitor" that is reusing this glue co=
+de,
+and that's my main objection. I don't see the value in kernel/trace/rv/*.c.
+(kernel/trace/rv/monitors/* are useful, of course)
+
+What stops you from attaching tracing bpf progs to all tracepoints that you=
+ need,
+pinning few "bpf iterator" progs in bpffs that will provide text or binary
+output via seq files, run a state machine inside the prog,
+and do whatever "verification" logic inside them ?
+You don't need the rv/*.c glue. I see no need to introduce new bpf struct-o=
+ps api
+just to look-like-a-monitor from RV glue perspective.
+"runtime verification" as a concept makes sense, so focus on that.
