@@ -1,466 +1,199 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f11.google.com (mail-oo2-f11.google.com [74.125.231.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A30AC1F0E34;
-	Sun, 13 Sep 2026 02:47:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EB77372B45
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 02:47:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789267639; cv=none; b=A61IBZD7ZZ3n5QTROPCHdWj1KdIlcUW72YN5bRTTfTuq0DVI45pCjH+DYtAuLvNDQSA5VYzf1shJweRwxIj7aMGWgZTnVNdaoHkU69s9X7KonfDFb4VU2EU+fHbhIjh9W/IkdLPj4Gm4bbRA1k30WlwS5/Sx3W7yVWcpXXglOWc=
+	t=1789267659; cv=none; b=iKot3u8PbF4Ce1UG36W0JO59CrcTo7b6Dku+E9fJNL8g9Dx+Bq4MLk4NZ9gFAf05WVHwSm/bxz+V75DchiOfhR6R6MyTyNGfZKeI6oOagvSnDLFZIAfPuq10ahoSHfxFQNGS1AqKVWSs6LE2gXoSglDuaYNiqmEXBINeBmBLhTM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789267639; c=relaxed/simple;
-	bh=ekVoW8BYMoStNXNSWHa+OyeDPLoMBK0jsJ2/AT+tKKw=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Z75316X56gWZ16aJHyrnLhC1wZcvAhZONnqlfXUz5YwbD89r8JK+Fvry6Lppd19WOR2ANfvbhvBgG+8rwq99oG8pqIM4ds4njEFhbe0VTbCr8/nQryRyX0NzEZVIui69zJONnU2253X0TE4ODsNLz9GCcVagdmhhxszPFZ0jXT0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U/CS9kb4; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U/CS9kb4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A3141F0089A;
-	Sun, 13 Sep 2026 02:47:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789267637;
-	bh=8GbhOl0t8LK8EOKYmXqsUgSNIteZ4Npgbfz+IrjohSI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=U/CS9kb4R7XDMVrGUGrRI65hlGOafpM3RzSkWOaFqmxTgYKvMorhNwlOm4QQzEacp
-	 JgZln5eQDDS9UVbystWgPWpcBtARfeMV+w1X0K0Ka12AwSkVDSdwL9KWgL2kkbT6Ic
-	 +c7jcbcW41LJlzUscwKpWIlbuGal1PTWTDhXyetQ8EfnxrM8C3CTr5y399lVuA/R7Z
-	 cSYKBsAPYaKhS2MMbw5qfyWmkhDX/gQtsymNvbrPbT2O2Up4SeNBuWSe1GZ16URjNS
-	 cHOElzBWlbVWpjy2vCRK434hbQ8QGRkWW1hTE0PK5yyPgx3gfjJ4VpGvYcMKqGenwD
-	 3d/b+Y1MalA7A==
-Date: Sun, 13 Sep 2026 03:47:14 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Chang Yu <marcus.yu.56@gmail.com>
-Cc: Andy Shevchenko <andy@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Rob
- Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
- Dooley <conor+dt@kernel.org>, Shi Hao <i.shihao.999@gmail.com>, "Jose A.
- Perez de Azpillaga" <azpijr@gmail.com>, Joshua Crofts
- <joshua.crofts1@gmail.com>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 2/2] iio: light: add AS7343 multi-spectral sensor
- driver
-Message-ID: <20260913034714.2fa2fcb5@jic23-hlaptop>
-In-Reply-To: <20260912013912.51887-3-marcus.yu.56@gmail.com>
-References: <20260912013912.51887-1-marcus.yu.56@gmail.com>
-	<20260912013912.51887-3-marcus.yu.56@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=arc-20240116; t=1789267659; c=relaxed/simple;
+	bh=x3HkxTQhZql3jqj4yHPnz2Mrhm/CGIn5dMsk9yXg8Js=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=InKPsDPIXUJyI254HaHbnPYtKyEvdkrIa5SKky5a6+42dlIH5hR4+wKwPn4m5qTb8c59UwcPgFYRdmXPGHpH7XM/O9xOLeGipc384fcqZVg/jMif1Lxm4eev8Y+yJsKvbBhCTGGcgUy07AmXoPBFoMBVbrL3J1kFwC+G2zBR5rw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo2-f11.google.com with SMTP id 46e09a7af769-8069d92e182so185780a34.0
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 19:47:38 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789267657; x=1789872457;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bvFXA7ZMQ0Qs9h5Sn4zOQqZDFnGcVyURyKazgFI6Ib8=;
+        b=AuvTSJcQKI0ZTtuuOuhWhVqujM+MwihpvR9nQar20z8RS4mQr0AB6j6DCyPaXe6ujZ
+         khwi0BcDFhySGk1/Lv5MQfQd3WwIRTm+vcT60YljTBYturxds2UH6aODzAJUV2sdw0x5
+         gQ2fpymOD/kPzN9bh+DYrD124o0UzIdzgZCxs6mOc30/hJVENYa0WZGNYqSJk4mise6t
+         IWWhmqh//emx6ET58iv7jtF8eDe5cQaSozGiouVernODL45XkmIiLPMdyiXKiAQ+5Y58
+         47IPT5jGDePBoVWq4FEc3/efzesHSI44vXlsiN5oc3uo6wcKfnBBNiQZljKy0Xz6/PMI
+         4xgg==
+X-Forwarded-Encrypted: i=1; AKwUvBwZNnFrS16ts0fKae649BUG768VtiN+tn5bd0MRBYO2CipX4eLgvC+E7Ry1gEl422MIbZs28IFN7t4B590=@vger.kernel.org
+X-Gm-Message-State: AFuF++mZvBbqMLlMcYy5oAdALT+8M+6CUvLhFlcvGAMQ80ybGXynVONY
+	zSt9TxzrOfa8YJuf1MhaNd2NYqSU3OX64rsr0hY5tYG7O6fn14hHfbTpVslUmZM9ybRS91lSux5
+	AbFz95ud/UPTti/UEi0g9Mta+R3u1pJtJ0NVI1jthNOozdNvSovHNtObg/NE=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6820:169e:b0:6aa:da04:b56f with SMTP id
+ 006d021491bc7-6c24c6ca779mr2331851eaf.3.1789267657282; Sat, 12 Sep 2026
+ 19:47:37 -0700 (PDT)
+Date: Sat, 12 Sep 2026 19:47:37 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa60ec9.f81106d8.2ab401.0032.GAE@google.com>
+Subject: [syzbot] [batman?] WARNING in batadv_iv_ogm_process_per_outif
+From: syzbot <syzbot+a079f084653164a652d1@syzkaller.appspotmail.com>
+To: antonio@mandelbit.com, b.a.t.m.a.n@lists.open-mesh.org, 
+	linux-kernel@vger.kernel.org, marek.lindner@mailbox.org, 
+	netdev@vger.kernel.org, sven@narfation.org, sw@simonwunderlich.de, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, 11 Sep 2026 18:39:12 -0700
-Chang Yu <marcus.yu.56@gmail.com> wrote:
+Hello,
 
-> Add a driver for the AMS AS7343 14-channel multi-spectral sensor.
-> 
-> The AS7343 is a 14-channel spectral sensor featuring 11 visible
-> channels, 1 near-infrared channel, 1 clear channel (VIS), and 1
-> flicker detection channel.
-> 
-> The driver exposes 12 spectral channels (11 visible light and 1
-> near-infrared) via sysfs. Runtime PM is implemented to stop
-> measurements when the device is suspended or torn down. Power is
-> never cut (PON=1 always) to preserve register values.
-> 
-> Future patches will add configurable gain and integration time,
-> interrupt support, buffered reads, VIS channel, and flicker
-> detection.
-> 
-> Datasheet: https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-Channel-Multi-Spectral-Sensor.pdf
-> Signed-off-by: Chang Yu <marcus.yu.56@gmail.com>
+syzbot found the following issue on:
 
-Various things inline,
+HEAD commit:    50d05c7c76c9 Merge tag 'landlock-7.3-rc3' of git://git.ker..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=170ef749580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=5e4e3a0e188a497e
+dashboard link: https://syzkaller.appspot.com/bug?extid=a079f084653164a652d1
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+userspace arch: i386
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=108ef749580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=16b696f9580000
 
-Thanks,
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/daf497619736/disk-50d05c7c.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/748fbd82f647/vmlinux-50d05c7c.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/e61c59099d07/bzImage-50d05c7c.xz
 
-Jonathan
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+a079f084653164a652d1@syzkaller.appspotmail.com
 
-> diff --git a/drivers/iio/light/as7343.c b/drivers/iio/light/as7343.c
-> new file mode 100644
-> index 000000000000..9ea6a44c35b9
-> --- /dev/null
-> +++ b/drivers/iio/light/as7343.c
-> @@ -0,0 +1,434 @@
-
-> + * TODO:
-> + *   - Autosuspend
-
-This should be trivial to do, so I'd prefer you do it from the start
-as requires about 3 lines to be changed.
-
-> + *   - Support for configurable gain and integration time
-> + *   - Interrupt support
-> + *   - Add support for reading the VIS channel
-> + *   - Flicker detection
-> + */
-
-> + * Integration time is calculated as (ATIME + 1) * ((ASTEP + 1) * 2.78us).
-> + * Setting a 30 * 1.67ms = 50.1ms integration time as the default for now.
-> + */
-> +#define AS7343_ATIME				0x81
-> +#define AS7343_ATIME_VAL			29 /* (29 + 1) = 30 steps */
-> +#define AS7343_ASTEP				0xd4
-> +#define AS7343_ASTEP_VAL			599 /* 1.67ms step size */
-
-See below. Define these values in terms of what they actually are.
-That probably means a macro to indicate the maths applied.
-
-> +
-> +#define AS7343_CFG0				0xbf
-> +#define AS7343_CFG0_REG_BANK			BIT(4)
-> +
-> +#define AS7343_CFG1				0xc6
-> +#define AS7343_CFG1_AGAIN			GENMASK(4, 0)
-> +#define AS7343_CFG1_AGAIN_X0_5			0
-> +#define AS7343_CFG1_AGAIN_X1			1
-> +#define AS7343_CFG1_AGAIN_X2			2
-> +#define AS7343_CFG1_AGAIN_X4			3
-> +#define AS7343_CFG1_AGAIN_X8			4
-> +#define AS7343_CFG1_AGAIN_X16			5
-> +#define AS7343_CFG1_AGAIN_X32			6
-> +#define AS7343_CFG1_AGAIN_X64			7
-> +#define AS7343_CFG1_AGAIN_X128			8
-> +#define AS7343_CFG1_AGAIN_X256			9
-> +#define AS7343_CFG1_AGAIN_X512			10
-> +#define AS7343_CFG1_AGAIN_X1024			11
-> +#define AS7343_CFG1_AGAIN_X2048			12
-> +
-> +#define AS7343_CFG20				0xd6
-> +#define AS7343_CFG20_AUTO_SMUX			GENMASK(6, 5)
-> +#define AS7343_CFG20_AUTO_SMUX_READOUT_ALL	3 /* all-channel readout */
-> +
-> +#define AS7343_CONTROL				0xfa
-> +
-> +/* AS7343 status registers */
-> +#define AS7343_STATUS2				0x90
-> +#define AS7343_STATUS3				0x91
-> +#define AS7343_STATUS				0x93
-> +#define AS7343_ASTATUS				0x94
-> +#define AS7343_STATUS5				0xbb
-> +#define AS7343_STATUS4				0xbc
-> +#define AS7343_FD_STATUS			0xe3
-> +
-> +/* AS7343 spectral data registers */
-> +#define AS7343_DATA_FZ		0x95
-
-Given some of your register have a _ in the register name part
-I'd add something else to make it clear what is a register
-and what is a field in these defines.  Postfix of _REG often
-does this job in other drivers.  Apply that consistently
-to all register address definitions.
-
-> +#define AS7343_DATA_FY		0x97
-> +#define AS7343_DATA_FXL		0x99
-> +#define AS7343_DATA_NIR		0x9b
-> +#define AS7343_DATA_F2		0xa1
-> +#define AS7343_DATA_F3		0xa3
-> +#define AS7343_DATA_F4		0xa5
-> +#define AS7343_DATA_F6		0xa7
-> +#define AS7343_DATA_F1		0xad
-> +#define AS7343_DATA_F7		0xaf
-> +#define AS7343_DATA_F8		0xb1
-> +#define AS7343_DATA_F5		0xb3
-> +#define AS7343_DATA_FD_L	0xb7
-> +#define AS7343_DATA_FD_H	0xb8
-> +
-> +/* AS7343 FIFO buffer data registers */
-> +#define AS7343_FIFO_LVL		0xfd
-> +#define AS7343_FDATA_L		0xfe
-> +#define AS7343_FDATA_H		0xff
-> +
-> +/* AS7343 channel indices. MUST match data register order above. */
-> +#define AS7343_CHAN_IDX_FZ	0
-> +#define AS7343_CHAN_IDX_FY	1
-> +#define AS7343_CHAN_IDX_FXL	2
-> +#define AS7343_CHAN_IDX_NIR	3
-> +#define AS7343_CHAN_IDX_F2	4
-> +#define AS7343_CHAN_IDX_F3	5
-> +#define AS7343_CHAN_IDX_F4	6
-> +#define AS7343_CHAN_IDX_F6	7
-> +#define AS7343_CHAN_IDX_F1	8
-> +#define AS7343_CHAN_IDX_F7	9
-> +#define AS7343_CHAN_IDX_F8	10
-> +#define AS7343_CHAN_IDX_F5	11
-> +
-> +#define AS7343_CHAN(_chan)					\
-> +	{							\
-> +		.type = IIO_INTENSITY,				\
-> +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),	\
-> +		.address = AS7343_DATA_##_chan,			\
-> +		.indexed = 1,					\
-> +		.channel = AS7343_CHAN_IDX_##_chan,		\
-> +	}
-> +
-> +static const struct iio_chan_spec as7343_channels[] = {
-> +	AS7343_CHAN(FZ), AS7343_CHAN(FY), AS7343_CHAN(FXL), AS7343_CHAN(NIR),
-> +	AS7343_CHAN(F2), AS7343_CHAN(F3), AS7343_CHAN(F4),  AS7343_CHAN(F6),
-> +	AS7343_CHAN(F1), AS7343_CHAN(F7), AS7343_CHAN(F8),  AS7343_CHAN(F5),
-> +};
-> +
-> +struct as7343_data {
-> +	struct regmap *regmap;
-> +	/* Ensures reads don't stomp on each other */
-> +	struct mutex mutex;
-> +};
-> +
-> +static int as7343_read_raw(struct iio_dev *indio_dev,
-> +			   struct iio_chan_spec const *chan,
-> +			   int *val, int *val2, long mask)
-> +{
-> +	struct as7343_data *data = iio_priv(indio_dev);
-> +	unsigned int unused;
-> +	struct regmap *map;
-	struct regmap *map = data->regmap;
-	struct device *dev = regmap_get_device(map);
-
-Neither is checked so no point in waiting until a few lines
-later to initialize them.
-
-> +	struct device *dev;
-> +	__le16 result;
-> +	int ret;
-> +
-> +	map = data->regmap;
-> +	dev = regmap_get_device(map);
-> +
-> +	PM_RUNTIME_ACQUIRE_IF_ENABLED(dev, pm);
-
-Why _IF_ENABLED() variant?  This has come up in several drivers
-recently and it makes little sense when used like this. You do this
-when you care whether or not runtime pm is enabled.  We don't. Either
-device is on already, or runtime pm is enabled and we can turn it on.
-
-> +	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
-> +	if (ret)
-> +		return ret;
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_RAW: {
-> +		/* Wait until integration time passes for all 3 cycles. */
-> +		msleep(160);
-> +
-> +		/*
-> +		 * Reading ASTATUS latches all data registers to this read.
-> +		 * We don't care about the returned saturation/gain status for
-> +		 * now.
-
-Why do we care given only reading one channel and...
-
-> +		 */
-> +		guard(mutex)(&data->mutex);
-> +		ret = regmap_read(map, AS7343_ASTATUS, &unused);
-> +		if (ret)
-> +			return ret;
-> +
-> +		ret = regmap_bulk_read(map, chan->address,
-.. it seems that if you read the low byte first (as this does) it is latched anyway.
-There is a statement about this in the i2c intro part section 9.
-
-so we get a consistent register pair.  Thus not needing the latch astatus
-gives us.
-With that in place reads can't stomp on each other as only
-one regmap read is required, so the mutex isn't needed either.
-It may be necessary once you add more features - hard to tell yet.
-
-> +				       &result, sizeof(result));
-> +		if (ret)
-> +			return ret;
-> +
-> +		*val = le16_to_cpu(result);
-> +		return IIO_VAL_INT;
-> +	}
-> +
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-> +
-> +/*
-> + * Channel names and wavelength ranges as defined in the datasheet
-> + * (Figure 7, "AS7343 Optical Channel Summary"). Values are the
-> + * minimum and maximum peak wavelength in nanometers.
-> + *
-> + * F1:  395-415 nm
-> + * F2:  415-435 nm
-> + * FZ:  440-460 nm
-> + * F3:  465-485 nm
-> + * F4:  505-525 nm
-> + * FY:  545-565 nm
-> + * F5:  540-560 nm
-> + * FXL: 590-610 nm
-> + * F6:  630-650 nm
-> + * F7:  680-700 nm
-> + * F8:  735-755 nm
-> + * NIR: 845-865 nm
-> + */
-> +static const char * const as7343_channel_labels[] = {
-> +	[AS7343_CHAN_IDX_F1] = "F1",
-> +	[AS7343_CHAN_IDX_F2] = "F2",
-> +	[AS7343_CHAN_IDX_FZ] = "FZ",
-> +	[AS7343_CHAN_IDX_F3] = "F3",
-> +	[AS7343_CHAN_IDX_F4] = "F4",
-> +	[AS7343_CHAN_IDX_FY] = "FY",
-> +	[AS7343_CHAN_IDX_F5] = "F5",
-> +	[AS7343_CHAN_IDX_FXL] = "FXL",
-> +	[AS7343_CHAN_IDX_F6] = "F6",
-> +	[AS7343_CHAN_IDX_F7] = "F7",
-> +	[AS7343_CHAN_IDX_F8] = "F8",
-> +	[AS7343_CHAN_IDX_NIR] = "NIR",
-
-I wonder if these could be more useful to a user?  Or are these things standard
-in some sense?  Maybe we could put the frequency range in the label given they
-are free form 'hints' to userspace.
-"F1: 395-415 nm" might be fine?  I'm curious what others think of this suggestion.
-
-> +};
-> +
-> +static int as7343_read_label(struct iio_dev *indio_dev,
-> +			     struct iio_chan_spec const *chan, char *label)
-> +{
-> +	int channel = chan->channel;
-
-What stops this being negative?  I'm wondering now why channel in iio_chan_spec
-is signed (maybe a decision lost to the mists of time), but it is so you
-need to check for < 0 as well.
-
-> +
-> +	if (channel >= ARRAY_SIZE(as7343_channel_labels))
-> +		return -EINVAL;
-> +
-> +	return sysfs_emit(label, "%s\n", as7343_channel_labels[channel]);
-> +}
-
-> +
-> +static int as7343_setup_device(struct device *dev, struct as7343_data *data)
-> +{
-> +	struct regmap *map = data->regmap;
-> +	unsigned int val;
-> +	__le16 step;
-> +	int ret;
-> +
-> +	/* Power on */
-> +	ret = regmap_set_bits(map, AS7343_ENABLE, AS7343_ENABLE_PON);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Need to set REG_BANK to 1 before we can access ID */
-> +	ret = regmap_set_bits(map, AS7343_CFG0, AS7343_CFG0_REG_BANK);
-
-For the bank I'd not use set_bits / clear_bits because the 0 / 1 nature
-of the bank being selected is lost.  Sure it ends up as the same
-resule but I would like that FIELD_SET(AS7343_CFG0_REG_BANK, 1) visible.
-
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_read(map, AS7343_ID, &val);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (val != 0x81)
-> +		dev_info(dev, "Unknown device ID: %x\n", val);
-> +
-> +	ret = regmap_clear_bits(map, AS7343_CFG0, AS7343_CFG0_REG_BANK);
-
-As above.  We are setting a field to 0 or 1 not clearing or setting
-a flag.  It's a bit odd to call them register banks though given there
-are no overlapping addresses.
-
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Configure the SMUX to readout all channels */
-> +	ret = regmap_update_bits(map, AS7343_CFG20, AS7343_CFG20_AUTO_SMUX,
-> +				 FIELD_PREP(AS7343_CFG20_AUTO_SMUX,
-> +					    AS7343_CFG20_AUTO_SMUX_READOUT_ALL));
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Set 50.1ms integration time and x256 gain for now */
-> +	step = cpu_to_le16(AS7343_ASTEP_VAL);
-
-As below, what does this mean?  Some sort of macro or function
-to associate that with the step size  AS7343_ASTEP_X270ns(0xd5) or
-something like that. Given datasheet uses decimal for the actual definition
-if not the demo value, use decimal here.
-
-> +	ret = regmap_bulk_write(map, AS7343_ASTEP, &step, sizeof(step));
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_write(map, AS7343_ATIME, AS7343_ATIME_VAL);
-What does ATIME_VAL indicate?  Name it after what it represents
-or better yet use a macro AS7343_ATIME_STEPS(30)
-
-> +	if (ret)
-> +		return ret;
-> +
-> +	return regmap_update_bits(map, AS7343_CFG1, AS7343_CFG1_AGAIN,
-> +				  FIELD_PREP(AS7343_CFG1_AGAIN,
-> +					     AS7343_CFG1_AGAIN_X256));
-> +}
-
-> +
-> +static void as7343_suspend_action(void *data)
-> +{
-> +	struct device *dev = data;
-> +
-> +	as7343_suspend(dev);
-
-static void as7343_suspend_action(void *dev)
-{
-	as7343_suspend(dev);
-}
-
-is fine for this sort of thing. dev is standard naming for a struct
-device so the local variable isn't adding anyting.
-
-> +}
-> +
-> +static int as7343_probe(struct i2c_client *client)
-> +{
-
-..
-
-> +	ret = as7343_setup_device(dev, data);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = devm_add_action_or_reset(dev, as7343_suspend_action, dev);
-
-Why here? You only start sensing sometime later.
-
-> +	if (ret)
-> +		return dev_err_probe(dev, ret,
-> +				     "Failed to add suspend action\n");
-> +
-> +	ret = pm_runtime_set_active(dev);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret,
-> +				     "Failed to activate PM runtime\n");
-> +
-> +	ret = devm_pm_runtime_enable(dev);
-
-Why is devm_pm_runtime_enable_set_active() not appropriate here?
-(Note I'm not saying it is, but it seems worth considering).
-
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to enable PM runtime\n");
-> +
-> +	/* Start measurements */
-> +	ret = regmap_set_bits(regmap, AS7343_ENABLE, AS7343_ENABLE_SP_EN);
-
-Logically I would do this before 'set_active' is called as this is
-what puts the device in active state.
-
-> +	if (ret)
-> +		return ret;
-> +
-> +	return devm_iio_device_register(dev, indio_dev);
-> +}
+RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000206 R12: 0000000000000000
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+ </TASK>
+------------[ cut here ]------------
+!orig_ifinfo
+WARNING: net/batman-adv/bat_iv_ogm.c:1413 at batadv_iv_ogm_update_seqnos net/batman-adv/bat_iv_ogm.c:1413 [inline], CPU#1: syz.1.17/5794
+WARNING: net/batman-adv/bat_iv_ogm.c:1413 at batadv_iv_ogm_process_per_outif+0x1fe4/0x25c0 net/batman-adv/bat_iv_ogm.c:1550, CPU#1: syz.1.17/5794
+Modules linked in:
+CPU: 1 UID: 0 PID: 5794 Comm: syz.1.17 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+RIP: 0010:batadv_iv_ogm_update_seqnos net/batman-adv/bat_iv_ogm.c:1413 [inline]
+RIP: 0010:batadv_iv_ogm_process_per_outif+0x1fe4/0x25c0 net/batman-adv/bat_iv_ogm.c:1550
+Code: ff ff e8 af ad 1c f6 49 bc 00 00 00 00 00 fc ff df e9 80 f4 ff ff e8 9b ad 1c f6 90 0f 0b 90 e9 47 e1 ff ff e8 8d ad 1c f6 90 <0f> 0b 90 48 8b bc 24 80 00 00 00 e8 6c df ff ff 48 c7 44 24 50 00
+RSP: 0018:ffffc900030e7280 EFLAGS: 00010293
+RAX: ffffffff8bab1d03 RBX: ffff888078df0a00 RCX: ffff88802efc3e80
+RDX: 0000000000000000 RSI: ffffffff8e475f59 RDI: ffffffff8c6d9a80
+RBP: ffffc900030e7410 R08: ffffffff907a2b7f R09: 1ffffffff20f456f
+R10: dffffc0000000000 R11: fffffbfff20f4570 R12: dffffc0000000000
+R13: 0000000002020000 R14: ffff88802bce4000 R15: ffff888078df0a00
+FS:  0000000000000000(0000) GS:ffff888124dd2000(0063) knlGS:000000005807c480
+CS:  0010 DS: 002b ES: 002b CR0: 0000000080050033
+CR2: 00000000f7153200 CR3: 000000007a636000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ batadv_iv_ogm_process net/batman-adv/bat_iv_ogm.c:1866 [inline]
+ batadv_iv_ogm_receive+0xc13/0x1740 net/batman-adv/bat_iv_ogm.c:1974
+ batadv_batman_skb_recv+0x4b6/0x870 net/batman-adv/main.c:529
+ __netif_receive_skb_one_core net/core/dev.c:6264 [inline]
+ __netif_receive_skb net/core/dev.c:6377 [inline]
+ netif_receive_skb_internal net/core/dev.c:6463 [inline]
+ netif_receive_skb+0x4af/0xbf0 net/core/dev.c:6522
+ tun_rx_batched+0x1de/0x790 drivers/net/tun.c:1571
+ tun_get_user+0x2be0/0x44d0 drivers/net/tun.c:2045
+ tun_chr_write_iter+0x113/0x200 drivers/net/tun.c:2091
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x612/0xba0 fs/read_write.c:687
+ ksys_write+0x150/0x270 fs/read_write.c:739
+ do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
+ __do_fast_syscall_32+0x27a/0x6a0 arch/x86/entry/syscall_32.c:291
+ do_fast_syscall_32+0x33/0x70 arch/x86/entry/syscall_32.c:316
+ entry_SYSENTER_compat_after_hwframe+0x84/0x8e
+RIP: 0023:0xf7f480ec
+Code: 90 85 d2 74 0a 89 ce 81 e6 ff 0f 00 00 89 32 85 c0 74 05 c1 e9 0c 89 08 31 c0 5e 5d c3 90 0f 1f 00 51 52 55 89 e5 0f 34 cd 80 <5d> 5a 59 c3 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 58 b8
+RSP: 002b:00000000f752fa5c EFLAGS: 00000206 ORIG_RAX: 0000000000000004
+RAX: ffffffffffffffda RBX: 0000000000000003 RCX: 0000000080000800
+RDX: 0000000000000026 RSI: 0000000000000000 RDI: 0000000000000000
+RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000206 R12: 0000000000000000
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+ </TASK>
+----------------
+Code disassembly (best guess):
+   0:	90                   	nop
+   1:	85 d2                	test   %edx,%edx
+   3:	74 0a                	je     0xf
+   5:	89 ce                	mov    %ecx,%esi
+   7:	81 e6 ff 0f 00 00    	and    $0xfff,%esi
+   d:	89 32                	mov    %esi,(%rdx)
+   f:	85 c0                	test   %eax,%eax
+  11:	74 05                	je     0x18
+  13:	c1 e9 0c             	shr    $0xc,%ecx
+  16:	89 08                	mov    %ecx,(%rax)
+  18:	31 c0                	xor    %eax,%eax
+  1a:	5e                   	pop    %rsi
+  1b:	5d                   	pop    %rbp
+  1c:	c3                   	ret
+  1d:	90                   	nop
+  1e:	0f 1f 00             	nopl   (%rax)
+  21:	51                   	push   %rcx
+  22:	52                   	push   %rdx
+  23:	55                   	push   %rbp
+  24:	89 e5                	mov    %esp,%ebp
+  26:	0f 34                	sysenter
+  28:	cd 80                	int    $0x80
+* 2a:	5d                   	pop    %rbp <-- trapping instruction
+  2b:	5a                   	pop    %rdx
+  2c:	59                   	pop    %rcx
+  2d:	c3                   	ret
+  2e:	90                   	nop
+  2f:	90                   	nop
+  30:	90                   	nop
+  31:	90                   	nop
+  32:	90                   	nop
+  33:	90                   	nop
+  34:	90                   	nop
+  35:	90                   	nop
+  36:	90                   	nop
+  37:	90                   	nop
+  38:	90                   	nop
+  39:	90                   	nop
+  3a:	90                   	nop
+  3b:	90                   	nop
+  3c:	90                   	nop
+  3d:	90                   	nop
+  3e:	58                   	pop    %rax
+  3f:	b8                   	.byte 0xb8
 
 
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
