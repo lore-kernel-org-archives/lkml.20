@@ -1,292 +1,165 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E27F7233944;
-	Sun, 13 Sep 2026 02:21:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E69523769EB;
+	Sun, 13 Sep 2026 02:35:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789266090; cv=none; b=s8iHXkAyVKNdbkbGutylnLaLQNdqtUfoDBXLopW1qgf0AuCPC4cI1LXSHsCm5pKzaxrr3V7vmDwjixmnWIkobLrUS6w4lC9uIgNNgdwSYM7726RBPNVdbo04DgwWFz0mNZpxdyobK2t2x2EwMWZAQVbUisNiIJGHIk4NeJMj5Sg=
+	t=1789266909; cv=none; b=IRMNRRUSM8NIFr2oXMNf292cEhEHuWCW8mQkVxD0kuVWIeUagxVaEqyGgMXzpqpfNA2sSPwwG6U/H+3tnhj4K2d/pxosm6DflfPGfVxJWG3fI5kwQIPBcUU9XkPy1NqBcpL/05uRJ7YIZvlQ/U+87no+GN5CSrgRk4dA/gnUddc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789266090; c=relaxed/simple;
-	bh=EDCQ6TRxWWLVY6KzBg/QxrPJsB7OcvQmxaIXpgPtK+I=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=uX22RtIm/YyUSDcnuk3ECukxkmVvCYS0KXQg80Kc/5E7uPrbGfTXDKqsw0aBe2I6vG1K6Phw9BGwYwKsJMvZVRG6hcKc275C50dOKk6jdCif+GsE+UyQxVf6r6doJybVEZfXEDQGGA3snOo/qxYSFedHDcfeisc586DWI0HrHig=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iUd7OCQV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789266909; c=relaxed/simple;
+	bh=O1aM3BWkaiUhfXkHZPWe6tF0aakG1I8ZC7KgPsZwzPI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dnDMXNgYI7T1O/2iO9Q230WBSFB0oCQ5nQMP5TFONgubx5ZNT95SGEE2wk0l80rdMndJGrcocXm5t/Ig1+uS4XQDv93xaqaMWQwheZBNmxEkiwbGF6ZPTGauwp+r3xxCqMu/w+2RF5D0ATaIAujEHb4z4y5yTOYIfwSbD47uAj8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QQuSfeMn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iUd7OCQV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F159F1F000FF;
-	Sun, 13 Sep 2026 02:21:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QQuSfeMn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73AFB1F000FF;
+	Sun, 13 Sep 2026 02:35:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789266088;
-	bh=3RLEF3QrfNkDe4grxNTz/2ZEnivcqDKZSfyDCO+N2us=;
-	h=Date:From:To:Cc:Subject;
-	b=iUd7OCQVAY4mZ2XdHvO4Z4sJFhnT1iD/J2E5Jb6D+v8PpFCpj0jTrjC4S+HYX/pvb
-	 X0FwqN/m2tuit0Q3oCxgUmPdRBXVzB7obfSpPCnv8KS/Y0z+dXSwvKC9eBbj+rOVyg
-	 0bjyS0BlgTK0d2ayNCzFT2zljYWVbj++T7SfOGJDqMpG0gMjOeWdV9tPf5bIWqhGan
-	 V7LZGrB2cnIxHBhS0xwQZpJMgvQFRvJDVBnSAlbmz3Sw1QyXNzTWQsBPKIbhwCLm9n
-	 jskz1iT3sO22/6fByIbejGsI+bfvzXMBF9McxPM0u3wIAu5moGJpJ8QdF+SkWdVFwE
-	 VhQbyrr+ve+hw==
-Date: Sat, 12 Sep 2026 23:21:25 -0300
+	s=k20260515; t=1789266906;
+	bh=mPp/Bd35ZfLs8HKviYnCI5F9AuJWDKjg8s8Wu1BeuvQ=;
+	h=From:To:Cc:Subject:Date;
+	b=QQuSfeMntu4D5hAoIGjZ/4XMZabRIzKEr4CzbAdMZTz5CtYnNwdyCiiftwsHSUFdm
+	 DqQ7LO6MyACAM+DCJrVK3W3MNWds3kTQhRBZL9ncUyAVSQySUd/m8c8+di/2OBv2YT
+	 di+CQuhBcnLDfqhWWeolZH//JuWad66VszGeC48f8c+/4cdvBG9pKJfTGEwynMRSBp
+	 mf8VttWlI92xvoS5CSyc+9UrrQlDgs5DT9HniYTP3b1Xv4awG3+Nz4DJrTEkfxXFzb
+	 hOE/JhGY9DWRX/GN20GfuwrBnM2nBXJdIdesWsxDDa31HK0HgBMCccLNhEEr6cprEj
+	 uRyMCvNn7Yvwg==
 From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: dwarves@vger.kernel.org
-Cc: Alan Maguire <alan.maguire@oracle.com>,
-	Ihor Solodrai <ihor.solodrai@pm.me>,
-	Eduard Zingerman <eddyz87@gmail.com>, Jiri Olsa <jolsa@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Alexis =?iso-8859-1?Q?Lothor=E9?= <alexis.lothore@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Jan Alexander Steffens <heftig@archlinux.org>,
-	Domenico Andreoli <cavok@debian.org>,
-	Matthias Schwarzott <zzam@gentoo.org>,
-	Dominique Leuenberger <dimstar@opensuse.org>,
-	Dominique Martinet <asmadeus@codewreck.org>,
-	linux-kernel@vger.kernel.org, bpf@vger.kernel.org
-Subject: ANNOUNCE: pahole v1.32 (DWZ alt files, lots of new regression tests,
- BTF signatures, coverage analysis)
-Message-ID: <aqYIpbH800bWBnH3@x2>
+To: Namhyung Kim <namhyung@kernel.org>
+Cc: Ingo Molnar <mingo@kernel.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	James Clark <james.clark@linaro.org>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Clark Williams <williams@redhat.com>,
+	linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	Arnaldo Carvalho de Melo <acme@kernel.org>
+Subject: [PATCH v1 0/8] perf tools: Annotate fixes, stdio progress indication, debuginfo-client in more places
+Date: Sat, 12 Sep 2026 23:34:51 -0300
+Message-ID: <20260913023459.112654-1-acme@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
 Hi,
 
-	The v1.32 release of pahole is out, with a lot of new regression
-tests, support for dwz alt files, which makes pahole finally support
-most if not all userspace DWARF files, signature improvements in the BTF
-encoder, support to LLVM based coverage analysis, and several scripts
-to help develop and test these utilities.
+This came out of work on data type profiling, but none of them depends on that
+work and nothing in this series needs anything from it, so sending them
+separately.
 
-Main git repo:
+The fixes:
 
-   https://git.kernel.org/pub/scm/devel/pahole/pahole.git
+  - 'perf report -s type' spins forever, burning all of a CPU with no
+    output, on the dwz compressed debug info of zlib-ng (libz.so.1):
+    die_collect_vars() saves the dwarf_dieoffset() of the type DIE,
+    which is relative to the file that DIE lives in, the dwz common
+    file for the types shared by more than one CU, and resolving one of
+    those offsets in the main debug file does not fail, it parses
+    whatever is at that offset there, in this case a typedef whose
+    DW_AT_type refers to itself, which is what makes the "follow the
+    typedefs and qualifiers until a pointer or an array type" loop in
+    die_get_pointer_type() spin.  The offset is now resolved in the file
+    it was recorded as coming from, which the CU of the collected DIE
+    tells exactly rather than having to be inferred from what is at the
+    offset, and the type chases and the struct/union member nesting are
+    bounded, so a debug info file broken in some other way makes perf
+    give up on a type with a pr_debug instead of looking like it hung
+    (patch 7);
 
-Mirror git repo:
+  - the data type browser prints, in its samples view (-n,
+    annotate.show_nr_samples), a local variable initialized to zero and
+    never updated, so every member shows up as having no samples while
+    the period and percent columns for the same entry are filled in
+    (patch 4);
 
-   https://github.com/acmel/dwarves.git
+  - the 'perf data type profiling' shell test turns "this PMU cannot
+    record these events" into a test failure: the script runs under
+    'set -e', so the bare 'perf mem record' aborts it through the EXIT
+    trap, which reports a signal that never happened, instead of
+    reaching the code right below meant to report the failure (patch 1).
 
-tarball + gpg signature:
+The features:
 
-   https://fedorapeople.org/~acme/dwarves/dwarves-1.32.tar.xz
-   https://fedorapeople.org/~acme/dwarves/dwarves-1.32.tar.bz2
-   https://fedorapeople.org/~acme/dwarves/dwarves-1.32.tar.sign
+  - 'perf report --progress' prints the phase it is in and how far
+    along it is to stderr: the TUI shows that with a progress bar, but
+    in the stdio case the ui_progress updates that are already there are
+    dropped on the floor.  It is what makes a slow run tell itself apart
+    from a stuck one (patch 5);
 
-	Thanks a lot to all the contributors and distro packagers,
-you're on the CC list, we appreciate a lot the work you put into these
-tools,
+  - the debuginfo for a DSO, and the kernel symbols, can now be fetched
+    keyed by the build ID recorded in the perf.data file, using the
+    debuginfod client, for the cases where they are not available
+    locally under the name the DSO was opened with: a vmlinux for a
+    kernel that since got upgraded, or a profile recorded on another
+    machine.  Both are off with --no-debuginfod, with
+    core.debuginfod=false, and when the build-id cache is turned off
+    (patches 2 and 3);
 
-Best Regards,
+  - 'perf mem record' asks for PERF_SAMPLE_CPU by default, as without
+    it the cpu field is the (u32)-1 "no CPU info" sentinel and
+    per-sample analysis cannot tell accesses from different cores apart
+    from same-CPU traffic (patch 8).
 
-- Arnaldo & Alan
+Which file a saved type DIE offset belongs to is settled with
+dwarf_cu_getdwarf(), new in elfutils 0.160, so the libdw feature test
+now probes for it and the message in Makefile.config says 0.160 where it
+said 0.157: 0.157 to 0.159 is from 2014 and has no such symbol, and
+those versions now lose dwarf support with that message instead of
+failing to link util/dwarf-aux.c.
 
-DWARF loader:
+Best regards,
 
-- Support DW_FORM_GNU_ref_alt references to dwz alternate debug files
-- Add cu parameter to tag__set_spec() and dwarf_tag__set_attr_type()
-- Fix cus__merging_cu failing to detect DW_FORM_ref_addr
-- Support DW_TAG_imported_unit for same-file partial units
-- Allow forcing the merge of CUs for solving inter CU tag references
-- Initial support for DW_TAG_subprogram in DW_TAG_enumeration
-- Initial support for DW_TAG_variant_part
-- Replace stale FIXME/XXX comments with explanations
-- Fix data race in tag__init() decl_file string cache
-- Skip libdw__lock when elfutils is built thread-safe
-- Fix --fixup_silly_bitfields condition check
-- Fix annotation failure leaks in variable and typedef creation
-- Allocate type_dcu via dwarf_cu__new to fix dangling stack pointer
-- Analyze per-parameter information for true signatures
-- Collect per-parameter information
-- Detect aggregate ABI register usage and signature changes
-- Add support for DW_TAG_GNU_annotation
-- Extract die__add_btf_type_tag() helper [NFC]
-- Detect reordered parameters
-- Handle DW_AT_location attrs containing DW_OP_plus_uconst
+- Arnaldo
 
-BTF loader:
+Arnaldo Carvalho de Melo (8):
+  perf test: Skip data_type_profiling when the PMU cannot record memory
+    events
+  perf debuginfo: Fetch debuginfo keyed by build ID using debuginfod
+  perf symbol: Fall back to fetching the vmlinux by build ID
+  perf annotate-data: Show the sample count in the data-type browser
+  perf report: Add --progress option
+  perf scripts: Add perf-stuck, to tell where a running perf is stuck
+  perf annotate-data: Resolve type DIEs in the debug file they came from
+  perf mem record: Request PERF_SAMPLE_CPU by default
 
-- Fix multi-dimensional array loading
-- Handle decl tag component_idx for parameters
-- Fix warnings due to type permutation
+ tools/build/feature/test-libdw.c              |  15 +-
+ tools/perf/Documentation/perf-annotate.txt    |  10 +
+ tools/perf/Documentation/perf-config.txt      |  19 +
+ tools/perf/Documentation/perf-mem.txt         |   4 +
+ tools/perf/Documentation/perf-report.txt      |  28 ++
+ tools/perf/Documentation/perf-top.txt         |  14 +
+ tools/perf/Makefile.config                    |   2 +-
+ tools/perf/builtin-annotate.c                 |   2 +
+ tools/perf/builtin-mem.c                      |   9 +
+ tools/perf/builtin-report.c                   |  17 +
+ tools/perf/builtin-top.c                      |   6 +
+ tools/perf/scripts/perf-stuck.gdb             | 104 +++++
+ tools/perf/scripts/perf-stuck.sh              | 165 ++++++++
+ tools/perf/tests/shell/data_type_profiling.sh |  46 ++-
+ tools/perf/ui/Build                           |   1 +
+ tools/perf/ui/browsers/annotate-data.c        |   2 +-
+ tools/perf/ui/progress.h                      |   2 +
+ tools/perf/ui/stdio/progress.c                | 162 ++++++++
+ tools/perf/util/annotate-data.c               |  55 ++-
+ tools/perf/util/annotate-data.h               |   3 +
+ tools/perf/util/config.c                      |   3 +
+ tools/perf/util/debuginfo.c                   | 372 ++++++++++++++++++
+ tools/perf/util/debuginfo.h                   |  36 ++
+ tools/perf/util/dso.c                         |  19 +
+ tools/perf/util/dwarf-aux.c                   | 161 +++++++-
+ tools/perf/util/dwarf-aux.h                   |  33 ++
+ tools/perf/util/ordered-events.c              |  17 +-
+ tools/perf/util/session.c                     |  12 +-
+ tools/perf/util/symbol.c                      |  40 +-
+ tools/perf/util/symbol_conf.h                 |   1 +
+ 30 files changed, 1307 insertions(+), 53 deletions(-)
 
-BTF encoder:
-
-- Fix multi-dimensional array encoding
-- Fall back to objcopy when llvm-objcopy is not available
-- Add elf_strptr NULL checks and fix kfunc bounds
-- Fix early cleanup crashes in btf_encoder__new/delete
-- Use btf_encoder__tag_type() for all type ID computations
-- Fix interior pointer free and missing NULL check
-- Ensure the first same-name function has a non-zero address
-- Add O_TRUNC to btf_encoder__write_raw_file()
-- Only skip optimized parms when ABI changed
-- Emit true function signatures
-- Prefer strong function definitions for BTF generation
-- Add true_signature feature support for "."-suffixed functions
-- Fix a verbose output issue
-- Factor out BPF kfunc emission
-- Refactor btf_encoder__add_func_proto
-- Remove encoder pointer from btf_encoder_func_state
-
-pahole:
-
-- Fix -C -T segfault
-- Fix option name in the -m/-C error message
-- Apply the struct-only filters to unions
-- Don't match unions with --with_flexible_array
-- Fix --unions --packable segfault
-- Guard pipe_seek() against negative offsets
-- Use fseek for seekable files in --prettify and --seek_bytes
-- Skip inline expansions during BTF encoding
-- Fix parse_btf_features("all") being a silent no-op
-- Fix --errno typo that decrements instead of negating
-- Fix instance memory leak on early returns in
-  prototype__stdio_fprintf_value
-- Fix BTF function parameter type match check
-- Add "layout" BTF encoding feature
-- Fix discarded-qualifiers for strchr/strstr.
-- Refactor selftests
-
-Regression tests:
-
-- Add pfunct split BTF test to btf_split
-- Verify the downloaded perf tarball checksum before extracting
-- Use a portable high-resolution timestamp
-- Build the test_bin fixture in the per-test tmpdir
-- Use POSIX [ instead of [[ in test_lib.sh
-- btf_type_tag_order.sh: Use gawk for capture-group match()
-- Fix coverage build by respecting build-coverage/ in PATH
-- Add automatic perf building for cross-distro compatibility
-- Check minimum perf metadata records instead of exact counts
-- Fix perf tests for container environments
-- Force DWARF 5 in atomic_types test for _Atomic support
-- Skip tests gracefully on old bpftool versions
-- Skip instead of fail when old toolchains lack feature support
-- Fix gcc_true_signatures.sh compiler detection and awk syntax
-- Add prototype expression parsing and prettify test
-- Add codiff_multi_cu.sh to cover __cus__find_cu_by_name
-- Add BTF vmlinux encoding test
-- Add typedef chain display test
-- Add _Atomic type compile emission test
-- Add pahole scattered option paths coverage test
-- Add pahole --header_type, --range and --seek_bytes prettify test
-- Add codiff member type change and function prototype diff test
-- Add dwarf_loader.c bitfield recode and inlining edge case test
-- Add dwarves.c core API coverage test
-- Add prefcnt type reference counting coverage test
-- Add elf_symtab, gobuffer, dutil and pglobal coverage test
-- Add dwarves_emit and dwarves_reorganize coverage test
-- Add bitfield, cross-boundary and mixed member type test
-- Add BTF encoder coverage test for vars, floats and multi-CU
-- Add codiff terse, verbose and multi-CU diff test
-- Add pfunct CLI option coverage
-- Add pglobal variable and function listing test
-- Add multi-file loading test
-- Add 5 btf_encoder.c targeted coverage tests
-- Add medium-effort coverage tests for 5 uncovered code paths
-- Add CLI display, BTF encoding options and auxiliary tools tests
-- Add enumerator search test, in 2 csets
-- Add type containment and pointer search test, in 2 csets
-- Add coverage-diff.sh workflow and coverage_table.py reporter
-- Add LLVM source-based code coverage support
-- Add split BTF encoding test (vmlinux base + kernel module)
-- Add BTF_KIND_FWD encoding and loading round-trip test
-- Add BTF bitfield encoding/loading round-trip test
-- Add BTF FLOAT and ENUM64 type encoding tests
-- Add BTF VAR and DATASEC encoding test
-- Add expand_pointers, pfunct_stats and class_list_file tests
-- Add BTF arena type tag encoding test
-- Add pdwtags DWARF tag display test
-- Add codiff struct comparison test
-- Add bitfield layout and data member filtering test
-- Add sort output and separator test
-- Add display format options test
-- Add class name filtering test
-- Add compilable output and type filtering test
-- Add type expansion and anonymous struct test
-- Add sizes and holes display test
-- Fix mktemp suffix portability for Alpine Linux
-- Add emit_atomic.sh test and fix pfunct-btf-decl-tags.sh quoting
-- Reduce reproducible_build thread count iterations
-- Add --dump-artifacts to capture DWARF/BTF from binaries
-- Add --jobs/-j option to limit parallel test execution
-- Show referenced log file contents in verbose mode
-- Add --verbose/-v option for better failure diagnosis
-- Add PERF_BIN support and preserve build logs on failure
-- Add test number filtering and waiting status line
-- Add dynamic test timing and reordering to avoid slow tests blocking
-  results
-- Add --vmlinux option to specify vmlinux file for tests
-- Run test scripts in parallel
-- Fix test_lib.sh and test scripts to run from any directory
-- Guard cleanup() against empty outdir to prevent rm /*
-- Add BTF_FUNCTIONS_QUICK mode for fast CI iteration
-- Skip and find vmlinux tests when the running kernel vmlinux is not
-  available
-- Add inter-CU type reference comparison test
-- Add GCC default-BTF optimized parameter coverage
-- Add BTF true_signature encoding tests
-- Add btf_type_tag ordering test
-- Support GCC in pfunct-btf-decl-tags test
-- add gcc true signature test
-
-Build:
-
-- Automate the steps needed to release a new version
-- Add build-check-series.sh for bisectability verification
-- Add tarball targets similar to kernel's perf-tar-src-pkg
-- Add git SHA tracking via --devel_version option
-- Add test, coverage and list-targets make targets
-- Warn loudly when coverage instrumentation is enabled
-- Add vmlinux_comparison.py for DWARF/BTF analysis
-- Update minimum required version from 3.5 to 3.10
-
-Library:
-
-- Remove 11 dead functions found via coverage analysis, in 2 csets
-- Add exec_objcopy() shell-injection-safe helper
-- Fix variable shadowing in __cus__find_struct_by_name()
-- Fix heap buffer overflow in languages__parse realloc
-- Don't search for holes before member byte sizes are cached
-- Fix missing list head initialization in type__clone_members
-- libbpf sync with 1.8
-- Fix NULL dereference in remove_dyn()
-
-Man pages:
-
-- Improve language and formatting
-- Fix incorrect command line argument in documentation
-- describe layout BTF feature
-- document true_signature btf_feature
-
-CI:
-
-- Update LLVM version to 22
-- Add clang+aarch64 to matrix
-- build/install bpftool from kernel tree
-- Support building kernel with LLVM
-
-pfunct:
-
-- Add man page
-- Add support for split BTF
-- Mark file-local functions as static
-
-Other:
-
-- build-and-test-cmd.sh: Move build-dir detection to test_lib.sh, fix
-  container PATH
-- build-and-test-cmd.sh: Add CI build+test script
-- Fix -Wsign-compare warnings across the codebase
-
-btfdiff:
-
-- Remove leftover comment about --flat_arrays usage
-- Remove --flat_arrays now that pahole encodes multi dim arrays in BTF
-
-CTF loader:
-
-- Fix error path resource leaks
+base-commit: aa18964dd64511305de0711fed912054da6f5d18
