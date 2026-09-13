@@ -1,166 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6949232395;
-	Sun, 13 Sep 2026 09:31:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE95B214813
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 09:31:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789291885; cv=none; b=MlfJrmAvEdJ4RdOY5Wg/a7VugLzRxA+BjUJAK2lQwXdFqa3TOb5cEFw8W9cietikfOPyE9v65swHVtsH3iNqo2OPfGdBBbLbnQO1tYpUMNuGAqN72HFwhWLxW26zqA6JTVwm0yVwWfBGrQTf0tzA05fnwqiRsRM2YuE9btlTg9g=
+	t=1789291893; cv=none; b=SrOXRhzxm7kved6yN9skaPquwvPWF5mejaRTNy1Tnbi4HNUB9CmimxtabM2kfMwsseGqELAwJ69rpIMDWs601YB6ONtZcSz57EQT3GmH2L6n425i8EyeOn4SJf8M1HL2LOOkCmUsOGJ8TqXHRcY9rbUXjEe8qyiBo1U/P2KnezY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789291885; c=relaxed/simple;
-	bh=og6+0nJwNmpP492I8odpqMFLOss5JEcXC+lEAzM7McE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qw/+jC2sTefm8r5TJ/iVqJZ3Cxh7S+R9gM9yujZe98iwyq+kKbywRcy2rGR7O3Kji4WbJCxzsEHGa8FKujcXxWdtdOAPlOQ1+VZfGs+qLicQQrPo+JdzF3thkOfJ2ujjcyUlm2XUa4yQ+AItebFiVzDKWuG1poitaviavxQ6LBo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f18M25m1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789291893; c=relaxed/simple;
+	bh=xB5jj8VPvBnGrXDhKdmlbyncIiPk1DJUxDep5ugNJCo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=FnzddWOoZD+jbIEb1WD6jKLqzWn4xSe/CYruNiClSfiAPz3fxANnw48KFPkY2nqHKWhDE9tjqLBYYdG2MmgWkuKXB+ikYv3rWIjX9hCSxC6Gfw2r5WU/CM25wt+fpARyy+gXH3ozcZXIFTWxHKtolxzBDu2LJfyNHoiYe4NQfIE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bcLcZ5a8; arc=none smtp.client-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f18M25m1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96CA31F000FF;
-	Sun, 13 Sep 2026 09:31:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789291884;
-	bh=NoI29qaUrBCrJ0UkngJFgdYXXciOF2qxoCQ5axDHzew=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=f18M25m1UE+mSGxC0FC2S/zGAVqpWLM0UCXkD/aytZ4FMn2/cWbwLJy3HfYlSkvW8
-	 hgj+xt8axoK2I8tcV86Sd3AVCYlCQ9TUyhQ9jxYGOvwEfmE/fR7BdxezPB/xHkAKg3
-	 /aON78c5tK/KLj453p9eTE3fYCMovFw9xNsyGTJgvVNZskjYrmeBxqa1RFsINlyzLj
-	 pDAe4vy0Jn/lIPJLIY40RMQB7Lsk5Iv21NJ2RXO3qNEzd4gKRm1sh2Yq5wNiXlEmDK
-	 7xOPh5z2zuWBiTStWepnOYjJ/zywSDYKqeaSQ9CVP1m8Jd5e11FzUkF63ZG2hyrNsf
-	 DZ3ocqIDkz18g==
-Date: Sun, 13 Sep 2026 11:31:21 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Nickolay Goppen <setotau@mainlining.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
-	Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, ryanbrue.dev@gmail.com
-Subject: Re: [PATCH v2 1/3] dt-bindings: display: panel: Add bindings for
- Novatek NT51021
-Message-ID: <20260913-fearless-bloodhound-of-poetry-1c8ffe@quoll>
-References: <20260911-qcom-novatek-nt51021-panels-v2-0-135e3190a7fb@mainlining.org>
- <20260911-qcom-novatek-nt51021-panels-v2-1-135e3190a7fb@mainlining.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bcLcZ5a8"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2cfbbdfa60bso23145325ad.3
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 02:31:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789291891; x=1789896691; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xB5jj8VPvBnGrXDhKdmlbyncIiPk1DJUxDep5ugNJCo=;
+        b=bcLcZ5a8DOxb8NmSw2onwbJexq9ZvcVI1bEcyaVGrc98NhBLXyjJfK/12ATbGRxGYl
+         40X1SgI7Q8PIKcU8JFNgOi02srf/NeZixaLYhlWE8sPwH+5xSAuJj417Q7+rijxUq3Hk
+         HL/fUDu47XlOB5Eb4ZYIF4bpPkuFVkxAn9KvMhTJq1/mj/oIdOLys4sK85B8/j9rrcqA
+         jaG2/rI+jXTwsi1ZLU6SPmbP+HtosxEtlvCeUk7iysuRx95yNLvJ2KJIuRgI0Z606whA
+         vciGxcE/H9rWjjnXKjXcIDIYix9lfGlFk40NyY+8Q0BmaSxvVOhPm1ZqSk3VPF+UuPts
+         kBUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789291891; x=1789896691;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xB5jj8VPvBnGrXDhKdmlbyncIiPk1DJUxDep5ugNJCo=;
+        b=nS930o2fXb8jzYHuOD8RGx9JDAhEfwoiL7BEXLNf75ky/WwdRcVYt5+0DLy7UznWFS
+         pK+0mB85mv8ee2ctIlLhLMVhGZZWkbnNfd3Eze8dKU7DW4e9CToWiBMMGUAY5F+m4RS6
+         adG8iGyMI1amTa8SNEYY/LDPFnSvWCHdgznp6ExiwLNhx2MNrP8eNaiNsNZJ2OvOuUyN
+         weiZoGCdzqa05QHBgHHcCNJUHonsnERSQTYYrb2wOWFUr7qms2QYgywYN9CUgpxghgwh
+         LB7sJ1YCoOc2on7OMVDGc0GwkoskiPLgTIwsY/O6E6KAuLgCOpoHmn2rrCPSGToecH/R
+         eRtA==
+X-Forwarded-Encrypted: i=1; AKwUvByORW+XjMfLvL5+LQPMuAzBc4nwQOwCZl+YistOHa9yd+ROn4oCaDU9q7/QaQrD5xj9XDu3Gur/9zmXPMs=@vger.kernel.org
+X-Gm-Message-State: AFuF++nw5NRPWeW8Rs3XTufSrobDgIjL+g/XV0B4HV5P6zZqHIHAkSjb
+	b1iApAaEghtgqQ5ERzK4E5wxTCJL8y54G3Li+VkVRLs0jCBDx1wJ0Bg=
+X-Gm-Gg: AYBFou0G2Tn4WlFufLWtoCt7Ke1O/dQWJVF+WneDu00bEEWDuuy7hf6XZNCMWU4e1k7
+	vpmsjc3RbCbRBrH8vUG3pauC51bzD/svhSzXH6A7u/uWyUTLFnvQCLDyuA1p4BTn8CjBfcrsSRZ
+	cOUiwJZq/Lb22ttcOQQeOs/KdK7JkK2kuRTeWi2u+jBpi8ItB11YlWGOt6AVAYUF2yI65neyCf5
+	Av7sPagebPpKIUNb2R/7iJMiVOdTmH8nVjwTXfcwcBisv67Ayiglqyb1/1kHKslubxd71ZR3SvC
+	keIGKuobJQs8IGsSVxyXlIYOYIlPnyXGCzcNj8W1pifhjHslw8XkIOXDkivjqwLZj3TlyJddgMl
+	2I+r/9Zwd1mDF9YJ8pFOVi+pxCDrJpvZN3h0MZ+SVEMqMhRwjZlOaY1cftUwEwLCnRSPmmHUPJ9
+	yuTmGkD5I6m3uR3FDgL10ppUXDTeIcCq42nkXoB7szIjCv/YfTjbfVTu3+vJhKTSiKNE/aI7deA
+	euY4xr5hAsuLe05BgM4YOfmdA==
+X-Received: by 2002:a17:902:db04:b0:2dd:3ddf:b87a with SMTP id d9443c01a7336-2dd3ddfbb26mr152670615ad.0.1789291890999;
+        Sun, 13 Sep 2026 02:31:30 -0700 (PDT)
+Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:7f00:8c85:b91:ff81:c860:362e])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2cff67aasm31954125ad.79.2026.09.13.02.31.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 13 Sep 2026 02:31:30 -0700 (PDT)
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: linux-trace-kernel@vger.kernel.org,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jens Axboe <axboe@kernel.dk>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Adriano Cordova <adrianox@gmail.com>,
+	donggeunyoo.kernel@gmail.com
+Subject: Re: [PATCH v3] blktrace: fix the field offsets of the synthesized v1 record
+Date: Sun, 13 Sep 2026 18:31:24 +0900
+Message-ID: <20260913093124.717495-1-donggeunyoo.kernel@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260913091321.B3C061F000FF@smtp.kernel.org>
+References: <20260913090232.715798-1-donggeunyoo.kernel@gmail.com> <20260913091321.B3C061F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260911-qcom-novatek-nt51021-panels-v2-1-135e3190a7fb@mainlining.org>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 11, 2026 at 06:38:00PM +0300, Nickolay Goppen wrote:
-> Novatek NT51021 is a display driver IC that can drive DSI panel. It
-> is also present in the BOE TV101WUM-NX0 video mode panel, which is a WUXGA
-> panel with a resolution of 1200x1920 and 10.1 inches size. It is found in
-> Xiaomi Mi Pad 4 Plus. Also it's present in the BOE-TV080WUM-NX2 video mode
-> panel, which also has a resolution of 1200x1920, but 8 inches size. It is
-> found in Xiaomi Mi Pad 4.
+On Sun, 13 Sep 2026 09:13:21 +0000, sashiko-bot@kernel.org wrote:
+> - [High] blk_trace_synthesize_old_trace unconditionally parses ring buffer
+> entries as 64-byte blk_io_trace2 structures, resulting in an out-of-bounds
+> read and info leak when processing 48-byte v1 entries because the required
+> dependency patch is missing.
 
-A nit, subject: drop second/last, redundant "bindings for". The
-"dt-bindings" prefix is already stating that these are bindings.
-See also:
-https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
+Correct, and as the patch says, Adriano Cordova's patch has to be applied
+first.
 
-> 
-> This patch adds the bindings for display driver for the IC, with support
-
-Please do not use "This commit/patch/change", but imperative mood. See
-longer explanation here:
-https://elixir.bootlin.com/linux/v6.16/source/Documentation/process/submitting-patches.rst#L94
-
-> added for this BOE TV101WUM-NX0 and TV080WUM-NX2 WUXGA video mode panels.
-> 
-> Signed-off-by: Nickolay Goppen <setotau@mainlining.org>
-> ---
->  .../bindings/display/panel/novatek,nt51021.yaml    | 89 ++++++++++++++++++++++
->  1 file changed, 89 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/display/panel/novatek,nt51021.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt51021.yaml
-> new file mode 100644
-> index 000000000000..550aefaead46
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/panel/novatek,nt51021.yaml
-> @@ -0,0 +1,89 @@
-> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/display/panel/novatek,nt51021.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Novatek NT51021 based DSI display Panels
-> +
-> +maintainers:
-> +  - Nickolay Goppen <setotau@mainlining.org>
-> +
-> +description: |
-
-Do not need '|' unless you need to preserve formatting.
-
-> +  The NT51021 IC from Novatek is a generic DSI Panel IC used to drive dsi
-> +  panels.
-> +  Right now, support is added only for a BOE WUXGA LCD display panels with a
-> +  resolution of 1200x1920. They are video mode DSI panels.
-> +
-> +allOf:
-> +  - $ref: panel-common.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    items:
-> +      - enum:
-> +          - boe,tv101wum-nx0
-> +          - boe,tv080wum-nx2
-> +      - const: novatek,nt51021
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  reset-gpios:
-> +    maxItems: 1
-> +    description: phandle of gpio for reset line - This should be 8mA, gpio
-> +      can be configured using mux, pinctrl, pinctrl-names (active low)
-> +
-> +  vdd-supply:
-> +    description: phandle of the regulator that provides the supply voltage
-> +      for digital circuits
-> +
-> +  avdd-supply:
-> +    description: phandle of the regulator that provides the supply voltage
-> +      for analog circuits
-> +
-> +  havdd-supply:
-> +    description: phandle of the regulator that provides the supply voltage
-> +      for analog circuits
-> +
-> +  port: true
-> +  backlight: true
-
-You can drop these two
-
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - vdd-supply
-> +  - avdd-supply
-> +  - havdd-supply
-> +  - reset-gpios
-> +  - port
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |+
-> +    #include <dt-bindings/gpio/gpio.h>
-> +
-> +    dsi0 {
-
-dsi
-
-
-Best regards,
-Krzysztof
-
+The read side cannot know the layout: magic and sequence are the ftrace
+trace_entry header and neither writer fills them, and the sizes overlap,
+since a 48-byte v1 record carrying a 16-byte BLK_TA_REMAP PDU is also 64.
+His patch fixes it on the write side, by not recording a v1 entry at all.
+With that applied this patch is correct -- measured on a BLKTRACESETUP
+trace with the blk tracer, reading a partition for that remap.
