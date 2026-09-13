@@ -1,157 +1,168 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A48343EC835;
-	Sun, 13 Sep 2026 12:53:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B44C03016F5;
+	Sun, 13 Sep 2026 12:54:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789304037; cv=none; b=bzZRwrdvoqxW+svLJa/QrWE5azSZUD1TWJ+nHfEut4tLiraJMlz8802WJ/M42F7qc6chplZUHdXtwo4Od7BVQTpbV+2iVTmp1uyVlL2U4oszpL5sMGZkuB7myf2Is0AS9jIh+Ue7dQWPMEfkp3fiyjvNeFtxUzow3djOiZCld08=
+	t=1789304046; cv=none; b=ZRNWlfXDBw5lSu9N7e8fsoxGdCosMw9sbwz7YV9ucsI4xgJuNx3a5dfha3o8tSKjNeHnDL0QF6pBxkpdgIi2P7ln6XO0+SGwHCTv8y+cBagA4LAZblZotHrI2kNZnMzzw7Ts6WEAxbTqYBsyaF7jVKEeg+4aDptCSf4lFV/gfuc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789304037; c=relaxed/simple;
-	bh=Qc9SZQmB2pAE2xJsmzYzAmCAQhYfLKrysJL4Vs1vbOU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=vDco63JzQPuAshcyhMAUj3xM7d4zV6wJtqOHVRKSWmCaj4F7Qj74tQ3V4QBoqfUHnjiJCzBQvtD0h5piYFpwXbuCP1I81A6Fb9erND0pb4rTvfagPQWwfjBLBeeGeE9lAVkH6dRUuqPZbjKZRQwDbno5NMffKdQA7GAEN0kE1r0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B+3b5dhu; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789304046; c=relaxed/simple;
+	bh=ay4qyJCaQmXveBRyHeoqGyCcwueesl6T2BFAs3f+Z7w=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gslz1HMyCantaEaoMS7DKrrDIgxV2mdTqlHoG7iILrwIfAGuSB4oIMBQ/sozUtgcwLiF9XZCrfTOFjnoWap090g1qTnPE2YdRzVh7HnP82hiq81Ui5uiXLEKjP8Qjl57V0zyYhv5RckyYuBI/rvEEUsuycarolcp7LO6vNKQoIQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZnW80Cw4; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B+3b5dhu"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 058B8C2BCC7;
-	Sun, 13 Sep 2026 12:53:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789304037;
-	bh=Qc9SZQmB2pAE2xJsmzYzAmCAQhYfLKrysJL4Vs1vbOU=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=B+3b5dhu+dnQjM9FBpfGt9JbXmODd7aGpSd9Ty6zMw3LsEjhSUDQJnhnwAdtJ9hMS
-	 bFh6lf8n1aq+tCJuyFc145aIVhmDVdRKc8surJayClIazn0zmKiIRN4q+lYnX5Xq5k
-	 p6HTSGlc0QJKajpVtnQgUJs/cuMxjLKWuG2f/dCB4cYfjkoU6Kw7clchjcrT5auo7h
-	 56r6oSaPrEpFpt7AA59/dymeE+j2t7DRWt1d6UzoiguDjIPlQTe9XrDio6YbvKO7OH
-	 e4rNYncgeuCDKm09SVC6YYvdEmKyygddO9LCxAZG5s1oRhPbQy2AOOWhQu6QJJDTyN
-	 06hwFWhyUKYJQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D77B2C88E65;
-	Sun, 13 Sep 2026 12:53:56 +0000 (UTC)
-From: Maria Lisina via B4 Relay <devnull+sekoohaka.sarisan.gmail.com@kernel.org>
-Date: Sun, 13 Sep 2026 17:53:53 +0500
-Subject: [PATCH v3] mfd: intel-lpss: Fix DebugFS initialization
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZnW80Cw4"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789304042; x=1820840042;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=ay4qyJCaQmXveBRyHeoqGyCcwueesl6T2BFAs3f+Z7w=;
+  b=ZnW80Cw4PkPEb5DpJw0vqYhWqZrJvQk0Qdgkf12+Oj/pUJQnJst6TpNN
+   lKbwCVHqc3koRyaw2nRi+NB0ERz1dcebZtLHdVlRMYSLYmeAzMMZjZzbL
+   YQKGUgBAtD0vRH+bIqsNEqGzSUBvJy9hcESRX9o09A3nysV3Pvh8ldMVL
+   63LhifhCi4foWOYkStZmIubwwktmxpUKF7b4sEr2NJSfW6Ue2kbaytOjl
+   GnKVi37cAR8d1tasftDwNrI2MIp3VtYo5Z1MbOmARXBECEz7iaWUGbrz/
+   TPmK2MOEoX6FpxBrOpLWcbyIDfQlMqgfJ+OeiITeR0hzIB1mKjJhBBHfT
+   Q==;
+X-CSE-ConnectionGUID: LzXsXkqITcmV91vUMk41+A==
+X-CSE-MsgGUID: CjZtUQZkS8mvoWX0AmeiUA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11903"; a="101041851"
+X-IronPort-AV: E=Sophos;i="6.27,100,1787036400"; 
+   d="scan'208";a="101041851"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Sep 2026 05:53:58 -0700
+X-CSE-ConnectionGUID: Pj3reVYjSiKANcJMJtEzoA==
+X-CSE-MsgGUID: 5YYtgwtCT2yF1d3eeh8Gqw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,100,1787036400"; 
+   d="scan'208";a="277638693"
+Received: from junjie-desk-dev.bj.intel.com ([10.238.152.71])
+  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Sep 2026 05:53:54 -0700
+From: Junjie Cao <junjie.cao@intel.com>
+To: Miguel Vadillo <miguel.vadillo@intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Manuel Knitza <manuel.knitza@googlemail.com>,
+	Thorsten Leemhuis <regressions@leemhuis.info>,
+	Antti Laakso <antti.laakso@linux.intel.com>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	regressions@lists.linux.dev,
+	stable@vger.kernel.org
+Subject: [PATCH] media: i2c: cvs: Do not hide the option in the ancillary menu
+Date: Sun, 13 Sep 2026 20:53:45 +0800
+Message-ID: <20260913125345.588586-1-junjie.cao@intel.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260913-intel-lpss-debugfs-v3-1-1b8e2b1f0992@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAOCcpmoC/4XNTQ6CMBCG4auQrq2hrRBw5T2Mi9LOwCT8pYONh
- nB3CytXuny/ZJ5ZBUMgYHHNVhEgEtM0pjCnTLjOji1I8qmFznWZ18pIGhfoZT8zSw/Ns0WWgGi
- KKvdK14VIh3MApNeB3h+pO+JlCu/jR1T7+pOLSipZGeOapkREV9/awVJ/dtMgdi7q/4ROhFX2g
- hYL50rzTWzb9gGIcA0c9wAAAA==
-X-Change-ID: 20260913-intel-lpss-debugfs-eff3580d1295
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Lee Jones <lee@kernel.org>
-Cc: mfd@lists.linux.dev, linux-kernel@vger.kernel.org, 
- Maria Lisina <sekoohaka.sarisan@gmail.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2621;
- i=sekoohaka.sarisan@gmail.com; h=from:subject:message-id;
- bh=OVkJMMmF2nNAP+pSJ+NbAfwUA1hhsgKU2CZw5r4W0AY=;
- b=owEBbQKS/ZANAwAKARPrfuqZo5+iAcsmYgBqppzjEw0hXTFqWpVN3rqwYCWeMDGy5njMudwbP
- clhpm2zHJGJAjMEAAEKAB0WIQQ8HZKKOdqg5DRiM0sT637qmaOfogUCaqac4wAKCRAT637qmaOf
- oj8DD/9tdUlqGKBOVJOZG4JdnJe8DbuTY4weyNPBtJK2jgwUk9Y9V4cO5dVjlcFpTAv5P5DFTZE
- yvzbPS34JmdH216m7GcPWv9+gzPgf3w6XOWE52DbxSJFPBYFpcNcJABtwO4Fu9/4EaxnJn0o7M+
- d8OSS0nZPFw+COlkjgOv/wNBEB0oVTHLNes9NbdRtqw4Rw5I96pCVDBNpir9iZ7NAY92BxuEKUY
- MPumWSoVcsSy7OeIR5CN+ALgJ3uZavtDA//FPQb3NbmKVA/KTgBtDsgjuxHjw70p3R/DgzhjAXg
- hNrMYWP5JMHnY1sBv4aKNJ+iHFzKFgKDJFppXXZeyGr1B5+hHqjB2vSI0rthEp2f0xmQOrQwKKU
- faiwbSUxqrQYiay9upI0Cj+bSDYGRBFF1RtUnBfP3ZijPKT7VKmtfbx0RRGs0v7fTL5QZnG5Ma9
- GyOmKyxBfIIIeKG/W4nETwoK2U/HZIzsl6MWaVB4v5RVrrOrmDCVlPp/FJrpiix7SNLb/mi7P3C
- ueVsUUeNhXb00LAhLbqk8ZaQyteiwmy7aGa7En9ZH5ex39gWAiq8uE+aRjc3zvgmo6fqQjV5X28
- hwv3rJszGiq5pE6VNy2PD1OBGQWfhIjRetMLudcKKewEIlTcAsFdPOJ9yXhRjIqq46BhDEVpsYE
- H5qQ37aacTcYQjw==
-X-Developer-Key: i=sekoohaka.sarisan@gmail.com; a=openpgp;
- fpr=3C1D928A39DAA0E43462334B13EB7EEA99A39FA2
-X-Endpoint-Received: by B4 Relay for sekoohaka.sarisan@gmail.com/default
- with auth_id=1030
-X-Original-From: Maria Lisina <sekoohaka.sarisan@gmail.com>
-Reply-To: sekoohaka.sarisan@gmail.com
+Content-Transfer-Encoding: 8bit
 
-From: Maria Lisina <sekoohaka.sarisan@gmail.com>
+A camera behind a CVS device needs intel_cvs bound: since commit
+c28527ce5d06 ("ACPI: scan: Honor _DEP for Intel CVS devices") the
+sensor is not enumerated until the driver's probe clears the _DEP, and
+since commit c6b1b34b5090 ("media: pci: intel: Add CVS support for IPU
+bridge driver") the IPU notifier waits for the "Intel CVS" sub-device.
+The option is sourced from the "Miscellaneous helper chips" menu, which
+MEDIA_HIDE_ANCILLARY_SUBDRV hides on any config with
+MEDIA_SUBDRV_AUTOSELECT=y and neither EXPERT nor COMPILE_TEST, and
+nothing selects or implies it, so olddefconfig on such a config does
+not write the symbol out at all.
 
-The original code defers DebugFS check with unnecessary warning message
-which also appears when DebugFS is simply disabled.
+Arch Linux's config.x86_64 for 7.2.4 is one: I2C, ACPI, VIDEO_DEV=m,
+IPU_BRIDGE=m, INTEL_VSC=m, VIDEO_INTEL_IPU6=m, VIDEO_INTEL_IPU7=m and
+no VIDEO_INTEL_CVS line. On such a kernel a Panther Lake laptop has
+either no CVS driver, so the sensor is never enumerated, or the
+out-of-tree intel_cvs from intel/vision-drivers, which registers no
+sub-device; the second Link shows the IPU notifier pending on
+INTC10E1-0/port@1/endpoint@0 on such a kernel. Both reports had a
+working camera on 7.1.
 
-Therefore it spams dmesg with these messages:
+Source the Kconfig from drivers/media/pci/intel/ next to INTEL_VSC and
+imply it from the IPU6 and IPU7 drivers, which are the IPUs the driver
+looks for, so that a config that has them picks up intel_cvs=m on the
+next olddefconfig.
 
-  intel-lpss 0000:00:15.0: Failed to create debugfs entries
-  intel-lpss 0000:00:15.3: Failed to create debugfs entries
-  intel-lpss 0000:00:1e.0: Failed to create debugfs entries
-  intel-lpss 0000:00:1e.2: Failed to create debugfs entries
-
-This patch adds proper checks to intel_lpss_init() and
-intel_lpss_debugfs_add() functions and removes warning message.
-
-Signed-off-by: Maria Lisina <sekoohaka.sarisan@gmail.com>
+Fixes: 8e2b43d2c10b ("media: i2c: cvs: Add driver of Intel Computer Vision Sensing Controller(CVS)")
+Cc: stable@vger.kernel.org
+Link: https://lore.kernel.org/linux-media/20260912185836.309071-1-manuel.knitza@googlemail.com/
+Link: https://github.com/omacom/omarchy/issues/10948
+Signed-off-by: Junjie Cao <junjie.cao@intel.com>
 ---
-Changes in v3:
-- Fixed commit name and description.
-- Link to v2: https://lore.kernel.org/r/20260913-intel-lpss-debugfs-v2-1-a1a4faf5cc63@gmail.com
+Tested by running olddefconfig with Arch's config.x86_64 (7.2.4.arch1)
+on current mainline: before, no VIDEO_INTEL_CVS line; after,
+CONFIG_VIDEO_INTEL_CVS=m. With EXPERT=y alone the option only becomes
+"is not set". Not booted on CVS hardware.
 
-Changes in v2:
-- Fixed function name in comment section.
-- Link to v1: https://lore.kernel.org/r/20260913-intel-lpss-debugfs-v1-1-833cbb6fffc9@gmail.com
----
- drivers/mfd/intel-lpss.c | 19 +++++++++++++------
- 1 file changed, 13 insertions(+), 6 deletions(-)
+For stable: a 7.2.y distro config with IPU6/IPU7 gains intel_cvs=m on
+its next olddefconfig; that is the intent. Sourcing from pci/intel/
+puts the option under MEDIA_PCI_SUPPORT like IPU_BRIDGE and INTEL_VSC,
+which a CVS system needs anyway.
 
-diff --git a/drivers/mfd/intel-lpss.c b/drivers/mfd/intel-lpss.c
-index 63d6694f71457b2e09d238af0a9bfb897a169a64..c2cb58c0f98a996d5a2718956092e74139f2a286 100644
---- a/drivers/mfd/intel-lpss.c
-+++ b/drivers/mfd/intel-lpss.c
-@@ -146,9 +146,12 @@ static int intel_lpss_debugfs_add(struct intel_lpss *lpss)
- {
- 	struct dentry *dir;
- 
-+	if (!intel_lpss_debugfs) {
-+		lpss->debugfs = NULL;
-+		return 0;
-+	}
-+
- 	dir = debugfs_create_dir(dev_name(lpss->dev), intel_lpss_debugfs);
--	if (IS_ERR(dir))
--		return PTR_ERR(dir);
- 
- 	/* Cache the values into lpss structure */
- 	intel_lpss_cache_ltr(lpss);
-@@ -432,10 +435,7 @@ int intel_lpss_probe(struct device *dev,
- 		goto err_clk_register;
- 
- 	intel_lpss_ltr_expose(lpss);
--
--	ret = intel_lpss_debugfs_add(lpss);
--	if (ret)
--		dev_warn(dev, "Failed to create debugfs entries\n");
-+	intel_lpss_debugfs_add(lpss);
- 
- 	if (intel_lpss_has_idma(lpss)) {
- 		ret = mfd_add_devices(dev, lpss->devid, &intel_lpss_idma64_cell,
-@@ -539,6 +539,13 @@ EXPORT_NS_GPL_DEV_PM_OPS(intel_lpss_pm_ops, INTEL_LPSS) = {
- static int __init intel_lpss_init(void)
- {
- 	intel_lpss_debugfs = debugfs_create_dir("intel_lpss", NULL);
-+
-+	/* Ensure intel_lpss_debugfs stays NULL on error,
-+	 * so intel_lpss_debugfs_add() exits properly.
-+	 */
-+	if (IS_ERR(intel_lpss_debugfs))
-+		intel_lpss_debugfs = NULL;
-+
- 	return 0;
- }
- module_init(intel_lpss_init);
+ drivers/media/i2c/Kconfig            | 1 -
+ drivers/media/pci/intel/Kconfig      | 1 +
+ drivers/media/pci/intel/ipu6/Kconfig | 1 +
+ drivers/staging/media/ipu7/Kconfig   | 1 +
+ 4 files changed, 3 insertions(+), 1 deletion(-)
 
----
-base-commit: 2f0c1cf72f4682178506f513bbf015e591b1aa4a
-change-id: 20260913-intel-lpss-debugfs-eff3580d1295
-
-Best regards,
+diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
+index 5c52007f9cbeb..8573f27b907d9 100644
+--- a/drivers/media/i2c/Kconfig
++++ b/drivers/media/i2c/Kconfig
+@@ -1680,7 +1680,6 @@ endmenu
+ menu "Miscellaneous helper chips"
+ 	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
+ 
+-source "drivers/media/i2c/cvs/Kconfig"
+ 
+ config VIDEO_I2C
+ 	tristate "I2C transport video support"
+diff --git a/drivers/media/pci/intel/Kconfig b/drivers/media/pci/intel/Kconfig
+index 3f14ca110d06c..dd8c990a0c294 100644
+--- a/drivers/media/pci/intel/Kconfig
++++ b/drivers/media/pci/intel/Kconfig
+@@ -3,6 +3,7 @@
+ source "drivers/media/pci/intel/ipu3/Kconfig"
+ source "drivers/media/pci/intel/ipu6/Kconfig"
+ source "drivers/media/pci/intel/ivsc/Kconfig"
++source "drivers/media/i2c/cvs/Kconfig"
+ 
+ config IPU_BRIDGE
+ 	tristate "Intel IPU Bridge"
+diff --git a/drivers/media/pci/intel/ipu6/Kconfig b/drivers/media/pci/intel/ipu6/Kconfig
+index 1129e2beb4bec..54bd264f7ccd4 100644
+--- a/drivers/media/pci/intel/ipu6/Kconfig
++++ b/drivers/media/pci/intel/ipu6/Kconfig
+@@ -10,6 +10,7 @@ config VIDEO_INTEL_IPU6
+ 	select MEDIA_CONTROLLER
+ 	select VIDEOBUF2_DMA_SG
+ 	select V4L2_FWNODE
++	imply VIDEO_INTEL_CVS
+ 	help
+ 	  This is the 6th Gen Intel Image Processing Unit, found in Intel SoCs
+ 	  and used for capturing images and video from camera sensors.
+diff --git a/drivers/staging/media/ipu7/Kconfig b/drivers/staging/media/ipu7/Kconfig
+index 7d831ba7501d4..c23a7844e15e2 100644
+--- a/drivers/staging/media/ipu7/Kconfig
++++ b/drivers/staging/media/ipu7/Kconfig
+@@ -11,6 +11,7 @@ config VIDEO_INTEL_IPU7
+ 	select MEDIA_CONTROLLER
+ 	select VIDEOBUF2_DMA_SG
+ 	select V4L2_FWNODE
++	imply VIDEO_INTEL_CVS
+ 	help
+ 	  This is the 7th Gen Intel Image Processing Unit, found in Intel SoCs
+ 	  and used for capturing images and video from camera sensors.
 -- 
-Maria Lisina <sekoohaka.sarisan@gmail.com>
-
+2.43.0
 
