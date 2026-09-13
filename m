@@ -1,118 +1,65 @@
-Received: from sphereful.davidgow.net (sphereful.davidgow.net [203.29.242.92])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38C6B344DBD;
-	Sun, 13 Sep 2026 08:48:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.242.92
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA969344DBD;
+	Sun, 13 Sep 2026 08:48:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789289318; cv=none; b=HGfYy3/H0/6kzrkEywYN+7S1vi1cIKUtwClnfrYagEHxI086H/NwMBqBbGcKnaWIR9ILoUQdsUochqxzRMPO90xeGnVkrdXQ1RoLO1Bxuy5rCDrJ+i5/R9egXYy5rar5wI0dOUQg3K0XWur5jb4bUKQS9vXWGtzhkPmCXcJYQUk=
+	t=1789289321; cv=none; b=GzwMbDT1A5ZTiZdScYAkPoZpcdaX6FL/WGLYpMb6IYIazyvAZfby5BuHEMkAmWSwHdGKlf6J8cZMnHjrsQLCUdfjM3DzvxQf/Px8aaVI0ER61c6GHwn1WgslnXbFTNSQCfZ/yCuDYpWKNDb+EjGpfR0cc55lah5QHz5jn8b9buQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789289318; c=relaxed/simple;
-	bh=V7Xekxc8np1jOvBEx3JQDII4A1pWfylJcA2MxHU3MGY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=G4uaFOUSfiCewX6Uh4lMhf/rt+OZEwKAEiFy07LHC3nsqXUr5+y7sI76PSvXv28u28qR/IaD8Q/vUBZpcUd1ceITftYdao64GuIvTJjuUBAyad9gHojf+K4NTwFuTA4zwKrZIl+s1QrkDL6kEuu9YiZYOx2BKIJ5zFhd6oxXhNY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=davidgow.net; spf=pass smtp.mailfrom=davidgow.net; arc=none smtp.client-ip=203.29.242.92
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=davidgow.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=davidgow.net
-Received: by sphereful.davidgow.net (Postfix, from userid 119)
-	id B97FD1EAB35; Sun, 13 Sep 2026 16:41:41 +0800 (AWST)
-X-Spam-Level: 
-Received: from [IPV6:2001:8003:8802:7000::41b] (unknown [IPv6:2001:8003:8802:7000::41b])
-	by sphereful.davidgow.net (Postfix) with ESMTPSA id D4C351EAB2B;
-	Sun, 13 Sep 2026 16:41:37 +0800 (AWST)
-Message-ID: <264b81f5-d975-45d3-9bbb-d5759971cf6d@davidgow.net>
-Date: Sun, 13 Sep 2026 16:41:35 +0800
+	s=arc-20240116; t=1789289321; c=relaxed/simple;
+	bh=pRVWt4lUb/N19rYg46NOlyrgv1y4aozIKyaparOTH9w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eCCNC1U/JO9PvzT/d04MPqD3FEJLqoMjgXw9rcEBlapFzsJhBjkgzdyu1aKZhEWkuE0j/6zMJQUwlGjolpqdqjyfSW9JMYYVrMhL1CB5Z5wAVHqjkwP01ru7wfnJckpN6ifD9LPQEMNPvJcW9wByB7Dig+uUXx3tqN6hjbAPMV4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OJfP4V0K; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OJfP4V0K"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5694B1F000FF;
+	Sun, 13 Sep 2026 08:48:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789289320;
+	bh=q9b+oorGTRHCVDiv10tTcI+CXwyumm9Yvq+2cN0P4Qw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=OJfP4V0K9GeCtqTHG7SOLTH6qS5jz+dhKdInmif+gnEGz22vZxGMg1F8nEn4g/f+N
+	 9vHFDdd/Bn0Aup37HvgEHovuDLBq9xEga4mU8INhjSSGmKr6AdwdHz2TGmK8xG/6Yt
+	 lHhJyt6D7mIt29PSWXHIdoR9zX1GmHCdXX1gRlCIXudbwQoADNe3k+s0YETMU9WxhI
+	 vhSRIbzqiyYEBLl5jMvMcCit8Ek78zf32LzS95M4btmWE+AYxlUCVrscfnhZVoZo6D
+	 1PQqMGNGQVEDgeQt5VqQnTn9l5loBDS1+omJ/6ucYT7JMT1WEY2uyfujwtLuwjRxtR
+	 qvdXFcwJw1aHQ==
+Date: Sun, 13 Sep 2026 10:48:36 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+Cc: Srinivas Kandagatla <srini@kernel.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/6] ASoC: dt-bindings: qcom: Add Shikra RX and VA
+ macro compatibles
+Message-ID: <20260913-melodic-violet-dogfish-fb834c@quoll>
+References: <20260910-add_shikra_support-v2-0-fdd2129c696c@oss.qualcomm.com>
+ <20260910-add_shikra_support-v2-1-fdd2129c696c@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] linux/log2.h: Add 64-bit safe variants of
- power-of-two functions
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Jim Cromie <jim.cromie@gmail.com>, "Maciej W . Rozycki"
- <macro@orcam.me.uk>, Andrew Morton <akpm@linux-foundation.org>,
- Matthew Auld <matthew.auld@intel.com>,
- Arun Pravin <arunpravin.paneerselvam@amd.com>,
- Joel Fernandes <joelagnelf@nvidia.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Chris Mason <mason@kernel.org>,
- David Sterba <dsterba@suse.com>, dri-devel@lists.freedesktop.org,
- linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260830103321.2042968-1-david@davidgow.net>
- <20260830124334.105b84b1@pumpkin>
-Content-Language: en-US
-From: David Gow <david@davidgow.net>
-In-Reply-To: <20260830124334.105b84b1@pumpkin>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260910-add_shikra_support-v2-1-fdd2129c696c@oss.qualcomm.com>
 
-
-
-Le 30/08/2026 à 19:43, David Laight a écrit :
-> On Sun, 30 Aug 2026 18:33:15 +0800
-> David Gow <david@davidgow.net> wrote:
+On Thu, Sep 10, 2026 at 03:16:52PM +0530, Mohammad Rafi Shaik wrote:
+> Add bindings for Qualcomm shikra rx and va macro codec.
 > 
->> The existing roundup_pow_of_two() and rounddown_pow_of_two() functions work
->> on values of type unsigned long, which is 32-bit on 32-bit systems.
->> Equally, is_power_of_2() operates on an unsigned long.
->>
->> There are several instances where 64-bit safe versions of these (which
->> operate on a 64-bit value regardless of sizeof(long)) are required. Most
->> particularly, some hardware (especially GPUs) have 64-bit address spaces,
->> and some formats (such as filesystems) use 64-bit offsets. Some of these
->> (such as i915 and btrfs) have already implemented their own 64-bit
->> is_power_of_2() helpers.
->>
->> Add a version of these which always operate on a 64-bit value. These have
->> the (unimaginative) names:
->> - is_power_of_2_u64()
->> - roundup_pow_of_two_u64(), and
->> - rounddown_pow_of_two_u64()
->> and otherwise work identically to their unsigned long counterparts.
-> 
-> Why not just change the definitions (back?) to #defines.
-> Then they can be size neutral and you don't have to guess the correct one.
-> 
-> You may need to use __builtin_constant_p(x <= ~0u) to select between 32 and
-> 64 bit versions.
+> Shikra integrates LPASS codec version 4.1, which is not backwards
+> compatible with the already described compatibles.
 
-I've given this a go, and (with some ugly typeof() casting) something 
-like this works:
+OK, so it is not compatible with anything so far, thus existing
+constraints from the binding do not apply. Then why are the clock inputs
+flexible?
 
----
-#define rounddown_pow_of_two(n)				\
-	__builtin_constant_p(n) ? (			\
-		((typeof(n)1UL << ilog2(n)) :		\
-		(sizeof(n) <= 4) ?			\
-			1UL << (fls(n) - 1) :		\
-			(typeof(n))1UL << (fls64(n) - 1)\
-)
----
 
-Unfortunately, there are enough random places where the function 
-__round{up,down}_pow_of_two() is called directly that it's turning this 
-into a more involved series than I'd want to push through for a simple fix.
-
-I'll re-send patch 2 in it's original form (without the helper changes) 
-so we can at least fix the buddy allocator breakage, and then put 
-together a more complete version of this series with all of the various 
-callsite fixes, and a KUnit test to verify it works properly across both 
-32-bit and 64-bit values.
-
-> 
-> It is also worth checking what gcc/clang generate for the 64bit versions
-> on 32bit when passed a 32bit variable.
-> It might be that they optimise the code and avoid all the 64bit maths.
-My quick look suggested that gcc and clang were not doing anything 
-excessively stupid here. The only really dubious case was for the 
-roundup variant, which does end up doing the 64-bit subtraction. That 
-being said, I wasn't able to come up with anything significantly better 
-(particularly given that we're already pretty register constrained).
-
-Regardless, I'll take another look at this before sending the full series.
-
-Cheers,
--- David
+Best regards,
+Krzysztof
 
