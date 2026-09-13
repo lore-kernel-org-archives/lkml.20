@@ -1,165 +1,141 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C99334C134
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 19:38:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789328341; cv=none; b=cUoc6JgLwexr8H7v52V1P4S7oNGAzDf5fD1uxLSAH3Xa9ajybe/IaJXqPN681wdnQWVMtBOowWc54WldvYNqy6gQ49tQdYWzzDpu3DgH1n5g62VP1xRGO6B/jmoA86Y3xpuWA7bXWXbZm+jTxfSkYlCcT+jFfxT/Txq+ibB7CJA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789328341; c=relaxed/simple;
-	bh=re3NJ+Jsd05aIRZR/hmrtpLB8vZj1nW+xprxkuiwqfA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sYvxzgblQIY0QBEhG65NDihJxk9kOizJl8kIIkp05T/LLZdHszeeQhivmHAoP8XX5sHZukY3vWiHDlLsiKeBKHwomWySLimPt1vO+Ed0BS+RWipiekbch9oewneaY3KVHxPJqVWuQv2ZLdzmEuIjOChrOGpq7R9UN0KIVOP5yN4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WTCeQqvl; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCEC83B6C1D
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 19:41:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789328502; cv=pass; b=HutWNRd28Q7a5sov2aVIT5SGtQjCXG4BkbL5ZkjyjvgNXSZojzwZ0DcCGbiyrMbKmH9XiplYTDBzqRfJ+F6BELpWfh51+JZTQgKXtEx0F9r35yjmir8Ih0WXZahpwOK7hJUaHldyIlqcw4IHbjBSbNvCiOAzrDRJyLrW967OdJc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789328502; c=relaxed/simple;
+	bh=o9YibIUfRxMjjHC8/Y22RaQ2wOjqg0OE/+77r3xl3ag=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=taSBdBB0IMWZNRcplccwA8JUos+7LbefOHqR29mj8A/G+0wE+BbwJO8WNGGDruKZ7AoUUtGzJ7/Y3YnbDn4mxPG9HV3yfIHdPAzzKCP7DOsmuW/PA4ooYQmjMty8Bc0xPb24RU/IL5g0bjiFrfHsFFBcDiJvWVljs42sB5IDo3Q=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com; spf=pass smtp.mailfrom=paul-moore.com; dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b=I8sFL6Q+; arc=pass smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WTCeQqvl"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e79a408deso5465e9.2
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 12:38:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b="I8sFL6Q+"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747ed9866so15975485ad.2
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 12:41:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789328500; cv=none;
+        d=google.com; s=arc-20260327;
+        b=YlaQ68zga97ZEEu5TiC0ZUC9horpbjONg9hqwNjZ/OudVO+PT5gssPp+b8kx9m2Z0q
+         cMHKjUKaGrsVbgzHTFDjHA7V4kbpJM2ZVOd5RiZFRAXdOK2MllvuLBxhBjVvy9/+cl/q
+         6mIKiM9ROGXiv5NX4YzzzAmroU5zDFRFUP3/BWei8RM2RFFW+mp9NLcU3aOVFQFgfDy6
+         QWhrKlGmBXZUrBWRwxRifm03OBQFHja77UTbVRRaEqD+1z4JD37afANksflWaUdkgZdI
+         Egphiy5S/KeBzG+hK6y1hRuEU8BjvBAHLjXecsPjeqocgE0/k0ye0hKwsnQ1EnCsuoyW
+         3F4Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=2oFQ8qNlHBe3RYmZfeSmFS5X2SDU60h3feX9FkdQ3Ds=;
+        fh=xKw32pTGVAE5yP/p8rkV/eTiqxwa+cavjeZKwJzVD04=;
+        b=n8xv6t3Y+ykhwMKRrOcUBZjc+fHYwKrfRVr47eXEWALsIP+nKfZWXSG+ptNxymmEPV
+         FAXOGSp/0nubrwoSf/uS5PJfeApJjytZN5sdSd7xH1HogcFSoz08MOvvfFy2F50PNwT1
+         Y9Ia8bpDTAKjs/H5OpyjHj2BStCa/BiX9Q1w63cY7vL301sQbreO+trAP4V0OwQ4Vsl1
+         5JNyXN4z8Kr+WMoQWDpzTRk7uvxTkOgU9ZT3r53OReJV1vQqafscFv46AZSLioxvjtUx
+         9QjcJlvImZHJR/LbEtyrKjMXVC/EptLvll4a+frbf9gVsy2ksNM6BIimjPHGvQvKLsCZ
+         O3oQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789328338; x=1789933138; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wqld+C8LvUG/lCaEhAE1S24AuEqbvNc9EFv8rG0tUzU=;
-        b=WTCeQqvlJyppviaQq+U4Al/A8fkLWy3Oio/lKhnRzjCMC+OYvEL+yEYBcM7cGVj92W
-         1IOhbtvx7NQGBh/GeDEWypQkuzI2oj7pBvePtRY+PKCag6WJlxVU0jlxpEIEvlqEfF1M
-         bDIPbA3BWZqldFFdZAUo0O/fZGu6DrSAt8Qdxt5sb3nstvVMIG03g2JWNd1mCWDUz/eo
-         AL4b8IwMMF2iRFd4bRiS6eEXJhdCcawqQ4qFZMZYKOoAR+DSzUWjSQaNrmnFiTIzaNC8
-         akvAyQFOvP1SSCDiai+0PzuQM43IQrrUCdiKzMSycnop4BOQinkQgaRhJ+YzR+8JeFP2
-         wWBw==
+        d=paul-moore.com; s=google; t=1789328500; x=1789933300; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2oFQ8qNlHBe3RYmZfeSmFS5X2SDU60h3feX9FkdQ3Ds=;
+        b=I8sFL6Q+DM54DS1jqLpHl8LRDH2BH3wEv2VVMVdWWX4l+pUbhvP+mXRK1LwfswtI5I
+         LD7tXObHzqTooDWMioIjKrFTteqZd3F4ORV5tAOdJGwYq3OlCV8oCQWcc7SSUdXldKCq
+         cqVIjuwPKnq61r2HBBrk+adoCp9DvIE0IgEBeWV1Z0ts8JRcIPrwfdWqRBPNS2unhtBm
+         2NE6/mJLRJc4noJZ1zBUITBSFVMcarub7AnSWNG+1y6VkPibRKC5m5oHY2WosF58Xjtq
+         7M2wPsAyaGi0jOjGYFpCj0hyCwbNtFFsTXCM2olkmAaF3EN5yIXsPR85Bq7Tv8+fDeK/
+         I7HQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789328338; x=1789933138;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wqld+C8LvUG/lCaEhAE1S24AuEqbvNc9EFv8rG0tUzU=;
-        b=PwJrmHMrMxW46gLmYoERS4ZXY+srAlVq7lJrh6y5s3xB8VVIfMI2gLUim6/FYYxdwE
-         /Czl0YA7Ge+lGnSiKUH2yWXjgSA5qBdkT8pSiRBAOwYWJHeyq1M/YS9vImM342kKodiJ
-         Iclr94G88evYPf7pM2cxdURfC/p42LPT2qqfqc/6fEdzDvJD6Bxbn0H1pTIxtjY5U9Ya
-         iY88cXBD5wPiIirMaTBRlEJet4BgyY6yUgNxR8HyYetEuRfbQ7XuHo9/5uPqUmNw2Z+O
-         OmxRp6Hty1DTdmaqm6o5I6PpoTiJJLWDGFoavAPjHR46+Xpq+vphDi0WKxfWy7dW86+D
-         JD4g==
-X-Forwarded-Encrypted: i=1; AKwUvByBl1TfL+M/8f9x9e28Qe9XQg9PoNxTcppvHIoW/fO8NUkcdzj/gnmYVfAnGg3I5hdRQ7yUGXH/LtgEBdA=@vger.kernel.org
-X-Gm-Message-State: AFuF++nDFvyEsmGrNqPNB1k5g0qhEDPp9qwgWQAoV+H0C3MPkoNLoV3h
-	aHTMcAs822XNBduGfolGxWnqGBwoUXhBF0F0XhexepZkr9Qooq9bdMo0
-X-Gm-Gg: AYBFou0MTD8w2hmTpaG+sGEMHgtapUkO2swhPh3NzCyPbda8eMu/zP3RUIh0Cn33Ca1
-	hsYSy82LonMWRopthrmgRa/uzDOsBIH6slrf3elHM/u32lrBzyHifMr2Bo2YKkyeX23/GLm7RKw
-	ImN/XlnxkMVxVKkmqsv7b6fqp91II46w1AtgNw11qmLppDxjH4ubSJwHXtyNZdGhRWNQCEwpzYm
-	iQ72Q2RdatSqqDBCkn3rMh7t7RvE1gXE+TitilODgd7TpgxB/oA8S/sP12Zl0US7uFcVuqht2Sa
-	oAk8saf/vVVI0W+qhHKs+Mzc/nor2Kjw4Vja9BxZsS57BSHcPG7Fwp0nqXiFly82NApteSYf1pL
-	g+gjx0zKsh06XfNSOKmIi0X81ihhlZGTcTumb9HdZkWXeCuGwio3/WpsKM/3lBGa9ik9w6JUlLA
-	wCK7/oyOPDYQ46rNQ6wsZLRtXpPH3GD1bfUPMoNSgcNnQLqChHvWWJlrSTziQmFeeuHAvCFJC1+
-	bbuKZtiObWJrWxNUeuLQ1/oc8nL0UxV
-X-Received: by 2002:a05:600c:3b8e:b0:49e:719e:e215 with SMTP id 5b1f17b1804b1-49e719eeafcmr85068285e9.26.1789328337445;
-        Sun, 13 Sep 2026 12:38:57 -0700 (PDT)
-Received: from raviolimobile.tail5f26fd.ts.net ([84.65.89.105])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e60ababd5sm334233445e9.4.2026.09.13.12.38.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 12:38:57 -0700 (PDT)
-From: Fernando Rimoli <fernandorimoli11@gmail.com>
-To: linux-media@vger.kernel.org
-Cc: sakari.ailus@linux.intel.com,
-	dan.scally@ideasonboard.com,
-	mchehab@kernel.org,
-	linux-kernel@vger.kernel.org,
-	Fernando Rimoli <fernandorimoli11@gmail.com>,
-	"D . Manresa" <dmanresa@gmail.com>
-Subject: [PATCH] media: ipu-bridge: Keep the clock-noncontinuous property name out of rodata
-Date: Sun, 13 Sep 2026 20:38:40 +0100
-Message-ID: <20260913193840.75686-1-fernandorimoli11@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20251104; t=1789328500; x=1789933300;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2oFQ8qNlHBe3RYmZfeSmFS5X2SDU60h3feX9FkdQ3Ds=;
+        b=lbk29yeT6q6qePsV40cne8ANECslo+hXbAb0ezp7la3jVjkjn4tbo8OYk557W7sw42
+         94JUPJ4jg1DwcWXqBmpwRl5CQKKpCBfOF9ygXUIz8kKJ3xTQzhKIxgSdv8qvqy2puxnT
+         TKIDtwOZq7gFIWNjV/48LECswDtyc04Q6ifXxI56p4Ai5gPjLk5448TKW1ZyVa0xIWoi
+         jnfZxEfpyWp6Yfgs5DmMQEEsdpeMWdH3JAIaXhHo7W15Ra9+AB/wv2l4UHX+8ElCoeSW
+         KdJR1gascpbuNnpcu4BIkveBVwgMt+f3cqlVo2k3aD/cTbnmio9Fq+3AHBBWATbdFC/j
+         MqRw==
+X-Forwarded-Encrypted: i=1; AKwUvBwEpJ1WfbMCJyErs25qjfzaeFnfsTpkZ5P5c6X4Hb60Qv4LukI1gQydrf5Ap14K2qdg1ORUlBNtgERnPl0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nPUUQWH7ly0MG23S0zzGhqLXmeGnLd7p6K3WJ9F7BxchJHbVqB
+	LpgTLk4pwq55Y2EE2849DUKiqSTBlk/wVBx5dO7p37B+pt5rf/BPufvDsaqbcpvco71rAPvXSTj
+	rqucB/coly5F/eAtYuViTnowBpFLuRG/rWDEgxyaE
+X-Gm-Gg: AYBFou0LVataSEcjah7NcD+oPnQHDzw4/18kGO0amX0OUotSrS11ptJEifowJQ7hId2
+	an2r1FOgskYyzY/rLccMJA4LrCkSZkBXyRljVzV+inEv0nQEIAx8Y04DfX1lXJ0E4hbu7AwU7Ns
+	EDz1UPBEJR9PUQh0YUc0KKNXBAHXaM80a4x5SYECyNrTBeRz6HP+Uw/wyh3kSACh3IaAggkgoMf
+	hH5Y05S9AEwyGqwItbuV/Sv5ztfyFkLGCcXyZX0KToWAErxuvT/W5f13T1ZRjs+hKSJ2s1hoafk
+	l/NKU3cja+E9RVhUgqBjamp3nk5WQkqOLnzCuBF0IavS7G90ofEtsbYNT4sfy1vOpx2ro5XZGl0
+	ZT30Rn6VGPhm7pCTpuQu5lg==
+X-Received: by 2002:a17:902:f691:b0:2dd:4168:7bd3 with SMTP id
+ d9443c01a7336-2dd41687cc9mr192016495ad.12.1789328500077; Sun, 13 Sep 2026
+ 12:41:40 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260909193719.518517-1-utilityemal77@gmail.com>
+ <20260909193719.518517-5-utilityemal77@gmail.com> <CAHC9VhQHZ+ngFdzKqmnzBh341CGEg-jexu+QYU8=1qXK=u-x-Q@mail.gmail.com>
+ <aqHUw6k0Mf83CGFT@zenbox> <CAHC9VhTM7emi9vxs+5Za8Hrc_e9dg7fZx+Z6BGUc4VQ1qhEAUA@mail.gmail.com>
+ <DLD0VQ3D8CYC.3V5ZT8HDMY4IH@gmail.com> <aqTZdCz6JaoK16Fp@zenbox> <DLDL7KK3FZKU.17ADLLWJVXB5F@gmail.com>
+In-Reply-To: <DLDL7KK3FZKU.17ADLLWJVXB5F@gmail.com>
+From: Paul Moore <paul@paul-moore.com>
+Date: Sun, 13 Sep 2026 15:41:27 -0400
+X-Gm-Features: AcwNN1VcrFQxF6bGTrpFFvwHMnFPs9vUMnDUrZbPiYQYi52EcDs3N2117Jy3gRM
+Message-ID: <CAHC9VhS0JckwfomqLTUJkZZkDSgeRXYOjMmPQYErgYynQYqMKQ@mail.gmail.com>
+Subject: Re: [PATCH bpf-next v3 04/15] lsm: Add the bpf_lsm_policy_release
+ kfunc and policy object destructor
+To: Justin Suess <utilityemal77@gmail.com>
+Cc: Alexei Starovoitov <alexei.starovoitov@gmail.com>, ast@kernel.org, daniel@iogearbox.net, 
+	andrii@kernel.org, kpsingh@kernel.org, matt@bobrowski.net, mic@digikod.net, 
+	viro@zeniv.linux.org.uk, brauner@kernel.org, kees@kernel.org, 
+	casey@schaufler-ca.com, gnoack@google.com, jack@suse.cz, song@kernel.org, 
+	yonghong.song@linux.dev, martin.lau@linux.dev, eddyz87@gmail.com, 
+	memxor@gmail.com, jolsa@kernel.org, m@maowtm.org, bpf@vger.kernel.org, 
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The software nodes ipu-bridge registers on a successful init are never
-unregistered. There is no module_exit and no remove hook, and every
-software_node_unregister_node_group() call sits on an error unwind label
-inside ipu_bridge_init(), so on success the nodes stay registered and
-readable after the module is unloaded, which a later rebind relies on.
+On Sat, Sep 12, 2026 at 3:33=E2=80=AFPM Alexei Starovoitov
+<alexei.starovoitov@gmail.com> wrote:
+> On Fri Sep 11, 2026 at 10:26 PM PDT, Justin Suess wrote:
+> >
+> > If fs/, mm/, drivers/, net/, are permitted to have kfuncs, then why not
+> > security/? kfuncs.rst doesn't seem to forbid this.
+>
+> because fs, mm, net see the value in bpf. bpf helps these subsytems
+> to focus on their core technologies and moves policy decisions out of
+> kernel and into bpf.
+> while lsm people treat bpf as arch-enemy.
 
-Nothing reachable from a registered node may therefore point into the
-module image. PROPERTY_ENTRY_BOOL() stores a pointer to its name, so the
-"clock-noncontinuous" string literal leaves the surviving node carrying a
-dangling property name once ipu-bridge is gone.
+It's amusing to read this when just this week we merged a patchset
+into the LSM tree for the benefit of those writing BPF LSMs.  If you
+look at the discussion around patch 2/2 you will even see a reasonable
+exchange between Matt Bobrowski, a BPF LSM maintainer, and me about
+the patch.  Alexei is obviously welcome to his own opinion, but I
+would encourage those reading this thread to look beyond his comments.
 
-Add the name to struct ipu_property_names, which is copied by value into
-each struct ipu_sensor, and use that copy, as every other endpoint
-property name already does.
+https://lore.kernel.org/linux-security-module/20260904-lsm-mount-idmaps-v3-=
+0-920a1963675d@amutable.com/
 
-Fixes: 8e3def7bf410 ("media: ipu-bridge: Request non-continuous clock for ov5693 on IPU6")
-Reported-by: D. Manresa <dmanresa@gmail.com>
-Closes: https://lore.kernel.org/linux-media/20260905211307.542810-1-dmanresa@gmail.com/
-Signed-off-by: Fernando Rimoli <fernandorimoli11@gmail.com>
----
-The series is already in next, so this is a follow-up rather than a respin.
+> kfuncs are not stable. we keep refactoring them.
+> while lsm folks treat anything within *lsm* and *security* as stable apis=
+.
 
-Two things below would both need 8e3def7bf410 itself to be amended. I do not
-know whether you rebase that branch, so please treat them as questions, and 
-just apply this patch as it stands if the answer is no.
+Most everyone involved in LSM development knows that statement is
+simply incorrect.  A quick glance at the git log, our process
+guidelines on modifying LSM hooks (look in the MAINTAINERS file for a
+pointer), or even just the patch I referenced above should provide
+quick confirmation.
 
-1. This could be squashed into 8e3def7bf410 instead of landing on top of it.
-   The bug has never been in a released kernel, so there is nothing for stable
-   to pick up, and the Fixes: SHA above is from next and would not survive a
-   rebase in any case. One correct commit seems better, but a separate
-   commit is entirely fine by me.
-
-   If you do squash it, please carry the Reported-by and Closes: across.
-
-2. D. Manresa sent a tested tag for patches 4-7 on 2026-09-06, five days
-   before the series was applied and it didn't reach the commits. It is in
-   the thread here:
-
-     https://lore.kernel.org/linux-media/20260906073932.24090-1-dmanresa@gmail.com/
-
-   His is the only report that exercises the sensor's 2x2 binned readout
-   through the IPU6 hardware ISP; the other four are all raw ISYS capture.
-
-Neither is a reason to hold up the fix itself.
-
-For anyone testing by swapping modules under CONFIG_MODVERSIONS: this grows
-struct ipu_property_names, and therefore struct ipu_sensor, so the CRCs of
-ipu_bridge_init() and ipu_bridge_parse_ssdb() move again. intel-ipu6 needs
-rebuilding alongside ipu-bridge.
- drivers/media/pci/intel/ipu-bridge.c | 3 ++-
- include/media/ipu-bridge.h           | 1 +
- 2 files changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
-index 952868a..233c513 100644
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -237,6 +237,7 @@ static const struct ipu_property_names prop_names = {
- 	.data_lanes = "data-lanes",
- 	.remote_endpoint = "remote-endpoint",
- 	.link_frequencies = "link-frequencies",
-+	.clock_noncontinuous = "clock-noncontinuous",
- };
- 
- static const char * const ipu_vcm_types[] = {
-@@ -591,7 +592,7 @@ static void ipu_bridge_create_fwnode_properties(
- 
- 	if (cfg->flags & IPU_BR_FL_CSI2_CLK_NONCONTINUOUS)
- 		sensor->ep_properties[IPU_BRIDGE_NEXT_PROPERTY(i, EP_CLOCK_NONCONTINUOUS)] =
--			PROPERTY_ENTRY_BOOL("clock-noncontinuous");
-+			PROPERTY_ENTRY_BOOL(names->clock_noncontinuous);
- 
- 	sensor->ipu_properties[0] = PROPERTY_ENTRY_U32_ARRAY_LEN(
- 					sensor->prop_names.data_lanes,
-diff --git a/include/media/ipu-bridge.h b/include/media/ipu-bridge.h
-index 760f076..3ef94c2 100644
---- a/include/media/ipu-bridge.h
-+++ b/include/media/ipu-bridge.h
-@@ -135,6 +135,7 @@ struct ipu_property_names {
- 	char data_lanes[11];
- 	char remote_endpoint[16];
- 	char link_frequencies[17];
-+	char clock_noncontinuous[20];
- };
- 
- struct ipu_node_names {
+--=20
+paul-moore.com
