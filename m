@@ -1,82 +1,77 @@
 Received: from fhigh-a7-smtp.messagingengine.com (fhigh-a7-smtp.messagingengine.com [103.168.172.158])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6090130D41B
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 10:14:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53E0D3DE434
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 10:14:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789294445; cv=none; b=Ps/A2JFl2LqewpST++q7+hCGaTTR/YS8LVQD+j0ZGM3HHfaThDKDy6Oz+y9HeCxmxns4QCW2zNwIvWgJ6K3UccvTD+zvttDIibIE+VmbrpB+s4XXR6rl4TFA8bUOw0F977nIX9ZnSMmEy/V1LqksHAZWWHnaR8hFvX7pCtp9k70=
+	t=1789294444; cv=none; b=QTVRj2PYe3c+AqGPMBV0A4JKOie8Xu+9C4SAypd9sbQWbnaQwwa2Pyoh6OmY5y6COqo0Bhk6ROOzrXWYWkTYH3oc7XQoxTLamzWDijdOh3+Beku6bPkQ3giPHQvEvPkUhEYt+VQUCaKsBHyn5SlJDnYZv3vCD6KMmc3DPRJYWwM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789294445; c=relaxed/simple;
-	bh=dhOHOd5iaY1ZqxvsmmHDO+43mejiMHcT4jgTkHlKHV8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=S2LbTGBMXv3ws9a0u0xntrd9XEQAkaYExcjK0jee9Vty8EHToj2RwEAKakm9uolNVcf6mSjHgWnqgBgCkPEqtuFmiSSwHZGX2TWHI5i5IPY80w4e/r0UFeWr955mWtNKPH5g3Il/UolRt4A5hsPl7JIu2tb6iLQYO8nK0o152OQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=7LH3xAvc; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=BxuKOdWh; arc=none smtp.client-ip=103.168.172.158
+	s=arc-20240116; t=1789294444; c=relaxed/simple;
+	bh=sIRyTDL4yuapJ9WXhCs4TLXjICKrJfmA/btxxDSbpDU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LVk/WrmG0n+v7grIY74rrwTQBnWyazgqBtMStIRh7uIpqiPTNJ4+NTfgM/onveoo6SgWmAIfFd7qSFpFfyFY//dmjZ1GI7QPVzCG4jkNxc/WXBCfmETkDQvm3WkQg+q0ZdWUSAbcYSAdPyzsDs3MydANk5QZIlfYeIkp3HgabFI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=dR3DDnDn; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Jcd7n2vq; arc=none smtp.client-ip=103.168.172.158
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="7LH3xAvc";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="BxuKOdWh"
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 3AEC0140005D;
-	Sun, 13 Sep 2026 06:14:02 -0400 (EDT)
+	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="dR3DDnDn";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Jcd7n2vq"
+Received: from phl-compute-07.internal (phl-compute-07.internal [10.202.2.47])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id ECC9D1400089;
+	Sun, 13 Sep 2026 06:14:00 -0400 (EDT)
 Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-05.internal (MEProxy); Sun, 13 Sep 2026 06:14:02 -0400
+  by phl-compute-07.internal (MEProxy); Sun, 13 Sep 2026 06:14:00 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
 	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1789294442; x=
-	1789380842; bh=qQoWl2DdoztWHBwxZPjC62IJTGMp8AXdnfB8ORilBcs=; b=7
-	LH3xAvcnSviMgFv7bapAO+JggpHCSlJU9KK/qmtvUda3Wo/q4dSsC5h2Fzvh3j3o
-	QK2ofRTr1K5mXpAb/4qHG40e8ktmqeE6fJRqcLpVF2WbWBMpO2LXvYbcwPeVkENQ
-	gIU96koKXB5mYDqA+4mLTDFOPUKjeZYnecGodgEm++9MoQZUO5N4h/x/O+ZDKNH/
-	BK8KeKzTBE4aykr/jQrg9OU2wRs7O/FsQrZVR0XkWw8P3wmilc4gMtkyUdLXEwxT
-	VNPoEYqfkB/YdzXU7NqFc3ZbMG05zRMGlyfNTpBs7eclLH74HCuwIlPuUxiwh+Au
-	8tCsb9wVRuJfVAsy57vFg==
+	:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to; s=fm1; t=1789294440; x=1789380840; bh=xL/pppDBKZ
+	KsZl0eShGKxhkVQ8+yLagKVisSVgRW7BI=; b=dR3DDnDnifIuDA+ZqO2jVe9sKV
+	bHXuDegMZxybrLM7MADeXKSIn/mO4fr4FPz6v6LIYvMtTZS5a6CgZ/9Zv3rmtfK4
+	6tkgCcCb22DcdEOuxLaKc3YN64vVRGZpTqz3lbC1OKvfU/RvZgUDz7FlFckb/uci
+	MCKffag2lorJHDuA5a35BhevxnK+D3uRY819wOipwg30BzqeyjsPNDapsiFxy9Xs
+	V/ZaLbfdu5xdJUCeF5B8DSn+Qhyncx986p3Rkan2KR3jVJBN6WzqRsYlzhdFKsGC
+	O6dupkdsE2txdxuSO7hivybAbjzW11CFhEgLPmngKjUSgtjWJP1xZRTGy25w==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm1; t=1789294442; x=1789380842; bh=q
-	QoWl2DdoztWHBwxZPjC62IJTGMp8AXdnfB8ORilBcs=; b=BxuKOdWhRv8kEubxn
-	8hNqApGforOF3mXSX8GPKSoM9c2EcYT8uGxQS1sqzTV+qunXEdn1RBBKhJhJN1tU
-	yrW9Y3AlSQvFrCfTPsz7AyVKLzyQORammxeNV/WahZEG6/56Cl5RdZ2lMbjwRFfK
-	xgP9zpOEV2Zw35tYog3XfpMJu0cnWTTxmE80OofsfMIiow4NfGirHkn7n4hHUvXK
-	dNCyA2naOKKu3iBS6TGahtWvko6bHTMZ1AIk+C+aKytRefanfvoUbQ/mCBPRoL5W
-	JXg15njAAddt30oirhyZaM1fdchZ6UptxPXi9y7dbtB7lfUqSdp06zk+7Fp105FY
-	nMOsg==
-X-ME-Sender: <xms:anemaskf7DnHy_CFqb7fTOAl7wylIY1r9weLUxZADEhqTAVpP-QODA>
-    <xme:anemapxnPpG6OhtxTwanNFoQVlhbUXYcMoDH2w61kKgYHcTxzQ1xZdaG0tH73TvV4
-    FGcqoFBgeW-9yKGdCI0xVmOZ5UQPgRMqp4R9rcX5NH6BII-KK2wPMoR>
-X-ME-Received: <xmr:anemaiPDPp5WD6QcWdUp_DsKolWhCDgB338OlcjbXln-YymHR_blG-RyW1d3mrKsKBwobH-BROtt-Jmb7tMZ5HvZexgQeTS-VPPlm8kTAytgCQ>
-X-ME-Proxy-Cause: dmFkZTG2/vy8D0TbaMZOOhOpGNWwOGVtNK7N3/Ngp133it+bhfjOwGH+I3f6TifYcbFCix
-    d+aExY2U0cYC7fsd7F/Fw21a1yBHo7Ftaz2iRM2h3gfR5T7dXWR8r+smeEK8E28yK4bIYd
-    ixLHKJoqK4EZNfSK1zEMlMFiFzl5g6Jx8QVFNKC3RJa2Os6FyyhShJlD7ix43o2qA7rLeH
-    OUwVltsbra+ufek/Q756DmmV1U+01AJ3ER4g0bUtgnCg5AB941tbiwQ3ExpQ4AI1Dh8OQh
-    oY6X9VjBXg0YPP0riUEHb6zHa1SaebZS3x/r/3AjkMhIWic2pIMC15GtHju9uGnUtrHKoW
-    XXSD93dI1L08C/skWwJqbqpiJaw898QkkTTD0SVXiXDj03xIpid6AEhKn192r/tl5lsFXs
-    Eoec9bWwPRb3khMFAdUJ9W29x9M943T7ReMw5mexno7bme2xcLDhhiCh4gAhbx7ThSAByg
-    64+rQeNMm6Y/yAhfUFY8U4ye1jhvX53A5iK3DdKyQqo5FVkkNZ0Ue8VMsEcsGDF+U4h00L
-    nsvGoSsPnhFpJZ8VQpE1eKvGVsJiF4oJmDG8dKNOMeFbIJBV8x8ATW+ocSVpBjIl8OL8i8
-    3ffwmVykmRISb6UAfkZWJZz23tr97MTgOG6t/tlT3wZvCK+Cv30swLlWafWA
-X-ME-Proxy: <xmx:anemalRz5p9GKyE5JKUFl3gDjISfhazgBDFPW8j5PFhZwXb1s_mA0Q>
-    <xmx:anemaoZFwSWClE236FSbSemRYBvIRh20l8Ne4Udad6upHoVJZt6xLA>
-    <xmx:anemaq31GrVAh9VZv4eJfAqd33gv1U4A6rCWZhFSkP53L2WCp6jzMA>
-    <xmx:anemagURLgvYgmUt_yjfy8oKWUFvpQ58O4MB19EzKm4R1KMA2dHn6w>
-    <xmx:anemam6_soo9ZjaeDr_jfKUjJlzGad7IgxYjJ_F0vIWb4WsgfbnyKhPG>
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1789294440; x=1789380840; bh=xL/pppDBKZKsZl0eShGKxhkVQ8+yLagKVis
+	SVgRW7BI=; b=Jcd7n2vqYyR8PuaDY4rvwtkRXOfR9ktCffAzyRMFEQM5GM/pzZ/
+	cS58/5ULAnnVHfyzeielgsQ6da/bAG3CUwQlpudfxBhKaHW/MsD4fT+qGnhkJmX3
+	iFmK8IJTRXFln0ZynkODaT88gSvE8sH6N5P55MLjMw2XcvrkmLRBmVwoGKEfCPI0
+	RzQUChZVevmuACRnmLLX9MyXLuHDC97RCieW2Vl+KbaDeYj+2OCPH3Zuo4Ow8S2f
+	Ub2UOlIVH9lwEc6ruMDSQhnZZaqjO0U0IEmStqr4bcdGFDPDiJe8vYHQkRrbNiBy
+	M+Gddpp2Oc/ETWerjD6n9rHRq3UhQQGZ1/Q==
+X-ME-Sender: <xms:aHemaj5q_mKcgZRjoCGHngRIzcZkm9VvfBKg-Qqll3gyf_GOnHSPxQ>
+    <xme:aHemam05yZYmAcAceHjA6MpaFjLHkqEgezPEZxZHklWvWkM455_9ljiwbrLzlcKac
+    VTFmeP7R2wskPyo6n7KD7dyU-EVQkA1U4AAPdboNX4eHHlPab0bccIg>
+X-ME-Received: <xmr:aHemaiDfh10g8SiIdbOqxpY0TX6ILqroWJUW-FBR3NUIQpL85tumIb9W2oQm40fT81lVLA64Z5jomdzYKk5GFL9Pk0LEKbwYdapz0_pdZ6e5HQ>
+X-ME-Proxy-Cause: dmFkZTF8Jm+xhDYr8cyNyq/6AZz8k1HKOuRajGHEr8NLUrPsYP9SUrtxeeOj6yDmFMi72C
+    eLpkljtW7SAKdNVoy/r+ZvYmkLWYmrIGC4oQW7YdK0LY8LxYE7mKvN6p6IU3l2YkZXsvKF
+    NIC7TSXw7JjUx1GCjOP+38csIGz3Ktni2oA1HscTscDnQbENTewI2YpaRHwA0wxuPxcZMJ
+    wNP8r9z0flw1KwMzsY6zgD3yuzGm4kEXquA4VzaxWyxuGvpBQChC2Lq9aAq4lFOTiUwBft
+    HYi0QSTkeA+d7MMiTCrx+HVWAoGQDqU1+NJ10nZgumteKpbtgnm7mTfYfeCj9I+yBjn1p0
+    CxArLQMdCnACAM5CBRq7uEi2+bu8G7FVfjyvuKh7vgiT1cvaUp619hMw/OkzA4uMicol0S
+    rFqw7Iqk7YShIlIQIP2mv5D9JY5NoScvrEAWOjgNW6QhrBCM/f634mu14vZedrWLSvR70Z
+    EKHRmgSQ+CgSEkjpn8CsU2jfKEc0wkPdEzwlwBOxUNpvy6Y33TEjNVLkyQI+aaluXyzq2i
+    fNbgeJCcjdtlf2B3Irn4oHaEhejP4IylkuTVl4NCrOulzdcFfGnvSzq+bLQyLJIlDoePf1
+    sKIpwb2M/+DxUH/E240z6ozsxKE30egt0wuBGEGq47syZMuqkVkQQXJE/hQw
+X-ME-Proxy: <xmx:aHemag2saPTfkcrRbEWf7s6DzYwmLRy-vgbdOJDcuON3sI_z4QjV6Q>
+    <xmx:aHemakuitdi9sHXqRCcLGgN1T3da5WefqwlSCKeuH94xDmTpoMazcg>
+    <xmx:aHemao5zG86kgMCG9NEXz87fduMR_bKZGnFKLZ5U8Y6CU5pjNTBD0w>
+    <xmx:aHematLP50o6ddjGe6ADgbORNRxzNPNZcv4bYpQz6q2JlNKv82k39w>
+    <xmx:aHemaktfo6D7oAauF6UVg7ziGKIYAytW0jAMPaZUZ6gl3Pwym06r5r9A>
 Feedback-ID: ie8e14432:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 13 Sep 2026 06:14:01 -0400 (EDT)
+ 13 Sep 2026 06:13:59 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: linux1394-devel@lists.sourceforge.net
 Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH 1/5] firewire: ohci: use in_range() macro to detect CSR address ranges
-Date: Sun, 13 Sep 2026 19:13:52 +0900
-Message-ID: <20260913101356.156420-2-o-takashi@sakamocchi.jp>
+Subject: [PATCH 0/5] firewire: ohci: refactor local AT request/response handling
+Date: Sun, 13 Sep 2026 19:13:51 +0900
+Message-ID: <20260913101356.156420-1-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260913101356.156420-1-o-takashi@sakamocchi.jp>
-References: <20260913101356.156420-1-o-takashi@sakamocchi.jp>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -85,79 +80,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The current implementation handles asynchronous packets sent to the two
-CSR address ranges on the local node specially. To decide whether a packet
-is destined for either range, the destination offset needs to be checked
-according to the IEEE 1394 and 1394 OHCI specifications.
+This series refactors the handling of asynchronous transactions to the local
+node in the OHCI driver.
 
-The current implementation uses both conditional and switch statements to
-check the offset, which makes the range checks difficult to reuse.
+The current implementation has several special cases for transactions to
+the two CSR address ranges on the local node. The code for detecting these
+cases and generating the corresponding response packets is spread across
+conditional and switch statements, making the handling difficult to follow.
 
-Add two helper functions for the range checks using the in_range() macro.
+This series first factors out the detection of the CSR address ranges and
+local AT request/response packets. It then simplifies the response handling
+and separates the request and response paths into different helper functions.
 
-Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
----
- drivers/firewire/ohci.c | 33 ++++++++++++++++++---------------
- 1 file changed, 18 insertions(+), 15 deletions(-)
+No functional changes are intended.
 
-diff --git a/drivers/firewire/ohci.c b/drivers/firewire/ohci.c
-index 7d797755bbd6..c8cb7bdcb4ed 100644
---- a/drivers/firewire/ohci.c
-+++ b/drivers/firewire/ohci.c
-@@ -1534,35 +1534,38 @@ static void handle_local_lock(struct fw_ohci *ohci,
- 	fw_core_handle_response(&ohci->card, &response);
- }
- 
-+static bool in_config_rom_csr_registers(u64 offset)
-+{
-+	return in_range(offset, CSR_CONFIG_ROM, CONFIG_ROM_SIZE);
-+}
-+
-+// 5.5.1 Bus Management CSR Registers.
-+static bool in_bus_management_csr_registers(u64 offset)
-+{
-+	// 0x22c = CSR_MAINT_CONTROL following to CSR_CHANNELS_AVAILABLE_LO.
-+	return in_range(offset, CSR_BUS_MANAGER_ID, 0x22c - CSR_BUS_MANAGER_ID);
-+}
-+
- static void handle_local_request(struct at_context *ctx, struct fw_packet *packet)
- {
- 	struct fw_ohci *ohci = ctx->context.ohci;
--	u64 offset, csr;
- 
- 	if (ctx == &ohci->at_request_ctx) {
- 		packet->ack = ACK_PENDING;
- 		packet->callback(packet, &ohci->card, packet->ack);
- 	}
- 
--	offset = async_header_get_offset(packet->header);
--	csr = offset - CSR_REGISTER_BASE;
-+	u64 csr_offset = async_header_get_offset(packet->header) - CSR_REGISTER_BASE;
- 
--	/* Handle config rom reads. */
--	if (csr >= CSR_CONFIG_ROM && csr < CSR_CONFIG_ROM_END)
--		handle_local_rom(ohci, packet, csr);
--	else switch (csr) {
--	case CSR_BUS_MANAGER_ID:
--	case CSR_BANDWIDTH_AVAILABLE:
--	case CSR_CHANNELS_AVAILABLE_HI:
--	case CSR_CHANNELS_AVAILABLE_LO:
--		handle_local_lock(ohci, packet, csr);
--		break;
--	default:
-+	if (in_config_rom_csr_registers(csr_offset)) {
-+		handle_local_rom(ohci, packet, csr_offset);
-+	} else if (in_bus_management_csr_registers(csr_offset)) {
-+		handle_local_lock(ohci, packet, csr_offset);
-+	} else {
- 		if (ctx == &ohci->at_request_ctx)
- 			fw_core_handle_request(&ohci->card, packet);
- 		else
- 			fw_core_handle_response(&ohci->card, packet);
--		break;
- 	}
- 
- 	if (ctx == &ohci->at_response_ctx) {
+
+Takashi Sakamoto (5):
+  firewire: ohci: use in_range() macro to detect CSR address ranges
+  firewire: ohci: add helper function to detect local AT
+    request/response packets
+  firewire: ohci: refactor multiple calls to fw_fill_response()
+  firewire: ohci: refactor local response packet handling
+  firewire: ohci: refactor handling of local AT request/response packets
+
+ drivers/firewire/ohci.c | 137 +++++++++++++++++++++++-----------------
+ 1 file changed, 78 insertions(+), 59 deletions(-)
+
+
+base-commit: b5da1bc987ce48b61cd623c7821f1e7172b0e597
 -- 
 2.53.0
 
