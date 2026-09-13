@@ -1,116 +1,121 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7860B3E95A4
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 13:40:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 119F63E95A4;
+	Sun, 13 Sep 2026 13:42:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789306856; cv=none; b=abP+nsGDZAjPENU2dXgGrK3H9UoP1s9JYFvTT413IfAj4H8bnvEospJqOnVzmVqzTDQX04wwbLWNhuIPlwHpNbsTuFSqoUMnO739B6ZG18KKTfwi7G5w+gQbtUBaLMENaXtLhxHsY4Nd/WIEVWNj9HmEij7iHTQw4EZ34gm3aB0=
+	t=1789306957; cv=none; b=avxTSpK2yXXYPXlCzxw0HNb9qCfDttcwroe22ip930nRhfo7MzLBJLZrnA22AaF5yg+U40LVfvPvjEzC4YqTA0Adv7aaDoYT4AaFCxkjb9Q2NqAHZCblgnCo0muRh3WKTrecwwEu82KS+Sk8WmxGJPuqhhF+Bid6rRL1FHMXt9E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789306856; c=relaxed/simple;
-	bh=vUq7OE8glOhov/9NBs9mV+ziOL9KOUWXVhl29wF32kc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uYXHBzsba8ESc2SH1Ee2AFNttBL/nf4Rg39TBvzh8UEFs2BS7bbea5IincmdLE7JOlfx/KvP3/3goDPPokuYbFpVb8XRm7Sv7TcVkrSacvriJr7LCDwHPe4CSv7AeuOpSSd4HzUAAn+SiQhxkRe/BaGStg38Kq3DTwQiO3OFsn8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sYYdMye6; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789306957; c=relaxed/simple;
+	bh=/+BKfmb7S2w6JiMBVF8GoMH1Mw+py3N81GEAc9IfoEA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bCjtNxXXdC+6+6EF+wToSRDVpUiczsbWAmtN8xL7YDSnskE7tJ0XNHm/diaYFxbwFTLZkL0KD1QAhAQdpi2pmvRb3+mixft6BM4P6sbvek/cX0rvUjdOEq+6zCv3MgBKyTiCtUKqLMqFI6mqkP2IxA9ZqFU1G1HwbNAQnV+B6Vg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P+l0AZMK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sYYdMye6"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cea4bfb6so526279a12.3
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 06:40:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789306855; x=1789911655; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9U8XN+wqeWZ2BOPDqAL3IN95g06CNkRCt1kYaktqWGg=;
-        b=sYYdMye6yetjLqtrxHBwrfTskPMmuHpQVzGHUu1uBEWKvrSt/BlQXSB7QFdaMMK4W6
-         2GQG8FvgH2FwfOpBfwLhfzJLQ9SSyipGFayJVcmLnLJV+VcetlO/F9MFLH2ZUzwgEtpn
-         h2Fem1sOoDjDCVrqFt/s/vmWLtIpbCLo32ZB+ftjIA+/9IuC5Gx2mje5pH5Xpni0DGnH
-         aAlNjTG3pu7WCPQEFvrsKds5qgD6+q2QfggpswHaCbX+ADaX8UCh9glptXL9jNw7I1zv
-         y0CqEsyoKf4u/h0rIQa4ASPwxg5oOP/a88PjMc/rK0Hh5JzRN91+dhtBZRjK8pypKhXe
-         9Y1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789306855; x=1789911655;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9U8XN+wqeWZ2BOPDqAL3IN95g06CNkRCt1kYaktqWGg=;
-        b=i0T/2IkB4ReZgFg5pQExd5OW0P3aRnu3hmi2FTeI6/TKrjaYePc9YJ8YpDKIe9Ok1C
-         q5fgmPOhp7ExTDHwEelYA7JaQJip1rb5/uz/2OhKyIbo0Khrr/4LDFF2v4fLX6wHg6QR
-         oe9IJOxke4QI4LLaQr4oaeiewXuLPE9Ksz9TjIFwzWVjmVYsdpZrMvO0dMj3DT12BVfo
-         TErzZdt2VHnyAeE4mrehoVA2QYzHKG13sMEZUuhGWd1JNq8vbwmFFsvzG1vKtW5lwaYP
-         9HgQHZ/SdCa0iLPdJr438dMjBuFPRANtYM0w1E8swBHDCgrS8AITlLe8N629mP94qIzd
-         S9fQ==
-X-Forwarded-Encrypted: i=1; AKwUvByGJnjrXyCUMQ0gV8pj/FPbdqNF+/7PwWvkXgzxP/jADyupWahi0NfhFCSAi+pDcvb7XoEBHYnlqDzlWTg=@vger.kernel.org
-X-Gm-Message-State: AFuF++mWwHoYlNEeMKam1oNktQuzcLlwrbuGS4o7x+6oXTMzkQ7tlJWz
-	Qk+7LoqUPF2CHLTKamfrbpbG1HImTA4nPIEbGuqH+IbEYKD8RaS2kroF
-X-Gm-Gg: AYBFou00ABttbaDoIPdnX3nKzLR8q3uR5smpMDYjMlDbk8OBHk3/oHcYfm/CMEE3C0R
-	+8z5vIw0woyPks+xl4zKRb/fr6QW75chtBsrrMN6rGWwyFqi4DuvSjrC/0aOZlmWqntl9LQgBzF
-	uAtXUn4WeydFnwwmY4m/rJ+4oAXAweHYBUtPNhlq3BI0I3FieqF7VTtHHcQg9AsgA80Y5TCX3b0
-	lZF0Pk1epQRVkbvlmhPffiLP7KQCpELBBcCSYeBAjPFw7Nf793ROaHgT4yp1gIyFN5JFk8fF/D5
-	LoOJlypr2KY3F/s2+pcUNwA4ktCFMn6j6ddd4x8JFh6IkTcHa4cVenDvrZXL9GmuPBbl5fsaEwy
-	8/bKoiXBwCC0I3GhbaHcnnJGT7NJSrwVda2TfUccU4s2TJQaimosQGBr0XFzjgf4MDi4yzSIkcb
-	iWXdm56bx68KlRpLED/fqoatCTHT9sKzKdci929db7E8X+pHA5UU4o+g==
-X-Received: by 2002:a17:90b:1651:b0:37f:fdc8:71b4 with SMTP id 98e67ed59e1d1-39d9bbf93c5mr20289197a91.2.1789306854833;
-        Sun, 13 Sep 2026 06:40:54 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d95752809sm15365323a91.13.2026.09.13.06.40.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 06:40:54 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: =?UTF-8?q?Filipe=20La=C3=ADns?= <lains@riseup.net>,
-	Bastien Nocera <hadess@hadess.net>,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>,
-	Stuart Hayhurst <stuart.a.hayhurst@gmail.com>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] HID: logitech-hidpp: cancel reset_hi_res_work on probe failure
-Date: Sun, 13 Sep 2026 21:40:44 +0800
-Message-ID: <20260913134044.1562697-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P+l0AZMK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2B251F000FF;
+	Sun, 13 Sep 2026 13:42:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789306955;
+	bh=1SlS52xY0D62VH+cuPRLNsO8lHT3IoLYgxS8n4WrnDs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=P+l0AZMK7tp0QooYpXiYgGQPov/+euyBg3dMHxT85IcLS0tS65g3hAsJ6uxIRRwmt
+	 T+7GEy+2ukKRk94t2icQ1SHEaSq2YstA0DiAqx5XRaHhNMdxdyBWqceU243U7eM801
+	 FPOJxpvyYzthoynHCUTG5t4lni1QTgQS6w64PVrILen5Ea2Hc0KrdknA5oPFAhjKVe
+	 xVx717x+REDIRl+Uky1PNWCEEHcVd7/AHEmJrPXsWYeLcYNTlylmA4j9TWT+nRD2h6
+	 +ZedKnzm9IIFy8lo2MA76y2oHruVa0O3541oEuRhrlRhmWFKiKWdiWJ1F2A2dwngyN
+	 ZN4KQI3V/a7+A==
+Date: Sun, 13 Sep 2026 14:42:30 +0100
+From: Simon Horman <horms@kernel.org>
+To: Alexandra Winter <wintera@linux.ibm.com>
+Cc: David Miller <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>, Eric Dumazet <edumazet@google.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Thorsten Winkler <twinkler@linux.ibm.com>,
+	Bryam Vargas <hexlabsecurity@proton.me>, netdev@vger.kernel.org,
+	linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>
+Subject: Re: [PATCH net-next] net/iucv: Add lock nesting annotation in
+ iucv_sock_close()
+Message-ID: <20260913134230.GI48209@horms.kernel.org>
+References: <20260910162919.2100124-1-wintera@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260910162919.2100124-1-wintera@linux.ibm.com>
 
-hidpp_probe() initializes reset_hi_res_work before starting the device.
-Once device I/O is started, incoming HID++ events may schedule this work.
+On Thu, Sep 10, 2026 at 06:29:19PM +0200, Alexandra Winter wrote:
+> iucv_sock_close() acquires lock_sock(sk) and then, when the socket is in
+> IUCV_LISTEN state, calls iucv_sock_cleanup_listen() which acquires
+> lock_sock(child_sk) for each pending child socket. Moreover
+> iucv_sock_close(child_sk) is called on the pending child sockets.
+> 
+> Avoid lockdep warning by using lock_sock_nested() in iucv_sock_close().
+> Split off __iucv_sock_close(), so iucv_sock_cleanup_listen() can call it
+> without nesting.
+> 
+> This is a missing lockdep annotation - not a real deadlock.
+> 
+> Example warning:
+> [ 6690.906930] ============================================
+> [ 6690.906935] WARNING: possible recursive locking detected
+> [ 6690.906942] 7.3.0-rc1net_KCSAN_KASAN-00240-g641d03105cc0 #23 Not tainted
+> [ 6690.906948] --------------------------------------------
+> [ 6690.906953] afiucv_test_loc/5183 is trying to acquire lock:
+> [ 6690.906959] 000601ad13f20a78 (sk_lock-IUCV){+.+.}-{0:0}, at: iucv_accept_dequeue+0xdc/0x340 [af_iucv]
+> [ 6690.906984]
+>                but task is already holding lock:
+> [ 6690.906989] 000601ad1c115278 (sk_lock-IUCV){+.+.}-{0:0}, at: iucv_sock_close+0x82/0x7d0 [af_iucv]
+> [ 6690.907006]
+>                other info that might help us debug this:
+> [ 6690.907010]  Possible unsafe locking scenario:
+> 
+> [ 6690.907014]        CPU0
+> [ 6690.907018]        ----
+> [ 6690.907021]   lock(sk_lock-IUCV);
+> [ 6690.907028]   lock(sk_lock-IUCV);
+> [ 6690.907034]
+>                 *** DEADLOCK ***
+> 
+> [ 6690.907038]  May be due to missing lock nesting notation
+> 
+> [ 6690.907043] locks held by afiucv_test_loc/5183: 2, last CPU#0:
+> [ 6690.907085]  #0: 000601ad137a5550 (&sb->s_type->i_mutex_key#12){+.+.}-{3:3}, at: __sock_release+0x7e/0x230
+> [ 6690.907109]  #1: 000601ad1c115278 (sk_lock-IUCV){+.+.}-{0:0}, at: iucv_sock_close+0x82/0x7d0 [af_iucv]
+> [ 6690.907127]
+>                stack backtrace:
+> [ 6690.907135] CPU: 0 UID: 0 PID: 5183 Comm: afiucv_test_loc Kdump: loaded Not tainted 7.3.0-rc1net_KCSAN_KASAN-00240-g641d03105cc0 #23 PREEMPT
+> [ 6690.907140] Hardware name: IBM 8561 T01 703 (z/VM 7.4.0)
+> [ 6690.907142] Call Trace:
+> [ 6690.907144]  [<00061ab555fd6208>] dump_stack_lvl+0xe8/0x140
+> [ 6690.907151]  [<00061ab55623a110>] print_deadlock_bug+0x340/0x350
+> [ 6690.907156]  [<00061ab55623f768>] __lock_acquire+0x11b8/0x15d0
+> [ 6690.907159]  [<00061ab55623fc9c>] lock_acquire.part.0+0x11c/0x290
+> [ 6690.907162]  [<00061ab55623fec4>] lock_acquire+0xb4/0x1e0
+> [ 6690.907164]  [<00061ab5580d6b96>] lock_sock_nested+0x46/0xf0
+> [ 6690.907167]  [<00061ab4d66e38dc>] iucv_accept_dequeue+0xdc/0x340 [af_iucv]
+> [ 6690.907171]  [<00061ab4d66e541c>] iucv_sock_close+0xdc/0x7d0 [af_iucv]
+> [ 6690.907174]  [<00061ab4d66e5b62>] iucv_sock_release+0x52/0x130 [af_iucv]
+> [ 6690.907177]  [<00061ab5580c5b24>] __sock_release+0xa4/0x230
+> [ 6690.907180]  [<00061ab5580c5cdc>] sock_close+0x2c/0x40
+> [ 6690.907183]  [<00061ab556ac7a00>] __fput+0x2f0/0x880
+> [ 6690.907187]  [<00061ab556ac8cc0>] fput_close_sync+0xd0/0x1c0
+> [ 6690.907189]  [<00061ab556abbc70>] __s390x_sys_close+0x90/0xf0
+> [ 6690.907192]  [<00061ab55894df0e>] __do_syscall+0x1be/0x5a0
+> [ 6690.907196]  [<00061ab558976a7a>] system_call+0x72/0x90
+> [ 6690.907200] INFO: lockdep is turned off.
+> 
+> Signed-off-by: Alexandra Winter <wintera@linux.ibm.com>
 
-If a later probe step fails, the error path stops the hardware and
-cancels hidpp->work, but leaves reset_hi_res_work pending. Since hidpp
-is devm allocated, it may be freed after probe returns while the work
-is still queued, potentially resulting in a use-after-free when the
-work handler runs.
-
-Cancel reset_hi_res_work in the probe error path, matching the cleanup
-performed by hidpp_remove().
-
-This issue was found by manual code inspection.
-
-Fixes: ed80cc4667ac ("HID: logitech-hidpp: Add HIDPP_QUIRK_RESET_HI_RES_SCROLL")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/hid/hid-logitech-hidpp.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/hid/hid-logitech-hidpp.c b/drivers/hid/hid-logitech-hidpp.c
-index 1504de32b1c8..6a21b281a1df 100644
---- a/drivers/hid/hid-logitech-hidpp.c
-+++ b/drivers/hid/hid-logitech-hidpp.c
-@@ -4834,6 +4834,7 @@ static int hidpp_probe(struct hid_device *hdev, const struct hid_device_id *id)
- hid_hw_start_fail:
- 	sysfs_remove_group(&hdev->dev.kobj, &ps_attribute_group);
- 	cancel_work_sync(&hidpp->work);
-+	cancel_work_sync(&hidpp->reset_hi_res_work);
- 	mutex_destroy(&hidpp->send_mutex);
- 	return ret;
- }
--- 
-2.43.0
+Reviewed-by: Simon Horman <horms@kernel.org>
 
