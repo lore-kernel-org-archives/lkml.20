@@ -1,128 +1,85 @@
-Received: from omta036.useast.a.cloudfilter.net (omta036.useast.a.cloudfilter.net [44.202.169.35])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0AB51DD0EF
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 02:49:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.202.169.35
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 526481DD0EF;
+	Sun, 13 Sep 2026 02:49:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789267778; cv=none; b=QuQSLDk6pLSKrfexuUQGQxmOv5A/aXH+WeYPfI3rhHgbp34YXp0uTuVZGhr0tXvJ5qdMVc0LfuyFwyukWQvXVA2o6poY315P8F/yH15+jPt3Omy8LM1lKDoCOccZfkpa3Vs6heIPaqaelKU3ihTjJaMPZGYtW/jt1p0s4PASuTE=
+	t=1789267798; cv=none; b=cwCAl0rwh1gLHtOUZPQdSbo+vZ4tt62XYxujVzQBBG07ECeh1wCFwt9hJBPLp9rQ0eUfnWf5lkdsDDi26tcnYOFRBzlIdkXgJnr5tV3Vx0/imb8XHoXZY/rgh9MVQl8f7l8uHLz516lbRj6DuSOqwOpRC0NTdkCBUeKwcVUTWVs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789267778; c=relaxed/simple;
-	bh=30cBZ0Pjhx1PjBAWkg6SuTb8at7xsFr2Um4k6xITJho=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QFYMUx5eykl6J019nTNkGptIdz0yInk0cmM1QrMu3+wQf2yspvheRTtbEyF+k7k3F75WvY2pD+bcQa3+ldJbpm6fJNt2rdT2Iky7qIt2/BOQJn9ob7+RKqADzUFj0X2qHujgyiP9oTTie51BoiSTd8vH7ZpqIh7koYT9Dx8T5+c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=erUQCtxc; arc=none smtp.client-ip=44.202.169.35
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
+	s=arc-20240116; t=1789267798; c=relaxed/simple;
+	bh=I889TwsaWKAQxhdCSZc8QRqWu87gxwdtz42D0HI4RHo=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=A4KjfecciaZau2JmfPNrlhEhAimKQQrcMX8i/CEo10gJGbkK7h10CxTRs3VJAuisch9cSc1ZWdVyRNBx5FkWbkXqBYVqGMgKf1KIW5xx1h1UqESdbUc+hcTXB/3EW9bzJtuRo6Pfb7kcNcRm5DUXG2GnxfDIFQ5JzjLjgsoKw38=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=CeX4Giz5; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="erUQCtxc"
-Received: from eig-obgw-6006b.ext.cloudfilter.net ([10.0.30.211])
-	by cmsmtp with ESMTPS
-	id 5OGxxAEniLvgb5aG7x2dnh; Sun, 13 Sep 2026 02:47:59 +0000
-Received: from box5620.bluehost.com ([162.241.219.59])
-	by cmsmtp with ESMTPS
-	id 5aG6xFLDhY4rX5aG7xSF56; Sun, 13 Sep 2026 02:47:59 +0000
-X-Authority-Analysis: v=2.4 cv=CI8qXQrD c=1 sm=1 tr=0 ts=6aa60edf
- a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
- a=i4zM2ZNYXPBlML4XQsQA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=L5EjiQpGQaFGZdqT14z7:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
-	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=7FsypSqp9DRGIP7U+X40sL9iflms7aFlly7c03WaRho=; b=erUQCtxcO0/mQVFSohoXW6o3y1
-	fuxz93GGW/wuc/ZUDQEVCTUIIIy3V1FUsY2Upp6sZ09Jm3jqjxAjhKDrfufZ8SdV3aCBRzMookCyl
-	+PezcuVqDAqZNltdYxIWZ5ZAEdG6y2YyE/53iHSIzgA3lKMLHSAy1PWuB16EHfZn26+79nqDLm0Lv
-	fj94vpTFQBmFxDQGucllGKbBVZNDFC351BfHo22o+eFQltBAlQ5n9xOGZgnN6cXZZ/kYFtrsxKx0r
-	GrUzpPLWvxfmLN1EWFjcsAJXc061elryxvJcJL+sj/M+kf8XtQRci7AxkuGPq1b4rl6oqGgSrSGBp
-	VpixsVCA==;
-Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:48622 helo=[10.0.1.180])
-	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.100)
-	(envelope-from <re@w6rz.net>)
-	id 1x5aG6-00000002jkV-0U0b;
-	Sat, 12 Sep 2026 20:47:58 -0600
-Message-ID: <1a29a80d-1615-4110-8aa2-eaf931b579b6@w6rz.net>
-Date: Sat, 12 Sep 2026 19:47:56 -0700
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="CeX4Giz5"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68D2n9Kw93607801, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1789267750; bh=I889TwsaWKAQxhdCSZc8QRqWu87gxwdtz42D0HI4RHo=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=CeX4Giz5HTesJ0gvAA+ks968t7zuFR03exeP4QeshAtFAsXfZNDlwIyHUlsyqC2qF
+	 mrpUD7YUHta2qO+MBMuBxIzIXHeqZ74q27JDtGz90nQVlB80W6gSNhKPbXdjN1HqO3
+	 VjlugQvGPnoBX9uHo35/dDSXjSinXCvtJxk/EWBoeLR/vLipeU6ypm5mhnvVLwatSW
+	 L+T35aAULveYDZhJ5gaS+FtlNEL5CAuBS4lYGQIK2HmAxl0W85TOGkYyXzKnfNRvxI
+	 13qH1+sLfsXk70ZBHpxySnULen6H+I2NrtAHBSfkHptxQW7Ksnh0JJVBFdxBfN3D52
+	 XLCAeTR99Be0Q==
+Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68D2n9Kw93607801
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Sun, 13 Sep 2026 10:49:09 +0800
+Received: from RTKEXHMBS01.realtek.com.tw (172.21.6.40) by
+ RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Sun, 13 Sep 2026 10:49:10 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS01.realtek.com.tw (172.21.6.40) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Sun, 13 Sep 2026 10:49:09 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
+ 15.02.2562.049; Sun, 13 Sep 2026 10:49:09 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Cristian Deluxe <me@cristiandeluxe.dev>
+CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH 2/2] wifi: rtw88: 8703b: stop the PCIe DMA write reaching
+ SDIO
+Thread-Topic: [PATCH 2/2] wifi: rtw88: 8703b: stop the PCIe DMA write reaching
+ SDIO
+Thread-Index: AQHdQgqtELsK+81IkES8TDaZraWRNbbLz6JA
+Date: Sun, 13 Sep 2026 02:49:09 +0000
+Message-ID: <47279427012044d4afab9b0e76c03ce4@realtek.com>
+References: <178914109042.64584.1681714272474754544@cristiandeluxe.dev>
+ <178914109042.64584.11316164845616306056@cristiandeluxe.dev>
+In-Reply-To: <178914109042.64584.11316164845616306056@cristiandeluxe.dev>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.1 0000/1191] 6.1.188-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260912065548.086904252@linuxfoundation.org>
-Content-Language: en-US
-From: Ron Economos <re@w6rz.net>
-In-Reply-To: <20260912065548.086904252@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - box5620.bluehost.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - w6rz.net
-X-BWhitelist: no
-X-Source-IP: 73.162.206.103
-X-Source-L: No
-X-Exim-ID: 1x5aG6-00000002jkV-0U0b
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:48622
-X-Source-Auth: re@w6rz.net
-X-Email-Count: 17
-X-Org: HG=bhshared;ORG=bluehost;
-X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfMsduxiXeiAeVtPD26oCxhAD5a8ovRZTVnp6iLcr2a6TEMAWMZZt/RGaXFrIFOTRNqZJnJL9MhEWT5MNEIPhZ8b6jx3TUNHqU5hUxN8LaQzncHJYK98x
- HUJO/RZDcYZil/Wb0uiUhPl174tn00JqjTavGhohzxCV+UzeZcrxr+raPIo+n6MYjmoivY5AOoeq+NpmctA05tyJkstlBYJ7xIA=
 
-On 9/11/26 23:45, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.1.188 release.
-> There are 1191 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Mon, 14 Sep 2026 06:54:17 +0000.
-> Anything received after that time might be too late.
->
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.1.188-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.1.y
-> and the diffstat can be found below.
->
-> thanks,
->
-> greg k-h
->
->
-The build fails with:
-
-sound/soc/fsl/fsl_audmix.c:461:12: warning: 'fsl_audmix_runtime_resume' used but never defined
-   461 | static int fsl_audmix_runtime_resume(struct device *dev);
-       |            ^~~~~~~~~~~~~~~~~~~~~~~~~
-sound/soc/fsl/fsl_audmix.c:462:12: warning: 'fsl_audmix_runtime_suspend' used but never defined
-   462 | static int fsl_audmix_runtime_suspend(struct device *dev);
-       |            ^~~~~~~~~~~~~~~~~~~~~~~~~~
-ERROR: modpost: "fsl_audmix_runtime_suspend" [sound/soc/fsl/snd-soc-fsl-audmix.ko] undefined!
-ERROR: modpost: "fsl_audmix_runtime_resume" [sound/soc/fsl/snd-soc-fsl-audmix.ko] undefined!
-make[1]: *** [scripts/Makefile.modpost:127: Module.symvers] Error 1
-make: *** [Makefile:1977: modpost] Error 2
-
-This is due to commit "ASoC: fsl_audmix: rework runtime PM handling in probe" commit id d8f18d3367a252b194e2eed54ef785f7fff479da and 
-I have CONFIG_PM=n in my config.
-
+Q3Jpc3RpYW4gRGVsdXhlIDxtZUBjcmlzdGlhbmRlbHV4ZS5kZXY+IHdyb3RlOg0KPiBUaGUgZmly
+c3QgZW50cnkgb2YgdHJhbnNfYWN0X3RvX2xwc184NzAzYiB3cml0ZXMgMHhmZiB0byBNQUMgcmVn
+aXN0ZXINCj4gMHgzMDEgb24gZXZlcnkgaW50ZXJmYWNlLiBUaGF0IHJlZ2lzdGVyIGlzIHRoZSBQ
+Q0llIERNQSBjb250cm9sLCBhbmQNCj4gYm90aCB0cmFuc19hY3RfdG9fbHBzXzg3MjNkIGFuZCBS
+ZWFsdGVrJ3Mgb3duIDg3MDNiIHNlcXVlbmNlIGhlYWRlcg0KPiByZXN0cmljdCB0aGUgc2FtZSBl
+bnRyeSB0byBQQ0ksIHdoZXJlIGl0IGlzIGNvbW1lbnRlZCAiUENJZSBETUEgc3RvcCIuDQo+IA0K
+PiBTbyBvbiBhbiBSVEw4NzIzQ1MsIHdoaWNoIGlzIFNESU8gb25seSwgZXZlcnkgdHJhbnNpdGlv
+biBpbnRvIGxvdyBwb3dlcg0KPiBwb2tlZCBhIFBDSWUgcmVnaXN0ZXIgZm9yIG5vIHJlYXNvbi4g
+UmVzdHJpY3QgaXQgdGhlIHdheSB0aGUgc2libGluZw0KPiBjaGlwIGFuZCB0aGUgdmVuZG9yIGJv
+dGggZG8uDQo+IA0KPiBUZXN0ZWQgb24gYW4gUlRMODcyM0NTIG92ZXIgU0RJTzogdGhlIGludGVy
+ZmFjZSBnb2VzIGRvd24gYW5kIGJhY2sgdXAsDQo+IHJlYXNzb2NpYXRlcyBhbmQgdGFrZXMgYW4g
+YWRkcmVzcywgYW5kIGEgd2FybSByZWJvb3QgYnJpbmdzIFdpLUZpIGJhY2sNCj4gd2l0aCBubyBj
+aGFuZ2UgaW4gYmVoYXZpb3VyLg0KPiANCj4gU2lnbmVkLW9mZi1ieTogQ3Jpc3RpYW4gRGVsdXhl
+IDxtZUBjcmlzdGlhbmRlbHV4ZS5kZXY+DQoNCkNoZWNrZWQuIFRoZSBzZXR0aW5ncyBhcmUgaWRl
+bnRpY2FsIHRvIHZlbmRvciBkcml2ZXIuDQoNCkFja2VkLWJ5OiBQaW5nLUtlIFNoaWggPHBrc2hp
+aEByZWFsdGVrLmNvbT4NCg0K
