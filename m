@@ -1,45 +1,51 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2723E3812EC;
-	Sun, 13 Sep 2026 09:43:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AAC22BE65B;
+	Sun, 13 Sep 2026 09:45:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.210.214.84
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789292604; cv=none; b=GNQWYuR4Ay6osPnEe+M5w9vVeMhPpkpQ+JSeTw/rVH+jrqtr4dZF9DdYGtlCrOo9Fpj9Rj1eSbwXNB7yQYyG0WFubRzC9Nf+L5DOxcgP4dMBDJggcnmIHNnLJio3YVBvQ52tOIA6xOk0xxr74Uh34LhcGZnep6YPRSbAUexvGk0=
+	t=1789292738; cv=none; b=SSaRSDxHA5tHlQbdsXI1XG6KW2l3oU571agrVWXCyEU8LBaqSsj5nIS4PyaVE4LwFe813P9zOQwf6uFJ9FpX/XvQmS6MWN2dafs3kDsYvpDsTxMsEdL63HJ06CLVDFLS0Sx0vvcFjOnqHhPI8f/bV6jC49heLW/UqUMpwxZfwws=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789292604; c=relaxed/simple;
-	bh=4iVtPBVnOV6eK4w6hhYJzV/1e/9yVaux2PD6n/OVPWc=;
+	s=arc-20240116; t=1789292738; c=relaxed/simple;
+	bh=fxZfcUwrGuLbBq1at1NH+rfhj1ofaZCGvEtNjvvI0V0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UnIymu2IKDY0uv7Kyr+53Ps4OOnQCvfHFeFQEQdCo00bckqaGRD8iuzX3NC+er3BejEmEixTL+DnLdX4xlzVmQmZ3D02APmT9k3ygvchSIpP7VDhSAXmyzDx3Ro386cAhU0Gk5FJAXC0fwkHomcAYEYFlf/g9K6lCM/WwcbIbQ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RmlH6tMs; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=kdLPsHrBEohpns6/xMj0HkbAo31A9Vm1DE6ATOvgiklhTZFWaHBgBnPhLnm5nHynb4OPUcBywCQdxNM9mpQlAVNJ0MTatw/R060LyoIGEY8A301DjCXpsaOgRQAD9SEVO9vIJKv8Dver7+n+ANL+mU+SGftFL3ixAszU3KNItRA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org; spf=pass smtp.mailfrom=codewreck.org; dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b=lLcxZi1D; arc=none smtp.client-ip=62.210.214.84
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RmlH6tMs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E84E1F000FF;
-	Sun, 13 Sep 2026 09:43:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789292602;
-	bh=YhzoAzdU7CmBYcfp6mL1Ifuo2y1CgJrgv3i2FzMU4lk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RmlH6tMsbBxSE1YKcpXsPIAUEaku18W9kekwmFuSfzHL0zy6BUFc0tpmWpmVXjc+1
-	 fIDirXVXc96dC2DELbLH250OLey8gFQBIQMxX3mpIugcoE1cYY8FOb+gyU1TqRynQZ
-	 cqnQZ23uPkU0JH7OR6dxKAg2fJ3B4rfqli8GWEI6oEtGXVso3qzJl9zQUaWsVxOuhF
-	 Um6lZ678hA8cUJ3t4cWlD0IXZLS4gJ6kOToGTOYe5zzi03EswtUF8cvbY/3dwrP8+J
-	 Xl7MalC3nd2vwO7BTqpPLXiykNeXddOqmSl1Z71BZQWC3+2yS7HSREG7+fqgC/7N4W
-	 yZdLytjdhG8KQ==
-Date: Sun, 13 Sep 2026 11:43:19 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Vincent Jardin <vjardin@free.fr>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Shawn Guo <shawnguo@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v5 2/3] dt-bindings: arm: fsl: add Free Mobile Nodebox v3
- CPU Module
-Message-ID: <20260913-granite-toucan-of-drizzle-cf4b2f@quoll>
-References: <20260912-for-upstream-nbxv3-dts-v5-0-ead604dba61b@free.fr>
- <20260912-for-upstream-nbxv3-dts-v5-2-ead604dba61b@free.fr>
+	dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b="lLcxZi1D"
+Received: from gaia.codewreck.org (localhost [127.0.0.1])
+	by submarine.notk.org (Postfix) with ESMTPS id F20A414C2D6;
+	Sun, 13 Sep 2026 11:45:29 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
+	s=2; t=1789292733;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mntXXygWBINUxvtj0AxV1Eods6rKk9GuaqJdGpeqf70=;
+	b=lLcxZi1DJDTuc9DOL9tOMNq83rN637b7422Twq9WU2UpAUQmN2e20QvI/T5+p2Bt+APcGo
+	j1ENMo5Zev1GVftNtJCDZVg3kqVMSTx9RAAmMbCFwomMlq3FYmNrc9NEar+qfRlwchZR/h
+	RAtfjnHvPgkKpYih9D2yA4s10XrYhVKI27OkgpmPG+cpUpgHQAs+jsyLlzFbVraZnM4QhR
+	ckS37ADtM63Xfre+GphP1mnQPMEsDP5rDc1Jwc4ejFBFKbY+bUZeQiVaSEX7acDDxAUzwx
+	VrpELkWF5E/YigawYLegUgI7q4+/1xxxiB6Ruba7N1FdKwUQwRJ+INYedaRslg==
+Received: from localhost (gaia.codewreck.org [local])
+	by gaia.codewreck.org (OpenSMTPD) with ESMTPA id 42fff295;
+	Sun, 13 Sep 2026 09:45:28 +0000 (UTC)
+Date: Sun, 13 Sep 2026 18:45:13 +0900
+From: Dominique Martinet <asmadeus@codewreck.org>
+To: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>,
+	Christian Schoenebeck <linux_oss@crudebyte.com>
+Cc: v9fs@lists.linux.dev, Eric Van Hensbergen <ericvh@kernel.org>,
+	Latchesar Ionkov <lucho@ionkov.net>, linux-kernel@vger.kernel.org,
+	Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
+	Ao Wang <wangao@seu.edu.cn>, Xuewei Feng <fengxw06@126.com>,
+	Qi Li <qli01@tsinghua.edu.cn>, Ke Xu <xuke@tsinghua.edu.cn>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] 9p/trans_virtio: bound RERROR copy by mapped pages
+Message-ID: <aqZwqdnm7PW8OUv-@codewreck.org>
+References: <20260607140603.24342-1-zhaoyz24@mails.tsinghua.edu.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -48,31 +54,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260912-for-upstream-nbxv3-dts-v5-2-ead604dba61b@free.fr>
+In-Reply-To: <20260607140603.24342-1-zhaoyz24@mails.tsinghua.edu.cn>
 
-On Sat, Sep 12, 2026 at 03:32:37PM +0200, Vincent Jardin wrote:
-> Add DT compatible string for the Free Mobile Nodebox v3 CPU Module, an
-> NXP LX2160A based board.
+Yizhou Zhao wrote on Sun, Jun 07, 2026 at 10:06:01PM +0800:
+> handle_rerror() copies the variable-length error string of a zero-copy
+> RERROR response from the receive pages into the request's static response
+> buffer.  The amount copied is bounded by P9_ZC_HDR_SZ, so the data can
+> span at most two pages, but the helper is not told how many receive pages
+> were actually mapped.
 > 
-> Signed-off-by: Vincent Jardin <vjardin@free.fr>
-> ---
->  Documentation/devicetree/bindings/arm/fsl.yaml | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/arm/fsl.yaml b/Documentation/devicetree/bindings/arm/fsl.yaml
-> index 656f2596e1d5..baff4f4159b2 100644
-> --- a/Documentation/devicetree/bindings/arm/fsl.yaml
-> +++ b/Documentation/devicetree/bindings/arm/fsl.yaml
-> @@ -1937,6 +1937,12 @@ properties:
->                - fsl,lx2162a-qds
->            - const: fsl,lx2160a
->  
-> +      - description: Free Mobile LX2160A based Boards
+> If a malicious or broken virtio 9p device reports an RERROR length that
+> exceeds the remaining bytes in the first mapped receive page, the error
+> string is treated as crossing into a second page.  When only one receive
+> page was mapped, handle_rerror() still advances the page pointer and
+> dereferences the next entry, reading past the allocated in_pages array.
 
-Why this cannot be part of "LX2160A based Boards"? And what other boards
-are based on Free Mobile LX2160A?
+I'm not sure that can actually happen:
+If there was an "in page" (if there wasn't this is all noop anyway and
+data was written directly to req->rc.sdata), then req->rc.size amount of
+data was received into the pages, so if it does happen to span over a
+page boundary then there are at least two pages and we don't need to
+double-check here.
+
+Christian, do you agree with me this patch is not required?
+
+> Pass the number of mapped receive pages to handle_rerror().  If the error
+> string would cross a page boundary but only one page is available, copy the
+> bytes that fit in that page and leave the response truncated, matching the
+> existing behavior for overlong RERROR messages.  Otherwise continue with
+> the second-page copy as before.
 
 
-Best regards,
-Krzysztof
-
+-- 
+Dominique Martinet | Asmadeus
