@@ -1,90 +1,144 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D825C367291
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 15:46:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789314371; cv=none; b=BvZplJGG4bopAAVZmFECzTecBwHtwKKGubOOP7EcNg/fb9tucwXjpL6auZ6TgIXBPvKfuXKHuX+/O/8yaTK6e/z9nDR2ter3nXnZMJL0pc3fKxAeq6UhnhEPNY8y6zTEC+/4k4nSEBYEVRqGC6PUbJlSmvp+yjrfoYnu76/shyY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789314371; c=relaxed/simple;
-	bh=eHhbJBJEScMwwOpFI03/WBevKc+GD/HGfdsXGV2CSB0=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24C02343893
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 15:47:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.204
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789314426; cv=pass; b=LVB6wx/6ZP3aCPFMZ0w7fqzLn7J9J6Iyvl7l+7MKBqx0q0BvcQnpehJuwTV398jfqb+sN+WQcgIZR1ie1pp9IZKUsqvCFNrPlo2tvv1EeEasVGe26jZ0B9i8aUldIPEjuuiTcQmsSmqRORw+wzF3LAkTtPIYePvkUNuT7Uv80NE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789314426; c=relaxed/simple;
+	bh=KFkEvrKDNmPhRyOa4UUB93A5JAqNiBMds7vZAclPLSg=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=M5JbauNeeL++6D2ir7tWzPt24C63T0Cf4k+1NZ36ViUmXfX5izrJKnIx3smyg3E+gZZabyJCRiIM9VBmAjkZmxnuLGLlFb7/4JMO10bGrYaaLqC8WY3VFkKZppVavz4r0O08Y2QLYEGWHsOVFBgJ8p5SQVQ5gCA/kkooPBEM7SE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PGIUutvf; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=C7KU+n3wS4x++ofxBUhl1z2UmwBdwq94kRBtlQ55RQ6kqlzLOVxPTPDudp4Kv42mPqLGE06ZdGuIMevmKA2RGOiTNI/Tl7Ux8seAE2zwWOGClH0y2+Gw4qjfaphUg1Chh16J+p0BNzVcYbhYLac9mruhYk1mjBBpraUjKSG5SnU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B4C+vwZ6; arc=pass smtp.client-ip=74.125.229.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PGIUutvf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22C3D1F00893
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 15:46:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789314369;
-	bh=eHhbJBJEScMwwOpFI03/WBevKc+GD/HGfdsXGV2CSB0=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
-	b=PGIUutvfasqf3X86OXbWO408i0ZRBduh3L0fHOKpdN3JPF5lUC3Pc6ZTu9d/pyPo+
-	 o/p0BHyE0QM55LbAdPX6IhbOixR5wC0DqNQfF6NLq4GxYWXIbDDrhDqiQAfw6TzxME
-	 hUe+oFg7s9hwXZzEkTwD+qDiZqUsHYtxi/Z94Du69oRS4cixoViodqgHn1rh/ApQDf
-	 46JFO1Ytkfa1eEzPHeQufrAs2T1Fs0t8XQ/YxeKtjoNFvXHvUEinDcNc6gzTdK0Cxi
-	 eqSkbaI8xSvG+A2Oz6FmM6fRwpBJn+rZEbsDWeqfM6yFt4nb3xf6gI7xdpvOxG0CUR
-	 G3lRNygsNzzfQ==
-Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-3a4835ab78cso22556271fa.2
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 08:46:09 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxLc/McYLFe+c1ir1YbgtrvGXL0P3EQt6ucQAwkGF4Atmg8ERlxbB6oqAFF/KPX8jpXdTz7FtrYPYPIG6Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++lR7oSxHOYjtVj7ADhGwJaetHw1XxKESK3Hgee2tgM9Lud1ZKKI
-	XZg2lrC1tOunBuvnQYgmMf7fT8aFiN4MGJcrSJp22bVbs/6zOU1e6MrQ71vB5Q76m/OVT+K+1kK
-	lkb6ld8bEexEiKv1FIYEjnxZsWjAMJx0=
-X-Received: by 2002:a05:651c:19a0:b0:3a4:d4de:bad0 with SMTP id
- 38308e7fff4ca-3a5a5022d47mr17692041fa.19.1789314367478; Sun, 13 Sep 2026
- 08:46:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B4C+vwZ6"
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f13d77so1360887e87.0
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 08:47:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789314423; cv=none;
+        d=google.com; s=arc-20260327;
+        b=r+M+0blQrbECdiHNwGRqNHPmBoZwDLrHtb6WQ3jxyjJAxvbT8Yl6EJPKLfanF63ZYd
+         mbj6fHQJURBYzEKf2P1d05KkgiCiyb9mPgPxGqMOi1dH/17232LtPx0qF1kraM//IVmE
+         JSGcdPLsnQ09HNVG42LO1nCiIshqZwimF1MyxZjg+J4q3ZbtFKCRwDwCcU+jUmdSjzBv
+         39VrZQMl3VAli1GARSZD/TGp382nye5DHVPuiGPRys284Dx85H2o5q7OY+ROxwt8Vl+7
+         DtN0mWURzs/uVyPUFOS2hjmqNGLi/+WNlT/a3EYgVkbaCwfUC0kY27TLkf/MR3oryBZd
+         cErA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=KFkEvrKDNmPhRyOa4UUB93A5JAqNiBMds7vZAclPLSg=;
+        fh=pmARY9yUEIa75pTK3nbodoiR6YpDizIrMoxVZ42xlF0=;
+        b=n+X0Zoh12jw0S7stwYcPWOGSzaIctPMmRday+VW11LdiY+UeQfXN7YEHq5gyfRxsYR
+         XOFqITA82r6iSWVIoC1s9q7DTvixo9+SyoM1aCXhdT0K9ALmHu5IsOAd7kX6h2zqUf3A
+         T17k6wsgTOxxtQK9XRdQjIOi5Ak1Mb+bgAOLhwkMnrDxfdxamtGwc+oelQr3Sb/HwBqr
+         wCxv5o8FeY7FBSbZ7IGZfvtzxU2bE7+MChrfr5DolxXXRg68iPGdYQuW6+K8FMofOuxm
+         EYt1nxIOvmVu4lw/JAvnu05LY+FOqJLRBO7lNero32U1+MAzwPLA8RL6sq87HFrnb529
+         Zp6Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789314423; x=1789919223; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=KFkEvrKDNmPhRyOa4UUB93A5JAqNiBMds7vZAclPLSg=;
+        b=B4C+vwZ6TOxVZ7ImvZoKk5Hd10wiJz36mN6RVG3XgnpDSLdPs/zcyQLzzWbiZI6TQl
+         yaFVl6djzq5UKT5MpXKBWM1xayrmauqFr0T4ZF4TmzjiXkkNtaWUoW4ERevaUrenW/VZ
+         ue1ZE57SM5/+SAmsaxUMtpSd5XR322tLxrjiBDAWs/b3+ieq18QpzkRVvxT+QprI3LKf
+         LrBerA2o/yfklNeFmLc5C71B9Np8gEvdCCvzbis7F8xU/KQwtzchU7BSA9sgzSPRHWzz
+         2aKNtA0ufxfgz6Rt/gajkkCaNpMyVxasPPkcPmDtAV56Xq30iqcrsSzAsF7mA5itvH/9
+         0Z4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789314423; x=1789919223;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KFkEvrKDNmPhRyOa4UUB93A5JAqNiBMds7vZAclPLSg=;
+        b=eIhpYUKRngBZiiDYLJUvjVKLrVCdnnlbX5RqpirYxmBoZf+alBYaDeymE+LMiCgnSm
+         MbZoE0sZPhSDuvUTALQYMy56Juj4TZG5bZVbDBUumTS8JqEBBeLMoKakD0mOgbk6xIiw
+         yAalhBoehs9G4bV1e3vjC7raotvefMdYdZn7O5UDPwC310roVCqZAl9eFBzBgLJExpmU
+         v03NtiYKTIZJn0UY0fHYpHhv128a7Nn0MhcaI9vstb5HcTlO+7jEvINu7NB0pXUjotlq
+         gmR4EIjQN4vOnF70yJ+zvlXNrwqw7oXc4Sw/X5dVMdGedt+cnwyDK9VTyOWuM0On4umH
+         zb3A==
+X-Forwarded-Encrypted: i=1; AKwUvBz0U/JLD8ZdUtaZc4SW0z3U2Qvihho4oCBF36frWXnvV3r340kJ6g98nFQFLGpFFQ4jKhK30JpXwezWJ90=@vger.kernel.org
+X-Gm-Message-State: AFuF++kA/6eAMhu8jJSPES0xJnnUUzenaT8B13nQ1dK8vGG7xJq6wJK6
+	gh+LCQA3KLsUiPFRwZ3lX3v1iLVeTW6jU9sZ0quPKiRe5PiBKhBVREnLIkq8d8qqj3F35VfnxWX
+	9Dcjb7HBtpJArbQv16ycy80WNMQBTw0I=
+X-Gm-Gg: AYBFou0HGz5nvTuY/ciNaoMZIUgS7CL1VQUus0spNxeb3VFXlRqFgES+kJnlPkaHe4z
+	GJOrOZs/alybo4NBWAH147KAMQijP76atAATm2vMWbNEZ9BA7vfxWXOXVJ6/irwpl2OUEzx8ia9
+	1sIdSWRNLaopt/dD15UPyZtSttewiM/GgdbxQna27OWeRdkX98j3Jh8/HOFAOtrzu8bMxGbIHp/
+	qiuSmaWzUcpfUfuqeoneQRuFLH/Rr2VofnnCBknbc8ZrZpPhduQP/5Py2Nh26Y2BkCF5TzX40+8
+	IBMwTWnS4nJuGZjM/r9VuB5U/4oqVlP0WZHQchm+erSMRx5O8EmAxQ5uN7D/l7gzlLk9Vtz9R2B
+	L3yG0ZWquwHHJqQ==
+X-Received: by 2002:a05:651c:154b:b0:3a3:7681:6d6b with SMTP id
+ 38308e7fff4ca-3a5b38161b0mr10553231fa.20.1789314422665; Sun, 13 Sep 2026
+ 08:47:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <AS8P251MB00013E724A77A355668B6CCEC8B42@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
-In-Reply-To: <AS8P251MB00013E724A77A355668B6CCEC8B42@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Sun, 13 Sep 2026 23:45:52 +0800
-X-Gmail-Original-Message-ID: <CAGb2v642g_vRUmsaM-G+VP=e1ePmKnNGxXpp6ns475FVBN_WQQ@mail.gmail.com>
-X-Gm-Features: AcwNN1XRBaNDhEEGFuvJdFg63n6MOjJUU82Ly2PgZqYal3wEqs83Cf8POQRGn38
-Message-ID: <CAGb2v642g_vRUmsaM-G+VP=e1ePmKnNGxXpp6ns475FVBN_WQQ@mail.gmail.com>
-Subject: Re: [PATCH] rtc: ac100: Assign .num before accessing .hws
-To: Aamir Ahmed <elb12345@hotmail.co.uk>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>
-Cc: linux-rtc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-sunxi@lists.linux.dev, Kees Cook <kees@kernel.org>, 
-	linux-hardening@vger.kernel.org, stable@vger.kernel.org
+References: <CANGjgdn=H50AaA-+O_GA-hkE9UwLANmkjx1zRsKUzxF5za8VfQ@mail.gmail.com>
+ <aqa7KgIJYGgf7INk@slm.duckdns.org>
+In-Reply-To: <aqa7KgIJYGgf7INk@slm.duckdns.org>
+From: Chengfeng Lin <lin2530632123@gmail.com>
+Date: Sun, 13 Sep 2026 23:46:50 +0800
+X-Gm-Features: AcwNN1U3jyA-1tSNpP-D9guvtV6T3al2eJNkQEtzf0t-dPsWgp_KnaGhqsq7NoI
+Message-ID: <CANGjgd=f9n7zEZS=xi71y_dY6Uk75_qgP9qVDkYBusNz9sp2sg@mail.gmail.com>
+Subject: Re: [REGRESSION] kernfs: empty cgroup rmdir latency after
+ delete-notification changes
+To: Tejun Heo <tj@kernel.org>
+Cc: "T.J. Mercier" <tjmercier@google.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Jan Kara <jack@suse.cz>, driver-core@lists.linux.dev, cgroups@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	regressions@lists.linux.dev
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Sun, Sep 6, 2026 at 2:40=E2=80=AFAM Aamir Ahmed <elb12345@hotmail.co.uk>=
- wrote:
->
-> Commit f316cdff8d67 ("clk: Annotate struct clk_hw_onecell_data with
-> __counted_by") annotated the hws member of 'struct clk_hw_onecell_data'
-> with __counted_by, which informs the bounds sanitizer (UBSAN_BOUNDS)
-> about the number of elements in .hws[], so that it can warn when .hws[]
-> is accessed out of bounds. As noted in that change, the __counted_by
-> member must be initialized with the number of elements before the first
-> array access happens, otherwise there will be a warning from each access
-> prior to the initialization because the number of elements is zero.
-> This occurs in ac100_rtc_register_clks() due to .num being assigned only
-> after every clkout clock has been stored in .hws[]. With
-> CONFIG_UBSAN_BOUNDS and a compiler that implements __counted_by (GCC
-> 15.1+ or Clang 20.1+), this triggers an array-index-out-of-bounds report
-> during probe, and with CONFIG_UBSAN_TRAP the first store traps.
->
-> Initialize .num with AC100_CLKOUT_NUM, the number of elements .hws[] was
-> allocated with, right after the allocation. That is the value the loop
-> counter ends up at on the success path anyway, so the provider's
-> behaviour is unchanged.
->
-> Cc: stable@vger.kernel.org
-> Fixes: f316cdff8d67 ("clk: Annotate struct clk_hw_onecell_data with __cou=
-nted_by")
-> Assisted-by: LLM
-> Signed-off-by: Aamir Ahmed <elb12345@hotmail.co.uk>
+Hi Tejun,
 
+Thanks. I found this during research into kernel performance regressions,
+using a microbenchmark of cgroup creation and removal. This was not
+prompted by a production issue.
 
-Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
+I reported it to document the added removal cost and ask whether some
+of it could be reduced while preserving the fixes. I agree that the
+roughly 3 us increase per removal does not, by itself, demonstrate a
+significant impact on real workloads.
+
+Thanks,
+Chengfeng
+
+Tejun Heo <tj@kernel.org> =E4=BA=8E2026=E5=B9=B49=E6=9C=8813=E6=97=A5=E5=91=
+=A8=E6=97=A5 23:03=E5=86=99=E9=81=93=EF=BC=9A
+>
+> Hello,
+>
+> On Sun, Sep 13, 2026 at 10:43:04PM +0800, Chengfeng Lin wrote:
+> > I found an increase in empty cgroup removal latency across 507d8ce13f5b
+> > ("kernfs: Don't set_nlink for directories being removed") and eea5d2bb3=
+4ba
+> > ("kernfs: Send IN_DELETE_SELF and IN_IGNORED"). With sched_ext disabled=
+,
+> > rmdir() went from about 6.5 us to 9.6 us, an increase of 46-47%.
+> > The result held in two independent runs.
+>
+> I don't want to make cgroup removal unnecessarily expensive but at the sa=
+me
+> time it's not an operation that I consider to be a hot path, so as long a=
+s
+> the operaiton can finish in a reasonable amount of time and single digit =
+us
+> definitely is, performance of rmdir usually isn't something which is high=
+ in
+> priority. Can you please detail why this matters for you?
+>
+> Thanks.
+>
+> --
+> tejun
