@@ -1,71 +1,71 @@
-Received: from mail-oi1-f171.google.com (mail-oi1-f171.google.com [209.85.167.171])
+Received: from mail-oa1-f50.google.com (mail-oa1-f50.google.com [209.85.160.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 805FC39099B
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 04:05:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA7D125B093
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 04:05:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789272329; cv=none; b=T+JMsnpbvZ7X1MZCPMgsmvej/jmDJqDJtgbw2NVnuUrdedUFiOJ+dTx1NT4wmsts3MuBdOm3F2VzqZJYx6hgNVfzN5jIRQFdolhsKW9UG7o6jSg2FNzhtwVdCJG0FWwMZySIyBxZPbJ3alMf3MYHMOnU61Au+F32sZ96kVAcjqQ=
+	t=1789272331; cv=none; b=NNVKAuvvHJSpS9qb2xVZsLvondW0cym9a9IFVbS0fxEXpqdAryC4Z1EqKwarc69GNu18Q7OTNxXewi5IcxkMJE0Mxg3fXs6UwgaFoTKO89jUbxBwJtqwp5SjyBh9JuOmKdB70bOozvPklAIZA5eTDm/VR9ptuODaIyJPmi/bdVM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789272329; c=relaxed/simple;
-	bh=z2BPI/pmixq5cvuOueHRhY4+nASimyd7pRom7zs4YWM=;
+	s=arc-20240116; t=1789272331; c=relaxed/simple;
+	bh=sHxgZAC22jRN5x+cGiwyrOUKu8MIdzjliuwZEPvI6DI=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=hztKR4nB8p16WJ2RH9yP0W6luKF3+CuWGWkcDe+zjYdSliDrGhS67lmtYTkFOHvsJXe198RfkizBJUAwwnoYR2sop1tnT1k+2HZl0vMzWtGWgDm3bkMhsbNosgBbqvmbYskPtohPwlRO+9JdxPDzLg9YgqXvkmGyuAQQAzwxXPM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G0mC7oVB; arc=none smtp.client-ip=209.85.167.171
+	 In-Reply-To:To:Cc; b=B8ZiLHNPxfSHCHuwf7OciubwXtitGmnvyNhN70EzP2uOjmHj5Z8FfhVO3ZmuhPEY/9QI3TnqVzVuxqc3g32rFJhT27Mn5RAt4ijrSX9wL3z5Vo47AvA7xkYu+bh4bUyhjgc+izuayMcOm4LGhHQxIhuJWcZi1SwauckNTnsIenQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AxbJIMSl; arc=none smtp.client-ip=209.85.160.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G0mC7oVB"
-Received: by mail-oi1-f171.google.com with SMTP id 5614622812f47-4c6006e2428so358178b6e.0
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 21:05:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AxbJIMSl"
+Received: by mail-oa1-f50.google.com with SMTP id 586e51a60fabf-451a49abd8aso1815424fac.3
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 21:05:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789272326; x=1789877126; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789272328; x=1789877128; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4QAhKpDJSEoLKbSmhwyQO7+fj2kwJfhM4m0kCMZtpNg=;
-        b=G0mC7oVB97qiFJZshq1cbmBnqqgxl09weKf82hbCoFvDr4a8AO8brwNLKvbTEaAcl0
-         BROANUkR8412GPBf4RRHiROm0M/g/+vvLjziMqUBlcaNRNbi9tHs+NC7YWXxKaWE4YiU
-         7oFXHUSufFCFJSNlVCz6+QKJd8/v/a91Tcl+X8h0mYb3ot4yKQKQrlPt8owfOEWXolX4
-         vET6kzzpkU2wKs4p319zgraQuMXt9z1F9i7yMeFokFcomrHmCvtgOlzh7Oe61G4speot
-         nHopnHSody4rky8dgN8z1+CTXOD2nNvDuEyEHQlAlcALO6bi6/ltEUt4qzbiSaA6bCng
-         LD8g==
+        bh=I96nTr3z4iUIosSghVQixbz9aFa+jjKeIwLd+JYqRDI=;
+        b=AxbJIMSlE96AdxQwzO4lIX3mWdTw4sIUV5fkvZ4mIY9fQkhDYJYhTaycqHsxTL3yKU
+         TQ3XvvI4HfE/DhOXuVIPTqq2DTMl3DHgHfuTe6PQJMciNh0KxLajmHxkhvJfmUoOmcga
+         s8eB7rOKS+62d0KJEihQ96eTRrC30gIGV4Xxcv8SW4CmKKrG/yeH1bJ+4z0Zduco5Oiv
+         Uf0Fm+TI3whL1uR3tsvsCtD4rxlQi028Wzn1w9Ve2FCXm+QzYqLJY52kTLDdyIDJN9kX
+         9+SAGpatOX+V2GcJ50vNuQoP+2V6fKe/d70eA9S3NmVSqK1tajykj38TsF2tXo70QgVp
+         AfnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789272326; x=1789877126;
+        d=1e100.net; s=20251104; t=1789272328; x=1789877128;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=4QAhKpDJSEoLKbSmhwyQO7+fj2kwJfhM4m0kCMZtpNg=;
-        b=dXsFWgMWh/QzaoRKPL+jIIZ7l8VMXjXuNNNOEl7sJCubsK6BADIM9w7j1hKwGGe8ir
-         M+OAUdGA5sVr9xJ3OzJHaQlzKOsGZWnV6jU0EyiQ1EvuQ04EyIZn9rsw/40506ZhzrFx
-         NrTyNJny+60BzWXSou7EpXkeig/d83HlETRV7Ew9lKDKT+5lDsbRof5gIWAwBg5JEzOX
-         hcKPk5IrKdau6f1Qf16l3gIlKEMbxyZoJdPt2OE9dcdbb+0SCzef0ZEv7Zk1fHjPu1Wh
-         u/n+TYIT5EqRjWPnpHB8dFmxNejyGspFoeyTPGvVktQD1ogfolvb3xrjpBy4ouGx7JQg
-         K50Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwIsQsqbO0Lju7sIT8feFG79Ae9lq2z1Uz5XA8NH0Sp7pfwkDoSNVtbMcI0+BxfwWClTE6kqJDfLQeGdvw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kpvaiuOUXcRHTpeP2Avt/EEo55XtzdpSduACAKoLebfghDZJBy
-	HRJUEldUNFc+WoB2F7hPX8wSdrRYicwosLAkMltNzViNTePwbscPq6Km
-X-Gm-Gg: AYBFou3xEVHSUTB5X1+FO1u1Ai3ivygvtvBbCN98qhdEs1Z6vbWQ9J5ueWYmcFbeeLN
-	BMJ3RIiOmg2WLZdmiOXJE/ylTruhSsuGMmBPWd3+kuz5H3u3WYvdyBD/BIJw6ymzGo0QvNhpS1x
-	b6sWthAUgZYAcgNK5sy2nNYWjQYMAGizqirroDHNAdu24VKZt9F8FzLTtUtw9O8tAXzr4dvGmir
-	VQ3/iIzt9ihUWJcPBNpfaXGRP6SnSIpmDSa6SDmicwqkL1rk3N7bctPYEAWI/t+kPVutpw8nvvE
-	l7ovqFpp5mASDOhJFvGhRC3aarliu0zzRLDoMIDWIH70akBfoZGbTMDY8cboJgGfuk+rc64Dab7
-	l8RmB3t5MA7htiEzWTYG/rVtJA/z33mIZMH2NcnoXV+E0Ve8dxRd84MsFqP/ZTbkR5HrMD5X5g6
-	nUdi0wM5zu/cEyEZtIjQbPOBi6lAtG+It8J/LVskR50mtDSugRZZmUVkj8M5BAjo71R3miXNWx3
-	NsTaYU5KVJATXKSewZVc2JFug2ARUyB5l9S+RVpWnT3W/hxnwUk87kw0rbImCRV1V9eXukcuuB+
-	Ny5q7hWC/gdxFq8cazMLY/Q5Qv4IOmzqeJ6lkkU3A38+/uKt9IY8YTnmq+SgfQ7T0Zm35R3KTMC
-	w9r1YIpxKnEK08nMhz4veeEHlop/Xsw==
-X-Received: by 2002:a05:6871:4082:b0:479:a30d:60e5 with SMTP id 586e51a60fabf-47deb6b21a2mr8028318fac.37.1789272326342;
-        Sat, 12 Sep 2026 21:05:26 -0700 (PDT)
+        bh=I96nTr3z4iUIosSghVQixbz9aFa+jjKeIwLd+JYqRDI=;
+        b=EnPQHmB9qYzoKesWQDj9A/mAyyNmh0wJaIl9t4vQ4r0DSdEEqBC0PVk+Gnc/f0IMTD
+         FIL2z5vPaWemfHcfZ0cEy25Tks9kSQtd8GaOXvlIgjuQtiTeossE3nU8CYfkrwA9AfHe
+         tHWY010UcqxCp+6Ddu9l/6JKdp1Q0+m0mY1iF9Qwq5NWXrjCpVNiNivDU1azSwgeCOGn
+         nun5VYw2xEztaDrgDOUJobx1HV5fBIXSfubl+iUpjgZvFj2heeHuck8kWZWQLVbZFALa
+         Z4I+yDFNUTm2px/P+iE/Tu/qPwOWagszkWpVYyXVfudb9jfwnawxlBOkg8LT7uw8Lvkt
+         A3nA==
+X-Forwarded-Encrypted: i=1; AKwUvBzOIWoAix10rP9Z3f6q4Yf4gMQCAsbQNZSfH+hU7xeuRpIMVR03WPWwB2mtlsZdR6E6BcR1/q8iWKr++vQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mC4Ta71V4eB2z2q+0yd1frN46DP2dEFIGiY6kZQMyf8p2Wn7I5
+	+DYD1g0zm+oXmOA8QiojP50r8CoxbZ/TYyedSf35JT6UCts0rUk8gEia
+X-Gm-Gg: AYBFou0IzMWPvGcjYMmb9T3DspoxVh272z2OrLl2fqCpbM+2et+FMaacirPSBziUtL0
+	dGpeHa0BhiWgH1bMwhcPd5OBEAUCqjm87Uz3tP1R9Od7Gbak4mxJSC+04nZ0+9vz9/Rz3Pyi6WE
+	oa5s5XO3RgOt3G432qUSqJu251hv7T1oVNWh9r3QzcOylrnCIrVjxp+erMZq7peAq/zU7sm5Mtn
+	3ZNf4w1Xx0P+y6Vj+gGTZEAJd6zNdAm/4DDEmYkmxCAXkHP8wM2wlWbga08BTZBuj3xrpVql52O
+	UwoqCOowBqoCWLhD2iEaOQLmznBrGFOG1WP5A01WUQdfcs59wP95MtmzQJ1JPV6vj5fICQncMjh
+	VfUK6SLl1LtmPifs06JKcD+LU/sPV3lc0FVX5lL1XmWLJhszHRuhLdBjpb6N1fOnuiCtEZ3rAgc
+	j9yr0oyjRcIt/fm0o1BMLVL4j6ro5QypmUJGnlCMTgQhZjUsfox2asz1oO3oQ6TAQyzQbgKvYCT
+	JSc106aUuYYMNMkfezA2N3wMMbaf19wAm/gEOcpsajQk+ouelaSCYUdgUPGW9ZEER3ryIzzYSMm
+	CWh4zNJb2uZlT4L72LTPp6ZragjLfMFP9J+NgZdTxTMz1XTMKjiu0v2ShTWsry0bSPjDqsmNicb
+	CtT9Vs10wIaaZEZV8+yv09T8CowIUKA==
+X-Received: by 2002:a05:6870:d307:b0:47d:a38a:6218 with SMTP id 586e51a60fabf-47de9864d36mr7458245fac.25.1789272327784;
+        Sat, 12 Sep 2026 21:05:27 -0700 (PDT)
 Received: from [127.0.1.1] (184-96-157-145.hlrn.qwest.net. [184.96.157.145])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-47df8699647sm6011535fac.5.2026.09.12.21.05.25
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-47df8699647sm6011535fac.5.2026.09.12.21.05.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 12 Sep 2026 21:05:26 -0700 (PDT)
+        Sat, 12 Sep 2026 21:05:27 -0700 (PDT)
 From: James Hilliard <james.hilliard1@gmail.com>
-Date: Sat, 12 Sep 2026 22:05:04 -0600
-Subject: [PATCH v4 13/17] mtd: rawnand: sunxi: combine contiguous
- unprotected OOB reads
+Date: Sat, 12 Sep 2026 22:05:05 -0600
+Subject: [PATCH v4 14/17] mtd: rawnand: sunxi: avoid duplicate chip setup
+ before page commands
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -74,7 +74,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260912-submit-sunxi-nand-vendor-oob-layout-v1-v4-13-4a64bed94229@gmail.com>
+Message-Id: <20260912-submit-sunxi-nand-vendor-oob-layout-v1-v4-14-4a64bed94229@gmail.com>
 References: <20260912-submit-sunxi-nand-vendor-oob-layout-v1-v4-0-4a64bed94229@gmail.com>
 In-Reply-To: <20260912-submit-sunxi-nand-vendor-oob-layout-v1-v4-0-4a64bed94229@gmail.com>
 To: Miquel Raynal <miquel.raynal@bootlin.com>, 
@@ -92,73 +92,77 @@ Cc: linux-mtd@lists.infradead.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>
 X-Mailer: b4 0.15.2
 
-The randomized-format OOB reader fetches each parity region and the
-unprotected tail separately. H6/H616 pack protected user data before the
-first ECC step, leaving a contiguous range of parity bytes and tail data.
+The page helpers invoke exec_op(), which selects the chip and programs
+its timing and spare-area registers. Remove the identical setup directly
+before those helpers in the read callbacks and PIO write callbacks.
 
-Combine adjacent parity regions without crossing protected user data,
-and include the tail in the final transfer. Keep software de-randomization
-separate so each ECC step and the tail retain their existing seed phases
-and PIO/DMA representations. The NAND operation parser splits transfers
-which exceed the controller SRAM size.
-
-This reduces column commands for OOB reads without changing erased-page
-classification, data-only reads or the plain-marker paths.
+Keep explicit selection in the DMA write callback: it accesses controller
+registers and prepares DMA before issuing the program-begin operation.
+Do not cache controller state or change selection after a controller reset.
 
 Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- drivers/mtd/nand/raw/sunxi_nand.c | 27 ++++++++++++++++++---------
- 1 file changed, 18 insertions(+), 9 deletions(-)
+ drivers/mtd/nand/raw/sunxi_nand.c | 12 ------------
+ 1 file changed, 12 deletions(-)
 
 diff --git a/drivers/mtd/nand/raw/sunxi_nand.c b/drivers/mtd/nand/raw/sunxi_nand.c
-index 97a4b4470dad..5fba3c111a4b 100644
+index 5fba3c111a4b..84e1e04d0743 100644
 --- a/drivers/mtd/nand/raw/sunxi_nand.c
 +++ b/drivers/mtd/nand/raw/sunxi_nand.c
-@@ -1424,15 +1424,28 @@ static int sunxi_nfc_hw_ecc_read_unprotected_oob(struct nand_chip *nand,
- 	int ret, i;
+@@ -1755,8 +1755,6 @@ static int sunxi_nfc_hw_ecc_read_page(struct nand_chip *nand, uint8_t *buf,
+ 	int ret, i, cur_off = 0;
+ 	bool erased_chunk_found = false;
  
- 	for (i = 0; i < ecc->steps; i++) {
--		len = sunxi_nfc_user_data_sz(sunxi_nand, i);
- 		off = sunxi_get_ecc_offset(sunxi_nand, ecc, i);
-+		len = ecc->bytes;
-+		/* Keep decoded user data, but combine adjacent parity regions. */
-+		while (i + 1 < ecc->steps &&
-+		       !sunxi_nfc_user_data_sz(sunxi_nand, i + 1)) {
-+			len += ecc->bytes;
-+			i++;
-+		}
-+		if (i + 1 == ecc->steps)
-+			len = mtd->oobsize - off;
-+
- 		ret = nand_change_read_column_op(nand, mtd->writesize + off,
--						 nand->oob_poi + off,
--						 ecc->bytes, false);
-+						 nand->oob_poi + off, len, false);
- 		if (ret)
- 			return ret;
--		/* Preserve each path's normal representation of ECC bytes. */
--		if (!dma) {
-+	}
-+
-+	/* Preserve each path's normal representation of ECC bytes. */
-+	if (!dma) {
-+		for (i = 0; i < ecc->steps; i++) {
-+			len = sunxi_nfc_user_data_sz(sunxi_nand, i);
-+			off = sunxi_get_ecc_offset(sunxi_nand, ecc, i);
- 			state = sunxi_nfc_randomizer_state(nand, page, true);
- 			state = sunxi_nfc_randomizer_step(state, len * 8 + 15);
- 			sunxi_nfc_randomize_buf(state, nand->oob_poi + off,
-@@ -1443,10 +1456,6 @@ static int sunxi_nfc_hw_ecc_read_unprotected_oob(struct nand_chip *nand,
- 	off = sunxi_get_oob_offset(sunxi_nand, ecc, ecc->steps);
- 	len = mtd->oobsize - off;
- 	if (len) {
--		ret = nand_change_read_column_op(nand, mtd->writesize + off,
--						 nand->oob_poi + off, len, false);
--		if (ret)
--			return ret;
- 		/* The unprotected tail uses the page seed and its 15-bit advance. */
- 		state = sunxi_nfc_randomizer_state(nand, page, false);
- 		state = sunxi_nfc_randomizer_step(state, 15);
+-	sunxi_nfc_select_chip(nand, nand->cur_cs);
+-
+ 	ret = nand_read_page_op(nand, page, 0, NULL, 0);
+ 	if (ret)
+ 		return ret;
+@@ -1805,8 +1803,6 @@ static int sunxi_nfc_hw_ecc_read_page_dma(struct nand_chip *nand, u8 *buf,
+ {
+ 	int ret;
+ 
+-	sunxi_nfc_select_chip(nand, nand->cur_cs);
+-
+ 	ret = nand_read_page_op(nand, page, 0, NULL, 0);
+ 	if (ret)
+ 		return ret;
+@@ -1835,8 +1831,6 @@ static int sunxi_nfc_hw_ecc_read_subpage(struct nand_chip *nand,
+ 	if (sunxi_nand->randomized_oob)
+ 		return sunxi_nfc_hw_ecc_read_page(nand, bufpoi, false, page);
+ 
+-	sunxi_nfc_select_chip(nand, nand->cur_cs);
+-
+ 	ret = nand_read_page_op(nand, page, 0, NULL, 0);
+ 	if (ret)
+ 		return ret;
+@@ -1877,8 +1871,6 @@ static int sunxi_nfc_hw_ecc_read_subpage_dma(struct nand_chip *nand,
+ 	if (to_sunxi_nand(nand)->randomized_oob)
+ 		return sunxi_nfc_hw_ecc_read_page_dma(nand, buf, false, page);
+ 
+-	sunxi_nfc_select_chip(nand, nand->cur_cs);
+-
+ 	ret = nand_read_page_op(nand, page, 0, NULL, 0);
+ 	if (ret)
+ 		return ret;
+@@ -1902,8 +1894,6 @@ static int sunxi_nfc_hw_ecc_write_page(struct nand_chip *nand,
+ 	struct nand_ecc_ctrl *ecc = &nand->ecc;
+ 	int ret = 0, i, cur_off = 0;
+ 
+-	sunxi_nfc_select_chip(nand, nand->cur_cs);
+-
+ 	ret = nand_prog_page_begin_op(nand, page, 0, NULL, 0);
+ 	if (ret)
+ 		return ret;
+@@ -1947,8 +1937,6 @@ static int sunxi_nfc_hw_ecc_write_subpage(struct nand_chip *nand,
+ 	struct nand_ecc_ctrl *ecc = &nand->ecc;
+ 	int ret = 0, i, cur_off = 0;
+ 
+-	sunxi_nfc_select_chip(nand, nand->cur_cs);
+-
+ 	ret = nand_prog_page_begin_op(nand, page, 0, NULL, 0);
+ 	if (ret)
+ 		return ret;
 
 -- 
 2.53.0
