@@ -1,130 +1,116 @@
-Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E501390C9A
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 14:20:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C453D390C9A;
+	Sun, 13 Sep 2026 14:21:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789309257; cv=none; b=Hjen0Z5OqfFw085LxDoAeyVRsNLtW6VJ554hpCRbdkfNLHNRCYBF8IPWTd6ld1DvHD/SW7hEI1WIcu6ygkA9jeiwXIJcWg+19HTU75LZC1uDvEVd60wVbIx3WrPnK+kGfvuR4TUW/AsVWxSOFOhQKdodoKLLnz4Vy221X97xsMc=
+	t=1789309261; cv=none; b=qlwxOGF2zVmYV3aWFAHyiOWPDr0GHNCmk4Z/Rum0XiRogiv9KvZK/PAo4TGAjXg5TaPvO8yCtczJS8gu6Rr8Rx+nhhXxgfi10Z5QeqkvmkrNvuN5exH+SB7IzsGTe5hRrYM3xw4uqJXL1LkdAm8t12Td3IHbUPOsM/pPcPSyx7o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789309257; c=relaxed/simple;
-	bh=YNjzl8n+PXt2mDKHZd5UmT/m2STCivhleGjjPRVWfgI=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=EmfgvTQLBaQH7sAgeEAQqRoJsI3mqJrGK7O1yegftoMAK48n0iq6Cxz3ALs96pQh1AlHqO8V7e37Td6lFfKOdAW6Cg6aINHu1MlUfzkuIhB2TKmD5HTwwvsft4JsMnVnwyHZ7Xy6llej9jrffwRRJvQtQsNS7bz9cPE0TeOcV/0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=iDCY9bAr; arc=none smtp.client-ip=185.70.43.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1789309261; c=relaxed/simple;
+	bh=YHEUZVmEJfR8gx9MYy4oX6/zj+72gV3LoKcp/eFgcXU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=IT4YfYCx4lf5DF4bp51A5pd90YRLbr8AMW0592HKaiYI4SKjXunrp4cYc9JYl6j7X6qe4O7Z0Md2ktTXt8QPKNQxhTF0EnU1WmJSN/toPa636BIk2WJ0qb9IqOy/NvB9m5wUJKySbgUWPaCS/amnju6Y4XV+LKKeRgRRyeyVqG0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YldgKaOb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="iDCY9bAr"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1789309246; x=1789568446;
-	bh=hxYQSvvbCFeQ7xu4WK5iaFxM0qwaTFDmTAidpAMVsKM=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=iDCY9bAr3G4hzEQtGvYnCx6Fyktetqi5FCuX5P9f6FZGvTjeQOLYZHcrx7FomkkCY
-	 rOMxWG9MsGDR8SlqDxZ/RGH+4B4Tkn8abfCSB/EHJLaSFNwn8yGw/0IWugeIDF2tNz
-	 7YMEppi8DGTyEI0SRZb7HA+4bE8J+9S4RuvrQa/u4EqHHFmxxMcRGyOn6p2cZg7tGD
-	 jHlrXXIZwWmDxkJ8hC/WTdgzOnUDX0NwZJeYKfj6+wfwTUn9Ohn3slQx/2/yt86r1p
-	 iYsd/jmFiRNdDFdrDjzrneyKNxCkklnWeRSMh/5FVexKDdpePLcJi5o5OrX6GKdejt
-	 HIxt2EQ901yMQ==
-Date: Sun, 13 Sep 2026 14:20:40 +0000
-To: linux-media@vger.kernel.org
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Hans de Goede <hansg@kernel.org>, Dan Scally <dan.scally@ideasonboard.com>, German Pablo Lindo <germanpapulindez@gmail.com>, linux-kernel@vger.kernel.org
-Subject: [PATCH v2] media: ipu-bridge: add the OV13858 rear sensor
-Message-ID: <20260913142034.5632-1-lsa.uz@pm.me>
-In-Reply-To: <20260913100932.92087-1-lsa.uz@pm.me>
-References: <20260913100932.92087-1-lsa.uz@pm.me>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 3831d14dc5aee3952985ae51e7a8167c37fbe31f
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YldgKaOb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99F851F000FF;
+	Sun, 13 Sep 2026 14:20:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789309260;
+	bh=JPDwdijtJVJiNfYMBej4hbdD6g+Q4CHLJWJgWUUmU8s=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=YldgKaObF6UKK47NRJTnDZ4GVPhknjGkkvvG3Ygzqu0PWS2qEhqFjUegSmJipLVni
+	 hjpFfwOw/tpDz3F5yPKKyaO0PTScuQySyJ7rXlXdGTKOPYr7EYkT+48i5L2iJR6ldq
+	 skhZ+36vm28qwbNl6/wHw7QeJqeqRnQ6HIxeQpNPAd1c47vCIHXIv+xu6ZmKdQtG8v
+	 x608HPYoUjoUplXpwGfxvS9JROGHpyC5g175p2RbMeIICbC0nh5Ex54D7dz9FonFBX
+	 zHmE8loisoxw2jpBwoJttKAeGkVyX9vPvso+l5LkX8LUQrMj4E/vXxY1UFeI0bGerP
+	 vGRi+JAEG72Lg==
+Message-ID: <565e4f26-69c3-4129-b4f1-29d67c381591@kernel.org>
+Date: Sun, 13 Sep 2026 16:20:54 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/3] dt-bindings: arm: altera: add Draeger M48 Module
+To: Petko Manolov <petko.manolov@konsulko.com>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, dinguyen@kernel.org
+References: <20260911150755.2803736-1-petko.manolov@konsulko.com>
+ <20260911150755.2803736-3-petko.manolov@konsulko.com>
+ <20260913-perky-resolute-badger-6c5e96@quoll>
+ <20260913133214.GF20345@cabron.k.g>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260913133214.GF20345@cabron.k.g>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The Microsoft Surface Pro 11 for Business (Intel Lunar Lake, IPU7) carries
-an OV13858 as its rear sensor, enumerated as ACPI device OVTID858. That
-HID is not in ipu_supported_sensors[], so ipu_bridge_connect_sensors()
-passes over it and the IPU is left with an empty graph:
+On 13/09/2026 15:32, Petko Manolov wrote:
+> On 26-09-13 11:18:16, Krzysztof Kozlowski wrote:
+>> On Fri, Sep 11, 2026 at 06:07:53PM +0300, Petko Manolov wrote:
+>>> Add DT compatible string for Draeger's M48 CPU Module, an i.MX6
+>>> based board.
+>>
+>> Sashiko comment is valid.
+> 
+> Sashiko doesn't know that this is indeed an i.MX6q board with the Altera FPGA as
+> a separate module, that is secondary to the NXP SoC.
+> 
+> What do you want me to put in the commit message so that everyone is happy?
 
-  intel-ipu7 0000:00:05.0: no subdev found in graph
+Your commit msgs for bindings and DTS should explain the hardware and
+with the current explanation this is just so incomplete that basically
+wrong. i.mx6 is completely different vendor. Altera FPGA does not make
+it Altera SoCFPGA, these are two different things. If Linux runs on
+iMX6, then what are you describing here? DTS which never is going to be
+loaded because there is no SocFPGA?
 
-Nothing is logged about the sensor having been passed over, which makes
-the failure hard to attribute: the ACPI device is present and enabled and
-the i2c client exists.
-
-ov13858 declares two link frequencies, in this order:
-
-  #define OV13858_NUM_OF_LINK_FREQS=092
-  #define OV13858_LINK_FREQ_540MHZ=09540000000ULL
-  #define OV13858_LINK_FREQ_270MHZ=09270000000ULL
-
-With the entry added the bridge connects the sensor and the graph is
-built:
-
-  intel-ipu7: Found supported sensor OVTID858:00 (\_SB.PC00.I2C3.CAMR)
-  intel_ipu7_isys: bind ov13858 1-0010 nlanes is 4 port is 0
-
-  - entity 247: ov13858 1-0010 (1 pad, 1 link, 0 routes)
-                device node name /dev/v4l-subdev5
-    pad0: SOURCE
-          [stream:0 fmt:SGRBG10_1X10/4224x3136 field:none]
-          -> "Intel IPU7 CSI2 0":0 [ENABLED,IMMUTABLE]
-
-and libcamera captures from it, 30 fps at its own choice of 4220x3136 out
-of the sensor's 4224x3136.
-
-The rear camera on this hardware was reported dead publicly by German
-Pablo Lindo, who traced it to int3472 not recognising GPIO type 0x08:
-
-  https://lore.kernel.org/linux-media/20260903081557.16603-1-germanpapulind=
-ez@gmail.com/
-
-That is a different cause of the same symptom, fixed separately by
-"platform/x86: int3472: support the POWER1 GPIO type", which is in
-linux-next and not yet in media/next. The missing bridge entry is the
-next one along. The sensor also needs power sequencing the in-tree
-ov13858 driver does not do on this platform; that is a separate patch
-and not a prerequisite for this one to be correct.
-
-Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
----
-v1: https://lore.kernel.org/linux-media/20260913100932.92087-1-lsa.uz@pm.me=
-/
-
-v2: no functional change. The Media CI robot flagged one over-75 line in th=
-e
-    commit message, and fixing only that moved the warning to the next quot=
-ed
-    log line, so both are shortened: the PCI address is dropped from the
-    intel-ipu7 line and the full device path from the intel_ipu7_isys one.
-    What the lines say is unchanged; only this machine's slot numbering is
-    gone. checkpatch is now silent.
-
- drivers/media/pci/intel/ipu-bridge.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel=
-/ipu-bridge.c
-index 7e65491..8a16c81 100644
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -88,6 +88,8 @@ static const struct ipu_sensor_config ipu_supported_senso=
-rs[] =3D {
- =09IPU_SENSOR_CONFIG("OVTI08A1", 1, 500000000),
- =09/* Omnivision OV08x40 */
- =09IPU_SENSOR_CONFIG("OVTI08F4", 3, 400000000, 749000000, 800000000),
-+=09/* Omnivision OV13858 */
-+=09IPU_SENSOR_CONFIG("OVTID858", 2, 540000000, 270000000),
- =09/* Omnivision OV13B10 */
- =09IPU_SENSOR_CONFIG("OVTI13B1", 1, 560000000),
- =09IPU_SENSOR_CONFIG("OVTIDB10", 1, 560000000),
---=20
-2.50.1 (Apple Git-155)
-
-
+Best regards,
+Krzysztof
