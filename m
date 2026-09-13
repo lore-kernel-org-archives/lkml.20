@@ -1,151 +1,150 @@
-Received: from bg-bec.cloudflare-smtp.org (bg-bec.cloudflare-smtp.org [104.30.16.142])
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D98E42F7F19
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 05:56:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=104.30.16.142
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789278974; cv=none; b=UTcNPrCA2hQWleuBYulZdltJi2PME+X1JD3JLD8tRyJE6pxYyQPd5Wi8JwXhCBEL0w5IqXWwJAqhV+CvmbrEW1d7vPiK7B57394JRjPM/uJDfico3ziEP3Klfc6xbZM1361Ii85HkExlItWgj0aslrxMxsCkk8xZdyT/N+MNpO8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789278974; c=relaxed/simple;
-	bh=upjDGJJNlweE9DH551XLTHMrWR/jjDCvnblk6fuBddI=;
-	h=From:Message-ID:Date:Subject:To:Cc:MIME-Version:Content-Type; b=RDKMrL2eLAbaxjbqBYS1ik3RyocApBBueVnZoC4jIZ+5PVeARuFQiy+21MmgbeC6IctGCJKTZ/7H5MTfsKBG2QtgN0pG28EuVuPbJcDV/ANSN+DmVHwwGm2zUBxfAa+C0l5yY/pvqqynUzdnfryPLWkRlfirr6IOxNULw9/XRaQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh; spf=pass smtp.mailfrom=cf-bounce.bugs.sh; dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b=DzisnToR; dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b=Mt0e6hKM; arc=none smtp.client-ip=104.30.16.142
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cf-bounce.bugs.sh
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 605973B14A3
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 05:58:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789279119; cv=pass; b=jvTotcIOviJW2vI871U0ma+WoL7CGNjpC3ubD3RyoVt114Wqw9vAh0SB2iSO28F3SsdpwAgzYVqtorkBS3PShT5iHktlcfzODoVdeBiQdr0MZzI20vaORu+wRUuepSryIhjgiEdXNb5z3nOrLHROWfGOzoA6e/m7xGKJC6cDZFs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789279119; c=relaxed/simple;
+	bh=XL2BqdaDbBQGl2le1+e15CvxQeIuTY32niH1hZcA9BI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=lt9rw6N0R9FeuZPnAIbLizt8D3RTGSg32M/GCWOVQqZefQ6nLhvfAEEDpJV9RCTk930SiyefoCxTuW3NUacTOGoM44jdwk5kT6/Fy9rHPYNHRkwil3jwkNKN4JiWsOqLUs8uu8W0EkGkD8Eyzd8DX0t2AYtiy61U0qT/Omor1vI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RBuD8yye; arc=pass smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b="DzisnToR";
-	dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b="Mt0e6hKM"
-DKIM-Signature: v=1; a=rsa-sha256; s=cf2024-1; d=cloudflare-smtp.org; c=relaxed/relaxed;
-	h=Cc:To:Subject:Date:From:Feedback-ID:from:reply-to:resent-date
-	:resent-from:resent-to:resent-cc:in-reply-to:references:list-id:list-help
-	:list-unsubscribe:list-unsubscribe-post:list-subscribe:list-post
-	:list-owner:list-archive; t=1789278972; x=1789883772; bh=vH++NRt8Iwj+fj4AY2
-	MO/3uFUwrZEsm+rlOa3TQMApc=; b=DzisnToRFhwX+OiAepFnAeWjTz6P5WCRjvJXPhG/rQl3c
-	ri3+jxQUZP2i2ZBiCbnGsYNIjtUwYG1ntn/vPh/Ii4sD4Ntpfe3t4LlxbFVupK+iBGezoNcckea
-	zlk25sRyKLVi58Skn4Yj7eM6WRsC/fEUpQWq2aiXZBMCHFcze3t3CSv+P8lK3W8/E2sCdzWEtYs
-	v1ktWxnbWIjFnRQpxFX10FWJoDM5vZ6NfxpSdAq73AoqQqjrfH3QauqpRLnsGGoOiMi9gxgcwnT
-	O7PHA8BhW24xXMBj/nvh374Q/q9T+dTh3kjmwj0WC05rEDH57rwQ4tHKkJLi4rcgnBV+uMKw==;
-DKIM-Signature: v=1; a=rsa-sha256; s=cf-bounce; d=bugs.sh; c=relaxed/relaxed;
-	h=Cc:To:Subject:Date:From:Feedback-ID:from:reply-to:resent-date
-	:resent-from:resent-to:resent-cc:in-reply-to:references:list-id:list-help
-	:list-unsubscribe:list-unsubscribe-post:list-subscribe:list-post
-	:list-owner:list-archive; t=1789278972; x=1789883772; bh=vH++NRt8Iwj+fj4AY2
-	MO/3uFUwrZEsm+rlOa3TQMApc=; b=Mt0e6hKM/eNVxxTAkb22WCQVzcK0OPuqWqhYhnHqtJQTZ
-	4ZSrIi6ISltISjxX9KLb+MMM3pWCFNluGTWbFyEDl4RimKqJ48lAVMoEX/Uw+bDQ545uGffnkvO
-	XiIjW3FQSk5CkcIZzUkihQo/YLWNgBpOvd6Rkzsn0NkhzaK45tVZupkxjPRlByevcTQB4z39kez
-	W3Mfs1LzvNXBejREZa4Gq79utRuhBeLruVSKSgU/EYQC4GyQVgM+6fAa8f+gbdz5u8Ywec4V7av
-	Ha64RDSP9x2uqraVCFfWpBld2LfGZY5KLFLktKyEAQbMRNULMXEYG0wVfEAN8D5MVJ5I3y2g==;
-Feedback-ID: bugs.sh:5:6:Cloudflare
-From: co <co+af981e62f5c7171a@bugs.sh>
-Message-ID: <1p0VZ9ucW56B8jIOVuXOhm0yFEYlXq2oDoOo@bugs.sh>
-Date: Sun, 13 Sep 2026 05:56:00 +0000
-Subject: [BUG] fs/xfs: out-of-bounds in xlog_recover_buf_reorder()
-To: linux-xfs@vger.kernel.org, "Carlos Maiolino" <cem@kernel.org>
-Cc: linux-kernel@vger.kernel.org, co <co+af981e62f5c7171a@bugs.sh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RBuD8yye"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a9adea43b6so1010819a12.0
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 22:58:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789279116; cv=none;
+        d=google.com; s=arc-20260327;
+        b=GYl1qkC8NrOubO5PEHL4PDmAEuQ5G2LInPHyx3ovIID72qe5H4xlMz2Be02/nsCaf2
+         +YeFu56zHxXZuGqfQ2F3/xqcVMIG+CSP1C/qG+CwDzCEw5RWhjZNtV1alO4DhUhrxhBz
+         2XP8SnAaAkGJ8U+ytpuPQ+SPVxqvCkIHmUPQaQ+bHXTKkXI9wkHmWSYxnIJwS30DLXdN
+         aNpsyuXqfsooM2fhpptJNOpFq+bTjM5I9eAKwI63TbJpjZ9iWWJiC465qQpt978nkOSu
+         v4mir4l5qjYGyG/WGXlSl6j2/pgwr9p2rOvZRcApFNCLpoQnVUFsA4h2d72/Nbb+Kev9
+         urBA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=IUEiueZZV2yqlkScy30M7jIekL7G0zJhj9udl2hgLjA=;
+        fh=TrPdbOV6YNWQAU8Vs8VWjiwcJANxjhs3pdJ3vQOo/RY=;
+        b=iAAwnSNwMhKVxDGrnk29V1K9JgK41Y/q3t4Zk482XQVXu2CJ2txupd0q885V/CZ01I
+         QB1t9OB452fLYP9VKW0OL/PBZN+K6kyOpQsWETruZeqHY84LCtna3zAWqHEdaLwiRbVs
+         xe1dh/mCkmfarpZx6i0PAo6+YPARCcCgmLSjwpj1lcCwRzRwnFWqwWh7hDCjSb2JcXu7
+         oRSFRCBxoME8S89OIe1dpkQ8Tn2dOZLyZ/NumtwARQmU4QDVPaRJqYrpZDLXpUARa4EF
+         9Rb4IL0dcU8IACENsAp9KY5ccEpkCvwO9sI3CirDSBSawNH54nEbIWSON7CuyYrX0duV
+         3AtQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789279116; x=1789883916; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=IUEiueZZV2yqlkScy30M7jIekL7G0zJhj9udl2hgLjA=;
+        b=RBuD8yyeGqJZW6JT2zXOEdjG709cS90bvQPawkony/4PHo31VpQBXplb/XzfihFiMT
+         sf3joOUpOWsqZk68cgVD0pfoDowMHFVHZK2DyrB7lyZn8oOWZgOycO8FYpZRQvQDfbsf
+         UvGY0eQ3iMSasHWbPtczfK89PQpMqa5MQWkJPf8GvG559F5KDEREe2GQ5/hyFNmHOEas
+         JOl4OOp7CLIF8ktKpsKXAi9nL48Lk1zy7tQT+f8m8Rs2dE+AGme59El+XEHNBbsyZ9YX
+         zKMJJfLk3dK7zat+niAAZh6Lx5nCsI9jo/557tOVqA0RSPcKq771BoIuYBwmQ58WoyAB
+         M7eQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789279116; x=1789883916;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IUEiueZZV2yqlkScy30M7jIekL7G0zJhj9udl2hgLjA=;
+        b=rTpukvdYzsyCLhrCxz5Xl9vB0gVYaHhpzGKzyLg1Kksx1lWuZc7PubxgateFDrFVX2
+         nt6QjApUConTQzXY023oLMP+14axlH8WopmxqPkVcz8lU0nsaiMZXlAxVkGO5lV/E5u2
+         vG94OlPPqElUVo/+7V4XTZHkLEvpRWTWnUBZ65hhz2JlOIMbq0qJeavO+RlUME8LqR8S
+         ffV6uMWHZtdW1+fwIGBHkoYKXDhcZpuorqgwvbEfdOptkiJHOqsFZlfjvMM8UfrOmYbc
+         qz1kTQQhxbgPyFxoOT/uaWvXOq6UA2IcMv37zOU5KgUuIFOL3vhOeybLYrmiYO+qCJZi
+         zG8Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzilTVzkvgcfxlVYqSUHxqFbkRuPHU5B62xgmKuSiuCavt7pGEJM58+K7hODD44eCz7WzZHrvdaMrT6JdI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mnFtV7cYW357YLty+zJVnKk5EVCCVKsYR/j9wo1HEmqejiuXoB
+	gQBxtR/2tWTSh0ph44whV9kHtaKXg9bNjCNchrOVzDKZ63vFyTqEySlEsg1+TA/1/2ZJ8O2dc2k
+	IQcWCYlce1CYN4QOI66oG8S7L2Tbu8tplYtHS
+X-Gm-Gg: AYBFou1sb1SNlwi0D9jBWAXB5YDjJyG3v3S7Bcz0WWjILUbVNs7JiZvdz6W3uKpbPnD
+	1lcmJlAxhhJH+re1rICiaSDIxjQDhmmG+lEd0OmUtXhtW+xpdZQfdhBTkcK4mRvu6cV1WvDYWPm
+	ekoaOajib/hlX1VZnDdSK9rPB8IMdMthgqmIrdTFYJjgRhyC6itOlnkSlwEJXaBiUo0pXe6xfnz
+	fWx3sJoJwNwjem6+W4UE99qGL+uO14aEd5gedaaAdiu4zdUB9ke657lDBysLzmwxqe7w98mUola
+	DeB90yGG7J4NESSI65Rob5nm0ItlcR5A5YgZkcbFRJ0B3cb8EvvRcyTLZMBsyjQfPeoSzGhsKmJ
+	dmQXoy/3FdiXJfQ==
+X-Received: by 2002:a17:907:1c8c:b0:c29:5340:182e with SMTP id
+ a640c23a62f3a-c2985725e75mr277141166b.2.1789279116193; Sat, 12 Sep 2026
+ 22:58:36 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+References: <c8efa35aeff7b6ee4f66f1d48d4392976dbde128.1783329551.git.u.kleine-koenig@baylibre.com>
+In-Reply-To: <c8efa35aeff7b6ee4f66f1d48d4392976dbde128.1783329551.git.u.kleine-koenig@baylibre.com>
+From: Ping Cheng <pinglinux@gmail.com>
+Date: Sat, 12 Sep 2026 22:57:15 -0700
+X-Gm-Features: AcwNN1VGFA-W-o06oLsLxlJUvDoT8ZSEjCsjMCAPFTIzYsU6qr0WR_WS1UZO_W4
+Message-ID: <CAF8JNhKhL3pC2yvMxg87R9TKJ4-b1vQ8Y7J8hWmKOLHCp0on8g@mail.gmail.com>
+Subject: Re: [PATCH v1] HID: wacom: #include <linux/device-id/hid.h> instead
+ of <linux/mod_devicetable.h>
+To: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>
+Cc: Ping Cheng <ping.cheng@wacom.com>, Jason Gerecke <jason.gerecke@wacom.com>, 
+	Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, linux-input@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-This is a bug report, not a patch submission.
+On Mon, Jul 6, 2026 at 4:39=E2=80=AFAM Uwe Kleine-K=C3=B6nig (The Capable H=
+ub)
+<u.kleine-koenig@baylibre.com> wrote:
+>
+> The single device-id structure that is used by drivers/hid/wacom.h and
+> its users (drivers/hid/wacom_sys.c + drivers/hid/wacom_wac.c) is struct
+> hid_device_id. So #include the much more lightweight
+> <linux/device-id/hid.h> instead the full <linux/mod_devicetable.h>.
+>
+> Signed-off-by: Uwe Kleine-K=C3=B6nig (The Capable Hub) <u.kleine-koenig@b=
+aylibre.com>
 
-We found a bug reachable in:
+Acked-by: Ping Cheng <ping.cheng@wacom.com>
+Tested-by: Ping Cheng <ping.cheng@wacom.com>
 
-    path    fs/xfs
-    crash   out-of-bounds in xlog_recover_buf_reorder()
-    commit  2709dd5ae32f ("Merge tag 'sched-urgent-2026-08-22' of git://git=
-.kernel.org/pub/scm/linux/kernel/git/tip/tip")
+Cheers,
+Ping
 
-Config, environment, the sanitizer report and a C reproducer follow.
-
-=3D=3D Notes =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-    If you fix this bug, this tag credits the report and lets us
-    close it on our side:
-
-Reported-by: co+af981e62f5c7171a@bugs.sh
-
-    Everything in this mail is validated by the reproducer below.
-
-    We also hold an unreviewed LLM-generated analysis and candidate
-    patch. The same reproducer panics the unpatched kernel and runs
-    clean with that patch applied. Use it as a starting point, or ignore
-    it and write your own:
-
-        patch.diff  https://bugs.sh/b/af981e62f5c7171a/patch.diff
-        report.md   https://bugs.sh/b/af981e62f5c7171a/report.md
-
-    Happy to test patches. Complaints and suggestions about our work
-    are welcome at:
-
-        cedalion@bugs.sh
-
-=3D=3D Environment =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-    Reproduced on  2709dd5ae32f ("Merge tag 'sched-urgent-2026-08-22' of gi=
-t://git.kernel.org/pub/scm/linux/kernel/git/tip/tip")
-    VM setup       https://bugs.sh/b/af981e62f5c7171a/run.sh
-    config         https://bugs.sh/b/af981e62f5c7171a/config.gz
-    poc            https://bugs.sh/b/af981e62f5c7171a/repro.c
-
-=3D=3D Sanitizer Report =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-BUG: KASAN: slab-out-of-bounds in xlog_recover_buf_reorder (fs/xfs/xfs_buf_=
-item_recover.c:164)
-Read of size 2 at addr ffff88800beee384 by task exploit/147
-Call Trace:
-dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
-print_report (mm/kasan/report.c:378 mm/kasan/report.c:482)
-kasan_report (mm/kasan/report.c:595)
-xlog_recover_buf_reorder (fs/xfs/xfs_buf_item_recover.c:164)
-xlog_recover_reorder_trans (fs/xfs/xfs_log_recover.c:1929)
-xlog_recover_commit_trans (fs/xfs/xfs_log_recover.c:2053)
-xlog_recovery_process_trans (fs/xfs/xfs_log_recover.c:2319)
-xlog_recover_process_data (fs/xfs/xfs_log_recover.c:2510)
-xlog_do_recovery_pass (fs/xfs/xfs_log_recover.c:3253)
-xlog_do_log_recovery (fs/xfs/xfs_log_recover.c:3340)
-xlog_do_recover (fs/xfs/xfs_log_recover.c:3377)
-xlog_recover (fs/xfs/xfs_log_recover.c:3502)
-xfs_log_mount (fs/xfs/xfs_log.c:617)
-xfs_mountfs (fs/xfs/xfs_mount.c:1031)
-xfs_fs_fill_super (fs/xfs/xfs_super.c:1987)
-get_tree_bdev_flags (fs/super.c:1887)
-vfs_get_tree (fs/super.c:1947)
-fc_mount (fs/namespace.c:1198)
-path_mount (fs/namespace.c:3772 fs/namespace.c:3848 fs/namespace.c:4168)
-__x64_sys_mount (fs/namespace.c:4181 fs/namespace.c:4397 fs/namespace.c:437=
-4 fs/namespace.c:4374)
-do_syscall_64 (arch/x86/entry/syscall_64.c:61 arch/x86/entry/syscall_64.c:8=
-4)
-entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
-The buggy address belongs to the object at ffff88800beee380
-which belongs to the cache kmalloc-8 of size 8
-The buggy address is located 0 bytes to the right of
-
-
----
-The report format is based on syzbot bug report.
-
-This report is generated by a bot. It may contain errors.
-See https://github.com/n132/cedalion for more information.
-
-For any issue with this report, reach out to cedalion@bugs.sh
-
-If the report is already addressed, let us know by replying with:
-#co fix: <commit hash>
-
-If the report is a duplicate of another one, reply with:
-#co dup: <lore link>
-
-If you want to undo deduplication, reply with:
-#co undup
-
-
+> ---
+> Hello,
+>
+> there is no coordination needed, just make sure to apply it to v7.2-rc2 o=
+r
+> later. So please take it via the hid tree for the next merge window.
+>
+> Best regards
+> Uwe
+>
+>  drivers/hid/wacom.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/hid/wacom.h b/drivers/hid/wacom.h
+> index 1deacb4568cb..d2398b1cdbb2 100644
+> --- a/drivers/hid/wacom.h
+> +++ b/drivers/hid/wacom.h
+> @@ -82,7 +82,7 @@
+>  #include <linux/kernel.h>
+>  #include <linux/slab.h>
+>  #include <linux/module.h>
+> -#include <linux/mod_devicetable.h>
+> +#include <linux/device-id/hid.h>
+>  #include <linux/hid.h>
+>  #include <linux/kfifo.h>
+>  #include <linux/leds.h>
+>
+> base-commit: 8cdeaa50eae8dad34885515f62559ee83e7e8dda
+> --
+> 2.55.0.11.g153666a7d9bb
+>
+>
