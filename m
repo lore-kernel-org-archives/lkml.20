@@ -1,115 +1,123 @@
-Received: from omta038.useast.a.cloudfilter.net (omta038.useast.a.cloudfilter.net [44.202.169.37])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7147A3BA237
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 23:00:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.202.169.37
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8B8C34DCCD
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 23:01:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789340408; cv=none; b=HXzr4kPyiLzDs/pDcxcGYut9eOT7RupMeUrGQHeZaagveoEnn2yQpAbJk6n/yxqZoQh89qhhHSXyXQsfxcF0vx4x1ruCugmaFVKWkALOo6eq7WYE3z5sM+eeY/drzRlxwoGHOib0GX9Ek2U+1LznfGkPLZVN5vbpAHtqRNu4zwY=
+	t=1789340504; cv=none; b=h5m8vzO9e7iApjXbMjfoYcEetiUZCgCvT0jgDJ1P4GL4iUvJfOiU2/HijRPBqXIBN5V/SxOnoEXa6yQmczPB5IY0UdtGUyZCOV57s2FB9mIpJcPAAnxjNiV/UVvbhfroIJebtfSpqvlhF5C6FU/f57DFEl0dCXcl8sn8rv2JeNk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789340408; c=relaxed/simple;
-	bh=E25GtAn4WzVc2FZV9R5oZdwwb7KG0qqFAtxVTjM8IXk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ae4kgW5pYHSShLAO8MdEcED+9akc2HU51ZfQK/L6ad+J7mSJfwD4HeZAU231sqdlljT2lnWowwHylGSD3VbLS4g2WngboVmJlsBgUbImnZIaoDA1mdQ3LeQAbxUoPq/uJziHTx3wGoyefvjhH7USMzLyx+XH/mENYvSdx1oqM+Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=fFKUjyx+; arc=none smtp.client-ip=44.202.169.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
+	s=arc-20240116; t=1789340504; c=relaxed/simple;
+	bh=vmS/z30Lrw765wwNobalklNluBOAwT+fYyV0xjUzdP4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=NEK2iGomnEBbRYNiWyFJavfaItbr1HDAB+aZcQDr29afy8di6wqK+CKGI9HgcsBIx4O9hdJv8Bc9hpnBZV6wtnpuFsWkUiyRJWVnFMs2Pptz9XXDS4nxMagPH/LOZqwRVU+ePjFagXF+uu9Cmc+bDMwgvnkr6v9b6vZKglxd9bw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TM97ARPE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="fFKUjyx+"
-Received: from eig-obgw-5006b.ext.cloudfilter.net ([10.0.29.217])
-	by cmsmtp with ESMTPS
-	id 5oRJxOIX8JFmF5tB7xVJNZ; Sun, 13 Sep 2026 23:00:05 +0000
-Received: from box5620.bluehost.com ([162.241.219.59])
-	by cmsmtp with ESMTPS
-	id 5tB6xC9Pu5NF35tB7xUjrH; Sun, 13 Sep 2026 23:00:05 +0000
-X-Authority-Analysis: v=2.4 cv=GaMXnRXL c=1 sm=1 tr=0 ts=6aa72af5
- a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
- a=HaFmDPmJAAAA:8 a=Y4NyFCxO9-uqU50Sy_0A:9 a=QEXdDO2ut3YA:10
- a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
-	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=mLYvAt0OcCY+2SqLeYDe4lTxu+rpN11hpHmIW/uE2Wg=; b=fFKUjyx+Hp0jEGBlI/CLQFov7F
-	nP/d7SzYA1W2+hqkArGjhqgktOMnRRRO3EiSqLPCgONIf5bL4GxTwIzhghyT/IOtk8+CMURdwDUKh
-	n+PkgTETtgyPiFpLTadRyZdZbcX+XsFC+74lKbVhjK4lMmKutih+vEtaCReG5tNCkx0Bo/vUZ1fe4
-	HWYKgX8VVEB45aup3JtvzfFCxI/4USvoXtPRxS1QJnWqNZyC0gypp62CoZSyCeMiXr7eRTF45Hm6K
-	L4Jx+MvzTVIDXMhOfJp6tC3aWTsxp6yupMQ+pqjBneWfnqBCH+4gpnTpsXIquKzJY7cRQHYAQmFDH
-	MxJLZb6w==;
-Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:35474 helo=[10.0.1.180])
-	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.100)
-	(envelope-from <re@w6rz.net>)
-	id 1x5tB6-00000002IDG-0TlR;
-	Sun, 13 Sep 2026 17:00:04 -0600
-Message-ID: <d0e20d32-456b-434f-bc37-518ae18f5811@w6rz.net>
-Date: Sun, 13 Sep 2026 16:00:02 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TM97ARPE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B1351F0089E
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 23:01:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789340499;
+	bh=99tdpBy09GP4NZtz0Xsy9UP2oQosnHb+3YQeokfanhI=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=TM97ARPEPGldOphV61MxaXcJ8Cmz/SeyVMCYqoV2PChipT5EBrAMjpjZuBOcinf4e
+	 0yybwGl+Pu9DUtJc5TXlM3ozcaaxByFCXVL4vFpuoRzOGQ6vXt0u+hOmKZYiw2tJzD
+	 hQTdan6C0WjJAmpb7uwtuMKvi139ucEos+tilPP5xoOTeGp408O+0bWA6Ygo7pGlf0
+	 zymUg47rRdsbv/WQ6h7+izkMVdc5HwXP8/FDFV40TP/+w6ePD5i0YzkU8gPLiwm6I1
+	 0im2QAvG3pdG2nWsULgYunv5eOIcRGndeLjeC+3n5JZQvdXpJKQ8iiI9bIFAlj9ZWI
+	 FBSZChhNqi9TQ==
+Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-939109f067eso151053785a.0
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 16:01:39 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBw+mDGzaH8T0k4neAMZ6uPUGFCrz/1XHkzoD8lKzT9DeySrATVsfww5UJTStoO7EI7TFUy6WAlQBDnFTy8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mu0e2C1Hlo7ip68Z03iAaV5jZ2Z3YwhqZau2M3LXbsUry+WAx9
+	0YBzFcUbCcc4a4rW2ynthf7rd5k4NVe/hmZXoUNhOXyyE7SwBpaOeeH03uhdBU4SqMkq+IXdI0s
+	qAllLMab7ycthfiODjK2e6z1an4S5tMw=
+X-Received: by 2002:a05:620a:8703:20b0:93a:2a59:3377 with SMTP id
+ af79cd13be357-93a2a596b4amr5388585a.41.1789340498890; Sun, 13 Sep 2026
+ 16:01:38 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.12 0000/1376] 6.12.110-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260912065607.535295758@linuxfoundation.org>
-Content-Language: en-US
-From: Ron Economos <re@w6rz.net>
-In-Reply-To: <20260912065607.535295758@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - box5620.bluehost.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - w6rz.net
-X-BWhitelist: no
-X-Source-IP: 73.162.206.103
-X-Source-L: No
-X-Exim-ID: 1x5tB6-00000002IDG-0TlR
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:35474
-X-Source-Auth: re@w6rz.net
-X-Email-Count: 17
-X-Org: HG=bhshared;ORG=bluehost;
-X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfBlQ+zUNW+TNbB2frdLTgKGojrTTrtujdyg/VxloAk2pdfkoBykA7CI1j7XJN4JsWRGQSAKYz4vJaeTHuEqgsWU5Li94O2Fbfv+XY8Vsn72L/dfDeu2n
- huuUMX1GrpdvqhBht9yeqwkqG/fjfxB7WtVI4i/j+U+8nTSzJpDaLUONXfWU1fCRm7HX3V5v+IwHIR8w5aEJlbu2ptzqON8qa3A=
+References: <20260911121341.178028-1-alex@ghiti.fr> <20260911121341.178028-3-alex@ghiti.fr>
+In-Reply-To: <20260911121341.178028-3-alex@ghiti.fr>
+From: Barry Song <baohua@kernel.org>
+Date: Mon, 14 Sep 2026 07:01:27 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4z3bSfMTKvkXsKAz=+dzhmdGOerSfL33t2RkN0CXZV-hw@mail.gmail.com>
+X-Gm-Features: AcwNN1VeUdFTleVj-F2oE0UDk9S9NWy5SYyYKI8DUBOkx_28Wvoxe5F4EMw-zho
+Message-ID: <CAGsJ_4z3bSfMTKvkXsKAz=+dzhmdGOerSfL33t2RkN0CXZV-hw@mail.gmail.com>
+Subject: Re: [PATCH v5 2/3] mm: swap: drop dropbehind swap cache folios on
+ writeback completion
+To: Alexandre Ghiti <alex@ghiti.fr>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Yosry Ahmed <yosry@kernel.org>, Nhat Pham <nphamcs@gmail.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
+	Kairui Song <kasong@tencent.com>, Kairui Song <ryncsn@gmail.com>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Youngjun Park <youngjun.park@lge.com>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Michal Hocko <mhocko@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, Wei Xu <weixugc@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Kunwu Chan <kunwu.chan@gmail.com>, 
+	Tal Zussman <tz2294@columbia.edu>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 9/11/26 23:40, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.12.110 release.
-> There are 1376 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+On Fri, Sep 11, 2026 at 8:16=E2=80=AFPM Alexandre Ghiti <alex@ghiti.fr> wro=
+te:
 >
-> Responses should be made by Mon, 14 Sep 2026 06:54:17 +0000.
-> Anything received after that time might be too late.
+> A PG_dropbehind folio is dropped from its cache once writeback completes
+> rather than left for reclaim to find later; this is implemented for file
+> folios in folio_end_dropbehind(). Extend it to swap cache folios.
 >
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.110-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
-> and the diffstat can be found below.
+> The drop takes the folio and swap cluster locks and may sleep, so it
+> cannot run in interrupt context. Set BIO_COMPLETE_IN_TASK on the write,
+> as the file dropbehind paths do, and drop the folio directly from
+> folio_end_writeback().
 >
-> thanks,
->
-> greg k-h
+> Suggested-by: Yosry Ahmed <yosry@kernel.org>
+> Suggested-by: Johannes Weiner <hannes@cmpxchg.org>
+> Suggested-by: Nhat Pham <nphamcs@gmail.com>
+> Reviewed-by: Nhat Pham <nphamcs@gmail.com>
+> Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
+> Signed-off-by: Alexandre Ghiti <alex@ghiti.fr>
+> ---
+[...]
 
-Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
+> diff --git a/mm/page_io.c b/mm/page_io.c
+> index 88962571cb93..52eae99de6e3 100644
+> --- a/mm/page_io.c
+> +++ b/mm/page_io.c
+> @@ -602,6 +602,15 @@ static void swap_bdev_submit_write(struct swap_io_ct=
+x *ctx)
+>                 submit_bio_wait(bio);
+>                 end_swap_bio_write(bio);
+>         } else {
+> +               int p;
+> +
+> +               for (p =3D 0; p < sio->nr_bvecs; p++) {
+> +                       if (folio_test_dropbehind(bvec_folio(&sio->bvecs[=
+p]))) {
+> +                               bio_set_flag(bio, BIO_COMPLETE_IN_TASK);
 
-Tested-by: Ron Economos <re@w6rz.net>
+Thanks very much, Alexandre. I find the code is really much,
+much better, but I=E2=80=99m still struggling to understand why we need a
+sleepable context after Wenjian=E2=80=99s commit:
 
+https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git/commit/?id=3D84=
+8d2ce2fce15fbdc083fbf9691bfa72911033c4
+
+With this question:
+
+https://lore.kernel.org/linux-mm/CAGsJ_4wj6XvPB+QF+_X1BJ_8Y2sZEEFAw6RaJJz-c=
+HaDWLkxaQ@mail.gmail.com/T/#u
+
+In short, it still feels a little strange to me that we need a
+sleepable context, especially now that we no longer call
+`folio_unmap_invalidate()` for unmapped folios.
+
+Best Regards
+Barry
