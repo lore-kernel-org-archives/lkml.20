@@ -1,129 +1,154 @@
-Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 622C72AD35
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 22:16:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53B262E6CA6;
+	Sun, 13 Sep 2026 22:17:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789337806; cv=none; b=cxcgUE3O5qx932SpZWjxU7miVKt6epfJCoxoay0NpTwLid90p2nwbqGfA42qjAFeskdOJ3Qemg0AviLVWfpwP2ptAW08kI1xQy9jGCbShZQigkXrQJXAEBL3sYd9rTTOcAHsSir59wntBdOZlWgmIXmTnQIc0vVnHr4jQS0SL7Y=
+	t=1789337835; cv=none; b=jk4IDU7+AGiavKh3RDuWeKKXaTbzjwwOe//KjmlkWxDZBgM/EQuJvPkjRWDG7Xcbxy/y2BL/l0u4+Ekoc0GMib/j0luEtDSjwY4msllSVADZwRbYLPmX3vFBhbARfB6b1UZ95LuytxiT66tsMZshpzTU8OYpmiGYXSLRD+NvfnQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789337806; c=relaxed/simple;
-	bh=12saGpQCsyPvcyoHas0G7a63bhlRxUB1+FfgpNhnIjc=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type; b=tgVkImWROy8ozM8YX207AK68Zlam4gWofR4Bp/pfIIdy8FW9CHKTUmaq7ED7QYNa6YM4FhD26/SrczGakCgPSNRP+WY4QLYd8BRoQictjaeaANTCMxjroCploWigtBN7rCXCDX0n4buxDOfhGgfK9SpBt2jfWOzu/49a9+E51tE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RbZlQCv/; arc=none smtp.client-ip=74.125.224.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789337835; c=relaxed/simple;
+	bh=P3Yqnv0X7ymNcHUb66eA1skRpfvkIJbgZFhnf4TYK8Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OEVeXVqWODK8bJDuHqe9dY0wkpT+qE2bSYfzfWI+9roXB+lzrZLah80aJkcURiTs6BLHrhGlu0lKyiAD6NGjNKepf5cqo+SebXYRrczFLldRDLqGL2K63hlh7irE5nUB+ZFssVL9faD/ULiXzQhcNs5S2wug++kSLSrstSOK4RQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jWgMELoQ; arc=none smtp.client-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RbZlQCv/"
-Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66e50968489so1002759d50.0
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 15:16:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789337804; x=1789942604; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=KwJQ6M25sDzikcUA36ZvZh5n4DhA78o4GRWDhlmgmoc=;
-        b=RbZlQCv/e41tUD02a3AzvcXzRB5AcOHgbw96AaKkkrRupwNvwAE18SU76Y2vnGPquz
-         xAeqUEiw4Upo5O2ekz8uc4jFYTNwAagz8582DzY2hXmOkUiNrASBeJCOUEaFVHREEpXQ
-         z1SjMqy1+25rsuGtk3Qft0jcFgutQntSdcm5nG9xOvwTcSpDWPYtDtvKe8ofc6np4djJ
-         NAByFOBEUkLmXmGanCWpRNABT1UDwvpCll61/reC5wPviICZ2zFcEn20q3aMCus/XKqg
-         t90jJPAPniyBI4SN9d49KPIPfRgwvmBLS70SMXRdzA+V1qYX//Ya9DdAZpeHOWvW3s5O
-         YWsA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789337804; x=1789942604;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KwJQ6M25sDzikcUA36ZvZh5n4DhA78o4GRWDhlmgmoc=;
-        b=naAWzb+o4ZDhCY+xA5MxPcVs9NDzqCM9tfxdu4CZRzi+S39F4NADZj5EUXXqQ5Ik5w
-         C6ZRDv6zp1ucF274hvZlJM+CGqPkPt0gxmVAd3rKZSwXEHQ7aY1DDA7Ig9IDL4EHit0w
-         zMdoNX6K6pfuZLV0+DPZUuTsU0eCsndpC5qJ5Ro6NfV5AhSFndrIq2gJzpKNfwIhossy
-         b8Z2LaJRZPqOG6n+B1zTqId7anEV8//eX3k8lfs3cITLkxAg2uMd0OKFxGBClerB4AO4
-         sdjXq93qLTLhh6Sb+TemsNalNu0XQcBwJCS8XoIU9Hf+6N8Oh+IjrX2diXESw1VoCe7B
-         N5qA==
-X-Gm-Message-State: AFuF++kmGt6LWXhmAceI9gcP51U881IEsrDcMmeThim2LsKtcKxN7tfT
-	BFGJ8xw0Nj9vaQjh2j9EuokTWha3hLoLdAOZyjdggDdCHoULbpbwIDBm
-X-Gm-Gg: AYBFou31G8MtMxGxQ8Rq2juyv7Do8VVsji/n1ci5RJGppJiWhJQcYWjgMVT+riE2D9H
-	ugjeQcbLFUQUJ6AIwfmTfkJomuP2Pqx9sJZbN3EsfqsIL9n7AIaYkkvWolG0YRUjj5U7MaHZ4C3
-	AWh4LKjBwtPXkgg9XhV2Z0qUHDXhaMm1FXTLollLH2hO857K5AjcT448COVZsJNhqUfEigJoPsr
-	5/TMqH0hCGuxTKUyS9+K6udXLlXibmET3M9UUFsVfaH/GVwhW8Pdrl6JrezVEXB3AzikHRSLMCF
-	QUyOAssDceb7ZOcACt5nTQ8Rsz4oTNur9F2SgJTd+GdLGMJgHUuTY+0z+/D2dXC7qEc+fATq4vV
-	/kPXpIxODtsDMFrm44sFjlMFLYbTcO8mY1SGoejEMsEi6KzT5ssYFuSO3pdp9KQEtFdKvSkWXT3
-	/F1yLv1bA0739nOOFhiuarVZIreXQBh9BHugfpGZFkdYZ/cMSOd1fuUwl3Xj8ASeuE7pXdb12kj
-	jI+6GyTivdjHkznt524Hy2wP8gLE06gKsewHfqOED8pv+bcpyDl
-X-Received: by 2002:a05:690e:1509:b0:66f:bc5b:1d33 with SMTP id 956f58d0204a3-671245110d7mr4867599d50.9.1789337804364;
-        Sun, 13 Sep 2026 15:16:44 -0700 (PDT)
-Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67125db3459sm3754086d50.6.2026.09.13.15.16.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 15:16:42 -0700 (PDT)
-Date: Sun, 13 Sep 2026 18:16:42 -0400
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-To: Mark Amirkan via B4 Relay <devnull+markdamirkan.gmail.com@kernel.org>, 
- Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
- netdev@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, 
- Paolo Abeni <pabeni@redhat.com>, 
- Eric Dumazet <edumazet@google.com>, 
- Simon Horman <horms@kernel.org>, 
- Chetan Loke <loke.chetan@gmail.com>, 
- Jakub Kicinski <kuba@kernel.org>, 
- "David S. Miller" <davem@davemloft.net>
-Message-ID: <willemdebruijn.kernel.1288a752aca73@gmail.com>
-In-Reply-To: <20260913-b4-send-packet-private-v1-1-925eab2cd388@gmail.com>
-References: <20260913-b4-send-packet-private-v1-1-925eab2cd388@gmail.com>
-Subject: Re: [PATCH net] net/packet: avoid truncating TPACKET_V3 private size
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jWgMELoQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789337828; x=1820873828;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=P3Yqnv0X7ymNcHUb66eA1skRpfvkIJbgZFhnf4TYK8Y=;
+  b=jWgMELoQohRUc3MZfBQnMTV6UPaNFzyWrIfov+hR0udt2uK+8TUhd77j
+   QuyLgoIFIDTKbo1yHawuU1xODxWYU/zR6i2olniZMnsHUbowuNTiLOIbn
+   gqwN5ly2oWvWR1LTAG0IP0Jbl0sUMRzQ+AoueKlTp1yxJ0WSbxGdjG5b8
+   4xDnoY4ZHoknqvLafY3Mrq/vKWMDOW7h1pZomyMRQSJv7+T+sRFSgPMe3
+   6k6vehaFMs0GRBZ/TjujY+a8DLxlnU35ESg3UNvO7Q/BPkPCV2g+fJs5q
+   TzJdYzsrF7iqG07p1xy7OiSZRxdonlNZYfoYat6j2hRTx26KEAl+GX75Z
+   w==;
+X-CSE-ConnectionGUID: iqgwqSELTImqDMxdfSp8QQ==
+X-CSE-MsgGUID: QsoxSAu3TOye/DJusGZ2Ng==
+X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="100362758"
+X-IronPort-AV: E=Sophos;i="6.27,100,1787036400"; 
+   d="scan'208";a="100362758"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Sep 2026 15:17:07 -0700
+X-CSE-ConnectionGUID: kst5KOfBRiWCm61Vb7Qdig==
+X-CSE-MsgGUID: ydURqJlXRSm5fQm8IoxkSg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,100,1787036400"; 
+   d="scan'208";a="277720779"
+Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
+  by fmviesa005.fm.intel.com with ESMTP; 13 Sep 2026 15:17:05 -0700
+Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x5sVT-000000001MR-07h7;
+	Sun, 13 Sep 2026 22:17:03 +0000
+Date: Mon, 14 Sep 2026 06:16:20 +0800
+From: kernel test robot <lkp@intel.com>
+To: Guangshuo Li <lgs201920130244@gmail.com>,
+	Dave Penkler <dpenkler@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Dominik Karol =?utf-8?Q?Pi=C4=85tkowski?= <dominik.karol.piatkowski@protonmail.com>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
+	Kees Cook <kees@kernel.org>, linux-kernel@vger.kernel.org
+Cc: oe-kbuild-all@lists.linux.dev, stable@vger.kernel.org
+Subject: Re: [PATCH] gpib: tnt4882: fix memory leak on probe failure
+Message-ID: <202609140612.F8ICypXs-lkp@intel.com>
+References: <20260913063603.1443403-1-lgs201920130244@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260913063603.1443403-1-lgs201920130244@gmail.com>
 
-Mark Amirkan via B4 Relay wrote:
-> From: Mark Amirkan <markdamirkan@gmail.com>
-> 
-> tpacket_req3.tp_sizeof_priv is an unsigned int, and packet_set_ring()
-> validates the full value against the block size.  init_prb_bdqc() then
-> stores it in the unsigned short blk_sizeof_priv field.
-> 
-> Commit 2b6867c2ce76 ("net/packet: fix overflow in check for priv area
-> size") fixed the validation arithmetic, but an accepted value above
-> USHRT_MAX still narrows when it is stored.
-> 
-> For a 131072-byte block, tp_sizeof_priv=65536 is valid.  The narrowing
-> makes offset_to_first_pkt 48 instead of 65584, so packet records can be
-> placed in the private area that userspace asked the kernel to preserve.
-> 
-> blk_sizeof_priv is internal state, so widen it to hold the validated
-> UAPI value.
-> 
-> Fixes: f6fb8f100b80 ("af-packet: TPACKET_V3 flexible buffer implementation.")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Symbolic
-> Signed-off-by: Mark Amirkan <markdamirkan@gmail.com>
+Hi Guangshuo,
 
-Reviewed-by: Willem de Bruijn <willemb@google.com>
+kernel test robot noticed the following build warnings:
 
-> ---
->  net/packet/internal.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/net/packet/internal.h b/net/packet/internal.h
-> index b76e645cd7..f5c8cd0eed 100644
-> --- a/net/packet/internal.h
-> +++ b/net/packet/internal.h
-> @@ -21,7 +21,7 @@ struct tpacket_kbdq_core {
->  	unsigned int	hdrlen;
->  	unsigned char	reset_pending_on_curr_blk;
->  	unsigned short	kactive_blk_num;
-> -	unsigned short	blk_sizeof_priv;
-> +	unsigned int	blk_sizeof_priv;
+[auto build test WARNING on kees/for-next/kspp]
+[also build test WARNING on linus/master kees/for-next/pstore v7.3-rc2 next-20260911]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-This could be moved to avoid growing the struct. There is a 4B hole
-further down. But it's no big deal for this struct.
+url:    https://github.com/intel-lab-lkp/linux/commits/Guangshuo-Li/gpib-tnt4882-fix-memory-leak-on-probe-failure/20260913-143603
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/kees/linux.git for-next/kspp
+patch link:    https://lore.kernel.org/r/20260913063603.1443403-1-lgs201920130244%40gmail.com
+patch subject: [PATCH] gpib: tnt4882: fix memory leak on probe failure
+config: x86_64-randconfig-r133-20260914 (https://download.01.org/0day-ci/archive/20260914/202609140612.F8ICypXs-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+sparse: v0.6.5-rc1
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260914/202609140612.F8ICypXs-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609140612.F8ICypXs-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+   drivers/gpib/tnt4882/tnt4882_gpib.c: In function 'ni_gpib_probe':
+   drivers/gpib/tnt4882/tnt4882_gpib.c:1588:9: error: 'ret' undeclared (first use in this function); did you mean 'net'?
+    1588 |         ret = ni_gpib_config(link);
+         |         ^~~
+         |         net
+   drivers/gpib/tnt4882/tnt4882_gpib.c:1588:9: note: each undeclared identifier is reported only once for each function it appears in
+>> drivers/gpib/tnt4882/tnt4882_gpib.c:1595:1: warning: control reaches end of non-void function [-Wreturn-type]
+    1595 | }
+         | ^
+
+
+vim +1595 drivers/gpib/tnt4882/tnt4882_gpib.c
+
+0cd5b05551e0224 drivers/staging/gpib/tnt4882/tnt4882_gpib.c Dave Penkler   2024-09-18  1557  
+0cd5b05551e0224 drivers/staging/gpib/tnt4882/tnt4882_gpib.c Dave Penkler   2024-09-18  1558  /*
+0cd5b05551e0224 drivers/staging/gpib/tnt4882/tnt4882_gpib.c Dave Penkler   2024-09-18  1559   * ni_gpib_probe() creates an "instance" of the driver, allocating
+0cd5b05551e0224 drivers/staging/gpib/tnt4882/tnt4882_gpib.c Dave Penkler   2024-09-18  1560   * local data structures for one device.  The device is registered
+0cd5b05551e0224 drivers/staging/gpib/tnt4882/tnt4882_gpib.c Dave Penkler   2024-09-18  1561   * with Card Services.
+0cd5b05551e0224 drivers/staging/gpib/tnt4882/tnt4882_gpib.c Dave Penkler   2024-09-18  1562   */
+0cd5b05551e0224 drivers/staging/gpib/tnt4882/tnt4882_gpib.c Dave Penkler   2024-09-18  1563  
+0cd5b05551e0224 drivers/staging/gpib/tnt4882/tnt4882_gpib.c Dave Penkler   2024-09-18  1564  static int ni_gpib_probe(struct pcmcia_device *link)
+0cd5b05551e0224 drivers/staging/gpib/tnt4882/tnt4882_gpib.c Dave Penkler   2024-09-18  1565  {
+0cd5b05551e0224 drivers/staging/gpib/tnt4882/tnt4882_gpib.c Dave Penkler   2024-09-18  1566  	struct local_info_t *info;
+fc2c620c3924f26 drivers/staging/gpib/tnt4882/tnt4882_gpib.c Michael Rubin  2025-03-19  1567  	//struct struct gpib_board *dev;
+0cd5b05551e0224 drivers/staging/gpib/tnt4882/tnt4882_gpib.c Dave Penkler   2024-09-18  1568  
+0cd5b05551e0224 drivers/staging/gpib/tnt4882/tnt4882_gpib.c Dave Penkler   2024-09-18  1569  	/* Allocate space for private device-specific data */
+bf4afc53b77aeaa drivers/gpib/tnt4882/tnt4882_gpib.c         Linus Torvalds 2026-02-21  1570  	info = kzalloc_obj(*info);
+0cd5b05551e0224 drivers/staging/gpib/tnt4882/tnt4882_gpib.c Dave Penkler   2024-09-18  1571  	if (!info)
+0cd5b05551e0224 drivers/staging/gpib/tnt4882/tnt4882_gpib.c Dave Penkler   2024-09-18  1572  		return -ENOMEM;
+0cd5b05551e0224 drivers/staging/gpib/tnt4882/tnt4882_gpib.c Dave Penkler   2024-09-18  1573  
+0cd5b05551e0224 drivers/staging/gpib/tnt4882/tnt4882_gpib.c Dave Penkler   2024-09-18  1574  	info->p_dev = link;
+0cd5b05551e0224 drivers/staging/gpib/tnt4882/tnt4882_gpib.c Dave Penkler   2024-09-18  1575  	link->priv = info;
+0cd5b05551e0224 drivers/staging/gpib/tnt4882/tnt4882_gpib.c Dave Penkler   2024-09-18  1576  
+0cd5b05551e0224 drivers/staging/gpib/tnt4882/tnt4882_gpib.c Dave Penkler   2024-09-18  1577  	/*
+0cd5b05551e0224 drivers/staging/gpib/tnt4882/tnt4882_gpib.c Dave Penkler   2024-09-18  1578  	 * General socket configuration defaults can go here.  In this
+0cd5b05551e0224 drivers/staging/gpib/tnt4882/tnt4882_gpib.c Dave Penkler   2024-09-18  1579  	 * client, we assume very little, and rely on the CIS for almost
+0cd5b05551e0224 drivers/staging/gpib/tnt4882/tnt4882_gpib.c Dave Penkler   2024-09-18  1580  	 * everything.  In most clients, many details (i.e., number, sizes,
+0cd5b05551e0224 drivers/staging/gpib/tnt4882/tnt4882_gpib.c Dave Penkler   2024-09-18  1581  	 * and attributes of IO windows) are fixed by the nature of the
+0cd5b05551e0224 drivers/staging/gpib/tnt4882/tnt4882_gpib.c Dave Penkler   2024-09-18  1582  	 * device, and can be hard-wired here.
+0cd5b05551e0224 drivers/staging/gpib/tnt4882/tnt4882_gpib.c Dave Penkler   2024-09-18  1583  	 */
+0cd5b05551e0224 drivers/staging/gpib/tnt4882/tnt4882_gpib.c Dave Penkler   2024-09-18  1584  	link->config_flags = CONF_ENABLE_IRQ | CONF_AUTO_SET_IO;
+0cd5b05551e0224 drivers/staging/gpib/tnt4882/tnt4882_gpib.c Dave Penkler   2024-09-18  1585  
+0cd5b05551e0224 drivers/staging/gpib/tnt4882/tnt4882_gpib.c Dave Penkler   2024-09-18  1586  	/* Register with Card Services */
+0cd5b05551e0224 drivers/staging/gpib/tnt4882/tnt4882_gpib.c Dave Penkler   2024-09-18  1587  	curr_dev = link;
+4d0c779a70d29c2 drivers/gpib/tnt4882/tnt4882_gpib.c         Guangshuo Li   2026-09-13  1588  	ret = ni_gpib_config(link);
+4d0c779a70d29c2 drivers/gpib/tnt4882/tnt4882_gpib.c         Guangshuo Li   2026-09-13  1589  	if (ret) {
+4d0c779a70d29c2 drivers/gpib/tnt4882/tnt4882_gpib.c         Guangshuo Li   2026-09-13  1590  		kfree(info);
+4d0c779a70d29c2 drivers/gpib/tnt4882/tnt4882_gpib.c         Guangshuo Li   2026-09-13  1591  		link->priv = NULL;
+4d0c779a70d29c2 drivers/gpib/tnt4882/tnt4882_gpib.c         Guangshuo Li   2026-09-13  1592  	}
+4d0c779a70d29c2 drivers/gpib/tnt4882/tnt4882_gpib.c         Guangshuo Li   2026-09-13  1593  
+4d0c779a70d29c2 drivers/gpib/tnt4882/tnt4882_gpib.c         Guangshuo Li   2026-09-13  1594  	return ret;
+0cd5b05551e0224 drivers/staging/gpib/tnt4882/tnt4882_gpib.c Dave Penkler   2024-09-18 @1595  }
+0cd5b05551e0224 drivers/staging/gpib/tnt4882/tnt4882_gpib.c Dave Penkler   2024-09-18  1596  
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
