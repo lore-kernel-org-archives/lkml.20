@@ -1,77 +1,92 @@
-Received: from ha.d.sender-sib.com (ha.d.sender-sib.com [77.32.148.27])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03B16384CD4
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 08:04:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.32.148.27
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B9F83876D6;
+	Sun, 13 Sep 2026 08:08:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789286675; cv=none; b=TNChR3MznKYApQVa+8LitnI8PLHpGlLLCNjgoqAI6/KhIqTiNWoRgueKzEl6DuBLCjgreE6aSYi+uRMRREymnMcTylkHkmQaOwR09R1j5i2B6C0MTtmk0hPZ63EoXWHxztpVBePfhxV9E+mztrA7fyjBCNvrjAfJRZh6yaq4Jdw=
+	t=1789286891; cv=none; b=nuhaGvcl8lgJ5J6cHMQ6lmvs8pg+w8fqsW6u2FXhplqJaW5kIdcM5HybdXLKrBlHhgLM8QepEEu4ctwDt04z0s99BvX4v3xdfhwdVomIV5/Zm20z/vUSLof6fT8AUigI9PLGgd9yKCi+8880USrqPmh2bQ69ag3sXrl2xrzrZwY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789286675; c=relaxed/simple;
-	bh=juTmC3CFhfPPkaIWjFcKlVbWx5pBfvrZZD7LXlAITdo=;
-	h=To:Subject:Message-Id:Date:Cc:From:Mime-Version; b=oltqCc9prY5RlTiEr4DLXYdGLeADsIDbXjGYFNRTno+os1kzVpG+Nf2GLhUCf/INgbIwL0S0fvLHZK9YjpQJRZIgr6XFE7qfK9afcanHbqs5Yik0CM1kz7mfcZBbJsa+7PW6eqjbBrukoHMp+JIhyeqNh9LeL0Sk1vCERWGnJBU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=dipeshchaudhary.in; spf=pass smtp.mailfrom=ha.d.sender-sib.com; dkim=pass (2048-bit key) header.d=dipeshchaudhary.in header.i=@dipeshchaudhary.in header.b=l/asI/qC; arc=none smtp.client-ip=77.32.148.27
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=dipeshchaudhary.in
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ha.d.sender-sib.com
+	s=arc-20240116; t=1789286891; c=relaxed/simple;
+	bh=KVXWnXKt18yT+rXsHFFgdU4B/qSR3ZMAvaJWAP+J3SU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Cdu6FUtGq367rkU872hjDOM6u1FwsOr68g38szI1ud44oQFYhlomtosLHxF/NGP9HVRxoeh02dEtu3WsUyqSgEuGlQZfT10vhR9j9QZrvG1v2rCoLLc3LU9Tgjq1SmqMhi3OxKBFycP/JtR6FL+ftrjdmEW+5N6chto1C67m2oI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lvpmDIVj; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dipeshchaudhary.in header.i=@dipeshchaudhary.in header.b="l/asI/qC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dipeshchaudhary.in;
- q=dns/txt; s=brevo2; bh=q4IUphqETpmEIg6OGGAcnnMQBzMLeTFlCH+drdANwwg=;
- h=from:subject:date:to:cc:mime-version:content-transfer-encoding:list-unsubscribe:x-csa-complaints:list-unsubscribe-post:message-id:x-sib-id:feedback-id;
-        b=l/asI/qCM+ghRNL/X0Y59uvY26fjCzMCLvpqpBpW66OEPBhUEitfXAa+JsHCMfl9ajhzX5FMnl+x
-        /OX7CSRKW8I30EAqcMJiHkv6iK8/Wn5Q8e3nPBtBO4AT4X9ywuBupcJ9ASlVC8AO2ZqhHUWUcQy9
-        8oGg6EiCWBtO4c/pHwVj63fN3lVfLOTR9RjUIkiTPgKYQKraXMQjoID/KblsXm0ZI8d0ZJ+drAwr
-        W+fUqgc12gVPQ7dYGqRQXoyhMRFDg4PPcuFw8QvRygGru6Uoh7HMHNflu6GxRy8ExIOe1/Butjl5
-        +PnPK15qgy2h/Xt/BRxa3IJvn47TqEpfFcPwIw==
-To: "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>
-Subject: [PATCH] staging: rtl8723bs: remove unused EF2Byte and EF4Byte definitions
-X-sib-id: VUQFvEehn6tasFHXUYYXJ2manzbMlq9P9abHvap1eZBqftHVgeI8peD2PK-jGhT31sOUvxwMjVDvXn9Ms9zn9so2ihDAtSJIz4H7hCeKjUz1JSdRxtuewmopaku9kSljSPZGqgClwuEfAZnzkSt6TWp-wdry8F0VGpv_N-_NR6V49dAqySeFyYnwnw
-Message-Id: <20260913080305.10982-1-me@dipeshchaudhary.in>
-Origin-messageId: <20260913080305.10982-1-me@dipeshchaudhary.in>
-Feedback-ID: 77.32.148.27:10551297_-1:10551297:Sendinblue
-X-CSA-Complaints: csa-complaints@eco.de
-Date: Sun, 13 Sep 2026 08:03:05 +0000
-Cc: <linux-staging@lists.linux.dev>,  <linux-kernel@vger.kernel.org>,  "Dipesh Chaudhary" <me@dipeshchaudhary.in>
-List-Unsubscribe-Post: List-Unsubscribe=One-Click
-From: "Dipesh Chaudhary" <me@dipeshchaudhary.in>
-X-Mailin-EID: NDQ2MTgxMzU4fmxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmd%2BPDIwMjYwOTEzMDgwMzA1LjEwOTgyLTEtbWVAZGlwZXNoY2hhdWRoYXJ5LmluPn5oYS5kLnNlbmRlci1zaWIuY29t
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lvpmDIVj"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789286887; x=1820822887;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=KVXWnXKt18yT+rXsHFFgdU4B/qSR3ZMAvaJWAP+J3SU=;
+  b=lvpmDIVju2dyo+sDqNAn1JwEcAISjpixFNUGRjzuV8knVLwcPqe/eu4+
+   nOAfegYnnb8RKY5kRHXDjOw2QU8THt2dSL4kH0M20JakNXyVivPuN4R9C
+   fHvzJYxkccu/zAzaOpmIxBOj6K08b6RGBntYkd+CApIm1heBqUZELIbkK
+   5wsq1ZvXLyJ/m7MbCNaBPYgJdnaciZnSFH/V8P6eYAA2770YHl6Hj8AJa
+   t1WUxz2QUOQyQQTSZUR6DueCJqX8h07PoNmIhmfXY6zH5bCkr5g7nqju4
+   sxCykWKj5KjaH+ontq2cOBYwPUus9gB8Wl3LxPu2enkXKiUcSHDWQkI7j
+   g==;
+X-CSE-ConnectionGUID: ILO/MHpvSV6b2KABGLRO7g==
+X-CSE-MsgGUID: 1pZMWrbQRtqzfBYCR7vIxQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11903"; a="89447270"
+X-IronPort-AV: E=Sophos;i="6.27,100,1787036400"; 
+   d="scan'208";a="89447270"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Sep 2026 01:07:58 -0700
+X-CSE-ConnectionGUID: WQ+86aOoSMCb4Tgzhk3VjQ==
+X-CSE-MsgGUID: EsBqSr5VTFesXKPO+1FgRA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,100,1787036400"; 
+   d="scan'208";a="271858118"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by orviesa008.jf.intel.com with ESMTP; 13 Sep 2026 01:07:56 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1003)
+	id 0541B99; Sun, 13 Sep 2026 10:07:55 +0200 (CEST)
+Date: Sun, 13 Sep 2026 10:07:55 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	linux-renesas-soc@vger.kernel.org, linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 4/4] pinctrl: renesas: rzt2h: reuse helpers
+Message-ID: <aqZZ29nvQb-A627J@black.igk.intel.com>
+References: <20260910160226.489183-1-cosmin-gabriel.tanislav.xa@renesas.com>
+ <20260910160226.489183-5-cosmin-gabriel.tanislav.xa@renesas.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.39.5
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260910160226.489183-5-cosmin-gabriel.tanislav.xa@renesas.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 
+On Thu, Sep 10, 2026 at 07:02:26PM +0300, Cosmin Tanislav wrote:
+> The PMCm peripheral-mode test, the PFCm function read, the PINm input
+> read, the PMm write, and the PMm read are open-coded in several places.
 
-The EF2Byte and EF4Byte macros are defined as le16_to_cpu and
-le32_to_cpu respectively in basic_types.h, but are never referenced
-anywhere in this driver or the rest of the kernel tree. Remove these
-unused definitions to clean up dead code as noted in the driver's
-TODO file.
+> Reuse the already existing helpers.
 
-Signed-off-by: Dipesh Chaudhary <me@dipeshchaudhary.in>
----
- drivers/staging/rtl8723bs/include/basic_types.h | 2 --
- 1 file changed, 2 deletions(-)
+...
 
-diff --git a/drivers/staging/rtl8723bs/include/basic_types.h b/drivers/stag=
-ing/rtl8723bs/include/basic_types.h
-index aaa1e60f4..b4dde1fb4 100644
---- a/drivers/staging/rtl8723bs/include/basic_types.h
-+++ b/drivers/staging/rtl8723bs/include/basic_types.h
-@@ -29,8 +29,6 @@
- /*  Byte Swapping routine. */
- /*  */
- #define EF1Byte	(u8)
--#define EF2Byte		le16_to_cpu
--#define EF4Byte	le32_to_cpu
-=20
- /* Convert little data endian to host ordering */
- #define EF1BYTE(_val)		\
---=20
-2.39.5
+> -		reg64 = rzt2h_pinctrl_readq(pctrl, port, PFC(port));
+> -		reg64 = (reg64 >> (bit * 8)) & PFC_MASK;
+> -		if (reg64 == PFC_FUNC_INTERRUPT)
+> +		if (rzt2h_pin_read_pfc(pctrl, port, bit) == PFC_FUNC_INTERRUPT)
+>  			return GPIO_LINE_DIRECTION_IN;
 
+Basically this part with the helper should be split into a separate patch w/o
+Fixes tag.
+
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
