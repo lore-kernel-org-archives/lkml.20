@@ -1,256 +1,106 @@
-Received: from mail-ej2-f5.google.com (mail-ej2-f5.google.com [74.125.228.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from kylie.crudebyte.com (kylie.crudebyte.com [5.189.157.229])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDB3337F31F
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 18:05:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.133
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789322732; cv=pass; b=QGvfv6kNCvH9gaMfsvjvvAs3yBh0u3yIPy4upfiDavvfpIzbjkSiwr73Iyi42MwicGAigLfE9sEXB2k+K7RmENwNdyhF8eSnA1KGGalXIxxlMfeolp6o4Ek7BTKt5wIbw5ZYl2szmnkI0PjovGUnvoMsD6h0FyO5DnG4us+s0vA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789322732; c=relaxed/simple;
-	bh=KOtTHl2ZUyPFirhy28Jx459Kdjt3u5AIiEGb5zEvRoU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=kw0b+9Z4gc4+U5e/0D+oizXvb5Ly31YHKYuy0bhjlBzhpVs9WT8B3Tkn3E/WrUgG8ftohUQdYJDJDfRspPSKvtt3Wv4KUeHKqDos4HcftlKd7iqNNRZjgSYgfQtqWOHsk/2LaJZjkWYiUYJ1geIHvZbNLcnB2wpOtZnAUH5BYmE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rwVKQ+0F; arc=pass smtp.client-ip=74.125.228.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7411E39DBF5;
+	Sun, 13 Sep 2026 18:09:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.189.157.229
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789322970; cv=none; b=bxvEICjAuHbCuYIep3+IOl7Za6d9kXtdccKYDeVAYE1wLy26DH8/NmSgBjN7QTwqtlkiAWfvQTxbAmfSH1M3I/PIeyMnsFaRV9FZuBexHe6XjnF1HE5XtwNBQHHb8SLuaRNuoh+kunVA/UOkrq4rb6i2zNLM0cvK8ANHpe67vvg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789322970; c=relaxed/simple;
+	bh=W1KqqOx1YbH8sdbRoH/JNG7FhJu41SqvlypZyw8Bnew=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=qaQiyHOlM0fGSXlp+KH6SNfmquzkbN/zYN8grJ6iAKEh0CuHWT2+stikNfg9BEoEZCJcUtTpLrqFwE0aJbmk2dkgkxg22cgObVCTQgigmEk0h42jCz+myezdX1s/eFw10uUCtvIrJcx/0UZaN75N5dx2dZDm4WxCJvISbNAHw6M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crudebyte.com; spf=pass smtp.mailfrom=crudebyte.com; dkim=pass (4096-bit key) header.d=crudebyte.com header.i=@crudebyte.com header.b=HJy6wM7P; arc=none smtp.client-ip=5.189.157.229
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crudebyte.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crudebyte.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rwVKQ+0F"
-Received: by mail-ej2-f5.google.com with SMTP id a640c23a62f3a-c2950c25486so149910266b.1
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 11:05:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789322729; cv=none;
-        d=google.com; s=arc-20260327;
-        b=jlPUPR3hfYiebhd55dHy0sTxNhh40HdpH/xBBCFojqsgZSaAQ2Qgr7WegaqlTMacue
-         yKRTmReX7tgZuJhoYFHPcrOZ0inhw3bkDrJkNAinIVUIx/R1gGk7mY6toyR10BV8EQPY
-         GgijTyNlkmhNNJI6cscdT+pzfixW+sbOc55M7Lsg50kT635l2MDSLGwDmfF26AzEXeiT
-         dqSgQBdy2fk5SLKdLiVPMS+l5KoJNfUZgiu83WiWzZNy8fjYAB1To+9VpwxR8QcsiaLT
-         oQLYbASihoGxykvHhKLiGTRpYe2lIvOiOGetuqVsHcma2kxmogbIjPDik45lDmEm8fDZ
-         997w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=voliItkzs3OtrnJtmbhCv1xhQ+FU+qBLL3OO/h9nssc=;
-        fh=TvdpGjQNZ9fMqR9kX+O0oJWwDPaCa6j9qM7oTdvrpHI=;
-        b=W40V+fVIArWq2hv+ECYKAMQuerEaapDrsNy1XeOLmpd4kwJVz21quTYHxe11vZpPu2
-         YsPY8mTtUUizpEPYaNA7kh0uPcevTNbKolnHsnrd7Akaa8AxtBzUi39roRPpOaHelIiI
-         DyPaJK7HDs9rbdAcTPugGfapqxWlwsmKW+wk6pFEH4vc7Lp46a7sCOJZGaHWe+VDjOek
-         NVK9yJwEygzynYtiGqLbo3X/DRXfiTNqlbuCGJtPzIvVSxG4ssQIJFmbh822xlKrHe/F
-         RaYfjrF5UviYLcRsedeXzeR2E7PwdQvDiYAITPiHiyREv+/nCH7Cyru9geg1n47nJAtw
-         usbQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789322729; x=1789927529; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=voliItkzs3OtrnJtmbhCv1xhQ+FU+qBLL3OO/h9nssc=;
-        b=rwVKQ+0F0DdS0df6dM9p9aohkCPIkNm5KD8cfoEBV5HG31OdXaJdHGRjPDhoMG/9GI
-         Q4QJUVHKeDKIAyd5OyiLkJgwMcJQQA9GNDV3CspsvaQHkM5+m/Xs72qPIu76ShzPo/0C
-         j9xDT8YE2wprh2jeCzlljoQMhV5UwS4COYu86vzAJV+q3x9gTtnIwMgY6ocG6fnHDhtQ
-         Mn/YbWF7jGWtpu1uONLNihvsU662fdj/ocsHTQH8pcvNMvuE+vfQLADoQ70O1gsyRnVJ
-         Pn5LRObB1lX2uW0AUN3xyV6znLe/QuoikZoBspl+zmH75ltPt/pkT7WmH7k9w6lRwphq
-         zt8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789322729; x=1789927529;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=voliItkzs3OtrnJtmbhCv1xhQ+FU+qBLL3OO/h9nssc=;
-        b=eOzdrqYjt6uz5O4sXg+oa8QcidTi20gHNdHNulXAYNZQtG9N6wBfYik1UDh4iRZ5HA
-         DToY8adRU2i2k0JkhOlejpR/h9JUuqk3Vc/9dPq9DEH8veeD6XGp3vjXNmJXOsDy/I6Z
-         BWy6SIjwyS0DsshMGf56nAt+hBAeK2GxMLoPU/HIl6Jbb4awom3y6XzvatLdbBpX/2na
-         wnbixuwmqd+Xo4ZklrVriZ+OfYUFSgNM/heLoVIdCECvOX8ziEFkfc7xsvBsDyGhJTd+
-         ORZ3eo9brpV90pA8HPL49URfajGJuEddYY8OS4s2jAdUaTYwvUQ8JyNmcpZoqJ1trh13
-         7wCQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzd/ObNoK3cUmWC85OojY9LQ58XSeE8NBlmweE3tj3nHE7GjHwwNnq7Lna1ei1Pp2HhQwTyyl+2IAtGOF4=@vger.kernel.org
-X-Gm-Message-State: AFuF++n1NdW+jIWz+zy1+41wf7iAjyl9fjgex+614qNkSv4Hq2yUQUXf
-	HxBOnWsLHekGFTutWiJBlJK9csWcjKi3ZhIyvJMk+xCkNxnUmstJtI06ZsWS7eRg1Vr0eEy61oM
-	Ba9sMAvnHheAgXtE90qYShaj62YicLGg=
-X-Gm-Gg: AYBFou1V4HbDgcfoLQlA3tC5XW3PaI790gYyZrOQpSyZ+vyrLTIp9ZNIs7VmZtGdYRi
-	jt+xBgjyPmQEqUROsZEp2w5Ut5EurR4YvbIuY0ZxPrMIbmbhdGK4xkIFnEpoquk3PDB8jm2wlLw
-	7cZeAWnrZVPZHiChvydaOwNXmHUmVdrin7d369G07V29+k8w6BXI8XJLW9d5bHGZWxwCYH8b4QS
-	vNp6fU69A8wDI80D4rMvXQqCKtAsGB6syRlgm7laj+vgqqcLs3lFgr1X1oFNMdtIwUM6KO5qG4L
-	l9dbzIcaP9ZBTrwBlS4/mjQpeMUQ7yxSIBH2j3XNJUw2Lpba8NL7dTY/JQ==
-X-Received: by 2002:a17:907:d109:b0:c29:3e59:fd03 with SMTP id
- a640c23a62f3a-c2966732c9cmr1353966666b.18.1789322728959; Sun, 13 Sep 2026
- 11:05:28 -0700 (PDT)
+	dkim=pass (4096-bit key) header.d=crudebyte.com header.i=@crudebyte.com header.b="HJy6wM7P"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=crudebyte.com; s=kylie; h=Content-Type:Content-Transfer-Encoding:
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
+	Content-ID:Content-Description;
+	bh=IhtVvDygfJKIAvAuEo9iHVqsWcUzw9MlgNgHb1YJAVE=; b=HJy6wM7PHl/y6HGj8ah3Cm8vTZ
+	C/wQcEFDYWLM+Y9dtFdP7YQOOTHulcZP/YXQAyV5YPDPGZ7eXFRFDRjswq4Y/pKOnduY+7xkKxUd7
+	ga8A0qJpNw/SKbx9GjD8JMcJvDuAW/dbE8Mfx66iU4YUzaRU9TQ6m5CG+dqi+vdYj28wWEe6VHGgr
+	FwqTzqViY6Rq32FcGbCiF+g4+CzLaCFxwzNqHYjyk28i4gMXpRUdj5TW5oavpvYpSdyvHC4rvTrjf
+	B/kfPOFVadL4mOUUEubkUoDVRX0Y9izWy13UuOkneLW3JkXt1R3GPdB7RII/zaDB0ZQ/BYufOBHdu
+	W6QCJXGhXyql/6OqHa0dfzlgYsk/YCgd4hGmTOKL9d5A5jldcNW84JP1M6IRbLnBDF3tqsKEax2Xm
+	izuXG78pzfJZikOpWLUC99/vJvbs6OzbL2F/hZr4FXzjWbVAYDw9tCESQWSkN37QaTAq3oHODn2Kc
+	1bsxGR9EvKoWPSMOZ7FHd/nR2Yen0SRsGX7NaqEVl4RH3PH9dl5hFwI3rN9GXg/GJG/mH/x5nPCKo
+	G70wOtB1TCcIh0sUYdhrCGBbLLspWqsQYgpUHurp7Lq7gDksse6h1N01ZL3m/+zGZUkGc72U64S3D
+	ejnystwqoplrUL2M0X2r0JNxNc6iILvRfYt5xn68k=;
+From: Christian Schoenebeck <linux_oss@crudebyte.com>
+To: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>,
+ Dominique Martinet <asmadeus@codewreck.org>
+Cc: v9fs@lists.linux.dev, Eric Van Hensbergen <ericvh@kernel.org>,
+ Latchesar Ionkov <lucho@ionkov.net>, linux-kernel@vger.kernel.org,
+ Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>, Ao Wang <wangao@seu.edu.cn>,
+ Xuewei Feng <fengxw06@126.com>, Qi Li <qli01@tsinghua.edu.cn>,
+ Ke Xu <xuke@tsinghua.edu.cn>, stable@vger.kernel.org
+Subject: Re: [PATCH] 9p/trans_virtio: bound RERROR copy by mapped pages
+Date: Sun, 13 Sep 2026 20:09:05 +0200
+Message-ID: <23241140.EfDdHjke4D@weasel>
+In-Reply-To: <aqZwqdnm7PW8OUv-@codewreck.org>
+References:
+ <20260607140603.24342-1-zhaoyz24@mails.tsinghua.edu.cn>
+ <aqZwqdnm7PW8OUv-@codewreck.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260907153713.2572547-11-coiaprant@gmail.com> <20260912201332.127297-1-kuba@kernel.org>
-In-Reply-To: <20260912201332.127297-1-kuba@kernel.org>
-From: Coia Prant <coiaprant@gmail.com>
-Date: Mon, 14 Sep 2026 02:05:16 +0800
-X-Gm-Features: AcwNN1XgxVngHvtMFNhv7y3qMtC3nxI3TV6XULwbytRJ0h4SCX-LBQfd6V3fGRY
-Message-ID: <CALj3r0jBCoX=GRTrshY7QJO3Vykrbx+1NgE=zOV3S+WLLBNM2w@mail.gmail.com>
-Subject: Re: [PATCH net-next v4 09/10] arm64: dts: rockchip:
- rk3568-photonicat: enable SGMII LAN port
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com, 
-	pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	heiko@sntech.de, vkoul@kernel.org, maxime.chevallier@bootlin.com, 
-	mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com, 
-	prabhakar.mahadev-lad.rj@bp.renesas.com, romain.gantois@bootlin.com, 
-	hkallweit1@gmail.com, neil.armstrong@linaro.org, linux@armlinux.org.uk, 
-	shawn.lin@rock-chips.com, david@ixit.cz, netdev@vger.kernel.org, 
-	linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com, 
-	linux-renesas-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
 
-Jakub Kicinski <kuba@kernel.org> =E4=BA=8E2026=E5=B9=B49=E6=9C=8813=E6=97=
-=A5=E5=91=A8=E6=97=A5 04:13=E5=86=99=E9=81=93=EF=BC=9A
-> > @@ -242,6 +243,7 @@ &combphy1 {
-> >
-> >  &combphy2 {
-> >       status =3D "okay";
-> > +     rockchip,sgmii-mac-sel =3D <0>;
-> >  };
->
-> [Severity: Low]
-> The changelog says:
->
->   "Enable combphy2 with rockchip,sgmii-mac-sel =3D <0> to route the SGMII
->    interface to GMAC0."
->
-> Is that description accurate?  In the baseline the node already reads:
->
->   &combphy2 {
->           status =3D "okay";
->   };
->
-> so the only new thing here is the rockchip,sgmii-mac-sel property.  Could
-> the wording be adjusted to say the property is added to an already enable=
-d
-> combphy2?
+On Sunday, 13 September 2026 11:45:13 CEST Dominique Martinet wrote:
+> Yizhou Zhao wrote on Sun, Jun 07, 2026 at 10:06:01PM +0800:
+> > handle_rerror() copies the variable-length error string of a zero-copy
+> > RERROR response from the receive pages into the request's static response
+> > buffer.  The amount copied is bounded by P9_ZC_HDR_SZ, so the data can
+> > span at most two pages, but the helper is not told how many receive pages
+> > were actually mapped.
+> > 
+> > If a malicious or broken virtio 9p device reports an RERROR length that
+> > exceeds the remaining bytes in the first mapped receive page, the error
+> > string is treated as crossing into a second page.  When only one receive
+> > page was mapped, handle_rerror() still advances the page pointer and
+> > dereferences the next entry, reading past the allocated in_pages array.
+> 
+> I'm not sure that can actually happen:
+> If there was an "in page" (if there wasn't this is all noop anyway and
+> data was written directly to req->rc.sdata), then req->rc.size amount of
+> data was received into the pages, so if it does happen to span over a
+> page boundary then there are at least two pages and we don't need to
+> double-check here.
+> 
+> Christian, do you agree with me this patch is not required?
 
-You're right. combphy2 is already status =3D "okay" in the baseline; this
-patch only adds the rockchip,sgmii-mac-sel property to it. I'll fix the
-wording to say the property is added to an already-enabled combphy2.
+req->rc.size is coming from virtio device's used-ring len, and that is written 
+by 9p server, and this server-written value is not verified anywhere against 
+the real sizes of the descriptors that guest provided, neither by the kernel's 
+virtio subsystem, nor by 9p client.
 
-> [Severity: Low]
-> This isn't a bug, but the new properties do not follow the ordering used =
-by
-> the rest of this file, where properties come roughly alphabetically and
-> status is last.  Here rockchip,sgmii-mac-sel lands after status, in &gmac=
-0
-> below pcs-handle comes before managed, and in the new &xpcs override stat=
-us
-> is first with phys/phy-names after it.  Compare the existing &gmac1
-> override, which ends with status =3D "okay";.  Could these be reordered?
+So the patch's premise is: 9p server is untrusted and lying about the written 
+used-ring len. In that case, yes, it could crash the client.
 
-I'll reorder the properties to follow the file's convention (roughly
-alphabetical, with status last)
+Should you pick the patch? You can, it does fix what it claims to do, but this 
+is one of those project-policy / maintainer's personal opinion dependent 
+issues than a real-life problem fix IMHO:
 
-> > @@ -350,6 +391,25 @@ rgmii_phy: ethernet-phy@3 {
-> >               reset-gpios =3D <&gpio4 RK_PC0 GPIO_ACTIVE_LOW>;
-> >               rx-internal-delay-ps =3D <1500>;
-> >               tx-internal-delay-ps =3D <1500>;
-> > +
-> > +             leds {
-> > +                     #address-cells =3D <1>;
-> > +                     #size-cells =3D <0>;
-> > +
-> > +                     led@1 {
-> > +                             reg =3D <1>;
-> > +                             color =3D <LED_COLOR_ID_AMBER>;
-> > +                             function =3D LED_FUNCTION_WAN;
-> > +                             default-state =3D "keep";
-> > +                     };
-> > +
-> > +                     led@2 {
-> > +                             reg =3D <2>;
-> > +                             color =3D <LED_COLOR_ID_GREEN>;
-> > +                             function =3D LED_FUNCTION_WAN;
-> > +                             default-state =3D "keep";
-> > +                     };
-> > +             };
-> >       };
-> >  };
->
-> [Severity: Low]
-> This hunk describes the LEDs of the pre-existing RGMII WAN PHY on &mdio1,
-> which is already functional and unaffected by the SGMII enablement.  The
-> changelog justifies it only with:
->
->   "Also add LED configuration for the existing RGMII PHY on mdio1 for
->    consistency."
->
-> Would it be preferable to split this into its own patch, so this commit
-> contains only the SGMII LAN port enablement?
+- Malicious 9p server: of course server can lie about used-ring len and crash 
+the Linux guest this way, but server could do that anyway, at any time. This 
+is a virtio specific issue, 9p server is also Linux guest's host (i.e. it 
+fully controls guest's memory, can simply kill/shutdown at any time, same 
+outcome).
 
-The LED configuration for both PHYs is kept in this patch because the
-two PHYs are the same Motorcomm family wired identically on this board,
-and describing them together keeps the two mdio nodes consistent. The
-change is purely descriptive and does not affect the SGMII enablement.
+- Broken 9p server: that's an argument that might justify to pick the patch, 
+i.e. the wrong length was unintentionally written by server, everything else 
+server is behaving fine - very unlikely though.
 
-That said, if you prefer it split out, I can move the mdio1 LED
-description into a separate patch in v4.
+P.S. Remarkable backlog processing today! :)
 
-> > @@ -586,3 +646,13 @@ &xin32k {
-> >       pinctrl-names =3D "default";
-> >       pinctrl-0 =3D <&clk32k_out1>;
-> >  };
-> > +
-> > +&xpcs {
-> > +     status =3D "okay";
-> > +     phys =3D <&combphy2 PHY_TYPE_SGMII>;
-> > +     phy-names =3D "serdes";
-> > +};
->
-> [Severity: Medium]
-> Should phys/phy-names live in rk3568.dtsi rather than in each board file?
->
-> The binding lists them as required properties of the XPCS node:
->
->   Documentation/devicetree/bindings/net/pcs/rockchip-dwxpcs.yaml
->   required:
->     - compatible
->     - reg
->     - "#address-cells"
->     - "#size-cells"
->     - clocks
->     - clock-names
->     - phys
->     - phy-names
->     - power-domains
->
-> but the SoC node in arch/arm64/boot/dts/rockchip/rk3568.dtsi has neither:
->
->   xpcs: pcs@fda00000 {
->           compatible =3D "rockchip,rk3568-xpcs";
->           #address-cells =3D <1>;
->           #size-cells =3D <0>;
->           reg =3D <0x0 0xfda00000 0x0 0x200000>;
->           clocks =3D <&cru PCLK_XPCS>, <&cru CLK_XPCS_EEE>;
->           clock-names =3D "csr", "eee";
->           power-domains =3D <&power RK3568_PD_PIPE>;
->           status =3D "disabled";
->
-> Does this mean every rk3568 dtb reports pcs@fda00000 as missing the requi=
-red
-> phys and phy-names under make CHECK_DTBS=3Dy, including boards that do no=
-t
-> enable the XPCS?
->
-> The XPCS to combphy2 connection is internal to the SoC, so each board tha=
-t
-> enables it will have to repeat the same phandle, as this patch does.  Cou=
-ld
-> phys =3D <&combphy2 PHY_TYPE_SGMII>; and phy-names =3D "serdes"; be moved=
- into
-> the dtsi node instead?
+/Christian
 
-As replied in the earlier patch, the SerDes connection is board-specific
-(some boards use combphy1 for SGMII, others use combphy2), so it cannot
-be moved into rk3568.dtsi.
 
-Best,
-Coia
