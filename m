@@ -1,161 +1,152 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8FCA361943;
-	Sun, 13 Sep 2026 16:39:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B16E361943
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 16:40:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789317590; cv=none; b=VQsksxaSP4wZ0LmsmEhVNfwZ6qq4SVj7dn+tMKudKcEDrlFnE42xKBy5nyr+5H+iT1RTgCaZRaz+/bK6YzE39zGuGJYi0LBK67LvgQTB2B/WJbAvvDycGCxBGU/R+hwaGoI79mI6vZXySxtz1fVwnIg4wIEjposyXW3IqLYQtRQ=
+	t=1789317629; cv=none; b=XU7iOAmUcfTRAhWBmXnQuwUhKlFOIs+fO7X6Z5tYarE2VMM22Pt0xeeNlmCpbevH0bZb5bGZ/UcM2rSSdQ54aJyydtSQg27jZyo5vmLESK/h9NkoZoyheNvKq6CdpkO8KhSsI9LXIqirsco+f0MEB2UTEUp/HzVK5t0Juz4Ckac=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789317590; c=relaxed/simple;
-	bh=FR1Waodsnm9aJknU2HJdjpQhZog1vRX2KBydHZhnSUw=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ILx4K5M126mKLgiYZRf1jnajJ1DjHKWwHPS1qwbpMb1pwhMoG0cXpwxZ9mRsSxGWgUmQO9R0XIyp62eK5kVx9MnALGPUj+x1vi9DXT4S/M2zexJ2RvQzifJA7X1IbfaNEbmMSmcGDgtUiHhMM5CfAv6daG7N5nO6zFtv+0XcwNQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=0Iehiso1; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=dxi+8bSu; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=DHXpRi/7; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=jkVV9+gz; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1789317629; c=relaxed/simple;
+	bh=tMfD4U8sXM1Kdp3Gt8o9CUjZGm0VMF0SmC9x8z4SEAU=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=JzJweNPixh3uObbxmpW4wL6nkmo4qCC4iuuNnb3ZaiSOGa0V/fYdIi6x/CQDiNJSMbor+kxljClofAKzHwKYv3XrZONsk6/NWNy04CdP8DKkurjTsYQhiui5u4f3ETM8WykTbUSNioLpI1YrROQLKl33xZdsoNXOHefHJgTwKms=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V+vcUQKe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="0Iehiso1";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="dxi+8bSu";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="DHXpRi/7";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="jkVV9+gz"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id C904521989;
-	Sun, 13 Sep 2026 16:39:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789317577; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6kxZ//zgJtAFpHMYh5PV6GT39Zi0cv4xJwQ6Sr6yXbY=;
-	b=0Iehiso1KjBNSSbISlbQKyH11hRMbltkhSONzWG7RTAEOq7FU6II4g6GbJix7tiPur7lZ+
-	bP5Hvb1VBZ/BL5B6j4+UxoVE0umiCPR9tJLpI4EZjvADXD6jGg9M2nUXimd/IUP2h2W5qw
-	LvQ02YKDkanh8VQ5G4O3U/o97QBFkUk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789317577;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6kxZ//zgJtAFpHMYh5PV6GT39Zi0cv4xJwQ6Sr6yXbY=;
-	b=dxi+8bSua13Nbiig0RRL4qqv4z1bv4JcIJSNBjq0tKGAK+xdVkii+5x+OwO7RhPjYXgVtc
-	w1nBRxThHSV/26Bw==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="DHXpRi/7";
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=jkVV9+gz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1789317572; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6kxZ//zgJtAFpHMYh5PV6GT39Zi0cv4xJwQ6Sr6yXbY=;
-	b=DHXpRi/73+of98nFqnO+gBD62vr1EVET1dv9AhuEcKWOPOBNMKpiH6NMFQSFX53dusD+rS
-	D6BJjPAAXb/kT21U06bWqlcWw3LAkJ5DfyadCjIud4HmLWyfDuxglZF6JNrhuVpoTDk6Mh
-	bHmCE7eTmkRVnSHyOp6uKhOy93hGBOw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1789317572;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6kxZ//zgJtAFpHMYh5PV6GT39Zi0cv4xJwQ6Sr6yXbY=;
-	b=jkVV9+gztqbXB//VtBXPJWH3KhNhpL4cwmA3J82Dk/7zlFJMsfzq9VujWkSyKLmMWGTIwO
-	tIY+j7QzNHxap/CQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5576C1368C;
-	Sun, 13 Sep 2026 16:39:32 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id FvH4EsTRpmqZYgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Sun, 13 Sep 2026 16:39:32 +0000
-Date: Sun, 13 Sep 2026 18:39:31 +0200
-Message-ID: <8733vdrtq4.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+19da64013c46df87f971@syzkaller.appspotmail.com
-Subject: Re: [PATCH] ALSA: pcm: set timer->private_data before registering the PCM timer
-In-Reply-To: <20260913134446.114724-1-ngocthang2710.1999@gmail.com>
-References: <20260913134446.114724-1-ngocthang2710.1999@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V+vcUQKe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7E771F00898;
+	Sun, 13 Sep 2026 16:40:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789317628;
+	bh=WKlFA/1iKCmyKjjNE4oSRzDeTGJ9jpqkUqBXMGoOSiQ=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=V+vcUQKeAxi7Nnlm3js33pq5dRbZp37ih4xUp05G8kQNKBOa55xIa7D+6RJL/0zdU
+	 6vIaqW4yS9C1Goqp48iz7Rp+88C8q61RTHcpQhkXEY+xgz7xiZgMeMnIo8jPLzZeJO
+	 LuRxzPaqQgy2OT5Oa3opK5ziWzP4Uti4D7uIkg6NwHPyhZ8/4hEJNRaXILPmSux/eL
+	 XpalKQYKXlL5LGD9aU/hsoxkcYLM/CDfWAwSXAraD+isC8/qXINjIOeUxaeTjDjTjS
+	 E8paifR9DS0ez5gcx4GpaUpIMrhRmhEdhuAPTSsK1MOGrDS4RlN8SfarwHjpddLaMt
+	 HMaaWkB4zILGQ==
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfauth.phl.internal (Postfix) with ESMTP id 15507F40066;
+	Sun, 13 Sep 2026 12:40:27 -0400 (EDT)
+Received: from phl-imap-15 ([10.202.2.104])
+  by phl-compute-10.internal (MEProxy); Sun, 13 Sep 2026 12:40:27 -0400
+X-ME-Sender: <xms:-9GmasjarLVvzQE8qZqJL7oT8jhUDyyMjyp-tmhx_Ne-HuEsdbLyRQ>
+    <xme:-9Gmav2qF6NotYxFqbirB-2Y10CcYbKi4eRQgwhXGRE3tstgUmGeNYqau5Hl5Xf5O
+    LA5cuel7BOXXb-rDCw2mXKvDZx6gkBEVkPOejmHgFuyzcCJe21CC6Hk>
+X-ME-Proxy-Cause: dmFkZTFwQ3pVX8I60PtLIlwa3RkSKxgH5rzc9PfJEjDCzY4yxubKJ+nbUXmK5RAEsUipnN
+    VrRVM5oDgt+YzecNtjGoAqVrXyK+Wmdb3SPfjyqXCuQJh7gPswT4IArUfqsyp3I8fG/3Or
+    Z5rjxkAbcfm40AteikWxylerL8Y4v9fB0rmlPRXtj5YEcc8yr2zfkpQM30hN9tCTbQvlWj
+    d5E5Pdv64ZOA2hdvRfrDaxI1mgHyqc/+lSED8RLK2zrGU/RiMne/YPyrIczk7aG7S6h8uJ
+    CZwDtAORV6bojvWiNYcIAKfapfDiY02WtRBxKJi25RoYrfSjK2QvGOnp7kR3dVfci4t4gS
+    0Cy5gQxtfCDadKU+Pi2k7qFmVdSu5pB+FZ9w6iWntbvvjOFQzDRizLgv5gz+73eOHhhqbr
+    NrWok4FZzXIIM+BhdQPIMPZoOjmcYHK9ZdbB0HWO8t3rS+3GnU/GLFh2jiDWVvjLj17Gpr
+    w3oFlAOwyJKTFLhDqtu0MJhW1KXqn40nHnJcD738P6fflUaGn4vbBo+QXkMLRI/UhTzoR3
+    8QzcxOzdaw7lXOz/mMklF3ej2JrwSg7w7Q44A85D8L99OTyaTQyGd+9PHrP5wYD8k+8Qzi
+    iNl/QezlycYAws9ZgR6h6JrDkaOZhtCg0QnJVJXPdyCEnN4a3C9dPI7NUE0g
+X-ME-Proxy: <xmx:-9GmalwtR6g4Qvh-M_MVOgaH_F4SRyUfJpWrBL0-mZC9IfHn-DUUYQ>
+    <xmx:-9GmaluugEO7pByUYHuKOuXWGgSmFj2ml7QUY6BF0HDkcywb6BZ6lA>
+    <xmx:-9GmagD7WsnczHrNqdIkN8T9DSUuHGF--1GUqsxQcwJ_FMkmEyRIEQ>
+    <xmx:-9GmavHFClVBgndgnLicb2Qu1SHIBSTnOGY03RwG2lo1PAvT3uqTBQ>
+    <xmx:-9GmaoAGP8-F3MaRoEdh4WQhjVn5HHhWu4H_hVZoxtArCKbKfNAmipbt>
+Feedback-ID: ifa6e4810:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id EBF41780070; Sun, 13 Sep 2026 12:40:26 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: C904521989
-X-Spamd-Result: default: False [-2.01 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[19da64013c46df87f971];
-	DKIM_TRACE(0.00)[suse.de:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[syzkaller.appspot.com:url,appspotmail.com:email,suse.de:dkim,suse.de:mid]
-X-Spam-Flag: NO
-X-Spam-Score: -2.01
+MIME-Version: 1.0
+X-ThreadId: AgpFG2YqzZmg
+Date: Sun, 13 Sep 2026 12:40:02 -0400
+From: "Chuck Lever" <cel@kernel.org>
+To: tmenninger@purestorage.com
+Cc: "Trond Myklebust" <trondmy@kernel.org>,
+ "Anna Schumaker" <anna@kernel.org>, "Tejun Heo" <tj@kernel.org>,
+ "Lai Jiangshan" <jiangshanlai@gmail.com>, linux-nfs@vger.kernel.org,
+ linux-kernel@vger.kernel.org, "Eric Badger" <ebadger@everpuredata.com>,
+ "Jon Curley" <jcurley@everpuredata.com>
+Message-Id: <611738b5-e115-4531-8d08-62607dc7f8ff@slotpi15m67>
+In-Reply-To: <20260913131354.1026639-1-tmenninger@purestorage.com>
+References: <e18e121c-5c05-4caa-96ea-e0886594ee07@slotpi15m67>
+ <20260913131354.1026639-1-tmenninger@purestorage.com>
+Subject: Re: [PATCH RFC 6/8] SUNRPC: Reduce rpciod workqueue contention
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-On Sun, 13 Sep 2026 15:44:46 +0200,
-Nguyen Ngoc Thang wrote:
-> 
-> snd_pcm_timer_init() calls snd_device_register() to link the new
-> struct snd_timer into the global timer list while it still carries
-> hw.c_resolution = snd_pcm_timer_resolution (and hw.start/hw.stop),
-> and only afterwards sets timer->private_data = substream.
-> 
-> Once the timer is on the list under register_mutex, a concurrent
-> reader can already reach it through the same mutex and invoke these
-> callbacks. /proc/asound/timers does this via c_resolution(), and
-> snd_timer_open()+snd_timer_start() reach start()/stop() the same way.
-> All three dereference timer->private_data, which for this brief
-> window is NULL, giving a NULL-pointer dereference:
-> 
->   substream = timer->private_data;
->   return substream->runtime ? ...   // substream is NULL
-> 
-> Move the private_data/private_free assignment before
-> snd_device_register() so the timer is never visible on the list
-> without its private_data set. On the snd_device_register() failure
-> path, private_free() (snd_pcm_timer_free()) can now run, but it only
-> does substream->timer = NULL, which is already NULL at that point
-> since substream->timer is set to the new timer just once, after a
-> successful registration -- so the failure path stays safe.
-> 
-> Reported-by: syzbot+19da64013c46df87f971@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=19da64013c46df87f971
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+On Sun, 13 Sep 2026, Tim Menninger wrote:
+>                         unpinned       node0 pinned
+>     free_fastpath:     +49,161,373    +119,680,629
+>     free_slowpath:     +70,391,872          +8,999
+>     sheaf_flush:        +1,582,440     +13,436,760
+>     barn_put:             +673,877      +1,596,175
+>     barn_put_fail:         +26,374        +223,950
+>     barn_get:             +673,860      +1,596,219
+>     barn_get_fail:      +1,199,576        +224,090
+>     alloc_slowpath:              0               0
+>
+> So free_slowpath does in fact drop essentially to zero when allocation
+> and completion/freeing are kept on the same NUMA node.
 
-Applied now.  Thanks.
+Thanks, that settles the remote-free question.
 
 
-Takashi
+> The dominant slab lock was still heavily contended in that run.
+> Filtering it by caller gave:
+>
+>     2,907,948   __slab_free+0x126
+>       269,174   get_partial_node_bulk+0x9c
+>       175,965   __refill_objects_node+0x4d0
+
+Set beside the unpinned profile from your Sep 12 mail:
+
+                            unpinned    node0 pinned
+    __slab_free            2,845,710       2,907,948
+    get_partial_node_bulk    318,458         269,174
+    __refill_objects_node    181,842         175,965
+
+The lock profile did not move. free_slowpath fell by four orders
+of magnitude and __slab_free took list_lock just as often. So the
+list_lock contention is not the remote frees, and it never was!
+
+The counters show where it comes from instead. sheaf_flush rose to
+13,436,760 objects, and 13,436,760 / 60 = 223,946, which is your
+barn_put_fail. That is the barn-full path in free_to_pcs: once the
+node's barn holds MAX_FULL_SHEAVES (10) full sheaves, a put fails,
+the spare sheaf is flushed through sheaf_flush_unused and
+__kmem_cache_free_bulk, and __slab_free takes list_lock for each
+slab in the flush. That route never increments FREE_SLOWPATH,
+which is why the counter went quiet while the lock did not. It is
+also why sheaf_flush_unused and __kmem_cache_free_bulk never
+appeared as callers: perf lock charges the acquisition to
+__slab_free on both routes.
+
+barn_get_fail matches barn_put_fail almost exactly, and barn_get
+matches barn_put. The barn is a bounded buffer between the CPUs
+that allocate nfs_page objects and the rpciod CPUs that free them,
+and about 12% of the time it is over- or underflowing.
+
+So the cross-node placement adds roughly 2-4 GB/s of penalty, some
+of which is node 0 itself (45 vs 46-47 with balanced CQs), while
+the lock profile is unchanged. That points at the per-object cost
+of 70M individual remote __slab_free calls, not at list_lock
+queueing.
+
+Three numbers you likely already have on disk would help clarify
+this... no new runs needed:
+
+- Total and average wait for the list_lock address in the pinned
+  run. The unpinned run showed 5.05 min and 90 us average; if the
+  pinned run is similar, the lock absorbs the same time whichever
+  way the frees go.
+- mpstat idle for node 0 in both runs, to tell whether that wait
+  is idle time being spent or throughput being lost.
+- Throughput for the node 0 / node 0 run that produced the counter
+  table above. It is the one configuration missing from your
+  throughput table.
+
+
+-- 
+Chuck Lever (Come to NFS bake-a-thon! https://nfsv4bat.org)
