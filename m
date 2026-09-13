@@ -1,39 +1,39 @@
 Received: from sm24.hosting.reg.ru (sm24.hosting.reg.ru [31.31.198.150])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB58E38332F;
-	Sun, 13 Sep 2026 05:37:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09CAE3AB284;
+	Sun, 13 Sep 2026 05:37:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=31.31.198.150
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789277865; cv=none; b=PzMvUmQBs5gO5iOmDyrWMUoNw2GSyEiu0pI4PKeW31ytTcz9OO09stdr7/4r9j0GEEiPPl8WCW5R+ODvz0uFPeJcDDXiGs1HzI/ImZ5Z7MkqNnSecpwTVLimgCAtEpouwRih1A8uDb2RWj6pdfxwuE2L8bQ45zJdJB9K1/rTlJ4=
+	t=1789277875; cv=none; b=G+oPe72/h1ERbeJwRl5Ru32a2Au9pHvkYdvFkUj1pJvTi9LaMaJ+Gi/tzh/5S5QuCjnobd/w8t5mxggAvbSSH56amQjcWHCaDcYm2TpS0JL7ndtlwFfC6bijglht1dgZS6DqmYEMAE8BcwbNRT4OzTUJYC3r9vvp9yhR63wb49s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789277865; c=relaxed/simple;
-	bh=kaYWOXZIWs5k16WM32+ME8L4215fJyMSQ3Bj17H5XlI=;
+	s=arc-20240116; t=1789277875; c=relaxed/simple;
+	bh=0BQ6xKjmIi45mmQDEUnZDOzwVStMOY+tGg4O4r/CxtA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=gOauKa2SGamwHhKhCKv0PRqQ+WKs2lMxysAXr+I1qRZ2OUQA9I/l/eAapZE+XNoJwsRYUrZZ+5IyuVLja5NGbWwRtjVUN8EYFe0GK44JwzurxdoNevxxIDs3iTeryoEm5zCaEaE57WgWejizgQzkna7OYVAIDes5Q65NSx9t1V0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=minlexx.ru; spf=none smtp.mailfrom=minlexx.ru; dkim=pass (1024-bit key) header.d=minlexx.ru header.i=@minlexx.ru header.b=FghLU0R3; arc=none smtp.client-ip=31.31.198.150
+	 In-Reply-To:To:Cc; b=QKIB8xqYIpz7GW7CR52sIpWikBINq2I0HIHQA4LKJpVfYqDFWriJLmLfTTWNUs9+MTF9FQ/9xFNRqhbiWThjZmXtog8n4PGPMk0QeQxZttW69NstWBtGzIa6/sAFS1L7XTWBJ1Rj1w0K46kMxB0MFcHx1lr9ElkvkARTmjyzzEg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=minlexx.ru; spf=none smtp.mailfrom=minlexx.ru; dkim=pass (1024-bit key) header.d=minlexx.ru header.i=@minlexx.ru header.b=hor6mrqL; arc=none smtp.client-ip=31.31.198.150
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=minlexx.ru
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=minlexx.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=minlexx.ru header.i=@minlexx.ru header.b="FghLU0R3"
+	dkim=pass (1024-bit key) header.d=minlexx.ru header.i=@minlexx.ru header.b="hor6mrqL"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=minlexx.ru;
 	s=dkim; h=Cc:To:In-Reply-To:References:Message-Id:Content-Transfer-Encoding:
 	Content-Type:MIME-Version:Subject:Date:From:Sender:Reply-To:Content-ID:
 	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
 	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
 	List-Post:List-Owner:List-Archive;
-	bh=65W/FSxxZFdwnexgqJn56yiNp1ZgSH9CLT9ySrXuhO0=; b=FghLU0R3Rk4JxTWAG3e+ZlavHA
-	f2kutqnRTzEAQGV1Vg6XKIH8VYbsK1UMd7cT3e0cGbZqrZuekudzjt81gSQlzqi5eCypO3Dp+4NGW
-	abdIew/pvR5LVMZ3xzJ6a1r127vR3fmoQkROofJXamMUPbeub7eGQo/Ly3wQEjrXVsg0=;
+	bh=oZUBFJ8W3GLiJA6VWdpiMxHT4YD7XQYQBRfZWELdMIQ=; b=hor6mrqLAwcCVqHHEsBHNHX0dI
+	kUUaiJcqOP7Y4TNNgkjnvauuMj2E4sa/HhnS4F0ac3HEAPxoVMDs4gECNofwIxm68T91p3DsAkfGH
+	SsarMuq2+8b8nAyNKVVkj6PdAa0ePmpIVBA7dAtfGs5xBz8E5768OP7RuXMWpdptZdAM=;
 Received: 
 	by sm24.hosting.reg.ru with esmtpsa (TLS1.3) tls TLS_AES_256_GCM_SHA384
 	(envelope-from <alexeymin@minlexx.ru>)
-	id 1x5cuK-0000000Dxg1-1aUj;
-	Sun, 13 Sep 2026 08:37:41 +0300
+	id 1x5cuN-0000000Dxg1-0eRe;
+	Sun, 13 Sep 2026 08:37:44 +0300
 From: Alexey Minnekhanov <alexeymin@minlexx.ru>
-Date: Sun, 13 Sep 2026 08:36:39 +0300
-Subject: [PATCH 7/9] drm/panel: novatek-nt36672a: Add Tianma panel for
- Xiaomi Mi A2
+Date: Sun, 13 Sep 2026 08:36:41 +0300
+Subject: [PATCH 9/9] MAINTAINERS: Add Alexey Minnekhanov as maintainer for
+ NT36672A panel
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,7 +42,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260913-nt36672a-panels-v1-7-ce097402c6ea@minlexx.ru>
+Message-Id: <20260913-nt36672a-panels-v1-9-ce097402c6ea@minlexx.ru>
 References: <20260913-nt36672a-panels-v1-0-ce097402c6ea@minlexx.ru>
 In-Reply-To: <20260913-nt36672a-panels-v1-0-ce097402c6ea@minlexx.ru>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -58,98 +58,26 @@ Cc: David Heidelberg <david@ixit.cz>, Joel Selvaraj <foss@joelselvaraj.com>,
  phone-devel@vger.kernel.org, Alexey Minnekhanov <alexeymin@minlexx.ru>
 X-Mailer: b4 0.16.0
 
-Add support for Tianma TL060FVXS16-00 video mode panel based on
-Novatek NT36672A, used in Xiaomi Mi A2 smartphone (xiaomi-jasmine).
-It shares some code with already supported panel in this driver
-for xiaomi-lavender, so we can reuse the same panel deinit function.
+List myself as maintainer of Novatek NT36672A panels driver
+to keep a close eye on it.
 
 Signed-off-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
 ---
- drivers/gpu/drm/panel/panel-novatek-nt36672a.c | 57 ++++++++++++++++++++++++++
- 1 file changed, 57 insertions(+)
+ MAINTAINERS | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
-index e6971ba6ef464..1bfa808365874 100644
---- a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
-+++ b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
-@@ -445,6 +445,29 @@ static void lavender_tulip_deinit_cmds(struct mipi_dsi_multi_context *dsi_ctx)
- 	mipi_dsi_msleep(dsi_ctx, 120);
- }
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 207a6e2db70c8..8a91d04447405 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -8400,6 +8400,7 @@ F:	drivers/gpu/drm/panel/panel-novatek-nt36532.c
  
-+static void tianma_jasmine_init_cmds(struct mipi_dsi_multi_context *dsi_ctx)
-+{
-+	dsi_ctx->dsi->mode_flags |= MIPI_DSI_MODE_LPM;
-+
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x20);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MIPI_DCS_SET_PARTIAL_ROWS, 0x10);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MIPI_DCS_SET_PARTIAL_COLUMNS, 0x50);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x32, 0x2f);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x10);
-+
-+	mipi_dsi_dcs_exit_sleep_mode_multi(dsi_ctx);
-+	mipi_dsi_msleep(dsi_ctx, 70);
-+
-+	mipi_dsi_dcs_set_display_brightness_multi(dsi_ctx, 0x00ff);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x68, 0x03, 0x04);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MIPI_DCS_WRITE_CONTROL_DISPLAY, 0x2c);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, MIPI_DCS_WRITE_POWER_SAVE, 0x00);
-+
-+	mipi_dsi_dcs_set_display_on_multi(dsi_ctx);
-+	usleep_range(5000, 6000);
-+}
-+
- static const struct drm_display_mode tianma_fhd_video_panel_default_mode = {
- 	.clock		= 161331,
- 
-@@ -556,6 +579,39 @@ static const struct nt36672a_panel_desc tianmaplus_e7t_tulip_panel_desc = {
- 	.send_deinit_cmds = lavender_tulip_deinit_cmds,
- };
- 
-+static const struct drm_display_mode tianma_jasmine_panel_default_mode = {
-+	.clock		= (1080 + 96 + 4 + 56) * (2160 + 4 + 2 + 33) * 60 / 1000,
-+
-+	.hdisplay	= 1080,
-+	.hsync_start	= 1080 + 96,
-+	.hsync_end	= 1080 + 96 + 4,
-+	.htotal		= 1080 + 96 + 4 + 56,
-+
-+	.vdisplay	= 2160,
-+	.vsync_start	= 2160 + 4,
-+	.vsync_end	= 2160 + 4 + 2,
-+	.vtotal		= 2160 + 4 + 2 + 33,
-+
-+	.width_mm = 68,
-+	.height_mm = 136,
-+	.type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
-+};
-+
-+static const struct nt36672a_panel_desc tianma_jasmine_panel_desc = {
-+	.display_mode = &tianma_jasmine_panel_default_mode,
-+
-+	.width_mm = 68,
-+	.height_mm = 136,
-+
-+	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
-+			MIPI_DSI_CLOCK_NON_CONTINUOUS,
-+	.format = MIPI_DSI_FMT_RGB888,
-+	.lanes = 4,
-+	.send_init_cmds = tianma_jasmine_init_cmds,
-+	/* jasmine panel uses the same deinit sequence as lavender/tulip */
-+	.send_deinit_cmds = lavender_tulip_deinit_cmds,
-+};
-+
- static int nt36672a_panel_add(struct nt36672a_panel *pinfo)
- {
- 	struct device *dev = &pinfo->link->dev;
-@@ -634,6 +690,7 @@ static void nt36672a_panel_remove(struct mipi_dsi_device *dsi)
- static const struct of_device_id panel_nt36672a_match[] = {
- 	{ .compatible = "shenchao,fhdplus-video", .data = &shenchao_lavender_panel_desc },
- 	{ .compatible = "tianma,fhd-video", .data = &tianma_fhd_video_panel_desc },
-+	{ .compatible = "tianma,tl060fvxs16-00", .data = &tianma_jasmine_panel_desc },
- 	{ .compatible = "tianma,tl063fvmca01-00", .data = &tianma_lavender_panel_desc },
- 	{ .compatible = "tianma,tl063fvmc43-02", .data = &tianmaplus_e7t_tulip_panel_desc },
- 	{ },
+ DRM DRIVER FOR NOVATEK NT36672A PANELS
+ M:	Sumit Semwal <sumit.semwal@linaro.org>
++M:	Alexey Minnekhanov <alexeymin@minlexx.ru>
+ S:	Maintained
+ T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
+ F:	Documentation/devicetree/bindings/display/panel/novatek,nt36672a.yaml
 
 -- 
 2.55.0
