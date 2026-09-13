@@ -1,193 +1,371 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-ej2-f8.google.com (mail-ej2-f8.google.com [74.125.228.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3529C31E824
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 15:28:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789313290; cv=none; b=oK/VLnq/1j5kdXQYHtpQqxfml0swPp6nrSC3WzZqry6PiitsDj3HgPmqM25GElZRUyGIBZvH92IuH8le2zBWjDF3W/bpM+6uaem4BTMcXNzK0EMDkULieyz/66jXvgGdJWAgn1xbCmFK4cq9OLgnv/dX4DC6uK5w6FHmRrhNAQc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789313290; c=relaxed/simple;
-	bh=bHQ5l798sqezizXE5HsuyyFe+ixcfQm/HgbjmsP9wq0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uMCoYFkAmR/xPUQ0lzWOHoW3qSJ5RGRtc9VKCzPf7jP6nNc99BIMw7HO4SEst5JyiFwvBgnLeXIKh3BxnpFneTDzsXPpq+zzpvASFYAF1z8a0yEawjCV+vwcedcmEWMWMOmBAk3dnOBGh/GkLueXcW1jipvV2+hT3it0U5jEK6c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hsW9Yi3+; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5210C346ACE
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 15:30:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.136
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789313425; cv=pass; b=g2Tm5qMalUHiFV1OeB82b0PJUADGQILgs8cEOuDcqJCnAhNjjXvUFm3NlzvZG8T2wOqoTJzdDCj/Y6cepfQ0XtGpbK95dbDy+d2esTC0dEn6hNX3Xxgj5naJof7Hu7XPgioMsieNsfIx7D4m5RaUSZd7hN8iIRQgpRyyXyRi2Iw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789313425; c=relaxed/simple;
+	bh=QOnd9Be0VKsR33e3Mz4oeKHlFLKxA5Rt/jBaVV6NUZU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ZTllGsWdjTwfu1KTMOm9RDAgm8x64FKlMbZQ0wkGivZQYKfcV80PZs82JoPJtZKWxxwsdYe9ywwSdHuLm1Y24tD86T+mNEKFXxlcMJ9wkxoo7MwhpYoKwYPiPed027+BViJvas6IudEFUbmaHeJ1NGHXCMr9+pbHSG19djgid2s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sxBeHxwc; arc=pass smtp.client-ip=74.125.228.136
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hsW9Yi3+"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e66390995so5254995e9.2
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 08:28:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sxBeHxwc"
+Received: by mail-ej2-f8.google.com with SMTP id a640c23a62f3a-c254403ada6so123200966b.0
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 08:30:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789313421; cv=none;
+        d=google.com; s=arc-20260327;
+        b=IoehPm3G5EmSyvJ+9mk7vJCmBZ5P7hyxPcK17JKQyOCUSi/ooCssyi4F9yJjyBPbpu
+         dCKwtDRV32TIJUfJBsswvaz5HWC9MOHv5FdL3QRaSfhp5cxdFWRKdfk7Xsr9nQXnRtaG
+         VqL1gwrmCeWP0rB//oGEtiO7sOt7z7e9fW9hMwzW7a0k9Aa9BuZQNZsNC0wtuzwBGZg9
+         ++NJcgW5Pf9W0GX/1aGv24xcgI9ZC+mu5VLBuMuthxSCpwlFykxg7/+WvNzjNhokux9R
+         7d26nbPhlTGMwNzatwVLc2zc5eWwomKoVt+EeNBBKTPPCuD+ymaVVLmzOFCrObNafm5g
+         N6CA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=MUmHj/LFwOw941/kenFz/i5xXlBgFi4Hi0DQiphahvI=;
+        fh=CjtOdIkop7yGOuOorsJp3uFrzsDyaDG8IPEjDkSxCSE=;
+        b=PSIK8dIh0kDBH+2yKfTT8/bQmkpC3x0H5KtVSKrX7mmm6Y8FR2/SN5MpVeSpMwuSTV
+         DJvD12afo6XNW3RVVVNkSIVFHMXW+23NBVZ+xCp903dhvtiOmRWeqaMJIPRbnH0DdhNR
+         Ok7271HZq+h1J00Y1iP+oX6S6RxqTZBbjiPAkABCXUpbFx7y5JT3RwI2rZ2sZtWZrU3N
+         C5F3a1SLsxkvtyRnUtAsuD3pkla87Tr3JhKrF/5Z7iz3JFEhdn58V3YMBW1s4Mp6UeN1
+         leVOVOPFiyqBg+zzPiqv27UaOqEvwyeNfVlin0kkKbS93+lI0SYDhI7JO8iJV0Mnp8dA
+         kCsg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789313287; x=1789918087; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hv5wJEJwW/NHhugCpei+2makQ+3zrOmtS2wiUS3+qsY=;
-        b=hsW9Yi3+gAc54kY9MstSjwCa/2LeUX6JOCgmMxIZ98p+nwJVeoOpFDAxbBeG70HdpV
-         lekE9/iIjLMpR+ko0keC/1SSL2DByHWN2LqPXgCQ92v4TvOg+6bHPSXSGQmhBqfLOLNP
-         O2MfXG0k28OSgVqPY0Yry9gtiUrj5xXjAbXHSbDaKxiT69DdYG7cESWjxRFZ910DfzHc
-         UQrjdm5lFG5nf0jO768oCeyNucIBrrPMhwnLCHYVnPttLjRhfdvdaG8fHGLtt6c268nm
-         N1DJUFfeH4GYUH1j9HWNVggZXJVTV2rCsisJUU0T40LvqSHPuovCPuCJxJ6CdqxL9C9O
-         2JIA==
+        d=gmail.com; s=20251104; t=1789313421; x=1789918221; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=MUmHj/LFwOw941/kenFz/i5xXlBgFi4Hi0DQiphahvI=;
+        b=sxBeHxwcYJZnauDyGs4G+wJeTExNt2znk2aa0D9SeqyB6QWN/P9OCBXnV+lGAV6VUt
+         2GOOIAUQxtnIk/8e4HZjGu5ZydTndQciLuyvL0FiOyWI7gDI2SUpuWDJNXgJe6rIfdWo
+         8tYxoNQZclHs+5mChholUzK1yKUzVIjlNONUYMvSotyj1o4WdAaPuNUdfe7xWCpWpC1Z
+         fBdDhSScik7JO1Wat4ounuDbOZTXwIFfQHCg2gKrfF0u9W28Rw0qsdpghlXgvba6N9z/
+         VXvpkXmpUIsiSSDqXCPxKJ8s8UrNfAvEUfxOtYk5TGV25hLGwJqI1KjPZ1Ibr7rNlN4k
+         k9Rw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789313287; x=1789918087;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hv5wJEJwW/NHhugCpei+2makQ+3zrOmtS2wiUS3+qsY=;
-        b=G+ZFSropDYRwDmhhe6MthQlztN0U3yXlVHn6cBLxPiq1oQzSvvSfwd+xV7fjNgIlwl
-         cmuHPbAktuv7MOLlvmPPeDy6r+3/TLtOxjwgTNbaRtzn5As7TgIUg2oDBHYORvPZkbPs
-         FKxN+k4M0n3AkNmvYtj0EsKgJrr58tZX/hdK3Gca4q/GryKlN32GFLMnpg3dTySFw8pa
-         7S/OfwNwo3TH+cg1Tdy0zsznvW9t5briZb7AQsiCLEyvtiX4eDwpXDx3FLtugG5TVUk3
-         rJwbvIWil1LF7L8zsNM0fvwSd1BvUzVIOU/yoiGc1tx/b1otTEgKRMpRDXxohrA/6fy6
-         8cLQ==
-X-Forwarded-Encrypted: i=1; AKwUvBziN2x0bywKbBJI3J3SHwBzKcFaHqTPc9NbJVYsKWNcntNHK8Wsry5NLT0CGu4bnYpGEzZSuufdzrocO7A=@vger.kernel.org
-X-Gm-Message-State: AFuF++nNHW9HOL/PvkofPcbICO6kNZMy00bRBKrwOZiea8cLsyUbbqi/
-	UVI4nRjBg5Cs0RIU7qzb6HV31KeXRM4Q92TZtxxBPzzRdB5dZjtZvD3T
-X-Gm-Gg: AYBFou1pYrKMbeSsloItxfao8r/CNaCB2ffJdhowCDV9pRJWeokd06kjUNZv+VZqmKl
-	TIGMZ2Z6GqSooMvSCsPHmwTaCplBC2vbeBvPgi26ntxHs4/H9ng4yssa5OPu2BdJQfLOP3NlsrF
-	XBG6SaocLn9EkzcE+7QcL1lOjYvaA6BFKKiKZuFn/+T416tuV1sfa2aCko1ZGyO6rgZNX/aWjxA
-	eVDxK1dB1oeG47DgAU+79Nwo4we5Z19BC3E3QFR9ZlRuukdOp/lZV/GOq7n39/pWRIuoCWwxy4A
-	/IZPaWEr1286PBhyuLOMrULsqwa3nEtd+X2k8OHuvY1ddIiv4Phj4ZkxKKqyd22ZoLEhzrfivgj
-	twRwj1xYMibBKEb5ZOKxnSFg64/oukSS0xm8R6qQSFAFYt9L0Lho0FQIB/BHo9Hk9mL5x5Zw8kO
-	oYf8F0lX8vWMC9DQVoyLyE4NczsoYP1/G5cs4olmKe/uAyq+EguQDycrqrE2HRF1PA3nHUcykwL
-	YeDkCCrpjhD/T8hOdAN0i+/f6OdD6wv0M3coosMk8bbKw==
-X-Received: by 2002:a05:600c:4e13:b0:49c:dada:f581 with SMTP id 5b1f17b1804b1-49e6ca28d5emr64869905e9.0.1789313287145;
-        Sun, 13 Sep 2026 08:28:07 -0700 (PDT)
-Received: from DESKTOP-IR7J1S9.localdomain ([105.97.0.94])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486f301121asm15226206f8f.0.2026.09.13.08.28.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 08:28:06 -0700 (PDT)
-From: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
-To: viro@zeniv.linux.org.uk,
-	brauner@kernel.org
-Cc: jack@suse.cz,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+7ff3adde89dd795ad4c4@syzkaller.appspotmail.com,
-	kmsan-dev@googlegroups.com,
-	glider@google.com,
-	dvyukov@google.com,
-	Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
-Subject: [PATCH] dcache: fully initialize the inline name in __d_alloc()
-Date: Sun, 13 Sep 2026 16:28:02 +0100
-Message-ID: <20260913152802.13413-1-drifabdelmalekmohamedsaid@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20251104; t=1789313421; x=1789918221;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MUmHj/LFwOw941/kenFz/i5xXlBgFi4Hi0DQiphahvI=;
+        b=BS0MNJBEfrdwR00qb5YCaQsYrX6qPpbAhi+U5ujj2jjaxzPtEog3IujNj7jctPRKxv
+         We5XNTakd2bsI3S/6B2nIf+g/FohlP8dzjhPQTwnQb42IHXqc7eKuXRjg2E3WKs41S/Q
+         ZrXBLRHVzDCZH9D2yUQpgYCSYIQM+DtsFNkaklfa6zHEmHS4cAGUNUW+Th58upUSEeqg
+         j6taLjDLUyETUjiNmRbJwWoz7Lp3OSEMjn+3vdGcDicxaR8NkZS8jR4Mdf8FPmwOGIU7
+         dGbHGhBiY8KYsotPI+UQyRDf0n8pAnst7SDBHn6mnUR/nxTPHI2aMy8zDR3DD2tR2Dau
+         R/4w==
+X-Forwarded-Encrypted: i=1; AKwUvBxQ/aSnX6eHMy1o+AIKiv4RS15liDhQTHlsJtUXsVcdcvK9fmrDvXkV4XRLmNdx9JiIiq7zUR1/ZF9CZ/c=@vger.kernel.org
+X-Gm-Message-State: AFuF++mIQyKBb27S7e73P3BOs4mUMFjSAdV78XWuQqlJOHFSSOsqoBzN
+	XxNetuYkgq2ZSIa/E7myFQlr5lC6ChZf9ylAjkOWkyfCx2+0xHpCIXGIR2CCq1G4T1SpVETqrkA
+	yh8sJw2kNhTE4IRz1ynCdSd7Z2pjmQh8=
+X-Gm-Gg: AYBFou3EKLfi/QARfm1/Q6b6mY2aB0GgNt3Xkq9h1cFI8cGbOUrRf2Bp0vMGqy0fdVT
+	mPxVappEpZmzQT2RJecT3z5ymIA0SDFZyOmGhW81or2X5iDVmPPDeJesLoHOEO1XVyILSNY9y2B
+	FFF0vPlTqNH0a+SFQe5MkxyPJJtbNqg6zeAcLN2mIlsineCNl1L9L5DaImwUpNXWU5HEJC5Ca5a
+	GyotpqlN8DEPRVfmzJPe3s4PVi7u5fR5DbLIUfZ7SsepyEcag9eMrF0d8fyHWcRMaW3IZfvGgVO
+	l4ZyY20XuzVs3mAFtB0W6bKzJw1SKyofiXYc41NsAjW/QoYcgm/TluXvVsc=
+X-Received: by 2002:a17:907:6d0c:b0:c26:1649:47a5 with SMTP id
+ a640c23a62f3a-c29858afb4dmr388468266b.27.1789313421314; Sun, 13 Sep 2026
+ 08:30:21 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260907153713.2572547-6-coiaprant@gmail.com> <20260912201324.126973-1-kuba@kernel.org>
+In-Reply-To: <20260912201324.126973-1-kuba@kernel.org>
+From: Coia Prant <coiaprant@gmail.com>
+Date: Sun, 13 Sep 2026 23:30:09 +0800
+X-Gm-Features: AcwNN1WBFJod78ZuorP_y9LCkHOcoGiWiUu5Cum7Oj84vat35RmRCRAX8YYOUss
+Message-ID: <CALj3r0hevQ2Y9ttORKOa-oOFmyi7zDwNdLETRG0endxhCoFibA@mail.gmail.com>
+Subject: Re: [PATCH net-next v4 04/10] dt-bindings: net: pcs: add
+ rockchip,rk3568-xpcs support
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com, 
+	pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	heiko@sntech.de, vkoul@kernel.org, maxime.chevallier@bootlin.com, 
+	mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com, 
+	prabhakar.mahadev-lad.rj@bp.renesas.com, romain.gantois@bootlin.com, 
+	hkallweit1@gmail.com, neil.armstrong@linaro.org, linux@armlinux.org.uk, 
+	shawn.lin@rock-chips.com, david@ixit.cz, netdev@vger.kernel.org, 
+	linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com, 
+	linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-syzbot reported:
+Jakub Kicinski <kuba@kernel.org> =E4=BA=8E2026=E5=B9=B49=E6=9C=8813=E6=97=
+=A5=E5=91=A8=E6=97=A5 04:13=E5=86=99=E9=81=93=EF=BC=9A
+>
+> This is an AI-generated review of your patch. The human sending this
+> email has considered the AI review valid, or at least plausible.
+> ---
+> dt-bindings: net: pcs: add rockchip,rk3568-xpcs support
+>
+> This adds a new standalone schema describing the Synopsys DesignWare XPCS
+> as integrated on the Rockchip RK3568, with a CSR window, csr/eee clocks, =
+a
+> Naneng Combo SerDes phy, a power domain and four MII child ports.  A few
+> questions about the property set and the file naming below.
+>
+> > diff --git a/Documentation/devicetree/bindings/net/pcs/rockchip-dwxpcs.=
+yaml b/Documentation/devicetree/bindings/net/pcs/rockchip-dwxpcs.yaml
+> > new file mode 100644
+> > index 0000000000000..0852d0bcb66a2
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/net/pcs/rockchip-dwxpcs.yaml
+> > @@ -0,0 +1,110 @@
+> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/net/pcs/rockchip-dwxpcs.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>
+> [Severity: Low]
+>
+> This isn't a bug, but should the file be named after the documented
+> compatible, i.e. rockchip,rk3568-xpcs.yaml?  The other schemas in
+> Documentation/devicetree/bindings/net/pcs/ all use that form:
+> snps,dw-xpcs.yaml, fsl,lynx-pcs.yaml, mediatek,sgmiisys.yaml,
+> renesas,rzn1-miic.yaml.
+>
+> A rename would also have to update the $id line above, since it encodes t=
+he
+> same name.
+>
+> Related: the example at the bottom uses pcs@fda00000 and pcs-mii@0, while
+> the sibling PCS binding uses the generic ethernet-pcs@... node name, and =
+no
+> $nodename constraint is added here.  The SoC dtsi added later in the seri=
+es
+> copies the pcs@/pcs-mii@ names verbatim.
 
-    BUG: KMSAN: uninit-value in dentry_string_cmp fs/dcache.c:291 [inline]
-    BUG: KMSAN: uninit-value in dentry_cmp fs/dcache.c:322 [inline]
-    BUG: KMSAN: uninit-value in __d_lookup_rcu+0x37d/0x5e0 fs/dcache.c:2522
+I chose rockchip-dwxpcs.yaml intentionally, in case Rockchip integrates
+the same XPCS IP into other SoCs in the future. The filename is more
+generic and can cover multiple compatible strings if needed.
 
-     dentry_string_cmp fs/dcache.c:291 [inline]
-     dentry_cmp fs/dcache.c:322 [inline]
-     __d_lookup_rcu+0x37d/0x5e0 fs/dcache.c:2522
-     lookup_fast+0x194/0xa40 fs/namei.c:1854
-     lookup_fast_for_open fs/namei.c:4545 [inline]
-     open_last_lookups fs/namei.c:4579 [inline]
-     path_openat+0x9ef/0x6540 fs/namei.c:4856
-     do_file_open+0x2aa/0x680 fs/namei.c:4888
-     do_sys_openat2+0x17c/0x390 fs/open.c:1395
-     do_sys_open fs/open.c:1401 [inline]
-     __do_sys_openat fs/open.c:1417 [inline]
-     __se_sys_openat fs/open.c:1412 [inline]
-     __x64_sys_openat+0x240/0x300 fs/open.c:1412
-     x64_sys_call+0x2445/0x3ea0 arch/x86/include/generated/asm/syscalls_64.h:258
-     do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
-     do_syscall_64+0x15d/0x3c0 arch/x86/entry/syscall_64.c:94
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+However, I understand the convention is to name the file after the
+compatible string (like snps,dw-xpcs.yaml and fsl,lynx-pcs.yaml). If
+you prefer rockchip,rk3568-xpcs.yaml, I will rename it.
 
-Uninit was stored to memory at:
-     copy_name fs/dcache.c:3031 [inline]
-     __d_move+0xd29/0x21f0 fs/dcache.c:3099
-     d_move+0x71/0xf0 fs/dcache.c:3147
-     vfs_rename+0x2619/0x2770 fs/namei.c:6085
-     filename_renameat2+0xa59/0x1230 fs/namei.c:6188
-     __do_sys_rename fs/namei.c:6232 [inline]
-     __se_sys_rename+0xc5/0x5c0 fs/namei.c:6228
-     __x64_sys_rename+0x78/0xb0 fs/namei.c:6228
-     x64_sys_call+0x329/0x3ea0 arch/x86/include/generated/asm/syscalls_64.h:83
-     do_syscall_x64 arch/x86/entry/syscall_64.c:63
-     do_syscall_64+0x15d/0x3c0 arch/x86/entry/syscall_64.c:94
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> > +properties:
+> > +  compatible:
+> > +    const: rockchip,rk3568-xpcs
+>
+> [Severity: Low]
+>
+> This isn't a bug, but would a set of SoC-specific if/then blocks in
+> Documentation/devicetree/bindings/net/pcs/snps,dw-xpcs.yaml be preferred
+> over a second schema for the same IP?
+>
+> To be clear, a snps,dw-xpcs fallback compatible or a $ref to that schema
+> would be wrong here.  The glue driver added later in the series builds CS=
+R
+> addresses with only a 3-bit MMD field:
+>
+>         return FIELD_PREP(0x70000, dev) | FIELD_PREP(0xffff, reg);
+>
+> and remaps the vendor MMDs in xpcs_rk_mdio_read_remapping() /
+> xpcs_rk_mdio_write_remapping(), so the generic direct mapping described i=
+n
+> snps,dw-xpcs.yaml would compute different offsets.
+>
+> So the only question is where the description should live, not whether th=
+e
+> compatible should be shared.
 
-Uninit was created at:
-     slab_post_alloc_hook mm/slub.c:4617 [inline]
-     slab_alloc_node mm/slub.c:4939 [inline]
-     kmem_cache_alloc_lru_noprof+0x376/0x1230 mm/s
-     __d_alloc+0x52/0x9f0 fs/dcache.c:1902
-     d_alloc+0x57/0x300 fs/dcache.c:1981
-     lookup_one_qstr_excl+0x19d/0x7a0 fs/namei.c:1806
-     __start_renaming+0x341/0x850 fs/namei.c:3888
-     filename_renameat2+0x625/0x1230 fs/namei.c:6163
-     __do_sys_rename fs/namei.c:6232 [inline]
-     __se_sys_rename+0xc5/0x5c0 fs/namei.c:6228
-     __x64_sys_rename+0x78/0xb0 fs/namei.c:6228
-     x64_sys_call+0x329/0x3ea0 arch/x86/include/generated/asm/syscalls_64.h:83
-     do_syscall_x64 arch/x86/entry/syscall_64.c:63
-     do_syscall_64+0x15d/0x3c0 arch/x86/entry/syscall_64.c:94
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+As you noted, a $ref to snps,dw-xpcs.yaml would be wrong because the
+Rockchip glue uses a different address mapping (3-bit MMD field with
+remapping). A separate schema is the right choice.
 
-The race happens between a concurrent open() and rename() of the same
-path.  __d_alloc() initializes only the name itsel
-of the inline buffer; the tail in between is left uninitialized.
-copy_name(), called from rename(), copies the enti
-including that uninitialized tail - into the moved dentry.  Meanwhile
-__d_lookup_rcu(), called from open(), is an optimi
-it checks d_name.hash_len first and leaves the seqcount retry to its
-caller, so a lookup of the old (longer) name racin
-compares with a stale length.  While copy_name() is rewriting the name
-in place, the walker can transiently step past the
-terminating NUL and read bytes from the uninitialized tail, which KMSAN
-reports.
+> [Severity: Low]
+>
+> Should the sbd_intr_o output be described as an optional interrupts
+> property?  With additionalProperties: false at the end of the file, a
+> conforming device tree cannot carry it, although adding it later stays
+> backward compatible.
+>
+> The single unnamed 2 MiB window itself does match the driver:
+> xpcs_rk_init_res() uses platform_get_resource(pdev, IORESOURCE_MEM, 0) an=
+d
+> requires resource_size(res) >=3D SZ_2M, and the largest computed offset
+> 0x7FFFF << 2 =3D 0x1FFFFC still falls inside 0x200000, so reg-names and
+> reg-io-width are not needed.
 
-The race is benign by design - the read stays in bounds and the lookup
-result is discarded by the seqcount retry - but th
-is real.  Fix it by zeroing the entire inline buffer in __d_alloc(),
-so every byte a racy walker can touch is defined;
-past a mid-rewrite name now simply stops at a NUL.
+These are optional and can be added later without breaking ABI. I'll
+leave them out for now, since the mainline XPCS driver doesn't use them.
 
-Reported-by: syzbot+7ff3adde89dd795ad4c4@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=7ff3adde89dd795ad4c4
-Signed-off-by: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
----
- fs/dcache.c | 15 ++++++++++-----
- 1 file changed, 10 insertions(+), 5 deletions(-)
+> > +
+> > +  "#address-cells":
+> > +    const: 1
+> > +
+> > +  "#size-cells":
+> > +    const: 0
+> > +
+> > +  clocks:
+> > +    items:
+> > +      - description: APB3 bus interface clock (clk_csr_i), required fo=
+r register access
+> > +      - description: EEE clock (clk_eee_i), required for Energy Effici=
+ent Ethernet operation
+> > +
+> > +  clock-names:
+> > +    items:
+> > +      - const: csr
+> > +      - const: eee
+> > +
+> > +  phys:
+> > +    maxItems: 1
+> > +
+> > +  phy-names:
+> > +    const: serdes
+> > +
+> > +  power-domains:
+> > +    maxItems: 1
+>
+> [Severity: Low]
+>
+> Should resets/reset-names be described here too?  The RK3568 CRU exposes
+> four dedicated reset lines for this block in
+> include/dt-bindings/clock/rk3568-cru.h:
+>
+>         #define SRST_XPCS               150
+>         #define SRST_XPCS_TX_DIV10      151
+>         #define SRST_XPCS_RX_DIV10      152
+>         #define SRST_XPCS_XGXS_RX       153
+>
+> Since the schema ends with additionalProperties: false, a conforming devi=
+ce
+> tree cannot express them at all, and the glue driver added later in the
+> series never requests a reset control, so it depends on those resets alre=
+ady
+> being de-asserted.
+>
+> Peer blocks in the same island do describe theirs, e.g. combphy0 with
+> resets =3D <&cru SRST_PIPEPHY0> and gmac0 with resets =3D <&cru SRST_A_GM=
+AC0>.
+>
+> Note the XPCS core does provide a register-level reset via xpcs_soft_rese=
+t()
+> in drivers/net/pcs/pcs-xpcs.c, so a state-machine restart is possible
+> without the CRU resets, and an optional resets property can be added late=
+r
+> without breaking the ABI.
 
-diff --git a/fs/dcache.c b/fs/dcache.c
-index 1b1a81f10da6..2de1bc76dc8e 100644
---- a/fs/dcache.c
-+++ b/fs/dcache.c
-@@ -1910,12 +1910,17 @@ static struct dentry *__d_alloc(struct super_block *sb, const struct qstr *name)
- 		return NULL;
- 
- 	/*
--	 * We guarantee that the inline name is always NUL-terminated.
--	 * This way the memcpy() done by the name switching in rename
--	 * will still always have a NUL at the end, even if we might
--	 * be overwriting an internal NUL character
-+	 * Fully initialize the inline name buffer.  copy_name() and
-+	 * swap_names() copy d_shortname in its entirety, so any
-+	 * uninitialized tail would propagate to the other dentry, and
-+	 * __d_lookup_rcu() may transiently read any byte of the inline
-+	 * name while rename() rewrites it in place.
-+	 *
-+	 * This also keeps the inline name NUL-terminated: the name
-+	 * switching in rename will still always have a NUL at the end,
-+	 * even if we might be overwriting an internal NUL character.
- 	 */
--	dentry->d_shortname.string[DNAME_INLINE_LEN-1] = 0;
-+	memcpy(dentry->d_shortname.string, 0, DNAME_INLINE_LEN);
- 	if (unlikely(!name)) {
- 		name = &slash_name;
- 		dname = dentry->d_shortname.string;
--- 
-2.43.0
+These are optional and can be added later without breaking ABI. I'll
+leave them out for now, since the mainline XPCS driver doesn't use them.
 
+> > +patternProperties:
+> > +  "^pcs-mii@[0-3]$":
+> > +    type: object
+> > +    description:
+> > +      One of the four MII ports of the XPCS. The port is linked to an
+> > +      Ethernet MAC controller via the pcs-handle property in the MAC's
+> > +      device tree node.
+> > +
+> > +    properties:
+> > +      reg:
+> > +        description: MII port number.
+> > +        enum: [0, 1, 2, 3]
+>
+> [Severity: Low]
+>
+> This isn't a bug, but is pcs-mii@N the intended name for these per-port
+> children rather than the generic ethernet-pcs@N?
+>
+> Resolving a MAC pcs-handle that points at one of these children does work
+> with the rest of the series: xpcs_rk_create() in
+> drivers/net/pcs/pcs-xpcs-rk.c reads the child reg, walks up with
+> of_get_parent() and calls xpcs_create_mdiodev(pxpcs->bus, port), and
+> rk_pcs_init() in drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c does
+> of_parse_phandle(np, "pcs-handle", 0).  So the open point is just the nod=
+e
+> naming.
+
+Yes, I will use ethernet-pcs@N
+
+> > +
+> > +    required:
+> > +      - reg
+> > +
+> > +    additionalProperties: false
+> > +
+> > +required:
+> > +  - compatible
+> > +  - reg
+> > +  - "#address-cells"
+> > +  - "#size-cells"
+> > +  - clocks
+> > +  - clock-names
+> > +  - phys
+> > +  - phy-names
+> > +  - power-domains
+>
+> [Severity: Medium]
+>
+> Does requiring phys and phy-names here make dtbs_check fail for the RK356=
+8
+> boards?  The SoC node added later in the same series omits both, because =
+the
+> SerDes selection is board specific:
+>
+> arch/arm64/boot/dts/rockchip/rk3568.dtsi:
+>         xpcs: pcs@fda00000 {
+>                 compatible =3D "rockchip,rk3568-xpcs";
+>                 #address-cells =3D <1>;
+>                 #size-cells =3D <0>;
+>                 reg =3D <0x0 0xfda00000 0x0 0x200000>;
+>                 clocks =3D <&cru PCLK_XPCS>, <&cru CLK_XPCS_EEE>;
+>                 clock-names =3D "csr", "eee";
+>                 power-domains =3D <&power RK3568_PD_PIPE>;
+>                 status =3D "disabled";
+>
+> and only the board fills them in:
+>
+> arch/arm64/boot/dts/rockchip/rk3568-photonicat.dts:
+>         &xpcs {
+>                 status =3D "okay";
+>                 phys =3D <&combphy2 PHY_TYPE_SGMII>;
+>                 phy-names =3D "serdes";
+>         };
+>
+> dtschema validates nodes irrespective of status =3D "disabled", so wouldn=
+'t
+> every rk3568*.dtb apart from the Photonicat report "'phys', 'phy-names' a=
+re
+> required properties"?
+>
+> Should phys/phy-names be dropped from required (or made conditional), or
+> should the SoC dtsi carry them instead?
+
+This is not actually a problem. dtbs_check and CHECK_DTBS only validate
+required properties for enabled nodes. As confirmed by Rob Herring:
+
+    "the dtbs_check only checks required properties from yaml if the
+     node is enabled. Yes, that is exactly how it works."
+
+The xpcs node in rk3568.dtsi is marked status =3D "disabled", so boards
+that include rk3568.dtsi without enabling XPCS will not trigger any
+validation warnings. Only boards that enable it need to provide phys
+and phy-names, and they do so at the board level (as Photonicat does).
+
+This is also the standard pattern for SoC nodes with board-specific
+connections: keep the SoC node disabled, and let the board dts enable
+it with all required properties.
+
+The phys/phy-names properties cannot be moved into rk3568.dtsi anyway,
+because the SerDes connection is board-specific: some boards use
+combphy1 for SGMII, others use combphy2 (like Photonicat).
+
+Thanks,
