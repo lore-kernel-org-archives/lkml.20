@@ -1,120 +1,133 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 591753ED12C
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 19:07:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789326468; cv=none; b=glC3G7Q8guvqLd2Me2qV0fw6H4quCpFbVywIHkAloSBL9Mhb7RLVVLDjKmUIicVqroMTDRe7ONY44QQISNkJufFeyCgy/a6gWQfC7ToiZYln3Sgm3Ju+DE55j04rkXFi4NKOUqPNRJqy0U/SLrEFiLYOUR4Njra3uRKQN9H1nj8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789326468; c=relaxed/simple;
-	bh=FJuNyLY/pzbcykVKwcXUGco3PIus266cOgV5iuyaxpQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=obpM7OfiBPGbJoDIcjBCf9wmelQ6/Zhmb+4kVQ67YIXL8GJB3o5oNOYxjd5t3hcbAParutaacRHzQXYuVvrp219YxpohFS6k6/eAgiFu2cKHWoyJNR1evgE1BwMzMse0Bddb1hYpPsG8PeyeKSRpRQiUNff8ja5m35Qv0laCq04=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=UpFx2Y5g; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AB1538886C
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 19:26:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.204
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789327590; cv=pass; b=bRBX8QotJ46vEABW+qGLOI2NxjZzTwm1T7cHiudn4iXVtInaHguPqojqhymiQZ01FsuC0GFhJ/kxZ3SQVnfB0tZZD9hrreXgkGO3gRI01OOk9f1+rqtRP/c2DNkM3hobqSRCny8db2/tZrceFiW5KF5o7vUrmqxat+FUoCPKhv4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789327590; c=relaxed/simple;
+	bh=QREsgIr79KScFcsG/Gnozu2UkRu3V+m1VR0YdJd51lA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=rGsEpa4RM8dwgjVhRqN3SASIlWtj5+WboiKs4EwG771wgiY7jnkPFN/v/LRA3bKGKKPdYmk00MqAu7qdJQj3nkxo2MoSshpRQMhK6tApet3sTPVPAbWDB2k8tET69OJViTNlGQO9LHNb+bkEdljO6W6DzfKlDOrCXysfoV8cUDA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=RBHx43o5; arc=pass smtp.client-ip=74.125.230.204
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="UpFx2Y5g"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2dd4b917769so57615ad.1
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 12:07:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="RBHx43o5"
+Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-53012819c04so157741cf.0
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 12:26:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789327588; cv=none;
+        d=google.com; s=arc-20260327;
+        b=FA9S78x5VHbowXFSrMjjIxPN25v4WTxHgNNNvcqU4NVtIcJlY6OqanY2ahbiFvY99D
+         f8AGHAIBqHn/Xtd9y+Hsu41OdemnyRuR7TgV7+Hv9rq42arDS2xwoczJEs9+yUlq69nf
+         IU/MLhCHgxkIeiyMDM8y6FgcbNgyL1QW5h1KXZwE8P1HgnpQi12/1uwxcqcW8Pb2oeY7
+         y+C8fVhaUAMh46mMhuHvcZGRq9XgvoNpOslZoOtQmirTyhK1ttB7kUO2eh+4Ww4kz793
+         Q+b3mjzIXyorHM1zS8lvGgwbds39ZN3LWA7eeh7s1TCKhXYpjTqf27ehqsct3jdDwPiy
+         NurQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=O3bm4p3XYFyhf+gjUNcp2hdrx1XIlgahhu2l/35xw9w=;
+        fh=32H0MCEeW0Zow+Tedl/WAwArTEg5pQJJMuel0MaLKfQ=;
+        b=kgg4za+7Ln8dkAS51JN7FrFC1rIpfa9Mn5PL9cZuGBGeQebHBjTd2pnIwlN71FSfHo
+         zWliFHqdcl0Ef11L5JZnGKVTTBE86yO4rQ45BMDtfJaBsBv2cjp7M0iFujLlomgIFq6e
+         y0s3Sg0rfTNDJdpfvtsSajp7xr8q4JMd3yv47Ec2DeEq5d0fa11ExavWbkAamDu0jQGO
+         K/mR6xGiHeYkQOVRs36DuU46uTEBS8jBoyvafZNaDsmGVMD98wxXxtuKQ1/9GO5yLSdC
+         qq6x9qReQPMWx9NugGvdYCATU4k19WjP9OQwao/p8V6sCnktfjem6DzlNk6HS+GrC3Ef
+         V6GA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789326467; x=1789931267; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=google.com; s=20251104; t=1789327588; x=1789932388; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=wLKsYyHDEIG+EScQ7Yc5Jy2hjjtWSDf1s+mRpjU6xek=;
-        b=UpFx2Y5gAkORqOCg0ondjxyMYemkeXHMcY/8BA0HDzEXWssbfiuUknCX9RUbtgUcyk
-         Allx2sc6EJn5jRlmTFx1R4v0pAhRJEfSjglepLf2uT4JpzBRc/kNyugJssNbOjNYaQXS
-         S+oBM5nrfWDdXsdqWLfGxvgBxrS8899Fv1fKllPUUTJP6TN1z6kZKUw9dVc5pwn8D+1X
-         JocU9DUkWM5cvFhaWiDLJnQt/gZehtTjhc4mIrApW1fGC/uDoCEVN4IE6IkQy1OwGk1e
-         fEcPynMhQzqX21IGpWKsOuaZguGQgDf8P0oUkrxP5uwIq2HwcLVDiVSAAzXsKPSC1D3v
-         UGIg==
+        bh=O3bm4p3XYFyhf+gjUNcp2hdrx1XIlgahhu2l/35xw9w=;
+        b=RBHx43o5//9TSmJHVDt2UCdWZ7NbajomfIQ5OassVqyufJqpsZIO0QpgImy1qcJKYo
+         a+41mPRuqV+AhdG3BVTQB4EkI7wtv+TqdZN0gciREBPodf0lHwYWAas1OuBemeSMdP9h
+         Ah/34wvZAK3jONm8JPgdvQXZniWjY7arO3QOCBeLoJzXwt7UlGYrfX8o7XjzjTExknMK
+         TiM4e9YaTArXXUPD4D0AwlTiJvPwNEvSvqS4m3m+a4QfD3gF+/7FkMYI283+n6YEgHBm
+         eSwl2V3z0sNBwRykSgVOzy51+nGBVt8igQiM2gUsHsUANQs/GBJaqYpE5f2knpK7xJ/M
+         IjFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789326467; x=1789931267;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1789327588; x=1789932388;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=wLKsYyHDEIG+EScQ7Yc5Jy2hjjtWSDf1s+mRpjU6xek=;
-        b=nJlecueJetwXPorh8qt/Fe1Z+nv3SQjUVLuraFPyjLgeB2TZ5B+yHyGLooWXsuSY/F
-         18yvzR1It59GohkVFiyU2nm2BgD5wno/SZKnJMcBL4Ip3FnBt9XPD7fECHYEEyFCs2Ss
-         L/AILqhJDXA0NhUxutgt6NFJ/oIVt8wfuimwkor/n2LJRAAdMjI9jR/Ypb+nusZI8MX/
-         /OAvHlsx7SWMVj7B/NaJp082Epdo1BYH/sDnwVYAtmDXjNgkwvB2v76YMA3j1Qni+IgB
-         8BK7OLvkO3T+UJ5uvg4VbCw/WnasV4jFYUQ6wDY/jbRoDbmxXubCpmAlvgtbRgoP7XVl
-         jGSw==
-X-Forwarded-Encrypted: i=1; AKwUvBz8mNP43vVfvNbLqFrKaHjtpWA48olP+pOAyaTzcTtENZTij+c/FNp9Nr/zMxZWFBSXp/zM9Gnli+c/XXQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++l1IxAEgtcDHfSMbB8CCbNROP9vfp42LLfP5+Prwb8vuxzA6G0Q
-	+F0VQ8/fAdIQnPSJ0ult9fHwGqBbjpWI+beyQew6DHTbGTJcJL2l6+ouSNdBNH+uRg==
-X-Gm-Gg: AYBFou1sO3g+JRIFiDh23yvWfcZ36SwHsqPDbpUTEbNwrvFfld+BilNSrH9i0Q08u5+
-	j/0QqZncb44MibMtTVJ8Xoycj2/zG1cdskDMdFt1ZDdl/sL/QBYSUeqRpR4zizmy80t1uTBBfDy
-	ojNymR7ysWoeYjh3Yf/5CnMLY1zRWtZNPQhR4NTgZb+QKVIBY55vZegmQlZrerwrG+fxEJSm0I3
-	H9gp9wQMNUDYIUVf3VU2sfpo9QpcMeNddplarvpH3bTourGSsYPQXs/b8GqCEdlDR/wHaTdHimp
-	KpLNrjWbjiM5LIawzy1w3B4RrdzwriJclJs5b94wmjevUWRIjjWE+Hs3xYDZW9oVys62h0gttiH
-	xyxOg3Rcx259LWvNEm4zzw82s57tPOurmEruZRd/3sAv+XCDPQERw90GYGkIgEXyKwVGXREwJ+s
-	b0gWFrvBUrhfLNNAl5hHniGs/gVyGjvfv2Dj63a39U2PZfgKLc0tcQt8df7sdGZKa4NL8BSzrCL
-	m1C/Jn0giM4q+2RC1aSYyD1yl95vpwkdpMF/9MoumZqbNU=
-X-Received: by 2002:a17:902:ce8a:b0:2ce:b436:272a with SMTP id d9443c01a7336-2dd5e385cb3mr1616295ad.3.1789326466028;
-        Sun, 13 Sep 2026 12:07:46 -0700 (PDT)
-Received: from google.com (164.210.142.34.bc.googleusercontent.com. [34.142.210.164])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd561e2af6sm14996025ad.70.2026.09.13.12.07.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 12:07:45 -0700 (PDT)
-Date: Sun, 13 Sep 2026 19:07:38 +0000
-From: Pranjal Shrivastava <praan@google.com>
-To: Anna Schumaker <anna@kernel.org>
-Cc: linux-nfs@vger.kernel.org, Trond Myklebust <trondmy@kernel.org>,
-	Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>,
-	linux-kernel@vger.kernel.org, Christoph Hellwig <hch@lst.de>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>, linux-pci@vger.kernel.org,
-	linux-rdma@vger.kernel.org, Shivaji Kant <shivajikant@google.com>
-Subject: Re: [PATCH v6 0/5] nfs: modernize direct I/O path
-Message-ID: <aqb0ejwzD8citck6@google.com>
-References: <20260814143255.861084-1-praan@google.com>
- <aqP6nM7OSX087UCs@google.com>
- <0b3d8f13-e691-411a-a507-d3e6bd1608c6@app.fastmail.com>
+        bh=O3bm4p3XYFyhf+gjUNcp2hdrx1XIlgahhu2l/35xw9w=;
+        b=bdMYBiRGDmAhKANmQb/LU35sI8T7I3U3R729sXoKOIugY8jV1JKEXKBhqJz+ny/bgj
+         GNWHKSvb+Pp5O87AUf1xrdD6auQ7Az7ZUDFEgsL1Q8e96fGtqFQ8H3/XsI7V1hA1DykK
+         BxSYtCkuqkWKzvC9gvLnhhY2GIVjIdT/csC37b8gCVIxy5Mtwh/W/YTPGrcQTueJSvbO
+         3/MMdUgci8rHRIlQ7YPc0RE338llJ1cYjyexj8/SI8pm7frhyZCxM/xKzN4x0aVkdzij
+         4cQHiB73ANRXWHYsu+35BuSpbqG34c/jZN0I+s3qaW8tvOe+WP4vqY78nc2rWuSjwepc
+         Fq9Q==
+X-Forwarded-Encrypted: i=1; AKwUvByMTF+RS4SqFCs+Lipq0UJ2M4RIKdnGL9NjGpwJvO4fu2Uals0OTFTAHPSGXnaH4FWggorEMTy8Zht+cNg=@vger.kernel.org
+X-Gm-Message-State: AFuF++mqnckiJyWADoyfYIIyKbFkPZSqPwV5xE1084yDcRI2/OE/YMqI
+	VYlkLE2uFJRVBtcivd3ikz/f/mmHEMfugQKx93VoT+y6M3bv3lnEyOBMC8i/+R/VQUkDN+FAx5y
+	+rqK5Sf3beu1dJSW5P/ORmCWYh5g/Cb24MDEIE1t9
+X-Gm-Gg: AYBFou0mn2fPxJDIEy4lsvYukx5satd7zhAaEv436ucyd6Qwl6Ya9Hu+mJdw44HNVRU
+	67d9jvHqeNIchTRjkJEkxagF7vN66xoTxAjZO4I6ckJAela/sDy4DJcNxdwhJArWnTN2cg7zkKX
+	0fGPCWu3PP2XMRFGrbMJHorrtg9weMQ1Xzn0R/QyCp3I3GALBf1PqSNUFSr/IX9iGbEF8k9yuaa
+	DfZOA7V32JehPPvWVvYV9SUPaIQ1awJ+eguzKxMWpxMWAwDRB9ElwHyAgUFcBTRn5alloB/+54e
+	YnhMSFAkmO4RfYjGiv5uMs6jiTXl8uHHK9s6iuIm0YHtyf4yH6tDbXwFBuQCbx/A
+X-Received: by 2002:ac8:7fc7:0:b0:517:5e32:2d14 with SMTP id
+ d75a77b69052e-530f8b121dbmr9139921cf.10.1789327587349; Sun, 13 Sep 2026
+ 12:26:27 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <0b3d8f13-e691-411a-a507-d3e6bd1608c6@app.fastmail.com>
+References: <20260911194145.1781926-1-surenb@google.com> <20260912002436.0605a85b912eb8ae406cecf0@linux-foundation.org>
+In-Reply-To: <20260912002436.0605a85b912eb8ae406cecf0@linux-foundation.org>
+From: Suren Baghdasaryan <surenb@google.com>
+Date: Sun, 13 Sep 2026 12:26:16 -0700
+X-Gm-Features: AcwNN1VI8o7qgtAf7FpFyYAf_QiJM539hgJGQoLRqGdhk0b6X3b8GUp7lNPBUcA
+Message-ID: <CAJuCfpHW24Vh2RSr7qwzV0jmWz7oirrG2F4JPCuBnnk0x09NyA@mail.gmail.com>
+Subject: Re: [PATCH v4 0/7] read proc/pid/smaps_rollup under per-vma lock
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: liam@infradead.org, ljs@kernel.org, vbabka@kernel.org, david@kernel.org, 
+	willy@infradead.org, jannh@google.com, paulmck@kernel.org, pfalcato@suse.de, 
+	xueyuan.chen21@gmail.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 11, 2026 at 10:41:57AM -0400, Anna Schumaker wrote:
-> Hi Pranjal,
-> 
-> On Fri, Sep 11, 2026, at 8:57 AM, Pranjal Shrivastava wrote:
-> > On Fri, Aug 14, 2026 at 02:32:50PM +0000, Pranjal Shrivastava wrote:
-> >> Modernize the NFS Direct I/O path as a preparatory step to enable PCI
-> >> Peer-to-Peer DMA (P2PDMA) support. Following feedback on the initial
-> >> RFC [1], the modernization and architectural changes are split into
-> >> different series. Additionally, based on the discussion in the v2 [2]
-> >> of this series, the migration of NFS Direct I/O to folios would be
-> >> handled in a separate follow-up series.
-> >> 
-> >> Currently, NFS O_DIRECT relies on the legacy iov_iter_get_pages_alloc2()
-> >> API which does not support the pinning requirements for P2P memory.
-> >> The implementation moves NFS to the modern iov_iter_extract_pages() API.
-> >> 
-> >
-> > Gentle ping on this series. 
-> > (I realized that I sent it close to the merge window, Apologies).
-> >
-> > Please let me know if anything else needs to be done for this..
-> 
-> Thanks for the ping! The plan right now is to send it along as part of
-> the 7.4 merge window. I haven't pushed out a public linux-next branch
-> yet, but when I do these patches will be included.
-> 
-> I hope this helps!
-> Anna
-> 
+On Sat, Sep 12, 2026 at 12:24=E2=80=AFAM Andrew Morton
+<akpm@linux-foundation.org> wrote:
+>
+> On Fri, 11 Sep 2026 12:41:38 -0700 Suren Baghdasaryan <surenb@google.com>=
+ wrote:
+>
+> > proc/pid/smaps_rollup can be read using the combination of RCU and
+> > VMA read locks, similar to proc/pid/{maps|smaps|numa_maps}. RCU is
+> > required to safely traverse the VMA tree and VMA lock stabilizes the
+> > VMA being processed and the pagetable walk.
+> > Note that we have to keep the logic to drop mmap_lock on contention
+> > because even when using per-VMA locks we might have to fall back to
+> > holding the mmap_lock.
+>
+> Nice.  Queued, thanks.
+>
+> The speedups described in [6/7] are significant, although I don't know
+> how representative Paul's tests are.  Probably not very.
+>
+> So I don't know how much improvement our users will be seeing from
+> these changes?
+>
+> And I don't know how much usage smaps_rollup gets in the real world?
+>
+>
+> As I've no doubt you know, Sashiko is saying things.  About these
+> patches and about the current code.  Its pre-existing
+> clear_soft_dirty_pmd() driveby find looks significant.
+>
+>         https://sashiko.dev/#/patchset/20260911194145.1781926-1-surenb@go=
+ogle.com
 
-Thanks a lot for responding, quite helpful! :)
-
-Best,
-Praan
+Thanks! I'll investigate the preexisting ones and will try to fix the
+ones that look real.
