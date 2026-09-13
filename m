@@ -1,78 +1,75 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AADBA3314B7
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 03:56:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D6C534A773
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 04:02:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789271769; cv=none; b=f/+zUN34mKlPbC1NrDz/aJRq5AkfVc54Jn00VP9OFhIKlqqsI4WJ7iOyxEN4dmVedxQjtSc5RP8jV9LHKXtCZZvqxTMHV5nI8m8d4YI0KO0itEdz3SDYcB56WyxDS7qERcSUwTeel9DrpsYueLAjAxCZ3nJXfYQUA7zMicEIE5A=
+	t=1789272122; cv=none; b=Aq6243R7fXaTwksLpIlu4X+pqWRegCLUkQLFGNUH7cE6ul9arT6v2PzYz2sIdF5U7cKUr3AziiTQKFlhfktgwV139OnE8osrDyBrbwYzVqlD2xq7xckce0KLIuSzQ0UJuwB4L+1OO/MiKs90muCNuyiIHK9bWIKDdKgMthjALd0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789271769; c=relaxed/simple;
-	bh=4RZC9qjirxurZ1cUokwzBczc7gFvUblpPKUywrm/9UA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dQFfzpxipc3NrxqF9J/6y4retCFYYu9Ns32M25XShQCVBPZ306o5cug6BVnbrgVMT3zO5MFJqGCET39eXWrttLRhuucAvxdjOjajduCEfEKHZkz8zMJmrn1krhBKpgf5PeZHahcKmHfB5pgZpj1N01rpMpsTStLKiVFEQKhtVCQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TF3uheBJ; arc=none smtp.client-ip=74.125.230.204
+	s=arc-20240116; t=1789272122; c=relaxed/simple;
+	bh=qOU4mOdJZExzY66rPx/p4PHpUpxs+QTxG3UNNWTlklo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=P0Pxe5TTLalwxXuT5yqxCVbxmv262FxkXdrcRcrZ/7PfZmn0H+l/lPtmh3MJObOY0j+4RDN/hI9ykSUo0+PHlK9IrvNayidR2FjeHUNGK+cibosArzMC3Zog21gBpH5hUqOcvOik+s65loGMawqy4O2xZDaJLCUX1dA48SHnPsM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KL784V58; arc=none smtp.client-ip=74.125.228.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TF3uheBJ"
-Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-939109f067fso126657185a.2
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 20:56:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KL784V58"
+Received: by mail-pz2-f42.google.com with SMTP id d2e1a72fcca58-86e6d007703so22450b3a.0
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 21:02:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789271766; x=1789876566; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789272120; x=1789876920; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=a/bUegMRiQaIBYVN9SOaB+81MDliAzdtzoIqgfMCTL0=;
-        b=TF3uheBJffth6nkWnxKGIgbOal00ntogM+dv2n+lTos36qS/eToiMJDKcVu84yR0f5
-         Wem1MaQ5RUb8pXLO2L4/gv1S5WW259DChCtGdmz7NdvQN2eEWMWALewi721BC9KhDKBS
-         SYx7DDe6GZD2zHg/qf9HyQnBzv/6Yitc+9iTsaxP/KImx7k8JG5wmP+rfhK1v9PTnGuz
-         VYlJaRaJtNJOaoDiyDFfrDvipgGMcbC9aAcRd/hRUIXYX+xGInRotAbYMG/1DLqQBaBe
-         iRzTR3IBV/QzUroI4raSzPVwebFU6W3BAZRmLPo9EtYERQkBT2vlAVY3HfHv4G4sYkjU
-         +/ig==
+        bh=IUaIWeESj5beJuigMXgXrhS+tGPcUhdzld8fSkS1OKQ=;
+        b=KL784V58wIuDnuXqenQLvuL5orC7rXdZDhrkOMhD3a5ZjhJ4B+UoScneZ0tdsuefrw
+         Pf/ar54hPmTOfNbuxXCw+6F0imtvjjsgyPTbfftAnotrva2gj6wRZDU1n8og1pm4U5hB
+         Hjsf6xVhcGaHbN2lf+QTFGr5CXfh5O8CZWzE75Ku3LZ7j/TTdliwIV2rS+P9bjiAmKog
+         kmIz6jg1S4qQAxppQ3yjfnLBbtjlj6Pu+EwjMlQZgk0ucAdEVrNf9sXPqLekn1/cmKgj
+         L2+Xf39HUUewqb4ZXTqRsIvWOBZdyjQ6Yx1lacE/pgfkIjeVmtcKqYvf3hXp+mTfAZvE
+         EGRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789271766; x=1789876566;
+        d=1e100.net; s=20251104; t=1789272120; x=1789876920;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=a/bUegMRiQaIBYVN9SOaB+81MDliAzdtzoIqgfMCTL0=;
-        b=hvtIhyvgSrPXMXmY39jVpdPE0nkOyaEqkvo+pdJujJ+VgEgErkYJT8HtTS4j7IMoMx
-         DRvBpoiOlRxF2fuyGZu0X5+LXqHrCefsLrxrjgoPLXqqAmcVLLjS5lM5Hj26Z81zVM4P
-         K9Ef6QlwbsMA+X4sUS6jb6TDW+rkAjTniVsWNo/EmZ75rLtraN+pQFJR30J27Fi/kpKK
-         iEm8NV3uXNYqz2krDpmk8wynQyZCQP2hK/aDToq6DpQz0hS9mb6L5zzA7w0Xs1gCQd72
-         6zm/9lkk6ofXJBz98rdsTrUAdxTq4OR9nrEtBlZAmoNhruPnQGDnzb6yncGYkvvqfhcd
-         YIOA==
-X-Forwarded-Encrypted: i=1; AKwUvByGbOH7XwKEE1/wTlyZ5DBV3H+BFF4XopNVSG7R0m9pvecYl6tFdHCJLiztdFcHNm1mt8PQyuDVqnzHUrs=@vger.kernel.org
-X-Gm-Message-State: AFuF++nkg54q04nyzX5zbMJATQBxint0vmwgbhk+8X+Bjw4HPh0OTpnh
-	MkW01rMmHQ2dEoxsrLIEi5ExvW22YATDCu3ytrHKx0y3vhH65a7Lw78=
-X-Gm-Gg: AYBFou09ugrip6PKxGJp5QhV39Ep6vrauZTVKOt5YVdhin0fgZSfKpMXQu5eeHmKdzJ
-	aitQMxQufm0QHMP94jmoTov/s71xKqdFRwTGuNeG4JZCtVFIV6ta6SfmmbgEPVkaAmQWYoF8ZWN
-	p3eZizZs3sw9AHNt8Xcxx9ICIhr9DfGwACioZi5n03pxTZzuU8FFXcv20dx75B5BRxEkzggzwx3
-	xZMBnOUnu0GQNm6+88+UlXvfZIadiJk6jyAwviJFmuKOnPbswcNZCwY13j0lopgPZ6yYS/hOE/T
-	NcrzmCefikKwPt/pO2xQb57DpMHdhCMETr/fgCYoBqB25kAIDb/Gtl9ZSfok9O0M0/oh8pF1DaS
-	NzaN4VcVM64U5E91Nr1Ps2qtKswFblehrgt0M6m5aWUZUCiNaRGUT4MYmnRE9kUmFaV0vgjIgE7
-	ROXameEdc+RQTcW680CZMPIBxbNtS3c6fO5S8D/UKSrWX7mwUro6X+kowJMP1RhuD/B+ILv9JLM
-	BLZQoiZuoiIFUAhGI6tGrtrFls0RXhtlchoQNXZAD8ZruCBmW2KHfYnCz8g3I0ndeIszTuw0Cc7
-	qa7Adwv3hq4rHjDkt7wiTiJ4reC86MkLGGYIohe5/1D4
-X-Received: by 2002:a05:620a:1a22:b0:939:7f2f:b17e with SMTP id af79cd13be357-93a0370c52amr793597985a.30.1789271766503;
-        Sat, 12 Sep 2026 20:56:06 -0700 (PDT)
-Received: from localhost.localdomain ([104.39.73.78])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93a1bf286dbsm17527285a.40.2026.09.12.20.56.04
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 12 Sep 2026 20:56:05 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: netdev@vger.kernel.org,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Ben Dooks <ben-linux@fluff.org>,
+        bh=IUaIWeESj5beJuigMXgXrhS+tGPcUhdzld8fSkS1OKQ=;
+        b=ozcIv6PoM3LqIO+RpVV6YqP+7dKT9/mjwW52wx2k77YMELvex4i+YHSYTVzO9WMgRC
+         NrLC9e94pLTv2c3igx3sfJvLwaM/1webemmDZ3orMuKc3azA94E/1kqhNrcmqKPZRd6s
+         A/vs4wfa2oUgLkRHdQEHvAe9QNtQveW4bfeFi3PS0bAYWMeGh26wOQMs4Pu2kljiroXL
+         PDDWCf9wNJLGOn/Vu8/C7pI65h3Ni5oqUGk/VQ3bi8KFQCHorcBUMbb7m6/C/LNplqTp
+         SVx2w5SGCMvm1UhJsE7T7QZpjJL6W2nfCbLmuul/qEg91mxBlLumuIKWv4AXI8mIZltm
+         p83g==
+X-Forwarded-Encrypted: i=1; AKwUvBw10j0w+y8IXYea6z/rV6NDVn3ZtJ5peo74LMS3hf+AQwLlfgKSiZL2KLdD72N/wn3qoStADgFTLZ81RxY=@vger.kernel.org
+X-Gm-Message-State: AFuF++nEl1IwiQ/LI0P9ypCQhnbSElojFj0FC/tI/ryYvbw2cuwoXz7/
+	/FNKcEGjiXVYLWChfU93sc+tlycJywUwVulaS5FLjwsu/MCHXs53/3T/
+X-Gm-Gg: AYBFou3MQfjL0NsgqeXp0O8gwelj9O/Q5J8oZBfqwPxoL5ivt1UnGupi7l1a+lFqyoG
+	60IhQvWbf0zNvKNHNxmdRtYVqTaFTAJNi2Jp7LtOcIxKn+BqezjiCdexGB/9oUy4kNsGxr/YhDI
+	2P0lNxayjdg1as+49tAKuIyxP9mZ6vi3CSiAXu6x2PAd4SFysKVRF4f8shrGlu2rwVpc2PfHZrI
+	IMqDRJyGbTv1RtErd12eYKExte00UytiuAF4WKN3N22O3IRfqDy/H2Qxxo8QI7Z6LuVmbxx8yo6
+	QpSgSaRcpVVbROcu6OX1Wi036hj2wVgtG4mDuNAjyQ7nC07VVqrjxm6iF7/tNjc5YDBN0dSEKYg
+	ld9/SPV4O7Fjca6OJOuPJ8Z2YMUe/kvjrUcunt2FP8bNVdl6aJFyIvxJ5W18Xbf+baMIm6CsO9U
+	d0aC0+bK767pVs9+TUGTZjLmO2uu8mM2R28GD51RSOv9ETNqs83TKkZEYc7SSYzOLjSljnXvT5A
+	Wu3ejuhdbpOzh77Vxw6OmbEwJq4VlOYnBaViZovfO7gtxEvFaKdBZf9AOioKNJnBjwdsmJ5Y+Ur
+	tosIqJbNf3GT8QDw3GNJwQvTHgbUeLO72R6ZzADWaMuxVfYBlQ==
+X-Received: by 2002:a05:6a00:3d01:b0:85c:2d83:bbf1 with SMTP id d2e1a72fcca58-86ccb44e113mr8738679b3a.20.1789272119714;
+        Sat, 12 Sep 2026 21:01:59 -0700 (PDT)
+Received: from localhost.localdomain (c-67-170-60-64.hsd1.wa.comcast.net. [67.170.60.64])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4c659b9a3sm2957890a12.29.2026.09.12.21.01.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 12 Sep 2026 21:01:59 -0700 (PDT)
+From: Gabriel Changamire <gaberashawn@gmail.com>
+To: Sudip Mukherjee <sudipm.mukherjee@gmail.com>,
+	Teddy Wang <teddy.wang@siliconmotion.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-fbdev@vger.kernel.org,
+	linux-staging@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH net] dm9000: free the wake IRQ before releasing board resources
-Date: Sat, 12 Sep 2026 23:55:57 -0400
-Message-ID: <20260913035557.19347-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.50.1
+	Gabriel Changamire <gaberashawn@gmail.com>
+Subject: [PATCH 1/2] staging: sm750fb: clean up sm750_hw_imageblit() kernel-doc comment
+Date: Sun, 13 Sep 2026 04:01:39 +0000
+Message-ID: <20260913040140.4517-1-gaberashawn@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,57 +78,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-dm9000_probe() requests an optional wake IRQ with the net_device as its
-cookie, but neither probe unwind nor removal frees it. The handler accesses
-the private board data and its MMIO mappings, which are released by
-dm9000_release_board() and free_netdev().
+The @start_bit description contains a stray ">-----" artifact -- a
+literal copy of an editor tab marker -- that leaves the continuation
+line "0 to 7" garbled. The @fg_color and @bg_color descriptions are
+also missing their closing parentheses.
 
-Track successful IRQ registration separately from wake_supported: the wake
-capability test can fail after request_irq() succeeds. Free the registered
-IRQ in the common board cleanup before unmapping registers, waiting for any
-running handler before releasing its resources. This covers both later
-probe failures and removal without freeing an IRQ whose request failed.
+Replace the artifact with a plain indented continuation line and close
+the parentheses. Comment change only; no functional change.
 
-This issue was identified during our ongoing static-analysis research while
-reviewing kernel code.
-
-Fixes: c029f4440fd3 ("DM9000: Wake on LAN support")
-Cc: stable@vger.kernel.org
-Assisted-by: OpenAI:GPT-5.6
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+Signed-off-by: Gabriel Changamire <gaberashawn@gmail.com>
 ---
- drivers/net/ethernet/davicom/dm9000.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/staging/sm750fb/sm750_accel.h | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/net/ethernet/davicom/dm9000.c b/drivers/net/ethernet/davicom/dm9000.c
-index b87eaf0c2..c8ff07fe3 100644
---- a/drivers/net/ethernet/davicom/dm9000.c
-+++ b/drivers/net/ethernet/davicom/dm9000.c
-@@ -104,6 +104,7 @@ struct board_info {
- 	unsigned int	in_timeout:1;
- 	unsigned int	in_suspend:1;
- 	unsigned int	wake_supported:1;
-+	unsigned int	wake_irq_requested:1;
- 
- 	enum dm9000_type type;
- 
-@@ -802,6 +803,9 @@ dm9000_poll_work(struct work_struct *w)
- static void
- dm9000_release_board(struct platform_device *pdev, struct board_info *db)
- {
-+	if (db->wake_irq_requested)
-+		free_irq(db->irq_wake, db->ndev);
-+
- 	/* unmap our resources */
- 
- 	iounmap(db->io_addr);
-@@ -1519,6 +1523,7 @@ dm9000_probe(struct platform_device *pdev)
- 		if (ret) {
- 			dev_err(db->dev, "cannot get wakeup irq (%d)\n", ret);
- 		} else {
-+			db->wake_irq_requested = 1;
- 
- 			/* test to see if irq is really wakeup capable */
- 			ret = irq_set_irq_wake(db->irq_wake, 1);
+diff --git a/drivers/staging/sm750fb/sm750_accel.h b/drivers/staging/sm750fb/sm750_accel.h
+index 6db54c6526dc..a0fda56d955e 100644
+--- a/drivers/staging/sm750fb/sm750_accel.h
++++ b/drivers/staging/sm750fb/sm750_accel.h
+@@ -223,7 +223,7 @@ int sm750_hw_copyarea(struct lynx_accel *accel,
+  * @accel: Acceleration device data
+  * @src_buf: pointer to start of source buffer in system memory
+  * @start_bit: Mono data can start at any bit in a byte, this value should be
+- *>-----      0 to 7
++ *             0 to 7
+  * @dest_base: Address of destination: offset in frame buffer
+  * @dest_pitch: Pitch value of destination surface in BYTE
+  * @byte_per_pixel: Color depth of destination surface
+@@ -231,8 +231,8 @@ int sm750_hw_copyarea(struct lynx_accel *accel,
+  * @dy: Starting y coordinate of destination surface
+  * @width: width of rectangle in pixel value
+  * @height: height of rectangle in pixel value
+- * @fg_color: Foreground color (corresponding to a 1 in the monochrome data
+- * @bg_color: Background color (corresponding to a 0 in the monochrome data
++ * @fg_color: Foreground color (corresponding to a 1 in the monochrome data)
++ * @bg_color: Background color (corresponding to a 0 in the monochrome data)
+  * @rop2: ROP value
+  */
+ int sm750_hw_imageblit(struct lynx_accel *accel, const char *src_buf,
+-- 
+2.47.3
+
