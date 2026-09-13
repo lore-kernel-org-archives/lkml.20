@@ -1,124 +1,121 @@
-Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8D593515F2
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 20:13:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05DBB386C3E
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 20:13:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789330389; cv=none; b=vGOc6RwHGlPxtkqXbq5rrnOG6bs5GLLw+g9h/oIoL5jwiuQfjhuO1qPCfco9yyZuf63S+ffYpaBM4OmMQbCrjjzYn5UrEs02m+7y8PLXvNVS5D1bBVRbgvyOvCS89T575nBUv4siaOebdLyKldT1D+X6GdMb0xF1yeghYvze3Fg=
+	t=1789330390; cv=none; b=K1hFKdTKVikFm6NgREDpTXvIGJkRQQ6hmzBWQb2cgKlaE6BGIMcAHorM6NjdXT1mUlxWCjeO01kb7gis7Sp7+cr1zu7YOKyhr9nqHqD5jmKN3D6sOCv1qonj8hwkBKbCNTBYlbiSrFM1JWzS/nlR2bgkFrpU6kf28BRsUchceYY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789330389; c=relaxed/simple;
-	bh=66DBom4GWgzbDmmXuUcW80JqN4f1r6Gxo+iR92PcWzw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jKcjS1msPsyWtis4vyiW2ma0MS4kWmWyW7QKNreQN43qmn9zn2vNfDSDjf5C4hfAEzpMzmzl6O/MP4/VGlhJqLyj2nQdOgQ3zsHmhZLyfQBxy/DYfjalW+vqCA9QJL5GDu61O3cj+s5obAulxjWd5iqBGDHGaRKPYbadwZ5QoC0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jKXcscfP; arc=none smtp.client-ip=74.125.229.205
+	s=arc-20240116; t=1789330390; c=relaxed/simple;
+	bh=aHBF4LPvg2Zd3w4oaY7s8UbFfrBRImr+0PKCbkJaXE4=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qgakw5dX6UMP9AeWdrFb114+Alv/9NBQEUEFCEOpa2dcFnWb2HHTuDWEu5CMAfWI6JEJ+hEOnNVgMiaC9U4Y4Hms296XIHY7xwtiyLp3NhrVjeHx79JbeyyuuIGoqAe1rgR20NHJDxEajAFCMsuePHLdospiOz7ieZqpOz28v8U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mV8K5Odd; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jKXcscfP"
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f17452so1015665e87.3
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 13:13:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mV8K5Odd"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd6185db7so7516935e9.1
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 13:13:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789330386; x=1789935186; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Pa8OFY4TTfkGf1f2ba0w2jmPlViOEeXI2aNAgx40u2c=;
-        b=jKXcscfP4nQ36XQJ5WrwsLqv7PcWbMlYkPLMiFXLx2CYUvOnsNO5e6lUUxHWZq/j/5
-         Ap8z9r3JtWkRJjqMuuR/WFN6ExJ1boDk72MHrLB9C1WEgNYt2LIIhPHarFm/gfGQQh6n
-         RqrYAQdODyAyd7ePY9w/GYLumK3dvjB2XHNaHdKRhXQfcOTnwhhOsSaNQ7mkWn/lEju4
-         FaCcsD4M6tO6RgCUGGKOeU8WN/7zZhD+ETAc6GjX9ZqfuxrCGkj90TO272H8yxvS4RPB
-         JhcUsW1Ra4Bge5XB/IVhqSGsO8KBh3tmGDWr3VaZsKmcvTS13JYJUH0SWt5SAsxQNK6n
-         h7Pg==
+        d=gmail.com; s=20251104; t=1789330387; x=1789935187; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=S5P6uH54234ueGuk+BCRhOiLjgsTrePIHYW1areU63o=;
+        b=mV8K5OddZLBzCJXQFLtdPDe2bjlVk8m0OcH3RDqSCG+PDqiTmyOfEy3VMdk2pzo121
+         pkbLlRtp6RnfGkz+C+KlUjcDD1A6J/E5153b1zPfMTNK0qtNdOFgcNnUo7qMu5+TDuy1
+         spgeKxvtQi4R3o0j0F4sp8dkeUyeTAvKWDiTJsN7RGx/YEP2wyWbRNOa1D5CNROfteMz
+         LZkKGF3Vw+Vq/RXwejD+hPCyKRlIe3uvA7yWtwdVZEtq08q2dpY7++BtxcTnsw5W9c/f
+         sOoY1yY3HYxtWkJquJ0qlna555xzyAjO/DZxM2Hufg1LsZ81s7OU7zFWqSe6mhrMM7RR
+         9M7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789330386; x=1789935186;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Pa8OFY4TTfkGf1f2ba0w2jmPlViOEeXI2aNAgx40u2c=;
-        b=AsikISGi7NELvB0R21kgaI/5EkUlOREohVB2xZbHkL9yQAjH9Z6LP2yEbuEZri211r
-         G1I0/iFTpLKNwP3XmI2YCyd45CKzAUCImOR1C7KnMMoUAHtXBL0E5Z61nOQteTyYKlVX
-         UXhkdG6FwNYd21hruI7PECtjALeGYkpUmzw2dvCiwGJwbRi4KbddLRLWrB797XnsklCx
-         Uvs6jTQo0TPe0ejWonvQqHSYuv6XAw49YM1wQQvknVzMuO0Brx2yFKMBF7wBGQXIUhdQ
-         ZrWbVQnxjhsscWBIE+L8vIBMoph7VNqOWGu5oBt4mStDIJ5GxudrNSr8gABTz55eTeUQ
-         dWSw==
-X-Forwarded-Encrypted: i=1; AKwUvBxas+pUFXivbeQewif8pCedFSpy6ZhtkZumymyb324/+ukd8pupc6cIqjlRLNI4StlOk7UKbWh0GTkoNhg=@vger.kernel.org
-X-Gm-Message-State: AFuF++m+hf6bkDT9ORzKn+wT1nV/PDUCyYQS7FN14q5LZrU1ia60Zt3P
-	zWrSPQN9Wi+vbravgP85u3wuYrI1PFUJFOtFzCovb2s183MrjBobClTX
-X-Gm-Gg: AYBFou0Ripg6QBePM1ISS3jDn56UCNF0kKSzwxESZP/fkdxSmM4SKThAbVaDGhZugjT
-	sMeaAWrIMFumB6uJDTv9El/NQAAOTj0Mx4FOfl3/es36PkjD6j549kA3ViYkUVfEYCCZHNd2yGL
-	z3XD/mxd2siNbuQixS8lzmUN8m6ap3J1K6hF0ntbHp07Zn4Kr0fOLhMOE/8VT8RAY5kNbigYVM5
-	39UNobSPue5kYrO3II+s6sd1Xr2swq3Q3j8pmwEuXBsmYk55N1CumwbigdK/w+963tUNB2w+Bxc
-	zcmaGpgA74oAS39yQIBTdkGj6zSknGPe4KPkQQavO6WkH3bPD7wdgnNqDLOPUBN6LgcYkJN3P//
-	LTvZ0jEja+ItQ7uD5Jvz/2pdwdsuk7VkrlL9e8YNrn9LwaCrn0vXnM+1nOJDFA53kTCC+Fv2L5m
-	7cb+YMbfSAxWEwOCfU1cDwIfXeOrK/xy761bPumCEaRUhd0bKhKKYkMfmJ2ryCVaaiRTm24tHSY
-	V9WppizSwdTu4A3Xojhp822updyZgi6VT0+TjrWd3CM
-X-Received: by 2002:a05:6512:3e15:b0:5b6:183c:5ca2 with SMTP id 2adb3069b0e04-5b8a8f0064bmr1551667e87.64.1789330385733;
-        Sun, 13 Sep 2026 13:13:05 -0700 (PDT)
-Received: from tallipc.shacknet.nu (91-157-240-22.elisa-laajakaista.fi. [91.157.240.22])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8a03a85cesm2003345e87.1.2026.09.13.13.13.05
+        d=1e100.net; s=20251104; t=1789330387; x=1789935187;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=S5P6uH54234ueGuk+BCRhOiLjgsTrePIHYW1areU63o=;
+        b=Qwy+twhhLpKve7pjJtuRPG/iCYXw01pvvpiP+inzVkhcp2bC6OnCASmv9pskYSoAq0
+         0RImqFkYff8w9s/El3pyBgR77Da9xBeg3j/pelPi3IPmUAoRavbppjjdAAgcSLit7C6/
+         Vq5Qv35GEuqED2/RzsjzJ+/WFGbnRoSum1zi3dgT7Z2d1IXJE3C5DLA4KlBSgBkyfYyu
+         fTGHP0qij06XgEmbvQNUd3mkpkOjUwsxMTZvr5NivG6ls6vquMpxBU8iE+KAtfrwUTFa
+         WgA+/f+ozu2g7v8lvoP44IOwp2ABP/pnsmZxGC4XSIthoqtRqvbtY/sieJyRtZF/nCT0
+         gssg==
+X-Forwarded-Encrypted: i=1; AKwUvBwWGgk7VlPgQlpeh6i4voztqf0en7Gi73EO/7S0KDeC2yVlrP0rhnxHAajuJyM8FfVDCra1oapiIn8sFCc=@vger.kernel.org
+X-Gm-Message-State: AFuF++kB1fwSM40BNqwylV1UyHMHHs67mXT4HFeLIROlaQQZP/K8fkeb
+	4Gv/Z7eJDMgGJ6ehKZ7gZkqpUL0+JQMKTjGuyFvVA5dT2/52iy873/Qd
+X-Gm-Gg: AYBFou3LSvJRjcNKowGabKrcYbtZQf312Kq5bQsFxp3rRYZfu8BZuKezABuj24W6llB
+	BhEbWvgdkLuVwbcQjEHpsCxiFIHkzAfeMaS14iwOAk/ki4FvGhsOck1tstwExlVvqOncHfScwPN
+	8Z3uGFQSMWGHf3fxN5MP7TgyXrmusqJz2LYIwZPQ+47yu0QUpIjLFZHC9UTCFG5QVSY8zYu87I+
+	Z3rJluTGwrvdtIW5PC0I8bugpqnTraXqr2DOzsM7TtQ4/+lYC33t1pBxVj0VVFn0cjzm6cSFRru
+	hof8fWedYxBftDpUBtACrZGWw5BB0Q2HJr+oJd2YwM55yMrdDFDREr8++ZJKX5hYhP29gXZVdjB
+	9xsEYQh7rodRzm6qYvUI6W3DzlMrTQTnKpbrE8U2LZ42ZLGy+Cmb158AxGPJ0voajRNyM1whmpn
+	rJOAgx4Es5wzZD1T8eDd6aHyZ9hyw3XEOZf9i0SD/tEZCdgAm7ZREeytaQSg==
+X-Received: by 2002:a05:600c:4f84:b0:49e:715d:95ca with SMTP id 5b1f17b1804b1-49e760727e4mr37982455e9.13.1789330387007;
+        Sun, 13 Sep 2026 13:13:07 -0700 (PDT)
+Received: from krava ([176.74.159.170])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e60ad0614sm277930945e9.10.2026.09.13.13.13.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 13:13:05 -0700 (PDT)
-From: Risto Pajula <or.pajula@gmail.com>
-To: Lyude Paul <lyude@redhat.com>,
-	Danilo Krummrich <dakr@kernel.org>
-Cc: nouveau@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Risto Pajula <or.pajula@gmail.com>
-Subject: [PATCH 0/2] drm/nouveau: fix GK107 VDPAU regressions
-Date: Sun, 13 Sep 2026 23:12:23 +0300
-Message-ID: <20260913201225.5975-1-or.pajula@gmail.com>
-X-Mailer: git-send-email 2.47.3
+        Sun, 13 Sep 2026 13:13:06 -0700 (PDT)
+From: Jiri Olsa <olsajiri@gmail.com>
+X-Google-Original-From: Jiri Olsa <jolsa@kernel.org>
+Date: Sun, 13 Sep 2026 22:13:04 +0200
+To: Leon Hwang <leon.hwang@linux.dev>
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org,
+	kernel test robot <lkp@intel.com>
+Subject: Re: [PATCH] ftrace: Use rcu_assign_pointer() for tmp_ops filter hash
+Message-ID: <aqcD0FsrqV7gkNCD@krava>
+References: <20260911142512.19344-1-leon.hwang@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260911142512.19344-1-leon.hwang@linux.dev>
 
-Hi,
+On Fri, Sep 11, 2026 at 10:25:12PM +0800, Leon Hwang wrote:
+> tmp_ops.func_hash->filter_hash is annotated __rcu, but
+> update_ftrace_direct_mod() assigns hash to it directly. Sparse reports an
+> address-space mismatch.
+> 
+> Use rcu_assign_pointer() for the assignment.
+> 
+> Fixes: 50b35c9e50a8 ("ftrace: Use hash argument for tmp_ops in update_ftrace_direct_mod")
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: https://lore.kernel.org/oe-kbuild-all/202609110704.Q3M5vCDV-lkp@intel.com/
+> Signed-off-by: Leon Hwang <leon.hwang@linux.dev>
 
-This series fixes two independent Nouveau regressions affecting VDPAU
-hardware video decoding on NVIDIA GK107 (Kepler).
+Acked-by: Jiri Olsa <jolsa@kernel.org>
 
-Patch 1 fixes engine context mappings for the legacy MSVLD, MSPDEC and
-MSPPP video engines. Since commit 8ab849d6dd4c
-("drm/nouveau/fifo: add new engine context handling"), privileged engine
-context mappings cause FIFO PRIV_VIOLATION faults and kill the channel
-during VDPAU decoding on GK107.
+thanks,
+jirka
 
-Patch 2 fixes a fence/progress hang introduced by commit 55e1a5996085
-("drm/nouveau/fifo/ga100-: add per-runlist nonstall intr handling").
-Legacy FIFO implementations use a single global nonstall event at
-index 0, while channel event registration was changed to use runl->id
-unconditionally. This can leave fence completion waiting for an event
-that is never signalled.
-
-
-Tested on NVIDIA GK107 with a Linux 7.3-rc2 based drm-misc tree,
-Mesa 25.0.7 and mpv using VDPAU_DRIVER=nouveau and vdpau-copy.
-
-With both patches applied:
-
-  H.264 1920x1080:        PASS
-  MPEG-2 1920x1080:      PASS
-  VC-1 Advanced Profile: PASS
-
-All three tests completed using VDPAU hardware decoding. No Nouveau
-faults were reported in dmesg.
-
-
-Thanks,
-Risto
-
-Risto Pajula (2):
-  drm/nouveau/fifo/gk104: fix legacy video engine context mappings
-  drm/nouveau/fifo: use global nonstall event on legacy FIFO
-
- drivers/gpu/drm/nouveau/nvkm/engine/fifo/gk104.c | 14 ++++++++++++++
- drivers/gpu/drm/nouveau/nvkm/engine/fifo/uchan.c |  3 ++-
- 2 files changed, 16 insertions(+), 1 deletion(-)
-
--- 
-2.47.3
-
+> ---
+>  kernel/trace/ftrace.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/kernel/trace/ftrace.c b/kernel/trace/ftrace.c
+> index 53d5db60bfa5..673a54fdf392 100644
+> --- a/kernel/trace/ftrace.c
+> +++ b/kernel/trace/ftrace.c
+> @@ -6675,7 +6675,7 @@ int update_ftrace_direct_mod(struct ftrace_ops *ops, struct ftrace_hash *hash, b
+>  
+>  	/* Enable the tmp_ops to have the same functions as the hash object. */
+>  	ftrace_ops_init(&tmp_ops);
+> -	tmp_ops.func_hash->filter_hash = hash;
+> +	rcu_assign_pointer(tmp_ops.func_hash->filter_hash, hash);
+>  
+>  	err = register_ftrace_function_nolock(&tmp_ops);
+>  	if (err)
+> -- 
+> 2.55.0
+> 
