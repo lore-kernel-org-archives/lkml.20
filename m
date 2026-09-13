@@ -1,147 +1,151 @@
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B96203C76A0;
-	Sun, 13 Sep 2026 07:30:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9501F3955FF;
+	Sun, 13 Sep 2026 07:33:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789284619; cv=none; b=Vn2X2872YjVYAcYH8lZnOEDiPbdB3OzBeNcvpvYWIP5cD8WFbgG0dq4JLtGHrcvCDed48kQnKghcd3FKQ8qDin02RAh4r7gsyV7rqWEP5BgrDnbGoduf2Q9t3xKHCiYyv74feVioDFTbVDv26DDZa6gBulW3Xb54PYk+/ri0sgw=
+	t=1789284812; cv=none; b=J5okoGDcbgp7a4pDMMJv08I0lm5zL4WxmVXPhro5e/7Nq/P3LbsSc3Mm8N08yOsXOxZjNBhsIBljzlT2OBes32BK+kt9bkTkiYZRrvgRtMaDhfjNMF+6nxdduUAsnfozMsd1L84ywyrS62XRyvZOudHPtilIHdjGasqRRS3vV5g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789284619; c=relaxed/simple;
-	bh=TpqVzo2DTkrFsu7AVjSuMNrBMWmGf9jtyfmpKyJsU4s=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=DcNfcMj2ninOemTyQBbQulkTuYnsJ+qgDt4lv95+zUrn6d+GRMs5gjc/d/RLd6cHGxpr6KIIoEXLk8S+QxDC/LB31YluG3TEW2nzO75b6G5tsJcE+ImwxLLbzyFkBmsKLnl6BVz9HoMD6HnRlu9RRhcK5peSL+CNyDsGGMJDnu4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn; spf=pass smtp.mailfrom=tju.edu.cn; dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b=GEllg5+1; arc=none smtp.client-ip=45.254.49.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tju.edu.cn
+	s=arc-20240116; t=1789284812; c=relaxed/simple;
+	bh=KZjnPZfSPxxQqYle0vt9ysc31pC8OUpHmTU8dUYagTc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=H8PmHSTojc4TejxDQBpCqTK1eNYMEx8OPbnFhldXLBH//5ryNGVekDZDzlI67zIJtoiqynAjCcY4MUjvqT/i9AK5ZEhm9ZHO7dBqfsdvN7OJ5Yaq6yzHlr9Rn6vcnk6i/FJjJGW+iNgOtvhf8S3wfKl+/YdaqylvWlMvzKazVVk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HO4DOkBK; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=tju.edu.cn header.i=@tju.edu.cn header.b="GEllg5+1"
-Received: from tju.edu.cn (gy-adaptive-ssl-proxy-1-entmail-virt204.gy.ntes [183.242.150.9])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4d8de8fc7;
-	Sun, 13 Sep 2026 15:30:05 +0800 (GMT+08:00)
-From: Yibo Tan <lhfff@tju.edu.cn>
-To: Jiri Kosina <jikos@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Zhang Lixu <lixu.zhang@intel.com>,
-	linux-input@vger.kernel.org,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3] HID: sensor-hub: Fail unfinished multi-value reads on removal
-Date: Sun, 13 Sep 2026 15:29:10 +0800
-Message-Id: <20260913072910.1944300-1-lhfff@tju.edu.cn>
-In-Reply-To: <20260913045411.5e2f5b25@jic23-hlaptop>
-References: <20260913045411.5e2f5b25@jic23-hlaptop>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HO4DOkBK"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 30EE5C2BCFB;
+	Sun, 13 Sep 2026 07:33:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789284812;
+	bh=KZjnPZfSPxxQqYle0vt9ysc31pC8OUpHmTU8dUYagTc=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=HO4DOkBKQcY3c09JsvIbq7z0uWGPHdGp3LFe2S8lMx3TxmQnuZRkOIszJMfMhMXL8
+	 sprZRXhrl0b48qnMerYBae86B2Byg8HLGTsb9rZP7xbEKraK7uNZyAYSAcCUwgu7cu
+	 sMiJdQghiFNi3GvpBsfKWnE7DPETm3hvnIYHtqCGiyRiF+Vfyty9JYyrT21q8k8cd2
+	 ycVAfMhnfzFpc/tWoCjhHp0z9DIHyGORjUd0CXJJ/k3cSFH1clJrzOBzyOFXn7l+lk
+	 eHJ5jd4/4hMr3j8RNaRZjipeETfhROgAhPKO/IHS8HQtu90L9dqMU9jLoeOwwwkOfr
+	 41oM1Znf893uA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0E8C2C88E40;
+	Sun, 13 Sep 2026 07:33:32 +0000 (UTC)
+From: kimwooseok via B4 Relay <devnull+5mghybrid.khu.ac.kr@kernel.org>
+Date: Sun, 13 Sep 2026 16:33:19 +0900
+Subject: [PATCH rtw-next v2 1/4] wifi: rtl8xxxu: free RX skb when URB
+ submission fails
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa099ac5e8703a1kunm85375de823f704
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCQ0IYVk1OSxlNT0saGBhJQlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKQ0hVSU9JVUpOS1VCWVdZFhoPEhUdFFlBWU9LSFVCQklOS1
-	VKS0tVSkJLQlkG
-DKIM-Signature: a=rsa-sha256;
-	b=GEllg5+1FVY6o/h9Pi21e85mx+UIqhnBzE367+q31NEzrMe59B3Kfu/fQTgt0x53EiMHJ5mcOO/VCKM5ZC8Yv0CtQSPrWnJb5pcM6erm3fpAWnIlEfbBxyGm5XORJ3kp1EC1kHp7dyHFFAQmWtW5TnizYMKhKIwOnane/g7pBnI=; c=relaxed/relaxed; s=default; d=tju.edu.cn; v=1;
-	bh=QSZsVbNoTcCvQfcn9iwLW7lOgjG/mRI2Ni84Xy5CgFI=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260913-codex-rtw-rx-v2-v2-1-f09c964e0b96@khu.ac.kr>
+References: <20260913-codex-rtw-rx-v2-v2-0-f09c964e0b96@khu.ac.kr>
+In-Reply-To: <20260913-codex-rtw-rx-v2-v2-0-f09c964e0b96@khu.ac.kr>
+To: linux-wireless@vger.kernel.org
+Cc: Ping-Ke Shih <pkshih@realtek.com>, 
+ Jes Sorensen <Jes.Sorensen@gmail.com>, linux-kernel@vger.kernel.org, 
+ kimwooseok <5mghybrid@khu.ac.kr>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789284810; l=3091;
+ i=5mghybrid@khu.ac.kr; s=kernel-20260913; h=from:subject:message-id;
+ bh=att+fRGHRDjKAGrEwD6lJWxhFqTMBbHhK5UA95dqBLI=;
+ b=l4wXlY9AF1apx7M9CnnrUPfyJENk6cDjKw+elyDFUgY/do+ILtOb+wu1k2a9tqziQjleZ3w/u
+ S3C6J9TXs6EC5+li2VEYkwPk0rlfEiltvL9gFTd2tE4ikpsv+r1sn/l
+X-Developer-Key: i=5mghybrid@khu.ac.kr; a=ed25519;
+ pk=1az/6lC8Tmd6BcvyarPc8FWoSxsV/WRr5NLs1v+kjlE=
+X-Endpoint-Received: by B4 Relay for 5mghybrid@khu.ac.kr/kernel-20260913
+ with auth_id=1028
+X-Original-From: kimwooseok <5mghybrid@khu.ac.kr>
+Reply-To: 5mghybrid@khu.ac.kr
 
-sensor_hub_remove() completes pending reads after stopping the HID device,
-but does not record why they completed.  A successful completion wait
-therefore returns zero even if no complete input report was received.
-Multi-value IIO callers then format their untouched automatic buffer as a
-successful result.
+From: kimwooseok <5mghybrid@khu.ac.kr>
 
-With a valid four-element signed 32-bit quaternion report descriptor, an
-unprivileged reader received all 16 bytes of the untouched buffer.  Across
-11 independent KASLR-enabled boots, four reads exposed exact pointers to
-dev_rot_channels or dev_sysfs_ops.  Subtracting the matching link-time
-symbol address recovered the kernel KASLR slide in all four cases.
+A failed RX URB submission can leak the skb allocated for that attempt.
+rtl8xxxu_submit_rx_urb() allocates the buffer and stores it in urb.context,
+but if usb_submit_urb() fails, it only unanchors the URB. The RX worker
+queues ENOMEM/EAGAIN failures for retry with that buffer still attached.
 
-The reader ran as UID/GID 65534 with no effective capabilities through the
-mode-0644 IIO attribute.  The test used a privileged UHID broker to create
-and remove the provider; it does not demonstrate unprivileged provider
-removal.
+On the next attempt, rtl8xxxu_submit_rx_urb() allocates another skb and
+overwrites urb.context, losing the reference to the previous buffer.
+Stopping before the retry also leaks the buffer because pending-request
+cleanup frees only the URB.
 
-Mark a pending request as shut down before completing it from the removal
-path, and return -ENODEV from a multi-value read that observes the marker
-after a successful wait.  Let removal win even if a response raced with
-teardown, since the device is no longer available.
+Fix the leak at the submission failure by making rtl8xxxu_submit_rx_urb()
+responsible for both allocating the skb and releasing it when submission
+fails. Free the newly allocated skb and clear urb.context before returning
+the error, so neither retry nor stop receives a pending URB that still
+owns a buffer. Remove the caller-side skb cleanup from start and the RX
+worker; those callers now handle only whether to retry or release the URB.
 
-The Root B-only repair returned -ENODEV with no payload or kernel
-diagnostic in 3/3 matching signed-32-bit runs.  The source reproducer,
-complete vulnerable and fixed serial logs, result tables, and checksums are
-available in [1].
-
-Link: https://github.com/kimaiden1984-boop/linux-kernel-poc-collections/tree/main/cases/hid-sensor-quaternion-root-b-kaslr [1]
-Fixes: f784fcea4506 ("HID: sensor-hub: Add sensor_hub_input_attr_read_values() for multi-byte reads")
-Cc: stable@vger.kernel.org
-Suggested-by: Jonathan Cameron <jic23@kernel.org>
-Assisted-by: LLM
-Signed-off-by: Yibo Tan <lhfff@tju.edu.cn>
+Fixes: 26f1fad29ad9 ("New driver: rtl8xxxu (mac80211)")
+Assisted-by: GPT-6 Astra
+Signed-off-by: kimwooseok <5mghybrid@khu.ac.kr>
 ---
-Changes in v3:
-- Replace the raw_size error sentinel with a dedicated teardown flag, as
-  suggested by Jonathan Cameron.
-- Let teardown win if it races with a completed response.
+ drivers/net/wireless/realtek/rtl8xxxu/core.c | 16 +++++-----------
+ 1 file changed, 5 insertions(+), 11 deletions(-)
 
-v2: https://lore.kernel.org/r/20260912050257.837340-1-lhfff@tju.edu.cn/
-
- drivers/hid/hid-sensor-hub.c   | 6 +++++-
- include/linux/hid-sensor-hub.h | 2 ++
- 2 files changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/hid/hid-sensor-hub.c b/drivers/hid/hid-sensor-hub.c
-index 6470a290ebfc..a9bd72218c07 100644
---- a/drivers/hid/hid-sensor-hub.c
-+++ b/drivers/hid/hid-sensor-hub.c
-@@ -334,6 +334,8 @@ int sensor_hub_input_attr_read_values(struct hid_sensor_hub_device *hsdev,
- 			ret = -ETIMEDOUT;
- 		else if (cycles < 0)
- 			ret = cycles;
-+		else if (hsdev->pending.shutdown)
-+			ret = -ENODEV;
+diff --git a/drivers/net/wireless/realtek/rtl8xxxu/core.c b/drivers/net/wireless/realtek/rtl8xxxu/core.c
+index bddbd0990de72..795a5ec2f8cd4 100644
+--- a/drivers/net/wireless/realtek/rtl8xxxu/core.c
++++ b/drivers/net/wireless/realtek/rtl8xxxu/core.c
+@@ -5864,7 +5864,6 @@ static void rtl8xxxu_rx_urb_work(struct work_struct *work)
+ 	struct rtl8xxxu_priv *priv;
+ 	struct rtl8xxxu_rx_urb *rx_urb, *tmp;
+ 	struct list_head local;
+-	struct sk_buff *skb;
+ 	unsigned long flags;
+ 	int ret;
  
- 		hsdev->pending.status = false;
+@@ -5896,8 +5895,6 @@ static void rtl8xxxu_rx_urb_work(struct work_struct *work)
+ 		default:
+ 			dev_warn(&priv->udev->dev,
+ 				 "failed to requeue urb with error %i\n", ret);
+-			skb = (struct sk_buff *)rx_urb->urb.context;
+-			dev_kfree_skb(skb);
+ 			usb_free_urb(&rx_urb->urb);
+ 		}
  	}
-@@ -805,8 +807,10 @@ static int sensor_hub_finalize_pending_fn(struct device *dev, void *data)
- {
- 	struct hid_sensor_hub_device *hsdev = dev->platform_data;
- 
--	if (hsdev->pending.status)
-+	if (hsdev->pending.status) {
-+		hsdev->pending.shutdown = true;
- 		complete(&hsdev->pending.ready);
+@@ -6596,8 +6593,11 @@ static int rtl8xxxu_submit_rx_urb(struct rtl8xxxu_priv *priv,
+ 			  skb_size, rtl8xxxu_rx_complete, skb);
+ 	usb_anchor_urb(&rx_urb->urb, &priv->rx_anchor);
+ 	ret = usb_submit_urb(&rx_urb->urb, GFP_ATOMIC);
+-	if (ret)
++	if (ret) {
+ 		usb_unanchor_urb(&rx_urb->urb);
++		dev_kfree_skb(skb);
++		rx_urb->urb.context = NULL;
 +	}
- 
- 	return 0;
+ 	return ret;
  }
-diff --git a/include/linux/hid-sensor-hub.h b/include/linux/hid-sensor-hub.h
-index ab5cc8db3fbb..5aecf4474183 100644
---- a/include/linux/hid-sensor-hub.h
-+++ b/include/linux/hid-sensor-hub.h
-@@ -38,6 +38,7 @@ struct hid_sensor_hub_attribute_info {
- /**
-  * struct sensor_hub_pending - Synchronous read pending information
-  * @status:		Pending status true/false.
-+ * @shutdown:		The device is being removed.
-  * @ready:		Completion synchronization data.
-  * @usage_id:		Usage id for physical device, e.g. gyro usage id.
-  * @attr_usage_id:	Usage Id of a field, e.g. X-axis for a gyro.
-@@ -48,6 +49,7 @@ struct hid_sensor_hub_attribute_info {
-  */
- struct sensor_hub_pending {
- 	bool status;
-+	bool shutdown;
- 	struct completion ready;
- 	u32 usage_id;
- 	u32 attr_usage_id;
+ 
+@@ -7410,7 +7410,6 @@ static int rtl8xxxu_start(struct ieee80211_hw *hw)
+ 	struct rtl8xxxu_priv *priv = hw->priv;
+ 	struct rtl8xxxu_rx_urb *rx_urb;
+ 	struct rtl8xxxu_tx_urb *tx_urb;
+-	struct sk_buff *skb;
+ 	unsigned long flags;
+ 	int ret, i;
+ 
+@@ -7461,13 +7460,8 @@ static int rtl8xxxu_start(struct ieee80211_hw *hw)
+ 		rx_urb->hw = hw;
+ 
+ 		ret = rtl8xxxu_submit_rx_urb(priv, rx_urb);
+-		if (ret) {
+-			if (ret != -ENOMEM) {
+-				skb = (struct sk_buff *)rx_urb->urb.context;
+-				dev_kfree_skb(skb);
+-			}
++		if (ret)
+ 			rtl8xxxu_queue_rx_urb(priv, rx_urb);
+-		}
+ 	}
+ 
+ 	schedule_delayed_work(&priv->ra_watchdog, 2 * HZ);
+
 -- 
-2.39.5
+2.48.1
+
 
