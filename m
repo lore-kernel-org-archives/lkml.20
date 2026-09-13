@@ -1,44 +1,61 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C9C8274B46
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 08:19:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10130274B46;
+	Sun, 13 Sep 2026 08:20:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789287573; cv=none; b=NeAqUBgYAja5v9XnLoAS+uVo4QQyOTM3ErQ4+V7K9EBTCbPYAOU4kFGcU3tbfvygH3Q9gE/D6Z6Z+6MBF5KRoTCp+8DGSMbPQK4GSKE72mLyP94hs11q/1aupggNtpy5+SvwaGtTW9W1u/AhX/I7DSPjlBJKuTeSNaln+//iYr4=
+	t=1789287651; cv=none; b=lMPU2xWdxdFNby2BTl9ZmYuPFtr4pD0jjm1QprEv5xEpCCXKhgIlri7ZkYg8kr9hIRU5+29MavTKAavyoF7uS1PAkVSDJb9yAGuS6D8vugD+oK/wrcuMbxOCbr9dx3+TXWOCWaEDV7ZpF9KTljhsRMBgjjlUSw8KdtTckDAhJbQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789287573; c=relaxed/simple;
-	bh=dNRCNVJ3jYAHHTSTMvOMF6HvjysfTi3UaXpVf6UTE8w=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=L+E91KAP712MVALyWAhck32I4rMA4/uYbbWInbNmagVSyH+pqtWqgz/RLGnFIcHpSACE11OsZVf1+CMRSl8+AXV1Vmjg4NTAr+0s5HRFQEiFLxecE/0ntqU2AvWcN1sLGmhrhfkhhuGUx/eo9rdI71628oLtaER/ROQiBU58UuM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dKjL+HXT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789287651; c=relaxed/simple;
+	bh=SrTpzxPAmfDfyp6nEqRVjHRq3/IdHCzeCJjs0O4ehso=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ElW61f04niyFqLG/QSKmDTusgdAdmkHnP+0zC1vBjnxbcWSg906LWP382aoJuocBgZ2uGSGSb8ubBKncIsrd3odUzEVEVG/8EkfTvXaFCx8eP4mQDarGM+Rul49lEhPvAuBmzDflZK7/t/ymiaf25aUt15qHuqMbpjkPqWY/WTU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=grkhJxoI; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dKjL+HXT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58F2B1F000FF;
-	Sun, 13 Sep 2026 08:19:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789287572;
-	bh=XdiqcpqHjrWJEd2zWLvDqAaRf9b3B5cZRSc2psk2H0s=;
-	h=Date:From:To:Cc:Subject;
-	b=dKjL+HXTV999QUmV6lr8tB4nVP0UzNU77IUZhldHgHCoShVuv59NBC1M36KPFDHFw
-	 Ecs5PtjrZowxrldfgHxP3alDJ9oz4nFxiUgznj+AtJUebjfJMz79qK4UXUMLgcAEgi
-	 c9LdXAIg4Kk8XNYu0UOD8th2ftLzIJ0UaZGDOlD4hBvdlqwWjcKKW3NyG22XlE2Q4X
-	 GERCrAsQUC0oFAkuxAMwzWFxTRWczezGC6y9i8eGUk65iIXglMSTkoOe5W8Z+sfYHi
-	 ntNRBRQkQf9IK57KHThtIhZbG9hvAwGU2F8EM4DTCVLwdWvn258N5LGay+O2ZH6NQY
-	 J7rWCPdLSoeCg==
-Date: Sun, 13 Sep 2026 10:19:26 +0200
-From: Ingo Molnar <mingo@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: linux-kernel@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>, Mel Gorman <mgorman@suse.de>,
-	Tejun Heo <tj@kernel.org>, Valentin Schneider <vschneid@redhat.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>
-Subject: [GIT PULL] scheduler fixes
-Message-ID: <aqZcjrj6NEVj6Vgq@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="grkhJxoI"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789287650; x=1820823650;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=SrTpzxPAmfDfyp6nEqRVjHRq3/IdHCzeCJjs0O4ehso=;
+  b=grkhJxoIPVMmYjYjoysZlMEr5OAnBlcrJ65nDSx/HaJypqzqIcaBdUJs
+   bfHIDlL0t3v4klgygyWg14dbUEnbsHJqk/LN2J22rvhVGJTwKHmeupcKW
+   E/H0qKz3XC6vfxnnBQgttv1SGLTW6GMuZi8yG9eazTEy6OCE2b7LgOjAa
+   v2DpoqtbGrXALPrlEE3eCUhlrHO2UI/cdGQgn4cEqo7vEJnzwRvzo/3zK
+   esYZcaK/ZRym3+oIuigvyHhbwk++HyIWxKjGUYxOfX8R5aOH4GXztgB/v
+   LWmlfJzxd0kzSwB8heTBh1ffXypLV9Nkf82Y6jbZvg9vOYy5zv4YcpNlA
+   w==;
+X-CSE-ConnectionGUID: XnaB4MG4Sv6en1TFfeuqdg==
+X-CSE-MsgGUID: 022UmeGYRUGj5lOPAt2/8w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11903"; a="100278232"
+X-IronPort-AV: E=Sophos;i="6.27,100,1787036400"; 
+   d="scan'208";a="100278232"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Sep 2026 01:20:49 -0700
+X-CSE-ConnectionGUID: 6qY+Km4kSv+rH67L9HMUpA==
+X-CSE-MsgGUID: 8FtHbhXyT5eRMK9S5EDDpA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,100,1787036400"; 
+   d="scan'208";a="295835377"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.245.0])
+  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Sep 2026 01:20:47 -0700
+Date: Sun, 13 Sep 2026 11:20:44 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+Cc: jic23@kernel.org, gregkh@linuxfoundation.org, nuno.sa@analog.com,
+	Michael.Hennerich@analog.com, dlechner@baylibre.com,
+	andy@kernel.org, linux@analog.com, linux-iio@vger.kernel.org,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
+	joshua.crofts1@gmail.com
+Subject: Re: [PATCH v6 2/3] staging: iio: adc: ad7816: Serialize SPI read
+ operations
+Message-ID: <aqZc3LR0s0I2S27b@ashevche-desk.local>
+References: <20260912132517.55686-1-abdelnasserhussein11@gmail.com>
+ <20260912132517.55686-3-abdelnasserhussein11@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,43 +64,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <20260912132517.55686-3-abdelnasserhussein11@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Linus,
+On Sat, Sep 12, 2026 at 04:25:16PM +0300, Abdelnasser Hussein wrote:
+> The ad7816_spi_read() function performs a sequence of GPIO state
+> changes followed by an SPI transfer. If multiple read operations
+> occur simultaneously, the GPIO state could be changed by one thread
+> while another is in the middle of a read. This leads to a race
+> condition where the sensor state is disrupted.
+> 
+> Introduce a mutex to serialize the read sequence, ensuring that the
+> GPIO toggling and the SPI transfer are treated as a single atomic
+> operation.
 
-Please pull the latest sched/urgent Git tree from:
+...
 
-   git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git sched-urgent-2026-09-13
+> struct ad7816_chip_info {
 
-for you to fetch changes up to f5741d2b34519d387edf6e9798fc7030c20a35f3:
+>  	u8  oti_data[AD7816_CS_MAX + 1];
+>  	u8  channel_id;	/* 0 always be temperature */
+>  	u8  mode;
+> +	struct mutex lock; /* protect device state during SPI transfers */
+>  };
 
-Miscellaneous scheduler fixes:
+Is `pahole` happy with the chosen layout?
 
- - Fix EEVDF se->max_slice value on enqueueing (Vincent Guittot)
-
- - Fix EEVDF augmented rb-trees re-balancing with
-   multiple fields (Vincent Guittot)
-
- - In proxy scheduling, account cgroup CPU time to the execution
-   context, not the scheduling context (Hui Su)
-
- - Likewise, call wq_worker_tick() for the execution context,
-   not the scheduling context (Hui Su)
-
- Thanks,
-
-	Ingo
-
------------------->
-Hui Su (2):
-      sched: Account cgroup CPU time to the execution context
-      sched/core: Call wq_worker_tick() for the execution context
-
-Vincent Guittot (2):
-      sched/eevdf: Fix augmented max_slice
-      sched/eevdf: Fix rb augmented with multi fields
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
- include/linux/rbtree_augmented.h | 35 ++++++++++++++++++++++++++++-------
- kernel/sched/core.c              |  9 +++++----
- kernel/sched/fair.c              | 18 +++++++++++++-----
- 3 files changed, 46 insertions(+), 16 deletions(-)
