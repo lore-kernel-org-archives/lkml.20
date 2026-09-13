@@ -1,24 +1,24 @@
-Received: from mta0.migadu.com (out-38.mta0.migadu.com [91.218.175.38])
+Received: from mta0.migadu.com (out-48.mta0.migadu.com [91.218.175.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 840E23009E2
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 07:50:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.38
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFFA724501D
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 07:50:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789285832; cv=none; b=LByGtNzHuXy1Fh17wC72j6CWwzzbDEN/ia83PlF3UNVmKjztSJVwwkRYoO1Omxcnr7jXuPfUcXu4vroUkgY3a42kgXF8P+gEvepj1wWCQ9QugyUYf5x7wVoL4ky+McDWA+tHauuhrP6FU66R42F1Xse6lr7LlFNNLMOw84JvCaw=
+	t=1789285838; cv=none; b=R8Mia/QeZfBOFAGMMFzerEldtjd2mi7v3uVR4bogP9XKhRkHLD1JAmHCJaoGA58C3xUZrrTGMz4Me6TE8eFQqRKgfzlzg0QpbknUiEZAt0/L5vivv2+hP2/UstL5ANZCuZ9dFB3Vv2/G53bPol0DW9N7xu5MPNDOBvb0iehWJUg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789285832; c=relaxed/simple;
-	bh=KhCOdnDOnVEnXQD9HErQfcn23Zyqd2OJWUEJte6rMxg=;
+	s=arc-20240116; t=1789285838; c=relaxed/simple;
+	bh=r97CkAnA5MtbGVTEOuO7pGgYupa05O+pT2tzOanAnSA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-type; b=TvSAS7QHUdKTdab5itPnmKp909aT61ZHgoZHt7AAXCKIxp6yPeXJj+p+W9hdH9jKb601SqvS0NhUIgFaDXrZBfOhpNyu4Ubhiw7kX7cQtCf7KLD5QYslR3CrMfbQXY7kICjrINWdp67V9mcuJn3iSxuKdPmlSMetNep2J0jI/3M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=linux.dev; arc=none smtp.client-ip=91.218.175.38
+	 MIME-Version:Content-type; b=EhmA3Pxze42OX5Sy7OeNRda5OMfkCB+iQx5VM6MKdnH4ZctY2O7/3NfCKWpybrAl/UMm6NWIsrgDMD6cuW9o7Os+krHpqnedyd9HxukKJWz+k1WiJJ35EkBCaZweqMosue4awxlNPPfSpshfMn+d2weuhPDc4CzuelUSnz3wMRI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=linux.dev; arc=none smtp.client-ip=91.218.175.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 X-Envelope-To: linux-kernel@vger.kernel.org
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 4b6b428f292db963;
-	Sun, 13 Sep 2026 07:50:28 +0000
-X-Mizu-Trace-ID: 4b6b428f292db963
+Received: by mta10.migadu.com with ESMTPS id 4fad34b801982382;
+	Sun, 13 Sep 2026 07:50:33 +0000
+X-Mizu-Trace-ID: 4fad34b801982382
 X-Migadu-Flow: FLOW_OUT
 From: Baoquan He <hebaoquan@kylinos.cn>
 To: linux-mm@kvack.org
@@ -36,9 +36,9 @@ Cc: akpm@linux-foundation.org,
 	david@kernel.org,
 	linux-kernel@vger.kernel.org,
 	Baoquan He <hebaoquan@kylinos.cn>
-Subject: [PATCH v2 01/12] mm: xswap support for zswap
-Date: Sun, 13 Sep 2026 15:50:03 +0800
-Message-ID: <20260913075014.1732524-2-hebaoquan@kylinos.cn>
+Subject: [PATCH v2 02/12] mm, swap: add CONFIG_XSWAP and xswap fields to swap_info_struct
+Date: Sun, 13 Sep 2026 15:50:04 +0800
+Message-ID: <20260913075014.1732524-3-hebaoquan@kylinos.cn>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260913075014.1732524-1-hebaoquan@kylinos.cn>
 References: <20260913075014.1732524-1-hebaoquan@kylinos.cn>
@@ -51,220 +51,58 @@ MIME-Version: 1.0
 Content-type: text/plain
 Content-Transfer-Encoding: 8bit
 
-From: Chris Li <chrisl@kernel.org>
+Add CONFIG_XSWAP Kconfig option for extendable swap device support.
+It depends on SWAP && 64BIT && ZSWAP, since xswap devices are backed by
+zswap, and on SYSFS, which is currently the only way to create one.
 
-Introduce extendable swap device support - xswap.
+Add three fields to struct swap_info_struct under CONFIG_XSWAP:
+- cluster_vm: the VM_SPARSE vm_struct backing the cluster_info array
+- nr_clusters_max: total number of clusters in the xswap address space
+- nr_clusters_mapped: number of clusters currently mapped (lazy grow)
+These fields enable lazy vmalloc-based dynamic cluster management.
 
-An xswap device has no backing storage and no swap data section, so
-it wastes no disk space. Creation is via a sysfs interface added in a
-later patch.
-
-Zswap writeback is gated on whether a real (non-xswap) swap device is
-active. nr_real_swapfiles counts such devices and is maintained at
-swapon/swapoff only, so the gate reflects "a device exists to write
-back to" rather than "a device currently has free slots". This keeps
-writeback working even when the real swap device is full, and avoids
-a double decrement when a full device is swapped off.
-
-Co-developed-by: Baoquan He <hebaoquan@kylinos.cn>
 Signed-off-by: Baoquan He <hebaoquan@kylinos.cn>
-Signed-off-by: Chris Li <chrisl@kernel.org>
 ---
- include/linux/swap.h |  2 ++
- mm/page_io.c         | 16 ++++++++++++++++
- mm/swap_state.c      |  7 +++++++
- mm/swapfile.c        | 38 +++++++++++++++++++++++++++++++++++---
- mm/zswap.c           |  7 ++++++-
- 5 files changed, 66 insertions(+), 4 deletions(-)
+ include/linux/swap.h | 5 +++++
+ mm/Kconfig           | 9 +++++++++
+ 2 files changed, 14 insertions(+)
 
 diff --git a/include/linux/swap.h b/include/linux/swap.h
-index 5658a1634b85..787fe463dcbb 100644
+index 787fe463dcbb..09ecef1b5e90 100644
 --- a/include/linux/swap.h
 +++ b/include/linux/swap.h
-@@ -207,6 +207,7 @@ enum {
- 	SWP_STABLE_WRITES = (1 << 11),	/* no overwrite PG_writeback pages */
- 	SWP_SYNCHRONOUS_IO = (1 << 12),	/* synchronous IO is efficient */
- 	SWP_HIBERNATION = (1 << 13),	/* pinned for hibernation */
-+	SWP_XSWAP	= (1 << 14),	/* extendable swap device */
- 					/* add others here before... */
- };
+@@ -248,6 +248,11 @@ struct swap_info_struct {
+ 	signed char	type;		/* strange name for an index */
+ 	unsigned int	max;		/* size of this swap device */
+ 	struct swap_cluster_info *cluster_info; /* cluster info. Only for SSD */
++#ifdef CONFIG_XSWAP
++	struct vm_struct	*cluster_vm;	/* VM_SPARSE area for cluster_info */
++	unsigned long		nr_clusters_max;/* total clusters in the xswap address space */
++	unsigned long		nr_clusters_mapped; /* currently mapped cluster count */
++#endif
+ 	struct list_head free_clusters; /* free clusters list */
+ 	struct list_head full_clusters; /* full clusters list */
+ 	struct list_head nonfull_clusters[SWAP_NR_ORDERS];
+diff --git a/mm/Kconfig b/mm/Kconfig
+index 604c58199acb..e9837c0f5d8a 100644
+--- a/mm/Kconfig
++++ b/mm/Kconfig
+@@ -122,6 +122,15 @@ config ZSWAP_COMPRESSOR_DEFAULT
+        default "zstd" if ZSWAP_COMPRESSOR_DEFAULT_ZSTD
+        default ""
  
-@@ -356,6 +357,7 @@ void free_folio_and_swap_cache(struct folio *folio);
- void free_pages_and_swap_cache(struct encoded_page **, int);
- /* linux/mm/swapfile.c */
- extern atomic_long_t nr_swap_pages;
-+extern atomic_t nr_real_swapfiles;
- extern long total_swap_pages;
- extern atomic_t nr_rotate_swap;
- 
-diff --git a/mm/page_io.c b/mm/page_io.c
-index 88962571cb93..5483c943e3e3 100644
---- a/mm/page_io.c
-+++ b/mm/page_io.c
-@@ -248,6 +248,17 @@ int swap_writeout(struct swap_io_ctx *ctx, struct folio *folio)
- 	}
- 	rcu_read_unlock();
- 
-+	/*
-+	 * ctx->sis is set by swap_add_folio() which is called from
-+	 * __swap_writepage() below.  Since we must avoid the writepage
-+	 * path for xswap devices, use the swap_info from the folio's
-+	 * swap entry directly instead of going through ctx.
-+	 */
-+	if (unlikely(__swap_entry_to_info(folio->swap)->flags & SWP_XSWAP)) {
-+		folio_mark_dirty(folio);
-+		return AOP_WRITEPAGE_ACTIVATE;
-+	}
++config XSWAP
++	bool "Extendable (virtual) swap device"
++	depends on SWAP && 64BIT && ZSWAP && SYSFS
++	help
++	  Adds support for extendable swap devices (xswap) that decouple
++	  PTE swap entries from physical backing storage. The cluster_info
++	  array is backed by a sparse vmalloc area that grows and shrinks
++	  on demand, avoiding static pre-allocation overhead.
 +
- 	__swap_writepage(ctx, folio);
- 	return 0;
- out_unlock:
-@@ -480,6 +491,11 @@ void swap_read_folio(struct swap_io_ctx *ctx, struct folio *folio)
- 	if (zswap_load(folio) != -ENOENT)
- 		goto finish;
+ config ZSMALLOC
+ 	tristate
  
-+	if (unlikely(sis->flags & SWP_XSWAP)) {
-+		folio_unlock(folio);
-+		goto finish;
-+	}
-+
- 	/* We have to read from slower devices. Increase zswap protection. */
- 	zswap_folio_swapin(folio);
- 	swap_add_folio(ctx, folio, READ);
-diff --git a/mm/swap_state.c b/mm/swap_state.c
-index b76eb3d876fd..2eedb7a3d7bb 100644
---- a/mm/swap_state.c
-+++ b/mm/swap_state.c
-@@ -830,6 +830,13 @@ struct folio *swap_cluster_readahead(swp_entry_t entry, gfp_t gfp_mask,
- 	struct blk_plug plug;
- 	swp_entry_t ra_entry;
- 
-+	/*
-+	 * The entry may have been freed by another task. Avoid swap_info_get()
-+	 * which will print error message if the race happens.
-+	 */
-+	if (si->flags & SWP_XSWAP)
-+		goto skip;
-+
- 	mask = swapin_nr_pages(offset) - 1;
- 	if (!mask)
- 		goto skip;
-diff --git a/mm/swapfile.c b/mm/swapfile.c
-index 53bf01d5f7f1..193b08a54908 100644
---- a/mm/swapfile.c
-+++ b/mm/swapfile.c
-@@ -66,6 +66,7 @@ static void move_cluster(struct swap_info_struct *si,
- static DEFINE_SPINLOCK(swap_lock);
- static unsigned int nr_swapfiles;
- atomic_long_t nr_swap_pages;
-+atomic_t nr_real_swapfiles;
- /*
-  * Some modules use swappable objects and may try to swap them out under
-  * memory pressure (via the shrinker). Before doing so, they may wish to
-@@ -1208,6 +1209,9 @@ static void del_from_avail_list(struct swap_info_struct *si, bool swapoff)
- 		 */
- 		lockdep_assert_held(&si->lock);
- 		si->flags &= ~SWP_WRITEOK;
-+		/* Count active devices, not merely those on the avail list. */
-+		if (!(si->flags & SWP_XSWAP))
-+			atomic_sub(1, &nr_real_swapfiles);
- 		atomic_long_or(SWAP_USAGE_OFFLIST_BIT, &si->inuse_pages);
- 	} else {
- 		/*
-@@ -1265,6 +1269,8 @@ static void add_to_avail_list(struct swap_info_struct *si, bool swapon)
- 	}
- 
- 	plist_add(&si->avail_list, &swap_avail_head);
-+	if (swapon && !(si->flags & SWP_XSWAP))
-+		atomic_add(1, &nr_real_swapfiles);
- 
- skip:
- 	spin_unlock(&swap_avail_lock);
-@@ -2959,6 +2965,19 @@ static int setup_swap_extents(struct swap_info_struct *sis,
- 	struct inode *inode = mapping->host;
- 	int ret;
- 
-+	if (sis->flags & SWP_XSWAP) {
-+		*span = 0;
-+		/*
-+		 * xswap devices have no backing block device and
-+		 * physical writeout is skipped in swap_writeout(),
-+		 * but sis->ops must still be set so that callers
-+		 * like shrink_folio_list() can safely dereference
-+		 * ops->flags.
-+		 */
-+		sis->ops = &swap_bdev_ops;
-+		return 0;
-+	}
-+
- 	ret = sio_pool_init();
- 	if (ret)
- 		return ret;
-@@ -3167,7 +3186,8 @@ SYSCALL_DEFINE1(swapoff, const char __user *, specialfile)
- 
- 	destroy_swap_extents(p, p->swap_file);
- 
--	if (!(p->flags & SWP_SOLIDSTATE))
-+	if (!(p->flags & SWP_XSWAP) &&
-+	    !(p->flags & SWP_SOLIDSTATE))
- 		atomic_dec(&nr_rotate_swap);
- 
- 	mutex_lock(&swapon_mutex);
-@@ -3277,6 +3297,19 @@ static void swap_stop(struct seq_file *swap, void *v)
- 	mutex_unlock(&swapon_mutex);
- }
- 
-+static const char *swap_type_str(struct swap_info_struct *si)
-+{
-+	struct file *file = si->swap_file;
-+
-+	if (si->flags & SWP_XSWAP)
-+		return "xswap\t";
-+
-+	if (S_ISBLK(file_inode(file)->i_mode))
-+		return "partition";
-+
-+	return "file\t";
-+}
-+
- static int swap_show(struct seq_file *swap, void *v)
- {
- 	struct swap_info_struct *si = v;
-@@ -3296,8 +3329,7 @@ static int swap_show(struct seq_file *swap, void *v)
- 	len = seq_file_path(swap, file, " \t\n\\");
- 	seq_printf(swap, "%*s%s\t%lu\t%s%lu\t%s%d\n",
- 			len < 40 ? 40 - len : 1, " ",
--			S_ISBLK(file_inode(file)->i_mode) ?
--				"partition" : "file\t",
-+			swap_type_str(si),
- 			bytes, bytes < 10000000 ? "\t" : "",
- 			inuse, inuse < 10000000 ? "\t" : "",
- 			si->prio);
-diff --git a/mm/zswap.c b/mm/zswap.c
-index b9948d4657d2..064970a4393f 100644
---- a/mm/zswap.c
-+++ b/mm/zswap.c
-@@ -1000,6 +1000,11 @@ static int zswap_writeback_entry(struct zswap_entry *entry,
- 	if (!si)
- 		return -ENOENT;
- 
-+	if (si->flags & SWP_XSWAP) {
-+		put_swap_device(si);
-+		return -EINVAL;
-+	}
-+
- 	mpol = get_task_policy(current);
- 	folio = swap_cache_alloc_folio(swpentry, GFP_KERNEL, BIT(0), NULL, mpol,
- 				       NO_INTERLEAVE_INDEX);
-@@ -1545,7 +1550,7 @@ bool zswap_store(struct folio *folio)
- 	zswap_pool_put(pool);
- put_objcg:
- 	obj_cgroup_put(objcg);
--	if (!ret && zswap_pool_reached_full)
-+	if (!ret && zswap_pool_reached_full && atomic_read(&nr_real_swapfiles))
- 		queue_work(shrink_wq, &zswap_shrink_work);
- check_old:
- 	/*
 -- 
 2.54.0
 
