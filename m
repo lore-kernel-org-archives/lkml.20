@@ -1,384 +1,201 @@
-Received: from gentwo.org (gentwo.org [62.72.0.81])
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazolkn19010017.outbound.protection.outlook.com [52.103.32.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02E863F7AAC
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 20:21:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.72.0.81
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789330910; cv=none; b=rIZUY5IfPJVyNZwqWyZ40fkkw2smmVC8VGu1HZBPoY6X6OEzgBGYC+E4dvWjLHdUuPEDutHOx8JjmZvXbT6Fslu0l8OHnCLKtelRkWNbhw6xfKUjOjHxt9F92xIkfDo9bitNBxCOfUHdZ+9eg+++pC1FKnabMZBho0c+Wt5RlqY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789330910; c=relaxed/simple;
-	bh=6zqr1nKqSuVDxPSCWfoPP8X08Wola6HhUZBCLnNCs/0=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=KVMhTrxwRhI0JNfz2t9eKn8CqUQZsxSdjqSO5+W1Afwn+WOPmFiaOsDNAUO9/inS86jsUb0fdfMTqM1EryGIyOA1+6O8kh9bppbBn7IGS1yuWSgTnZ6bwIaxcAbodiBv13xLsgq+i8BibxZsresCtLw8Ueu7OnawMEH9gr4BJc4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org; spf=pass smtp.mailfrom=gentwo.org; dkim=pass (1024-bit key) header.d=gentwo.org header.i=@gentwo.org header.b=FKHZDVia; arc=none smtp.client-ip=62.72.0.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gentwo.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9829534A78E;
+	Sun, 13 Sep 2026 20:24:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.32.17
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789331074; cv=fail; b=W443BcPfS0dsY9oviiFMKGheH92apQQKmMVykSTyLT/FBMmPmQwFXOpuBxLXzdt/9Sn8BHgKLekV38fZ40ZMTUbfv5DXZdBzUAGEHgaRjsbAtFKc6k4pfbq9fYftBDl70h9NhB8ZtRBH/B+KnZ3CiS8EZ1IIu2QWMn+kIXGYPUg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789331074; c=relaxed/simple;
+	bh=BzqIOKIBxu2mhAiTkUV3CodxGzU45CQ2gfP/8OkKIPQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=B2aY+dG/+cYEXMX/HG9gt8pQpdU3JB6cg1dWCE177mo1R5J6rz1N6Et/gbqqaJ174E8nmq6hA4Y71WGIGGc80pi9w4vKiWYXdp5gH5otOUKG2bEeQLZUkpSEa5dtWvAtxwiViG0nxhm9UFk3hPO/H90hDve/FnXYbZZ95SoBNnc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk; spf=pass smtp.mailfrom=hotmail.co.uk; dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b=Gu4Tp+bO; arc=fail smtp.client-ip=52.103.32.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=gentwo.org header.i=@gentwo.org header.b="FKHZDVia"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gentwo.org;
-	s=default; t=1789330215;
-	bh=6zqr1nKqSuVDxPSCWfoPP8X08Wola6HhUZBCLnNCs/0=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=FKHZDVia5QyBpdcH+kTBO5vwXVCnBcaSjytx+2M+ZXH3aKXI/+DbJCu41aOA22hL6
-	 aQh95EQcMWsroMoRRKjV0J0rr+8uHeL7/JRnhTiv7ZlAffWeyPO1XoDo21xaT2GQ/V
-	 yzt+Bg3R/QFw4p0rLKILY8CfqecMmQgbbv8X6LU0=
-Received: by gentwo.org (Postfix, from userid 1007)
-	id D92D0402BE; Sun, 13 Sep 2026 13:10:15 -0700 (PDT)
-Received: from localhost (localhost [127.0.0.1])
-	by gentwo.org (Postfix) with ESMTP id D5CE54027F;
-	Sun, 13 Sep 2026 13:10:15 -0700 (PDT)
-Date: Sun, 13 Sep 2026 13:10:15 -0700 (PDT)
-From: Shubhang <sh@gentwo.org>
-To: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
-    Juri Lelli <juri.lelli@redhat.com>, 
-    Vincent Guittot <vincent.guittot@linaro.org>, 
-    Dietmar Eggemann <dietmar.eggemann@arm.com>, 
-    Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, 
-    Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, 
-    K Prateek Nayak <kprateek.nayak@amd.com>, 
-    Shubhang Kaushik <shubhang@os.amperecomputing.com>, 
-    Christoph Lameter <cl@gentwo.org>, Zhan Xusheng <zhanxusheng@xiaomi.com>, 
-    Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>, 
-    Andrea Righi <arighi@nvidia.com>, Changwoo Min <changwoo@igalia.com>
-cc: linux-kernel@vger.kernel.org, sched-ext@lists.linux.dev
-Subject: Re: [PATCH v2] sched: Restart hrtick after same-task repicks
-In-Reply-To: <20260911-sched-fair-hrtick-restart-v2-1-0d34db26ecd1@gentwo.org>
-Message-ID: <79a14c31-b4ed-4ff2-0551-8b31b86b91cb@gentwo.org>
-References: <20260911-sched-fair-hrtick-restart-v2-1-0d34db26ecd1@gentwo.org>
+	dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b="Gu4Tp+bO"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tjbxOPHDsAFU5HQu3ZsGsQiTxT2m4eFvpGgHBNylmzb2Kw0VzW/yO3jJqJ6k5tGr81pu6NkWmL1okx6jrjZddRJnjQ8Pbvmbd9D3V6ZUP5WnctrIfA0a9tH2szjSt3c7BOhI0SGArD9HaQYgwJVvAm4cXLyQXpeIHzp78NXIHsp4JOu2XHu3ETCjBkDJ9h0YeN2qzq5hC143iPA/GUBTYvxpoKKKdUZ/PNYVJyC5sAfF4Y6fFUzxJW2F7hosysIPv+Jai3zKpPyInExAh1eOcYPnDR4HtjuuqoZ4vCbAej4l77UiFcHANgRjkeKKPrFJpLlF/CloEoJcfvmXpjA22A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=aT/wDlJn1okpv2ZxQOVgtGe8MrV+MAv0tmagsCIXNP0=;
+ b=podtJBB6PaPEyZ9rAXGmtCMHDC8X/TGs5XSHFHQ56MTb1DNTWskCZ3jnSc10zxpDNrdyGyeV0Jqu+W3joBZ/2vD/zz0BQPz1oP7QCiP5FSZ0wVDfLee7xFGFxRn8SuhyHFSotJqltPTnJaxAmtFEDSre9lN0L4iWiTdjyKa/jGg7DlFD6sJoZvoV/AfL7031EbKC5amqWCKYcvA9VrXlcr04Am4GTE8kbC8O6SuWjOZlyZjc3EPKtblL6FgtBmhcM1mDWU0gBBzH+vm+RgtnVrQDrFq7ZPy4D3EHdUwQAI6Wutte9J/nOs/Ccz1kutJe5y6BdkvcNo77g6XGexXsHg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=HOTMAIL.CO.UK;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aT/wDlJn1okpv2ZxQOVgtGe8MrV+MAv0tmagsCIXNP0=;
+ b=Gu4Tp+bOBzYFUsRIfXiiZ2nCz3DleBphNW+nVdo+UyyGW1VmHTry1Qq41iT5UgqNpohYNokz1mTfIUmDO3w0a6CZ9v9XRq9AtjBSz4fh9HUxMgQj6s09rCA5Vr/I5TedZsbeLYfx7jDl9lvLxAk8HRlvTRgfx1DZeI+XuovQkdMS6ODR+ffd9WDUj17Glx85nwVsTqhV6/2QIgg/X3kS99uEuwRu0EtEsnXGO+wxuwFhqrSqndlH/xTGZf/i7e4k6Qmz/5PK2amB0cGmNtlYI75jedEqGhZ6I3Ma1CRcLI3iZUPacutr3BSTW1wRpLetMCRZPIm2pcbNOK2WpSKI5Q==
+Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM (2603:10a6:20b:344::22)
+ by AS4P251MB1040.EURP251.PROD.OUTLOOK.COM (2603:10a6:20b:58b::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Sun, 13 Sep
+ 2026 20:24:30 +0000
+Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+ ([fe80::2952:d4d0:4ba:8352]) by AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+ ([fe80::2952:d4d0:4ba:8352%3]) with mapi id 15.21.0406.007; Sun, 13 Sep 2026
+ 20:24:30 +0000
+From: Aamir Ahmed <elb12345@hotmail.co.uk>
+To: David Heidelberg <david@ixit.cz>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Simon Horman <horms@kernel.org>,
+	oe-linux-nfc@lists.linux.dev,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH net v3] nfc: digital: check DEP_REQ length before reading DID byte
+Date: Sun, 13 Sep 2026 21:24:26 +0100
+Message-ID:
+ <AS8P251MB00011C7777543D73542B5ADFC8BC2@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+X-Mailer: git-send-email 2.55.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: LO4P123CA0673.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:351::8) To AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+ (2603:10a6:20b:344::22)
+X-Microsoft-Original-Message-ID:
+ <20260913202426.4123-1-elb12345@hotmail.co.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII; format=flowed
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS8P251MB0001:EE_|AS4P251MB1040:EE_
+X-MS-Office365-Filtering-Correlation-Id: eb8a7ec1-7802-40c8-e5dd-08df11d5031b
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|5062599005|15080799012|5072599009|51005399006|25010399006|23021999003|12121999013|19110799012|8060799015|41001999006|24021099003|55001999006|25031999004|37011999003|3412199025|440099028|4302099013|26104999009|1602099012|40105399003|2607281247196008|10035399007;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?pydV7WvFxqJCVUnYPHsxtX50j0LAXjQ+HIbZue4ce6et8QOcHSGKPn2Ce5VO?=
+ =?us-ascii?Q?JMqBtBM0Si6T1F2Y6aF7/B4i8gRNJ8TV6z9cA9QktFy4UbMAqsxIXD+4V140?=
+ =?us-ascii?Q?LnAUuX6kqNIZbp/XaL04pqn6CbSbPoi8g5c6xzXdM0FgQA2c38q+q0IcpCmA?=
+ =?us-ascii?Q?HVeZ7Rn8NQYeoLIVL66YtAnZ0tl+eRHOVBgJ1ZKN1/MZDc1DHSWeSWxkjpxy?=
+ =?us-ascii?Q?ur1rseilbFzV5ANsb3vSnW1u6/6KL2yQJ9uOwmFdf0XVYNuAYlaDvwpVEbaw?=
+ =?us-ascii?Q?2X162iBgSdo85kP107TkbVEJWLGs35BiFRZ2irJuQSccvACoO1IlnUvgAdpm?=
+ =?us-ascii?Q?UIecdMkC3top+tjR4Po+Z+sSpn3v6e42vkY7Dd8ySaTHlmNo0GrFvgUiaw/4?=
+ =?us-ascii?Q?rnXKL0Qaq67YHvRGPG921ieRjz+gmRcnamsRVXSg6fzOCkPHCE/qHzgVMdtb?=
+ =?us-ascii?Q?MEkJEZtvistOegrf1BHBWwSHLPoqB0/2+g74hGZb3GigtAe3sc7w9eekvWjm?=
+ =?us-ascii?Q?fh1KY/fX6jbD4ER9Xomonz/26dyyGGvSZ43l9hGvTeNGvAaHFSqRaoY0P2Mq?=
+ =?us-ascii?Q?Sts3UKmf34oyrRAQTzPAHX5RPI6dVJIZVV9rLig4J27Kc+pDRsNXJne8Es7M?=
+ =?us-ascii?Q?FSVngm80cg25nudqCJ8gQ3sayjcFbEa8v+hM9ymP744NUjWppVTslG/csElC?=
+ =?us-ascii?Q?556b49Yt1kiuAWmkO1/tY/D+TwjzUiOW9nYRR9RlgtV0XU2hpIA4uTixSIwJ?=
+ =?us-ascii?Q?OXDbGbXgJ1YNYiMmN3SWuD6Fy8Xg4XpVgzfkHYFgLjjbLC3qEOobemhwug33?=
+ =?us-ascii?Q?aCrearmTqV2QzjV3UW9FsUdnsYckdPPoYkBBcuF339J1Ftkcp6H9QVGn9zae?=
+ =?us-ascii?Q?Hw5UpucGF7LqNZTQfUcAjHkyIfIsnLU92Eeux8FlM2oOJJ6Z6GGvwU1v2D7M?=
+ =?us-ascii?Q?aZlnwZVSMzXxrGwJX22CIRc8kGtPJ30pM3I5nXuMbRotFN/LG7uH0JuFuZEK?=
+ =?us-ascii?Q?9m+8zd7SYV4d7fA7i0JKrrRKJHXxM4cJuL3iI/pds4/krq+cxMXmSRb2cA45?=
+ =?us-ascii?Q?4pDWI+55aEx6hdzGdqV00A94+TM2+T+Rpo/Mtr4zqRz4U4H77b7U7YRZjRH7?=
+ =?us-ascii?Q?eu6sJkVBK4g2jhS1vObWx0KZWXuIUc6GgB15To0dQoVpUjHexK2Tc+nA31A9?=
+ =?us-ascii?Q?1hJS2d2ppEevxGxXlDYg72XM9OPHMvmC1V4dxAGtmQp1vjgU5vxVno+fkoY?=
+ =?us-ascii?Q?=3D?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?2tu2aokV+4Kt87M5OZ7CAKFNtDXIwlGU+9jCwvtk9B7BaooW6Gpm9aWnDE2H?=
+ =?us-ascii?Q?5VDC0BTaHvASb7tJHQkzUzaJ5sofY389SPOH/H3ezIIdstz+q5p6bguHjuND?=
+ =?us-ascii?Q?ngIGKbpxOQ4N97nlf+RIuSluaqyU6ptcB1jpq7yA2teHlB9GMXeqQu7KtAhw?=
+ =?us-ascii?Q?zhvcuIGdrzGIrQIJdz4MDYS4cnRwP6vuE8e6p3a5s8J63zNnRvmO4m6ZLX/U?=
+ =?us-ascii?Q?Y/OewczXQ+LTXk8BxP825ylUSAG7VkhrI+91M5Kbkss7EY7i746luEh8ztOI?=
+ =?us-ascii?Q?wBrQ1TLT77WA/uiPjqLvEhoZ25WcwzRFGy6at/CtIHANVCQoL+b73rReGTvD?=
+ =?us-ascii?Q?mZdKVlu8XoCEHtk+gjkYG9eYXfhQ450IBHatgeooKJgYFaRfCVcZGvRrZtwJ?=
+ =?us-ascii?Q?nj0msVvkxm4dtmRdHtwrElyADjK24x964/6Yl9XtwD5G8Wihewc3TrTQ7oLg?=
+ =?us-ascii?Q?YrdbOX7ldR3ayKSiXCpPQZIKQ6UuD4VqTcKe5CXoenA+B6XwDSvPqWOD1Dpl?=
+ =?us-ascii?Q?9eueQiPoeksUi6NYJcUXU45delXetAqvBccQAJgpcFH+5yoLomBj6ZIGUYL/?=
+ =?us-ascii?Q?0Dwhe3imEoslwE1Ag0YIX1/+MCLP5+EXrSTqx1cafLu8dMP/80pZjBkcoycM?=
+ =?us-ascii?Q?wnRc5JCMlL3tRxJREyaSXBkaINF151eGoSPTrFfETK3tNiHdy0J4p/MZXMK9?=
+ =?us-ascii?Q?DK+lPNlWWyLS4FvYVOkX9mWp5NiFASfiXpeJB2R5NtEZ5sn6A+iu8opsrNJd?=
+ =?us-ascii?Q?mlH0zoM+18AszWrq9jfKP2UhZ5DCOVPMStBvz3gONuwP9SrB4wzSdcFjK5+1?=
+ =?us-ascii?Q?Sn73hIaYTiI1ED1sC5P4Bt9svPWse1PXgVbJfux2I1+7zuWxED98ZJb2e8Q3?=
+ =?us-ascii?Q?2U7A63ILluKNH7cQpBaeVWoTz0fT5eupjMgIqzpyEyyIoj3KUxWeyHxUixYQ?=
+ =?us-ascii?Q?nqhUxEd6fdPVLbPGfPhrHd4xm/52Fk1sFwdKx7ey/eGEUzwefQ0L/oCuK57N?=
+ =?us-ascii?Q?lTD+/gYsqo7hb1Faav8X2qQjBq1x62f8xOqwnhqbMoHoyJPeS/R3FnQO6DWO?=
+ =?us-ascii?Q?URymHj+MV4/IrQ2lTQY8qZMuUBPsg9ZhG6sagufxec1FtEhfVohPNvDE9A0A?=
+ =?us-ascii?Q?XO8YFK+/k+zpkdMLjposdhWjBElBoj68jc0EUWYWMm/2gwTJSN9c1DHsRoYj?=
+ =?us-ascii?Q?LJk175X2uJtODfSzeF5Lp6M+/T/7HxB/FKRPNh06ZUAmL6WmgWtksEqf5Hqt?=
+ =?us-ascii?Q?YP5QFxAUzAJdnQKw0KSzkJVm7tKt+QImoAiFsPb9tLJ9xgvn4TYCxxZN8wj5?=
+ =?us-ascii?Q?+S9/UPQZsnQhmo0EYMkqQIKY1cs27v/u/RfDLmYQf0A3OuFOWKFgzMJa7Ku6?=
+ =?us-ascii?Q?DFrlNzXU+gfAtP7KGDjfDp7SO1gvVo/8ZzZ47mkZmb7Y0Xmj/OOhObz2Ns4e?=
+ =?us-ascii?Q?UeRSukge6eAqcFO0QqdipZiMHoJxvMwb?=
+X-OriginatorOrg: sct-15-20-9412-3-msonline-outlook-fe3f5.templateTenant
+X-MS-Exchange-CrossTenant-Network-Message-Id: eb8a7ec1-7802-40c8-e5dd-08df11d5031b
+X-MS-Exchange-CrossTenant-AuthSource: AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Sep 2026 20:24:29.9870
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4P251MB1040
 
-Hi all,
+digital_tg_recv_dep_req() reads resp->data[3] when the DID bit is set
+in the PFB, but only sizeof(struct digital_dep_req_res) bytes (3) are
+guaranteed by the preceding length check.  A crafted DEP_REQ that is
+exactly 3 bytes long with the DID bit set causes an out-of-bounds read
+past the valid skb data.
 
-There seems to be an issue with the DL rearm in v2.
+This read can happen on every DEP_REQ from a malicious NFC initiator
+when the target device has a non-zero DID.  The stale byte is compared
+against ddev->did, so in practice the mismatch causes an -EIO return,
+but the read itself is undefined behavior and accesses data past the
+buffer.
 
-On a non-tick reschedule that repicks the running SCHED_DEADLINE task,
-`next == prev` skips put_prev_task_dl(). Therefore
-update_curr_dl() may not have charged execution since exec_start.
-The v2 SNT_REPICK path then calls start_hrtick_dl() using stale
-dl_se->runtime, which can arm the next hrtick too late and delay
-SCHED_DEADLINE runtime enforcement.
+Reorder the condition so that the length check (resp->len < size + 1)
+comes first and short-circuits before resp->data[size] is accessed.
+The later "size > resp->len" check becomes redundant and is left in
+place.
 
-Unless there is a DL case that requires this rearm and accounts current
-beforehand, I will drop the DL SNT_REPICK rearm in the next revision.
+Fixes: 05afedcb8918 ("NFC: digital: Add Target-mode NFC-DEP DID Support")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Aamir Ahmed <elb12345@hotmail.co.uk>
+Reviewed-by: Simon Horman <horms@kernel.org>
+---
+v3:
+  - correct the Fixes: tag; the bug came in with 05afedcb8918
+  - reword the note on the later "size > resp->len" check, which
+    returns early for NAD frames and is now redundant rather than
+    preserved for that case
+  No code change; Simon's Reviewed-by carried.
+v2: https://lore.kernel.org/netdev/AS8P251MB0001F45C42BBD0D16D7B30ABC8BD2@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM/
+  - add the Assisted-by: LLM tag (Simon)
+  - designate the target tree in the subject
+  - collect Simon's Reviewed-by
+v1: https://lore.kernel.org/netdev/AS8P251MB000196084524EB27D62162B8C8B32@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM/
 
-So for now, please disregard the DL portion of v2 for review.
+Compile-tested only; I have no NFC hardware.
 
-Thanks,
-Shubhang Kaushik
+ net/nfc/digital_dep.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-On Fri, 11 Sep 2026, Shubhang Kaushik (Ampere) wrote:
+diff --git a/net/nfc/digital_dep.c b/net/nfc/digital_dep.c
+index 3982fa084737..ae5407fca12d 100644
+--- a/net/nfc/digital_dep.c
++++ b/net/nfc/digital_dep.c
+@@ -1117,12 +1117,12 @@ static void digital_tg_recv_dep_req(struct nfc_digital_dev *ddev, void *arg,
+ 	pfb = dep_req->pfb;
 
-> Fair and DL hrticks are one-shot timers. After an hrtick expires, the
-> next preemption point must be explicitly armed for the task that remains
-> selected.
->
-> For fair, the missed path is:
->
->  hrtick()
->    -> rq->donor->sched_class->task_tick(rq, rq->donor, 1)
->    -> task_tick_fair(..., queued=1)
->       -> entity_tick()
->          -> resched_curr()
->    -> schedule()
->       -> pick_task_fair() selects the current task again
->       -> put_prev_set_next_task(rq, prev, next)
->          -> next == prev
->          -> return
->
-> put_prev_set_next_task() returns without calling
-> next->sched_class->set_next_task(). Consequently, set_next_task_fair()
-> is not called and does not invoke hrtick_start_fair() to arm the next
-> fair hrtick.
->
-> The same `next == prev` return skips set_next_task_dl() and
-> start_hrtick_dl() when a DL hrtick causes a reschedule that repicks the
-> current DL task.
->
-> Replace the `bool first` argument of set_next_task() with an enum.
-> SNT_NORMAL and SNT_PICK preserve the existing call sites, while
-> SNT_REPICK identifies the next == prev case. On `SNT_REPICK`, fair and DL
-> skip their normal task-transition work because the task is already
-> current, but restart their respective hrticks.
->
-> Calling the class-specific rearm from the repick path also preserves the
-> existing hrtick scheduling rules. The call occurs during schedule(), with
-> hrtick programming deferred by rq->hrtick_sched; hrtick_start()
-> records the new delay and hrtick_schedule_exit() rearms the hrtimer
-> after scheduling completes.
->
-> This replaces the fair specific rq state and runnable count checks with a
-> common scheduler core solution.
->
-> Signed-off-by: Shubhang Kaushik (Ampere) <sh@gentwo.org>
-> ---
-> Testing:
->    - Built and booted baseline 08df884136f1 and v2 with
->      CONFIG_HIGH_RES_TIMERS=y and CONFIG_SCHED_HRTICK=y.
->    - Enabled HRTICK and DELAY_DEQUEUE, set base_slice_ns to 3000000, and
->      pinned two CPU-bound nice-0 fair-class tasks plus a periodic sleeper to
->      CPU 0.
->    - Collected five 10-second `perf sched` traces per kernel.
->
->  Across the CPU-bound fair-class tasks:
->
->    baseline: maximum runtime 5.227ms; 6 samples above 4ms.
->    v2:       maximum runtime 3.386ms; no samples above 4ms.
-> ---
-> Changes in v2:
->
-> - Replace the fair-specific hrtick rearm state with SNT_REPICK.
-> - Restart hrticks for both fair and SCHED_DEADLINE same-task repicks.
-> - Remove the delayed-dequeue runnable-count condition.
->
-> Link to v1: https://lore.kernel.org/r/20260813-sched-fair-hrtick-restart-v1-1-4230d1e18fbb@gentwo.org
-> ---
-> kernel/sched/core.c      |  2 +-
-> kernel/sched/deadline.c  |  8 ++++++--
-> kernel/sched/ext/ext.c   |  5 ++++-
-> kernel/sched/fair.c      | 15 ++++++++++-----
-> kernel/sched/idle.c      |  5 ++++-
-> kernel/sched/rt.c        |  7 +++++--
-> kernel/sched/sched.h     | 16 ++++++++++++----
-> kernel/sched/stop_task.c |  5 ++++-
-> 8 files changed, 46 insertions(+), 17 deletions(-)
->
-> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-> index b998ef6b87af4fa60422fe86b3702c43103ea9aa..90607d2f3a93a59c2227ce9775ce3976054a0b96 100644
-> --- a/kernel/sched/core.c
-> +++ b/kernel/sched/core.c
-> @@ -7221,7 +7221,7 @@ static void __sched notrace __schedule(int sched_mode)
-> 			 * on_cpu.
-> 			 */
-> 			donor->sched_class->put_prev_task(rq, donor, donor);
-> -			donor->sched_class->set_next_task(rq, donor, true);
-> +			donor->sched_class->set_next_task(rq, donor, SNT_PICK);
-> 		}
-> 	} else {
-> 		rq_set_donor(rq, next);
-> diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-> index 0663c00c41c04213fda2ebaf16a0bdf34e0849a8..6c17563f42a1d22bae5fc9f85b75497b6b4faccb 100644
-> --- a/kernel/sched/deadline.c
-> +++ b/kernel/sched/deadline.c
-> @@ -2773,11 +2773,14 @@ static void start_hrtick_dl(struct rq *rq, struct sched_dl_entity *dl_se)
->  * DL keeps current in tree, because ->deadline is not typically changed while
->  * a task is runnable.
->  */
-> -static void set_next_task_dl(struct rq *rq, struct task_struct *p, bool first)
-> +static void set_next_task_dl(struct rq *rq, struct task_struct *p, enum snt_e type)
-> {
-> 	struct sched_dl_entity *dl_se = &p->dl;
-> 	struct dl_rq *dl_rq = &rq->dl;
->
-> +	if (type == SNT_REPICK)
-> +		goto repick;
-> +
-> 	p->se.exec_start = rq_clock_task(rq);
-> 	if (on_dl_rq(&p->dl))
-> 		update_stats_wait_end_dl(dl_rq, dl_se);
-> @@ -2788,7 +2791,7 @@ static void set_next_task_dl(struct rq *rq, struct task_struct *p, bool first)
-> 	WARN_ON_ONCE(dl_rq->curr);
-> 	dl_rq->curr = dl_se;
->
-> -	if (!first)
-> +	if (type != SNT_PICK)
-> 		return;
->
-> 	if (rq->donor->sched_class != &dl_sched_class)
-> @@ -2796,6 +2799,7 @@ static void set_next_task_dl(struct rq *rq, struct task_struct *p, bool first)
->
-> 	deadline_queue_push_tasks(rq);
->
-> +repick:
-> 	if (hrtick_enabled_dl(rq))
-> 		start_hrtick_dl(rq, &p->dl);
-> }
-> diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-> index 51de1d8b72a1ede6d16c07b58defb1284285b8a6..31a300f2d3b202d588ca666d6b8f6d4705ee6c79 100644
-> --- a/kernel/sched/ext/ext.c
-> +++ b/kernel/sched/ext/ext.c
-> @@ -3003,10 +3003,13 @@ static enum scx_dsp_verdict dispatch_one(struct rq *rq, struct task_struct *prev
-> 	return verdict;
-> }
->
-> -static void set_next_task_scx(struct rq *rq, struct task_struct *p, bool first)
-> +static void set_next_task_scx(struct rq *rq, struct task_struct *p, enum snt_e type)
-> {
-> 	struct scx_sched *sch = scx_task_sched(p);
->
-> +	if (type == SNT_REPICK)
-> +		return;
-> +
-> 	if (p->scx.flags & SCX_TASK_QUEUED) {
-> 		/*
-> 		 * Core-sched might decide to execute @p before it is
-> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> index ade1eceb39b806e60e44efe54e33a7097d01d1df..4a83ad97544675d52ca6b296a5e57356da537293 100644
-> --- a/kernel/sched/fair.c
-> +++ b/kernel/sched/fair.c
-> @@ -15245,14 +15245,18 @@ static void switched_to_fair(struct rq *rq, struct task_struct *p)
-> 	}
-> }
->
-> -static void set_next_task_fair(struct rq *rq, struct task_struct *p, bool first)
-> +static void set_next_task_fair(struct rq *rq, struct task_struct *p, enum snt_e type)
-> {
-> 	struct sched_entity *se = &p->se;
-> -	bool throttled = false;
-> 	struct cfs_rq *cfs_rq = &rq->cfs;
-> 	unsigned long weight = NICE_0_LOAD;
-> +	bool first = type == SNT_PICK;
-> +	bool throttled = false;
-> 	bool on_rq = se->on_rq;
->
-> +	if (type == SNT_REPICK)
-> +		goto repick;
-> +
-> 	clear_buddies(cfs_rq, se);
->
-> 	if (on_rq)
-> @@ -15296,11 +15300,12 @@ static void set_next_task_fair(struct rq *rq, struct task_struct *p, bool first)
->
-> 	WARN_ON_ONCE(se->sched_delayed);
->
-> -	if (hrtick_enabled_fair(rq))
-> -		hrtick_start_fair(rq, p);
-> -
-> 	update_misfit_status(p, rq);
-> 	sched_fair_update_stop_tick(rq, p);
-> +
-> +repick:
-> +	if (hrtick_enabled_fair(rq))
-> +		hrtick_start_fair(rq, p);
-> }
->
-> void init_cfs_rq(struct cfs_rq *cfs_rq)
-> diff --git a/kernel/sched/idle.c b/kernel/sched/idle.c
-> index eb73b65ce6c4714db1e07066c86a8cf39adbc328..76f3c84ca6846afc30609fdc512553c6797e9557 100644
-> --- a/kernel/sched/idle.c
-> +++ b/kernel/sched/idle.c
-> @@ -487,8 +487,11 @@ static void put_prev_task_idle(struct rq *rq, struct task_struct *prev, struct t
-> 	update_rq_avg_idle(rq);
-> }
->
-> -static void set_next_task_idle(struct rq *rq, struct task_struct *next, bool first)
-> +static void set_next_task_idle(struct rq *rq, struct task_struct *next, enum snt_e type)
-> {
-> +	if (type == SNT_REPICK)
-> +		return;
-> +
-> 	update_idle_core(rq);
-> 	scx_update_idle(rq, true, true);
-> 	schedstat_inc(rq->sched_goidle);
-> diff --git a/kernel/sched/rt.c b/kernel/sched/rt.c
-> index 85303add726df4c2da846c427aab2d627fca9589..1535046a23ffa0705d90dce301fa4c5b015703a1 100644
-> --- a/kernel/sched/rt.c
-> +++ b/kernel/sched/rt.c
-> @@ -1654,11 +1654,14 @@ static void wakeup_preempt_rt(struct rq *rq, struct task_struct *p, int flags)
-> 		check_preempt_equal_prio(rq, p);
-> }
->
-> -static inline void set_next_task_rt(struct rq *rq, struct task_struct *p, bool first)
-> +static inline void set_next_task_rt(struct rq *rq, struct task_struct *p, enum snt_e type)
-> {
-> 	struct sched_rt_entity *rt_se = &p->rt;
-> 	struct rt_rq *rt_rq = &rq->rt;
->
-> +	if (type == SNT_REPICK)
-> +		return;
-> +
-> 	p->se.exec_start = rq_clock_task(rq);
-> 	if (on_rt_rq(&p->rt))
-> 		update_stats_wait_end_rt(rt_rq, rt_se);
-> @@ -1666,7 +1669,7 @@ static inline void set_next_task_rt(struct rq *rq, struct task_struct *p, bool f
-> 	/* The running task is never eligible for pushing */
-> 	dequeue_pushable_task(rq, p);
->
-> -	if (!first)
-> +	if (type != SNT_PICK)
-> 		return;
->
-> 	/*
-> diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-> index e656c7059bf864d1ed91d4ec3d4624850aded7e0..defcf7fd023fa5bb3c34c3c29f99afe3c42a87de 100644
-> --- a/kernel/sched/sched.h
-> +++ b/kernel/sched/sched.h
-> @@ -2621,6 +2621,12 @@ struct affinity_context {
->
-> extern s64 update_curr_common(struct rq *rq);
->
-> +enum snt_e {
-> +	SNT_NORMAL,
-> +	SNT_PICK,
-> +	SNT_REPICK,
-> +};
-> +
-> struct sched_class {
->
-> #ifdef CONFIG_UCLAMP_TASK
-> @@ -2678,7 +2684,7 @@ struct sched_class {
-> 	 * __schedule: rq->lock
-> 	 */
-> 	void (*put_prev_task)(struct rq *rq, struct task_struct *p, struct task_struct *next);
-> -	void (*set_next_task)(struct rq *rq, struct task_struct *p, bool first);
-> +	void (*set_next_task)(struct rq *rq, struct task_struct *p, enum snt_e type);
->
-> 	/*
-> 	 * select_task_rq: p->pi_lock
-> @@ -2781,7 +2787,7 @@ static inline void put_prev_task(struct rq *rq, struct task_struct *prev)
->
-> static inline void set_next_task(struct rq *rq, struct task_struct *next)
-> {
-> -	next->sched_class->set_next_task(rq, next, false);
-> +	next->sched_class->set_next_task(rq, next, SNT_NORMAL);
-> }
->
-> static inline void
-> @@ -2802,11 +2808,13 @@ static inline void put_prev_set_next_task(struct rq *rq,
->
-> 	__put_prev_set_next_dl_server(rq, prev, next);
->
-> -	if (next == prev)
-> +	if (next == prev) {
-> +		next->sched_class->set_next_task(rq, next, SNT_REPICK);
-> 		return;
-> +	}
->
-> 	prev->sched_class->put_prev_task(rq, prev, next);
-> -	next->sched_class->set_next_task(rq, next, true);
-> +	next->sched_class->set_next_task(rq, next, SNT_PICK);
-> }
->
-> /*
-> diff --git a/kernel/sched/stop_task.c b/kernel/sched/stop_task.c
-> index c909ca0d8c87c1055ad5ffe58ae9f044194ee358..1e0109ec36b3f9b84f6f7290e584e38257db701c 100644
-> --- a/kernel/sched/stop_task.c
-> +++ b/kernel/sched/stop_task.c
-> @@ -27,8 +27,11 @@ wakeup_preempt_stop(struct rq *rq, struct task_struct *p, int flags)
-> 	/* we're never preempted */
-> }
->
-> -static void set_next_task_stop(struct rq *rq, struct task_struct *stop, bool first)
-> +static void set_next_task_stop(struct rq *rq, struct task_struct *stop, enum snt_e type)
-> {
-> +	if (type == SNT_REPICK)
-> +		return;
-> +
-> 	stop->se.exec_start = rq_clock_task(rq);
-> }
->
->
-> ---
-> base-commit: 08df884136f1c1197bab2a27814404fd329d9aac
-> change-id: 20260813-sched-fair-hrtick-restart-ab9d3d47ef78
->
-> Best regards,
-> -- 
-> Shubhang Kaushik (Ampere) <sh@gentwo.org>
->
+ 	if (DIGITAL_NFC_DEP_DID_BIT_SET(pfb)) {
+-		if (ddev->did && (ddev->did == resp->data[3])) {
+-			size++;
+-		} else {
++		if (resp->len < size + 1 || !ddev->did ||
++		    ddev->did != resp->data[size]) {
+ 			rc = -EIO;
+ 			goto exit;
+ 		}
++		size++;
+ 	} else if (ddev->did) {
+ 		rc = -EIO;
+ 		goto exit;
+
+base-commit: df2908090cda368b01ff43709f51890076c56157
+-- 
+2.55.0
