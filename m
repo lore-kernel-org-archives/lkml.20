@@ -1,36 +1,39 @@
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48C123ED12C;
-	Sun, 13 Sep 2026 12:51:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 172E63E7BD5;
+	Sun, 13 Sep 2026 12:51:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789303912; cv=none; b=DigI6pstT/lFeqBNxqZAD1PsZ0GogOeIGvqwEWvs3hPiCop8EZIf1XESKUmo7Tx721m+g9nH+vWa1H0v+UXIAzq88vzTLmDfMp8sexexKzIEgI3bJMT/EpJkeaybn2y+1zWnHdJwYdJs50bUWB/CogAjeF/QMfJ2stf7zGiGeko=
+	t=1789303919; cv=none; b=WCldf6If1E7yd+M5zgt3k5G18GpRVlOIyCk2x1/euGqP33QMuApK73ac4BJqXFUKoMSfI4f6sn/IrXwziQR6DqE9UvqdAbAllmF5e6RObWhCSdLKo0FBO5iWPQs9GOsntV/AzQondSmWrk72wzqOW4M9LComuRdDkOGaNpAGC+c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789303912; c=relaxed/simple;
-	bh=I0abtY63JnHqUWf39GYDy9cvT7uvAL0KviaHu7OuF+U=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=sXMTnZZr33WaxI9twEFP478mZJkg8sNw1IlEpSQVXC0fsJlGhomOSpUVB9mJXwTtzmCMSG7PKJe3Uxuw0+R1O17zQXDHIi7AHcbIj/EwVSnA6eUsqbmUZ3Zrsmku5hpnI70IQRMrM1jS9D0FCuvm40WOvk11DrLgLb3HC6G1daU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=SAUv33o3; arc=none smtp.client-ip=45.254.49.198
+	s=arc-20240116; t=1789303919; c=relaxed/simple;
+	bh=riYrgpzHhFEYawaU+5OhhYaybakuN9aQOyyqCURQOeU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=H9fc5lo4Z0Xhbs4b/IA/+s624QdeHoWk6UFSZk3iv6a4UUwU92cf4BVDV1L+ujaD9nvToH8KPdUj61gdaK/T9in62dXzmWO9HZclCGsd0MuA3lmYi7TM3clJ/sH/oEEHWiukJHxsrWfgCRm2rtFwCFUWSIUxQOl1f2IccjkKPKc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=IJGU6Iv2; arc=none smtp.client-ip=101.71.155.101
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="SAUv33o3"
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="IJGU6Iv2"
 Received: from seu.edu.cn (unknown [58.241.16.34])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4d907a3de;
-	Sun, 13 Sep 2026 20:51:45 +0800 (GMT+08:00)
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4d907a3e3;
+	Sun, 13 Sep 2026 20:51:49 +0800 (GMT+08:00)
 From: Slavin Liu <bolin.liu@seu.edu.cn>
-To: herbert@gondor.apana.org.au,
-	davem@davemloft.net,
-	nicolas.ferre@microchip.com,
-	alexandre.belloni@bootlin.com,
-	claudiu.beznea@tuxon.dev
-Cc: linux-crypto@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
+To: shengjiu.wang@gmail.com,
+	xiubo.lee@gmail.com,
+	lgirdwood@gmail.com,
+	broonie@kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com
+Cc: festevam@gmail.com,
+	nicoleotsuka@gmail.com,
+	linux-sound@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
 	linux-kernel@vger.kernel.org,
 	bolin.liu@seu.edu.cn
-Subject: [PATCH] crypto: atmel-sha: reject initialization without a device
-Date: Sun, 13 Sep 2026 20:51:43 +0800
-Message-Id: <20260913125143.109897-1-bolin.liu@seu.edu.cn>
+Subject: [PATCH] ASoC: fsl_asrc: check the second front-end DMA channel
+Date: Sun, 13 Sep 2026 20:51:47 +0800
+Message-Id: <20260913125147.109920-1-bolin.liu@seu.edu.cn>
 X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -39,41 +42,49 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa09ad2db4903a1kunm3fb934b6251186
+X-HM-Tid: 0aa09ad2eb5603a1kunmc05ba738251195
 X-HM-MType: 10
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDTEtJVkIYGR5LSEpOQh1OHlYeHw
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaQ05IVh1JHh9LQkpNT0pMSVYeHw
 	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSUhOQ0
 	NVSktLVUtZBg++
 DKIM-Signature: a=rsa-sha256;
-	b=SAUv33o3N0M2U3MEQ98jrETLPHgCQDktyroJKoOmzGE2qUrUNNC0WZKZ8CCEk86B5mH8PdpflSDu3D+i6ybXeDT3USPuWvgPW6UC0gnAsj8kcfgQmj+PyzYfjEQNpkwPwPEuHwUVkTiB9DqAZalEsfjlnoH7otGwZQQrPIv7/DI=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=u56UvOMtNFwTEkpB4tij+Y0DkppGFXqA7XZx7fKlDwA=;
+	b=IJGU6Iv2fDiCoypE3ydVz26ysPVKCITlLQ2LgIxat9Vi3XD5bRfrMbQBxGBxMgLU0pxntXotkixwohL6gm1iz32g0XnjGsOFcPvSCtU5pgMcmF2oTNF2GKkz7fG32YrmqtHaf3m4evE1fRHifuK22+DtnRrXulHAiGdTVIrgt+o=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=ZaG9JvtDZPtzu7/Su7H2CZKbMYzj3xJ6fua1r0x0Bsk=;
 	h=date:mime-version:subject:message-id:from;
 
-A transform may be initialized for the first time after the last
-device has been removed from the driver list. Return -ENODEV when the
-lookup is empty, before the debug message reads dd->dev.
+The temporary Front-End DMA request can fail independently of the
+persistent channel acquired earlier in fsl_asrc_dma_hw_params(). The
+returned NULL pointer is immediately used to read its private data.
+
+Check the temporary channel and release the previously acquired
+persistent Front-End channel on failure. Clear its slot so a later
+hw_free cannot release it twice. ASoC marks a component's hw_params
+only after success and skips unmarked components during rollback, so
+returning an error alone would leak the earlier channel.
 
 Detected by static analysis and reviewed with AI-assisted source auditing.
 
-Fixes: ebc82efa1cd6 ("crypto: atmel - add Atmel SHA1/SHA256 driver")
+Fixes: 3117bb3109dc ("ASoC: fsl_asrc: Add ASRC ASoC CPU DAI and platform drivers")
 Assisted-by: LLM
 Signed-off-by: Slavin Liu <bolin.liu@seu.edu.cn>
 ---
- drivers/crypto/atmel-sha.c | 3 +++
- 1 file changed, 3 insertions(+)
+ sound/soc/fsl/fsl_asrc_dma.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/crypto/atmel-sha.c b/drivers/crypto/atmel-sha.c
-index 48f54b615504..d2338e731d56 100644
---- a/drivers/crypto/atmel-sha.c
-+++ b/drivers/crypto/atmel-sha.c
-@@ -422,6 +422,9 @@ static int atmel_sha_init(struct ahash_request *req)
- 	struct atmel_sha_reqctx *ctx = ahash_request_ctx(req);
- 	struct atmel_sha_dev *dd = atmel_sha_find_dev(tctx);
+diff --git a/sound/soc/fsl/fsl_asrc_dma.c b/sound/soc/fsl/fsl_asrc_dma.c
+index 2f662bdf14d0..64f2b0612274 100644
+--- a/sound/soc/fsl/fsl_asrc_dma.c
++++ b/sound/soc/fsl/fsl_asrc_dma.c
+@@ -248,6 +248,11 @@ static int fsl_asrc_dma_hw_params(struct snd_soc_component *component,
  
-+	if (!dd)
-+		return -ENODEV;
-+
- 	ctx->dd = dd;
- 
- 	ctx->flags = 0;
+ 		/* Get DMA request of Front-End */
+ 		tmp_chan = asrc->get_dma_channel(pair, dir);
++		if (!tmp_chan) {
++			dma_release_channel(pair->dma_chan[!dir]);
++			pair->dma_chan[!dir] = NULL;
++			return -EINVAL;
++		}
+ 		tmp_data = tmp_chan->private;
+ 		pair->dma_data.dma_request2 = tmp_data->dma_request;
+ 		pair->dma_data.peripheral_type = tmp_data->peripheral_type;
