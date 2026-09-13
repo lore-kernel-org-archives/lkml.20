@@ -1,73 +1,77 @@
-Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com [209.85.222.180])
+Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6873F1DED42
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 02:06:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50F8028D831
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 02:14:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789265168; cv=none; b=q4/TgifR7Cm4wdq+MszoqZp4LPym6vRAlpugqo8zT6tmMgxjiYXQ9BE129a125KiL1OdW9VK4mHZ4NUVoFqYv+1gXNWrV6WfxZgy9DEBCgx+nGkg+gvbVD4/vU2av4qnIKWma4q/9CDxUUKTSXhN4La41m/z9YTRJ2JcT9U118c=
+	t=1789265645; cv=none; b=FnBTwk/KXvKLgYJcZt1LTXNzJiba9/Y2bmwy0Ob6Q9tv8nnZ2KzgEvykIOIFI9ow/I1DtGMtSTtJ83y5cVkh7jsHSuDHO7wz3H3x4FTsQjn9uw7lHv12jZNFUmNbZbmTik5qPMLI6EK4lQ7A7TNmxONMkfWm/bOg92IQPmJhyd8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789265168; c=relaxed/simple;
-	bh=u9GSM0aa+VAK9DTcZDNOH2O9K7tKZbEzTahPzC8uM54=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BYuhKkTkighCJlr/TlKVRPsx4OdjHGw/PcA8Y7uflkIHCxVYnS7uVG647MPnCUpcYb478qt/rH2I3kH+Utdq3Tirp2Zahgwed3MAE3NdoSfGPRbogKil7krQsuRkVaubyGOfSXrIAYcnOwfeP11PD+vMDaG09OFXtt/QOV4x+jI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TwzkJS4u; arc=none smtp.client-ip=209.85.222.180
+	s=arc-20240116; t=1789265645; c=relaxed/simple;
+	bh=+0JcbwgDBAnCe37S1lbW1di/g8nThyfXp0uPh67aoJA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ou+fj/4bdCx5GK8v0n3d2uc2lhtVYLfEKTrBDGkrLBmmCMhCjipE5vpd0xS3TvyPpGz0o0D8RG+GSsJR92wD42Db5ZcKbjo1tw5L3r5gxMpUvRkAGM2nXCG5rP3jnm0TeeEY+AzW0R9Hundm/N3YrRoD1EXN6gIrEYFUTO4UM4A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ptsTaoOg; arc=none smtp.client-ip=74.125.230.205
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TwzkJS4u"
-Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-93a14f434aaso8069085a.0
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 19:06:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ptsTaoOg"
+Received: by mail-qk2-f13.google.com with SMTP id af79cd13be357-93a0fd41a7bso53796385a.1
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 19:14:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789265164; x=1789869964; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789265643; x=1789870443; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tTjkICk3Y9ecBJSXUR8cu0YE3Z/N5m7EH1Ek0T2d8Cs=;
-        b=TwzkJS4unH+P2Gd3OizBqc6M13Nio4Fw5S+pFUF169VT02oqVyPU2tjbTrTdBPoofT
-         eIEa1izz33Y94nuI311CE7Z2iAT6qkcswwzAs6oPEAr95s1bLrSqPh8+B6CO40wC5ech
-         iUTfWxLLtmMDDMBmDCznGWQn1I5liNUk8Agv9S2kfqXmF8XgN7V9YsHBd4d7s01wgNqj
-         Famhz/LF9LL13WjO/s02xcAJO99gmoNdwdTT3xE7DP1K1aJDNKDpwTEvioLZG1cNpFPX
-         pbzO9/HynbyjY4yFJxduMN+Y42Fsxdr2WjeBVVuHrtKdF3acnJ28A4XGI+WD7F4F7yCt
-         5DZg==
+        bh=88ICzwtScsGBN29oTXuL8hAaTuiJVGtZYlaw6P8iREg=;
+        b=ptsTaoOgWBFz21BIqyw2zsxvI+XBkXCYeB1zkpDXlZ87Uhv4zQJinlkUe/ReTPUYsU
+         yo1mv/fDtq++xQ+G7cG7xkCfqYaEOf/TrFnUwjTow/tmlNvQ0JauY8ZqVDwEiCrpHoqw
+         U8tK8dSwItuiutFGjU8nTLHN3wYYNWHrTtYHiHXLRkJ7hAbxzwbdVZTXX09j9H2yypU0
+         tNLs5OykV0qL+Bjvtz2FBsfmbLoxVHd3iR4RETuPMYJlinK/w07IF5WB7+Yoym/F48Gv
+         DN+1DhBqew6V9aJbfu7SWZin3nshKS5VpqcvbmltIwrGx8NCX7H008H47weSdidA8AG0
+         D2zA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789265164; x=1789869964;
+        d=1e100.net; s=20251104; t=1789265643; x=1789870443;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=tTjkICk3Y9ecBJSXUR8cu0YE3Z/N5m7EH1Ek0T2d8Cs=;
-        b=IjSx1SiG2t9a6B+MKVogSLu1jjD99NDCngMmiS+d5ONuLDP2Mon8x8LQa4dyaK4a5l
-         MSb68zDfpwJFyhChYOkW8UfTdPg1GvjUp2oT1u6R/FrhiQBKe6NxdiZLw/VvOmktPQu/
-         Lylf7HWdn03p7B2HWeXjiYYev6I8+dfEDr9PQbVaLPJ4ESFzmC2adxqTab57/H3SoGjr
-         fOHuPFz7Wjda+s6MLqDuNCaEE708TiUdu2byntcWigenlzZxhrwv2FtbM4M9dI2+47w8
-         F/AurI6PFFJ6UezrCs2B0Il5Z9OZBwEQNIYqRwVgpMIoHLyG9Yu71nuMc9hNgip5D9lw
-         aLLA==
-X-Forwarded-Encrypted: i=1; AKwUvBzgsOa6Q9GDoy5sqIjIgsycqct2oaXlwX2Dlg3FPrjE6MaOayalabam2jvdx8yLQNo0/YNNRyU4zPtSeAM=@vger.kernel.org
-X-Gm-Message-State: AFuF++mWibJFZByyJdrU+pHiDR9BVZqLekPVvim6FWdw1squX4tTfxoT
-	lwuKVwQImc9ZffyPvr3v7z+QikAP3wQY7Fi2WJ+E8jfOGbuFwWhWDCNYqkgKrMheIA==
-X-Gm-Gg: AYBFou2OrTNkkux2cNvngMJDAsPjhdS34ZH+8LkQ1LN9dXcKO5wGRGEhTo35/O2AfJy
-	Y/kPUdfR/6ibiVEk+BZjOeiu5FsG/9kbbXLwUIq2ueOj1Mf4nkAvxSyN1vRL3u/0h55rD/s6SPj
-	4al3u1FQjQ78R+7lBbIQXP333yMFF7rClL7/ga3pvGkxUinxUd4IBbwcoifgUir3LRaz1ICiBFm
-	zmo4JZxqvEoew9VZpoZp46AQWhL/gaYONVhf63uemgAkz270R0Y7K5otiOLSPj7JxY0nL11bbm3
-	4YsqG9+PTMZzhaumJL0HXZlplm9U5vANpFtcQg+eceRQUdgUXJCO33J9SNLfVndOTjWoqQ7mEEG
-	P9EIWimODYnHJcLduA0P+JEB0DAiyYON1gA+xCZj9x0DGPl+u2qEKoF6LunKNg27raLKZwQiqt3
-	HDlSigLJmoHNqI/cUN/i/pWRWMw69BDVQDHrMR/waEQwaz+F5QgZp4sYCTXkFwN+34W00MT5rNb
-	q6i8UQrn0G29mWCLBdzC9JXQldZPnF0XQ9ORjzkobOt2GEayyDeiT7yOaU01Ytv+rXe2GEdWzEu
-	W3dO6QEtk7KADSZ8GplwKo6u1aO3r6Pjjw==
-X-Received: by 2002:a05:620a:6191:b0:939:3b56:c416 with SMTP id af79cd13be357-939ea0e6c8fmr1489184285a.8.1789265164106;
-        Sat, 12 Sep 2026 19:06:04 -0700 (PDT)
+        bh=88ICzwtScsGBN29oTXuL8hAaTuiJVGtZYlaw6P8iREg=;
+        b=Z+FFf1KpmjRRZ1oLW9LmeRzd+5sq97JBEJ5c82dxy5h94FjisEWbL/r+9oC19ygueE
+         DNdakAu+18i5qPse4K8sQyiiVhek4m4XEl6RcW1vZlpfqaYc2P80DuMjZf8uluES4Paa
+         q5ReVyVpuMhn8sz14V7Zp/Utud65lsUDntmi0mCZDmJ14912z+/NfZz69jSc2NOPIhka
+         UF5Xz4zlVFM0J8+LoiKA0a8LNug82cmBoyBBSj6j/8G2M0+S9YuoKEiRqqDh6aTRY2xz
+         8h/ziZCycsZdMyQrE5VHyK2lR44OMjwjWsgODg5pnvfTyyCYop8Duo8gE8hoH1/JrRGV
+         kvsg==
+X-Forwarded-Encrypted: i=1; AKwUvBxtoj8fcut2VelrPzma2NX51+Z1aERBkpi+mmRwy+mseVBmeaSmatqqM5KNmyWXr2u4oIAp2zuK/7+vzZc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lZBFKzCFiaEgi3Y0FLzQIH3w5+B66cFIris78WObrweqNVVJzf
+	BNn1mDsvOjjJ6lttmEjS7rYzC6y+aecES65gYYWltKK/nZWQhJHy6Fw=
+X-Gm-Gg: AYBFou3HSniL2FEhxcdde2NsIZ5fa2ZPW+3I1i2M7IHpjuB6NKbvTkYc5nSlqlPpY93
+	DUMUtPTkLmEXMgrpEc7GF/zcdmNJTfqCeYTwB4f6r+ogwm9lp2A6tjjZNef/JZIC4EdaTq/XKYL
+	1Vxi6afJpR6w2GDmqXIKSmxLF8Zr4aDE5S+cUs7YVcTSyv5RxO2hjDbm1JPTR0Zq/5mctC3r6eR
+	ZXmBB2mbLCU2hkU/rTQHnCjAiPwNfl0m5Aobvlm8nttMKQW82II6IiuE3WErvZndZACkOTCA7T2
+	mqM66fETOrKEYHE9+jkdHHx43XifwWNzxYMMgFZLqnPK9vyCaWBtuhAT/ToTh9NUvOzSzX56D29
+	EvDXmeEz7EHV416ayTrn8M8qCyB/sd5+nXBWAdkKwQQlb7bzF7zdYfsiUtzJoQ/By2urgsqQX79
+	egxnUS3cHOWzH46h67favFQynXQUunmB7Nj5mwopOwYDa8ArPlWj5/PYR5YAZBatIvPDwV9QP2Q
+	r5DlzGRhlAPQ+sOxgkIXwRSYYXkBnTWytxIhlKQSrNnw4AW6jaCyKqdwpssWwhjazfU6tGtTGDa
+	Hh9gxv3GwVoQFhOVG1LkLN2xhxqWujK41w==
+X-Received: by 2002:a05:620a:838b:b0:939:9bcf:8d35 with SMTP id af79cd13be357-93a03886412mr757341585a.35.1789265643185;
+        Sat, 12 Sep 2026 19:14:03 -0700 (PDT)
 Received: from localhost.localdomain ([104.39.73.78])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-939ed67a93dsm540462185a.43.2026.09.12.19.06.03
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-939e8045d9fsm629778085a.19.2026.09.12.19.14.01
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 12 Sep 2026 19:06:03 -0700 (PDT)
+        Sat, 12 Sep 2026 19:14:01 -0700 (PDT)
 From: Myeonghun Pak <mhun512@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
+To: Srinivas Kandagatla <srini@kernel.org>,
+	Vinod Koul <vkoul@kernel.org>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	linux-sound@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH] media: cx23885: unregister DVB bus when SP2 CI setup fails
-Date: Sat, 12 Sep 2026 22:05:54 -0400
-Message-ID: <20260913020554.55506-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.47.1
+Subject: [PATCH] soundwire: qcom: quiesce runtime PM before removing bus
+Date: Sat, 12 Sep 2026 22:13:56 -0400
+Message-ID: <20260913021356.60079-1-mhun512@gmail.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -76,80 +80,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The DVBSKY S950C, DVBSKY T980C and TechnoTrend CT2-4500 CI paths register
-the DVB bus before attaching their SP2 CI client. If that client cannot be
-created, bound, or pinned, the current error path removes the I2C frontend
-components and only deallocates the frontend list, leaving the registered
-DVB adapter behind. Removing an I2C demod before unregistering the DVB bus
-can also expose the use-after-free ordering fixed for the normal remove
-path.
+Qualcomm SoundWire controllers enable runtime PM after registering the bus,
+but remove tears down the bus and iface clock while runtime callbacks and
+the main or optional in-band wake IRQ handlers can still run. A controller
+that is already runtime-suspended also has its iface clock disabled, so the
+unconditional clock disable in remove unbalances that clock.
 
-Unregister the DVB bus immediately when SP2 CI setup fails, before the
-existing I2C client cleanup. The bus helper empties the frontend list, so
-the later frontend deallocation has nothing left to release. Keep failures
-from vb2_dvb_register_bus() on the existing cleanup path. Also release an
-unbound SP2 client and propagate the actual I2C creation or CI registration
-error.
+Disable runtime PM first to cancel pending requests and drain any callback.
+Free both controller IRQs synchronously before deleting SoundWire children,
+then disable the iface clock only when runtime suspend has not already done
+so. Record the powered-down state for a later rebind. Bus deletion does not
+require a resume: the Qualcomm master has no put_device_num operation. The
+core disables slave runtime PM before unregistering each SoundWire child.
+
+A pending runtime resume can run while runtime PM is being disabled. Make
+its clock enable failure visible to the PM core and restore the wake IRQ in
+that case, so the runtime status continues to describe the clock state.
 
 This issue was identified during our ongoing static-analysis research while
 reviewing kernel code.
 
-Fixes: 2b0aac3011bc ("[media] cx23885: move CI/MAC registration to a separate function")
+Fixes: 74e79da9fd46 ("soundwire: qcom: add runtime pm support")
 Cc: stable@vger.kernel.org
 Assisted-by: OpenAI:GPT-5.6
 Co-developed-by: Ijae Kim <ae878000@gmail.com>
 Signed-off-by: Ijae Kim <ae878000@gmail.com>
 Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 ---
- drivers/media/pci/cx23885/cx23885-dvb.c | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
+ drivers/soundwire/qcom.c | 27 +++++++++++++++++++++++----
+ 1 file changed, 23 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/media/pci/cx23885/cx23885-dvb.c b/drivers/media/pci/cx23885/cx23885-dvb.c
---- a/drivers/media/pci/cx23885/cx23885-dvb.c
-+++ b/drivers/media/pci/cx23885/cx23885-dvb.c
-@@ -1158,8 +1158,12 @@ static int dvb_register_ci_mac(struct cx23885_tsport *port)
- 		info.platform_data = &sp2_config;
- 		request_module(info.type);
- 		client_ci = i2c_new_client_device(&i2c_bus->i2c_adap, &info);
--		if (!i2c_client_has_driver(client_ci))
-+		if (IS_ERR(client_ci))
-+			return PTR_ERR(client_ci);
-+		if (!client_ci->dev.driver) {
-+			i2c_unregister_device(client_ci);
- 			return -ENODEV;
-+		}
- 		if (!try_module_get(client_ci->dev.driver->owner)) {
- 			i2c_unregister_device(client_ci);
- 			return -ENODEV;
-@@ -1202,7 +1206,7 @@ static int dvb_register(struct cx23885_tsport *port)
- 	int (*p_set_voltage)(struct dvb_frontend *fe,
- 			     enum fe_sec_voltage voltage) = NULL;
- 	int mfe_shared = 0; /* bus not shared by default */
--	int ret;
-+	int ret = -EINVAL;
+diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
+index 55678a30c..35e552cc0 100644
+--- a/drivers/soundwire/qcom.c
++++ b/drivers/soundwire/qcom.c
+@@ -1713,23 +1713,42 @@ static int qcom_swrm_probe(struct platform_device *pdev)
  
- 	/* Get the first frontend */
- 	fe0 = vb2_dvb_get_frontend(&port->frontends, 1);
-@@ -2587,8 +2591,10 @@ static int dvb_register(struct cx23885_tsport *port)
+ static void qcom_swrm_remove(struct platform_device *pdev)
+ {
+-	struct qcom_swrm_ctrl *ctrl = dev_get_drvdata(&pdev->dev);
++	struct device *dev = &pdev->dev;
++	struct qcom_swrm_ctrl *ctrl = dev_get_drvdata(dev);
++	bool suspended;
++
++	pm_runtime_disable(dev);
++	suspended = pm_runtime_status_suspended(dev);
++
++	devm_free_irq(dev, ctrl->irq, ctrl);
++	if (ctrl->wake_irq > 0)
++		devm_free_irq(dev, ctrl->wake_irq, ctrl);
  
- 	ret = dvb_register_ci_mac(port);
--	if (ret)
-+	if (ret) {
-+		vb2_dvb_unregister_bus(&port->frontends);
- 		goto frontend_detach;
-+	}
- 
- 	return 0;
- 
- frontend_detach:
-@@ -2618,7 +2624,7 @@ static int dvb_register(struct cx23885_tsport *port)
- 
- 	port->gate_ctrl = NULL;
- 	vb2_dvb_dealloc_frontends(&port->frontends);
--	return -EINVAL;
-+	return ret;
+ 	sdw_bus_master_delete(&ctrl->bus);
+-	clk_disable_unprepare(ctrl->hclk);
++	if (!suspended)
++		clk_disable_unprepare(ctrl->hclk);
++	pm_runtime_set_suspended(dev);
  }
  
- int cx23885_dvb_register(struct cx23885_tsport *port)
--- 
-2.47.1
+ static int __maybe_unused swrm_runtime_resume(struct device *dev)
+ {
+ 	struct qcom_swrm_ctrl *ctrl = dev_get_drvdata(dev);
++	bool wake_irq_disabled = false;
+ 	int ret;
+ 
+ 	if (ctrl->wake_irq > 0) {
+-		if (!irqd_irq_disabled(irq_get_irq_data(ctrl->wake_irq)))
++		if (!irqd_irq_disabled(irq_get_irq_data(ctrl->wake_irq))) {
+ 			disable_irq_nosync(ctrl->wake_irq);
++			wake_irq_disabled = true;
++		}
+ 	}
+ 
+-	clk_prepare_enable(ctrl->hclk);
++	ret = clk_prepare_enable(ctrl->hclk);
++	if (ret) {
++		if (wake_irq_disabled)
++			enable_irq(ctrl->wake_irq);
++		return ret;
++	}
+ 
+ 	if (ctrl->clock_stop_not_supported) {
+ 		reinit_completion(&ctrl->enumeration);
