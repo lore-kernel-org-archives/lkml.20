@@ -1,24 +1,24 @@
-Received: from mta0.migadu.com (out-48.mta0.migadu.com [91.218.175.48])
+Received: from mta0.migadu.com (out-61.mta0.migadu.com [91.218.175.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFFA724501D
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 07:50:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3759395266
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 07:50:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.61
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789285838; cv=none; b=R8Mia/QeZfBOFAGMMFzerEldtjd2mi7v3uVR4bogP9XKhRkHLD1JAmHCJaoGA58C3xUZrrTGMz4Me6TE8eFQqRKgfzlzg0QpbknUiEZAt0/L5vivv2+hP2/UstL5ANZCuZ9dFB3Vv2/G53bPol0DW9N7xu5MPNDOBvb0iehWJUg=
+	t=1789285841; cv=none; b=pSOjfYWUT5zeJtRcpFzILcB89ESEriSHl1R5Bv37sWpJvP2DMhElshU4SgQ0bDaRKaF8TsnVzoZQ+pvJw42LcMpYkTEYmSlk9RQGGsMNAdQK3xwAZeP6tjo729IGRi3BKJ+XTYRHMOqJVCFaNEpXr1rFLxJLMhwkrVTCNPeXY6U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789285838; c=relaxed/simple;
-	bh=r97CkAnA5MtbGVTEOuO7pGgYupa05O+pT2tzOanAnSA=;
+	s=arc-20240116; t=1789285841; c=relaxed/simple;
+	bh=ARwo1HoRIFtThRQ3jZT9HXeSU/MTLrrFOtVePphPshg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-type; b=EhmA3Pxze42OX5Sy7OeNRda5OMfkCB+iQx5VM6MKdnH4ZctY2O7/3NfCKWpybrAl/UMm6NWIsrgDMD6cuW9o7Os+krHpqnedyd9HxukKJWz+k1WiJJ35EkBCaZweqMosue4awxlNPPfSpshfMn+d2weuhPDc4CzuelUSnz3wMRI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=linux.dev; arc=none smtp.client-ip=91.218.175.48
+	 MIME-Version:Content-type; b=B9Uq9rUe50ye5cVKJCkwzy8AM/z//Z9fVlChz7/L18WRLwzgpX9Wy+ovt5eXgsm7uqU/FLsFkQivM3sp+VBIMmCvxG+chRfz96xVRPktvloWTs1E83OO/iZyYOS73EkzWYHtSPwBm4uAuaL4sZmOgdrvkrHZxino8ur0q0OguI0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=linux.dev; arc=none smtp.client-ip=91.218.175.61
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 X-Envelope-To: linux-kernel@vger.kernel.org
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 4fad34b801982382;
-	Sun, 13 Sep 2026 07:50:33 +0000
-X-Mizu-Trace-ID: 4fad34b801982382
+Received: by mta10.migadu.com with ESMTPS id a7481ebc3d458e63;
+	Sun, 13 Sep 2026 07:50:37 +0000
+X-Mizu-Trace-ID: a7481ebc3d458e63
 X-Migadu-Flow: FLOW_OUT
 From: Baoquan He <hebaoquan@kylinos.cn>
 To: linux-mm@kvack.org
@@ -36,9 +36,9 @@ Cc: akpm@linux-foundation.org,
 	david@kernel.org,
 	linux-kernel@vger.kernel.org,
 	Baoquan He <hebaoquan@kylinos.cn>
-Subject: [PATCH v2 02/12] mm, swap: add CONFIG_XSWAP and xswap fields to swap_info_struct
-Date: Sun, 13 Sep 2026 15:50:04 +0800
-Message-ID: <20260913075014.1732524-3-hebaoquan@kylinos.cn>
+Subject: [PATCH v2 03/12] mm, swap: refactor free_swap_cluster_info to take swap_info_struct
+Date: Sun, 13 Sep 2026 15:50:05 +0800
+Message-ID: <20260913075014.1732524-4-hebaoquan@kylinos.cn>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260913075014.1732524-1-hebaoquan@kylinos.cn>
 References: <20260913075014.1732524-1-hebaoquan@kylinos.cn>
@@ -51,58 +51,117 @@ MIME-Version: 1.0
 Content-type: text/plain
 Content-Transfer-Encoding: 8bit
 
-Add CONFIG_XSWAP Kconfig option for extendable swap device support.
-It depends on SWAP && 64BIT && ZSWAP, since xswap devices are backed by
-zswap, and on SYSFS, which is currently the only way to create one.
+Change free_swap_cluster_info() to accept struct swap_info_struct*
+instead of (cluster_info, maxpages) directly. Extract cluster_info
+and maxpages from si inside the function, and clear si->cluster_info
+after freeing so a caller's error path cannot free it again (a
+double free on the swapon() error path). Also clean up swapoff:
+remove the snapshot locals (maxpages/cluster_info) and move the
+p->max/p->cluster_info clearing after free_swap_cluster_info().
 
-Add three fields to struct swap_info_struct under CONFIG_XSWAP:
-- cluster_vm: the VM_SPARSE vm_struct backing the cluster_info array
-- nr_clusters_max: total number of clusters in the xswap address space
-- nr_clusters_mapped: number of clusters currently mapped (lazy grow)
-These fields enable lazy vmalloc-based dynamic cluster management.
+The new signature will allow the xswap path (added in the next patch)
+to access si->flags and call xswap_unmap_clusters() from within
+free_swap_cluster_info().
 
 Signed-off-by: Baoquan He <hebaoquan@kylinos.cn>
 ---
- include/linux/swap.h | 5 +++++
- mm/Kconfig           | 9 +++++++++
- 2 files changed, 14 insertions(+)
+ mm/swapfile.c | 26 ++++++++++++++------------
+ 1 file changed, 14 insertions(+), 12 deletions(-)
 
-diff --git a/include/linux/swap.h b/include/linux/swap.h
-index 787fe463dcbb..09ecef1b5e90 100644
---- a/include/linux/swap.h
-+++ b/include/linux/swap.h
-@@ -248,6 +248,11 @@ struct swap_info_struct {
- 	signed char	type;		/* strange name for an index */
- 	unsigned int	max;		/* size of this swap device */
- 	struct swap_cluster_info *cluster_info; /* cluster info. Only for SSD */
-+#ifdef CONFIG_XSWAP
-+	struct vm_struct	*cluster_vm;	/* VM_SPARSE area for cluster_info */
-+	unsigned long		nr_clusters_max;/* total clusters in the xswap address space */
-+	unsigned long		nr_clusters_mapped; /* currently mapped cluster count */
-+#endif
- 	struct list_head free_clusters; /* free clusters list */
- 	struct list_head full_clusters; /* full clusters list */
- 	struct list_head nonfull_clusters[SWAP_NR_ORDERS];
-diff --git a/mm/Kconfig b/mm/Kconfig
-index 604c58199acb..e9837c0f5d8a 100644
---- a/mm/Kconfig
-+++ b/mm/Kconfig
-@@ -122,6 +122,15 @@ config ZSWAP_COMPRESSOR_DEFAULT
-        default "zstd" if ZSWAP_COMPRESSOR_DEFAULT_ZSTD
-        default ""
+diff --git a/mm/swapfile.c b/mm/swapfile.c
+index 193b08a54908..25bdb2f2fe0a 100644
+--- a/mm/swapfile.c
++++ b/mm/swapfile.c
+@@ -3055,14 +3055,17 @@ static void wait_for_allocation(struct swap_info_struct *si)
+ 	}
+ }
  
-+config XSWAP
-+	bool "Extendable (virtual) swap device"
-+	depends on SWAP && 64BIT && ZSWAP && SYSFS
-+	help
-+	  Adds support for extendable swap devices (xswap) that decouple
-+	  PTE swap entries from physical backing storage. The cluster_info
-+	  array is backed by a sparse vmalloc area that grows and shrinks
-+	  on demand, avoiding static pre-allocation overhead.
+-static void free_swap_cluster_info(struct swap_cluster_info *cluster_info,
+-				   unsigned long maxpages)
++static void free_swap_cluster_info(struct swap_info_struct *si)
+ {
++	struct swap_cluster_info *cluster_info = si->cluster_info;
++	unsigned long maxpages = si->max;
+ 	struct swap_cluster_info *ci;
+-	int i, nr_clusters = DIV_ROUND_UP(maxpages, SWAPFILE_CLUSTER);
++	int i, nr_clusters;
+ 
+ 	if (!cluster_info)
+ 		return;
 +
- config ZSMALLOC
- 	tristate
++	nr_clusters = DIV_ROUND_UP(maxpages, SWAPFILE_CLUSTER);
+ 	for (i = 0; i < nr_clusters; i++) {
+ 		ci = cluster_info + i;
+ 		/* Cluster with bad marks count will have a remaining table */
+@@ -3074,6 +3077,7 @@ static void free_swap_cluster_info(struct swap_cluster_info *cluster_info,
+ 		spin_unlock(&ci->lock);
+ 	}
+ 	kvfree(cluster_info);
++	si->cluster_info = NULL;
+ }
  
+ /*
+@@ -3101,11 +3105,9 @@ static void flush_percpu_swap_cluster(struct swap_info_struct *si)
+ SYSCALL_DEFINE1(swapoff, const char __user *, specialfile)
+ {
+ 	struct swap_info_struct *p = NULL;
+-	struct swap_cluster_info *cluster_info;
+ 	struct file *swap_file, *victim;
+ 	struct address_space *mapping;
+ 	struct inode *inode;
+-	unsigned int maxpages;
+ 	int err, found = 0;
+ 
+ 	if (!capable(CAP_SYS_ADMIN))
+@@ -3197,10 +3199,6 @@ SYSCALL_DEFINE1(swapoff, const char __user *, specialfile)
+ 
+ 	swap_file = p->swap_file;
+ 	p->swap_file = NULL;
+-	maxpages = p->max;
+-	cluster_info = p->cluster_info;
+-	p->max = 0;
+-	p->cluster_info = NULL;
+ 	spin_unlock(&p->lock);
+ 	spin_unlock(&swap_lock);
+ 	arch_swap_invalidate_area(p->type);
+@@ -3208,7 +3206,9 @@ SYSCALL_DEFINE1(swapoff, const char __user *, specialfile)
+ 	mutex_unlock(&swapon_mutex);
+ 	kfree(p->global_cluster);
+ 	p->global_cluster = NULL;
+-	free_swap_cluster_info(cluster_info, maxpages);
++	free_swap_cluster_info(p);
++	p->max = 0;
++	p->cluster_info = NULL;
+ 
+ 	inode = mapping->host;
+ 
+@@ -3575,6 +3575,8 @@ static int setup_swap_clusters_info(struct swap_info_struct *si,
+ 	if (!cluster_info)
+ 		goto err;
+ 
++	si->cluster_info = cluster_info;
++
+ 	for (i = 0; i < nr_clusters; i++)
+ 		spin_lock_init(&cluster_info[i].lock);
+ 
+@@ -3638,7 +3640,7 @@ static int setup_swap_clusters_info(struct swap_info_struct *si,
+ 	si->cluster_info = cluster_info;
+ 	return 0;
+ err:
+-	free_swap_cluster_info(cluster_info, maxpages);
++	free_swap_cluster_info(si);
+ 	return err;
+ }
+ 
+@@ -3857,7 +3859,7 @@ SYSCALL_DEFINE2(swapon, const char __user *, specialfile, int, swap_flags)
+ 	si->global_cluster = NULL;
+ 	inode = NULL;
+ 	destroy_swap_extents(si, swap_file);
+-	free_swap_cluster_info(si->cluster_info, si->max);
++	free_swap_cluster_info(si);
+ 	si->cluster_info = NULL;
+ 	/*
+ 	 * Clear the SWP_USED flag after all resources are freed so
 -- 
 2.54.0
 
