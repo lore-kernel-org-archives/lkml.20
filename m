@@ -1,68 +1,136 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46B433BED30;
-	Sun, 13 Sep 2026 22:24:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0C553C3F70
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 22:26:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789338290; cv=none; b=qcehWog7MWdne3QpphG2/i8XjZr8qwVTr59oG2TjLkz0RL5lZYvZHFsl9naDgWAq9RNqJGvi2h9r+UX+IFGPRceuoK5QOdTjCs7jeYTSzNCdxTn2oDmlvOTF/7bVUCpcO4IDGok09WnWTFs/1M59TmOz+Fo0/Gfjil6v+LK4bFg=
+	t=1789338377; cv=none; b=V7V0Vu4TQSTzGEA6pqwPg9QpfHyHBhHBuqG4h3m8b7oz094tQUqWCDAeRf4qxR5wQXMNQNF2k5QMXDocS6PDDo1AUC06N986nsVkjOJQqOgk/FYiMA11A8E6l1mG+ziKdh6l9CB3sN3w7N7PSY2SZwPz+gxWtR0tpGNXjqOwkgU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789338290; c=relaxed/simple;
-	bh=dI+f8O9QJj9/7Win8a1o39BX41OjU3pzeerrRwwfN3A=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=aKqImUNgXfeeomdIjb1CIX0yekSZPniaDZKYiNKRZnkUUq6J32eWMnX+Lj73kamvU8Vwn0BZSnbRl/UXr/5JKCnTW1dBJFomqYUL9/h05sX1L5ZCiYe2eaZEQpFlcb7HBLBkUgDmm6ra3vCUaTXP2ZhFX2nRKzTnC9tiKrw313M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WV+wix6y; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789338377; c=relaxed/simple;
+	bh=i4YZGM44oygpZKjmquq516DY4tyVYynZe6c5RsccAYc=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type; b=KebHZPEuML8DTwQCTJQcY7HNsya4N9SlLPeAzZlY81i5wtwta70fIRuL4bTn8jCX8vntDokhtXVWJNeiknLqXfCweruM4Bn7IMIcMkFLvZHKzE7ux39ZuF33kor70KK2PL0Wy9+D0ESOmRNEOWY8KEKWGKryeeO7zKgnuX1rmdM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OIB6fxEV; arc=none smtp.client-ip=74.125.224.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WV+wix6y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 421261F000FF;
-	Sun, 13 Sep 2026 22:24:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789338287;
-	bh=dI+f8O9QJj9/7Win8a1o39BX41OjU3pzeerrRwwfN3A=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=WV+wix6ymwJdIc7z2GCEV37buhwJoWDa4+AEQ1ypSF82SQZRw9nmcPFWUF0cJaP4b
-	 zijRiY5BtkMpKUCKqTrjn1ArHbOMWtiuAHonNZQUUQtilPi79hlwZ8ToWt+FbRtZcg
-	 tErA7DAWuaa1ay2JMKx74sOoc5a7XUonx1tW8QxMgJPihFknVl737SCq44o+vxxhWd
-	 QqXxTdr0hGjrb+3kMky1q24r5JsRNaSbUHHCSAYzdvo7RO7ruzaly0QjX9DFbTaQnZ
-	 ysqpG1XqO+4TUiG6xXUiYTmgjmydGFQ0S99tOUd5MeFI2pAmu/s3xJCmVQ0YXdg4l1
-	 AuF9EdlnaVpww==
-Date: Sun, 13 Sep 2026 23:24:40 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Javier Carrasco <javier.carrasco.cruz@gmail.com>
-Cc: Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, David Lechner <dlechner@baylibre.com>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>
-Subject: Re: [PATCH v9 0/4] iio: light: add support for veml6031x00 ALS
- series
-Message-ID: <20260913232440.42fc1e7d@jic23-hlaptop>
-In-Reply-To: <20260907-veml6031x00-v9-0-8c93a6c66a4d@gmail.com>
-References: <20260907-veml6031x00-v9-0-8c93a6c66a4d@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OIB6fxEV"
+Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66e4aae3149so1020177d50.2
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 15:26:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789338372; x=1789943172; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=qDlMjyWVJM1DT/C9g4soY8KmIZt5frD9TDK7DVcZsGI=;
+        b=OIB6fxEVb73dx5FEDZD2mdPAt3+AdUyxMR26oT4NOoTifzAvfRqq4e3iiz6Isyzrp/
+         lO4LJo0ilSpa3qsAiS0LHeWPmTfAM7aB0beaszKV2FtOZFTgjXihwswOUNAXrJNN2ljS
+         0sabefM4JMj3aE/jezoi5T5X3HhQMsqBPcsKwn/Yqd4I6L8CoB7sXdGuu+nUsDPP3Ij7
+         2Osbj+jmmGkYfloaDv6/5LCVURZNA4Z1eXYJ+6jnObSD1MCi9xz0UyrJJLCWMC+mcHta
+         IONaCjPQjmQ0ga3NKPSmWj58VGwPZyLqYkhLuJR+177tOtuNMFDRe7Ae2Xh2/2o2fkd1
+         MuVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789338372; x=1789943172;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qDlMjyWVJM1DT/C9g4soY8KmIZt5frD9TDK7DVcZsGI=;
+        b=GWv2GgwrlLXP2DyUkQuhdbOH9vO3welcfMIeueM7jtFrOpu8RG6zMKXNtpTmMnECZD
+         4ZE+tdfyML2THJPiM2xNMPwQ0ihwNbA5oADDXd120WJ/F/Lko5AF+Mjf66z4KFE1Da1H
+         JD0Pz0DKJP6AvX3r5jbOyu4gyvW/X1IfwwXLXvJwf89joygEUz1fmG/98XyHx1wLt1tB
+         PhqZa/0gA+VGeQxLkZHWDHfDmuRhjTHnbU36Hr3S86s50nS3SHbAHZA6NXq7qI+qveLp
+         m+jGAUY5oY58oia6LVkwjAtKT7loJcCWaAjo5CzlzS6htrwIWbvJRdwbJqGX/NfS5/uP
+         4unw==
+X-Forwarded-Encrypted: i=1; AKwUvBw+XM0J1czWUT2+RIzWsvajmWttnNlRkanibpoN+e6tBFXOGaWXYWKHmz9imwXzuzVPE29P0B3Oy5htk+c=@vger.kernel.org
+X-Gm-Message-State: AFuF++nM5wuBu3xdIeV8ikNtjL9HChNeTDyCfmGZPwVuK+erFLJMwsET
+	/wuISgSfzLd+JS5bA1sth1af/0s59ftspuU2valva3C8rFLuFUdhRS+H
+X-Gm-Gg: AYBFou2xxxLYhZIpYM3nxzZcgbdXbkNHYQIwZXN6JVA7NZ+kgyVIQgF+MZ9kB2+CsPz
+	T+4B1IMeids68hEYql3lUytlFvOH+h8xd2cPPl4DyfoQkd+nvCrnASn/k9mEUxklr/LQzZKsa2I
+	M0n46HqGtGTLYZQ7VWTULda6ITVCcZb6yFWNnBvSJF1/odI1he37wD9Kc76ab5dvFKSe8BsU6PB
+	CGPkmkrZStXNa9IXaOy0iAkMgMuoqIr+gV/Q9Dy//3DSUX4bDfhhIeymbqHZusHkH3Pau2Mi6q5
+	fABMUugl7reGGGWR6JtTqSMtrQ7T9YZxF34WzwPn3zO37CWCE36XrMeAb11mIRhtcBcApSxgTaR
+	wI23aggeJ3rZ+5nwRu76L+WcgVedI+b2qMTGRRul2YCM9Jxj3U9xTg/P0SdL2bOkKfT6fu6nLe+
+	Y9HLtI8mVGW/F1+5TBQSAilPWslz5BaGc72O0XL2fkT+CZ9+ubYlz+8nsgENuFKCVoG5WYWZdW7
+	05OLdKuFzv2eY1qLJN7cWE+opVCc0qSZzVIbFXTnTTPB/CxUSUnLErgP925VK8=
+X-Received: by 2002:a05:690e:4892:20b0:671:1c74:666b with SMTP id 956f58d0204a3-6712454baf2mr4000584d50.3.1789338372220;
+        Sun, 13 Sep 2026 15:26:12 -0700 (PDT)
+Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67125eb1567sm3728689d50.21.2026.09.13.15.26.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 13 Sep 2026 15:26:11 -0700 (PDT)
+Date: Sun, 13 Sep 2026 18:26:11 -0400
+From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+To: Mark Amirkan via B4 Relay <devnull+markdamirkan.gmail.com@kernel.org>, 
+ netdev@vger.kernel.org, 
+ Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Cc: Paolo Abeni <pabeni@redhat.com>, 
+ linux-kernel@vger.kernel.org, 
+ Johann Baudy <johann.baudy@gnu-log.net>, 
+ Simon Horman <horms@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@google.com>
+Message-ID: <willemdebruijn.kernel.51a5bb8e519d@gmail.com>
+In-Reply-To: <20260913-b4-send-packet-tx-progress-v1-1-01b99569cda6@gmail.com>
+References: <20260913-b4-send-packet-tx-progress-v1-1-01b99569cda6@gmail.com>
+Subject: Re: [PATCH net] net/packet: preserve TX_RING progress on a later
+ frame error
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: 7bit
 
-On Mon, 07 Sep 2026 13:48:38 +0200
-Javier Carrasco <javier.carrasco.cruz@gmail.com> wrote:
+Mark Amirkan via B4 Relay wrote:
+> From: Mark Amirkan <markdamirkan@gmail.com>
+> 
+> tpacket_snd() can transmit one or more frames before a later frame fails
+> validation.  The failing frame is marked TP_STATUS_WRONG_FORMAT, but its
+> error replaces len_sum, so send() reports failure despite the earlier
+> transmission.
+> 
+> Return the completed byte count when it is nonzero, as the allocation
+> failure path already does.  Keep TP_STATUS_WRONG_FORMAT on the bad frame
+> so userspace can identify it.
+> 
+> In a two-frame TPACKET_V2 test, a valid 60-byte frame followed by an
+> oversized frame sends the first frame but returns -EMSGSIZE.  With this
+> change, send() returns 60 and the second frame remains marked
+> TP_STATUS_WRONG_FORMAT.
+> 
+> Fixes: 69e3c75f4d54 ("net: TX_RING and packet mmap")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Symbolic
+> Signed-off-by: Mark Amirkan <markdamirkan@gmail.com>
+> ---
+>  net/packet/af_packet.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
+> index 76bde7906d..b7e1848b61 100644
+> --- a/net/packet/af_packet.c
+> +++ b/net/packet/af_packet.c
+> @@ -2893,7 +2893,7 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
+>  				continue;
+>  			} else {
+>  				status = TP_STATUS_WRONG_FORMAT;
+> -				err = tp_len;
+> +				err = len_sum ? : tp_len;
+>  				goto out_status;
+>  			}
 
-> These ambient light sensors with I2C interface provide two light
-> channels (ALS and IR), high/low threshold alarms with configurable
-> persistence, and a data ready signal.
-Small process thing.
+This makes sense in principle, but changes longtime established and
+expected behavior.
 
-If you are going to send a new version of a series when there
-has been nothing on the list yet, please send a quick reply
-to make sure no one focuses on wrong version.
+In particular, applications may not know to recover from a
+TP_STATUS_WRONG_FORMAT unless an error is returned.
 
-b4 review tui caught this for me when it asked if I really wanted
-to look at an old version!
-
-Jonathan
+If this sendmsg returns tp_len here, i.e., (partial) success,
+subsequent calls will return 0 / -ETIMEDOUT, as if no space is
+available.
