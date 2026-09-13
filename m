@@ -1,454 +1,184 @@
-Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011064.outbound.protection.outlook.com [40.107.130.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23B1039F168
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 10:15:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40E2E356754;
+	Sun, 13 Sep 2026 10:15:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.64
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789294508; cv=pass; b=XeEAgOx5IxpZ2lDux6qU4llnty76atOxje1ZuELUHZMpw7sbBly76sGeNXpPdCwu+WqAOT6wDDML4x+WT1pp5vUVdN+Hh74HCvjEwCkjGcMhuZs4e3exE2peLl6L8UoexHBfI1iJKhVm+NI2z+fIfpUx5FE88oEuKBDb6TVoUoo=
+	t=1789294545; cv=fail; b=pIk8gcp6888DmvBxAXur0rkzj9tfYL8ogitRbRHY1vc7K9gb6pRgyowpM+UNgsRO9YF3oij50FrPuSHY+tqfgu2LAee7iecElDfgcaLhcsWtWvOAoPEQiKrMBRYpm6SKyV7kYVw86KUQA3T0Ex3vvu3n0gs4Mq5PL227D0KWjCQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789294508; c=relaxed/simple;
-	bh=abKonwDomX5F1pVf5Uo619oaBjWlx7rq+2crALcJE1Q=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=S/An/zotoEbC9VsB8mcD0if020otmfFRkCpf1gWXQRjO7j/Sd9jJUvVCI7K1qv/KuYQV94++VAqO+s/c4zeItkyeMGsPct8r7j1ELHX63c+4kUg0/uxU9dRh8r4BLVHYn3caJAr+8hVxElZhvU7Vn3nzwbhZVVqAZ5cw2DWv89Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fgpm2ad6; arc=pass smtp.client-ip=74.125.224.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789294545; c=relaxed/simple;
+	bh=ffXIHdgVqhmpL+fXQTaDvv5PzHEGw7pQmduRUoEQEFs=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=ZXD6zVuPcfBtoO/GxDzh+zciXoOpPr+eGGbSyxucPnzSFanD9ImJx+R1Da6AoFsipTXBdrvetdFsiQ9v/v5kB5XBO3wpgqrWFs/N/iUGkokaZzf22xE2x0p39SFg+qec7I5pbgOi9RLwU5Jliy86OfaVYNxRNAZOppEBGIgibxQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=pfs0VBLp; arc=fail smtp.client-ip=40.107.130.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fgpm2ad6"
-Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66e4aae3149so776444d50.2
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 03:15:06 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789294506; cv=none;
-        d=google.com; s=arc-20260327;
-        b=kLOiolr7EKYiQEHuYu9gF1prjCIbMxgDjj3cNlyZ07ltRNzRw7C80AS5g/8udcICGE
-         3nJWDGAkc9a4KlIcAT1HjFs+aO/ZVrPhJnIEM+V/2rkKTLdoyEN+o29XPeYfXITsmbdB
-         XmUIGaQGVQiwKEGXe5Wxi/O8/mSwTkAJ//AjM1RzAwQbqZ3g2sqT9MfRsY+mQN7kXUdI
-         mJWagPXG6aQ2t6umFVDi1jEIxHsqDclf85IT+bHOFrfgQhXECLAG7PpmxDaupfq2mWSb
-         gxyo4JjJUtmMTIOgwEqSQOXcn5u4RML97Iz55if/IAOP4APcZGEkEKFTReBBVPD/rLKb
-         KA0w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=CMKnin8BZ9Z0ovUiJNtYkpqGxPpTK3MjcPZkSXHrmtI=;
-        fh=j4oqLb7YFnDESb8z2C2gjOVaOQLFX59oCm5QR7za5X4=;
-        b=LsE/w9KzzxQZSVfPhVqvjr2AJLsC+7bDWpzC2eBUhdD+61X7/LBH0gBdK5potS68yB
-         DjYE6eWrbn7VcUEugCjVfs375PoTHIw0coJODMLvjRjLDRv5j7vxnQ8xoCnZC3+bUz51
-         NumFZ6xiWiEb0Elz8Wh4/UYoHP1Pdq5sUOk9opc1dGDUZ9oX8/iWhvmiRRGwviZsuWcG
-         jh9+V/+MP8uhG/oGgLt9eM0fbjVj02cJx2CVzoJ8P/YORiTcrQPksEMZlpuyD1YjG2cR
-         KKycgNwhINiWnOoB5WshnywFlfzHwD5GLJ8Y8iKqZO+C6JIzKUBiXH7v/ECdPKjAjGzP
-         UZ4w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789294506; x=1789899306; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CMKnin8BZ9Z0ovUiJNtYkpqGxPpTK3MjcPZkSXHrmtI=;
-        b=fgpm2ad6Kak08W1Sxjtb9ns6TMrNxgULeu/eGoMJBBzY3fF7WNMiSjI7sYBm3rtvPn
-         tvaVQbwY74ZAvCYk+Sii8a2zfH4f5q1VJf35lmc636xofIK7TtootYX6IOeKPku88XBt
-         eNGzotLJ+7jQIZBKsLQ5AeFvBbGzN4gH9DyQ2cVt6PEy1zCMS7EekxcoXc3qa11RxbnK
-         e6/Ep9vNZ55vN+UiUkxI0GUc6hFhXUNv5UGQu59YC5+3xMaGRYtqZmBGf/wCIZ946FmI
-         0NmxQg4ajAy3iDXq8UsqZyklKTkxbnSlaQrJbvqG4na/ATQFTJcL97hF9JtiLT86l2Qs
-         PAIA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789294506; x=1789899306;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CMKnin8BZ9Z0ovUiJNtYkpqGxPpTK3MjcPZkSXHrmtI=;
-        b=KCTxt7TuC+8AsOXBQZqx089/K8y8knHg8ziHBI6Sr2OUdaSteblSQu6rVNFeCXFoKi
-         ebAkcVWAiTORl258fAMhJGwjohLjeXz9HkB78ynjeXfGwRKyXOpsaZtXqSyaTxed167q
-         vtgMNXmpEaGfd+8QOnHjYdr2WwuqcyjCxB1/RnniqeMxlQ+haD4IFqWEm4V70juSfuyT
-         eHfF8SvmZpGmQXSaZoUWCO69Rv03eLCPYuKPwOHQyb6zUSeMLu6SP2+NM9gLy5cr1Ldm
-         azfSwN1jS3n35pd4QpAxgQIK5vGNL7Qz65vjptvzT+rNOu94BuTgzkyP2zog4UBvPNpd
-         RGNg==
-X-Forwarded-Encrypted: i=1; AKwUvBzRIR5BBS4k+lKExpL/ApIUTrFVYFGjBN0XXziRT5cfq4pPu6jh5x4IlAqP+kLAk/djPUD6fzMWAllHyQA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kIZOaFdAdDvYMW28LynyZAlRvAryUbz1FUSistbAvpCGKjZcw/
-	FRJYk0bNQRYBaT8rqzI0+JhsC0ujmYxTQCF/Go4lFZ/l1qNccJ1EbqmpoNCj75yTj46CiAmSWJ+
-	J9GtL0v5GN7vUN2BSZd7yif3nAHiT03U=
-X-Gm-Gg: AYBFou06yH6RdlmjvU4wpszCsyZb/d1NFMDy78PgtBD+1lunqgMNijknXN4Z9TUMvJV
-	ZxIvTx1uRvieafHw7/NPpTDNpdQrc2k+sNCeceEdkqSkGa3b++cchbILO2/a3ythnxT2VAvgrOa
-	iFQj431bwK8ZGlEM5ISmgH+9F4jcY82aJnTPQoT7taTytdlQJHNaDQEJUT4nC6z6QUvtkL5upoG
-	AnMQh4LkNEM3KGCTe26SJps2ubALKWdEBpqiug3yOijPc5ocK8gquk+tsIHLBi5M+aOFz6Rj4X4
-	63OYq17s8mh6eX8UuicJYp1B1IqycrQjx/UWVo98a6IYZG07SuRHhq0=
-X-Received: by 2002:a53:cd08:0:b0:66f:cabb:d8ae with SMTP id
- 956f58d0204a3-67124706acbmr3896111d50.32.1789294505989; Sun, 13 Sep 2026
- 03:15:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="pfs0VBLp"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KkNkMhGPsYb8En9HWJeaIuMK86XNCj8AIlHvsyz92jl3CbI0CyO19ZFoNlgICa+ZmX6XmrNYVQr8GG08A0ZgHYYdorGI0je5pi4/Vof6Rv1NhlTNOSr+u3ddWdrHSx6KK4RqEvEEJtDYrhLRKxs6sDb/TjhkV+hZqumpSYHPiz3bGaqpGtoG47RmBPO12h1m+2Sb4fPSOGjAaIXdv3VNx6BRzrrcWcFqkuc62OaT03aLXYQbdq+5ORWRSyTdcOL0aRrfVJ4OkvFdFozJdDpFjtrzYqt3M245SZd8URLxq5YO8DsvKnfSiUiZ4Gdj5GzR+l8GVYPbjkLCowS7AF1xxQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=214g3Hrmx9dKXLQQtoBYU3KBWem1DzSKW44Gd5Utrtk=;
+ b=WDe3NIduLNxSTHiwGMAEARImeNXM+ka19bcKHIxQZlscX/awMtlAlQcLeKynn+qAPx797Bv/IKkOiD4bo77uT26Wjb8ucUMnDkFVsYnGOYOkUTIpS+DLZd2F+cNWPmkTv1mbAxbGbOzr00gZcvWq7A5mp6NZUdtLQFFcT5UD8RIPTTX9LsGiMpfV3YPTXiN5Eidda1dQ4ksYtwLgSOTCx3Sh1aeahLZAk98BcQEJJR1ZaKWZcfg8H1voWOxVDKnw3VitgfeLSmiZWTpzUL8szSm6p5MKg1hveFLppGzxWe9DGFDCdvxJ7qAwN+nK/LkxQKkcY3pKT7hTH/fj7ks+vQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=214g3Hrmx9dKXLQQtoBYU3KBWem1DzSKW44Gd5Utrtk=;
+ b=pfs0VBLpwF2dx71OD/nxYk+CzbL27jr0+e81x27QAXGJkoJfyMgnkjaD+v7UyXbL79Z2VojhxEtpIwiQ369dhRIUViXbv4Ac9kmbQWjkv6+DzXBAtGCq7mJoxeqbadbFkgy836J6UWCYN0N61pATpNLxKza6i7z6+z9GDj7RLt8OMXj4ID2TxVhEk2l914og8J3QEuB0CLKTta/7n1eh31VW1fw6+Sq3n88UqRpvZvUwDy3G+oZz7eR4a9JIwtPpvL56tcmQdvPlt033qp3kJiKIY81WeJXW1SeUFq+mzksD+R9b7xSQHepflv5lgwljUxNZgNUXp7Xp9Xy7/PqwOA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GVXPR04MB10021.eurprd04.prod.outlook.com
+ (2603:10a6:150:112::20) by AM9PR04MB8602.eurprd04.prod.outlook.com
+ (2603:10a6:20b:439::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Sun, 13 Sep
+ 2026 10:15:40 +0000
+Received: from GVXPR04MB10021.eurprd04.prod.outlook.com
+ ([fe80::d247:853:3e16:1994]) by GVXPR04MB10021.eurprd04.prod.outlook.com
+ ([fe80::d247:853:3e16:1994%5]) with mapi id 15.21.0406.007; Sun, 13 Sep 2026
+ 10:15:39 +0000
+From: Chancel Liu <chancel.liu@oss.nxp.com>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Shenghao Ding <shenghao-ding@ti.com>,
+	Kevin Lu <kevin-lu@ti.com>,
+	Baojun Xu <baojun.xu@ti.com>,
+	Sen Wang <sen@ti.com>,
+	David Rhodes <david.rhodes@cirrus.com>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>
+Cc: Charles Keepax <ckeepax@opensource.cirrus.com>,
+	patches@opensource.cirrus.com,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/6] ASoC: codecs: Fix resource leaks on card re-bind
+Date: Sun, 13 Sep 2026 19:15:25 +0900
+Message-ID: <20260913101531.2787654-1-chancel.liu@oss.nxp.com>
+X-Mailer: git-send-email 2.50.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SE2P216CA0028.KORP216.PROD.OUTLOOK.COM
+ (2603:1096:101:114::16) To GVXPR04MB10021.eurprd04.prod.outlook.com
+ (2603:10a6:150:112::20)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260830-tlb_tracepoint-v2-1-e3c88c24df5b@gmail.com>
-In-Reply-To: <20260830-tlb_tracepoint-v2-1-e3c88c24df5b@gmail.com>
-From: Roman Storozhenko <romeusmeister@gmail.com>
-Date: Sun, 13 Sep 2026 12:14:54 +0200
-X-Gm-Features: AcwNN1WyLGxtdyeI7mFRimaHIMiAltPrXRIv6rwAqpJ4tpfW4ScfqDuJ5Qm8CPM
-Message-ID: <CALsPMBMDek9CssXm+qoFsDHvjaJfyuOUVcx-H83EXeYOVFMF6Q@mail.gmail.com>
-Subject: Re: [PATCH v2] riscv: mm: Trace TLB flush path selection
-To: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
-	Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-trace-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GVXPR04MB10021:EE_|AM9PR04MB8602:EE_
+X-MS-Office365-Filtering-Correlation-Id: a6d26b23-abbe-4cbc-29ce-08df117ff5a5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|7416014|366016|19092799006|23010399003|6133799003|18002099003|921020|11063799006|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	FgKVlKDTSdw+P1WHYzooloNynF4q13AzWBCXmmQ7QEpX/cPO5KQ8vQ/+OudkJsERRB1S0RkmYntLKwUQqvVft1RH8ykRgP1SylAKse6+NrdWe3LNmOdG/3i021/yJhXPiqaDfebaGBNoUtJpLu8oyZcv2cYtJsLPd05056kSX+pvhOlhgsYJ8PIMXYPfVSGULwIkFvUQAHZS0mVRfFS/EZYdowssQdXbl3Gy+PuddpMKu1WBJiBok2XzNwsIAr3iKcXWL57xK0KVfoWTh19j1G5aSuEbM1UYC+pBk3aV0nWCLgPJ7LOgwfnBfMnCGBVTH9OC2eSJLDptu3XFaURVfyxQ3bTgncH1ZcUqls6xjCZNxhZeNZE9i7zcroiWjEG8JR0swLWidWK2gZShznIPZrwXJPDAlBUALxjsoftGONsTAMVT9w7NIgvJJYeHvZ/PjBWsxGb+yzGQ1BgBJ1F34amAOFzmfK+WXf/aOMbxHz0t2R7Mh7+PSyxtHlhly+jL26WjU1CO14hcMk+KEIVhv0EPVDdBr7Q5JftuSkUGc+WL1K2cACwSkm0rfW759ODkzru9ZnhNBGK6lqZHLyJaJhOjXZ0w/U+/bdvChU/jBLf7aY0aFEI3FIapMBko3ftFe3Tf/wJQTgsYCixUp5LHp+/PYzjjt3BTNUe5rnJ4hM/Mbrgx9kwEjxGVIBm1vJdNvI3++6vhncIvg1X99SoKUw==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GVXPR04MB10021.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(366016)(19092799006)(23010399003)(6133799003)(18002099003)(921020)(11063799006)(10067099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?4k7qtqj7S5qjDkH5PXidceN8ShsRNdU2sWNniidV5IreV62qTPS5jj3erkpV?=
+ =?us-ascii?Q?5fcMpFFLpcanIX/a66FXdt7MzYP2ZrriZvSrh+A8KpaLUdhp1ewtct3kjq1M?=
+ =?us-ascii?Q?/ZQyVLMkGW2Q0DDuW0x3fbqYzW/EScU6QPA7Nk7f3O4VVZreZvN8gxxsNCC0?=
+ =?us-ascii?Q?9Zw/HzmVqD/YkYI78Ayz7ggGX7QnolBCP4i1S9c031EEalQccxVzGKJjLq4D?=
+ =?us-ascii?Q?6IEA0p1LGlGwokkCzMRAEK1yjO60RR1/v6WFlip2l1w2KbpZranjmA8AQW0F?=
+ =?us-ascii?Q?Le4L0Ki11c2/oDYffHHRTZzIM2JQ/vtjRGBZHaXWS7aFAVGFEb+42CTxSBgU?=
+ =?us-ascii?Q?99hqM1sRHSLFZPsQo25w0eOSSyVaRlH5spCJJlm9QnERjOjtq+ca1qwrAb2X?=
+ =?us-ascii?Q?bEt/s7XIjDMBYWthjjc0lSxhtBJUwNZxyfbWQ16iC2zOej/x8RqsG6J5UVAu?=
+ =?us-ascii?Q?hFgoMNOQ5ZZ6wPlofbOnA2+au26PR30A4MSO/uxaakFxmMfp4YGNPyyxtdot?=
+ =?us-ascii?Q?nbJq8eY81Pni74V2LBxwvCsvh3xR0mut1QPa8QQAA9NcjuUiuM0vTlEKwAVM?=
+ =?us-ascii?Q?Td+9tmNOtGITxIuhcBSTTQIgfIl8Hkp33aq4IwhWjYfRdNpYsX1uvlcJgYZe?=
+ =?us-ascii?Q?3di88Y+D3/WNB/yQblRJZq4j5+LnkLkt1VTKj8fiz4xw9e7YsVmYJ5VFfa7Q?=
+ =?us-ascii?Q?TRRlqehi24Gvo4pjBkM5q7cALRwD5bRN7clmh+dypX1IrZVCVWrF+NCv72sY?=
+ =?us-ascii?Q?lxfKK+/KzKRb1k/1p4sKb+yVscYj0WlbThJdypqcbxRoZBRIjNs12sTZuirZ?=
+ =?us-ascii?Q?ZV+BLFfmsFx566cBBUNVXI/NeRsL6NAlcV3ycCA2ZOo4dgWPbrdqTIozEw2w?=
+ =?us-ascii?Q?mY87bJDDvHoCy1SvmOZ7KohMHfpui5n4ofL2XUmgr3wk4wG6vgNGBAQ2TzZi?=
+ =?us-ascii?Q?xbwf2Chcaf6HY0NIESnYJ4wbH78DQ5eVBciLRLwhmA9y60EAP8vB1+9yrWU2?=
+ =?us-ascii?Q?FL7jDKoOEOrvY8blP95U4yU2k2vvp3yAGCqAJ7L1czi1XJVdzjUvOh72zuy5?=
+ =?us-ascii?Q?GoVJaWUDQAI85cyK6jXUOYayg8y2jDZXQ0vfzM+/2fgIAHTOli4wM2BchaPR?=
+ =?us-ascii?Q?wB7ZGkskyBYIaWYfjfJY+5dlzGPQKsOXhkuWXF94l9hFYAzm/VcALMvc5P3X?=
+ =?us-ascii?Q?Z9RXAO6byoQOQd5twwHBAqThozMjvd8owOI5GdJNXt1+3hUZswUWyhq1R/jq?=
+ =?us-ascii?Q?tLp2bfvKmp3QwvdSG4APdF01kkMSGN7s3vlpNqR6Cn5zA6SqdDOrWDaxOpVn?=
+ =?us-ascii?Q?YHzCdmsKl42Bqi9I+Yx2pm07FYRxd+JuCfgPTBzYW+2mSXLF2KFmdPZbtWhm?=
+ =?us-ascii?Q?45aArKr7LYjN73p6R8em6YWcCkYtNpt83Quzrc4b1snnPMTejj1u+e7t8AVh?=
+ =?us-ascii?Q?UhAnNYgmPEWBbutMd+Tz/ABdTqoGyZu+oH4sRpopUHp0zHRmKlJgA0vSi1Jn?=
+ =?us-ascii?Q?806g2m8XsS9m74XDovnw2F4L+PsKR7cFfTyXi+IcNlVzhp2zYcUYxaXY+not?=
+ =?us-ascii?Q?WJYGOi9V9eZev7Lsn28QkkDv+U+KCLNuNXoDroKdlsqgEAYI0CTm+4BJ/mHF?=
+ =?us-ascii?Q?hnhpL2miE/FqlWG4uqy6bz5LorQRn/pBvrKaCNhcJ6i5C1XZV610tn38tNP3?=
+ =?us-ascii?Q?X0GFS/ElW/SrDAWME5RVfoILzsy9gLcdYM2lVtlE3BLt0IrJ2m3aC2+A+tPe?=
+ =?us-ascii?Q?olC4CZZYHR0EvDU2UhWr0gzgHTtcmXHb/dEl/v/Pq+bRY3+4jU/W?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a6d26b23-abbe-4cbc-29ce-08df117ff5a5
+X-MS-Exchange-CrossTenant-AuthSource: GVXPR04MB10021.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Sep 2026 10:15:39.5879
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: dow9kbB4Fx0Oa/uEgb+S2MVGPOwS2JesRlyfMypG+h/FHG0zkfX1QaZh7S4bk/pLOTA0qqj6HzvazgCcJK+q8XRqcRtOK22DNmTYLBrHVVCgDUQQj83Nczw+IS+MuH/p
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8602
 
-Hi,
+From: Chancel Liu <chancel.liu@nxp.com>
 
-A gentle ping on this patch. v2 incorporates Steven's suggestion to use
-trace_call__riscv_tlb_flush_path() after the explicit enabled check.
+Several ASoC codec drivers set up per-device resources from their ASoC
+component probe, but the associated cleanup is tied to the underlying bus
+(I2C/SPI) device rather than being balanced per component probe. This is
+fine for a plain probe/remove, but it breaks when the sound card is
+unregistered and re-registered while the bus device stays bound (a card
+re-bind): the component probe runs again while the previous bus-level
+resources are still live.
 
-The patch has passed the RISC-V Patchwork CI, and the local, SBI RFENCE,
-and cross-CPU-call paths have been exercised in QEMU.
+Two kinds of resources are affected:
 
-Any further comments would be appreciated.
+- Regulator disable notifiers (wm8962, wm8995, tlv320aic31xx,
+  tlv320aic3x)
+  The same notifier_block is re-registered on the
+  still-registered regulator notifier chain, which triggers
 
-Thanks,
-Roman
+    notifier callback ..._regulator_event_N already registered
+    WARNING: ... at kernel/notifier.c:23 notifier_chain_register
 
-On Sun, Aug 30, 2026 at 4:36=E2=80=AFPM Roman 'Hedin' Storozhenko
-<romeusmeister@gmail.com> wrote:
->
-> Make RISC-V TLB flush path selection observable. Record whether Linux
-> handles an invalidation locally, delegates it to SBI RFENCE, or executes
-> it through a cross-CPU call, so MM activity can be correlated with the
-> RISC-V, firmware, or Linux cross-CPU path carrying the request.
->
-> The generic tlb:tlb_flush event describes TLB flush activity using
-> architecture-independent reason and page-count information. The RISC-V
-> implementation subsequently selects between local invalidation, SBI
-> RFENCE, and Linux cross-CPU coordination, with additional
-> architecture-specific request context available at that point.
->
-> Making this selection observable is useful when debugging RISC-V TLB
-> shootdowns. When a remote invalidation is observed to be slow, the
-> selected path determines whether to investigate SBI firmware and
-> platform handling or Linux cross-CPU and IPI handling. An unexpectedly
-> broad target mask can reveal an unintended address-space CPU footprint,
-> while the range and stride distinguish invalidation requests with
-> different mapping granularities.
->
-> Place the event in the RISC-V implementation because the local, SBI
-> RFENCE, or cross-CPU choice is made there, and SBI RFENCE and the
-> invalidation stride are RISC-V-specific semantics rather than properties
-> of the generic MM flush request.
->
-> Add riscv_tlb:riscv_tlb_flush_path in flush_tlb_all() and
-> __flush_tlb_range(). Record start, size, stride, the hardware-visible
-> ASID, whether a specific mm is associated with the request, the target
-> CPU mask and its weight, the requested scope, and the selected path.
->
-> Record the complete target mask in addition to its weight because CPU
-> identity cannot be reconstructed from a count and is needed to correlate
-> the request with per-CPU scheduler, IPI, and firmware activity.
->
-> The event records the invalidation request and the path selected by Linux
-> before the operation is dispatched. In particular, selecting the SBI
-> RFENCE path means that Linux delegated the request to firmware; the event
-> does not describe the implementation or outcome of that delegated
-> operation.
->
-> Tested on QEMU virt with OpenSBI using local and shared-mm
-> mprotect()/munmap() workloads. Local requests reported path=3Dlocal,
-> while remote requests reported path=3Dsbi-rfence and were followed by the
-> existing riscv:sbi_call RFENCE event.
->
-> The cross-CPU-call path was tested with QEMU virt using APLIC+IMSIC.
-> A MADV_PAGEOUT reclaim workload was used to exercise mm-independent
-> global flushes. All reported path values (local, sbi-rfence and
-> cross-cpu-call) and scope values (single, range, address-space and all)
-> were observed.
->
-> Signed-off-by: Roman 'Hedin' Storozhenko <romeusmeister@gmail.com>
-> ---
-> Add a RISC-V tracepoint for observing the path selected by Linux for TLB
-> invalidation requests: local invalidation, SBI RFENCE, or Linux
-> cross-CPU coordination.
->
-> The tracepoint is intended to make RISC-V TLB shootdown behavior easier
-> to correlate with MM activity, CPU targeting, SBI calls, and IPI
-> handling. The patch records the invalidation request context and the
-> Linux path-selection decision before the operation is dispatched.
->
-> The patch was tested on QEMU virt with both the SBI RFENCE path and an
-> APLIC+IMSIC configuration. Local, SBI RFENCE, and cross-CPU-call paths
-> were exercised. All reported scope values -- single, range,
-> address-space, and all -- were also observed.
-> ---
-> Changes in v2:
-> - Use trace_call__riscv_tlb_flush_path() after the explicit
->   trace_riscv_tlb_flush_path_enabled() check to avoid a second
->   tracepoint static-key test, as suggested by Steven Rostedt.
-> - Link to v1: https://lore.kernel.org/r/20260829-tlb_tracepoint-v1-1-dfda=
-ede7e741@gmail.com
-> ---
->  arch/riscv/mm/tlbflush.c         |  60 +++++++++++++++++++--
->  include/trace/events/riscv_tlb.h | 113 +++++++++++++++++++++++++++++++++=
-++++++
->  2 files changed, 169 insertions(+), 4 deletions(-)
->
-> diff --git a/arch/riscv/mm/tlbflush.c b/arch/riscv/mm/tlbflush.c
-> index 962db300a166..cefce9364bd2 100644
-> --- a/arch/riscv/mm/tlbflush.c
-> +++ b/arch/riscv/mm/tlbflush.c
-> @@ -9,6 +9,9 @@
->  #include <asm/mmu_context.h>
->  #include <asm/cpufeature.h>
->
-> +#define CREATE_TRACE_POINTS
-> +#include <trace/events/riscv_tlb.h>
-> +
->  #define has_svinval()  riscv_has_extension_unlikely(RISCV_ISA_EXT_SVINVA=
-L)
->
->  /*
-> @@ -63,6 +66,33 @@ void local_flush_tlb_kernel_range(unsigned long start,=
- unsigned long end)
->         local_flush_tlb_range_asid(start, end - start, PAGE_SIZE, FLUSH_T=
-LB_NO_ASID);
->  }
->
-> +static enum riscv_tlb_flush_scope
-> +riscv_tlb_get_flush_scope(unsigned long size, unsigned long stride, bool=
- has_mm)
-> +{
-> +       if (size =3D=3D FLUSH_TLB_MAX_SIZE)
-> +               return has_mm ? RISCV_TLB_FLUSH_SCOPE_ADDRESS_SPACE :
-> +                       RISCV_TLB_FLUSH_SCOPE_ALL;
-> +
-> +       return size <=3D stride ? RISCV_TLB_FLUSH_SCOPE_SINGLE :
-> +               RISCV_TLB_FLUSH_SCOPE_RANGE;
-> +}
-> +
-> +static __always_inline void
-> +riscv_tlb_trace_flush_path(const struct cpumask *cmask, unsigned long st=
-art,
-> +                          unsigned long size, unsigned long stride,
-> +                          unsigned long asid, bool has_mm,
-> +                          enum riscv_tlb_flush_path path)
-> +{
-> +       enum riscv_tlb_flush_scope scope;
-> +
-> +       if (!trace_riscv_tlb_flush_path_enabled())
-> +               return;
-> +
-> +       scope =3D riscv_tlb_get_flush_scope(size, stride, has_mm);
-> +       trace_call__riscv_tlb_flush_path(start, size, stride, asid, has_m=
-m,
-> +                        cmask, scope, path);
-> +}
-> +
->  static void __ipi_flush_tlb_all(void *info)
->  {
->         local_flush_tlb_all();
-> @@ -70,12 +100,26 @@ static void __ipi_flush_tlb_all(void *info)
->
->  void flush_tlb_all(void)
->  {
-> -       if (num_online_cpus() < 2)
-> +       if (num_online_cpus() < 2) {
-> +               riscv_tlb_trace_flush_path(cpu_online_mask, 0,
-> +                                          FLUSH_TLB_MAX_SIZE, 0,
-> +                                          FLUSH_TLB_NO_ASID, false,
-> +                                          RISCV_TLB_FLUSH_PATH_LOCAL);
->                 local_flush_tlb_all();
-> -       else if (riscv_use_sbi_for_rfence())
-> -               sbi_remote_sfence_vma_asid(NULL, 0, FLUSH_TLB_MAX_SIZE, F=
-LUSH_TLB_NO_ASID);
-> -       else
-> +       } else if (riscv_use_sbi_for_rfence()) {
-> +               riscv_tlb_trace_flush_path(cpu_online_mask, 0,
-> +                                          FLUSH_TLB_MAX_SIZE, 0,
-> +                                          FLUSH_TLB_NO_ASID, false,
-> +                                          RISCV_TLB_FLUSH_PATH_SBI_RFENC=
-E);
-> +               sbi_remote_sfence_vma_asid(NULL, 0, FLUSH_TLB_MAX_SIZE,
-> +                                          FLUSH_TLB_NO_ASID);
-> +       } else {
-> +               riscv_tlb_trace_flush_path(cpu_online_mask, 0,
-> +                                          FLUSH_TLB_MAX_SIZE, 0,
-> +                                          FLUSH_TLB_NO_ASID, false,
-> +                                          RISCV_TLB_FLUSH_PATH_CROSS_CPU=
-_CALL);
->                 on_each_cpu(__ipi_flush_tlb_all, NULL, 1);
-> +       }
->  }
->
->  struct flush_tlb_range_data {
-> @@ -107,12 +151,20 @@ static void __flush_tlb_range(struct mm_struct *mm,
->
->         /* Check if the TLB flush needs to be sent to other CPUs. */
->         if (cpumask_any_but(cmask, cpu) >=3D nr_cpu_ids) {
-> +               riscv_tlb_trace_flush_path(cmask, start, size, stride, as=
-id,
-> +                                          !!mm, RISCV_TLB_FLUSH_PATH_LOC=
-AL);
->                 local_flush_tlb_range_asid(start, size, stride, asid);
->         } else if (riscv_use_sbi_for_rfence()) {
-> +               riscv_tlb_trace_flush_path(cmask, start, size, stride, as=
-id,
-> +                                          !!mm, RISCV_TLB_FLUSH_PATH_SBI=
-_RFENCE);
->                 sbi_remote_sfence_vma_asid(cmask, start, size, asid);
->         } else {
->                 struct flush_tlb_range_data ftd;
->
-> +               riscv_tlb_trace_flush_path(cmask, start, size, stride, as=
-id,
-> +                                          !!mm,
-> +                                          RISCV_TLB_FLUSH_PATH_CROSS_CPU=
-_CALL);
-> +
->                 ftd.asid =3D asid;
->                 ftd.start =3D start;
->                 ftd.size =3D size;
-> diff --git a/include/trace/events/riscv_tlb.h b/include/trace/events/risc=
-v_tlb.h
-> new file mode 100644
-> index 000000000000..3eff171ec54f
-> --- /dev/null
-> +++ b/include/trace/events/riscv_tlb.h
-> @@ -0,0 +1,113 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +#undef TRACE_SYSTEM
-> +#define TRACE_SYSTEM riscv_tlb
-> +
-> +#if !defined(_TRACE_RISCV_TLB_H) || defined(TRACE_HEADER_MULTI_READ)
-> +#define _TRACE_RISCV_TLB_H
-> +
-> +#include <linux/cpumask.h>
-> +#include <linux/tracepoint.h>
-> +
-> +#ifndef _TRACE_RISCV_TLB_ENUMS
-> +#define _TRACE_RISCV_TLB_ENUMS
-> +
-> +enum riscv_tlb_flush_scope {
-> +       RISCV_TLB_FLUSH_SCOPE_SINGLE,
-> +       RISCV_TLB_FLUSH_SCOPE_RANGE,
-> +       RISCV_TLB_FLUSH_SCOPE_ADDRESS_SPACE,
-> +       RISCV_TLB_FLUSH_SCOPE_ALL,
-> +};
-> +
-> +enum riscv_tlb_flush_path {
-> +       RISCV_TLB_FLUSH_PATH_LOCAL,
-> +       RISCV_TLB_FLUSH_PATH_SBI_RFENCE,
-> +       RISCV_TLB_FLUSH_PATH_CROSS_CPU_CALL,
-> +};
-> +
-> +#endif /* _TRACE_RISCV_TLB_ENUMS */
-> +
-> +TRACE_DEFINE_ENUM(RISCV_TLB_FLUSH_SCOPE_SINGLE);
-> +TRACE_DEFINE_ENUM(RISCV_TLB_FLUSH_SCOPE_RANGE);
-> +TRACE_DEFINE_ENUM(RISCV_TLB_FLUSH_SCOPE_ADDRESS_SPACE);
-> +TRACE_DEFINE_ENUM(RISCV_TLB_FLUSH_SCOPE_ALL);
-> +
-> +TRACE_DEFINE_ENUM(RISCV_TLB_FLUSH_PATH_LOCAL);
-> +TRACE_DEFINE_ENUM(RISCV_TLB_FLUSH_PATH_SBI_RFENCE);
-> +TRACE_DEFINE_ENUM(RISCV_TLB_FLUSH_PATH_CROSS_CPU_CALL);
-> +
-> +#define show_riscv_tlb_flush_scope(scope) \
-> +       __print_symbolic(scope, \
-> +               { RISCV_TLB_FLUSH_SCOPE_SINGLE,        "single" }, \
-> +               { RISCV_TLB_FLUSH_SCOPE_RANGE,         "range" }, \
-> +               { RISCV_TLB_FLUSH_SCOPE_ADDRESS_SPACE, "address-space" },=
- \
-> +               { RISCV_TLB_FLUSH_SCOPE_ALL,           "all" })
-> +
-> +#define show_riscv_tlb_flush_path(path) \
-> +       __print_symbolic(path, \
-> +               { RISCV_TLB_FLUSH_PATH_LOCAL,          "local" }, \
-> +               { RISCV_TLB_FLUSH_PATH_SBI_RFENCE,     "sbi-rfence" }, \
-> +               { RISCV_TLB_FLUSH_PATH_CROSS_CPU_CALL, "cross-cpu-call" }=
-)
-> +
-> +/*
-> + * Record the invalidation request received by the RISC-V architecture c=
-ode
-> + * and the path selected by Linux.
-> + *
-> + * The target CPU mask represents the CPUs Linux intends to cover for th=
-e
-> + * request. It can be correlated with per-CPU activity, but does not des=
-cribe
-> + * which harts ultimately performed an invalidation.
-> + *
-> + * The ASID is hardware-visible and may be reused. It must not be treate=
-d as a
-> + * persistent identifier for an mm.
-> + *
-> + * The stride describes the invalidation granularity supplied to the RIS=
-C-V
-> + * implementation. SBI RFENCE receives start, size and ASID, but not str=
-ide.
-> + *
-> + * The event is emitted at path selection time. For SBI RFENCE, it recor=
-ds
-> + * delegation of the request to firmware; firmware processing after that
-> + * point is outside the event's scope.
-> + */
-> +TRACE_EVENT(riscv_tlb_flush_path,
-> +       TP_PROTO(unsigned long start, unsigned long size,
-> +                unsigned long stride, unsigned long asid, bool has_mm,
-> +                const struct cpumask *cmask,
-> +                enum riscv_tlb_flush_scope scope,
-> +                enum riscv_tlb_flush_path path),
-> +
-> +       TP_ARGS(start, size, stride, asid, has_mm, cmask, scope, path),
-> +
-> +       TP_STRUCT__entry(
-> +               __field(unsigned long, start)
-> +               __field(unsigned long, size)
-> +               __field(unsigned long, stride)
-> +               __field(unsigned long, asid)
-> +               __field(bool, has_mm)
-> +               __field(unsigned int, target_mask_weight)
-> +               __cpumask(target_cpus)
-> +               __field(u8, scope)
-> +               __field(u8, path)
-> +       ),
-> +
-> +       TP_fast_assign(
-> +               __entry->start =3D start;
-> +               __entry->size =3D size;
-> +               __entry->stride =3D stride;
-> +               __entry->asid =3D asid;
-> +               __entry->has_mm =3D has_mm;
-> +               __entry->target_mask_weight =3D cpumask_weight(cmask);
-> +               __assign_cpumask(target_cpus, cpumask_bits(cmask));
-> +               __entry->scope =3D scope;
-> +               __entry->path =3D path;
-> +       ),
-> +
-> +       TP_printk("start=3D%#lx size=3D%#lx stride=3D%#lx asid=3D%#lx has=
-_mm=3D%d target_mask_weight=3D%u target_cpus=3D%s scope=3D%s path=3D%s",
-> +                 __entry->start, __entry->size, __entry->stride,
-> +                 __entry->asid, __entry->has_mm,
-> +                 __entry->target_mask_weight, __get_cpumask(target_cpus)=
-,
-> +                 show_riscv_tlb_flush_scope(__entry->scope),
-> +                 show_riscv_tlb_flush_path(__entry->path))
-> +);
-> +
-> +#endif /* _TRACE_RISCV_TLB_H */
-> +
-> +/* This part must be outside protection. */
-> +#include <trace/define_trace.h>
->
-> ---
-> base-commit: 77ae27fd98f3b548797c9f22c10ab5cf1c4ada53
-> change-id: 20260829-tlb_tracepoint-844105ab5092
->
-> Best regards,
-> --
-> Roman 'Hedin' Storozhenko <romeusmeister@gmail.com>
->
+  and corrupts the chain.
 
+- Beep input devices (wm8962, cs42l52, cs42l56)
+  A new input device is allocated and registered on every component
+  probe while the free path only clears the pointer, leaking the
+  previous input device and its sysfs/input node.
 
---=20
-Kind regards,
-Roman 'Hedin' Storozhenko
+The two problems need opposite fixes: the notifiers are registered from
+the component probe, so the registration is moved to the bus probe so it
+runs once per bus bind; the beep device is freed from the component
+remove path, so it is switched from devm_input_allocate_device() to
+input_allocate_device() paired with an explicit
+input_unregister_device() on that same free path.
+
+Verified with wm8962. The remaining patches fix other codec drivers
+following the same patterns.
+
+Chancel Liu (6):
+  ASoC: wm8962: Fix regulator notifier and beep leaks on card re-bind
+  ASoC: wm8995: Register regulator notifiers from the bus probe
+  ASoC: tlv320aic31xx: Register regulator notifier from the I2C probe
+  ASoC: tlv320aic3x: Register regulator notifier from the bus probe
+  ASoC: cs42l52: Fix beep input device leak on card re-bind
+  ASoC: cs42l56: Fix beep input device leak on card re-bind
+
+ sound/soc/codecs/cs42l52.c       |  9 ++++--
+ sound/soc/codecs/cs42l56.c       |  9 ++++--
+ sound/soc/codecs/tlv320aic31xx.c | 30 +++++++++---------
+ sound/soc/codecs/tlv320aic3x.c   | 28 ++++++++---------
+ sound/soc/codecs/wm8962.c        | 52 +++++++++++++++++---------------
+ sound/soc/codecs/wm8995.c        | 41 ++++++++++++++++---------
+ 6 files changed, 96 insertions(+), 73 deletions(-)
+
+--
+2.50.1
+
