@@ -1,46 +1,46 @@
 Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013054.outbound.protection.outlook.com [40.107.201.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D956364E96
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 19:54:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21D973A2E2B
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 19:54:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.54
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789329271; cv=fail; b=IRYZnxNuO1QDgGhs9FP3O/OdTyAejFFb2rNuv3MfONxdfviXc12cyOtaHd9T92Sd+ZhQoP1BMP0a6EUxodl54D+Dgbfv+Rz0/UdhvGXV98fjJStTqMPxHyngoEzAlwJQQX2+YCDcayDcv+KUeUufWkzl+4F5ZLe8O6eGo3HWJdQ=
+	t=1789329274; cv=fail; b=eHnzIuzg1NpMIQrhAIvBtc1HL6mXNb3cUGAULb95LSNLZ90iT13y2iX74qoBTRvaZso1FQfhfIhj/XKvrIQ/kyWXzFOhVHPkKp9oqMjp/mWMRgWXOLolB64bWApReFg5eAeyoYZjPClwdJkfQhI54YhDX+7zaeMndy3KVY9ARug=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789329271; c=relaxed/simple;
-	bh=g9HklJPBB0zRsWyQmmaQV5QHEeibljuhNdu2Bk5nGbU=;
+	s=arc-20240116; t=1789329274; c=relaxed/simple;
+	bh=QHhK6cA2AIHElx85id2NgxZUlGcOBuEOYH4TQP1iIbM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=tU0i5611E48ypOKk43eYjgMQTTuleJbKxu7+VTSJPiY7PcsZE748dW+HBekfZE5+dNx16p9N1/wI9SgCHEK8hH9fUkh/KUn4hjNEJydxSJgtzDJBtEqcot4XBKsKd93EVOnLvGcWKF/+sm/yOnbYAMXleE+sJEuCotJMsBMSbys=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=ayA3z2UZ; arc=fail smtp.client-ip=40.107.201.54
+	 Content-Type:MIME-Version; b=DkrGPR8tIndR8YO9IAwKmGZ2WXr0DhS1g5r6D2ElTQI4gmp4HM9YSgWFlZp8uWdZ3QI6Z3uFNseEMS+uQIbYAeElsaDcLOzlMNkrLK9Saz4H7i9IpPBzs7RGuldbK7LNOtHVc2JLIBLKP5VpKoS2kkNzgxrladKeOROuST9nODc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=rF8ttHIV; arc=fail smtp.client-ip=40.107.201.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="ayA3z2UZ"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="rF8ttHIV"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZlepX/JIU+7u7+iHBFcd5LIjvPdPCcy7bl7TXjUHMNxzLxabQO0dWSxLYi4qX5WExilz9KyIm+kgvyp6sDl94tikz73CiAZm34uYNfWQhRBIfe72xdd8qkzwPtMeN/SSWbIsGNqiLkNQMP8lpT+UMZjNFzIz8khwooO5elCZ0ciuCm3QoCKV4pWqmfe69lGPHz7LppZpjIHOoWUWeknLfSuM9IqqOg6KbiPw1auzUQhStxIo+Kcqng31lK/xXG9OZJXrxVtoW18shIYvWgoiqVgrDLNZDorp7K8efmoTx+0jiuDMg85++JIqJ5Nq2Ftr78+pbar7cUQSlNTEDOQpwA==
+ b=UN5s1dJEO0EgPa7GRWXJvFs6ubUyxTtBkBKjf1H7Y2gjg1jw5Htj7jjumXB8NJFGHTYsUx/rR12lldH7HmFtcEfIPELp0zu5DXoW790DIi6JcO8/g9uAt9OOdInTMz7RK99cmcrHdx/nx63MYQel9VG+mCvE52a+53XsqxU4bmQO1OwNVfX9Hx+S4Yvp2156KlSNdJNwroUcTWCpXon4Hs5xj2SGBWzsPPKi0npXMlk6PQR9nj4WnSizhZguJd+A8MJNsHjzR0zCOdciXEdS3ra5Yjp05QaMTeLaZjD+BcuLhEihKAHeAf/7muva3gGEVZgbzbAFSY/hNXkdkhc28A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PtA7SsgrijQPnqQ1rh5XsMZUOCWl9O8VBOPJG3vAmiw=;
- b=VrdDiQBCZGM6F1vvqIV1UDnRIwbCOxA8VpcRu3Ej3hgcw/J7ZX5ZsuP+KuoOyXcE8C++LmG6Z1lImPsZwMGyfDlaVV5vVB1+WYcvOsn94FbvHGULEMxfKCtFNElgAntKjPbihZPEIcWVQ2Bc+lZ7PNfqiH5avzfl4o80lCTT1p+oerlMDPz3wDMxPhx0Medj2nMqcBZ8MNhu6lmin0Z2GnGSJglJP4hMEmD6GnFivJsP0d6kcfxkNLmT6iZgXmVR75J73p3vcpjiV0JqIwnMtVrA1ssFuEfGv9q/XbtCY8mI0hw0iopFv5OWRDqawOSrvX8jTRsEh7Hl2e5NiKE5Nw==
+ bh=3ywGS2gmhnS4HbGH3xV6D1D/Y2mOKJS09pD3kGKSGtE=;
+ b=Junt07ZDDx/C7fYSEkicNrnZvxbR56dIe47rvOXuFcSdGzixHmS3TF4CA5FYLXQYfPP/gu/rLkWqR0Dzw3zoWhkWpPTQGYYN0UPW4JqW+WImbG3OdqjzjXKLeboV1uWugz2uo7V2pqTGrwwfzEtRtop9WltrJAPSgljazWnbwUykOz99yy4mbLRXoi5IlIscWxCQikJa6xl3HTXBQr48seIeMvDSmALxXSA9pY8JmGs6gN4Qj8q0y4zrEaH2h/c9xSwt5IlIdJ7P/DOeVidc2DpjUu/9jcGiPA6fQuq95+RIum9CEGxgM624Ukn0ECAOp9Eio3SE5bbLy31wSkcw6w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PtA7SsgrijQPnqQ1rh5XsMZUOCWl9O8VBOPJG3vAmiw=;
- b=ayA3z2UZLEwHTtmu+rTs07aJ+k0c6xLihCr2hUa16NBK2MNs5WwdcpKoGH1JYeXtzoeRDNr3Mh3BOJ8u1k3rYlimEG0FD1gBfqLAsuXsGOhKC2veWbWG3igjEkAAQ9Nl7SZT3x0mIeQFCYYnb5YLtohri3mW9anpxBC23c856+4UuWo0rFMEHMcXUydRc9Fp+HQrXzwv4ctskW6I5GDeqS3ROiTWhLvN85oNgzgXqCaUFaPLqeWSVXL6aIbnXh0UPaVsMLT+5IwbZZZsP/F/6hQTXDcmSoFUzoINmaiDcZBNYcRVJyx9qmFal3IP/418zTrRaUSjpvXtPQA3Gi98DQ==
+ bh=3ywGS2gmhnS4HbGH3xV6D1D/Y2mOKJS09pD3kGKSGtE=;
+ b=rF8ttHIVb22rpo979EYPQwwIdZFlf/wCeoP4iC4+p2fneQQ02pnyFPZjCVAkOBa82FI1/Nl7USunGOxwnysdRhUL5J10FqOgDW4EKl93SvdPazYbWSv4+9FqXjcRL2eODe+RUrjWbZ5k11XZqBRbrLIcxB/vkFWYSr45WpzQGTOzU4faOse8oZsKKpg/edbXpxHJlyyKyGGLpr4hwcRq+8FeQSBQGlW5hj3JdX+BtJCZC7Qk7d8wRb7X6Jg5Q/dw36+rG6lqp11KjuWDNPTnWszFw7QwI/0p1DA79QrQ3qAmUBbWhuLVTe7a+G3xje/85D/uRwaMRYWDpQKfpMSTCw==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
  SA0PR12MB4352.namprd12.prod.outlook.com (2603:10b6:806:9c::9) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.8; Sun, 13 Sep 2026 19:54:22 +0000
+ 15.21.406.8; Sun, 13 Sep 2026 19:54:24 +0000
 Received: from DM3PR12MB9416.namprd12.prod.outlook.com
  ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
  ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0406.007; Sun, 13 Sep 2026
- 19:54:22 +0000
+ 19:54:24 +0000
 From: John Hubbard <jhubbard@nvidia.com>
 To: Danilo Krummrich <dakr@kernel.org>,
 	Alexandre Courbot <acourbot@nvidia.com>
@@ -63,17 +63,17 @@ Cc: Timur Tabi <ttabi@nvidia.com>,
 	nova-gpu@lists.linux.dev,
 	LKML <linux-kernel@vger.kernel.org>,
 	John Hubbard <jhubbard@nvidia.com>
-Subject: [PATCH 1/3] gpu: nova-core: extract radix3 page table into its own module
-Date: Sun, 13 Sep 2026 12:54:11 -0700
-Message-ID: <20260913195413.742143-2-jhubbard@nvidia.com>
+Subject: [PATCH 3/3] gpu: nova-core: rename the FbRanges elf field to fw_image
+Date: Sun, 13 Sep 2026 12:54:13 -0700
+Message-ID: <20260913195413.742143-4-jhubbard@nvidia.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260913195413.742143-1-jhubbard@nvidia.com>
 References: <20260913195413.742143-1-jhubbard@nvidia.com>
 X-NVConfidentiality: public
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: SJ0PR05CA0135.namprd05.prod.outlook.com
- (2603:10b6:a03:33d::20) To DM3PR12MB9416.namprd12.prod.outlook.com
+X-ClientProxiedBy: SJ0PR03CA0202.namprd03.prod.outlook.com
+ (2603:10b6:a03:2ef::27) To DM3PR12MB9416.namprd12.prod.outlook.com
  (2603:10b6:0:4b::8)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -83,424 +83,150 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|SA0PR12MB4352:EE_
-X-MS-Office365-Filtering-Correlation-Id: a211a0b8-05cf-4e1c-f089-08df11d0ce40
+X-MS-Office365-Filtering-Correlation-Id: f5aa7b4b-201c-4cbc-39ed-08df11d0cfb1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
 	BCL:0;ARA:13230040|366016|10070799003|1800799024|23010399003|376014|7416014|11063799006|10067099003|18002099003|22082099003|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	NPHkErvlNkoJRu/lAI9LTk2/ganq9xTvhoPAMh4jtYyElza8b/UpOl4EWFKWtn7Iyx0MhK6Ih9DmnFZfInv5c2kSFpPdHtAxQ84OrtpcHBhbSi31OYDAHqpWLLWIH9lwgFTsuKraoQiV+AikKlPKaPF9PSmMCJa2m05iSu73izJRC1XHfQnnfw6VxwjMwrS7m81QUT0L34iDYDPoJiGHKZxvtrEZClYe8IoICIjAHUr7GHe80UMLtlFMxMs1WCSbZSpflLL/I+viM2cM59lu2JG+aSZDFqzOS4hDPF2Db+GL5xARMqyM9SyvNQDUaDW4ejWXT8yCoDI0aRIrECoQ7adtDfLXlSFo0fXkprcFafJ4frvqfn5IY7SVN1AMGy3RORp4Sas+81v8RumDhDHJKoM2oQwxRUv8jq+EBXuVfGkJmxRHo0cXrLrLGroCnaC/wfKanoi1qMyqwx7688JIp2LnU2OUFfjuN9apTus2OKLFR5We9bob9I0jwXAFsRLzE3YqHIOX7REIPx35GShEWDynBwzXVFXM/SN8EBlE6t3RGo8c2WJU4LuMJi1WArGiY3Oq382a3feW93dSUrsCR8WnkIFJ2/7cc3GuVIt2TKiX3kmQ60YYmZMXjukfOz4rydMDARqjRGK4mRHs3DHLXyb/L+VqLARVVWvXFhzT7JE=
+	c2xqI1Xp2LrxRTTP4gxIISwKoImAsBMgzNb2M7GtfQpfdDz70T3hxtQYC3g8v/C5vibzNf7y96eX74ru/O9aCRnN/DmIWXaMq6b2ETRvovQ/yuRWlr9al6lpdqULNVpdle5Q/W+4oMbkxLlGbKWxyG/fZ7lZ5VNeWjDj8MU2plnNwaEKPwxRJyEJIvwUYAfLNZARZXekUhdrF98Q+lubX2TChBMgrSl4iDQtsPBoJeAMLAvdDg/pS/tF/+gQovhgDmnMgvpBJZZ7g4LfIBGN8kyPxE7QJ4qivwT0yGzc5ak0T4ivme4oUWGMdnNhP2mp0W1mTuewdjuKm/kaGb4YZHIeACd1MW9E/TwNxCQ9bMzs56blHgeeFQ5sfyGaU4KUAz4/6te/OEq6cWB8g09mU2EoIDLVq+r/faJuUXtQ/NS7dkq1e8dgnQMbOlOS9eSS1lQiz92B0+8J8gifQGxoAeyKgeoVySKSVDpjwSDtUeCQS1bom3TIxRZK9xjw2+y9smcSoYRVNH4AD6Z5tjiTdHvGPjx+I/bqIGRptDKjiVwft7NCwQ1+aWh/GYkf0DcM2WoKaMk8ExAEnNk9j2By9tnksLfHkq9AvWhWPyC+htg6FZCB9TyLm4pmJtDYAvKV/lPPNUK95uTQSiQSKR9JUBdJ3Gj34FAIz1aoR0+rVoI=
 X-Forefront-Antispam-Report:
 	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(10070799003)(1800799024)(23010399003)(376014)(7416014)(11063799006)(10067099003)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?4kZT1g2vLSO3i6aRlQCS4HPO55ee9VLGD5GOQKKEAiWEkpvrBP3uHszHxWzC?=
- =?us-ascii?Q?2bAOTxqZNrTlWqbfs2ZBbs+iawHBPGlHaMfDBU/wq6RcL/1rrqmUW2XBOoVG?=
- =?us-ascii?Q?d7yYplT6O5/fPMxLZy319+Vw0K43uBH4N21DsiT5yWUU00yyVdV5ZAOx520/?=
- =?us-ascii?Q?UkFfCn3ZjHaSEZAEn/v7N3DqWefru4nW+l63J3hCbBPQn8wAIqUOHFwSfqZM?=
- =?us-ascii?Q?HgpqWptZSKkDQmYa2zaA6mAPAwIeBR/fEmiXe3tA/iL7no4wWZl2Y5eA4uSO?=
- =?us-ascii?Q?BO+JYETmhfN9IzvfrXQMd/nNqZakIIr5OFrCDlYoIFJtDxdwhtujI8a9y1bB?=
- =?us-ascii?Q?oH5ocV10q4Z/KtF0xKYNkUnHFUxInyc8/gED4TcUiylpzVoMbt3bP30MItyT?=
- =?us-ascii?Q?lY2dROS4lHXWqZtovsat2KOQrFF1nUjLljamKa3MlfGsQd517m0d4vsy/og+?=
- =?us-ascii?Q?3gz3vxqubgMZsVUQxXLRRIj2Us3iTS8eAFHKY7pS+Imy/bbkjaLtAja2DrQ4?=
- =?us-ascii?Q?wERRIzeiMwTdXMLUflTPJCooZdd3vds9eqqc03HmYG8F4dTxyF03U0WxVFY5?=
- =?us-ascii?Q?SJRr7vwT8GteZDKQFvTE0ZGStUsL74caz0z5rRn1QIpz2Sg2twOsf9aRJ8vL?=
- =?us-ascii?Q?ZQNhSqteYvYL05NswhMjJE3Ps4kxD9R1o9LU+qnTFA1Lvb9+uC8ZD3dVve6Z?=
- =?us-ascii?Q?appnIOjLIiWCTlx872zt3ZzVX7Z1Xlh99tPIaYnSZL4WYjNdl3iWKGVWmKH2?=
- =?us-ascii?Q?amorGUmm8B8jjOBKTV6BlF+rkWbbKU2k8rqyDuG5v4iUOBEnf1TLM4GJgxWR?=
- =?us-ascii?Q?cI1HqV96AjaDkOVflMIZ/xkjDqezgfPptofFnKPE0WpjSU1uYd94++UijugX?=
- =?us-ascii?Q?S+xzp3u5Zmn8wKeaMaR0osBFGmj7ceXX0w72X39qM3sMfMjHQu79uAMJmn2N?=
- =?us-ascii?Q?E7MDsaLCMbMc46Nh6K956qkEeeQBgQEZ8srOhw6DOpmUGYQC94AIQ0o6oocM?=
- =?us-ascii?Q?qIkkDC1/+Y39vbkXo/cIX8fl6Ry+vsKsEkHdFo6RCPwD7bytSqV8lbMwiL5A?=
- =?us-ascii?Q?Susq5NUGI+ZwBcTPw1fakUJ8SrFJcgjGg8/L3z5ShSAmRdf855X2WzXID7Va?=
- =?us-ascii?Q?wnHCpHTS/2OLn9Zx9IyXP1Qbf7/Gdpv/ClYMAkRaT+Hx4SRZW5hWOe+VXfQW?=
- =?us-ascii?Q?qBAKmJfgxb+M1RjieKSVF7uYHZq0VpyQv4Oa7e4L3Rbyh++cB08e3fSjwj1+?=
- =?us-ascii?Q?5MFIACMSFQVqR3kJbFxNJn5GIa/D0i/vchQhmV2Podd77F0aE2FLeyNXlZx4?=
- =?us-ascii?Q?YKpRka9aeuSRF5Q1DvAzJRipEKhV7hIN/I9itnn3e27MO7w89YMzSPVeNIj+?=
- =?us-ascii?Q?FRrbjSCNsX0gI+Kh7lwNbPiUDvrnC6Uo81FTByjVuwQ//mmqtc8VPmC6gUNf?=
- =?us-ascii?Q?rQMiIqCEzYAcKGEHHKmxgFSvTB0VSEPnkQa/CTA485qVIMp/nlPgB3gS1qkP?=
- =?us-ascii?Q?M+DGpYJWixOvF1jT/8viB2UuJjX59P2q5DKSVds9FFri8hJg3ytYY2RgRpH5?=
- =?us-ascii?Q?3GoPAtWed0HFZKqZbvzk4VEdXhdKsZN3rhAATVoLiMiFoQvckrg9ggDJ/+Jx?=
- =?us-ascii?Q?+2F/bsJZ9uuAt60FMh03wNkg/t+m3B/AiENbBU6mRd/QyG1M870ePFH7anwc?=
- =?us-ascii?Q?jEGH3x17r8W34e6uEiAnMDQj+kIIJ1+zAo98QR5l/qLb5TsyszqdVuZkNHUV?=
- =?us-ascii?Q?DMkIBUit23353FWuM58JnOOkqlVF7A0=3D?=
+	=?us-ascii?Q?GxyAHR/ia+T+owskygNrDS47CaWBIf0wRs1M+WkecN/w+VpyJSqngGOqNXgw?=
+ =?us-ascii?Q?3/wQdjg26lj9L/PLjAnvSi5bR/cO8SCgylk6O8ETsI5I4xuw9n7ydzb6NMX2?=
+ =?us-ascii?Q?VAbOY0Ty8HCFwkfQhw2liWmH08oAqGG0ARGgFmfgVLf7p6b40IOqrSmLUjxX?=
+ =?us-ascii?Q?mwr+NDXARDAV3y4/PZzCHkc9WWijRFJHfwYBh4AKhqP2XsQANMPR+Z300UiK?=
+ =?us-ascii?Q?J0k6thO9Ri2nmollQqBZLemknD2k7Xo/MR4ZPdIIPNm2JnalF/LJrNfWQie6?=
+ =?us-ascii?Q?w3pKk27KYPhEtUdacePU/sVgmgBA1tAbgX1KTnEHOh/GAutzzXvSAPVXJIZ+?=
+ =?us-ascii?Q?48BlfXyVrhWQlr8H7HAzLjX02dam/GlRdVxeJGp+r0Vs57qW8ZBBNFefV2Xv?=
+ =?us-ascii?Q?EtFh8oUKaqmnFz9WbBfZJYUNQ365zfHTHvTXF4zDRtG3dzApq6Xr2k9Jmryj?=
+ =?us-ascii?Q?q+GsiredkWc508tHVubv48h026kalVofWf47zuHKBl+9q1qKoilcsMPFa2up?=
+ =?us-ascii?Q?MYqfb6B07qEnPhw2abidXcqQi/7mOeiNqf0uZUbHfd5oOpUOnzfhYl1VBrPx?=
+ =?us-ascii?Q?zqzxc/88GA4oONaYRX4IwhWN0LppGcPJ5mhZX1zEMGwwzOaTttwnIQ089tcO?=
+ =?us-ascii?Q?34HwKrPcdk26PI+LZIdzNpCpS0TpTAJk1ze8Mxw8GgiY7/CndpjSko8FcJQB?=
+ =?us-ascii?Q?Lqk8BMZILzXYAxlAy1Q3vhre0QpM5JdRThSjD06RVQdAU3fuecOrQ+0+j20Y?=
+ =?us-ascii?Q?krjv0laujamAOcmB+rieN+k3+0CyRtbJfffijsDWgwydxBiGBFEnXM9a5d4K?=
+ =?us-ascii?Q?WpHvRUgtCWucsx7K4nloDwzMy2RMaNVtuBY7Y+4AJ8aA2Lqnu4mx3GKs0ALy?=
+ =?us-ascii?Q?R5PfmwxNFeTvTIx4wl1LNwAWytU94QKBfcYLWA2CIiHxggYjptVD60raCde3?=
+ =?us-ascii?Q?fhYMCdO/clnPlbcFCk2qMTnXW5Q1UWOichvCDfWBGtuoUuOBNP41TgfudwG/?=
+ =?us-ascii?Q?dwjRkoO5o5B9cwdCuurlkX5qw1HU5MuYrAvsFW84BwWAf4uPNhC1GWa54+7F?=
+ =?us-ascii?Q?uT6SIvJWFHRgwyVeSv+iXxzqE4OoJpzlE7p6AXp+KoA0I4NoGZ3gxu8dzk97?=
+ =?us-ascii?Q?cCSJI0/IL1b84vcoV+sZqxTK5d+dtrte5Clc45KS3tY7e+md2d9tCA/0koVU?=
+ =?us-ascii?Q?mCfMnDNmc5b6BTeLCqAZbLICQ6VszQYdqRGomuBYVcUDzxhwY6VIAfPlLm6q?=
+ =?us-ascii?Q?DMO0jM3XaRBT5aqhPWAGMQBwGWkYe6R+2ZP2a+EyYVpYyOIEyDqUQIZ88Dwv?=
+ =?us-ascii?Q?q1CvF/4b2PNCSDnEMmtVId4INWJMRTunHv+ZTqU6BXuQlUORVN5GIxwXJ9/8?=
+ =?us-ascii?Q?rmS0VOSIX00Eo4z7nN3omDr7LyAbbeUBMnldr27suJ0o2mk8atF/SjgIqtkd?=
+ =?us-ascii?Q?FlGc1kg4Ap+t2duMAQ6eQp3cKlSmh4EMcQW+sHQm46AiyQGyZazH7FG9kDbZ?=
+ =?us-ascii?Q?wUlDDQ1apK/vFNKhlfQCc3L5WSEOSIeRF2fYUcqi7I1hVX4wfyhwvtJrUlcf?=
+ =?us-ascii?Q?oGES9ejzMc5BsYxp7sGOx/A2olS8MsD1vbjnW4gA9z2dbebKBX6+TKF3Snlz?=
+ =?us-ascii?Q?E4Art2AHaZBkmiVKdgH8/Mt080nm1abE/ABv7o1QlAAcY7oYZQEX6PVYLGM/?=
+ =?us-ascii?Q?goQV1J+3kr3hBHmbeMf2baJsRWvlVy2f+zHm6HZdKvoyVrNdJ9NMQoE5IfRE?=
+ =?us-ascii?Q?viMIzVro3N0afwxhZdENgOw2vSZc9Ug=3D?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a211a0b8-05cf-4e1c-f089-08df11d0ce40
+X-MS-Exchange-CrossTenant-Network-Message-Id: f5aa7b4b-201c-4cbc-39ed-08df11d0cfb1
 X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Sep 2026 19:54:22.2274
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Sep 2026 19:54:24.6386
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FKObuf7hfFtskGoRQgBQ43PUVyv3HMwGcfDQA/yW6CYYW03mW1LkwW7PSSTWAZp68Ws2Y5KY5ozGKfJ2sJd31g==
+X-MS-Exchange-CrossTenant-UserPrincipalName: byuJGZMjLVZmZ2PUU882oWXGoVeexnpnnHQqY8n9GQB4poYycwE3RHQt9b215fRH3JJVZWs9/81mMzRsY5s0BQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4352
 
-In order to boot the GSP, nova-core loads the GSP firmware image into
-system memory, and the GPU copies it into the framebuffer, the GPU's own
-memory. The GPU finds the GSP firmware image's pages via "radix3", a
-three-level page table of 4 KiB pages that the driver builds. Today the
-table exists as fields within the GSP firmware wrapper, which is fine
-because there is only one radix3 consumer.
+A TLV firmware file carries the GSP firmware image as a section
+extracted from the original ELF, and the section is not itself an ELF.
 
-The upcoming r000 series[1], however, introduces a second radix3 caller:
-the ucodes firmware image. That is because the GSP has been changed, so
-that it automatically fetches the subset of ucodes that it requires,
-thus reducing the size of the GSP image. This is a helpful change for
-the firmware situation overall, but it will require nova-core to load
-and provide ucodes, in much the same way that it was loading and
-providing the GSP firmware image.
+Before the driver moved to TLV firmware files, it parsed that ELF
+itself, and it named the framebuffer range that holds the image for the
+ELF. The range kept the name through the move.
 
-Therefore, split out radix3 into its own module.
+Rename the field for the framebuffer range that holds the GSP firmware
+image, from elf to fw_image. After this, the following:
 
-[1] https://lore.kernel.org/all/20260822015448.238214-1-jhubbard@nvidia.com/
+    $ cd drivers/gpu/nova-core
+    $ grep -iw ELF
+
+comes up empty. :)
 
 Assisted-by: LLM
 Reviewed-by: Timur Tabi <ttabi@nvidia.com>
 Signed-off-by: John Hubbard <jhubbard@nvidia.com>
 ---
- drivers/gpu/nova-core/fb.rs              |   2 +-
- drivers/gpu/nova-core/firmware.rs        |   1 +
- drivers/gpu/nova-core/firmware/gsp.rs    | 107 ++-----------------
- drivers/gpu/nova-core/firmware/radix3.rs | 126 +++++++++++++++++++++++
- drivers/gpu/nova-core/gsp/fw.rs          |   4 +-
- 5 files changed, 141 insertions(+), 99 deletions(-)
- create mode 100644 drivers/gpu/nova-core/firmware/radix3.rs
+ drivers/gpu/nova-core/fb.rs     | 18 +++++++++---------
+ drivers/gpu/nova-core/gsp/fw.rs |  2 +-
+ 2 files changed, 10 insertions(+), 10 deletions(-)
 
 diff --git a/drivers/gpu/nova-core/fb.rs b/drivers/gpu/nova-core/fb.rs
-index b3a6ab8b57a6..b18dc5447a73 100644
+index b18dc5447a73..b0c0b8fe6008 100644
 --- a/drivers/gpu/nova-core/fb.rs
 +++ b/drivers/gpu/nova-core/fb.rs
-@@ -236,7 +236,7 @@ pub(crate) fn new(
+@@ -159,7 +159,7 @@ pub(crate) struct FbRanges {
+     /// Memory area containing the GSP bootloader image.
+     pub(crate) boot: FbRange,
+     /// Memory area containing the GSP firmware image.
+-    pub(crate) elf: FbRange,
++    pub(crate) fw_image: FbRange,
+     /// WPR2 heap.
+     pub(crate) wpr2_heap: FbRange,
+     /// WPR2 region range, starting with an instance of `GspFwWprMeta`.
+@@ -234,25 +234,25 @@ pub(crate) fn new(
+             FbRange(bootloader_base..bootloader_base + bootloader_size)
+         };
  
-         let elf = {
-             const ELF_DOWN_ALIGN: Alignment = Alignment::new::<SZ_64K>();
--            let elf_size = u64::from_safe_cast(gsp_fw.size);
-+            let elf_size = u64::from_safe_cast(gsp_fw.size());
-             let elf_addr = (boot.start - elf_size).align_down(ELF_DOWN_ALIGN);
+-        let elf = {
+-            const ELF_DOWN_ALIGN: Alignment = Alignment::new::<SZ_64K>();
+-            let elf_size = u64::from_safe_cast(gsp_fw.size());
+-            let elf_addr = (boot.start - elf_size).align_down(ELF_DOWN_ALIGN);
++        let fw_image = {
++            const FW_IMAGE_DOWN_ALIGN: Alignment = Alignment::new::<SZ_64K>();
++            let fw_image_size = u64::from_safe_cast(gsp_fw.size());
++            let fw_image_addr = (boot.start - fw_image_size).align_down(FW_IMAGE_DOWN_ALIGN);
  
-             FbRange(elf_addr..elf_addr + elf_size)
-diff --git a/drivers/gpu/nova-core/firmware.rs b/drivers/gpu/nova-core/firmware.rs
-index c16fee6e2b2a..d8f6509a35d1 100644
---- a/drivers/gpu/nova-core/firmware.rs
-+++ b/drivers/gpu/nova-core/firmware.rs
-@@ -26,6 +26,7 @@
- pub(crate) mod fwsec;
- pub(crate) mod gsp;
- pub(crate) mod gsp_fmc;
-+pub(crate) mod radix3;
- pub(crate) mod riscv;
- pub(crate) mod tlv;
+-            FbRange(elf_addr..elf_addr + elf_size)
++            FbRange(fw_image_addr..fw_image_addr + fw_image_size)
+         };
  
-diff --git a/drivers/gpu/nova-core/firmware/gsp.rs b/drivers/gpu/nova-core/firmware/gsp.rs
-index 22d1f9329c9f..341a8b19aa38 100644
---- a/drivers/gpu/nova-core/firmware/gsp.rs
-+++ b/drivers/gpu/nova-core/firmware/gsp.rs
-@@ -4,21 +4,16 @@
-     device,
-     dma::{
-         Coherent,
--        CoherentBox,
--        DataDirection,
-         DmaAddress, //
-     },
-     firmware,
-     prelude::*,
--    scatterlist::{
--        Owned,
--        SGTable, //
--    },
-     str::CString,
- };
+         let (vf_partition_count, wpr2_heap_size) = wpr2_heap_params(chipset, vgpu_state, fb.end)?;
  
- use crate::{
-     firmware::{
-+        radix3::Radix3,
-         riscv::RiscvFirmware, //
-         tlv::{
-             request_tlv, //
-@@ -26,38 +21,15 @@
-         },
-     },
-     gpu::Chipset,
--    gsp::GSP_PAGE_SIZE,
-     num::FromSafeCast,
- };
+         let wpr2_heap = {
+             const WPR2_HEAP_DOWN_ALIGN: Alignment = Alignment::new::<SZ_1M>();
+-            let wpr2_heap_addr = elf
++            let wpr2_heap_addr = fw_image
+                 .start
+                 .checked_sub(wpr2_heap_size)
+                 .ok_or(EOVERFLOW)?
+                 .align_down(WPR2_HEAP_DOWN_ALIGN);
  
--/// GSP firmware with 3-level radix page tables for the GSP bootloader.
--///
--/// The bootloader expects firmware to be mapped starting at address 0 in GSP's virtual address
--/// space:
--///
--/// ```text
--/// Level 0:  1 page, 1 entry         -> points to first level 1 page
--/// Level 1:  Multiple pages/entries  -> each entry points to a level 2 page
--/// Level 2:  Multiple pages/entries  -> each entry points to a firmware page
--/// ```
--///
--/// Each page is 4KB, each entry is 8 bytes (64-bit DMA address).
--/// Also known as "Radix3" firmware.
-+/// The GSP firmware image, its signatures, and the GSP bootloader.
- #[pin_data]
- pub(crate) struct GspFirmware<'a> {
--    /// The GSP firmware inside a [`VVec`], device-mapped via a SG table.
--    #[pin]
--    fw: SGTable<Owned<VVec<u8>>>,
--    /// Level 2 page table whose entries contain DMA addresses of firmware pages.
-+    /// The firmware image and the radix3 table that maps it.
-     #[pin]
--    level2: SGTable<Owned<VVec<u8>>>,
--    /// Level 1 page table whose entries contain DMA addresses of level 2 pages.
--    #[pin]
--    level1: SGTable<Owned<VVec<u8>>>,
--    /// Level 0 page table (single 4KB page) with one entry: DMA address of first level 1 page.
--    level0: Coherent<'a, [u64]>,
--    /// Size in bytes of the firmware contained in [`Self::fw`].
--    pub(crate) size: usize,
-+    radix3: Radix3<'a>,
-     /// Device-mapped GSP signatures matching the GPU's [`Chipset`].
-     pub(crate) signatures: Coherent<'a, [u8]>,
-     /// GSP bootloader, verifies the GSP firmware before loading and running it.
-@@ -87,49 +59,7 @@ pub(crate) fn new(
-             let signatures = Coherent::from_slice(dev, tlv.get_bytes(b"SIGN")?, GFP_KERNEL)?;
+-            FbRange(wpr2_heap_addr..(elf.start).align_down(WPR2_HEAP_DOWN_ALIGN))
++            FbRange(wpr2_heap_addr..(fw_image.start).align_down(WPR2_HEAP_DOWN_ALIGN))
+         };
  
-             Ok(try_pin_init!(Self {
--                fw <- SGTable::new(dev, fw_vvec, DataDirection::ToDevice, GFP_KERNEL),
--                level2 <- {
--                    // Allocate the level 2 page table, map the firmware onto it, and map it into
--                    // the device address space.
--                    VVec::<u8>::with_capacity(
--                        fw.iter().count() * core::mem::size_of::<u64>(),
--                        GFP_KERNEL,
--                    )
--                    .map_err(|_| ENOMEM)
--                    .and_then(|level2| map_into_lvl(&fw, level2))
--                    .map(|level2| SGTable::new(dev, level2, DataDirection::ToDevice, GFP_KERNEL))?
--                },
--                level1 <- {
--                    // Allocate the level 1 page table, map the level 2 page table onto it, and map
--                    // it into the device address space.
--                    VVec::<u8>::with_capacity(
--                        level2.iter().count() * core::mem::size_of::<u64>(),
--                        GFP_KERNEL,
--                    )
--                    .map_err(|_| ENOMEM)
--                    .and_then(|level1| map_into_lvl(&level2, level1))
--                    .map(|level1| SGTable::new(dev, level1, DataDirection::ToDevice, GFP_KERNEL))?
--                },
--                level0: {
--                    // Allocate the level 0 page table as a device-visible DMA object, and map the
--                    // level 1 page table onto it.
--
--                    // Fill level 1 page entry.
--                    let level1_entry = level1.iter().next().ok_or(EINVAL)?;
--                    let level1_entry_addr = level1_entry.dma_address();
--
--                    // Create level 0 page table data and fill its first entry with the level 1
--                    // table.
--                    let mut level0 = CoherentBox::<'_, [u64]>::zeroed_slice(
--                        dev,
--                        GSP_PAGE_SIZE / size_of::<u64>(),
--                        GFP_KERNEL
--                    )?;
--                    level0[0] = level1_entry_addr.to_le();
--
--                    level0.into()
--                },
--                size,
-+                radix3 <- Radix3::new(dev, fw_vvec),
-                 signatures,
-                 bootloader: {
-                     let bl = request_tlv(dev, chipset, "gsp_bootloader")?;
-@@ -140,28 +70,13 @@ pub(crate) fn new(
-         })
-     }
- 
--    /// Returns the DMA address of the radix3 level 0 page table.
--    pub(crate) fn radix3_dma_address(&self) -> DmaAddress {
--        self.level0.dma_address()
-+    /// Returns the size of the firmware image, in bytes.
-+    pub(crate) fn size(&self) -> usize {
-+        self.radix3.size()
-     }
--}
- 
--/// Build a page table from a scatter-gather list.
--///
--/// Takes each DMA-mapped region from `sg_table` and writes page table entries
--/// for all 4KB pages within that region. For example, a 16KB SG entry becomes
--/// 4 consecutive page table entries.
--fn map_into_lvl(sg_table: &SGTable<Owned<VVec<u8>>>, mut dst: VVec<u8>) -> Result<VVec<u8>> {
--    for sg_entry in sg_table.iter() {
--        // Number of pages we need to map.
--        let num_pages = usize::from_safe_cast(sg_entry.dma_len()).div_ceil(GSP_PAGE_SIZE);
--
--        for i in 0..num_pages {
--            let entry = sg_entry.dma_address()
--                + (u64::from_safe_cast(i) * u64::from_safe_cast(GSP_PAGE_SIZE));
--            dst.extend_from_slice(&entry.to_le_bytes(), GFP_KERNEL)?;
--        }
-+    /// Returns the DMA address of the radix3 table that maps the firmware image.
-+    pub(crate) fn radix3_dma_address(&self) -> DmaAddress {
-+        self.radix3.dma_address()
-     }
--
--    Ok(dst)
- }
-diff --git a/drivers/gpu/nova-core/firmware/radix3.rs b/drivers/gpu/nova-core/firmware/radix3.rs
-new file mode 100644
-index 000000000000..6b8251ed871d
---- /dev/null
-+++ b/drivers/gpu/nova-core/firmware/radix3.rs
-@@ -0,0 +1,126 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// SPDX-FileCopyrightText: Copyright (c) 2025-2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
-+
-+//! The radix3 page table, through which firmware running on the GPU reads a buffer in system
-+//! memory. LibOS, the operating system of the GSP, defines the format: three levels of
-+//! [`GSP_PAGE_SIZE`] pages, each entry the little-endian DMA address of one page.
-+//!
-+//! ```text
-+//! Level 0:  one page, one entry  ->  the first level 1 page
-+//! Level 1:  pages of entries     ->  each entry a level 2 page
-+//! Level 2:  pages of entries     ->  each entry a page of the buffer
-+//! ```
-+
-+use core::mem::size_of;
-+
-+use kernel::{
-+    device,
-+    dma::{
-+        Coherent,
-+        CoherentBox,
-+        DataDirection,
-+        DmaAddress, //
-+    },
-+    prelude::*,
-+    scatterlist::{
-+        Owned,
-+        SGTable, //
-+    },
-+};
-+
-+use crate::{
-+    gsp::GSP_PAGE_SIZE,
-+    num::FromSafeCast, //
-+};
-+
-+/// A radix3 page table and the data it maps.
-+#[pin_data]
-+pub(crate) struct Radix3<'a> {
-+    /// The mapped data.
-+    #[pin]
-+    data: SGTable<Owned<VVec<u8>>>,
-+    /// Level 2: one entry per page of `data`.
-+    #[pin]
-+    level2: SGTable<Owned<VVec<u8>>>,
-+    /// Level 1: one entry per page of `level2`.
-+    #[pin]
-+    level1: SGTable<Owned<VVec<u8>>>,
-+    /// Level 0: one page, whose single entry is the DMA address of the first `level1` page.
-+    level0: Coherent<'a, [u64]>,
-+    /// Length of `data`, in bytes.
-+    size: usize,
-+}
-+
-+impl<'a> Radix3<'a> {
-+    /// Builds a radix3 page table over `data`, mapped for `dev` to read. May sleep.
-+    pub(crate) fn new(
-+        dev: &'a device::Device<device::Bound>,
-+        data: VVec<u8>,
-+    ) -> impl PinInit<Self, Error> + 'a {
-+        let size = data.len();
-+
-+        pin_init::pin_init_scope(move || {
-+            Ok(try_pin_init!(Self {
-+                data <- SGTable::new(dev, data, DataDirection::ToDevice, GFP_KERNEL),
-+                level2 <- {
-+                    VVec::<u8>::with_capacity(
-+                        data.iter().count() * core::mem::size_of::<u64>(),
-+                        GFP_KERNEL,
-+                    )
-+                    .map_err(|_| ENOMEM)
-+                    .and_then(|level2| map_into_lvl(&data, level2))
-+                    .map(|level2| SGTable::new(dev, level2, DataDirection::ToDevice, GFP_KERNEL))?
-+                },
-+                level1 <- {
-+                    VVec::<u8>::with_capacity(
-+                        level2.iter().count() * core::mem::size_of::<u64>(),
-+                        GFP_KERNEL,
-+                    )
-+                    .map_err(|_| ENOMEM)
-+                    .and_then(|level1| map_into_lvl(&level2, level1))
-+                    .map(|level1| SGTable::new(dev, level1, DataDirection::ToDevice, GFP_KERNEL))?
-+                },
-+                level0: {
-+                    let level1_entry = level1.iter().next().ok_or(EINVAL)?;
-+                    let level1_entry_addr = level1_entry.dma_address();
-+
-+                    let mut level0 = CoherentBox::<'_, [u64]>::zeroed_slice(
-+                        dev,
-+                        GSP_PAGE_SIZE / size_of::<u64>(),
-+                        GFP_KERNEL,
-+                    )?;
-+                    level0[0] = level1_entry_addr.to_le();
-+
-+                    level0.into()
-+                },
-+                size,
-+            }))
-+        })
-+    }
-+
-+    /// Returns the DMA address of the level 0 page, which is the address of the table.
-+    pub(crate) fn dma_address(&self) -> DmaAddress {
-+        self.level0.dma_address()
-+    }
-+
-+    /// Returns the length of the mapped data, in bytes.
-+    pub(crate) fn size(&self) -> usize {
-+        self.size
-+    }
-+}
-+
-+/// Appends one level of the table to `dst`: one entry per [`GSP_PAGE_SIZE`] page of each
-+/// DMA-mapped region of `sg_table`, in region order.
-+fn map_into_lvl(sg_table: &SGTable<Owned<VVec<u8>>>, mut dst: VVec<u8>) -> Result<VVec<u8>> {
-+    for sg_entry in sg_table.iter() {
-+        let num_pages = usize::from_safe_cast(sg_entry.dma_len()).div_ceil(GSP_PAGE_SIZE);
-+
-+        for i in 0..num_pages {
-+            let entry = sg_entry.dma_address()
-+                + (u64::from_safe_cast(i) * u64::from_safe_cast(GSP_PAGE_SIZE));
-+            dst.extend_from_slice(&entry.to_le_bytes(), GFP_KERNEL)?;
-+        }
-+    }
-+
-+    Ok(dst)
-+}
+         let wpr2 = {
+@@ -273,7 +273,7 @@ pub(crate) fn new(
+             vga_workspace,
+             frts,
+             boot,
+-            elf,
++            fw_image,
+             wpr2_heap,
+             wpr2,
+             non_wpr_heap,
 diff --git a/drivers/gpu/nova-core/gsp/fw.rs b/drivers/gpu/nova-core/gsp/fw.rs
-index 8778c4bf79c0..ae98da42410b 100644
+index ae98da42410b..918a7ae809eb 100644
 --- a/drivers/gpu/nova-core/gsp/fw.rs
 +++ b/drivers/gpu/nova-core/gsp/fw.rs
-@@ -187,7 +187,7 @@ pub(crate) fn from_ranges<'a>(
-             magic: bindings::GSP_FW_WPR_META_MAGIC as u64,
-             revision: u64::from(bindings::GSP_FW_WPR_META_REVISION),
-             sysmemAddrOfRadix3Elf: gsp_firmware.radix3_dma_address(),
--            sizeOfRadix3Elf: u64::from_safe_cast(gsp_firmware.size),
-+            sizeOfRadix3Elf: u64::from_safe_cast(gsp_firmware.size()),
-             sysmemAddrOfBootloader: gsp_firmware.bootloader.ucode.dma_address(),
-             sizeOfBootloader: u64::from_safe_cast(gsp_firmware.bootloader.ucode.size()),
-             bootloaderCodeOffset: u64::from(gsp_firmware.bootloader.code_offset),
-@@ -242,7 +242,7 @@ pub(crate) fn from_sizes<'a>(
-             magic: bindings::GSP_FW_WPR_META_MAGIC as u64,
-             revision: u64::from(bindings::GSP_FW_WPR_META_REVISION),
-             sysmemAddrOfRadix3Elf: gsp_firmware.radix3_dma_address(),
--            sizeOfRadix3Elf: u64::from_safe_cast(gsp_firmware.size),
-+            sizeOfRadix3Elf: u64::from_safe_cast(gsp_firmware.size()),
-             sysmemAddrOfBootloader: gsp_firmware.bootloader.ucode.dma_address(),
-             sizeOfBootloader: u64::from_safe_cast(gsp_firmware.bootloader.ucode.size()),
-             bootloaderCodeOffset: u64::from(gsp_firmware.bootloader.code_offset),
+@@ -205,7 +205,7 @@ pub(crate) fn from_ranges<'a>(
+             gspFwWprStart: ranges.wpr2.start,
+             gspFwHeapOffset: ranges.wpr2_heap.start,
+             gspFwHeapSize: ranges.wpr2_heap.len(),
+-            gspFwOffset: ranges.elf.start,
++            gspFwOffset: ranges.fw_image.start,
+             bootBinOffset: ranges.boot.start,
+             frtsOffset: ranges.frts.start,
+             frtsSize: ranges.frts.len(),
 -- 
 2.55.0
 
