@@ -1,62 +1,82 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D3D69463
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 07:48:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3424724501D;
+	Sun, 13 Sep 2026 07:50:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789285714; cv=none; b=Hl10zivuiHXOlNFt+w9pMwUCQum1BxlGCXfuDAC3P6krv+rU2MUH+yPrIZocJCK7WTs3380Wx7zSX6BUEvytOEQ59NIERG9MrGowheu3q6gmR0BVMq+uUlHq0sU02ubIuM51dCMjkOJ+SXQ20KnrVkunV0BaXLJZ6n0FZ69Qa/Q=
+	t=1789285808; cv=none; b=ZYhjCVbgP0pnKByc03oQM3xbiNWXe1l3Pn4CxlHNWRwyIpEw7lC3c2sSPqEq13a9wjsMKNcNXfGKluQ/pEs34mEWjcn9QWO86js+UEi3prdqQDbvOMrspoi1aViW6uoXT0D3qIuDa+3Zat/TEGTqnDKwT+UD9P8xNMIHR/yGagc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789285714; c=relaxed/simple;
-	bh=b5QmrmWiPjuBwlLb+PYJwvKbkv/GDPkI77vpDJcWD90=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=R6Y5IO0eMxj0CDruURy9YykpLoBkXamVt2V+IzorifbaK0ZusnPi8q1/Xkh6PKK/Nr1XkvKN/Iz7tzghYEu7o2xoYw7CA+3Ykctpd084cGoKT5jwK+M5LSU7V6nBBXjPJXUi5t8e8G9yKEBhyFEkjIy2jgOUZj+jsJXNCt7fpUs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=AQUAf4uF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789285808; c=relaxed/simple;
+	bh=hU1rqViu1EpVEvQCb/N/SYZKKgn81mdJCzicQsLe0F0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QdTSu5idrN3ogdvtrwYxSKfTvyU39VxIRo7etLBv27XgL1PPHYAfwYuTgczw7JTAf9sZjswQCCxAVHozh2K2kkBdEH8VjUjZm6IXNchYsJO6wPUN3dTAOoC/IzbVXZHv5EmGwdRjjBvdSWYtohFFzNuXHED+0gzCPNeC7DvMtTI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NQyqepqa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="AQUAf4uF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 527F81F000FF;
-	Sun, 13 Sep 2026 07:48:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1789285712;
-	bh=qbTN56aFJwoSV1zh3LBt3rCv31f9RqWhm969uraW4/k=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=AQUAf4uFkNStZ1Tb45HwVwL+jD4BDOL1WJROlgROMNZxvnKJ+C58K3zQn90022Z22
-	 5YKPPtJJ4vXOvkJPPwHpKa2lcbBb03d0cwLGDwnpOZwAwUjItS07Q3ueELNy/b7JNp
-	 Ac3EM806qvU69cwSlSAGYkBY7fvEsup5fnuhlPig=
-Date: Sun, 13 Sep 2026 00:48:31 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Baoquan He <hebaoquan@kylinos.cn>
-Cc: hannes@cmpxchg.org, yosry@kernel.org, nphamcs@gmail.com,
- chengming.zhou@linux.dev, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- kasong@tencent.com, chrisl@kernel.org
-Subject: Re: [PATCH] mm: zswap: return -ENOENT when the swap device is gone
-Message-Id: <20260913004831.884d37afd92249d763b7f1da@linux-foundation.org>
-In-Reply-To: <20260913063031.1689420-1-hebaoquan@kylinos.cn>
-References: <20260913063031.1689420-1-hebaoquan@kylinos.cn>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NQyqepqa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F129E1F000FF;
+	Sun, 13 Sep 2026 07:50:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789285807;
+	bh=/vfBaplv3ynsUjvQf48JdtOudWdNUPLDX6cz9N40dxs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NQyqepqacY2wTnbV1Q1tXFbycIEo8cp7lLc2CC7si3ixm6N1Dv/EndBL8RCGwikkI
+	 qpaGBStF/j16Ocsg4vJJdhhCeunXTxzYlz1aCiFiQrXMHNt96kcLeYTkYJQ+sJTypH
+	 n9+808sCaHxi+gSZqpTThxINukKrandZ5LSGN7RyVAG8r469ZpF02XL5wD+wQ5ArWj
+	 pa7WaTV8X5klYPMRaGZsY0VL1ijvBRLRchS/w/HnT+CG33hBjbJsWdwCr7Cb1zV7fF
+	 RP+UM1NckVZ7HxiOgU10H5BU4bwilWr+LmQiE+hwf7oPM2aU9/G5iULaihLH2F3j6r
+	 xADm43avrVrpw==
+Date: Sun, 13 Sep 2026 09:50:03 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Nabige Aala <nabige.aala@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+	Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Kuogee Hsieh <quic_khsieh@quicinc.com>, 
+	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+	Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>, Mahadevan P <mahadevan.p@oss.qualcomm.com>
+Subject: Re: [PATCH 03/17] dt-bindings: display/msm: Document Nord MDSS
+Message-ID: <20260913-festive-shrimp-of-strength-10b9df@quoll>
+References: <20260911-nord-drv-dt-v1-0-e25c073cf1b6@oss.qualcomm.com>
+ <20260911-nord-drv-dt-v1-3-e25c073cf1b6@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260911-nord-drv-dt-v1-3-e25c073cf1b6@oss.qualcomm.com>
 
-On Sun, 13 Sep 2026 14:30:31 +0800 Baoquan He <hebaoquan@kylinos.cn> wrote:
+On Fri, Sep 11, 2026 at 09:06:34PM +0530, Nabige Aala wrote:
+> +    display-subsystem@ae00000 {
+> +        compatible = "qcom,nord-mdss";
+> +        reg = <0x0ae00000 0x1000>;
+> +        reg-names = "mdss";
+> +        power-domains = <&dispcc_gdsc>;
+> +        clocks = <&dispcc DISPCC_MDSS_AHB_CLK>,
+> +                 <&gcc GCC_DISP_HF_AXI_CLK>,
+> +                 <&dispcc DISPCC_MDSS_MDP_CLK>;
+> +        clock-names = "iface", "bus", "core";
+> +        resets = <&dispcc DISP_CC_MDSS_CORE_BCR>;
+> +        interrupts = <GIC_SPI 83 IRQ_TYPE_LEVEL_HIGH>;
+> +        interrupt-controller;
+> +        #interrupt-cells = <1>;
+> +        iommus = <&apps_smmu 0x800 0x420>;
+> +        #address-cells = <1>;
+> +        #size-cells = <1>;
+> +        ranges;
 
-> zswap_writeback_entry() returns -EEXIST when get_swap_device() finds no
-> device.  -EEXIST is the shrinker's "page already in swap cache" signal,
-> which makes zswap_shrinker_scan() stop shrinking entirely.  A NULL
-> get_swap_device() instead means the device is being swapped off, so the
-> entry is simply stale.
-> 
-> Return -ENOENT so the shrinker skips the stale entry and keeps scanning.
-> Independent of xswap; affects all swap devices.
+Make the example complete here.
 
-I'm struggling to understand the userspace-visible runtime effects of this.
-
-I see that reclaim will prematurely abort, but is this a once-off thing
-which will resolve on the next reclaim attempt, or will the reclaim
-failure persist for a significant period?
+Best regards,
+Krzysztof
 
