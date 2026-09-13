@@ -1,100 +1,98 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62CD7370D41
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 16:19:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 931B82E1EFC;
+	Sun, 13 Sep 2026 16:20:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789316373; cv=none; b=Qu82++60dAFfxQ7NvsS/EhmVadny+Isa8wjWWagyunToTmTz7WxPcMIfNEEzGAQEts8zei6KMgRqJplMcPoCsMD5A4HOgunRQyaIiRNbSd0XYvGFJzMpDs0OkB2rbyIHYVh0ASqcjmKkixM1wgveizDVa6/baLt2N1tsuNwclkg=
+	t=1789316454; cv=none; b=GKX90TSUiLmYF1S9MdlHie1VRtZws2w0MuFObqFj/VBfxIq+0sedyhShKGtfqlQ6Yg7T0/LaETTmRxjKlHi56l39JghHRpuz8Grky1kwc9BpUNipI6Q/kdt2zz2cRyjwFz8I/BeHrmg8FgQGTc3r1MZpkQ1Ev8ELfoPg92Wp8ck=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789316373; c=relaxed/simple;
-	bh=KIR3o+3A1UUmD5skg6L1G6Sxv8CKuaG86LXOpAPQGLc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=mnTUIoIB2R1aC7YeY5h3KKLKs20m7aRoc0iKCUIb3NFxlwyk+ZQN89hBANZcGYRA9f6uQhI6Wo+K/2DYCoeGy9cF5o6MKJhGQwJuv9F3hS+04868fKIZT/d1i+VtyQrQHK2VR9Qj1alFWvxGqdSceZyCkGftTXRDQuXj0ouDfv4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BrfG23hB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789316454; c=relaxed/simple;
+	bh=4/PjweexX+DIv6UWnmnWObXqTb2heFgBJew3+1KyJzA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=PFTc+fd4RJy838l1eYwlGE3vYAVJIAxtpTW/9n8L5UgIn8tGEz52MYIaU0gnb30ZHBkKgWFRUQ1hNWsrFROxYJExMopMJ3JYk4a2MzI4V96JBxn+eesRFIfXRK8zaaDrLVVw4o2q2dr6HQvyKsr4ZGtXoWmnhuVPPLamkoy+bbY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oaZICN6v; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BrfG23hB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C74CB1F0089E
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 16:19:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oaZICN6v"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E45C1F000FF;
+	Sun, 13 Sep 2026 16:20:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789316370;
-	bh=Gbr8BsktfR+a1EaDYZ2USzm9WWAfk0q22+veUNOHUVk=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
-	b=BrfG23hBES9HcMNEMPteo3eYejy43Wdu2nWC8rXpr52hll/lNlurXrU9mfGSDWgyw
-	 W0nTDpy8xyl+bbQ2cQmBm2qR7iZzbTSHhTUaapRVHjyEwpquY/MsEZnUMmJtq3Rmpz
-	 /Y6hCsbJM0Z91M2Dh3sBVIWqSbotjcGRTNvhAHYhPm942bcMEZePsQj/SItZWtia+k
-	 Lq0tG1Ns5lb0c/f42kgpHYYqxjt7SCFhrxByfFaiFdVcFspEFdR2nUOu8iEnfaaW8o
-	 sJLtR1qEV2lT8Asv1Y80p2vb0P31K/L+gnZnnHsWSRGS9XEwYmJtWi4Xm8DRHyfokp
-	 ShVJGjTORW/Ug==
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a2ff17443dso16254271fa.1
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 09:19:30 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxallhV3iq+/+i875y+TND2VpRrQZNTcVSETBai8ZtZX89JQZizPQKNkR74a7zGNSbv8Und0yA43drdTmo=@vger.kernel.org
-X-Gm-Message-State: AFuF++lW13hhMEUm+bKH+AZEo3sTyLUrTvN2qujb7yf/KnRIQ9JIXKCG
-	ylfAB8XCYVtj6n2m7Stk0sk7Me5GqAF/q3WPix1ND0ea1IUo/3zIP0WOG59QbBo5IJP3Nuxezsl
-	41VZWer2R7Xr//7v0HPZfYmSS4PJDbJk=
-X-Received: by 2002:a05:651c:2121:b0:3a5:b187:c7ae with SMTP id
- 38308e7fff4ca-3a5b187c8cdmr20143951fa.9.1789316369058; Sun, 13 Sep 2026
- 09:19:29 -0700 (PDT)
+	s=k20260515; t=1789316453;
+	bh=bna+6irtDUV/Y8RIFOQ1soq62qtApDkXVKRGUCXpTqI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=oaZICN6vn9gGMqWcc5FMrMZIsAXEqWTfTJbCWoa9uoAbJbDOmu74fhr+YsV+KdZDm
+	 QOUmFU+MHW9Db5QF6sHgw11lmYDUg5X4j+F3uwpHKX6pGerHN3YOL/WhY+ukP9cNC2
+	 alMfoKC3nGZrb2Y1DCyACtjbVsPCzADmdF5nQlQbYYq5zB0AEZA9hOz3bq6GLNjn5g
+	 XN2NRaZL4oG1Uv10eQJmPJUtxxPoriYa/avQPfSj/+AsRNddpnCQFyLXtQRWajhxWP
+	 SjKHMrJETXv/q13tpajgJfeN0PvJrvcRrk++p0vrFgGFwwpIhHYO7zCdLmALaY515e
+	 PGNnSQYvVknIQ==
+From: SJ Park <sj@kernel.org>
+To: Liew Rui Yan <aethernet65535@gmail.com>
+Cc: SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm/damon/core: add short circuit for esz<min_region_sz in damos_adjust_quota()
+Date: Sun, 13 Sep 2026 09:20:45 -0700
+Message-ID: <20260913162046.99109-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260913110407.32558-1-aethernet65535@gmail.com>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260906-sunxi-clk-no-p-v1-0-cbde21c9fe69@pigmoral.tech> <178931616050.1372417.13697138134958064084.b4-ty@kernel.org>
-In-Reply-To: <178931616050.1372417.13697138134958064084.b4-ty@kernel.org>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Mon, 14 Sep 2026 00:19:15 +0800
-X-Gmail-Original-Message-ID: <CAGb2v64p7ZoYrK=fpQ+V8ZiLAALqfrtKVtQYdmNq9KGGKnAX6g@mail.gmail.com>
-X-Gm-Features: AcwNN1VNp8ZTWcZawmR5nP_tvFoqU5e4dwI7SMu7ihcAACDG16NmdRqwhCQslB8
-Message-ID: <CAGb2v64p7ZoYrK=fpQ+V8ZiLAALqfrtKVtQYdmNq9KGGKnAX6g@mail.gmail.com>
-Subject: Re: [PATCH 0/4] clk: sunxi-ng: a523: Fix single-divider clocks
-To: Junhui Liu <junhui.liu@pigmoral.tech>
-Cc: linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	Andre Przywara <andre.przywara@arm.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 14, 2026 at 12:16=E2=80=AFAM Chen-Yu Tsai <wens@kernel.org> wro=
-te:
->
-> On Sun, 06 Sep 2026 15:06:37 +0800, Junhui Liu wrote:
-> > Sashiko pointed out two issues in my series adding clock driver support
-> > for the Allwinner A733 SoC [1][2].
-> >
-> > First, ccu_mp_set_rate() generates an invalid mask when an MP clock is
-> > defined with a zero-width P divider, clearing unrelated register fields=
-.
-> > Second, ccu_mp_set_rate() does not handle CCU_FEATURE_UPDATE_BIT, so
-> > divider changes are not latched by the hardware.
-> >
-> > [...]
->
-> Applied to sunxi/clk-for-7.4 in sunxi, thanks!
->
-> [1/4] clk: sunxi-ng: div: Add feature support to M clock macro
->       https://git.kernel.org/sunxi/linux/c/da543a093f65
-> [2/4] clk: sunxi-ng: sun55i-a523-ccu: Use M-only clocks for MBUS, IOMMU a=
-nd DRAM
->       https://git.kernel.org/sunxi/linux/c/88735a2ffbea
-> [3/4] clk: sunxi-ng: sun55i-a523-ccu: Use P-only clocks for high-speed ti=
-mers
->       https://git.kernel.org/sunxi/linux/c/4b41d0ffa9d9
-> [4/4] clk: sunxi-ng: sun55i-a523-r-ccu: Use P-only clocks for timers
->       https://git.kernel.org/sunxi/linux/c/b260db91603a
+Hi Liew,
 
-After pushing things out, I realized that I based the topic branch on the
-wrong base commit. I rebased things and forced pushed, so the commit hashes
-here won't be correct.
 
-Rest assured that things have indeed been merged.
+From the next time, please complete discussions on the previous version before
+posting a new version.  For example, in this case, you could replied to my last
+reply to the previous version of this patch saying you will accept my suggested
+changes and wait a reasonable time to decide there is no other opinions.
 
-> Best regards,
-> --
-> Chen-Yu Tsai <wens@kernel.org>
->
->
+I think the subject is not very clear.  How about something like, "skip quota
+score setup when quota is full"?
+
+On Sun, 13 Sep 2026 19:01:38 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
+
+> After damos_set_effective_quota(), the effective size quota may be lower
+> than min_region_sz (e.g., when the temporal quota goal is [over-]achieved).
+
+This sounds unnecessarily specific and doesn't cover all the case.  What about
+
+"In damos_adjust_quota(), the quota could already be full."
+
+> 
+> In this situation, damos_adjust_quota() will still calculates
+> quota->min_score.  However, this min_score will not be used in this
+> window, because in damon_do_apply_schemes(), damos_quota_is_full() will
+> always returns true, preventing the scheme from being applied to any
+> region.
+> 
+> Therefore, add a short circuit for 'esz < min_region_sz' schemes to
+> early return from damos_adjust_quota() before calculating min_score.
+> 
+> Signed-off-by: Liew Rui Yan <aethernet65535@gmail.com>
+
+Assuming you agree to above suggestions,
+
+Reviewed-by: SJ Park <sj@kernel.org>
+
+With the above assumption, I modified this patch with the suggestions and
+applied to damon/next [1] tree.  I will repost it for mm.git merge after a
+week.  So, if you are ok with the plan, no action from your side is needed.
+
+Please let me know if you have different opinions.
+
+[1] https://origin.kernel.org/doc/html/latest/mm/damon/maintainer-profile.html#scm-trees
+
+
+Thanks,
+SJ
+
+[...]
