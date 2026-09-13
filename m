@@ -1,101 +1,115 @@
-Received: from mta0.migadu.com (out-211.mta0.migadu.com [91.218.175.211])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D0993CA497
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 10:28:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.211
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ABCF39DBC9
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 10:29:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789295325; cv=none; b=A+Pc2pf2ndUyl0aoLjE946MAeSgVazhUvvQIep6w4J5018k8ANa+yyC4Oghgt2WvnJBPqJpJW/yxiz6j6HCen2I5ZnVko5MFXZU12PdfZrCROBv6NeAf75XzCDKkUEn0IH8bda9A8iDXsQXWIVX9ZvnusPiIcf3opfbjZWGtIOM=
+	t=1789295375; cv=none; b=CO6Pi02Q1wjWMGoZQ4tM5YSpDr7XxrvZLkd9d5oPXsapAM78PW+E6B5qNQP9G9ldVzzEw5INXO7aLoS2RgLVDoE5+H7xx9QgceNMdQcVrHKgyBc1MOxar6+k7Ecr9f3NU291YoypPRQda08et8YQzamoGdt8cj3QBDlSJSQbST0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789295325; c=relaxed/simple;
-	bh=W6quqEuqAVLHu3zsXDdGSvOmeLHolpa6R9zg2wSv4vI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AyRMfw3JBr3q+uq5xVRkZEE0ztOTYeFuXfeydi+uTJcl6VkyqZbyY49YuE3Z6Fmi7XYjVV6JK+vdquTECNDz6NX4wx1drAoS8zo2tS9sxFUScXXLcPVvhnGlVfOqKkT1E7eW6gg5yHyXTBgM6eLixRpCFEO71YByOUmQFVzuC3o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=RTP+7qa8; arc=none smtp.client-ip=91.218.175.211
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789295375; c=relaxed/simple;
+	bh=NPQejoZxH6U4uow34Q9YSOqspglC0wK8sk9mkHf8cHs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=OMAvr0NWYzyNdGJZyToEZ6nG6/Y1QNVZOKwAOTK0sFqdy99rFNobM55soYDgJ8XYbSBhWBv7BMrDho0YFoWiGu4z4tRQ/DIVCDz5xOWv8dcgJEcWFgrH7XO+8ll9cezY4dPYfIv7r5Wa/TO29Pd5tt3MY9l4KmHIKSgJ3QG0dHQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ke4g7lVI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="RTP+7qa8"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=W6quqEuqAVLHu3zsXDdGSvOmeLHolpa6R9zg2wSv4vI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789295310; v=1; x=1789900110;
- b=RTP+7qa8E27RwXEebfZc1ApKGdgGS+WqVnNAJQhC3GxlRxCa4Lj2TIJtF/Vq9upEwpjZpcWo
- r3hCAI5av6nUt8GxGpKzm5yQZbjq23Lk2kbJ9L7BhGua4hl9+IA8bHaiUJWq7ueJTn0hAXtCGi0
- aoYpcCkzfhnKv09WY9r5VDGA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 9c13bf885cb93025;
-	Sun, 13 Sep 2026 10:28:19 +0000
-X-Mizu-Trace-ID: 9c13bf885cb93025
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <7cf8e45c-51a3-4de3-9417-170eb34e0713@linux.dev>
-Date: Sun, 13 Sep 2026 18:28:08 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ke4g7lVI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3136E1F00898
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 10:29:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789295363;
+	bh=NPQejoZxH6U4uow34Q9YSOqspglC0wK8sk9mkHf8cHs=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=ke4g7lVIYdPyccr90XDXtKVM9RnVSaeipOGatYapTyfSb7aKPB4wGy5ePTtT7a5Sy
+	 EEr8MnGWEZJCFO5pUe8AhmZf+sZtcTx4sPj4wvbtAb3iv+XcHTwJ0AaWugJXjtWDDi
+	 MqYvlJeKddIgSVrRKXNxJvmAYJnHaWPjChMewwwY4zkkxRK9UqVBhnD/LXDVUStNzG
+	 81csUhQ+VSoZq6juKPPR9NI2hCabPmKn0JTVtZUNHh/it4uaSFwrsV8nmHaNDaMB0Q
+	 nlnU9L6pIzNR0zA4rNPIcKie4XO2jqKFAZouGOl8dhTXFFBnzoAi4VV+A8ct97uYBK
+	 OB8Zbcpkef3bQ==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f13d77so1204802e87.0
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 03:29:23 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBx1DqcT45k3VnPylT2ZLAR2gJofI0BErMM+//TSvmV9OioiKBW3f2qUAHzljZi4b1FbnXl2ThjwRSMnFQA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mVF1FkQwXtRD70cnzZFO4+JBvpj1l2bduTg/1LuufIMHDWHivO
+	phWDu3cQuhtIKrLTd1WBbjr+yIqgN3O/EyhJU2CmiquJlfgpZtgAHC4+aZuIcLOcTAGmr2t2sQ0
+	cN/SlE5++L7HPdtP1YOddxxEFUv5o0Uw=
+X-Received: by 2002:a05:6512:3f26:b0:5b6:1a7c:3b with SMTP id
+ 2adb3069b0e04-5b8a8ed9e1amr1101836e87.62.1789295361526; Sun, 13 Sep 2026
+ 03:29:21 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] mm/mglru: add tracepoint for inc_max_seq()
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>,
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org,
- "open list:MEMORY MANAGEMENT - MGLRU (MULTI-GEN LRU)" <linux-mm@kvack.org>,
- Ridong Chen <chenridong@xiaomi.com>
-References: <20260911072848.2346073-1-ridong.chen@linux.dev>
- <20260911072848.2346073-4-ridong.chen@linux.dev>
- <20260911101514.1fe0d543@gandalf.local.home>
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <20260911101514.1fe0d543@gandalf.local.home>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <1965933.tdWV9SEqCh@rafael.j.wysocki> <2362345.iZASKD2KPV@rafael.j.wysocki>
+ <aqQtIMm-gdJoZAsq@ashevche-desk.local> <CAJZ5v0j5B4LFbrhSuw0j=fLcY+cFFTEMvyt_ED-+9j1dvQEqLw@mail.gmail.com>
+ <aqQwf3y66lPhTTyf@ashevche-desk.local> <CAJZ5v0jV-cMDt0Hhhw8Nnea1jhXfGVUajaomAmSUcmx2sZLb6Q@mail.gmail.com>
+ <aqRDC2LZ7m3caTSn@ashevche-desk.local> <5b54b08a-4dfd-4efe-b646-821adcd235b2@gmx.de>
+ <aqZbqbSsRlsjjRPB@ashevche-desk.local>
+In-Reply-To: <aqZbqbSsRlsjjRPB@ashevche-desk.local>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Sun, 13 Sep 2026 12:28:05 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0j9g9Vyam7PnrGikYyyrUwSFghPk6ecXVEm9PN8z8tOHg@mail.gmail.com>
+X-Gm-Features: AcwNN1U63AvT86RmZWiCAlpoR6cXXuhqPacNHrPEzHXrxMST4SeSvhw9HP-yqrY
+Message-ID: <CAJZ5v0j9g9Vyam7PnrGikYyyrUwSFghPk6ecXVEm9PN8z8tOHg@mail.gmail.com>
+Subject: Re: [PATCH v1 04/10] ACPI: processor: thermal: Use thermal_cooling_device_create()
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Armin Wolf <W_Armin@gmx.de>, "Rafael J. Wysocki (Intel)" <rafael@kernel.org>, 
+	Linux ACPI <linux-acpi@vger.kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+	Hans de Goede <hansg@kernel.org>, LKML <linux-kernel@vger.kernel.org>, 
+	Linux PM <linux-pm@vger.kernel.org>, Lukasz Luba <lukasz.luba@arm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Sun, Sep 13, 2026 at 10:15=E2=80=AFAM Andy Shevchenko
+<andriy.shevchenko@linux.intel.com> wrote:
+>
+> On Fri, Sep 11, 2026 at 11:14:09PM +0200, Armin Wolf wrote:
+> > Am 11.09.26 um 20:06 schrieb Andy Shevchenko:
+> > > On Fri, Sep 11, 2026 at 07:01:23PM +0200, Rafael J. Wysocki (Intel) w=
+rote:
+> > > > On Fri, Sep 11, 2026 at 6:47=E2=80=AFPM Andy Shevchenko
+> > > > <andriy.shevchenko@linux.intel.com> wrote:
+> > > > > On Fri, Sep 11, 2026 at 06:36:28PM +0200, Rafael J. Wysocki (Inte=
+l) wrote:
+> > > > > > On Fri, Sep 11, 2026 at 6:32=E2=80=AFPM Andy Shevchenko
+> > > > > > <andriy.shevchenko@linux.intel.com> wrote:
+> > > > > > > On Fri, Sep 11, 2026 at 03:02:53PM +0200, Rafael J. Wysocki w=
+rote:
+>
+> ...
+>
+> > > > > > > Is any user space ABI breakage expected as an outcome of this=
+ change?
+> > > > > > Not really.
+> > > > > Maybe makes sense to state this clearly in the cover letter?
+> > > > I guess you specifically mean the manually created symbolic links i=
+n
+> > > > sysfs that get removed.
+> > > >
+> > > > If so, I'm not aware of anyone using them for anything, but the lac=
+k
+> > > > of observation is not proof of nonexistence.
+> > > Yes, I refer to the changes in the sysfs layout / presence / absence.
+> >
+> > AFAIK those custom sysfs attributes are not even documented under Docum=
+entation/ABI, and
+> > thermald also does not seem to use them. I thus think we can safely rem=
+ove them.
+>
+> There is Debian source code browser (that covers hundreds of OSS projects=
+) [1],
+> have you tried to seek any matches there? Otherwise the assumption that n=
+obody
+> uses them might be wrong even if they were never documented.
+>
+> [1]: https://codesearch.debian.net/
 
+It is mostly relevant whether or not they are used by someone today
+and not whether or not they have ever been used at all.
 
-On 9/11/2026 10:15 PM, Steven Rostedt wrote:
-> On Fri, 11 Sep 2026 15:28:48 +0800
-> Ridong Chen <ridong.chen@linux.dev> wrote:
-> 
->> +static void trace_inc_max_seq(struct lruvec *lruvec)
->> +{
->> +	int type, gen;
->> +	unsigned long nr[ANON_AND_FILE][MAX_NR_GENS];
->> +	struct lru_gen_folio *lrugen = &lruvec->lrugen;
->> +
->> +	if (!trace_mm_mglru_inc_max_seq_enabled())
->> +		return;
->> +
->> +	for (type = 0; type < ANON_AND_FILE; type++)
->> +		for (gen = 0; gen < MAX_NR_GENS; gen++)
->> +			nr[type][gen] = lru_gen_seq_nr_pages(lrugen, gen, type);
->> +
->> +	trace_mm_mglru_inc_max_seq(mem_cgroup_id(lruvec_memcg(lruvec)),
->> +				   lrugen->max_seq,
->> +				   lrugen->min_seq[LRU_GEN_ANON],
->> +				   lrugen->min_seq[LRU_GEN_FILE],
->> +				   nr[LRU_GEN_ANON], nr[LRU_GEN_FILE]);
->> +}
-> 
-> I would always look at trying to move as much logic into the
-> TP_fast_assign() and not have it be where the tracepoint is called.
-> 
-> -- Steve
+We'll find out.
 
-Thanks. Will update.
-
--- 
-Best regards
-Ridong
-
+If anyone complains and they are unable to cope with that, adding
+"thermal_cooling" back should not be a problem (although I'd rather
+not do it unless absolutely necessary).
