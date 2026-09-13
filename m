@@ -1,160 +1,181 @@
-Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com [74.125.224.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF0B837DAB3
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 09:58:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789293494; cv=pass; b=mFZgE9I3q8V+RJ3fmwn74EmUR9DIpGxay1X/0pijLLbReZBTwMqQcORpGaJE0fo9aEQL3GHP06pWvTEHDiuJvfFx4y3ur4m57DZHlM4dOs3spcVVv66MGrbqYKvZB69qXA0M7XM9ZKrAWsLOggOMVVF9pHvAVPYcwxuBgFqdXVM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789293494; c=relaxed/simple;
-	bh=Z1UxZxGr9l++OMmSedOseueRC248vVuXVNhuqebXfaY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=q09XtJYCfNYmv5yxqRmXMe6pkjzEruI1L3uagmJXUnF3M0rJfp4Orz6vqt1/fqG/S5hOj2sBE4sMY0sbUruWMxnklC61ebQfMMjGV6isAmeUk8g15JkmqtJ1HMBI4btfQUrCSFBtnE+TWHKcP4PA+lzrcPecXgy1qIDMhtifcAw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZsrtQlxZ; arc=pass smtp.client-ip=74.125.224.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52DFF3D47A1;
+	Sun, 13 Sep 2026 10:00:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789293630; cv=none; b=YgGGkZrzjeX6wE/TSm60mVPEUBOdm+gusnbyN5PkUTalxxRFPtHXRmefVciWAn1F+n6PzMbhl4XxRErrDr/+1pEu6aXBVsQiE9DlVAAJ40lvIBJXeUPisJMqqhRy+8MMiU5sTN5aifnv+ktqDhkRmM5QaiIf5G9DR9i+B8hUU+Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789293630; c=relaxed/simple;
+	bh=9iHFkTGe08yADbf2MXnHpT84LIP8xl+f6E9L6ji2wWg=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=tF80U9DMxyGtV4cTyvRFkBdAdA/MteshCEnZk5adCw9uQaUdRNCLPnBDXQT4j2rbDAosAA1PyBSNJ8qRuVkdfOp3Kx0ZH/JHm35+8hcMNHsgIBlALNlI3Lku00a70hRxLjn+5s80qc1v1YWBX+3ZGaPAKGasYlqDHSHwmV3q45E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Uc6NE47J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZsrtQlxZ"
-Received: by mail-yx1-f46.google.com with SMTP id 956f58d0204a3-671061b015eso2259906d50.1
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 02:58:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789293492; cv=none;
-        d=google.com; s=arc-20260327;
-        b=FTbnEl9VfbS428kAUD9v/DT+8lzr4zvwpqSCY6W5gXZJ3ZPsBEH/waWKKXhkHs7GA8
-         XQ79WPWpO4QmV8xznAW+XAgHl1vvS5blxDWA20Oe1N9Lz7Cr9LrtpjRVOUPVYnGtG3N9
-         jylTiNwVuObtntriFHMpWNZohfr4SfIHulWcrM3lSzhdxrthJAyDVKHHVTmUPiJ3iKMi
-         EGYDUZNaAbTeW8Fv8yyNarGcybDNCver+3MZlKq3NZnTBfsEHHIiS56JulL6f0HBUR5q
-         p/2hmRqq/ehQyQ6zGSHMz9pjGJYt/0rQcffQ3duaCFx4IHGVPqt+0cUTSjvAB4cQauIi
-         ptxA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=t/fCaWgN5LecoczEsl0ebG8re6KS/OVMTOW68zTUUHA=;
-        fh=Uj/rW1oZUUTX/k+1FZT5a0YmGiMGkd+JY360rBGg+vU=;
-        b=EiBCzhQoX1cDuOid9Zp+QBz/AHjqL2IQVI31YXkTEOJODjET+N4QJ+iBJCBrj9jH0z
-         ZagESMp0kki/nzwSHCKgr1HUi/EZXwNcCbmWNZfU2vFhPElhFLNsOyUJGdl6pWr+FgN4
-         T6pqVaKD5C4x+MmQR+nHkMDp5jM36pNxnrcKC8Emsw7NxK1xvDYdGGVppfpNHrYqQN03
-         YPdjsEH1elz9GXYj18f9RsULoyi6Zc81/Q7W+AZpomfeaRMCfnmrz8x+ITWmjy/jTdun
-         WIK4jId2Py3RjTU/cbKWRP44og7t4iRhH7EOc0fe/ePuvjTRD2HX/JmyPC3WAC9NHJ2d
-         nLzg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789293492; x=1789898292; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=t/fCaWgN5LecoczEsl0ebG8re6KS/OVMTOW68zTUUHA=;
-        b=ZsrtQlxZJrTBszCgZZT/XK5b0kwScm8ahfUq4vZTiUn9BlHQDCnxFGEx4f8LggO1HX
-         ufsYSXIw/j3Cj4jUi21hNgNPnk7m4OA30S9W8GdGw63TCcqaIAFgWGlhsO7xEHwsnmhB
-         RGUGBKf+O0TSltbG20bvfeX3azitC23MduHPGSuMrAtvnIvEixQ/YFb9KoxlIAAB7fNg
-         LQqEkTAhzULrIz1eiCaGhBWbtN8/YoNQAqrvtW1TEonGxtiH+8ZWRvJ1nseTtkZFevcX
-         dLKbUyDaFKfPAYx/s3NcKW5aNQJC3qwt6/NLCIqXj/9W9l0lBwMiVugIiWr/Dc4P3wpn
-         KhUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789293492; x=1789898292;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=t/fCaWgN5LecoczEsl0ebG8re6KS/OVMTOW68zTUUHA=;
-        b=sfBFzSTmBmogmWKmGi8m7D91SAzRQ+GiJkhyg7Cn8N+ZBBaZKFcnV8mu/NhZeYRLC+
-         2k+CEcdVr5ZEswYcUu09OfCrxRdRYncI6hUZIwhmR9o9JSQtCaFObDQ0a2ozX63M/0Ie
-         M/ift7KMlL6Kp2/VJG0B2eBeVgu9BJl+zdKOct/HOC38hAx7avAItuGnJEvAC6wJ8p5C
-         r8sHh9D/Opnw3urU9xVSDrcYmKfCKgFOX19X7M9NBW3l0d0mXeH2mrcdKRIBMaEPF4rI
-         5O33ygmZH4vSggojj6f5AyHWdZ5e0ifZSGKNwjwrTruLBW8F68ijeiAjuubPHnN8mnu2
-         qA/A==
-X-Forwarded-Encrypted: i=1; AKwUvBxb3BZwzCyk/jDZM/fehSIU8/wUm851gYhuONmSU7R1CFaip5C40YtKBAeo4KStUjHzwKBn6ijZhARtifk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lgY2B41ZO01TQ5sVSAadtxJZwy8yE07XfbxWZTzxF7naaOIHP5
-	VlqeVt4GAiU27INVvKsx2noSK62XlRfEWJ2JD3Xdm2YIGHGj0cxE8HQOisP0BKliKa6hwLBlxK4
-	z3E8cBhihWw1DbicsTPunyWXXrGoSLHI=
-X-Gm-Gg: AYBFou0zo/LCQUR9NrzxwqjM3NGx5N0V0oK9qWMBg8yuow/Z+NXH1gc/Q86wSnpfQ9O
-	kIQiNa/s5/iWdPlGZfReuSjlMWUT64B76O4Y9TgGgTQ+VMCuaoWZ4yCO8ZUriBZpjR1OX1dZMEX
-	wo+gD2KhqKlDN97nCgx+tm71QGfBeiTa+owi290RJqaapU7P6aMXtKczznZeSSRmfr1yQ95PHbP
-	p2okfUVVlOfqs2O64uMLjagrpsrrghlLZ5/t8nsesrznfj/P6/60jv1e2kN5zD0sdz9s0sWhcf5
-	ugyLfO5/4q33fBGLPu2+uJzvnB/Ov1BW//P28LrI120TluMPk0NTgRWkD4Clmv0edR27+DmvYam
-	H49zICbgzs4+PGbMB3AjbvI9Zwg5W+TYDtxuO4clS
-X-Received: by 2002:a05:690e:1506:b0:66e:5fdb:98d with SMTP id
- 956f58d0204a3-671246c1606mr3543486d50.50.1789293491753; Sun, 13 Sep 2026
- 02:58:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Uc6NE47J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E47681F000FF;
+	Sun, 13 Sep 2026 10:00:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789293628;
+	bh=yUhB/Xmeg30XhsREq6iJc4tei3Cw+4oVMaJgqTQh/Fc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Uc6NE47JoD/TgSICJzC9SdlxuYriLqEXrEj0yirkshjjUGO6AHRmOAQjrGSAmHuQs
+	 OW1o6PG5y9h2o+0vr708O/w9wlf+IYDBHfH0+me2FHMjD5AdpIVzuGI2NsPsfslrC0
+	 riPzzTtYiGDNn8ml/Q6kbT9ApTq92plRWS73gaNWOyt83mO2Yi5l3BVoEZ03ilITWF
+	 NHUfCiUsMdsPzoQOo3rUdrHiRsgeNK0qPMjgTTVIKNi8S8YSqvpVAEph9NQAs7k/Vv
+	 Sm4OPvzPQxllggLz4EKAPOVzRuKxZtOPxmZxHaPunPtYl0HZEOYq9Ix7BbYvTheHQQ
+	 M/lqZ1qsO1E4A==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1x5h0c-00000008GHI-39tq;
+	Sun, 13 Sep 2026 10:00:26 +0000
+Date: Sun, 13 Sep 2026 11:00:26 +0100
+Message-ID: <868q5579ol.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Oliver Upton <oupton@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	James Morse <james.morse@arm.com>,
+	Ben Horgan <ben.horgan@arm.com>,
+	Xi Ruoyao <xry111@xry111.site>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Gavin Shan <gshan@redhat.com>,
+	Yuan Yao <yaoyuan@linux.alibaba.com>,
+	Fuad Tabba <tabba@google.com>,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] KVM: arm64: Trap guest MPAM accesses whenever MPAM is implemented
+In-Reply-To: <20260911104715.307500-1-fuad.tabba@linux.dev>
+References: <20260911104715.307500-1-fuad.tabba@linux.dev>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260912-alpha-kernel-compression-v1-0-ce9d55330193@gmail.com>
-In-Reply-To: <20260912-alpha-kernel-compression-v1-0-ce9d55330193@gmail.com>
-From: Magnus Lindholm <linmag7@gmail.com>
-Date: Sun, 13 Sep 2026 11:57:59 +0200
-X-Gm-Features: AcwNN1UjOH515ZFAs0rqo3W477-VlkGQGDTh2_Zpt2YFJYsWJyBQLc1fwY1eGXI
-Message-ID: <CA+=Fv5TXRbYARxnaKqEeCpC3OVFNAjBGNRZ_2FA+2g2s8OV=eA@mail.gmail.com>
-Subject: Re: [PATCH 0/3] alpha: self-extracting compressed kernel images
-To: Matt Turner <mattst88@gmail.com>
-Cc: Lasse Collin <lasse.collin@tukaani.org>, 
-	Richard Henderson <richard.henderson@linaro.org>, Nick Terrell <terrelln@fb.com>, 
-	David Sterba <dsterba@suse.com>, linux-kernel@vger.kernel.org, 
-	linux-alpha@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: fuad.tabba@linux.dev, oupton@kernel.org, catalin.marinas@arm.com, will@kernel.org, james.morse@arm.com, ben.horgan@arm.com, xry111@xry111.site, mark.rutland@arm.com, joey.gouly@arm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, seiden@linux.ibm.com, gshan@redhat.com, yaoyuan@linux.alibaba.com, tabba@google.com, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-Hi Matt,
-
-On Sat, Sep 12, 2026 at 9:55=E2=80=AFPM Matt Turner <mattst88@gmail.com> wr=
-ote:
->
-> Alpha is the last architecture whose boot loader decompresses the kernel
-> itself: aboot carries its own inflate code, so vmlinux.gz has always
-> been plain gzip, and adding a compression format meant writing a
-> decompressor for aboot as well as for the kernel.
->
-> Build a self-extracting image instead, a small ELF stub with the
-> compressed vmlinux linked in, which aboot loads and enters like any
-> other kernel. The compression format then becomes an ordinary kernel
-> Kconfig choice, and all seven formats become available: xz gives the
-> smallest image, 5547496 bytes against 7677280 for the equivalent gzip
-> one. The build now emits arch/alpha/boot/vmlinuz, since the image is no
-> longer gzip data.
->
-> The SRM netboot path (bootpz.c) has its own boot protocol and keeps
-> using gzip.
->
-> Signed-off-by: Matt Turner <mattst88@gmail.com>
-
-
-Nice series! I've done some testing during the weekend and it all looks
-good to me, thanks for doing this.
-
-Regards
-
-Magnus
-
-
+On Fri, 11 Sep 2026 11:47:15 +0100,
+Fuad Tabba <fuad.tabba@linux.dev> wrote:
+> 
+> finalise_el2_state() clears the EL2 MPAM traps whenever the ID
+> registers advertise MPAM, while KVM sets them only under ARM64_MPAM,
+> which also requires MPAMEN. Without EL3 nothing sets that enable, so a
+> guest reaches the MPAM registers while ID_AA64PFR0_EL1.MPAM reads 0
+> for it.
+> 
+> Gate on what finalise_el2_state() tests instead: this CPU's ID
+> registers with the arm64.nompam override applied, and its
+> MPAMIDR_EL1.HAS_HCR before writing MPAMHCR_EL2, which is UNDEFINED
+> without it. MPAMEN isn't a term in any MPAM accessor, so the traps
+> take effect without it.
+> 
+> Fixes: 31ff96c38ea3 ("KVM: arm64: Fix missing traps of guest accesses to the MPAM registers")
+> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
 > ---
-> Matt Turner (3):
->       xz: add arch-specific tuning for alpha
->       alpha: add self-extracting compressed kernel boot stub
->       alpha: support the remaining kernel compression formats
->
->  arch/alpha/Kconfig                       |   7 ++
->  arch/alpha/Makefile                      |   6 +-
->  arch/alpha/boot/.gitignore               |   2 +
->  arch/alpha/boot/Makefile                 |  16 ++-
->  arch/alpha/boot/compressed/.gitignore    |   3 +
->  arch/alpha/boot/compressed/Makefile      |  63 ++++++++++
->  arch/alpha/boot/compressed/head.S        |  36 ++++++
->  arch/alpha/boot/compressed/misc.c        | 209 +++++++++++++++++++++++++=
-++++++
->  arch/alpha/boot/compressed/trampoline.S  |  46 +++++++
->  arch/alpha/boot/compressed/vmlinux.lds.S |  83 ++++++++++++
->  arch/alpha/boot/compressed/vmlinux.scr   |  10 ++
->  scripts/xz_wrap.sh                       |   5 +
->  12 files changed, 478 insertions(+), 8 deletions(-)
-> ---
-> base-commit: 4407825b2f96b0e48a4bd08ab196b50a30eb3aef
-> change-id: 20260912-alpha-kernel-compression-2043f806fb75
->
-> Best regards,
-> --
-> Matt Turner <mattst88@gmail.com>
->
+> 
+> Notes:
+>     Changes since v2:
+>      - A per-CPU flag in kvm_host_data, set at KVM's CPU init from the ID
+>        registers with the override applied, instead of a third cpucap
+>        (Will). The probe checks presence only, since MPAM3_EL3.TRAPLOWER
+>        can't be read at EL2.
+>      - The MPAMHCR_EL2 branch reads this CPU's MPAMIDR_EL1 rather than the
+>        sanitised ARM64_MPAM_HCR, which would otherwise have been the one
+>        system-wide test left in a per-CPU function.
+>      - Fixes: names the KVM commit that left this case open, rather than
+>        the head.S commit that cleared the traps.
+>      - Yuan's Reviewed-by dropped, since the mechanism changed.
+>     
+>     v2: https://lore.kernel.org/all/20260908145651.2828597-1-fuad.tabba@linux.dev/
+>     v1: https://lore.kernel.org/all/20260903160819.831518-1-fuad.tabba@linux.dev/
+> 
+>  arch/arm64/include/asm/kvm_host.h       |  1 +
+>  arch/arm64/kvm/arm.c                    |  7 +++++++
+>  arch/arm64/kvm/hyp/include/hyp/switch.h | 13 ++++++++-----
+>  3 files changed, 16 insertions(+), 5 deletions(-)
+> 
+> diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
+> index 27fe0cd5b2d7a..98ca2d9b9e18d 100644
+> --- a/arch/arm64/include/asm/kvm_host.h
+> +++ b/arch/arm64/include/asm/kvm_host.h
+> @@ -755,6 +755,7 @@ struct kvm_host_data {
+>  #define KVM_HOST_DATA_FLAG_VCPU_IN_HYP_CONTEXT		4
+>  #define KVM_HOST_DATA_FLAG_L1_VNCR_MAPPED		5
+>  #define KVM_HOST_DATA_FLAG_HAS_BRBE			6
+> +#define KVM_HOST_DATA_FLAG_HAS_MPAM			7
+>  	unsigned long flags;
+>  
+>  	struct kvm_cpu_context host_ctxt;
+> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+> index 8b080804bc90b..fde75a63cf045 100644
+> --- a/arch/arm64/kvm/arm.c
+> +++ b/arch/arm64/kvm/arm.c
+> @@ -2281,9 +2281,16 @@ static void cpu_set_hyp_vector(void)
+>  
+>  static void cpu_hyp_init_context(void)
+>  {
+> +	u64 pfr0 = __read_sysreg_by_encoding(SYS_ID_AA64PFR0_EL1);
+> +	u64 pfr1 = __read_sysreg_by_encoding(SYS_ID_AA64PFR1_EL1);
+> +
+
+Why not directly read_sysreg(id_aa64pfr0_el1) and co?
+__read_sysreg_by_encoding() is useful when the encoding comes from a
+variable, but it looks odd in the case of a literal sysreg.
+
+>  	kvm_init_host_cpu_context(host_data_ptr(host_ctxt));
+>  	kvm_init_host_debug_data();
+>  
+> +	/* The traps take effect without MPAMEN, which ARM64_MPAM requires. */
+> +	if (id_aa64pfr0_mpam(pfr0) || id_aa64pfr1_mpamfrac(pfr1))
+> +		host_data_set_flag(HAS_MPAM);
+> +
+>  	if (!is_kernel_in_hyp_mode())
+>  		cpu_init_hyp_mode();
+>  }
+> diff --git a/arch/arm64/kvm/hyp/include/hyp/switch.h b/arch/arm64/kvm/hyp/include/hyp/switch.h
+> index 1ce7130e25490..2cb611e2bd69b 100644
+> --- a/arch/arm64/kvm/hyp/include/hyp/switch.h
+> +++ b/arch/arm64/kvm/hyp/include/hyp/switch.h
+> @@ -298,14 +298,17 @@ static inline void  __activate_traps_mpam(struct kvm_vcpu *vcpu)
+>  	u64 clr = MPAM2_EL2_EnMPAMSM;
+>  	u64 set = MPAM2_EL2_TRAPMPAM0EL1 | MPAM2_EL2_TRAPMPAM1EL1;
+>  
+> -	if (!system_supports_mpam())
+> +	if (!host_data_test_flag(HAS_MPAM))
+>  		return;
+>  
+>  	/* trap guest access to MPAMIDR_EL1 */
+> -	if (system_supports_mpam_hcr()) {
+> +	if (read_sysreg_s(SYS_MPAMIDR_EL1) & MPAMIDR_EL1_HAS_HCR) {
+
+This is going to suck under NV. The host hypervisor is of course going
+to set MPAMHCR_EL2.TRAP_MPAMIDR_EL1, and we're in for a recursive trap
+on the hottest possible path in KVM. Which is silly as the actual
+write to MPAMHCR_EL2 is free (it lands in NVMem[]).
+
+This really should be replaced by a flag called HAS_MPAM_HCR, just
+like you have HAS_MPAM.
+
+Thanks,
+
+	M.
+
+-- 
+Without deviation from the norm, progress is not possible.
