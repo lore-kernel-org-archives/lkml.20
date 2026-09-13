@@ -1,171 +1,105 @@
-Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56D7F23A561
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 00:44:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D362522B594
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 00:50:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789260294; cv=none; b=EubKSair03riUwbKT5adnqJZIm7jgWi6P87xFyGTW+xn5sJF/uD/qHcUL+IWvdlIqn8wLMQdORmz64xNre4sCwaQyh8d984LY9d1GqPmurVRB1JhMXgNwFTgy/YyXfKqkwJQhOzuAXEYwMlb7U+Gr9hQWEQEyIyzNTDpGTy5KhE=
+	t=1789260658; cv=none; b=SJXOgRBooJn1eNQtyYe8R7qhZgiyR78t/EY/wMgrmCa8/8qcpjbzvDCcr2kVO/HU1jnjBLqnW3cfEhhSLWM1xx/ak8wfHLIsHCT8ojNIhwrhL0XqmhIFay21JPMOyk/f1yW6q92a7+NEokBBQt4iWDkfcS7nVfaW5ExJ8i6pxto=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789260294; c=relaxed/simple;
-	bh=uOz+U6kaoRZHLq9ttMtJiNicYroyZcmbCfI/pMASz7I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tw+3d59ZCal4gT3L4HwvhL+Hnuk27sh5c3zeihlCplh3zWU52pqE7cb/THB71Ws1+2vMPWHM3/QAOAoJYedyXeO6lBpAZ4QxdfvHmVclbFDgaglfR8YknXThUPgGLgga6R1pJKiGAh7dpNNxvw7rLnOq1M0ZUDzpN1hjM48tmKQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FpczsIno; arc=none smtp.client-ip=209.85.128.171
+	s=arc-20240116; t=1789260658; c=relaxed/simple;
+	bh=A6L23QhtysaogzoS93ZnswD1158Lh6/9mudHFZMzRlk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=gccefAH+XNvAh12B6c8Lb36YvdCpi7hACoyafHYhZl/pB4jo/HrWNeEhJdImetSzICcEL0zXC3TbQKwdW+FQZIbZG4Lv4xmmSDuc33Vt27+MdGbCGyT7WbR4o3plhbE6U3mBrfr0SglwHDMGG7RDnQu3jMgF1wlpFgiMdDGrIR4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lcxx/Kf6; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FpczsIno"
-Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-8871ada1a26so10073907b3.1
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 17:44:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lcxx/Kf6"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccafb751so979140a91.2
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 17:50:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789260292; x=1789865092; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=iWFoU5rdxCJzaHXWKFqIlTzp58cYSQhcI1+tHmj6guo=;
-        b=FpczsInopC7bH2YQtQJgaiR0Lw0Rg+YokQjofjD0m0lyxGdU9vVREADD9XAUzjRKxu
-         po+KJmDVXZJAMxooR82eq4VHtGzwNvzhBQT82C6bV6DDfJ/V4UVxiCqmlz/RU9K9jUDc
-         Lhpmos0hFHgUYFswI8mGViV14CL6dMVp2FrSsU5RI21JJdD5XSgorv/Wm07nO1dwVGds
-         G9iR6/Ht0/jk3tlF+fcw0aMFci+tR8EISG8jAhyvv3Srz/OQtGauPEPzLP5nZ0Q8mGZ0
-         JZWf9ei2ok9BSqgvBb4kbROrCBy8bs2QSoX+2d5g8wKkI5ufu3SzPoUAnTFj9G0u8eaN
-         ZWEw==
+        d=gmail.com; s=20251104; t=1789260656; x=1789865456; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uZqrmQnZ68N7oDm3XCrSRrggNkZKtA35ciFNphe4Q48=;
+        b=lcxx/Kf6PnktGgN83qDDzP2su5CuZCPUt90u5X54QiIqP7X+STmCbCJUsjMb0YZGiw
+         lusQ/IrFjhv9aCiHDjLi62pg+4MYrEf+ndg6FRtXK59HL/SqKJBVjC2lEVTcg+TsELZJ
+         eSoTD4dYWRg0MHbtp6jVlowbkoixGOWC1/sntv4TV9ID/9Sj6j2xFWnvosVyXBWGnizz
+         WhKJET7wCY813W44NRM4fE5eCdhqRYNKwsZIj+iKXyEe/HatX3aKfpzwKGKJwoM5qhMc
+         4aHfqwPVJLlgXbj7zx7CqlbNLaqpavLk8D2OJOZtfhlIppJg2ua5ed7XO9epx8sUd5OK
+         uhhw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789260292; x=1789865092;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iWFoU5rdxCJzaHXWKFqIlTzp58cYSQhcI1+tHmj6guo=;
-        b=f9bxSHwMuJdLSRa+Dv69rfnZy3d47P3wVHfhyUVjkf900sWQvLBHQ0XYF7QR9QlcFq
-         4RO8ijhtvS9gniUcEhjWYUi1aCnQrEp8UwKcps4MhRmq11R0JqqGz2q2ZmMuqdfrbR7k
-         7e+haoQyWK6aIywx8q+ME/SV72ipUoQalSD8cU7Vqqyt+y5ICLyGJi6ViAMNQCqKfmCa
-         44VJAEUzekBNx4uCpHn1sERon9i5bHfynLfFk/71O85rpVqCBj1gvhfB1i0WTJBvZq0L
-         HpSu1GXy/xPMd0WQQSSJhFhp/j9ePaDiXJ+E8QnFjppT9nPak91aWbFRPliV3pEiQzeA
-         UeYg==
-X-Forwarded-Encrypted: i=1; AKwUvBw1pJbCA0vRmnY4GXOCzJttqYYAWT0CeP3MwEHe5raXQbZN2D4GeW8T+I4JBletVLY7itw6Fmo+4SmUnTA=@vger.kernel.org
-X-Gm-Message-State: AFuF++miiJZincfPZyRTVOhkNwihfDeYkVbKS6oary0/jb2nS+rryik9
-	BvSZW2Uhuav8oWF+U+EgO6FHRV6vs15v+ETuuRFZBOLLflMBLjBBZldM
-X-Gm-Gg: AYBFou224UbrMkCd9CBs1EkUolq9ZDFHT1XQt0IvSXI+MARl4747ssYWRI85RpZANvN
-	bp3IDCrijZTBG3aHai3KYDl13w11ymIBRltWFkg0dd3qiGYHM9dh31tO6bu6CtkzgDkMatXc4XC
-	HarYAG1bvD2lWFemBRzsE/2hQZ7jqLFYRoaJc0d+yjAwj9e+Z7zbWaMIWLNM0qqVwfrQ0F1ezCH
-	6vs+u2e6ixKG5eHkyMpJnyCCDzJdIZGSX2HkImiXRBmVNPRFbSP35fH4a123La0/xq+0/hsWFlf
-	ieZATts/yPu3VxS3wNWmFBMNurJSdvOBHt59YkaGJhfOaic6S/S5ZK2EiHLZgLD3Bni7OknDM0t
-	Cudv7Hvc4TrYxHefkj+Ihw74CRlDAxShe1wwpcplya5bGbDkJp30M9CeDEJBgyjh7dExzTPRp0/
-	n3lkOubVZ2GBq/e6vFLJCcHRu/1rlUG6VZt1yHVrb4uIWnsl0AM399gA==
-X-Received: by 2002:a05:690c:a5c4:b0:820:b24:27c7 with SMTP id 00721157ae682-884adc0ce42mr30114457b3.14.1789260292326;
-        Sat, 12 Sep 2026 17:44:52 -0700 (PDT)
-Received: from gmail.com ([2600:1700:5431:250::3e])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-88486c2d167sm24010157b3.18.2026.09.12.17.44.49
+        d=1e100.net; s=20251104; t=1789260656; x=1789865456;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uZqrmQnZ68N7oDm3XCrSRrggNkZKtA35ciFNphe4Q48=;
+        b=Gdh9eca/fyPmTTbghj1SDr/aniJeaEdknv49tgQOvv9jmlo6AeLtn1armn/rHK8BOT
+         4bQzqAXkKEfySpSDi9451AwN/zPrkoj0IFD82NOumSfP0GkegPTIkF6saSZbZPsWHTxk
+         RVx3GzyFPAJm1lKJi2DjSds1BmwzzVFB4WxRxMmvZ2MFoIL6tH27MvCt6WCdC8x1K5fY
+         yZyQ+JKhhbm/5PUNKtj0dbyfEcT8DXMsVT7t1yXV3YdpAhiHupzLcRKZogeXJtC8fezR
+         U8pCfnUZAkcCPke1pdjuZ9BUeVrK5eBZ77E7jnGY/tylQnmjG/pXsqduqHj53rUm9xlV
+         zezA==
+X-Forwarded-Encrypted: i=1; AKwUvBzCRG5jexpKeG5XgmwUBJaNB40pziZfasl/6oVVCYxypHbUdy95S+9KD0VYkjuon4nvVBz563iPtvv71Sg=@vger.kernel.org
+X-Gm-Message-State: AFuF++nh17JFDz9okVZwXmf4mfvamG+9uQmKDbPBl3nOGnnMpe0vY9+5
+	6QnFwembuYXmMimqNRnl0PAmgfFDbXZo9uXM3y7jEwe10g03CfUNeJY=
+X-Gm-Gg: AYBFou0VMXzG4x4IzkCxEB99OJCt29nMu5mkP/q0eW+hbwzpTsReWwCRzoyBptxjhUP
+	/S+Tk1N/KeJB7c07AnruVqqks1zk5DAR2ODSfDvZ8RDVJEwjgUZEcfZtW9S5QBJo0z0fNv8/b9D
+	odh4joGcZuiEKJwwJMSRCD1IC/ljeBGvpgwgvUnycynZtDFdlZrlht9EahPEV9rIAU++luhLmkh
+	S2l0PaE0Z2zUlSztXeaCIwNyF3rPsIU+FjgPJlcknKLPIhy1IIf8MkAXNFJeh2mn6KdD/9Rdqnn
+	raRNL7airkgiYCRpjyf/VwGzPjY0x6DKLvnsyWYmX3j4YgEE6fGTm+lg/nRHnuVr/1Uyp0U7O/D
+	8XP2rkcQ1c70uwvR2slXTQDgMRCwYtcNizx4fo504Z1y+0lVCpHeqzT4u0SlcFjawVAX9fdo/uL
+	TT30fQj/4rKWtmFJaD6bByRiVyD51t+EdtofaQ6PqdVK32YG0leetZIDQwZ64E+hkAWAvw0uMwS
+	k5V5/FoNM+YvW3gH1ZDYavpnyuj9ACbZX+E
+X-Received: by 2002:a17:90b:560e:b0:398:a2ed:7b5c with SMTP id 98e67ed59e1d1-39d9c3a1fc2mr20056368a91.24.1789260655987;
+        Sat, 12 Sep 2026 17:50:55 -0700 (PDT)
+Received: from at-Standard-PC-Q35-ICH9-2009 ([106.205.210.251])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14365b8ead8sm15820897c88.10.2026.09.12.17.50.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 12 Sep 2026 17:44:51 -0700 (PDT)
-Date: Sat, 12 Sep 2026 17:44:48 -0700
-From: Chang Yu <marcus.yu.56@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Chang Yu <marcus.yu.56@gmail.com>, Andy Shevchenko <andy@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Shi Hao <i.shihao.999@gmail.com>,
-	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
-	Joshua Crofts <joshua.crofts1@gmail.com>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 0/2] Add support for AS7343 multi-spectral sensor
-Message-ID: <aqXyAL6vP1BghIN4@gmail.com>
-References: <20260912013912.51887-1-marcus.yu.56@gmail.com>
- <20260913013056.1a7c98b8@jic23-hlaptop>
+        Sat, 12 Sep 2026 17:50:55 -0700 (PDT)
+From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+To: alexdeucher@gmail.com
+Cc: 062bel313@gmail.com,
+	Alexander.Deucher@amd.com,
+	Christian.Koenig@amd.com,
+	Kenneth.Feng@amd.com,
+	airlied@gmail.com,
+	amd-gfx@lists.freedesktop.org,
+	atharvatiwarilinuxdev@gmail.com,
+	dri-devel@lists.freedesktop.org,
+	ed@aicharmers.com,
+	linux-kernel@vger.kernel.org,
+	simona@ffwll.ch
+Subject: Re: [PATCH v2] drm/amd/pm: defer UCLK DPM enablement on Apple Navi 14
+Date: Sat, 12 Sep 2026 20:50:48 -0400
+Message-ID: <20260913005048.1167-1-atharvatiwarilinuxdev@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <CADnq5_PNt5Huo-bk=tqdCLorUp3BDCtdGmaFJDxfVbcKx-CPoQ@mail.gmail.com>
+References: <CADnq5_PNt5Huo-bk=tqdCLorUp3BDCtdGmaFJDxfVbcKx-CPoQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260913013056.1a7c98b8@jic23-hlaptop>
+Content-Transfer-Encoding: 8bit
 
-Hi Jonathan,
+> Applied.  Thanks!
 
-My sincere apologies. This is my first proper driver patch so
-I didn't quite know how things work around here (I've only done
-cleanup patches before). I'll slow down the submission
-frequency from now on.
+Hey, so im the author of the original patch:
 
-Best,
-Chang
+https://github.com/t2linux/wiki/issues/743#issuecomment-5347204171
 
-On Sun, Sep 13, 2026 at 01:30:56AM +0100, Jonathan Cameron wrote:
-> On Fri, 11 Sep 2026 18:39:10 -0700
-> Chang Yu <marcus.yu.56@gmail.com> wrote:
-> 
-> > This series adds initial support for the AMS AS7343 14-channel
-> > multi-spectral sensor.
-> > 
-> > The sensor has 14 optical channels (11 visible + NIR + clear +
-> > flicker) in total. This initial driver supports reading raw counts
-> > from all 12 spectral channels (11 visible + NIR) via sysfs and basic
-> > power management.
-> 
-> Hi Chang Yu,
-> 
-> We all appreciate enthusiasm but...
-> 
-> No idea if anyone called it out already but please slow down.
-> Typically reviewers only get to looking at IIO patches once every week
-> or so (in totality - they may review a few random ones more often whilst
-> waiting for something to happen).
-> 
-> So for a driver in early stages of review, once a week at most for
-> new versions.  That way we consolidate a bunch of feedback.  Key thing
-> is many folk looking at your code doe enough review that they don't
-> have the previous version in their head so each very takes roughly the
-> same amount of time to do - it doesn't get shorter until very near merging
-> when we know tiny stuff only is changing.
-> 
-> Jonathan
-> > 
-> > Not yet supported:
-> > - Configurable integration time and gain
-> > - Interrupt support
-> > - Clear (VIS) channel and flicker detection
-> > 
-> > Patch 1 adds device tree bindings.
-> > Patch 2 adds the driver.
-> > 
-> > Testing was performed on a Raspberry Pi 4.
-> > 
-> > Datasheet: https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-Channel-Multi-Spectral-Sensor.pdf
-> > 
-> > Changes in v4:
-> >   - Fix led-max-microamp property in dt bindings.
-> >   - Use REGCACHE_MAPLE and add volatile table.
-> >   - Use PM_RUNTIME_ACQUIRE* when resuming.
-> > 
-> > Changes in v3:
-> >   - Fix gpio description and example in dt.
-> >   - Only start measurements after suspend action has been registered.
-> >   - Add a mutex and pm_runtime_resume_and_get before reading measurements.
-> > 
-> > Changes in v2:
-> >   - Add the LDR, the interrupt pin, and the GPIO pin to the dt bindings.
-> >   - Adjust the default gain to x256 and integration time to 50.1ms as
-> >   recommended by the datasheet.
-> >   - Use read_label instead of .extend
-> >   - Remove all unused scan_index related constants.
-> > 
-> > Chang Yu (2):
-> >   dt-bindings: iio: light: add as7343
-> >   iio: light: add AS7343 multi-spectral sensor driver
-> > 
-> >  .../bindings/iio/light/ams,as7343.yaml        |  72 +++
-> >  MAINTAINERS                                   |   7 +
-> >  drivers/iio/light/Kconfig                     |  11 +
-> >  drivers/iio/light/Makefile                    |   1 +
-> >  drivers/iio/light/as7343.c                    | 434 ++++++++++++++++++
-> >  5 files changed, 525 insertions(+)
-> >  create mode 100644 Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
-> >  create mode 100644 drivers/iio/light/as7343.c
-> > 
-> 
+The author of the patch mentions this:
+> Combine Atharva Tiwari's delayed-UCLK proposal for 0219 with the Navi post-init implementation for 0218. Retain the revision restriction for
+> 0218 and the revision-independent 0219 match from Atharva's proposal.
+
+So as the main developer of the patch, i would like you to remove this patch,
+as it dosent give me credit, and also this is not the solution to this problem
+as i have mentioned here:
+
+https://github.com/t2linux/wiki/issues/743#issuecomment-5608044095
+
+thanks
