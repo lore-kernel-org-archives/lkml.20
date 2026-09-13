@@ -1,47 +1,47 @@
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013048.outbound.protection.outlook.com [52.101.83.48])
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013031.outbound.protection.outlook.com [52.101.83.31])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2485F356754;
-	Sun, 13 Sep 2026 10:15:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEDEC390CA2;
+	Sun, 13 Sep 2026 10:15:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.31
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789294551; cv=fail; b=FXtEtVTdyGjdMCC8VY2NQJJnUOMlEQA/1kwiA9HaFgrGlRlt4Xhs7xOyneHb/QPh2xHEuRm20spEMsFEfDx/KW/fAnVb81rI+gg+iZuuNyHT5fcsM+nIWGLT+z7i5/FCIldvf/O4ujLY9Iw/qgQ51qwLVkgB/7ogU0TFm5/XBoI=
+	t=1789294558; cv=fail; b=VLyT+fwBtrFPz+XUfVDKjrRRTHSJFxi90U0Pw+nT0ahteop17w9i4OY4ie7quoncLTCnkWwZahJ+jVSekrVVCUiTGHFe1ncIh8HEEZLXLLC9jnVkdCSt2YXT0bhLpQNFe9xAHA2H2yizjNCiRTcL3jJuXsusVY9JBw9UJ3a7H1A=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789294551; c=relaxed/simple;
-	bh=F5H5iYx9jaVOlSU41oTOixe2JeK7BTo43tr1l6r1ON0=;
+	s=arc-20240116; t=1789294558; c=relaxed/simple;
+	bh=G6opOaakQxgdOPuMUB1d8Pt62FPuOLCsaB6UfsjVbXs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=YI64xKW9zxmxWSO3uialbxCGmUnTsE/bOggkaOx59UtALn+2a9OSwWZuG3LuKiQOHxVBaPvaqdrSWIgWZRTJ1aYtnKXnYAI71pRBJcg+cy68sod0rnBYDfbpYTP5pAA18Ijui99ByiW2Xt3vbpj+U6QgCTJkfTb3gg0RVFimYFk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=dTUIOd9l; arc=fail smtp.client-ip=52.101.83.48
+	 Content-Type:MIME-Version; b=HMGpW+0GK0lEwPrzTa6iBTC8dTePf7O9BSM34BTHGidqGjHNRp/sVvjzEJ7mXtw8wMuEzy5NBEeA/v+/LvCIymZwMnvfup/IPQlzACzB9wYjBMP4QFxWEz0xB3+P0QSumO2UQW1i6mOIrcQBjLTvoVJxurj5tB9qa8c2oM9H1Kc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=jqEY3C3t; arc=fail smtp.client-ip=52.101.83.31
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="dTUIOd9l"
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="jqEY3C3t"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=crNXNCm1VYFDAHMkp4IqczNGLb3hJtS6qc1Xv9Vn4WOBGcVbHPsFd4M9Jc+4BtvrAdNtVc4Qy3sSu1LMZEawCh8/F+keit2yGUaTRjNoDYdWz46fjjpkaXKtmMjHyWWpcZIXvcAd1WepqnknBfzHrvfgIe9p8PR4aioSDVSxWCqGPqm2sdcbcpeHo+0V3pwMZLZ4nQLqMZaNIm5P9nhU+FvthDJqLxEddbyoyCkc5Z0h5pR3GZLqKuejexS8pl53Ly9Q1C25A7Qrzq0wIQKHCZNAQy/IBWpuu7XJxLANmrf3ayvmoR9v4yS6V+06AO8ZzON/n6+KbvIXdWmEw9KhtA==
+ b=keo8a74q6M/bebSihtW/TKCrh2k0fnZz/QgZCstm2lLj5ilQWlLdAV52IuJE0rpT5brV2mI3vViZfIi319/CvFnbuoGpq1NeEzMZW7R7CBrBYIWDAvHLljztluahx3wj9fSsKnp1+/fZTbT2Kd2TJlRTgpHmE+JQrwlVASqzlkG8gzLM39DHMPLBLuZXcoVEggH5C7zcIEP6JRqmY0kZyjjpHaj1ZQnq5buNtzBlHzFpdoLF9Miw8nKVe+Q8i1fO8+1UIP5LxxWtS60F6Pp+I6MoZ6K2cFeiqgJ4jBDyVUcsCRmjMkdB0ENKiO45qxVYi3mmKaCjlTD9DoT1LDNvXg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CoDOE9A1a9FNt1uOlxcaEsQpwuoDVt0ZLJjIC/Om+GQ=;
- b=AVQohQbTvjaJ2fC7oDHqX38wmJMpmZf4iSYtSItNotBxO7FILMpdpE1Wlo1Ycz7TFv85chKNFQl5o2yGQc/5DxBWcj5/xLpyuQ6jtUsJkyitV7xMjZa6kSrTP9TJ9+73Q9q1ipQpy+H+FRqEnI8MP4JeQ+40lVRUPlVKjuCOhC+7Ep7pYv8JxJc91vSiBgfZ5DqSFXzLpfFOr62NFa+Ajwdwb7lIahCiFBIsWMQSOZWZNMF9iMcnD7XOwkkEO6t4TPSHZttCz8TxStBVhRyrnWcVXarHKZOIyRHoGOaKwFyI+VqbGreFCGwLIdPbPi+PFGjac5OeW0bUTQq2X8ESbQ==
+ bh=MsmUy3lRONu0jdSerhnMkYynqjgKM0DSgb4hDlowHxE=;
+ b=U7VMCqq5hB9T/wZXV3FvQlGYORdH0XtrH9DlO4dUnfwh1f6yLXNv/mizXjaOsfQmLhjfMVoFvU3nvSEMoQaMZUuLiLVVHQeAfPs8++hYbcWpxuIlqobbyBYWJtKUR6QuVDoglO8lG7OZAgarb8QkI5hMH/RZ1/CD8MUHFAtoEM5JGF49xrbH2bOiCqZFfNX1DU+P1Aychk06+OSfOG8h1uGpMoVnO9Ftp3JPWSCigqSu5jhd1JGgz16tOovN+RtuhGUmuCNVuLcuiVm2g8CKe44Nt1L6Oo/r4c/1fcrZF/Op6VOuSCA3xqIiPCZKDpPMyJULPaD6+dALEq6FtYmbnA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
  dkim=pass header.d=oss.nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
  s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CoDOE9A1a9FNt1uOlxcaEsQpwuoDVt0ZLJjIC/Om+GQ=;
- b=dTUIOd9lPBIpXBGtHz08a9SVOu3FLbWlFipY9KattJ1Ns5T1+t5WF+uZTaAChWOo32sU4lpMmwIC8RHuk5uYL/G8Q/H6wk5R/gnTAsOThThg69t5qR/9m5kVjI+9OnLvxh3wucF3vHbpOPASugR7KeFlXdSgRPd6Yu7U70xh8Plea37dL8Fnro1dYaK6Kwi9yPnBzwHCNAoBDnF0FQtAUsc/zSCU01OCWtkbdcurVjcx+nDZZxoSwi/3JLSjr+u/Q0VwgfsEYuItLizOizTTf8SQ9PSEu/KtTG0dBtVwriUf0gHRAb+RPJTNZ4chq0mWFA50BoLCmacwpNkVS0g5LA==
+ bh=MsmUy3lRONu0jdSerhnMkYynqjgKM0DSgb4hDlowHxE=;
+ b=jqEY3C3tMukOc8V66PYvBCtjbfdzdCzTA7y6tEcmbGOczTkHjoe0Lq6WwL6aXeCTDn5zYZZ5wq+59ujSqEAjIxJWmNn1+oHT6HlL6OcJ3GzXFIZx5e55oBrzgJq2MkwxcB/pv/B1KDLzJk5FS6bfaxIucGHAELyUK4OaiYZD6QMQoMvS1Ana5irUY4w9Odio/1GTsm3gUxMwpvN4C2IYeRLlSxov8BPwaXjuOh1zcUeVCa9/5QjlBV/0pYYa48ktVNfHjbMMajl+TJLBCmG+Y6XK9jVOsRr+7mYIFIQl7c6V4mWMU1K3qRw+IMeNfk/v7vIo1z6+MF3uevlp0/SL1Q==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=oss.nxp.com;
 Received: from GVXPR04MB10021.eurprd04.prod.outlook.com
  (2603:10a6:150:112::20) by AM9PR04MB8602.eurprd04.prod.outlook.com
  (2603:10a6:20b:439::12) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Sun, 13 Sep
- 2026 10:15:46 +0000
+ 2026 10:15:51 +0000
 Received: from GVXPR04MB10021.eurprd04.prod.outlook.com
  ([fe80::d247:853:3e16:1994]) by GVXPR04MB10021.eurprd04.prod.outlook.com
  ([fe80::d247:853:3e16:1994%5]) with mapi id 15.21.0406.007; Sun, 13 Sep 2026
- 10:15:46 +0000
+ 10:15:51 +0000
 From: Chancel Liu <chancel.liu@oss.nxp.com>
 To: Liam Girdwood <lgirdwood@gmail.com>,
 	Mark Brown <broonie@kernel.org>,
@@ -57,9 +57,9 @@ Cc: Charles Keepax <ckeepax@opensource.cirrus.com>,
 	patches@opensource.cirrus.com,
 	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/6] ASoC: wm8962: Fix regulator notifier and beep leaks on card re-bind
-Date: Sun, 13 Sep 2026 19:15:26 +0900
-Message-ID: <20260913101531.2787654-2-chancel.liu@oss.nxp.com>
+Subject: [PATCH 2/6] ASoC: wm8995: Register regulator notifiers from the bus probe
+Date: Sun, 13 Sep 2026 19:15:27 +0900
+Message-ID: <20260913101531.2787654-3-chancel.liu@oss.nxp.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20260913101531.2787654-1-chancel.liu@oss.nxp.com>
 References: <20260913101531.2787654-1-chancel.liu@oss.nxp.com>
@@ -76,193 +76,167 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: GVXPR04MB10021:EE_|AM9PR04MB8602:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0203d002-a991-42db-cb22-08df117ffa24
+X-MS-Office365-Filtering-Correlation-Id: 501bf435-6680-484a-7e79-08df117ffd35
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|7416014|366016|19092799006|23010399003|6133799003|22082099003|18002099003|921020|11063799006|10067099003|56012099006;
+	BCL:0;ARA:13230040|1800799024|376014|7416014|366016|19092799006|23010399003|22082099003|18002099003|921020|11063799006|10067099003|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	wImUviErGEKXWDuEcAg06bs7BUo7gUa2zQy2clK8l9YgxpEG6XTeZNfw+4natIFcxWKq8EbDp0MdLdlRvOG+OSBMT6ZSr+R5BR1pgLohmz5JeUtS9N9WLU4CgNFmeEJ4P/fAfweEInsDOrCMmS7vw8FKisFp6aKHPB3Qecrn4UsFaLvrR+rizxhIMAmqJd31zOwQqELyTz/oJZ9H2eNLBeILrG4kwstnbcHJFbeQXMOMiMXkT25qqD6twqVf8lEFJA8A2eAScWO1cKDYPYGl7AzAYDqipW/5H4iXr6zD8A+QrfG2k90wDGKOdoxhqV7ibOXgos8V4DS4T2uJRgcUup60cEBj98kwWHoyAtfUZWH/hKH32H6EeqsUJHWIE1Yj7Canzr/LXVj2r8FBkLlshGtnc06Nd4h5WWs01maaauIYT34hlQE13HyELTTHyqF1JBzxgd4YxIhVU6WSrhJAx6bC4E09UsxtP9UfGyILA7WiI5lO1LaSqUwW5b93maA4OHpIu+kChe7778DbczxsCKM6VW1qfxB/X/8v6fv8o/3SXfuEvUkb1E/12U+wGV7/SOyOQ3ri2BHRb5SYpUAPx1vf8aUjb8JW9QvcToJ9QV75EFvEv2ANPYVJIQHY/Gxeu3R+KZiUs8HdsJYowGWIcwYDuETREAbpnxiOo+AD9evTLnR6xN22WX5vWGcv1BscdfrsJAQj03ToilK6M6ycAw==
+	AI6POrSjk9dyyXmtmN/XMkCzOyxn2bcRuF4Mh0rNSTDe7U+uSwqBWnAd0SsI5CAp/3REz0KaOxnd/IdxRm2vLPhrznU0MMia37LfuSNNasixn6bvcrdhb3QuNzlAW+IHHXLPz9cpVpiJUKBLeCgmAisK9gfEghkwKWK2edZCvnEynxpaVCnNGB5iYkrz3ZafLUDP9yPctSpJ4IpJtONQ1CZL3qTyWAYq8U74w2sUCiusCHIu6hxMaWEqi3xRq80cWK5a2U4SPJFW37zirhkDf9tIU2JLV8YviJPZ0UWv1wUbfHxPoZQUvEpSsiCcILKvAnvkNehVxD6niHfu0TL2e7FBIwjepkV3W+d7KxWiKS6VcocsrPXWRmAKL8T+qe6adFr7G4iZFVLIZ+Z2itx9PxBPNaaoaROAUeX4A9Nf0i8E1t+tHbG7/M7EMehEt+5V6KtoIC/pEjVTjUwAjwly63I7FuE2SuTjKEduwp6301PzQpIcEBT2P3A1NPp56ikWcPHTng/o3BBQKqi0iqaiB83DAvh2zY5sEnTw0biwjp2H+pz1I9uLt1IjHQNZohM/wvcJArYW9wi5MMsXeVpWAUTirW2U48+7TLMZL5+/NdxZG3WGSRI1BYeEcBgsDkPJYnUdhHh+XPVkg/CP1aVYASM6zE3X6DhkrE/Cnh9naxpAINKCAHQjbN3XkNtxjH5fBInNNLuySIYxziGjAWB35A==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GVXPR04MB10021.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(366016)(19092799006)(23010399003)(6133799003)(22082099003)(18002099003)(921020)(11063799006)(10067099003)(56012099006);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GVXPR04MB10021.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(366016)(19092799006)(23010399003)(22082099003)(18002099003)(921020)(11063799006)(10067099003)(56012099006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Nob/ka+l7RTV0uEdlBYtMmZHYK6LmbnB+AeYM9FvNcEEVmTq2uB8QnHjaol5?=
- =?us-ascii?Q?zsgL1uUszcdNelx1f04ZNi1gE1xUWjMiP02iW0/X2ePZ2pfRRiGc8cJX+zvE?=
- =?us-ascii?Q?100F5DN5E6I9TExCiVFEuUodT3m4dKEzB6JY5MdfPAh4zs9FFkPJ/rxCCAzx?=
- =?us-ascii?Q?I3Vr4y7XHtt8/VByJ6y/u+7epcZTNzaTicHzNtUGaOnF0SCFlceRL3OOoDVA?=
- =?us-ascii?Q?pEgX6ICPCOL7n2JOHb5UJfgoS2odoUihoZMWynJDHushLCQaSbqHrkBTk0c4?=
- =?us-ascii?Q?MWAG53e9AT1z6nxtnDN3fz+M55CLYm0zvnYPhVd9VvXwoB345GLVAI5hOeVq?=
- =?us-ascii?Q?lJ4ArqgCVhuUHwL1GjkTuQ+aJBFCXyaCeP2Re1SXt4KEApINeTYdUB06cO88?=
- =?us-ascii?Q?rKSUpZaf+qfEgXS8jD9/2uqqGysOELyWFp842WSCVwkhFPzEXHrR9Wvy0JXc?=
- =?us-ascii?Q?moeST8btiLPBoEGq/k7OZsgHZxaRTL2azJnZO7mcQG/4zO9jJnOcYctea7iA?=
- =?us-ascii?Q?vqSg3DrviJR9Xmph17p6TEpMBhAU+Beuz90aTVfAvy0AbyEVoQY8VDRSo+vM?=
- =?us-ascii?Q?JP4enyrP5L+EF5VpYVDgd9ddb+zbLCqQ7EegXsOM576tqMGzJ8b+goR0M6rQ?=
- =?us-ascii?Q?o9RifO1gqBjMu2gYNO2tdbQVX3jpNCi0W+jB9q+s2hiiq3BoqjLTP4GqtN/9?=
- =?us-ascii?Q?xPw2qiWiTd7PsKiq05JQhbcl98diuoX6RVlcTedG2jGgH/vpzVmilAR02+A8?=
- =?us-ascii?Q?0Vwt1LWx/O8YpuS9Cl+w0aqriREz8hyYc1MnsH+1Cg358Zx2BvE9WJJ/YnMq?=
- =?us-ascii?Q?CfFswSThdB+oB32lNZkWElNQY18ZTUa1Jb/UQ9L4dEeiQZfWUx00L8Z2oKfd?=
- =?us-ascii?Q?z3GIj+W7S9m2/rUYfEjG5EpQvJm6GG8jbDB9CYAu+wLvdRz6I3tESHiU+Tbn?=
- =?us-ascii?Q?7oiSnAFyYwPoACVVrLWrQXkpHL1964exDiVUA0krVTgv/bJT95LNoiGLj4Of?=
- =?us-ascii?Q?pFZBgb7iVMOrBOta2pOETheMAUiM/T7u7QpC0PLRxhoX/mpI40GGQbXwpZcb?=
- =?us-ascii?Q?cBK5a9VEd4VO/IlU0HSO8CUwgcF9gejjOyA1+KxP50G7vcBHFITNKYJ749u8?=
- =?us-ascii?Q?c73SVeJ0JxnS4q/DAvZrvjWuSP/zRqsWxsWdprlsUB0wHPMS9YtAq8NcBZDL?=
- =?us-ascii?Q?RVrAjDiHqMpD7sqcTj584ENcwk3jNdD/ypspyY6/GojWhRvNUKKtio1EbFYJ?=
- =?us-ascii?Q?t0CKDekG6swzg8fhb+KUsBrOSugN/9sIdBZ1fM/dDNtJJOvTtYBylDc8gK8B?=
- =?us-ascii?Q?0fQIA1yEkNeZ874eRMabjRVngccu2s83cdU9mHM64b/OKeXLq8fqbJnx5IzW?=
- =?us-ascii?Q?3Il28ZUAoA21TTYcxzOycSiu4thzvfKrl15FaLMeR+jnFQ/oAf6zlL1J3uMx?=
- =?us-ascii?Q?i3FIgQFNBvOr7h8DJwaX4tyK4iQ73jO5PA6a9AikAUxjBaqtuU1x+XpXGNoB?=
- =?us-ascii?Q?t7RU6OrSIaEK/HK2ATsSaXDF4IwY/B9z2OiuE+PQryB0cu2p8MU4Vm9lj6LC?=
- =?us-ascii?Q?L0KOSsKISNFihAxuT7Te0XOvKaFXgQhFQU2WzrogiBxGygvsc8zvGIQwVS8H?=
- =?us-ascii?Q?o6ITlHbvgb7BNG6kqY+h84rnBptqDhWIa9IG5NiJri+t8nle3wBjaXFsMIOZ?=
- =?us-ascii?Q?XsgCXlgkVAF9QCrTk3IRyR5ZY3hxMCraqSJ8hwFhaRozQtizErRgdZUcCJai?=
- =?us-ascii?Q?CmkD9YI+Bi/DBrrHW1F0eNj6Sf44Y/BDrq8SqB/KXjcHzRx7RlUu?=
+	=?us-ascii?Q?ojHAVg8Azv0fS3yZZMe8fZKg+OqLvTdvhm8z6XaUVpCKrCygegWujLXRwHi/?=
+ =?us-ascii?Q?VdaYelWhGH1ReieLh0f9gNZJKb+4a6GF3ArBtPhcxFHissbZeaPYd6gJw9uu?=
+ =?us-ascii?Q?8AyuAfpvXOXt0LiNbUTAxNMvpWuYmRbMU8dBANktAUcftoS0vBkSjCWhWIco?=
+ =?us-ascii?Q?kXpyTDkyR6LrypF++9xWfeAnV4t6P/b6lEqQLrmzRKXNh/U3yDQSEUvGIP0r?=
+ =?us-ascii?Q?pOVJHdjLSxGbafFXBk49HDxdXi+p7ep8Fj4YiSZL864S/chdkA8J15OlhYun?=
+ =?us-ascii?Q?f46elBI4zUVp2VUjMCbwnSAmlWfz1lBPBuIhi5wunsF8YWf17to8ZzwwYhUw?=
+ =?us-ascii?Q?pDnqjbWeQ6Bvuj05f+PY8mhJBInaPdxATB+Zz+Pb8HRSzsxWNMFEBUvvYLCt?=
+ =?us-ascii?Q?3riuOStnFRXACcwFh+NOdlEbqvLg2wK5RiMc/fRZh6bW5RuhhQA7//Qsmw5Q?=
+ =?us-ascii?Q?PVFkwo77U7S3EHZglD9TejiYJ3UxcQ2hHy9bTLPER6rOG3iqR8LH6bcVT4/r?=
+ =?us-ascii?Q?QIeI8Kb97MSIhTc8hj50Qj12kgIH2SlC7h64hzoHeg+V9+KY5uyAKosNUqDm?=
+ =?us-ascii?Q?WHxQuAfHzgvsl/L1LP15YupXyMSjja2QKQggK7+aOtDWyHo7O+AwWyrSku++?=
+ =?us-ascii?Q?kkUphePsknD+Qy5eXWiRwiLh3fnQHS+GLgkAPkd5TOaIZI1OoQbRbUdzbRrz?=
+ =?us-ascii?Q?g64EYAwntnzXr4Bzu3VHE1ZeYp/YVCRS28tLh65+1OtFMHA1ohJlqjcEiRUz?=
+ =?us-ascii?Q?/yc543d9b5+TG26WQZ45GElXk/e9+v986T5kBzPn6Q2y4eh1s3H0rjnj4YDG?=
+ =?us-ascii?Q?MKh1h/1BUj+F+ID9+TSKHJFV3ziZVZoJ2V/46zdkIniMQ/2GrfynvB7thfKE?=
+ =?us-ascii?Q?aev9Ie51t9/8xbpcZj7+iJ5ilXuYt8qkr8L2qAHQAKqVtoa/IEsykRQSouG+?=
+ =?us-ascii?Q?Tpoy3GvAqUZji2l8+ClKiWkuaWMFMmr8XdU9mxeeBB2Etd0d0eJb7AfO0zeU?=
+ =?us-ascii?Q?sWNm6bUF1qfxAFGUSL62QuFVdasw4vl6SThAiSU1LcmUQwhkL6C+3pW+a80o?=
+ =?us-ascii?Q?cG7nQ+9Iz4Rzw2jMxyNsoXK0ZDMJDkvawf4hEwLm+klS0iuzxcK6hQEZn9FU?=
+ =?us-ascii?Q?0iciSBN1fh/jzBSDpw+fOxT/eBLKFKMgnzyJ6y5XNoVQeEdAeKMl90/Vs6PJ?=
+ =?us-ascii?Q?9qFZqAyeFPh7kZQubl0WzThYTJAxkbL698JH5/EgxEaC6QWcPz9/I2Km3zpJ?=
+ =?us-ascii?Q?fatVVpNMixgmG2phEGE14VB6QgE09AqJKQFi8r+HVRrSvCsC/cNYgmZzxod/?=
+ =?us-ascii?Q?VeQv37MgvA/QWQXJhW4neQ8lDtq7xCPNoKl+wyAm92vyAuq/+bdZhWcsHZPd?=
+ =?us-ascii?Q?C8gFnnm0HcUbBt1IhT/aKFW4ldXi1vUqtIlWby+EvG+iqDTFS37l6ApEyJnR?=
+ =?us-ascii?Q?ZFkCBpCkyUqyN2yfIR+bSRcy7TUJ1m1dYdmO/UF3kVpGkIHsjwT5bsB5+mtx?=
+ =?us-ascii?Q?gQtpi87tKzP4sunP+XqFY5CF+TUa2lRZ9tWC1Ej5kuRBqlyJHSA5fLbue8JT?=
+ =?us-ascii?Q?Kzsqcmnpw3ZHMgW+kh0UGMOY3ETf8kGKPMfo1lgsRPPEbXBXP89FSvFjLI8U?=
+ =?us-ascii?Q?DOYhvHWLyFiGVcD9bPp4HQMp0OlwWpyFxNZwBSF64b4vhnNeopGFgajazwNR?=
+ =?us-ascii?Q?RHRChwpdQmyreLwle8y3j0qvZ0Kr5PpAexzl+obx3xoTWlxnv5P4Oy4gMHMm?=
+ =?us-ascii?Q?DXrfKUkFS254WlsyHOQ7A/OyeFyi0ew5M19/T4synDvPlx2JSk9c?=
 X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0203d002-a991-42db-cb22-08df117ffa24
+X-MS-Exchange-CrossTenant-Network-Message-Id: 501bf435-6680-484a-7e79-08df117ffd35
 X-MS-Exchange-CrossTenant-AuthSource: GVXPR04MB10021.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Sep 2026 10:15:46.6936
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Sep 2026 10:15:51.8587
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IoB8qdpqV27HguvbdpXdlXjfn7BOEtVgRoj7aXHi0lfFwxEUmUVx55fyY03Al7cLZacESx8ICShi/VJ7XkN1Z7yOa5x9fnaRJp6Mb7VKUsJ/CgqzLU85RBXheFoZxsyZ
+X-MS-Exchange-CrossTenant-UserPrincipalName: Iy7a2JLgkrU80QFTvVnQy4fmNI4iRqzdJn+2RRfZhOlaPIwqeVmRUDIAZVeMf+ilnbcNd8MoFNn2Olfi6wjPHDqw0kRsNXVGV+pwwiFKkfvH1WlzVYJyHJ3kA0m6Omjp
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8602
 
 From: Chancel Liu <chancel.liu@nxp.com>
 
-wm8962 registers its regulator disable notifiers and allocates its beep
-input device from the ASoC component probe, but the associated devres
-cleanup is tied to the underlying I2C device.
+wm8995 requests its regulator supplies and registers the regulator
+disable notifiers from the ASoC component probe, but the associated
+devres cleanup is tied to the underlying I2C/SPI device.
 
-These resources are only leaked when the sound card is unregistered and
-re-registered while the I2C device stays bound. On that path the
-component probe runs again and:
+These resources are only mishandled when the sound card is unregistered
+and re-registered while the bus device stays bound. On that path the
+component probe runs again and re-registers the same notifier_block on
+the still-registered regulator notifier chain and corrupts the chain.
 
-- re-registers the same notifier_block on the still-registered
-  regulator notifier chain, which triggers
-
-    notifier callback wm8962_regulator_event_N already registered
-    WARNING: ... at kernel/notifier.c:23 notifier_chain_register
-
-  and corrupts the chain.
-
-- allocates and registers a new beep input device every time while
-  wm8962_free_beep() only clears the pointer, leaking the previous
-  input device and its sysfs/input node.
-
-Fix both:
-- Move the regulator notifier registration to wm8962_i2c_probe() so it
-  runs once per I2C device bind.
-
-- Allocate the beep device with input_allocate_device() and pair it
-  with the component lifecycle: input_free_device() on registration
-  failure and input_unregister_device() in wm8962_free_beep().
+Move the supply request and notifier registration into a helper,
+wm8995_hw_init(), and call it from wm8995_i2c_probe() and
+wm8995_spi_probe() so they run once per bus device bind. The regulator
+enable and the register accesses that need the component stay in
+wm8995_probe().
 
 Signed-off-by: Chancel Liu <chancel.liu@nxp.com>
 ---
- sound/soc/codecs/wm8962.c | 52 +++++++++++++++++++++------------------
- 1 file changed, 28 insertions(+), 24 deletions(-)
+ sound/soc/codecs/wm8995.c | 41 ++++++++++++++++++++++++++-------------
+ 1 file changed, 27 insertions(+), 14 deletions(-)
 
-diff --git a/sound/soc/codecs/wm8962.c b/sound/soc/codecs/wm8962.c
-index af4716051220..ae6cc9c72439 100644
---- a/sound/soc/codecs/wm8962.c
-+++ b/sound/soc/codecs/wm8962.c
-@@ -3355,7 +3355,7 @@ static void wm8962_init_beep(struct snd_soc_component *component)
- 	struct wm8962_priv *wm8962 = snd_soc_component_get_drvdata(component);
- 	int ret;
+diff --git a/sound/soc/codecs/wm8995.c b/sound/soc/codecs/wm8995.c
+index 799989a5bf0f..35cbd0fb7f1a 100644
+--- a/sound/soc/codecs/wm8995.c
++++ b/sound/soc/codecs/wm8995.c
+@@ -1993,23 +1993,17 @@ static int wm8995_set_bias_level(struct snd_soc_component *component,
+ 	return 0;
+ }
  
--	wm8962->beep = devm_input_allocate_device(component->dev);
-+	wm8962->beep = input_allocate_device();
- 	if (!wm8962->beep) {
- 		dev_err(component->dev, "Failed to allocate beep device\n");
- 		return;
-@@ -3376,8 +3376,10 @@ static void wm8962_init_beep(struct snd_soc_component *component)
+-static int wm8995_probe(struct snd_soc_component *component)
++static int wm8995_hw_init(struct device *dev, struct wm8995_priv *wm8995)
+ {
+-	struct wm8995_priv *wm8995;
+-	int i;
+-	int ret;
+-
+-	wm8995 = snd_soc_component_get_drvdata(component);
+-	wm8995->component = component;
++	int i, ret;
  
- 	ret = input_register_device(wm8962->beep);
- 	if (ret != 0) {
-+		input_free_device(wm8962->beep);
- 		wm8962->beep = NULL;
- 		dev_err(component->dev, "Failed to register beep device\n");
-+		return;
+ 	for (i = 0; i < ARRAY_SIZE(wm8995->supplies); i++)
+ 		wm8995->supplies[i].supply = wm8995_supply_names[i];
+ 
+-	ret = devm_regulator_bulk_get(component->dev,
+-				      ARRAY_SIZE(wm8995->supplies),
++	ret = devm_regulator_bulk_get(dev, ARRAY_SIZE(wm8995->supplies),
+ 				      wm8995->supplies);
+ 	if (ret) {
+-		dev_err(component->dev, "Failed to request supplies: %d\n", ret);
++		dev_err(dev, "Failed to request supplies: %d\n", ret);
+ 		return ret;
  	}
  
- 	ret = device_create_file(component->dev, &dev_attr_beep);
-@@ -3393,7 +3395,10 @@ static void wm8962_free_beep(struct snd_soc_component *component)
+@@ -2024,16 +2018,27 @@ static int wm8995_probe(struct snd_soc_component *component)
  
- 	device_remove_file(component->dev, &dev_attr_beep);
- 	cancel_work_sync(&wm8962->beep_work);
--	wm8962->beep = NULL;
-+	if (wm8962->beep) {
-+		input_unregister_device(wm8962->beep);
-+		wm8962->beep = NULL;
-+	}
- 
- 	snd_soc_component_update_bits(component, WM8962_BEEP_GENERATOR_1, WM8962_BEEP_ENA,0);
- }
-@@ -3525,34 +3530,12 @@ static void wm8962_free_gpio(struct snd_soc_component *component)
- static int wm8962_probe(struct snd_soc_component *component)
- {
- 	struct snd_soc_dapm_context *dapm = snd_soc_component_to_dapm(component);
--	int ret;
- 	struct wm8962_priv *wm8962 = snd_soc_component_get_drvdata(component);
- 	int i;
- 	bool dmicclk, dmicdat;
- 
- 	wm8962->component = component;
- 
--	wm8962->disable_nb[0].notifier_call = wm8962_regulator_event_0;
--	wm8962->disable_nb[1].notifier_call = wm8962_regulator_event_1;
--	wm8962->disable_nb[2].notifier_call = wm8962_regulator_event_2;
--	wm8962->disable_nb[3].notifier_call = wm8962_regulator_event_3;
--	wm8962->disable_nb[4].notifier_call = wm8962_regulator_event_4;
--	wm8962->disable_nb[5].notifier_call = wm8962_regulator_event_5;
--	wm8962->disable_nb[6].notifier_call = wm8962_regulator_event_6;
--	wm8962->disable_nb[7].notifier_call = wm8962_regulator_event_7;
--
--	/* This should really be moved into the regulator core */
--	for (i = 0; i < ARRAY_SIZE(wm8962->supplies); i++) {
+ 	/* This should really be moved into the regulator core */
+ 	for (i = 0; i < ARRAY_SIZE(wm8995->supplies); i++) {
 -		ret = devm_regulator_register_notifier(
--						wm8962->supplies[i].consumer,
--						&wm8962->disable_nb[i]);
--		if (ret != 0) {
+-						wm8995->supplies[i].consumer,
+-						&wm8995->disable_nb[i]);
++		ret = devm_regulator_register_notifier(wm8995->supplies[i].consumer,
++						       &wm8995->disable_nb[i]);
+ 		if (ret) {
 -			dev_err(component->dev,
--				"Failed to register regulator notifier: %d\n",
--				ret);
--		}
--	}
--
- 	wm8962_add_widgets(component);
++			dev_err(dev,
+ 				"Failed to register regulator notifier: %d\n",
+ 				ret);
++			return ret;
+ 		}
+ 	}
  
- 	/* Save boards having to disable DMIC when not in use */
-@@ -3742,6 +3725,27 @@ static int wm8962_i2c_probe(struct i2c_client *i2c)
- 
- 	regcache_cache_bypass(wm8962->regmap, false);
- 
-+	wm8962->disable_nb[0].notifier_call = wm8962_regulator_event_0;
-+	wm8962->disable_nb[1].notifier_call = wm8962_regulator_event_1;
-+	wm8962->disable_nb[2].notifier_call = wm8962_regulator_event_2;
-+	wm8962->disable_nb[3].notifier_call = wm8962_regulator_event_3;
-+	wm8962->disable_nb[4].notifier_call = wm8962_regulator_event_4;
-+	wm8962->disable_nb[5].notifier_call = wm8962_regulator_event_5;
-+	wm8962->disable_nb[6].notifier_call = wm8962_regulator_event_6;
-+	wm8962->disable_nb[7].notifier_call = wm8962_regulator_event_7;
++	return 0;
++}
 +
-+	/* This should really be moved into the regulator core */
-+	for (i = 0; i < ARRAY_SIZE(wm8962->supplies); i++) {
-+		ret = devm_regulator_register_notifier(wm8962->supplies[i].consumer,
-+						       &wm8962->disable_nb[i]);
-+		if (ret != 0) {
-+			dev_err(&i2c->dev,
-+				"Failed to register regulator notifier: %d\n",
-+				ret);
-+			goto err_enable;
-+		}
-+	}
++static int wm8995_probe(struct snd_soc_component *component)
++{
++	struct wm8995_priv *wm8995;
++	int ret;
 +
- 	ret = wm8962_reset(wm8962);
- 	if (ret < 0) {
- 		dev_err(&i2c->dev, "Failed to issue reset\n");
++	wm8995 = snd_soc_component_get_drvdata(component);
++	wm8995->component = component;
++
+ 	ret = regulator_bulk_enable(ARRAY_SIZE(wm8995->supplies),
+ 				    wm8995->supplies);
+ 	if (ret) {
+@@ -2216,6 +2221,10 @@ static int wm8995_spi_probe(struct spi_device *spi)
+ 		return ret;
+ 	}
+ 
++	ret = wm8995_hw_init(&spi->dev, wm8995);
++	if (ret)
++		return ret;
++
+ 	ret = devm_snd_soc_register_component(&spi->dev,
+ 				     &soc_component_dev_wm8995, wm8995_dai,
+ 				     ARRAY_SIZE(wm8995_dai));
+@@ -2249,6 +2258,10 @@ static int wm8995_i2c_probe(struct i2c_client *i2c)
+ 		return ret;
+ 	}
+ 
++	ret = wm8995_hw_init(&i2c->dev, wm8995);
++	if (ret)
++		return ret;
++
+ 	ret = devm_snd_soc_register_component(&i2c->dev,
+ 				     &soc_component_dev_wm8995, wm8995_dai,
+ 				     ARRAY_SIZE(wm8995_dai));
 -- 
 2.50.1
 
