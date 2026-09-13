@@ -1,156 +1,91 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E97103A6EE9
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 18:14:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97C7236B915
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 18:16:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789323251; cv=none; b=M5hquFSD5IIu6jKOKtnls5zTMUezfQ3oBMgSk+3UR8dkUM+6dHFgWxsF+tm/nj0SdGY/MnosGITI8EBzBeSQ/AJSHdr4GYHFm0i9cjFxs4Y++2PRd/Yd969w+RMZ6cLWCwtfLku8RiKahSoOjKi/wsP2L28pyTgc4tp38JwY+Sk=
+	t=1789323400; cv=none; b=AHo7n1+UumARl9ocmIf/81MhNHOuubvOgDSGi3BEbBtDPDWhzDR0H5Ve0yTkQ8lX/OuwikqUPLuNb4+TWMOXgNIgTaTYtXc0kvDctk3ukYLWleoJjjgW5zDSeLnYEVvUqYtWajzsUG39hRywFLgU7UAfBA20miTyX9fFZ/hh37E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789323251; c=relaxed/simple;
-	bh=+i/WMQo12F+E81xj/jdX7lcu6060BfxnYwbQM4ckRZ4=;
+	s=arc-20240116; t=1789323400; c=relaxed/simple;
+	bh=1QzAB9p90Qh27J4J7gZjVOxRVC4biyKLymcKKMOew8A=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=F/0hCgv8fdvm4KQ3eNqdvhkvmQG/QFeCyDHG3z7diQiGcnSFMxc5MwM2gG6jneSb2SLYKsWFhHBsxVLXAEyxegov+jniY7g0KgX1IkviYFdsuBpbifeVwS5NSaX5kTD+hxufrMrraNpjSqRlSP7qIDOFzmAt2jDTz9oGuvaD8NE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SO2SmIdY; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=gF/KOEIf2qs/PAa0xrMrpVuHJWOU/xue5uZRB4/NdAvNhfA3K7jhGW6z6MwgiYBl2o7IRJnjlDRpElGLjLn47O3/I6K9XRr3/5D5zONcAkUIWH+1qJHcCqJsXGVIMbPol4DlWXOgZc4UTIDaMGa7rqc44zKkk38SbcK5gi607z4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KBqNvLj8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SO2SmIdY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B346B1F008A1
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 18:13:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KBqNvLj8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 638A51F0089A
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 18:16:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789323239;
-	bh=+i/WMQo12F+E81xj/jdX7lcu6060BfxnYwbQM4ckRZ4=;
+	s=k20260515; t=1789323391;
+	bh=B68nppT0QcAiLKpkM0HEbPdldxHI7O8D13NwaFCKN2U=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=SO2SmIdYjJe5zzSusPLufb1N/4sITaFnh3OuAjM0+HDJ/0jzTDRo1LJJD3yuz0LAe
-	 m9utPZHktAferMrZ1uMTDiSdbFT8PuZIT68sd6yul+TOjyulMH1leZv3n2097fW0kI
-	 HZSTnOlV/XWa3doV6AwdmTxJGx3acDrumYZ3xAXLg9oBP7AZeX4c+jdG+GE3leTYME
-	 o+gGhWxF0SyzDJ1JCk+kUMy4kYISkcvV3AkuDb36TVraJLgPIZU84S7P5MYAV3syTK
-	 sGiu4PkjnJsUoo795urpsWbR9ka05zNomPSqGObRwYr6ZGH3GsxtKSjfhGjyfqiex9
-	 6SceEGtrOAcWw==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f13d76so1426429e87.3
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 11:13:59 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBy+EJNCPthc6ZvDZU8dEwDpSadMFcN0mfNhHJPTrHY5QHyq+wIXS4Jy217isUg9ZQvlavQc1psgHVkeZa4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nDYoneHFqh+ddEIZW4mS57Tjwul+8IS9czD0ij/UciXZzV9leU
-	rDU8Kp/5atVGEPkX8/o3MvoVfRGo7BwORD23A0WVg2k/y1fsjyVM9hvjVr3rS1zOmLKH8zTWHpI
-	ua6bKfAsUAsZlt3UnBsCU5qxLHmYt8cY=
-X-Received: by 2002:a05:6512:158b:b0:5b8:9ec5:c936 with SMTP id
- 2adb3069b0e04-5b8a8ec2c76mr1378800e87.44.1789323238029; Sun, 13 Sep 2026
- 11:13:58 -0700 (PDT)
+	b=KBqNvLj8M30QvF8wNwTMLMAO7d7WHXsFbnJq+0hZtOnrQ2FTs2QmCu5vDGt9GatNy
+	 DYFidwu6cV2RV1odUeUGg3Db/gCaKVMQ/tFlTl+/tqHOMHuUNovSoC0sojF2YTsYpp
+	 Xh3+ibmfSVtrkNKiEpwm6bcnAqbkc+9oaPkd9ScLKfkkrysHkjpbm4+xGCoFp6zedi
+	 8O8i7V+6uL/eyzjPsc097bVQXhk8Se00sd5OMAVlaJIJU7gDBs1/oCabQbhfK69AZ7
+	 k7zXzNfOewM96VRBxLjkJvLtYJXoy1gH7plUc0qlPiVSNjSqAkypLTBaa54WYn8Xv0
+	 2MFrzfRyiEUcg==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f16f16so1473127e87.0
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 11:16:31 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBynouoCkHo+hLTAqLnh/3qG2hygrmkwufII2nK/s71xHqJ07178JNTxtMIEz+e1rUQKtD3vjnv6Wg3r5Js=@vger.kernel.org
+X-Gm-Message-State: AFuF++mArDN+515dkC9OIT1VxjIiX7NAC+P7kLuE+r1EVN9UX58KqD9k
+	malSHONHPW5+ssCWd+QEA+f6a77HW1I49/a6GOZ1U+94fhC2UC3LwRUfs7+cAAmIQg6TgzLfRs1
+	JE6KtBvD5B9qGUQhgQbW0X8uW0WrLjCI=
+X-Received: by 2002:a05:6512:32c8:b0:5b8:99b0:6565 with SMTP id
+ 2adb3069b0e04-5b8a02dcf81mr5093133e87.6.1789323390098; Sun, 13 Sep 2026
+ 11:16:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260908152808.3928630-1-arnd@kernel.org> <20260908152808.3928630-4-arnd@kernel.org>
- <CADkSEUjYhRk-ezaXZkHzFTFQnySFSisKtZfEP-_NtLnQF+6-1Q@mail.gmail.com>
- <CAD++jL=ysmPgs8yKH5KBobuv-eeCHHgZwvo1kvHOFuTwhkaOew@mail.gmail.com>
- <CAFr9PX=_FmMdR4TeP+tqURZdZCTjw8UYxAxeszs_vcpTbX+_aw@mail.gmail.com>
- <CAD++jL=zaF1zcTv6Mta5Xw69WeLC30NRcH0_pkSkLJJ0UtnZHQ@mail.gmail.com> <CAFr9PX=tVOzqGU4k0zSzXheuU5z5LZi4LSGdUvjChrSTrbyjJg@mail.gmail.com>
-In-Reply-To: <CAFr9PX=tVOzqGU4k0zSzXheuU5z5LZi4LSGdUvjChrSTrbyjJg@mail.gmail.com>
+References: <20260913120458.1608186-1-liuc63@xiaopeng.com>
+In-Reply-To: <20260913120458.1608186-1-liuc63@xiaopeng.com>
 From: Linus Walleij <linusw@kernel.org>
-Date: Sun, 13 Sep 2026 20:13:44 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=nr_Rgf6e+vo2bbTRNvEXysEEMjMhGp3-2J2_JPSVkiA@mail.gmail.com>
-X-Gm-Features: AcwNN1UBjE2eanAt46mrgMtCvXLgZ5DQ_bTFYwRvKhaMIzHs2zMGgr1ICh4wWo0
-Message-ID: <CAD++jL=nr_Rgf6e+vo2bbTRNvEXysEEMjMhGp3-2J2_JPSVkiA@mail.gmail.com>
-Subject: Re: [PATCH 03/13] ARM: remove riscpc
-To: Daniel Palmer <daniel@0x0f.com>
-Cc: Ethan Nelson-Moore <enelsonmoore@gmail.com>, Russell King <linux@armlinux.org.uk>, 
-	Arnd Bergmann <arnd@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Drew Fustini <fustini@kernel.org>, 
-	Arnd Bergmann <arnd@arndb.de>, Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Liviu Dudau <liviu.dudau@arm.com>, Sudeep Holla <sudeep.holla@kernel.org>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Vladimir Zapolskiy <vz@mleia.com>, Stefan Agner <stefan@agner.ch>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	Aaro Koskinen <aaro.koskinen@iki.fi>, Andreas Kemnade <andreas@kemnade.info>, 
-	Kevin Hilman <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>, 
-	Tony Lindgren <tony@atomide.com>, Nicolas Ferre <nicolas.ferre@microchip.com>, 
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>, Andrew Lunn <andrew@lunn.ch>, 
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, 
-	Gregory Clement <gregory.clement@bootlin.com>, Robert Jarzmik <robert.jarzmik@free.fr>, 
-	Kristoffer Ericson <kristoffer.ericson@gmail.com>, Geert Uytterhoeven <geert@linux-m68k.org>, 
-	Alexander Sverdlin <alexander.sverdlin@siemens.com>, Shawn Guo <shawnguo@kernel.org>, 
-	Karl Mehltretter <kmehltretter@gmail.com>, "David Hildenbrand (Arm)" <david@kernel.org>, 
-	Nicolas Pitre <npitre@baylibre.com>, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	devicetree@vger.kernel.org, imx@lists.linux.dev, 
-	linux-stm32@st-md-mailman.stormreply.com, linux-omap@vger.kernel.org, 
-	Ian Molton <spyro@f2s.com>, Jens Axboe <axboe@kernel.dk>, Helge Deller <deller@gmx.de>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, "Paul E. McKenney" <paulmck@kernel.org>, linux-block@vger.kernel.org, 
-	linux-serial@vger.kernel.org, linux-fbdev@vger.kernel.org
+Date: Sun, 13 Sep 2026 20:16:17 +0200
+X-Gmail-Original-Message-ID: <CAD++jLnUz=GKfHd6j5svCNu9e6zL6jsK-xRMd21SrwaAR3yQZA@mail.gmail.com>
+X-Gm-Features: AcwNN1XsHvl-bnev7PrSVwTkVmzQlXlyVTNsLE8toU-j9kSrl2CejoCFliw7gTE
+Message-ID: <CAD++jLnUz=GKfHd6j5svCNu9e6zL6jsK-xRMd21SrwaAR3yQZA@mail.gmail.com>
+Subject: Re: [PATCH] usb: fotg210: validate endpoint index in ep0 handlers
+To: Liu Chao <liuc63@xiaopeng.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Daniel,
+On Sun, Sep 13, 2026 at 2:05=E2=80=AFPM Liu Chao <liuc63@xiaopeng.com> wrot=
+e:
 
-On Sat, Sep 12, 2026 at 3:29=E2=80=AFAM Daniel Palmer <daniel@0x0f.com> wro=
-te:
-> On Sat, 12 Sept 2026 at 03:15, Linus Walleij <linusw@kernel.org> wrote:
-
-> > I would say using generic entry would be a prerequisite for
-> > doing m68k SMP so we don't introduce *more* entry
-> > oddities, but after that I'm game.
+> fotg210_set_feature(), fotg210_clear_feature() and fotg210_get_status()
+> use wIndex from the USB setup packet to index the fotg210->ep[] array
+> without verifying that the endpoint number falls below
+> FOTG210_MAX_NUM_EP (5).  USB_ENDPOINT_NUMBER_MASK is 0x0f, so a
+> malicious host can issue a setup packet with wIndex 5..15, resulting in
+> an out-of-bounds array read.  The resulting wild pointer is then
+> dereferenced in fotg210_set_epnstall() or fotg210_is_epnstall(), which
+> compute an MMIO register offset from ep->epnum and perform iowrite32
+> through it.
 >
-> I have started this for one part of the m68k tree (68000), but it's
-> one of those things that is hard/frustrating to test on real hardware.
-
-Pretty cool!
-
-> For the last few weeks I've had claude create a QEMU that can boot all
-> of the m68k supported machines to Linux, Netbsd and their original OS.
-> It already found this:
-> https://lore.kernel.org/linux-m68k/20260828094940.3882602-1-daniel@0x0f.c=
-om/
-
-Now we're talking.
-
-> > As SoC maintainer I see that m68k has a lot of technical debt
-> > like drivers under arch/m68k and no proper hardware description
-> > (such as device tree)
+> fotg210_clear_feature() is especially problematic: the out-of-bounds
+> access occurs at function entry (source-level) regardless of which
+> USB_RECIP_* case is taken, because the ep pointer is computed before the
+> switch statement.
 >
-> I have m68k machines using devicetree... :)
+> Add upper-bound checks on the endpoint number derived from wIndex in
+> all three functions.  Invalid endpoint numbers in clear_feature now
+> trigger fotg210_request_error() (STALL) instead of silently falling
+> through to fotg210_set_cxdone().  Also add the missing le16_to_cpu()
+> conversion for ctrl->wIndex in fotg210_get_status() to fix a sparse
+> endianness warning.
 >
-> > There are things like
-> > amiints.c, cia.c, ataints.c, q40ints.c etc that should be in
-> > drivers/irqchip. So many time.c that should be in
-> > drivers/clocksource/* and many other unmodern things.
->
-> Would be easier with devicetree. But is anyone crazy enough to go
-> through the pain of merging the devicetree support and then arguing
-> about devicetree bindings for each of those drivers only to be told
-> m68k should just be removed?
+> Fixes: b84a8dee23fd ("usb: gadget: add Faraday fotg210_udc driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
 
-That's conflating two completely different things that think
-about themselves as different communities.
-
-Devicetree is in its ambition OS-independent and the fact that
-the bindings are all in the Linux git is just a convenience because
-that community works well and is dominant.
-
-No device tree maintainer should *ever* complain abot
-*any* binding with reference to what Linux supports or
-where Linux want to go. Only people not actually working
-with device tree would say such things.
-
-Device tree bindings have been deleted but then by the
-person who is maintainer of the binding itself, and for
-the argument that "no operating system" supports the
-platform anymore.
-
-Reviewing and merging m68k bindings should not be
-any more problem than any other binding, and it should
-not have an impact on Linux support of m68k.
-
-> Once you have an emulator that the LLM can operate it can do the
-> change/build/test/debug cycle all on its own.
-> With a test harness it can even test the changes work on the real hardwar=
-e.
-> But I don't think that's enough to convince people the changes are
-> worth reviewing/merging.
-
-I will review them. And I do not think the DT maintainers
-have anything against m68k.
+That's a good catch.
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
 Yours,
 Linus Walleij
