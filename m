@@ -1,137 +1,80 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABB0B36998A
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 22:35:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E001C3009E2;
+	Sun, 13 Sep 2026 22:36:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789338950; cv=none; b=XIVPg3KU4VZCyEK9PnCyML2cR3jSMr1YhcTeorGwXNffw0QHayUWbVzjrcKExHuyTb2btTlF5wG9G2lYrLnA+PXVTNgWlOLAyqArmsewDB9D7lnUqa6JC9cwZyG0On2OAf7SwaBpMfjH4MQnMwFOFm71gYSPaZj9WHTPNYRkc8k=
+	t=1789338967; cv=none; b=cmZQ3k4DA1y9TO4rFjarTvbZ3BWYZiwZlLRCJZbSa6cUz6M8Le1AOcJHOu+6ZoVsnFofU0jV9iGMa66Elo7WqZxuXjKvHxkG0EgrgaHOtTlnI9tj6gPoQVeIW64Aqg6LuN/YOJaFMK8sdZr/qg2ur7+37Qk1fxY6XjsC5u0JVYg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789338950; c=relaxed/simple;
-	bh=fk1sBYpSwMOddhw2TIfC9bxNmD1u6xITubSBHBjorro=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LCwcB3+dL2LeM0Ee1/F3/uINssyMZLEdIftkOD6o64HZ1KYDlT3zhh3X7X++nAgTY1LUaU2ctnAeyQXPEG8paFURdQJmCLqYZyTNK8p6Ie+2e50a/CnpCQ/DoNENAoMxQJI1gjuEhA23uGn//8fzZB0iypojkoBfGTP6bk6IVu0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JTKAnEdM; arc=none smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789338967; c=relaxed/simple;
+	bh=PyETr6kniFxbA8m0lnCw9/q5V4PTbXjgSumaMgZahhY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gH7AE48/9/LH5W5mww38TTcrO1QIYdUjDdEeCTK3OcvxUrAculSHbr1CETGSImLCDGUgNwx+BSd4ZLbAc/oig9oz/HU702n8RgR+Fq1PxwtQWFPLmaMiNpIhHw/y2GKYoNz/pO3HznPtacbf1j2sFCklWrZvnjDTg4ZgBgBflsY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OT02HLRY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JTKAnEdM"
-Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-5309a20a55bso15842741cf.1
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 15:35:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789338947; x=1789943747; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6tmc56vt785H8n8sw3psZCoq4rEVXID3penocU2E4Lk=;
-        b=JTKAnEdM2zrVaiID1nNusOq6p+LmrdVnGlrsgUN/qjE4i9uKS+3bYtIr99bBtUUkya
-         jqDjUpQLcrI6lnLTAuD0ponLFxjcZCzYlpNcSHylqXnI617SeUUuFRaB8lGqczQnWN8/
-         OYHSNluTwvwVWhf0IACee0Fn0dtlnZ6eJs1cGW0CRe1VsjSEPcOkDVP1xeZJrctpksHT
-         1zxaZyZs7hLSetGbeozhJjOIro793loMmVcWfk79Fz1dhGTdcof2vKfljQdeLJuAhm0g
-         6Ok+oSZjfEBF/8YGw4fjUFYmZYrKvGklRzp2BOQ+TLJQ18a1LKe/ybA5ZDZ3cd9JG0ZH
-         97xQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789338947; x=1789943747;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6tmc56vt785H8n8sw3psZCoq4rEVXID3penocU2E4Lk=;
-        b=OT3RokfKSU5Ch0oRJuid+LUqonBiLrqWOhUP/5AgKyGX+3+62lEITwWP+DeylaHz/H
-         7lSD5a3E+CQ/hEf2uGTeiwiwRop+8qEW87/g8Ikz5U+Gck5YVr3PDl76MHe7D3Bi5eZ8
-         utig6UR0JuVBRLBmeCqyzHOKfTuk+z1TRzdMmjJoEUrvwPPbhjRUBW/b6GtGDn1In7bv
-         1HexP9sN9EXhGwFp/Lb7n1RiBmQFCI+cWQUbrem3Olg+MYfsyrBu6s6lPAj+B1xkeit3
-         r3UoAR5TrtRgJY9G9cBXhttYRoc8Yx/Dbh5P1Ddv/6D95iDOo89fqgxCHhQQNLuMNgjZ
-         HhyA==
-X-Forwarded-Encrypted: i=1; AKwUvBzwoPryFGGbiHB9IHs0Wu8d68Ry8EU6Lz07S+ULUzZXjfG2vlUsDOYo5uN/hWim9mNcRaV3Kk1WrExq4Kk=@vger.kernel.org
-X-Gm-Message-State: AFuF++llJicJyffQfrwniu87F0+qPPtaftQz77GmSXhDXatxC/o9/H9v
-	E1raTb4oUCM9Do5v30ZWCpJbrjL+G118xwLRmDua7JNKcKQKeO4MJYY=
-X-Gm-Gg: AYBFou07na+Kg1joWjqgeejjru+oMhuXVO7Yw99juYdT8O1vCLuon8BpAPFLEthoexr
-	cZBeeYgebb6cc9U815TFQs1TopZHK9aBLbkOiPEpf6svXHsRHMnRjJvR0wtBg+szhTZHEdU4L9c
-	Z3+2G/x3WfsfrPjX7t44ObRgn5/TtoBlIrLORGJkWIPiLTuLdkRocUV+62C/tp9P3ogBhrMujOh
-	468U2K9zw69i7K3M0+nI6i95Cp9xnCdKheM96/KJG7TdyRoMIIHcnuTwgC/BCdBWbdZFxCK6FwQ
-	PxrBpPnBmPeCCqqjH2q522vMpoPp1cDUEzjiA3AWz7i6YgPUvm+ZcCvOxJqv6dSJk7jEWHo5pW4
-	TnwTHgEdYw4wJEZt6vOtAUVASxBsP7v8lPXkSwjmVsN2Erpi+Z/aKocfASnfN4hMaluAVES2KNb
-	t0H6BpwpPJOtlY8FRyItufImGmx1mUOo1VhFuJZUgVxBIYDN03q6oIanT/21gzjpufpAA3mu3wV
-	zWhG2BC0dtv7Ck70RigLAqnsyaP22+R+hMIejhPPZVhWm4FR1rk8WwteSjRFkvLcz4GfoPLDfjE
-	ly9yR/QDrzzAq861quf9mR5MHR69faspaw==
-X-Received: by 2002:a05:622a:11c3:b0:530:eb9e:63d6 with SMTP id d75a77b69052e-5310d09817amr342871cf.49.1789338947507;
-        Sun, 13 Sep 2026 15:35:47 -0700 (PDT)
-Received: from localhost.localdomain ([104.39.73.78])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-530d5e946a0sm71513481cf.25.2026.09.13.15.35.45
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 13 Sep 2026 15:35:46 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Ulf Hansson <ulfh@kernel.org>
-Cc: Joel Stanley <joel@jms.id.au>,
-	Ryan Chen <ryan_chen@aspeedtech.com>,
-	Billy Tsai <billy_tsai@aspeedtech.com>,
-	linux-aspeed@lists.ozlabs.org,
-	openbmc@lists.ozlabs.org,
-	linux-mmc@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH] mmc: sdhci-of-aspeed: Remove children before releasing SDC resources
-Date: Sun, 13 Sep 2026 18:35:38 -0400
-Message-ID: <20260913223538.91579-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.47.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OT02HLRY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BF9E1F000FF;
+	Sun, 13 Sep 2026 22:36:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789338966;
+	bh=PyETr6kniFxbA8m0lnCw9/q5V4PTbXjgSumaMgZahhY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=OT02HLRY2Pj1BgXeOx8qKJykTZf3Q2612ZWRGqL9KZgYqdEdVW0KZmqiYh4NMOhM5
+	 4kuVrYLF/sY9Y/hugPwHjuFlvXn3MvEK4DcXSbQYPkvfZkOq9A5cv3nHgWKxwimzVX
+	 kLcbQs+B2lboXH30Nvv7U2BCQ/YGVXnFCKKlZ1n68b3+X8cRR/BeeoLXq9MwfjngD7
+	 XnE6nUHPenGOJ1UTZ0rDZsVwjRfPl2LKUHmqdNf6MmgaCrQGdtrplPkRIqbfdVSLZU
+	 5s8Q4sRkq3DlytBepUm07vpq+0T8L2QXpBCIFBNUO9wR1+FR8O+MKvY1C+rZMhQehJ
+	 BJpmQKQDdMTQA==
+Date: Sun, 13 Sep 2026 15:36:05 -0700
+From: Wei Liu <wei.liu@kernel.org>
+To: Tianyu Lan <ltykernel@gmail.com>
+Cc: mhklinux@outlook.com, kys@microsoft.com, haiyangz@microsoft.com,
+	wei.liu@kernel.org, decui@microsoft.com, longli@microsoft.com,
+	tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
+	dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
+	linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/1] x86/hyperv: Avoid using per-cpu output page in
+ hv_apicid_to_vp_index()
+Message-ID: <20260913223605.GD2219269@liuwe-devbox-debian-v2.local>
+References: <20260902030127.581040-1-mhklinux@outlook.com>
+ <CAMvTesAKMHYC36QViaUi_cw8-gSkBQyJtCd+Kt73HoDaLOkwUQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAMvTesAKMHYC36QViaUi_cw8-gSkBQyJtCd+Kt73HoDaLOkwUQ@mail.gmail.com>
 
-Probe failure and removal leave SDHCI child devices registered after the
-parent clock and managed resources are released.
+On Wed, Sep 02, 2026 at 02:30:02PM +0800, Tianyu Lan wrote:
+> On Wed, Sep 2, 2026 at 11:02 AM Michael Kelley <mhkelley58@gmail.com> wrote:
+> >
+> > hv_apicid_to_vp_index() currently uses the per-cpu hypercall input
+> > and output pages. This function is called when running in VTL2 and
+> > when running in an SEV-SNP CoCo VM with no paravisor. In the former
+> > case, the output page is allocated, but in the latter case it is
+> > not, so the hypervisor stores the output VP index in memory that has
+> > not been allocated by the guest.
+> >
+> > Fix this by using the input page for both input and output. The
+> > hypercall has very small input and output, so sharing the same
+> > page for both is straightforward. An alternative fix is to
+> > allocate the per-cpu output page when running in an SEV-SNP CoCo
+> > guest, but this uses significantly more memory, particularly
+> > with larger vCPUs counts.
+> >
+> > Fixes: 86c48271e0d6 ("x86/hyperv: Fix APIC ID and VP index confusion in hv_snp_boot_ap()")
+> > Signed-off-by: Michael Kelley <mhklinux@outlook.com>
+> > ---
+> > I'm not aware that this bug is causing any real problems because
+> > SEV-SNP CoCo VMs on Hyper-V are rarely, if ever, used without a
+> > paravisor. But it was on my list of little clean-ups to do, and
+> > a recent Sashiko analysis [1] flagged the issue. So the best thing
+> > to do is just fix it.
+> Reviewed-by: Tianyu Lan <tiala@microsoft.com>
 
-Unregister the OF children in reverse order before disabling the parent
-clock on both paths. Use of_platform_device_destroy() because manual
-child creation does not set the flag required by of_platform_depopulate().
-
-This issue was identified during our ongoing static-analysis research
-while reviewing kernel code.
-
-Fixes: bb7b8ec62dfb ("mmc: sdhci-of-aspeed: Add support for the ASPEED SD controller")
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-Assisted-by: OpenAI:GPT-5.6
----
-Validated with an ARM64 W=1 object build and strict checkpatch.
-No hardware runtime, probe-failure injection or unbind testing was done.
-
- drivers/mmc/host/sdhci-of-aspeed.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/mmc/host/sdhci-of-aspeed.c b/drivers/mmc/host/sdhci-of-aspeed.c
-index f5d973783c..d317626feb 100644
---- a/drivers/mmc/host/sdhci-of-aspeed.c
-+++ b/drivers/mmc/host/sdhci-of-aspeed.c
-@@ -560,12 +560,14 @@ static int aspeed_sdc_probe(struct platform_device *pdev)
- 		cpdev = of_platform_device_create(child, NULL, &pdev->dev);
- 		if (!cpdev) {
- 			ret = -ENODEV;
--			goto err_clk;
-+			goto err_children;
- 		}
- 	}
- 
- 	return 0;
- 
-+err_children:
-+	device_for_each_child_reverse(&pdev->dev, NULL, of_platform_device_destroy);
- err_clk:
- 	clk_disable_unprepare(sdc->clk);
- 	return ret;
-@@ -575,6 +577,7 @@ static void aspeed_sdc_remove(struct platform_device *pdev)
- {
- 	struct aspeed_sdc *sdc = dev_get_drvdata(&pdev->dev);
- 
-+	device_for_each_child_reverse(&pdev->dev, NULL, of_platform_device_destroy);
- 	clk_disable_unprepare(sdc->clk);
- }
- 
--- 
-2.50.1
+Applied. Thanks.
