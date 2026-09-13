@@ -1,141 +1,145 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCEC83B6C1D
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 19:41:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EBDB36F90C
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 19:44:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.140
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789328502; cv=pass; b=HutWNRd28Q7a5sov2aVIT5SGtQjCXG4BkbL5ZkjyjvgNXSZojzwZ0DcCGbiyrMbKmH9XiplYTDBzqRfJ+F6BELpWfh51+JZTQgKXtEx0F9r35yjmir8Ih0WXZahpwOK7hJUaHldyIlqcw4IHbjBSbNvCiOAzrDRJyLrW967OdJc=
+	t=1789328691; cv=pass; b=n0BPRa/OAxoOQRA+U9qQ8vHHBUiCnXz3SA0BNx2VU7qtpelZiJUcI8jHgSuFzVJ7pPoBjj0bLN6AlcJ8iJzdYORh0aqCO5nz4cuXAj6prztkLABxP6uaDuJ2fbdELuT7T7QCYkVLQV4TidHIudm4GO8intVHUzPa6600TrH7qOk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789328502; c=relaxed/simple;
-	bh=o9YibIUfRxMjjHC8/Y22RaQ2wOjqg0OE/+77r3xl3ag=;
+	s=arc-20240116; t=1789328691; c=relaxed/simple;
+	bh=c1x3tjxX5AVIWW3tLmux8nPDOgWyYyrg2724RgaFJt0=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=taSBdBB0IMWZNRcplccwA8JUos+7LbefOHqR29mj8A/G+0wE+BbwJO8WNGGDruKZ7AoUUtGzJ7/Y3YnbDn4mxPG9HV3yfIHdPAzzKCP7DOsmuW/PA4ooYQmjMty8Bc0xPb24RU/IL5g0bjiFrfHsFFBcDiJvWVljs42sB5IDo3Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com; spf=pass smtp.mailfrom=paul-moore.com; dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b=I8sFL6Q+; arc=pass smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
+	 To:Cc:Content-Type; b=dd6TvqdLBGGLSGs8pe/ISdITqSOIXL+YVFYSbCd/jpy8qEXQa7zMJ6CmBxynSGjcREaPEV5R1payU4uGOYvHGoR5FyWSVzleKaRZkwOkNL6fsb66nUJ/Q5XefKHrZEaaqMVD+z212PUjSzm4xMnd3fIRk2y9u43v5/098JQ/60g=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hICTZU/9; arc=pass smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b="I8sFL6Q+"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747ed9866so15975485ad.2
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 12:41:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789328500; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hICTZU/9"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f8694aeso102696366b.0
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 12:44:48 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789328687; cv=none;
         d=google.com; s=arc-20260327;
-        b=YlaQ68zga97ZEEu5TiC0ZUC9horpbjONg9hqwNjZ/OudVO+PT5gssPp+b8kx9m2Z0q
-         cMHKjUKaGrsVbgzHTFDjHA7V4kbpJM2ZVOd5RiZFRAXdOK2MllvuLBxhBjVvy9/+cl/q
-         6mIKiM9ROGXiv5NX4YzzzAmroU5zDFRFUP3/BWei8RM2RFFW+mp9NLcU3aOVFQFgfDy6
-         QWhrKlGmBXZUrBWRwxRifm03OBQFHja77UTbVRRaEqD+1z4JD37afANksflWaUdkgZdI
-         Egphiy5S/KeBzG+hK6y1hRuEU8BjvBAHLjXecsPjeqocgE0/k0ye0hKwsnQ1EnCsuoyW
-         3F4Q==
+        b=DHzcXW9J8eDrUdQeNprTExyok9zJhpzn1i6GoTIM6SAz5Os71o9h+rBJnkzRWTJ7+6
+         pCjMXXgXYhbKNlcqBIroovlvtFxETvoR6krShVwSoqbb4KEa5pOEYtET3GKgu8kqvQHg
+         45nV2/oHuBiPgLr7siLaKY6fzgcWJ0U3nHY0AfkaWPnFiwBPXqz7wRV2jgFayu/Jg0mk
+         MDWoAEOU8NCSTRRvtAsibYNGJMGntjjncNoZfjaZeAjI5lCwMAfjdHMsoq5HlSHQ4acd
+         N9gZusIidYMs167+aZKM0NdUvnnlN/zNK0zfduGb/9Mxe44Z4/LGisBjqvg8knDnp+sI
+         PhyA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=2oFQ8qNlHBe3RYmZfeSmFS5X2SDU60h3feX9FkdQ3Ds=;
-        fh=xKw32pTGVAE5yP/p8rkV/eTiqxwa+cavjeZKwJzVD04=;
-        b=n8xv6t3Y+ykhwMKRrOcUBZjc+fHYwKrfRVr47eXEWALsIP+nKfZWXSG+ptNxymmEPV
-         FAXOGSp/0nubrwoSf/uS5PJfeApJjytZN5sdSd7xH1HogcFSoz08MOvvfFy2F50PNwT1
-         Y9Ia8bpDTAKjs/H5OpyjHj2BStCa/BiX9Q1w63cY7vL301sQbreO+trAP4V0OwQ4Vsl1
-         5JNyXN4z8Kr+WMoQWDpzTRk7uvxTkOgU9ZT3r53OReJV1vQqafscFv46AZSLioxvjtUx
-         9QjcJlvImZHJR/LbEtyrKjMXVC/EptLvll4a+frbf9gVsy2ksNM6BIimjPHGvQvKLsCZ
-         O3oQ==;
+        bh=8b6r+U/DEG7an93RNL6FjyRqUyeE/SvG1QM7ET5l5mc=;
+        fh=GMsKVKfvvnZTsQ0Zs1A+gHDiJB3ILxGe2Bqnin4uWH4=;
+        b=FVRGCD/Q49PcG/z/g54yJEAWwzZ5/f5mNX3/tH+NZ8ln27NUYzorqc8NwMnjjLAFdJ
+         cXkm98TXwFcxc/u3cnjtDMGqzRoX39J6E6lSeJO2KQAWg+SpVKY6E5o+RbsW6kXAwbQN
+         rVlRbY8OXVI9979Fw85eAXImxGUurTbYz+G24fc+UpJXG4f5jeReUj3tM9ujkV/vE5wh
+         Sc/vUjlmkHVzV1ClGDZkll4FWgt4UMhX7ynxn4T2qoKt/0A2Nyh2Kse4hG0O2NW1arHg
+         JJVeJzJPU55YPVajUop5S3Nig7/HNwCopjzc2tWSmtSbwQEjhtr8IRrexSGXFQDTClgg
+         eH0g==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=paul-moore.com; s=google; t=1789328500; x=1789933300; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789328687; x=1789933487; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=2oFQ8qNlHBe3RYmZfeSmFS5X2SDU60h3feX9FkdQ3Ds=;
-        b=I8sFL6Q+DM54DS1jqLpHl8LRDH2BH3wEv2VVMVdWWX4l+pUbhvP+mXRK1LwfswtI5I
-         LD7tXObHzqTooDWMioIjKrFTteqZd3F4ORV5tAOdJGwYq3OlCV8oCQWcc7SSUdXldKCq
-         cqVIjuwPKnq61r2HBBrk+adoCp9DvIE0IgEBeWV1Z0ts8JRcIPrwfdWqRBPNS2unhtBm
-         2NE6/mJLRJc4noJZ1zBUITBSFVMcarub7AnSWNG+1y6VkPibRKC5m5oHY2WosF58Xjtq
-         7M2wPsAyaGi0jOjGYFpCj0hyCwbNtFFsTXCM2olkmAaF3EN5yIXsPR85Bq7Tv8+fDeK/
-         I7HQ==
+        bh=8b6r+U/DEG7an93RNL6FjyRqUyeE/SvG1QM7ET5l5mc=;
+        b=hICTZU/9RTkWReyKqnv6kW4kDmapmeZ0pOd61K1d6bCY5gMm3al/LPrvte7DnWC4lo
+         c5VLvvupai+YMIu7hT1GPR0AkVknF8dqaGmEGIaW+cW8bcFA+kYLhYmq0dmMDc5omhO3
+         qptKnmbLhKwE87izKbeVW5MGkEmxNHogfppRyePXVaM6gMMjTQ4YMuRxJAVyEthb0L3C
+         HkpSHpJVZ75WLClAzyZnL8xnPSfluJfTi1F2t1VUUUEElbuosN0kFyQHvIL93nxavlBM
+         gs05Ed9YSGw9uXskdf5gNZJsMlTr3BAr7JclkazkTXJgHauu/ZCunOJBo3DFDKIOHcTs
+         N9oQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789328500; x=1789933300;
+        d=1e100.net; s=20251104; t=1789328687; x=1789933487;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=2oFQ8qNlHBe3RYmZfeSmFS5X2SDU60h3feX9FkdQ3Ds=;
-        b=lbk29yeT6q6qePsV40cne8ANECslo+hXbAb0ezp7la3jVjkjn4tbo8OYk557W7sw42
-         94JUPJ4jg1DwcWXqBmpwRl5CQKKpCBfOF9ygXUIz8kKJ3xTQzhKIxgSdv8qvqy2puxnT
-         TKIDtwOZq7gFIWNjV/48LECswDtyc04Q6ifXxI56p4Ai5gPjLk5448TKW1ZyVa0xIWoi
-         jnfZxEfpyWp6Yfgs5DmMQEEsdpeMWdH3JAIaXhHo7W15Ra9+AB/wv2l4UHX+8ElCoeSW
-         KdJR1gascpbuNnpcu4BIkveBVwgMt+f3cqlVo2k3aD/cTbnmio9Fq+3AHBBWATbdFC/j
-         MqRw==
-X-Forwarded-Encrypted: i=1; AKwUvBwEpJ1WfbMCJyErs25qjfzaeFnfsTpkZ5P5c6X4Hb60Qv4LukI1gQydrf5Ap14K2qdg1ORUlBNtgERnPl0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nPUUQWH7ly0MG23S0zzGhqLXmeGnLd7p6K3WJ9F7BxchJHbVqB
-	LpgTLk4pwq55Y2EE2849DUKiqSTBlk/wVBx5dO7p37B+pt5rf/BPufvDsaqbcpvco71rAPvXSTj
-	rqucB/coly5F/eAtYuViTnowBpFLuRG/rWDEgxyaE
-X-Gm-Gg: AYBFou0LVataSEcjah7NcD+oPnQHDzw4/18kGO0amX0OUotSrS11ptJEifowJQ7hId2
-	an2r1FOgskYyzY/rLccMJA4LrCkSZkBXyRljVzV+inEv0nQEIAx8Y04DfX1lXJ0E4hbu7AwU7Ns
-	EDz1UPBEJR9PUQh0YUc0KKNXBAHXaM80a4x5SYECyNrTBeRz6HP+Uw/wyh3kSACh3IaAggkgoMf
-	hH5Y05S9AEwyGqwItbuV/Sv5ztfyFkLGCcXyZX0KToWAErxuvT/W5f13T1ZRjs+hKSJ2s1hoafk
-	l/NKU3cja+E9RVhUgqBjamp3nk5WQkqOLnzCuBF0IavS7G90ofEtsbYNT4sfy1vOpx2ro5XZGl0
-	ZT30Rn6VGPhm7pCTpuQu5lg==
-X-Received: by 2002:a17:902:f691:b0:2dd:4168:7bd3 with SMTP id
- d9443c01a7336-2dd41687cc9mr192016495ad.12.1789328500077; Sun, 13 Sep 2026
- 12:41:40 -0700 (PDT)
+        bh=8b6r+U/DEG7an93RNL6FjyRqUyeE/SvG1QM7ET5l5mc=;
+        b=REn3YkKsokZtVvb7R21ayeZy3gCPilAIoVDHZP2nnjgeXdyRlmHWBmxoE9IuDmR2pL
+         QGrS8L3Ty9XLKfYBRb4vOQUVQCxxbxIEWC3vvmfJ5tF5g9KnumILy4ih2qRPS/vAJMZf
+         X+ncfYjzePo/hNGKuZtSFU/7wI9B3W9mkqKAY7maWe9L9oSW83iYMaL9qxOe0wJbGdMr
+         qDH9WeMgXyrBNPPMFK3Tk+5EZtx1XOKMXejjp7OX2jpREaR+a++uYZclC+Mpdtn//OW0
+         xLokr32c+WndyBo4RzEFCqhS15LMg9UFPrdDYGlK2YzSRkEdtlTJ9eCLnDP2mvPk+gDY
+         IVug==
+X-Forwarded-Encrypted: i=1; AKwUvBxrnXc2RHcSZf/J0mzXZ4x4S7vVw0n5EPuWOmiOVpDcKOsKSBdvL8XWs48mUxgsP2ZQ1FAnMJTAYZCWTiA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nucShJA7NRYdLVCffv9ex4x8DHgC1zeQOz99CwvRy/LdOV64ZC
+	c117kgBGY/E+68hY/EMgcyqfwcdfoD7AaRurRGJ52/QGeagbUbN6oWTaLaTuYi9SORQ+s8Sx/nq
+	rCNwUBv0cQ4MhEnfYvjJlu1trrZGWEhw=
+X-Gm-Gg: AYBFou0wqzN9YF/VX7OojSElU40FCqt7obe3Q+NvIUck8/rwn/+EMMDGKwlMZrsl6xj
+	BaSSTpsX+rowa7u9VSpSV6TOkDYsSJzIzhO0BrqLVMu6u6k95SXsJC39f/lU3HlWOj9zEKjp8Gw
+	MQL3yGNvoPxpq9I9TfNXoMa4wYjdAVgBzqVReYADoxviFi3M+vxsHWg83keTs/l6L1KcZ1Javko
+	Vuc9H7WlLATu1E5UTQsem/ntdL1AUtOk+BGU++RB/IT6Pm/lfbsfilzyU08GD3mI5gJlFT//PAL
+	I0PEqf9l4Y96P2WyKJvLiBUnA7F+kmsC3EX31HA1eJbURfgkk7Hu8b7KVNna8Rg4R0fwnoLGbOc
+	OnzK1VEz6W6b1OcnoCzWR/vJrO1tSw0N5H0d0BsQd2/5wMGEuamjgvcrQCkd+yZOUqLzYPddykB
+	M9xUkEW5i7QxZnY4CLNFyuXurzZaetejmEq5r/8nTCzjNA8oYFizgn32DNMecqEGMDJQ==
+X-Received: by 2002:a17:907:7243:b0:c24:d6f0:aa0 with SMTP id
+ a640c23a62f3a-c29a42b6f36mr194728466b.11.1789328687262; Sun, 13 Sep 2026
+ 12:44:47 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260909193719.518517-1-utilityemal77@gmail.com>
- <20260909193719.518517-5-utilityemal77@gmail.com> <CAHC9VhQHZ+ngFdzKqmnzBh341CGEg-jexu+QYU8=1qXK=u-x-Q@mail.gmail.com>
- <aqHUw6k0Mf83CGFT@zenbox> <CAHC9VhTM7emi9vxs+5Za8Hrc_e9dg7fZx+Z6BGUc4VQ1qhEAUA@mail.gmail.com>
- <DLD0VQ3D8CYC.3V5ZT8HDMY4IH@gmail.com> <aqTZdCz6JaoK16Fp@zenbox> <DLDL7KK3FZKU.17ADLLWJVXB5F@gmail.com>
-In-Reply-To: <DLDL7KK3FZKU.17ADLLWJVXB5F@gmail.com>
-From: Paul Moore <paul@paul-moore.com>
-Date: Sun, 13 Sep 2026 15:41:27 -0400
-X-Gm-Features: AcwNN1VcrFQxF6bGTrpFFvwHMnFPs9vUMnDUrZbPiYQYi52EcDs3N2117Jy3gRM
-Message-ID: <CAHC9VhS0JckwfomqLTUJkZZkDSgeRXYOjMmPQYErgYynQYqMKQ@mail.gmail.com>
-Subject: Re: [PATCH bpf-next v3 04/15] lsm: Add the bpf_lsm_policy_release
- kfunc and policy object destructor
-To: Justin Suess <utilityemal77@gmail.com>
-Cc: Alexei Starovoitov <alexei.starovoitov@gmail.com>, ast@kernel.org, daniel@iogearbox.net, 
-	andrii@kernel.org, kpsingh@kernel.org, matt@bobrowski.net, mic@digikod.net, 
-	viro@zeniv.linux.org.uk, brauner@kernel.org, kees@kernel.org, 
-	casey@schaufler-ca.com, gnoack@google.com, jack@suse.cz, song@kernel.org, 
-	yonghong.song@linux.dev, martin.lau@linux.dev, eddyz87@gmail.com, 
-	memxor@gmail.com, jolsa@kernel.org, m@maowtm.org, bpf@vger.kernel.org, 
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260519015739.634423-1-rosenp@gmail.com> <147ee577-8a72-407c-b332-45dda9f153b3@suse.com>
+ <aqZyNoWsZp9mvrN9@codewreck.org>
+In-Reply-To: <aqZyNoWsZp9mvrN9@codewreck.org>
+From: Rosen Penev <rosenp@gmail.com>
+Date: Sun, 13 Sep 2026 12:44:35 -0700
+X-Gm-Features: AcwNN1WkGf_NNwT-XIS-7nDNPApAUFWz0kyN1ZEHHVq65U-G5fRQYlTnu-GfYQU
+Message-ID: <CAKxU2N8XR5i36yrbNckkKgrzyGnqO-3tQV=KEVg6Z00bUnBHug@mail.gmail.com>
+Subject: Re: [PATCH] 9p/xen: Use flexible array for data rings
+To: Dominique Martinet <asmadeus@codewreck.org>
+Cc: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>, v9fs@lists.linux.dev, 
+	Eric Van Hensbergen <ericvh@kernel.org>, Latchesar Ionkov <lucho@ionkov.net>, 
+	Christian Schoenebeck <linux_oss@crudebyte.com>, open list <linux-kernel@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Sat, Sep 12, 2026 at 3:33=E2=80=AFPM Alexei Starovoitov
-<alexei.starovoitov@gmail.com> wrote:
-> On Fri Sep 11, 2026 at 10:26 PM PDT, Justin Suess wrote:
-> >
-> > If fs/, mm/, drivers/, net/, are permitted to have kfuncs, then why not
-> > security/? kfuncs.rst doesn't seem to forbid this.
+On Sun, Sep 13, 2026 at 2:52=E2=80=AFAM Dominique Martinet
+<asmadeus@codewreck.org> wrote:
 >
-> because fs, mm, net see the value in bpf. bpf helps these subsytems
-> to focus on their core technologies and moves policy decisions out of
-> kernel and into bpf.
-> while lsm people treat bpf as arch-enemy.
-
-It's amusing to read this when just this week we merged a patchset
-into the LSM tree for the benefit of those writing BPF LSMs.  If you
-look at the discussion around patch 2/2 you will even see a reasonable
-exchange between Matt Bobrowski, a BPF LSM maintainer, and me about
-the patch.  Alexei is obviously welcome to his own opinion, but I
-would encourage those reading this thread to look beyond his comments.
-
-https://lore.kernel.org/linux-security-module/20260904-lsm-mount-idmaps-v3-=
-0-920a1963675d@amutable.com/
-
-> kfuncs are not stable. we keep refactoring them.
-> while lsm folks treat anything within *lsm* and *security* as stable apis=
-.
-
-Most everyone involved in LSM development knows that statement is
-simply incorrect.  A quick glance at the git log, our process
-guidelines on modifying LSM hooks (look in the MAINTAINERS file for a
-pointer), or even just the patch I referenced above should provide
-quick confirmation.
-
---=20
-paul-moore.com
+> J=C3=BCrgen Gro=C3=9F wrote on Wed, May 27, 2026 at 07:39:07AM +0200:
+> > On 19.05.26 03:57, Rosen Penev wrote:
+> > > Store the fixed set of Xen 9p data rings in the frontend private
+> > > allocation instead of allocating a separate rings array.
+> > >
+> > > This keeps the data ring storage tied to the frontend lifetime and
+> > > simplifies the allocation and cleanup paths.
+> > >
+> > > Assisted-by: Codex:GPT-5.5
+> > > Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> > > ---
+> > >   net/9p/trans_xen.c | 68 ++++++++++++++++++++-----------------------=
+---
+> > >   1 file changed, 30 insertions(+), 38 deletions(-)
+> > >
+> > > diff --git a/net/9p/trans_xen.c b/net/9p/trans_xen.c
+> > > index f9fb2db7a066..5a110d71d18c 100644
+> > > --- a/net/9p/trans_xen.c
+> > > +++ b/net/9p/trans_xen.c
+> > > @@ -55,7 +55,7 @@ struct xen_9pfs_front_priv {
+> > >     char *tag;
+> > >     struct p9_client *client;
+> > > -   struct xen_9pfs_dataring *rings;
+> > > +   struct xen_9pfs_dataring rings[];
+> >
+> > Any reason not to use rings[XEN_9PFS_NUM_RINGS] instead of a flex array=
+?
+>
+> Rosen, do you intend to resend with this fixed number?
+Sent
+>
+> Given that's just a two line diff from your patch (just changing the
+> type and keeping kzalloc_obj instead of kzalloc_flex) I can do it myself
+> but I also don't have any direct merit from it, so if I don't hear back
+> I'll forget about this
+> (unless J=C3=BCrgen says he actually read the whole diff and it's worth
+> taking for simplification, I don't have time...)
+>
+> Thanks,
+> --
+> Dominique Martinet | Asmadeus
