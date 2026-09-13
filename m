@@ -1,62 +1,65 @@
-Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
+Received: from mail-yx2-f10.google.com (mail-yx2-f10.google.com [74.125.224.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C85F038E8AD
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 22:20:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF07039449C
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 22:20:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789338014; cv=none; b=IQ9b2CXttgBZBNiSVmqERbUkMkh7Yi3FG7cXCXCEz3JidDWWKlDZLwBnPeogPwl6ctNCJyfsMqig/psRnBSwpTYSj6/hq23YgjQxbGlF3NKYXMZaySrCLO/nblpJSQbxly+3Y8kGB3sJJkJ0flpjI1CvGc/bgjWYCoJaqb4AH9A=
+	t=1789338017; cv=none; b=JTghcNt2zYzth0sMP2GEt5MPN71UcRMcnj+13g4OSPMzOtvmaarXjTUFEgEd9bOwqwR5BeZVnNARwdUT68uApt6q7yqTXuD7EMuWA3W4sVzfO+tgFcfwUcxI2pOCjqExe31QRbIUz9SpKjJeBlf2AhHLg0/n93c+bDnXUctYE+Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789338014; c=relaxed/simple;
-	bh=3Q2i0jpjPgJWyOfN2ps8ATc7g5rJV/FdIA+P1pwUXO8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gpXhfTjLpScEIN2JIamgTcpG2hX3ykO9KptwL3MzCFJHOdP1jdKHjEqvS+SXBUTfNVRQWpE6R4No9hG7GnPeAwCVW7XOJq4eCjnuNLLJnP6/G83y3WL3OvOit57IDf/KDCltxzBQEWUVFwbFeGSec+FpBa3YKazSOB92qNFw7sM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=northecho.dev; spf=none smtp.mailfrom=northecho.dev; dkim=pass (2048-bit key) header.d=northecho-dev.20251104.gappssmtp.com header.i=@northecho-dev.20251104.gappssmtp.com header.b=ZI8womty; arc=none smtp.client-ip=74.125.224.141
+	s=arc-20240116; t=1789338017; c=relaxed/simple;
+	bh=e2TezCu4LqiwOcdr5Xl00ISXZkkloH+FEiSkQFIjp6E=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=E+097CPBruLs3erdTlwFCoSt/b/IHD4Syqm+9fPlXr5rK4pw6VVVKKEDWUFikph5zEYIOkcezKxwNRCOQ/CchCM3QGqvve9ZKNYXut2N2H5Qx6ajYViquBp/0DCXz1jw37CNAh52qstSCZFGf8Qkm06jhOE5j7i4ipuktA6WVWY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=northecho.dev; spf=none smtp.mailfrom=northecho.dev; dkim=pass (2048-bit key) header.d=northecho-dev.20251104.gappssmtp.com header.i=@northecho-dev.20251104.gappssmtp.com header.b=DhLmWKgn; arc=none smtp.client-ip=74.125.224.138
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=northecho.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=northecho.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=northecho-dev.20251104.gappssmtp.com header.i=@northecho-dev.20251104.gappssmtp.com header.b="ZI8womty"
-Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66d20e86cfeso138084d50.2
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 15:20:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=northecho-dev.20251104.gappssmtp.com header.i=@northecho-dev.20251104.gappssmtp.com header.b="DhLmWKgn"
+Received: by mail-yx2-f10.google.com with SMTP id 956f58d0204a3-66e4f6198a3so53374d50.0
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 15:20:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=northecho-dev.20251104.gappssmtp.com; s=20251104; t=1789338012; x=1789942812; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=E8ge3U9xNywezlJGA++PqIty96zLoa0cQYn9Az2YiYY=;
-        b=ZI8womtysJP7jKvnzuss8CciDCoVExte1+UzCnffhyzmQG/deTZcjIX1kGCZoRCSok
-         YaJ1wC0GotXeS6Vtmk93JqQVtbE7Tmibe/EqczlvTpIE+o/LedYxJ0uBzat7kq/1Xc3V
-         usI0nZ8UJMT2OOZ//9DOFIIEaAf+pf9ifdOi3RCpzihnZ9Znzrw1aiNAHyykVfcSzqDS
-         pePTV0bLRHoft566tOGzQSnJPHc62Ki4DAmu5fBYMDPvE4mS1oTf3vzbVriNqrfFsXfy
-         w2cNmZBer48qYKDn2Ug0ECiTnrDbA2LKTk1r4F2Vlt7w7RB96M5uxPhMEVGZLmtdVXdX
-         gpvw==
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jFsTrG3iHQyKHdq+1UodoaAkVXy7pVAAxAeiumEkAso=;
+        b=DhLmWKgnMgKu4X0dE7YNzZom/2fDHYVqnmTL07C4ZYTYw+Cjl5MHzwNVOd/RshulgX
+         xtMLnm5ELsbvexPumejfoCHeDKqrbaqh9Ch9jMQObu1vYzTDBHEOj4aoEe6GYlrOm3Ut
+         CA/EI7Oq8h09mHAdCHxXJZWsxtvwQ47xd2V1UC3TZ5ce6T1F9L41pJKdXfMyxuy1JdMx
+         NLDErNDzHpFnU355H3LzZJZwIie89s4Sq7fvh8MZEhGy+Upis9gRkqYbwkKnerrZNlCz
+         wTKfnycas4yu0wYLYHPaaB1K5bKdOVOiDJz4nvfJaBTl0dh/8iThMXpn1AZFs7fnNcKe
+         GIhg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1789338012; x=1789942812;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=E8ge3U9xNywezlJGA++PqIty96zLoa0cQYn9Az2YiYY=;
-        b=dB1Qp4sqEqjrFCfW0GK0AAnEtLE8u0reBVvNRTbjP1UIs6xQq844vSu8ZiBqyvg+G2
-         46CyTpOqD3RcdnYq7UE4Sew4Wpp0ThZXNb+Jg8zUfMjNA1qvgo2xo7ZlJTW83MSjmy95
-         a78i2NPmH6z3IFiqYPxAVVZR51qLn113CMlZoo2KOPMHaXoeBFK99OnWeXV9gecxzsYK
-         yPk3moKF9G724oh5QwKb4e/Vx00J/3ya0gz+hO1VElXdJyCIQJMHxv3HIaiNzP4bkNmY
-         EMD6bM0kroyMMReZDROXOWWu40ZmyqBEisbOtUY51+pdIy21QqvSzdqMAY8wTK+kYcta
-         i4lg==
-X-Forwarded-Encrypted: i=1; AKwUvBypevmVZSvRlVlPGqwnPZEF/Ca9K+drq1xYd4rLWKktpsWBOVvRlJaVm//AETixnHmw5A4gMkw4IvVdYgM=@vger.kernel.org
-X-Gm-Message-State: AFuF++mGoK104L+4FrGBPeMknL+JZnDt/AuE1E34nwX/JzbNF9GOcRHc
-	GkEefUUMzwLSDbnxjbld/Hb3i4avcT0q9yI42iJQ46hlPmCP3nT5RmVH7aPyqhQgZNf9
-X-Gm-Gg: AYBFou1MFDUwfMFerBhVa7R+nflGRMdh6lZ/ZCkSGT9CXvAJXSwgTV0Fizqxrau8Cmo
-	lP2yxJcFKFuSmvrdUCWN3Ray9eOGSvjMtjv6FSSf1or6PtNRTcO8DKz0u8zlvok92cMsDUE84VI
-	b9KJTRjTfKSEonSmJiJDdDfbcqC2LaKUK+DkrOkEAZ2IxyhIH6hI2GR0duh62WHqEtDBo4mzU2A
-	BYIjaZBGlirJzEPfil/SPpvfdzncy5sP3q+ABLcdNgJ72JvoCsVjkzrATBtjoWMHgixZ3j+l7yJ
-	bh945J2ouCC1ozYhqJEpxqHazhJslgLz6gdmad34bRnNq9TrTHSKKgTNdDN70sRnVM2Z53/ax03
-	gqYzyCR2rqxpmRpIQ6BsDgVLzD+99D60DO8dsYAxJZ6ddyv15HWJUWMBoMpXze/1eC+wvQ2Vi7E
-	fpqDHqmWcfsbkeOBkjCGpczCyHUkfI+VbexfMLqtLS85q/eQHLP5NYQbVpjqjJuD3hs/uFjnx7r
-	hMTIwcaIWxuuqfA9Z9Klb8t5zbWW49OCiwfFRM=
-X-Received: by 2002:a53:be49:0:b0:66f:c852:209f with SMTP id 956f58d0204a3-671245ff4e9mr3870451d50.2.1789338011698;
-        Sun, 13 Sep 2026 15:20:11 -0700 (PDT)
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jFsTrG3iHQyKHdq+1UodoaAkVXy7pVAAxAeiumEkAso=;
+        b=A79WlXQqHnurEUYbzJAPvcTPN/kd5u9qdtPF7BfvM/KTCZzjYOb3un2lu8yx4fxdme
+         m0odcVH8cY+/qC1HyE6Qlbn5do96fCAXzXkApb/HlspLWcFg9/PtaKW1DlDmWCeGLz6N
+         az2OeD0mQ7yDnM7NtFdL30jbKNoawwu165bpZnOFNi1egWpX1ijXofnJMfWCjW9fuxTK
+         fvrVautUf1aFWb1yA/enLpC7wLjH2M9kYG3MkdJ8E3zi7cqvHVqXieBuc5otOamW9YHW
+         ZeZuOdKem+xl4Y/DdaiJT5mfgJN5TD9cdmtI3XPqJSLMV9/93UBhkvSW8CRaT0qUnkyU
+         ZJMg==
+X-Forwarded-Encrypted: i=1; AKwUvBzmIyE0KIZGKpBFSsZ5rYNLCOkAAkOB2Hab4wujdaVDKa1Qt7HxixrR4FKo7V+IoUdXbWPoaNrxpEE/vkw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kcktCndGVOfum0w3Nnd5AD7UVkUVOKrjkkEWuhXJ1ffBKutiRS
+	F2lV3GiB6LfKpMoizBUs4HtqCUHGfQ9lJA1LqRHS0iTHGLG69u6vADo3Mu4FykjIqjPxYf3EfsX
+	B9cuFNIHYh0Y8OnkbTwk=
+X-Gm-Gg: AYBFou2nwRLhnHrck6mQIM4YCTYnr9VuBScHd4sC9AF4V/HXO0eoXMyAqzk6Cu80UsA
+	zXZyMMzIBQHhcsW0MY7o8d7rLqlr6nWf3b3PfyuLYZnz5nQguqs/JktYyFwyPXbUOZjKQPzuiJp
+	CVpkoKpeWcxFs83kbwkzFT9P8ObgZhuEoAxo3BwGf+ORmavf26QEx31FY12w8RTgfeBBxsi9Pdc
+	vc905umRl3Ht6URR/6ttIjsLT2x/ddc27lT7ALroAtW3KxY4vqKXkcNM2rEo7zsAa0Y3F6L+mqm
+	UbOMydfwHBMyjKcTMASEcsRz+GNGTj/Cgv+zbeMBfuEeu/sGp/6bc0A1dKQ2PkveGu/4aTckKIN
+	jsNRfUq/6jCn8qwqItROpnbvykvHIeV+mmYixMJ+JOi9VjeSTeG3lp7bLnGwHPm/sL5n5GhzPog
+	TnyfG/EXiZapy2v6bX8Djn7cCiHLJwxBYWUDdfc2n+mAoDzojRMEQD3pymENHRHuMsql8CqEoPT
+	C/frX6d0bSY/Ub9/253paEExzSRYXYzmFDT4MY=
+X-Received: by 2002:a53:c9c1:0:b0:671:2f8d:eaf3 with SMTP id 956f58d0204a3-6712f8decebmr2752598d50.4.1789338012505;
+        Sun, 13 Sep 2026 15:20:12 -0700 (PDT)
 Received: from kelso (99-10-92-174.lightspeed.rlghnc.sbcglobal.net. [99.10.92.174])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67125ea8a35sm3737883d50.19.2026.09.13.15.20.10
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67125ea8a35sm3737883d50.19.2026.09.13.15.20.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 15:20:11 -0700 (PDT)
+        Sun, 13 Sep 2026 15:20:12 -0700 (PDT)
 From: Christopher Lusk <clusk@northecho.dev>
 To: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
 Cc: =?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack@google.com>,
@@ -71,10 +74,12 @@ Cc: =?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack@google.com>,
 	linux-kernel@vger.kernel.org,
 	linux-serial@vger.kernel.org,
 	linux-kselftest@vger.kernel.org
-Subject: [RFC PATCH 0/2] Landlock signal scope and TIOCSIG
-Date: Sun, 13 Sep 2026 18:19:56 -0400
-Message-ID: <20260913221958.839429-1-clusk@northecho.dev>
+Subject: [RFC PATCH 1/2] tty: mediate TIOCSIG through task_kill LSM hooks
+Date: Sun, 13 Sep 2026 18:19:57 -0400
+Message-ID: <20260913221958.839429-2-clusk@northecho.dev>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260913221958.839429-1-clusk@northecho.dev>
+References: <20260913221958.839429-1-clusk@northecho.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,66 +88,148 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Landlock documents LANDLOCK_SCOPE_SIGNAL as limiting signal delivery to
-processes in the same or a nested Landlock domain.  A retained PTY master
-can currently use TIOCSIG to deliver SIGINT, SIGQUIT, or SIGTSTP to an
-out-of-domain slave foreground process group because the privileged TTY
-signal path never reaches security_task_kill().
+TIOCSIG lets a PTY master holder send SIGINT, SIGQUIT, or SIGTSTP to
+the slave's foreground process group.  pty_signal() currently uses
+kill_pgrp(..., priv=1), which represents the signal as SEND_SIG_PRIV.
+check_kill_permission() consequently returns before security_task_kill().
 
-This RFC asks two questions before proposing a final interface.
+This leaves the operation outside every task_kill LSM policy.  In
+particular, a task restricted with LANDLOCK_SCOPE_SIGNAL can use a
+retained PTY master to signal an out-of-domain foreground process group.
 
-First, should this be classified as SCOPE_SIGNAL under-enforcement, or as
-part of Landlock's documented inherited-TTY limitation?  The "Current
-limitations / IOCTL support" section says that IOCTL_DEV does not affect
-pre-existing descriptors, names TIOCSTI and TIOCLINUX, and recommends
-closing inherited TTY descriptors.  That text discusses the filesystem
-IOCTL_DEV right rather than SCOPE_SIGNAL, and unlike the two named ioctls,
-TIOCSIG is not CAP_SYS_ADMIN-gated.  Commit 4b80320ca7ed fixed the same
-effect-level class for SIGIO rather than treating the retained signal
-source as exempt.
+Add a kill_pgrp_lsm() variant selected only by pty_signal().  It invokes
+security_task_kill() for each process-group member immediately before
+delivery while tasklist_lock remains held.  This preserves the existing
+per-recipient and partial-success semantics without a separate pre-check
+race.  Ordinary privileged process-group signals continue to use the
+unchanged kill_pgrp() path.
 
-Second, if this is a bug, should TIOCSIG use the existing task_kill hook as
-patch 1 demonstrates, or should it gain a dedicated TTY-signal hook which
-Landlock can implement without changing other LSM policies?  The prototype
-is atomic with process-group delivery and behaviorally narrow to TIOCSIG,
-but calling task_kill means SELinux, Smack, AppArmor, BPF LSM programs, and
-future implementations also mediate this operation.  The series does not
-claim that cross-LSM policy change is settled.
+This is an RFC because the policy boundary is not settled.  Landlock's
+IOCTL documentation warns that pre-existing TTY file descriptors remain
+dangerous, while LANDLOCK_SCOPE_SIGNAL separately promises to restrict
+signals to processes outside the domain hierarchy.  The proposed helper
+also makes SELinux, Smack, AppArmor, and other task_kill LSMs mediate
+TIOCSIG for the first time.  Maintainer guidance is requested on whether
+this should instead use a dedicated, opt-in TTY signal hook.
 
-The demonstrated generic impact is low:
-CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:C/C:N/I:N/A:L = 3.8.  Scope is changed
-because the effect reaches a process outside the sandbox authority, but
-the primitive is limited to three job-control signals and no independent
-integrity impact has been reproduced.
+Tested on x86-64 QEMU with a held-constant four-cell effect oracle.
+Across three boots per image, the unpatched kernel
+delivered 96/96 cross-domain scoped TIOCSIG attempts; the patched kernel
+denied 96/96.  Both images delivered 96/96 unconfined and 96/96
+same-domain TIOCSIG controls, and denied 96/96 scoped direct-kill
+anchors.  There were no indeterminate cases or kernel diagnostics.
 
-Patch 1 is the behaviorally validated proof-of-concept fix.  Patch 2 is a
-minimal regression test; further test polishing should follow the chosen
-interface direction.
+Fixes: 54a6e6bbf3be ("landlock: Add signal scoping")
+Link: https://lore.kernel.org/r/56bffc24f3d0d08b45a686a48e99766b0a0821fa.1780614610.git.hexlabsecurity@proton.me
+Assisted-by: Claude:claude-opus-4-8
+Assisted-by: Codex:gpt-5.6-sol
+Signed-off-by: Christopher Lusk <clusk@northecho.dev>
+---
+ drivers/tty/pty.c            |  8 ++++++--
+ include/linux/sched/signal.h |  1 +
+ kernel/signal.c              | 30 ++++++++++++++++++++++++++++--
+ 3 files changed, 35 insertions(+), 4 deletions(-)
 
-Validation used the same userspace image against the affected and patched
-kernels.  Across three boots per image and 32 iterations per cell:
-
-  affected: 96/96 cross-domain TIOCSIG deliveries
-  patched:  96/96 cross-domain TIOCSIG denials
-  both:     96/96 unconfined deliveries
-            96/96 same-domain deliveries
-            96/96 scoped direct-kill denials
-
-The regression test separately fails on the affected image and passes on
-the patched image, with exactly one TAP test executed in each run.
-
-No external report or patch has been sent before this RFC.  Guidance on
-both classification and hook direction would be appreciated.
-
-Christopher Lusk (2):
-  tty: mediate TIOCSIG through task_kill LSM hooks
-  selftests/landlock: cover TIOCSIG signal scoping
-
- drivers/tty/pty.c                             |   8 +-
- include/linux/sched/signal.h                  |   1 +
- kernel/signal.c                               |  30 +++-
- .../selftests/landlock/scoped_signal_test.c   | 142 ++++++++++++++++++
- 4 files changed, 177 insertions(+), 4 deletions(-)
-
+diff --git a/drivers/tty/pty.c b/drivers/tty/pty.c
+index cc7f7091ed9a..8f5eea156ce4 100644
+--- a/drivers/tty/pty.c
++++ b/drivers/tty/pty.c
+@@ -187,6 +187,7 @@ static int pty_get_pktmode(struct tty_struct *tty, int __user *arg)
+ /* Send a signal to the slave */
+ static int pty_signal(struct tty_struct *tty, int sig)
+ {
++	int ret = 0;
+ 	struct pid *pgrp;
+ 
+ 	if (sig != SIGINT && sig != SIGQUIT && sig != SIGTSTP)
+@@ -195,10 +196,13 @@ static int pty_signal(struct tty_struct *tty, int sig)
+ 	if (tty->link) {
+ 		pgrp = tty_get_pgrp(tty->link);
+ 		if (pgrp)
+-			kill_pgrp(pgrp, sig, 1);
++			ret = kill_pgrp_lsm(pgrp, sig, 1);
+ 		put_pid(pgrp);
+ 	}
+-	return 0;
++	/* Preserve the historical success result for an empty process group. */
++	if (ret == -ESRCH)
++		return 0;
++	return ret;
+ }
+ 
+ static void pty_flush_buffer(struct tty_struct *tty)
+diff --git a/include/linux/sched/signal.h b/include/linux/sched/signal.h
+index 584ae88b435e..7d6aee7256a3 100644
+--- a/include/linux/sched/signal.h
++++ b/include/linux/sched/signal.h
+@@ -337,6 +337,7 @@ extern int kill_pid_info(int sig, struct kernel_siginfo *info, struct pid *pid);
+ extern int kill_pid_usb_asyncio(int sig, int errno, sigval_t addr, struct pid *,
+ 				const struct cred *);
+ extern int kill_pgrp(struct pid *pid, int sig, int priv);
++int kill_pgrp_lsm(struct pid *pid, int sig, int priv);
+ extern int kill_pid(struct pid *pid, int sig, int priv);
+ extern __must_check bool do_notify_parent(struct task_struct *, int);
+ extern void __wake_up_parent(struct task_struct *p, struct task_struct *parent);
+diff --git a/kernel/signal.c b/kernel/signal.c
+index a5e15bf09d31..758393b7257d 100644
+--- a/kernel/signal.c
++++ b/kernel/signal.c
+@@ -1426,13 +1426,22 @@ int group_send_sig_info(int sig, struct kernel_siginfo *info,
+  * control characters do (^C, ^Z etc)
+  * - the caller must hold at least a readlock on tasklist_lock
+  */
+-int __kill_pgrp_info(int sig, struct kernel_siginfo *info, struct pid *pgrp)
++static int __kill_pgrp_info_filtered(int sig, struct kernel_siginfo *info,
++				     struct pid *pgrp, bool check_lsm)
+ {
+ 	struct task_struct *p = NULL;
+ 	int ret = -ESRCH;
+ 
+ 	do_each_pid_task(pgrp, PIDTYPE_PGID, p) {
+-		int err = group_send_sig_info(sig, info, p, PIDTYPE_PGID);
++		int err = 0;
++
++		if (check_lsm) {
++			rcu_read_lock();
++			err = security_task_kill(p, info, sig, NULL);
++			rcu_read_unlock();
++		}
++		if (!err)
++			err = group_send_sig_info(sig, info, p, PIDTYPE_PGID);
+ 		/*
+ 		 * If group_send_sig_info() succeeds at least once ret
+ 		 * becomes 0 and after that the code below has no effect.
+@@ -1446,6 +1455,11 @@ int __kill_pgrp_info(int sig, struct kernel_siginfo *info, struct pid *pgrp)
+ 	return ret;
+ }
+ 
++int __kill_pgrp_info(int sig, struct kernel_siginfo *info, struct pid *pgrp)
++{
++	return __kill_pgrp_info_filtered(sig, info, pgrp, false);
++}
++
+ static int kill_pid_info_type(int sig, struct kernel_siginfo *info,
+ 				struct pid *pid, enum pid_type type)
+ {
+@@ -1886,6 +1900,18 @@ int kill_pgrp(struct pid *pid, int sig, int priv)
+ }
+ EXPORT_SYMBOL(kill_pgrp);
+ 
++int kill_pgrp_lsm(struct pid *pid, int sig, int priv)
++{
++	int ret;
++
++	read_lock(&tasklist_lock);
++	ret = __kill_pgrp_info_filtered(sig, __si_special(priv), pid, true);
++	read_unlock(&tasklist_lock);
++
++	return ret;
++}
++EXPORT_SYMBOL_GPL(kill_pgrp_lsm);
++
+ int kill_pid(struct pid *pid, int sig, int priv)
+ {
+ 	return kill_pid_info(sig, __si_special(priv), pid);
 -- 
 2.55.0
+
