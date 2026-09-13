@@ -1,220 +1,202 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B305938E106;
-	Sun, 13 Sep 2026 10:21:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789294894; cv=none; b=HEekAaaMHOxc0TLbyKZb91OJCkXYz2m+8z9pTAfB8Dh6GivjJG8Inv0Sen/UgJAlVuWhmqFj21WvIJWyd3RlGsN0CM2Sze7BcDNcMIqQCnOsKNdj1+HJxWk9aWQuwPn5mmtB/OllABQap+aV1KlFdS4RIZpog0RThxLiWJx89QI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789294894; c=relaxed/simple;
-	bh=0SZpvtdiXRybF1B+EXRwXtcWXnp2YQyuyDLN3XnjL5Y=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UCvMI4syzYTy96wSuoVytd7Fi3KrpQFjioVs76aV5T9Ao7YoQ9GHEOHZtcQVI/TdeNGQv4m5YcMvYkLIAL0hBVX0HlrGBgmt7GeShvMhnH5/O006iLfOP3I0QsJxFn6MvpT1a4Y9Ivq2SB6GtpE+6M9NXoRwcoz2Qxs1x+X0oxU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eB5Nfplt; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6478C3CA4AD
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 10:23:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789294998; cv=pass; b=OVuosl6+PNIxb0p2X8xzy6W4b27dwjje/Z7Cwmbfpprowf4tv5cjJgaz0rHkf62DKXtTDqDaTCuFGOp3QXppyo9cn2V8/CRgBwEZr/UPTV81rjrxevuRzpVq9U1drtJ2uMxciaSuTqDkojYr9h+0EKIIRjhay4oQYdncv/hkwYk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789294998; c=relaxed/simple;
+	bh=/da4xkkbWlUHDywNO7yl9JugHyvKv1izVJBOYQ0OiJw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Bm3koIxu2GMntKNTcH4L9143XWW78eX337/0Zuy30FsMqpGONsoLEkejRb8RjA6JldtXzwClRSDX+VlJPL+UzYQA+AtOcQcaQj1SZuo6uFyOujHaT6JQaT/rCI5a1v1zrk/TO0NItU0RujMsbqYRKf1BF9wEj9np9MEY/5OyduQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=skQSwERv; arc=pass smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eB5Nfplt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 597FA1F000FF;
-	Sun, 13 Sep 2026 10:21:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789294893;
-	bh=Nj1Sc2FSNN6ZhJZTa8LiP2iCAf/RUsi5xVB8DoPPUN8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=eB5Nfplt65+eHzqIV29cFpdR+4YyBzlZxMdHjkFTXjrjx26YIlBVbGwURHtCZ1nGI
-	 YEtDcebU5jThAgIuqx9s8Q9YHN8QLAhr7Oby7pIhDm1sC8pXQUC8wBiowxIm8QTvvv
-	 yv2YIXRlkeE1zy41hIheOv3HvJX2GpLQoX8kyO3T/FeX6FlGdKOBS+Jf+1YGtSgEyN
-	 g08EJ9G6UCBuuwrUj22q6Q1wNA6Mre0uwA5Vt2nFvEcJW00ygSnHq8I7bc4iPZ6G8H
-	 7PUGEAWJdl7dh7+L0DCixL7/W/aXCCYAjBbdKfFxEDBByA3ZCtR0EFIQuvcDe4UhW/
-	 28kORmTQQJrag==
-Message-ID: <882f2529-1d57-4911-b924-d05fd88a58bd@kernel.org>
-Date: Sun, 13 Sep 2026 12:21:28 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="skQSwERv"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd38e0f79so5524435e9.3
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 03:23:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789294994; cv=none;
+        d=google.com; s=arc-20260327;
+        b=eOV6ckwokVDMI/Hog273shBWsRH+APSBKzO3uUgInQzNd/vAITUl/bu/s4fb692o/I
+         JY9gKmBdyY0zyuA8daAs2580Ur1j1eg99gw70cuKqx/CG5jylti55yo/SCgvJBbP25up
+         +Mr7e4KNTdFcir+XAdWSQQ6I4EIx8C9Uyuo2cGSz4CiaC7wUPx6Y6KHmVDZbdoj4mtiX
+         DS5i1IjaNy9nG65xrclBqUOIpgs2lAtjyyEN2rJ79SB2TSsM5Vv8M/nZV9PTMnlmNA3E
+         cJaU+k9HGlCilTCSPRdswDiNbBcm9RSrA1Wk2FCDaZeTbCK0ltcWLODcluFViD+Ho1gF
+         iVTg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=VeM8lzHtsZzkcva1GsyD3J3hMDsbPZApqdfMt/qqPl0=;
+        fh=g0lJ0PVWsPaA7xVXXd+z5e0t/An9Q/pcJvMLdBHPQew=;
+        b=qShSee4guRAtUbgEl/l3UYeCd83RvqlcBrACkr5BWC/t1rLO1FohydgWV2sWcpnhu8
+         bePcDp+7d/n8QvOIr8FNxdUKOAn7YS5ekyqvJzwhvYYWi/2sFgKwhzUMRnZiPUwA4DRZ
+         7ukmI1JSYDFh4jkq76tG8F4dY5cv9aCjJlV7j6JAkv4TQazSkTklLdhknDLRv6TuAU10
+         XjygXQXAjar4gn4emhWT0PR7QSfB0yzZyRufamZjh5bOGPZ4JuOh3tsDkzTTAQjmMBnC
+         ABBCUQ+vLEVSyqP9+FTc4oj1BW6oKjYZu6qYe3cATpd+STXREw0DafRMUdWzAOpu/mbn
+         X7nw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789294994; x=1789899794; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=VeM8lzHtsZzkcva1GsyD3J3hMDsbPZApqdfMt/qqPl0=;
+        b=skQSwERvYlWccqJGkZx6nj/wjIhO4THnr2OGkrGl9cq+PiSVo++5k3ISUoDiPPTk1E
+         6dy7lOXqMFsKSUQYEM01dp21F5lJ+Y1pXBhhld1LDyIslRK6ZGbEofZHnQ2y3dtQ9W7w
+         RJbc6zj8uVg52cUe9fkIeOVwKCNYN+9Db4xEss6/eSpztrvfeusF4PqmOLhGQfdxyDFe
+         jg7RuW0iy1BTFwMfBEjPKRjUD8pfbAhqCmECKq8Jt54/zfWLK885l5y1i2SLH4deH4nu
+         Ys5my4AXgysGNf30YSqUUE201RZr43AjTHo9OzjmelaijGQlHDvVZhQztn0SmIHcmisd
+         YJ8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789294994; x=1789899794;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VeM8lzHtsZzkcva1GsyD3J3hMDsbPZApqdfMt/qqPl0=;
+        b=aEy8E4XI4HK2V87NAZHZdIiNqViELEEUtl/tjKRWg3oIN03+xWH1NbIrssXW7BvM3w
+         a87cqqlSoBwYYapC1TqCHRwrQnfLbVnKn2Tf4q546uDa5AeX2XYbNP1XPcQqhp9La8jm
+         M6Y1H9lGEa3MKbGzfFb5/Kuv4RCY/3r+RAvlTWvPkD0KLzUUHE3q7mfGbAoeYx/jFXG5
+         g0JecTQoNl09Hq3Dz1rAfbT5oVOlOjAGPYQm2LbjeEnfgarfGr/McERGJCWZt65ndwi/
+         i/7tnmQ9Pb3RZEdD58jIEi44SC/oE0P8dJVbvaS3AhQMVqMRlfN1GUduVtS/zdxjotO5
+         RL8w==
+X-Forwarded-Encrypted: i=1; AKwUvBwOuVUrJnd7tuCK1yE08926As0nCLdLaL5pnXgAuKuP8otLXt8TTqTYnmq75uOmzHRM6jh1kTEY/xZ6AYA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nrAadmF0y0GxTW4ygjvGnmd+7u8RW9Zmt3n08sgxg7STdkOGjY
+	3W4i4kdTKm/Eh45chCffllKX/yhOQqt5b5a0MsLNEslVGfikMPcVUru0aseN6Kem9AnIJ5a1F5w
+	C+Kw4SGIrMq4FYtirW82ScHaOovwVqN4=
+X-Gm-Gg: AYBFou35K2lSaea4QeeCBnPZe9hvz/eVoxkHrmTZqmqHLag3myk4WijDU+ZYN4ZkLks
+	LbFobpcjkC+I0ZakKkGLuC2kKoZLKhvdX5a0yHLM+a3veHgkuJ8DYWwVXdl1tttfLcl7xpVgWlo
+	8jQStdBL1ySTv2o3BTwCXXVymV8Yl5nEg9IkLYA0uiq3k7dVhQ3W8qmSeiWRtGwZL18pxNDG+UD
+	kjySgjD08YRz2TRmep6CoEGMoZTt9Ce39WNODAbU5OVreCCL6yFLpytTcA9qxn+dPOvptEiqjWw
+	P4BYJ/Pj77YQjtuAZxaUsX++7izyvVgdCTqX4FRLYQoDvSDywjIoqgFvsSauDbQlOwpvamFzJQ3
+	J6ly4HjKpHkz/gQ==
+X-Received: by 2002:a05:600c:540e:b0:49e:6692:27fd with SMTP id
+ 5b1f17b1804b1-49e66922810mr204293965e9.2.1789294994225; Sun, 13 Sep 2026
+ 03:23:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] arm64: dts: exynos: Add initial support for Samsung
- Galaxy A21s (SM-A217F)
-To: Thomas Turner <tturner@lineageos.org>, semen.protsenko@linaro.org,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- peter.griffin@linaro.org
-Cc: alim.akhtar@samsung.com, linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, thomas_turner@talktalk.net,
- alexey.klimov@linaro.org
-References: <20260913101331.198835-1-tturner@lineageos.org>
- <20260913101331.198835-3-tturner@lineageos.org>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260913101331.198835-3-tturner@lineageos.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260911093515.2802551-1-kunwu.chan@gmail.com>
+ <0cf7b133-d2fd-4298-adba-70a2b86d1892@paulmck-laptop> <CAN_Opa-uuim=aiOuAmHYUoD5S=vBREemj-dCvcunF-4zNdp1=A@mail.gmail.com>
+ <e6be6641-731c-4b21-ad4e-c05bedc388d6@paulmck-laptop>
+In-Reply-To: <e6be6641-731c-4b21-ad4e-c05bedc388d6@paulmck-laptop>
+From: KunWu Chan <kunwu.chan@gmail.com>
+Date: Sun, 13 Sep 2026 18:23:01 +0800
+X-Gm-Features: AcwNN1WLPFwN4p6tzjGquIodVYiq-ve1ku2FdgLQ3j_nNSAf-QvPE_xuEryTmjk
+Message-ID: <CAN_Opa88oCHV+TGUmAzDLdfnmZ78oT+_vFttkMQEQ8uHuW8-ZQ@mail.gmail.com>
+Subject: Re: [PATCH] srcutree: Add lockdep and early-boot checks to synchronize_srcu_atomic()
+To: paulmck@kernel.org, Zqiang <qiang.zhang@linux.dev>
+Cc: jiangshanlai@gmail.com, josh@joshtriplett.org, rostedt@goodmis.org, 
+	mathieu.desnoyers@efficios.com, rcu@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 13/09/2026 12:13, Thomas Turner wrote:
-> Add initial support for the Samsung Galaxy A21s (a21s) phone. It was
-> launched in 2020, and it's based on the Exynos 850 SoC. It has multiple
-> RAM configurations: 3GB, 4GB and 6GB.
-> 
-> Since our bootloader does not set up memory nodes beforehand, default to
-> the 3GB variant. Custom bootloaders can be used to initialise other
-> nodes per RAM configuration.
-> 
-> The Exynos DPU clocks required by simple-framebuffer are not kept
-> enabled during boot. Add the DECON, DMA, DPP, PPMU and SSMU DPU clocks
-> to the simple-framebuffer node so simpledrm maintains references to
-> them. Without these clocks, the framebuffer fails to remain operational
-> further into boot.
-> 
-> This device tree adds support for the following:
-> 
-> - SimpleFB
-> - 3GB RAM
-> - Buttons
-> - Ramoops
-> - MMC
-> - USB
-> - Watchdog
-> 
-> Signed-off-by: Thomas Turner <tturner@lineageos.org>
-> ---
->  arch/arm64/boot/dts/exynos/Makefile           |   1 +
->  .../arm64/boot/dts/exynos/exynos850-a217f.dts | 193 ++++++++++++++++++
->  arch/arm64/boot/dts/exynos/exynos850.dtsi     |   2 +-
->  3 files changed, 195 insertions(+), 1 deletion(-)
->  create mode 100644 arch/arm64/boot/dts/exynos/exynos850-a217f.dts
-> 
-> diff --git a/arch/arm64/boot/dts/exynos/Makefile b/arch/arm64/boot/dts/exynos/Makefile
-> index 76cc23acb9b2..f197f8eb633b 100644
-> --- a/arch/arm64/boot/dts/exynos/Makefile
-> +++ b/arch/arm64/boot/dts/exynos/Makefile
-> @@ -13,6 +13,7 @@ dtb-$(CONFIG_ARCH_EXYNOS) += \
->  	exynos7870-j7xelte.dtb		\
->  	exynos7870-on7xelte.dtb		\
->  	exynos7885-jackpotlte.dtb	\
-> +	exynos850-a217f.dtb		\
->  	exynos850-e850-96.dtb		\
->  	exynos8895-dreamlte.dtb		\
->  	exynos9810-starlte.dtb		\
-> diff --git a/arch/arm64/boot/dts/exynos/exynos850-a217f.dts b/arch/arm64/boot/dts/exynos/exynos850-a217f.dts
-> new file mode 100644
-> index 000000000000..f1d11f91a353
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/exynos/exynos850-a217f.dts
-> @@ -0,0 +1,193 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Samsung Galaxy A21s (a21s/SM-A217F) device tree source
-> + *
-> + * Copyright (c) 2026, Thomas Turner <tturner@lineageos.org>
-> + */
-> +
-> +/dts-v1/;
-> +#include "exynos850.dtsi"
-> +#include <dt-bindings/gpio/gpio.h>
-> +#include <dt-bindings/input/input.h>
-> +
-> +/ {
-> +	model = "Samsung Galaxy A21s";
-> +	compatible = "samsung,a217f", "samsung,exynos850";
-> +
-> +	chosen {
-> +		#address-cells = <2>;
-> +		#size-cells = <1>;
-> +		ranges;
-> +
-> +		framebuffer0: framebuffer@fa000000 {
-> +			compatible = "simple-framebuffer";
-> +			reg = <0x0 0xfa000000 (720 * 1600 * 4)>;
-> +			width = <720>;
-> +			height = <1600>;
-> +			stride = <(720 * 4)>;
-> +			format = "a8r8g8b8";
-> +			clocks = <&cmu_dpu CLK_GOUT_DPU_DECON0_ACLK>,
-> +				 <&cmu_dpu CLK_GOUT_DPU_DMA_ACLK>,
-> +				 <&cmu_dpu CLK_GOUT_DPU_DPP_ACLK>,
-> +				 <&cmu_dpu CLK_GOUT_DPU_PPMU_ACLK>,
-> +				 <&cmu_dpu CLK_GOUT_DPU_PPMU_PCLK>,
-> +				 <&cmu_dpu CLK_GOUT_DPU_SMMU_CLK>;
-> +		};
-> +	};
-> +
-> +	memory@80000000 {
-> +		device_type = "memory";
-> +		reg = <0x0 0x80000000 0x3c900000>,
-> +		      <0x0 0xc0000000 0x20000000>,
-> +		      <0x0 0xe0d00000 0x1f300000>,
-> +		      <0x8 0x80000000 0x20000000>,
-> +		      <0x8 0xa0000000 0x20000000>;
-> +	};
-> +
-> +	gpio-keys {
-> +		compatible = "gpio-keys";
-> +		pinctrl-names = "default";
-> +		pinctrl-0 = <&key_voldown &key_volup>;
-> +
-> +		voldown-key {
-> +			label = "Volume Down";
-> +			linux,code = <KEY_VOLUMEDOWN>;
-> +			gpios = <&gpa1 0 GPIO_ACTIVE_LOW>;
-> +		};
-> +
-> +		volup-key {
-> +			label = "Volume Up";
-> +			linux,code = <KEY_VOLUMEUP>;
-> +			gpios = <&gpa0 7 GPIO_ACTIVE_LOW>;
+On Sun, Sep 13, 2026 at 2:50=E2=80=AFAM Paul E. McKenney <paulmck@kernel.or=
+g> wrote:
+>
+> On Sat, Sep 12, 2026 at 08:37:33PM +0800, KunWu Chan wrote:
+> > On Sat, Sep 12, 2026 at 12:47=E2=80=AFAM Paul E. McKenney <paulmck@kern=
+el.org> wrote:
+> > >
+> > > On Fri, Sep 11, 2026 at 05:35:15PM +0800, Kunwu Chan wrote:
+> > > > Add the lockdep annotation, same-type SRCU nesting warning, and
+> > > > early-boot check used by __synchronize_srcu().
+> > > >
+> > > > Suggested-by: Zqiang <qiang.zhang@linux.dev>
+> > > > Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
+> > >
+> > > Queued for review and testing, thank you both!
+> > >
+> > > Interestingly enough, it is now the case that there is a grace-period
+> > > wait that can be placed in a normal RCU read-side critical section.
+> > > Does this mean that we should also adjust the --do-srcu-lockdep testi=
+ng
+> > > in tools/testing/selftests/rcutorture/bin/torture.sh?
+> >
+> > Thanks, Paul. Good point.
+> >
+> > I=E2=80=99ll check the current `--do-srcu-lockdep` coverage, including =
+the
+> > case where `synchronize_srcu_atomic()` is called from a normal RCU
+> > read-side critical section, and follow up with the necessary torture
+> > testing changes.
+>
+> Sounds good!
+>
+> Perhaps you and Zqiang can work together on this.  Co-developed-by,
+> for example.
 
+Thanks, Paul. I'am happy to do that.
 
-linux,code goes to the end.
+@Zqiang, your suggestions on the additional lockdep cases got me
+started, and these are now incorporated as testtypes 4 and 5.
+Paul's observation that synchronize_srcu_atomic() can legitimately
+be called from a normal RCU read-side critical section led to an
+additional regression test (testtype 6).
 
-You can run dt-check-style from
-https://github.com/krzk/linux/tree/b4/dts-style-checker-blank-lines in
-"--mode strict".
+In particular, testtype 6 verifies that calling
+synchronize_srcu_atomic() from within rcu_read_lock()/rcu_read_unlock()
+does not produce a false-positive lockdep warning.
 
+The atomic SRCU same-type nesting cases are covered by testtype 4
+and are expected to trigger the RCU_LOCKDEP_WARN() in
+synchronize_srcu_atomic().
 
-Best regards,
-Krzysztof
+The changes are in rcutorture.c and srcu_lockdep.sh; torture.sh
+does not need to change. The testing changes are basically complete.
+
+@Zqiang, I'm happy to add:
+Co-developed-by: Zqiang <qiang.zhang@linux.dev>
+Signed-off-by: Zqiang <qiang.zhang@linux.dev>
+
+if you're OK with that.
+
+Thanks,
+Kunwu
+
+>
+>                                                         Thanx, Paul
+>
+> > Thanks,
+> > Kunwu
+> >
+> > >
+> > >                                                         Thanx, Paul
+> > >
+> > > > ---
+> > > >  kernel/rcu/srcutree.c | 8 ++++++++
+> > > >  1 file changed, 8 insertions(+)
+> > > >
+> > > > diff --git a/kernel/rcu/srcutree.c b/kernel/rcu/srcutree.c
+> > > > index 6a9c432a3bd0..6c729e805fb3 100644
+> > > > --- a/kernel/rcu/srcutree.c
+> > > > +++ b/kernel/rcu/srcutree.c
+> > > > @@ -2123,6 +2123,14 @@ void synchronize_srcu_atomic(struct srcu_str=
+uct *ssp)
+> > > >       unsigned long rdm0, rdm1;
+> > > >       unsigned long unlocks0, unlocks1;
+> > > >
+> > > > +     srcu_lock_sync(&ssp->dep_map);
+> > > > +
+> > > > +     RCU_LOCKDEP_WARN(lockdep_is_held(ssp),
+> > > > +                      "Illegal synchronize_srcu_atomic() in same-t=
+ype SRCU read-side critical section");
+> > > > +
+> > > > +     if (rcu_scheduler_active =3D=3D RCU_SCHEDULER_INACTIVE)
+> > > > +             return;
+> > > > +
+> > > >       // Initialize.  Either init_srcu_struct() was invoked or
+> > > >       // DEFINE_SRCU() or similar was used.  Therefore, no allocati=
+on
+> > > >       // will be done here.
+> > > > --
+> > > > 2.43.0
+> > > >
