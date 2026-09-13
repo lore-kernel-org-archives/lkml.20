@@ -1,139 +1,95 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from outbound.ms.icloud.com (ms-2002i-snip4-1.eps.apple.com [57.103.74.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87D0D291C10
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 11:29:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F010F1A6838
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 11:30:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.74.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789298949; cv=none; b=lXSHNqTn3A5lPDhzootIGfge4kBFoC90jW1lukTNJ3xwcpb5LlNTtbELe099N44ewzKy1wOouA+GOHH7bc2JvqEInCdxetwP10tRjc20XuSgButXI2Rmp3H3fIicsJLnODt7BInBClVQ/bI+nCcssJ1EsnYTwhHfI6n1PzeGDl8=
+	t=1789299029; cv=none; b=jDHFIhHPmUiWDncw9HgU/VsvWoWXV+c5ABtDS3lhDFc8wkG/So8UyC5/KwkZWoOgsq0qkZBAY3tYNlpvGwyosYAKZXbV+PBps/1pLo2hn2k0asMW9ZMXX3sqlvxfgQXnFAFYjmOKJcW1A3RiSzINJRmGjB7cD9pq2fDlaVQo/P8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789298949; c=relaxed/simple;
-	bh=Tj8qk0XwgG6OI6eappubnNJZNj7JVE4Eznyplit1vfU=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Aw5OSTAP1ZZsSajiTD+AhSI3obuBYjrCPhTq/8+5TCTyUD+rW1Ge+QaaHHXlGUothEYiW6/8EJwfzSxJLTPjv9vobFOsloseopQ7YfBz2RiwwIcIvQQpoIh2zlyisg1+cfuyFuibrUgNPy3l8uxiDb68ws17TsqW65lFyaWumbw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TCAbM6aM; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789299029; c=relaxed/simple;
+	bh=WLPxoVldl9SP+vdH2Xd1XSNenlK3mtdn+uLjt0sOVxY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=abXxy6Kb4O5tHzV2w/5VEsD+55dgt/VZCTH43dE5fM9akLH08t8dzNfh3dTaodvK/vfHyGgjihcan8NjPBm/ATNUPJln8QNPTqVhzK6L4bPKQ9bZnZwgKGHmaHi64UGCL5ibK6POaMXTQCOC10J3nSe61fOMOTWGaKDVFaFH4R4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=me.com; spf=pass smtp.mailfrom=me.com; dkim=pass (2048-bit key) header.d=me.com header.i=@me.com header.b=MZIeKS+i; arc=none smtp.client-ip=57.103.74.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=me.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=me.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TCAbM6aM"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d37b5so7344815e9.2
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 04:29:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789298946; x=1789903746; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=U8/tv6bYjr/JxaCBgXPuXjqSK44p/M/ZKAj7rPsQHeE=;
-        b=TCAbM6aMgt4CNBcwAm76o0w4qBImbbdr1uw7o6QOWqjTkAEBk8sC9r0NPDvKkcz7HS
-         OTByZNqKT1gTq7ZS4b/WlCR2kXfuJ8+MXvRbmS/aw1cG48lSQZg0P6guMqB1esqsWH7m
-         EjZnBXlMs1N0dPccOm9gPspEd7iuPafYVHONk9U2QS1A7LKhAuZjjcdqtL9tU2QR/K9Y
-         miTa9ghh0HlG2iwYE/4bTo1oHPMeQwLSQdSlLSumanabf9WkS7E66q18Ii5mKLwx6BHo
-         5IqtJIHyJvxVFSY/3lVF/dOOlhyYsTP1uyCURzY/dVs8HnBoNL2lBT4+JoPlC7v7zSCc
-         pmXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789298946; x=1789903746;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=U8/tv6bYjr/JxaCBgXPuXjqSK44p/M/ZKAj7rPsQHeE=;
-        b=NPUEZ1E7JMshloR34r25t9BSw5p2SrUdgYZPDlEfeH4+k4TxnDxMn9JvB6iQf1LLh4
-         QgcvkJ3pEAZZxdSzeRkvGyv7dCYm7wBD8EkTXp53/nHDqhloWxfUD64FXJuGQn8+uB7H
-         x+bi+zkeFk1wgRGxFt5j0f29bKQWa+LEePTvJHSEl79JeFukZMYDhCuZH66dfvlRnJwd
-         KrXEtpS6GXlWtKLlwBQtjOLkgPXGLLCsFfCGs2Xb3TEr5U9cgBpah2r1KWX7gXXEsDYQ
-         R5unFOPNQw4BXKtUkDyJ7iXxLDFjrAdZp9agebzGx0M7+vc12H3y5ZfAiGGyhDMz3x6G
-         QVyA==
-X-Forwarded-Encrypted: i=1; AKwUvBxik++qGIqfYmdP9qqX8g+Qrn9q1KSfrndvmnHVctNcJmk7Ei02ISiWXAPsKjP1tw1MxYz5lYpbHMR+K+8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mJNAvWzhEKLGNiW0ZjJ4J9V1QEDKM/A60+OhysUoQ7/0pb+zCX
-	pAQSMLkqrzOndiGfrdcXCH+iKiPOVfinuD7JXGV19U9REZ7nivsAs7q8
-X-Gm-Gg: AYBFou2UILqqwGwCnbrG3t+f0vs97Mhp/2BrbjUudkRAt9NGT4oes7cGnrLI6Z83wEA
-	7LNuOwH3EJeUJdvnIgLEzoEDDAbTDT0V5m+BkpAb8P7TyivqmXKKjXY7eVSkcUGXTCkNQ9ZOwlV
-	+X9rb6lbi50XWQgtgEyU/bPAnwMhh9s1/7/Xp2lyrct7STZFACKiImNTHOnim79j4uByrEJr5O6
-	ILzN3q2lEgHuEGC9rIPnGwRDsXpDZaoSYmXJgitfFX3GDU8XfRC32B7w2Gj8/059R97wIqR/VvN
-	puoZPf5Kh6dFlr7bxcwj/fPvUk3skNAZf3pK/4LH2eA+X0SM1+LLwHYOQX7kgMTr9VLElYRf0DX
-	REjvXbvsXYFwLDRGCKQDk2TPB3lLJQXxSMDSMPl3zEMq2Q8NbtkOvXhRVeJJH4MoLUwbbVHiKhF
-	sg5rTR104qJd5nV5DVKjW7uKZXyY2OYfWJZshG5JDhOUmGVv4ktNpu/KRekWYJsjdau1DpTeCT2
-	Ee9SXjrVNYtG5e8dEwCj9gb29VN4DZ0N1iA
-X-Received: by 2002:a05:600c:4ecc:b0:49e:6be6:d783 with SMTP id 5b1f17b1804b1-49e6be6d9dbmr138768675e9.0.1789298945625;
-        Sun, 13 Sep 2026 04:29:05 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb32d3c7sm17806381f8f.10.2026.09.13.04.29.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 04:29:05 -0700 (PDT)
-Date: Sun, 13 Sep 2026 12:28:59 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: "Paul E. McKenney" <paulmck@kernel.org>
-Cc: Alexei Starovoitov <alexei.starovoitov@gmail.com>, Josef Bacik
- <josef@toxicpanda.com>, Frederic Weisbecker <frederic@kernel.org>, Neeraj
- Upadhyay <neeraj.upadhyay@kernel.org>, Joel Fernandes
- <joelagnelf@nvidia.com>, Boqun Feng <boqun@kernel.org>, Thomas Gleixner
- <tglx@kernel.org>, Peter Zijlstra <peterz@infradead.org>, Steven Rostedt
- <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, Mark Rutland
- <mark.rutland@arm.com>, Jiri Olsa <jolsa@kernel.org>, Alexei Starovoitov
- <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko
- <andrii@kernel.org>, x86@kernel.org, Catalin Marinas
- <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Puranjay Mohan
- <puranjay@kernel.org>, Xu Kuohai <xukuohai@huaweicloud.com>, Andy
- Lutomirski <luto@kernel.org>, Josh Triplett <josh@joshtriplett.org>,
- Uladzislau Rezki <urezki@gmail.com>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, Lai Jiangshan <jiangshanlai@gmail.com>,
- Zqiang <qiang.zhang@linux.dev>, Juergen Gross <jgross@suse.com>, Luis
- Chamberlain <mcgrof@kernel.org>, Ihor Solodrai <ihor.solodrai@linux.dev>,
- linux-kernel@vger.kernel.org, rcu@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH RFC v2 08/15] bpf, x86: Maintain Tasks RCU trampoline
- nesting in the BPF trampoline
-Message-ID: <20260913122859.4d5067cd@pumpkin>
-In-Reply-To: <ffffa178-c475-4249-a609-c5d222704987@paulmck-laptop>
-References: <20260911-b4-rcu-tasks-preempt-qs-v2-0-eaaa61ed2da4@toxicpanda.com>
-	<20260911-b4-rcu-tasks-preempt-qs-v2-8-eaaa61ed2da4@toxicpanda.com>
-	<DLD0OHX8C4ME.VNR49VC2UYH4@gmail.com>
-	<14cb8a91-497d-49f5-aa20-c6cb8b9a27fc@paulmck-laptop>
-	<DLDICNLENSRI.2R6EJ0ZFJE45T@gmail.com>
-	<8c51a669-eb6b-455b-a829-b537da5209f8@paulmck-laptop>
-	<20260912221400.4045198b@pumpkin>
-	<ffffa178-c475-4249-a609-c5d222704987@paulmck-laptop>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key) header.d=me.com header.i=@me.com header.b="MZIeKS+i"
+Received: from outbound.ms.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-west-3a-60-percent-1 (Postfix) with ESMTPS id C96FA1800108;
+	Sun, 13 Sep 2026 11:30:25 +0000 (UTC)
+X-ICL-RepId: 01a09a88-6756-71db-9222-77e157a0eb9a
+X-ICL-Out-Info: HUtFAUMHWwJACUgBTUQeDx5WFlZNRAJCTQhMAUMGWgFeC0odXANcEhVdRUMMQxtXAHkVVkNUBF9QXxwOAFJFUR9UWEEOCl0SGFwUXFBYHkYSVg1dCRkGQV5QG18CQg8cE1YVEx1DGQ8rCEoEQwdFAl4LJRMJU1ZfFRcbXAAXBlsUBEQBXQVdAkkISwJcBVIARRdJAl4OWB9BFAhSGUcOQjBUHR0OWAYMUE0BQwgKAlEcVg1X
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=me.com; s=1a1hai; t=1789299027; x=1791891027; bh=djagKHZWfxrim0bOjGxl1BoPQbzPhDkm3d94vlpzBVs=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=MZIeKS+i3oFT7DDhtNhMX39TDmcB0qlyEmWpOMoHWZb8IiFTMLMgKFkANG58XJvbOy4lPiAVD3sCPvFSLZUMErncYQLBDKFSgEjMZHvrvxUNj8J7eJwquFDyb5niwbJNKF/kAm2+ukMAoG+HW9LmPIw7A9fwpQzGmHCe0U1ojoo9+S7daW+N40Q6J1XdTMwrNmLxOU9lIoCCEw29TVXPgOjciwkKI38ivPPyQKGeqLqs7BRk9fRhoh843NE0nns6H/1VCkgzJN7oFVoFn/vEZVmlyK5qL7K0adMHe3Ln+VL1n/npC40OemoR/a2W9FF125BjIzVevf2KCxTxgg2Hzg==
+Received: from dell-p3650 (unknown [17.156.208.39])
+	by p00-icloudmta-asmtp-us-west-3a-60-percent-1 (Postfix) with ESMTPSA id 7FBC6180040B;
+	Sun, 13 Sep 2026 11:30:24 +0000 (UTC)
+From: Patrick Pepin <patpep@me.com>
+To: =?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>,
+	Guenter Roeck <linux@roeck-us.net>
+Cc: Armin Wolf <W_Armin@gmx.de>,
+	linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Patrick Pepin <patpep@me.com>
+Subject: [PATCH] hwmon: (dell-smm) Add Dell Precision 3650 Tower to fan control whitelist
+Date: Sun, 13 Sep 2026 11:29:25 +0000
+Message-ID: <20260913112925.11393-1-patpep@me.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Authority-Info-Out: v=2.4 cv=dfONHHXe c=1 sm=1 tr=0 ts=6aa68952
+ cx=c_apl:c_pps:t_out a=kRaGL2Q7qLiahLf3O6OaIA==:117
+ a=kRaGL2Q7qLiahLf3O6OaIA==:17 a=VdqzKS8jKosA:10 a=x7bEGLp0ZPQA:10
+ a=-UwBEhI7gGgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=HHGDD-5mAAAA:8
+ a=p9pmaAl0BYmgHBKwmQEA:9
+X-Proofpoint-ORIG-GUID: OR3MLYpJiKqGe6a2wMo1ULcCluTnc7Mx
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEzMDE2NCBTYWx0ZWRfX2Li57ab9HQQN
+ Qv4yZ7i8l6M1K0VRDItvhVOzPQi5XN/B6u53JM870RwLlv1EXQVnFkeat3H7bKWn5o9MhkecU9v
+ BbQhqSMlI2aZjsewB0LDuJMP25tlbTXYzXb/PM2dp40PIdmwS42K6EqexD+1h6I2lavqg5WJ/JL
+ CMGaX8wR/9uofT2ms4BwVwmHQ0g09Blpb3uLgkolV8Lu+X/oRzvllihEXFhHu9L9VxnpCZh3qyv
+ 5MsLfu8gowfm2JlVSjeURW566d7WjQh4480UTN0ohAV/UzvnMRO2Qnv0mX32UXuvDSgpC9W1z7c
+ X7bg9F6y4hQ6NgkOJGJ6qXvS1vEG76GO8qJ9KP41Pa7v7/Ca1n3oyL/znx90r8=
+X-Proofpoint-GUID: OR3MLYpJiKqGe6a2wMo1ULcCluTnc7Mx
+X-JNJ: AAAAAAAB/YNuWBjePZtGgspKFT3VlVJQY7uhM+9Zc1fdL1ry6d1Y6JMhR+53gHWDrgPZhJa2x3cp2sJcQx5xhHkHJn5cFKpA/6csyFxTqYyBIa1yuJFnfH8KjWapnSuDLa2tOxghFyZBOdvspCg2HE3udhW+JzxZjYLY0vWyUJ9qXQrtSMIqkPgwxBRZhfcMofMKfvSOcWNwEOka630T8wwv0zXPGqJvEJdUgMVgezfUWfh1SpZMtPhUnVt1rAJ9rwiY6Zj++0PfPjU9qIrypRIDd8aAnnL07+4eKUJcabjEswsgFJI7sSXT2tha5MWGXu1jWBHMO2pQc1xvRyxz5nnxMzzXuX5/pKMiTNb28QmmdzX61v04SX+LhxpwsKYwtufGMaH2RQYYN0A2TSWVCLeBJMRptYWy/WWRthlHhjaEeSXJbHbFnOqx1d1EcljYljrM1hjBWh4xUVt+UbRgCnerhVKRm15+zNKr3P4gkLFuSVZ5qoQ5xv1L7GtIEoHqXaeH0H5xnzPYfc9RY9wSISbNLkYZBnbvqM9LXUUqsEfDU5yTwzW9BgXGIw+A/60NrMjpoGnAv98/1ESi5qKHnCzpuaaQRBEZdRG+Wp0L2TvWqqQVk3oGhEhhgaz7Ovc7aOXubD17KsHq1iSPq0NQ1A/dmok6d2R50X7ff3WGqZW2Yoo5HPfvRXyxcSw2e5ofGRUrHDcPk4Y8DUp7Ovpca/GRbiDy+drL9dcnbPQZxdv6OL4DsQTXxo43a9Gcg6eNkmZdw0rZGxMOgSe6Aabo9XMLAbynjRRm+pEiYRCvT81Oh//Gjog5ncBgLREuNi449Y+oddFfkXmoccmDCB21IhgEASDrER4CUcMCRyirrIlWFfbaZs93xoqxKkSH2W4BT4u2upzYLXykwjCrxN36i9zCYOAyRyD8uk/dE3BUhmlYIi0YtJtbn4inTcm0pkw7+mx5hU0uYPpCfE394U9NVVtnS6AWZmf
+ zLS/+In5a8HiMY/xAwqE/j+Eup1BUOrxAL3t86wE92hpm9yzRqRe9r3cucNbuLOn0DuB0DFjYWTInIIfsp0yHbRzPZiugtsFbvr8HmApKj7I1MTi90IDFBRhF9Ik3kqc1fcEurOlky5Fz02FGJSdnsOEnKK0/PyQIENag1Ngbvecw38Od9HiT9ITRutgXpSqpnAigj/1BlikaZdLQ447gLF+8pi4yv0fvk6tCZK+RnnWAQkups3O7hlxVr1LvW8OdweISrX6+hwiEzHaIXg==
 
-On Sat, 12 Sep 2026 15:31:24 -0700
-"Paul E. McKenney" <paulmck@kernel.org> wrote:
+On the Dell Precision 3650 Tower, the EC ignores fan speed writes unless
+automatic BIOS fan control is disabled first. The same SMM code pair as
+the OptiPlex 7000 (I8K_FAN_34A3_35A3) works on this machine through the
+WMI-SMM backend: after writing 1 to pwm1_enable, all three fans (CPU,
+front, top) accept the three fan states and report matching RPM.
 
-> On Sat, Sep 12, 2026 at 10:14:00PM +0100, David Laight wrote:
-> > On Sat, 12 Sep 2026 11:03:34 -0700
-> > "Paul E. McKenney" <paulmck@kernel.org> wrote:
-> >   
-> > > In the old kernels, yes, we have current->trc_reader_nesting++.
-> > > In the newer kernels, Tasks Trace RCU is instead implemented in terms
-> > > of SRCU-fast, which instead increments per-CPU counters.  Which among
-> > > other thins is a bit faster and does not need to hook into the scheduler.  
-> > 
-> > Isn't that rather architecture dependant?
-> > It is fine on x86, but on arm incrementing a per-cpu variable is
-> > significantly expensive.  
-> 
-> Last I heard, slow ARM increments of per-CPU variables were to be a
-> transitory phenomemon.  Plus changes late last year greatly sped up the
-> per-CPU increment operations.
+Tested on BIOS 1.48.0 with kernels 7.0.0-30 and 7.0.0-31 (Ubuntu 26.04).
 
-There are some unapplied patches to improve per-cpu operations for both
-arm64 and s390.
-Without those preemption has to be disabled (in current->xxx) which requires
-a conditional call in the preempt enable path.
+Signed-off-by: Patrick Pepin <patpep@me.com>
+---
+ drivers/hwmon/dell-smm-hwmon.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-David
-
-> Plus this change removed some hundreds
-> of lines of RCU code.
-> 
-> 							Thanx, Paul
-> 
+diff --git a/drivers/hwmon/dell-smm-hwmon.c b/drivers/hwmon/dell-smm-hwmon.c
+index 7ed94a3db..47668634f 100644
+--- a/drivers/hwmon/dell-smm-hwmon.c
++++ b/drivers/hwmon/dell-smm-hwmon.c
+@@ -1639,6 +1639,14 @@ static const struct dmi_system_id i8k_whitelist_fan_control[] __initconst = {
+ 		},
+ 		.driver_data = (void *)&i8k_fan_control_data[I8K_FAN_34A3_35A3],
+ 	},
++	{
++		.ident = "Dell Precision 3650 Tower",
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
++			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "Precision 3650 Tower"),
++		},
++		.driver_data = (void *)&i8k_fan_control_data[I8K_FAN_34A3_35A3],
++	},
+ 	{
+ 		.ident = "Dell Optiplex 7090",
+ 		.matches = {
+-- 
+2.53.0
 
