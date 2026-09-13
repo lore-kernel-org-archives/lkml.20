@@ -1,143 +1,200 @@
-Received: from mail.mindbit.ro (xs1.mindbit.ro [80.86.107.70])
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013054.outbound.protection.outlook.com [40.107.201.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BED62BE7A7;
-	Sun, 13 Sep 2026 19:53:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.86.107.70
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789329211; cv=none; b=JtOCbBQrxw3zs3eID3DJ3G9VcWoLQW/iwFtvsZ2wvJrKLQDQUEsFph1sAtr9nETMgpH6o61owDUdKA1OsPnECFhE6k4TggcT5XK40Cbi+UIV9L6lsvQrYMLl2KYSiiI1dfwVsrxJPNIrxrAMuoWhPLyNUivV0EBJ6+fq4/KFStY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789329211; c=relaxed/simple;
-	bh=T0pqFukExVh823QT6gZ5rJ8J4IOF8bD800cZPU+R1TI=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=arDFLn3SfUHPvqUyIXM093eOtY0NlnF+6TQJh62HjB8oXk6cMvh7695UGcaK/BrdtdF3ccIMiRsNapeVWqK961idC3v2dy7XS9GXAQXYcAA8T9L0COP/G3D4C7q3ChOhWjbqnKJzp2aUjzpaI8D3tYW+YfIfTSiiUynuC4OtbQQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net; spf=pass smtp.mailfrom=rendec.net; dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b=bPrxv5Zx; arc=none smtp.client-ip=80.86.107.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rendec.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57BFB317163
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 19:54:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789329269; cv=fail; b=Sb5fNprvkO5eEEk3YzkokHZ7RXVz+/ECwaWELD7flWnomUvrRqVmNihC92x6mANRyHvfLEiPXSt/63EpLPI4rVyR/aAzAGEl17xNHHs0NFIafh9wExOtsWQglNK7C40eNeoKOMXkyEZoNn9EiIocSg1UMPpOgrMXesJwymj82lw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789329269; c=relaxed/simple;
+	bh=368nFmApQmu71dczgXAo4+0HS3mCY9pwVbSupyxAK6M=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=the28mOHxt1fKjLAsgi35clj8JUu0332VM+zsvxPUP5CkY9kUvcuSlfYqO3jfSGLLYK9CiWCmM1dciUHZDAeZM/bo00MdOrMoWvXrfxT1wvnNQ5kWLJiuEDMkGSZBlY1YzlfZrrP7rt3HmGjDzcUeGscAo/PILFzDzFUOZW4WkI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=E1duVnoS; arc=fail smtp.client-ip=40.107.201.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b="bPrxv5Zx"
-Received: from dog.kanata.rendec.net (pool-174-112-193-187.cpe.net.cable.rogers.com [174.112.193.187])
-	by mail.mindbit.ro (Postfix) with ESMTPSA id B5817CD5BC;
-	Sun, 13 Sep 2026 22:53:23 +0300 (EEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.mindbit.ro B5817CD5BC
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rendec.net;
-	s=default; t=1789329207;
-	bh=OxeU5Su/M8erJsaUWOmS2EmM0zS643DtJmSk63z/Z00=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=bPrxv5ZxzllOQiy2krKFOjC+n45BHyruI8wXJWW2dWXRr4DcLu0qSRf6d6pHLDx2g
-	 jWcfuKvfm4R5fkihNP2bYAGlMPiEKu2EReiVm/sDrL/7gpXNRKBB7aWno9BxyE0PIx
-	 eJ2WBtrgtJF/6pZnjqFQwwsDO/KmzOaIx0fkVSU/CK9rK96UEIEpRCrZ3RBw/9RO7M
-	 dIG3X6gzczLJWO2ggvEASF+KnDy8M/wU/ZXNb4/e4nVlCj9JFDbH5mUjxdeheYhNPH
-	 IQWdrYEJBtqEOV1SW3KVrCuI7RGRLTeehLAl+p9Cvbyg6Rh5mmTzHhmbRZNO4iAJKh
-	 MCi83qnwm1Cog==
-Message-ID: <81f0bf10b41dff85872487ab68c750471b7c2f89.camel@rendec.net>
-Subject: Re: [PATCH v2 0/6] riscv: Make IPI_MAX visible and use it
- consistently
-From: Radu Rendec <radu@rendec.net>
-To: Guo Ren <guoren@kernel.org>, Paul Walmsley <pjw@kernel.org>, Palmer
- Dabbelt	 <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre
- Ghiti	 <alex@ghiti.fr>, Daniel Lezcano <daniel.lezcano@kernel.org>, Thomas
- Gleixner	 <tglx@kernel.org>, Anup Patel <anup@brainfault.org>, Tiffany Lin	
- <tiffany.lin@mediatek.com>, Andrew-CT Chen <andrew-ct.chen@mediatek.com>, 
- Yunfei Dong <yunfei.dong@mediatek.com>, Minghsiu Tsai
- <minghsiu.tsai@mediatek.com>, Houlong Wei	 <houlong.wei@mediatek.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,  Matthias Brugger
- <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
- <angelogioacchino.delregno@collabora.com>
-Cc: linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-mediatek@lists.infradead.org, "tip-bot2 for GUO Ren (XuanTie)"
-	 <tip-bot2@linutronix.de>, Nathan Chancellor <nathan@kernel.org>
-Date: Sun, 13 Sep 2026 15:53:22 -0400
-In-Reply-To: <20260911-ipi_max-v2-0-a77826ff189e@kernel.org>
-References: <20260911-ipi_max-v2-0-a77826ff189e@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="E1duVnoS"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=UmGfGTqEuGuc8dLmp18w4FdTmfp3RXvfJTreLYatyV1lq6ZzpGYzIYKzbZiazFH1Gw0MsJyNrFItxLdBMQtMP26/izjv7sc6gJa2b3ui167lbHwkIjZn5kAfOYFnQoalSOeP0BHrU8z22AhA+zEazUHr3OVeUGS8/iLJmvp34/I37t21Yr0HcoyuaOtp7ZEewX/ZJBY1xkged1Z7G8RJBUwno+Bvplk52BzeVHBKkxP1zYCkyTteO9nv/5+ZFAugwjbiH6+uHn1Q8CJN/5gHBWAWiiAnMfFMrpcGD2cslPEVygqjoSLXKxN4VckRMhd6VIaLxFf02KAs8IGaFZDpcg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=R6Mw0a+9913suSb8d2L0q5fePtTtQbX0/Odr5lEFsAQ=;
+ b=abuifWQXEoAhr9lrhKU9DC1mhv/RC1LrGBJIonaQmuXYiZ+1XNii3Xb7ZnKwfnG/hCuT72c6THbSIwCx87I6k8xR7pc58Z2D1JolEqNkrobcP0DXNiwnm3Xag8fM1iLCFQwC1pDqg/2ksqlo6MG1zKjQMlYWFr32Y0yfweqe02aFMeAKVB+hU2Kz4vXO46/EchVOShyZ7OpTqykfZRX6r7Dh3Nz7kqyd8H3JMOAfKz1LdqPuh27EuI0fvbU88T9YKzv0M8+XWGTdK0/1alG1uM7gPKhkKrRWExrqGnjbcnyN7/POPNmWHV7lkq7xpQPkmym3xETXxQkStltBFYytFQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=R6Mw0a+9913suSb8d2L0q5fePtTtQbX0/Odr5lEFsAQ=;
+ b=E1duVnoSnFtcDj64n0jnTrDFd1sz2uaK2jQUyRfGCCvmV9FCIFEI9glELCs1GFErR3yTSWS398OZFa1cVLSom0JDqJ0N/u1L+yyS3V/ZJ7tq7T58ZzVxkf+CkTxu19vslIlpZFT6rWq1T6kjLQaQS/vYNtHMcCtulP6+rUhbPivhjN1tGHfUDkTD0OGy6MbqQFAXPprPijoLNunlmbf4yphVEfodvDLShxksN2Rr00TngGCEufI8/QjRVgmKTmfcY7ERIiCPzrwNpnAQB+/GY6PqVsTYiNzrCV5bUPoZwCSBtYnCwEwBj256M9mq4uFLCz/bpTv67l1CQ1fpnd5YtQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
+ SA0PR12MB4352.namprd12.prod.outlook.com (2603:10b6:806:9c::9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.8; Sun, 13 Sep 2026 19:54:21 +0000
+Received: from DM3PR12MB9416.namprd12.prod.outlook.com
+ ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
+ ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0406.007; Sun, 13 Sep 2026
+ 19:54:21 +0000
+From: John Hubbard <jhubbard@nvidia.com>
+To: Danilo Krummrich <dakr@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>
+Cc: Timur Tabi <ttabi@nvidia.com>,
+	Alistair Popple <apopple@nvidia.com>,
+	Eliot Courtney <ecourtney@nvidia.com>,
+	Zhi Wang <zhiw@nvidia.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Alex Gaynor <alex.gaynor@gmail.com>,
+	Boqun Feng <boqun.feng@gmail.com>,
+	Gary Guo <gary@garyguo.net>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Trevor Gross <tmgross@umich.edu>,
+	nova-gpu@lists.linux.dev,
+	LKML <linux-kernel@vger.kernel.org>,
+	John Hubbard <jhubbard@nvidia.com>
+Subject: [PATCH 0/3] radix3 and ELF cleanup, pre-r000
+Date: Sun, 13 Sep 2026 12:54:10 -0700
+Message-ID: <20260913195413.742143-1-jhubbard@nvidia.com>
+X-Mailer: git-send-email 2.55.0
+X-NVConfidentiality: public
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SJ0PR03CA0056.namprd03.prod.outlook.com
+ (2603:10b6:a03:33e::31) To DM3PR12MB9416.namprd12.prod.outlook.com
+ (2603:10b6:0:4b::8)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|SA0PR12MB4352:EE_
+X-MS-Office365-Filtering-Correlation-Id: e05f8452-bcd7-4887-3ae6-08df11d0cd97
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|10070799003|1800799024|23010399003|376014|7416014|11063799006|10067099003|18002099003|56012099006|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	H0zeOcdqZ9KabggUpSRyNIHwIXsXctzdyFTa9RERA6EpQKMozNPqMQhb2oZrqDfbxajJ5GtzCl2MxoLDjTC1YsjJ/XmINdLzvIHpP8EDa7EUCCqMsjp1ysLxc9Peub+E/pxZTKDQtzVQe/wq5AAoAxG9KM6nxHLL4/IGs/s83VdO0dMd8t3hkIo/vg3LRdN5qcwuTyGDzRZAuWF+Ut65pBIm6Ph2NviFxyTZEKwbuCV9+pCPxhjKoh38fz6J1VBGTUFMb5ey/JdW55PbdgGQ5IXKUvFmqoXQXcCbWtBBdFfPcmv2TUeFaVM67tbucjYYhSqdZCyldChXIL/a1qsqRM9qC8W3GkPTTMWCP/H5Idqnhi7Dlv4JWXuuA1GT80HyFHElpFOPFItfcj93nij7QxV8MYWVlVYYNJaew3tqbBFB++pZgiZ5wW7LS47HuAFIVpemyd5Yaeklp3Xvyc2mLxYcvgJGOxNl1Og6i1YULdIfeN0GSOMsXGkzcCDvztZTLxbr/2vhZFHHoP0B2La5k06Z1xsDihmVc/cpDcobzZB9bmJWWxFlCjqYd8VgR/o8ZgiXviaQ3uZKnVpJUCCMNghXwMQuSnORMj+xI4sDFzgBY8XCKH+vIs+67ynBotM+0EghG2DHV7y75wuBT7reSgKQzdKbwBU84nBv4X+ORQE=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9416.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(10070799003)(1800799024)(23010399003)(376014)(7416014)(11063799006)(10067099003)(18002099003)(56012099006)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?Kcmd4wH8Q03EKXfYgJ9UZRJ/EgNBCececzSGKPKQjcSIX2Vq6Azz6m7xQXhh?=
+ =?us-ascii?Q?EsXyMpoTylL3PD40C/cfh/oh/xJMq0xZ7sYMKgv8+YDKkGME15LbFTI0Mkki?=
+ =?us-ascii?Q?5YMoLtcvFSmsrS1Lg4cReX4hPLvcl/1m+PNDeDsHofepB87LOiPqDinop5MU?=
+ =?us-ascii?Q?6wudFmW+lIRiTydJYVJY6U0DrRWv+RYPY5vXlZvctP293J3gMGY+POyvDHab?=
+ =?us-ascii?Q?GBMUNksrv+Vd4jMegHL1srcExXBM67Ghh67Sos+TTqbwMl6OTcb+bKNv19LJ?=
+ =?us-ascii?Q?CBJCkPHpaLfHITZTx6qYosHWlU+wqIU+opwFvzlpR0/xTOIq95R2OhovJmfj?=
+ =?us-ascii?Q?P5fNCioI/YGtgexLEtCyRUTl2E5VjA3D9JIUf9/En5NDbO07+xkBaP1FnUvG?=
+ =?us-ascii?Q?M7Aolq8D21eIy8OqoivB7QIUVDWo9jGh5feH1fJgEaRFnOh7Bpj1huCaO7Ty?=
+ =?us-ascii?Q?me03y9e59pL1Q68MWyn4/EBIzQPpY+Gb+Kyo6Ge5Q9wBLJXXpokf9ctPfyPl?=
+ =?us-ascii?Q?DabwXgSsGTWwrc2bZ/GiFdSXSLirOz5/yqcw70+nX1s+Mcgc3uH4U1ZZeGbD?=
+ =?us-ascii?Q?1ofwKpJR3Meb6l3PXe0NOOBABDJylLXamK03Ad7y2/mkjLSuCR4I9AnR/s2N?=
+ =?us-ascii?Q?Lyx5LCPeX3DkaJpuqJZNT4L4fN1VCq+vIhvih6CRFZ7vt1CyaCKre9IcqUMQ?=
+ =?us-ascii?Q?9OVoUV68OPYKvOij9pQXEaEAHXyuyYBbQqNl4gppiMvS6Y4ZS2euzes+YuNr?=
+ =?us-ascii?Q?C8XePg6hfNld+a4bIR2G8qUcEsaoOLHRV4WO/7NeJVZVqnqpa7B4bE3AIA2+?=
+ =?us-ascii?Q?VHISNVZSUlXzdskrwBTOuZwEu7mNcj6HCO3HUKOdKUG5dh9cLs7G1i6zDvwG?=
+ =?us-ascii?Q?dGcznstZj3dhtQu0odeOdvB5hUgTt8Iqas9YnxxSFHc0rgSUfXD4k+p+o+/R?=
+ =?us-ascii?Q?wmmTvImQe/O7v649Ef8pgXXT2Mci/frVd14nLz+i09grHwNnz5A1ynMYhiND?=
+ =?us-ascii?Q?vwCe5NJJUsnTaHOhgfg8pMtlceRAHpO/SUC95cdMGeBTVex0agi8+P28OWpE?=
+ =?us-ascii?Q?cy/PJ0likiwyEim8yaagvIYhvk6f9HDf+DtMnXlp2jOfGr64DegiVTgo6uMu?=
+ =?us-ascii?Q?KiJmziFxpcU5DDVlT2mtIwTRqayuZfnL1qoDhrhykFXZsBss48hUS1cO/E/7?=
+ =?us-ascii?Q?Nwr60J4tWRXPfmx7kdoR+nAP1lbJz5hKgLo2ArvDtuaJIAHm/H61gnHGjfHP?=
+ =?us-ascii?Q?8TuZ8zFrgZEa5ShYwK4Dw2+gZm6WxpyKSWUNr3zqqOY8NxgQMdnwy22w7zUy?=
+ =?us-ascii?Q?iJnbA8gw1b3j10ki25rU+KmeP9wNGZ4Cr6fkyCRc3fmde1nzUHxwUXRdqBb1?=
+ =?us-ascii?Q?znF7owJ1DwAAWjO+4Z4S7SgcidCejvv+YIPXGuX9FcjDr4qlTiHH0puYVtnY?=
+ =?us-ascii?Q?Z5t29GhlZDpRKLfAFVjz7ZzNyK3AuGqh4zMczxieUZySwL/URfenJ55A1v4L?=
+ =?us-ascii?Q?hd0ovlfptv7/2uFIFrMTETSqa50reT/9CCQ2fKWz1U2etr96CdpojY7aNQ/d?=
+ =?us-ascii?Q?OPh2wOMAHHIe9svHwdsPpZFMrnojxUl1EfqM6oVSzIo1VfMMWW6V6f0qb+jp?=
+ =?us-ascii?Q?aUkFpRwQaCBdTeEyWB+K/XsJD0URbOXHRnC3VFsaTKJ7unsEr3gf1oweZwZR?=
+ =?us-ascii?Q?hCsoGGdw/hABpJpGoxTZc5enQma4owXSZvCUXd8uyV2RSutzymXnSJhw54IC?=
+ =?us-ascii?Q?SAnORWlHGf1gaPyn2jNqadOVyuCpuS4=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e05f8452-bcd7-4887-3ae6-08df11d0cd97
+X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Sep 2026 19:54:21.1567
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Jn4lfwFte9dJG5oz0g1zbZmugsHJnzct5mU5GOV2QW9Luo2RqF1BE7fxZ/JiHTXpZC6YJH6ocqfT1ucfLqxxKQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4352
 
-On Fri, 2026-09-11 at 03:27 +0000, Guo Ren wrote:
-> This series removes the implicit assumption that RISC-V supports exactly
-> eight IPI message types.
->=20
-> Currently, the SBI, CLINT and ACLINT SSWI IPI providers use
-> BITS_PER_BYTE when sizing the generic IPI mux, while IMSIC carries a
-> separate IMSIC_NR_IPI definition set to 8. These values happen to match
-> IPI_MAX today, but neither is the proper source of truth for the number
-> of RISC-V IPI message types.
->=20
-> Move enum ipi_message_type to asm/smp.h so IPI providers can use IPI_MAX
-> directly, then replace the BITS_PER_BYTE and IMSIC_NR_IPI uses with
-> IPI_MAX.
->=20
-> This also makes adding future RISC-V IPI message types independent of
-> the current eight-entry assumption.
->=20
-> A follow-up patch renames the MediaTek VPU mailbox terminator from
-> IPI_MAX to IPI_VPU_MAX. That token belongs to the VPU firmware IPI id
-> enum and should follow the same prefixed convention as IPI_VPU_INIT
-> (and SCP_IPI_MAX on the SCP side), instead of reusing the generic
-> IPI_MAX name.
->=20
-> ---
-> GUO Ren (XuanTie) (4):
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clocksource: clint: Use IPI_MAX for IPI mu=
-xing
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 irqchip/aclint-sswi: Use IPI_MAX for IPI m=
-uxing
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 irqchip/imsic: Use IPI_MAX instead of IMSI=
-C_NR_IPI
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 media: mtk-vpu: rename IPI_MAX to IPI_VPU_=
-MAX
->=20
-> tip-bot2 for GUO Ren (XuanTie) (2):
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 riscv: smp: Move enum ipi_message_type to =
-asm/smp.h
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 riscv: sbi: Use IPI_MAX for SBI IPI muxing
+I split these three cleanup patches out of the r000 series [1] in order
+to shrink it slightly. r000 will still build on top of these, but
+because I have some patch re-ordering and cleanup to do there, let's get
+this easier small set posted and hopefully merged in the meantime.
 
-I am confused. Thomas merged your entire v1 series a week before (see
-the individual replies from=C2=A0tip-bot2@linutronix.de). Why are you
-sending v2?
+This is based on drm-rust-next at commit d669686f8170 ("gpu: nova-core:
+mm: Add BAR1 memory management self-tests"). No other dependencies.
 
-Patch 6 was not included in v1 (but it's clearly related), so perhaps
-you meant to send only this one as a separate patch?
+In order to boot the GSP, nova-core loads the GSP firmware image into
+system memory, and the GPU copies it into the framebuffer, the GPU's own
+memory. The GPU finds the GSP firmware image's pages via "radix3", a
+three-level page table of 4 KiB pages that the driver builds. Today the
+table exists as fields within the GSP firmware wrapper, which is fine
+because there is only one radix3 consumer.
 
-Also:
- * The cover letter should include a changelog, indicating what changes
-   were made in each version compared to the previous one.
- * Patches 1 and 2 carry a "From:" tag that attributes authorship to
-   tip-bot2, which is wrong (if these patches were to be applied).
+The larger r000 series, however, introduces a second radix3 caller: the
+ucodes firmware image. That is because the GSP has been changed, so that
+it automatically fetches the subset of ucodes that it requires, thus
+reducing the size of the GSP image. This is a helpful change for the
+firmware situation overall, but it does require nova-core to load and
+provide ucodes, in much the same way that it was loading and providing
+the GSP firmware image.
 
->=20
-> =C2=A0arch/riscv/include/asm/smp.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 12 ++++++=
-++++++
-> =C2=A0arch/riscv/kernel/sbi-ipi.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=
-=A0 4 ++--
-> =C2=A0arch/riscv/kernel/smp.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 | 12 ------------
-> =C2=A0drivers/clocksource/timer-clint.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 4 ++--
-> =C2=A0drivers/irqchip/irq-aclint-sswi.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 4 ++--
-> =C2=A0drivers/irqchip/irq-riscv-imsic-early.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 |=C2=A0 4 ++--
-> =C2=A0drivers/irqchip/irq-riscv-imsic-state.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 |=C2=A0 1 -
-> =C2=A0drivers/media/platform/mediatek/vpu/mtk_vpu.c | 12 ++++++------
-> =C2=A0drivers/media/platform/mediatek/vpu/mtk_vpu.h |=C2=A0 4 ++--
-> =C2=A09 files changed, 28 insertions(+), 29 deletions(-)
-> ---
-> base-commit: 08df884136f1c1197bab2a27814404fd329d9aac
-> change-id: 20260911-ipi_max-ff71eeadf6fd
->=20
-> Best regards,
-> --=C2=A0=20
-> GUO Ren (XuanTie) <guoren@kernel.org>
+So the first patch splits out radix3 so that it can be called by the two
+separate code paths. The other two patches fix problems I found in the
+same code.
+
+* Patch 1 moves the radix3 table into a type of its own that maps any
+  buffer, and makes the GSP firmware wrapper hold one. No functional
+  change.
+
+* Patch 2 allocates each level of the table as a whole number of 4 KiB
+  pages and zeroes the whole level. The booter, the firmware stage that
+  copies the image on Turing, Ampere and Ada GPUs, reads each level a
+  whole page at a time, so today it reads stale kernel memory from the
+  unused rest of a level's last page.
+
+* Patch 3 renames the field for the framebuffer range that holds the GSP
+  firmware image, from elf to fw_image. After this,
+
+      $ cd drivers/gpu/nova-core
+      $ grep -iw ELF
+
+  comes up empty. :)
+
+[1] https://lore.kernel.org/all/20260822015448.238214-1-jhubbard@nvidia.com/
+
+John Hubbard (3):
+  gpu: nova-core: extract radix3 page table into its own module
+  gpu: nova-core: zero-pad radix3 page table levels to page boundary
+  gpu: nova-core: rename the FbRanges elf field to fw_image
+
+ drivers/gpu/nova-core/fb.rs              |  18 +--
+ drivers/gpu/nova-core/firmware.rs        |   1 +
+ drivers/gpu/nova-core/firmware/gsp.rs    | 107 ++---------------
+ drivers/gpu/nova-core/firmware/radix3.rs | 140 +++++++++++++++++++++++
+ drivers/gpu/nova-core/gsp/fw.rs          |   6 +-
+ 5 files changed, 164 insertions(+), 108 deletions(-)
+ create mode 100644 drivers/gpu/nova-core/firmware/radix3.rs
+
+
+base-commit: d669686f8170c234edf12212fac9180ea18b1448
+-- 
+2.55.0
+
