@@ -1,184 +1,69 @@
-Received: from mail-oo2-f7.google.com (mail-oo2-f7.google.com [74.125.231.135])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55CAC3B05BD
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 22:21:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.135
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7C543AFAE4;
+	Sun, 13 Sep 2026 22:21:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789338099; cv=none; b=EFHkkVaKCMGigPRpDIjyj406/ed6AV1qUw6f+McMKbqQFjsZoLezc8vqO78Cmodls4kppEztHwi9yybkmZElNQGa+M6zOQ/y+QvcakdXWKLNYDt1jbkLtOsPN2rYmUgNCStC3I8l5DsZlUSQji1dBl4JQjIQ/4wI+dJkI4DlT7Q=
+	t=1789338121; cv=none; b=hEIakGPI4fo9W1u1y3RXHviKHC95kPeviwGU4PoUHV8AiphB0jekrXPVI2a909RbQiBCvzS/8M2Q10esRLy6Ha55BtOfZ+qr1Orbkp4tvZwrsXF0rY02x3XSq4B3TaJ3TZFtPe/I0mv0Rl37Sqtw6ChCr9/XBwuZSX9jC3Bbqx4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789338099; c=relaxed/simple;
-	bh=Tg9Kq8vx6MVWyGAb8N8rORP+uP72Obd3DRFlHL5xK4Q=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=EbSEuvljR2loVWPuMaDN2jEWrQGAiYh/Q3YZ2P8jql5e6HZtCRjSnZHMJj29WufGP6NNV2yjsBYg3g/9m6nsvLjcPDyAtOgA8zED18vfO8SCwo5RiUHJ+YZ5NwKXcTzDUIgyc4Qug8+MSgWqRQqbdN5HTR/vhuNRY9hDKvrKwEk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jLOSYCup; arc=none smtp.client-ip=74.125.231.135
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789338121; c=relaxed/simple;
+	bh=kq1BpoM7C/V6JQDkCK0zkPTDzzMuB0vOaJfQ6WvZF+I=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=AXOb87A1R6kEr2Q4e6ynpfagTTL0rOby0JuBMMkTAK81iMvc+yJz4kHjBnEfoQMvRRNkJHKqE7GfFne7jL/VRNyjck0maXd4jjG7CgsSeROhFOJegEoOs+km7i2NfM2+z0vo9qg8IXZ3s8EBKrRH6efcvHzJiIABqWByalOU/j4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SLDha/A/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jLOSYCup"
-Received: by mail-oo2-f7.google.com with SMTP id 006d021491bc7-6c197ff1f3aso641670eaf.0
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 15:21:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789338090; x=1789942890; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=k3ZJJYWLWAdknGD5xgQyF6oWUgV2YSWXzpw9ViLpMPo=;
-        b=jLOSYCup4UUI9ZBeWXnji2ugi5R7fu8HnJwAx1YqUxTQSPvm9IuRKujbjXX+x9fW4c
-         6WE7DL8jfSccWAdN1xELyPTo8VeT7+bc28l8gUsG3rtKYIwikTOcmLf2s8lacSm5+yRh
-         I9Y4fhHZU6WuL/B+M7VxpWWXO1FCzInDRxqFaleGwiSpmJm14BEXEHpgitrNySKn+hJy
-         yftldqV7zlXG/6o+TCDuvxcMI3zhbvPAYFxs5qgAir+F4hn+EfcVsescZPKE+Dy6kwXQ
-         vKC1pjf+D6jJnoS+39uZtA5D/Gr6GjA5TC4EPlzTvxRGQ637jQCQuVNyt8IQJuoWwGvi
-         cWWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789338090; x=1789942890;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=k3ZJJYWLWAdknGD5xgQyF6oWUgV2YSWXzpw9ViLpMPo=;
-        b=Dxe7J8J/c0xQymkHLafkoSYSJZRK7gcvT0kaCaVb6ljplm4GZx6dXChgZeOp4MEQ6H
-         X1kx+xo/d29n2ZLaBbwgk9fdV2FUwt3nxnf+lNA186FUY9TCLNxB0ov56CHmRVCuJcX7
-         GCixUlk/kT7gvi/bLoYIfjdoWWLGZcdWEPJqld+UepPMpzIse5klAWFPEEU0XKBdBXes
-         ijr9+k0LG23+kU4KY6rUJX/yZCq5ZCA15NM1DvXd6m3JCpzr1K+nWB9GXEek43CDiTW1
-         4z+5gAU0uefoWYGxMU8KrmMFudiJTxUGSwrDLafxiNYLYYLvpPmtYnbXHaClAwVWFg6e
-         +dXA==
-X-Forwarded-Encrypted: i=1; AKwUvBxlHdcLbieAL6na87poyq/MmRgTFy3iIaEzkgMUvLQyQx4hHHt/a29da9o3qLMi6qJlqacQOUFN+l30QOo=@vger.kernel.org
-X-Gm-Message-State: AFuF++nCjTbSLdqRFIsxOWI+jNSmzbc3SHtppMhJYa8OodqEehO356I2
-	odtKhtGbg90QH/MCmK8Wu/Kpm3Hbhow5+OwefqUWrksET/GNjBk8AqUIHmOtEXudv24=
-X-Gm-Gg: AYBFou3WNaj68sSKLofhKKjsY+Qea18ki5K5WpxWhQEMnNzuWMnm3OuvpWw0aqDHJfi
-	eo2nXNVtj1SXhcFy4FGA7h6WPytoC6XwLRSVyRS+resV1zOHi13OoEW+SytQRc0U0YoboNKC9bN
-	zDA27yvDA5k0mwF1UubxUvqC1Fpm0HJ/B3fJPqL4HpIJ4pFU/f15SZrbh5f5ewzGCl7b68YokXw
-	qU3rSduE1Q6XKhYm5/awIYQYkkCeGpA4GMukzAsCXRZnNBUlrGvO3RibDzieROq5AT4HpBYAZwb
-	z3cQd70W2VcHLOy4PtrdRUVc4FIhWoWtuDfEOu389pjfI1GY6N91jMwy/j/ZQDobpZQ7F9dxSQk
-	mVBvpOuI/R0gvb97u68/DbGVXZQuYOr3K2TgzSTtzZL9CWgOVSWpoUu/JbclRXMgut/OhcApbLj
-	JL9qOMM6anFyJ8E/LFKQwwvH4bdi60sUv1WU1L+7uXnLPJTpPbrYxcuw4BzejWn4D1aM8=
-X-Received: by 2002:a05:6820:571c:20b0:6b6:4f90:a62a with SMTP id 006d021491bc7-6c0ba8280bbmr12189996eaf.11.1789338089833;
-        Sun, 13 Sep 2026 15:21:29 -0700 (PDT)
-Received: from [192.168.18.164] ([2600:8804:5716:d800::b712])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6c342ec1ff5sm4343973eaf.14.2026.09.13.15.21.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 15:21:28 -0700 (PDT)
-From: Ryan Brue <ryanbrue.dev@gmail.com>
-Date: Sun, 13 Sep 2026 17:21:25 -0500
-Subject: [PATCH] usb: mtu3: don't run gadget completion callbacks with
- interrupts disabled
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SLDha/A/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36C1E1F000FF;
+	Sun, 13 Sep 2026 22:21:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789338118;
+	bh=9O4wxgg5dOPGItfKtMMGgnoEa529njmg7OZ1AsNPJ0w=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=SLDha/A/RueVnjMJCTbFBwoqJVkLLHa1CxtQRfvdFmjUP19KsYes8f6cP2Ep18Uts
+	 QrmVo8/nnX1WDeX3rJcl8lbJsRXi8ZCiByOFNANxcwFM+apBXcXheCtdiWBCsUZzSU
+	 GuZXrOMf0d2wTF9bsn6tojG24a6WxNhnz1t0/Yskm58zS8PGi0dtbiwm/K+6QAKMG2
+	 xTFbpkK7yjVW3opEb4fSXxmSyNCD/aDCRe+e4ER2t6zrqktpSXVDNXbkGcyCNl5aGk
+	 3vWJqSR4A1Tq4SjGKirBkJO5CowhApD0zxE0RPLetmGux4NPFKEO3ke2ts7i3+qeXa
+	 +iFnQD7lqBibA==
+Date: Sun, 13 Sep 2026 23:21:55 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Antoniu Miclaus <antoniu.miclaus@analog.com>
+Cc: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Michael Hennerich
+ <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, Rob
+ Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
+ Dooley <conor+dt@kernel.org>, <linux-iio@vger.kernel.org>,
+ <linux@analog.com>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 2/2] iio: adc: ad4080: add support for AD4885
+Message-ID: <20260913232155.5b8d226f@jic23-hlaptop>
+In-Reply-To: <20260907101944.9748-3-antoniu.miclaus@analog.com>
+References: <20260907101944.9748-1-antoniu.miclaus@analog.com>
+	<20260907101944.9748-3-antoniu.miclaus@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260913-usb-mtu3-gadget-completion-callback-fix-v1-1-e3480004fe23@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWNywrCMBBFf6XM2oGmEUv8FXGRxzRG0weZpAil/
- 95Yl+fAPXcDphSI4d5skGgNHOapgrg0YF968oTBVYau7W6tEhILGxxzkei185TRzuMSKdcZWh2
- j0faDQ/iik/I69KSUFj3U2pKo6vPp8fwzF/Mmm3952PcDXmv8Q4sAAAA=
-X-Change-ID: 20260913-usb-mtu3-gadget-completion-callback-fix-d334f7e99a17
-To: Chunfeng Yun <chunfeng.yun@mediatek.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Ryan Brue <ryanbrue.dev@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789338086; l=3820;
- i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
- bh=Tg9Kq8vx6MVWyGAb8N8rORP+uP72Obd3DRFlHL5xK4Q=;
- b=YprVcQaOfoVyeaf75GeW9nCb4J5m5vEY6QpXXbHYMQMmSn3VqJ7Ey/kLrFM279kQOjoN7ouGX
- GtYBNWkV6EVCWDGlBclQanK+2Ty+CLHAizBVeQxibpvONvTk2OdAOFk
-X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
- pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
 
-mtu3_irq() is a threaded handler, so it runs in process context, but it
-takes mtu->lock with spin_lock_irqsave(). mtu3_req_complete() then drops
-the lock with a plain spin_unlock() around
-usb_gadget_giveback_request(), which leaves hardware interrupts disabled
-across the gadget function's completion callback.
+On Mon, 7 Sep 2026 13:19:44 +0300
+Antoniu Miclaus <antoniu.miclaus@analog.com> wrote:
 
-That breaks any callback that reaches netif_rx(). Since the threaded
-handler is in neither hardirq nor softirq context, netif_rx() takes its
-local_bh_disable()/local_bh_enable() path, and enabling softirqs with
-interrupts disabled is not allowed:
+> Add support for the AD4885, a dual-channel, 16-bit, 10 MSPS SAR ADC.
+> 
+> The AD4885 is the dual-channel variant of the AD4085, sharing the same
+> register map and SPI interface as the rest of the AD4080 family. Like
+> the AD4884, it uses two independent ADC channels, each with its own SPI
+> configuration interface, but it runs at a lower maximum throughput and
+> therefore uses the same maximum LVDS conversion clock count as the
+> AD4085.
+> 
+> Signed-off-by: Antoniu Miclaus <antoniu.miclaus@analog.com>
+LGTM. I'll leave it on list a few days though as we still
+need a DT ack.
 
-  WARNING: kernel/softirq.c:430 at __local_bh_enable_ip+0x17c/0x188
-    __local_bh_enable_ip
-    netif_rx
-    rx_complete [u_ether]
-    usb_gadget_giveback_request
-    mtu3_req_complete
-    mtu3_qmu_isr
-    mtu3_irq
-    irq_thread_fn
-
-With CONFIG_TRACE_IRQFLAGS, __local_bh_enable_ip() ends with an
-unconditional local_irq_enable(), so the plain spin_lock() re-taking
-mtu->lock afterwards runs with interrupts on and is recorded
-SOFTIRQ-ON-W, while mtu3_gadget_queue() takes the same lock from a
-softirq (ncm's tx hrtimer), and lockdep follows up with an inconsistent
-lock state report naming mtu->lock.
-
-The locking was right when mtu3_irq() was a hardirq handler. It stopped
-being right when the handler became threaded without a primary handler;
-dwc3 hit the same thing the same way and fixed it in the controller
-driver, in commit 84918a89d6ef ("usb: dwc3: gadget: Let the interrupt
-handler disable bottom halves.").
-
-mtu->lock is never taken in hardirq context: the only handler is
-threaded and has no primary handler, so disabling softirqs is enough.
-Take it with spin_lock_bh() in mtu3_irq(). The completion callback then
-runs with interrupts enabled and softirqs disabled, which is the context
-netif_rx() expects. The other sites keep spin_lock_irqsave(), which is
-strictly stronger and still correct; several of them really can be
-reached from softirq context.
-
-Both reports need lockdep to be seen, but the context violation is real:
-netif_rx() wants either hardirq/softirq context or interrupts enabled,
-and mtu3 gives it neither. The fallout on a PROVE_LOCKING kernel is not
-cosmetic either - copying a 21 MB file over USB ethernet hung and reset
-this board repeatedly before this change. Once interrupts have been
-left enabled while the thread holds mtu->lock, the tx hrtimer softirq on
-the same CPU spins on it forever, which is the "CPU0: lock(&mtu->lock);
-<Interrupt> lock(&mtu->lock);" scenario lockdep names. The same copy is
-reliable after it.
-
-Fixes: 13118959cb1a ("usb: mtu3: register mtu3_irq by threaded irq")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
----
- drivers/usb/mtu3/mtu3_core.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/usb/mtu3/mtu3_core.c b/drivers/usb/mtu3/mtu3_core.c
-index a40bf5bad2d5..ed0e426645fd 100644
---- a/drivers/usb/mtu3/mtu3_core.c
-+++ b/drivers/usb/mtu3/mtu3_core.c
-@@ -790,10 +790,9 @@ static irqreturn_t mtu3_u2_common_isr(struct mtu3 *mtu)
- static irqreturn_t mtu3_irq(int irq, void *data)
- {
- 	struct mtu3 *mtu = (struct mtu3 *)data;
--	unsigned long flags;
- 	u32 level1;
- 
--	spin_lock_irqsave(&mtu->lock, flags);
-+	spin_lock_bh(&mtu->lock);
- 
- 	/* U3D_LV1ISR is RU */
- 	level1 = mtu3_readl(mtu->mac_base, U3D_LV1ISR);
-@@ -814,7 +813,7 @@ static irqreturn_t mtu3_irq(int irq, void *data)
- 	if (level1 & QMU_INTR)
- 		mtu3_qmu_isr(mtu);
- 
--	spin_unlock_irqrestore(&mtu->lock, flags);
-+	spin_unlock_bh(&mtu->lock);
- 
- 	return IRQ_HANDLED;
- }
-
----
-base-commit: df2908090cda368b01ff43709f51890076c56157
-change-id: 20260913-usb-mtu3-gadget-completion-callback-fix-d334f7e99a17
-
-Best regards,
---  
-Ryan Brue <ryanbrue.dev@gmail.com>
-
+Jonathan
