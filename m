@@ -1,163 +1,269 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 303A33939C1
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 10:32:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789295543; cv=none; b=qcVZ4WGweF+KoC+PU2sQdUutvh0+JffWLLlXZ00Peq1w/loKPx5wwUhbL0LvzPqNh6kXjviY/hKc29JmtW7O+UlM6V615DNiNQSVEbhG8Ed3RrTQbv6GV+ZA3T/7JPflcak7O4OiZTRMuSNtrfg5IDJOqDB7wLxckmK8O9rh4JE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789295543; c=relaxed/simple;
-	bh=tHosPNT4fdBSE5OakR+2naVgGAE2PYaT5qCsKmvw6UQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WfhnoUGX61y3THRihRaDc+cuTbOMwTh/6/Femty66u1jAT/A1jN4EXPBhdXuzpTmrheBs6GeuQFYS4PbIGifkvQxn2b95XAq+90JoCEILqC8JVNc9Gx/S0teURw2J/eyB6df6VJ6wxCPlxClBziLb4ArwAJhA7o6hN72/WAO9L8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DjlRF3a0; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EE6g63V/; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3385391E72
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 10:37:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789295832; cv=pass; b=tUcxrfIQGOWOjCLSuww8FIu9UAT750Hc51HgnvbftGhjIdv74je+EfArRKcmyswt2TTup9lgmPWiOR7lW+V3hkNCTJkbw/Z1ng3yr4Ak3NIhuS2JwpURuDvekBQ7CeNeHfNkmnCH9YPlQ+kncYiTzQzZZFdjKSdHdmIFrAnO71E=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789295832; c=relaxed/simple;
+	bh=Ux37VI2c1wSwiZ8dHTjel1794F0ZgvKwAVH9rjWnONc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=DFwnaExflpyD7vqRnGViSsL1rAGJpryoDEP9nmILtD7Gra+Oza++kuyyLqGPkDZkj77ppc0LbhITah8vkOKZ9dEhDICk6yd7fKwZXOcJxHoCkPEjGE1FLjqzo/BOqBJw75DIhdK3xKcwrCIUfXzO5P5BlJXDcA6ErZd3nKDO6Uc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ewphxwql; arc=pass smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DjlRF3a0";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EE6g63V/"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68DAU8sn272150
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 10:32:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	D5vAKqT6Wkkpii4lrLSYCVCPovwE6ZV45z1ikvs4rFc=; b=DjlRF3a0oH/oZqUd
-	sXxPdDvrvayU7rLuv9n8W/fBt75uI7MZorhxobwtNTwZWUAIPTgbNAglaqHNu/gY
-	3itqSnnWoT8RFzuVwXzI+hCjHP3RfkapSK0/OMJjKinAwTLfGvQSjOS2Gwi2VJSk
-	9CcACRh1f6M8lKy+dZWH/cqFVftH8bn1wemff/+xWwwNkqfVDrMMVS3vl70D9+Cl
-	WpH5Bt/crC51uIfpOuza9LoUoNOXzlZS+jandBp025RgHNSMrm+Zbdcl2Qpw451w
-	V46vo4N3pJQhwI87KuWX8ZmnlMN9fXEZGoZvmwArpEQVQn5uWYBFBUHNNZ4nB7Cd
-	XwL8Ng==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmywh2xnq-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 10:32:16 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93a0b66ecd9so99284085a.2
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 03:32:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ewphxwql"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ce364488dso3248215e9.0
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 03:37:10 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789295829; cv=none;
+        d=google.com; s=arc-20260327;
+        b=NCcYQsSLkI/zIuc7KB7TP3YjaWY/2o6Py1MkdG8ES2AGPYRRmroSQcRNd+u/7a5kOQ
+         cxuhqSfm+hUNgqyGOqcyevG9xaIdxS6cvBaV09mNpIRFANmG4D1sJMQ8k0n2WmqDl7Xs
+         M6FK9p6YCAypZ5ZbE8483//mzx9pYneEsaT8Yu+oGCcAVggC5pChGoS1GYB2l48AILpY
+         3QQrji7ITv0FXXV8alT6anBaVrHMCr2Xa/rri4CYF4MJGcWxZDPq6G7JALX4wCve9qa0
+         WR63hTrsSR/ZmPvjXoNfjWFe8jGT1hzi4xv3nvHjt/zVnRKEPvABYm11qcIJ1nGK//RE
+         4XBQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=X7ARN7xp6ZIy41Zr31Y3kGwxP50Dd95gKJiCWdq2eeg=;
+        fh=Vnm1dg7u/m6c+gmqukoXquu0FcA79FohqMi2NXAXcA0=;
+        b=A+1duX8T79zg8KYiAb3V4iUxPJnfAo5Ar2kKIJocDxDenzit3UTDf/UCQAidyV+Woa
+         M5P19pKBCtxfGXHgz1WhFf8Xa9A/zqbCTnaX3fARwC/IniBP8iGyEF1E9UBEAqDP/E6E
+         KCd7UEEcwuK0ldCOyF8rJGvrLXBoe4DW8ne60GBBGjAW2WuY+dgjSlSAe1myD2X5tjFA
+         1mQ10kiACCsNLi+Imul7w92A/Zw9gLXFu8ydJ647ff5WnMhKm7XTH16AJE8bPoUMpMHg
+         +Jr+Kf1rADoNc6/04LsO1mdddCirN0DwvFrVSj/dYCR2GE+rlV6e9ifHAAjqfkEQC0pj
+         +xvA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789295535; x=1789900335; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=D5vAKqT6Wkkpii4lrLSYCVCPovwE6ZV45z1ikvs4rFc=;
-        b=EE6g63V/oCfdS3fm4BqY/S6LqrszbwJJzqi10bheGoe0dv0o4IX2otmqNX4+e4XG0P
-         LHU8FdkNAID70rCHvkgNhPQtlVu/LJ1ym7GrO22p2gfzX0KGiZIj9z7+1SaDG1WScut4
-         ievrHQmeC85z30AK7D0PHUdBsSV0xyOIqTH164BkIF1hdqsQCYP4ey5SBZGrTxBIbVUc
-         nEIWptZwC6K51R0JQCZK7aZd302a62+t5BnGA5Wc6hXnipfddeAreqxhkDAGMkkH9BgL
-         4soHBUovcqjD1b99cr+ozoEPzUEMaodTobMpgeHqi20AgtI8NWmeu/GfVHZGk3rLktm3
-         UczQ==
+        d=gmail.com; s=20251104; t=1789295829; x=1789900629; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=X7ARN7xp6ZIy41Zr31Y3kGwxP50Dd95gKJiCWdq2eeg=;
+        b=ewphxwqlkp2UOWqCqWuhpy47SGXpSPYEUTta2w6P398+XOGV0Vu8os3BWPvrLuiC3U
+         Rue2L7wMZoCI8iZM3b87yqYt4PxtXxAFElV57UZVFCrHwnwUmPYbNTuV4uLDtYGju5yo
+         w5bYkDH+FQNs/96MWl2Cf3aMq/K1GUdPk8DgT6ivxzWBw72v7947nLisy9ZF9inrpkpE
+         S+8y+vcEY3IQTFZsrsbipPg3M1Ry8EXxSuv0QVuHjAFDX7lEbipXfaesvreFqt5kN7+p
+         bFnWFOIxFfsNmI/dqoBOM6pUurz/XQU+J9+VI45tuKxb+yk+XlnOvxGZw0Ft0acYwZ5Q
+         tcjw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789295535; x=1789900335;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=D5vAKqT6Wkkpii4lrLSYCVCPovwE6ZV45z1ikvs4rFc=;
-        b=K4PeDn/L4Gclu+8QLkTRoUsYS1/0GrImmChVqlqoR3U7xWSNqM4JnA3jSntzaRzpHS
-         4om9T0pARQ98uPlpLpCdvusECcqZNX6TTG4BYdrxUpPTS99o5IWiYoUnK3zcEUW8v0g9
-         JiRkxp7/l9myWHBTyegP+J7NILZn9OpvzARFo6Ff6H2QVKm5SosBNzKnqgSJ+LqH1pM2
-         dTx1/uQPZ2XebQu7HRcLDIXRayMSR8BBVl+QNrvnuLftfAGAnZEdgvHYnpE5qkcJxLRL
-         dzYyuj6/NyZ5GEQe9mxzoz95a+wp8AsJtiLPIl08SnRl3L5CojHf3+wubyv8LaTbHt5t
-         t9MA==
-X-Forwarded-Encrypted: i=1; AKwUvBxeSTxGP+L2O6JE7mki7nKB8V7evqknI1F3eQ/LpeWtDmDAz2HKJBhqrfArLtEbpntrsrsiMIyfcP+2Vjg=@vger.kernel.org
-X-Gm-Message-State: AFuF++lOpFNc6RsGryVV16XSiokuw4mPLcJg3QGMBXACgzT0mFDfCsH+
-	mTIAYUn3A8DAsFrw37LZiRchEQEnLiqMmFEqEftZRgyrXCqSaYNWlWdkhXNBLweuTaQJVsDhxNg
-	QSMyWw0XC+S0o3kg2zxpUpKlOs6UjnvUcqU0aXbM4oC2NQaEvf2U6jvtWiFtdY+qArZE=
-X-Gm-Gg: AYBFou1iIsZxY0RKpHEGHY5zGmqkBP2R05z5c0cEnLvKG2C99PHsjKCxXsD3n+4/BSz
-	TejVNdaBydM8UwUXoghSoMWN9hVSaOS3XyDuVlCfxvKl/oupGiX4XKMO4A/b4jjXzfWhOb0LW8h
-	zpD0MMR3EJTxNNwGFdEVZP88YTT5+aW9Hs6kp2Qey/SgU9KZ01Ed5ARDB3sLfJko+qUREdHWobU
-	yte9ZZN0Odja8hnNzhCPaLEbuPxCKozYob9xGtKBUuOEwjjz++t6mXJOFtsEnCM7J0kDEksOndZ
-	ZEjFGl/uck1+FQOhX4A3ydyrf4VBerb7VcyyZZs8LPPiWjjQ21+Gl0Z/8aPW3IEUe2cyXpP5eTo
-	F3k2tjIosRHOg6tdhwgiUFHxkea7a
-X-Received: by 2002:a05:620a:4409:b0:939:5f4d:67b0 with SMTP id af79cd13be357-939ea037da2mr1792431885a.8.1789295535242;
-        Sun, 13 Sep 2026 03:32:15 -0700 (PDT)
-X-Received: by 2002:a05:620a:4409:b0:939:5f4d:67b0 with SMTP id af79cd13be357-939ea037da2mr1792428585a.8.1789295534807;
-        Sun, 13 Sep 2026 03:32:14 -0700 (PDT)
-Received: from [192.168.1.110] ([178.197.219.214])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26c2985dsm519682395e9.6.2026.09.13.03.32.12
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 13 Sep 2026 03:32:13 -0700 (PDT)
-Message-ID: <c478a074-f0b7-4eee-8cea-5f926b6044df@oss.qualcomm.com>
-Date: Sun, 13 Sep 2026 12:32:11 +0200
+        d=1e100.net; s=20251104; t=1789295829; x=1789900629;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=X7ARN7xp6ZIy41Zr31Y3kGwxP50Dd95gKJiCWdq2eeg=;
+        b=Q1ELfk/m5Jn+tZAkfPM/BTJfgWw9j6hd1hi7cYwZhMnoDXZGzBhZB4HxqCkbTX5FdG
+         C2QiipMBK0NkUUXFpJsW/kkZ1D1Rs3bEhPFzwArpZ0/9NQ0syRIXyTQM9Mb2zDWZqNfU
+         WbAdQoHl3diglXbPn8r5j0pYr3WUrBT252trU/MzfSkYE2AKfwvUOCvU+xcsvBuP7ySR
+         RPOOCi1SsRhR6+GwbHeFpIzEpL5jrDc6YyeMDUPWvTtS0JOETzkNXGdASKme5/ozKrmN
+         FO7YqEGxeKb5+WwEVx0d/2SwiKCMW/N3gKjYAXJt+yanN7uC17fbIb39JaoZLpmHwtRF
+         NDiA==
+X-Forwarded-Encrypted: i=1; AKwUvBw5EnolAhz97txzB1zMy/QpCicZK3AZPNfc7F6RwFNSBc3LUVp1xqiihvOC8SqKW441cOyZ27m/OlJO6DA=@vger.kernel.org
+X-Gm-Message-State: AFuF++k6L9WfsF5NqAkBc0iChBFMagh5LXjwSsEO+0tnV3VYF6BewjY+
+	WVt2DHJNTTxft7Cc6oNxDx217LIOxPTKtPEPfS5up+D57BC6vNA+YwSAzvKt3mjOvRoEc/5PuWt
+	Tu72CazydZr3GTKLL+ca52GVCHnLsyc4=
+X-Gm-Gg: AYBFou0/VcINgkTefaBf20HRf34OnmMoscF+8z/XoZ2gKHaD8M3DarKqIp1M4wlBQSh
+	twsuQ1+rXM2kBuqUP+i0gwBXIW/w/XogWvO4giV7S/fxKE+0/ccsuD1iDbmX0TC/egph9sXbLtW
+	M9yclhxxD2Anvh5yDxjYP3s8CQJ5yOfIyH6Tg13Qm5ZwYYDdy6UfktRb5PpyfSb6wO6xvujZB5i
+	t+VO+NigOn6kjOjgudxUPpikpI1ieJzTQMFelMZYgR33bvJplSC1uiV347IopvSA76Gp8/QPYos
+	uh5/hPXvfqNlbBV+8+ossQAh+DOaMbrVzYNFS5SKsl++jzqAKyZcuq9YQz7zw0/sMWqVNCzaNZd
+	2RNJm4Zzm/mBCaUW7FU64Qn2K
+X-Received: by 2002:a05:600c:630d:b0:49e:6836:5386 with SMTP id
+ 5b1f17b1804b1-49e75fbfce0mr19008255e9.0.1789295829093; Sun, 13 Sep 2026
+ 03:37:09 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/msm/hdmi_phy: fix runtime PM cleanup on probe failure
-To: Guangshuo Li <lgs201920130244@gmail.com>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov
- <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Archit Taneja <architt@codeaurora.org>, linux-arm-msm@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-        linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-References: <20260913085814.1509352-1-lgs201920130244@gmail.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <20260913085814.1509352-1-lgs201920130244@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: b1HFdqMjHcVvXTZrTAadndoXbUX-8knh
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEzMDE0OCBTYWx0ZWRfX15mGXy/hb2MY
- yjcIgyNn1LJpeYLVaNPsnCOAzTBDsApSQ8MyU1HNHn+lh6oJlvqP458VSL3rykER02MghXXdVUT
- JiaYoRqblMS8d3vzil872rF0EFzGicKFAvM/dh6V++14G4TusC9rnoLbTrb/myZGcRkmQ6iryV5
- o1bj8OJYGD4h/r/ygOd/ekmE/vlS4NSXTdlnIJQ5+2KXbCPwTOqXf5TrFvfXKX8imUodwPHQtle
- e51Ank1HBu6MIVNQFwan6BwhGvuXwN4yOxzmL+rys0nOE51SNaFXe5wrKIXCweTdi7lpwcvWUhx
- en9BE6bTNwBRJK6I+ueR0gEQQRqMA8NKle2z1FKdzZ9jibYcVLpiPPfByYtWlPoE7CDQYNjQQXD
- 5FScaxGFp0QEw7Ar0aV/GNQZgmoNXv9Pi9Lu3rgQJX2NbZqqAHROZxiZRhf+Yz++FcxeqguYNT2
- ePAL32bnud/NKAz9xqQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEzMDE0OCBTYWx0ZWRfXw2IaOQocG4il
- jXM7BWUdeiPW6Wv4eQDjHflTrjUZbCza8JX5mw3DL3XvwPGU9hLM2P6AZ8M6bl7vaMdvAdiURGt
- QXgrd0FqJOaRNFInpTmznTbpfNqPNNM=
-X-Proofpoint-ORIG-GUID: b1HFdqMjHcVvXTZrTAadndoXbUX-8knh
-X-Authority-Analysis: v=2.4 cv=PsUG/AM3 c=1 sm=1 tr=0 ts=6aa67bb0 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=eqkjudQgZ73XcBGNVqcA:9
- a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-13_04,2026-09-11_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 priorityscore=1501 suspectscore=0 bulkscore=0 spamscore=0
- malwarescore=0 lowpriorityscore=0 phishscore=0 adultscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609130148
+References: <20260911093515.2802551-1-kunwu.chan@gmail.com>
+ <0cf7b133-d2fd-4298-adba-70a2b86d1892@paulmck-laptop> <CAN_Opa-uuim=aiOuAmHYUoD5S=vBREemj-dCvcunF-4zNdp1=A@mail.gmail.com>
+ <e6be6641-731c-4b21-ad4e-c05bedc388d6@paulmck-laptop> <32e952728ea1a9c25c2b56de468f43a32104b8a8@linux.dev>
+In-Reply-To: <32e952728ea1a9c25c2b56de468f43a32104b8a8@linux.dev>
+From: KunWu Chan <kunwu.chan@gmail.com>
+Date: Sun, 13 Sep 2026 18:36:56 +0800
+X-Gm-Features: AcwNN1Xcymg8ur4V1pWxX4_V1hiMPq5gnVXccuzkPn0_fSw8O-LpBGdDkj6GCEI
+Message-ID: <CAN_Opa9v-6Kx2tUFkT4YiOVM_tgZuUVOkbwieOrC6WfbNj_=kA@mail.gmail.com>
+Subject: Re: [PATCH] srcutree: Add lockdep and early-boot checks to synchronize_srcu_atomic()
+To: Zqiang <qiang.zhang@linux.dev>
+Cc: paulmck@kernel.org, jiangshanlai@gmail.com, josh@joshtriplett.org, 
+	rostedt@goodmis.org, mathieu.desnoyers@efficios.com, rcu@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 13/09/2026 10:58, Guangshuo Li wrote:
-> msm_hdmi_phy_probe() enables runtime PM before enabling the PHY
-> resources and initializing the PLL, but failures from either operation
-> return without calling the matching pm_runtime_disable().
-> 
-> The remove path disables runtime PM, but it is not called when probe
-> fails. As a result, runtime PM remains enabled after an unsuccessful
-> probe.
-> 
-> Route failures after pm_runtime_enable() through a common error path
-> and disable runtime PM before returning.
-> 
-> This issue was found by manual code inspection.
-> 
-> Fixes: 15b4a4523859 ("drm/msm/hdmi: Create a separate HDMI PHY driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> ---
->  drivers/gpu/drm/msm/hdmi/hdmi_phy.c | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
-> 
+On Sun, Sep 13, 2026 at 2:21=E2=80=AFPM Zqiang <qiang.zhang@linux.dev> wrot=
+e:
+>
+> >
+> > On Sat, Sep 12, 2026 at 08:37:33PM +0800, KunWu Chan wrote:
+> >
+> > >
+> > > On Sat, Sep 12, 2026 at 12:47 AM Paul E. McKenney <paulmck@kernel.org=
+> wrote:
+> > >
+> > >  On Fri, Sep 11, 2026 at 05:35:15PM +0800, Kunwu Chan wrote:
+> > >  > Add the lockdep annotation, same-type SRCU nesting warning, and
+> > >  > early-boot check used by __synchronize_srcu().
+> > >  >
+> > >  > Suggested-by: Zqiang <qiang.zhang@linux.dev>
+> > >  > Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
+> > >
+> > >  Queued for review and testing, thank you both!
+> > >
+> > >  Interestingly enough, it is now the case that there is a grace-perio=
+d
+> > >  wait that can be placed in a normal RCU read-side critical section.
+> > >  Does this mean that we should also adjust the --do-srcu-lockdep test=
+ing
+> > >  in tools/testing/selftests/rcutorture/bin/torture.sh?
+> > >
+> > >  Thanks, Paul. Good point.
+> > >
+> > >  I=E2=80=99ll check the current `--do-srcu-lockdep` coverage, includi=
+ng the
+> > >  case where `synchronize_srcu_atomic()` is called from a normal RCU
+> > >  read-side critical section, and follow up with the necessary torture
+> > >  testing changes.
+> > >
+> > Sounds good!
+> >
+> > Perhaps you and Zqiang can work together on this. Co-developed-by,
+> > for example.
+>
+> Hi, Paul and KunWu
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Hi Zqiang,
 
-Best regards,
-Krzysztof
+Thanks for pointing out these cases.
+
+>
+> Should we also consider the following situations ?
+>
+>
+> idx =3D srcu_read_lock_atomic(srcu)
+>
+> by interrupt run hardirq context:
+>    synchronize_rcu_atomic(srcu)
+>
+> srcu_read_unlock_atomic(srcu, idx)
+
+For the same-CPU interrupt case, the existing check in
+synchronize_srcu_atomic() already catches it:
+
+    synchronize_srcu_atomic(ssp)
+      RCU_LOCKDEP_WARN(lockdep_is_held(ssp),
+        "Illegal synchronize_srcu_atomic() in same-type SRCU ...");
+
+lockdep_is_held() resolves to __lock_is_held() (lockdep.c:5612),
+which checks current->held_locks[]. The interrupt handler runs with
+the same current, so it sees the SRCU dep_map acquired by
+srcu_read_lock_atomic().
+
+>
+>
+> or:
+>
+>
+>
+>            CPU0:                                                         =
+         CPU1:
+>
+> idx =3D srcu_read_lock_atomic(srcu)
+>
+> smp_call_function_single(CPU1, som_func, NULL, 1)
+> to send IPI to CPU1, and sync wait complete.
+>                                                                    hardir=
+q context or ide task context:
+>
+>                                                                          =
+ some_func()
+>                                                                          =
+ ->synchronize_rcu_atomic(srcu)
+>
+> srcu_read_unlock_atomic(srcu, idx)
+
+The cross-CPU case is different. current->held_locks[] is part of
+struct task_struct (sched.h:1302), so the existing
+__lock_is_held() check can only see the current task's held locks.
+It cannot see the SRCU read-side lock held by the task running on
+another CPU. The same limitation applies to the
+lock_is_held(&rcu_lock_map) check in synchronize_srcu() at
+srcutree.c:1665.
+
+>
+>
+> Add WARN_ON(irqs_disabled()) to synchronize_rcu_atomic() ?
+>
+> Any thoughts?
+
+WARN_ON(irqs_disabled()) wouldn't help with the cross-CPU case:
+CPU1 could be running in process context with interrupts enabled, so
+the WARN would not trigger. It would also add a false positive for
+legitimate hardirq calls. synchronize_srcu_atomic() omits
+might_sleep() (compare __synchronize_srcu() at srcutree.c:1676)
+because it is designed to work in contexts where sleeping is not
+allowed, including hardirq context.
+
+Whether a general cross-CPU read-side-hold check is feasible is an
+open question. It would need to account for the read-side state across
+CPUs without adding too much overhead to the SRCU read-side fast path.
+
+I'm happy to discuss and explore whether there is a reasonable way to
+handle this cross-CPU case.
+
+Thanks,
+Kunwu
+
+>
+> Thanks
+> Zqiang
+>
+>
+> >
+> >  Thanx, Paul
+> >
+> > >
+> > > Thanks,
+> > >  Kunwu
+> > >
+> > >
+> > >  Thanx, Paul
+> > >
+> > >  > ---
+> > >  > kernel/rcu/srcutree.c | 8 ++++++++
+> > >  > 1 file changed, 8 insertions(+)
+> > >  >
+> > >  > diff --git a/kernel/rcu/srcutree.c b/kernel/rcu/srcutree.c
+> > >  > index 6a9c432a3bd0..6c729e805fb3 100644
+> > >  > --- a/kernel/rcu/srcutree.c
+> > >  > +++ b/kernel/rcu/srcutree.c
+> > >  > @@ -2123,6 +2123,14 @@ void synchronize_srcu_atomic(struct srcu_st=
+ruct *ssp)
+> > >  > unsigned long rdm0, rdm1;
+> > >  > unsigned long unlocks0, unlocks1;
+> > >  >
+> > >  > + srcu_lock_sync(&ssp->dep_map);
+> > >  > +
+> > >  > + RCU_LOCKDEP_WARN(lockdep_is_held(ssp),
+> > >  > + "Illegal synchronize_srcu_atomic() in same-type SRCU read-side c=
+ritical section");
+> > >  > +
+> > >  > + if (rcu_scheduler_active =3D=3D RCU_SCHEDULER_INACTIVE)
+> > >  > + return;
+> > >  > +
+> > >  > // Initialize. Either init_srcu_struct() was invoked or
+> > >  > // DEFINE_SRCU() or similar was used. Therefore, no allocation
+> > >  > // will be done here.
+> > >  > --
+> > >  > 2.43.0
+> > >  >
+> > >
+> >
