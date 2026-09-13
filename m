@@ -1,227 +1,126 @@
-Received: from mail-pz2-f18.google.com (mail-pz2-f18.google.com [74.125.228.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D626F2D8767
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 02:58:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 785202765D7;
+	Sun, 13 Sep 2026 03:00:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789268318; cv=none; b=htyNDTnUxMJeJInb2DijXCnZiqJIO1PzQT8Josbkp3f/tbv4UnWNOMlTZ6vZZR35UODH+0tyEThVwEmTRxSlp/MNu8PsWVC5K8sD66ZqReIM2xbRACqgL60XK/NJ8CdMVQUNy/ey5JOmwnUJoyO0dS4/6hRr4V4y+mtXTRKyJQ8=
+	t=1789268401; cv=none; b=Q60IZmctLbRolQsNbEKDK5af3UH5YZTEQHJQymF/myZKxq07RIlLtTKhYY34rasHDtDX+5nT5WcD8R9AfGrgUjtkyQr53JPoVq41HFwKQv0k60ExwxppyMRZzkAk1iL/OkV/Mgi4vlm3ehJMtYyafGmRXpzQ7QBb5WshZ2TEN9M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789268318; c=relaxed/simple;
-	bh=AggbHlNlS2wRgnp/52kFEhrWoD5wMPtJZEBYqJ5/O0w=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JSZcwrGWfyMol22l19yJss6tdm8t1miWh9Sdlo8AjwGT/lNBtNRmALs0QKSNUtp7VScpKhP0UV5TVKtlWFxDAsty69IoXcqnnFQKlEdwLSaH80mpe05L4w1464fOwbUmdQcOHknPzVCeehg5WdCAEGYA3hVvoBSfAGaLRpC9qCM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IhfKd1Uk; arc=none smtp.client-ip=74.125.228.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789268401; c=relaxed/simple;
+	bh=nebcldvjasnNIaE8xLDrcml/O7iGT6X4/ykys5IcfuQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=H6QuXWcaCbdCYL3vRYAec+nBhqyCHD/vCFEJoArQlSSbH+OJ4WLBuYQSuaneSFsWGNO+3LBe91+rCqWpiWJd8SaIKTGJKyUDE7rSoPqIF9FZ5s5a4jkdANKoWesK3EgPVL8opNarklnUeR3FUpK3Ti1vFQDyqw8t/cD+z9HeiRY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AnNpgQFr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IhfKd1Uk"
-Received: by mail-pz2-f18.google.com with SMTP id 41be03b00d2f7-cc4bdf8abaaso1149392a12.2
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 19:58:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789268316; x=1789873116; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YkNvKOxozlLmolowDJQsMyoByil3F96EgYKhJ/Nv9Lo=;
-        b=IhfKd1UkSbJeBggspUq7h1856Y4vRkph2fxUMX5fY1RctctK3b2iMz7V7r4P0+WH7g
-         Fjh1upuaov+mIAS/dbIZAps0UzYW7O+/DB3kHFjFlQ2B2NSO7J11QmJ16uc3Vh5vMuBI
-         Pgx9VwvzRlDePWBnP96/wyt+G/V9GTytCKCB1pMDcZRv1juSl7Q3pfNzsFT4dEva6QZb
-         YrnE8QS7U6IrI0cxlRvkImLfEYtTY5h2SLiuyjF7JlujgXzVaYEExr+2456JNrkhhEqF
-         W9iMWRVuydYQ8nRm4rIHqffmFL6qf41aUZmBm9gFkbhf15E75N5djv+ISX88K0/QuqmY
-         VlyA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789268316; x=1789873116;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YkNvKOxozlLmolowDJQsMyoByil3F96EgYKhJ/Nv9Lo=;
-        b=YuPygD6kCM0ddump6MUY1PMs8ADaoqU8CwoGou/F5jG/qtZy/5BbuNVUGa1Xypz2g3
-         CXzf0JUGRiz+XeKlIiUxKl77bs/wmyTCzUP7U2d+o1vMAECqOh65oUQhkztg1I9zWLnP
-         rmmX5YGnyfChx7eMcUWU+4s3wYmimlF5dEPAC7RcM01siY+y3pOKiz8MsxZA1CDbu9aj
-         zp8yZ93jrT9IRO1ODZUxg9wZNRsiBXsNd98uI0DVALLXsgcTUaiYUsifTsZvx5Uatnh1
-         kTY3HpoE5LPh5y6FH4Uy+XZoLt2LW3sBm+v4Xl4G8R/otALN9HjGNxx8udqkSdX4mWxW
-         6PFQ==
-X-Forwarded-Encrypted: i=1; AKwUvByCMGqqn7Y5/h00MzBr3+pT+sLtgrApUsMZfmvOOPGISlhTdxC7SFvSnm/Lg3XoFkip81oFJbdnD9MwHYk=@vger.kernel.org
-X-Gm-Message-State: AFuF++nVbG558PRV61ooY/sz8wVZL+XH+EusKKTFsgVu3icQKxOXKu4f
-	YtPWVXHiDDJFjhwJCC1KpKcVYPPnYv4VjAE4CacN/7h9EBcMSR4oR1w=
-X-Gm-Gg: AYBFou1bRJI8Hk3FVEA8/ZX4C0kP0oAA5pVlg7GN0W+Bz21if8dRe7ow1znK4eH/NRa
-	FBBisVJo7m3RV93OM3p0KYaiG0Rfr6nJHNLqiqiyc6qag5Ulv8jZ2VElMPqFK349ZVP90uBsEZr
-	Xi9FxhXmOh59KIvfNjHf8Ei4rxrmErEhahZI127/4C6EGd4TVi4t8WEwi63lrxbX4VrMGkF24+c
-	eubb9BgHAWjyZxq8CTkCIRJ/s2bep9aMotdtnlWh3YGTZroBvQM5kO0UJgOMQYXqbh3RfioNwsz
-	Uk3lFaREsG6vcRRUAKHoJNxof9i77VvHJ2I8dhBW8exg7TwEEs6LwPbc1ZoSxOKy3Q2mmy8C31w
-	rPwtTOMD6gkTF/Z+nUJvtXau96FkVD78aOBF+2udcuWcz2IA90hmuf1fzAnL4WC3Cpi5i0cBxdW
-	L/tFwPIQUGXFYFVJMUYZQRgMsvxSt6hOz+vkLYT/mF+kyQ9N1L8kpSmLw5Xf14jamzfO++eu4Yo
-	VuRtcumzsg/1nhk6pYXmZvEwQ==
-X-Received: by 2002:a05:6a21:6f88:b0:398:8870:b58f with SMTP id adf61e73a8af0-3daed319787mr20832624637.14.1789268316064;
-        Sat, 12 Sep 2026 19:58:36 -0700 (PDT)
-Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:7f00:8c85:b91:ff81:c860:362e])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4c657156bsm3022673a12.21.2026.09.12.19.58.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 12 Sep 2026 19:58:35 -0700 (PDT)
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-To: Jens Axboe <axboe@kernel.dk>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Johannes Thumshirn <johannes.thumshirn@wdc.com>,
-	Damien Le Moal <dlemoal@kernel.org>,
-	"Martin K . Petersen" <mkp@kernel.org>,
-	Christoph Hellwig <hch@lst.de>,
-	Adriano Cordova <adrianox@gmail.com>,
-	syzbot+f179b16e13624138b0f1@syzkaller.appspotmail.com,
-	linux-block@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Subject: [PATCH] blktrace: build the synthesized v1 record from the entry's own layout
-Date: Sun, 13 Sep 2026 11:58:27 +0900
-Message-ID: <20260913025827.457116-1-donggeunyoo.kernel@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AnNpgQFr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9AD01F000FF;
+	Sun, 13 Sep 2026 02:59:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789268400;
+	bh=45E+0rPqi4Q5EA4SZ6KErOV5kKZDAlhBMi5yePEo1ZU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=AnNpgQFr54Usir0fOZgHzFHteOa78dYAJSQZGu+zwZcxDdPwy5OMReLp+WpoxnvhA
+	 VRElaRBM8vEG61jZM6hw4RduYsZAx9ZjvnSjsKLzlhhY48e2iTkOwtO67eFktwM+Q+
+	 xg+9ynaGLsdQoQDlktsi7mZoNE3X1K0HtNDgzD7IKfosSI29OtWeIpkJLowmkv7gLo
+	 l+SsEt7Qaw90TR2yl2wUpK7KNNJ+7+Ix/9hR4FS8xrrztqDUDl3HvHO2SyXxNH/zPl
+	 pcY2a8wmgfudp8Bg8/oPKIeVpLV9A4dENwIqyq3SYzejppkcHgM0DRqPC3zXNbDd+3
+	 5EYFRc7Eg5c0Q==
+Date: Sun, 13 Sep 2026 03:59:57 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+Cc: gregkh@linuxfoundation.org, nuno.sa@analog.com,
+ Michael.Hennerich@analog.com, dlechner@baylibre.com, andy@kernel.org,
+ linux@analog.com, linux-iio@vger.kernel.org, linux-staging@lists.linux.dev,
+ linux-kernel@vger.kernel.org, joshua.crofts1@gmail.com
+Subject: Re: [PATCH v6 3/3] staging: iio: adc: ad7816: Use DMA-safe buffer
+ for SPI read
+Message-ID: <20260913035957.7eb0dd2b@jic23-hlaptop>
+In-Reply-To: <20260912132517.55686-4-abdelnasserhussein11@gmail.com>
+References: <20260912132517.55686-1-abdelnasserhussein11@gmail.com>
+	<20260912132517.55686-4-abdelnasserhussein11@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-blk_trace_synthesize_old_trace() emits a classic blk_io_trace for the
-binary trace_pipe output by copying 32 bytes from the ring buffer entry's
-sector onward into a struct blk_io_trace. It reads them at blk_io_trace2
-offsets, and the two layouts diverge after bytes: v2 has a 32-bit pid at
-28 and a 64-bit action at 32, where v1 has a 32-bit action at 28 and pid
-at 32. On a v2 entry every field from action on lands one slot off, so a
-consumer reads the pid as the action, the device as the cpu, and the cpu
-as error and pdu_len.
+On Sat, 12 Sep 2026 16:25:17 +0300
+Abdelnasser Hussein <abdelnasserhussein11@gmail.com> wrote:
 
-The PDU comes from the wrong offset as well. The copy ends at v2 offset
-48 + pdu_len while the PDU starts at 64, and the emitted pdu_len is taken
-from the v2 cpu, so it reads 0 while extra bytes were appended and the
-consumer resynchronizes on the wrong boundary.
+> Stack buffers are unsafe for DMA with VMAP_STACK enabled because
+> they are not physically contiguous and can share cache lines. This
+> causes data corruption.
 
-The entry is not always a v2 record. __blk_add_trace() reserves
-sizeof(struct blk_io_trace) when the trace was set up by BLKTRACESETUP,
-and on such an entry the 32-byte copy is correct. pdu_len is still read
-at v2 offset 50 though, past the end of a 48-byte entry, and drives an
-unbounded copy that desynchronizes the stream. That is what syzbot hit.
+This one has come up a few times as a false or at least misleading
+explanation.  It really doesn't have anything to do with VMAP_STACK
+as that only a most deals with pages and cachelines which matter here
+are much smaller.
 
-Take the layout from iter->ent_size, which is the only discriminator the
-entry carries -- magic and sequence are the ftrace header, not a version
-stamp. Assign the v1 fields from their counterparts in that layout and
-append the PDU from the end of it, bounded by the entry size.
+Any stack variable is a problem simply because we don't control the
+data layout and pretty much anything else can end up in the same
+cache line. 
 
-  BUG: KASAN: slab-out-of-bounds in seq_buf_putmem+0x124/0x180
-  Read of size 1352 at addr ffff8880295bdb98 by task syz.2.2551/19243
-   seq_buf_putmem+0x124/0x180 lib/seq_buf.c:241
-   blk_trace_synthesize_old_trace kernel/trace/blktrace.c:1780 [inline]
-   blk_trace_event_print_binary+0x130/0x1b0 kernel/trace/blktrace.c:1788
-   tracing_read_pipe+0x568/0xb50 kernel/trace/trace.c:5444
-   vfs_read+0x213/0xa80 fs/read_write.c:572
+> 
+> Fix this by using a dedicated rx_buf aligned with IIO_DMA_MINALIGN
+> in the device state structure to ensure cache coherency. This also
+> corrects the size argument in spi_read() to match the new buffer.
 
-Fixes: 4d8bc7bd4f73 ("blktrace: move ftrace blk_io_tracer to blk_io_trace2")
-Reported-by: syzbot+f179b16e13624138b0f1@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=f179b16e13624138b0f1
-Cc: stable@vger.kernel.org
-Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Assisted-by: Claude:claude-fable-5
----
-QEMU x86_64, KASAN, virtio disk, base 5225b8eec4c9. Binary stream read from
-trace_pipe with options/bin set, decoded at v1 offsets.
+Make sure you understand why this alignment marking works to ensure
+the buffer is in a cache line on it's own.
 
-v2 entry, via /sys/block/vda/trace/enable. Unpatched, offset 28 holds the pid
-and 32 the action; device, cpu, error and pdu_len are each one slot off.
-Patched, every field is in place: action 0x08110001 at 28, pid at 32, device
-0x0fd00000 at 36, cpu at 40, error and pdu_len 0.
+However, don't do this for a single use small buffer.
+Use spi_write_then_read() (with 0 sized write) but also make
+sure you understand why that works.
 
-v1 entry, via a BLKTRACESETUP helper -- the only path that sets
-bt->version = 1. Unpatched, the 48-byte record is right and eight bytes are
-then appended behind it, so the next record's magic no longer lands on a
-record boundary and the stream never recovers. Patched, the record is
-byte-identical and the 64-byte cadence holds across the capture.
+Jonathan
 
-PDU-carrying entry, via BLK_TA_REMAP from reading a partition. Unpatched, the
-record says pdu_len 0 and then appends 16 bytes taken from v2 offset 48, the
-error/pdu_len/pad trailer, so the reader resynchronizes 16 bytes late.
-Patched, pdu_len is 16 and the bytes are the blk_io_trace_remap:
-device_from 0x0fd00001, device_to 0x0fd00000, sector_from 0.
 
-Not exercised: the splat itself. iter->ent points into a ring buffer
-sub-buffer page, so KASAN sees the over-read only when it crosses the page
-end -- the entry has to sit about a kilobyte short of the tail and be
-followed by an event with a large time delta. 120 rounds over varying buffer
-sizes did not land it. The over-read is visible without KASAN in the v1 arm
-above: those eight appended bytes are out-of-bounds data.
-
-__blk_add_trace() reserving a v1-sized entry at all is a separate defect,
-fixed by Adriano Cordova's "blktrace: always record ftrace events as
-blk_io_trace2", <20260903202932.156278-1-adrianox@gmail.com>. It cites a
-different syzbot report, but removing the short entry closes this one as
-well. Once it lands every entry takes the first arm, so the branch can come
-out; the field assignment is the fix and stays either way. Until then the
-second arm is what keeps this function from reading past a 48-byte entry.
- kernel/trace/blktrace.c | 48 +++++++++++++++++++++++++++++++++--------
- 1 file changed, 39 insertions(+), 9 deletions(-)
-
-diff --git a/kernel/trace/blktrace.c b/kernel/trace/blktrace.c
-index 8cd2520b4c99..455d761ff84e 100644
---- a/kernel/trace/blktrace.c
-+++ b/kernel/trace/blktrace.c
-@@ -1768,17 +1768,47 @@ static enum print_line_t blk_trace_event_print(struct trace_iterator *iter,
- 
- static void blk_trace_synthesize_old_trace(struct trace_iterator *iter)
- {
-+	const struct blk_io_trace2 *t2 = te_blk_io_trace(iter->ent);
-+	const struct blk_io_trace *t1 = (const struct blk_io_trace *)iter->ent;
- 	struct trace_seq *s = &iter->seq;
--	struct blk_io_trace2 *t = (struct blk_io_trace2 *)iter->ent;
--	const int offset = offsetof(struct blk_io_trace2, sector);
--	struct blk_io_trace old = {
--		.magic	  = BLK_IO_TRACE_MAGIC | BLK_IO_TRACE_VERSION,
--		.time     = iter->ts,
--	};
-+	struct blk_io_trace old;
-+	const void *pdu;
-+
-+	if (iter->ent_size >= sizeof(*t2)) {
-+		old = (struct blk_io_trace) {
-+			.sector   = t2->sector,
-+			.bytes    = t2->bytes,
-+			.action   = lower_32_bits(t2->action),
-+			.pid      = t2->pid,
-+			.device   = t2->device,
-+			.cpu      = t2->cpu,
-+			.error    = t2->error,
-+			.pdu_len  = min_t(size_t, t2->pdu_len,
-+					  iter->ent_size - sizeof(*t2)),
-+		};
-+		pdu = t2 + 1;
-+	} else if (iter->ent_size >= sizeof(*t1)) {
-+		old = (struct blk_io_trace) {
-+			.sector   = t1->sector,
-+			.bytes    = t1->bytes,
-+			.action   = t1->action,
-+			.pid      = t1->pid,
-+			.device   = t1->device,
-+			.cpu      = t1->cpu,
-+			.error    = t1->error,
-+			.pdu_len  = min_t(size_t, t1->pdu_len,
-+					  iter->ent_size - sizeof(*t1)),
-+		};
-+		pdu = t1 + 1;
-+	} else {
-+		return;
-+	}
-+
-+	old.magic = BLK_IO_TRACE_MAGIC | BLK_IO_TRACE_VERSION;
-+	old.time = iter->ts;
- 
--	trace_seq_putmem(s, &old, offset);
--	trace_seq_putmem(s, &t->sector,
--			 sizeof(old) - offset + t->pdu_len);
-+	trace_seq_putmem(s, &old, sizeof(old));
-+	trace_seq_putmem(s, pdu, old.pdu_len);
- }
- 
- static enum print_line_t
--- 
-2.53.0
+> 
+> Fixes: 7024425db64a ("staging: iio: adc: new driver for AD7816 devices")
+> Signed-off-by: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+> ---
+>  drivers/staging/iio/adc/ad7816.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/staging/iio/adc/ad7816.c b/drivers/staging/iio/adc/ad7816.c
+> index acf26c5a267a..2fd2d6796603 100644
+> --- a/drivers/staging/iio/adc/ad7816.c
+> +++ b/drivers/staging/iio/adc/ad7816.c
+> @@ -53,6 +53,7 @@ struct ad7816_chip_info {
+>  	u8  channel_id;	/* 0 always be temperature */
+>  	u8  mode;
+>  	struct mutex lock; /* protect device state during SPI transfers */
+> +	__be16 rx_buf __aligned(IIO_DMA_MINALIGN);
+>  };
+>  
+>  enum ad7816_type {
+> @@ -68,7 +69,6 @@ static int ad7816_spi_read(struct ad7816_chip_info *chip, u16 *data)
+>  {
+>  	struct spi_device *spi_dev = chip->spi_dev;
+>  	int ret;
+> -	__be16 buf;
+>  
+>  	guard(mutex)(&chip->lock);
+>  
+> @@ -96,13 +96,13 @@ static int ad7816_spi_read(struct ad7816_chip_info *chip, u16 *data)
+>  
+>  	gpiod_set_value(chip->rdwr_pin, 0);
+>  	gpiod_set_value(chip->rdwr_pin, 1);
+> -	ret = spi_read(spi_dev, &buf, sizeof(*data));
+> +	ret = spi_read(spi_dev, &chip->rx_buf, sizeof(chip->rx_buf));
+>  	if (ret < 0) {
+>  		dev_err(&spi_dev->dev, "SPI data read error\n");
+>  		return ret;
+>  	}
+>  
+> -	*data = be16_to_cpu(buf);
+> +	*data = be16_to_cpu(chip->rx_buf);
+>  
+>  	return ret;
+>  }
 
