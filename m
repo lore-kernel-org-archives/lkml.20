@@ -1,42 +1,82 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97FBB3C5546;
-	Sun, 13 Sep 2026 06:51:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D911A23EAAF;
+	Sun, 13 Sep 2026 06:54:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789282306; cv=none; b=ZpBNjJ1AFhnwfuQJnsZgq4hVU7s+PEPFihENwCYkzXITUUYginpIz+hMnNtMhUP6PyPlvru454yWbetlXVVUsmDnnCzGOnnyLafkxDz3yEiNjJBsz54llVFPkre/zj2j074DKPLIACxZUxlTPn29KTmUn67N661Wb5LAhQVaspY=
+	t=1789282498; cv=none; b=gdjs9N5BRsXM5zaXYlkuubvuWChHJYWqOnqelaNTS9Hk69ivXXqXtbFCGid/KBp2FvcAj+l6zldhVNEXNxSXTFmwqZ+LbfbiIZnxIJXDXqJq8bmq7NoxJLwyYsCx62KBTvGEgtt+xcfOMc/XuPEVpNUhKbtY+2qZmydUPpkj3Cs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789282306; c=relaxed/simple;
-	bh=fcaJHkHVNIDCbPBs47jJjMIvqIcpA0ePW375pEcfxcU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WpncUElaAKFdhe9kx14pjG3nrdD0HAtLHPyliRebFtdEvSWctolRxMRbjxLrLlvVr6nRgvNX72ezT8A9w8mKuRuUQFo8d54UejTwQNj6GmLwkt5riCBVJTor2O3g4ZvDqSVe48qSlnckDFE7O67Xa13FjIR4ijX3aBMR7PFeGfA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QS25O4ZE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789282498; c=relaxed/simple;
+	bh=Vo5IEUCq2PRN8I9M8ia8uTkWqKpp3QkJ/AanGqr7P10=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Fa1QloNPjrbYL8LObD5tEkUqipS4/ha8FU1K2Xldiv9Zn6cTcPdziT2GeUuEjMliCLSLb5zxaAaKoFfTfwYMFcPqbV3CfwEediST1sw8TMtS6kPGFjLR+mQiVT7awsRN9Mte+DqXBTAcxDheqZPui9qwY4a8Fik09cu+NP97Fmc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L+v92v1A; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QS25O4ZE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18EA71F000FF;
-	Sun, 13 Sep 2026 06:51:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L+v92v1A"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32EFF1F000FF;
+	Sun, 13 Sep 2026 06:54:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789282301;
-	bh=NvlXi29UW+lhoY1tSTI0DBTTqIv0jJalOwCYNxonEVk=;
+	s=k20260515; t=1789282496;
+	bh=W2MbFsUx54LJK7U3V6vP7eUNrI9U/R36OrB0aVm9oyE=;
 	h=From:To:Cc:Subject:Date;
-	b=QS25O4ZECg6TyKeIb3M/TJBsz2HNQ0zLsE04McJM7mqInwmgf8F7HfDjxUPsgsM/T
-	 vIsxj4TOb5eBD2e/wCHywZeuV2/JmYBzOeYnVTdErSKDpp8yKVYf7Z+iprtRhqq4QM
-	 zWjyjLaWJQFZf7Dl2o5vPUgBkDHxkOjleabfftO33VrlALyVip4LkUgbnG6F+OfSqM
-	 oKmNqUgTpkCHgxw8CI/w+WJkAfLwdGSjAxu5XFdTWNVsroQ5ickGcvNSxCOu8GlINv
-	 mpvA2JCdGBGSCCCf4B2LPZ+O5xZiXFeq37mjoH2OCGtcj4mVenyux5R6N7QlSQo+5/
-	 jORdHT6Lx8J0w==
-From: Tzung-Bi Shih <tzungbi@kernel.org>
-To: Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Guenter Roeck <linux@roeck-us.net>
-Cc: Daniel Palmer <daniel@thingy.jp>,
-	Romain Perier <romain.perier@gmail.com>,
-	linux-watchdog@vger.kernel.org,
+	b=L+v92v1A2R6bqo+k2ns+Apd0XuZhfJJRlDhcZRxfgYZBR6lBTySlcGwphZl9esPqc
+	 6OapuqhkUgrZB5XbpeiKFE4FWmpX3fDYqnAWZ+Z5cik38+LKv17eC95gI/dBBW2maI
+	 QBtXzwx4Css+3kO8rrA5dxC6eWTTYjMJfj2lSIDJyX9WPH8eOB6Ln0exJvX33oYTJO
+	 CHj1Orsj3SZQz9ZomQddwDmGJoNO6y1P+zQ5V26DW3JHaWShU5qKy+zKNWu1trppZH
+	 XR4Bt0VV/FOH6OlQ1i8WQIXtA16nKQJtDvrM9pq+m+RFhwSgcAcBzQIdBMkDJt9hP/
+	 ktPD12L2uaUcA==
+From: Yu Kuai <yukuai@kernel.org>
+To: Jens Axboe <axboe@kernel.dk>,
+	Josef Bacik <josef@toxicpanda.com>,
+	Tejun Heo <tj@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Coly Li <colyli@fygo.io>,
+	Kent Overstreet <kent.overstreet@linux.dev>,
+	Alasdair Kergon <agk@redhat.com>,
+	Mike Snitzer <snitzer@kernel.org>,
+	Mikulas Patocka <mpatocka@redhat.com>,
+	Benjamin Marzinski <bmarzins@redhat.com>,
+	Song Liu <song@kernel.org>,
+	Li Nan <magiclinan@didiglobal.com>,
+	Xiao Ni <xiao@kernel.org>,
+	Andreas Gruenbacher <agruenba@redhat.com>,
+	Matthew Wilcox <willy@infradead.org>,
+	Jan Kara <jack@suse.cz>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Chris Li <chrisl@kernel.org>,
+	Kairui Song <kasong@tencent.com>,
+	Kemeng Shi <shikemeng@huaweicloud.com>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	Youngjun Park <youngjun.park@lge.com>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>
+Cc: Yu Kuai <yukuai@fygo.io>,
+	Christoph Hellwig <hch@lst.de>,
+	Nilay Shroff <nilay@linux.ibm.com>,
+	Tao Cui <cuitao@kylinos.cn>,
+	linux-block@vger.kernel.org,
+	cgroups@vger.kernel.org,
+	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	tzungbi@kernel.org
-Subject: [PATCH] watchdog: msc313e: Fix premature reset during timeout update
-Date: Sun, 13 Sep 2026 14:51:26 +0800
-Message-ID: <20260913065126.8350-1-tzungbi@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	linux-bcache@vger.kernel.org,
+	dm-devel@lists.linux.dev,
+	linux-raid@vger.kernel.org,
+	gfs2@lists.linux.dev,
+	linux-fsdevel@vger.kernel.org,
+	linux-mm@kvack.org,
+	llvm@lists.linux.dev
+Subject: [PATCH v2 0/3] blk-cgroup: store blkcg in bio before blkcg_mutex conversion
+Date: Sun, 13 Sep 2026 14:54:37 +0800
+Message-ID: <cover.1789237876.git.yukuai@fygo.io>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,47 +85,134 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Updating the 32-bit hardware timeout requires writing to two 16-bit
-registers sequentially.  If the watchdog is actively running, this
-non-atomic update might trigger a premature system reset.
+From: Yu Kuai <yukuai@fygo.io>
 
-Clear the watchdog counter before updating the registers to prevent the
-timer from timing out prematurely against an intermediate threshold.
+This is v2 of the preparatory series for the blkcg_mutex conversion
+proposed in the related series [1]. That conversion moves queue-local
+blkg topology synchronization from q->queue_lock to q->blkcg_mutex,
+which is awkward while bios directly store queue-local blkg references.
 
-Fixes: e9800b799464 ("watchdog: Add Mstar MSC313e WDT driver")
-Signed-off-by: Tzung-Bi Shih <tzungbi@kernel.org>
----
-This fixes a Sashiko report [1].
+Storing a blkg also ties a bio to one request_queue. A remapped bio must
+drop that reference and recreate the association for the new queue even
+when no blkcg policy needs it. Dying blkgs add another complication:
+they disappear from the per-blkcg lookup tree before all pinned bio
+references drain.
 
-[1] https://lore.kernel.org/all/20260828162210.3C2881F000E9@smtp.kernel.org
----
- drivers/watchdog/msc313e_wdt.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+Patch 1 makes request_queue the authoritative lookup owner. A
+queue-owned rhashtable keyed by the blkcg CSS ID keeps dying blkgs
+discoverable until their references drain, while q->blkg_list remains
+available for ordered walks.
 
-diff --git a/drivers/watchdog/msc313e_wdt.c b/drivers/watchdog/msc313e_wdt.c
-index dc7bdd5660e6..0a68be7a217b 100644
---- a/drivers/watchdog/msc313e_wdt.c
-+++ b/drivers/watchdog/msc313e_wdt.c
-@@ -46,6 +46,9 @@ static void msc313e_wdt_set_hw_timeout(struct msc313e_wdt_priv *priv,
- {
- 	u32 t = timeout * clk_get_rate(priv->clk);
- 
-+	/* Clear before to prevent premature reset during non-atomic updates. */
-+	writew(1, priv->base + REG_WDT_CLR);
-+
- 	writew(t & 0xffff, priv->base + REG_WDT_MAX_PRD_L);
- 	writew((t >> 16) & 0xffff, priv->base + REG_WDT_MAX_PRD_H);
- 	writew(1, priv->base + REG_WDT_CLR);
-@@ -76,6 +79,9 @@ static int msc313e_wdt_stop(struct watchdog_device *wdev)
- {
- 	struct msc313e_wdt_priv *priv = watchdog_get_drvdata(wdev);
- 
-+	/* Clear before to prevent premature reset during non-atomic updates. */
-+	writew(1, priv->base + REG_WDT_CLR);
-+
- 	writew(0, priv->base + REG_WDT_MAX_PRD_L);
- 	writew(0, priv->base + REG_WDT_MAX_PRD_H);
- 	writew(0, priv->base + REG_WDT_CLR);
+Patch 2 stores and pins the queue-independent blkcg CSS in each bio.
+Queue-local blkgs are created lazily by policy users, then pinned until
+the bio changes devices or releases its cgroup state. Completion and
+accounting paths which do not create a blkg remain lookup-only.
+
+Patch 3 moves async bio punt state from blkg to blkcg, so punting alone
+does not instantiate a queue-local blkg.
+
+Changes since v1:
+
+  - Rebase onto the latest block-7.3 branch.
+  - In patch 2, require every blkg rhashtable lookup to run inside an
+    explicit RCU read-side critical section. Annotate blkg_lookup_any(),
+    blkg_lookup(), and recursive wrappers with __must_hold_shared(RCU)
+    so Clang thread-safety analysis verifies the contract.
+  - In patch 2, exclude BIO_BLKG_REF from the flags saved by
+    dm_bio_record(), since restoring an ownership bit cannot recreate
+    the associated blkg reference.
+  - In patch 3, use scoped spinlock guards for async_bios and annotate
+    the list with __guarded_by().
+  - Add Nilay Shroff's Reviewed-by to patch 1.
+
+Changes since RFC v3:
+
+  - Drop the RFC prefix.
+  - Add Christoph Hellwig's Reviewed-by to patch 1.
+  - Add Tao Cui's Reviewed-by to patch 2.
+  - In patch 2, relax blkg_lookup_any()/blkg_lookup() to also allow
+    q->queue_lock as an alternative to the RCU read lock.
+
+Changes since RFC v2:
+
+  - Drop the old patch 1 and send it separately as a bugfix for 7.3 and
+    -stable, as suggested by Christoph Hellwig.
+  - Rebase onto the latest for-7.3/block branch.
+  - In the new patch 1, note that the remaining q->blkg_list walkers are
+    cgroupfs/sysfs slow paths and can move to rhashtable iteration after
+    the queue_lock-to-blkcg_mutex conversion.
+  - In the new patch 1, explain the list_empty case in blkg_release(), and
+    add an RCU lockdep assertion plus documentation that blkg_lookup_any()
+    does not acquire a reference.
+
+Changes since RFC v1:
+
+  - Add patch 1 to wait for every old blkg to leave q->blkg_list before a
+    shared request_queue is rebound, instead of treating root_blkg == NULL
+    as completion of asynchronous blkg teardown.
+  - Add patch 2 to replace the per-blkcg radix tree and lookup hint with a
+    request_queue rhashtable keyed by blkcg->css.id, as suggested by
+    Christoph Hellwig. Keep dying pinned blkgs in the hash until
+    blkg_release() so bio-owned references remain discoverable.
+  - Fold the v1 helper-only patch into patch 3, as suggested by Jan Kara and
+    Christoph Hellwig, and make bio_blkcg() naturally return NULL for an
+    unassociated bio.
+  - Rework patch 3 so blkg_lookup_create() acquires the bio-owned reference,
+    falls back to a live parent when creation or tryget fails, and updates
+    bi_blkcg when the returned blkg belongs to an ancestor.
+  - Make bio_blkg_lookup() lookup-only: it returns NULL unless BIO_BLKG_REF
+    is already set. Use bio_blkg() in the BFQ and IOCOST merge paths which
+    may need to create a blkg, while keeping blk_cgroup_bio_start() and
+    completion paths lookup-only.
+  - Move CSS online-reference handling into
+    bio_associate_blkcg_from_css(), including fallback to the root blkcg, so
+    bio_associate_blkcg() does not take a redundant reference.
+  - Keep the v1 async bio punt conversion as patch 4 and document that
+    async_bio_lock protects async_bios.
+
+Previous versions:
+  v1: https://lore.kernel.org/r/20260823133045.970199-1-yukuai@kernel.org
+  RFC v3: https://lore.kernel.org/r/20260818070641.756747-1-yukuai@kernel.org
+  RFC v2: https://lore.kernel.org/r/20260811064744.1139446-1-yukuai@kernel.org
+  RFC v1: https://lore.kernel.org/r/20260804065313.2092022-1-yukuai@kernel.org
+
+Related series:
+  [1] RFC v2 blk-cgroup: protect blkgs with blkcg_mutex
+      https://lore.kernel.org/r/20260724123037.3004560-1-yukuai@kernel.org
+
+Yu Kuai (3):
+  blk-cgroup: use a request_queue rhashtable for blkg lookup
+  blk-cgroup: store blkcg in bio instead of blkg
+  blk-cgroup: move async bio punt state to blkcg
+
+ Documentation/admin-guide/cgroup-v2.rst |   2 +-
+ block/bfq-cgroup.c                      |  18 +-
+ block/bfq-iosched.c                     |  19 +-
+ block/bio.c                             |  22 +-
+ block/blk-cgroup-fc-appid.c             |  10 +-
+ block/blk-cgroup-rwstat.h               |   2 +-
+ block/blk-cgroup.c                      | 358 ++++++++++++++----------
+ block/blk-cgroup.h                      |  93 ++++--
+ block/blk-core.c                        |   9 +-
+ block/blk-crypto-fallback.c             |   2 +-
+ block/blk-iocost.c                      |  12 +-
+ block/blk-iolatency.c                   |  11 +-
+ block/blk-ioprio.c                      |   2 +-
+ block/blk-throttle.c                    |   3 +-
+ block/blk-throttle.h                    |   2 +-
+ drivers/md/bcache/request.c             |   2 +-
+ drivers/md/dm-bio-record.h              |   3 +-
+ drivers/md/dm.c                         |   2 +-
+ drivers/md/md.c                         |   2 +-
+ fs/gfs2/lops.c                          |   3 +-
+ include/linux/bio.h                     |  26 +-
+ include/linux/blk_types.h               |   9 +-
+ include/linux/blkdev.h                  |   2 +
+ include/linux/writeback.h               |   2 +-
+ mm/page_io.c                            |  12 +-
+ 25 files changed, 391 insertions(+), 237 deletions(-)
+
+
+base-commit: fc34aff88b3bd22146745c75cff0abb3c067cf42
 -- 
-2.53.0
-
+2.51.0
