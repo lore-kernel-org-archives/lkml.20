@@ -1,111 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-211.mta0.migadu.com [91.218.175.211])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42D0539DBF5;
-	Sun, 13 Sep 2026 10:28:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D0993CA497
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 10:28:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.211
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789295307; cv=none; b=mTypRJZTYF7CDgZsWJe6TwGae6YuA+rfLj9mdIhoe+HsOnUIvVXL4TQT3eh70YB939qf9RIe1z1EM6fDElN8odDr0TEIvS2NQ3IA3/8/0MyBJVj6cpjxlW0zcrjh4gY2Cqsv/HDHf6OHbnnOiNpRu6y/AHqEwUeWGvPlbaSx4zA=
+	t=1789295325; cv=none; b=A+Pc2pf2ndUyl0aoLjE946MAeSgVazhUvvQIep6w4J5018k8ANa+yyC4Oghgt2WvnJBPqJpJW/yxiz6j6HCen2I5ZnVko5MFXZU12PdfZrCROBv6NeAf75XzCDKkUEn0IH8bda9A8iDXsQXWIVX9ZvnusPiIcf3opfbjZWGtIOM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789295307; c=relaxed/simple;
-	bh=w7DxQbYHB4Ks41r9Cozp+WMw8cRef5vIhf8mK7mh86E=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=uNy9ZM7HD1JQUXh5/DAtBHfwdxQVmXP+2qLjBRx/QsTNec9iOKSfwTPMCuxQ4dyQb4arD3s8RmLEA+1aHTWOFKTMKEm7Xx0UW/G0y4LI4zuf70LZyUy+DlmRUg8m9LdH5CYprAs4o+yjMVb8vI9vO56Cvk/+6nF2w7bg0pWPZYw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uP6UQOMO; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789295325; c=relaxed/simple;
+	bh=W6quqEuqAVLHu3zsXDdGSvOmeLHolpa6R9zg2wSv4vI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AyRMfw3JBr3q+uq5xVRkZEE0ztOTYeFuXfeydi+uTJcl6VkyqZbyY49YuE3Z6Fmi7XYjVV6JK+vdquTECNDz6NX4wx1drAoS8zo2tS9sxFUScXXLcPVvhnGlVfOqKkT1E7eW6gg5yHyXTBgM6eLixRpCFEO71YByOUmQFVzuC3o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=RTP+7qa8; arc=none smtp.client-ip=91.218.175.211
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uP6UQOMO"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 7EC8AC2BCF6;
-	Sun, 13 Sep 2026 10:28:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789295304;
-	bh=w7DxQbYHB4Ks41r9Cozp+WMw8cRef5vIhf8mK7mh86E=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=uP6UQOMORbhp15K49pTGDe5oL+OE7WiDjSltBYlzaUaS5bMN38UFFYtwNGIXUKFar
-	 MdODW2Cvoa0ZAzeDA/+OucBX5/FmNdcd4ATli86OK2zxp2gtapkueB5WTEcA6umbRa
-	 Dx6WFsgXXXgFFhakulLmbG84dX3R0i3Lda0rqxH5k/n61FlXZiJiEL+3gSyDxi/d8a
-	 MOL2IDgd3+6JgmCdLW0pHtjqPBEkTZ00gw7qUYN8fI7qXnU5xTjlfl22ikUuYhzGNh
-	 hEg1ar0y99ylWVZsG17puCD6mJv0EBB9mjEc7g2t/WZBibKkMaiCM4G3mM0bKYnl5F
-	 HVy35ZypRUGnA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5B1FFC88E5A;
-	Sun, 13 Sep 2026 10:28:24 +0000 (UTC)
-From: Mark Amirkan via B4 Relay <devnull+markdamirkan.gmail.com@kernel.org>
-Date: Sun, 13 Sep 2026 10:28:08 +0000
-Subject: [PATCH net] net/packet: clear RX owner on VNET header error
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="RTP+7qa8"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=W6quqEuqAVLHu3zsXDdGSvOmeLHolpa6R9zg2wSv4vI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789295310; v=1; x=1789900110;
+ b=RTP+7qa8E27RwXEebfZc1ApKGdgGS+WqVnNAJQhC3GxlRxCa4Lj2TIJtF/Vq9upEwpjZpcWo
+ r3hCAI5av6nUt8GxGpKzm5yQZbjq23Lk2kbJ9L7BhGua4hl9+IA8bHaiUJWq7ueJTn0hAXtCGi0
+ aoYpcCkzfhnKv09WY9r5VDGA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 9c13bf885cb93025;
+	Sun, 13 Sep 2026 10:28:19 +0000
+X-Mizu-Trace-ID: 9c13bf885cb93025
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <7cf8e45c-51a3-4de3-9417-170eb34e0713@linux.dev>
+Date: Sun, 13 Sep 2026 18:28:08 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] mm/mglru: add tracepoint for inc_max_seq()
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: Masami Hiramatsu <mhiramat@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Johannes Weiner <hannes@cmpxchg.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, linux-kernel@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org,
+ "open list:MEMORY MANAGEMENT - MGLRU (MULTI-GEN LRU)" <linux-mm@kvack.org>,
+ Ridong Chen <chenridong@xiaomi.com>
+References: <20260911072848.2346073-1-ridong.chen@linux.dev>
+ <20260911072848.2346073-4-ridong.chen@linux.dev>
+ <20260911101514.1fe0d543@gandalf.local.home>
+From: Ridong Chen <ridong.chen@linux.dev>
+In-Reply-To: <20260911101514.1fe0d543@gandalf.local.home>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260913-b4-send-packet-vnet-v1-1-5545ffb528ae@gmail.com>
-X-B4-Tracking: v=1; b=H4sIALh6pmoC/yWMwQqDMBBEf0Xm3AWNQbG/UnpI4tpuC6lkVQriv
- 3fbXgbeMPN2KBdhxbnaUXgTlVc2aE4V0j3kG5OMxnC16+qhaSl6Us4jzSE9eaEtW7Qu+n7ofOj
- TBHvOhSd5/6wX2ADXf6lrfHBavj4cxwegs1g/fAAAAA==
-X-Change-ID: 20260913-b4-send-packet-vnet-32b47964a7cf
-To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
- netdev@vger.kernel.org
-Cc: Paolo Abeni <pabeni@redhat.com>, 
- "David S. Miller" <davem@davemloft.net>, linux-kernel@vger.kernel.org, 
- Jakub Kicinski <kuba@kernel.org>, Jon Rosen <jrosen@cisco.com>, 
- Simon Horman <horms@kernel.org>, Eric Dumazet <edumazet@google.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789295303; l=1552;
- i=markdamirkan@gmail.com; s=pscsi-20260818; h=from:subject:message-id;
- bh=SpkUVWFs7UgiCwTRaWHfiD7eoNnej/IW1o2498FsgqQ=;
- b=PFXW4r/vjPDIxLlvD/wYPWPn7lQoJpU/6skFOK8D3zB9pvEu4uwHHa2q741VwUVdX3bjXuOuk
- FkLst3L+WbXCxAtAJx+ywUIIDKrdiyCjqbOFv6anzkZVNinY1hr8JZb
-X-Developer-Key: i=markdamirkan@gmail.com; a=ed25519;
- pk=/wb49ibt4gZFDncmhFQBYtjPvzT1tfJtvK4Mqt1P2Wc=
-X-Endpoint-Received: by B4 Relay for markdamirkan@gmail.com/pscsi-20260818
- with auth_id=961
-X-Original-From: Mark Amirkan <markdamirkan@gmail.com>
-Reply-To: markdamirkan@gmail.com
 
-From: Mark Amirkan <markdamirkan@gmail.com>
 
-Commit 61fad6816fc1 ("net/packet: tpacket_rcv: avoid a producer race
-condition") added rx_owner_map and made tpacket_rcv() claim a V1 or V2
-ring slot before converting the virtio-net header.  If the conversion
-fails, the drop path leaves the slot claimed.
 
-With a one-frame TPACKET_V2 ring, an unsupported UDP GSO packet leaves
-the only slot unavailable, so the ring also drops the next valid packet.
+On 9/11/2026 10:15 PM, Steven Rostedt wrote:
+> On Fri, 11 Sep 2026 15:28:48 +0800
+> Ridong Chen <ridong.chen@linux.dev> wrote:
+> 
+>> +static void trace_inc_max_seq(struct lruvec *lruvec)
+>> +{
+>> +	int type, gen;
+>> +	unsigned long nr[ANON_AND_FILE][MAX_NR_GENS];
+>> +	struct lru_gen_folio *lrugen = &lruvec->lrugen;
+>> +
+>> +	if (!trace_mm_mglru_inc_max_seq_enabled())
+>> +		return;
+>> +
+>> +	for (type = 0; type < ANON_AND_FILE; type++)
+>> +		for (gen = 0; gen < MAX_NR_GENS; gen++)
+>> +			nr[type][gen] = lru_gen_seq_nr_pages(lrugen, gen, type);
+>> +
+>> +	trace_mm_mglru_inc_max_seq(mem_cgroup_id(lruvec_memcg(lruvec)),
+>> +				   lrugen->max_seq,
+>> +				   lrugen->min_seq[LRU_GEN_ANON],
+>> +				   lrugen->min_seq[LRU_GEN_FILE],
+>> +				   nr[LRU_GEN_ANON], nr[LRU_GEN_FILE]);
+>> +}
+> 
+> I would always look at trying to move as much logic into the
+> TP_fast_assign() and not have it be where the tracepoint is called.
+> 
+> -- Steve
 
-Clear the ownership bit on this error path.  TPACKET_V3 already clears
-its block state here.
+Thanks. Will update.
 
-Fixes: 61fad6816fc1 ("net/packet: tpacket_rcv: avoid a producer race condition")
-Cc: stable@vger.kernel.org
-Assisted-by: Symbolic
-Signed-off-by: Mark Amirkan <markdamirkan@gmail.com>
----
- net/packet/af_packet.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
-index 76bde7906d..50cae32ae2 100644
---- a/net/packet/af_packet.c
-+++ b/net/packet/af_packet.c
-@@ -2384,7 +2384,9 @@ static int tpacket_rcv(struct sk_buff *skb, struct net_device *dev,
- 	    virtio_net_hdr_from_skb(skb, h.raw + macoff -
- 				    sizeof(struct virtio_net_hdr),
- 				    vio_le(), true, 0)) {
--		if (po->tp_version == TPACKET_V3)
-+		if (po->tp_version <= TPACKET_V2)
-+			__clear_bit(slot_id, po->rx_ring.rx_owner_map);
-+		else
- 			prb_clear_blk_fill_status(&po->rx_ring);
- 		goto drop_n_account;
- 	}
-
----
-base-commit: e6b6078ea1731b05b3b552497b3bce4bf8b014ae
-change-id: 20260913-b4-send-packet-vnet-32b47964a7cf
-
-Best regards,
---  
-Mark Amirkan <markdamirkan@gmail.com>
-
+-- 
+Best regards
+Ridong
 
