@@ -1,98 +1,139 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 931B82E1EFC;
-	Sun, 13 Sep 2026 16:20:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5530932B13F;
+	Sun, 13 Sep 2026 16:23:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789316454; cv=none; b=GKX90TSUiLmYF1S9MdlHie1VRtZws2w0MuFObqFj/VBfxIq+0sedyhShKGtfqlQ6Yg7T0/LaETTmRxjKlHi56l39JghHRpuz8Grky1kwc9BpUNipI6Q/kdt2zz2cRyjwFz8I/BeHrmg8FgQGTc3r1MZpkQ1Ev8ELfoPg92Wp8ck=
+	t=1789316627; cv=none; b=bME2GhNWnHynCKUe/NwShSp0XYv1ikRTt4ce9D1YHv98bU8R/y3lnMk5jHlu/OgK/U0pd+UiW8aTqOH/QMNqZGNW7H8r4nr1CwdQg7fxjTd2dPP+RS8i9zEKfd/E4Ez8/V2EjnU6awcVbas2Pse/qJO8VzqssQbwYwru0Q9GWmU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789316454; c=relaxed/simple;
-	bh=4/PjweexX+DIv6UWnmnWObXqTb2heFgBJew3+1KyJzA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PFTc+fd4RJy838l1eYwlGE3vYAVJIAxtpTW/9n8L5UgIn8tGEz52MYIaU0gnb30ZHBkKgWFRUQ1hNWsrFROxYJExMopMJ3JYk4a2MzI4V96JBxn+eesRFIfXRK8zaaDrLVVw4o2q2dr6HQvyKsr4ZGtXoWmnhuVPPLamkoy+bbY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oaZICN6v; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789316627; c=relaxed/simple;
+	bh=i4PRO+XXcKwxjeaEY0sK/yN5ol5SLWrMDCFuSNhwYHQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aD0DGP07TYHLp/8CgaZj/eY0tTmzlrGXBk0kbn8z05xVjFWc6sTd4iZskLllzCiFhxYAVxj+JzdOeDxaAnHo3Z6KnFCAQSNmQXLMuGrXTXTrHAyZb5YjCUvv/qzRM813OFgiNDTGUz7641fuA1qEXORBvkGucdV3ppfWaxYht1U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TD5bh3+4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oaZICN6v"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E45C1F000FF;
-	Sun, 13 Sep 2026 16:20:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TD5bh3+4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBA5E1F000FF;
+	Sun, 13 Sep 2026 16:23:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789316453;
-	bh=bna+6irtDUV/Y8RIFOQ1soq62qtApDkXVKRGUCXpTqI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oaZICN6vn9gGMqWcc5FMrMZIsAXEqWTfTJbCWoa9uoAbJbDOmu74fhr+YsV+KdZDm
-	 QOUmFU+MHW9Db5QF6sHgw11lmYDUg5X4j+F3uwpHKX6pGerHN3YOL/WhY+ukP9cNC2
-	 alMfoKC3nGZrb2Y1DCyACtjbVsPCzADmdF5nQlQbYYq5zB0AEZA9hOz3bq6GLNjn5g
-	 XN2NRaZL4oG1Uv10eQJmPJUtxxPoriYa/avQPfSj/+AsRNddpnCQFyLXtQRWajhxWP
-	 SjKHMrJETXv/q13tpajgJfeN0PvJrvcRrk++p0vrFgGFwwpIhHYO7zCdLmALaY515e
-	 PGNnSQYvVknIQ==
-From: SJ Park <sj@kernel.org>
-To: Liew Rui Yan <aethernet65535@gmail.com>
-Cc: SJ Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/damon/core: add short circuit for esz<min_region_sz in damos_adjust_quota()
-Date: Sun, 13 Sep 2026 09:20:45 -0700
-Message-ID: <20260913162046.99109-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260913110407.32558-1-aethernet65535@gmail.com>
-References: 
+	s=k20260515; t=1789316624;
+	bh=vtYp8z3axuR00LAAJx7wcEMTWrvbqi7ZGt6zNtV2N10=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=TD5bh3+4leYOdVE9w6uBmkVkidWFUpUIpGqq5jNTV6vVy6DL3LUuZkEB0bBnmv1Uw
+	 nog3RMK5DVwkPMpQvJagwvCiv9Wa1363qfxVz/LpD/KzMHp+iMPNBO50bZXnimq/5h
+	 hYnPK9jOgcXJ3UFM/FOhT4MeShNv+TMQCQqZhjBKGvuD4KTIYaO/2WLiLPqIcoihiu
+	 oCBRmHvv7RhB86eFc4UgGsGNMIcGH8az+sZ/pc7pu948MwGKD30rycv81MlL5PatSG
+	 xsTiAFHcHzUJgKsW4srIw3fe4q6sY+Eg/F/+udI14JqucjyadfXa5RgFbeHpwO0VXz
+	 TjQ4nzy282meQ==
+Date: Sun, 13 Sep 2026 17:23:30 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Josh Poimboeuf <jpoimboe@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
+	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, Masahiro Yamada <masahiroy@kernel.org>, 
+	Alexey Gladkov <legion@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Arnd Bergmann <arnd@arndb.de>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Peter Zijlstra <peterz@infradead.org>, 
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
+	Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
+	Alexandre Courbot <acourbot@nvidia.com>, Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, 
+	Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, 
+	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
+	linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org, 
+	Jens Axboe <axboe@kernel.dk>
+Subject: Re: [PATCH 19/23] objtool: decode instructions and resolve branch
+ targets in parallel
+Message-ID: <aqbMdhXDANI8JG1P@gremlin>
+References: <20260908-build-speedup-v1-0-5dc1ac01672d@kernel.org>
+ <20260908-build-speedup-v1-19-5dc1ac01672d@kernel.org>
+ <aqXXF6otLbLtnhWw@jpoimboe>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqXXF6otLbLtnhWw@jpoimboe>
 
-Hi Liew,
+On Sat, Sep 12, 2026 at 04:39:49PM -0700, Josh Poimboeuf wrote:
+> On Tue, Sep 08, 2026 at 09:55:19PM +0100, Lorenzo Stoakes (ARM) wrote:
+> > +/* Only an object this large, e.g. vmlinux.o, is decoded on several threads. */
+> > +#define DECODE_THREADED_MIN_TEXT	SZ_8M
+> > +/* Only decoding and the branch passes are threaded, so more gains nothing. */
+> > +#define DECODE_MAX_THREADS		16
+> > +#define DECODE_RANGES_PER_THREAD	4
+> > +
+> > +/*
+> > + * sec_offset_hash() keys on OFFSET_STRIDE windows, so the instructions of a
+> > + * window share a chain and buckets beyond one per window would sit empty.
+> > + */
+> > +#define INSN_HASH_BYTES_PER_BUCKET	OFFSET_STRIDE
+> > +#define INSN_HASH_MIN_BITS		10
+> > +
+> > +static unsigned long total_text_size(struct objtool_file *file)
+> > +{
+> > +	unsigned long size = 0;
+> > +	struct section *sec;
+> > +
+> > +	for_each_sec(file->elf, sec)
+> > +		if (is_text_sec(sec))
+> > +			size += sec_size(sec);
+> > +
+> > +	return size;
+> > +}
+> > +
+> > +static int alloc_insn_hash(struct objtool_file *file, unsigned long text_size)
+> > +{
+> > +	const unsigned long nr_buckets = text_size / INSN_HASH_BYTES_PER_BUCKET;
+> > +	const int bits = ilog2(nr_buckets);
+> > +
+> > +	file->insn_hash_bits = max(INSN_HASH_MIN_BITS, bits);
+> > +	file->insn_hash = calloc(1UL << file->insn_hash_bits,
+> > +				 sizeof(*file->insn_hash));
+> > +	if (!file->insn_hash) {
+> > +		ERROR_GLIBC("calloc");
+> > +		return -1;
+> > +	}
+> > +
+> > +	if (opts.stats)
+> > +		printf("insn_hash_bits: %d\n", file->insn_hash_bits);
+> > +
+> > +	return 0;
+> > +}
+>
+> The dynamic insn hash sizing should probably be its own patch.  It's a
+> standalone improvement, and much more obviously correct compared to the
+> rest of patch.  I suspect it will make a big difference on allyesconfig.
 
+Thanks, will split out!
 
-From the next time, please complete discussions on the previous version before
-posting a new version.  For example, in this case, you could replied to my last
-reply to the previous version of this patch saying you will accept my suggested
-changes and wait a reasonable time to decide there is no other opinions.
+>
+> The rest of the patch looks ok to me, though it needs to be reviewed
+> very carefully (which I haven't done yet).  I'd like to see a Sashiko
+> review (I wasn't able to find these patches on sashiko.dev for some
+> reason).
 
-I think the subject is not very clear.  How about something like, "skip quota
-score setup when quota is full"?
+https://sashiko.dev/#/patchset/20260908-build-speedup-v1-0-5dc1ac01672d%40kernel.org
+seems to be it?
 
-On Sun, 13 Sep 2026 19:01:38 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
+I will work through the reports for v2!
 
-> After damos_set_effective_quota(), the effective size quota may be lower
-> than min_region_sz (e.g., when the temporal quota goal is [over-]achieved).
+>
+> --
+> Josh
 
-This sounds unnecessarily specific and doesn't cover all the case.  What about
-
-"In damos_adjust_quota(), the quota could already be full."
-
-> 
-> In this situation, damos_adjust_quota() will still calculates
-> quota->min_score.  However, this min_score will not be used in this
-> window, because in damon_do_apply_schemes(), damos_quota_is_full() will
-> always returns true, preventing the scheme from being applied to any
-> region.
-> 
-> Therefore, add a short circuit for 'esz < min_region_sz' schemes to
-> early return from damos_adjust_quota() before calculating min_score.
-> 
-> Signed-off-by: Liew Rui Yan <aethernet65535@gmail.com>
-
-Assuming you agree to above suggestions,
-
-Reviewed-by: SJ Park <sj@kernel.org>
-
-With the above assumption, I modified this patch with the suggestions and
-applied to damon/next [1] tree.  I will repost it for mm.git merge after a
-week.  So, if you are ok with the plan, no action from your side is needed.
-
-Please let me know if you have different opinions.
-
-[1] https://origin.kernel.org/doc/html/latest/mm/damon/maintainer-profile.html#scm-trees
-
-
-Thanks,
-SJ
-
-[...]
+--
+Cheers, Lorenzo
