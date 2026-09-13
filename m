@@ -1,147 +1,200 @@
-Received: from mail2-relais-roc.national.inria.fr (mail2-relais-roc.national.inria.fr [192.134.164.83])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E686D388E69
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 09:48:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.134.164.83
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9F1D291C10
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 09:48:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789292902; cv=none; b=lZ3EEkeQZqlHep/kH0GC7Kpw4Ftzd7TVk9uCkYmS5CRnp5Q34/qqaSVxsnlGQmpLvBOVsa5kz1/Yl4o3cCz3O1lbLvHvDP3haatpi+I3Fu2/hLn0Vrvo4y/RSC8kgMoOmwNKZtEaiBwWI+eq4bJgOJaLO/xGx+tCohCNQqVTd08=
+	t=1789292903; cv=none; b=krCeyXfSLx7vu0j3ubcZ3GYQ8X9iFH+UwDtgqWshbNqvxqPCuppvhu8gDGqOXn2HK/sPjiG3thYUd8N/7qokv/viAnQC3EvwIPozfc3wt5yro4XIuA48OsCL1vEYO0xlJbJ/dpyyrsCzSXPTN3h7MLDfVTNsPNg3S7nrff9OUwc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789292902; c=relaxed/simple;
-	bh=bVP5xZVKa9j7/8tBEEd/Gv9dD2Ldg4+Nqmt9HyCpmzk=;
-	h=Date:From:To:cc:Subject:Message-ID:MIME-Version:Content-Type; b=lDwGzhS6SNMyiZifNSMh2Sw+Ay4iI+LJDW5cOkk+xX5aUK/ds3fGHPYpz8h6p7ndoXRKJ9WVQGsNRqypejIbQNcHWbckpnNC3soGk4TJShIBq2+lGSJZmJ2WoKSxwxHmC4z44A6pymjmh+c9UhXzL6N7maxiFFRodZ7ruC2rSDs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inria.fr; spf=pass smtp.mailfrom=inria.fr; dkim=pass (1024-bit key) header.d=inria.fr header.i=@inria.fr header.b=XLRv94KP; arc=none smtp.client-ip=192.134.164.83
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inria.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inria.fr
+	s=arc-20240116; t=1789292903; c=relaxed/simple;
+	bh=owsxUV26+TugNfbC4Bz0+KGKiRcbdSBwVMp6oIjgyi0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FGUuUbsLKGwgc9vFIvNtESLrKbKpgrd4bF2JndxKkkwgbkb4974P7c/COmlvitLqZC3udHWqUanK2Q08fvl3lZbn/SF0d1Wc5hwOzDYPjlr9IaN4QZrjDX5Nd8dyB1j02beYiH9SEiXczuS8cw9u1zutxFLa9lDAFjgxNCTWcEo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ERyJEzhx; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=inria.fr header.i=@inria.fr header.b="XLRv94KP"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ERyJEzhx"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccb65437so600207a91.3
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 02:48:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=inria.fr; s=dc;
-  h=date:from:to:cc:subject:message-id:mime-version;
-  bh=51+cp37w59Jz1ROn1qYH7zNc0PiZcdFCBPnQdwFryOA=;
-  b=XLRv94KPD/g4p5pEqHbpZRN9VWHyTdeYcasAOJKmGZgkCCfjhxZINy6J
-   NdAS5Pg6GNp390zzx+ziRw1h8mlBC05q2BQfDZSEzePCDNAiPKG94o6oO
-   25rH9R1pUmPnSjtvLy8vt4lTwG2VMy9eScoJ7oB5f5MllS+HIWMCQby/f
-   8=;
-X-CSE-ConnectionGUID: oUEk+fXeQpS/KQsrgDYbcA==
-X-CSE-MsgGUID: wLkk6O8lR+Sei2XCqpyvLg==
-Authentication-Results: mail2-relais-roc.national.inria.fr; dkim=none (message not signed) header.i=none; spf=SoftFail smtp.mailfrom=julia.lawall@inria.fr; dmarc=fail (p=none dis=none) d=inria.fr
-X-IronPort-AV: E=Sophos;i="6.27,100,1787004000"; 
-   d="scan'208";a="294575136"
-Received: from 88-188-149-159.subs.proxad.net (HELO hadrien.home) ([88.188.149.159])
-  by mail2-relais-roc.national.inria.fr with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Sep 2026 11:47:04 +0200
-Date: Sun, 13 Sep 2026 11:47:03 +0200 (CEST)
-From: Julia Lawall <julia.lawall@inria.fr>
-To: Austin Zheng <Austin.Zheng@amd.com>
-cc: Alex Deucher <alexander.deucher@amd.com>, 
-    Dillon Varone <dillon.varone@amd.com>, waynelin <Wayne.Lin@amd.com>, 
-    linux-kernel@vger.kernel.org, oe-kbuild-all@lists.linux.de
-Subject: drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c:6405:53-54:
- WARNING opportunity for min() (fwd)
-Message-ID: <aa6ddbe1-dc42-2685-bdc3-66eb16665abb@inria.fr>
+        d=gmail.com; s=20251104; t=1789292901; x=1789897701; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=V6u+Sjb8r7xjY6JptTsujS7yPcyjNk7vFPdDqkz69nM=;
+        b=ERyJEzhxiwVFNLLVAKtsqa3XQSYbhWLnwT8ROTveg+9z9uD7AhHl3NebFlLVHyN/ZL
+         VPIloOBQn12QjLehJfrwLlrwHjD4btGVXax96vlyioanACf3EdN3qNWORuyE91FIb2qX
+         YhyI1QT36C7vBgXEYWhSQ/brx0Qr1yt2StoF7nxSNKwQs/4GazhqdjRY9lB8oTO3xmIC
+         rGlB3VJylrSIrTn9IfIwSlJRgsxl+kdGtEfFvOyeYWn9OpAqFYWujhGiho5bP8WZl9BV
+         Ta5/JmyHjIjS4CREBTawY8c45Mzagat6pNVZZlR84uuKTcOjslJ+fWzLdSFBSD3qjaG4
+         n25g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789292901; x=1789897701;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=V6u+Sjb8r7xjY6JptTsujS7yPcyjNk7vFPdDqkz69nM=;
+        b=KkgzgcCgOnKMCeiQgBpIhD+5BuZzBjFmShanYDbtsZHgI7qlZ59op6vz/AUsIvBtsW
+         GVklsM/ufb5ITgOuxgAulmHhJTpHojSH4VkIhOc7mqDzGt8amgg40jeBkYNszBqhpB8p
+         xOgObKAytZn75J2ubc84YARkPN0ZQ+4c5hgazjZ/NneG+o1SloB3Tx7TpGZOokhnGP9R
+         a97hJpiLHTV2OeMpFyTidjNkYQHeaEbTTMXpZKNAQQ/jupSq9kOCr7uY2GhA6hY4znpv
+         n78EmeiR7c4PTHpJEZyVkft2hiUtrCG5OM7/MQ8ZEl3J/yeG0Xv1ml3vjS6ybK99yfz+
+         L2Gg==
+X-Forwarded-Encrypted: i=1; AKwUvBw0mlYNdtno1vnfMaykXqst7HIV+y+odu3JBTVITlnhwcFAyIHgjoIKxzWk1G2MFNBk8/r5AIVQwnAvKJo=@vger.kernel.org
+X-Gm-Message-State: AFuF++n+v/YtORKKz8jHEvPwAKq4wPdA3GMBtnVqGUVKqn+1QoXh0fXC
+	WDyQchxnO1d2R/CZphIuY143j74ifXYo5msjjv6N6Val3EYTcjmw+XED
+X-Gm-Gg: AYBFou21AVpIKh/LSB9GIs6PB+KRsb73Ui3ljIUSWCnhreoidFRUZe9RLlwpL+tDj9I
+	Ds6QZk9DtKeMaiivUKaoCmf7FYo/Xo4iD1DSY30NYo7WlFEKmHulug9AWsmzjWXWaNdAqD6AMmu
+	OWIBUbpHRG1J1Zae/Dsr94nIUxzWsadWMtZw4bXnjKq/Umeu6MZ2TqVZYKBWI+ft5Gy+LZCPrNl
+	J5XULH1sfoWmyq1gDTcSkpS0tGhqvNpIcnjZEQEjty/wPz6k9mpWOqoyRguE/wAEkRl57nvn4bo
+	jzUjzdKhZwDSmM7U8r1SWGTqaZ8AtWtszG2QSLJdaxOroOk6/mgLkl01XrkECTewh5V1a8VMVo7
+	gneEHBQCeCFnEkAfv/D/SNHCpNrmyz3+8a3mFm6WMphmzrco16n3xEelG37bezRnxRVj7KGdXUO
+	ZZxPGMMirljAHOKEIjJ1xFSEXeIJhY3dFc+q2HJplrXDoApK/Gxl0PfhVqk8bJlh+VNgPt4ZyeH
+	aRDzM48J7UyRL5GJnwvsCtDDaoJC7Ohq5Ls3PxBZ4Pp
+X-Received: by 2002:a17:90b:53cf:b0:380:540:d499 with SMTP id 98e67ed59e1d1-39dbbeb3c67mr11040631a91.6.1789292901241;
+        Sun, 13 Sep 2026 02:48:21 -0700 (PDT)
+Received: from [10.0.2.15] (KD106167137155.ppp-bb.dion.ne.jp. [106.167.137.155])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d994cf9a6sm14389647a91.10.2026.09.13.02.48.17
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 13 Sep 2026 02:48:20 -0700 (PDT)
+Message-ID: <892d82bf-aff4-4b0c-9585-8438280b45b1@gmail.com>
+Date: Sun, 13 Sep 2026 18:48:18 +0900
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] Documentation/litmus-tests: Add SRCU fastpath
+ anchor-before-scan test
+To: Kunwu Chan <kunwu.chan@gmail.com>
+Cc: linux-doc@vger.kernel.org, lkmm@lists.linux.dev,
+ linux-arch@vger.kernel.org, linux-kernel@vger.kernel.org,
+ rdunlap@infradead.org, skhan@linuxfoundation.org, paulmck@kernel.org,
+ dlustig@nvidia.com, joelagnelf@nvidia.com, corbet@lwn.net,
+ luc.maranget@inria.fr, j.alglave@ucl.ac.uk, dhowells@redhat.com,
+ npiggin@gmail.com, boqun@kernel.org, peterz@infradead.org, will@kernel.org,
+ parri.andrea@gmail.com, stern@rowland.harvard.edu
+References: <20260912024225.2872265-1-kunwu.chan@gmail.com>
+ <20260912024225.2872265-2-kunwu.chan@gmail.com>
+Content-Language: en-US
+From: Akira Yokosawa <akiyks@gmail.com>
+In-Reply-To: <20260912024225.2872265-2-kunwu.chan@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+Hi,
 
+This is more of a knee-jerk reaction, but
 
----------- Forwarded message ----------
-Date: Sun, 13 Sep 2026 03:13:12 +0200
-From: kernel test robot <lkp@intel.com>
-To: oe-kbuild@lists.linux.dev
-Cc: lkp@intel.com, Julia Lawall <julia.lawall@inria.fr>
-Subject:
-    drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_cal
-    cs.c:6405:53-54: WARNING opportunity for min()
+On Sat, 12 Sep 2026 10:42:24 +0800, Kunwu Chan wrote:
+> synchronize_srcu_atomic() may end its grace period immediately when
+> its scan of the per-CPU lock counters finds no readers.  Correctness
+> requires the grace-period anchor written by srcu_gp_start() to precede
+> the smp_mb() ordering the lock scan.  This ordering ensures that any
+> reader whose lock increment is missed by the scan cannot have
+> incremented its lock counter before the grace-period anchor, and
+> therefore cannot be a pre-existing reader of this grace period.
+> 
+> This litmus test models the key ordering between the grace-period
+> anchor and the lock counter scan, where "seq" models the
+> grace-period anchor in ->srcu_gp_seq and "ctr" models the per-CPU
+> ->srcu_ctrs[].srcu_locks counter.  P0 writes the anchor before the
+> smp_mb() and the lock scan.  P1 models the reader-side counter
+> increment, with the smp_mb() of __srcu_read_lock() following the
+> increment.  P2 models an observer that sees the reader's increment
+> before seeing the anchor.
+> 
+> The outcome is forbidden by LKMM, and herd7 reports "Never".  See
+> SRCU-fastpath-scan-before-anchor.litmus for the reversed ordering,
+> which permits this outcome.
+> 
+> Tested with herd7 7.58 using linux-kernel.cfg.
+> 
+> Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
+> ---
+>  .../SRCU-fastpath-anchor-before-scan.litmus   | 57 +++++++++++++++++++
+>  1 file changed, 57 insertions(+)
+>  create mode 100644 Documentation/litmus-tests/srcu/SRCU-fastpath-anchor-before-scan.litmus
+> 
+> diff --git a/Documentation/litmus-tests/srcu/SRCU-fastpath-anchor-before-scan.litmus b/Documentation/litmus-tests/srcu/SRCU-fastpath-anchor-before-scan.litmus
+> new file mode 100644
+> index 000000000000..efa9c0c4e047
+> --- /dev/null
+> +++ b/Documentation/litmus-tests/srcu/SRCU-fastpath-anchor-before-scan.litmus
+> @@ -0,0 +1,57 @@
+> +C SRCU-fastpath-anchor-before-scan
+> +
+> +(*
+> + * Result: Never
+> + *
+> + * The synchronize_srcu_atomic() fastpath may end its grace period
+> + * immediately when its scan of the per-CPU lock counters finds no
+> + * readers.  Correctness requires the grace-period anchor written by
+> + * srcu_gp_start() to precede the smp_mb() ordering the lock scan.
+> + * This ordering ensures that any reader whose lock increment is missed
+> + * by the scan cannot have incremented its lock counter before the
+> + * grace-period anchor, and therefore cannot be a pre-existing reader
+> + * of this grace period.
+> + *
+> + * This litmus test models the key ordering between the grace-period
+> + * anchor and the lock counter scan, where "seq" models the
+> + * grace-period anchor in ->srcu_gp_seq and "ctr" models the per-CPU
+> + * ->srcu_ctrs[].srcu_locks counter.  P0 writes the anchor before the
+> + * smp_mb() and the lock scan.  P1 models the reader-side counter
+> + * increment, with the smp_mb() of __srcu_read_lock() following the
+> + * increment.  P2 models an observer that sees the reader's increment
+> + * before seeing the anchor.
+> + *
+> + * The outcome is forbidden by LKMM, and herd7 reports "Never".  See
+> + * SRCU-fastpath-scan-before-anchor.litmus for the reversed ordering,
+> + * which permits this outcome.
+> + *)
+> +
+> +{}
+> +
+> +P0(int *seq, int *ctr)
+> +{
+> +	int r2;
+> +
+> +	WRITE_ONCE(*seq, 1);
+> +	smp_mb();
+> +	r2 = READ_ONCE(*ctr);
+> +}
+> +
+> +P1(int *ctr)
+> +{
+> +	WRITE_ONCE(*ctr, 1);
+> +	smp_mb();
+> +}
 
-BCC: lkp@intel.com
-CC: oe-kbuild-all@lists.linux.dev
-CC: linux-kernel@vger.kernel.org
-TO: Austin Zheng <Austin.Zheng@amd.com>
-CC: Alex Deucher <alexander.deucher@amd.com>
-CC: Dillon Varone <dillon.varone@amd.com>
-CC: waynelin <Wayne.Lin@amd.com>
+As P1() has a single memory access, this smp_mb() can't have any
+effect on the outcome.
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   cba2348ab114391f5b1a00fa65c5b739f13f0563
-commit: e6a8a000cfe6a1106c17ab4a47eb6dd21596968c drm/amd/display: Rename dml2 to dml2_0 folder
-date:   11 months ago
-:::::: branch date: 9 hours ago
-:::::: commit date: 11 months ago
-config: x86_64-randconfig-103-20260911 (https://download.01.org/0day-ci/archive/20260913/202609130325.1NpXsRTY-lkp@intel.com/config)
-compiler: gcc-13 (Debian 13.3.0-16) 13.3.0
+The one you see in "__srcu_read_lock() following the increment" is
+there for other ordering requirements, I guess.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: e6a8a000cfe6 ("drm/amd/display: Rename dml2 to dml2_0 folder")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Reported-by: Julia Lawall <julia.lawall@inria.fr>
-| Closes: https://lore.kernel.org/r/202609130325.1NpXsRTY-lkp@intel.com/
+Ditto smp_mb() in P1() of 2/2.
 
-cocci warnings: (new ones prefixed by >>)
->> drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c:6405:53-54: WARNING opportunity for min()
---
->> drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_dpmm/dml2_dpmm_dcn4.c:181:81-82: WARNING opportunity for max()
-   drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_dpmm/dml2_dpmm_dcn4.c:182:81-82: WARNING opportunity for max()
-   drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_dpmm/dml2_dpmm_dcn4.c:183:85-86: WARNING opportunity for max()
-   drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_dpmm/dml2_dpmm_dcn4.c:106:31-32: WARNING opportunity for max()
-   drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_dpmm/dml2_dpmm_dcn4.c:114:31-32: WARNING opportunity for max()
-   drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_dpmm/dml2_dpmm_dcn4.c:122:35-36: WARNING opportunity for max()
-   drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_dpmm/dml2_dpmm_dcn4.c:126:88-89: WARNING opportunity for max()
-   drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_dpmm/dml2_dpmm_dcn4.c:127:88-89: WARNING opportunity for max()
-   drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_dpmm/dml2_dpmm_dcn4.c:128:92-93: WARNING opportunity for max()
-   drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_dpmm/dml2_dpmm_dcn4.c:137:31-32: WARNING opportunity for max()
-   drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_dpmm/dml2_dpmm_dcn4.c:145:31-32: WARNING opportunity for max()
-   drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_dpmm/dml2_dpmm_dcn4.c:153:35-36: WARNING opportunity for max()
-   drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_dpmm/dml2_dpmm_dcn4.c:157:100-101: WARNING opportunity for max()
-   drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_dpmm/dml2_dpmm_dcn4.c:158:100-101: WARNING opportunity for max()
-   drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_dpmm/dml2_dpmm_dcn4.c:159:104-105: WARNING opportunity for max()
-   drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_dpmm/dml2_dpmm_dcn4.c:65:31-32: WARNING opportunity for max()
-   drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_dpmm/dml2_dpmm_dcn4.c:73:31-32: WARNING opportunity for max()
-   drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_dpmm/dml2_dpmm_dcn4.c:81:35-36: WARNING opportunity for max()
-   drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_dpmm/dml2_dpmm_dcn4.c:85:82-83: WARNING opportunity for max()
-   drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_dpmm/dml2_dpmm_dcn4.c:86:82-83: WARNING opportunity for max()
-   drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_dpmm/dml2_dpmm_dcn4.c:87:86-87: WARNING opportunity for max()
---
->> drivers/gpu/drm/amd/display/dc/dml2_0/dml2_mall_phantom.c:478:49-50: WARNING opportunity for max()
-   drivers/gpu/drm/amd/display/dc/dml2_0/dml2_mall_phantom.c:575:42-43: WARNING opportunity for max()
---
->> drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_mcg/dml2_mcg_dcn4.c:73:62-63: WARNING opportunity for max()
---
->> drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_standalone_libraries/lib_float_math.c:44:13-14: WARNING opportunity for max()
-   drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_standalone_libraries/lib_float_math.c:71:11-12: WARNING opportunity for max()
-   drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_standalone_libraries/lib_float_math.c:76:11-12: WARNING opportunity for max()
-   drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_standalone_libraries/lib_float_math.c:81:30-31: WARNING opportunity for max()
->> drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_standalone_libraries/lib_float_math.c:35:13-14: WARNING opportunity for min()
---
->> drivers/gpu/drm/amd/display/dc/dml2_0/display_mode_util.c:407:140-184: ERROR: test of a variable/field address
+Thanks, Akira
 
-vim +6405 drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
-
-70839da6360500 drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c Aurabindo Pillai 2024-04-19  6394
-70839da6360500 drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c Aurabindo Pillai 2024-04-19  6395  static double get_bandwidth_available_for_immediate_flip(enum dml2_core_internal_soc_state_type eval_state,
-70839da6360500 drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c Aurabindo Pillai 2024-04-19  6396  	double urg_bandwidth_required[dml2_core_internal_soc_state_max][dml2_core_internal_bw_max], // no flip
-70839da6360500 drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c Aurabindo Pillai 2024-04-19  6397  	double urg_bandwidth_available[dml2_core_internal_soc_state_max][dml2_core_internal_bw_max])
-70839da6360500 drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c Aurabindo Pillai 2024-04-19  6398  {
-70839da6360500 drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c Aurabindo Pillai 2024-04-19  6399  	double flip_bw_available_mbps;
-70839da6360500 drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c Aurabindo Pillai 2024-04-19  6400  	double flip_bw_available_sdp_mbps;
-70839da6360500 drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c Aurabindo Pillai 2024-04-19  6401  	double flip_bw_available_dram_mbps;
-70839da6360500 drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c Aurabindo Pillai 2024-04-19  6402
-70839da6360500 drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c Aurabindo Pillai 2024-04-19  6403  	flip_bw_available_sdp_mbps = urg_bandwidth_available[eval_state][dml2_core_internal_bw_sdp] - urg_bandwidth_required[eval_state][dml2_core_internal_bw_sdp];
-70839da6360500 drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c Aurabindo Pillai 2024-04-19  6404  	flip_bw_available_dram_mbps = urg_bandwidth_available[eval_state][dml2_core_internal_bw_dram] - urg_bandwidth_required[eval_state][dml2_core_internal_bw_dram];
-70839da6360500 drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c Aurabindo Pillai 2024-04-19 @6405  	flip_bw_available_mbps = flip_bw_available_sdp_mbps < flip_bw_available_dram_mbps ? flip_bw_available_sdp_mbps : flip_bw_available_dram_mbps;
-70839da6360500 drivers/gpu/drm/amd/display/dc/dml2/dml21/src/dml2_core/dml2_core_dcn4_calcs.c Aurabindo Pillai 2024-04-19  6406
-
-:::::: The code at line 6405 was first introduced by commit
-:::::: 70839da6360500a82e4d5f78499284474cbed7c1 drm/amd/display: Add new DCN401 sources
-
-:::::: TO: Aurabindo Pillai <aurabindo.pillai@amd.com>
-:::::: CC: Alex Deucher <alexander.deucher@amd.com>
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+> +
+> +P2(int *seq, int *ctr)
+> +{
+> +	int r3;
+> +	int r4;
+> +
+> +	r3 = READ_ONCE(*ctr);
+> +	smp_mb();
+> +	r4 = READ_ONCE(*seq);
+> +}
+> +
+> +filter (0:r2 = 0)
+> +exists (2:r3 = 1 /\ 2:r4 = 0)
+> -- 
+> 2.43.0
