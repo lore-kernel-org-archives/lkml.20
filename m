@@ -1,96 +1,157 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1D3E3F1ADA
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 14:41:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789310504; cv=none; b=MKb5iDlPp5YHcptA0oQbeCwLp2UGCRWlM1kqpRbDyiPBpzrVACRJ4YJH24IOg0ltTRsoanLclTNT+OE06Xkisb4Kavc61JDwnwYMcYKk2i+8X6hK9V7zaRxBJgcDJ0nDZZn17yltQsKx0fZEJWTlMNEeeGiNCBzx47Ktm8mmnyQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789310504; c=relaxed/simple;
-	bh=D7Ff3lh65lV03e7Igj6UyxY3UQtZS3FSzOTzHrYdvAU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=BKUhmqfmQYASiQdF0gfo+9h1JHF9BJqGrSNwsKAiiW+cTkwrIz0mkA6uPcVKw1Pl01xrBcy67DllaMMk0gWB11FtaEkpCQYQMxd3qlWtH9oH3jHhV7j56WRyrxKDo39xGgaZ1EERVRTUPo5fp0K4UDXLsrd1+KINCbclx0Hb6jc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NPcNqtBW; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80DC33F164C
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 14:43:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.204
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789310601; cv=pass; b=loUOuZMjhIlQcfQp4dGAk16/dvCGGyNZbKjy+tFKhUXlINC+iKJBALu9B8mjng8y6QEop/RZjOO0IsfXWk0jVfV4RQ6NFHuIYXX8ESQ2/7UJuaTlc5NtbLRnZJ62RLvFSQd3y72F8DBAUNjdE1Wg9yR1uM4buK7Zne2b+bycA1w=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789310601; c=relaxed/simple;
+	bh=s50I1f+RlATnyS7ncxttVC4STee39n4jtfw1TIV5Yo8=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=ps19FSCw82rm3VcUjJLv1dS4mAFoxvdv+VE0gNNKdsagCvHYqSf/noYAFfjPntEXFaWQXZAFJ0Yra9uI9snibFZGVYf4yZgc24l4VxVeQzmw8Wg6EBtOq3vy0wLVb+I9VXkWTRTXUEwhrSI+O69qmRQmjhI/LDi7G74zcwb42e8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ifO2WhRh; arc=pass smtp.client-ip=74.125.229.204
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NPcNqtBW"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d37b6so5085535e9.0
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 07:41:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ifO2WhRh"
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f1651cso842982e87.0
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 07:43:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789310597; cv=none;
+        d=google.com; s=arc-20260327;
+        b=nzgS+AOOZVPdMGJgVt0MOccUb0sVds+LKSH1mBaF3pJyb6jQQsr4W1acFTZkh4fq3M
+         /aSM/zQKgGkjnZyBbIoI/XipXswWi0aib7T4j1jG2LWeGOSN5o+JVVIfYsbgXaXWKJ4P
+         L6yUTrY1Eym8GvQGUBJ1NAgxY5/o/XxRoV0Q3rzufAj1GWocxe0LoR55EEhINX3axZA2
+         KBRP2CdZ521dDWQEb54TpHzRu3hxe1ZL/Ylz5pswor28bNR7UOywkHe981SdxKpREQjs
+         /7rzo7Sgyw+pOvlIu5P6tjrT3fWHzuABtacrnHEvBWrZru0lJ+V6XRo//qJZ7ngRR1d7
+         4Fjg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=gDlSeCeZClgynUnsugyjmVlBCsPDuPwIPykfDcGyfzM=;
+        fh=8s05xJv2sllAPyBmOyF2ARUUykBt+doAoHv9bL+z4tI=;
+        b=QGXytVvPXU2Ox2s6VKoP9qD0xHReIfDPMh3/5Uu0MqVavEx6thBDY6yb3SNluKtgAY
+         Xu4HyWAde/fqv/6N0eCQppjYE3yaFWeYNAuJhQ1VdjvBqflBwb+JVvr6pS1qjNM1TXwI
+         MNuzPIIvU4pSvYqwZ0iu84eEfnE+5KM0tLYKTRM57trHr5vbwoFldPIe+qcbKMAvbtZ7
+         81ys8PpVROgcAmb21KZY36RAbDr2Ae0WZRbkAk3xkqcJObmrSmbtbNSi+jknbyIyZrKi
+         /gXxL5UWUD3l7fIVikX6xHlmemkQS//4IwXy9LZeRfJvicqus1aDMoazkSQE/+yLCEg2
+         OvLA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789310501; x=1789915301; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=wIV0NAC3V43neVsR53ty/YkUZ7OARFktw9BGDvdOJWg=;
-        b=NPcNqtBWStO1yzfPF+Ib/cIzgHEqsu/hrvs3klEu3uTMUIhO1CgJv2UXThy2rQjIf9
-         YNTglnXA/4vEhjbEPXzSqDeJmbeqG8xMec327l2Q2wYwk9PWSsAfksJQet/G4++oS7zK
-         TbBOGTsxijeWHC/9styKPRfkrLXh7jj7axhxn/e4MtzNFjGidUT0QwJcgPCUSvDPsi0O
-         69cL4F+zRAO8DGc3fd6rwSODPZhp2hYhLJGEcxG5JeZ76VjGTprhIb+bQCD7PE3VSfIP
-         eJ241gvyu98R4ThE/YFqVV6mdRWnqF/+XOwSXQ1BBiCu1mlGM0xPI8KjtLvxv8dWUoOD
-         GDig==
+        d=gmail.com; s=20251104; t=1789310597; x=1789915397; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gDlSeCeZClgynUnsugyjmVlBCsPDuPwIPykfDcGyfzM=;
+        b=ifO2WhRhrXtDIb73mPmQdy4A6RBD1E89fcx/jvL0anBmS9lzobQGuGU3yN7qqxVhlz
+         4BfYnvUCMnwvUzhnBxY2K5l0eyPu+nt/1/AKJ2vBSP3V7QykXJCSt+SDZ5Mhnp20CkgY
+         MkEZAJVXlvyL2n6k8/aHehRmw36bT2IZDUeYGIyeb9Rc/8k8JMPtX5VNqsuOr3DqNW1U
+         4DZvdtzxgtO8WLDgj9aGPQcWduY7nd1Nw3087KVNT9hdaszy7xouOeX0qNaNthpW7Kly
+         mHQ27wZt3FeTifvO3vFqF2hy0w2pLbNZi202kY3+ZQbyRbSTn5fdnzO+I2px2/TqvPf/
+         ZCYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789310501; x=1789915301;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wIV0NAC3V43neVsR53ty/YkUZ7OARFktw9BGDvdOJWg=;
-        b=UYZGkY9otKNBi+ot8S+97/+aBpOGyJB6Ijxjr+hmqAcsa/eTLr1H/+M/RGS3LGGMMf
-         HuCvGauWlRClwJgwiN3tOhWgLKgTlVqpFcEOG7IWqgfqahvtP6qIcoxDNuFQ6PCCpFOz
-         PtunNZJrAe8LGnCnUN5c/dG6BuNdwOzzHM1xaYpFSefR8zBGCP/3SCBZwvDQOVO0XYr0
-         RAqW/y/soJkbtAk8/D/DcxoPFL8u1jqxafdD+36YsqkBW2NHgPCVt12zgsb4eF/J6XWd
-         Dj6kthS+QjNzNthFQs0l7W97/MaPESUYoz8XD8tORQuVtsxi8hj/8M0You8IbWdIYukH
-         7XxA==
-X-Forwarded-Encrypted: i=1; AKwUvByMWRITSRl5f0OFg7aUyCp0s3aDiRfBLvXRWC5CYbS2QDnwv0MCXhgHuXaP5OF8obftp+q0JM8P9QdVK8Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++lOy211iHvHmfJidyfLDO2wHGRdhymMNar63NdRQcnzwbCY8b3T
-	AOq1Dy2pr5EKwYkZwDPzhZRNjwLvj/GBSfg+40/jxdiBunCghRBQrK0t
-X-Gm-Gg: AYBFou2hyL6G91DeEqrIfnFTffbXbTu386htRIUOiTt1gU+AriqDcNZprJZEpdgNmNI
-	tEnKAU5L8nojWEkfJbKNCQ5Vahu3qIJ6jHhab2wvl8kl9LJU0Pktc73IQmc5Ctt31VTVGE7cjse
-	4jprpVe3xcWyoAAnztFD+FnINwCSW1zI9zO1RVw+TmructUMMczviqxbYe561urxmrhnsEt+0Pb
-	noPTd0VdoyOZfXuc3dHzyB6sru40M1thQgizq4H8tbqs4TTjf+4uAwAIPEcx6hygH7tkcIKkNTd
-	ApK1SdaJ88+sgxFuTfn2WCX2mo1LP4mL1UqmDq2Beusk6rcbO1LIixtaVCeOgnUjxTpWoGu1Be/
-	VB24ijJmWvUPmK20Zr+kPXYriDSWen0elcp4OiToCv6PzFhNopKMcJgyR2xRt2L3K4C+2RKvA/0
-	B8xzXI+lffmyUsElNw2cXTW4Bh2Hb4K+HTGkU45EqNgMXKyO9eixNcrQFKz2vVa8mAtuylyOQfj
-	3WOnJBSl/fM40gI/QZ9CItqcqSjYsDl5upQwp+f0WrfN1au9yXU1xI=
-X-Received: by 2002:a05:600c:4692:b0:49c:ff8d:b548 with SMTP id 5b1f17b1804b1-49e619ad0e1mr258658675e9.11.1789310500681;
-        Sun, 13 Sep 2026 07:41:40 -0700 (PDT)
-Received: from cachyos-x8664 (159.red-83-38-226.dynamicip.rima-tde.net. [83.38.226.159])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26c1bfb5sm343158785e9.5.2026.09.13.07.41.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 07:41:40 -0700 (PDT)
-From: German Pablo Lindo <germanpapulindez@gmail.com>
-To: lsa.uz@pm.me
-Cc: dan.scally@ideasonboard.com,
-	germanpapulindez@gmail.com,
-	hansg@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	mchehab@kernel.org,
-	sakari.ailus@linux.intel.com
-Subject: Test for [PATCH] media: ipu-bridge: add the OV13858 rear sensor
-Date: Sun, 13 Sep 2026 16:41:19 +0200
-Message-ID: <20260913144127.17995-1-germanpapulindez@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260913100932.92087-1-lsa.uz@pm.me>
-References: <20260913100932.92087-1-lsa.uz@pm.me>
+        d=1e100.net; s=20251104; t=1789310597; x=1789915397;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=gDlSeCeZClgynUnsugyjmVlBCsPDuPwIPykfDcGyfzM=;
+        b=DJMpbFGU/R51H2sttDyUg7f+ULnIWFQnCmUbnlSxhvzp9WCDQC+w/EhoSMEZeRYqBz
+         p41or8TmYCtIJehiC9ov75E3eXzdlyT+t7rJ3cdg0N/8SNCsng6DS95Ff3v24dNdGypO
+         V/vZ7iw61AsQvzEFVumGKeLYwWC5hP0LLAO+RKZIUoe7ZUa5GsK2ujG0XBCMn9WYMkpo
+         jB/q02Cvre2pCx3ASAlbrs7dOE6F4rzzlzYAWRrriLa3lRCAae+rwuiwM2oAlVFkOp/h
+         G/JB5fotmoDN49lWJUXizPKc7il9pr8WfW0Y81xi6AgCIWlJZ8nVg33t4WAMv3h1Aadl
+         7kVA==
+X-Forwarded-Encrypted: i=1; AKwUvBzUtZhOzLdrTRP5pTiySMNSqmMckxhbZrQQZtxucvPDafxJGmfzZtHM0jzWgF4xjEUinLn1ppAEVEaqouU=@vger.kernel.org
+X-Gm-Message-State: AFuF++lrL7Ln7NFflPBPZ7kj7TyuxNl8YF+X9etDWJR0nfW5hKdoAGQF
+	zW4VP8CyNrHLYPNIQourfF3HPx9eQnlp6rQnubfI0dxVS2bk5Se7ZXOf24exeshZ9R9k88C6Guy
+	8+HDR0BSJBVgBO5CaSa3PEGXP7j4iFJlsMmxqt6o=
+X-Gm-Gg: AYBFou074eu2SNlzDpobJVfGB30UYeksPFIB9b2y0VI1EFtvr732mzuugBzCEOW0Kun
+	gJUh6xDcKMIt3GdaqYYqiHJv91OoXjMROUFZLnjLEoex2L7dFNf+G84B8HFCjoSAebztu6qFjoc
+	5REetlDGLX6yjKUaJWpAA2B9YRAHuQ65kHB3kOkGYH6vritumddpRjTu3MnwTxQisjqyk5lH4vg
+	3DiWikHNmezNCiQeUs3DjCu+jfBTuAsgNvU8yRjmCC75ZNaqKdIOgdyUsFfNDO4AaaQSprWXIqL
+	pJCfDM5qfNH9uu7dgK4CrwxnnZ4AC92AIbHSyCwLXme2TI7YNgehaC5yn9RbgUg7pDXUT+U/K3T
+	0MMex+tbAfJbjnaQ=
+X-Received: by 2002:a05:6512:108c:b0:5b7:6682:17b8 with SMTP id
+ 2adb3069b0e04-5b8a8ef6a7fmr1282624e87.37.1789310596997; Sun, 13 Sep 2026
+ 07:43:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From: Chengfeng Lin <lin2530632123@gmail.com>
+Date: Sun, 13 Sep 2026 22:43:04 +0800
+X-Gm-Features: AcwNN1X5pmsda_UiZ5ntCUgJCNHKWL9vQ4K7aO1nbiEQVANFLK5Pbt5CxzkS2Uk
+Message-ID: <CANGjgdn=H50AaA-+O_GA-hkE9UwLANmkjx1zRsKUzxF5za8VfQ@mail.gmail.com>
+Subject: [REGRESSION] kernfs: empty cgroup rmdir latency after
+ delete-notification changes
+To: "T.J. Mercier" <tjmercier@google.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Tejun Heo <tj@kernel.org>, Jan Kara <jack@suse.cz>, 
+	driver-core@lists.linux.dev, cgroups@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	regressions@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 
-This patch does not work alone, it needs other patches related to the camera such as
- https://lore.kernel.org/linux-media/20260831130312.26296-1-lsa.uz@pm.me/
- https://lore.kernel.org/linux-media/20260831180746.68878-1-lsa.uz@pm.me/
- https://lore.kernel.org/linux-media/20260829-sp7plus-int3472-v3-1-454b50485ce2@berg.pm/
- 
-The test enviroment was on an affected device (Surface Pro 11) in various common apps such as Gnome Snapshot, qcam and Firefox (web cam test and google meet), all tree apps displayed the camera with the correct colors and resolution, the only error i found was that the camera was rotated 180º, making the image captured be upside down (I may have forgotten to apply another patch and the patch of this email is not realted to this topic).
+Hi T.J.,
 
-I have tested the patch v1, not v2, the lines are identical so this shoudnt influence the efectiveness of the patch
+I found an increase in empty cgroup removal latency across 507d8ce13f5b
+("kernfs: Don't set_nlink for directories being removed") and eea5d2bb34ba
+("kernfs: Send IN_DELETE_SELF and IN_IGNORED"). With sched_ext disabled,
+rmdir() went from about 6.5 us to 9.6 us, an increase of 46-47%.
+The result held in two independent runs.
 
-   Tested-by: German Pablo Lindo <germanpapulindez@gmail.com>
+The workload creates an empty cgroup v2 leaf under a private parent with
+the CPU controller enabled, checks it with stat(), and removes it. It
+places no tasks in the leaf and does not register any inotify watches.
+I time mkdir() and rmdir() separately; stat() is outside both timed regions.
+
+These are consecutive source states, not different release kernels:
+
+  base:   f917dc56060a, before both changes
+  guard:  507d8ce13f5b, the nlink race protection
+  notify: eea5d2bb34ba, plus the deletion notifications
+
+For the second run with sched_ext disabled, the medians of the nine
+sample means per boot were:
+
+                         boot A       boot B
+  base                    6.504        6.528 us/rmdir
+  guard                   6.956        6.922 us/rmdir
+  notify                  9.553        9.558 us/rmdir
+
+The first change added 6.05-6.95%; the second added a further 37.33-38.08%.
+Each run used fresh boots in base-A/guard-A/notify-A/notify-B/guard-B/base-B
+order. Each point had nine samples of 128 removals, after 16 warmups.
+I used an i7-12700KF, CPU0, full preemption, the performance governor and
+Turbo disabled. These three kernels used the same toolchain and configuration,
+apart from LOCALVERSION. I used the same control binary throughout.
+Removal sample CV stayed below 3%, and endpoint drift stayed below 2%.
+The result also held after dropping the first sample.
+A similar slowdown was also observed with sched_ext enabled, both with
+and without cgroup callbacks.
+
+Separate, untimed traces showed 26 kernfs nodes removed per leaf. The
+guard change doubled the attribute write-lock entries from 26 to 52.
+The notify change added 26 inode lookups. A return-value probe found one
+directory inode and 25 NULL results. These counts do not show how much
+time each step costs, or that a lookup returning NULL can safely be skipped.
+
+I understand that the notifications and race protection are needed.
+A local root-reuse prototype saved about 4-5%, but did not recover most
+of the increase; it is not a complete fix.
+
+A separate v7.2-A / 2f0c1cf72f46 (7.3-rc2) / v7.2-B check gave
+9.919 / 9.719 / 9.953 us/rmdir with the same control binary. Mainline was
+2.02-2.36% faster, with sample CV below 0.75% and old-end drift of 0.35%.
+Both versions still removed 26 nodes and made 26 inode lookups per leaf.
+The later name-hash change was on the measured path, but this comparison
+does not isolate its effect or repeat the exact-commit test above.
+
+Results, configuration identities and the tested workload:
+https://github.com/lcf0399/linux-regression-evidence/tree/b1eef2a0fb18babbf8e0d5832b63a655bfd28926/kernfs-empty-cgroup-removal
+
+Do you see a safe way to reduce this per-node removal work while keeping
+the notification and race fixes?
+
+Thanks,
+Chengfeng
