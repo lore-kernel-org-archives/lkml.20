@@ -1,101 +1,205 @@
-Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 984EC361954
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 15:34:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57B0733D4EC
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 15:34:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789313671; cv=none; b=DYRiEINLS8FYIUCoN0ceNZPCvDjZmoEChfpGWjGt5z3oE3ibM2QBTMtQRNg5phZcNpHp7JVUj3rB1Kmwy728hksSbaQsI2NE2RCVg8h9qP8J6r3oDefRK14/th33H/ho6tTJN4VEu4vJLkrxOKitfcKCJe5i2gPBWMCByQA3vTA=
+	t=1789313695; cv=none; b=eXeOah+xcIePY41dHxFEdM0X3BFjimRx8hJBfSlG5f3WvErYL6/7lxUgqyECiYSDsgWRozFWbUzP7nkoHcQK8mYwfprZJSdrd4ZYnB7zuBdUm38qf3W1/xQ5BB9/eYeiJqyOArVufxGnVv535sz5l1P7ZxQjPs18MPuCpvK1+F8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789313671; c=relaxed/simple;
-	bh=X42yzkjbAEasH4dl1SVCRprQcNogTUO5KYZtvXtAl+0=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=lyuZ+BXlVEhCHRLYwuw6esfwD9V47fXFZd23NyB9mb/Lc9pa8gttS8w78P1imd0UWcRvgspfZARfDJxQnVGrO5H8AvurL6nVuj0UzWRYJgyY5ojWtr1fLQx4pXEXCigcCUbS3hQ+He/anwoyTU1+WqTn4MPJr+cH+iiw7cNuNd8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-8064fadbb1dso385858a34.0
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 08:34:27 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789313667; x=1789918467;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=FkmW/KE1CGkFtTZ0aRXS/creYAddRQ91ghlXWYCbS8I=;
-        b=V0E6ltYvza7d/Fh4jiiJD3oLDuYBjgTAgziSzzZ3cZrHJd+C72KSFkYr9haC2zA7Lh
-         ejWxh/AvfoRensXIrdhCaRFgBnCj2nZixxpv0T9SrDH5QCl5lEYbP7FUJ2v0Gxr3xKD7
-         y0cKzfoBVbakcXRgU4CxgVpv2rpDlsxKsW9EbwKJE3PfC7GyXY+c/LXqvPgsZWGArN1W
-         2PzsDM/whojivYkczSgh9O9PJ7CJOxyDnOTWTsi4OYwzWBxzc8FMfiFgNABV+xF8AAk+
-         4Rjr6fudOg6PKi+q0zz2vUGbx5jpSno7X5aPsOiotviXq09ugnkIfla/ik/jFNngzxvi
-         ysYg==
-X-Forwarded-Encrypted: i=1; AKwUvBxbPVHlSAkpwRuCqgNlT1toyzxdl82bgH6DmbHaMZs5JzudrPVXxNA7yXa+ifZvJ9lPRVIHvtsdFJ5rPaw=@vger.kernel.org
-X-Gm-Message-State: AFuF++m7IKGkkmgmQlj77Mk+c26xNgBP4tqRxJxnCdm+3EEjNs8lNLRn
-	QT7fsh3TxrhkpgDxP9wHf9DG8qUmqvnTugvdJFOHUORLwADJR+8aE4+53GDAp3U2lu3+NsXrLUe
-	mBiZRgo5p0uFWcIS1vT1nzoBYVyHgiNYhD5q2jv7VovYSkxnY34UsduAlQxk=
+	s=arc-20240116; t=1789313695; c=relaxed/simple;
+	bh=uF85sYIhqfytUAQBIc5IwhHlftpSgH991C9lA79k7bs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=j4U7WjsUp8RTAwTOZDW+GYY77b9EcggnPVEapV2SdWl4+aYzUDteckd02pnl1oQFVE/w2eKkbUHGSG/OVCDWLwPgUTqGPZjgZ9eJXfkv52RumukisrKzq537169/7CDdL02ht1yujECVoIOniFegOI1VsqHQPO9anL7S0H+WleY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Mlrkr8zo; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Mlrkr8zo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F24871F00893
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 15:34:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789313693;
+	bh=c4qdfBJ6UveLbwa6/KJRUVQLf97e1x27O9rDy1pzdRY=;
+	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
+	b=Mlrkr8zo5dIwRxXI6nOXilS845cdd5Zo3KLn0XtWUYn4p/47RUOzgXWibisguofeC
+	 FUuBtOcFzPwk44MwrXwNQM05B9qBqsKbsCKIdeMTRaVfj2DVAmhyTLpBW0IKnQbVnw
+	 087KnYbDuBqPOnhQvYdI2zoJ33FW3chquPc7Gt/sxZDuJauWYisqWEJXx04xpCHHsK
+	 JcDlgpriVwXL/Y17KcBUjRJIFQQuHceMGaYqAqWOuDnCO9Gm5AvSn6EvVbsRhboX2I
+	 vxbLMPdbq8ZJH9nuU4UVfG171vUq4DHfO7Ge9nOnaw7Ag9W9Rck8cGb+gtw+IpWyrZ
+	 l5oZ31wtTrgzA==
+Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a59bc470d6so12025521fa.0
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 08:34:52 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzcvX44dPQTfLBya7os3IKkjFoV0lFVsXFyViaXsC4g4A/yepHgcYh+0h/CdBDCqk0zA0RNcgtjgYnN8tI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lofvpA7P1DrY/xqCCJG0H9nd9g0UIhjrz+Pog7ENz6wRuGsI2c
+	ChyzsxHPRSb+k53rPL9WJtrHTTdVJ73exDyGefvisDoleYilBiNpJKC7Jh7gGhAIjMYcMSHuNEl
+	ukBmeONIPcQJPTxiS1uYcIkuSfMV8x90=
+X-Received: by 2002:a05:651c:a147:b0:3a3:35fb:11e with SMTP id
+ 38308e7fff4ca-3a5a5064976mr35081661fa.7.1789313691317; Sun, 13 Sep 2026
+ 08:34:51 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:f012:b0:6c1:b8a5:cbed with SMTP id
- 006d021491bc7-6c24f6527a5mr4222634eaf.55.1789313666919; Sun, 13 Sep 2026
- 08:34:26 -0700 (PDT)
-Date: Sun, 13 Sep 2026 08:34:26 -0700
-In-Reply-To: <6a9ed559.6e6c5f9e.240462.0003.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa6c282.4c28b7d0.c1bba.000d.GAE@google.com>
-Subject: Re: [syzbot] [nvme?] WARNING in nvme_loop_reset_ctrl_work
-From: syzbot <syzbot+4a1d521d19d6321f5aad@syzkaller.appspotmail.com>
-To: hch@lst.de, kch@nvidia.com, linux-kernel@vger.kernel.org, 
-	linux-nvme@lists.infradead.org, sagi@grimberg.me, 
-	syzkaller-bugs@googlegroups.com
+References: <20260721223956.13665-1-andre.przywara@arm.com>
+ <CAGb2v64E29Tq3vSsVPM1qHgieyZHaNpfwWveYh9ss_Bg212N-A@mail.gmail.com> <20260910221349.19d86f1a@ryzen.lan>
+In-Reply-To: <20260910221349.19d86f1a@ryzen.lan>
+Reply-To: wens@kernel.org
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Sun, 13 Sep 2026 23:34:36 +0800
+X-Gmail-Original-Message-ID: <CAGb2v67TW_E7S9Mt1RyGJdw8NbV0D0PzM8Sw0Vhx9PzMe6CVwg@mail.gmail.com>
+X-Gm-Features: AcwNN1VyMDzj0AftLULQr9ZHuu7pyYoxqSXKJ_6he6tuE7Sh0wYQwNYahEuc8jc
+Message-ID: <CAGb2v67TW_E7S9Mt1RyGJdw8NbV0D0PzM8Sw0Vhx9PzMe6CVwg@mail.gmail.com>
+Subject: Re: [PATCH] pinctrl: sunxi: A523: fix voltage withstand encoding
+To: Andre Przywara <andre.przywara@arm.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Samuel Holland <samuel@sholland.org>, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-syzbot has found a reproducer for the following issue on:
+On Fri, Sep 11, 2026 at 4:14=E2=80=AFAM Andre Przywara <andre.przywara@arm.=
+com> wrote:
+>
+> On Thu, 23 Jul 2026 01:26:38 +0800
+> Chen-Yu Tsai <wens@kernel.org> wrote:
+>
+> Hi,
+>
+> > On Wed, Jul 22, 2026 at 6:43=E2=80=AFAM Andre Przywara <andre.przywara@=
+arm.com> wrote:
+> > >
+> > > The Allwinner A523 uses the same GPIO voltage "withstand" programming
+> > > (setting the input level voltage thresholds) as the previous SoCs, bu=
+t
+> > > for some odd reason inverts the encoding of 1.8V vs. 3.3V.
+> > >
+> > > Add a new bias voltage type to note this difference, and select it fo=
+r
+> > > the A523. At the same time also use the newer "CTL" version, which in
+> > > addition allows to turn off the withstand programming for I/O voltage=
+s
+> > > other than exact 1.8V or 3.3V (for instance for 2.5V sometimes used f=
+or
+> > > Ethernet PHYs). The A523 has that enable register, but didn't use it
+> > > so far.
+> > >
+> > > This fixes eMMC and reportedly Ethernet operation on some A523 boards=
+.
+> > >
+> > > Fixes: 648be4cd9517 ("pinctrl: sunxi: Add support for the Allwinner A=
+523")
+> > > Signed-off-by: Andre Przywara <andre.przywara@arm.com>
+> >
+> >
+> > Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
+> > Tested-by: Chen-Yu Tsai <wens@kernel.org> # Fixes eMMC on Orange Pi 4A
+>
+> so what happens to this fix? Is it good to be merged? And who is going
+> to take this? Linus? Or does it go through sunxi?
 
-HEAD commit:    2f0c1cf72f46 Merge tag 's390-7.3-3' of git://git.kernel.or..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=159b19f9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
-dashboard link: https://syzkaller.appspot.com/bug?extid=4a1d521d19d6321f5aad
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1074f615580000
+Linus needs to take this. It seems you didn't send it to him, nor the
+linux-gpio mailing list?
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+4a1d521d19d6321f5aad@syzkaller.appspotmail.com
+Can you resend?
 
-------------[ cut here ]------------
-1
-WARNING: drivers/nvme/target/loop.c:455 at nvme_loop_reset_ctrl_work+0x1ad/0x5d0 drivers/nvme/target/loop.c:455, CPU#2: kworker/u33:1/38
-Modules linked in:
-CPU: 2 UID: 0 PID: 38 Comm: kworker/u33:1 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Workqueue: nvme-reset-wq nvme_loop_reset_ctrl_work
-RIP: 0010:nvme_loop_reset_ctrl_work+0x1ad/0x5d0 drivers/nvme/target/loop.c:455
-Code: 7c 08 84 d2 0f 85 85 03 00 00 8b 9d dc f8 ff ff bf 01 00 00 00 83 eb 04 89 de e8 5e 1e 58 fb 83 fb 01 76 09 e8 e4 23 58 fb 90 <0f> 0b 90 e8 db 23 58 fb 48 83 c4 18 5b 5d 41 5c 41 5d 41 5e 41 5f
-RSP: 0018:ffffc90000727bd8 EFLAGS: 00010293
-RAX: 0000000000000000 RBX: 00000000fffffffd RCX: 0000000000000000
-RDX: ffff88801c78cb00 RSI: ffffffff86b3f22c RDI: ffff88801c78cb00
-RBP: ffff888028d84b10 R08: 0000000000000005 R09: 0000000000000001
-R10: 00000000fffffffd R11: 0000000000000000 R12: ffff888028d843e8
-R13: ffff888028d843ec R14: 0000000000000000 R15: ffff888027346800
-FS:  0000000000000000(0000) GS:ffff8880d5d59000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007fde19ca5e9c CR3: 000000002206a000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
- process_scheduled_works kernel/workqueue.c:3479 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-
-
----
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+> Cheers,
+> Andre
+>
+> > > ---
+> > >  drivers/pinctrl/sunxi/pinctrl-sun55i-a523-r.c | 2 +-
+> > >  drivers/pinctrl/sunxi/pinctrl-sun55i-a523.c   | 2 +-
+> > >  drivers/pinctrl/sunxi/pinctrl-sunxi.c         | 6 ++++++
+> > >  drivers/pinctrl/sunxi/pinctrl-sunxi.h         | 2 ++
+> > >  4 files changed, 10 insertions(+), 2 deletions(-)
+> > >
+> > > diff --git a/drivers/pinctrl/sunxi/pinctrl-sun55i-a523-r.c b/drivers/=
+pinctrl/sunxi/pinctrl-sun55i-a523-r.c
+> > > index dfdcfa740ecc9..cffc1e53eef14 100644
+> > > --- a/drivers/pinctrl/sunxi/pinctrl-sun55i-a523-r.c
+> > > +++ b/drivers/pinctrl/sunxi/pinctrl-sun55i-a523-r.c
+> > > @@ -26,7 +26,7 @@ static const u8 a523_r_irq_bank_muxes[SUNXI_PINCTRL=
+_MAX_BANKS] =3D
+> > >  static struct sunxi_pinctrl_desc a523_r_pinctrl_data =3D {
+> > >         .irq_banks =3D ARRAY_SIZE(a523_r_irq_bank_map),
+> > >         .irq_bank_map =3D a523_r_irq_bank_map,
+> > > -       .io_bias_cfg_variant =3D BIAS_VOLTAGE_PIO_POW_MODE_SEL,
+> > > +       .io_bias_cfg_variant =3D BIAS_VOLTAGE_PIO_POW_MODE_CTL_INV,
+> > >         .pin_base =3D PL_BASE,
+> > >  };
+> > >
+> > > diff --git a/drivers/pinctrl/sunxi/pinctrl-sun55i-a523.c b/drivers/pi=
+nctrl/sunxi/pinctrl-sun55i-a523.c
+> > > index 801f62abc93df..001bd42afa3ef 100644
+> > > --- a/drivers/pinctrl/sunxi/pinctrl-sun55i-a523.c
+> > > +++ b/drivers/pinctrl/sunxi/pinctrl-sun55i-a523.c
+> > > @@ -26,7 +26,7 @@ static const u8 a523_irq_bank_muxes[SUNXI_PINCTRL_M=
+AX_BANKS] =3D
+> > >  static struct sunxi_pinctrl_desc a523_pinctrl_data =3D {
+> > >         .irq_banks =3D ARRAY_SIZE(a523_irq_bank_map),
+> > >         .irq_bank_map =3D a523_irq_bank_map,
+> > > -       .io_bias_cfg_variant =3D BIAS_VOLTAGE_PIO_POW_MODE_SEL,
+> > > +       .io_bias_cfg_variant =3D BIAS_VOLTAGE_PIO_POW_MODE_CTL_INV,
+> > >  };
+> > >
+> > >  static int a523_pinctrl_probe(struct platform_device *pdev)
+> > > diff --git a/drivers/pinctrl/sunxi/pinctrl-sunxi.c b/drivers/pinctrl/=
+sunxi/pinctrl-sunxi.c
+> > > index cabcb8b6f38e5..634d9f1f23947 100644
+> > > --- a/drivers/pinctrl/sunxi/pinctrl-sunxi.c
+> > > +++ b/drivers/pinctrl/sunxi/pinctrl-sunxi.c
+> > > @@ -718,6 +718,7 @@ static int sunxi_pinctrl_set_io_bias_cfg(struct s=
+unxi_pinctrl *pctl,
+> > >  {
+> > >         unsigned short bank;
+> > >         unsigned long flags;
+> > > +       bool inverted =3D false;
+> > >         u32 val, reg;
+> > >         int uV;
+> > >
+> > > @@ -757,6 +758,9 @@ static int sunxi_pinctrl_set_io_bias_cfg(struct s=
+unxi_pinctrl *pctl,
+> > >                 writel(reg | val, pctl->membase +
+> > >                        sunxi_grp_config_reg(pctl, pin));
+> > >                 return 0;
+> > > +       case BIAS_VOLTAGE_PIO_POW_MODE_CTL_INV:
+> > > +               inverted =3D true;
+> > > +               fallthrough;
+> > >         case BIAS_VOLTAGE_PIO_POW_MODE_CTL:
+> > >                 val =3D uV > 1800000 && uV <=3D 2500000 ? BIT(bank) :=
+ 0;
+> > >
+> > > @@ -771,6 +775,8 @@ static int sunxi_pinctrl_set_io_bias_cfg(struct s=
+unxi_pinctrl *pctl,
+> > >                 fallthrough;
+> > >         case BIAS_VOLTAGE_PIO_POW_MODE_SEL:
+> > >                 val =3D uV <=3D 1800000 ? 1 : 0;
+> > > +               if (inverted)
+> > > +                       val =3D !val;
+> > >
+> > >                 raw_spin_lock_irqsave(&pctl->lock, flags);
+> > >                 reg =3D readl(pctl->membase + pctl->pow_mod_sel_offse=
+t);
+> > > diff --git a/drivers/pinctrl/sunxi/pinctrl-sunxi.h b/drivers/pinctrl/=
+sunxi/pinctrl-sunxi.h
+> > > index d0936a32123ba..2c8648c3301b6 100644
+> > > --- a/drivers/pinctrl/sunxi/pinctrl-sunxi.h
+> > > +++ b/drivers/pinctrl/sunxi/pinctrl-sunxi.h
+> > > @@ -128,8 +128,10 @@ enum sunxi_desc_bias_voltage {
+> > >          * Bias voltage is set through PIO_POW_MOD_SEL_REG
+> > >          * and PIO_POW_MOD_CTL_REG register, as seen on
+> > >          * A100 and D1 SoC, for example.
+> > > +        * Some SoCs invert the encoding for 1.8V vs. 3.3V.
+> > >          */
+> > >         BIAS_VOLTAGE_PIO_POW_MODE_CTL,
+> > > +       BIAS_VOLTAGE_PIO_POW_MODE_CTL_INV,
+> > >  };
+> > >
+> > >  struct sunxi_desc_function {
+> > > --
+> > > 2.46.4
+> > >
+> >
+>
