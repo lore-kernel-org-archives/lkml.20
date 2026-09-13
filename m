@@ -1,111 +1,43 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6529368D4A
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 21:40:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF37D370D57;
+	Sun, 13 Sep 2026 21:40:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789335603; cv=none; b=MXNbI6haUOWzCTZEWpc7/DN7KHpsmqRzBL0JKsd2/1ygrWwV8IshHCK2fgo1wamXvdk01Lofg7T9s7ZXSVXKjjtvyqy48+8C545UEZIOFuvP/0+60XT/qLdQ9s74mKYKaQe8WyEo5RKHlQJ+WQhQeP4MPbe5XWHDGgk4yVaBavI=
+	t=1789335620; cv=none; b=oU8cgY3Ty340ldDU6kQ3yXLIVsFxKNQfa/aQigeJnw3h/wMPjLmZu+gwAM/WH1uS4Cye2zZddYtuaKM8AHqu0MU9OB0ZmDRvkjrz+C2dewn/SyVvSCZiqpmnWMfcOduK6w3dAfwCh5bz9023x2XrjbKsjKnT0sK1OFIRMiDN4oY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789335603; c=relaxed/simple;
-	bh=ATf2g0ZSzrp/pC7X7yvuJH7lJ5zSZ1TqWl84sVB607Y=;
+	s=arc-20240116; t=1789335620; c=relaxed/simple;
+	bh=PF+LVKskK+pamCNUypr+ieRRZaaqa2r/q3lqQavMfuk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sM972znK1GbAff6p4KR4YwMv7e/5W/U9wKmRIWoyMuY53H/YmtG+xau01IH0eyMSMAaWitfGuRjGtJHmcAaMApgYLOVkTvAYRxhOu4//6UZsPwKO2LOwxTES4Tp6fvnuyaQO/6FVDIO6vcFT/AZjIzpy3Rgw34jgHMz9EnqZhIQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SGiId68X; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Zdh1Ivs+; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=lB1UYfaT3XoVYVBFrHw9tfB+7MZfdqN+GaZYhfWstTpmXXu0XP0OY/pBOpRZRVZCYIpg+PDDeHmB+gmRSniat46bTzvSQuMefvzGfahg7Rsq2gsj6GCVu87loeZA/GXV4CMlDuMTHk/3spHGZGkuFudA1RguWPu0FLs/Oh2S2lc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oFTE8hfg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SGiId68X";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Zdh1Ivs+"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68DJxYIO2163749
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 21:40:02 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=C/RcLWpqyWB/bxvbtCv9lklV
-	mRMtUxPOU2Z0l295uIQ=; b=SGiId68X//DGV/frJRtGspfr0CwCMEQVrn04N9jS
-	wA7UPgaBFIDQPjY3PlSaGkI1GYUpcmyoNi5jigpsAjqtOBB2gc4R/o9EgT/u27AC
-	qUZksWF7PAIlX14luJAOStEhS7WJUsMPUVtJmN7cqpAkeNgf8Kp0uR/q53dl765j
-	qXFULfA3t4vShapg5WcU/+t4TbNnRR7V9K/aWW+qEn/ZPu04x5KvnK52z8ulHe5x
-	EDB2UiEkmNGry9075HqGJmzw6p3Ri399pPWdxbHu4MaQU/Hf5crRoyxMwJg9PnLZ
-	0ZF8vfcnMLhx4YWl+fqJVsy8C5nt+iLUfGwxmaDSVx3IEg==
-Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmygd47jn-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 21:40:01 +0000 (GMT)
-Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-79014f0b44cso2487169137.3
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 14:40:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789335601; x=1789940401; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=C/RcLWpqyWB/bxvbtCv9lklVmRMtUxPOU2Z0l295uIQ=;
-        b=Zdh1Ivs+a6QSls+X2m7LQoSR1zh3IOkhdsZyZyyQLLuVNEUjX9sEE1euDsvLxeUiGJ
-         xihKEaY9J4I4SfTGpDgbYSmDRgXOSWk0oChGBhuhjrNNCOp0Pk6KSHGtsO2a0o/G3mLj
-         2yeJAFKlBZjUwgZbsrs2I1bz05+99kGlP+hueXWmzQBdbS8exs0fdEgLJgndR48hdjkQ
-         d3UBCbveyxVRi/2YKrGGlIHgigXXTQSrpqzab2wgdmekIMQOziSEJMbXia8I5ODeHje0
-         7CnZDn7yyFZe2UEtmkvfUpbi6MfWZ4JKrIW1xJ1nwyyqwLUXtcja3IyJyp9jOlrsKTa3
-         sgRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789335601; x=1789940401;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=C/RcLWpqyWB/bxvbtCv9lklVmRMtUxPOU2Z0l295uIQ=;
-        b=owNfgeZr8RXnN7rlwk0OL5DJeH0V+/XzRY0a7j46OZ3NxBEeg389ol7FYZSbrdTnC0
-         a9r2sz4BRLFbhoRY4GlO8NdRiuyXHpa+X82idsLVH5oPAiD35hyzqYcRQOPyIa733QIx
-         5kJrEieV+0zfkqb16m/Bt6X5bXHH5dUVVIPbUSAupx76B8LZdWS3pe9dES2WvPf6fYyQ
-         qoEaCi+ldweuVxAEZ8ssbntfbSRJtDYZ33zElzb4cal++f4d54RQrw1kihl7j1qILvVi
-         nILthwEUtYz9jWMs8oh/JpzWTt/U3rvWhHca7j+X9ZuI5Afn8IvOU+9y/vY1tg/Lxp3Z
-         moBw==
-X-Forwarded-Encrypted: i=1; AKwUvBw0Wjc1dnhL0d7EuwI7K3s1AetOG1SBLy/zhR4JRw7s49kvCHHStLmNYcIwxy/KfGHG6o+FcZMLQxEpBJk=@vger.kernel.org
-X-Gm-Message-State: AFuF++kdp4xnmGvUO9KbWdtnHkAHjGGatEwtWIXhUVdcAjt80M9GtRz2
-	f2+vo2zUAjW2PZSp+KlNARUI42yzkgEOwgx4wMKOhsaEbWlm/1+YsAiUSx2hCjVf5rM0mQnfU+z
-	1E23fioTWeetzHcYDlSxbO6DskI2ngxGWiE3c18ZF8VzLSYMxpkg7rfR7IPDsVaV8TXo=
-X-Gm-Gg: AYBFou1zMZMTMdpn4Wbuc+Ea6S5Q95li4fuFzGKM0GnmjN94OyWDF7keV/6hD4cYxoM
-	7wYhhE5VZAbRC+gjRr2dAnA9M5w7SF/bxCCY5pDOdWa3ZJUazw4V/EUItHL2OXo905Bp5apcDqv
-	knxYidztePIa1/peCSjnu8bPtj0vssAUgEgg+teWsif6r81Q5iTE9oDUn0mplBtujPXRAZ8OdLP
-	PAXeudUTL8hQbwtj09u6Ss7ZKCDapPsgKy/9G3d7A4K2GRU631hHVOx1wioQ02VxlqxKpL1cw9Q
-	0jRJ1g9jVSqOdtixx9szwiuFgcKTmQEtzlfkN8JhKKfpk80ZddB0yxtidKhkHnd6FMVmhtuW3+Y
-	+72e4ekX0xxigRosL4Q76W3fak1aRUDvi7kpHHmSMwkOFec0WeoutU0BprXANwWjS7ZV831GqoB
-	LhgXdlydpCUuoE
-X-Received: by 2002:a05:6102:8021:b0:77b:ae7:1bba with SMTP id ada2fe7eead31-792a6758ac2mr15026767137.3.1789335600798;
-        Sun, 13 Sep 2026 14:40:00 -0700 (PDT)
-X-Received: by 2002:a05:6102:8021:b0:77b:ae7:1bba with SMTP id ada2fe7eead31-792a6758ac2mr15026758137.3.1789335600440;
-        Sun, 13 Sep 2026 14:40:00 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a5a336c26fsm20669481fa.37.2026.09.13.14.39.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 14:39:58 -0700 (PDT)
-Date: Mon, 14 Sep 2026 00:39:55 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Saurabh Anand <saurabh.anand@oss.qualcomm.com>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Vinod Koul <vkoul@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
-        linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org,
-        Ritesh Kumar <quic_riteshk@quicinc.com>,
-        Vishnuvardhan Prodduturi <quic_vproddut@quicinc.com>,
-        Mani Chandana Kuntumalla <quic_mkuntuma@quicinc.com>,
-        Mahadevan P <mahadevan.p@oss.qualcomm.com>
-Subject: Re: [PATCH 3/4] drm/msm/dp: skip LTTPR init when no LTTPRs are
- present
-Message-ID: <ej7zom63d6scqrxtymszwswnstmftm76bsqtn4beqz2vceqzho@rdfxlo3duii2>
-References: <20260824-qcom-dp-typec-reconnect-fixes-v1-0-2825e5bf8a96@oss.qualcomm.com>
- <20260824-qcom-dp-typec-reconnect-fixes-v1-3-2825e5bf8a96@oss.qualcomm.com>
- <315db50d-6553-412d-8fca-a4b4441f881b@oss.qualcomm.com>
- <fa897e53-2ebe-4322-bf73-98788854083d@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oFTE8hfg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98A011F000FF;
+	Sun, 13 Sep 2026 21:40:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789335618;
+	bh=RIVgQ+6LEjJa5Iu13ovL4TtskNFbnPXN6Qbq9MZXJHM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=oFTE8hfgUU+jJ6YgPno/UkMlktWe5C40oSi+F9ZtxXdy+nHEgjjLWMBoVPk83QYKB
+	 f1+KZNGWwqQqG7E0EnD+C8sAL/sZq2yKsGyfCB+N2FpCG8dTVh0Et6sX+3Dn9ZmaER
+	 Q1kJcgogfrlej3Tyvwx2nWh+rmda8+KKhtqbdudsx0gT2iK+qeuFT5xOQ2fsxXZBR3
+	 5uCoMsfo2FdW29EW9UAmFA7KjwnTpCxiNZP0N6E29hzA203JfbowtqnBoqfpj753uK
+	 C4eUd7sOynJstwv/Ln2e5CmYTQYYuygeZlahsTKrXlIktAwXqLWGiXc6WAkZiit6wC
+	 bg+a4ZXXbYF2A==
+Date: Sun, 13 Sep 2026 18:40:14 -0300
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Ian Rogers <irogers@google.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+	Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] perf python: Fix ilist TreeNode string type drift
+Message-ID: <aqcYPoBOEKNk0WMc@x2>
+References: <20260910174420.3002597-1-irogers@google.com>
+ <20260910211539.3157204-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -114,67 +46,203 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <fa897e53-2ebe-4322-bf73-98788854083d@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=RY0FmFtv c=1 sm=1 tr=0 ts=6aa71831 cx=c_pps
- a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=amprJqNY4E7PqP1f_1cA:9
- a=CjuIK1q_8ugA:10 a=-aSRE8QhW-JAV6biHavz:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEzMDMwOSBTYWx0ZWRfX1sGWXTggY/5s
- 0p5IazIWaeuokEkyAQ5oXVPcog80dAlhSZLyupTQ0B8Pu8W6CmlwW/MskdnDxHXY+SqDkfjAJEe
- 6Awd8p+L9pWelNRh4hgZ/XSxqwYUkBLXaiNy6hDQgfrRfrydXlVGbDoz0hvMcU+RV9v0cYR7rLN
- IESpMauz0PKlpopjasa2czVC5/aLCi1zoGzxUK5AQutM50AqtoHwvCCNwwlvLY6NnsJynywwUCB
- f4P5RoxyQ28VPFKhiowT9r1DY+hHzYLPYuCmQ7Fu5+oXFCwUld61c0kzbaVnpemBC+aHcQQHMjM
- opINzv6MuR2ML04hFoGnANZkNQmVo8F6x6wSbbw8KapmnFRbNBvVVkZ2uQGs4MI0FBRmH5pV1Gy
- otL/uot4FHXeae+n7Cl4wxkoi49Fb0HlT2ln+D2601MBFeo74x9hNt1X8ZTLS3pwsVNQ1uTHri+
- 6jcGLaGw2ECgWXZJQCw==
-X-Proofpoint-ORIG-GUID: VNtTeez5zYaz4C6tFbpD9L34immDFa9t
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEzMDMwOSBTYWx0ZWRfX2JwpyFZoJiIh
- km8IVcSgFBqEq/eNTFUjO0Rb4nHnHHPFMyubbsEJibIBogF6icjyJGRTxdxCo8PwAlGHASXDsRz
- ysKRdhnCVoPS3ORFApVgjQVP4u0oRG4=
-X-Proofpoint-GUID: VNtTeez5zYaz4C6tFbpD9L34immDFa9t
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-13_07,2026-09-11_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 spamscore=0 suspectscore=0
- lowpriorityscore=0 impostorscore=0 phishscore=0 malwarescore=0 bulkscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609130309
+In-Reply-To: <20260910211539.3157204-1-irogers@google.com>
 
-On Mon, Sep 07, 2026 at 03:14:33PM +0530, Saurabh Anand wrote:
+On Thu, Sep 10, 2026 at 02:15:39PM -0700, Ian Rogers wrote:
+> Updates Tree type hints to correctly use TreeNode[TreeValue]
+> across all assignments preventing mypy strictness mismatches.
 > 
-> On 24-08-2026 18:45, Konrad Dybcio wrote:
-> > On 8/24/26 1:28 PM, Saurabh Anand wrote:
-> > > drm_dp_lttpr_count() returns 0 when no LTTPRs are detected and a
-> > > negative value on error. The previous code passed the result directly
-> > > to drm_dp_lttpr_init() without checking, which would call into the
-> > > LTTPR transparency-mode setup with a zero or negative repeater count.
-> > > 
-> > > Add an early return for lttpr_count <= 0 to skip the init entirely
-> > > when there are no repeaters in the link, matching the expected usage
-> > > of drm_dp_lttpr_init().
-> > Reading the body of that function, I'm not sure your statement is true
-> 
-> drm_dp_lttpr_count() returns 0 when no LTTPRs are detected and a
-> negative error code when the LTTPR common capabilities report an invalid
-> or unsupported repeater count.
-> 
-> drm_dp_lttpr_init() already handles the zero-count case by returning
-> early. However, when passed a negative count, it still writes transparent
-> mode before returning -ENODEV.
+> Address some other minor stylistic issues reported by mypy, pylint and
+> Sashiko.
 
-And this is correct. If there are more than 8 LTTPRs, they must be
-switched to the transparent mode as it's impossible to control them
-individually.
+Thanks, applied to perf-tools-next, for v7.4.
 
+- Arnaldo
+ 
+> Assisted-by: Antigravity:gemini-3.1-pro
+> Signed-off-by: Ian Rogers <irogers@google.com>
+> ---
+> v2: Tweak the imports and type annotations for better 3.9
+>     compatibility and to be more pythonic.
+> ---
+>  tools/perf/python/ilist.py | 78 ++++++++++++++++++++------------------
+>  1 file changed, 42 insertions(+), 36 deletions(-)
 > 
-> I will update the commit message giving more details.
-> 
-> > 
-> > Konrad
-
--- 
-With best wishes
-Dmitry
+> diff --git a/tools/perf/python/ilist.py b/tools/perf/python/ilist.py
+> index 0d757ddb4795..ebff0a843b7a 100755
+> --- a/tools/perf/python/ilist.py
+> +++ b/tools/perf/python/ilist.py
+> @@ -2,11 +2,13 @@
+>  # SPDX-License-Identifier: (LGPL-2.1 OR BSD-2-Clause)
+>  """Interactive perf list."""
+>  
+> -from abc import ABC, abstractmethod
+> +from __future__ import annotations
+> +
+>  import argparse
+> +from abc import ABC, abstractmethod
+>  from dataclasses import dataclass
+>  import math
+> -from typing import Any, Dict, Optional, Tuple
+> +from typing import Any, Optional
+>  import perf
+>  from textual import on
+>  from textual.app import App, ComposeResult
+> @@ -19,7 +21,7 @@ from textual.widgets import Button, Footer, Header, Input, Label, Sparkline, Sta
+>  from textual.widgets.tree import TreeNode
+>  
+>  
+> -def get_info(info: Dict[str, str], key: str):
+> +def get_info(info: dict[str, Any], key: str):
+>      return (info[key] + "\n") if key in info else ""
+>  
+>  
+> @@ -140,7 +142,7 @@ class ErrorScreen(ModalScreen[bool]):
+>      def compose(self) -> ComposeResult:
+>          yield Button(f"Error: {self.error}", variant="primary", id="error")
+>  
+> -    def on_button_pressed(self, event: Button.Pressed) -> None:
+> +    def on_button_pressed(self) -> None:
+>          self.dismiss(True)
+>  
+>  
+> @@ -234,7 +236,7 @@ class IListApp(App):
+>  
+>      def __init__(self, interval: float) -> None:
+>          self.interval = interval
+> -        self.evlist = None
+> +        self.evlist: Optional[perf.evlist] = None
+>          self.selected: Optional[TreeValue] = None
+>          self.search_results: list[TreeNode[TreeValue]] = []
+>          self.cur_search_result: TreeNode[TreeValue] | None = None
+> @@ -284,18 +286,18 @@ class IListApp(App):
+>              """Sets the focus after the SearchScreen is dismissed."""
+>  
+>              search_label = self.query_one("#active_search", Label)
+> -            search_label.display = True if event else False
+> +            search_label.display = bool(event)
+>              if not event:
+>                  return
+>              event = event.lower()
+>              search_label.update(f'Searching for events matching "{event}"')
+>  
+> -            tree: Tree[str] = self.query_one("#root", Tree)
+> +            tree: Tree[TreeValue] = self.query_one("#root", Tree)
+>  
+> -            def find_search_results(event: str, node: TreeNode[str],
+> +            def find_search_results(event: str, node: TreeNode[TreeValue],
+>                                      cursor_seen: bool = False,
+> -                                    match_after_cursor: Optional[TreeNode[str]] = None
+> -                                    ) -> Tuple[bool, Optional[TreeNode[str]]]:
+> +                                    match_after_cursor: Optional[TreeNode[TreeValue]] = None
+> +                                    ) -> tuple[bool, Optional[TreeNode[TreeValue]]]:
+>                  """Find nodes that match the search remembering the one after the cursor."""
+>                  if not cursor_seen and node == tree.cursor_node:
+>                      cursor_seen = True
+> @@ -332,7 +334,7 @@ class IListApp(App):
+>  
+>      def action_collapse(self) -> None:
+>          """Collapse the part of the tree currently on."""
+> -        tree: Tree[str] = self.query_one("#root", Tree)
+> +        tree: Tree[TreeValue] = self.query_one("#root", Tree)
+>          node = tree.cursor_node
+>          if node and node.parent:
+>              node.parent.collapse_all()
+> @@ -343,31 +345,34 @@ class IListApp(App):
+>          if not self.selected or not self.evlist:
+>              return
+>  
+> -        def update_count(cpu: int, count: int):
+> +        def update_count(cpu: int, count: int | float):
+>              # Update the raw count display.
+> -            counter: Label = self.query(f"#counter_cpu{cpu}" if cpu >= 0 else "#counter_total")
+> -            if not counter:
+> +            counter_query = self.query(f"#counter_cpu{cpu}" if cpu >= 0 else "#counter_total")
+> +            if not counter_query:
+>                  return
+> -            counter = counter.first(Label)
+> +            counter: Label = counter_query.first(Label)
+>              counter.update(str(count))
+>  
+>              # Update the sparkline.
+> -            line: Sparkline = self.query(f"#sparkline_cpu{cpu}" if cpu >= 0 else "#sparkline_total")
+> -            if not line:
+> +            line_query = self.query(f"#sparkline_cpu{cpu}" if cpu >= 0 else "#sparkline_total")
+> +            if not line_query:
+>                  return
+> -            line = line.first(Sparkline)
+> +            line: Sparkline = line_query.first(Sparkline)
+>              # If there are more events than the width, remove the front event.
+> -            if len(line.data) > line.size.width:
+> -                line.data.pop(0)
+> -            line.data.append(count)
+> -            line.mutate_reactive(Sparkline.data)
+> +            if line.data is not None:
+> +                if len(line.data) > line.size.width:
+> +                    line.data = line.data[1:]
+> +                line.data = list(line.data) + [float(count)]
+> +            else:
+> +                line.data = [float(count)]
+> +            line.refresh()
+>  
+>          # Update the total and each CPU counts, assume there's just 1 evsel.
+> -        total = 0
+> +        total: float = 0.0
+>          self.evlist.disable()
+>          for evsel in self.evlist:
+>              for cpu in evsel.cpus():
+> -                aggr = 0
+> +                aggr: float = 0.0
+>                  for thread in evsel.threads():
+>                      aggr += self.selected.value(self.evlist, evsel, cpu, thread)
+>                  update_count(cpu, aggr)
+> @@ -424,16 +429,16 @@ class IListApp(App):
+>          # Add spark lines for all the CPUs. Note, must be done after
+>          # open so that the evlist CPUs have been computed by propagate
+>          # maps.
+> -        line = CounterSparkline(cpu=-1)
+> -        lines.mount(line)
+> +        line_sp = CounterSparkline(cpu=-1)
+> +        lines.mount(line_sp)
+>          for cpu in self.evlist.all_cpus():
+> -            line = CounterSparkline(cpu)
+> -            lines.mount(line)
+> -        line = Counter(cpu=-1)
+> -        lines.mount(line)
+> +            c_sp = CounterSparkline(cpu)
+> +            lines.mount(c_sp)
+> +        c_val = Counter(cpu=-1)
+> +        lines.mount(c_val)
+>          for cpu in self.evlist.all_cpus():
+> -            line = Counter(cpu)
+> -            lines.mount(line)
+> +            c_val2 = Counter(cpu)
+> +            lines.mount(c_val2)
+>  
+>      def compose(self) -> ComposeResult:
+>          """Draws the app."""
+> @@ -459,17 +464,18 @@ class IListApp(App):
+>                      # Reading events may fail with EPERM, ignore.
+>                      pass
+>              metrics = tree.root.add("Metrics")
+> -            groups = set()
+> +            groups: set[str] = set()
+>              for metric in perf.metrics():
+>                  groups.update(metric["MetricGroup"])
+>  
+> -            def add_metrics_to_tree(node: TreeNode[TreeValue], parent: str, pmu: str = None):
+> +            def add_metrics_to_tree(node: TreeNode[TreeValue], parent: str, pmu: Optional[str] = None):
+>                  for metric in sorted(perf.metrics(), key=lambda x: x["MetricName"]):
+> -                    metric_pmu = metric.get('PMU')
+> +                    metric_pmu_raw = metric.get('PMU')
+> +                    metric_pmu = str(metric_pmu_raw) if metric_pmu_raw else ''
+>                      if pmu and metric_pmu and metric_pmu != pmu:
+>                          continue
+>                      if parent in metric["MetricGroup"]:
+> -                        name = metric["MetricName"]
+> +                        name = str(metric["MetricName"])
+>                          display_name = name
+>                          if metric_pmu:
+>                              display_name += f" ({metric_pmu})"
+> -- 
+> 2.55.0.1007.g17ff1f9808-goog
