@@ -1,199 +1,128 @@
-Received: from mail-oo2-f11.google.com (mail-oo2-f11.google.com [74.125.231.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from omta036.useast.a.cloudfilter.net (omta036.useast.a.cloudfilter.net [44.202.169.35])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EB77372B45
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 02:47:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0AB51DD0EF
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 02:49:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.202.169.35
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789267659; cv=none; b=iKot3u8PbF4Ce1UG36W0JO59CrcTo7b6Dku+E9fJNL8g9Dx+Bq4MLk4NZ9gFAf05WVHwSm/bxz+V75DchiOfhR6R6MyTyNGfZKeI6oOagvSnDLFZIAfPuq10ahoSHfxFQNGS1AqKVWSs6LE2gXoSglDuaYNiqmEXBINeBmBLhTM=
+	t=1789267778; cv=none; b=QuQSLDk6pLSKrfexuUQGQxmOv5A/aXH+WeYPfI3rhHgbp34YXp0uTuVZGhr0tXvJ5qdMVc0LfuyFwyukWQvXVA2o6poY315P8F/yH15+jPt3Omy8LM1lKDoCOccZfkpa3Vs6heIPaqaelKU3ihTjJaMPZGYtW/jt1p0s4PASuTE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789267659; c=relaxed/simple;
-	bh=x3HkxTQhZql3jqj4yHPnz2Mrhm/CGIn5dMsk9yXg8Js=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=InKPsDPIXUJyI254HaHbnPYtKyEvdkrIa5SKky5a6+42dlIH5hR4+wKwPn4m5qTb8c59UwcPgFYRdmXPGHpH7XM/O9xOLeGipc384fcqZVg/jMif1Lxm4eev8Y+yJsKvbBhCTGGcgUy07AmXoPBFoMBVbrL3J1kFwC+G2zBR5rw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo2-f11.google.com with SMTP id 46e09a7af769-8069d92e182so185780a34.0
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 19:47:38 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789267657; x=1789872457;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bvFXA7ZMQ0Qs9h5Sn4zOQqZDFnGcVyURyKazgFI6Ib8=;
-        b=AuvTSJcQKI0ZTtuuOuhWhVqujM+MwihpvR9nQar20z8RS4mQr0AB6j6DCyPaXe6ujZ
-         khwi0BcDFhySGk1/Lv5MQfQd3WwIRTm+vcT60YljTBYturxds2UH6aODzAJUV2sdw0x5
-         gQ2fpymOD/kPzN9bh+DYrD124o0UzIdzgZCxs6mOc30/hJVENYa0WZGNYqSJk4mise6t
-         IWWhmqh//emx6ET58iv7jtF8eDe5cQaSozGiouVernODL45XkmIiLPMdyiXKiAQ+5Y58
-         47IPT5jGDePBoVWq4FEc3/efzesHSI44vXlsiN5oc3uo6wcKfnBBNiQZljKy0Xz6/PMI
-         4xgg==
-X-Forwarded-Encrypted: i=1; AKwUvBwZNnFrS16ts0fKae649BUG768VtiN+tn5bd0MRBYO2CipX4eLgvC+E7Ry1gEl422MIbZs28IFN7t4B590=@vger.kernel.org
-X-Gm-Message-State: AFuF++mZvBbqMLlMcYy5oAdALT+8M+6CUvLhFlcvGAMQ80ybGXynVONY
-	zSt9TxzrOfa8YJuf1MhaNd2NYqSU3OX64rsr0hY5tYG7O6fn14hHfbTpVslUmZM9ybRS91lSux5
-	AbFz95ud/UPTti/UEi0g9Mta+R3u1pJtJ0NVI1jthNOozdNvSovHNtObg/NE=
+	s=arc-20240116; t=1789267778; c=relaxed/simple;
+	bh=30cBZ0Pjhx1PjBAWkg6SuTb8at7xsFr2Um4k6xITJho=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QFYMUx5eykl6J019nTNkGptIdz0yInk0cmM1QrMu3+wQf2yspvheRTtbEyF+k7k3F75WvY2pD+bcQa3+ldJbpm6fJNt2rdT2Iky7qIt2/BOQJn9ob7+RKqADzUFj0X2qHujgyiP9oTTie51BoiSTd8vH7ZpqIh7koYT9Dx8T5+c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=erUQCtxc; arc=none smtp.client-ip=44.202.169.35
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="erUQCtxc"
+Received: from eig-obgw-6006b.ext.cloudfilter.net ([10.0.30.211])
+	by cmsmtp with ESMTPS
+	id 5OGxxAEniLvgb5aG7x2dnh; Sun, 13 Sep 2026 02:47:59 +0000
+Received: from box5620.bluehost.com ([162.241.219.59])
+	by cmsmtp with ESMTPS
+	id 5aG6xFLDhY4rX5aG7xSF56; Sun, 13 Sep 2026 02:47:59 +0000
+X-Authority-Analysis: v=2.4 cv=CI8qXQrD c=1 sm=1 tr=0 ts=6aa60edf
+ a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
+ a=i4zM2ZNYXPBlML4XQsQA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=L5EjiQpGQaFGZdqT14z7:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
+	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=7FsypSqp9DRGIP7U+X40sL9iflms7aFlly7c03WaRho=; b=erUQCtxcO0/mQVFSohoXW6o3y1
+	fuxz93GGW/wuc/ZUDQEVCTUIIIy3V1FUsY2Upp6sZ09Jm3jqjxAjhKDrfufZ8SdV3aCBRzMookCyl
+	+PezcuVqDAqZNltdYxIWZ5ZAEdG6y2YyE/53iHSIzgA3lKMLHSAy1PWuB16EHfZn26+79nqDLm0Lv
+	fj94vpTFQBmFxDQGucllGKbBVZNDFC351BfHo22o+eFQltBAlQ5n9xOGZgnN6cXZZ/kYFtrsxKx0r
+	GrUzpPLWvxfmLN1EWFjcsAJXc061elryxvJcJL+sj/M+kf8XtQRci7AxkuGPq1b4rl6oqGgSrSGBp
+	VpixsVCA==;
+Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:48622 helo=[10.0.1.180])
+	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.100)
+	(envelope-from <re@w6rz.net>)
+	id 1x5aG6-00000002jkV-0U0b;
+	Sat, 12 Sep 2026 20:47:58 -0600
+Message-ID: <1a29a80d-1615-4110-8aa2-eaf931b579b6@w6rz.net>
+Date: Sat, 12 Sep 2026 19:47:56 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:169e:b0:6aa:da04:b56f with SMTP id
- 006d021491bc7-6c24c6ca779mr2331851eaf.3.1789267657282; Sat, 12 Sep 2026
- 19:47:37 -0700 (PDT)
-Date: Sat, 12 Sep 2026 19:47:37 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa60ec9.f81106d8.2ab401.0032.GAE@google.com>
-Subject: [syzbot] [batman?] WARNING in batadv_iv_ogm_process_per_outif
-From: syzbot <syzbot+a079f084653164a652d1@syzkaller.appspotmail.com>
-To: antonio@mandelbit.com, b.a.t.m.a.n@lists.open-mesh.org, 
-	linux-kernel@vger.kernel.org, marek.lindner@mailbox.org, 
-	netdev@vger.kernel.org, sven@narfation.org, sw@simonwunderlich.de, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.1 0000/1191] 6.1.188-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260912065548.086904252@linuxfoundation.org>
+Content-Language: en-US
+From: Ron Economos <re@w6rz.net>
+In-Reply-To: <20260912065548.086904252@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - box5620.bluehost.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - w6rz.net
+X-BWhitelist: no
+X-Source-IP: 73.162.206.103
+X-Source-L: No
+X-Exim-ID: 1x5aG6-00000002jkV-0U0b
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:48622
+X-Source-Auth: re@w6rz.net
+X-Email-Count: 17
+X-Org: HG=bhshared;ORG=bluehost;
+X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfMsduxiXeiAeVtPD26oCxhAD5a8ovRZTVnp6iLcr2a6TEMAWMZZt/RGaXFrIFOTRNqZJnJL9MhEWT5MNEIPhZ8b6jx3TUNHqU5hUxN8LaQzncHJYK98x
+ HUJO/RZDcYZil/Wb0uiUhPl174tn00JqjTavGhohzxCV+UzeZcrxr+raPIo+n6MYjmoivY5AOoeq+NpmctA05tyJkstlBYJ7xIA=
 
-Hello,
+On 9/11/26 23:45, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.1.188 release.
+> There are 1191 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Mon, 14 Sep 2026 06:54:17 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.1.188-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.1.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
+>
+>
+The build fails with:
 
-syzbot found the following issue on:
+sound/soc/fsl/fsl_audmix.c:461:12: warning: 'fsl_audmix_runtime_resume' used but never defined
+   461 | static int fsl_audmix_runtime_resume(struct device *dev);
+       |            ^~~~~~~~~~~~~~~~~~~~~~~~~
+sound/soc/fsl/fsl_audmix.c:462:12: warning: 'fsl_audmix_runtime_suspend' used but never defined
+   462 | static int fsl_audmix_runtime_suspend(struct device *dev);
+       |            ^~~~~~~~~~~~~~~~~~~~~~~~~~
+ERROR: modpost: "fsl_audmix_runtime_suspend" [sound/soc/fsl/snd-soc-fsl-audmix.ko] undefined!
+ERROR: modpost: "fsl_audmix_runtime_resume" [sound/soc/fsl/snd-soc-fsl-audmix.ko] undefined!
+make[1]: *** [scripts/Makefile.modpost:127: Module.symvers] Error 1
+make: *** [Makefile:1977: modpost] Error 2
 
-HEAD commit:    50d05c7c76c9 Merge tag 'landlock-7.3-rc3' of git://git.ker..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=170ef749580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=5e4e3a0e188a497e
-dashboard link: https://syzkaller.appspot.com/bug?extid=a079f084653164a652d1
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-userspace arch: i386
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=108ef749580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=16b696f9580000
+This is due to commit "ASoC: fsl_audmix: rework runtime PM handling in probe" commit id d8f18d3367a252b194e2eed54ef785f7fff479da and 
+I have CONFIG_PM=n in my config.
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/daf497619736/disk-50d05c7c.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/748fbd82f647/vmlinux-50d05c7c.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/e61c59099d07/bzImage-50d05c7c.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+a079f084653164a652d1@syzkaller.appspotmail.com
-
-RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000206 R12: 0000000000000000
-R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
- </TASK>
-------------[ cut here ]------------
-!orig_ifinfo
-WARNING: net/batman-adv/bat_iv_ogm.c:1413 at batadv_iv_ogm_update_seqnos net/batman-adv/bat_iv_ogm.c:1413 [inline], CPU#1: syz.1.17/5794
-WARNING: net/batman-adv/bat_iv_ogm.c:1413 at batadv_iv_ogm_process_per_outif+0x1fe4/0x25c0 net/batman-adv/bat_iv_ogm.c:1550, CPU#1: syz.1.17/5794
-Modules linked in:
-CPU: 1 UID: 0 PID: 5794 Comm: syz.1.17 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-RIP: 0010:batadv_iv_ogm_update_seqnos net/batman-adv/bat_iv_ogm.c:1413 [inline]
-RIP: 0010:batadv_iv_ogm_process_per_outif+0x1fe4/0x25c0 net/batman-adv/bat_iv_ogm.c:1550
-Code: ff ff e8 af ad 1c f6 49 bc 00 00 00 00 00 fc ff df e9 80 f4 ff ff e8 9b ad 1c f6 90 0f 0b 90 e9 47 e1 ff ff e8 8d ad 1c f6 90 <0f> 0b 90 48 8b bc 24 80 00 00 00 e8 6c df ff ff 48 c7 44 24 50 00
-RSP: 0018:ffffc900030e7280 EFLAGS: 00010293
-RAX: ffffffff8bab1d03 RBX: ffff888078df0a00 RCX: ffff88802efc3e80
-RDX: 0000000000000000 RSI: ffffffff8e475f59 RDI: ffffffff8c6d9a80
-RBP: ffffc900030e7410 R08: ffffffff907a2b7f R09: 1ffffffff20f456f
-R10: dffffc0000000000 R11: fffffbfff20f4570 R12: dffffc0000000000
-R13: 0000000002020000 R14: ffff88802bce4000 R15: ffff888078df0a00
-FS:  0000000000000000(0000) GS:ffff888124dd2000(0063) knlGS:000000005807c480
-CS:  0010 DS: 002b ES: 002b CR0: 0000000080050033
-CR2: 00000000f7153200 CR3: 000000007a636000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- batadv_iv_ogm_process net/batman-adv/bat_iv_ogm.c:1866 [inline]
- batadv_iv_ogm_receive+0xc13/0x1740 net/batman-adv/bat_iv_ogm.c:1974
- batadv_batman_skb_recv+0x4b6/0x870 net/batman-adv/main.c:529
- __netif_receive_skb_one_core net/core/dev.c:6264 [inline]
- __netif_receive_skb net/core/dev.c:6377 [inline]
- netif_receive_skb_internal net/core/dev.c:6463 [inline]
- netif_receive_skb+0x4af/0xbf0 net/core/dev.c:6522
- tun_rx_batched+0x1de/0x790 drivers/net/tun.c:1571
- tun_get_user+0x2be0/0x44d0 drivers/net/tun.c:2045
- tun_chr_write_iter+0x113/0x200 drivers/net/tun.c:2091
- new_sync_write fs/read_write.c:595 [inline]
- vfs_write+0x612/0xba0 fs/read_write.c:687
- ksys_write+0x150/0x270 fs/read_write.c:739
- do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
- __do_fast_syscall_32+0x27a/0x6a0 arch/x86/entry/syscall_32.c:291
- do_fast_syscall_32+0x33/0x70 arch/x86/entry/syscall_32.c:316
- entry_SYSENTER_compat_after_hwframe+0x84/0x8e
-RIP: 0023:0xf7f480ec
-Code: 90 85 d2 74 0a 89 ce 81 e6 ff 0f 00 00 89 32 85 c0 74 05 c1 e9 0c 89 08 31 c0 5e 5d c3 90 0f 1f 00 51 52 55 89 e5 0f 34 cd 80 <5d> 5a 59 c3 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 58 b8
-RSP: 002b:00000000f752fa5c EFLAGS: 00000206 ORIG_RAX: 0000000000000004
-RAX: ffffffffffffffda RBX: 0000000000000003 RCX: 0000000080000800
-RDX: 0000000000000026 RSI: 0000000000000000 RDI: 0000000000000000
-RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000206 R12: 0000000000000000
-R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
- </TASK>
-----------------
-Code disassembly (best guess):
-   0:	90                   	nop
-   1:	85 d2                	test   %edx,%edx
-   3:	74 0a                	je     0xf
-   5:	89 ce                	mov    %ecx,%esi
-   7:	81 e6 ff 0f 00 00    	and    $0xfff,%esi
-   d:	89 32                	mov    %esi,(%rdx)
-   f:	85 c0                	test   %eax,%eax
-  11:	74 05                	je     0x18
-  13:	c1 e9 0c             	shr    $0xc,%ecx
-  16:	89 08                	mov    %ecx,(%rax)
-  18:	31 c0                	xor    %eax,%eax
-  1a:	5e                   	pop    %rsi
-  1b:	5d                   	pop    %rbp
-  1c:	c3                   	ret
-  1d:	90                   	nop
-  1e:	0f 1f 00             	nopl   (%rax)
-  21:	51                   	push   %rcx
-  22:	52                   	push   %rdx
-  23:	55                   	push   %rbp
-  24:	89 e5                	mov    %esp,%ebp
-  26:	0f 34                	sysenter
-  28:	cd 80                	int    $0x80
-* 2a:	5d                   	pop    %rbp <-- trapping instruction
-  2b:	5a                   	pop    %rdx
-  2c:	59                   	pop    %rcx
-  2d:	c3                   	ret
-  2e:	90                   	nop
-  2f:	90                   	nop
-  30:	90                   	nop
-  31:	90                   	nop
-  32:	90                   	nop
-  33:	90                   	nop
-  34:	90                   	nop
-  35:	90                   	nop
-  36:	90                   	nop
-  37:	90                   	nop
-  38:	90                   	nop
-  39:	90                   	nop
-  3a:	90                   	nop
-  3b:	90                   	nop
-  3c:	90                   	nop
-  3d:	90                   	nop
-  3e:	58                   	pop    %rax
-  3f:	b8                   	.byte 0xb8
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
