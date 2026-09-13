@@ -1,357 +1,722 @@
-Received: from fhigh-b3-smtp.messagingengine.com (fhigh-b3-smtp.messagingengine.com [202.12.124.154])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7FCB291C10;
-	Sun, 13 Sep 2026 09:46:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.154
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789292810; cv=none; b=B3UpJaZJaIs9tq8pWXak0hSKaMmjbUaoFnsVQ5nIwZQli66Gx5APRZCOps/6f99NO9Qt2uOnNmaZqTjMwaBOf9xrFzvmsODOgc8YYR1O8TpZ9nRwhZekqC1mC9c0kmzJAZI0nRUB/33WviDDtmEbHCd2JfMT2k+zIrC9SwbHSf0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789292810; c=relaxed/simple;
-	bh=3fd857Ut9g0Evj4oQmORjmC/wxeI3+D+wmpVTsOChOg=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=tUs2zOf+rViahby2UQM+O8Okqz0L8/CQ91cDOmCHd0ujn1ZYzR4T4vRLeQYSmbG7Jkqk/UiUVP0KFd4A26EbvWzlLDnqklJ42ehRISfXoTc2OSZ1gHHw4vWwg/DJFcHMHNlJfNB5cAXsdBikU1AWE+zqn3spAK2/zBvnA8HF0xw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=hwQa1qUq; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=U1xrCslJ; arc=none smtp.client-ip=202.12.124.154
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA25B360EF7
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 09:47:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789292857; cv=pass; b=J1bDSJb/GcjhFl0ctpnDPljupww/e+JFS/4r7hv5y88uTnUPlO42dc6hnLR7sqM4BH++Nxk2q3lzQsnw3a+coO8fExbsYHOXDHq4NUClYXnz7SUqhRzIP2bENPH2tn+846B0mAx24WgeBVHbGOj5WqQRM1J/D3Im0pRKUe75iZM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789292857; c=relaxed/simple;
+	bh=eJNTesAn6h2lzMt2G6CtkXXOdvXqAL/OpBlKJaqdu0o=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=cRgZRdblkqblkW6z5CR31rEGS3/PMAPa1ISdmmuEkVSwiBwiOT+xoT2gosj31X5WzE0QWNoVA/7Qv4iqIXKV0E/SimWFDawvbGi/05JTkPmuTrsDwxQcSNr9tv7a+amdg8rcV1K3jDVxrtkHH9PJSTrrMwyeX0H8Qj8kUM+SEDM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h8ehppNv; arc=pass smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="hwQa1qUq";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="U1xrCslJ"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 447CB7A006B;
-	Sun, 13 Sep 2026 05:46:46 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Sun, 13 Sep 2026 05:46:46 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1789292805;
-	 x=1789379205; bh=C5O02FOgUJV2eD7/Tdr1zfaW0ja5wPl/auwAiWhgveo=; b=
-	hwQa1qUq9C3kZTu5NNwhpqdc95vncrU6qvq2CCEfJq4XgcL9xG4rA4LKV8TaH2TN
-	qIRPckSzm3NMH3k7IYinxklhKn6KLgsVm4tHfBGNw4l5SVDwEDDAwipV3vDsM16e
-	qLMIUHrn8SbE33Er2D0fNxLdtagoW7XAlTC+Mi2q4EkRALmsxilvsAcoYWhdVRcE
-	P+iBWwmK5D9cYP3v88M9MWe8Qtkhbnc20ogXPuIsg7Srx5tMQ/Hq3PEUumm6Xxx2
-	kNOVj4PAOdHwUDdaHHB3bw+B+3SRX86Hy1TNKnHPF7vHDyc0YoBpxhshjEWW5tRA
-	jlDOifN9ri2UYyqIbVsOFg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789292805; x=
-	1789379205; bh=C5O02FOgUJV2eD7/Tdr1zfaW0ja5wPl/auwAiWhgveo=; b=U
-	1xrCslJr0knL0PRWpn9M3RjQnYN8SSSsSZqhV8qGwYR+ULbMOCJuQtb1KOKijln8
-	c+qUsI47x2i7LeMV+W7wCB3z7dGPY1YjbSQNrPJdyQt0amNZO7abwXfNU3JxAl1y
-	I6ABOldnCOl4yr89NZq4u3DYenxssPUagLXTJxs66r3K0KNxexC6pfYrZG3Aj66V
-	qEojoW3eFq6zM2ojwJLtFMJ9/gSSHh09zzawDiTWrrWCtmHwQk98qLKAUQmi36FF
-	+PVJJNrYE0PAXBWOvK4aF5AykfdOPJo0kp805zuC6PYgH4H8p0Q2aieKHUz8veJ6
-	ZlOmoky//OqKY7Xyj2ltg==
-X-ME-Sender: <xms:A3GmaorDevW1LBr65wt5sgDsn1NqwJOtcbS9eS-2A2PYnpOFsP64rw>
-    <xme:A3GmapcRuptuYsi8PjG3J_zLtfumTXMXhkY14ZK3SJ9XYb6XK-43qM1hSK1bFCMey
-    qSuBXTSWgIdI8cH9EQibwyw-v8sqyh5UHtNPz7KQk6HzcKb7gr_XwHh>
-X-ME-Proxy-Cause: dmFkZTFO0WA/sI+toDXDzyylonfgPp/Edi0Ek0ntACSbX7jQ6iKTRAjEFi3AdI5zWqT02Z
-    hcnzagkE57EQdEdrfNrd0UFA4jRWoxHc/MqZ3AZ2CR8cWmbjcsRyvGg3kfDMfcnnDshMWL
-    0SqkYc/UQQyVvWt34kWzrXlfqbiyGlhiO9kvJbETRCwS6aOpw97UETknbs27xaxATwRNKa
-    WwsqpWjp5d7wDfzq+vCwFID04U0uMXQYa/OPrqxov3+Ugx4lyHEaiGw5XeroVoY4umudjD
-    7NrK08cQew1QgkyYYsHHOeVD8ORL5FYKDAWwqyT0sxrKemmEZc/NyofWDxSPQsUxuOG5Ov
-    +Z3wWwWpeLBPWGTVLaQmj/7dLVUM/zqFOh/GYA6MJr/lNlKXxz3zvgd4oOEDW+s3YpgMay
-    6qZGO9DP0lLi7Ubd8ErPnbGonQqo3dtz6zoDcZGXDFoq8Ajs2x7fiDjmBdjyZ65MBcyY+H
-    eNRylwDUmpcKWj64+5cgq7kPFWAVteJheaZyBqYO2CFLh8QG3NPhWXmzC4cJnjsQA396RW
-    P6EZS//WwmPD27JfDw8xek1pdMVwo4z/KF8Z28GfZBHp/M4vGO1vQu4tI35WttEekvcmYl
-    RJHinEvBwMpdHqAUd4gtIZsY3UX9cl16XWH0rFsmUhUdpJdmEFD78FFGBlUg
-X-ME-Proxy: <xmx:BHGmauvoU5FJTGXEywSAPqUA-XzWnxql7ej6VcVYeo7DlH6XhO34rQ>
-    <xmx:BHGmak94QkzQu3gkB-9LZSb83FIrrAWxogqmbBYDeftY5Y34v1D24w>
-    <xmx:BHGmap3wTdDY-9rjgeQF2mgFVZE6vA4Mmiv7H_DnUs9iA1p-q7oypA>
-    <xmx:BHGmapDaFLJMsFQfHqqRn8HrmgAURIL5etl67P7t2435MZI1A9Qk5Q>
-    <xmx:BXGmausivPngowKCPaN9oB2Y5YdLRL57G2i8kM_Yrk5JgIClEKEnakDS>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id B073932A007E; Sun, 13 Sep 2026 05:46:43 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h8ehppNv"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254fa663c2so174482166b.3
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 02:47:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789292853; cv=none;
+        d=google.com; s=arc-20260327;
+        b=MC9ICkt0e36zzhsSiRPC5H9bTvJTK64PSs1USthn94kJ6C1TmjF01cXcnXMBf1qSMd
+         W5CZw4TufqdpJgKNRFYar71/uEF2Ys6W57S1qsyC7fpH6idKkuTYXnHDA6vrQjXaIDQN
+         Is9bdAbSOhTw7A+TfSprBKkWpqvmNfiNWl2COBOtv1fDWsgx7M6Re37BI/dz++wbYMbY
+         rB5zzroDNaVppe9T63LpQS9aTFjD/WHXAjB/9y+A+dzGSGzRm+cN+Tm0N3ER08F+c6d4
+         s+krsuU/X2+P/BetbNIEOUdz/o1ZLpHCK0vLct91ZJdu+CZVQN8rLZEHt+JsNJs0N7fp
+         lHSw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ZA6UhLFK2nKQBy/urUjDvw9ImmmMVXllGlAj00whEYQ=;
+        fh=phNyVZ6vJsnTg4il5sLzLNrPbS5Qna6y50GS1NKvZyk=;
+        b=OkN19lfr46+i/fZHJ6Opux3MkkjzIF8bNXMtZL+cWoZtvC/uAWz95tMN2dzJwonKIq
+         rUcg2aFpfp77MbknpjHs5WQigeQW9P2sb4pvU//+ecc35i6BQJ56Q3f/UnbfRYAgY6hq
+         sPwleMvOv6s3Zqt3AHIqwWEQdpS8p23Lxp5pzmwdgW9kFK4S7Jf7gFETUGRZE55QpJZK
+         WCrrzqT7m0fioa8G9q4H0gMZw1JoNNPf7bstycjSdb7fLG/lUbl6eAHwRE+/BOGbSLWq
+         lHukLgl+IBLQP4XDjt//hV0kyJU8FjrWjnTWSwgwSOfuMkNFJFXNtwZYouwGU7cAAy/l
+         +uoA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789292853; x=1789897653; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ZA6UhLFK2nKQBy/urUjDvw9ImmmMVXllGlAj00whEYQ=;
+        b=h8ehppNv9a9mZN2mWTTSjPlxRZZ47DTOchDQwJfNkrnjSv9vP4CkJg9QyhnBBNPSYf
+         q2vCzIXH1PCHcXoZV+/eqcs+OzyZHyuJ29KSkvfB5yGeb15eYnQB80QjSpJFWplTp+HB
+         DF2LS2hg38+DG2uEJ9xT1mvrp69NaU2gLfUhMAIDX1Epes/9Gu6oSTTP0BG9BOj0wusG
+         wHne81TegdQd85i2AD5fYiDkfOJsKiQYZozm+C6ZB7s26o5pJdrgw5nvq76czrlTfqaG
+         KeEW2ECl38Vl1+v1b9h3DjbU4mRQrSCisYnflUmHPSB8WkDYS+N+PnH9lznyeRkUUEQQ
+         opMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789292853; x=1789897653;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZA6UhLFK2nKQBy/urUjDvw9ImmmMVXllGlAj00whEYQ=;
+        b=mns2Plgd+MYSop3zEOQqcyzT7VDX6ySyhk6oKA8kDCnFd0lFOfNbuUEJ440n8MMk7W
+         aQ3R9L2nx1urjGjfmQP40bhmCHG/rTEsLux+Pdi/1pSGGwUOSXZ1aUr+69GGxlU/RwFZ
+         qOeA2AwXxWj5PUI9DfJbvtoLquAPBsLEepSJdAAjWs/A0r9cATpJV7IXIk+cXlt+tfFa
+         CYoWo6UnDr+QiXzzZUUiWqiBvGivRURQze/QeNQdtwse7jCOfBA+3P/z4p1qTf9S45qf
+         jzexVYWMvOsLGqQRIBjzR9Wfco4U9DyxewjV0iUniV7YJcxm04X9SX7v4/0kgrO/fEYH
+         Fxgg==
+X-Forwarded-Encrypted: i=1; AKwUvBz/3e3DgGd8cXODRm5MvME+SAti4M/uESza02Nu/u1VCP+VbUA5qT1s11XdK1zouSfCy1ECNqHs6QHGlZc=@vger.kernel.org
+X-Gm-Message-State: AFuF++kJNSj/dHhKA5+uugeRIG8W7f1tTi+hpoF1yVWZBSCi0/eICjk+
+	vQMA7TPr4VxfQKRAgvtlwMrUZOnrWOeHB2ZYGbd0gW5IDPXx2cnjdYpM4AnkSSFAEB1souWCjje
+	SYn0eEmF6r5+/0/qM7efHKwG7K4c3EAw=
+X-Gm-Gg: AYBFou00t3qxcOWm613TKZM3ThYV2pvuiBGS7J4dGReJTP1jg7FtSaib6qKWlHipatU
+	Gm2Da1AAgbDqAnj6p+oJ+/k2i6ck16hzu9R0YddCMjBs3yHkbdCf0OPW/Gyf1ckvSs9lsj6z8zh
+	oSpPI47zQD+Sn12ILW0ygE378PDuLhEhSP8urkOSDtwqm+PrPJoNXcFxn4oTU4JyQvuoVWVCSxm
+	wg/bk81QEWDoISJgczZBOU4IQ0bXmBQpsAiFnedjUSPCLW1Rp5idTJ59DFUcMpe1E2jPCW/0Iwf
+	R3ND5Zreqak6tGoEYtIarr4aAHdbQgVGy4vAi8nxxfOM3vbSUl3CsVJIqgfhg708XV/ErJbUdZE
+	YVFRYweKgGO+7lNBx6+41naOuguaWruh+KzExuxzfTM+O0IZnEFI=
+X-Received: by 2002:a17:907:7245:b0:c26:2a5:819 with SMTP id
+ a640c23a62f3a-c29666f6d30mr1154408066b.18.1789292852706; Sun, 13 Sep 2026
+ 02:47:32 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AGTXWeH1PU47
-Date: Sun, 13 Sep 2026 11:43:24 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Linus Walleij" <linusw@kernel.org>,
- "Bart Van Assche" <bvanassche@acm.org>
-Cc: "Ethan Nelson-Moore" <enelsonmoore@gmail.com>,
- "Russell King" <linux@armlinux.org.uk>,
- "Arnd Bergmann" <arnd@kernel.org>,
- "Krzysztof Kozlowski" <krzk@kernel.org>,
- "Alexandre Belloni" <alexandre.belloni@bootlin.com>,
- "Drew Fustini" <fustini@kernel.org>, "Rob Herring" <robh@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>,
- "Liviu Dudau" <liviu.dudau@arm.com>,
- "Sudeep Holla" <sudeep.holla@kernel.org>,
- "Lorenzo Pieralisi" <lpieralisi@kernel.org>,
- "Frank Li" <Frank.Li@nxp.com>, "Sascha Hauer" <s.hauer@pengutronix.de>,
- "Pengutronix Kernel Team" <kernel@pengutronix.de>,
- "Fabio Estevam" <festevam@gmail.com>,
- "Vladimir Zapolskiy" <vz@mleia.com>, "Stefan Agner" <stefan@agner.ch>,
- "Maxime Coquelin" <mcoquelin.stm32@gmail.com>,
- "Alexandre Torgue" <alexandre.torgue@foss.st.com>,
- "Aaro Koskinen" <aaro.koskinen@iki.fi>,
- "Andreas Kemnade" <andreas@kemnade.info>,
- "Kevin Hilman" <khilman@baylibre.com>,
- "Roger Quadros" <rogerq@kernel.org>, "Tony Lindgren" <tony@atomide.com>,
- "Nicolas Ferre" <nicolas.ferre@microchip.com>,
- "Claudiu Beznea" <claudiu.beznea@tuxon.dev>,
- "Andrew Lunn" <andrew@lunn.ch>,
- "Sebastian Hesselbarth" <sebastian.hesselbarth@gmail.com>,
- "Gregory Clement" <gregory.clement@bootlin.com>,
- "Robert Jarzmik" <robert.jarzmik@free.fr>,
- "Kristoffer Ericson" <kristoffer.ericson@gmail.com>,
- "Geert Uytterhoeven" <geert@linux-m68k.org>,
- "A. Sverdlin" <alexander.sverdlin@siemens.com>,
- "Shawn Guo" <shawnguo@kernel.org>,
- "Karl Mehltretter" <kmehltretter@gmail.com>,
- "David Hildenbrand (Red Hat)" <david@kernel.org>,
- "Nicolas Pitre" <npitre@baylibre.com>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, imx@lists.linux.dev,
- linux-stm32@st-md-mailman.stormreply.com,
- Linux-OMAP <linux-omap@vger.kernel.org>, "Ian Molton" <spyro@f2s.com>,
- "Jens Axboe" <axboe@kernel.dk>, "Helge Deller" <deller@gmx.de>,
- "Thomas Zimmermann" <tzimmermann@suse.de>,
- "Paul E. McKenney" <paulmck@kernel.org>, linux-block@vger.kernel.org,
- linux-serial@vger.kernel.org, linux-fbdev@vger.kernel.org
-Message-Id: <0d964e9a-10ce-4f78-8b92-30f55a50ccfd@app.fastmail.com>
-In-Reply-To: 
- <CAD++jLmRZek7MjW5LuLUb=u5RmgOyHy4V1OcTv7asAZJpWogtA@mail.gmail.com>
-References: <20260908152808.3928630-1-arnd@kernel.org>
- <20260908152808.3928630-4-arnd@kernel.org>
- <CADkSEUjYhRk-ezaXZkHzFTFQnySFSisKtZfEP-_NtLnQF+6-1Q@mail.gmail.com>
- <CAD++jL=ysmPgs8yKH5KBobuv-eeCHHgZwvo1kvHOFuTwhkaOew@mail.gmail.com>
- <2144051c-268c-40b1-8c22-4be49f0edd17@acm.org>
- <CAD++jLmRZek7MjW5LuLUb=u5RmgOyHy4V1OcTv7asAZJpWogtA@mail.gmail.com>
-Subject: Re: [PATCH 03/13] ARM: remove riscpc
-Content-Type: text/plain; charset=utf-8
+References: <20260912-alpha-kernel-compression-v1-0-ce9d55330193@gmail.com> <20260912-alpha-kernel-compression-v1-2-ce9d55330193@gmail.com>
+In-Reply-To: <20260912-alpha-kernel-compression-v1-2-ce9d55330193@gmail.com>
+From: Magnus Lindholm <linmag7@gmail.com>
+Date: Sun, 13 Sep 2026 11:47:21 +0200
+X-Gm-Features: AcwNN1Wn8vDFe3kkeFSsO4X04COC04caHU0GY_q-GiU63xx0kOtwZKDVXikQwcI
+Message-ID: <CA+=Fv5Q7rTXzMrKA6HVSwee5Zs4PAsV5t4NpwyF6HEiv8aohjQ@mail.gmail.com>
+Subject: Re: [PATCH 2/3] alpha: add self-extracting compressed kernel boot stub
+To: Matt Turner <mattst88@gmail.com>
+Cc: Lasse Collin <lasse.collin@tukaani.org>, 
+	Richard Henderson <richard.henderson@linaro.org>, Nick Terrell <terrelln@fb.com>, 
+	David Sterba <dsterba@suse.com>, linux-kernel@vger.kernel.org, 
+	linux-alpha@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 11, 2026, at 15:37, Linus Walleij wrote:
-> On Fri, Sep 11, 2026 at 3:26=E2=80=AFPM Bart Van Assche <bvanassche@ac=
-m.org> wrote:
->> On 9/11/26 2:07 AM, Linus Walleij wrote:
->
->> > The community has a built in tension around this:
->> >
->> > - One camp that are enthusiast like yourself. That kind of people
->> >    are running the show inside arch/m68k on Amigas and Ataris.
->> >
->> > - One camp who get their paycheck from present day companies
->> >    and constantly on top of the latest technology. As can be
->> >    seen Qualcomm just taped out a brand new ARMv7 SoC
->> >    named Kuno, for example.
->> >
->> > As you can see this leads to a bit of tension.
->>
->> That summary looks incomplete to me. Every time a kernel API is modif=
-ied
->> that is used by the RiscPC code, the RiscPC code has to be modified t=
-oo.
->> Removing the RiscPC code makes modifying kernel APIs easier. A recent
->> example is available here: "[PATCH v5] scsi: core: Drop
->> Scsi_Host.default_lock"
->> (https://lore.kernel.org/linux-scsi/20260831095821.3486994-1-john.g.g=
-arry@oracle.com/).
->
-> Yes that is development churn, but this is the same whether the hardwa=
-re
-> supported is old or brand new and doesn't really answer the question
-> whether it is to be supported or not.
->
-> That line of reasoning will always require a supportive hypothesis suc=
-h as:
->
-> - We don't want to support stuff that is old (deprecation and deletion=
-ist
->   stance, I don't want to hear yesterdays news)
->
-> - We don't want to support stuff that has very few users (utilitarism,
-> basically,
->   the biggest common good for the biggest number of people take
->   precedence)
->
-> This is implicit in many statements people make about this. What entus=
-iasts
-> ask is a completely different question:
->
-> - Is this fun (for me/us), makes me feel good to work on etc.
->
-> NB: personally I don't take a clear stance here, I mostly want to brea=
-k apart
-> the argument and clarify what it is all about.
+Hi Matt,
 
-As the discussion is still ongoing, I'll skip this patch for v2 and
-anything that depends on it. There is obviously no rush here, but I'd
-like to get the settle on which platforms to remove for 7.4 soon in
-order to plan the driver removal for 7.5.
+On Sat, Sep 12, 2026 at 9:55=E2=80=AFPM Matt Turner <mattst88@gmail.com> wr=
+ote:
+>
+> Alpha only ever supported gzip for the kernel image, and did so in a way
+> out of step with every other architecture: aboot, the disk boot loader,
+> decompresses vmlinux.gz itself with its own bundled inflate code, so
+> adding a compression format meant writing a new decompressor inside
+> aboot as well as in the kernel.
+>
+> Build a proper self-extracting arch/alpha/boot/compressed/vmlinux
+> instead, modeled on parisc: a small ELF stub with the real, compressed
+> vmlinux linked in, which decompresses the kernel, relocates it into
+> place and jumps to its entry point. aboot needs no changes.
+>
+> The build now emits arch/alpha/boot/vmlinuz rather than vmlinux.gz,
+> which was never a name aboot cared about and would be a lie for an ELF
+> stub: the bootpz path in the same directory still produces real gzip
+> data as vmlinux.nh.gz. Existing aboot.conf files name the image as it
+> was installed in /boot, so only the command that copies it out of the
+> build tree changes.
+>
+> Unlike parisc and mips, the stub is linked at START_ADDR rather than at
+> a separate low address; see compressed/vmlinux.lds.S. It has no console
+> output, since bringing up the HWRPB console callbacks needs more than
+> the CRB dispatch the kernel proper does much later, so error() just
+> halts.
+>
+> The legacy SRM netboot path (bootpz.c) is left alone: it has its own
+> boot protocol (PALcode reinitialization, self-populated ZERO_PGE,
+> build-time-computed image sizes) that does not fit this design without a
+> separate rewrite, and keeps using plain gzip via vmlinux.nh.gz.
+>
+> Signed-off-by: Matt Turner <mattst88@gmail.com>
+> ---
+>  arch/alpha/Kconfig                       |   1 +
+>  arch/alpha/Makefile                      |   6 +-
+>  arch/alpha/boot/.gitignore               |   2 +
+>  arch/alpha/boot/Makefile                 |  16 ++-
+>  arch/alpha/boot/compressed/.gitignore    |   3 +
+>  arch/alpha/boot/compressed/Makefile      |  36 +++++++
+>  arch/alpha/boot/compressed/head.S        |  36 +++++++
+>  arch/alpha/boot/compressed/misc.c        | 178 +++++++++++++++++++++++++=
+++++++
+>  arch/alpha/boot/compressed/trampoline.S  |  46 ++++++++
+>  arch/alpha/boot/compressed/vmlinux.lds.S |  83 ++++++++++++++
+>  arch/alpha/boot/compressed/vmlinux.scr   |  10 ++
+>  11 files changed, 409 insertions(+), 8 deletions(-)
+>
+> diff --git a/arch/alpha/Kconfig b/arch/alpha/Kconfig
+> index 04511242506b..2688bb00f175 100644
+> --- a/arch/alpha/Kconfig
+> +++ b/arch/alpha/Kconfig
+> @@ -30,6 +30,7 @@ config ALPHA
+>         select HAVE_ASM_MODVERSIONS
+>         select HAVE_DEBUG_KMEMLEAK
+>         select HAVE_GUP_FAST
+> +       select HAVE_KERNEL_GZIP
+>         select HAVE_PAGE_SIZE_8KB
+>         select HAVE_PCSPKR_PLATFORM
+>         select HAVE_PERF_EVENTS
+> diff --git a/arch/alpha/Makefile b/arch/alpha/Makefile
+> index 7074602dca94..405d4bfd644c 100644
+> --- a/arch/alpha/Makefile
+> +++ b/arch/alpha/Makefile
+> @@ -47,9 +47,9 @@ export LIBS_Y
+>  boot :=3D arch/alpha/boot
+>
+>  #Default target when executing make with no arguments
+> -all boot: $(boot)/vmlinux.gz
+> +all boot: $(boot)/vmlinuz
+>
+> -$(boot)/vmlinux.gz: vmlinux
+> +$(boot)/vmlinuz: vmlinux
+>         $(Q)$(MAKE) $(build)=3D$(boot) $@
+>
+>  bootimage bootpfile bootpzfile: vmlinux
+> @@ -59,7 +59,7 @@ archheaders:
+>         $(Q)$(MAKE) $(build)=3Darch/alpha/kernel/syscalls all
+>
+>  define archhelp
+> -  echo '* boot         - Compressed kernel image (arch/alpha/boot/vmlinu=
+x.gz)'
+> +  echo '* boot         -using
+alpha-unknown-linux-gnu- Compressed kernel image (arch/alpha/boot/vmlinuz)'
+>    echo '  bootimage    - SRM bootable image (arch/alpha/boot/bootimage)'
+>    echo '  bootpfile    - BOOTP bootable image (arch/alpha/boot/bootpfile=
+)'
+>    echo '  bootpzfile   - compressed kernel BOOTP image (arch/alpha/boot/=
+bootpzfile)'
+> diff --git a/arch/alpha/boot/.gitignore b/arch/alpha/boot/.gitignore
+> new file mode 100644
+> index 000000000000..4125506521f6
+> --- /dev/null
+> +++ b/arch/alpha/boot/.gitignore
+> @@ -0,0 +1,2 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +vmlinuz
+> diff --git a/arch/alpha/boot/Makefile b/arch/alpha/boot/Makefile
+> index d8dba85e606c..7c2a41c1e2a0 100644
+> --- a/arch/alpha/boot/Makefile
+> +++ b/arch/alpha/boot/Makefile
+> @@ -9,9 +9,10 @@
+>  #
+>
+>  hostprogs      :=3D tools/mkbb tools/objstrip
+> -targets                :=3D vmlinux.gz vmlinux \
+> +targets                :=3D vmlinuz vmlinux \
+>                    vmlinux.nh tools/lxboot tools/bootlx tools/bootph \
+> -                  tools/bootpzh bootloader bootpheader bootpzheader
+> +                  tools/bootpzh bootloader bootpheader bootpzheader
+> +subdir-                :=3D compressed
+>  OBJSTRIP       :=3D $(obj)/tools/objstrip
+>
+>  KBUILD_HOSTCFLAGS :=3D -Wall -I$(objtree)/usr/include
+> @@ -38,9 +39,14 @@ ifdef INITRD
+>         cat $(INITRD) >> $@
+>  endif
+>
+> -# Compressed kernel image
+> -$(obj)/vmlinux.gz: $(obj)/vmlinux FORCE
+> -       $(call if_changed,gzip)
+> +# Self-extracting compressed kernel image: a small ELF stub (see
+> +# compressed/) with the real vmlinux linked in compressed, which aboot
+> +# loads and enters like a plain vmlinux.
+> +$(obj)/compressed/vmlinux: vmlinux FORCE
+> +       $(Q)$(MAKE) $(build)=3D$(obj)/compressed $@
+> +
+> +$(obj)/vmlinuz: $(obj)/compressed/vmlinux FORCE
+> +       $(call if_changed,copy)
+>         @echo '  Kernel $@ is ready'
+>
+>  $(obj)/main.o: $(obj)/ksize.h
+> diff --git a/arch/alpha/boot/compressed/.gitignore b/arch/alpha/boot/comp=
+ressed/.gitignore
+> new file mode 100644
+> index 000000000000..765a08f1bd77
+> --- /dev/null
+> +++ b/arch/alpha/boot/compressed/.gitignore
+> @@ -0,0 +1,3 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +vmlinux
+> +vmlinux.lds
+> diff --git a/arch/alpha/boot/compressed/Makefile b/arch/alpha/boot/compre=
+ssed/Makefile
+> new file mode 100644
+> index 000000000000..d826f7e4384d
+> --- /dev/null
+> +++ b/arch/alpha/boot/compressed/Makefile
+> @@ -0,0 +1,36 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +#
+> +# Create a self-extracting compressed vmlinux image from the original
+> +# vmlinux. aboot loads and enters it like a plain vmlinux.
+> +#
+> +
+> +OBJECTS :=3D head.o misc.o trampoline.o piggy.o
+> +targets :=3D vmlinux.lds vmlinux vmlinux.bin vmlinux.bin.gz
+> +targets +=3D $(OBJECTS)
+> +
+> +# The stub runs before the kernel has identified the CPU it booted on, s=
+o
+> +# build it for the base Alpha instruction set rather than inheriting the
+> +# kernel's -mcpu=3D.
+> +KBUILD_CFLAGS :=3D -D__KERNEL__ -std=3Dgnu11 -Os -fno-strict-aliasing
+> +KBUILD_CFLAGS +=3D -fno-PIE -ffreestanding -fno-stack-protector
+> +KBUILD_CFLAGS +=3D -fno-asynchronous-unwind-tables
+> +KBUILD_CFLAGS +=3D -pipe -mno-fp-regs -ffixed-8
+> +KBUILD_CFLAGS +=3D -DDISABLE_BRANCH_PROFILING -D__DISABLE_EXPORTS
+> +KBUILD_CFLAGS +=3D $(CC_FLAGS_DIALECT)
+> +
+> +LDFLAGS_vmlinux :=3D -X --orphan-handling=3Dwarn -T
+> +$(obj)/vmlinux: $(obj)/vmlinux.lds $(addprefix $(obj)/, $(OBJECTS)) $(LI=
+BS_Y) FORCE
+> +       $(call if_changed,ld)
+> +
+> +OBJCOPYFLAGS_vmlinux.bin :=3D -R .comment -R .note -S
+> +$(obj)/vmlinux.bin: vmlinux FORCE
+> +       $(call if_changed,objcopy)
+> +
+> +suffix-$(CONFIG_KERNEL_GZIP)   :=3D gz
+> +
+> +$(obj)/vmlinux.bin.gz: $(obj)/vmlinux.bin FORCE
+> +       $(call if_changed,gzip)
+> +
+> +LDFLAGS_piggy.o :=3D -r --format binary --oformat elf64-alpha -T
+> +$(obj)/piggy.o: $(obj)/vmlinux.scr $(obj)/vmlinux.bin.$(suffix-y) FORCE
+> +       $(call if_changed,ld)
+> diff --git a/arch/alpha/boot/compressed/head.S b/arch/alpha/boot/compress=
+ed/head.S
+> new file mode 100644
+> index 000000000000..c689ac439d15
+> --- /dev/null
+> +++ b/arch/alpha/boot/compressed/head.S
+> @@ -0,0 +1,36 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * Entry point for the self-extracting compressed kernel stub. aboot
+> + * jumps here with the OSF/1 parameter page (ZERO_PGE) already populated
+> + * and $30 set to INIT_STACK, exactly as it would for an uncompressed
+> + * vmlinux.
+> + */
+> +
+> +#include <linux/init.h>
+> +#include <asm/pal.h>
+> +
+> +       .set noreorder
+> +
+> +__HEAD
+> +       .globl  __start
+> +       .ent    __start
+> +__start:
+> +       br      $29,1f
+> +1:     ldgp    $29,0($29)
+> +
+> +       /*
+> +        * Clear our own bss. The decompressors keep state there, and
+> +        * nothing guarantees that aboot zeroed the part of our PT_LOAD
+> +        * segment that has no file backing.
+> +        */
+> +       lda     $1,_bss
+> +       lda     $2,_ebss
+> +2:     cmpult  $1,$2,$3
+> +       beq     $3,3f
+> +       stq     $31,0($1)
+> +       addq    $1,8,$1
+> +       br      $31,2b
+> +
+> +3:     jsr     $26,decompress_and_boot
+> +       call_pal PAL_halt
+> +       .end __start
+> diff --git a/arch/alpha/boot/compressed/misc.c b/arch/alpha/boot/compress=
+ed/misc.c
+> new file mode 100644
+> index 000000000000..72998582be68
+> --- /dev/null
+> +++ b/arch/alpha/boot/compressed/misc.c
+> @@ -0,0 +1,178 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Decompression and self-relocation for the compressed kernel boot stub=
+,
+> + * based on arch/parisc/boot/compressed/misc.c.
+> + *
+> + * aboot loads the stub as an ordinary ELF at START_ADDR and jumps to it
+> + * with the parameter page and stack already set up; vmlinux.lds.S
+> + * explains why the stub has to be linked there. We decompress above our
+> + * own bss and never write below START_ADDR, so what aboot prepared stay=
+s
+> + * valid for the real kernel.
+> + */
+> +
+> +#include <linux/elf.h>
+> +#include <linux/kernel.h>
+> +#include <linux/string.h>
+> +#include <linux/types.h>
+> +
+> +#include <asm/hwrpb.h>
+> +#include <asm/page.h>
+> +#include <asm/pal.h>
+> +#include <asm/setup.h>
+> +
+> +#define STATIC static
+> +#define memzero(s, n) memset((s), 0, (n))
+> +
+> +extern char input_data[];
+> +extern int input_len;
+> +/* output_len is inserted by the linker, possibly at an unaligned addres=
+s */
+> +extern char output_len;
+> +
+> +extern char _ebss[];
+> +extern char trampoline_start[], trampoline_end[];
+> +
+> +static unsigned long free_mem_ptr;
+> +static unsigned long free_mem_end_ptr;
+> +static unsigned long mem_end;
+> +
+> +/* The stub has no console, so the message is only for debuggers. */
+> +void __noreturn error(char *m)
+> +{
+> +       while (1)
+> +               __halt();
+> +}
+> +
+> +#ifdef CONFIG_KERNEL_GZIP
+> +#include "../../../../lib/decompress_inflate.c"
+> +#endif
+> +
+> +/* Scratch heap for the decompressors, larger than any of them needs. */
+> +#define STUB_HEAP_SIZE (4 * 1024 * 1024)
+> +
+> +/*
+> + * Type punning through a packed struct, to avoid the warnings the regul=
+ar
+> + * get_unaligned_le32() produces when reading a char-typed symbol as an
+> + * integer.
+> + */
+> +static u32 punned_get_unaligned_le32(const void *p)
+> +{
+> +       const struct { __le32 x; } __packed *pp =3D p;
+> +
+> +       return le32_to_cpu(pp->x);
+> +}
+> +
+> +/*
+> + * End of the usable memory cluster that holds the kernel, or 0 if the
+> + * HWRPB does not describe one. Used to check that the decompressed imag=
+e
+> + * and the stub's scratch space fit before anything is written.
+> + */
+> +static unsigned long usable_memory_end(void)
+> +{
+> +       struct hwrpb_struct *hwrpb;
+> +       struct memdesc_struct *memdesc;
+> +       unsigned long pfn =3D (START_ADDR - PAGE_OFFSET) >> PAGE_SHIFT;
+> +       unsigned long i;
+> +
+> +       hwrpb =3D (struct hwrpb_struct *)(PAGE_OFFSET + INIT_HWRPB->phys_=
+addr);
+> +       memdesc =3D (struct using
+alpha-unknown-linux-gnu-using
+alpha-unknown-linux-gnu-memdesc_struct *)((unsigned long)hwrpb +
+> +                                           hwrpb->mddt_offset);
+> +
+> +       for (i =3D 0; i < memdesc->numclusters; i++) {
+> +               struct memclust_struct *cluster =3D &memdesc->cluster[i];
+> +               unsigned long end_pfn =3D cluster->start_pfn + cluster->n=
+umpages;
+> +
+> +               if (cluster->usage)
+> +                       continue;
+> +               if (pfn >=3D cluster->start_pfn && pfn < end_pfn)
+> +                       return PAGE_OFFSET + (end_pfn << PAGE_SHIFT);
+> +       }
+> +
+> +       return 0;
+> +}
+> +
+> +/*
+> + * Move the decompressed kernel's single PT_LOAD segment down onto
+> + * START_ADDR and jump to its entry point. The kernel is always linked
+> + * with exactly one PT_LOAD whose p_vaddr equals its e_entry equals
+> + * START_ADDR (see arch/alpha/kernel/vmlinux.lds.S); anything else we do
+> + * not know how to boot.
+> + *
+> + * The copy cannot run from this stub, which is itself executing at
+> + * START_ADDR; see trampoline.S.
+> + */
+> +static void __noreturn relocate_and_jump(void *image)
+> +{
+> +       void (*trampoline)(unsigned long dest, unsigned long src,
+> +                          unsigned long filesz, unsigned long memsz,
+> +                          unsigned long entry);
+> +       unsigned long tramp_len =3D trampoline_end - trampoline_start;
+> +       Elf64_Phdr phdr, load_phdr =3D {};
+> +       Elf64_Ehdr ehdr;
+> +       int i, found_load =3D 0;
+> +       unsigned long tramp;
+> +
+> +       memcpy(&ehdr, image, sizeof(ehdr));
+> +
+> +       if (ehdr.e_ident[EI_MAG0] !=3D ELFMAG0 ||
+> +           ehdr.e_ident[EI_MAG1] !=3D ELFMAG1 ||
+> +           ehdr.e_ident[EI_MAG2] !=3D ELFMAG2 ||
+> +           ehdr.e_ident[EI_MAG3] !=3D ELFMAG3 ||
+> +           ehdr.e_ident[EI_CLASS] !=3D ELFCLASS64 ||
+> +           ehdr.e_ident[EI_DATA] !=3D ELFDATA2LSB ||
+> +           ehdr.e_machine !=3D EM_ALPHA ||
+> +           ehdr.e_type !=3D ET_EXEC ||
+> +           ehdr.e_entry !=3D START_ADDR)
+> +               error("Not a bootable Alpha kernel image");
+> +
+> +       for (i =3D 0; i < ehdr.e_phnum; i++) {
+> +               memcpy(&phdr, image + ehdr.e_phoff + i * ehdr.e_phentsize=
+,
+> +                      sizeof(phdr));
+> +
+> +               if (phdr.p_type !=3D PT_LOAD)
+> +                       continue;
+> +               if (found_load || phdr.p_vaddr !=3D START_ADDR)
+> +                       error("Unexpected kernel segment layout");
+> +               found_load =3D 1;
+> +               load_phdr =3D phdr;
+> +       }
+> +       if (!found_load)
+> +               error("Kernel image has no PT_LOAD segment");
+> +
+> +       /*
+> +        * The trampoline has to outlive both the scratch heap it is copi=
+ed
+> +        * into and the region it is about to write, which extends past t=
+he
+> +        * kernel's file image to the end of its bss.
+> +        */
+> +       tramp =3D ALIGN(max(free_mem_end_ptr, START_ADDR + load_phdr.p_me=
+msz), 8);
+> +       if (mem_end && tramp + tramp_len > mem_end)
+> +               error("Not enough memory to relocate the kernel");
+> +
+> +       memcpy((void *)tramp, trampoline_start, tramp_len);
+> +       imb();
+> +using
+alpha-unknown-linux-gnu-
+> +       trampoline =3D (void *)tramp;
+> +       trampoline(load_phdr.p_vaddr,
+> +                  (unsigned long)image + load_phdr.p_offset,
+> +                  load_phdr.p_filesz, load_phdr.p_memsz, ehdr.e_entry);
+> +       unreachable();
+> +}
+> +
+> +void __noreturn decompress_and_boot(void)
+> +{
+> +       unsigned long image_len =3D punned_get_unaligned_le32(&output_len=
+);
+> +       void *image =3D (void *)ALIGN((unsigned long)_ebss, PAGE_SIZE);
+> +
+> +       free_mem_ptr =3D ALIGN((unsigned long)image + image_len, PAGE_SIZ=
+E);
+> +       free_mem_end_ptr =3D free_mem_ptr + STUB_HEAP_SIZE;
+> +
+> +       mem_end =3D usable_memory_end();
+> +       if (mem_end && free_mem_end_ptr > mem_end)
+> +               error("Not enough memory to decompress the kernel");
+> +
+> +       /* Some decompressors report failure only through the return valu=
+e. */
+> +       if (__decompress(input_data, input_len, NULL, NULL, image, image_=
+len,
+> +                        NULL, error))
+> +               error("Kernel decompression failed");
+> +
+> +       relocate_and_jump(image);
+> +}
+> diff --git a/arch/alpha/boot/compressed/trampoline.S b/arch/alpha/boot/co=
+mpressed/trampoline.S
+> new file mode 100644
+> index 000000000000..bf57d3b0fd7f
+> --- /dev/null
+> +++ b/arch/alpha/boot/compressed/trampoline.S
+> @@ -0,0 +1,46 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * Copy the decompressed kernel onto START_ADDR, clear its bss and jump =
+to
+> + * its entry point. See relocate_and_jump() in misc.c for why this canno=
+t
+> + * run from the stub itself. It is position independent (no data or
+> + * rodata references, no gp) and clobbers only its argument registers an=
+d
+> + * $1, so misc.c can copy it anywhere and call it there.
+> + */
+> +
+> +       .set noreorder
+> +
+> +       .globl  trampoline_start
+> +       .globl  trampoline_end
+> +       .ent    trampoline_start
+> +trampoline_start:
+> +       /* $16 =3D dest, $17 =3D src, $18 =3D p_filesz, $19 =3D p_memsz, =
+$20 =3D entry */
+> +
+> +       /*
+> +        * dest and src are both page aligned, and everything above
+> +        * p_filesz is bss, so round both lengths up and work in quadword=
+s
+> +        * only, using instructions every Alpha implements.
+> +        */
+> +       addq    $18,7,$18
+> +       bic     $18,7,$18
+> +       addq    $19,7,$19
+> +       bic     $19,7,$19
+> +       subq    $19,$18,$19             /* bytes to zero after the copy *=
+/
+> +
+> +1:     beq     $18,2f
+> +       ldq     $1,0($17)
+> +       stq     $1,0($16)
+> +       addq    $17,8,$17
+> +       addq    $16,8,$16
+> +       subq    $18,8,$18
+> +       br      $31,1b
+> +
+> +2:     beq     $19,3f
+> +       stq     $31,0($16)
+> +       addq    $16,8,$16
+> +       subq    $19,8,$19
+> +       br      $31,2b
+> +
+> +3:     imb
+> +       jmp     $31,($20)
+> +       .end trampoline_start
+> +trampoline_end:
+> diff --git a/arch/alpha/boot/compressed/vmlinux.lds.S b/arch/alpha/boot/c=
+ompressed/vmlinux.lds.S
+> new file mode 100644
+> index 000000000000..5328c1ccaccf
+> --- /dev/null
+> +++ b/arch/alpha/boot/compressed/vmlinux.lds.S
+> @@ -0,0 +1,83 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +#include <asm-generic/vmlinux.lds.h>
+> +#include <asm/page.h>
+> +#include <asm/setup.h>
+> +
+> +OUTPUT_FORMAT("elf64-alpha")
+> +OUTPUT_ARCH(alpha)
+> +ENTRY(__start)
+> +
+> +SECTIONS
+> +{
+> +       /*
+> +        * Link the stub at the address the real, uncompressed vmlinux ha=
+s
+> +        * always occupied. aboot derives the OSF/1 parameter-page
+> +        * (ZERO_PGE) and initial stack (INIT_STACK) addresses from the
+> +        * loaded image's own p_vaddr, so a stub linked anywhere else wou=
+ld
+> +        * hand the real kernel a parameter page it does not expect.
+> +        */
+> +       . =3D START_ADDR;
+> +
+> +       .head.text : {
+> +               _head =3D .;
+> +               HEAD_TEXT
+> +               _ehead =3D .;
+> +       }
+> +
+> +       . =3D ALIGN(8);
+> +       .rodata.compressed : {
+> +               *(.rodata.compressed)
+> +       }
+> +
+> +       . =3D ALIGN(PAGE_SIZE);
+> +       .text : {
+> +               _text =3D .;
+> +               *(.text)
+> +               *(.text.*)
+> +               _etext =3D .;
+> +       }
+> +       . =3D ALIGN(8);
+> +       .rodata : {
+> +               *(.rodata)
+> +               *(.rodata.*)
+> +       }
+> +       . =3D ALIGN(8);
+> +       .data : {
+> +               *(.data)
+> +               *(.data.*)
+> +       }
+> +       .got : {
+> +               *(.got)
+> +       }
+> +       .sdata : {
+> +               *(.sdata)
+> +       }
+> +       /*
+> +        * misc.c decompresses to _ebss, so nothing that the stub still
+> +        * needs may be placed after .bss. --orphan-handling=3Dwarn keeps=
+ a
+> +        * new section from silently landing there.
+> +        */
+> +       . =3D ALIGN(8);
+> +       .bss : {
+> +               _bss =3D .;
+> +               *(.sbss)
+> +               *(.scommon)
+> +               *(.bss)
+> +               *(.bss.*)
+> +               *(COMMON)
+> +               . =3D ALIGN(8);
+> +               _ebss =3D .;
+> +       }
+> +
+> +       STABS_DEBUG
+> +       DWARF_DEBUG
+> +       ELF_DETAILS
+> +
+> +       DISCARDS
+> +       /DISCARD/ : {
+> +               *(.eh_frame)
+> +               *(.modinfo)
+> +               *(.note)
+> +               *(.note.*)
+> +       }
+> +}
+> diff --git a/arch/alpha/boot/compressed/vmlinux.scr b/arch/alpha/boot/com=
+pressed/vmlinux.scr
+> new file mode 100644
+> index 000000000000..dac2d142bcfa
+> --- /dev/nullusing
+alpha-unknown-linux-gnu-
+> +++ b/arch/alpha/boot/compressed/vmlinux.scr
+> @@ -0,0 +1,10 @@
+> +SECTIONS
+> +{
+> +  .rodata.compressed : {
+> +       input_len =3D .;
+> +       LONG(input_data_end - input_data) input_data =3D .;
+> +       *(.data)
+> +       output_len =3D . - 4; /* can be at unaligned address */
+> +       input_data_end =3D .;
+> +       }
+> +}
+>
+> --
+> 2.54.0
+>
+I reviewed the self-extracting boot stub and tested the complete series
+on an UP2000+ at 833 MHz through SRM and aboot
+1.0_pre20040408.
 
-This is about 10% of the total size of my board-remove-7.3
-branch, but that is mostly because of the oabi/nwfpe support and
-the scsi drivers.
+The bzip2, lzma, xz and zstd self-extracting kernels all booted
+successfully.
 
-       Arnd
+I additionally boot-tested the bzip2 image with an external 896000-byte
+uncompressed cpio initramfs. aboot loaded it at
+0xfffffc007ff16000, and the initramfs reached userspace intact.
 
-75e7f9f13efc ARM: remove riscpc
-973b9263fc92 ARM: remove StrongARM CPU support
-7d996576dfdb ARM: remove OABI support
-c345282c3031 ARM: remove nwfpe floating point emulation
-8a752dcb48e6 ARM: remove ISA bus support
-1c2ccc5c012a ARM: remove unnecessary CONFIG_USE_OF
-6b22ba07131a ARM: remove deprecated params struct
-fdb4d531b027 Input: mouse: remove RiscPC mouse driver
-67c968a3c911 Input: serio: remove RiscPC keyboard driver
-76741210657f i2c: remove unused acorn driver
-dd66946baaa8 fbdev: remove unused acornfb driver
-925c897547d9 net: i825xx: remove ether1 support
-460e5bd08398 net: 8390: remove arm etherh support
-f3b06d87c991 net: seeq: remove ether3 support
-c0a14d208da6 scsi: remove unused arm/riscpc drivers
-5f9f353d4555 serial: 8250: remove acorn driver
-
- Documentation/arch/arm/index.rst               |    3 -
- Documentation/arch/arm/nwfpe/index.rst         |   13 -
- Documentation/arch/arm/nwfpe/netwinder-fpe.rst |  162 --
- Documentation/arch/arm/nwfpe/notes.rst         |   32 -
- Documentation/arch/arm/nwfpe/nwfpe.rst         |   74 -
- Documentation/arch/arm/nwfpe/todo.rst          |   72 -
- Documentation/arch/arm/setup.rst               |  108 -
- Documentation/staging/magic-number.rst         |    2 -
- arch/arm/Kbuild                                |    3 -
- arch/arm/Kconfig                               |  133 +-
- arch/arm/Kconfig.debug                         |    4 +-
- arch/arm/Kconfig.platforms                     |    4 +-
- arch/arm/Makefile                              |    8 -
- arch/arm/boot/compressed/Makefile              |    3 -
- arch/arm/boot/compressed/head.S                |   14 -
- arch/arm/include/asm/cache.h                   |    4 +-
- arch/arm/include/asm/cmpxchg.h                 |   39 -
- arch/arm/include/asm/div64.h                   |   14 -
- arch/arm/include/asm/dma.h                     |  129 -
- arch/arm/include/asm/floppy.h                  |   81 -
- arch/arm/include/asm/glue-cache.h              |    8 -
- arch/arm/include/asm/glue-proc.h               |   18 -
- arch/arm/include/asm/io.h                      |   28 -
- arch/arm/include/asm/mach/dma.h                |   46 -
- arch/arm/include/asm/page.h                    |    8 -
- arch/arm/include/asm/setup.h                   |    3 -
- arch/arm/include/asm/syscall.h                 |   27 +-
- arch/arm/include/asm/unistd.h                  |   28 -
- arch/arm/include/uapi/asm/setup.h              |    3 -
- arch/arm/include/uapi/asm/unistd.h             |    5 -
- arch/arm/kernel/Makefile                       |    5 +-
- arch/arm/kernel/armksyms.c                     |    2 -
- arch/arm/kernel/atags.h                        |    2 -
- arch/arm/kernel/atags_compat.c                 |  214 --
- arch/arm/kernel/atags_parse.c                  |    8 -
- arch/arm/kernel/dma.c                          |  283 --
- arch/arm/kernel/entry-armv.S                   |    8 +-
- arch/arm/kernel/entry-common.S                 |  144 -
- arch/arm/kernel/isa.c                          |   50 -
- arch/arm/kernel/setup.c                        |   13 -
- arch/arm/kernel/sys_oabi-compat.c              |  514 ----
- arch/arm/lib/Makefile                          |    6 +-
- arch/arm/lib/io-readsw-armv3.S                 |  103 -
- arch/arm/lib/io-writesw-armv3.S                |  123 -
- arch/arm/lib/lib1funcs.S                       |    4 -
- arch/arm/lib/ucmpdi2.S                         |    5 -
- arch/arm/mach-davinci/Kconfig                  |    2 +-
- arch/arm/mach-mmp/Kconfig                      |    4 +-
- arch/arm/mach-omap2/Kconfig                    |    3 +-
- arch/arm/mm/Kconfig                            |   46 +-
- arch/arm/mm/Makefile                           |    4 -
- arch/arm/mm/cache-v4wb.S                       |  259 --
- arch/arm/mm/cache.c                            |   28 -
- arch/arm/mm/copypage-v4mc.c                    |  113 -
- arch/arm/mm/proc-sa110.S                       |  229 --
- arch/arm/mm/proc-sa1100.S                      |  277 --
- arch/arm/mm/proc.c                             |   40 -
- arch/arm/net/bpf_jit_32.c                      |    2 +-
- arch/arm/nwfpe/ARM-gcc.h                       |  121 -
- arch/arm/nwfpe/ChangeLog                       |   91 -
- arch/arm/nwfpe/Makefile                        |   19 -
- arch/arm/nwfpe/double_cpdo.c                   |  155 --
- arch/arm/nwfpe/entry.S                         |  190 --
- arch/arm/nwfpe/extended_cpdo.c                 |  142 -
- arch/arm/nwfpe/fpa11.c                         |  116 -
- arch/arm/nwfpe/fpa11.h                         |  109 -
- arch/arm/nwfpe/fpa11.inl                       |   51 -
- arch/arm/nwfpe/fpa11_cpdo.c                    |  125 -
- arch/arm/nwfpe/fpa11_cpdt.c                    |  395 ---
- arch/arm/nwfpe/fpa11_cprt.c                    |  361 ---
- arch/arm/nwfpe/fpmodule.c                      |  178 --
- arch/arm/nwfpe/fpmodule.h                      |   35 -
- arch/arm/nwfpe/fpmodule.inl                    |   74 -
- arch/arm/nwfpe/fpopcode.c                      |   51 -
- arch/arm/nwfpe/fpopcode.h                      |  469 ----
- arch/arm/nwfpe/fpsr.h                          |   96 -
- arch/arm/nwfpe/milieu.h                        |   48 -
- arch/arm/nwfpe/single_cpdo.c                   |  112 -
- arch/arm/nwfpe/softfloat-macros                |  754 ------
- arch/arm/nwfpe/softfloat-specialize            |  367 ---
- arch/arm/nwfpe/softfloat.c                     | 3435 -----------------=
--------
- arch/arm/nwfpe/softfloat.h                     |  281 --
- arch/arm/tools/Makefile                        |    2 -
- arch/arm/tools/syscall.tbl                     |   69 +-
- drivers/hwtracing/coresight/Kconfig            |    2 +-
- drivers/i2c/busses/Kconfig                     |   10 -
- drivers/i2c/busses/Makefile                    |    1 -
- drivers/i2c/busses/i2c-acorn.c                 |   96 -
- drivers/input/mouse/Kconfig                    |   10 -
- drivers/input/mouse/Makefile                   |    1 -
- drivers/input/mouse/rpcmouse.c                 |  113 -
- drivers/input/serio/Kconfig                    |   11 -
- drivers/input/serio/Makefile                   |    1 -
- drivers/input/serio/rpckbd.c                   |  152 --
- drivers/net/ethernet/8390/Kconfig              |    8 -
- drivers/net/ethernet/8390/Makefile             |    1 -
- drivers/net/ethernet/8390/etherh.c             |  858 ------
- drivers/net/ethernet/i825xx/Kconfig            |    7 -
- drivers/net/ethernet/i825xx/Makefile           |    1 -
- drivers/net/ethernet/i825xx/ether1.c           | 1086 --------
- drivers/net/ethernet/i825xx/ether1.h           |  277 --
- drivers/net/ethernet/seeq/Kconfig              |    7 -
- drivers/net/ethernet/seeq/Makefile             |    1 -
- drivers/net/ethernet/seeq/ether3.c             |  898 -------
- drivers/net/ethernet/seeq/ether3.h             |  174 --
- drivers/scsi/Kconfig                           |    2 -
- drivers/scsi/Makefile                          |    2 -
- drivers/scsi/arm/Kconfig                       |   74 -
- drivers/scsi/arm/Makefile                      |   14 -
- drivers/scsi/arm/acornscsi-io.S                |  135 -
- drivers/scsi/arm/acornscsi.c                   | 2920 -----------------=
----
- drivers/scsi/arm/acornscsi.h                   |  350 ---
- drivers/scsi/arm/arm_scsi.h                    |  136 -
- drivers/scsi/arm/arxescsi.c                    |  363 ---
- drivers/scsi/arm/cumana_1.c                    |  341 ---
- drivers/scsi/arm/cumana_2.c                    |  524 ----
- drivers/scsi/arm/eesox.c                       |  646 -----
- drivers/scsi/arm/fas216.c                      | 3039 -----------------=
-----
- drivers/scsi/arm/fas216.h                      |  407 ---
- drivers/scsi/arm/msgqueue.c                    |  168 --
- drivers/scsi/arm/msgqueue.h                    |   79 -
- drivers/scsi/arm/oak.c                         |  213 --
- drivers/scsi/arm/powertec.c                    |  452 ----
- drivers/scsi/arm/queue.c                       |  319 ---
- drivers/scsi/arm/queue.h                       |  104 -
- drivers/tty/serial/8250/8250_acorn.c           |  138 -
- drivers/tty/serial/8250/Kconfig                |    8 -
- drivers/tty/serial/8250/Makefile               |    1 -
- drivers/video/fbdev/Kconfig                    |    9 -
- drivers/video/fbdev/Makefile                   |    1 -
- drivers/video/fbdev/acornfb.c                  | 1102 --------
- drivers/video/fbdev/acornfb.h                  |  166 --
- fs/eventpoll.c                                 |   18 +-
- include/linux/eventpoll.h                      |   23 -
- lib/fonts/Kconfig                              |    1 -
- scripts/package/mkdebian                       |    7 +-
- 136 files changed, 80 insertions(+), 26810 deletions(-)
+Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
+Tested-by: Magnus Lindholm <linmag7@gmail.com>
