@@ -1,74 +1,76 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1B6A184
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 00:05:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70CFC184
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 00:05:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789257928; cv=none; b=C7FsJFkiqXLcKWypdsKCqWC35YxDIBzYNLYcmcOLp460Lfh/Teub+ZGIEhbFIhTQr8M0yPnvXpy0R6sKzoTh6XeqJlBBPY3LDZmGykmnEbRDLimMhdhhq8eNnTVdbRFgAk2AXhF1oYYqGZkc9kBh1/2JprYqaWlQUQWS+UmlL9U=
+	t=1789257954; cv=none; b=bm1omutx4F3P3hQWvvLgsgXxz64tusqsq9udS+ZqMcoK0d0tJ3GmEL1pY76mXjHhfpgBQalMvN4R4LtmMd8zwY5sbDysiNZv/J226VewFoS7YqWtTsAI+uZNg7vo6vMldS4KLoPk/5ctBGYmMiJ1+iGZ4R3r1VD3aZgrVvFtO0s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789257928; c=relaxed/simple;
-	bh=Zisplu70v8bQ8iKPwlbm8R3au2UxFrC+ZJyhTO28l+c=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=r22gW3dziybhrziq4pTdTdlgfnr1+0Dj9G+668vma685WP8SlovWNkLuJYG1rieqJAjDo4EJG3+1VXI872g33fzJOfpN1NvZwGP39/a4y/xVCQGAHfNo7jkYpflFH5ReNuauTKJOWAYBAyuQ9M2SAqMnD+dhG+G9DzRogCH8JgM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu; spf=pass smtp.mailfrom=asu.edu; dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b=NS8fpvgV; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
+	s=arc-20240116; t=1789257954; c=relaxed/simple;
+	bh=soSVvu882ur4gHwbnjSkaVSHvtFTrlKyZLnJU6qRmC0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=unD9mti30tYXyA9zy/w4Y4llLr0QhLz2T2yyyvGtEGj9pZntmNpKxXuYeWJ29Y7vRnd91MJRjVrsOaaoCSn+xLkwoUTDbevAevnEWN4SARH8y0rSSLEuXqx+lwN+ooJA5UPPT46PGv3fET4nd9hH5g5KnYNo561AsHreMHFpBSg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ERaSw/b5; arc=none smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b="NS8fpvgV"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4c3304833so618434a12.3
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 17:05:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ERaSw/b5"
+Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-93910ad2273so99529685a.0
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 17:05:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=asu.edu; s=google; t=1789257925; x=1789862725; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qbI3SSdNBuOxMT+Ol+aiKZ4lfv4BiwzaZgmKnA8XI5A=;
-        b=NS8fpvgVxzfR7uGTjBpmqdLzbvJxuY/PKXL6L5Q7Oz2KhufwSftB6XPsg06kDyEPKa
-         31DQ68IaBMAbjXF/Q7GbN8gpXZlAtOZrcsZtL8WUxH7GVSsVQa629gluPi3o19lpAyWC
-         ZFLtMCX5sawJWNfWTxIX10YkXb4bPVSxHUqfJTdo85pRHDaPR6oQpYiBcFBdQJmrwW8X
-         31FThoEYbhVsrvejwr8KnXOVOuMdedrnbOCizkKX4IxxbFgyEx1zXB0T8iOw/scv+sm4
-         j905DcDXJ5aey33WOXPKs3OYaXLELiMGajEMqCf2zWzaPXqnjEd1V77cWLeXtHWM7Dhv
-         20ug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789257925; x=1789862725;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1789257952; x=1789862752; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=qbI3SSdNBuOxMT+Ol+aiKZ4lfv4BiwzaZgmKnA8XI5A=;
-        b=EwLE33tSKUHPNbJO8KfSbyUDAWDkOD/WEmEMEVXfivOl0BHxIPJiVHQAsAA03SM87E
-         nua+nbtpqHQQeMEV/ejKOZy5fwbHOj43sranspIm/DhNSG+JqtF1BzDAJjd+T23cBNCP
-         58DKMsmX4MvRU9J+O08flBytkUuHygtXqWtFfO2uNy71F4pK5VutrlREl3uVtk1QjozX
-         thfcecN3G7XZlYp3Ed802MCnyYxIqySXElMGq3zYmJ82X1Jghu5gX/jrun6Kwrm3i1ac
-         de8oh7DoWlGP4CDu7wu/R6PoM5AQxI34o604RHa5MDYo0o1Vnnkn8LuwvHlrr+DencLa
-         8Dbw==
-X-Forwarded-Encrypted: i=1; AKwUvBzMDZrpXOUihrhVOtPoPLua8njf856v39P18FRwDWiXLKNBV9MtdpDvoTnaQCzbbKFOBgV2L4LSBF/nTpM=@vger.kernel.org
-X-Gm-Message-State: AFuF++n8IFI5UkxO9ZwkjIBE9jwKMKX3y3070BK5scy+bVFsqfeCezkP
-	WJ5uWS562gMlPqkF8tofeKE7yaPpqww0fJo3Erp5+jAgEgHSvPSGb1gFE63qHsWioA==
-X-Gm-Gg: AYBFou0+AUki6DG9irdl9XO8yCqMrf/GPkE7M2rTWUBcE3D74QfsXDLdY7JhmdxKWNN
-	wvm8n0TKvypYhXl8exdgEZ/jzq+X0sZ1NaofYT38JzKNYWB9jvLYIYPkhXgLTxABUN6uBYD57lE
-	YNNqH/uUkGLd2LMbnmOznNMarb2oviy7VOG3QDTwjrNrB3dxhRxLFQ2tbVa/00x1BPmsmyvqE9b
-	jkA3KkTzK/nVAHRFC3hTG89g5TAEyMCXhABRCvxYbQMLvTkBOTxWgcVCuti9zzYsX03GUkGmf35
-	Qa/5y4GR62ElmBxq44UzIPPIKrgpuG6oLuDtFmtidUUk9DK5t5YLKDdyvHomV73KLmaIbfC2k0H
-	w9HVm+pHHZF2PnS8hTEvjJX/Yy8mQdAhACjyMuSkMWBr2jz1yH2Ye7KVemZDLKPpgIVI50kLGY1
-	iWmRNcqvZoJ0kDElw2hKv234ZKmobkPQBVR6pdBZVsY7694XsPBQKL1ZNNalhyYD7P2rghMqrt7
-	fEOKMvXtzxw2ycJuJ4iCW4VP0Ys7vA78L6qEw==
-X-Received: by 2002:a17:90a:d88b:b0:398:9bd5:490c with SMTP id 98e67ed59e1d1-39dbc6f0775mr9044453a91.19.1789257925267;
-        Sat, 12 Sep 2026 17:05:25 -0700 (PDT)
-Received: from p1.. (209-147-138-4.nat.asu.edu. [209.147.138.4])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14365b78d59sm14819353c88.8.2026.09.12.17.05.23
+        bh=qtDrgayZWHV3rgFLZVw/6lppQCotHhXm5qxr/q5oXn0=;
+        b=ERaSw/b5xbawgXevqAtS24lWFk0d3XBSm9LoMmy0m7EHVV9CaUB+VvRi0tmHpJHs0k
+         9Xdh5dEsEjZOxYFyU1MaMiVMPDnAAemM5+e1LWlsg1D6w6tEz5C7QZu7FugtCE/gbTy7
+         0BzX8ni1y+BGNsEPfTMbzAfbJ71+4bNzxYxovao9jvnKmVweacWNTJdSKkGhGGsALjUk
+         XMKgg7awz4VmqeK02IbkmbLwtovYxL7oPThKIerh+aY3Mw55ld3ng6syh2cxYtkqomNx
+         zyqF260DSIHkKt09g2R4zmqloM/zCMQ57tLwE4Tm3vhNiVvjVNnVZYyvmk9rJf0hZeY9
+         u1Zw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789257952; x=1789862752;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qtDrgayZWHV3rgFLZVw/6lppQCotHhXm5qxr/q5oXn0=;
+        b=aVsqC9PB5101zbEY4I9820EI87+KjGYtuOkvXMzg6kr7UZfYUtHJ0J4cTlVMC52pYN
+         iWyO3Wg/P2/d8MLCTfQ27GO9Cw621A1VF8YVQ5oO+0quZYoxp2rpuFilOr7TW0TaV8on
+         xwsLhGL0MeXH43S8tx/BJTz+vFNMyA6uoW3e+DsTZ6SE+EGY20G8s+AlAfD4VAL4L9K9
+         WVw8ATr3ZSz+iG9fxaNG6x4AqK0u96CBOighnzPOfbENpF+pyApFWeTRTEbdZ77XIggZ
+         1Fa31lBX3WCcgDMk00lE5oyDSTuN0lZCjd/rLxrVVgQ3ZvR1sbEcBdXiHBpulQa7p8p3
+         N/qw==
+X-Forwarded-Encrypted: i=1; AKwUvBxyyNsAeUzBPBCCWoXsgb/EWNISDl433kDnOUeQuLVbWTdm4YhFtPZE1If2pwReaZ/SHXQCQDnOzzYXzSc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mopA4e5zSP1/k+j1s27anTzB3Mp/uw1fZGk+zANylL249wiknU
+	yNRs4z1LkXbp/EGmSk6HLzxvSXPFWCnQ3RB3BTENosmtmjKDZ3hvvjCKedUGXGNz
+X-Gm-Gg: AYBFou1a47UM6E9WlkY58lL5WhCUO5HVT1MYU6svwU0xcIXk4kRK+9T8Dh9BwtfA8QY
+	mrZivt9mU4dvyyZD39/LAcZBfCzYCJntvgtsJuN1zWesCgBbzwe5hW/FQ4u2lrJARcLq6elJUWn
+	ErQQ+s85W8JPWl309xsX7Qy5l5s7VrmKXBo2nLGIJ36jeLtixIQwi4evB3GkVI+eBvf5iJNCAHb
+	UF0Qv+ky/69yCyxoJRDJO6ZxAJTFMcmMwms116kABNuGBmSOfU+9uZXui6ddie4jSdFPJvGXTte
+	zQZYWHAEQPhJ0f+9xkoi2mXHGHpBeAG+WWVmnFAPE8UrJQ6nOqTt8941LBrc/Rn9M21Zk/CJLen
+	WjFwj7G9HjpjGpoLD4m9MeSDVZ4plcnDXjD9dVCeZttbUPv8AUPX535L1cDi9uX4X2UAyR9Qz68
+	+PScy+LhAqUYY8J69aV/QXUXWmWfOqxAx2yML401E8+tCZCJb6F5O/6/HhxAMV0f4E/PIwbotfn
+	fEwGloDGRdP9aUloFR8
+X-Received: by 2002:a05:620a:488d:b0:939:6dee:4b09 with SMTP id af79cd13be357-93a039802e9mr652219485a.51.1789257952159;
+        Sat, 12 Sep 2026 17:05:52 -0700 (PDT)
+Received: from KernDev ([128.239.252.181])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93a00c1cc18sm327238985a.5.2026.09.12.17.05.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 12 Sep 2026 17:05:23 -0700 (PDT)
-From: Xiang Mei <xmei5@asu.edu>
-To: perex@perex.cz,
-	tiwai@suse.com,
-	torsten.schenk@zoho.com
-Cc: co+855929c2df672879@bugs.sh,
-	linux-sound@vger.kernel.org,
+        Sat, 12 Sep 2026 17:05:51 -0700 (PDT)
+From: Alexander Bendezu <alexanderbendezu10@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Xiang Mei <xmei5@asu.edu>
-Subject: [PATCH] ALSA: 6fire: fix OOB write from device-reported iso length
-Date: Sat, 12 Sep 2026 17:05:15 -0700
-Message-ID: <20260913000515.2344562-1-xmei5@asu.edu>
-X-Mailer: git-send-email 2.43.0
+	Alexander Bendezu <alexanderbendezu10@gmail.com>,
+	syzbot+3a0d6aa450317f25e501@syzkaller.appspotmail.com
+Subject: [PATCH v2] usb: gadget: f_phonet: don't call gether_get_ifname() on a non-u_ether netdev
+Date: Sun, 13 Sep 2026 00:05:46 +0000
+Message-ID: <20260913000546.99778-1-alexanderbendezu10@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026082242-celery-circle-dee9@gregkh>
+References: <2026082242-celery-circle-dee9@gregkh>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,86 +79,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-usb6fire_pcm_in_urb_handler() sizes each outgoing isochronous packet as
-(actual_length - 4) / (in_n_analog << 2) * (out_n_analog << 2) + 4, where
-actual_length is the unsigned length the device reported for the matching
-IN packet.  A packet completed with status 0 and actual_length < 4 wraps
-the subtraction to 0x7fffffec; a zero-length isochronous packet is legal
-on the bus, and the preceding loop rejects only non-zero status.  The sum
-reaches memset() on out_urb->buffer, a 4832-byte object from
-kcalloc(PCM_MAX_PACKET_SIZE, PCM_N_PACKETS_PER_URB).
+The f_phonet_ifname_show() function incorrectly used gether_get_ifname(),
+which casts the net_device private data to 'struct eth_dev'. Since the
+Phonet gadget only allocates a small 'struct phonet_port' for its private
+data, this resulted in a KASAN slab-out-of-bounds read when accessing
+dev->ifname_set.
 
-Even without the wrap the result is out of bounds: at 88.2/96 kHz the
-4-in/6-out scaling turns a full 420-byte IN packet into 628, so eight
-packets span 5024 bytes of that buffer.  usb_submit_urb() rejects an
-over-long descriptor only after the memset() and the
-usb6fire_pcm_playback() copy of user PCM data have run.
+  BUG: KASAN: slab-out-of-bounds in gether_get_ifname+0xda/0x100
+  Read of size 1 at addr ffff8880091feaea by task cat/190
 
-Guard the subtraction as the sibling usb6fire_pcm_capture() already does,
-and clamp to rt->out_packet_size, the OUT endpoint's wMaxPacketSize,
-which bounds total_length by the buffer size.
-
-  BUG: KASAN: out-of-bounds in usb6fire_pcm_in_urb_handler (sound/usb/6fire/pcm.c:338)
-  Write of size 18446744073709551456 at addr ffff88802a3d0000 by task vhci_rx/5018
   Call Trace:
-   dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
-   print_report (mm/kasan/report.c:378 mm/kasan/report.c:482)
-   kasan_report (mm/kasan/report.c:595)
-   kasan_check_range (mm/kasan/generic.c:186 mm/kasan/generic.c:200)
-   __asan_memset (mm/kasan/shadow.c:84)
-   usb6fire_pcm_in_urb_handler (sound/usb/6fire/pcm.c:338)
-   __usb_hcd_giveback_urb (drivers/usb/core/hcd.c:1657)
-   usb_hcd_giveback_urb (drivers/usb/core/hcd.c:1741)
-   vhci_rx_loop (drivers/usb/usbip/vhci_rx.c:107 drivers/usb/usbip/vhci_rx.c:242)
-   kthread (kernel/kthread.c:436)
-   ret_from_fork (arch/x86/kernel/process.c:158)
-   ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
+   <TASK>
+   dump_stack_lvl+0x4d/0x70
+   print_report+0x153/0x4c6
+   kasan_report+0xda/0x110
+   gether_get_ifname+0xda/0x100
+   f_phonet_ifname_show+0x3a/0x60
+   configfs_read_iter+0x2ea/0x600
+   vfs_read+0x6da/0xa40
+   ksys_read+0xfd/0x200
+   do_syscall_64+0xe0/0x5a0
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+   </TASK>
 
-  Allocated by task 10:
-   __kmalloc_cache_noprof (mm/slub.c:5563)
-   usb6fire_pcm_init (sound/usb/6fire/pcm.c:560 sound/usb/6fire/pcm.c:595)
-   usb6fire_chip_probe (sound/usb/6fire/chip.c:133)
-   usb_probe_interface (drivers/usb/core/driver.c:399)
+  Allocated by task 189:
+   kasan_save_stack+0x30/0x50
+   kasan_save_track+0x14/0x30
+   __kasan_kmalloc+0x7f/0x90
+   __kvmalloc_node_noprof+0x1c2/0x5b0
+   alloc_netdev_mqs+0x78/0x12d0
+   phonet_alloc_inst+0x9e/0x1d0
+   try_get_usb_function_instance+0xf9/0x1a0
+   usb_get_function_instance+0xd/0x50
+   function_make+0x163/0x340
+   configfs_mkdir+0x47d/0xfc0
 
-  The buggy address belongs to the object at ffff88802a3d0000
-   which belongs to the cache kmalloc-8k of size 8192
-  The buggy address is located 0 bytes inside of
-   4832-byte region [ffff88802a3d0000, ffff88802a3d12e0)
-  Kernel panic - not syncing: Fatal exception in interrupt
+  The buggy address is located 154 bytes to the right of
+   allocated 2640-byte region [ffff8880091fe000, ffff8880091fea50)
 
-Fixes: c6d43ba816d1 ("ALSA: usb/6fire - Driver for TerraTec DMX 6Fire USB")
-Reported-by: co+855929c2df672879@bugs.sh
-Closes: https://lore.kernel.org/all/gisnub8aWGLbyZLcDCSc7zWsHonMWGcyRgt5%40bugs.sh/
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Xiang Mei <xmei5@asu.edu>
+Fix this by reading the network device name directly with sysfs_emit(),
+avoiding the invalid struct cast. The u_ether.h include is no longer
+needed and is dropped.
+
+No locking is needed: opts->net is established before the config group is
+initialised, so the attribute cannot exist without a valid netdev, and
+holding rtnl_lock() across the read would not prevent a rename from taking
+effect before userspace sees the buffer.
+
+It went unnoticed because the helper function is reached only through
+USB_ETHERNET_CONFIGFS_ITEM_ATTR_IFNAME(), which is used exclusively by
+u_ether functions, so phonet was the only caller passing a netdev u_ether
+did not create.
+
+Fixes: 83408745b202 ("usb: gadget: f_phonet: add configfs support")
+Reported-by: syzbot+3a0d6aa450317f25e501@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=3a0d6aa450317f25e501
+Signed-off-by: Alexander Bendezu <alexanderbendezu10@gmail.com>
 ---
- sound/usb/6fire/pcm.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+v2:
+ - use sysfs_emit() instead of scnprintf() (Greg KH)
+ - drop rtnl_lock(); the netdev cannot go away while the attribute
+   exists, and holding it across the read would not prevent a rename
+   from taking effect before userspace reads the buffer (Greg KH)
+ - rewrite the commit message to describe the type confusion rather
+   than the symptom
+ - drop the now-unused u_ether.h include
 
-diff --git a/sound/usb/6fire/pcm.c b/sound/usb/6fire/pcm.c
-index d2e274b731fe..b3ecf9fa4951 100644
---- a/sound/usb/6fire/pcm.c
-+++ b/sound/usb/6fire/pcm.c
-@@ -328,10 +328,16 @@ static void usb6fire_pcm_in_urb_handler(struct urb *usb_urb)
+ drivers/usb/gadget/function/f_phonet.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/usb/gadget/function/f_phonet.c b/drivers/usb/gadget/function/f_phonet.c
+index b1ee9a7c2e94..2c6558b1a2ff 100644
+--- a/drivers/usb/gadget/function/f_phonet.c
++++ b/drivers/usb/gadget/function/f_phonet.c
+@@ -23,7 +23,6 @@
+ #include <linux/usb/composite.h>
  
- 	/* setup out urb structure */
- 	for (i = 0; i < PCM_N_PACKETS_PER_URB; i++) {
-+		unsigned int length = 4;
+ #include "u_phonet.h"
+-#include "u_ether.h"
+ 
+ #define PN_MEDIA_USB	0x1B
+ #define MAXPACKET	512
+@@ -600,7 +599,9 @@ static const struct configfs_item_operations phonet_item_ops = {
+ 
+ static ssize_t f_phonet_ifname_show(struct config_item *item, char *page)
+ {
+-	return gether_get_ifname(to_f_phonet_opts(item)->net, page, PAGE_SIZE);
++	struct net_device *net = to_f_phonet_opts(item)->net;
 +
-+		if (in_urb->packets[i].actual_length > 4)
-+			length = (in_urb->packets[i].actual_length - 4)
-+					/ (rt->in_n_analog << 2)
-+					* (rt->out_n_analog << 2) + 4;
-+
- 		out_urb->packets[i].offset = total_length;
--		out_urb->packets[i].length = (in_urb->packets[i].actual_length
--				- 4) / (rt->in_n_analog << 2)
--				* (rt->out_n_analog << 2) + 4;
-+		out_urb->packets[i].length = min_t(unsigned int, length,
-+						   rt->out_packet_size);
- 		out_urb->packets[i].status = 0;
- 		total_length += out_urb->packets[i].length;
- 	}
++	return sysfs_emit(page, "%s\n", netdev_name(net));
+ }
+ 
+ CONFIGFS_ATTR_RO(f_phonet_, ifname);
 -- 
-2.43.0
+2.53.0
 
