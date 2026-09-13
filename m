@@ -1,78 +1,178 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-240.mta0.migadu.com [91.218.175.240])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A48E35E1D5;
-	Sun, 13 Sep 2026 16:16:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1158374721
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 16:17:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.240
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789316164; cv=none; b=qF+u4QpbfVP95txIC3vj2H8Aev4i/593BNo+WbL5pdG834GbnCtwgzuzSqaHgdtWAPcTyVGqKqQ1kexIvBJHLLTjia76EnfTUA0TUBWZShhmNzd16AlqKhfl+K9fhfcmiD/l5ycowmkJLj2sO5mW+D+MTdtLt9qv4MZ9fZoST94=
+	t=1789316237; cv=none; b=pA8pTodKKtRDaOduH+tULyq9uKcjpLmfhgbYS5G3oWAN0zpilMoi9yA0/Q4Xk3hPd2DwnzDVkEiK+5Yb8+MUZ6zzypOzjNSgkOoA6DjQ1j+Sema7YlPuZhL7MW5ICeTiF+bf1z6+rrTEUzkw8sswuROn509NGeo2goxPk3rC6F0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789316164; c=relaxed/simple;
-	bh=jpCqN3D19a2OiRZNhweu5IYUQ1umPGMKnHJ5S/I9hsA=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=gP39iJGU1cIov+OvuNT0gzKIkyxFCUTXT8DwaXlmMes5/DWbNHa0XAw5LOBwJOn+1v86n0U0kC+yDYUCjHJvH9pIeYji+ZB6eVGq5QRG9NdiJZ85b7L9tB7Jgub725GJ3Fol6wAa4Rp9yaa2fugoWNvpDlLkUb5rBkaU4OSVU2I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oRCCBoBz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789316237; c=relaxed/simple;
+	bh=svZCpv21FthwypPz3c8MpF7aUfNyE0+BDGgA1bEnvbg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=KPEsqAElDpXZAYVVWrRmOekKfnC/rrVexheQc3rYbzTDQnwaCgkw1CB/p6TRZEV7XLu7+qMYVQoyAwDkgUCUrPohYs4O3duiYhcLFS/TJRN+PpSIGIQDkLW+tPtEgmTL/988DY5mT1pxMEqYXvbsCzqyZ6lF9IjBYQZaB9M6/gg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=VZXQLr/h; arc=none smtp.client-ip=91.218.175.240
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oRCCBoBz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6C4A1F000FF;
-	Sun, 13 Sep 2026 16:16:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789316162;
-	bh=b2QN1R9cEP+65/eaKbkkpietz+IIKIO9R9b6vVssGVA=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=oRCCBoBzGCO2WSuWyFbKyFY4UEl/Zz8HdyalS/m7VI4lHJFbXRF9FT8g/Ay2mjgbT
-	 POLU0wOnyTijCQBSXXAw0z9C76xOnDw0J8qGaF3/fEOubRusUB/BbWJlvfOFC4rR3B
-	 0YnDrbHpI7JCoYGpHeCkPuY+4JHIq5aue4aRjLzSJV4ClQnt8faIKbj+VLkhkdnlde
-	 +NFPA2YKHBjQ+ECA4oXTXje5dfjmF0Uq0NCc3mXm50X+mDm9rL/Q5sx/lg7FBYd00D
-	 3wYevpuOLNH2XvuJuKjb0H9e0JtA210EHq59Ypya+ZZVudMzlrIKdLfCT0411Zl39U
-	 k83Uud6h7ZTug==
-From: Chen-Yu Tsai <wens@kernel.org>
-To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, 
- Andre Przywara <andre.przywara@arm.com>, 
- Junhui Liu <junhui.liu@pigmoral.tech>
-Cc: linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
-In-Reply-To: <20260906-sunxi-clk-no-p-v1-0-cbde21c9fe69@pigmoral.tech>
-References: <20260906-sunxi-clk-no-p-v1-0-cbde21c9fe69@pigmoral.tech>
-Subject: Re: [PATCH 0/4] clk: sunxi-ng: a523: Fix single-divider clocks
-Message-Id: <178931616050.1372417.13697138134958064084.b4-ty@kernel.org>
-Date: Mon, 14 Sep 2026 00:16:00 +0800
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="VZXQLr/h"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=svZCpv21FthwypPz3c8MpF7aUfNyE0+BDGgA1bEnvbg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789316231; v=1; x=1789921031;
+ b=VZXQLr/hmgNgOJwye9d2L+gV/euc+YUVN1o+oyvNDQW/WqP2Dg0N/iy/YDC1wM2wYkiKUpm6
+ 3Jo6E0Uut3QwEwxOEbYcJrf5tL7DDnUtdohLUNvTaY3lTLeV9KQfAVFyk4MGa0sbJk7y8uZZM0J
+ vWYmrJJ3lP0gGqGFdJLZEX7s=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id caa88b22c15f5b16;
+	Sun, 13 Sep 2026 16:17:10 +0000
+X-Mizu-Trace-ID: caa88b22c15f5b16
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <dc6f3b89-58cf-48c6-bb4f-9fe605c92028@linux.dev>
+Date: Mon, 14 Sep 2026 00:16:58 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] khugepaged: hold invalidate_lock across collapse_file()
+ readahead
+To: ngocthang2710.1999@gmail.com
+Cc: akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
+ ziy@nvidia.com, baolin.wang@linux.alibaba.com, liam@infradead.org,
+ nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com,
+ baohua@kernel.org, usama.arif@linux.dev, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260913101142.28802-1-ngocthang2710.1999@gmail.com>
+ <20260913161245.11120-1-lance.yang@linux.dev>
+Content-Language: en-US
+From: Lance Yang <lance.yang@linux.dev>
+In-Reply-To: <20260913161245.11120-1-lance.yang@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.2
 
-On Sun, 06 Sep 2026 15:06:37 +0800, Junhui Liu wrote:
-> Sashiko pointed out two issues in my series adding clock driver support
-> for the Allwinner A733 SoC [1][2].
+
+
+On 2026/9/14 00:12, Lance Yang wrote:
+> Hi Nguyen,
 > 
-> First, ccu_mp_set_rate() generates an invalid mask when an MP clock is
-> defined with a zero-width P divider, clearing unrelated register fields.
-> Second, ccu_mp_set_rate() does not handle CCU_FEATURE_UPDATE_BIT, so
-> divider changes are not latched by the hardware.
+> Good catch, thanks!
 > 
-> [...]
+> On Sun, Sep 13, 2026 at 05:11:42PM +0700, Nguyen Ngoc Thang wrote:
+>> collapse_file() calls page_cache_sync_readahead() to fault in missing
+>> pages before collapsing them into a THP. That helper takes
+>> mapping->invalidate_lock itself for the duration of the call, then
+>> drops it -- but truncate (e.g. ext4_setattr() -> truncate_pagecache())
+>> takes invalidate_lock and then waits on each page's folio lock while
+>> holding it. If collapse_file() has already locked one of those folios
+>> by the time truncate reaches it, and then tries to acquire
+>> invalidate_lock again (e.g. on the next iteration, or via a nested
+>> readahead call), the two paths can deadlock/hang on each other's lock:
+>> truncate blocked on the folio lock collapse holds, and collapse
+>> blocked waiting for invalidate_lock that truncate holds.
+> 
+> That can happen on the first readahead call.
+> 
+>>
+>> Reproducing this over ~150,000 collapse iterations with truncate
+>> racing concurrently reliably hits hung_task: blocked tasks within
+>> about 20 seconds on an unpatched kernel.
+>>
+>> Fix it by taking invalidate_lock_shared once for the whole scan, before
+>> locking any folio, and using page_cache_ra_unbounded() directly in the
+>> readahead call site instead of page_cache_sync_readahead(), since the
+>> latter would try to retake the lock we already hold.
+>> page_cache_ra_unbounded() does not clamp to EOF like the helper it
+>> replaces, so clamp the requested range explicitly.
+>>
+>> Reported-by: syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com
+>> Closes: https://syzkaller.appspot.com/bug?extid=16bf7cd0ebeb1de93aa5
+> 
+> Ouch, we should add a Fixes tag and Cc stable:
+> 
+> Fixes: 730633f0b7f9 ("mm: Protect operations adding pages to page cache with invalidate_lock")
+> Cc: stable@vger.kernel.org
+> 
+> 730633f0b7f9 added invalidate_lock acquisition to readahead but missed
+> collapse_file(), which already called it with page locks held. The
+> subsequent filesystem conversions made the deadlock possible by taking
+> invalidate_lock before locking pages :( right?
+> 
+>> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+>> ---
 
-Applied to sunxi/clk-for-7.4 in sunxi, thanks!
+Forgot to mention:
 
-[1/4] clk: sunxi-ng: div: Add feature support to M clock macro
-      https://git.kernel.org/sunxi/linux/c/da543a093f65
-[2/4] clk: sunxi-ng: sun55i-a523-ccu: Use M-only clocks for MBUS, IOMMU and DRAM
-      https://git.kernel.org/sunxi/linux/c/88735a2ffbea
-[3/4] clk: sunxi-ng: sun55i-a523-ccu: Use P-only clocks for high-speed timers
-      https://git.kernel.org/sunxi/linux/c/4b41d0ffa9d9
-[4/4] clk: sunxi-ng: sun55i-a523-r-ccu: Use P-only clocks for timers
-      https://git.kernel.org/sunxi/linux/c/b260db91603a
+I reproduced the hang too, and it goes away with this patch applied :)
 
-Best regards,
--- 
-Chen-Yu Tsai <wens@kernel.org>
+Tested-by: Lance Yang <lance.yang@linux.dev>
+
+>> mm/khugepaged.c | 25 ++++++++++++++++++++++---
+>> 1 file changed, 22 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+>> index 11ff98d55c76..690ccbcdf593 100644
+>> --- a/mm/khugepaged.c
+>> +++ b/mm/khugepaged.c
+>> @@ -2267,6 +2267,13 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
+>> 	VM_WARN_ON_ONCE(!is_shmem && !mapping_pmd_folio_support(mapping));
+>> 	VM_WARN_ON_ONCE(start & (HPAGE_PMD_NR - 1));
+>>
+>> +	/*
+>> +	 * Take invalidate_lock before any folio lock: the readahead below
+>> +	 * needs it, and truncate holds it while waiting on folio locks.
+>> +	 */
+>> +	if (!is_shmem)
+>> +		filemap_invalidate_lock_shared(mapping);
+> 
+> Could we take the lock after alloc_charge_folio() succeeds, before
+> locking any folio? That would keep allocation and charging outside the
+> critical section. And if allocation fails, we should skip the unlock :)
+> 
+> Cheers, Lance
+> 
+>> +
+>> 	result = alloc_charge_folio(&new_folio, mm, cc, HPAGE_PMD_ORDER);
+>> 	if (result != SCAN_SUCCEED)
+>> 		goto out;
+>> @@ -2337,10 +2344,20 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
+>> 			}
+>> 		} else {	/* !is_shmem */
+>> 			if (!folio || xa_is_value(folio)) {
+>> +				DEFINE_READAHEAD(ractl, file, &file->f_ra,
+>> +						  mapping, index);
+>> +				pgoff_t eof = DIV_ROUND_UP(i_size_read(mapping->host),
+>> +							    PAGE_SIZE);
+>> +
+>> 				xas_unlock_irq(&xas);
+>> -				page_cache_sync_readahead(mapping, &file->f_ra,
+>> -							  file, index,
+>> -							  end - index);
+>> +				/*
+>> +				 * invalidate_lock held above; don't retake it.
+>> +				 * page_cache_ra_unbounded(), unlike the readahead
+>> +				 * helper this replaces, does not clamp to EOF.
+>> +				 */
+>> +				if (index < eof)
+>> +					page_cache_ra_unbounded(&ractl,
+>> +						min(end, eof) - index, 0);
+>> 				/* drain lru cache to help folio_isolate_lru() */
+>> 				lru_add_drain();
+>> 				folio = filemap_lock_folio(mapping, index);
+>> @@ -2672,6 +2689,8 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
+>> 	folio_unlock(new_folio);
+>> 	folio_put(new_folio);
+>> out:
+>> +	if (!is_shmem)
+>> +		filemap_invalidate_unlock_shared(mapping);
+>> 	VM_BUG_ON(!list_empty(&pagelist));
+>> 	trace_mm_khugepaged_collapse_file(mm, new_folio, index, addr, is_shmem, file, HPAGE_PMD_NR, result);
+>> 	return result;
+>> -- 
+>> 2.43.0
+>>
+>>
 
