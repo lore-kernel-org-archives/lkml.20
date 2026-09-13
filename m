@@ -1,94 +1,292 @@
-Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23803348C6D
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 02:18:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E27F7233944;
+	Sun, 13 Sep 2026 02:21:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789265918; cv=none; b=hqr+X8SzH6lSJp1FBtWEw42p74SMgPVK4NqgOhx9oSqeHk6WUzwaiieYdgxr0GIrJ+lOc6NR2tpQyRTQkwejHZeXLTgFAkWztutCF7vuEfvm+dzjX2Uy66rqiW/wld4Vgna2+ZwSNopWLfsEl0Nhybcxvuh4b8vO+vunxXVhle0=
+	t=1789266090; cv=none; b=s8iHXkAyVKNdbkbGutylnLaLQNdqtUfoDBXLopW1qgf0AuCPC4cI1LXSHsCm5pKzaxrr3V7vmDwjixmnWIkobLrUS6w4lC9uIgNNgdwSYM7726RBPNVdbo04DgwWFz0mNZpxdyobK2t2x2EwMWZAQVbUisNiIJGHIk4NeJMj5Sg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789265918; c=relaxed/simple;
-	bh=16oi9ly1u2ldB9w7kIk+fAa1tFvrCNW02ronDoL8CGw=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=grs53R/A3+8a6x1RonUsGFt4vBdwKQdzsxU6K05nYeV3wvos3aB2+JQOBpwskTmAQvqW/wHlriTN/Fz/qfvKEUFLOnL9icVL1RjBqIO8VoB5dve7P2jHgGD6KWBTjjWQZeJylFCGUALocw8hlY5mGMwvdnjTo+ClDCKDBYFp5uI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=B4otVLyu; arc=none smtp.client-ip=185.70.43.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1789266090; c=relaxed/simple;
+	bh=EDCQ6TRxWWLVY6KzBg/QxrPJsB7OcvQmxaIXpgPtK+I=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=uX22RtIm/YyUSDcnuk3ECukxkmVvCYS0KXQg80Kc/5E7uPrbGfTXDKqsw0aBe2I6vG1K6Phw9BGwYwKsJMvZVRG6hcKc275C50dOKk6jdCif+GsE+UyQxVf6r6doJybVEZfXEDQGGA3snOo/qxYSFedHDcfeisc586DWI0HrHig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iUd7OCQV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="B4otVLyu"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1789265903; x=1789525103;
-	bh=oP+Fm5f7FOJsKi+1wYYcRlqrgXpreIiFFEpdGNZk4ZQ=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=B4otVLyu0ZCWyCLmQlGwTrNvov/HnGEypzQcbDtMiL1+EBQOIVaBm9AQsDjidwSIu
-	 dJt6NfMuL52oyhmE4uBc2cSkzkMTPwLr8X4O7BHQn/IBJqwaqLWJhViPMe1em3Z0WW
-	 I6yBLJ9ojLM9wF3O8cA2PL7ghAc1dp8Nv9zPUkxsst1Bj5J8W5mRdk97tFdGYJfLJr
-	 eqoXsloeCwWAnY+Srikfh7gO/fXzqmOUfhlzd9FTEDAgtfJjd8DJNjqPB348zwz/wF
-	 Y2t59XzR+RyUTM6Fed8HAGmrLrY5xEGN0VmIIklNE5DMRpVLIIT4TDhdAlAKA/s3DY
-	 ekr1pfRKMUCYQ==
-Date: Sun, 13 Sep 2026 02:18:15 +0000
-To: "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, netdev@vger.kernel.org, rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
-From: Sagar Taunk <sagartaunk@proton.me>
-Cc: Sagar Taunk <sagartaunk@proton.me>
-Subject: [PATCH v2] rust: net: netlink: Migrate to zerocopy's IntoBytes
-Message-ID: <20260913021805.19062-1-sagartaunk@proton.me>
-Feedback-ID: 130121444:user:proton
-X-Pm-Message-ID: 9c8dc56ef59e2931baae90e8a8d4c826a3937692
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iUd7OCQV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F159F1F000FF;
+	Sun, 13 Sep 2026 02:21:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789266088;
+	bh=3RLEF3QrfNkDe4grxNTz/2ZEnivcqDKZSfyDCO+N2us=;
+	h=Date:From:To:Cc:Subject;
+	b=iUd7OCQVAY4mZ2XdHvO4Z4sJFhnT1iD/J2E5Jb6D+v8PpFCpj0jTrjC4S+HYX/pvb
+	 X0FwqN/m2tuit0Q3oCxgUmPdRBXVzB7obfSpPCnv8KS/Y0z+dXSwvKC9eBbj+rOVyg
+	 0bjyS0BlgTK0d2ayNCzFT2zljYWVbj++T7SfOGJDqMpG0gMjOeWdV9tPf5bIWqhGan
+	 V7LZGrB2cnIxHBhS0xwQZpJMgvQFRvJDVBnSAlbmz3Sw1QyXNzTWQsBPKIbhwCLm9n
+	 jskz1iT3sO22/6fByIbejGsI+bfvzXMBF9McxPM0u3wIAu5moGJpJ8QdF+SkWdVFwE
+	 VhQbyrr+ve+hw==
+Date: Sat, 12 Sep 2026 23:21:25 -0300
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: dwarves@vger.kernel.org
+Cc: Alan Maguire <alan.maguire@oracle.com>,
+	Ihor Solodrai <ihor.solodrai@pm.me>,
+	Eduard Zingerman <eddyz87@gmail.com>, Jiri Olsa <jolsa@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Alexis =?iso-8859-1?Q?Lothor=E9?= <alexis.lothore@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Jan Alexander Steffens <heftig@archlinux.org>,
+	Domenico Andreoli <cavok@debian.org>,
+	Matthias Schwarzott <zzam@gentoo.org>,
+	Dominique Leuenberger <dimstar@opensuse.org>,
+	Dominique Martinet <asmadeus@codewreck.org>,
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org
+Subject: ANNOUNCE: pahole v1.32 (DWZ alt files, lots of new regression tests,
+ BTF signatures, coverage analysis)
+Message-ID: <aqYIpbH800bWBnH3@x2>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Replace the kernel's own `transmute::FromBytes` and `AsBytes` traits
-with their zerocopy equivalents. Specifically, this updates
-`GenlMsg::put` to rely on `IntoBytes` for converting attributes into
-byte slices.
+Hi,
 
-Also, add `Immutable` trait bound on `GenlMsg::put` as zerocopy
-splits the `no interior mutability` guarantee that `AsBytes` bundled
-together.
+	The v1.32 release of pahole is out, with a lot of new regression
+tests, support for dwz alt files, which makes pahole finally support
+most if not all userspace DWARF files, signature improvements in the BTF
+encoder, support to LLVM based coverage analysis, and several scripts
+to help develop and test these utilities.
 
-Link: https://github.com/Rust-for-Linux/linux/issues/1241
-Signed-off-by: Sagar Taunk <sagartaunk@proton.me>
----
-v2: Split into a separate patch per Shashiko's review; validates the
-    attribute length with c_int::try_from() instead of casting with `as`.
+Main git repo:
 
- rust/kernel/net/netlink.rs | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+   https://git.kernel.org/pub/scm/devel/pahole/pahole.git
 
-diff --git a/rust/kernel/net/netlink.rs b/rust/kernel/net/netlink.rs
-index 22ef3dde36fa..3c2b142a7402 100644
---- a/rust/kernel/net/netlink.rs
-+++ b/rust/kernel/net/netlink.rs
-@@ -12,11 +12,12 @@
-     alloc::{self, AllocError},
-     error::to_result,
-     prelude::*,
--    transmute::AsBytes,
-     types::Opaque,
-     ThisModule,
- };
-=20
-+use zerocopy::{Immutable, IntoBytes};
-+
- use core::{
-     mem::ManuallyDrop,
-     ptr::NonNull, //
-@@ -84,7 +85,7 @@ impl GenlMsg {
-     #[inline]
-     fn put<T>(&mut self, attrtype: c_int, value: &T) -> Result
-     where
--        T: ?Sized + AsBytes,
-+        T: ?Sized + IntoBytes + Immutable,
-     {
-         let skb =3D self.skb.skb.as_ptr();
-         let len =3D size_of_val(value);
---=20
-2.55.0
+Mirror git repo:
 
+   https://github.com/acmel/dwarves.git
 
+tarball + gpg signature:
+
+   https://fedorapeople.org/~acme/dwarves/dwarves-1.32.tar.xz
+   https://fedorapeople.org/~acme/dwarves/dwarves-1.32.tar.bz2
+   https://fedorapeople.org/~acme/dwarves/dwarves-1.32.tar.sign
+
+	Thanks a lot to all the contributors and distro packagers,
+you're on the CC list, we appreciate a lot the work you put into these
+tools,
+
+Best Regards,
+
+- Arnaldo & Alan
+
+DWARF loader:
+
+- Support DW_FORM_GNU_ref_alt references to dwz alternate debug files
+- Add cu parameter to tag__set_spec() and dwarf_tag__set_attr_type()
+- Fix cus__merging_cu failing to detect DW_FORM_ref_addr
+- Support DW_TAG_imported_unit for same-file partial units
+- Allow forcing the merge of CUs for solving inter CU tag references
+- Initial support for DW_TAG_subprogram in DW_TAG_enumeration
+- Initial support for DW_TAG_variant_part
+- Replace stale FIXME/XXX comments with explanations
+- Fix data race in tag__init() decl_file string cache
+- Skip libdw__lock when elfutils is built thread-safe
+- Fix --fixup_silly_bitfields condition check
+- Fix annotation failure leaks in variable and typedef creation
+- Allocate type_dcu via dwarf_cu__new to fix dangling stack pointer
+- Analyze per-parameter information for true signatures
+- Collect per-parameter information
+- Detect aggregate ABI register usage and signature changes
+- Add support for DW_TAG_GNU_annotation
+- Extract die__add_btf_type_tag() helper [NFC]
+- Detect reordered parameters
+- Handle DW_AT_location attrs containing DW_OP_plus_uconst
+
+BTF loader:
+
+- Fix multi-dimensional array loading
+- Handle decl tag component_idx for parameters
+- Fix warnings due to type permutation
+
+BTF encoder:
+
+- Fix multi-dimensional array encoding
+- Fall back to objcopy when llvm-objcopy is not available
+- Add elf_strptr NULL checks and fix kfunc bounds
+- Fix early cleanup crashes in btf_encoder__new/delete
+- Use btf_encoder__tag_type() for all type ID computations
+- Fix interior pointer free and missing NULL check
+- Ensure the first same-name function has a non-zero address
+- Add O_TRUNC to btf_encoder__write_raw_file()
+- Only skip optimized parms when ABI changed
+- Emit true function signatures
+- Prefer strong function definitions for BTF generation
+- Add true_signature feature support for "."-suffixed functions
+- Fix a verbose output issue
+- Factor out BPF kfunc emission
+- Refactor btf_encoder__add_func_proto
+- Remove encoder pointer from btf_encoder_func_state
+
+pahole:
+
+- Fix -C -T segfault
+- Fix option name in the -m/-C error message
+- Apply the struct-only filters to unions
+- Don't match unions with --with_flexible_array
+- Fix --unions --packable segfault
+- Guard pipe_seek() against negative offsets
+- Use fseek for seekable files in --prettify and --seek_bytes
+- Skip inline expansions during BTF encoding
+- Fix parse_btf_features("all") being a silent no-op
+- Fix --errno typo that decrements instead of negating
+- Fix instance memory leak on early returns in
+  prototype__stdio_fprintf_value
+- Fix BTF function parameter type match check
+- Add "layout" BTF encoding feature
+- Fix discarded-qualifiers for strchr/strstr.
+- Refactor selftests
+
+Regression tests:
+
+- Add pfunct split BTF test to btf_split
+- Verify the downloaded perf tarball checksum before extracting
+- Use a portable high-resolution timestamp
+- Build the test_bin fixture in the per-test tmpdir
+- Use POSIX [ instead of [[ in test_lib.sh
+- btf_type_tag_order.sh: Use gawk for capture-group match()
+- Fix coverage build by respecting build-coverage/ in PATH
+- Add automatic perf building for cross-distro compatibility
+- Check minimum perf metadata records instead of exact counts
+- Fix perf tests for container environments
+- Force DWARF 5 in atomic_types test for _Atomic support
+- Skip tests gracefully on old bpftool versions
+- Skip instead of fail when old toolchains lack feature support
+- Fix gcc_true_signatures.sh compiler detection and awk syntax
+- Add prototype expression parsing and prettify test
+- Add codiff_multi_cu.sh to cover __cus__find_cu_by_name
+- Add BTF vmlinux encoding test
+- Add typedef chain display test
+- Add _Atomic type compile emission test
+- Add pahole scattered option paths coverage test
+- Add pahole --header_type, --range and --seek_bytes prettify test
+- Add codiff member type change and function prototype diff test
+- Add dwarf_loader.c bitfield recode and inlining edge case test
+- Add dwarves.c core API coverage test
+- Add prefcnt type reference counting coverage test
+- Add elf_symtab, gobuffer, dutil and pglobal coverage test
+- Add dwarves_emit and dwarves_reorganize coverage test
+- Add bitfield, cross-boundary and mixed member type test
+- Add BTF encoder coverage test for vars, floats and multi-CU
+- Add codiff terse, verbose and multi-CU diff test
+- Add pfunct CLI option coverage
+- Add pglobal variable and function listing test
+- Add multi-file loading test
+- Add 5 btf_encoder.c targeted coverage tests
+- Add medium-effort coverage tests for 5 uncovered code paths
+- Add CLI display, BTF encoding options and auxiliary tools tests
+- Add enumerator search test, in 2 csets
+- Add type containment and pointer search test, in 2 csets
+- Add coverage-diff.sh workflow and coverage_table.py reporter
+- Add LLVM source-based code coverage support
+- Add split BTF encoding test (vmlinux base + kernel module)
+- Add BTF_KIND_FWD encoding and loading round-trip test
+- Add BTF bitfield encoding/loading round-trip test
+- Add BTF FLOAT and ENUM64 type encoding tests
+- Add BTF VAR and DATASEC encoding test
+- Add expand_pointers, pfunct_stats and class_list_file tests
+- Add BTF arena type tag encoding test
+- Add pdwtags DWARF tag display test
+- Add codiff struct comparison test
+- Add bitfield layout and data member filtering test
+- Add sort output and separator test
+- Add display format options test
+- Add class name filtering test
+- Add compilable output and type filtering test
+- Add type expansion and anonymous struct test
+- Add sizes and holes display test
+- Fix mktemp suffix portability for Alpine Linux
+- Add emit_atomic.sh test and fix pfunct-btf-decl-tags.sh quoting
+- Reduce reproducible_build thread count iterations
+- Add --dump-artifacts to capture DWARF/BTF from binaries
+- Add --jobs/-j option to limit parallel test execution
+- Show referenced log file contents in verbose mode
+- Add --verbose/-v option for better failure diagnosis
+- Add PERF_BIN support and preserve build logs on failure
+- Add test number filtering and waiting status line
+- Add dynamic test timing and reordering to avoid slow tests blocking
+  results
+- Add --vmlinux option to specify vmlinux file for tests
+- Run test scripts in parallel
+- Fix test_lib.sh and test scripts to run from any directory
+- Guard cleanup() against empty outdir to prevent rm /*
+- Add BTF_FUNCTIONS_QUICK mode for fast CI iteration
+- Skip and find vmlinux tests when the running kernel vmlinux is not
+  available
+- Add inter-CU type reference comparison test
+- Add GCC default-BTF optimized parameter coverage
+- Add BTF true_signature encoding tests
+- Add btf_type_tag ordering test
+- Support GCC in pfunct-btf-decl-tags test
+- add gcc true signature test
+
+Build:
+
+- Automate the steps needed to release a new version
+- Add build-check-series.sh for bisectability verification
+- Add tarball targets similar to kernel's perf-tar-src-pkg
+- Add git SHA tracking via --devel_version option
+- Add test, coverage and list-targets make targets
+- Warn loudly when coverage instrumentation is enabled
+- Add vmlinux_comparison.py for DWARF/BTF analysis
+- Update minimum required version from 3.5 to 3.10
+
+Library:
+
+- Remove 11 dead functions found via coverage analysis, in 2 csets
+- Add exec_objcopy() shell-injection-safe helper
+- Fix variable shadowing in __cus__find_struct_by_name()
+- Fix heap buffer overflow in languages__parse realloc
+- Don't search for holes before member byte sizes are cached
+- Fix missing list head initialization in type__clone_members
+- libbpf sync with 1.8
+- Fix NULL dereference in remove_dyn()
+
+Man pages:
+
+- Improve language and formatting
+- Fix incorrect command line argument in documentation
+- describe layout BTF feature
+- document true_signature btf_feature
+
+CI:
+
+- Update LLVM version to 22
+- Add clang+aarch64 to matrix
+- build/install bpftool from kernel tree
+- Support building kernel with LLVM
+
+pfunct:
+
+- Add man page
+- Add support for split BTF
+- Mark file-local functions as static
+
+Other:
+
+- build-and-test-cmd.sh: Move build-dir detection to test_lib.sh, fix
+  container PATH
+- build-and-test-cmd.sh: Add CI build+test script
+- Fix -Wsign-compare warnings across the codebase
+
+btfdiff:
+
+- Remove leftover comment about --flat_arrays usage
+- Remove --flat_arrays now that pahole encodes multi dim arrays in BTF
+
+CTF loader:
+
+- Fix error path resource leaks
