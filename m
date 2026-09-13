@@ -1,72 +1,73 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010009.outbound.protection.outlook.com [52.101.228.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB4E53E9C0E
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 14:39:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789310360; cv=none; b=NxOQ9HeOLgpkQTYm6wqOrzNENh/xzz6o4C9sELUEOTNu/XsdQ7vy49ObGCQAtfQmVyfbw6MoN2YaGxwJhTlCXppeqv1nVmuIg29fMmeNgs++izeF93dw+X0HR/nFYjwL+WJhwjQX6w7qSE6usVsr7ZrxLafVM8mHero8iVted+8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789310360; c=relaxed/simple;
-	bh=jiMrzmDOfg1nWOBVZ7m2UVnsQM7VW5f1VNF2Ud+H8Lc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WTGEh6/Yr0Ylj8iHAZ/gUJf+N/0Cb1VJHiNPbhGMZLye2r0eGUPN5+v4uGYzLiW2UpnmWi5PhR+eU0ORlG7jpFHJup9ws8QHPDhLPuFJE7Wdi6C6XNrxGuKYknyGFc5MmMhr3JVGnf/Qg7elzzvzQ7D88SwjARbdGzW0Q/L7QhY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cUxtCzFk; arc=none smtp.client-ip=209.85.216.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAA7223817E;
+	Sun, 13 Sep 2026 14:40:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.228.9
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789310411; cv=fail; b=V+6YROsIcaQjH6Es1LFtXW0sYtDMIPRKPoLQrKRGPJNA8vHlvPzg5sJXR2v5VIUIS28qbcOX1Mxb6nGct6MajkQDHtEjArrrqgFSyJbBVSsswHTcfKlR3eIy5wgpcAKdZjHemY6L0GzoR1EVGZf7bZkL4A3nGTJqd14B4FX5zAU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789310411; c=relaxed/simple;
+	bh=7QFdJxeB9pEQI92bBwmVnL5rvRoEVeydfxNRZvX5Skk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=RzQF2aJihQu2j7WowawNX+kMJNxh0rvER/Sp4sFPQ5pVSRatxxHnE1wvxSra72ESKFze1F2K/6Ylu7n8ElAuh23OUkhGUy9pbV6B1qeAt6rDca/2gX3MWc3PgD7Bx3P85wXW0oclENYgptiJlLVASTNaFlTAJ5T76tPutStSc0I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=I5BfUBXI; arc=fail smtp.client-ip=52.101.228.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cUxtCzFk"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3856d6fbcb3so2310708a91.2
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 07:39:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789310358; x=1789915158; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QV8gjzCfofnh3QCpS/nK9Zmu81UQ7ALKKOBtGf8NykU=;
-        b=cUxtCzFkLmq6MFlqJtPpUjAgHRMRTt+4EBAGEr3y4fg4ShlXgcRbqe5QIDX1jGi6Lq
-         20CY8MnscPil2KI5hf1g8fE/ifrlr1rGdoapzJzKYAp+y5ZGOUYQLzX0CbyGtU0cjgCS
-         l0ovV4LuFLwe/O8rGSwTbozIodOafMBrTj1sswZKYoVyvDbaEuRCFbkxvswcCS3SExUa
-         UgEWhUOm4X5xcMg0nfZcGvOx/wFkc5PW2JJ9GgtLlQenmn8T8GV3GEKcfXHSTfxlNVvL
-         XnyMt84vNnLxdm+fkdDFgFpxWU22xTWRP1EJRarYEaG1YFVUkSpLA8ZGr9NSozD7JdK1
-         2FQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789310358; x=1789915158;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QV8gjzCfofnh3QCpS/nK9Zmu81UQ7ALKKOBtGf8NykU=;
-        b=nqpSIl0pvIAL77jaJXdNWtmz8QMltMTk6aMUcyqYa+q+g8+rzfqwfsPubGvpWBe1Rt
-         sof+HRiTv/frj0yj/YnC5utDMerdP+f0cJDi7XKADpKdmTkx4eGgJv6ugRviuU2UONrb
-         IQGcZBBt6S3g+q5pxwYl53r5uaZkiiSmpeySWazpCJM5DULXn6AhDfW61iicYI2ggRoX
-         vItiD3CoZL5N6lbrlhNtF9mjF4l6ZZvo3NzWPUc4hOyL7GQ09tOgx0i8V1e6yJ5ofcoX
-         vAv/eL6bQvofZGrDsjkeJbtgxg7RY5PskMH1fFeLw5mePd21GngQB9DN1s8D0ognLdeH
-         WHhQ==
-X-Forwarded-Encrypted: i=1; AKwUvByasgqLzFR0scZov6IXerL4sVI1A7Xs3mKYdTu5EezJIZKytR2QXR5lBDX5R+1ZQSV7aYIRl+1foyS8fJc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kxSnpCTtLtQUFydtIcBBK1fgFe8zyN8geMkHfWsIbxJlN1FtJ3
-	QHR3BcevoEL1d2etO4gyjaTOmxQjrTgIWn/4Ou5Gy7LW6fLtjIQOJ4GM
-X-Gm-Gg: AYBFou2df3F9pyPIGsDJoxpRDuTI0+btEzY5zl0p/N8pZnaMlvQ/rPHa5HcjDOxeYzy
-	diy2gUMk1mcHI424UZ5nxDb9k4asKLrsy3C2fvZNwXgarOm+ZMdwgReIJl8yu05uuPNQ5SS+pmG
-	63++uXYH29eHqxlnuMXVvkKWyDdZL8zHrUdnlvdDHaIMzNul+Si2nmlWZYJOa/w9WbBM4I0KKB6
-	aDSEx58VjNdn+dEJO4zglVwYJng295ZNCpapSc2KTBnva7DouiXfd/cW/kdHV/GEL87DF5rH9zE
-	95mMyZbbIdHYyP2NTB2q4uJUvhHwAtWw1Gm0WEv5brS8l7Vf/SjaC7ga3duW92poZyQqKG9EB4N
-	U3u+xT2vC+q820oiNrLVBU/7zjulBxi+IQJpKThfk9j33cHozMlC3cgqTDN2OWjecXM0Omj6IyV
-	riw2rGz6mXNZXJziwdbSgRVuDIYJnMbGP708LujZSvcVxBLvMSdX/IaA==
-X-Received: by 2002:a17:90b:4a8d:b0:39d:8222:6436 with SMTP id 98e67ed59e1d1-39d9bd8f51cmr22611245a91.7.1789310358118;
-        Sun, 13 Sep 2026 07:39:18 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d94bb0119sm16289560a91.2.2026.09.13.07.39.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 07:39:17 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>,
-	Ivan Gorinov <linux-kernel@altimeter.info>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] HID: winwing: remove unpaired hid_hw_close()
-Date: Sun, 13 Sep 2026 22:39:09 +0800
-Message-ID: <20260913143909.1589019-1-lgs201920130244@gmail.com>
+	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="I5BfUBXI"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=B3Ulxz4cC0cxNNNVyGFsJfBx8kQ09M4rG8RcMkjtziXpMESWck0QkoZYnP3u+TO1lUlcpwDCopBk/ejXuZu/rFCg8CnDIN5bsUKfWRn5Ld+Mo4F2sgqBDegz2iXpjHBpmGIrRySgLE2GScOKVsLHQFkqK7d9y5uTI7hm1K5xDK+xeYPwRT9sM7e99+ighzEaLWdHl/VXfBuM0/euiSZLeTouSM6XuPgIbiCcatfy576iRhfoPWzWo1GRkO80ML/yWL74+DJfJzT4Z6U5AIi+IH0wdXRo/eXXGXC3KoMs1f9iDkxxUBdEnRM/6rp6AgFVn3NwBCA0yO2n9qIX2cqcfQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+jMNzVez+3kBsIPFvRog8VHOVRSI9kuPW3y8yoRqHtM=;
+ b=nVyzlSZWCGY2bncgPGgewRmpj27Sn8X7AqSJICnyQ1Adc034G8dTWY9Wze/9l8Edg7yJ1Kdk4/75u8071SImnx4piUHxrCStwi5zNrWM+AsAm3ZNNOrzOpUrdDBdIXvPVUtLT62rtN20PqxAk99IXPc0lVWD7nLpSn4U6NuuoHBXTvz5S09oLKD4CpzCnAmcN6Nxmi8wUFwhjZc2GkcnMDC+wq39HeNea8fuP5G7O3xv39JmExiKR13ZdvOAUyAU1iE84uR6obvRQwS8hgtyiWlpxOVmfsuK19s4idaFO/mDzQ5LJiJ2L06kRrILH5uZJ5XbXfWFXeJihvQePWF+jg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 8.62.32.50) smtp.rcpttodomain=davemloft.net smtp.mailfrom=renesas.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=renesas.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+jMNzVez+3kBsIPFvRog8VHOVRSI9kuPW3y8yoRqHtM=;
+ b=I5BfUBXI+vzVcPIU9/lOaABTeul5oRl+t8oSraD8hoM7qX3dw79/zDyYBRLHP6QF1zrH1Ov7nWxfuU772qzBgvrxwlIsb9mCwAoQZCdIZvSTBlEkbrexebhg7NcbXnidlTB6l1T0e4Nr9U2+7xoZbdp4/q62Esott1ifcUjg9mc=
+Received: from TYWPR01CA0020.jpnprd01.prod.outlook.com (2603:1096:400:aa::7)
+ by TYCPR01MB18414.jpnprd01.prod.outlook.com (2603:1096:405:3f0::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Sun, 13 Sep
+ 2026 14:40:05 +0000
+Received: from TYO1EPF00005025.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:aa:cafe::4c) by TYWPR01CA0020.outlook.office365.com
+ (2603:1096:400:aa::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.10 via Frontend Transport; Sun,
+ 13 Sep 2026 14:40:05 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 8.62.32.50)
+ smtp.mailfrom=renesas.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=renesas.com;
+Received-SPF: Pass (protection.outlook.com: domain of renesas.com designates
+ 8.62.32.50 as permitted sender) receiver=protection.outlook.com;
+ client-ip=8.62.32.50; helo=ejcrelay005p.adwin.renesas.com; pr=E
+Received: from ejcrelay005p.adwin.renesas.com (8.62.32.50) by
+ TYO1EPF00005025.mail.protection.outlook.com (10.167.240.22) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.7
+ via Frontend Transport; Sun, 13 Sep 2026 14:40:04 +0000
+Received: from vm01.adwin.renesas.com (DEU-5CG20946WF.adwin.renesas.com [10.226.92.2])
+	by ejcrelay005p.adwin.renesas.com (Postfix) with ESMTP id 62812300024B;
+	Sun, 13 Sep 2026 23:40:01 +0900 (JST)
+From: Ovidiu Panait <ovidiu.panait.rb@renesas.com>
+To: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	shuah@kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	Ovidiu Panait <ovidiu.panait.rb@renesas.com>
+Subject: [PATCH net-next 0/2] selftests: drv-net: Add VLAN test
+Date: Sun, 13 Sep 2026 14:39:24 +0000
+Message-ID: <20260913143926.77366-1-ovidiu.panait.rb@renesas.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -75,42 +76,64 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYO1EPF00005025:EE_|TYCPR01MB18414:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: 182c3bdb-cd7d-4cb7-28c6-08df11a4e646
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|36860700016|23010399003|82310400026|1800799024|13003099007|6133799003|10067099003|56012099006|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	Pk9BNdDmPkxhEmMDkbxQiTipLTqe4CXs2M3c9JVHQgddETmPnFdRw7uMOew7+5iLMWXmBeAt/DEFBrd2X+N656cjGY1yawJ/Z8rO1UmCi8ivr3f7/R2ZXzTEFWkUpTYyMQIMSD9kG3S8BalEIPOj/8ujFaPxZ2MUV3DWhV3IQZAU5am9wyE6hs2ob6gH1D8uj5LAPSStAioWeQ8qDxj3VfvR/LF+OusWbSmP4DUy4r5H8xoPHVEjFscyFatdI02N3ST8VCFO4eVjnG8fpJCIeZWPon05Y9HeBT10gcGUs74bMkVYmZLO/3PFgUOiv2ACZJ+LfBW/nFkntkfseHYebN2FpgR6Jsutry9mtR9F/NmkydkDvB5P5ttziyF3fQAoWj1bJkRJT2VwtnoNpyJG/pID6V6lO5E8JZ13UnCbb7UhfIkKVzY0YSc80pVw367qz5816hPROO4EtEfXsVvKMJmesdmX+H1jOsZCv5XKaEHoX8BG845uwKI4ZZX+75CootNbzVSf3RU+z+Mru5b8MKwrDNxvlSVZj2c1CTRH2zgf93zdbwtKFnbDUlizLy7MBHR+rxi/Fw9FZL8dV3PPw2v9wO2M3nS0vsQtSrawneHAOpklljWcwb/d2o3oGWhALBB+NxNs8Q4XTMkv8ykCX6MeApUdJEI+fJLQqS5nF7wfBkQtFTuhYP2nuoLMPTS46SI3Vc/bEKAHimOm2Rv1vg==
+X-Forefront-Antispam-Report:
+	CIP:8.62.32.50;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ejcrelay005p.adwin.renesas.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700016)(23010399003)(82310400026)(1800799024)(13003099007)(6133799003)(10067099003)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	CO1a+DgwvXpwDZ9zsy3/Ue89Ilq1i35OajIoaB9O2nkT73zv1o2K+StOxT4EPgG7um5GkUYUKYBVnVssL6C0ZKJA3uqi1PGL/KLxM5nq16JJO6U5KPY1fdft0244cWuca0I+ws3zRto7efskqrOk9A7OEE9btbuFPi8FybKH3qKHRllUDGBoOam+oMiAnJHEmqkb3z+FBJ+CvE7BpnZhTX09Qe9/8Uxk6fvpGNt6iPkan02I5lU+W3U2x+SPGWT3z+7XWlA/XOsdaYCi0Q3+cCtH/xdsP5Dj8lFNWCsLNn5FG72kT2EnhsX296UAIux2pW6krGQYVzbxiuFJLq4sUO60/232aEcLExPu6IZfBtwBd/t5KBLINMCCfzgG0ikAytlW+5yWJ8VPU2EYkk5wpuxazn9+SYPyZEEzq4fM5AZ2jDnmk74rc2x2xJsSS83l
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Sep 2026 14:40:04.5081
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 182c3bdb-cd7d-4cb7-28c6-08df11a4e646
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=53d82571-da19-47e4-9cb4-625a166a4a2a;Ip=[8.62.32.50];Helo=[ejcrelay005p.adwin.renesas.com]
+X-MS-Exchange-CrossTenant-AuthSource: TYO1EPF00005025.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB18414
 
-winwing_probe() starts the HID hardware with hid_hw_start(), but never
-calls hid_hw_open(). Despite this, winwing_remove() calls
-hid_hw_close() before hid_hw_stop().
+This series adds a selftest that pings over 802.1q, 802.1ad and
+QinQ VLAN interfaces with RX VLAN stripping offloads enabled
+and disabled.
 
-hid_hw_close() decrements hdev->ll_open_count. Calling it without a
-matching hid_hw_open() can therefore underflow the count when there are
-no open users, or incorrectly consume an open reference owned by
-another HID user. A subsequent legitimate close may then underflow the
-count instead.
+This series contains only the selftest part of [1].
 
-hid_hw_stop() disconnects the HID users, allowing them to release their
-own open references, and is the proper counterpart to hid_hw_start().
-Remove the unpaired hid_hw_close() call.
+Changes since v4 of [1]:
+- dropped the cfg.require_ipver("4") call
+- used a relative import for the lib
+- the "hw" variants no longer require rx-vlan-stag-hw-parse to
+be changeable. They now enable the features the device supports,
+so QinQ traffic is also tested with only C-Tag stripping enabled
+(reported by Sashiko)
 
-This issue was found by manual code inspection.
+[1] https://lore.kernel.org/all/20260908164309.59282-1-ovidiu.panait.rb@renesas.com/
 
-Fixes: 42d020b54edc ("HID: winwing: Enable rumble effects")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/hid/hid-winwing.c | 1 -
- 1 file changed, 1 deletion(-)
+Ovidiu Panait (2):
+  selftests: drv-net: Move _set_ethtool_feat() into lib
+  selftests: drv-net: Add VLAN test
 
-diff --git a/drivers/hid/hid-winwing.c b/drivers/hid/hid-winwing.c
-index 9cd25a77999e..e18728f215ae 100644
---- a/drivers/hid/hid-winwing.c
-+++ b/drivers/hid/hid-winwing.c
-@@ -388,7 +388,6 @@ static void winwing_remove(struct hid_device *hdev)
- 	if (data)
- 		cancel_work_sync(&data->rumble_work);
- 
--	hid_hw_close(hdev);
- 	hid_hw_stop(hdev);
- }
- 
+ .../testing/selftests/drivers/net/gro_lib.py  |  65 +++------
+ .../testing/selftests/drivers/net/hw/Makefile |   1 +
+ tools/testing/selftests/drivers/net/hw/config |   1 +
+ .../drivers/net/hw/lib/py/__init__.py         |   3 +-
+ .../testing/selftests/drivers/net/hw/vlan.py  | 127 ++++++++++++++++++
+ .../selftests/drivers/net/lib/py/__init__.py  |   3 +-
+ .../selftests/drivers/net/lib/py/feat.py      |  35 +++++
+ 7 files changed, 188 insertions(+), 47 deletions(-)
+ create mode 100755 tools/testing/selftests/drivers/net/hw/vlan.py
+ create mode 100644 tools/testing/selftests/drivers/net/lib/py/feat.py
+
 -- 
-2.43.0
+2.34.1
 
