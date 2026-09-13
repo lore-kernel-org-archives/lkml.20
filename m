@@ -1,134 +1,346 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E8A83E51FE
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 10:26:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05BD23E4C7F;
+	Sun, 13 Sep 2026 10:26:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789295187; cv=none; b=WqgcbMqWkrKGVGboIS/iryRSDFxg6vtO5CxC5dbxQnphwMiof6Y9Kj171IGNVLhclBDQLs2UZBx5D9+/AVvqtY6kIXTBC1wVVZtlCXOIcP4eCddJ8T9yutPLvZ8Cq2Ui7G4SD2g9sQu7HOQ9kG+O2bRS2nTF1RqMI7yBJvfNGPk=
+	t=1789295220; cv=none; b=iFZKM5U1Um0ubd/wl6DxZLOazu/WepAfrwC4GCxdp1+VuKu72f9QZ+hsPE847dnY4oZNXGw11dukGZa/DoVC8N4VtxpDA+TaRjSzZEeAKBaQwH80Zve5eLlHKJ1bsKlp9vPRbOJ42u5HvO54mGe0GxDs49DJlK22othO7ujnVp4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789295187; c=relaxed/simple;
-	bh=dodaNv2L2esAPPf9gI7/H+1Xw77ZgMMMPPmKP2CNrp0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CvNgUtpOeZwzgWpATnMRfZLbrrJB4Ke0N6xNRKM3TGePlPYHJsrpGWiZf3EwEPDtrEf5DT3+C70CzbKczPHeLuBzC54jg9sLtIR84CdXzMvoW4K5/hpIjhbGUy5ScSPS0s8AeOJl3o+mBOvoTVuaz+34MRwFkrEWJX1tDcN79jA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S4hnu30F; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789295220; c=relaxed/simple;
+	bh=ZLX8NOH1OUjVKH2KjlT+1+vvXSxFp3Df20ZPxwvYFCw=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=jct6SrrCItim2rvPrw9xKSbh10gTtRhyODSPc9cdw0UV1q4Y5vYEGEmOxBCqnSe76MZPH7NQNSDHVLGYyeF/in9GK4ZHw3lcCOyzra3Z1+4bw+hITztJsmUYMFyi9HFApvYH2uBUDmL9meggoiNQu+Kl03wkaVBNtnMvfWhs3Ug=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HxcoM8ZX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S4hnu30F"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-8692a8568e9so790184b3a.3
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 03:26:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789295179; x=1789899979; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5H60KqbS+ROq5wCtUl6A8wMpEemlazNnMi16ohCbfuQ=;
-        b=S4hnu30FBNpxCQMtMg1CTkGcP7Iry+Xd4G8pSi7Br6q/UJsSkjVB5UiAIMYiL+wYdt
-         2YHNo4Wo+Rrpqx445iBpwrLSrH/QnOafI0PEXUIGuAjm5AGWdGjG1Bmeim2cUrDRi1pg
-         7jBSrgR9bye5AtC5TmD4vuBjOEovMNfBgIyp4GTTxceCBlcq5JaEU/VIi8pzwcuy0S9w
-         69mr552E9KqzgM+ZZwStkW9IjIiuzt4FNTXboTpDXcD7juEXRMaY1ZpQNHkyN4//BKpY
-         UUqs/oJJiqz9ziLMxUXM0g4Tcs2Nqe9WHA1QBwtuJCNM05yCnqG6dUT5fDr3/jly2V+n
-         mXLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789295179; x=1789899979;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5H60KqbS+ROq5wCtUl6A8wMpEemlazNnMi16ohCbfuQ=;
-        b=m5c5vfOg/SvN0A6Z1yDmTpysGj2dHwvN/79szkPS0ajM+RUColHOoyCnkvQ2HZjtKa
-         7p6YjsuCw5/cC4fB5XVYh3TK/vU7OtJcwir9l1EkFXp31XsfwZimyJrNf3YXLSw6z8k9
-         Q+C4U3T2XfpmnAYufMJE7bdPrJMVep43zzc96VI1pLIu2zitkd6ACbCdrYy7zAG+I5Gr
-         wZBvmeCopQDrlOOy5JgfXvpi3h1vjh6gjDh7XoM6/pS1KI/zEA2aoniXgYhrG0/bpWyA
-         UshvAe1gquhRHfFgmVb1LW/vEBeb7rUZSxPfRa04JeiK778DCIdWwpt0lCF9PjjE9Ipy
-         OTsQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzkgyRyNJt5wALC1ZtGP+MlulvWDCp7G5DHrtFI6bbaw8evCBQAaZuU1tFcUgJapo3iA+hCK9eSc0F5rX0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nHDB7H84hD+o1dD/z6OzY3CNCvjuGQ2rCcfo5Vgdhn84ShOQ0l
-	Q9SGp+r+eDumssHa6V99lyAZQ4rhxsH3l566QCjRI+cSG6i1NAzyVn42
-X-Gm-Gg: AYBFou1qMjvV3mQgWWTbOfp3fl6qrNdWY3FxddY2qoLr9iKKvZszdPQECl8fSRqjHTf
-	5te0zcKiqsdWBfoAgE2mQ5ivpoD+VRecNEjL0JP9HHrJWToKJY63ksYCnFmbfyTCA+unyKPkLrS
-	yPSPi9GKjmTls1XDTtQHBz9kqCRSF2sFT1FZyfIg2RK8uwjKZYvS8FLUiaXHRLY+J0f8VWVOH5v
-	AN6V5mqx/uNOyGo14sdd7s8PzBjiNZJkySiwud/wSM2FgnLxBODFWIedaoFGyfd6hy4JGagkdCH
-	AXAHtB3GYBNC1m3tWeJxSlySga//D6iq2t4XKIrXzx6gexZU7s6qXCM8YHEfDxEWJX6MSPo5k9F
-	+CMOTWDGV4ny8OLJpV2dQahIgu9hk4NnbpO99jMlng68e7r1eaIWHpCa/rJ4T4fSHib4Kr0rtOK
-	BePk7SYhQrSHZdytXgGnokOEDMEzsAd7ATa2maGNDiMLy6cv0X77apcg==
-X-Received: by 2002:a05:6a00:3d01:b0:85c:2d83:bbf1 with SMTP id d2e1a72fcca58-86ccb44e113mr10352414b3a.20.1789295178771;
-        Sun, 13 Sep 2026 03:26:18 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b29cbb760sm3126567b3a.46.2026.09.13.03.26.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 03:26:18 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Linus Walleij <linusw@kernel.org>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/panel: ilitek-ili9881c: fix panel cleanup on attach failure
-Date: Sun, 13 Sep 2026 18:26:08 +0800
-Message-ID: <20260913102608.1526916-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HxcoM8ZX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20E9A1F000FF;
+	Sun, 13 Sep 2026 10:26:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789295206;
+	bh=CCyNmu1S4QSxghM5bhyr4PoubfLL8i9XAe0yigjLH6Y=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=HxcoM8ZXxZaNZrIj6+HVVWW1vHAG6K1S39AqGPxOTk0cJ2yrto7ofHs/WDrKv30n0
+	 8qd9TV37KTpXM9g/QdqQlp/GQAbfxi3l3g2wvy/BZJLOQoGHNHjJmzdWMtb4bZFs7J
+	 N2tR268wkupaNarLFzulRr8hj1RAXL2Zk/WC+rc0+EoKYwYoPf4NtNLY7NRdX2MdZP
+	 tpyk8+nh8A+CQ2+mWVHf1IZog4NM7nEra4hS5sjJVE1cZjNPoBXMbVgaNujyFAgeu/
+	 v5roWW+0X+HDJLoyS3Qo+5xqSw6PUbD6uR46WaLCcuak1FhJ0py0M5tWiJLVGQJc8I
+	 aZENK3W1L1Svw==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1x5hQ3-00000008GZK-37Ow;
+	Sun, 13 Sep 2026 10:26:43 +0000
+Date: Sun, 13 Sep 2026 11:26:43 +0100
+Message-ID: <867bkp78gs.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: kvm@vger.kernel.org,
+	kvmarm@lists.linux.dev,
+	will@kernel.org,
+	catalin.marinas@arm.com,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	steven.price@arm.com,
+	aneesh.kumar@kernel.org,
+	oupton@kernel.org,
+	gshan@redhat.com,
+	joey.gouly@arm.com,
+	tabba@google.com,
+	yuzenghui@huawei.com,
+	linux-coco@lists.linux.dev,
+	gankulkarni@os.amperecomputing.com,
+	sdonthineni@nvidia.com,
+	alpergun@google.com,
+	fj0570is@fujitsu.com,
+	WeiLin.Chang@arm.com,
+	lpieralisi@kernel.org,
+	enju.kohei@fujitsu.com
+Subject: Re: [PATCH v17 05/20] KVM: arm64: Add vcpu load/put call backs for flavors
+In-Reply-To: <20260908162223.1683432-6-suzuki.poulose@arm.com>
+References: <20260908162223.1683432-1-suzuki.poulose@arm.com>
+	<20260908162223.1683432-6-suzuki.poulose@arm.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: suzuki.poulose@arm.com, kvm@vger.kernel.org, kvmarm@lists.linux.dev, will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com, joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com, linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-ili9881c_dsi_probe() registers the panel with drm_panel_add() before
-attaching the DSI device. If mipi_dsi_attach() fails, probe returns the
-error without removing the panel registration.
+On Tue, 08 Sep 2026 17:22:08 +0100,
+Suzuki K Poulose <suzuki.poulose@arm.com> wrote:
+> 
+> Add VM flavor specific handlers for VCPU load/put, in an effort to make it
+> easier to follow the code.
+> 
+> Based on a patch by Marc Zyngier
+> 
+> Suggested-by: Marc Zyngier <maz@kernel.org>
+> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+> ---
+>  arch/arm64/include/asm/kvm_host.h |   6 ++
+>  arch/arm64/kvm/arm.c              | 156 ++++++++++++++++++++++--------
+>  2 files changed, 123 insertions(+), 39 deletions(-)
+> 
+> diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
+> index d0dccc9ad6aa8..b2e99c5cb1cd3 100644
+> --- a/arch/arm64/include/asm/kvm_host.h
+> +++ b/arch/arm64/include/asm/kvm_host.h
+> @@ -150,6 +150,11 @@ struct kvm_vmid {
+>  	atomic64_t id;
+>  };
+>  
+> +struct kvm_vcpu_ops {
+> +	void (*vcpu_load)(struct kvm_vcpu *vcpu, int cpu);
+> +	void (*vcpu_put)(struct kvm_vcpu *vcpu);
+> +};
+> +
+>  struct kvm_s2_mmu {
+>  	struct kvm_vmid vmid;
+>  
+> @@ -854,6 +859,7 @@ struct vncr_tlb;
+>  
+>  struct kvm_vcpu_arch {
+>  	struct kvm_cpu_context ctxt;
+> +	const struct kvm_vcpu_ops *vcpu_ops;
+>  
+>  	/*
+>  	 * Guest floating point state
+> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+> index 51fc651267157..9af3bbb2f8c24 100644
+> --- a/arch/arm64/kvm/arm.c
+> +++ b/arch/arm64/kvm/arm.c
+> @@ -74,6 +74,8 @@ struct kvm_ioctl_cap_map {
+>  	long ext;
+>  };
+>  
+> +static const struct kvm_vcpu_ops *arm64_vcpu_ops[VM_FLAVOR_MAX];
+> +
+>  /* Make KVM_CAP_NR_VCPUS the reference for features we always supported */
+>  #define KVM_CAP_ARM_BASIC	KVM_CAP_NR_VCPUS
+>  
+> @@ -569,6 +571,8 @@ int kvm_arch_vcpu_create(struct kvm_vcpu *vcpu)
+>  	mutex_unlock(&vcpu->mutex);
+>  #endif
+>  
+> +	vcpu->arch.vcpu_ops = arm64_vcpu_ops[vcpu->kvm->arch.vm_flavor];
+> +
+>  	/* Force users to call KVM_ARM_VCPU_INIT */
+>  	vcpu_clear_flag(vcpu, VCPU_INITIALIZED);
+>  
+> @@ -738,36 +742,72 @@ static void vcpu_load_pvtime(struct kvm_vcpu *vcpu)
+>  		kvm_make_request(KVM_REQ_RECORD_STEAL, vcpu);
+>  }
+>  
+> +static void vhe_vcpu_load(struct kvm_vcpu *vcpu, int cpu)
+> +{
+> +	vcpu_prepare_mmu(vcpu);
+> +	/*
+> +	 * The timer must be loaded before the vgic to correctly set up physical
+> +	 * interrupt deactivation in nested state (e.g. timer interrupt).
+> +	 */
+> +	kvm_timer_vcpu_load(vcpu);
+> +	kvm_vgic_load(vcpu);
+> +	kvm_vcpu_load_debug(vcpu);
+> +	kvm_vcpu_load_fgt(vcpu);
+> +	kvm_vcpu_load_vhe(vcpu);
+> +	kvm_arch_vcpu_load_fp(vcpu);
+> +	kvm_vcpu_pmu_restore_guest(vcpu);
+> +
+> +	vcpu_load_pvtime(vcpu);
+> +	vcpu_set_wfx_traps(vcpu);
+> +	vcpu_set_pauth_traps(vcpu);
+> +}
+> +
+> +static void nvhe_vcpu_load(struct kvm_vcpu *vcpu, int cpu)
+> +{
+> +	vcpu_prepare_mmu(vcpu);
+> +	/*
+> +	 * The timer must be loaded before the vgic to correctly set up physical
+> +	 * interrupt deactivation in nested state (e.g. timer interrupt).
+> +	 */
 
-Since the remove callback is not called after a failed probe, the
-panel remains registered and keeps an additional reference after the
-devm-managed allocation is released, leaking the panel registration
-and its reference.
+This comment makes no sense here -- it is strictly for VHE, which is
+the only mode to implement NV. Same thing for the pKVM vcpu_load().
 
-Use devm_drm_panel_add() so that the panel registration is
-automatically removed both on probe failure and on driver teardown.
-Remove the now redundant drm_panel_remove() from the remove callback.
+> +	kvm_timer_vcpu_load(vcpu);
+> +	kvm_vgic_load(vcpu);
+> +	kvm_vcpu_load_debug(vcpu);
+> +	kvm_vcpu_load_fgt(vcpu);
+> +	kvm_arch_vcpu_load_fp(vcpu);
+> +	kvm_vcpu_pmu_restore_guest(vcpu);
+> +
+> +	vcpu_load_pvtime(vcpu);
+> +	vcpu_set_wfx_traps(vcpu);
+> +	vcpu_set_pauth_traps(vcpu);
+> +}
+> +
+> +static void pkvm_vcpu_load(struct kvm_vcpu *vcpu, int cpu)
+> +{
+> +	/*
+> +	 * The timer must be loaded before the vgic to correctly set up physical
+> +	 * interrupt deactivation in nested state (e.g. timer interrupt).
+> +	 */
+> +	kvm_timer_vcpu_load(vcpu);
+> +	kvm_vgic_load(vcpu);
+> +	kvm_vcpu_load_debug(vcpu);
+> +	kvm_vcpu_load_fgt(vcpu);
+> +	kvm_arch_vcpu_load_fp(vcpu);
+> +	kvm_vcpu_pmu_restore_guest(vcpu);
+> +
+> +	vcpu_load_pvtime(vcpu);
+> +	vcpu_set_wfx_traps(vcpu);
+> +
+> +	kvm_call_hyp_nvhe(__pkvm_vcpu_load,
+> +			  vcpu->kvm->arch.pkvm.handle,
+> +			  vcpu->vcpu_idx, vcpu->arch.hcr_el2);
+> +	kvm_call_hyp(__vgic_v3_restore_vmcr_aprs,
+> +		     &vcpu->arch.vgic_cpu.vgic_v3);
 
-This issue was found by manual code inspection.
+This can also be turned into a kvm_call_hyp_nvhe().
 
-Fixes: 26aec25593c2 ("drm/panel: Add Ilitek ILI9881c panel driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/gpu/drm/panel/panel-ilitek-ili9881c.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+> +}
+> +
+>  void kvm_arch_vcpu_load(struct kvm_vcpu *vcpu, int cpu)
+>  {
+> -	if (!is_protected_kvm_enabled())
+> -		vcpu_prepare_mmu(vcpu);
+> -
+>  	vcpu->cpu = cpu;
+> -	/*
+> -	 * The timer must be loaded before the vgic to correctly set up physical
+> -	 * interrupt deactivation in nested state (e.g. timer interrupt).
+> -	 */
+> -	kvm_timer_vcpu_load(vcpu);
+> -	kvm_vgic_load(vcpu);
+> -	kvm_vcpu_load_debug(vcpu);
+> -	kvm_vcpu_load_fgt(vcpu);
+> -	if (has_vhe())
+> -		kvm_vcpu_load_vhe(vcpu);
+> -	kvm_arch_vcpu_load_fp(vcpu);
+> -	kvm_vcpu_pmu_restore_guest(vcpu);
+> -
+> -	vcpu_load_pvtime(vcpu);
+> -	vcpu_set_wfx_traps(vcpu);
+> -	vcpu_set_pauth_traps(vcpu);
+> -
+> -	if (is_protected_kvm_enabled()) {
+> -		kvm_call_hyp_nvhe(__pkvm_vcpu_load,
+> -				  vcpu->kvm->arch.pkvm.handle,
+> -				  vcpu->vcpu_idx, vcpu->arch.hcr_el2);
+> -		kvm_call_hyp(__vgic_v3_restore_vmcr_aprs,
+> -			     &vcpu->arch.vgic_cpu.vgic_v3);
+> -	}
+> +	vcpu->arch.vcpu_ops->vcpu_load(vcpu, cpu);
+>  
+>  	if (!cpumask_test_cpu(cpu, vcpu->kvm->arch.supported_cpus))
+>  		vcpu_set_on_unsupported_cpu(vcpu);
+> @@ -775,28 +815,44 @@ void kvm_arch_vcpu_load(struct kvm_vcpu *vcpu, int cpu)
+>  	vcpu->arch.pid = pid_nr(vcpu->pid);
+>  }
+>  
+> -void kvm_arch_vcpu_put(struct kvm_vcpu *vcpu)
+> +static void vhe_vcpu_put(struct kvm_vcpu *vcpu)
+>  {
+> -	if (is_protected_kvm_enabled()) {
+> -		kvm_call_hyp(__vgic_v3_save_aprs, &vcpu->arch.vgic_cpu.vgic_v3);
+> -		kvm_call_hyp_nvhe(__pkvm_vcpu_put);
+> -
+> -		/* __pkvm_vcpu_put implies a sync of the state */
+> -		if (!kvm_vm_is_protected(vcpu->kvm))
+> -			vcpu_set_flag(vcpu, PKVM_HOST_STATE_DIRTY);
+> -	}
+> -
+>  	kvm_vcpu_put_debug(vcpu);
+>  	kvm_arch_vcpu_put_fp(vcpu);
+> -	if (has_vhe())
+> -		kvm_vcpu_put_vhe(vcpu);
+> +	kvm_vcpu_put_vhe(vcpu);
+>  	kvm_timer_vcpu_put(vcpu);
+>  	kvm_vgic_put(vcpu);
+>  	kvm_vcpu_pmu_restore_host(vcpu);
+>  	if (vcpu_has_nv(vcpu))
+>  		kvm_vcpu_put_hw_mmu(vcpu);
+>  	kvm_arm_vmid_clear_active();
+> +}
+>  
+> +static void nvhe_vcpu_put(struct kvm_vcpu *vcpu)
+> +{
+> +	kvm_vcpu_put_debug(vcpu);
+> +	kvm_arch_vcpu_put_fp(vcpu);
+> +	kvm_timer_vcpu_put(vcpu);
+> +	kvm_vgic_put(vcpu);
+> +	kvm_vcpu_pmu_restore_host(vcpu);
+> +	kvm_arm_vmid_clear_active();
+> +}
+> +
+> +static void pkvm_vcpu_put(struct kvm_vcpu *vcpu)
+> +{
+> +	kvm_call_hyp(__vgic_v3_save_aprs, &vcpu->arch.vgic_cpu.vgic_v3);
 
-diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c b/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
-index c3d5ab67121d..1a52f92e2963 100644
---- a/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
-+++ b/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
-@@ -2594,7 +2594,9 @@ static int ili9881c_dsi_probe(struct mipi_dsi_device *dsi)
- 	if (ret)
- 		return ret;
- 
--	drm_panel_add(&ctx->panel);
-+	ret = devm_drm_panel_add(&dsi->dev, &ctx->panel);
-+	if (ret)
-+		return dev_err_probe(&dsi->dev, ret, "Failed to add panel\n")
- 
- 	dsi->mode_flags = ctx->desc->mode_flags;
- 	dsi->format = MIPI_DSI_FMT_RGB888;
-@@ -2605,10 +2607,7 @@ static int ili9881c_dsi_probe(struct mipi_dsi_device *dsi)
- 
- static void ili9881c_dsi_remove(struct mipi_dsi_device *dsi)
- {
--	struct ili9881c *ctx = mipi_dsi_get_drvdata(dsi);
--
- 	mipi_dsi_detach(dsi);
--	drm_panel_remove(&ctx->panel);
- }
- 
- static const struct ili9881c_desc lhr050h41_desc = {
+Same thing here about kvm_call_hyp_nvhe().
+
+> +	kvm_call_hyp_nvhe(__pkvm_vcpu_put);
+> +
+> +	/* __pkvm_vcpu_put implies a sync of the state */
+> +	if (!kvm_vm_is_protected(vcpu->kvm))
+> +		vcpu_set_flag(vcpu, PKVM_HOST_STATE_DIRTY);
+> +
+> +	nvhe_vcpu_put(vcpu);
+
+I'm not overly fond of this. Yes, that was in my original patch. But
+for example, we end-up calling kvm_arm_vmid_clear_active() for pKVM.
+This is harmless, but conceptually wrong.
+
+I'd rather you expand the whole thing.
+
+> +}
+> +
+> +void kvm_arch_vcpu_put(struct kvm_vcpu *vcpu)
+> +{
+> +	vcpu->arch.vcpu_ops->vcpu_put(vcpu);
+>  	vcpu_clear_on_unsupported_cpu(vcpu);
+>  	vcpu->cpu = -1;
+>  }
+> @@ -2136,6 +2192,28 @@ int kvm_arch_vm_ioctl(struct file *filp, unsigned int ioctl, unsigned long arg)
+>  	}
+>  }
+>  
+> +static const struct kvm_vcpu_ops vhe_vcpu_ops = {
+> +	.vcpu_load = vhe_vcpu_load,
+> +	.vcpu_put = vhe_vcpu_put,
+> +};
+> +
+> +static const struct kvm_vcpu_ops nvhe_vcpu_ops = {
+> +	.vcpu_load = nvhe_vcpu_load,
+> +	.vcpu_put = nvhe_vcpu_put,
+> +};
+> +
+> +static const struct kvm_vcpu_ops pkvm_vcpu_ops = {
+> +	.vcpu_load = pkvm_vcpu_load,
+> +	.vcpu_put = pkvm_vcpu_put,
+> +};
+> +
+> +static const struct kvm_vcpu_ops *arm64_vcpu_ops[] = {
+> +	[VM_VHE] = &vhe_vcpu_ops,
+> +	[VM_NVHE] = &nvhe_vcpu_ops,
+> +	[VM_PKVM] = &pkvm_vcpu_ops,
+> +	[VM_PROTECTED_PKVM] = &pkvm_vcpu_ops,
+
+nit: my OCD-self wants to align all the '=' signs vertically...
+
+Thanks,
+
+	M.
+
 -- 
-2.43.0
-
+Without deviation from the norm, progress is not possible.
