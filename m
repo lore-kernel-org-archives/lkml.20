@@ -1,198 +1,98 @@
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA7403D16E9
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 23:13:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DD3C3431E6;
+	Sun, 13 Sep 2026 23:14:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789341211; cv=none; b=WtKG0IU8k6wCIRzUnWSPMvrrX1tlMOqxlvL3qJzj5ikA1EJDy3WuvgZ5GtXZD/lb9mc2yQc4JvJearJxx8lXKxcUjO3hGMC29xuoxA1cp1HbiTh1JHtXk5GfUPioQaqJuWlK626A7n0NNyX61W7fw0DFxcPCHWsevmiUNJecI1w=
+	t=1789341251; cv=none; b=omQ7Bmi63KoW1pno9NmER+Y1/QTEyxA90sgnECknexBsbv8ElBFWuraXzGWcQhEvybcLdCvqhcdyrFwy0RWp9VpDKSn8wRoyjzFVhX2LBj9z2gSOBnMvQ5M6K1Oa4vU3kmAxii4q9KgxbvgoZK2PD4xaxPMYoo25TSQBnnzFJb0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789341211; c=relaxed/simple;
-	bh=t1SoGVBOhNN3RZcmqZV1cJ0VhGLvTWIcsebS0kL+oMg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iq0HljDiXt50F0FxavUJ7sLyx3pgkIh4/SOgoXc1dpmzF9TDnLM0jtm3/AzuL2xJC7p3fMrV3wTpNTDVii5n0HeiZyOLuyOBWzjvzq8tQXEvmbCX9lvBYasqWLq/WVEh6U39axhDaF2FqZwACzkYb0HtfY4hgfYPfWTyJxF6IDI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=WI/b8pC0; arc=none smtp.client-ip=209.85.208.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1789341251; c=relaxed/simple;
+	bh=3FBobjjDPtwUwax3Sny6vGgQI1b7u3f11oqPPeyxfBY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZbGI2nXRzByDnkznQAnQIqnkXX4S5eVAWDPrBl1K/9UGUXnSRmjqWkGIhgKvIhTDKrDRi1qdvG9ANiWnoxyAAQU6XcptiJTqrSzSKWzxW2X4sIh8HDLNjEjr/QKV9jOaWkkLS8kQASb/8q9s0JjRHYqr4Sn345XifTDPBe9SBCA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=kl+XGujV; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="WI/b8pC0"
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-69fab5a852cso3790332a12.0
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 16:13:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1789341207; x=1789946007; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=shNHh+Hq0eZYkpewtUDUP7tR7NqtNacW/GO1qi4vb/k=;
-        b=WI/b8pC049KIRVBuHGy28m5vAMVmLxVhGIiEl+riReE9caJY6QJU6b2LizIGxGIKwr
-         edYxTWG49cRmYFZBpLH534gpMoO28DqXkkAKTexAJNyT1CR9zzkdyj5XVrwsiQsuxjGP
-         Jpf7F5Kzli/goxFX1xU771IUk6cy4mPgl3dKpDP9dVEg5OtLkPskVi0iyauYAep/4bRT
-         c72t8Sk/xkj7/XMTp8SKCE+oiB9DFk8UCqsg+23wLd8emNLK4diiy8uwBr3ZKUz9B67G
-         XTVqmOkvpnbdgh/5sQCPMViIesoKpG68mC9iqhAvmz3wZmqqVjUZzNCGWYZuW4JsKp7P
-         wGBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789341207; x=1789946007;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=shNHh+Hq0eZYkpewtUDUP7tR7NqtNacW/GO1qi4vb/k=;
-        b=FdFPAfqq+ebwJzrS0qLkAJiwnKjqyQ4uRhf24LJDylKq6NsG9x4oWrt0mE+SEIk8Lh
-         YURpqYd1DT56rEwZSUUBJlSlrtGDryDOSrWOsznb9jJ7SdIiIO28akSmXXst8NCw+e7z
-         6VYrBS1PC7qJvNEq/jVE96nsqJfFvyhkULdDrszTvz6Uq76Fk64OV4Gp2ZEYieZRAZwT
-         1WLr7QIekPEyFxebK5uPwRFMd7no58zFhAicLCDsIOJ6O0mTd5wrYqJlCZ0o5bNyCXsx
-         Mc168n4+VJxeJdfl9PWzvgtEKGpNGEovCl7WauDWib0yybs/9LOBrVMyAbrSfBNhyXGL
-         U4gw==
-X-Forwarded-Encrypted: i=1; AKwUvBx55GR3T3GtvCEYiagY08Ve4B3/PtF3xRcODr/fD+6al0U9YsVG0P5/fGWU055KwGazfMl86uG8d5Be7i8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kkwgfPfuD7FmxY2T8rU0jLYTvxDaO7FDPxrz7S+MPECPxuLvQg
-	un+aj9fSCd36e5i3NAs+AJ87L7NGZ4ODcvdNw7rFQXUW4U2IkEsCtzITeWAjaHpiiej5+JnjdSW
-	zsnU/Obbpjw==
-X-Gm-Gg: AYBFou2RoZqWTi/SJkTmtZzwQutP0llVKip7ZBeSQWPXdXTPXMUIx0CWYZfY+r8LQ15
-	qytMfbzAp1oKcJF/Vh3FoaOWmIvh39jxhDq5zGjHVteFEn6Fe3cT3oTDdAFDoGjh+FWiJcnKFRL
-	O2ln7VncxA+tl3RG9Q5deUZZr1NgHIaA1zLdnCN8RGR2gD0zZET10uI1IIechl2KtbmkSbIF1uU
-	HInNaLza7EPuKDghdbXNRt5eW+pxUytixRv7fQX3lU1fXp0jLNekzUvUm7z1GEsphvs5TpP8S90
-	S3olgQL038BOFYgHFSXSmatVZ3hhWapigeO5NqYjCrSrUR+vRlTaPox0P60J5m9/hc4rkuK4wWO
-	jJdSSYGIIMZJAiXvDbo8FFZDIB7X7e6eW+NEjnkjj3CJsLydZNdWd8rwYYRQNkQ036sHWRZpXnD
-	aoWntHuQNPpvUJb6xZmJus3EvyEKVT0/KInaSgv3EgpkLh6D1qhnO+P9Hex7MQM+g=
-X-Received: by 2002:a05:6402:21c8:b0:6a7:ee56:6155 with SMTP id 4fb4d7f45d1cf-6a9f63c11e3mr27644a12.23.1789341206845;
-        Sun, 13 Sep 2026 16:13:26 -0700 (PDT)
-Received: from [172.16.0.229] ([159.196.52.54])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d98e602e7sm19188924a91.5.2026.09.13.16.13.23
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 13 Sep 2026 16:13:25 -0700 (PDT)
-Message-ID: <42025eb2-da6f-4319-83db-9cbd7ac3a7b9@suse.com>
-Date: Mon, 14 Sep 2026 08:43:19 +0930
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="kl+XGujV"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 9BBC340E00B8;
+	Sun, 13 Sep 2026 23:14:05 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id P9ZSm16585ma; Sun, 13 Sep 2026 23:13:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1789341235; bh=e62KowmjjdQv5qI4jQteduKm/oNHV49I+nup2iHWgLc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=kl+XGujV9Qv3Rfh56/USijqLHshkvpRNRHmlY3CXHRd/A0PGz982qHjNzTrf7JHZS
+	 r2I4rLBh73ryDNjezHh1jQpeli5ReC8twWdGkxFf0rh/DeVqiHz3jfN8/r80+uKoUa
+	 LzfMn4xFSRunMCO01jiDfn6rRGRhKPRxwYmZ7Vdss38WXz86wiGHkx5rhfT4f6ZBYK
+	 x/lr9x21SF6DtadTmvlwToj1tiePcZQ8EejP8m95k9Oq+ldJuitAKaS7CRoH2W6rQi
+	 0DhlF8DHJJXucBOC5fU/fOKAbetGI/OirGxToWDmfBZaRzDKbJLSjDPdEGJ3NI0/1N
+	 5EE7dbmbnu/Q/IicqHxz3PAfr2K+mU0xSFJkRmIHxsr7x0ZojnTPrMmlL3/HSrluN6
+	 YmS3kX3o0xh07ME9+0hkORFgyO3WHsIaXPZ8XnAhmhGqulS7khOoMPPWj2Llw3hCOc
+	 1vaXfO0WgLVrZOPzUnT2VDiuo+4deHI1rYPHJfGten9/lgirzTt30LnzHbrD1RpVbx
+	 LCm2eXFMrk6TfXfpFeLos0gRtsdrOqLekyNcMtVxI0VrpJIZzXICDRgyLCpIZwvXcF
+	 3ACU8w2p8ce3U0F0h3MlIO5XpX3HkWTYdBwjKmrUkieY+VaPP/+skgOVrkKTyPP0tL
+	 JNmuMAbI4OzUY3/A6TpIUX40=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::e])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 1BE5340E01ED;
+	Sun, 13 Sep 2026 23:13:41 +0000 (UTC)
+Date: Sun, 13 Sep 2026 16:13:37 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+	David Laight <david.laight.linux@gmail.com>,
+	linux-iio@vger.kernel.org, Nicolas Pitre <nico@fluxnic.net>,
+	Ingo Molnar <mingo@redhat.com>,
+	Thomas Gleinxer <tglx@linutronix.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	Andrew Morton <akpm@linux-foundation.org>,
+	linux-kernel@vger.kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
+	Peter Zijlstra <peterz@infradead.org>, rodrigo.alencar@analog.com
+Subject: Re: [PATCH 0/2] x86: Use "er" asm constriant for add/sub
+Message-ID: <20260913231337.GBaqcuIfvFRlIeQITe@fat_crate.local>
+References: <20260907231444.7fa2d116@jic23-huawei>
+ <20260908033216.GAap-BwAmBqoVDUbMK@fat_crate.local>
+ <ap_cLN807bC56OBU@monoceros>
+ <20260908152127.GCaqAn9zI09T7qvMhH@fat_crate.local>
+ <aqAtRgouK7DyDlpJ@monoceros>
+ <20260908165501.GDaqA95YQKx_IL416d@fat_crate.local>
+ <20260910042029.7c78f6dd@jic23-hlaptop>
+ <20260910034527.GBaqIn13O6zSuD4vak@fat_crate.local>
+ <20260910170913.1a3ab4b2@jic23-hlaptop>
+ <20260910180002.GAaqLwImwJj66E8w3L@fat_crate.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 01/16] btrfs: stop enabling the v1 space cache from the
- on-disk state
-To: Tal Zussman <tz2294@columbia.edu>, David Sterba <dsterba@suse.com>,
- Chris Mason <mason@kernel.org>
-Cc: linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260913-btrfs-remove-v1-space-cache-v2-0-186767a7e106@columbia.edu>
- <20260913-btrfs-remove-v1-space-cache-v2-1-186767a7e106@columbia.edu>
-Content-Language: en-US
-From: Qu Wenruo <wqu@suse.com>
-Autocrypt: addr=wqu@suse.com; keydata=
- xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
- 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
- 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
- 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
- gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
- AAHNGFF1IFdlbnJ1byA8d3F1QHN1c2UuY29tPsLAlAQTAQgAPgIbAwULCQgHAgYVCAkKCwIE
- FgIDAQIeAQIXgBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJnEXVgBQkQ/lqxAAoJEMI9kfOh
- Jf6o+jIH/2KhFmyOw4XWAYbnnijuYqb/obGae8HhcJO2KIGcxbsinK+KQFTSZnkFxnbsQ+VY
- fvtWBHGt8WfHcNmfjdejmy9si2jyy8smQV2jiB60a8iqQXGmsrkuR+AM2V360oEbMF3gVvim
- 2VSX2IiW9KERuhifjseNV1HLk0SHw5NnXiWh1THTqtvFFY+CwnLN2GqiMaSLF6gATW05/sEd
- V17MdI1z4+WSk7D57FlLjp50F3ow2WJtXwG8yG8d6S40dytZpH9iFuk12Sbg7lrtQxPPOIEU
- rpmZLfCNJJoZj603613w/M8EiZw6MohzikTWcFc55RLYJPBWQ+9puZtx1DopW2jOwE0EWdWB
- rwEIAKpT62HgSzL9zwGe+WIUCMB+nOEjXAfvoUPUwk+YCEDcOdfkkM5FyBoJs8TCEuPXGXBO
- Cl5P5B8OYYnkHkGWutAVlUTV8KESOIm/KJIA7jJA+Ss9VhMjtePfgWexw+P8itFRSRrrwyUf
- E+0WcAevblUi45LjWWZgpg3A80tHP0iToOZ5MbdYk7YFBE29cDSleskfV80ZKxFv6koQocq0
- vXzTfHvXNDELAuH7Ms/WJcdUzmPyBf3Oq6mKBBH8J6XZc9LjjNZwNbyvsHSrV5bgmu/THX2n
- g/3be+iqf6OggCiy3I1NSMJ5KtR0q2H2Nx2Vqb1fYPOID8McMV9Ll6rh8S8AEQEAAcLAfAQY
- AQgAJgIbDBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJnEXWBBQkQ/lrSAAoJEMI9kfOhJf6o
- cakH+QHwDszsoYvmrNq36MFGgvAHRjdlrHRBa4A1V1kzd4kOUokongcrOOgHY9yfglcvZqlJ
- qfa4l+1oxs1BvCi29psteQTtw+memmcGruKi+YHD7793zNCMtAtYidDmQ2pWaLfqSaryjlzR
- /3tBWMyvIeWZKURnZbBzWRREB7iWxEbZ014B3gICqZPDRwwitHpH8Om3eZr7ygZck6bBa4MU
- o1XgbZcspyCGqu1xF/bMAY2iCDcq6ULKQceuKkbeQ8qxvt9hVxJC2W3lHq8dlK1pkHPDg9wO
- JoAXek8MF37R8gpLoGWl41FIUb3hFiu3zhDDvslYM4BmzI18QgQTQnotJH8=
-In-Reply-To: <20260913-btrfs-remove-v1-space-cache-v2-1-186767a7e106@columbia.edu>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260910180002.GAaqLwImwJj66E8w3L@fat_crate.local>
 
-
-
-在 2026/9/14 06:51, Tal Zussman 写道:
-> Since commit 545e560a5b0f ("btrfs: disable v1 space cache") the mount
-> options can no longer request the v1 space cache, but a filesystem with
-> an active v1 cache and no free space tree still enables it from
-> cache_generation, and remount does the same. Drop both, so SPACE_CACHE
-> can never be set.
-
-Oh, this is a bug in that commit, I intended to reject all v1 space 
-cache usage, but lost the case where no "space_cache=" mount option is 
-specified.
+On Thu, Sep 10, 2026 at 11:00:02AM -0700, Borislav Petkov wrote:
+> Pushed out into tip:x86/urgent. That branch should be mainline with -rc3.
 > 
-> btrfs_start_pre_rw_mount() then sees the on-disk cache as active but
-> unwanted and cleans it up, as -o nospace_cache does today. That covers
-> the read-only to read-write remount as well, so drop the toggle in
-> btrfs_remount_cleanup(), which would otherwise start a transaction on
-> remounts of a read-only filesystem with an old cache.
-> 
-> The cleanup is now unconditional, and the first read-write mount fails
-> if it fails, as it did with -o nospace_cache. This also lets an old
-> filesystem mount without options when the page size is larger than the
-> sector size, which btrfs_check_features() rejected once SPACE_CACHE was
-> set from the superblock.
-> 
-> Assisted-by: Claude:claude-fable-5-1
-> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
+> If something last-minute changes, lemme know and I'll do an immutable
+> branch.
 
-Reviewed-by: Qu Wenruo <wqu@suse.com>
+It changed - -rc3 released and we didn't send the pull in time:
 
-Thanks,
-Qu
-> ---
->   fs/btrfs/super.c | 16 +++-------------
->   1 file changed, 3 insertions(+), 13 deletions(-)
-> 
-> diff --git a/fs/btrfs/super.c b/fs/btrfs/super.c
-> index 464129b1b0d4..77443ded6db3 100644
-> --- a/fs/btrfs/super.c
-> +++ b/fs/btrfs/super.c
-> @@ -759,12 +759,12 @@ void btrfs_set_free_space_cache_settings(struct btrfs_fs_info *fs_info)
->   
->   	/*
->   	 * At this point we don't have explicit options set by the user, set
-> -	 * them ourselves based on the state of the file system.
-> +	 * them ourselves based on the state of the file system. An existing
-> +	 * v1 space cache is no longer used and gets cleaned up once the
-> +	 * filesystem is mounted read-write.
->   	 */
->   	if (btrfs_fs_compat_ro(fs_info, FREE_SPACE_TREE))
->   		btrfs_set_opt(fs_info->mount_opt, FREE_SPACE_TREE);
-> -	else if (btrfs_free_space_cache_v1_active(fs_info))
-> -		btrfs_set_opt(fs_info->mount_opt, SPACE_CACHE);
->   }
->   
->   static void set_device_specific_options(struct btrfs_fs_info *fs_info)
-> @@ -1264,8 +1264,6 @@ static inline void btrfs_remount_begin(struct btrfs_fs_info *fs_info,
->   static inline void btrfs_remount_cleanup(struct btrfs_fs_info *fs_info,
->   					 unsigned long long old_opts)
->   {
-> -	const bool cache_opt = btrfs_test_opt(fs_info, SPACE_CACHE);
-> -
->   	/*
->   	 * We need to cleanup all defraggable inodes if the autodefragment is
->   	 * close or the filesystem is read only.
-> @@ -1282,10 +1280,6 @@ static inline void btrfs_remount_cleanup(struct btrfs_fs_info *fs_info,
->   	else if (btrfs_raw_test_opt(old_opts, DISCARD_ASYNC) &&
->   		 !btrfs_test_opt(fs_info, DISCARD_ASYNC))
->   		btrfs_discard_cleanup(fs_info);
-> -
-> -	/* If we toggled space cache */
-> -	if (cache_opt != btrfs_free_space_cache_v1_active(fs_info))
-> -		btrfs_set_free_space_cache_v1_active(fs_info, cache_opt);
->   }
->   
->   static int btrfs_remount_rw(struct btrfs_fs_info *fs_info)
-> @@ -1535,10 +1529,6 @@ static int btrfs_reconfigure(struct fs_context *fc)
->   			btrfs_set_opt(fs_info->mount_opt, FREE_SPACE_TREE);
->   			btrfs_clear_opt(fs_info->mount_opt, SPACE_CACHE);
->   		}
-> -		if (btrfs_free_space_cache_v1_active(fs_info)) {
-> -			btrfs_clear_opt(fs_info->mount_opt, FREE_SPACE_TREE);
-> -			btrfs_set_opt(fs_info->mount_opt, SPACE_CACHE);
-> -		}
->   	}
->   
->   	ret = 0;
-> 
+https://lore.kernel.org/r/20260913225356.1033865-1-dave.hansen@linux.intel.com
 
+I can let you know when Linus merges it.
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
