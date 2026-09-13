@@ -1,103 +1,143 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from ixit.cz (ixit.cz [84.42.129.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 824863749FD;
-	Sun, 13 Sep 2026 12:47:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41FCF3749FD;
+	Sun, 13 Sep 2026 12:47:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789303647; cv=none; b=APONFmR5EZjqXpL5xE/MPLkRsNme3xhTXr+L5I6/7kHXb47v6Ns/DeFxzwC1MkpMV6BpmKh6ANB8F9bXi8mhIK0sO63KRyRPLqVIfi8nDWbTDDYZxXIGRK1y5TNDrRliQYSDAMmWl9oOSVVOCs+NejF0JRA4HO1I9TAJ8nOXKEI=
+	t=1789303655; cv=none; b=CLRaiaa44FUx5LJyXKW29AS0OlcJh7W8wmIJgjZPe0QwTO3Whd/2hH4fbf3kxLUrcNSxjC1D6ILI4PF7UrD1rKKSWQijGDNFPwgpDSjiAsw/28kKcSs9yohfGWIsS4NUCKNVEamzW50NtzEdad0kINzqel+rTcP73K77RMOhgKk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789303647; c=relaxed/simple;
-	bh=ZIX3tVKTCuTX00l6xXoe1yuerRjaXwZfhuAO0nxVqbU=;
-	h=Date:From:To:CC:Subject:In-Reply-To:Message-ID:MIME-Version:
-	 Content-Type; b=ftgV+9EpqOHvtdJYo5oBd8YYfUGlicwrGecXHR1uwFnTwLxtCrXXrmN5+EMYqL52ysBMR3dNzT93SmLe/YyD3FG+kvspGPy3kcLzD2bAFw8GvqbOqVMldxGGKezpKvFmzG5h/zSSDCTIlI+89bTa/SXdMG59S7S2GjtYQWudNG0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=YUdBMQIE; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=v5F1X/Hn; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1789303655; c=relaxed/simple;
+	bh=gXcaR8LX8ApftwewEhc12zqCDGFILnSeKGmKi/Mfskw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LOiAuZuipGLHz9EzAR+8Za9RmSMn3v01GPb4/ftB9ftKiFhk9DNEse9RCr8llmtLlb5C/8I1McA8EafRWxuhQawE33ZvO/tc9fyZAEa2kpbhopz/JpJOShJl3UuDqc3QzVZAjev/8K1Xti78X07kpcYOZwM2cggkSh2aN0SburQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=LTOkUEev; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="YUdBMQIE";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="v5F1X/Hn"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1789303626; bh=QJtBQCTKsuUhAszcZD6yyU/
-	pdahOrkRMClmeO/H7HZI=; b=YUdBMQIEbYQosAC1rM5TauT4/fP2ZZDCxsXruEFn0JPeESqKOS
-	hOEif79r0VgBCZYic81UwCPLMEqIAC+HASRsRklr0lCqedQLINYKkzdR+Y/C3/88Jn+qTle4azl
-	o5I91B3jWiEezUc+QI0mSelkmaLX8gZvtZYYmLWhF5qQxJB6eYqML9cwmMCY1Xg1cOwJRwn0zrx
-	NhoNCliEpcHN9AgIdNtRWocmaW24diVGX6sec2j/WUFT+dJx0/NzHkZT2x/kepfdfDRTulzYeWX
-	1Rrvrp+j+TTssGoFOuGZLv4mgms7/x7Aa5k3iNDfefeIx9oMJdj6wnsmEoqjlViVCTg==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1789303626; bh=QJtBQCTKsuUhAszcZD6yyU/
-	pdahOrkRMClmeO/H7HZI=; b=v5F1X/HncCWv/iPNFem5xpKlHnp2uwhQg9aT8D4y/tPl/RRI9z
-	IxJEwUqDTQ1TbWWfDPiVU3fQWxecfLK0tVDg==;
-Date: Sun, 13 Sep 2026 13:47:05 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: kunwu.chan@gmail.com
-CC: jiangshanlai@gmail.com, josh@joshtriplett.org, linux-kernel@vger.kernel.org,
- mathieu.desnoyers@efficios.com, paulmck@kernel.org, rcu@vger.kernel.org,
- rostedt@goodmis.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v3=5D_srcutree=3A_Don=27t_transit?=
- =?US-ASCII?Q?ion_atomic_SRCU_to_big_in_srcu=5Fgp=5Fend=28=29?=
-In-Reply-To: <20260911072125.2268530-1-kunwu.chan@gmail.com>
-Message-ID: <52A1E6DD-17E3-42AC-B5A4-B2835A288EF8@mainlining.org>
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="LTOkUEev"
+Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id EACF9534020C;
+	Sun, 13 Sep 2026 14:47:23 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1789303644;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=4O4ttVM3pEusyMizBao1PUVjU9/8vfUkTOlWV89M7EI=;
+	b=LTOkUEevuyRA0BsJpSAj8qnCX6905DkILnX4dx/4BmMuSW//v8aP6fPj6qjEfxWGvyiFCJ
+	sjA+581jPlSrDJfbdYxC+YcxDNE7XBsKDbjh3cANek87yuP2wVDZ0tA3OqILhbvssbX+4s
+	zL8dCV0zshRo0a2+rxoLsQvNi0hyW7I=
+Message-ID: <757d826a-739c-42f5-9671-9348a1480951@ixit.cz>
+Date: Sun, 13 Sep 2026 14:47:23 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 8/9] drm/panel: novatek-nt36672a: Add panel for Asus
+ Zenfone Max Pro M1
+To: Alexey Minnekhanov <alexeymin@minlexx.ru>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: Joel Selvaraj <foss@joelselvaraj.com>,
+ Chintan Patel <chintanlike@gmail.com>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ phone-devel@vger.kernel.org, iAboothahir <aboothahirpkd@gmail.com>
+References: <20260913-nt36672a-panels-v1-0-ce097402c6ea@minlexx.ru>
+ <20260913-nt36672a-panels-v1-8-ce097402c6ea@minlexx.ru>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <20260913-nt36672a-panels-v1-8-ce097402c6ea@minlexx.ru>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 11 September 2026 08:21:25 BST, Kunwu Chan <kunwu.chan@gmail.com> wrote:
-
-Better late than never.
-
->Atomic SRCU must remain in the small size state. Warn if this
->invariant is violated and avoid transitioning to big in that case.
-
-Fair enough.
-
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
-
-
->
->Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
->---
->Changes since v2:
->- Also prevent the transition when the atomic SRCU size-state
->  invariant is violated, per Paul McKenney's suggestion.
->-v2: https://lore.kernel.org/rcu/20260910084629.3695383-1-kunwu.chan@gmail.com/
->
->Changes since v1:
->- Drop the !is_atomic guard from v1 and add WARN_ON_ONCE() instead,
->  per Paul McKenney's suggestion.
->- v1: https://lore.kernel.org/rcu/20260907075829.2073224-8-kunwu.chan@linux.dev/
->---
-> kernel/rcu/srcutree.c | 7 +++++--
-> 1 file changed, 5 insertions(+), 2 deletions(-)
->
->diff --git a/kernel/rcu/srcutree.c b/kernel/rcu/srcutree.c
->index 84c022ec8e09..07db4e459b30 100644
->--- a/kernel/rcu/srcutree.c
->+++ b/kernel/rcu/srcutree.c
->@@ -1073,8 +1073,11 @@ static void srcu_gp_end(struct srcu_struct *ssp, bool is_atomic)
-> 		raw_spin_unlock_irq_rcu_node(sup);
-> 	}
+On 13/09/2026 07:36, Alexey Minnekhanov wrote:
+> Add support for TXD TXDI600YANPA-43V3 video mode panel based on
+> Novatek NT36672A, used in Asus Zenfone Max Pro M1 smartphone
+> (asus-x00td).
 > 
->-	/* Transition to big if needed. */
->-	if (ss_state != SRCU_SIZE_SMALL && ss_state != SRCU_SIZE_BIG) {
->+	/* Transition to big if needed, but never for atomic SRCU. */
->+	if (ssp->srcu_reader_flavor == SRCU_READ_FLAVOR_ATOMIC &&
->+	    ss_state != SRCU_SIZE_SMALL) {
->+		WARN_ON_ONCE(1);
->+	} else if (ss_state != SRCU_SIZE_SMALL && ss_state != SRCU_SIZE_BIG) {
+> Co-developed-by: iAboothahir<aboothahirpkd@gmail.com>
+> Signed-off-by: iAboothahir<aboothahirpkd@gmail.com>
+> Signed-off-by: Alexey Minnekhanov<alexeymin@minlexx.ru>
+> ---
+>   drivers/gpu/drm/panel/panel-novatek-nt36672a.c | 281 +++++++++++++++++++++++++
+>   1 file changed, 281 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
+> index 1bfa808365874..954ab24c9d00a 100644
+> --- a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
+> +++ b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
+> @@ -468,6 +468,252 @@ static void tianma_jasmine_init_cmds(struct mipi_dsi_multi_context *dsi_ctx)
+>   	usleep_range(5000, 6000);
+>   }
+>   
+> +static void txd_x00td_init_cmds(struct mipi_dsi_multi_context *dsi_ctx)
+> +{
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x20);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
 
-I like this fix.
+Just for a start,
 
-> 		if (ss_state == SRCU_SIZE_ALLOC)
-> 			init_srcu_struct_nodes(ssp, GFP_KERNEL);
-> 		else
->
+0xff -> CMD2_P0, datasheet page 6
 
---- Thanks!
-https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
+0xfb -> Set non-reload MTP commad, page 12
+
+This driver has amazing datasheet, so the driver could look like a real driver 
+instead of dump of the register sequence :)
+
+David
