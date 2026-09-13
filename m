@@ -1,170 +1,133 @@
-Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
+Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D20537FF6D
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 16:24:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 776DC21D00A;
+	Sun, 13 Sep 2026 16:25:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789316655; cv=none; b=kNWPaieMXqG4okVPy41x+GqD6djJQrKz+weSbLoII5NmAW7o8lI7l5nsfrdFgf5+oaqonPhunslroUEMClHHzBwWiMl+cdC8nUqQx30KsgamaIx4qFlDA909IDSAV0hPJMyofNRjq6LCwhYG/DAN2CBWfa1JoSbV7G8V6R/ecaA=
+	t=1789316736; cv=none; b=XHkoJeFQgtPOmK/GXMVjuvjaVssivtwykvFx3Ogn4X7xoZXf/WvGrtwHZ1HozNcV2P2qSQlM8dn88X5FN5L9zS71jMk8QyAs2RPdLX+anJdPOjJ2PjeTINu/I9o+Yg9ghtGScTrutjsaNkNepHfwl/9J8HTN1uRPqlgrU2dyljU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789316655; c=relaxed/simple;
-	bh=yymUnlFMbFRaI+zM6TZ1QhF7FtNy1mLIdFau2Q5EO9Q=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=M5jpH/LlU2cwKXlg85P1TlKTlQMnqoKH0xnUdiZ7o79HjuJZYEU7jXgG5wf7N+g2SJFi5usRcxxOsdPscYu+CC3Piz1PdLmiz4QrFWrY/Y3nMa16L3nytDIwxPyEHLfly1B2yYKXC2NpV0OBiQ+L/V0yjB767y7c3uLPuRM77GI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de; spf=pass smtp.mailfrom=posteo.de; dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b=M52iUH0r; arc=none smtp.client-ip=185.67.36.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
+	s=arc-20240116; t=1789316736; c=relaxed/simple;
+	bh=t58wA0U2rRkGGxn9d5mJDqR9N1AKdw0A+2xBJiErvIA=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=JQhcfa/nPknluKk2fLSY6lQqF21GgRiILsMsE6iF9Ojv+QsorcuRQj37d5sY8qB3hka1EeQrw9lEf/A8dkveW720K+5KVxjaQJiUP+VKOkfEFog3bt4CjK6sSu4bfmQXN0f5AL9Q+x9rGgigFuRaowoc0HOKy+yNKihTmTnK8As=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=KREALo7m; arc=none smtp.client-ip=216.40.44.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b="M52iUH0r"
-Received: from submission (posteo.de [185.67.36.169]) 
-	by mout02.posteo.de (Postfix) with ESMTPS id DAC47240108
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 18:24:08 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
-	s=1984.8680eb; t=1789316648;
-	bh=BR/kOTPy8WlHRCwmQBBq1dgGLlhcCxn5wBHj3AWf0ds=;
-	h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
-	 MIME-Version:OpenPGP:From;
-	b=M52iUH0rZtYiI9uZg0Xzymrt9B/APLdb38XEWGQ9OSjcB2eN9pznLuOML0DYo3/Ch
-	 KphYh+XRrQHKLopw+N23+Wz/B4RHWFp4QpzFwrn8bFx4x3DDS+sZvvilQlFh2wafph
-	 7kKAJAcepmtcG4IbtScmtrekKDTjyaOxEX7mx2bVYk3J5ce/4L5g5wRUUJlze3T18W
-	 Nb5bmr+iSmFLSQYIPD/NOGT+hUrjyU4xQKcCAy4UlJozJQIXpPySgowhGW865HXuf5
-	 67n1a0DpoQ9cQp26y3o7UoHNVWY6h3sdlQgs6MWDUrHcVTShYHveqDE1zpuHBUSgan
-	 52FRdqXFEvYtw==
-Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4hjYWT2yTJz9rxK;
-	Sun, 13 Sep 2026 18:24:05 +0200 (CEST)
-Message-ID: <bd1aeb53bb12077d1406e724b66bc78ff17fbbc2.camel@posteo.de>
-Subject: Re: [PATCH v25 2/4] rust: leds: add Mode trait
-From: Markus Probst <markus.probst@posteo.de>
-To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, Dave Ertman
- <david.m.ertman@intel.com>, Leon Romanovsky	 <leon@kernel.org>, Miguel
- Ojeda <ojeda@kernel.org>, Alex Gaynor	 <alex.gaynor@gmail.com>, Gary Guo
- <gary@garyguo.net>,  =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron	
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas
- Hindborg	 <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Trevor Gross	 <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
- "Rafael J. Wysocki"	 <rafael@kernel.org>, Bjorn Helgaas
- <bhelgaas@google.com>, Krzysztof =?UTF-8?Q?Wilczy=C5=84ski?=	
- <kwilczynski@kernel.org>, Boqun Feng <boqun@kernel.org>, Daniel Almeida	
- <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, Onur =?ISO-8859-1?Q?=D6zkan?=
- <work@onurozkan.dev>, Ira Weiny	 <iweiny@kernel.org>
-Cc: rust-for-linux@vger.kernel.org, linux-leds@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org
-Date: Sun, 13 Sep 2026 16:24:07 +0000
-In-Reply-To: <20260913-rust_leds-v25-2-1a10371d78c3@posteo.de>
-References: <20260913-rust_leds-v25-0-1a10371d78c3@posteo.de>
-	 <20260913-rust_leds-v25-2-1a10371d78c3@posteo.de>
-Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
- keydata=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
- jfGillcaQOqFZ3WwVqyzG1BUfTow==
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-OaxUqTEkTo+BhzyBoF/J"
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="KREALo7m"
+Received: from omf01.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay09.hostedemail.com (Postfix) with ESMTP id F21BD807FC;
+	Sun, 13 Sep 2026 16:25:26 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf01.hostedemail.com (Postfix) with ESMTPA id 2121D6000F;
+	Sun, 13 Sep 2026 16:25:25 +0000 (UTC)
+Date: Sun, 13 Sep 2026 12:25:23 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Cc: Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
+ <mathieu.desnoyers@efficios.com>, Tom Zanussi <zanussi@kernel.org>,
+ linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] tracing: Fix NULL dereference when copying keys for a
+ field variable
+Message-ID: <20260913122523.30f487d9@robin>
+In-Reply-To: <20260912094722.3271147-1-donggeunyoo.kernel@gmail.com>
+References: <20260912094722.3271147-1-donggeunyoo.kernel@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Stat-Signature: rfe1bw7mj8pgdxez1cr8r4r67k1791rr
+X-Rspamd-Server: rspamout08
+X-Rspamd-Queue-Id: 2121D6000F
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX18Uu2mIVEUaNY6bZB42XRPP3Vd1zo8Z/Zk=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=0xI+e331Zk5EeA2olu0jWNY2IHo+mIOtGgU4Yfq4pi8=; b=KREALo7m63I43hODuK8bjCMvgLRZ+YmbTLdd9bWO8I7vOa9SDu7SFeaH19b6hJX/QtiQXeKVL344CqBkg8Il41eqOR8EHGvQJS1IikV1QczH2q9+3t8IQ31NkkL/fZe9F1U0Ui22TkeBEPm2Zp2gsMP62pgtJEVzqoBsiQtLRdk=
+X-HE-Tag: 1789316725-630573
+X-HE-Meta: U2FsdGVkX194kXgf6Nhi5doGigKmxRRMFykkSSYFV9NU0NcrevSDXhatOHWu781sT3iCwWQwAzhoDMmTn3cvpYUZg9lO6m2Lem7gouCZvfTWNpwRx6Jf2yVrdkGmhneXp0gtgeAShogyglT8x6log4VMstasN/Cey/3qgoybcr/1vIvN9iYlLSoO4Q7K4X+hRBqrLKzPjcXo6pEMSNnmGyIlhMZ35quHQSEJzOgovZ1wn4uKMLqHtSE4BKBAcp85tmCTYOblXb8jyChSKp+kiw9+CNUB4+mvKRg/UzfbgmGmi18lMMwiM6HQqCRblv8/N/Lg9emhnI/ApqAdD6ybaHC3SewXpDV2
 
+On Sat, 12 Sep 2026 18:47:22 +0900
+Donggeun Yoo <donggeunyoo.kernel@gmail.com> wrote:
 
---=-OaxUqTEkTo+BhzyBoF/J
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+> create_field_var_hist() builds a hist trigger on the onmatch() event by
+> copying the key list of the compatible histogram found there, reading
+> each name from key_field->field->name. That pointer is NULL when the key
+> is not an event field: parse_field() leaves it NULL for common_cpu,
+> common_comm, common_timestamp, common_stacktrace and hitcount.
+> compatible_keys() compares only the type, size and signedness of each
+> key, so two common_cpu keys match and the loop faults.
+> 
+> The generated trigger is a real histogram whose element the variable is
+> later read out of, so it has to bucket the same way as the one it
+> mirrors. Render the keys with expr_field_str(), which carries .log2 and
+> .usecs, modifiers that change a key's value. Two things it did not carry
+> are added here. get_hist_field_flags() reports .stacktrace for the
+> common_stacktrace pseudo-field too, which parse_field() takes only on a
+> real field, so gate it on having one. And it reports a bare "buckets"
+> with the size held separately in hist_field->buckets, so append that the
+> way hist_field_print() does. expr_field_str() also renders expression
+> operands, so an expression over a bucketed field now prints the size
+> too, matching what hist_field_print() already shows for the key.
 
-On Sun, 2026-09-13 at 16:15 +0000, Markus Probst wrote:
-> Add the `led::Mode` trait to allow for other types of led class devices
-> in `led::LedOps`.
->=20
-> Signed-off-by: Markus Probst <markus.probst@posteo.de>
-> ---
->  rust/kernel/led.rs        | 37 ++++++++++++++++++++++++++-----------
->  rust/kernel/led/normal.rs | 12 ++++++++++--
->  2 files changed, 36 insertions(+), 13 deletions(-)
->=20
-> diff --git a/rust/kernel/led.rs b/rust/kernel/led.rs
-> index deda8cc548a8..7cd8f0504649 100644
-> --- a/rust/kernel/led.rs
-> +++ b/rust/kernel/led.rs
-> @@ -4,11 +4,7 @@
->  //!
->  //! C header: [`include/linux/leds.h`](srctree/include/linux/leds.h)
-> =20
-> -use core::{
-> -    marker::PhantomData,
-> -    mem::transmute,
-> -    ptr::NonNull, //
-> -};
-> +use core::{marker::PhantomData, mem::transmute, ops::Deref, ptr::NonNull=
-};
-supposed to be vertical.
+The above change log is extremely hard to read. Did you get it directly
+from AI? That tends to be overly verbose and adds way more data than
+needed making it harder to find the important parts. Please make the
+change logs more precise to what the issue is and remove the unneeded
+details.
 
-Thanks
-- Markus Probst
+For this patch, I'm currently testing it, but let me try to decipher it
+(but please clean up future patches)...
 
---=-OaxUqTEkTo+BhzyBoF/J
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+OK, I gave up on the change log as it's just garbage. I ended up
+triggering the bug mentioned and looking at the code and figured it out
+myself.
 
------BEGIN PGP SIGNATURE-----
+OK, this patch does three things so it really needs to be three
+different patches. One, it fixes the reported bug by the change to call
+expr_field_str(). The change log for that bug should be:
 
-iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmqmziQbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJEDR2H/jnrUPSGAsQAJKm37JDmgYQ7+ndKdPv
-Jjf+780GMAfSCqHfM8Y1bEZZBXfUBlQvN6Pnx50NBlK9xDlDOBrdq1ji7u1gxSUu
-j+crXgluVMYgAcgOkRovg5a2qTer6/xDDyuEkk49ps4jaCuupDKw2rjSMc8x+AQ4
-Kr/wrN7uqy4oZijv06lMGu3pih6l+SYy+BTjX1ptzE9/8tSPozbn46Ho8TbtkcHW
-s6fgsSSFyXauW0otO4dfJpn6X/OIo1utIsxsQN9m//aQ5OdxUmhd7z2uO2WgjrTL
-+lbhWTUNl1tyIgd7pV6xDQcdGNwCyBJA+E34YeflcNxs1vQfsqwIcBn0pye++mjp
-PFPad08ClzgDQ4Fi307a3Ja+L63UZbtJdJSHdIrFpAlbnRPhhTE3NiLeV+tnNlvT
-VEtY4EKm/90ZbWHQ9nNspCNR21ILHnDYqM1ZAvAqJVBjsFla6tHvTiqPGXj2PcY8
-tfu1Wg+QkOKYi0xnXOjBPtEkM3UVAfIR2Nth4b4NE5o6ldNvMmO5YRUptZVVU0fS
-oE3iq9UDstB346JlK72QL1uy30il/BO2NaQxdnEFOyUMJQZnQdxsUfxwC3NVtUIG
-WNfMigdBpnW1fLuouhtRkZcmPkEbLD6H5jvfV92OBZqvOIVN/kEyGgucAvCuK09x
-bJT1hzRNamyhVVe6B7EMQqVc
-=pH62
------END PGP SIGNATURE-----
+   In event_hist_trigger_parse() where it needs to create actions like
+   "onmatch", it calls:
 
---=-OaxUqTEkTo+BhzyBoF/J--
+     event_hist_trigger_parse() {
+       create_actions() {
+         action_create() {
+           trace_action_create() {
+             trace_action_create_field_var() {
+               create_field_var_hist()
+
+    Where create_field_var_hist() does a loop on the hist_data
+    representing the keys. The issue is, if the keys uses one of the
+    pseudo field types (like common_cpu), the hist_data field element
+    will have NULL for its field member causing a NULL pointer
+    dereference when accessing the key_field->field->name.
+
+    Instead of accessing it directly, use the proper handler
+    expr_field_str() to get the name.
+
+> @@ -3090,7 +3093,7 @@ create_field_var_hist(struct hist_trigger_data *target_hist_data,
+>  		key_field = hist_data->fields[i];
+>  		if (!first)
+>  			seq_buf_putc(&s, ',');
+> -		seq_buf_puts(&s, key_field->field->name);
+> +		expr_field_str(key_field, &s);
+>  		first = false;
+>  	}
+
+The changes and the change log for the other two is confusing and it
+doesn't show examples of the errors. They can be dropped from the NULL
+pointer dereference fix and sent separately with examples of what is
+actually wrong.
+
+Oh, and there's another bug here. With your example, where you used
+"prio" for sched_switch (which isn't a field), there's an error message
+created, but the command still errors out.
+
+[  415.300003] hist:sched:sched_switch: error: Couldn't parse field variable
+  Command: hist:keys=stacktrace:wakeup_lat=common_timestamp.usecs-$ts0:onmatch(sched.sched_waking).my_synth($wakeup_lat,prio)
+
+-- Steve
