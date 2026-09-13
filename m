@@ -1,69 +1,65 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CE293CB548
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 12:18:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F345F3B9601
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 12:19:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789301935; cv=none; b=ISLyO+wkJ3YhrSWSAvV5MMH2NjHdtBP2pGYrvuW4IfWFa8KDBnmcQwSrNlRGEfGL3NIbUyzFDjZdoP3o4BhxukfGaAQGcYnhfGrNsM+z2mWLSvjQHpqLaIAUt+W1946eyw97R5F/l+ypWcTcIbawQQnO/LkzgOjASDFncCQ7Ktw=
+	t=1789301962; cv=none; b=sJ0FmokkafRtqFgZUijkewI2zHZc29opeY4HslIC3LAyf0wZagk89mWxJ3SXm/BcYrB7AwaY4bhEs/JvBZANLKDh0eWUqqTaR1IqVbiHMUUdhjYXUC1CJgOnhgd+1NrLx2KE9kQN3II2G2JItrmbb6HqvGM+jaYtWenXVmVIthM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789301935; c=relaxed/simple;
-	bh=eZrm9VgPDfvj9NnGaY/C3bGlOsNzm2Q/fr2DsEYcE3s=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Z75gLGjXTVzusvDN/AF2I7MDZzGXG8I75777zcK2051mTFTM8xqPiUw1qwf0/PR7kkCxbnXRu5emJVv1i3YL7XvN/xQpjP4/rZrZtvxhNJ8LPh+YmYPMHo1HVINnTAWWjCmHqLZMx0/Eamd1TGpZFk2mzJNxjkx39qpKHOGkArc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Tbxihx3w; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789301962; c=relaxed/simple;
+	bh=sSR6Vyh+nxnd03+vCWI09lOpb+G3BwthTFIyLv/Q4I8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Pkyl2uxGkhGQnmjstlMnTJbM4hc7GwKJlNsPju64MOVkZ8S5iqkDngYoNnTeJWCVqGCcoc7eUzjKX3E1scRCxmH7AVyx691bVuSpLLhW/JTtdBmHOu6o8xbIMPp9wrLVKFejcb78qhq+xRNFdvqFWhCDVowovoqmQY26SYfgqnM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com; spf=pass smtp.mailfrom=cloudflare.com; dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b=NSdPyPUK; arc=none smtp.client-ip=74.125.230.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cloudflare.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Tbxihx3w"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f635552aso835192f8f.2
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 05:18:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b="NSdPyPUK"
+Received: by mail-qk2-f13.google.com with SMTP id af79cd13be357-93910ca5aa7so145903785a.1
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 05:19:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789301928; x=1789906728; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=q8szB8DqOyKitYp7jPFMXf9uh6tzDvRuFilkb29yz70=;
-        b=Tbxihx3wStb1K03OaXNqWggND5m/aUaratKs4eY9wXjtAqVCM1mo3jByzCuvT71Yqw
-         RxnGCVevMYngdGRKYich5bb2am9Wx5vG5cuxpu4FQ30WEIoiOI0KfThVYOOmX8RRTYYl
-         u+dzxyw1u7V0X4ObPYbi2roc1OvbN4yvTlVmiIfU4Bhlp5OtqujgE7mBx0HdJp5uronk
-         ogUEQbAOkrZoDXxGIXqM8B6/QygyKIciCQM/2dE3beFA9M3IXxScUHJqrgVcihhLB/ip
-         Iz+bVXEzOhFEOISznhlR6IslpW9eZhPV8mQlRdQSLedpND9NKpowv9SW2+74P3EoXEZr
-         gXLQ==
+        d=cloudflare.com; s=google09082023; t=1789301958; x=1789906758; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=+GpzslklB0pVWyYTdVsp+3/DknIsG3Ufx16e03zY+aY=;
+        b=NSdPyPUKljlU9eTHcdDTTj0/jlEXjXVZvY+QkJ1OaWOzDZaP2n8b8Ip353am+hdSoj
+         nl/pAI1nGw5yaLJeRPM/i6R5iaVg92Vt0t3iDJEIYiL7PAnmNDRKkz0yuQUFHsAagm73
+         1PXGbFwrpTQWCopGXAzH0l/R1vjRlg9f68iQRDZ9EN7/7PJyxCCdK/6CvQg2bS62LF0V
+         kEWuU99lo4jVwlgzKt00bKBfNuQtOetOZrCSvqOjGxUXiOAr5l18b92/G/DElVO/4qDX
+         Njo8/q/AKvn6OVmVm6EAzNMU43LIa3eiTMGwKQZs2mMB/G/gS4XEjx7NWuytVf0bsE/M
+         cSog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789301928; x=1789906728;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=q8szB8DqOyKitYp7jPFMXf9uh6tzDvRuFilkb29yz70=;
-        b=HjpNPtqkCXjv6CfnG+k9HLn33UaEy/KcbL3fP/QgQ2EPRP3lm3h63Okw5upkj+TAN5
-         PvF4CUP6VavAdcqSby9bKKuZGWOeUgOni8XmQGyNceXj1db3D+bS3Yn1JFC8TMLrxH+d
-         FSNZDOfcJSLvMmqAuxg1kdDSHpeWseo/hDgAhDKrUpM7HKTCCd42UpI0BO7tHuQ7EAoQ
-         TWT9ZHealspoI8tmO1WodFgsKmOpwUtMxKGacFC407TxfkZ5Pn4XZbT+409Nz0917QyO
-         pu57+NAmx3jszJRUanIS/QI7xKtiJtpe3rMTaou82u+21twg+AgdEiMqMIiszDlA9IEL
-         sXUQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzqCDk/e4mgHm2i/uw+3VuchVE1s1NUq8pZ19KhzOdubNwtUiXCiM9Tqzf3cA5PGbRMQZO60e2HUQxt1pc=@vger.kernel.org
-X-Gm-Message-State: AFuF++lLIGJ5b0VlQ5RF8mvzp7RL17nuIA6wuB+ZpIHaHHJB8CLMistb
-	eJa2YnV95hLkY3hxyQmx5YayQ5SCw9TLRN9o5J0KwAtO8sDF7JCP1JcT
-X-Gm-Gg: AYBFou1uObUau5mNK6x5k2rv9gH8gJWyREo2GLc0wUtxsQ74+R9EGKAy81tge0Q3hrJ
-	3+tGr3YrGFQebq6eyBPqQFpYdvmfD9jsNpv9znea2POHLm/ZNpr1T0Qwdyp0BqppQSKI05oNC7k
-	KhGDzRCNbb3arocv9Iv35fwUm1xmj7j/C/t4/ZsGVZhijiKKx2Qc6urBa4jy7czx52CGX28aM/a
-	ev8wEFEDN7RbVFqPeEsikMvQ8vcUEcIIEthyRlpfEwqcveNpZ8q8JSPZNea7oizMAnRdoiv4LL5
-	ooWy2zicVrUCnULYgDhYL02Tv0/fIaVueCX3YZ3mhKsiJOGgj6bJ9bOkoUYdEZjxeujSeWNgx0Q
-	avl/jx9kaEAcosYbgVYpQOaZVN84FWYjH/T4XPWSEL+RsuGTeO8AbITYFmSXV+7w2tjruyXpJR0
-	cCjpjFOGZwFsBbPghRU9XO4SKQZhcvVH1j7N7S01UVBWbrmSvwvzNxq0GgBu1IF/hHh68LDmmn5
-	+zmz93bNb2F53U=
-X-Received: by 2002:a05:6000:402a:b0:486:f4ba:58d6 with SMTP id ffacd0b85a97d-486f6bedeb7mr5941438f8f.12.1789301927305;
-        Sun, 13 Sep 2026 05:18:47 -0700 (PDT)
-Received: from [127.0.1.1] ([2001:4bb8:107:bfd1:de2c:7b4b:8652:b761])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb2ecf2esm20241141f8f.2.2026.09.13.05.18.45
+        d=1e100.net; s=20251104; t=1789301958; x=1789906758;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=+GpzslklB0pVWyYTdVsp+3/DknIsG3Ufx16e03zY+aY=;
+        b=nJmtwrogyh89XWYahR8CbM/mpqryGKOPEq2Ae8Hhq6frGQrE16/700TM7/6Q/MvfcN
+         3+1IPgyol/FSLf56y5UzSV076OCuOO0Qf+yI8CIFBkwVAOM8ESZvscS+hdzmFEJrWbjL
+         fMPoBYbmuX14J9WHiY5B/dgxaX56cdA2t5FikuWPfK2CVBVW+1UyeaiiGxQH9Sxn+nwN
+         NjQ+lMiyQD1aRRYO2w8cAWEvukzrQiZZHMMG/EVI1gdj6M+HqMeNHGZAlFqTaGn0rhtT
+         EJkAfIwN08/7O2MvHNgaKnHR6EE0gUCpaNxbLvBVhb67Y4PqEmQopXW58/5HAFU8jWfH
+         CB2g==
+X-Forwarded-Encrypted: i=1; AKwUvBwvSKHGbA7mWe77jyPOzq22t0YqzCKaqh2pbm9VPNcPDEnq7AfUavI3wEazPBxQN3ViKscCNP8b6CU5fD4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mEx2lU+eREi4Qoe3jwpL68X6lJ2VHmS/uB2j9lH57DTRQcfbiG
+	IMXc6IthvYfx6gLRfE2ej1+0XZ80VNOQjAqA2ldXWIT5m7rjk26Bsv6dQB1Scx89fdY=
+X-Gm-Gg: AYBFou1TkQ544rXH2jRoseswGtPBrbsgRXFSBffvYQPVFhMD4ORrIfmtHMiRbDNrfWb
+	beTR29Flv8e61pKfNSKtGdX6E5TYhYZSd4dbpAmHeHKOvmCrnmP3LCHTvHVF2Wy1xa9m57DIqhc
+	KSVHKd6/e+5JHRW6ftD00ZHD+qnzg7IeZdtL5epv9VqRAiHqftHFoq76mqeL+SMLMhaqz2wTPka
+	de0bDeHnxDg4w/L5oYu/LoITuLJdEankvNV3O0fMsF5ZQCwIX6HLGBy2fLG4gAf2yqlWXNQtOif
+	86uHEwBoEUdxiFJ4WiuYit/ScrtXiNHOjJXTjuOxoKZxQQOTExcBsEEpW0d9xF4IsvrpdCjo+14
+	Mg4j6CEaMFUheXDlIS5rOgWO3slH6lD0uc0h7NnYEIFcHZHoHnatec47nAdRKREEV2qpfLTbczp
+	/CeBGgZTgqQAuUzCg4edf4k0UjkXVWAoNp1gVhjVhEpqTv3WuGMldSOw7s2nZEinZGCg5pBXk=
+X-Received: by 2002:a05:620a:6cc4:b0:939:c3e6:86d6 with SMTP id af79cd13be357-939ea2bff16mr1780801385a.48.1789301957825;
+        Sun, 13 Sep 2026 05:19:17 -0700 (PDT)
+Received: from [127.0.1.1] ([2a09:bac6:7971:31eb::4f9:58])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-939e811cffdsm723852285a.46.2026.09.13.05.19.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 05:18:46 -0700 (PDT)
-From: Javier Carrasco <javier.carrasco.cruz@gmail.com>
-Date: Sun, 13 Sep 2026 14:18:24 +0200
-Subject: [PATCH v10 4/4] iio: light: veml6031x00: add support for events
- and trigger
+        Sun, 13 Sep 2026 05:19:17 -0700 (PDT)
+From: Chris J Arges <carges@cloudflare.com>
+Date: Sun, 13 Sep 2026 07:19:08 -0500
+Subject: [PATCH net v2] wireguard: wait for per-peer crypto during removal
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,854 +67,195 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260913-veml6031x00-v10-4-adbc26c30d3d@gmail.com>
-References: <20260913-veml6031x00-v10-0-adbc26c30d3d@gmail.com>
-In-Reply-To: <20260913-veml6031x00-v10-0-adbc26c30d3d@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>, 
- Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Javier Carrasco <javier.carrasco.cruz@gmail.com>, 
- Jonathan Cameron <jic23@kernel.org>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789301917; l=24576;
- i=javier.carrasco.cruz@gmail.com; s=20260111; h=from:subject:message-id;
- bh=eZrm9VgPDfvj9NnGaY/C3bGlOsNzm2Q/fr2DsEYcE3s=;
- b=Vqhe+v5G6R8Nb72uIY/x7/x3Pa5IL91J/n713RQWTHajvogsN4+CdjD1HZgw/1lcDRbUSJiV0
- WN9VJJTmQD+BJMIkG2dWRNvlOMV4VCMLQ62l7LS/TG9jH407ag6P7TA
-X-Developer-Key: i=javier.carrasco.cruz@gmail.com; a=ed25519;
- pk=Lge8w8xidNSf/INy7JAIbAW+Hezkp3nsBh2OjKL7lLU=
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260913-fix-wg-peer-removal-v2-1-0cade985245a@cloudflare.com>
+X-B4-Tracking: v=1; b=H4sIALuUpmoC/22NzQ6CMBCEX4Xs2TXd4k/w5HsYDqVdpAYoaaFqC
+ O9uQY8eZ/LNfDME9pYDXLIZPEcbrOtTkLsMdKP6O6M1KYMU8iQKQVjbFz7vODB79Ny5qFo85LX
+ OC2FETgRpOXhO2PZ6g55HKL9lmKoH63H9W7HGhtH59+aOtME/jfyriYSEZyWoEPVRm4quunWTq
+ Vvlea9dB+WyLB8gX7jJ0gAAAA==
+X-Change-ID: 20260901-fix-wg-peer-removal-43fc390d0311
+To: "Jason A. Donenfeld" <Jason@zx2c4.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Cc: wireguard@lists.zx2c4.com, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, kernel-team@cloudflare.com, 
+ Chris J Arges <carges@cloudflare.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openssh-sha256; t=1789301951; l=6772;
+ i=carges@cloudflare.com; h=from:subject:message-id;
+ bh=sSR6Vyh+nxnd03+vCWI09lOpb+G3BwthTFIyLv/Q4I8=;
+ b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgaxY1IIT5oTohBZJmhnVgJo2HsM7Sv
+ 9I0LdJCgpeGX6gAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
+ QMSxQ1nmKbDBAMNq6D5B6PGnLJ2lrD+9lnFAtOS1bJq274mAcUH1SHHe1z/u1REI1cGduj/fdWJ
+ +cAliKfksggY=
+X-Developer-Key: i=carges@cloudflare.com; a=openssh;
+ fpr=SHA256:Cun99EBiH0EV7wvmfTBF9eDrld2NJx+aD4ScWZ45Q5M
 
-The device provides a shared interrupt line to notify events and
-data ready.
+Calling peer_remove_after_dead() currently flushes device-wide packet
+crypto and handshake workqueues while holding RTNL. This is problematic as
+unrelated peers can continue adding work to those queues, blocking other
+tasks that want to take the RTNL lock.
 
-Add support for configurations with and without an interrupt line,
-providing events and trigger support when an interrupt line is available.
+Instead, this patch tracks pending crypto handoffs for each peer using a
+counter. After marking the peer dead, synchronize_net() prevents new
+submissions. Next, wait for pending crypto workers to schedule TX work and
+for RX NAPI to drain the peer's RX queue. Then flush only the peer's TX
+packet and handshake work.
 
-Reviewed-by: Andy Shevchenko <andy@kernel.org>
-Signed-off-by: Javier Carrasco <javier.carrasco.cruz@gmail.com>
+This scopes teardown synchronization to the removed peer and prevents
+unrelated peers from extending the RTNL hold time.
+
+Fixes: e7096c131e51 ("net: WireGuard secure network tunnel")
+Signed-off-by: Chris J Arges <carges@cloudflare.com>
 ---
- drivers/iio/light/veml6031x00.c | 604 +++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 597 insertions(+), 7 deletions(-)
+Changes in v2:
+- wait for RX packets to drain from peer’s NAPI queue
+- Link to v1: https://patch.msgid.link/20260902-fix-wg-peer-removal-v1-1-7a0190f5cdb1@cloudflare.com
 
-diff --git a/drivers/iio/light/veml6031x00.c b/drivers/iio/light/veml6031x00.c
-index 3d5a27a0baae..085a6e2ff717 100644
---- a/drivers/iio/light/veml6031x00.c
-+++ b/drivers/iio/light/veml6031x00.c
-@@ -15,6 +15,7 @@
- #include <linux/i2c.h>
- #include <linux/interrupt.h>
- #include <linux/limits.h>
-+#include <linux/lockdep.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
- #include <linux/pm_runtime.h>
-@@ -25,6 +26,9 @@
- #include <asm/byteorder.h>
+To: "Jason A. Donenfeld" <Jason@zx2c4.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>
+To: "David S. Miller" <davem@davemloft.net>
+To: Eric Dumazet <edumazet@google.com>
+To: Jakub Kicinski <kuba@kernel.org>
+To: Paolo Abeni <pabeni@redhat.com>
+Cc: wireguard@lists.zx2c4.com
+Cc: netdev@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+---
+ drivers/net/wireguard/peer.c     | 30 ++++++++++++++++--------------
+ drivers/net/wireguard/peer.h     |  1 +
+ drivers/net/wireguard/queueing.h |  4 ++++
+ drivers/net/wireguard/receive.c  |  4 +++-
+ 4 files changed, 24 insertions(+), 15 deletions(-)
+
+diff --git a/drivers/net/wireguard/peer.c b/drivers/net/wireguard/peer.c
+index 1cb502a932e0..34842b33b28a 100644
+--- a/drivers/net/wireguard/peer.c
++++ b/drivers/net/wireguard/peer.c
+@@ -14,6 +14,7 @@
+ #include <linux/lockdep.h>
+ #include <linux/rcupdate.h>
+ #include <linux/list.h>
++#include <linux/wait_bit.h>
  
- #include <linux/iio/iio.h>
-+#include <linux/iio/events.h>
-+#include <linux/iio/sysfs.h>
-+#include <linux/iio/trigger.h>
- #include <linux/iio/iio-gts-helper.h>
- #include <linux/iio/triggered_buffer.h>
- #include <linux/iio/trigger_consumer.h>
-@@ -32,16 +36,28 @@
- /* Device registers */
- #define VEML6031X00_REG_CONF0       0x00
- #define VEML6031X00_REG_CONF1       0x01
-+#define VEML6031X00_REG_WH_L        0x04
-+#define VEML6031X00_REG_WH_H        0x05
-+#define VEML6031X00_REG_WL_L        0x06
-+#define VEML6031X00_REG_WL_H        0x07
- #define VEML6031X00_REG_ALS_L       0x10
- #define VEML6031X00_REG_ALS_H       0x11
- #define VEML6031X00_REG_IR_L        0x12
- #define VEML6031X00_REG_IR_H        0x13
- #define VEML6031X00_REG_ID_L        0x14
- #define VEML6031X00_REG_ID_H        0x15
-+#define VEML6031X00_REG_INT         0x17
- 
- /* Bit masks for specific functionality */
- #define VEML6031X00_CONF0_SD        BIT(0)
-+#define VEML6031X00_CONF0_AF_TRIG   BIT(2)
-+#define VEML6031X00_CONF0_AF        BIT(3)
- #define VEML6031X00_CONF1_IR_SD     BIT(7)
-+#define VEML6031X00_INT_TH_H        BIT(1)
-+#define VEML6031X00_INT_TH_L        BIT(2)
-+#define VEML6031X00_INT_DRDY        BIT(3)
-+#define VEML6031X00_INT_MASK \
-+	(VEML6031X00_INT_TH_L | VEML6031X00_INT_TH_H | VEML6031X00_INT_DRDY)
- 
- #define VEML6031X00_GAIN_SEL(pd_div4, gain) (((pd_div4) << 2) | (gain))
- 
-@@ -53,8 +69,10 @@ enum veml6031x00_scan {
- 
- struct veml6031x00_rf {
- 	struct regmap_field *gain;
-+	struct regmap_field *int_en;
- 	struct regmap_field *it;
- 	struct regmap_field *pd_div4;
-+	struct regmap_field *pers;
- };
- 
- struct veml6031x00_chip {
-@@ -65,6 +83,7 @@ struct veml6031x00_chip {
- struct veml6031x00_data {
- 	struct iio_gts gts;
- 	struct regmap *regmap;
-+	struct iio_trigger *trig;
- 	struct veml6031x00_rf rf;
- 	const struct veml6031x00_chip *chip;
- 	/*
-@@ -73,6 +92,14 @@ struct veml6031x00_data {
- 	 * consistent set.
+ static struct kmem_cache *peer_cache;
+ static atomic64_t peer_counter = ATOMIC64_INIT(0);
+@@ -49,6 +50,8 @@ struct wg_peer *wg_peer_create(struct wg_device *wg,
+ 	INIT_WORK(&peer->transmit_packet_work, wg_packet_tx_worker);
+ 	wg_prev_queue_init(&peer->tx_queue);
+ 	wg_prev_queue_init(&peer->rx_queue);
++	/* Keep this above zero until teardown prevents new packet handoffs. */
++	atomic_set(&peer->packet_crypt_pending, 1);
+ 	rwlock_init(&peer->endpoint_lock);
+ 	kref_init(&peer->refcount);
+ 	skb_queue_head_init(&peer->staged_packet_queue);
+@@ -105,28 +108,27 @@ static void peer_remove_after_dead(struct wg_peer *peer)
  	 */
- 	struct mutex scale_lock;
-+	/*
-+	 * Serialize access to irq enable/disable by events and trigger
-+	 * (shared line).
-+	 */
-+	struct mutex irq_lock;
-+	unsigned int interrupt_users;
-+	bool ev_en;
-+	bool trig_en;
- };
+ 	wg_timers_stop(peer);
  
- static const struct iio_itime_sel_mul veml6031x00_it_sel[] = {
-@@ -107,6 +134,17 @@ static const struct iio_gain_sel_pair veml6031x00_gain_sel[] = {
- 	GAIN_SCALE_GAIN(16, VEML6031X00_SEL_GAIN_2_000),
- };
+-	/* The transition between packet encryption/decryption queues isn't
+-	 * guarded by is_dead, but each reference's life is strictly bounded by
+-	 * two generations: once for parallel crypto and once for serial
+-	 * ingestion, so we can simply flush twice, and be sure that we no
+-	 * longer have references inside these queues.
++	/* Lookup removal and is_dead prevent new packets from entering the
++	 * parallel crypto queues after synchronize_net() waits for pre-existing
++	 * submission paths. Drop the initial count and wait for existing TX
++	 * packets to schedule their serial work and RX packets to leave rx_queue.
+ 	 */
++	atomic_dec(&peer->packet_crypt_pending);
++	wait_var_event(&peer->packet_crypt_pending,
++		       !atomic_read_acquire(&peer->packet_crypt_pending));
++
++	flush_work(&peer->transmit_packet_work);
  
-+static IIO_CONST_ATTR(in_illuminance_thresh_either_period_available, "1 2 4 8");
-+
-+static struct attribute *veml6031x00_event_attributes[] = {
-+	&iio_const_attr_in_illuminance_thresh_either_period_available.dev_attr.attr,
-+	NULL
-+};
-+
-+static const struct attribute_group veml6031x00_event_attr_group = {
-+	.attrs = veml6031x00_event_attributes,
-+};
-+
- /*
-  * The shutdown bits (SD and ALS_IR_SD) are in different registers, and both
-  * must be updated when changing the device power state.
-@@ -135,6 +173,23 @@ static void veml6031x00_als_shutdown_action(void *data)
- 		dev_warn(dev, "Failed to shut down device: %d\n", ret);
+-	/* a) For encrypt/decrypt. */
+-	flush_workqueue(peer->device->packet_crypt_wq);
+-	/* b.1) For send (but not receive, since that's napi). */
+-	flush_workqueue(peer->device->packet_crypt_wq);
+-	/* b.2.1) For receive (but not send, since that's wq). */
+ 	napi_disable(&peer->napi);
+-	/* b.2.1) It's now safe to remove the napi struct, which must be done
++	/* It's now safe to remove the napi struct, which must be done
+ 	 * here from process context.
+ 	 */
+ 	netif_napi_del(&peer->napi);
+ 
+-	/* Ensure any workstructs we own (like transmit_handshake_work or
+-	 * clear_peer_work) no longer are in use.
++	/* clear_peer_work was flushed by wg_timers_stop(). Ensure the remaining
++	 * peer-owned handshake work is no longer in use.
+ 	 */
+-	flush_workqueue(peer->device->handshake_send_wq);
++	flush_work(&peer->transmit_handshake_work);
+ 
+ 	/* After the above flushes, a peer might still be active in a few
+ 	 * different contexts: 1) from xmit(), before hitting is_dead and
+diff --git a/drivers/net/wireguard/peer.h b/drivers/net/wireguard/peer.h
+index 718fb42bdac7..64412c67f413 100644
+--- a/drivers/net/wireguard/peer.h
++++ b/drivers/net/wireguard/peer.h
+@@ -37,6 +37,7 @@ struct endpoint {
+ struct wg_peer {
+ 	struct wg_device *device;
+ 	struct prev_queue tx_queue, rx_queue;
++	atomic_t packet_crypt_pending;
+ 	struct sk_buff_head staged_packet_queue;
+ 	int serial_work_cpu;
+ 	bool is_dead;
+diff --git a/drivers/net/wireguard/queueing.h b/drivers/net/wireguard/queueing.h
+index 79b6d70de236..5ce57565c8ff 100644
+--- a/drivers/net/wireguard/queueing.h
++++ b/drivers/net/wireguard/queueing.h
+@@ -11,6 +11,7 @@
+ #include <linux/skbuff.h>
+ #include <linux/ip.h>
+ #include <linux/ipv6.h>
++#include <linux/wait_bit.h>
+ #include <net/ip_tunnels.h>
+ 
+ struct wg_device;
+@@ -161,6 +162,7 @@ static inline int wg_queue_enqueue_per_device_and_peer(
+ 	 */
+ 	if (unlikely(!wg_prev_queue_enqueue(peer_queue, skb)))
+ 		return -ENOSPC;
++	atomic_inc(&PACKET_PEER(skb)->packet_crypt_pending);
+ 
+ 	/* Then we queue it up in the device queue, which consumes the
+ 	 * packet as soon as it can.
+@@ -182,6 +184,8 @@ static inline void wg_queue_enqueue_per_peer_tx(struct sk_buff *skb, enum packet
+ 	atomic_set_release(&PACKET_CB(skb)->state, state);
+ 	queue_work_on(wg_cpumask_choose_online(&peer->serial_work_cpu, peer->internal_id),
+ 		      peer->device->packet_crypt_wq, &peer->transmit_packet_work);
++	if (atomic_dec_and_test(&peer->packet_crypt_pending))
++		wake_up_var(&peer->packet_crypt_pending);
+ 	wg_peer_put(peer);
  }
  
-+static const struct iio_event_spec veml6031x00_event_spec[] = {
-+	{
-+		.type = IIO_EV_TYPE_THRESH,
-+		.dir = IIO_EV_DIR_RISING,
-+		.mask_separate = BIT(IIO_EV_INFO_VALUE),
-+	}, {
-+		.type = IIO_EV_TYPE_THRESH,
-+		.dir = IIO_EV_DIR_FALLING,
-+		.mask_separate = BIT(IIO_EV_INFO_VALUE),
-+	}, {
-+		.type = IIO_EV_TYPE_THRESH,
-+		.dir = IIO_EV_DIR_EITHER,
-+		.mask_separate = BIT(IIO_EV_INFO_PERIOD) |
-+				 BIT(IIO_EV_INFO_ENABLE),
-+	},
-+};
-+
- static const struct iio_chan_spec veml6031x00_channels[] = {
- 	{
- 		.type = IIO_LIGHT,
-@@ -169,9 +224,47 @@ static const struct iio_chan_spec veml6031x00_channels[] = {
- 	IIO_CHAN_SOFT_TIMESTAMP(VEML6031X00_SCAN_TIMESTAMP),
- };
+diff --git a/drivers/net/wireguard/receive.c b/drivers/net/wireguard/receive.c
+index 824bbefce61c..bb35e3205491 100644
+--- a/drivers/net/wireguard/receive.c
++++ b/drivers/net/wireguard/receive.c
+@@ -476,9 +476,11 @@ int wg_packet_rx_poll(struct napi_struct *napi, int budget)
  
-+static const struct iio_chan_spec veml6031x00_channels_irq[] = {
-+	{
-+		.type = IIO_LIGHT,
-+		.address = VEML6031X00_REG_ALS_L,
-+		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
-+				      BIT(IIO_CHAN_INFO_INT_TIME) |
-+				      BIT(IIO_CHAN_INFO_SCALE),
-+		.info_mask_separate_available = BIT(IIO_CHAN_INFO_INT_TIME) |
-+						BIT(IIO_CHAN_INFO_SCALE),
-+		.event_spec = veml6031x00_event_spec,
-+		.num_event_specs = ARRAY_SIZE(veml6031x00_event_spec),
-+		.scan_index = VEML6031X00_SCAN_ALS,
-+		.scan_type = {
-+			.format = IIO_SCAN_FORMAT_UNSIGNED_INT,
-+			.realbits = 16,
-+			.storagebits = 16,
-+			.endianness = IIO_LE,
-+		},
-+	},
-+	{
-+		.type = IIO_INTENSITY,
-+		.address = VEML6031X00_REG_IR_L,
-+		.modified = 1,
-+		.channel2 = IIO_MOD_LIGHT_IR,
-+		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),
-+		.scan_index = VEML6031X00_SCAN_IR,
-+		.scan_type = {
-+			.format = IIO_SCAN_FORMAT_UNSIGNED_INT,
-+			.realbits = 16,
-+			.storagebits = 16,
-+			.endianness = IIO_LE,
-+		},
-+	},
-+	IIO_CHAN_SOFT_TIMESTAMP(VEML6031X00_SCAN_TIMESTAMP),
-+};
-+
- static const struct regmap_range veml6031x00_readable_ranges[] = {
- 	regmap_reg_range(VEML6031X00_REG_CONF0, VEML6031X00_REG_CONF1),
-+	regmap_reg_range(VEML6031X00_REG_WH_L, VEML6031X00_REG_WL_H),
- 	regmap_reg_range(VEML6031X00_REG_ALS_L, VEML6031X00_REG_ID_H),
-+	regmap_reg_range(VEML6031X00_REG_INT, VEML6031X00_REG_INT),
- };
+ next:
+ 		wg_noise_keypair_put(keypair, false);
+-		wg_peer_put(peer);
+ 		if (unlikely(free))
+ 			dev_kfree_skb(skb);
++		if (atomic_dec_and_test(&peer->packet_crypt_pending))
++			wake_up_var(&peer->packet_crypt_pending);
++		wg_peer_put(peer);
  
- static const struct regmap_access_table veml6031x00_readable_table = {
-@@ -181,6 +274,7 @@ static const struct regmap_access_table veml6031x00_readable_table = {
- 
- static const struct regmap_range veml6031x00_writable_ranges[] = {
- 	regmap_reg_range(VEML6031X00_REG_CONF0, VEML6031X00_REG_CONF1),
-+	regmap_reg_range(VEML6031X00_REG_WH_L, VEML6031X00_REG_WL_H),
- };
- 
- static const struct regmap_access_table veml6031x00_writable_table = {
-@@ -192,6 +286,7 @@ static const struct regmap_range veml6031x00_volatile_ranges[] = {
- 	/* AF_TRIG in CONF0 is volatile */
- 	regmap_reg_range(VEML6031X00_REG_CONF0, VEML6031X00_REG_CONF0),
- 	regmap_reg_range(VEML6031X00_REG_ALS_L, VEML6031X00_REG_IR_H),
-+	regmap_reg_range(VEML6031X00_REG_INT, VEML6031X00_REG_INT),
- };
- 
- static const struct regmap_access_table veml6031x00_volatile_table = {
-@@ -199,6 +294,15 @@ static const struct regmap_access_table veml6031x00_volatile_table = {
- 	.n_yes_ranges = ARRAY_SIZE(veml6031x00_volatile_ranges),
- };
- 
-+static const struct regmap_range veml6031x00_precious_ranges[] = {
-+	regmap_reg_range(VEML6031X00_REG_INT, VEML6031X00_REG_INT),
-+};
-+
-+static const struct regmap_access_table veml6031x00_precious_table = {
-+	.yes_ranges = veml6031x00_precious_ranges,
-+	.n_yes_ranges = ARRAY_SIZE(veml6031x00_precious_ranges),
-+};
-+
- static const struct regmap_config veml6031x00_regmap_config = {
- 	.name = "veml6031x00_regmap",
- 	.reg_bits = 8,
-@@ -206,13 +310,20 @@ static const struct regmap_config veml6031x00_regmap_config = {
- 	.rd_table = &veml6031x00_readable_table,
- 	.wr_table = &veml6031x00_writable_table,
- 	.volatile_table = &veml6031x00_volatile_table,
--	.max_register = VEML6031X00_REG_ID_H,
-+	.precious_table = &veml6031x00_precious_table,
-+	.max_register = VEML6031X00_REG_INT,
- 	.cache_type = REGCACHE_MAPLE,
- };
- 
-+static const struct reg_field veml6031x00_rf_int_en =
-+	REG_FIELD(VEML6031X00_REG_CONF0, 1, 1);
-+
- static const struct reg_field veml6031x00_rf_it =
- 	REG_FIELD(VEML6031X00_REG_CONF0, 4, 6);
- 
-+static const struct reg_field veml6031x00_rf_pers =
-+	REG_FIELD(VEML6031X00_REG_CONF1, 1, 2);
-+
- static const struct reg_field veml6031x00_rf_gain =
- 	REG_FIELD(VEML6031X00_REG_CONF1, 3, 4);
- 
-@@ -236,11 +347,21 @@ static int veml6031x00_regfield_init(struct veml6031x00_data *data)
- 		return PTR_ERR(rm_field);
- 	rf->it = rm_field;
- 
-+	rm_field = devm_regmap_field_alloc(dev, map, veml6031x00_rf_int_en);
-+	if (IS_ERR(rm_field))
-+		return PTR_ERR(rm_field);
-+	rf->int_en = rm_field;
-+
- 	rm_field = devm_regmap_field_alloc(dev, map, veml6031x00_rf_pd_div4);
- 	if (IS_ERR(rm_field))
- 		return PTR_ERR(rm_field);
- 	rf->pd_div4 = rm_field;
- 
-+	rm_field = devm_regmap_field_alloc(dev, map, veml6031x00_rf_pers);
-+	if (IS_ERR(rm_field))
-+		return PTR_ERR(rm_field);
-+	rf->pers = rm_field;
-+
- 	return 0;
- }
- 
-@@ -341,6 +462,31 @@ static int veml6031x00_set_it(struct iio_dev *iio, int val, int val2)
- 	return veml6031x00_write_gain(data, gain_sel);
- }
- 
-+static int veml6031x00_read_period(struct iio_dev *iio, int *val)
-+{
-+	struct veml6031x00_data *data = iio_priv(iio);
-+	unsigned int regval;
-+	int ret;
-+
-+	ret = regmap_field_read(data->rf.pers, &regval);
-+	if (ret)
-+		return ret;
-+
-+	*val = BIT(regval);
-+
-+	return IIO_VAL_INT;
-+}
-+
-+static int veml6031x00_write_period(struct iio_dev *iio, int val)
-+{
-+	struct veml6031x00_data *data = iio_priv(iio);
-+
-+	if (val < 0 || val > 8 || !is_power_of_2(val))
-+		return -EINVAL;
-+
-+	return regmap_field_write(data->rf.pers, ilog2(val));
-+}
-+
- static int veml6031x00_set_scale(struct iio_dev *iio, int val, int val2)
- {
- 	struct veml6031x00_data *data = iio_priv(iio);
-@@ -395,6 +541,55 @@ static int veml6031x00_get_scale(struct veml6031x00_data *data, int *val, int *v
- 	return IIO_VAL_INT_PLUS_NANO;
- }
- 
-+static int veml6031x00_read_th(struct iio_dev *iio, enum iio_event_direction dir,
-+			       int *val, int *val2)
-+{
-+	struct veml6031x00_data *data = iio_priv(iio);
-+	__le16 regval;
-+	int ret;
-+
-+	if (dir == IIO_EV_DIR_RISING)
-+		ret = regmap_bulk_read(data->regmap, VEML6031X00_REG_WH_L,
-+				       &regval, sizeof(regval));
-+	else
-+		ret = regmap_bulk_read(data->regmap, VEML6031X00_REG_WL_L,
-+				       &regval, sizeof(regval));
-+	if (ret)
-+		return ret;
-+
-+	*val = le16_to_cpu(regval);
-+
-+	return IIO_VAL_INT;
-+}
-+
-+static int veml6031x00_write_th(struct iio_dev *iio, enum iio_event_direction dir,
-+				int val, int val2)
-+{
-+	struct veml6031x00_data *data = iio_priv(iio);
-+	struct device *dev = regmap_get_device(data->regmap);
-+	__le16 regval;
-+	int ret;
-+
-+	if (val < 0 || val > U16_MAX || val2)
-+		return -EINVAL;
-+
-+	regval = cpu_to_le16(val);
-+
-+	if (dir == IIO_EV_DIR_RISING) {
-+		ret = regmap_bulk_write(data->regmap, VEML6031X00_REG_WH_L,
-+					&regval, sizeof(regval));
-+		if (ret)
-+			dev_dbg(dev, "Failed to set high threshold %d\n", ret);
-+	} else {
-+		ret = regmap_bulk_write(data->regmap, VEML6031X00_REG_WL_L,
-+					&regval, sizeof(regval));
-+		if (ret)
-+			dev_dbg(dev, "Failed to set low threshold %d\n", ret);
-+	}
-+
-+	return ret;
-+}
-+
- static int veml6031x00_single_read(struct iio_dev *iio, enum iio_chan_type type,
- 				   int *val)
- {
-@@ -509,13 +704,243 @@ static int veml6031x00_write_raw_get_fmt(struct iio_dev *indio_dev,
- 	}
- }
- 
-+static int veml6031x00_set_interrupt(struct veml6031x00_data *data, bool state)
-+	__must_hold(&data->irq_lock)
-+{
-+	int ret;
-+
-+	lockdep_assert_held(&data->irq_lock);
-+
-+	if (state) {
-+		data->interrupt_users++;
-+		if (data->interrupt_users > 1)
-+			return 0;
-+	} else {
-+		if (!data->interrupt_users)
-+			return 0;
-+
-+		data->interrupt_users--;
-+		if (data->interrupt_users > 0)
-+			return 0;
-+	}
-+
-+	ret = regmap_field_write(data->rf.int_en, state);
-+	if (ret) {
-+		if (state)
-+			data->interrupt_users--;
-+		else
-+			data->interrupt_users++;
-+	}
-+
-+	return ret;
-+}
-+
-+static int veml6031x00_read_event_val(struct iio_dev *iio,
-+				      const struct iio_chan_spec *chan,
-+				      enum iio_event_type type,
-+				      enum iio_event_direction dir,
-+				      enum iio_event_info info,
-+				      int *val, int *val2)
-+{
-+	switch (type) {
-+	case IIO_EV_TYPE_THRESH:
-+		if (dir == IIO_EV_DIR_EITHER && info == IIO_EV_INFO_PERIOD)
-+			return veml6031x00_read_period(iio, val);
-+
-+		return veml6031x00_read_th(iio, dir, val, val2);
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int veml6031x00_write_event_val(struct iio_dev *iio,
-+				       const struct iio_chan_spec *chan,
-+				       enum iio_event_type type,
-+				       enum iio_event_direction dir,
-+				       enum iio_event_info info,
-+				       int val, int val2)
-+{
-+	switch (info) {
-+	case IIO_EV_INFO_VALUE:
-+		return veml6031x00_write_th(iio, dir, val, val2);
-+	case IIO_EV_INFO_PERIOD:
-+		return veml6031x00_write_period(iio, val);
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int veml6031x00_read_event_config(struct iio_dev *iio,
-+					 const struct iio_chan_spec *chan,
-+					 enum iio_event_type type,
-+					 enum iio_event_direction dir)
-+{
-+	struct veml6031x00_data *data = iio_priv(iio);
-+
-+	guard(mutex)(&data->irq_lock);
-+
-+	return data->ev_en;
-+}
-+
-+static int veml6031x00_event_enable(struct veml6031x00_data *data)
-+{
-+	struct device *dev = regmap_get_device(data->regmap);
-+	int ret;
-+
-+	ret = pm_runtime_resume_and_get(dev);
-+	if (ret)
-+		return ret;
-+
-+	ret = veml6031x00_set_interrupt(data, true);
-+	if (ret) {
-+		pm_runtime_put_autosuspend(dev);
-+		return ret;
-+	}
-+
-+	data->ev_en = true;
-+
-+	return 0;
-+}
-+
-+static int veml6031x00_event_disable(struct veml6031x00_data *data)
-+{
-+	struct device *dev = regmap_get_device(data->regmap);
-+	int ret;
-+
-+	ret = veml6031x00_set_interrupt(data, false);
-+	if (ret)
-+		return ret;
-+
-+	data->ev_en = false;
-+	pm_runtime_put_autosuspend(dev);
-+
-+	return 0;
-+}
-+
-+static int veml6031x00_write_event_config(struct iio_dev *iio,
-+					  const struct iio_chan_spec *chan,
-+					  enum iio_event_type type,
-+					  enum iio_event_direction dir,
-+					  bool state)
-+{
-+	struct veml6031x00_data *data = iio_priv(iio);
-+
-+	guard(mutex)(&data->irq_lock);
-+
-+	/* avoid multiple increments/decrements from one source */
-+	if (state == data->ev_en)
-+		return 0;
-+
-+	if (state)
-+		return veml6031x00_event_enable(data);
-+
-+	return veml6031x00_event_disable(data);
-+}
-+
-+static void veml6031x00_disable_event_action(void *arg)
-+{
-+	struct veml6031x00_data *data = arg;
-+	struct device *dev = regmap_get_device(data->regmap);
-+	int ret;
-+
-+	guard(mutex)(&data->irq_lock);
-+
-+	if (!data->ev_en)
-+		return;
-+
-+	ret = veml6031x00_set_interrupt(data, false);
-+	if (ret)
-+		dev_err(dev, "Failed to disable events: %d\n", ret);
-+	else
-+		data->ev_en = false;
-+
-+	pm_runtime_put_sync(dev);
-+}
-+
- static const struct iio_info veml6031x00_info = {
- 	.read_raw = veml6031x00_read_raw,
- 	.read_avail = veml6031x00_read_avail,
- 	.write_raw = veml6031x00_write_raw,
- 	.write_raw_get_fmt = veml6031x00_write_raw_get_fmt,
-+	.read_event_value = veml6031x00_read_event_val,
-+	.write_event_value = veml6031x00_write_event_val,
-+	.read_event_config = veml6031x00_read_event_config,
-+	.write_event_config = veml6031x00_write_event_config,
-+	.event_attrs = &veml6031x00_event_attr_group,
- };
- 
-+static const struct iio_info veml6031x00_info_no_irq = {
-+	.read_raw = veml6031x00_read_raw,
-+	.read_avail = veml6031x00_read_avail,
-+	.write_raw = veml6031x00_write_raw,
-+	.write_raw_get_fmt = veml6031x00_write_raw_get_fmt,
-+};
-+
-+static irqreturn_t veml6031x00_irq(int irq, void *private)
-+{
-+	struct iio_dev *iio = private;
-+	struct veml6031x00_data *data = iio_priv(iio);
-+	struct device *dev = regmap_get_device(data->regmap);
-+	s64 timestamp;
-+	unsigned int regval;
-+	int ret;
-+	bool trigger_poll;
-+
-+	ret = pm_runtime_get_if_active(dev);
-+	if (ret <= 0)
-+		return IRQ_NONE;
-+
-+	scoped_guard(mutex, &data->irq_lock) {
-+		ret = regmap_read(data->regmap, VEML6031X00_REG_INT, &regval);
-+		if (ret) {
-+			dev_dbg(dev, "Failed to read interrupt register %d\n", ret);
-+			pm_runtime_put(dev);
-+			return IRQ_NONE;
-+		}
-+
-+		if (!(regval & VEML6031X00_INT_MASK)) {
-+			pm_runtime_put(dev);
-+			return IRQ_NONE;
-+		}
-+
-+		timestamp = iio_get_time_ns(iio);
-+
-+		if (data->ev_en &&
-+		    (regval & (VEML6031X00_INT_TH_H | VEML6031X00_INT_TH_L))) {
-+			if (regval & VEML6031X00_INT_TH_H)
-+				iio_push_event(iio,
-+					       IIO_UNMOD_EVENT_CODE(IIO_LIGHT, 0,
-+								    IIO_EV_TYPE_THRESH,
-+								    IIO_EV_DIR_RISING),
-+					       timestamp);
-+			if (regval & VEML6031X00_INT_TH_L)
-+				iio_push_event(iio,
-+					       IIO_UNMOD_EVENT_CODE(IIO_LIGHT, 0,
-+								    IIO_EV_TYPE_THRESH,
-+								    IIO_EV_DIR_FALLING),
-+					       timestamp);
-+		}
-+
-+		trigger_poll = data->trig_en && (regval & VEML6031X00_INT_DRDY);
-+	}
-+
-+	/*
-+	 * iio_trigger_poll_nested() must be called with irq_lock released:
-+	 * it runs trig_handler() synchronously in this thread, which calls
-+	 * reenable() on completion, and that callback also takes irq_lock.
-+	 * iio_pollfunc_store_time() is not called for our own trigger, so the
-+	 * timestamp is stored here.
-+	 */
-+	if (trigger_poll) {
-+		iio->pollfunc->timestamp = timestamp;
-+		iio_trigger_poll_nested(data->trig);
-+	}
-+
-+	pm_runtime_put(dev);
-+
-+	return IRQ_HANDLED;
-+}
-+
- static int veml6031x00_buffer_preenable(struct iio_dev *iio)
- {
- 	struct veml6031x00_data *data = iio_priv(iio);
-@@ -551,11 +976,85 @@ static int veml6031x00_buffer_postdisable(struct iio_dev *iio)
- 	return 0;
- }
- 
-+static int __veml6031x00_set_trigger_state(struct veml6031x00_data *data,
-+					   bool state)
-+	__must_hold(&data->irq_lock)
-+{
-+	int ret;
-+
-+	lockdep_assert_held(&data->irq_lock);
-+
-+	ret = veml6031x00_set_interrupt(data, state);
-+	if (ret)
-+		return ret;
-+
-+	/* The AF bit must be updated before updating AF_TRIG */
-+	ret = regmap_assign_bits(data->regmap, VEML6031X00_REG_CONF0,
-+				 VEML6031X00_CONF0_AF, state);
-+	if (ret)
-+		goto disable_trigger;
-+
-+	ret = regmap_assign_bits(data->regmap, VEML6031X00_REG_CONF0,
-+				 VEML6031X00_CONF0_AF_TRIG, state);
-+	if (ret) {
-+		regmap_assign_bits(data->regmap, VEML6031X00_REG_CONF0,
-+				   VEML6031X00_CONF0_AF, false);
-+		goto disable_trigger;
-+	}
-+
-+	data->trig_en = state;
-+
-+	return 0;
-+
-+disable_trigger:
-+	data->trig_en = false;
-+	if (state)
-+		veml6031x00_set_interrupt(data, false);
-+	return ret;
-+}
-+
-+static int veml6031x00_set_trigger_state(struct iio_trigger *trig, bool state)
-+{
-+	struct iio_dev *iio = iio_trigger_get_drvdata(trig);
-+	struct veml6031x00_data *data = iio_priv(iio);
-+
-+	guard(mutex)(&data->irq_lock);
-+
-+	if (state == data->trig_en)
-+		return 0;
-+
-+	return __veml6031x00_set_trigger_state(data, state);
-+}
-+
- static const struct iio_buffer_setup_ops veml6031x00_buffer_setup_ops = {
- 	.preenable = veml6031x00_buffer_preenable,
- 	.postdisable = veml6031x00_buffer_postdisable,
- };
- 
-+static void veml6031x00_trigger_reenable(struct iio_trigger *trig)
-+{
-+	struct iio_dev *iio = iio_trigger_get_drvdata(trig);
-+	struct veml6031x00_data *data = iio_priv(iio);
-+	int ret;
-+
-+	guard(mutex)(&data->irq_lock);
-+
-+	if (!data->trig_en)
-+		return;
-+
-+	ret = regmap_assign_bits(data->regmap, VEML6031X00_REG_CONF0,
-+				 VEML6031X00_CONF0_AF_TRIG, true);
-+	if (ret)
-+		dev_err(regmap_get_device(data->regmap),
-+			"Failed to reenable trigger: %d\n", ret);
-+}
-+
-+static const struct iio_trigger_ops veml6031x00_trigger_ops = {
-+	.validate_device = iio_trigger_validate_own_device,
-+	.set_trigger_state = veml6031x00_set_trigger_state,
-+	.reenable = veml6031x00_trigger_reenable,
-+};
-+
- static irqreturn_t veml6031x00_trig_handler(int irq, void *p)
- {
- 	struct iio_poll_func *pf = p;
-@@ -609,6 +1108,84 @@ static int veml6031x00_validate_part_id(struct veml6031x00_data *data)
- 	return 0;
- }
- 
-+static int veml6031x00_hw_init(struct veml6031x00_data *data)
-+{
-+	struct regmap *map = data->regmap;
-+	struct device *dev = regmap_get_device(map);
-+	unsigned int val;
-+	__le16 regval;
-+	int ret;
-+
-+	ret = regmap_assign_bits(data->regmap, VEML6031X00_REG_CONF0,
-+				 VEML6031X00_CONF0_AF | VEML6031X00_CONF0_AF_TRIG, 0);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to disable trigger\n");
-+
-+	regval = 0;
-+	ret = regmap_bulk_write(map, VEML6031X00_REG_WL_L, &regval, sizeof(regval));
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to set low threshold\n");
-+
-+	regval = cpu_to_le16(U16_MAX);
-+	ret = regmap_bulk_write(map, VEML6031X00_REG_WH_L, &regval, sizeof(regval));
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to set high threshold\n");
-+
-+	ret = regmap_field_write(data->rf.int_en, 0);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_read(map, VEML6031X00_REG_INT, &val);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to clear interrupts\n");
-+
-+	return 0;
-+}
-+
-+static int veml6031x00_setup_trigger(struct iio_dev *iio)
-+{
-+	struct veml6031x00_data *data = iio_priv(iio);
-+	struct device *dev = regmap_get_device(data->regmap);
-+
-+	data->trig = devm_iio_trigger_alloc(dev, "%s-drdy%d",
-+					    iio->name, iio_device_id(iio));
-+	if (!data->trig)
-+		return -ENOMEM;
-+
-+	data->trig->ops = &veml6031x00_trigger_ops;
-+	iio_trigger_set_drvdata(data->trig, iio);
-+
-+	return devm_iio_trigger_register(dev, data->trig);
-+}
-+
-+static int veml6031x00_init_iiodev(struct i2c_client *i2c, struct iio_dev *iio)
-+{
-+	struct veml6031x00_data *data = iio_priv(iio);
-+	struct device *dev = regmap_get_device(data->regmap);
-+	int ret;
-+
-+	iio->name = data->chip->name;
-+	iio->modes = INDIO_DIRECT_MODE;
-+
-+	if (!i2c->irq) {
-+		iio->channels = veml6031x00_channels;
-+		iio->num_channels = ARRAY_SIZE(veml6031x00_channels);
-+		iio->info = &veml6031x00_info_no_irq;
-+
-+		return 0;
-+	}
-+
-+	iio->channels = veml6031x00_channels_irq;
-+	iio->num_channels = ARRAY_SIZE(veml6031x00_channels_irq);
-+	iio->info = &veml6031x00_info;
-+
-+	ret = veml6031x00_setup_trigger(iio);
-+	if (ret)
-+		return ret;
-+
-+	return devm_add_action_or_reset(dev, veml6031x00_disable_event_action, data);
-+}
-+
- static int veml6031x00_probe(struct i2c_client *i2c)
- {
- 	struct device *dev = &i2c->dev;
-@@ -631,17 +1208,15 @@ static int veml6031x00_probe(struct i2c_client *i2c)
- 	if (ret)
- 		return ret;
- 
-+	ret = devm_mutex_init(dev, &data->irq_lock);
-+	if (ret)
-+		return ret;
-+
- 	data->regmap = devm_regmap_init_i2c(i2c, &veml6031x00_regmap_config);
- 	if (IS_ERR(data->regmap))
- 		return dev_err_probe(dev, PTR_ERR(data->regmap),
- 				     "Failed to set regmap\n");
- 
--	iio->name = data->chip->name;
--	iio->channels = veml6031x00_channels;
--	iio->num_channels = ARRAY_SIZE(veml6031x00_channels);
--	iio->modes = INDIO_DIRECT_MODE;
--	iio->info = &veml6031x00_info;
--
- 	ret = veml6031x00_regfield_init(data);
- 	if (ret)
- 		return dev_err_probe(dev, ret, "Failed to init regfield\n");
-@@ -669,6 +1244,10 @@ static int veml6031x00_probe(struct i2c_client *i2c)
- 	if (ret)
- 		return ret;
- 
-+	ret = veml6031x00_hw_init(data);
-+	if (ret)
-+		return ret;
-+
- 	/* Max resolution = 6.9632 lx/cnt for gain = 0.125 and IT = 3.125ms */
- 	ret = devm_iio_init_iio_gts(dev, 6, 963200000,
- 				    veml6031x00_gain_sel,
-@@ -679,6 +1258,10 @@ static int veml6031x00_probe(struct i2c_client *i2c)
- 	if (ret)
- 		return dev_err_probe(dev, ret, "Failed to init IIO GTS\n");
- 
-+	ret = veml6031x00_init_iiodev(i2c, iio);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to initialize IIO device\n");
-+
- 	ret = devm_iio_triggered_buffer_setup(dev, iio,
- 					      iio_pollfunc_store_time,
- 					      veml6031x00_trig_handler,
-@@ -686,6 +1269,13 @@ static int veml6031x00_probe(struct i2c_client *i2c)
- 	if (ret)
- 		return dev_err_probe(dev, ret, "Failed to register triggered buffer\n");
- 
-+	if (i2c->irq) {
-+		ret = devm_request_threaded_irq(dev, i2c->irq, NULL, veml6031x00_irq,
-+						IRQF_ONESHOT, iio->name, iio);
-+		if (ret)
-+			return dev_err_probe(dev, ret, "Failed to request IRQ\n");
-+	}
-+
- 	ret = devm_iio_device_register(dev, iio);
- 	if (ret)
- 		return dev_err_probe(dev, ret, "Failed to register IIO device\n");
+ 		if (++work_done >= budget)
+ 			break;
 
--- 
-2.43.0
+---
+base-commit: 70f3995830d3f1e79faa14eb0605914f778feca9
+change-id: 20260901-fix-wg-peer-removal-43fc390d0311
+
+Best regards,
+--  
+Chris J Arges <carges@cloudflare.com>
 
