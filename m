@@ -1,220 +1,239 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5274F2D739C;
-	Sun, 13 Sep 2026 21:27:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8062A374721;
+	Sun, 13 Sep 2026 21:28:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789334870; cv=none; b=VJqV0r4vUxRfYmiS/Jiti8hGe18C7vzNlG8Mv970qBia3fZKxup+slvlq9aOC8exncpAnXwaUptPhUHxYBNN6qOjyUmeDo1EekSRm29UB/oXa2KemvfJODYo+FfCDvyX6j1uOIT+YfFwmoJzze64i8kU4YNlTHYx+a3M/Lou7o4=
+	t=1789334940; cv=none; b=AfTZR18vyfoyqfIApSjZ82wIYVc0qxgh4b7ppw53ejFTyzpLbot8cZWjLbWy0udG3aSsbD1P8Ikntj0RaCU5gU7y32ccJZPhY1w20DNSJR61OaeR95OoR2ECIq4iUe4M8XZhKyc6jNC5kPm9WNVwtIU/9i67Fim/wyTBKbOm4Z4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789334870; c=relaxed/simple;
-	bh=2eLtFdwPKYWVNM0KNzYGZkOpik29kQi1mV3QJjpI6/s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LFwgW6IO8pqn7qfbPxhYoBd+FZz39ddPmWeBcvEkTwMZ0ut2gyj3zv8vj+G0fRQ7bpDfGGDYXDE2jkDuhdzcoevOZRK9qFsmw/37l7gVxRj+IOS5zXf/ThAsi4iMa8OFGXlgsPiUiB08U2LsdAbARmU1yi2JTAyCaRgmF1IKhoE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RH2qe/Z3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789334940; c=relaxed/simple;
+	bh=hdl0HPgZWp5OFcEjPYJMMYkM6HAAD3lRbSgzmiZteKk=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=mExH/e7OERgL8z5n0bl83OPXSReE+0HcStG96MmNgpWbeihbQVVvIywQh1pSrYD4G0ZOdGgzYEPF+RfqPDkFmFZJ+BLYYAJiJMYI+ailCabVh83L2CQFfZ3ShRcSrzXGA4kWpQgkNydbtsn6bVntIi98UEhmJwYt1SdzARe9xxc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WGNNrgqb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RH2qe/Z3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 431751F000FF;
-	Sun, 13 Sep 2026 21:27:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WGNNrgqb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF7DF1F000FF;
+	Sun, 13 Sep 2026 21:28:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789334868;
-	bh=Wq5CvnEl1ewY213ZDBAozwO3EEBpYPHHPC4ml3gchzw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RH2qe/Z3TudtVZ1E/xt5TO6qLeb9kUWsmWaBDOw/Ql8Wb3pUKA6FsX68HD/FZQb0u
-	 /kV6c0bbDVNfOmhMJ+IcwVoezG8z3umgwmTe2opMrTCWyDlY/CkWPY/8wex995s/GH
-	 jNk9OS2rHKY6n0IOUUUx0AF2c62WCrNT2fEOEopr9CwElLkfeUYJM1rObsnj8afWdl
-	 Mi95UgzREFbnZM7uRMG5GgIEBCs9dgoa2vggdBYbhrqq/PV+pIJVlz9/RcFZb24F6p
-	 e73Giz44OVq7dpYJVJHLBQGGx2NgWV5YqoJaV6fZCwuW9TGsLk39Q1BKivswTMxxj3
-	 mFxRm57x+jKhw==
-Date: Sun, 13 Sep 2026 23:27:44 +0200
-From: Alejandro Colomar <alx@kernel.org>
-To: Rich Felker <dalias@libc.org>
-Cc: Mikko Rantalainen <mikko.rantalainen@peda.net>, 
-	linux-fsdevel@vger.kernel.org, linux-api@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	brauner@kernel.org, viro@zeniv.linux.org.uk, jack@suse.cz
-Subject: Re: [RFC PATCH 0/1] close(): stop exposing non-retryable EINTR
-Message-ID: <aqcVK5OGbvIRNUNP@devuan>
-References: <20260913193815.2862366-1-mikko.rantalainen@peda.net>
- <20260913205358.GX25906@brightrain.aerifal.cx>
+	s=k20260515; t=1789334939;
+	bh=xEY92NMXVVGlBTh4xsh7r/mT2eimuxnC3W7iwuky1Vo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=WGNNrgqbmZDCTX4MUxRtxtW0qpIn6Is3YbPyPIy6hf4MbIiVVywZZmaRzjzlU2DfG
+	 ME9zKKMOc3VDV0K7ZQU5HzomGiTyJ0ykEoCxQXfl3FFPc/sUVcMv7mG7uadqiBlTDx
+	 9GxkHKn2ktHDNdnhgH4cuzqJIdNm4cDOT5io19j0/OPNohB4QDmiAFKUfKi7LK6wv6
+	 3AcuJutwBJ1/pp6i/JnrkIhir2tqvEAhVf1xQH3R274ly2uLdhDLv2RnMT9Bj8KjNY
+	 BupErsAp0En67buJKyu0k6DWO15fRGlFRXOUDp/kyplaFk9zs3LT3xBJZLh5TyEv9n
+	 kRBOjBC7VdK4Q==
+Date: Sun, 13 Sep 2026 22:28:55 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Fabio Cesari <fabio.cesari@gmail.com>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Brian Masney
+ <bmasney@redhat.com>, Joshua Crofts <joshua.crofts1@gmail.com>,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] iio: light: isl29028: fix runtime PM reference leak
+ on error paths
+Message-ID: <20260913222855.6db3932c@jic23-hlaptop>
+In-Reply-To: <20260910062449.331749-1-fabio.cesari@gmail.com>
+References: <20260910062449.331749-1-fabio.cesari@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="57k27f4uxik2pcox"
-Content-Disposition: inline
-In-Reply-To: <20260913205358.GX25906@brightrain.aerifal.cx>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Thu, 10 Sep 2026 08:24:35 +0200
+Fabio Cesari <fabio.cesari@gmail.com> wrote:
 
---57k27f4uxik2pcox
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: Rich Felker <dalias@libc.org>
-Cc: Mikko Rantalainen <mikko.rantalainen@peda.net>, 
-	linux-fsdevel@vger.kernel.org, linux-api@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	brauner@kernel.org, viro@zeniv.linux.org.uk, jack@suse.cz
-Subject: Re: [RFC PATCH 0/1] close(): stop exposing non-retryable EINTR
-Message-ID: <aqcVK5OGbvIRNUNP@devuan>
-References: <20260913193815.2862366-1-mikko.rantalainen@peda.net>
- <20260913205358.GX25906@brightrain.aerifal.cx>
-MIME-Version: 1.0
-In-Reply-To: <20260913205358.GX25906@brightrain.aerifal.cx>
+> isl29028_read_raw() and isl29028_write_raw() take a runtime PM reference
+> with pm_runtime_resume_and_get() but return directly on their error
+> paths without dropping it. The usage count never balances again and the
+> device stops entering autosuspend for good. In isl29028_read_raw() this
+> needs a regmap access to fail; in isl29028_write_raw() one rejected
+> sysfs write is enough, for example
+> 
+>   echo 200 > in_proximity_sampling_frequency
+> 
+> which is outside the [1:100] range and returns -EINVAL with the
+> reference still held.
+> 
+> Take the reference with PM_RUNTIME_ACQUIRE_AUTOSUSPEND() instead, so it
+> is released on every return path.
+> 
+> This also stops the return value of pm_runtime_put_autosuspend() from
+> reaching userspace. That value only says whether the device could be
+> suspended right away, so -EAGAIN or -EPERM turns a successful access
+> into a failure, and with CONFIG_PM=n the stub returns -ENOSYS on every
+> access.
+> 
+> PM_RUNTIME_ACQUIRE_AUTOSUSPEND() exists since v6.19. Older trees need
+> the manual form instead: keep pm_runtime_resume_and_get() and drop the
+> reference on all paths with an unchecked pm_runtime_put_autosuspend().
 
-> Date: 2026-09-13 16:53:58-0400
-> From: Rich Felker <dalias@libc.org>
->
-> On Sun, Sep 13, 2026 at 10:38:14PM +0300, Mikko Rantalainen wrote:
-> > This is an RFC because it deliberately changes a long-established raw
-> > syscall ABI. Jan Kara raised userspace-regression concerns when this was
-> > discussed in 2025:
-> >=20
-> >     https://lore.kernel.org/linux-fsdevel/ddqmhjc2rpzk2jjvunbt3l3eukcn4=
-xzkocqzdg3j4msihdhzko@fizekvxndg2d/
-> >=20
-> > while musl and Android bionic already normalize this result to success
-> > in libc.
-> >=20
-> > The Linux implementation of close() will always close the file descript=
-or
-> > given as argument, except for the invalid file descriptor which will
-> > return -EBADF.
-> >=20
-> > However, currently Linux kernel will return EINTR in some cases for
-> > close(). There is no good way for caller to recover from this case using
-> > the original fd. Whatever action was actually interrupted cannot be
-> > resumed or retried through this fd, because the fd has already been
-> > consumed. Even worse, EINTR conventionally invites retrying an operatio=
-n,
-> > but retrying close() is unsafe: the same file descriptor number may
-> > already refer to another file opened by another thread by the time
-> > close() returns EINTR.
-> >=20
-> > In addition, POSIX.1-2024 requires that if close() reports EINTR, the
-> > descriptor must remain open. It also explicitly permits an interrupted
-> > close() to return success after closing the descriptor.
-> >=20
-> > This patch is about implementing the second option to be compatible with
-> > both POSIX.1-2024 and real-world applications.
-> >=20
-> > Since close() on Linux first relinquishes the file descriptor and only
-> > then performs ->flush() work, interruption of that later work cannot be
-> > recovered through the original fd. No matter how important that
-> > close-time work was, ownership of the fd has already been irrevocably
-> > relinquished.
-> >=20
-> > For regular files, applications requiring durability already need an
-> > explicit synchronization operation such as fsync() or fdatasync() before
-> > relinquishing the fd. This proposal does not suppress meaningful
-> > delayed-I/O errors such as EIO, ENOSPC, or EDQUOT; it only changes
-> > interruption results whose conventional recovery action (retrying the
-> > operation) is unsafe for close().
-> >=20
-> > Historical discussions about this subject:
-> >=20
-> > - https://inbox.sourceware.org/libc-alpha/efaffc5a404cf104f225c26dbc96e=
-0001cede8f9.1747399542.git.alx@kernel.org/T/
-> >=20
-> > - https://sourceware.org/pipermail/libc-alpha/2025-May/166675.html
-> >=20
-> > - https://lkml.rescloud.iu.edu/hypermail/linux/kernel/2205.3/06731.html
-> >=20
-> > - https://lwn.net/Articles/576478/
-> >=20
-> > - https://yarchive.net/comp/linux/must_check.html
-> >=20
-> > - https://sourceware.org/pipermail/libc-alpha/2025-May/166907.html
-> >=20
-> > - https://sourceware.org/pipermail/libc-alpha/2025-May/166722.html
-> >=20
-> >=20
-> > POSIX.1-2024 also allows EINPROGRESS after the descriptor has been clos=
-ed.
-> > I considered using that result, but it appears less useful than success
-> > for Linux. It would preserve diagnostic information about interrupted
-> > close-time work, but there is no operation the caller can perform on the
-> > original fd to resume or complete that work. It would therefore turn an
-> > irrevocably completed ownership transfer into an apparent failure witho=
-ut
-> > providing a recovery path. Returning success avoids that ambiguity and
-> > still leaves genuinely useful delayed-I/O errors such as EIO, ENOSPC, a=
-nd
-> > EDQUOT untouched.
-> >=20
-> > This also matches the direction taken by musl, which initially used
-> > EINPROGRESS for this case and later changed to success because existing
-> > applications were prone to interpret EINPROGRESS as a failure and could
-> > incorrectly infer that the fd was still open.
-> >=20
-> > Automatically replacing EINTR with success does change the *observable*
-> > raw syscall ABI for applications that distinguish EINTR from successful
-> > close(). For applications that already treat the descriptor as consumed,
-> > this changes control flow to the normal successful-close path. I would =
-be
-> > particularly interested in concrete examples where distinguishing EINTR
-> > provides useful recovery semantics, given that the original fd has
-> > already been consumed and cannot be used to resume the interrupted
-> > close-time work.
-> >=20
-> > Mikko Rantalainen (1):
-> >   fs: don't return EINTR from close()
-> >=20
-> >  fs/open.c | 11 ++++++++---
-> >  1 file changed, 8 insertions(+), 3 deletions(-)
-> >=20
-> > --=20
-> > 2.43.0
->=20
-> Hi! I'm one of the first people who pressed this issue while tracking
-> down the POSIX model for how side effects are supposed to work with
-> respect to EINTR and how that relates to thread cancellation, and how
-> glibc was getting all this stuff wrong, back around 2011-2012.
->=20
-> I don't think there is serious concern about userspace regressions
-> making this change. It would not be changing the meaning of any
-> existing result code or adding a new error condition applications need
-> to be aware of (like the EINPROGRESS mess).
->=20
-> But I'm also not sure how helpful the change would be. It's already
-> possible to patch this up in userspace, and as you noted, we already
-> do that in musl and so does Bionic. So the main practical effect of
-> this change would be just forcing the right behavior on glibc systems
-> even when glibc doesn't want to fix it. Maybe that's a good idea? I'm
-> not sure. I think it would be best to have everyone on the same page
-> that this should be fixed, with both glibc fixing it so it's right on
-> old-kernel/new-glibc, and the kernel fixing it so it's right on
-> new-kernel/old-glibc. That would also avoid hard feelings from a
-> unilateral action perceived as dictatorial.
+No need to talk about how to backport.  That just bloats the patch
+description. By all means add that info below the ---
 
-Acked-by: Alejandro Colomar <alx@kernel.org>
+If you fancy doing it, a follow up cleanup would be a nice to have (see inline).
 
->=20
-> Rich
+I'll take this the slow route so applying it to the testing branch of iio.git
+for the next merge window.
 
---=20
-<https://www.alejandro-colomar.es>
+> 
+> Fixes: 2db5054ac28d ("staging: iio: isl29028: add runtime power management support")
+> Suggested-by: Joshua Crofts <joshua.crofts1@gmail.com>
+> Cc: <stable@vger.kernel.org> # see patch description, needs adjustments for < 6.19
+Will drop that comment as well.  It's kind of obvious and may not be true
+as often these macros get backported to make it easier to backport fixes like
+this one.
 
---57k27f4uxik2pcox
-Content-Type: application/pgp-signature; name="signature.asc"
+> Assisted-by: LLM coccinelle
+> Signed-off-by: Fabio Cesari <fabio.cesari@gmail.com>
+> ---
+> 
+> Changes in v3, from the review of v2:
+>   - use PM_RUNTIME_ACQUIRE_AUTOSUSPEND() rather than the _IF_ENABLED_
+>     variant
+>   - sent as its own thread rather than as a reply to v2
+> 
+> v1: https://lore.kernel.org/linux-iio/20260906131203.125407-1-fabio.cesari@gmail.com/
+> v2: https://lore.kernel.org/linux-iio/20260906223737.206730-1-fabio.cesari@gmail.com/
+> 
+> Found by auditing IIO drivers with a Coccinelle semantic patch for
+> runtime PM acquire/release imbalances.
+> 
+> Compile-tested only: arm64 (native) and x86_64 (cross), defconfig plus
+> CONFIG_SENSORS_ISL29028=m, plus an arm64 CONFIG_PM=n build to cover the
+> stubs, with gcc 15.2.0, W=1 and sparse v0.6.5-rc1: no warnings. I have no
+> isl29028 hardware, so this is untested at runtime.
+> 
+>  drivers/iio/light/isl29028.c | 33 ++++++++-------------------------
+>  1 file changed, 8 insertions(+), 25 deletions(-)
+> 
+> diff --git a/drivers/iio/light/isl29028.c b/drivers/iio/light/isl29028.c
+> index 33deb1726689..e481ac908fc1 100644
+> --- a/drivers/iio/light/isl29028.c
+> +++ b/drivers/iio/light/isl29028.c
+> @@ -342,8 +342,9 @@ static int isl29028_write_raw(struct iio_dev *indio_dev,
+>  	struct device *dev = regmap_get_device(chip->regmap);
+>  	int ret;
+>  
+> -	ret = pm_runtime_resume_and_get(dev);
+> -	if (ret < 0)
+> +	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(dev, pm);
+> +	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
+> +	if (ret)
+>  		return ret;
+>  
+>  	mutex_lock(&chip->lock);
+> @@ -392,14 +393,7 @@ static int isl29028_write_raw(struct iio_dev *indio_dev,
+>  
+>  	mutex_unlock(&chip->lock);
+Seeing this manual unlock made me take a closer look.
+Given your patch takes uses the cleanup stuff already maybe we can
+do better on the rest. We could leave the lock where it is, or reduce the scope.
+Something like ...
 
------BEGIN PGP SIGNATURE-----
+	
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmqnFUoACgkQ64mZXMKQ
-wqkBRw//df2SrR2tZspLc5dKF85tQo+uta1DKIEZUJ9Mgz+gTOMcNqEshLMs13nJ
-zf7egelrg28x+tuk8Sofu6dW13MnPBEgQuoYCMulIWKKf8Ah0+Whrh3BeTlVLMJC
-Gg4beJxWW67CNgF46kjDUWTEyXCmqQtCizu7OKCF+nOsD1/mNw6Jse3LSTxob7bR
-wE40OGnXj+pZvMjWjjWCbrhEUnroTltxS6DVhr+jePfJN4om7doNYfKJD/+eE2cL
-A7mqHlkkKK2V37miCYXQN021I122ark6Go1dZEuwQFCLSp2+iT9ZrQxrescCqvBO
-ErQWxU97Ndt7T9y5ndLLhUdP7KeLINHbqDMgp6hswL2RTmFh7W7C35FhBmBGHlc4
-XIzcxdRkldMWvs/tAF0PrneKSOpC8XPTIDx3srXrRhA0iLR/RHNFcE9HI2178KSs
-o3U8nI/f7ZREzyFRvCN9BBVcQph704NMcTmEFxoLeTwdC8BW7q1r2ekdQ7xNUmQU
-hnF9o3PjdZ/1HbLXvsWN/0sDeycMXf6zjEkOuF1sHkkroqArbidT97HYioFlZqh8
-kiy7ar1oiaGwtWuaXddgYvWvgxVssgIoycKCAtcbXgbL2QIcq028FnTNXBPAK1uK
-K/+o2ThvMWBMCD/k5p9rf/WimEdfCG2mB7DvrwfixFzzFHhXnY8=
-=OUOx
------END PGP SIGNATURE-----
+	switch (chan->type) {
+	case IIO_PROXIMITY: {
+		if (mask != IIO_CHAN_INFO_SAMP_FREQ) {
+			dev_err(dev,
+				"%s(): proximity: Mask value 0x%08lx is not supported\n",
+				__func__, mask);
+			return -EINVAL;
+		}
 
---57k27f4uxik2pcox--
+		if (val < 1 || val > 100) {
+			dev_err(dev,
+				"%s(): proximity: Sampling frequency %d is not in the range [1:100]\n",
+				__func__, val);
+			return -EINVAL;
+		}
+		guard(mutex)(&chip->lock);
+
+		return isl29028_set_proxim_sampling(chip, val, val2);
+	}
+	case IIO_LIGHT: {
+		if (mask != IIO_CHAN_INFO_SCALE) {
+			dev_err(dev,
+				"%s(): light: Mask value 0x%08lx is not supported\n",
+				__func__, mask);
+			break;
+		}
+
+		if (val != 125 && val != 2000) {
+			dev_err(dev,
+				"%s(): light: Lux scale %d is not in the set {125, 2000}\n",
+				__func__, val);
+			break;
+		}
+		guard(mutex)(&chip->lock);
+
+		ret = isl29028_set_als_scale(chip, val);
+		break;
+	}
+	default:
+		dev_err(dev, "%s(): Unsupported channel type %x\n",
+			__func__, chan->type);
+		return -EINVAL;
+Though the print can probably go as well as I assume this path can't
+be hit.
+
+	}
+>  
+> -	if (ret < 0)
+> -		return ret;
+> -
+> -	ret = pm_runtime_put_autosuspend(dev);
+> -	if (ret < 0)
+> -		return ret;
+> -
+> -	return 0;
+> +	return ret;
+>  }
+>  
+>  static int isl29028_read_raw(struct iio_dev *indio_dev,
+> @@ -408,10 +402,11 @@ static int isl29028_read_raw(struct iio_dev *indio_dev,
+>  {
+>  	struct isl29028_chip *chip = iio_priv(indio_dev);
+>  	struct device *dev = regmap_get_device(chip->regmap);
+> -	int ret, pm_ret;
+> +	int ret;
+>  
+> -	ret = pm_runtime_resume_and_get(dev);
+> -	if (ret < 0)
+> +	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(dev, pm);
+> +	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
+> +	if (ret)
+>  		return ret;
+>  
+>  	mutex_lock(&chip->lock);
+> @@ -461,18 +456,6 @@ static int isl29028_read_raw(struct iio_dev *indio_dev,
+>  
+>  	mutex_unlock(&chip->lock);
+>  
+> -	if (ret < 0)
+> -		return ret;
+> -
+> -	/**
+> -	 * Preserve the ret variable if the call to
+> -	 * pm_runtime_put_autosuspend() is successful so the reading
+> -	 * (if applicable) is returned to user space.
+> -	 */
+> -	pm_ret = pm_runtime_put_autosuspend(dev);
+> -	if (pm_ret < 0)
+> -		return pm_ret;
+> -
+>  	return ret;
+>  }
+>  
+> 
+> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+
