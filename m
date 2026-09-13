@@ -1,81 +1,233 @@
-Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61FC91BD9C9
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 14:28:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.202.193.197
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789309706; cv=none; b=JIIKImuYTGDqnpGRJyCqkg583639bN0chsyvQmtHfVoaqzy3W9XFYmMGXABxVUzEvHzjEmXf67b+mXFxNB09Y/T0OPo/nRLR//sXFSR0Z02KPJFdKm3KT/PCsejcpMnPdL/AbL/J5fGHGRmmoqnuJhoy4/RlxyRi8L8P0DCnd0k=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789309706; c=relaxed/simple;
-	bh=Zj5EWEqAaCDZeeY56pguDf9MrushLq46Zr2FoXK63UM=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=JLhnAVE8D2XKGFTFoXh73HHFa6W/HUGUY72R6vTIFHtKJKRct/lB+ILRA3NLcSHiL97rhVO7c0XMYv2iybjBs2Oz4XhnyjiRwfoPgpj81sZyxCuM7D2z6MSBWDPC3FuQYEoISLatO8k+/uWrpwukJk559pB6MfD9AXtGVBUmWV0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=korsgaard.com; spf=pass smtp.mailfrom=korsgaard.com; dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b=b2nxA8lk; arc=none smtp.client-ip=34.202.193.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=korsgaard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=korsgaard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDBBC316905
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 14:28:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.49
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789309712; cv=pass; b=WRELzVGvcAVwfHEh0UIrCnuh2Klh7zTKxpyUU3d/dVc75HDHVfiQQLULBbguCQ3uU+JJpF4lYs8LP67anLVjn4ZcCAb8yjSnFacKvUun6xhQ3mEWY8kfuA4O723abDtcQ/CRp+Lq98A5UjvcxfpAu2NBX9214kXRf4cgBDZodKc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789309712; c=relaxed/simple;
+	bh=kIP/NSc+NG49XnW2lRINixurcituYfURHS9tdp58HYU=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=hf4IVJ4ExJjJOdmoyzjt9dFB3uAbrH1lWNKux0oaVKRlKjwtTlItYJxyJExE+EKZCgAnU1Yy3jKJPL5CLWaGcyGFRrDUGnA+yNiQ80qmI/zda3kDUojPUD1f+d9EfpIcA44OxjYpSZDfhKxBDxka66cksb1k/fp+fSuMNTmX5SA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WUMONNYy; arc=pass smtp.client-ip=209.85.208.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b="b2nxA8lk"
-DKIM-Signature: a=rsa-sha256; b=b2nxA8lkJz+ylAO3olfTufX8539NJ1KPfrZeno5qK17Rudx6PuyCXEq8FvzfR0y4hN9fQwbf2KVDi1ITRuPav9vQzriJusDTD3jNIYs3p5zVHv2jEPymHaurpTfa1m12UPo/Cyvp06gJ67FeCK+UtXWy/X/AvRU2b1Mh3dBuK9iLAXa3ceAt8a0qIPN3yNmw2p+0iLizCaM60sbwx6tHjznWyzP2ePDEBhaWFsf6vs4wxe74cPF34SAcYMGRuLu7Cc6RFVpEtK3YVKuDnsVnjC2DGSyTCZFXZEmSlnHmFFhubgEnQvBE/vzbXCM/Nz/IdQ7y/Z4OLnY5gOIDuJsHSQ==; s=purelymail1; d=purelymail.com; v=1; bh=Zj5EWEqAaCDZeeY56pguDf9MrushLq46Zr2FoXK63UM=; h=Feedback-ID:Received:Received:From:To:Subject:Date;
-Feedback-ID: 21632:4007:null:purelymail
-X-Pm-Original-To: linux-kernel@vger.kernel.org
-Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id -1692820451;
-          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
-          Sun, 13 Sep 2026 14:27:45 +0000 (UTC)
-Received: from peko by dell.be.48ers.dk with local (Exim 4.98.2)
-	(envelope-from <peter@korsgaard.com>)
-	id 1x5lBH-0000000FW2f-2czl;
-	Sun, 13 Sep 2026 16:27:43 +0200
-From: Peter Korsgaard <peter@korsgaard.com>
-To: Marek Vasut <marex@nabladev.com>
-Cc: linux-arm-kernel@lists.infradead.org,  Conor Dooley
- <conor+dt@kernel.org>,  Krzysztof Kozlowski <krzk+dt@kernel.org>,  Michal
- Simek <michal.simek@amd.com>,  Rob Herring <robh@kernel.org>,
-  devicetree@vger.kernel.org,  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] arm64: zynqmp: Add ifm ZynqMP VHIP6 EvalBoard
-In-Reply-To: <fdf07bc2-428f-4055-97fa-61a302f57a6b@nabladev.com> (Marek
-	Vasut's message of "Fri, 11 Sep 2026 16:49:59 +0200")
-References: <20260909182641.165383-1-marex@nabladev.com>
-	<20260909182641.165383-2-marex@nabladev.com>
-	<874ifwjff2.fsf@dell.be.48ers.dk>
-	<fdf07bc2-428f-4055-97fa-61a302f57a6b@nabladev.com>
-Date: Sun, 13 Sep 2026 16:27:43 +0200
-Message-ID: <87wlspb50g.fsf@dell.be.48ers.dk>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WUMONNYy"
+Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6a20319d030so3398341a12.2
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 07:28:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789309709; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ZpFgzoEm0eh/Y8dVAsgjWMD1zrBpAiMBjFEgjbJn6LrzWf09IsZ8eA2ccWfgabuUM0
+         mwbheeEu1LES7P3UOlp9u+peAS/2bD5UeE5SMItRw9M4KmlOee3hignGPxF35NUII8WS
+         3DQieZ+EOj9KTGuPH4VsU+cSAANRiP7BKbUwfR3vjdAL/5BqYkcXc7YpX7LN2gprarLn
+         fXdrAi+Z9kmMqBtQ+JSqh6MzzEJm+kZk4qSWJmdV0hdq4GplmV3FVWqCZn/kqdwkV3Ck
+         FBThFPMMWqEH16ISBczZhk4+sChMltAG9aQHbah2UGC+lvhSv3OQFCC7hgw0+hGPyKaK
+         2ilA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=7trDYjh2yt11cs0oE8ruC/twVqcjXd8qaoj0XJ827QE=;
+        fh=Qt1E1CYmykJ9S1LL7ktjnDpRandQkexga2Hd77BbdWs=;
+        b=rhxCFyUzybpSAIGC65MOnWDq9wP7TUUVvtQteJoVkoG9sneJtopSRleDHl6PciFoF5
+         Twc/tsPdWQSWMsWMYrhYtIRyFqUnG+wfj5Sjmf52OJpOQMsVD6hZYHsM6uHOBR5+3TS+
+         dfNRmTIBm/EVazKvzqM7QuNBbyck22BTOTY5iQ09uNiMgtXIc0rdkH/tzc2i3uioEFE5
+         2dzJJO4UwSKXAS04rJnEJh1EiKmRYBnOupEMH9m8thGMP86GVjESsJyxQWLRm2hSWTrI
+         7jj/eKRxbsyTJapQ/RlQPOFM/59xWgR2HhZF3Mtw0H2RQV7i1bZy85udaLkeE88ufOhy
+         4lyQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789309709; x=1789914509; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7trDYjh2yt11cs0oE8ruC/twVqcjXd8qaoj0XJ827QE=;
+        b=WUMONNYyoDqPU2UL/rdSJC81zibmIQt/OTcaT+KW7LBdhsUgd1qVi4nsP9JHtmJwIr
+         ymt963yNkcNmVuZbrkEG7KYfckOPrAZ6GcjdavlS1opkdpglhwIcNsOHKw2kgOUmIEhV
+         PQ89g+pGuBPoPg9iee4MnAWxnNzZt2PpqGIaKrg7NREKXyktWzgJ2Eb6MyhR0WCcvDEB
+         UbJzprOcD9W9qt2FP+4i5zlJpbF+DeoyFzXoHdA2kROSnbEk4VibV+PY3nOquRlxlgh1
+         Z17QqvtWZjkipru3wMLiA62IRz7wRVNFV6sHHVMT68DVN7j4UukvbgcgmxjX53gHzNTh
+         AjGQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789309709; x=1789914509;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=7trDYjh2yt11cs0oE8ruC/twVqcjXd8qaoj0XJ827QE=;
+        b=c2kiBRLUx7r7DZb9yI1/rwbMDyodnKTs4mCrOqy42f1L+i0xDesdZRxekAgeEC/+Y+
+         R6W+fAnLGww9zv79t02nZeJJHuHM2goLXYxLrJqyUilCzRRzPyHNnEID8DYeYpE0g+0T
+         WKN8lu1nCnUHFAhOd5tkTX1K3YjfDkBpKqRaGIEctNbyTeG3K/shnFQCAXIqV6+QdyV/
+         IdJD7cHXYWW9jHEPj/dbIp64VODZs2UUlzO+e0JVkU53DhZ6jYTYpDR21Q9cU1qv5qx4
+         VM7eop3seRT8h353W+sgTfPdcIQZuQeZ3rKxyAEpcKgnHWMr9wxcZugqo4SsBsR9qbjm
+         ou0Q==
+X-Gm-Message-State: AFuF++m5yI9gZya1t0haEh7A4vMXB6PTepgkFUWEFrvLnX7WW7fonDkv
+	IvTWLQeM1dQDMLZrHwWUtdk2VeL2FlTXv/hho7E4LXOGqmFtydZ8Et7CJPzCNOqzISfmknbkG9E
+	FWXOd5JAcKHuw3ajTcuhj/tMcptlODQo=
+X-Gm-Gg: AYBFou2dYTmA2rdiJ2V401z0ZNSni84mhXfNMxhkbhWitOVQtSBbqQuX6ZS3g/PLhc+
+	KPJzNXWog+kYj951/NSs7lx7K0C2PIc+FYp1xRGHw3Kny6FwrH4xn8PgG1UF6MDsxcZb88URd81
+	5y3QyxKZ/ppVtBvOFebNw9yjP4TPlUN22mzL4qRdqbvqS0lhsFEtbrJDcoitABnlIjsA4hicLQh
+	/PqcI7lTdEScgf86xKC++bE/ce/PPDEnJCv3NYJQpuzdcuJwFOULcZhfT2Y5L5OlFLXZhfwerxf
+	g8+ImdPafZ+H00MVeLLP6ykeR9iKGHeYwu/V30KjupnspYuhJxij9ZIt
+X-Received: by 2002:a17:907:d11:b0:c26:19de:9aea with SMTP id
+ a640c23a62f3a-c2966713402mr589875466b.41.1789309708478; Sun, 13 Sep 2026
+ 07:28:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+From: Jiaming Zhang <r772577952@gmail.com>
+Date: Sun, 13 Sep 2026 22:27:49 +0800
+X-Gm-Features: AcwNN1Uxew88DlzjKA8nEKsYeSnPIAeHERYOSbNvvu8LNi-jNKqOsNY36mliCUM
+Message-ID: <CANypQFZ05tpth0Xc33gmP6jgPnkY4VuezyHcsajV-SqCsmN_gg@mail.gmail.com>
+Subject: [Linux Kernel Bug] KASAN: use-after-free Write in ocfs2_local_release_dquot
+To: jlbec@evilplan.org, joseph.qi@linux.alibaba.com, mark@fasheh.com, 
+	ocfs2-devel@lists.linux.dev
+Cc: linux-kernel@vger.kernel.org, syzkaller@googlegroups.com, 
+	r772577952@gmail.com
+Content-Type: text/plain; charset="UTF-8"
 
->>>>> "Marek" == Marek Vasut <marex@nabladev.com> writes:
+Dear Linux kernel developers and maintainers,
 
-Hi,
+We are writing to report an issue discovered in the OCFS2 subsystem.  The
+issue is reproducible on the latest version of linux (v7.3-rc2, commit
+df2908090cda368b01ff43709f51890076c56157).  Below is the kernel report:
 
- >> > +	chosen {
- >> > +		bootargs = "clk_ignore_unused";
- >> Why?
+==================================================================
+BUG: KASAN: use-after-free in instrument_write
+include/linux/instrumented.h:41 [inline]
+BUG: KASAN: use-after-free in ___clear_bit
+include/asm-generic/bitops/instrumented-non-atomic.h:44 [inline]
+BUG: KASAN: use-after-free in __clear_bit_le
+include/asm-generic/bitops/le.h:41 [inline]
+BUG: KASAN: use-after-free in _ocfs2_clear_bit fs/ocfs2/ocfs2.h:936 [inline]
+BUG: KASAN: use-after-free in ocfs2_clear_bit_unaligned
+fs/ocfs2/ocfs2.h:967 [inline]
+BUG: KASAN: use-after-free in ocfs2_local_release_dquot+0x44c/0x6a0
+fs/ocfs2/quota_local.c:1298
+Write of size 8 at addr ffff8880569ef400 by task kworker/u10:1/37
 
- > This can be dropped, thanks.
+CPU: 1 UID: 0 PID: 37 Comm: kworker/u10:1 Not tainted 7.3.0-rc2 #47
+PREEMPT(full)
+Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix,
+1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Workqueue: quota_events_unbound quota_release_workfn
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x10e/0x190 lib/dump_stack.c:120
+ print_address_description mm/kasan/report.c:378 [inline]
+ print_report+0x153/0x7e0 mm/kasan/report.c:482
+ kasan_report+0x147/0x180 mm/kasan/report.c:595
+ check_region_inline mm/kasan/generic.c:-1 [inline]
+ kasan_check_range+0x2b0/0x2c0 mm/kasan/generic.c:200
+ instrument_write include/linux/instrumented.h:41 [inline]
+ ___clear_bit include/asm-generic/bitops/instrumented-non-atomic.h:44 [inline]
+ __clear_bit_le include/asm-generic/bitops/le.h:41 [inline]
+ _ocfs2_clear_bit fs/ocfs2/ocfs2.h:936 [inline]
+ ocfs2_clear_bit_unaligned fs/ocfs2/ocfs2.h:967 [inline]
+ ocfs2_local_release_dquot+0x44c/0x6a0 fs/ocfs2/quota_local.c:1298
+ ocfs2_release_dquot+0x626/0xc70 fs/ocfs2/quota_global.c:793
+ quota_release_workfn+0x35f/0x610 fs/quota/dquot.c:867
+ process_one_work kernel/workqueue.c:3396 [inline]
+ process_scheduled_works+0xc85/0x18f0 kernel/workqueue.c:3479
+ worker_thread+0x8a3/0xda0 kernel/workqueue.c:3560
+ kthread+0x38c/0x480 kernel/kthread.c:436
+ ret_from_fork+0x509/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
 
-Good.
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x569ef
+flags: 0x4fff00000000000(node=1|zone=1|lastcpupid=0x7ff)
+raw: 04fff00000000000 ffffea00015a7bc8 ffffea00015a7bc8 0000000000000000
+raw: 0000000000000000 0000000000000000 00000000ffffffff 0000000000000000
+page dumped because: kasan: bad access detected
+page_owner info is not present (never set?)
 
- >> > +	gpio-line-names =
- >> > +		/* GPIO 0 - 77 */
- >> > +		"", "", "", "", "", "", "", "", "", "",	"", "", "", "", "", "",
- >> > +		"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
- >> > +		"", "", "", "", "",
- >> > +		"ifm_device_info_eeprom_wp",
- >> NIT: The dts references a number of other GPIOs, any specific reason
- >> to
- >> only name this one?
- > The legacy userspace tooling used to depend on it, used libgpiod to
- > look up this GPIO by name.
+Memory state around the buggy address:
+ ffff8880569ef300: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+ ffff8880569ef380: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+>ffff8880569ef400: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+                   ^
+ ffff8880569ef480: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+ ffff8880569ef500: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+==================================================================
 
-OK, but why not add all the referenced GPIOs if you fill out
-gpio-line-names anyway?
+Following is the root cause analysis for this issue, note that the
+analysis is performed with the assistance of LLM, but we try our best to
+ensure the accuracy.
 
--- 
-Bye, Peter Korsgaard
+When ocfs2 releases a quota structure, it clears the structure's bit in the
+bitmap of the local quota file chunk that holds it, and the position of
+that bit is computed from the chunk's number.  A bogus chunk number can
+push that position far outside the bitmap, so the write lands on unrelated
+memory.
+
+The chunk number is wrong because ocfs2_local_quota_add_chunk() appends the
+new chunk to the list first, and then numbers it one past the entry before
+it:
+
+list_add_tail(&chunk->qc_chunk, &oinfo->dqi_chunk);
+chunk->qc_num = list_entry(chunk->qc_chunk.prev,
+  struct ocfs2_quota_chunk,
+  qc_chunk)->qc_num + 1;
+
+If the list was empty, the entry before it is the list head itself.  The
+head is a member of struct ocfs2_mem_dqinfo, not a chunk, so the "previous
+number" it reads is part of the dqi_gqinode pointer stored next to the
+head.  A crafted image gets a first chunk numbered with part of a kernel
+pointer instead of 0.
+
+ol_dqblk_off() turns the chunk number into a file offset by shifting a
+32-bit block number left by the block size bits, and a block number built
+from such a large chunk number loses its top bits there.  When the entry is
+released, the offset is converted back into a bit position using the full
+chunk number, so the lost bits push that position far outside the chunk,
+and clearing it corrupts unrelated memory.  Depending on where the write
+lands, testing also triggered the following reports:
+
+- BUG: unable to handle kernel paging request in ocfs2_local_release_dquot
+- KASAN: slab-out-of-bounds Write in ocfs2_local_release_dquot
+- KASAN: slab-use-after-free Write in ocfs2_local_release_dquot
+- KFENCE: use-after-free write in ocfs2_local_release_dquot
+
+To fix this issue, the chunk number should be computed before the chunk is
+added to the list, and set to 0 when the list is empty:
+
+diff --git a/fs/ocfs2/quota_local.c b/fs/ocfs2/quota_local.c
+index f55810c59b1b..d351cda9211f 100644
+--- a/fs/ocfs2/quota_local.c
++++ b/fs/ocfs2/quota_local.c
+@@ -1071,10 +1071,13 @@ static struct ocfs2_quota_chunk
+*ocfs2_local_quota_add_chunk(
+  goto out;
+  }
+
++ if (list_empty(&oinfo->dqi_chunk))
++ chunk->qc_num = 0;
++ else
++ chunk->qc_num = list_entry(oinfo->dqi_chunk.prev,
++   struct ocfs2_quota_chunk,
++   qc_chunk)->qc_num + 1;
+  list_add_tail(&chunk->qc_chunk, &oinfo->dqi_chunk);
+- chunk->qc_num = list_entry(chunk->qc_chunk.prev,
+-   struct ocfs2_quota_chunk,
+-   qc_chunk)->qc_num + 1;
+  chunk->qc_headerbh = bh;
+  *offset = 0;
+  return chunk;
+
+After applying the patch, the reproducer no longer triggers the issue on
+our machine.  If this solution is acceptable, we are happy to submit a
+formal patch.
+
+The kernel console output, kernel config, syzkaller reproducer, and C
+reproducer are available at google drive:
+https://drive.google.com/drive/folders/1-LzPTgOALEc3eOjmgM6oOfRKkYXJ-bnO?usp=drive_link
+
+Please let us know if any further information is required.
+
+Best Regards,
+Jiaming Zhang
