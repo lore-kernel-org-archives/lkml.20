@@ -1,143 +1,164 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-vs2-f43.google.com (mail-vs2-f43.google.com [74.125.227.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 547BF3749EA
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 20:41:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19A3225B091
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 20:42:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789332082; cv=none; b=olEclmlsfKLrW7m35aDzBmxWJjJXI5HUtl5vgjCuj32/rihM4MLl+zBX4V/j/AqKN6EwRbOd4oZPZukQJKI5OSYu+Fih6fiG6yoQnpu1DCxRsk7qmHKp93NOsQsTj7A2Bc7A3JDd7nxU+HiEu1qH5v7SKtjAK2Jv07vG08otyRs=
+	t=1789332132; cv=none; b=hmonO0oluMs9+XUKAkWuDSwWqo+du36/x/hkfXyJGGIYqOEuVnRohgJJwF7ZGWj1guSoO3rqA3W6aW+ufFiE2cOUYxAI5uQP37lN7l/edm7oXJ4TgIvDXBK1kk98irpwtcnp2F6LjyBRaRoaembrtM9DCerSuxBS2m0ElTrwlSI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789332082; c=relaxed/simple;
-	bh=C5DsJkXIJoZlAT7IjZCC8I/UwHv4oDRaj3MSbn6+mgI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jjHn2MeLNZTQA+hpT9PDSXjN5yvo9fAyhpE2LvV0+Omzw2ZPLM4kiXZQngfbYamQoVs0lZuXoftvPRt+JFX0Ajk9WercseDvXQuO7UMPjxp31v6/2iEv4ZYvsHwaZsi84k2xDzPRnsggLHLt6Nuo736YyHtXtJ/8qnEN/ZygtQE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=jsOv9Cud; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1789332132; c=relaxed/simple;
+	bh=8ee+7gFBh2B/5NzYVSDcJVxrx4aUxOp66VqIfZZZWKk=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ivbPVk2qLYY4yxcmgDffM6ZN1olP37n54QTKIc4UNFhntNVnQega7rWWFOYng+AOHfH0og5EuOBLd3xW91/nLdKgQ/qDqF8zuUi6lEMeHAw3mIYtSpHeVN3cykc/U0EQKQQcM7kXWFX7XZbZTp1PAEUsCimnMUMOHvpcHBU5Bdw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LDNFP+RW; arc=none smtp.client-ip=74.125.227.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="jsOv9Cud"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843c3ea1f6so509229f8f.0
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 13:41:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LDNFP+RW"
+Received: by mail-vs2-f43.google.com with SMTP id ada2fe7eead31-78564421fdbso396028137.1
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 13:42:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789332078; x=1789936878; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=R6YGWhzsvFbV+PYiTdLNQJwYPXDHjuNqpkT5NJtjU/o=;
-        b=jsOv9CudMOlRXkR4JjxnGu+OLi3A3Msfo0S51B8gssBl7FYemkqXvbUIgWCj0cWNXz
-         gAa6GvzFWJGGxUbOIL/M9ieKZWaPjr1lzC8A93iQjGZ6l2T3n7jsKnhFqGR2KYAfXJrK
-         Gj0JXt3SkzQRvQTL27LrRDQ3QWEk8Jo848FWAzoCssR8+RM4Q++azIkpxFKr37aPurkP
-         QYP0l9euwK0uQKdAe4cr3NJn3I7gXAM1hIC7uYSkadxsw0/I7W4H93NzKriAYjRzWYdC
-         nicdY96yxGeEM81j65CpN8XmA3vsQFtVIsF+A+teAStU7E6mitnGpG206xgBGkHunZGe
-         f93Q==
+        d=gmail.com; s=20251104; t=1789332130; x=1789936930; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=8ee+7gFBh2B/5NzYVSDcJVxrx4aUxOp66VqIfZZZWKk=;
+        b=LDNFP+RWd7ij18dzk6/MVf/eAlddcD3WClEG209fDJjRVVIWfEs9UGiATEYYMZJcKi
+         7SrRZwGKLCdiRiytYmb8O43m6JAItrT5fUPbFm9r7bxTk7svpphWQdPJCPkUB+BSuxt/
+         +otmT9bkkEaryJEBUhWdRtlGREfyEYN2/8OWnmJY+oy1FoEj1z54fDK5b+H0dMmbUCWA
+         EMiu4OsvmfflRa1fYQhwo30cZTw1NgEScmwSIHTekFVNQPWVF1Fyznr9J6g9G5+IM7qB
+         Op0RXgT2jgcYC6yXGBGTHSQKSzGFT8QQ71DmS4O5WnhvoEtGa4guUm6MlI/fzmKzOvLi
+         K3DA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789332078; x=1789936878;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1789332130; x=1789936930;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=R6YGWhzsvFbV+PYiTdLNQJwYPXDHjuNqpkT5NJtjU/o=;
-        b=S124CxB6BvzfgV+WTv10pIs+mfslUt2w5DemrZEoY8Lk3QfvVhKwicHdIe6S5GI/wV
-         47HbK7gaP0ZZ+mbwICwFbzjsFlVHE6FMT5qvRfN45NHVA8fIfMVFIHxvgaRAwbvjSRRG
-         dzg7CnmkmTXGZEYqa8npVZmqGNHhEagOzn5jVgPjkeBMXtI9U3o+8clF4otUXqLIBePS
-         Mba+VMPjTorLR7/djPOGZVhwYnuNky5egBg4mYmW2LT+mG3tPtf+72KanweTRc2eVS6N
-         tYMuErmS0q5Ubv4C+QwFSlbZoR4dmX0ZZPKQ4m98IfDhFGroskffto4SmHl0e0cPvRl7
-         wfBQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxWgGb2tJ9+IQr3AA3j0RSFaspVJDCQeMwUHWdDJgaTsTywKXY0dbP2rmk9y5uN7YpxapFkY0sUMahIfgI=@vger.kernel.org
-X-Gm-Message-State: AFuF++lGroBzDMRyccyHd5NNzbD2tFAXQCYyy7e8BkgNnoXmqClgh2A7
-	2PlMhmB5+QS6a3irFnFtTsF+WXOtlxGNBlB0Y8oGpUvDp7sYrfjfA0//0arxgJdPbw==
-X-Gm-Gg: AYBFou3RE8fnlkHq/vM13FDbHikYwInVTvsfhX763GUy97SIRCZ6ZjlnSulL47mem58
-	LpkK0ZpzyJMz6ymyS7GugAXYnsx3iLHHZJUvZLrk15Fkg3MyNU3y0cz0rYfrCY8IluPZWpd5iRj
-	sb6Y4fZF2hZIqNSI/yQNbV02AarZPfWipEOb/CsylemA8ucnS7AhOZ/1p85PbmLEfp8grQuj8Hs
-	WOEhvWVUvU6NvyL8P9TXvq3bFHBIbUm/hsnX0Bhxh3+i+Nk0eRcdrljqhUWlAW7HUUzF3YNlwZs
-	3QiRFK1wwp026hfFRywbE2qsh10eioWjeJ75o+3iM+Ln/cDxyTFv46x8Hi6BdyjQqlkMDvzTEtW
-	qzrDCO5ydSandZ1R/w3INyyaUpSzNr4ew2ymzBf+dJAZMvxkeZKD2RS3cQTyEp7kk4BO5gQ5Vyy
-	Ud/VuRHbEDDBTx5U0dM2fg6S8piWlWPc3q5YroKMg4NnogyKWsJP3DIZ2+ALrbSdhGu3SS7lRbm
-	p/msj6bEeQbSak+wsWHASC/UwhOobuxSyDv5sE7Gw0=
-X-Received: by 2002:a05:6000:2082:b0:484:3f15:15f2 with SMTP id ffacd0b85a97d-486f6c17cdbmr7177342f8f.24.1789332078141;
-        Sun, 13 Sep 2026 13:41:18 -0700 (PDT)
-Received: from google.com (135.91.155.104.bc.googleusercontent.com. [104.155.91.135])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb34f1f7sm21666477f8f.24.2026.09.13.13.41.17
+        bh=8ee+7gFBh2B/5NzYVSDcJVxrx4aUxOp66VqIfZZZWKk=;
+        b=ajRGOCajigDVd7R82obJ+zuNmMs1OrOKXFn7O4fkoC2AHwl4ICe1il7MtKmQBx0Uhm
+         rpL8bfDte/fhP63nXUf+e94/B/LT0H2XnlamFTRMURZG7eeO066RlTYoYCarDYEVP9wd
+         bv7ivmK9r0KAIhRcINJMb9eKS6mwyW3D/YYBzrDZfJOXNyXvNfAU3agHJQLqx5zALFAo
+         fdxIjoEeF0GhkXNLxjk3dy+ZlU9KnoyEzoJVaVvQFkxXXyd9+LmUwJqvG6MhQHQ1Jd4U
+         z4dZUVM2THnnqaSncY9koCsuhySHhofvgv7eD6uy+ddx6wqQTH4nGCquO+QHo0MNYiPM
+         iWeQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxQP7bPOQPL7Gx7Alf3CPI0p9ZnT+MbIYgwStQrQaLOT0yfq4+ynwNtR3ifGrmy2MQbmV9CD8CLLE2eXxM=@vger.kernel.org
+X-Gm-Message-State: AFuF++kMAYQgx5bGCZyLHMCg8OrYQSKAUQ4JOUPS/TFidRMcCJkTNL43
+	ivaoMXQZFkztjWqNpAia+bDep35wNRoD31FY2HUHqCxTP7s1QJ+wKf4r
+X-Gm-Gg: AYBFou3FU8wKJcaMjTNwFjYZCJgQw2uTzjvrp4J8VF1+UQmCmM9JlsWwBLQTs6BqYvM
+	ndNCdwLfe+C1WFdaaTvv9Y1FK3Ktj8IRGrc+fdl2KgxxeshzgmolEJMFFXxvRwNY0LmUU9cSvoK
+	TP9NnzqYDER8nhRMG48aRGeon3nZaHb1RDqBB/cVNvuLhJEsPlj4qK+YrT3Jj41ltPZYNArtHge
+	68RVzGQYjNrPKCaP/4mB60iISyQSpBEBRc6ZqBNjaeHxYBQad4zSE9pNzASQ1jPhK8eXMxcemCF
+	ztf/qs1OmpL4AByZyfMa20zGzY2MStZxjYqn5TEPa+kmu7ku0NYCw3izR1ZJwoGSdIOIQB+2HJX
+	6CIWuKZ5uGKc6RbI1fDqDtX61iv96i1JTlUrscxhlRj/lfjBJuaO73leYLwHQuBrpBxuJzgeElh
+	rfOMrrB17gYggXTD5UD+mlzQbC+KTiroZtKHMi6AsZv9EhuZKBTvcIs8ODnHzytE1elieTzuzhA
+	w==
+X-Received: by 2002:a05:6102:330d:b0:783:f3bf:f9aa with SMTP id ada2fe7eead31-792ac9e510amr4898086137.8.1789332129863;
+        Sun, 13 Sep 2026 13:42:09 -0700 (PDT)
+Received: from [192.168.0.10] ([189.60.169.129])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-982b9f41426sm9597329241.6.2026.09.13.13.42.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 13:41:17 -0700 (PDT)
-Date: Sun, 13 Sep 2026 21:41:14 +0100
-From: Vincent Donnefort <vdonnefort@google.com>
-To: David Carlier <devnexen@gmail.com>
-Cc: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] ring-buffer: Check resize_disabled before publishing the
- new subbuf order
-Message-ID: <aqcKav91XJsCLxPJ@google.com>
-References: <20260912103938.1127021-1-devnexen@gmail.com>
- <aqcJq1-R-LaK9uBi@google.com>
+        Sun, 13 Sep 2026 13:42:09 -0700 (PDT)
+Message-ID: <f8fbfb26a60bd664bb4c436acfa541b5e4976916.camel@gmail.com>
+Subject: Re: [PATCH v2] dt-bindings: display: panel: mipi-dbi-spi: add
+ sitronix,st7789v-tft28
+From: Frese <freseenzo@gmail.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>, Noralf =?ISO-8859-1?Q?Tr=F8nnes?=
+ <noralf@tronnes.org>, Neil Armstrong	 <neil.armstrong@linaro.org>, Jessica
+ Zhang <jesszhan0024@gmail.com>, 	devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 	linux-kernel@vger.kernel.org
+Date: Sun, 13 Sep 2026 17:42:05 -0300
+In-Reply-To: <20260913-easygoing-chubby-sidewinder-67beb9@quoll>
+References: <20260911203342.76692-1-freseenzo@gmail.com>
+	 <20260913-easygoing-chubby-sidewinder-67beb9@quoll>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (by Flathub.org) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqcJq1-R-LaK9uBi@google.com>
 
-On Sun, Sep 13, 2026 at 09:38:03PM +0100, Vincent Donnefort wrote:
-> On Sat, Sep 12, 2026 at 11:39:38AM +0100, David Carlier wrote:
-> > ring_buffer_subbuf_order_set() stores the new order and only then walks
-> > the CPUs, returning -EBUSY if any of them has resizing disabled. A user
-> > mapped buffer has resizing disabled, and __rb_map_vma() reads
-> > buffer->subbuf_order without buffer->mutex, so an mmap of an already
-> > mapped CPU racing the failing order change sizes the mapping with the
-> > new order and inserts pages past the sub-buffer into the VMA.
-> > 
-> > Check the CPUs before storing the new order.
-> > 
-> > Fixes: 117c39200d9d ("ring-buffer: Introducing ring-buffer mapping functions")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: David Carlier <devnexen@gmail.com>
+Hi Krzysztof,
+
+Thanks for the review, this is one of my first kernel contributions,
+so please bear with me.
+
+This panel is a generic hobbyist module, wired via jumpers to a stock
+Raspberry Pi 4B, not soldered onto any fixed product like
+saef,sftc154b (Anbernic RG-Nano) or shineworld,lh133k (LXA boards).
+Mainline has no Raspberry Pi overlay tree, so there's no in-tree
+consumer to add. I noticed sainsmart18 currently has no in-tree
+consumer either, though it was added as part of the original binding's
+example, so I'm not sure that's a strong precedent. Would a
+documentation example, or an out-of-tree overlay demonstrating the
+tested wiring, be an acceptable alternative here?
+
+Vendor prefix was already fixed in v2 (sitronix,st7789v-tft28) =E2=80=94
+sorry the subject change broke Patchwork's series detection.
+
+Thanks,
+Enzo
+
+On Sun, 2026-09-13 at 11:34 +0200, Krzysztof Kozlowski wrote:
+> On Fri, Sep 11, 2026 at 05:33:42PM -0300, Enzo Frese wrote:
+> > This is a generic 2.8" 240x320 RGB LCD panel with a MIPI DBI
+> > compatible
+> > SPI interface, based on the Sitronix ST7789V controller. It is
+> > commonly
+> > sold by various resellers without an identifiable original
+> > manufacturer
+> > name printed on the PCB.
+> >=20
+> > A basic mipi-dbi-cmd[1] script to get the display running looks
+> > like
+> > this:
+> >=20
+> > $ cat sitronix,st7789v-tft28.txt
+> > command 0x11
+> > delay 120
+> > command 0x3a 0x55
+> > command 0xb2 0x05 0x05 0x00 0x33 0x33
+> > command 0xb7 0x75
+> > command 0xc2 0x01 0xff
+> > command 0xc3 0x13
+> > command 0xc4 0x20
+> > command 0xbb 0x22
+> > command 0xc5 0x20
+> > command 0xd0 0xa4 0xa1
+> > command 0xe0 0xd0 0x05 0x0a 0x09 0x08 0x05 0x2e 0x44 0x45 0x0f 0x17
+> > 0x16 0x2b 0x33
+> > command 0xe1 0xd0 0x05 0x0a 0x09 0x08 0x05 0x2e 0x43 0x45 0x0f 0x16
+> > 0x16 0x2b 0x33
+> > command 0x36 0x00
+> > command 0x29
+> > command 0x21
+> >=20
+> > $ mipi-dbi-cmd sitronix,st7789v-tft28.bin sitronix,st7789v-
+> > tft28.txt
+> >=20
+> > Tested on a Raspberry Pi 4B using the panel-mipi-dbi driver.
+> >=20
+> > [1]: https://github.com/notro/panel-mipi-dbi
+> >=20
+> > Signed-off-by: Enzo Frese <freseenzo@gmail.com>
 > > ---
-> >  kernel/trace/ring_buffer.c | 8 ++++++++
-> >  1 file changed, 8 insertions(+)
-> > 
-> > diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-> > index 9c03a555a6ba..d7e5e4620d09 100644
-> > --- a/kernel/trace/ring_buffer.c
-> > +++ b/kernel/trace/ring_buffer.c
-> > @@ -7474,6 +7474,14 @@ int ring_buffer_subbuf_order_set(struct trace_buffer *buffer, int order)
-> >  
-> >  	old_capacity = rb_subbuf_capacity(buffer);
-> >  
-> > +	/* The mmap fast path reads subbuf_order without buffer->mutex. */
-> > +	for_each_buffer_cpu(buffer, cpu) {
-> > +		if (!cpumask_test_cpu(cpu, buffer->cpumask))
-> > +			continue;
-> > +		if (atomic_read(&buffer->buffers[cpu]->resize_disabled))
-> > +			return -EBUSY;
-> > +	}
-> > +
-> >  	atomic_inc(&buffer->record_disabled);
-> >  
-> >  	/* Make sure all commits have finished */
-> > -- 
-> > 2.55.0
-> >
-> 
-> I do not think this is correct.
-> 
-> __rb_map_vma() reads subbuf_order without the the buffer lock __only__ if it is
-> already ->user_mapped, which means it has already the resized disabled.
-> 
-> During the first setup, it takes buffer->mutex.
-> 
-> -- 
-> Vincent
-
-Ha my bad, that function also modifies the subbuf_order __before__ checking the
-resize_disabled.
-
-Could we also clean the later resize_disabled check in the following loop?
-
--- 
-Vincent
+> > =C2=A0.../devicetree/bindings/display/panel/panel-mipi-dbi-spi.yaml=C2=
+=A0=C2=A0=C2=A0 |
+> > 1 +
+> > =C2=A01 file changed, 1 insertion(+)
+> >=20
+>=20
+> So v2 send in a few minutes, with different subject so Patchwork
+> could
+> not detect that it is v2, thus I spent time there.
+>=20
+> Same comments.
+>=20
+> Best regards,
+> Krzysztof
