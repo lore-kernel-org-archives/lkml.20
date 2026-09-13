@@ -1,111 +1,63 @@
-Received: from smtp.uniroma2.it (smtp.uniroma2.it [160.80.4.39])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EDC5C357CE9;
-	Sun, 13 Sep 2026 19:56:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.80.4.39
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2881D3F9F3D
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 19:57:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789329390; cv=none; b=IoO9bB9R7zo5TW6L9XYXHZG2bVwrh3Ws93GsGyV1TYyfqSIemWq4FTr4d8mnDGIRFk1xSd5a4CfcHpr2SeNZbXTHnA1RXgfgS7o1RD/gdgdNo7frscIwXuZm9+C0oD8FK6bdjuwd/kACMLor2LQrH3zqueNArjr3gctBKOP6hOQ=
+	t=1789329467; cv=none; b=brh4CtyMUAg7t0GK/MhzkfyViesfL6rYAsOR+8JBGEeu6gMZbzXTeUeSs2rF7WEiZVM2knlJnVhOKETsVW4oFMmvy+SJtD643iHGISPkXV8/hYahnSVgsSLJ5TGApqUChdvqkUxTW3CZvYTzr62smLPsm0t8jHLCl3E9IDyVaqQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789329390; c=relaxed/simple;
-	bh=JmuAd/D3KbaJprIWm4vd9LRfm3eTu6aVdgQSQQXbRLo=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=HZXhLfMBUSxzhL3LjPnHD8hCffayU5OqAj18SSXtq/BMftlNY9RtQ2Gw2IlKHlpP4UYByNouVSHHrpOCZIs445kW7bI3Y4/CV9ylAX/pJwOB+ORr1Lf5SGa0PoYiup63V9jdUumR4qVMqusrIts5maSFrRV5XdcWC8W+EEQCDpM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniroma2.it; spf=pass smtp.mailfrom=uniroma2.it; dkim=permerror (0-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b=pL0v5Dq0; dkim=pass (2048-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b=m4ZR5+W1; arc=none smtp.client-ip=160.80.4.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniroma2.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniroma2.it
+	s=arc-20240116; t=1789329467; c=relaxed/simple;
+	bh=Rcj+NfsxfTKTqnEEjzZTbSb4BIbSYx//dd/jDaBMahU=;
+	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=PYSL+BHB3zqppfJGD8dLg0a8SZAJ0dIXibT7NKsKuP+aZFzgrcMD0/OHSaKDBpJWaubY2dM1DD6yOH+1ks//kkDXr/R51R1FOU9flKC5ai29LPf6a/+z9QxEl5Sn15jYexfBqwMJPgdIpvhZyRJYR9d495DzndQ8aP9y2aRJyIU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F4e+dTc7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=permerror (0-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b="pL0v5Dq0";
-	dkim=pass (2048-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b="m4ZR5+W1"
-Received: from smtpauth-2019-1.uniroma2.it (smtpauth-2019-1.uniroma2.it [160.80.5.46])
-	by smtp-2015.uniroma2.it (8.14.4/8.14.4/Debian-8) with ESMTP id 68DJjAER019500;
-	Sun, 13 Sep 2026 21:45:16 +0200
-Received: from localhost.localdomain (unknown [160.80.105.87])
-	by smtpauth-2019-1.uniroma2.it (Postfix) with ESMTPSA id 081391227F1;
-	Sun, 13 Sep 2026 21:45:07 +0200 (CEST)
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=uniroma2.it;
-	s=ed201904; t=1789328707; h=from:from:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:references; bh=aXrAdzLpygAHb/8pjwLQyRhm/egTXtHyBi7542GKxGA=;
-	b=pL0v5Dq0x/qJELMP0pvFrq9jfeIgvSHmkzD8B25MHFUPKB9YFgpTK5CzE5qa3P1bfZnf98
-	X/utHN4+78vmFtBg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniroma2.it; s=rsa201904;
-	t=1789328707; h=from:from:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:references; bh=aXrAdzLpygAHb/8pjwLQyRhm/egTXtHyBi7542GKxGA=;
-	b=m4ZR5+W162HW8s2L2mCu6RnQa1aMzfdWqHa1e4CM5XLO/Wrzm8q+iYUbDO24VvP7YgU9Rh
-	aVGp0kzhtJ8knhwsMJI8l09SWvgrm5pZs42Z4Ftc5FGd3MExhIZuVvq/NBwpcDishYSNR9
-	wEV7TsKXiWHuLsZmWpanW6EydZGjV9atfDfTqcgBRIN2JybRhFCItxo9nG/2GvXgLAr3Q+
-	W2yJh3CTRpVGmLjA0P/BV2yG28363C/o/ZQ2zelwLaQ6Tzdi5/2XiZkN16PYguuLhT+++1
-	Asd5eyMczoAKX/j8glOiW/lpuD/JdJcmUZvsi5oW6zf2Dd2MyY1tr/ULtfiReQ==
-From: Andrea Mayer <andrea.mayer@uniroma2.it>
-To: "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, David Ahern <dsahern@kernel.org>,
-        Simon Horman <horms@kernel.org>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-        David Lebrun <david.lebrun@uclouvain.be>,
-        Stefano Salsano <stefano.salsano@uniroma2.it>,
-        Andrea Mayer <andrea.mayer@uniroma2.it>
-Subject: [PATCH net] seg6: set IPSKB_L3SLAVE from IP6SKB_L3SLAVE on IPIP decapsulation
-Date: Sun, 13 Sep 2026 21:44:21 +0200
-Message-Id: <20260913194421.31-1-andrea.mayer@uniroma2.it>
-X-Mailer: git-send-email 2.39.5
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F4e+dTc7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CA161F000FF;
+	Sun, 13 Sep 2026 19:57:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789329464;
+	bh=0hOSqgIgx2/NJIj0is7bOsdUlspQlSwq7jQ158r+XTo=;
+	h=Subject:From:In-Reply-To:References:Date:To:Cc;
+	b=F4e+dTc7tzp/QET0yoV05efTsBqcgPaHw1MvX1HQWdr6FUfZ3fyOmk9V+iaCtu07M
+	 HkYP7t2TaZFhwS3pmGi66jRrNHcqUwTpijT/q9a2JyZPQHHxJWh5wckThArj6J6rAN
+	 E8pWbETZB6vDlXYu1+9CazqHmf4MOs3CSHjcwZgYmuuFXvOZiD8aOlqe6WwWcGtqqv
+	 Ivk2+IOnOr/opVPT6zGB5aTBKXKsra8GQW3tJYmW+EB92kt2OZiQ9QroZ4ZScCh+HR
+	 b/KwDvPttAyvTdjRSkf6kH+QfR/JEeXBtQ//MmjZwgF3x0uJLzcgHnB5i8YFO73FkM
+	 ZD+bPEzuNzCFQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 199CC380A961;
+	Sun, 13 Sep 2026 19:56:41 +0000 (UTC)
+Subject: Re: [GIT PULL] tracing: Fixes for v7.3
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <20260913133506.601e5bd9@robin>
+References: <20260913133506.601e5bd9@robin>
+X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
+X-PR-Tracked-Message-Id: <20260913133506.601e5bd9@robin>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/trace/linux-trace.git trace-v7.3-rc2
+X-PR-Tracked-Commit-Id: d860c67c051685abb0460b593b193f0f45f4fa92
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: 22098763a10d9c1340827fcf6edab66f153b27f0
+Message-Id: <178932939990.3933600.17374899408318406781.pr-tracker-bot@kernel.org>
+Date: Sun, 13 Sep 2026 19:56:39 +0000
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, LKML <linux-kernel@vger.kernel.org>, Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Andrew Morton <akpm@linux-foundation.org>, Ali Ahmet =?UTF-8?B?TWVtacWf?= <aliamemis@disroot.org>, David Carlier <devnexen@gmail.com>, Donggeun Yoo <donggeunyoo.kernel@gmail.com>, Hemanth Selam <hemanth.selam@gmail.com>, Henry Martin <bsdhenrymartin@gmail.com>, =?UTF-8?B?SsOpcsOpbXk=?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>, Karl Mehltretter <kmehltretter@gmail.com>, Leon Hwang <leon.hwang@linux.dev>, Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Thomas =?UTF-8?B?V2Vpw59zY2h1aA==?= <thomas.weissschuh@linutronix.de>, Vincent Donnefort <vdonnefort@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Virus-Scanned: clamav-milter 0.100.0 at smtp-2015
-X-Virus-Status: Clean
 
-When an SRv6 packet arrives on an interface enslaved to a VRF,
-vrf_ip6_rcv() sets IP6SKB_L3SLAVE in IP6CB, but decap_and_validate()
-has never set IPSKB_L3SLAVE in IPCB. The bit stayed clear in the
-common case, and with CONFIG_IPV6_MIP6 the leftover frag_max_size of
-a reassembled outer packet could even set it, with no VRF involved.
-Commit 44930446dde4 ("ipv6: seg6: clear IPv4 control block on IPIP
-decapsulation") then made the unreliable bit reliably clear.
+The pull request you sent on Sun, 13 Sep 2026 13:35:06 -0400:
 
-The effect of the missing flag is visible with End.DX4 when a
-delivery to a local address of the node reaches the socket lookup.
-For example, a UDP socket bound to the enslaved ingress interface
-does not receive any of the decapsulated packets, while an unbound
-socket outside the VRF does.
-This contradicts Documentation/networking/vrf.rst: by default the
-scope of an unbound UDP or TCP socket is limited to the default VRF.
+> git://git.kernel.org/pub/scm/linux/kernel/git/trace/linux-trace.git trace-v7.3-rc2
 
-Set IPSKB_L3SLAVE for IPv4 in decap_and_validate(), which already does
-the same for IPv6. The socket lookup then matches the decapsulated
-packet like any other packet received on that enslaved interface. Such
-a packet matches an unbound UDP or TCP socket only when
-udp_l3mdev_accept or tcp_l3mdev_accept is set.
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/22098763a10d9c1340827fcf6edab66f153b27f0
 
-Fixes: 891ef8dd2a8d ("ipv6: sr: implement additional seg6local actions")
-Signed-off-by: Andrea Mayer <andrea.mayer@uniroma2.it>
----
- net/ipv6/seg6_local.c | 3 +++
- 1 file changed, 3 insertions(+)
+Thank you!
 
-diff --git a/net/ipv6/seg6_local.c b/net/ipv6/seg6_local.c
-index 7b5212220185..d1070aec7b72 100644
---- a/net/ipv6/seg6_local.c
-+++ b/net/ipv6/seg6_local.c
-@@ -257,10 +257,13 @@ static bool decap_and_validate(struct sk_buff *skb, int proto)
- 		return false;
- 
- 	if (proto == IPPROTO_IPIP) {
-+		bool l3slave = ipv6_l3mdev_skb(IP6CB(skb)->flags);
- 		int iif = IP6CB(skb)->iif;
- 
- 		memset(IPCB(skb), 0, sizeof(*IPCB(skb)));
- 		IPCB(skb)->iif = iif;
-+		if (l3slave)
-+			IPCB(skb)->flags |= IPSKB_L3SLAVE;
- 	} else if (proto == IPPROTO_IPV6) {
- 		bool l3slave = ipv6_l3mdev_skb(IP6CB(skb)->flags);
- 		int iif = IP6CB(skb)->iif;
 -- 
-2.43.0
-
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
