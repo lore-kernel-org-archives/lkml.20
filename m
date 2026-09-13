@@ -1,169 +1,143 @@
-Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1771331E84B
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 20:41:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 547BF3749EA
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 20:41:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789332079; cv=none; b=lCzQZPlXNBfSaX56V6XvWZvkFP0plt0AGrMWwvCLLpWoCN32Re1W0JTygbDM+l3mDVVsQ8surOFR/xX8eQ7AoDSUCJLB5B0q44FtzLVTKM2FaZGKf0Q6jy3mv+0pLRVWdwJIVKDSg3t4koCBV4V5iF0QSs0wJdD3Zf6o2StzfFo=
+	t=1789332082; cv=none; b=olEclmlsfKLrW7m35aDzBmxWJjJXI5HUtl5vgjCuj32/rihM4MLl+zBX4V/j/AqKN6EwRbOd4oZPZukQJKI5OSYu+Fih6fiG6yoQnpu1DCxRsk7qmHKp93NOsQsTj7A2Bc7A3JDd7nxU+HiEu1qH5v7SKtjAK2Jv07vG08otyRs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789332079; c=relaxed/simple;
-	bh=iKlS5rdEb+K1g+xyBv39aa4hkcRyjb3P19zjf0ocvlw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=D9tldEWRxyYaJdZzwEd5TKy5AqWweJqt3nyocBBTTwa1JuyEm8Pt9ighc8h9cx7aSQqWXZDv29W79hc4zdy/pR9Bz/8LK/9WNisc3f4A+S/bMw5v2dypqphLOzd0F71FwTcClwjyxYwjY0wTqaTyNJFZ9XrtHM+V4A2YnYhvCZ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cLtbhiYk; arc=none smtp.client-ip=209.85.219.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789332082; c=relaxed/simple;
+	bh=C5DsJkXIJoZlAT7IjZCC8I/UwHv4oDRaj3MSbn6+mgI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jjHn2MeLNZTQA+hpT9PDSXjN5yvo9fAyhpE2LvV0+Omzw2ZPLM4kiXZQngfbYamQoVs0lZuXoftvPRt+JFX0Ajk9WercseDvXQuO7UMPjxp31v6/2iEv4ZYvsHwaZsi84k2xDzPRnsggLHLt6Nuo736YyHtXtJ/8qnEN/ZygtQE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=jsOv9Cud; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cLtbhiYk"
-Received: by mail-qv1-f48.google.com with SMTP id 6a1803df08f44-9120eda2195so28613016d6.1
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 13:41:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="jsOv9Cud"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843c3ea1f6so509229f8f.0
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 13:41:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789332077; x=1789936877; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+CNpe8/W4LNtmYoGjyzLBCqquLi4Tz0KDmEKn8Ugoaw=;
-        b=cLtbhiYky5zh7WwC0yVMxqQNxjTTDzjQ29CCFR+XunrI4kO+UVXvOeMH/+460FF9SC
-         snuckyNZ8fWInezdOOQ/GUuvY0YxQ2e3G0ra24V4cmYtBExAi40D9/yPkrPZ+UjWJQW1
-         dXb7clrR92Zt8m40rIitfW3r9hH1zNH6QPAOM1pmHy8dCKu7oDBprXSfgaDtWn74ijQy
-         Vuh7xnpCCSUH8DN4R/p/TuqVlzY6ZImf87tksin0i+SapHU5UaOJpp7YX6I7Mvji9WOJ
-         C0Owjuul95OoWSLL5WZVWK1/6FfJcg+9xrEHTADlFrles/l0ZhP32dOyV8sWwc26fOuY
-         xnDg==
+        d=google.com; s=20251104; t=1789332078; x=1789936878; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=R6YGWhzsvFbV+PYiTdLNQJwYPXDHjuNqpkT5NJtjU/o=;
+        b=jsOv9CudMOlRXkR4JjxnGu+OLi3A3Msfo0S51B8gssBl7FYemkqXvbUIgWCj0cWNXz
+         gAa6GvzFWJGGxUbOIL/M9ieKZWaPjr1lzC8A93iQjGZ6l2T3n7jsKnhFqGR2KYAfXJrK
+         Gj0JXt3SkzQRvQTL27LrRDQ3QWEk8Jo848FWAzoCssR8+RM4Q++azIkpxFKr37aPurkP
+         QYP0l9euwK0uQKdAe4cr3NJn3I7gXAM1hIC7uYSkadxsw0/I7W4H93NzKriAYjRzWYdC
+         nicdY96yxGeEM81j65CpN8XmA3vsQFtVIsF+A+teAStU7E6mitnGpG206xgBGkHunZGe
+         f93Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789332077; x=1789936877;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+CNpe8/W4LNtmYoGjyzLBCqquLi4Tz0KDmEKn8Ugoaw=;
-        b=Cx7EbeWQ22R3VKZImqyNLRpsAi5+qwrPsDkn/vDy0fFnUk+4uXvnDs3iHVHJQavxa/
-         mLGhJtAm8BfAaK8Bhx/rZA99JtIhazOYtFNHwxq47FzYW6s4+GlJ9FrY6OoiMxWqXioA
-         qwzdoSDyJu4cF8EDRedyE0juhWSaEby1BHAqopjqw5aTgFx0VL1Eg2niW2+EQBJHxIoG
-         XwlpN2Iq4md0XGAvnzazzxgEdf94/TjcU8krsa3qn7OrSisSuUJYC9cV12SAa09jsA9D
-         M2E3AuaHIAJuz328KrYwcNQNb9RYd5IqwOw3pBKhFubXRukSufdWAZJqKf6PmS7dVBll
-         tUFw==
-X-Forwarded-Encrypted: i=1; AKwUvBz1WCRrKUUXYXTBstCpoFtJE7YGtNpiFhKOjEH4w0cwbfKyPz31UpPzklGCDbFmUSejjoAuLxodN6tfkAM=@vger.kernel.org
-X-Gm-Message-State: AFuF++mEWYR5O8G1cRqjFczQlYhjEKB13ZRrTkxRLdtuOi8ikDVgoHwC
-	BPHnIMHKt9BV3eqwNYj8cydSOKPobuElg5eOwCalLnqnIG/McNsBDig=
-X-Gm-Gg: AYBFou1COc62/NVbFhVofq3fUr3sdmbKtApasicSn8x4xhbyV/zWIOE+3w6Fcqmui7C
-	Kd1P/ofxCtt6zmG6CZ4vmlRPze27W+W5IC5aoJIt0ux5i+CmfoX87fGBCHuDqC5mESPrHRAJnYI
-	4cz1yqz/u32b9ln3ZHeVv+KY1DWy21WGgPGuJ8MCg0UHDH8kg/I5aXVL4qsstPyelaDXqzSCKS1
-	gypsHbAtUb2IIv744caFiVmDEJXiSGNo7QCV+fArepUUt/ciYJNgiUPAnzFIK++ixnmF5BaxllZ
-	SHk/VtYO/SfivoaVC4MU+ziq8FIIKj3GiHCB0ulT7aPmDown3YvA7izSP3iJrLpLE5ynKecs0do
-	BHHglA8BGCd7usDAAgmzAX5mQtoBnKqzRdQsA/QV2FKcBtxgocPAodyi9ETQwGSPM/FnxHhQLLS
-	IJMDML3lTzPjxozo+zWTDf1Cz6Mf+6D2afTxk63qERkBcv4yvD4s9SbZrmwOzsvTrKFy/vpoAFV
-	JZiNEOKu8gE0H5mKmqwEGKhlrUtClr2WMAZ0MPjq+L1LhOFpacmRkQ6jAXzU8MC8mzqghXYcY48
-	PZDpSmNPR8xjqgVRVf5gQlKMw4X8YWPqmEE=
-X-Received: by 2002:ad4:5c85:0:b0:910:3923:cc6d with SMTP id 6a1803df08f44-91226bba65cmr48657356d6.22.1789332076955;
-        Sun, 13 Sep 2026 13:41:16 -0700 (PDT)
-Received: from localhost.localdomain ([104.39.73.78])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f478bf1sm78134706d6.25.2026.09.13.13.41.14
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 13 Sep 2026 13:41:15 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Dominik Brodowski <linux@dominikbrodowski.net>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Simon Horman <horms@kernel.org>,
-	Myeonghun Pak <mhun512@gmail.com>,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH net-next v3] net: 8390: pcnet_cs: release PCMCIA window on setup_shmem_window() error
-Date: Sun, 13 Sep 2026 16:41:04 -0400
-Message-ID: <20260913204104.53408-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.50.1
+        d=1e100.net; s=20251104; t=1789332078; x=1789936878;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=R6YGWhzsvFbV+PYiTdLNQJwYPXDHjuNqpkT5NJtjU/o=;
+        b=S124CxB6BvzfgV+WTv10pIs+mfslUt2w5DemrZEoY8Lk3QfvVhKwicHdIe6S5GI/wV
+         47HbK7gaP0ZZ+mbwICwFbzjsFlVHE6FMT5qvRfN45NHVA8fIfMVFIHxvgaRAwbvjSRRG
+         dzg7CnmkmTXGZEYqa8npVZmqGNHhEagOzn5jVgPjkeBMXtI9U3o+8clF4otUXqLIBePS
+         Mba+VMPjTorLR7/djPOGZVhwYnuNky5egBg4mYmW2LT+mG3tPtf+72KanweTRc2eVS6N
+         tYMuErmS0q5Ubv4C+QwFSlbZoR4dmX0ZZPKQ4m98IfDhFGroskffto4SmHl0e0cPvRl7
+         wfBQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxWgGb2tJ9+IQr3AA3j0RSFaspVJDCQeMwUHWdDJgaTsTywKXY0dbP2rmk9y5uN7YpxapFkY0sUMahIfgI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lGroBzDMRyccyHd5NNzbD2tFAXQCYyy7e8BkgNnoXmqClgh2A7
+	2PlMhmB5+QS6a3irFnFtTsF+WXOtlxGNBlB0Y8oGpUvDp7sYrfjfA0//0arxgJdPbw==
+X-Gm-Gg: AYBFou3RE8fnlkHq/vM13FDbHikYwInVTvsfhX763GUy97SIRCZ6ZjlnSulL47mem58
+	LpkK0ZpzyJMz6ymyS7GugAXYnsx3iLHHZJUvZLrk15Fkg3MyNU3y0cz0rYfrCY8IluPZWpd5iRj
+	sb6Y4fZF2hZIqNSI/yQNbV02AarZPfWipEOb/CsylemA8ucnS7AhOZ/1p85PbmLEfp8grQuj8Hs
+	WOEhvWVUvU6NvyL8P9TXvq3bFHBIbUm/hsnX0Bhxh3+i+Nk0eRcdrljqhUWlAW7HUUzF3YNlwZs
+	3QiRFK1wwp026hfFRywbE2qsh10eioWjeJ75o+3iM+Ln/cDxyTFv46x8Hi6BdyjQqlkMDvzTEtW
+	qzrDCO5ydSandZ1R/w3INyyaUpSzNr4ew2ymzBf+dJAZMvxkeZKD2RS3cQTyEp7kk4BO5gQ5Vyy
+	Ud/VuRHbEDDBTx5U0dM2fg6S8piWlWPc3q5YroKMg4NnogyKWsJP3DIZ2+ALrbSdhGu3SS7lRbm
+	p/msj6bEeQbSak+wsWHASC/UwhOobuxSyDv5sE7Gw0=
+X-Received: by 2002:a05:6000:2082:b0:484:3f15:15f2 with SMTP id ffacd0b85a97d-486f6c17cdbmr7177342f8f.24.1789332078141;
+        Sun, 13 Sep 2026 13:41:18 -0700 (PDT)
+Received: from google.com (135.91.155.104.bc.googleusercontent.com. [104.155.91.135])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb34f1f7sm21666477f8f.24.2026.09.13.13.41.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 13 Sep 2026 13:41:17 -0700 (PDT)
+Date: Sun, 13 Sep 2026 21:41:14 +0100
+From: Vincent Donnefort <vdonnefort@google.com>
+To: David Carlier <devnexen@gmail.com>
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] ring-buffer: Check resize_disabled before publishing the
+ new subbuf order
+Message-ID: <aqcKav91XJsCLxPJ@google.com>
+References: <20260912103938.1127021-1-devnexen@gmail.com>
+ <aqcJq1-R-LaK9uBi@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqcJq1-R-LaK9uBi@google.com>
 
-setup_shmem_window() acquires a PCMCIA memory window using
-pcmcia_request_window(). If pcmcia_map_mem_page() or the subsequent
-ioremap() fails, the function returns without releasing the requested
-window.
+On Sun, Sep 13, 2026 at 09:38:03PM +0100, Vincent Donnefort wrote:
+> On Sat, Sep 12, 2026 at 11:39:38AM +0100, David Carlier wrote:
+> > ring_buffer_subbuf_order_set() stores the new order and only then walks
+> > the CPUs, returning -EBUSY if any of them has resizing disabled. A user
+> > mapped buffer has resizing disabled, and __rb_map_vma() reads
+> > buffer->subbuf_order without buffer->mutex, so an mmap of an already
+> > mapped CPU racing the failing order change sizes the mapping with the
+> > new order and inserts pages past the sub-buffer into the VMA.
+> > 
+> > Check the CPUs before storing the new order.
+> > 
+> > Fixes: 117c39200d9d ("ring-buffer: Introducing ring-buffer mapping functions")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: David Carlier <devnexen@gmail.com>
+> > ---
+> >  kernel/trace/ring_buffer.c | 8 ++++++++
+> >  1 file changed, 8 insertions(+)
+> > 
+> > diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
+> > index 9c03a555a6ba..d7e5e4620d09 100644
+> > --- a/kernel/trace/ring_buffer.c
+> > +++ b/kernel/trace/ring_buffer.c
+> > @@ -7474,6 +7474,14 @@ int ring_buffer_subbuf_order_set(struct trace_buffer *buffer, int order)
+> >  
+> >  	old_capacity = rb_subbuf_capacity(buffer);
+> >  
+> > +	/* The mmap fast path reads subbuf_order without buffer->mutex. */
+> > +	for_each_buffer_cpu(buffer, cpu) {
+> > +		if (!cpumask_test_cpu(cpu, buffer->cpumask))
+> > +			continue;
+> > +		if (atomic_read(&buffer->buffers[cpu]->resize_disabled))
+> > +			return -EBUSY;
+> > +	}
+> > +
+> >  	atomic_inc(&buffer->record_disabled);
+> >  
+> >  	/* Make sure all commits have finished */
+> > -- 
+> > 2.55.0
+> >
+> 
+> I do not think this is correct.
+> 
+> __rb_map_vma() reads subbuf_order without the the buffer lock __only__ if it is
+> already ->user_mapped, which means it has already the resized disabled.
+> 
+> During the first setup, it takes buffer->mutex.
+> 
+> -- 
+> Vincent
 
-pcnet_config() treats shared-memory setup failure as non-fatal and falls
-back to setup_dma_config(). Probe can therefore continue while socket
-window 3 and its reserved iomem range remain unnecessarily held for the
-rest of the bound lifetime of the device. pcmcia_disable_device()
-eventually releases the window during teardown.
+Ha my bad, that function also modifies the subbuf_order __before__ checking the
+resize_disabled.
 
-Route error paths after a successful request through a new release label
-that calls pcmcia_release_window(). Fold the existing buffer-verification
-cleanup into the same path, keeping iounmap() before the window release
-when a mapping exists. Leave the request failure path unchanged.
+Could we also clean the later resize_disabled check in the following loop?
 
-This issue was identified during our ongoing static-analysis research while
-reviewing kernel code.
-
-Assisted-by: OpenAI:GPT-5.6
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-Reviewed-by: Simon Horman <horms@kernel.org>
----
-Changes in v3:
-- Drop Fixes and stable Cc as suggested by Simon Horman.
-- Add Simon Horman's Reviewed-by tag.
-
-Link: https://lore.kernel.org/netdev/20260910231400.31919-1-mhun512@gmail.com/
-
-Changes in v2:
-- Clarify that the window remains reserved only until device teardown.
-- Make the DMA fallback and continued probe description conditional.
-- Avoid claiming that every request failure leaves no resource held.
-- Restore the surrounding indentation for the new goto statements.
-
-Link: https://lore.kernel.org/netdev/20260731161740.44955-1-mhun512@gmail.com/
----
- drivers/net/ethernet/8390/pcnet_cs.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/net/ethernet/8390/pcnet_cs.c b/drivers/net/ethernet/8390/pcnet_cs.c
-index 19f9c5db3..0cf3c0f3c 100644
---- a/drivers/net/ethernet/8390/pcnet_cs.c
-+++ b/drivers/net/ethernet/8390/pcnet_cs.c
-@@ -1434,14 +1434,14 @@ static int setup_shmem_window(struct pcmcia_device *link, int start_pg,
-     offset -= offset % window_size;
-     ret = pcmcia_map_mem_page(link, link->resource[3], offset);
-     if (ret)
--	    goto failed;
-+	    goto release;
- 
-     /* Try scribbling on the buffer */
-     info->base = ioremap(link->resource[3]->start,
- 			resource_size(link->resource[3]));
-     if (unlikely(!info->base)) {
- 	    ret = -ENOMEM;
--	    goto failed;
-+	    goto release;
-     }
- 
-     for (i = 0; i < (TX_PAGES<<8); i += 2)
-@@ -1452,9 +1452,8 @@ static int setup_shmem_window(struct pcmcia_device *link, int start_pg,
-     pcnet_reset_8390(dev);
-     if (i != (TX_PAGES<<8)) {
- 	iounmap(info->base);
--	pcmcia_release_window(link, link->resource[3]);
- 	info->base = NULL;
--	goto failed;
-+	goto release;
-     }
- 
-     ei_status.mem = info->base + offset;
-@@ -1475,6 +1474,8 @@ static int setup_shmem_window(struct pcmcia_device *link, int start_pg,
-     info->flags |= USE_SHMEM;
-     return 0;
- 
-+release:
-+	pcmcia_release_window(link, link->resource[3]);
- failed:
-     return 1;
- }
 -- 
-2.47.1
+Vincent
