@@ -1,156 +1,116 @@
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.102])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 830CF3E2AA1
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 14:33:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.68.63.102
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB4E53E9C0E
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 14:39:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789309984; cv=none; b=oOWnqGWe/J/X3mxU4F2RhGu3wgjQW29/M0ewo23qXk9GfgP8d9EelYG86xs6ALPr45l+ZR5LveE0z0apDzqsJ/h02tbJlMIKecqmZX82h+Sg+eiuheK0kgK4St5rH4T5aRKL6RuUQzhYHX8VGuzozJJK+2/oeRDOT/k0vw06Q+c=
+	t=1789310360; cv=none; b=NxOQ9HeOLgpkQTYm6wqOrzNENh/xzz6o4C9sELUEOTNu/XsdQ7vy49ObGCQAtfQmVyfbw6MoN2YaGxwJhTlCXppeqv1nVmuIg29fMmeNgs++izeF93dw+X0HR/nFYjwL+WJhwjQX6w7qSE6usVsr7ZrxLafVM8mHero8iVted+8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789309984; c=relaxed/simple;
-	bh=8nybc2zdT1V02w60Sa6PV1zgJfsB6WiaJXMEa4g65Qs=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:Content-Type; b=ATGNnvhD88+Xg3Fs7QCossHy9kx6Pi6jrAs1EQxTuxOWCikjx956RikP/lLzFq0D3oKFhJelrwhQQQPZ8W85OR13b6ShioV/QGLJYpdbVw/lt/jBuWV1xfHdeCcsuCwdK4GMZHa2uUPiGFBC267OARoik+XF6XpXRPM5u8JmpUk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=cpSE6Lrj; arc=none smtp.client-ip=188.68.63.102
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
+	s=arc-20240116; t=1789310360; c=relaxed/simple;
+	bh=jiMrzmDOfg1nWOBVZ7m2UVnsQM7VW5f1VNF2Ud+H8Lc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WTGEh6/Yr0Ylj8iHAZ/gUJf+N/0Cb1VJHiNPbhGMZLye2r0eGUPN5+v4uGYzLiW2UpnmWi5PhR+eU0ORlG7jpFHJup9ws8QHPDhLPuFJE7Wdi6C6XNrxGuKYknyGFc5MmMhr3JVGnf/Qg7elzzvzQ7D88SwjARbdGzW0Q/L7QhY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cUxtCzFk; arc=none smtp.client-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="cpSE6Lrj"
-Received: from mors-relay-2502.netcup.net (localhost [127.0.0.1])
-	by mors-relay-2502.netcup.net (Postfix) with ESMTPS id 4hjW385R3sz6M9l;
-	Sun, 13 Sep 2026 16:32:52 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
-	s=key2; t=1789309972;
-	bh=8nybc2zdT1V02w60Sa6PV1zgJfsB6WiaJXMEa4g65Qs=;
-	h=Date:From:Subject:To:Cc:From;
-	b=cpSE6Lrju1vI/Cg/MvDmD91uwSX+H6nLaO7M4OhSmBXo/z/BOLVPbL4yvSfegtl89
-	 i0TJ7K0kIH1Mit51D15xxzlHGuowoPH4O6/Z4MKkYByo22GLEpsEWn6FAumftu4mAN
-	 zRVGKIKAcLAmW1rJtjIcTsRN79i2IoYd3me3ClqF3tmSck9dK+yWxB1xyjO3W2lxzj
-	 TqjW2pfVNgL4Pg03a1bYcuHqC3TFJjENzp1HA0Otc/oWZaL2ton68jMLQTNpsZtUDD
-	 NEgTU6N3NNkdDuEbtNaPt7gmmS1JbXq5pDutz/uYvuWonQrLWrbR2SMfroewmVF9x6
-	 6qrwBjXHOKtOg==
-Received: from policy01-mors.netcup.net (unknown [46.38.225.35])
-	by mors-relay-2502.netcup.net (Postfix) with ESMTPS id 4hjW384hVKz4xnG;
-	Sun, 13 Sep 2026 16:32:52 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at policy01-mors.netcup.net
-X-Spam-Flag: NO
-X-Spam-Score: -2.901
-X-Spam-Level: 
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by policy01-mors.netcup.net (Postfix) with ESMTPS id 4hjW375JZ7z8tcm;
-	Sun, 13 Sep 2026 16:32:51 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
-	by mxe9fb.netcup.net (Postfix) with ESMTPSA id C6F385F9F0;
-	Sun, 13 Sep 2026 16:32:50 +0200 (CEST)
-Authentication-Results: mxe9fb;
-        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <46403cf8-9a81-4596-87eb-dde58ae4c5db@leemhuis.info>
-Date: Sun, 13 Sep 2026 16:32:50 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cUxtCzFk"
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3856d6fbcb3so2310708a91.2
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 07:39:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789310358; x=1789915158; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QV8gjzCfofnh3QCpS/nK9Zmu81UQ7ALKKOBtGf8NykU=;
+        b=cUxtCzFkLmq6MFlqJtPpUjAgHRMRTt+4EBAGEr3y4fg4ShlXgcRbqe5QIDX1jGi6Lq
+         20CY8MnscPil2KI5hf1g8fE/ifrlr1rGdoapzJzKYAp+y5ZGOUYQLzX0CbyGtU0cjgCS
+         l0ovV4LuFLwe/O8rGSwTbozIodOafMBrTj1sswZKYoVyvDbaEuRCFbkxvswcCS3SExUa
+         UgEWhUOm4X5xcMg0nfZcGvOx/wFkc5PW2JJ9GgtLlQenmn8T8GV3GEKcfXHSTfxlNVvL
+         XnyMt84vNnLxdm+fkdDFgFpxWU22xTWRP1EJRarYEaG1YFVUkSpLA8ZGr9NSozD7JdK1
+         2FQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789310358; x=1789915158;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QV8gjzCfofnh3QCpS/nK9Zmu81UQ7ALKKOBtGf8NykU=;
+        b=nqpSIl0pvIAL77jaJXdNWtmz8QMltMTk6aMUcyqYa+q+g8+rzfqwfsPubGvpWBe1Rt
+         sof+HRiTv/frj0yj/YnC5utDMerdP+f0cJDi7XKADpKdmTkx4eGgJv6ugRviuU2UONrb
+         IQGcZBBt6S3g+q5pxwYl53r5uaZkiiSmpeySWazpCJM5DULXn6AhDfW61iicYI2ggRoX
+         vItiD3CoZL5N6lbrlhNtF9mjF4l6ZZvo3NzWPUc4hOyL7GQ09tOgx0i8V1e6yJ5ofcoX
+         vAv/eL6bQvofZGrDsjkeJbtgxg7RY5PskMH1fFeLw5mePd21GngQB9DN1s8D0ognLdeH
+         WHhQ==
+X-Forwarded-Encrypted: i=1; AKwUvByasgqLzFR0scZov6IXerL4sVI1A7Xs3mKYdTu5EezJIZKytR2QXR5lBDX5R+1ZQSV7aYIRl+1foyS8fJc=@vger.kernel.org
+X-Gm-Message-State: AFuF++kxSnpCTtLtQUFydtIcBBK1fgFe8zyN8geMkHfWsIbxJlN1FtJ3
+	QHR3BcevoEL1d2etO4gyjaTOmxQjrTgIWn/4Ou5Gy7LW6fLtjIQOJ4GM
+X-Gm-Gg: AYBFou2df3F9pyPIGsDJoxpRDuTI0+btEzY5zl0p/N8pZnaMlvQ/rPHa5HcjDOxeYzy
+	diy2gUMk1mcHI424UZ5nxDb9k4asKLrsy3C2fvZNwXgarOm+ZMdwgReIJl8yu05uuPNQ5SS+pmG
+	63++uXYH29eHqxlnuMXVvkKWyDdZL8zHrUdnlvdDHaIMzNul+Si2nmlWZYJOa/w9WbBM4I0KKB6
+	aDSEx58VjNdn+dEJO4zglVwYJng295ZNCpapSc2KTBnva7DouiXfd/cW/kdHV/GEL87DF5rH9zE
+	95mMyZbbIdHYyP2NTB2q4uJUvhHwAtWw1Gm0WEv5brS8l7Vf/SjaC7ga3duW92poZyQqKG9EB4N
+	U3u+xT2vC+q820oiNrLVBU/7zjulBxi+IQJpKThfk9j33cHozMlC3cgqTDN2OWjecXM0Omj6IyV
+	riw2rGz6mXNZXJziwdbSgRVuDIYJnMbGP708LujZSvcVxBLvMSdX/IaA==
+X-Received: by 2002:a17:90b:4a8d:b0:39d:8222:6436 with SMTP id 98e67ed59e1d1-39d9bd8f51cmr22611245a91.7.1789310358118;
+        Sun, 13 Sep 2026 07:39:18 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d94bb0119sm16289560a91.2.2026.09.13.07.39.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 13 Sep 2026 07:39:17 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>,
+	Ivan Gorinov <linux-kernel@altimeter.info>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] HID: winwing: remove unpaired hid_hw_close()
+Date: Sun, 13 Sep 2026 22:39:09 +0800
+Message-ID: <20260913143909.1589019-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Subject: Quick regression status pre 7.3-rc3
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Linux kernel regressions list <regressions@lists.linux.dev>,
- LKML <linux-kernel@vger.kernel.org>
-Content-Language: de-DE, en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-PPP-Message-ID: 
- <178930997106.3071413.15283476729845245435@mxe9fb.netcup.net>
-X-NC-CID: bARJ2AKGoYQNFwnQrriXCNkwDdwMaX0Ddq/iuol+wH+cRh3Vfkg=
+Content-Transfer-Encoding: 8bit
 
-Hi Linus! Here is a quick report about a few unresolved regressions from
-the current or the previous cycle that I found worth mentioning for one
-reason or another; fixes are available for all of them:
+winwing_probe() starts the HID hardware with hid_hw_start(), but never
+calls hid_hw_open(). Despite this, winwing_remove() calls
+hid_hw_close() before hid_hw_stop().
 
+hid_hw_close() decrements hdev->ll_open_count. Calling it without a
+matching hid_hw_open() can therefore underflow the count when there are
+no open users, or incorrectly consume an open reference owned by
+another HID user. A subsequent legitimate close may then underflow the
+count instead.
 
-* c6b1b34b509032 ("media: pci: intel: Add CVS support for IPU bridge
-driver") [v7.2-rc1] broke the internal camera on laptops where the
-sensor sits behind an IVSC. There are various reports, among them:
-  https://lore.kernel.org/lkml/20260901194526.6369-1-gvozdoder@gmail.com/
+hid_hw_stop() disconnects the HID users, allowing them to release their
+own open references, and is the proper counterpart to hid_hw_start().
+Remove the unpaired hid_hw_close() call.
 
-https://lore.kernel.org/linux-media/2f8b67fc-ec2a-46f6-9ee0-06279e612bde@badakan.com/
+This issue was found by manual code inspection.
 
-  Sergey Zagursky provided a fix that sits in -next as ce92674d8d8b29
-("media: ipu-bridge: do not use the CVS device lookup for IVSC")
-[next-20260903] and can also be found here:
-  https://lore.kernel.org/all/20260902211524.5572-1-gvozdoder@gmail.com/
+Fixes: 42d020b54edc ("HID: winwing: Enable rumble effects")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/hid/hid-winwing.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-  I asked Mauro about the plans to mainline this up (this was before
-this weeks media PR was sent), but that didn't lead to any reaction afaics:
+diff --git a/drivers/hid/hid-winwing.c b/drivers/hid/hid-winwing.c
+index 9cd25a77999e..e18728f215ae 100644
+--- a/drivers/hid/hid-winwing.c
++++ b/drivers/hid/hid-winwing.c
+@@ -388,7 +388,6 @@ static void winwing_remove(struct hid_device *hdev)
+ 	if (data)
+ 		cancel_work_sync(&data->rumble_work);
+ 
+-	hid_hw_close(hdev);
+ 	hid_hw_stop(hdev);
+ }
+ 
+-- 
+2.43.0
 
-https://lore.kernel.org/linux-media/27c82eb4-4f8e-41b5-b983-dff7a0a27951@leemhuis.info/
-
-
-* f3b1357673ddb3 ("remoteproc: qcom_q6v5_mss: Switch to generic PAS TZ
-APIs") [v7.3-rc1] broke GPU and modem on on Qcom devices that have a
-TrustZone firmware without PAS. This was already known before the merge
-window and is still unfixed -- which is why I'm mentioning it, as it is
-a good example how long some fixes take to reach mainline (see my
-maintainers summit proposal). The two fixes for that regression at least
-finally both made it to -next now:
-
- - b853857293584d ("remoteproc: qcom_q6v5_mss: Don't require PAS for
-memory protection") [next-20260901]
- - b7c0f8436f077e ("drm/msm/adreno: Only check for PAS when a zap shader
-is present") [next-20260911 (pending-fixes)]
-
-
-The two regressions from last week's report (also known since the merge
-window) are still around and didn't make any progress afaics:
-
-> * 9417c5818a0146 ("wifi: mt76: mt7921: validate CLC firmware records")
-> [v7.3-rc1] causes probe failures for some widely used mediatek wifi chips:
-> 
->   - Mikhail Gavrilov reported this on 2026-08-16 (e.g. right before the
-> merge window opened):
-> https://lore.kernel.org/lkml/20260816132325.23007-1-mikhail.v.gavrilov@gmail.com/
->   - Junjie Cao reported this on 2026-09-01 with another fix (withdrawn
-> meanwhile):
-> https://lore.kernel.org/stable/20260901011840.416787-1-junjie.cao@intel.com/
-> 
-> 
->   The culprit's author within hours of the first report provided a fix
-> that got "Tested-by" from the two aforementioned reporters:
-> https://lore.kernel.org/linux-wireless/20260816174841.1918-1-acharyalaxman8848@
-> 7.2 final/-rc8gmail.com/
-> 
->   The maintainers afaics never reacted to the fix and it three weeks
-> later still marked as "new" in patchwork:
-> https://patchwork.kernel.org/project/linux-wireless/patch/20260816174841.1918-1-acharyalaxman8848@gmail.com/
-
-The culprit made it to a few of the current stable-rc releases, but was
-dropped today.
-
-> * 9b80bd9cab40c4 ("wifi: mt76: mt7921: add regulatory wiphy self manager
-> support") [v7.3-rc1] and e9f3f1cc133fc2 ("wifi: mt76: mt7925: add
-> regulatory wiphy self manager support") [v7.3-rc1] also causes probe
-> failures for some widely used mediatek wifi chips; the problem is in a
-> similar area and affects similar chips, but from my limited
-> understanding seems to be different.
-> 
->  - Klara Modin reported the regression on 2026-08-24:
-> https://lore.kernel.org/linux-wireless/aoyxqHYvSuaBeubf@soda.int.kasm.eu/
->  - Devin Wittmayer within a day reproduced the problem and provided a
-> fix that got a Tested-by from Klara:
-> https://lore.kernel.org/lkml/20260825181712.28548-1-lucid_duck@justthetip.ca/
->  - David Gow recently ran into the same problem and provided a Tested-by
-> for the fix, too:
-> https://lore.kernel.org/lkml/bcf1ee9b-97e5-43f9-81eb-67ac6a0a98dc@davidgow.net/
-> 
->   The maintainers never reacted to that afaics and that patch is still
-> marked as "new" in patchwork:
-> https://patchwork.kernel.org/project/linux-wireless/patch/20260825181712.28548-1-lucid_duck@justthetip.ca/
-
-No progress for this one afaics.
-
-HTH, Ciao, Thorsten
