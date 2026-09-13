@@ -1,163 +1,156 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEAE83B14B4
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 07:37:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AC953603DD
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 07:41:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789285055; cv=none; b=jD0PIsFIjQn4trTkgd2uhyOCZzg1EcZQ2gvFxDXnIIlodAGrel6JRz16IGRu/0lGnILO+EtiC3OWrvfNFU7w6YXxjBTJbPeoIAkGmoMgF5dwb3x+mR8pYmS7bAZZFeuK375WJwAsbB1k/Ytd+7ahlNe/WhrdMzRG9WiNts2Vkrg=
+	t=1789285292; cv=none; b=B8H0jovzwh5R8ptm/hx4PkWXABABpTvSHTK+0Y9/nTbD+gGLys4ks2KVGWsVuxhJeCDtF3iVXdHg5hBeq94Fswm8PxLUZpUliVLatu16Ub0Po//iqRs9KzHSWjNQwumPym7bc79AsjKnJodrxUydyX1YAEJMu/NEF7+nSOZOnGU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789285055; c=relaxed/simple;
-	bh=9bbSBp871H23oQaegj/vbO5aR4dn3QnB0KPj66ijqro=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=isOMdIkZKJ+EbeWEIZhEkQcwSLVY8/IttDMYKvyQ6k55LljmiaEPtOXKLggcR2G/k62BFkrr+bx/bZseg216cynUUE5kr9pYusotZstwmLYVxqPRuG2pgCAIbRBB3eDJnqdcUCzwi/tsxu3aeACezyCiVHKLaWgGE3UB5nxjBOE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jD/pKnFc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789285292; c=relaxed/simple;
+	bh=dKObZWAzCwT7mA1hQ7fnOlWSOMxImMUgzG7IZRqICwQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OxVzb0WparIc1jP9/dTtbOLeyi2jFi3j3H4eN8DkMGEOq0Uy2psolOq6jvKcMMCVERyu5FFqMEvFG55iZjeVFSI7EUc4RqOLU5/uJp3VeZdiaCgBESzUA0wAahy0X4nw8MTaZgOwcCA1xN2jg+oe36UxVExovNItDj9ms/lzNRw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KxD/VEFM; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jD/pKnFc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4EFC1F00893;
-	Sun, 13 Sep 2026 07:37:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789285053;
-	bh=kENY6vTLb3k3xzY9wWud1EJa7mum1nmdexc1RLTPIWo=;
-	h=From:Date:Subject:To:Cc;
-	b=jD/pKnFcs/SmCcOj/dmMYFcvawtFKa64uwWJVHDsKIgTwun3UP1+/zBQFRMob0zms
-	 A3Nlfoq1Kqxbx2cpVpZbZJppHeOSGQjAO0zqgGNdmC7Fcyysyete9bdNkwhEW3X5fH
-	 59/Obh9+sB5fuzloRF9SmowQdw/v+b2J7SbMpdyEx/hApGxiT5teQdHJfCs20EemKK
-	 MlouMr7gGaLYJfDEAM3czrcYtB0sIv42x0ZIvrHE0RgLfP0PahSHaLhTumUfzPVz62
-	 58AP9U5bA7U25FQdAdWKwYycKTVH2fqyaEh9XePrOiZRO3bxKbg5cEv4Xd0tnAsvOn
-	 xTOiG4s0FoujA==
-From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Date: Sun, 13 Sep 2026 10:37:27 +0300
-Subject: [PATCH v3] x86/mm/pat: use pr_warn() for early W^X warnings
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KxD/VEFM"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccda24afso739475a91.3
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 00:41:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789285291; x=1789890091; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QGMxhoqEc5sqXnRI8fK9K0ab088f98eW85+fhaIuxJM=;
+        b=KxD/VEFMXoITsH9HCnfqHGeHh50r4MRQB5w5myrHdKVbhyu+PNVJGdw356hnTuPc5a
+         yU9VkAtaXRdYUg5ubjk0B8QeX9YReZw6ePIag3ykUinVpFQn7St7BmhlvG5JsrLJlGKj
+         asVW9V9gUw+i23ozZmlvUYCzlu/mSt4aT8xER5Fv8rK/mjzphcDPWFdaQuJweuoRz52N
+         lNpI2JbYZYxB+35OTKcbI+C57DDgZiiIZvg+K6I3tZu1LQNWJLcfDZv1+EiEa2ndqImy
+         FxGjre31Gx5ITZLx/9PO/Alj3PJdgFJOMLFEVxFCF64ApVy7eE3ifz9MCmCpnD44xvIT
+         XGqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789285291; x=1789890091;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QGMxhoqEc5sqXnRI8fK9K0ab088f98eW85+fhaIuxJM=;
+        b=jrhXA4SFIfhxDuf/qRLb9sTJp6h2Va0jSaSRG5GMyMunDMz3YLvZDeWgXtYERgpKlM
+         pPUQH9+AP78gMqp123uRNGr/ZQn5cuFsjc4Endap+tWh2CkVkH8L6a6DGv/WSktlJKv8
+         U4/32TBzJjdMF//A+iuvry2Y/W0d+n/uUzbA0TdXYv7fZDeICUmpc5QVJVdL1R7avy4F
+         65YUTIBJd03WNkRCD1eWu78LnIvHsZCrdOKZeaMYYLSl31UI+PRtZbanM3MB+AY+UOza
+         9wJiZq98Pm05JmLh6M2qd+WIkq8hlRYsxBpoUC1B1DXdS2/KqQ/v4ix7JppUfQIU6gT7
+         WXuQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwBZPKEHj/CIoCu4lDx4Hz2lgKsSgwH99gPKelITrTOMHiV9KknwW4lMqHShAH7Ks32LCmrpbTgHhsmYDk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kSBrUuvxtHQwa8iYm475QpOixCnZtWDPZ8WJtcs81Po1ojPLUU
+	KqyC4rPkrPdqyqfxPFgQoRWrTDZHaKbCez9dKBcLZ/epjnVBqFjjwlGA
+X-Gm-Gg: AYBFou0rj/7ixSBBIygoNc0AI71BGIsjqo6Nb38ecEawlJyOccely+xrFNQxnLfhFpE
+	OATiB+iK1YBJNsnVgFTpN0phn9DN9vuZ5BAT/N6fvkWlQ1DhFMFAvbZOr6/61XcXeJuBqWw1A6a
+	ACv0ZW2xSPyRKR87IyoyRiM63QzJE2PHKuHTHhIwqwtrsnKrjKIp8jwvZNAM1fI5o2bhuqARB3r
+	aFp4XouQn8rQ64Z9y8TGpMDOn1sHPQ+IDdl1eJ9xw55PMO6GJvMk+l8rXmS1/iZK4iA2WTVMT2e
+	Nv46bDH+7ZcXZTxybbehwepxeZ/cAQQOGmPqe2A6kcqXRExALMjbneB7kIfAGNjfU7eOT+1+MIf
+	FTm0e8a4fXwJ4+s6HtSeBhWYZes3fEom+mXGullngD2hCiSVf2ONXw1Sh+vSdgSkeII6C2F2VVn
+	dPy3Rg2IIgJLk1UH9/XzSLOzij7A2PtNcSTdh+8yR2nE2OAXRUFfjoSw==
+X-Received: by 2002:a17:90b:4984:b0:398:ba56:b926 with SMTP id 98e67ed59e1d1-39d9c3968dcmr22793828a91.25.1789285290819;
+        Sun, 13 Sep 2026 00:41:30 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d95092c06sm14395927a91.4.2026.09.13.00.41.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 13 Sep 2026 00:41:30 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Sam Ravnborg <sam@ravnborg.org>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/kmb: fix potential use-after-free on probe failure
+Date: Sun, 13 Sep 2026 15:41:20 +0800
+Message-ID: <20260913074120.1483518-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260913-fixes-verify-rwx-v3-1-5e1d6a08bd02@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2WOzQ6CMBCEX4X0bKU/pBRPvofxQHGFqvxkixVCe
- Hdb9aDxOLvzzcxCHKAFR3bJQhC8dbbvgpCbhFRN2dVA7SloIphQrOCMnu0EjvpAnWeKj4myLNM
- ZN7kqpSYBGxBenkAdjm/t7uYC1RhzosOUDqjBsquaeBrtkE5apW0bn411Y4/za5DnMeTTzTQrR
- C7ZNmNBC005xWEY91fADm7bHmsS67z4Yjj/3+tFIEFUJ5CFUaqQPwnruj4BRLfqkxQBAAA=
-X-Change-ID: 20260910-fixes-verify-rwx-044841b76a38
-To: Dave Hansen <dave.hansen@linux.intel.com>
-Cc: Andy Lutomirski <luto@kernel.org>, Borislav Petkov <bp@alien8.de>, 
- Ihor Solodrai <ihor.solodrai@linux.dev>, Ingo Molnar <mingo@redhat.com>, 
- Mike Rapoport <rppt@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
- "H. Peter Anvin" <hpa@zytor.com>, Peter Zijlstra <peterz@infradead.org>, 
- Thomas Gleixner <tglx@kernel.org>, x86@kernel.org, 
- linux-kernel@vger.kernel.org, linux-mm@kvack.org
-X-Mailer: b4 0.17-dev
+Content-Transfer-Encoding: 8bit
 
-Nathan Chancellor reports the following warning:
+kmb_irq_install() registers the LCD interrupt handler with the DRM
+device as its dev_id. If drm_dev_register() subsequently fails, the
+probe error path tears down polling but does not uninstall the IRQ.
 
-  CPA detected W^X violation: 8000000000000123 -> 0000000000000123 range: 0xffffffffc0400000 - 0xffffffffc0400fff PFN 100e00
-  WARNING: arch/x86/mm/pat/set_memory.c:722 at __change_page_attr_set_clr+0xde7/0x1290, CPU#0: swapper/0/0
-  Modules linked in:
-  CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 7.3.0-rc1-debug-00006-g453e78594434 #1 PREEMPT(full)  2950d432dd3910251071a66f3134fe0875432786
-  Hardware name: ASUS System Product Name/PRIME Z590M-PLUS, BIOS 1801 12/26/2022
-  RIP: 0010:__change_page_attr_set_clr+0xdff/0x1290
-  Code: 80 7c 24 42 00 0f 85 3a 04 00 00 48 8d 3d 19 8d 79 02 49 89 d9 4c 89 e1 4c 89 d2 4c 89 f6 4d 8d 84 24 ff 0f 00 00 4c 89 14 24 <67> 48 0f b9 3a 4c 8b 14 24 48 8b 0d 81 44 bf 01 41 f6 c2 01
-  RSP: 0000:ffffffff87003c60 EFLAGS: 00010246
-  RAX: 0000000000000002 RBX: 0000000000100e00 RCX: ffffffffc0400000
-  RDX: 0000000000000123 RSI: 8000000000000123 RDI: ffffffff872e50c0
-  RBP: 8000000100e00123 R08: ffffffffc0400fff R09: 0000000000100e00
-  R10: 0000000000000123 R11: 0000000000000001 R12: ffffffffc0400000
-  R13: 0000000100e00123 R14: 8000000000000123 R15: ffffffff87003d58
-  FS:  0000000000000000(0000) GS:ffff8ad1777a7000(0000) knlGS:0000000000000000
-  CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-  CR2: ffff8ad0a4201000 CR3: 00000007e3022001 CR4: 0000000000770ef0
-  PKRU: 55555554
-  Call Trace:
-   <TASK>
-   ? _vm_unmap_aliases+0x219/0x280
-   change_page_attr_set_clr+0x161/0x250
-   ? events_sysfs_show+0x5d/0x80
-   set_memory_x+0x39/0x50
-   apply_retpolines+0x656/0x6d0
-   ? events_sysfs_show+0x5d/0x80
-   ? events_sysfs_show+0x6c/0x80
-   ? events_sysfs_show+0x62/0x80
-   alternative_instructions+0x3c/0xd0
-   arch_cpu_finalize_init+0x130/0x190
-   start_kernel+0x97d/0xa10
-   x86_64_start_reservations+0x24/0x30
-   x86_64_start_kernel+0xda/0xe0
-   common_startup_64+0x13e/0x151
-   </TASK>
-  ---[ end trace 0000000000000000 ]---
+The DRM device is allocated with devm_drm_dev_alloc(), so its initial
+reference is automatically released by devres after probe returns an
+error. The missing IRQ cleanup can therefore leave the registered
+interrupt handler holding a pointer to the freed DRM device.
 
-The warning appears because commit 038176c21617f ("x86/mm/pat: fix
-effective RW computation in lookup_address_in_pgd_attr()") fixed the
-effective RW checked by verify_rwx() and it exposed that pages used for ITS
-trampolines temporarily have RWX permissions.
+The failure sequence is:
 
-The permissions are updated in its_fini_core() after all the ITS
-trampolines are generated, but since verify_rwx() detects invalid
-transitions, it warns when its_alloc() makes RW memory executable.
+  kmb_probe()                            IRQ context
+  -----------                            -----------
 
-At the time of alternatives patching the entire kernel text is mapped
-RWX, so the warning is bogus anyway.
+  kmb_irq_install()
+    request_irq(..., drm)
+            |
+            | success
+            v
+  drm_dev_register()
+            |
+            | fails
+            v
+  err_register
+    drm_kms_helper_poll_fini()
+            |
+            | IRQ remains registered
+            v
+  probe returns error
+            |
+            v
+  devres cleanup
+    drm_dev_put()
+            |
+            v
+  kmb / drm freed                       interrupt occurs
+                                            |
+                                            v
+                                       kmb_isr(..., drm)
+                                            |
+                                            v
+                                       handle_lcd_irq(drm)
+                                            |
+                                            v
+                                      access freed object
 
-Since the verification of the entire page table with debug_checkwx() has to
-be enabled explicitly in the kernel configuration, retain the warning even
-if it's bogus, but make it scream less loudly: use pr_warn_once() rather
-than WARN_ONCE().
+A later interrupt can thus invoke kmb_isr() with a stale drm pointer
+and result in a potential use-after-free.
 
-The warning can be removed once debug_checkwx() becomes unconditional for
-configurations with CONFIG_STRICT_KERNEL_RWX set.
+Call kmb_irq_uninstall() after drm_dev_register() fails. This disables
+the LCD interrupts and frees the IRQ before the devm-managed DRM device
+can be released.
 
-Reported-by: Nathan Chancellor <nathan@kernel.org>
-Closes: https://lore.kernel.org/all/20260905044253.GA3816371@ax162
-Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Tested-by: Nathan Chancellor <nathan@kernel.org>
-Tested-by: Ihor Solodrai <ihor.solodrai@linux.dev>
+This issue was found by manual code inspection.
+
+Fixes: 7f7b96a8a0a1 ("drm/kmb: Add support for KeemBay Display")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 ---
-v3 changes:
-* fix stupid copy-paste error
+ drivers/gpu/drm/kmb/kmb_drv.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-v2: https://patch.msgid.link/20260911-fixes-verify-rwx-v2-1-e2cde39b6693@kernel.org
-* Use pr_warn_once() for early violations instad if skipping them entirely
-
-v1: https://lore.kernel.org/all/20260908092730.4002628-1-rppt@kernel.org/
----
- arch/x86/mm/pat/set_memory.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
-
-diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
-index b3060000da8d1..a799f539287e2 100644
---- a/arch/x86/mm/pat/set_memory.c
-+++ b/arch/x86/mm/pat/set_memory.c
-@@ -697,6 +697,21 @@ static inline pgprot_t verify_rwx(pgprot_t old, pgprot_t new, unsigned long star
- 		return new;
+diff --git a/drivers/gpu/drm/kmb/kmb_drv.c b/drivers/gpu/drm/kmb/kmb_drv.c
+index 7c2eb1152fc2..d8e2fc28ee9e 100644
+--- a/drivers/gpu/drm/kmb/kmb_drv.c
++++ b/drivers/gpu/drm/kmb/kmb_drv.c
+@@ -569,6 +569,7 @@ static int kmb_probe(struct platform_device *pdev)
  
- 	end = start + npg * PAGE_SIZE - 1;
-+
-+	/*
-+	 * If the kernel text is still RWX, gently complain, this could be a
-+	 * false positive.
-+	 * Once debug_checkwx() becomes mandatory for CONFIG_STRICT_KERNEL_RWX,
-+	 * the warning can be removed completely.
-+	 */
-+	if (!kernel_set_to_readonly) {
-+		pr_warn_once("CPA detected W^X violation: %016llx -> %016llx range: 0x%016lx - 0x%016lx PFN %lx\n",
-+		  (unsigned long long)pgprot_val(old),
-+		  (unsigned long long)pgprot_val(new),
-+		  start, end, pfn);
-+		return new;
-+	}
-+
- 	WARN_ONCE(1, "CPA detected W^X violation: %016llx -> %016llx range: 0x%016lx - 0x%016lx PFN %lx\n",
- 		  (unsigned long long)pgprot_val(old),
- 		  (unsigned long long)pgprot_val(new),
-
----
-base-commit: ebaf7c9bbb1e16523d7036e7e1225ad2dfcc6482
-change-id: 20260910-fixes-verify-rwx-044841b76a38
-
---
-Sincerely yours,
-Mike.
+  err_register:
+ 	drm_kms_helper_poll_fini(&kmb->drm);
++	kmb_irq_uninstall(&kmb->drm);
+  err_irq:
+ 	pm_runtime_disable(kmb->drm.dev);
+  err_free:
+-- 
+2.43.0
 
