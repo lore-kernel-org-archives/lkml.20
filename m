@@ -1,273 +1,97 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87BD6274FD1
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 01:03:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B8E62D7398;
+	Sun, 13 Sep 2026 01:06:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789261401; cv=none; b=QYRE02LP0xhUeDFkRL88Cp5EO87vlwqOxoRnVwMB8q35omlvNbOvioCZsHM4XAaiS5Vqk7NZJ3o1+rNMpkzPadOxfjPx8liNJW38Ie61Lr09gTT4PEm76vGXYVCx66YzEvoyPfVbjM6EufDjja03BbvUGLuyRuw05hdM9Ze6AoA=
+	t=1789261577; cv=none; b=Xm6EZz8cCG1VgV1bOgom927QcJnDa5fxT3pk/svHsA9e5Nu2FOq4bOjjIJq15aZqFQZGOXwNDID6Wun7Qgb7vCcApzZW1ToOEKTcloAXLKCzPh8SZby8RahTadhAGX8hCkUYJK/he20vAw52lfiyQTpxk0HnO32ehfvthEIix5g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789261401; c=relaxed/simple;
-	bh=BQCKEBKUQsh/MoXPv2I1/M7I8JmQwo8HwZVgNGR3L1E=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=T+3iefAfFasiaYlxXn4OeLGeTp16KMic9pTbNQUM287pDkWwl/A4TNXG/yb3xRFYv8K2X1jn7KWR20nGetlKlhttqeaZggrq4A2AuKpTGEuRD0YbmFJ1P9MFwFMd11iMxyXfWBaJSeFIl0sydBON+aCVEOGc5kommDycAsN9QFo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=OXae2rIQ; arc=none smtp.client-ip=220.197.31.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789261577; c=relaxed/simple;
+	bh=tTnXx9x4oCktbdNyEAPt+I+sif3L5I2MaDmFMg7d+ds=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gxHxTmqPxs8Uz/2B7m/0YLsbjPARlgnfODezQIJdVmHVpY8LHMcU8J0vyPXt6FdhLf+lyNuTQZivQpMwsNkw7mT4iFv7O6KSnMoS09yKWdQIL/pN0g88c8X8/sm9NNBoS0+5qwK1sISTj4xW0eO8Cn69Csf9f0gzn+K836Qmzos=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZSQVM3Hf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="OXae2rIQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Mj
-	DdsCTuiXNAoysA10hBlw3FzU4uICRpv8BHm9r3LpQ=; b=OXae2rIQizOLXNRrWu
-	lkFoZX5xTu8C/kNrywDWvcq2xPnhcKeKpcENLa4D5upOSs6kb9d0HOo+lhPAOXhi
-	XyTe4fxCsuue415u4czeIV3XZMvykbQ9VlenYNcO0Fxl3fb5/x/KioXNftEhWzRM
-	unaW+Yac9F2SU9wpJbBTDv56s=
-Received: from liubaolin-ThinkPad-E15-Gen-2 (unknown [])
-	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wD3fzcu9qVqUzF9AQ--.1985S2;
-	Sun, 13 Sep 2026 09:02:40 +0800 (CST)
-From: Baolin Liu <liubaolin12138@163.com>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Baolin Liu <liubaolin@kylinos.cn>
-Subject: [PATCH v1] ntfs: fix lookup of POSIX names with Windows-invalid characters
-Date: Sun, 13 Sep 2026 09:02:36 +0800
-Message-ID: <20260913010236.17541-1-liubaolin12138@163.com>
-X-Mailer: git-send-email 2.51.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZSQVM3Hf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 368E11F000FF;
+	Sun, 13 Sep 2026 01:06:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789261575;
+	bh=wwoZKwd5H0soJUzCSdneGmKjoKT/hRGAyY4xXK6dSwY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ZSQVM3Hfjxpuy21gGDin0P4ldfUTKTUqwFYE7slbAL2/6svB118QDMQHsZyE21pfs
+	 bYgjiKl4rd5L38ZxIsh2IrJXL1+y4Ho/douls+tMXMo9dKsIIlaQED1iQ6LF5OQ7/S
+	 RlqzuvN9FnFzeuEO3Nzmcet4BwERCsMl2fthfu60QPyjdH5VHPdg6XWLIl9zc2wS9U
+	 r1z1mLKOgNgeuAqgTDq/zZXAhnMheQXMGlIK7qRVspPCoY21b2aH+wyX1TTxoIQIYJ
+	 2f2hZsNWDu/6dlekkiv4XnZQty0u+gziWJ18+AhxYZIuUcU2YTk19inGU4uiV79gE3
+	 iU11PxeQ06naQ==
+Message-ID: <962171df-34e5-4c98-bd09-8cc7f8caf3bd@kernel.org>
+Date: Sat, 12 Sep 2026 19:06:14 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3fzcu9qVqUzF9AQ--.1985S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW3Gr18tw4DtF1UKw4UtF4UCFg_yoWfGFy8pr
-	nF93sxAw43GF1avrn8t3ykWFy5Ar9rGryqyryqga97Cws3uw1kGF4UKrn29F1rtrWkA34x
-	XF4jq3y7ur47XFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UPpnLUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbCwhDNmGql9jByfQAA3B
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] net: fib_rules: add FRA_GOTO and FRA_L3MDEV to
+ fib_rule_nlmsg_size()
+Content-Language: en-US
+To: Linkui Xiao <xiaolinkui@126.com>, idosch@nvidia.com, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ tgraf@suug.ch
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Linkui Xiao <xiaolinkui@kylinos.cn>
+References: <20260911071241.2701784-1-xiaolinkui@126.com>
+From: David Ahern <dsahern@kernel.org>
+In-Reply-To: <20260911071241.2701784-1-xiaolinkui@126.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Hyunchul Lee <hyc.lee@gmail.com>
+On 9/11/26 2:12 AM, Linkui Xiao wrote:
+> From: Linkui Xiao <xiaolinkui@kylinos.cn>
+> 
+> fib_nl_fill_rule() emits FRA_GOTO and FRA_L3MDEV, but
+> fib_rule_nlmsg_size() reserves room for neither. Its only caller,
+> notify_rule_change(), allocates the notification skb with that size and
+> treats a failure as a bug:
+> 
+> 	/* -EMSGSIZE implies BUG in fib_rule_nlmsg_size() */
 
-POSIX FILE_NAME entries may contain characters such as '?' that are
-invalid in the Windows namespace. Directory index lookup currently
-passes an invalid-character error value to ntfs_collate_names(),
-causing lookup and removal of such names to fail with -EINVAL.
+not really going to fail since the size has so many attributes that are
+not applicable to this rule.
 
-Allow callers to disable invalid-character errors when collation is
-used for index traversal, and suppress those errors when comparing
-POSIX FILE_NAME attributes.
+> 
+> A rule that has both a goto target and l3mdev set needs 16 more bytes
+> than are reserved. nlmsg_new() rounds the allocation up through
+> SKB_DATA_ALIGN(), so the slack hides the mistake most of the time and
+> the bug stays latent, but the accounting is wrong and the notification
+> can still fail with -EMSGSIZE.
+> 
+> Reserve the two missing attributes, keeping the order used by
+> fib_nl_fill_rule().
+> 
+> Fixes: 0947c9fe56d9 ("[NET] fib_rules: goto rule action")
+> Fixes: 96c63fa7393d ("net: Add l3mdev rule")
+> Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
+> ---
+>  net/core/fib_rules.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/net/core/fib_rules.c b/net/core/fib_rules.c
+> index 7df216c17c67..5e84bc740191 100644
+> --- a/net/core/fib_rules.c
+> +++ b/net/core/fib_rules.c
+> @@ -1133,7 +1133,9 @@ static inline size_t fib_rule_nlmsg_size(struct fib_rules_ops *ops,
+>  			 + nla_total_size(4) /* FRA_SUPPRESS_IFGROUP */
+>  			 + nla_total_size(4) /* FRA_FWMARK */
+>  			 + nla_total_size(4) /* FRA_FWMASK */
+> +			 + nla_total_size(4) /* FRA_GOTO */
+>  			 + nla_total_size_64bit(8) /* FRA_TUN_ID */
+> +			 + nla_total_size(1) /* FRA_L3MDEV */
+>  			 + nla_total_size(sizeof(struct fib_kuid_range))
+>  			 + nla_total_size(1) /* FRA_PROTOCOL */
+>  			 + nla_total_size(1) /* FRA_IP_PROTO */
 
-Signed-off-by: Hyunchul Lee <hyc.lee@gmail.com>
-Tested-by: Baolin Liu <liubaolin@kylinos.cn>
----
- fs/ntfs/attrib.c  |  8 ++++----
- fs/ntfs/collate.c |  6 +++---
- fs/ntfs/dir.c     |  8 ++++----
- fs/ntfs/ntfs.h    |  4 ++--
- fs/ntfs/unistr.c  | 29 ++++++++++++++++++++---------
- 5 files changed, 33 insertions(+), 22 deletions(-)
-
-diff --git a/fs/ntfs/attrib.c b/fs/ntfs/attrib.c
-index c7c09a751c6a..808b44671fff 100644
---- a/fs/ntfs/attrib.c
-+++ b/fs/ntfs/attrib.c
-@@ -909,7 +909,7 @@ static int ntfs_attr_find(const __le32 type, const __le16 *name,
- 
- 				rc = ntfs_collate_names(name, name_len,
- 						(__le16 *)((u8 *)a + le16_to_cpu(a->name_offset)),
--						a->name_length, 1, IGNORE_CASE,
-+						a->name_length, true, IGNORE_CASE,
- 						upcase, upcase_len);
- 				/*
- 				 * If @name collates before a->name, there is no
-@@ -922,7 +922,7 @@ static int ntfs_attr_find(const __le32 type, const __le16 *name,
- 					continue;
- 				rc = ntfs_collate_names(name, name_len,
- 						(__le16 *)((u8 *)a + le16_to_cpu(a->name_offset)),
--						a->name_length, 1, CASE_SENSITIVE,
-+						a->name_length, true, CASE_SENSITIVE,
- 						upcase, upcase_len);
- 				if (rc == -1)
- 					return -ENOENT;
-@@ -1313,7 +1313,7 @@ static int ntfs_external_attr_find(const __le32 type,
- 			register int rc;
- 
- 			rc = ntfs_collate_names(name, name_len, al_name,
--					al_name_len, 1, IGNORE_CASE,
-+					al_name_len, true, IGNORE_CASE,
- 					vol->upcase, vol->upcase_len);
- 			/*
- 			 * If @name collates before al_name, there is no
-@@ -1326,7 +1326,7 @@ static int ntfs_external_attr_find(const __le32 type,
- 				continue;
- 
- 			rc = ntfs_collate_names(name, name_len, al_name,
--					al_name_len, 1, CASE_SENSITIVE,
-+					al_name_len, true, CASE_SENSITIVE,
- 					vol->upcase, vol->upcase_len);
- 			if (rc == -1)
- 				goto not_found;
-diff --git a/fs/ntfs/collate.c b/fs/ntfs/collate.c
-index 744fdfd7bf58..5417288c5825 100644
---- a/fs/ntfs/collate.c
-+++ b/fs/ntfs/collate.c
-@@ -100,11 +100,11 @@ static int ntfs_collate_file_name(struct ntfs_volume *vol,
- {
- 	int rc;
- 
--	rc = ntfs_file_compare_values(data1, data2, -EINVAL,
--			IGNORE_CASE, vol->upcase, vol->upcase_len);
-+	rc = ntfs_file_compare_values(data1, data2,
-+				      true, IGNORE_CASE, vol->upcase, vol->upcase_len);
- 	if (!rc)
- 		rc = ntfs_file_compare_values(data1, data2,
--			-EINVAL, CASE_SENSITIVE, vol->upcase, vol->upcase_len);
-+			true, CASE_SENSITIVE, vol->upcase, vol->upcase_len);
- 	return rc;
- }
- 
-diff --git a/fs/ntfs/dir.c b/fs/ntfs/dir.c
-index 2d594cbb4ebe..af16c7d6ea0b 100644
---- a/fs/ntfs/dir.c
-+++ b/fs/ntfs/dir.c
-@@ -238,7 +238,7 @@ u64 ntfs_lookup_inode_by_name(struct ntfs_inode *dir_ni, const __le16 *uname,
- 		 */
- 		rc = ntfs_collate_names(uname, uname_len,
- 				(__le16 *)&ie->key.file_name.file_name,
--				ie->key.file_name.file_name_length, 1,
-+				ie->key.file_name.file_name_length, false,
- 				IGNORE_CASE, vol->upcase, vol->upcase_len);
- 		/*
- 		 * If uname collates before the name of the current entry, there
-@@ -257,7 +257,7 @@ u64 ntfs_lookup_inode_by_name(struct ntfs_inode *dir_ni, const __le16 *uname,
- 		 */
- 		rc = ntfs_collate_names(uname, uname_len,
- 				(__le16 *)&ie->key.file_name.file_name,
--				ie->key.file_name.file_name_length, 1,
-+				ie->key.file_name.file_name_length, false,
- 				CASE_SENSITIVE, vol->upcase, vol->upcase_len);
- 		if (rc == -1)
- 			break;
-@@ -474,7 +474,7 @@ u64 ntfs_lookup_inode_by_name(struct ntfs_inode *dir_ni, const __le16 *uname,
- 		 */
- 		rc = ntfs_collate_names(uname, uname_len,
- 				(__le16 *)&ie->key.file_name.file_name,
--				ie->key.file_name.file_name_length, 1,
-+				ie->key.file_name.file_name_length, false,
- 				IGNORE_CASE, vol->upcase, vol->upcase_len);
- 		/*
- 		 * If uname collates before the name of the current entry, there
-@@ -493,7 +493,7 @@ u64 ntfs_lookup_inode_by_name(struct ntfs_inode *dir_ni, const __le16 *uname,
- 		 */
- 		rc = ntfs_collate_names(uname, uname_len,
- 				(__le16 *)&ie->key.file_name.file_name,
--				ie->key.file_name.file_name_length, 1,
-+				ie->key.file_name.file_name_length, false,
- 				CASE_SENSITIVE, vol->upcase, vol->upcase_len);
- 		if (rc == -1)
- 			break;
-diff --git a/fs/ntfs/ntfs.h b/fs/ntfs/ntfs.h
-index 45f77848a9cf..1bee1626abdf 100644
---- a/fs/ntfs/ntfs.h
-+++ b/fs/ntfs/ntfs.h
-@@ -234,14 +234,14 @@ bool ntfs_are_names_equal(const __le16 *s1, size_t s1_len,
- 		const __le16 *upcase, const u32 upcase_size);
- int ntfs_collate_names(const __le16 *name1, const u32 name1_len,
- 		const __le16 *name2, const u32 name2_len,
--		const int err_val, const u32 ic,
-+		const bool check_invalid, const u32 ic,
- 		const __le16 *upcase, const u32 upcase_len);
- int ntfs_ucsncmp(const __le16 *s1, const __le16 *s2, size_t n);
- int ntfs_ucsncasecmp(const __le16 *s1, const __le16 *s2, size_t n,
- 		const __le16 *upcase, const u32 upcase_size);
- int ntfs_file_compare_values(const struct file_name_attr *file_name_attr1,
- 		const struct file_name_attr *file_name_attr2,
--		const int err_val, const u32 ic,
-+		const bool check_invalid, const u32 ic,
- 		const __le16 *upcase, const u32 upcase_len);
- int ntfs_nlstoucs(const struct ntfs_volume *vol, const char *ins,
- 		const int ins_len, __le16 **outs, int max_name_len);
-diff --git a/fs/ntfs/unistr.c b/fs/ntfs/unistr.c
-index 7f11a2825527..733bd6fe8599 100644
---- a/fs/ntfs/unistr.c
-+++ b/fs/ntfs/unistr.c
-@@ -64,7 +64,8 @@ bool ntfs_are_names_equal(const __le16 *s1, size_t s1_len,
-  * @name1_len:	first Unicode name length
-  * @name2:	second Unicode name to compare
-  * @name2_len:	second Unicode name length
-- * @err_val:	if @name1 contains an invalid character return this value
-+ * @check_invalid:	if true and @name1 contains an invalid character,
-+ *			return -EINVAL
-  * @ic:		either CASE_SENSITIVE or IGNORE_CASE
-  * @upcase:	upcase table (ignored if @ic is CASE_SENSITIVE)
-  * @upcase_len:	upcase table size (ignored if @ic is CASE_SENSITIVE)
-@@ -74,13 +75,14 @@ bool ntfs_are_names_equal(const __le16 *s1, size_t s1_len,
-  *  -1 if the first name collates before the second one,
-  *   0 if the names match,
-  *   1 if the second name collates before the first one, or
-- * @err_val if an invalid character is found in @name1 during the comparison.
-+ * -EINVAL if @check_invalid is true and an invalid character is found in
-+ * @name1 during the comparison.
-  *
-  * The following characters are considered invalid: '"', '*', '<', '>' and '?'.
-  */
- int ntfs_collate_names(const __le16 *name1, const u32 name1_len,
- 		const __le16 *name2, const u32 name2_len,
--		const int err_val, const u32 ic,
-+		const bool check_invalid, const u32 ic,
- 		const __le16 *upcase, const u32 upcase_len)
- {
- 	u32 cnt, min_len;
-@@ -98,8 +100,8 @@ int ntfs_collate_names(const __le16 *name1, const u32 name1_len,
- 			if (c2 < upcase_len)
- 				c2 = le16_to_cpu(upcase[c2]);
- 		}
--		if (c1 < 64 && legal_ansi_char_array[c1] & 8)
--			return err_val;
-+		if (check_invalid && c1 < 64 && legal_ansi_char_array[c1] & 8)
-+			return -EINVAL;
- 		if (c1 < c2)
- 			return -1;
- 		if (c1 > c2)
-@@ -111,8 +113,8 @@ int ntfs_collate_names(const __le16 *name1, const u32 name1_len,
- 		return 0;
- 	/* name1_len > name2_len */
- 	c1 = le16_to_cpu(*name1);
--	if (c1 < 64 && legal_ansi_char_array[c1] & 8)
--		return err_val;
-+	if (check_invalid && c1 < 64 && legal_ansi_char_array[c1] & 8)
-+		return -EINVAL;
- 	return 1;
- }
- 
-@@ -191,14 +193,23 @@ int ntfs_ucsncasecmp(const __le16 *s1, const __le16 *s2, size_t n,
- 
- int ntfs_file_compare_values(const struct file_name_attr *file_name_attr1,
- 		const struct file_name_attr *file_name_attr2,
--		const int err_val, const u32 ic,
-+		const bool check_invalid, const u32 ic,
- 		const __le16 *upcase, const u32 upcase_len)
- {
-+	bool compare_check = check_invalid;
-+
-+	/*
-+	 * POSIX file names may contain characters that are invalid in the
-+	 * Windows namespace, so compare them without treating them as errors.
-+	 */
-+	if (file_name_attr1->file_name_type == FILE_NAME_POSIX)
-+		compare_check = false;
-+
- 	return ntfs_collate_names((__le16 *)&file_name_attr1->file_name,
- 			file_name_attr1->file_name_length,
- 			(__le16 *)&file_name_attr2->file_name,
- 			file_name_attr2->file_name_length,
--			err_val, ic, upcase, upcase_len);
-+			compare_check, ic, upcase, upcase_len);
- }
- 
- /*
--- 
-2.51.0
 
