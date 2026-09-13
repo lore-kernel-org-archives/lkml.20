@@ -1,50 +1,79 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51C1D36DA15;
-	Sun, 13 Sep 2026 15:59:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E81F137105A;
+	Sun, 13 Sep 2026 15:59:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.210.214.84
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789315185; cv=none; b=UIYXB95A+BqAYfhIyG8GoLIfg1C+lcLF+HT4V4esCaOXbRu2E9Db3tw9MUu8izxYtG4w1ZHqqGS/ZfBz7s1hUpFknGTW13QXzGcABPfOpEa/1ZvOlWaqhigU4A9t8PYBlXwpe5bpQ/GOuxrZj/H5lSAoOaSGpY8+CteZDAaKzsc=
+	t=1789315196; cv=none; b=RP74hXKZ0LM4Zrfp/LX7VP9jvIVEprQhRAabVgBjkcQhLeH4ZujYz/Jibm1FLyMhKhvCknOOEwijX2TxhS6RKP0hHnQmdg3/e9GR4acCRxTQd+8dXielLAYOg3iSLUNuZjR9dZFmRjYx6JMLd0Apwso7Kv6QH0TjrSeFiHuBZJE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789315185; c=relaxed/simple;
-	bh=X5vmnqj3J+VCr8meY4hOwsreJKsImN/OL2V71D8gt3Q=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References; b=X11id9vL322k4p8prnCAzAHQRzuWVL66x0wYxGIF8wiF54v2QqPohqItc/2ebhNbISXXO+6yEldumHPiOfNAXea2xvIuDf27QPFfftRms92Ag5t+EBiVXCuzPV+YwmkM3ieh1wAdS14r24vwkLCvBG44T/wfxnnjj/qi2ZLz9UU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n4sHO2xd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789315196; c=relaxed/simple;
+	bh=h6P7nPO/wXAjCOk4ZHQz+sxZSuy/hMR6p/qSRpoiCjA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EpSo5Btz3Tl9uDtWjxm8+OxZqelf8ZndPDOjupY9fQ5nQk9X2/G9hnz1pbs8LOE8aeIkFdplaRG38/8XMWCrTxKGAwI0jKoi+mEA3Z8kBrm/MnOgoDe217ZXRHjSyW9ds+72zhBXsn3xphXL8rZiXVRQwGaKABOFQTQU+rEmR2A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org; spf=pass smtp.mailfrom=codewreck.org; dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b=nEX82nJk; arc=none smtp.client-ip=62.210.214.84
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n4sHO2xd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2F861F000FF;
-	Sun, 13 Sep 2026 15:59:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789315184;
-	bh=6GfjTwMWK0m8lsyq1cjarbb7FO+Mh+NjaIlzbi9KhiA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=n4sHO2xdU66tAUj1dNfyxTao5anIuyVkti76VH/7/sceN03WtRU1N35V+UD1lOPx9
-	 htXD8Kza4SkjyjWGnqvliOHB6qkQSB2znxRN6ehztUDCJHmX7ljuGRXCiawVx1NvBC
-	 6TExsqHPM/55XQrv7U8wZk5KbOYJIY9eEtukkK1x4i/OiunkdOIIzXZBr36IfqXElF
-	 E2nU7Gu5qVCaxwoQn1SupWI/mlFuML/zEaN2nH5+Yk+Q/cVl9cpN6PwoMxFyVvOyWg
-	 uOaC8aPQPDx8t97/wOTQNo0y217C7Vu1IITuOWjx3+jZLQok0gDMiuRBV1Ngb9dPIj
-	 SZ4J9QYrKpWnA==
-Date: Sun, 13 Sep 2026 05:59:43 -1000
-Message-ID: <f5041873e1431184067cc977634e51ab@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Qiurong Fang <fangqiurong@kylinos.cn>
-Cc: tj@kernel.org, David Vernet <void@manifault.com>,
- Andrea Righi <arighi@nvidia.com>, Changwoo Min <changwoo@igalia.com>,
- Emil Tsalapatis <emil@etsalapatis.com>, sched-ext@lists.linux.dev,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] sched_ext: Close the pre-enable ops error claim window
-In-Reply-To: <20260912131518.3428032-1-fangqiurong@kylinos.cn>
-References: <20260912131518.3428032-1-fangqiurong@kylinos.cn>
+	dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b="nEX82nJk"
+Received: from gaia.codewreck.org (localhost [127.0.0.1])
+	by submarine.notk.org (Postfix) with ESMTPS id 7570D14C2D6;
+	Sun, 13 Sep 2026 17:59:48 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
+	s=2; t=1789315191;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ZY8O0nRi5GbS1NOYeVTB4YwNIhP2oo4hHI/CPzZ7h6g=;
+	b=nEX82nJktLeVDlkL0kQvbeI9yswaKfI8poSuYRkXLkTjjMXUzh2kjmd8sbzR7/mu3DnwG2
+	QCF4J3qC8Xk+0skVyuHHgL6DTH1pL1x8PjX3bvshdmxFvKfm6WpKKNR1CWoz+z01ue9/+l
+	1J+MroCxNMU1o6lR8ZZE+K5AwZQgwMVIxTOVeodm9E1Kfi5clFPcFdqQmxyPvF7OCMWKfj
+	AbO+1Dcwta3k9M4dggtTvI2J0YD+hOJOiEGUNpjSzrjJxx4ecJNl5ho3FAbwmgFvd95JXs
+	1NNRYKDc8Gu6nZEcD2PqcKe7b3cFYz55DfoOAps6V0CYa40E7rHSdSiUPPGAZA==
+Received: from localhost (gaia.codewreck.org [local])
+	by gaia.codewreck.org (OpenSMTPD) with ESMTPA id 963ab251;
+	Sun, 13 Sep 2026 15:59:46 +0000 (UTC)
+Date: Mon, 14 Sep 2026 00:59:31 +0900
+From: Dominique Martinet <asmadeus@codewreck.org>
+To: Ze Tan <tanze@kylinos.cn>
+Cc: ericvh@kernel.org, lucho@ionkov.net, linux_oss@crudebyte.com,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	v9fs@lists.linux.dev, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/3] net/9p: safely abort fd RPCs on fatal signals
+Message-ID: <aqbIY53PWehECvuQ@codewreck.org>
+References: <cover.1784186316.git.tanze@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <cover.1784186316.git.tanze@kylinos.cn>
 
-Applied to sched_ext/for-7.3-fixes with minor wording cleanups.
+Ze Tan wrote on Thu, Jul 16, 2026 at 03:30:48PM +0800:
+> This series fixes a hung task reported by Syzkaller when a thread blocked
+> in a 9p fd RPC receives a fatal signal while another thread in the same
+> group is waiting in coredump_wait(). The interrupted RPC currently enters
+> the TFLUSH path and can wait indefinitely if the 9p server is no longer
+> responding, preventing the thread from exiting and the coredump from
+> completing.
 
-Thanks.
+Thanks for the patches and sorry for lack of reply
 
+I'm sorry but I'm cutting this out for the forseeable future:
+You can't just abort a request you sent without flushing, for example
+if a mkdir() call is interrupted it should be failed and the next
+mkdir() must succeed (if it wasn't raced) but with an aborted request
+you could have the directory be created in the back of the aborted
+request.
+
+I actually had a branch with 'async flush' a few years back but there
+were subtle regressions and I never had to look further into it, and I
+have even less time now, so I'm sorry but unless you're very convincing
+I won't take these (other maintainers may have different opinions if you
+can get any of them to look, that won't be my problem then)
 -- 
-tejun
+Dominique Martinet | Asmadeus
