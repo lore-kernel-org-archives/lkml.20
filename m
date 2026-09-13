@@ -1,47 +1,44 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A14A035B634;
-	Sun, 13 Sep 2026 22:39:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A58ED3CFF77;
+	Sun, 13 Sep 2026 22:42:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789339195; cv=none; b=t6lWGSSy9qSRbOEgf1YSzvr/M/GYzENeFBdYaahWV4YgGjndKOj1GzthT9FeQoJdzjIzlWh0sAhEzGtOmh2lqXBJVtdFyB/5JqdJF6WN5V6LpcTzobLC2nKwp4KwPw2m9YrVjOdEKxRmh+Y8nhqF5oDMa05Y2YcsVt8pujgI+8U=
+	t=1789339349; cv=none; b=flOgmztyxbZSb084p8350yPNCSoVUdMQ3uFEGsaVw91LltpQEconEWi4vIBYACgJ2qMgSsp5g1Y1bciSZTRn62kEnSeBX0oLq5sCYpkdOVyTXsJwVf93dCP2ZS24om21YUZM8OnUXNiDROm1o7lkVCvyGg0H4r3GOC3tcYVvwhs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789339195; c=relaxed/simple;
-	bh=aZiqDReMsM2D4iUFh0xQPvNQvFw8ZLj4F4ePkL+P+e0=;
+	s=arc-20240116; t=1789339349; c=relaxed/simple;
+	bh=jum5occERbNBbaSZbMoYk6Di3daz9BkThsf8Lmvy8zc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oTIjTtNR6U9vq59uggSLw+kka2n/KItH7evyzvPhMP+730rSLV+Hz1zhaN2Twj5xoa16si0/X6xi4JlYMKrIHWu23As20taAb5D67iQ0Dr68R7C07lWh2mqNUJguOh8KPR4AMtX8Uf8t+1+RtYoVdNwgrLU+SaqULxn4Qy9O4ms=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WvE9wa3e; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=hsNaPeIMIaVpTcJZfpB5AfGL/r3YiMi/XE/3K6+3ohF3Fafx2u9leOe16KKoQGS6b2Kt9WPrbdkikq7o+zlQADmmvgw8OSkbXGNBoY0rJXR3QaCcfpIIeY2I3zr0JTcn/zxKkgkf5t3UYfRp+WUZuBy4t0XoeSJURb9HSaS0p4Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=gJr0CD3u; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WvE9wa3e"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C54D1F000FF;
-	Sun, 13 Sep 2026 22:39:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789339194;
-	bh=0Rf62qtp2T8RCmF5Smaw5L38HTOThi3MhIC+kh2jwjo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WvE9wa3eTytCyxqyze1VTsgM1uk3z/LhPEMWvJVlMGzXnXv7dUlG/FmTeOcja8RKK
-	 e824AJsggfeOCbDer7Uhl7PyRizyUEPb6Ln/Ek87kInm8fPJrrMuh+XUKgdE20SBDl
-	 pZLs+jjOkasJiVjKKRFrrHLlkjdUfDXvpcWgK9QYss6XrepN7Pr5L+fi3TCdMqwHp1
-	 Z7RNSTcUeGXU54DN3/YvPDaWIjY20yb6JKoGa9K8NNk9jrtyR7FSo4fGrdeuBrw00Z
-	 2/04bExXsIcruC4dey1QTpOzz5yzFwTLInPY8YLhFf30vP85CWmGaX+EoKMfJnOBmH
-	 KnezgssVdah0Q==
-Date: Sun, 13 Sep 2026 15:39:52 -0700
-From: Wei Liu <wei.liu@kernel.org>
-To: Manivannan Sadhasivam <mani@kernel.org>
-Cc: Naman Jain <namjain@linux.microsoft.com>,
-	Sahil Chandna <sahilchandna@linux.microsoft.com>, kys@microsoft.com,
-	haiyangz@microsoft.com, wei.liu@kernel.org, decui@microsoft.com,
-	longli@microsoft.com, lpieralisi@kernel.org, kwilczynski@kernel.org,
-	robh@kernel.org, bhelgaas@google.com, linux-hyperv@vger.kernel.org,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-	mhklinux@outlook.com
-Subject: Re: [PATCH v3] PCI: hv: Warn when wait_for_response() waits
- indefinitely
-Message-ID: <20260913223952.GE2219269@liuwe-devbox-debian-v2.local>
-References: <20260908113009.3005964-1-sahilchandna@linux.microsoft.com>
- <c8b6e10f-dd52-4c74-8d16-268563d8bc1f@linux.microsoft.com>
- <hen5k4ejonfffwdir7tfa2gnmxwfbbqabrjtwooo4o5pjf5gnz@x52vfm5phv3l>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="gJr0CD3u"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=kJ07gVF7Q6jHByQIBcm4K70Gu0E8H+e9687JL9ra4i8=; b=gJr0CD3u3hRruvr4rq1R6BG8yM
+	QtHjW1lU983K8wX1bh8NWzU+kIdu+IMb2WY1APMat6WRRC2DmQk0QleQWVhqaAlPsBNfiyFeqoAm+
+	qIb9zV/LFJuC/l/vp5uTHk3HWhVOV3LylGZZcGCNGWJ03lJ1Cj+RGBZt8+LGjgPvvgOxY7YK4W0I7
+	/m1DvnHsrbXYAHBJmG6dkOmInIly6YodhhQuLgZaEl5MbWZF3au2P7dsgOkLrCLw2805HLHzkLkGz
+	TJjvyI12TYw2MO2bvrGJ6X3whV+NyFmXXWaa67ejHQt9fdBrrwmM6MxVlTyLHNp9EgIEhDGWDuMqK
+	064HfxNQ==;
+Received: from willy by casper.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x5stz-00000007NVn-2q4L;
+	Sun, 13 Sep 2026 22:42:23 +0000
+Date: Sun, 13 Sep 2026 23:42:23 +0100
+From: Matthew Wilcox <willy@infradead.org>
+To: Mikko Rantalainen <mikko.rantalainen@peda.net>
+Cc: linux-fsdevel@vger.kernel.org, linux-api@vger.kernel.org,
+	linux-kernel@vger.kernel.org, brauner@kernel.org,
+	viro@zeniv.linux.org.uk, jack@suse.cz, alx@kernel.org,
+	dalias@libc.org
+Subject: Re: [RFC PATCH 0/1] close(): stop exposing non-retryable EINTR
+Message-ID: <aqcmz5uI7PgN5CT7@casper.infradead.org>
+References: <20260913193815.2862366-1-mikko.rantalainen@peda.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,64 +47,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <hen5k4ejonfffwdir7tfa2gnmxwfbbqabrjtwooo4o5pjf5gnz@x52vfm5phv3l>
+In-Reply-To: <20260913193815.2862366-1-mikko.rantalainen@peda.net>
 
-On Fri, Sep 11, 2026 at 12:29:05PM +0200, Manivannan Sadhasivam wrote:
-> On Wed, Sep 09, 2026 at 03:01:22PM +0530, Naman Jain wrote:
-> > 
-> > 
-> > On 9/8/2026 5:00 PM, Sahil Chandna wrote:
-> > > A guest can wait indefinitely in wait_for_response() for the host to
-> > > send either a rescind message or a packet completion. If the
-> > > host does not send either, the guest can remain blocked with no
-> > > diagnostic indicating a reason.
-> > > This was observed during a guest kernel upgrade in which the
-> > > host-side application handling the PCI channel faulted, causing the
-> > > guest to never receive the completion request.
-> > > Add a warning in wait_for_response() when the wait exceeds
-> > > a timeout so that such a hang is visible in the guest's kernel log
-> > > and can be correlated with host-side state.
-> > > 
-> > > Suggested-by: Michael Kelley <mhklinux@outlook.com>
-> > > Signed-off-by: Sahil Chandna <sahilchandna@linux.microsoft.com>
-> > > ---
-> > > Changes since v2:
-> > > - Add counter based timeout instead of introducing another timer
-> > > Link to v2: https://lore.kernel.org/all/20260902115854.2629164-1-sahilchandna@linux.microsoft.com/
-> > > 
-> > > Changes since v1:
-> > > - Removed periodic warning to one time warning in 2 minutes
-> > > - Include vmbus relid and stuck PCI msg.
-> > > Link to v1: https://lore.kernel.org/all/20260825051850.2438816-1-sahilchandna@linux.microsoft.com/
-> > >   drivers/pci/controller/pci-hyperv.c | 46 ++++++++++++++++++++++-------
-> > >   1 file changed, 36 insertions(+), 10 deletions(-)
-> > > 
-> > > diff --git a/drivers/pci/controller/pci-hyperv.c b/drivers/pci/controller/pci-hyperv.c
-> > > index 89816a2bd7cd..bd07402c47ed 100644
-> > > --- a/drivers/pci/controller/pci-hyperv.c
-> > > +++ b/drivers/pci/controller/pci-hyperv.c
-> > > @@ -1040,19 +1040,38 @@ static void put_pcichild(struct hv_pci_dev *hpdev)
-> > > 
-> > >   /*
-> > >    * There is no good way to get notified from vmbus_onoffer_rescind(),
-> > > - * so let's use polling here, since this is not a hot path.
-> > > + * so let's use polling here, since this is not a hot path. If
-> > > + * wait_for_response() has been polling for 2 minutes
-> > > + * without either a rescind or completion, add a warning.
-> > >    */
-> > > +#define PCI_RESPONSE_HANG_TICKS 1200
-> > > +
-> > 
-> > Nit, I think this variable name could be misleading, as this represents a
-> > loop counter for a retry logic, but not exactly *ticks* from kernel
-> > terminology.
-> > 
-> > I would have preferred something like: PCI_RESPONSE_WARN_POLL_COUNT.
-> > 
+On Sun, Sep 13, 2026 at 10:38:14PM +0300, Mikko Rantalainen wrote:
+> However, currently Linux kernel will return EINTR in some cases for
+> close(). There is no good way for caller to recover from this case using
+> the original fd. Whatever action was actually interrupted cannot be
+> resumed or retried through this fd, because the fd has already been
+> consumed. Even worse, EINTR conventionally invites retrying an operation,
+> but retrying close() is unsafe: the same file descriptor number may
+> already refer to another file opened by another thread by the time
+> close() returns EINTR.
 > 
-> PCI_RESPONSE_POLL_COUNT?
+> In addition, POSIX.1-2024 requires that if close() reports EINTR, the
+> descriptor must remain open. It also explicitly permits an interrupted
+> close() to return success after closing the descriptor.
 
-Sahil, let me know if you will send out another version. If it is only
-changing one macro name, I can do that.
+I think any filesystem / device driver / ... which returns -EINTR from
+close() is broken.  There is one exception though -- if the signal is
+fatal.  It's like read()/write() being killable; if the signal is fatal,
+the task dies before it gets to see the errno.  So it doesn't matter.
 
-Wei
+So that's my preferred solution; track down the bad kernel code that's
+doing things in close() that are "interruptible" and convert them to
+"killable".  We don't want SIGWINCH or SIGALRM interrupting close();
+that's just dumb.
