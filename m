@@ -1,69 +1,69 @@
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20554392836
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 12:18:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 127AE38DC53
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 12:18:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789301926; cv=none; b=XirUytvbcp8DnA/lzvP6IxVFlXphNMnj+aOLIzUcVUijwP8tw5Bzc9wx3F+CHIJqbNcO/Tdcwy5MpTgSmFq3/JEYT61ed+IVw8CwcnF7QhlBcj+uefD6W21s3S3n8O6wJjyk+P7t8uQ4nhRXtSU7ylxVOfgNfT1Rl5uLdBoL/cE=
+	t=1789301928; cv=none; b=ajhNV6WOWl8VKuxuwmwQ3IF3v0WDjiSl3QrUhIw5HrIN9a9NGBAgXm5UcNu4WbV+ZxaDK0BuM9xRpZ1lqEydG1vfVp6/wo4/bJfPC48sUVWMCR1laEdwr5vLimYfINsqDM5tMXae0mbDDU3Z06cQcuZOrfQQGWGt6y1nJY7HBVo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789301926; c=relaxed/simple;
-	bh=koUYc8Dq9lWw1oLPJynOIZpYM8lkDBbSyMSmWAIup4w=;
+	s=arc-20240116; t=1789301928; c=relaxed/simple;
+	bh=QCLyoNALvtQOVUWWgKT4N38ewa9Qau0InNlSI5vyyo0=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=LlUoFjjjscjPVWrOqnyltqLZM55pIFhAxeG6McHT+B3dkNptPL1RuZuYGNBLzI0KSSLcATaYDlfUoRPdTA/4AS2Rmr8LFw7/C5INZUND8tXE3POsS5Grk37Nr5kk0uPlxfVxbAXNahiMyqwDqgcCkrOu/JDCE4AbbsNDnts1tUw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YCG5d3Oz; arc=none smtp.client-ip=209.85.221.46
+	 In-Reply-To:To:Cc; b=mRXU6bwIGKgND0MAcBAeiWz3lDdrfO8uD1aLgow6oOJdrEZFB15Lv/CtYPuV8kFpkywqbRXCP7bEHRGOAzQMo4NY1OiWGS/N2/as9laA2CuhRuNrQoHoLfeC72MXSUMvI9sNsTWORH/8gL4Yy/zmF5ZSRYBQfDsJo4D/AjULhQ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gL/dBO5Q; arc=none smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YCG5d3Oz"
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-47de0093c42so2300682f8f.3
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 05:18:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gL/dBO5Q"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6350f91so490125f8f.1
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 05:18:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789301921; x=1789906721; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789301925; x=1789906725; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=rw9tIl3/QFpv/y5nx3+oqZIVRAfzeLzBB+R0xa6GvSg=;
-        b=YCG5d3OzyGdCUlesuTMbJTKpy6QCIn7v0+w8PR0TyRyV/+RCZMuknh1n48vNOwznRs
-         HpQixigQcvNH/aIH7T+PHhuFMFZ3Yb/GNDoHMYvQ4kzIP2NC/3rhXc4s/dtnDncIPAMt
-         MaVDRsWeZENTLXFaw6zt+u09TVmdEC73h2W5EUOU7Uz1V0bLrwnHdkcd8/PNk+6byvDh
-         uWi9q2xba0nAZIhZeb2AiPGEduQ2/oHnUhupgqkI6mWh2G4Tr9sMsL+3V1XKGm2XzgDa
-         zWGZLOGS+bWyZreDYhNNA5w8mOqcqcCym1jpZ3rAdeQwCEcjy51jgrkXoI41SJ+KD0nA
-         veuA==
+        bh=yRwhjp/IBhSw3Lk79MEayOHDigt6p4gE2z38qX/b6Cc=;
+        b=gL/dBO5QhFjOa3iJ4TD4swRUrY123xITh2Vdq1CVWnPW2+s5bRk0++34sjqmvquQWv
+         bOgJEv548ayXdGMI0zkFrA3kfrlNnTKAhPGxqwau2GjQafO/W+H4VbRxTWbS6dxT2+vh
+         SQkGtdHd1IDU1avSw8in6ODP3rFoq9AAJ7lKtp+NlzVmD8wegbJa4CFVAdbiczdH5lce
+         oxP5F7WDN0MMLRq27BqmYM5jbdiCp0bpKH1eMST+lPsW+08G4EIQaNxZggYkyVLu2nFU
+         8vHkvD2vh2w0CMKTIbikPvjRSm8v0T71EzUaVpWYStfO8vbGM42uywULVMM3PB16sCiq
+         LvEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789301921; x=1789906721;
+        d=1e100.net; s=20251104; t=1789301925; x=1789906725;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=rw9tIl3/QFpv/y5nx3+oqZIVRAfzeLzBB+R0xa6GvSg=;
-        b=e85vI3EaHe8fygfZ86rTesnlwlrr6HAXEljaRdbaPPiNGchSO2OuhFwE0hWwrXuTZI
-         njH+wJA1cj1Ij0do+GXJpg6qahUdgoBv2xUSrYX9vB/7uIp1W9NHC1pHgorxFQXqO5cO
-         WXeddjxK3al4GlID0Hg964LxDfUgpFwNk6RgPUpfCXo83cPSkSg4blH6Z9E0aWxItPdj
-         omy49IClbcY2Vt0SR3vyUNIlie9NjO8/yBISSPperpj0I7F/ArvIJgGcmflTTEQTLBo7
-         goqINy1Bl4V+XmDtM8EShw0j0ZvHqRcc8URvXxlwUi+lwlu9/1RbIPRzlOmR0PN68kM3
-         j1kQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx7aCj5EvFbTou66vPQrOnuR0tAkivtsGHF5bN2KN5dwoKWZ01i7eSbSZzOpK/6iHoLxdyvT9CcBAthheI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kguhI42ebnATRyYL7H073gqt7ytTz+bPtc+Ku1AhECH7b/9d0n
-	hI/F128MctIYxQ5gcih1VLG0a2+fhJXwddixoR95CrX52ez8KF7bA7kS
-X-Gm-Gg: AYBFou3NQFJ8QcF1Y4SMQy3hBxvSs5z5A+/ZxqrXbna/kPHik4LhlRilY4ZUaJ8nbPd
-	vR1SUoPhml8hYNUpGZsVktFkiSXxBwLRmMjqNIdDdw5PXtFZG2SMVxjisUbvNFbB64Gpzu7Mj6U
-	ffUVJyAm0I4av8iPCxKgi4r/18f8eGf41xPRRw7kbwCKngKg63Oyn6O/2w4xuvCkka4NTdMSk3y
-	u8aO5TRdRo5AeNv6uGJyOWsCIY7GgPY8QfHxnC/jLNwWbRJc6OTWLvmLxjnp8d65VwiYEcFLqhV
-	n664K4Xu7nB6nEvuiSyxM4wDQIhRWcyNYDSfhFux8x9riwGOQiHHVKaJhyHg00y8M2o12o4P+9G
-	UTJZUOnI4KLEn+MioRTBLczFA3KiQU/r1LySunr26aG7QMCaLViZexagO7CUR11ewvGPM0Fo5gY
-	tvCotDnFtI+FR4NhlyVaf+ibmt1bTtw6aaZlK2lxEyDhGALfqOTCcwDum+R//Nqpc0QUldwu0Gh
-	J+PYJE3LjuPdc4=
-X-Received: by 2002:a05:6000:389:b0:486:fe82:70a5 with SMTP id ffacd0b85a97d-486fe827223mr1200808f8f.16.1789301921174;
-        Sun, 13 Sep 2026 05:18:41 -0700 (PDT)
+        bh=yRwhjp/IBhSw3Lk79MEayOHDigt6p4gE2z38qX/b6Cc=;
+        b=kkgvq3yVG6llj/71c4XczyKWl650M4D0BgqHuCTVFCmQIXZkkuyzH2dhDFQpSFn76Z
+         Fwlhhc6cMcJb4WSE0zZ+7bljXmQpewDNs7T3C4l07Pb0LGN5huoUxPDWb8VSmzwAhZ2F
+         ZxOBLydoIoIV5kRGa4RS86zj0t8DMKpvw1JGoWvvtPeTORmC3XEpbadnv7pQeXlCdBOM
+         Dc94d2Ybuh6+R7UILAjWCtmcCIBkqlsmREIFVRT5I58jjvB7aMDEaUGe/IZBdQo8g6m3
+         XelLAVrrEy8IBMVrj4APNQJREVW9/s+po99CtxZIrSksKFjDA90rRqPlKFirTmLpsN06
+         Io/w==
+X-Forwarded-Encrypted: i=1; AKwUvBxxDTPj3SAXlXjlCFOqmdDWruF+2uk2sGWEaBNLygwA2Ixg8ULKuiemjvKx514azDiMQq4ZlwYrmD0M0KQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++lTyDkYmO9f/4Ne067qhUOmfpbpNcaJDjApsYXOTagHDDtjD0WZ
+	VG28rFdMh/CQl9gsQiUrH5sNUd7vsXwWhU+cYWLPntOOBVK1itiFauNo
+X-Gm-Gg: AYBFou0Nl4ompfeHUBZ7meUyTFkH0/LXsPtQyI9c20YnYNXk1K3GOEgHOdUqzWvhoQT
+	G2e6EEmCV/75MrscGOfJzKl++sPpLtHboin0FnILYngxpv8uQOsNkg+bs/Rg7cLR0A3dIuLQxge
+	WagdBaNPmafywzQPtu94dhkk2JCaD8dDrqLP71hosGJvuIRP/VUUO6EV8HYKQNIdxlm2rlgd7Kq
+	nSzEB37JiZ2HgWN/6Oii15jRHBkLLggezhEjm7t+troi0yAe1ubfJ5wJsO0J3hMyyTaG8t3obQS
+	NmBdDV/YORAX+hsFeEr9QZndxb63gujEwm5jdTKDF1ZGf6vEHmP9VA9m9JQ/WMuEGsnU9BqUuaI
+	/WCacZG7CvewHhcT1mQliubfa/yvR7pjlTDMnPpsO4b0c8wa0l6TmUnm9+sdupLPE/KSBDrGRvu
+	JLVtVaubS3yx4xSDY59XpDgOuNRBIMpEa77jp75LYF1EQDg+dWnrTWhLGpriZzp20earsmiEs62
+	NLqEVEOB4GSW2+z
+X-Received: by 2002:a05:6000:2002:b0:485:8c17:9767 with SMTP id ffacd0b85a97d-486f6c4422amr6325362f8f.41.1789301925247;
+        Sun, 13 Sep 2026 05:18:45 -0700 (PDT)
 Received: from [127.0.1.1] ([2001:4bb8:107:bfd1:de2c:7b4b:8652:b761])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb2ecf2esm20241141f8f.2.2026.09.13.05.18.39
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb2ecf2esm20241141f8f.2.2026.09.13.05.18.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 05:18:40 -0700 (PDT)
+        Sun, 13 Sep 2026 05:18:44 -0700 (PDT)
 From: Javier Carrasco <javier.carrasco.cruz@gmail.com>
-Date: Sun, 13 Sep 2026 14:18:21 +0200
-Subject: [PATCH v10 1/4] dt-bindings: iio: light: veml6030: add veml6031x00
- ALS series
+Date: Sun, 13 Sep 2026 14:18:23 +0200
+Subject: [PATCH v10 3/4] iio: light: veml6031x00: add support for triggered
+ buffers
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,7 +72,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260913-veml6031x00-v10-1-adbc26c30d3d@gmail.com>
+Message-Id: <20260913-veml6031x00-v10-3-adbc26c30d3d@gmail.com>
 References: <20260913-veml6031x00-v10-0-adbc26c30d3d@gmail.com>
 In-Reply-To: <20260913-veml6031x00-v10-0-adbc26c30d3d@gmail.com>
 To: Jonathan Cameron <jic23@kernel.org>, 
@@ -84,98 +84,220 @@ To: Jonathan Cameron <jic23@kernel.org>,
 Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, 
  Javier Carrasco <javier.carrasco.cruz@gmail.com>, 
- Jonathan Cameron <jic23@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>
+ Jonathan Cameron <jic23@kernel.org>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789301917; l=3140;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789301917; l=6221;
  i=javier.carrasco.cruz@gmail.com; s=20260111; h=from:subject:message-id;
- bh=koUYc8Dq9lWw1oLPJynOIZpYM8lkDBbSyMSmWAIup4w=;
- b=31pPxfJ9k1dltUb1YNVk9Ckyljv03EUkaN0ugq2uqUTepqkmFP7x5tOVBp5xYkqqgBMxY/6uV
- ozy7lztO61BAI8UUwu8TwMmVTZwKQL8bWb2/nBm1R3FJVGLSJwWzDi/
+ bh=QCLyoNALvtQOVUWWgKT4N38ewa9Qau0InNlSI5vyyo0=;
+ b=KMLgyMiPoTQImRHlyyE/dFejTNZlWFvulvMM7tHAMB+2CE6KaE6Ap9onDgLdmzHxTpyGZ7sLp
+ WDMkN5nHVS6B8tlBXlOSxDuiQ9UfFukoD8p5oRPixeHKLdqQQlccVlE
 X-Developer-Key: i=javier.carrasco.cruz@gmail.com; a=ed25519;
  pk=Lge8w8xidNSf/INy7JAIbAW+Hezkp3nsBh2OjKL7lLU=
 
-These ambient light sensors share their properties with the ones
-from the same manufacturer that are supported by this bindings.
+Add triggered buffer functionality for the two channels the device
+provides (ALS and IR).
 
-Note that only two datasheets are provided as every one of them covers
-two devices (veml6031x00/veml60311x00 and veml6031x01/veml60311x01).
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 Reviewed-by: Andy Shevchenko <andy@kernel.org>
 Signed-off-by: Javier Carrasco <javier.carrasco.cruz@gmail.com>
 ---
- .../devicetree/bindings/iio/light/vishay,veml6030.yaml      | 13 ++++++++++++-
- MAINTAINERS                                                 |  5 +++++
- 2 files changed, 17 insertions(+), 1 deletion(-)
+ drivers/iio/light/Kconfig       |   2 +
+ drivers/iio/light/veml6031x00.c | 113 ++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 115 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/iio/light/vishay,veml6030.yaml b/Documentation/devicetree/bindings/iio/light/vishay,veml6030.yaml
-index 0041e1db6838..a44de649184a 100644
---- a/Documentation/devicetree/bindings/iio/light/vishay,veml6030.yaml
-+++ b/Documentation/devicetree/bindings/iio/light/vishay,veml6030.yaml
-@@ -4,7 +4,8 @@
- $id: http://devicetree.org/schemas/iio/light/vishay,veml6030.yaml#
- $schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/drivers/iio/light/Kconfig b/drivers/iio/light/Kconfig
+index 02291abeff60..462fff1ddef2 100644
+--- a/drivers/iio/light/Kconfig
++++ b/drivers/iio/light/Kconfig
+@@ -745,6 +745,8 @@ config VEML6031X00
+ 	tristate "VEML6031X00 ambient light sensor series"
+ 	select REGMAP_I2C
+ 	select IIO_GTS_HELPER
++	select IIO_BUFFER
++	select IIO_TRIGGERED_BUFFER
+ 	depends on I2C
+ 	help
+ 	  Say Y here if you want to build a driver for the Vishay VEML6031X00
+diff --git a/drivers/iio/light/veml6031x00.c b/drivers/iio/light/veml6031x00.c
+index f3772577a05d..3d5a27a0baae 100644
+--- a/drivers/iio/light/veml6031x00.c
++++ b/drivers/iio/light/veml6031x00.c
+@@ -13,6 +13,7 @@
+ #include <linux/device.h>
+ #include <linux/err.h>
+ #include <linux/i2c.h>
++#include <linux/interrupt.h>
+ #include <linux/limits.h>
+ #include <linux/module.h>
+ #include <linux/mutex.h>
+@@ -25,6 +26,8 @@
  
--title: VEML3235, VEML3328, VEML6030, VEML6035 and VEML7700 Ambient Light Sensors (ALS)
-+title: VEML3235, VEML3328, VEML6030, VEML6031x00 series, VEML6035
-+  and VEML7700 Ambient Light Sensors (ALS)
+ #include <linux/iio/iio.h>
+ #include <linux/iio/iio-gts-helper.h>
++#include <linux/iio/triggered_buffer.h>
++#include <linux/iio/trigger_consumer.h>
  
- maintainers:
-   - Rishi Gupta <gupt21@gmail.com>
-@@ -23,6 +24,8 @@ description: |
-     https://www.vishay.com/docs/80131/veml3235.pdf
-     https://www.vishay.com/docs/84968/veml3328.pdf
-     https://www.vishay.com/docs/84366/veml6030.pdf
-+    https://www.vishay.com/docs/80007/veml6031x00.pdf
-+    https://www.vishay.com/docs/80008/veml6031x01.pdf
-     https://www.vishay.com/docs/84889/veml6035.pdf
-     https://www.vishay.com/docs/84286/veml7700.pdf
+ /* Device registers */
+ #define VEML6031X00_REG_CONF0       0x00
+@@ -42,6 +45,12 @@
  
-@@ -32,6 +35,10 @@ properties:
-       - vishay,veml3235
-       - vishay,veml3328
-       - vishay,veml6030
-+      - vishay,veml6031x00
-+      - vishay,veml6031x01
-+      - vishay,veml60311x00
-+      - vishay,veml60311x01
-       - vishay,veml6035
-       - vishay,veml7700
+ #define VEML6031X00_GAIN_SEL(pd_div4, gain) (((pd_div4) << 2) | (gain))
  
-@@ -69,6 +76,8 @@ allOf:
-       properties:
-         compatible:
-           enum:
-+            - vishay,veml6031x00
-+            - vishay,veml6031x01
-             - vishay,veml6035
-     then:
-       properties:
-@@ -82,6 +91,8 @@ allOf:
-           enum:
-             - vishay,veml3235
-             - vishay,veml3328
-+            - vishay,veml60311x00
-+            - vishay,veml60311x01
-             - vishay,veml7700
-     then:
-       properties:
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 3a19da74d00c..57202b51fb66 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -29095,6 +29095,11 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/iio/light/vishay,veml6030.yaml
- F:	drivers/iio/light/veml6030.c
- 
-+VISHAY VEML6031X00 AMBIENT LIGHT SENSOR DRIVER
-+M:	Javier Carrasco <javier.carrasco.cruz@gmail.com>
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/iio/light/vishay,veml6030.yaml
++enum veml6031x00_scan {
++	VEML6031X00_SCAN_ALS,
++	VEML6031X00_SCAN_IR,
++	VEML6031X00_SCAN_TIMESTAMP,
++};
 +
- VISHAY VEML6046X00 RGBIR COLOR SENSOR DRIVER
- M:	Andreas Klinger <ak@it-klinger.de>
- S:	Maintained
+ struct veml6031x00_rf {
+ 	struct regmap_field *gain;
+ 	struct regmap_field *it;
+@@ -135,6 +144,13 @@ static const struct iio_chan_spec veml6031x00_channels[] = {
+ 				      BIT(IIO_CHAN_INFO_SCALE),
+ 		.info_mask_separate_available = BIT(IIO_CHAN_INFO_INT_TIME) |
+ 						BIT(IIO_CHAN_INFO_SCALE),
++		.scan_index = VEML6031X00_SCAN_ALS,
++		.scan_type = {
++			.format = IIO_SCAN_FORMAT_UNSIGNED_INT,
++			.realbits = 16,
++			.storagebits = 16,
++			.endianness = IIO_LE,
++		},
+ 	},
+ 	{
+ 		.type = IIO_INTENSITY,
+@@ -142,7 +158,15 @@ static const struct iio_chan_spec veml6031x00_channels[] = {
+ 		.modified = 1,
+ 		.channel2 = IIO_MOD_LIGHT_IR,
+ 		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),
++		.scan_index = VEML6031X00_SCAN_IR,
++		.scan_type = {
++			.format = IIO_SCAN_FORMAT_UNSIGNED_INT,
++			.realbits = 16,
++			.storagebits = 16,
++			.endianness = IIO_LE,
++		},
+ 	},
++	IIO_CHAN_SOFT_TIMESTAMP(VEML6031X00_SCAN_TIMESTAMP),
+ };
+ 
+ static const struct regmap_range veml6031x00_readable_ranges[] = {
+@@ -390,6 +414,10 @@ static int veml6031x00_single_read(struct iio_dev *iio, enum iio_chan_type type,
+ 		return -EINVAL;
+ 	}
+ 
++	IIO_DEV_ACQUIRE_DIRECT_MODE(iio, claim);
++	if (IIO_DEV_ACQUIRE_FAILED(claim))
++		return -EBUSY;
++
+ 	guard(mutex)(&data->scale_lock);
+ 
+ 	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(regmap_get_device(data->regmap), pm);
+@@ -453,6 +481,10 @@ static int veml6031x00_write_raw(struct iio_dev *iio,
+ 				 struct iio_chan_spec const *chan,
+ 				 int val, int val2, long mask)
+ {
++	IIO_DEV_ACQUIRE_DIRECT_MODE(iio, claim);
++	if (IIO_DEV_ACQUIRE_FAILED(claim))
++		return -EBUSY;
++
+ 	switch (mask) {
+ 	case IIO_CHAN_INFO_INT_TIME:
+ 		return veml6031x00_set_it(iio, val, val2);
+@@ -484,6 +516,80 @@ static const struct iio_info veml6031x00_info = {
+ 	.write_raw_get_fmt = veml6031x00_write_raw_get_fmt,
+ };
+ 
++static int veml6031x00_buffer_preenable(struct iio_dev *iio)
++{
++	struct veml6031x00_data *data = iio_priv(iio);
++	struct device *dev = regmap_get_device(data->regmap);
++	int ret, it_usec;
++
++	ret = pm_runtime_resume_and_get(dev);
++	if (ret)
++		return ret;
++
++	ret = veml6031x00_get_it(data, &it_usec);
++	if (ret < 0) {
++		pm_runtime_put_autosuspend(dev);
++		return ret;
++	}
++
++	/*
++	 * Wait one integration period + 10% margin so the first triggered
++	 * read does not race with the sensor completing its first conversion
++	 * after power-on.
++	 */
++	fsleep(it_usec + (it_usec / 10));
++
++	return 0;
++}
++
++static int veml6031x00_buffer_postdisable(struct iio_dev *iio)
++{
++	struct veml6031x00_data *data = iio_priv(iio);
++
++	pm_runtime_put_autosuspend(regmap_get_device(data->regmap));
++
++	return 0;
++}
++
++static const struct iio_buffer_setup_ops veml6031x00_buffer_setup_ops = {
++	.preenable = veml6031x00_buffer_preenable,
++	.postdisable = veml6031x00_buffer_postdisable,
++};
++
++static irqreturn_t veml6031x00_trig_handler(int irq, void *p)
++{
++	struct iio_poll_func *pf = p;
++	struct iio_dev *iio = pf->indio_dev;
++	struct veml6031x00_data *data = iio_priv(iio);
++	struct regmap *map = data->regmap;
++	IIO_DECLARE_BUFFER_WITH_TS(__le16, scan, 2) = { };
++	unsigned int i;
++	int ch, ret;
++
++	if (test_bit(VEML6031X00_SCAN_ALS, iio->active_scan_mask) &&
++	    test_bit(VEML6031X00_SCAN_IR, iio->active_scan_mask)) {
++		ret = regmap_bulk_read(map, VEML6031X00_REG_ALS_L,
++				       scan, 2 * sizeof(*scan));
++		if (ret)
++			goto done;
++	} else {
++		i = 0;
++		iio_for_each_active_channel(iio, ch) {
++			ret = regmap_bulk_read(map, iio->channels[ch].address,
++					       &scan[i++], sizeof(*scan));
++			if (ret)
++				goto done;
++		}
++	}
++
++	iio_push_to_buffers_with_ts(iio, scan, sizeof(scan), pf->timestamp);
++
++done:
++	iio_trigger_notify_done(iio->trig);
++
++	return IRQ_HANDLED;
++}
++
+ static int veml6031x00_validate_part_id(struct veml6031x00_data *data)
+ {
+ 	struct regmap *map = data->regmap;
+@@ -573,6 +679,13 @@ static int veml6031x00_probe(struct i2c_client *i2c)
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "Failed to init IIO GTS\n");
+ 
++	ret = devm_iio_triggered_buffer_setup(dev, iio,
++					      iio_pollfunc_store_time,
++					      veml6031x00_trig_handler,
++					      &veml6031x00_buffer_setup_ops);
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to register triggered buffer\n");
++
+ 	ret = devm_iio_device_register(dev, iio);
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "Failed to register IIO device\n");
 
 -- 
 2.43.0
