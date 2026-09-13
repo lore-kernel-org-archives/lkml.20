@@ -1,52 +1,85 @@
-Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 081BB391822
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 08:44:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.210.214.84
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA37438423D
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 08:46:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789289098; cv=none; b=EMS7a+asBETE9RbRWWh9h/vCKLueBsW8SKaU+jlRMxweMWJrCVEYH9vnUetTT05yJhIPjJ35Y/kVqeGES/kcGE8EYZ1GuioODfEBI01w8Cw3StLOMsbPDx9AO3lYozFZ0M1Ti6cYYUjimbYtstTXQEnRgEvbFaDSgZIvQQ0EMnA=
+	t=1789289178; cv=none; b=OQbo+7XnhQaKYJhIwMkciqOBIfSjeJdSdE5JghMFhvR0c0zi9DaAwEsLHn/lFhhWiH1gzlNtOrmo8FiBObC+WIcKtGCfBLGM5Il218clD5PShUC4V9zbfhj9VB6OOi+5Mw2DxuyUCewWR8q9ZSMvvbD5WqZYgGdcKvHzrbipUlY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789289098; c=relaxed/simple;
-	bh=8m0PPlyNNCSEtp7TRfILqQQEhHq6E+jzOoqCB2lsZoU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mKi2QsLRciSWekyWa/FX7YPq5noutsdeqiVjHfMB+rcoR/VF6oSYnAJshrygoRLLea1VkPaZ8Eel0Uhv6hf/+n8dqlVfiC7Mkqn1JdwBke79AhOMOcP+PyMJ9NkPXUaA532j0ltjfS+6jwwtVhObAjTutrE+TjQQWfJiv0Szn8s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org; spf=pass smtp.mailfrom=codewreck.org; dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b=JTRDLSLF; arc=none smtp.client-ip=62.210.214.84
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
+	s=arc-20240116; t=1789289178; c=relaxed/simple;
+	bh=iHvIsz7cl3fIxEd7ZH9+eu1Bi+Ug2ZIJ7yL/8KUNzhc=;
+	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UOEipFgF3C4gn812vJM6FgMqA8fyTEY5YmCkAbMR151EZFgXApFOR6BnbvwHFLSDbfxu3YIISzxpF5ovRQLNb/3IvBRt+P8oKY9vcjDU+njmbP9jACQQq9BeVQQwymkMeY4y0JehlRugY+ry9NwusogwRSL94lGzOD5f/8DJRlU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jU/LtYRo; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b="JTRDLSLF"
-Received: from gaia.codewreck.org (localhost [127.0.0.1])
-	by submarine.notk.org (Postfix) with ESMTPS id AA92F14C2D6;
-	Sun, 13 Sep 2026 10:44:51 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
-	s=2; t=1789289095;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DuX0dyVxOsJkrFTZmTmdfvbvbh0Mi2dz3PNH36mjDyk=;
-	b=JTRDLSLFywKYdpWPG2scTup0cA5vWC7aGYr/VfZ7fslOwzKmM8FQDWgjZ/kTKr5GpzS9kx
-	awSXmGJXQakSLxj48Z0XpPTPNYA5urh2oaLx5EyTi38bN8qHHVKqAImInG/gR5AWroxRJz
-	1BaqVshBwsOTv1R0oPOYKoDYtfhog2BWN3qrUltXEvk1h+auDHdWmCBxUkJWTeW4yOnwxa
-	4p0S/4i4bcR4KMYNqZS3YOvwgD4246fu/OPE9bsaKCv3r3apXFdDrA5hWtaaKV7SfyvkOE
-	QtNAjvDR3qmm8HH6DntI5Gq2o/2qVU+xQvL6TphVWHX6duUYet4Xe3qny6w3Mw==
-Received: from localhost (gaia.codewreck.org [local])
-	by gaia.codewreck.org (OpenSMTPD) with ESMTPA id 26127b29;
-	Sun, 13 Sep 2026 08:44:49 +0000 (UTC)
-Date: Sun, 13 Sep 2026 17:44:34 +0900
-From: Dominique Martinet <asmadeus@codewreck.org>
-To: Michael Grzeschik <mgr@kernel.org>
-Cc: v9fs@lists.linux.dev, Eric Van Hensbergen <ericvh@kernel.org>,
-	Latchesar Ionkov <lucho@ionkov.net>,
-	Christian Schoenebeck <linux_oss@crudebyte.com>,
-	linux-kernel@vger.kernel.org,
-	Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
-	Ao Wang <wangao@seu.edu.cn>, Xuewei Feng <fengxw06@126.com>,
-	Qi Li <qli01@tsinghua.edu.cn>, Ke Xu <xuke@tsinghua.edu.cn>,
-	Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
-Subject: Re: [PATCH] net/9p/usbg: Fix use-after-free on usb9pfs_clear_tx
-Message-ID: <aqZichSBFZgqFn8F@codewreck.org>
-References: <20260529081026.77732-1-zhaoyz24@mails.tsinghua.edu.cn>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jU/LtYRo"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747ee1f38so12983405ad.2
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 01:46:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789289176; x=1789893976; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:subject:cc:to:from:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8L1RhqceTVtKN+YKBRtMP6Pzolyp5M8mVVEfY7BsJsg=;
+        b=jU/LtYRoRbQUvU0jctkifESRhlMKVvQUlUykjquKDllblDB51b/rkhrsESGiMcN7Al
+         xXdq/2FTTzsvKr4h1U0ZsXoY9job/bAk8QuSfNknKGGTlr1BBhPloUuIugXAQO9qn+R6
+         lSj14kVSGtgao1GCqRXc6tye9sAq1xw+7X3a9HPwzNENPHeea32LnkeIY5A75jvmd+mE
+         mwm91v0IqjolDt4bj1UJpRKRXDwGIkObQbor6MxogEfzBuhZalMpbXkgBZqQICIuT6/O
+         RD3wFusepTunoNKAiyXQ42piNvUFGFtRQ3fUJVj/UGmV9l80yqDGrJA7TfwQYt9b7J3q
+         c7LA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789289176; x=1789893976;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:subject:cc:to:from:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8L1RhqceTVtKN+YKBRtMP6Pzolyp5M8mVVEfY7BsJsg=;
+        b=lLmLREiy0KGL6nIzc3vEO4AdaoNK5GQ8OjtoIHz4CQEnrIhHLdT8XNzH/1u1NaCsTh
+         E+hWgp4d45RGVKkiyr13ZiWh5yisBwxboSp7Phx5Nbygtahq81DgmhtcRk1p0pRWB7qn
+         NI15JdeRO6SZsFnHy8dU8sT1o0Wr0d7NHOnkFKvD7j+N9tkYR32NoUuVtszeylzDeXoz
+         6wXJ4EMTbpt+YTf2MeWkeHyBtjBxYR19KW1lDWCvYIMZreCRsPuBVu6M6my9g8eSq6CS
+         QhzFiQyXGgBxvWh1lTp4vmNaLaY/ZIVwQ5bKZ4XkwuP/h51qw3tCN1/4PgQ4WVA+nhgi
+         /Mhg==
+X-Gm-Message-State: AFuF++mLmIdFv2UgmO8+HBHlk7DIO4RqqGGgk/+ejUHUmUtUUWQs9EMj
+	6UTNYQCPvq1lLkclyvcV3yr8LP/Jpa0VUuiNk0f5fWCyG2BMy57jox1y
+X-Gm-Gg: AYBFou2C08NHcOBTJpW/hMLC1b2OPVOVIfiYtsiD8PyvL71ftfxrkH3raVthslfdb+/
+	VMmBmIyFKUhUU9+6alUmUBOiy17mnpeTaCM4IQUsX9VgpfhTAmHNZwXfR3SF/Yo6BplIlpuqNc+
+	rKfNeDK66tYRSpBQ+1ijYX2m5GTvQt+q4NXnADISYuMPO0GIpZvPMKTh+VQvugvwOyjjC25ghko
+	rgKYaaJ9AjK5N8vLWdm+MQxBXHWtvc+Wf+pFVS+zUbnKr3OcPi24ww8mxaeoQAG9fT6IbdPhsXV
+	KQU0IOABaCsUXjFlNa16SPcby7sKaWKEwzzM58hY3tA0AWydRlOIn3q4iiSBJ7iCB7Qo1KIerAA
+	osNA6lXRKKqwI8y4N1puRptbZxyFdtb0m7AhVchXMxowTUTmZcFWcAlhWMp99HnAcXZUkLz4vjn
+	jhnrF2ZCN/xFSb4RTLyPTKJ50VQkcONqyHJweAadKcr4Y22Tdonr0t6XH5SkF+ne+4VA7yju4tL
+	CS2FbHYtTq1F39SHBEuOsuzDfSF5g==
+X-Received: by 2002:a17:90b:3810:b0:398:9be8:ea68 with SMTP id 98e67ed59e1d1-39d9c35dddemr21890581a91.21.1789289176156;
+        Sun, 13 Sep 2026 01:46:16 -0700 (PDT)
+Received: from localhost (madb688426.ap.nuro.jp. [219.104.132.38])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39db113a3d0sm9891430a91.14.2026.09.13.01.46.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 13 Sep 2026 01:46:15 -0700 (PDT)
+Message-ID: <6aa662d7.0ca013b1.1575e3.0a60@mx.google.com>
+X-Google-Original-Message-ID: <20260913084613.3dzcb4puhqeetjos@DESKTOP-1P5QNTF.>
+Date: Sun, 13 Sep 2026 17:46:13 +0900
+From: Kohei Ito <koheiito.dev@gmail.com>
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
+	linux-gpio@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>
+Subject: Re: [PATCH 3/3] sample: rust: Add GPIO consumer sample driver
+References: <20260906-add-rust-gpio-consumer-v1-0-24d192f93760@gmail.com>
+ <20260906-add-rust-gpio-consumer-v1-3-24d192f93760@gmail.com>
+ <CAMRc=Meei7Z1f1n0M_Hy1LdxG=NVhkFeEiT3=p5QVpw6BTv3EA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -55,33 +88,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260529081026.77732-1-zhaoyz24@mails.tsinghua.edu.cn>
+In-Reply-To: <CAMRc=Meei7Z1f1n0M_Hy1LdxG=NVhkFeEiT3=p5QVpw6BTv3EA@mail.gmail.com>
 
-Hi Michael,
+Hi, Bartosz,
 
-I'm honestly not quite sure what to do with this and others UAF usb9pfs
-patches -- you acked the first one I replied to, and the tag match is
-obviously correct so I picked these two, but I'd like your opinion on
-the rest for two reasons:
- - There seem to be plenty of rough edges around usb9pfs, and frankly I
-don't consider this a trust boundary (the usecase being developping
-embedded devices, you trust the server fully, so whatever happens
-in corner cases doesn't matter)
- - You had a rework in progress (before leaving Pengutronix, which I can
- totally understand you don't have time or want to keep carrying going
- forward, but is someone else from Pengutronix taking your place?)
+On Thu, Sep 10, 2026 at 12:37:17AM -0700, Bartosz Golaszewski wrote:
+> On Sun, 6 Sep 2026 10:45:51 +0200, Kohei Ito <koheiito.dev@gmail.com> said:
+> > Add a sample driver to demonstrate the use of the Rust GPIO APIs.
+> >
+> > Signed-off-by: Kohei Ito <koheiito.dev@gmail.com>
+> > ---
+> 
+> I don't like samples as they rarely get built or tested. We seem to already
+> have kunit support for rust, wouldn't it make more sense to implement a kunit
+> module for rust GPIO abstractions? If we don't have provider abstractions, you
+> should be able to reuse gpio-sim as the GPIO controller for testing just by
+> instantiating simulated GPIO devices.
 
-For all I know this is also correct, but I'm not sure slapping a bandaid
-is the way to go, so I'd really appreciate if you could have a look at
-this[1] and "net/9p/usbg: clear stale request context after abort"[2]
-[1] https://lore.kernel.org/r/20260529081026.77732-1-zhaoyz24@mails.tsinghua.edu.cn
-[2] https://lore.kernel.org/r/20260802152148.810390-1-marsy12010123@gmail.com
+Thank you for your suggestion.
 
-If you tell me to pick them up I will, and if I don't hear back from you
-I'll take another look hopefully before the 7.4 deadline, but I honestly
-don't have enough time for this so the most likely outcome will be
-/dev/null
+I assume the kunit module you have in mind would be implemented like
+`gpiolib-kunit.c`. Based on your comment, I agree that a kunit-based
+approach is more appropriate than a sample driver.
 
-Thanks (and sorry Yizhou Zhao / Chengfeng Ye)
--- 
-Dominique
+However, as far as I know, we don't yet have Rust abstractions for
+platform_device registration and software_node, which are required to
+implement a kunit-based module for testing GPIO consumer APIs. Given the
+current state of Rust for Linux, I think creating a sample driver is a
+more practical approach for now. I would like to consider migrating to a
+kunit-based module as future work.
+
+Best regards,
+Kohei Ito
