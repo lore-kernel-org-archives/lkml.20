@@ -1,275 +1,150 @@
-Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
+Received: from mta0.migadu.com (out-208.mta0.migadu.com [91.218.175.208])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BEFB3C76A0
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 07:14:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.141
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789283673; cv=pass; b=nL+dMlwgNA9My/Xxt87P0csw/Td8PgMptwjRFkzNhTXe8SDxvEo42UxZMfa0xTcdVk7ogG+4GrAKIX+8dCLKpfYbwE2qP6tVu2HLxLy/u69Ree6PAant37AYHFiWczb4+4EigHFoRPMaCN83h6A2Sowg+eLloM0jFEBXgn2taNw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789283673; c=relaxed/simple;
-	bh=s8jhCDS6DypoAkPUhEeNBzWAxC4U8w7kKhE16KEqpZY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=mtbpwmpWlEvR9aNSpP2o+cwp6Q8w6X38yRUFyECLM3gGFCrk9RWTJpbjRKzVPJNwc1irW6NEYCoRQPk+YnfsWFb75pUjOKSGuacVFLOHo2wT+rMMSsigFhm42WqouLB9BD6OoK1o/x+iOaxuOhkK8tTux49o3MbiDjVn1IWwWOA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OP5lxNDp; arc=pass smtp.client-ip=74.125.224.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A86484BEE2C
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 07:23:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.208
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789284224; cv=none; b=AFr38qzXcGdbMuSbJngc+aY+1Zz/fHWHkuwGUE1KXSE138D6/5QGiG7JQOBtGJHl+nL7w5YuxnFS8XQEiKnFy96MA43GY40d6t4CwKWgKVL6cGrXCcw57b+HKQLqt0o2zPbwLMmt3yL2mSKVCaQ3+biwnbjAsjZ0LYsVZweOIQs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789284224; c=relaxed/simple;
+	bh=IxZ5irpoc9Wr9wY2wKWP3i1ANdXlxPv1vjeqCqP4vuI=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=oyEgy5Zmm874DsYdxV8vkUOlTGN+TrFjmYFlmJw3ry6LeexlgS7Ir9I1Al76GqeYKpRv45ZN63G8Je07tOrrrWrdfgRpNJYwXZXr/9dcNrtufra1/YHm550vGjgKfBvV328Y/bYcRe8E+tk63tD6fphAhokfNWzf0q0Z84D5u/k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=gVN42bTL; arc=none smtp.client-ip=91.218.175.208
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OP5lxNDp"
-Received: by mail-yx2-f13.google.com with SMTP id 00721157ae682-85d46e4cdcdso7810347b3.2
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 00:14:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789283670; cv=none;
-        d=google.com; s=arc-20260327;
-        b=kqyFbmZzrNvlHne8Lp8xKWX6laq4nAymMPl49DdUaW69rqtFOi8S9XX8DqDUV9aSfs
-         GitYWlQ7dB4/LvekHTOMgTe5yeHGNkQhmjZsGbrQOJ2bsPE3XSvesobNvoxzBlXrgvw+
-         kcvr2R2y/jNI7mJCx3yqRGEZrEgt2bU4lLjmU1JdGbmTYBltObzSnySB6m2hPl+ri317
-         BMtwdHIfmebGqgEhoKZaFH2rckwV2WVTOI4NnMJbiAeHTZJH8P2ADU3Bi55+Uk9EpGd9
-         tw34lVJapgbmqitPSgYHl/63MIF9VgQdg035MldtU7xx0C8x2xKrjRVP5RWdlc3PIiJp
-         6X/A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=hs7PCl8ZdlMvhgHWX0PHVYVp8DWBXv1h24H33tOaVTY=;
-        fh=iMyQ2MeCcgLyNFCx53XwWumGNy7+GrMzJCLqkz+x54I=;
-        b=RTBhYVaq9yVa/RK9RIfGzCyqvqp8q34mVBx3czP9UGSpeK1RnjUcDZVe4+vJ0jANr0
-         p0pba8/LMOH72TtPFCsBculb6QaIrHq6XkQTFCxE3pm3vll/Ty395FnoPIBygaD2B+WF
-         0wG2480TntBAyJEEXQ3VHZAm1g/7YTM+/qP7qK8q8MHo6c16ziEQMHLRJVeyQhsvAaz7
-         h29sIzmRdwrJ2u+wCGZUKO8bYRqOd5vhtaGuYOr8NTVRRAxWs38lPYwH/iBO+pyKDHEE
-         ZyXLc02c7FD0m0ME1pZ7AKIpmq4RRBJ3++cMVev8RemyP0Sytx1hu8rH03XEp+3tXMuN
-         s87w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789283670; x=1789888470; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hs7PCl8ZdlMvhgHWX0PHVYVp8DWBXv1h24H33tOaVTY=;
-        b=OP5lxNDpd8DMWxUVrNyGUdFp9IM5OJLWD99Cz/2yE9N4rCQ3pO6NFX4vmlIotvsDxe
-         Xgx4gJZG140abj3nhVTKL5XmY97AOarvI5vmIoK9xcDOmNHL3PjoLy9XO0PeBJH0RPtn
-         Lflhlj9C3tl3qjhz0PHGpnPL1XxiJRO9C4jcJgCI8K137NIiDugHpusA7SOQ7sBNTUvD
-         VRi/4gPWQkJnqWTEYQy8UomoXx7/lGkhKilnk8NhJYl3vQstQatMyQHfHIYtZJ52JXyf
-         VoiIKsPZbJoQPaRBxh7wuoMS4IGiTeaQiAPEaE6foL+k2Fk/2dqAQuvKCP1vb8cjUBhc
-         pEwQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789283670; x=1789888470;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hs7PCl8ZdlMvhgHWX0PHVYVp8DWBXv1h24H33tOaVTY=;
-        b=SUpzn6zioXInAayjgQoZAAK8IBTHN5t2Ln61Jr9ovXFzmlyDxYCb9gXy/ckKyRj36P
-         VPiy1NJot2ImoYfMlVuA27tvUrg4kl4I09EgEbUOO3bZRZyH21SMK80XDEg5u9an4egq
-         gWpDkiZA9rMUlGhoR1slHZm5O85MtJi3JfB9qxcGaOlw3to+Wolr4uzkByv8sv3aKmx5
-         y/HQneUe3TOFrr1oKBkMfnwnHfgH4b1IBCPFfwUSVt7bxZcrnzOsKYesw5nWmD1fnQTG
-         +nn00H5P1WAlwNbUuko7BcNull0wjnr0TB9vL8m8icZDheW3E4Ta+kYXXqKIN1RNeczw
-         Eo7A==
-X-Forwarded-Encrypted: i=1; AKwUvBwVgnHg+RqyrQlu5zvB6seklnDogzG1PlQCZtR6KSC33y8K1zCB6fwrvG2y4FYiJNe6QJhQxy6SrzHQ6IE=@vger.kernel.org
-X-Gm-Message-State: AFuF++koDY2IdsmrOqTmH7aBh3PQ0iCS0/u5J/xW/cbGTiujgflVRyGO
-	U+PTd7eDxoZ5vyxdDvi0zcYSNpIy3vbktspPHEXlS7afWaXEdyFvWTp/dM7YNIE9+NPJd5jucBn
-	EaYtZlLssEh5uOea9Q8bfiNbGKy0/P/I=
-X-Gm-Gg: AYBFou0kNgXpHS7BSB2NHE/YsZSjJDpxi954swoUPpfsFj0xIjoshAAUNdODYcDBpx0
-	A5YxXKDDN1hd9IKG+6Zi1kQU1nR4MMmMvc+vQL6d+BHBJ5cYDTFnZeDNQy+fZPIj+wYE1aNcE6A
-	cBBzGG03D/8ELdOgR3VemFU2xPiH8Hxm/B9sI4yGqbHVtyuqBz6qT7p5Ltozkhc+ITAgAMkNeQQ
-	9hzYGbIrohBOVlL4VhCLW05/C5W61EnqbtK+3ZlwRdGuWzcuCCsgclJUVU/lUFvYNl4JGy2AlHa
-	Kb89ot4I2J/hWIBcSXcDgPMCQ/9TGW9Qf8sI6yXdeLQsunXkrm6Gw7QXAfnECNbwsB882uxnrFY
-	LrWP0Cxq5XQ8F
-X-Received: by 2002:a05:690c:e3cd:b0:87f:a9c6:470b with SMTP id
- 00721157ae682-884ae7afba1mr42342687b3.2.1789283670033; Sun, 13 Sep 2026
- 00:14:30 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="gVN42bTL"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=IxZ5irpoc9Wr9wY2wKWP3i1ANdXlxPv1vjeqCqP4vuI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789284219; v=1; x=1789889019;
+ b=gVN42bTLJHEEpg1p4L9bINSm2s8Z5Jm2mwRO2k7kkH5pmlJktgBDF2fp/wnkomQSGNRg19bq
+ cLCFQPOk2AEIfyZETjX1ESTKuSCzf55Bak9dHzZknyl+hV10ZGppV1VR6y6Ic8hbcJOxtHCgL6y
+ iPK+HKzUwjEl98TmCPSrq5rc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id fc7f62b8527fd901;
+	Sun, 13 Sep 2026 07:23:29 +0000
+X-Mizu-Trace-ID: fc7f62b8527fd901
+X-Migadu-Flow: FLOW_OUT
+From: Lance Yang <lance.yang@linux.dev>
+To: akpm@linux-foundation.org
+Cc: lance.yang@linux.dev,
+	david@kernel.org,
+	ziy@nvidia.com,
+	baolin.wang@linux.alibaba.com,
+	liam@infradead.org,
+	nico.pache@linux.dev,
+	ryan.roberts@arm.com,
+	dev.jain@arm.com,
+	baohua@kernel.org,
+	usama.arif@linux.dev,
+	kas@kernel.org,
+	ljs@kernel.org,
+	surenb@google.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 1/1] mm/huge_memory: fix pgtable withdrawal for huge zero PMDs
+Date: Sun, 13 Sep 2026 15:23:12 +0800
+Message-Id: <20260913072312.52111-1-lance.yang@linux.dev>
+X-Mailer: git-send-email 2.39.3 (Apple Git-146)
+In-Reply-To: <20260912234635.db50397364858aa15f58f4d7@linux-foundation.org>
+References: <20260912234635.db50397364858aa15f58f4d7@linux-foundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260911-b4-rcu-tasks-preempt-qs-v2-0-eaaa61ed2da4@toxicpanda.com>
-In-Reply-To: <20260911-b4-rcu-tasks-preempt-qs-v2-0-eaaa61ed2da4@toxicpanda.com>
-From: Yafang Shao <laoar.shao@gmail.com>
-Date: Sun, 13 Sep 2026 15:13:54 +0800
-X-Gm-Features: AcwNN1UspbNtkItJTCvCtD3l6jewbKb17CHUZA9TTmeWwkQ5AKSxYWpYJfiUJCk
-Message-ID: <CALOAHbAE1Lq=EZE=HpNJS3dxm_sVDmjWxNm5m0ugerwWr9RN6g@mail.gmail.com>
-Subject: Re: [PATCH RFC v2 00/15] rcu-tasks: let preemption outside
- trampolines be a quiescent state
-To: Josef Bacik <josef@toxicpanda.com>
-Cc: "Paul E. McKenney" <paulmck@kernel.org>, Frederic Weisbecker <frederic@kernel.org>, 
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, Joel Fernandes <joelagnelf@nvidia.com>, 
-	Boqun Feng <boqun@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Steven Rostedt <rostedt@goodmis.org>, 
-	Masami Hiramatsu <mhiramat@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
-	Andrii Nakryiko <andrii@kernel.org>, x86@kernel.org, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Puranjay Mohan <puranjay@kernel.org>, Xu Kuohai <xukuohai@huaweicloud.com>, 
-	Andy Lutomirski <luto@kernel.org>, Josh Triplett <josh@joshtriplett.org>, 
-	Uladzislau Rezki <urezki@gmail.com>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
-	Lai Jiangshan <jiangshanlai@gmail.com>, Zqiang <qiang.zhang@linux.dev>, 
-	Juergen Gross <jgross@suse.com>, Luis Chamberlain <mcgrof@kernel.org>, 
-	Ihor Solodrai <ihor.solodrai@linux.dev>, linux-kernel@vger.kernel.org, rcu@vger.kernel.org, 
-	linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sat, Sep 12, 2026 at 2:54=E2=80=AFAM Josef Bacik <josef@toxicpanda.com> =
-wrote:
+
+On Sat, Sep 12, 2026 at 11:46:35PM -0700, Andrew Morton wrote:
+>On Sun, 13 Sep 2026 13:19:42 +0800 Lance Yang <lance.yang@linux.dev> wrote:
 >
-> v1: https://lore.kernel.org/all/20260910-b4-rcu-tasks-preempt-qs-v1-0-d44=
-69f4cc101@toxicpanda.com/
+>> From: Lance Yang <lance.yang@linux.dev>
+>> 
+>> has_deposited_pgtable() uses !vma_is_dax() to decide whether a huge zero
+>> PMD has a deposited PTE page table. That also accepts raw PFN mappings
+>> of huge_zero_pfn, although vmf_insert_pfn_pmd() does not deposit a page
+>> table on x86.
+>> 
+>> Zapping such a mapping would call pgtable_trans_huge_withdraw() without
+>> a corresponding deposit. With pmd_huge_pte(mm, pmd) == NULL, that causes
+>> a NULL pointer dereference.
 >
-> v1->v2:
-> - Only walk the kprobe hash while the optimizer is actually waiting (Sash=
-iko).
-> - Re-check the kprobe jump window at every QS decision instead of once at
->   preemption time (AI review).
-> - Updated Documentation/RCU for the new rule (AI review).
-> - Added 14/15 and 15/15 to address Paul's comments.
-> - Added a comment in trace_recursion.h per Steve.
-> - No change for the arm64 ftrace_static_tramp_end report, the Kconfig
->   dependency already covers it (Sashiko).
-> - Re-ran the x86-64 QEMU tests, still 0.2-0.3s and clean.
+>That's the sort of thing we'd prefer to avoid.
 >
-> --- Original email ---
+>> Use vma_is_anonymous() for the huge zero PMD check. This matches how PTE
+>> page tables are allocated, deposited and moved.
+>> 
+>> - For anonymous page faults that install a huge zero PMD,
+>>   do_huge_pmd_anonymous_page() allocates a PTE page table and
+>>   set_huge_zero_folio() deposits it before installing the PMD.
+>> 
+>> - On fork, copy_huge_pmd() allocates and deposits a PTE page table when
+>>   copying a huge zero PMD into an anonymous VMA.
+>> 
+>> - Raw PFN mappings use vmf_insert_pfn_pmd(), and DAX file holes use
+>>   vmf_insert_folio_pmd() to map the huge zero folio. Both use insert_pmd(),
+>>   which deposits a PTE page table only when arch_needs_pgtable_deposit()
+>>   requires it.
+>> 
+>> - Moving an anonymous huge PMD preserves its deposited PTE page table.
+>>   move_huge_pmd() transfers the deposit when necessary. For UFFD MOVE,
+>>   both VMAs must be anonymous, and move_pages_huge_pmd() transfers the
+>>   deposit as well.
+>> 
+>> Keep arch_needs_pgtable_deposit() first so architectures that require a
+>> deposited PTE page table still return true regardless of the VMA type.
+>> 
+>> Commit d80a9cb1a64a ("mm/huge_memory: add and use
+>> normal_or_softleaf_folio_pmd()") removed the vma_is_special_huge() check
+>> in zap_huge_pmd(). That check skipped the huge zero PMD deposit test for
+>> non-DAX VM_PFNMAP and VM_MIXEDMAP mappings. Removing it exposed these
+>> mappings to the incorrect !vma_is_dax() test.
+>> 
+>> Fixes: d80a9cb1a64a ("mm/huge_memory: add and use normal_or_softleaf_folio_pmd()")
+>> Cc: stable@vger.kernel.org
 >
-> Tasks RCU only treats a voluntary context switch, usermode or idle as a
-> quiescent state, because a preempted task may be sitting in a trampoline
-> that is about to be freed. That was a fine trade when PREEMPT_NONE
-> servers compiled Tasks RCU away and PREEMPT desktops rarely ran
-> long-lived in-kernel loops. PREEMPT_LAZY changes both halves at once:
-> Tasks RCU is now real on server configs, and cond_resched() is a no-op,
-> so a CPU-bound kthread or kworker only ever loses the CPU by being
-> preempted, which is exactly the event Tasks RCU refuses to count.
+>How real is this?  Is there a reported-by:?  Do you have a reproducer? 
+
+Yes, I reproduced it on x86 with a small test module. It sets
+VM_MIXEDMAP | VM_HUGEPAGE and calls vmf_insert_pfn_pmd() with
+huge_zero_pfn, without touching the page tables directly. A full-PMD
+munmap() crashes before the split series[1] as well.
+
+>Is it a theoretical, LLM-found-this thing which can't really happen?
+
+I found this while reviewing the split series with LLM assistance.
+
+mshv_vtl_low derives the PFN from the mmap offset, and its checks do not
+exclude huge_zero_pfn. I haven't tested this on a Hyper-V, though.
+
+[1] https://lore.kernel.org/linux-mm/cover.1787941780.git.yintirui@gmail.com/
+
+>> --- a/mm/huge_memory.c
+>> +++ b/mm/huge_memory.c
+>> @@ -2529,11 +2529,11 @@ static bool has_deposited_pgtable(struct vm_area_struct *vma, pmd_t pmdval,
+>>  		return true;
+>>  
+>>  	/*
+>> -	 * Huge zero always deposited except for DAX which handles itself, see
+>> -	 * set_huge_zero_folio().
+>> +	 * Huge zero PMDs have a deposited page table only for anonymous VMAs,
+>> +	 * see set_huge_zero_folio().
+>>  	 */
+>>  	if (is_huge_zero_pmd(pmdval))
+>> -		return !vma_is_dax(vma);
+>> +		return vma_is_anonymous(vma);
+>>  
+>>  	/*
+>>  	 * Otherwise, only anonymous folios are deposited, see
 >
-> The way this showed up for us was a cgroup writeback worker draining a
-> very large cgwb for around eleven minutes on an arm64 box. Nothing wrong
-> with that on its own, but a BPF program detach on another CPU went
-> bpf_trampoline_update() -> ftrace_shutdown() -> synchronize_rcu_tasks()
-> while holding trampoline_mutex, forty-odd tasks piled up behind the
-> mutex, and the hung task detector panicked the machine. The kprobe jump
-> optimizer is worse in principle: it does synchronize_rcu_tasks() under
-> kprobe_mutex, text_mutex and cpus_read_lock(), so one long-running
-> kthread can stall static key updates and CPU hotplug for its whole run.
-> The current answer is to find each such loop and add
-> cond_resched_tasks_rcu_qs() to it, which is the kind of annotation
-> PREEMPT_LAZY was supposed to let us stop writing.
+>Thanks, I'll add it for test-n-review.
 
-Hello Josef,
-
-Thanks for the great work!
-
-We've run into exactly the same issue on our production servers
-running the 6.18.y stable kernel:
-
-[   84.393333] INFO: task bpf-thp:10274 blocked for more than 28 seconds.
-[   84.393880]       Not tainted 6.18.44-3 #3.infra
-[   84.394214] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs"
-disables this message.
-[   84.394759] task:bpf-thp      state:D stack:0     pid:10274
-tgid:10274 ppid:10266  task_flags:0x400100 flags:0x00080001
-[   84.394764] Call Trace:
-[   84.394765]  <TASK>
-[   84.394767]  __schedule+0x2c1/0x6f0
-[   84.394772]  schedule+0x2a/0xb0
-[   84.394775]  schedule_preempt_disabled+0x15/0x30
-[   84.394777]  __mutex_lock.constprop.0+0x3a2/0x9c0
-[   84.394781]  __mutex_lock_slowpath+0x13/0x20
-[   84.394784]  mutex_lock+0x37/0x50
-[   84.394786]  bpf_trampoline_get+0x2a/0x80
-[   84.394791]  check_attach_btf_id+0x32c/0x3d0
-[   84.394796]  ? __pfx_mem_cgroup_css_offline+0x10/0x10
-[   84.394800]  bpf_check+0x4d6/0xf20
-[   84.394804]  bpf_prog_load+0x4d7/0xb00
-[   84.394808]  ? avc_has_perm+0x42/0xd0
-[   84.394811]  __sys_bpf+0x729/0xd50
-[   84.394815]  __x64_sys_bpf+0x1a/0x30
-[   84.394816]  x64_sys_call+0x19e1/0x2190
-[   84.394820]  do_syscall_64+0x67/0xe10
-[   84.394823]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
-[   84.394825] RIP: 0033:0x7f2aa7e3ee5d
-[   84.394831] RSP: 002b:00007ffd2b3e2a88 EFLAGS: 00000246 ORIG_RAX:
-0000000000000141
-[   84.394834] RAX: ffffffffffffffda RBX: 0000000000000005 RCX: 00007f2aa7e=
-3ee5d
-[   84.394835] RDX: 0000000000000094 RSI: 00007ffd2b3e2b10 RDI: 00000000000=
-00005
-[   84.394837] RBP: 0000000000000094 R08: 00007ffd2b3e2c30 R09: 00000000000=
-00018
-[   84.394838] R10: 0000000000000070 R11: 0000000000000246 R12: 00007ffd2b3=
-e2b10
-[   84.394840] R13: 00007ffd2b3e2b10 R14: 0000000000000005 R15: 00000000215=
-804c0
-[   84.394843]  </TASK>
-[   84.394848] INFO: task bpf-thp:10274 is blocked on a mutex likely
-owned by task kworker/1:1:80.
-[   84.395463] task:kworker/1:1     state:I stack:0     pid:80
-tgid:80    ppid:2      task_flags:0x4208060 flags:0x00080000
-[   84.395468] Workqueue: events bpf_link_put_deferred
-[   84.395474] Call Trace:
-[   84.395475]  <TASK>
-[   84.395477]  __schedule+0x2c1/0x6f0
-[   84.395482]  schedule+0x2a/0xb0
-[   84.395485]  schedule_timeout+0xea/0x100
-[   84.395488]  ? trace_hardirqs_off+0x30/0x90
-[   84.395492]  ? trace_hardirqs_on+0x2b/0xa0
-[   84.395494]  __wait_for_common+0x94/0x1b0
-[   84.395498]  ? __pfx_schedule_timeout+0x10/0x10
-[   84.395502]  wait_for_completion_state+0x21/0x40
-[   84.395505]  __wait_rcu_gp+0x135/0x140
-[   84.395510]  ? 0xffffffffc03fed00
-[   84.395514]  synchronize_rcu_tasks+0x56/0xb0
-[   84.395517]  ? __pfx_call_rcu_tasks+0x10/0x10
-[   84.395521]  ? __pfx_wakeme_after_rcu+0x10/0x10
-[   84.395525]  ftrace_shutdown.part.0+0xd8/0x1f0
-[   84.395530]  ? 0xffffffffc03fed00
-[   84.395533]  unregister_ftrace_function+0x47/0x150
-[   84.395537]  ? 0xffffffffc03fed00
-[   84.395539]  unregister_ftrace_direct+0x49/0xc0
-[   84.395542]  bpf_trampoline_update+0x448/0x4e0
-[   84.395545]  ? __radix_tree_delete+0x84/0x100
-[   84.395547]  bpf_trampoline_unlink_prog+0x8f/0x150
-[   84.395550]  bpf_tracing_link_release+0x1a/0x50
-[   84.395553]  bpf_link_free+0x57/0xd0
-[   84.395555]  bpf_link_put_deferred+0x12/0x20
-[   84.395558]  process_one_work+0x1b3/0x400
-[   84.395561]  worker_thread+0x1a3/0x310
-[   84.395564]  kthread+0x107/0x240
-[   84.395567]  ? trace_hardirqs_on+0x2b/0xa0
-[   84.395569]  ? __pfx_worker_thread+0x10/0x10
-[   84.395571]  ? _raw_spin_unlock_irq+0x11/0x30
-[   84.395574]  ? __pfx_kthread+0x10/0x10
-[   84.395577]  ret_from_fork+0x10d/0x150
-[   84.395580]  ? __pfx_kthread+0x10/0x10
-[   84.395583]  ret_from_fork_asm+0x1a/0x30
-[   84.395588]  </TASK>
-[   93.199020] rcu_tasks_wait_gp: rcu_tasks grace period number 1
-(since boot) is 40249 jiffies old.
-
-We eventually traced the root cause to a problematic BPF program
-looping inside do_check() in the BPF verifier, and we've worked around
-it with the following change:
-
---- a/kernel/bpf/verifier.c
-+++ b/kernel/bpf/verifier.c
-@@ -20411,8 +20411,7 @@ static int do_check(struct bpf_verifier_env *env)
-                if (signal_pending(current))
-                        return -EAGAIN;
-
--               if (need_resched())
--                       cond_resched();
-+               cond_resched_tasks_rcu_qs();
-
-                if (env->log.level & BPF_LOG_LEVEL2 && do_print_state) {
-                        verbose(env, "\nfrom %d to %d%s:",
-
-We've also observed random Tasks RCU stalls caused by kcompactd, but
-since they don't result in hung tasks, we haven't applied a workaround
-for those yet.
-
-Hopefully we can come up with a generic solution for these Tasks RCU stalls=
-.
-
-[...]
-
---=20
-Regards
-Yafang
+Thanks!
