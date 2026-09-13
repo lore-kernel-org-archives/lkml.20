@@ -1,209 +1,264 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.65])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC3DF378813
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 16:17:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789316280; cv=pass; b=RB80/TDDUqeRji7/R3Pcxny9w3F9fjFNuFu9EYhPaAEt81r5sKbI6NueaWh+kdQirOtX2V8S+W0f9DMKsWjoyOq0gt4sut7w2H38UWvfSpDbm3Tt1RMyM/w6Vsk3+JH6wR0ZQ2eVcCW4LDFTO5x1DHkBoYV6ak+AVdkTsVF+UyU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789316280; c=relaxed/simple;
-	bh=qrjaa3A/zSN3z/kTwF5pNuuhb8WEmUsn7IuE9lN2/WE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=PUJsdDACBY58yQIaP2tTLHaEozz8CG3kugqHp58eNpJi/CJGIcfsbshu6d0TRyyzpUvplVjjfJDbkJREBFdfLJoq2/g/3QqcJaKs6Up009Q61dtuNi+Ytxft6C6J8khEM11MFx+ma0q+nh9OQyjMtzTZfwHqYmpKcoEj3Xdx548=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=tCVPXk/H; arc=pass smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A61F137B030
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 16:17:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.65
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789316281; cv=none; b=eQet6+RPQXzhOfaxqWX/Ual2iUYid9IbKKRoW03zfFim6QQNwjOaqTMdf7HJwH6+1pEjnX8ecMyUxIB/eZ1Wr0zC5+oHevUs9MuQwdgAn1vststYQ1b19gmBF79IUTlXENwUNCpuhJL7di45AUUAmyk+FtDGm2n9Sy2L8PFmlnA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789316281; c=relaxed/simple;
+	bh=GF3qJ28po4tzQKhOOmc1ZjYhXtmA/fVN39S6nEBHPRI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=lGyKaW6o15p+CELKd3uXwZLYE0zoXA8+53T176OyqJP3WlrnugiDQVrwyB+1sMnUBqTL/7/y61edCojp5lbW/Ocp4t2BzDPN2ZJ1a0LdWwuWrKubd7jaKHTx7Ea3I97/GrDUDk3BSllkn6gENT+jLBCspxJIyBFAz5YLBNh2268=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de; spf=pass smtp.mailfrom=posteo.de; dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b=MrbiGImy; arc=none smtp.client-ip=185.67.36.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="tCVPXk/H"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b5e50eb70so26645e9.1
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 09:17:55 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789316273; cv=none;
-        d=google.com; s=arc-20260327;
-        b=c64riS26y7nhTzAWAHj0GQQHEFHBaqTjVOgK2dNRcYWlJuPRatzQ9BSn48JKGS3aqm
-         E/TzUM/LLaBmF5pyk86bFeZZu6G9XtAKYzrDwv6T+d33PXUm6Gd7/LeAm1PuaUaTnuvP
-         GBEGzYVRe1Ci4Ctr9js+RQ/en0ejp+EkKsaDhah5v+FxN9Maf6+92Yyt26IPmopXaRhZ
-         VmObJwNWc0xjfxBlACguZw1ADS2fHiES89a3Q1XUHL+gatX8JbjiV8o/h+Dj217WcDGK
-         GfwNi0MpguZDD0gUnuvIx6CuENAFjA9YEKPkOOCHFXDU01JWWwFME3esllMg8DvZcHx/
-         pypQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=yt+Ej+RFTyAlxOsRS7i/kggIDyE3eMtCY51oxHgQhKU=;
-        fh=l3mKt/6q11g8ZlCfgoJqGkwbZx//100+8iV2t33RiRw=;
-        b=i3NdlDAufzsGyRKFuSchMKskKQoyTTLS5NgV9uh1rYwNanzvmOOfgyM/y2m1r7SiI4
-         bDVQEJSHOWoms1YWfBk0ugoQqD3jEK3YlszOsLnDZ4gAHH+GTvhEtKl/T4OIUTmS1U4h
-         a5wN/DGU6SKuwodqqEzDo2B98JVC8wfI5QjvGqAEdR9qqLcZBTi34HLDn/QtlCQEoVQI
-         K5udUI4FReJWJu9n7tR99sw/lDieaHvivT5rJ5zSa3zWjHXqhcnxEd1IWc3lA/+5yTs8
-         FP87POSq2TfORF911c6DNmXs7IIoCE7v6pdqfzI7ihsRrGAnEdlUJM5lXgjPo6dja3xT
-         wlyw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789316273; x=1789921073; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=yt+Ej+RFTyAlxOsRS7i/kggIDyE3eMtCY51oxHgQhKU=;
-        b=tCVPXk/HjBz56vj4DLIPxsFAPBf4WEFz28uWG+bmseZ02lUx3aVTcesxKxChma+YO+
-         W6q33Oj2Qo/+e/+PynKd1/AEm3W3som0kepoB5iZ7vwCxYLGUZy5nB2qJk+wIQ61ybZf
-         pTCIDVMNiusuJ9LNmK/mFcAMbw+yOao6lcyiBFmJXoHVbf7T9/8n5hAlnzu0kR3gdXxa
-         impsYqQtMstf9P611tjjgRK+UYCXkRacITTOIrsIbFwTe/foUDbSpZhbS5XrnBZ17S/k
-         ntpi0xLEFoPNbRccDTVJANeOb/EO5RGaHODnXkKPBCwA67WhN7YFjjMRUxfZ5Zth8oft
-         wEDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789316273; x=1789921073;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yt+Ej+RFTyAlxOsRS7i/kggIDyE3eMtCY51oxHgQhKU=;
-        b=S6KtMq5DLcuPJRk8xw7BMMdrNLcfCdOtPKmjjRml5/DsPMsemK979j1cxj4RHNA1RD
-         IAjtF4Pv929a1odEQa6KC/A1Jv7UkGReJYGLlhPEkHoT+fPqrLQNFwlbFXEnWg9knC6K
-         nnW4M9bD0NSlGEvljNS76r2OSxmh8uCtadYb+dK6FpLR6BHeXTjkx5W9fLz2WaY7gbYv
-         9M/6NIbkuOD51ZecwzB6QwZfnP26LQTq1FvdrfJBp7aEub2v1Qgn1okempMSVcPU9EDE
-         OpMnqDclW26S24/BZMAXwvbz0mPYpA9C0CH+sVVMzhKB1OFNSmCxKhj2A2pq/whyHKT9
-         ciDw==
-X-Forwarded-Encrypted: i=1; AKwUvBzvvtbhgh6iIeplMs+7JJ1CoUyzHSjmFNBEX6B/BC2aKxs9Ry0hWUEz8bnD8eOsNKcXsmzpQBanlK8DNmQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++klag9RUenTdizCjA58x2pWF9YKcGKvgHeRq5LxwQSHAwAiv3+9
-	BFPK/QIVTYsAMwkGEBatBm14r77LA1SbtKw6YTCkpWdi7BJKWMkLqOnFbZBiDR/vjOjm2bHwLye
-	r4h9Ha+Og0DZ/b7xS/lqDApw7hIN5d+a4AMf1cdeUlDcgo/W5LLZNAzTnOKE=
-X-Gm-Gg: AYBFou3cSMbm8LGwmg4aF+Y1FPqqkcXIZ8nwd38/LuCkzYvqSceVA2RMep0HBFjLNOL
-	p8OQGR8n4DrFaFxwrMqjy266OfUGKxv7OootssB+9ELCurm755RqvuQh51OQeaOLS/qsGLZYqC5
-	pbI5jwqgRvxBTSEdNfIHuKR/zWQQ1/lWRoXsa+UVmPNL5Ft26WFneu4eJrHq6Jc8fpeYyDfEh0x
-	C49kUqcDo+XtNHojMvsJzr0iYvsBLEJpfMuTIsRX4agW1Qs/qB/ceI752YpV85qjLMZQqSSU8wP
-	p9Y7IGdY/E96GV92rPjD9JpfrYtc1wMgkxTP4STHjdAL7Yvp5qYleiWjdPfImbgmT3JmnxSt4e1
-	R0xA1e06f2w==
-X-Received: by 2002:a05:600c:3593:b0:49a:d4d9:e417 with SMTP id
- 5b1f17b1804b1-49e754445b3mr671735e9.6.1789316272535; Sun, 13 Sep 2026
- 09:17:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b="MrbiGImy"
+Received: from submission (posteo.de [185.67.36.169]) 
+	by mout01.posteo.de (Postfix) with ESMTPS id 47864240027
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 18:17:54 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
+	s=1984.8680eb; t=1789316274;
+	bh=4KZfnZZWUgpacNaNvWb37H6nYeezWlIgqRQQEVtr3Zc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:To:Cc:Autocrypt:OpenPGP:From;
+	b=MrbiGImydn/G+ECr2AoxCtOFs9ONVKhK0w4dJ7wa4qpBnj3z1h5ABhMtsJJIvuviK
+	 6YB3d4e359ISAx4Gya0vhuOVwlMwobreI5Ib4sjQV73mhkZYIv1hGMQJ6zEAw6KfsK
+	 /zA7g3KEYmwW+dfXKBha3UYI38/C+tME5Ghoab0PBd0smW2iXrH9rzw4nPGW/rZFBB
+	 HxONeJyEbMQ+1JmygyEY/zGIAw4db5WPd3usmj8aaRps47gxHwR4Z7f/5iSHcw5V+8
+	 oHHjHPVXXGzZitleJvopXOSdi5HAaa0+FLDk+EuD7px7DPLDsVXZcmbUnShWNxETfz
+	 N+U/PprmTH6QA==
+Received: from customer (localhost [127.0.0.1])
+	by submission (posteo.de) with ESMTPSA id 4hjYNK1QNwz6tw4;
+	Sun, 13 Sep 2026 18:17:53 +0200 (CEST)
+From: Markus Probst <markus.probst@posteo.de>
+Date: Sun, 13 Sep 2026 16:17:53 +0000
+Subject: [PATCH RESEND v4] ACPI: SPCR: Support UART clock frequency field
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CANGjgdn=H50AaA-+O_GA-hkE9UwLANmkjx1zRsKUzxF5za8VfQ@mail.gmail.com>
- <aqa7KgIJYGgf7INk@slm.duckdns.org> <CANGjgd=f9n7zEZS=xi71y_dY6Uk75_qgP9qVDkYBusNz9sp2sg@mail.gmail.com>
-In-Reply-To: <CANGjgd=f9n7zEZS=xi71y_dY6Uk75_qgP9qVDkYBusNz9sp2sg@mail.gmail.com>
-From: "T.J. Mercier" <tjmercier@google.com>
-Date: Sun, 13 Sep 2026 09:17:40 -0700
-X-Gm-Features: AcwNN1UGrvqbq3HFY7pcrIOl_jX8tfzTKZIUJ5QTX30rH2G51YS_Yo5JvuNEb8Q
-Message-ID: <CABdmKX2Oer9wrxWdR8s48Czro8H51HY+S_mfnUj-RvhjCM1RgA@mail.gmail.com>
-Subject: Re: [REGRESSION] kernfs: empty cgroup rmdir latency after
- delete-notification changes
-To: Chengfeng Lin <lin2530632123@gmail.com>
-Cc: Tejun Heo <tj@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jan Kara <jack@suse.cz>, 
-	driver-core@lists.linux.dev, cgroups@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	regressions@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260913-acpi_spcr-v4-1-965654188e67@posteo.de>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Len Brown <lenb@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
+ linux-acpi@vger.kernel.org, Markus Probst <markus.probst@posteo.de>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6200;
+ i=markus.probst@posteo.de; h=from:subject:message-id;
+ bh=GF3qJ28po4tzQKhOOmc1ZjYhXtmA/fVN39S6nEBHPRI=;
+ b=owEBiQJ2/ZANAwAIATR2H/jnrUPSAcsmYgBqpsywJxtU+ka95aLXiQy84vPo0T/va7E4gotTq
+ T40tim5ijKJAk8EAAEIADkWIQSCdBjE9KxY53IwxHM0dh/4561D0gUCaqbMsBsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDIACgkQNHYf+OetQ9Jp7xAAl4dNrXoQhxKwXmJsm2e5DfaenQZFpOu
+ vL+SMOVXAazJMzIAkytNwXcegBWD7uNaHOai6Ug8D9QN+nLRIp4FBT0R+DPWMgfkkQA1ixHtNJa
+ SS6je/e1Xmf7iLZ2ojHb4D1DFakuZfROtP7Sb+DUytgO7EAIwCHSxhYyFDlNt4csZuXPOXyfzDC
+ pO8C0f1LF5csAvX5RfiaJ2SbxDu0fR42JvIAAntWB74PUVLc3oxlT5quZhhSpLydcljhu5Wp+AI
+ Y36kclyqdHGPTskTAfDJFXlJoGgRDG7LVxk3g4/ICpJX9GSVfvwvxn8t0PVItdi97EKbCPmslsQ
+ sBTr+T/Jtp5aPCmncRrZ7ga3oS/aXpsqxLMbwLPSuLzj9POCIoQsmi3A89Dwu5vuBoqm8oF31cG
+ rL7r8ruIMg4xfl+jQSbM97guRpaBAUyjF+7XE8hhurRBpj9zYYVb8Lr6qC/jGU2GsmJIJ4cgsBq
+ njCuoXJfatBajbjMVNutfj2kQK4KLqfCBPaF1cLSRvg+m7KEGsPLs9q6pwMin5FqL06nbKp7FqA
+ OIAwuzDmGlHs6IjenHZYc0leqWeEM4RuJXS4dNoU2rSZb1NhBzGoqHsSCe9f/8bpvHgBUic6oCY
+ DeCqRUkXfqhNUgJuYYqXYG/h+4RaMttUpGMaxcloCRrxwQEb75sc=
+X-Developer-Key: i=markus.probst@posteo.de; a=openpgp;
+ fpr=827418C4F4AC58E77230C47334761FF8E7AD43D2
+Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
+  keydata=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
+  aBeNN4ijKZchBXHPgVx+YtWRHfcm4l8=
+OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
 
-On Sun, Sep 13, 2026 at 8:47=E2=80=AFAM Chengfeng Lin <lin2530632123@gmail.=
-com> wrote:
->
-> Hi Tejun,
->
-> Thanks. I found this during research into kernel performance regressions,
-> using a microbenchmark of cgroup creation and removal. This was not
-> prompted by a production issue.
->
-> I reported it to document the added removal cost and ask whether some
-> of it could be reduced while preserving the fixes. I agree that the
-> roughly 3 us increase per removal does not, by itself, demonstrate a
-> significant impact on real workloads.
->
-> Thanks,
-> Chengfeng
->
-> Tejun Heo <tj@kernel.org> =E4=BA=8E2026=E5=B9=B49=E6=9C=8813=E6=97=A5=E5=
-=91=A8=E6=97=A5 23:03=E5=86=99=E9=81=93=EF=BC=9A
-> >
-> > Hello,
-> >
-> > On Sun, Sep 13, 2026 at 10:43:04PM +0800, Chengfeng Lin wrote:
-> > > I found an increase in empty cgroup removal latency across 507d8ce13f=
-5b
-> > > ("kernfs: Don't set_nlink for directories being removed") and eea5d2b=
-b34ba
-> > > ("kernfs: Send IN_DELETE_SELF and IN_IGNORED"). With sched_ext disabl=
-ed,
-> > > rmdir() went from about 6.5 us to 9.6 us, an increase of 46-47%.
-> > > The result held in two independent runs.
-> >
-> > I don't want to make cgroup removal unnecessarily expensive but at the =
-same
-> > time it's not an operation that I consider to be a hot path, so as long=
- as
-> > the operaiton can finish in a reasonable amount of time and single digi=
-t us
-> > definitely is, performance of rmdir usually isn't something which is hi=
-gh in
-> > priority. Can you please detail why this matters for you?
-> >
-> > Thanks.
-> >
-> > --
-> > tejun
+Prior to this patch, we assume the uart clock frequency is 1843200 Hz in
+the early console. This behaviour results in garbage console output if the
+actual uart clock frequency differs.
 
-Hi Chengfeng and Tejun,
+The UART Clock Frequency field was added in the Microsoft Serial Port
+Console Redirection (SPCR) specification revision 1.08. If present, use it
+to configure the serial port with the correct uart clock frequency.
+Fallback to old behaviour if missing.
 
-We use this kernfs IN_DELETE_SELF feature on Android where multiple
-cgroups are created and removed frequently on a per-application basis,
-but we hadn't noticed a significant delay due to the inotify
-functionality during cgroup removal. It's probably masked by much
-larger delays (milliseconds) we regularly see due to unreleated issues
-with cgroup locks like priority inversion with cgroup_mutex, and
-contention for cgroup_threadgroup_rwsem.
+Add function `setup_earlycon_with_uartclk` to set uart clock frequency
+while still allowing to reuse the same console string with
+`add_preferred_console`.
 
-As far as what we can do, I think avoiding inode lookups for kernfs
-nodes that never had an inode created should improve the situation. It
-doesn't eliminate the locking overhead, which I don't think can easily
-be eliminated. The code below doesn't deal with inode eviction either,
-but at least files which are never accessed won't introduce the inode
-lookup overhead.
+Link: https://learn.microsoft.com/en-us/windows-hardware/drivers/serports/serial-port-console-redirection-table
+Signed-off-by: Markus Probst <markus.probst@posteo.de>
+---
+Changes in v4:
+- merge patches together
+- rewrite commit message
+- Link to v3: https://patch.msgid.link/20260615-acpi_spcr-v3-0-9a59ebad74ea@posteo.de
 
-diff --git a/fs/kernfs/dir.c b/fs/kernfs/dir.c
-index 4f9ade82b08a..3ec9f79b1aa2 100644
---- a/fs/kernfs/dir.c
-+++ b/fs/kernfs/dir.c
-@@ -1523,6 +1523,9 @@ static void kernfs_clear_inode_nlink(struct
-kernfs_node *kn)
-        struct kernfs_root *root =3D kernfs_root(kn);
-        struct kernfs_super_info *info;
+Changes in v3:
+- add separate function for earlycon with uartclk
+- Link to v2: https://patch.msgid.link/20260525-acpi_spcr-v2-0-c042089d73ca@posteo.de
 
-+       if (!(kn->flags & KERNFS_INODE_INITED))
-+               return;
+Changes in v2:
+- fix uart_clk_freq possibly being interpreted as parity/bits/flow
+- Link to v1: https://patch.msgid.link/20260505-acpi_spcr-v1-1-fd4bc6f4eb53@posteo.de
+---
+ drivers/acpi/spcr.c           |  3 ++-
+ drivers/tty/serial/earlycon.c | 17 ++++++++++++-----
+ include/linux/serial_core.h   | 11 +++++++++--
+ 3 files changed, 23 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/acpi/spcr.c b/drivers/acpi/spcr.c
+index 73cb933fdc89..c79c809f49d4 100644
+--- a/drivers/acpi/spcr.c
++++ b/drivers/acpi/spcr.c
+@@ -228,7 +228,8 @@ int __init acpi_parse_spcr(bool enable_earlycon, bool enable_console)
+ 	pr_info("console: %s\n", opts);
+ 
+ 	if (enable_earlycon)
+-		setup_earlycon(opts);
++		setup_earlycon_with_uartclk(opts,
++					    table->header.revision >= 3 ? table->uart_clk_freq : 0);
+ 
+ 	if (enable_console)
+ 		err = add_preferred_console(uart, 0, opts + strlen(uart) + 1);
+diff --git a/drivers/tty/serial/earlycon.c b/drivers/tty/serial/earlycon.c
+index ab9af37f6cda..5a20fe9e3fb6 100644
+--- a/drivers/tty/serial/earlycon.c
++++ b/drivers/tty/serial/earlycon.c
+@@ -135,11 +135,14 @@ static int __init parse_options(struct earlycon_device *device, char *options)
+ 	return 0;
+ }
+ 
+-static int __init register_earlycon(char *buf, const struct earlycon_id *match)
++static int __init register_earlycon(char *buf, unsigned int uart_clk_freq,
++				    const struct earlycon_id *match)
+ {
+ 	int err;
+ 	struct uart_port *port = &early_console_dev.port;
+ 
++	port->uartclk = uart_clk_freq;
 +
-        lockdep_assert_held_read(&root->kernfs_supers_rwsem);
+ 	/* On parsing error, pass the options buf to the setup function */
+ 	if (buf && !parse_options(&early_console_dev, buf))
+ 		buf = NULL;
+@@ -163,8 +166,9 @@ static int __init register_earlycon(char *buf, const struct earlycon_id *match)
+ }
+ 
+ /**
+- *	setup_earlycon - match and register earlycon console
+- *	@buf:	earlycon param string
++ *	setup_earlycon_with_uartclk - match and register earlycon console
++ *	@buf:			      earlycon param string
++ *	@uart_clk_freq:		      uart clock frequency in Hz or 0 for BASE_BAUD*16
+  *
+  *	Registers the earlycon console matching the earlycon specified
+  *	in the param string @buf. Acceptable param strings are of the form
+@@ -177,10 +181,13 @@ static int __init register_earlycon(char *buf, const struct earlycon_id *match)
+  *	<options> string in the 'options' parameter; all other forms set
+  *	the parameter to NULL.
+  *
++ *	If the uart clock frequency is specified in the 'options' parameter,
++ *	the value of the param @uart_clk_freq will be ignored.
++ *
+  *	Returns 0 if an attempt to register the earlycon was made,
+  *	otherwise negative error code
+  */
+-int __init setup_earlycon(char *buf)
++int __init setup_earlycon_with_uartclk(char *buf, unsigned int uart_clk_freq)
+ {
+ 	const struct earlycon_id *match;
+ 	bool empty_compatible = true;
+@@ -209,7 +216,7 @@ int __init setup_earlycon(char *buf)
+ 		} else
+ 			buf = NULL;
+ 
+-		return register_earlycon(buf, match);
++		return register_earlycon(buf, uart_clk_freq, match);
+ 	}
+ 
+ 	if (empty_compatible) {
+diff --git a/include/linux/serial_core.h b/include/linux/serial_core.h
+index bdc214386e4a..9b2bcd4295a9 100644
+--- a/include/linux/serial_core.h
++++ b/include/linux/serial_core.h
+@@ -1099,11 +1099,18 @@ int of_setup_earlycon(const struct earlycon_id *match, unsigned long node,
+ 
+ #ifdef CONFIG_SERIAL_EARLYCON
+ extern bool earlycon_acpi_spcr_enable __initdata;
+-int setup_earlycon(char *buf);
++int setup_earlycon_with_uartclk(char *buf, unsigned int uart_clk_freq);
+ #else
+ static const bool earlycon_acpi_spcr_enable EARLYCON_USED_OR_UNUSED;
+-static inline int setup_earlycon(char *buf) { return 0; }
++static inline int setup_earlycon_with_uartclk(char *buf, unsigned int uart_clk_freq)
++{
++	return 0;
++}
+ #endif
++static inline int setup_earlycon(char *buf)
++{
++	return setup_earlycon_with_uartclk(buf, 0);
++}
+ 
+ /* Variant of uart_console_registered() when the console_list_lock is held. */
+ static inline bool uart_console_registered_locked(struct uart_port *port)
 
-        list_for_each_entry(info, &root->supers, node) {
-diff --git a/fs/kernfs/inode.c b/fs/kernfs/inode.c
-index 38b28aa7cd02..f8b4a8b8ade4 100644
---- a/fs/kernfs/inode.c
-+++ b/fs/kernfs/inode.c
-@@ -208,6 +208,10 @@ static void kernfs_init_inode(struct kernfs_node
-*kn, struct inode *inode)
-        set_default_inode_attr(inode, kn->mode);
-        kernfs_refresh_inode(kn, inode);
+---
+base-commit: 237a1c39e8dfd3e1c6f1f023eea37a48ec04cc63
+change-id: 20260430-acpi_spcr-61902fd923f2
+-----BEGIN PGP SIGNATURE-----
 
-+       down_write(&kernfs_root(kn)->kernfs_iattr_rwsem);
-+       kn->flags |=3D KERNFS_INODE_INITED;
-+       up_write(&kernfs_root(kn)->kernfs_iattr_rwsem);
-+
-        /* initialize inode according to type */
-        switch (kernfs_type(kn)) {
-        case KERNFS_DIR:
-diff --git a/include/linux/kernfs.h b/include/linux/kernfs.h
-index e21b2f7f4159..87f074ce19d3 100644
---- a/include/linux/kernfs.h
-+++ b/include/linux/kernfs.h
-@@ -113,6 +113,7 @@ enum kernfs_node_flag {
-        KERNFS_EMPTY_DIR        =3D 0x1000,
-        KERNFS_HAS_RELEASE      =3D 0x2000,
-        KERNFS_REMOVING         =3D 0x4000,
-+       KERNFS_INODE_INITED     =3D 0x8000,
- };
+iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmqOIQQbFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMiwyAAoJEDR2H/jnrUPSt08QALWMim65nIIS428BheYg
+aq6BqxDGGqORhlf7aCFGTtNaeNDsu1Tny7sNTe+TEXpKl+AwoFTJ+4+bxl50AYyp
+8Niod0JGjEoxkQKsU/aScvCvEvMuPXOABfUGFtzieNpfswU2n6LHjywy+RP1mTEn
+aPP1arQGGGhe5b5lvolREN0VbGvymtiLr6P+qOhs76ib/dkOegq2/njBX7UlQ7Fy
+dIQo1A/NayUn5F7VWQKUz6ZHLX9bVZYSe2gstKpl5C8Ybwfaj/HgeT1TAdMoQ2K/
+KG0HgcWwIyoIaIms+yED6WSQKJwexx4zn/t2w/Qi2eSVF6WSqNdY3rrHf3sY3luj
+g5wYs2AvNnGjQU6iNGs7DLwwasHgqwZcOwRIdTvY8z3UP5Wpj5y01a+dJJG378zR
+cZhEQUmDn21jBlJvpqSKUoNRZc1L/8uNfQLbnOMVBNOUBXIQ9Z29j2IkqGsYeTG8
+uUndjyA/2SlEU29w2G6/MnJykNiW4oMxryXabXvh8dXc+SPQkUIM71ivo4y2/HgM
+3XGz9l+cgJk61F0oAHtzie7MorsEGVLMA2n4TpibkUCLRIjK3e5QvEBDHZILWHPA
+k2b8dkF2cdu8Q4nbI3PzXUFzuq/rsBpncSvYd/zDQrEMxzhNUVmuX7B9Ws7I0P36
+VKkGQqUFJNNx7LLynD7XaJ7l
+=nupY
+-----END PGP SIGNATURE-----
+-- 
+Markus Probst <markus.probst@posteo.de>
 
--T.J.
