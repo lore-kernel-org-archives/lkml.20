@@ -1,97 +1,72 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2B4230D41B;
-	Sun, 13 Sep 2026 09:34:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08B8333B6E8
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 09:36:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789292081; cv=none; b=rB80b0nDxA8vX4c4W0wjz6KztzJyouepmSs76MEhwldQV9KzLLIBWJ+j4SgVHDuGMmVmy39IyZrYwH16H/yBSYFwKKaIO9p+SqQKQKlsYO8h6sMRVRhdIc9IyRGPsvWPR9otOrahD+Z8QJipWEUsz466L0QJkK9UnWH8bkOGEpU=
+	t=1789292167; cv=none; b=ti0Y3hA1KEDunz6QLfguIwXR9bjjhNm29zIZSZeVrxCyBYpondD5+ndOysBYnLhyvcDch7H29jHQJjk495ERrGKWLpQb0fI57a9yyqvw9Z2DQMhSFXDCM509SJHQIbZcn00QimNmTDavIxYknhaaAkDi9w9Q17m+BrtC/cU9iKQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789292081; c=relaxed/simple;
-	bh=hviGUtohe935IIwAXM49da3usZ4zzBOHBBTribE0Exs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nwSLRUYVAFtOe8AhDCJSeNti70Z+LfKUZqgYTkpQ1UoDRY9i4uKh0XFuj2UefvGsS5vMucI9yRbEUfV6gYLhRT1bEKcgzqtPy019oGPKOBE8ofORfGVN5pbc2chmmdA/H7XfsMSUvinS1ivhsER0oF/VDbBaRKqSDCNnUTvLa/I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JKWXfKUm; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JKWXfKUm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EEFD1F000FF;
-	Sun, 13 Sep 2026 09:34:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789292080;
-	bh=ZkTfuIMcCGjNXiffCR6iTaAfYv3lmpMxeqnGSOZ/ADE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JKWXfKUmhRrmv3OHeOsoY1pYrxXdt3gq9xGUEmspxOU6/UMPTqkqdAbJFRMOk+1v+
-	 FHm0eSVw3YfxWBHFo/ixIle8yqsZSt3GDdhUQkVrrnQk6tBVCRzSisx5KeicNJ6iin
-	 agzP6y3CKM+dM1717/BJbYyOKfdjoVK9J9gTVaqPPKAjKzbdwM83rXECNJM3ra0oOh
-	 gV9x6diqJRuBuGa1oiIHVc0zDed/bhAkRM+sxklQDdex4uLrZpVLTNkbpSrNzvG5Fs
-	 dTze1G4S2/IGjI9KqcZjjpCiI0mx4u2RUIZrb3KXKB6XbYO0wVXZ82NzbfZWBAfpsr
-	 cB0lrEt5EiJfA==
-Date: Sun, 13 Sep 2026 11:34:36 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Enzo Frese <freseenzo@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Noralf =?utf-8?Q?Tr=C3=B8nnes?= <noralf@tronnes.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Jessica Zhang <jesszhan0024@gmail.com>, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] dt-bindings: display: panel: mipi-dbi-spi: add
- sitronix,st7789v-tft28
-Message-ID: <20260913-easygoing-chubby-sidewinder-67beb9@quoll>
-References: <20260911203342.76692-1-freseenzo@gmail.com>
+	s=arc-20240116; t=1789292167; c=relaxed/simple;
+	bh=/933sygnbIg/zraniL/i509YzLWtSLMoKbn8IcNj/vQ=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=arYjRjNMT9silXcimk9SexF8qRVFsODNWFiUxi4PsrNsiHdAcCPiS5cDnTcR+l4FvIVT9MqQSToeMwBqj0HGUf1cFrNV5uP6cjRLJRqqJp8cxyQJOu5lnaIX2nGX0OyLwP9COrGNHBxwEouvDZbw7SAutA/sXCPODa8uMRXJ5Sw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-8051cdb9338so2470043a34.3
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 02:36:05 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789292165; x=1789896965;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=R6lvEEIHBZ/jqRT5djMV8LnUIadStTua6TYmXXtXy14=;
+        b=cquhb79HY4EXLHPRrdkAfeS7jEcNMRABsILksHJIvqeeh3RAy7Wwc/oE1CZLxMt3jg
+         Xf0Do3qFQrh6ySYWpE0Epz1TxmD9VtG91Lm2ewLWJKFINZMMwesNyxixaanWivhFD1oK
+         VY7CCvRbFU178TSGn94QzZObQSozJEXl7mJ5CgIuzcrkAFzKKxCVMKkv5rXtNn3JmESt
+         8esX0R5EyvMiiqMmmR9wvF88GFzxfW4HKWiHVXFLGtSdTbztZVz71nAIxxd4wjNc+nSN
+         R4WYdQPR9NDzWgwXP4/5BHZUytmCU3aDy/+PwoZ2JwOc6x7MWQSU046jbjAx2lgxW6Co
+         SrSg==
+X-Forwarded-Encrypted: i=1; AKwUvBw1Faf6A9aD6GndFrBHuCAYa8QDg4THLI6fDaII8ufAGAWTh7AmYR5w91aSMiknNaXZnkxwIFmfv5Jq+MY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kpv81lhDK5NPgiWNHVBfv93x3n+teWI0IDTPHkjvELEZWbD5Gx
+	c6U35++H0Wc5tc9q3A29eaY/QZXKU3OS1EtGIQXkDbvvKcRmr6ZGC9htURcHtEn/FH81X57EiXq
+	L5MdUflVx5pX5UndTzSWVG3TUn9scUWRJ9JvCzuzNnPCfYCXGuPQjtT/xOkQ=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260911203342.76692-1-freseenzo@gmail.com>
+X-Received: by 2002:a05:6820:341a:10b0:6b7:83d6:2921 with SMTP id
+ 006d021491bc7-6c0bc1d9278mr5192100eaf.36.1789292164917; Sun, 13 Sep 2026
+ 02:36:04 -0700 (PDT)
+Date: Sun, 13 Sep 2026 02:36:04 -0700
+In-Reply-To: <6aa66724.84443fb9.2aa3c7.59f3SMTPIN_ADDED_BROKEN@gmr-mx.google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa66e84.f670cee1.72fc4.0010.GAE@google.com>
+Subject: Re: [syzbot] [kernel?] BUG: unable to handle kernel paging request in cirrus_primary_plane_helper_atomic_update
+From: syzbot <syzbot+2442951a6abb004df963@syzkaller.appspotmail.com>
+To: jchuang26@m.fudan.edu.cn, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Sep 11, 2026 at 05:33:42PM -0300, Enzo Frese wrote:
-> This is a generic 2.8" 240x320 RGB LCD panel with a MIPI DBI compatible
-> SPI interface, based on the Sitronix ST7789V controller. It is commonly
-> sold by various resellers without an identifiable original manufacturer
-> name printed on the PCB.
-> 
-> A basic mipi-dbi-cmd[1] script to get the display running looks like
-> this:
-> 
-> $ cat sitronix,st7789v-tft28.txt
-> command 0x11
-> delay 120
-> command 0x3a 0x55
-> command 0xb2 0x05 0x05 0x00 0x33 0x33
-> command 0xb7 0x75
-> command 0xc2 0x01 0xff
-> command 0xc3 0x13
-> command 0xc4 0x20
-> command 0xbb 0x22
-> command 0xc5 0x20
-> command 0xd0 0xa4 0xa1
-> command 0xe0 0xd0 0x05 0x0a 0x09 0x08 0x05 0x2e 0x44 0x45 0x0f 0x17 0x16 0x2b 0x33
-> command 0xe1 0xd0 0x05 0x0a 0x09 0x08 0x05 0x2e 0x43 0x45 0x0f 0x16 0x16 0x2b 0x33
-> command 0x36 0x00
-> command 0x29
-> command 0x21
-> 
-> $ mipi-dbi-cmd sitronix,st7789v-tft28.bin sitronix,st7789v-tft28.txt
-> 
-> Tested on a Raspberry Pi 4B using the panel-mipi-dbi driver.
-> 
-> [1]: https://github.com/notro/panel-mipi-dbi
-> 
-> Signed-off-by: Enzo Frese <freseenzo@gmail.com>
-> ---
->  .../devicetree/bindings/display/panel/panel-mipi-dbi-spi.yaml    | 1 +
->  1 file changed, 1 insertion(+)
-> 
+Hello,
 
-So v2 send in a few minutes, with different subject so Patchwork could
-not detect that it is v2, thus I spent time there.
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-Same comments.
+Reported-by: syzbot+2442951a6abb004df963@syzkaller.appspotmail.com
+Tested-by: syzbot+2442951a6abb004df963@syzkaller.appspotmail.com
 
-Best regards,
-Krzysztof
+Tested on:
 
+commit:         958f35cb drm/sysfb: ofdrm: Fix is_avivo() constant com..
+git tree:       https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=1092d5f9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=1d67342c314f228d
+dashboard link: https://syzkaller.appspot.com/bug?extid=2442951a6abb004df963
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=1243a925580000
+
+Note: testing is done by a robot and is best-effort only.
