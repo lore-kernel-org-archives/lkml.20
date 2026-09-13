@@ -1,123 +1,180 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60D143B8135
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 18:38:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 336F627A92D
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 18:43:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789324693; cv=none; b=FUFBqHSZpF5wrYZbk0zADxfeu1T4PfmUrjmVzAADLKkn6gOqoDIRo3QXq5SdAmjGk47dWrWO0xMOv4aGBVBHF7CH0m2Ee9aDe+xpGFwhVhqQRp3v1OFzM28yL0sZXX9u7GFaDcq7kjI04A5AsPXlES3MxCDJ2fEH6NQ+I0fRdwM=
+	t=1789325030; cv=none; b=nzS0myU/6XsbYXeQBNzuMURBHNQDdZyCKJs8J9DzBYxCzLthIoctq9nTggmEqzKiDPWY3FM1wddqvIqapGELZUpsZ+x014bXXB+lMBex/cfhIoeISzkRILjb4P9W09APRA0xetsFbqdtVEhTWq19zJQYKEJdpLkaUkUct30QaYw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789324693; c=relaxed/simple;
-	bh=+cBOmdfMRpo1mKp8ZhzrQDLiYCnzdvGdytXX8AvmtTA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XXMYMtddlVAFp4kJmYGyplhHiHLzw9nlTMr8hKydc+Ia+lA2CIzVIuQtFTKzTKwj3GfI9uQH+Y3HWuIf/4WIe9iJuHEpvJnm8R9eROWoWrZfMKlthFtx6Krk+c8fMBNhzI2GFHwVv9ARZ/wQZGyXbA7GzyyUObbebihcZH7YKZo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SR1wEWcu; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789325030; c=relaxed/simple;
+	bh=3gkXEZftB/iOTZIMePqR40LoCZS3SJ/oiKGgfLjksTE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HS+wlRiOfxaImi6Ox6a5b8jjrskeCO/B8yujU35sdy4lJ3WBsLB79UMxs3qZreu2HJtVijNRepfQBAw3o3vtWbUWQkPRNmMh8/m9qloZDES8Vr84PN9EsBdcnnj8EYdG7585Ecuc9qQf2u30KAwQTNE0g2Q8glVlV+DgN8byYDQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eNx/h/qR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SR1wEWcu"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-398beb616f5so487012a91.1
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 11:38:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789324691; x=1789929491; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=f8egR4dMbs0feNIgyGf2N4bg3BFUD4E92PNKo+p8ClY=;
-        b=SR1wEWcuD/mMkbPBWlrbP1D/60M9OmaU+Yy/7tVisKQLnzOTSoVWuPxnoKWbGwnugN
-         986M0OeCBZwK7RlX4NB62la4e2CQdZrbe73yaLoUk39tJGJmjRk4ISV3tT5C2QmVhSN4
-         5mx1XMfwjH3tZ1eEvAYwy03ooRcEIte5tKgSJ7+5bWtdM4kwz8+eCXjuU2waR9ogO+wl
-         cNSFes2SaPXPL851/HISNQplGpyjdGFVPOpCms1bqaFvQrVLeppdBOmmvgUvyuOcJzX5
-         IHc37Lgk4M4dPqdtWxZpikcV5bUdttnpt7mibyYuMfVLVuTd2/AP5umnW7c5vu/cc3gw
-         GSHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789324691; x=1789929491;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=f8egR4dMbs0feNIgyGf2N4bg3BFUD4E92PNKo+p8ClY=;
-        b=nY7qsttFzkjM/aci4aS+5WIAq+avC19FFoFUTIM56Hy0/Gg/Qn3FPQFNw8etN6FvUF
-         YtL9gjG69ENCdyJ2vtBuiGit/y4K0q98P/uo3zn7kCgkTdKmtkPM1drQl9PHYUO4rO13
-         VScALbT0UiYanjoyXhVp7ytbDo+pyMAzPH96wBJBQE3ux9jCubAqys0Zua64RYgS2NKF
-         PWibehB1rsr85X9OGexQOg/bJODB/pLRK5DDInaaCBEPfTKXlvte6TBXgHZIJ4/s2WEK
-         7eU4prOdlQ9mteYomJ24io7ajcPHbJ6CxSB3UG+wi7xzpkHBGayyNKSAvnBe7GYfhMXH
-         jFPA==
-X-Forwarded-Encrypted: i=1; AKwUvBwusGrCU6VGTk5IPt/ZTMUulw25eQOyeLELIuoaw7/84FBL2BaWvGUraJFyrS3nIsRWaBubwHeLrAFO7n8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lyp//hmKsB0m5ciVq8+uem2aXUiMWa77sPwui77qUmCutWoz0y
-	TkOisjwnHSY3GnAfd9DmweGAgUdAIF/jwGLY0ukhstRFOCkektR8wxMO
-X-Gm-Gg: AYBFou2Aihbr/5g45k2RpQVB3lnA2dQazxOvamki1ICiiQw1Kl74XrNh/KlH384l2gP
-	1og71fLtPYTSb/dXIhpI58R086vMjUJtQ1jxUSvHYgq9c1yHwZnlQeouRWqMgTH3XYMvGj6oZOt
-	qfg1hOvHjOct5uUaF4cPWN8RIJ8fybzD4mUuXv9xn5IiCmydJ/Tp2FxcOEpKbRiw1LNP12HmhmJ
-	eYro/2jQVf9h+9S486Fl+5KhMy2gWvPLsBbDdnLx2fAxaBTeQfimN1JhrYqm5MO0DRqKT7l4z1q
-	NQ68jsviGSE2Dj6U4IUlecQPs0pIO/Vaz1pX9Mi+6fv5HM0HgznL2HENqsopl46xoWDzdfiTbvp
-	ykN26JCwi83/vpRyvtLfsek6i0iOr4+LDQ5H8GtCJSAOIku3uvjhIqLqiCLLNfxPSR9Brt35dLM
-	CA0mNEhAAVpiKS7Jl2ZUr0kTcZLzSczOh94/ldIG12gULrxvf5MFsISDSAQDTQT6ywS/BcJ/wuS
-	fa3RspUfGRk0jV1gA==
-X-Received: by 2002:a17:90b:50cf:b0:38e:c232:9d2c with SMTP id 98e67ed59e1d1-39dd54d7dd3mr3783446a91.2.1789324690644;
-        Sun, 13 Sep 2026 11:38:10 -0700 (PDT)
-Received: from localhost ([95.190.112.239])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d9b08165fsm4118447a91.1.2026.09.13.11.38.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 11:38:10 -0700 (PDT)
-From: Vladislav Zaharov <vladazaharova2018@gmail.com>
-To: dakr@kernel.org,
-	jhubbard@nvidia.com
-Cc: acourbot@nvidia.com,
-	aliceryhl@google.com,
-	ttabi@nvidia.com,
-	gary@garyguo.net,
-	nova-gpu@lists.linux.dev,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	Vladislav Zaharov <vladazaharova2018@gmail.com>
-Subject: [PATCH v4 3/3] Documentation: nova: remove completed GSP log buffer task
-Date: Mon, 14 Sep 2026 01:37:34 +0700
-Message-ID: <20260913183734.134307-4-vladazaharova2018@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260913183734.134307-1-vladazaharova2018@gmail.com>
-References: <20260913183734.134307-1-vladazaharova2018@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eNx/h/qR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB8B51F000FF;
+	Sun, 13 Sep 2026 18:43:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789325028;
+	bh=0jcy4Xks1KmzO/76JdqZYak5DRErDriwNl/lBhMKXFU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=eNx/h/qRjBH8CFc2lfKqkmZ1HZbCTa5aBsMZqDhZysDc4vBfloO4DwENDgXqUo026
+	 uO1mcwsr3a1AnUAKeDEeKJIW0W0hJS6GKk5YGJ+u7SuaS1dSbE7oEZHOG03+gGSzk0
+	 4KCe0+0p4Yslz9fOENom+FbB4eZAKkMn3SdkWxp/IIQe/lKFprJCwza8ZiZJ+yu3xH
+	 Yoc+NT0DZFd1w0Hbn2ElMFjeDv66Ra+19KAvyNFAmh7SuFFCr633zkM2RIrL2s/0fi
+	 i1dDI5pTK2kKsc+pIVt+tnz+COmSEDLRmrdNWFTjFCrIur76NETlwNwwhf/rK8MtcJ
+	 i0U6xEh5wEx2g==
+Date: Sun, 13 Sep 2026 19:43:42 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Cc: Zi Yan <ziy@nvidia.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, Matthew Wilcox <willy@infradead.org>, 
+	Pedro Falcato <pfalcato@suse.de>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	"Liam R . Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] khugepaged: hold invalidate_lock across collapse_file()
+ readahead
+Message-ID: <aqbtfms0_2ULBIT7@gremlin>
+References: <20260913101142.28802-1-ngocthang2710.1999@gmail.com>
+ <DLEBZ0GIGNQ8.17U563YYJ37AA@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DLEBZ0GIGNQ8.17U563YYJ37AA@nvidia.com>
 
-Exposing the GSP-RM log buffers through debugfs is implemented, and with
-the gsp_keep_logs module parameter they now also survive a failed probe,
-which was the part of the task that was still missing.
+On Sun, Sep 13, 2026 at 12:31:32PM -0400, Zi Yan wrote:
+> +willy and heat
+>
+> On Sun Sep 13, 2026 at 6:11 AM EDT, Nguyen Ngoc Thang wrote:
+> > collapse_file() calls page_cache_sync_readahead() to fault in missing
+> > pages before collapsing them into a THP. That helper takes
+> > mapping->invalidate_lock itself for the duration of the call, then
+> > drops it -- but truncate (e.g. ext4_setattr() -> truncate_pagecache())
 
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Vladislav Zaharov <vladazaharova2018@gmail.com>
----
- Documentation/gpu/nova/core/todo.rst | 12 ------------
- 1 file changed, 12 deletions(-)
+Em-dash.
 
-diff --git a/Documentation/gpu/nova/core/todo.rst b/Documentation/gpu/nova/core/todo.rst
-index a01c362b1be0..28fc7329d56b 100644
---- a/Documentation/gpu/nova/core/todo.rst
-+++ b/Documentation/gpu/nova/core/todo.rst
-@@ -141,18 +141,6 @@ Implement support for instmem (bar2) used to store page tables.
- GPU System Processor (GSP)
- ==========================
- 
--Export GSP log buffers
------------------------
--
--Recent patches from Timur Tabi [1] added support to expose GSP-RM log buffers
--(even after failure to probe the driver) through debugfs.
--
--This is also an interesting feature for nova-core, especially in the early days.
--
--| Link: https://lore.kernel.org/nouveau/20241030202952.694055-2-ttabi@nvidia.com/ [1]
--| Reference: Debugfs abstractions
--| Complexity: Intermediate
--
- GSP firmware abstraction
- ------------------------
- 
--- 
-2.55.0
+> > takes invalidate_lock and then waits on each page's folio lock while
+> > holding it. If collapse_file() has already locked one of those folios
+> > by the time truncate reaches it, and then tries to acquire
+> > invalidate_lock again (e.g. on the next iteration, or via a nested
+> > readahead call), the two paths can deadlock/hang on each other's lock:
+> > truncate blocked on the folio lock collapse holds, and collapse
+> > blocked waiting for invalidate_lock that truncate holds.
 
+Please don't send walls of text.
+
+> >
+> > Reproducing this over ~150,000 collapse iterations with truncate
+> > racing concurrently reliably hits hung_task: blocked tasks within
+> > about 20 seconds on an unpatched kernel.
+> >
+> > Fix it by taking invalidate_lock_shared once for the whole scan, before
+> > locking any folio, and using page_cache_ra_unbounded() directly in the
+> > readahead call site instead of page_cache_sync_readahead(), since the
+> > latter would try to retake the lock we already hold.
+> > page_cache_ra_unbounded() does not clamp to EOF like the helper it
+> > replaces, so clamp the requested range explicitly.
+> >
+> > Reported-by: syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com
+> > Closes: https://syzkaller.appspot.com/bug?extid=16bf7cd0ebeb1de93aa5
+> > Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+
+No Fixes tag?...
+
+Given, AFAICT, that you have no contribution history until last wednesday, and
+have emerged from nowhere to sending patches across I think 8 maybe 9 subsystems
+all at once, it seems a near-certainty you're using an LLM to generate patches.
+
+Please follow kernel procedure and add an Assisted-by tag disclosing this both
+on this patch and all the others, please.
+
+https://docs.kernel.org/process/coding-assistants.html
+
+Also note that you are also required to have an understanding of what the
+patches are doing:
+
+https://docs.kernel.org/process/generated-content.html
+
+	"As with the output of any tooling, the result may be incorrect or
+	inappropriate. You are expected to understand and to be able to defend
+	everything you submit. If you are unable to do so, then do not submit
+	the resulting changes."
+
+On that basis I wonder whether it would be best if somebody else could take over
+this patch?
+
+> > ---
+> >  mm/khugepaged.c | 25 ++++++++++++++++++++++---
+> >  1 file changed, 22 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+> > index 11ff98d55c76..690ccbcdf593 100644
+> > --- a/mm/khugepaged.c
+> > +++ b/mm/khugepaged.c
+> > @@ -2267,6 +2267,13 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
+> >  	VM_WARN_ON_ONCE(!is_shmem && !mapping_pmd_folio_support(mapping));
+> >  	VM_WARN_ON_ONCE(start & (HPAGE_PMD_NR - 1));
+> >
+> > +	/*
+> > +	 * Take invalidate_lock before any folio lock: the readahead below
+> > +	 * needs it, and truncate holds it while waiting on folio locks.
+> > +	 */
+> > +	if (!is_shmem)
+> > +		filemap_invalidate_lock_shared(mapping);
+> > +
+> >  	result = alloc_charge_folio(&new_folio, mm, cc, HPAGE_PMD_ORDER);
+> >  	if (result != SCAN_SUCCEED)
+> >  		goto out;
+> > @@ -2337,10 +2344,20 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
+> >  			}
+> >  		} else {	/* !is_shmem */
+> >  			if (!folio || xa_is_value(folio)) {
+> > +				DEFINE_READAHEAD(ractl, file, &file->f_ra,
+> > +						  mapping, index);
+> > +				pgoff_t eof = DIV_ROUND_UP(i_size_read(mapping->host),
+> > +							    PAGE_SIZE);
+> > +
+> >  				xas_unlock_irq(&xas);
+> > -				page_cache_sync_readahead(mapping, &file->f_ra,
+> > -							  file, index,
+> > -							  end - index);
+> > +				/*
+> > +				 * invalidate_lock held above; don't retake it.
+> > +				 * page_cache_ra_unbounded(), unlike the readahead
+> > +				 * helper this replaces, does not clamp to EOF.
+> > +				 */
+> > +				if (index < eof)
+> > +					page_cache_ra_unbounded(&ractl,
+> > +						min(end, eof) - index, 0);
+> >  				/* drain lru cache to help folio_isolate_lru() */
+> >  				lru_add_drain();
+> >  				folio = filemap_lock_folio(mapping, index);
+> > @@ -2672,6 +2689,8 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
+> >  	folio_unlock(new_folio);
+> >  	folio_put(new_folio);
+> >  out:
+> > +	if (!is_shmem)
+> > +		filemap_invalidate_unlock_shared(mapping);
+> >  	VM_BUG_ON(!list_empty(&pagelist));
+> >  	trace_mm_khugepaged_collapse_file(mm, new_folio, index, addr, is_shmem, file, HPAGE_PMD_NR, result);
+> >  	return result;
+>
+>
+>
+>
+> --
+> Best Regards,
+> Yan, Zi
+>
+
+--
+Cheers, Lorenzo
