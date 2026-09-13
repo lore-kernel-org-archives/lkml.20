@@ -1,120 +1,117 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E9033B6C1D
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 06:44:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9EA73C76A0;
+	Sun, 13 Sep 2026 06:46:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789281884; cv=none; b=cDdCqlTRMF31Dqxyk+vthVpRI+lxCpV+WkazO5bb5zmxTiR4LcA6zitquVeMXsrcDK4NX0Aw5a4CGv6lVj27jaHz6Y2d5ze3/1F5PZv7p6rnRSoyqP1M44acPnFuJapNECowWM+Af/qjz+h1nE249WsVSjurtU7AQBp+nxkkKl0=
+	t=1789281998; cv=none; b=PaxZlwowrBVo5hE7suxR9/tpJQsuR8r84KH5fJja0+1RaHTWv8L57xvVOyFZxxT0j/eaDPH9q7JpwYpuOvKAbAU8Op/M7ZoXHvh65JI2zaKimfjJGigburExSWxTrZiXhDQYXCqxdQ+39/OEGjQRRr9ujNlzdZflsmTcr6TIpB0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789281884; c=relaxed/simple;
-	bh=F71b0YXkH0orA176Jf84Hl12bHZNisAaLsX4N9ogBmI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ad+dYVOZSzsjHNjlTk7unVrAzWti5S03gPuycTsuhDfwosb0bJy0YwfJg6RPyXFsmVXam6N7djVPEytMFZ7tVktUc0EUAuBXemgL65l2yBJPfhXbUTHaSDyTDHHuo12lzQ1ciz7qx7db2QyXV/RkbUKxSo+sHnaoHE7qgNs3Yo8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=NzdtYejp; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789281998; c=relaxed/simple;
+	bh=7eJhp5fg3ifvTFQXzhHVslkmtPAfvcRpoNkduDSINWk=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=OsIplz7C3o3dyVlavkdiWoHkmE/4k93vuQ3ucnBb8IetZjqg99rby4kh6O4jsrNvuSNmJeetVta7DlwXhdw954ov+hquLSi1dfCucB7r+E3LvPVHq+61pWUgFrkUCiGok+CvZP7a7OY6BzxNBPaWWO3pGXitiC4xz7Iql9CfZ2g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=XAnBHG8a; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="NzdtYejp"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=NhOir7VaKoIP/RMXm2rj5hE0nYOxBq0o4KeHp0NJ7eU=;
-	b=NzdtYejpX5fQOkPZm2gyDVJUsbVAVQ4rKIrqtLo8gWc7LIUS4S7zxmbolz8amr
-	jGks4XkwbGrRc/eILep1xTxFM+4CIXnxdYnH+ZGkul86IPJtcvwDIOZeDYnxIhIl
-	4keG5mR8KfybpfmtWakTQyDfORdKCT1IGvm1KA6lIxIno=
-Message-ID: <e2299a1b-0e32-4c0e-98c3-78ebd02a4825@163.com>
-Date: Sun, 13 Sep 2026 14:43:58 +0800
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="XAnBHG8a"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A72A81F000FF;
+	Sun, 13 Sep 2026 06:46:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1789281996;
+	bh=xQwdvU95FrXRFZwRBjEBFe2/Hx2FqUUlTLasQMUqqps=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=XAnBHG8aaIJf3Qg7JPHialtHJS0edKVR9YxPGIF64eWU5k+ntxHydQKfUl+NAY0Nd
+	 9o9UYmJ8HPCNiCz6K64j9IsAo7b8DqvCGwAt17PZsa82RYoIXM9oOW4ik23SPITNqm
+	 jv/7UJh2FCC4QPLUCjPrEFiyUV5vMhR2lGYhmqns=
+Date: Sat, 12 Sep 2026 23:46:35 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Lance Yang <lance.yang@linux.dev>
+Cc: david@kernel.org, ziy@nvidia.com, baolin.wang@linux.alibaba.com,
+ liam@infradead.org, nico.pache@linux.dev, ryan.roberts@arm.com,
+ dev.jain@arm.com, baohua@kernel.org, usama.arif@linux.dev, kas@kernel.org,
+ ljs@kernel.org, surenb@google.com, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 1/1] mm/huge_memory: fix pgtable withdrawal for huge
+ zero PMDs
+Message-Id: <20260912234635.db50397364858aa15f58f4d7@linux-foundation.org>
+In-Reply-To: <20260913051942.40889-1-lance.yang@linux.dev>
+References: <20260913051942.40889-1-lance.yang@linux.dev>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] ntfs: fix lookup of POSIX names with Windows-invalid
- characters
-To: Namjae Jeon <linkinjeon@kernel.org>
-Cc: hyc.lee@gmail.com, ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
- Baolin Liu <liubaolin@kylinos.cn>
-References: <20260913010236.17541-1-liubaolin12138@163.com>
- <6cdf40b3-1910-45f9-a3f0-2c41782ab267@163.com>
- <CAKYAXd9CoXPV3LrXwzhtdgjuBbyc8Y9K-eiv54_YZiNhW18Rhw@mail.gmail.com>
-Content-Language: en-US
-From: liubaolin <liubaolin12138@163.com>
-In-Reply-To: <CAKYAXd9CoXPV3LrXwzhtdgjuBbyc8Y9K-eiv54_YZiNhW18Rhw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PSgvCgDn7wsuRqZqAIfCPw--.39294S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7WF48CF1DGr1kCF43Gr48WFg_yoW8Kr48pa
-	yfG3ZIyFsrJr13tF92vr1IyrWSvrykXry3JFn5KrW3KwnYgw1fKrn29r4jga47Wrnagw12
-	vw4xK3sIqr45uaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zR-yCAUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbCwg-gq2qmRi8B-gAA3c
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Sun, 13 Sep 2026 13:19:42 +0800 Lance Yang <lance.yang@linux.dev> wrote:
 
-
-在 2026/9/13 10:53, Namjae Jeon 写道:
->> Hi Namjae and Hyunchul,
-> Hi Baolin,
->>
->>     Hyunchul, I noticed that the patch you posted in GitHub issue #87 had
->> not yet been sent to the mailing list, so I assumed you might not have
->> had time to send it.
->>
->>     I am helping submit your patch. I preserved your authorship and
->> Signed-off-by line, and added only my Tested-by trailer:
->>
->>       Tested-by: Baolin Liu <liubaolin@kylinos.cn>
-> Thanks for the test and sending the patch to the list instead of Hyunchul!
->>
->>     I applied the patch on top of commit 9a05b5715cfa("ntfs: remove
->> unreachable code in load_and_init_attrdef/upcase"),which was the latest
->> commit on the ntfs-next branch when I performed the tests.
->>
->>     After applying the patch, I successfully built a kernel with the
->> legacy NTFS driver built in. I then booted this kernel in QEMU and
->> tested it using an NTFS test image.
->>
->>     In a small directory, I tested the following filenames:
->>       1. The complete filename reported in issue #87
->>       2. question?mark
->>       3. asterisk*mark
->>       4. less<than
->>       5. greater>than
->>       6. double"quote
->>
->>     For each filename, I created the file, ran sync, dropped the
->> page,inode, and dentry caches, read the file again to verify lookup
->> after reload, deleted it, and confirmed that it no longer existed.
->>
->>     I also created 1000 filler files to exercise the large-directory
->> lookup path. In that directory, middle?entry was created, read
->> successfully after dropping the caches, and deleted successfully.
->>
->>     All the tests above passed. The kernel log contained
->> neither"Collation error" nor "Delete failed".
-> Thanks, I will check it.
->>
->>     Namjae and Hyunchul, if you need any assistance with further work, I
->> would be very happy to help.
-> Thank you very much for your active participation in NTFS development!
+> From: Lance Yang <lance.yang@linux.dev>
 > 
-> Can you work 64bit cluster support for ntfs if you have the room?
-> Since this is not urgent, please feel free to work on it without
-> feeling pressured.
+> has_deposited_pgtable() uses !vma_is_dax() to decide whether a huge zero
+> PMD has a deposited PTE page table. That also accepts raw PFN mappings
+> of huge_zero_pfn, although vmf_insert_pfn_pmd() does not deposit a page
+> table on x86.
 > 
-> Thanks!
+> Zapping such a mapping would call pgtable_trans_huge_withdraw() without
+> a corresponding deposit. With pmd_huge_pte(mm, pmd) == NULL, that causes
+> a NULL pointer dereference.
 
-Hi Namjae,
+That's the sort of thing we'd prefer to avoid.
 
-   Thank you for your kind words and for suggesting this work.
+> Use vma_is_anonymous() for the huge zero PMD check. This matches how PTE
+> page tables are allocated, deposited and moved.
+> 
+> - For anonymous page faults that install a huge zero PMD,
+>   do_huge_pmd_anonymous_page() allocates a PTE page table and
+>   set_huge_zero_folio() deposits it before installing the PMD.
+> 
+> - On fork, copy_huge_pmd() allocates and deposits a PTE page table when
+>   copying a huge zero PMD into an anonymous VMA.
+> 
+> - Raw PFN mappings use vmf_insert_pfn_pmd(), and DAX file holes use
+>   vmf_insert_folio_pmd() to map the huge zero folio. Both use insert_pmd(),
+>   which deposits a PTE page table only when arch_needs_pgtable_deposit()
+>   requires it.
+> 
+> - Moving an anonymous huge PMD preserves its deposited PTE page table.
+>   move_huge_pmd() transfers the deposit when necessary. For UFFD MOVE,
+>   both VMAs must be anonymous, and move_pages_huge_pmd() transfers the
+>   deposit as well.
+> 
+> Keep arch_needs_pgtable_deposit() first so architectures that require a
+> deposited PTE page table still return true regardless of the VMA type.
+> 
+> Commit d80a9cb1a64a ("mm/huge_memory: add and use
+> normal_or_softleaf_folio_pmd()") removed the vma_is_special_huge() check
+> in zap_huge_pmd(). That check skipped the huge zero PMD deposit test for
+> non-DAX VM_PFNMAP and VM_MIXEDMAP mappings. Removing it exposed these
+> mappings to the incorrect !vma_is_dax() test.
+> 
+> Fixes: d80a9cb1a64a ("mm/huge_memory: add and use normal_or_softleaf_folio_pmd()")
+> Cc: stable@vger.kernel.org
 
-   Yes, I would be happy to work on 64-bit cluster support for NTFS. I 
-will first investigate how to implement it, and then develop and test 
-the changes based on the latest ntfs-next branch.
+How real is this?  Is there a reported-by:?  Do you have a reproducer? 
+Is it a theoretical, LLM-found-this thing which can't really happen?
 
-   I will keep you updated on my progress.
+> --- a/mm/huge_memory.c
+> +++ b/mm/huge_memory.c
+> @@ -2529,11 +2529,11 @@ static bool has_deposited_pgtable(struct vm_area_struct *vma, pmd_t pmdval,
+>  		return true;
+>  
+>  	/*
+> -	 * Huge zero always deposited except for DAX which handles itself, see
+> -	 * set_huge_zero_folio().
+> +	 * Huge zero PMDs have a deposited page table only for anonymous VMAs,
+> +	 * see set_huge_zero_folio().
+>  	 */
+>  	if (is_huge_zero_pmd(pmdval))
+> -		return !vma_is_dax(vma);
+> +		return vma_is_anonymous(vma);
+>  
+>  	/*
+>  	 * Otherwise, only anonymous folios are deposited, see
 
-Best regards,
-Baolin.
-
+Thanks, I'll add it for test-n-review.
