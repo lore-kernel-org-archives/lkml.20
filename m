@@ -1,95 +1,113 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3A3A40B383;
-	Sun, 13 Sep 2026 22:39:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A14A035B634;
+	Sun, 13 Sep 2026 22:39:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789339157; cv=none; b=PKWR1x4xv8A+SLdTmyPe6CwzWgEQByGsUFiOWW8I/q45MMUdbcN9vrE2K28SEGguldDmOjr4JgvAMxsVPBQo4LLG3StYM81x8bujhLmEInjlBPvwy1WKLsAxsg3pvE+CH5CIu36XCHFzbaFls1/icY55KCig7PeNtpIbOItH81U=
+	t=1789339195; cv=none; b=t6lWGSSy9qSRbOEgf1YSzvr/M/GYzENeFBdYaahWV4YgGjndKOj1GzthT9FeQoJdzjIzlWh0sAhEzGtOmh2lqXBJVtdFyB/5JqdJF6WN5V6LpcTzobLC2nKwp4KwPw2m9YrVjOdEKxRmh+Y8nhqF5oDMa05Y2YcsVt8pujgI+8U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789339157; c=relaxed/simple;
-	bh=g5riumJB4Wux4Ybw9OiYa/U1V11OZoyeIORlkXZ5wEI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Z3WKYGFKfvRVuprkiWnUXibzb6DnnH4ad6BNnOXaIYJmm1FVZe124QiIe/w3u/ptBQs1vFjkJgNzAOE26RMM8HiGLEwkczJFPD4VL/BIssFgj0O4oVImu2ukAU2aAeJ4RGNrS2HTJnsyoRdxgosIiU2YTvQoXnqJ+clzBV1FFJ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=BY6H3GVm; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1789339195; c=relaxed/simple;
+	bh=aZiqDReMsM2D4iUFh0xQPvNQvFw8ZLj4F4ePkL+P+e0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oTIjTtNR6U9vq59uggSLw+kka2n/KItH7evyzvPhMP+730rSLV+Hz1zhaN2Twj5xoa16si0/X6xi4JlYMKrIHWu23As20taAb5D67iQ0Dr68R7C07lWh2mqNUJguOh8KPR4AMtX8Uf8t+1+RtYoVdNwgrLU+SaqULxn4Qy9O4ms=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WvE9wa3e; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="BY6H3GVm"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=DhnW1DlVRln9P0zFNVT06Rze6k2I+nYXFtdhKqbbmzU=; b=BY6H3GVmDQVGReAN9iAB66a+SM
-	/dNB8mPzB10DlGf+Tbm3UJ5cojJKZYCSm/uXVt5YfAPnOocYqpQP4KuStsfNHmptMoHOwSMdxa54C
-	RFoxLuy/xP3XLbGAzRRfCwCdsjuSsZz/X2OcedyG/fJsESQhLRnvMwjQonmM1bPnpVtMKE25JVOq9
-	pXqskR0IJUcASBvAmczYmu+njHKZrWTPkH3md9LWsMxTPnGze0uWipNx4ve1ht7XL9WTQFN7jOlaJ
-	E0N0k8kr94xY6Wri1bx/YEFRuBkSqlJWbvO8xLzO0ay7IBgVMRIwGAHwg47qesiVwIQQne7caZp67
-	rpwp4yow==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x5sqm-000000025EP-3rcz;
-	Sun, 13 Sep 2026 22:39:04 +0000
-Message-ID: <a812debb-e5d8-4f9b-abcc-a9414983402a@infradead.org>
-Date: Sun, 13 Sep 2026 15:39:02 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WvE9wa3e"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C54D1F000FF;
+	Sun, 13 Sep 2026 22:39:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789339194;
+	bh=0Rf62qtp2T8RCmF5Smaw5L38HTOThi3MhIC+kh2jwjo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WvE9wa3eTytCyxqyze1VTsgM1uk3z/LhPEMWvJVlMGzXnXv7dUlG/FmTeOcja8RKK
+	 e824AJsggfeOCbDer7Uhl7PyRizyUEPb6Ln/Ek87kInm8fPJrrMuh+XUKgdE20SBDl
+	 pZLs+jjOkasJiVjKKRFrrHLlkjdUfDXvpcWgK9QYss6XrepN7Pr5L+fi3TCdMqwHp1
+	 Z7RNSTcUeGXU54DN3/YvPDaWIjY20yb6JKoGa9K8NNk9jrtyR7FSo4fGrdeuBrw00Z
+	 2/04bExXsIcruC4dey1QTpOzz5yzFwTLInPY8YLhFf30vP85CWmGaX+EoKMfJnOBmH
+	 KnezgssVdah0Q==
+Date: Sun, 13 Sep 2026 15:39:52 -0700
+From: Wei Liu <wei.liu@kernel.org>
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Naman Jain <namjain@linux.microsoft.com>,
+	Sahil Chandna <sahilchandna@linux.microsoft.com>, kys@microsoft.com,
+	haiyangz@microsoft.com, wei.liu@kernel.org, decui@microsoft.com,
+	longli@microsoft.com, lpieralisi@kernel.org, kwilczynski@kernel.org,
+	robh@kernel.org, bhelgaas@google.com, linux-hyperv@vger.kernel.org,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+	mhklinux@outlook.com
+Subject: Re: [PATCH v3] PCI: hv: Warn when wait_for_response() waits
+ indefinitely
+Message-ID: <20260913223952.GE2219269@liuwe-devbox-debian-v2.local>
+References: <20260908113009.3005964-1-sahilchandna@linux.microsoft.com>
+ <c8b6e10f-dd52-4c74-8d16-268563d8bc1f@linux.microsoft.com>
+ <hen5k4ejonfffwdir7tfa2gnmxwfbbqabrjtwooo4o5pjf5gnz@x52vfm5phv3l>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] kbuild: fix spurious error from find when generating
- asm-headers
-To: "H. Nikolaus Schaller" <hns@goldelico.com>,
- Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
- =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
- Thomas Gleixner <tglx@kernel.org>
-Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
- letux-kernel@openphoenux.org
-References: <6e2a2c0cb5d7885ae0dc146025d21c23904d7b70.1789330068.git.hns@goldelico.com>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <6e2a2c0cb5d7885ae0dc146025d21c23904d7b70.1789330068.git.hns@goldelico.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <hen5k4ejonfffwdir7tfa2gnmxwfbbqabrjtwooo4o5pjf5gnz@x52vfm5phv3l>
 
-Hi,
-
-On 9/13/26 1:07 PM, H. Nikolaus Schaller wrote:
-> The *.h pattern should be quoted or we may see errors like
+On Fri, Sep 11, 2026 at 12:29:05PM +0200, Manivannan Sadhasivam wrote:
+> On Wed, Sep 09, 2026 at 03:01:22PM +0530, Naman Jain wrote:
+> > 
+> > 
+> > On 9/8/2026 5:00 PM, Sahil Chandna wrote:
+> > > A guest can wait indefinitely in wait_for_response() for the host to
+> > > send either a rescind message or a packet completion. If the
+> > > host does not send either, the guest can remain blocked with no
+> > > diagnostic indicating a reason.
+> > > This was observed during a guest kernel upgrade in which the
+> > > host-side application handling the PCI channel faulted, causing the
+> > > guest to never receive the completion request.
+> > > Add a warning in wait_for_response() when the wait exceeds
+> > > a timeout so that such a hang is visible in the guest's kernel log
+> > > and can be correlated with host-side state.
+> > > 
+> > > Suggested-by: Michael Kelley <mhklinux@outlook.com>
+> > > Signed-off-by: Sahil Chandna <sahilchandna@linux.microsoft.com>
+> > > ---
+> > > Changes since v2:
+> > > - Add counter based timeout instead of introducing another timer
+> > > Link to v2: https://lore.kernel.org/all/20260902115854.2629164-1-sahilchandna@linux.microsoft.com/
+> > > 
+> > > Changes since v1:
+> > > - Removed periodic warning to one time warning in 2 minutes
+> > > - Include vmbus relid and stuck PCI msg.
+> > > Link to v1: https://lore.kernel.org/all/20260825051850.2438816-1-sahilchandna@linux.microsoft.com/
+> > >   drivers/pci/controller/pci-hyperv.c | 46 ++++++++++++++++++++++-------
+> > >   1 file changed, 36 insertions(+), 10 deletions(-)
+> > > 
+> > > diff --git a/drivers/pci/controller/pci-hyperv.c b/drivers/pci/controller/pci-hyperv.c
+> > > index 89816a2bd7cd..bd07402c47ed 100644
+> > > --- a/drivers/pci/controller/pci-hyperv.c
+> > > +++ b/drivers/pci/controller/pci-hyperv.c
+> > > @@ -1040,19 +1040,38 @@ static void put_pcichild(struct hv_pci_dev *hpdev)
+> > > 
+> > >   /*
+> > >    * There is no good way to get notified from vmbus_onoffer_rescind(),
+> > > - * so let's use polling here, since this is not a hot path.
+> > > + * so let's use polling here, since this is not a hot path. If
+> > > + * wait_for_response() has been polling for 2 minutes
+> > > + * without either a rescind or completion, add a warning.
+> > >    */
+> > > +#define PCI_RESPONSE_HANG_TICKS 1200
+> > > +
+> > 
+> > Nit, I think this variable name could be misleading, as this represents a
+> > loop counter for a retry logic, but not exactly *ticks* from kernel
+> > terminology.
+> > 
+> > I would have preferred something like: PCI_RESPONSE_WARN_POLL_COUNT.
+> > 
 > 
->   find: paths must precede expression: elf.h
->   Usage: find [-H] [-L] [-P] [-Olevel] [-D help|tree|search|stat|rates|opt|exec] [path...] [expression]
-> 
-> if the working directory contains some *.h files.
-> 
-> This was found in a cross-compilation environment.
-> 
-> Fixes: 2d69b891e6461 ("kbuild: Support generated asm-headers in subdirectories")
-> Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
-> ---
->  scripts/Makefile.asm-headers | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/scripts/Makefile.asm-headers b/scripts/Makefile.asm-headers
-> index b38931314ad7c..9db8ab0145a44 100644
-> --- a/scripts/Makefile.asm-headers
-> +++ b/scripts/Makefile.asm-headers
-> @@ -48,7 +48,7 @@ syscall-y   := $(addprefix $(obj)/, $(syscall-y))
->  generated-y := $(addprefix $(obj)/, $(generated-y))
->  
->  # Remove stale wrappers when the corresponding files are removed from generic-y
-> -old-headers := $(shell test -d $(obj) && find $(obj) -name *.h)
-> +old-headers := $(shell test -d $(obj) && find $(obj) -name '*.h')
->  unwanted    := $(filter-out $(generic-y) $(generated-y) $(syscall-y),$(old-headers))
->  
->  filechk_wrap = echo "\#include <asm-generic/$*.h>"
+> PCI_RESPONSE_POLL_COUNT?
 
-Same as this other patch from 13 hours earlier:
+Sahil, let me know if you will send out another version. If it is only
+changing one macro name, I can do that.
 
-https://lore.kernel.org/linux-kbuild/f54cae8e7da612ad558154706ce2e99f98d136c4.1789282037.git.tanggeliang@kylinos.cn/T/#u
-
--- 
-~Randy
-
+Wei
