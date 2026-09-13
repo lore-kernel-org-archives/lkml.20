@@ -1,175 +1,65 @@
-Received: from mta0.migadu.com (out-153.mta0.migadu.com [91.218.175.153])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A8CA3C060E
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 06:21:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.153
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E56B33537CE;
+	Sun, 13 Sep 2026 06:22:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789280510; cv=none; b=bzulDqi4LixPlDn5v7B5r+xAx/GIne6XwTaIEdGISuqf/1F9XNkkm+cldxw36akQlfljf0DYvv45+2ypJ3PjnC0PAux/vzZR93Q6NJ9dwtrVJHS1Y/9CLc9XRE+hpX97ixRl/nlIU6atO1aAX62rM2KkP7tojundtNImf1Nq13I=
+	t=1789280540; cv=none; b=ljnIzDkXzKBBLtc186+e00BIviI/5Q2s3A+TDmUxZN7O2VQEWulflsibBt78+PodYrtQsn79LpeoxSG4crZwVme3Nd8cgjdAWEA+gPvSqnG0GNE1FZT34eWkRS6kdR72kKbLnnU5h8k+AcAKEWt5sq6emtH4uhuCURKwPlGEM1c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789280510; c=relaxed/simple;
-	bh=DKUbiJiE/sOu0abbPdCv3nvnAnk9qZMEAt+zFGYu3OE=;
-	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
-	 In-Reply-To:References; b=eLJayKnC3JcFollCza1qBHjQd1ZWBO6wM3voKxhu+OdRwCky8LFAEHNJxbBcaSzzYZKZRmaPO9Ymx+5NFRd3Wfd/9TR6jCEAVQP7/Z8HvNqE53hTCZVcLyBIdMPxco+eBSQd7FYceqD/3MBc2xt4yqR+R5ms86UJWlmCl0JXtV4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=dcw8oWZF; arc=none smtp.client-ip=91.218.175.153
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789280540; c=relaxed/simple;
+	bh=8BDEnjodhH2RB7P97lubsAwOpEGrZ7oiAzrRN7Ben1c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LPqd17wcCG/DH3rNd+Wcc8XCEMIq2ulNl+k3e+wkgv1xyjAQgVHAbQOixpYwQHXED+nkDGIozkLP8sbPTgdcrfijHEXLfBmKSJSUQj/Rp7Hej14iO98FnqfU+41UBu/9+PR5zdHjCRTjdqKkjRWN7NZREkrtijNXOtgkUk/5tAw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sy+aDC9J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="dcw8oWZF"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=DKUbiJiE/sOu0abbPdCv3nvnAnk9qZMEAt+zFGYu3OE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789280505; v=1; x=1789885305;
- b=dcw8oWZFIfrt126nsBaxlH2pWfP7vlJyOHPUpEIN5wwRhu4V7FhmfCEtyvDKZpZoklYEDAJC
- MA8Au7woDdYGewZonrtJt9+F1bnv3CxkoSKbs5+adIbWpG/VDbyXp9lvDxFtoPRp3XHin54+N1X
- nwGxlM9KaHLW5L5QVmNtjrI8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 22ff5bd08d6f44c3;
-	Sun, 13 Sep 2026 06:21:44 +0000
-X-Mizu-Trace-ID: 22ff5bd08d6f44c3
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sy+aDC9J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 966501F000FF;
+	Sun, 13 Sep 2026 06:22:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789280539;
+	bh=7O0ijmU/63M3r27RIHOfPvuoO9Nzvs8zYyUzoD6v4J8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Sy+aDC9JoaxxV0w0LSHTaYGkr5Sp7dyL5FC3zlcdJX62ZYbUjU3JLD31BP6TkO/f4
+	 fUkrlG8gPnHUKLzKyug7JboVFMkUlJTY+xCfnlvu/DPp0Z/gCCeZO5kQg35wU/Czbf
+	 sPwuQQ6Xf/VG67+lrmJPbqmvxAcD6VgBGoWvtPdOUZlorJQo3ZSEKlPqTCZGY1wz8N
+	 FXpkLJhzlGSu1zoHCXd+zfhcF3UmupNg5QbhVRIppoMwuzu84+jrIiwN2rx8nKYyha
+	 oKbIYdx9M6OzwbJkJrZPT9tebELeaKhcW5eDIVNdfLoN+JlT5SVm2E4IrIN8IU/ACz
+	 FqcYQfHX6SRMg==
+Date: Sun, 13 Sep 2026 11:52:14 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+	Kathiravan T <quic_kathirav@quicinc.com>,
+	Baruch Siach <baruch@tkos.co.il>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
+	Manu Gautam <mgautam@codeaurora.org>,
+	Kishon Vijay Abraham I <kishon@kernel.org>,
+	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2 0/3] phy: qcom-qusb2: sort out register layouts
+Message-ID: <aqZBFvKu24Ed_IKj@parshuram>
+References: <20260706-fix-qusb2-v2-0-8d9cd73b1db7@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Sun, 13 Sep 2026 06:21:44 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-From: "Zqiang" <qiang.zhang@linux.dev>
-Message-ID: <32e952728ea1a9c25c2b56de468f43a32104b8a8@linux.dev>
-TLS-Required: No
-Subject: Re: [PATCH] srcutree: Add lockdep and early-boot checks to 
- synchronize_srcu_atomic()
-To: paulmck@kernel.org, "KunWu Chan" <kunwu.chan@gmail.com>
-Cc: jiangshanlai@gmail.com, josh@joshtriplett.org, rostedt@goodmis.org,
- mathieu.desnoyers@efficios.com, rcu@vger.kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <e6be6641-731c-4b21-ad4e-c05bedc388d6@paulmck-laptop>
-References: <20260911093515.2802551-1-kunwu.chan@gmail.com>
- <0cf7b133-d2fd-4298-adba-70a2b86d1892@paulmck-laptop>
- <CAN_Opa-uuim=aiOuAmHYUoD5S=vBREemj-dCvcunF-4zNdp1=A@mail.gmail.com>
- <e6be6641-731c-4b21-ad4e-c05bedc388d6@paulmck-laptop>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260706-fix-qusb2-v2-0-8d9cd73b1db7@oss.qualcomm.com>
 
->=20
->=20On Sat, Sep 12, 2026 at 08:37:33PM +0800, KunWu Chan wrote:
->=20
->=20>=20
->=20> On Sat, Sep 12, 2026 at 12:47 AM Paul E. McKenney <paulmck@kernel.o=
-rg> wrote:
-> >=20
->=20>  On Fri, Sep 11, 2026 at 05:35:15PM +0800, Kunwu Chan wrote:
-> >  > Add the lockdep annotation, same-type SRCU nesting warning, and
-> >  > early-boot check used by __synchronize_srcu().
-> >  >
-> >  > Suggested-by: Zqiang <qiang.zhang@linux.dev>
-> >  > Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
-> >=20
->=20>  Queued for review and testing, thank you both!
-> >=20
->=20>  Interestingly enough, it is now the case that there is a grace-per=
-iod
-> >  wait that can be placed in a normal RCU read-side critical section.
-> >  Does this mean that we should also adjust the --do-srcu-lockdep test=
-ing
-> >  in tools/testing/selftests/rcutorture/bin/torture.sh?
-> >=20=20
->=20>  Thanks, Paul. Good point.
-> >=20=20
->=20>  I=E2=80=99ll check the current `--do-srcu-lockdep` coverage, inclu=
-ding the
-> >  case where `synchronize_srcu_atomic()` is called from a normal RCU
-> >  read-side critical section, and follow up with the necessary torture
-> >  testing changes.
-> >=20
->=20Sounds good!
->=20
->=20Perhaps you and Zqiang can work together on this. Co-developed-by,
-> for example.
+On 06-07-26, 16:53, Dmitry Baryshkov wrote:
+> IPQ6018 and MSM8996 use the same register layout, however for historical
+> reasons ipq6018_regs_layout ended up correctly definig TEST1 register at
+> 0x98 (because platforms using that layout didn't use autoresume), while
+> msm8996_regs_layout used TEST_CTRL offset (0xb8) for the TEST1 layout
+> entry. Fix handling of the autoresume register and definitions of those
+> regs layouts.
 
-Hi, Paul and KunWu
+This fails to apply on the current code, can you please rebase
 
-Should we also consider the following situations ?
-
-
-idx =3D srcu_read_lock_atomic(srcu)
-
-by interrupt run hardirq context:
-   synchronize_rcu_atomic(srcu)
-
-srcu_read_unlock_atomic(srcu, idx)
-
-
-or:
-
-
-
-           CPU0:                                                         =
-         CPU1:=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=
-=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20=20
-
-idx=20=3D srcu_read_lock_atomic(srcu)
-
-smp_call_function_single(CPU1, som_func, NULL, 1)
-to send IPI to CPU1, and sync wait complete.
-                                                                   hardir=
-q context or ide task context:
-
-                                                                         =
- some_func()
-                                                                         =
- ->synchronize_rcu_atomic(srcu)=20=20
-
-srcu_read_unlock_atomic(srcu,=20idx)
-
-
-Add WARN_ON(irqs_disabled()) to synchronize_rcu_atomic() ?
-
-Any thoughts?
-
-Thanks
-Zqiang
-
-
->=20
->=20 Thanx, Paul
->=20
->=20>=20
->=20> Thanks,
-> >  Kunwu
-> >=20=20
->=20>=20
->=20>  Thanx, Paul
-> >=20
->=20>  > ---
-> >  > kernel/rcu/srcutree.c | 8 ++++++++
-> >  > 1 file changed, 8 insertions(+)
-> >  >
-> >  > diff --git a/kernel/rcu/srcutree.c b/kernel/rcu/srcutree.c
-> >  > index 6a9c432a3bd0..6c729e805fb3 100644
-> >  > --- a/kernel/rcu/srcutree.c
-> >  > +++ b/kernel/rcu/srcutree.c
-> >  > @@ -2123,6 +2123,14 @@ void synchronize_srcu_atomic(struct srcu_st=
-ruct *ssp)
-> >  > unsigned long rdm0, rdm1;
-> >  > unsigned long unlocks0, unlocks1;
-> >  >
-> >  > + srcu_lock_sync(&ssp->dep_map);
-> >  > +
-> >  > + RCU_LOCKDEP_WARN(lockdep_is_held(ssp),
-> >  > + "Illegal synchronize_srcu_atomic() in same-type SRCU read-side c=
-ritical section");
-> >  > +
-> >  > + if (rcu_scheduler_active =3D=3D RCU_SCHEDULER_INACTIVE)
-> >  > + return;
-> >  > +
-> >  > // Initialize. Either init_srcu_struct() was invoked or
-> >  > // DEFINE_SRCU() or similar was used. Therefore, no allocation
-> >  > // will be done here.
-> >  > --
-> >  > 2.43.0
-> >  >
-> >
->
+-- 
+~Vinod
