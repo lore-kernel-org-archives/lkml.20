@@ -1,65 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sphereful.davidgow.net (sphereful.davidgow.net [203.29.242.92])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA969344DBD;
-	Sun, 13 Sep 2026 08:48:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F7D638B125
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 08:48:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.242.92
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789289321; cv=none; b=GzwMbDT1A5ZTiZdScYAkPoZpcdaX6FL/WGLYpMb6IYIazyvAZfby5BuHEMkAmWSwHdGKlf6J8cZMnHjrsQLCUdfjM3DzvxQf/Px8aaVI0ER61c6GHwn1WgslnXbFTNSQCfZ/yCuDYpWKNDb+EjGpfR0cc55lah5QHz5jn8b9buQ=
+	t=1789289339; cv=none; b=W2mty6+eGrEsWl8qqg8sxaqm6tzBXF71gIg/ie5gr7lCI6ico7WkkjApY+3K5BpvW8A8oVZV+sf0oi5nQ/MCeae6hCFBcltrK6FiIp+PT96SIYc7irwhUzgEZt7WeYFdnriMp4lB5HAQNIJE4rZU0eSeG1NoX5N3JQaHhmvvirY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789289321; c=relaxed/simple;
-	bh=pRVWt4lUb/N19rYg46NOlyrgv1y4aozIKyaparOTH9w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eCCNC1U/JO9PvzT/d04MPqD3FEJLqoMjgXw9rcEBlapFzsJhBjkgzdyu1aKZhEWkuE0j/6zMJQUwlGjolpqdqjyfSW9JMYYVrMhL1CB5Z5wAVHqjkwP01ru7wfnJckpN6ifD9LPQEMNPvJcW9wByB7Dig+uUXx3tqN6hjbAPMV4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OJfP4V0K; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OJfP4V0K"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5694B1F000FF;
-	Sun, 13 Sep 2026 08:48:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789289320;
-	bh=q9b+oorGTRHCVDiv10tTcI+CXwyumm9Yvq+2cN0P4Qw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=OJfP4V0K9GeCtqTHG7SOLTH6qS5jz+dhKdInmif+gnEGz22vZxGMg1F8nEn4g/f+N
-	 9vHFDdd/Bn0Aup37HvgEHovuDLBq9xEga4mU8INhjSSGmKr6AdwdHz2TGmK8xG/6Yt
-	 lHhJyt6D7mIt29PSWXHIdoR9zX1GmHCdXX1gRlCIXudbwQoADNe3k+s0YETMU9WxhI
-	 vhSRIbzqiyYEBLl5jMvMcCit8Ek78zf32LzS95M4btmWE+AYxlUCVrscfnhZVoZo6D
-	 1PQqMGNGQVEDgeQt5VqQnTn9l5loBDS1+omJ/6ucYT7JMT1WEY2uyfujwtLuwjRxtR
-	 qvdXFcwJw1aHQ==
-Date: Sun, 13 Sep 2026 10:48:36 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/6] ASoC: dt-bindings: qcom: Add Shikra RX and VA
- macro compatibles
-Message-ID: <20260913-melodic-violet-dogfish-fb834c@quoll>
-References: <20260910-add_shikra_support-v2-0-fdd2129c696c@oss.qualcomm.com>
- <20260910-add_shikra_support-v2-1-fdd2129c696c@oss.qualcomm.com>
+	s=arc-20240116; t=1789289339; c=relaxed/simple;
+	bh=zwV8oql13j89d6eiGuYvTed4aS4jSLVMLZEjL6mhJ+c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=e9tb2zh4NbR7QCI8G8VJ2pbF22FAZDknSsh6NOpbmntQ25wh2eVBVqbmlVb+eUokr0u7abAB5HV5dSk8zQwrb6QbYZx3oK665+gkvs/Zzio4cV37fY6jZGDcROYMHZXoxhEpANF2JmTJ7YlpA+6Kdbs9HxJYYLNL8KoEEhee8Uo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=davidgow.net; spf=pass smtp.mailfrom=davidgow.net; arc=none smtp.client-ip=203.29.242.92
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=davidgow.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=davidgow.net
+Received: by sphereful.davidgow.net (Postfix, from userid 119)
+	id CD6BF1EAB32; Sun, 13 Sep 2026 16:48:54 +0800 (AWST)
+X-Spam-Level: 
+Received: from shelley.lan (unknown [IPv6:2001:8003:8802:7000::41b])
+	by sphereful.davidgow.net (Postfix) with ESMTPSA id 0CEB01EA3A1;
+	Sun, 13 Sep 2026 16:48:53 +0800 (AWST)
+From: David Gow <david@davidgow.net>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: David Gow <david@davidgow.net>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Philipp Stanner <phasta@kernel.org>,
+	Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	kernel-dev@igalia.com,
+	kunit-dev@googlegroups.com
+Subject: [PATCH] drm/sched: Increase drm_mock_sched_job_wait_finished timeout when CONFIG_HZ=100
+Date: Sun, 13 Sep 2026 16:41:53 +0800
+Message-ID: <20260913084155.520015-2-david@davidgow.net>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260910-add_shikra_support-v2-1-fdd2129c696c@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 10, 2026 at 03:16:52PM +0530, Mohammad Rafi Shaik wrote:
-> Add bindings for Qualcomm shikra rx and va macro codec.
-> 
-> Shikra integrates LPASS codec version 4.1, which is not backwards
-> compatible with the already described compatibles.
+The drm_sched_scheduler_overhead_tests tests hardcode a timeout of 5x
+total_us, and fail if it's exceeded. However, on systems with
+CONFIG_HZ < 250, this tends to fail.
 
-OK, so it is not compatible with anything so far, thus existing
-constraints from the binding do not apply. Then why are the clock inputs
-flexible?
+As it's possible to configure many architectures to use 100 Hz (and some,
+such as UML, hardcode CONFIG_HZ=100), increase the timeout so that the test
+doesn't fail on these configurations.
 
+Fixes: 97ef806a5314 ("drm/sched: Add some scheduling quality unit tests")
+Signed-off-by: David Gow <david@davidgow.net>
+---
 
-Best regards,
-Krzysztof
+This failure showed up on UML when testing the addition of CONFIG_DRM to
+the KUnit 'alltests' config[1]. Ideally, I'd like to see this test fixed
+(or at least skipped/disabled) on these broken configurations so that the
+alltests run is clean. (I don't actually run any CONFIG_HZ=100 configs
+other than UML, but fixing them all is ideal if we can manage it.)
+
+If you'd rather a different implementation / magic number, let me know.
+I picked 15 here as it gave me plenty of leeway: 10 worked most, but not
+all, of the time under i386 qemu w/ CONFIG_HZ_100, and was fine with UML
+on this machine.
+
+Thanks,
+-- David
+
+[1]: https://lore.kernel.org/all/20260911-kunit-drm-v1-1-c5c0f18fc7b0@kernel.org/
+---
+ drivers/gpu/drm/scheduler/tests/tests_scheduler.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/scheduler/tests/tests_scheduler.c b/drivers/gpu/drm/scheduler/tests/tests_scheduler.c
+index 285546a2218f..02c83b5c2189 100644
+--- a/drivers/gpu/drm/scheduler/tests/tests_scheduler.c
++++ b/drivers/gpu/drm/scheduler/tests/tests_scheduler.c
+@@ -13,6 +13,13 @@
+  * logic.
+  */
+ 
++/* We need a more generous timeout when CONFIG_HZ=100. */
++#if CONFIG_HZ < 250
++#define TIMEOUT_MULTIPLIER 15
++#else
++#define TIMEOUT_MULTIPLIER 5
++#endif
++
+ static int drm_sched_scheduler_init(struct kunit *test)
+ {
+ 	struct drm_mock_scheduler *sched;
+@@ -88,7 +95,7 @@ static void drm_sched_scheduler_queue_overhead(struct kunit *test)
+ 
+ 	/* Wait with a safe margin to avoid every failing. */
+ 	done = drm_mock_sched_job_wait_finished(job,
+-						usecs_to_jiffies(total_us) * 5);
++						usecs_to_jiffies(total_us) * TIMEOUT_MULTIPLIER);
+ 	end = ktime_get();
+ 	KUNIT_ASSERT_TRUE(test, done);
+ 
+@@ -149,7 +156,7 @@ static void drm_sched_scheduler_ping_pong(struct kunit *test)
+ 
+ 	/* Wait with a safe margin to avoid every failing. */
+ 	done = drm_mock_sched_job_wait_finished(job,
+-						usecs_to_jiffies(total_us) * 5);
++						usecs_to_jiffies(total_us) * TIMEOUT_MULTIPLIER);
+ 	end = ktime_get();
+ 	KUNIT_ASSERT_TRUE(test, done);
+ 
+-- 
+2.55.0
 
