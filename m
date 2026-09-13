@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7C4A3C65FD
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 07:57:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ADDA37F75B
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 08:04:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789286280; cv=none; b=rdLWjFuanrXhD1snI3f1KmtZtOex6FMnWVistA/wcOSdfVITHb/6O7TCABhPSGzRn1cAqAh7RNmsF+VI+CPW7knkNMtOM6LuQlMbPN1nfRR0waNxYQKc1qIKS3C0ayGqkPUipVrLhH3pJUExp6quxE0oDCUBXaE6tnP8u1eAkIc=
+	t=1789286645; cv=none; b=lbuahSydgrWBoz0yYXrTS2LcM40COS2GC+0hULVyyRPNonR2hsEk0Myk6pRg2X9V7hjzmRZgPZPjB0e5f/alRuNPzWSwWBv2xNVt7RJvyBj4CwYKsVTuphSp55aF6Lx1akrw49CwOqSQgcmRVm7Rin7OPFrUbcgwthe8did5/DM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789286280; c=relaxed/simple;
-	bh=FiUVCYA+4AAngjhVOqJ84dnnRm3uUN/LfC2dOOSn/Ok=;
+	s=arc-20240116; t=1789286645; c=relaxed/simple;
+	bh=8L5qTq02ZBtLClpPUjpQBQCZgAn9gywJo62wzTcJ/G0=;
 	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=o349No7oPbayreqzvNyhb7pVbcvt7PUFlI7gPJzlcDuVhO/zJM2g/rVVxo6j6IKqjV34bPkVgjGPSLV0HC3lXyhzs4FLpZW4LQs7UJQd/94RTcXyzxp2tJMAenL8oTAr89oz+PxuqpmCwkw9t+GZGExOHnnWdfh8/0bhL7oFh0g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mZBhGfQu; arc=none smtp.client-ip=100.103.45.18
+	 Content-Disposition; b=D4CnaH8pJuhfU9QNq3mCzCa9wy5aNjB5Eysr3Dlkz4vVWydrRZ7ft2uZV8dDz0LX0BtvGFVEv7LcfZPXfCnOZc05WNFnvVx66o7l1osoNZ2QVjNSSxXsGiLlolEhxluoyN6DPjefPT5takbCi/D4Ry9ctzlh8z77d7Sd+V7JKCQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MFIOxt7G; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mZBhGfQu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97BA81F000FF;
-	Sun, 13 Sep 2026 07:57:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MFIOxt7G"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D19DF1F000FF;
+	Sun, 13 Sep 2026 08:03:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789286267;
-	bh=9Pu+ZZ7EY+1J5Tfh8O3EMjWKfOuWwDKBRxQYgchDnwE=;
+	s=k20260515; t=1789286634;
+	bh=6pQx824tn/PmvNwk9MzLeu2s00Uo3nqMBw3Fd6c+qz0=;
 	h=Date:From:To:Cc:Subject;
-	b=mZBhGfQukrESBMzbcYOE+oZKp+GP2qEnVqhInqvqSix6fuDxlaj8AljzURRERZ+WY
-	 kBolYFk5sPnl3zgtTA/cmT6lnDzF/y/bsE8TGhI/NzmGi30pi9eIh2WyeQCno0Ydp2
-	 P/GHBByTdvRM7El76uHWiNHEC0BhxjvI+ov4kOIHgv4WTdOBVmFESlIdtvg6ip4Gq6
-	 SbDb3WQYLHbTxMVclFZOIo8f3zjQvyG59GEo/6EL9BplSZpGVvRsjIeRA8TpiP5UDx
-	 NjOAVDvhzJ04DRxJysVStycLzWGfVZKTTgN9GIEldAk/vTwh2rBm/b/YL5fLtJKb9q
-	 zldBnEQVi102Q==
-Date: Sun, 13 Sep 2026 09:57:43 +0200
+	b=MFIOxt7GfaRdeSqLdH1oSBMO7h7sytvNO2Du9Kg2NTtZSQLl/cWZP46+61id+/C6s
+	 TTqx00BBAJqQz4ptZEO0nhBsTzz8WjY/r+bN0i8FEFM/QZzDav/aAwaHhN3s0h1Csu
+	 vT4gzWDdunrGXNQhsLTymo2AYrumvxcvBLhgYaTPxTgFwF7mk//Fc+iTB/fiSGOPdy
+	 vQwbRBnqFILfwXZe1Cm8kJMChQeefwX2f9fYQV+Agd6aYgJFBLdYfqqzOeOuv3zvU7
+	 5gEAE3Zj9LiRFSbPrnOpg6IXtfDRdEMp+PQ3qwZAovup4sWQruxIV63twV+ZQ8Va/5
+	 vQDgH+oFCiMjQ==
+Date: Sun, 13 Sep 2026 10:03:50 +0200
 From: Ingo Molnar <mingo@kernel.org>
 To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
-	Peter Zijlstra <peterz@infradead.org>
-Subject: [GIT PULL] IRQ fix
-Message-ID: <aqZXdwK5-GUh6Ryc@gmail.com>
+Cc: linux-kernel@vger.kernel.org, Peter Zijlstra <a.p.zijlstra@chello.nl>,
+	Josh Poimboeuf <jpoimboe@redhat.com>
+Subject: [GIT PULL] objtool fixes
+Message-ID: <aqZY5nsYd-4pat7G@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -44,25 +44,34 @@ Content-Disposition: inline
 
 Linus,
 
-Please pull the latest irq/urgent Git tree from:
+Please pull the latest objtool/urgent Git tree from:
 
-   git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git irq-urgent-2026-09-13
+   git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git objtool-urgent-2026-09-13
 
-for you to fetch changes up to 1017911fcc03584b6854b1b8f0aafeb25f5a8d25:
+for you to fetch changes up to ac323c9467092479dc1e5bc138c9abbe015b0069:
 
- - Fix ARM gic-v5 irqchip driver regression, where its
-   enable/disable functions may corrupt unrelated
-   ICC_CR0_EL1 hardware state (Sascha Bischoff)
+Fix misc objtool bugs:
+
+ - Fix potential klp-build allocation leak in
+   cleanup functionality handling kzalloc() failure
+   (Yafang Shao)
+
+ - Fix KLP checksum false positives triggering with
+   GCC, caused by quirks in string literal symbol
+   generation (Josh Poimboeuf)
 
  Thanks,
 
 	Ingo
 
 ------------------>
-Sascha Bischoff (1):
-      irqchip/gic-v5: Preserve ICC_CR0_EL1 state
+Josh Poimboeuf (1):
+      objtool/klp: Fix checksums for constant pool references
+
+Yafang Shao (1):
+      klp-build: Fix wrong index in funcs cleanup error path
 
 
- arch/arm64/tools/sysreg      | 4 +++-
- drivers/irqchip/irq-gic-v5.c | 6 ++++--
- 2 files changed, 7 insertions(+), 3 deletions(-)
+ scripts/livepatch/init.c     |  2 +-
+ tools/objtool/klp-checksum.c | 21 +++++++++++++++++++++
+ 2 files changed, 22 insertions(+), 1 deletion(-)
