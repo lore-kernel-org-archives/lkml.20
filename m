@@ -1,137 +1,137 @@
-Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012067.outbound.protection.outlook.com [52.101.43.67])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC46B1F0E34
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 01:43:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789263824; cv=none; b=ifrjbx/Lkn9z8E4CAw7Tfi5pQ9gvDLpxIljLbmeMa4mQE/gFmZm1PXIwORPyqUgqL8BA/3ZsoHfXI3STv2dY5xfxxE03ZrWj0dk/WKsBHrjENrQLIgp+WlK04bpxMxXPMQmkhaxTTsRewm9I9NEY2VOf4XFpD61DOR9QqeNp/Lc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789263824; c=relaxed/simple;
-	bh=xbqmWE7TjVXjZipAzoB6FiWnOv6WAhfUg92RHYzDPuk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LW9pvKJm2Z1P6oc04+X5d2ILRhkbFsa0mxPqoeIw3EvDDHAVKUIGZOZJnq4EReRr8xYvPDAFDbfi8ri+p2kb7idw30M/+E0mXkvxSdvFX/FAnyTGGgfxsV5wzNsoI1i4kE9WW3cAqLSHZyX5cAbWx0dQdAWAA+mgexadnsMwohA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LV1702K3; arc=none smtp.client-ip=74.125.230.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F2E8C8EB;
+	Sun, 13 Sep 2026 01:49:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.67
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789264182; cv=fail; b=t6yO7JL15AufnbNWIXkBNccndeG38Ehwqj+idyFKOv5VDYRf34qnsIVCN5WCC43+uQ0A9P1A7scbp+4HsvZykosG+374AkrdkOXWiB+vGSMl4a6SYEa3Uen1tk2N9SIHTjzIbqZcrAxBby5OVUt/DhWKzUMWwhwhbvPldcp+p7w=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789264182; c=relaxed/simple;
+	bh=sJiVBBECDWprNJnzRtVJyIAa+wIxTdwJfvcQ2VduWOo=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 Content-Type:MIME-Version; b=UIN58QIi/hBjG7pCjYJ2XRqmDJkKD/rjGjngOzA1o0k34jSWVW8dVi2LKO4CNH/1s8ZkfeyC8b2UK6z6zfr4HMhrWw31yhgMkl45LCj1/gSH+54Hv25YCz+m2IZj9aienZYy+dFi4pkXMxaR1YFr8l1C5ly4j0YFTKgnpnoOmoM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=iW6578AP; arc=fail smtp.client-ip=52.101.43.67
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LV1702K3"
-Received: by mail-qk2-f13.google.com with SMTP id d75a77b69052e-530e2f50d01so11465001cf.0
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 18:43:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789263822; x=1789868622; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iZgRUJgrir4HbmBZI5QyozVncxVzl2w6YsVJNS43te0=;
-        b=LV1702K31p9vOXXy4tMlpZ17y2Ok8J6yKTTmvV7uishbEAxzinjkbXFqK/m55hR2nG
-         SV23I2+vuHaRJ+6yRl0H8aUSY9AjU0y7gR5LP49lQxwVcf1wWtOxVC/DuGOURyYlfsbw
-         TTzhgweGhF2Vp2glF5bgAdiitoj0LWRyitc04pBmzIXdSpiI7Wc85MroXtmZiJgFwu0x
-         ZDQLYESd2G/vfTgzIajFGV22FXwpnZ1OifvHfHRTuF3sKOwTbhQLGv2LA63ScC3y5JPp
-         9kbMXSv34k8FzayiVrZJYG56c82QZgittsZBBE0JlFL5gnw5wX43EoEddIUJYGGmyZET
-         XJAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789263822; x=1789868622;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iZgRUJgrir4HbmBZI5QyozVncxVzl2w6YsVJNS43te0=;
-        b=fwzdFImAt6d864lLrra/PFbncP8BfV8nsbD8YfAPXGCBdGG+ork+MUEffxjdeQUFdG
-         DJuaiTpcdqZ1QyCkuiCrWXRClUDJB1EOpZRgMtoSiUPxYzpOS8g2d+XnEj6LEhLlsIUC
-         2/yd3zGCC0XQY0uapC25YrCGOTAQeIPe+xBzQjWnp37xa9tuygkSwQasDIRVlnXzhFw9
-         UWBa7x+mecBdJSvMbNRt5wCePKEM+opIFJCdKs1+64dkRAnhjr78oWZ6GN0u02PYEHnx
-         TqkC1zSVP5tfHIAFuCTY+OoGM/AxxWjmh/dBz705ytsAsOIjG2k7uZCMWzpw34w3VeYy
-         z2+A==
-X-Forwarded-Encrypted: i=1; AKwUvBx+Hg983AoyZw0wnXDOzre1hDnyB8y38WMfCqoswF3ZJ6Kv27+RUBka0rMi73etGkBBWInlGK7H8alFSWI=@vger.kernel.org
-X-Gm-Message-State: AFuF++lTi/NGhFbapEiyTAusAkLMmxRadVKOU+1+tSjZDxbYJ2s0TwTO
-	Z8L4RQ6WCYlURuL5a3huMECMjjZ/HtKOGgndJm1VvDXtVd4redRx/ys=
-X-Gm-Gg: AYBFou1GXq1f5DaydCtIpHKle9wQuf5y/+bL71OwKWqtUgDSWEUk+DHoKwjYhnSRiDY
-	we3a4hnTEqoFKTJK9W0J9MCPUao0jqzWCl2IVTNlkfvZziL65F++W4nEpzJWPbAJa3SuhMrOuJf
-	lH17oE2fLVnGVDaGbY468njtOcrXjBJSIATnjzFxphavrwIJBx3SQxZpO4AZa2EQGxc4o4xKAMP
-	lyzbNaQRIemZlMMxydRhoyPOxrZvRu/Xh0V/2LXRGTIyCJLmjIJUR7bVVTUS7RrA+IchClGhtYp
-	yJgMNON9n9qPNlWaunBx0hrKqjEBQHoA5Iuz1KGddyEYneirrqSzob2ogHro8/N34P/LrhMqIUn
-	lIlAb/UnXXqabIfCupY1sWEdRgewlhYPR7LKgIyecDR89F/463viupXJsUJa1I+LoUJC8xaRs8D
-	iu2PlXOx+4S/k5QEDKgfi6I6KOgyR6WTxrJTCTsiuvsHGKmACk7Q8j++Yddt65dv3JSWo3Ya6r4
-	YhqxgVmKKRMLuk/5FzqPW7gne9IpttWRr9+CH505d3Xit+2BSMctlhKV0MDYM7aLmsmNXJRwUtD
-	LeTfyBqUJO99TS8Uc1urnZTofvqNwrgghg==
-X-Received: by 2002:a05:622a:138c:b0:530:fc42:f4bf with SMTP id d75a77b69052e-530fc42f6fbmr4960731cf.24.1789263821700;
-        Sat, 12 Sep 2026 18:43:41 -0700 (PDT)
-Received: from localhost.localdomain ([104.39.73.78])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-530ca45b61dsm59685581cf.6.2026.09.12.18.43.39
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 12 Sep 2026 18:43:41 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Jacopo Mondi <jacopo@jmondi.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Akinobu Mita <akinobu.mita@gmail.com>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH] media: i2c: ov772x: power off sensor on ID read errors
-Date: Sat, 12 Sep 2026 21:43:35 -0400
-Message-ID: <20260913014335.37568-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="iW6578AP"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=FdyZYrrlcHX6AR/yJ6/ihSJphB5JVDG9ZUvUsPwxMmSYutz0PDXw7nfVV2/qdUK9/qcMMDQzsEt1J+sgCWtfOLFneAMzW0utLnLbpDnZuDBT2rJzXBOISHGkNVd2kTpk30CQX31M4jkVFAH1FgnuIJAit0dfES91aHeb70HD8PpwfEA/AXF+n7RAL5yXGAkUBtpy+0H2TAw8oSQI6qGwzW7g60NvXSyEZaOXd9LkYochJ13FsKqeEC35S2V8rwTp+CmZhxnqWDklNT4/Yy3RZQWmyKOe7waNM5ilQLp5ENG8PvZ/zPufHdhD5PYYN/472ylcW7sFLinQcIkg/6Dl9w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=62aqsPsKMyYPT3UJQnLu06R91pBTfXUxahzxRhf25eI=;
+ b=fE2dI8ngANXgQ1bf/mURvuMhfvAFFiccsc+eqXES8WofWke32UtQFLruy8q1DgvAfcoqTJjGMkyLeeUNIcdO8+yIDRBNdv36bks9ttSsxzlZMuTV5LxCJ+eZhdXd68qoL1mwIebc50NqLbtnDpV2ASXDfTrLQ8N7kAG/dT0deUm86DJnmodzOEs6fEIHWg4KbOCXnD0PF/O74JnXHODixuAisa77C8nIoEp+iijy3qT00N/8rU69VT1QCgGSY9/bgKbKE2JxChCxaZKwnECDsXWPfEYKrzHIS7uhwB9viahyu+BDxNB3OGB3c4knuyONmpUIMeEUmcbuq5ELzDB2lg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=62aqsPsKMyYPT3UJQnLu06R91pBTfXUxahzxRhf25eI=;
+ b=iW6578APuoOFPeroLyzpRoGjP/oM8S3oFhTvBWRdP7QBXwvgYl/6KbvyVsrO4cqZrHb3/w0o4mtxzWYwN1XGio9MC9NyZbJnOAJI6naU9FE4s15j3VA3+O46atsb/KXBpILtRM7Q+HE4yZ8xiQu6TJ53dVdgddJ4rp+hSIa+l71PKySVnCMmCM7LoM0iZg0/ZvYBCmsKmOsRtEwYPy1NPQfZliLfEnx9EcT+7cvKhhKKNSdPedsuhaSOmEjxArT5MD4XWsM/aSljs2EjYXNtAlPMeAXp9YI6Sz8c9hLZnOCXvmSpxcuQqBfZCT9LAdseXgoMpTASL9VjIz9QgmGrCA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by DS7PR12MB5838.namprd12.prod.outlook.com (2603:10b6:8:79::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.11; Sun, 13 Sep
+ 2026 01:49:34 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0406.007; Sun, 13 Sep 2026
+ 01:49:34 +0000
+From: Alexandre Courbot <acourbot@nvidia.com>
+To: Danilo Krummrich <dakr@kernel.org>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Manuel Ebner <manuelebnerli@mailbox.org>
+Cc: nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260909135319.1364776-3-manuelebnerli@mailbox.org>
+References: <20260909135319.1364776-3-manuelebnerli@mailbox.org>
+Subject: Re: [PATCH] Documentation nova: Fix bracket
+Message-Id: <178926409105.163129.8548017144804296465.b4-ty@b4>
+Date: Sun, 13 Sep 2026 10:48:11 +0900
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: TYCP286CA0126.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:2b6::10) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|DS7PR12MB5838:EE_
+X-MS-Office365-Filtering-Correlation-Id: 076168cd-d66b-45cd-9aa0-08df113942fa
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|366016|10070799003|23010399003|1800799024|10067099003|56012099006|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	TsEDllIkajLLedWgnlfVxTe1B6BkSVfIgYOfOnqxY5+Aj2/hMe5YDq9N9JJiQbFWOii8O4w0DCcg4zqLERb9ZtQnDS9dWMhdOP9Gc/OWoLxIjmTjFzVjbkhBCxvLk/gTsaf7a8xHdj3HpXQR/YQpWlVo+2QEmNUQVBXNcWfUPb9T2Z2njkZmFWQ9e8e6Qn3NTzZa9eT06+jLchbEH4z1LJCiO0rPgsz4nY9+kcLChYGh0HqjSrwRV0ccoNv22mCyoXHPlZpWTEpzQyhJpO0ZVOqWk7kTXkfXT5xYbMufAU7iIJ5AMONbriu5LavV5zoo/LCMd1kZYj9cnTwibEmFee6OR4lzbrOSvIwFbA+EaIGMQtFqw0HpZeadLmKWoS1IUMgoa4Nv6iWtqdE4aohSNALcjU2wwFi8PD8z6go/nGdhXhainoiVUnaOPHdRfF6Yf/MD5afdEvLQAf9lpiHHRNV5M9uGBNkatLxb8c/iIOSft7AatAGcib1ny/EyyyfkGUK9J/BzA746t9rFQHr2WduoKl6nNRVsPg7Gebw5AnTPv+JlmxQyI5mmxxaccjHVf8fBueuct51QX7suX5DZS8Azwvz4JkQWXjXpEhozVihrBo56G+0fwVVmEWD+X1qqK+5KM5hRJbhPkHY6WFuBWo8AJywDI95xlZIEs5W3HPM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(10070799003)(23010399003)(1800799024)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UXVPbm9ZcnNyVmRqcGxYUmRrUEJMSEl5R1Irci9UM3d3c2RnZ1RmMnVDdXlP?=
+ =?utf-8?B?V3lxSjZleGxRL1lTemV5R2I3ZmFpbE5UYkw1WXNMUmdMeXZLY3daVGNRMjI3?=
+ =?utf-8?B?a05wR1Izck1tSnVta3RKVFZxRHFKamMwOXdZbGVseE5sajA2QndFc2dlbGNP?=
+ =?utf-8?B?SytwT1BGcmttVzNKUW9FRkg4aG9qclFLSG5Pd2NqUzJ1YTN4emxTN0ZVN2hs?=
+ =?utf-8?B?VVRwbkpzWk1MeUM0OVVaVVc3SlV2V3NicGo0bGJRREVjWDNLbEhGYkM0aW9i?=
+ =?utf-8?B?ZHdOK091QmZyTGxkTmJsalFoWksyQXgyUzBRdldReW11dVdNaG4zQ1d1VDR1?=
+ =?utf-8?B?Z3pRR2VzT2ZqMmc5eVRsNEsrSE1pQUt3WkRrbkJNNm8rZHA1cXN6ZGJTdzJa?=
+ =?utf-8?B?NFJyekVwa085eTFqU09KSlhYTHlNZVNPaHV3OUhNV1JxZmxrekwxSVpZQjZm?=
+ =?utf-8?B?a0pJYVlIS0crNFVNTmhMM2Vla3dacVZJdXErNEFlb3pSS3d4dC9WS0hYRVVI?=
+ =?utf-8?B?emtjSTR0ZEVuTUdGRTV1OVVHeWNUbnk5Um04TnlGQk5iUWljb3hrNmlkM2Jy?=
+ =?utf-8?B?anZLMzR3ejdGMVZva1pqNjZNb1pwWTVNT09XVFplL0h0enVKWTl4OXcrNGs0?=
+ =?utf-8?B?NXhGQ0RjU1JMRnd1ci9YRm5rbEgwOGNoQ29tMi9wTDVnZzdvUld6eUdXS1g2?=
+ =?utf-8?B?YXEwQ25XR09QMUs3cVE3eUp1c045QlBXU3RGMUo2dEJQa3BNNGJncjRVdit3?=
+ =?utf-8?B?L2ttT2pIT2dlMnZSbHlVM2E5cUF2K3dxaUtUZTY5cm5pOWcxMEdGdStZZHdn?=
+ =?utf-8?B?b1diMEgvSUdUbXAyM0dBUFVCZ0xEbVBiTmtaVkRKNHZNZHN2QXdZdU9tZkcz?=
+ =?utf-8?B?V3hWSzQyR2RjdHo0QWdWWWdDTmhXZU1CSzIxcm4vc1dTMXNNajV2aVFUcW5P?=
+ =?utf-8?B?N1oxYklwWVFPVGVoL3NSd0JaNkNVQVRpVzAyeVdsT21QM1NxbHM0OVUrb3Ny?=
+ =?utf-8?B?UzFtYWVOdzVOaFRRcmZselliN0oxMGo3Z3RKUTR6TmdPUGFscU9JcDlJbmZz?=
+ =?utf-8?B?WjArR2ZHY2M2eE5VYkM3ZHBxS0JGU2J2cmdNK3VvUWxSMndBSGJqc1p0eHRN?=
+ =?utf-8?B?dGJJa05SQlZEUmZua3l6V1BubTNHMVpoeDEvQWNQdVV4TDVWYmlueXVUeVVI?=
+ =?utf-8?B?L3E3WFpGQmRnc09hTEZ1akhBNE1zY0Z5ZkJYUkxqbmYyYnhIdG9DWlg2Y3gz?=
+ =?utf-8?B?dFFxajhzK1paalM0NllFQ1lEZUNPQjdCb3VieDR1eHRpUVpsWWVwWVllM29L?=
+ =?utf-8?B?TTNobFNXcXV0MTN5K3RQaGUxVzJLb0k1UkpvbjlkWm5ra0I1YnNEWFNFZjBx?=
+ =?utf-8?B?cFVQdlJ1UHJHMG1IVXhLM3hoZFYxVmxwdFJWMW12MTZXQmRYT0N4RnZ2R2xw?=
+ =?utf-8?B?bjZYRVRXSGhDN0hCQiszTC92Sm1uTUt0SVBYR05RWG14cnEwNDhxWHRuNTQ3?=
+ =?utf-8?B?Y1J3UDUvb3UvTHhvMjNxTWlGSytrYkJDRlp4THVtb25Ed3g1djBiOVFEbm5j?=
+ =?utf-8?B?aHUzZVVVcGNtVEo1TTRydmhWb2lRSFgyNkh2Qkx6WFlET1IwbFY2aUxReEp4?=
+ =?utf-8?B?ZEZTMEZmNnJpZmtHc2NaSjhxazJVSWVnT3lWemwwSll0Uk5IZzhhdm9OTTdk?=
+ =?utf-8?B?elhncmVkaUR5a2F6K2FzaEFnMFBUdnNtckRHMThEY0dmSU8wc2t1MUxpSHZw?=
+ =?utf-8?B?VTl3cHFsYnFVRXNSWWxmQTNpbDZJKzBHMFVFTmRqQk1YTjBYYUdjS0FkQlp4?=
+ =?utf-8?B?SXlTanplNWR6aUc2ZkI1aTJTaGJ3bVlhclh3SEkxekdzRjFwL20rNTJiTnVQ?=
+ =?utf-8?B?M3pQdnA4MUdRTE0rQi9EY1VkTml6T2pYTStmUytHQ2tqL0l3S2wyTEM1MU5G?=
+ =?utf-8?B?c2lCTmM4eUl6VlZPeFpDejczcFNPTHV1Y0NNS1lJSWxMTHZxVDVRdTQzSWtE?=
+ =?utf-8?B?OVdwb0lpdWpLb0U4SmtCdk1YWlpXRk1hZkN5MENhZ2xva1BNUC9pbkVJdy9L?=
+ =?utf-8?B?ZTNLVnVzUVhxUDdNWFZFZE1UakNNckpJWDV6VHAzcThYbUg2T3Ywd3UwRnln?=
+ =?utf-8?B?UGNidSs3YlJpUzVYV1AzRm1CenRkWTBwYmNnUUdDU094KzY4YVpHQWIwZGhU?=
+ =?utf-8?B?UElUK05IdkI4Q3RXbzlUS3paaXVaK3NKSGZpbHdNNjhFR1lBa1BiLzRLb0g3?=
+ =?utf-8?B?TUw3ckNzNU9zL0NDT1I1alBBcGpMNzJEYTBQdm1ScG13OEFzalk4Q1c1cUFC?=
+ =?utf-8?B?WndtelF2bGltNEI3UjJxbFN4MGVnbXdaV3FPV0M3cWZTZGkrakdkZmQvOUtH?=
+ =?utf-8?Q?/Yxu08Qo03MR57KBMfDjCvJJbtcMMX5IUsr/bIEK64nT+?=
+X-MS-Exchange-AntiSpam-MessageData-1: ApBr0RbsC7aMCQ==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 076168cd-d66b-45cd-9aa0-08df113942fa
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Sep 2026 01:49:34.5679
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: FdDXCJE0LZ7NOv1K97Ft6YVSqWD5LJoc+A2U5xA7m2Hz9penyGqkdZjpHqUqpSkuUZ7Chjk9WIr71Lsu7Q96KA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5838
 
-ov772x_video_probe() powers on the sensor before reading the product and
-manufacturer IDs. Since the register read error checks were added, any read
-failure returns directly and leaves the clock enabled and the powerdown
-GPIO asserted.
+On Wed, 09 Sep 2026 15:53:19 +0200, Manuel Ebner wrote:
+> Add missing ')'.
 
-Route those failures through the existing power-off path. This covers the
-old OV7720 and OV7725 sensors while preserving the direct return when
-power-on itself fails, the product-ID mismatch path, and control setup
-behavior.
+Applied to drm-rust-next, thanks!
 
-This issue was identified during our ongoing static-analysis research while
-reviewing kernel code.
-
-Fixes: 30f3b17eaf49 ("media: ov772x: add checks for register read errors")
-Cc: stable@vger.kernel.org
-Assisted-by: OpenAI:GPT-5.6
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
- drivers/media/i2c/ov772x.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/media/i2c/ov772x.c b/drivers/media/i2c/ov772x.c
-index be3ba284ee..e20a109d60 100644
---- a/drivers/media/i2c/ov772x.c
-+++ b/drivers/media/i2c/ov772x.c
-@@ -1280,10 +1280,10 @@ static int ov772x_video_probe(struct ov772x_priv *priv)
- 	/* Check and show product ID and manufacturer ID. */
- 	ret = regmap_read(priv->regmap, PID, &pid);
- 	if (ret < 0)
--		return ret;
-+		goto done;
- 	ret = regmap_read(priv->regmap, VER, &ver);
- 	if (ret < 0)
--		return ret;
-+		goto done;
- 
- 	switch (VERSION(pid, ver)) {
- 	case OV7720:
-@@ -1301,10 +1301,10 @@ static int ov772x_video_probe(struct ov772x_priv *priv)
- 
- 	ret = regmap_read(priv->regmap, MIDH, &midh);
- 	if (ret < 0)
--		return ret;
-+		goto done;
- 	ret = regmap_read(priv->regmap, MIDL, &midl);
- 	if (ret < 0)
--		return ret;
-+		goto done;
- 
- 	dev_info(&client->dev,
- 		 "%s Product ID %0x:%0x Manufacturer ID %x:%x\n",
--- 
-2.47.1
-
+[1/1] Documentation nova: Fix bracket
+[acourbot: add missing `:` in commit title]
+      commit: 66a2c223b620d844fe26c6bd4844d2a6a8c9dffc
