@@ -1,98 +1,97 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E1223EB819
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 12:33:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3431F348C4B
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 12:33:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789302791; cv=none; b=ZXxWnojVGapLFvbTeINjPdSgkj8lz5IYMnmKCLWIrZuzj1mnN6t5iPKf8NSL7IfI5GVhhRNtLcU7EF3t24BbBf9r44zMdycIAHo+HcZ/PYyfUuQqJFbLaw0N+3wkAxln7fatZkTWCAHM0XHKyewwTZbx9EoE0ZdoN83kzE7UhbA=
+	t=1789302804; cv=none; b=bXgrgHCRZB+fi5+1P+UM1X6MmGe4GSLiC6RIElLpsTDxoZN/zGvSjdHIfqtv5rZlIGhc3T20IKzBNqmwm+Qxzf6X2t0uVPxtcj+jwp3t7SVGY8sVp+ZTuFjKRfNo4I7xJcGGyV/TmtRY/E2tNIIh7Qv8lsQlZ1xZsqRyxwI7eRc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789302791; c=relaxed/simple;
-	bh=AlIaJEIuArFUR/Ki7M8tVpoeGLbBeitAeHOitnugLnU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=u0Ftk+6ms8m1bJJArZK9K5C5pHHoIiVSDef30Mzm3od+GXugNapQrHwb3+ZPVwBc3K3MYFeG6BUVR2gocnXI+pZaErW3Z/0vhAMkc4fPF+ayUjtDyhZsyBjJtGtGbdiSyOcqUeJzkP55CHxjGDoJDdmOaohDe/pc3zd6DDU86ZA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZTM+lnbI; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hDzBvyNv; arc=none smtp.client-ip=205.220.180.131
+	s=arc-20240116; t=1789302804; c=relaxed/simple;
+	bh=I+E/O9s5n2yESeW++6dwadVuhwOsVzwTznjrZtzXSJE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sR22JbPjjj42UEjCWBKlMAEOiJZZ0uVcDEfm+Xxw1hVDXQ/pe+FcI6a8PH5GeA7JOmGXHJ00yOUO7OBjVuSF5YffeFJVu6lrz5ph2jYp6p/117UHfeU5v+KLCS73uT06ecH0hiF1V4x9M7+gXQMiEhk8/OYNEdjfM7Y8tByUvE0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SVVBade8; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RP24g8G+; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZTM+lnbI";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hDzBvyNv"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68DATxZG1467994
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 12:33:08 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SVVBade8";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RP24g8G+"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68DAV9t01692175
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 12:33:22 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=fpGKnPlwQMJ6d2jd+nVDM/rLtIW0wAEYfjJ
-	WJ0/R6KU=; b=ZTM+lnbIWAuul4Hcc1MMF1HCH6I/TcSe78+k0+DQpEJZ1fEdrLd
-	cZiGKC4sCIZkwHPKu0vru9hnOp2QQRLMO2SFxQzmJIKWD66GKfkB6kg9fDx5A3qT
-	9UQ7s7PmGOxsfgp9Sy3iG2t0zE1VaBVmehixQfTN4u7EP+kOlGK4E300Qi6FOoQ0
-	FIO3LK1Ex7akrRHQwIh6lTnATnUiIA/JzgM4a/tzXU8APjzSm1dNeVac3KeolaBt
-	vn3UWyZtZSt0MfGElRkoPf1NMpAH3u8JT/jyLmiRe6TeBRWgtEXAD2zA3xRs4//N
-	WSO8b506TXCzQnFVuTGfvPUCbxjyhBbbipw==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9c3751-1
+	:subject:to; s=qcppdkim1; bh=baoczqhIZrjz0uVdn8S3iNYTU/V5HV21e/d
+	MeLayogE=; b=SVVBade8rxLppbo1Ks98mM+xoXfjAtHv5CpFFlArSqW0NjbX71P
+	6aTGXyaZsEMaoQShDPYZ+xI62W7g16A84R/6Q+o5RkWQWPBZoQKyX1vrtokjU0jF
+	J/Gnls/UmWrlY2CmivUqBwBWT3dcz3PXRedESOqdhkclKz4IyMwHZsOOs7zM5e86
+	r8J/tA6ISg3X2PH4Pt/9QMZGU65GqPr6EII3JQYyY+XhHfyX6a/T8TFEv80sjiOu
+	cDv9SzK+QMBKBOQ2lV16eJyqbFNPBUJvXwDFtu20ejiE3y1D6dHIiZ712rjE1u7k
+	lhHPMXwf46jPZiK8YGK/0ZYkbzPaU7IDolg==
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9cb7ev-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 12:33:07 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93a08ff8451so165841985a.2
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 05:33:07 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 12:33:21 +0000 (GMT)
+Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-9104eedb5b0so48605756d6.0
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 05:33:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789302787; x=1789907587; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1789302796; x=1789907596; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fpGKnPlwQMJ6d2jd+nVDM/rLtIW0wAEYfjJWJ0/R6KU=;
-        b=hDzBvyNv4h6hw/ctZSwrbSnhp7tDlclbK0IWb95Xu4vpOva/k0M9cCcVih0+lZE7KS
-         IY1lOgYZWD5WyRQnl6or+b4gf1OjmqCmfZV3+/4OKcfa3oAumNyqKRQov7B5hkcggljs
-         KJhIhdXuRbwRrFL0FOHVaqmdKGu1oPKYL2pClD44tLoL+wlAp/DrpIijJIytD+T8UOvu
-         bi4rEFsOQFrh/RMxB2hQvOoI2vOb4Ynj+TXBOCJ0fUy0hwigfWFjnxnUMxgJrPi5jLsp
-         6d6wo2PNT8qqd2LHp3FVD9jMyfD3tFwIhBP9GCHM1LJalq0ioDPuQ3BfJ8yvXrIgD8iF
-         W9ag==
+        bh=baoczqhIZrjz0uVdn8S3iNYTU/V5HV21e/dMeLayogE=;
+        b=RP24g8G+KNLD/jQEQOL8D2dmxtvz07Gj/Mi10M9HwOeTNK/A+SGNr39C5gonSPDvxg
+         Q0fOctCCftGaKFQftpgtgGzAb/Psmtnw6M+pmD+Ze8jUuPIwuH2LtQNiodi6A+GFCOdJ
+         axU4Wi5OfV8Okz+gGSVIJnnVqauxlnLDVXm3jC7Da1qlGr/HP1YUeEFdKu2e6W/lf+8t
+         wnm2uKmEGOTRZjHyvQCLS0JzIlpSZbzZk53p8dBfQHf1uiIvJRfSLrIY/H3P7+xrifv4
+         2s5oVYTTicbRtTq0hs+DQOYixuTq8tkppygHKAQM4MYI20wdqMI2lhrxANluyNB81ZT3
+         NL3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789302787; x=1789907587;
+        d=1e100.net; s=20251104; t=1789302796; x=1789907596;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=fpGKnPlwQMJ6d2jd+nVDM/rLtIW0wAEYfjJWJ0/R6KU=;
-        b=OCn3tibwKeYYBWKHbmHya1lIbjZwTthOOEqHwBEkmqzOvGuJ3ZW+IcUt2/AZ9PioN+
-         BGhoOMa8VhQJXXCSw5pkTBZ4SCxKWXFc0VV7qp28UsX8+kr0cjOQ3/BNsTZ/7Qn1jML4
-         5UFilv1hGYqDWMLHRB57M79IRUbcWWYOiliN+7icFWus5o4aLC2yDIlETireCdgg89+U
-         OjcD9o2ywwKtvepTFpjSDv89txJKl5VpLC8EBcPaozVHXosBIYZjI0+bBJ+AOOR3IoMj
-         ZCeQ+8hsHHEmuEqMSY2JrisuRX6P8TopzlouxxpiyM8weOfnOicXKbnMLB3G7qolTdJn
-         gPRQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx0AN/u7I9zGcv7A5RpVtB9FAWcKrZuQ6DC1UfkNZdURiabbatBhm6meJVv0oj3AsmGy9qRoR0xVNIcMLc=@vger.kernel.org
-X-Gm-Message-State: AFuF++nf0Alwob2N+QTVUSOFq0ZL8b4nhYNgMA8aFMAN+ehpcjgow7VZ
-	EPBJ0+aiIFGsIRG8eJKi2fBkSV1imwlX7r4FXckpGLExEgj4e+VOPjKQq/AKFyBmPLj2JLIHsB0
-	VDRAe5CwVjeZMNp9cBWzpZJBxmhkArb1rvxXODWD7yULnHpuIWg3H2deSDUftgVF6hSs=
-X-Gm-Gg: AYBFou1v0H5sbnzMgAOGe+KjdDnH3MbohgblwkmXdX186QIHBH/s4t6AHSv8GHJHfFn
-	nvGreHQlxc0F+42R+bEb6TlrEUCJnrejP+Nx1oMrDHS7fStHmF9m7hMaGpoUxjiuUhGfWOdAHOV
-	KUyyqjl/IY9JCIsA+UO+hY6GzbOxn4vmTS5slE9kaztgezOFoM8ZZMAOwO5HrOoDN9Djn8t6/Wv
-	/O95koMYK8USEmqXg/vDcSchwyR0chbNLwMwjaLWzJIwJrAV06NzVfX8DR9eTFodbYwrxiN+q0X
-	fkG9OpwZMYTLGW7dBI/Rp+6TTmcT9P2Ht+FsYdN/egCfNxGV0kjHXzki2VCPMdXoaeAOUW88dau
-	Y8+k4/WJp/veSLl8=
-X-Received: by 2002:a05:620a:8390:b0:93a:83d:1d26 with SMTP id af79cd13be357-93a083d2432mr875126785a.32.1789302787192;
-        Sun, 13 Sep 2026 05:33:07 -0700 (PDT)
-X-Received: by 2002:a05:620a:8390:b0:93a:83d:1d26 with SMTP id af79cd13be357-93a083d2432mr875122385a.32.1789302786689;
-        Sun, 13 Sep 2026 05:33:06 -0700 (PDT)
+        bh=baoczqhIZrjz0uVdn8S3iNYTU/V5HV21e/dMeLayogE=;
+        b=FV0BgS6LeylkoznLFe1OtoyeEVdDVj1c1iJFuqWh1DSVM0SEAGZk3uFh1vsywWruUb
+         fhCwCP1QM1V63DSKlMSF1aiQyW46CFhUEnaPI5RIx0690Gs6kaTRPZ9WwIu81rbPano1
+         Ox53j7MGKv/lVQZa+TtJZnRjVPOQ9cy/uj+oOJ0bUwU/To8n9s4W5cgyiuGqyH7P0aEd
+         2eUJ1EXdxkHZovIc0lHx2LCE56vwEzkb4VTi4NigixIw9vgKSqu7ujSawIoyuxfawEVm
+         uVFs2cdCW++YdShgQ62Cg5D3DAUTWyfeWjnuahZaci8+AFBxTGAX+VbmW/hmrixYxiRk
+         Z2Lw==
+X-Forwarded-Encrypted: i=1; AKwUvBzCjIKK6B2VxbLokMfIyRJkX77drbBn40ZnpbDfm9ij6YlrEWMxXLAryKy9oDUjcQDJ0Ihc7PbZoriiioE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kU18qn1R5GF2clIT3xBWDfuJYZ8FM1HybwsSaVqVbUPBk5HA4J
+	MA9QBvvSaYz9M8TQIrchmYHM/uo9mMABYyS+AW3sGAjV5HViiZgqhFh7Boqvd+vfdXwKdEGdfpe
+	1YiXioeKImlEMo+K3EyvxUiXciOXncAerytrVVxvWLiBwqMMZoLFXum8n+FhnpLJoFbaw6SXAZX
+	U=
+X-Gm-Gg: AYBFou0ab2oj3zrl+zeZr2TGjWrgQf0Jjo2rnGdzjZtUVmF2sP+fm63FcM41Wb5MbeG
+	4CZ7q6BVfagkptfOtsF+Myyaqi8yEIKCZpymyaS/GyZcy0Q+IOabSg8VayKrsJo+hr6BkNoUlyq
+	GCVXT9opJLN7pz2++k3TJPNk+Zf+CK/DfF9+taR6inNZQbSjdI67S3nWxfU/Nusi479r7fdO/ap
+	7AY1LvMbD+1cynEUqVmkPqyZMmHcnCBivZ9OfL81gGQKayst/kUTi37PtSpgdyCT6ENd6/FNdN4
+	GrpnGv5SPXSSW03tMr2eMxxoMQO/EY9nPcNpB4qhq/p2PaF63vKMToPcQDBr/0jl8fXqRrWQvIP
+	r1RTbnX3DRZah6aA=
+X-Received: by 2002:a05:620a:2544:b0:914:afc1:c66d with SMTP id af79cd13be357-939ea104decmr1658054585a.11.1789302796283;
+        Sun, 13 Sep 2026 05:33:16 -0700 (PDT)
+X-Received: by 2002:a05:620a:2544:b0:914:afc1:c66d with SMTP id af79cd13be357-939ea104decmr1658051785a.11.1789302795835;
+        Sun, 13 Sep 2026 05:33:15 -0700 (PDT)
 Received: from quoll ([178.197.219.214])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb350686sm20863041f8f.27.2026.09.13.05.33.04
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26be3e0asm352484885e9.1.2026.09.13.05.33.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 05:33:05 -0700 (PDT)
+        Sun, 13 Sep 2026 05:33:15 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
-        Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
-        Rob Herring <robh@kernel.org>,
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>,
         Krzysztof Kozlowski <krzk+dt@kernel.org>,
         Conor Dooley <conor+dt@kernel.org>,
-        Artur Weber <aweber.kernel@gmail.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Kiran Gunda <quic_kgunda@quicinc.com>,
-        Aleksandrs Vinarskis <alex@vinarskis.com>, Andrew Davis <afd@ti.com>,
-        Steffen Trumtrar <kernel@pengutronix.de>,
-        Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-        dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+        Yassine Oudjana <y.oudjana@protonmail.com>,
+        Mattijs Korpershoek <mkorpershoek@kernel.org>,
+        Matthias Brugger <matthias.bgg@gmail.com>,
+        AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+        Artur Rojek <contact@artur-rojek.eu>, Frank Li <Frank.Li@nxp.com>,
+        linux-input@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+        linux-mediatek@lists.infradead.org
 Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH] dt-bindings: leds: Use consistent indentation in the example
-Date: Sun, 13 Sep 2026 14:33:02 +0200
-Message-ID: <20260913123301.100129-2-krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH] dt-bindings: input: Use consistent indentation in the example
+Date: Sun, 13 Sep 2026 14:33:11 +0200
+Message-ID: <20260913123310.100170-2-krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -100,45 +99,45 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=10147; i=krzysztof.kozlowski@oss.qualcomm.com;
- h=from:subject; bh=AlIaJEIuArFUR/Ki7M8tVpoeGLbBeitAeHOitnugLnU=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqppf9BkR0CkRS49lp5YPjksTU5OTemdYktvvon
- lGCs9CU1+SJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaqaX/QAKCRDBN2bmhouD
- 18+LD/9eTwuH4DhTOVdNetOCBQo8mjmDh6a46105Id9+ghu8F9b+7iOHiFMhbH/AdIA0ZAIup4f
- ZTB4BGdCmpmHTHp6DwZSY5j1FPDvr1D4h5iI12xvzO15ohg3OY04iOS4XKzXQFQ90F3IP7W6nOW
- TIGe3bQtAKCCp8tRxMQE23+eQ7nUv8AOMtIhhFQc5Q6KamCzz4yDMdC4iKDZIN12c5GzdXxO2T/
- 72h2eXlh1ji7s3lTNlcTbYZOQClhpyXO8DA47EZIvZjKUaRWrKliD2OwRgVqesIKasXdbxKd+wx
- bHcuTklRP2ZKr5rN/XTnhjGzWJOgWEpQEFSDzPOwnP9oS8PNnSg5355vTA7RgYNYOXDNVd9zkXa
- oWu9ecRoj5S+3LHmoYLyWRP0GEkg5YCBy1JdoAAqx88JxnbOHUUgWAfkHbmOPYYyULs0Ury3b1L
- ByD7vZZ2dG6J8AxLGi8XCx9VRiM6pu6nNffefgU1gw/HmNM8H2V8850EWjqfb+cz490HvkIIzUy
- De4qYJda1Ux+Cr4abTGe9mEf1pTmvAJFzY05UbDzExqZ8XsbFHAY9f8WfvvC87YstXzPk+fnT6U
- JUbce9aHBVECCmt7GscfPtKtfwuhuEhCs86If+FdVZMzHrhvvAsKJ/xIehOhfpJdSF6xJUFZp7j s6+waFjqULVNcWQ==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6934; i=krzysztof.kozlowski@oss.qualcomm.com;
+ h=from:subject; bh=I+E/O9s5n2yESeW++6dwadVuhwOsVzwTznjrZtzXSJE=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqppgGbOSr/eJIqpD2Ve0Fac3V3uxuaoogWqn4Z
+ 8kMdHKbihCJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaqaYBgAKCRDBN2bmhouD
+ 1xg4D/9TyB0+poLY2P/4Dih94oXcs98iTr9WlRkUNjInZ+dbLhkQJtAZScBdNvwkEAqJPDoL2Rl
+ TxYyWXUs02i+ebKWjyrblVAt2u4HqREQGKeMrLr5nMLRludOHJ/RoxwdTh8kQU8kAdqGvTwqg4b
+ 6aTSTx8ys9BGsvHW5dPJoBWpZDqTtf0Bu09QR1Z0J33BfSO0UheWlRA8Hcjpim54uHh+TwNEJsO
+ 6uTpCkOEo4Qh0od7P9KM/9zrYB57fwJw+j0tUvzDNtXBq217S8pimR57aRnT3R1/IKjNJMwsTE7
+ xPWyWPnV18jaRmO4WeHvJVeKHwyezVh9HUIwMr9FJiLtsp/PWYXXVO+lL7GSeXF0yCOnJ2r6hyS
+ yfS/VmyrG+apmE/A5bq9Ll9CqWhyZaBF5hNWd2tWOk+rXUN0ztCzPaYqiPuzybW+J6ug9j0QaHt
+ UFde5c/dCp0hHtHOtxQ71+yWGybMnmrO/Oh8G1v9/2s9RtYyCeic0C9xKmsZ7kjthwQ4om3axoX
+ 69cTZaetMiejQbj0ogzWJoccBx0WC+CLKJeqdIqHQ3VPoF3qx+h7QNGN1uOcPQRToR3qZ3CN1SS
+ BXn+ImwgsGjwNvKigUM7bMYwhSEp4stZ3Xxzs1g9EuPdYedCVQZbMUZBIOepPukB0dHr4yiX7lq 0Guw4fs1o2qYM1Q==
 X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: CMsePcEzGFaKwbokH7E9EpcLtP0LQxL1
-X-Proofpoint-GUID: CMsePcEzGFaKwbokH7E9EpcLtP0LQxL1
-X-Authority-Analysis: v=2.4 cv=c5Y+0h9l c=1 sm=1 tr=0 ts=6aa69803 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
+X-Authority-Analysis: v=2.4 cv=e+mT2qp/ c=1 sm=1 tr=0 ts=6aa69812 cx=c_pps
+ a=wEM5vcRIz55oU/E2lInRtA==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
  a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
- a=a7949CMAvHCJeXM5QSwA:9 a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEzMDE3OCBTYWx0ZWRfX5VKPVOpSCUF2
- xb/bIc8DwzqSaSZrcZxawFurkD6Ct0HRf8mDGljzghbe3Bwbe/vApmgv5jqQCS6MHARU8m5m1Pp
- b6SlebfVFL5bQlMHFlj+eKIr10eGY4kuYZ5JBCbTgXylEhLLYQVKw2cv+2X+6OuLaAT33ivpd6a
- ui9xzfPjt/roSz9JhYxXrJNic5Q8IMuf77P9dJ8eNRAtgSqaoU1TjvObZ0+8NSmUBnbK6B/7GTq
- r3KuMGfaJ4gG6PfhAV5BUeKgodQJs8ZweqiUVGmr22iGTvzMEr/9GyzEdXLEJU5LPOesgV8Zobt
- G5B7DnbU3sqJLmdN/Y7j3d+taCr8fmXkFC91wwA3x8cFt3tyfMgCRQm4mw1V1QIbz9TIoQgV1Fi
- PUbQ9bX5w+qDU0hiIFWdmtIpK0wMkkN5+wibsupup59VOXhFKoM81TMc3922cFpAB2+tEtk9R3b
- 5IZnTEamB3Ww3peZ6OQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEzMDE3OCBTYWx0ZWRfX4/9s4Vj+vr4K
- s0JU0gKHY+RhSDhDSaf/EtRevfmq3mjcoWb6r5efug2C03OhBTI9cDzHCZCqZqlYzQtsQ5dc9mq
- Kh4A4aitcM/mtksxPQeg2eG37/AiFCk=
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
+ a=nrvTzeEnne52kZqV4q0A:9 a=xWRXsgGyZKNAB1QD:21 a=OIgjcC2v60KrkQgK7BGD:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEzMDE3OCBTYWx0ZWRfX9X3PH/acRq2B
+ MdzskfkcKQgRxMj+kAsyGXgYDVn+ITEE+JyE8BH7ir8QPUhctVWKPLJlcNyS6yYJ1vDzXk18O8+
+ crXszf33cl9v/2PiBcPKqjhG7SjarIE=
+X-Proofpoint-ORIG-GUID: qXZIjiZBqg0sT-xKy61PyvCkEyuZ3K60
+X-Proofpoint-GUID: qXZIjiZBqg0sT-xKy61PyvCkEyuZ3K60
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEzMDE3OCBTYWx0ZWRfX8QDdrMKeWFSi
+ Bq6bDDFD5oThD+vs8sfSvNLawpUm4/D9+XNM4gJTlf9zZYTcPTpRe7rXhBKS1tp5fHMqKq8guQT
+ GobY8CUfLYvPH6KnZeifQ4N2o7cccf2eFdXBsBWT7tscozPkOiObZ+ZrxwxYA8iY0SaE/CTNX00
+ n+Mf1CrIJ1Qa5s4BT1Gez9BjJT6F7VRBEONZrFq0LO61y8c3/Ki7rWJ6wkEXCbP7GeAm3ehra/Q
+ JeLA0KcTPganeEja+IOe4LKl5RNeBSNlx5fmC3RahhHktb6b2QjrQ7L89GdAlCeGRvB7WCM+mRe
+ PE4rfAfdQ6dflylvWjrTsdk8vkA7O4o0fS6lqAogMKVOOmr7YwIljq4WkQU1GR8D686VxMVSvbD
+ xUkR25JU9duG5/y7Wxxfjlh+Km05bp7QHWM6fxCdaoUqc72vuguj9GfWpwVt1aJ0sDU5G86Becr
+ oPdkcLiGuB3LKD/eGug==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-13_04,2026-09-11_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015 priorityscore=1501 lowpriorityscore=0 bulkscore=0
- impostorscore=0 suspectscore=0 malwarescore=0 phishscore=0 spamscore=0
+ priorityscore=1501 clxscore=1015 phishscore=0 impostorscore=0 spamscore=0
+ suspectscore=0 bulkscore=0 lowpriorityscore=0 adultscore=0 malwarescore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609130178
 
@@ -149,277 +148,167 @@ re-indenting entire example just for that is too much churn.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
- .../leds/backlight/lm3630a-backlight.yaml     | 52 +++++++++----------
- .../leds/backlight/lp855x-backlight.yaml      | 18 +++----
- .../bindings/leds/backlight/qcom-wled.yaml    |  2 +-
- .../bindings/leds/leds-consumer.yaml          | 14 ++---
- .../devicetree/bindings/leds/leds-lp50xx.yaml | 12 ++---
- .../devicetree/bindings/leds/leds-lp5860.yaml | 12 ++---
- .../devicetree/bindings/leds/nxp,pca963x.yaml | 24 ++++-----
- 7 files changed, 67 insertions(+), 67 deletions(-)
+ .../bindings/input/adc-joystick.yaml          | 20 +++++++++----------
+ .../devicetree/bindings/input/cypress-sf.yaml | 14 ++++++-------
+ .../input/mediatek,mt6779-keypad.yaml         | 10 +++++-----
+ .../bindings/input/microchip,cap11xx.yaml     | 14 ++++++-------
+ .../input/touchscreen/eeti,exc3000.yaml       | 16 +++++++--------
+ .../input/touchscreen/ti,tsc2007.yaml         | 12 +++++------
+ 6 files changed, 43 insertions(+), 43 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/leds/backlight/lm3630a-backlight.yaml b/Documentation/devicetree/bindings/leds/backlight/lm3630a-backlight.yaml
-index 3c9b4054ed9a..6393cbf3afdf 100644
---- a/Documentation/devicetree/bindings/leds/backlight/lm3630a-backlight.yaml
-+++ b/Documentation/devicetree/bindings/leds/backlight/lm3630a-backlight.yaml
-@@ -99,20 +99,20 @@ examples:
+diff --git a/Documentation/devicetree/bindings/input/adc-joystick.yaml b/Documentation/devicetree/bindings/input/adc-joystick.yaml
+index 6c244d66f8ce..ac0ca5aa8212 100644
+--- a/Documentation/devicetree/bindings/input/adc-joystick.yaml
++++ b/Documentation/devicetree/bindings/input/adc-joystick.yaml
+@@ -111,17 +111,17 @@ examples:
+       #size-cells = <0>;
+ 
+       axis@0 {
+-              reg = <0>;
+-              linux,code = <ABS_X>;
+-              abs-range = <3300 0>;
+-              abs-fuzz = <4>;
+-              abs-flat = <200>;
++        reg = <0>;
++        linux,code = <ABS_X>;
++        abs-range = <3300 0>;
++        abs-fuzz = <4>;
++        abs-flat = <200>;
+       };
+       axis@1 {
+-              reg = <1>;
+-              linux,code = <ABS_Y>;
+-              abs-range = <0 3300>;
+-              abs-fuzz = <4>;
+-              abs-flat = <200>;
++        reg = <1>;
++        linux,code = <ABS_Y>;
++        abs-range = <0 3300>;
++        abs-fuzz = <4>;
++        abs-flat = <200>;
+       };
+     };
+diff --git a/Documentation/devicetree/bindings/input/cypress-sf.yaml b/Documentation/devicetree/bindings/input/cypress-sf.yaml
+index c0b051466272..8492ffd84bfd 100644
+--- a/Documentation/devicetree/bindings/input/cypress-sf.yaml
++++ b/Documentation/devicetree/bindings/input/cypress-sf.yaml
+@@ -50,12 +50,12 @@ examples:
          #size-cells = <0>;
  
-         led-controller@38 {
--                compatible = "ti,lm3630a";
--                reg = <0x38>;
--                enable-gpios = <&gpio2 5 GPIO_ACTIVE_HIGH>;
-+            compatible = "ti,lm3630a";
-+            reg = <0x38>;
-+            enable-gpios = <&gpio2 5 GPIO_ACTIVE_HIGH>;
- 
--                #address-cells = <1>;
--                #size-cells = <0>;
-+            #address-cells = <1>;
-+            #size-cells = <0>;
- 
--                led@0 {
--                        reg = <0>;
--                        led-sources = <0 1>;
--                        label = "lcd-backlight";
--                        default-brightness = <200>;
--                        max-brightness = <255>;
--                };
-+            led@0 {
-+                reg = <0>;
-+                led-sources = <0 1>;
-+                label = "lcd-backlight";
-+                default-brightness = <200>;
-+                max-brightness = <255>;
-+            };
+         touchkey@28 {
+-                compatible = "cypress,sf3155";
+-                reg = <0x28>;
+-                interrupt-parent = <&msmgpio>;
+-                interrupts = <77 IRQ_TYPE_EDGE_FALLING>;
+-                avdd-supply = <&vreg_l6a_1p8>;
+-                vdd-supply = <&vdd_3v2_tp>;
+-                linux,keycodes = <KEY_BACK KEY_MENU>;
++            compatible = "cypress,sf3155";
++            reg = <0x28>;
++            interrupt-parent = <&msmgpio>;
++            interrupts = <77 IRQ_TYPE_EDGE_FALLING>;
++            avdd-supply = <&vreg_l6a_1p8>;
++            vdd-supply = <&vdd_3v2_tp>;
++            linux,keycodes = <KEY_BACK KEY_MENU>;
          };
      };
-   - |
-@@ -121,22 +121,22 @@ examples:
+diff --git a/Documentation/devicetree/bindings/input/mediatek,mt6779-keypad.yaml b/Documentation/devicetree/bindings/input/mediatek,mt6779-keypad.yaml
+index 20fa41f691ed..f10bd0f1d948 100644
+--- a/Documentation/devicetree/bindings/input/mediatek,mt6779-keypad.yaml
++++ b/Documentation/devicetree/bindings/input/mediatek,mt6779-keypad.yaml
+@@ -79,10 +79,10 @@ examples:
+         #size-cells = <2>;
+ 
+         keyboard@10010000 {
+-          compatible = "mediatek,mt6779-keypad";
+-          reg = <0 0x10010000 0 0x1000>;
+-          interrupts = <GIC_SPI 75 IRQ_TYPE_EDGE_FALLING>;
+-          clocks = <&clk26m>;
+-          clock-names = "kpd";
++            compatible = "mediatek,mt6779-keypad";
++            reg = <0 0x10010000 0 0x1000>;
++            interrupts = <GIC_SPI 75 IRQ_TYPE_EDGE_FALLING>;
++            clocks = <&clk26m>;
++            clock-names = "kpd";
+         };
+     };
+diff --git a/Documentation/devicetree/bindings/input/microchip,cap11xx.yaml b/Documentation/devicetree/bindings/input/microchip,cap11xx.yaml
+index 983f4701b51e..fa95270ac2c2 100644
+--- a/Documentation/devicetree/bindings/input/microchip,cap11xx.yaml
++++ b/Documentation/devicetree/bindings/input/microchip,cap11xx.yaml
+@@ -290,19 +290,19 @@ examples:
          #size-cells = <0>;
  
-         led-controller@38 {
--                compatible = "ti,lm3630a";
--                reg = <0x38>;
-+            compatible = "ti,lm3630a";
-+            reg = <0x38>;
- 
--                #address-cells = <1>;
--                #size-cells = <0>;
-+            #address-cells = <1>;
-+            #size-cells = <0>;
- 
--                led@0 {
--                        reg = <0>;
--                        default-brightness = <150>;
--                        ti,linear-mapping-mode;
--                };
-+            led@0 {
-+                reg = <0>;
-+                default-brightness = <150>;
-+                ti,linear-mapping-mode;
-+            };
- 
--                led@1 {
--                        reg = <1>;
--                        default-brightness = <225>;
--                        ti,linear-mapping-mode;
--                };
-+            led@1 {
-+                reg = <1>;
-+                default-brightness = <225>;
-+                ti,linear-mapping-mode;
-+            };
+         led@0 {
+-                label = "cap11xx:green:usr0";
+-                reg = <0>;
++          label = "cap11xx:green:usr0";
++          reg = <0>;
          };
+ 
+         led@1 {
+-                label = "cap11xx:green:usr1";
+-                reg = <1>;
++          label = "cap11xx:green:usr1";
++          reg = <1>;
+         };
+ 
+         led@2 {
+-                label = "cap11xx:green:alive";
+-                reg = <2>;
+-                linux,default-trigger = "heartbeat";
++          label = "cap11xx:green:alive";
++          reg = <2>;
++          linux,default-trigger = "heartbeat";
+         };
+       };
      };
-diff --git a/Documentation/devicetree/bindings/leds/backlight/lp855x-backlight.yaml b/Documentation/devicetree/bindings/leds/backlight/lp855x-backlight.yaml
-index 9416e1bfab92..2215ee1b2e5b 100644
---- a/Documentation/devicetree/bindings/leds/backlight/lp855x-backlight.yaml
-+++ b/Documentation/devicetree/bindings/leds/backlight/lp855x-backlight.yaml
-@@ -95,20 +95,20 @@ examples:
- 
-             /* 4V OV, 4 output LED0 string enabled */
-             rom-14h {
--              rom-addr = /bits/ 8 <0x14>;
--              rom-val = /bits/ 8 <0xcf>;
-+                rom-addr = /bits/ 8 <0x14>;
-+                rom-val = /bits/ 8 <0xcf>;
-             };
- 
-             /* Heavy smoothing, 24ms ramp time step */
-             rom-15h {
--              rom-addr = /bits/ 8 <0x15>;
--              rom-val = /bits/ 8 <0xc7>;
-+                rom-addr = /bits/ 8 <0x15>;
-+                rom-val = /bits/ 8 <0xc7>;
-             };
- 
-             /* 4 output LED1 string enabled */
-             rom-19h {
--              rom-addr = /bits/ 8 <0x19>;
--              rom-val = /bits/ 8 <0x0f>;
-+                rom-addr = /bits/ 8 <0x19>;
-+                rom-val = /bits/ 8 <0x0f>;
-             };
-         };
-     };
-@@ -125,7 +125,7 @@ examples:
-             dev-ctrl = /bits/ 8 <0x85>;
-             init-brt = /bits/ 8 <0x10>;
-         };
--      };
-+    };
-   - |
-     i2c {
+diff --git a/Documentation/devicetree/bindings/input/touchscreen/eeti,exc3000.yaml b/Documentation/devicetree/bindings/input/touchscreen/eeti,exc3000.yaml
+index 930c70104b3f..00bd4062ebd7 100644
+--- a/Documentation/devicetree/bindings/input/touchscreen/eeti,exc3000.yaml
++++ b/Documentation/devicetree/bindings/input/touchscreen/eeti,exc3000.yaml
+@@ -82,13 +82,13 @@ examples:
          #address-cells = <1>;
-@@ -142,8 +142,8 @@ examples:
- 
-             /* 4V OV, 4 output LED string enabled */
-             rom-14h {
--              rom-addr = /bits/ 8 <0x14>;
--              rom-val = /bits/ 8 <0xcf>;
-+                rom-addr = /bits/ 8 <0x14>;
-+                rom-val = /bits/ 8 <0xcf>;
-             };
+         #size-cells = <0>;
+         touchscreen@2a {
+-                compatible = "eeti,exc3000";
+-                reg = <0x2a>;
+-                interrupt-parent = <&gpio1>;
+-                interrupts = <9 IRQ_TYPE_LEVEL_LOW>;
+-                touchscreen-size-x = <4096>;
+-                touchscreen-size-y = <4096>;
+-                touchscreen-inverted-x;
+-                touchscreen-swapped-x-y;
++            compatible = "eeti,exc3000";
++            reg = <0x2a>;
++            interrupt-parent = <&gpio1>;
++            interrupts = <9 IRQ_TYPE_LEVEL_LOW>;
++            touchscreen-size-x = <4096>;
++            touchscreen-size-y = <4096>;
++            touchscreen-inverted-x;
++            touchscreen-swapped-x-y;
          };
      };
-diff --git a/Documentation/devicetree/bindings/leds/backlight/qcom-wled.yaml b/Documentation/devicetree/bindings/leds/backlight/qcom-wled.yaml
-index a54448cfdb38..bca00b774bb0 100644
---- a/Documentation/devicetree/bindings/leds/backlight/qcom-wled.yaml
-+++ b/Documentation/devicetree/bindings/leds/backlight/qcom-wled.yaml
-@@ -280,4 +280,4 @@ examples:
-         qcom,ovp = <29>;
-         qcom,num-strings = <2>;
-         qcom,enabled-strings = <0 1>;
--     };
-+    };
-diff --git a/Documentation/devicetree/bindings/leds/leds-consumer.yaml b/Documentation/devicetree/bindings/leds/leds-consumer.yaml
-index fe6a0faa1d3b..b4065c9733a5 100644
---- a/Documentation/devicetree/bindings/leds/leds-consumer.yaml
-+++ b/Documentation/devicetree/bindings/leds/leds-consumer.yaml
-@@ -53,15 +53,15 @@ examples:
-     };
+diff --git a/Documentation/devicetree/bindings/input/touchscreen/ti,tsc2007.yaml b/Documentation/devicetree/bindings/input/touchscreen/ti,tsc2007.yaml
+index d9cb53e86512..5ef38d24d6a9 100644
+--- a/Documentation/devicetree/bindings/input/touchscreen/ti,tsc2007.yaml
++++ b/Documentation/devicetree/bindings/input/touchscreen/ti,tsc2007.yaml
+@@ -70,11 +70,11 @@ examples:
+         #size-cells = <0>;
  
-     i2c {
--      #address-cells = <1>;
--      #size-cells = <0>;
-+        #address-cells = <1>;
-+        #size-cells = <0>;
- 
--      v4l2_node: camera@36 {
--        reg = <0x36>;
-+        v4l2_node: camera@36 {
-+            reg = <0x36>;
- 
--        leds = <&privacy_led>;
--        led-names = "privacy";
--      };
-+            leds = <&privacy_led>;
-+            led-names = "privacy";
-+        };
-     };
- 
- ...
-diff --git a/Documentation/devicetree/bindings/leds/leds-lp50xx.yaml b/Documentation/devicetree/bindings/leds/leds-lp50xx.yaml
-index 23f809906ba7..85182ad7ad09 100644
---- a/Documentation/devicetree/bindings/leds/leds-lp50xx.yaml
-+++ b/Documentation/devicetree/bindings/leds/leds-lp50xx.yaml
-@@ -121,18 +121,18 @@ examples:
-                 function = LED_FUNCTION_CHARGING;
- 
-                 led@0 {
--                     reg = <0x0>;
--                     color = <LED_COLOR_ID_RED>;
-+                    reg = <0x0>;
-+                    color = <LED_COLOR_ID_RED>;
-                 };
- 
-                 led@1 {
--                     reg = <0x1>;
--                     color = <LED_COLOR_ID_GREEN>;
-+                    reg = <0x1>;
-+                    color = <LED_COLOR_ID_GREEN>;
-                 };
- 
-                 led@2 {
--                     reg = <0x2>;
--                     color = <LED_COLOR_ID_BLUE>;
-+                    reg = <0x2>;
-+                    color = <LED_COLOR_ID_BLUE>;
-                 };
-             };
- 
-diff --git a/Documentation/devicetree/bindings/leds/leds-lp5860.yaml b/Documentation/devicetree/bindings/leds/leds-lp5860.yaml
-index 0e88c71c2d39..710fec3738ed 100644
---- a/Documentation/devicetree/bindings/leds/leds-lp5860.yaml
-+++ b/Documentation/devicetree/bindings/leds/leds-lp5860.yaml
-@@ -100,18 +100,18 @@ examples:
-                 color = <LED_COLOR_ID_RGB>;
- 
-                 led@0 {
--                     reg = <0x0>;
--                     color = <LED_COLOR_ID_RED>;
-+                    reg = <0x0>;
-+                    color = <LED_COLOR_ID_RED>;
-                 };
- 
-                 led@1 {
--                     reg = <0x1>;
--                     color = <LED_COLOR_ID_GREEN>;
-+                    reg = <0x1>;
-+                    color = <LED_COLOR_ID_GREEN>;
-                 };
- 
-                 led@2 {
--                     reg = <0x2>;
--                     color = <LED_COLOR_ID_BLUE>;
-+                    reg = <0x2>;
-+                    color = <LED_COLOR_ID_BLUE>;
-                 };
-             };
-         };
-diff --git a/Documentation/devicetree/bindings/leds/nxp,pca963x.yaml b/Documentation/devicetree/bindings/leds/nxp,pca963x.yaml
-index a16ca11f630b..dac316741b9b 100644
---- a/Documentation/devicetree/bindings/leds/nxp,pca963x.yaml
-+++ b/Documentation/devicetree/bindings/leds/nxp,pca963x.yaml
-@@ -164,27 +164,27 @@ examples:
-             #size-cells = <0>;
- 
-             led@0 {
--                    reg = <0>;
--                    color = <LED_COLOR_ID_RED>;
--                    function = LED_FUNCTION_STATUS;
-+                reg = <0>;
-+                color = <LED_COLOR_ID_RED>;
-+                function = LED_FUNCTION_STATUS;
-             };
- 
-             led@1 {
--                    reg = <1>;
--                    color = <LED_COLOR_ID_GREEN>;
--                    function = LED_FUNCTION_STATUS;
-+                reg = <1>;
-+                color = <LED_COLOR_ID_GREEN>;
-+                function = LED_FUNCTION_STATUS;
-             };
- 
-             led@2 {
--                    reg = <2>;
--                    color = <LED_COLOR_ID_BLUE>;
--                    function = LED_FUNCTION_STATUS;
-+                reg = <2>;
-+                color = <LED_COLOR_ID_BLUE>;
-+                function = LED_FUNCTION_STATUS;
-             };
- 
-             led@3 {
--                    reg = <3>;
--                    color = <LED_COLOR_ID_WHITE>;
--                    function = LED_FUNCTION_STATUS;
-+                reg = <3>;
-+                color = <LED_COLOR_ID_WHITE>;
-+                function = LED_FUNCTION_STATUS;
-             };
+         touch@49 {
+-           compatible = "ti,tsc2007";
+-           reg = <0x49>;
+-           interrupt-parent = <&gpio4>;
+-           interrupts = <0x0 0x8>;
+-           gpios = <&gpio4 0 0>;
+-           ti,x-plate-ohms = <180>;
++            compatible = "ti,tsc2007";
++            reg = <0x49>;
++            interrupt-parent = <&gpio4>;
++            interrupts = <0x0 0x8>;
++            gpios = <&gpio4 0 0>;
++            ti,x-plate-ohms = <180>;
          };
      };
 -- 
