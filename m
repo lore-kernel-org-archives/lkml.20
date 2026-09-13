@@ -1,121 +1,248 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 119F63E95A4;
-	Sun, 13 Sep 2026 13:42:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF8152F361E;
+	Sun, 13 Sep 2026 13:43:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789306957; cv=none; b=avxTSpK2yXXYPXlCzxw0HNb9qCfDttcwroe22ip930nRhfo7MzLBJLZrnA22AaF5yg+U40LVfvPvjEzC4YqTA0Adv7aaDoYT4AaFCxkjb9Q2NqAHZCblgnCo0muRh3WKTrecwwEu82KS+Sk8WmxGJPuqhhF+Bid6rRL1FHMXt9E=
+	t=1789307008; cv=none; b=UQa/jUox8oG4ZwBEixTnVGC0FpCsTDbB+R7DOjxlvIYCTgIYaQJMikrP6Wfi5R8pTdgT31cWqAazKdWmmX9v8oR/Bx4PPBs9BVUiVn7fk9wPPXJmXfuBRMLlb/US3XNXmS9ZFYMF4BXz9A6qMFt0cJTToZkiiGMMbxwUQsjhXgA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789306957; c=relaxed/simple;
-	bh=/+BKfmb7S2w6JiMBVF8GoMH1Mw+py3N81GEAc9IfoEA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bCjtNxXXdC+6+6EF+wToSRDVpUiczsbWAmtN8xL7YDSnskE7tJ0XNHm/diaYFxbwFTLZkL0KD1QAhAQdpi2pmvRb3+mixft6BM4P6sbvek/cX0rvUjdOEq+6zCv3MgBKyTiCtUKqLMqFI6mqkP2IxA9ZqFU1G1HwbNAQnV+B6Vg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P+l0AZMK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789307008; c=relaxed/simple;
+	bh=fAGIE4dT8cfOhwhEcRUdMERfTsTdpAs5FYvUvI4j8L0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kBwaLGlVPRkWgSidglb8e7RJWGQ5CMjEWIDUtsaQoPiBnI86Jix3eQH6+isRZx2y+n695JapwPtWItIq2Vd/Cyuja/9sqXMepDiO4uheoLd+VOVamP2RQ3ASqf1gNi09bcssDpG01xyBKhsLOc5MnbpFBG04Mp6m/Js9osiNV8I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=HV/cuNZI; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=NrrMSvLh; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P+l0AZMK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2B251F000FF;
-	Sun, 13 Sep 2026 13:42:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789306955;
-	bh=1SlS52xY0D62VH+cuPRLNsO8lHT3IoLYgxS8n4WrnDs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=P+l0AZMK7tp0QooYpXiYgGQPov/+euyBg3dMHxT85IcLS0tS65g3hAsJ6uxIRRwmt
-	 T+7GEy+2ukKRk94t2icQ1SHEaSq2YstA0DiAqx5XRaHhNMdxdyBWqceU243U7eM801
-	 FPOJxpvyYzthoynHCUTG5t4lni1QTgQS6w64PVrILen5Ea2Hc0KrdknA5oPFAhjKVe
-	 xVx717x+REDIRl+Uky1PNWCEEHcVd7/AHEmJrPXsWYeLcYNTlylmA4j9TWT+nRD2h6
-	 +ZedKnzm9IIFy8lo2MA76y2oHruVa0O3541oEuRhrlRhmWFKiKWdiWJ1F2A2dwngyN
-	 ZN4KQI3V/a7+A==
-Date: Sun, 13 Sep 2026 14:42:30 +0100
-From: Simon Horman <horms@kernel.org>
-To: Alexandra Winter <wintera@linux.ibm.com>
-Cc: David Miller <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>, Eric Dumazet <edumazet@google.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Thorsten Winkler <twinkler@linux.ibm.com>,
-	Bryam Vargas <hexlabsecurity@proton.me>, netdev@vger.kernel.org,
-	linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>
-Subject: Re: [PATCH net-next] net/iucv: Add lock nesting annotation in
- iucv_sock_close()
-Message-ID: <20260913134230.GI48209@horms.kernel.org>
-References: <20260910162919.2100124-1-wintera@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="HV/cuNZI";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="NrrMSvLh"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Date:Subject:To:From; t=1789306981; bh=Kt1MqXVAMn5d6Yn/sEKLaLJ
+	cBinFJCRvDSK8+PRZtSU=; b=HV/cuNZIRl6eNMZltL5ivqvq+2OADkk2MkOg25QJVLPBt+C9nc
+	OygFy1Xx5t5nrWf/hPoXQEhJeqPymJS+ivY2aZVL3WgOGzpxF15MeM/yFocnsMtHiDCU/f1gfm0
+	mrVviYiQbJc8VpmEFK59Rl0Djh5yWeMSt0V0rsH9865tsimmOMVmC5PmlhmbxqJf9m8UP4qWUSE
+	aGDgEiy8ntHnt6tCXTJFLKpDAiNl3IYfXZTe/wPpY0+M2TkLbfo/hx7itMVNJNLJSkN2Hi1GNWq
+	+xc9e7xjvPLtiZbag1pNpKNi8jU7t73QX4mQDSs70xM29qxdcAqEWi8N0iHb10yEEIA==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Date:Subject:To:From; t=1789306981; bh=Kt1MqXVAMn5d6Yn/sEKLaLJ
+	cBinFJCRvDSK8+PRZtSU=; b=NrrMSvLhhOPCgLhEEb3zp536JplI5qTgU0366AThViVPKh57Mq
+	iiiZGr7ng8M6nI3YAd1BBUzHpjnAHYah/BAw==;
+From: Bradley Morgan <brads@mainlining.org>
+To: "Paul E. McKenney" <paulmck@kernel.org>
+Cc: jiangshanlai@gmail.com,
+	josh@joshtriplett.org,
+	work@onurozkan.dev,
+	rostedt@goodmis.org,
+	mathieu.desnoyers@efficios.com,
+	rcu@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	brads@mainlining.org
+Subject: [PATCH] srcutiny: Add reader flavor checking for atomic SRCU
+Date: Sun, 13 Sep 2026 13:43:01 +0000
+Message-ID: <20260913134301.7236-1-brads@mainlining.org>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260910162919.2100124-1-wintera@linux.ibm.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 10, 2026 at 06:29:19PM +0200, Alexandra Winter wrote:
-> iucv_sock_close() acquires lock_sock(sk) and then, when the socket is in
-> IUCV_LISTEN state, calls iucv_sock_cleanup_listen() which acquires
-> lock_sock(child_sk) for each pending child socket. Moreover
-> iucv_sock_close(child_sk) is called on the pending child sockets.
-> 
-> Avoid lockdep warning by using lock_sock_nested() in iucv_sock_close().
-> Split off __iucv_sock_close(), so iucv_sock_cleanup_listen() can call it
-> without nesting.
-> 
-> This is a missing lockdep annotation - not a real deadlock.
-> 
-> Example warning:
-> [ 6690.906930] ============================================
-> [ 6690.906935] WARNING: possible recursive locking detected
-> [ 6690.906942] 7.3.0-rc1net_KCSAN_KASAN-00240-g641d03105cc0 #23 Not tainted
-> [ 6690.906948] --------------------------------------------
-> [ 6690.906953] afiucv_test_loc/5183 is trying to acquire lock:
-> [ 6690.906959] 000601ad13f20a78 (sk_lock-IUCV){+.+.}-{0:0}, at: iucv_accept_dequeue+0xdc/0x340 [af_iucv]
-> [ 6690.906984]
->                but task is already holding lock:
-> [ 6690.906989] 000601ad1c115278 (sk_lock-IUCV){+.+.}-{0:0}, at: iucv_sock_close+0x82/0x7d0 [af_iucv]
-> [ 6690.907006]
->                other info that might help us debug this:
-> [ 6690.907010]  Possible unsafe locking scenario:
-> 
-> [ 6690.907014]        CPU0
-> [ 6690.907018]        ----
-> [ 6690.907021]   lock(sk_lock-IUCV);
-> [ 6690.907028]   lock(sk_lock-IUCV);
-> [ 6690.907034]
->                 *** DEADLOCK ***
-> 
-> [ 6690.907038]  May be due to missing lock nesting notation
-> 
-> [ 6690.907043] locks held by afiucv_test_loc/5183: 2, last CPU#0:
-> [ 6690.907085]  #0: 000601ad137a5550 (&sb->s_type->i_mutex_key#12){+.+.}-{3:3}, at: __sock_release+0x7e/0x230
-> [ 6690.907109]  #1: 000601ad1c115278 (sk_lock-IUCV){+.+.}-{0:0}, at: iucv_sock_close+0x82/0x7d0 [af_iucv]
-> [ 6690.907127]
->                stack backtrace:
-> [ 6690.907135] CPU: 0 UID: 0 PID: 5183 Comm: afiucv_test_loc Kdump: loaded Not tainted 7.3.0-rc1net_KCSAN_KASAN-00240-g641d03105cc0 #23 PREEMPT
-> [ 6690.907140] Hardware name: IBM 8561 T01 703 (z/VM 7.4.0)
-> [ 6690.907142] Call Trace:
-> [ 6690.907144]  [<00061ab555fd6208>] dump_stack_lvl+0xe8/0x140
-> [ 6690.907151]  [<00061ab55623a110>] print_deadlock_bug+0x340/0x350
-> [ 6690.907156]  [<00061ab55623f768>] __lock_acquire+0x11b8/0x15d0
-> [ 6690.907159]  [<00061ab55623fc9c>] lock_acquire.part.0+0x11c/0x290
-> [ 6690.907162]  [<00061ab55623fec4>] lock_acquire+0xb4/0x1e0
-> [ 6690.907164]  [<00061ab5580d6b96>] lock_sock_nested+0x46/0xf0
-> [ 6690.907167]  [<00061ab4d66e38dc>] iucv_accept_dequeue+0xdc/0x340 [af_iucv]
-> [ 6690.907171]  [<00061ab4d66e541c>] iucv_sock_close+0xdc/0x7d0 [af_iucv]
-> [ 6690.907174]  [<00061ab4d66e5b62>] iucv_sock_release+0x52/0x130 [af_iucv]
-> [ 6690.907177]  [<00061ab5580c5b24>] __sock_release+0xa4/0x230
-> [ 6690.907180]  [<00061ab5580c5cdc>] sock_close+0x2c/0x40
-> [ 6690.907183]  [<00061ab556ac7a00>] __fput+0x2f0/0x880
-> [ 6690.907187]  [<00061ab556ac8cc0>] fput_close_sync+0xd0/0x1c0
-> [ 6690.907189]  [<00061ab556abbc70>] __s390x_sys_close+0x90/0xf0
-> [ 6690.907192]  [<00061ab55894df0e>] __do_syscall+0x1be/0x5a0
-> [ 6690.907196]  [<00061ab558976a7a>] system_call+0x72/0x90
-> [ 6690.907200] INFO: lockdep is turned off.
-> 
-> Signed-off-by: Alexandra Winter <wintera@linux.ibm.com>
+Tiny SRCU stubs out srcu_check_read_flavor() as a nop.  So if you
+DEFINE_SRCU_ATOMIC() a struct and then call srcu_read_lock() on it
+by mistake, nothing warns you.  Tree SRCU has
+__srcu_check_read_flavor() which splats when the flavor changes.
 
-Reviewed-by: Simon Horman <horms@kernel.org>
+Add a srcu_reader_flavor field to Tiny's srcu_struct, gated on
+CONFIG_PROVE_RCU.  DEFINE_SRCU_ATOMIC() bakes in the flavor at
+build time via __SRCU_STRUCT_INIT_ATOMIC(), and the runtime init
+paths set it too.
+
+The check itself is simple: warn if the flavor changes after first
+use.  Tiny is UP so there is no race on first write, no cmpxchg
+needed.
+
+This catches the case where a normal reader sneaks into an atomic
+domain.  synchronize_srcu_atomic() would then return early while
+that reader is still in its section, which is a UAF waiting to
+happen.
+
+Signed-off-by: Bradley Morgan <brads@mainlining.org>
+---
+ include/linux/srcu.h     |  4 ++--
+ include/linux/srcutiny.h | 39 +++++++++++++++++++++++++++++++++++----
+ kernel/rcu/srcutiny.c    | 36 ++++++++++++++++++++++++++++++++++++
+ 3 files changed, 73 insertions(+), 6 deletions(-)
+
+diff --git a/include/linux/srcu.h b/include/linux/srcu.h
+index 1a8a465a5650..649a44d1cd00 100644
+--- a/include/linux/srcu.h
++++ b/include/linux/srcu.h
+@@ -36,9 +36,9 @@ static inline int __init_srcu_struct(struct srcu_struct *ssp, const char *name,
+ int __init_srcu_struct_fast(struct srcu_struct *ssp, const char *name, struct lock_class_key *key);
+ int __init_srcu_struct_fast_updown(struct srcu_struct *ssp, const char *name,
+ 				   struct lock_class_key *key);
++#endif // #ifndef CONFIG_TINY_SRCU
+ int __init_srcu_struct_atomic(struct srcu_struct *ssp, const char *name,
+ 			      struct lock_class_key *key);
+-#endif // #ifndef CONFIG_TINY_SRCU
+ 
+ #define init_srcu_struct_fast(ssp) \
+ ({ \
+@@ -73,8 +73,8 @@ static inline int __init_srcu_struct(struct srcu_struct *ssp, const char *name,
+ #ifndef CONFIG_TINY_SRCU
+ int init_srcu_struct_fast(struct srcu_struct *ssp);
+ int init_srcu_struct_fast_updown(struct srcu_struct *ssp);
+-int init_srcu_struct_atomic(struct srcu_struct *ssp);
+ #endif // #ifndef CONFIG_TINY_SRCU
++int init_srcu_struct_atomic(struct srcu_struct *ssp);
+ 
+ #define __SRCU_DEP_MAP_INIT(srcu_name)
+ #endif /* #else #ifdef CONFIG_DEBUG_LOCK_ALLOC */
+diff --git a/include/linux/srcutiny.h b/include/linux/srcutiny.h
+index 47a368f945e3..6b14511d09f2 100644
+--- a/include/linux/srcutiny.h
++++ b/include/linux/srcutiny.h
+@@ -20,6 +20,9 @@ struct srcu_struct {
+ 	u8 srcu_gp_running;		/* GP workqueue running? */
+ 	u8 srcu_gp_waiting;		/* GP waiting for readers? */
+ 	u8 srcu_atomic_gp_flag;		/* Serialize atomic GP work.*/
++#ifdef CONFIG_PROVE_RCU
++	u8 srcu_reader_flavor;		/* Reader flavor for srcu_struct? */
++#endif /* #ifdef CONFIG_PROVE_RCU */
+ 	unsigned long srcu_idx;		/* Current reader array element in bit 0x2. */
+ 	unsigned long srcu_idx_max;	/* Furthest future srcu_idx request. */
+ 	struct swait_queue_head srcu_wq;
+@@ -39,6 +42,12 @@ void srcu_drive_gp(struct work_struct *wp);
+ void srcu_tiny_irq_work(struct irq_work *irq_work);
+ void srcu_defer_drain(struct irq_work *irq_work);
+ 
++#ifdef CONFIG_PROVE_RCU
++#define __SRCU_READER_FLAVOR_INIT	.srcu_reader_flavor = SRCU_READ_FLAVOR_ATOMIC,
++#else
++#define __SRCU_READER_FLAVOR_INIT
++#endif
++
+ #define __SRCU_STRUCT_INIT(name, __ignored, ___ignored, ____ignored)	\
+ {									\
+ 	.srcu_wq = __SWAIT_QUEUE_HEAD_INITIALIZER(name.srcu_wq),	\
+@@ -51,6 +60,19 @@ void srcu_defer_drain(struct irq_work *irq_work);
+ 	__SRCU_DEP_MAP_INIT(name)					\
+ }
+ 
++#define __SRCU_STRUCT_INIT_ATOMIC(name)					\
++{									\
++	.srcu_wq = __SWAIT_QUEUE_HEAD_INITIALIZER(name.srcu_wq),	\
++	.srcu_cb_tail = &name.srcu_cb_head,				\
++	.srcu_work = __WORK_INITIALIZER(name.srcu_work, srcu_drive_gp),	\
++	.srcu_irq_work = { .func = srcu_tiny_irq_work },		\
++	.defer_cbs = LLIST_HEAD_INIT(name.defer_cbs),			\
++	.defer_iw = { .node = { .u_flags = IRQ_WORK_HARD_IRQ },		\
++		      .func = srcu_defer_drain },			\
++	__SRCU_READER_FLAVOR_INIT					\
++	__SRCU_DEP_MAP_INIT(name)					\
++}
++
+ /*
+  * This odd _STATIC_ arrangement is needed for API compatibility with
+  * Tree SRCU, which needs some per-CPU data.
+@@ -65,20 +87,19 @@ void srcu_defer_drain(struct irq_work *irq_work);
+ #define DEFINE_SRCU_FAST_UPDOWN(name) DEFINE_SRCU(name)
+ #define DEFINE_STATIC_SRCU_FAST_UPDOWN(name) \
+ 	static struct srcu_struct name = __SRCU_STRUCT_INIT(name, name, name, name)
+-#define DEFINE_SRCU_ATOMIC(name) DEFINE_SRCU(name)
++#define DEFINE_SRCU_ATOMIC(name) \
++	struct srcu_struct name = __SRCU_STRUCT_INIT_ATOMIC(name)
+ #define DEFINE_STATIC_SRCU_ATOMIC(name) \
+-	static struct srcu_struct name = __SRCU_STRUCT_INIT(name, name, name, name)
++	static struct srcu_struct name = __SRCU_STRUCT_INIT_ATOMIC(name)
+ 
+ // Dummy structure for srcu_notifier_head.
+ struct srcu_usage { };
+ #define __SRCU_USAGE_INIT(name) { }
+ #define __init_srcu_struct_fast __init_srcu_struct
+ #define __init_srcu_struct_fast_updown __init_srcu_struct
+-#define __init_srcu_struct_atomic __init_srcu_struct
+ #ifndef CONFIG_DEBUG_LOCK_ALLOC
+ #define init_srcu_struct_fast init_srcu_struct
+ #define init_srcu_struct_fast_updown init_srcu_struct
+-#define init_srcu_struct_atomic init_srcu_struct
+ #endif // #ifndef CONFIG_DEBUG_LOCK_ALLOC
+ 
+ void synchronize_srcu(struct srcu_struct *ssp);
+@@ -147,7 +168,17 @@ static inline void synchronize_srcu_expedited(struct srcu_struct *ssp)
+ void srcu_barrier(struct srcu_struct *ssp);
+ 
+ static inline void srcu_expedite_current(struct srcu_struct *ssp) { }
++
++#ifdef CONFIG_PROVE_RCU
++void __srcu_check_read_flavor(struct srcu_struct *ssp, int read_flavor);
++
++static inline void srcu_check_read_flavor(struct srcu_struct *ssp, int read_flavor)
++{
++	__srcu_check_read_flavor(ssp, read_flavor);
++}
++#else /* #ifdef CONFIG_PROVE_RCU */
+ #define srcu_check_read_flavor(ssp, read_flavor) do { } while (0)
++#endif /* #else #ifdef CONFIG_PROVE_RCU */
+ 
+ /* Defined here to avoid size increase for non-torture kernels. */
+ static inline void srcu_torture_stats_print(struct srcu_struct *ssp,
+diff --git a/kernel/rcu/srcutiny.c b/kernel/rcu/srcutiny.c
+index 76411562366f..76a276de07ee 100644
+--- a/kernel/rcu/srcutiny.c
++++ b/kernel/rcu/srcutiny.c
+@@ -52,6 +52,25 @@ static int init_srcu_struct_fields(struct srcu_struct *ssp)
+ 	return 0;
+ }
+ 
++#ifdef CONFIG_PROVE_RCU
++int __init_srcu_struct_atomic(struct srcu_struct *ssp, const char *name,
++			      struct lock_class_key *key)
++{
++	ssp->srcu_reader_flavor = SRCU_READ_FLAVOR_ATOMIC;
++	return __init_srcu_struct(ssp, name, key);
++}
++EXPORT_SYMBOL_GPL(__init_srcu_struct_atomic);
++
++#ifndef CONFIG_DEBUG_LOCK_ALLOC
++int init_srcu_struct_atomic(struct srcu_struct *ssp)
++{
++	ssp->srcu_reader_flavor = SRCU_READ_FLAVOR_ATOMIC;
++	return init_srcu_struct_generic(ssp);
++}
++EXPORT_SYMBOL_GPL(init_srcu_struct_atomic);
++#endif /* #ifndef CONFIG_DEBUG_LOCK_ALLOC */
++#endif /* #ifdef CONFIG_PROVE_RCU */
++
+ #ifdef CONFIG_DEBUG_LOCK_ALLOC
+ 
+ int init_srcu_struct_lockdep(struct srcu_struct *ssp, const char *name,
+@@ -212,6 +231,23 @@ void srcu_tiny_irq_work(struct irq_work *irq_work)
+ }
+ EXPORT_SYMBOL_GPL(srcu_tiny_irq_work);
+ 
++#ifdef CONFIG_PROVE_RCU
++/*
++ * Check for consistent reader flavor.  Tiny SRCU is UP only, so no
++ * cmpxchg is needed to set the flavor on first use.
++ */
++void __srcu_check_read_flavor(struct srcu_struct *ssp, int read_flavor)
++{
++	int old_read_flavor = ssp->srcu_reader_flavor;
++
++	WARN_ON_ONCE(read_flavor & (read_flavor - 1));
++	WARN_ON_ONCE(old_read_flavor && read_flavor != old_read_flavor);
++	if (!old_read_flavor)
++		ssp->srcu_reader_flavor = read_flavor;
++}
++EXPORT_SYMBOL_GPL(__srcu_check_read_flavor);
++#endif /* #ifdef CONFIG_PROVE_RCU */
++
+ static void srcu_gp_start_if_needed(struct srcu_struct *ssp)
+ {
+ 	unsigned long cookie;
+-- 
+2.47.3
 
