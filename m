@@ -1,195 +1,170 @@
-Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout.web.de (mout.web.de [212.227.15.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73091224234
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 06:32:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD4982D739C;
+	Sun, 13 Sep 2026 06:33:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789281127; cv=none; b=C0sQaL+2hDAmTtb1Zc/NHvgLafJCMH7nQVkDJqYDg/sfuOrLnmrIuLqZ4jKLj7CAIHVMjxYCPzQDAKDQK+skSdChFBlyNuYd0lhTaodG1Rh563hDuGkGjLDMz4x5gZq29cjAp6CqNX9ZxRjHQoGrY6y3Z8otg4Ud4v3CZrEwlnA=
+	t=1789281225; cv=none; b=QoKvYp7UMdDf2aapd4s8A24stQeIKIu2dq4IsmKKh5VMkGlLBqMYxw/VQfQergFopUHOAT2v39VA2o6aslxwCoOpudHSdLW8Ktaaho5gpmoCrdc9VqhlzlZV8ZbCPQlbsWxJm7U6SUx+W8b4Tvr4a+TRcXLkITM1UBYq3uLtgjE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789281127; c=relaxed/simple;
-	bh=H4ETr6mwXUYrX8RAIMZz7ErNDPXTHuQ7d2Pd0f6oSws=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=g0f4tsE12y7IOC6h5LSl2AuG7eGg1Hyu2LY55MGDHldeGW2hCu+mfiHXsP89ujDur2NiBh+EqBKLrSXaWhewcP2jtKACkBqyJkQJ1ApFPV5LlWpDbL9G2ZprklCbS8cs5qU8HoD3CZfGJRir+An+8Yr5pRCrV6emGV+lFK9zMcU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=opORQWCp; arc=none smtp.client-ip=74.125.228.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789281225; c=relaxed/simple;
+	bh=0Dt53XtFgKftwYQjJZEpBgWN+oidBqcp5JqPrZWi3Ns=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:References:Cc:
+	 In-Reply-To:Content-Type; b=qrpoqfPBf9WdiNdHIsSZosfRonCfYuc48h4VStfuM28USc5JMhL5rd3VcSGug5+kA4sHiYOC7G0S+NfKfX6wq4glKnTIgKffPkUd3JnAoKZDKvk5tBFq0ZXRL1PIhDGYijCrHuYq0vwjMaLOnq8VVrbX/CkskjhQGBugsM63DFE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de; spf=pass smtp.mailfrom=web.de; dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b=dmy2j2/J; arc=none smtp.client-ip=212.227.15.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="opORQWCp"
-Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-8693af0d7c4so1550437b3a.3
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 23:32:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789281125; x=1789885925; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EIS5RKlZgBWCHN8Ol/C+0jNYOT5tZB/4WMxwPWSV000=;
-        b=opORQWCp+GqyypjOmQQmAI4LmM4fcYXniQVTdF+gT2Xt8Gs0GFRHSUTOH1jFTU1/7Z
-         Y/3ZHwiWR1+7PplM9mEk8DnrrCTQ5IOKId43l08IHvYrm0eoZZvLVtgEKCDYoxDmvZb3
-         E+cvaFZUeMc8UoIxTZNJWWvxh5zC3q3TqctE8K5mmPYeyVQUsVceUWN2b+Jo5FKNM0go
-         k3OCCc1dqIcEr970GejCQ0Uc3NmxsdpCcrKcua7T1VYzXjMN+j3uGxhaCejCPdOAPYjU
-         HxRWibm1gqztYHZCSWoAaZmbzSxc10q38mvyE422zlRmdoRdWXt6yFAbC7/CgOFV9fvh
-         6ncQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789281125; x=1789885925;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EIS5RKlZgBWCHN8Ol/C+0jNYOT5tZB/4WMxwPWSV000=;
-        b=PD9r46EdWz21tWFVMAX907LncklFWWuDmb9maYduPc60EggXWE5L534j04aFbwU5vy
-         SuM+K8VoUcqF+5qKfoTsNvXh8CMUANirnBh2rUgJy+EamMircKW7e6ijMDBqiZQ6wMk/
-         UqbiwyQVQSzHNwUF8VxXcnePSPr/iweAcbKa7vMA58JwhdmXrQi1tz5s4GUJy5oGC0RD
-         6mzFVUPpkcFX6NEqKZ6h7QB8X8Z5zDnfYxN3g21JgdiK1w92+PttGkXFJL2CE24T5u2X
-         Zzl7aKhcbF/ljsS12yme5L64pdlAgmgijuQJfVCWrK90Ytc/oSPHkS9ieGklw5zz+phr
-         +dEw==
-X-Forwarded-Encrypted: i=1; AKwUvBy6iMMxzWkhPKNCIftiQI7WFh8/OgbV8bxg09iIH6Ue8YQaiNwm4S5Bbai3e7DnEf2yYjdsJVB7xz7widg=@vger.kernel.org
-X-Gm-Message-State: AFuF++lDK4JNFD3bnhJ/Pcqt+wf25vscY5kHq34ppG4IEeh4wbYT1OAr
-	Big4Ugcx+agX0EPegqIMknNAqYOu2hPND8u9YbVyp7dIKYU7si5eYAg=
-X-Gm-Gg: AYBFou1uINo9qpkZDjUrX7jpmmAsEwZal7wlxSyERQaDlCqFMC1uxFq06deVFN7Y0UL
-	bLGmrXg7F7agEBExguA5Fr+XCis1/I8Fl0nebyVE/Z+mLDVT4NlLfDigS78I4kTUqjh0dVohwuC
-	WtGuav04a7tN8YoNn/cVDrwT8TXfMgjglZNZ9cDdw0OtypGpehf4cnEWtRYrQRHeYzc0VZM2R0Z
-	9bI02Cu0ojcpxoZKS0pjD94GcY0r4FYxJtDX/pR+2NXdi/fzBI608aG6hcC3VJWVhVcOvRzkCgT
-	1QuGYNLhv7LYPXqXfpcMpmiAcJt5PGFik4aZMzqPP/tONEuMh7Lc/k8Q2jK+CHOgzfIEG4PTjN8
-	iJyzwQO9EI2UQxk12EfGfxlPCnt+j18l6OeqqjDUTvK0K6HWNtZXxkkosOLWpN/8QlaN9GZFRCW
-	nzchDxaZp/UazqFyIwHiT1e3ZuiCbQwcowWJx3JJaboSkwQw5diXm+YjEdZEnDbWX1JZuTQ21Tn
-	9eha8EJi6kmTksZ8Ajke1Kx8PuCLQfTkFe+
-X-Received: by 2002:a05:6a21:7314:b0:3da:ec28:2cc9 with SMTP id adf61e73a8af0-3daed3b990cmr22208557637.23.1789281124737;
-        Sat, 12 Sep 2026 23:32:04 -0700 (PDT)
-Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:7f00:8c85:b91:ff81:c860:362e])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4c6585f94sm3247894a12.25.2026.09.12.23.31.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 12 Sep 2026 23:32:04 -0700 (PDT)
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-To: Jens Axboe <axboe@kernel.dk>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Damien Le Moal <dlemoal@kernel.org>,
-	"Martin K . Petersen" <mkp@kernel.org>,
-	Johannes Thumshirn <johannes.thumshirn@wdc.com>,
-	Christoph Hellwig <hch@lst.de>,
-	Adriano Cordova <adrianox@gmail.com>,
-	linux-block@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	donggeunyoo.kernel@gmail.com
-Subject: [PATCH v2] blktrace: fix the field offsets of the synthesized v1 record
-Date: Sun, 13 Sep 2026 15:31:55 +0900
-Message-ID: <20260913063155.708520-1-donggeunyoo.kernel@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b="dmy2j2/J"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+	s=s29768273; t=1789281215; x=1789886015; i=markus.elfring@web.de;
+	bh=0Dt53XtFgKftwYQjJZEpBgWN+oidBqcp5JqPrZWi3Ns=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:From:To:
+	 References:Cc:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 cc:content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=dmy2j2/JCb6CD9KLCf4rDeSWoBeS7N7BDlkS2EZkHKRIyUSpGhdnrvCSxALjHO6V
+	 tXt2CNosA92Snvt5OpE7DVDb2RRXx+8J2GJ6AMGOHMbwKHSFIozttOCqE25787Zm2
+	 K3H8oP2e1IWzaZdW2TeceXoLTTKPjgtQgUWbOXJq8JAyG9NiM1mGXggrssiAFvFZP
+	 TssklXuCzf2Ied2d2pXTa2Z+3oCM3nO815Xevgoq5He4JP3ja8CrgHkuaVBp2NSve
+	 W/+wRz0uGMTIbdvbiqxm/6+Ktb06cOrduEKVLD/DosJDPD6eM5ZjSN0EOquEfZ3er
+	 FmQ6gpOYND98xO7Y1Q==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb006
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1N7gbW-1wjD490I2k-00zXJl; Sun, 13
+ Sep 2026 08:33:35 +0200
+Message-ID: <f16640cb-8a67-4263-99e2-f04d4118c641@web.de>
+Date: Sun, 13 Sep 2026 08:33:31 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC] Extending data processing resources for isomorphism rules?
+From: Markus Elfring <Markus.Elfring@web.de>
+To: cocci@inria.fr, kernel-janitors@vger.kernel.org
+References: <38ba026b-c6f9-4b23-9754-5fb61e9db85a@web.de>
+ <bec1dd2-e991-3e92-f65e-d795ea98eeae@inria.fr>
+ <5122da19-8a4c-413e-9374-997cb6442520@web.de>
+Content-Language: en-GB, de-DE
+Cc: LKML <linux-kernel@vger.kernel.org>
+In-Reply-To: <5122da19-8a4c-413e-9374-997cb6442520@web.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Provags-ID: V03:K1:CR85zdYYRsqsa+b73NjXdV9EPXxkrebETjd2dFiPWSGDRzLocah
+ iwkHjhDKH6bCQa8F0LRD3aDKlQLMhfTIXFOZ5IZvg0M6i81G3PTV8TaWQnQYNdMcwL956aF
+ 6MsuDuQS8gCxF9uy5Uj9PBrAnQqE7FQkWfJj5NDf5xSDy6+/8GLWT37aBBiyuqCg4foQq94
+ 71OSL3LEdas2TpSCmo65A==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:+y7Dr/K215c=;zPztL6fkJ3e5Z6Pq98VYyLYewHw
+ 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
 
-blk_trace_synthesize_old_trace() emits a classic blk_io_trace for the
-binary trace_pipe output by copying 32 bytes from the ring buffer
-entry's sector onward into a struct blk_io_trace. The entry is a
-blk_io_trace2, and the two layouts diverge after bytes: v2 has a 32-bit
-pid at 28 and a 64-bit action at 32, where v1 has a 32-bit action at 28
-and pid at 32. Every field from action on lands one slot off, so a
-consumer reads the pid as the action, the device as the cpu, and the cpu
-as error and pdu_len.
+> How can this data processing ever succeed?
 
-The PDU comes from the wrong offset as well. The copy ends at v2 offset
-48 + pdu_len while the PDU starts at 64, so for any event carrying one
--- BLK_TA_REMAP, SPLIT, UNPLUG_*, DRV_DATA, BLK_TN_MESSAGE -- the bytes
-appended are the error, pdu_len and pad trailer rather than the PDU.
+It could be observed that parsing attempts did not finish in a reasonable time
+frame for scripts of the semantic patch language on a single processor core
+if detailed expressions were tried out.
+Isomorphism rules triggered special consequences for the run time characteristics
+of the Coccinelle software.
+https://gitlab.inria.fr/coccinelle/coccinelle/-/blob/ea58efe355dea2184217954248a01f5dc5995d24/standard.iso#L5-12
 
-Assign each v1 field from its v2 counterpart and append the PDU from the
-end of the v2 record, bounded by the entry size.
+It would eventually be helpful to use additional processor cores for improved
+parallel data processing.
+It might make sense to take distributed computing into account accordingly.
+This desire depends on the parallelizability of involved algorithms.
+https://en.wikipedia.org/wiki/Analysis_of_parallel_algorithms
 
-This applies on top of Adriano Cordova's "blktrace: always record ftrace
-events as blk_io_trace2", <20260903202932.156278-1-adrianox@gmail.com>,
-and needs it. Without that patch __blk_add_trace() still reserves a
-48-byte v1 entry when the trace was set up by BLKTRACESETUP, and nothing
-in the entry says which layout it has: magic and sequence are the ftrace
-trace_entry header and neither writer fills them, and the two sizes
-overlap, because a v1 record carrying a 16-byte BLK_TA_REMAP PDU is also
-64 bytes. Removing the short entry is what makes reading the v2 layout
-unconditionally correct.
+How do you think about to clarify corresponding software development possibilities
+with variations for computation tree logic?
 
-Fixes: 4d8bc7bd4f73 ("blktrace: move ftrace blk_io_tracer to blk_io_trace2")
-Link: https://lore.kernel.org/all/20260903202932.156278-1-adrianox@gmail.com/
-Cc: stable@vger.kernel.org
-Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Assisted-by: Claude:claude-fable-5
----
-Note: this applies on top of Adriano Cordova's "blktrace: always record
-ftrace events as blk_io_trace2" and is not correct without it -- please
-apply it after his.
-
-  https://lore.kernel.org/all/20260903202932.156278-1-adrianox@gmail.com/
-
-v2:
- - Drop the iter->ent_size test v1 used to tell a v1 entry from a v2
-   one. It cannot: a 48-byte v1 record carrying a 16-byte BLK_TA_REMAP
-   PDU is also 64 bytes, so a v1 entry took the v2 arm and came out with
-   every field from action on shifted and the PDU dropped. Caught by
-   sashiko-bot, <20260913031030.E85191F000FF@smtp.kernel.org>.
- - Depend on the patch above instead, so no v1 entry reaches this
-   function.
- - Drop the syzbot Reported-by/Closes. That report is the unbounded copy
-   driven by pdu_len read past the end of a 48-byte entry, and his patch
-   is what closes it; this one fixes the field offsets, a separate
-   defect on the same line.
-v1: https://lore.kernel.org/all/20260913025827.457116-1-donggeunyoo.kernel@gmail.com/
-
-QEMU x86_64, origin/master 2f0c1cf72f46 plus his patch, one config and
-one initramfs across all three arms. BLKTRACESETUP on a partitioned
-virtio disk, blk tracer with options/bin, and a partition read for a
-BLK_TA_REMAP with a 16-byte PDU. Binary stream decoded at v1 offsets:
-
-  mainline    action 0x0811000f, pid 0x75, device 0x0fe00010, pdu_len 16
-              and the correct PDU, then 8 bytes too many, so the next
-              record's magic no longer lands on a boundary.
-  v1 of this  action 0x75 -- the pid -- pid 0x0811000f, device 0, cpu
-              0x00100000, error 0xd00f, pdu_len 0, PDU dropped. In sync,
-              wrong.
-  this patch  action 0x0811000f, pid 0x75, device 0x0fe00010, pdu_len
-              16, the correct PDU, next record on the boundary.
-
-Not exercised: the syzbot splat. iter->ent points into a ring buffer
-sub-buffer page, so KASAN sees an over-read only when it crosses the
-page end; 120 rounds over varying buffer sizes did not land it.
- kernel/trace/blktrace.c | 17 ++++++++++++-----
- 1 file changed, 12 insertions(+), 5 deletions(-)
-
-diff --git a/kernel/trace/blktrace.c b/kernel/trace/blktrace.c
-index ae010969c144..875c04d86c93 100644
---- a/kernel/trace/blktrace.c
-+++ b/kernel/trace/blktrace.c
-@@ -1728,17 +1728,24 @@ static enum print_line_t blk_trace_event_print(struct trace_iterator *iter,
- 
- static void blk_trace_synthesize_old_trace(struct trace_iterator *iter)
- {
-+	const struct blk_io_trace2 *t = te_blk_io_trace(iter->ent);
- 	struct trace_seq *s = &iter->seq;
--	struct blk_io_trace2 *t = (struct blk_io_trace2 *)iter->ent;
--	const int offset = offsetof(struct blk_io_trace2, sector);
- 	struct blk_io_trace old = {
- 		.magic	  = BLK_IO_TRACE_MAGIC | BLK_IO_TRACE_VERSION,
- 		.time     = iter->ts,
-+		.sector   = t->sector,
-+		.bytes    = t->bytes,
-+		.action   = lower_32_bits(t->action),
-+		.pid      = t->pid,
-+		.device   = t->device,
-+		.cpu      = t->cpu,
-+		.error    = t->error,
-+		.pdu_len  = min_t(size_t, t->pdu_len,
-+				  iter->ent_size - sizeof(*t)),
- 	};
- 
--	trace_seq_putmem(s, &old, offset);
--	trace_seq_putmem(s, &t->sector,
--			 sizeof(old) - offset + t->pdu_len);
-+	trace_seq_putmem(s, &old, sizeof(old));
-+	trace_seq_putmem(s, t + 1, old.pdu_len);
- }
- 
- static enum print_line_t
--- 
-2.53.0
-
+Regards,
+Markus
