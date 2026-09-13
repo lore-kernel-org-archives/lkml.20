@@ -1,47 +1,31 @@
-Received: from sender6-op-o15.zoho.com (sender6-op-o15.zoho.com [165.173.180.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BCF63783B4;
-	Sun, 13 Sep 2026 20:51:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.15
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789332713; cv=pass; b=ZWQrnbxGjnr9moWWrW6xqgye0quejNgp4wqjrImSB9zHdJ27UOhzOo+iKiArrjvsO3aXB1qed1H7sReUPWrFP8VhR/c4XgAIGHEGt5XjTz3LZajwBoZsWm8sNhQ2HbLv3rbWrJni7rq+QpFj7buYjFSuVGTtnku90uh645ur3tM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789332713; c=relaxed/simple;
-	bh=LTvCzRp12oClqrWsnpeiVMNof0cHXe4KvDJEs3CMNjE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=lAgVqKM51BcBuxjy8ksWX3KESIGY/rVQw57RJXVmjkKTwR3e9jXaQ6ybf7xI6auyXbeBieuN4ZrWWzkfMJsxXhRY0zDNgVeaLumupUEJbiofNmJRzXlW9k3ndkT4wSFlCaV9ThldkQJ2u81NlOZQOoPl8lSfJLi8W7xGYjthaQA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe; spf=pass smtp.mailfrom=rong.moe; dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b=oOgaCkVm; arc=pass smtp.client-ip=165.173.180.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E165F37EFE2;
+	Sun, 13 Sep 2026 20:52:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789332732; cv=none; b=Z+QqNrXitJyH5nnSq4axWva6QT7UCkTcdddHIl8qrL/Yyki1N6zhLTjQ/a41Aac0qAIAwY9JTYDie1Wh76Z+hztTKTwWnUMlSVf+rDnjkgE5oP6g1+Gg5OtbQdQCo8IAz4MqzmpEaXV9bO/gLMYNjA/X/10q2za+Lbzdzole6Zo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789332732; c=relaxed/simple;
+	bh=v6V1pz3xsafbSNASw6n4d1HqeaQLhJ290E3rqDLkKBM=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=Q4XcBQiRyJwHygaVdxEP8+agT69nJTKURKUH2FJic73bo1X0bLX/AcsYM5cvcoXfVaDM+0BHB3QuOfGDE3nM9KTpBL1zi90jd6WA3INqDEyYTRUcYkgx9f5CBmQ4ApONpuCfuqn8K5hTDxgZFRKCdC8WwHr9+0cEpeO0QKFb02Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VCKhbC/6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b="oOgaCkVm"
-ARC-Seal: i=1; a=rsa-sha256; t=1789332654; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=mUxibGHOgRBGjz8kzT3K1fi6qnvQBLLSpH1gbf6RP4THSgrj9GYPgOAxatvt8WYivEjIHh8zOv0ZgcGdwLsF45bkpb3FVGapOY4GpFxuVQslp0UiuU6TWX2hl8b1ckXHVKStAjLz2J+UZnF4mkpknCGkkPVaP4sWK+TgjBAXNUE=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1789332654; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=/9RGclajS9AMvJ5UjvGYP7NKToYvyMliQF8dgJQOqjA=; 
-	b=FFwQKvskozk+b/B3B0hniignuVnObl5vx6+ysGH0ql8MWt56P0vli+N6uBlWie/9upqn3MJ/ljcn1FJhufyd2okvyCW8P4N7P5r0YLO0xpRD6vtkyKXxNVkwndTXolwyNyWcpQpSokYSz80oXMLfzyuJSqCyMDxY+bqVAmy+TVs=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=rong.moe;
-	spf=pass  smtp.mailfrom=i@rong.moe;
-	dmarc=pass header.from=<i@rong.moe>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789332654;
-	s=zmail2048; d=rong.moe; i=i@rong.moe;
-	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
-	bh=/9RGclajS9AMvJ5UjvGYP7NKToYvyMliQF8dgJQOqjA=;
-	b=oOgaCkVmveTKmpTj9wXZsrzKCjI0EYdvxObNMvycoFx5sMLNE8UjCxRppN1rIyA6
-	dkkuzriHfjTerjV2caU5cCvWPJhkirMrxVYKBg3Z/CBkTwOW7LifQk15TeAKSZxkMP8
-	+gwG7KRGd1M3gor1l0ECzMBxi8yANWXVDFdrOsxALG726naBrCMVntKPaeFPedtSXl3
-	yqHFE0wX8afUDcYUYYMB7LzaZvSt1Z2gzbVY1qGDXQqVgQ86vYCIkxp+vVWL7dBm7OI
-	GFaVz1Qz7dZVrGSM3cWitvlsoZ3S2SN5vzGhsRHqPWPo0IRZ1PJIY8DpKkuzgEZhvrV
-	+UyiTH+Fnw==
-Received: by smtp.zohomail.com with SMTPS id 1789332653249314.3828254721873;
-	Sun, 13 Sep 2026 13:50:53 -0700 (PDT)
-From: Rong Zhang <i@rong.moe>
-Date: Mon, 14 Sep 2026 04:50:30 +0800
-Subject: [PATCH 9/9] platform/x86: Add myself as LENOVO drivers maintainer
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VCKhbC/6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFB6B1F000FF;
+	Sun, 13 Sep 2026 20:52:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789332730;
+	bh=FpP6tsayY62VOCyrRwVsVbv8i9B9cduAzeh6MgDO8M8=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=VCKhbC/67bCPh2HdYF4Nd2f2vt2yBW0XR9HZNOvC8JoSX2IJLOzjhIG2deru/DPrT
+	 oZcRQsTrvtB9mWTnojZ91lBIBLwpZlg8603XX6DAWxfaTUjuh+znYKTFPBuUh36oyK
+	 SVsNNeUN2qcUcE2qE69Zo6msJ+SbcESuQKBV1uy1oLT2k6ddcAwqK+EXN4d2Ka89SR
+	 NXjE8P/HyCSCCRF8O95eBvn4ijoBY99sEAL3lM7l68rp0LwxotN8fHVhMCdorD8AlC
+	 ed5il49qfLiVNCG1dps6VOzv4O72b2v+gxQhiC0ykZzaDGbyS/NfbADy10J0Fiz6zj
+	 hEIxuURTCtE/w==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,45 +34,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-lwmi-wmi-new-api-v1-9-7a400f2f69f8@rong.moe>
-References: <20260914-lwmi-wmi-new-api-v1-0-7a400f2f69f8@rong.moe>
-In-Reply-To: <20260914-lwmi-wmi-new-api-v1-0-7a400f2f69f8@rong.moe>
-To: Mark Pearson <mpearson-lenovo@squebb.ca>, 
- "Derek J. Clark" <derekjohn.clark@gmail.com>, 
- Hans de Goede <hansg@kernel.org>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Armin Wolf <W_Armin@gmx.de>
-Cc: Charles <hanker007@gmail.com>, platform-driver-x86@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Rong Zhang <i@rong.moe>
-X-Mailer: b4 0.17-dev-1f2f7
-X-ZohoMailClient: External
+Subject: Re: [PATCH v7 00/17] iio: adc: Add AD7768/AD7768-4 ADC driver
+ support
+From: Jonathan Cameron <jic23@kernel.org>
+To: Janani Sunil <janani.sunil@analog.com>
+Cc: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Michael Hennerich <Michael.Hennerich@analog.com>, 
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Olivier Moysan <olivier.moysan@foss.st.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, Linus Walleij <linusw@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, Michael Walle <mwalle@kernel.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, linux@analog.com, 
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, 
+ linux-doc@vger.kernel.org, jananisunil.dev@gmail.com, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
+ Conor Dooley <conor.dooley@microchip.com>
+In-Reply-To: <20260910-ad7768-driver-v7-0-7f70b07627e1@analog.com>
+References: <20260910-ad7768-driver-v7-0-7f70b07627e1@analog.com>
+Date: Sun, 13 Sep 2026 21:51:54 +0100
+Message-Id: <178933271415.413489.2874987642406336139.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=344;
+ i=jonathan.cameron@oss.qualcomm.com; h=from:subject:message-id;
+ bh=v6V1pz3xsafbSNASw6n4d1HqeaQLhJ290E3rqDLkKBM=;
+ b=owEBfwKA/ZANAwAKAVSFNJnE9BaIAcsmYgBqpwzsR4hh8C5q0WNsfC5pQRezY+4Ruvd+4pmSF
+ 3TxXsA4ddiJAkUEAAEKAC8WIQRuKWazh4QGUpEmgbFUhTSZxPQWiAUCaqcM7BEcamljMjNAa2Vy
+ bmVsLm9yZwAKCRBUhTSZxPQWiLsSD/9nGt3dgpBPug4PmDTMyv4N0NdslrpHz0KFzD0M3hNXjOf
+ Og7Y4U+ratya4tU1TIooFqhOTY+MpOreITQcmVcKU8KjWOibvzxV7WR18iy0LFyJ9C9XcGxKWM5
+ 8gWRsqDxAf+MCPHquLmDqLSz5pQJJcUzpGEqLF9Ume/GhOGTRX4U1iWy/4O9Yif5FakCfBJu2U2
+ Quo5Z65e0C4pRcib9VtnVbIPhi0X40EWkkGU8IorkTFXyYMo+hOVOLrh6VBqKW/EwIkdGvdQTwx
+ V7n8FVSTplHqANN+EAP/emHh8PvU4mANpoIOAdV15hM/8gi4xIYiuoKAmaZn9fiYR/yPeE2lTWq
+ xK358qXIpsOKkGhqTdoeRb+i15j95SJhLkWssYqzmJzbFD5tDvj7o7m/qVcl1+p0seuTY7JTZj2
+ FDvcBqRQECIZP99BZYCwcbtmGOlpPbVPWxXo5DFxD9ZnxZYjOwJh6BbLIDuET5FIqK9tOi8MAel
+ 9GxrEkO3efDy3JNw69dyU881HOmFrx+Y3RzOkodDKAQojM13aztzDlh4L8FWih2Aaf4DYtkyxY7
+ zaMharY4ilfM7UfeJhm5d2XqbNI8WLQCAM8/nyAMXCZZcFh5WGbDK899A8WvueJ1e5LVA0vdg+V
+ wlK5NFtIAW3P4o8CwHl28hUjtAVpQbzc8IFj1ig==
+X-Developer-Key: i=jonathan.cameron@oss.qualcomm.com; a=openpgp;
+ fpr=6E2966B387840652912681B154853499C4F41688
 
-I regularly improve LENOVO drivers (including lenovo-wmi-* and
-ideapad-laptop) and review patches posted on the pdx86 mailing list
-along with Derek J. Clark.
+> Add support for Analog Devices AD7768 and AD7768-4, 24-bit simultaneous
+> sampling Sigma-Delta ADCs with automatic power mode selection.
 
-Add myself as a LENOVO drivers maintainer to reflect this.
+I only had a few minor comments. In general looks very nearly
+ready merge.  Hopefully nothing else shows up in v8!
 
-Suggested-by: Derek J. Clark <derekjohn.clark@gmail.com>
-Link: https://msgid.link/782FE636-A06A-4E12-9563-786374805947@gmail.com
-Signed-off-by: Rong Zhang <i@rong.moe>
----
- MAINTAINERS | 1 +
- 1 file changed, 1 insertion(+)
+Thanks,
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index c2414447892c..d69be560ee98 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -14805,6 +14805,7 @@ F:	drivers/usb/misc/legousbtower.c
- LENOVO drivers
- M:	Mark Pearson <mpearson-lenovo@squebb.ca>
- M:	Derek J. Clark <derekjohn.clark@gmail.com>
-+M:	Rong Zhang <i@rong.moe>
- L:	platform-driver-x86@vger.kernel.org
- S:	Maintained
- F:	Documentation/wmi/devices/lenovo-wmi-gamezone.rst
+Jonathan
 
 -- 
-2.55.0
-
+Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
