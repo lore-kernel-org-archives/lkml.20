@@ -1,133 +1,190 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AB1538886C
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 19:26:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.204
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789327590; cv=pass; b=bRBX8QotJ46vEABW+qGLOI2NxjZzTwm1T7cHiudn4iXVtInaHguPqojqhymiQZ01FsuC0GFhJ/kxZ3SQVnfB0tZZD9hrreXgkGO3gRI01OOk9f1+rqtRP/c2DNkM3hobqSRCny8db2/tZrceFiW5KF5o7vUrmqxat+FUoCPKhv4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789327590; c=relaxed/simple;
-	bh=QREsgIr79KScFcsG/Gnozu2UkRu3V+m1VR0YdJd51lA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=rGsEpa4RM8dwgjVhRqN3SASIlWtj5+WboiKs4EwG771wgiY7jnkPFN/v/LRA3bKGKKPdYmk00MqAu7qdJQj3nkxo2MoSshpRQMhK6tApet3sTPVPAbWDB2k8tET69OJViTNlGQO9LHNb+bkEdljO6W6DzfKlDOrCXysfoV8cUDA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=RBHx43o5; arc=pass smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F990367F3A
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 19:27:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789327665; cv=none; b=dNs4vpbPj9CUa+a2bzxv13VBAIBzteiGOVjNM/fWk3VCY7BR9zcHdZpXxi79UWMTEW8ah63tPBZm0dzRRCxrECrgiXwEprQzCScH4jVvaANIqC5U2zTo8lWo/5PbIE7JLWNis7RexkBuA+/AiEip5Yu4JkArF69vKReLm3L6h00=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789327665; c=relaxed/simple;
+	bh=okO7J18w1eikmbz5Y9dLJaxGfgc7gaxydAYfM/rl3Gg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PRlfYb9qhD1mc7vBZSLpu6ztBp4nZ2RndWnHthBYRgY1kQFw79bKw6ehRcLY83sPQBTIGX8CpZnIYq+per36ig9MTx8h/jM/6iaJbyVlb3Iy8qmR9zbJmJI8+Nvg+9BtJROkCXeb4CRZBb1JzMJwFOuUrfzgAz7p+e6u3d0awUI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ok/YjkSB; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="RBHx43o5"
-Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-53012819c04so157741cf.0
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 12:26:28 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789327588; cv=none;
-        d=google.com; s=arc-20260327;
-        b=FA9S78x5VHbowXFSrMjjIxPN25v4WTxHgNNNvcqU4NVtIcJlY6OqanY2ahbiFvY99D
-         f8AGHAIBqHn/Xtd9y+Hsu41OdemnyRuR7TgV7+Hv9rq42arDS2xwoczJEs9+yUlq69nf
-         IU/MLhCHgxkIeiyMDM8y6FgcbNgyL1QW5h1KXZwE8P1HgnpQi12/1uwxcqcW8Pb2oeY7
-         y+C8fVhaUAMh46mMhuHvcZGRq9XgvoNpOslZoOtQmirTyhK1ttB7kUO2eh+4Ww4kz793
-         Q+b3mjzIXyorHM1zS8lvGgwbds39ZN3LWA7eeh7s1TCKhXYpjTqf27ehqsct3jdDwPiy
-         NurQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=O3bm4p3XYFyhf+gjUNcp2hdrx1XIlgahhu2l/35xw9w=;
-        fh=32H0MCEeW0Zow+Tedl/WAwArTEg5pQJJMuel0MaLKfQ=;
-        b=kgg4za+7Ln8dkAS51JN7FrFC1rIpfa9Mn5PL9cZuGBGeQebHBjTd2pnIwlN71FSfHo
-         zWliFHqdcl0Ef11L5JZnGKVTTBE86yO4rQ45BMDtfJaBsBv2cjp7M0iFujLlomgIFq6e
-         y0s3Sg0rfTNDJdpfvtsSajp7xr8q4JMd3yv47Ec2DeEq5d0fa11ExavWbkAamDu0jQGO
-         K/mR6xGiHeYkQOVRs36DuU46uTEBS8jBoyvafZNaDsmGVMD98wxXxtuKQ1/9GO5yLSdC
-         qq6x9qReQPMWx9NugGvdYCATU4k19WjP9OQwao/p8V6sCnktfjem6DzlNk6HS+GrC3Ef
-         V6GA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ok/YjkSB"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39b31b4281eso1491858a91.2
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 12:27:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789327588; x=1789932388; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=O3bm4p3XYFyhf+gjUNcp2hdrx1XIlgahhu2l/35xw9w=;
-        b=RBHx43o5//9TSmJHVDt2UCdWZ7NbajomfIQ5OassVqyufJqpsZIO0QpgImy1qcJKYo
-         a+41mPRuqV+AhdG3BVTQB4EkI7wtv+TqdZN0gciREBPodf0lHwYWAas1OuBemeSMdP9h
-         Ah/34wvZAK3jONm8JPgdvQXZniWjY7arO3QOCBeLoJzXwt7UlGYrfX8o7XjzjTExknMK
-         TiM4e9YaTArXXUPD4D0AwlTiJvPwNEvSvqS4m3m+a4QfD3gF+/7FkMYI283+n6YEgHBm
-         eSwl2V3z0sNBwRykSgVOzy51+nGBVt8igQiM2gUsHsUANQs/GBJaqYpE5f2knpK7xJ/M
-         IjFg==
+        d=gmail.com; s=20251104; t=1789327663; x=1789932463; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zFIuFlYyGwgxhlN4dUa6fA3JL/Nyeb33Qy5mdvlrTGw=;
+        b=ok/YjkSBUR92STr/9mWHyhfMhSIK4syL8qJrw11Gz9NHaj3NOklM7ZqKOY4Qewvkxg
+         Qq+RrOVGcJzazFolXzghSP7xH1ibLRUMGl1srbWkfoHja/99YLVFBnkJwpocXLReOVhR
+         EG0S0Ta+GKxODBiJBjB5Pxnz7KLJEpgnXQe/EcP5uFmxHkbhnLt2qUkIafLiwflO6yCT
+         i/oojCDuAYqMC7TpWJMevG8ijHBG/izWNJNm/tiMYk/DUz7ABOs1cmpegI2YKA2DmHFD
+         rFN8KvQqY8Ipv5mv0XmWL8taYVh0Di19F5+aVrNhYURmwI+GiWcu3PY8XiF56lVEUHAr
+         yj0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789327588; x=1789932388;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=O3bm4p3XYFyhf+gjUNcp2hdrx1XIlgahhu2l/35xw9w=;
-        b=bdMYBiRGDmAhKANmQb/LU35sI8T7I3U3R729sXoKOIugY8jV1JKEXKBhqJz+ny/bgj
-         GNWHKSvb+Pp5O87AUf1xrdD6auQ7Az7ZUDFEgsL1Q8e96fGtqFQ8H3/XsI7V1hA1DykK
-         BxSYtCkuqkWKzvC9gvLnhhY2GIVjIdT/csC37b8gCVIxy5Mtwh/W/YTPGrcQTueJSvbO
-         3/MMdUgci8rHRIlQ7YPc0RE338llJ1cYjyexj8/SI8pm7frhyZCxM/xKzN4x0aVkdzij
-         4cQHiB73ANRXWHYsu+35BuSpbqG34c/jZN0I+s3qaW8tvOe+WP4vqY78nc2rWuSjwepc
-         Fq9Q==
-X-Forwarded-Encrypted: i=1; AKwUvByMTF+RS4SqFCs+Lipq0UJ2M4RIKdnGL9NjGpwJvO4fu2Uals0OTFTAHPSGXnaH4FWggorEMTy8Zht+cNg=@vger.kernel.org
-X-Gm-Message-State: AFuF++mqnckiJyWADoyfYIIyKbFkPZSqPwV5xE1084yDcRI2/OE/YMqI
-	VYlkLE2uFJRVBtcivd3ikz/f/mmHEMfugQKx93VoT+y6M3bv3lnEyOBMC8i/+R/VQUkDN+FAx5y
-	+rqK5Sf3beu1dJSW5P/ORmCWYh5g/Cb24MDEIE1t9
-X-Gm-Gg: AYBFou0mn2fPxJDIEy4lsvYukx5satd7zhAaEv436ucyd6Qwl6Ya9Hu+mJdw44HNVRU
-	67d9jvHqeNIchTRjkJEkxagF7vN66xoTxAjZO4I6ckJAela/sDy4DJcNxdwhJArWnTN2cg7zkKX
-	0fGPCWu3PP2XMRFGrbMJHorrtg9weMQ1Xzn0R/QyCp3I3GALBf1PqSNUFSr/IX9iGbEF8k9yuaa
-	DfZOA7V32JehPPvWVvYV9SUPaIQ1awJ+eguzKxMWpxMWAwDRB9ElwHyAgUFcBTRn5alloB/+54e
-	YnhMSFAkmO4RfYjGiv5uMs6jiTXl8uHHK9s6iuIm0YHtyf4yH6tDbXwFBuQCbx/A
-X-Received: by 2002:ac8:7fc7:0:b0:517:5e32:2d14 with SMTP id
- d75a77b69052e-530f8b121dbmr9139921cf.10.1789327587349; Sun, 13 Sep 2026
- 12:26:27 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1789327663; x=1789932463;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zFIuFlYyGwgxhlN4dUa6fA3JL/Nyeb33Qy5mdvlrTGw=;
+        b=h5p7BUKdVYnx1WhjIQ6Wo8fWSOqQhrKFr6St/RkUkvjugRbb02aF6M5wAT4p9BYuJc
+         BgQZarhzyTODanIP4fNW72GxZh+o49WBm8EUj0eY1MqzZcKTsXmd+0OaRaNYH7AA47B8
+         4mxkXQYhXSEbGZym+DvY5g11I1uYVNiDVU5AqhoUWinU9qrJ/DAFQQSV9zipkGDf/NE1
+         veySvAhjR0JPy8GHbfxsE+CsIdnqZ/THWN9vrRnBK/03JzAF6Akd0NIj97sbEVIGfbio
+         Iv4cbV2RcDbDOCpmTWDdGmY9s8lkK+zkfAwWnKb5UgYD90sCFXDX0trPvGD67zGDMNhP
+         MdcA==
+X-Forwarded-Encrypted: i=1; AKwUvBx8anoHK/igwtauTsj1Mz84Ze66h+Pn1ngLy61SPIoquAWnxiEMKHVh591F9xidjV8OXlcjI1Q74EcR4p0=@vger.kernel.org
+X-Gm-Message-State: AFuF++l+ik1SkDlOAYH/iTu5kxUlQcR16FffIkLclehCMfhaS6VrHnXK
+	Iq+ajqjQ0bMYWMaut/ostzbHFC2NdjJjTwPx5TVxQE8pHC/nFMdgh4iAfiKhYQ==
+X-Gm-Gg: AYBFou2lxUgqGuuhCch83gd4GLfuKNYoE2siFmTVRIrpon+iAIOLzDSqVEZ2+BzOgQQ
+	/UwDlzmLHh99rWPfydUMvOoQSTMHGeMqj6PBco3gahyOo9nkz8gLtqW5NtYNTKeY/Fhk+xY4evm
+	ZB8VmKni0SeZ99gZ0Zr8gdK2tKN4hHG32pTLWXG9qYtv757EHQl9o+HxQ+zDXMxehl6DTJyWjZL
+	HvY2KQqx0jIMdEoF0HvcUpiw4lc/cBkWvVZw+L68JvKRUeibqRV5Tea+BO64JMRsPH9weaynS6+
+	GEBIAVaFSL/22uG0tzjLvTC7pdP3LxpqmAB0GZnVHDyU7Um3ahwIp5pE+yz4h1ajoICe8hv097i
+	rP3sGK1if/sOBg3RWzt3cH84/sQtcszyDl93eIq3L0/jPd7aH26okQa6e5l9TVhSeJgos7lY+KH
+	gfYABU+wTfVCHNt/t/6/ivK2wSNa0pr3Zb+QB0GtLRz9ggweXbgkrfdzmb+IRh43ttHmnFaYHaM
+	PMma8N9yVNMv5n6PtZ2o3CN8+d+QVYvnCV1V96KyQ8ldmId/ctKypqsS+A65/YwnCSTLrU61X35
+	b8Eg+QzfSf93tGAc/InhfexVucRYDRq7iW12SxN9EgJJyCFd
+X-Received: by 2002:a17:90b:588d:b0:398:bacb:1137 with SMTP id 98e67ed59e1d1-39d9c3771a8mr25400733a91.19.1789327662690;
+        Sun, 13 Sep 2026 12:27:42 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e35])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d95864b4fsm17425657a91.15.2026.09.13.12.27.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 13 Sep 2026 12:27:42 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: v9fs@lists.linux.dev
+Cc: Eric Van Hensbergen <ericvh@kernel.org>,
+	Latchesar Ionkov <lucho@ionkov.net>,
+	Dominique Martinet <asmadeus@codewreck.org>,
+	Christian Schoenebeck <linux_oss@crudebyte.com>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCHv2] 9p/xen: Use array for data rings
+Date: Sun, 13 Sep 2026 12:27:40 -0700
+Message-ID: <20260913192740.29668-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260911194145.1781926-1-surenb@google.com> <20260912002436.0605a85b912eb8ae406cecf0@linux-foundation.org>
-In-Reply-To: <20260912002436.0605a85b912eb8ae406cecf0@linux-foundation.org>
-From: Suren Baghdasaryan <surenb@google.com>
-Date: Sun, 13 Sep 2026 12:26:16 -0700
-X-Gm-Features: AcwNN1VI8o7qgtAf7FpFyYAf_QiJM539hgJGQoLRqGdhk0b6X3b8GUp7lNPBUcA
-Message-ID: <CAJuCfpHW24Vh2RSr7qwzV0jmWz7oirrG2F4JPCuBnnk0x09NyA@mail.gmail.com>
-Subject: Re: [PATCH v4 0/7] read proc/pid/smaps_rollup under per-vma lock
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: liam@infradead.org, ljs@kernel.org, vbabka@kernel.org, david@kernel.org, 
-	willy@infradead.org, jannh@google.com, paulmck@kernel.org, pfalcato@suse.de, 
-	xueyuan.chen21@gmail.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sat, Sep 12, 2026 at 12:24=E2=80=AFAM Andrew Morton
-<akpm@linux-foundation.org> wrote:
->
-> On Fri, 11 Sep 2026 12:41:38 -0700 Suren Baghdasaryan <surenb@google.com>=
- wrote:
->
-> > proc/pid/smaps_rollup can be read using the combination of RCU and
-> > VMA read locks, similar to proc/pid/{maps|smaps|numa_maps}. RCU is
-> > required to safely traverse the VMA tree and VMA lock stabilizes the
-> > VMA being processed and the pagetable walk.
-> > Note that we have to keep the logic to drop mmap_lock on contention
-> > because even when using per-VMA locks we might have to fall back to
-> > holding the mmap_lock.
->
-> Nice.  Queued, thanks.
->
-> The speedups described in [6/7] are significant, although I don't know
-> how representative Paul's tests are.  Probably not very.
->
-> So I don't know how much improvement our users will be seeing from
-> these changes?
->
-> And I don't know how much usage smaps_rollup gets in the real world?
->
->
-> As I've no doubt you know, Sashiko is saying things.  About these
-> patches and about the current code.  Its pre-existing
-> clear_soft_dirty_pmd() driveby find looks significant.
->
->         https://sashiko.dev/#/patchset/20260911194145.1781926-1-surenb@go=
-ogle.com
+Store the fixed set of Xen 9p data rings in the frontend private
+allocation instead of allocating a separate rings array.
 
-Thanks! I'll investigate the preexisting ones and will try to fix the
-ones that look real.
+This keeps the data ring storage tied to the frontend lifetime and
+simplifies the allocation and cleanup paths.
+
+Assisted-by: Codex:GPT-5.5
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ v2: switch to normal array.
+ net/9p/trans_xen.c | 66 ++++++++++++++++++++--------------------------
+ 1 file changed, 29 insertions(+), 37 deletions(-)
+
+diff --git a/net/9p/trans_xen.c b/net/9p/trans_xen.c
+index f9fb2db7a066..1e87a55e6042 100644
+--- a/net/9p/trans_xen.c
++++ b/net/9p/trans_xen.c
+@@ -55,7 +55,7 @@ struct xen_9pfs_front_priv {
+ 	char *tag;
+ 	struct p9_client *client;
+ 
+-	struct xen_9pfs_dataring *rings;
++	struct xen_9pfs_dataring rings[XEN_9PFS_NUM_RINGS];
+ };
+ 
+ static LIST_HEAD(xen_9pfs_devs);
+@@ -277,41 +277,38 @@ static void xen_9pfs_front_free(struct xen_9pfs_front_priv *priv)
+ {
+ 	int i, j;
+ 
+-	if (priv->rings) {
+-		for (i = 0; i < XEN_9PFS_NUM_RINGS; i++) {
+-			struct xen_9pfs_dataring *ring = &priv->rings[i];
++	for (i = 0; i < XEN_9PFS_NUM_RINGS; i++) {
++		struct xen_9pfs_dataring *ring = &priv->rings[i];
+ 
+-			cancel_work_sync(&ring->work);
++		cancel_work_sync(&ring->work);
+ 
+-			if (!ring->intf)
+-				break;
+-			if (ring->irq >= 0) {
+-				unbind_from_irqhandler(ring->irq, ring);
+-				ring->irq = -1;
+-			}
+-			if (ring->data.in) {
+-				for (j = 0; j < (1 << ring->intf->ring_order);
+-				     j++) {
+-					grant_ref_t ref;
+-
+-					ref = ring->intf->ref[j];
+-					gnttab_end_foreign_access(ref, NULL);
+-					ring->intf->ref[j] = INVALID_GRANT_REF;
+-				}
+-				free_pages_exact(ring->data.in,
+-						 1UL << (ring->intf->ring_order +
+-							 XEN_PAGE_SHIFT));
+-				ring->data.in = NULL;
+-				ring->data.out = NULL;
+-			}
+-			if (ring->ref != INVALID_GRANT_REF) {
+-				gnttab_end_foreign_access(ring->ref, NULL);
+-				ring->ref = INVALID_GRANT_REF;
++		if (!ring->intf)
++			break;
++		if (ring->irq >= 0) {
++			unbind_from_irqhandler(ring->irq, ring);
++			ring->irq = -1;
++		}
++		if (ring->data.in) {
++			for (j = 0; j < (1 << ring->intf->ring_order);
++			     j++) {
++				grant_ref_t ref;
++
++				ref = ring->intf->ref[j];
++				gnttab_end_foreign_access(ref, NULL);
++				ring->intf->ref[j] = INVALID_GRANT_REF;
+ 			}
+-			free_page((unsigned long)ring->intf);
+-			ring->intf = NULL;
++			free_pages_exact(ring->data.in,
++					 1UL << (ring->intf->ring_order +
++						 XEN_PAGE_SHIFT));
++			ring->data.in = NULL;
++			ring->data.out = NULL;
+ 		}
+-		kfree(priv->rings);
++		if (ring->ref != INVALID_GRANT_REF) {
++			gnttab_end_foreign_access(ring->ref, NULL);
++			ring->ref = INVALID_GRANT_REF;
++		}
++		free_page((unsigned long)ring->intf);
++		ring->intf = NULL;
+ 	}
+ 	kfree(priv->tag);
+ 	kfree(priv);
+@@ -450,11 +447,6 @@ static int xen_9pfs_front_init(struct xenbus_device *dev)
+ 	if (!priv)
+ 		return -ENOMEM;
+ 	priv->dev = dev;
+-	priv->rings = kzalloc_objs(*priv->rings, XEN_9PFS_NUM_RINGS);
+-	if (!priv->rings) {
+-		kfree(priv);
+-		return -ENOMEM;
+-	}
+ 
+ 	for (i = 0; i < XEN_9PFS_NUM_RINGS; i++) {
+ 		priv->rings[i].priv = priv;
+-- 
+2.55.0
+
