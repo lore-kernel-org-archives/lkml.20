@@ -1,133 +1,121 @@
-Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47FC5339363;
-	Sun, 13 Sep 2026 23:37:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.210.214.84
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6BBD3BCD2F
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 23:37:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789342635; cv=none; b=QKjwm9jrWt5J4RvsigzHcoLKfyRbrsLfauv2ONWquvMtMFfL3MjdSN+f4U3/+11QqGTwFMxW+zR3gpt00F8xNm6ZTYrG0tMr4IPGBktjqSc4QiuTGg6jQhCW281qC1NP6zeZqD6e+cRdQkGmbrMdU0nHAQ1MtZYnNzb9dl0x+Y4=
+	t=1789342649; cv=none; b=F7MiJP0UKL5VzlkSr7Ck62WluNIWrJL3P7b2lGgbFviZNaQ14ywRtibbfkXg/cn/MOh55xxpRWWv/eDNL7RW/4tHIFNzemEBQNhBexnllhKjU83MMYWqSv+ncltZnduIzNdYcCv58syxydeMoPhh07sQ4GgHGOrdcGyw3fLDZGM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789342635; c=relaxed/simple;
-	bh=t2zhvhfVodgUoXgapbWkLn257EwJZmghPAu8AxgOCM4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=M3TNbxNML+xVNlA5S5cBBaj+tzSF4BLX9YKzIdngzAMJVFedCKjpuYw2X+wOruJ4Li9//02Trma8XEAWCoWgXW1VsUnFlvDxwmvM1iLmgFShFDW2Po8nRJ7onxMWtfqL2UjR7wTy6VZZqBencaQx2Nywl+5t2GK63jFAygUSNv8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org; spf=pass smtp.mailfrom=codewreck.org; dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b=FFQMgCJo; arc=none smtp.client-ip=62.210.214.84
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b="FFQMgCJo"
-Received: from gaia.codewreck.org (localhost [127.0.0.1])
-	by submarine.notk.org (Postfix) with ESMTPS id 1FECC14C2D6;
-	Mon, 14 Sep 2026 01:37:05 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
-	s=2; t=1789342629;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=C2O8L0LKx2hGeIX51IUswVSIofdl6KTJAE2rOz4nBCQ=;
-	b=FFQMgCJoOi7i6rv/+e7KrV9zLkR2+Y1FikaZzFv2j/Fu0sQyG4KKruQziO2SMkpb77LrI+
-	Ljp2X/nYud198fdZ1+rZuIj3FxoHBWyobyRw1yuNYEb5AtcnmyFc7kuaoxnsE3BGYnllaG
-	0a3m5bgrY6PD5P2hWl7VRRb9UiIOZJGqgYHoJgFhLEntud0dctcvEIUllBSkb5iI+1GQo6
-	Qic4c5jH4cqLPMw9pBZGf9PuurvNfL0bT5vSKXEl7dIc6KCjozj9ORzb8E0KCFgYm9OjcC
-	bwKm1mbZja0Axv3diAjiRNPx2aM+wV3m8jfuFi5b4m97bDURvpsCqPJtQRGzHQ==
-Received: from localhost (gaia.codewreck.org [local])
-	by gaia.codewreck.org (OpenSMTPD) with ESMTPA id 0a35401a;
-	Sun, 13 Sep 2026 23:37:04 +0000 (UTC)
-Date: Mon, 14 Sep 2026 08:36:49 +0900
-From: Dominique Martinet <asmadeus@codewreck.org>
-To: Christian Schoenebeck <linux_oss@crudebyte.com>
-Cc: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>, v9fs@lists.linux.dev,
-	Eric Van Hensbergen <ericvh@kernel.org>,
-	Latchesar Ionkov <lucho@ionkov.net>, linux-kernel@vger.kernel.org,
-	Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
-	Ao Wang <wangao@seu.edu.cn>, Xuewei Feng <fengxw06@126.com>,
-	Qi Li <qli01@tsinghua.edu.cn>, Ke Xu <xuke@tsinghua.edu.cn>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] 9p/trans_virtio: bound RERROR copy by mapped pages
-Message-ID: <aqczkXDT-thZshJr@codewreck.org>
-References: <20260607140603.24342-1-zhaoyz24@mails.tsinghua.edu.cn>
- <aqZwqdnm7PW8OUv-@codewreck.org>
- <23241140.EfDdHjke4D@weasel>
+	s=arc-20240116; t=1789342649; c=relaxed/simple;
+	bh=YpUP09OyVbTkYiDq4W7DT4ucZTXStfn0jkAGCtMQPyc=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:Cc:
+	 Content-Type; b=OCXOUwErvGX56/C7kwQzrFlRAKgkD8if6m8JRunkPclAfOonp+f0GqrrdWUMiRcdyd6oFhpMs2MSP1818G0A+XaUIVf2yhhLlTuQXTJu69qfSZmrvZZQnMzDd1DNr379DCnLNDkR2+jWblF20dXi7N7pJ7qRodEXulK/QaCKWPs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-8052a85c6a0so2525352a34.0
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 16:37:26 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789342645; x=1789947445;
+        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=np8KSvSuHAU9TGAQM2uGFye4XuOKuIWYRdmGyDZ0FT0=;
+        b=VDXpa5E9gF5uiPJ4SYqwRJrxp1Nuf0dykQvm+DsQG2U6pS1TXwSlsiqNP0i6E3+Bkl
+         pWXWHylH7bfCCoMmrCRyrcbbaZkDc6bgIP0G4OzgZTib4wZ+lWxV2KxbiEVLkSQKa0N7
+         Z2imHkzkuFxLbZMJn7VJB6pcIpbiUQrvdD58tQmmNPu6p3OW6HpZa6mwoGOKZifbSbRp
+         9HcPbZ3Rcuz5sCb6w42g5RYfhl+FGz/5xwJE1HeUBCF9n70yeMcXoWeIexOBF9AhW89N
+         l7VzgUCuWP/W03r4M+ooqKrKK298AZ5A3Z+Kqk4bRa/Uyabt6Cf8q3z/F5oj9p9hxsWa
+         9q8Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwTJGH91FS1btvz4zTVMR5OPiHslX1LAKZfR0rlRGyuUx9GgOYDy7BMKB7FchtAd9LuTsWjGfBI73ybQ9w=@vger.kernel.org
+X-Gm-Message-State: AFuF++nMAOfM7I42McHjGF0tKlUn2iKHPd7jG8+uNNVuzj9cvACyf1y2
+	MetYjRaYRyOWzTkKGJNYfv7truAeF1iVlqRy51+zvTR9sSurgns+nkAq7yupl4msCpCyAfb1/2N
+	pDa2Zjarwp3xAujK1LV2s2sUIiDLEjPQFjsqhIwGzRwtbzriV9TGrdqw11jU=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <23241140.EfDdHjke4D@weasel>
+X-Received: by 2002:a05:6820:1ca1:b0:6b1:535a:eb8 with SMTP id
+ 006d021491bc7-6c53fd884f9mr14268eaf.2.1789342645581; Sun, 13 Sep 2026
+ 16:37:25 -0700 (PDT)
+Date: Sun, 13 Sep 2026 16:37:25 -0700
+In-Reply-To: <20260913233717.464321-1-aadityakansal390@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa733b5.f81106d8.2ab401.0039.GAE@google.com>
+Subject: Re: [PATCH] md: add max_disks bound check in older version
+From: syzbot <syzbot+9e3014263a35700ab49b@syzkaller.appspotmail.com>
+To: aadityakansal390@gmail.com
+Cc: aadityakansal390@gmail.com, linux-raid@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Christian Schoenebeck wrote on Sun, Sep 13, 2026 at 08:09:05PM +0200:
-> > I'm not sure that can actually happen:
-> > If there was an "in page" (if there wasn't this is all noop anyway and
-> > data was written directly to req->rc.sdata), then req->rc.size amount of
-> > data was received into the pages, so if it does happen to span over a
-> > page boundary then there are at least two pages and we don't need to
-> > double-check here.
-> > 
-> > Christian, do you agree with me this patch is not required?
-> 
-> req->rc.size is coming from virtio device's used-ring len, and that is written 
-> by 9p server, and this server-written value is not verified anywhere against 
-> the real sizes of the descriptors that guest provided, neither by the kernel's 
-> virtio subsystem, nor by 9p client.
+> #syz test
 
-Wait, is it?
-req->rc.size is written in req_done() and comes from
-virtqueue_get_buf(), I assume that was the actual data obtained from the
-transport (e.g. akin to read() return value, not what is in the payload)
-Or can the server lie about this?
+"" does not look like a valid git branch or commit.
 
-If we can't trust req->rc.size I believe the p9pdu processing will also
-read past the end of buffer so there are much bigger "problems"
-
-
-With that said, I agree with your assessment that qemu is mostly
-trusted, and don't want to spend too much effort on this (unless
-something like me losing my job happens and I suddently find a lot of
-free time :P), so if you (or someone) can confirm rc.size isn't trusted
-then let's drop this here.
-
-FWIW I said "mostly trusted" because lately we've had things like black
-box hypervisors (I don't remember the exact name) where guest VMs memory
-is encrypted and can't be accessed even by the host: sure the server
-could still *crash* a guest, but it shouldn't be able to get arbitrary
-write/read primitives, so if someone wants to spend effort fixing such
-bugs I think it's welcome and I'll be happy to take patches.
-(although it should probably start at getting a way to trust the size
-e.g. clamp it to whatever pages we fed to the server rather than check here)
-
-This pretty much aligns with what Jürgen said for xen recently here
-=====
-https://lore.kernel.org/r/931b763d-2ee6-4fbf-9222-c5b75f35ec47@suse.com
-> Especially with driver domains malicious backends are a thing. They should
-> only be capable to deliver wrong or no data to the frontend, but ideally
-> the frontend should not trust the backend.
-> 
-> Any work towards that goal is to be supported IMHO, and there are already
-> frontends listed in Xen's support statement following this rule, so any
-> violation of that principle in those frontends will be regarded to be a
-> security issue worth an XSA.
-====
-
-> P.S. Remarkable backlog processing today! :)
-
-Thanks! I _think_ I got to at reply to each mail I wanted to look at
-overnight, but I'm sure I missed some, so if you have something in
-progress that you want me to look at feel free to ping me again
-(and someday we'll be able to get through the virtio backend page
-mapping rework started in December[1] (Christoph Hellwig didn't forget and
-pinged us in May...) / your msize limit lifting work[2]... someday...
-But that should probably get priority over chasing untrusted servers)
-(The links are for myself more than anything else, my working memo is in
-flight mails)
-
-[1] 20251214-virtio_trans_iter-v2-1-f7f7072e8c15@codewreck.org
-[2] https://lore.kernel.org/all/cover.1657920926.git.linux_oss@crudebyte.com/
-
-Cheers,
--- 
-Dominique
+>
+> syzbot reported array-index-out-of-bounds in super_90_sync()
+>     UBSAN: array-index-out-of-bounds in drivers/md/md.c:1697:17
+>     index 124 is out of range for type 'mdp_disk_t [27]'
+>     CPU: 1 UID: 0 PID: 10197 Comm: syz.3.1362 Tainted: G    L
+>     syzkaller #0 PREEMPT(full)
+>     Tainted: [L]=SOFTLOCKUP
+>     Hardware name: Google Google Compute Engine/Google Compute Engine,
+>     BIOS Google 08/05/2026
+>     Call Trace:
+>      <TASK>
+>      __dump_stack lib/dump_stack.c:94 [inline]
+>      dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+>      ubsan_epilogue+0xa/0x30 lib/ubsan.c:233
+>      __ubsan_handle_out_of_bounds+0xcc/0xf0 lib/ubsan.c:455
+>      super_90_sync+0x1eed/0x1ff0 drivers/md/md.c:1697
+>  ...
+>
+> super_90_sync() exists for older version 0.90, which supports up to 27
+> maximum disks (MD_SB_DISKS). This function doesn't contain any bound checks for
+> raid disks. The repro wrote higher value (124) in raid_disks sysfs attribute
+> to trigger this bug.
+>
+> Add bound checks in super_90_sync() to prevent index-out-of-bounds error. This
+> bound check hardens super_90_sync() function, such that it can catch max disk
+> index-out-of-bounds coming from any path, including raid_disks
+> attribute.
+>
+> Signed-off-by: Aaditya Kansal <aadityakansal390@gmail.com>
+> ---
+>  drivers/md/md.c | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/md/md.c b/drivers/md/md.c
+> index 680b34a63cb3..f5fce41637f1 100644
+> --- a/drivers/md/md.c
+> +++ b/drivers/md/md.c
+> @@ -1693,6 +1693,12 @@ static void super_90_sync(struct mddev *mddev, struct md_rdev *rdev)
+>  			desc_nr = rdev2->raid_disk;
+>  		else
+>  			desc_nr = next_spare++;
+> +
+> +		if (desc_nr >= MD_SB_DISKS) {
+> +			pr_warn("md: raid_disks = %d exceeds max_disks = %d for version 0.90\n",
+> +					desc_nr, MD_SB_DISKS);
+> +			continue;
+> +		}
+>  		rdev2->desc_nr = desc_nr;
+>  		d = &sb->disks[rdev2->desc_nr];
+>  		nr_disks++;
+> @@ -1722,7 +1728,7 @@ static void super_90_sync(struct mddev *mddev, struct md_rdev *rdev)
+>  			d->state |= (1<<MD_DISK_FAILFAST);
+>  	}
+>  	/* now set the "removed" and "faulty" bits on any missing devices */
+> -	for (i=0 ; i < mddev->raid_disks ; i++) {
+> +	for (i = 0; i < mddev->raid_disks && i < MD_SB_DISKS; i++) {
+>  		mdp_disk_t *d = &sb->disks[i];
+>  		if (d->state == 0 && d->number == 0) {
+>  			d->number = i;
+> --
+> 2.55.0
+>
