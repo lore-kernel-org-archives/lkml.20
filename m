@@ -1,72 +1,116 @@
-Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08B8333B6E8
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 09:36:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B2EF33B6E8;
+	Sun, 13 Sep 2026 09:36:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789292167; cv=none; b=ti0Y3hA1KEDunz6QLfguIwXR9bjjhNm29zIZSZeVrxCyBYpondD5+ndOysBYnLhyvcDch7H29jHQJjk495ERrGKWLpQb0fI57a9yyqvw9Z2DQMhSFXDCM509SJHQIbZcn00QimNmTDavIxYknhaaAkDi9w9Q17m+BrtC/cU9iKQ=
+	t=1789292178; cv=none; b=h0S4248412F/cVXvOJXu6lMwCfWaXJn+rsLO9fFagXkIVCPoJkpEHOkGgXpUoV2pN+x4FuxUPPX5aB1sLX9E51RO+/0Z0wEcFKq6G6YInfix9rDSSy5nGgciSpP56NJT98tKMuOHFbKP3bUxXssLHQZof2gudR6FntxEzG1qEho=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789292167; c=relaxed/simple;
-	bh=/933sygnbIg/zraniL/i509YzLWtSLMoKbn8IcNj/vQ=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=arYjRjNMT9silXcimk9SexF8qRVFsODNWFiUxi4PsrNsiHdAcCPiS5cDnTcR+l4FvIVT9MqQSToeMwBqj0HGUf1cFrNV5uP6cjRLJRqqJp8cxyQJOu5lnaIX2nGX0OyLwP9COrGNHBxwEouvDZbw7SAutA/sXCPODa8uMRXJ5Sw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-8051cdb9338so2470043a34.3
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 02:36:05 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789292165; x=1789896965;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=R6lvEEIHBZ/jqRT5djMV8LnUIadStTua6TYmXXtXy14=;
-        b=cquhb79HY4EXLHPRrdkAfeS7jEcNMRABsILksHJIvqeeh3RAy7Wwc/oE1CZLxMt3jg
-         Xf0Do3qFQrh6ySYWpE0Epz1TxmD9VtG91Lm2ewLWJKFINZMMwesNyxixaanWivhFD1oK
-         VY7CCvRbFU178TSGn94QzZObQSozJEXl7mJ5CgIuzcrkAFzKKxCVMKkv5rXtNn3JmESt
-         8esX0R5EyvMiiqMmmR9wvF88GFzxfW4HKWiHVXFLGtSdTbztZVz71nAIxxd4wjNc+nSN
-         R4WYdQPR9NDzWgwXP4/5BHZUytmCU3aDy/+PwoZ2JwOc6x7MWQSU046jbjAx2lgxW6Co
-         SrSg==
-X-Forwarded-Encrypted: i=1; AKwUvBw1Faf6A9aD6GndFrBHuCAYa8QDg4THLI6fDaII8ufAGAWTh7AmYR5w91aSMiknNaXZnkxwIFmfv5Jq+MY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kpv81lhDK5NPgiWNHVBfv93x3n+teWI0IDTPHkjvELEZWbD5Gx
-	c6U35++H0Wc5tc9q3A29eaY/QZXKU3OS1EtGIQXkDbvvKcRmr6ZGC9htURcHtEn/FH81X57EiXq
-	L5MdUflVx5pX5UndTzSWVG3TUn9scUWRJ9JvCzuzNnPCfYCXGuPQjtT/xOkQ=
+	s=arc-20240116; t=1789292178; c=relaxed/simple;
+	bh=8adMBkbwz6eulOXizZbkwo0Lt1vOBrXQ5aLJzAb8G+o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EJAuq276ROa7y0XegK2bRrZf6PjN3JlTVtPztZ83Mw6VVJP8OAdT1NOGTI8kGXSQExW+oVulDxM8zgG0FiOC2eslgIKg/b3nRdydr94Qy21yBvyWRuOYhIzl4/y3+j16iDkP9OBF+R+86P+a9OpVk3OEmRGexrsr/hIElAww86A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cIFkuUzw; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cIFkuUzw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7E431F000FF;
+	Sun, 13 Sep 2026 09:36:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789292176;
+	bh=iKN55YoUyVmI+c/aSj52KNP/+1sAyGRC/wYGq+Q9wFA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cIFkuUzwJTvbk9kmDe+Kr00C5+4Q1FQDfKKNp5zf6Scmz1DohV/ULgpbsNZoVG092
+	 OW2s0a0NwXyMVKQNP6tqbbyXHQFNVsjghhD2gs5ZMWRpTTRe0jdZGHDzT8Ew8xKESv
+	 a/9P6NXIDkc4rVQJfM/01cmIJsj42GGHaEd0IqhxqQA5cYmascjHLIAN8Kl0ANa0B8
+	 5DnYOIEDWQuyeJrdhfwEhvHDBuZfdw31Vho6xUkMkqQgVGHnTNQJDyxhus7Kp/a8wu
+	 mnjlV+NQw4NYrbhYu1IpoHjqNjr6uY1ytz46ssBrM762K6C5lwDNDcoqIcjVmVlic5
+	 MB7pHcvLd5Itw==
+Date: Sun, 13 Sep 2026 11:35:59 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Niklas Cassel <cassel@kernel.org>
+Cc: Sumit Kumar <sumit.kumar@oss.qualcomm.com>, 
+	Jingoo Han <jingoohan1@gmail.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] pci: designware: Set DMA_BYPASS bit in outbound IATU
+ CTRL2 register
+Message-ID: <4nxyshx26bl5r7jjjnghsyz7k63lah6zx77cuea37mziww7kb4@iij5g3om67ub>
+References: <20260908-dma_bypass-v2-1-c3c81d408c0c@oss.qualcomm.com>
+ <aqAk6nXECt239c2g@ryzen>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:341a:10b0:6b7:83d6:2921 with SMTP id
- 006d021491bc7-6c0bc1d9278mr5192100eaf.36.1789292164917; Sun, 13 Sep 2026
- 02:36:04 -0700 (PDT)
-Date: Sun, 13 Sep 2026 02:36:04 -0700
-In-Reply-To: <6aa66724.84443fb9.2aa3c7.59f3SMTPIN_ADDED_BROKEN@gmr-mx.google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa66e84.f670cee1.72fc4.0010.GAE@google.com>
-Subject: Re: [syzbot] [kernel?] BUG: unable to handle kernel paging request in cirrus_primary_plane_helper_atomic_update
-From: syzbot <syzbot+2442951a6abb004df963@syzkaller.appspotmail.com>
-To: jchuang26@m.fudan.edu.cn, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <aqAk6nXECt239c2g@ryzen>
 
-Hello,
+On Tue, Sep 08, 2026 at 05:08:26PM +0200, Niklas Cassel wrote:
+> Hello Sumit,
+> 
+> On Tue, Sep 08, 2026 at 11:48:22AM +0530, Sumit Kumar wrote:
+> > An outbound iATU region matches any local (AXI/application-side)
+> > address that falls within its Base/Limit window and rewrites it to
+> > the PCIe-side address programmed in that region's Target Address
+> > Registers before the transaction goes out on the link. This matching
+> > does not distinguish CPU-initiated transactions from ones issued by
+> > the internal DMA engine (eDMA/HDMA).
+> > 
+> > Example: outbound region 0 is programmed with Base/Limit covering
+> > local addresses 0x8000_0000-0x8000_0FFF and Target 0x1_0000_0000, for
+> > CPU-initiated accesses. The DMA engine is later given a descriptor
+> > whose destination is the host address 0x8000_0080, which happens to
+> > fall inside region 0's Base/Limit range. The iATU matches the DMA
+> > transaction against region 0 too and rewrites it to 0x1_0000_0080
+> > instead of passing 0x8000_0080 through unchanged. The transaction
+> > then lands on the wrong host address, causing data corruption or an
+> > IOMMU fault when the rewritten address has no valid mapping.
+> > 
+> > Set the DMA_BYPASS bit (bit 27) in PCIE_ATU_REGION_CTRL2 when
+> > programming outbound iATU regions so only CPU/AXI-initiated
+> > transactions are matched against the region; DMA engine transactions
+> > bypass the translation and go out on the PCIe link with their
+> > original address.
+> > 
+> > Signed-off-by: Sumit Kumar <sumit.kumar@oss.qualcomm.com>
+> 
+> If you look at e.g.
+> drivers/pci/endpoint/functions/pci-epf-test.c:pci_epf_test_read()
+> 
+> you can see that it does call pci_epc_mem_map(), which will end up
+> as a call to dw_pcie_prog_outbound_atu() to setup an iATU mapping
+> on DWC based PCIe controllers.
+> 
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+pci_epc_mem_map() is already useless in the eDMA path today. So this patch
+doesn't change that.
 
-Reported-by: syzbot+2442951a6abb004df963@syzkaller.appspotmail.com
-Tested-by: syzbot+2442951a6abb004df963@syzkaller.appspotmail.com
+> 
+> If you configure DWC based controllers to bypass the iATU, this
+> call to pci_epc_mem_map() is completely useless.
+> 
+> 
+> Perhaps the DWC driver can set a DMA_SLAVE_SKIP_MEM_MAP flag
+> or similar when registering the eDMA, which pci-epf-test then could check,
+> and not call pci_epc_mem_map() if DMA_SLAVE_SKIP_MEM_MAP is set.
+> 
+> 
+> Because, while I can read in the databook that this is not needed
+> for DWC based controllers, I have no idea if the pci_epc_mem_map()
+> is still needed for e.g.:
+> drivers/pci/controller/cadence/pcie-cadence-ep.c
+> drivers/pci/controller/pcie-rcar-ep.c
+> drivers/pci/controller/pcie-rockchip-ep.c
+> 
 
-Tested on:
+Fair point. But this should be done as a separate improvement, not related to
+this patch.
 
-commit:         958f35cb drm/sysfb: ofdrm: Fix is_avivo() constant com..
-git tree:       https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=1092d5f9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=1d67342c314f228d
-dashboard link: https://syzkaller.appspot.com/bug?extid=2442951a6abb004df963
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=1243a925580000
+- Mani
 
-Note: testing is done by a robot and is best-effort only.
+-- 
+மணிவண்ணன் சதாசிவம்
