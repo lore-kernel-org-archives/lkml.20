@@ -1,136 +1,87 @@
-Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0C553C3F70
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 22:26:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0AB239CCE3
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 22:26:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.69.126.157
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789338377; cv=none; b=V7V0Vu4TQSTzGEA6pqwPg9QpfHyHBhHBuqG4h3m8b7oz094tQUqWCDAeRf4qxR5wQXMNQNF2k5QMXDocS6PDDo1AUC06N986nsVkjOJQqOgk/FYiMA11A8E6l1mG+ziKdh6l9CB3sN3w7N7PSY2SZwPz+gxWtR0tpGNXjqOwkgU=
+	t=1789338405; cv=none; b=C3RO7y5YqZGo0DRh94xF1qAnp3DD5WqEEBXs/uAm3D1/fAJIQMIKyOgO72mK2xsitAEJSGT52QpCRI0FNiH3ZmxagZBtElJunETzNamkvixG9lNb7CO9Whc8nzDjWjE9jiRVChrNikeoVSR7w4dKD4RrwvRDimc59/vAuEweHxg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789338377; c=relaxed/simple;
-	bh=i4YZGM44oygpZKjmquq516DY4tyVYynZe6c5RsccAYc=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type; b=KebHZPEuML8DTwQCTJQcY7HNsya4N9SlLPeAzZlY81i5wtwta70fIRuL4bTn8jCX8vntDokhtXVWJNeiknLqXfCweruM4Bn7IMIcMkFLvZHKzE7ux39ZuF33kor70KK2PL0Wy9+D0ESOmRNEOWY8KEKWGKryeeO7zKgnuX1rmdM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OIB6fxEV; arc=none smtp.client-ip=74.125.224.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789338405; c=relaxed/simple;
+	bh=n1XHE1u/1bOL4COU0aH9tewgd99zUDsSp7t2oHPC4uI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=MH7tUnDmPtw2icewwfGDjWcnEGSwyEhcJXJ3odMDDAd0muHAOCsB18m6ETHF1fqFwt+utvcaqi+cQwoT8ltAzZAfEgvA1Sl0JXhSqhD64BBwpGKJ4uKThq2XNhXtZRU7rwEEg5FQGqqPjH9bvutjOJru6W639DrwLWKx+MgO780=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=weissschuh.net; spf=pass smtp.mailfrom=weissschuh.net; dkim=pass (1024-bit key) header.d=weissschuh.net header.i=@weissschuh.net header.b=OOrAFyBA; arc=none smtp.client-ip=159.69.126.157
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=weissschuh.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=weissschuh.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OIB6fxEV"
-Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66e4aae3149so1020177d50.2
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 15:26:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789338372; x=1789943172; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=qDlMjyWVJM1DT/C9g4soY8KmIZt5frD9TDK7DVcZsGI=;
-        b=OIB6fxEVb73dx5FEDZD2mdPAt3+AdUyxMR26oT4NOoTifzAvfRqq4e3iiz6Isyzrp/
-         lO4LJo0ilSpa3qsAiS0LHeWPmTfAM7aB0beaszKV2FtOZFTgjXihwswOUNAXrJNN2ljS
-         0sabefM4JMj3aE/jezoi5T5X3HhQMsqBPcsKwn/Yqd4I6L8CoB7sXdGuu+nUsDPP3Ij7
-         2Osbj+jmmGkYfloaDv6/5LCVURZNA4Z1eXYJ+6jnObSD1MCi9xz0UyrJJLCWMC+mcHta
-         IONaCjPQjmQ0ga3NKPSmWj58VGwPZyLqYkhLuJR+177tOtuNMFDRe7Ae2Xh2/2o2fkd1
-         MuVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789338372; x=1789943172;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qDlMjyWVJM1DT/C9g4soY8KmIZt5frD9TDK7DVcZsGI=;
-        b=GWv2GgwrlLXP2DyUkQuhdbOH9vO3welcfMIeueM7jtFrOpu8RG6zMKXNtpTmMnECZD
-         4ZE+tdfyML2THJPiM2xNMPwQ0ihwNbA5oADDXd120WJ/F/Lko5AF+Mjf66z4KFE1Da1H
-         JD0Pz0DKJP6AvX3r5jbOyu4gyvW/X1IfwwXLXvJwf89joygEUz1fmG/98XyHx1wLt1tB
-         PhqZa/0gA+VGeQxLkZHWDHfDmuRhjTHnbU36Hr3S86s50nS3SHbAHZA6NXq7qI+qveLp
-         m+jGAUY5oY58oia6LVkwjAtKT7loJcCWaAjo5CzlzS6htrwIWbvJRdwbJqGX/NfS5/uP
-         4unw==
-X-Forwarded-Encrypted: i=1; AKwUvBw+XM0J1czWUT2+RIzWsvajmWttnNlRkanibpoN+e6tBFXOGaWXYWKHmz9imwXzuzVPE29P0B3Oy5htk+c=@vger.kernel.org
-X-Gm-Message-State: AFuF++nM5wuBu3xdIeV8ikNtjL9HChNeTDyCfmGZPwVuK+erFLJMwsET
-	/wuISgSfzLd+JS5bA1sth1af/0s59ftspuU2valva3C8rFLuFUdhRS+H
-X-Gm-Gg: AYBFou2xxxLYhZIpYM3nxzZcgbdXbkNHYQIwZXN6JVA7NZ+kgyVIQgF+MZ9kB2+CsPz
-	T+4B1IMeids68hEYql3lUytlFvOH+h8xd2cPPl4DyfoQkd+nvCrnASn/k9mEUxklr/LQzZKsa2I
-	M0n46HqGtGTLYZQ7VWTULda6ITVCcZb6yFWNnBvSJF1/odI1he37wD9Kc76ab5dvFKSe8BsU6PB
-	CGPkmkrZStXNa9IXaOy0iAkMgMuoqIr+gV/Q9Dy//3DSUX4bDfhhIeymbqHZusHkH3Pau2Mi6q5
-	fABMUugl7reGGGWR6JtTqSMtrQ7T9YZxF34WzwPn3zO37CWCE36XrMeAb11mIRhtcBcApSxgTaR
-	wI23aggeJ3rZ+5nwRu76L+WcgVedI+b2qMTGRRul2YCM9Jxj3U9xTg/P0SdL2bOkKfT6fu6nLe+
-	Y9HLtI8mVGW/F1+5TBQSAilPWslz5BaGc72O0XL2fkT+CZ9+ubYlz+8nsgENuFKCVoG5WYWZdW7
-	05OLdKuFzv2eY1qLJN7cWE+opVCc0qSZzVIbFXTnTTPB/CxUSUnLErgP925VK8=
-X-Received: by 2002:a05:690e:4892:20b0:671:1c74:666b with SMTP id 956f58d0204a3-6712454baf2mr4000584d50.3.1789338372220;
-        Sun, 13 Sep 2026 15:26:12 -0700 (PDT)
-Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67125eb1567sm3728689d50.21.2026.09.13.15.26.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 15:26:11 -0700 (PDT)
-Date: Sun, 13 Sep 2026 18:26:11 -0400
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-To: Mark Amirkan via B4 Relay <devnull+markdamirkan.gmail.com@kernel.org>, 
- netdev@vger.kernel.org, 
- Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-Cc: Paolo Abeni <pabeni@redhat.com>, 
- linux-kernel@vger.kernel.org, 
- Johann Baudy <johann.baudy@gnu-log.net>, 
- Simon Horman <horms@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, 
- "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@google.com>
-Message-ID: <willemdebruijn.kernel.51a5bb8e519d@gmail.com>
-In-Reply-To: <20260913-b4-send-packet-tx-progress-v1-1-01b99569cda6@gmail.com>
-References: <20260913-b4-send-packet-tx-progress-v1-1-01b99569cda6@gmail.com>
-Subject: Re: [PATCH net] net/packet: preserve TX_RING progress on a later
- frame error
+	dkim=pass (1024-bit key) header.d=weissschuh.net header.i=@weissschuh.net header.b="OOrAFyBA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
+	s=mail; t=1789338398;
+	bh=n1XHE1u/1bOL4COU0aH9tewgd99zUDsSp7t2oHPC4uI=;
+	h=From:Date:Subject:To:Cc:From;
+	b=OOrAFyBADVzNbRAf104zyr8baRr+Bf5u1Qq4q/jh0bnfzF6x86Xtpg/TVs24Ye8+y
+	 FF7+Kt/29yYSZoTwlz51TSrUbs//ecj6kBqFkMI70JsnoA/O61ExDsuJHWLJJu7GWr
+	 NZdjuzVXiYmRnjb4ycUYBH898a7RSXZqOdqWE5pM=
+From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+Date: Mon, 14 Sep 2026 00:26:31 +0200
+Subject: [PATCH] tools/nolibc/parisc: consistently use %dp to refer to
+ register %r27
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260914-nolibc-parisc-dp-register-v1-1-6388f4aa8fbe@weissschuh.net>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDQAxA0atI1g3oaC3TqxQXTow2pYxDolIQ7
+ 96xXb7F/zsYq7DBvdhBeROTOWZUlwLo2ceJUYZscKVrS181GOe3BMLUqxjhkFB5EltYsb6yuzk
+ fyNcecp+UR/n83o/ub1vDi2k5h3AcX+T5drB9AAAA
+X-Change-ID: 20260914-nolibc-parisc-dp-register-35e2729bc939
+To: Willy Tarreau <w@1wt.eu>
+Cc: linux-kernel@vger.kernel.org, Helge Deller <deller@gmx.de>, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789338397; l=1208;
+ i=linux@weissschuh.net; s=20221212; h=from:subject:message-id;
+ bh=n1XHE1u/1bOL4COU0aH9tewgd99zUDsSp7t2oHPC4uI=;
+ b=iZUFlrpjdTbX0R8zA0/hMYitt295zqCzvmCgwmtl3kw5W1r83rr5PulKByjJnAczS/UM35FN8
+ Byb4QiZX4GgC9LPf2it/CCi4yX+jMpAJf2GhsHqDaEr/RGUodePhzZT
+X-Developer-Key: i=linux@weissschuh.net; a=ed25519;
+ pk=KcycQgFPX2wGR5azS7RhpBqedglOZVgRPfdFSPB1LNw=
 
-Mark Amirkan via B4 Relay wrote:
-> From: Mark Amirkan <markdamirkan@gmail.com>
-> 
-> tpacket_snd() can transmit one or more frames before a later frame fails
-> validation.  The failing frame is marked TP_STATUS_WRONG_FORMAT, but its
-> error replaces len_sum, so send() reports failure despite the earlier
-> transmission.
-> 
-> Return the completed byte count when it is nonzero, as the allocation
-> failure path already does.  Keep TP_STATUS_WRONG_FORMAT on the bad frame
-> so userspace can identify it.
-> 
-> In a two-frame TPACKET_V2 test, a valid 60-byte frame followed by an
-> oversized frame sends the first frame but returns -EMSGSIZE.  With this
-> change, send() returns 60 and the second frame remains marked
-> TP_STATUS_WRONG_FORMAT.
-> 
-> Fixes: 69e3c75f4d54 ("net: TX_RING and packet mmap")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Symbolic
-> Signed-off-by: Mark Amirkan <markdamirkan@gmail.com>
-> ---
->  net/packet/af_packet.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
-> index 76bde7906d..b7e1848b61 100644
-> --- a/net/packet/af_packet.c
-> +++ b/net/packet/af_packet.c
-> @@ -2893,7 +2893,7 @@ static int tpacket_snd(struct packet_sock *po, struct msghdr *msg)
->  				continue;
->  			} else {
->  				status = TP_STATUS_WRONG_FORMAT;
-> -				err = tp_len;
-> +				err = len_sum ? : tp_len;
->  				goto out_status;
->  			}
+The parisc initialization code inconsistently uses both %dp and %r27 to
+refer to the data pointer register.
 
-This makes sense in principle, but changes longtime established and
-expected behavior.
+Consistently use the %dp memnonic.
 
-In particular, applications may not know to recover from a
-TP_STATUS_WRONG_FORMAT unless an error is returned.
+Suggested-by: Helge Deller <deller@gmx.de>
+Link: https://lore.kernel.org/lkml/495ef25e-0bac-4f98-b0da-ae0d96dcea59@gmx.de/
+Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
+---
+ tools/include/nolibc/arch-parisc.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-If this sendmsg returns tp_len here, i.e., (partial) success,
-subsequent calls will return 0 / -ETIMEDOUT, as if no space is
-available.
+diff --git a/tools/include/nolibc/arch-parisc.h b/tools/include/nolibc/arch-parisc.h
+index 417043ecbc53..ca219cbbabb0 100644
+--- a/tools/include/nolibc/arch-parisc.h
++++ b/tools/include/nolibc/arch-parisc.h
+@@ -169,7 +169,7 @@ void __attribute__((weak, noreturn)) __nolibc_entrypoint __nolibc_no_stack_prote
+ 	__asm__ volatile (
+ 		".import $global$\n"           /* Set up the dp register */
+ 		"ldil L%$global$, %dp\n"
+-		"ldo R%$global$(%r27), %dp\n"
++		"ldo R%$global$(%dp), %dp\n"
+ 
+ 		"b _start_c\n"                 /* Call _start_c, the load below is executed first */
+ 
+
+---
+base-commit: b8d9d2966cde80ec3de37d830ea855c1a58d23dc
+change-id: 20260914-nolibc-parisc-dp-register-35e2729bc939
+
+Best regards,
+--  
+Thomas Weißschuh <linux@weissschuh.net>
+
