@@ -1,85 +1,90 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28E5739CD0C;
-	Sun, 13 Sep 2026 11:34:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A4683E5A36;
+	Sun, 13 Sep 2026 11:35:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789299265; cv=none; b=Xtjfod8tL/sO0vmpeyfakKQ7kbFEbTOO6pPvfeWXvAMoNGaSYKodaPjqcvZbcRH4xkAmEZIPo8n0sVCdIUFgsezqTw1woHO54BBCUX6E86OXQbP+iACQrqLZ8H+XBJBD1SNxfihc/dfod9LZGOo+/s3xvqVFuVaXIjTq1cMEr5o=
+	t=1789299357; cv=none; b=e7fd/l9E0JMnylBIlAC4vCCbatOLjSBQ3KOT1apUv5GSHVXH65zj3Bnp1PNGxAMiRByRribfBF/79NsLiNTaO0GV/Sq0+hK2hjhTuLtkfwPT7vF0SgKj/qbW84NJ1KcWJ+8EogrKdXdR9Cq/JH/YVUKNiVY9+PEd2TJAlUaRMUs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789299265; c=relaxed/simple;
-	bh=eqmYMNWXm2PS32PWATDXedLh2UIRpr7LtOC/6nDcHj4=;
+	s=arc-20240116; t=1789299357; c=relaxed/simple;
+	bh=978h5LoPCk7irylEPLFHX2c/2Rs7zx1ZBRSZXobpLdQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XAAiYVSvkJv1c1wgwLZ8fPL+WDaIdbVrmKg3C2nfo4Y2d821ChF5Cq8OYrqtqvpRFv7MdJfSBQ8mr0RKWyjwvu9yGhyPmi0O25gclD0xZSKfbMZMidRxcJp0nZnKSAL+Lf7dOZp08kpZzfTsmGNS460NDHomX8Pae6buFuwgaWU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aRVLq5JF; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=awZDC4tq5zrAOEdZrY+BQoyB0OHqLFJELS1hTiU75uypkVYOn2baFt+K3hZPljmUtKfJR9+fIDZS634EHptmCPfViS66VVP6MfjJkl6/f7TGGr4NkTUX8axGYnSg8FZbZwpz7J27J7ux++waOMFmmIFjoDxi7fbavnbyESDjPHA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PNOOd1hJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aRVLq5JF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8237E1F000FF;
-	Sun, 13 Sep 2026 11:34:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PNOOd1hJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 139241F000FF;
+	Sun, 13 Sep 2026 11:35:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789299263;
-	bh=eqmYMNWXm2PS32PWATDXedLh2UIRpr7LtOC/6nDcHj4=;
+	s=k20260515; t=1789299355;
+	bh=1K2ULV56zNV9k9zDn3PKBVdYut5BOmHywUu4m95P7VU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aRVLq5JFfmgQKaElgN9hARd2PubXgi6NeRv/TslJWttkklDgADNXdjSt9xm2uuuY7
-	 81s3CAWyI4DwWKC3npVWoo+KgwQvw/sGscw9tR8i8v+We5Z3vWgYjJaRzd45KXI24D
-	 Dvf7AXCH9Y8ZSObDY061Tbk7f+Y3xtY0AfQ385ilASDCaaWuyGHyr1qWOxbDVD5CQp
-	 pc1A8Ut9y2SgUWJYsBdtl+Ew6pK2SWyJ4QxomjdPpDsv6kAXBt6h2xNh1ayyzbJIHv
-	 0BbaaqFN9QuGlkmsh3tMHpI0Vpa8lCUf8LLQHd4fj4ij52IVzjfSx6hJGLSYJjq44J
-	 SoMhGNHysk4qw==
-Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
-	id EF057E0EC90; Sun, 13 Sep 2026 12:34:20 +0100 (BST)
-Date: Sun, 13 Sep 2026 12:34:20 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Myeonghun Pak <mhun512@gmail.com>
-Cc: Heiko Stuebner <heiko@sntech.de>, linux-spi@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Ijae Kim <ae878000@gmail.com>
-Subject: Re: [PATCH v2] spi: rockchip-sfc: skip DMA cleanup in PIO mode
-Message-ID: <aqaKPEFt7fQe8QQp@sirena.org.uk>
-References: <aqRM17TZ0-5pd6Y0@sirena.org.uk>
- <20260912190056.42192-1-mhun512@gmail.com>
+	b=PNOOd1hJobMeDY3GXAq9nX/kdfKofVb0WXAQFaiPTyOGjmpLbVrrlwIflk6V5wrLI
+	 sXvuA0k3XDPTY+WYNWxJw/N6ZOE2llsRJX58bhr6ZIyS7keLw0oPcJjUpsMC+z13d3
+	 /FA2po3Ltbutdw80Ikf7Cb/cosleG0wKYwIpr810+OfPVFwRnu1WALtTrmT87NNJo3
+	 jQoI9MnuvxwjHIEAIpiKsclTOYRLfIkrFw0I4Rzoc/W8BA3zhyTuUsa5OfMXbUiOSM
+	 HGMb1nHAk/gcqOKSCvS4J6pGHxnEKA1GNbgqKq2N6UkjESYHSd+m4Qaw7tA68aod0g
+	 lPRd3m8g1h8tg==
+Received: by pali.im (Postfix)
+	id 89BC7A17; Sun, 13 Sep 2026 13:35:56 +0200 (CEST)
+Date: Sun, 13 Sep 2026 13:35:56 +0200
+From: Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>
+To: Patrick Pepin <patpep@me.com>
+Cc: Guenter Roeck <linux@roeck-us.net>, Armin Wolf <W_Armin@gmx.de>,
+	linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] hwmon: (dell-smm) Add Dell Precision 3650 Tower to fan
+ control whitelist
+Message-ID: <20260913113556.llwdz2mgtinpsima@pali>
+References: <20260913112925.11393-1-patpep@me.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="BYqHUzUgRwUKZNts"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260912190056.42192-1-mhun512@gmail.com>
-X-Cookie: Orders subject to approval.
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260913112925.11393-1-patpep@me.com>
+User-Agent: NeoMutt/20180716
 
+On Sunday 13 September 2026 11:29:25 Patrick Pepin wrote:
+> On the Dell Precision 3650 Tower, the EC ignores fan speed writes unless
+> automatic BIOS fan control is disabled first. The same SMM code pair as
+> the OptiPlex 7000 (I8K_FAN_34A3_35A3) works on this machine through the
+> WMI-SMM backend: after writing 1 to pwm1_enable, all three fans (CPU,
+> front, top) accept the three fan states and report matching RPM.
+> 
+> Tested on BIOS 1.48.0 with kernels 7.0.0-30 and 7.0.0-31 (Ubuntu 26.04).
+> 
+> Signed-off-by: Patrick Pepin <patpep@me.com>
 
---BYqHUzUgRwUKZNts
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Acked-by: Pali Rohár <pali@kernel.org>
 
-On Sat, Sep 12, 2026 at 03:00:56PM -0400, Myeonghun Pak wrote:
-> With rockchip,sfc-no-dma, probe skips allocating and mapping the transfer
-> buffer. However, controller registration failure and driver removal still
-> call dma_unmap_single() for that nonexistent mapping.
-
-Please don't send new patches in reply to old patches or serieses, this
-makes it harder for both people and tools to understand what is going
-on - it can bury things in mailboxes and make it difficult to keep track
-of what current patches are, both for the new patches and the old ones.
-
---BYqHUzUgRwUKZNts
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqmijUACgkQJNaLcl1U
-h9CwIwf6A+Mv5erq9BOAGamYCRiq0f2YOtNdxCsprU4hUbNYwPzZgQCAmGAZhjr/
-ORtTTFeMpKTizo2EekSAvp83S2VL9dxe1BhUaQoerKnG4MIqirlduo003OZ/gKtM
-89/BUKPy6WqkW3A+nQ81bAglYptFyX8qo5FQzTb/cyyf+uzdxd5+xh5n98k0WS5s
-SNR89mnwLzTyi0pmvALL7VmFl806G0KpMKPnowxT7PbjK54tboXHqO2BtCJEYk31
-9Obbw0U7ogp3P+iV8nlQ30ZrZfb+MRCip9C4g27hJxcj69T3a4GbXySG9rJw7qid
-YPCNkqKMNPhB6SoN6x0xYTwx4pg7cQ==
-=X0/3
------END PGP SIGNATURE-----
-
---BYqHUzUgRwUKZNts--
+> ---
+>  drivers/hwmon/dell-smm-hwmon.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+> 
+> diff --git a/drivers/hwmon/dell-smm-hwmon.c b/drivers/hwmon/dell-smm-hwmon.c
+> index 7ed94a3db..47668634f 100644
+> --- a/drivers/hwmon/dell-smm-hwmon.c
+> +++ b/drivers/hwmon/dell-smm-hwmon.c
+> @@ -1639,6 +1639,14 @@ static const struct dmi_system_id i8k_whitelist_fan_control[] __initconst = {
+>  		},
+>  		.driver_data = (void *)&i8k_fan_control_data[I8K_FAN_34A3_35A3],
+>  	},
+> +	{
+> +		.ident = "Dell Precision 3650 Tower",
+> +		.matches = {
+> +			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
+> +			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "Precision 3650 Tower"),
+> +		},
+> +		.driver_data = (void *)&i8k_fan_control_data[I8K_FAN_34A3_35A3],
+> +	},
+>  	{
+>  		.ident = "Dell Optiplex 7090",
+>  		.matches = {
+> -- 
+> 2.53.0
+> 
