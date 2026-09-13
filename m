@@ -1,116 +1,136 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C453D390C9A;
-	Sun, 13 Sep 2026 14:21:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 971FB377EDC
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 14:23:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789309261; cv=none; b=qlwxOGF2zVmYV3aWFAHyiOWPDr0GHNCmk4Z/Rum0XiRogiv9KvZK/PAo4TGAjXg5TaPvO8yCtczJS8gu6Rr8Rx+nhhXxgfi10Z5QeqkvmkrNvuN5exH+SB7IzsGTe5hRrYM3xw4uqJXL1LkdAm8t12Td3IHbUPOsM/pPcPSyx7o=
+	t=1789309425; cv=none; b=XEi6Q7ml1J3PqyM/atyQSbWh67Nu9qz6gJ+OR7LeqAUR3K8dpsOKjlPLs0Q26Q8rdDD//GJu+okt+I+BXkH14b8+9Emjoc0W/0Uw1K9PYqaaT4H+i8OfaHJfheSoEoI/WCb0ZDMwWvwe6aRXgyM87ISoRRU5GO+BWnkL0wQIxRw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789309261; c=relaxed/simple;
-	bh=YHEUZVmEJfR8gx9MYy4oX6/zj+72gV3LoKcp/eFgcXU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IT4YfYCx4lf5DF4bp51A5pd90YRLbr8AMW0592HKaiYI4SKjXunrp4cYc9JYl6j7X6qe4O7Z0Md2ktTXt8QPKNQxhTF0EnU1WmJSN/toPa636BIk2WJ0qb9IqOy/NvB9m5wUJKySbgUWPaCS/amnju6Y4XV+LKKeRgRRyeyVqG0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YldgKaOb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789309425; c=relaxed/simple;
+	bh=e2HDJRdd2+hJqcjvKMthttlGV8EVLKR/HAVzwxVBO2k=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=WYhAid2Py6AAI97cqRoC5g4SciaCZ0PskjBokVYsdojhV34PHHujcrcLEuPiyUrwx12cZwdrYN45HytgSo/+CgK869pJdfLSOyXenKvzlqhqf7spVZab+ousUq76WhL1RhSKVEq3BIethCe1Ls9jIQqlOF1umtnSKJhp2pKCg4E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G5Kl1xht; arc=none smtp.client-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YldgKaOb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99F851F000FF;
-	Sun, 13 Sep 2026 14:20:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789309260;
-	bh=JPDwdijtJVJiNfYMBej4hbdD6g+Q4CHLJWJgWUUmU8s=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=YldgKaObF6UKK47NRJTnDZ4GVPhknjGkkvvG3Ygzqu0PWS2qEhqFjUegSmJipLVni
-	 hjpFfwOw/tpDz3F5yPKKyaO0PTScuQySyJ7rXlXdGTKOPYr7EYkT+48i5L2iJR6ldq
-	 skhZ+36vm28qwbNl6/wHw7QeJqeqRnQ6HIxeQpNPAd1c47vCIHXIv+xu6ZmKdQtG8v
-	 x608HPYoUjoUplXpwGfxvS9JROGHpyC5g175p2RbMeIICbC0nh5Ex54D7dz9FonFBX
-	 zHmE8loisoxw2jpBwoJttKAeGkVyX9vPvso+l5LkX8LUQrMj4E/vXxY1UFeI0bGerP
-	 vGRi+JAEG72Lg==
-Message-ID: <565e4f26-69c3-4129-b4f1-29d67c381591@kernel.org>
-Date: Sun, 13 Sep 2026 16:20:54 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G5Kl1xht"
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-381b831d535so4678755a91.0
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 07:23:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789309424; x=1789914224; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NNdYTq05HzZvTrlRKfAdsbtptyKt0LqomzUVZOXk5ck=;
+        b=G5Kl1xhtBCwji2m9qAFI1D5RErMJkTjSI3nhwI+PBx2hf9amm9hC2ML2hPKccoo9dE
+         PMMhkUojPLo47fZo2ANAOOadQoqhWwzrujZuuU2WL6Ej5NSU1zPLY4Vw+tJs20w0ZAiS
+         H4s2CSaJRXkNnl+4Q01EWGm2U5SerEpILn4LT/e9rl2Jux3IflWZmi1nQxR0s43oC6Qk
+         ZuQ5utmIMDrAGbEIuqpzqMua4yURUmELy8MZ4xoZJCjvWOx++qk3HYXCAEwfg7dWci6g
+         YwLCEB/E9LLGsPUN5jgRrxpN4vXk/sE50VJndaD1ztFQQPJgK3oS6qCOenqMBIJW6DSd
+         LSiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789309424; x=1789914224;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NNdYTq05HzZvTrlRKfAdsbtptyKt0LqomzUVZOXk5ck=;
+        b=Uuv27qCDE/VUq2PQXTS5oogjW2LwgzXrY53gwFcxigUvCxdlNGY8ENEKAWcSAgDIuU
+         BIYd9bvt20A7UpPUbGIJ1hWd86h7Tc3PHhazVVUNDT/HRvWtjy3QzkmOMvjACjJ0+9fC
+         NUpYesogkdq1mGQ346YjTW488ZUwJT3OVZZPtDqai/GjAaCE6CLWsJvn/yul0aQAwAH0
+         76M6mq2SBeQN2Op6kNOAkRNxf95Tv4RXujfmJh/DSi3+g1uFeRLZ1h6sA0u+fdrfNZDo
+         nysiA3BYcOPZ2GmuUlJY3mvQ3C/MFiWwjD0mrqYUwkVvX8hb/h+tnvGXpAL0l//V0Idi
+         x09Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwk39ccIRgyjLl979avCP94eUflT3PROpNNS6cNgSTMXDVviiO5UP5OXeiU9lYvblcdbZByIyPj+5L3/yg=@vger.kernel.org
+X-Gm-Message-State: AFuF++mM2G0e7y/ow7+umJRz9xr2Md0csOARQonNPSdM9QHcHd2t3gU2
+	DMQiIR399/sVUmlp80H5CmTFF18iWT089SPuw4R9YncQrdutBh5G1VKU
+X-Gm-Gg: AYBFou2IRjrdq96rimbMSF4mJ5qBUcHtBT0pfzFw4D4yN3brSSXwv1W2grmW/fx512i
+	Pv9gGiA7gqXMK40bcGRdhh5uhoaZyRnp6WwSo9yCrDBMAFJayf4SwZ/c1FxPy6cI41gxucpu2L/
+	Z0Fo0ZUpUcj7ePdRpRQrHWr9YCeZk0JGFbacxoDI8UyO4gzJpeh2ToEN8s8V6d40W+iIjsxsFu0
+	G28jNZD68XCizTaixsvd+qLpNUrVUSbv+/PlYq+B5NXZpZc8mS0n1f/CG4YpLzuEiRqwef7P19I
+	eCJkqNLqoQ0O+GfVVFpPQNiNN5mxc0JZjzPW7TXJ1TnlGHbMObupq4Xf5/Xy0OJq45mTdRepOv7
+	+4QkB/qqqKSiybiBHf1dTI4sW8DXWGueynB2GRHn0yzkiwEgQ7cQ4g/3d6bGlu+mmQgB6i4uIeZ
+	k4m2gjMtECwy7CsJx4E/F5cfS/BLWooitRHrI9AeJUswViyWQVFU+Kl/wt4d4D4cnsptegygn8I
+	GL5x/SCEuRp
+X-Received: by 2002:a17:90b:4990:b0:396:4cbf:45a2 with SMTP id 98e67ed59e1d1-39d9c0acc23mr23740786a91.14.1789309423918;
+        Sun, 13 Sep 2026 07:23:43 -0700 (PDT)
+Received: from localhost.localdomain ([47.100.192.162])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39dbca4c9a5sm2900843a91.0.2026.09.13.07.23.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 13 Sep 2026 07:23:43 -0700 (PDT)
+From: Yang Wen <anmuxixixi@gmail.com>
+To: linkinjeon@kernel.org,
+	sj1557.seo@samsung.com,
+	chizhiling@163.com
+Cc: yuezhang.mo@sony.com,
+	exfat@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Yang Wen <anmuxixixi@gmail.com>
+Subject: [PATCH v4 0/3] exfat: speed up file creation in large directories
+Date: Sun, 13 Sep 2026 22:23:11 +0800
+Message-Id: <20260913142314.1400062-1-anmuxixixi@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/3] dt-bindings: arm: altera: add Draeger M48 Module
-To: Petko Manolov <petko.manolov@konsulko.com>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, dinguyen@kernel.org
-References: <20260911150755.2803736-1-petko.manolov@konsulko.com>
- <20260911150755.2803736-3-petko.manolov@konsulko.com>
- <20260913-perky-resolute-badger-6c5e96@quoll>
- <20260913133214.GF20345@cabron.k.g>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260913133214.GF20345@cabron.k.g>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 13/09/2026 15:32, Petko Manolov wrote:
-> On 26-09-13 11:18:16, Krzysztof Kozlowski wrote:
->> On Fri, Sep 11, 2026 at 06:07:53PM +0300, Petko Manolov wrote:
->>> Add DT compatible string for Draeger's M48 CPU Module, an i.MX6
->>> based board.
->>
->> Sashiko comment is valid.
-> 
-> Sashiko doesn't know that this is indeed an i.MX6q board with the Altera FPGA as
-> a separate module, that is secondary to the NXP SoC.
-> 
-> What do you want me to put in the commit message so that everyone is happy?
+Negative name lookups and empty-entry allocation can repeatedly scan a
+directory from the beginning. Bulk creation in a large directory therefore
+approaches O(N^2).
 
-Your commit msgs for bindings and DTS should explain the hardware and
-with the current explanation this is just so incomplete that basically
-wrong. i.mx6 is completely different vendor. Altera FPGA does not make
-it Altera SoCFPGA, these are two different things. If Linux runs on
-iMX6, then what are you describing here? DTS which never is going to be
-loaded because there is no SocFPGA?
+This series separates the optimization into three independently reviewable
+steps. Patch 1 adds the Bloom filter used to reject definite name misses.
+Patch 2 retains and correctly invalidates the next-empty-entry hint.
+Patch 3 adds the LRU and shrinker used to reclaim filters under
+memory pressure.
 
-Best regards,
-Krzysztof
+Test environment:
+  QEMU TCG multi-thread, 4 vCPUs, 6 GiB RAM
+  4 GiB exFAT image, 32 KiB clusters
+
+The measured results were:
+
+                         Before          After
+  real                   589.48 s        15.94 s
+  user                     4.72 s         4.20 s
+  sys                    584.63 s        11.71 s
+
+This is a 37.0-fold speedup.
+
+Changes in v4:
+- Publish the next-empty-entry hint only after the directory entry set is
+  successfully committed, so post-allocation failures cannot skip an unused
+  slot.
+- Invalidate the destination name filter when rename or move fails because
+  the new entry may already exist on disk.
+
+Changes in v3:
+- Split the change into Bloom filter, empty-entry hint, and
+  shrinker patches.
+- Accept filenames containing exactly 255 UTF-16 code units while building
+  the Bloom filter.
+- Invalidate the empty-entry hint in every path that can free directory
+  entries, preventing stale hints from skipping earlier holes.
+
+Changes in v2:
+- Move exfat_name_filter_free() to exfat_evict_inode() because
+  ->free_inode() may run from an RCU callback in softirq context.
+
+Yang Wen (3):
+  exfat: add a Bloom filter for negative name lookups
+  exfat: retain the next empty directory entry hint
+  exfat: reclaim name filters under memory pressure
+
+ fs/exfat/dir.c      | 288 +++++++++++++++++++++++++++++++++++++++++++-
+ fs/exfat/exfat_fs.h |  26 +++-
+ fs/exfat/inode.c    |   1 +
+ fs/exfat/namei.c    |  78 +++++++++++-
+ fs/exfat/super.c    |   9 ++
+ 5 files changed, 395 insertions(+), 7 deletions(-)
+
+-- 
+2.34.1
+
