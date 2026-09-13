@@ -1,360 +1,108 @@
-Received: from mta0.migadu.com (out-161.mta0.migadu.com [91.218.175.161])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92DC82DCF67
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 07:51:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.161
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C73692DCF67;
+	Sun, 13 Sep 2026 07:51:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789285885; cv=none; b=sJ4R1qFtXCVEspDyz6/fIrm02xvRPYB/oP4LK/8DXuRp/pG6bAGG6Zzt/pS6VRy4B8GMcuLhL6sEEdFL0WU84aGFE+BJPBU3NOlFaJoQLlvwFI460JekYywUUObOKtmsX6SwLZS19Lo8AUs4ehbeq7m3WRnvMa/bNnP+WujElT4=
+	t=1789285903; cv=none; b=cqmGi2CjVG/0TfWJ+jnD29puV4G+Firo5URvrUbmQOIebnaHBstS5sDrHVhOW/IRyLEyYp+qGK45vidVbwWNbpIRKKnSNkj/wtIhdtUYt8NIF/9zLbR9/yorf+vZ+iu8y+qgrRFHDEw4zMmhTuZl2lwwQplKRT7/F5tzqASLp1U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789285885; c=relaxed/simple;
-	bh=8H2+S3zXkJKdlTkFfBJlFcc9xsgE+oPo/kUv/adnIKM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-type; b=lsghyS2IdlTrPZqVqRXD2chtKIAhxz4WhnflemQ9xjlIpg713kbAWQyOwckaJXguvLLytFUctZKNR62mC+PQwDirVsXRMEh3YeqBJDrJYotlhTb88t1Hlx9XaUgd8U48dqBFRy77wRxr0XH/bUpRlPSnaU11G+9379kcs5ocNys=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=linux.dev; arc=none smtp.client-ip=91.218.175.161
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-X-Envelope-To: linux-kernel@vger.kernel.org
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id e4fb3388fcae7ce0;
-	Sun, 13 Sep 2026 07:51:21 +0000
-X-Mizu-Trace-ID: e4fb3388fcae7ce0
-X-Migadu-Flow: FLOW_OUT
-From: Baoquan He <hebaoquan@kylinos.cn>
-To: linux-mm@kvack.org
-Cc: akpm@linux-foundation.org,
-	chrisl@kernel.org,
-	kasong@tencent.com,
-	nphamcs@gmail.com,
-	baohua@kernel.org,
-	youngjun.park@lge.com,
-	hannes@cmpxchg.org,
-	yosry@kernel.org,
-	shikemeng@huaweicloud.com,
-	chengming.zhou@linux.dev,
-	baoquan.he@linux.dev,
-	david@kernel.org,
-	linux-kernel@vger.kernel.org,
-	Baoquan He <hebaoquan@kylinos.cn>
-Subject: [PATCH v2 12/12] mm, swap: add sysfs per-device size limit for xswap
-Date: Sun, 13 Sep 2026 15:50:14 +0800
-Message-ID: <20260913075014.1732524-13-hebaoquan@kylinos.cn>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260913075014.1732524-1-hebaoquan@kylinos.cn>
-References: <20260913075014.1732524-1-hebaoquan@kylinos.cn>
+	s=arc-20240116; t=1789285903; c=relaxed/simple;
+	bh=U5jQQMKTN366RCXgQeUoN6dB/a7saDdDqr4pShisUIc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=at+53dsrj3yB2BGersFyNIro8mP455OUzUn0Bz+0TeFikXXOHxluYl4yurVj6TzmlTfixEFebs70txqIRdExh/o4+RZOxOuQKc7ZjeFSg9AcG9F9FxGMNIIKff/Kvgj3UHuV+cFcxVd3xrSsa0Nc2g7rdB9Qau/PGN9T81PI8bI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JZWpRVGN; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JZWpRVGN"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789285902; x=1820821902;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=U5jQQMKTN366RCXgQeUoN6dB/a7saDdDqr4pShisUIc=;
+  b=JZWpRVGNVjzkxHLl36Yd6TYKyc1bDBdyfyVd9s5WeYdls/z2/PZmjmoG
+   g5jOWpZ4JT4P7ug5BVXYTyhme4v6/ETUt7Mrue3E15M/yV6LXBvxHw2ur
+   +5V+KWHu1nyDv+wwpdRsqzaYdaMI3/3H1+ao1/yNOYS/uRYDex6PMGtfY
+   3xvpVtrfo+PpCAptQ/sCluiWW6kVS1WUrLw8EYnyifByf28FPX3GkFxRJ
+   4icAeHzDpQHCiG3NckhzlcW5uwwkbDj36cWyjlbCOes1hs3l0o5cyVED7
+   LoWwZ7oAycvPKZsAnPAaYuElY+wIxzjlgZn4zbxivQgdsXDO6HDa5mN0k
+   w==;
+X-CSE-ConnectionGUID: pYMFUsFcTzmmoWTWwbBfsg==
+X-CSE-MsgGUID: P5gJozoRTRCytpVRmaM40w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11903"; a="89446614"
+X-IronPort-AV: E=Sophos;i="6.27,100,1787036400"; 
+   d="scan'208";a="89446614"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Sep 2026 00:51:41 -0700
+X-CSE-ConnectionGUID: Z+Ftw4SMSfOCKzFLzTY0gA==
+X-CSE-MsgGUID: wpSkICYnQSC6BEEMuoS/wQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,100,1787036400"; 
+   d="scan'208";a="272857424"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by orviesa009.jf.intel.com with ESMTP; 13 Sep 2026 00:51:39 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1003)
+	id 653E599; Sun, 13 Sep 2026 09:51:38 +0200 (CEST)
+Date: Sun, 13 Sep 2026 09:51:38 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	linux-renesas-soc@vger.kernel.org, linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@kernel.org
+Subject: Re: [PATCH v2 3/4] pinctrl: renesas: rzt2h: fix reading pin value in
+ IRQ function
+Message-ID: <aqZWCqBi71yjl_xg@black.igk.intel.com>
+References: <20260910160226.489183-1-cosmin-gabriel.tanislav.xa@renesas.com>
+ <20260910160226.489183-4-cosmin-gabriel.tanislav.xa@renesas.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-type: text/plain
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260910160226.489183-4-cosmin-gabriel.tanislav.xa@renesas.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 
-Add a per-device knob for the xswap size ceiling, si->nr_clusters.
-Grow and shrink both work without it; a cap below the mapped range
-only makes shrink target the cap directly.
+On Thu, Sep 10, 2026 at 07:02:25PM +0300, Cosmin Tanislav wrote:
+> rzt2h_gpio_get() only reports a level for pins in input or output mode
+> and returns -EINVAL otherwise. When a pin is requested as an interrupt
+> it is switched to IRQ function and its I/O mode is set to Hi-Z, so its
+> value can no longer be read.
+> 
+> gpiolib calls gpiod_get_value_cansleep() to determine the edge's
+> direction when a line is watched with GPIO_V2_LINE_FLAG_EDGE_BOTH.
+> Non-zero values are translated to a rising edge, zero to a falling edge.
+> 
+> Since gpiod_get_value_cansleep() ends up calling rzt2h_gpio_get() which
+> returns -EINVAL when the pin is in IRQ function, every edge is reported
+> as rising.
+> 
+> When using the IRQ function, the input buffers are enabled and the PINm
+> registers reflect the live state of the input.
+> 
+> Report the input level even when the pin is used as an IRQ.
 
-  /sys/kernel/mm/xswap/type<N>/limit    read/write, in pages
+...
 
-Reading reports the usable size, si->pages, in 4 KiB pages. Writing
-sets a new ceiling, rounded up to SWAPFILE_CLUSTER (the device's growth
-granularity).
+> +static u8 rzt2h_pin_read_pfc(struct rzt2h_pinctrl *pctrl, u8 port, u8 pin)
+> +{
+> +	u64 reg64 = rzt2h_pinctrl_readq(pctrl, port, PFC(port));
+> +
+> +	return field_get(PFC_PIN_MASK(pin), reg64);
+> +}
 
-Each device gets its own kobject directory under /sys/kernel/mm/xswap/.
+This is a dead code. Add it when it has users.
+Especially this is weird to have in the patch with Fixes tag and Cc to stable@.
+Bad rebase?
 
-Signed-off-by: Baoquan He <hebaoquan@kylinos.cn>
----
- include/linux/swap.h |   4 +
- mm/swapfile.c        | 184 ++++++++++++++++++++++++++++++++++++++++---
- 2 files changed, 179 insertions(+), 9 deletions(-)
-
-diff --git a/include/linux/swap.h b/include/linux/swap.h
-index 6307d8e8f7ed..c76c801c34ea 100644
---- a/include/linux/swap.h
-+++ b/include/linux/swap.h
-@@ -16,6 +16,8 @@
- #include <uapi/linux/mempolicy.h>
- #include <asm/page.h>
- 
-+struct kobject;
-+
- #define SWAP_FLAG_PREFER	0x8000	/* set if swap priority specified */
- #define SWAP_FLAG_PRIO_MASK	0x7fff
- #define SWAP_FLAG_DISCARD	0x10000 /* enable discard for swap */
-@@ -251,7 +253,9 @@ struct swap_info_struct {
- #ifdef CONFIG_XSWAP
- 	struct vm_struct	*cluster_vm;	/* VM_SPARSE area for cluster_info */
- 	unsigned long		nr_clusters_max;/* total clusters in the xswap address space */
-+	unsigned long		nr_clusters;	/* growth ceiling, set by type<N>/limit */
- 	unsigned long		nr_clusters_mapped; /* currently mapped cluster count */
-+	struct kobject		*xswap_dev_kobj; /* sysfs: /sys/kernel/mm/xswap/type<N>/ */
- 	struct work_struct	xswap_shrink_work; /* deferred shrink trigger */
- 	struct mutex		xswap_lock;	/* serialize map/unmap operations */
- #endif
-diff --git a/mm/swapfile.c b/mm/swapfile.c
-index c2ca0a9ac625..fd3bc83f6644 100644
---- a/mm/swapfile.c
-+++ b/mm/swapfile.c
-@@ -50,8 +50,13 @@
- #include "swap_table.h"
- #include "internal.h"
- #include "swap.h"
-+
- #define DEF_SWAP_PRIO  -1
- 
-+static DEFINE_SPINLOCK(swap_lock);
-+
-+static long swap_usage_in_pages(struct swap_info_struct *si);
-+
- #ifdef CONFIG_XSWAP
- /*
-  * xswap: dynamically grow and shrink the cluster_info array via a
-@@ -158,6 +163,142 @@ static inline void xswap_sysfs_init(void)
- {
- }
- #endif /* CONFIG_SYSFS */
-+
-+#ifdef CONFIG_SYSFS
-+/*
-+ * Per-device directory: /sys/kernel/mm/xswap/type<N>/limit (rw).
-+ * It is the runtime size ceiling of the device, in pages (rounded up to
-+ * SWAPFILE_CLUSTER, the device's growth granularity).  Lowering it below
-+ * the current usage only stops further growth down to the used size and
-+ * triggers shrink of the free tail.
-+ */
-+struct xswap_sysfs_dev {
-+	struct kobject kobj;
-+	struct swap_info_struct *si;
-+};
-+
-+static ssize_t xswap_limit_show(struct kobject *kobj,
-+				struct kobj_attribute *attr, char *buf)
-+{
-+	struct swap_info_struct *si =
-+		container_of(kobj, struct xswap_sysfs_dev, kobj)->si;
-+
-+	return sysfs_emit(buf, "%u\n", READ_ONCE(si->pages));
-+}
-+
-+static ssize_t xswap_limit_store(struct kobject *kobj,
-+				 struct kobj_attribute *attr,
-+				 const char *buf, size_t count)
-+{
-+	struct swap_info_struct *si =
-+		container_of(kobj, struct xswap_sysfs_dev, kobj)->si;
-+	unsigned long val, clusters, new_pages;
-+	int err;
-+
-+	err = kstrtoul(buf, 0, &val);
-+	if (err)
-+		return err;
-+
-+	spin_lock(&swap_lock);
-+	/* Reject writes once swapoff has cleared SWP_WRITEOK. */
-+	if (!(si->flags & SWP_WRITEOK)) {
-+		spin_unlock(&swap_lock);
-+		return -ENODEV;
-+	}
-+
-+	clusters = DIV_ROUND_UP(val, SWAPFILE_CLUSTER);
-+	if (clusters > si->nr_clusters_max)
-+		clusters = si->nr_clusters_max;
-+
-+	spin_lock(&si->lock);
-+	si->nr_clusters = clusters;
-+	spin_unlock(&si->lock);
-+
-+	new_pages = min_t(unsigned long, clusters * SWAPFILE_CLUSTER, si->max);
-+	if (new_pages)
-+		new_pages--;
-+
-+	if (new_pages < swap_usage_in_pages(si))
-+		new_pages = swap_usage_in_pages(si);
-+	if (new_pages != si->pages) {
-+		long delta = (long)new_pages - (long)si->pages;
-+
-+		si->pages = new_pages;
-+		atomic_long_add(delta, &nr_swap_pages);
-+		total_swap_pages += delta;
-+	}
-+	spin_unlock(&swap_lock);
-+
-+	/* Lowering the ceiling may free tail clusters. */
-+	xswap_try_shrink(si);
-+
-+	return count;
-+}
-+
-+static struct kobj_attribute xswap_limit_attr =
-+	__ATTR(limit, 0644, xswap_limit_show, xswap_limit_store);
-+
-+static void xswap_dev_release(struct kobject *kobj)
-+{
-+	kfree(container_of(kobj, struct xswap_sysfs_dev, kobj));
-+}
-+
-+static const struct kobj_type xswap_dev_ktype = {
-+	.sysfs_ops = &kobj_sysfs_ops,
-+	.release = xswap_dev_release,
-+};
-+
-+static int xswap_dev_kobj_add(struct swap_info_struct *si)
-+{
-+	struct xswap_sysfs_dev *dev;
-+	int err;
-+
-+	if (!xswap_kobj)
-+		return 0;
-+
-+	dev = kzalloc_obj(*dev, GFP_KERNEL);
-+	if (!dev)
-+		return -ENOMEM;
-+	dev->si = si;
-+
-+	err = kobject_init_and_add(&dev->kobj, &xswap_dev_ktype, xswap_kobj,
-+				   "type%d", si->type);
-+	if (err) {
-+		kobject_put(&dev->kobj);
-+		return err;
-+	}
-+
-+	err = sysfs_create_file(&dev->kobj, &xswap_limit_attr.attr);
-+	if (err) {
-+		kobject_del(&dev->kobj);
-+		kobject_put(&dev->kobj);
-+		return err;
-+	}
-+	si->xswap_dev_kobj = &dev->kobj;
-+	return 0;
-+}
-+
-+static void xswap_dev_kobj_del(struct swap_info_struct *si)
-+{
-+	struct kobject *kobj = si->xswap_dev_kobj;
-+
-+	if (!kobj)
-+		return;
-+	si->xswap_dev_kobj = NULL;
-+	sysfs_remove_file(kobj, &xswap_limit_attr.attr);
-+	kobject_del(kobj);
-+	kobject_put(kobj);
-+}
-+#else /* !CONFIG_SYSFS */
-+static inline int xswap_dev_kobj_add(struct swap_info_struct *si)
-+{
-+	return 0;
-+}
-+
-+static inline void xswap_dev_kobj_del(struct swap_info_struct *si)
-+{
-+}
-+#endif /* CONFIG_SYSFS */
- #else /* !CONFIG_XSWAP */
- static inline void xswap_sysfs_init(void)
- {
-@@ -178,7 +319,6 @@ static void move_cluster(struct swap_info_struct *si,
-  *
-  * Also protects swap_active_head total_swap_pages, and the SWP_WRITEOK flag.
-  */
--static DEFINE_SPINLOCK(swap_lock);
- static unsigned int nr_swapfiles;
- atomic_long_t nr_swap_pages;
- atomic_t nr_real_swapfiles;
-@@ -3274,6 +3414,7 @@ static void free_swap_cluster_info(struct swap_info_struct *si)
- 
- #ifdef CONFIG_XSWAP
- 	if (si->flags & SWP_XSWAP) {
-+		xswap_dev_kobj_del(si);
- 		cancel_work_sync(&si->xswap_shrink_work);
- 		/* Unmap all mapped clusters and free the VM_SPARSE area */
- 		if (si->nr_clusters_mapped > 0)
-@@ -4057,8 +4198,9 @@ static void xswap_shrink_work_fn(struct work_struct *work)
-  */
- static void xswap_try_shrink(struct swap_info_struct *si)
- {
-+	unsigned long nr_mapped, nr_ceiling, nr_tail, nr_unmap;
-+	unsigned long start_idx, slack, min, i;
- 	struct swap_cluster_info *ci;
--	unsigned long nr_mapped, nr_tail, nr_unmap, start_idx, i;
- 
- 	if (!(si->flags & SWP_XSWAP))
- 		return;
-@@ -4066,18 +4208,34 @@ static void xswap_try_shrink(struct swap_info_struct *si)
- 	mutex_lock(&si->xswap_lock);
- 
- 	nr_mapped = READ_ONCE(si->nr_clusters_mapped);
-+	nr_ceiling = READ_ONCE(si->nr_clusters);
-+
- 	if (nr_mapped <= 1)	/* keep cluster 0 */
- 		goto out_unlock;
- 
- 	/*
--	 * Reclaim on our own, but only once the mapped range is at most
--	 * half in use: growth is demand driven, so reclaiming on a smaller
--	 * dip would only map the same clusters again, and every unmap costs
--	 * an RCU grace period.
-+	 * A cap below the mapped range is reason enough to reclaim on its
-+	 * own; otherwise only once the mapped range is at most half in use,
-+	 * because growth is demand driven and reclaiming on a smaller dip
-+	 * would only map the same clusters again, at the price of an RCU
-+	 * grace period per unmap.
- 	 */
--	if (atomic_long_read(&si->inuse_pages) * 2 > nr_mapped * SWAPFILE_CLUSTER)
-+	if (nr_ceiling >= nr_mapped &&
-+	    atomic_long_read(&si->inuse_pages) * 2 > nr_mapped * SWAPFILE_CLUSTER)
- 		goto out_unlock;
- 
-+	/*
-+	 * Keep one chunk of free tail as slack so that the next allocation
-+	 * does not grow the range back immediately - unless a cap asks for
-+	 * the whole tail.
-+	 */
-+	slack = XSWAP_SHRINK_SLACK;
-+	min = XSWAP_SHRINK_MIN;
-+	if (nr_ceiling < nr_mapped) {
-+		slack = 0;
-+		min = XSWAP_GROW_CLUSTERS;
-+	}
-+
- 	/*
- 	 * Count the free clusters at the tail of the mapped range.  Scanned,
- 	 * not tracked: the count must be exact to size the unmap, and an
-@@ -4091,10 +4249,13 @@ static void xswap_try_shrink(struct swap_info_struct *si)
- 			break;
- 		nr_tail++;
- 	}
--	if (nr_tail < XSWAP_SHRINK_SLACK + XSWAP_SHRINK_MIN)
-+	if (nr_tail < slack + min)
- 		goto out_unlock;
- 
--	nr_unmap = rounddown(nr_tail - XSWAP_SHRINK_SLACK, XSWAP_GROW_CLUSTERS);
-+	nr_unmap = rounddown(nr_tail - slack, XSWAP_GROW_CLUSTERS);
-+	if (nr_ceiling < nr_mapped)
-+		nr_unmap = min(nr_unmap, rounddown(nr_mapped - nr_ceiling,
-+						   XSWAP_GROW_CLUSTERS));
- 	if (!nr_unmap)
- 		goto out_unlock;
- 	start_idx = nr_mapped - nr_unmap;
-@@ -4164,6 +4325,8 @@ static int setup_swap_clusters_info(struct swap_info_struct *si,
- 		cluster_info = vm->addr;
- 		si->cluster_vm = vm;
- 		si->nr_clusters_max = nr_clusters;
-+		/* No cap unless type<N>/limit is written. */
-+		si->nr_clusters = nr_clusters;
- 		si->cluster_info = cluster_info;
- 
- 		/* Must be initialized before xswap_map_clusters() locks it. */
-@@ -4205,6 +4368,9 @@ static int setup_swap_clusters_info(struct swap_info_struct *si,
- 		}
- 
- 		INIT_WORK(&si->xswap_shrink_work, xswap_shrink_work_fn);
-+		if (xswap_dev_kobj_add(si))
-+			pr_warn("xswap: failed to add sysfs interface for type %d\n",
-+				si->type);
- 		return 0;
- 
- err_unmap:
 -- 
-2.54.0
+With Best Regards,
+Andy Shevchenko
+
 
