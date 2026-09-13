@@ -1,72 +1,100 @@
-Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com [209.85.210.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-10630.protonmail.ch (mail-10630.protonmail.ch [79.135.106.30])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0F011F3B85
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 02:16:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4012333C188;
+	Sun, 13 Sep 2026 02:17:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.30
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789265767; cv=none; b=eg9h6fOFhII9tw7qCXELLm97PHNAe2k4BuwMyb6kk2vHvVX1l3bF9jyUIPqAhvQQ1xrRYW9I+Enep8JB260Tu/av04uDxNgjJqZbuUruswFEdkxbABHZzU7X/UFoMe7XZ3DGqOtYVJRhqEffQLeTPorB7mmiEhi8RGZx2L9QptU=
+	t=1789265885; cv=none; b=EtuaOwc0ShwHwIidxrJ3oGCR7yLJnw2X58pkhtZdN9rjLmgVyRxSSZM6yvMs24/FnpQbppMSSWQwv/oQI4oe5Kuclwbl92cHKKYaQNU40CYylC/xrNBdp4RpEZqf7k2u2ssdJycXeAqoHb0Y7xTi+Is8GHfFqnHUZicFbo/ZMh4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789265767; c=relaxed/simple;
-	bh=jPCynFnyD8ePFI5/Z0DKR8asOclPyH8aaKr3QmgOysU=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=mkrY8X96PBRwrq6BaQ+ayO+DUo2ZdpETM7L5Ey3ZPf5EDIMGyWA+gz9puzkBdL2wNte6xcJxpzB+r1U1itEpuCpOl9Swr9KEObbpBIZmO25ZP+rslPPf0+6C3VUY5+ZTYdARFK4rLfPfTcTQn2Z7b4vDhqmfYkqxq2e+V1XXQGg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f69.google.com with SMTP id 46e09a7af769-8056a93e0e3so1754027a34.1
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 19:16:05 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789265764; x=1789870564;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=zMN/9VJ58MJ0RbqT0Si8diocy9Kx4t06T7oz/TrWot0=;
-        b=gncLcTs6YXKSL68+msKI9WffNDKAlw3k68cw90OSjkzcI08x58UeU52q2t8dmiwrIu
-         WKM7jXBVS4x2wYtQGywugiBq8y7I1gAfaweg+uJxYeAvM9W3KVBzSMgNCcQkTpA1mp/l
-         BqxRRO673C0h9WayKyBuijCDLOG6RGeA9Sf1sV1Y9B/5G8vOIWymb5nCYHNoAeesfSOr
-         sUiz4ONIQ0vy5fxnFHfL1EgPz0A7KqDt1O6M/DEK3OOPqd/3OWe26EnGMCz9ZnwYy8q7
-         8VXTNsPyaeXAqbUP6J02P2NOGUgi3eK2HfMClGP7hJC1WYGgNzPzDI+T5kTiUXnFgmS8
-         pNlw==
-X-Forwarded-Encrypted: i=1; AKwUvBzlvDFl0dhk7FFctKa1wiAOBXH8e2Ec/xc8CapXfjfiJcP0s7kLr6m1d11tw01U3MChpBbpe4yQKdWaxcE=@vger.kernel.org
-X-Gm-Message-State: AFuF++no+oyDmBJp4ZK9p++GQnl4wd7xvEuVKcMiLmDm1y1UByhBS5sR
-	IV6dJyrY0MgOq5m8x+0vzXz9NyFj8GUMiZG40ZH806HmRiwxXps4yqudj0XCZnvkPR5lYNgx4Tn
-	jQtW1x+NyTpJxDyfVuNWEHDJFeXR4pbzTkgXRMN5EwwmOAiBEOLUDlT7M8AE=
+	s=arc-20240116; t=1789265885; c=relaxed/simple;
+	bh=ImET7BowbneY2SrCjl5Env75p1P2HuYBPRThbFYyeVQ=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=DcHInVmwqgneEwd070z5mqqmsjljp/4JgeIASOc9qoFmSpmDEMmJWrTViAyjptygUYLwoiIqwlEQsdXc6ruLdGwPN+cOGj25OhxW41ybByPmjR0LVyJ0tKXu/kNCFvGBgMSeWNarXGjycGWJ+Zc259vNYTMzj6S7iK1hyZbdiUw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=PF4FrK+U; arc=none smtp.client-ip=79.135.106.30
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="PF4FrK+U"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=yethrllu5jcsrg6mxaeb5gnv2e.protonmail; t=1789265864; x=1789525064;
+	bh=iw8oX8JtR6bTfziyCVzbNW2Gel2C1vbzYFNWTbj7CWM=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=PF4FrK+Uh6gvmU+6iUQaU9iwuxrUc92W5FJxa9l21DiSV+Uiad9kX20JAEzLGyeUN
+	 wLvffnoTFXvNCjkeunuLDkG7CcfAVxbH8SK1/adgpRh9EFCuHDEJfHbvtlVSVYpB/9
+	 IFaA0/qj42WiRmOBwO8vTkU0I8YUQSyreJ2IlhYenSoBK7PkzrkAN9LdBMKkH4rIiz
+	 AAiMSd4wieXSDFsxwHeZNWr4Hr/L1TqZi20/k80HwPGFEuDEYI/Gg0cMn35oO0Fcue
+	 dNQSSnO+5TbxuL0Esx2jXVX83hkV5qTGnTHAzB8ywPwPg+h/4FJXGptlofm1lGZuqR
+	 3Ha+2qWCeE6yQ==
+Date: Sun, 13 Sep 2026 02:17:38 +0000
+To: "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, netdev@vger.kernel.org, rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
+From: Sagar Taunk <sagartaunk@proton.me>
+Cc: Sagar Taunk <sagartaunk@proton.me>
+Subject: [PATCH] rust: net: netlink: validate attribute length before casting to `c_int`
+Message-ID: <20260913021730.18926-1-sagartaunk@proton.me>
+Feedback-ID: 130121444:user:proton
+X-Pm-Message-ID: a556036479531143b34d59edef58ea35b16a0f84
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:221c:b0:6c2:1018:3f7 with SMTP id
- 006d021491bc7-6c210180448mr7276453eaf.23.1789265764750; Sat, 12 Sep 2026
- 19:16:04 -0700 (PDT)
-Date: Sat, 12 Sep 2026 19:16:04 -0700
-In-Reply-To: <20260913015111.82827-1-jcperdomo100@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa60764.f2639fcc.29487d.0049.GAE@google.com>
-Subject: Re: [syzbot] [bluetooth?] possible deadlock in rfcomm_dlc_close
-From: syzbot <syzbot+0cece8fa7d83523f47a3@syzkaller.appspotmail.com>
-To: jcperdomo100@gmail.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hello,
+As pointed out by Sashiko, `put()` trusted an unchecked `as` cast from
+`usize` to `c_int`. When the length exceeds `i32::MAX`, that cast
+wraps around to a negative value.
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+`nla_put()`'s `skb_tailroom()` check treats the length as signed, so
+the wrapped negative value slips past it. Further down, `__nla_reserve()`
+and `skb_put` reinterpret the same value as unsigned, turning it into an
+enormous length and triggering a kernel panic via `skb_over_panic()`.
 
-Reported-by: syzbot+0cece8fa7d83523f47a3@syzkaller.appspotmail.com
-Tested-by: syzbot+0cece8fa7d83523f47a3@syzkaller.appspotmail.com
+So, validate the cast with `c_int::try_from()` instead, and return
+`EMSGSIZE` when the length doesn't fit.
 
-Tested on:
+Signed-off-by: Sagar Taunk <sagartaunk@proton.me>
+---
+ rust/kernel/net/netlink.rs | 18 +++++++++++++-----
+ 1 file changed, 13 insertions(+), 5 deletions(-)
 
-commit:         2f0c1cf7 Merge tag 's390-7.3-3' of git://git.kernel.or..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=136ca925580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
-dashboard link: https://syzkaller.appspot.com/bug?extid=0cece8fa7d83523f47a3
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=17889905580000
+diff --git a/rust/kernel/net/netlink.rs b/rust/kernel/net/netlink.rs
+index 3c2b142a7402..f929f63b32c1 100644
+--- a/rust/kernel/net/netlink.rs
++++ b/rust/kernel/net/netlink.rs
+@@ -88,11 +88,19 @@ fn put<T>(&mut self, attrtype: c_int, value: &T) -> Res=
+ult
+         T: ?Sized + IntoBytes + Immutable,
+     {
+         let skb =3D self.skb.skb.as_ptr();
+-        let len =3D size_of_val(value);
+-        let ptr =3D core::ptr::from_ref(value).cast::<c_void>();
+-        // SAFETY: `skb` is valid by `NetlinkSkBuff` type invariants, and =
+the provided value is
+-        // readable and initialized for its `size_of` bytes.
+-        to_result(unsafe { bindings::nla_put(skb, attrtype, len as c_int, =
+ptr) })
++        let bytes =3D value.as_bytes();
++        // `nla_put()` takes attrlen as a plain `c_int`. If `bytes.len()`
++        // doesn't fit, an `as` cast would wrap around a negative value.
++        // Which then, would feed a huge unsigned length to `__nla_reserve=
+()`
++        // and `skb_put()` causing it to panic via `skb_over_panic()`. So,
++        // the following check will reject it instead.
++        let len =3D c_int::try_from(bytes.len()).map_err(|_| EMSGSIZE)?;
++        let ptr =3D bytes.as_ptr().cast::<c_void>();
++        // SAFETY: `skb` is valid as per `NetlinkSkBuff` type invariants.
++        // `bytes` is a valid Rust slice, so `ptr` is readable for `len`
++        // bytes, and `T: Immutable` guarantees nothing can mutate `*value=
+`
++        // while `nla_put()` copies it.
++        to_result(unsafe { bindings::nla_put(skb, attrtype, len, ptr) })
+     }
+=20
+     /// Puts a `u32` attribute into the message.
+--=20
+2.55.0
 
-Note: testing is done by a robot and is best-effort only.
+
