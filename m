@@ -1,115 +1,104 @@
-Received: from omta036.useast.a.cloudfilter.net (omta036.useast.a.cloudfilter.net [44.202.169.35])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 313FC3CFF77
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 23:15:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.202.169.35
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B0D538B125;
+	Sun, 13 Sep 2026 23:15:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789341313; cv=none; b=LgVxQ0rnIFXnXBIpAbSEtJ++tzD4dmsN65UxW5YfSSwcDgOwDnQRO9tGmodGST95fzp/ci+3uOefhRfq5BPNV3jxwau5wYGUJFE4IXZGyjAI6qObzwWqc2t+uvCF6J1hsOzcpe3tUVSFFbgqu8uMtE9sSCRoZo0xspSHB5TEgGg=
+	t=1789341321; cv=none; b=qAY0wSOYSu7TqO8Wu9/gvvLa/665gMO2m09w/WQ10UY1oTjUK2Igbjjmg5QhfeeVOwYq8I+CfuWxu6i+twUacnmJEFIdrz7Yru7FjaIbcR3FL4LuQxChI8m+1sCYGpfxbTWNF5Cvddmd/eEXAROJ7R7gq3f8O47K37wLsT+HOkk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789341313; c=relaxed/simple;
-	bh=M0AUe6EoSdBKCMt/ZoILgDUcpvH05m13IHeVeD49njs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fpmhwfvqhA+yYJ+hXHgP3G8jce4QAcqdg7PCHtpQ5DZG7pmZL0246Emew1xD3hzoYWLuUgp6yN57rztvKmoGdFogmJvQEJl87Ber3bXFyr8n5bJoSZFzZV3KbEPTU4zv2X8Zqxfjm4KUcA+hCiNuoFgMipHDssi54OT5I2WzYPw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=4rbVwlX4; arc=none smtp.client-ip=44.202.169.35
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
+	s=arc-20240116; t=1789341321; c=relaxed/simple;
+	bh=rKOn5rgHI/o9+0DA/GV4TbuOaB3SttLfhI4tfqKF5mo=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=iMjiFTeO0yEIqADv0VxVUz/FwuKuaw8OYic0dgx2svvuI32DLQYF57eLqEM6mJmndT9KL7uBuRAqrDzwoi+mE9QUpa8OUjgqVT9ExQ4l7MezkIhfyRJUSOwFBGystvkXantI35pqMqOMJSeihAf+3y5QR/QWrAXYhoI1asGVlJE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MVeVkMYB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="4rbVwlX4"
-Received: from eig-obgw-6001b.ext.cloudfilter.net ([10.0.30.143])
-	by cmsmtp with ESMTPS
-	id 5f87xCQnrLvgb5tPjx6M2S; Sun, 13 Sep 2026 23:15:11 +0000
-Received: from box5620.bluehost.com ([162.241.219.59])
-	by cmsmtp with ESMTPS
-	id 5tPixl9uw9tXG5tPixHlKh; Sun, 13 Sep 2026 23:15:10 +0000
-X-Authority-Analysis: v=2.4 cv=KK1aDEFo c=1 sm=1 tr=0 ts=6aa72e7e
- a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
- a=HaFmDPmJAAAA:8 a=0hTlX_r29Uef9z-4MVkA:9 a=QEXdDO2ut3YA:10
- a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
-	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=CZcktUzriNTAAYMXbnWHn5jDYdx8tVszpC76pKHqsFM=; b=4rbVwlX4FarbzxggzRjHdxe8nc
-	pIRbmStyUtjd80ME29LEPxmmFZxE0bF7ONjCTTh1ty5rpLjrnkxivgWZUBhC4MH72IBEfkGgGGKEr
-	hCc4Fr4kfNUbX/fk4tU+bnzUY3GwgxV4FQfmwRSxNvG69alee+jXaAmt445MC7tqTlcO7NfazOCqt
-	8f9DqgfGXlPZJQG/fbFXcoZ8qSYMyYwzhnZd2r9ruWmizqwsCtVmfynPe0IReqyIAVs6FOx55sGvN
-	HQtVtvvGFVjZtaooK3ueb0AxL+C8H+FAu4opQi3op4iBr60H4biMOlE7DBXYrmlN9IXJ1JF/1MciZ
-	LPoyoDyQ==;
-Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:52514 helo=[10.0.1.180])
-	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.100)
-	(envelope-from <re@w6rz.net>)
-	id 1x5tPh-00000002T9R-2ukV;
-	Sun, 13 Sep 2026 17:15:09 -0600
-Message-ID: <a30618e9-3613-457b-8ae0-23453c75ab9c@w6rz.net>
-Date: Sun, 13 Sep 2026 16:15:08 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MVeVkMYB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95DE31F000FF;
+	Sun, 13 Sep 2026 23:15:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789341319;
+	bh=AEG6A2YmRNnHTq6KZzgnKQ0Iu7WheUbYJLS4gaz2nK0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=MVeVkMYBwSFZ3Qy/NsXR6DV2Xusfk3K4fQVZkGyVCDLy8FtH2lluTfv8fdvCaD3Ne
+	 J9LPxcQQVFeiQtgaX5Se3eEeBlZU5vorQJ+c/RFJTRdE82Kc3bLPRiYmUs01CIEERu
+	 5aPLjAxN2z75TPy14fWC+Q2IGBnc5q1jJL7DZ2Tfk1s5473HddCjPubeoIgc30ejjl
+	 XwqWm3futV4/1iVYt4xIxfIA7A3Q+nqydapia/aEkoAeUv+1s3vAd3vXwdc18wxlCG
+	 gvTRFXn/p1ITxFVkhi03+6fi6J/Mc4T7VFOY8C0txhJR7P/0rLkVEZPtAn+E+yDMJd
+	 i+SXRa/D/0hiA==
+Date: Mon, 14 Sep 2026 00:15:14 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Esben Haabendal <esben@geanix.com>
+Cc: Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Martin Kepplinger <martink@posteo.de>, Sean Nyekjaer
+ <sean@geanix.com>, David Lechner <dlechner@baylibre.com>, Nuno
+ =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Martin Kepplinger <martin.kepplinger@theobroma-systems.com>, Christoph
+ Muellner <christoph.muellner@theobroma-systems.com>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v8 6/9] iio: accel: mma8452: Add comment block for
+ struct mma8452_data
+Message-ID: <20260914001514.3a33ce55@jic23-hlaptop>
+In-Reply-To: <20260907-mma8452-open-drain-v8-6-c17407e22118@geanix.com>
+References: <20260907-mma8452-open-drain-v8-0-c17407e22118@geanix.com>
+	<20260907-mma8452-open-drain-v8-6-c17407e22118@geanix.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.1 0000/1191] 6.1.188-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260912065548.086904252@linuxfoundation.org>
-Content-Language: en-US
-From: Ron Economos <re@w6rz.net>
-In-Reply-To: <20260912065548.086904252@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - box5620.bluehost.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - w6rz.net
-X-BWhitelist: no
-X-Source-IP: 73.162.206.103
-X-Source-L: No
-X-Exim-ID: 1x5tPh-00000002T9R-2ukV
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:52514
-X-Source-Auth: re@w6rz.net
-X-Email-Count: 57
-X-Org: HG=bhshared;ORG=bluehost;
-X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfGphZWRfZRVfdKD7rigRfFfMjVdqA3VxObxl2IH359FeNLYu/U1/mPTEtR34O575dne5vqHfJQ/reqjR0yfH59vQMil9yapDubN6jWsPDQ5dYiNVGi3j
- Wtqv5wggyHxy6MnYos54DRRT06xNuZeZw/oBzlNYFLiyCKDVSDfSROH6YhuyRhyLv5SJrQkuqPmyChM4jP/nZQ5zanaJdbtDCxQ=
 
-On 9/11/26 23:45, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.1.188 release.
-> There are 1191 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Mon, 14 Sep 2026 06:54:17 +0000.
-> Anything received after that time might be too late.
->
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.1.188-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.1.y
-> and the diffstat can be found below.
->
-> thanks,
->
-> greg k-h
+On Mon, 07 Sep 2026 16:51:01 +0200
+Esben Haabendal <esben@geanix.com> wrote:
 
-Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
+> The struct mma8452_data is central for this driver, and it makes sense to
+> have a description of the fields in it to make it easier to work with the
+> driver.
+> 
+> Signed-off-by: Esben Haabendal <esben@geanix.com>
+> ---
+>  drivers/iio/accel/mma8452.c | 16 ++++++++++++++++
+>  1 file changed, 16 insertions(+)
+> 
+> diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
+> index c6af68d2a297..2c1b97b77bc1 100644
+> --- a/drivers/iio/accel/mma8452.c
+> +++ b/drivers/iio/accel/mma8452.c
+> @@ -104,6 +104,22 @@
+>  
+>  #define MMA8452_AUTO_SUSPEND_DELAY_MS		2000
+>  
+> +/**
+> + * struct mma8452_data - IIO device private data structure
+> + * @client:			the I2C client object
+> + * @lock:			mutex for synchronziation of register
+> + *				read-modify-write and holding chip in STANDBY
+> + *				mode while writing to registers
+> + * @orientation:		mounting matrix, flipped axis etc
+> + * @chip_info:			chip specific data
+> + * @vdd_reg:			reference to VDD regulator
+> + * @vddio_reg:			reference to VDDIO regulator
 
-Tested-by: Ron Economos <re@w6rz.net>
+These don't exist any more.  Sanjay did a conversion to bulk regulators
+that I picked up a few weeks back. Please rebase for v9 on top
+of the togreg branch of iio.git.  Seems that sashiko figured out enough
+to base this on a more recent tree than you have.
+
+
+> + * @buffer:			triggered buffer
+> + * @sleep_val:			time in ms to sleep while waiting for drdy
+> + * @ctrl_reg1:			CTRL_REG1 register shadow value
+> + * @data_cfg:			DATA_CFG register shadow value
+> + * @open_drain:			true for irq pin in open-drain mode
+> + */
+>  struct mma8452_data {
+>  	struct i2c_client *client;
+>  	struct mutex lock;
+> 
 
