@@ -1,170 +1,110 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mail-oo2-f15.google.com (mail-oo2-f15.google.com [74.125.231.143])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDF082E1EFC
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 13:19:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789305544; cv=none; b=H5DW0M/PYWdtujgao4COPXpxAsCadQYcJ4FVj47I4xb5zcUCmHCRz5CTnt+R+a+J15pzRptHuN3VyDeAuWDWufT+sKLKV8h4ycdyqVUTM++iMYtz3CLvQwCiksEfPRWrxvmtk2AgliMZ+gh2nu9Pdc0SFUKET3JrRKLJufpiaS8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789305544; c=relaxed/simple;
-	bh=MNEB3uM9fk17gH3lCK0TQ0HdXUzZavXN7I2Fq7ejFto=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OKfORKH4+kTf7ewDYG/hOrOMtn+bmkqKEKR0+H5AAZPAaZ0Ihc7ZDRQwl2vd/vJs16H/kyvul71pKQVBgfhYGpXuCb6IibbR1+CwryjBf5NcmIEOhtKxpYedOXU1tGkG7Ds/GGXIBxqIjmExzGIBsRQiWQHpHnBeBOItGgUZFBQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TDhwE2Dw; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1664039CCED
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 13:21:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.143
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789305682; cv=pass; b=Nfm11YggFrJcosm4l5ij/sCBblbzHo2F+AfWUwNB7Dvd4BEVTg+AOLTFWzGSGuhTeIhpP/0zACCUMK9CAjPlCoMG1XyN5/Ldmkk0FuOPX2meKtZh3etPfeUptx/1vaYC1+VOfPt3tKy0ek/vHo9eJOK3/xCKjFkJDpO2G9dl9bw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789305682; c=relaxed/simple;
+	bh=qruS9RaFpfludketP5nShhhjtDemkZaJSSVTOVH8K1Y=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=K8AaDOAkxSl9S2cHycUW2o2QkmYZkckA+V2FzDv6eClhhNaOtRakcI94UXeqeTT5Am0Gk2ZdXLA5f5e7DVr+vLzm9SFOAcLkINtVIp+u9HDUmvRrUWu4aJoA03VfBnwbypz3mVEc9olrfAJcQCcEsGPEmpqPtwP7lU7v744tWjU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L/oOLWaZ; arc=pass smtp.client-ip=74.125.231.143
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TDhwE2Dw"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4c3304784so1183714a12.3
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 06:19:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L/oOLWaZ"
+Received: by mail-oo2-f15.google.com with SMTP id 006d021491bc7-6b4bff33d18so349024eaf.3
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 06:21:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789305680; cv=none;
+        d=google.com; s=arc-20260327;
+        b=mgCvrwB+XzmH/gri+IrTKty5tWKogGj7qHzSUeG5oRx9vBbrXHURa/tFOd9pV1f+ux
+         W1tqugprz0Ujpk0KXc52Tx2HMMs30fY6wnF34LFEb2Jnzn6AXcgoXbBe/rnzo2X+GrOz
+         DX0EynZ/bsqXvs4kUN+q1gMKU2kfEh8/q5tF6DcLHjpUm/qru0lQGy0WsPXKLjUoaO+f
+         5pmDXS0XjgTWSBFt03k1AEgV42kVTkkz+m1djt4DLDGbWlmciMUsNp05cVoaRA61ye3i
+         6cfLDnrytNAqMVPD3G3eAgzTWHAYeQgXWAHsnQFaJ7YJewTdZNrEvbqHsQLDDErDeiNI
+         HH3Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=qruS9RaFpfludketP5nShhhjtDemkZaJSSVTOVH8K1Y=;
+        fh=x68+OxLz5hmhy9erOQX/C5nknv1El2D7X6aDZyWjZ9E=;
+        b=rf4u4CMSXaoACQzMJUlbAfVAkbtQk7EDTSrJ0IQM5yn0beYp3lGv03U4P4a0kTwGql
+         vYjdVinlEY++tV7OlcG5upaYtO2Tc4yIK3294bW53d09c5SxSa8um78uX0ThqACpI3sb
+         EOiYF5txCUO8u9eTd97GzaP6tWf6I5KgREnWAjsda27rrHJotzIKegQXQ7/JhisTYHdj
+         yqLtHqO6zH3LGtrAm6UuXPVM7a364NeRsZTqrF1AgQWEHztNgQOh85IwlxS7+WTrgxVZ
+         0sNN6lxb6a/oPRmkI6lErZ35sTIVKkNug524akuNeqrxfXP1lfHUSl9jupRX6gqXCGw9
+         csLQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789305541; x=1789910341; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BzrAlMcZ8zBRfbQWU5o3RvRaRsPXz8ZJNVxN53VL4HY=;
-        b=TDhwE2Dw/ai1Crpx2VWu1BelXZ4CKT1kqlcorok3bs7xwYdIM/uwT6wiR8NIsaOsYX
-         kSw6pEYIv1YU3kdoOnMuUXf+Ppx07DrFXsRlAkt4wIkh44TJle94rG68P1ZOFZXLYTNg
-         +emi43Emd31AfBRQskLy46fyZr/UkVsloPqebPgVqAONXpWxNsvikupaH6tAnHXW4/0b
-         CNVP61h3hq/WFQMZQrMpKjkWyhGJRDHisWwdu6h6ND5sGA7sMj7o52ravNHoGQnJwmKw
-         GC8QZKYPBxUmBLoyRARt2mnJl1QZ0k9/2l5xqonAdHTYfyFcG+DlAHI+XJ5Sfs8pxxdy
-         we+Q==
+        d=gmail.com; s=20251104; t=1789305680; x=1789910480; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qruS9RaFpfludketP5nShhhjtDemkZaJSSVTOVH8K1Y=;
+        b=L/oOLWaZX3FJqLPy2f1WZbsAGxZEnBhNcw/6CuLtlXLP37ada+l2+OmpWlgScPZC67
+         mDIxpYbH/Xm2cSa8wq9nsVfeYdsqDZVlbm1sAgBWaR8SyYoawIX3Klebytz3a1fIf1MQ
+         rp6fykUePvEMVmXgEwTp0n3GWpBwqbihoOJGxJIZaD6KIKvUcuFkUoUzTj7OWl5X2A+k
+         smKQ9QQ9ut6bEsCBTpLLHyzhXShOhzWghcEw+3vXROn16qBXBmvPxoWqHOGR5XTnq1sR
+         9Pb6Gw5K6QmORhRFPyBd9XzeDFHZjOGGOr9PKZu8I6pGNCFzVjegfU7q22Fz19mS2Dyc
+         XDWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789305541; x=1789910341;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BzrAlMcZ8zBRfbQWU5o3RvRaRsPXz8ZJNVxN53VL4HY=;
-        b=TuKAq5tQogyWNSkoW5TNf58OXaw1I6Eb4859eu0uftjbHWgM/1NMuZ3yZGMeQN1wt0
-         Y+t8gFNzDys1XfrXRhMbMgTQPXDWHN2aMDiL/vlGfKNbAqbL5M7V2XtBjutXNHvor4Ug
-         vhQdYXckiMW/2f8gjEWa467zNvD9wSt/LarF7mcj9m43rYVcNM4VcvVF1ilYBX3Qg3RZ
-         3qNGhaDDy86K/AOs7sciC85qQ115RmK5kl+PwnBEfczs7IxucgDzl9Vm35DPUPUI4cL0
-         djbSA6M5lKd/E4SyRpXvRvDYx6nh0lUlPZwOqOqNqcZdVRAevRm/Auj4X6dpL3XYP5/C
-         rKXA==
-X-Forwarded-Encrypted: i=1; AKwUvBxnHxeM6QDD12TOdqrUemL/b5yqHdsHa6AwnEnxuwIgHrbmbF5HSyFSuqNXLt7pycJJmFnWxccH/xUOAOY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kwv7E69dXl3tYkba7S9wRo4f5lrFxLjjFORaWrkhBKdauu45yQ
-	JlPr4lq5kYUzkZKKH9qcUyP29Pnpsd+54WdC/S36G4IXl5LP4lBQH6FU+GqJ6cgr9Ns=
-X-Gm-Gg: AYBFou2jKlXs4H3wG/mTEGRnx+rnEzp2VPqCZeUK+pjvB4zXDkDF2VnDvJiJnsWjRtw
-	VoSpKJr6fv683DdcPD6Wb2hDJCkVQ/Waf8g0qZuX6sDSES7T8wCSidgcMDx4zpSDfKHW98MavhH
-	hl5x9u5Sbn78nzfvoxsrLmC8RNrV3O1kE0Fo0/Rf0lsSUUvAamLN1bbtmzlfzMduRxZCynOHbvd
-	YuXjNWd6G1PhXnZ9jHpxHWft8G51K3qdbinZVb4Xzd8W9cGw6ExfwxaGOAS2XBBE0Kss1lEvxGe
-	38Cw1lSCci+fsT0qxjQEDQSItQ8c3ki23WmKiylZ1qVqYXhXEYDckLkv5uyDUKH7AjJG5J1wxGF
-	HXPih74tMM21Wnv0lRwLgJCclDubAjJiCHlSQlYwIZ9vILaZcblKFHnk1V3FEv/kBioYIx1HhIk
-	DJcnkCNr9DoiMCuh8ipncgWQTrG61kNRarS3M1V2g05Yi8SaxQknMJK+Nt64XSvE5zeA==
-X-Received: by 2002:a17:90a:d64e:b0:395:4de4:92be with SMTP id 98e67ed59e1d1-39d9c1db130mr26350180a91.13.1789305540739;
-        Sun, 13 Sep 2026 06:19:00 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d95095946sm15749780a91.5.2026.09.13.06.18.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 06:19:00 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Sam Ravnborg <sam@ravnborg.org>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/panel: novatek-nt35950: fix potential use-after-free on attach failure
-Date: Sun, 13 Sep 2026 21:18:49 +0800
-Message-ID: <20260913131849.1561742-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20251104; t=1789305680; x=1789910480;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=qruS9RaFpfludketP5nShhhjtDemkZaJSSVTOVH8K1Y=;
+        b=jYe5EYEvYwmiKNU2cbQN1/pTDyRM6hds9gvrHMMi7Lj7r9DmyG21y8NMx+TR+raeC6
+         o6XREfV/WU6E234cAjybSVFtUOIasi9xMWGQ2DUZw9LPJC83umy0t+UfciSPhQJCD5pL
+         H7pdPEhFK/iipc5gogC23O3VTealBifaW26PI1WSBtD9cJt7SXwN/5nFw4uTtbCdTUri
+         7KpgzFiLCQE6wSJ8iQbTuQlBMosn0U/g0E/tlR/OAvlwgSBMUzwqbRiouR0p8nOa9pD4
+         AjL7JVccO4KyEBo7QL5uAJalJn1G4vNe94oHzwLjpTr6fa61fS0HRv9+2YevzhmrE+AX
+         w6cg==
+X-Forwarded-Encrypted: i=1; AKwUvBz2RZCEyP6P50U4RR0tI6MjbKV9sAtu8ThIBcB5+htq0PdLBGJD8abI2aOKwBpSFNQBQOnWaLBPsNG45Ko=@vger.kernel.org
+X-Gm-Message-State: AFuF++mPOf26v4Y+G906QQrNBfW0xR9d175Jr2p4WydVEryFFOnbkKz4
+	NIegS2DyhDbIFsR7ITxgsuM+pOhmSZ9zf1ve0iZ/8UBTWxbm0b5ktCXpviwbNIjbouShHjc7weH
+	JySsbK4qjMc1baCmvv+jrVlComrDd/cM=
+X-Gm-Gg: AYBFou0c/NkwD1u/ewMrod/klOZfah8tZLEbkZgv/TgWWWKVtvX9j78V7sfcrjEhGfh
+	dOdvsxYV94GmD1UHlESL56rjZujHyEdNgiHCejQjxOv++AgcEGF2Dl0jve7URaYCfPY3keFWH8A
+	XZxwpjNaiqmD96G21uFxN6TcchK/pgK3HnKFunfnoa5eib/jQ+n45li/JrXUcUlU9WlnnMjElk7
+	UfDavzigOwgQA0dJ4y52sVsaOUP+eyiPSKTpjUUnJcoJ/OJjcBo2wh7WrbZXw7b+Nkz7iH9yjD0
+	/TQi/peFSxjSUHEtzSgFsQeBiDZlGvxc3Ces6LaQ08TTpuY9sY+pWA==
+X-Received: by 2002:a05:6820:1886:b0:6b7:8396:f3e3 with SMTP id
+ 006d021491bc7-6c25003a9d1mr3486566eaf.69.1789305679912; Sun, 13 Sep 2026
+ 06:21:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260912132517.55686-1-abdelnasserhussein11@gmail.com>
+ <20260912132517.55686-3-abdelnasserhussein11@gmail.com> <aqZc3LR0s0I2S27b@ashevche-desk.local>
+In-Reply-To: <aqZc3LR0s0I2S27b@ashevche-desk.local>
+From: nasser <abdelnasserhussein11@gmail.com>
+Date: Sun, 13 Sep 2026 16:21:08 +0300
+X-Gm-Features: AcwNN1WsbiyGU7uP4XszH5roX0jEFpFRx8lXN2O10Txdr0UEK0yTaOMrsHkr1Cc
+Message-ID: <CANpqX3YgFne0HvC4n92R8URm3cC+gdRWsGo4=yRkXkXf1q5d-g@mail.gmail.com>
+Subject: Re: [PATCH v6 2/3] staging: iio: adc: ad7816: Serialize SPI read operations
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: jic23@kernel.org, gregkh@linuxfoundation.org, nuno.sa@analog.com, 
+	Michael.Hennerich@analog.com, dlechner@baylibre.com, andy@kernel.org, 
+	linux@analog.com, linux-iio@vger.kernel.org, linux-staging@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, joshua.crofts1@gmail.com
+Content-Type: text/plain; charset="UTF-8"
 
-nt35950_probe() registers the panel before attaching it to the DSI
-hosts. If mipi_dsi_attach() fails, the probe error path returns without
-removing the panel from the DRM panel registry.
+Hi Andy,
 
-The panel is allocated with devm_drm_panel_alloc(), so its storage is
-released after probe returns an error. Leaving the panel registered
-therefore leaves the global panel list pointing at freed memory, which
-can result in a potential use-after-free when the stale entry is later
-accessed.
+Thanks for pointing this out
 
-There is an additional cleanup issue for dual-DSI panels. If attaching
-DSI0 succeeds but attaching DSI1 fails, the error path unregisters the
-secondary DSI device without detaching the already attached DSI0.
+Placing the mutex after the `u8` variables introduces unnecessary
+padding/holes. I will move it up in the struct (right after the
+pointers) in v7 to ensure a proper memory layout without wasted space.
 
-The failure sequence is:
+Thanks for the review
 
-  drm_panel_add()
-        |
-        v
-  attach DSI0
-        |
-        | success
-        v
-  attach DSI1
-        |
-        | failure
-        v
-  probe cleanup
-        |
-        +-- DSI0 remains attached
-        |
-        +-- panel remains registered
-        |
-        v
-  probe returns error
-        |
-        v
-  devm panel storage is released
-        |
-        v
-  panel registry contains a dangling pointer
-
-Detach any DSI hosts that were successfully attached before the
-failure and remove the panel from the DRM panel registry before
-returning the probe error.
-
-This issue was found by manual code inspection.
-
-Fixes: 623a3531e9cf ("drm/panel: Add driver for Novatek NT35950 DSI DriverIC panels")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/gpu/drm/panel/panel-novatek-nt35950.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/panel/panel-novatek-nt35950.c b/drivers/gpu/drm/panel/panel-novatek-nt35950.c
-index 94aa6489d99f..8edd0aa363ce 100644
---- a/drivers/gpu/drm/panel/panel-novatek-nt35950.c
-+++ b/drivers/gpu/drm/panel/panel-novatek-nt35950.c
-@@ -514,12 +514,19 @@ static int nt35950_probe(struct mipi_dsi_device *dsi)
- 
- 		ret = mipi_dsi_attach(nt->dsi[i]);
- 		if (ret < 0) {
--			/* If we fail to attach to either host, we're done */
-+			dev_err_probe(dev, ret,
-+				      "Cannot attach to DSI%d host.\n", i);
-+
-+			/* Detach from all previously attached DSI hosts */
-+			while (i--)
-+				mipi_dsi_detach(nt->dsi[i]);
-+
- 			if (num_dsis == 2)
- 				mipi_dsi_device_unregister(nt->dsi[1]);
- 
--			return dev_err_probe(dev, ret,
--					     "Cannot attach to DSI%d host.\n", i);
-+			drm_panel_remove(&nt->panel);
-+
-+			return ret;
- 		}
- 	}
- 
--- 
-2.43.0
-
+Best regards,
+Abdelnasser
