@@ -1,97 +1,93 @@
-Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
+Received: from sm24.hosting.reg.ru (sm24.hosting.reg.ru [31.31.198.150])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E678309EE2
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 09:52:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.210.214.84
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54A88309EE2;
+	Sun, 13 Sep 2026 09:54:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=31.31.198.150
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789293132; cv=none; b=Kva49Ms3dNJ3OkM1kMT6DJ65VjgZo85bHFKxG2Q8f3ByBYCWxk6jxLFdjURwwINnIvPvNzLNcqRdGSBdg9pj7lGgUEsP6AYY4u8qCb2Zr4Tg149WxlUf6uJ53GChqx9Ncpk/lFtmLdwAeOojvLv1IbF8Vf8mlVQg5phthyWpyfM=
+	t=1789293281; cv=none; b=JLDujWlmhN9st6aEMPeVNhVtBKITaxNNTvdmWGqN5vKgcRR4U3EokdkR+dykS+P7iCL58bR3UcSktUyxbgebURAuxzjzwuEkk+YbTVkglePBXDNQdBwttyP/A8y4VqmqwR6gGdSX47cRGDDDtx2o4wowejsuPLCkBsrWhlbedz4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789293132; c=relaxed/simple;
-	bh=+YGX0XdjDiE0elQhgVlF/aVXlUoS+/b9GZ0yBeT34HE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DUt1a204EfK6o8NkR8FhvFZ4b1rw2ExB90wJE+pZYPHvKglul2GzWKNyWXa+zSoihCn3KLtYoZtyS1vBs7TDfOnBj1elU5ZMVfVHsQUNx4Qwr3OMdH85pC2QXGA+6cuakEPLfYLkX14/2w0Uy3n2ugtV2GCkO5yfposbQBN0jrE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org; spf=pass smtp.mailfrom=codewreck.org; dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b=f9vLLxR6; arc=none smtp.client-ip=62.210.214.84
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
+	s=arc-20240116; t=1789293281; c=relaxed/simple;
+	bh=q43/sb9n50B3AtpKAIGs7p4wTxhXp9QDvV9VFd/lJ44=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Ey6gXh+3IpHBv1+NOOB+xAvTACn6axlDsyII9I6qPm+TpnvFij/zhmEeIPeFzY7OsMD4t+71ikJFWesRM7IqCuD0lD8OWLkdUKAv9kbIWQi6+9H/bCXQecbzAaoD0FH2cMPwngXokI1CNWJ60OuuCdktLnPhweSq9FLQJtqYI1M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=minlexx.ru; spf=none smtp.mailfrom=minlexx.ru; dkim=pass (1024-bit key) header.d=minlexx.ru header.i=@minlexx.ru header.b=YI4avdcQ; arc=none smtp.client-ip=31.31.198.150
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=minlexx.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=minlexx.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b="f9vLLxR6"
-Received: from gaia.codewreck.org (localhost [127.0.0.1])
-	by submarine.notk.org (Postfix) with ESMTPS id 5832814C2D6;
-	Sun, 13 Sep 2026 11:52:07 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
-	s=2; t=1789293129;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=o7dmRBlyQjnMpbvmecLG1K8z0y+GwO8VR44jdX5pGYU=;
-	b=f9vLLxR6xn3y3Nmd6Qq2OpdXAmo8ZXjh+O0Ga1ykaaGC3Fgb/6kkFFWXG3/2e2cXsNRjsj
-	vskwXRr7Gxaw5f2GfTuBZPyBlG1/UfLyyKveJt6bVWaTcpkeMzn/80jgKGx/NYigSYUI8C
-	qzVE25+teN5B65KHFIdZUDNv/uzA9t91u2NPfPdCPSNS/Oh1ZHMC3CA9ItCLUojI4zyrSn
-	4HyGy0RwSWLnPORInKKnvbPAtvAb6tC5KMVXH8Iyya7BSZleCuHfCRmA/oOSCtKlr0S4gH
-	jktCQF5BkGjEi7DeyesW9hlBK43omnN8HRoomiVope0re2ZDb5oebgxtnjBZ1w==
-Received: from localhost (gaia.codewreck.org [local])
-	by gaia.codewreck.org (OpenSMTPD) with ESMTPA id 326c0bf4;
-	Sun, 13 Sep 2026 09:52:05 +0000 (UTC)
-Date: Sun, 13 Sep 2026 18:51:50 +0900
-From: Dominique Martinet <asmadeus@codewreck.org>
-To: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
-	Rosen Penev <rosenp@gmail.com>
-Cc: v9fs@lists.linux.dev, Eric Van Hensbergen <ericvh@kernel.org>,
-	Latchesar Ionkov <lucho@ionkov.net>,
-	Christian Schoenebeck <linux_oss@crudebyte.com>,
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] 9p/xen: Use flexible array for data rings
-Message-ID: <aqZyNoWsZp9mvrN9@codewreck.org>
-References: <20260519015739.634423-1-rosenp@gmail.com>
- <147ee577-8a72-407c-b332-45dda9f153b3@suse.com>
+	dkim=pass (1024-bit key) header.d=minlexx.ru header.i=@minlexx.ru header.b="YI4avdcQ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=minlexx.ru;
+	s=dkim; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:References:
+	Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=1kSaukhH+aq/s3s0///qjM3E4iFd6eKQKLQRVCZexAM=; b=YI4avdcQ3bpefrDNPXxoYGAuZ9
+	+SVYeimN8SOvPLapzEXpWP5XcmzruB4l0r9ZukeSPa/rwiag/YevcW9b2tgh6yx1VZdrb1BJZpZ+y
+	gVWh2VPuOnjhdNSsenZmnS5qqzVe2hshIKi2C2UUSq7jIsIOBYFYXXvtuef0OuUDIccs=;
+Received: 
+	by sm24.hosting.reg.ru with esmtpsa (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(envelope-from <alexeymin@minlexx.ru>)
+	id 1x5guq-0000000Fei3-1Qpc;
+	Sun, 13 Sep 2026 12:54:29 +0300
+Message-ID: <ad3c2af3-f92d-4818-9c58-00ac04373503@minlexx.ru>
+Date: Sun, 13 Sep 2026 12:54:26 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 0/3] Add driver for Novatek NT35596S panel
+To: David Heidelberg <david@ixit.cz>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Alexey Minnekhanov <alexeymin@postmarketos.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, Molly Sophia <mollysophia379@gmail.com>,
+ Arnaud Ferraris <arnaud.ferraris@collabora.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+References: <20250913-nt35596s-v6-0-b5deb05e04af@ixit.cz>
+ <477ff72a-fe0b-4c23-8448-a0ec87c7e039@oss.qualcomm.com>
+ <2e2cdb59-1b0e-435e-917a-0490fad29879@ixit.cz>
+Content-Language: en-US
+From: Alexey Minnekhanov <alexeymin@minlexx.ru>
+In-Reply-To: <2e2cdb59-1b0e-435e-917a-0490fad29879@ixit.cz>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <147ee577-8a72-407c-b332-45dda9f153b3@suse.com>
 
-Jürgen Groß wrote on Wed, May 27, 2026 at 07:39:07AM +0200:
-> On 19.05.26 03:57, Rosen Penev wrote:
-> > Store the fixed set of Xen 9p data rings in the frontend private
-> > allocation instead of allocating a separate rings array.
-> > 
-> > This keeps the data ring storage tied to the frontend lifetime and
-> > simplifies the allocation and cleanup paths.
-> > 
-> > Assisted-by: Codex:GPT-5.5
-> > Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> > ---
-> >   net/9p/trans_xen.c | 68 ++++++++++++++++++++--------------------------
-> >   1 file changed, 30 insertions(+), 38 deletions(-)
-> > 
-> > diff --git a/net/9p/trans_xen.c b/net/9p/trans_xen.c
-> > index f9fb2db7a066..5a110d71d18c 100644
-> > --- a/net/9p/trans_xen.c
-> > +++ b/net/9p/trans_xen.c
-> > @@ -55,7 +55,7 @@ struct xen_9pfs_front_priv {
-> >   	char *tag;
-> >   	struct p9_client *client;
-> > -	struct xen_9pfs_dataring *rings;
-> > +	struct xen_9pfs_dataring rings[];
+On 11.09.2026 23:10, David Heidelberg wrote:
 > 
-> Any reason not to use rings[XEN_9PFS_NUM_RINGS] instead of a flex array?
+> X> Ok, I found out in the meantime that Alexey is working on refactoring
+> X> nt36672a, so we’ll coordinate. I’ll likely need to rebase this 
+> changeset on
+> X> top of the refactored nt36672a, or possibly move it into a separate 
+> driver.
+> X>
+> X> See https://github.com/sdm660-mainline/linux/pull/114/commits
+> 
+> I think it fits even more after refactoring. I hope Alexey will post the
+> refactorings soon.
+> 
+> I'm afraid Alexey didn't :) (+Cc)
+> 
+> David
+> 
+> P.S. I don't have the hardware so I don't want to do a risky changes.
+> 
 
-Rosen, do you intend to resend with this fixed number?
+The rework: https://patchwork.kernel.org/series/1163701/
 
-Given that's just a two line diff from your patch (just changing the
-type and keeping kzalloc_obj instead of kzalloc_flex) I can do it myself
-but I also don't have any direct merit from it, so if I don't hear back
-I'll forget about this
-(unless Jürgen says he actually read the whole diff and it's worth
-taking for simplification, I don't have time...)
+But there will be at least v2, I'm feeling it..
 
-Thanks,
--- 
-Dominique Martinet | Asmadeus
+--
+Regards,
+Alexey Minnekhanov
