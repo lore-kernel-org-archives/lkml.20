@@ -1,103 +1,118 @@
-Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5F66274B39
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 14:10:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.210.214.84
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0D6F37B032;
+	Sun, 13 Sep 2026 14:11:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789308620; cv=none; b=eS+IxjikE0z95wYrvwxmayedkxv+/8koBnVcvcQb5efsUeF5mLGUcibDxLlQhVYsgkdqUMireycRM1fHLsQVjKtsBBLiCvlQH6csGDTPn4m7FcpTIHr9vlT3wTqgFzGShTqWBwgkeupf44h93uAzpX4Tclbt+nIX3auu3htTfHo=
+	t=1789308713; cv=none; b=mpA+pELk7/ZL4dbVj9l69Y0zl1fWbPbIBNMyDHZ7hiOi9ZIBkbGtMIyAqRXewF+NVr50VCxAa2axaZ1Jv+xdE+As6r9/zNQQiXu8k4HNOy1bJl+WzJJvPsLxsFTb3ekvvztbS2KV64/d/NdgQ2vns3U+8H+HT1DvaTqkXk7DNiw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789308620; c=relaxed/simple;
-	bh=Kb3/g4LT6MAUmW+CxG6LzjSrSC29LS7/vliWJBavRh8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=spGkT2I5bBpCaJ6GH+bgNkY0n8Mp8CG6X5zuJSdqt67r4ZIpohqBFbywmYuHB2GLJmvEa/CzvuRtsT5oosbCCeJLcChWZgwiJrm+Zwsh2jDTxB0Ns+tF+1WNMcqd50UXf2VHUYSg4xeYdh9qkNFLGNQYDRLWr4d6MbNOdBNHXck=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org; spf=pass smtp.mailfrom=codewreck.org; dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b=i+J11+5M; arc=none smtp.client-ip=62.210.214.84
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
+	s=arc-20240116; t=1789308713; c=relaxed/simple;
+	bh=bu6Rg4YrHsSRCyWKswA27ChvB4JUjj0FSNNhXejMwUY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EKIPbejkLDO2WI6jM+Y1nx5pg9HkIT/kdU4DN7cI3cu6mYDHC2RDUAB/OaKSRGtQQ0Us1FDRc608wxz2OSpbxZBIaXnCRtuMI1tYYp2cT020kgOhMiRDZuHFxm4YctJ1MslBeyOgjxNgYQWPz9OATopOn/tdDlnU0uv9mW4zkWw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Ou5bgNqT; arc=none smtp.client-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b="i+J11+5M"
-Received: from gaia.codewreck.org (localhost [127.0.0.1])
-	by submarine.notk.org (Postfix) with ESMTPS id 6F60F14C2D6;
-	Sun, 13 Sep 2026 16:10:14 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
-	s=2; t=1789308616;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=sziN5kHesZK0cgNCgNhSjvXI89zJwF9PE0JKRZ7sM1Q=;
-	b=i+J11+5MhbjV4KmDSPlzNi5XgiR+yvHrShtsh/Absxe+FxkEqXTNB/C0NlXjOsW8w9YntZ
-	V8njFfCRO+8yTs1Zaj7O9l/SiFJnAwB7ORL5U1D7WlJdJ5xj5DNAPQ3VEmSe9fpI6JxzPI
-	PqHu+pg8XEGYXaWokzoC9pjicqpwwSohYaHBbla2GgGBpP6R2PhCtdZKORReFqs5p9q1Gs
-	oEiioqbrecO6PWIOl8t+GoMP3sQvKm3llU382P3w1IdSt4a1fm1WcAHrhZcLqUvwwsEcCx
-	tlVEZBg3Gcu2XZLAd2j2D9VEt3NlzxMS0qkjPkAGmidecxVSnDd1hAJf62MsNA==
-Received: from localhost (gaia.codewreck.org [local])
-	by gaia.codewreck.org (OpenSMTPD) with ESMTPA id a8ed9073;
-	Sun, 13 Sep 2026 14:10:12 +0000 (UTC)
-Date: Sun, 13 Sep 2026 23:09:57 +0900
-From: Dominique Martinet <asmadeus@codewreck.org>
-To: skvarlamatus@gmail.com
-Cc: ericvh@kernel.org, lucho@ionkov.net, linux_oss@crudebyte.com,
-	stefanha@redhat.com, v9fs@lists.linux.dev,
-	linux-kernel@vger.kernel.org, sgarzare@redhat.com
-Subject: Re: [PATCH v3] net/9p: add vsock transport
-Message-ID: <aqautUJPkTMvmIGU@codewreck.org>
-References: <20260709161741.15138-1-skvarlamatus@gmail.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Ou5bgNqT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=xP
+	trID/RTdS+PtkN66L01jdWtKExkIpdFh9HL97GbN0=; b=Ou5bgNqTHh/SiGEGyX
+	5u7LtYqGtTzukHBAdERlcpbBcw5ir+2jKQGxaBdvOGfHGJTMhhJSZeMqmoScflLl
+	YFS/D6XL2HkDfFQBUuHIgoNde6PxrIZt1yGXEMuC5vKe7U33NhRT/iil/ZO51ixF
+	HpznYK/kRKI4+pq7wR0UqIS/Y=
+Received: from localhost (unknown [])
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wDnz43grqZqRCm2AQ--.65115S2;
+	Sun, 13 Sep 2026 22:10:41 +0800 (CST)
+From: Hui Su <sh_def@163.com>
+To: peterz@infradead.org
+Cc: mingo@redhat.com,
+	juri.lelli@redhat.com,
+	vincent.guittot@linaro.org,
+	dietmar.eggemann@arm.com,
+	shuah@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	Hui Su <sh_def@163.com>
+Subject: [PATCH v2 0/2] sched/core: Handle unavailable pointer hash in PR_SCHED_CORE_GET
+Date: Sun, 13 Sep 2026 23:10:38 +0900
+Message-ID: <20260913141040.2338964-1-sh_def@163.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260709161741.15138-1-skvarlamatus@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDnz43grqZqRCm2AQ--.65115S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7ZrW7Ar47Gw4DCr4kuw4UJwb_yoW8tw4xpF
+	Z3W398Kr4kKF1rGws7Jw4UXryrurs3CF4UWr4UJry7Aw4YvrW0vw1IkFW2qF1UCFWvqw4Y
+	kry2va9I9a4qy3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piCPfPUUUUU=
+X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbCwQIoh2qmruJIlwAA3z
 
-skvarlamatus@gmail.com wrote on Thu, Jul 09, 2026 at 06:17:41PM +0200:
-> From: Matus Skvarla <skvarlamatus@gmail.com>
-> 
-> Add vsock as a transport option for 9P client connections. This
-> allows mounting 9P filesystems over VM sockets without requiring TCP/IP
-> networking or additional userspace tools.
-> 
-> The implementation extends trans_fd.c with vsock support, reusing the
-> existing socket infrastructure. A new p9_fd_create_vsock() function
-> handles vsock connection setup by parsing the CID from the mount source,
-> creating an AF_VSOCK socket, and connecting to the specified endpoint.
-> All other transport operations (close, request, cancel) use the shared
-> fd transport implementation.
-> 
-> The privport mount option is not currently implemented for vsock and
-> returns -EOPNOTSUPP if specified.
-> 
-> Add CONFIG_NET_9P_VSOCK option that conditionally compiles vsock support
-> into 9pnet_fd.ko. This follows the pattern where socket-based transports
-> (TCP, Unix, vsock) share trans_fd.c, while specialized hardware transports
-> (virtio, xen, rdma) have dedicated files.
-> 
-> Usage:
->   mount -t 9p -o trans=vsock[,port=<port>] <CID> /mnt/point
-> 
-> Signed-off-by: Matus Skvarla <skvarlamatus@gmail.com>
-> Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
-> Acked-by: Stefano Garzarella <sgarzare@redhat.com>
+PR_SCHED_CORE_GET converts the internal core scheduling cookie to an
+opaque userspace value with ptr_to_hashval().
 
-Thanks for the v3
+When the pointer hash key is not initialized yet, ptr_to_hashval()
+returns -EBUSY without storing a hash. PR_SCHED_CORE_GET currently
+ignores this error and returns the zero-initialized id instead. Since
+cookie 0 denotes the default core scheduling cookie, this reports
+incorrect state to userspace.
 
-I'm mostly happy with the code, but I have a few high level questions
-before sending this to Linus (I'll probably take the patch for -next
-next week anyway):
-- I've looked at v1/v2 threads and I don't actually see any rationale
-explained: what's the benefit of this over e.g. virito or xen
-transports?
-Do you have/use an hypervisor that cannot do virito 9p (or virtfs) but
-has vsock or something like that?
-- On a similar topic, do you have an actual server that works with
-vsock?
-I've seen I can test with diod+socat[1], but I expect to see a real user
-ready if this is merged, not just "this can work"
-[1] https://github.com/chaos/diod/issues/148
+Propagate the hashing error and make the scheduler selftest retry the
+transient EBUSY. Do not wait for RNG initialization in
+PR_SCHED_CORE_GET; ptr_to_hashval() already reports an unavailable
+pointer hash key as -EBUSY, so propagate that condition through the
+prctl interface.
+
+Testing on x86_64:
+
+  - An entropy-starved early-boot QEMU reproducer observed on the
+    unfixed kernel:
+
+        CREATE ret=0 errno=0 (Success)
+        GET ret=0 errno=0 (Success) cookie=0x0000000000000000
+
+    With patch 1, the same probe returned:
+
+        GET ret=-1 errno=16 (Device or resource busy)
+
+  - The selftest built successfully with:
+
+        make -C tools/testing/selftests/sched -j12
+
+  - With PR_SCHED_CORE_GET fault-injected to return EBUSY, the v1
+    selftest continued evaluating cookie assertions using the error
+    sentinel and finished with 5 failures. The v2 selftest instead
+    aborted without evaluating cookie assertions after the failed GET.
+
+  - The v2 selftest passed with normal random initialization:
+    SUCCESS !!!
+
+Changes since v1:
+- Patch 1 is unchanged.
+- Keep the PR_SCHED_CORE_GET status separate from the returned cookie.
+- Abort after an unrecoverable or timed-out GET instead of comparing an
+  error sentinel as a valid cookie.
+- Return cookie values directly from the fatal error helper to keep the
+  selftest comparisons compact.
+- Avoid sleeping after the final retry.
+- Rebased onto 2f0c1cf72f46.
+
+v1: https://lore.kernel.org/all/20260913063439.1513107-1-sh_def@163.com/
+
+Hui Su (2):
+  sched/core: Propagate pointer hash errors from PR_SCHED_CORE_GET
+  selftests/sched: Retry PR_SCHED_CORE_GET on EBUSY
+
+ kernel/sched/core_sched.c                     |  5 +-
+ tools/testing/selftests/sched/cs_prctl_test.c | 93 +++++++++++++------
+ 2 files changed, 66 insertions(+), 32 deletions(-)
 
 
-Thanks,
+base-commit: 2f0c1cf72f4682178506f513bbf015e591b1aa4a
 -- 
-Dominique Martinet | Asmadeus
+2.55.0
+
