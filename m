@@ -1,90 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5DBA35CB7C;
-	Sun, 13 Sep 2026 23:23:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9114E381E91
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 23:23:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789341796; cv=none; b=bXSGdlw2yivvMDjxXaeoX8KZaJXjmFJayiqtkH+IM0St/1IsYx4Zc/Fwkj1KLNuuFZMaHIoeUNa715lUXqLnYxBkCrn9dElpUPCN9XboYbvmIPYcaz48i+JGvq3o0PVW0Th3td4jAD4cV4ClxmUPHGAHzJreO1ZXAbtYxc4DaKM=
+	t=1789341827; cv=none; b=m0CWk5d1DUzAWqyduHgSyXmi3Si0QiS94C/fhQMsuv3nhKvPS+WOprW7JUNju5MXvY4ebTybCn068QxpiLBWqc4bPAEhByfDmRI3dA6BlPcNcCdJC/RDHe1hqTobDpoVV321x4tBwFIre2hFXhCM8QrYCD+j1+Vw8WdwgEV3+eI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789341796; c=relaxed/simple;
-	bh=3LgRdcDBtuvRVn6jv+Fj093ma+ZGtOjE8hhZGZOE5yM=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=sBaGFfofhndjzCEAmSEKI6EVyOtGV6ebCv883vgjzNPYVeZIPce4KlBAAmmBZZPGaV7sJaeR3f2S0ymN89fnGazXYrgHgnOh0u/H8POrXf4irTV9MluRvzE7g/wxyUksoaTQVQIDqg2DrZkvns+oFPeIFU1qcry3R+Zput1z734=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I4h37L6a; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789341827; c=relaxed/simple;
+	bh=KDmy2dGCJg8//ksyxvQSffLefxVqsmhjbo7jgWJqHQM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=euxLeN5A9FcVvzPKH1f4SrUgd+m1EWK/gwvt5Ch55vano8OCvCIypGsqEFf/uT2rjOx9U9tFFqwv6lsG21zY5tXwjDy4op6j/3ZxPhF4C2aoF5dLfTfc42WDzRp2oj0HgrhheQ8pBHE508iX5W+anZZWgz6j0WooaUOnOroIJKE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=XH8J4nGh; arc=none smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I4h37L6a"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 741C91F000FF;
-	Sun, 13 Sep 2026 23:23:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789341794;
-	bh=p7Jh7SO9wd9t9gNYIvv1yX3UJ7ftW6owHjp7R3BD+Cw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=I4h37L6ajEGf9JvIQHt8zhJCHUc5x/Y8BGvp7He1J2RrwNKDXDKycJFW1VT6z0EWy
-	 AMi4vjpUQIULb+2KRJ7AnoayVhBomW9ce2vxIKwhK1JiUcJxFZAGpDK0iQsM+qAGLq
-	 JvbCu+b3Mfu3IQT63MUFAomhtNlf0WY2+najnkTUiOXt40riwzbeNo+ZvUPcIjm6VO
-	 TsqKIyzJEO6P4ylpM6kWPbXuXSadAvWJ1rn4Yuok7zeGUSRXGpug7f6yaFQbajQ7TF
-	 ViN94j1TC7tgEmhNhEMwdWA+6IA7gWy8TJi7FOsUG3Gr17ODWw74vTe1d+cP/wez1x
-	 8dyLcdPPFnqpA==
-From: Mark Brown <broonie@kernel.org>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
- patches@opensource.cirrus.com
-In-Reply-To: <20260910121047.1592541-1-rf@opensource.cirrus.com>
-References: <20260910121047.1592541-1-rf@opensource.cirrus.com>
-Subject: Re: [PATCH] ASoC: wm_adsp: Firmware search progress log should not
- look like an error
-Message-Id: <178934177639.1239410.17559554473351119253.b4-ty@b4>
-Date: Mon, 14 Sep 2026 00:22:56 +0100
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="XH8J4nGh"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a98dfb8002so1566866a12.2
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 16:23:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linux-foundation.org; s=google; t=1789341823; x=1789946623; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=C5c33q0LYzdrtA+GLhWUplu3rdzdnxNlZRC2TPZ/RD4=;
+        b=XH8J4nGhHJgK4MBJnnjCUpb57+g1XnYNWoZOsfwXC8hDa95FGvWKR+gTuYikbTcTTT
+         l4U0gSYMfKl+5+Kb8YcMQcjsYvlPYnVjiptjQ1q/dYhl036ltXC7ui9tkrkhXsHak4R0
+         tibHcK7csQVX3+9aU5Z0q3PdPx8sLs16iR8bA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789341823; x=1789946623;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=C5c33q0LYzdrtA+GLhWUplu3rdzdnxNlZRC2TPZ/RD4=;
+        b=UOShTuo0DvRGGUT5upo0KxSrjONKYKPnqOEeOR6G8gitBE5WGIWKN2dnaoaYLTiApm
+         Ac8NKOzg4pSPr/KOF6wFBAXAeV+UQ19RQFAiSTMjKbbuH7CBLXSyDcTi+MzHBH9eoaJC
+         jnyi+ap/K/xF59tsoOumKHBngpOv/mzIqB5tJaS1bifvuehRhOY3bCeQJTQz9tiCthRM
+         GTe6W4Uw98ScYSIaMWJ6UdYsa7JFB6drhrwPAFbE3onaY+KKHgjWzmLkg/9p/HwXFzdK
+         vIPcOZTDCJ32t0iP3mtJXZ5/6j28hF3t7aQ3FPs4MDmL618NwGM9Y68W2UVXP0Dhor8l
+         ioKQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxIvWioAtOg9VGvmcPJJvd+So4fKzV1/RhJo/giqk5mHbgvD4ek0JnkVtMEuvcKxyFSuLSkiOfAH5jBzJI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kRm9bBA2KnyOFMueZ2nzok6X904S1llOTW5IaDohb1GJ+gUYFY
+	ijm7B0B9HqZkUa6wAfTlGoTqJzs/SXeHDfFfYs0+oxVsyQxKe8R5KMrA8kay+TGqgwAEncAhDoT
+	i7A5z3Ao=
+X-Gm-Gg: AYBFou1Mf6F7LSTRjIqMF7RO4rxq9bnukyZVqL0isTL/Lpw5ibYdMlpcPaCMIlVPs0s
+	A9vPZGNQhWHB5OB7t98NruuKRrbOx+9hCQxD7rmjDbwIfYiogWmhEQt/Q7s/B/26sk5ZhVY1kQp
+	wyZD1ZAqcSnOgPDpXoieIOegChChuvkYKy9luOSjKRAs8MW/58GcQzrL4Hj7hrEkT6yxGibKQkv
+	t/N30GApu2lxJRZFnQWd0kNXp7NOxPPHcUxs79uuVteuA6+gdNgKyf7uvNCqqrK6WMLdTPeur4n
+	jdseS6b/5Yo4D8pxUbqJ2QpOkx10nsLAdRtdafmOJHy9GaJV0IhwUqTt/tLO9TyOl5TxFV/n6vR
+	jFroEMoba4FPB6ls+pXun1SXd9Ns14CXptMRPJ9hdnyoCM/vMXQa9MbfZXaDsG8f6TVu0+AhVge
+	R/fNIXrDPR0f6PCcvIiJ9dgFs6Th00ds/1FfqFf0aL3U/1qrNNXPv3g1WCCTzOfP6KDa1ncUzSB
+	B12zimnxV6hFOfyYrghSjaJ0hjTwINlLb6v80hBcG+gYSt+
+X-Received: by 2002:a05:6402:2b9a:b0:6a9:d0dc:d09f with SMTP id 4fb4d7f45d1cf-6a9f622369emr53787a12.9.1789341822605;
+        Sun, 13 Sep 2026 16:23:42 -0700 (PDT)
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com. [74.125.228.76])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a9b5968cf3sm3321350a12.31.2026.09.13.16.23.42
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 13 Sep 2026 16:23:42 -0700 (PDT)
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a605844571so1529460a12.3
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 16:23:42 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwIMaeVphwqSc5Qf7F+WYFFToO8Y3rWRmS9W0vSCjAauAmwbGYyaWPtzZb3vmUBX5yz2nlFPHeyGn9YONc=@vger.kernel.org
+X-Received: by 2002:a05:6402:1d51:b0:6a9:a33b:bb8f with SMTP id
+ 4fb4d7f45d1cf-6a9f63f3aacmr45612a12.41.1789341822086; Sun, 13 Sep 2026
+ 16:23:42 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1113; i=broonie@kernel.org;
- h=from:subject:message-id; bh=3LgRdcDBtuvRVn6jv+Fj093ma+ZGtOjE8hhZGZOE5yM=;
- b=owGbwMvMwMWocq27KDak/QLjabUkhqzlBrHyTgU57x8GSXqtXJ8ZwRu655ZItuWZ6CoNroj/O
- /4K+Gp1MhqzMDByMciKKbKsfZaxKj1cYuv8R/NfwQxiZQKZwsDFKQAT6VvN/j+Is1fHS8Hv/w2r
- U2VxjsVq+qVzbsdN9tgfpnF9peKPN/5v1tvPPuggaHj2gHL3a6NHHpEzWWwuuB6yeJnkZKD2ySh
- Hx/DcXeXXWr8to3cq6requATpVghGy86IZLIK5n+mK7dxkdaD89u4Nr/8sG59//EKEbVNtTHO/A
- 63zwnF6+7cxzV30r4EGaFGC8UnvIUXmX7sVS+zLlopkemyyn2DrJrs+QdK2Qcizpsa6u2Pza4Sd
- vyaK2rPGnf13sE+Aabww1lmq97XuAqfSft94tantFOMFjs0j9bNLBBdIzdp7dHA169v3Zdk54/b
- tLx0vqRirv8Kp73lTyOe/Y/MnRdd+JupWm3GxmvSp5l7AA==
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+References: <20260913225356.1033865-1-dave.hansen@linux.intel.com> <CAHk-=wiSPMB4tZB4mngU5wUJ3qJj5HwKc7x2E1dj4YnxCGadeQ@mail.gmail.com>
+In-Reply-To: <CAHk-=wiSPMB4tZB4mngU5wUJ3qJj5HwKc7x2E1dj4YnxCGadeQ@mail.gmail.com>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Sun, 13 Sep 2026 16:23:25 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wiV82JxUZmDVACW6qzUFhFq6YZDxNMO2n2DDBJNaKm8bA@mail.gmail.com>
+X-Gm-Features: AcwNN1Whbjw6pWiZGIn0jVKlw60YB0lgO85PQOe0s6VIFpqjER0VIKAzYB0Sbec
+Message-ID: <CAHk-=wiV82JxUZmDVACW6qzUFhFq6YZDxNMO2n2DDBJNaKm8bA@mail.gmail.com>
+Subject: Re: [GIT PULL] x86/urgent for 7.4-rc4
+To: Dave Hansen <dave.hansen@linux.intel.com>
+Cc: x86@kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, 10 Sep 2026 13:10:46 +0100, Richard Fitzgerald wrote:
-> ASoC: wm_adsp: Firmware search progress log should not look like an error
+On Sun, 13 Sept 2026 at 16:10, Linus Torvalds
+<torvalds@linux-foundation.org> wrote:
+>
+> That explanation rewards horribly badly.
 
-Applied to
+*reads*. Apparently my MUA has started its auto-correct journey again
+and I need to turn it off again.
 
-   local tree v7.3-rc3
+That's my story, and I'm sticking to it. No way am I just incompetent
+with a keyboard and can't spel wroth a dman.
 
-Thanks!
-
-[1/1] ASoC: wm_adsp: Firmware search progress log should not look like an error
-      commit: 77495d22e8a4dcfcbf404de2dd51f8279b782bb8
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+            Linus
