@@ -1,163 +1,143 @@
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.mindbit.ro (xs1.mindbit.ro [80.86.107.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDF7134A78F
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 19:48:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BED62BE7A7;
+	Sun, 13 Sep 2026 19:53:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.86.107.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789328888; cv=none; b=oKwCnNYd2tdFcuuED3Bc4dnJMUJlnhPRx16X9txuiLbmSNo7VNbJ2ehCvFoued0+raQ4iK0DiUwBomcr5LyNartOrRgsTV9I7z/MCKAyWmibn03JpIRerNGTtGX69jYRbtN5RvfmUHx5C5PMWUbJVAP/lKLk6jleBuwmiC2h+hA=
+	t=1789329211; cv=none; b=JtOCbBQrxw3zs3eID3DJ3G9VcWoLQW/iwFtvsZ2wvJrKLQDQUEsFph1sAtr9nETMgpH6o61owDUdKA1OsPnECFhE6k4TggcT5XK40Cbi+UIV9L6lsvQrYMLl2KYSiiI1dfwVsrxJPNIrxrAMuoWhPLyNUivV0EBJ6+fq4/KFStY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789328888; c=relaxed/simple;
-	bh=uHJDsq/wBjwWq41YLq/2UUe4aRKRnQW+SBgOa+O8/xU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=myeheZhKZIwaoPJRgPspTaes/LMTEiAkC2MgYqWR4iY7L2uuBOT+Pc6yQGK5QXl82cKuB3w9qr5u5rLCUmtcmfC/AE90reE9Kipzl+W+5CipSKGhycKFi6aUGFVprJMD8IX6qs8Prju4FM+SdwOjzPo9EkdU5FgfVCT4cqt5QsM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V1BtDy79; arc=none smtp.client-ip=209.85.216.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789329211; c=relaxed/simple;
+	bh=T0pqFukExVh823QT6gZ5rJ8J4IOF8bD800cZPU+R1TI=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=arDFLn3SfUHPvqUyIXM093eOtY0NlnF+6TQJh62HjB8oXk6cMvh7695UGcaK/BrdtdF3ccIMiRsNapeVWqK961idC3v2dy7XS9GXAQXYcAA8T9L0COP/G3D4C7q3ChOhWjbqnKJzp2aUjzpaI8D3tYW+YfIfTSiiUynuC4OtbQQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net; spf=pass smtp.mailfrom=rendec.net; dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b=bPrxv5Zx; arc=none smtp.client-ip=80.86.107.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rendec.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V1BtDy79"
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-381b831d535so4962230a91.0
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 12:48:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789328886; x=1789933686; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8sFKNO7az1ksH2fsKhgDozSxLoIS44WxW5mHIfc4ieo=;
-        b=V1BtDy79m4fRHgCAppGcsGyf3fGyIKGU7n70XcUA75u/CXagiM9sj1vEPdmDrFLa5X
-         oi7bqQP5CJg7/7XB4NzZB/MSjeYJCgcH1sjnAAi0X6Sw6Wyr0i+p3sacgGhafmeUXtqh
-         1JPEOm8OBOINU/bJTatQt1peAo7E3KgnHktRLvrDLljF/2F9p0L06fWT0mdrDev6CBRd
-         jLIv7x6VSJKgpQqRxGXYIP3cZJTIrZuL5O3aNNORkydyGMMfM0j2yBrmbNB7GPweBCeB
-         6X/02qQK6N5+3t7Is7Pse7nHb5pK8e+bKoiSGc6+ROgLBftqjGwi+9+2ckIxEjyIV9lt
-         I6IQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789328886; x=1789933686;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8sFKNO7az1ksH2fsKhgDozSxLoIS44WxW5mHIfc4ieo=;
-        b=UTNDClJyTqcSWGuu2Y4o6CsnHDvzFhcnTEh5IUXecesArrQ5jEfmlNG/M8zYSuGKKs
-         oaGC5OqTzYYkR648sA7EoBYjcsuNAr8ScSY805KznCICiMDxQhX7ze3mA7k/cag5mzot
-         +jGITBPHv/+F3SUc5wB5bopcKm7QBuRGLc2sLHzXnDl8pEc1FZb7b3IqGAa21taAfugZ
-         7uHC/Yfem6Weblz4pK29d8lnc7F6BpMJD3rFuywm3MYDjkNjlVOtq0HxrNQ17gXKaVZK
-         aZhLs3Ch3jQuDvah5sauoemJ/gLzECm2hJmgMBIlqjdyQQ0lecny7l2BOrWx/SLbJe7k
-         sxig==
-X-Forwarded-Encrypted: i=1; AKwUvBwz9b0n2UfCsXj7w8Zxe1/fMohISlY5tR6m0Z5NKSs2Dp3GNJ74baiQEJ1OSPu8K4yhkfSyrJZCYs/WWB4=@vger.kernel.org
-X-Gm-Message-State: AFuF++m18FeijLXjiG69v+dCH5wzx798zl/qYmZfYhD8q35rzJgSMLDx
-	qMgRsFptaqzHSyRxIFpLLhA8shT9Tyct1/8++IE4SdtXZAIRQ4bRsKvh
-X-Gm-Gg: AYBFou087yi8kbX36pSdzI8kqDgtgdTsAoxPCkuUCPiIt3hICUcGyE44ChWEikZwJe7
-	sKKvkKLmmI9U+RbpzMwwHNk57xr4c1RN3pFei4VBhH1fvY6UWNzyj4h62Ih6mg8lIMbfmrujlAI
-	yF8GsMPhFJaj2QTThSesz+SdA/b72WOys5f2WypYUBqVEvVE5IbsDSefMX3boebTfVkeMxQuXAu
-	5pWL6RP4VnXIiwvUcbddMqb/K96sKKNWKafQh954gcE77F3xy9hQQsqBXJVAfPOj0qRzFu9tpqS
-	B/RzdDDAHVDxCnKDxKLx6eFK3AOfuVSIPBAcKw5PCl2dHmCNSBuDsbkgRXIeD6fWQidcREwriQK
-	FKpLDwSi4bi2N2xKV1nXUg+cX/Legl6HY7HoEm0Th1dzXN8WAf18Ewy3fiMniyxEtXUZ7C5AEDR
-	A/3JrnJRXSHkMk6Fj25ZkF7B2OR61IQwiTJ0WoJh2tA9ak9nuOKflb8WOL+ZvZy2OwswW+Onvqn
-	dM4QSJ4XF3s7ZhF2z5QdpdYKtWgBaTgSQRYDHBzHG156F/a3muefRf0BWT51OaBO6n5NRDdjEDj
-	Ow/aXlRD/Wz0idbpcCVvkHnDn4pECfcTTvwrd0y/9XFhL5kb
-X-Received: by 2002:a17:90b:390d:b0:39b:370e:c807 with SMTP id 98e67ed59e1d1-39d9c1fcb7cmr24523582a91.17.1789328886230;
-        Sun, 13 Sep 2026 12:48:06 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e35])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39db996bde4sm10689651a91.7.2026.09.13.12.48.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 12:48:05 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: dmaengine@vger.kernel.org
-Cc: Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	linux-kernel@vger.kernel.org (open list),
-	linuxppc-dev@lists.ozlabs.org (open list:FREESCALE SOC DRIVERS),
-	linux-arm-kernel@lists.infradead.org (moderated list:FREESCALE SOC DRIVERS)
-Subject: [PATCHv2] dmaengine: bestcomm: make gen_bd init helpers static
-Date: Sun, 13 Sep 2026 12:48:04 -0700
-Message-ID: <20260913194804.39939-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b="bPrxv5Zx"
+Received: from dog.kanata.rendec.net (pool-174-112-193-187.cpe.net.cable.rogers.com [174.112.193.187])
+	by mail.mindbit.ro (Postfix) with ESMTPSA id B5817CD5BC;
+	Sun, 13 Sep 2026 22:53:23 +0300 (EEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.mindbit.ro B5817CD5BC
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rendec.net;
+	s=default; t=1789329207;
+	bh=OxeU5Su/M8erJsaUWOmS2EmM0zS643DtJmSk63z/Z00=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=bPrxv5ZxzllOQiy2krKFOjC+n45BHyruI8wXJWW2dWXRr4DcLu0qSRf6d6pHLDx2g
+	 jWcfuKvfm4R5fkihNP2bYAGlMPiEKu2EReiVm/sDrL/7gpXNRKBB7aWno9BxyE0PIx
+	 eJ2WBtrgtJF/6pZnjqFQwwsDO/KmzOaIx0fkVSU/CK9rK96UEIEpRCrZ3RBw/9RO7M
+	 dIG3X6gzczLJWO2ggvEASF+KnDy8M/wU/ZXNb4/e4nVlCj9JFDbH5mUjxdeheYhNPH
+	 IQWdrYEJBtqEOV1SW3KVrCuI7RGRLTeehLAl+p9Cvbyg6Rh5mmTzHhmbRZNO4iAJKh
+	 MCi83qnwm1Cog==
+Message-ID: <81f0bf10b41dff85872487ab68c750471b7c2f89.camel@rendec.net>
+Subject: Re: [PATCH v2 0/6] riscv: Make IPI_MAX visible and use it
+ consistently
+From: Radu Rendec <radu@rendec.net>
+To: Guo Ren <guoren@kernel.org>, Paul Walmsley <pjw@kernel.org>, Palmer
+ Dabbelt	 <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre
+ Ghiti	 <alex@ghiti.fr>, Daniel Lezcano <daniel.lezcano@kernel.org>, Thomas
+ Gleixner	 <tglx@kernel.org>, Anup Patel <anup@brainfault.org>, Tiffany Lin	
+ <tiffany.lin@mediatek.com>, Andrew-CT Chen <andrew-ct.chen@mediatek.com>, 
+ Yunfei Dong <yunfei.dong@mediatek.com>, Minghsiu Tsai
+ <minghsiu.tsai@mediatek.com>, Houlong Wei	 <houlong.wei@mediatek.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,  Matthias Brugger
+ <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>
+Cc: linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-mediatek@lists.infradead.org, "tip-bot2 for GUO Ren (XuanTie)"
+	 <tip-bot2@linutronix.de>, Nathan Chancellor <nathan@kernel.org>
+Date: Sun, 13 Sep 2026 15:53:22 -0400
+In-Reply-To: <20260911-ipi_max-v2-0-a77826ff189e@kernel.org>
+References: <20260911-ipi_max-v2-0-a77826ff189e@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-bcom_gen_bd_rx_init() and bcom_gen_bd_tx_init() are only called from
-the PSC wrapper functions in gen_bd.c, so make them static, drop
-their now-unneeded exports, and remove the corresponding header
-declarations.
+On Fri, 2026-09-11 at 03:27 +0000, Guo Ren wrote:
+> This series removes the implicit assumption that RISC-V supports exactly
+> eight IPI message types.
+>=20
+> Currently, the SBI, CLINT and ACLINT SSWI IPI providers use
+> BITS_PER_BYTE when sizing the generic IPI mux, while IMSIC carries a
+> separate IMSIC_NR_IPI definition set to 8. These values happen to match
+> IPI_MAX today, but neither is the proper source of truth for the number
+> of RISC-V IPI message types.
+>=20
+> Move enum ipi_message_type to asm/smp.h so IPI providers can use IPI_MAX
+> directly, then replace the BITS_PER_BYTE and IMSIC_NR_IPI uses with
+> IPI_MAX.
+>=20
+> This also makes adding future RISC-V IPI message types independent of
+> the current eight-entry assumption.
+>=20
+> A follow-up patch renames the MediaTek VPU mailbox terminator from
+> IPI_MAX to IPI_VPU_MAX. That token belongs to the VPU firmware IPI id
+> enum and should follow the same prefixed convention as IPI_VPU_INIT
+> (and SCP_IPI_MAX on the SCP side), instead of reusing the generic
+> IPI_MAX name.
+>=20
+> ---
+> GUO Ren (XuanTie) (4):
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clocksource: clint: Use IPI_MAX for IPI mu=
+xing
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 irqchip/aclint-sswi: Use IPI_MAX for IPI m=
+uxing
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 irqchip/imsic: Use IPI_MAX instead of IMSI=
+C_NR_IPI
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 media: mtk-vpu: rename IPI_MAX to IPI_VPU_=
+MAX
+>=20
+> tip-bot2 for GUO Ren (XuanTie) (2):
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 riscv: smp: Move enum ipi_message_type to =
+asm/smp.h
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 riscv: sbi: Use IPI_MAX for SBI IPI muxing
 
-These had use before commit 7d3ee229ea51
-("powerpc: Drop MPC5200 LocalPlus bus FIFO driver")
+I am confused. Thomas merged your entire v1 series a week before (see
+the individual replies from=C2=A0tip-bot2@linutronix.de). Why are you
+sending v2?
 
-Assisted-by: LLM
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- v2: mention driver removal that made them unused.
- drivers/dma/bestcomm/gen_bd.c       | 6 ++----
- include/linux/fsl/bestcomm/gen_bd.h | 8 --------
- 2 files changed, 2 insertions(+), 12 deletions(-)
+Patch 6 was not included in v1 (but it's clearly related), so perhaps
+you meant to send only this one as a separate patch?
 
-diff --git a/drivers/dma/bestcomm/gen_bd.c b/drivers/dma/bestcomm/gen_bd.c
-index 61b5746e1a97..b5093f7445cb 100644
---- a/drivers/dma/bestcomm/gen_bd.c
-+++ b/drivers/dma/bestcomm/gen_bd.c
-@@ -81,7 +81,7 @@ struct bcom_gen_bd_priv {
- /* Task support code                                                        */
- /* ======================================================================== */
- 
--struct bcom_task *
-+static struct bcom_task *
- bcom_gen_bd_rx_init(int queue_len, phys_addr_t fifo,
- 			int initiator, int ipr, int maxbufsize)
- {
-@@ -108,7 +108,6 @@ bcom_gen_bd_rx_init(int queue_len, phys_addr_t fifo,
- 
- 	return tsk;
- }
--EXPORT_SYMBOL_GPL(bcom_gen_bd_rx_init);
- 
- int
- bcom_gen_bd_rx_reset(struct bcom_task *tsk)
-@@ -166,7 +165,7 @@ bcom_gen_bd_rx_release(struct bcom_task *tsk)
- EXPORT_SYMBOL_GPL(bcom_gen_bd_rx_release);
- 
- 
--extern struct bcom_task *
-+static struct bcom_task *
- bcom_gen_bd_tx_init(int queue_len, phys_addr_t fifo,
- 			int initiator, int ipr)
- {
-@@ -192,7 +191,6 @@ bcom_gen_bd_tx_init(int queue_len, phys_addr_t fifo,
- 
- 	return tsk;
- }
--EXPORT_SYMBOL_GPL(bcom_gen_bd_tx_init);
- 
- int
- bcom_gen_bd_tx_reset(struct bcom_task *tsk)
-diff --git a/include/linux/fsl/bestcomm/gen_bd.h b/include/linux/fsl/bestcomm/gen_bd.h
-index aeb312a1cd00..7253d308d77a 100644
---- a/include/linux/fsl/bestcomm/gen_bd.h
-+++ b/include/linux/fsl/bestcomm/gen_bd.h
-@@ -16,10 +16,6 @@ struct bcom_gen_bd {
- };
- 
- 
--extern struct bcom_task *
--bcom_gen_bd_rx_init(int queue_len, phys_addr_t fifo,
--			int initiator, int ipr, int maxbufsize);
--
- extern int
- bcom_gen_bd_rx_reset(struct bcom_task *tsk);
- 
-@@ -27,10 +23,6 @@ extern void
- bcom_gen_bd_rx_release(struct bcom_task *tsk);
- 
- 
--extern struct bcom_task *
--bcom_gen_bd_tx_init(int queue_len, phys_addr_t fifo,
--			int initiator, int ipr);
--
- extern int
- bcom_gen_bd_tx_reset(struct bcom_task *tsk);
- 
--- 
-2.55.0
+Also:
+ * The cover letter should include a changelog, indicating what changes
+   were made in each version compared to the previous one.
+ * Patches 1 and 2 carry a "From:" tag that attributes authorship to
+   tip-bot2, which is wrong (if these patches were to be applied).
 
+>=20
+> =C2=A0arch/riscv/include/asm/smp.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 12 ++++++=
+++++++
+> =C2=A0arch/riscv/kernel/sbi-ipi.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=
+=A0 4 ++--
+> =C2=A0arch/riscv/kernel/smp.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 | 12 ------------
+> =C2=A0drivers/clocksource/timer-clint.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 4 ++--
+> =C2=A0drivers/irqchip/irq-aclint-sswi.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 4 ++--
+> =C2=A0drivers/irqchip/irq-riscv-imsic-early.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 |=C2=A0 4 ++--
+> =C2=A0drivers/irqchip/irq-riscv-imsic-state.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 |=C2=A0 1 -
+> =C2=A0drivers/media/platform/mediatek/vpu/mtk_vpu.c | 12 ++++++------
+> =C2=A0drivers/media/platform/mediatek/vpu/mtk_vpu.h |=C2=A0 4 ++--
+> =C2=A09 files changed, 28 insertions(+), 29 deletions(-)
+> ---
+> base-commit: 08df884136f1c1197bab2a27814404fd329d9aac
+> change-id: 20260911-ipi_max-ff71eeadf6fd
+>=20
+> Best regards,
+> --=C2=A0=20
+> GUO Ren (XuanTie) <guoren@kernel.org>
