@@ -1,96 +1,143 @@
-Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com [209.85.208.172])
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3644D384CF2
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 03:32:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4967356773
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 03:36:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789270368; cv=none; b=OEerz2E4qnzFmmNmfWhwN1M45QPK98fxI93A2fDJsxxvt6LPCJgn2kCzcMU5vCLcFMmL0Mr28S9aJpeKYZ9qO7c/CCyE6HG/udxdALSaNLqA+0sLLQrj1Z3wN2GVBd4v1/e+vXP4D06YwvvRwefDXd+XVj9yxcZP4Qm2AlHoOy0=
+	t=1789270598; cv=none; b=DS5x+4PWrY2gdUUbZ9ieKYRDqoabXERLoCVHpHPXkIfhsN2ijNnBrIRrS2zg4WZIvAK320If4wDnBfNQw5WXeE2cgbMelKDmArftzO1IiiYZunUzipApfhMt/9h8p+RVT1PZ3VR7jmP7/O4EU7JYiqDaeuUQrBM4iBxipE1Coys=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789270368; c=relaxed/simple;
-	bh=BD9OGmpZ3+fJbRvqNTy8brT1EJQoXKQTGDFIJKhBtpA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FET5hhvQi/E07/pvZTSQFXhC+aRspAIs4gMRcFspZcsuJx2dwxoc4HzoRTHePVYKeH/an9ujQq3HYWttkKGq/L062m0w/fFGGiXNiLq7bDm1NUDGdvP2baRiIhJ9vHEYFtpah7XZedYLQcy/YI/jhUVctgNen7Iai0VDtBrgL3I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ie/eSgiE; arc=none smtp.client-ip=209.85.208.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789270598; c=relaxed/simple;
+	bh=sxrD6dFoKrupjfKZa6sGixEbZfg4udNopod7mJ51Zak=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=h5EmpAPjLydSvk99dsKY1oCt8UK1W/lmrkwd4bOdZUQx7KKSRKsKucG/JiHz5mgHq5YL6chsVpxdwPBiErh9GHoZyTpCRzimJoX6HqBU2Bf8JjwMXvX35RZm6XxjcDtqabfhMuLh267Xlug7LOrP4FghJn1wXUrNApguWJzSOUM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=JKo12CYH; arc=none smtp.client-ip=209.85.216.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ie/eSgiE"
-Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-3a1e9f55e03so21163171fa.1
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 20:32:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="JKo12CYH"
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38e8fee6af3so388331a91.1
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 20:36:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789270365; x=1789875165; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eUxnSrKVNmwG9e50AFcOowKn93UYykTt4+mQ+2qxLTU=;
-        b=ie/eSgiE8BtGZ37xl0C3cQMpi3wy/3wgt3prtU3UU1CmBHfF9oiXmm91fLJWFuvC3A
-         dA7rwZrineOI/k4sqPZfhgQkB7fGO1/FDCrdnPJPNzF+vIYDn9ApMCk8oN9qG9ap72cT
-         Jk/44EBmE5S5IxtSgd8sJdTu9OiAqJ5hH3rFc43SrRzIhNCY2N3T7gE1WGlPaaDAZgbl
-         jPJPIX+wUSBAvduaBekXn/GEE1QZnIJGY+o4H4L6YLbl05nQZspzfOSA9BMltgmN/3Gs
-         7GDepsWxqVZIRjrezMdYgNPmjwUa1BOwoEnA19eL/EvSV88olRYaGWhkjoaMG9uZN1yO
-         YwsA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789270365; x=1789875165;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+        d=google.com; s=20251104; t=1789270595; x=1789875395; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eUxnSrKVNmwG9e50AFcOowKn93UYykTt4+mQ+2qxLTU=;
-        b=eB7zd+bYk9tWylVEakwo7IyUu0oHLyPFB+ODE9VWGOSC77S0sOKOQXCLc8cDrE0mBo
-         /fGCWxm8EtEeZ2p9KjcX6AQjepSAz1SFjfSPXk4bvNpVRC/FkgVYKLNANXnQBLgC9Hhp
-         PMUgOrvIciXOe/WN6p80+Q9yUJF2xwMDDXOc4bnjsiWRdav10PBIFx3WJRsSibg4jKSD
-         GcnEuroTPnxbwglRVJPcnsZLOyU3Pu7d6yIhzanM9aIqvkTvyZ3ARt5B/N67Ty8FH/ft
-         UiRSkWlULcyj4BDSgiVMWNum/8X0a9LCL5bw6KJVmhgHMXuC+QtVknBuHq1VBZNGOrgo
-         TiZw==
-X-Forwarded-Encrypted: i=1; AKwUvBwhhuh2QJR5c6TUsFoqp/nSn1G3bMC7Epmdt1+ABoQGmvgBCleXkScmzViQb7dYQXMiT/7bk3mEIk5GtT0=@vger.kernel.org
-X-Gm-Message-State: AFuF++k+ndoYlFko8qgZ4E9CGSK7uMKMAqKz16Zj5VxXMEnr2MCWyXRJ
-	vECoiXCpYdPvQfFbUh92ozfdqoIHNqGG197WNAg6qxOb9k1F1bWmOU0l
-X-Gm-Gg: AYBFou0WRPqPrNr1OamFwvIUYsnCeiIUbSasUZNziWw1hwudwHYErRIfTYL6HRh0eu7
-	HLYqIUYa7iKMHl8/oBCkt8c2hBhqmxyUnA6IS2u21La/JSUxjN3vgE4YgNgj9SXBFTvWB3WmTxZ
-	6tSip7xUa6KY4XBBUodXt1kKogyb5g3rJNc6j62EZZc42Yu4LC0aqmUER1K3JpO/Ig/cWsco+C+
-	Hm/ofnfUpcpWCpDkMvJCalLaRaoCt098LnwYOq2US08fOOtdE2rRLZgot7L4dXMa9ybqiMum+80
-	Xc3+0D19T7QQb0bF7w2Al7Mt43DnQDmm2w8JReqHXiOBKjtvHcC8khKDeVv7M3518RljvCkIZMm
-	W80AwvdCMS78J+7MHPXFK+HC3+CZ+W0qn6GRUj/sAcIcAB/O9ogP7JrmHrJz9FiSH1hQEZ0h2Lx
-	fUbC/xs0xjzf3MAFoeOzczTGkciQmMZbdb5VgP3wx1+emhC5JrdU9gr5gd/BZTqgkl8VzZjOK0r
-	+yqbu933AgA73JViygLCx1jAI699sRL3YzGb5IDZoZJ
-X-Received: by 2002:a2e:be90:0:b0:3a3:7682:499e with SMTP id 38308e7fff4ca-3a5a525304bmr12047681fa.19.1789270364978;
-        Sat, 12 Sep 2026 20:32:44 -0700 (PDT)
-Received: from dau-home-pc.. ([95.139.134.117])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a5a33a1cd1sm17024041fa.42.2026.09.12.20.32.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 12 Sep 2026 20:32:44 -0700 (PDT)
-From: Anton Danilov <littlesmilingcloud@gmail.com>
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: netdev@vger.kernel.org,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	David Ahern <dsahern@kernel.org>,
-	Simon Horman <horms@kernel.org>,
-	Shuah Khan <shuah@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH net-next 01/11] ip_tunnel: add drop reasons to the generic RX path
-Date: Sun, 13 Sep 2026 06:31:53 +0300
-Message-ID: <20260913033213.873609-3-littlesmilingcloud@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260902184730.304d2d34@kernel.org>
-References: <20260831215137.549324-1-littlesmilingcloud@gmail.com> <20260831215137.549324-2-littlesmilingcloud@gmail.com> <20260902184730.304d2d34@kernel.org>
+        bh=x/697aAAcJoRYdXrZYLU2EIjiMJ6xHcAjmEmwYwdbmE=;
+        b=JKo12CYHipwm49/wZ4YJ5iwl6WyvpdMd4i/4jeBpCNJl9Ic61RcYoczX6aoT59QugE
+         UvpxklCjzz6OAxWZZoOeMbxsdfA3Wf8WaiC0Nj1ac+52h0tU7DIr3yFRxJM08xGPZ9MW
+         V3GEu1SUIb6neK+Rqwd+mTt7DLlUfW0WNj3jugih3q6xBUlO6yzZ7nY/BTm9RBLhSaMm
+         uoY4xNjT9VIFl1lv22QhFsskv7JgUC5ZqlEdy4mhGHKzxHFYkNPa91fRJEAkoG3MK/rH
+         RPzD9YQKkYEn4g5yFWilKU4gBUb/xSy9KyftYbtp4Az2t3egVrvJjLCuMdytnqi76h40
+         5edw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789270595; x=1789875395;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=x/697aAAcJoRYdXrZYLU2EIjiMJ6xHcAjmEmwYwdbmE=;
+        b=gQy741ytIwZEacvCr9VvytcQJC5+akHbWXQiVoo14iHhLa6EL52njvCxDphsed+Ips
+         2CtJwOE9C6eoQh6PEeT9f6nIgKekk+T8H732NZLs4ZCUfKmoJF/7hyHXC+ORVGwUzyO2
+         QkmM1mFEEA8qVkl/dmu0RCC6KXOReTtO2wikUU7nkI83zO4RjYcLKX+VSxWlR0OPgnRo
+         fJZhOaGIooxWIaurtsp524VpYdU4GUQXyIJnkm4TWaYDsZSDflOx0XwbRKTnDPZXu0Yf
+         jrBdpt3eGn8Ncar2lqSp5dfjQishd5D+GDmhfH3PAE+F0F0EgQ2keW87VtUoi43/ZMJs
+         mzEg==
+X-Forwarded-Encrypted: i=1; AKwUvByuMHo3cVQsHfk8yiacztZH1mhtV2XsGSx7VQu38Bs9UQAatd1kiEb2Rn3XPWEsUdwt6m+3Z3vbP6QrcFI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kpF7fP8dt5YN+NFZIRHnLI7Os/PstIbBBSk1PcDuRW1/TiEG+6
+	fRfyrF8QTWFEA5DBHq0yUoW37MJK/FbmRdCFHDTfL5K8Fco8qLH5jCsXUGUuYUypwOSYrOuy0ZH
+	gDi9GWrNgJ6RFDUpafxBc1Q==
+X-Received: from pjzr19.prod.google.com ([2002:a17:90b:513:b0:39d:9bed:76c2])
+ (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:90b:39a7:b0:398:9bd1:3214 with SMTP id 98e67ed59e1d1-39d9c223eb3mr18915256a91.21.1789270594954;
+ Sat, 12 Sep 2026 20:36:34 -0700 (PDT)
+Date: Sun, 13 Sep 2026 11:36:30 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.1007.g17ff1f9808-goog
+Message-ID: <20260913033633.3159296-1-stanleyjhu@google.com>
+Subject: [PATCH v4 0/3] rpmb: Fix request serialisation and teardown races
+From: Stanley Jhu <stanleyjhu@google.com>
+To: jenswi@kernel.org, mkp@kernel.org
+Cc: gregkh@linuxfoundation.org, arnd@arndb.de, bvanassche@acm.org, 
+	avri.altman@sandisk.com, alim.akhtar@samsung.com, beanhuo@micron.com, 
+	can.guo@oss.qualcomm.com, ulfh@kernel.org, linusw@kernel.org, 
+	tomas.winkler@intel.com, shyamsaini@linux.microsoft.com, 
+	alex.bennee@linaro.org, James.Bottomley@HansenPartnership.com, 
+	linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Stanley Jhu <stanleyjhu@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, 2 Sep 2026 18:47:30 -0700 Jakub Kicinski wrote:
-> >  	const struct iphdr *iph = ip_hdr(skb);
-> > +	enum skb_drop_reason reason = SKB_DROP_REASON_NOT_SPECIFIED;
-> >  	int nh, err;  
-> 
-> reverse xmas tree
+This merges two series that were both last posted as v3:
 
-Fixed in v2, and not only here: the same was wrong in every block where
-the series adds the declaration.  They grew when I gave them an
-initialiser and I never went back over the ordering.
+  [PATCH v3] rpmb: core: Guard frame requests and teardown with mutex
+  https://lore.kernel.org/all/20260910015515.1991789-1-stanleyjhu@google.com/
+
+  [PATCH v3 0/2] scsi: ufs: rpmb: Fix bus registration and device lifecycle
+  https://lore.kernel.org/all/20260910015503.1991119-1-stanleyjhu@google.com/
+
+They turned out to be one problem. The UFS patches make RPMB registration
+succeed for the first time, and registering RPMB devices without the core
+fix triggers a use-after-free on any unbind that races an in-flight
+request. Landing them as two independent series would leave that window
+open in between.
+
+The order is chosen so that no commit enables RPMB registration before the
+lifetime handling and the serialisation are in place:
+
+  1/3 fixes the generic core. It fixes the teardown race on eMMC today
+      and carries a stable tag. It has no effect on UFS, where nothing
+      registers yet.
+  2/3 fixes the UFS device lifetime. Still nothing registers.
+  3/3 removes the never registered bus, which is what finally makes UFS
+      RPMB devices appear.
+
+drivers/misc/rpmb-core.c and drivers/ufs/ are not in the same tree. 1/3
+has no build or runtime dependency on the other two and can be taken on
+its own; 2/3 and 3/3 must not land before it.
+
+Verified on QEMU arm64 with KASAN, PROVE_LOCKING and SLUB_DEBUG_ON, against
+a UFS device advertising four 4 MiB RPMB regions. Two kthreads on different
+CPUs issue RPMB_GET_WRITE_COUNTER against the same region 20000 times each
+and compare the nonce echoed back; a third thread holds an rpmb_dev
+reference and keeps issuing requests across a host unbind. OP-TEE is the
+only in-kernel consumer of rpmb_route_frames(), so an out-of-tree module
+stands in for it.
+
+  tree                  rpmb_dev  stolen responses  unbind
+  --------------------  --------  ----------------  --------------------
+  3/3 alone             4         16512 of 40000    KASAN use-after-free
+  3/3 and 2/3, no 1/3   4         17030 of 40000    KASAN use-after-free
+  all three             4         0 of 40000        clean
+
+The intermediate points were booted and unbound as well. After 1/3 and
+after 2/3 no rpmb_dev is registered, so neither test applies to them, and
+neither point reports KASAN.
+
+Upstream QEMU answers SECURITY PROTOCOL IN/OUT on the RPMB well known LU
+with INVALID OPCODE, so the three rows above also needed a local QEMU
+change that implements the authenticated frame state machine. I can post
+that to qemu-devel separately, and send the test module to anyone who
+wants to reproduce the numbers.
+
+Changes since v3:
+- merged the two series and reordered so registration is enabled last
+- dropped the incorrect Tested: line from the core patch
+- dropped Cc: stable from the UFS patches; the feature has never worked on
+  any released kernel, so there is nothing to back port
+- rewrote the commit messages around the measured results
+
+Stanley Jhu (3):
+  rpmb: core: Guard frame requests and teardown with mutex
+  scsi: ufs: rpmb: Decouple device lifecycle from devres to avoid UAF
+  scsi: ufs: rpmb: Drop the unregistered ufs_rpmb bus
+
+ drivers/misc/rpmb-core.c    |  34 ++++++++++--
+ drivers/ufs/core/ufs-rpmb.c | 102 +++++++++++++++++++-----------------
+ include/linux/rpmb.h        |   6 +++
+ 3 files changed, 90 insertions(+), 52 deletions(-)
+
+-- 
+2.55.0.1007.g17ff1f9808-goog
+
