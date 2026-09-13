@@ -1,41 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBC84386C22;
-	Sun, 13 Sep 2026 17:17:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C30C938BF89;
+	Sun, 13 Sep 2026 17:17:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789319838; cv=none; b=ocjGpZG432JnyY/ZELZ1P4/YcNKT2M017ztx6WU4BVw7ol6ux5qpcTewlTFJAyMryKtDRZ7yZzF7nEMOjCRWPkzc+K0JIpwZGirlR0aJirhUxmGmHcPX1lp9dPcpfpbnMLjc9/tCj/WsfC/4syjhybjJm3aG3M31IHMG0j8rKhs=
+	t=1789319839; cv=none; b=eo5YuOSu23wef9ogLexWBe0hpLq1tbLvXdTnDkOXGkz2vEjRwpruNx6S1nAAUDna/nxsS9ezMu7IGdXxgdPVhSzqiBlfbxBY0/3gg0XigvU88mCc7zHNggnZc9wis+wuwNr/vxL5642m3ehEfuxILbbE/u0ba3yqroNN9SXHxSE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789319838; c=relaxed/simple;
-	bh=dL2tCf9R2yFYdQyhb1vg7KlOpunIGTvyq2ICqewh28E=;
+	s=arc-20240116; t=1789319839; c=relaxed/simple;
+	bh=zKNBJKJMEE7iDlzCLwTQdJt35qvvUznZGcGFB4z2xBk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UXqX0kHtMmcsx8ctk1M1+Y+wtuPJju1K+W20HwynwqFUxCqcs9YgNtS3ICRZu8H09MrOlD2octUCZI0oojsHa/FjB7YX1+YpKK5ftkc8EDIM+uttfyZxYPYE2rLESmBmZYH3/AzWk1AytLsbANyGBPoxPUwz3QhLtU17cTzuANI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i3theO8w; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=pAGyqFDuNbAj/VGzgth3t+fSs+s7cFZd6EZ6ttrM0r2zFyuVQGpWQ5dtWtn2oVs8OFXmuFSWAsIdoKHCYik4Zuk1bJ4H8TRpDwqY9JHkxPzGsIvC0AmCUT+DvQxVauVk7XBLekB08DhEr3xF7xVftthaepYvDaKgIUhYwL+qY+0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gEU23QJZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i3theO8w"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87DE61F00893;
-	Sun, 13 Sep 2026 17:17:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gEU23QJZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E0E51F0089A;
+	Sun, 13 Sep 2026 17:17:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789319836;
-	bh=MBpdI9GABjSpbOSBeiuA8iViUPE/b+K1BLYoiHpgDDA=;
+	s=k20260515; t=1789319837;
+	bh=as3OPkNFsYYWKFBQO9tZASdaFQXU9TrMOPenfE/ek3g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=i3theO8w1YobTHF6s/PdgEDvl2RO1oiaxzM5QTabU5Q5f4hgM09YO48RE+xK2BhS/
-	 2PuETBuVcH7ddsdPJ1zFedK/5ncsVlKrMQiXz/YjPXq+9/OhhyEePrnBb6U7O1G6r2
-	 /evjeSjdmRNl6b7X6sQrbgFIJubDAmmsb9H4YoE7p5O1VtOHLURdIP/G6TY3LLyhU3
-	 IVeWc3L1J3huFBK7uzwLqnSPOt6arTQqBW53DKUxnjmgiH1BWhxYMhKMowA9UZ5SsL
-	 hJG+jWq5t3qz2S0bWlbnDlrUntTv44zOf2oskBEz8Qn8dAtyqJR7XAVcY3kKa7lM5P
-	 GMUHq6z+wFD9w==
+	b=gEU23QJZRHcX0hf20lXi65rqTmqiivKMAkC8NWufRT7WW+XbOERTEzf6LOBNj+o8T
+	 KdT2r6OtpYD27Ng7Q+Mtlp1jDlRl5lYYltAWyx8puWG25O5SQTLk79wNHEEw33znUr
+	 uRwJGhZbp2nM9BidpT2oc98FQAtiyvIjxACfE0xEnYZuV+KiEmk77q2lMdO+mKC8n+
+	 UTRrz7j85k3xK4VbbWGOH/rphd0YXZa7iWF0dEiiGGODzKFevfGLMmWzz776B+acKc
+	 MTB+wmuAUkZggR2syAibirXfUBPQLBfUVferBLJ6EWSxUU8MtnRqSnxVRL7eAvqq34
+	 ftqdznGyrAZAA==
 From: SJ Park <sj@kernel.org>
 To: 
 Cc: SJ Park <sj@kernel.org>,
 	Andrew Morton <akpm@linux-foundation.org>,
+	Brendan Higgins <brendan.higgins@linux.dev>,
+	David Gow <davidgow@davidgow.net>,
 	damon@lists.linux.dev,
+	kunit-dev@googlegroups.com,
 	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [RFC PATCH v2 6/8] mm/damon/sysfs-schemes: use switch-case in add_scheme_filters()
-Date: Sun, 13 Sep 2026 10:17:03 -0700
-Message-ID: <20260913171706.103052-7-sj@kernel.org>
+Subject: [RFC PATCH v2 8/8] mm/damon/core-kunit: test invalid damos filter commits
+Date: Sun, 13 Sep 2026 10:17:05 -0700
+Message-ID: <20260913171706.103052-9-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260913171706.103052-1-sj@kernel.org>
 References: <20260913171706.103052-1-sj@kernel.org>
@@ -47,56 +51,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-damon_sysfs_add_scheeme_filters() has long if-else chains for DAMOS
-filter types.  Convert the code to use switch-case, which would be
-cleaner and more efficient.
+Add test cases for testing the validation of damos filter arguments in
+commit time.
 
 Signed-off-by: SJ Park <sj@kernel.org>
 ---
- mm/damon/sysfs-schemes.c | 18 +++++++++++++-----
- 1 file changed, 13 insertions(+), 5 deletions(-)
+ mm/damon/tests/core-kunit.h | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/mm/damon/sysfs-schemes.c b/mm/damon/sysfs-schemes.c
-index a4ec5d54cfbd1..bfb6f0bc3f213 100644
---- a/mm/damon/sysfs-schemes.c
-+++ b/mm/damon/sysfs-schemes.c
-@@ -2822,7 +2822,8 @@ static int damon_sysfs_add_scheme_filters(struct damos *scheme,
- 
- 		if (!filter)
- 			return -ENOMEM;
--		if (filter->type == DAMOS_FILTER_TYPE_MEMCG) {
-+		switch (filter->type) {
-+		case DAMOS_FILTER_TYPE_MEMCG:
- 			err = damon_sysfs_memcg_path_to_id(
- 					sysfs_filter->memcg_path,
- 					&filter->memcg_id);
-@@ -2830,16 +2831,23 @@ static int damon_sysfs_add_scheme_filters(struct damos *scheme,
- 				damos_destroy_filter(filter);
- 				return err;
- 			}
--		} else if (filter->type == DAMOS_FILTER_TYPE_ADDR) {
-+			break;
-+		case DAMOS_FILTER_TYPE_ADDR:
- 			filter->addr_range = sysfs_filter->addr_range;
--		} else if (filter->type == DAMOS_FILTER_TYPE_TARGET) {
-+			break;
-+		case DAMOS_FILTER_TYPE_TARGET:
- 			filter->target_idx = sysfs_filter->target_idx;
--		} else if (filter->type == DAMOS_FILTER_TYPE_HUGEPAGE_SIZE) {
-+			break;
-+		case DAMOS_FILTER_TYPE_HUGEPAGE_SIZE:
- 			filter->sz_range.min = sysfs_filter->range_min;
- 			filter->sz_range.max = sysfs_filter->range_max;
--		} else if (filter->type == DAMOS_FILTER_TYPE_PROBE_HITS_WSUM) {
-+			break;
-+		case DAMOS_FILTER_TYPE_PROBE_HITS_WSUM:
- 			filter->range_min = sysfs_filter->range_min;
- 			filter->range_max = sysfs_filter->range_max;
-+			break;
-+		default:
-+			break;
- 		}
- 
- 		damos_add_filter(scheme, filter);
+diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
+index c9941f3bfb42b..5da84caf4124d 100644
+--- a/mm/damon/tests/core-kunit.h
++++ b/mm/damon/tests/core-kunit.h
+@@ -1195,6 +1195,13 @@ static void damos_test_commit_filter(struct kunit *test)
+ 			.allow = false,
+ 			.sz_range = {.min = 234, .max = 345},
+ 			}, false);
++	damos_test_commit_filter_for(test, &dst,
++			&(struct damos_filter){
++			.type = DAMOS_FILTER_TYPE_HUGEPAGE_SIZE,
++			.matching = false,
++			.allow = false,
++			.sz_range = {.min = 456, .max = 123},
++			}, true);
+ 	damos_test_commit_filter_for(test, &dst,
+ 			&(struct damos_filter){
+ 			.type = DAMOS_FILTER_TYPE_UNMAPPED,
+@@ -1208,6 +1215,13 @@ static void damos_test_commit_filter(struct kunit *test)
+ 			.allow = false,
+ 			.addr_range = {.start = 456, .end = 567},
+ 			}, false);
++	damos_test_commit_filter_for(test, &dst,
++			&(struct damos_filter){
++			.type = DAMOS_FILTER_TYPE_ADDR,
++			.matching = false,
++			.allow = false,
++			.addr_range = {.start = 567, .end = 456},
++			}, true);
+ 	damos_test_commit_filter_for(test, &dst,
+ 			&(struct damos_filter){
+ 			.type = DAMOS_FILTER_TYPE_TARGET,
 -- 
 2.47.3
