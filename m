@@ -1,38 +1,42 @@
-Received: from out28-170.mail.aliyun.com (out28-170.mail.aliyun.com [115.124.28.170])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D70C4356750;
-	Sun, 13 Sep 2026 06:49:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97FBB3C5546;
+	Sun, 13 Sep 2026 06:51:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789282170; cv=none; b=mVecCz8TwNU3SZySHJDCAFosIW4a8ALf4gLVr/PRaZs5ztb7OG9m8tFkVguuxQUDytBW4gGh3HSQgZ46Lx59w6iwd6N2+X2VTvSsaipYvF2jAPPRnQU9X+sEfYE/OusCakYbttH7q8Wfb7km/KL+EaSNYfIBeorqTyTCzeOVDAA=
+	t=1789282306; cv=none; b=ZpBNjJ1AFhnwfuQJnsZgq4hVU7s+PEPFihENwCYkzXITUUYginpIz+hMnNtMhUP6PyPlvru454yWbetlXVVUsmDnnCzGOnnyLafkxDz3yEiNjJBsz54llVFPkre/zj2j074DKPLIACxZUxlTPn29KTmUn67N661Wb5LAhQVaspY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789282170; c=relaxed/simple;
-	bh=7x8QtBB+wiJGB2umB5DHjOZqtLJRzkfYQIEWVdSP8j8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FTiH5KyJDQXpQLICIqFMpEEKCmRBCoCLogFSMpOKwIs/+dnmapB1Se8FQ5a7FZmuMpKAUlRdFHcoWIE8NTsuDhcwXuU/i1S87sSJwS1FB7QCZwYFmc72LQBFKRULTD27QVAPNNLmEbUHTwML8DEUWfenz7FPcYBCaTa27uN4CdI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net; spf=pass smtp.mailfrom=open-hieco.net; arc=none smtp.client-ip=115.124.28.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.0743695|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.00574879-0.000771639-0.99348;FP=12601474251787808763|1|1|1|0|-1|-1|-1;HT=maildocker-contentspam033032053168;MF=zhang_wei@open-hieco.net;NM=1;PH=DS;RN=8;RT=8;SR=0;TI=SMTPD_---.jCORvnL_1789281837;
-Received: from localhost.localdomain(mailfrom:zhang_wei@open-hieco.net fp:SMTPD_---.jCORvnL_1789281837 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Sun, 13 Sep 2026 14:43:57 +0800
-From: Tina Zhang <zhang_wei@open-hieco.net>
-To: Sean Christopherson <seanjc@google.com>,
-	Jim Mattson <jmattson@google.com>,
-	kvm@vger.kernel.org
-Cc: Paolo Bonzini <pbonzini@redhat.com>,
-	Shuah Khan <shuah@kernel.org>,
-	zhouyanjing@hygon.cn,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v6 4/8] KVM: nSVM: Propagate hardware DecodeAssist bytes to VMCB12
-Date: Sun, 13 Sep 2026 14:43:44 +0800
-Message-ID: <40f8ac084021e48fbadd5697ef16f674554a4480.1789281096.git.zhang_wei@open-hieco.net>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <cover.1789281096.git.zhang_wei@open-hieco.net>
-References: <cover.1789281096.git.zhang_wei@open-hieco.net>
+	s=arc-20240116; t=1789282306; c=relaxed/simple;
+	bh=fcaJHkHVNIDCbPBs47jJjMIvqIcpA0ePW375pEcfxcU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WpncUElaAKFdhe9kx14pjG3nrdD0HAtLHPyliRebFtdEvSWctolRxMRbjxLrLlvVr6nRgvNX72ezT8A9w8mKuRuUQFo8d54UejTwQNj6GmLwkt5riCBVJTor2O3g4ZvDqSVe48qSlnckDFE7O67Xa13FjIR4ijX3aBMR7PFeGfA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QS25O4ZE; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QS25O4ZE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18EA71F000FF;
+	Sun, 13 Sep 2026 06:51:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789282301;
+	bh=NvlXi29UW+lhoY1tSTI0DBTTqIv0jJalOwCYNxonEVk=;
+	h=From:To:Cc:Subject:Date;
+	b=QS25O4ZECg6TyKeIb3M/TJBsz2HNQ0zLsE04McJM7mqInwmgf8F7HfDjxUPsgsM/T
+	 vIsxj4TOb5eBD2e/wCHywZeuV2/JmYBzOeYnVTdErSKDpp8yKVYf7Z+iprtRhqq4QM
+	 zWjyjLaWJQFZf7Dl2o5vPUgBkDHxkOjleabfftO33VrlALyVip4LkUgbnG6F+OfSqM
+	 oKmNqUgTpkCHgxw8CI/w+WJkAfLwdGSjAxu5XFdTWNVsroQ5ickGcvNSxCOu8GlINv
+	 mpvA2JCdGBGSCCCf4B2LPZ+O5xZiXFeq37mjoH2OCGtcj4mVenyux5R6N7QlSQo+5/
+	 jORdHT6Lx8J0w==
+From: Tzung-Bi Shih <tzungbi@kernel.org>
+To: Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Guenter Roeck <linux@roeck-us.net>
+Cc: Daniel Palmer <daniel@thingy.jp>,
+	Romain Perier <romain.perier@gmail.com>,
+	linux-watchdog@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	tzungbi@kernel.org
+Subject: [PATCH] watchdog: msc313e: Fix premature reset during timeout update
+Date: Sun, 13 Sep 2026 14:51:26 +0800
+Message-ID: <20260913065126.8350-1-tzungbi@kernel.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,82 +45,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-DecodeAssists provides instruction bytes for nested page faults and
-intercepted page faults caused by data accesses.  When the feature is
-exposed to L1, copy fresh hardware-provided instruction bytes from VMCB02
-to VMCB12 for these exits.
+Updating the 32-bit hardware timeout requires writing to two 16-bit
+registers sequentially.  If the watchdog is actively running, this
+non-atomic update might trigger a premature system reset.
 
-Leave the VMCB12 instruction-byte state untouched when DecodeAssists is
-not exposed.  Otherwise, invalidate the state for instruction-fetch page
-faults, unrelated exits, and exits without fresh hardware bytes.
+Clear the watchdog counter before updating the registers to prevent the
+timer from timing out prematurely against an intermediate threshold.
 
-Signed-off-by: Tina Zhang <zhang_wei@open-hieco.net>
+Fixes: e9800b799464 ("watchdog: Add Mstar MSC313e WDT driver")
+Signed-off-by: Tzung-Bi Shih <tzungbi@kernel.org>
 ---
- arch/x86/kvm/svm/nested.c | 37 +++++++++++++++++++++++++++++++++++++
- 1 file changed, 37 insertions(+)
+This fixes a Sashiko report [1].
 
-diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
-index 1cc3af8247f2..fba230058870 100644
---- a/arch/x86/kvm/svm/nested.c
-+++ b/arch/x86/kvm/svm/nested.c
-@@ -40,6 +40,20 @@ static void nested_svm_invalidate_insn_bytes(struct vmcb *vmcb)
- 	vmcb->control.insn_len = 0;
- }
- 
-+static void nested_svm_copy_insn_bytes(struct vmcb *to,
-+				       const struct vmcb *from)
-+{
-+	u8 insn_len = from->control.insn_len;
-+
-+	if (WARN_ON_ONCE(insn_len > sizeof(from->control.insn_bytes))) {
-+		nested_svm_invalidate_insn_bytes(to);
-+		return;
-+	}
-+
-+	memcpy(to->control.insn_bytes, from->control.insn_bytes, insn_len);
-+	to->control.insn_len = insn_len;
-+}
-+
- static bool nested_svm_vmexit_supports_insn_bytes(const struct vmcb *vmcb)
+[1] https://lore.kernel.org/all/20260828162210.3C2881F000E9@smtp.kernel.org
+---
+ drivers/watchdog/msc313e_wdt.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/drivers/watchdog/msc313e_wdt.c b/drivers/watchdog/msc313e_wdt.c
+index dc7bdd5660e6..0a68be7a217b 100644
+--- a/drivers/watchdog/msc313e_wdt.c
++++ b/drivers/watchdog/msc313e_wdt.c
+@@ -46,6 +46,9 @@ static void msc313e_wdt_set_hw_timeout(struct msc313e_wdt_priv *priv,
  {
- 	u64 exit_code = vmcb->control.exit_code;
-@@ -64,6 +78,27 @@ static void nested_svm_invalidate_vmcb02_insn_bytes(struct vcpu_svm *svm)
- 	svm->nested.vmcb02_insn_bytes_valid = false;
- }
+ 	u32 t = timeout * clk_get_rate(priv->clk);
  
-+static void nested_svm_update_vmcb12_insn_bytes(struct kvm_vcpu *vcpu,
-+						struct vmcb *vmcb12,
-+						const struct vmcb *vmcb02)
-+{
-+	struct vcpu_svm *svm = to_svm(vcpu);
++	/* Clear before to prevent premature reset during non-atomic updates. */
++	writew(1, priv->base + REG_WDT_CLR);
 +
-+	if (!guest_cpu_cap_has(vcpu, X86_FEATURE_DECODEASSISTS))
-+		goto out;
-+
-+	if (!nested_svm_vmexit_supports_insn_bytes(vmcb02) ||
-+	    !svm->nested.vmcb02_insn_bytes_valid) {
-+		nested_svm_invalidate_insn_bytes(vmcb12);
-+		goto out;
-+	}
-+
-+	nested_svm_copy_insn_bytes(vmcb12, vmcb02);
-+
-+out:
-+	svm->nested.vmcb02_insn_bytes_valid = false;
-+}
-+
- static void nested_svm_inject_npf_exit(struct kvm_vcpu *vcpu,
- 				       struct x86_exception *fault,
- 				       bool from_hardware)
-@@ -1331,6 +1366,8 @@ static int nested_svm_vmexit_update_vmcb12(struct kvm_vcpu *vcpu)
- 	if (guest_cpu_cap_has(vcpu, X86_FEATURE_NRIPS))
- 		vmcb12->control.next_rip  = vmcb02->control.next_rip;
+ 	writew(t & 0xffff, priv->base + REG_WDT_MAX_PRD_L);
+ 	writew((t >> 16) & 0xffff, priv->base + REG_WDT_MAX_PRD_H);
+ 	writew(1, priv->base + REG_WDT_CLR);
+@@ -76,6 +79,9 @@ static int msc313e_wdt_stop(struct watchdog_device *wdev)
+ {
+ 	struct msc313e_wdt_priv *priv = watchdog_get_drvdata(wdev);
  
-+	nested_svm_update_vmcb12_insn_bytes(vcpu, vmcb12, vmcb02);
++	/* Clear before to prevent premature reset during non-atomic updates. */
++	writew(1, priv->base + REG_WDT_CLR);
 +
- 	if (nested_vmcb12_has_lbrv(vcpu))
- 		svm_copy_lbrs(&vmcb12->save, &vmcb02->save);
- 
+ 	writew(0, priv->base + REG_WDT_MAX_PRD_L);
+ 	writew(0, priv->base + REG_WDT_MAX_PRD_H);
+ 	writew(0, priv->base + REG_WDT_CLR);
 -- 
-2.43.7
+2.53.0
 
