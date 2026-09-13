@@ -1,261 +1,175 @@
-Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F345F3B9601
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 12:19:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 413B33CAA3F
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 12:24:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789301962; cv=none; b=sJ0FmokkafRtqFgZUijkewI2zHZc29opeY4HslIC3LAyf0wZagk89mWxJ3SXm/BcYrB7AwaY4bhEs/JvBZANLKDh0eWUqqTaR1IqVbiHMUUdhjYXUC1CJgOnhgd+1NrLx2KE9kQN3II2G2JItrmbb6HqvGM+jaYtWenXVmVIthM=
+	t=1789302244; cv=none; b=MHmoQPUp0BJEWx0GoLbQv/tIyO9rf1uwrwrvXF6GjTYRILFIS3qHIp5Nm+2qQJG6KEtEcZCafx+8tUfdiZB3Zv970ANPatluQeboQ+yRL8S4ES5WslxfkbjoBcN+qns4I1a6QHFw6Ofhv6wfNR/VR6jfpC/pvsURicCzgcekTXE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789301962; c=relaxed/simple;
-	bh=sSR6Vyh+nxnd03+vCWI09lOpb+G3BwthTFIyLv/Q4I8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Pkyl2uxGkhGQnmjstlMnTJbM4hc7GwKJlNsPju64MOVkZ8S5iqkDngYoNnTeJWCVqGCcoc7eUzjKX3E1scRCxmH7AVyx691bVuSpLLhW/JTtdBmHOu6o8xbIMPp9wrLVKFejcb78qhq+xRNFdvqFWhCDVowovoqmQY26SYfgqnM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com; spf=pass smtp.mailfrom=cloudflare.com; dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b=NSdPyPUK; arc=none smtp.client-ip=74.125.230.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cloudflare.com
+	s=arc-20240116; t=1789302244; c=relaxed/simple;
+	bh=sEkeSZyT1b92t4did9aLrVflRNi2rCzD7o+75wH8zs0=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=NVOGXt3jwHxIFZNDspswG8qTNVgmMXF/otP3isvssf32KCzLUjA37Yvg47KwAx/sZx5EF/i8Ep/fXJD94XEej57978Txa2g/IRhX//6dsDZUSgVhK/nzOXl1+GlFPT0IM6CH6VL4gayLhzqTmQjFeVrYjH2GKsBai8r1U2WrPAs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hIZiX7Nh; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b="NSdPyPUK"
-Received: by mail-qk2-f13.google.com with SMTP id af79cd13be357-93910ca5aa7so145903785a.1
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 05:19:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hIZiX7Nh"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843378fb37so430908f8f.3
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 05:24:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloudflare.com; s=google09082023; t=1789301958; x=1789906758; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=+GpzslklB0pVWyYTdVsp+3/DknIsG3Ufx16e03zY+aY=;
-        b=NSdPyPUKljlU9eTHcdDTTj0/jlEXjXVZvY+QkJ1OaWOzDZaP2n8b8Ip353am+hdSoj
-         nl/pAI1nGw5yaLJeRPM/i6R5iaVg92Vt0t3iDJEIYiL7PAnmNDRKkz0yuQUFHsAagm73
-         1PXGbFwrpTQWCopGXAzH0l/R1vjRlg9f68iQRDZ9EN7/7PJyxCCdK/6CvQg2bS62LF0V
-         kEWuU99lo4jVwlgzKt00bKBfNuQtOetOZrCSvqOjGxUXiOAr5l18b92/G/DElVO/4qDX
-         Njo8/q/AKvn6OVmVm6EAzNMU43LIa3eiTMGwKQZs2mMB/G/gS4XEjx7NWuytVf0bsE/M
-         cSog==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789301958; x=1789906758;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+        d=gmail.com; s=20251104; t=1789302241; x=1789907041; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=+GpzslklB0pVWyYTdVsp+3/DknIsG3Ufx16e03zY+aY=;
-        b=nJmtwrogyh89XWYahR8CbM/mpqryGKOPEq2Ae8Hhq6frGQrE16/700TM7/6Q/MvfcN
-         3+1IPgyol/FSLf56y5UzSV076OCuOO0Qf+yI8CIFBkwVAOM8ESZvscS+hdzmFEJrWbjL
-         fMPoBYbmuX14J9WHiY5B/dgxaX56cdA2t5FikuWPfK2CVBVW+1UyeaiiGxQH9Sxn+nwN
-         NjQ+lMiyQD1aRRYO2w8cAWEvukzrQiZZHMMG/EVI1gdj6M+HqMeNHGZAlFqTaGn0rhtT
-         EJkAfIwN08/7O2MvHNgaKnHR6EE0gUCpaNxbLvBVhb67Y4PqEmQopXW58/5HAFU8jWfH
-         CB2g==
-X-Forwarded-Encrypted: i=1; AKwUvBwvSKHGbA7mWe77jyPOzq22t0YqzCKaqh2pbm9VPNcPDEnq7AfUavI3wEazPBxQN3ViKscCNP8b6CU5fD4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mEx2lU+eREi4Qoe3jwpL68X6lJ2VHmS/uB2j9lH57DTRQcfbiG
-	IMXc6IthvYfx6gLRfE2ej1+0XZ80VNOQjAqA2ldXWIT5m7rjk26Bsv6dQB1Scx89fdY=
-X-Gm-Gg: AYBFou1TkQ544rXH2jRoseswGtPBrbsgRXFSBffvYQPVFhMD4ORrIfmtHMiRbDNrfWb
-	beTR29Flv8e61pKfNSKtGdX6E5TYhYZSd4dbpAmHeHKOvmCrnmP3LCHTvHVF2Wy1xa9m57DIqhc
-	KSVHKd6/e+5JHRW6ftD00ZHD+qnzg7IeZdtL5epv9VqRAiHqftHFoq76mqeL+SMLMhaqz2wTPka
-	de0bDeHnxDg4w/L5oYu/LoITuLJdEankvNV3O0fMsF5ZQCwIX6HLGBy2fLG4gAf2yqlWXNQtOif
-	86uHEwBoEUdxiFJ4WiuYit/ScrtXiNHOjJXTjuOxoKZxQQOTExcBsEEpW0d9xF4IsvrpdCjo+14
-	Mg4j6CEaMFUheXDlIS5rOgWO3slH6lD0uc0h7NnYEIFcHZHoHnatec47nAdRKREEV2qpfLTbczp
-	/CeBGgZTgqQAuUzCg4edf4k0UjkXVWAoNp1gVhjVhEpqTv3WuGMldSOw7s2nZEinZGCg5pBXk=
-X-Received: by 2002:a05:620a:6cc4:b0:939:c3e6:86d6 with SMTP id af79cd13be357-939ea2bff16mr1780801385a.48.1789301957825;
-        Sun, 13 Sep 2026 05:19:17 -0700 (PDT)
-Received: from [127.0.1.1] ([2a09:bac6:7971:31eb::4f9:58])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-939e811cffdsm723852285a.46.2026.09.13.05.19.14
+        bh=sEkeSZyT1b92t4did9aLrVflRNi2rCzD7o+75wH8zs0=;
+        b=hIZiX7Nhg3Q1wDWXn2ZBBspll3KnESb1QZ5oAHTFFbdMtK+a4ZtzXJ24/9Dk8AawnW
+         8FKb85mpS5F9D7ZVj/Gx1SSZTOQA+fXSAYMONqBnbB3GNvX2vfXFMyHScpIc2u9Dxrfh
+         3oL60qDl3xLMEnqsrtVIyZlCupju9s5GyfFuXpnV2DNnWBqVJydsgSn2iok3+ZB1Smn1
+         bpeSNG4C+9fw1nS/Xoe28C09NqEKtSmFkANwWwrJfQhsesmxWWClptlGL0+dGTWVYG1S
+         DfFf9Cy/0ikdmA439cOyeT7qj7LvgEVsAJzgyvTsNmX7ettUiADCb1RzMygVnKFef951
+         ddMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789302241; x=1789907041;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sEkeSZyT1b92t4did9aLrVflRNi2rCzD7o+75wH8zs0=;
+        b=HPprkI1Ge+KLpZwHt5zlw4l9QLIL9VPP5jtRsSKP6ksDq67kgTwRjtm0y/vEjnU4Y2
+         D2ZjKEn73tTI7/vOaoIvQdDBgB52Yn8yvCN3Nxr2dHALWXPVIw/IENk0n9MYXcekUUn4
+         /Lekq6FLBy36T5iES5kxa8AtL1MswOVxuPIB5wOKgMl8KmJjNCHLiiyB1ElvKBDvFZiv
+         OXJ/4bjHUKA3g2XL8C3549s4VR0OUZQPDkzTB9eiUkGf3JC2f2G8+X/Sus7Eq0+kSwOA
+         VE0VZVFnFEDNhI766WmD+rkUIPQQyfHjA5XoXeA9LHbK6SfRT7tzJ2yZ7s9hyb4JsjUi
+         A18A==
+X-Forwarded-Encrypted: i=1; AKwUvBykWejA4TUZcM9PSC0NdQ49ZBM4q+i7VCkO2dyMsCSzximhiPpqBkdxYm9Bow7ExVNMN1JXKvjVh5N6Q6s=@vger.kernel.org
+X-Gm-Message-State: AFuF++nxcneLjNpM4gEiWD7zzVAAtyeu2i1W97TphSt4iIhfktesa5/I
+	rlLv1Os+otYD4ZDaiqhvARojviwlqNiRyNNDt6+IHkXh0XCn95repTKZ
+X-Gm-Gg: AYBFou0Ch2ylGUoiy4ergbF/RKAAlysChSFzwPHpNm3b7P6dMjjH76ooTdmEvUdSdE1
+	esCIRuUSx80mjSmNzCY0vba9zd4GIBmGGkCSnqaScCBf/LwLaroo5YnEWoY2p+QMogz8skE1o+X
+	EFJsoqTMqwb7IXGeGgyOh0367Ja0YcuH0soGLZDvJerh5KbGVRT7icBWJvDOCGSVa92lZ9fDdBX
+	sHArpneXEFE/gCW5b6KDHRxLESO5nKd2xYwJv9uFQdWuty4oSnfw4z2eqJEZp7AGWWZxtmX9wzD
+	2dDG8SM30xzO2m5cxf1oNfPsTUMGkBVn2ktazKEqg3i9UhReZ4iW1yFWWJNXOz26DIP7HMW6aP0
+	JE+Olij2cHee6qh8kzfWTEaMGfnurq9O3W6RXplsDoYVW2ZJEpRc3WpEHBt0ykO12ZS+JmjIiVJ
+	zHAItgRxKzqvO1hzO4XCeeOYUSTdu+A4c7LRu4Rh8LmDqcC+qLx0Bx9JTN3aUiLwd9P+45iNfk3
+	YkL9Z/KAFQJ20OsB2sYYmrHsBtB8gDlGbUCUDb+FR/Y8UNOkTKaIepPvLgQ+80+/9VtRTrduY2l
+	/q5KgfHQyodJZzBXimJrs0XwCD4GQm/wdhoA5DY1XVjvtG4=
+X-Received: by 2002:a05:600c:83ce:b0:49e:6249:268b with SMTP id 5b1f17b1804b1-49e6cc2748amr57258525e9.32.1789302241246;
+        Sun, 13 Sep 2026 05:24:01 -0700 (PDT)
+Received: from p200300c587296833b1b3ac6b56381a47.dip0.t-ipconnect.de (p200300c587296833b1b3ac6b56381a47.dip0.t-ipconnect.de. [2003:c5:8729:6833:b1b3:ac6b:5638:1a47])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb36e4a6sm20255885f8f.37.2026.09.13.05.23.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 05:19:17 -0700 (PDT)
-From: Chris J Arges <carges@cloudflare.com>
-Date: Sun, 13 Sep 2026 07:19:08 -0500
-Subject: [PATCH net v2] wireguard: wait for per-peer crypto during removal
+        Sun, 13 Sep 2026 05:24:00 -0700 (PDT)
+Message-ID: <182679ae5437916095a4b04187e350c80235c088.camel@gmail.com>
+Subject: Re: [PATCH RFC] drivers/rufs: add Rust UFS host controller driver
+From: Bean Huo <huobean@gmail.com>
+To: Andreas Hindborg <a.hindborg@kernel.org>, Greg KH
+	 <gregkh@linuxfoundation.org>, jaemyung.lee@samsung.com
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo
+ <gary@garyguo.net>, =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Alice Ryhl
+ <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo Krummrich
+ <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, Tamir
+ Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>,
+ Onur =?ISO-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+ linux-kernel@vger.kernel.org,  rust-for-linux@vger.kernel.org,
+ linux-block@vger.kernel.org,  linux-scsi@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org
+Date: Sun, 13 Sep 2026 14:23:59 +0200
+In-Reply-To: <87mrtmvioe.fsf@kernel.org>
+References: <20260912-rufs-private-v1-1-716db733e655@samsung.com>
+	 <YKq4TcQM0v2dXF4wTHEvZKwASII6PDd_R7_UiHWe3NRnR4JsrC_ZS-x6jA_Kl7P6ONehU0REHYk7WaLz8Xv5gA==@protonmail.internalid>
+	 <2026091124-treason-trickily-bc52@gregkh> <87mrtmvioe.fsf@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.44.4-0ubuntu2.1 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260913-fix-wg-peer-removal-v2-1-0cade985245a@cloudflare.com>
-X-B4-Tracking: v=1; b=H4sIALuUpmoC/22NzQ6CMBCEX4Xs2TXd4k/w5HsYDqVdpAYoaaFqC
- O9uQY8eZ/LNfDME9pYDXLIZPEcbrOtTkLsMdKP6O6M1KYMU8iQKQVjbFz7vODB79Ny5qFo85LX
- OC2FETgRpOXhO2PZ6g55HKL9lmKoH63H9W7HGhtH59+aOtME/jfyriYSEZyWoEPVRm4quunWTq
- Vvlea9dB+WyLB8gX7jJ0gAAAA==
-X-Change-ID: 20260901-fix-wg-peer-removal-43fc390d0311
-To: "Jason A. Donenfeld" <Jason@zx2c4.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: wireguard@lists.zx2c4.com, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, kernel-team@cloudflare.com, 
- Chris J Arges <carges@cloudflare.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1789301951; l=6772;
- i=carges@cloudflare.com; h=from:subject:message-id;
- bh=sSR6Vyh+nxnd03+vCWI09lOpb+G3BwthTFIyLv/Q4I8=;
- b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgaxY1IIT5oTohBZJmhnVgJo2HsM7Sv
- 9I0LdJCgpeGX6gAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QMSxQ1nmKbDBAMNq6D5B6PGnLJ2lrD+9lnFAtOS1bJq274mAcUH1SHHe1z/u1REI1cGduj/fdWJ
- +cAliKfksggY=
-X-Developer-Key: i=carges@cloudflare.com; a=openssh;
- fpr=SHA256:Cun99EBiH0EV7wvmfTBF9eDrld2NJx+aD4ScWZ45Q5M
 
-Calling peer_remove_after_dead() currently flushes device-wide packet
-crypto and handshake workqueues while holding RTNL. This is problematic as
-unrelated peers can continue adding work to those queues, blocking other
-tasks that want to take the RTNL lock.
+On Sat, 2026-09-12 at 13:00 +0200, Andreas Hindborg wrote:
+> "Greg KH" <gregkh@linuxfoundation.org> writes:
+>=20
+> > On Sat, Sep 12, 2026 at 12:52:55AM +0900, Jaemyung Lee via B4 Relay wro=
+te:
+> > > Comments on the decision to bypass the SCSI midlayer, the blk-mq mode=
+l
+> > > used
+> > > in its place, and the proposed prerequisite API boundaries would be
+> > > especially welcome.
+> >=20
+> > Many many years ago, the USB subsystem tried to bypass the SCSI midlaye=
+r
+> > for its storage driver, and while it was a "quick solution" at the time=
+,
+> > in the end, it didn't work out and we dropped the driver as it just mad=
+e
+> > no sense to keep duplicating all of the logic all the time.
+> >=20
+> > So I wouldn't recommend it, as long as UFS builds on top of the SCSI
+> > commands and the like, you should not attempt to duplicate it in a
+> > separate driver, no matter how much "simpler" it initially seems to be.
+>=20
+> The scsi related code in this driver is less than 300 lines and is
+> mostly struct packing/unpacking. I guess we could lift the struct
+> definitions from the scsi layer via bindgen. But at 280 lines I am not
+> sure it is worth it, and it hardly counts as duplication.
 
-Instead, this patch tracks pending crypto handoffs for each peer using a
-counter. After marking the peer dead, synchronize_net() prevents new
-submissions. Next, wait for pending crypto workers to schedule TX work and
-for RX NAPI to drain the peer's RX queue. Then flush only the peer's TX
-packet and handshake work.
+I agree the SCSI code in this RFC is small today. But I think it is small
+because the hard parts are not ready in your RFC yet, not because UFS does =
+not
+need them.
 
-This scopes teardown synchronization to the removed peer and prevents
-unrelated peers from extending the RTNL hold time.
+The SCSI logic is also not only in protocol/scsi.rs. upiu.rs decodes SAM st=
+atus,
+and queue.rs parses sense data and decides retries. And some things are alr=
+eady
+missing because the driver does not use sd and the SCSI error handling:
 
-Fixes: e7096c131e51 ("net: WireGuard secure network tunnel")
-Signed-off-by: Chris J Arges <carges@cloudflare.com>
----
-Changes in v2:
-- wait for RX packets to drain from peer’s NAPI queue
-- Link to v1: https://patch.msgid.link/20260902-fix-wg-peer-removal-v1-1-7a0190f5cdb1@cloudflare.com
+1, VPD block limits are not read, and a discard of 4 GiB or more fails with
+EOVERFLOW
+2, the cache mode page is not read, so FLUSH/FUA are likely never sent
+3, the residual count is ignored, so a short transfer completes as success
+4, UNIT ATTENTION and BUSY are requeued without a limit
+5, LUs are found by 0..bNumberLU, not REPORT LUNS, so sparse LUs are missed
+6, no START STOP UNIT at shutdown
 
-To: "Jason A. Donenfeld" <Jason@zx2c4.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>
-To: "David S. Miller" <davem@davemloft.net>
-To: Eric Dumazet <edumazet@google.com>
-To: Jakub Kicinski <kuba@kernel.org>
-To: Paolo Abeni <pabeni@redhat.com>
-Cc: wireguard@lists.zx2c4.com
-Cc: netdev@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
----
- drivers/net/wireguard/peer.c     | 30 ++++++++++++++++--------------
- drivers/net/wireguard/peer.h     |  1 +
- drivers/net/wireguard/queueing.h |  4 ++++
- drivers/net/wireguard/receive.c  |  4 +++-
- 4 files changed, 24 insertions(+), 15 deletions(-)
+Each of these needs more SCSI code in your RUFS. For comparison, sd.c,
+scsi_error.c, scsi_lib.c and scsi_scan.c are about 15000+ lines today, and
+ufshcd uses all of them. Once RUFS has error handling, power management, RP=
+MB
+and SG_IO, I expect the SCSI part will be large, and it will be a second co=
+py of
+code we already have and maintain.
 
-diff --git a/drivers/net/wireguard/peer.c b/drivers/net/wireguard/peer.c
-index 1cb502a932e0..34842b33b28a 100644
---- a/drivers/net/wireguard/peer.c
-+++ b/drivers/net/wireguard/peer.c
-@@ -14,6 +14,7 @@
- #include <linux/lockdep.h>
- #include <linux/rcupdate.h>
- #include <linux/list.h>
-+#include <linux/wait_bit.h>
- 
- static struct kmem_cache *peer_cache;
- static atomic64_t peer_counter = ATOMIC64_INIT(0);
-@@ -49,6 +50,8 @@ struct wg_peer *wg_peer_create(struct wg_device *wg,
- 	INIT_WORK(&peer->transmit_packet_work, wg_packet_tx_worker);
- 	wg_prev_queue_init(&peer->tx_queue);
- 	wg_prev_queue_init(&peer->rx_queue);
-+	/* Keep this above zero until teardown prevents new packet handoffs. */
-+	atomic_set(&peer->packet_crypt_pending, 1);
- 	rwlock_init(&peer->endpoint_lock);
- 	kref_init(&peer->refcount);
- 	skb_queue_head_init(&peer->staged_packet_queue);
-@@ -105,28 +108,27 @@ static void peer_remove_after_dead(struct wg_peer *peer)
- 	 */
- 	wg_timers_stop(peer);
- 
--	/* The transition between packet encryption/decryption queues isn't
--	 * guarded by is_dead, but each reference's life is strictly bounded by
--	 * two generations: once for parallel crypto and once for serial
--	 * ingestion, so we can simply flush twice, and be sure that we no
--	 * longer have references inside these queues.
-+	/* Lookup removal and is_dead prevent new packets from entering the
-+	 * parallel crypto queues after synchronize_net() waits for pre-existing
-+	 * submission paths. Drop the initial count and wait for existing TX
-+	 * packets to schedule their serial work and RX packets to leave rx_queue.
- 	 */
-+	atomic_dec(&peer->packet_crypt_pending);
-+	wait_var_event(&peer->packet_crypt_pending,
-+		       !atomic_read_acquire(&peer->packet_crypt_pending));
-+
-+	flush_work(&peer->transmit_packet_work);
- 
--	/* a) For encrypt/decrypt. */
--	flush_workqueue(peer->device->packet_crypt_wq);
--	/* b.1) For send (but not receive, since that's napi). */
--	flush_workqueue(peer->device->packet_crypt_wq);
--	/* b.2.1) For receive (but not send, since that's wq). */
- 	napi_disable(&peer->napi);
--	/* b.2.1) It's now safe to remove the napi struct, which must be done
-+	/* It's now safe to remove the napi struct, which must be done
- 	 * here from process context.
- 	 */
- 	netif_napi_del(&peer->napi);
- 
--	/* Ensure any workstructs we own (like transmit_handshake_work or
--	 * clear_peer_work) no longer are in use.
-+	/* clear_peer_work was flushed by wg_timers_stop(). Ensure the remaining
-+	 * peer-owned handshake work is no longer in use.
- 	 */
--	flush_workqueue(peer->device->handshake_send_wq);
-+	flush_work(&peer->transmit_handshake_work);
- 
- 	/* After the above flushes, a peer might still be active in a few
- 	 * different contexts: 1) from xmit(), before hitting is_dead and
-diff --git a/drivers/net/wireguard/peer.h b/drivers/net/wireguard/peer.h
-index 718fb42bdac7..64412c67f413 100644
---- a/drivers/net/wireguard/peer.h
-+++ b/drivers/net/wireguard/peer.h
-@@ -37,6 +37,7 @@ struct endpoint {
- struct wg_peer {
- 	struct wg_device *device;
- 	struct prev_queue tx_queue, rx_queue;
-+	atomic_t packet_crypt_pending;
- 	struct sk_buff_head staged_packet_queue;
- 	int serial_work_cpu;
- 	bool is_dead;
-diff --git a/drivers/net/wireguard/queueing.h b/drivers/net/wireguard/queueing.h
-index 79b6d70de236..5ce57565c8ff 100644
---- a/drivers/net/wireguard/queueing.h
-+++ b/drivers/net/wireguard/queueing.h
-@@ -11,6 +11,7 @@
- #include <linux/skbuff.h>
- #include <linux/ip.h>
- #include <linux/ipv6.h>
-+#include <linux/wait_bit.h>
- #include <net/ip_tunnels.h>
- 
- struct wg_device;
-@@ -161,6 +162,7 @@ static inline int wg_queue_enqueue_per_device_and_peer(
- 	 */
- 	if (unlikely(!wg_prev_queue_enqueue(peer_queue, skb)))
- 		return -ENOSPC;
-+	atomic_inc(&PACKET_PEER(skb)->packet_crypt_pending);
- 
- 	/* Then we queue it up in the device queue, which consumes the
- 	 * packet as soon as it can.
-@@ -182,6 +184,8 @@ static inline void wg_queue_enqueue_per_peer_tx(struct sk_buff *skb, enum packet
- 	atomic_set_release(&PACKET_CB(skb)->state, state);
- 	queue_work_on(wg_cpumask_choose_online(&peer->serial_work_cpu, peer->internal_id),
- 		      peer->device->packet_crypt_wq, &peer->transmit_packet_work);
-+	if (atomic_dec_and_test(&peer->packet_crypt_pending))
-+		wake_up_var(&peer->packet_crypt_pending);
- 	wg_peer_put(peer);
- }
- 
-diff --git a/drivers/net/wireguard/receive.c b/drivers/net/wireguard/receive.c
-index 824bbefce61c..bb35e3205491 100644
---- a/drivers/net/wireguard/receive.c
-+++ b/drivers/net/wireguard/receive.c
-@@ -476,9 +476,11 @@ int wg_packet_rx_poll(struct napi_struct *napi, int budget)
- 
- next:
- 		wg_noise_keypair_put(keypair, false);
--		wg_peer_put(peer);
- 		if (unlikely(free))
- 			dev_kfree_skb(skb);
-+		if (atomic_dec_and_test(&peer->packet_crypt_pending))
-+			wake_up_var(&peer->packet_crypt_pending);
-+		wg_peer_put(peer);
- 
- 		if (++work_done >= budget)
- 			break;
+I suggest you samsung first works in JEDEC, together with the other UFS ven=
+dors
+and host controller vendors, to remove scsi from the UFS spec as the applic=
+ation
+layer. As long as scsi is the UFS application layer, every UFS device must =
+still
+uses scsi, decode scsi in FW, and RUFS must still send SCSI commands and ha=
+ndle
+SCSI status and sense data, as it does today. Moving this SCSI work out of =
+the
+SCSI midlayer and into a new driver does not make the whole ecosystem simpl=
+er.
+It only means the same SCSI work is done in two places, and it can even mak=
+e
+things worse.
 
----
-base-commit: 70f3995830d3f1e79faa14eb0605914f778feca9
-change-id: 20260901-fix-wg-peer-removal-43fc390d0311
+If the spec changes, then a new driver built on native UFS commands would m=
+ake
+much more sense. That is the first thing to do, not just post an RFC patch.=
+ I
+could send a Rust based UFS driver as well with AI assist, but that does no=
+t
+make it sensible to change the base of our current UFS ecosystem.
 
-Best regards,
---  
-Chris J Arges <carges@cloudflare.com>
 
+Kind regards,
+Bean
