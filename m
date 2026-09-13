@@ -1,120 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out28-219.mail.aliyun.com (out28-219.mail.aliyun.com [115.124.28.219])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FFF23CAA3F;
-	Sun, 13 Sep 2026 10:18:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6F293E1683;
+	Sun, 13 Sep 2026 10:18:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.219
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789294714; cv=none; b=e1WzcUpWT/uZRB9D/gs7zkktOMxi4H3ld8Rb/rXJf2SL0w0V6ppWaLIVbyAmkmYkGXyX/cgIs2UF/xs4mGEq4sxQu94hvulKDJdBmb8mjL7hNPNiunAmSMiN26dvpahvFYM184CYEKky+ZoLrMgnYX4CTfj+hy2L8/FyOzDpev0=
+	t=1789294724; cv=none; b=moaz8a+WTVBMCvwl8d0FELM+bLXRPEa2mtxk2rt8cYSD8Y98JuB1BiA1A4bD2ZY+rLGAb4YgJv9fxHgRsO5GfceNX1RvjXS2Artc2aezrBcYRx0hfO6udZ2bas8VbpZoAapIIgt8hryd3lCC7jSXGd14MDyT14PoaBs4znA8QcQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789294714; c=relaxed/simple;
-	bh=IL4UCf78k83LQhayqhvqOXC9kFdfpL2eFAdVm8LgQnM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VcTvpHdv2Sf2JWUVXZ0xGM+Ry9ORDl5eLXGpRusPsYsNf8u8RbxS9aEa/kGMIO08mdzXBFCLYFDlFWMhdnSZhH9k8Ty6ngg490P2HfgeWl934E0PX9UPKupGa0NsYFiP4y5d2Q+RfXFByGujL5zYZsHOrPrOBzmEauNGzM1+BKE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jHp0Vuq+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789294724; c=relaxed/simple;
+	bh=r4wVVkuqRlfIfMfUPDikHgAKFLkUDgQoiT6wrAjRufk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UNHs5yeizt8cJ/KcKz8Te3ubLksQoHYPQkl155CmWZl+dZujSGaN1BzvvrELVhWTwmXepZSRNYceFHxWmlg1D7skd/gPCWwRGrPY8VxOtsrvqOgvBfDKjT3I2wnZmwzhjdDcWRp1oJ27aENBZWiE6WiIXQxDK7BvGlxDPhmkGKk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=F1QP8EfZ; arc=none smtp.client-ip=115.124.28.219
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jHp0Vuq+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEE221F000FF;
-	Sun, 13 Sep 2026 10:18:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789294710;
-	bh=f3GOZLVQBmmZVeSOJvAxnBpXgKraYpmV0HE7uOdD6qo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=jHp0Vuq+DsIP1G6ftTIl93PFX8DDdRQhTM76KGay6/Ns0uNl9UqVBJ3OMk+AZwqHG
-	 I5EB3N7+yP44+wRcOrFVZO8l6f8jKyb0kVQ1AIOhOoNgSxuk28s5/tcEBkp96ISPDJ
-	 SYv6thLOgoIcfvBclF9pARojSRS8QuwLq4GMSSRsfEid40PJblErkd11hSnuA2MSvu
-	 i28Rjt53Mios45YX4mVtsuQJpsnQNs9ns1fLI8HRrdbCCK/947cRpGSmdE3ksCGMCp
-	 NOTAuVH/owZhuqRrfG6+OPNWK1Ow+0iM0u4UKwOubY2JUILL2XoLv3HJtvXjAh0er4
-	 2Z4ilsXQfv1BQ==
-Message-ID: <47552144-27a0-4032-93e6-7519479343f5@kernel.org>
-Date: Sun, 13 Sep 2026 12:18:22 +0200
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="F1QP8EfZ"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1789294712; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=+26ooWuhqZZHzVkkLL0D9UrBlJ22BeeP2IpYkHGQ+/s=;
+	b=F1QP8EfZD4Oy4RtfXlWsPkGmH6O7omqfqPbHLre9nZ3Kdh9vzuTMd2nEzfYPu80Y7gc5s/3WZNV0W6dMn8VWHSHaLzvmhezhllWit+95NrZ5AyKv6CjQsUAeCvt93WZLdVt2DO3nNCMvxBBNyMisYXkzws4feBvXFQ4yGWrzKYU=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07882031|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.00494777-0.000972548-0.99408;FP=16767890541788292742|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037022039;MF=liuc63@xiaopeng.com;NM=1;PH=DS;RN=13;RT=13;SR=0;TI=SMTPD_---.jCTU3wv_1789294389;
+Received: from localhost(mailfrom:liuc63@xiaopeng.com fp:SMTPD_---.jCTU3wv_1789294389 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Sun, 13 Sep 2026 18:13:10 +0800
+From: Liu Chao <liuc63@xiaopeng.com>
+To: David Heidelberg <david@ixit.cz>
+Cc: davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	Ilan Elias <ilane@ti.com>,
+	"John W . Linville" <linville@tuxdriver.com>,
+	oe-linux-nfc@lists.linux.dev,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Liu Chao <liuc63@xiaopeng.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net] nfc: nci: avoid unbounded skb allocation when max_pkt_payload_len is zero
+Date: Sun, 13 Sep 2026 18:13:09 +0800
+Message-ID: <20260913101309.891633-1-liuc63@xiaopeng.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: arm: samsung: Add compatible for Samsung
- Galaxy A21s (SM-A217F)
-To: Thomas Turner <tturner@lineageos.org>, semen.protsenko@linaro.org,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- peter.griffin@linaro.org
-Cc: alim.akhtar@samsung.com, linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, thomas_turner@talktalk.net,
- alexey.klimov@linaro.org
-References: <20260913101331.198835-1-tturner@lineageos.org>
- <20260913101331.198835-2-tturner@lineageos.org>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
- /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
- s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
- EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
- rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
- DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
- IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
- vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
- oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
- sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
- vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
- Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
- BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
- 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
- f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
- WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
- XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
- IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
- YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
- p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
- GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
- YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
- vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
- ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
- QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
- +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
- wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
- c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
- K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
- n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
- qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260913101331.198835-2-tturner@lineageos.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 13/09/2026 12:13, Thomas Turner wrote:
-> Add binding for the Samsung Galaxy A21s (SM-A217F) board, which is
-> based on the Samsung Exynos850 SoC.
-> 
-> Signed-off-by: Thomas Turner <tturner@lineageos.org>
-> ---
->  .../devicetree/bindings/arm/samsung/samsung-boards.yaml          | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/arm/samsung/samsung-boards.yaml b/Documentation/devicetree/bindings/arm/samsung/samsung-boards.yaml
-> index 753b3ba1b607..b4593319ee3b 100644
-> --- a/Documentation/devicetree/bindings/arm/samsung/samsung-boards.yaml
-> +++ b/Documentation/devicetree/bindings/arm/samsung/samsung-boards.yaml
-> @@ -233,6 +233,7 @@ properties:
->          items:
->            - enum:
->                - winlink,e850-96                 # WinLink E850-96
-> +              - samsung,a217f                   # Samsung Galaxy A21s (SM-A217F)
+nci_queue_tx_data_frags() uses conn_info->max_pkt_payload_len as the
+fragment size.  When that value is zero, frag_len is always zero and
+total_len never decreases.  The loop then allocates skbs without bound:
+none of them are freed inside the loop, they accumulate on frags_q, and
+there is no cond_resched() in the loop body.  A single sendmsg() can
+therefore consume all allocatable memory, and on CONFIG_PREEMPT_NONE it
+occupies the CPU long enough to trip the softlockup watchdog:
 
-Alphabetical order.
+  watchdog: BUG: soft lockup - CPU#3 stuck for 26s! [kworker/3:1:57]
+  Workqueue: events rawsock_tx_work [nfc]
+  Call Trace:
+   nci_send_data+0x1ca/0x6b0 [nci]
+   nci_transceive+0xbb/0x170 [nci]
+   rawsock_tx_work+0xb5/0x1a0 [nfc]
 
-Best regards,
-Krzysztof
+max_pkt_payload_len is taken verbatim from controller-supplied fields,
+with no check for zero:
+
+  ntf.c: conn_info->max_pkt_payload_len = ntf.max_data_pkt_payload_size;
+  rsp.c: conn_info->max_pkt_payload_len = rsp->max_ctrl_pkt_payload_len;
+
+Reject the zero value in the fragmentation path rather than at the
+assignment sites.  nci_queue_tx_data_frags() is the only place that
+loops, and nci_send_data() takes the non-fragmenting branch only for
+skb->len <= max_pkt_payload_len, which for a zero limit means empty
+skbs alone.  Validating on assignment would not be sufficient either,
+because nci_rf_disc_rsp_packet() allocates ndev->rf_conn_info with
+devm_kzalloc(), so max_pkt_payload_len is already zero before any
+notification arrives.
+
+No legitimate configuration is known to be affected.  Where the NCI
+spec does mandate a zero Max Data Packet Payload Size -- the NFCEE
+Direct RF Interface -- nci_rf_intf_activated_ntf_packet() takes the
+"goto listen" shortcut, bypassing the assignment entirely.
+
+Reproduced with CONFIG_NFC_VIRTUAL_NCI by injecting an
+RF_INTF_ACTIVATED_NTF with max_data_pkt_payload_size set to 0 and then
+sending a data frame on an AF_NFC SEQPACKET socket.
+
+Fixes: 6a2968aaf50c ("NFC: basic NCI protocol implementation")
+Cc: stable@vger.kernel.org
+Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
+---
+ net/nfc/nci/data.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/net/nfc/nci/data.c b/net/nfc/nci/data.c
+index 4253edea5..b549cef7d 100644
+--- a/net/nfc/nci/data.c
++++ b/net/nfc/nci/data.c
+@@ -114,6 +114,11 @@ static int nci_queue_tx_data_frags(struct nci_dev *ndev,
+ 		goto exit;
+ 	}
+ 
++	if (!conn_info->max_pkt_payload_len) {
++		rc = -EPROTO;
++		goto exit;
++	}
++
+ 	__skb_queue_head_init(&frags_q);
+ 
+ 	while (total_len) {
+
+base-commit: e6b6078ea1731b05b3b552497b3bce4bf8b014ae
+-- 
+2.50.1
+
