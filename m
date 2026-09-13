@@ -1,74 +1,80 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1C473AEF5F
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 06:36:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FC2D3AEF5F
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 06:37:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789281376; cv=none; b=S+jj1ZGnsYvxkhLAwz3yfJBM8BnHNCda9INPEcD3dV3AeUfz/Bybp1pXF5CE0BNj7NEro9HoCeqhBbfnhk/PgqRNAnN58yqekQNfFFzvu96IN9b3DczXrvii3rCtLRuDZlNoAUHwaqsGmbZAJW8xXPEpApuy/rkKGHv2eFgMvMA=
+	t=1789281462; cv=none; b=nzCWii7/BtPO/P9PZAaWEZ0JmP5lNrcuxbswg2VzlhJwibmuwdRNBmNcsMGMp62QiGU1ZJgXamTGWN/48IGJvGmFBHk/+9up9FYMf9Ct8kMBTgSbmDieF6clrhfqKHp01ZzhWXTR8XtKQKSNiUSdnvvNkmgswfAISSRWOZhBvjk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789281376; c=relaxed/simple;
-	bh=AuFaBted7/ybu6Z97TCANitruKWhIXrZTsYS1kpRTBw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ehWxGtCQMDDL26U6pGVx7lGjQCXQEXl8bodZpDC41Wlh3Jzy0IL+NimFvdnHlA/0Wi3Ry5GziMnxGlJKfO+OWqvSOa1ZGwAJF6zvNs5ierb85hR2So7INkRJUXgTrWhNleEs/BLQcWmSu0km8nkC7i/JRljCLpw+1QHit75AM3E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UWVVc0d7; arc=none smtp.client-ip=74.125.227.141
+	s=arc-20240116; t=1789281462; c=relaxed/simple;
+	bh=EaOmmJJC3kV/y6g1/KOXknozM741k9/ONn4JSj6RC2M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=UWxz7gJB7pjtF6h6NLmadVrEow6cjjjK2ifaofKShn0Z0Pvq+4vYglBLBAZlbf4z56w5YsFto3RsHoaDo8IndgpeefUYhAXXya8KwdoyGknkx+vPiF75o5MkAJAiAUgx2JHSRZbTAUHznTb9L687XtF05/tsJnmSOHct4vq/MY8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RSXMDBKV; arc=none smtp.client-ip=74.125.228.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UWVVc0d7"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d91c22d27dso4073485ad.1
-        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 23:36:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RSXMDBKV"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cebad4aeso1027596a12.2
+        for <linux-kernel@vger.kernel.org>; Sat, 12 Sep 2026 23:37:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789281374; x=1789886174; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PFP3Vj8KSIBbfPKyIBbQZMT08Gt8pVUubEOX0me+VXU=;
-        b=UWVVc0d7G4sGBlPEeWNYM1sJDTtN1xDmI5zlhxSCwkDtl0TGceCvWh0QZsl1q+qwp6
-         CnQGtxmRxjMHtPxlxhfACtBop6YWuhrOpPulVuFvDizMQ2SzWhHck53CxHJ0Ng6sniCj
-         1DaPPhdWJnQ1EXvJj1eA1ofO2ae46Fxsg6VRDq4YDJ6LK9nKdsQfbzQCRBZDmXllJtqH
-         ID/Znci18kS0VuFbuO9TmEzc+Ckr1ew6jiHLVYJmjB/ZiXLrcddqx6kJDsfLy3OXJ8nr
-         I35Z2U3cH4Fv6OCXBaCS9HNBwYCSfsWKJQl9boYKV4xAtVBn70zkh3jIXwsSnt7Zsrjr
-         /b8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789281374; x=1789886174;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1789281461; x=1789886261; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=PFP3Vj8KSIBbfPKyIBbQZMT08Gt8pVUubEOX0me+VXU=;
-        b=UYQTyV8cXsYaJD+H+t5YmcA4nagkNWVUPQnMtazwbR6ZFjb2dyqpe97iLArVu0YuVD
-         JPCrWCXa3c/+aWjsK0I2Xv8OQIMmoL8+LAMSMgqr1bK7umowHH4DZ/1yukSuuyWdj0KM
-         q19+BNtrYP1BPf5BnXzZlyoM7tb/3zyT8oh/7a9JfkYiRFDVNDThS9H1Y6GX2QQJvr5N
-         OhvNJIIeeQ3oUxziqM27Mye+ht+HN1WTNxIPni5OSUoQ5b3F1TG0Nc1qXnUKTdTCj0Ua
-         F3wEYTsa4h9PIi467+YmTfkiNnJlXFfu6yQv6r0ZeRw9VqvYozfB/kwqpoRsTs5gXUQT
-         YWvA==
-X-Forwarded-Encrypted: i=1; AKwUvBwv9ndJbDbqplNkuFrjVBy2LdAjgvRXK6W9aYiwWBWoabKD4fCSC7vlH6rkQt219p13XEyxDh4oidrvEqA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kLFkEK8rJQKa9EvLm39wHOieuFFouErbWy2/NVTKov5uf+Xqjj
-	C0xW5vE3YNze1GHFzb1bCpojohOhNz1P7k9z5AnFQoKytzaDkbKY+Q0u
-X-Gm-Gg: AYBFou2zNIW+slMh6p8Gz8sKiGJSQgza60DAiLd30DiBUq6/Fe7ZatMRW4fX9nuZQfe
-	8sME5ear75OiAKC69Kj9hlhX6fk5RIplAKDphfnW0t+UCLh1r4eXxntBwqJLpj/rzvfHWyA5Ew8
-	43VNU5UgdA1PYNs00gvGhETljs98T3M80ZTgnHK7onECSE0rZzB5qmCxUbREuOSelyKL6Nfizu5
-	t56GFYRX4+LMFUFP9R6DpffI5/z5Ug7LULQQjZzmVdZlvMo6lQibFozAO1jCNOJF9oM4+A+kCSZ
-	SJpQjlEtk7fvTr7RyXwDGh7TxcoKI5bnqh5FlFCcd/7OXJRwDVIceXJdgepa9N9xf/PHGxLDCbB
-	Ij1iJkJKVg26bbnOjAtvT3x4csDK+N2q/81Fz0SswtYYqmTr/KP4afMMNzeIMHlXWEDa9D3gwCQ
-	lHrnEVQTZpN10s3gcw9pVhinx+3JatY79k4bNBSstkQhkV7EIR4AYMxQ==
-X-Received: by 2002:a17:903:2c50:b0:2dd:3ddf:b876 with SMTP id d9443c01a7336-2dd4ba9301bmr99485275ad.0.1789281374229;
-        Sat, 12 Sep 2026 23:36:14 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2cfc56b1sm30770505ad.54.2026.09.12.23.36.09
+        bh=d5b80pzerJ3gCHaBvR30moKiKA9qUlNZYajnhJLIpzk=;
+        b=RSXMDBKV53Mxv00PbK9pY2sSlvbF22g6zZeBxEImte0aN4+sTw1ycWwMEwRyX3SsNF
+         2U+xIikziij3JH6Jo11DO/jjoKva+K1T3vPamCFdJMXdh/EB28m1bbYjRZo2L9dBpjUy
+         b4l/AXYFO8RkmpfqU3nUWagew7pPSASIhVqCaYzHqUqh1khBLq+38m+dkMJm+uzkyQMi
+         e55Lqpzf4jpDAWPKJbkjJlj4BzhEzhZrMgikVspPsbDprND/VV4cReZyJdprrUmoCHHi
+         bpkbb7FIbrtVqy1Hf8hONKMdUmn1jfEMj/ZsQDzEetOpkMR29Pyz75QcoRXFrZB0RRLU
+         CGQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789281461; x=1789886261;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=d5b80pzerJ3gCHaBvR30moKiKA9qUlNZYajnhJLIpzk=;
+        b=nL0034rUWCt/QRqi/nJgOMSVMZ2NCEp3oeFDglLekE8ESnUE8j6coNz+/WHgcxwFyF
+         xI8jUjnGngNsoxOoirKIA+lBan74vNNX7XWa7+IDZ7DnHqH1mnLVCYzrBdiC0zMVIioi
+         dBGapTfFauZyRpiihTupoHrAgo2ps5kGiT7EmWVOu65GOg3Wdnx+JdOg8oNge/bcxgrm
+         Fj1Ek1cb+BS5DALDvafP5bVJI8AzHT+B9x5t1/rbYb17jCG/mwW+rLpukojqKuLiLL7J
+         nvXQbeWnWy9iNC5kt0IAzXe1tpny/FrZcEJT3pIRHz1TWFQ6swpGzR7hW6r/jt4kcJ5Y
+         GDWg==
+X-Forwarded-Encrypted: i=1; AKwUvBwLV3+X7gYQPYILbMEOuGp6CcTME+L83YSYA1H+CCxnpv8u6n9PZNQzC0BvMqAsZcexoo+qxtE5N0hqLG8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lX0/S0vkDWqF4APRt+kWaQkZxtGeyqShb84y5Hfh+flKbfAa8H
+	7orD2IWIbuPwKLa0Qy6nfyBWWgShT2gEaEEUlR6rUxMLWv9kUyWoJ4s=
+X-Gm-Gg: AYBFou0PyeBAYofBN0KV7bWg68eJ3v450Zt+gX5gVQq3/01BqmfP1TCKiA42BOMK2uI
+	YTA6sOqrUSkFadYT2SWm6ZIpjjj60r99skVUJMt7FqBuWWf/ZUcKyAzNZnL0XYsSM5E1CoSw91p
+	ibZMXKww1K40Gndzo5TZNxAukCG9+GVgt90KsZMP2l289rrskxbyvUExA6oJlI6NxHAp4xXI2TK
+	KhXXPBqrHwdGxSOpn0+3xjDQ46C7anWezofzJBfgE+jXO4mCQhe8ylLf8ylWFkZ0B4hYVTXsNaG
+	oL3X+0CBbKVJDjRtE182SKAhXKBv4wm+kSMcVwyr+U4MbCZsrD973RJ3/d7eWz1FYhPNI+zjNcv
+	Xjox3dmpbMfNOOe7XwPeVH27+1LuVS6Ix5q8kKjPLBhrR0k5Gyzknf+JIDLTu7CNeFz5CNQrOUY
+	nXiwD0/RUUaq0NFJbIgwo+FLktbDkHMh1Os5HroEfVtxVJeVxceccVpoS0BOECTYExHMYAv46Pk
+	oy5JtVpBepeFMYng5NtQdaYpQ==
+X-Received: by 2002:a05:6a21:6f88:b0:3d8:f78a:9349 with SMTP id adf61e73a8af0-3daed2e2f72mr26462406637.13.1789281460900;
+        Sat, 12 Sep 2026 23:37:40 -0700 (PDT)
+Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:7f00:8c85:b91:ff81:c860:362e])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4c6585f94sm3253291a12.25.2026.09.12.23.37.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 12 Sep 2026 23:36:13 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Dave Penkler <dpenkler@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	=?UTF-8?q?Dominik=20Karol=20Pi=C4=85tkowski?= <dominik.karol.piatkowski@protonmail.com>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>,
-	Guangshuo Li <lgs201920130244@gmail.com>,
-	Kees Cook <kees@kernel.org>,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH] gpib: tnt4882: fix memory leak on probe failure
-Date: Sun, 13 Sep 2026 14:36:03 +0800
-Message-ID: <20260913063603.1443403-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Sat, 12 Sep 2026 23:37:39 -0700 (PDT)
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: linux-trace-kernel@vger.kernel.org,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jens Axboe <axboe@kernel.dk>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Adriano Cordova <adrianox@gmail.com>,
+	donggeunyoo.kernel@gmail.com
+Subject: Re: [PATCH] blktrace: build the synthesized v1 record from the entry's own layout
+Date: Sun, 13 Sep 2026 15:37:34 +0900
+Message-ID: <20260913063734.708896-1-donggeunyoo.kernel@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260913031030.E85191F000FF@smtp.kernel.org>
+References: <20260913025827.457116-1-donggeunyoo.kernel@gmail.com> <20260913031030.E85191F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,46 +83,15 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ni_gpib_probe() allocates a local_info_t structure and stores it in
-link->priv before calling ni_gpib_config().
+On Sun, 13 Sep 2026 03:10:30 +0000, sashiko-bot@kernel.org wrote:
+> - [Medium] Size-based differentiation between v1 and v2 events causes v1
+> entries with a large PDU (>= 16 bytes) to be misidentified as v2 entries,
+> scrambling output fields and truncating the PDU.
 
-If ni_gpib_config() fails, it calls ni_gpib_release(), which only
-disables the PCMCIA device and does not free the local_info_t
-structure. Since probe then returns an error, the remove callback is
-not called and the allocation is leaked.
+Correct. A v1 record carrying a 16-byte BLK_TA_REMAP PDU is 64 bytes, the
+size of a v2 record, and nothing else in the entry tells them apart.
 
-Handle the configuration failure in ni_gpib_probe() by freeing the
-local_info_t structure and clearing link->priv before returning the
-error.
+v2 drops the size test and depends on Adriano Cordova's "blktrace: always
+record ftrace events as blk_io_trace2" instead:
 
-This issue was found by manual code inspection.
-
-Fixes: 0cd5b05551e02 ("staging: gpib: Add TNT4882 chip based GPIB driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/gpib/tnt4882/tnt4882_gpib.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpib/tnt4882/tnt4882_gpib.c b/drivers/gpib/tnt4882/tnt4882_gpib.c
-index 3cd13f637ed4..fc201ad17e30 100644
---- a/drivers/gpib/tnt4882/tnt4882_gpib.c
-+++ b/drivers/gpib/tnt4882/tnt4882_gpib.c
-@@ -1585,7 +1585,13 @@ static int ni_gpib_probe(struct pcmcia_device *link)
- 
- 	/* Register with Card Services */
- 	curr_dev = link;
--	return ni_gpib_config(link);
-+	ret = ni_gpib_config(link);
-+	if (ret) {
-+		kfree(info);
-+		link->priv = NULL;
-+	}
-+
-+	return ret;
- }
- 
- /*
--- 
-2.43.0
-
+  https://lore.kernel.org/all/20260913063155.708520-1-donggeunyoo.kernel@gmail.com/
