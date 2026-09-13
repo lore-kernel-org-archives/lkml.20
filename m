@@ -1,201 +1,98 @@
-Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com [209.85.161.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from www5210.sakura.ne.jp (www5210.sakura.ne.jp [133.167.8.150])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4492E3624A5
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 15:54:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 636E2368D62;
+	Sun, 13 Sep 2026 15:56:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=133.167.8.150
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789314875; cv=none; b=Yzqo/nFJLp8TpzB4x4EOn34bYM4QsJ7NKLUfQLaEoKIEYZFezeetRMkDUe6LbxGmI+cLf9gMAdQ/jIaimILLJ4gSI8QlXawr/VhN2Z75RIsKBH1dRHKsOZR7uvmgXWfa1oqkeIvvLUdU6BkAmrMAdDk6KvPmTeNelgBTggNzzkg=
+	t=1789314964; cv=none; b=NEhFTCl5Mv8EJ38C5ULPrnNR63iZIxTrIxfLh2OQshYzBSs1wi9BzuRZ2bq7MXS+nd82PWtg3R6w7YrkWV74hzolYzIvRiqLtCOHD55v1qWiFVHuUprA7VJNC884Ml59IUicytKQ4MfR1pRbYECLxtXpBuQ7qMomI5RiL1qBlmw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789314875; c=relaxed/simple;
-	bh=RDKaKOuPxS/QzxQFvPQRdgvIU1ShlLWf0Nb+q2Yx5+4=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=RXDbIwEfVjn5X5Z1B5C/YchYucZ9omEE2pHF2TgQm3rntYxUeexB6A7XhgW78t31WRSsro86AsmrZI1QSOZXLfFMLNPPJLtGMurW+PB2eQqFXNvcykSVKU85zS0jz9RG78W3aUutS/Ooo5ToS4KJ6byh6uTguYtIM8lX4UfHx6Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f72.google.com with SMTP id 006d021491bc7-6c1e5079d43so1714472eaf.3
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 08:54:32 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789314872; x=1789919672;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=XyI7tP6BV3ZQw5PxaOMpv7ruNgnlTIM69B675BjVVIw=;
-        b=FNYhHSGNB1VVu5iLEL5fBl7X6OVxYGaec9wTDeWI09mK1EUSax2pz8eOw1E4UqSlSX
-         dYawFPQPWHGT9pzlty0EAH13eE4AMgX4HYmJFh5jWxchyPmysSjjxG1wCZqTOZjWm0dx
-         DnWesfC9aW5MuHo4hhDlSGMD6m7OtVFlvAg7PmoKOZ0gkRZh3YmC3sDiQN+Ejk9fEKXJ
-         XpUYBm2ug9aK+nAvRapRhiAiZqhdXZaM/GnhsjArFcFVJwkfWJcIK4P2GcU391uJQnVC
-         kvRRMkhsNfgBiH26BvMhWaOKChkWUX5GwKnsBAHQyop/oPMjugL8txIw4VjB18VaGqgN
-         ZD4Q==
-X-Forwarded-Encrypted: i=1; AKwUvBz/Gh3hkSQUZ2Qh/LhAOLEVzYjdVKwzqyj+o9m5+9ykof9TXWbkG0aEA+0iF+3s5zmXWD9XJN7B+HXZmzI=@vger.kernel.org
-X-Gm-Message-State: AFuF++lbjYSVB8G14kPP4ix50Nk8xxATT/20JT4xm/xcJZVx+bql6G0L
-	IoEboGkBG/Q4gjJTdStM30pMu7DAf9B1+Grp+s+qXouXrzjaZrG7Jl1M7bESW8KGbnphcKQ4J7H
-	REuwc7++s2vZytj/RbGDXsOIoxmJGGl5B0YhxOTh1j/koxRRGeXbFbGCBNV0=
+	s=arc-20240116; t=1789314964; c=relaxed/simple;
+	bh=1iSs/vrWHDlC2vp1ysdAiuMR483Lav+FKygNYu6jyBU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=XgQJDR1wQMsqTB4XqNjlTvnEP2piVMn2MVnuceQWzNjHbKxBdrqMsRBkszg3wazod7hcg+rYNURwnM0o5GitNu4i3ohNypaXatg4SCY1hFiJjFf7j5Ra/v8boqSZWfYkJK0GDddTNo0bNFo+F/ojDvdDpXy40hbGnspQWJu0Enc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mgml.me; spf=pass smtp.mailfrom=mgml.me; dkim=pass (2048-bit key) header.d=mgml.me header.i=@mgml.me header.b=byjqTuJW; arc=none smtp.client-ip=133.167.8.150
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mgml.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mgml.me
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=mgml.me header.i=@mgml.me header.b="byjqTuJW"
+Received: from fedora (p3233127-ipxg00b01tokaisakaetozai.aichi.ocn.ne.jp [180.17.90.127])
+	(authenticated bits=0)
+	by www5210.sakura.ne.jp (8.16.1/8.16.1) with ESMTPSA id 68DFtZE6020593
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
+	Mon, 14 Sep 2026 00:55:47 +0900 (JST)
+	(envelope-from k@mgml.me)
+DKIM-Signature: a=rsa-sha256; bh=qljtLoYmPRL1jB9MR4rFR4VrJjKYSmEFjcRWwNcZwss=;
+        c=relaxed/relaxed; d=mgml.me;
+        h=From:Message-ID:To:Subject:Date;
+        s=rs20250315; t=1789314948; v=1;
+        b=byjqTuJWOuLY43AbZVSjKW18D9GZPOEMK9zk4Qjb3qPfUJhBbm+bEE0DVSxTVoZd
+         VK8IKqPWJvvbHg7bOMy5/zywxD4jE/+TLWVyYNFDNidcqgg/xcyqyi+Iv7hwuDqt
+         LmfqMfqb+t5OG1jFkTf6tE5Lj4jCXOxSjD30dx0LLSwvIapQ9sAy56RmW927kI1x
+         DCcTOfMseLwXbMVOexNwQh2f2oM/o+MXSjSdIXYxQNREE0umThbAHbVoiW/BTvTV
+         R535VIYO8AzgXQHn5JsO0SoYtbkqyz7ll5P+5YdcztoRvEaQAetOlV7uHiECzn2o
+         rS8fgz93pRZNLycPA7nOPQ==
+From: Kenta Akagi <k@mgml.me>
+To: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, stable@vger.kernel.org
+Cc: Paolo Bonzini <pbonzini@redhat.com>, David Matlack <dmatlack@google.com>,
+        Lai Jiangshan <jiangshanlai@gmail.com>,
+        Sean Christopherson <seanjc@google.com>, Kenta Akagi <k@mgml.me>
+Subject: [PATCH 5.15.y v3 1/7] KVM: x86/mmu: Use a bool for direct
+Date: Mon, 14 Sep 2026 00:55:17 +0900
+Message-ID: <20260913155523.7423-2-k@mgml.me>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260913155523.7423-1-k@mgml.me>
+References: <20260913155523.7423-1-k@mgml.me>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:1f07:b0:6b1:b867:1a1 with SMTP id
- 006d021491bc7-6c0bb2f3cadmr16804045eaf.12.1789314872182; Sun, 13 Sep 2026
- 08:54:32 -0700 (PDT)
-Date: Sun, 13 Sep 2026 08:54:32 -0700
-In-Reply-To: <6a8278d8.dbb3a75c.20434b.0041.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa6c738.f81106d8.2ab401.0037.GAE@google.com>
-Subject: Re: [syzbot] [kernel?] KASAN: slab-use-after-free Read in disable_device
-From: syzbot <syzbot+4393dfdddf166f2de2b0@syzkaller.appspotmail.com>
-To: dakr@kernel.org, driver-core@lists.linux.dev, gregkh@linuxfoundation.org, 
-	linux-kernel@vger.kernel.org, rafael@kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-syzbot has found a reproducer for the following issue on:
+From: David Matlack <dmatlack@google.com>
 
-HEAD commit:    2f0c1cf72f46 Merge tag 's390-7.3-3' of git://git.kernel.or..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=17ccf615580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
-dashboard link: https://syzkaller.appspot.com/bug?extid=4393dfdddf166f2de2b0
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=15fb19f9580000
+commit 27a59d57f073f21f029df1517c2c0a1abea5b0ce upstream.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+4393dfdddf166f2de2b0@syzkaller.appspotmail.com
+The parameter "direct" can either be true or false, and all of the
+callers pass in a bool variable or true/false literal, so just use the
+type bool.
 
-smbdirect: ib_dev[rxe10] removed
-======================
-==================================================================
-BUG: KASAN: slab-use-after-free in kobject_uevent_net_broadcast lib/kobject_uevent.c:415 [inline]
-BUG: KASAN: slab-use-after-free in kobject_uevent_env+0x1383/0x18b0 lib/kobject_uevent.c:611
-Read of size 8 at addr ffff8880386e9fd0 by task kworker/u33:4/75
+No functional change intended.
 
-CPU: 3 UID: 0 PID: 75 Comm: kworker/u33:4 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Workqueue: ib-unreg-wq ib_unregister_work
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- print_address_description mm/kasan/report.c:378 [inline]
- print_report+0x13d/0x4b0 mm/kasan/report.c:482
- kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
- kobject_uevent_net_broadcast lib/kobject_uevent.c:415 [inline]
- kobject_uevent_env+0x1383/0x18b0 lib/kobject_uevent.c:611
- device_del+0x605/0x9b0 drivers/base/core.c:3983
- remove_one_compat_dev drivers/infiniband/core/device.c:1036 [inline]
- remove_compat_devs drivers/infiniband/core/device.c:1047 [inline]
- disable_device+0x1ea/0x280 drivers/infiniband/core/device.c:1339
- __ib_unregister_device+0x2b4/0x480 drivers/infiniband/core/device.c:1571
- ib_unregister_work+0x19/0x30 drivers/infiniband/core/device.c:1683
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
- process_scheduled_works kernel/workqueue.c:3479 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-
-Allocated by task 6226:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
- __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
- kasan_kmalloc include/linux/kasan.h:263 [inline]
- __kmalloc_cache_noprof+0x2f8/0x6d0 mm/slub.c:5563
- _kmalloc_noprof include/linux/slab.h:991 [inline]
- _kzalloc_noprof include/linux/slab.h:1312 [inline]
- uevent_net_init+0xd3/0x330 lib/kobject_uevent.c:782
- ops_init+0x1e2/0x5f0 net/core/net_namespace.c:137
- setup_net+0x118/0x3a0 net/core/net_namespace.c:443
- copy_net_ns+0x345/0x7a0 net/core/net_namespace.c:582
- create_new_namespaces+0x3ea/0xac0 kernel/nsproxy.c:132
- unshare_nsproxy_namespaces+0xf2/0x220 kernel/nsproxy.c:234
- ksys_unshare+0x4a2/0xa70 kernel/fork.c:3292
- __do_sys_unshare kernel/fork.c:3356 [inline]
- __se_sys_unshare kernel/fork.c:3354 [inline]
- __x64_sys_unshare+0x31/0x40 kernel/fork.c:3354
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-Freed by task 5751:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- kasan_save_free_info+0x3b/0x70 mm/kasan/generic.c:584
- poison_slab_object mm/kasan/common.c:253 [inline]
- __kasan_slab_free+0x5f/0x80 mm/kasan/common.c:285
- kasan_slab_free include/linux/kasan.h:235 [inline]
- slab_free_hook mm/slub.c:2748 [inline]
- slab_free mm/slub.c:6508 [inline]
- kfree+0x22b/0x6d0 mm/slub.c:6801
- ops_exit_list net/core/net_namespace.c:200 [inline]
- ops_undo_list+0x2ee/0xab0 net/core/net_namespace.c:253
- cleanup_net+0x499/0x920 net/core/net_namespace.c:706
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
- process_scheduled_works kernel/workqueue.c:3479 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
-The buggy address belongs to the object at ffff8880386e9fc0
- which belongs to the cache kmalloc-32 of size 32
-The buggy address is located 16 bytes inside of
- freed 32-byte region [ffff8880386e9fc0, ffff8880386e9fe0)
-
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0xffff8880386e9980 pfn:0x386e9
-flags: 0xfff00000000200(workingset|node=0|zone=1|lastcpupid=0x7ff)
-page_type: f5(slab)
-raw: 00fff00000000200 ffff88801c042780 ffffea0000d14c90 ffffea0000dfb110
-raw: ffff8880386e9980 000000000040003e 00000000f5000000 0000000000000000
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 0, migratetype Unmovable, gfp_mask 0xd2800(GFP_NOWAIT|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 4516, tgid 4516 (kworker/u33:10), ts 10789616045
- set_page_owner include/linux/page_owner.h:33 [inline]
- post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1871
- prep_new_page mm/page_alloc.c:1879 [inline]
- get_page_from_freelist+0x110d/0x35d0 mm/page_alloc.c:3943
- __alloc_frozen_pages_noprof+0x2eb/0x3300 mm/page_alloc.c:5436
- alloc_slab_page mm/slub.c:3347 [inline]
- allocate_slab mm/slub.c:3462 [inline]
- new_slab+0xa9/0x6e0 mm/slub.c:3513
- refill_objects+0xe3/0x410 mm/slub.c:7417
- refill_sheaf mm/slub.c:2885 [inline]
- __pcs_replace_empty_main+0x35e/0x650 mm/slub.c:4774
- alloc_from_pcs mm/slub.c:4850 [inline]
- slab_alloc_node mm/slub.c:4984 [inline]
- __kmalloc_cache_noprof+0x4f4/0x6d0 mm/slub.c:5559
- _kmalloc_noprof include/linux/slab.h:991 [inline]
- slab_free_hook mm/slub.c:2700 [inline]
- slab_free mm/slub.c:6508 [inline]
- kmem_cache_free+0x40f/0x6c0 mm/slub.c:6635
- __cleanup_sighand kernel/fork.c:1723 [inline]
- __cleanup_sighand+0x6a/0xa0 kernel/fork.c:1715
- __exit_signal kernel/exit.c:222 [inline]
- release_task+0xcb8/0x1b80 kernel/exit.c:272
- exit_notify kernel/exit.c:812 [inline]
- do_exit+0x13ba/0x2ae0 kernel/exit.c:1023
- call_usermodehelper_exec_async+0x35d/0x4b0 kernel/umh.c:120
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-page_owner free stack trace missing
-
-Memory state around the buggy address:
- ffff8880386e9e80: 00 00 00 00 fc fc fc fc fa fb fb fb fc fc fc fc
- ffff8880386e9f00: fa fb fb fb fc fc fc fc fa fb fb fb fc fc fc fc
->ffff8880386e9f80: fa fb fb fb fc fc fc fc fa fb fb fb fc fc fc fc
-                                                 ^
- ffff8880386ea000: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
- ffff8880386ea080: fb fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
-==================================================================
-
-
+Reviewed-by: Lai Jiangshan <jiangshanlai@gmail.com>
+Reviewed-by: Sean Christopherson <seanjc@google.com>
+Signed-off-by: David Matlack <dmatlack@google.com>
+Message-Id: <20220516232138.1783324-3-dmatlack@google.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+Signed-off-by: Kenta Akagi <k@mgml.me>
 ---
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+ arch/x86/kvm/mmu/mmu.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+index c0257bbb25c3..f5cfbf973e85 100644
+--- a/arch/x86/kvm/mmu/mmu.c
++++ b/arch/x86/kvm/mmu/mmu.c
+@@ -1738,7 +1738,7 @@ static void drop_parent_pte(struct kvm_mmu_page *sp,
+ 	mmu_spte_clear_no_track(parent_pte);
+ }
+ 
+-static struct kvm_mmu_page *kvm_mmu_alloc_page(struct kvm_vcpu *vcpu, int direct)
++static struct kvm_mmu_page *kvm_mmu_alloc_page(struct kvm_vcpu *vcpu, bool direct)
+ {
+ 	struct kvm_mmu_page *sp;
+ 
+@@ -2079,7 +2079,7 @@ static struct kvm_mmu_page *kvm_mmu_get_page(struct kvm_vcpu *vcpu,
+ 					     gfn_t gfn,
+ 					     gva_t gaddr,
+ 					     unsigned level,
+-					     int direct,
++					     bool direct,
+ 					     unsigned int access)
+ {
+ 	bool direct_mmu = vcpu->arch.mmu->direct_map;
+-- 
+2.53.0
+
