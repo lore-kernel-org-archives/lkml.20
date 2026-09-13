@@ -1,99 +1,156 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.102])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31788390C8A;
-	Sun, 13 Sep 2026 14:32:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 830CF3E2AA1
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 14:33:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.68.63.102
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789309944; cv=none; b=aTxEWw/6A6YkYWPGgTn8QfDCZj3UxkGRqVpu8+A6LJ7EHvp5/wNibqfj/QYSPtnoe3GnEJH7s2UT59MoVXqpSj5jdNrcTwzItQz/gtS+VdP1AKRx4Tu5YhIz+s0zMglOmdxz76JB8zws49HhMiKoUbWR4rle3zPZ46OCbS9bXHw=
+	t=1789309984; cv=none; b=oOWnqGWe/J/X3mxU4F2RhGu3wgjQW29/M0ewo23qXk9GfgP8d9EelYG86xs6ALPr45l+ZR5LveE0z0apDzqsJ/h02tbJlMIKecqmZX82h+Sg+eiuheK0kgK4St5rH4T5aRKL6RuUQzhYHX8VGuzozJJK+2/oeRDOT/k0vw06Q+c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789309944; c=relaxed/simple;
-	bh=YCRt6Qtdz8AMOeJGn4MqiXS9j+QuoLCUvZ+/FVgzzKU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TuxIfNZPGYEztQE1eA0/o9loXawSxjDC305xqU7GR01wVxKx4CkaOYXbw7yTcfHLdYDzajBBL4ScjOxvKJ3224RWnrIh3TveiYelDASnUJix9Lygh0QMa9Do7snGXVKKozFLfWPQAVTFuH2+dSrIilTOU9UmsgQFl7cMI9+ezq8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ejEy0u2R; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789309984; c=relaxed/simple;
+	bh=8nybc2zdT1V02w60Sa6PV1zgJfsB6WiaJXMEa4g65Qs=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:Content-Type; b=ATGNnvhD88+Xg3Fs7QCossHy9kx6Pi6jrAs1EQxTuxOWCikjx956RikP/lLzFq0D3oKFhJelrwhQQQPZ8W85OR13b6ShioV/QGLJYpdbVw/lt/jBuWV1xfHdeCcsuCwdK4GMZHa2uUPiGFBC267OARoik+XF6XpXRPM5u8JmpUk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=cpSE6Lrj; arc=none smtp.client-ip=188.68.63.102
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ejEy0u2R"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFD611F000FF;
-	Sun, 13 Sep 2026 14:32:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789309942;
-	bh=U8+fvsKWx0snbmn4Ih3GcyudjqWXY2cMF/YzeWKfsmc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ejEy0u2RywAWFgdi8YQImjiSg5lZVpYNoXMAWUEjDO6vxrpp9B0B7L83F7+H1+1HM
-	 ody1P/AkS50HbuJMokMq8gYflsU66DtYC51WvNhA3g3/pbiP3/cEjEBOI0pPXzbPFR
-	 8+0S34CTwsR7MTI3Hm560TLxrCfCViBPLd8jxkq7LYrWs1ARBb0oHWu9ktsG0Z8hcz
-	 kKxeXZ1iU7xPcRttwD367O6ou/rAIZKKhujf5f6SzpfGDuDGDz52f2IHSVtch9Tup3
-	 nv3QCWS99mKeOU5KICnrWLl6exALYG7pKw5RcpySEcKXz0AaivQ5r23m6oiFW0gL45
-	 ZRQodGzmq/CwQ==
-Date: Sun, 13 Sep 2026 15:32:18 +0100
-From: Simon Horman <horms@kernel.org>
-To: Myeonghun Pak <mhun512@gmail.com>
-Cc: Dominik Brodowski <linux@dominikbrodowski.net>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
-Subject: Re: [PATCH v2] net: 8390: pcnet_cs: release PCMCIA window on
- setup_shmem_window() error
-Message-ID: <20260913143218.GJ48209@horms.kernel.org>
-References: <20260731161740.44955-1-mhun512@gmail.com>
- <20260910231400.31919-1-mhun512@gmail.com>
+	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="cpSE6Lrj"
+Received: from mors-relay-2502.netcup.net (localhost [127.0.0.1])
+	by mors-relay-2502.netcup.net (Postfix) with ESMTPS id 4hjW385R3sz6M9l;
+	Sun, 13 Sep 2026 16:32:52 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1789309972;
+	bh=8nybc2zdT1V02w60Sa6PV1zgJfsB6WiaJXMEa4g65Qs=;
+	h=Date:From:Subject:To:Cc:From;
+	b=cpSE6Lrju1vI/Cg/MvDmD91uwSX+H6nLaO7M4OhSmBXo/z/BOLVPbL4yvSfegtl89
+	 i0TJ7K0kIH1Mit51D15xxzlHGuowoPH4O6/Z4MKkYByo22GLEpsEWn6FAumftu4mAN
+	 zRVGKIKAcLAmW1rJtjIcTsRN79i2IoYd3me3ClqF3tmSck9dK+yWxB1xyjO3W2lxzj
+	 TqjW2pfVNgL4Pg03a1bYcuHqC3TFJjENzp1HA0Otc/oWZaL2ton68jMLQTNpsZtUDD
+	 NEgTU6N3NNkdDuEbtNaPt7gmmS1JbXq5pDutz/uYvuWonQrLWrbR2SMfroewmVF9x6
+	 6qrwBjXHOKtOg==
+Received: from policy01-mors.netcup.net (unknown [46.38.225.35])
+	by mors-relay-2502.netcup.net (Postfix) with ESMTPS id 4hjW384hVKz4xnG;
+	Sun, 13 Sep 2026 16:32:52 +0200 (CEST)
+X-Virus-Scanned: Debian amavisd-new at policy01-mors.netcup.net
+X-Spam-Flag: NO
+X-Spam-Score: -2.901
+X-Spam-Level: 
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by policy01-mors.netcup.net (Postfix) with ESMTPS id 4hjW375JZ7z8tcm;
+	Sun, 13 Sep 2026 16:32:51 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id C6F385F9F0;
+	Sun, 13 Sep 2026 16:32:50 +0200 (CEST)
+Authentication-Results: mxe9fb;
+        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <46403cf8-9a81-4596-87eb-dde58ae4c5db@leemhuis.info>
+Date: Sun, 13 Sep 2026 16:32:50 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260910231400.31919-1-mhun512@gmail.com>
+User-Agent: Mozilla Thunderbird
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Subject: Quick regression status pre 7.3-rc3
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Linux kernel regressions list <regressions@lists.linux.dev>,
+ LKML <linux-kernel@vger.kernel.org>
+Content-Language: de-DE, en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-PPP-Message-ID: 
+ <178930997106.3071413.15283476729845245435@mxe9fb.netcup.net>
+X-NC-CID: bARJ2AKGoYQNFwnQrriXCNkwDdwMaX0Ddq/iuol+wH+cRh3Vfkg=
 
-On Thu, Sep 10, 2026 at 07:14:00PM -0400, Myeonghun Pak wrote:
-> setup_shmem_window() acquires a PCMCIA memory window using
-> pcmcia_request_window(). If pcmcia_map_mem_page() or the subsequent
-> ioremap() fails, the function returns without releasing the requested
-> window.
+Hi Linus! Here is a quick report about a few unresolved regressions from
+the current or the previous cycle that I found worth mentioning for one
+reason or another; fixes are available for all of them:
+
+
+* c6b1b34b509032 ("media: pci: intel: Add CVS support for IPU bridge
+driver") [v7.2-rc1] broke the internal camera on laptops where the
+sensor sits behind an IVSC. There are various reports, among them:
+  https://lore.kernel.org/lkml/20260901194526.6369-1-gvozdoder@gmail.com/
+
+https://lore.kernel.org/linux-media/2f8b67fc-ec2a-46f6-9ee0-06279e612bde@badakan.com/
+
+  Sergey Zagursky provided a fix that sits in -next as ce92674d8d8b29
+("media: ipu-bridge: do not use the CVS device lookup for IVSC")
+[next-20260903] and can also be found here:
+  https://lore.kernel.org/all/20260902211524.5572-1-gvozdoder@gmail.com/
+
+  I asked Mauro about the plans to mainline this up (this was before
+this weeks media PR was sent), but that didn't lead to any reaction afaics:
+
+https://lore.kernel.org/linux-media/27c82eb4-4f8e-41b5-b983-dff7a0a27951@leemhuis.info/
+
+
+* f3b1357673ddb3 ("remoteproc: qcom_q6v5_mss: Switch to generic PAS TZ
+APIs") [v7.3-rc1] broke GPU and modem on on Qcom devices that have a
+TrustZone firmware without PAS. This was already known before the merge
+window and is still unfixed -- which is why I'm mentioning it, as it is
+a good example how long some fixes take to reach mainline (see my
+maintainers summit proposal). The two fixes for that regression at least
+finally both made it to -next now:
+
+ - b853857293584d ("remoteproc: qcom_q6v5_mss: Don't require PAS for
+memory protection") [next-20260901]
+ - b7c0f8436f077e ("drm/msm/adreno: Only check for PAS when a zap shader
+is present") [next-20260911 (pending-fixes)]
+
+
+The two regressions from last week's report (also known since the merge
+window) are still around and didn't make any progress afaics:
+
+> * 9417c5818a0146 ("wifi: mt76: mt7921: validate CLC firmware records")
+> [v7.3-rc1] causes probe failures for some widely used mediatek wifi chips:
 > 
-> pcnet_config() treats shared-memory setup failure as non-fatal and falls
-> back to setup_dma_config(). Probe can therefore continue while socket
-> window 3 and its reserved iomem range remain unnecessarily held for the
-> rest of the bound lifetime of the device. pcmcia_disable_device()
-> eventually releases the window during teardown.
+>   - Mikhail Gavrilov reported this on 2026-08-16 (e.g. right before the
+> merge window opened):
+> https://lore.kernel.org/lkml/20260816132325.23007-1-mikhail.v.gavrilov@gmail.com/
+>   - Junjie Cao reported this on 2026-09-01 with another fix (withdrawn
+> meanwhile):
+> https://lore.kernel.org/stable/20260901011840.416787-1-junjie.cao@intel.com/
 > 
-> Route error paths after a successful request through a new release label
-> that calls pcmcia_release_window(). Fold the existing buffer-verification
-> cleanup into the same path, keeping iounmap() before the window release
-> when a mapping exists. Leave the request failure path unchanged.
 > 
-> This issue was identified during our ongoing static-analysis research while
-> reviewing kernel code.
+>   The culprit's author within hours of the first report provided a fix
+> that got "Tested-by" from the two aforementioned reporters:
+> https://lore.kernel.org/linux-wireless/20260816174841.1918-1-acharyalaxman8848@
+> 7.2 final/-rc8gmail.com/
 > 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Cc: stable@vger.kernel.org
+>   The maintainers afaics never reacted to the fix and it three weeks
+> later still marked as "new" in patchwork:
+> https://patchwork.kernel.org/project/linux-wireless/patch/20260816174841.1918-1-acharyalaxman8848@gmail.com/
 
-As pointed out by the AI-Generated review of this patch at
-https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260910231400.31919-1-mhun512%40gmail.com
-This patch seems to be more of a cleanup than a bug fix - as noted above in
-the patch description, the resources are eventually released anyway.
+The culprit made it to a few of the current stable-rc releases, but was
+dropped today.
 
-So I wonder if the Fixes and CC to stable should be dropped.
-
-> Assisted-by: OpenAI:GPT-5.6
-> Co-developed-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-> ---
-> Changes in v2:
-> - Clarify that the window remains reserved only until device teardown.
-> - Make the DMA fallback and continued probe description conditional.
-> - Avoid claiming that every request failure leaves no resource held.
-> - Restore the surrounding indentation for the new goto statements.
+> * 9b80bd9cab40c4 ("wifi: mt76: mt7921: add regulatory wiphy self manager
+> support") [v7.3-rc1] and e9f3f1cc133fc2 ("wifi: mt76: mt7925: add
+> regulatory wiphy self manager support") [v7.3-rc1] also causes probe
+> failures for some widely used mediatek wifi chips; the problem is in a
+> similar area and affects similar chips, but from my limited
+> understanding seems to be different.
 > 
-> Link: https://lore.kernel.org/netdev/20260731161740.44955-1-mhun512@gmail.com/
+>  - Klara Modin reported the regression on 2026-08-24:
+> https://lore.kernel.org/linux-wireless/aoyxqHYvSuaBeubf@soda.int.kasm.eu/
+>  - Devin Wittmayer within a day reproduced the problem and provided a
+> fix that got a Tested-by from Klara:
+> https://lore.kernel.org/lkml/20260825181712.28548-1-lucid_duck@justthetip.ca/
+>  - David Gow recently ran into the same problem and provided a Tested-by
+> for the fix, too:
+> https://lore.kernel.org/lkml/bcf1ee9b-97e5-43f9-81eb-67ac6a0a98dc@davidgow.net/
+> 
+>   The maintainers never reacted to that afaics and that patch is still
+> marked as "new" in patchwork:
+> https://patchwork.kernel.org/project/linux-wireless/patch/20260825181712.28548-1-lucid_duck@justthetip.ca/
 
-The process nit above notwithstanding, this patch looks good to me.
+No progress for this one afaics.
 
-Reviewed-by: Simon Horman <horms@kernel.org>
+HTH, Ciao, Thorsten
