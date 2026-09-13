@@ -1,90 +1,160 @@
-Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com [74.125.224.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D8C2377A97;
-	Sun, 13 Sep 2026 09:57:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.210.214.84
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789293478; cv=none; b=eZL5zPgNCgM8Y1npIYt/lsvNfC+qp9ydenUUQFdR/rOMA/PlZipqS+8qDGHyD97D5xELd3pbfdrvfaYitl9ZM6w/Nz7loIJQoYuHWdXJhbcvRExxF2pzuKg4TtvXIDe/8Mb8jYRDitFiYtIYK7LjLTXEJgFmE6aY2YbRCNHjv9Q=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789293478; c=relaxed/simple;
-	bh=unQ/0uzY3D7cYZwKkeOa1X7gfYdcMIvLK16kqdbWZzI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qVES2HUAasH19ySshWiABbg9jYC7JYFQTEX6AEw8wdy4i+rlH+Z/SRTd2lpJsw4dh8dVSzAJA8PjQV4Hl53Rap7v9NbcqDBYqmIqyW2E3O/TClnz+wjRVih35IEFNGGu9x4CNJTvt7kzHCwdK/5lXmiPTL8xTMa7d3oRSYdgohk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org; spf=pass smtp.mailfrom=codewreck.org; dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b=I8x3cEXO; arc=none smtp.client-ip=62.210.214.84
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF0B837DAB3
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 09:58:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789293494; cv=pass; b=mFZgE9I3q8V+RJ3fmwn74EmUR9DIpGxay1X/0pijLLbReZBTwMqQcORpGaJE0fo9aEQL3GHP06pWvTEHDiuJvfFx4y3ur4m57DZHlM4dOs3spcVVv66MGrbqYKvZB69qXA0M7XM9ZKrAWsLOggOMVVF9pHvAVPYcwxuBgFqdXVM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789293494; c=relaxed/simple;
+	bh=Z1UxZxGr9l++OMmSedOseueRC248vVuXVNhuqebXfaY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=q09XtJYCfNYmv5yxqRmXMe6pkjzEruI1L3uagmJXUnF3M0rJfp4Orz6vqt1/fqG/S5hOj2sBE4sMY0sbUruWMxnklC61ebQfMMjGV6isAmeUk8g15JkmqtJ1HMBI4btfQUrCSFBtnE+TWHKcP4PA+lzrcPecXgy1qIDMhtifcAw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZsrtQlxZ; arc=pass smtp.client-ip=74.125.224.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b="I8x3cEXO"
-Received: from gaia.codewreck.org (localhost [127.0.0.1])
-	by submarine.notk.org (Postfix) with ESMTPS id 3885A14C2D6;
-	Sun, 13 Sep 2026 11:57:47 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
-	s=2; t=1789293471;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ojc3Gf8XdcHrzIe5027BZcw/ZHmTep5+/EMX7/cpuQs=;
-	b=I8x3cEXOrG0+DRO4ErfU7WXllrlpn1ZY9SxOSJnGpp4NmSMqs/nI1zmAid5c87Tk04wOVz
-	9e72wxFXuw7ra/qr3Yk6tk0A0XCriYPhZORmodOQbLN5UPTMjId1z9W1oIcIZ5dM42R+vZ
-	Lu0BknfzS8Y4enR2uURKgMjLEE3jZw5uxjCrBG82XKlATKAHlZNEu9uaqsayQ4EnI3RXjI
-	ASaMCoEXB1Sn6HAXM+/C1emdjJCf5LSSxEA2dmyurrghSrLZKvFsYE7Q5Bx/DfZERSG7EX
-	ThFL/ALnEhkiqknZ57nFQWYzX/LguD+SZDvmP2WThznjfmMW/RDRBw/Sr7K4vQ==
-Received: from localhost (gaia.codewreck.org [local])
-	by gaia.codewreck.org (OpenSMTPD) with ESMTPA id 7a5da7f6;
-	Sun, 13 Sep 2026 09:57:46 +0000 (UTC)
-Date: Sun, 13 Sep 2026 18:57:31 +0900
-From: Dominique Martinet <asmadeus@codewreck.org>
-To: Yifei Gao <gyf161023@gmail.com>
-Cc: Eric Van Hensbergen <ericvh@kernel.org>,
-	Latchesar Ionkov <lucho@ionkov.net>, v9fs@lists.linux.dev,
-	Christian Schoenebeck <linux_oss@crudebyte.com>,
-	Juergen Gross <jgross@suse.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] 9p/xen: fix refcount leak in p9_xen_response() on
- wrong tag
-Message-ID: <aqZziy3RqeiJeHKW@codewreck.org>
-References: <20260804213550.3409638-1-gyf161023@gmail.com>
- <20260806144255.4167019-1-gyf161023@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZsrtQlxZ"
+Received: by mail-yx1-f46.google.com with SMTP id 956f58d0204a3-671061b015eso2259906d50.1
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 02:58:12 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789293492; cv=none;
+        d=google.com; s=arc-20260327;
+        b=FTbnEl9VfbS428kAUD9v/DT+8lzr4zvwpqSCY6W5gXZJ3ZPsBEH/waWKKXhkHs7GA8
+         XQ79WPWpO4QmV8xznAW+XAgHl1vvS5blxDWA20Oe1N9Lz7Cr9LrtpjRVOUPVYnGtG3N9
+         jylTiNwVuObtntriFHMpWNZohfr4SfIHulWcrM3lSzhdxrthJAyDVKHHVTmUPiJ3iKMi
+         EGYDUZNaAbTeW8Fv8yyNarGcybDNCver+3MZlKq3NZnTBfsEHHIiS56JulL6f0HBUR5q
+         p/2hmRqq/ehQyQ6zGSHMz9pjGJYt/0rQcffQ3duaCFx4IHGVPqt+0cUTSjvAB4cQauIi
+         ptxA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=t/fCaWgN5LecoczEsl0ebG8re6KS/OVMTOW68zTUUHA=;
+        fh=Uj/rW1oZUUTX/k+1FZT5a0YmGiMGkd+JY360rBGg+vU=;
+        b=EiBCzhQoX1cDuOid9Zp+QBz/AHjqL2IQVI31YXkTEOJODjET+N4QJ+iBJCBrj9jH0z
+         ZagESMp0kki/nzwSHCKgr1HUi/EZXwNcCbmWNZfU2vFhPElhFLNsOyUJGdl6pWr+FgN4
+         T6pqVaKD5C4x+MmQR+nHkMDp5jM36pNxnrcKC8Emsw7NxK1xvDYdGGVppfpNHrYqQN03
+         YPdjsEH1elz9GXYj18f9RsULoyi6Zc81/Q7W+AZpomfeaRMCfnmrz8x+ITWmjy/jTdun
+         WIK4jId2Py3RjTU/cbKWRP44og7t4iRhH7EOc0fe/ePuvjTRD2HX/JmyPC3WAC9NHJ2d
+         nLzg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789293492; x=1789898292; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=t/fCaWgN5LecoczEsl0ebG8re6KS/OVMTOW68zTUUHA=;
+        b=ZsrtQlxZJrTBszCgZZT/XK5b0kwScm8ahfUq4vZTiUn9BlHQDCnxFGEx4f8LggO1HX
+         ufsYSXIw/j3Cj4jUi21hNgNPnk7m4OA30S9W8GdGw63TCcqaIAFgWGlhsO7xEHwsnmhB
+         RGUGBKf+O0TSltbG20bvfeX3azitC23MduHPGSuMrAtvnIvEixQ/YFb9KoxlIAAB7fNg
+         LQqEkTAhzULrIz1eiCaGhBWbtN8/YoNQAqrvtW1TEonGxtiH+8ZWRvJ1nseTtkZFevcX
+         dLKbUyDaFKfPAYx/s3NcKW5aNQJC3qwt6/NLCIqXj/9W9l0lBwMiVugIiWr/Dc4P3wpn
+         KhUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789293492; x=1789898292;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=t/fCaWgN5LecoczEsl0ebG8re6KS/OVMTOW68zTUUHA=;
+        b=sfBFzSTmBmogmWKmGi8m7D91SAzRQ+GiJkhyg7Cn8N+ZBBaZKFcnV8mu/NhZeYRLC+
+         2k+CEcdVr5ZEswYcUu09OfCrxRdRYncI6hUZIwhmR9o9JSQtCaFObDQ0a2ozX63M/0Ie
+         M/ift7KMlL6Kp2/VJG0B2eBeVgu9BJl+zdKOct/HOC38hAx7avAItuGnJEvAC6wJ8p5C
+         r8sHh9D/Opnw3urU9xVSDrcYmKfCKgFOX19X7M9NBW3l0d0mXeH2mrcdKRIBMaEPF4rI
+         5O33ygmZH4vSggojj6f5AyHWdZ5e0ifZSGKNwjwrTruLBW8F68ijeiAjuubPHnN8mnu2
+         qA/A==
+X-Forwarded-Encrypted: i=1; AKwUvBxb3BZwzCyk/jDZM/fehSIU8/wUm851gYhuONmSU7R1CFaip5C40YtKBAeo4KStUjHzwKBn6ijZhARtifk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lgY2B41ZO01TQ5sVSAadtxJZwy8yE07XfbxWZTzxF7naaOIHP5
+	VlqeVt4GAiU27INVvKsx2noSK62XlRfEWJ2JD3Xdm2YIGHGj0cxE8HQOisP0BKliKa6hwLBlxK4
+	z3E8cBhihWw1DbicsTPunyWXXrGoSLHI=
+X-Gm-Gg: AYBFou0zo/LCQUR9NrzxwqjM3NGx5N0V0oK9qWMBg8yuow/Z+NXH1gc/Q86wSnpfQ9O
+	kIQiNa/s5/iWdPlGZfReuSjlMWUT64B76O4Y9TgGgTQ+VMCuaoWZ4yCO8ZUriBZpjR1OX1dZMEX
+	wo+gD2KhqKlDN97nCgx+tm71QGfBeiTa+owi290RJqaapU7P6aMXtKczznZeSSRmfr1yQ95PHbP
+	p2okfUVVlOfqs2O64uMLjagrpsrrghlLZ5/t8nsesrznfj/P6/60jv1e2kN5zD0sdz9s0sWhcf5
+	ugyLfO5/4q33fBGLPu2+uJzvnB/Ov1BW//P28LrI120TluMPk0NTgRWkD4Clmv0edR27+DmvYam
+	H49zICbgzs4+PGbMB3AjbvI9Zwg5W+TYDtxuO4clS
+X-Received: by 2002:a05:690e:1506:b0:66e:5fdb:98d with SMTP id
+ 956f58d0204a3-671246c1606mr3543486d50.50.1789293491753; Sun, 13 Sep 2026
+ 02:58:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260806144255.4167019-1-gyf161023@gmail.com>
+References: <20260912-alpha-kernel-compression-v1-0-ce9d55330193@gmail.com>
+In-Reply-To: <20260912-alpha-kernel-compression-v1-0-ce9d55330193@gmail.com>
+From: Magnus Lindholm <linmag7@gmail.com>
+Date: Sun, 13 Sep 2026 11:57:59 +0200
+X-Gm-Features: AcwNN1UjOH515ZFAs0rqo3W477-VlkGQGDTh2_Zpt2YFJYsWJyBQLc1fwY1eGXI
+Message-ID: <CA+=Fv5TXRbYARxnaKqEeCpC3OVFNAjBGNRZ_2FA+2g2s8OV=eA@mail.gmail.com>
+Subject: Re: [PATCH 0/3] alpha: self-extracting compressed kernel images
+To: Matt Turner <mattst88@gmail.com>
+Cc: Lasse Collin <lasse.collin@tukaani.org>, 
+	Richard Henderson <richard.henderson@linaro.org>, Nick Terrell <terrelln@fb.com>, 
+	David Sterba <dsterba@suse.com>, linux-kernel@vger.kernel.org, 
+	linux-alpha@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Yifei Gao wrote on Thu, Aug 06, 2026 at 02:42:54PM +0000:
-> p9_xen_response() looks up the request for an incoming reply with
-> p9_tag_lookup(), which takes a reference on the returned p9_req_t. When
-> the tag does not resolve to a request in REQ_STATUS_SENT, the function
-> warns and continues the loop without dropping that reference, permanently
-> leaking the p9_req_t and its msize buffers. The reply header, including
-> the tag, is supplied by the backend, so a malicious or buggy 9P backend
-> can leak kernel memory on every crafted response.
-> 
-> Drop the reference before continuing.
-> 
-> Fixes: 728356dedeff ("9p: Add refcount to p9_req_t")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-4-8
-> Signed-off-by: Yifei Gao <gyf161023@gmail.com>
-> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+Hi Matt,
 
-Thanks, I've picked this up for 7.4
+On Sat, Sep 12, 2026 at 9:55=E2=80=AFPM Matt Turner <mattst88@gmail.com> wr=
+ote:
+>
+> Alpha is the last architecture whose boot loader decompresses the kernel
+> itself: aboot carries its own inflate code, so vmlinux.gz has always
+> been plain gzip, and adding a compression format meant writing a
+> decompressor for aboot as well as for the kernel.
+>
+> Build a self-extracting image instead, a small ELF stub with the
+> compressed vmlinux linked in, which aboot loads and enters like any
+> other kernel. The compression format then becomes an ordinary kernel
+> Kconfig choice, and all seven formats become available: xz gives the
+> smallest image, 5547496 bytes against 7677280 for the equivalent gzip
+> one. The build now emits arch/alpha/boot/vmlinuz, since the image is no
+> longer gzip data.
+>
+> The SRM netboot path (bootpz.c) has its own boot protocol and keeps
+> using gzip.
+>
+> Signed-off-by: Matt Turner <mattst88@gmail.com>
 
-If someone is interested in the 9pfs xen backend security then sashiko
-had a lot of "pre-existing issues" to talk about[1]... I tend to agree
-with Stefano's point of view that the 9p backend is mostly trusted
-though, so I'll take patches if someone wants to spend the effort, but
-won't actively be able to contribute much more.
 
-[1] https://sashiko.dev/#/patchset/20260806144255.4167019-1-gyf161023@gmail.com
+Nice series! I've done some testing during the weekend and it all looks
+good to me, thanks for doing this.
 
--- 
-Dominique
+Regards
+
+Magnus
+
+
+> ---
+> Matt Turner (3):
+>       xz: add arch-specific tuning for alpha
+>       alpha: add self-extracting compressed kernel boot stub
+>       alpha: support the remaining kernel compression formats
+>
+>  arch/alpha/Kconfig                       |   7 ++
+>  arch/alpha/Makefile                      |   6 +-
+>  arch/alpha/boot/.gitignore               |   2 +
+>  arch/alpha/boot/Makefile                 |  16 ++-
+>  arch/alpha/boot/compressed/.gitignore    |   3 +
+>  arch/alpha/boot/compressed/Makefile      |  63 ++++++++++
+>  arch/alpha/boot/compressed/head.S        |  36 ++++++
+>  arch/alpha/boot/compressed/misc.c        | 209 +++++++++++++++++++++++++=
+++++++
+>  arch/alpha/boot/compressed/trampoline.S  |  46 +++++++
+>  arch/alpha/boot/compressed/vmlinux.lds.S |  83 ++++++++++++
+>  arch/alpha/boot/compressed/vmlinux.scr   |  10 ++
+>  scripts/xz_wrap.sh                       |   5 +
+>  12 files changed, 478 insertions(+), 8 deletions(-)
+> ---
+> base-commit: 4407825b2f96b0e48a4bd08ab196b50a30eb3aef
+> change-id: 20260912-alpha-kernel-compression-2043f806fb75
+>
+> Best regards,
+> --
+> Matt Turner <mattst88@gmail.com>
+>
