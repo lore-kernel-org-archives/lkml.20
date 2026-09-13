@@ -1,100 +1,94 @@
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1585389E05
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 23:11:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32E712F1FED;
+	Sun, 13 Sep 2026 23:13:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789341066; cv=none; b=rksH9PPFkt24GHm9/VbRb6uEWA1xdImqcOIhY6ABDUmVztxgaYNxrnIXp1JckFVQXfwFk/6AgyZ3FmC/UoE+9mC3xB6cZedeNI95AEFaFPIy+S4idkpuTMC9Ac/WDmwdJah6dVnI5HYJUUk2NHD7i1dQk4fi9ydXgpMM3wSFnxc=
+	t=1789341207; cv=none; b=LhuKIU00hApPPlKiP8lnTo5RiuXK/2z6YbyRsy4BTqdCJVXuET2q7btNs554U+zkozcNGVHfS29pDvXaqR1GluB33i44zROQ+SouCdfOrmeQCts4Np668eXY4KdlBW0Blf8tITctPxDmytwVQXypiIDXPGfcuPU/2TF2BzVY20Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789341066; c=relaxed/simple;
-	bh=7VRqRnWh3lGbL9kPUFthPS5dsgsRMwml6qaXfw5FMHg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=B4BGIVNzYwTW7ZC/mL7c8tl/sTeBr9WgcR+SNkMYK8VCclNg9NtIwM2sAS3B7z01IlsF4k3ijP9B9VPxQTqqb80IGmCdsXFduozwuxkct7xcJsnPGyWlmh+KnpT4iX8/P/+L7KiZNZRc6Jb4+ijIYQOh9iFydrU51GnHhvlwLME=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=W0oAEPBy; arc=none smtp.client-ip=209.85.208.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	s=arc-20240116; t=1789341207; c=relaxed/simple;
+	bh=/yFTq2TRqG0tvgEsqGrbjioo41O5Hwn6wAtodQ6dBbk=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=sDSLapMwcDx/+FcC/23HE/8G5iHngP/IaZY2II2WFbAm7ax0y+MMoIsqM3b01W1cJTFBsOx0SBMBpl3CyHM7QEip6dOcxd2Rxn7a4ABQPnGSNKBncCaG5dMng0Oq8uzrJpRbEsOO8IW8fMV1Q1eFN6tXRZLpc0tgQV+SpcWSbaw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=zYcVK2v9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="W0oAEPBy"
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6a9ac6aa620so3711828a12.1
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 16:11:02 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="zYcVK2v9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7137E1F000FF;
+	Sun, 13 Sep 2026 23:13:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1789341060; x=1789945860; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=otUdbuSiFhBRkZCEqyxGlxc0YCwlt0UQ0qDbBI/rBSk=;
-        b=W0oAEPByLFQy4aoJWGWJ1cf6S8c9OXFeWSNgQzyFcfrTS8QDoB0mSL+2ZxWsb8T55K
-         /sSYo+3K6uS4MqrLGAOnOk1dDmjAXnFvJ52ILJIAu8MbOViKF1b22E11B3uZXtSuHoAb
-         iUOFmhcLqF7uHnhAYXaMKxaq9/8EQarEPiWLQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789341060; x=1789945860;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=otUdbuSiFhBRkZCEqyxGlxc0YCwlt0UQ0qDbBI/rBSk=;
-        b=Petl7uCBi72MVsYzk4ADBoQmagqsaTd/AbAFC4lRM+Bt82GQ/Cd/Q46xRuZ1bvnxWZ
-         9lua06eBzPU6BiZIGCGMYEtRDeSGVryUBGDPX7Ly5NQF9rSTOqhYMfk76UHwJb6TmJkv
-         3eY45tteA0EZPGUGCSOOUhb1ADsUVEMF2Rf4wxvCF4/rjh/UsZlRtdlIbvAiXBt+Aye2
-         7pIVRh7DhiK0/i7YU02g7x1prqAJiHNoFBbwny9kHqZhPjV6lWuSXfDdcLB2jg25cjkN
-         m2urBu+mAbqvFvqfwVQ2AQhejwtsWjwQThIweDFk7UNXAikutwSbROIJ5f6HbtnoY9ST
-         n98Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxiRw9sxl/c+VAN5BCQ7e4UMwy4BZu8552RXmvcdvKFEuIWYRkqsAGE3QuuerwmsHPFEVVa3qia+PCeVNE=@vger.kernel.org
-X-Gm-Message-State: AFuF++k5VlH3QHAj/zcCgQhVSbAE6XI+Y3kSh+Zn0ufTrHlR/xQvfiok
-	ZvNq7Iq5hJvLTNJzwUqpr/IO0KwW1w2GvIc+83IP0y2AVf0pvzLGtNCsFCVa3sI12akaMIO4sad
-	FVVtywwc=
-X-Gm-Gg: AYBFou2THi3DAS4Rdh3WWIJF0oaB9yW2gcmjOggAhlowdq8REIghu3XW/07uXN1J+uA
-	bcZ+njzYo/RTn2+fT567Y6aYpyo3r4V6ci+HgxL7+whp737s52+0vCwu3LlVVI8BYDd/l5WofSg
-	VC77zoiechqvErXznQx6YWJ3ZYaNqs6ku6canNtB+GnJh8kWxW5/NbYc/XJBDviKiF1uJ3trh85
-	zVaUG9EQPdym6tWZrKFHgrcp4rmxi56/mxZQxJ4IjbsOULe8Ttu7qQWA3KBHDAPqu4DsfUGIcyg
-	6QERd9xMQ/qPq2iWqayzNrsMg02SluqoaiLGdutry6HIe7um4ofL3kdl6PF2raiUVIJhfN/nhc4
-	19t4iJuMMJluXdHAcr24FkQUrL1BLKSQM+a+Jq3hF1VJmHlzL47btjzVsdN00ktz71maDvJQ55n
-	/B3ykduadwk+mc8HcsGQ1sIpbtrIX6RyQLFLsQHn39hc0tesEcJxRMzeKTWhRr8KYkRnB7ELIpH
-	NnsXA/XNxebrKC9n9sQKG5l9dJr6/WBGR9xYjNmk0XWHLqG6Q==
-X-Received: by 2002:a17:907:7b8a:b0:c29:519b:3aee with SMTP id a640c23a62f3a-c29a44696d8mr181892266b.33.1789341059722;
-        Sun, 13 Sep 2026 16:10:59 -0700 (PDT)
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com. [74.125.228.76])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2965c56183sm346154666b.3.2026.09.13.16.10.59
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 13 Sep 2026 16:10:59 -0700 (PDT)
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a6056be4d1so1195606a12.0
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 16:10:59 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByRsuiGk3eWHZTgymhd/CGTBpUwYT80dR5QTDXJLf1teBF5WKrdgLwFPg0i+TlfLNo7wFqSuS2AXEZITk0=@vger.kernel.org
-X-Received: by 2002:a05:6402:234e:b0:6a9:8a53:48a8 with SMTP id
- 4fb4d7f45d1cf-6a9f6493112mr22906a12.2.1789341059245; Sun, 13 Sep 2026
- 16:10:59 -0700 (PDT)
+	d=linux-foundation.org; s=korg; t=1789341205;
+	bh=ATWZYkl6gXglOV8R8lb8BXtXhjp6jIzf5yrr28mOYNs=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=zYcVK2v9RI+Wmrk1Pu/ODVTZVKmwrwtmA10ni+A8Df4mUkVqiqiHgZ17gT8F0Yk/e
+	 8KrNTD5UxXB/Eu3m3D9iDZNRpciGWIfhP25vAmNkLOIjZjL+U5jw/9/Hgo/5iu0TPx
+	 7VNRpXIZ9/204VZVozy6ul97EjIYHuLym7P8C5mA=
+Date: Sun, 13 Sep 2026 16:13:24 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Yury Norov <ynorov@nvidia.com>
+Cc: Yury Norov <yury.norov@gmail.com>, Matthew Wilcox <willy@infradead.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Chris Li <sparse@chrisli.org>,
+ Alice Ryhl <aliceryhl@google.com>, Andrew Ballance
+ <andrewjballance@gmail.com>, linux-sparse@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ linux-mm@kvack.org, maple-tree@lists.infradead.org
+Subject: Re: [PATCH 1/3] compiler.h: add ASSERT_STATIC_STORAGE()
+Message-Id: <20260913161324.8879b42314924d8264447f45@linux-foundation.org>
+In-Reply-To: <aqXSkthkUVJNu2FD@yury>
+References: <20260911221444.1523311-1-ynorov@nvidia.com>
+	<20260911221444.1523311-2-ynorov@nvidia.com>
+	<20260911225749.8727d23eb76b93141f08e574@linux-foundation.org>
+	<aqXSkthkUVJNu2FD@yury>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260913225356.1033865-1-dave.hansen@linux.intel.com>
-In-Reply-To: <20260913225356.1033865-1-dave.hansen@linux.intel.com>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Sun, 13 Sep 2026 16:10:41 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wiSPMB4tZB4mngU5wUJ3qJj5HwKc7x2E1dj4YnxCGadeQ@mail.gmail.com>
-X-Gm-Features: AcwNN1WJn2dIcRKTxWI2NK9TWM5_XuOac1c5JTWVWQ4cNm7_m43QgkjCaj8QrlY
-Message-ID: <CAHk-=wiSPMB4tZB4mngU5wUJ3qJj5HwKc7x2E1dj4YnxCGadeQ@mail.gmail.com>
-Subject: Re: [GIT PULL] x86/urgent for 7.4-rc4
-To: Dave Hansen <dave.hansen@linux.intel.com>
-Cc: x86@kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Sun, 13 Sept 2026 at 15:54, Dave Hansen <dave.hansen@linux.intel.com> wrote:
->
-> The MADV_FREE one is notable for silently losing user data and having
-> been around for a couple of years.
+On Sat, 12 Sep 2026 18:31:03 -0400 Yury Norov <ynorov@nvidia.com> wrote:
 
-That explanation rewards horribly badly.
+> > 
+> > Thanks, I'll queue it.
+> > 
+> > Sashiko wants the same treatment for a few other macros:
+> > 	https://sashiko.dev/#/patchset/20260911221444.1523311-1-ynorov@nvidia.com
+> 
+> Below is the list of candidates that my AI finds relevant:
+> 
+> [long list]
+> 
+> I planned to submit this hardening for them per the relevant subsystems
+> after at least landing the ASSERT_STATIC_STORAGE() in -next.
+> 
+> If you're OK to move that material through your tree all in one,
+> I can prepare it as a single series.
 
-MADV_FREE itself is fine. It's *supposed* to drop dirty bits and lose
-user data. That is the whole -m and only - point of MADV_FREE in the
-first place.
+People often do this by sending patches into various maintainers.  It
+can be pretty exhausting and unreliable - maintainer attentiveness
+levels vary a lot.
 
-The bug seems to be elsewhere in non-MADV_FREE code that then just is
-confused about things. But both your pull request and that commit
-message seem to try to blame MADV_FREE. What's up?
 
-                Linus
+Such a series is applying one concept in many places.  It's justifiable
+to do this in a single series.
+
+
+It gets me shouted at, but my preferred approach is to take all of it
+into mm.git while ensuring that maintainers are cc'ed.  Results are
+among:
+
+i)   maintainer says ack.  Great, I keep the patch and upstream it
+
+ii)  maintainer merges it.  Great, I drop the mm.git copy when the
+     conflict is reported in linux-next.
+
+iii) maintainer says nothing.  Oh well, I upstream it and hope for the
+     best.
+
+     iiiA): maintainer later shouts at me.  Oh well, I did
+            my best, read your darn email.
+
+So yes, send everything to everyone and I'll do this.
