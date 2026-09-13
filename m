@@ -1,132 +1,132 @@
-Received: from mail-oo2-f6.google.com (mail-oo2-f6.google.com [74.125.231.134])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36FCF3CC7D8
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 13:09:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.134
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76EB53E2AD1;
+	Sun, 13 Sep 2026 13:10:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.210.214.84
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789304981; cv=none; b=Qw6YogyxW5MlRjd4mUNSIk8uCK+RM34SYZwxJmx44bjeSnLxROhAJX44/eukGeyvl7Kn4gi8HKus0UY3MllWyt1/OrvpuW2Ts0a6PC8soNb30B06yS0UxCzvCoSTe2A7R5SoMroUPCvj6WcypoyceLc89tJItAga5XZqopjTWOY=
+	t=1789305049; cv=none; b=rphbMC38n23O2AJrtSvXjKv3rafh55P3PRz6tpgTOMXVQHZli49Ly0ZNwW2b8g2azvTtlP8EeCzyNFJ92jCYLswNZVYmyYOaDsCmaX/losLlYFRNFrH1wpSjRIMIVQOZptJhyAWA+UCZCtLtrczDXkPIHL6sWfO1djibvADqzaM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789304981; c=relaxed/simple;
-	bh=gaocr8UoasL6UglbmSn3uEOdpHrdNXVg8LYJh76Bhf8=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=hZrzFQ6UoahBMmSHWcD8+UDpmyfy5KLw/3VlB3SUrbSWMnf5OSB8mhlAxebRHYhPJZEq5xVwcwfgPAhMoUh+6NX0KCqAXYQxLp62OUpziYcKWWU9CZYX66XxYV1Ec8bJ8tgWhYk9F9m3fhihGDPSN8q+QLMg+17cMXx+OTQnf2c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.134
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo2-f6.google.com with SMTP id 006d021491bc7-6aafac56856so913895eaf.1
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 06:09:38 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789304977; x=1789909777;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dQaYbYfap6O7/j9L4Qh3SfVtO+gJY/NxKbXAfMPqRrA=;
-        b=nPxXU7lQfBt32PzMOEpK7ke0rONmz4JShaEJQM1rOCcySdGbIRHf4gaKYcYIE6VP9G
-         20uy/EHFpfcGTAk+wNXtykRgX/h54PfSdlG/86bnx+S9K8wENPqyqf7WHbHgLHX1qhzD
-         UyB8QlhqQbpqoa/AnL2qqqrsEKkijmQEb0SvlZA70nOTFNt82599otZRbEjbzqzIqPa5
-         zhMG3BqdVuT7EV1moht02QURdyNGr23XyIKb+0xGFTOzsZxPuv0ffhSk3KdI8AjxEwDV
-         eKoMtM9b5hrAfbgpi4Y65NKlgusiKf0D4H8dCaysgzF3U+E3pauvmIsLQwIkqU3RWcb0
-         2rBw==
-X-Gm-Message-State: AFuF++l+V8vf19Hu19Fm4F46GBggjNH/a285BmaEjcMDGzSqHZpsjpKV
-	ZId6kb+pfrJ5FZrBbeoW1lEV/sHLRW6urQs8iYZ0ote9Wg50TeIzDJKWB6in9F1tzecdC38VUbr
-	GwJ/rYLQg0BRzevgeUiMwqbpKLC9ISKRvSf68pKUdnp3raUDG0a1EhoGs7ZHlwQ==
+	s=arc-20240116; t=1789305049; c=relaxed/simple;
+	bh=oKRATY12sMnEnSjWFEGAAU0cx7hfiK0kmulnJCGbS60=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RgtjzkCI64t3lotZ7N4T3RMB4ZTWy74/6tCOZ1bkBbioCbPD7JyFbOp6Z52oLp+XStHSm4NM6oBDi7Ba41vEMxlhHqFo6rnDB8768C5ZCYZtqJzhpGI5K58WofhoQHiVJS0Xw9O6VDfi520H4WdwO3Rh/jV2hvBU+hYdrNpxets=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org; spf=pass smtp.mailfrom=codewreck.org; dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b=cvprfNXy; arc=none smtp.client-ip=62.210.214.84
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b="cvprfNXy"
+Received: from gaia.codewreck.org (localhost [127.0.0.1])
+	by submarine.notk.org (Postfix) with ESMTPS id C41B814C2D6;
+	Sun, 13 Sep 2026 15:10:37 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
+	s=2; t=1789305041;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=8eLEPccw6mZF4b+5Xtr8EKUEwESuHcReeXBXIeuoGe4=;
+	b=cvprfNXyLKf3GM/tCddF6/dDAJ+r63auAWsUsQ9iLf+cx3XCCSTFrP2e3cmyQNtnzqAICB
+	YJFts1YqTFxGPGt52fs6+RYo253FPuE3iMLydIWoG7NnKWietWPe1EvzuBY+ygUnabijvo
+	1v8WI9QRDid2D3fnl4GtQGq5GVan8AZCJKDt32vwO7in91dlEeN4lHw5nEjYhbUa4PVdiz
+	IuXtol0wS5lGRrcaMDopTWSZPmQfhmIZ4RON96vEyjRWHGVGkyPLu9Y/dW7hH0Ei54+kL6
+	FUyphgDsIfqZJANop+F/5CHiUA3+I//y5fZ20Dc2HtdM9Q2tk7nVA9H70JYubw==
+Received: from localhost (gaia.codewreck.org [local])
+	by gaia.codewreck.org (OpenSMTPD) with ESMTPA id e8935d42;
+	Sun, 13 Sep 2026 13:10:36 +0000 (UTC)
+Date: Sun, 13 Sep 2026 22:10:21 +0900
+From: Dominique Martinet <asmadeus@codewreck.org>
+To: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+Cc: v9fs@lists.linux.dev, Eric Van Hensbergen <ericvh@kernel.org>,
+	Latchesar Ionkov <lucho@ionkov.net>,
+	Christian Schoenebeck <linux_oss@crudebyte.com>,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>,
+	Ao Wang <wangao@seu.edu.cn>, Xuewei Feng <fengxw06@126.com>,
+	Qi Li <qli01@tsinghua.edu.cn>, Ke Xu <xuke@tsinghua.edu.cn>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	=?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Subject: Re: [PATCH] 9p/xen: drain response work after unbinding IRQ
+Message-ID: <aqagvTnrIOGl8nfi@codewreck.org>
+References: <20260609155202.1706-1-zhaoyz24@mails.tsinghua.edu.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:c452:10b0:6aa:cce3:ab61 with SMTP id
- 006d021491bc7-6c0ba923c37mr10682676eaf.9.1789304977630; Sun, 13 Sep 2026
- 06:09:37 -0700 (PDT)
-Date: Sun, 13 Sep 2026 06:09:37 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa6a091.f670cee1.72fc4.0012.GAE@google.com>
-Subject: [syzbot] [raid?] UBSAN: array-index-out-of-bounds in super_90_sync
-From: syzbot <syzbot+9e3014263a35700ab49b@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, linux-raid@vger.kernel.org, 
-	magiclinan@didiglobal.com, song@kernel.org, syzkaller-bugs@googlegroups.com, 
-	xiao@kernel.org, yukuai@fnnas.com, yukuai@fygo.io
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260609155202.1706-1-zhaoyz24@mails.tsinghua.edu.cn>
 
-Hello,
+Yizhou Zhao wrote on Tue, Jun 09, 2026 at 11:52:01PM +0800:
+> commit ea4f1009408e ("9p/xen : Fix use after free bug in
+> xen_9pfs_front_remove due to race condition") added cancel_work_sync()
+> to keep xen_9pfs_front_free() from freeing a ring while
+> p9_xen_response() is still running.
+> 
+> The work is currently drained before the event channel IRQ is unbound.
+> That leaves a race window where xen_9pfs_front_event_handler() can run
+> after cancel_work_sync() returns and queue p9_xen_response() again.  The
+> following unbind_from_irqhandler() synchronizes with the IRQ handler, but
+> it does not cancel work that the handler already queued.  The teardown
+> can then free the ring and private data while the response work remains
+> pending, and the worker later dereferences ring->priv and priv->client.
+> 
+> Unbind the event channel IRQ before draining the work.  Once the IRQ is
+> unbound, no new response work can be queued by the backend event channel,
+> and cancel_work_sync() waits for any work that was queued before or
+> during the unbind.  It is then safe to release the ring resources.
+> 
+> Fixes: ea4f1009408e ("9p/xen : Fix use after free bug in xen_9pfs_front_remove due to race condition")
+> Cc: stable@vger.kernel.org
+> Reported-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
+> Reported-by: Yuxiang Yang <yangyx22@mails.tsinghua.edu.cn>
+> Reported-by: Ao Wang <wangao@seu.edu.cn>
+> Reported-by: Xuewei Feng <fengxw06@126.com>
+> Reported-by: Qi Li <qli01@tsinghua.edu.cn>
+> Reported-by: Ke Xu <xuke@tsinghua.edu.cn>
+> Assisted-by: GLM:GLM-5.1
+> Signed-off-by: Yizhou Zhao <zhaoyz24@mails.tsinghua.edu.cn>
 
-syzbot found the following issue on:
+This one makes sense to me and I've picked it up, but I think
+"9p/xen: fix use-after-free in p9_xen_request"[1] adding a refcount to
+the front_priv is too much complexity vs. my understanding of the
+current threat model -- I can pick it up if someome who understands xen
+better than me has a proper look.
 
-HEAD commit:    893e11787f78 Merge tag 'x86_urgent_for_7.3-rc3' of git://g..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=11af7af9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
-dashboard link: https://syzkaller.appspot.com/bug?extid=9e3014263a35700ab49b
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+Stefano or Jürgen if you care / have time?
 
-Unfortunately, I don't have any reproducer for this issue yet.
+[1] https://lore.kernel.org/r/20260529103416.81378-1-zhaoyz24@mails.tsinghua.edu.cn
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/7d6d05cecce7/disk-893e1178.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/f4fa34852d36/vmlinux-893e1178.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/5a45af623528/bzImage-893e1178.xz
+Thanks,
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+9e3014263a35700ab49b@syzkaller.appspotmail.com
+> ---
+>  net/9p/trans_xen.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/net/9p/trans_xen.c b/net/9p/trans_xen.c
+> index f9fb2db7a066..73c75fbdfa21 100644
+> --- a/net/9p/trans_xen.c
+> +++ b/net/9p/trans_xen.c
+> @@ -281,14 +281,14 @@ static void xen_9pfs_front_free(struct xen_9pfs_front_priv *priv)
+>  		for (i = 0; i < XEN_9PFS_NUM_RINGS; i++) {
+>  			struct xen_9pfs_dataring *ring = &priv->rings[i];
+>  
+> -			cancel_work_sync(&ring->work);
+> -
+>  			if (!ring->intf)
+>  				break;
+>  			if (ring->irq >= 0) {
+>  				unbind_from_irqhandler(ring->irq, ring);
+>  				ring->irq = -1;
+>  			}
+> +			cancel_work_sync(&ring->work);
+> +
+>  			if (ring->data.in) {
+>  				for (j = 0; j < (1 << ring->intf->ring_order);
+>  				     j++) {
 
-md: async del_gendisk mode will be removed in future, please upgrade to mdadm-4.5+
-------------[ cut here ]------------
-UBSAN: array-index-out-of-bounds in drivers/md/md.c:1697:17
-index 124 is out of range for type 'mdp_disk_t [27]'
-CPU: 1 UID: 0 PID: 10197 Comm: syz.3.1362 Tainted: G             L      syzkaller #0 PREEMPT(full) 
-Tainted: [L]=SOFTLOCKUP
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/05/2026
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- ubsan_epilogue+0xa/0x30 lib/ubsan.c:233
- __ubsan_handle_out_of_bounds+0xcc/0xf0 lib/ubsan.c:455
- super_90_sync+0x1eed/0x1ff0 drivers/md/md.c:1697
- sync_super drivers/md/md.c:2505 [inline]
- sync_sbs drivers/md/md.c:2747 [inline]
- md_update_sb+0xbba/0x2840 drivers/md/md.c:2923
- state_store+0x31e/0x1340 drivers/md/md.c:3245
- rdev_attr_store+0x465/0x560 drivers/md/md.c:3768
- sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
- kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
- new_sync_write fs/read_write.c:595 [inline]
- vfs_write+0x6af/0x1050 fs/read_write.c:687
- ksys_write+0x12a/0x250 fs/read_write.c:739
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f977e59e159
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007f977f3cb028 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
-RAX: ffffffffffffffda RBX: 00007f977e825fa0 RCX: 00007f977e59e159
-RDX: 000000000000000b RSI: 0000200000000a00 RDI: 0000000000000006
-RBP: 00007f977e63503b R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f977e826038 R14: 00007f977e825fa0 R15: 00007ffef91f5d68
- </TASK>
----[ end trace ]---
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+-- 
+Dominique Martinet | Asmadeus
