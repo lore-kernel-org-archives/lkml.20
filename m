@@ -1,172 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 368AB33BBAF;
-	Sun, 13 Sep 2026 20:28:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E5D62E06E4
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 20:31:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789331340; cv=none; b=SJxpK4pK6BRU1vLcM6Wzyo07+F7MbUzC8trDDAIoh8Yu1583cJnC9FmPJyntoDdHQLblA+OPm4aJ/U77UDOmotcPT7Rg2yaNXajFLqgvJ1Dej6Dmprz3xUA9fWVI9GIGCJkGfoGB790/exrywk5jqELa9MM4SX2DlgmtqxRl2/I=
+	t=1789331498; cv=none; b=UPjOHiUdOPgANHyQ4COHQdgLZq/hwA7velbS8FVUpgzmRdhq7LMfzZZCkihMI1rALBnxmHAyJUCrGxYG09PRFYpHcm7cjpkO75VtmB1Cqz/iJq7F5GTKnAyl3OJ4Rtqwf02U3JDVOF0zbKD9nEqUMLKFV+7KGtWsnpKhqMyq2mM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789331340; c=relaxed/simple;
-	bh=l2mySYUZ2bDnO/iGgv2uGFdFT2j6OD6SRY1Ji2QN6Yo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qB2IYEqKF6GpETorR8e2Bd2OpfCLCXwOGhBQ7+o8BB8eN1sejEVLbj7tDZy39rbge7od4sIGZhLHTWD9AWSmGBNJie8Xktvfj0HdNLHOLqNHlQj2FbZTYfk8AEh9pdyAV15ldrN6XDcIqcvVT2Vm4puwJ1lpmrNjqxzVzjc/p/0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e0ZhGK8I; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789331498; c=relaxed/simple;
+	bh=yDn7QK/ba+3RLVHPMTBb8o7wMnI8vkCF4rNDGAc/jgc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DNF1CajSCuG6LWlojRt+wV/gMECKK6ez/5GcJTlBbuiiekBibGzuD2v+Y2cqXUL3xe1Rqv8IF+YJUU82xtvXHu2Ivx4tgg4YoWOlyZgYVBgl3bSCYIwFKHi32fTVXlVKEj5ocVKIeDDSW+aCvi/NvPF8epW1RwnklOMTLx07R2A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dg1MKUOP; arc=none smtp.client-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e0ZhGK8I"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8FA71F000FF;
-	Sun, 13 Sep 2026 20:28:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789331338;
-	bh=aOuVJZFYo0EDnLKzsfleMThuTLbpPfRT1aSflxZmaT8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=e0ZhGK8IM4pIb1CdketDYt0edlRhvhAJcYPbTotFxrv2kw0TO70plhK5M8Ow4nV2Y
-	 mwMDowI3NHyoBWV011IY2wWsKAKGOGixpCreQgvVUT8twOX4rpEdIR2R6pSU2G9cgK
-	 xLls4fh66gx+pevVkNSnHxgSeeATqKD58Y1wwNy2bsCKZfSRn7EVljxkzQd1Adjxg5
-	 A2iv7O9vUu9qd0iw0fOkZhS+rxtfbCfGQLPN1oobjnRl3APaZENDbJCNztY8EkulbF
-	 5GsMUdC4Rzpaaick9NOgUDWw4DUkDASFngKX/AxtrH+14+4CDDqGNsqS8be0SY+/X4
-	 H26ZtERmdMyng==
-Date: Sun, 13 Sep 2026 21:28:48 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Josh Poimboeuf <jpoimboe@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
-	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, Masahiro Yamada <masahiroy@kernel.org>, 
-	Alexey Gladkov <legion@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Arnd Bergmann <arnd@arndb.de>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Peter Zijlstra <peterz@infradead.org>, 
-	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
-	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
-	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
-	Alexandre Courbot <acourbot@nvidia.com>, Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, 
-	Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, 
-	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
-	linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org, 
-	Jens Axboe <axboe@kernel.dk>
-Subject: Re: [PATCH 18/23] objtool: cache relocations and function dead end
- state, do less work
-Message-ID: <aqcGKhbNOPZvmOL4@gremlin>
-References: <20260908-build-speedup-v1-0-5dc1ac01672d@kernel.org>
- <20260908-build-speedup-v1-18-5dc1ac01672d@kernel.org>
- <aqW4klkDI2P0aUn5@jpoimboe>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dg1MKUOP"
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-38ec1402b05so2536989a91.2
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 13:31:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789331497; x=1789936297; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6LszAmsFoGsrZf03eXVx9RZkN93lj99VFwvSyBMy7+c=;
+        b=dg1MKUOPm/Jf/HEBRknTTsIHbkbEzm8H3MerCbHX9gG88ZTZ4d5Bp0y1/SAyGnUYzJ
+         sdnIHukSRgxQSoqHcRLpN7dV9+AmKFIaXk/D3dEPVTDWfuQTFHQqK+XhPvDA4zv41SAL
+         yMqlr44N7s99jWBrv7+5Gv7t8qz8BaebtCutfZex5BDWpT60EbibbfpYW3+hqsAxY6SQ
+         iJmxvqBcTEsGicSREc1L5mL1yIm+FJYviyod36tyrSy3Yiuy+Tt0dU3QirCFQAhrEaFL
+         8tqCC1f/gCQmUEzRBV/ZC7wd6C3HgZJMwda0PmRtD4uDMXp/kLbDEchaE+sRaU0WFE/o
+         4VFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789331497; x=1789936297;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6LszAmsFoGsrZf03eXVx9RZkN93lj99VFwvSyBMy7+c=;
+        b=c7UQKqROZkfX8ThtdfdPBCaKkM6+fxWwnQxK3w0yV3v0Wwg2nWHdvZhkNMrDw2BhXe
+         32cCPYhZyPFNmiwD2Ib2qRsZE/LBRpGMFjCNdp8qEUpn8EsFbrwbAWVYZgrkVn5Ax/Qa
+         19QJW2WYh3pdGw3O5apgsimNlavqOjuaH5PNIE6j6AineyhjotplB6XwjBzIw1oQnKt9
+         GyPcjnH+NXNFG7nEYgb0qyFeYehllR69bIM6f3cGyFz5UgPXwIBvqqA6tQA8DjoNqKCb
+         Dp3vREU6SdLFYpfuPF8dN8g+vp/58R7+/u1PLl+6XAvsuZnTI2SRrhmlu7k+0uGqMzc/
+         y63w==
+X-Forwarded-Encrypted: i=1; AKwUvBzAlJxgM/xFIJWimNCl777Fs5zHNVWa5XF6TUJraRwRYlYsbqSGWjv61UawWe8ZzSr+pkMW87eHdt3mSXA=@vger.kernel.org
+X-Gm-Message-State: AFuF++lDmsZqMv5qYU/eus1aJsZA462w1UeADKyMn74NdNFB7MEzO9J9
+	N67CHb/upyVgooHS0sp7uIug84REF4VrHwMDkmTLBqp1jONB9mvszf0=
+X-Gm-Gg: AYBFou3oFW998+uchtd/DfnEfoiG8JaOQUafP6Zo6x6HzFo7cCFCku5lzkyIlmkgrxU
+	9NA6kDK6ZReF0ii622gnjU9TKxMl+Xv5Y0Qe8/HcYOWK5wFKMN4Sz4/T4C5tmvArs8tOgP5T5Kc
+	oiyZW4JEWHBzGGe+qiqlXjkByXhvZSa4X9C3602y5rSaLHMWu5W+Q19qYDrIAq3AeHaQBnntiAz
+	K83ehAU+Nm1xEd0puaHzSv3B+Iu9xkJAAga+o6f/B/DIVbSw/X6u2b9zuzA+ZgqBSGe1JZmdZ26
+	H5+EvTrk12CaSLkvhfbwVHqwfZVN3fcQ3c9jYnDb7tyFZxgamsA/tgj/6CvWi/OZZ6XxCiwxRcv
+	bUZbB9XBoGIXd2jD4HVxx9LxN8e8G2EZxL3NKskQvkyiOeDDnEhjWASeqNVZu1yEJcA4RDCqcuf
+	8UUXJsg9Lk7B2vIByKCXWzBUW0fDuPrlIvrA+WIsM8tQc5YNwrIqLvvN9qyx1dSKtmj730f78Yv
+	Ll1/0A1b6IqaT+xARgt13k2+2cL9I4g0uAl
+X-Received: by 2002:a17:90b:51c8:b0:38e:5b59:c2ff with SMTP id 98e67ed59e1d1-39d9bbc802bmr24389520a91.3.1789331496799;
+        Sun, 13 Sep 2026 13:31:36 -0700 (PDT)
+Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:7f00:8c85:b91:ff81:c860:362e])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d94744dfdsm17530220a91.0.2026.09.13.13.31.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 13 Sep 2026 13:31:36 -0700 (PDT)
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Tom Zanussi <zanussi@kernel.org>,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Subject: [PATCH v2 0/2] tracing: Fix NULL dereference when copying keys for a field variable
+Date: Mon, 14 Sep 2026 05:31:27 +0900
+Message-ID: <20260913203129.941270-1-donggeunyoo.kernel@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqW4klkDI2P0aUn5@jpoimboe>
+Content-Transfer-Encoding: 8bit
 
-On Sat, Sep 12, 2026 at 03:47:33PM -0700, Josh Poimboeuf wrote:
-> On Tue, Sep 08, 2026 at 09:55:18PM +0100, Lorenzo Stoakes (ARM) wrote:
-> > Whole build, 128-thread Threadripper 9980X, best of N runs:
-> >
-> >                                          before   after     delta
-> >                                          -------------------------------
-> >   x86 defconfig, touch mm/vma.c, gcc        8.4s     8.1s    -0.28s (-3%)
-> >   x86 defconfig, touch mm/vma.c, clang      7.5s     7.1s    -0.41s (-5%)
-> >   x86 defconfig, clean, gcc                27.1s    26.8s    -0.34s (-1%)
-> >   x86 defconfig, clean, clang              26.6s    26.2s    -0.40s (-1%)
-> >   x86 allmodconfig, touch mm/vma.c, gcc    30.2s    28.4s     -1.8s (-6%)
-> >   x86 allmodconfig, touch mm/vma.c, clang  28.1s    26.0s     -2.1s (-7%)
->
-> Nice!
->
-> > @@ -305,7 +305,15 @@ static bool __dead_end_function(struct objtool_file *file, struct symbol *func,
-> >
-> >  static bool dead_end_function(struct objtool_file *file, struct symbol *func)
-> >  {
-> > -	return __dead_end_function(file, func, 0);
-> > +	if (!func)
-> > +		return false;
-> > +
-> > +	if (!func->dead_end_known) {
-> > +		func->dead_end = __dead_end_function(file, func, 0);
-> > +		func->dead_end_known = 1;
-> > +	}
-> > +
-> > +	return func->dead_end;
-> >  }
->
-> This bit seems like it should be a separate patch.  Though actually, it
-> can just be dropped as I have something similar brewing:
->
->   https://lore.kernel.org/9d4b8ccfed745ac47a954aa2e1de62a85197122d.1788899473.git.jpoimboe@kernel.org
->
+A hist trigger with an onmatch() action copies the key list of the
+compatible histogram it finds on the matched event.  Reading each key's
+name straight out of key_field->field->name faults on any pseudo-field
+key.  2/2 renders the key with expr_field_str() instead; 1/2 teaches that
+renderer to emit a bucket count, which 2/2 needs before it can use it.
 
-Ack, dropped for v2, will reference that seris in the cover.
+Link: https://lore.kernel.org/linux-trace-kernel/20260912094722.3271147-1-donggeunyoo.kernel@gmail.com/
 
-> > -struct reloc *find_reloc_by_dest(const struct elf *elf, struct section *sec, unsigned long offset)
-> > +/* Should never be invoked, provided as a backstop. */
-> > +static struct reloc *find_reloc_linear(struct section *rsec,
-> > +				       unsigned long offset, unsigned int len)
-> >  {
-> > -	return find_reloc_by_dest_range(elf, sec, offset, 1);
-> > +	struct reloc *reloc, *first = NULL;
-> > +
-> > +	WARN("%s: linear scan for sec %s with %u relocs at offset %lu len %u",
-> > +	     __func__, rsec->name, sec_num_entries(rsec), offset, len);
->
-> Won't this be triggered for sections created with
-> elf_create_rela_section()?  I don't see where they set rsec->hashed.
+Changes since v1:
+ - Split the single patch in two.
+ - Dropped the third change, which gated the ".stacktrace" arm of
+   get_hist_field_flags() on hist_field->field.  It fixes nothing:
+   hist_field_print() excludes FL_STACKTRACE before it ever calls
+   get_hist_field_flags(), and parse_field() takes the "stacktrace"
+   modifier on any field.  Measured with and without it: identical
+   generated command on all nine key kinds below.
+ - 1/2 is not separable from 2/2.  .buckets is refused on a value, so no
+   expression can reach expr_field_str() with a bucketed field, and 2/2
+   alone turns a working .buckets key into a refused one.  In this order
+   no bisection point regresses.
 
-Good catch thanks, it was triggering for those, e.g. CONFIG_LIVEPATCH, repro'd
-locally.
+The command create_field_var_hist() generates, for each kind of key the
+copied histogram can carry:
 
-Updated the code to hash these too correctly for v3.
+  WK key                  unpatched   patched
+  pid                     keys=pid    keys=pid
+  pid.log2                keys=pid    keys=pid.log2
+  pid.buckets=10          keys=pid    keys=pid.buckets=10
+  common_cpu              oops        keys=common_cpu
+  common_comm             oops        keys=common_comm
+  common_timestamp        oops        keys=common_timestamp
+  common_timestamp.usecs  oops        keys=common_timestamp.usecs
+  common_stacktrace       oops        keys=common_stacktrace.stacktrace
+  hitcount                oops        keys=hitcount
 
->
-> > @@ -1147,6 +1307,28 @@ static int read_relocs(struct elf *elf)
-> >
-> >  		rsec->base->rsec = rsec;
-> >
-> > +		/* DWARF relocs are never looked up. */
-> > +		if (is_dwarf_section(rsec->base))
-> > +			continue;
-> > +		if (reloc_sec_in_order(rsec)) {
-> > +			rsec->sorted = true;
-> > +			continue;
-> > +		}
-> > +
-> > +		rsec->hashed = true;
-> > +		nr_hashed += sec_num_entries(rsec);
-> > +	}
->
-> Hm, I'm not sure whether hashing is even still needed, as compilers
-> generally emit sorted relocs.
+x86_64 under QEMU, CONFIG_KASAN=y, 4 CPUs, base 2f0c1cf72f46.  A compatible
+histogram on sched_waking keyed on WK, an onmatch() target on sched_switch
+keyed on SK, my_synth($wakeup_lat,prio) forcing a field variable.
 
-They do, and anything read from the file in the build does, but this is a
-fallback for sections that objtool grows or creates itself which needs the
-duplicate check + can be appended out of order.
+Donggeun Yoo (2):
+  tracing: Add the bucket size to expr_field_str()
+  tracing: Fix NULL dereference when copying keys for a field variable
 
->
-> > @@ -1592,6 +1799,7 @@ static int elf_alloc_reloc(struct elf *elf, struct section *rsec)
-> >  	}
-> >
-> >  	rsec->nr_alloc_relocs = nr_alloc;
-> > +	copy_reloc_cache_to_hash(elf, rsec, nr_relocs_old);
->
-> Not all relocation appends go through this allocation code path.
-> It can return earlier in this function if the space has already been
-> allocated previously.  So this call probably belongs in
-> elf_create_reloc().
+ kernel/trace/trace_events_hist.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-Ack thanks, fixed for v2.
+-- 
+2.53.0
 
->
-> --
-> Josh
-
---
-Cheers, Lorenzo
