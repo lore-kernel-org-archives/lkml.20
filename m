@@ -1,101 +1,78 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8708C13D53C;
-	Sun, 13 Sep 2026 22:10:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2565538837C;
+	Sun, 13 Sep 2026 22:10:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789337443; cv=none; b=iZiFAN07lDz5nsM5ZFjJ18C2Mapdkwew9EtpM2hp8jqUcVhvNAl/0qyNX4w/rS+LOaLjE2/4fFKLi5NlNn1YC296D+zAf/6XYnWwG4+ZZADhJyCDnGcitK9902YgHoj+ZPmHoO0hlTeSL3xFMFE2YQ6rbZl7NV6alSrZxx49blo=
+	t=1789337457; cv=none; b=V8hI61yPBGynQTGiZupQt4f+AVwk5xsugOB8MFpG/W/1oqaxFBOuzqRyv5H6KN/5gH331BzaWtsVeiylnn6AX2H/OrEQnd34b8s3m+/rISgKPOFZQBEbQLM3VKaWFdHfWFfBew2TBabU0/htkwmPCnlaHvdh9uOj5CCzczhy6WQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789337443; c=relaxed/simple;
-	bh=LTPLLIeS0+D2RaTjFS+1qjbprC26WwrDqg95BbuxxmY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pAPz6I18zG/Z6bXiFoKOtDivsp4UOAh+L9Mon0GwZA3oCIbrgO3dcPUmj0hUza35HowPX81J1ql2ThDKfCJM0xJ0qRRukSxXpWIT3ykP947XOtRWBtjl5mCEEdWgPcpGvPKJz1YPYRcnKGumNrbrVVRVMaUohYeCa1ZoCGKIFeg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g8L8k+v8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789337457; c=relaxed/simple;
+	bh=Ik1oAWO+LEQW5hAYn6THdvAhPDsjhIInNH2IpIoeGf4=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=eZBeTallsj3eo12sC2Q3+2gM7Mhgm1T4Cp8DS19ALV3dMnnYxQo5lTD4YX5+CNHNPJ/0XAP6O6065UlvaOXQrpyriXLu+WLqOYNwfZhPgz3FdU6qljRWdoLUiSKAxYEs/lBWmR1Vwn6U3Ecj5LCJgoFsJw8z0fTkgGZ0s2jg0/k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NMPUrjA0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g8L8k+v8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E842A1F000FF;
-	Sun, 13 Sep 2026 22:10:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NMPUrjA0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E4A61F000FF;
+	Sun, 13 Sep 2026 22:10:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789337442;
-	bh=18JxE81RzevAWU2z5BMCT0UMQT5Jq3ap9E/IOTFJ3yA=;
-	h=From:To:Cc:Subject:Date;
-	b=g8L8k+v82hptJhrVekOtWSCyP93UvwhVG/yStGX1ehaghaa2XWcCx+h5froTedah2
-	 ZroQBcZXpsx4XkQ1aFNcosnkOEa2dRTbFAIWbiVfQI7We3iH5zeaXJyVgou1RAZWPv
-	 Ef+qcmG+ENxYgx6yySJkASPXK1FK7yvaCUrB9q0/z5oVcYiI0TxQBIuVoqsO8DjnOg
-	 hp+r30E61qzKsL9VR1S9ImR0x7czh6m37gGv2utVrG/EcHJ0/RNO/t0qUXb4mA7VZy
-	 y25gNDgW0p8d6JVPkt5PCs2p+HxIBm14Ncb8pedxxHW3itVmeKhvJ58jf40xr4NqNE
-	 Oi6Y62XxkXS1g==
-From: wei.liu@kernel.org
-To: Linux on Hyper-V List <linux-hyperv@vger.kernel.org>
-Cc: mukeshrathor@linux.microsoft.com,
-	anirudh@anirudhrb.com,
-	schakrabarti@linux.microsoft.com,
-	Mukesh R <mrathor@linux.microsoft.com>,
-	Asher Kariv <askariv@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>,
-	"K. Y. Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Dexuan Cui <decui@microsoft.com>,
-	Long Li <longli@microsoft.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	linux-pci@vger.kernel.org (open list:PCI NATIVE HOST BRIDGE AND ENDPOINT DRIVERS),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH] PCI: hv: hardwire PCI_INTERRUPT_PIN to 0
-Date: Sun, 13 Sep 2026 15:10:39 -0700
-Message-ID: <20260913221039.2218950-1-wei.liu@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	s=k20260515; t=1789337454;
+	bh=cCOCGlV8Zf241K68TIZffDD/kdoJXxZwD6SdPDJSoPY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=NMPUrjA0Fzx02J7MxegCVNOrhmaZxRHP1w18LSUikVL0Pksjeja0OCOly3n5ReJnC
+	 SJfKG4o0AfD/TZQ5kAFeL/JkF+UsdKbiMNZ926pSHRON4+SK2RJg9evEqOmW0ZXEQI
+	 OgX71wTLJGWCGsFnKxNDzL88r0Vm5uGgTdY1pmfeymtWkGb8W6K6SQo1TMKZi8RTNK
+	 jXdr4AT3sau18C6XkbpipwdmeM+bVMgaLjY02Er3zCYNY7HIhi345JNWQtTU4dSmO1
+	 CoI6pRiS98WG4RMISnIiWFCCCnpCIxCxNY4EQBnHZI/hCVMVwbG7RY+636CkTbn51b
+	 LVY3RZhVa+cgQ==
+Date: Sun, 13 Sep 2026 23:10:49 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Joshua Crofts <joshua.crofts1@gmail.com>, Salah Triki
+ <salah.triki@gmail.com>, David Lechner <dlechner@baylibre.com>, Nuno
+ =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] iio: temperature: tsys02d: Fix state desynchronization
+ on resolution write error
+Message-ID: <20260913231049.5e09a355@jic23-hlaptop>
+In-Reply-To: <ap_kTDGgJq1S8rVr@ashevche-desk.local>
+References: <20260907085353.54477-1-salah.triki@gmail.com>
+	<20260907165009.0000035c@gmail.com>
+	<ap_kTDGgJq1S8rVr@ashevche-desk.local>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Mukesh R <mrathor@linux.microsoft.com>
+On Tue, 8 Sep 2026 13:32:44 +0300
+Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
 
-Hyper-V Discrete Device Assignment (DDA) does not support legacy (INTX)
-interrupts. When PCI_INTERRUPT_PIN is read, the pci-hyperv controller,
-which captures configuration space accesses, returns 0 to the caller.
+> On Mon, Sep 07, 2026 at 04:50:09PM +0200, Joshua Crofts wrote:
+> > On Mon,  7 Sep 2026 09:53:53 +0100
+> > Salah Triki <salah.triki@gmail.com> wrote: =20
+>=20
+> ...
+>=20
+> > >  		ret =3D ms_sensors_write_resolution(dev_data, i);
+> > > +		if (!ret)
+> > > +			dev_data->res_index =3D i; =20
+> >=20
+> > + blank line
+> >  =20
+> > >  		mutex_unlock(&dev_data->lock);
+> > > =20
+> > >  		return ret; =20
+> >=20
+> > Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com> =20
+>=20
+> Actually we prefer usual pattern =E2=80=94 "check for error first".
+> This 'if (!ret)' is confusing.
+>=20
 
-However, the current code only captures 8bit read access, thus 16bit/32bit
-are missed, forwarded to the host/HW, and may yield a non zero value.
-
-This fix addresses this issue, and makes sure that PCI_INTERRUPT_PIN is
-hardwired to 0, while the other bytes, are those returned by the host/HW.
-
-Signed-off-by: Asher Kariv <askariv@microsoft.com>
-Signed-off-by: Mukesh R <mrathor@linux.microsoft.com>
-Signed-off-by: Wei Liu <wei.liu@kernel.org>
----
- drivers/pci/controller/pci-hyperv.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
-
-diff --git a/drivers/pci/controller/pci-hyperv.c b/drivers/pci/controller/pci-hyperv.c
-index 89816a2bd7cd..e6db82413add 100644
---- a/drivers/pci/controller/pci-hyperv.c
-+++ b/drivers/pci/controller/pci-hyperv.c
-@@ -1240,6 +1240,16 @@ static void _hv_pcifront_read_config(struct hv_pci_dev *hpdev, int where,
- 			mb();
- 		}
- 		spin_unlock_irqrestore(&hbus->config_lock, flags);
-+
-+		/*
-+		 * Make sure PCI_INTERRUPT_PIN is hard-wired to 0, since it
-+		 * may be read using a 32bit read, which is skipped by the
-+		 * above emulation.
-+		 */
-+		if (where <= PCI_INTERRUPT_PIN &&
-+		    PCI_INTERRUPT_PIN < (where + size))
-+			*((char *)val + PCI_INTERRUPT_PIN - where) = 0;
-+		}
- 	} else {
- 		dev_err(dev, "Attempt to read beyond a function's config space.\n");
- 	}
--- 
-2.53.0
-
+I'd use a guard so we can just return when the error is seen.
