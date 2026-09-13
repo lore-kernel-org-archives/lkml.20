@@ -1,84 +1,84 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B363389DE8
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 09:08:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4F49399342
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 09:09:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789290518; cv=none; b=XR7NyQaThxKNHzW1QgbIB9pR5ztT/1yoLFzGPfrXXwj37GzVwGQWL+R/8iQKSzq5PuwEC1ufDPCks4BdI648Vw8bNKMqcNygp/jBoVe25nqTggbIxfSLqCKRaT1rySVLDaOUecuaiofLjCx6hlBgSDOpVaWm2aTIkGD6DHFUaQ0=
+	t=1789290557; cv=none; b=rLRmSWdcMZlk2NXxU7IC/qVsSlmZ+aAE1b2PpNwy4uLSYETWI9DZyUB2R6kupAy6HV6BMJH49HMjlkYE/tGNZpBlfpq2XfQCLADwW0AXQsCjRracCfMbVB9icfGunUnYZ23Cpn8xhdsI/pK0zVIWwJETagmruWu8Sx+xg6kRxUc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789290518; c=relaxed/simple;
-	bh=TDvcrBX58plavsGuirvSl5Kas6jxwauWWLGcv5Y+8k0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=deHFHSoJVvbKl0i/k/KR1bmwbProQXOOCwA84xYjMA4JmuvWlcin9FpY/yk1nU593Dvy3tcRXpfo1Yn1I8LtOv0AMbY+JIhilf08lmvqmTmu+II26JHbMH8c24Bkv2UvGFRZqGgLVhpLDC43GAnUFL3cVEXIGGajKqztYL1U8r0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RjCCBV7P; arc=none smtp.client-ip=209.85.221.41
+	s=arc-20240116; t=1789290557; c=relaxed/simple;
+	bh=azu3uLy0Mux7GpCyqwyRDXjjYjMQ9/gZOf8vjQLgseM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=n0KARmTIe1vXxxCN32X8EGv3v26Xow+PQDi9HWmoCdqJJ/m43jTIFbEqGS81uoVbcEKSzrr9xkH0KAerketqDXXu5P9u5RhZLIpaDlFD6yCNwWLwi4JXpVGjSq0vP35bQvPKdtQtPf1uN+Htfnyu2ufBrtB4Xg7NhiSvwFxKafY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k6Ew7KoU; arc=none smtp.client-ip=209.85.214.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RjCCBV7P"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-4843e397f74so1348151f8f.1
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 02:08:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k6Ew7KoU"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2d8f265cbe6so22572415ad.0
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 02:09:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789290516; x=1789895316; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4caHLEBEOxtFSlC57AtIBBtI8i1ci+K6n0fqXOkiksY=;
-        b=RjCCBV7P4yVjo4sTj3v6vBgCGLGw4j8+ZuduFfqR8C/HMplExnNzYKr9uLwJojZZTk
-         eIkF7N3jIOwUob4hNmOk587sC21EPZ7R6Pxf0ZWsO9DAT1JdOEtxu2fpiSDhKK7u0Y39
-         IAqI8kycxzPAqm7x6Bz5zLEwlLX8IB7TufRHhUWX/N4Qb3KbdGSpTuidJyuVhrIWBQP3
-         ULNr5pZCqoMkiW1y03fWFa4LZvn9JlFoTxz0V1itqfOMBOSa+dtyLsH65Cld/Xt7J4Ba
-         EB6FYlzTirZRof9YRYjaHfnZMEKqZmQJDYxjHr12vJDPT5y0xIPs9T6sjIvK/nKKeWsy
-         z4Jw==
+        d=gmail.com; s=20251104; t=1789290555; x=1789895355; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MFJlL+9O/jXoy6I1rLj9f7uyrPfSM21JuJ5Ws/dqJiQ=;
+        b=k6Ew7KoUyTssO/21sbBg54LSSdxnRMvRYHm/x51jFDsGbHnJPRP9SBwCxr31xfK+LV
+         u937QnroBRg0S6CYTx1EatPpf2KJeex+T0L/RIPBZyGuIchEKpuddryze7cdy1i/ivRH
+         MhXYW8U7MNIJ06TCyxpvd2uBU0Zhz3JMUiiB7m4dibPMQAClkxIviHQLO4IJf3ItAzNI
+         fQg+ZHPkG3cvq6KWpZ2OszapxObv5wC+owjnJAxsFA2GRt7RrH1JXLAG477DW8UwYgJj
+         lngY8boHDZuU7t0tXusI0FpQEgYj5qaYLlvYEodXqodPhn7yDVDa54Ez2U1L2cEGbl/c
+         rQ1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789290516; x=1789895316;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4caHLEBEOxtFSlC57AtIBBtI8i1ci+K6n0fqXOkiksY=;
-        b=U2DEQ5YQV84LWGkiyHWcu6meUG3ChgxgooxigyIgC4ZjSRhoNefJ68ayBhc1QA5BtJ
-         DfRA/D4NHJB5bjF6HcQw5Ii5ZFoi03IX64gW2pU0Q36s2927xaYke8GseYEZ3uvmGmzJ
-         pJ3rXdLDFjFSRC8sg7CdlK3fFbnrQXVRdz7E3BbE4BpAzrKrRWgIzcANoFswCw1N1tGG
-         Tb8LgeogRqrigfNx+Qpdw/Nv39qBM4UBDivRkqBunn0ltxZ+c/kLrRQPoihkdmgGbgJO
-         akmPDElJItw1ciattWMwkoSyiqzlCghudobPIiYd+Hx8DudBGBF5yKlV1f5ugmqg0vBV
-         SXPQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx0+5C7TjkRT6RxnAxivhmCuGu+XC3KQrgNFc3elIU2p+NCpBinskcuu4tgZjm3B8GO+qri+MMC5g6tyXY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lgGWZ/YHzcgrNVNhlTHRHzG6EIjqm4oZ0lybfdDUTqwr2OtYDY
-	2J2+TZQFpsWBakHsRuA9XJ9rcr3XYn3aGgZgYuoKoTYO5FltxIIyyylJ
-X-Gm-Gg: AYBFou1XOhoX9WWnmZ0/7SgBIPpXAdq+N8ogMXwBYegzvslmU7A9BKubgoBy8Hm5XLN
-	nsCTcbIX6WyvACi+HPCEszYDG2jO/YB6wp9C5umBn0CfPpsVwN8jv7J1V/HpIbCzDTO9B3YPhjD
-	1o4uDSZkbXEgj3HOs5gqhEEXJEjN9+BYArRTQRTKJ+8OpPPGbqw2DazzO2eGkl50tbeE3WcTkgm
-	OiiJGrWbeySHLpRZKFoQv1xjhMkbotpkACKFGswh7vp7/2TM3xAHgDW627AT4O+9KGm6vrgfAC5
-	TiOGxOoZmQlZ3ggDLIQGWEv3t5SzLfqzd2d0rlqXgx/cHPY+jMg/k3HYlyumJ0N81FGy1rqGtJB
-	VC5DluVo6N5fzx0fRARuoaYl3+uDxKoryy9OfGSgMnfpEbrJCO9xo5zTnzuxQ4dBXHqBs345sCN
-	X7usJdziZX5Nrg97TuAxDjqWXGC7FTyFk5qBkHgv7WyIJXj8a437CnESb1bINjYw==
-X-Received: by 2002:a05:6000:18ab:b0:486:f1b2:cf44 with SMTP id ffacd0b85a97d-486fc955e0cmr1787905f8f.3.1789290515586;
-        Sun, 13 Sep 2026 02:08:35 -0700 (PDT)
-Received: from cachyos ([2a02:8070:6286:900::a57c])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb350686sm19704385f8f.27.2026.09.13.02.08.34
+        d=1e100.net; s=20251104; t=1789290555; x=1789895355;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MFJlL+9O/jXoy6I1rLj9f7uyrPfSM21JuJ5Ws/dqJiQ=;
+        b=m05hxRDSqET5ygQG1DKyEZaxJMq+4x7boLnAgCt/Ihkhgjrfn08O7Dp5vOSemi/bgG
+         1K8c9Nt84n5PVHHr/Vkf1binEqf+zQGUWPEbAoftn+5e7+0CYcfvzgJ4XAvkgR1fTeIS
+         qVGxfouWmunrJ4l9Pg7qPHe2+DkWlD5IHlHCXml98CqRr2clv+taM4npWUGKNk39DhQz
+         hiXSTrhITZN8E//Qa1rjU6N5+aWDHw4iUEEG5RhyMF10Rfqmg+h1bA1S8D+8POTm3CrS
+         PTdHH+u6dtFk2AXeHhGruhy6Ubx3azpyyJpRQ8vB8JTNodY9vrVUpigrKIuzgcbAUEvN
+         jzdw==
+X-Forwarded-Encrypted: i=1; AKwUvBw+Ve6gcl7UJesGDHB83DkNt4O6mm/y/ZrPrES96g9pg/ny0xYVasewExjkgDdt17vXlH04+LJhl/JuII8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mFyMhd8sbFd4S6VinBmZrbdD4f2RisQzKtBP1s2djOKkkrxRxm
+	HnPeklj/loP+q4Kbk7ptoulo/Cxv2NpodnFZ6OpeP/sMyuJpeQbT4FY0
+X-Gm-Gg: AYBFou06djyn3QJbh8h1N3BB4irm006p2S8+AuKY013oTFAWQv+rDOyd8D2pJz9sLnI
+	PhPlYc6kvMjsisbJ2SMvNp9WsLkDM6hgmQyl7ALyvbYNaHmFpuoHQpgQpo/dvQbtmLg26OvuZgI
+	dTAhhQ7XQNqWLDTtixn1L9kNSpvy8+hEOwhFkUAuZ6NtRQR07DbCCswqs4J1snqC36Em63INQzj
+	DfTwRwCCmFtROuIS6SO4z54aVRc1JRB7262Lan+ynTt79pDVIeeI9trpKsbjma5uJvHHbO2m3il
+	ryECcJ96duSImMWE0v+3uS6P+EL3RYjuAyb2KAZxlup4qvrEhD3Of6S94j88VV5hpgTOFslIA9S
+	Tn3p9BTULuVxUHyficDXVYZUz8ChZx8lIA2n9rztURP7rwKdoBRKACje8mDaki62QtVGmUlzIAX
+	daTZz9jkaxgyDosjspoUaGuaRwfxqYu15E6gc0Pgx6vvrlTRMx4xF2rppMkNZxM6OyF3M5MRhlL
+	suGRP2DrbXL7os1k66Oq+grLanLUQ/s36U=
+X-Received: by 2002:a17:903:1b04:b0:2d8:d4ce:9f37 with SMTP id d9443c01a7336-2dd2a470a45mr200065545ad.21.1789290554993;
+        Sun, 13 Sep 2026 02:09:14 -0700 (PDT)
+Received: from Gris-Laptop ([14.31.107.13])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bc03ac1ecsm6570186eec.10.2026.09.13.02.09.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 02:08:35 -0700 (PDT)
-From: Cristian Fleischer <cristian.fleischer@gmail.com>
-To: Junjie Cao <junjie.cao@intel.com>,
-	Felix Fietkau <nbd@nbd.name>,
-	Lorenzo Bianconi <lorenzo@kernel.org>
-Cc: Ryder Lee <ryder.lee@mediatek.com>,
-	Shayne Chen <shayne.chen@mediatek.com>,
-	Sean Wang <sean.wang@mediatek.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Huy Nguyen Dinh Quang <huynguyendinhquang@gmail.com>,
-	Devin Wittmayer <lucid_duck@justthetip.ca>,
-	linux-wireless@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH wireless] wifi: mt76: mt792x: treat 0xff ACPI SAR entries as no limit
-Date: Sun, 13 Sep 2026 11:06:27 +0200
-Message-ID: <20260913090744.316095-1-cristian.fleischer@gmail.com>
+        Sun, 13 Sep 2026 02:09:14 -0700 (PDT)
+From: Gris Ge <cnfourt@gmail.com>
+To: David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Gris Ge <cnfourt@gmail.com>,
+	stable@vger.kernel.org,
+	Simon Horman <horms@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	Cosmin Ratiu <cratiu@nvidia.com>,
+	Gal Pressman <gal@nvidia.com>,
+	Tariq Toukan <tariqt@nvidia.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-hardening@vger.kernel.org
+Subject: [PATCH net v2] net: ip_tunnel: initialize `options_len` before referencing options
+Date: Sun, 13 Sep 2026 17:08:50 +0800
+Message-ID: <20260913090851.468216-1-cnfourt@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <acb947435fc78d5c06039c7bd5609c735468b0ee.1789002236.git.junjie.cao@intel.com>
-References: <acb947435fc78d5c06039c7bd5609c735468b0ee.1789002236.git.junjie.cao@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -87,23 +87,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Thu, 10 Sep 2026 09:23:00 +0800, Junjie Cao wrote:
-> Some ASUS firmware includes 0xff values in MTGS power slots.
+The following command triggers a kernel panic:
 
-Same failure on an ASUS Vivobook S 16 M5606WA (MT7922, mt7921e, BIOS
-M5606WA.316), kernel 7.2.4 with this patch applied on top.
+  ip link add d0 type dummy; ip link set d0 up
+  ip route add 10.30.0.0/16 \
+    encap ip id 300 geneve_opts 4660:66:11223344 dev d0
 
-The DSDT carries MTCL version 2, MTDS with two identical tables
-(1A 19 17 11 15 10 12 12 12 12 10) and MTGS version 4 with pwr 0xff in
-every slot (offset 0x00 in entry 1, 0xff in entries 2-6). Region ETSI.
+  memcpy: detected buffer overflow: 4 byte write of buffer size 0
+  kernel BUG at lib/string_helpers.c:1044!
+  ...
+  ip_tun_parse_opts.part.0.cold+0x10/0x10
+  ip_tun_build_state+0x116/0x2a0
 
-Before, txpower_sku showed tmac 3 for every OFDM/HT/VHT/HE rate on every
-channel; the AP never answered auth frames from a few rooms away and TX
-sat at 6 Mbit/s with ~3 retries per frame once associated.
+On kernels built with GCC 15+ and `CONFIG_FORTIFY_SOURCE`, the fortified
+`memcpy()` got 0 sized destination with request of 4 bytes length:
 
-After:
-  5 GHz ch 36/80 MHz: tmac 29, TX/RX 866 Mbit/s VHT-MCS 9, 7 retries in
-  776 frames, association succeeds from the spot that used to fail.
-  2.4 GHz ch 11:      tmac 30, TX 117 / RX 104 Mbit/s.
+  static int ip_tun_parse_opts_geneve(...)
+  {
+      ...
+      attr = tb[LWTUNNEL_IP_OPT_GENEVE_DATA];
+      data_len = nla_len(attr); /* == 4 */
 
-Tested-by: Cristian Fleischer <cristian.fleischer@gmail.com>
+      struct geneve_opt *opt = ip_tunnel_info_opts(info) + opts_len;
+      memcpy(opt->opt_data, nla_data(attr), data_len);
+      /*     ^^^^^^^^^^^^^ 0 since options_len is assigned afterwards */
+
+Fixed by initializing the counter before the options are referenced.
+Matching what `tunnel_key_opts_set()` already does.
+
+Fixes: bb5e62f2d547 ("net: Add options as a flexible array to struct ip_tunnel_info")
+Cc: stable@vger.kernel.org
+Signed-off-by: Gris Ge <cnfourt@gmail.com>
+---
+v2:
+  - pass opt_len into ip_tun_set_opts() and initialize options_len there,
+    matching tunnel_key_opts_set(), as suggested by Eric Dumazet.
+v1: https://lore.kernel.org/netdev/20260912055304.1415016-1-cnfourt@gmail.com/
+
+ net/ipv4/ip_tunnel_core.c | 16 +++++++++++-----
+ 1 file changed, 11 insertions(+), 5 deletions(-)
+
+diff --git a/net/ipv4/ip_tunnel_core.c b/net/ipv4/ip_tunnel_core.c
+index 5168d546ea2f..bab42b9e277f 100644
+--- a/net/ipv4/ip_tunnel_core.c
++++ b/net/ipv4/ip_tunnel_core.c
+@@ -680,8 +680,14 @@ static int ip_tun_get_optlen(struct nlattr *attr,
+ }
+
+ static int ip_tun_set_opts(struct nlattr *attr, struct ip_tunnel_info *info,
+-			   struct netlink_ext_ack *extack)
++			   int opts_len, struct netlink_ext_ack *extack)
+ {
++	/* `options_len` is the __counted_by() annotation of the `options`
++	 * flexible array, it must be initialized before parsing writes
++	 * into it.
++	 */
++	info->options_len = opts_len;
++
+ 	return ip_tun_parse_opts(attr, info, extack);
+ }
+
+@@ -712,7 +718,8 @@ static int ip_tun_build_state(struct net *net, struct nlattr *attr,
+
+ 	tun_info = lwt_tun_info(new_state);
+
+-	err = ip_tun_set_opts(tb[LWTUNNEL_IP_OPTS], tun_info, extack);
++	err = ip_tun_set_opts(tb[LWTUNNEL_IP_OPTS], tun_info, opt_len,
++			      extack);
+ 	if (err < 0) {
+ 		lwtstate_free(new_state);
+ 		return err;
+@@ -753,7 +760,6 @@ static int ip_tun_build_state(struct net *net, struct nlattr *attr,
+ 	}
+
+ 	tun_info->mode = IP_TUNNEL_INFO_TX;
+-	tun_info->options_len = opt_len;
+
+ 	*ts = new_state;
+
+@@ -1006,7 +1012,8 @@ static int ip6_tun_build_state(struct net *net, struct nlattr *attr,
+
+ 	tun_info = lwt_tun_info(new_state);
+
+-	err = ip_tun_set_opts(tb[LWTUNNEL_IP6_OPTS], tun_info, extack);
++	err = ip_tun_set_opts(tb[LWTUNNEL_IP6_OPTS], tun_info, opt_len,
++			      extack);
+ 	if (err < 0) {
+ 		lwtstate_free(new_state);
+ 		return err;
+@@ -1040,7 +1047,6 @@ static int ip6_tun_build_state(struct net *net, struct nlattr *attr,
+ 	}
+
+ 	tun_info->mode = IP_TUNNEL_INFO_TX | IP_TUNNEL_INFO_IPV6;
+-	tun_info->options_len = opt_len;
+
+ 	*ts = new_state;
+
+--
+2.55.0
+
