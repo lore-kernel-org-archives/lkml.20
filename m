@@ -1,24 +1,24 @@
-Received: from mta0.migadu.com (out-141.mta0.migadu.com [91.218.175.141])
+Received: from mta0.migadu.com (out-152.mta0.migadu.com [91.218.175.152])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE0363C4551
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 07:51:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5EF87E0E4
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 07:51:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.152
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789285874; cv=none; b=KQvbfiHVpOoPAiXGi0gSn5xTAhhdhBqFOkipdbw5ztpEharMxmBaOuatfEveSvWE115cA8pF/ZJXqMUGsGdpc0CSQ4ez2V6h6wkdCubQF8WZIPyYKM+ZPfcxFUUF786bTMCFc/hJ46M8b+y604bQ/b88v52RdQjdTh81kdVbbr8=
+	t=1789285878; cv=none; b=frTxDRXJ5Fq2GVZvRTUiQDoApdxAXWCRfYVa+q2LOy0oW/2q27I7auHO30ByPu364kb0mEAl0pPYGBpgKFOIYXR2hV7MldixQsW6ZdFBJCIKoFPr8Ymj6fqmPXdC4dSspTDugrjP6Bn+uDy2rXxA0CzCugDV1OYQjvGe9Ga15ic=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789285874; c=relaxed/simple;
-	bh=Zlam6jKQN35rJRPt/D4HOM6P0SY+iOAtPxohmnNZtKY=;
+	s=arc-20240116; t=1789285878; c=relaxed/simple;
+	bh=3L52fWkgGdddNo2ewF7UMTlpFe/vsOHFsRA/a0S+UbI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-type; b=JhZPVL3jQQ/+fVm7jWX4emiauLF8wPYQ7Pv1/SEiBGVdFVaYVKUBgVTU4ithuN5thbMFP5Eou8OavUQLz6n0vOqmlSYejCDRmbeBbPxxJv2A23CrwUjCR1STnSrJceTaNF0ydnMZNzp+Op40T9y8oNLabjMJQUpxFQWeraH96Mw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=linux.dev; arc=none smtp.client-ip=91.218.175.141
+	 MIME-Version:Content-type; b=U6AaEcneHGjCzlc23DvgjyZodMUH/HrdkS2Vf8SLbooqlRY2mfCfR3oI27PeF975zPH2miXCphqzxdH46VqFkYB6OvSCrE7f7Vcxv4chxVJtyUX89GXp3Cw0x71dSLoGL0bHgeITKS1UVyNy7YATUR91/4ju1sIkZeZlzX75em8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=linux.dev; arc=none smtp.client-ip=91.218.175.152
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 X-Envelope-To: linux-kernel@vger.kernel.org
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 694c106e48a1c688;
-	Sun, 13 Sep 2026 07:51:09 +0000
-X-Mizu-Trace-ID: 694c106e48a1c688
+Received: by mta12.migadu.com with ESMTPS id bd2b349e2fca1da0;
+	Sun, 13 Sep 2026 07:51:14 +0000
+X-Mizu-Trace-ID: bd2b349e2fca1da0
 X-Migadu-Flow: FLOW_OUT
 From: Baoquan He <hebaoquan@kylinos.cn>
 To: linux-mm@kvack.org
@@ -36,9 +36,9 @@ Cc: akpm@linux-foundation.org,
 	david@kernel.org,
 	linux-kernel@vger.kernel.org,
 	Baoquan He <hebaoquan@kylinos.cn>
-Subject: [PATCH v2 10/12] mm, swap: refactor swapoff + add xswap_destroy
-Date: Sun, 13 Sep 2026 15:50:12 +0800
-Message-ID: <20260913075014.1732524-11-hebaoquan@kylinos.cn>
+Subject: [PATCH v2 11/12] mm, swap: require zswap for xswap devices
+Date: Sun, 13 Sep 2026 15:50:13 +0800
+Message-ID: <20260913075014.1732524-12-hebaoquan@kylinos.cn>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260913075014.1732524-1-hebaoquan@kylinos.cn>
 References: <20260913075014.1732524-1-hebaoquan@kylinos.cn>
@@ -51,283 +51,36 @@ MIME-Version: 1.0
 Content-type: text/plain
 Content-Transfer-Encoding: 8bit
 
-1. Extract __swapoff() from sys_swapoff(): the core teardown logic
-   now lives in __swapoff(), shared by sys_swapoff() and the new
-   xswap_destroy(). swap_file operations are guarded with NULL check
-   so __swapoff() works for file-less devices too. sys_swapoff()
-   retains file-matching; a NULL guard on p->swap_file ensures xswap
-   devices are never matched by the file path.
-2. Add xswap_destroy(int type): tears down a file-less xswap device
-   by its swap type. Validates SWP_XSWAP | SWP_WRITEOK, removes
-   from lists, delegates to __swapoff().
-3. Add /sys/kernel/mm/xswap/destroy: write a swap type to tear down
-   that xswap device. Requires CAP_SYS_ADMIN. Out-of-range types
-   are rejected before the implicit int truncation.
+xswap has no backing storage: swapped-out pages live only in zswap.
+Without zswap, swapout always bounces back, so the device would
+consume swap entry space without ever freeing memory. Refuse to
+create a device when zswap is unavailable.
+
+Runtime disabling of zswap after creation is safe: existing entries
+stay loadable (zswap_load() gates on zswap_never_enabled(), not the
+runtime zswap_enabled flag) and new swapouts merely bounce back to
+memory without freeing it.
 
 Signed-off-by: Baoquan He <hebaoquan@kylinos.cn>
 ---
- mm/swapfile.c | 199 ++++++++++++++++++++++++++++++++++----------------
- 1 file changed, 138 insertions(+), 61 deletions(-)
+ mm/swapfile.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
 diff --git a/mm/swapfile.c b/mm/swapfile.c
-index d2a3303b0572..0321b6b0da56 100644
+index 0321b6b0da56..c2ca0a9ac625 100644
 --- a/mm/swapfile.c
 +++ b/mm/swapfile.c
-@@ -74,6 +74,7 @@ static void xswap_try_shrink(struct swap_info_struct *si);
+@@ -4305,6 +4305,10 @@ static int xswap_create(int prio)
+ 	if (prio != DEF_SWAP_PRIO && (prio < 0 || prio > SWAP_FLAG_PRIO_MASK))
+ 		return -EINVAL;
  
- #ifdef CONFIG_SYSFS
- static int xswap_create(int prio);
-+static int xswap_destroy(int type);
- 
- static ssize_t xswap_create_store(struct kobject *kobj,
- 				  struct kobj_attribute *attr,
-@@ -104,8 +105,35 @@ static ssize_t xswap_create_store(struct kobject *kobj,
- static struct kobj_attribute xswap_create_attr = __ATTR(create, 0200, NULL,
- 							xswap_create_store);
- 
-+static ssize_t xswap_destroy_store(struct kobject *kobj,
-+				   struct kobj_attribute *attr,
-+				   const char *buf, size_t count)
-+{
-+	unsigned long type;
-+	int err;
++	/* xswap has no backing store, it relies on zswap. */
++	if (!zswap_is_enabled())
++		return -EOPNOTSUPP;
 +
-+	if (!capable(CAP_SYS_ADMIN))
-+		return -EPERM;
-+
-+	err = kstrtoul(buf, 0, &type);
-+	if (err)
-+		return err;
-+	if (type >= MAX_SWAPFILES)
-+		return -EINVAL;
-+
-+	err = xswap_destroy(type);
-+	if (err)
-+		return err;
-+
-+	return count;
-+}
-+
-+static struct kobj_attribute xswap_destroy_attr = __ATTR(destroy, 0200, NULL,
-+							 xswap_destroy_store);
-+
- static struct attribute *xswap_attrs[] = {
- 	&xswap_create_attr.attr,
-+	&xswap_destroy_attr.attr,
- 	NULL,
- };
- 
-@@ -3294,61 +3322,13 @@ static void flush_percpu_swap_cluster(struct swap_info_struct *si)
- }
- 
- 
--SYSCALL_DEFINE1(swapoff, const char __user *, specialfile)
-+/* Common swap teardown after list removal; shared by sys_swapoff() and
-+ * xswap_destroy().
-+ */
-+static int __swapoff(struct swap_info_struct *p)
- {
--	struct swap_info_struct *p = NULL;
--	struct file *swap_file, *victim;
--	struct address_space *mapping;
--	struct inode *inode;
--	int err, found = 0;
--
--	if (!capable(CAP_SYS_ADMIN))
--		return -EPERM;
--
--	BUG_ON(!current->mm);
--
--	CLASS(filename, pathname)(specialfile);
--	victim = file_open_name(pathname, O_RDWR|O_LARGEFILE, 0);
--	if (IS_ERR(victim))
--		return PTR_ERR(victim);
--
--	mapping = victim->f_mapping;
--	spin_lock(&swap_lock);
--	plist_for_each_entry(p, &swap_active_head, list) {
--		if (p->flags & SWP_WRITEOK) {
--			if (p->swap_file->f_mapping == mapping) {
--				found = 1;
--				break;
--			}
--		}
--	}
--	if (!found) {
--		err = -EINVAL;
--		spin_unlock(&swap_lock);
--		goto out_dput;
--	}
--
--	/* Refuse swapoff while the device is pinned for hibernation */
--	if (p->flags & SWP_HIBERNATION) {
--		err = -EBUSY;
--		spin_unlock(&swap_lock);
--		goto out_dput;
--	}
--
--	if (!security_vm_enough_memory_mm(current->mm, p->pages))
--		vm_unacct_memory(p->pages);
--	else {
--		err = -ENOMEM;
--		spin_unlock(&swap_lock);
--		goto out_dput;
--	}
--	spin_lock(&p->lock);
--	del_from_avail_list(p, true);
--	plist_del(&p->list, &swap_active_head);
--	atomic_long_sub(p->pages, &nr_swap_pages);
--	total_swap_pages -= p->pages;
--	spin_unlock(&p->lock);
--	spin_unlock(&swap_lock);
-+	struct file *swap_file = NULL;
-+	int err;
- 
- #ifdef CONFIG_XSWAP
- 	if (p->flags & SWP_XSWAP)
-@@ -3364,7 +3344,7 @@ SYSCALL_DEFINE1(swapoff, const char __user *, specialfile)
- 	if (err) {
- 		/* re-insert swap space back into swap_list */
- 		reinsert_swap_info(p);
--		goto out_dput;
-+		return err;
- 	}
- 
- 	/*
-@@ -3407,12 +3387,14 @@ SYSCALL_DEFINE1(swapoff, const char __user *, specialfile)
- 	p->max = 0;
- 	p->cluster_info = NULL;
- 
--	inode = mapping->host;
-+	if (swap_file) {
-+		struct inode *inode = swap_file->f_mapping->host;
- 
--	inode_lock(inode);
--	inode->i_flags &= ~S_SWAPFILE;
--	inode_unlock(inode);
--	filp_close(swap_file, NULL);
-+		inode_lock(inode);
-+		inode->i_flags &= ~S_SWAPFILE;
-+		inode_unlock(inode);
-+		filp_close(swap_file, NULL);
-+	}
- 
- 	/*
- 	 * Clear the SWP_USED flag after all resources are freed so that swapon
-@@ -3423,10 +3405,69 @@ SYSCALL_DEFINE1(swapoff, const char __user *, specialfile)
- 	p->flags = 0;
- 	spin_unlock(&swap_lock);
- 
--	err = 0;
- 	atomic_inc(&proc_poll_event);
- 	wake_up_interruptible(&proc_poll_wait);
- 
-+	return 0;
-+}
-+
-+SYSCALL_DEFINE1(swapoff, const char __user *, specialfile)
-+{
-+	struct swap_info_struct *p = NULL;
-+	struct file *victim;
-+	struct address_space *mapping;
-+	int err, found = 0;
-+
-+	if (!capable(CAP_SYS_ADMIN))
-+		return -EPERM;
-+
-+	BUG_ON(!current->mm);
-+
-+	CLASS(filename, pathname)(specialfile);
-+	victim = file_open_name(pathname, O_RDWR|O_LARGEFILE, 0);
-+	if (IS_ERR(victim))
-+		return PTR_ERR(victim);
-+
-+	mapping = victim->f_mapping;
-+	spin_lock(&swap_lock);
-+	plist_for_each_entry(p, &swap_active_head, list) {
-+		if (p->flags & SWP_WRITEOK) {
-+			if (p->swap_file && p->swap_file->f_mapping == mapping) {
-+				found = 1;
-+				break;
-+			}
-+		}
-+	}
-+	if (!found) {
-+		err = -EINVAL;
-+		spin_unlock(&swap_lock);
-+		goto out_dput;
-+	}
-+
-+	/* Refuse swapoff while the device is pinned for hibernation */
-+	if (p->flags & SWP_HIBERNATION) {
-+		err = -EBUSY;
-+		spin_unlock(&swap_lock);
-+		goto out_dput;
-+	}
-+
-+	if (!security_vm_enough_memory_mm(current->mm, p->pages))
-+		vm_unacct_memory(p->pages);
-+	else {
-+		err = -ENOMEM;
-+		spin_unlock(&swap_lock);
-+		goto out_dput;
-+	}
-+	spin_lock(&p->lock);
-+	del_from_avail_list(p, true);
-+	plist_del(&p->list, &swap_active_head);
-+	atomic_long_sub(p->pages, &nr_swap_pages);
-+	total_swap_pages -= p->pages;
-+	spin_unlock(&p->lock);
-+	spin_unlock(&swap_lock);
-+
-+	err = __swapoff(p);
-+
- out_dput:
- 	filp_close(victim, NULL);
- 	return err;
-@@ -4322,6 +4363,42 @@ static int xswap_create(int prio)
- 	spin_unlock(&swap_lock);
- 	return error;
- }
-+
-+/* Tear down a file-less xswap device by its swap type. */
-+static int xswap_destroy(int type)
-+{
-+	struct swap_info_struct *p;
-+
-+	p = swap_type_to_info(type);
-+	if (!p)
-+		return -EINVAL;
-+
-+	spin_lock(&swap_lock);
-+	if (!(p->flags & SWP_WRITEOK) || !(p->flags & SWP_XSWAP)) {
-+		spin_unlock(&swap_lock);
-+		return -EINVAL;
-+	}
-+	/* Refuse swapoff while the device is pinned for hibernation */
-+	if (p->flags & SWP_HIBERNATION) {
-+		spin_unlock(&swap_lock);
-+		return -EBUSY;
-+	}
-+	if (!security_vm_enough_memory_mm(current->mm, p->pages))
-+		vm_unacct_memory(p->pages);
-+	else {
-+		spin_unlock(&swap_lock);
-+		return -ENOMEM;
-+	}
-+	spin_lock(&p->lock);
-+	del_from_avail_list(p, true);
-+	plist_del(&p->list, &swap_active_head);
-+	atomic_long_sub(p->pages, &nr_swap_pages);
-+	total_swap_pages -= p->pages;
-+	spin_unlock(&p->lock);
-+	spin_unlock(&swap_lock);
-+
-+	return __swapoff(p);
-+}
- #endif /* CONFIG_SYSFS */
- #endif /* CONFIG_XSWAP */
- 
+ 	si = alloc_swap_info();
+ 	if (IS_ERR(si))
+ 		return PTR_ERR(si);
 -- 
 2.54.0
 
