@@ -1,101 +1,78 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BE393E1204
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 10:39:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FF373CB2FD;
+	Sun, 13 Sep 2026 10:44:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789295997; cv=none; b=N2tx8nWIofshA3X9kGtmvV3GV7XSiDCsFNEqfvQjZZOYyiBGaJQuH4GUBhUrS7tdmayGTqjvFsh8EBFnySyD9IfKfIn+4xCom4T9hBa6PWFfqXg8oR5iOp91M3/fybhomUwfGLhnQRUgkjTf59Hj5VUEClJ2hOJYlP8q7OtBmaY=
+	t=1789296258; cv=none; b=CmeJOXEVnG1EO88eqzYLo02P4SvNd2qGFsF6jREMmKMnreogEIAB0lnqMEXpYPwu+fpxr6GdiaEOEr6g2SGPHhdFXXioOc2dJMLJRHBZ/tfXqi0PZk6sMy9Vovlwcc2bgHBFwZPfUMU0lwq2f4/v2K+05zcoqxviDBLtQSUgfYc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789295997; c=relaxed/simple;
-	bh=tHR8MbHYnydo88nNqFpbUFuYlV+Az69Ygft7I7d7Z7E=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OxArjXKGhzeH4UitV7Twn/ADvXaSP4uWyTlwMFnbNUtaVQUe6L1OgWSjNx1J3TidA3LKXcCB99XjPoRX4o0SSGcW4Fcs7mVK1YxZq+1535KoyTwkrf42EmwQ0R+PTRb8DvPuYRmfWUCyfFctAsIxBky5xVtBk1ARF/CjYvcdDH8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I0qelsg8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789296258; c=relaxed/simple;
+	bh=R4zv/+qgaxKYYjj4ptEKF3BHXO7w7M4iLZZ2AlXw7R8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=tXyc+Fjdkv/5xW6NRBPGSYYsZP1D2Kpq5j0e8DC+Y1Wfonx+HHUwy9UoUyBOlZbwB2diNSXAgXbw1PmJvMgpnR83vXv/aGaRBqHNFaz5/JuJT5xSrKXzD3Dtin+PWd81anZDZb696n5afKsq4SgsA3wLP+OZMDc+Va5S/vORgbo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=djcJx+Tl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I0qelsg8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 112371F0089B
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 10:39:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="djcJx+Tl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76EFF1F000FF;
+	Sun, 13 Sep 2026 10:44:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789295995;
-	bh=tHR8MbHYnydo88nNqFpbUFuYlV+Az69Ygft7I7d7Z7E=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=I0qelsg8o0zKdJP0HVkXin8YAkigNM1TbFg9+/NjYO8GwClKgiohyrd7hAlvS5AiM
-	 E4Xk/AR0zoKz+5Kz1GgEKM4DninWm+4ZulXSMR08NwMvPyeQJ6jS+XiZIBqE/xJvR/
-	 SKAqVfdQtce0EPPoJx6eUUQMfi5HlzaClvAA4K5Pb/yo8TCqpu7wfHXnXgXR2k77eP
-	 pMHleAdMTtrpUz+f476mSReB2rZsU8CwpjdPJgunR8M6XwPpA9QsbzyqE373VYWbQg
-	 HGF1biDaEasMmF3rMaSy4nCcsSIDgwYJpahqsSXifmXJEAclGW9WPITMbzTzBId5p2
-	 xuNAyr/h0wAQg==
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a2ff176d7eso10872281fa.3
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 03:39:54 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwJ+apRoxwRrSu5amXq5YYzo4RFeY9kpDkf3bgSkHQtg7fTErB9Kn1sytB75fx7tAAJZj6LQaRgRIW6azU=@vger.kernel.org
-X-Gm-Message-State: AFuF++k3mBLHPHkwdlh/z3PimHLxEjd4soeFX66+KKbDjqN5ueSWCgnY
-	tjtX/FCznXKH02K16q4dzXiEpcKBmXSi1hpdT0LluN3PWLtP8sa9zd6g/ZZnN6ZP2rNQAO+v8JS
-	NQuZ5xJDp+QCyuS7gL0ylsuQL3ME1jDI=
-X-Received: by 2002:a05:6512:33d6:b0:5b0:113d:8ae5 with SMTP id
- 2adb3069b0e04-5b8a02fa142mr4883555e87.10.1789295993364; Sun, 13 Sep 2026
- 03:39:53 -0700 (PDT)
+	s=k20260515; t=1789296257;
+	bh=cS1Ju2GfKqEA/FP9zJHnQJwF6JmphHpLlloN1nGWOQo=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=djcJx+TlSn6dwlhznxWXYMpg0j3ZzKupXcM4XcdsbX954BAsSfnM7DO6mf+ug5sbE
+	 3pk9f3ZGOCsDG/tBpL2eqrSq0iAisZnZidiB3WIMYvz6d6q4rnetQd2wjIYBnlkp4P
+	 Rjwt+KFcl0wrv/VtEgBYuz1yDLTWj2KVre2rO7wVU8VFzSl+cLLaZ4rNfqcsEdrFNa
+	 vNt9x7a0ROJK4rdc/hHg2eKENGsFtdf02yeWmRRbmsNhmgTjvnJYTQGsQlkSlTmpcA
+	 hx8oQsSyVpLbRyA4TTDQWnHeIghwSXZMGgrQR3H/oIvYeobJ30ikpMQmzCMr5oDocw
+	 wRXutpvjPQrug==
+From: Vinod Koul <vkoul@kernel.org>
+To: yoshihiro.shimoda.uh@renesas.com, neil.armstrong@linaro.org, 
+ geert+renesas@glider.be, magnus.damm@gmail.com, 
+ prabhakar.mahadev-lad.rj@bp.renesas.com, 
+ Claudiu Beznea <claudiu.beznea+renesas@tuxon.dev>
+Cc: claudiu.beznea@tuxon.dev, linux-renesas-soc@vger.kernel.org, 
+ linux-phy@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>, stable@vger.kernel.org, 
+ Pavel Machek <pavel@nabladev.com>, Nobuhiro Iwamatsu <iwamatsu@nigauri.org>
+In-Reply-To: <20260716183246.3183877-1-claudiu.beznea+renesas@tuxon.dev>
+References: <20260716183246.3183877-1-claudiu.beznea+renesas@tuxon.dev>
+Subject: Re: [PATCH v5] phy: renesas: rcar-gen3-usb2: Avoid long delay in
+ atomic context
+Message-Id: <178929625199.194170.14605036307704113858.b4-ty@kernel.org>
+Date: Sun, 13 Sep 2026 16:14:11 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260601194040.18223-1-miguel.vadillo@intel.com>
- <6e450fa2-8b40-48b6-b0b0-a1c4b72a383d@leemhuis.info> <d7f4a573-1a2e-4274-8c8f-41d398592356@leemhuis.info>
-In-Reply-To: <d7f4a573-1a2e-4274-8c8f-41d398592356@leemhuis.info>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Sun, 13 Sep 2026 12:38:37 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0gUJpgy5aaFfFqz273kE6kXkvZdHOAMGaOfVYK1pGFYsQ@mail.gmail.com>
-X-Gm-Features: AcwNN1U9mqIuU8DGcOAOBLtt3RB7sQ1rI2BqP9L0P-jjkEGcBXPxDq9INxt-0Io
-Message-ID: <CAJZ5v0gUJpgy5aaFfFqz273kE6kXkvZdHOAMGaOfVYK1pGFYsQ@mail.gmail.com>
-Subject: Re: [PATCH] ACPI: scan: Honor _DEP for Intel CVS devices
-To: Thorsten Leemhuis <regressions@leemhuis.info>
-Cc: Miguel Vadillo <miguel.vadillo@intel.com>, linux-acpi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
-	sakari.ailus@linux.intel.com, mehdi.djait@linux.intel.com, wei.a.xu@intel.com, 
-	atul.raut@intel.com, 
-	Linux kernel regressions list <regressions@lists.linux.dev>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14.3
 
-On Sun, Sep 13, 2026 at 10:30=E2=80=AFAM Thorsten Leemhuis
-<regressions@leemhuis.info> wrote:
->
-> On 9/12/26 18:50, Thorsten Leemhuis wrote:
-> > On 6/1/26 21:40, Miguel Vadillo wrote:
-> >> CVS (Computer Vision Sensing) is an ACPI-enumerated device that sits
-> >> inline in the CSI-2 path between the camera sensor and Intel IPU.
-> >> On platforms where CVS is present, the camera sensor's ACPI node
-> >> declares a _DEP dependency on the CVS device.
-> >>
-> >> The CVS driver must be fully initialized before camera sensor drivers
-> >> probe, because CVS controls the CSI-2 link ownership handshake (via
-> >> GPIO REQ/RESP), the MIPI/CSI-2 lane configuration, and the camera
-> >> power domain. Without CVS ready, the sensor driver can bind but the
-> >> CSI-2 stream will not function correctly.
-> >>
-> >> The CVS driver calls acpi_dev_clear_dependencies() at the end of its
-> >> probe() to unblock waiting consumers once it is ready.
-> >>
-> >> Move the CVS HIDs from acpi_ignore_dep_ids[] to acpi_honor_dep_ids[]
-> >> so that camera sensor enumeration is deferred until the CVS driver has
-> >> finished probing, matching the behavior already in place for IVSC.
-> >
-> > TWIMC, there is a bug report where one or two people claim that this
-> > change caused a regression; the report is quite verbose (guess LLM
-> > assisted) and hard to grasp for me as outsider; requests for
-> > clarifications from my side were not really fruitful. Not sure what to
-> > make of this, but I thought I'd let you know; for details see:
-> >
-> > https://bugzilla.kernel.org/show_bug.cgi?id=3D221988
->
-> For completeness, a report that is more straight forward to read (at
-> least for me) was now posted here:
-> https://lore.kernel.org/all/20260912185836.309071-1-manuel.knitza@googlem=
-ail.com/
 
-This doesn't seem to be about the same commit though as it mentions
-ipu-bridge.c which is not touched by the patch in question here.
+On Thu, 16 Jul 2026 21:32:46 +0300, Claudiu Beznea wrote:
+> The OTG PHY initialization sequence needs to wait for 20 ms at a specific
+> step, as described in commit 72c0339c115b ("phy: renesas:
+> rcar-gen3-usb2: follow the hardware manual procedure").
+> 
+> Commit 55a387ebb921 ("phy: renesas: rcar-gen3-usb2: Lock around hardware
+> registers and driver data") tried to address various problems in the
+> rcar-gen3-usb2 driver and converted the mutex protecting HW register
+> accesses to a spin lock, leaving, however, a long delay in the critical
+> section protected by the spin lock. This may become a problem,
+> especially on RT kernels.
+> 
+> [...]
 
-Thanks!
+Applied, thanks!
+
+[1/1] phy: renesas: rcar-gen3-usb2: Avoid long delay in atomic context
+      commit: 48e97c59a49c9e90270f5e3d221db253b76de5da
+
+Best regards,
+-- 
+~Vinod
+
+
