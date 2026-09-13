@@ -1,85 +1,116 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 526481DD0EF;
-	Sun, 13 Sep 2026 02:49:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D52A81DD0EF;
+	Sun, 13 Sep 2026 02:51:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789267798; cv=none; b=cwCAl0rwh1gLHtOUZPQdSbo+vZ4tt62XYxujVzQBBG07ECeh1wCFwt9hJBPLp9rQ0eUfnWf5lkdsDDi26tcnYOFRBzlIdkXgJnr5tV3Vx0/imb8XHoXZY/rgh9MVQl8f7l8uHLz516lbRj6DuSOqwOpRC0NTdkCBUeKwcVUTWVs=
+	t=1789267896; cv=none; b=KhDNFvqsMt7rvHtL54nxmcFdnoMuYNY2InaKne635k/azQZMdDHq6lm/rffxHYj7oix5ddR5Rj215CAA9ch4HmJ4xye33nOVkf0SGwasjv00c402CeUjgiEdJRCA5WaAJsZ9SRG+dsx15K5zXsveqLqCMF+N60k/FMAOrc3H/bI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789267798; c=relaxed/simple;
-	bh=I889TwsaWKAQxhdCSZc8QRqWu87gxwdtz42D0HI4RHo=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=A4KjfecciaZau2JmfPNrlhEhAimKQQrcMX8i/CEo10gJGbkK7h10CxTRs3VJAuisch9cSc1ZWdVyRNBx5FkWbkXqBYVqGMgKf1KIW5xx1h1UqESdbUc+hcTXB/3EW9bzJtuRo6Pfb7kcNcRm5DUXG2GnxfDIFQ5JzjLjgsoKw38=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=CeX4Giz5; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1789267896; c=relaxed/simple;
+	bh=odRcFUf8WOt2n1xjeZqHL3deYBqqqBZIorReFaAbSXE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=fPQiOeS/iLTYfsKvYFLliTEYChbugzCN4co+AWdO64Mc9A/00D6gMu/DbnTjSjfWKsJZXv4TwlGhmSet0qz22g9ejdvjkRODMS+b4GoquLYzar5Rwuz+auy4UpzmfL0yYc5PnX2k4/RvLcMmF4hID29BV3myVb/gKRLmOEuRljI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z+6nKiT0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="CeX4Giz5"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68D2n9Kw93607801, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1789267750; bh=I889TwsaWKAQxhdCSZc8QRqWu87gxwdtz42D0HI4RHo=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=CeX4Giz5HTesJ0gvAA+ks968t7zuFR03exeP4QeshAtFAsXfZNDlwIyHUlsyqC2qF
-	 mrpUD7YUHta2qO+MBMuBxIzIXHeqZ74q27JDtGz90nQVlB80W6gSNhKPbXdjN1HqO3
-	 VjlugQvGPnoBX9uHo35/dDSXjSinXCvtJxk/EWBoeLR/vLipeU6ypm5mhnvVLwatSW
-	 L+T35aAULveYDZhJ5gaS+FtlNEL5CAuBS4lYGQIK2HmAxl0W85TOGkYyXzKnfNRvxI
-	 13qH1+sLfsXk70ZBHpxySnULen6H+I2NrtAHBSfkHptxQW7Ksnh0JJVBFdxBfN3D52
-	 XLCAeTR99Be0Q==
-Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68D2n9Kw93607801
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Sun, 13 Sep 2026 10:49:09 +0800
-Received: from RTKEXHMBS01.realtek.com.tw (172.21.6.40) by
- RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Sun, 13 Sep 2026 10:49:10 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS01.realtek.com.tw (172.21.6.40) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Sun, 13 Sep 2026 10:49:09 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
- 15.02.2562.049; Sun, 13 Sep 2026 10:49:09 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Cristian Deluxe <me@cristiandeluxe.dev>
-CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH 2/2] wifi: rtw88: 8703b: stop the PCIe DMA write reaching
- SDIO
-Thread-Topic: [PATCH 2/2] wifi: rtw88: 8703b: stop the PCIe DMA write reaching
- SDIO
-Thread-Index: AQHdQgqtELsK+81IkES8TDaZraWRNbbLz6JA
-Date: Sun, 13 Sep 2026 02:49:09 +0000
-Message-ID: <47279427012044d4afab9b0e76c03ce4@realtek.com>
-References: <178914109042.64584.1681714272474754544@cristiandeluxe.dev>
- <178914109042.64584.11316164845616306056@cristiandeluxe.dev>
-In-Reply-To: <178914109042.64584.11316164845616306056@cristiandeluxe.dev>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z+6nKiT0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84FA21F000FF;
+	Sun, 13 Sep 2026 02:51:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789267895;
+	bh=69FABYPOsdqsJNrLJcIOfj7YCLyrYCIw0DIwc2sain4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Z+6nKiT0K1LpLMqP9RvAlqZbbkRXX3zY+FuH/raaT05s8wuzNQPQwa6HpitqC7Ra/
+	 C5tYAF/Mx0nWikfbHiuwMm/X4K9W72Z6K/tix5oJo7twR2XOanw3rFWayP+pdLzrGl
+	 nZY9Kmb9Kp8s1u6ZKY4qqwc5LJnM4167OB+DD9Q8By6OR34/3YIWx4N9nfi0KAvxWJ
+	 gpYQp3VtxMsACJyk4DIflk3QG+PG/1GX3NOqboHifKyKyXFe1NQi86O5MQs7lqFDUV
+	 q0YbEdmJ8cjuS/JM9m/hlZkdMrVcmTgNY+/su8fXwjnjSBxjXHyGi1/y/vt4ikqoBd
+	 yv9Py0iOPIVmw==
+Date: Sun, 13 Sep 2026 03:51:32 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Chang Yu <marcus.yu.56@gmail.com>
+Cc: Andy Shevchenko <andy@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Rob
+ Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
+ Dooley <conor+dt@kernel.org>, Shi Hao <i.shihao.999@gmail.com>, "Jose A.
+ Perez de Azpillaga" <azpijr@gmail.com>, Joshua Crofts
+ <joshua.crofts1@gmail.com>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 1/2] dt-bindings: iio: light: add as7343
+Message-ID: <20260913035132.1fb50e6e@jic23-hlaptop>
+In-Reply-To: <aqX90oniPRdsu5jp@gmail.com>
+References: <20260912013912.51887-1-marcus.yu.56@gmail.com>
+	<20260912013912.51887-2-marcus.yu.56@gmail.com>
+	<20260913015652.029475d2@jic23-hlaptop>
+	<aqX90oniPRdsu5jp@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Q3Jpc3RpYW4gRGVsdXhlIDxtZUBjcmlzdGlhbmRlbHV4ZS5kZXY+IHdyb3RlOg0KPiBUaGUgZmly
-c3QgZW50cnkgb2YgdHJhbnNfYWN0X3RvX2xwc184NzAzYiB3cml0ZXMgMHhmZiB0byBNQUMgcmVn
-aXN0ZXINCj4gMHgzMDEgb24gZXZlcnkgaW50ZXJmYWNlLiBUaGF0IHJlZ2lzdGVyIGlzIHRoZSBQ
-Q0llIERNQSBjb250cm9sLCBhbmQNCj4gYm90aCB0cmFuc19hY3RfdG9fbHBzXzg3MjNkIGFuZCBS
-ZWFsdGVrJ3Mgb3duIDg3MDNiIHNlcXVlbmNlIGhlYWRlcg0KPiByZXN0cmljdCB0aGUgc2FtZSBl
-bnRyeSB0byBQQ0ksIHdoZXJlIGl0IGlzIGNvbW1lbnRlZCAiUENJZSBETUEgc3RvcCIuDQo+IA0K
-PiBTbyBvbiBhbiBSVEw4NzIzQ1MsIHdoaWNoIGlzIFNESU8gb25seSwgZXZlcnkgdHJhbnNpdGlv
-biBpbnRvIGxvdyBwb3dlcg0KPiBwb2tlZCBhIFBDSWUgcmVnaXN0ZXIgZm9yIG5vIHJlYXNvbi4g
-UmVzdHJpY3QgaXQgdGhlIHdheSB0aGUgc2libGluZw0KPiBjaGlwIGFuZCB0aGUgdmVuZG9yIGJv
-dGggZG8uDQo+IA0KPiBUZXN0ZWQgb24gYW4gUlRMODcyM0NTIG92ZXIgU0RJTzogdGhlIGludGVy
-ZmFjZSBnb2VzIGRvd24gYW5kIGJhY2sgdXAsDQo+IHJlYXNzb2NpYXRlcyBhbmQgdGFrZXMgYW4g
-YWRkcmVzcywgYW5kIGEgd2FybSByZWJvb3QgYnJpbmdzIFdpLUZpIGJhY2sNCj4gd2l0aCBubyBj
-aGFuZ2UgaW4gYmVoYXZpb3VyLg0KPiANCj4gU2lnbmVkLW9mZi1ieTogQ3Jpc3RpYW4gRGVsdXhl
-IDxtZUBjcmlzdGlhbmRlbHV4ZS5kZXY+DQoNCkNoZWNrZWQuIFRoZSBzZXR0aW5ncyBhcmUgaWRl
-bnRpY2FsIHRvIHZlbmRvciBkcml2ZXIuDQoNCkFja2VkLWJ5OiBQaW5nLUtlIFNoaWggPHBrc2hp
-aEByZWFsdGVrLmNvbT4NCg0K
+On Sat, 12 Sep 2026 18:35:14 -0700
+Chang Yu <marcus.yu.56@gmail.com> wrote:
+
+> Hi Jonathan,
+> 
+> A quick comment inline.
+> 
+> On Sun, Sep 13, 2026 at 01:56:52AM +0100, Jonathan Cameron wrote:
+> > On Fri, 11 Sep 2026 18:39:11 -0700
+> > Chang Yu <marcus.yu.56@gmail.com> wrote:
+> >   
+> > > +    description:
+> > > +      The driver current for the external LED connected to the LDR pin.
+> > > +    minimum: 4000
+> > > +    maximum: 258000
+> > > +    multipleOf: 2000
+> > > +    default: 12000
+> > > +
+> > > +  sync-gpios:
+> > > +    description: |
+> > > +      Optional GPIO pin that can be used either as a synchronization input to
+> > > +      start/stop measurement or as an external start/stop signal for
+> > > +      synchronizing with the connected LED.  
+> > 
+> > So the datasheet starts referring to using this for some level of sync
+> > but then only actually treats it as as a gpio (maybe I'm missing something).
+> > Any idea what that stuff about start/stop is talking about?
+> > 
+> > The only thing I can find about this is the device diagram in figure 13 that has the GPIO
+> > wired to the led driver and the automatic measurement engine.
+> >   
+> That's what I got from the datasheet as well. They don't describe how to
+> use the GPIO pin to perform synchronizations at all.
+> 
+> The adafruit arduino driver
+> (https://github.com/adafruit/Adafruit_AS7343/blob/main/Adafruit_AS7343.cpp)
+> is slightly more helpful - the GPIO in output mode signals when the
+> spectral measurement starts. Unfortunately no information about input
+> mode.
+
+There is no separate control?  If so we can't use it as a GPIO as whilst
+there is a control to set the state it will randomly get overwritten if
+we do such a read. So to me sounds like that is there for testing the
+connection and similar usecases only and we should not expose this as
+a GPIO. Maybe input is possible but that may also have side effects.
+So I'd be tempted to drop it from the binding - with some description
+of why it is not there in the patch description.
+
+> 
+> > > +    maxItems: 1
+> > > +
+> > > +required:
+> > > +  - compatible
+> > > +  - reg
+> > > +  - vdd-supply
+> > > +
+> > > +additionalProperties: false  
+> > 
+> >   
+> 
+
