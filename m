@@ -1,83 +1,163 @@
-Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 932A83B1B3;
-	Sun, 13 Sep 2026 07:37:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.210.214.84
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEAE83B14B4
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 07:37:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789285053; cv=none; b=a1N/08TfSXyHODHs9YsO9OEG/A1+MyDdXN1TfTuCBgpmEyGxdYDP/vfxcM7L+cUzAQktMotk3OUPLN3gThKmv6+2rOoJS2dR48QLG9ahdu+CL2yBZpMkhn+70cwPAZ1hUvdqYUFnMa0oRTq0/MHtnghQuqJNOT3RKv3L15R8wA0=
+	t=1789285055; cv=none; b=jD0PIsFIjQn4trTkgd2uhyOCZzg1EcZQ2gvFxDXnIIlodAGrel6JRz16IGRu/0lGnILO+EtiC3OWrvfNFU7w6YXxjBTJbPeoIAkGmoMgF5dwb3x+mR8pYmS7bAZZFeuK375WJwAsbB1k/Ytd+7ahlNe/WhrdMzRG9WiNts2Vkrg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789285053; c=relaxed/simple;
-	bh=k8BYXum/PuRaBEEMf596mYNLJ4sTB29GrQHK0crZ0qk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=U3UxeLruq9q40oY2++u8/CdKCgfdiItlD3fp1Plg0yVS2rTPwY8bTQ8DmxjVfKF4F9zVY255IqXiC/AgCQYly77L4r3f8SBan7+YU9S5HsSCnu95D9M06pQ2fdQTYBD6iFc32XM9dFIIO5WvMyQl0E7T7PCtgJqzMC9veJ4AOx0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org; spf=pass smtp.mailfrom=codewreck.org; dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b=JjhY6shv; arc=none smtp.client-ip=62.210.214.84
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
+	s=arc-20240116; t=1789285055; c=relaxed/simple;
+	bh=9bbSBp871H23oQaegj/vbO5aR4dn3QnB0KPj66ijqro=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=isOMdIkZKJ+EbeWEIZhEkQcwSLVY8/IttDMYKvyQ6k55LljmiaEPtOXKLggcR2G/k62BFkrr+bx/bZseg216cynUUE5kr9pYusotZstwmLYVxqPRuG2pgCAIbRBB3eDJnqdcUCzwi/tsxu3aeACezyCiVHKLaWgGE3UB5nxjBOE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jD/pKnFc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b="JjhY6shv"
-Received: from gaia.codewreck.org (localhost [127.0.0.1])
-	by submarine.notk.org (Postfix) with ESMTPS id CA78F14C2D6;
-	Sun, 13 Sep 2026 09:37:14 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
-	s=2; t=1789285040;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GTBZY/rXFWFKF9FxnC104y6S3ZrR0NVi7aps1PvauN0=;
-	b=JjhY6shv9fcE28g6biCAkVCgdodpXGrlWOvPiqGj8+DH/c/32MV2r413kjJuPa5NXfUcz2
-	/UPt27C6wIt0+b74b1md1leXRTtO7kCaXMDTdLgJjfoF8fUmeRdFSy2Aem6feVl7HfWiA/
-	TBtlP6EevVHu7UiT7drEWHTX/RcbTJp/9XQLuOsuF7s8E3cWyeUCVm8Vfd3eHpUr7GOBtR
-	sPH7Lp2LF2jx5HdIowJdjC8Ijqt6Vz/wyHFlGKX0XxrknJ+3Fym1tTQ6IxJbrC2PI7qwQJ
-	AE0QHIGre1dsMBDX5coX2elsosvTtzcMQtUgH+n/KLxFRa4oQqvem8MQc9pOMQ==
-Received: from localhost (gaia.codewreck.org [local])
-	by gaia.codewreck.org (OpenSMTPD) with ESMTPA id 6b118afa;
-	Sun, 13 Sep 2026 07:37:13 +0000 (UTC)
-Date: Sun, 13 Sep 2026 16:36:58 +0900
-From: Dominique Martinet <asmadeus@codewreck.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 5.10 000/798] 5.10.270-rc1 review
-Message-ID: <aqZSmqmrIXXFzwx4@codewreck.org>
-References: <20260912065516.948645775@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jD/pKnFc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4EFC1F00893;
+	Sun, 13 Sep 2026 07:37:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789285053;
+	bh=kENY6vTLb3k3xzY9wWud1EJa7mum1nmdexc1RLTPIWo=;
+	h=From:Date:Subject:To:Cc;
+	b=jD/pKnFcs/SmCcOj/dmMYFcvawtFKa64uwWJVHDsKIgTwun3UP1+/zBQFRMob0zms
+	 A3Nlfoq1Kqxbx2cpVpZbZJppHeOSGQjAO0zqgGNdmC7Fcyysyete9bdNkwhEW3X5fH
+	 59/Obh9+sB5fuzloRF9SmowQdw/v+b2J7SbMpdyEx/hApGxiT5teQdHJfCs20EemKK
+	 MlouMr7gGaLYJfDEAM3czrcYtB0sIv42x0ZIvrHE0RgLfP0PahSHaLhTumUfzPVz62
+	 58AP9U5bA7U25FQdAdWKwYycKTVH2fqyaEh9XePrOiZRO3bxKbg5cEv4Xd0tnAsvOn
+	 xTOiG4s0FoujA==
+From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+Date: Sun, 13 Sep 2026 10:37:27 +0300
+Subject: [PATCH v3] x86/mm/pat: use pr_warn() for early W^X warnings
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260912065516.948645775@linuxfoundation.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260913-fixes-verify-rwx-v3-1-5e1d6a08bd02@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2WOzQ6CMBCEX4X0bKU/pBRPvofxQHGFqvxkixVCe
+ Hdb9aDxOLvzzcxCHKAFR3bJQhC8dbbvgpCbhFRN2dVA7SloIphQrOCMnu0EjvpAnWeKj4myLNM
+ ZN7kqpSYBGxBenkAdjm/t7uYC1RhzosOUDqjBsquaeBrtkE5apW0bn411Y4/za5DnMeTTzTQrR
+ C7ZNmNBC005xWEY91fADm7bHmsS67z4Yjj/3+tFIEFUJ5CFUaqQPwnruj4BRLfqkxQBAAA=
+X-Change-ID: 20260910-fixes-verify-rwx-044841b76a38
+To: Dave Hansen <dave.hansen@linux.intel.com>
+Cc: Andy Lutomirski <luto@kernel.org>, Borislav Petkov <bp@alien8.de>, 
+ Ihor Solodrai <ihor.solodrai@linux.dev>, Ingo Molnar <mingo@redhat.com>, 
+ Mike Rapoport <rppt@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
+ "H. Peter Anvin" <hpa@zytor.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Thomas Gleixner <tglx@kernel.org>, x86@kernel.org, 
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org
+X-Mailer: b4 0.17-dev
 
-Greg Kroah-Hartman wrote on Sat, Sep 12, 2026 at 08:53:48AM +0200:
-> This is the start of the stable review cycle for the 5.10.270 release.
-> There are 798 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Mon, 14 Sep 2026 06:54:17 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-5.10.270-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-5.10.y
-> and the diffstat can be found below.
+Nathan Chancellor reports the following warning:
 
-Tested f69aa74a8250 ("Linux 5.10.270-rc1") on:
-- arm i.MX6ULL (Armadillo 640)
-- arm64 i.MX8MP (Armadillo G4)
-- arm64 i.MX8ULP (Armadillo IoT A9E)
+  CPA detected W^X violation: 8000000000000123 -> 0000000000000123 range: 0xffffffffc0400000 - 0xffffffffc0400fff PFN 100e00
+  WARNING: arch/x86/mm/pat/set_memory.c:722 at __change_page_attr_set_clr+0xde7/0x1290, CPU#0: swapper/0/0
+  Modules linked in:
+  CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 7.3.0-rc1-debug-00006-g453e78594434 #1 PREEMPT(full)  2950d432dd3910251071a66f3134fe0875432786
+  Hardware name: ASUS System Product Name/PRIME Z590M-PLUS, BIOS 1801 12/26/2022
+  RIP: 0010:__change_page_attr_set_clr+0xdff/0x1290
+  Code: 80 7c 24 42 00 0f 85 3a 04 00 00 48 8d 3d 19 8d 79 02 49 89 d9 4c 89 e1 4c 89 d2 4c 89 f6 4d 8d 84 24 ff 0f 00 00 4c 89 14 24 <67> 48 0f b9 3a 4c 8b 14 24 48 8b 0d 81 44 bf 01 41 f6 c2 01
+  RSP: 0000:ffffffff87003c60 EFLAGS: 00010246
+  RAX: 0000000000000002 RBX: 0000000000100e00 RCX: ffffffffc0400000
+  RDX: 0000000000000123 RSI: 8000000000000123 RDI: ffffffff872e50c0
+  RBP: 8000000100e00123 R08: ffffffffc0400fff R09: 0000000000100e00
+  R10: 0000000000000123 R11: 0000000000000001 R12: ffffffffc0400000
+  R13: 0000000100e00123 R14: 8000000000000123 R15: ffffffff87003d58
+  FS:  0000000000000000(0000) GS:ffff8ad1777a7000(0000) knlGS:0000000000000000
+  CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+  CR2: ffff8ad0a4201000 CR3: 00000007e3022001 CR4: 0000000000770ef0
+  PKRU: 55555554
+  Call Trace:
+   <TASK>
+   ? _vm_unmap_aliases+0x219/0x280
+   change_page_attr_set_clr+0x161/0x250
+   ? events_sysfs_show+0x5d/0x80
+   set_memory_x+0x39/0x50
+   apply_retpolines+0x656/0x6d0
+   ? events_sysfs_show+0x5d/0x80
+   ? events_sysfs_show+0x6c/0x80
+   ? events_sysfs_show+0x62/0x80
+   alternative_instructions+0x3c/0xd0
+   arch_cpu_finalize_init+0x130/0x190
+   start_kernel+0x97d/0xa10
+   x86_64_start_reservations+0x24/0x30
+   x86_64_start_kernel+0xda/0xe0
+   common_startup_64+0x13e/0x151
+   </TASK>
+  ---[ end trace 0000000000000000 ]---
 
-No obvious regression in dmesg or basic tests:
-Tested-by: Dominique Martinet <dominique.martinet@atmark-techno.com>
--- 
-Dominique Martinet
+The warning appears because commit 038176c21617f ("x86/mm/pat: fix
+effective RW computation in lookup_address_in_pgd_attr()") fixed the
+effective RW checked by verify_rwx() and it exposed that pages used for ITS
+trampolines temporarily have RWX permissions.
+
+The permissions are updated in its_fini_core() after all the ITS
+trampolines are generated, but since verify_rwx() detects invalid
+transitions, it warns when its_alloc() makes RW memory executable.
+
+At the time of alternatives patching the entire kernel text is mapped
+RWX, so the warning is bogus anyway.
+
+Since the verification of the entire page table with debug_checkwx() has to
+be enabled explicitly in the kernel configuration, retain the warning even
+if it's bogus, but make it scream less loudly: use pr_warn_once() rather
+than WARN_ONCE().
+
+The warning can be removed once debug_checkwx() becomes unconditional for
+configurations with CONFIG_STRICT_KERNEL_RWX set.
+
+Reported-by: Nathan Chancellor <nathan@kernel.org>
+Closes: https://lore.kernel.org/all/20260905044253.GA3816371@ax162
+Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Tested-by: Nathan Chancellor <nathan@kernel.org>
+Tested-by: Ihor Solodrai <ihor.solodrai@linux.dev>
+---
+v3 changes:
+* fix stupid copy-paste error
+
+v2: https://patch.msgid.link/20260911-fixes-verify-rwx-v2-1-e2cde39b6693@kernel.org
+* Use pr_warn_once() for early violations instad if skipping them entirely
+
+v1: https://lore.kernel.org/all/20260908092730.4002628-1-rppt@kernel.org/
+---
+ arch/x86/mm/pat/set_memory.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
+
+diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
+index b3060000da8d1..a799f539287e2 100644
+--- a/arch/x86/mm/pat/set_memory.c
++++ b/arch/x86/mm/pat/set_memory.c
+@@ -697,6 +697,21 @@ static inline pgprot_t verify_rwx(pgprot_t old, pgprot_t new, unsigned long star
+ 		return new;
+ 
+ 	end = start + npg * PAGE_SIZE - 1;
++
++	/*
++	 * If the kernel text is still RWX, gently complain, this could be a
++	 * false positive.
++	 * Once debug_checkwx() becomes mandatory for CONFIG_STRICT_KERNEL_RWX,
++	 * the warning can be removed completely.
++	 */
++	if (!kernel_set_to_readonly) {
++		pr_warn_once("CPA detected W^X violation: %016llx -> %016llx range: 0x%016lx - 0x%016lx PFN %lx\n",
++		  (unsigned long long)pgprot_val(old),
++		  (unsigned long long)pgprot_val(new),
++		  start, end, pfn);
++		return new;
++	}
++
+ 	WARN_ONCE(1, "CPA detected W^X violation: %016llx -> %016llx range: 0x%016lx - 0x%016lx PFN %lx\n",
+ 		  (unsigned long long)pgprot_val(old),
+ 		  (unsigned long long)pgprot_val(new),
+
+---
+base-commit: ebaf7c9bbb1e16523d7036e7e1225ad2dfcc6482
+change-id: 20260910-fixes-verify-rwx-044841b76a38
+
+--
+Sincerely yours,
+Mike.
+
