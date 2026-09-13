@@ -1,111 +1,110 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 460DC35E1D5;
-	Sun, 13 Sep 2026 11:10:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D06CC377ABE
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 11:22:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789297832; cv=none; b=dxjTLNf+RrS9YrvecpdL0COCdMDeFrZMblbbjp2WTqvSiPaIOkvzZMk/e8nckYhVfQspggiUKDBDi0Zl4izbkgxFZLvcp4/5i2hWuwdhfobr7i7L9w/Zhn/m/J8/yBGIKSQetgD5WsDRE8h6/bJbYGIPL1uOnFJdazfPjrVceEA=
+	t=1789298558; cv=none; b=P2RYy6EllhFhvVn0WDC1yBLZVyfMrtgPQqZfXBG7jHjlpHAfU2ZsDa8ZLP9WrwBOvLabDX8vnni1Ib2XJ7LFHBsivat8l+A1JJWGJ7S3pddboWxNumlXEXYXo/Rwfo9MvAQ8hdvJmBw5+ybrSCzL32faT8AeuTAbMElWXkILN3M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789297832; c=relaxed/simple;
-	bh=/riyfTF13ZDlr01z6yZ0QrhVTF38My+3SoFSPxrCyTk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JDZ7B3Y0G1jdwRR6q8zwVecOW2qUQAgq79F5DopdnfOcEAEOc5cZhxarhaDMXVjIgC4gWB1Wthx0y0RgodTBg0Xd0OXwzcdQIcM3gcY/poGktetJVakbBMrrQeeilnFRCtrfuT1zo9QYJXxTekuMyaBENZXikqTMs2kKJTk/rp4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=T0VFBHWp; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	s=arc-20240116; t=1789298558; c=relaxed/simple;
+	bh=zgYd+/+OrMtAYZdTW6ALvcgwYufAYjVhQV5KAyT2rEo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=biEOZ6NaVn3mXXrBx6wc7A2rHys9KMQ7fAPVONTb2ud07ut/MzMPI0g49tr+jabo5KNROKiwlJkuXQj+B6VaS8wIP+9oYRU6uDxjVc6sj2TCIP3PCmonCLsVxFAmA6DTVdTepMnHN2CEcjlzUaP7zbDNkJraDgtUakTJAkeuqRM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=firoazOC; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="T0VFBHWp"
-Received: from gaggiata.pivistrello.it (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
-	by mail11.truemail.it (Postfix) with ESMTPA id E7E5B1FB90;
-	Sun, 13 Sep 2026 13:10:27 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1789297828;
-	bh=y44+A28Y3BNV9Kwrp3SpasZ4quyu/gVpv3kXvPsZ3r4=;
-	h=Received:Received:From:To:Subject;
-	b=T0VFBHWpT29SQ0+mCZ1RszeeutgP4OtMHS6BpRswhxVHUsxyKJAOjzTDWzV5t31Cj
-	 oMLwjimg1hEn9U5xEb6VE/5ryXcEuMq4KyehetNnTRjvZU29KcvxJTm05LFMX8IWTR
-	 jRFoEtP7vyDg4H+Be43YTOgQ+urDJEKOKh6Hjc4axSKzT16YQem3WuuAC/T+376yy5
-	 kuzu1QqNEvu+tNuvnVR13VcfqMdLn0rfP4jh8DfwtbQFVr//MEqZbDoehLRlcxsCMH
-	 tKbzxXunpmTKf3feVGyZ06Lt2p7XppYDszP849m/ZlFDzpWyGoFD0iMct6eQgtdG/c
-	 +VcqUgXh0btkQ==
-Received: from livingston (unknown [192.168.42.11])
-	by gaggiata.pivistrello.it (Postfix) with ESMTP id 81B107FA3F;
-	Sun, 13 Sep 2026 13:10:27 +0200 (CEST)
-Received: from pivi by livingston with local (Exim 4.98.2)
-	(envelope-from <francesco@dolcini.it>)
-	id 1x5i6N-000000002jM-1jMz;
-	Sun, 13 Sep 2026 13:10:27 +0200
-Date: Sun, 13 Sep 2026 13:10:27 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Francesco Dolcini <francesco@dolcini.it>
-Cc: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>
-Subject: Re: [PATCH v4 0/4] drm: mxsfb: Support LCDIF interface bus width
-Message-ID: <aqaEo1-aS7Srsgxv@livingston.pivistrello.it>
-References: <20260813092836.38367-1-francesco@dolcini.it>
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="firoazOC"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccff31419so8828435e9.3
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 04:22:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20251104; t=1789298555; x=1789903355; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wECUEybq5CkpsVtthy4SjiDIXRDYyDXHnZHX7Ni0Em8=;
+        b=firoazOChl0u0XiGd7RT/Y2i+WeL3uMgE8vzu8OmeXkrciMSc4KeZXh7a21fLGPtA/
+         fl17gWiBNYHg94f/6PqEKNVH+fs0H1pIzl+ST1BNTrXEYjzJ5Yyrze2CpMT3aKeFll6S
+         8LTqpFYYzCzptsigCO9AOyVi4EUzPiG2m9oJ7mGFVftz/FMkp4UCWirTdIQtqOcLbedZ
+         NQHiEohJWW5266Lclar0ygJTwECQJuGLjuqLyMC63GEq9TxqLv+FDhr17UfSnGDa4/Pf
+         a3IoqGH/U9D3ZQ2HKU1sFbeoPQ0gR1A2YWABeEn+2r5AoBohDbB5Ia/QZHHYUddD33c/
+         hixQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789298555; x=1789903355;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wECUEybq5CkpsVtthy4SjiDIXRDYyDXHnZHX7Ni0Em8=;
+        b=ra8wG2Yz+H8dJQBRqJuGVWDKVOOI+3Q3zKd19ecnfFUbyJYHEMLlTxOLZlEZrPfMLe
+         GyCpU1cOQ2uRrscuD9CrZLTcYlD0cEBud1I7DUSzKi3cYAZA4ft/eF5EHr2aMQipnrMs
+         iK0CBO3hy6HqeJMxPjJrs5EaQh66/bGgPN0rgVTcuv82wNXs249R08IKaX8k3mUz1Law
+         Z1+LUscBRCmAesamj2zqyOJzU821jrtBcq/xE24Sf5KwqOP6PtRPhh3RTHXRlVYZJuc6
+         /3k6Yyu44a31PTey0uCsSpFtCHHE0CwEFHtCgpH7+cIrxwtxK9rgW9K4esOSZhVtIrS3
+         /Msg==
+X-Forwarded-Encrypted: i=1; AKwUvBy1n87jO5cm90KBdvla06bqgplYmouiOT5QlqLw099J+DfnW7LeegUat73cqSQh7fn9+Bmt7KZoeUWtp3U=@vger.kernel.org
+X-Gm-Message-State: AFuF++nTcUi7djcLtku0C4v09bgOzBQc4ilDGfsq8tpMNaYuR7L9h1CF
+	30NrJobQ53GKlsqO5Xl6+pSJNdND8XwE/eS/jUkf1zEkdVcoSIehuZc=
+X-Gm-Gg: AYBFou1lauGV3FqsnI7vaTJ6At7Wt1JCbSFnG1jY5p4SDZl/uuQzIgBGI14/2AgSgwb
+	+sOYjmfMRuDbhFf0IoSvP/r1SgTiWOJer+iZgcdVToUDgRg3vYRHjpvb7I0xFnyIHs5apNh3UVa
+	VB+1mPcM3zgxXXZ++774zNNIMb4mV911Ia88zKMAE2r9J9dJFe/uCw0ER9VTPdzLOQ0g24jwb/+
+	59FJcOsP+UxbSVTRX7GHhaKscdB+G3yE/rqfJ+f3LAsBBwutDFY5BOwQBRANIvXaBdoLDPbBimH
+	S7EAiGnl27M8iu6Ql9FtDyiKkUavG7E9ZdTTn72BPDpef/CSfsn8qPTx76TDCnlBYpPVXJ01QyL
+	a8KlYMcrNKlEceXBkSv/SgEazku72mCLNmAzJuzzYMqgQqY7MovGZPhXaRv5gx+yDuJviTXIu9/
+	iuUNd4sO+UBPk86+yEpzLM3ZlGcZSHwb30nxdQZJDHtY6fI/qG6tRIYMdFl6mRdJkm7OREPyaHf
+	fomtrCmWcDifHKq5m2807u8XlxaCMUg+QHfq/Ro1o3rS6hUew==
+X-Received: by 2002:a05:600c:37c6:b0:49c:fa21:1c8b with SMTP id 5b1f17b1804b1-49e6cc1a4d0mr58613765e9.32.1789298554999;
+        Sun, 13 Sep 2026 04:22:34 -0700 (PDT)
+Received: from [192.168.1.3] (p5b2b4716.dip0.t-ipconnect.de. [91.43.71.22])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26c39086sm282128375e9.10.2026.09.13.04.22.34
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 13 Sep 2026 04:22:34 -0700 (PDT)
+Message-ID: <2b7c10bf-d08c-4bc7-ab91-8d0e8621887d@googlemail.com>
+Date: Sun, 13 Sep 2026 13:22:33 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260813092836.38367-1-francesco@dolcini.it>
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH 7.2 0000/1815] 7.2.6-rc1 review
+Content-Language: de-DE
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260912065648.999753832@linuxfoundation.org>
+From: Peter Schneider <pschneider1968@googlemail.com>
+In-Reply-To: <20260912065648.999753832@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-+ some more DRM maintainers/reviewers
+Am 12.09.2026 um 08:29 schrieb Greg Kroah-Hartman:
+> This is the start of the stable review cycle for the 7.2.6 release.
+> There are 1815 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-Hello,
-just a gentle ping to the DRM bridge maintainers.
+Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697v2 server. No dmesg oddities or regressions found.
 
-On Thu, Aug 13, 2026 at 11:28:30AM +0200, Francesco Dolcini wrote:
-> From: Francesco Dolcini <francesco.dolcini@toradex.com>
-> 
-> The width of the physical LCDIF output bus can differ from the input bus
-> format advertised by the downstream panel or bridge.
-> 
-> Such a distinction is required when the LCDIF bus width does not match the
-> width of the downstream display interface. For example, an 18-bit or
-> 16-bit LCDIF bus can drive a 24-bit display by wiring the available color
-> bits to the appropriate display inputs. Configuring LCDIF solely from the
-> display's 24-bit format in this case selects the wrong LCD_DATABUS_WIDTH
-> mode, changing the color-bit assignment on the LCD_DATA pins and resulting
-> in incorrect colors.
-> 
-> Use the common OF graph endpoint bus-width property to describe the width
-> of the physical LCDIF output bus. Make the mxsfb driver derive the
-> corresponding media bus format from this property and use it in preference
-> to the format reported by the downstream display. When the property is
-> absent, the existing behavior is preserved.
-> 
-> Set the endpoint bus width for the Colibri iMX6ULL and Colibri iMX7 boards,
-> which route an 18-bit LCD interface.
+Tested-by: Peter Schneider <pschneider1968@googlemail.com>
 
-The first two patches in this series should go through drm-misc-next.
-Please let me know if any changes are still needed. Otherwise, could they be
-picked up?
 
-Thanks,
-Francesco
+Beste Grüße,
+Peter Schneider
 
+-- 
+Climb the mountain not to plant your flag, but to embrace the challenge,
+enjoy the air and behold the view. Climb it so you can see the world,
+not so the world can see you.                    -- David McCullough Jr.
+
+OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
+Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
