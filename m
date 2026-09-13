@@ -1,81 +1,80 @@
-Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E59035E1D5
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 13:18:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDF082E1EFC
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 13:19:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789305495; cv=none; b=hATuKYJ1r1H0U3WH4VsmQvAWg4O2AWn6/swKigDGEMa7zdHJFSfowF1QtuDGuz3lPyHckFpis70DxYu9z7qFBK20z7ED9AbNdemx6dXalE3pf25jJPja4Cbe7FwgbF96jwhRGnIspF32yl18delq+EglPWCOxb1oPredGjeT8mo=
+	t=1789305544; cv=none; b=H5DW0M/PYWdtujgao4COPXpxAsCadQYcJ4FVj47I4xb5zcUCmHCRz5CTnt+R+a+J15pzRptHuN3VyDeAuWDWufT+sKLKV8h4ycdyqVUTM++iMYtz3CLvQwCiksEfPRWrxvmtk2AgliMZ+gh2nu9Pdc0SFUKET3JrRKLJufpiaS8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789305495; c=relaxed/simple;
-	bh=4PBfJSsN7kfeIgqBGeuu+hMW/kpXMUAKD5X6y3N1qrk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CwABkNXC2ZSXoMmHehoekEggVnDi426jWHXPqL7RRR6pZebVQ6u19/ksH8KkYXnZqMGG/96JFj2BaK3t6gvD9FmhVwZ85mBGOB7uQdies/VkkCiTZqN0LOT/7B0DHMuBVM13chnoCiyUS1ZUY4TKV1FxwPpSTsRY8i9BkzPp4Oc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=northecho.dev; spf=none smtp.mailfrom=northecho.dev; dkim=pass (2048-bit key) header.d=northecho-dev.20251104.gappssmtp.com header.i=@northecho-dev.20251104.gappssmtp.com header.b=uwI2thGO; arc=none smtp.client-ip=74.125.224.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=northecho.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=northecho.dev
+	s=arc-20240116; t=1789305544; c=relaxed/simple;
+	bh=MNEB3uM9fk17gH3lCK0TQ0HdXUzZavXN7I2Fq7ejFto=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OKfORKH4+kTf7ewDYG/hOrOMtn+bmkqKEKR0+H5AAZPAaZ0Ihc7ZDRQwl2vd/vJs16H/kyvul71pKQVBgfhYGpXuCb6IibbR1+CwryjBf5NcmIEOhtKxpYedOXU1tGkG7Ds/GGXIBxqIjmExzGIBsRQiWQHpHnBeBOItGgUZFBQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TDhwE2Dw; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=northecho-dev.20251104.gappssmtp.com header.i=@northecho-dev.20251104.gappssmtp.com header.b="uwI2thGO"
-Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66fb7488033so137065d50.2
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 06:18:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TDhwE2Dw"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4c3304784so1183714a12.3
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 06:19:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=northecho-dev.20251104.gappssmtp.com; s=20251104; t=1789305491; x=1789910291; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LSb+qxGlYbynh0pp1CPDDM0oB9qczgGLF2ehmN4RM+4=;
-        b=uwI2thGODyouTNLNKuvdqOaTUrTfyCv308eDUvk2GA2LYHRVQTucfNrSmlub5bdM3q
-         gT8lSuDfyjieTRKY1ST/W8mzbtRWJmMF++mmp/riLcsmrOctEsb4IOyoz0GydsMJK9PV
-         eAzVPignTDacljuf747q4tJ9QSUpfQPx1o/lbLrt/rf6Mvnz7HxAcMvrycUGJzO+S9NL
-         yWzGvBkYqdAFUFEN4RDXOf2yAtsAjyPXFVuf1mTx266lHCcf0jfJg8Vhx75jos1mXmZT
-         B91ehDThZS7MWobTILEmvGM2kh3aapfujD5MJKjAtQeUBAVvzS8x67Fa0W7ujDwULIF5
-         pDpg==
+        d=gmail.com; s=20251104; t=1789305541; x=1789910341; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BzrAlMcZ8zBRfbQWU5o3RvRaRsPXz8ZJNVxN53VL4HY=;
+        b=TDhwE2Dw/ai1Crpx2VWu1BelXZ4CKT1kqlcorok3bs7xwYdIM/uwT6wiR8NIsaOsYX
+         kSw6pEYIv1YU3kdoOnMuUXf+Ppx07DrFXsRlAkt4wIkh44TJle94rG68P1ZOFZXLYTNg
+         +emi43Emd31AfBRQskLy46fyZr/UkVsloPqebPgVqAONXpWxNsvikupaH6tAnHXW4/0b
+         CNVP61h3hq/WFQMZQrMpKjkWyhGJRDHisWwdu6h6ND5sGA7sMj7o52ravNHoGQnJwmKw
+         GC8QZKYPBxUmBLoyRARt2mnJl1QZ0k9/2l5xqonAdHTYfyFcG+DlAHI+XJ5Sfs8pxxdy
+         we+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789305491; x=1789910291;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LSb+qxGlYbynh0pp1CPDDM0oB9qczgGLF2ehmN4RM+4=;
-        b=AZ1A08gtGu+QwPuDcAJX8adAnMmdJA0A6WaWiNxLK2+elCkm2034ADv8x6uSLnprQj
-         g3FaEXt5LoPnnltNt3uALef2d/X4qbGyI5/boTQar4F3L5di8oILkJOwsCd0JxQAFY9y
-         Xe5eTmAKnmzVvXC1HTVWcD/pV3eC7qBjtTqoyXrzrbthdiLMdv9QD7vrFsMhTC2ttws1
-         BlexMhc9vcWwpqIfGWuBj31EM9kNsXp18wm6qEB2gpWsgQHJdvfK4Esq/eNdbV020kbm
-         gNDu2zxlNyRDdC/9kSlSCa9Dop8CLYurozobgN9JBHtpAn8jV1oi0TMQLTfZaev+0xM7
-         ryzA==
-X-Forwarded-Encrypted: i=1; AKwUvByMCZcoPdkpc8yeEkULG28OOdlSt2R+8dMefH6gMGXktS/qdqor1MmBe0StNqoKmouGU74WcPpIYGQrl1A=@vger.kernel.org
-X-Gm-Message-State: AFuF++kZhKAqBe1dI7njqM+hw4F9ULng5/EAgB1bOIIsmnu9qqgpcBcU
-	lxV9ckYkLICyO5Mv8oijysYzot52MwJgvxzW8fE4fb+n0rJoRRx2zQRY9Q2jgPX1WgUv
-X-Gm-Gg: AYBFou0XiovyEoWcCMTO1O2xH5hS09DtcVidBls2xD8NoGWgvr+L0PKmaT9BgvDvDCU
-	vgE4ovq4jsaX27CYUTDSW4ls0F3bg+8rsNVmyq824RkBgz4EUvGyLsCCELT9UnvszIOxSRkz8/8
-	HMjCDIgD+0NnIWnSKZ21s2CaredV099KTG4NmLG+KyzKOXzrsgx3AwtlmxVUV2o/+Ejz/9ovtP3
-	ubYS+GgPFVPZI5LfkJ8HRxrmt/yhecV8meKVE6j9LInQW7IyYkCSpxsgtZEMuTyTNirSkrzxE+d
-	Eeow8Qb9BrVBr7IYgi+w4F66UEgYmv7irtqrOHjtLlI/YQVo9mJ5EnZv/6Egc3A7w5PEmzGOkhe
-	VDGX/Ei2i2tM9KaiC1Zexf1ANuTlkF9RmBJG3x6riZaHqBA83ocsdaSr9KMB6yqVU57jEtDdkAz
-	Qg7EI92h+Xb8gBpVPbpQDHF9IFPAxbcDjeelEl33lLC/l67vsMG2L0l0uWouIupLHUmPOuXwDyI
-	438lCadXj35Gd58pWWmeDFcAiBfj8MpoPmgzygw
-X-Received: by 2002:a05:690c:b06:b0:862:1f26:d489 with SMTP id 00721157ae682-884b1a2f84bmr50752127b3.3.1789305491416;
-        Sun, 13 Sep 2026 06:18:11 -0700 (PDT)
-Received: from kelso (99-10-92-174.lightspeed.rlghnc.sbcglobal.net. [99.10.92.174])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-88488c3ab26sm27731697b3.40.2026.09.13.06.18.10
+        d=1e100.net; s=20251104; t=1789305541; x=1789910341;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BzrAlMcZ8zBRfbQWU5o3RvRaRsPXz8ZJNVxN53VL4HY=;
+        b=TuKAq5tQogyWNSkoW5TNf58OXaw1I6Eb4859eu0uftjbHWgM/1NMuZ3yZGMeQN1wt0
+         Y+t8gFNzDys1XfrXRhMbMgTQPXDWHN2aMDiL/vlGfKNbAqbL5M7V2XtBjutXNHvor4Ug
+         vhQdYXckiMW/2f8gjEWa467zNvD9wSt/LarF7mcj9m43rYVcNM4VcvVF1ilYBX3Qg3RZ
+         3qNGhaDDy86K/AOs7sciC85qQ115RmK5kl+PwnBEfczs7IxucgDzl9Vm35DPUPUI4cL0
+         djbSA6M5lKd/E4SyRpXvRvDYx6nh0lUlPZwOqOqNqcZdVRAevRm/Auj4X6dpL3XYP5/C
+         rKXA==
+X-Forwarded-Encrypted: i=1; AKwUvBxnHxeM6QDD12TOdqrUemL/b5yqHdsHa6AwnEnxuwIgHrbmbF5HSyFSuqNXLt7pycJJmFnWxccH/xUOAOY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kwv7E69dXl3tYkba7S9wRo4f5lrFxLjjFORaWrkhBKdauu45yQ
+	JlPr4lq5kYUzkZKKH9qcUyP29Pnpsd+54WdC/S36G4IXl5LP4lBQH6FU+GqJ6cgr9Ns=
+X-Gm-Gg: AYBFou2jKlXs4H3wG/mTEGRnx+rnEzp2VPqCZeUK+pjvB4zXDkDF2VnDvJiJnsWjRtw
+	VoSpKJr6fv683DdcPD6Wb2hDJCkVQ/Waf8g0qZuX6sDSES7T8wCSidgcMDx4zpSDfKHW98MavhH
+	hl5x9u5Sbn78nzfvoxsrLmC8RNrV3O1kE0Fo0/Rf0lsSUUvAamLN1bbtmzlfzMduRxZCynOHbvd
+	YuXjNWd6G1PhXnZ9jHpxHWft8G51K3qdbinZVb4Xzd8W9cGw6ExfwxaGOAS2XBBE0Kss1lEvxGe
+	38Cw1lSCci+fsT0qxjQEDQSItQ8c3ki23WmKiylZ1qVqYXhXEYDckLkv5uyDUKH7AjJG5J1wxGF
+	HXPih74tMM21Wnv0lRwLgJCclDubAjJiCHlSQlYwIZ9vILaZcblKFHnk1V3FEv/kBioYIx1HhIk
+	DJcnkCNr9DoiMCuh8ipncgWQTrG61kNRarS3M1V2g05Yi8SaxQknMJK+Nt64XSvE5zeA==
+X-Received: by 2002:a17:90a:d64e:b0:395:4de4:92be with SMTP id 98e67ed59e1d1-39d9c1db130mr26350180a91.13.1789305540739;
+        Sun, 13 Sep 2026 06:19:00 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d95095946sm15749780a91.5.2026.09.13.06.18.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 06:18:10 -0700 (PDT)
-From: Christopher Lusk <clusk@northecho.dev>
-To: Greg Ungerer <gerg@linux-m68k.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Kees Cook <kees@kernel.org>,
-	Andy Lutomirski <luto@kernel.org>,
-	Will Drewry <wad@chromium.org>,
-	Michael Schmitz <schmitzmic@gmail.com>,
-	Andreas Schwab <schwab@linux-m68k.org>,
-	linux-m68k@lists.linux-m68k.org,
-	linux-kernel@vger.kernel.org,
+        Sun, 13 Sep 2026 06:19:00 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Sam Ravnborg <sam@ravnborg.org>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+	Marijn Suijten <marijn.suijten@somainline.org>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v2] m68k: Fix seccomp filtering on ColdFire and 68000
-Date: Sun, 13 Sep 2026 09:17:53 -0400
-Message-ID: <20260913131753.605893-1-clusk@northecho.dev>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260912230651.461269-1-clusk@northecho.dev>
-References: <20260912230651.461269-1-clusk@northecho.dev>
+Subject: [PATCH] drm/panel: novatek-nt35950: fix potential use-after-free on attach failure
+Date: Sun, 13 Sep 2026 21:18:49 +0800
+Message-ID: <20260913131849.1561742-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -84,75 +83,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-m68k selects HAVE_ARCH_SECCOMP_FILTER for all configurations, but the
-ColdFire and 68000 syscall entry paths only branch to
-syscall_trace_enter() for TIF_SYSCALL_TRACE. TIF_SECCOMP alone falls
-through to syscall dispatch, leaving installed filters ineffective.
+nt35950_probe() registers the panel before attaching it to the DSI
+hosts. If mipi_dsi_attach() fails, the probe error path returns without
+removing the panel from the DRM panel registry.
 
-Test the combined TIF_SYSCALL_TRACE and TIF_SECCOMP mask in both paths
-and route either flag through the existing slow path. Leave the classic
-MMU syscall entry implementation unchanged.
+The panel is allocated with devm_drm_panel_alloc(), so its storage is
+released after probe returns an error. Leaving the panel registered
+therefore leaves the global panel list pointing at freed memory, which
+can result in a potential use-after-free when the stale entry is later
+accessed.
 
-Validated the combined test under QEMU mcf5208evb (ColdFire): filters
-denying getpid, openat, unlinkat, and reboot each returned -EPERM. A
-classic-MMU control (q800) denied the filtered getpid syscall both before
-and after this change. The 68000 path shares the same source-level
-omission and receives the identical masked test but was not separately
-emulated. Compile-tested W=1 with CONFIG_SECCOMP_FILTER=y on both
-m5208evb_defconfig and a custom no-MMU UCSIMM configuration; the latter
-built arch/m68k/68000/entry.o and vmlinux.
+There is an additional cleanup issue for dual-DSI panels. If attaching
+DSI0 succeeds but attaching DSI1 fails, the error path unregisters the
+secondary DSI device without detaching the already attached DSI0.
 
-Fixes: 6baaade15594 ("m68k: Add kernel seccomp support")
-Cc: stable@vger.kernel.org # v6.3+
-Suggested-by: Andreas Schwab <schwab@linux-m68k.org>
-Assisted-by: Claude:claude-opus-4-8
-Assisted-by: Codex:gpt-5.6-sol
-Signed-off-by: Christopher Lusk <clusk@northecho.dev>
+The failure sequence is:
+
+  drm_panel_add()
+        |
+        v
+  attach DSI0
+        |
+        | success
+        v
+  attach DSI1
+        |
+        | failure
+        v
+  probe cleanup
+        |
+        +-- DSI0 remains attached
+        |
+        +-- panel remains registered
+        |
+        v
+  probe returns error
+        |
+        v
+  devm panel storage is released
+        |
+        v
+  panel registry contains a dangling pointer
+
+Detach any DSI hosts that were successfully attached before the
+failure and remove the panel from the DRM panel registry before
+returning the probe error.
+
+This issue was found by manual code inspection.
+
+Fixes: 623a3531e9cf ("drm/panel: Add driver for Novatek NT35950 DSI DriverIC panels")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 ---
+ drivers/gpu/drm/panel/panel-novatek-nt35950.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
-Notes:
-    Changes in v2:
-    - Combine the TRACE/SECCOMP tests into a single masked branch per Andreas
-      Schwab; scoped to the ColdFire/68000 paths, classic MMU unchanged.
-    
-    No in-tree m68k defconfig selects the pure-68000/DragonBall path.
-    Compile-tested W=1 with a custom no-MMU UCSIMM configuration and
-    CONFIG_SECCOMP_FILTER=y; arch/m68k/68000/entry.o and vmlinux both built
-    successfully. The combined gate uses the same flags byte as the classic-MMU
-    entry path.
-
- arch/m68k/68000/entry.S    | 3 ++-
- arch/m68k/coldfire/entry.S | 3 ++-
- 2 files changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/arch/m68k/68000/entry.S b/arch/m68k/68000/entry.S
-index c257cc415..0d3cbeded 100644
---- a/arch/m68k/68000/entry.S
-+++ b/arch/m68k/68000/entry.S
-@@ -79,7 +79,8 @@ ENTRY(system_call)
+diff --git a/drivers/gpu/drm/panel/panel-novatek-nt35950.c b/drivers/gpu/drm/panel/panel-novatek-nt35950.c
+index 94aa6489d99f..8edd0aa363ce 100644
+--- a/drivers/gpu/drm/panel/panel-novatek-nt35950.c
++++ b/drivers/gpu/drm/panel/panel-novatek-nt35950.c
+@@ -514,12 +514,19 @@ static int nt35950_probe(struct mipi_dsi_device *dsi)
  
- 	/* Doing a trace ? */
- 	getthreadinfo
--	btst	#(TIF_SYSCALL_TRACE%8),%a2@(TINFO_FLAGS+(31-TIF_SYSCALL_TRACE)/8)
-+	moveb	%a2@(TINFO_FLAGS+2),%d1
-+	andl	#((_TIF_SYSCALL_TRACE + _TIF_SECCOMP) >> 8),%d1
- 	jne	do_trace
- 	cmpl	#NR_syscalls,%d0
- 	jcc	badsys
-diff --git a/arch/m68k/coldfire/entry.S b/arch/m68k/coldfire/entry.S
-index 4ea08336e..d658abdc5 100644
---- a/arch/m68k/coldfire/entry.S
-+++ b/arch/m68k/coldfire/entry.S
-@@ -72,7 +72,8 @@ ENTRY(system_call)
- 	movel	%d2,%a0
- 	movel	%a0@,%a1		/* save top of frame */
- 	movel	%sp,%a1@(TASK_THREAD+THREAD_ESP0)
--	btst	#(TIF_SYSCALL_TRACE%8),%a0@(TINFO_FLAGS+(31-TIF_SYSCALL_TRACE)/8)
-+	moveb	%a0@(TINFO_FLAGS+2),%d2
-+	andl	#((_TIF_SYSCALL_TRACE + _TIF_SECCOMP) >> 8),%d2
- 	bnes	1f
+ 		ret = mipi_dsi_attach(nt->dsi[i]);
+ 		if (ret < 0) {
+-			/* If we fail to attach to either host, we're done */
++			dev_err_probe(dev, ret,
++				      "Cannot attach to DSI%d host.\n", i);
++
++			/* Detach from all previously attached DSI hosts */
++			while (i--)
++				mipi_dsi_detach(nt->dsi[i]);
++
+ 			if (num_dsis == 2)
+ 				mipi_dsi_device_unregister(nt->dsi[1]);
  
- 	movel	%d3,%a0
+-			return dev_err_probe(dev, ret,
+-					     "Cannot attach to DSI%d host.\n", i);
++			drm_panel_remove(&nt->panel);
++
++			return ret;
+ 		}
+ 	}
+ 
 -- 
-2.55.0
+2.43.0
 
