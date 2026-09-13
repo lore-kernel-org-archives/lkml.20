@@ -1,88 +1,205 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53EC913957E
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 16:47:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 151B5DF59;
+	Sun, 13 Sep 2026 16:50:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789318057; cv=none; b=tjVEit8XKXP1cs96z/8rTfQuNmgj0xyF+KYXT5EQqu02zfKMQK5LZJrfaZ+N72CM0awSthF8m+wG7DiNLlGJHDwv1jYHGI7nuarnil4A6tDxo5aUQvKNKH1e7pu81mjRuOAwgH9MytuEG3XaZ6vmo8cs61tQ6jeh/bL+o32SHuk=
+	t=1789318208; cv=none; b=CozF5JocXgR/LIl3Ab0v1wmGth8ywxQtCnLqScTtRk7vWUfZEPOnhzaYyS8VqX3v/yoO22eERfqmvI7/twz0jLJydfKF4QIX/JU5weayByTOoGMyIyTzvqBqhz56Ic/qOGIhZlep3fKupaKZpT/R1ZUO9ue2vkz/z005uE/JL70=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789318057; c=relaxed/simple;
-	bh=nXTo+6gd1th9Mextb0F9rN7xBD7Ie/Sv9oVlvhCSGDk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=W9E3AaojApx2w9I9qJy3uM5U1qBFBQixy6Huf+gmFrsriovW0ymf8Ud33gaNdyjOqoHHVKb/VY8LIjTtbhYYFOgd1tGzrz1BkmLC8Hdws2iPOy3mGcqQKVXj7LeBUwEwkGlVR5vq1e4aOBfj8aivpPm7t6eeoDH3Pvr7c2pCVwI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rL9/a8En; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789318208; c=relaxed/simple;
+	bh=sCmGU+cEKoUvSnKU5qUyd3OvA2kbyOCOPO2fskJtYF0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=qFZ57JWKxUqnrNT8M1Cg7GfzZokhxMoQCBL/qJKy9gWCIUDNudC9yJKLNoAjIeF1jy4TAKxOS1ilDib9djXuM2txm3eVQleR3wEGUq7yeS3fCv1s3qhSsIcuL8x9P46SWt4qr2Yc62+Wcz2wbfmB8cm+tO1WRFRVVOrr5oWsNGM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=sJftGVir; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rL9/a8En"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b4ba7fe26so577375e9.2
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 09:47:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789318054; x=1789922854; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nXTo+6gd1th9Mextb0F9rN7xBD7Ie/Sv9oVlvhCSGDk=;
-        b=rL9/a8EnZB/QyMK8uEr1CXB5mZ1+aEgiX+zsUbvqFYgfyFrsP0TnjtOgkC2GxlHFuK
-         f0BNV5O6gORPMsP0Ct0e4ZMTWnDZfSUZui7hVfi8KhHiRsTAIQabebFlboGqJjrsI/UQ
-         2/lLxYZSVogtT/aWXZ0PXEFWNHmX59cYE1JuvcONUcUNhN4Ys1AHfckzJUqV8a8TYi8K
-         RQcrSIRPZi72sRsytyuqwiDFmJ3G3yOQf2EPQJONylVq+fDcQH1WjNHf+0KyHum2BwtV
-         cfwFJdRXOpKpxrldnMZD6il8y69KsNwfs4/P8RILxvNV51/ii17aKvLdgM1c+tnjT+Ww
-         Rwhw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789318054; x=1789922854;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nXTo+6gd1th9Mextb0F9rN7xBD7Ie/Sv9oVlvhCSGDk=;
-        b=gSMYZdsof7QT0WVSGknTg6tzUhF4Q2baUxn/EtGA6fYAXg0TWahz3QEU7Dyojbgm6W
-         MmBAx7HFeX9i3+RZ1Vv3rJTH4NdTWWdQj+NZVpYK3UP23c8SzQn5IG/3AOtzbF9+yOF0
-         pXWvEi8lrmg+qTK2OqrvWyoHD5+dBC4cXcF0FGNAcAp5iD5kKqn2/5Qf1sZ4vmtYkO1c
-         zaQHjluKGLIbKyWZCb//QFQTu73zckZ3zJY/FJYadBvK6MOqK0CKK2C9KT2bBkgg8AsF
-         SC+xFj2c/3UCd63sCW4Tz2jebeeTF0qfZqubD5Y/caV+RU/5FN0rc5zDeqMS5W2ee9tB
-         cnWQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzszrnlOt0/F8Vm6tTIDQSNyhrS6X/o8gNkn7rxafYArYqC+xz4rqA1CbnMsDTA9zR6K2zlAat8XY35Ofk=@vger.kernel.org
-X-Gm-Message-State: AFuF++nGTN8HpQd/TM9kyzZk6rtMWtfrdYZSeJ7MHFFbs/3fopLtmbSg
-	NitWWVCKUsVjX+b1jKB0eYOoCj5WsbzDdD8MVHHzs7mZuo/vYxqxFFoO
-X-Gm-Gg: AYBFou3ca5QTubNOIK01M4zSQuxUK5B4PASeMmDbZcUZTQdLK9Ao3N4vLtlfjlwAflN
-	vL31nSfNHEWq0bfj7SJRwnh7xzMcqHEcuZLZuuWaU31AheBCvaJJTqBaCMQOUf8AYPk6fSv5L29
-	7bvwp0VWdRph8bSZiP/Oe1iEMwDotdvqhe6aO1VxtECf6AWKMllx9KZylVGzrIWQMZfPs43RzLU
-	jm9PxVrdKWC25KSX0SF0TgaQl3OK6IfX+2VVYXzhDwEYWWJ2E5cnR5NnpgRsz4xPZngFmBX25kc
-	r8plFUA8zWaB3Thi2At5I4GE/uQIvJoYjDhVaV+rJoCObYa/B2RS9nJH7HdKpOpvqWTTHcV5+Gh
-	KT2olfEPEa/+zWgASnSjBp2bF5Sg90Jqoai3HrbcExlOtSadbEqws+JGfMk07lJlcxD9J4DNJNv
-	JpV96UIjyyEa/Jl201LI0kvaPqfPonHnwHOUVZyqfVN836ikt3bRcmlRf27nWijJRbKFHIKjOOX
-	M7aiF5SePKopWyzNmhc
-X-Received: by 2002:a05:600c:8b71:b0:49c:ff81:e062 with SMTP id 5b1f17b1804b1-49e619d6a4emr128653125e9.2.1789318054195;
-        Sun, 13 Sep 2026 09:47:34 -0700 (PDT)
-Received: from lima-kdev.local ([85.100.66.184])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e60adaee4sm369652055e9.14.2026.09.13.09.47.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 09:47:33 -0700 (PDT)
-From: Kayra Cizmeci <kayracizmeci@gmail.com>
-To: kayracizmeci@gmail.com
-Cc: bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	hpa@zytor.com,
-	kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	mingo@redhat.com,
-	pbonzini@redhat.com,
-	seanjc@google.com,
-	tglx@kernel.org,
-	x86@kernel.org
-Subject: Re: [PATCH v3 2/2] KVM: x86: Add limit check to IDT in __emulate_int_real()
-Date: Sun, 13 Sep 2026 19:47:28 +0300
-Message-ID: <20260913164729.1273645-1-kayracizmeci@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260824084523.406940-1-kayracizmeci@gmail.com>
-References: <20260824084523.406940-1-kayracizmeci@gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="sJftGVir"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7CDA21655;
+	Sun, 13 Sep 2026 09:50:01 -0700 (PDT)
+Received: from [10.57.10.40] (unknown [10.57.10.40])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 406AF3F59E;
+	Sun, 13 Sep 2026 09:50:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789318205; bh=sCmGU+cEKoUvSnKU5qUyd3OvA2kbyOCOPO2fskJtYF0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=sJftGVirhU+yJ47n/RComPK6wJlmRkGfR9wXhGMSNU/MDSeTclom5Fn+ENHtHzORY
+	 yPHtiTFdUfbeQmhOVmhDPizfn48scvNyr9cOJVRxKOHCFqM2UUjIQTtyfznkayXRBV
+	 Eib+OIm6v4qg3so7amAwnZo6vJV5lirbkxxHtcek=
+Message-ID: <90100d75-85a6-4ccb-8939-33446857536d@arm.com>
+Date: Sun, 13 Sep 2026 17:50:00 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v17 05/20] KVM: arm64: Add vcpu load/put call backs for
+ flavors
+Content-Language: en-GB
+To: Marc Zyngier <maz@kernel.org>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, will@kernel.org,
+ catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
+ aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
+ joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+ linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+ sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+ WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
+References: <20260908162223.1683432-1-suzuki.poulose@arm.com>
+ <20260908162223.1683432-6-suzuki.poulose@arm.com>
+ <867bkp78gs.wl-maz@kernel.org>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <867bkp78gs.wl-maz@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Gentle Ping, :-)
+On 13/09/2026 11:26, Marc Zyngier wrote:
+> On Tue, 08 Sep 2026 17:22:08 +0100,
+> Suzuki K Poulose <suzuki.poulose@arm.com> wrote:
+>>
+>> Add VM flavor specific handlers for VCPU load/put, in an effort to make it
+>> easier to follow the code.
+>>
+>> Based on a patch by Marc Zyngier
+>>
+>> Suggested-by: Marc Zyngier <maz@kernel.org>
+>> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+>> ---
+>>   arch/arm64/include/asm/kvm_host.h |   6 ++
+>>   arch/arm64/kvm/arm.c              | 156 ++++++++++++++++++++++--------
+>>   2 files changed, 123 insertions(+), 39 deletions(-)
+>>
+>> diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
+>> index d0dccc9ad6aa8..b2e99c5cb1cd3 100644
+>> --- a/arch/arm64/include/asm/kvm_host.h
+>> +++ b/arch/arm64/include/asm/kvm_host.h
+>> @@ -150,6 +150,11 @@ struct kvm_vmid {
+>>   	atomic64_t id;
+
+...
+
+>> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+>> index 51fc651267157..9af3bbb2f8c24 100644
+>> --- a/arch/arm64/kvm/arm.c
+>> +++ b/arch/arm64/kvm/arm.c
+>> @@ -74,6 +74,8 @@ struct kvm_ioctl_cap_map {
+>>   	long ext;
+>>   };
+
+...
+
+>> +
+>> +static void nvhe_vcpu_load(struct kvm_vcpu *vcpu, int cpu)
+>> +{
+>> +	vcpu_prepare_mmu(vcpu);
+>> +	/*
+>> +	 * The timer must be loaded before the vgic to correctly set up physical
+>> +	 * interrupt deactivation in nested state (e.g. timer interrupt).
+>> +	 */
+> 
+> This comment makes no sense here -- it is strictly for VHE, which is
+> the only mode to implement NV. Same thing for the pKVM vcpu_load().
+
+Ack, removed everywhere except for VHE.
+
+> 
+>> +	kvm_timer_vcpu_load(vcpu);
+>> +	kvm_vgic_load(vcpu);
+>> +	kvm_vcpu_load_debug(vcpu);
+>> +	kvm_vcpu_load_fgt(vcpu);
+>> +	kvm_arch_vcpu_load_fp(vcpu);
+>> +	kvm_vcpu_pmu_restore_guest(vcpu);
+>> +
+>> +	vcpu_load_pvtime(vcpu);
+>> +	vcpu_set_wfx_traps(vcpu);
+>> +	vcpu_set_pauth_traps(vcpu);
+>> +}
+>> +
+>> +static void pkvm_vcpu_load(struct kvm_vcpu *vcpu, int cpu)
+>> +{
+>> +	/*
+>> +	 * The timer must be loaded before the vgic to correctly set up physical
+>> +	 * interrupt deactivation in nested state (e.g. timer interrupt).
+>> +	 */
+>> +	kvm_timer_vcpu_load(vcpu);
+>> +	kvm_vgic_load(vcpu);
+>> +	kvm_vcpu_load_debug(vcpu);
+>> +	kvm_vcpu_load_fgt(vcpu);
+>> +	kvm_arch_vcpu_load_fp(vcpu);
+>> +	kvm_vcpu_pmu_restore_guest(vcpu);
+>> +
+>> +	vcpu_load_pvtime(vcpu);
+>> +	vcpu_set_wfx_traps(vcpu);
+>> +
+>> +	kvm_call_hyp_nvhe(__pkvm_vcpu_load,
+>> +			  vcpu->kvm->arch.pkvm.handle,
+>> +			  vcpu->vcpu_idx, vcpu->arch.hcr_el2);
+>> +	kvm_call_hyp(__vgic_v3_restore_vmcr_aprs,
+>> +		     &vcpu->arch.vgic_cpu.vgic_v3);
+> 
+> This can also be turned into a kvm_call_hyp_nvhe().
+
+Ack
+
+> 
+>> +}
+>> +
+
+...
+
+>> +
+>> +static void pkvm_vcpu_put(struct kvm_vcpu *vcpu)
+>> +{
+>> +	kvm_call_hyp(__vgic_v3_save_aprs, &vcpu->arch.vgic_cpu.vgic_v3);
+> 
+> Same thing here about kvm_call_hyp_nvhe().
+
+Ack
+
+> 
+>> +	kvm_call_hyp_nvhe(__pkvm_vcpu_put);
+>> +
+>> +	/* __pkvm_vcpu_put implies a sync of the state */
+>> +	if (!kvm_vm_is_protected(vcpu->kvm))
+>> +		vcpu_set_flag(vcpu, PKVM_HOST_STATE_DIRTY);
+>> +
+>> +	nvhe_vcpu_put(vcpu);
+> 
+> I'm not overly fond of this. Yes, that was in my original patch. But
+> for example, we end-up calling kvm_arm_vmid_clear_active() for pKVM.
+> This is harmless, but conceptually wrong.
+> 
+> I'd rather you expand the whole thing.
+
+Done
+
+> 
+>> +}
+>> +
+>> +void kvm_arch_vcpu_put(struct kvm_vcpu *vcpu)
+>> +{
+>> +	vcpu->arch.vcpu_ops->vcpu_put(vcpu);
+>>   	vcpu_clear_on_unsupported_cpu(vcpu);
+>>   	vcpu->cpu = -1;
+>>   }
+>> @@ -2136,6 +2192,28 @@ int kvm_arch_vm_ioctl(struct file *filp, unsigned int ioctl, unsigned long arg)
+>>   	}
+>>   }
+
+>> +
+>> +static const struct kvm_vcpu_ops *arm64_vcpu_ops[] = {
+>> +	[VM_VHE] = &vhe_vcpu_ops,
+>> +	[VM_NVHE] = &nvhe_vcpu_ops,
+>> +	[VM_PKVM] = &pkvm_vcpu_ops,
+>> +	[VM_PROTECTED_PKVM] = &pkvm_vcpu_ops,
+> 
+> nit: my OCD-self wants to align all the '=' signs vertically...
+
+I have switched to a macro initialiser, consistent with vm_s2_mmu_ops. 
+So it looks much cleaner
+
+Cheers
+Suzuki
+
