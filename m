@@ -1,49 +1,42 @@
-Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0032438A720;
-	Sun, 13 Sep 2026 08:21:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.210.214.84
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7706237FF76
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 08:25:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789287685; cv=none; b=D1iykcC7xWna3IxZstZfDWBel9IC/KY1gWiprCHEQjqSOvHSkN2ap137bQshSDZn19VtMOKiiqIeu6VYWYFE6Muvc2kFMqLYDVJHhLALAjU0AgSxVMlcgp/dCd2jQA7hGt5W+krPI1Jmj39y3N49/r4IbuaGmznWBEoW38Lp4OI=
+	t=1789287939; cv=none; b=nZblOj5GJwWtr8o9BEpn1dYVJIe2y2WvroW+oFxIwIdwSYqhdda80y+VR87Xy3SIG7yeoVbdqaTs4YrjqK1/eaIB/yBeB8iap6z5A/F6MzNSeMuA8OkHVCeuVrOfvxnB6OldcJG7Ar9pj/qTOVBRMH5DBIAHVc8t37rXol4700A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789287685; c=relaxed/simple;
-	bh=6opBgASTH4c9wtBE0J12MK/g0Dae2SB+t0VczvLDbm4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=J+d5DVT5aV7HOTjtvMRWss9NDX4BEC4/5BK+EhMsyXdsAsx2wMPgamRHs1mJtW/GU+CIJR77+guL7090Oqu9cofsIBKzqlEVQqxh8AHk16+0cIv6KDGd5o3pOAoaKsRZnf2MfAWVZvP3ISwBeGA1TNGC1ehMvgdqg5e3pUomFlA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org; spf=pass smtp.mailfrom=codewreck.org; dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b=H1vAsHii; arc=none smtp.client-ip=62.210.214.84
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
+	s=arc-20240116; t=1789287939; c=relaxed/simple;
+	bh=cZjxuuHR3PR/1ywuGxLn0nbynF/D/jN9KQEIEkwWgg4=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=NhEKiKMJgD4oL7A757SFDDVfHSUv6eMYNgpxmKDvoN85S69OztjKPlsdM1NGlTF6JCUI0BuuNHIeHkfRVDoIG3WVM5kRdHU8lMaQtATM4sdUUw2QJgE7D4aqE4ab8/Qjp5QhUGNR/ULe+n57Uld0SLJi9mQp1mDMN5UYu51PCY8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F4LdYSCD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b="H1vAsHii"
-Received: from gaia.codewreck.org (localhost [127.0.0.1])
-	by submarine.notk.org (Postfix) with ESMTPS id 54FBA14C2D6;
-	Sun, 13 Sep 2026 10:21:19 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
-	s=2; t=1789287681;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=E6lLAj4jNnUyYWs4m94XCrV0CGJPFSCyUlXJiWNX7/8=;
-	b=H1vAsHiiDRNDfWR8BsHB5iA6BF9W7shrK+ZN0w3hjoguZ0MdprkAKMrZsyYuLwpd1vGxoA
-	u31fuuA4Ut9U6TC7jZcex2El7gOMpUFuBzmEiY9rRbVdcdc83Fidq53wUpBOBlj3H10wCr
-	lPC8xhsyDuTdELo2FleJmCocWJ1YJr0ppGOYXjrO/F3GDvYrWqtCvSp3PupaFSbm4LkG8x
-	DwcEU6SHEM89Rq5O3mmtve+s3wI/I645VNYWv5UsfFAhb3FYuePLH8YiPSQTCSbQvNnraQ
-	tAPO6AsuZKDsMOXFhs9cOjMvYauLqshkETY7WTTQtMJdYu1ZB1f5AerOFLXRww==
-Received: from localhost (gaia.codewreck.org [local])
-	by gaia.codewreck.org (OpenSMTPD) with ESMTPA id 2a8d3203;
-	Sun, 13 Sep 2026 08:21:17 +0000 (UTC)
-Date: Sun, 13 Sep 2026 17:21:02 +0900
-From: Dominique Martinet <asmadeus@codewreck.org>
-To: Stefano Garzarella <sgarzare@redhat.com>
-Cc: v9fs@lists.linux.dev, Latchesar Ionkov <lucho@ionkov.net>,
-	Eric Sandeen <sandeen@redhat.com>,
-	Christian Schoenebeck <linux_oss@crudebyte.com>,
-	linux-kernel@vger.kernel.org,
-	Eric Van Hensbergen <ericvh@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH] 9p: fix privport option setting wrong RDMA field
-Message-ID: <aqZc7upMWGFKdbxW@codewreck.org>
-References: <20260703102254.114446-1-sgarzare@redhat.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F4LdYSCD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E13B1F000FF;
+	Sun, 13 Sep 2026 08:25:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789287938;
+	bh=hKoUs7pPORqcBPYXM/o8AnPgnsWBnINDse2DjeWSaZ0=;
+	h=Date:From:To:Cc:Subject;
+	b=F4LdYSCD8d27+GrK24M25/3Iz2grj06KOKaV0/4vlvK6OZPE31/C6N0gtLTEnVsxl
+	 BB8zKCWdNC2YYjsTHNQ5u+oP2l2Kuzou6Oc5MlKiedDiaeS5pLeJ5TzvT/uxXyGrJK
+	 uZp2RkKHzMzA9kSiu9uF6m8BqVi+HP6++Y51Ekwi2STy3e6jrh+71Nc9Dh4rhMB29X
+	 +OS23UATeSvN5RSkf/kMtjtAt4gatCUpWf0OmOZEDdA+Wqd35TVJ1AGBv4Y6CAWvvz
+	 ODYuKzTI5OoifM5M28eVj/5zEb0ifnpb3FCw9U6VfT9/r/mGlNBGZeJJUUfKqN9+Tl
+	 5s1p5fJtQ1j1g==
+Date: Sun, 13 Sep 2026 10:25:33 +0200
+From: Ingo Molnar <mingo@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
+	Daniel Lezcano <daniel.lezcano@linaro.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Anna-Maria Behnsen <anna-maria@linutronix.de>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Oleg Nesterov <oleg@redhat.com>
+Subject: [GIT PULL] timer subsystem fixes
+Message-ID: <aqZd_ZBZXumbuqAK@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,23 +45,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260703102254.114446-1-sgarzare@redhat.com>
+Content-Transfer-Encoding: 8bit
 
-Stefano Garzarella wrote on Fri, Jul 03, 2026 at 12:22:54PM +0200:
-> From: Stefano Garzarella <sgarzare@redhat.com>
-> 
-> While reviewing a patch adding vsock transport to 9p, I noticed that
-> since commit 1f3e4142c0eb ("9p: convert to the new mount API"), the
-> Opt_privport case incorrectly sets rdma_opts->port instead of
-> rdma_opts->privport, so mounting with the privport option overwrites
-> the RDMA port number instead of enabling privileged port usage.
-> 
-> Fixes: 1f3e4142c0eb ("9p: convert to the new mount API")
-> Cc: stable@vger.kernel.org
-> Cc: sandeen@redhat.com
-> Signed-off-by: Stefano Garzarella <sgarzare@redhat.com>
+Linus,
 
-Sorry for the delay/thanks for the patch, picked up for 7.4
+Please pull the latest timers/urgent Git tree from:
 
--- 
-Dominique
+   git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git timers-urgent-2026-09-13
+
+for you to fetch changes up to c5dcb3aadc18d7b82ba64790721b005d18193d35:
+
+Misc timer fixes:
+
+ - Fix clockevents replacement race when a broadcast
+   device is replaced which may trigger a BUG() crash
+   (朱恺乾 - Zhu Kaiqian)
+
+ - Fix potential timerqueue ordering bug when rearming
+   a queued timer with nonzero slack (Andrea Parri)
+
+ Thanks,
+
+	Ingo
+
+------------------>
+Andrea Parri (1):
+      hrtimer: Use hard expiry when updating timers on the same base
+
+Thomas Gleixner (1):
+      tick/broadcast: Plug clockevents replacement race
+
+
+ kernel/time/clockevents.c    | 33 ++++++++++++++++++++-------------
+ kernel/time/hrtimer.c        | 15 +++++++++++----
+ kernel/time/tick-broadcast.c | 36 ++++++++++++++++++++++--------------
+ kernel/time/tick-internal.h  |  2 ++
+ 4 files changed, 55 insertions(+), 31 deletions(-)
