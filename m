@@ -1,79 +1,79 @@
 Received: from fout-a4-smtp.messagingengine.com (fout-a4-smtp.messagingengine.com [103.168.172.147])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8893839F166
-	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 10:14:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E45593E1D11
+	for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 10:14:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789294447; cv=none; b=o1u/G83mqdhCP1lVS5TObR3RlexkYdXMOhbV/eklFv6jFFe9b/91erBOztvGT2T36KvGV9VH4vSaiM9BoFmQFq77STtxYCnXGm0kSvSHgtrW3TGM3uvJVSzuA3Pmot0Ywjoilk+DnBJgF3JA5qM2kF1WcdBZS76P0IPSi06J7/4=
+	t=1789294449; cv=none; b=sjzy5HOf4nQDhPKTxfcsfmJFUryXGF9sIjqmyvnbl3NJRtqgHwHsDTYAbEkrtkLKTWv8BeEj2h7JzLBK7W2mZ4u66jCuD8GR2i70bYct/u3Ofuh5m9WqtBXbxA/MVUf6seyvFBlMC1OS2SI6PJeORgYohNH4ZNmPLBIqxuA4s/8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789294447; c=relaxed/simple;
-	bh=SjBypaz3DT1soCXnhPB0oADSFANbq5oWrPBIawhcEGE=;
+	s=arc-20240116; t=1789294449; c=relaxed/simple;
+	bh=OFMIvSrCNckt583wQZ5szz6EZ+YgIB8EOdg7dB6a+P0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tXwUwMPVTUG9yHgdY/kravUNS66i0CbQX4GdH1sh68TdvdNaEsN9EtzBm3WdvMV62Kq8SmGaInMf4yn2ePAumTeJpWdXljAwKf4ZjhlwOFh8Epj1rs+cQuND0Mv6FJ5rvcIvhL0hiYH1rHQVic5XuAKhw6kPo7vpAsHOkOO1GUY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=j3LiBoCs; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Rr1r8EnT; arc=none smtp.client-ip=103.168.172.147
+	 MIME-Version; b=iT9antZH8T2Sio8YWizcdoUbVH+aU6TsstHPdBY7XFwCGi5pNFkmX8mL4YFAasuHb26xMQYGB6dWNgd+BGDWmaY3PzMwvYSSjYwbpiX/MBX0pkFhF6nGX7n5ZhOu0GEkh7ysuBitIlO/jrxNmflKAaZqraO/DmCbfsL/jvffis0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=4l3vXjGI; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=uy00HYRz; arc=none smtp.client-ip=103.168.172.147
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="j3LiBoCs";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Rr1r8EnT"
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfout.phl.internal (Postfix) with ESMTP id A3245EC019C;
-	Sun, 13 Sep 2026 06:14:04 -0400 (EDT)
+	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="4l3vXjGI";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="uy00HYRz"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfout.phl.internal (Postfix) with ESMTP id D71B7EC01BE;
+	Sun, 13 Sep 2026 06:14:05 -0400 (EDT)
 Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-03.internal (MEProxy); Sun, 13 Sep 2026 06:14:04 -0400
+  by phl-compute-04.internal (MEProxy); Sun, 13 Sep 2026 06:14:05 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
 	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
 	:from:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1789294444; x=
-	1789380844; bh=ka2pH0yigSqDFdhjqx82tjE/cqgf/rVKE6tG8whlXl4=; b=j
-	3LiBoCsO9tB22xbFFgqqqW4kw+AVrjJUqVnHyroWA6IQ4JmeaOjLikG+3k7QYmsC
-	G13RVHK9dtsJpL6CKl0uG8Lkye1SeIwMo5OqBOSPei1YVH0ALxUzprIRWeNEJPm0
-	zZwXQZUDCc+Le4jQ3y++ZCNi5IOO9HQjTPOmy5qVCW0VeJGgLsv79dKW1VThTbX8
-	Q41+I4VrsE4+rppMNfhcihFqnh+f0HxjolLTWoITRUexLo/7byVg5yJCVaCWp7lM
-	ab4+qlsvNhdqet8nmzyZHknnNNYPJ2U2jFFuTj6tzOVzjwSL32ParK6nnsZ9yEub
-	M02pNusdH+/nyWdaMuo0A==
+	:reply-to:subject:subject:to:to; s=fm1; t=1789294445; x=
+	1789380845; bh=S5P06Ntp/PmxB7SbKz4waXQKUzWFyQ/AB81m7jyroSo=; b=4
+	l3vXjGIxRxefrx3uK2RTciA2CuHbleqIlYB8mPL3Z+16WnVe3EQAjGeJDGf4GUrJ
+	McoFfDzvmQ6B+smLlxOyHjodC06SUKBYkSH4rFHXNdj3oyfqBwma4mjAZYphiEfh
+	eLdr1BDJ+fyUoyraAzJkyCR4QXYummAN3pDsPaE63ToV00vvwcAqwhMFLZVsEB7E
+	ne96lDz6aYdXDhhag1qWgaQJQCCwoLKJZy1laALurRFFRXXvIMC6mdsxI5YCLlFu
+	Ij1R0BBMu4vsS1O3eoba83IDWTugmjYwUJZS3utfFCfPJ3nbjtTAKXkDjBhpdP4g
+	NMcwPYg+shgX+wuO04/Vw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:date:date:feedback-id:feedback-id:from:from
 	:in-reply-to:in-reply-to:message-id:mime-version:references
 	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm1; t=1789294444; x=1789380844; bh=k
-	a2pH0yigSqDFdhjqx82tjE/cqgf/rVKE6tG8whlXl4=; b=Rr1r8EnTMCRrtQUhI
-	mxlEbCgBxsaeMqzCgbtIZC2yCyz+AfRrvgmGGrqCK/lvqWD3Vc/07cYNHnpuScak
-	zlh/TILICzC4YVhuwDxfdn8c066YdNfvMNA3wko0DPtAKG4BfhktLi/q/CvyTEK5
-	sO/c9J+cU0nUfpUm0VtvIFMiisJHFlV8aL66JliNQN+qCtY5EtfeLCiyAxGH/6RR
-	cYMeCb22C6EL9iIXvQZ2Xo6AFAehgYywFeXLyPGdsmxJZnPfs1f20/LGNBo8cepu
-	11p4nGQUWM8bDoFQdZP2lTn5kdm0hDwimh2ApDXJTZ5T/iFRdgDvJLBM00I8CFpN
-	tZiFA==
-X-ME-Sender: <xms:bHemaocxz_vb3qzcumgEcnwRQz9EkufWR6CzKJoPlaxtLWTx-HMzPw>
-    <xme:bHemaoKpBUCSB8EUl05trwO71BAnG8FzH47X1YAvHII2u7zoOvuzROlWTXOThD2-1
-    vY831Liql7BNOmCKkSOFaopsO5jQDm1WDjJEapW_BuWZP-bbIK_ivYR>
-X-ME-Received: <xmr:bHemahF2UkKUtHDd6uoHyQp3CPuOsXnmP2h30WSV8Xg-4vnZ1ycPvjlNAQqubzrxs7J-CpOmVFqeOnkHhQiZ_BrX-8uRjtoVoRA8ZN0bW19B5w>
+	:x-me-sender:x-sasl-enc; s=fm1; t=1789294445; x=1789380845; bh=S
+	5P06Ntp/PmxB7SbKz4waXQKUzWFyQ/AB81m7jyroSo=; b=uy00HYRzVmvlt4l1q
+	Ee0vNNldO05brJFdy+PWXpHl/oYLupsAyKwXGcXa44rQgssfszB++whyCIECbH3I
+	qPmFKk2hrNoO5Tts81k2XpX3JfNC6QrswOdyY7bynl6lgIFEMJWJCTzijBcbGdwr
+	oSLcO7Wfvx7Zjky8AwYShIqZWCHykUGbC6PUC8eOfEErN/XXTgiDn7wIUzhWJtmB
+	PUMIzcfoFP90uEn07rIgfRTOAzp2C5lSmblNhuYvF4AQU1FZA286/vsYmFyyaCqH
+	TmdXctyQb+B+zFvBx7H0S1w/9hHGDwaFH9TuOQTY7BEuuQk+vrWY4RKB9f/i44jO
+	zw9rA==
+X-ME-Sender: <xms:bXemasyJYYwIBWzsV-Rleah0nJ3UDM7wm8iKXT-e3RwruDIrfeAYWA>
+    <xme:bXemauM8P3_dij1sdMJxuNTi_eEHiPYfIh3IG7owfWi2sSXHQOX5VE6EkZzRuBfPc
+    28csaL8MLnHJ_aq_g3-wIQgQSBzhXfXcVJlbEHtH6nSStKOzPkrn43G>
+X-ME-Received: <xmr:bXemal5cq-NO0XU0XlnM93hK2bZEQun_LZkmF3mxEvl5_lqfCJVa4QGjSJFhp6Un2H4LOhUCCMdMAOo5LmsTyh8MupzjT0h2bh_AXJ0prpCmeQ>
 X-ME-Proxy-Cause: dmFkZTG2/vy8D0TbaMZOOhOpGNWwOGVtNK7N3/Ngp133it+bhfjOwGH+I3f6TifYcbFCix
     d+aExY2U0cYC7fsd7F/Fw21a1yBHo7Ftaz2iRM2h3gfR5T7dXWR8r+smeEK8E28yK4bIYd
     ixLHKJoqK4EZNfSK1zEMlMFiFzl5g6Jx8QVFNKC3RJa2Os6FyyhShJlD7ix43o2qA7rLeH
     OUwVltsbra+ufek/Q756DmmV1U+01AJ3ER4g0bUtgnCg5AB941tbiwQ3ExpQ4AI1Dh8OQh
-    oY6X9VjBXg0YPP0riUEHb6zHa1SaebZS3x/r/3AjkMhIWic2pIMC15GtHju9uGnUtrHKs9
-    aieCzosmmdF+0mE1JeoEPcByupysjlh5GwHcdpsJm2MteItWqLs4zWOMG+PNg++zB81aw1
-    xyTi/oCXw2eCM0G3skGKknoqa1C50lxVkAhZU4AvEvddOsoq6g8qrn2CwxJLYMsf9PGmD8
-    9QCiqCSToC3DpddqKgYflnv2ThzsVGjBbTWsWo/TbJ4TqzGeECH4eW7nmoXVdBXYeCMzke
-    zaO/i7Xq9qQEqmCObfw17n/d7wuwHszGd9CVB2NeaFP/PZ31gq6gj/4QONfG/KYUrXLaib
-    8VeXNSfzA9bBxHknFhko2N/+OI/knoqok3kinPdrtDCu5G6NlJeSvrchCv9Q
-X-ME-Proxy: <xmx:bHemaqp2c4bvipGcmqSoDcTKk4tPI5GlSaHvnCemCzOQMpuq4fBdWQ>
-    <xmx:bHemaiT1EqjCgqyKvTzybnjLJcBiooynW8kA-02a1TwMYaJR3A15TQ>
-    <xmx:bHemavOvUn8lpKHyrSYFqnXymzs_YbU2Pw51_5yrJqNv92NUYw08iQ>
-    <xmx:bHematNEy6JwPyhS7-kzCwAIdYnOBlsGKzy0uQ8r2_uHIIlGwZkTMw>
-    <xmx:bHemapyp2vppnr7p5MNp-CPtOlfLZ4llNZANxwCrSyrCCAWDNDJSe3hE>
+    oY6X9VjBXg0YPP0riUEHb6zHa1SaebZS3x/r/3AjkMhIWic2pIMC15GtHju9uGnUtrHKDg
+    5tFWzP6hZzz2NLtE3Fb9XJmRE1S7Xvx/In1M3c76QV6nbveG0rOyOHWTmthlyyRugpeVOX
+    5eiBrlgzNSup6KFu+mZLM6YSGVLDZ2FPl5b6+Q3jDQuQrbLsl+3UDzi5eBjYxy53LHhIN1
+    4omkOUsAiGtOH062J/dDWSmJXC9HdCKwJA0g+XPqO2SM4L9sk0NJ6S51FBli8jhrf7+uW4
+    56FuUJwvbF9XyTGJEc6uNBTgZsHTMCkHfOmxQLA58jOeDXwv1dD7mZZLex5BdKf7w3OaPh
+    wwxWO0dV4HO4bnomh/mvxyI9XLdlfQRtj11zCc4Qj5D72kb7fBx4ZNH2uf7g
+X-ME-Proxy: <xmx:bXemanOzMi1AMZT3ZWzMxzWa_ORrEryy3i5tXrdqSONTlbhdfC7TMQ>
+    <xmx:bXemarlsaM-WsFh8Ae4jAzdwiqVL06m-T-BMbkJJqVJX08MiQuY_WA>
+    <xmx:bXemamR4gntJJIPUDOpV1IKxZaxUD_-fwHDpSZ4N5w8l2xIy8skJZA>
+    <xmx:bXemavAiZbfIm0_coex2Q8cJMXj0rDFuddUvwFfnRk8qRWvMS7RA3Q>
+    <xmx:bXemasnBBXdYKKY-40dcfKwuplfPWXkcJgbNCUlOKVlFF94swIcd6VpZ>
 Feedback-ID: ie8e14432:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 13 Sep 2026 06:14:03 -0400 (EDT)
+ 13 Sep 2026 06:14:04 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: linux1394-devel@lists.sourceforge.net
 Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH 3/5] firewire: ohci: refactor multiple calls to fw_fill_response()
-Date: Sun, 13 Sep 2026 19:13:54 +0900
-Message-ID: <20260913101356.156420-4-o-takashi@sakamocchi.jp>
+Subject: [PATCH 4/5] firewire: ohci: refactor local response packet handling
+Date: Sun, 13 Sep 2026 19:13:55 +0900
+Message-ID: <20260913101356.156420-5-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260913101356.156420-1-o-takashi@sakamocchi.jp>
 References: <20260913101356.156420-1-o-takashi@sakamocchi.jp>
@@ -85,54 +85,118 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The handle_local_rom() function calls fw_fill_response() in each
-conditional branch. Using local variables for the function parameters
-allows the function to be called from a single place.
+For an asynchronous transaction to one of the two CSR address ranges on
+the local node, the current implementation generates the packet data for
+the response subaction internally while handling the request subaction.
+The handling code is duplicated between the two ranges.
+
+Reduce the duplication by moving response handling to the callers.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- drivers/firewire/ohci.c | 17 ++++++++++-------
- 1 file changed, 10 insertions(+), 7 deletions(-)
+ drivers/firewire/ohci.c | 54 ++++++++++++++++++++---------------------
+ 1 file changed, 26 insertions(+), 28 deletions(-)
 
 diff --git a/drivers/firewire/ohci.c b/drivers/firewire/ohci.c
-index 290bac5112b7..ec069657ea8b 100644
+index ec069657ea8b..8a0aedf50a92 100644
 --- a/drivers/firewire/ohci.c
 +++ b/drivers/firewire/ohci.c
-@@ -1459,7 +1459,8 @@ static void handle_local_rom(struct fw_ohci *ohci,
- 			     struct fw_packet *packet, u32 csr)
+@@ -1455,10 +1455,9 @@ static int handle_at_packet(struct context *context,
+ 
+ static u32 get_cycle_time(struct fw_ohci *ohci);
+ 
+-static void handle_local_rom(struct fw_ohci *ohci,
+-			     struct fw_packet *packet, u32 csr)
++static void handle_local_rom(struct fw_ohci *ohci, struct fw_packet *packet, u32 csr,
++			     struct fw_packet *response)
  {
- 	struct fw_packet response;
--	int tcode, length, i;
-+	int tcode, rcode, length, i;
-+	void *payload = NULL;
+-	struct fw_packet response;
+ 	int tcode, rcode, length, i;
+ 	void *payload = NULL;
  
- 	tcode = async_header_get_tcode(packet->header);
- 	if (tcode_is_block_packet(tcode))
-@@ -1469,16 +1470,18 @@ static void handle_local_rom(struct fw_ohci *ohci,
- 
- 	i = csr - CSR_CONFIG_ROM;
- 	if (i + length > CONFIG_ROM_SIZE) {
--		fw_fill_response(&response, packet->header,
--				 RCODE_ADDRESS_ERROR, NULL, 0);
-+		rcode = RCODE_ADDRESS_ERROR;
-+		length = 0;
- 	} else if (!tcode_is_read_request(tcode)) {
--		fw_fill_response(&response, packet->header,
--				 RCODE_TYPE_ERROR, NULL, 0);
-+		rcode = RCODE_TYPE_ERROR;
-+		length = 0;
- 	} else {
--		fw_fill_response(&response, packet->header, RCODE_COMPLETE,
--				 (void *) ohci->config_rom + i, length);
-+		rcode = RCODE_COMPLETE;
-+		payload = (u8 *)ohci->config_rom + i;
+@@ -1480,17 +1479,12 @@ static void handle_local_rom(struct fw_ohci *ohci,
+ 		payload = (u8 *)ohci->config_rom + i;
  	}
  
-+	fw_fill_response(&response, packet->header, rcode, payload, length);
+-	fw_fill_response(&response, packet->header, rcode, payload, length);
+-
+-	// Timestamping on behalf of the hardware.
+-	response.timestamp = cycle_time_to_ohci_tstamp(get_cycle_time(ohci));
+-	fw_core_handle_response(&ohci->card, &response);
++	fw_fill_response(response, packet->header, rcode, payload, length);
+ }
+ 
+-static void handle_local_lock(struct fw_ohci *ohci,
+-			      struct fw_packet *packet, u32 csr)
++static void handle_local_lock(struct fw_ohci *ohci, struct fw_packet *packet, u32 csr,
++			      struct fw_packet *response)
+ {
+-	struct fw_packet response;
+ 	int tcode, length, ext_tcode, sel, try;
+ 	__be32 *payload, lock_old;
+ 	u32 lock_arg, lock_data;
+@@ -1508,9 +1502,8 @@ static void handle_local_lock(struct fw_ohci *ohci,
+ 		lock_arg = 0;
+ 		lock_data = 0;
+ 	} else {
+-		fw_fill_response(&response, packet->header,
+-				 RCODE_TYPE_ERROR, NULL, 0);
+-		goto out;
++		fw_fill_response(response, packet->header, RCODE_TYPE_ERROR, NULL, 0);
++		return;
+ 	}
+ 
+ 	sel = (csr - CSR_BUS_MANAGER_ID) / 4;
+@@ -1522,19 +1515,13 @@ static void handle_local_lock(struct fw_ohci *ohci,
+ 		if (reg_read(ohci, OHCI1394_CSRControl) & 0x80000000) {
+ 			lock_old = cpu_to_be32(reg_read(ohci,
+ 							OHCI1394_CSRData));
+-			fw_fill_response(&response, packet->header,
+-					 RCODE_COMPLETE,
+-					 &lock_old, sizeof(lock_old));
+-			goto out;
++			fw_fill_response(response, packet->header, RCODE_COMPLETE, &lock_old,
++					 sizeof(lock_old));
++			return;
+ 		}
+ 
+ 	ohci_err(ohci, "swap not done (CSR lock timeout)\n");
+-	fw_fill_response(&response, packet->header, RCODE_BUSY, NULL, 0);
+-
+- out:
+-	// Timestamping on behalf of the hardware.
+-	response.timestamp = cycle_time_to_ohci_tstamp(get_cycle_time(ohci));
+-	fw_core_handle_response(&ohci->card, &response);
++	fw_fill_response(response, packet->header, RCODE_BUSY, NULL, 0);
+ }
+ 
+ static bool in_config_rom_csr_registers(u64 offset)
+@@ -1560,10 +1547,21 @@ static void handle_local_request(struct at_context *ctx, struct fw_packet *packe
+ 
+ 	u64 csr_offset = async_header_get_offset(packet->header) - CSR_REGISTER_BASE;
+ 
+-	if (in_config_rom_csr_registers(csr_offset)) {
+-		handle_local_rom(ohci, packet, csr_offset);
+-	} else if (in_bus_management_csr_registers(csr_offset)) {
+-		handle_local_lock(ohci, packet, csr_offset);
++	if (in_config_rom_csr_registers(csr_offset) || in_bus_management_csr_registers(csr_offset)) {
++		struct fw_packet response;
 +
- 	// Timestamping on behalf of the hardware.
- 	response.timestamp = cycle_time_to_ohci_tstamp(get_cycle_time(ohci));
- 	fw_core_handle_response(&ohci->card, &response);
++		memset(&response, 0, sizeof(response));
++
++		if (in_bus_management_csr_registers(csr_offset))
++			handle_local_lock(ohci, packet, csr_offset, &response);
++		else
++			handle_local_rom(ohci, packet, csr_offset, &response);
++
++		// Timestamping on behalf of the hardware.
++		response.timestamp = cycle_time_to_ohci_tstamp(get_cycle_time(ohci));
++
++		// Finish the transaction immediately.
++		fw_core_handle_response(&ohci->card, &response);
+ 	} else {
+ 		if (ctx == &ohci->at_request_ctx)
+ 			fw_core_handle_request(&ohci->card, packet);
 -- 
 2.53.0
 
