@@ -1,272 +1,167 @@
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013044.outbound.protection.outlook.com [40.107.159.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6E36396D2C
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:56:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1320538645E;
+	Mon, 14 Sep 2026 18:58:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.44
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789412206; cv=pass; b=Pcjx+VChf6u/oq/SvW/t95p+o+ZfCv05EIUIpvCK8y+WYRbewyhxI9/qMeSgdvD9dPKWswbs4Q0cwBDGNKie7c4nat0tHdBy7AwomNEomcTqykcGZv+cEZt9ZI1CqUFef+73GYGd5mCfLYA/44dd8XZDw5YjoaejG6EEhpndYio=
+	t=1789412287; cv=fail; b=QNDK+OKHBi3YqSFVF5XbffF/olPepaVaL4sRh9PPKvxELjijjGYG9mARJKfSDJG0u7f8kj+xZcehAM4VvwJCCp6N6Vl3CP4gaIYX5hqEK7W8HoNjAPerCrSJO2pO9RPs8mgd3zLbSmvipZUdophy/zPmeHFdsBFdP73IstonnPo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789412206; c=relaxed/simple;
-	bh=TtfncmH80mrck36+bgc7vP1BFutRtUXi6yzpcoGC5lU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=TY7vdkJRhvURcwMlc58e6V/YoV4fc+nD1eA4Ny1cLj3EE4RWBo/k8QoEQJmu6twK+smUH3WqTgnREXZtYpt3dDj7vnZqayhRDbaml9gw0PmTcSUR5lOG1zPT8eK2mK11MbnBNT5Dhyyu2qozob2caOx0sA7czeoC0nSPCC8X9lk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S4iNEEQi; arc=pass smtp.client-ip=209.85.218.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789412287; c=relaxed/simple;
+	bh=UP5t7b4E/F+h1NCGtOMS6jdGHwGRwyBz348aabzbq0U=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=XgNv4mz0pC8o0uz80oa9bd7CtnwBnVRkuMFOTp295+qL0C8FmHt6Z8nvOfJEv49tFWa0Vb5Gd0ZVJHg1jzjfUJBteE5giGZBThZPVn4hEPvf3Kqp4BBlxdZ0z8W7xHX7ugh0jIsv4tLx/C8pTQeIhLElBvfykx62WAJUznedquo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=QdXbVtQk; arc=fail smtp.client-ip=40.107.159.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S4iNEEQi"
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c25420fe973so625446566b.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:56:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789412203; cv=none;
-        d=google.com; s=arc-20260327;
-        b=RYUUNkEBnH70kbl3z+Mz+v1M/3hmzgLesSO1FPmA+54h+mVzNIpZnMZbgc9oBvPMVd
-         K2LfRX+Iv/1q7nfscLcx9uK0u/VIeB3BR3X2hJODvyuDAxywkfxQPo2YcVZW88dgeHDN
-         7fGPhE/sP0RfWtyJyXErszIbEv/I0Ja9Idyo3blN8laRfEmTkZFPprNC4faVhOuZ54Qy
-         ol8hf9YFX8WYAivFAt5WGHIBnTxPYzcR9HzI4LT1Opp0xBXjb46prQ0XLgxnYPBFpj0W
-         DVcauphHlgvymTXWzc2wq8Nxg4TnCteC7rZcjLLy39YAVRP+fLsUMZ2lUMHlLlifDfO1
-         Njpw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=InVDDjxxDJpVrdg9GAOJRRP06/ftdzYITwk4z/cEu+o=;
-        fh=m5N/mAb6ip4EoOBgCGfKAUz9ryzHcJXasO8iF9f67tk=;
-        b=JBA/KHnvwuTPYdhwGDH6LuXtjyCjnLt05BCHtg/kBaqww65ggYy3zJBD/NatdGfVPE
-         8nd0fQV2wrg3Cp735IYeT/xk+crukZMO9/zd1YqOLsxPQQ0ZrkH2qQfktGWuK2Uj/t2m
-         jvbIGc2iZyZxT8z6tFzGfvNW2gd3u1wer7GIR/AKJSFpUrW/PUzAdSyQmASNSg2IOdYq
-         n8VgZjpUueKAG6zRIPW4h/erLVvdzUlSSu2pmggBcyfQl+cHj3l0ghA1tyav0pPkml2R
-         uCKztcusU7zB047d2D/S8C+c5OBIM/1qxUlxvOy6/3wJGexlaIGwwz+EP+GMSwS7Kh2n
-         Ta9A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789412203; x=1790017003; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=InVDDjxxDJpVrdg9GAOJRRP06/ftdzYITwk4z/cEu+o=;
-        b=S4iNEEQiSuFQb4NtHSswPNABERr1P5gn1h/gS9bHd0/Op6XdJ+oAZNtPJA8eBSTJna
-         YRx4St9x1rpS/H/A6Oasj6vk7hDQh/M4PZfY96Hh2vxfF5zAVUXAnUQFVxwHGx+xvfRJ
-         CW+oB6LFw5ZD03N820P910krQW0FnnPgnqukZV+Aqec3xJwCyurjmq+cmBn+kMzsgYxR
-         9xMoRoZnYw8Erq4uXJv5PS8iPB8eMdyeuULxjUC1pVckUnvvAVHLaZnDDWYcKHHWtcZp
-         PZOPBD3UmtPqSOLcE1VGknq0Cv/hT2ckLfXm9anV6gB8vG6lX6il/On9UFPsJOD9Nulj
-         edSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789412203; x=1790017003;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=InVDDjxxDJpVrdg9GAOJRRP06/ftdzYITwk4z/cEu+o=;
-        b=VKJsjeJrW32h74OzS63GIY3ahgtxxOgnUL5eoexMSnv7lJKRSAzxykxd8GLxT2XxuV
-         7gjmlRzLFfMfEhIzNKPxcUaj3+lXlCRYsK6pKIPzHVmCtcNogNRFz8sZULiQuqscgWQA
-         jEgbAxTy4BazAI11kDSpQ8xrBsLAeKaQ6aJwFzhQ61IrzI+ROHLE6wkfF++6KGHPsO8v
-         X3z+I4nhNDwMjEkVx7//HYiu/Q0nd7KvquY8RbOYfYHdy5PWveA7ASUnNdw5oFKd7CDS
-         uZZAnqzE0KlmQALky98AqG9PmvhDtc4AVcqTK4+moheB2kH6BrqXKGSMwKyIaGVE/o2R
-         F5bA==
-X-Forwarded-Encrypted: i=1; AKwUvBywi9u4QlIT2ak891o8LV+GdkFhAKJ+mB251jEUJWc39+4boZDGQhTnHS4yAYG157xpjuqPj40ofqh1IvM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nzM6tq99A4Oxs7txZOFF+niNdG/j1EdxnvzGUwvCmCKIXB/z0d
-	BDB1Cs9ixjuXEx58m06eSweMFZYMBzU3yoWtpuUiNv8Q+LLlmOWKjZl9mRdWT6KSu7z8A9a2mFy
-	0VlXSaVk1c0+nZW59Fxhkmi1hBZTzFgI=
-X-Gm-Gg: AYBFou0CIggwkzsYMqaBH7Gmab4bp+X4E77ilmqvS5sKl0Ix813rcfaHBSnr+WvW+18
-	RsmAM7e+XFFAU/FvHCwTngXo3K7qBMTOrZX28oM7w+RsEik1EX/RctcJRkm3WE90VvhPnBveRbQ
-	bCbbMs1R0XzGBE7iSvAloCc5W9m+siEMWtNg8tH2JEbKG8NdqTRv5kAgej6p8jFxYOjDenAMDiF
-	w5Ahn9tCatVB3f7PB4H7ocXstul6saxs52r2x8etqihAAck62CgZBp5YtHleDfUj5E/111LCNYp
-	ntuXu7iv9QcmdVHnrKuQhzoeMTZ8PnWz2NN0Egny8k0VI6Zlf03Kb6/Di1XEgDx2JUfF9/t84dx
-	YGEXX/AADfVsEdEZFsghRVd4eJmZd/u/sKrLCN/vIjpwHMk2PbD4qZNlMO72WmYXx25YYUU4yJv
-	WZlzMVOWymiW6OOZb7nrIYcCR6pIUZrQZXF1Avq29rFegs3jribFsKyaIl4gh9LwoY/g==
-X-Received: by 2002:a17:907:f497:b0:c26:19de:912c with SMTP id
- a640c23a62f3a-c29b86f1102mr253024066b.31.1789412202869; Mon, 14 Sep 2026
- 11:56:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="QdXbVtQk"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=G+wCS3AKyO72WaV+Qw6ptFD3jINCSAXBces99dZqzUEHg7jk7tr5jb35I5Cl5YvS907JzX2UtzLn+yvusu36ao20Ii9gAe2oVOkGNzmnyJ+8zMOhvO1XfJWgCNZK7zT6zXQ28G5dtiYz023Zr4wSE8fK+h2bP3QWC0LQkwvVovfHBRQvC9XTdNprAFeT574BSmzBf1r5sJRdZnGxMWZey0PVjXv5kjrYjeK9RVZZu1vGiteazG+y30v1tfwOsAHt6FI8qlnUw7NHUuTBNm7zXSg31kJIOvKY+wT539XlbmjtfoYd+kCu/rGMvsNmLoyUK+38DdLDVLmFXaF2FlOQgw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mSkEsoJFDegBrjk1J1sGKN9x7UYhAzIepM6m/JHeNds=;
+ b=hiRa4Ne7o6Tej62HUv37aRvLIWKJriheD7v8W+xl4f0wpK8+aFr2eXjt9KjDNud5+oAC1jqa7eqOPr2fBMCEq+LgSt9s5OBBeMFW8jDYkIMF83NJhKfwqi4XteCtvB/lEqSU2KUM5QdmQVmvZpCT1iJJ/ygqeQSYTxX/U6bASv6Byz+sH+UYhCHHkyVKLNWAUOlvNESz9BTbedGSKDmRbi/U1YEe5/uL8186E/Co255Zd+0FJTuJsDKYKu/YiQftBoZbpPnOfl3viHpl7mC2NXfr9Sgsl/8feo4uQYWu3l/2p/hr2FXG2AFXc+8POnBs/g8yzMFCPLqY4j1ul5yKCg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mSkEsoJFDegBrjk1J1sGKN9x7UYhAzIepM6m/JHeNds=;
+ b=QdXbVtQkdjahh7Z0+7tgTcXCkTfy8zGw97My94XT9JUnoGI279QO7w3T5UlLhlBnhdUJYaMahGJs50OR7NGa/F1BPlQ5zvZQans4wctr4DY1KYnRxu5KgsP1A8+saUWdVaeMc6Vraa8s/MP4dEDyVK7nEIHeUybx88eqIcwwqHNJE1menxTaCUyqhOL3zsJ2S8NPj+jP67WKaZSQYjyIRgZc8mkQOgy0llOyZCM4i8ecKhfcxCRinFACDCYcXfDjV8iRFf1t/SdjFNQnF999S2CiaN8rmIdBNCclY6nfcue3UzueaEb2AP7o/nAoWGRTyscsSjSb7YHu6ss2I9c/3Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by PAXPR04MB8426.eurprd04.prod.outlook.com (2603:10a6:102:1ca::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
+ 2026 18:58:02 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
+ 18:58:02 +0000
+From: Frank.Li@oss.nxp.com
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Frank.Li@oss.nxp.com
+Cc: Frank Li <Frank.Li@nxp.com>,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/8] ARM: dts: imx: cleanup some dtb check warnings
+Date: Mon, 14 Sep 2026 14:57:54 -0400
+Message-ID: <178941226247.1796804.5468877600268749945.b4-ty@b4>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260901-arm_dts_clean1-v1-0-db741f37a1f4@nxp.com>
+References: <20260901-arm_dts_clean1-v1-0-db741f37a1f4@nxp.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PH7P223CA0009.NAMP223.PROD.OUTLOOK.COM
+ (2603:10b6:510:338::25) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260911220640.178074-1-rosenp@gmail.com> <aqgYKc5ViiWynzqS@SMW015318>
-In-Reply-To: <aqgYKc5ViiWynzqS@SMW015318>
-From: Rosen Penev <rosenp@gmail.com>
-Date: Mon, 14 Sep 2026 11:56:31 -0700
-X-Gm-Features: AcwNN1XNYfhRZ9JwjZrSRRHjJV50DydZSSuGetocf8Q2opC6iByS3BkPVP-6b1o
-Message-ID: <CAKxU2N-uY2_ToL5ivHxdu2WijN9zA1O3PCoiLw1pr52nsSJ2VA@mail.gmail.com>
-Subject: Re: [PATCHv2] dmaengine: ppc4xx: use devm_platform_ioremap_resource()
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: dmaengine@vger.kernel.org, Vinod Koul <vkoul@kernel.org>, 
-	Frank Li <Frank.Li@kernel.org>, open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PAXPR04MB8426:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6b737364-27fe-421b-3130-08df129219e9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|376014|19092799006|1800799024|7416014|10067099003|22082099003|18002099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	UovhPEKhR3OTO5fxUl/n5Kgp0DSzqKQLifYmqbuMDu6F68UzrpCMGTIF3bhj6se66iS6MkLNNr5p6HUBIGxNpkq4UFekKKJQci+GF6BO6RycpK28DsrNNUN+zl0LAHXzKS9eNT/rR3rpKh5Jmf2n895ecO/MiHoqlWIrDmpwENHrpqS1LhgxDtvokYMrKKdzRGgYq++BK3a/nY8yJyj2tnnZQcCFOhSSO2j/M9s1GYC0KHRlX6UVH5H8CxbnZS8x6meQVC0XUJXFnbJFQ2APU6ZzwyOtVmBDOlUzUtQCzOjli1F4hS4ajFNUBNU5LuTLZrQzJA30kzp9S5vPBG+W2eeXpfDOYWSX91Ag8ejjsrSy8N++B0q51NDRyQOmUTh6U8abvYC2A+AMdPjfqWssIQiUY8lAIheDmt+lncHs4NslIdTlilZQte0Z0SVGguGnfjMEAwxFvyxBCNgkE1mRMFGGjgajqtWibpWFUsxSk9bw55hFZaG5upnpDT+g2IqlmPv94fiSWlzLQeluJcsBDqILcmH11VPDQN0eVkDpzpp0XxaRVC8hvWFoS7oTIb6LR7Zjnq4nu0B+NCqe6wxRIxWLsyR1HbXf+uV1yU/gkwu6nL6htezkjQO6Lh+w/hWRzaZNFBf/XRoj8xDEhTWXQStsrKCBrJL0IinifRFFu4I=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(19092799006)(1800799024)(7416014)(10067099003)(22082099003)(18002099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ZSs0eTdCU1RpeXhmNGhmUTNUYzk1QUpzbXhEU0tGRGVxK3AzVkRZcGhlRWl5?=
+ =?utf-8?B?TkFDbFhoSld4OGp0Z0RXTFlkanY2a29hYkE1bzJORGQwZlJwQnUwK1V0U1FI?=
+ =?utf-8?B?MGwxVi95dXBueEVjdnVMU3hudWR2TEk0a0h2a3A5aS95SmdJSGJJbEVsNWZs?=
+ =?utf-8?B?RDVEcFJKMVRnUGVGYUxob2wyZXVWRnlEUmJtcDFWRmxpZEEvU1kzb3BtS3U4?=
+ =?utf-8?B?ZXJWRERBMGdUNnlqdmV0Ri90MG9ha2NTOG9vcURRRFkwK1pOZXE0dVZ1eURC?=
+ =?utf-8?B?Rjgxek5FcENaTWw2ODhDSCt3MWlrRk5Sa2pzY25CUU4rVGZvekEwcUlubm9m?=
+ =?utf-8?B?bmpZY2xwQjEvTDhXY1FubUlTOEhqSnpuSitaU1Y4S0pLd0F1TC8yNm1ROXZK?=
+ =?utf-8?B?TE5uV2xKTWRQbU1POUNlbDdQWllJeC9PN0d6WGhTODFIS0U0MmUydGlKMWMw?=
+ =?utf-8?B?YXM2Tm1kcWl2M015Uk1ocTNhR21TNENpMkp0N045S0p3Q0taZVBseHF2MGpG?=
+ =?utf-8?B?Y0FsQURBY3ZkU2E5T3VlUkpnOGx6M0p6Si95bUNVVlNZMVVDeEYza0pCOXV3?=
+ =?utf-8?B?S1pFdzI5Mkw3cTVWTzI4NXFEZXlpL29ieXQrdWVoYjRBQTRXRjE3RHJRZ3pI?=
+ =?utf-8?B?MHYvTzYxZHcwWk9LZXkwVS9VRXE3OHpxaWEyZzk2dGdNOHY3ZTdkVXM4V3hM?=
+ =?utf-8?B?QUZiclZSQnVMTUxWS3hhTzNYNENXc0lGQVd4aExXazRjNTRQS0Y4a0NFVzlS?=
+ =?utf-8?B?WFdTcGp0UEkwRVNKbjZUd2JrbjJKZHN6ai8rZHdMTHA3ekx4RjgvWGkvQlNL?=
+ =?utf-8?B?TmY2bU9GK3FOZ2VyekxkQS9iaEltRS9FaHVXUlVPQWZmUDlIb20wOTVYZHpG?=
+ =?utf-8?B?Zjllb3I4eTBpVjhDcGZGU3ZCZjl2R1pxcm0rSFcrdlNmZ1pwMDdSQ054SDlJ?=
+ =?utf-8?B?UklpNkg5aFZyN1RGWXlNcWZMVzZQeVAyQkJOZjRzbnhhakE3VHhHb0drM1Bn?=
+ =?utf-8?B?YzJCZWFoOG1IWTUzSlBQamloQ3o1NVNMazRCS2M5cGp6aVc2UXVickFGOW9i?=
+ =?utf-8?B?TFVmc2t6a2JLbDk3anhvbVdjT1phaWZQYzhxeFNpWElTRm9wNTdKcDE5dFR0?=
+ =?utf-8?B?Vms5dW1vUk84aWwxWkhxRisyU3JSQjBnR3NUL1BMTVp1Zk9BU0t6SmFWVTMv?=
+ =?utf-8?B?eUE3YlA4N2tMdnhzOFo3M2VseEg0Y1RwVHJSdTdCbzRBTi9mNUlSK0RhNkRu?=
+ =?utf-8?B?bnAydEtQUGdBSWJvM3BrbEtIZ3JhcDhYT2hTdUFiMUl6SU5vWC9OaXB1amNr?=
+ =?utf-8?B?aURtR1Mwb2FUenBRWVlqU0VCZEdJbmtwc1ptUGIzZ1VSZkNKT0NwVjNpYmJr?=
+ =?utf-8?B?eWdOR2c4VUQ3UUkyREZuQkQyRUU3UlVSakdjWlE4VitSdUpyMHNCNTBLeXc3?=
+ =?utf-8?B?Sk9hWm5jbFBkQS84Mndrc1BrMllSWXc3YmVEeUJpMW9zQmd0OXo0MDAwY3FS?=
+ =?utf-8?B?MVRYWHdDNU9xcGVtMzgvYk12OTg4VzhrRXlka3M3TW5ldGcvaVNFZ0xKN3NZ?=
+ =?utf-8?B?S0ZXVWYwYm92QlVjMEh2SGZvVGZ2ZzRPY291eUlaU3ZEOTEwcEYzWmk5dm1a?=
+ =?utf-8?B?TE5sRC8wdmRJNmNJQjFpOFlTaHVLUkhXOWVwSFpyQ0g4QmlMalhxNys1S3lp?=
+ =?utf-8?B?c211ZVdZMWFnUHpXNXJjN2I0RmRrTE9ESFlMb1IwQmtvb0FlazEyMXdvN0lm?=
+ =?utf-8?B?ZmVqdFJoZkJZMmhVWkhiOGRSUm5sbzNpTXRGQzZBdDZkbjk5WisxYTZPeUIw?=
+ =?utf-8?B?UU1Rc3RHUzdvTlIyaHhrbG5TNHFMZXNPTVkxbWdZR3NwN2dDTVN4SHQxOXdX?=
+ =?utf-8?B?VjRaN1dvYkhOaDNzUFZvbUJ5VjFUazJIcjJvZGFXQi9QOGU1dzE1S3VkWWYr?=
+ =?utf-8?B?eWhiNWFoZDBrNi9aaUxiTVEwWmkxQkN4NkRDb0lEajgwN205ZGd5dk04KzdJ?=
+ =?utf-8?B?TUNvc0JibjljVVFiZU9aWHVxUUpwSG5aS1NjamJzQ1FvejJyNXlMeFBiWmEw?=
+ =?utf-8?B?TmZ2NkVKMmJBRUlwS1psK0JpZ012bGltTEVPbnB5Z2gyUGFDVi9BMXlKYVhE?=
+ =?utf-8?B?akwyRWgzbWJsTkZ0UER6Q2hUb0NVeUYrTmU1eXR1NDBGM1AyWTQ0dWptaDBs?=
+ =?utf-8?B?NXFQQXdRSmdhQU9MYVBiQXc0cXNvVFFNSTRMeTl0UWVaQVB2d1VkOVl3YVNy?=
+ =?utf-8?B?a3hnN0RuOWtwSlV3OEtLdlJiZ2tlb0xCUExUWHBDODI2K0hvSkp0TFllZ1c0?=
+ =?utf-8?B?ZEVXRVJwTjEza0tMTUs0b2dCUW5ERy9mQy8zNEZkZkEza1JEZjN3Q1pmWEYx?=
+ =?utf-8?Q?8M3ZjK+KvhRW3Z16uwm7eXXLWTqIbWBPRmrac?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6b737364-27fe-421b-3130-08df129219e9
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 18:58:02.0733
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: iUQG5YMD//HPGbBeFa8ltJ36VUTaiHgIMcHIbWm6B1FbAfj648sAcBhTozBCVX9do7byZ0LuVO+3b17sL6CcCAAdTUfDPbUV2Liw3QDB8jz8St0ZyOkf1ZAnUM7zmfJ9
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8426
 
-On Mon, Sep 14, 2026 at 8:52=E2=80=AFAM Frank Li <Frank.li@oss.nxp.com> wro=
-te:
->
-> On Fri, Sep 11, 2026 at 03:06:40PM -0700, Rosen Penev wrote:
-> > Replace the open-coded sequence of of_address_to_resource(),
-> > request_mem_region(), and ioremap() with devm_platform_ioremap_resource=
-().
-> > This eliminates error-path cleanup for both the memory region and the
-> > ioremap.
-> >
-> > The two separate initcodes PPC_ADMA_INIT_MEMRES and PPC_ADMA_INIT_MEMRE=
-G
-> > are collapsed into PPC_ADMA_INIT_MEMRES since the combined call covers
-> > both steps.
-> >
-> > Also emove unused PPC_ADMA_INIT_MEMREG enum value
->
-> emove?  can you bound all ppc4xx patches to one patch serial to avoid
-> pick up conflict between these patches.
-I sent the ones that have none.
->
-> Frank
->
-> >
-> > The PPC_ADMA_INIT_MEMREG error code is no longer used after converting
-> > to devm_platform_ioremap_resource().  Remove it from the enum and the
-> > corresponding error string.
-> >
-> > Assisted-by: LLM
-> > Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> > ---
-> >  v2: cut some stuff from description
-> >  drivers/dma/ppc4xx/adma.c | 46 +++++----------------------------------
-> >  1 file changed, 6 insertions(+), 40 deletions(-)
-> >
-> > diff --git a/drivers/dma/ppc4xx/adma.c b/drivers/dma/ppc4xx/adma.c
-> > index 39498779e241..17b60704a702 100644
-> > --- a/drivers/dma/ppc4xx/adma.c
-> > +++ b/drivers/dma/ppc4xx/adma.c
-> > @@ -37,7 +37,6 @@
-> >  enum ppc_adma_init_code {
-> >       PPC_ADMA_INIT_OK =3D 0,
-> >       PPC_ADMA_INIT_MEMRES,
-> > -     PPC_ADMA_INIT_MEMREG,
-> >       PPC_ADMA_INIT_ALLOC,
-> >       PPC_ADMA_INIT_COHERENT,
-> >       PPC_ADMA_INIT_CHANNEL,
-> > @@ -49,7 +48,6 @@ enum ppc_adma_init_code {
-> >  static char *ppc_adma_errors[] =3D {
-> >       [PPC_ADMA_INIT_OK] =3D "ok",
-> >       [PPC_ADMA_INIT_MEMRES] =3D "failed to get memory resource",
-> > -     [PPC_ADMA_INIT_MEMREG] =3D "failed to request memory region",
-> >       [PPC_ADMA_INIT_ALLOC] =3D "failed to allocate memory for adev "
-> >                               "structure",
-> >       [PPC_ADMA_INIT_COHERENT] =3D "failed to allocate coherent memory =
-for "
-> > @@ -3997,7 +3995,6 @@ static void ppc440spe_adma_release_irqs(struct pp=
-c440spe_adma_device *adev,
-> >  static int ppc440spe_adma_probe(struct platform_device *ofdev)
-> >  {
-> >       struct device_node *np =3D ofdev->dev.of_node;
-> > -     struct resource res;
-> >       struct ppc440spe_adma_device *adev;
-> >       struct ppc440spe_adma_chan *chan;
-> >       struct ppc_dma_chan_ref *ref, *_ref;
-> > @@ -4040,28 +4037,12 @@ static int ppc440spe_adma_probe(struct platform=
-_device *ofdev)
-> >               pool_size <<=3D 2;
-> >       }
-> >
-> > -     if (of_address_to_resource(np, 0, &res)) {
-> > -             dev_err(&ofdev->dev, "failed to get memory resource\n");
-> > -             initcode =3D PPC_ADMA_INIT_MEMRES;
-> > -             ret =3D -ENODEV;
-> > -             goto out;
-> > -     }
-> > -
-> > -     if (!request_mem_region(res.start, resource_size(&res),
-> > -                             dev_driver_string(&ofdev->dev))) {
-> > -             dev_err(&ofdev->dev, "failed to request memory region %pR=
-\n",
-> > -                     &res);
-> > -             initcode =3D PPC_ADMA_INIT_MEMREG;
-> > -             ret =3D -EBUSY;
-> > -             goto out;
-> > -     }
-> > -
-> >       /* create a device */
-> >       adev =3D kzalloc_obj(*adev);
-> >       if (!adev) {
-> >               initcode =3D PPC_ADMA_INIT_ALLOC;
-> >               ret =3D -ENOMEM;
-> > -             goto err_adev_alloc;
-> > +             goto out;
-> >       }
-> >
-> >       adev->id =3D id;
-> > @@ -4081,10 +4062,10 @@ static int ppc440spe_adma_probe(struct platform=
-_device *ofdev)
-> >       dev_dbg(&ofdev->dev, "allocated descriptor pool virt 0x%p phys 0x=
-%llx\n",
-> >               adev->dma_desc_pool_virt, (u64)adev->dma_desc_pool);
-> >
-> > -     regs =3D ioremap(res.start, resource_size(&res));
-> > -     if (!regs) {
-> > -             dev_err(&ofdev->dev, "failed to ioremap regs!\n");
-> > -             ret =3D -ENOMEM;
-> > +     regs =3D devm_platform_ioremap_resource(ofdev, 0);
-> > +     if (IS_ERR(regs)) {
-> > +             ret =3D PTR_ERR(regs);
-> > +             initcode =3D PPC_ADMA_INIT_MEMRES;
-> >               goto err_regs_alloc;
-> >       }
-> >
-> > @@ -4121,7 +4102,7 @@ static int ppc440spe_adma_probe(struct platform_d=
-evice *ofdev)
-> >       if (!chan) {
-> >               initcode =3D PPC_ADMA_INIT_CHANNEL;
-> >               ret =3D -ENOMEM;
-> > -             goto err_chan_alloc;
-> > +             goto err_regs_alloc;
-> >       }
-> >
-> >       spin_lock_init(&chan->lock);
-> > @@ -4214,19 +4195,12 @@ static int ppc440spe_adma_probe(struct platform=
-_device *ofdev)
-> >       }
-> >  err_page_alloc:
-> >       kfree(chan);
-> > -err_chan_alloc:
-> > -     if (adev->id =3D=3D PPC440SPE_XOR_ID)
-> > -             iounmap(adev->xor_reg);
-> > -     else
-> > -             iounmap(adev->dma_reg);
-> >  err_regs_alloc:
-> >       dma_free_coherent(&ofdev->dev, adev->pool_size,
-> >                         adev->dma_desc_pool_virt,
-> >                         adev->dma_desc_pool);
-> >  err_dma_alloc:
-> >       kfree(adev);
-> > -err_adev_alloc:
-> > -     release_mem_region(res.start, resource_size(&res));
-> >  out:
-> >       if (id < PPC440SPE_ADMA_ENGINES_NUM)
-> >               ppc440spe_adma_devices[id] =3D initcode;
-> > @@ -4240,8 +4214,6 @@ static int ppc440spe_adma_probe(struct platform_d=
-evice *ofdev)
-> >  static void ppc440spe_adma_remove(struct platform_device *ofdev)
-> >  {
-> >       struct ppc440spe_adma_device *adev =3D platform_get_drvdata(ofdev=
-);
-> > -     struct device_node *np =3D ofdev->dev.of_node;
-> > -     struct resource res;
-> >       struct dma_chan *chan, *_chan;
-> >       struct ppc_dma_chan_ref *ref, *_ref;
-> >       struct ppc440spe_adma_chan *ppc440spe_chan;
-> > @@ -4278,12 +4250,6 @@ static void ppc440spe_adma_remove(struct platfor=
-m_device *ofdev)
-> >
-> >       dma_free_coherent(adev->dev, adev->pool_size,
-> >                         adev->dma_desc_pool_virt, adev->dma_desc_pool);
-> > -     if (adev->id =3D=3D PPC440SPE_XOR_ID)
-> > -             iounmap(adev->xor_reg);
-> > -     else
-> > -             iounmap(adev->dma_reg);
-> > -     of_address_to_resource(np, 0, &res);
-> > -     release_mem_region(res.start, resource_size(&res));
-> >       kfree(adev);
-> >  }
-> >
-> > --
-> > 2.55.0
-> >
+From: Frank Li <Frank.Li@nxp.com>
+
+
+On Tue, 01 Sep 2026 18:25:34 -0400, Frank.Li@oss.nxp.com wrote:
+> Cleanup some simple dtb check warnings
+
+Applied, thanks!
+
+[1/8] ARM: dts: imx51-zii-rdu1: rename node name i2c-gpio to i2c-0
+      commit: 3d0c54a7634f7a27527da4b83985509ce9d7619e
+[2/8] ARM: dts: imx6qdl-emcon: Remove unrecognized disable-gpio PCIe property
+      commit: a89327ced267f3bddd39bfef55697042ba24e4fb
+[3/8] ARM: dts: imx7d-nitrogen7: drop unsupported wakeup-gpios from tsc2004
+      commit: 5c2b3c0be9de935e232380f301a6b0ccc2e1654e
+[4/8] ARM: dts: imx7d-meerkat96: disable lcdif node
+      commit: 8fdbfe040d08ed7d7c5e2dde2c16328ff29f086b
+[5/8] ARM: dts: imx50-kobo-aura: convert sd2_vmmc to regulator-fixed
+      commit: 4ca5ffee7500c3ce78fc821fa4eedfcb28e445a4
+[6/8] ARM: dts: imx6dl-b125v2: add touchscreen-size-x/y to exc80h60 node
+      commit: c9608f889d2e94888e980148ec04b77614448737
+[7/8] ARM: dts: imx6sll: remove unused node csi@20e8000
+      commit: 5e863f9f2c7f66a0ff902189c389d142bfdc0805
+[8/8] ARM: dts: imx6ul-14x14-evk: remove reduntant bus-type under csi node
+      commit: 12f17efd282d8a66d5570098e12c1642efe2910a
+
+Best regards,
+-- 
+Frank Li <Frank.Li@nxp.com>
