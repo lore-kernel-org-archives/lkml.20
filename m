@@ -1,38 +1,38 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92BEB443C39;
-	Mon, 14 Sep 2026 11:58:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09629444701;
+	Mon, 14 Sep 2026 11:58:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789387104; cv=none; b=klBlg5eL91BiGyeMTx6wMOg+g2sXnFprN6DJ/1WKbiQKo6pPYDYwoi4QfXIi3NVjTS6NDqGfvkwFIsg3ealTWHxRinxRvc7Uoqv8/xr6ziMtmGnHHcnK5IAOQlGnHnoSYdB9ip9okG/t2UcEuVLEdesFP/wXv7c/t84E9V8YejY=
+	t=1789387106; cv=none; b=ezx3fAcVRP6ZSol0futJnLLj1L+MOMCtBA5vgraAcmE7o+40xwI7lYuyOOoyWzPSBIH/xsnWfwMffgqdxo2zQyHBGA8T5XHUt4EQPYBFlr0xks34sXIRuo6ZKvB/NmYB3Ejbh/oIezKbZLDTQTb25ldOVIA8Iha4cKr7c5VaJzI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789387104; c=relaxed/simple;
-	bh=qyYNtF6Szv6pA6AN5mfvaTW4lHJbi9aApiqokgMWKXA=;
+	s=arc-20240116; t=1789387106; c=relaxed/simple;
+	bh=6aKjiiiV3r+u+ttJGtnTE0DCvbNuV5aY0+blwbJlC64=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=G8Y568LOohBtDbnycqc8l9qzLtn4phBBHyHjeaYxBX6qzS+6d7JME/JFIg94UCwm4U6MHrz0qbxwVzy/T9cXn+4fr4XiBfQyyLfvgzL7YAsi67+cu+4KzkN0yMujwhJ3KDQkWfAXx07Q5s2ORH7IhjVET/MEQuiAoA0HYvcHj6U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=YksS3IlZ; arc=none smtp.client-ip=148.251.105.195
+	 MIME-Version; b=c9JFtYg4k0cxx1v8gaUVlE3gI7sTZSx+e5IcwKiyS5zQ1PWjaz30ARI8U8KnpC3BMvq4VHZAJ51xgJDDx6ctbSb9GrXSOqJn0ShugaNq/r8XFkMSafMfKPpMxP1CjsjYjOXmPnmBbT7wvgodjlY4bpLM44St80mp/CeVb3AcDns=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=F2rXkx/M; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="YksS3IlZ"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="F2rXkx/M"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1789387099;
-	bh=qyYNtF6Szv6pA6AN5mfvaTW4lHJbi9aApiqokgMWKXA=;
+	s=mail; t=1789387100;
+	bh=6aKjiiiV3r+u+ttJGtnTE0DCvbNuV5aY0+blwbJlC64=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=YksS3IlZd4rVuwZdzbjgVB/yasXhw+vs0PRd4z2N5oyZ/ZVC2auJuqjMMzEIhT0oc
-	 T9GCCIzfF/NUFt963PSe8wGAxf2iStu0EsSJJ9zQGs+4yb9b252sZ0lmESWlN8rc6j
-	 llSL+zXQd/5LNEWDYyYeXycyCEptq2/dtMW8ks47WNx9awOB7pWYwhw/rGmjSdZ5Y7
-	 sooaUfyDExrnJWGEQuAiXM/h5J7pfkXv8NyghT0BEuMBd6Rakh7aosx+7O8M4J41uM
-	 WbQR6rmTIQLtXJXZnmN+D6Kla/HxfdoWQteC4dXI+Vq0lb4GXvSJxu0480R1dZyOzG
-	 zeDDHg+IYOnMw==
+	b=F2rXkx/MXSeVq8NUzxC+FRcoTf9H+UjQ1CwvwvWegUmXkCoHKcUoHB4nS5wawTeYx
+	 J4I5yqMoYAnHTFOebqyjtYrOIz1yowolzL92kmj8h22jxHDwwEqy7ITSQb3qxijFxj
+	 KrDtBBLlCL0vuPUwEaNoJ61AfXcnM0bbt9qU1PDywW9U11QCdF/c2esR+d0TN7oZLh
+	 qEUEOrHa2h7N0mELQccgpTUJZR0RCH2riX6C26GLLUxUrS0rJgDssXtN8qYKbV43iw
+	 PvGP1XfExIsj/bTZIQUlDpw7Qju+gTLHiwvLnrfD2dIL/C/0OL5yCFDOvUV10TAxm0
+	 /km4oP29cFl5g==
 Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id BF6A017E0CF4;
-	Mon, 14 Sep 2026 13:58:18 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id B887817E0CFC;
+	Mon, 14 Sep 2026 13:58:19 +0200 (CEST)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: chunkuang.hu@kernel.org
 Cc: p.zabel@pengutronix.de,
@@ -56,9 +56,9 @@ Cc: p.zabel@pengutronix.de,
 	justin.yeh@mediatek.com,
 	jason-jh.lin@mediatek.com,
 	CK Hu <ck.hu@mediatek.com>
-Subject: [PATCH v7 04/13] drm/mediatek: mtk_dsi: Cleanup encoder if reset fails during bind
-Date: Mon, 14 Sep 2026 13:58:03 +0200
-Message-ID: <20260914115812.22751-5-angelogioacchino.delregno@collabora.com>
+Subject: [PATCH v7 05/13] drm/mediatek: mtk_dsi: Enable interrupt at component bind time
+Date: Mon, 14 Sep 2026 13:58:04 +0200
+Message-ID: <20260914115812.22751-6-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260914115812.22751-1-angelogioacchino.delregno@collabora.com>
 References: <20260914115812.22751-1-angelogioacchino.delregno@collabora.com>
@@ -70,42 +70,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When binding the dsi component, the .bind() callback initializes
-the encoder, and then will optionally trigger resets.
+Having the DSI interrupt enabled before actually binding the DSI
+component to the display controller driver is both useless and
+dangerous: the main purpose of this interrupt is to signal CMD
+done, LP RX data ready, or VideoMode done, or to reset the HW
+engine if this doesn't come.
 
-Should that last operation fail, binding will as well fail but
-the encoder is never removed from the DRM encoder list and if
-the driver gets removed afterwards, this may crash the kernel
-because of an use-after-free condition.
+Should this interrupt come too late (during probe), the HW will
+be reset only at the next occurrence of a timeout, which slows
+down boot and may render artifacts to the DSI display.
 
-In order to avoid that, cleanup the encoder upon reset failure.
+Moreover, clearing the DSI interrupt while the display controller
+is not ready yet, may result in an interrupt storm.
 
-Fixes: 605c83753d97 ("drm/mediatek: mtk_dsi: Reset the dsi0 hardware")
+In order to prevent this from happening, request the interrupt
+with IRQF_NO_AUTOEN, and enable it only when binding DSI to its
+display controller component master.
+
 Reviewed-by: CK Hu <ck.hu@mediatek.com>
 Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
- drivers/gpu/drm/mediatek/mtk_dsi.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/mediatek/mtk_dsi.c | 24 +++++++++++++-----------
+ 1 file changed, 13 insertions(+), 11 deletions(-)
 
 diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediatek/mtk_dsi.c
-index 97b8a91874f5..0b167b4411e5 100644
+index 0b167b4411e5..ef1638e77f00 100644
 --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
 +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
-@@ -1095,7 +1095,13 @@ static int mtk_dsi_bind(struct device *dev, struct device *master, void *data)
- 	if (ret)
+@@ -225,6 +225,7 @@ struct mtk_dsi {
+ 	int refcount;
+ 	bool enabled;
+ 	bool lanes_ready;
++	int irq;
+ 	u32 irq_data;
+ 	wait_queue_head_t irq_wait_queue;
+ 	const struct mtk_dsi_driver_data *driver_data;
+@@ -1101,6 +1102,8 @@ static int mtk_dsi_bind(struct device *dev, struct device *master, void *data)
  		return ret;
+ 	}
  
--	return device_reset_optional(dev);
-+	ret = device_reset_optional(dev);
-+	if (ret) {
-+		drm_encoder_cleanup(&dsi->encoder);
-+		return ret;
-+	}
++	enable_irq(dsi->irq);
 +
-+	return 0;
+ 	return 0;
  }
  
- static void mtk_dsi_unbind(struct device *dev, struct device *master,
+@@ -1109,6 +1112,8 @@ static void mtk_dsi_unbind(struct device *dev, struct device *master,
+ {
+ 	struct mtk_dsi *dsi = dev_get_drvdata(dev);
+ 
++	disable_irq(dsi->irq);
++
+ 	drm_encoder_cleanup(&dsi->encoder);
+ }
+ 
+@@ -1342,7 +1347,6 @@ static int mtk_dsi_probe(struct platform_device *pdev)
+ {
+ 	struct mtk_dsi *dsi;
+ 	struct device *dev = &pdev->dev;
+-	int irq_num;
+ 	int ret;
+ 
+ 	dsi = devm_drm_bridge_alloc(dev, struct mtk_dsi, bridge,
+@@ -1375,9 +1379,9 @@ static int mtk_dsi_probe(struct platform_device *pdev)
+ 	if (IS_ERR(dsi->phy))
+ 		return dev_err_probe(dev, PTR_ERR(dsi->phy), "Failed to get MIPI-DPHY\n");
+ 
+-	irq_num = platform_get_irq(pdev, 0);
+-	if (irq_num < 0)
+-		return irq_num;
++	dsi->irq = platform_get_irq(pdev, 0);
++	if (dsi->irq < 0)
++		return dsi->irq;
+ 
+ 	dsi->host.ops = &mtk_dsi_ops;
+ 	dsi->host.dev = dev;
+@@ -1386,17 +1390,15 @@ static int mtk_dsi_probe(struct platform_device *pdev)
+ 
+ 	platform_set_drvdata(pdev, dsi);
+ 
++	ret = devm_request_irq(&pdev->dev, dsi->irq, mtk_dsi_irq,
++			       IRQF_NO_AUTOEN, dev_name(&pdev->dev), dsi);
++	if (ret)
++		return dev_err_probe(&pdev->dev, ret, "Failed to request DSI irq\n");
++
+ 	ret = mipi_dsi_host_register(&dsi->host);
+ 	if (ret < 0)
+ 		return dev_err_probe(dev, ret, "Failed to register DSI host\n");
+ 
+-	ret = devm_request_irq(&pdev->dev, irq_num, mtk_dsi_irq,
+-			       IRQF_TRIGGER_NONE, dev_name(&pdev->dev), dsi);
+-	if (ret) {
+-		mipi_dsi_host_unregister(&dsi->host);
+-		return dev_err_probe(&pdev->dev, ret, "Failed to request DSI irq\n");
+-	}
+-
+ 	dsi->bridge.of_node = dev->of_node;
+ 	dsi->bridge.type = DRM_MODE_CONNECTOR_DSI;
+ 
 -- 
 2.55.0
 
