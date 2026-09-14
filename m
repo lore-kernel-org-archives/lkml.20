@@ -1,62 +1,64 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF4DA3AF641
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:16:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30EDC3B14D4
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:16:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789370163; cv=none; b=XJW5avDtDA63vmdUNrUMYfHg0U2SuEGpn0ZTO+HTYqWonUl9MHKctk8W1k5TKRRcO8hFRvwb+Qnsy/IdNVa8gu0LH7Ko/CvtmCJpkVu1mWIuw2B9klGgCgsxxt4WEmuaIeeztirW9cBW8BE6QqH6zMfwub/vNMzCtC5C1vBwa/4=
+	t=1789370166; cv=none; b=s9Ce82+j0MYgMnx3Q5/S0jATKP6Rka5sIpVwDL1a349pWfPQlltcytxTX+LSsx2KOqJY6YwvH9MpcEpK9tkxwy4o6JSY8n3WX+1z/L/VMGWGHlrkFEPNKzuMmA4BTCiB3tpNTdSeGB7CcfoV+1BcYpJFTaCIndY8aeMHhdLIX24=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789370163; c=relaxed/simple;
-	bh=jSb2Ftos2O4Cle3dQjevzii599zWf1wPdvUMiVakE/8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cGbhaZCAa+ZYYjPgcMj1Lz215Mv+ozHS2jtqSvwJyRYOmZnnMg9MIiElVJs0F0ja6YxKOA6dSP8SsndN9argjeCMfxBdZkxCjqLOfY8ACHh7u9Vp/QV52vK10axj/yqfJinN78l69A3nEnBmoyq2BUlt4VEI39aCCz7v6n3LrMg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MLWcctoc; arc=none smtp.client-ip=74.125.225.76
+	s=arc-20240116; t=1789370166; c=relaxed/simple;
+	bh=Z2lb95NyFj5VMsmWjYdqmvMmkWFzhfs0R05riKxv8DI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=STRrZgN1AFDCJtq84epZ5b/1ndPN31/znrs9ReGDrXW8tVqp3nJFT7TEHTJ6ysD/hm+gWjarJI1ErgGKUBtjlfXdMVfZaLWGIELJSPlUT4lljo1w1OG/vCMvG8T1Ul4K7+28+SZd0U+CyzdhMGxhCWlGnVrqVtt8H1v6F4kb8go=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EyRugKS9; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MLWcctoc"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48434392b02so1375396f8f.3
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 00:16:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EyRugKS9"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d1fb0cf5eso13728065e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 00:16:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789370159; x=1789974959; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=g961FMFmva6MFSFgsk5zUmE0FV5DENfWVjlPpCRBaQ8=;
-        b=MLWcctocCuqQ3tHi+lkoDhF0hjrZid4KO6JLHCIZuSEb29Kxkz92oKTk5W88E3vcmO
-         tFVr728r4Y7lFKYaqcdVPmUvkZv3kjV49n9MghdTV5tqZ2yukRFilAlARWSy5FP48k7h
-         LBGE04xxKBuHtF+TazldyoEjrO51XEK3FXTaUBgsBofXhAYpc3vWSNZlpX2rPvi7z+c8
-         5Zid+ShKT5XPFlQRdTiw7No99Ha4kW8MACInXF+37q4awzdIy4rz+N8V/XTNZjYOahCU
-         ZWZSz1LitpmsFxX0NvRh9b8CBSR51mFWbhopcrjcwMY10bt6K4W6Pcbgd3zSkDTfyP16
-         Lfbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789370159; x=1789974959;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1789370163; x=1789974963; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=g961FMFmva6MFSFgsk5zUmE0FV5DENfWVjlPpCRBaQ8=;
-        b=P4CdcVdAaR/bOsBbu+cQbGisAEZ9lzycEKcYFgHXXatHLPse4/7t/EItA84rvkCyM6
-         waNi6oUajVmo56zG68fOWJVnZtd1RsfHG24DnlbulYrEGROYjrJxSBGfYvwcNmAXBfAd
-         ct9XXtnhKfY/btqDagOArCwy+L2YCSk6Napkki3rf2OxCz5vwDnrz/rPOe20Kr18v/Bx
-         tnBgYsunjXrfDUbEs6WvEdgsVVnFSMchzyqEgpaohFi9fGusJEUswqvG9JGnV3VML/lb
-         Ak7SfE4FJP4AzaIx0wYXnft/IcurfcDWKYBHYVDYPj+DLknMaRXwtg748IvhbagXz4et
-         t71w==
-X-Forwarded-Encrypted: i=1; AKwUvByCo57JoURjHHFM/rfxOpLQ5oITJKaFRHxAyITNKUEpg9H6taWhXEH6+gb/9oLlHEJB4Ne9oWus0jk1itw=@vger.kernel.org
-X-Gm-Message-State: AFuF++l4yXSz+nLZZ4//YIA8z+0lfPSLunDJml4hIakyCqeCWEHD887f
-	1eAdrIh2lhH0+p51012FRVqHcnJ/zfTXjxsosbx/G7WxKQl+0xyznQ7YJMUzCmPY
-X-Gm-Gg: AYBFou38LJpt6xcWzF/winy9xqDO28gd07IZxvvaDGrUIN0sV18AJfuZtu/jQTx3hbq
-	poDNFWU4KyoMM/djABKGCQzqOVUMZMw6kJOzIa6x2emu70Kgvgr7gq23JorhxHTXGne2G6GpQ3P
-	0RQWG2NBD1l0qM7dGQ/rLJwmsTuPTuL5m43FyGmhtTz+ifOPi9w4dKnZXO2tE5UXcCQnMtE8aEH
-	4ZDdQkyHm36AJKiqkeJ2shgHLJZlIAFOwpaKlVgEyww4yTa3/M6gsxm+n/CwAP6PgwFMzfVdDfY
-	nwePvBu14CJjueUf6QI4+V6bbv0NKikG8xDQlJP8hxK35yIPzV2C6/8xXM/43caxvk8D4b78/1B
-	vFt5sABP9qGnXtah6C+US+PvhMfrF5WMj8mqp3GRXdAsgR7S2LIQaQLOSfgr9dCGWhhdaNC1g6v
-	5jlfw9yatRF0l8VXpFdUlRdc+nPvndsFJei9LLXD2kbUaYQ1O88kKvaGE2dMGhTeKiOyhF7h/Kx
-	96aswXGUGyyFHbKUCb7XbgXGRMWpWW/0xf77ZNFwGz4VZwXH2E=
-X-Received: by 2002:a05:6000:25fd:b0:486:faa8:77f7 with SMTP id ffacd0b85a97d-48702ab91cbmr2670188f8f.9.1789370158955;
-        Mon, 14 Sep 2026 00:15:58 -0700 (PDT)
+        bh=CYDvBl7Hf5spaenerJy9kw2Xhfgsi5OoXNIquuHbSV8=;
+        b=EyRugKS9GCbkM5p6x9ZscNtVNToZLTaNyVuuaQR3fDtnmRBpYPwz3cnSx4txSSpL43
+         lv0L7kV7mjwpfc8gq3x3k4GA3myUduSISe0qMXVwFF6RTyPIN874QDjQfFc+nGolw8IA
+         tYhw6FBJhEv7UlW/j8/T19N68RLjTm9wyITvbEhd4CwGgyFIKSQFZe56ci1DCxX2uiM8
+         OYQKqpPhMv2eWAALKhpgl4hKimtEGXLuXSH7gD1uVmn4NUV+GKOpm+oLjs+LF4RGtNbq
+         Qxs3D7WeKHYmfqjjuaR5Uly17lO6ZnO627fCe1kz7qBw7pdBYmNvxp8pH6LlvxLYGSLP
+         FWXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789370163; x=1789974963;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CYDvBl7Hf5spaenerJy9kw2Xhfgsi5OoXNIquuHbSV8=;
+        b=MrPNq9uydOJaZO8ecVVvXJZZXcbH1mgjf82O9adc264pxUeO0dsgbN277ZEP5x7gPT
+         1T9lsMPGmteDf5L50Qa1KT9LxkAMOYxfnDAzye7IAur+x8nmaWaAnPnZW3+yChucLQ+o
+         egFPMPI6saipCZNgOqWU1pc7lKFo0uNLnsYxdhL92P2F7rox52UPtdpyHO1+Lk6bIq74
+         lIOkRin2REtUMMnrnPoQ2PKoNFwBmLBJAQZ+ROaZiHqJ2BtARpNVjN6xgvyJQy60+ild
+         gK5JHNpqxWkRzBNfMgARuhMLjT2RSnfJiggCHstfZnJSRlQZs6BOKqWeunfpflpjJ+G2
+         +O1A==
+X-Forwarded-Encrypted: i=1; AKwUvBwtzsEPV5oyloylp13MMyrPYRXcMCX50EshqkiJmTsgijrCA2gmwdiHnMw1WHgLedu9rwtxfF1QaGxBkjg=@vger.kernel.org
+X-Gm-Message-State: AFuF++kS3ZSAs0fL151U/iFaVsdcQg2oaBbSlanT+HUjvFaBRkonkBxB
+	dPIyGZiPKRyU/Cl+CbVSFdVm4GEVk6qt44ty/wLxM8EVSG/ifZVbcF1Z
+X-Gm-Gg: AYBFou2WoERFnzS4UyckJ9jceyTyDYJEmdk5DtZ4KPpi5Cux3IbAsjc+JHCg9GHhMtb
+	dhqZdxx2t09QF9FVzCHWN0REMMyXKBnlBS/QF/E7vPe4wSaFuNih9n0oQKWDv7j7fNQA3kEXLpm
+	f5fi7Husxxg4owgCaBSIl3bYR7zzXd9W7qKvPQgw72m648t07pz2pfcuL9+HjvhURuftZ133i++
+	K37A8cdD8d3xZLL6CrliarWlkw5sQJfthFXEIGHBigBti4mXW/bI4pmresk2BfYlxvn7cOPE3wA
+	5wLk/00j1TxTdAXTsfxhe559FZos7qncEaN6+ztcDcN2rDCRWAL7HiikwhrofuPChojyGkKjnoI
+	ilDYEDnNAr7y20XIKIsWpys8Ma3m9YkchY6k/Kh8p5Wxl2Al0gfF7ae+TGyTDYaDb++DnirLqsD
+	9sEFvLY8KcNdArUOik4YOTFePesmBoRZ3GLCWZlRjLsm5IsXUF7z5f4bot6A0BX5V25NV4oo3wp
+	56ZZXBpEpVxFug5qrOZW9KiosJOCIyPR38ULT5O
+X-Received: by 2002:a05:600c:8b6b:b0:49c:d52e:d0ea with SMTP id 5b1f17b1804b1-49e7a64acc2mr29705975e9.4.1789370163158;
+        Mon, 14 Sep 2026 00:16:03 -0700 (PDT)
 Received: from fedora-tap.advaoptical.com ([82.166.23.19])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb357288sm25161082f8f.29.2026.09.14.00.15.55
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb357288sm25161082f8f.29.2026.09.14.00.15.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 00:15:57 -0700 (PDT)
+        Mon, 14 Sep 2026 00:16:01 -0700 (PDT)
 From: Sagi Maimon <maimon.sagi@gmail.com>
 To: Richard Cochran <richardcochran@gmail.com>,
 	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
@@ -75,10 +77,12 @@ To: Richard Cochran <richardcochran@gmail.com>,
 Cc: linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Sagi Maimon <maimon.sagi@gmail.com>
-Subject: [PATCH net-next v14 0/4] ptp: ocp: add TAP CPLD support for ADVA TimeCard X1
-Date: Mon, 14 Sep 2026 10:15:51 +0300
-Message-ID: <20260914071555.11684-1-maimon.sagi@gmail.com>
+Subject: [PATCH net-next v14 1/4] ptp: ocp: unregister devlink before detach on probe error
+Date: Mon, 14 Sep 2026 10:15:52 +0300
+Message-ID: <20260914071555.11684-2-maimon.sagi@gmail.com>
 X-Mailer: git-send-email 2.47.0
+In-Reply-To: <20260914071555.11684-1-maimon.sagi@gmail.com>
+References: <20260914071555.11684-1-maimon.sagi@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -87,89 +91,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The ADVA TimeCard X1 (PCI device 0x0410) carries a Lattice MachXO3 CPLD
-on the TMC I2C bus.  This series adds access to it and an update path
-through devlink flash.
+devlink_register() runs before the dpll setup in ptp_ocp_probe(), but the
+failure paths after it went straight to ptp_ocp_detach() and then
+devlink_free(), which opens with ASSERT_DEVLINK_NOT_REGISTERED(devlink).
+Any dpll failure during probe therefore freed a devlink instance that was
+still registered.
 
-The card has two I2C controllers.  Linux registers only the one at
-0x00150000, normally routed to the config EEPROMs; the one at 0x00120000
-belongs to the on-card MicroBlaze and is routed to the TMC or M.2 bus as
-its firmware selects.  A request/grant handshake re-routes the host
-controller onto the TMC bus, where the PCA9548 and the CPLD behind its
-channel 0 live.  Everything here is built on that handshake.
+Route those paths through a new out_devlink label that unregisters first,
+matching the order ptp_ocp_remove() already uses.
 
-Patches 1 and 2 are pre-existing probe-error-path bugs that were buried
-in the feature commit in v13; they are split out with Fixes: tags, as
-requested.  Patch 1 is also a prerequisite: patch 3 adds a mutex that
-ptp_ocp_detach() destroys, so devlink has to be unregistered first.
-Patch 3 adds the bus arbitration and the read-only interfaces, patch 4
-the flashing.
+Fixes: 09eeb3aecc6c ("ptp_ocp: implement DPLL ops")
+Signed-off-by: Sagi Maimon <maimon.sagi@gmail.com>
+---
+ drivers/ptp/ptp_ocp.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-v13: https://lore.kernel.org/netdev/20260908122328.52641-1-maimon.sagi@gmail.com/T/#u
-
-Changes since v13:
-
- - The CPLD is no longer flashed through the firmware-upload subsystem.
-   It is a devlink flash component instead:
-
-     devlink dev flash pci/0000:02:00.0 file cpld.bin component fw.cpld
-
-   ->info_get() reports fw.cpld as a running version with
-   DEVLINK_INFO_VERSION_TYPE_COMPONENT, carrying the USERCODE of the
-   image in the part, which is also what makes the core accept the
-   component name.  No component still means the card flash.  This
-   removed fw_upload_ops, the adva-cpld.N node, the FW_LOADER/FW_UPLOAD
-   selects and the cancellation state machine - and with it a race where
-   a cancel arriving after one upload finished could abort the next.
-   Patch 4.  (Jakub Kicinski)
- - cpld_status now contains the names of the flags that are set, space
-   separated, and an empty line when none is, instead of
-   "done=<0|1> busy=<0|1> failed=<0|1>".  Patch 3.  (Jakub Kicinski)
- - The commit was split; the two pre-existing fixes it contained are
-   patches 1 and 2 with Fixes: tags.  (Jakub Kicinski)
- - The flash path now validates the state after REFRESH - DONE set, not
-   busy, and no sysCONFIG error - and fails the devlink command rather
-   than reporting success for an image that did not come back.  Patch 4.
- - adva_x1_mblaze_release() waits for the firmware to drop the grant
-   instead of writing RELEASE and returning, and warns if it does not.
-   Patch 3.
- - The i2c bus notifier only caches the adapter number for the card's
-   own controller, not for an i2c-mux child registered on it.  The
-   adapter is also resolved once from probe, because the notifier fires
-   from inside platform_device_register() - before bp->i2c_ctrl is
-   assigned - whenever the i2c controller driver is already loaded.
-   Patch 3.
- - ptp_ocp_devlink_info_get() checks bp->has_cpld explicitly rather than
-   relying on cpld_id being zero on boards without one.  Patch 3.
- - ptp_ocp_sync_work() no longer latches the one-shot ID read on -EBUSY,
-   so a read that collided with a CPLD operation is retried.  Patch 3.
- - Documentation/networking/devlink/ptp_ocp.rst documents the flash
-   components and states the accepted image format: a raw bitstream, a
-   whole number of 16-byte pages; .jed and other containers are
-   rejected.  Patch 4.
-
-Tested on an ADVA TimeCard X1: a full erase/program/refresh cycle of a
-6526-page image through "devlink dev flash ... component fw.cpld", the
-CPLD reporting done afterwards and still done across a reboot, and both
-rejection paths (a .jed image, and an unknown component name).
-
-
-Sagi Maimon (4):
-  ptp: ocp: unregister devlink before detach on probe error
-  ptp: ocp: fix dpll cleanup on probe error
-  ptp: ocp: add TAP CPLD access for ADVA TimeCard X1
-  ptp: ocp: add TAP CPLD flashing via devlink
-
- Documentation/ABI/testing/sysfs-timecard     |  28 +
- Documentation/networking/devlink/index.rst   |   1 +
- Documentation/networking/devlink/ptp_ocp.rst |  70 ++
- MAINTAINERS                                  |   1 +
- drivers/ptp/ptp_ocp.c                        | 774 ++++++++++++++++++-
- 5 files changed, 868 insertions(+), 6 deletions(-)
- create mode 100644 Documentation/networking/devlink/ptp_ocp.rst
-
-
-base-commit: 879e280b8486d4612ad1aa050d6fada2dd80cf1c
+diff --git a/drivers/ptp/ptp_ocp.c b/drivers/ptp/ptp_ocp.c
+index 3d26ec1f7b9e..401b04f12d2b 100644
+--- a/drivers/ptp/ptp_ocp.c
++++ b/drivers/ptp/ptp_ocp.c
+@@ -5119,12 +5119,12 @@ ptp_ocp_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+ 	if (IS_ERR(bp->dpll)) {
+ 		err = PTR_ERR(bp->dpll);
+ 		dev_err(&pdev->dev, "dpll_device_alloc failed\n");
+-		goto out;
++		goto out_devlink;
+ 	}
+ 
+ 	err = dpll_device_register(bp->dpll, DPLL_TYPE_PPS, &dpll_ops, bp);
+ 	if (err)
+-		goto out;
++		goto out_devlink;
+ 
+ 	for (i = 0; i < OCP_SMA_NUM; i++) {
+ 		bp->sma[i].dpll_pin = dpll_pin_get(clkid, i, THIS_MODULE,
+@@ -5151,6 +5151,8 @@ ptp_ocp_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+ 		dpll_pin_put(bp->sma[i].dpll_pin, &bp->sma[i].tracker);
+ 	}
+ 	dpll_device_put(bp->dpll, &bp->tracker);
++out_devlink:
++	devlink_unregister(devlink);
+ out:
+ 	ptp_ocp_detach(bp);
+ out_disable:
 -- 
 2.47.0
 
