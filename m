@@ -1,89 +1,202 @@
-Received: from mx2.cyberprotect.ru (mx2.cyberprotect.ru [176.10.93.31])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9577F47AF67
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:33:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=176.10.93.31
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FEDA47D92F
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:34:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789396413; cv=none; b=Rre/LF5MwXj7jVecuf3fcNWT5fnYRHVurgSRilvL2EZ+Z88GmMAeL5+LbKXwweWbq23cnI0RwsjHSvlkJBlb1lJItNMR2QlF2T3vw32hxOF4r8XiSnRXBtwYjwm04OhbJqDtkXwASZYw/MgVGMocuIqvx6axAt1z83Z8woY47I4=
+	t=1789396458; cv=none; b=LSXxeq8Pt3asuBUroY1pXO2vEr31uNsbMLqZOhYJaKtgoSIWdydlPAoU0Bfv/7GgG8/Uj/YcLnJCRa605ugCvUPut5ptb5eG/4D7xQtAic360ulI5NVfTdg46ezXohEmFJlA4R+xs/yPl0WRR2J1jBuITXVCnoem+sNqFrdXGEQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789396413; c=relaxed/simple;
-	bh=POz9V8rFIuePA/PFoYzgcxKHB0rfEPkaPZu/IZdfM04=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=GvVOms4DZ/VD+8NtBNjYUnXF/WSNOY6vKDCwOvS13VFAm1VSU4i6DlBrtJOjQbZHGCjqpBiibfE83vjQSxJUQHZreca2vbcG4ZYOdsDYioVjFRi8yTAcGvylTcflVTqC+s5XmCZ51T6eiPhXFOzQOIssdlaAKaUPYa5jc+0NEeU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cyberprotect.ru; spf=pass smtp.mailfrom=cyberprotect.ru; dkim=pass (2048-bit key) header.d=cyberprotect.ru header.i=@cyberprotect.ru header.b=IAV6QyNQ; dkim=permerror (0-bit key) header.d=cyberprotect.ru header.i=@cyberprotect.ru header.b=ySXOaoe0; arc=none smtp.client-ip=176.10.93.31
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cyberprotect.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyberprotect.ru
+	s=arc-20240116; t=1789396458; c=relaxed/simple;
+	bh=RVVORPPX4LHqCjOQicfqCDMLH6gSF3xGxhnnVVYzOTc=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=Go+ujuzo+4cbYifkq3iQgWuoZTi/4x/SiDulSSNDN/4EI5ejEAnyISedaAjAqi9WSyK5mCDXBb0Hkhm2zUJhkeouMxgr4o9fXZ348D9YPnSapQtXNbyQ/y5QdieMxIHOpGsmcvL+6943VLu8srRvjUn2OjlvANamScwj6QzH9jo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=PaoFkCYh; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=D7nIgm/X; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cyberprotect.ru header.i=@cyberprotect.ru header.b="IAV6QyNQ";
-	dkim=permerror (0-bit key) header.d=cyberprotect.ru header.i=@cyberprotect.ru header.b="ySXOaoe0"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=cyberprotect.ru; s=dkim-r; h=MIME-Version:Date:From:Sender:Reply-To;
-	bh=G7k+5ltUYjwES1HZ+tIrvRED7WHcVnAbVMsryiyMzYI=; b=IAV6QyNQXJUIg8acSVFC6THTCw
-	WBHaUHAPEEMCe/djnyt516IwdSuKhD4bzNXH6J7prLpCeT0LJ6EATfTgW/2wVX4tjzeRA6Uf4jB1D
-	Qf3fJfGkqhThFGfeMhdpzSb7ohUuICHI2NUQLutuxM5XvPFHLaYhF+gX/DWp6ofXVdoCjRJNL7rE4
-	MGRmceJXYPRSzRg0Xsnjy/yk4E1siAoK+X7YI+MfYmhkFVusE0mPHSAEfTsgbHTmFmxwWHVHn4Nlq
-	Eo6Pem+TONK6/x8WZXSPl0S7B7rmUMUyIBYaMyHSTCSGTqkDNee0aig5/3mxy9Z070t4ebVaSoCdL
-	fozrA4eg==;
-DKIM-Signature: v=1; a=ed25519-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=cyberprotect.ru; s=dkim; h=MIME-Version:Date:From:Sender:Reply-To;
-	bh=G7k+5ltUYjwES1HZ+tIrvRED7WHcVnAbVMsryiyMzYI=; b=ySXOaoe0A71bsidyk23w2to3m8
-	TRsAEjiBzayhV2sFsHMPC/03gAgfyQS+K+3EK1oQf9szHwJZcS8XFVwit/Dg==;
-From: Dmitriy Chumachenko <Dmitry.Chumachenko@cyberprotect.ru>
-To: Alexander Deucher <alexander.deucher@amd.com>
-CC: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David
- Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Hawking Zhang
-	<Hawking.Zhang@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
-	<amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
-	<linux-kernel@vger.kernel.org>, <lvc-project@linuxtesting.org>, Dmitriy
- Chumachenko <Dmitry.Chumachenko@cyberprotect.ru>
-Subject: [PATCH] drm/amdgpu: check ras and obj before dereference
-Date: Mon, 14 Sep 2026 17:33:03 +0300
-Message-ID: <20260914143303.90614-1-Dmitry.Chumachenko@cyberprotect.ru>
-X-Mailer: git-send-email 2.49.0
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="PaoFkCYh";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="D7nIgm/X"
+Date: Mon, 14 Sep 2026 16:34:12 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1789396454;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=5bry0cf6Nh1e5HxtUnLJ/8n5/WRMFzD4V3EDM/zDbDM=;
+	b=PaoFkCYhPHuTac7itjKqaKwmmr01cAMo+Au6KolBmQSAsZ/Vr/iHSHf3KIs/RgQUwgQtmL
+	Dm1zXNRlOONBSAzq86Aw+IcLaRdtu1tTiQeq+nVlMB86xzS1S4fNaoBExeNw5DeaJHllJQ
+	qlfPQrxZv+ehScvM9tK4ug74eLmHdkiAMVo/BuZKUCZ+y7xaFA++iuW+HKjKpkbKwN46gs
+	M/ZkP9MDGIyOqP9qAwMFBoTxOIxK5lljsIqh+aP2hlO2ER/PIMa77qJFN6kFgwT1Wg0dQv
+	8ZTqKUPWJnMzZzU7eXqPjUn2Uw0nwGIcx9B4vDIZe1FL9UJzo31+MhCHB+jUjg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1789396454;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=5bry0cf6Nh1e5HxtUnLJ/8n5/WRMFzD4V3EDM/zDbDM=;
+	b=D7nIgm/XF1touj8rhxTmbwI+ukzf0BgX6AwekxnEJRa+3oMr8nox958P/K1NsC1cpYiJRm
+	9+6IswOX2Z74xcDQ==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: linux-kernel@vger.kernel.org
+Cc: Petr Mladek <pmladek@suse.com>, Steven Rostedt <rostedt@goodmis.org>,
+	John Ogness <john.ogness@linutronix.de>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>
+Subject: [PATCH v2] printk: Use two irq_works instead per-CPU
+Message-ID: <20260914143412.1sMcp89V@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: AIP-EXCH-1.aip.ooo (10.77.28.101) To AIP-EXCH-1.aip.ooo
- (10.77.28.101)
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-nbio_v7_9_handle_ras_controller_intr_no_bifring() dereferences ras and obj
-without checking either for NULL. Both amdgpu_ras_get_context() and 
-amdgpu_ras_find_obj() can return NULL, e.g. during the window between 
-adev->nbio.ras being set (early in amdgpu_ras_init(), by design, to 
-enable the fatal-error interrupt as soon as possible) and the PCIE_BIF 
-ras object actually being created in RAS late_init. Any interrupt in that 
-window crashes in hard-IRQ context.
+In commit b845b517b5e37 ("printk: robustify printk") initially got its
+delayed wake up which is today implemented via the irq_work. Back then
+it was a variable which was assigned to 1 if a pending wake up was
+waiting. This variable was checked on each timer tick. Therefore it
+makes sense to assign a per-CPU variable with this task to avoid cache
+line bouncing when each CPU reads the variable on each timer tick
+simultaneously.
 
-This is analogous to commit d190b459b2a4 ("drm/amdgpu: the warning
-dereferencing obj for nbio_v7_4"), which fixed the same issue in the
-nbio_v7_4 handler.
+Today we have a irq_work which is enqueued onto a list and handled if it
+has work items assigned. This list is already per-CPU.
 
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
+We could replace the per-CPU irq_work and the per-CPU printk_pending with
+two irq_work structs: One for PRINTK_PENDING_WAKEUP and the other for
+PRINTK_PENDING_OUTPUT.
+While unrolling the conditions in __wake_up_klogd() it becomes obvious
+that PRINTK_PENDING_WAKEUP is always passed as an argument but never
+checked. The return value wq_has_sleeper() of does not really matter
+it's sole purpose is to enforce the needed memory barrier.
 
-Fixes: 7692e1ee2446 ("drm/amdgpu: add RAS fatal error handler for NBIO v7.9")
-Signed-off-by: Dmitriy Chumachenko <Dmitry.Chumachenko@cyberprotect.ru>
+Redo the irq_work by:
+- Use one irq_work (pending_wakeup_work) for klogd wakes. Schedule it
+  only if there is a sleeper waiting.
+- Use one irq_work (&pending_output_work) for output printing. Schedule
+  it only if PRINTK_PENDING_OUTPUT passed.
+- Drop unused PRINTK_PENDING_WAKEUP.
+- Remove the preempt_disable() section. Its purpose was to ensure that
+  printk_pending and wake_up_klogd_work is accessed from the same CPU.
+
+Worst case is defer_console_output() where two irq_work are scheduled but
+those get processed one after the other during the HZ tick so it
+shouldn't get worse.
+
+Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 ---
- drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
-index 8e401f8b2a05..2b3a1b9f8efc 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_9.c
-@@ -518,7 +518,7 @@ static void nbio_v7_9_handle_ras_controller_intr_no_bifring(struct amdgpu_device
- 						RAS_CNTLR_INTERRUPT_CLEAR, 1);
- 		WREG32_SOC15(NBIO, 0, regBIF_BX0_BIF_DOORBELL_INT_CNTL, bif_doorbell_intr_cntl);
- 
--		if (!ras->disable_ras_err_cnt_harvest) {
-+		if (ras && !ras->disable_ras_err_cnt_harvest && obj) {
- 			/*
- 			 * clear error status after ras_controller_intr
- 			 * according to hw team and count ue number
--- 
-2.49.0
+v1=E2=80=A6v2: https://lore.kernel.org/all/20260911103832.w6C8cT4L@linutron=
+ix.de/
+  - Merge the preempt_disable() removal bits.
+  - Keep the printk_percpu_data_ready() check. It is needed to to
+    corrupt the irq_work lists.
+
+ kernel/printk/printk.c | 53 ++++++++++++++++++------------------------
+ 1 file changed, 23 insertions(+), 30 deletions(-)
+
+diff --git a/kernel/printk/printk.c b/kernel/printk/printk.c
+index 6d3d18a50da74..d5cfd56f1a001 100644
+--- a/kernel/printk/printk.c
++++ b/kernel/printk/printk.c
+@@ -4593,31 +4593,26 @@ bool pr_flush(int timeout_ms, bool reset_on_progres=
+s)
+ /*
+  * Delayed printk version, for scheduler-internal messages:
+  */
+-#define PRINTK_PENDING_WAKEUP	0x01
+-#define PRINTK_PENDING_OUTPUT	0x02
++#define PRINTK_PENDING_OUTPUT	0x01
+=20
+-static DEFINE_PER_CPU(int, printk_pending);
+-
+-static void wake_up_klogd_work_func(struct irq_work *irq_work)
++static void pending_wake_fn(struct irq_work *irq_work)
+ {
+-	int pending =3D this_cpu_xchg(printk_pending, 0);
+-
+-	if (pending & PRINTK_PENDING_OUTPUT) {
+-		if (force_legacy_kthread()) {
+-			if (printk_legacy_kthread)
+-				wake_up_interruptible(&legacy_wait);
+-		} else {
+-			if (console_trylock())
+-				console_unlock();
+-		}
+-	}
+-
+-	if (pending & PRINTK_PENDING_WAKEUP)
+-		wake_up_interruptible(&log_wait);
++	wake_up_interruptible(&log_wait);
+ }
+=20
+-static DEFINE_PER_CPU(struct irq_work, wake_up_klogd_work) =3D
+-	IRQ_WORK_INIT_LAZY(wake_up_klogd_work_func);
++static void pending_output_fn(struct irq_work *irq_work)
++{
++	if (force_legacy_kthread()) {
++		if (printk_legacy_kthread)
++			wake_up_interruptible(&legacy_wait);
++	} else {
++		if (console_trylock())
++			console_unlock();
++	}
++}
++
++static struct irq_work pending_wakeup_work =3D IRQ_WORK_INIT_LAZY(pending_=
+wake_fn);
++static struct irq_work pending_output_work =3D IRQ_WORK_INIT_LAZY(pending_=
+output_fn);
+=20
+ static void __wake_up_klogd(int val)
+ {
+@@ -4631,7 +4626,6 @@ static void __wake_up_klogd(int val)
+ 	if (WARN_ON_ONCE(console_irqwork_blocked))
+ 		return;
+=20
+-	preempt_disable();
+ 	/*
+ 	 * Guarantee any new records can be seen by tasks preparing to wait
+ 	 * before this context checks if the wait queue is empty.
+@@ -4643,12 +4637,11 @@ static void __wake_up_klogd(int val)
+ 	 *
+ 	 * This pairs with devkmsg_read:A and syslog_print:A.
+ 	 */
+-	if (wq_has_sleeper(&log_wait) || /* LMM(__wake_up_klogd:A) */
+-	    (val & PRINTK_PENDING_OUTPUT)) {
+-		this_cpu_or(printk_pending, val);
+-		irq_work_queue(this_cpu_ptr(&wake_up_klogd_work));
+-	}
+-	preempt_enable();
++	if (wq_has_sleeper(&log_wait)) /* LMM(__wake_up_klogd:A) */
++		irq_work_queue(&pending_wakeup_work);
++
++	if (val & PRINTK_PENDING_OUTPUT)
++		irq_work_queue(&pending_output_work);
+ }
+=20
+ /**
+@@ -4663,7 +4656,7 @@ static void __wake_up_klogd(int val)
+  */
+ void wake_up_klogd(void)
+ {
+-	__wake_up_klogd(PRINTK_PENDING_WAKEUP);
++	__wake_up_klogd(0);
+ }
+=20
+ /**
+@@ -4684,7 +4677,7 @@ void defer_console_output(void)
+ 	 * New messages may have been added directly to the ringbuffer
+ 	 * using vprintk_store(), so wake any waiters as well.
+ 	 */
+-	__wake_up_klogd(PRINTK_PENDING_WAKEUP | PRINTK_PENDING_OUTPUT);
++	__wake_up_klogd(PRINTK_PENDING_OUTPUT);
+ }
+=20
+ /**
+--=20
+2.55.0
 
