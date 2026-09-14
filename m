@@ -1,189 +1,130 @@
-Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com [209.85.221.181])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B0DF377A85
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 22:49:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.181
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789426152; cv=pass; b=mZpzbZQTW60nlGvoS8AMevys0rMfXu2TYojq3SOQy4yIXaZcE1uYivaoRyMV4qK2CTyQMdqBi0c4WdoplPC1SPPCBJ+wkM3VCov263iKeKLTOHdGc5etufkQxvh40rDJrIN/35UCJ/3gMg/6UUD5gdyyeEG3NyrA9FOtTd5Mo2U=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789426152; c=relaxed/simple;
-	bh=Gb8DWQjrs9f+P3wLgZ+RgMWcDCFnHm5XHmUmq+Bd4U8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nd4M06M92mvWFHM+axTw+WOSi6lL9Z+a7xtEYKd7R4gBt6Qh8cc4mJZPf3g8CX+7BCCbX9QvXKQhmISZOdikSNMJLLvKVTL0jiK3mNi0TwEBY2UDCgTqJFk/p1iFMHgT5DxtYX+bFCVNU6P4GaJ3w8wTm0QFlAAk2fz0dzSXCy4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oyPsWtY+; arc=pass smtp.client-ip=209.85.221.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4CBB1F4176
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 22:53:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789426391; cv=none; b=fSAIIcVIVfXk7c5quCBtQS4XAQakNyqblRYb0kRPg8AJ8cVLmTn5XuKGX0Tvfym9gg4fsaVdp9ncjfIh6f7VpkdU3gAmpmr0FVY80c4WFEOEqKYw+zN8hihTSgNN5SBotnUYY+rbo/vl6noyesRuVghRDh/nmR6WbwohEDATtZ8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789426391; c=relaxed/simple;
+	bh=KlxV2Pj0K5nL5vnXASHLfOrdYtgNJknFNJmAfAcO8Ws=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=smD/D05b3mxre6G2UibO8OBdBrC/wkZmGPb/VG5iHcKBsNzhgvsIIROpcuF3D5IJZBi8T19s6XytSTJl3fq9Ua9aE2iiRMpNi7o4A7/e0lcUauq5gbAZVsw3/ubPxdEkWqjbdqeUYJIYPamEiojHnd355ULgm5NbYNHf01nLXgQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Mu/LWdBk; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oyPsWtY+"
-Received: by mail-vk1-f181.google.com with SMTP id 71dfb90a1353d-5c84060045aso1692147e0c.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 15:49:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789426150; cv=none;
-        d=google.com; s=arc-20260327;
-        b=No3R+iiaJmBQTfgKrhIR4oAWg8qRwxqmdnrVB4bPRaa7P0oBWxG7ox7Rm5ldDW0n8/
-         0BpJ0XtttsXOQ9Ox6I3Y57Om3+iVt6F808S9QFdKl3HVgmu+ctHf8yU0xl2L74itRZX+
-         3c9/MyyDTxp9LP65pkutXty7kNwKa+dQN8XtCxSwYIAHY4kg33/Z2RX5rDrRYQFYsTc9
-         1Uo1ovTtWIdJBlYIHcLkzpO25pPmEdVzmVgT6vu6OVS/Ncjn3y3owV1XB5CJ602OCLgJ
-         D30bnD8OYBQutYEA+BtPvsrzFysM6PNMuC9Mt6Mtfwq2xltPmIdZc1769JFvQO9UJBKj
-         UVqg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Gb8DWQjrs9f+P3wLgZ+RgMWcDCFnHm5XHmUmq+Bd4U8=;
-        fh=HN0+20NPzeHuODKkowPIbeLq2PBosHlLPDFkOfrnudY=;
-        b=VXMGzQOXq5YMSwVXl0Q3t4vmC5146G4PRNTcnsXcvawgW76ai7qDT/k2y6wBsc+lGG
-         Hgbw7sZMdWoxlntNfpp1RH1LxRpmCJHNML0vy3VCfkSfd3mCkmB3JUePEaNMzSWX1Yfi
-         UElzwxqYRzzMNK5ophmuWJgfdfsCDOfgLhSVADt95f0RM2OZ3D2aWAWmSqg7NljYheSM
-         6HGZxHxCwWkxhDeo08MU2EDaDi7oPlAShZj5N7fJrhicOUMo/av09U43sVadX8yFMTP+
-         q5qVUSzy2ySIRx/g/qNDnXMEEyMgRQXkB1vZb7MtL6P70gpGfufFYrqjfbCJy6Yht4BQ
-         xkrg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Mu/LWdBk"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccb652d7so1943940a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 15:53:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789426150; x=1790030950; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Gb8DWQjrs9f+P3wLgZ+RgMWcDCFnHm5XHmUmq+Bd4U8=;
-        b=oyPsWtY+1hS3t8V8z9RpnsZRLnxIV9qtcOHvrQbtUBmUMe7f1xz7MLjUN7a8o16jRY
-         3bFyo4+PDeK/3L22Gn/aetbXQINkdcsE5fMW9ON73sFbQmENKaMxjaDPxfkbHSa8WnD0
-         UPYsY+oJ4CSzzmudPYyramALSGrPll0WxysYDnleDKRu18YfpTonHcUntjCrhi+fknM1
-         S4n4lPai/yV6NoSARkvrE9YnKt3eJZHt7DeqLTksX8yPG/kGzAKKDTL8suIyPKB9SQSz
-         hrnNO477Kld+wk16uJCB5UJzPr2hi+eqKjWGZ+eom9oZs0kaojNuC8rPYBiV6WD61dl3
-         fVbg==
+        d=gmail.com; s=20251104; t=1789426389; x=1790031189; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jhhKoo70grDYRK8Pz7Zy3Z2uy/lwES5xu5hc5Ox6dio=;
+        b=Mu/LWdBkrqSdDnYbgqMxcUDYuXO0B9969fWjTLrUu2VPS7Ex/eWo8SilBeWRpYe9Ta
+         6zjWtzZWKuJY5e4gZLg0zu2H/Ox1TqRwMIW+CArybIyEkCMgE36pBi2NTBYHLz785mFs
+         w+7zxZUyofXt4muDlsrZvvxr/DO63OIJRfOZj67NJQPBo4EXas6p3rg22KlPzj0CI7gq
+         lQM26g+9P1QuU1TFztDTYdvGLupaYO+MK4tCZsm/GI95drYM303BxMApEofpXtqV/pP8
+         Jj1fT35SD63YSbrciabGneWgaf3laZpP7bkwUVEoUvcfHTB2Jr06Voa8b8tPrLL2Cndo
+         lPHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789426150; x=1790030950;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Gb8DWQjrs9f+P3wLgZ+RgMWcDCFnHm5XHmUmq+Bd4U8=;
-        b=Oz+JCH+S2d1yrbc27UZBbtRkAZgVi3WttyMTyeYtldWYajyhitF0Gs6lxirMx9+ShN
-         PJ4mAbBK22NrlDWShEjLXqzCJi9m2nzTieKeKUV2oaewvLjzU+1YD8H1GtkjVSytIIM3
-         CTYGYN3CaAf7/URDAqO31n74ga1k1D52hZfrj4gWfRpTlcMlf06m5gYJn7HO3dHvHyUP
-         GzGcEn2b3wCarTetLPJfgRxKbllG3oddLKWmtnxnogoWsL3vkBcg8Bg67ZLijA/EYq2I
-         B3HqqQ5QctmmqkydgQyIJ613qwPuNyK1gg4S38GeAzORH9NLZrAVU5EvSKwZ0Fp61ZqG
-         yz/Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwAOz2jFwuHxiIv5slQe17OuoQFOFlWYx6R/BCnsaXExrhY2MQqb9ATNmx7v180zB9e+3vBmIyPGgw6aOw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kFIBHLzXE0pWDtdCHhx8E9uisynX3LkqMNU9hBmW6JMKfGjv8w
-	eoOzgwcd1Gr1Lzl6TfxpNWPWGY7USLjlfPu1DJ4RNLeUzUc5BI7NzNp1ZTjrEnJcikbnrqjTlsN
-	tI1bA+6p/PuotbZm40b4cQI4tWsPztpk=
-X-Gm-Gg: AYBFou3uPssPXVWErhL6Kr6CYizPy/LjD7igCEk3lb5n5SzP5Q0OmhcG2cKbDWFX0SI
-	r3Mpro+RlcsP1qSYTMohZs3/3PIQerwNEyygaSWSsWEz7vO31yOoQTorWhmiyB8K+gmZlmQ1cyU
-	9z7MBHnlRmtl7Of46bzw//wD6ETkGwYIUPuhuvZ6als7XiLJnJd3phsup1TDS/aZc8eTqAE3QiA
-	kL1DRnh3kSV9/J57ybs4CDLlnPJWVG1305LP13F9DT75OhrT1CvXs2hUc/Clf0o/HPftIQ9uy2N
-	i7zKnXOoHe5A4Lxksj9P+ox2P9r4CWb9GCh3YOVzUq4bceTiZNobFOH63Tp8ZyenTR8uplBfGg3
-	r+B2lstCkrdVDDl7f3VqZAW0wQhIVbP1R+AcK3e2DV3obgkM/MORXYntRGfuBU9fiIVvJoX30C9
-	TH/HNJcKIKL/m386K0cPcFzZfNP7tRiTSBZ2Y1ZJUl1Q/FDuqE
-X-Received: by 2002:a05:6102:4492:b0:77a:d089:3dd8 with SMTP id
- ada2fe7eead31-79b60973580mr409096137.12.1789426149941; Mon, 14 Sep 2026
- 15:49:09 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789426389; x=1790031189;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jhhKoo70grDYRK8Pz7Zy3Z2uy/lwES5xu5hc5Ox6dio=;
+        b=YEh4bKB2MKUh5r0okznbqyavbJwOoQMhGMWvkEWg+EfbU1xypIdY1YMiDYKyxbVPeC
+         Lu+Q11uNdE4W6gLdDo3ETSLQ9a15vZdhtbrUs2CA8ooSnhsXbDuSsqql2Q/PRA8gDMwR
+         EH3xDDBtyPYddY5yz9p4eTQhv5VcCXhwAu661zNRXvAdPcJtQ4urS0XnZTeLLVGFi4i6
+         F+ir55nA626GbTuUE4X7+WVigs0WGwYqat5+PKI/Ik3VSFdH9H7Az3g3RebNcaS8iXht
+         Et3m17qDiOR+lwqQt95VLyFLUCrA1ob9PQDFa1AUIjOOhH74OF+VqiFXMIcpnP4PeB+3
+         BvZg==
+X-Forwarded-Encrypted: i=1; AKwUvBw+fhfzYwqkXhNmls5iORjv40cHtUuYKRD2lHo6NbZQ02DtXS0V1dEXHgEtdK10JwcgHOHMZfq95SjQOZ0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kHW+hU/WHkBn8j2H5wCUH8f2V6c3A9zs27S/NXJkVzrYWNMu3J
+	SrAuY58Vr5+2BqLKrTMq42U2G7jLiKp1JBkXebKBGbdSqTVSLc8cfoJB
+X-Gm-Gg: AYBFou0tOyz/nQT66T+o8rGmq01n4bizfKxPqlpmrNxiz6on78VLHzLKZI3wLm3nZXv
+	n5LyMELJUVoQrpFeckhy+udYNyzSpLGSza/Hw0kKmB01K6GWmxtjhmNbeoWME2oH0YxrqA713Kl
+	yA2cNtJsUwfm24FT4vCCACuyjPm4/jgN2kfEDoD7GfJ7xL0g7CbmDKLzc816ZYtCloVfWhc2T2o
+	xOLhCx0fn0M+pNhTfkF1fDPKXaB0UvBDiPlKNJ32OaL4puv90P7KJVqsbVuPBR6GtZOisXRp6xR
+	WqN37jD5oMZ1AIBXyL7vnaT9S0t/mlhWaELfrl+oisrLtpqJG0gQUJuTbjK/HW1XOk6EgbUPh70
+	+7djpW2myAx6UKJhNd3iXvY/e1CtqD2wPVWdqZvbc5Re2Wmw2x9Kn75vtsTcJb3H73yc0FgfK3G
+	G85hkf/k0Hx4tieoL0InJxhvkW6YHCp+qgj+EZRyZjXblptMcmdo+G9Ad4gWVDTVKGTpqBDOsXO
+	3HVcpTI/PdVV4JJkIDhMzoYby5d7DbFfYDMqWFi5JNeZFAt6rs2
+X-Received: by 2002:a17:90b:35ca:b0:39d:fb87:569f with SMTP id 98e67ed59e1d1-39dfb8757a9mr4035491a91.12.1789426389288;
+        Mon, 14 Sep 2026 15:53:09 -0700 (PDT)
+Received: from lappy (108-228-232-20.lightspeed.sndgca.sbcglobal.net. [108.228.232.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bbeb053a5sm14924296eec.27.2026.09.14.15.53.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 15:53:08 -0700 (PDT)
+From: "Derek J. Clark" <derekjohn.clark@gmail.com>
+To: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: "Pierre-Loup A . Griffais" <pgriffais@valvesoftware.com>,
+	"Derek J . Clark" <derekjohn.clark@gmail.com>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	kernel@lists.opengamingcollective.org
+Subject: [PATCH 00/10] HID: hid-lenovo-go-s: Fix various bugs
+Date: Mon, 14 Sep 2026 15:52:53 -0700
+Message-ID: <20260914225303.868569-1-derekjohn.clark@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260904-submit-sunxi-nand-vendor-oob-layout-v1-v2-0-b12074f4aca7@gmail.com>
- <20260904-submit-sunxi-nand-vendor-oob-layout-v1-v2-2-b12074f4aca7@gmail.com> <87ik4fu4fh.fsf@bootlin.com>
-In-Reply-To: <87ik4fu4fh.fsf@bootlin.com>
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Mon, 14 Sep 2026 16:48:58 -0600
-X-Gm-Features: AcwNN1UlC9FxjgijfoClAvZzNG8RBzvUoNkXu_nF9VDV4LFTu4fZlyRKfp3tTWs
-Message-ID: <CADvTj4pH8KvTmsxOXO8JQYCQmKf2OA__eqvYXrM+1=vjq0368Q@mail.gmail.com>
-Subject: Re: [PATCH v2 2/3] mtd: rawnand: sunxi: support randomized OOB formats
-To: Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
-	Maxime Ripard <mripard@kernel.org>, linux-mtd@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 8, 2026 at 9:51=E2=80=AFAM Miquel Raynal <miquel.raynal@bootlin=
-.com> wrote:
->
-> Hi James,
->
-> On 04/09/2026 at 15:22:12 -06, James Hilliard <james.hilliard1@gmail.com>=
- wrote:
->
-> > The controller randomizer covers the bad block marker along with the
-> > rest of the OOB data. The driver currently compensates the marker bytes
-> > before writes and after reads so that they remain plain on flash.
-> >
-> > Allwinner NAND firmware instead stores the marker through the
-> > randomizer. Media using that format appears to contain bad blocks unles=
-s
-> > the randomizer is enabled while reading the marker.
-> >
-> > Honor the allwinner,randomized-oob property by marking the NAND as
-> > requiring scrambling during normal hardware-ECC transfers and leaving
-> > the marker in the randomizer data stream. Keep the existing plain marke=
-r
-> > behavior when the property is absent. Reject the property with software
-> > or disabled ECC because those paths do not operate the controller
-> > randomizer.
-> >
-> > MTD_OPS_RAW behavior remains unchanged: raw accesses bypass both ECC an=
-d
-> > randomization and expose the physical representation. The raw-NAND
-> > core's bad-block and flash-BBT paths use decoded accesses and therefore
-> > continue through the hardware-ECC/randomizer path.
-> >
-> > This changes marker handling on all supported controllers; the H6/H616
-> > protected user-data placement is handled separately.
-> >
-> > Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
->
-> I believe it is still not completely working. If you look at the error
-> path in the read functions, in case we face a factory bad block, there
-> will be no data, we will face the "page is maybe empty" case where we
-> still address columns like before. Since data is randomized with these
-> accesses, I believe we would return errors which will not be interpreted
-> correctly by the core. The discovery of the factory bad block markers is
-> thus broken during BBT scan. But a BBT read is also broken, because even
-> if errors are ignored, we perform pattern matching on data which is, if
-> my understanding of your implementation is correct, not de-randomized in
-> this case.
+This series fixes various bugs in the hid-lenovo-go-s driver
 
-The erased-page fallback could overwrite the decoded buffers with
-physical randomized bytes before the core inspected the bad-block
-marker or BBT signature.
+Patch 1 fixes a dropped error on return from mcu_property_out()
 
-In v6 [1], both PIO and DMA preserve the main data and protected OOB
-from the original hardware read in randomized-OOB mode, including on
-uncorrectable ECC errors.
+Patch 2 creates a mechanism to ignore stale responses if they timed out
+in the previous command.
 
-Erased-page classification uses the controller-specific vendor
-spare-byte heuristic without a raw reread. Accepted erased pages
-return all-0xff data and OOB; all-zero physical pages instead retain
-a bad marker and an ECC failure. Other uncorrectable reads retain
-the decoded buffers and report failures through the ECC statistics,
-so the core can inspect the marker and BBT pattern.
+Patch 3 fixes a deadlock if the device is removed while cfg_setup() is
+running.
 
-I verified this on H616 using the actual NAND-core BBM and BBT paths
-through PIO, DMA and forced split-DMA reads. Signature searches
-retained the decoded pattern despite ECC errors, while table loading
-rejected an uncorrectable primary and successfully loaded its clean
-mirror. Correctable protected-OOB cases and BBT creation/update also
-passed. Hardware validation is limited to H616.
+Patch 4 adds missing pm_ptr to the reset_resume function pointer.
 
-MTD_OPS_RAW remains physical, and the existing plain-marker
-erased-page check is unchanged apart from the prerequisite
-error-handling fixes.
+Patch 5 adds a kobject_uevent notify during reset-resume to ensure the
+os_mode return is caught by udev.
 
-The series grew because this work exposed existing bugs in the shared
-PIO/DMA paths: error propagation and cleanup, IRQ/completion ordering,
-OOB indexing and program-command handling. Those fixes also apply
-without the new property, so they are split from the format support.
-The final patches are separate optimizations.
+Patch 6 adds a suspend callback to cancel delayed work and re-queue the
+cfg_setup if the device was suspended prior to or during the work.
 
-[1] https://patch.msgid.link/20260914-submit-sunxi-nand-vendor-oob-layout-v=
-1-v6-0-2fb084fe0751@gmail.com
+Patch 7 moves attribute init to the end of cfg_setup, ensuring the
+attributes can only be used once the MCU is ready.
 
->
-> Thanks,
-> Miqu=C3=A8l
+Patch 8 reorganizes hid_gos_cfg and renamed it to gos_cfg_drvdata in
+preparation for later fixes.
+
+Patch 9 moves the static led_classdev to become a member of the drvdata
+struct.
+
+Patch 10 moved drvdata from a static global to a device allocated
+struct.
+
+Signed-off-by: Derek J. Clark <derekjohn.clark@gmail.com>
+
+Derek J. Clark (10):
+  HID: hid-lenovo-go-s: Return ret instead of 0 in mcu_property_out()
+  HID: hid-lenovo-go-s: Bound stale reply window before reusing
+    send_cmd_complete
+  HID: hid-lenovo-go-s: Prevent deadlock if device removed during setup
+  HID: hid-lenovo-go-s: Use pm_ptr for reset_resume callback
+  HID: hid-lenovo-go-s: Add kobject_uevent notify during reset-resume
+  HID: hid-lenovo-go-s: Add suspend function and gate access under bool.
+  HID: hid-lenovo-go-s: Move attribute init to after device query
+  HID: hid-lenovo-go-s: Reorganize and rename hid_gos_cfg
+  HID: hid-lenovo-go-s: Move static led_classdev_mc to drvdata struct
+  HID: hid-lenovo-go-s: Use devm_kzalloc for drvdata
+
+ drivers/hid/hid-lenovo-go-s.c | 655 ++++++++++++++++++++++++----------
+ 1 file changed, 473 insertions(+), 182 deletions(-)
+
+-- 
+2.55.0
+
