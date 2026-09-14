@@ -1,72 +1,87 @@
-Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com [209.85.161.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DC20374A19
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 05:00:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80EDF36F42D;
+	Mon, 14 Sep 2026 05:01:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789362005; cv=none; b=poxBrESdkcsocx6Kxi1n0XxjnDV/duMKkYRImb1u5kqWzjIVkfexuBooQVuVigeBNVCT6fYtAo8VrhyQCYFY1k5tWg1YNoPPf4zQc3c/h1NcKlTSqOesnFL0ia8OE26kxTBGdbdU0ZXb1G3oLn4jQ9aMwjd4GQce7icPSkcOob8=
+	t=1789362072; cv=none; b=H+w0yuZH9mDbQKN68ML9IgJTTMNGXII2yLHc8EqaXg50XlY4q3F+7ITRN9hJpOTCjY0mJ+zJdWXZR1ThCWPSXuOEG1PxPth4rei12Ax3iufKDOw7J4ENH5tQo9okrC6wxIHLuroG6AT17piX5sAQl7ZxfxqdKOA0R56cLYEVf1Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789362005; c=relaxed/simple;
-	bh=+qGTfXQ72hDo8KqgYPLQqvXC3eoa9t6/GitKkY9mfdg=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=F+4iCDZl5TeZ9E+Ff7eGDDBlmGxRYMfvHT1jHuk+BkJhmtO4WvtR6AbtrrKXc2vTg07lt0oqvoQ5Yz+MjBjdns63QmydPMjvL0QJyXQTzaK//Yovfi6/qmGs/i+3B7iWoiuWDd/kK66hw5ukqQXJSR1amD+5X+VqPM/2iyH/PKc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-6b1a3f01d2aso4153719eaf.1
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 22:00:03 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789362003; x=1789966803;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=uvyyp8aT5OPXZOMgHgLe47YDfIPubbSxWbK2VVUgQeQ=;
-        b=nEz6cSFCN4ampY97xGHGGAS9c+OJAqPNZ85qVFtNmzYMRzVPNOTstNrtPAMbxia9FP
-         zoXngPgs9JvrezJGeVtC3pAOFhRccvzXMTQhTc2ZtbahKTi3ZwiPe70YttWQkzN+bpmP
-         wOJ7tPNmYcTBCHzaWtifvDYTUjnGvt1CLZ9abGxTK+Byz/yMK6QZmWEs4SCWxu8LVtib
-         XQST6o4/rmdo1SxEcUiAXxCeWhQINt9le8i7Y06sxHhpSs1/zef+SU5ydX12XEdw01Ek
-         PEhgBptYR4mJfUxjRLkcQbJ9DrIJyhWuTDym6Xcnm8mohakXdN/G5g4D7Mn+dUwXPfTB
-         uAWA==
-X-Forwarded-Encrypted: i=1; AKwUvBxnsaRiWfK6J3UALY1jpNEw0D6fFPWp0/dhJ+z8FgeOgopFp72D8rIuNLyCOkAlMXro1hxANx67iFyRdS8=@vger.kernel.org
-X-Gm-Message-State: AFuF++nPUTMmQJEmtf8h2YvC0sTcb8KqoGIW3WqMf2m3h+htv0I1trN6
-	DY5PivBs5ZyS7FNUHuWMx4T+rJyoJsLWE7rvzEyDAUEKly960T80QIoTGOzlem6uzaqVRm21y45
-	Pn2rsA1m3JW4Ex5fzc5taZSy2obtdENJ7+kLnrOUPjQ/S17II54NmSgj2oWY=
+	s=arc-20240116; t=1789362072; c=relaxed/simple;
+	bh=rl1Taj6AjWu6rTiKiDblKEGYsSPMRPXyhM1T3hd2MfE=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=SWBBpS7mmM9xBYw0tFXIRygEbhR+V5bTMDE3oSgtOe9KENyJjScFbhzL/qes1jzHIBM7VscZNN7Vbl9gS6ngi+UECVUZMRdFihrv0KUz8DklK5XpGuYURO3pRgvpdBLy7MOFHB5T4tlWvPXmcHeiPZN+7N6M8ecr25AR2TX9PvY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MzfrEe12; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MzfrEe12"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36FE51F00893;
+	Mon, 14 Sep 2026 05:01:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789362071;
+	bh=awjZKh7j/ZRrPK+GXT6udEHhIXB9OMAIaNBEONO6aO4=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=MzfrEe12hYSqbGVTplWa4njgyWOrfqH7Bu4RHAp6yEb8dnGCFMV/sLgfs+a4N7Q0Y
+	 m7vjGW1XU4foQpTw48Fu9PGF2fB8rTymKQ7nYTu4GaCSLCliipPxN2LfnWwx8KcU4E
+	 qjm5eaBQ7KNqlAz3C+j6Xs7ayTFFvaUBnxOqJIWqKtclQ+TkFgxTfqK21IfCYDyqML
+	 tqUG5ItUIvt7xZw1Ab931fdECl0ewhSrYP9aprus88AJ6wPOyYGAgiIAv03t6M0T8t
+	 ohwjI7O5RKPARbcZhh2tBsiUSx0P8SJmo8UHeoOK9yo8PQytXTXMMJFOZZ5akMgH9t
+	 KBzPGYVW+KP+Q==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0AB9380AA63;
+	Mon, 14 Sep 2026 05:00:07 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a4a:e847:0:b0:6be:19a6:fe60 with SMTP id
- 006d021491bc7-6c54203f16amr445662eaf.41.1789362003142; Sun, 13 Sep 2026
- 22:00:03 -0700 (PDT)
-Date: Sun, 13 Sep 2026 22:00:03 -0700
-In-Reply-To: <20260914042236.27687-1-kartikey406@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa77f53.f81106d8.2ab401.003b.GAE@google.com>
-Subject: Re: [syzbot] [raid?] UBSAN: array-index-out-of-bounds in super_90_sync
-From: syzbot <syzbot+9e3014263a35700ab49b@syzkaller.appspotmail.com>
-To: kartikey406@gmail.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH bpf v3 0/2] bpf,
+ arm64: fix the exception callback's frame pointer
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178936200639.325205.5759223935386282492.git-patchwork-notify@kernel.org>
+Date: Mon, 14 Sep 2026 05:00:06 +0000
+References: <20260907130624.611942-1-donggeunyoo.kernel@gmail.com>
+In-Reply-To: <20260907130624.611942-1-donggeunyoo.kernel@gmail.com>
+To: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Cc: ast@kernel.org, andrii@kernel.org, catalin.marinas@arm.com,
+ daniel@iogearbox.net, eddyz87@gmail.com, emil@etsalapatis.com,
+ ihor.solodrai@linux.dev, jolsa@kernel.org, memxor@gmail.com,
+ mark.rutland@arm.com, martin.lau@linux.dev, puranjay@kernel.org,
+ shuah@kernel.org, song@kernel.org, will@kernel.org, xukuohai@huaweicloud.com,
+ yonghong.song@linux.dev, bpf@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org
 
-Hello,
+Hello:
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+This series was applied to bpf/bpf.git (master)
+by Alexei Starovoitov <ast@kernel.org>:
 
-Reported-by: syzbot+9e3014263a35700ab49b@syzkaller.appspotmail.com
-Tested-by: syzbot+9e3014263a35700ab49b@syzkaller.appspotmail.com
+On Mon,  7 Sep 2026 22:06:22 +0900 you wrote:
+> The arm64 JIT does not set BPF_REG_FP in the prologue of an exception
+> callback, so the callback runs with whatever x25 held when bpf_throw()
+> was called. A callback that materializes the register, for instance to
+> pass the address of a local variable to a helper, then works on the
+> frame of the subprogram that threw.
+> 
+> Patch 1 sets ctx->fp_used on that path, the same fix commit b114fcee766d
+> ("bpf, arm64: Fix fp initialization for exception boundary") made for
+> the exception boundary. Patch 2 adds a selftest that reaches the case.
+> 
+> [...]
 
-Tested on:
+Here is the summary with links:
+  - [bpf,v3,1/2] bpf, arm64: set up the frame pointer for the exception callback
+    https://git.kernel.org/bpf/bpf/c/ef1fb82f1218
+  - [bpf,v3,2/2] selftests/bpf: cover the exception callback using its own BPF stack
+    https://git.kernel.org/bpf/bpf/c/26a43a5f8c31
 
-commit:         704340f1 Merge tag 'x86_urgent_for_7.3-rc4' of git://g..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=177e0df9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
-dashboard link: https://syzkaller.appspot.com/bug?extid=9e3014263a35700ab49b
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=154735f9580000
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-Note: testing is done by a robot and is best-effort only.
+
