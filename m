@@ -1,66 +1,66 @@
-Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com [209.85.208.169])
+Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1348476070
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:53:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACC94400E1A
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:53:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789394021; cv=none; b=lWoWFOeQDtOrGrYFgBXFxsUmou2SET8C/or4OgeQy2RHX5EVIMOnCkzchAvVakjcBpOgiZIkQY0eS3ogblWXA+R9YiSPlxABJxh94UPPw7nVyTt3t8UrXI99ElHJ3PsqheoJpFF/UQuSeExEYOml9Gi6HYUH9dNF1f2D+zOuOyU=
+	t=1789394020; cv=none; b=H7coQCII2f1GNDMk0NzBW/TB9+T5wrovIMVEmrUE5CtTYmMKz9S9Lb6JJJ/5U5PVTIhjAOBKtjGdg/cJfA+6sGOW2oQ7pfVKVaDoFW/AfZYAVCqENgO5W5WQrgR/04OaCMQrEL+Y/fe9W3G8P4UeT/YiQ+vhWkqHYIBu3b5FwOA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789394021; c=relaxed/simple;
-	bh=64NapLqxHH6tJSEV83TdJWZtANu5nmqRrk1E1ae8QJw=;
+	s=arc-20240116; t=1789394020; c=relaxed/simple;
+	bh=xJvd4bktnXFf0NwIcparA75QhsM+VXfRpWstC2+jKaQ=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=aPUdQi5/czcfdcO7zJ2pW1QxNk5UMKzOZj2gyR2zF5Y9Q1moL0Qvgdepe0QL6HC9rQR5Wvw54Ofw37KebMjHYM6Db6AhAIBTgMhNhnbYbLU/yRdtQ1y6oJv0SeTibfVEOh/driwl8qveekBeAYg2mq1zpvcweePR0kz5co0thT4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=jsLNzZwb; arc=none smtp.client-ip=209.85.208.169
+	 In-Reply-To:To:Cc; b=f59CBZ89/fDZQYKf0/U9kgYRjG7aA6nvkiZUJvq4eCl663ryTGwJ3vEQ+oqeerhT/qhl7pN/LSWmFijtHPGlZ6gA7ZCr9WnWb/GDrCqQ5CE4Z62UP1x+KxcuLA1lQ79ZNbcLgcnJIECj4+fxGmp9GQwsnqzAHrD5Z8Zukw8WZ5A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=h60i6HiN; arc=none smtp.client-ip=74.125.229.204
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="jsLNzZwb"
-Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-3a5a0703ae7so18430301fa.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:53:38 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="h60i6HiN"
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b74e0c2e4dso2696277e87.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:53:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1789394016; x=1789998816; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1789394015; x=1789998815; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=tS09zB4gsK6IH3J6tb9FICxkiH+S9C9kJxAP8cTa3+U=;
-        b=jsLNzZwbV1cnyavFdXs/JmbpvPHoVN/XRVbDz39qeT/DJMVvWOI4P1xOsXIWCWeK22
-         q0CHVB30PvzPuNIonSd/WDbms0SZfrmhzsO1tON8PT+KvXBNfO5fkKUc9yVj0kYADRrZ
-         6cJ7kp4hUkXZKo/CYREJWgh63E0ebbeNzOK2A=
+        bh=Pnh8dMLBh1/L0ApWEov3Ejjcg0z+ookCCvunP662t7U=;
+        b=h60i6HiNK4cXjSIHYUXKg09hU1T3FXzxPPXgBXT7B02bUFoL/YZB6zxKep/FCRNNTe
+         emeDowJ/7eIFWBPanj35Bj16t1DkmVOdkSqlHhNTZmpArzlzQc4n+t4mKf3QuZutfNDt
+         ecs+V79VWOq89TM7AyzizrPytClbvc7+kwoRQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789394016; x=1789998816;
+        d=1e100.net; s=20251104; t=1789394015; x=1789998815;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=tS09zB4gsK6IH3J6tb9FICxkiH+S9C9kJxAP8cTa3+U=;
-        b=XHs0mxBTx1mzNrIL9bvxDshhs4nAjOCHYFvzCxqhz/KSGJYLCa1OWRlSmPsqzaT7rF
-         f5n/6dAuohTIP2Yvhei4nud4jmt5rpMRjUwAOXYx3BQUPFCAR1VtStIxCJ/ucM2/SKd/
-         jLycnXLJCVuUt2opQ5w6NbgtQQ32m8ixSyP/A8nLJHS7Jk2P0rc0FR0K8rg/y8pRRIYt
-         boPvinD3uSbyPyOajO9wzZOXo5mLWpXtmb2uTwUp/q8lxSrxcUHOQL4fYwOf9dquJbXg
-         jd/GjhGC7pQkbeTzIBqgy1KSVU37HDK3Hj7rDJaRY72AdQ5Wu2lwyGzjUgMO2/y+jFZx
-         oA1A==
-X-Forwarded-Encrypted: i=1; AKwUvBxpouuQnl+KZx45qk/XGyxzJWpc4N8JaJlkvh4NKKd6wwFh3uNDFnPxJAZOTIZtkTR0cq6FAiAi31cSS2Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++miHfabLSGJrmrvXM1Wq0n0bmTte67EdWcN6rWsiJhfG9ChDUTP
-	rCzyET0d+wYdyK66FnQmDgenI5+MTQlJOjE/ZO8Y6uu+YGDKtmNYJ1O2d3OK6V9SQg==
-X-Gm-Gg: AYBFou0Unu0OVSZpkwiFFugvXmL72d8xgrGphTLDN/PukaqORhzuprQiApQhyjrzpsS
-	RZUWA3ESMYKb34/TjNTupl9z0fyRJN/rXeJ1oNltlOnG/XAoOzprhQyl+WwjZiXTR18pjlq5loz
-	sBaDMEVIqebK9SuDrp2EOC+H5oIpvuQcv5ds/P5alCP1Z0iPlqNmWXFuVXXqICPl/je7zOqpvkr
-	bx20LAjSi74/29rjrotKAan87jIToGbDsaHG2XHNG4vszyQAIFfOibIgzHm2Qwiv9EhXTtBNvKn
-	Wx6Igj5RORfyT3d3ItH/1tSEpANZJnOgIjqUWs0x+C4WYUjg6wW7yFeHmybgpvjOtDI3dWEW3ny
-	b+FZ36lYxqjcJry5KqJDUb8WFA9jTMw8YkBUvWYhsgYZzvs9eQipTh7cwsqiU1ylIde929ZtTp7
-	6ZEFGtmJZdM5LrxMnb0dHUdNdgXTJq3/+GpbOlJOkNsn/17XCkHJYI1jltiUcqfqMisbhAUTXGJ
-	aiy2XhKs87lCaKaxOlwIx3qzIh+U6wTIKmMussACR+wDeCnyQ==
-X-Received: by 2002:a05:651c:146f:b0:3a3:61ec:43bc with SMTP id 38308e7fff4ca-3a5be1ea6a3mr8393601fa.13.1789394016399;
-        Mon, 14 Sep 2026 06:53:36 -0700 (PDT)
+        bh=Pnh8dMLBh1/L0ApWEov3Ejjcg0z+ookCCvunP662t7U=;
+        b=UPgsaOuh9M0yLaGJqu19fMkmWo3NjW+yBfZwwbvaUS7UugRrbzxjNgSoCrp40hrmGh
+         dTC6jDl65chqupAOX3bjXQ4OWFFA8qGyE9zJ3SgrNg0tFMBuWEX4UpumDC2I1Q3YXDfc
+         HC5OsMk7WLnmmy7VHCfeaM0tZgeesvcRRKwIREq0wFwYVsrJKwEX87T6Fb+MSyBXF37r
+         afo06YFdYfEsP56dW8ts1RQd2UaZ/k9YhbxLRQBIt4uDMtfjpq990qa0eEJBoubMMFGa
+         Ke+YiJMozPKaoOcd46bSVw94IbdPbL0fxAbP9TxhG4HiF1jmtKAmjwzliyjCZZ3H72sS
+         QMpw==
+X-Forwarded-Encrypted: i=1; AKwUvBxkV9sUEIjgX6uOMluXCTJSxcFvQlkQB49gi+qbg7Te0nE6UnzglF2SLM3Z3mIUUy1KuupqNstzLOBcXLU=@vger.kernel.org
+X-Gm-Message-State: AFuF++kIyxqm6DwRnL5rrw8+5pa7y8ALYY92Vlce5aqFFFjOJ9ou4FG3
+	akKvkW3ZfDiUYxfM57qFRbbmv4fEY1kAlj5yf2JuRl3/m/uVq51V8ajwfH+yZun9qw==
+X-Gm-Gg: AYBFou0791CU+EcYmSac7iLt2i0ozu8UJaKtOrQb8Fh5WC7Y/XZ+IQVKULVq9xLayQ6
+	VYF/AJTdHeVv/N2axBEnrwgII06gN9XiFfpLolOKqS6JoAM4In8bPPKNYCY6I6iyW8ico5Gb4rj
+	17ksRXQYmMU+0ciQHUDNr2Ma1qT9P1ME+wPQhFuss9FvPrgr5tuHYTBhx+JjTNPiPBXDYhvhpC5
+	Rl+0t6suqjHfbdI+LB/O6fUH8C4TMfTDVXbE4Nz+Y8JjFxiXq3ktiYkeBk7nZkMy7S96NqF2Ox+
+	KDfCyjaz2Sfn0zkts3qHQmHDWoAbkUsJ99vGF/PgOdB0d6muke9j6oJhHJbPjdQ/jO241ima20S
+	1qfvDuh3kpwZJCKv2XMTDCh2oOlCrtgZKXIiBR9wqYaYNcneAPIAo4sLDT+B0unNvdOH28i8t2c
+	BKWbZ2vfQX+1YhSuD+ROJXFIeOMJRRJZu+3Bp58GEE+xno7IAcc42EmcDcBYjY8wbiWNS9e7GMF
+	+1oCQpLPP8udPrLBgxKn8zgm/UBzdIYJoZJOIpFPZ07IdXiiw==
+X-Received: by 2002:a05:6512:2256:b0:5b2:a558:b222 with SMTP id 2adb3069b0e04-5b8ae68c48emr1497898e87.10.1789394015587;
+        Mon, 14 Sep 2026 06:53:35 -0700 (PDT)
 Received: from ribalda.c.googlers.com (11.36.88.34.bc.googleusercontent.com. [34.88.36.11])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a5a3304b38sm29433921fa.13.2026.09.14.06.53.35
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a5a3304b38sm29433921fa.13.2026.09.14.06.53.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Mon, 14 Sep 2026 06:53:35 -0700 (PDT)
 From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Mon, 14 Sep 2026 13:53:32 +0000
-Subject: [PATCH v2 2/2] x86/uaccess: Drop the address space qualifier from
- put_user()
+Date: Mon, 14 Sep 2026 13:53:31 +0000
+Subject: [PATCH v2 1/2] rcu: Drop the address space qualifier from the
+ dereference macros
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -69,7 +69,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-unqual-v2-2-60a1407a0cd4@chromium.org>
+Message-Id: <20260914-unqual-v2-1-60a1407a0cd4@chromium.org>
 References: <20260914-unqual-v2-0-60a1407a0cd4@chromium.org>
 In-Reply-To: <20260914-unqual-v2-0-60a1407a0cd4@chromium.org>
 To: "Paul E. McKenney" <paulmck@kernel.org>, 
@@ -89,55 +89,109 @@ Cc: David Laight <david.laight.linux@gmail.com>, rcu@vger.kernel.org,
  Ricardo Ribalda <ribalda@chromium.org>
 X-Mailer: b4 0.14.3
 
-__typeof__() preserves every qualifier, the address space included.
+The RCU dereference macros end with a cast that is meant to hand back a
+plain kernel pointer from a __rcu pointer.
 
-When we do __typeof(*__user *int), we are declaring a __user integer,
-which is pretty much meaningless. A value in a register or in the stack
-does not live in the user address space.
+For that it uses:
+	((typeof(*p) __force __kernel *)(local))
 
-This annotation did not trigger any error until a recent version of
-smatch[1] started caring. And as a result of that now we have tens of
-warnings like:
+The problem is that typeof preserves every qualifier, including the
+address space qualifiers (__rcu).
 
-  drivers/media/usb/uvc/uvc_v4l2.c:1112:13: warning: incorrect type in argument 2 (different address spaces)
-  drivers/media/usb/uvc/uvc_v4l2.c:1112:13:    expected void const *from
-  drivers/media/usb/uvc/uvc_v4l2.c:1112:13:    got unsigned int __user *
+Recent versions of smatch[1] care about this and throw tens of warnings
+like this one:
+  ./include/trace/events/vb2.h:46:1: warning: incorrect type in assignment (different address spaces)
+  ./include/trace/events/vb2.h:46:1:    expected struct tracepoint_func *it_func_ptr
+  ./include/trace/events/vb2.h:46:1:    got struct tracepoint_func __rcu *
 
-Instead of __typeof__() use TYPEOF_UNQUAL(). It maps to
-__typeof_unqual__() in recent compilers, so the address space annotation
-is gone.
+Use a new macro TYPEOF_NO_ADDRESS_SPACE() for the result type. This new
+macro strips all the qualifiers when running with sparse (so const and
+volatile are gone). But keeps all the qualifiers when running with the
+compiler, caring about const/volatile mismatch.
 
 [1] https://github.com/error27/smatch/commit/e53027a4e816a772403baafa83c09e4a94c1cb8f
 
 Suggested-by: Dan Carpenter <dan.carpenter@linaro.org>
-Link: https://lore.kernel.org/r/20260825-unqual-v1-2-7024fb81b4f9@chromium.org
+Link: https://lore.kernel.org/r/20260825-unqual-v1-1-7024fb81b4f9@chromium.org
 Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
 ---
- arch/x86/include/asm/uaccess.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ include/linux/compiler.h | 17 +++++++++++++++++
+ include/linux/rcupdate.h | 10 +++++-----
+ 2 files changed, 22 insertions(+), 5 deletions(-)
 
-diff --git a/arch/x86/include/asm/uaccess.h b/arch/x86/include/asm/uaccess.h
-index 3a0dd3c2b233..4e576c0b9131 100644
---- a/arch/x86/include/asm/uaccess.h
-+++ b/arch/x86/include/asm/uaccess.h
-@@ -172,7 +172,7 @@ extern void __put_user_nocheck_8(void);
- 	int __ret_pu;							\
- 	void __user *__ptr_pu;						\
- 	register __typeof__(*(ptr)) __val_pu asm("%"_ASM_AX);		\
--	__typeof__(*(ptr)) __x = (x); /* eval x once */			\
-+	TYPEOF_UNQUAL(*(ptr)) __x = (x); /* eval x once */		\
- 	__typeof__(ptr) __ptr = (ptr); /* eval ptr once */		\
- 	__chk_user_ptr(__ptr);						\
- 	__ptr_pu = __ptr;						\
-@@ -231,7 +231,7 @@ extern void __put_user_nocheck_8(void);
+diff --git a/include/linux/compiler.h b/include/linux/compiler.h
+index cb2f6050bdf7..70cb31d60538 100644
+--- a/include/linux/compiler.h
++++ b/include/linux/compiler.h
+@@ -239,6 +239,23 @@ void ftrace_likely_update(struct ftrace_likely_data *f, int val,
+ # define TYPEOF_UNQUAL(exp) __typeof__(exp)
+ #endif
  
- #define __put_user_size(x, ptr, size, label)				\
- do {									\
--	__typeof__(*(ptr)) __x = (x); /* eval x once */			\
-+	TYPEOF_UNQUAL(*(ptr)) __x = (x); /* eval x once */		\
- 	__typeof__(ptr) __ptr = (ptr); /* eval ptr once */		\
- 	__chk_user_ptr(__ptr);						\
- 	switch (size) {							\
++/*
++ * TYPEOF_NO_ADDRESS_SPACE() - typeof() without the address space qualifiers
++ *
++ * No operator strips only the address space qualifiers: typeof() keeps every
++ * qualifier and TYPEOF_UNQUAL() drops every qualifier, const and volatile
++ * included.
++ *
++ * Approximate one by dropping the qualifiers for sparse only, as it is the
++ * only one that knows about address spaces. The compiler keeps seeing the fully
++ * qualified type, so a missing const or volatile will still throw a warning.
++ */
++#ifdef __CHECKER__
++# define TYPEOF_NO_ADDRESS_SPACE(exp) TYPEOF_UNQUAL(exp)
++#else
++# define TYPEOF_NO_ADDRESS_SPACE(exp) __typeof__(exp)
++#endif
++
+ #endif /* __KERNEL__ */
+ 
+ #if defined(CONFIG_CFI) && !defined(__DISABLE_EXPORTS) && !defined(BUILD_VDSO)
+diff --git a/include/linux/rcupdate.h b/include/linux/rcupdate.h
+index 44c07a66edff..3f74ae6d6e1f 100644
+--- a/include/linux/rcupdate.h
++++ b/include/linux/rcupdate.h
+@@ -488,7 +488,7 @@ static __always_inline bool lockdep_assert_rcu_helper(bool c, const struct __ctx
+ context_unsafe(								\
+ 	typeof(*p) *local = (typeof(*p) *__force)(p);			\
+ 	rcu_check_sparse(p, __rcu);					\
+-	((typeof(*p) __force __kernel *)(local))			\
++	((TYPEOF_NO_ADDRESS_SPACE(*p) __force __kernel *)(local))	\
+ )
+ /**
+  * unrcu_pointer - mark a pointer as not being RCU protected
+@@ -503,7 +503,7 @@ context_unsafe(								\
+ ({ \
+ 	typeof(*p) *local = (typeof(*p) *__force)READ_ONCE(p); \
+ 	rcu_check_sparse(p, space); \
+-	((typeof(*p) __force __kernel *)(local)); \
++	((TYPEOF_NO_ADDRESS_SPACE(*p) __force __kernel *)(local)); \
+ }) )
+ #define __rcu_dereference_check(p, local, c, space) \
+ ({ \
+@@ -511,19 +511,19 @@ context_unsafe(								\
+ 	typeof(*p) *local = (typeof(*p) *__force)READ_ONCE(p); \
+ 	RCU_LOCKDEP_WARN(!(c), "suspicious rcu_dereference_check() usage"); \
+ 	rcu_check_sparse(p, space); \
+-	((typeof(*p) __force __kernel *)(local)); \
++	((TYPEOF_NO_ADDRESS_SPACE(*p) __force __kernel *)(local)); \
+ })
+ #define __rcu_dereference_protected(p, local, c, space) \
+ ({ \
+ 	RCU_LOCKDEP_WARN(!(c), "suspicious rcu_dereference_protected() usage"); \
+ 	rcu_check_sparse(p, space); \
+-	((typeof(*p) __force __kernel *)(p)); \
++	((TYPEOF_NO_ADDRESS_SPACE(*p) __force __kernel *)(p)); \
+ })
+ #define __rcu_dereference_raw(p, local) \
+ ({ \
+ 	/* Dependency order vs. p above. */ \
+ 	typeof(p) local = READ_ONCE(p); \
+-	((typeof(*p) __force __kernel *)(local)); \
++	((TYPEOF_NO_ADDRESS_SPACE(*p) __force __kernel *)(local)); \
+ })
+ #define rcu_dereference_raw(p) __rcu_dereference_raw(p, __UNIQUE_ID(rcu))
+ 
 
 -- 
 2.55.0.1007.g17ff1f9808-goog
