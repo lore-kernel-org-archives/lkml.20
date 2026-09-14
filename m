@@ -1,83 +1,79 @@
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B30746C4AF
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:29:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FFC246C837
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:30:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789392586; cv=none; b=SRKMmf6vJXbHOxfA6q0HSZYhLa7UeKM7MJfnDDSOVvoCHugN8cUjOcsNIqkQ26zuTOTgyI/0Bk8DxqtyPaf7OA2+H8Mp0IykQ8cKVhlrRflZm3cCsEHwktBMfrlL/QwcLat2cRmcoyLAW7GKeMI/1tXdJejsAt5mVorvllDeHdc=
+	t=1789392652; cv=none; b=RTm94CtPNi5S6Dx1b1x2Vj/bnHRjHHveTCG2NH9MAA6a3W4ByOm0KMXBYZgISC5aBdpKGYCOOd9lnAo21igtR2mc2gHZ1kBRHJU/JSRwMgLXa/jxK21XzcDzq0yNP9Jfa87/nfoFDe9AKpPElpW1ICf/lkaErovXAzJE+rMMwWE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789392586; c=relaxed/simple;
-	bh=72MILoDifiaiK9Nla2N6x0QwLzStR2SM106Oboc2EvU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lgR4RnBaRxd1Rey3DfHeLySV0KLRzBML4Rw14VOz/3kqby0evTY2haaXsQAY4fB3HTir2nWseBeRAqZuy1YsR+dAmkoAWHYqueKTGTq9gs8P29TBRy/X02cNh/fwXJ0tV8AFlphbue+aH40Z67rwOKN0W+KyS6RBX+ntP4/ClD8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oMqJo0Af; arc=none smtp.client-ip=209.85.208.43
+	s=arc-20240116; t=1789392652; c=relaxed/simple;
+	bh=Z5aiyrhYPeBObaaSyxfH7WZ8K4IPKS8wAjD2TNWaDSc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Xz7EFkbr7yv2azbwCzJFy23DG0sYZ60Et9kwXrSuwvEut0Xl5j4f714tDRZr/gBrw438C3sA2IqsCnhoRZm6Hzslktx/4+BungBfXS6xsyDlG2X+iAoxWY2gO7mbBC/1t0Vo3ADgLsMdg6aGL9215uxpyUpgHPUVTDGU+ux3kAI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E8NPRZsf; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oMqJo0Af"
-Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6a9a2f16ed4so4020709a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:29:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E8NPRZsf"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e6af07e08so1040115e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:30:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789392582; x=1789997382; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JytMekM1O3tqnBvhWTtqVwMI/KxX0kYwHkxZRtcjzKg=;
-        b=oMqJo0AfY7D0Qp2FDZpDNvtS3EEO0sQg+mSiYq7zGgfnv2CnWGi7FTAUNSETGvDv8W
-         YFaOj/pcqY712wfcv0svQDVsevLClKIc0xWUbiuuRHiVkard7m15gDYO1T1nBQoKVODX
-         Nt9h4pQlWYfc6PYLfOymWtRSpMPY9s6cRpOICcWRFav16cBWCSYk+6MGaYCTjmoeWh+Y
-         ZxpOPIzXmYVC1HqAueabPsShKMuUSHCbIg6Dtn8uKjy6HlsfBxbxTUlhQp62MZ2IeW7s
-         EO9ZKxtpjr/gEbpBHeNea8YNJkWmK2p57C1IUiFnG93wDkjfCMwI9kZycih89UjzJZjv
-         IVbg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789392582; x=1789997382;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1789392648; x=1789997448; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=JytMekM1O3tqnBvhWTtqVwMI/KxX0kYwHkxZRtcjzKg=;
-        b=BbELxNVQKjLjPptvlYIHsUPec97q3kqzKdhrcAP/08k4AZu43qd8vxkVTCbXZVFMjh
-         ONOJufROX2mJzMYA3Cnxw/0zgOwVzdsha3brSXgC/kRvK2M2IBdrogsvO/vF0tlncxtc
-         yRSJamnamHfs9vQZKSCT+vinQNfRoSdH1NDAuqdIZkKCw1GAhYsMxWEYZrFCu1J71iNF
-         JWlWDHdGo7LYt/OqecJ9aLYaCXKpjkfkmNd5R3LHUGBeTF4RGdDVgXBNnkTcuSvA2bAm
-         i0Q9XiotlE+SDMvJB7pRZTNxRjdtzO7BdXdLL1g0zyaqMKZD21fa1HqNELOlSGcbpmHH
-         aHrw==
-X-Forwarded-Encrypted: i=1; AKwUvBw4WysPQDJLqxOcJ4xWmgEJqhg4do9MUpD3Crs9zlOzKR5stuQPFwiof8ykNKbCv0o696emiFc8e8XdUSs=@vger.kernel.org
-X-Gm-Message-State: AFuF++nhWPUOekeT+92nb1FEB620u3JeRHaIeKCxY0VHcgdz9kc2wu3d
-	r3nUJaplMYUiYkR2uHeOKMRqaAVoHRjbY0q3qT8UOuOtkAmi3jzEtdzI
-X-Gm-Gg: AYBFou0vol//bD31DpShO8SQ2mDv4x8PpVYVBQqE8CYFgUnyHODoI2qVRrFMY92olNg
-	rqrNsBNhv7adwTuE0e01aKosvTi286SEnYSW5uz/bg2eiR6ee1MFWeCploi8CKtBW+qaJPIqd1z
-	c1ugWbmbKLeAAbxCAx2KW6AmcfmSOK7SlQgwve/kBn+HqUm6bVob7nPgzbhR4d6is7OlSTgoget
-	HAq23kTm3/rlEgzfl8UBdNgB2JIvetB8qkBfJJSkhtNRdhwFi5lCP3iAXA3BjDih4gsKOrIsS1k
-	P9BIxNrhFsoB1NiABduOw4nA30kQYnpQegHtYDaD8XUbzDvgoil7klSNi9th8IQdYrEyrUu2m79
-	3pxqNVaXLG65a7MSO1pHIaL+LiWPsnHlVEUGBDavLkcPed1krHuK3GDz+k0c4ru347AKTj/ZNDX
-	4e5IM3RouNFMczJn5Rids+7fcYyCFarzg0xMZ5pJk7OBecuKuDXJNQj8zKPf6QshvMOUmW0l/i4
-	Ni1YsjAvRHyuorgJ4Y7FjBWrX9ZUpnlKDrkC8bcmVChURuiEJUIL8rPlEiaC84=
-X-Received: by 2002:a17:907:3f20:b0:c26:1f8f:ed53 with SMTP id a640c23a62f3a-c29a4339baemr362278166b.12.1789392582327;
-        Mon, 14 Sep 2026 06:29:42 -0700 (PDT)
-Received: from misharu.home (2a02-a463-a071-0-7759-cb87-66e5-4165.fixed6.kpn.net. [2a02:a463:a071:0:7759:cb87:66e5:4165])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2965c4dfc7sm437207966b.4.2026.09.14.06.29.41
+        bh=Z5aiyrhYPeBObaaSyxfH7WZ8K4IPKS8wAjD2TNWaDSc=;
+        b=E8NPRZsfAHVHvGBm7g5O76RXxBV3htJiYq5v2QYIcQPRkoW/B+ZbPxgGulUs0IuufA
+         6j+KRdbqcVMdyHTt1dPiUORYz+l6YcSy4dOoNllVGqEuACddLqXhREjeyDPY65VgsWoe
+         iK2t2YSd86HqFptIawsY9fvaGkHbwB/z2xZJ22s70+FL10dwY7hVx305yxHXG0BW7O3X
+         cuk3e2F/0Gk9mCXzSkEEBCFpgbNS1Ar74TBO3DBHARrzJO1OMPV0WNyFXI50ur7kPTxn
+         P+lcxKA+oTuqvqK59cDrzgTxKix+uFRVp/ycIlE1kOKjIGKNxZ/zAXJ5NCGggITRBwNW
+         PEdg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789392648; x=1789997448;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Z5aiyrhYPeBObaaSyxfH7WZ8K4IPKS8wAjD2TNWaDSc=;
+        b=qNYz3zRRVb9UGXx39O/OPHtcA4MdRoVCGdVo8YANhcyf5JWsDKjO10i/qHOiLDlmDe
+         EE5suyyIHTg2cvwaTwhf9PWd4kz10rxBSe8CYe15MiAMHZfqRojbD+dN7Xmf0R5qNTSq
+         gDXYeF1Q+24gf3/IM3Es0ta94Zx7zgBQebGJrowfyXbPAXbvlxiATHl02hL4LMu4DHWg
+         ufx5COzUx1ngGQyOm9Mj6sp1ZyjOXrjPpOW6FUjoApsrSLFApaziq/nOAWmIHg7Fyfas
+         b38SvaCZ/e2N2lHLWdrjD3W/xT3iDNXWni+p4kQ+rKq1WrA9He3JLKIHDJV7eaujRx0v
+         G2eQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwQrPd3FvrLy+TDCj6UppZUQgZk/BEH6X2Nb4u5dgbtVxNe8UTP+aZxVGh//DjbV+C+IlNYL4WR1mmCDHc=@vger.kernel.org
+X-Gm-Message-State: AFuF++nRiiI2kunpZHVyjP4nbUFMiiB8N/3NOTR7dxpeF4K8aUvU2Y8d
+	3cuc0SquqHQlkDSKQStl/n7y33L24VOGpkhRycoFFyOJZasXAe5XHCIx
+X-Gm-Gg: AYBFou1tgZIVTfgb4OXzLv+zFcwUym+Jzcvp1JrPgLUCDhKJsg6jQw0IJEUlxhvZm0S
+	CwXrmMWA6jUlwXUcwZgcFOlrdX5Sr78TgJBLJdOh8fIomR0m2jbqjjZl248lb9X7i6qgbQ9YTcU
+	TGswvk1FmkwJ4q7yNsdA60up9tM0rsO6KIciuaLGZ3h5tU5Da+Rx9pQjBdIx6ExE8WJlHOGM19C
+	RtFkSF53uphdVjF9GFAcZyJXfMfLxvkYgyk6Eju/xoIXNOAPkm91MwzqdC7EeAI+kSxlZTHWL9L
+	gbVy6q2Ki6gaRl0UynZakEqubZhJeuYuzNqf/8sbuP2XZTUfgXEEbU8FgMEREPKRHGB5Pw5qSCs
+	9ghgoRfMhnWuN1bTqT8Mo+WWtzDG2+FWxpZA/VZyfIG/VCP2eetxSVRst2XUDP2HiOHw03RVYD1
+	2o9/Tf31Tm8IjgqwW8+WZhj5DgSmmsbu0Lnx8Lr6jgBhd6ZJtq0p2b2PxeYDsLy7+zspI9g97vZ
+	jqo7Gvmjev/qE+EoNF4nfDjyxY0liBWfoXtuiIoOtCS+viaWW5mC8bMxhMPtMLw3m5IknIsVt+P
+	D2b+
+X-Received: by 2002:a05:600c:4e53:b0:49c:ff81:e062 with SMTP id 5b1f17b1804b1-49e7a68b774mr27446575e9.2.1789392647985;
+        Mon, 14 Sep 2026 06:30:47 -0700 (PDT)
+Received: from OrangePi5-Plus.BB-HOME (20014C4E1B85A6000F50888CB3F3FDEE.dsl.pool.telekom.hu. [2001:4c4e:1b85:a600:f50:888c:b3f3:fdee])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7548d99bsm152380015e9.1.2026.09.14.06.30.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 06:29:41 -0700 (PDT)
-From: Hari Mishal <harimishal1@gmail.com>
-To: Kenneth Feng <kenneth.feng@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Hawking Zhang <Hawking.Zhang@amd.com>,
-	Xiang Liu <xiang.liu@amd.com>,
-	Lijo Lazar <lijo.lazar@amd.com>,
-	Yang Wang <kevinyang.wang@amd.com>,
-	Asad Kamal <asad.kamal@amd.com>,
-	Rex Zhu <Rex.Zhu@amd.com>,
-	amd-gfx@lists.freedesktop.org,
+        Mon, 14 Sep 2026 06:30:47 -0700 (PDT)
+From: Igor Paunovic <royalnet026@gmail.com>
+To: Triet Hoang <triet.hoang.dev@gmail.com>
+Cc: Sidong Yang <sidong.yang@furiosa.ai>,
 	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Hari Mishal <harimishal1@gmail.com>
-Subject: [PATCH] drm/amd/pm: bound SCLK FCW range entries to the table size
-Date: Mon, 14 Sep 2026 15:29:20 +0200
-Message-ID: <20260914132920.10127-1-harimishal1@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	Oded Gabbay <ogabbay@kernel.org>,
+	Tomeu Vizoso <tomeu@tomeuvizoso.net>,
+	Igor Paunovic <royalnet026@gmail.com>
+Subject: Re: [PATCH v6 2/2] drm/rocket: Keep scheduler allocation in rocket_file_priv
+Date: Mon, 14 Sep 2026 15:30:19 +0200
+Message-ID: <20260914133019.6523-1-royalnet026@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260914045605.381933-3-triet.hoang.dev@gmail.com>
+References: <20260914045605.381933-1-triet.hoang.dev@gmail.com> <20260914045605.381933-3-triet.hoang.dev@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -86,41 +82,16 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-atomctrl_get_smc_sclk_range_table() copies ucSclkEntryNum entries from
-the VBIOS SMU_Info table into pp_atom_ctrl_sclk_range_table. Both the
-source (asSclkFcwRangeEntry[]) and destination (table->entry[]) arrays
-are fixed at MAX_SCLK_RANGE (8) entries, but ucSclkEntryNum is an
-unchecked u8 read straight from the VBIOS, so it can be up to 255. The
-destination is stack-allocated in both callers
-(polaris10_get_sclk_range_table(), vegam_get_sclk_range_table()), so a
-count above 8 overflows a stack buffer, not just a heap read.
+Hi Triet,
 
-Reject counts above MAX_SCLK_RANGE rather than clamping to it. Only
-one version of this VBIOS struct (ATOM_SMU_INFO_V2_1) has ever
-existed, so a count above 8 corresponds to no legitimate table format
-and means either a corrupted or a tampered VBIOS.
+Same run as on 1/2, on v6 as posted: ten pairs of concurrent clients,
+so two rocket_file_priv instances with their own scheduler entities
+alive and submitting at the same time, then closed, with the kfree()
+now after drm_sched_entity_destroy(). All output bit-correct, no
+lockdep or atomic-sleep report, clean autosuspend afterwards. The tag
+stands for v6; please keep its comment:
 
-Fixes: a23eefa2f461 ("drm/amd/powerplay: enable dpm for baffin.")
-Assisted-by: gkh_clanker_t1000
-Signed-off-by: Hari Mishal <harimishal1@gmail.com>
----
- drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c | 3 +++
- 1 file changed, 3 insertions(+)
+Tested-by: Igor Paunovic <royalnet026@gmail.com> # RK3588, concurrent clients
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c
-index 4b796d60b03d..3217ad3c1d17 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c
-@@ -1025,6 +1025,9 @@ int atomctrl_get_smc_sclk_range_table(struct pp_hwmgr *hwmgr, struct pp_atom_ctr
- 	if (!psmu_info)
- 		return -EINVAL;
- 
-+	if (psmu_info->ucSclkEntryNum > MAX_SCLK_RANGE)
-+		return -EINVAL;
-+
- 	for (i = 0; i < psmu_info->ucSclkEntryNum; i++) {
- 		table->entry[i].ucVco_setting = psmu_info->asSclkFcwRangeEntry[i].ucVco_setting;
- 		table->entry[i].ucPostdiv = psmu_info->asSclkFcwRangeEntry[i].ucPostdiv;
--- 
-2.43.0
-
+Regards,
+Igor
