@@ -1,38 +1,39 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+Received: from smtpbg151.qq.com (smtpbg151.qq.com [18.169.211.239])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 337FB368D66;
-	Mon, 14 Sep 2026 07:56:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 006D73E3D80;
+	Mon, 14 Sep 2026 07:56:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.169.211.239
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789372585; cv=none; b=njyP4W3EykttAdGkFyd1h36Hq7Mnb8iGFxmeUvU55Qjvbz9ACVKyajREMnCLeNJJENIb0Hk6W0coJ3vISOsvSnKgxiE7DkzAaJzF5cQL7nF+0lhwQmJ58jeq3117DIlP2xWlt5VII4ydvoR/H/AsGnLBVA6cOnKOgjCodDM/+Rs=
+	t=1789372596; cv=none; b=YPNnWlO40hXhceuoc11HrmKXwxZ6SHnU+7S+ozy7J/Imw1apR3sTgtWJhG2/j//ZXlaYUXH7vaYX+CdlUCS7A2jnEbPDQB7WnSYtO/BFySGHeC16K70KgQ5id7NS29eLIPvfMbQC15jewc1X/FWlpr+H8U5w9lIwQ/s6gYV8XS0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789372585; c=relaxed/simple;
-	bh=m6KeYkp/2qyk9kllJdtAY8e4X2o8u/ogoxZk79ngweY=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Isj711f6weXr+j0ZDVC6XvQDH+LqUA/l1S//2rSWn8Tfg9a4PqMTGWs2fZQWiUhl4B2z78i1nwaGXnduBNKMplPk0is2qLpOcKGZkNKUwb2rgH00O0JDleLSLdU6NQBca9xLAUsfwKw77300fb2HkJGe4Xax7S0MdV1aOXskPBM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=FFC9RJne; arc=none smtp.client-ip=101.71.155.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="FFC9RJne"
-Received: from PC-202605011814.localdomain (unknown [223.112.146.162])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4da815583;
-	Mon, 14 Sep 2026 15:56:10 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: davem@davemloft.net
-Cc: edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	den@openvz.org,
-	netdev@vger.kernel.org,
+	s=arc-20240116; t=1789372596; c=relaxed/simple;
+	bh=IT0/M8cz7ElvWA1JrdSV8oaK+GXPYcx4GMvc8fa4M5M=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=q86H34VjwChIcJDgq0Xb2VgQKYnH8L21kVObC1taeoBLJQf7t7n8viURAUkroLvAsY7ocJ6xpDPgyHSzGpjtwKyORDrfOrNrEdXNMml+V1J1JkPvw3lXsMAeOZFFUL3g74GPgy9VDtllmtZWRW8FaApQ0Vbf8jMp8vFa0a2Zh4E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinsec.com.cn; spf=pass smtp.mailfrom=kylinsec.com.cn; arc=none smtp.client-ip=18.169.211.239
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinsec.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinsec.com.cn
+X-QQ-mid: esmtpgz11t1789372559t150a2ba5
+X-QQ-Originating-IP: i+XZ1p+6zAcEhLtH11CpK/GhMtVumYa7dWW2GF5WyiA=
+Received: from localhost.localdomain ( [175.0.204.93])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 14 Sep 2026 15:55:56 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 2337740407314765687
+EX-QQ-RecipientCnt: 7
+From: Yingchao Deng <dengyingchao@kylinsec.com.cn>
+To: Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>,
+	Jan Kara <jack@suse.cz>
+Cc: linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	jianhao.xu@seu.edu.cn,
-	runyu.xiao@seu.edu.cn
-Subject: [PATCH net] net: neighbour: Serialize proxy timer teardown
-Date: Mon, 14 Sep 2026 15:56:04 +0800
-Message-Id: <20260914075604.120183-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	qinyungao@kylinsec.com.cn,
+	Yingchao Deng <dengyingchao@kylinsec.com.cn>
+Subject: [PATCH] fs: fix misleading comments in read_write.c
+Date: Mon, 14 Sep 2026 15:53:37 +0800
+Message-ID: <918177B3298981ED+20260914075337.1739-1-dengyingchao@kylinsec.com.cn>
+X-Mailer: git-send-email 2.45.2.windows.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,97 +41,76 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa09eea9bbf03a1kunm9151719e282acb
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaSEkZVk4eSk1OHkoZSUxKTVYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVSkpJVUpPTVVKTUlZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pPSExVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=FFC9RJneWQ9aTDio8XR53ctdVNFehevkrHcIPUCPFHZ/eIJLUhzIdoQZl7tMl2+TeWMs/XP/gEy5lpuMeZp2pVurR1QYN7lvsJRw2C9jy/4WSGeo6TTGU+RYkl7h/bVwWKdfG43gu9XyKIzerGnKkerYFYsUX9aXObKfkJSGewU=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=m6qSJMOGZomrlhHkDs2SzUtJH/3UxLmtfyenGSbF3Gk=;
-	h=date:mime-version:subject:message-id:from;
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:kylinsec.com.cn:qybglogicsvrgz:qybglogicsvrgz5b-1
+X-QQ-XMAILINFO: OEv1vYFDM7rE9+b/oVSlJWP5Ve4qLOet3ApdfEZUFdmcIu3FXBxqln24
+	9iIB6B1E9hGfbwTR8MBYF7fgrxGqBP8RIToi+b1g77u6bYT7rRHblftnUeDQKwYWYtZtpmw
+	xI+mJZRUb7SC3OU1DES7QLyr151ctHbe76VUXJKRXiLuF2hUnaZw6bKTETKhMEIB/uJzm2O
+	EWDSboL6fSmOgHV5kFbYqRQCRA1xWB43Ar84m8rnAPhVtqqsXt19Bgc9aGgebSKohPkS81q
+	oaSoGyJ7Idcqws12ZnOpNoobtQxCDb+vfmkRdSLrYBItPcxEZaIknKF+RVKqY9j4h4LUx+9
+	sQYBocjTYJXdMqmv0+bKSvhorsVyOJHdf+G59sTT3cemaP0YMTR5QlxMIxYLvHqyrLixg5W
+	4YEHSExNUzAE+wKYir9bQgfWrMzRaJQ3qmSEt7/pwPxWiVEIhZIgeF4LPME5JA+wExCL7TL
+	nDQR/lmyTUz2ZxejSel/ZMkeEzzsxKWNzJOkef8pfHWmgHsw8lhJtUmWBKyCF41mHyLf6jP
+	WNlmsLoUIZwX3GWknz/Yu0S+TW10C6wxJrEuezolGl85GYThO0BTG9cNbwUyCJHP/AGxJ8Q
+	kwVSk8kSEJAlWWqksUkIPB0dWYZ8Rxm/vEuNdxa3/FjeYR+zVPhq3a8pz2tyVRkyl2Qyy0L
+	ew4b1v95P8j0tFpmwrAK3GTXg4T9awZYJzNOpsSCpAw8Gyt9c+uKyvG04wV6I5K3eyFq8VQ
+	DGhWZgD2Y2XBeyyN68S6Bvx7C6vu/uXWMGU01q4UUNmssp3JjotRrDoD5Y6Qqz8A4Xr6sWL
+	9ytdhyXxSm4+Dsqg9Y1MqgyKhbAiTIvkmqODK8RKzhYuTlS+Bi/UzMULRWO5tsyT9mJrke1
+	/2yLkG9Vb1GBAvhv5QV27+uUf09KfqtGsIU9222dgR4ixsi+3BIrXmemiiZPROFMy2ua7jt
+	zw5X/ROp/ZS8jH8lpO98rQpbNwF7/MwXGd/mzOOFazxGANHB+ejnhaFrhUc4jZZK3yT0xTI
+	/B5M3UCwlDFP028GJOtHQoLVaHGTJw0cglDv8KJ9E3Abz0wL7b7UDP9uFqTN3yNEeuUYV4i
+	kFRxFDjlWqpFfFvj6f2rEYxmMVZF25q3v+YDh0rClEsJ0cE4KBGsiQ=
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+X-QQ-RECHKSPAM: 0
 
-__neigh_ifdown() purges device-specific entries and then checks
-whether the shared proxy queue is empty before deleting proxy_timer. A
-concurrent ARP or NDISC request can enqueue a delayed proxy response
-between the check and timer_delete_sync(). The timer deletion can then
-leave the new skb queued without a timer to process it.
+generic_write_checks() returns the number of bytes that may be written
+(possibly truncated by generic_write_check_limits()), not zero.  The
+comment was likely copied from generic_copy_file_checks(), which is the
+analogous function for copy_file_range() and does return 0 on success.
 
-Serialize proxy queue insertion and timer rearming with the purge, empty
-check, and timer deletion. The timer callback does not take the new lock,
-so timer_delete_sync() can still wait for an in-flight callback. Keep
-timer_delete_sync() rather than timer_shutdown_sync(), since the timer is
-reused after per-device and carrier teardown.
+Also, no_seek_end_llseek() and no_seek_end_llseek_size() are helpers for
+files that do not support SEEK_END (they only handle SEEK_SET and
+SEEK_CUR), not for "fixed-sized devices"; that description was copied
+from fixed_size_llseek().
 
-A controlled QEMU test with explicit 5 ms schedule injection reproduced
-the orphaned queue state on the unfixed kernel and did not reproduce it
-with this change. Natural-load runs reached both paths but did not
-trigger the narrow race.
-
-Fixes: 66ba215cb513 ("neigh: fix possible DoS due to net iface start/stop loop")
-Assisted-by: LLM Codex
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Signed-off-by: Yingchao Deng <dengyingchao@kylinsec.com.cn>
 ---
- include/net/neighbour.h | 2 ++
- net/core/neighbour.c    | 6 ++++++
- 2 files changed, 8 insertions(+)
+ fs/read_write.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/include/net/neighbour.h b/include/net/neighbour.h
-index 8860cc2175fc1..15107c00b4df4 100644
---- a/include/net/neighbour.h
-+++ b/include/net/neighbour.h
-@@ -239,6 +239,8 @@ struct neigh_table {
- 	struct list_head	gc_list;
- 	struct list_head	managed_list;
- 	spinlock_t		lock;
-+	/* Serializes proxy timer rearming with teardown. */
-+	spinlock_t		proxy_timer_lock;
- 	unsigned long		last_rand;
- 	struct neigh_statistics	__percpu *stats;
- 	struct neigh_hash_table __rcu *nht;
-diff --git a/net/core/neighbour.c b/net/core/neighbour.c
-index 1349c0eedb642..1ea794a541efb 100644
---- a/net/core/neighbour.c
-+++ b/net/core/neighbour.c
-@@ -471,10 +471,13 @@ static int __neigh_ifdown(struct neigh_table *tbl, struct net_device *dev,
- 	spin_unlock_bh(&tbl->lock);
+diff --git a/fs/read_write.c b/fs/read_write.c
+index e8c14e2760b2..4da846a2bf17 100644
+--- a/fs/read_write.c
++++ b/fs/read_write.c
+@@ -274,7 +274,7 @@ loff_t fixed_size_llseek(struct file *file, loff_t offset, int whence, loff_t si
+ EXPORT_SYMBOL(fixed_size_llseek);
  
- 	pneigh_ifdown(tbl, dev, skip_perm);
-+	/* The callback does not take this lock, so sync deletion can wait for it. */
-+	spin_lock_bh(&tbl->proxy_timer_lock);
- 	pneigh_queue_purge(&tbl->proxy_queue, dev ? dev_net(dev) : NULL,
- 			   tbl->family);
- 	if (skb_queue_empty_lockless(&tbl->proxy_queue))
- 		timer_delete_sync(&tbl->proxy_timer);
-+	spin_unlock_bh(&tbl->proxy_timer_lock);
- 	return 0;
- }
+ /**
+- * no_seek_end_llseek - llseek implementation for fixed-sized devices
++ * no_seek_end_llseek - llseek implementation for files without SEEK_END
+  * @file:	file structure to seek on
+  * @offset:	file offset to seek to
+  * @whence:	type of seek
+@@ -293,7 +293,7 @@ loff_t no_seek_end_llseek(struct file *file, loff_t offset, int whence)
+ EXPORT_SYMBOL(no_seek_end_llseek);
  
-@@ -1729,6 +1732,7 @@ void pneigh_enqueue(struct neigh_table *tbl, struct neigh_parms *p,
- 	NEIGH_CB(skb)->sched_next = sched_next;
- 	NEIGH_CB(skb)->flags |= LOCALLY_ENQUEUED;
- 
-+	spin_lock_bh(&tbl->proxy_timer_lock);
- 	spin_lock(&tbl->proxy_queue.lock);
- 	if (timer_delete(&tbl->proxy_timer)) {
- 		if (time_before(tbl->proxy_timer.expires, sched_next))
-@@ -1740,6 +1744,7 @@ void pneigh_enqueue(struct neigh_table *tbl, struct neigh_parms *p,
- 	p->qlen++;
- 	mod_timer(&tbl->proxy_timer, sched_next);
- 	spin_unlock(&tbl->proxy_queue.lock);
-+	spin_unlock_bh(&tbl->proxy_timer_lock);
- }
- EXPORT_SYMBOL(pneigh_enqueue);
- 
-@@ -1858,6 +1863,7 @@ void neigh_table_init(int index, struct neigh_table *tbl)
- 		WARN_ON(tbl->entry_size % NEIGH_PRIV_ALIGN);
- 
- 	spin_lock_init(&tbl->lock);
-+	spin_lock_init(&tbl->proxy_timer_lock);
- 	mutex_init(&tbl->phash_lock);
- 
- 	INIT_DEFERRABLE_WORK(&tbl->gc_work, neigh_periodic_work);
+ /**
+- * no_seek_end_llseek_size - llseek implementation for fixed-sized devices
++ * no_seek_end_llseek_size - llseek implementation for files without SEEK_END
+  * @file:	file structure to seek on
+  * @offset:	file offset to seek to
+  * @whence:	type of seek
+@@ -1761,8 +1761,8 @@ EXPORT_SYMBOL(generic_write_checks_count);
+  * Performs necessary checks before doing a write
+  *
+  * Can adjust writing position or amount of bytes to write.
+- * Returns appropriate error code that caller should return or
+- * zero in case that write should be allowed.
++ * Returns the number of bytes that may be written on success (which
++ * may be less than requested if truncated), or a negative error code.
+  */
+ ssize_t generic_write_checks(struct kiocb *iocb, struct iov_iter *from)
+ {
 -- 
-2.34.1
+2.33.0
 
