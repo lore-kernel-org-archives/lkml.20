@@ -1,113 +1,82 @@
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-250.mta0.migadu.com [91.218.175.250])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6B232B9BA;
-	Mon, 14 Sep 2026 03:33:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9711123B61B
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 03:34:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.250
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789356822; cv=none; b=gj4/ZBr1zaXdBZpZqMiwfWe4CZSzA2uElvNK7avHjFlWcJK5/0HNVCq1VA3s23lBmdTj4RFGcAY3LSjoWWwLTvWIUzSbfjuVsITZ1JP62eXJpeNVyiKKcKHF/Ge+mRnrH8pr4bx0gHLaKJMbHC+CpTJdWyNUQBGp95IfYgst8Oc=
+	t=1789356854; cv=none; b=G+XOz45KMxZMU28/JRnjG/DTnJTPLIbYmYJ6U/jfIK1t4Ra5s3AUDMV8Bo7PrP3LuQ37GtsZs/0ON/JSemjUNoudFaOuJjvsK7o6mETf6NLHNOfFmRgDnzjOhO4eBEcfaG8fjlbvBCEX65Wpt8ZG8GecmjucQbgmUnKI87ye4eA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789356822; c=relaxed/simple;
-	bh=236WAL/SVgLvSVtYPtEU82p2g0kMPt5QCc4VChf1E1k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JDby9Bc0tDa7OibN/Dt9hvyDDPunSKVKxryZIehlQ3bfpV/HdVAvsSntJvBu5sy956SwtqDXotHk1ijoWA66ZkXbCRX/QzhFRUMT1QyPvkk2hVssN/0XKpDUd8wWmKbUADpY1yTm8oCi1CcElmCuzd8sYo7gY3rNLQn7qXF1wAE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=xirn+Ven; arc=none smtp.client-ip=80.241.56.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1789356854; c=relaxed/simple;
+	bh=1JX6OxGw6Fen5q/U+UOj7/291svvQ/6DqcLx9AxyrxE=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=naG5CsstNctj7ZuKYgj/4pp4l48F3JmHhA1M0NshQdU37lEt+TUe4o0UjteRGXpvKrf5Zs8KIirh+NntqRte4POONnxkFSwxf/NMaWCmP+bIwXfVrbHNin+Jv5fWegZWht6Yazfm2FCbJDUvgCzvMlXpVhFwW6sjXz723IsGf6s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=pk0/Pa+r; arc=none smtp.client-ip=91.218.175.250
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="xirn+Ven"
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4hjrN11n10z8sqP;
-	Mon, 14 Sep 2026 05:33:37 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1789356817;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zi/HNH51DYMqF6FrKwXWRt/DS3wGH248vhAG+zCzkeg=;
-	b=xirn+Venw00wFe+IUQ/RNMvSnxo+YxdBpuOkeFNaf8GxFGck+yfpKHTWTVWaE8ewbq5Erd
-	6W6Xsheui0UA/3iOKYpuHARwG2zg1EOslox7KPmeX9JTLVs+grgYayBb+4xe4CATN0votw
-	KJDukKN8RQ+Sft9qJYtx6F6uaHRYPNODsOHITu9soAP6a7WUt8dxmUtT8RfoomqR1e3Fgk
-	jSpzWcS6sHnSCXnjnVykK14cm+gGRmxRxK5/IHF63/JesQgPg+g+G2MV/xKjC7IVfHL7Pt
-	WIgqHQzrEn/0kQthFqruGUszK/GfHLqZG6IwDsIKIBDHb05UHMRZLrf5pyqIyg==
-Message-ID: <c88cad21-dc3c-4791-837c-49a6a41a811c@mailbox.org>
-Date: Mon, 14 Sep 2026 05:33:31 +0200
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="pk0/Pa+r"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=1JX6OxGw6Fen5q/U+UOj7/291svvQ/6DqcLx9AxyrxE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789356850; v=1; x=1789961650;
+ b=pk0/Pa+r9mOLiQQBK7V0hbCUvySlkwAqzNzUrObbc7GDWkGBCzm800KqmKT3ooULSdjR4ee2
+ Mpcg/Fn5r92bk0Lk+7jLdJGWuhFPiGvIBd/z60aKIAzHwhYrOinUnMTTCIP3kBOkVYPLBSa5KQl
+ QPPXaz4t44ohfzJiT8HCX1NI=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 135d90a541b7fc0b;
+	Mon, 14 Sep 2026 03:34:10 +0000
+X-Mizu-Trace-ID: 135d90a541b7fc0b
+X-Migadu-Flow: FLOW_OUT
+From: Ye Liu <ye.liu@linux.dev>
+Subject: [PATCH 0/3] mm/vmalloc: minor cleanups
+Date: Mon, 14 Sep 2026 11:33:59 +0800
+Message-Id: <20260914-vmalloc_study-v1-0-526f68559706@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH 2/2] phy: renesas: Add Renesas Multi-Protocol PHY driver
- for R-Car X5H
-To: Manivannan Sadhasivam <mani@kernel.org>
-Cc: linux-phy@lists.infradead.org, Thanh Quan <thanh.quan.xn@renesas.com>,
- Phong Hoang <phong.hoang.wz@renesas.com>, Hai Pham
- <hai.pham.ud@renesas.com>,
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- Arnd Bergmann <arnd@arndb.de>, Biju Das <biju.das.jz@bp.renesas.com>,
- Conor Dooley <conor+dt@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Magnus Damm
- <magnus.damm@gmail.com>, Neil Armstrong <neil.armstrong@linaro.org>,
- Rob Herring <robh@kernel.org>, Tam Nguyen <tam.nguyen.xa@renesas.com>,
- Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
- Vinh Nguyen <vinh.nguyen.xz@renesas.com>, Vinod Koul <vkoul@kernel.org>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org
-References: <20260828192223.402422-1-marek.vasut+renesas@mailbox.org>
- <20260828192223.402422-2-marek.vasut+renesas@mailbox.org>
- <c2rlwdyn2xm3tti7skniz3uldwh4lly4jlqdmggqjm2a2xpyxq@nczmbl7tyqa7>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <c2rlwdyn2xm3tti7skniz3uldwh4lly4jlqdmggqjm2a2xpyxq@nczmbl7tyqa7>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-MBO-RS-META: 8bfkjky1pt3whjxf1p558bchj4awyzb1
-X-MBO-RS-ID: 2deee22f53a4f685405
+X-B4-Tracking: v=1; b=H4sIACdrp2oC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDS0MT3bLcxJyc/OT44pLSlErdJOO0VPNkc2OLNKNEJaCegqLUtMwKsHn
+ RsbW1ABo2iYlfAAAA
+X-Change-ID: 20260914-vmalloc_study-b3fe7c738f2a
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Uladzislau Rezki <urezki@gmail.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ Ye Liu <liuye@kylinos.cn>
+X-Mailer: b4 0.14.3
 
-On 9/3/26 12:15 PM, Manivannan Sadhasivam wrote:
+Small cleanup series for mm/vmalloc.c, no functional changes:
 
-Hello Manivannan,
+- Group xa_init() with the other vmap_block_queue field initializations
+  in vmalloc_init(), instead of after the unrelated vfree_deferred setup.
 
->> +/* Firmware update */
->> +#define MPPHY_FW_BASE			0x10000
->> +#define MPPHY_FW_CH_OFFSET		0x20000
->> +#define MPPHY_FW_NAME			"rcar_gen5_mp_phy.bin"
-> 
-> Is this firmware redistributable? I would assume not as like other Renesas IP
-> firmware. If so, you should add a documentation about how an user can get the
-> firmware, and package it. Like,
-> Documentation/PCI/controller/rcar-pcie-firmware.rst
+- Extract vmap_insert_free_area() helper to deduplicate the allocate-
+  and-insert pattern that appeared both inside the loop body and after
+  the loop in vmap_init_free_space().
 
-I will do so in V2 .
+- Extract show_busy_info() from vmalloc_info_show(), mirroring the
+  existing show_purge_info() pattern, so the top-level show function
+  only orchestrates the two data sources.
 
-The Gen4 firmware is now part of linux-firmware, so I updated that piece 
-of documentation and sent a patch.
+Signed-off-by: Ye Liu <liuye@kylinos.cn>
+---
+Ye Liu (3):
+      mm/vmalloc: group xa_init with vbq field initializations
+      mm/vmalloc: extract vmap_insert_free_area helper
+      mm/vmalloc: extract show_busy_info from vmalloc_info_show
 
-[...]
+ mm/vmalloc.c | 58 ++++++++++++++++++++++++++++++----------------------------
+ 1 file changed, 30 insertions(+), 28 deletions(-)
+---
+base-commit: 68142f986ff04b2b70b31db00f719bf690f64a9a
+change-id: 20260914-vmalloc_study-b3fe7c738f2a
 
->> +static int mp_phy_probe(struct platform_device *pdev)
->> +{
-
-[...]
-
->> +	return pm_runtime_resume_and_get(dev);
-> 
-> Since the runtime usage count is incremented and not dropped anywhere else, the
-> driver will never runtime suspend.
-> 
->> +}
-
-I do not think we can actually runtime suspend the PHY itself, so this 
-is expected.
-
-The rest of the feedback is handled in V2, thank you !
-
--- 
 Best regards,
-Marek Vasut
+-- 
+Ye Liu <ye.liu@linux.dev>
+
