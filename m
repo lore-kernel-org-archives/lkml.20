@@ -1,85 +1,88 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 226CB440A3D
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:10:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBA5B442369
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:10:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789384249; cv=none; b=EdlBdxTK5ilqGyzdRjTwubcNaAtaH5PnhngoeHpfcPKB1nSBamv0O3VOC51l9BkESWXFr7QM+Dyb6MHxrVlCSeqkXbkjQv2HMET/psRT/cMCiBXJCmJIgK8phYCXKjKuXePvrnjwa7r2gTbJzlI4j/MizH3h5OLe5rqKdM4u8vM=
+	t=1789384254; cv=none; b=iN81n71yDGj6zeAJyjzu1+5vmpGoaLInMJlQLEJUDF5N2eN68PiZtpKmzBi/B8n8+MQoiflTRLumWh5gd2cfK11f9LVDy2iDifzBf+ZyBRHlbZYwxGlwhvGnddsAw4oNmZrihDP3IMJNxmDkh5e682WDBM6/FJz2QU0wiw6uZzQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789384249; c=relaxed/simple;
-	bh=AmdoA3r24dHAajQOXdZSVXOQ/7zFOK7uEZvjLzLavQM=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=J5Tjnnz4h685RX15fJJtBgNnUtvMUGss6xiCQkBjluVJNql1QygtIB5dsPDOuT2QYtkcpdSAzewTfGomvCJlajOtetWYhT5E232XABM18ZLQdBY+NMxHzJMkVnaym38PiwyC9O1gqFNeHuTAWDt875NgRc6pJT6EPXWS9UX+1b8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=oTui/J2S; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BsPpSbVC; arc=none smtp.client-ip=205.220.168.131
+	s=arc-20240116; t=1789384254; c=relaxed/simple;
+	bh=H4TP3EC6KBgdGJJJEm0KqwNmi5g+/3vPNAA1KyGchec=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=F1smDl7dW4iBW6GhuBZHSGaEkFGSsneoBa7AEEyso51yG1RlBAkPVUhPwrGZLEUB6y2mKDJpJzfZ0PSVeoMELQLcTUNOo6Jha6+ZZVCv00lu41/Ui/MbCAGOELScreX/DZfp/q2gIkkONo6bdeLwUSIXL4Mv449DLiJCK4HRm/0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=aiX/cOj3; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=aA/ApYFV; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="oTui/J2S";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BsPpSbVC"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68EAlwr91460505
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:10:46 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="aiX/cOj3";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aA/ApYFV"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68EAlvTR3860362
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:10:49 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=9q9U2IK1L+GKlvlEos9Svn
-	w0EMZHyBDz+3wHlJtnOwc=; b=oTui/J2SWbhnEEXK6LCpyDEplg5BhJN2N/1ygS
-	YSER5nGm1nTSGGQPANsxWAKljD1GdEtafI5rv0/rYfiPXc71paj2+Fr2GPCHwV0V
-	k+xrw7UvhkO6CVA2rHnZyXu3XGj+e1SM4+0ZxDJMWyR8xZXHGgquh+80rLWjp0PQ
-	YwP9kb8xLMmY7aEjOVTtVCyWwCBZP+6WW/O0cFiGEXuvYqoD26I2ruVl797mbRLn
-	V95qSNNXFBYk145wBKFvHa+Q1aa3Ual6zcw9oI2KYXmP67nbdNrstdfJrtfNxak/
-	LDGI/K0RwIebQHGV/zY9oqfSl6k4jEtbBTUsre9+VkvhOvSw==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpeex8cp2-1
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	UoCtpVKH5cs3OFxWJtQCCwztxR5dzJkfZll38di1ep4=; b=aiX/cOj3HkaTkS2K
+	SRSAZGqK1jNd/bpsq/B4VIpu5uMqgabnM9vG/Spd3QoaGpAsqkzLwh3RwWCr3c2y
+	JnVisIPZixbkUr3LxHrhdZKGLlrW/u4qjNrkGg+NfFmRH65UexQFliHvcKvH9q9c
+	j0s+LVvYKzWtbzPeXk31UI47C2T/N3+7xrTzUFG8kLsM9Psl00MRFub4Jng6BDSJ
+	bGr73zMWEZL23nYCfWs8wVOqrQuzMJfsOKXhAVVT7tsG0F+f1HlPW0rXOdHeYRd/
+	q8ZGWpJ0dsgLBWeec/ag0K+1/Cvo4RjKMP/ALtQ3flCJQcQAC1WCDROSKn5r5z0+
+	DjFMeA==
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpd1f0q3y-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:10:45 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-530e89b584cso39460191cf.3
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 04:10:45 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:10:49 +0000 (GMT)
+Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-91051512080so54588206d6.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 04:10:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789384245; x=1789989045; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=9q9U2IK1L+GKlvlEos9Svnw0EMZHyBDz+3wHlJtnOwc=;
-        b=BsPpSbVCQI6Mto14/j98es8Hnxxr6B1liOaI+SUCwkjThYA591YACFcB+y/z/f4/xJ
-         bSaZ3uOBPuX7e19wlxkbv1cCz4+g31BVJiss8N5Q8lFfgFG1mosAw9VCya5oNBHoM90H
-         8pUkI4T5/FfK+JnNUZadlwKdfQlbdPOFVpFgT6MjGS3r1/TpDlEulO0EknmkKwL6blhB
-         xgiSCLyUX/owftrop8KXH319kkQfkeFkfA25ie+HPbuukVKRQrOfDi+ppelsQnQ7lKzx
-         sxHtmGSK2cyb5X/B2qtvxofNFcBXq8mri7SgPRSjOY73lF8h9PHnHducIu+Gpjdt+fEe
-         JTVg==
+        d=oss.qualcomm.com; s=google; t=1789384249; x=1789989049; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UoCtpVKH5cs3OFxWJtQCCwztxR5dzJkfZll38di1ep4=;
+        b=aA/ApYFVtaSHNMib2nj7KTaa1X6SN7iCmettvDI5EEpKfPMLhO7g+1AavfI129/P2w
+         9qadyy0cjh/oaio1MUJC8suNS5dQWS2ElK9tgHkVK7QmbrcXadNfpq/aJtAYEyBwGpMZ
+         B7WftLrLWyd1SqMoHkvn/JzP3YWXKcazXXoFX3hQjqTF8L9ghbiZnza9HPJhxSUh+ejM
+         P/p5AXV//aQsRkLZzHi0H5BEko7z/fmqA3JgXE+c8W1pCWmBGcmrxACqUOMQPN7LyMqG
+         I6xROVMxETwrWphWJNyMEWs5+9MFjq3JQ/HTKbK3x8n+QkavqOJLfr0H3R0F9a6I/LAP
+         8vEw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789384245; x=1789989045;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=9q9U2IK1L+GKlvlEos9Svnw0EMZHyBDz+3wHlJtnOwc=;
-        b=SRhWFzuDFWS4e79Lx/5HJOrW1fSAopJCRM7CGtOaSU9Kkl71Iud9PLB5NdA+J4kRDs
-         w7gLwe+sDbwtnPHBQgbMq+ACo/GrIoEKpuyuJjeEaE477Ytv7K4gGBgaVlnAG6dqZdH9
-         YHEu11mfBiGxatzWmG1qprM4o4u8ion9BlkIz0NiEg5eeQB5pv/n6qtK9f74kzjFnTr9
-         u2eDusiDVvDLBYB6MnohLujlEQRw34M/cS3lM089Rb9HuiFP1cnjcD9IAGa2v8qbrICw
-         K/zYTdklAeINjrY4nOcMNegZJtDMZBloB0NFaOly60GaSMg5JN2zAaWEL+u9rhkByhLQ
-         Pgmg==
-X-Forwarded-Encrypted: i=1; AKwUvBxzpJ6gY1TZcW7YUJof+ue9CThRHL/Qnvg942DZ51swyEghLNm1XGoTEHBL66TNwZm4DTz1WyGBBGG7YNM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lz1Cvem3O+JzZHSi4ARtuJRr6S5JZZkpVooCx4juJQFwHBTir3
-	aiiUr3anM3rFMyKQsJv00JAS9ebFVoNsQdeIFzTPBKBJQTRx9pfOd2H7ka7u68chYgoLWrJ+L/e
-	VTgk4Py08w9GYmiw8X7v7BjtUwiI7OXGrN/iMBEbpLjQWeotqaOy7lfzcQKxTsRJv6m4=
-X-Gm-Gg: AYBFou2ezNRBUtVnoUOnGvr057hM4+xzntwIvbbdTBrBJBQl6+uSzsCL/ogTPWuxitw
-	udU7mdaksrtr3wjPbnPAmvz9pDf7xq6fbazDeg4lhDldgJRVW+vzPHu3r5AoOivCMKKfoy8ikFW
-	PIAnokn45OQ84RK2rhkLVFph9YQKe+yuHqTgNIblNfgCJ8DsKHBiIfLXcNkgK/tNDe0IppjTUW0
-	mfIMu4aTzlzUOPezXaMqo+ceFrIgdymA2NEoe8dSavjfHFrtOzxTAqqy38K3TRsAWTHjT455l7T
-	9lNJk8f6F692aUgM6OKp1rxehkj1WnwRTfGIulJpEAR8lbuqcowTlvXMwabr18e4jv2gGSr6dFb
-	u/0YxGU5LZFrgIOuodgSLgrt8ygAQnBhLkdd4IZ34tn3AI0eg8vT00JM7P0DjtuHY2auw
-X-Received: by 2002:a05:622a:1807:b0:531:181:d6b6 with SMTP id d75a77b69052e-5310d02f2cdmr27308511cf.37.1789384244741;
-        Mon, 14 Sep 2026 04:10:44 -0700 (PDT)
-X-Received: by 2002:a05:622a:1807:b0:531:181:d6b6 with SMTP id d75a77b69052e-5310d02f2cdmr27308001cf.37.1789384244341;
-        Mon, 14 Sep 2026 04:10:44 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1789384249; x=1789989049;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UoCtpVKH5cs3OFxWJtQCCwztxR5dzJkfZll38di1ep4=;
+        b=TTB+4ex8J+ZjGeyR+1wsU45yaLETI37Q3+G+7KytQ9JhNFIjxbnrDuo2jXmAwLaHzh
+         PkI+L/E6aVV6NJb+/R2OCSHXVMhX9V8reR9slSPyPzbvuQ/P9Ud0co3tPisNrWKEOrJL
+         HxUMlqKRSEBRNoiRvlfqIjLaA/zNue7gaiWBd5Y8uix0h0qgPYpK5m3Avy9vKJN1UNfq
+         R/VvtEle3yg+90Zofy52O7qJblPZPfZ2QKQjXFoRp2/nRxN/v3sGhxa1LKF+KNmNi9Gm
+         f0ao/o8DqXMJYxS8oduKUmpofTQ/gmb9741kIZekZaq6I7n+Yg3EHoGAyrJaHqLpfywI
+         Hqrw==
+X-Forwarded-Encrypted: i=1; AKwUvBwdtz/hOTb1/kkaLTKk6YXcARMSN0XTCDys/4/eRtTuTTW3XYX67vHSJBAAFLEuNNiG1A37DPelSlAaGr4=@vger.kernel.org
+X-Gm-Message-State: AFuF++l4OTBRqIj9xB6LQhTfMjx59he1S3mxhxYRoCxCC3b4ae6lXZWc
+	LdMkhfH4+aDzyW5PVFvEM5m8rJUHJz9HmUBGlvg2ksuGHU/5/vghZxJiCGtaJwDw/cqZw7JwrfD
+	qljqvNu/HuWCDd7l+CCIv5RsCy/N8RDGKP6YvTPSOQDHEcmRJ6Wc2UFt15c4koUHoM6A=
+X-Gm-Gg: AYBFou3G7nyx5QMQWG+OBrTkR0OTIL640B8vJ+mjZSkgEka7qgXuscyYtyxpRh2Zjik
+	3juMG8HxMVI8nH50VRak6dah9XL/3XvUZaXvqRrGLbF1ah4Um3Jx+4LrncsRw3FiOXvg2niHPqC
+	G7xu7MoySeBlZ0SxOH4W0DT0Di3t/dnP5nix/+QKjPcYYWKOumQ6ZDXFZJ8iRBuQGYVaIaQl5Fz
+	cy6XtPN+0sfF8MncLiQTPkUmnsRDYAJd5m+GO6cQUbvKHjq1aAwfVMWUlL/0Umrr48POggGObQ0
+	TtQQUT6rZEjqCRweaUyoMzGQj7IF0RedGTUH9CHJb3rZ4L3gnfdIH+rNTlaTFBiw9Z6Q29VP0MZ
+	cLrbPFdtKl4DoKQ7xjQ0opmyiZkojCLySzkRUPQZqcvoxuxwOUPQrq06TLnJrDiZl5xRy
+X-Received: by 2002:ac8:5996:0:b0:530:5411:ef3 with SMTP id d75a77b69052e-5310d02cd99mr26522281cf.41.1789384249005;
+        Mon, 14 Sep 2026 04:10:49 -0700 (PDT)
+X-Received: by 2002:ac8:5996:0:b0:530:5411:ef3 with SMTP id d75a77b69052e-5310d02cd99mr26521561cf.41.1789384248488;
+        Mon, 14 Sep 2026 04:10:48 -0700 (PDT)
 Received: from WENMLIU-LAB01.ap.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com. [129.46.232.65])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f4787eesm91720226d6.21.2026.09.14.04.10.40
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f4787eesm91720226d6.21.2026.09.14.04.10.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 04:10:43 -0700 (PDT)
+        Mon, 14 Sep 2026 04:10:48 -0700 (PDT)
 From: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
-Subject: [PATCH v4 0/2] media: i2c: Add Samsung S5KJN5 image sensor
-Date: Mon, 14 Sep 2026 19:10:23 +0800
-Message-Id: <20260914-sk5jn5-v4-0-386e84cfb2b3@oss.qualcomm.com>
+Date: Mon, 14 Sep 2026 19:10:24 +0800
+Subject: [PATCH v4 1/2] dt-bindings: media: i2c: Add Samsung S5KJN5 image
+ sensor
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -88,11 +91,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAB/Wp2oC/3WOSw6CMBBAr0K6tqQ/aOvKexgXpS1SFapUGw3h7
- hYS0IVuJnmTeS8zgGB7ZwPYZgPobXTB+S4B22RAN6o7WuhMYkAQKRHHJQzn4tQVsLKMkkpLqaQ
- A6fja29o959D+kLhx4e7719yNeNouCb4kIoYIGlViZHhtmGQ7H0J+e6iL9m2bpwGmUiRfNmGrT
- ZItODa0kopYxv/Y9GMLtL4fabJRRZXGVplaqB/2OI5vF57SBh8BAAA=
-X-Change-ID: 20260716-sk5jn5-be432bc99a98
+Message-Id: <20260914-sk5jn5-v4-1-386e84cfb2b3@oss.qualcomm.com>
+References: <20260914-sk5jn5-v4-0-386e84cfb2b3@oss.qualcomm.com>
+In-Reply-To: <20260914-sk5jn5-v4-0-386e84cfb2b3@oss.qualcomm.com>
 To: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>,
         Mauro Carvalho Chehab <mchehab@kernel.org>,
         Rob Herring <robh@kernel.org>,
@@ -103,118 +104,195 @@ Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
         linux-kernel@vger.kernel.org, vladimir.zapolskiy@linaro.org,
         Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789384240; l=3562;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789384240; l=4575;
  i=wenmeng.liu@oss.qualcomm.com; s=20250925; h=from:subject:message-id;
- bh=AmdoA3r24dHAajQOXdZSVXOQ/7zFOK7uEZvjLzLavQM=;
- b=Z+B78ICpw+MIyNgCjf0vvNax3X7oL3rCd042Ro3MVr6yAno/QRX5RSR5HzNDPHgnEiBTRQVdP
- lQb7Lc8/BqVBLXP9Wx69iT63GYkbeBy/YzrXNDmRzH6DpNoBQMPaxYw
+ bh=H4TP3EC6KBgdGJJJEm0KqwNmi5g+/3vPNAA1KyGchec=;
+ b=qBqRY+jVu+TwTcdKMPvrpZ1NsXhSNEbny57d9vDEMIjT/5VBb7MbzK8ZgZyb7/XSlHKSsV5bU
+ dCFrTYR3bWYBbrNzqUObHwvv4cFuP3j8DOil775C5opT3NMvSFKMrZs
 X-Developer-Key: i=wenmeng.liu@oss.qualcomm.com; a=ed25519;
  pk=fQJjf9C3jGDjE1zj2kO3NQLTbQEaZObVcXAzx5WLPX0=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDE1OCBTYWx0ZWRfXwWCdzXxmgAoa
- tg6b4ZOlbj+IgSUR/U0U3BAvQxqeAqCRxVyYrrTvtdyAh+olVy5KbqNwuLWs7T2lcQBHHWBasM4
- nj2nfRaglkguohhYRwGbPhH84CqPf42S0x7twAd0FIrx8rt+48BihMid2Tp5DOPRLaxD5BDLy8o
- ClzPZI/CQvC8GftvkePB5Snx2iryiHHsvC3aZ3brl4rjO4Hu+RYlwI794y6fJKIpbZn0nhG2cG8
- oyv/hYoefUCrTtbme11RoUOJ0mDneVrMG9qfzP22SZ4b6D0Eh0yEQGFHW/zfwF4bZ/LU6Ifh1U8
- IJO/B/ywytFlvSk0kmHbKh8LVZxadOTFOBgYnTWsCRLf/eI+62I69czZVx9NuJDqh///FdmXLGz
- L0WYfO6sdP/+AKY6EKDB7qnTKVpJz+rwru02gNAH9PwYdugGmvUiuCSvKMm2RX81olsdx/q82CQ
- A1uMh9CfdYdT/Ov0RgA==
-X-Proofpoint-GUID: YHdU2lSkabqLNeGWhOdTk80Sz1xChb4K
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDE1OCBTYWx0ZWRfXxhLSCP7+WIYt
- tH/hYyDi/aVtxuACPxHPg1JvYGGw1OSnLUUJRD/EGx4Dj3YGxOrDf+9HZZk9ekZae1Yl+b0nzR4
- rJSfMSed/UTNc9Wyl3LBI6R0M6W8IWE=
-X-Proofpoint-ORIG-GUID: YHdU2lSkabqLNeGWhOdTk80Sz1xChb4K
-X-Authority-Analysis: v=2.4 cv=MsrHeGae c=1 sm=1 tr=0 ts=6aa7d635 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
+X-Proofpoint-ORIG-GUID: H5CDDrJwGr25bDhI4soP4GrBW-4n9tnM
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDE1OCBTYWx0ZWRfX979QtHQWMGIu
+ viAoKaGQVazJPYG+KKAcJOs2ji8/26NNF7oz1KYXlNP+xLlt7n8DVdJaG1vH3FmeukAiJyabSDG
+ NZwt9Zn2dxDP7OMU7hysbg2atq8kh3o=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDE1OCBTYWx0ZWRfX4uWw7jyQIeUb
+ FBRChgBk+NYghbkbZ7vBBl29Ew7TNymqQE1Azc7mR/469VpnnRmM5hHhAjMW6qs09sSHQxlD8TD
+ 4oSm2OvlAKJxhlXP7FOHbGlNVyfHjFHzQOdgD3ciFlQs0dbmrRwBTrrMKKyC0ZnZ0Gc9NZ6nyJR
+ 1rEtaYjvB/nbXQxd9Z1dGQseTJfPwIF78HuGxrv6E/um6lpxDKeZS5HLvk54qU2i1epwk0NYhFv
+ FOHkj/+ZgjQy1ya10MUhTMxtp8BqifKPMRr3k4XyYlldYCvZ2XtJA7aobESCY42+6d4Tsmvi3eH
+ u19vVLjJWE2bZqSEDSHqC7erGk0mUivBs0pXZzvjNutvstC6DvuIzO5pydlb1mA98lyQSl4XU6J
+ wvdQDbFRA164CWlQsLqiLJ/7rasozj6jjLQJl4IQdPRM/lO+COX6KTkDcXpsVVsU1iZXubpEjvL
+ lKF082kj5L9PPpIGcLg==
+X-Authority-Analysis: v=2.4 cv=XKel2ghE c=1 sm=1 tr=0 ts=6aa7d639 cx=c_pps
+ a=UgVkIMxJMSkC9lv97toC5g==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
  a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=y_Jm3pi-UkWrk6VzsO0A:9 a=QEXdDO2ut3YA:10
- a=uxP6HrT_eTzRwkO_Te1X:22
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=xq3W2uTSAAAA:8 a=VwQbUJbxAAAA:8
+ a=6J6j7_AOAAAA:8 a=xYdTjhl2YIFMzPZYPIkA:9 a=QEXdDO2ut3YA:10
+ a=1HOtulTD9v-eNWfpl4qZ:22 a=sptkURWiP4Gy88Gu7hUp:22 a=P5L7wpMTXyg1GfFA3Gwx:22
+ a=DoBsnWhqfNmTxX1QClym:22
+X-Proofpoint-GUID: H5CDDrJwGr25bDhI4soP4GrBW-4n9tnM
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-14_03,2026-09-13_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 lowpriorityscore=0 priorityscore=1501 phishscore=0 malwarescore=0
- suspectscore=0 clxscore=1015 adultscore=0 impostorscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140158
+ suspectscore=0 adultscore=0 spamscore=0 bulkscore=0 phishscore=0
+ priorityscore=1501 impostorscore=0 malwarescore=0 clxscore=1015
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609140158
 
-This series adds support for the Samsung S5KJN5, a 50 MP 10-bit RAW MIPI
-CSI-2 image sensor.
+Add device tree bindings for the Samsung S5KJN5, a 50 MP 10-bit RAW
+MIPI CSI-2 image sensor controlled over CCI.
 
-This is implemented as a separate driver rather than extending the existing
-s5kjn1 driver. Although both sensors belong to the same family, they are
-different parts with different register maps and power supplies.
-Combining support for both devices in a single driver would result in very
-little shared code while introducing separate initialization and control
-paths, so keeping them as independent drivers is cleaner.
-
-Power Supplies:
-| Power Rail | S5KJN5 | S5KJN1 |
-|------------|--------|--------|
-| VDDD       | 1.0 V  | 1.0 V  |
-| VDDA       | 2.2 V  | 2.8 V  |
-| VDDIO      | 1.8 V  | 1.8 V  |
-| VDDIO1p2   | 1.2 V  | -      |
-| VDDM       | 1.0 V  | -      |
-
-Tested on the Qualcomm Hawi qrd board.
-
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
 ---
-Changes in v4:
-- Removed AGAIN/DGAIN _DEFAULT and _STEP macros, inlined min/step=1.
-- Removed S5KJN5_NUM_SUPPLIES, use ARRAY_SIZE(s5kjn5_supply_names).
-- Reordered struct s5kjn5_init_op to save padding.
-- power_on(): removed goto, single error path handled inline.
-- s_ctrl(): checked __v4l2_ctrl_modify_range() return; removed the two
-obvious comments.
-- init_controls(): moved v4l2_fwnode_device_parse() before the handler
-init; return hdlr->error directly.
-- Removed the redundant single-subdev .link_validate media entity op.
-- dev_info() -> dev_dbg() for the detection message.
-- Added blank lines before the probe() error labels.
-- Added get_selection (CROP / CROP_DEFAULT / CROP_BOUNDS / NATIVE_SIZE)
-reporting the full 8192x6144 pixel array, per the libcamera sensor
-driver requirements.
-- Link to v3: https://lore.kernel.org/r/20260806-sk5jn5-v3-0-0b3ac1eadf8a@oss.qualcomm.com
+ .../bindings/media/i2c/samsung,s5kjn5.yaml         | 117 +++++++++++++++++++++
+ MAINTAINERS                                        |   6 ++
+ 2 files changed, 123 insertions(+)
 
-Changes in v3:
-- Add vddm-supply to the regulator list.
-- Drop GBRG from Kconfig, file header and MODULE_DESCRIPTION. -- Vladimir
-- Compute pixel_rate at runtime from the link frequency instead of
-  storing it in the mode. -- Vladimir
-- Split the init sequence into two tables around the 5 ms delay and
-  drop the .delay_us field/handling. -- Vladimir
-- Remove unused v4l2_ctrl pointers and the unused <media/v4l2-device.h>.
-  -- Vladimir
-- Move all control flag setting to the end of s5kjn5_init_controls(). -- Vladimir
-- Fix s_ctrl() to apply controls when CONFIG_PM is disabled
-  (pm_runtime_get_if_active() returns -EINVAL).
-- Use S5KJN5_CHIP_ID in the init sequence; reword the clock-rate error;
-  minor style fixes (reverse x-mas tree, ret init).
-- Link to v2: https://lore.kernel.org/r/20260724-sk5jn5-v2-0-871d3b9a2e47@oss.qualcomm.com
+diff --git a/Documentation/devicetree/bindings/media/i2c/samsung,s5kjn5.yaml b/Documentation/devicetree/bindings/media/i2c/samsung,s5kjn5.yaml
+new file mode 100644
+index 0000000000000000000000000000000000000000..fedb274679cd125483961fee7ac922f2c5efa755
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/i2c/samsung,s5kjn5.yaml
+@@ -0,0 +1,117 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/i2c/samsung,s5kjn5.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Samsung S5KJN5 Image Sensor
++
++description:
++  Samsung S5KJN5 is a 50MP 10-bit RAW MIPI CSI-2 image sensor.
++  The sensor is controlled over I2C. The full resolution pixel array is
++  8192x6144, data output format is RAW10 transferred over 4-lane MIPI
++  D-PHY interface.
++
++maintainers:
++  - Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
++
++allOf:
++  - $ref: /schemas/media/video-interface-devices.yaml#
++
++properties:
++  compatible:
++    const: samsung,s5kjn5
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    description: MCLK/XVCLK input clock.
++    maxItems: 1
++
++  reset-gpios:
++    description: Active low GPIO connected to RESET pad of the sensor.
++    maxItems: 1
++
++  vddio-supply:
++    description:
++      1.8 volt I/O voltage supply (VDD18). Required for both 1.8 and 1.2 volt
++      I/O operation.
++
++  vddd-supply:
++    description: Digital core voltage supply, 1.0 volts.
++
++  vddm-supply:
++    description: MIPI voltage supply, 1.0 volts.
++
++  vdda-supply:
++    description: Analogue voltage supply, 2.2 volts.
++
++  vddio1p2-supply:
++    description:
++      1.2 volt I/O voltage supply (VDDIO12). Required only for 1.2 volt I/O
++      operation.
++
++  afvdd-supply:
++    description: Autofocus actuator voltage supply, 2.8-3.0 volts.
++
++  port:
++    $ref: /schemas/graph.yaml#/$defs/port-base
++    additionalProperties: false
++
++    properties:
++      endpoint:
++        $ref: /schemas/media/video-interfaces.yaml#
++        unevaluatedProperties: false
++
++        properties:
++          data-lanes:
++            items:
++              - const: 1
++              - const: 2
++              - const: 3
++              - const: 4
++
++        required:
++          - link-frequencies
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - port
++
++unevaluatedProperties: false
++
++examples:
++  - |
++      #include <dt-bindings/gpio/gpio.h>
++
++      i2c {
++          #address-cells = <1>;
++          #size-cells = <0>;
++
++          camera@10 {
++              compatible = "samsung,s5kjn5";
++              reg = <0x10>;
++              clocks = <&camera_mclk 0>;
++              assigned-clocks = <&camera_mclk 0>;
++              assigned-clock-rates = <19200000>;
++              reset-gpios = <&gpio1 10 GPIO_ACTIVE_LOW>;
++              vddio-supply = <&vreg_1p8>;
++              vddd-supply = <&vreg_1p0>;
++              vddm-supply = <&vreg_1p0>;
++              vdda-supply = <&vreg_2p2>;
++              vddio1p2-supply = <&vreg_1p2>;
++              afvdd-supply = <&vreg_2p8>;
++
++              port {
++                  endpoint {
++                      link-frequencies = /bits/ 64 <1248000000>;
++                      data-lanes = <1 2 3 4>;
++                      remote-endpoint = <&mipi_csi2_ep>;
++                  };
++              };
++          };
++      };
++...
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 207a6e2db70c8e90a23f56e93af7b90459ba895c..12591e0f1ec2464a34cb6faa91b055f2a47c69d9 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -24582,6 +24582,12 @@ T:	git git://linuxtv.org/media_tree.git
+ F:	Documentation/devicetree/bindings/media/i2c/samsung,s5kjn1.yaml
+ F:	drivers/media/i2c/s5kjn1.c
+ 
++SAMSUNG S5KJN5 CAMERA DRIVER
++M:	Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
++L:	linux-media@vger.kernel.org
++S:	Supported
++F:	Documentation/devicetree/bindings/media/i2c/samsung,s5kjn5.yaml
++
+ SAMSUNG S5P Security SubSystem (SSS) DRIVER
+ M:	Krzysztof Kozlowski <krzk@kernel.org>
+ M:	Vladimir Zapolskiy <vz@mleia.com>
 
-Changes in v2:
-- dt-bindings: drop the "T:" MAINTAINERS entry -- Krzysztof
-- Rename vdda2 -> vddio1p2; fix supply descriptions (vddio = 1.8 V VDD18,
-  vddio1p2 = 1.2 V VDDIO12) -- Wenmeng
-- Link to v1: https://lore.kernel.org/r/20260717-sk5jn5-v1-0-da610d7fd494@oss.qualcomm.com
-
----
-Wenmeng Liu (2):
-      dt-bindings: media: i2c: Add Samsung S5KJN5 image sensor
-      media: i2c: Add Samsung S5KJN5 image sensor driver
-
- .../bindings/media/i2c/samsung,s5kjn5.yaml         |  117 +
- MAINTAINERS                                        |    7 +
- drivers/media/i2c/Kconfig                          |   11 +
- drivers/media/i2c/Makefile                         |    1 +
- drivers/media/i2c/s5kjn5.c                         | 2861 ++++++++++++++++++++
- 5 files changed, 2997 insertions(+)
----
-base-commit: 68142f986ff04b2b70b31db00f719bf690f64a9a
-change-id: 20260716-sk5jn5-be432bc99a98
-
-Best regards,
 -- 
-Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+2.34.1
 
