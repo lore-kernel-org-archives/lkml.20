@@ -1,194 +1,211 @@
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011059.outbound.protection.outlook.com [52.101.70.59])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FB15478E39
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 15:40:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789400440; cv=none; b=F1SVjCMy1YAhXDS+5CaBgr0JYhJRawO6wRF2zgal+BI+THM/wU6hc+EVCawn70YYzIG1vXLvUcQSw8R8kfEkptY+QQgkD4nAiKRktDFgxuRIMhF1glUArJ/1c7IQbhAOTYWYNuzvlW9i+7NhcapLl3N+VduKPGT3tBjOF+Snc7I=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789400440; c=relaxed/simple;
-	bh=y4gyk5bvbT/WyDOci1LnlzfvK22JUP3pNNSmvEXqp7Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=q/2cuF/bHieIKyMumcmuEymja40zKzt/nPpWaEqVPRLofYBkHDlwZtLQzkNvFZ36JlDmv4moJhwqEKi7LXl7BmlL6ZX59Hc8o0y9i79xH2PLz9ZPOn0Z1m/vnd1yCq5WAqn/OKZYaWo2Os30YTIcW8/+jdtTRDTcBJC+vNjfuA0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LKNTBP9G; arc=none smtp.client-ip=209.85.214.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79E86448B87;
+	Mon, 14 Sep 2026 15:41:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.59
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789400465; cv=fail; b=S17gHUMMQQhVNIV9FK5jUzFQpPHYg+/vjkG5UiYjY9DzGo9wJrINN+M/4I2rk0KKsqPX3izek5Ubt9ZbYQBdiUzAngw8t/xVI+YMFXAfoh0wfMN9QP+WZ8tDEoY1VoRM6T0ocVFFN3gXTicf5l1NKoBhTxYqxbPLMLWrgZf+2W4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789400465; c=relaxed/simple;
+	bh=m/L3Qcvwzd9g8VYzHXXj73S5Ts309OicIo7Tzwg9nlA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=p+5KjzGuOsXOFqrhPnx9SoYoKuzGJO3r81tlcIcEFtkiwFnpJ8SkfkQtAl4ZfwY2aP0BlVvt4ddGGlCMXMfLHpV7vheb5cQypv9R5J80m6yHiTeahI5t3JYTfLjPBcwO8gX/iOHPPCPa+ZhfJt2yAkYHiyUP0ghkiKIVDbnQiwQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=E0oWHvEB; arc=fail smtp.client-ip=52.101.70.59
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LKNTBP9G"
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2cfbbdfa60bso36410075ad.3
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:40:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789400437; x=1790005237; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/JX6uMBQ4W2bKRW3iJ+++fXL4T52MMNAs5QF0F3Amtw=;
-        b=LKNTBP9Gn8nKazgDM8QO0YRXYFp38ywMtm1JvhfDnT+zcgcK04pmy6DWTo119mT5VH
-         J0v1kropcN0obRePM2JP2iweT0zmYFMd1vNhEIebrNtjG26xSbFQQYvHI07ZtHz4C/Ic
-         QEWncjk1ezroZTj7ZqVMKfbFLeuNNeEiUI0++XA5OQiYMfXj6Zzw6oz3vMViHclNX8O4
-         pUviCtw359VJfK3SbtAARm5GPhM+iDzyU7lj4AvhI3NbV5yDHgvLPc1JJYLvOhu7abF4
-         fOa4izWjWcy4SxI2e7GOZYVbY2CUEjip1xJcKvMEnEDmu94aw3i8s8BCqdFMAfNrlp/6
-         7ANQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789400437; x=1790005237;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=/JX6uMBQ4W2bKRW3iJ+++fXL4T52MMNAs5QF0F3Amtw=;
-        b=CFjNyZ7pGyQ6gtoJBuf6S8FPA26Gv7enjtGCqpvj4fafUaf3auJ41jfysR5oxc3O2H
-         T6M5TtLZBrdfYaN5T6W6cb4FkazN5nud0OU/upZm54kN9Vda8XNs9gXAY8k9Kwinzp4Z
-         OgQCozFbXxB7P7r2cEE/9YVg5LiR/Gi2YnaSsylVOWBcwzhtpxEQuEdGFZ9mA3zlOkUS
-         x25Q2Hi1H3lOqenInd3p3YnJ9q+dDKjfxLJokcXEUGeLER+ntaVZHoS2IjjMj6gMXORA
-         Q6cutWK8xsn3lg7iXeYSxBEFrp43fQ5QUFxelGlkLuU9tiUAnnNa3t1txJx9whYEWU94
-         GjLw==
-X-Forwarded-Encrypted: i=1; AKwUvBwTrp8jXd7vthfvmjaNzaNSUBqaVQr41oh1uUMFWYuw0b0uyUWDcQLNWmCK5mqd3EB492GxUfJSFAp2yls=@vger.kernel.org
-X-Gm-Message-State: AFuF++kK4dsju9R8zDpvAq2efJlT8aFwDUox9vOFQsiCZxxJvWfW1NPo
-	MQSk3gd1JRI+xX2+cqMQPnGVA7zE/p+sP3i3SqaMzIY31+L1qF5rqPGX
-X-Gm-Gg: AYBFou1m2QVYrTi3rCdFg8UmwxQYi3WFLQLRdlgxDEgygDKLX0FfK9BGJXnOrJd+G7q
-	gvUfW1j+vV/GFfB/KzVROCZ75TGerAIDWXs6R9lQBoEI585/kaje1ZjDo6cW8WcJTA/SdyseKWi
-	zpHHLK0GPYCnPdJ+WrraD+7mW+WZX+rT+guIIF5c64zJnOPfFbkCCnS6QG9Sf1Zh9cTlZ1OP70v
-	o3lmEK3RRy5bL/JmKAGv8a8zFpp5WVlJpLPK9SCamBJRqJsWCv+P99T/e1p+hBYDGwX/KT0661k
-	q+yqDIEYrIgFFyWE6MNgbh7EpX1Rqu/FBycJ5+t7c6gBMY+9uwhOYBc6c5SF6y6yqotDboUDe6P
-	T5ehCimXCoJZ7nl0OHD334mIEBbkfGS8tjWWOeAFPxoLNh8fJU7z57rYAGBT0CsrQkdmBkn0tjy
-	WGP1wcn/0EhTi++REDX+intaXQVBz+i1v74dAMwW3DQZclN+I4s7otbh+xiJw5WQZTU3it7elH1
-	Z+XB47ifgnyK3GmOnP4NxscSBgtpJ5lNRT43DRocm5qudeX
-X-Received: by 2002:a17:902:e950:b0:2dd:3d1a:6958 with SMTP id d9443c01a7336-2dd6c5f4ef5mr65457375ad.6.1789400437072;
-        Mon, 14 Sep 2026 08:40:37 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd561e2af6sm30022435ad.70.2026.09.14.08.40.35
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 14 Sep 2026 08:40:35 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <44026532-e454-458a-847a-9e66e7ddc3ad@roeck-us.net>
-Date: Mon, 14 Sep 2026 08:40:34 -0700
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="E0oWHvEB"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pzzNSbzGAg9tXMxQgeUMiGnptXJ/Ju9BxDjNx3aDZ84yJEI5DRq26tnhJF5BJxP0SpSNlrDlHgThfMNA2B2sQnOKJsLJ/kWX079bshN9P3ihHk9qackJz2ap630PagqsIZKw+bmISgpUInK7VlT+DFYF4mrfjtf1DSQnEis8belAMAgjbf42lvWLc0nlrn3CjD9/dnYh+P7dLDpH8/8HgzoW4ExYAsWW4CCg8gOkEkxd8KrO2tXKSnkaw10/zHVwDzjAvacttRRUktzI7UDdzdepgcILm2tZD/9MT/XLhzCXfC3JewCh8k9EtuHPPs3LbwZ+ujPntntrBm795ieytg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CjFWj3OPwPVbTSTbXPK8Lr5GFGanVuqb3TAMwBr9j3U=;
+ b=R7+Qxg4kzfQiHquz56GbBrmC8qrlPNwLecugFGNHM3vckeB38H58BeDiIA/xAE063VkPNvtcB+ZZo5EInwDY1jEWafF8c0SpSVGnvJCCPvEjQLQ0MgUJWrtAUIDh702fSELqWnhokFBjRueeqKk3QRTa059h+aVEjtV/9O+LcZpytzxKde7+THsNJGLBuUeUtXJWDZ77oN+u3pCFoil5b/g8AB3SCVxKcm8T28skoYAgHcq68rIF/763TchN2WB8CjZGig9AeLfcvyt44cGGu4rkvKCmSQ+YoPQ5omZJ+zqcGj6v9Mu168GmIj6gfSTBPjBeBE/Mcn3GRWC/Z/B5Vw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CjFWj3OPwPVbTSTbXPK8Lr5GFGanVuqb3TAMwBr9j3U=;
+ b=E0oWHvEBDs7R/fMwIr7Pdo1CzYFX2BTu/KRyJ4/1j+Ofh1SEHtuClWWNFJExtz0OrKK5XYmN7E/lvfAfO/rrN4E18NO1Cjy2awj3ul2IXQNwsEw/oyQ651ZTZdY8CG4aeTLfi6P587dxnz8NRsPLXfojawr1hE8v4Sf4UgWrUNNcaZhW0J5I3p+0PNOcSNasavBFQuLZTop5vBw2trYG5+XwQXs9pLKUzlwhF6MLEOjz4Wii2jQh2GOjQ0dyisIh+eh4KHUMSkyjNyxrsUfX96aknAJrU+TuPqxIEIjaiTjNnyo4GwPvSGXLKTlFA8iP48m7VVLDxp7jjeoSj4+RQQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by MA6PR04MB756646.eurprd04.prod.outlook.com (2603:10a6:250:53::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
+ 2026 15:40:59 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
+ 15:40:59 +0000
+Date: Mon, 14 Sep 2026 10:40:49 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Guangshuo Li <lgs201920130244@gmail.com>
+Cc: Patrice Chotard <patrice.chotard@foss.st.com>,
+	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Ludovic Barre <ludovic.barre@st.com>,
+	linux-arm-kernel@lists.infradead.org, dmaengine@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] dmaengine: st_fdma: fix potential use-after-free in
+ vchan tasklets
+Message-ID: <aqgVgZhsP6OQ0QvT@SMW015318>
+References: <20260912154629.1021632-1-lgs201920130244@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260912154629.1021632-1-lgs201920130244@gmail.com>
+X-ClientProxiedBy: CY8PR11CA0002.namprd11.prod.outlook.com
+ (2603:10b6:930:48::9) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] hwmon: (gpio-fan) fix use-after-free of alarm_work on
- unbind
-To: Cong Nguyen <congnt264@gmail.com>
-Cc: Simon Guinot <sguinot@lacie.com>, linux-hwmon@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260914115448.2039438-1-congnt264@gmail.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260914115448.2039438-1-congnt264@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|MA6PR04MB756646:EE_
+X-MS-Office365-Filtering-Correlation-Id: 05ab6a52-bcc1-4620-e2f8-08df127692cb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|366016|23010399003|19092799006|1800799024|11063799006|56012099006|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	CHZDct0rFjJPFEwCzeZS4r0KsXCh+WedntqcGowdCJAxRtPx0SatDAyNswqnGoHhWQPhOWFrcMd9itSVgwto5TF8s+LrYKKV+mDgUiDmGCQYikqOtXo3WLIMuH4W8nTs339CdPoxD20mxtNT9Cxt/fyrH7IgQwK5/3QX92cYydaQqs6GyAQzWkFEJYIcTfsyE8fNLkhcy+lkW6FIqL8DYb7SQByB0wf7n276GCiRFSUBCXAlOQOOsVaEVBK6/OqSQD2ctGsxBPkCZcaeW4pbhwweb2faT6/1ptj5RYSu/qqnw2YlLejlngtvRla2xz5wXURb206yXar7ODzgMpHLRoPiqtOBopHoNaUBF0nmNqUeGrV9STXm0yicGLsC7twCHE2IeAoEn2cnVRKrWgpt7J6ceLpyp2xAoSU3Zrl34KTMQG0Dp1zct110y9AyYc3AYLMyjVZ8EpirqGxEz9xIWk3kYNJCB8KTtGldthRFOzf6/4sDuAZAf4GKsWudd6YClxWHwSCB7USDIOIaIpyrl87slltyR7TWt5ntCCXgkjon/cuDLAfHiz6vxnT+bVoG4rsrG7YgQR6uli0ynSZKcW9S+V4htm1OloRt6c3W94Jf2JZ//92Bue0LtoZmZ3va9FdwVdULr0evqVDQHshz9GjZc18Zhnc1Do0Uyh/FS2k=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(23010399003)(19092799006)(1800799024)(11063799006)(56012099006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?Wx/WodVNlwXRQ9icGhUQlifoY4DTMypL1/z6dktQZz6pvAA4EaH8Sl6rGKMp?=
+ =?us-ascii?Q?bLRiZ3O7pPsb/tKGqwjOgDfy4JfAc0b4W3OALoomUe7yONhV+xfB11WPQput?=
+ =?us-ascii?Q?61IRTX1PX7X/NkDTb+GK4q3Rz4ODaq+GpzfS8THnls5A+rCZ1qckJeCQoWWQ?=
+ =?us-ascii?Q?LTEPorJkFCGqP3xKz75ByftpqH7hwSmBKQiqBNKNuXzDyUx1wlQ/4ReLuo+1?=
+ =?us-ascii?Q?8CrP/dQJmvhqTkdD9Z6ymCkX/nJ+mr64KbJFCiWJyFDox2pozUW1tG1y0w+Z?=
+ =?us-ascii?Q?Bp2Kd8Hjjf9zl5A179FcwhUSa5ly5JeLMQ6HsTX3FeF5LW8EvD8aN4QbawVq?=
+ =?us-ascii?Q?EkcE1iUv710gGW8RK6OjNEHGi3fN8yUjQl7bwJNCOeJlRPqtUJiBBPIqpSX+?=
+ =?us-ascii?Q?w895xdvspj1KBC2l9XrVtiSlqBZwgoArfPemFEXjZ4S4P5osh0ogkBYZds4/?=
+ =?us-ascii?Q?WwJ/Jys1sauQGYY46fQyJmPaaq8QxH+KgUPcxCIQ6zng46QGuvaFLJrJTpOK?=
+ =?us-ascii?Q?Q83zwTqj7M6TgmEHeXi/g13C6HLQ1OCp6Tr8R4nUbfj0zxxWVpynnx+hxjW2?=
+ =?us-ascii?Q?/JZXeXpPcgRLQHnyTAz4m+lthGnxNuRvlfDZ6Wgwlz1+dj7uXXWAVfsYrNbM?=
+ =?us-ascii?Q?wc6iBd1QUErkYgfJWdY/xVa+vtCrO7JGEMjBLf5xlmjb6jb2PLUT8iqJ4L3R?=
+ =?us-ascii?Q?5fMNpKdvOEmKQgqkVZKYc4vHKpndK6z0BFPKl6J7c0COj/oWCJQ0VLCpyqYu?=
+ =?us-ascii?Q?55SuWUFBxhdOa3gWI6pTtcWWF9fDugJsLuMO0R5ZGQujaZVhSOrewyOLp99w?=
+ =?us-ascii?Q?CwpvIN0Y4yASCzRq7l6QTqeYzUHapCUdnla4si2qKVydUI/z1JaHWWF1PuVL?=
+ =?us-ascii?Q?ddr2Emg+3hCzp3jchM4CgJ6Ml/EioOf0nTUoD8LGX+VL0GqYN/jUvAIfHd4J?=
+ =?us-ascii?Q?ODt5MZnJRRD7KVvJY1XryTAoH7nNqAArrQMhor89o+2xpKcEoVnY2vTO9kpF?=
+ =?us-ascii?Q?Ty1LkGSHM8r0i8mm6gHGSXKSxpfKZX6/+eWnIROlrR91n7LG8RL82PXQ1gpC?=
+ =?us-ascii?Q?lm/x8l0/jxKmVgqDOuYQ6gQ7Rf5N3pdx3h/J017aDquxEJOw3rStfibsZE1n?=
+ =?us-ascii?Q?22lzzFIEuFq/IHQaU5BjuF35Z7muURAQAL8faoldmdCQEOh/iaa6aBSvMGza?=
+ =?us-ascii?Q?ImWzgVObcwCKuJ8QnUEPZy8X24GaD/r1y19ZtYbPiFrNDrumx4YHLMKYxUly?=
+ =?us-ascii?Q?NLsp63TADUK6+1CYIsjO5NY40VXPyX23qe4aeVfXbn3qOUVA44UyGHHfZ9IW?=
+ =?us-ascii?Q?uuN/Rk70ZaAYab5iZAHljhMY7XzZBYmQqYoSduUS8Hpv1rYHfxYqsdssoXXa?=
+ =?us-ascii?Q?RVnM++ZdyaIUW3vsivmTELiJvxB5gfZU8DjHFgEjI4jdYdWziICsjEpwjMf5?=
+ =?us-ascii?Q?mVV9MxUfbWJLjeU1m9shc79DT2RDTp7YJlExz+6+yZxsvBRzTZXyuuqrF+wF?=
+ =?us-ascii?Q?xuho7VHwu9p6RDfZv+QtuheS97DIXASlXb58/W4GODXYupBXiwlaA1OEbz4V?=
+ =?us-ascii?Q?z1oD1hlYNyoN++48FR50JYuTcGH1ZP0vCmYJJovTgtlxNugByfovNSPXWQrY?=
+ =?us-ascii?Q?oU8GMNGOowD9bp7rEz9vNXgN1Ki4Cr18arKatqDxu8GgSLgWT9XiAo8YG6nR?=
+ =?us-ascii?Q?xvrS5w2X5IlCcyuf0+0jzdbvGZjTAnT53C3nRdR2w9x/CVkiA7GGgaoYoxlf?=
+ =?us-ascii?Q?wrlnPq3AmCC8vYqp1JJEhlKt26jmvxlJxzISwEGbnxRIXKLfZZ1y?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 05ab6a52-bcc1-4620-e2f8-08df127692cb
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 15:40:59.0179
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: apapwJDbn1qSp04q+NHLRult/OWSh0j8FQs+SVA3OigrU3iz601AJ96fDAaYZ0OcwPj2QkXeHt4/JCA+/Naj36v4/o8a1kAsSWh39UdHAXHmmN7lmI/CoNE49XmNYhyn
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MA6PR04MB756646
 
-On 9/14/26 04:54, Cong Nguyen wrote:
-> fan_alarm_irq_handler() schedules alarm_work, but nothing ever cancels
-> it. free_irq() (via devm) only waits for an in-progress IRQ handler,
-> not queued work -- a pending alarm_work can run after fan_data is
-> devm-freed, dereferencing it in fan_alarm_notify().
-> 
-> Cancel it via a devm action registered before devm_request_irq(), so
-> teardown frees the IRQ first, then cancels whatever's already queued.
-> 
-> Fixes: d6fe1360f42e ("hwmon: add generic GPIO fan driver")
-> Reported-by: Sashiko AI review <sashiko-bot@kernel.org>
-> Link: https://lore.kernel.org/r/20260830152150.27F5F1F000E9@smtp.kernel.org
+On Sat, Sep 12, 2026 at 11:46:29PM +0800, Guangshuo Li wrote:
+> st_fdma_probe() allocates the channel array with devm_kcalloc() and
+> initializes an embedded virt-dma tasklet for each st_fdma_chan through
+> vchan_init().
+>
+> The interrupt handler calls vchan_cookie_complete() or
+> vchan_cyclic_callback(), which may schedule the tasklet. However,
+> st_fdma_remove() only frees the IRQ and does not kill already scheduled
+> tasklets.
+>
+> devm_free_irq() prevents new interrupt handlers from running and waits
+> for an in-flight handler to finish, but it does not flush a tasklet
+> that was scheduled by a previous interrupt. Since fdev->chans is
+> devm-managed, the channel array is released after the remove callback
+> returns.
+>
+> This leaves the following possible race:
+>
+>   CPU0 (driver removal)                 CPU1 (IRQ / softirq)
+>   ---------------------                 --------------------
+>                                         st_fdma_irq_handler()
+>                                           vchan_cookie_complete()
+>                                             tasklet_schedule()
+>                                         return
+>                                         <tasklet pending>
+>
+>   st_fdma_remove()
+>     devm_free_irq()
+>     ...
+>     return
+>
+>   devres cleanup
+>     ...
+>     kfree(fdev->chans)                  // FREE
+>                                         vchan_complete()
+>                                           vc = from_tasklet(...)
+>                                           spin_lock_irq(&vc->lock)
+>                                                        // USE -> UAF
+>
+> The pending tasklet is embedded in the devm-allocated st_fdma_chan.
+> Once fdev->chans is released, the tasklet and the virt_dma_chan
+> containing it point into freed memory. A later vchan_complete() can
+> therefore dereference the freed channel and cause a potential
+> use-after-free.
+>
+> Kill all vchan tasklets after freeing the IRQ. This prevents new
+> interrupt handlers from scheduling them and waits for any tasklet that
+> is already pending or running before the channel storage can be
+> released.
+>
+> This issue was found by manual code inspection.
+>
+> Fixes: 6b4cd727eaf15 ("dmaengine: st_fdma: Add STMicroelectronics FDMA engine driver support")
 > Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-4
-> Signed-off-by: Cong Nguyen <congnt264@gmail.com>
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 > ---
->   drivers/hwmon/gpio-fan.c | 20 +++++++++++++++++++-
->   1 file changed, 19 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/hwmon/gpio-fan.c b/drivers/hwmon/gpio-fan.c
-> index 084828e1e281..b1b57bb63a33 100644
-> --- a/drivers/hwmon/gpio-fan.c
-> +++ b/drivers/hwmon/gpio-fan.c
-> @@ -81,9 +81,16 @@ static ssize_t fan1_alarm_show(struct device *dev,
->   
->   static DEVICE_ATTR_RO(fan1_alarm);
->   
-> +static void gpio_fan_cancel_alarm_work(void *data)
-> +{
-> +	struct gpio_fan_data *fan_data = data;
-> +
-> +	cancel_work_sync(&fan_data->alarm_work);
 
-I think this still leaves a window on teardown, if an interrupt happens after
-the work was canceled. I would suggest to use disable_work_sync() instead.
+I prefer defer all tasklet tear down fix patches after
 
-Thanks,
-Guenter
-> +}
-> +
->   static int fan_alarm_init(struct gpio_fan_data *fan_data)
->   {
-> -	int alarm_irq;
-> +	int alarm_irq, err;
->   	struct device *dev = fan_data->dev;
->   
->   	/*
-> @@ -95,6 +102,17 @@ static int fan_alarm_init(struct gpio_fan_data *fan_data)
->   		return 0;
->   
->   	INIT_WORK(&fan_data->alarm_work, fan_alarm_notify);
-> +
-> +	/*
-> +	 * Register before devm_request_irq() below: LIFO teardown must free
-> +	 * the IRQ (stopping new schedule_work() calls) before this cancels
-> +	 * whatever alarm_work is already queued or running.
-> +	 */
-> +	err = devm_add_action_or_reset(dev, gpio_fan_cancel_alarm_work,
-> +					fan_data);
-> +	if (err)
-> +		return err;
-> +
->   	irq_set_irq_type(alarm_irq, IRQ_TYPE_EDGE_BOTH);
->   	return devm_request_irq(dev, alarm_irq, fan_alarm_irq_handler,
->   				IRQF_SHARED, "GPIO fan alarm", fan_data);
+https://lore.kernel.org/dmaengine/5ae73ce5-1216-4012-abe0-aba9469ef089@deltatee.com/
 
+Frank
+
+>  drivers/dma/st_fdma.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+>
+> diff --git a/drivers/dma/st_fdma.c b/drivers/dma/st_fdma.c
+> index d9547017f3bd..23071cbf1866 100644
+> --- a/drivers/dma/st_fdma.c
+> +++ b/drivers/dma/st_fdma.c
+> @@ -846,8 +846,13 @@ static int st_fdma_probe(struct platform_device *pdev)
+>  static void st_fdma_remove(struct platform_device *pdev)
+>  {
+>  	struct st_fdma_dev *fdev = platform_get_drvdata(pdev);
+> +	int i;
+>
+>  	devm_free_irq(&pdev->dev, fdev->irq, fdev);
+> +
+> +	for (i = 0; i < fdev->nr_channels; i++)
+> +		tasklet_kill(&fdev->chans[i].vchan.task);
+> +
+>  	st_slim_rproc_put(fdev->slim_rproc);
+>  	of_dma_controller_free(pdev->dev.of_node);
+>  }
+> --
+> 2.43.0
+>
