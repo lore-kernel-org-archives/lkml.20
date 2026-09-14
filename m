@@ -1,135 +1,158 @@
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11021077.outbound.protection.outlook.com [40.107.130.77])
+Received: from PNZPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11021138.outbound.protection.outlook.com [40.107.51.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 404823D6CC5;
-	Mon, 14 Sep 2026 13:23:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 787903093CF;
+	Mon, 14 Sep 2026 13:23:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.51.138
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789392194; cv=fail; b=dO/Q3PN0P4TJhNSEoZDC39TJMXh8zNVjJiz0iprmie3xQ67KoIPBOzecKDncJDZK4AHwp/e3yVmVx2HhGCed3zmnPPUZfnQexhl6gWQecHYgPij0y+UvamAoyNedYGZPOItr8pSGVH7XMphRVHgcyJNy3vxjs8opvI8IzWlguCk=
+	t=1789392230; cv=fail; b=d0DlpC1GtoNszhMuAm2zhZsSxuzutt2K3YtEBlQxV+aJSgMGS6u32OQWRk+Ve05rHGv/DYzs29gx+91rUQw6SptmXxaPp4HdSVo2KoCXlK1ZEdSvjgOjfaU3VBNdbelQ3pMsF1FWN8UNLdtqCkAgSTfj58lQ45KhPVwFgr5JnVQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789392194; c=relaxed/simple;
-	bh=QlKH3ig2xEe2rHVud8RsDxv7DU2o7GK1kttwZI2ebhA=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=eb4ih5EoRc9kPsu20tPPH/VHzcenFy2iPdotjfLIPkTMcMALRTpcaMcYW4FWEXsVWRzcpVqJQstS0Wmo5FlcEeq8H5ie401P0JBWPpipiNGvG5WOk0zOrSjmQnggEdRUtrZbxH02TBPeQ6r03Y7NeAAtO0ifgCKvbZcT9xLPo48=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=prodrive-technologies.com; spf=pass smtp.mailfrom=prodrive-technologies.com; dkim=pass (1024-bit key) header.d=prodrive-technologies.com header.i=@prodrive-technologies.com header.b=dBgaGrFS; arc=fail smtp.client-ip=40.107.130.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=prodrive-technologies.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=prodrive-technologies.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=prodrive-technologies.com header.i=@prodrive-technologies.com header.b="dBgaGrFS"
+	s=arc-20240116; t=1789392230; c=relaxed/simple;
+	bh=O71Caw62uxAhIinuaHwKxfkNforb4Y11r30b3/GuF/4=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=awKanWcdB6pkeQgxAkqXnUOy+uoojemVAAD+1f8oYlpiLjwfUWfuwUHP4gEK08oc0q6RvnkV4Pcz9Oh0FLcnnhE0G8/iuJQqzXd4jgnHwv2GFag7R1b0+sLOMhN8a7kNOHi+sjnzp5W2v9+5qIkr5SBJgI6vyBFX2uD+Xf6Eia4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com; spf=pass smtp.mailfrom=ebytelogic.com; arc=fail smtp.client-ip=40.107.51.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ebytelogic.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lZQmXI4pGl3ZoNAzQJgcoha/izscX9L2TbTpTL5DlBw4YdRBzYn76E7qzUuBjhtKqc7sFBHxLhzJiMzcEcmslFlEVRnzJCvwBBSaCUTWpl99Y5tAbFsCqKaAJ1MvktEHkDgF2vv/R/eBX+H1FdcOc5ndQipWowaop1/MO1EeKwjCh509X8Wr+1J34zhUqYJ8yBxOTQCO90AyRvWbchu1yQKHVjZMS0zJ4bnQRVxm2f7dPyRUernDezMrUWdgrcR7VH8KWwWqyBbDVa+c01TVdjfu5dRagf/wzFzki91TJlpKLD8i39cpDa3gEGaumf/GYf55Dl59zHuYqrRMTCjoSA==
+ b=GkgVYWU8cLaogRext/oA6UE4OHmZ20HxJdan8LXhk5r2/26mKBdxREVN9WqwuqbVh6L7EULMMR5B+iUF+CIU6o9+SRPx8bPhHOxkNdR1GDDB/A1x9lLArFUijhXF1V5z3GpIpo9qZ/tuFQB2qv0+rOIRYcV8FnqQIjco2diRPe8fRq2eOFmqHmo3YYNAzw4jaMSJrwv2r+nVKPiZOIrQHg82HPlVaqon+fatlYi2xO/AP+SQqCSkN/Q699i0QQJ7kjObP45QlZFtnCxq9YY8IzNPKFxonF1WPu8eUmoVaEpr/A8gJ5RIU2Yt9rkrGe2xGiy0LpMZ9LqZxgHIZlrC/A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fjgWr7uZ1VzY+GJ+kPcCxeZzKHG6O5Ovw68puuG5eas=;
- b=V3H7dBfu1X8Xmn9sGF2t0qCpawAH6PDqo+LVIq6Xgx8zz4y3Tk7dTho5972bmRVWjtykqP6MNogYQ41QFOjIgFstDDqD/9cjR2nKqyz09mOdYmZoAZYp1B+PnkAJk6qwyQM1lf5Q8NgLrjfmND+0rhvHHGNsmYHDR87SP1L1YXJVw2bci21+9XniCJ3Bv81iULitTlF5Sg/+U7Kx/6TjWBt58CEBGXA9PLRyFBWaz+Dtyy2EcoVh1zIU1Cn2x9O0nD097t0xP6MHN836yatDDhUNB37kUvhC77wmICZIrCGkqQ+jaDx/AO2GgIr9dyOiOqOg6js5x5nNeY5+sndpPQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 109.94.150.189) smtp.rcpttodomain=animalcreek.com
- smtp.mailfrom=prodrive-technologies.com; dmarc=pass (p=reject sp=reject
- pct=100) action=none header.from=prodrive-technologies.com; dkim=none
- (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=prodrive-technologies.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fjgWr7uZ1VzY+GJ+kPcCxeZzKHG6O5Ovw68puuG5eas=;
- b=dBgaGrFSxaR1fdzZMcEL3HV+pepSUxFWUXt/6sdVUxvkzb3ixRbZ5qKplXnIOHWbiKL3/ofswj32I51uAaKEdQwUHZBmakZtlhNUlV0tcAMQDNe9520NtIyc6aswyu/GyU1YPR0k/h867nSAGde2Wu1QIuJ2OH0Cs9Czxih4rhA=
-Received: from AM8P191CA0002.EURP191.PROD.OUTLOOK.COM (2603:10a6:20b:21a::7)
- by DB9PR02MB9945.eurprd02.prod.outlook.com (2603:10a6:10:454::20) with
+ bh=yCyrtoR1R3oH9LVyD34BoSf1gBW8c3ufYeDUnkAQKKg=;
+ b=nv11uGx1s3DNC5qw3T/hxQoWEXByJC37JafMmcjm/xargM6ubRQINa+kR31ETBgPuUQsAc/KoqRxxgwHHej57ZXw70vsDjs63vv6U4S3bOzj5tCM5PPSZ5UxavyclT3MkFL8rAi8jGh1lfoNW1byPSlC5++/2i0qrepl1Kqc2sofjy1Q+WA+QcFOH2C83yIkaB7keSHADWfSBoOGnhc7fNs63OX0sFFHDcY/qEAZTVsR45owcWjqD884ovSCrwzUsjjW1gAnpsSo9h8SOgyTZ6mJuK6pgYpNmkUdHdkeL5PEocvWuAFNvP95+hzshZoLbvUkWqQs2z97urvQpo0c0A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=ebytelogic.com; dmarc=pass action=none
+ header.from=ebytelogic.com; dkim=pass header.d=ebytelogic.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=ebytelogic.com;
+Received: from PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM (2603:1096:c04:1::97)
+ by PNWP287MB6066.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:345::23) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
- 2026 13:22:56 +0000
-Received: from CPH1EPF00000522.eurprd05.prod.outlook.com
- (2603:10a6:20b:21a:cafe::24) by AM8P191CA0002.outlook.office365.com
- (2603:10a6:20b:21a::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.12 via Frontend Transport; Mon,
- 14 Sep 2026 13:22:56 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 109.94.150.189)
- smtp.mailfrom=prodrive-technologies.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=prodrive-technologies.com;
-Received-SPF: Pass (protection.outlook.com: domain of
- prodrive-technologies.com designates 109.94.150.189 as permitted sender)
- receiver=protection.outlook.com; client-ip=109.94.150.189;
- helo=webmail.prodrive.nl; pr=C
-Received: from webmail.prodrive.nl (109.94.150.189) by
- CPH1EPF00000522.mail.protection.outlook.com (10.167.241.133) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.7 via Frontend Transport; Mon, 14 Sep 2026 13:22:55 +0000
-Received: from EXCOP01.bk.prodrive.nl (10.1.0.22) by EXCOP01.bk.prodrive.nl
- (10.1.0.22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 14 Sep
- 2026 15:22:54 +0200
-Received: from lnxdevrm02.bk.prodrive.nl (10.1.1.121) by
- EXCOP01.bk.prodrive.nl (10.1.0.22) with Microsoft SMTP Server id 15.2.2562.46
- via Frontend Transport; Mon, 14 Sep 2026 15:22:54 +0200
-Received: from paugeu by lnxdevrm02.bk.prodrive.nl with local (Exim 4.96)
-	(envelope-from <paul.geurts@prodrive-technologies.com>)
-	id 1x66e6-00AVQD-1x;
-	Mon, 14 Sep 2026 15:22:54 +0200
-From: Paul Geurts <paul.geurts@prodrive-technologies.com>
-To: <mhun512@gmail.com>, <mgreer@animalcreek.com>, <david@ixit.cz>
-CC: <linux-wireless@vger.kernel.org>, <oe-linux-nfc@lists.linux.dev>,
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>,
-	<ae878000@gmail.com>, Paul Geurts <paul.geurts@prodrive-technologies.com>
-Subject: Re: [PATCH] nfc: trf7970a: power down on startup RX gain failure
-Date: Mon, 14 Sep 2026 15:22:51 +0200
-Message-ID: <20260914132251.2503507-1-paul.geurts@prodrive-technologies.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20260913042625.31296-1-mhun512@gmail.com>
-References: <20260913042625.31296-1-mhun512@gmail.com>
+ 2026 13:23:44 +0000
+Received: from PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
+ ([fe80::df75:6e8c:7def:a08e]) by PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
+ ([fe80::df75:6e8c:7def:a08e%6]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
+ 13:23:44 +0000
+From: Hitesh Patel <hitesh@ebytelogic.com>
+To: Andi Shyti <andi.shyti@kernel.org>
+Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Robert Foss <rfoss@kernel.org>,
+	linux-i2c@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	ravi@ebytelogic.com,
+	Hitesh Patel <hitesh@ebytelogic.com>
+Subject: [PATCH] i2c: qcom-cci: enable SCL clock stretching in standard mode on CCI v2
+Date: Mon, 14 Sep 2026 18:53:28 +0530
+Message-ID: <20260914132328.976902-1-hitesh@ebytelogic.com>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: PNYPR01CA0064.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:2b7::9) To PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:c04:1::97)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CPH1EPF00000522:EE_|DB9PR02MB9945:EE_
-X-MS-Office365-Filtering-Correlation-Id: 80413bf5-c8e9-4917-ab89-08df126349c1
+X-MS-TrafficTypeDiagnostic: PN3PPF28092842E:EE_|PNWP287MB6066:EE_
+X-MS-Office365-Filtering-Correlation-Id: dc2cb598-8d26-425e-92bd-08df12636638
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|23010399003|36860700016|376014|10067099003|22082099003|18002099003|56012099006;
+	BCL:0;ARA:13230040|376014|52116014|10070799003|23010399003|1800799024|366016|10067099003|56012099006|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	8hu6AzDRWMj4SuY1gunJcr59oY8U8ghyHPHcQ7mBPyIklEatP/PwN5gq13jDy24vxRRqmkLvZ/DTdzk0Fu1mOZtACPfB9V+H95vMkmIVVxgowdGxOuFy0vdelSSAgnpJOc5+Btt/c//ouq+WVr1MFhwg3ZJKsEiIYB4eNHjdwzbKHL8egv/zvz0kLEYrLZa9ljP6vdkT1Mue+/DioX2pQUgoqVCenr1daAeZLwgdS9I7lxJkHjroYFNBSSqSxjcs80ptsM4H5Ru3ARK7bh7b3gxLUXWWz42WIEWzqf8Zg4SZljaovPW2ozZApvAh6SCxxOGP25jUB2mJMSJ5ZYuVjvs3FixDjNUF1vcXrCK4Fh1say3IPOcmgpIVLU27sEadbQj4hrlA8UXNzPGE6wCACiccuckgsXjivWdWke+ALczdU+rnHtMYwDRyOVdqac2qB1KCJxgRPZCLsUKzvwIGxsJ616IR4ahouHd82BAOwC+S8UxZkxZWOeHSRpMQB8zs4YrkoBb9whyOmCCwBldqOjGDwG5Prti55JVTddr7Cmw2kw/ImeZcDY5LDAyULzQRwYtrGaxji3Z1okJvV1S4lolvu83921/noQcBwYfLbtxU0jpxmLppJPVilIQnJfz9abL1ECk1Eu6pkdOu2+waeKyS4clkizrhVmwxfiJS7CI2z3A0p/wqRttJngcgL+KNFVObSihbHsRMnR5LbidwMg==
+	+psDkWBIpRvAWi4V8BG7rUgZHxquhDHJ+q5xx08mvrZhQeg0mdPDwSOF3no7CRtcyFm6Hsi5tK3E9x8FYOIsCmekzefJ6nNpcLBLb7QwE4ok56epi9CYM3Qh1q7Z8sXcIZGkbU9xIx7ocS21QX20viFgVrMDOWF3bSjpqrPJOjRu22VyC5AhLsrUTQiE2sttqHchhCv9X6LijOshxp8qdoYyYTP++snji+RsxFJQos72S9ayLtNAz3Lw4e/ypCqoU17jvGnlbCi9uhbnuEIbmnNBZfQJBz2VQsXjJEtNwxjylgtMWgdj7BQncQPqMn9x9dTvceMQ18hGRDcrTRBwSXUhWamWGiSMimI1ny5J70f0wMlIoaHFs4eR6v3gV8HwGi6K84Pf0CovgPwXiSnQFdYQ0SShARncl7Aie6ZQAT2Blr8WatfDt+fMXF/cvxFnsy+GVN/Owe2U9m/gcuMj4ZLmTVigme9seeUNqGw4MTA/4rTFt/070NKXfxevYl1uKAw7Ym1oUB2oDpZOFmWohygjyonnJFyEcsWbPuRnpzUty6OUK5L+5RnG8y957k85xdAuGX0wUE76jn30aoSUbX+wG4ccUgASDn8tli5FZgB5XBGrc084ifELImPYV/x4jrnUNXK46SDdK1Y/z3P/E9uqyhnrlMHZD4fOP7ZEfCE=
 X-Forefront-Antispam-Report:
-	CIP:109.94.150.189;CTRY:NL;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:webmail.prodrive.nl;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(23010399003)(36860700016)(376014)(10067099003)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(52116014)(10070799003)(23010399003)(1800799024)(366016)(10067099003)(56012099006)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	3oJXxaQkPgG6uyaDIkX+RzqrC8RTLszWOd+MgQLZ6OQlzq99+rZgyxP8EZCN8lZhoXmwrIOIzmdJ7D+iBrzsP7YAOsLZNaZWQvnuKDJ/uGD0nj2EQsu3878FmHc1WjaJIymY/fukIUIMs01erT/Lcnr3CsP74dUR873eT+LTF2CtIldYdNecNsZ16aT+IyNpFi71BnzgvDleUtHh+dQ/HMfgrA7DCeGeoeTArSgQQDRgyCGwcUQ5RC6ApKg+9HVZLEepaEb6O7lw/Mr965bxZwfscvpkkt/fMcThSdby+M6AOqRmJh/QYhY6MN6KS4YSIlNqL1RNSUrIu+LnyW5rL7U8wdAy2IMkxl0VA0VTfCx8wMJRbBkEgmjaLUANeHNwQp073E+0j95crnu8km1ZXKUXFLII/u0fJl1Gyft7pDmcUPbtgA/vkfCb1bwgf58K
-X-OriginatorOrg: prodrive-technologies.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 13:22:55.7899
+	=?us-ascii?Q?5VhJQkmSHB8xlFonklh4UpDGGbc0pkpBuCrMtdB+LZfF3RoTRfa1IlA6Jx7Q?=
+ =?us-ascii?Q?jPDy/xrIepa5WmsQpL571TmttELevBrdoQAFBg2YA4kG+gvMFxXYaxj7RrMx?=
+ =?us-ascii?Q?0SPldjQMI14tvbVjlQL8qlMtvklNNUU8AsEENdXQZ+utYq7UkouXCJrLnQnK?=
+ =?us-ascii?Q?otkcD0wwrLkhOL995kQuvJ6lC7oWEBgrFOF3lgQDDvef5dc1JPc9Otace6jl?=
+ =?us-ascii?Q?QobJnso2HPjr/uo7uofFJiwN5xAZb9I6bWR+LL23zsHfz5znQh2ZCOtyf4bw?=
+ =?us-ascii?Q?o7GQJEf49KQAlWf3KcAftmUA6/pDqPkvk5SlYMWymIOTCIIaGWWDPHHEETZ/?=
+ =?us-ascii?Q?ZZQ75AztzYCIeJtV5oKDfNZxyRTeoqLEGjP9R6E/VpVwR33lc9FiW9uG3eX4?=
+ =?us-ascii?Q?AvvX79WpkGC02Vnt4waga+jfUHXDvR1611FzGJPnHYJdY0uuNLk2Lklt/pyY?=
+ =?us-ascii?Q?qlKOV6T3VgDr0U2Plj5dXAh/QARR8e/IvD8/uj2NDmcQxONhJNh6RxtWHUCK?=
+ =?us-ascii?Q?62wYoYcbcj07f0GwfPUsnJmNHRe2wzD05HKa7BU5WhHei8YkUa97H1Khv+aj?=
+ =?us-ascii?Q?FvxzCeyPDbjEmA6f7njqvTgOBM549wasVlPBfZ4RdS3SWeYlZH12+VqHX2O6?=
+ =?us-ascii?Q?ySfb8L8q5HeC8YsPK3lznqNBp1ULAtJ7ROfnp0n1tud9EFofoz7aGbBPW8C9?=
+ =?us-ascii?Q?VWC72MDbhKKNWInORUhPTs++9t66+axnolkUP4Uq6Je7ht2NaAbOln977glI?=
+ =?us-ascii?Q?ZoTlZ77RFxp9FsXI26Qh0M+xmgp1UlOfChE6IgEFm6zzz2cb9XSOGvV9oiFA?=
+ =?us-ascii?Q?evcy8rXbOqBhntySqjizkzTIsbQ+1pNO92VbhzfNGhZ8Wok1hkKL3eIJ1vYx?=
+ =?us-ascii?Q?vjDQcRfS3JPK4yTMj99ui7FK5qCsLKRYVQPbj5Wh14+cy2OcZJlJuwW8DoUh?=
+ =?us-ascii?Q?4CtZkRyXwBLraOnUMaegBoLDWWhF1ijWzJjKzAzC53+Fh5/P9nbATz+Rdm1e?=
+ =?us-ascii?Q?Jf4Qi2PeiGDeH7Tzdn05yc58fKNxCm3F7vncIYu3rLaSE9QdwVSForw2q9jf?=
+ =?us-ascii?Q?8P470ZXXAT6Bg7cmSN/9c//5lIAOIA9pxrgr7N8W0um7hBq2bIGCM/3FiVEn?=
+ =?us-ascii?Q?3F6haRZNRbLXzf/xMUuK5xZlBZ41h1wxvXVBd6VyiBpm82DmDr7Io3U5WhdH?=
+ =?us-ascii?Q?2IsjTI5KflxDobgg5ztQjIhZ5Zmh3tjVIpKQM5FkJhEFk8czSiS2tzGg1D9p?=
+ =?us-ascii?Q?Whtkc18NAmcmEj3tggchkuGrxZIwhPLEl6BrtWd1ltUhft9asnXjLpf0n4RN?=
+ =?us-ascii?Q?eSvhumiAdONw5GTmnfeiLUYyfFs3SccKhs8T64SCk8Wpq5e/N1cEJ+uO5HJw?=
+ =?us-ascii?Q?3vYBQ5QJ8cbPwt3hTkbaVCXmAuJn+qPOi1CijcAoq4tW+IE5s6upSYt48K4Y?=
+ =?us-ascii?Q?sLRV0ra4NjS764amtYrMTh4EYgPjUMuS8V1vcYBrAg2q7xcq2uqfLkrkfZoa?=
+ =?us-ascii?Q?KHPJGxJ8Ep5cRLY0XtTUMrGMCfkVmz35dDIKddrDa7KARIceteQ4tDfg8W1O?=
+ =?us-ascii?Q?QTDA+lJQ1wzWB1QV1yG+MZcYf/QWWBTrMStrs2LYxilUOa05cXdpOLH+T+ho?=
+ =?us-ascii?Q?03YBt2/tKweDIZCCXaPfVXA3BCI/DFQoOp6sdaQAoPZGhDLnNccZZuN314uf?=
+ =?us-ascii?Q?a/gs1Bqt7VBRXRLNm38zQhlRm1cYz0ff9Sx5CTk24xEBK+Lch/GlvTTPfIbj?=
+ =?us-ascii?Q?7tgB66OC1Sz5QijS+6kq+2c1asnXtpZ3KUVhfA6aFdhZUWHZXx2HSRXVZg1D?=
+X-MS-Exchange-AntiSpam-MessageData-1: xr0XfZuzxhx7gw==
+X-OriginatorOrg: ebytelogic.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: dc2cb598-8d26-425e-92bd-08df12636638
+X-MS-Exchange-CrossTenant-AuthSource: PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 13:23:44.1338
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 80413bf5-c8e9-4917-ab89-08df126349c1
-X-MS-Exchange-CrossTenant-Id: 612607c9-5af7-4e7f-8976-faf1ae77be60
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=612607c9-5af7-4e7f-8976-faf1ae77be60;Ip=[109.94.150.189];Helo=[webmail.prodrive.nl]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CPH1EPF00000522.eurprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR02MB9945
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 13bdb17c-4ae8-490c-90c1-ec8121ef96ee
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: tibLIf2fkS+GGfxIHWKpQyOTI+12ES5hCbBkRgFY3TMCQ/5CdqZabEb8dVE1cb+p4gF5p1vqPc9sWeNUI3gOiQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PNWP287MB6066
 
-> trf7970a_startup() powers up the device before applying the optional RX
-> gain reduction. If the register read or write fails, it returns without
-> undoing that power-up. Probe's unwind only drops the separate regulator
-> references acquired by probe, leaving the additional VIN enable from
-> startup unbalanced. The system resume caller also has no power-down on
-> this error.
-> 
-> Call trf7970a_power_down() before returning the RX gain error to deassert
-> the enable GPIOs, release the startup VIN reference and restore the
-> powered-off state. Runtime PM has not been enabled yet, so the full
-> shutdown helper is not appropriate here. Preserve the original SPI error.
-> 
-> This issue was identified during our ongoing static-analysis research while
-> reviewing kernel code.
+The CCI v2 standard-mode (100 kHz) timing table leaves SCL clock
+stretching disabled, unlike the fast-plus table for the same block.
+A slave that holds SCL low is then not waited for: the master keeps
+its own clock timing and the transfer fails with a NACK or returns
+corrupt data.
 
-Yes, we should do power_down here indeed.
-Thanks!
+This is hit with a camera reached through a GMSL serializer/
+deserializer I2C tunnel (MAX9296A/MAX96717 on the RB3 Gen2 vision
+mezzanine). The deserializer acknowledges the address locally, but
+forwards the transaction over the coax link and stretches SCL until
+the remote side has completed it, which takes well over one clock
+period at 100 kHz. Without stretching the register reads of the
+sensor behind the link intermittently return garbage and writes are
+dropped, which shows up as random sensor init failures.
 
-Reviewed-by: Paul Geurts <paul.geurts@prodrive-technologies.com>
+Clock stretching is part of the I2C specification for every speed
+mode and a device that does not stretch is unaffected by enabling it,
+so enable it for standard mode as it already is for fast-plus.
 
-br,
-Paul
+Signed-off-by: Hitesh Patel <hitesh@ebytelogic.com>
+---
+ drivers/i2c/busses/i2c-qcom-cci.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/i2c/busses/i2c-qcom-cci.c b/drivers/i2c/busses/i2c-qcom-cci.c
+index 25b6e4e9e..327efa86f 100644
+--- a/drivers/i2c/busses/i2c-qcom-cci.c
++++ b/drivers/i2c/busses/i2c-qcom-cci.c
+@@ -723,7 +723,7 @@ static const struct cci_data cci_v2_data = {
+ 		.thd_dat = 22,
+ 		.thd_sta = 162,
+ 		.tbuf = 227,
+-		.scl_stretch_en = 0,
++		.scl_stretch_en = 1,
+ 		.trdhld = 6,
+ 		.tsp = 3
+ 	},
+
+base-commit: 68142f986ff04b2b70b31db00f719bf690f64a9a
+-- 
+2.43.0
+
