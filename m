@@ -1,239 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A78C468C12;
-	Mon, 14 Sep 2026 15:03:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24C70483BD6
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 15:04:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789398219; cv=none; b=c9tJ031zYznF8ZPk/lBkri6tyXffHDqYTAzRG5yzMm9VFcea5SM6dYXIs+HYvySTL7V5AoAN1Xm7qa3jdEVtaz1f+ZqAeRM6DewLZ5Y4rQ9wlPU8gQKDm/R0qZ5fEID9qKriSgeHUK/Wpeb/YAlvQjXdiP6c1IvudEgDutQFc8c=
+	t=1789398245; cv=none; b=Jt9HE+mKjLB5FGmofMYQDZnTL9u8e8GSeGI1DvzrzOvwUAfyw0+DBBvZDPP4E0b5/Pv0DwdvpzGHSpzaY6mJ7cjcNFNSRAtTwox+tGlQlJCGx8bsxTFvF/Jbf1zliiI4Qv/Nr7+M7Vwnki3+54DZkq0aSxDSrC3rUZ0c4wUZFCU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789398219; c=relaxed/simple;
-	bh=ku45FxaXB5jDrWF7xzKWcksoG8pHB6sirZFvJa9Q21A=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=tUylWjrcGZni5Mh83XXOz1SQEtOfI8PTCPgtXcQx+wXqy4ypivi84jT2lHuWlbBJx24167JPn6xJ00FUU862DYrB5ZpQzfvQiSTGWa8PhyAlL2HZFdO1XbBhJo8Dhx7njH/3I14w25XFUIPSd4SgPhuG9gBG7RBHxwhPtV1T1YI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fSetHrBg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789398245; c=relaxed/simple;
+	bh=T+y247Z6VdMOgEdIe4RSPSMITZljiLQPhmjGPNPbxlQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Lkasq3TvfozLpX61rkZHXjDZP3YyalJh6a4/HdxJW6oIizUU1Vz2U+noPn0am4FFq8mugR5bzs8xewvPyWkjMSVmx1M3QNnN8040BQ1me7UQKqvdQFp9577nsjUOE28GmpRiGq0hobL1xbvvT6kso5/C/LSCMAI0xHCItwAj9E4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=KhZ2vOY4; arc=none smtp.client-ip=74.125.230.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fSetHrBg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E7151F000FF;
-	Mon, 14 Sep 2026 15:03:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789398217;
-	bh=CxJPdlL4ukdxMfUTmFq0FMtswRM14QRAmb+14GeHlio=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=fSetHrBgzPj2+SmYbcSwP+UBBu7oqgySlvgwtfGMifcj7mtjDTFfovm9LWqpVGZ4E
-	 d7LbTBCClp6uaGQ5kpmXzygZI5dGPwY1CEx4yIyt90eoup2gdN3krNS6lZoRG+OzgG
-	 T/Y9KDrh7F7i8HLE8S1YLHJ7wur8fIhpd0Oig2d5jDtbELt5zPgD4WGUXZ55AClFJ6
-	 ASecwckytcje5tQBKYzFUV5Mw5My6byzSUXajoDaKg5mI+g+V7W6+ZjMzxuRWpRDMm
-	 1GaiGTCu4y6Xp9Vd+enrCQ22MdEsms5v3l1aX4gNaStO6nRlnTtDOQ0M01FETTbnEN
-	 AVukgG7gVlrgw==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Mon, 14 Sep 2026 15:57:29 +0100
-Subject: [PATCH v2 09/40] docs: filesystems: update mmap_prepare docs for
- discontig kernel pgs
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="KhZ2vOY4"
+Received: by mail-qk2-f13.google.com with SMTP id d75a77b69052e-530e2f50d01so27305031cf.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:04:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1789398243; x=1790003043; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=IVNFzTfzSOo1njfHbCOBLAlgi9bYJJLyVSrWJc5ZZbI=;
+        b=KhZ2vOY4QFQIizEIjEDdGOJKPLsvVck6WOsHUUcGhvqZOK2I4jFq/fYAYhlmWNp0Lb
+         ppzpN6tidRd0bz5js/sI2j5yQbjpypR6gQyfb4BfjZUaqOiKhw2UsNQVoCuQa71X9G75
+         8yLQ/hGetDAAyp6TN3KR2oq9doMGv0JPzStRoS9C0ftevvFiCh3DQZmcMJHyvgmfYlcj
+         ouUetj+j1xdurs6TmSW/dxTYS6s1jgv9UlsJYp1Pk/0rrpFWDRkfUSICL02uxO7DJxvk
+         v7suini6x9dA2FzzkXbt5IEO01FPs3dLTyB9sr8dRwap9fuYSLZM92jriu7sgG+Nbd6m
+         8IXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789398243; x=1790003043;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IVNFzTfzSOo1njfHbCOBLAlgi9bYJJLyVSrWJc5ZZbI=;
+        b=q44SXneSNGzRREZIeJ7YNBkzT3FPmvf+/Hr2PsPghig6LMEQvhYEWrviFCAGC+M8rO
+         Z0IGU4z+p2XLdzVyt6UH0O9aHTeCI1pAELnA1mM+TxtHdA2e1vdYzmOhnVpDzNEwLpV3
+         DNiL3GxBstsWn9JJAQsLtm6xn5wFq7/t2IQqasT1OIdak7HM66JceJcEiclGv/jDAf9U
+         u8N5NTAZZkw2NdlEFVK96c0SHTWWAyZQPBVovjaqZssgkbFqyxBIpglwXDkPxOUKd/+T
+         1PycEfNhF4AtmqAKSNxC9rMb9UEUwUgo3gGPdUB5A8KL2cnRB2ZKxfaEG1i1jpAKj5FS
+         LqMg==
+X-Forwarded-Encrypted: i=1; AKwUvBzG0PeS/ZsF+a07/QQ6kKL5NovbaVvNzIys0b/fWfMidziDCZWdhqez2HIRGgMrVwxtqZptVlpkvCmFVb8=@vger.kernel.org
+X-Gm-Message-State: AFuF++muMYxeqr6yd8zglxPQWtzzc0c9tYjtFBK8J2aMts5fg96Q8SMa
+	6G2ZfGw6WxtQKfktMd7rjgnyN9JOgOOW94qC3Tt+pVnXN61J9Vg2oFFaB/DRXgPm8Vo=
+X-Gm-Gg: AYBFou3UKhKpzvpMtw+hLYPywJ8OBm3A804NN43weMDDTP/2trluiUOxlW2OFRwfXiX
+	lVO3BLsip76BVjhKe5GKDzsDoJz1Q5/9vJoTpG8z/8KuraLEJclHxQAQiY3A5LrVxYy/JloKM+t
+	B6/TwN0uA++G5oF8NsdO2ZHlUHg4wCnKFXfqdo0Hf83GKDmjEB7G7pmEh287p1ZAxnROnDMamVS
+	c0ZuBuvcaPon+uurMFtj01eTvLcTnwJknXdU2ybtlHXIXLzaOdW5OmL3LW+WgySIUBAtwptwElF
+	ihYMXExXW9xmm7dPoOgg69K8J4SnHS0QbAffPhDnZiJNuICx8cWhPN7s0NaduaoiJfISuxfcF4t
+	NT+HNVgx1rNox8nCXPK/sWt80lQBjTvzTxFlQTBu1vHoiibwu3GclRkJjpDYAohYH4z0E5lFGdT
+	46rjqLPC5XPOWa4pRL1r8YB0V3djoBiujSgTAWwuYqUGQ/BGY5Z+D8/8GpYbZtbm7KPgG2DbmTv
+	Vx/zNLwbsi1eL+hjQMNHWvl9VnGy8/De38oGvgM2yXK4wr353o1WAbEZ9RaeAcYpw==
+X-Received: by 2002:ac8:570d:0:b0:530:db17:b1b1 with SMTP id d75a77b69052e-5310cf168e7mr41979091cf.8.1789398242896;
+        Mon, 14 Sep 2026 08:04:02 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-530ca4b9c54sm99561571cf.20.2026.09.14.08.04.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 08:04:02 -0700 (PDT)
+Date: Mon, 14 Sep 2026 11:04:00 -0400
+From: Gregory Price <gourry@gourry.net>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
+	akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org, liam@infradead.org, 
+	rppt@kernel.org, surenb@google.com, mhocko@suse.com, brendan.jackman@linux.dev, 
+	hannes@cmpxchg.org, ziy@nvidia.com
+Subject: Re: [PATCH v2 2/2] mm/page_alloc: refactor build_node_zonelist() out
+ of build_zonelists()
+Message-ID: <aqgMx64sKalkDaoz@gourry-fedora-PF4VCD3F>
+References: <20260912030424.2889731-1-gourry@gourry.net>
+ <20260912030424.2889731-3-gourry@gourry.net>
+ <7e247c67-ea51-4c2e-b02d-8e5ed31cc5e6@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-9-7d9781ed5361@kernel.org>
-References: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
-In-Reply-To: <20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
- Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
- Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
- Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
- x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
- Xu Xin <xu.xin@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
- linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
- fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4561; i=ljs@kernel.org;
- h=from:subject:message-id; bh=ku45FxaXB5jDrWF7xzKWcksoG8pHB6sirZFvJa9Q21A=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJWcK+3CPBUi47Y4JZ9bPo5/xi/KbmTs6/O4NKvF01sq
- XRJmvOio5SFQYyLQVZMkeX5F/H9QSJh8zov+LvBzGFlAhnCwMUpABNhMmP4ZzX5sUNP1OVVti8E
- rzxqY01cr34luXPC401KRvvqUp8ermdkuHgi8u/r3VPWcjI+S5gfkrcl4COD0rrwyze47s3oC9X
- 8wAEA
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <7e247c67-ea51-4c2e-b02d-8e5ed31cc5e6@kernel.org>
 
-Describe the newly introduced discontiguous kernel page mapping mechanism,
-detailing how to use it sensibly and how the API looks.
+On Mon, Sep 14, 2026 at 04:56:30PM +0200, Vlastimil Babka (SUSE) wrote:
+> On 9/12/26 05:04, Gregory Price wrote:
+> > Extract per-node fallback-list construction into build_node_zonelist().
+> > Build each selected node directly into the destination zonelist so no
+> > intermediate node_order array or node count is needed. Print the fallback
+> > order as each node is added.
+> > 
+> > This lets us build new zonelists from candidate nodemasks instead of just
+> > the default N_MEMORY node state list.
+> > 
+> > No functional change: build_zonelists() builds and prints the same FALLBACK
+> > list over N_MEMORY with node_load updates as before.
+> > 
+> > Signed-off-by: Gregory Price <gourry@gourry.net>
+> 
+> Nice, glad this way of refactor was feasible.
+> 
 
-Explicitly detail the various discontiguous actions available and how to
-use them.
+Yup, came out much cleaner than i expected.
 
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
----
- Documentation/filesystems/mmap_prepare.rst | 81 ++++++++++++++++++++++++++++++
- 1 file changed, 81 insertions(+)
+> Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+> 
 
-diff --git a/Documentation/filesystems/mmap_prepare.rst b/Documentation/filesystems/mmap_prepare.rst
-index 82c99c95ad85..a476e1006bf1 100644
---- a/Documentation/filesystems/mmap_prepare.rst
-+++ b/Documentation/filesystems/mmap_prepare.rst
-@@ -164,5 +164,86 @@ pointer. These are:
-   sufficient entries in the page array to cover the entire range of the
-   described VMA.
- 
-+* mmap_action_map_discontig_kernel_pages() - Maps a discontiguous range of
-+  `struct page` pointers over the VMA. They must span from the start of the VMA,
-+  but may terminate prior to the end (leaving the remainder unmapped).
-+
- **NOTE:** The ``action`` field should never normally be manipulated directly,
- rather you ought to use one of these helpers.
-+
-+Discontiguous Actions
-+=====================
-+
-+Some actions can be performed across discontiguous ranges.
-+
-+Map kernel pages
-+----------------
-+
-+To map kernel pages discontiguously, you must provide hooks using ``struct
-+discontig_kernel_page_ops``:
-+
-+.. code-block:: C
-+
-+    struct discontig_kernel_page_ops {
-+        int (*init)(void *vm_private_data, void **private);
-+        int (*get)(struct discontig_kernel_page_state *state);
-+    };
-+
-+The ``init`` hook is optional and allows state to be established before the
-+operation starts, for instance taking a reference count. Nothing is invoked
-+after the operation, so ``init`` must not leave locks held, and state that must
-+be released once the mapping goes away should be released in
-+``vm_ops->close``.
-+
-+The ``init`` hook, if provided, is invoked prior to the operation starting. It
-+may update what is pointed to by ``vm_private_data`` and/or ``private``. If an
-+error is returned, then the operation is aborted. The ``private`` field can be
-+reassigned.
-+
-+**NOTE:** The operation may sleep between invocations of ``get``, so locks
-+needed to stabilise state must be taken and released within each hook.
-+
-+The ``get`` handler is the key means through which the operation is
-+executed. The current state of the operation is provided through ``struct
-+discontig_kernel_page_state``:
-+
-+.. code-block:: C
-+
-+    struct discontig_kernel_page_state {
-+        /* Map state. */
-+        unsigned long start;            /* Start address of VMA. */
-+        unsigned long end;              /* End address of VMA. */
-+        unsigned long addr;             /* The current address to be mapped. */
-+        pgoff_t pgoff;                  /* The current pgoff to be mapped. */
-+        unsigned long nr_pages_mapped;  /* The number of pages mapped. */
-+        unsigned long nr_pages_remain;  /* The number of pages remaining. */
-+
-+        /* User-defined state. */
-+        void *vm_private_data;          /* VMA private data. */
-+        void *private;                  /* Mapping private data. */
-+
-+        /* Users should not touch these, use discontig_kernel_map_*() helpers. */
-+        ... internal fields ...
-+    };
-+
-+With ``private`` being an additional user-controllable state variable,
-+initialised via ``mmap_action_map_discontig_kernel_pages()``, and
-+``vm_private_data`` being equal to the ``desc->private_data`` field set in
-+the ``mmap_prepare()`` hook.
-+
-+In the ``get`` hook, the user must choose how to map kernel pages:
-+
-+* ``discontig_kernel_map_abort()`` - Call this to abort the operation, whatever
-+  has been mapped so far will be retained, the rest of the mapping will SIGBUS
-+  if accessed.
-+* ``discontig_kernel_map_page()`` - Maps a single page, correctly handling
-+  compound pages (if the compound page is bigger than the remaining pages in the
-+  VMA, then only those pages that fit will be mapped). For a compound page, the
-+  head page must be passed.
-+* ``discontig_kernel_map_page_range()`` - Map an array of pages of a specified
-+  size. Note that if the number of pages specified exceeds the VMA size then an
-+  error will arise.
-+
-+If an error arises after ``init`` succeeded, the core unmaps the VMA, invoking
-+``vm_ops->close`` if set, which is therefore the place to release any state
-+that ``init`` established.
-
--- 
-2.55.0
-
+Thank you!
