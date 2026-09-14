@@ -1,54 +1,54 @@
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com [209.85.128.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CB6A46F4B3
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 17:59:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F1F846F4B3
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 17:59:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789408755; cv=none; b=lyxt5543RZZOJHzQziS4p/v2uZYzxIl32t0HWXjCi9Ux7z94vBglzdRKI0kRXvs8MCDGOg1QAjAupIVJ/DQLgpjws3FUXYw3BNq1fGNZSzHQs6mWxZFZTzNNk1XuDhWZmFsYTfZgoAxgt/N+SPDnHif+JN8KWuX8DuyGVY8XdTE=
+	t=1789408765; cv=none; b=Z7s0v3d0mKcK07KAc/3ptfERYlu6s+qpGDJKWppjjoSUEUyQlSZKJb23+vwAw9Ck5RgDYv60uhV/tgwtbP1VxJbKeHhPHPzIuz/lTh0uNWlsHqN3d8VUwbvdLMd7850h2agfeIgRw9TVq3fWZJLRz1Xw2LjII/urd+8ObSLraYQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789408755; c=relaxed/simple;
-	bh=MAbY5Mo0nA/K3I7UcMf6Tq7Zry9LDS+V2lgnsG3lpJI=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=KGVqDXLufLq9c/vMfqUhnIVt0aBeGxCjZ3a1/cADV7YK4Vx9AuCgWH5ammnA/Q2qG2GXb7sLv51nXM20DWJUYmw5atXY+YqQVqhv5Iws7ZFH/1ULPPL7aaN/5UQlIKIGh+i72waIP3zFtkR3snesqh+epcPUOqORZdFJfetqovA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--jmattson.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Wqw53wQz; arc=none smtp.client-ip=209.85.210.197
+	s=arc-20240116; t=1789408765; c=relaxed/simple;
+	bh=Hi3KF1rFSlwOgvsXa0YKg6banHYZooWVqpRPGNChmak=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=CB7Rz4hlY+Xg59JI/iZZHZjLYoGe0aw2F4H68j1DHw1JbeX0E+saNZ0CkAf/y2DbQDcHEQF5D4N6gqm4P+FcwhO/g8lt2QxeKkk4n5enDjcezxAMkflecTfd6EtBT8RuTaXgIYidZ2o2Y7XfnSxxUljeD7+mJa+auSfkiVNog08=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=YERxAAA8; arc=none smtp.client-ip=209.85.128.69
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jmattson.bounces.google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Wqw53wQz"
-Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-86fa6b15ed3so1251123b3a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:59:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="YERxAAA8"
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-49ccfbe060aso30311145e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:59:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789408753; x=1790013553; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1789408761; x=1790013561; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:mime-version:date:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1qU26IOiWMcfPB8mP9bmkpZumVUbxtT4Rtb9K/TXxTM=;
-        b=Wqw53wQz3WoOiHYhLGrku+Jqo7I8yhviX1x6rij9Bx1rQSoxnkAtjY5+GPdHxoK5eC
-         tCUSphJTyzjtXVzEcVGi6vjIR48r6O07VlHlsOGPhP+FRO889+UDKBkqinXu0gTHls3T
-         2HXQ0QXJkeuJDXqUeRRQXp9rSAnOK7J5xD9CSjSbABiRywmIzBKObQR+qSDNBUt5Qe1U
-         NTNwT4xADYVYpE0Zqvb4U869SW++PSkj6NtkpkwyWGhBKdGdf/uQEDr1oaFRAsY/00Cf
-         00k5iNdloYc66c3EnshgiwBwaN2KqBnxatdSfySSIQNu7lD/pjULAQR6MoEMvt27MkJY
-         yeEA==
+        bh=KAmPM9lg8P4nRxDL5AHK8i1KVL3bJ1XhAL6W+r2RlSI=;
+        b=YERxAAA8mGEP+0eHolShXC9DTmdF+gizKwe0RAcoRnJ+2s7BbM4v/w6xnzUzE/WELA
+         4Xo7p0dIZRa55QikcZRScZ3eLi/jn8SFKrinKjcml92PHXsdm1NzQUOvepyJbWLWbX4J
+         scmLpcuOWjBz68eAqiSCwE03SnLKXPflmRwKANb3xR2qvxssXD+wdjw6ZNdmkCI6fXCe
+         2wO7xLywPBpuNnRB/owSV3CQ5LD5uwU7Zau8U5d5kC1YkSpL5I9jSNMJOqGi5kSSeUfj
+         bF2zvGgj3QGMDpIjn5xZW0N6HNIWKwrNJBfH2O223WywvXTCyb1X+m2vkGEBmtR2KECN
+         DTkA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789408753; x=1790013553;
+        d=1e100.net; s=20251104; t=1789408761; x=1790013561;
         h=content-type:cc:to:from:subject:message-id:mime-version:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=1qU26IOiWMcfPB8mP9bmkpZumVUbxtT4Rtb9K/TXxTM=;
-        b=KyEcP17C4TftsbAUhOMY7Ru3xRse7BacqjP/KoEiaNQJbFMv+n3eOo9cLupKeK17KQ
-         J3xJAzEIO/WPie7dFdB77LmkvsZDbHP4t/DSW4TOzuwMJMFOEPBwdfiHadPRtSMoYtcT
-         BnBIa+VrqBuG6EDANOt7tK3DYllnbQDp5GBCb1dnZOtlDPjX2C3MaVTLv3VsM38zokG1
-         YoHZQJwJNWJj3q8ZjtLcKWEO6HK3TNO48AEHLJfFO2xov1knrU8SmiwkKajqYFpwGHQt
-         IIh+BIQIzuboLDBMVHfF6p9cANjWrmPhPKt7EIXQLIPqJ9QAD+ZQT+aVH5lYjcBbM2yb
-         lJEA==
-X-Forwarded-Encrypted: i=1; AKwUvBxMl0DMWc5lnJNfVrrvpHvGEFnT8Mm/qgZmyPuGfq749grDbH/YWlY2T7YyXMHpWy20i7OgPADy+ObeN5I=@vger.kernel.org
-X-Gm-Message-State: AFuF++lyrhqH9rivH5i4XYB6INhRJ4QkI4J4TL08JKjIcUonxSzDyuL0
-	TUEIUwSYm3jkbJR8zcudtrS9u1fGICbjyM1NMK6yknlCIb24Xx95p/W/LyHlY8MYPTYAqntYbkD
-	xM1XVj2Bmg7ZDGQ==
-X-Received: from pfiy1.prod.google.com ([2002:a05:6a00:1901:b0:86a:3526:1712])
- (user=jmattson job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a00:6017:b0:868:9662:5137 with SMTP id d2e1a72fcca58-86f8394024fmr7147163b3a.11.1789408752631;
- Mon, 14 Sep 2026 10:59:12 -0700 (PDT)
-Date: Mon, 14 Sep 2026 10:59:12 -0700
+        bh=KAmPM9lg8P4nRxDL5AHK8i1KVL3bJ1XhAL6W+r2RlSI=;
+        b=pVsi0jRpcsO+S0NhaTSIWHrLfW5AFryFlheR0naWS2Elqpnm8PjSbPIJjyWhKKQ6BX
+         WIDFyDQ2JCsRrXKqUFQjgqUK5nmdjLYguchHe9OzhnjbSdAe7+syUS3bCv0VBWeBm7+p
+         +jpQHRd5ReP0UBQY8eTCREuDo4EOVq6wlnCcw6QtnD3f7it95KWXBOql6rbyi3x71nQM
+         ZGCUiP26saYfeQWUPvEba6pPpw4A1CGfZQr48wVz9SYj6cyHZ0rLhKpuioI9feHstKZ/
+         y001qE4dUMoi/uSMTLj2FFqrEIgPIEOL2iE6CVnPsJ/+GY3aQSOtWvsvL3duicXbt9va
+         6NNw==
+X-Forwarded-Encrypted: i=1; AKwUvBwfypqpBU2LA+yhgYiDRrl8vU3qZHjEaFSlFLGMrK53kmDjm9B3ANBd4lR7gfrBx4a2sF78xpJ56GzXFLY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kKZ6qT0k59KDMCEpStJGIZiagv1BiichcJeNVPRarpdxxdRMd9
+	iTnjg+QzzJxjEYDJXCj07tAXEzfsCG96WZSmnAtuT5lmCP1d9kcAm4dT/n6LN3Xqma1piZK0bDY
+	KsiDmn3x4p4WJ8Y8KKmUiFQ==
+X-Received: from wmcu10.prod.google.com ([2002:a7b:c04a:0:b0:49e:6b63:7e98])
+ (user=vdonnefort job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:3484:b0:49c:fa21:e742 with SMTP id 5b1f17b1804b1-49e7a68c148mr51819185e9.24.1789408761238;
+ Mon, 14 Sep 2026 10:59:21 -0700 (PDT)
+Date: Mon, 14 Sep 2026 18:59:07 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -56,223 +56,141 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 X-Mailer: git-send-email 2.55.0.1032.g73a4cd73de-goog
-Message-ID: <20260914175912.3338133-1-jmattson@google.com>
-Subject: [PATCH] Documentation: KVM: x86: document KVM_GET_*/KVM_SET_* ordering
-From: Jim Mattson <jmattson@google.com>
-To: Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson <seanjc@google.com>
-Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, kvm@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
+Message-ID: <20260914175907.1027349-1-vdonnefort@google.com>
+Subject: [PATCH v1] ring-buffer: Clean up resize_disabled checks
+From: Vincent Donnefort <vdonnefort@google.com>
+To: rostedt@goodmis.org, mhiramat@kernel.org, 
+	linux-trace-kernel@vger.kernel.org
+Cc: mathieu.desnoyers@efficios.com, kernel-team@android.com, 
+	linux-kernel@vger.kernel.org, devnexen@gmail.com, 
+	Vincent Donnefort <vdonnefort@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-KVM does not define a total order for the ioctls that save and restore
-guest state, but the ioctls are not fully independent either.  On the
-save path, some getters perturb state that another getter reports.  On
-the restore path, some setters validate their input against state that
-another setter installs, and some setters overwrite state that another
-setter has already written.  One pair of restore constraints is a
-cycle, which forces userspace to issue KVM_SET_MSRS twice.
+ring_buffer_subbuf_order_set() checks for resize_disabled twice under
+the same buffer->mutex hold. Moreover, this check duplicates the logic
+in ring_buffer_resize(). Create a common helper rb_resize_disabled() to
+factor out this code.
 
-Replace the TBD in the x86 section of "Known KVM API problems" with the
-partial order that is known to matter, and with the reason for each
-constraint.  Note that a misordered getter fails silently, while a
-misordered setter usually fails with -EINVAL.
+Additionally, remove the unnecessary cpumask_test_cpu in
+ring_buffer_subbuf_order_set().
+for_each_buffer_cpu() already iterates over buffer->cpumask.
 
-Assisted-by: LLM
-Signed-off-by: Jim Mattson <jmattson@google.com>
+Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
 ---
- Documentation/virt/kvm/api.rst | 179 ++++++++++++++++++++++++++++++++-
- 1 file changed, 178 insertions(+), 1 deletion(-)
+ kernel/trace/ring_buffer.c | 67 ++++++++++++++++----------------------
+ 1 file changed, 28 insertions(+), 39 deletions(-)
 
-diff --git a/Documentation/virt/kvm/api.rst b/Documentation/virt/kvm/api.rst
-index e0430cc750c9..9181dfcd7251 100644
---- a/Documentation/virt/kvm/api.rst
-+++ b/Documentation/virt/kvm/api.rst
-@@ -9659,4 +9659,181 @@ available.
- Ordering of KVM_GET_*/KVM_SET_* ioctls
- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
+index 04bb94c29f58..37801ac5e92e 100644
+--- a/kernel/trace/ring_buffer.c
++++ b/kernel/trace/ring_buffer.c
+@@ -3280,6 +3280,21 @@ static void update_pages_handler(struct work_struct *work)
+ 	complete(&cpu_buffer->update_done);
+ }
  
--TBD
-+KVM does not define a total order for the ioctls that save and restore
-+guest state, and most pairs of them really are independent.  A few are
-+not.  When saving, some getters modify state that another getter
-+reports.  When restoring, some setters validate their input against
-+state that another setter installs, and some setters overwrite state
-+that another setter has already written.
++static bool rb_resize_disabled(struct trace_buffer *buffer, int cpu)
++{
++	lockdep_assert_held(&buffer->mutex);
 +
-+The constraints below are the ones that are known to matter on x86.
-+They form a partial order, so any topological sort of them will do.
-+One pair of restore constraints points in both directions, and forces
-+userspace to issue ``KVM_SET_MSRS`` twice.
++	if (cpu != RING_BUFFER_ALL_CPUS)
++		return atomic_read(&buffer->buffers[cpu]->resize_disabled);
 +
-+Note the difference in failure mode.  A getter that runs too late
-+silently returns perturbed state, and the damage is only visible in the
-+restored guest.  A setter that runs too early usually fails outright
-+with ``-EINVAL``.
++	for_each_buffer_cpu(buffer, cpu) {
++		if (atomic_read(&buffer->buffers[cpu]->resize_disabled))
++			return true;
++	}
 +
-+Saving state
-+~~~~~~~~~~~~
++	return false;
++}
 +
-+* **Get the MP state before any other vCPU state.**
-+  ``KVM_GET_MP_STATE`` calls ``kvm_apic_accept_events()``, which latches
-+  a pending INIT or SIPI.  Completing an INIT resets the vCPU, and
-+  completing a SIPI sets CS and RIP.  Either can also trigger a nested
-+  VM-exit, which overwrites most of the vCPU state.  On Intel, both an
-+  INIT and a SIPI can exit, and the VM-exit MSR-store list also writes
-+  guest memory.  On AMD, only an INIT can exit.  Every other vCPU
-+  getter must therefore run after ``KVM_GET_MP_STATE``.
-+
-+* **Get the irqchip state before the local APIC state.**
-+  ``KVM_GET_IRQCHIP`` clears from the reported I/O APIC IRR every
-+  edge-triggered IRQ that KVM has already delivered to a local APIC, on
-+  the assumption that ``KVM_GET_LAPIC`` will pick it up.  If the local
-+  APIC is read first, an IRQ delivered between the two reads appears in
-+  neither snapshot and is lost.  The opposite order can at worst
-+  duplicate such an IRQ, which is the safer failure.  The constraint
-+  applies only to a full in-kernel irqchip, because ``KVM_GET_IRQCHIP``
-+  returns ``-ENXIO`` in split-irqchip mode.
-+
-+* **Get the local APIC state last among the vCPU getters.**
-+  On Intel, ``KVM_GET_LAPIC`` drains the posted-interrupt requests into
-+  the IRR, so it reports the most complete view of pending interrupts.
-+  Any source of interrupts that is still live when it runs can add to
-+  the IRR afterwards, and that addition is not saved.
-+
-+* **Get all vCPU state before the final pass over guest memory.**
-+  On Intel, a nested VM-exit out of ``KVM_GET_MP_STATE`` writes guest
-+  memory through the VM-exit MSR-store list.  A guest page copied
-+  before that write is stale.
-+
-+Two constraints that older userspace still carries no longer apply:
-+
-+* ``KVM_GET_MSRS`` no longer has to precede ``KVM_GET_LAPIC``.  Before
-+  commit e800decd9c0a ("KVM: x86: Only reset TSC Deadline Timer in
-+  apic_timer_expired on KVM_RUN"), a ``vcpu_load()`` on a vCPU with
-+  APICv and the VMX preemption timer could restart the hv timer, find
-+  the deadline expired, inject the interrupt, and zero
-+  ``MSR_IA32_TSCDEADLINE``.  A ``vcpu_load()`` between the two getters
-+  therefore lost the interrupt and the deadline together.
-+
-+* ``KVM_GET_VCPU_EVENTS`` no longer has to precede ``KVM_GET_SREGS``,
-+  ``KVM_GET_SREGS2`` or ``KVM_GET_DEBUGREGS``.  When
-+  ``KVM_CAP_EXCEPTION_PAYLOAD`` is disabled, KVM delivers the payload of
-+  a pending #PF or #DB into CR2 or DR6 before it reports the exception,
-+  because userspace might not preserve the payload across a migration.
-+  Before commit d0ad1b05bbe6 ("KVM: x86: Defer non-architectural deliver
-+  of exception payload to userspace read"), only ``KVM_GET_VCPU_EVENTS``
-+  delivered it, so a CR2 or DR6 read first was stale.  All four getters
-+  now deliver it, and therefore agree in any order.
-+
-+Userspace that runs on older kernels should keep both orders.  Enabling
-+``KVM_CAP_EXCEPTION_PAYLOAD`` is worthwhile in any case, because it
-+stops KVM from delivering the payload early at all.
-+
-+One more hazard is not an ordering constraint, because it depends on
-+elapsed time rather than on sequence.  ``KVM_GET_CLOCK`` and a read of
-+``MSR_IA32_TSC`` describe the same instant only if little time passes
-+between them.  Userspace that needs a time-invariant value should
-+prefer the ``KVM_VCPU_TSC_OFFSET`` attribute of ``KVM_VCPU_TSC_CTRL``
-+over ``MSR_IA32_TSC``.
-+
-+Restoring state
-+~~~~~~~~~~~~~~~
-+
-+* **Set CPUID and the feature MSRs first.**  KVM freezes the virtual CPU
-+  model once the vCPU has run or once it is in guest mode.  After that,
-+  ``KVM_SET_CPUID2`` and writes to the immutable feature MSRs, which
-+  include the ``MSR_IA32_VMX_*`` MSRs, only succeed if they do not
-+  change anything.  Because ``KVM_SET_NESTED_STATE`` can put the vCPU
-+  into guest mode, userspace that writes the VMX capability MSRs after
-+  restoring nested state will fail to restore an L2 guest.  CPUID also
-+  gates the validation performed by ``KVM_SET_SREGS``,
-+  ``KVM_SET_XCRS``, ``KVM_SET_NESTED_STATE`` and the ``MSR_IA32_APICBASE``
-+  and ``MSR_IA32_XFD`` writes.
-+
-+* **Set the TSC frequency before the TSC.**  A host write of
-+  ``MSR_IA32_TSC`` computes a TSC offset, and a scaling ratio if TSC
-+  scaling is in use, from the current guest TSC frequency.
-+
-+* **Set MSR_IA32_FEATURE_CONTROL before the rest of the vCPU state.**  A
-+  host write of zero to this MSR forces the vCPU out of VMX operation.
-+  That discards the nested state, and replaces the register state with
-+  the L1 host state if the vCPU was running L2.  Only a write of zero
-+  has this effect; clearing individual bits, including the VMXON bits,
-+  does not.  The hazard therefore belongs to userspace that resets a
-+  vCPU before it restores one.
-+
-+* **Set the special registers before the nested state.**  This
-+  constraint is specific to SVM, where the live register state is the L2
-+  state.  ``KVM_SET_NESTED_STATE`` rejects a saved guest mode unless
-+  EFER.SVME is already set, it validates the live CR0, and it reloads
-+  the CR3 that ``KVM_SET_SREGS`` installed.  On VMX the L2 control
-+  registers come from the VMCS12 instead.
-+
-+* **Set the APIC base and the special registers before the local APIC
-+  state.**  Changing the APIC enable or x2APIC bit resets the APIC ID,
-+  which would clobber the ID restored by ``KVM_SET_LAPIC``.  Separately,
-+  the CR8 field of ``KVM_SET_SREGS`` carries only bits 7:4 of the task
-+  priority register, so a CR8 write after ``KVM_SET_LAPIC`` clears TPR
-+  bits 3:0.
-+
-+* **Set the irqchip state before the local APIC state.**
-+  ``KVM_SET_IRQCHIP`` re-injects the restored I/O APIC IRR into the
-+  local APICs.  ``KVM_SET_LAPIC`` must run afterwards so that it
-+  overwrites the IRR wholesale; otherwise those interrupts are
-+  delivered twice.
-+
-+* **Set the XSAVE state before MSR_IA32_XFD.**  ``KVM_SET_XSAVE`` clears
-+  from the incoming header every state component that the current XFD
-+  value disables.  Writing XFD first therefore discards the state of
-+  those components.
-+
-+* **Set the special registers before the MP state.**  ``KVM_SET_SREGS``
-+  forces a boot-strap processor whose incoming state looks like a reset
-+  state back to ``KVM_MP_STATE_RUNNABLE``.
-+
-+* **Set the clock last.**  ``KVM_SET_CLOCK`` establishes the kvmclock
-+  epoch, and should run as close as possible to the moment the vCPUs
-+  resume.  The per-vCPU ``MSR_KVM_SYSTEM_TIME`` and
-+  ``MSR_KVM_WALL_CLOCK`` writes only record the guest page address, so
-+  they must precede it.
-+
-+* **Place KVM_SET_VCPU_EVENTS on the correct side of the nested
-+  state.**  For a vCPU in guest mode it has to run afterwards, on both
-+  vendors, because it writes the interrupt shadow and the NMI mask into
-+  the VMCS or the VMCB that is currently loaded, and the nested one
-+  becomes current only once ``KVM_SET_NESTED_STATE`` has entered guest
-+  mode.  A vCPU in SMM needs the opposite order, but on Intel only:
-+  ``KVM_SET_NESTED_STATE`` rejects the saved ``smm.flags`` unless the
-+  vCPU is already in SMM, and only ``KVM_SET_VCPU_EVENTS`` puts it
-+  there.  The AMD nested state has no equivalent field, because SMM
-+  saves and restores the nested state through SMRAM instead.  The two
-+  cases never coincide, because SMM temporarily disables VMX operation,
-+  so a single call always suffices.
-+
-+The vendors disagree about the registers.  On SVM the live register
-+state *is* the L2 state, so ``KVM_SET_REGS`` and ``KVM_SET_SREGS`` have
-+to run before ``KVM_SET_NESTED_STATE``.  On VMX the L2 RIP and RSP come
-+from the VMCS12, which ``KVM_SET_NESTED_STATE`` reloads, so
-+``KVM_SET_REGS`` is better issued afterwards.  Portable userspace can
-+write the registers on both sides of ``KVM_SET_NESTED_STATE``.
-+
-+KVM_SET_MSRS has to be issued twice
-+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-+
-+``KVM_SET_LAPIC`` sits between two MSR writes that cannot be combined
-+into one call.
-+
-+``MSR_IA32_APICBASE`` has to precede it.  Changing the APIC enable bit
-+or the x2APIC bit resets the APIC ID, which would discard the ID that
-+``KVM_SET_LAPIC`` restored.
-+
-+``MSR_IA32_TSCDEADLINE`` has to follow it.  A write to that MSR is
-+dropped unless the LVT timer is already in TSC-deadline mode, and only
-+``KVM_SET_LAPIC`` establishes the mode.  In the other direction,
-+``KVM_SET_LAPIC`` cancels the timer and zeroes any deadline that is
-+already armed.  The deadline is an absolute guest TSC value, so
-+``MSR_IA32_TSC`` has to be restored before it as well.
+ /**
+  * ring_buffer_resize - resize the ring buffer
+  * @buffer: the buffer to resize.
+@@ -3324,20 +3339,17 @@ int ring_buffer_resize(struct trace_buffer *buffer, unsigned long size,
+ 	if (nr_pages < 2)
+ 		nr_pages = 2;
+ 
+-	if (cpu_id == RING_BUFFER_ALL_CPUS) {
+-		/*
+-		 * Don't succeed if resizing is disabled, as a reader might be
+-		 * manipulating the ring buffer and is expecting a sane state while
+-		 * this is true.
+-		 */
+-		for_each_buffer_cpu(buffer, cpu) {
+-			cpu_buffer = buffer->buffers[cpu];
+-			if (atomic_read(&cpu_buffer->resize_disabled)) {
+-				err = -EBUSY;
+-				goto out_err_unlock;
+-			}
+-		}
++	/*
++	 * Don't succeed if resizing is disabled, as a reader might be
++	 * manipulating the ring buffer and is expecting a sane state while
++	 * this is true.
++	 */
++	if (rb_resize_disabled(buffer, cpu_id)) {
++		err = -EBUSY;
++		goto out_err_unlock;
++	}
+ 
++	if (cpu_id == RING_BUFFER_ALL_CPUS) {
+ 		/* calculate the pages to update */
+ 		for_each_buffer_cpu(buffer, cpu) {
+ 			cpu_buffer = buffer->buffers[cpu];
+@@ -3409,16 +3421,6 @@ int ring_buffer_resize(struct trace_buffer *buffer, unsigned long size,
+ 		if (nr_pages == cpu_buffer->nr_pages)
+ 			goto out;
+ 
+-		/*
+-		 * Don't succeed if resizing is disabled, as a reader might be
+-		 * manipulating the ring buffer and is expecting a sane state while
+-		 * this is true.
+-		 */
+-		if (atomic_read(&cpu_buffer->resize_disabled)) {
+-			err = -EBUSY;
+-			goto out_err_unlock;
+-		}
+-
+ 		cpu_buffer->nr_pages_to_update = nr_pages -
+ 						cpu_buffer->nr_pages;
+ 
+@@ -7473,13 +7475,9 @@ int ring_buffer_subbuf_order_set(struct trace_buffer *buffer, int order)
+ 
+ 	old_capacity = rb_subbuf_capacity(buffer);
+ 
+-	/* The mmap fast path reads subbuf_order without buffer->mutex. */
+-	for_each_buffer_cpu(buffer, cpu) {
+-		if (!cpumask_test_cpu(cpu, buffer->cpumask))
+-			continue;
+-		if (atomic_read(&buffer->buffers[cpu]->resize_disabled))
+-			return -EBUSY;
+-	}
++	/* Check it is resizable before we touch subbuf_order */
++	if (rb_resize_disabled(buffer, RING_BUFFER_ALL_CPUS))
++		return -EBUSY;
+ 
+ 	atomic_inc(&buffer->record_disabled);
+ 
+@@ -7490,17 +7488,8 @@ int ring_buffer_subbuf_order_set(struct trace_buffer *buffer, int order)
+ 
+ 	/* Make sure all new buffers are allocated, before deleting the old ones */
+ 	for_each_buffer_cpu(buffer, cpu) {
+-
+-		if (!cpumask_test_cpu(cpu, buffer->cpumask))
+-			continue;
+-
+ 		cpu_buffer = buffer->buffers[cpu];
+ 
+-		if (atomic_read(&cpu_buffer->resize_disabled)) {
+-			err = -EBUSY;
+-			goto error;
+-		}
+-
+ 		/* Update the number of pages to match the new size */
+ 		nr_pages = old_capacity * buffer->buffers[cpu]->nr_pages;
+ 		nr_pages = DIV_ROUND_UP(nr_pages, rb_subbuf_capacity(buffer));
 
-base-commit: 827751b699b79a6e569983359c02dce67f81b94c
+base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
 -- 
 2.55.0.1032.g73a4cd73de-goog
 
