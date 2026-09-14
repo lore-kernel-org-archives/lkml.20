@@ -1,148 +1,201 @@
-Received: from mail-10699.protonmail.ch (mail-10699.protonmail.ch [79.135.106.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f14.google.com (mail-pz2-f14.google.com [74.125.228.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCBBE47989B
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:38:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3718455625
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:38:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789393092; cv=none; b=IHZf9zz3Y6Nxnra/Gqx8GKTQnIvYVHUrhKDU5/Rd3dKPaO0h6re5RnAzV0uCVPUcy8b9Tihn9Gy8RUSk3kjwxSW+rrn5oalwqYV59m+eL14XL5s5mORcw6LmTkkERrtvCMgxDBxrZvaVS9YeBjAheOd+MOX6ph4+ZSCy3k4k154=
+	t=1789393129; cv=none; b=fg1jEoJgNLEWjLRtkQLTBfQLxpajzuSwwb1c9xgIYJkKksq4D3jGbpwusla3vB8ZZ/JX3nAA4xwsaEWWhqXLhPTDRLCRmUqI3f5rcqY0mJMdE6quirP3Oqy+F5hOJv1xIm3YJAAmyH9j6YQ0zZgG6OlGAGqUriDltbyXyRKEVIg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789393092; c=relaxed/simple;
-	bh=cIq/1gQfZ6pDIkFVlfnWosF06EqYLOshJjnnvrQpXkc=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=R1Kv9Dpsv3NRSlJ0nClmM5jNEfIoUZ29h2/GNUAtFW7N0EOw0c2ScSppBxBpqOV6aKHxRCER6fZuKJmeUAthvMVV83mhVWqz3UBNAq/Im9ON34HmVgaHcXWjrlXaKw6e/sT3jCs3IcJo6llh8bB2RSwpxuF43TB7H1DSVby+Xzo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=NJ0rfnMM; arc=none smtp.client-ip=79.135.106.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1789393129; c=relaxed/simple;
+	bh=G5Q4YusG7EhC2+49TlZOe2QDcwWJ1o9+e8sn8lUHz8s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DW6x1KFcJ7VXXu0Codd4H3WCppBvXGI5TZXqms7X6DX1Ue4SUlZ04a9xiFgtL9yR+mZnk1CElBan72337vy+ePZbNIYkmRPTXzoWpAsqlGJID1nFKhwObMwTjP4onV8J8sIHCwRBajEQpj+5OQXE1JggDOA1foT5ttLX+MEhcTA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nwA3Lq0U; arc=none smtp.client-ip=74.125.228.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="NJ0rfnMM"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1789393078; x=1789652278;
-	bh=B/Qebpkyia7V9pMGpccYgansMwWpW6vE7u/sVxLMc3E=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=NJ0rfnMMy84/9NHohWDfpdGh2gxIltiRsLcwaARcSvx7JR9qSCKY5kJK4lrd29ir1
-	 dbhk3o+u4HH9XNZZNzlYh9RGTnGlb/EpfYLU7+4G8ndsyF007N2VcKbBW0sRxQgNmH
-	 1ytgCKt3xQhkRoSd1WnDDeiR/Hd528+UrRfAc5j4M9VR70DWxP9zS3IehEg7SFh1X2
-	 v5QIk2ORN1pmQmGxqWY//eHqevAdJTGTMqoBL/ZIZUVpk/ajMIkxOxk+68JIjvuDxZ
-	 zkAE1tapqrm3FIHmiqARo3rytBY7JijtIQmWSDn+Pe+NPXIuPnW0bHbkWY09O7lSTa
-	 XKN08dSA0BFpg==
-Date: Mon, 14 Sep 2026 13:37:52 +0000
-To: Jonas Karlman <jonas@kwiboo.se>
-From: =?utf-8?B?5a6J5a65?= <HystericalDragons@proton.me>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Chukun Pan <amadeus@jmu.edu.cn>, jensen <jensenhuang@friendlyarm.com>, Andrey Korshunov <razor1702@gmail.com>, Diederik de Haas <diederik@cknow-tech.com>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, "linux-rockchip@lists.infradead.org" <linux-rockchip@lists.infradead.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v5 3/4] arm64: dts: rockchip: Add devicetree for the FriendlyElec NanoPi R28S
-Message-ID: <66PL3p_9JZeRYUAhCjIDPQ436Zk4n3R8OfbYE7P7kxQ3TKTLX1DL3BxD9jbW4aiyqZYvpoe6T8z4HrQy9Mh8Mg5uOJUEJZrU4atc921xoHs=@proton.me>
-In-Reply-To: <dcaf96df-4a51-446a-a92d-6bb4e21af618@kwiboo.se>
-References: <20260914-r28s-upstream-v5-0-7409c498e8dc@proton.me> <20260914-r28s-upstream-v5-3-7409c498e8dc@proton.me> <dcaf96df-4a51-446a-a92d-6bb4e21af618@kwiboo.se>
-Feedback-ID: 91982645:user:proton
-X-Pm-Message-ID: ff6ff779a7f57ae7c11879d732179b8724b41cac
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nwA3Lq0U"
+Received: by mail-pz2-f14.google.com with SMTP id 41be03b00d2f7-cc46895f82dso151350a12.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:38:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789393127; x=1789997927; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OM4WJQT7eiPiAF6TZgW9/Yhz6QCgt3cljrFGTLgDTGs=;
+        b=nwA3Lq0U4Mgd8/xczWKN4pbtIz1N3ZbjIo4FdXFoMquzJLSGSB4bKOeFe/DAFiCp66
+         ZhJswuo5U9oBy58VYzqA8FOTYRI1qJ4pct5aUNSt0w7NxYwPRBpBAJDx0mMwezbpp661
+         iON2PuMCfagaY/AkOmO4e9l5XKQsy+LfwOyWkIDxoc/ekm4a5phfF7/+MTO2VV3RW/Q1
+         4/pY19ZzXPXHbq8mOGe0JAYliP3VHrCA6tocg3EZIEHC8qGuDHQrDqgbbDXqKmEStpS/
+         URxGpq/MVYKOsL2245r/cK03r4dWqJH4/a2G1QKzUUFATK2q/DKbLbEidV1d0Vwhji3H
+         rVMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789393127; x=1789997927;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OM4WJQT7eiPiAF6TZgW9/Yhz6QCgt3cljrFGTLgDTGs=;
+        b=bNcSTDZ9tdFGCpVTSJmUYVSKTjXZXoeX7Y+Fn5pBesWiGmFNnbpG2FXxrrYlNTfn4Y
+         cTE7U4v+6J58TRlJueBaIr1+u+4FMC4qrhzWbpJqrUIRDAYqCQbik6cZf2LUKwGck88O
+         NdL9Z/t11YPG7oaWCXQQs5hcQn+LdW/jxbW1q0C/26dTXpeTYZVVYciALczq5y9IYrP0
+         o10CH4sSPGiHTJ3miVOpHSDaxC/YYAtjI8XXObF7UmfFHTVNHx5C7bBYAdNhdUWqYMSF
+         xcsJBKCkWJyyNl7sM6EBRVJ9RGwHQxotsXa5hkGs71J9s7HIfY13Im6LDkgUjr4zAtI3
+         xIKQ==
+X-Forwarded-Encrypted: i=1; AKwUvByKvRafz3y7SKIjTy2DR343sQAtLAAv+yOViuUr0DRazrZjeLnZxqdoXV5m8PPGrUhH0khecCs4hFrwTio=@vger.kernel.org
+X-Gm-Message-State: AFuF++lp/+NUJA4YMACSHwguvAr7n0t9EjmefG5rke/2keksvLUHeDgV
+	kdiB+KaidFazwYMxhHwwG4xMzx61xY1D6nvg8orwOrIWUWvkYVvmwjOy
+X-Gm-Gg: AYBFou2ETXDDwcGFisWB3q9Qvc9rN9qnTCdBXJHvuq0OQS0KXuZPdMBhgIOoiX+S7Q+
+	K0vvrxvCzj1s17IZS9iOywqdg5G2op2m8sNqS7VMqTSmyYu8fJGtLOYBC0cOLjR3UrvfAigiiJN
+	7sMelNCsdeKMzOLV9OK8B04hZkL2/UPKDnh8CGlAvqBcqEToRvMc1ale82ojsR2S4aKn9y4Yyku
+	w6VJe1dJ76kwWXctg1Lvd7YkkURTOxAmGPVMjnqjOxGHFQxgYbQdp97S23SvL86S6cjxhYUh1WW
+	cscHXoEjp32bbd6Lc4nzmhUoBr/kOXxzAxSAUMde+V1IR7PS/g+3UeymsuZeqtWh1l8aD8UZMEq
+	TJOLEnLTo0znA7pBT31Kt7JU/wni8GDx7JNyp/2N1hQc3TiOUfrY0mhvSMtnbh8LNnpzkVAqWdu
+	TGywyse8n5hSrzWV0OfNNZ2uE4oM7f2AUenKYrNGUGZOE/wf/jU1vbS4hncjIaUaBwYVb6ep8cJ
+	EILhprJ4zFdEf3uK9wcJ0EggYDw3TP0iM8ZO8A4UYStfUIRF21oJ8E10Gg2PaAPtQ==
+X-Received: by 2002:a17:90b:3e4f:b0:396:a47f:d38f with SMTP id 98e67ed59e1d1-39dec0bbc54mr3706908a91.3.1789393127161;
+        Mon, 14 Sep 2026 06:38:47 -0700 (PDT)
+Received: from localhost.localdomain (45.78.65.84.16clouds.com. [45.78.65.84])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14365bb6ba0sm24565602c88.15.2026.09.14.06.38.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 06:38:46 -0700 (PDT)
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+To: Steffen Klassert <steffen.klassert@secunet.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Chengfeng Ye <nicoyip.dev@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH ipsec v2] xfrm: fix races in device state cleanup
+Date: Mon, 14 Sep 2026 21:35:40 +0800
+Message-ID: <20260914133540.3666907-1-nicoyip.dev@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Jonas,
+The deferred-device pass in xfrm_dev_state_flush() finds states under
+xfrm_state_dev_gc_lock, but drops the lock before calling
+xfrm_dev_state_free() because the driver callback may sleep. The device
+GC list does not hold an xfrm_state reference, so the state GC worker can
+destroy the same state concurrently.
 
-Thanks for the review, and for going through the schematic.
+The race can proceed as follows:
 
->> +  aliases {
->> +          mmc2 =3D &sdio0;
->
-> This looks to be missing an serial2 alias:
->
->     serial2 =3D &uart2;
+  CPU 0                               CPU 1
+  find x on the device GC list
+  drop xfrm_state_dev_gc_lock
+                                      xfrm_state_gc_destroy(x)
+                                        xfrm_dev_state_free(x)
+                                        xfrm_state_free(x)
+  xfrm_dev_state_free(x)
 
-Added in v6.
+Both paths can invoke the driver callback and drop the device reference.
+CPU 0 can also access the xfrm_state after CPU 1 has freed it.
 
->> +          pinctrl-0 =3D <&usr_btn>;
->
-> This is named gpio4_b2_usr_btn in the schematics.
+KASAN reported:
 
-You are right, the net is GPIO4_B2_USR_BTN. v6 renames the label to
-gpio4_b2_usr_btn and the node to gpio4-b2-usr-btn. The other pin
-configuration labels (led1, led2, led_sys, pwr_wf, pcie_eth_perstb)
-is already match their nets.
+  BUG: KASAN: slab-use-after-free in xfrm_dev_state_free+0x24c/0x2a0
+  Read of size 8 at addr ffff88810bbaa960 by task poc/102
 
-> This is missing nodes for bluetooth:
->
->     bluetooth {
->         bt_wake_host: bt-wake-host {
-[...]
-> Suggest you also add host_wake_wl:
-[...]
-> and wl_wake_host:
+  Call Trace:
+   xfrm_dev_state_free+0x24c/0x2a0
+   xfrm_dev_state_flush+0x353/0x400
+   xfrm_dev_event+0x26d/0x3a0
+   notifier_call_chain+0xc0/0x280
+   __dev_notify_flags+0x169/0x250
+   netif_change_flags+0xe7/0x160
+   dev_change_flags+0x96/0x220
+   devinet_ioctl+0x7f4/0x1880
 
-I checked all four against the schematic and the pins are right:
-HOST_WAKE_WL on GPIO1_A6, WL_WAKE_HOST on GPIO1_A7, HOST_WAKE_BT on
-GPIO1_B4, BT_WAKE_HOST on GPIO1_B5, all of them wired to the module on
-sheet 16.
+  Freed by task 57:
+   kmem_cache_free+0xcb/0x3d0
+   xfrm_state_gc_task+0x4a8/0x650
+   process_one_work+0x63a/0x1070
 
-I still left them out. The AIC8800D80 has no upstream driver, so there
-is no wifi@1 node and no bluetooth node under &uart2 to reference these
-pin configurations from, and a pinctrl state that nothing references is
-never applied. I would rather add them in the patch that adds those
-nodes where they can be tested. If you want them in now for the NEO3
-Plus work, point it out so and I will add them in the next revision.
+A third xfrm_dev_state_free() caller in xfrm_state_find() can also race
+with the deferred pass. Both callers can sample the same device before
+either clears xso->dev, then invoke the callback and netdev_put() twice.
+Since hlist_del() leaves the node poisoned rather than unhashed, they can
+also unlink the device GC node twice.
 
->> +&sdio0 {
->
-> We can likely be explicit and declare:
->
->     no-mmc;
->     no-sd;
->
-> This is missing the vmmc-supply used.
->
->     vmmc-supply =3D <&vcc_3v3>;
+Acquire a state reference while the deferred pass still holds
+xfrm_state_dev_gc_lock. If the reference count is already zero, leave
+destruction to the state GC worker. Also claim device cleanup under the
+same lock by clearing xso->dev and unlinking the node with
+hlist_del_init(). Only the caller that claims the device invokes the
+callback and drops the device reference. The deferred pass releases its
+temporary state reference after cleanup.
 
-They are both added in v6. The module's VBAT comes from VCC_3V3 through a f=
-errite
-bead and VDDIO from VCC_1V8, which matches the vqmmc-supply that was
-already there.
+Fixes: 07b87f9eea0c ("xfrm: Fix unregister netdevice hang on hardware offload.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+---
 
->> +&uart2 {
->
-> We can likely declare dma-names here:
->
->     dma-names =3D "tx", "rx";
+Changes in v2:
+- Replace the global mutex with a temporary state reference acquired
+  while walking the device GC list.
+- Claim device cleanup under xfrm_state_dev_gc_lock so concurrent
+  callers cannot run the callback or netdev_put() twice.
+- Use hlist_del_init() to leave the device GC node unhashed.
+- Cover the xfrm_state_find() cleanup path identified during review.
 
-Added in v6.
+v1: https://lore.kernel.org/netdev/20260730103543.2077749-1-nicoyip.dev@gmail.com/
 
->> +  dr_mode =3D "peripheral";
->
-> Why do you disable dual role here? Is it not possible to have it work in
-> host mode? E.g. using a USB hub with power pass-thru?
+ net/xfrm/xfrm_state.c | 16 ++++++++++------
+ 1 file changed, 10 insertions(+), 6 deletions(-)
 
-The port is wired as a device only, see sheet 15:
+diff --git a/net/xfrm/xfrm_state.c b/net/xfrm/xfrm_state.c
+index 36a4f6793ede..282d09d0c247 100644
+--- a/net/xfrm/xfrm_state.c
++++ b/net/xfrm/xfrm_state.c
+@@ -780,17 +780,20 @@ EXPORT_SYMBOL_GPL(xfrm_dev_state_delete);
+ void xfrm_dev_state_free(struct xfrm_state *x)
+ {
+ 	struct xfrm_dev_offload *xso = &x->xso;
+-	struct net_device *dev = READ_ONCE(xso->dev);
++	struct net_device *dev;
+ 
++	spin_lock_bh(&xfrm_state_dev_gc_lock);
++	dev = READ_ONCE(xso->dev);
+ 	if (dev && dev->xfrmdev_ops) {
+-		spin_lock_bh(&xfrm_state_dev_gc_lock);
++		WRITE_ONCE(xso->dev, NULL);
+ 		if (!hlist_unhashed(&x->dev_gclist))
+-			hlist_del(&x->dev_gclist);
+-		spin_unlock_bh(&xfrm_state_dev_gc_lock);
++			hlist_del_init(&x->dev_gclist);
++	}
++	spin_unlock_bh(&xfrm_state_dev_gc_lock);
+ 
++	if (dev && dev->xfrmdev_ops) {
+ 		if (dev->xfrmdev_ops->xdo_dev_state_free)
+ 			dev->xfrmdev_ops->xdo_dev_state_free(dev, x);
+-		WRITE_ONCE(xso->dev, NULL);
+ 		xso->type = XFRM_DEV_OFFLOAD_UNSPECIFIED;
+ 		netdev_put(dev, &xso->dev_tracker);
+ 	}
+@@ -1005,9 +1008,10 @@ int xfrm_dev_state_flush(struct net *net, struct net_device *dev, bool task_vali
+ 	hlist_for_each_entry_safe(x, tmp, &xfrm_state_dev_gc_list, dev_gclist) {
+ 		xso = &x->xso;
+ 
+-		if (xso->dev == dev) {
++		if (xso->dev == dev && xfrm_state_hold_rcu(x)) {
+ 			spin_unlock_bh(&xfrm_state_dev_gc_lock);
+ 			xfrm_dev_state_free(x);
++			xfrm_state_put(x);
+ 			spin_lock_bh(&xfrm_state_dev_gc_lock);
+ 			goto restart_gc;
+ 		}
 
-- Both CC pins have a 5.1k pull-down, R3811 and R3812, so the port always
-  presents itself as a UFP. There is no CC controller and no Rp that
-  could advertise a DFP.
-- USB20_OTG0_ID is not connected, R3922 is /NC, and the sheet has a
-  "Slave Mode" note right next to it.
-- VBUS is an input. It goes through the input protection into
-  VCC5V0_SYS, which powers the whole board. Nothing can source 5V onto
-  the connector.
+base-commit: e6b6078ea1731b05b3b552497b3bce4bf8b014ae
+-- 
+2.43.0
 
-So behind a powered hub the board is powered, but it still cannot
-present itself as a host to the other side. v6 keeps
-dr_mode =3D "peripheral" and states the above in a comment above it.
-
-Your comments on the other two patches are in v6 as well: the USB nodes
-stay in the board devicetrees, and the binding lists the R28S and the
-Zero2 in a single entry. The coding style patch is dropped -- Diederik,
-for the record, only 18 of the ~2900 "status" properties under
-arch/arm64/boot/dts/rockchip are preceded by a blank line, so the series
-now follows what the rockchip devicetrees do instead.
-
-Looking forward to the NEO3 Plus series, and enjoy the R28S once it
-arrives.
-
-Regards,
-AnRong
