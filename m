@@ -1,138 +1,230 @@
-Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11011036.outbound.protection.outlook.com [52.101.125.36])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46A944A0907;
-	Mon, 14 Sep 2026 20:38:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.125.36
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789418301; cv=fail; b=cKOl4YyVFt1KxXHEdXCC23v2fnhBAXSQkcyTpTMgTha8cNev5bBYuuH9ym/uzimhNYcZHrUwvR86rJC8wSohphuuWjTUVmg/dcAtJAFYkCZcQ1XRZKerBbfeT27QfCCbnbb58gzllEn/1zZ1X0hxqKfyX9JZhRKyE2uY8vyWi/Y=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789418301; c=relaxed/simple;
-	bh=OH4GzFenZk20CNwn7D//X59P0s98zUHC+Id0xYL2cV8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=FxfhxVQ59+G7JCE1y6JPvVBeoiTBND8vo7DjQITUaxjUreJ/2YATeFVRtaJZ4JrQWPfIw5InKa8i4259L5nAV4wbmgfJJknKwwntsTP/aqMqB1C3XPezI+mwGXL/00t1eeyCioOmP9LeIh+SJQ7WgnnEg/oCEn0zHby7tQf3/k4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=g2lRp19s; arc=fail smtp.client-ip=52.101.125.36
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2514A49F117;
+	Mon, 14 Sep 2026 20:39:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789418370; cv=none; b=U5m3PeS8FosT0JUW10jAMVtETbOOaMkwUknjClsjUaNmWviKxF9H2hLwCt8ScXKhs4IOgdRsFzCdnT2aNR6O5YgIjCoT5cbMUWsrr/wW0n0pGNsLJArTBS2Qlq+Pxvg9tZPx3wSKG/pdMkFPU7eeUUrZXb1D/n9s4FrmuQoGqo0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789418370; c=relaxed/simple;
+	bh=SZMm5JhQ3rtHkXCtk3Gm/t2hXaWp+vV6LZCMC/mAxg8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uS1+W5FGmi1L+pPQ/i+Q+8maJDuQalQz+6iy+/lH/8kFDWFPSXvPjUX5ZRHVqcF9iFXEV80w2FhMPPsLthPAObPuaQwLEK5+LSgD+mhQkdFr5+NiTwUN80bhdPVLpUXAgfpV9XmnS7P+hr+Mm746JixhLh57Ce49HWqRX+kamEs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RIBhjAjC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="g2lRp19s"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=R0Hv7t1Lcm/5jMaNd3jC+ZXVPmMa6h7+asQAsbRocpP2D9G6V0O8Xxc5Do8fnTbWUCvCTDWWMb30XxBx6dN0uFkFaQni2IaBIqL1XESj8zoYm4Z+aDC3/Rs8KYCyQv2zGmevQWjoZbwFnK/TJK74KJKGJEYIgS4B0JW0BhNTNCMHLF5PAearQZGCqpGa6O8xLI7gTyEFpdD9oD3u8MjAByylU5ktwpPgF8/8q3ATvUBPm9YqfxfhyZnlZBXtFyeFpxFgdkt+MXGdD/Nx4vdiG7HoSMk4bebsWoLrSHflxEZHNjgFHmrgT1VCVgxQN/9jnGYyPmKoloxG9bU9JOPZdg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cbrHNcKwJnH819dmwPOhYHLkU2FtSPBvC6rXJIWixeQ=;
- b=Deg4QnHlnCZSk3+quNnn+MUm3cXRVSy6Jr/P2+WkZ6ypfND4+9ckDfT04JtVQIW/ZoiRusSpIP/zoIDlHr9ls1rT8LD6ZtI0M1mdtmKI6NaseDsJBL7IIdLP8Hlr5laC8+Zgs2qSHALZoDhKoY0d6Rtulw/ZMqYWYNq4yuy+nno6wfz3wYaDJLEG00Wzz5vrBnnAnoDS2IORtnq3WE4xgJJ1QrCUAB+O8DEh9wr08MIZBw93nt7khcadFZRxkPyKbnpjGyidPinaVJqDYISXv7fT3/PQVOTWBfbwA+pwOId6oqtcbe4VI3Htfe0x4gHHsiomfpGpAtB2O/z4FyROmw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 8.62.32.50) smtp.rcpttodomain=bp.renesas.com smtp.mailfrom=renesas.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=renesas.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cbrHNcKwJnH819dmwPOhYHLkU2FtSPBvC6rXJIWixeQ=;
- b=g2lRp19sBaCPDZrL0S7kChIYjKYxPU3QdkGQZhNOYoDV4Eq9VGbZdwUo3M4pfHv680w/UYGG+Y0d0yxTx+T1QeybOJrFWQid/vFk79YEhLjxciTn21IU3RG7QmbnVKxYS9dmrAicX96CAtWDZLprrHu6G1++Ju9BDFe69rcc/GU=
-Received: from OS7PR01CA0276.jpnprd01.prod.outlook.com (2603:1096:604:259::10)
- by TYRPR01MB16382.jpnprd01.prod.outlook.com (2603:1096:405:139::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
- 2026 20:38:14 +0000
-Received: from OS3PEPF0000003D.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:604:259:cafe::8e) by OS7PR01CA0276.outlook.office365.com
- (2603:1096:604:259::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.12 via Frontend Transport; Mon,
- 14 Sep 2026 20:38:14 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 8.62.32.50)
- smtp.mailfrom=renesas.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=renesas.com;
-Received-SPF: Pass (protection.outlook.com: domain of renesas.com designates
- 8.62.32.50 as permitted sender) receiver=protection.outlook.com;
- client-ip=8.62.32.50; helo=ejcrelay004p.adwin.renesas.com; pr=E
-Received: from ejcrelay004p.adwin.renesas.com (8.62.32.50) by
- OS3PEPF0000003D.mail.protection.outlook.com (10.167.240.6) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.7
- via Frontend Transport; Mon, 14 Sep 2026 20:38:14 +0000
-Received: from demon-pc.localdomain (unknown [10.226.93.156])
-	by ejcrelay004p.adwin.renesas.com (Postfix) with ESMTP id D9EE53000368;
-	Tue, 15 Sep 2026 05:38:11 +0900 (JST)
-From: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
-To: Biju Das <biju.das.jz@bp.renesas.com>,
-	William Breathitt Gray <wbg@kernel.org>,
-	Lee Jones <lee@kernel.org>
-Cc: linux-iio@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
-Subject: [PATCH 15/15] counter: rz-mtu3-cnt: use pm_runtime_resume_and_get()
-Date: Mon, 14 Sep 2026 23:36:14 +0300
-Message-ID: <20260914203614.2035277-16-cosmin-gabriel.tanislav.xa@renesas.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260914203614.2035277-1-cosmin-gabriel.tanislav.xa@renesas.com>
-References: <20260914203614.2035277-1-cosmin-gabriel.tanislav.xa@renesas.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RIBhjAjC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C9B41F000FF;
+	Mon, 14 Sep 2026 20:39:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789418368;
+	bh=F3aAjzg9LQumCCuRdvQcl6jJ04MArf3JAXzxMo6Hu0Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RIBhjAjCgk+ZccEVJPUZghu1iYaNFl20qME8Fdl1JBY1PhiI5wc7h4LagA1abugcm
+	 4l2KOvgjwAh5v+ccbQrjmtiNBVTL0GGmTqZa9bWMxJb9z2q60k0k94QlIabfiSo9KG
+	 mIzCQwReSSS+URw9bWkfM02xMmMo5ooupNgI96IP5SEKoMsdcAVCoUIsRWiwDNthwX
+	 S6lZtRtY/ydqVm4gveFmHo85/jGAXBK5hS95Jzd24TFVlVfwkQKsjTotml8MiLFs2y
+	 wD/4N7WR10UW8Vw+1Vvbw1NL0L+QQhxhQ7mtkFCDx1AukHJWsb6nwO13tEo0Rc1oW3
+	 tMANTBH4VddHw==
+Date: Mon, 14 Sep 2026 13:39:26 -0700
+From: Namhyung Kim <namhyung@kernel.org>
+To: Tengda Wu <wutengda@huaweicloud.com>
+Cc: Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Ian Rogers <irogers@google.com>, Jiri Olsa <jolsa@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@kernel.org>, LKML <linux-kernel@vger.kernel.org>,
+	linux-perf-users@vger.kernel.org, Zecheng Li <zli94@ncsu.edu>,
+	Yanbo Zhao <yzhao62@ncsu.edu>,
+	Shuai Xue <xueshuai@linux.alibaba.com>
+Subject: Re: [PATCH v2 3/4] perf annotate-date: Allow out-of-size access for
+ flex-array types
+Message-ID: <aqhbflQOLmWz3RMM@google.com>
+References: <20260914064535.1671939-1-namhyung@kernel.org>
+ <20260914064535.1671939-4-namhyung@kernel.org>
+ <5d51668c-3646-402f-83b4-7f6ee4a415e7@huaweicloud.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OS3PEPF0000003D:EE_|TYRPR01MB16382:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: dd487cbe-6032-4c1a-9151-08df12a019c2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|376014|23010399003|82310400026|1800799024|10067099003|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	Dst0ZmmVAsgNOCM2J+xceUW7UDL5v6r2mBsE3blWz27p8MmHFqH7UiI+uEJgaqe7jwNG/EmBCRc7eX4nQCVUJcape+7dd6BAtTQnKbd59XoLj7chwTwCen6bReEtQ0MzPRGskWe0W8Bzn0lczrbkC0fuSITfhJpAd4HPDMNkZPbwFEpaVnXw9zja7+VUOjgQ0z1pmTMxezm6NAHQXCO9fqgFKLumrinhqUZ5AD//ZkjSWRweDnSYFdV34nfdmQK8nMxh+FcDUYTx6oWwmSv5C4t0OGGfK7B2xJAzQIOWlWlxw9i1LtmkDxh4ikxvz1uLZBV4zbfCHkK622UebLgydZfxNKbydS8f5qyZ6rlqNVtfL8N9srU5C3x3P7ZqtsQD5hVD6Zez5EFTAt2orbvQy7Goz1h+rudo5lQTz++tMVS3z0/U5N/s9RaVQfzPMfPoXA9B1HposDpRYUMXRFEbLTM3Q8nbXFYgHIV2izGM3To+PUXbGc9FZE6ONssdpieVmRxmUVeuBH2rvaY7cVa+O5NRRKd1al5Dmr/KaVHmrf6DdXj+/2AbhktpitlIJPq+GYgqoVoCr9dZ4Lb9CEi7XcA6Zzqy+PZmBbB+GZGd5nzFZb7GMNz3O24IXenoxRUB/YGwXoQbggAhyko4aoNTVm7qwVhjMTgZC//LkxYc2v9pt3AnCAEHlRX0X26R+2vnSsx2WKolVPzFCFB4uJ5awQ==
-X-Forefront-Antispam-Report:
-	CIP:8.62.32.50;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ejcrelay004p.adwin.renesas.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(23010399003)(82310400026)(1800799024)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	InWXoa8aKj013xTLcokUOFk9fMsBdaggS3jkJARTNVrajsO2zP0BdqDnGpphgk7uo3miYHX++MIaorA+NYzFyVbKp9WTC+tCc5HTqyEwwsGcGC/WUOlcJ3IPK4UcXyptgk+uWvS0leQCOy+FevVGPTKAQnVlUD8MHbgNOeC1wYsOGpUL/ZCNN2exaQ1bGJHKryjjmUugz08kk4t/x16nomCm2thvYrGgzU1MMisv+likiCuRjsZ+uPF+H0DDVIvX7BQq9MF4zqkIAdoFKDVciR1TZNrNhmG3NVfKlBtsyrxb/WbZWAv9BZQQ4VgjTreWEBTqF7BreRVMGgmnHxxO+Fgbjw+M/VG7phZ/f6g7VzgiASHyja9//oF8UAS1eA9n/eswheQmdJQmGgxdl2bRVFeupztZC7FGEcW3E61AXgqPBNCWZ32Mvj8+NPeJvXhz
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 20:38:14.5518
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: dd487cbe-6032-4c1a-9151-08df12a019c2
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=53d82571-da19-47e4-9cb4-625a166a4a2a;Ip=[8.62.32.50];Helo=[ejcrelay004p.adwin.renesas.com]
-X-MS-Exchange-CrossTenant-AuthSource: OS3PEPF0000003D.JPNP286.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYRPR01MB16382
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <5d51668c-3646-402f-83b4-7f6ee4a415e7@huaweicloud.com>
 
-pm_runtime_get_sync() may increment the runtime PM usage count even if
-the resume fails, which requires an explicit pm_runtime_put_noidle() to
-balance it.
+On Mon, Sep 14, 2026 at 08:19:44PM +0800, Tengda Wu wrote:
+> 
+> 
+> On 2026/9/14 14:45, Namhyung Kim wrote:
+> > Structs that have a flex array will have accesses beyond its original
+> > size as the array was declared as 0 sized.  For now, it just allow any
+> > offset bigger than the size.  It could be refined later.
+> > 
+> > Signed-off-by: Namhyung Kim <namhyung@kernel.org>
+> > ---
+> >  tools/perf/util/annotate-data.c | 63 ++++++++++++++++++---------------
+> >  tools/perf/util/annotate-data.h |  2 ++
+> >  2 files changed, 36 insertions(+), 29 deletions(-)
+> > 
+> > diff --git a/tools/perf/util/annotate-data.c b/tools/perf/util/annotate-data.c
+> > index aff60a630fd05b01..e8aff6a916c0afe0 100644
+> > --- a/tools/perf/util/annotate-data.c
+> > +++ b/tools/perf/util/annotate-data.c
+> > @@ -7,6 +7,7 @@
+> >  #include <errno.h>
+> >  #include <stdio.h>
+> >  #include <stdlib.h>
+> > +#include <string.h>
+> >  #include <inttypes.h>
+> >  #include <linux/zalloc.h>
+> >  
+> > @@ -248,8 +249,15 @@ static int __add_member_cb(Dwarf_Die *die, void *arg)
+> >  	else
+> >  		die_mem = member_type;
+> >  
+> > -	if (dwarf_aggregate_size(&die_mem, &size) < 0)
+> > -		size = 0;
+> > +	if (dwarf_aggregate_size(&die_mem, &size) < 0) {
+> > +		if (dwarf_tag(&die_mem) == DW_TAG_array_type) { /* flex-array? */
+> > +			die_get_real_type(&die_mem, &die_mem);
+> > +			if (dwarf_aggregate_size(&die_mem, &size) < 0)
+> > +				size = 0;
+> > +		} else {
+> > +			size = 0;
+> > +		}
+> > +	}
+> >  
+> >  	if (dwarf_attr_integrate(die, DW_AT_data_member_location, &attr)) {
+> >  		if (dwarf_formudata(&attr, &loc) != 0) {
+> > @@ -399,6 +407,7 @@ static struct annotated_data_type *dso__findnew_data_type(struct dso *dso,
+> >  	result->self.type_name = type_name;
+> >  	result->self.size = size;
+> >  	INIT_LIST_HEAD(&result->self.children);
+> > +	result->flex_array = die_has_flex_array(type_die);
+> >  
+> >  	if (symbol_conf.annotate_data_member)
+> >  		add_member_types(result, type_die);
+> > @@ -517,13 +526,30 @@ static bool is_better_type(Dwarf_Die *type_a, Dwarf_Die *type_b)
+> >  	return false;
+> >  }
+> >  
+> > +static enum type_match_result check_type_offset(Dwarf_Die *type_die, int offset)
+> > +{
+> > +	Dwarf_Word size;
+> > +
+> > +	/* Get the size of the actual type */
+> > +	if (dwarf_aggregate_size(type_die, &size) < 0)
+> > +		return PERF_TMR_NO_SIZE;
+> > +
+> > +	/* Minimal sanity check */
+> > +	if (offset < 0)
+> > +		return PERF_TMR_BAD_OFFSET;
+> > +
+> > +	if ((unsigned)offset >= size && !die_has_flex_array(type_die))
+> > +		return PERF_TMR_BAD_OFFSET;
+> > +
+> > +	return PERF_TMR_OK;
+> > +}
+> > +
+> >  /* The type info will be saved in @type_die */
+> >  static enum type_match_result check_variable(struct data_loc_info *dloc,
+> >  					     Dwarf_Die *var_die,
+> >  					     Dwarf_Die *type_die, int reg,
+> >  					     int offset, bool is_fbreg)
+> >  {
+> > -	Dwarf_Word size;
+> >  	bool needs_pointer = true;
+> >  	Dwarf_Die sized_type;
+> >  
+> > @@ -554,15 +580,7 @@ static enum type_match_result check_variable(struct data_loc_info *dloc,
+> >  	else
+> >  		sized_type = *type_die;
+> >  
+> > -	/* Get the size of the actual type */
+> > -	if (dwarf_aggregate_size(&sized_type, &size) < 0)
+> > -		return PERF_TMR_NO_SIZE;
+> > -
+> > -	/* Minimal sanity check */
+> > -	if ((unsigned)offset >= size)
+> > -		return PERF_TMR_BAD_OFFSET;
+> > -
+> > -	return PERF_TMR_OK;
+> > +	return check_type_offset(type_die, offset);
+> >  }
+> >  
+> >  struct type_state_stack *find_stack_state(struct type_state *state,
+> > @@ -1112,7 +1130,6 @@ static enum type_match_result check_matching_type(struct type_state *state,
+> >  						  struct disasm_line *dl,
+> >  						  Dwarf_Die *type_die)
+> >  {
+> > -	Dwarf_Word size;
+> >  	u32 insn_offset = dl->al.offset;
+> >  	int reg = dloc->op->reg1;
+> >  	int offset = dloc->op->offset;
+> > @@ -1166,12 +1183,7 @@ static enum type_match_result check_matching_type(struct type_state *state,
+> >  		else
+> >  			sized_type = *type_die;
+> >  
+> > -		/* Get the size of the actual type */
+> > -		if (dwarf_aggregate_size(&sized_type, &size) < 0 ||
+> > -		    (unsigned)dloc->type_offset >= size)
+> > -			return PERF_TMR_BAD_OFFSET;
+> > -
+> > -		return PERF_TMR_OK;
+> > +		return check_type_offset(&sized_type, dloc->type_offset);
+> >  	}
+> >  
+> >  	if (state->regs[reg].kind == TSR_KIND_POINTER) {
+> > @@ -1190,12 +1202,7 @@ static enum type_match_result check_matching_type(struct type_state *state,
+> >  
+> >  		dloc->type_offset = dloc->op->offset + state->regs[reg].offset;
+> >  
+> > -		/* Get the size of the actual type */
+> > -		if (dwarf_aggregate_size(type_die, &size) < 0 ||
+> > -		    (unsigned)dloc->type_offset >= size)
+> > -			return PERF_TMR_BAD_OFFSET;
+> > -
+> > -		return PERF_TMR_OK;
+> > +		return check_type_offset(type_die, dloc->type_offset);
+> >  	}
+> >  
+> >  	if (state->regs[reg].kind == TSR_KIND_PERCPU_POINTER) {
+> > @@ -1209,9 +1216,7 @@ static enum type_match_result check_matching_type(struct type_state *state,
+> >  
+> >  		dloc->type_offset = dloc->op->offset;
+> >  
+> > -		/* Get the size of the actual type */
+> > -		if (dwarf_aggregate_size(type_die, &size) < 0 ||
+> > -		    (unsigned)dloc->type_offset >= size)
+> > +		if (check_type_offset(type_die, dloc->type_offset) != PERF_TMR_OK)
+> >  			return PERF_TMR_BAIL_OUT;
+> >  
+> >  		return PERF_TMR_OK;
+> > @@ -1839,7 +1844,7 @@ int annotated_data_type__update_samples(struct annotated_data_type *adt,
+> >  			return -1;
+> >  	}
+> >  
+> > -	if (offset < 0 || offset >= adt->self.size)
+> > +	if (offset < 0 || (offset >= adt->self.size && !adt->flex_array))
+> >  		return -1;
+> >  
+> >  	h = &adt->histograms[evsel->core.idx];
+> > diff --git a/tools/perf/util/annotate-data.h b/tools/perf/util/annotate-data.h
+> > index ca2096a9ee62cbfe..27b7148b64f60350 100644
+> > --- a/tools/perf/util/annotate-data.h
+> > +++ b/tools/perf/util/annotate-data.h
+> > @@ -85,6 +85,7 @@ struct type_hist {
+> >   * struct annotated_data_type - Data type to profile
+> >   * @node: RB-tree node for dso->type_tree
+> >   * @self: Actual type information
+> > + * @flex_array: Whethere it has a flex array
+> 
+> Nit: typo in the comment -- Whethere should be Whether.
 
-This driver ignores the return value of pm_runtime_get_sync(), risking
-accessing device registers even if resume failed.
+Will fix.
 
-Replace it with pm_runtime_resume_and_get() and handle errors properly.
-
-Signed-off-by: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
----
- drivers/counter/rz-mtu3-cnt.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/counter/rz-mtu3-cnt.c b/drivers/counter/rz-mtu3-cnt.c
-index f3e8fe5cb818..c6877f988b8b 100644
---- a/drivers/counter/rz-mtu3-cnt.c
-+++ b/drivers/counter/rz-mtu3-cnt.c
-@@ -430,7 +430,10 @@ static int rz_mtu3_count_enable_write(struct counter_device *counter,
- 		return 0;
- 
- 	if (enable) {
--		pm_runtime_get_sync(counter->parent);
-+		ret = pm_runtime_resume_and_get(counter->parent);
-+		if (ret)
-+			return ret;
-+
- 		ret = rz_mtu3_initialize_counter(counter, count->id);
- 		if (ret) {
- 			pm_runtime_put(counter->parent);
--- 
-2.55.0
+Thanks,
+Namhyung
 
