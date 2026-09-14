@@ -1,123 +1,78 @@
-Received: from mail-10697.protonmail.ch (mail-10697.protonmail.ch [79.135.106.97])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3B6133F368
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 21:16:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.97
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9EBA394EA6
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 21:17:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789420605; cv=none; b=Oy3layqUTCuNKg8p9nPc37Xw6HkEIhY+TevEYIup7TMlFkBXsPlgrIstzfZU9v6YHfmbXNjFWUKcmK0vXBzo909gnFL+wYisOl0yt2/81X7I81jp9jEr5E6F0W4yBXQqpq2PoAxJKfnRwVebosh5lNk3Jgf8O7bw4U8tfDZFuqA=
+	t=1789420656; cv=none; b=o7xAvlNzs+LtmBo4UAHuPCxZSwxvgHX3XDDWGHSGehX0EhwqYlYzZLP6znon55BP2B9PqgV6fhgrYqFEPq7qna8OVBYngI9juMdfNJHQ2GQgQQD64CEfsUFIqqdT9Ebdc6p5HuQSJawYftxvPpHqDqL4t6GHE/WOL8TA8QZGIrU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789420605; c=relaxed/simple;
-	bh=W+JE7JPVt6/Na9NslGoDRa2gEJpyxJc+zuyfzIaEVJA=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=VTo1O6Y8x4wDGoJZuaft0Z8jE0APc8s87qXOiH2g/o9oMhJxckcMuYDWEP4mr6Hp4zLKt/hIBWBX/ukhk0MUvvTiVADn3wE8Z2cFjnjMkztYrXm409OyZ+I/7giVfn8ZQ1eoEsNVav6S6F3DY8rK/8nwedTH5k2E4KMwZ3PK+qw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=Ymovneyy; arc=none smtp.client-ip=79.135.106.97
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1789420656; c=relaxed/simple;
+	bh=SPH2yTaJN2+oSe3I3KJ+8QZMneaPEyA++eBCEmtFrho=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=MODIP+bNA7iUrDqH+w+BYVl5WHxZTRoT871+92ENzj+zpFBecyyiy6/I20vGxr8Es7uDoZm2UU4yG+yqeqZgl+iJR+EnH1Fpn3DpC+/mHbEJU79NmWvvW5UIzPf5hKP9oHPMiTkdZILyvJ54PJPoQZEJ5Pnw9/c4g4/c2fAXnWY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fAA1t5PR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="Ymovneyy"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1789420590; x=1789679790;
-	bh=+WPtYFMqE1Vfo/MLjZF9A1KgMfZ28NL+WJVeQ5x0+gY=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=YmovneyynssoFLUw4gW01/RlIktj7gZXtd8P9QN4Z+5flgrG6VRR049SfgykTipuc
-	 ZYK/rj7aB7yUSCk6R6IrYEYRDIG45hJwOhA4u4CCShQmTPCtGO20W95oZ2RnwBDWGe
-	 RXDFKsoRXjyMaxZkVbqeWKktRmaFs2ssEsydySh6ieWcjG2t6plOm9u6/Kt39Vv7Zz
-	 ZBrE41CnqRJHZSFM/VqGpeOZfGuxMdP9ncKwhoD/chvhfVG8F85XtlyYfG936X0x4+
-	 2/xVroBatW9uQB0Mw2MZb/a0iWI8lTY3oVEa6Q25OkNmy0Rj80Q7WYbr4Fipqss6AT
-	 S0s+rqwuzPvFw==
-Date: Mon, 14 Sep 2026 21:16:26 +0000
-To: "almaz.alexandrovich@paragon-software.com" <almaz.alexandrovich@paragon-software.com>
-From: sulamufor <sulamufor@proton.me>
-Cc: "ntfs3@lists.linux.dev" <ntfs3@lists.linux.dev>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: ntfs3: lookup with nocase returns ENOENT when name case differs from $FILE_NAME and inode is not cached
-Message-ID: <b-QfpgeIM7Dlb6u4_o6qJhNO7ulaAq_u3NdHYuIPiRICddaT6UipUPJOH7p1W9o4OQStfgJzX2sn3uQYdkygel1cEM5QlXo4TnCdSbsEgsc=@proton.me>
-Feedback-ID: 221793378:user:proton
-X-Pm-Message-ID: ac861e46777dc6f8b96c6bb7d84115f56222292a
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fAA1t5PR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70AA31F0089B
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 21:17:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789420654;
+	bh=SPH2yTaJN2+oSe3I3KJ+8QZMneaPEyA++eBCEmtFrho=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=fAA1t5PR6uytt7TO/+zRxHcBsR89bCEzrRFsItHVGQ9TxKajyM3spHG+5sijP19OJ
+	 t1zWQodK7soN5keOj0OF2PDyPrLqTz3IIIVYVgyjyitTzxm6zqyCnQde7V0vQU6FDC
+	 xuUQR0iZ7zWz1Tx5WUoUYh3mR8oOHyfQbDU7G3T15qFWH0szwx8nqwaWC49XlRhF8Q
+	 qAWd7oY4Wyv4/8AQED7TGy+CDw+jeXMhyzQQuAfIVPkxEreL8GcwZc5pPBhSTMzY9l
+	 rfMVDPdwNKQcCvQ+aMvWAErD138DKFtfRRZfKAE+1khUpRmhXGhlYjbKL44dsLMWlD
+	 2z8C0hCDy4s2Q==
+Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5b5f21afe8cso293966e87.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:17:34 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwT5xTv9fVjhYP5LPboU4252yBNF9KeL7YgpFUBEfknZNmVfVH9ETSLDQcpyfKscEEpzQ1cPS5ulMwdV6A=@vger.kernel.org
+X-Gm-Message-State: AFuF++k9pjQ5yU/JePjQ89jjx8BVO1NQJ4w7o8xM95jAaAxj7oewMnM3
+	VmaEdTIcAxnR3YZ5hDATMRXke1geBRzBUCg/XZwuF9LHJKvFY62If8LNyJtag9aK6HwOXIlRzay
+	Y67OP6NtXFtFHMtmP0lhyTwssniExINI=
+X-Received: by 2002:a05:6512:1053:b0:5b3:f8b:b714 with SMTP id
+ 2adb3069b0e04-5b8b2a8671cmr211409e87.21.1789420653140; Mon, 14 Sep 2026
+ 14:17:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+References: <20260907-arm64-have-shared-gpios-v1-1-31af942ab30f@oss.qualcomm.com>
+In-Reply-To: <20260907-arm64-have-shared-gpios-v1-1-31af942ab30f@oss.qualcomm.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Mon, 14 Sep 2026 23:17:20 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=hnRNYuGxe=T7T5aPQFve5wtD5qt5e6z7-kz92GiHpSQ@mail.gmail.com>
+X-Gm-Features: AcwNN1XpyMYmDGh9l_sJ8JQBmfLBouLclcDrGavwm4fsBketM_Ew-WInKbZCshk
+Message-ID: <CAD++jL=hnRNYuGxe=T7T5aPQFve5wtD5qt5e6z7-kz92GiHpSQ@mail.gmail.com>
+Subject: Re: [PATCH] arm64: enable HAVE_SHARED_GPIOS for all ARM64 platforms
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Bartosz Golaszewski <brgl@kernel.org>, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linux-gpio@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi,
+On Mon, Sep 7, 2026 at 4:50=E2=80=AFPM Bartosz Golaszewski
+<bartosz.golaszewski@oss.qualcomm.com> wrote:
 
-with ntfs3 mounted with the `nocase` option, looking up a file whose name d=
-iffers only in case from the
-on-disk name fails with ENOENT as long as the inode is not yet in the inode=
- cache. Once the inode has been
-loaded by some other path (e.g. readdir), the same lookup succeeds.
+> Shared GPIO management provided by the GPIO shared proxy module has been
+> enabled for Qualcomm platforms for some time. By extension of the
+> defconfig, it's been effectively enabled for all ARM64 platforms when
+> using the default configuration. Bugs discovered initially after the
+> feature was first enabled, were fixed and I haven't seen any new reports
+> for several months. Make the feature enabled by default for all ARM64
+> platforms officially, which will allow us to continue the removal of the
+> deprecated GPIOD_FLAGS_BIT_NONEXCLUSIVE flag from the kernel.
+>
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
-Kernel: 7.2.5 (CachyOS build, unmodified fs/ntfs3). The relevant code is id=
-entical in current mainline and
-in the Paragon linux-ntfs3 tree. Without `nocase` the same lookup fails con=
-sistently (as expected), so the
-inconsistency is specific to the `nocase` option.
+That sounds reasonable.
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-Minimal reproducer (fresh image, no special content):
-
-    #!/bin/sh
-    set -e
-    IMG=3D$(mktemp /tmp/ntfs3-XXXX.img); MNT=3D$(mktemp -d /tmp/ntfs3-mnt-X=
-XXX)
-    truncate -s 64M "$IMG"
-    mkfs.ntfs -F -q "$IMG" >/dev/null
-    mount -t ntfs3 -o loop,nocase "$IMG" "$MNT"
-    : > "$MNT/Foo.TXT"
-    umount "$MNT"
-    mount -t ntfs3 -o loop,nocase "$IMG" "$MNT"
-    stat -c '%n ino=3D%i' "$MNT/foo.txt"   # -> ENOENT
-    stat -c '%n ino=3D%i' "$MNT/Foo.TXT"   # exact case: OK, loads the inod=
-e
-    stat -c '%n ino=3D%i' "$MNT/foo.txt"   # -> now OK, same inode
-    cat "$MNT/FOO.txt"                   # -> works
-
-Output on 7.2.5:
-
-    stat: cannot statx '/mnt/foo.txt': No such file or directory
-    /mnt/Foo.TXT ino=3D27
-    /mnt/foo.txt ino=3D27
-    hello
-
-Listing the directory (`ls`) instead of the exact-case access has the same =
-effect.
-
-The same happens on a long-running mount whenever the inode gets evicted (o=
-bserved with a large read-only
-game asset tree accessed by a Windows application under Wine: after a reboo=
-t or under memory pressure a
-subset of files that the application references with different casing than =
-on disk "disappears", and
-listing the directory makes them come back).
-
-Analysis:
-
-The directory index lookup itself honours `nocase`: `cmp_fnames()` in fs/nt=
-fs3/index.c compares with
-`sbi->upcase` and `both_case =3D ... && !sbi->options->nocase`, so `dir_sea=
-rch_u()` finds the entry and
-calls `ntfs_iget5_flags(sb, &e->ref, uni, ...)` with the *caller-supplied* =
-name.
-
-If the inode is not cached, `ntfs_read_mft()` in fs/ntfs3/inode.c then walk=
-s the $FILE_NAME attributes
-and compares each against that name with
-
-    if (name && name->len =3D=3D fname->name_len &&
-        !ntfs_cmp_names_cpu(name, (struct le_str *)&fname->name_len,
-                            NULL, false))
-            is_match =3D true;
-
-`ntfs_cmp_names_cpu()` with `upcase =3D=3D NULL` never takes the case-insen=
-sitive path, so this comparison is
-always case-sensitive regardless of the mount option. `is_match` stays fals=
-e and the function returns
--ENOENT (`if (!is_match && name) { err =3D -ENOENT; ... }`).
-
-If the inode is already cached, `iget5_locked()` returns it without calling=
- `ntfs_read_mft()`, hence the
-lookup succeeds =E2=80=94 which is why readdir (which loads the inodes) or =
-an exact-case access appears to "fix" it.
+Yours,
+Linus Walleij
