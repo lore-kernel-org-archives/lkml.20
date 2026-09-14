@@ -1,397 +1,108 @@
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72BF3493D37
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 17:08:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.72
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789405693; cv=none; b=kdabIJRcn/RhNYGJ6u7ios8vTrBTt5Ul3bvmRq8V80lZJH+unb01hworPFz8PXnpiDOruguh0A+tb099bExT0iW11SYDvFDl6EUREgtCAh9RQufM6BI2Nfp8QA965LB9jreVtpLpT0MWJi2RsGEo+IIdA3dQNu0aKduh8CPoHQA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789405693; c=relaxed/simple;
-	bh=KWwhOExXkxuHKJSze0zrmUoXuDnB70b9lq7Di09ZMqs=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Content-Type; b=knQcaXypUkEKM2mKuRkr5THF9X98/k3NwAV2L6P8vke9C4IF9oejj7uF6VHxhgZvBV3ZljvB5MMFsfytysE42NmcddwEbJ69qG5hg/5uEtXYLTEU45RjR1fvICQTV1TZm1NMxBVIb9g0JTxuU0QOkZ4lUlQFPDLjklEpJazvsZ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=o1Vd2A+7; arc=none smtp.client-ip=209.85.216.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF2634968EE
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 17:08:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789405698; cv=pass; b=seNx4q7sen0cXym1sl+TD6h4kNJ2BA/psdbX3z/FMOPsumeNqr+Jl9LTz+3k3kyOiDTj6/4GjaaaTcOCEn1XfoFeGI6nMd7R27UtpVxzc2hy2xl5EqbESXyXYgOfwBcYxCuD6ztzYOo+jvdLW8w8JNEwf8w0q/WsammeH67JGHA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789405698; c=relaxed/simple;
+	bh=dpYoff2UzJF54DLTAnCpmVmIrYHi/pZZ/RdTFWYirUY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=dnRw62mbN2Bamfo0iE0C5B/hQY/yS9rqVhe0kEifXe/IhA3JrC1E/5oeQ4qTNgzpU9RdP69xwvD6bI7nJ4xwiIOqT5aMeURy+l6PT9A4+rBEfIZrHeOg51YiEMWxKSGPJNyeGPoUlTP2xineYRAc6BIj1ju0HiG5i/k+P4ENmIQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=detlev.casanova@collabora.com header.b=H7/bhH0t; arc=pass smtp.client-ip=165.173.182.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="o1Vd2A+7"
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-398dcfabbf8so8732923a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:08:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789405690; x=1790010490; darn=vger.kernel.org;
-        h=content-type:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BV+cdLHm/UXgK8ux34UkjPdQXRVZPhMI7hVk5RemaYM=;
-        b=o1Vd2A+7v5gTS3GBJONage23tuoDr7TRZLZpkd5PVbsDErNjB2pequ+M/oV9QxUWHO
-         88ASQ/etzXUsGXbFr2vxTqT47x4N/h5aeVqWT4DVD98zW2VGIzXH/pw5xBnHBNszqCUa
-         bGNtHa+m6k+XVY+bbr7fbTD0z4cV2gywbfTZw/GT+o+TBCpEijMXLaQc2jMtUOAW6OvM
-         MXineuTGJiWJ3dM4CLNQADQKUrGgHvdQlYp/hFkDW3swHVepqJS2fR2BNGze06X99bMV
-         ewU+L9v2ZVeTchnF0HiA7FVIhXNeVC7jEtVkDuqowxGd7yAQKL2Ep9PWu70E3vHBKc9B
-         fVxg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789405690; x=1790010490;
-        h=content-type:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BV+cdLHm/UXgK8ux34UkjPdQXRVZPhMI7hVk5RemaYM=;
-        b=jGOiau3GIvFdxzSgtjrTMokD/5cTc8lnstirbn7l4Oxu6hCiY2VzGJpFRn7psTCe1z
-         nVUx5lKMcnjv3tbMViYsLvKPtI9RhpChz/rTl04VVNldk5LxnsvOFyJQVgWCSvZEEWUC
-         QMf3X51j4ygVgst7pKO7zUG/4RNR5CfXYxcLDL5utF3gor94wsDVtTXigzhLQMINo0wj
-         7zdT5xXO2vo3s8T2S9OEvQrNjQWCeGNBhlpeRmQVC15JLUHSygjF0kE8eDlFowbfF0w2
-         ydFeuaad8IIVQQ7nSolAtozt8hbPqdsnRsrugjg1/pqop5GLOqLS0+YOVzjKwObnZ41N
-         RHWg==
-X-Forwarded-Encrypted: i=1; AKwUvBzu1f+5xyIuJeelpPCG9OpojI85pazp4JCQFHYnmGEup8YKpHJxMWCirXPGXVBUZ6Q6F7MZpIPM2P1A988=@vger.kernel.org
-X-Gm-Message-State: AFuF++meIdFXpsj0X7xkVnOu7X+BdWpPYaodSqRweQ3WLwQvBpu8YrD9
-	h6uzFIb8d/Y5vu951h3CKoC7nsYtpvJXjywi0VIzEPfZ3825Or6FMuNGljwH8RsdBHqvbfss7C5
-	NGtLKdgfFQQ==
-X-Received: from dycnr23-n1.prod.google.com ([2002:a05:7300:e9d7:10b0:328:ea0:399e])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:4c50:b0:38e:49c0:75a7
- with SMTP id 98e67ed59e1d1-39debfa8268mr7175920a91.8.1789405689469; Mon, 14
- Sep 2026 10:08:09 -0700 (PDT)
-Date: Mon, 14 Sep 2026 10:07:59 -0700
-In-Reply-To: <20260914170759.1992947-1-irogers@google.com>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=detlev.casanova@collabora.com header.b="H7/bhH0t"
+ARC-Seal: i=1; a=rsa-sha256; t=1789405646; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=Edlam33l1X0WI1OrB7u2Oi2y4BDkKlma8QjA02JvSoaDxpCa92P/CCtUkM16iKiJx9M7DYtg86KhuipKWOJQvzDTNeyeodYwJhhFXDRbUhUWpbd9TFoh4LjLMzVIsU+H36ZMvSktV3SfeKTEBeAqOFeMeK25RGsuUeQW986dtkc=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1789405646; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=+angtaWnDipQewgGz9mUegs+98WHwzGZawVa6NY7uGc=; 
+	b=LPNxssC28lKjfWdU8WDWwBoYFepkrqhrMfFW6eWiD6kKWjmgHtgd2y6Vjg684Y1IVpBsZm/f1chPLwaOy3Cdp/0/0uTGBPStOAsED0ZPugdJZ0Hg9BlmCmHPdariz5scbgT4HLcoCUGDcfdiOD+Ah13Tr/pg2Lg3vQ+nyUB85Zs=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=detlev.casanova@collabora.com;
+	dmarc=pass header.from=<detlev.casanova@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789405646;
+	s=zohomail; d=collabora.com; i=detlev.casanova@collabora.com;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
+	bh=+angtaWnDipQewgGz9mUegs+98WHwzGZawVa6NY7uGc=;
+	b=H7/bhH0tH3/76qPygUPmL4xEqjOXzbIP20K2eJgFNDrskKak1+9ZMBsWZQOHjc1e
+	hVrFKHf6f7ksMGiPzhmSf2DbgcQj+Qq4TEx7qteiSFn/FLKpd90IAS9twFhPRPJP5XR
+	rFjBmWErxwCGnP1kCJCvGDfNJ8By2okwkPx7U8RY=
+Received: by mx.zohomail.com with SMTPS id 1789405645288547.3965894530555;
+	Mon, 14 Sep 2026 10:07:25 -0700 (PDT)
+From: Detlev Casanova <detlev.casanova@collabora.com>
+To: Igor Paunovic <royalnet026@gmail.com>
+Cc: Igor Paunovic <royalnet026@gmail.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Maud Spierings <maud_spierings@hotmail.com>,
+ Diederik de Haas <diederik@cknow-tech.com>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Frank Zhang <rmxpzlb@gmail.com>, kernel@collabora.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject:
+ Re: [PATCH] drm/bridge: dw-hdmi-qp: Return -EOPNOTSUPP in HDMI audio
+ functions
+Date: Mon, 14 Sep 2026 13:07:22 -0400
+Message-ID: <5kr9i6ZJT46mREykuuT_Jw@collabora.com>
+In-Reply-To: <20260907153000.hdmiqp-audio-2-royalnet026@gmail.com>
+References:
+ <20260519-fix-hdmi-audio-warnings-v1-1-9608966c993f@collabora.com>
+ <20260907153000.hdmiqp-audio-2-royalnet026@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260914170759.1992947-1-irogers@google.com>
-X-Mailer: git-send-email 2.55.0.1032.g73a4cd73de-goog
-Message-ID: <20260914170759.1992947-2-irogers@google.com>
-Subject: [PATCH v1 2/2] perf dso: Separate libbfd and cmd addr2line caches to
- fix confusion
-From: Ian Rogers <irogers@google.com>
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
-	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
-	James Clark <james.clark@linaro.org>, Thomas Richter <tmricht@linux.ibm.com>, 
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
+X-ZohoMailClient: External
 
-When a dso executes addr2line via libbfd it instantiates an a2l_data
-pointer. If the DSO later executes via the command-line fallback due
-to an inlined bug, the a2l pointer is unconditionally populated with a
-child_process process wrapper. If libbfd is queried again, the offline
-reader attempts to cast struct a2l_data into child_process, coercing
-random arbitrary instruction addresses and causing silent aborts. This
-cleanly splits the caches.
+Hi Igor,
 
-Fixes: 257046a36750 ("perf srcline: Fallback between addr2line implementations")
-Signed-off-by: Ian Rogers <irogers@google.com>
-Assisted-by: Antigravity:gemini-3.1-pro
----
- tools/perf/util/dso.c     | 49 ++++++++++++++++++++++---------------
- tools/perf/util/dso.h     | 21 ++++++++++++++--
- tools/perf/util/libbfd.c  | 51 +++++++++++++++++++++++++++------------
- tools/perf/util/srcline.c |  2 ++
- 4 files changed, 86 insertions(+), 37 deletions(-)
+Thank you for testing !
 
-diff --git a/tools/perf/util/dso.c b/tools/perf/util/dso.c
-index df39e6ca88e6..6510767177be 100644
---- a/tools/perf/util/dso.c
-+++ b/tools/perf/util/dso.c
-@@ -1,38 +1,45 @@
- // SPDX-License-Identifier: GPL-2.0
-+#include "dso.h"
-+
-+#include <errno.h>
-+#include <stdlib.h>
-+
- #include <asm/bug.h>
-+#include <fcntl.h>
- #include <linux/kernel.h>
- #include <linux/string.h>
- #include <linux/zalloc.h>
--#include <sys/time.h>
- #include <sys/resource.h>
--#include <sys/types.h>
- #include <sys/stat.h>
-+#include <sys/time.h>
-+#include <sys/types.h>
- #include <unistd.h>
--#include <errno.h>
--#include <fcntl.h>
--#include <stdlib.h>
--#ifdef HAVE_LIBBPF_SUPPORT
--#include <bpf/libbpf.h>
--#include "bpf-event.h"
--#include "bpf-utils.h"
--#endif
-+
-+#include "annotate-data.h"
-+#include "auxtrace.h"
- #include "compress.h"
-+#include "debug.h"
-+#include "dso.h"
-+#include "dsos.h"
- #include "env.h"
-+#include "libbfd.h"
-+#include "libdw.h"
-+#include "machine.h"
-+#include "map.h"
- #include "namespaces.h"
- #include "path.h"
--#include "map.h"
--#include "symbol.h"
- #include "srcline.h"
--#include "dso.h"
--#include "dsos.h"
--#include "machine.h"
--#include "auxtrace.h"
--#include "util.h" /* O_CLOEXEC for older systems */
--#include "debug.h"
- #include "string2.h"
-+#include "symbol.h"
-+#include "util.h" /* O_CLOEXEC for older systems */
- #include "vdso.h"
--#include "annotate-data.h"
--#include "libdw.h"
-+
-+#ifdef HAVE_LIBBPF_SUPPORT
-+#include <bpf/libbpf.h>
-+
-+#include "bpf-event.h"
-+#include "bpf-utils.h"
-+#endif
- 
- static const char * const debuglink_paths[] = {
- 	"%.0s%s",
-@@ -1757,6 +1764,7 @@ void dso__delete(struct dso *dso)
- 	auxtrace_cache__free(RC_CHK_ACCESS(dso)->auxtrace_cache);
- 	dso_cache__free(dso);
- 	dso__free_a2l(dso);
-+	dso__free_a2l_libbfd(dso);
- 	dso__free_libdw(dso);
- 	dso__free_symsrc_filename(dso);
- 	nsinfo__zput(RC_CHK_ACCESS(dso)->nsinfo);
-@@ -2081,6 +2089,7 @@ void dso__set_symsrc_filename(struct dso *dso, char *val)
- 	RC_CHK_ACCESS(dso)->symsrc_filename = val;
- 	dso__free_libdw(dso);
- 	dso__free_a2l(dso);
-+	dso__free_a2l_libbfd(dso);
- 	dso__set_has_srcline(dso, true);
- 	dso__set_a2l_fails(dso, 0);
- }
-diff --git a/tools/perf/util/dso.h b/tools/perf/util/dso.h
-index 7966c7048c85..e7d5f4bbf894 100644
---- a/tools/perf/util/dso.h
-+++ b/tools/perf/util/dso.h
-@@ -304,7 +304,12 @@ DECLARE_RC_STRUCT(dso) {
- 	const char	 *short_name;
- 	const char	 *long_name;
- 	void		 *a2l;
-+#ifdef HAVE_LIBBFD_SUPPORT
-+	void		 *a2l_libbfd;
-+#endif
-+#ifdef HAVE_LIBDW_SUPPORT
- 	void		 *libdw;
-+#endif
- 	char		 *symsrc_filename;
- 	struct nsinfo	*nsinfo;
- 	struct auxtrace_cache *auxtrace_cache;
-@@ -368,6 +373,20 @@ static inline void dso__set_a2l(struct dso *dso, void *val)
- 	RC_CHK_ACCESS(dso)->a2l = val;
- }
- 
-+#ifdef HAVE_LIBBFD_SUPPORT
-+static inline void *dso__a2l_libbfd(const struct dso *dso)
-+{
-+	return RC_CHK_ACCESS(dso)->a2l_libbfd;
-+}
-+
-+static inline void dso__set_a2l_libbfd(struct dso *dso, void *val)
-+{
-+	RC_CHK_ACCESS(dso)->a2l_libbfd = val;
-+}
-+#endif
-+
-+struct Dwfl;
-+#ifdef HAVE_LIBDW_SUPPORT
- static inline void *dso__libdw(const struct dso *dso)
- {
- 	return RC_CHK_ACCESS(dso)->libdw;
-@@ -378,8 +397,6 @@ static inline void dso__set_libdw(struct dso *dso, void *val)
- 	RC_CHK_ACCESS(dso)->libdw = val;
- }
- 
--struct Dwfl;
--#ifdef HAVE_LIBDW_SUPPORT
- struct Dwfl *dso__libdw_dwfl(struct dso *dso);
- #else
- static inline struct Dwfl *dso__libdw_dwfl(struct dso *dso __maybe_unused)
-diff --git a/tools/perf/util/libbfd.c b/tools/perf/util/libbfd.c
-index d0a27b14ee0d..f7400e30ee76 100644
---- a/tools/perf/util/libbfd.c
-+++ b/tools/perf/util/libbfd.c
-@@ -1,5 +1,17 @@
- // SPDX-License-Identifier: GPL-2.0
- #include "libbfd.h"
-+
-+#include <errno.h>
-+#include <limits.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
-+
-+#include <fcntl.h>
-+#include <pthread.h>
-+
-+#include <tools/dis-asm-compat.h>
-+
- #include "annotate.h"
- #include "bpf-event.h"
- #include "bpf-utils.h"
-@@ -11,15 +23,13 @@
- #include "symbol.h"
- #include "symbol_conf.h"
- #include "util.h"
--#include <tools/dis-asm-compat.h>
-+
- #ifdef HAVE_LIBBPF_SUPPORT
- #include <bpf/bpf.h>
- #include <bpf/btf.h>
- #include <bpf/libbpf.h>
- #endif
--#include <fcntl.h>
--#include <stdio.h>
--#include <stdlib.h>
-+
- #define PACKAGE "perf"
- #include <bfd.h>
- 
-@@ -39,13 +49,13 @@ struct a2l_data {
- 	asymbol **syms;
- };
- 
--static bool perf_bfd_lock(void *bfd_mutex)
-+static bool perf_bfd_lock(void *bfd_mutex) NO_THREAD_SAFETY_ANALYSIS
- {
- 	mutex_lock(bfd_mutex);
- 	return true;
- }
- 
--static bool perf_bfd_unlock(void *bfd_mutex)
-+static bool perf_bfd_unlock(void *bfd_mutex) NO_THREAD_SAFETY_ANALYSIS
- {
- 	mutex_unlock(bfd_mutex);
- 	return true;
-@@ -165,11 +175,17 @@ static struct a2l_data *addr2line_init(const char *path)
- {
- 	bfd *abfd;
- 	struct a2l_data *a2l = NULL;
-+	char *alloc_path = strdup(path);
-+
-+	if (!alloc_path)
-+		return NULL;
- 
- 	ensure_bfd_init();
--	abfd = bfd_openr(path, NULL);
--	if (abfd == NULL)
-+	abfd = bfd_openr(alloc_path, NULL);
-+	if (abfd == NULL) {
-+		free(alloc_path);
- 		return NULL;
-+	}
- 
- 	if (!bfd_check_format(abfd, bfd_object))
- 		goto out;
-@@ -179,7 +195,7 @@ static struct a2l_data *addr2line_init(const char *path)
- 		goto out;
- 
- 	a2l->abfd = abfd;
--	a2l->input = strdup(path);
-+	a2l->input = alloc_path;
- 	if (a2l->input == NULL)
- 		goto out;
- 
-@@ -189,11 +205,14 @@ static struct a2l_data *addr2line_init(const char *path)
- 	return a2l;
- 
- out:
-+	if (abfd)
-+		bfd_close(abfd);
- 	if (a2l) {
- 		zfree((char **)&a2l->input);
- 		free(a2l);
-+	} else {
-+		free(alloc_path);
- 	}
--	bfd_close(abfd);
- 	return NULL;
- }
- 
-@@ -210,7 +229,7 @@ static int inline_list__append_dso_a2l(struct dso *dso,
- 				       struct inline_node *node,
- 				       struct symbol *sym)
- {
--	struct a2l_data *a2l = dso__a2l(dso);
-+	struct a2l_data *a2l = dso__a2l_libbfd(dso);
- 	struct symbol *inline_sym = new_inline_sym(dso, sym, a2l->funcname);
- 	char *srcline = NULL;
- 
-@@ -229,11 +248,11 @@ int libbfd__addr2line(const char *dso_name, u64 addr,
- 	struct a2l_data *a2l;
- 
- 	mutex_lock(dso__lock(dso));
--	a2l = dso__a2l(dso);
-+	a2l = dso__a2l_libbfd(dso);
- 
- 	if (!a2l) {
- 		a2l = addr2line_init(dso_name);
--		dso__set_a2l(dso, a2l);
-+		dso__set_a2l_libbfd(dso, a2l);
- 	}
- 
- 	if (a2l == NULL) {
-@@ -282,6 +301,8 @@ int libbfd__addr2line(const char *dso_name, u64 addr,
- 	if (file) {
- 		*file = a2l->filename ? strdup(a2l->filename) : NULL;
- 		ret = *file ? 1 : 0;
-+	} else {
-+		ret = 1; /* inline frame successfully appended by bfd_find_inliner_info */
- 	}
- 
- 	if (line)
-@@ -294,14 +315,14 @@ int libbfd__addr2line(const char *dso_name, u64 addr,
- 
- void dso__free_a2l_libbfd(struct dso *dso)
- {
--	struct a2l_data *a2l = dso__a2l(dso);
-+	struct a2l_data *a2l = dso__a2l_libbfd(dso);
- 
- 	if (!a2l)
- 		return;
- 
- 	addr2line_cleanup(a2l);
- 
--	dso__set_a2l(dso, NULL);
-+	dso__set_a2l_libbfd(dso, NULL);
- }
- 
- static int bfd_symbols__cmpvalue(const void *a, const void *b)
-diff --git a/tools/perf/util/srcline.c b/tools/perf/util/srcline.c
-index e60dea472507..68798a4de887 100644
---- a/tools/perf/util/srcline.c
-+++ b/tools/perf/util/srcline.c
-@@ -300,6 +300,7 @@ char *__get_srcline(struct dso *dso, u64 addr, struct symbol *sym,
- 	if (dso__a2l_fails(dso) > A2L_FAIL_LIMIT) {
- 		dso__set_has_srcline(dso, false);
- 		dso__free_a2l(dso);
-+		dso__free_a2l_libbfd(dso);
- 	}
- 	mutex_unlock(dso__lock(dso));
- out:
-@@ -347,6 +348,7 @@ char *get_srcline_split(struct dso *dso, u64 addr, unsigned *line)
- 	if (dso__a2l_fails(dso) > A2L_FAIL_LIMIT) {
- 		dso__set_has_srcline(dso, false);
- 		dso__free_a2l(dso);
-+		dso__free_a2l_libbfd(dso);
- 	}
- 	mutex_unlock(dso__lock(dso));
- 
--- 
-2.55.0.1032.g73a4cd73de-goog
+On Monday, 7 September 2026 09:01:30 EDT Igor Paunovic wrote:
+> Hi Detlev,
+> 
+[...]
+> 
+> One more reason I think this and Frank Zhang's patch [1] belong together:
+> since the startup now fails, ASoC never marks the DAI as started, so for
+> a PCM opened on a dead link the close never reaches hdmi_codec_shutdown()
+> -> dw_hdmi_qp_audio_disable() -> clear_audio_infoframe(). That is the
+> same class of bug as the SError we hit here on 02.09 (PCM closed after a
+> failed prepare, register access with the PHY down -> SError, panic; full
+> trace in [2]). I can't be certain this patch alone would have prevented
+> that particular crash - a PCM that is already open when the output goes
+> down still walks that path, which is what Frank's guard is for - so both
+> still look needed to me. (I saw Cristian's question on v4 about
+> open-coding the clear; either shape works for the crash I hit.)
+
+Yes, Frank's patch is still needed, this is not fixing the SError, only giving 
+asoc and userspace the right error code.
+
+The situation you describe on opened PCM that goes down can indeed still 
+happen (This patch may just decrease the probability of seeing an SError)
+
+> [1] https://lore.kernel.org/all/20260512103153.8861-1-rmxpzlb@gmail.com/
+> [2]
+> https://lore.kernel.org/all/20260907153000.hdmiqp-audio-1-royalnet026@gmail
+> .com/
+
+Detlev.
+
 
