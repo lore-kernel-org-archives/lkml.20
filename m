@@ -1,64 +1,64 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B44937C927
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 05:35:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 122E437EFE2
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 05:35:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789364102; cv=none; b=fX3f+LfEzjDnmcBDmDGQ+koj9+c34wkFHOVOlDoHOvYNGgEQwwH5wneBx6PdxaeuHYqJVz3Ymp+MUk3O9Aa8Iaj2s3wrI8d42VomFl+2BmAHeIBwHNqGdHliSY6l5EgrDy5icV+TM6jq2N013weE0H+8UQjpoDl5mznSc5ELOP4=
+	t=1789364106; cv=none; b=FUtjmGelywFY3LJE+yLzWZlJ7+DfiDfcVyNC5bBKLC1E5a/O1limHxwHUymAXEU9zKRVbAZE/ZvL/ZtEcyTBEWJhSfbbDYyhDSbUng5P4k5e/HwiQjt+uNho60VstA+hl+Wpm4fSSkiJWMhz8mnvp3sjL3YTJmBj4eWxdXMN9NI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789364102; c=relaxed/simple;
-	bh=fs+etxGPNJdOV8jLbNvbk7g0T1Q8B3rjAqWSv5XnrxM=;
+	s=arc-20240116; t=1789364106; c=relaxed/simple;
+	bh=EAtL5GAvLO8guoNp4qcczPosAY9+l1BK3hnEZ/prkhY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=s+Zve+XW2+LyYvonxkeMI4YhMHVmmgoRFb3uuWOznbB9B+rIcMQqpeDdODum7Z713JyHAlM+xMjOJNOUtpCpCZG9GPz5jb0lKStIZBaTZBmmXHYdKMOKPq1EAcF92QTaojyN6w0GkZOfvioudv/f0jBjC/PGIJdyG4aWLpiUlKc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Pm/abdGB; arc=none smtp.client-ip=74.125.227.141
+	 MIME-Version; b=mDit43nSSrjWzBbvPDhV86x59MaDyzNcG59Du1cUNDlD/TIzvwTMV/pM9S+gNqJYtW9osWCrWM4dB8uJ76lar5DPSgxp2I5rV9u8AET8JpBtRBPyVFisBKsrQhX+/BQI8ZksmGTWAnjirJnBpQOLV5R6vmjx7Wvt0j36+R1eW7g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=epWv7lNc; arc=none smtp.client-ip=209.85.215.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Pm/abdGB"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39b9184fa80so1559511a91.2
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 22:35:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="epWv7lNc"
+Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cc4dbcf2b85so1044497a12.3
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 22:35:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789364101; x=1789968901; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789364104; x=1789968904; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=MjygDWKH6F7NI1Gpi2HW71UEUzq+rkDAiIqSWm+VeuE=;
-        b=Pm/abdGBGVmmCR4O4XNowaHqS9EGK2lzvwnTXrpGZP7MWQDRZm75fhxGGV9zoEqsqE
-         /jsFo05oB1BoIRv7llXWmLWNbhpEQMwdS30ROC/nlV78kA6iZ9V8OD5d0gH5w/EEjOwy
-         7LJi0ijKZcCIQCccAMD8lpOW/PRVGzJX1ABjU1dFsYWKd0JEucWszShvw/sceg3ot1fe
-         WJ3XuVjokxX21DuzVA41TAyqtunhqqOI2lJ/S8JVmUmPWuBbuXm1y6RYkMVswkzR3L7m
-         6SnaZr4I2xpzW7lTv5kcpE0nKlH5M0hyE0hzBhYLqU2g1eLLZRMIP8+TqLtMdw08tuO2
-         Ueug==
+        bh=tQV2Lz18105+vTwI6s9YIFFfIpvfqowDaG0Sxm6VeMM=;
+        b=epWv7lNcRNhOybE1X9TtUWaxee+0/HdIVUJ0N87AZVqMN6D5eKHVKtMWcPEWTLB/6n
+         Db2HRmDQ4zjCEIz1hxZFw4OjoDrWKQ5Rm64DMwGdkXISZzg01kk81lkzvY6fDMj5EdDr
+         61Zh0SOVPOaacNsP/Fj2HaNPYAcEKRxLrtLdqK2wbh+KrbEEvqV64sbZ/mX0PHwwrHgZ
+         k1wzwWwX9YtuTHG500JK56NbrayCGpm/eXk7YV2z06eo1L5O2YyNMoOq2DfToZVCStrK
+         FMa8rDyZ+imuJ75qUfGIkzvD6dQBVMaSD1CiK4NU6JfecxZ6uPR+4pWNKwKkPTlQWtNh
+         RLpw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789364101; x=1789968901;
+        d=1e100.net; s=20251104; t=1789364104; x=1789968904;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MjygDWKH6F7NI1Gpi2HW71UEUzq+rkDAiIqSWm+VeuE=;
-        b=Qg18gVwCW/Lp/EVdSlWYUQNha1oH7bHCqe8xCfiOrhjTXYDxC97dx7m2fFGxY8C09c
-         CqaaQa1DDL3ILcPTexlZ/KU5Ivkog9o4fjone2OFXHKTWqBJBvEqSmGLQwpsRhT0vTMR
-         S2dx/04AnnOS/f9DFbi7nkHvepZ+1ZVeD0hYvIXwZpph/fTVYacx7wGt843OukNaEkaJ
-         2l0unpkXgGtHv0I8rLTUPe1mia7e9WdoF6nEazbMJzqG4WKKwqF9F/BPu6J5SIngcy4S
-         AykrFktPy4upUIrZiR/joOhNjhJ+BWNml5utn9q8UAYyYpmewiyUn45CS4MrmLcC/Yhi
-         wXUA==
-X-Forwarded-Encrypted: i=1; AKwUvBzpytu5H8tTqfJe399evbtL7n8ABW8q/UOn77pPuF4b+BrLjJXlr2zcPj6y2hmt4EJ/f0Y/mSKWPQMZmrg=@vger.kernel.org
-X-Gm-Message-State: AFuF++lOGN27Nxeo5NO85UNg6D/imacSQpWOQ5vLAR7Qww+kntz+DvaH
-	sYkg0I7sjKZQAUlHkZnxJie4ZxXQLHSaCsfBa1IWaumY528feexys6c=
-X-Gm-Gg: AYBFou3AlZ9fNMPWOSRWMkgkJtp/1aXkRlt+CC/wMMWTXgYhxMqXsH7w0hVtrT4aRFu
-	zOKcNLnH+YsOR6ISsB6q0brKvyyTfkagNVm1/kLDCsp+/XfCSrrHCvloye8chGkCENLfid42/Pl
-	eldRJjb+5b/eArl0B4AzxYk8G3KgdXmhMPD4wCYVwFNelxqz36+BvWhYNM20RjF20BgcFQW5jAw
-	mfWVI4Ji8owkGf5+sa+POOrjszI0eubGtOl7wsBDT0+Drr9KF9ceeQ/iIGbknAYqrWB+Kbisgeg
-	uYFgmRY21Ad9j4Hoc+lc+6sYRLKI4GcThYmNhsslVmAM1+r6Vq5ROAObBLud8vxOn+L55HkTeLr
-	KOZ2WpXOhXT5yEZ/9CUj8SQKD+uE7TiAf2fDBY89tbGifTdZ8iBO6LV3D3tJwFOkA8JvJdv8v/U
-	tIjmRo5y4PBynBc+YT6VZN4iw3VDk2g1iBeBDb4gXKr+r8ToXYKSfujnFd3hs8NqIgMzPiGipxk
-	RQir9aIG4WrzJxAJ3bIm3qJyIIHRCIcWvSmsQ==
-X-Received: by 2002:a17:90b:3e4f:b0:398:9be6:f997 with SMTP id 98e67ed59e1d1-39dec0f7abamr2852464a91.22.1789364100475;
-        Sun, 13 Sep 2026 22:35:00 -0700 (PDT)
+        bh=tQV2Lz18105+vTwI6s9YIFFfIpvfqowDaG0Sxm6VeMM=;
+        b=VGztegdihGwQ+BRLZEQlHcTdSvaDFsBkUU2ePZQMlsiELsJ77gwlCvi3L8RcmrZvnG
+         EZPJ3bUfOSJ9sAbnkoWmn6FyP8lseXSrj1h/QxwWIiWwTAigYWKnJouiHiDh8wyyF+KY
+         8B+NxL9WEN/YqpY3LUxXlBnquCMGlO9N1juRCLHvEbfiXzON88QBilZDVyOmitY91NW+
+         0Y2Vg6v6wUaSrqM1731tFfDuzU7sxu2CUnREEUyqd01iyceTSbDD1oxURCRFfQgD9mR/
+         QtSu49dKfAVSagR3vy40mw4an/vp0mk+PpZ8ZMUK1uBWj9+c6QaoqXxYL/blnhOWcq5+
+         l5CQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxfqD3+MtFMfiGgzUIzX+B9gM+tGTc7k54ESZPx4pOUjqgHrB9rSkUHf19kgAcTfwnTzv0wXaT6qQKgBW8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nPdSM9tAx/+0WweMZoxrTQonxviykZKI67kTJtihF5YCZluDN6
+	ekp1UFqL9d7orDY36M4SyiITfi+FGtoewqE04FPqlu5LaH84WTKN1u8=
+X-Gm-Gg: AYBFou1EeH2bkaF79vzAU2sij7ICU0en7vDc8DvNMVkvnfTlJa++gK5q0OC85smCWJh
+	c+Swcl5FJ5lE/4bOHBfjBuo+38tyuNWJRgG9/Xkp0p2LI5Ut2GNnMtinr0/oE+mYwrkFzQEUmyR
+	oAvwNLGtdQQAJzAsxFOCS5m4j08M1+AwYwav/9uW0FqJVWGabCxMxMwRa0/zq20sLYKVGs2aGD9
+	1cZ9edacFH5tddB6+uwMD4k0Iz/GswXzT8aiY3mxsahHPLKasijfdP22AOEKWtDCLt9kxjF9DqQ
+	Teo2CxOU5W9in1mq61gOSHl5vjyobSQ8qA78SomnyM/NsvzfpFbh5kZq8k4FsdQ1y/aoE9py7rG
+	xfB/dI+O7j4XcxdHiM7nujzPtCSELlpWM6Du7x9/Vq2i0xgaXhRKCnCeTSCciIG/SdNbiTFikON
+	fTeymp51BZ1eLCSiGZb5wxoLOMY1QLQnD/MZq14PJ/ZqUatZDZo1isIZKzMS8AIhHIe+usj3u2G
+	5/K5DQhTjf30gSGuZOkR/mtcu4=
+X-Received: by 2002:a17:90b:4c41:b0:398:9c39:520f with SMTP id 98e67ed59e1d1-39dec05d384mr2377298a91.15.1789364104244;
+        Sun, 13 Sep 2026 22:35:04 -0700 (PDT)
 Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:7f00:8c85:3b80:bc61:4619:5346])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d994872e0sm19009261a91.8.2026.09.13.22.34.57
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d994872e0sm19009261a91.8.2026.09.13.22.35.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 22:35:00 -0700 (PDT)
+        Sun, 13 Sep 2026 22:35:03 -0700 (PDT)
 From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
 To: Steven Rostedt <rostedt@goodmis.org>,
 	Masami Hiramatsu <mhiramat@kernel.org>
@@ -66,10 +66,11 @@ Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
 	Tom Zanussi <zanussi@kernel.org>,
 	linux-trace-kernel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Subject: [PATCH v3 3/4] tracing: Only report the stacktrace modifier on a real field
-Date: Mon, 14 Sep 2026 14:34:42 +0900
-Message-ID: <20260914053443.981201-4-donggeunyoo.kernel@gmail.com>
+	Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v3 4/4] tracing: Fix NULL dereference when copying keys for a field variable
+Date: Mon, 14 Sep 2026 14:34:43 +0900
+Message-ID: <20260914053443.981201-5-donggeunyoo.kernel@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260914053443.981201-1-donggeunyoo.kernel@gmail.com>
 References: <20260914053443.981201-1-donggeunyoo.kernel@gmail.com>
@@ -81,25 +82,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-get_hist_field_flags() returns "stacktrace" for any field carrying
-HIST_FIELD_FL_STACKTRACE, including the common_stacktrace pseudo-field,
-which has no ftrace_event_field behind it. parse_field() no longer takes
-the modifier there:
+In event_hist_trigger_parse() where it needs to create actions like
+"onmatch", it calls:
 
-	if (stack_modifier &&
-	    (!field || field->filter_type != FILTER_STACKTRACE)) {
-		hist_err(tr, HIST_ERR_BAD_FIELD_MODIFIER, errpos(field_str));
+  event_hist_trigger_parse() {
+    create_actions() {
+      action_create() {
+        trace_action_create() {
+          trace_action_create_field_var() {
+            create_field_var_hist()
 
-so expr_field_str() renders "common_stacktrace.stacktrace", a spelling
-that cannot be parsed back.
+Where create_field_var_hist() does a loop on the hist_data
+representing the keys. The issue is, if the keys uses one of the
+pseudo field types (like common_cpu), the hist_data field element
+will have NULL for its field member causing a NULL pointer
+dereference when accessing the key_field->field->name.
 
-Report the modifier only when there is a field to report it for.
+  # echo 'hist:keys=common_cpu:ts0=common_timestamp.usecs' > \
+      events/sched/sched_waking/trigger
+  # echo 'my_synth u64 lat; int prio' > synthetic_events
+  # echo 'hist:keys=common_cpu:wakeup_lat=common_timestamp.usecs-$ts0:\
+      onmatch(sched.sched_waking).my_synth($wakeup_lat,prio)' > \
+      events/sched/sched_switch/trigger
 
-hist_field_print(), the other caller of get_hist_field_flags(), excludes
-HIST_FIELD_FL_STACKTRACE before it calls, so this is confined to
-expr_field_str(), whose only key renderer arrives in the next patch.
+  KASAN: null-ptr-deref in range [0x0000000000000010-0x0000000000000017]
+  RIP: 0010:create_field_var_hist+0x771/0x1380
+  Call Trace:
+   trace_action_create_field_var+0x360/0x600
+   trace_action_create+0x393/0xe80
+   event_hist_trigger_parse+0x3e47/0x69e0
+   trigger_process_regex+0x1a6/0x250
+   event_trigger_write+0xce/0x160
 
-Fixes: a5e70ba87ca8 ("tracing: Fix memory corruption from the histogram stacktrace modifier")
+Instead of accessing it directly, use the proper handler
+expr_field_str() to get the name.
+
+The three previous patches are prerequisites: without them a .buckets
+key and a common_stacktrace key each render into a command that cannot
+be parsed back.
+
+Cc: stable@vger.kernel.org
+Fixes: 02205a6752f2 ("tracing: Add support for 'field variables'")
 Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
 Assisted-by: Claude:claude-fable-5
 ---
@@ -107,18 +130,18 @@ Assisted-by: Claude:claude-fable-5
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
-index 91a550411e8a..fdd097abb0d6 100644
+index fdd097abb0d6..11d4cf2544ac 100644
 --- a/kernel/trace/trace_events_hist.c
 +++ b/kernel/trace/trace_events_hist.c
-@@ -1725,7 +1725,7 @@ static const char *get_hist_field_flags(struct hist_field *hist_field)
- 		flags_str = "percent";
- 	else if (hist_field->flags & HIST_FIELD_FL_GRAPH)
- 		flags_str = "graph";
--	else if (hist_field->flags & HIST_FIELD_FL_STACKTRACE)
-+	else if (hist_field->flags & HIST_FIELD_FL_STACKTRACE && hist_field->field)
- 		flags_str = "stacktrace";
+@@ -3093,7 +3093,7 @@ create_field_var_hist(struct hist_trigger_data *target_hist_data,
+ 		key_field = hist_data->fields[i];
+ 		if (!first)
+ 			seq_buf_putc(&s, ',');
+-		seq_buf_puts(&s, key_field->field->name);
++		expr_field_str(key_field, &s);
+ 		first = false;
+ 	}
  
- 	return flags_str;
 -- 
 2.53.0
 
