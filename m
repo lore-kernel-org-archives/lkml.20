@@ -1,50 +1,87 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 424E71E7660;
-	Mon, 14 Sep 2026 02:53:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B564A214A84
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:53:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789354389; cv=none; b=bJkcyBBbi/5pl/0GlM8qkRldgPb1qaeIsIDVRBLtLg8mmp8ObOBe9GWDX/QwnLpeBjlzGZjdrIHuFySlAv+FZJLdRjvxHF5S2dnFM/jOouckdznZ/vFfsuBFheB8unvGf394vPNnjkIz4zxMqpny9K8k0Cvl7+5nT12rrtl1rjk=
+	t=1789354421; cv=none; b=OKC4l2UfmaBGNwrOe9wQMFVq69dlG3w6lEnEyorboWeBIkDEZ4EqMhdDcc9mXUQYvrIOtSfUUMXWSWdHhl6v7BybV2fJNpFjKA5Gs6e0WS1+acYJnX+tG4QfdodLQbJk5o6fVxFVzDXgHeCCpeqUtsl/M/wP7wagccWcvIsomHM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789354389; c=relaxed/simple;
-	bh=IFFPvxzokibPXB367pLLouYL6uGDLIMXvpaXrY55m54=;
+	s=arc-20240116; t=1789354421; c=relaxed/simple;
+	bh=icPOzgcWIvuw0uTvq6ks5737DnbhG56HAut0RUhgDxM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DzBrP6GpHsOFUVi4SQ+swJS4uq1FAGbeAMxbs7zQc1U1s7JPRz5erX4HJbINQ2C+ID7ieM97ySYn/7TzIyrvwbG96oef5jvImRJVM49ZnmWI67W4saZRjRQ3CBPDM/Wt3tdzqA6CAU5FP79aWFP0fOdtToXm0v8BrAEQYsUjeUo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CP+ekiaS; arc=none smtp.client-ip=198.175.65.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 In-Reply-To:Content-Type; b=FGYj+aV0ERNzg9NxLuhj8/vTAvPETdObxKd2Z8Qqhla5Xiz2e6UUyQXYckrPD6XfMAFe2dLhEhOQ5Sj0zbtdvcU0qFkf6PQJ4nk0SHMugBt6C69AVw6r2npbmeAh0fUprPlyuDR11z3e+z6/2EiVp5k+9zjkNd79EN5tQy3WuIY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GNSopEAl; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dixh3/YO; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CP+ekiaS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789354387; x=1820890387;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=IFFPvxzokibPXB367pLLouYL6uGDLIMXvpaXrY55m54=;
-  b=CP+ekiaSI2J6RWWRGOraRvc9UxNsE9lkszDoZWQ/FcnnX0Nh1xkevThx
-   c+jSC6pe2ENVaxeDqhGsCHWd7OatO7cecCV/eH6XIXZLI4eaZl7Nu5cgM
-   ClixIHz2Ej2L/OhuYKWEbm63wb0YsuYEGKwLc7/QdXAjYD4H+ZHI/3N3K
-   tEQmkdymHES2RvjKmYbnrA9rUjZCK/hq7k5B1sPmWu2nyEMJkLjBxLlHG
-   4EQzPFUAOC7e1ViH/gN7ORa4LBeb0Fl/RdFQo+HckxzoQTo15SWpJGcHG
-   CS9+lbfKSEkI/0zucmXS3S48f1bj6fVTzIZ5WpR+lg/20ODWBLM2pgIBT
-   w==;
-X-CSE-ConnectionGUID: eVLSZos7QqynG4WpbJvmKA==
-X-CSE-MsgGUID: prtq4RScTMWKlCQI6HsEkw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="100037009"
-X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
-   d="scan'208";a="100037009"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Sep 2026 19:53:07 -0700
-X-CSE-ConnectionGUID: QEQ1xgNSSIy6O9ikDM7PzQ==
-X-CSE-MsgGUID: GlaXlsrJS6Oc/zLq/KcAXg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
-   d="scan'208";a="273033343"
-Received: from dapengmi-mobl1.ccr.corp.intel.com (HELO [10.124.241.239]) ([10.124.241.239])
-  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Sep 2026 19:53:02 -0700
-Message-ID: <49aae020-d5c3-4519-8e99-e65a5b5c5cf5@linux.intel.com>
-Date: Mon, 14 Sep 2026 10:52:59 +0800
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GNSopEAl";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dixh3/YO"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68E2eZ1W4040699
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:53:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	icPOzgcWIvuw0uTvq6ks5737DnbhG56HAut0RUhgDxM=; b=GNSopEAlHUVgeNFx
+	txa5Pxwjvy9uzOTJy2QEngWN/vWQSQOShQuMiDUnngLtLo3mbAR4ymb+KDyXHkke
+	LtApvRrypIJFeluklsLGH6Gwc9wOhxt0fpGMAhFAgbxeKkqY2o7999XROjTY50TY
+	dyOsAyBtwkyFRyqeqclAU49GjidPs6uq/VSUIQjLE3SfgbE2y1+oPQw4fGiULZjt
+	WOFoKMXzwogBMCEQouoalpAEqu5vjz/oUMVUlFWLYodCOQAVl8EKBlo8NaZHEPzV
+	gCsp3WNZF9+dGmCczDOgcoOGenrNNTacNsKAndgzbEwi2dI8aTOLZkrtdHTMNo7o
+	SFripQ==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9dmrp3-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:53:38 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2d0e306c7d0so6391105ad.1
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 19:53:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789354417; x=1789959217; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=icPOzgcWIvuw0uTvq6ks5737DnbhG56HAut0RUhgDxM=;
+        b=dixh3/YOAeuCgOQgRuFfxZ5TfnIJaLc8NnMjcnDtGFbtarkw6fS5t2Yf3gOHplRUo9
+         FjVAYbZDD+olh6cj9tCugAAuIODNNQxgeo0JCHAzUx+ri057czFkceJ3JxkPCdZ/2JZ0
+         HMXAEo3d+5WJmIakhWGXEWyLb0YfusBcJNBgT4bQDcaOwXSK1ck3fuMgnaLCME/+t95Q
+         PEqJ1kr79Zj3e6ebd2rRPzhpUKarqPp5sGUdxisNRP8+DnPt4GzdF4h117DqgWCyECi2
+         Z1Q1tGc4yACJZni3IkMgMQ7sn4V74pk/cHI6fmMhXv4DcHEUTegJU6oR2IWivWeGdRt1
+         zECg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789354417; x=1789959217;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=icPOzgcWIvuw0uTvq6ks5737DnbhG56HAut0RUhgDxM=;
+        b=GGpYeq/HlcEY0XX2eBkwe5GQ2qo6K/esTvm59AI5NAx/jGVzPClmJTDsyemQMonrS+
+         /0bgNY2H8anZjjaCYc0JGlSNBpb27vEbWXC9XI+jbjCEfmWXfMdk6syAdH/fwcKwNNxY
+         W+piiDSLnwJFuntT4nZnxX18lzYLnNtjrtbsmDtY53SgpBqmdW9ihfOTr1C/3INa3oGY
+         8cmzfY4hAL5doQvhUj7iR3zIZdPYGf31KMgj7kc3IqBtKVPFjz9HyppU8Q6iZkJCSVX5
+         Kv0H9I4E6SyaC4XKk8aEuOggIQNCXf8nPeHpDM8lxkW8sIrqK9vPCL+87o4Ejdr/UZrM
+         /Dqw==
+X-Forwarded-Encrypted: i=1; AKwUvBxpmX0Rh63vKivHl6FhqVJ5PtuxOKDIwamXCPh+gsO3qpBXxgjbpexU5xGrneVfXXHThrn2DoSaBgQv7pU=@vger.kernel.org
+X-Gm-Message-State: AFuF++lViKfwDHkQk7gTD4E3YDBhE0wkPCHeZExI17zpW13UQgIKI7L+
+	IllEN40Kv7zp1Yw7NHdOrTPwNqAVVKEX+RBXZQCYUY2Ib2gB9dBGny01Xj+VQYQuwE81Ty3yzOk
+	ngi2VAaJNZJ3ETxGseafELGIwu/PV3FjnGFYiBvtJn9g+8EweDwFEMLrUEnJ/b52KvwQ=
+X-Gm-Gg: AYBFou3aGc6i2z5Wkeb9jEOanioeaC/AyNT47V08Bg6jNhpQofHFDPRkqHJmuaqxQfC
+	zd8QaF2HkF1a4d5yExEQ76lr+JKOa7UpWH5ZEXKvOqmDcaQfU6xX5Gk+aHuorFpnDzmMEnlkmXR
+	e37iMZgGI7lukQtHr0dEss5FwLIQFjdmsgDzPGOhTm57hqpZUQjrtXA/mIvgts5+91L2tdqSS34
+	58k8dIqPcx8quUGMuCqUD9ph39WqR/508CWBJVBFXT3mWgnNQCdYMfMCOa26NMkUxnjCZqQc/aY
+	LlGiMMaTglVgf4HSHwcbuORH6hzs3eqauQT9+s+P/sDFtCwDGujMKjZ6D2/Cf8rtmYrSt/QyiOa
+	k+QLb8lK04sdKxxx4fYDwDY2kggmpdMqB07TKabi9hfEh6ea7UV5j5BQ4q339ABYPdQ==
+X-Received: by 2002:a17:903:32c8:b0:2db:7799:d2f2 with SMTP id d9443c01a7336-2dd6c6d26dbmr9161975ad.2.1789354417142;
+        Sun, 13 Sep 2026 19:53:37 -0700 (PDT)
+X-Received: by 2002:a17:903:32c8:b0:2db:7799:d2f2 with SMTP id d9443c01a7336-2dd6c6d26dbmr9161655ad.2.1789354416739;
+        Sun, 13 Sep 2026 19:53:36 -0700 (PDT)
+Received: from [10.249.22.197] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4c652ab37sm4193190a12.11.2026.09.13.19.53.34
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 13 Sep 2026 19:53:36 -0700 (PDT)
+Message-ID: <6e3de792-85c3-4264-9d1d-cdbb8f6ed025@oss.qualcomm.com>
+Date: Mon, 14 Sep 2026 10:53:32 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,316 +89,63 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 4/6] perf tools: Show memory region in perf-c2c
- subcommand
-To: "Falcon, Thomas" <thomas.falcon@intel.com>,
- "acme@kernel.org" <acme@kernel.org>
-Cc: "Rogers, Ian" <irogers@google.com>,
- "alexander.shishkin@linux.intel.com" <alexander.shishkin@linux.intel.com>,
- "james.clark@linaro.org" <james.clark@linaro.org>,
- "peterz@infradead.org" <peterz@infradead.org>,
- "mark.rutland@arm.com" <mark.rutland@arm.com>,
- "linux-perf-users@vger.kernel.org" <linux-perf-users@vger.kernel.org>,
- "mingo@redhat.com" <mingo@redhat.com>,
- "Hunter, Adrian" <adrian.hunter@intel.com>,
- "namhyung@kernel.org" <namhyung@kernel.org>,
- "jolsa@kernel.org" <jolsa@kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <20260910194324.98002-1-thomas.falcon@intel.com>
- <20260910194324.98002-5-thomas.falcon@intel.com>
- <6221da3e-38a7-48c2-9588-25338ce7d915@linux.intel.com>
- <8a7ba749c9f190ddcf41bab861ac2f1282774628.camel@intel.com>
+Subject: Re: [PATCH v5 4/4] Bluetooth: btusb: Add support for Qualcomm
+ multi-subsystem QCC2072
+To: Pauli Virtanen <pav@iki.fi>, Marcel Holtmann <marcel@holtmann.org>,
+        Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Cc: Zijun Hu <zijun_hu@icloud.com>, linux-bluetooth@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260911-btusb_qcc2072-v5-0-422754f4e938@oss.qualcomm.com>
+ <20260911-btusb_qcc2072-v5-4-422754f4e938@oss.qualcomm.com>
+ <7bfc5ec0438b830386ae2899756bb9a7c4b9e123.camel@iki.fi>
 Content-Language: en-US
-From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
-In-Reply-To: <8a7ba749c9f190ddcf41bab861ac2f1282774628.camel@intel.com>
+From: Zijun Hu <zijun.hu@oss.qualcomm.com>
+In-Reply-To: <7bfc5ec0438b830386ae2899756bb9a7c4b9e123.camel@iki.fi>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: 2GnfTGNa7EGH3R2v2bCP3t86E_AftIEj
+X-Proofpoint-ORIG-GUID: 2GnfTGNa7EGH3R2v2bCP3t86E_AftIEj
+X-Authority-Analysis: v=2.4 cv=NelzRGD4 c=1 sm=1 tr=0 ts=6aa761b2 cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Xph3HbxepIq20FQ0PPUA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=zZCYzV9kfG8A:10 a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDAzNyBTYWx0ZWRfX/3ZVMMJYKFCs
+ ggfsrdFwJCBKDWTcQ0hHVAmNg/HZNS4y/Vcq74pRL2+VXcunha4cCwKiJG8nJmKLGZgEOEHuWfq
+ AyHbPt3vdoby8HxgPF7GdAOGT7Ll/jE=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDAzNyBTYWx0ZWRfX175GcF5yfnlf
+ Gb7N19baQcdSPR1+xF/LlJ17g7x3hCmutwuie6bNDM8YhWpZbo9fxwdUgTFTay09T/Hv1BcohYY
+ k+2Z5r2ZJ3pBlM4s3FFsxvMfYsXEMaPSOJD5lhVbdRWQCNjfLnUePt5+YhLpt8E/178E98zK0o4
+ KNulyQnw2L/cQWK7Iz0vbzv3h1CBYGVUX5ve18UiLfog96zQRq/IkkZXAkbKeo16rQM+97JKFn7
+ womiLxAYmKKtjJgdAX3hCLVCl6KqH2q+fH1mB62U9MDlzJZtprvg075FYkRyQgEqtK2JlXBMoiW
+ fNbV8+zTKDJw8htdeulikRoZoGHQ6ovZvRou5N3jqZcEj0MYIgHn2/G/2ouo9c3JN4XAW53/uOi
+ rslPXRscp3AF7RrIYsmMIovGR8tE2beP6xAIGdP05HnB8Zn2tIzFCDNGv2QfrobeNl3c9EFv7Eb
+ 8zdYOiJXQUNk6USwVIQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-14_01,2026-09-13_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 adultscore=0 impostorscore=0 priorityscore=1501 clxscore=1015
+ spamscore=0 malwarescore=0 suspectscore=0 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140037
 
+On 9/12/2026 3:56 AM, Pauli Virtanen wrote:
+>> +/*
+>> + * btusb_qcom_send_frame - send a frame for BT or PERI
+>> + * @hdev: the HCI device
+>> + * @skb: the frame to send
+>> + *
+>> + * Implements hdev->send().
+>> + *
+>> + * Return: 0 on success, or a negative errno on failure.
+>> + */
+>> +int btusb_qcom_send_frame(struct hci_dev *hdev, struct sk_buff *skb)
+> This one should have __context_unsafe(/* conditional locking */)
+> annotation, or no if (need_lock), to avoid warnings on LLVM 23.
 
-On 9/11/2026 11:58 PM, Falcon, Thomas wrote:
-> On Fri, 2026-09-11 at 08:50 +0800, Mi, Dapeng wrote:
->> On 9/11/2026 3:43 AM, Thomas Falcon wrote:
->>> From: Dapeng Mi <dapeng1.mi@linux.intel.com>
->>>
->>> Add memory region field to the cacheline list view to help users
->>> identify the memory region to which the cacheline belongs. The memory
->>> region field was included with the introduction of support for the
->>> Off-module Response facility (OMR) [1] in Intel's Diamond Rapids and
->>> Nova Lake architectures.
->>>
->>> An example of the new perf c2c output including the memory region
->>> field is shown below:
->>>
->>> Shared Data Cache Line Table     (181 entries, sorted on Total HITMs)
->>>        --------------- Cacheline --------------      Tot  ------- Load Hitm -------    Total    Total    Total
->>> Index             Address  Region  Node  PA cnt     Hitm    Total  LclHitm  RmtHitm  records    Loads   Stores
->>>     0  0xffffffffa1658ec0     0x0     0    1302    4.13%      103      103        0     1707     1707        0
->>>     1  0xffffffffa16a9100     0x0     0     991    3.73%       93       93        0     1580     1580       19
->>>     2  0xffffffffa16a91c0     0x0     0      37    3.05%       76       76        0      384      384        4
->>>     3  0xffffffffa0607a00     0x0     0       1    2.65%       66       66        0     1146     1146        5
->>>     4  0xffffffffa16a9200     0x0     0       1    1.72%       43       43        0      174      174        3
->>>     5  0xffffffffa0607a80     0x0     0       1    1.16%       29       29        0      439      439       12
->>>     6  0xffffffffa16aadc0     0x0     0       1    0.72%       18       18        0      158      158        3
->>>     7  0xff30ea3c37934640     N/A     0      51    0.64%       16       16        0       60       60        8
->>>     8  0xff30ea3c373b4640     N/A     0      64    0.48%       12       12        0       69       69       11
->>>     9  0xff30ea3c387b4640     0x0     0      56    0.48%       12       12        0       59       59        9
->>>    10  0xff30ea3c37db4640     N/A     0      49    0.44%       11       11        0       50       50       10
->> It looks good. Thanks.
->>
->>
->>> [1]: https://lore.kernel.org/all/20260114011750.350569-1-dapeng1.mi@linux.intel.com/
->>>
->>> Assisted-by: Sashiko:gemini-3.1-pro-preview
->>> Assisted-by: GitHub-Copilot:claude-opus-4-8
->>> Codeveloped-by: Thomas Falcon <thomas.falcon@intel.com>
->> The tag name should be "Co-developed-by" instead of "Codeveloped-by".
->> Besides, the tag should be moved to the place where is after my SoB and
->> before your SoB. :)
-> Ah, sorry about that, I will fix it up soon. See further comments below...
->
-> ...
->
->>> +static int
->>> +dcacheline_node_mem_region(struct perf_hpp_fmt *fmt, struct perf_hpp *hpp,
->>> +			   struct hist_entry *he)
->>> +{
->>> +	int width = c2c_width(fmt, hpp, he->hists);
->>> +	struct c2c_hist_entry *c2c_he;
->>> +	unsigned int mem_region;
->>> +	char buf[20];
->>> +
->>> +	c2c_he = container_of(he, struct c2c_hist_entry, he);
->>> +	mem_region = c2c_he->mem_region;
->>> +
->>> +	if (mem_region == PERF_MEM_REGION_NA)
->>> +		scnprintf(buf, sizeof(buf),  "N/A");
->>> +	/* mem_region could only be >= PERF_MEM_REGION_MMIO */
->>> +	else if (mem_region == PERF_MEM_REGION_MMIO)
->>> +		scnprintf(buf, sizeof(buf), "MMIO");
->>> +	else
->>> +		scnprintf(buf, sizeof(buf), "0x%x",
->>> +			  mem_region - PERF_MEM_REGION_MEM0);
->>> +
->>> +	return scnprintf(hpp->buf, hpp->size, "%*s", width, buf);
->>> +}
->> It seems the previous comment is missed? 
->>
->> "Is the mem-region column print guarded by HEADER_MEMORY_RANGES as well?"
->>
->> I'm not quite sure about this, please double check. Thanks.
-> Sorry, I missed your two comments below your first regarding developer tags.
->
-> If you refer to this change below, dcacheline_mem_region is printed only if c2c.show_mem_region (perf_header__has_feat(&session->header, HEADER_MEMORY_RANGES)) == true, otherwise it is not included in
-> output_str. I will update perf-c2c to include cache regions as well to be more consistent with perf-script in a new version and fix the tag mistakes.
+Good catch — fixed in v6 (below) by adding the __context_unsafe(/* conditional locking */)
+annotation, per your suggestion.
 
-Thanks. We need to ensure dcacheline_mem_region is printed only when the
-header exists. Other it would cause misleading for users.
-
-If we plan to add cache region in the "region" column, we could need to add
-"mem" prefix before the memory region ID which avoids the ambiguity.
-Besides, we'd better change the region id to decimal format after adding
-the "mem" prefix. 
-
-
-
->
-> Tom
->
-> -	if (c2c.display != DISPLAY_SNP_PEER)
-> -		output_str = "cl_idx,"perf_header__has_feat(&session->header,
-> +						HEADER_MEMORY_RANGES);
-> +	c2c.show_mem_region = perf_header__has_feat(&session->header,
-> +						HEADER_MEMORY_RANGES);
-> +	if (c2c.show_mem_region)
-> +		dim_dcacheline.header.line[0].span = 3;
-> +
-> +	if (c2c.display != DISPLAY_SNP_PEER) {
-> +		if (asprintf(&output_str,
-> +			     "cl_idx,"
->  			     "dcacheline,"
-> +			     "%s"
->  			     "dcacheline_node,"
->  			     "dcacheline_count,"
->  			     "percent_costly_snoop,"
-> @@ -3285,10 +3346,17 @@ static int perf_c2c__report(int argc, const char **argv)
->  			     "ld_fbhit,ld_l1hit,ld_l2hit,"
->  			     "ld_lclhit,lcl_hitm,"
->  			     "ld_rmthit,rmt_hitm,"
-> -			     "dram_lcl,dram_rmt";
-> -	else
-> -		output_str = "cl_idx,"
-> +			     "dram_lcl,dram_rmt",
-> +			     c2c.show_mem_region ?
-> +			     "dcacheline_mem_region," : "") < 0) {
-> +			err = -ENOMEM;
-> +			goto out_mem2node;
-> +		}
-> +	} else {
-> +		if (asprintf(&output_str,
-> +			     "cl_idx,"
->  			     "dcacheline,"
-> +			     "%s"
->  			     "dcacheline_node,"
->  			     "dcacheline_count,"
->  			     "percent_costly_snoop,"
-> @@ -3300,7 +3368,13 @@ static int perf_c2c__report(int argc, const char **argv)
->  			     "ld_fbhit,ld_l1hit,ld_l2hit,"
->  			     "ld_lclhit,lcl_hitm,"
->  			     "ld_rmthit,rmt_hitm,"
-> -			     "dram_lcl,dram_rmt";
-> +			     "dram_lcl,dram_rmt",
-> +			     c2c.show_mem_region ?
-> +			     "dcacheline_mem_region," : "") < 0) {
-> +			err = -ENOMEM;
-> +			goto out_mem2node;
-> +		}
-> +	}
->>
->>> +
->>>  static int offset_entry(struct perf_hpp_fmt *fmt, struct perf_hpp *hpp,
->>>  			struct hist_entry *he)
->>>  {
->>> @@ -1359,6 +1400,14 @@ static struct c2c_dimension dim_dcacheline_node = {
->>>  	.width		= 4,
->>>  };
->>>  
->>> +static struct c2c_dimension dim_dcacheline_mem_region = {
->>> +	.header		= HEADER_LOW("Region"),
->>> +	.name		= "dcacheline_mem_region",
->>> +	.cmp		= empty_cmp,
->>> +	.entry		= dcacheline_node_mem_region,
->>> +	.width		= 6,
->>> +};
->>> +
->>>  static struct c2c_dimension dim_dcacheline_count = {
->>>  	.header		= HEADER_LOW("PA cnt"),
->>>  	.name		= "dcacheline_count",
->>> @@ -1790,6 +1839,7 @@ static struct c2c_dimension dim_dcacheline_num_empty = {
->>>  
->>>  static struct c2c_dimension *dimensions[] = {
->>>  	&dim_dcacheline,
->>> +	&dim_dcacheline_mem_region,
->>>  	&dim_dcacheline_node,
->>>  	&dim_dcacheline_count,
->>>  	&dim_offset,
->>> @@ -2853,8 +2903,11 @@ static int ui_quirks(void)
->>>  	/* Fix the zero line for dcacheline column. */
->>>  	buf = fill_line(chk_double_cl ? "Double-Cacheline" : "Cacheline",
->>>  				dim_dcacheline.width +
->>> +				(c2c.show_mem_region ?
->>> +					dim_dcacheline_mem_region.width : 0) +
->>>  				dim_dcacheline_node.width +
->>> -				dim_dcacheline_count.width + 4);
->>> +				dim_dcacheline_count.width +
->>> +				(c2c.show_mem_region ? 6 : 4));
->>>  	if (!buf)
->>>  		return -ENOMEM;
->>>  
->>> @@ -3106,7 +3159,8 @@ static int perf_c2c__report(int argc, const char **argv)
->>>  	OPT_END()
->>>  	};
->>>  	int err = 0;
->>> -	const char *output_str, *sort_str = NULL;
->>> +	const char *sort_str = NULL;
->>> +	char *output_str = NULL;
->>>  	struct perf_env *env;
->>>  
->>>  	annotation_options__init();
->>> @@ -3271,9 +3325,16 @@ static int perf_c2c__report(int argc, const char **argv)
->>>  		goto out_mem2node;
->>>  	}
->>>  
->>> -	if (c2c.display != DISPLAY_SNP_PEER)
->>> -		output_str = "cl_idx,"
->>> +	c2c.show_mem_region = perf_header__has_feat(&session->header,
->>> +						HEADER_MEMORY_RANGES);
->>> +	if (c2c.show_mem_region)
->>> +		dim_dcacheline.header.line[0].span = 3;
->>> +
->>> +	if (c2c.display != DISPLAY_SNP_PEER) {
->>> +		if (asprintf(&output_str,
->>> +			     "cl_idx,"
->>>  			     "dcacheline,"
->>> +			     "%s"
->>>  			     "dcacheline_node,"
->>>  			     "dcacheline_count,"
->>>  			     "percent_costly_snoop,"
->>> @@ -3285,10 +3346,17 @@ static int perf_c2c__report(int argc, const char **argv)
->>>  			     "ld_fbhit,ld_l1hit,ld_l2hit,"
->>>  			     "ld_lclhit,lcl_hitm,"
->>>  			     "ld_rmthit,rmt_hitm,"
->>> -			     "dram_lcl,dram_rmt";
->>> -	else
->>> -		output_str = "cl_idx,"
->>> +			     "dram_lcl,dram_rmt",
->>> +			     c2c.show_mem_region ?
->>> +			     "dcacheline_mem_region," : "") < 0) {
->>> +			err = -ENOMEM;
->>> +			goto out_mem2node;
->>> +		}
->>> +	} else {
->>> +		if (asprintf(&output_str,
->>> +			     "cl_idx,"
->>>  			     "dcacheline,"
->>> +			     "%s"
->>>  			     "dcacheline_node,"
->>>  			     "dcacheline_count,"
->>>  			     "percent_costly_snoop,"
->>> @@ -3300,7 +3368,13 @@ static int perf_c2c__report(int argc, const char **argv)
->>>  			     "ld_fbhit,ld_l1hit,ld_l2hit,"
->>>  			     "ld_lclhit,lcl_hitm,"
->>>  			     "ld_rmthit,rmt_hitm,"
->>> -			     "dram_lcl,dram_rmt";
->>> +			     "dram_lcl,dram_rmt",
->>> +			     c2c.show_mem_region ?
->>> +			     "dcacheline_mem_region," : "") < 0) {
->>> +			err = -ENOMEM;
->>> +			goto out_mem2node;
->>> +		}
->>> +	}
->>>  
->>>  	if (c2c.display == DISPLAY_TOT_HITM)
->>>  		sort_str = "tot_hitm";
->>> @@ -3314,7 +3388,7 @@ static int perf_c2c__report(int argc, const char **argv)
->>>  	err = c2c_hists__reinit(&c2c.hists, output_str, sort_str, perf_session__env(session));
->>>  	if (err) {
->>>  		pr_err("Failed to reinitialize hists\n");
->>> -		goto out_mem2node;
->>> +		goto out_str;
->>>  	}
->>>  
->>>  	ui_progress__init(&prog, c2c.hists.hists.nr_entries, "Sorting...");
->>> @@ -3323,17 +3397,19 @@ static int perf_c2c__report(int argc, const char **argv)
->>>  	hists__output_resort_cb(&c2c.hists.hists, &prog, resort_shared_cl_cb);
->>>  	err = hists__iterate_cb(&c2c.hists.hists, resort_cl_cb, perf_session__env(session));
->>>  	if (err)
->>> -		goto out_mem2node;
->>> +		goto out_str;
->>>  
->>>  	ui_progress__finish();
->>>  
->>>  	if (ui_quirks()) {
->>>  		pr_err("failed to setup UI\n");
->>> -		goto out_mem2node;
->>> +		goto out_str;
->>>  	}
->>>  
->>>  	perf_c2c_display(session);
->>>  
->>> +out_str:
->>> +	free(output_str);
->>>  out_mem2node:
->>>  	mem2node__exit(&c2c.mem2node);
->>>  out_session:
->>> diff --git a/tools/perf/util/c2c.h b/tools/perf/util/c2c.h
->>> index 53f024e25d99..f04e78e1a2e3 100644
->>> --- a/tools/perf/util/c2c.h
->>> +++ b/tools/perf/util/c2c.h
->>> @@ -33,6 +33,7 @@ struct c2c_hist_entry {
->>>  	unsigned long		*nodeset;
->>>  	struct c2c_stats	*node_stats;
->>>  	unsigned int		 cacheline_idx;
->>> +	unsigned int		 mem_region;
->>>  
->>>  	struct compute_stats	 cstats;
->>>  
+https://lore.kernel.org/all/20260913-btusb_qcc2072-v6-0-137898715844@oss.qualcomm.com
