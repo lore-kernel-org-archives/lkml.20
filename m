@@ -1,117 +1,128 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD76F3E49DB;
-	Mon, 14 Sep 2026 07:21:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDE093ACF16
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:22:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789370505; cv=none; b=mPcDdoljGuO1H9k9f9YgDslvzB8tTLRlEjjPq1CMOjBewBPboqywOyvWrLmE6Th7xIqS6G14pnve4F606S+3CxI5YvfLVBgvLOlYzwHYQ7urkxneukc38fEsC+6pzP7NOs1blXEBdK+B4QE3Iw6T1E1DUp6KlQ7KWzMV8GWettQ=
+	t=1789370565; cv=none; b=VRnUAt+tyWvZp49qzVTRFz/5HnyEpKK8FS4yyzunH87uAbRFq/iZ0dP4/YrVovit3TXyYFj0AP/c5olyE20HSTvvtSex5qn3LS1ylqqITi+igTRuAFJvNxCG4Wlm4/6flR3ondtLNX3t5eUBw5dr8ZHjq9HsKsMz0oNWwuR/c2s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789370505; c=relaxed/simple;
-	bh=z9NLyr5qGPBtCirsQG24bDt1NKIi/i+eyRvxZel7a9Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Y1WY5z8i4bAYQdNnyiY726c64cWq4if7SY95VhQPD0R25SIDc6tUdN82tR8O54i3o8Eq6t2g7Vr2XEtODZtlaNvYbBzbYaB/J6BFq0xIE8Z+0IuTqPOsEev/tZZNkalY99zW5GiF2Dvqf6i70MT62j7y79r2p7M8LWXSLmRU91Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=riad50NH; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1789370565; c=relaxed/simple;
+	bh=5NBVtwAK0BAoXDnntVPQyaH3IyuLl1zCV9teA8E6PnI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Qgp5f6DJ1jmv1dNNnTRk0yN53/McwkFWvSjKD0cPgeb/HyYFdokxnNuy2erArAxjQFwjbrbde8swG10pwDzON8oHyOcNANlVJuJKMIfqgXhKBTzZG9EFjv5MQe2GX+agZnJ+/Ovrp627eyK3nnN0MwpwOpNAQrmEEg9v7I9oD+I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=lqASA6ZL; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="riad50NH"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68E61ZIX1243011;
-	Mon, 14 Sep 2026 07:21:27 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=aSrUav
-	tWrPoutvo8Widw7jUErDEtIcp0dpPIVdX3eXk=; b=riad50NHXo6+I+VazMTrSK
-	pw/Z9BjSWPsadrfwhS1VoyRDt3nFmRUXFq0cYwGfp8h9g5dSJIk84U3w8lAAzEeb
-	1hTdsyqZcOiv+c6fmm9muizFByLPlPeaBmrzffN1FHv+5gjN3cv6qxYCVr0NPbmI
-	gJyBx6MTAbX0LITFQ9/N8tbs4dw7HXkaEZB+IJFMJ0tebzILZbKnnZmJtikWbTms
-	tZYVG3Cs72wjSJz7aS3JZNF1uX18/bYYANBF25CbTnnUtTVEiwwX64sKwBEzLgJx
-	IW3s9KRqYHz+HYxS7vuEZHfQXU+9eRxJHz7ROeJQ2kQThj4OX5fAda6nRysed55g
-	==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmxcuqkab-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 14 Sep 2026 07:21:26 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68E5o4VJ1775096;
-	Mon, 14 Sep 2026 07:21:26 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gnhevvp6c-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 14 Sep 2026 07:21:26 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
-	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68E7LONR52298030
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 14 Sep 2026 07:21:24 GMT
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 02E5320043;
-	Mon, 14 Sep 2026 07:21:24 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 8051C2004B;
-	Mon, 14 Sep 2026 07:21:20 +0000 (GMT)
-Received: from Linuxdev.ibmuc.com (unknown [9.43.93.83])
-	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Mon, 14 Sep 2026 07:21:20 +0000 (GMT)
-From: Madhavan Srinivasan <maddy@linux.ibm.com>
-To: mpe@ellerman.id.au, longlong yan <yanlonglong@kylinos.cn>
-Cc: npiggin@gmail.com, chleroy@kernel.org, linuxppc-dev@lists.ozlabs.org,
-        linux-kselftest@vger.kernel.org, shuah@kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] selftests/powerpc: use MAP_FAILED instead of (void *)-1 in tm-signal-context-force-tm
-Date: Mon, 14 Sep 2026 12:51:18 +0530
-Message-ID: <178919368041.441103.208453892352199243.b4-ty@linux.ibm.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260722023428.932-1-yanlonglong@kylinos.cn>
-References: <20260722023428.932-1-yanlonglong@kylinos.cn>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="lqASA6ZL"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6b885ef8so6673635e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 00:22:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1789370560; x=1789975360; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5NBVtwAK0BAoXDnntVPQyaH3IyuLl1zCV9teA8E6PnI=;
+        b=lqASA6ZL6Ht4dMepBaEUizpDJdypfAn4OveqtXpPdzI+asgnuwR3FZcyXJpR/biBMa
+         ZqVqH3zi2YGRv51vHLbIuSdljhEmyXKFBxI04Y/G0Fws57Iy5yUHtfchS5G9BtkmgfkN
+         nmKflFrYmXi5AVS/LrvtenmC335VoJHn8cXd1zmzCwAME61eZZ+9Pk70vCffDb3N15ak
+         RFJvZ72usOyFLLzzRFS3P+v8yqay2hYJQS1kQV4LjndudZ0ng9YiCro5j/KKXzDg2SuE
+         WNkF3dK1FHbV4aKMrPKzZmw7HiMCkPy9WKUiVt0FrAj5x3Jgsop5eN9OVgOEvhChv7ZR
+         bkSQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789370560; x=1789975360;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5NBVtwAK0BAoXDnntVPQyaH3IyuLl1zCV9teA8E6PnI=;
+        b=QdCwWDYW4KbDvmr9ak9+eUKxmqr8CIYtvDFis0L9a6YijWiujOqUn/g3yFOoIwfa/g
+         O97CWONpWWfeUB4uDlV9NmedEgkldwTyjThwsmZY9qIff+3yJFjKiIxhQNXOM00UzRDF
+         WMFvunY4gU9Lm4Im7UwVevOrGIfrOPYEoeHN4oZjyS3NVVW5AY+m8qsaHMxL9bygVY15
+         MNmxozqSWcXfeh8bruJiSHDta4zzIcFLjJeP4FTZgzeTLUmE14t1nXfLAtz+MuISXyRn
+         zrXM/BSkj7y21igBYQbQPfbLjuRku9GtzKWE5V5EL2IP0o2wAAdc7f++P5/Ozk7WyXAZ
+         ceKg==
+X-Forwarded-Encrypted: i=1; AKwUvBy5jRhIBAhBYlWu0qeg+CE9RafjXcn1p6Bk0r5K3hQBl1xcDBbagwh7FEk2nocrSsa/Y9NhPfzcZLtT2Lw=@vger.kernel.org
+X-Gm-Message-State: AFuF++nHcv6LRMau9v2h6NRFGSNEFwOGeNTqWPtBROII1tNA+WjUeSex
+	u2WUTMjqlCEMmPpZ6cvJZZnxxAhciKoJI1YuDgL4C7CE1A7n/CLeBiqO9vvCTKizwdE=
+X-Gm-Gg: AYBFou25LKSfvmiZs10t0fAB5wRSirZpRrsBjlp5YLfP0IrTcvfFEKcIL6zgbWFY3nD
+	5zC419uxYLIXF2IDF+FpB/dGhu3TMcM4Zi2Zah7AWynQltKhR5roYeMVj6zZeRk55g2ChmQIR7q
+	Rr5xjQvrpchiCAgoE2gdpFvwk4Jp2cizAjuGEoym5v4wAOFq8x1pDBDNYv3Rj7/TGsACmisU+Ig
+	1LEa6YCeWFt+eWyItCvqeYcmUvjBdg7fwRgplmbIH6RRlqlIgopDjjs+UEoh8CaafXxxNRcuYVQ
+	7N337RR6K6XOsGUDhQibawbmgE9KZTHtYfFnMi3omkGPrPHfyO5mkKKlC4h5yZcKYVzwEtJ+Aee
+	ZgYXubo5JhbksRnoNUiASwHQItIbQPixzKuhWDeUAQaMKjjbZbMM9VrcCUU739FWSH+Kgb60mrf
+	0wUH2OHIzFgGGrPHp9Z20YamGTPNRmo8jN68rZqPm+6i1s5JegkUxW1JSxO6c8yX7NoTfnOsRy2
+	zQwCnfaIyA6ofUSSHAzKEXQwstVTzRYohCiFFPR4kvR4GXwL0vor3Z2hp7fHg==
+X-Received: by 2002:a05:600c:548b:b0:498:952:e276 with SMTP id 5b1f17b1804b1-49e7a6625aamr13720395e9.8.1789370559823;
+        Mon, 14 Sep 2026 00:22:39 -0700 (PDT)
+Received: from localhost (p200300f65f19a904d5c06a7863c841d4.dip0.t-ipconnect.de. [2003:f6:5f19:a904:d5c0:6a78:63c8:41d4])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49e71e300f3sm198482485e9.7.2026.09.14.00.22.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 00:22:38 -0700 (PDT)
+Date: Mon, 14 Sep 2026 09:22:37 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Tapio Reijonen <tapio.reijonen@vaisala.com>
+Cc: Saravanan Sekar <sravanhome@gmail.com>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH 3/3] regulator: mpq4210: Drop the mod_devicetable.h
+ include
+Message-ID: <aqeghbaA5yS8aO9R@monoceros>
+References: <20260913-mpq4210-ohms-fixup-v1-0-dcff627001ff@vaisala.com>
+ <20260913-mpq4210-ohms-fixup-v1-3-dcff627001ff@vaisala.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDA5OCBTYWx0ZWRfX2YKcleLpq/6b
- EYBj2joxXjDI3dPvzTrjakaAEZeLzPC7s9zauSPkN3qhTwcBobuJjwv8AxR/XFThvtf/V89khRn
- sqY60/pv5nKG4t0b/4XGUIuCyPQdHKE=
-X-Proofpoint-ORIG-GUID: krgBYSi_lFhbe7FdT2mAxXhvJFkqvcb2
-X-Proofpoint-GUID: St9xalCv9EvyCscc7RDcekdq2WZGIA3j
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDA5OCBTYWx0ZWRfX/7p7cbieHdBj
- ucC0sRuIqMHgoI1Abr/qxl6MKEAT5ws9Bcm3g/9lFUSAtPW3jPJ0XjrZp8gnSRjBge1b1IMHndi
- QumEombF6cEv9Fm2TMQ8NsDUHT7+K1/tepw3tVxm1xQGIMXEGn69U7kMrkWPTqxHjJxAzcSSHub
- LLe2Jl/icfkpl8YWaLekyCpk+SlpW2HC4O1nQ/R1RgG2BDHRQBk57lD6FqSbQnvZ7Irgv/1Hnie
- ZX/R1LEKMXXejOBiZcA+5rxjgxGYkfuFz6Xkiv9ebxyjHCSmnSOn++45ykeLE5YAzgVjyMhmrlm
- Khp0NuYGwsodL1aQVgwkcQ316T9BuYL/y5e4BwfOVVO67hm2LBhpKDrnGdDs6hXP+hHq+M3PtnO
- fapCAaOY5o4S9FvvwXrdYHqdCVGgmrUCGKI8io6NPi6fi4TcjayejcKY38d9z2hWAom767R200x
- zUMjGhqsAnSO8MllALw==
-X-Authority-Analysis: v=2.4 cv=F+7C5ahN c=1 sm=1 tr=0 ts=6aa7a077 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8
- a=jyw6kHy9CTd0Shu9bYAA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-14_02,2026-09-13_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 phishscore=0 clxscore=1015 malwarescore=0
- lowpriorityscore=0 bulkscore=0 spamscore=0 impostorscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140098
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="n5ywwnv2z25hkbgi"
+Content-Disposition: inline
+In-Reply-To: <20260913-mpq4210-ohms-fixup-v1-3-dcff627001ff@vaisala.com>
 
-On Wed, 22 Jul 2026 10:34:28 +0800, longlong yan wrote:
-> mmap() is documented to return MAP_FAILED on error, but
-> tm-signal-context-force-tm.c compares the return value against
-> (void *)-1. Replace these with the standard MAP_FAILED macro for
-> better readability and type safety.
-> 
-> 
 
-Applied to powerpc/fixes.
+--n5ywwnv2z25hkbgi
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 3/3] regulator: mpq4210: Drop the mod_devicetable.h
+ include
+MIME-Version: 1.0
 
-[1/1] selftests/powerpc: use MAP_FAILED instead of (void *)-1 in tm-signal-context-force-tm
-      https://git.kernel.org/powerpc/c/bf1d8287816194457c1a936056ad2d1e1e478944
+Hello,
 
-cheers
+On Sun, Sep 13, 2026 at 11:40:18AM +0000, Tapio Reijonen wrote:
+> <linux/mod_devicetable.h> is meant to go away, and this driver does not
+> need it: <linux/i2c.h> already supplies struct i2c_device_id and
+> <linux/of.h> struct of_device_id, and both are included already.
+>=20
+> Suggested-by: Uwe Kleine-K=F6nig <u.kleine-koenig@baylibre.com>
+> Link: https://lore.kernel.org/r/aqRMb8q7BT3uZ9iF@monoceros
+> Signed-off-by: Tapio Reijonen <tapio.reijonen@vaisala.com>
+
+thanks for picking up the suggestion.
+
+Acked-by: Uwe Kleine-K=F6nig <u.kleine-koenig@baylibre.com>
+
+Best regards
+Uwe
+
+--n5ywwnv2z25hkbgi
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqnoLsACgkQj4D7WH0S
+/k4GpAgAokIXS4bLfKhNIx0SshCZ9XhCw7DHg6bS5Zez7NpE6GsOiajjl2CUZKPa
+HjSkricKdreGJm/mQI55gxYkzXrQ+p3dzX4M0+MlWFjbfLhyPddiOfPYze1k3FpS
+A2EsKD8LOGUYCs+DPnN2atAfVSy3JlMEU/mrc0Ckx3JQHQDx+yPUdVLeLxtfkATe
+D5Aoh5jbeAAX8jsPiRNay4V6x9BSCYXl5DlI9n3px3alDtYlUZqlOc8AgLvo7OfX
+2ilFZlWwn1GvnCYsOhBlRB/G16rKDG0Pjgyrh+ZNu5JanTIkap0/DWWESsebHjqU
+d03AvoYE2P0vIQpZ2zQmNTK3e48I5g==
+=/zv7
+-----END PGP SIGNATURE-----
+
+--n5ywwnv2z25hkbgi--
