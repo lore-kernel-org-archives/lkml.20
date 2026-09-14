@@ -1,76 +1,83 @@
-Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B63846EF62
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:29:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B30746C4AF
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:29:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789392565; cv=none; b=ee5wKJfRSaHzbSVQQ8QWOGbyNqsMQ12tYIhggBvyJaXcWTbfy0rjBGMM06DLL8jcADHIWaK9YZc/rPYmn0HJxdBGsa1wid4nxUAi8IIeKTsTNOP6Tc6X9moeeAii4ZBGAcrcWidzJYk9hbtdkymhVbRAkBdNTPOT07DKqAKVSrs=
+	t=1789392586; cv=none; b=SRKMmf6vJXbHOxfA6q0HSZYhLa7UeKM7MJfnDDSOVvoCHugN8cUjOcsNIqkQ26zuTOTgyI/0Bk8DxqtyPaf7OA2+H8Mp0IykQ8cKVhlrRflZm3cCsEHwktBMfrlL/QwcLat2cRmcoyLAW7GKeMI/1tXdJejsAt5mVorvllDeHdc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789392565; c=relaxed/simple;
-	bh=EI/Mvo4q8jidfDbAOATfJ+esW46iCyZBUp07YscHpPo=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=haB/DIz29FrVdZ/ESpXL9bxydrkUBx0cs2caCYKQVnvcVp9neORxBZ4MNdPkwfLY4ps5dhX1dDr1WbYI8tW+uakikQk8cs/8F/4nMc5TFNs1Qf9FodykCIz6SAbQf1LB0qg0l06nN0lg0H1cMWJNg8l4lcFw/vtbeCjGVvl3lWU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ar7Vhw9V; arc=none smtp.client-ip=74.125.228.43
+	s=arc-20240116; t=1789392586; c=relaxed/simple;
+	bh=72MILoDifiaiK9Nla2N6x0QwLzStR2SM106Oboc2EvU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lgR4RnBaRxd1Rey3DfHeLySV0KLRzBML4Rw14VOz/3kqby0evTY2haaXsQAY4fB3HTir2nWseBeRAqZuy1YsR+dAmkoAWHYqueKTGTq9gs8P29TBRy/X02cNh/fwXJ0tV8AFlphbue+aH40Z67rwOKN0W+KyS6RBX+ntP4/ClD8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oMqJo0Af; arc=none smtp.client-ip=209.85.208.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ar7Vhw9V"
-Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-8692a856865so2403944b3a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:29:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oMqJo0Af"
+Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6a9a2f16ed4so4020709a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:29:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789392563; x=1789997363; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789392582; x=1789997382; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fc4eltycEplIA/0aLYJ4l4ExpzLKApvTuVgrIn6Z/9o=;
-        b=ar7Vhw9VkhaBQIPjID/ZZkLqAbJ/1qOwR2JnB1aVLtKR1nEfxS2fTm5uzNS4PGY1xL
-         OYiZV3i0nHjGPDn5XUBjTje73GXN7iXAFagATCAnlwYaoDRaZ2kx/p7olkMFTqPonlFG
-         qaqQ5HxbE27VY8DXuKGep/44lb+w5c90q9106NmNZ3BCajgcKgaIV2PpCz5sx8QhDHVR
-         sLY2a3zVf/QLB+0qha9bKCMIysC//2nGzRDMGFyTTjbRji1R++sgpgrHOQjq8T0t6Zoy
-         xbb3+qgC4ddqCIzWWZxenZ4ytIm8HMvG9sOEnbTSZ6WeAoDuWSAHK3Mg6fSdnI0Q169d
-         lksA==
+        bh=JytMekM1O3tqnBvhWTtqVwMI/KxX0kYwHkxZRtcjzKg=;
+        b=oMqJo0AfY7D0Qp2FDZpDNvtS3EEO0sQg+mSiYq7zGgfnv2CnWGi7FTAUNSETGvDv8W
+         YFaOj/pcqY712wfcv0svQDVsevLClKIc0xWUbiuuRHiVkard7m15gDYO1T1nBQoKVODX
+         Nt9h4pQlWYfc6PYLfOymWtRSpMPY9s6cRpOICcWRFav16cBWCSYk+6MGaYCTjmoeWh+Y
+         ZxpOPIzXmYVC1HqAueabPsShKMuUSHCbIg6Dtn8uKjy6HlsfBxbxTUlhQp62MZ2IeW7s
+         EO9ZKxtpjr/gEbpBHeNea8YNJkWmK2p57C1IUiFnG93wDkjfCMwI9kZycih89UjzJZjv
+         IVbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789392563; x=1789997363;
+        d=1e100.net; s=20251104; t=1789392582; x=1789997382;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=fc4eltycEplIA/0aLYJ4l4ExpzLKApvTuVgrIn6Z/9o=;
-        b=SXbwrJrlv+oD6C1VHrrgy3QA2QPjHjCbSLphRlFwq59G/8stxw+Mmcf2Jgi1Hi7TyC
-         HfD+6GQyE5NaoxQEdvxJj0o4zllTb5cfXH7FQwK2mavj3TbtSavD8gGfolbafD3tWUob
-         didWTbJHowL9dHS4Y+aGWVIKgH4hrbqLYdZguLSI1ENRkJUIvO44xScF1MnilJkNAaPD
-         5F1+OLQ+Nm+F86P7oZAvm0jLGH9JI9URLJcrQRAGde8z/IKAytO8JVYrkeFUpAP7I2b4
-         zWqTRlmGmxPFGYzs2ZX23qjxfW4qZcCpNb+MvfB9UNkZjM3IXbIywoWbbaUOI2sVsTtE
-         x7cg==
-X-Forwarded-Encrypted: i=1; AKwUvByhNdExJuxoBrXbYH8htW5qURM8ENArGCuioFfj+U8iiqQphzaA/QB71mk6eJwEDsVCqDyhzGWZtx2TATM=@vger.kernel.org
-X-Gm-Message-State: AFuF++mGpZTA5lKHFgkuCvs2KMaq1ea6I1nfDoLUZT/QaycWGZbqH+Gq
-	D4JIHxlalKhHxbtRKqOgZV8FmcmnNmdNifSe8hRMme4hP5amuyRzuypB
-X-Gm-Gg: AYBFou2gprYkmTOgd5xhKC6U+RSjSIrhyBRpgOo0pIEEfTLb/Z+M3hWcTjqZJCsxOtX
-	3dmYvYu3zymnuY24jmMP9/F0U3mR0hZBfQMLcSxLEhEmXweZbBlNy5uJnk1vX7C6Dwtu0QvRk9P
-	e2g26toP43RsbpJRxzpzecwmPvcj2xnV0zji414KGnajMdu2UZuHRXM1WXXhwkCL60d5Zj1MRk3
-	XQv0/jmNUQxENcFdeXIGnN55RdLTvFMG+XDZsZq6iisfxAU0WJmhL6YHClsEDoJ7iJP5ws/z8kS
-	Oit7/UDdlJzI8F1w43TCblgzODKcziUlZilpH47rwgU/FN6nhFKXsT/7qStrwUJPyR0n+jNquIy
-	Qpf6kWp+crwcjkLdPQRI9XstO+jEiqM3osYUuwC1cib0Xi2plrS9+POizRcrq7Ar9aHkic+URwz
-	uDrA2jE/7t88cnZfmGM40162DTAfheDktVKbXqGLQ1Q7b21lHkNAN2yTHlTKPZ8XWkWHS5R/76s
-	DXrlS1dPOBq0ewg
-X-Received: by 2002:a05:6a00:f08:b0:86c:bf42:fa44 with SMTP id d2e1a72fcca58-86f83543227mr5924981b3a.6.1789392562587;
-        Mon, 14 Sep 2026 06:29:22 -0700 (PDT)
-Received: from SGN-LDSENG.tasernet.com ([2405:4800:5cc3:11a:1ac0:4dff:fe8b:4a69])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b2a6bbec8sm4597643b3a.60.2026.09.14.06.29.18
+        bh=JytMekM1O3tqnBvhWTtqVwMI/KxX0kYwHkxZRtcjzKg=;
+        b=BbELxNVQKjLjPptvlYIHsUPec97q3kqzKdhrcAP/08k4AZu43qd8vxkVTCbXZVFMjh
+         ONOJufROX2mJzMYA3Cnxw/0zgOwVzdsha3brSXgC/kRvK2M2IBdrogsvO/vF0tlncxtc
+         yRSJamnamHfs9vQZKSCT+vinQNfRoSdH1NDAuqdIZkKCw1GAhYsMxWEYZrFCu1J71iNF
+         JWlWDHdGo7LYt/OqecJ9aLYaCXKpjkfkmNd5R3LHUGBeTF4RGdDVgXBNnkTcuSvA2bAm
+         i0Q9XiotlE+SDMvJB7pRZTNxRjdtzO7BdXdLL1g0zyaqMKZD21fa1HqNELOlSGcbpmHH
+         aHrw==
+X-Forwarded-Encrypted: i=1; AKwUvBw4WysPQDJLqxOcJ4xWmgEJqhg4do9MUpD3Crs9zlOzKR5stuQPFwiof8ykNKbCv0o696emiFc8e8XdUSs=@vger.kernel.org
+X-Gm-Message-State: AFuF++nhWPUOekeT+92nb1FEB620u3JeRHaIeKCxY0VHcgdz9kc2wu3d
+	r3nUJaplMYUiYkR2uHeOKMRqaAVoHRjbY0q3qT8UOuOtkAmi3jzEtdzI
+X-Gm-Gg: AYBFou0vol//bD31DpShO8SQ2mDv4x8PpVYVBQqE8CYFgUnyHODoI2qVRrFMY92olNg
+	rqrNsBNhv7adwTuE0e01aKosvTi286SEnYSW5uz/bg2eiR6ee1MFWeCploi8CKtBW+qaJPIqd1z
+	c1ugWbmbKLeAAbxCAx2KW6AmcfmSOK7SlQgwve/kBn+HqUm6bVob7nPgzbhR4d6is7OlSTgoget
+	HAq23kTm3/rlEgzfl8UBdNgB2JIvetB8qkBfJJSkhtNRdhwFi5lCP3iAXA3BjDih4gsKOrIsS1k
+	P9BIxNrhFsoB1NiABduOw4nA30kQYnpQegHtYDaD8XUbzDvgoil7klSNi9th8IQdYrEyrUu2m79
+	3pxqNVaXLG65a7MSO1pHIaL+LiWPsnHlVEUGBDavLkcPed1krHuK3GDz+k0c4ru347AKTj/ZNDX
+	4e5IM3RouNFMczJn5Rids+7fcYyCFarzg0xMZ5pJk7OBecuKuDXJNQj8zKPf6QshvMOUmW0l/i4
+	Ni1YsjAvRHyuorgJ4Y7FjBWrX9ZUpnlKDrkC8bcmVChURuiEJUIL8rPlEiaC84=
+X-Received: by 2002:a17:907:3f20:b0:c26:1f8f:ed53 with SMTP id a640c23a62f3a-c29a4339baemr362278166b.12.1789392582327;
+        Mon, 14 Sep 2026 06:29:42 -0700 (PDT)
+Received: from misharu.home (2a02-a463-a071-0-7759-cb87-66e5-4165.fixed6.kpn.net. [2a02:a463:a071:0:7759:cb87:66e5:4165])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2965c4dfc7sm437207966b.4.2026.09.14.06.29.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 06:29:21 -0700 (PDT)
-From: Cong Nguyen <congnt264@gmail.com>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Valentin Caron <valentin.caron@foss.st.com>,
-	linux-rtc@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] rtc: stm32: fix clock leak on pinctrl probe failure
-Date: Mon, 14 Sep 2026 20:29:14 +0700
-Message-Id: <20260914132914.2371788-1-congnt264@gmail.com>
-X-Mailer: git-send-email 2.25.1
+        Mon, 14 Sep 2026 06:29:41 -0700 (PDT)
+From: Hari Mishal <harimishal1@gmail.com>
+To: Kenneth Feng <kenneth.feng@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Hawking Zhang <Hawking.Zhang@amd.com>,
+	Xiang Liu <xiang.liu@amd.com>,
+	Lijo Lazar <lijo.lazar@amd.com>,
+	Yang Wang <kevinyang.wang@amd.com>,
+	Asad Kamal <asad.kamal@amd.com>,
+	Rex Zhu <Rex.Zhu@amd.com>,
+	amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Hari Mishal <harimishal1@gmail.com>
+Subject: [PATCH] drm/amd/pm: bound SCLK FCW range entries to the table size
+Date: Mon, 14 Sep 2026 15:29:20 +0200
+Message-ID: <20260914132920.10127-1-harimishal1@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,48 +86,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-stm32_rtc_probe() enables rtc_ck/pclk early and unwinds them through
-the err: label on every later failure -- except a failing
-devm_pinctrl_register_and_init() or pinctrl_enable(), which both
-return directly, leaking both clocks. -EPROBE_DEFER is a routine
-outcome from pinctrl lookups during boot, so each deferred retry
-leaks another reference.
+atomctrl_get_smc_sclk_range_table() copies ucSclkEntryNum entries from
+the VBIOS SMU_Info table into pp_atom_ctrl_sclk_range_table. Both the
+source (asSclkFcwRangeEntry[]) and destination (table->entry[]) arrays
+are fixed at MAX_SCLK_RANGE (8) entries, but ucSclkEntryNum is an
+unchecked u8 read straight from the VBIOS, so it can be up to 255. The
+destination is stack-allocated in both callers
+(polaris10_get_sclk_range_table(), vegam_get_sclk_range_table()), so a
+count above 8 overflows a stack buffer, not just a heap read.
 
-Route both through the existing err: label, matching every other
-post-enable failure path in this function.
+Reject counts above MAX_SCLK_RANGE rather than clamping to it. Only
+one version of this VBIOS struct (ATOM_SMU_INFO_V2_1) has ever
+existed, so a count above 8 corresponds to no legitimate table format
+and means either a corrupted or a tampered VBIOS.
 
-Fixes: 16ad2bc09efb ("rtc: stm32: add pinctrl and pinmux interfaces")
-Assisted-by: Claude:claude-opus-4
-Signed-off-by: Cong Nguyen <congnt264@gmail.com>
+Fixes: a23eefa2f461 ("drm/amd/powerplay: enable dpm for baffin.")
+Assisted-by: gkh_clanker_t1000
+Signed-off-by: Hari Mishal <harimishal1@gmail.com>
 ---
- drivers/rtc/rtc-stm32.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/rtc/rtc-stm32.c b/drivers/rtc/rtc-stm32.c
-index d4ebf3eb54aa..e7a942f6c190 100644
---- a/drivers/rtc/rtc-stm32.c
-+++ b/drivers/rtc/rtc-stm32.c
-@@ -1175,12 +1175,16 @@ static int stm32_rtc_probe(struct platform_device *pdev)
- 	stm32_rtc_clean_outs(rtc);
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c
+index 4b796d60b03d..3217ad3c1d17 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/ppatomctrl.c
+@@ -1025,6 +1025,9 @@ int atomctrl_get_smc_sclk_range_table(struct pp_hwmgr *hwmgr, struct pp_atom_ctr
+ 	if (!psmu_info)
+ 		return -EINVAL;
  
- 	ret = devm_pinctrl_register_and_init(&pdev->dev, &stm32_rtc_pdesc, rtc, &pctl);
--	if (ret)
--		return dev_err_probe(&pdev->dev, ret, "pinctrl register failed");
-+	if (ret) {
-+		dev_err_probe(&pdev->dev, ret, "pinctrl register failed");
-+		goto err;
-+	}
- 
- 	ret = pinctrl_enable(pctl);
--	if (ret)
--		return dev_err_probe(&pdev->dev, ret, "pinctrl enable failed");
-+	if (ret) {
-+		dev_err_probe(&pdev->dev, ret, "pinctrl enable failed");
-+		goto err;
-+	}
- 
- 	/*
- 	 * If INITS flag is reset (calendar year field set to 0x00), calendar
++	if (psmu_info->ucSclkEntryNum > MAX_SCLK_RANGE)
++		return -EINVAL;
++
+ 	for (i = 0; i < psmu_info->ucSclkEntryNum; i++) {
+ 		table->entry[i].ucVco_setting = psmu_info->asSclkFcwRangeEntry[i].ucVco_setting;
+ 		table->entry[i].ucPostdiv = psmu_info->asSclkFcwRangeEntry[i].ucPostdiv;
 -- 
-2.25.1
+2.43.0
 
