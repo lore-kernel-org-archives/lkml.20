@@ -1,81 +1,78 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C6B83EEAEA;
-	Mon, 14 Sep 2026 08:19:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EF333F787E
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:19:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789373951; cv=none; b=ao8Ta0vUoZkDJ8gFoDj3CJmL1yNnqctggeWeK+RsMtyvKs71JqdrOgmUncwRJhVJSyKxOsUPfH2DVNEORcRkmzIE9L7za9ZpuU5bOMDaWIc1LvIbZ7cs2A9N5iKnHZ/27J3W7v8evNrFW4TNYh/zkCFP33SOHFVUqmeC42SlE4Y=
+	t=1789373954; cv=none; b=n6J2s5+lcJp0DYN4ZqaWc66N/DFmPpftybUhWpB0AK6xgfQjwt4Isgds356N7uwgokiNzg0H6nMhU1mnrKBhaoQX0e2K0d1TaU7N0BpjYZlPPZcAQ+eBnsv4154qe7PfqxjqvahwyEpcuKjuXQSAt5YLDZyZrWwjgI7XeDnqYnc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789373951; c=relaxed/simple;
-	bh=bSzJO/Gm0VfLyOaG123eiqMw2z6vU1EmYkjOF6AivUA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BZuxfygcW6Papww30rcfpJMRh6bfvwWFspiq7JngzF4v7VQ9bqcEWtM7Jl+Ys/IxBmHbo4zcvii3rG0ZQQlxADSDU4sppVce8fyNofc3gKEcfkIcmm0EqBWXTpYJdHRBq0DYNHk2Ch3ipTmlJCGrtMLxtyfbYSXU/NJga/PUUu4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HjWprQxq; arc=none smtp.client-ip=198.175.65.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789373954; c=relaxed/simple;
+	bh=BKRDGeu9OvCqTSJJOcDI+h2SnvOE0ecpgpKwpnOvYSM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=LT9TmNCKImJJcwdB6+nea2M0TN5s2BYjMpXWoG8agp/70e04f0gJlHYinG+2S2q77GzsW9xB8e4jpqI6PtY1lDQRoHMc1Ussh4MiFi+CpHC5jtXttmAOKt56K90AjvOF1dnaVe3pAVAGWfKtbp9eCnShNr5rG1RyvbKMofJokys=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fTWI23Rj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HjWprQxq"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789373950; x=1820909950;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=bSzJO/Gm0VfLyOaG123eiqMw2z6vU1EmYkjOF6AivUA=;
-  b=HjWprQxqWSt8ZhRXjdQFVScaIaDK5SJaPTNfV+IYJSdfhayOvYaYfyvK
-   bXuQv0HqBnohWpFL5LLcxrnx0WbUxkXEPdwrILjtFDMaYisqPkLKjj2M/
-   ZsEKuRLUH5NtUYBurdLpEUTv5uBWr0MSHiq8r7LdWojpxBGv5hfXptxzB
-   1WutLA/gCema1a2jE65hFqaROi5VyeUjgJeYSpS7G66zq8XSVQyKO2NRq
-   JmVidyfMhwV0UwYtk6PAWHXcQjS9LQnyip+t9S7hLsdPHkXBZkO1Gg9/Q
-   y8TAKzQz1Q/fhjekEJwuc2mQotQ1HkInRqhbsCBnbWawvw4lcvtMOJb0m
-   w==;
-X-CSE-ConnectionGUID: THzuJLTtR7m1SlifJhg/5w==
-X-CSE-MsgGUID: JHW13EnmSa+MJ/2QthkdeA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="89658670"
-X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
-   d="scan'208";a="89658670"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 01:19:10 -0700
-X-CSE-ConnectionGUID: 2X/ZwpQdRxm/qG1A4hoI7Q==
-X-CSE-MsgGUID: Xlipky5lTTKk2ubkixgZLg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
-   d="scan'208";a="270778679"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.29])
-  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 01:19:06 -0700
-Date: Mon, 14 Sep 2026 11:19:04 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Shehryar Ahmad <shehryar.amd@gmail.com>
-Cc: jic23@kernel.org, nuno.sa@analog.com, Michael.Hennerich@analog.com,
-	dlechner@baylibre.com, andy@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, gregkh@linuxfoundation.org,
-	linux@analog.com, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 2/6] iio: accel: adis16201: add OF device ID table
-Message-ID: <aqet-FxqeFzYDBa0@ashevche-desk.local>
-References: <20260913085307.13846-1-shehryar.amd@gmail.com>
- <20260913085307.13846-3-shehryar.amd@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fTWI23Rj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DEAF41F0089E
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:19:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789373952;
+	bh=BKRDGeu9OvCqTSJJOcDI+h2SnvOE0ecpgpKwpnOvYSM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=fTWI23RjqKbU/vDwKqXiPTUEf0iRjFXvQ9G67G2SlkcUmZcFkDRsBoeF4zS2rBH9t
+	 6gjXKVs5A7e16an6vjTFLSdC3S3AHlhnePfCJx5iWnkOCnZVVVdS9AHODdOBz52Bo9
+	 f8ycP2+fKv+kgQqQgX3yKR6aUFIrOWK+szYn7z9syG6HmyCj1dDdJ7oO8uwXox8GaO
+	 +UP8Tux+PxG9/rLJmAoQ5FQBA/5Hnt3r1OxLbGPsXrAQif1pTGu2eAbkdSCQqhT8/s
+	 ESvkFbp3UiOjuY4+IuWAJ/RyPBo/DIvw+Vi6kIpnycQ2+nH7ghhLz9gNggTiOxtK88
+	 gtfh28gxTl7bA==
+Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5b568dae0e8so2725764e87.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 01:19:12 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBy/EA9tCGMJakZ3iLFtmVGDZ25+4PvMdK8cMH4XZ72J8XVcxbBMloeGoFXlceUX/XStK0elO0d3jGSgQzg=@vger.kernel.org
+X-Gm-Message-State: AFuF++lBySXPkHgJJXQvYyqaxPMbcFU1fV4m4ABA1iv6wTtEwVoEt0F5
+	pg78C7GIkndEgmGjL/JHxl6Kyr41hZ/aLuTpXd6YEh0dAQF303zUIFkxJAPYVHrRhXHfgPik/+y
+	Mv0p6AXDG3RcHkwkS3BxryO2YLZtlpgA=
+X-Received: by 2002:a05:6512:b83:b0:5b6:1a7c:fd81 with SMTP id
+ 2adb3069b0e04-5b8ae69e682mr379688e87.39.1789373951557; Mon, 14 Sep 2026
+ 01:19:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260913085307.13846-3-shehryar.amd@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+References: <20260814-drm-bridge-every-panel-v1-0-19cd5277cc8d@bootlin.com> <20260814-drm-bridge-every-panel-v1-8-19cd5277cc8d@bootlin.com>
+In-Reply-To: <20260814-drm-bridge-every-panel-v1-8-19cd5277cc8d@bootlin.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Mon, 14 Sep 2026 10:18:57 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkqFPm99r4L_3whHG1N0k1aCCJj0sDjMRTZN-7mgBaAeg@mail.gmail.com>
+X-Gm-Features: AcwNN1XU1jSnsxnc26IQx4SlPy6FXnURlodugh4j4_jBv3FHCcqi7b14XgKpGIo
+Message-ID: <CAD++jLkqFPm99r4L_3whHG1N0k1aCCJj0sDjMRTZN-7mgBaAeg@mail.gmail.com>
+Subject: Re: [PATCH 08/11] drm/mcde: dsi: simplify device_node management
+ using scoped for_each variant
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Inki Dae <inki.dae@samsung.com>, 
+	Jagan Teki <jagan@amarulasolutions.com>, Marek Szyprowski <m.szyprowski@samsung.com>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Hui Pu <Hui.Pu@gehealthcare.com>, 
+	Ian Ray <ian.ray@gehealthcare.com>, Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, Sep 13, 2026 at 01:53:03PM +0500, Shehryar Ahmad wrote:
-> Add of_device_id table for adis16201 and register it with
-> MODULE_DEVICE_TABLE() to enable device tree based matching.
+On Fri, Aug 14, 2026 at 4:07=E2=80=AFPM Luca Ceresoli <luca.ceresoli@bootli=
+n.com> wrote:
 
-Same comments as per previous patch.
+> Before further modifying this function, simpify the struct device_node
+> management using the scoped variat of for_each_available_child_of_node().
+>
+> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
--- 
-With Best Regards,
-Andy Shevchenko
+I applied this patch (8/11) to drm-misc-next.
 
-
+Yours,
+Linus Walleij
