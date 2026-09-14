@@ -1,77 +1,224 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012033.outbound.protection.outlook.com [40.93.195.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 274C625393E;
-	Mon, 14 Sep 2026 14:54:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789397692; cv=none; b=cwKjvfvRA/4s+SYVtvF8ezPD5xTxIIIzq9FoEvnycStc2qNKMm66/atvGKD7SRM+lAXHiXuoN02IGxWnV8ZEfDOU0GMK3zXWfqM6RjGbKkNWdkzNntmqjqzARvENX8FCmo9A6Kk9euCDCYchAgmY3khNYE4huObhheo0hDMQXSw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789397692; c=relaxed/simple;
-	bh=5OQkUBHuNHD3N9BtVn6PA+sGb2DzSvh2zQx5xM/cDcg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Q7vwLRn2ESCONqzxu6tuEw6Oa7pQIHeQ3kndrGOT8bPzf6T39vrTvnGIW1cnv7BfnDffEMZDe+opj7TrALbHgYda3PcAvdCQ9e7KYNcGNBlmjCxfwbNwQYrb9xZD9XX+0L4ijhw3XJooNuMxG0Sl8GsU70kngXkq7QBBZnnhqcU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YLFDDq8p; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C528747A894
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:54:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.33
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789397693; cv=fail; b=l7CwPSabyPB/hPY9zVza+j9JVS2YBU6Ngi1nDapqrMpKXis//a6CbeN6LstLPZjW5XUlVM1N29iHff2AK8m7b+w5P49Uypzen2CE6rA5pHb2agc1Td2iydEWDkwdqz6SvtZv4YPLuTFaZ/lBWHKeEPGMxV7hY1UtZ/phpM20qUs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789397693; c=relaxed/simple;
+	bh=+so61bUxI/U2QWcecao7V8q3uc4Sp4Kdm1qKhfYmoV0=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=tNgJ4k0s7bRik9QIybORKx8ZNDlddp1HdY6nrc4PYkMmHBKPKXm2LZg5YQKF35fFqtMbgjevYOLwsMsA+wTPrFAP5UbhloNlY2AfVkMFVtw8wcBdlRIzEwyxhV0DYC/Maxk9504BDzuLfpe7EXG3enHqa4bRoUSUfBsAfKISXZc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=1bt1JA7E; arc=fail smtp.client-ip=40.93.195.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YLFDDq8p"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C44E1F000FF;
-	Mon, 14 Sep 2026 14:54:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789397690;
-	bh=LQ5u3XjbXGUOat0OEXM2JEEtjlYIog0XalGjmRtDp90=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=YLFDDq8pzq0E8qOhLD+73lyHt9fSy18KUzLd9ONrvaLIor4PhrLpqonRJSmT4in8E
-	 hponM+h3lZLgTtvpQMMjmu64mem6yL/d5DWFMtBYE7m6TnXYkm8/PtC4f6B0PhMumX
-	 ErQ6xoArqxfqtrXOWenubDisiaAWqoXBxFWO9fzznBFGx586sUhciTgPVSio2Tmif+
-	 bmcsh23JQvwb27nsWpawk4aGjG075fn8HbrJ3LT+Q1/BpT+xCKv5NuFOv2RfMbenK8
-	 Ln7z7+rLKTmlF9BFPWIMQZ4ZgsT2wi8bRtuPMBXGUx3TQWIUqR2B/RORVN5z17I230
-	 fRieXOIXKmbkQ==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id DFD12CE10F1; Mon, 14 Sep 2026 07:54:48 -0700 (PDT)
-Date: Mon, 14 Sep 2026 07:54:48 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Boqun Feng <boqun@kernel.org>, Uladzislau Rezki <urezki@gmail.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Zqiang <qiang.zhang@linux.dev>,
-	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
-	rcu@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] rcuref: Fix the rcuread_is_dead reference in
- rcuref_read() kernel-doc
-Message-ID: <e3221cec-1e4f-41bb-a48d-8012cdda1620@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20260911213643.3781-1-kmehltretter@gmail.com>
- <20260914071921.8NKpjb_K@linutronix.de>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="1bt1JA7E"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=S88+k8Z6A6CKOMOqRmsI13olHkKKSpC5lybhar9TKzKmeVy9PRLS4/EUl2ytbO3A8dQtc9Dbcye9bkwAwbzOMqFQ1nVyuQj2E6tm/oQfftRqwCR9y+M8tBibah6XisHjKN844bLSIweCv1+nB8afnrXmq/UOJDKZNU5AdGNOWjcsd2Vrb0bwDSeJn1Rke74APXN13ZdE/kA0/qzfcYqP+Zh/vVeVUeHBhKvM5V/haoY8qD0j7kmpm07V2KGySVKvuv9JCMXL7Vr+btzUKa6mH7hdO0uoCTJGFcLeHdNtW7FRaVcfPLNeyjVDP54tMHnA4uPyrJUO68zsz9JQZ4LA5w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hMYQA5hqkANy0qe67m4PQri4ZQlVrXu1IijAy+ho67g=;
+ b=wkh2IZeXBFTaGo+POGfX44xbK9eWQBf+Mp1SRBTN28t+fn4HN9RuKmflTnvpVYjB5KOKgXfSZJ45EBl17wAF5ea9a/+/mjyuj7VQs7lIRZR+25/cAWCgAhrsoBVPXdWGKPRCcOQboWJZyUVEz5yh50D0H94w6/ALbo1Wz/PkGLcwTYMVa0TE0B6v+H5sLIZoMc1IfAutUTb8uG/tk+Lya2AOl73DnYOVTZUHeAESwrv+XvWnTHWpc6yKFMV+OulHF0v0aGh24IIh9tjzozo41mRHdsZdBcP8y8vP+Na3E5OT5PIElmqioS1HGOkyLkXLVbruPpZBJ+L6rK2A9lOvjA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hMYQA5hqkANy0qe67m4PQri4ZQlVrXu1IijAy+ho67g=;
+ b=1bt1JA7EUfOMDU60qDkaykDstzPRzUAC0NelOtgcJkBAAdF2tPAB3NIyCJHufzf3fMyqaEjjhk5HRsE5hdu3lOr2o3HY/2aTThapPqSbh+0nnbcOysR7C3zS6EeoBih7mWJNs7wP8JulYbo0UVviMlOszoRbrKVLlyib9UWvVG4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DS0PR12MB8453.namprd12.prod.outlook.com (2603:10b6:8:157::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
+ 2026 14:54:47 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0406.005; Mon, 14 Sep 2026
+ 14:54:47 +0000
+Message-ID: <aeeff331-8b2e-41d8-acf8-d5d758935d38@amd.com>
+Date: Mon, 14 Sep 2026 16:54:42 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: zero reg_state buffer before filling it
+To: "Lazar, Lijo" <lijo.lazar@amd.com>,
+ Dmitriy Chumachenko <Dmitry.Chumachenko@cyberprotect.ru>,
+ Alexander Deucher <alexander.deucher@amd.com>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Hawking Zhang <Hawking.Zhang@amd.com>, Samuel Zhang <guoqing.zhang@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org
+References: <20260914135650.87591-1-Dmitry.Chumachenko@cyberprotect.ru>
+ <bc9cf07a-ef97-490a-b98a-a05bc9f5b186@amd.com>
+ <05b669e6-1c66-4789-9916-b8030e232385@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <05b669e6-1c66-4789-9916-b8030e232385@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MN2PR03CA0005.namprd03.prod.outlook.com
+ (2603:10b6:208:23a::10) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260914071921.8NKpjb_K@linutronix.de>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS0PR12MB8453:EE_
+X-MS-Office365-Filtering-Correlation-Id: c86af5b1-6339-4bc8-1902-08df12701edd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|1800799024|366016|11063799006|56012099006|4143699003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	+iS3BFLHJeucFKuQopg/c0MNTCY362bwWjov+MIQXiC1x1g4Ap0Urtk4F0RjeQXbx+Ifme/q+geS0fyZF0REuxTCsan+FwIvutUjfEOGZZn0lWVQRM3BjMiX4HVbp6bDjdytcJr7uPMl+mtoS8Afvh80PJS0W4bd9XI2MJ35DEWGdRXzS+Ad8/rK5xXR0zw3wbVXTiwIZz+iI+8W7RZnmP08J/qaiKjGbvjPgRx2v8NsiBFRJ8g1hSKnBikpUh1BvTkxfDKJL//5fN7d25E2VPNCr7Ug6phCqmojKSzo3yMxlahrhwRLTM/fgILbklyoo9V8pmq5f+7PAZprNBnYmmxyrPoBZ4G7kN4TifT/ChazpWuhV/8+szp5AYbrX7W3Y3BiyB0cCHj2QQF+cuIRjS/mCnHcYIxzvkzW1hPTPVQK5fgzjlzYLSzNc4kJlXqg6aJk/w4jJBbKKbwdyfGi3INl/NVuXJkXt9NXuWKAP/fH+KIZrCYTVtsHLTPEKkmB1vhOvS2g6ePgCJWetDkzMXi67KYCyBKgs7D9Oue/flpaKiZGfM60OT+h8h/COsZId2iJwOFhAUnuDxwOHh5Z5M5rXGID9FlxucSl/GoCtPonu2LCGmcvpCSYEEhiEvrrnl/K2EYvfDCq8fg8WwDhW8NVPCflj/IXGZFelDwftOI=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(11063799006)(56012099006)(4143699003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?S1VxT1RlL0pqS09makd5Q2JBVWtjamVzRmpaRlprdWttUE5sbStpSmo5bW5v?=
+ =?utf-8?B?dWFpK2ZsbmNHVGo2a05seTAwcTU3R0dFcHFkKzB6RlY5Ym42Q1FMNEZubmZo?=
+ =?utf-8?B?d1I4ZlRseDFqM1hSWWFEUHF3Rk95R3hVcWgrUUxTdlo1N3FGMUlzVGs4cGE1?=
+ =?utf-8?B?ckp5NjhTN0VRcjI2ZWkvenNOdGlPTmozWlhwMGVNQVNheERKUUg0alV1Tnl6?=
+ =?utf-8?B?YVNoYmxGcUgvME0xb3hUUjNSdk1ZTFNYRXZQSFV5bktEUGFlT1B2cVE4alVZ?=
+ =?utf-8?B?bkxpRFpiOWJGdk95ejR1UUNtZTJNM0luMyt6aitOWmVKcWFxMzRWeGYwc0JG?=
+ =?utf-8?B?Z0J4YklxSFRrbXlxb3NKdG95dUVoVHl4M3FaNGRIQ3JuNnVjT2M5OU9MdjU0?=
+ =?utf-8?B?OXF3SHZ2L3lqaDY5V05sb2RKWWZ0Rm52M0FKcm5GNDhRSTZUUEN1SGUrLzM2?=
+ =?utf-8?B?NWpZL3A4cjRZckhVaWpXaksvY1U1WTNVU0d1SWxab0VrYWFHUzRaNXQzUVlC?=
+ =?utf-8?B?aVFYaFZ2ZzBvMEEvWkRCdmlkaFBOVUdrU1UyZDJtSGJRY1BJcXpGSjIzamY4?=
+ =?utf-8?B?V0RVODVTVk9iMVRuS0RNdXhrOE12T1lrc1JaSTR5MHAzUDlpU1o4cTRrNVg0?=
+ =?utf-8?B?NnFTblY4RXdSQ2htU2lySlY1RW8yQXpIQVhVZ2JYQUFtZnl3b2I2M3BzS1Yx?=
+ =?utf-8?B?bitVK20yaWdpKzRjR2I0K3VNUVVOaitpYlpqUDQwWFFIZk5CWFJqZ1M0WEZq?=
+ =?utf-8?B?WXMrSm92eGhwVUEwdkdNTjJZWFIzWVpIODBZUXEzOGhiYXRkazUvaWgzS3Q3?=
+ =?utf-8?B?aDhRNTdGNW8yQzlyK0lJUlpXZWdUWVluMGw2aFRxczRTSndVTVIzQzFEanlX?=
+ =?utf-8?B?bmRjRnRGZE5GNnFWRC8vRENFSEFxblBKekF0UDZjTGZLS0VxOVpQcE9CMmpD?=
+ =?utf-8?B?SGEzNmlUUm8vSEVHTFFHYmFJMjM2YUxBYkVqZG9raE9pQlRkQTBuK1ZuV1VO?=
+ =?utf-8?B?MzM4S3hxY2E3SkU2eXhMK0Y1STVmaE95L1NxSnYvL3FWRmRjRWQwbDBIRDlG?=
+ =?utf-8?B?b1g4bzhzS3gyQXgyVUtGWTZTbFF2WjBsbVY5OFoxRVA1V2hEdWlmRGhpcU1s?=
+ =?utf-8?B?RnhTem91eCtUUkFQZDRRdWlaczRPeitta2NaYWhpQXdQS3hZczJROG1QcXJy?=
+ =?utf-8?B?MDlndThpSTFOcFhCbXpUSEpKVXNFejhTTUEzWitqRCtnd05XdnpYdStsOXJI?=
+ =?utf-8?B?ZjlyaUJhM2VFNEdoeVgya2c2UXJ5aXovTGpIWENjeG1PdVpTQzVOWEhwZ0Fa?=
+ =?utf-8?B?cVJaMTcreHZQRjBFVUozemFIVDVxSTJjS3VMV1duZmFoTVBRS2NCUklnZHRM?=
+ =?utf-8?B?Q2x6M3FSeWxiUjUzZG9RbGRiM0tzMXpYRnlOWXIyS0xld1cwY0l1ZVlIWUtS?=
+ =?utf-8?B?d3VJM3UwdjFFOGtxMlJQOEcrQ1NVSWVKaThINFVCSkIxa2VaR1EyOUdSY0lK?=
+ =?utf-8?B?Nm9scHVuUjNTWEh0a01FTEF4cHlxRzIzbGcwTmhKRlZER2pnZVJ6a1lFKzlh?=
+ =?utf-8?B?ZE1vcU1yM1VzQ3NaQnRtVk5ibHJSckZaMlFyMTJXa2hsUE10WVpKbG4yaHU5?=
+ =?utf-8?B?dUErWkppaVRMSGJ5VEl4eEJOenNqZFV0VGlQQ0ozWHdKa3JDajc5eFQvMmJw?=
+ =?utf-8?B?QzA3OTFxWkNiRk5RZUwyTzJrd2MzUVNuYmNpMWlaTGpsZmNRdjRxUzhzU2sy?=
+ =?utf-8?B?cXhwKzRYOTE4bjhwVm1pcnRqVU9DdU5YZ0hKU05hSmdudXdBQ3pkRWFTK1M4?=
+ =?utf-8?B?M2pSTjdSMXBseld3QkRDWkQzajU1ZW1FTmd0Z0E0VG1WR3hhRXhpdnAwUXlD?=
+ =?utf-8?B?RmpFNjdLem1wbHFwMmZlRCt3cisvbHovcmRSNkFPeXJhUytRbUxNdEY5aDc1?=
+ =?utf-8?B?VDNsMktldjJ2eDYrU2E2ZHhOM3prMEFMMTdEWURlMjN3MEE2cmZlYUJheExs?=
+ =?utf-8?B?ekR3UkIrN2hqSG4wQ1RPSWlZU0tGcGJuUUlaU0VISk1HOXZTejJ3L1AxWEJV?=
+ =?utf-8?B?b1NwS1BTdEg3OGw2bTZHaE1GOGNrc3Z3SEpTaDd0Q0x0UVR1bGJLSjkrN1hh?=
+ =?utf-8?B?OUVlWG1QdDdFbUxGbCtXS05rQ1htbTh6QTBmWFV6dmlrSWNoeGhWS0tiK2VK?=
+ =?utf-8?B?TjJOYkJvTnNQQzcwdVhIMmd2UWkyYTNmNWd4VkpORHNFdlNGSmFtM1V3YWZm?=
+ =?utf-8?B?dldlSC9ZNTRmRGJ0UFo3dDN5Vlg1bEtMSFpUcDNjRXk2M25mdVhmdm9CZU0y?=
+ =?utf-8?Q?q4M5UchEoQm+Qy8Ity?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c86af5b1-6339-4bc8-1902-08df12701edd
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 14:54:47.5539
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: xk7HpoyD35bfqaQuAY0lgn7PcOk/uQsGPsmR0EYP3fovONOJnwucFqHk4PDUEUC5
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8453
 
-On Mon, Sep 14, 2026 at 09:19:21AM +0200, Sebastian Andrzej Siewior wrote:
-> On 2026-09-11 23:36:43 [+0200], Karl Mehltretter wrote:
-> > The kernel-doc comment of rcuref_read() refers to rcuread_is_dead, which
-> > does not exist. The name is rcuref_is_dead. Say rcuref_is_dead.
-> > 
-> > Fixes: 3efa66ce6ee1 ("rcuref: Provide rcuref_is_dead()")
-> > Assisted-by: LLM
-> > Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+On 9/14/26 16:45, Lazar, Lijo wrote:
 > 
-> Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 > 
-> Sebastian
+> On 14-Sep-26 7:30 PM, Christian König wrote:
+>> On 9/14/26 15:56, Dmitriy Chumachenko wrote:
+>>> The reg_state readouts return szbuf bytes but never write the pad members
+>>> of the headers and of amdgpu_smn_reg_data (and, for pcie, the fields
+>>> skipped when the upstream port or AER capability is absent). The sysfs
+>>> buffer is a plain kmalloc(), so those bytes leak stale slab data to any
+>>> local user through the 0444 reg_state attribute.
+>>>
+>>> Zero the buffer once the size is known.
+>>>
+>>> Found by Linux Verification Center (linuxtesting.org) with SVACE.
+>>>
+>>> Fixes: 081a6eda2b25 ("drm/amdgpu: Read aquavanjaram PCIE register state")
+>>> Signed-off-by: Dmitriy Chumachenko <Dmitry.Chumachenko@cyberprotect.ru>
+>>
+>> Good catch, but stuff like that should be handled by using kzalloc() instead of calling memset it manually.
+>>
+> 
+> It's the default sysfs buffer allocation which may not be used entirely by all drivers.
+> 
+> The concern in this case is that driver is telling it has written x bytes whereas it could have left some fields unfilled in the buffer. I think the fix is fine.
 
-Queued, thank you both!
+Wait a second, is that because of messed up padding in sysfs structures? That is usually a really big NO-GO for upstreaming.
 
-							Thanx, Paul
+Structures returned to userspace must be padding free, see the tool pahole for how to double check that on different architectures.
+
+Regards,
+Christian.
+
+> 
+> Thanks,
+> Lijo
+> 
+>> Regards,
+>> Christian.
+>>
+>>> ---
+>>>   drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c | 8 ++++++++
+>>>   1 file changed, 8 insertions(+)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
+>>> index 72ea37dbfea8..0086de0f685d 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/aqua_vanjaram.c
+>>> @@ -610,6 +610,8 @@ static ssize_t aqua_vanjaram_read_pcie_state(struct amdgpu_device *adev,
+>>>          if (max_size < szbuf)
+>>>                  return -EOVERFLOW;
+>>>
+>>> +       memset(buf, 0, szbuf);
+>>> +
+>>>          pcie_regs = (struct amdgpu_regs_pcie_v1_0 *)((uint8_t *)buf +
+>>>                                                       sizeof(*pcie_reg_state));
+>>>          pcie_regs->inst_header.instance = 0;
+>>> @@ -702,6 +704,8 @@ static ssize_t aqua_vanjaram_read_xgmi_state(struct amdgpu_device *adev,
+>>>          if (max_size < szbuf)
+>>>                  return -EOVERFLOW;
+>>>
+>>> +       memset(buf, 0, szbuf);
+>>> +
+>>>          p = &xgmi_reg_state->xgmi_state_regs[0];
+>>>          for_each_inst(i, adev->aid_mask) {
+>>>                  for (j = 0; j < xgmi_inst; ++j) {
+>>> @@ -776,6 +780,8 @@ static ssize_t aqua_vanjaram_read_wafl_state(struct amdgpu_device *adev,
+>>>          if (max_size < szbuf)
+>>>                  return -EOVERFLOW;
+>>>
+>>> +       memset(buf, 0, szbuf);
+>>> +
+>>>          p = &wafl_reg_state->wafl_state_regs[0];
+>>>          for_each_inst(i, adev->aid_mask) {
+>>>                  for (j = 0; j < wafl_inst; ++j) {
+>>> @@ -902,6 +908,8 @@ static ssize_t aqua_vanjaram_read_usr_state(struct amdgpu_device *adev,
+>>>          if (max_size < szbuf)
+>>>                  return -EOVERFLOW;
+>>>
+>>> +       memset(buf, 0, szbuf);
+>>> +
+>>>          p = &usr_reg_state->usr_state_regs[0];
+>>>          for_each_inst(i, adev->aid_mask) {
+>>>                  usr_regs = (struct amdgpu_regs_usr_v1_0 *)p;
+>>> -- 
+>>> 2.49.0
+>>>
+>>
+> 
+
