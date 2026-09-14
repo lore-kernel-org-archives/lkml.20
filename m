@@ -1,163 +1,75 @@
-Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com [209.85.161.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 459EE3D8122
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:46:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2229F44E038;
+	Mon, 14 Sep 2026 11:47:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789386416; cv=none; b=EQ8ng9wNcYQmQxz75NMYXfk1sMA9MrtnnhmQlKLAvwPoRBxm2TEGQjq4xHeOpFrfqMWFh5a3/7VOitGixY1taYUkuHttrp+z5pRiVO5DtgiGS1SgAd4nmma+gWTmCqHiXvPKNvDKjHqohSiVUNU8hUnDbiD9QjNZaFX4C8220tM=
+	t=1789386425; cv=none; b=PzmGSFrEh6Xt5hwlk6kb7Gev0t7bg9ngGrdioHJOHOQdOftTJp6GrbUqv1bFUZkZZyiYiTaP5LpoSnDbvwboeGTixUBJ1Ez8jeFFrLPbNi4Iz+gwZisBggDfGK+raYOJfqDPas7972kYpbX5Vjni2EKgQW8I8qRQ0BEoWg1OT+E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789386416; c=relaxed/simple;
-	bh=t4NWASf+VT2ZbPFBf6toI5VMcXq6A6UymHW0HZb+4MU=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=MZbhPavJ3NLxXhC2A330tvYMckcAJ2CnlkXfkpzchRrs2HGTzc9YOfHeH3cPagE31L0oLSoigH6dsq/xwqRPZ31A1vCwOsFI3hYWoT1RH2vYDpfkheU6RhuSeZWm6SN3JARFISg+ZJ1zddRYe1P3SIJesiVw1pVZwqkaLuK+6sw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f70.google.com with SMTP id 006d021491bc7-6c2549d0cbaso3145552eaf.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 04:46:55 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789386414; x=1789991214;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=0hv6YnMz1nh3AsQzOiSQwXzZr7z48BB8fNfr/cM9XX8=;
-        b=bttnjff26Pq7x8lel2IilzwhA89BzfHGuz2VNaufOECaPxK06YCzWlfwEkTPE7+nPY
-         q/g4OhppnrJJ94V8nWrdhyQsRqkHG0ca+OnBenma9GJxyQQRn64MCMdhuh3LQJbZEPhp
-         koaEk5u9EtxYviBe8mOeVi3h5pSUKQMOEMXYMVzLRjKkFVvRbbwT3t4uPdcskrJd+fUJ
-         wWYkdmWDLq3IGiUfzM+MlBxzH3rhxLDkyhx1MXIKlTbjOdeiQEmmtbUIJhinKPN2y93x
-         fq1yLXxILQWP3gPe1pHYFxjrNm0JNIAG/moWm9z5WVIdI036ev7gdVsaGCI5Q7qE7Z78
-         Bwlg==
-X-Gm-Message-State: AFuF++maRYNv8bBMiBKqawB9sHy0xdrVllLDKWWn9O8bq8VNPQ9kv4GK
-	NsUlIw8i9rb+aHKiMSFU4w3odhlNzyMl+DDRtDP75/Rf6fBC8lhc30uM+pgMS33bOEvIzyIE3Ml
-	2ihn9ssFqBuXSuf0tDmOAkWfpjsfWCidDP2kp0nvCG8YwZb87xAUHToyDHyg=
+	s=arc-20240116; t=1789386425; c=relaxed/simple;
+	bh=l27b+nBuBgtUA2P6QrelY7nyDVoeiCe9AQ/+OaTvlr0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jjuhb99qdC7F+bEjYPpn/maHP/NTkDxV8hQVaiiBueZiWZaQWFRUYw0wclcU5MM2R8F3fHn0znL1cKSusO8Mg9d6vEFWa+qW7ArU62garKIAoQO4RhyEEZGdlgRuVCI074DDgvtKw8xaWi3eD5AfLcXMygW3l3q3aSIS4Ope6o0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=VPvi9CQ0; arc=none smtp.client-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="VPvi9CQ0"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=k/lIyD0eJYyLLShpR2PrbSShwpZ11/bDU2WwZJxxg5g=; b=VPvi9CQ0iLIJ9++Sna1MZm6Jj5
+	mdNWw198BGb2L/0ZKSclGf80KxDVQWuY4P69MnnkW0pGH+SFLDJ0NGHWuPqUtEMFandO5bIUUn/dK
+	i4Noaj7daYRThxSqv61cKnbONHGxizpp4ToSlsfr4cSDWZtU8VNiHf0bXpZgD8PB5XZbyc20l2Eei
+	GOaQq2y2hrffh+4prEjBkW9rYX2IMmK1GiVLnqoIN4yspmEZlQaOrC/gzu7+m/3YnBBJpHIpnSXML
+	fkJUVqkZObRRxM8cLes6AzDMtHRv5uzAJb3L/o3OrbZjA3gF0vFqDri9pBDwuf5h32CtlZaaBSa5Q
+	a79iP6mQ==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
+	id 1x659F-00000005YjP-1fsB;
+	Mon, 14 Sep 2026 11:46:58 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 59D9830066A; Mon, 14 Sep 2026 13:46:56 +0200 (CEST)
+Date: Mon, 14 Sep 2026 13:46:56 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Jens Axboe <axboe@kernel.dk>
+Cc: io-uring@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, tglx@kernel.org, mingo@redhat.com
+Subject: Re: [PATCH 04/15] x86: implement thread identity handoff
+Message-ID: <20260914114656.GC3500130@noisy.programming.kicks-ass.net>
+References: <20260911154148.644489-1-axboe@kernel.dk>
+ <20260911154148.644489-5-axboe@kernel.dk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:3083:b0:6aa:de29:651 with SMTP id
- 006d021491bc7-6c5426359a7mr1035930eaf.16.1789386414222; Mon, 14 Sep 2026
- 04:46:54 -0700 (PDT)
-Date: Mon, 14 Sep 2026 04:46:54 -0700
-In-Reply-To: <6aa4291e.f81106d8.2ab401.001e.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa7deae.f81106d8.2ab401.004c.GAE@google.com>
-Subject: Forwarded: [PATCH] KASAN: slab-use-after-free Read in v4l2_release (3)
-From: syzbot <syzbot+34957180b0ed2581edaf@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260911154148.644489-5-axboe@kernel.dk>
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org.
+On Fri, Sep 11, 2026 at 09:40:54AM -0600, Jens Axboe wrote:
 
-***
+> +/* state bound to the task that neither side may have */
+> +static bool thread_handoff_task_ok(struct task_struct *tsk)
+> +{
+> +	/* I/O permissions, the bitmap hangs off the task */
+> +	if (test_tsk_thread_flag(tsk, TIF_IO_BITMAP) || tsk->thread.iopl_emul)
+> +		return false;
+> +#ifdef CONFIG_X86_USER_SHADOW_STACK
+> +	/* the shadow stack is per-thread and would have to move along */
+> +	if (tsk->thread.features & ARCH_SHSTK_SHSTK)
+> +		return false;
+> +#endif
 
-Subject: [PATCH] KASAN: slab-use-after-free Read in v4l2_release (3)
-Author: jchuang26@m.fudan.edu.cn
+Distributions are having this enabled, this means nobody will pass this
+check.
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 08df884136f1c1197bab2a27814404fd329d9aac
-
-Reported-by: syzbot+34957180b0ed2581edaf@syzkaller.appspotmail.com
-
-diff --git a/drivers/input/touchscreen/sur40.c b/drivers/input/touchscreen/sur40.c
-index 09d8c5f8d..4da6ad1c3 100644
---- a/drivers/input/touchscreen/sur40.c
-+++ b/drivers/input/touchscreen/sur40.c
-@@ -647,6 +647,24 @@ static int sur40_input_setup_events(struct input_dev *input_dev)
- 	return 0;
- }
- 
-+/*
-+ * Final cleanup of the driver state.  This runs through v4l2_device_put()
-+ * once the last reference to the v4l2_device is gone, i.e. after
-+ * video_unregister_device() and after every open file descriptor of the
-+ * video node has been closed.  Freeing sur40 earlier (for instance
-+ * directly in sur40_disconnect()) would let v4l2_release() access the
-+ * already freed video_device.
-+ */
-+static void sur40_v4l2_release(struct v4l2_device *v4l2_dev)
-+{
-+	struct sur40_state *sur40 = container_of(v4l2_dev, struct sur40_state, v4l2);
-+
-+	v4l2_device_unregister(&sur40->v4l2);
-+	v4l2_ctrl_handler_free(&sur40->hdl);
-+	kfree(sur40->bulk_in_buffer);
-+	kfree(sur40);
-+}
-+
- /* Check candidate USB interface. */
- static int sur40_probe(struct usb_interface *interface,
- 		       const struct usb_device_id *id)
-@@ -727,6 +745,7 @@ static int sur40_probe(struct usb_interface *interface,
- 
- 	/* register the video master device */
- 	snprintf(sur40->v4l2.name, sizeof(sur40->v4l2.name), "%s", DRIVER_LONG);
-+	sur40->v4l2.release = sur40_v4l2_release;
- 	error = v4l2_device_register(sur40->dev, &sur40->v4l2);
- 	if (error) {
- 		dev_err(&interface->dev,
-@@ -778,7 +797,6 @@ static int sur40_probe(struct usb_interface *interface,
- 	if (sur40->hdl.error) {
- 		dev_err(&interface->dev,
- 			"Unable to register video controls.");
--		v4l2_ctrl_handler_free(&sur40->hdl);
- 		error = sur40->hdl.error;
- 		goto err_unreg_v4l2;
- 	}
-@@ -787,7 +805,7 @@ static int sur40_probe(struct usb_interface *interface,
- 	if (error) {
- 		dev_err(&interface->dev,
- 			"Unable to register video subdevice.");
--		goto err_free_ctrl;
-+		goto err_unreg_v4l2;
- 	}
- 
- 	/* register the polled input device */
-@@ -806,10 +824,17 @@ static int sur40_probe(struct usb_interface *interface,
- 
- err_unreg_video:
- 	video_unregister_device(&sur40->vdev);
--err_free_ctrl:
--	v4l2_ctrl_handler_free(&sur40->hdl);
- err_unreg_v4l2:
--	v4l2_device_unregister(&sur40->v4l2);
-+	/*
-+	 * Drop the reference taken above by v4l2_device_register().  The
-+	 * last reference releases sur40 via sur40_v4l2_release(), which
-+	 * also frees the control handler and the bulk buffer.
-+	 */
-+	input_free_device(input);
-+	v4l2_device_put(&sur40->v4l2);
-+
-+	return error;
-+
- err_free_buffer:
- 	kfree(sur40->bulk_in_buffer);
- err_free_input:
-@@ -827,15 +852,19 @@ static void sur40_disconnect(struct usb_interface *interface)
- 
- 	input_unregister_device(sur40->input);
- 
--	v4l2_ctrl_handler_free(&sur40->hdl);
- 	video_unregister_device(&sur40->vdev);
- 	v4l2_device_unregister(&sur40->v4l2);
- 
--	kfree(sur40->bulk_in_buffer);
--	kfree(sur40);
--
- 	usb_set_intfdata(interface, NULL);
- 	dev_dbg(&interface->dev, "%s is now disconnected\n", DRIVER_DESC);
-+
-+	/*
-+	 * Release the reference taken by v4l2_device_register().  If the
-+	 * video node is still open, sur40_v4l2_release() is deferred until
-+	 * the last file descriptor is closed, so sur40 stays valid for
-+	 * v4l2_release().
-+	 */
-+	v4l2_device_put(&sur40->v4l2);
- }
- 
- /*
+> +	/* only the default sized FPU state gets copied over, no AMX */
+> +	if (x86_task_fpu(tsk)->fpstate->is_valloc)
+> +		return false;
+> +	return true;
+> +}
