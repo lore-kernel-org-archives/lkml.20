@@ -1,98 +1,93 @@
-Received: from out30-101.freemail.mail.aliyun.com (out30-101.freemail.mail.aliyun.com [115.124.30.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3053A40DB2F
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:32:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECB8440EB9C
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:33:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789374780; cv=none; b=MXGgpgR0C5xiLyHU5vx8RXE1txfrtRhBRHL1p2fhI+tgKzC0yVg8bzmk6b7nN7vsZqLmY6r8l8yfFUo31L/32RODnGqrFVw5hy/k7QHQoYv/DrGFwpd6Sq3ZzLM5ypMh9d/ezP51oijndAa6oS1WUPxqteWK88y4ZR3E4YTU8T8=
+	t=1789374784; cv=none; b=ti02b9aNfoZLRilygFDPXCCvozdg0ZVyqkrolwKsGxKua8iafliPt3WsRblgy36DsUDcCmkjFzQ6T7hv1uKzwTZlRzRJTUG8WSpYntXCT8vCVP74DCTNykX2wzHlhoVh6tnm314/VMwtTIn3t1Ma4dHsfTnxaLTb4TQugPDVyRw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789374780; c=relaxed/simple;
-	bh=gaWfHviegHfFx748PRo21TXEPqh35ErtH3vWXYt7Ngk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QDJH7e5+emCvO3DpkR8uTbtip2EKxODe7x9MO8rpVxzgt//UQYmzpookLHzMvHRWZeYYtVkSPn0iIeifRwZxkveFfpq5yi4ztH3kkvJFdKoXSDbAnBi4RgvObiyY0ezbheJ1G/5wKbB8sXJ098YDxJBEmMqUj0cEX5kdJcJWmu0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=bPjfrvER; arc=none smtp.client-ip=115.124.30.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1789374784; c=relaxed/simple;
+	bh=7TfHGyLDKigYrKX0lKyKyVlr99ToO+iL4J2l2vtb/vw=;
+	h=Mime-Version:Content-Type:Date:Message-Id:To:Subject:Cc:From:
+	 References:In-Reply-To; b=tGN4hyliHqC0Vs5IpBWor7/mKzD/dlDfQ38z1jQxd7IqtBjLpTGwUD8KjPO3fva5igPs9kKs5YaPf//ldvLun7OoUPnTUyi8AW8DX+mQL4Afnpzn1s4VB3C6zYGu6QFa6A5dJ1HPzgAvZkedROrm1p3mPY3PZjza4iAU5fYjyDM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XjfyVFs7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="bPjfrvER"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1789374770; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=V5SgxrpCr+3rPiETqStc1WoDgDVOaLwcyekKiy2XRu0=;
-	b=bPjfrvERnS787nd6X/u8wHOITjBrc0aGeVj97hF/K7CpXeSeZzjfZHAApjXrP4riqZVmYVkJvOpq6SJwrahXqwU0UIQpU27YTGm/PdahfzkeBamwo7QYuwUrwWDNPDKXEZ1UNnYc1xO4jlxCnhH+53g6zX4AXsszdbpa8EWipeU=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R161e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=18;SR=0;TI=SMTPD_---0XAtYEDx_1789374767;
-Received: from 30.74.144.134(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XAtYEDx_1789374767 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 14 Sep 2026 16:32:48 +0800
-Message-ID: <e4cd7338-9ff2-4fb4-a5f7-b1ccbd71603f@linux.alibaba.com>
-Date: Mon, 14 Sep 2026 16:32:46 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XjfyVFs7"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 6F2B41F00893;
+	Mon, 14 Sep 2026 08:33:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789374782;
+	bh=7TfHGyLDKigYrKX0lKyKyVlr99ToO+iL4J2l2vtb/vw=;
+	h=Date:To:Subject:Cc:From:References:In-Reply-To;
+	b=XjfyVFs7ivXy2Ouac5D56JOvm0q33a6bhPNBJ1LbhWBzYrbjUMs9AJIuTY3X9ovoL
+	 KXQwkp5Cv0C9+gwY8Q5NdJI3X4SToIGK3hhH/lnoFoicCyggmXmpTsrOiEOOGV6t1l
+	 Kfkjf7x/V50/EPpJI1XGENilgx+w09V3g8LTXGIioZxOIrvpJVGB1EoXuiwW0CNOf+
+	 AuC6MzVmRxD95LhGcKM6++5Q1piwI/axAhLD9TmelKaB0w0Esj5jPyq+TwN2Bd7OCW
+	 n88hTPLMuVKIAILWFiu92uFpWqBR0YNiZ3MdXMJ3Ck8ffwzpUcJhlwudJPos8fqz7a
+	 CVgWpUfEo8BkQ==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 05/12] mm/collapse: state what a collapse may do in the
- policy
-To: Kiryl Shutsemau <kirill@shutemov.name>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Zi Yan <ziy@nvidia.com>
-Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, kernel-team@meta.com,
- "Liam R . Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>,
- Jann Horn <jannh@google.com>
-References: <20260910120238.2529819-1-kirill@shutemov.name>
- <20260910120238.2529819-6-kirill@shutemov.name>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <20260910120238.2529819-6-kirill@shutemov.name>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=bbbdaab65393f877a3a172d7d3159aff44a70d5f1a437ce91c7acbfe7227;
+ micalg=pgp-sha384; protocol="application/pgp-signature"
+Date: Mon, 14 Sep 2026 10:32:59 +0200
+Message-Id: <DLEWF5DGXYAE.179JK12YIHHID@kernel.org>
+To: "Itai Handler" <itai.handler@gmail.com>, <pratyush@kernel.org>
+Subject: Re: [PATCH 2/2] mtd: spi-nor: take the flash lock in
+ spi_nor_remove()
+Cc: <linux-kernel@vger.kernel.org>, <linux-mtd@lists.infradead.org>,
+ <vigneshr@ti.com>, <richard@nod.at>, <miquel.raynal@bootlin.com>,
+ <takahiro.kuwano@infineon.com>
+From: "Michael Walle" <mwalle@kernel.org>
+X-Mailer: aerc 0.20.0
+References: <20260910184452.895485-1-itai.handler@gmail.com>
+ <20260910184452.895485-3-itai.handler@gmail.com>
+In-Reply-To: <20260910184452.895485-3-itai.handler@gmail.com>
 
+--bbbdaab65393f877a3a172d7d3159aff44a70d5f1a437ce91c7acbfe7227
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
+On Thu Sep 10, 2026 at 8:44 PM CEST, Itai Handler wrote:
+> spi_nor_remove() restores the addressing mode with the same unlocked
+> call to spi_nor_restore() that spi_nor_shutdown() used before the
+> previous patch, and it is exposed the same way: the MTD device is still
+> registered at that point, so an unbind can run the restore while another
+> thread is in the middle of an operation. A busy flash silently ignores
+> the restore, and a restore that lands between two chunks of a read
+> switches the chip to 3-byte addressing while the driver keeps sending
+> 4 address bytes.
+>
+> Moving the restore after mtd_device_unregister() would not fix this.
+> Since commit 19bfa9ebebb5 ("mtd: use refcount to prevent corruption")
+> del_mtd_device() drops a reference instead of refusing with -EBUSY when
+> the device is in use, so unregistering returns right away and does not
+> wait for an operation that is already running.
+>
+> Take nor->lock for the restore, as spi_nor_shutdown() now does. The
+> unregister stays unconditional, so a flash whose restore had to be
+> skipped is still torn down.
 
-On 9/10/26 8:02 PM, Kiryl Shutsemau wrote:
-> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-> 
-> Tests scattered through the collapse path decide what a collapse is
-> allowed to do by asking whether khugepaged started it.  Between them they
-> settle:
-> 
->   - which VMAs are eligible, and how hard to try for a folio;
->   - how many empty, swapped-out or shared PTEs a window may contain, and
->     whether a sub-PMD window is held to a stricter rule than a PMD;
->   - whether a range has to look used, and whether a MADV_FREE'd page is
->     left alone;
->   - whether the PMD is mapped as part of the request, and whether dirty
->     pages are worth writing back and retrying.
-> 
-> None of those is a fact about khugepaged.  Each is something the caller
-> decided before asking, and the collapse code should not have to look up
-> who called to find out.
-> 
-> Add struct collapse_policy for the caller to fill: khugepaged from its
-> own settings, MADV_COLLAPSE from the fact that a user asked explicitly.
-> Every test becomes a read of a field, and cc->is_khugepaged goes, having
-> no reader left.
-> 
-> khugepaged fills the policy once per scan pass, MADV_COLLAPSE once per
-> call.  That is the one change in behaviour.  The max_ptes_* limits and the
-> defrag setting behind the allocation mask are sampled once per pass rather
-> than on every table.  A table scanned early in a pass and one scanned late
-> are then judged alike.
-> 
-> collapse_file() also drops a NULL check on the collapse_control.  It has
-> one call site, reached only from collapse_single_pmd(), which dereferences
-> cc unconditionally, so the check was already dead.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> ---
+Why are these two different patches? This should be folded into the
+former one.
 
-Thanks. The logic is much clearer now.
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+-michael
+
+--bbbdaab65393f877a3a172d7d3159aff44a70d5f1a437ce91c7acbfe7227
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iKgEABMJADAWIQTIVZIcOo5wfU/AngkSJzzuPgIf+AUCaqexOxIcbXdhbGxlQGtl
+cm5lbC5vcmcACgkQEic87j4CH/jPmAF9Fy37fgcZRMQrLnNeIYzMnIBHr+NFtkK/
+wxEf1Tsr3HfxSUv0lGMQF2kNUt4EA7xVAX48Dw2+6zLI/1HT0PSrykhq9pTN00UY
+1mB9KScdZ8z5/bc0x6AggJ15xsgCW3VhI74=
+=iJCs
+-----END PGP SIGNATURE-----
+
+--bbbdaab65393f877a3a172d7d3159aff44a70d5f1a437ce91c7acbfe7227--
