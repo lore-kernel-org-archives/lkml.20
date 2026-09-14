@@ -1,112 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E68843290B7;
-	Mon, 14 Sep 2026 03:05:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B4A8331EBC
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 03:08:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789355141; cv=none; b=sW+rOxDyjiBwWOwlCueYU8fDJpD2Gn+rRG3xUTVEb5GNQxPezifYUwmDjWm6s0tcWO/t0m1vtUFEyIXXMuMOx980nw/lVXS5mMhnohv9p0HigpibmibLNiiZxhvO+QT2rXJQzntd6zltZUEEhEAx5zwENK3Lg1qXIfBHA96s3n8=
+	t=1789355336; cv=none; b=o3Z+NjvDmGC+xrsBrHqzS/uoz79VrJ2qkWTY2P3MFPWkTGBBPid+l2Bb7Bdp9mU2hSH3WdYg71XHaOOhNBEglACzhoK0S9wZ2G3GXU4AFSjLa+if50o3pLEPsQmeaSq/cN14ZrM4KrxNXUmS8ah0RWWo+ULjDewMSAkYECJ13dI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789355141; c=relaxed/simple;
-	bh=n13pyDwfskpPV/6Nsqj65nuI1WV7YdGf7bUgnn2eeiY=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=OjNI0IiLyZ99aCnP9AjbykJdxTSZBtZy1Ta6dOAw8WdAC0S4Ck/pSFquPS3/5HeY//3+dZM1U06si6PR37VrU+QGktiabmt8yFIRF9gZ9uH8aVyn2UZUSmLdjJG8gyA4tRy/m6AYgUo4gCHDP0oozjdtKwS0+QX95IJ50bFxcZA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YBqI6mOP; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YBqI6mOP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0CAF1F000FF;
-	Mon, 14 Sep 2026 03:05:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789355139;
-	bh=N1oUz0uoNHb/8XozU114yRjSi4A22ayZTk2PiMCMKbE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=YBqI6mOP0dsCdE7LawYiuV3lX0+yj0foJPVGPFrasUVvRDk23vk2ZPLyQwDwoQiOU
-	 C0Hwj8PhOmNJtB3RNwWW2pc23GYSePR30A9YFt1bx3ZWgFpgbFdnACoymN7kGZ15yX
-	 dtYrOzekRlbUyPsSGVCH1qMZ53GE1aJnMyJ3Lm8jtYFpsZfoJoe8P6kGUzxKY/EpTl
-	 gSy/2nUSE6ZeBxTPckpJtaZlMql6FAJedMiUq7oBpkaCQkRBA26il40ojSsscy1mfP
-	 rykW8zVRqX1c3DEbEy/fsX5pfO2ETY938Pl8K4peejgfUOaJUXx+mO+gp5yWVqcP2M
-	 15fbBmbqeVAEA==
-Date: Mon, 14 Sep 2026 04:05:34 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Linmao Li <lilinmao@kylinos.cn>
-Cc: Andy Shevchenko <andriy.shevchenko@intel.com>, Chris Morgan
- <macromorgan@hotmail.com>, David Lechner <dlechner@baylibre.com>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, Kanak Shilledar
- <kanak.shilledar@axis.com>
-Subject: Re: [PATCH togreg v4 0/2] iio: imu: inv_icm42607: fix PM error
- handling
-Message-ID: <20260914040534.772a4aeb@jic23-hlaptop>
-In-Reply-To: <20260901022243.740760aa@jic23-huawei>
-References: <20260824035531.141429-1-lilinmao@kylinos.cn>
-	<20260901022243.740760aa@jic23-huawei>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=arc-20240116; t=1789355336; c=relaxed/simple;
+	bh=GSdROMc0RWh6ElxLT6OsS6EAtiG3k1XvmPpNBALz9tQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=gZJxCqvPhlWqwy/H0/M6Yo90p5fQohPDpPKa/8Ef0lDqUNdOah2BzLO2+m+MpaKsfPQmCL9jLAcx2sdxfmPG0kIkHG3w5kXQ8BFYcbC8fYyTlN/Rq1sHPv7z9i5dY5PwHHpjZcPzL9GuWiUDu+HzuW4pn/Zqg7UgB5o4W5abI/g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 99572710afe911f19a56ed5b684f684d-20260914
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:698a031e-a310-43c7-94f3-9dd6d264f9ba,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:426e234aebab26d9e688817be8eeee6b,BulkI
+	D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50|99,EDM:
+	-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,O
+	SA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 99572710afe911f19a56ed5b684f684d-20260914
+X-User: zenghongling@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zenghongling@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1229786511; Mon, 14 Sep 2026 11:08:46 +0800
+From: Hongling Zeng <zenghongling@kylinos.cn>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	zhongling0719@126.com,
+	Hongling Zeng <zenghongling@kylinos.cn>
+Subject: [PATCH v10 0/6] ntfs: fix volume flag races and persist the recorded error state
+Date: Mon, 14 Sep 2026 11:08:35 +0800
+Message-Id: <20260914030841.46389-1-zenghongling@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Tue, 1 Sep 2026 02:22:43 +0100
-Jonathan Cameron <jic23@kernel.org> wrote:
+The fs/ntfs runtime metadata-corruption paths only record the in-memory
+NVolErrors() flag, and the caller-side dirty-bit marking races with
+ntfs_sync_fs(): a volume can end up with a clean on-disk dirty flag
+despite modification or recorded corruption, so chkdsk never runs on
+the next mount.  Based on ntfs/ntfs-next (9a05b5715cfa).
 
-> On Mon, 24 Aug 2026 11:55:29 +0800
-> Linmao Li <lilinmao@kylinos.cn> wrote:
-> 
-> > The recently queued ICM-42607 PM support has two error paths that can leave
-> > the PM core's state inconsistent with the device.
-> > 
-> > Patch 1 propagates sensor shutdown failures from runtime suspend.  Patch 2
-> > ensures that system resume restores runtime PM management on both of its
-> > error paths, so that a failed resume does not leave runtime PM disabled for
-> > good.  
-> 
-> These look fine to me, but I want input from Chris (and ideally some sanity
-> check testing) before picking them up.  The dead chicken test that they
-> don't active break operation when we don't see errors is probably enough
-> given the analysis seems fine to me for what happens on error.
+ 1/4 makes the volume flag read-modify-write atomic under the
+    $Volume mrec_lock;
+ 2/4 marks the volume dirty unconditionally on metadata changes,
+    dropping the racy caller-side checks in file.c and namei.c;
+ 3/4 derives the on-disk dirty bit from the recorded error state at
+    the persistence points (sync_fs, remount-ro, put_super) and never
+    writes a hibernated volume;
+ 4/4 persists the dirty state after the final put_super() commits so
+    late errors cannot unmount clean.
 
-Kanak, given you are looking at this driver perhaps you could take
-a look at this series as well?
+Changes in v10:
 
-Thanks,
+- Add 5/6: Stop clearing VOLUME_IS_DIRTY during sync. The bit is now
+  cleared only on remount to read-only or clean unmount, preventing a
+  crash during metadata updates from bypassing chkdsk. Verified in QEMU.
 
-Jonathan
+- Add 6/6: Check commit and flush errors during remount and unmount.
+  Re-check NInoDirty() after __ntfs_write_inode(). A failed remount is
+  rejected so unmount can retry; unmount failures are reported as warnings.
 
-> 
-> Thanks,
-> 
-> Jonathan
-> 
-> > 
-> > Changes since v3:
-> > - Patch 1: commit message expanded with the practical effect of the current
-> >   behaviour, the cost of propagating the error, and a description of the
-> >   recovery path that does not assume a particular regmap bus
-> >   implementation.  No code change.
-> > - Patch 2: unchanged.
-> > 
-> > Neither patch was reproduced on hardware; both were found by code
-> > inspection.  They were compile-tested with W=1 and checked with smatch.
-> > 
-> > Whether patch 1 is worth making is still a fair question - it trades a
-> > possible idle power leak that may be cleared by a later successful access
-> > for a runtime PM error state that needs an explicit reset.  The commit
-> > message spells that out; happy to drop it if you would rather not take
-> > that trade.
-> > 
-> > Linmao Li (2):
-> >   iio: imu: inv_icm42607: propagate runtime suspend errors
-> >   iio: imu: inv_icm42607: restore runtime PM on system resume errors
-> > 
-> >  .../iio/imu/inv_icm42607/inv_icm42607_core.c  | 38 ++++++++++++++-----
-> >  1 file changed, 29 insertions(+), 9 deletions(-)
-> > 
-> > 
-> > base-commit: 350d1fb9204b13c5f95e511e98b8bcb47574d425  
-> 
-> 
+
+Hongling Zeng (4):
+  ntfs: fix volume flag update races
+  ntfs: set the volume dirty bit unconditionally on metadata changes
+  ntfs: sync the volume dirty bit with the recorded error state
+  ntfs: persist the dirty state after the final put_super() commits
+
+ fs/ntfs/file.c   |  20 ++---
+ fs/ntfs/namei.c  |  24 ++----
+ fs/ntfs/ntfs.h   |   1 -
+ fs/ntfs/super.c  | 191 ++++++++++++++++++++++++++++++++++++-----------
+ fs/ntfs/volume.h |   4 +
+ 5 files changed, 171 insertions(+), 69 deletions(-)
+
+-- 
+2.25.1
 
