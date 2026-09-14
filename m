@@ -1,38 +1,38 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B0B24477E8;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9745447801;
 	Mon, 14 Sep 2026 11:58:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789387115; cv=none; b=eftL2deET1rC+ojlITx16DIBTM57dH6ytKltfRJVdhRPtcujNoSck6NvYYDf/rjC1nXOZ+ik+o7NbR9RKHp/MaQnMaGpUMknOP28ZvYVCqpdftWI1Y2sVmX5aooHLCqC8b/SvWtx48OCbE4iulXZz7ondEn47oJfKmktJ0a6QVw=
+	t=1789387115; cv=none; b=m8/zt2I1oCjbwoBvsyNRmi48x5iI0UfpLD4zdsb2mNXI9Eeak1wzsvUbTe4CYLO/viO1CNrTRAooZxjPwBLWcleC308g/tnCEcbCFJt4S7xCFlaghsl8NKUh1EKPw3+VI6Dp8Y3nbM8qIGGMQV8kJ+PcxoSSTdZ0AmlTNWnm5CA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789387115; c=relaxed/simple;
-	bh=O/2oOvoxSWzBEMPQaytRMBvL/lJdVIBZpLIZy6kRn3k=;
+	bh=43A1BM9waMG6ewhWBGIC1XAm5wq/Dw6qxwtteFBu24Q=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jTll85A4McPOvcAqdQUW/xy1AYKvQ8CDpqibySalRS4DRtiKeTYT/Nf/uKQwTUsBMRwX7QKQMLcI8XlRuETv8hZJ4uihqS7OZpzy/SFr7FrZ2Rx0mr2UPduiCTLfET9GrscioPdlM61r9X4g8WGg7JQtok7kwsnJg1a/56bo84I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=amHTyUQI; arc=none smtp.client-ip=148.251.105.195
+	 MIME-Version; b=k40XymISXjUVpg8vxmR8UlI/JeUuaZmPyXRq84wzbD6KHirdMUYaV/Z/UOmahSr273zNJ/vxurpWavb+U2B+j+m2lkYiYGBcPBhoc9KV60+L349yc+nUI6wWgz/sxY/+aHlKFQFK5qrYJ6wSVnupgopsnz61T/J4K9rieeXNCQ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=e4vOasTj; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="amHTyUQI"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="e4vOasTj"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1789387105;
-	bh=O/2oOvoxSWzBEMPQaytRMBvL/lJdVIBZpLIZy6kRn3k=;
+	s=mail; t=1789387107;
+	bh=43A1BM9waMG6ewhWBGIC1XAm5wq/Dw6qxwtteFBu24Q=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=amHTyUQIyfANJmuuKvrBWXKsZchtWHmQBNz9nJQGCfVG1q7WpXTvTsrH1Ys9Sobq3
-	 d6SvXw2eaKjD+sBWiqT7Ue6wAyLdfIAoAUlGAkIiuLItk321F6yXjT4GhcT41aAF0O
-	 pfrljZdDYTIyzGOrJgTd5ELAc/7RCzXVFGN/GsijlUc4JxrYA0lz1Do79Hm72/Y90s
-	 PCQbahdxWIQMgX1EEHurvEjWyjccL2vUvmd4R99sZWfoxk2Z4Q3VyJ9OKx4GzOhgYF
-	 Uy4iJJgpoHDCSvywtpVk3MMa6OLggIABxMm6CwRns40YH/vLlEl7u3kziBsSjnWnfM
-	 V0WSm/Wl2m6Bw==
+	b=e4vOasTjjkr4/uWCgiBteJ6MzltKrOp5EsBx6AP4CPwGt/ICF0RVjA9wIsnM6CyrD
+	 gYCSn9OX76Hig4wCTHZ7oh0J+F/7mtOq0BMLNYSvpqT0BZMFFlkEZlKeEPCeK06Y5H
+	 V4NwKtcHtglI8uB131eQeuaNXGMRzCRYD0bi3UP/h+Zl236DCJiOcupC99NBQWhK3Y
+	 QR/DzoMsbDEpINBoZnBY9CigMmdeUwVJxw/AkW+ce3bstblkn+NTfsCozIT9GcrIJ1
+	 hA+jrPWcecmr5i2CLJ9d9lOjB9ziVw2LtFhA9ZQSEjKr4qw/uEf/Zjdf5PBzXDm/Yv
+	 jv6aHaVbQeFnw==
 Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 6E3FA17E0FE2;
-	Mon, 14 Sep 2026 13:58:24 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 57DE017E091A;
+	Mon, 14 Sep 2026 13:58:26 +0200 (CEST)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: chunkuang.hu@kernel.org
 Cc: p.zabel@pengutronix.de,
@@ -54,10 +54,12 @@ Cc: p.zabel@pengutronix.de,
 	linux-arm-kernel@lists.infradead.org,
 	kernel@collabora.com,
 	justin.yeh@mediatek.com,
-	jason-jh.lin@mediatek.com
-Subject: [PATCH v7 10/13] drm/mediatek: mtk_dsi: Add support for MT8196
-Date: Mon, 14 Sep 2026 13:58:09 +0200
-Message-ID: <20260914115812.22751-11-angelogioacchino.delregno@collabora.com>
+	jason-jh.lin@mediatek.com,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	CK Hu <ck.hu@mediatek.com>
+Subject: [PATCH v7 12/13] dt-bindings: display: mediatek: wdma: Add compatibles for more SoCs
+Date: Mon, 14 Sep 2026 13:58:11 +0200
+Message-ID: <20260914115812.22751-13-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260914115812.22751-1-angelogioacchino.delregno@collabora.com>
 References: <20260914115812.22751-1-angelogioacchino.delregno@collabora.com>
@@ -69,125 +71,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add support for the new DSI IP found in the Kompanio Ultra MT8196
-SoC and its Dimensity and Genio variants.
+Multiple MediaTek SoCs have the Write DMA hardware in their Display
+Controller: add the missing compatibles for Dimensity 1200 (MT6893)
+and for Kompanio 500/520/820/1200 (MT8183/MT8186/MT8192/MT8195).
 
-Differently from the older DSI IPs, the one from MT8196 requires
-the initialization of all of the QoS parameters and can make use
-of a DSI SRAM reserved buffer (present also on older SoCs but not
-mandatory on those).
+Note that MT6893 is not compatible with MT8173 as it introduces
+support for destination addresses larger than 32 bits by adding
+one additional register for the upper 32 bits of the address.
 
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Reviewed-by: CK Hu <ck.hu@mediatek.com>
 Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
- drivers/gpu/drm/mediatek/mtk_drm_drv.c |  2 +
- drivers/gpu/drm/mediatek/mtk_dsi.c     | 67 ++++++++++++++++++++++++++
- 2 files changed, 69 insertions(+)
+ .../devicetree/bindings/display/mediatek/mediatek,wdma.yaml  | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.c b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-index 08f6be311dd1..aec8da072a41 100644
---- a/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-+++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-@@ -828,6 +828,8 @@ static const struct of_device_id mtk_ddp_comp_dt_ids[] = {
- 	  .data = (void *)MTK_DSI },
- 	{ .compatible = "mediatek,mt8189-dsi",
- 	  .data = (void *)MTK_DSI },
-+	{ .compatible = "mediatek,mt8196-dsi",
-+	  .data = (void *)MTK_DSI },
- 	{ }
- };
+diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,wdma.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,wdma.yaml
+index 97d052b0fb61..c3ed867d058d 100644
+--- a/Documentation/devicetree/bindings/display/mediatek/mediatek,wdma.yaml
++++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,wdma.yaml
+@@ -22,11 +22,16 @@ properties:
+   compatible:
+     oneOf:
+       - enum:
++          - mediatek,mt6893-disp-wdma
+           - mediatek,mt8173-disp-wdma
+       - items:
+           - enum:
+               - mediatek,mt6795-disp-wdma
+               - mediatek,mt8167-disp-wdma
++              - mediatek,mt8183-disp-wdma
++              - mediatek,mt8186-disp-wdma
++              - mediatek,mt8192-disp-wdma
++              - mediatek,mt8195-disp-wdma
+           - const: mediatek,mt8173-disp-wdma
  
-diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediatek/mtk_dsi.c
-index 16bf08bee38e..d930cb3c4d74 100644
---- a/drivers/gpu/drm/mediatek/mtk_dsi.c
-+++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
-@@ -373,6 +373,59 @@ static const u16 mtk_dsi_regs_mt8186[DSI_ADV_REG_MAX] = {
- 	[DSI_CMDQ] = 0xd00,
- };
- 
-+static const u16 mtk_dsi_regs_main_v2[DSI_MAIN_REG_MAX] = {
-+	[DSI_START] = 0x00,
-+	[DSI_INTEN] = 0x08,
-+	[DSI_INTSTA] = 0x0c,
-+	[DSI_CON_CTRL] = 0x30,
-+	[DSI_MODE_CTRL] = 0x34,
-+	[DSI_TXRX_CTRL] = 0x38,
-+	[DSI_PSCTRL] = 0x3c,
-+	[DSI_VSA_NL] = 0x60,
-+	[DSI_VBP_NL] = 0x64,
-+	[DSI_VFP_NL] = 0x68,
-+	[DSI_VACT_NL] = 0x6c,
-+	[DSI_SIZE_CON] = 0x2c,
-+	[DSI_HSA_WC] = 0x80,
-+	[DSI_HBP_WC] = 0x84,
-+	[DSI_HFP_WC] = 0x88,
-+	[DSI_CMDQ_SIZE] = 0x44,
-+	[DSI_HSTX_CKL_WC] = 0x100,
-+	[DSI_RX_DATA0] = 0xa4,
-+	[DSI_RX_DATA1] = 0xa8,
-+	[DSI_RX_DATA2] = 0xac,
-+	[DSI_RX_DATA3] = 0xb0,
-+	[DSI_RACK] = 0xb4,
-+	[DSI_PHY_LCCON] = 0x7d0,
-+	[DSI_PHY_LD0CON] = 0x7d4,
-+	[DSI_PHY_TIMECON0] = 0x600,
-+	[DSI_PHY_TIMECON1] = 0x604,
-+	[DSI_PHY_TIMECON2] = 0x608,
-+	[DSI_PHY_TIMECON3] = 0x60c,
-+};
-+
-+static const u16 mtk_dsi_regs_qos_v2[DSI_QOS_REG_MAX] = {
-+	[DSI_QOS_BUF_CON0] = 0x300,
-+	[DSI_QOS_BUF_CON1] = 0x304,
-+	[DSI_QOS_TX_BUF_RW_TIMES] = 0x310,
-+	[DSI_QOS_SODI_HIGH] = 0x314,
-+	[DSI_QOS_SODI_LOW] = 0x318,
-+	[DSI_QOS_PREULTRA_HIGH] = 0x324,
-+	[DSI_QOS_PREULTRA_LOW] = 0x328,
-+	[DSI_QOS_ULTRA_HIGH] = 0x32c,
-+	[DSI_QOS_ULTRA_LOW] = 0x330,
-+	[DSI_QOS_URGENT_HIGH] = 0x334,
-+	[DSI_QOS_URGENT_LOW] = 0x338,
-+	[DSI_QOS_PREURGENT_HIGH] = 0x33c
-+};
-+
-+static const u16 mtk_dsi_regs_mt8196[DSI_ADV_REG_MAX] = {
-+	[DSI_VM_CMD_CON] = 0x110,
-+	[DSI_SHADOW_DEBUG] = 0xd0,
-+	[DSI_CMDQ] = 0x400,
-+	[DSI_VDE] = 0x3f8,
-+};
-+
- static inline struct mtk_dsi *bridge_to_dsi(struct drm_bridge *b)
- {
- 	return container_of(b, struct mtk_dsi, bridge);
-@@ -1743,6 +1796,19 @@ static const struct mtk_dsi_driver_data mt8189_dsi_driver_data = {
- 	.support_per_frame_lp = true,
- };
- 
-+static const struct mtk_dsi_driver_data mt8196_dsi_driver_data = {
-+	.reg_main = mtk_dsi_regs_main_v2,
-+	.reg_qos = mtk_dsi_regs_qos_v2,
-+	.reg_adv = mtk_dsi_regs_mt8196,
-+	.max_link_rate_mbps = 2000,
-+	.dsi_sram_bytes = 32,
-+	.pixels_per_iter = 2,
-+	.num_burst_lines = 8,
-+	.has_size_ctl = true,
-+	.cmdq_long_packet_ctl = true,
-+	.support_per_frame_lp = true,
-+};
-+
- static const struct of_device_id mtk_dsi_of_match[] = {
- 	{ .compatible = "mediatek,mt2701-dsi", .data = &mt2701_dsi_driver_data },
- 	{ .compatible = "mediatek,mt8167-dsi", .data = &mt2701_dsi_driver_data },
-@@ -1751,6 +1817,7 @@ static const struct of_device_id mtk_dsi_of_match[] = {
- 	{ .compatible = "mediatek,mt8186-dsi", .data = &mt8186_dsi_driver_data },
- 	{ .compatible = "mediatek,mt8188-dsi", .data = &mt8188_dsi_driver_data },
- 	{ .compatible = "mediatek,mt8189-dsi", .data = &mt8189_dsi_driver_data },
-+	{ .compatible = "mediatek,mt8196-dsi", .data = &mt8196_dsi_driver_data },
- 	{ /* sentinel */ }
- };
- MODULE_DEVICE_TABLE(of, mtk_dsi_of_match);
+   reg:
 -- 
 2.55.0
 
