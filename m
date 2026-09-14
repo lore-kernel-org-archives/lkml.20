@@ -1,191 +1,501 @@
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013065.outbound.protection.outlook.com [40.107.201.65])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57F08340406;
-	Mon, 14 Sep 2026 05:39:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.65
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789364364; cv=fail; b=EBWazsrQI71rqyGwQ1CkRriGlTps1ed9TaQyLmAENHGmSMSbW2Lxp4W77mCYd2WK5c5BVVl+YbTR9jLKY0nvgZayptLusOfSaHbjdSsOk1hSltWSBljcxJoIpe3eQXqFERIAlXEs63lqCnfsAUQFRpXr5z1fula2DNNhqJlhUMk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789364364; c=relaxed/simple;
-	bh=5XEFi1O/spZ7OGdJUNk430I94OiIeA1iu8mndvfmkoA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Y1fYgg9QSWuk0qrwn/HuksDGlkpKY//x/7zLZriJ07K35WjOklEn734gGjR6ga+5JRaClLMkCdVplMj2twKWhz7Hz9tg1ccN5d2LkyvTDolwz6iM7MHdA3nI7R+iCq7PqhUt5ISgmsp5v9eTWy0GY19blhEdDWzCX5IsHJJOqbs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=TCNduUTT; arc=fail smtp.client-ip=40.107.201.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C421D37998B
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 05:41:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789364493; cv=none; b=SdbbbK0PZzCBex3ffAMYH2hE//ExgQNmq8DN1+xR7is4/NVLy4Iiv+js4a8gTaCyZIob7Av1yIfoymJY8gc3k+ns3pnPlaDhPjIlZGyCJNheNeISCKEAAuPNbuBHsGHQqoeaVLxYKxKA09Cwov/nbm0fTpJcU/8BDH/lOdVYOH8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789364493; c=relaxed/simple;
+	bh=zRrIIpcVLrCXTBhieNQzI3EY0LrfmalLyUe+OYByE+o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Hyq+qD+6HJdXkRGLdeJ/I2aSlBK0WQyCXyMB1184JKjQ0h+Tb5vzKTxIUqOKLlRuVNK2KyXXIRKXkbLeunw+FueAntNtSuvrUI/q1WI6i4/QPoBJa/NqaTnBz8/S1SA7hWah4PJvx3PWvLa9sLCkniqybOmEXFtxdS+t7Z0VzQE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=FQ11WHIs; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=TpXolVqZ; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="TCNduUTT"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aYT6UX1wR3Dn55nAvzMx+fmHcEnsiV+tkUvEXGHGQ77neBT7r4rjar+M0IB0tBS4QRLOCxcBbEp3VfCwnrB+bDHuwrEFm2AJ5YTF7MaRrzsSSkYWpIhYKtKWPQ9iaBamPSS32MMtDS/AZPVbuQ55tOKuxIUfv5/f8VUdxg1nNSj0mRv9a0vgcXcDSPiEyTXK6jF23fbhfbWNhWqMlrqJHcYvHkHlwHpRCkLCVLwzNXMuWJV9Fl7CaBlV11gmGyrlmOXALAfhXGoLY9JJ1j0vr8Agm2EvyPJbg3EHnkWH1a8pYRUa8Qls9vFxAx/6PNC7BmrTG1F0m7/UlfWe0huijQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vju8Kajksj2hTe3/hdgTgsJK9wb4LtMwQ8vdB1Xbdy8=;
- b=bYjHeyT1qKCL3y07yac+HN4/7CoztLRVWbDsUOehdhkUtOWo1fnPdeoVaStBK5Ougc/kPRgvVduCZQNTPaxlZ7+iy1xu0BGEtya/ZYp/KZ84nrJFN1hhQjsBuWBSHjfaEZwN3ko43LlbKiYAh3fh6RCrcKKs+C5wezXurtzvNhLS3e2ZkQzO8y3S8kYdFILhE0xWwRPNriB3MEk7Ebm9shY+ZJJyMtc8M3L4y/ZYCpyHaU2sAjMQzzl3+eU2s/PEIEOTzkBY4o038EALbUI8SXdx45EYyOW7F4ozmcUS8aSOM69qDVJhCIrq29wQWYrR6DW0azCyLDb274PGjHB+CQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vju8Kajksj2hTe3/hdgTgsJK9wb4LtMwQ8vdB1Xbdy8=;
- b=TCNduUTT+vU62sK6qSObeSveDWG0xPtFiKAqShlUd+5CMJTJefOg70tBYs0qhRON8Y6QpLdRb+D1Qwl+UwyAGFBsoacgscC2jMo7u/5/uP4iN2aHXz+lGRlVWxpSeYDfY2W9p7ZW5tT2ft9tgyx90/yYSt7yGc4Or5h8XtycvO0hs+98NE4IM5FufXP0I++9feEXiaD8lmRAB9QrbIBV2i8C0q8YbrNIfVIndFs0bSzeGZzxrhnsUEexjdrsiBdTVtt7BQKDtaGUN5m/tPHab3NMTHQLMbd9tAegWlfqJGXbGjEfTYEqR3eVaDCd6J1CcceuI/BGBuizl66N3nP7TA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
- by BL1PR12MB5922.namprd12.prod.outlook.com (2603:10b6:208:399::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
- 2026 05:39:20 +0000
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017%5]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
- 05:39:20 +0000
-From: Mikko Perttunen <mperttunen@nvidia.com>
-To: Thierry Reding <thierry.reding@kernel.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Dmitry Osipenko <digetx@gmail.com>, Ulf Hansson <ulfh@kernel.org>,
- dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- linux-kernel@vger.kernel.org, Guangshuo Li <lgs201920130244@gmail.com>
-Cc: Guangshuo Li <lgs201920130244@gmail.com>, stable@vger.kernel.org
-Subject: Re: [PATCH] gpu: host1x: fix runtime PM reference leak on remove
-Date: Mon, 14 Sep 2026 14:39:16 +0900
-Message-ID: <UqvaHP03S_-FFGTtKijH0w@nvidia.com>
-In-Reply-To: <20260913120227.1559129-1-lgs201920130244@gmail.com>
-References: <20260913120227.1559129-1-lgs201920130244@gmail.com>
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
-X-ClientProxiedBy: TY4PR01CA0054.jpnprd01.prod.outlook.com
- (2603:1096:405:372::8) To SJ2PR12MB9161.namprd12.prod.outlook.com
- (2603:10b6:a03:566::20)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="FQ11WHIs";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="TpXolVqZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789364490;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=kgdK3ICiN0orAH3GszJk6qjZAUrdfwzdfyzN2L9vl84=;
+	b=FQ11WHIsUCkQuHs405ZGqNvB2/QCXV8gdRIR4Z7dsywkm1iK4+gheaJBBSajbA3/pEsVww
+	KoDIlKysR6of9LeUioXTyLys5sXlhCR9UAQUh1cZKLtD46Tx03qHQAv61KMhA9ne69zkMt
+	u4I9+kgp6ewbAuaCWeXxe11Vkc7+ObQ=
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com
+ [209.85.215.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-457-vcppfHs9NeeDemgQSdCTwQ-1; Mon, 14 Sep 2026 01:41:29 -0400
+X-MC-Unique: vcppfHs9NeeDemgQSdCTwQ-1
+X-Mimecast-MFC-AGG-ID: vcppfHs9NeeDemgQSdCTwQ_1789364488
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-ca8aee88725so4383427a12.3
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 22:41:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1789364488; x=1789969288; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kgdK3ICiN0orAH3GszJk6qjZAUrdfwzdfyzN2L9vl84=;
+        b=TpXolVqZRZZjYSNA1fdQWvVEzg6tZ+bEmGqWAtlK0ZROd5sywFNwxp3UFM8XcnoUbq
+         MWmqTFSzyIL1O/IrI+9hZktq0raCJkBZSeFczkuwS8ui6/n2TOzdv/mGSNa3FAI2WY5a
+         OS/F9/yHlMxcJZfFmCSO5Pmllh1SNRhS8ljAmb/d6n0ZJwH9Ejh8a8pDWSX2OPRYmQuD
+         j/VIHZBPs4N+f07TQ+k4xY5/sVydXrvmQuHI92ytiX2eSCsiBxVSPfEDH4uvjFyLI73X
+         YXVhBvxVRLsktXQeYk4sC9Us/1NCMgbo8FE4x1Gn+vjsckHwdK67VVLuOXy4Wgq21Kcb
+         QyBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789364488; x=1789969288;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kgdK3ICiN0orAH3GszJk6qjZAUrdfwzdfyzN2L9vl84=;
+        b=X+Jt3OW0mygg9ubgIqwWAoGgwmGkOqG+2aktUpnNO56qnl4FTFnYrGyrNYmsz+tCH7
+         uBTxMU6KyMKuk3z6aPRG2SmnBAQnO+YRh0dAwbBjvgctp7d+7MQgYbJxFf9JvbO4V1mh
+         GdQYPPyPAu88Ie3NRDlW72ZHccJzB0B6CxsB4I4+NCMfo8hIYpi7MNyz7p3p4tQQ7oi/
+         S0uU5DpVfKwZ8xlA5l1ff99INZ3Rt51YxVMnmaRYDwFLNrbw/F5ba+NKJq7DcUNyBuPL
+         zKoSKVIKfQ57cimneRSNma4w+LW1PjvlMGlwEHi2xwtQE1dT0JW/EQ6PRWO+3MAeew0Z
+         jZEA==
+X-Forwarded-Encrypted: i=1; AKwUvBz5eqwaVm+EHx/DprXG31g0Z61FvWGLPQ2FKgolIC9tT6hRNxLt+UB1uzU/56qOvJcQB4u94LJOgDBjwss=@vger.kernel.org
+X-Gm-Message-State: AFuF++lWN9xMPyKZI/iLz+Ln65gg4ayW0HOOwrMFOMxQMm20cuuLEusH
+	wmL7i/e0RnivuqkTBzC/bFaWiqYlmVCQLUUvLI7YAbkRorJQqhMhSS6AU+yoLVVgWHu0ebKTbRT
+	Mhslw1D0qD8TYTRxEU2QLL7UzuM2yS+rDays5mKVqFKn6gV/13N+c5F0fXcyIxc3G7A==
+X-Gm-Gg: AYBFou18oXbs0Th6m17bHRBpSPQpmpL3QbrlW9GzYVrbaoFhwtcmZUDex7vo0DbtWIt
+	xeRa80mphSaA3jdzi4RhV6ahZnp/6dIJeeGOCr+9tfimfxPdRoz3hVK75g3OY/kn9ok/MD/ecOZ
+	th3jjjMVyvk6LQXwz70iEMcHhheMryOnMAmiS+T+1dMyNlFHS7+P6dC1XXtf/afvgsylV+19YNr
+	FCJNwbGSfkvaHTrROnk8Z2mJeF7XEPe2+55wzVqT7Jnz7v5DPn+ZJjHe59+RPWD7hnql/N8+PaN
+	icDbC4qpQv1nzof31UJErNY5wU6RH0u8nlsp/bcK7fYgNoi4UukuBQlmPRdRc2tZzArWt4/6mxM
+	LtUGDZeIwjMLH2vWZewJBJbf8VbGu8urEZlhrqwOE/A==
+X-Received: by 2002:a05:6a00:35c8:b0:857:72ba:ff0d with SMTP id d2e1a72fcca58-86f85ce3d75mr3077525b3a.21.1789364487811;
+        Sun, 13 Sep 2026 22:41:27 -0700 (PDT)
+X-Received: by 2002:a05:6a00:35c8:b0:857:72ba:ff0d with SMTP id d2e1a72fcca58-86f85ce3d75mr3077468b3a.21.1789364487302;
+        Sun, 13 Sep 2026 22:41:27 -0700 (PDT)
+Received: from [192.168.68.52] (n175-34-8-244.mrk21.qld.optusnet.com.au. [175.34.8.244])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b286c49d2sm4061828b3a.10.2026.09.13.22.41.17
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 13 Sep 2026 22:41:26 -0700 (PDT)
+Message-ID: <b2fd288e-e0e7-49cc-b0cb-933fba501d79@redhat.com>
+Date: Mon, 14 Sep 2026 15:41:14 +1000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|BL1PR12MB5922:EE_
-X-MS-Office365-Filtering-Correlation-Id: 79911ef6-ea79-4755-9e8b-08df12228626
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|366016|376014|1800799024|10070799003|6133799003|22082099003|18002099003|10067099003|56012099006|11063799006|5023799004;
-X-Microsoft-Antispam-Message-Info:
-	boU/QaCehF7gttqwBhOfqolFJlGJ4/4mtloZSdNld8Gvls8OugaKRPQLZylOxTCYxEUF2R+x7OFY36fEe23Hpc0qMd+aXhJ4A3b7xxfTGS5BYYHzTbkYoVLAzSvROg6u3OYMvvqywDmHse6vd0FlATys54E7I1S0fajxHyLcGa47nmjAqlMGc/YEqjmLCwIlTS5lJfqCVv6DpkHCtuQ9LdvBfepey8n1q3AdFucV3TbWYz98U4LrbJjwzaT/to5Mz77vnP54qHP6crSTyt2zn9dMwWXoMnDMrORQmZhZ/OCsI20YZrFFN7bqy5B4Ue9L2OFEo4f3+8sLs3Q7t9F2p1Xb6kdDjOq9IDohtEb4DUsjpGudSm6MYthzTG80uMkHVrfsn8yqz18XXL0UniNeaGs6nXDJh0vq0VhxzOll7pZwaREjK/uhuru+sfrPxMtnx8ih7nuQzeIPvq1as5uzicLvW6ygd6uG0LG76odhMZkJ/U7e0VIhEle6qMugouswr/C7nmEzb1gpXpOzlOmtuW2rZ4z4Gej3S/WwNSouyKsBd2jKHmgRwqDLJSCdZpGUX3y+sdz2c/7U1zhDgiZIiVcQayw//atHTl+q5lvkbCDatFQECLhEcaDT6xGzB9P7sGDK1EFeq0e/k5YcT9/HenDqUPLY/T+bIeQuhghc6yo=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB9161.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(366016)(376014)(1800799024)(10070799003)(6133799003)(22082099003)(18002099003)(10067099003)(56012099006)(11063799006)(5023799004);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?OFdzZHdoRlI3MFpUWUhsay92WU1CN2JtR2J5Yk0wdzZtc3VGVHdCTWNYUjlu?=
- =?utf-8?B?TGtCUEU2YU9DTHZnQnVTdFJMNlZEaTBRZVBqN3A0RUZ5K2xsZjZxQVFRamEy?=
- =?utf-8?B?UnRSa1hVbFErNFJuaHFGV0c3ZGl2YlV3Y0xhWXU3OWVvc0ZndEVyWXRPRjc5?=
- =?utf-8?B?QnBJaGR1TzBNRVlad3UrWi9LQ3NPWUxEVVhacFNmaGtYV2toSmRFS3ZRSENB?=
- =?utf-8?B?OU9QdGcvT2VhZXd5NXpyT0xTS0tLbWdaRUs4TUN6azNQUHBWVk13WFhqckFr?=
- =?utf-8?B?SHQxS3Raa1ZQRC8yckhrcm4wNXNFSnZmZUJVZXNJL2cxbTFpK2lsVUtuWmZY?=
- =?utf-8?B?V00wUFVJZTRYM0ZKVlJDNFg5OVFTVHdLMFpQdFBuQUlnbVVHKzB6bHhSalIx?=
- =?utf-8?B?MXQydmNQbHpsNW9VU2ZOUTNlT0NPTGlxYUQ3TGJnOXpnbDJyVEtJL2ZGZXdv?=
- =?utf-8?B?ZkMwUGNTSXJNN1gzUGdYSHg4LzBKU2JHdlhUdjFQcFkvOE1LZkFTYVMxaGc0?=
- =?utf-8?B?ZjFaaUhRU3RXQkZ6OHdwS0F0aUZLT3RxRnFhbzYvNEI1dThqZkwrRjZ3SVVj?=
- =?utf-8?B?REpNMGNBWGdqdUxJbXVYZ3RLQTlBbDhNT0RTQVR6YVJpSVVJV3JqQlo2K1h2?=
- =?utf-8?B?YmtqRERFam54MTN3cElIZHR2RTJBajZSakU0N0NML24rSHBjKzN3VWNIVkpR?=
- =?utf-8?B?V2ZLQXIwOG42dVZPdVZDL3B2bmZQdkJ5NUozaGNkTTlYbE1XdzdzaUxnK0Z6?=
- =?utf-8?B?ZWI2QWphejM4Y3hxRWhhTTBDcUNaSDdUSzE1S2tsOXNQSWFQbW4wOTM0N1pB?=
- =?utf-8?B?cGRyK0I2c1NZNDVYZzVqSHNYb1ZLaUFITUVqSkpYOVVYUmVaTnNxUVBjcDY3?=
- =?utf-8?B?M0o4R3ZmREJPaTlIVHNHMmRQVHJvUmFOcDNrZ200VjBLc0hyUktFTXlSL3VC?=
- =?utf-8?B?ZGpqcUF6WThOb2ZFOFIvNnRzUS83WkFqZjUrRnRWWDA5d09jMWRwT0dFc3RC?=
- =?utf-8?B?VzJEWTQweENKZnV2cW4ySFVKKzhIWnNyQTk3N0syQzVHRHhGelEzN0NYQk9N?=
- =?utf-8?B?ZnF0bGRZYmZIRTdaUEc1K3JkSGM0UGJPTmEwSG1LMHhFMm9uN1IxTWFTWDZ3?=
- =?utf-8?B?cU5paDdqUENtWmRFM0JHb0RmcitRUGwvSTY2U3MyOC94NVJjdTVsamUyS2l3?=
- =?utf-8?B?dENlbk9KbFBCVUQxOUtFNHNKaEU3bEYxYlpZcG5aeGkxQ2VUS2U3c0RLQTBO?=
- =?utf-8?B?ZGM1eDk2eVoydDdLY0luVmt3OGNLd1lmdHRRYkwyUWkzSEl4dWtWUmw3eEFP?=
- =?utf-8?B?Y2tadFExMFRGSXhkQlVWWEpyckYrL3N0L20vQitCTlgzdFdUamJILzVsblpj?=
- =?utf-8?B?enl3WHU1a00wSExpZ01lTEhnRWNZaGozNzd3c3ZmN2ErWTRmK1cwOXdtVGp3?=
- =?utf-8?B?THBMM0ZsdjVJdzE5ZkQrQVVsYkRzTWhJbGs4SkNpSnNiRnBDRko3RU1IVmJa?=
- =?utf-8?B?aEkyNUNYRThNYlhtMloyL05acStMb2xXZ1hqSzdKaEE1RnlsZ1doVnFLbWVX?=
- =?utf-8?B?dXVndjd4WUNtMHFKaTQyRUpOVmtuaUhPaS9ma1dFYzZBdGVtRlUwdUIwbTNZ?=
- =?utf-8?B?cjdsMHVZS2ZTSDBWWWNDMGExaXh0aUVhRlQwejBOU3dNcmRDQjZMMUlrNjNx?=
- =?utf-8?B?MjdHU1U3Ri9OTHJXWjdXREczbFFaSHpkdUxWL3lSR3RYM2c2VW9tL0diakVG?=
- =?utf-8?B?ODlPNFZpYnN2NVhkZWsvb2VlaEsxQ3RhTlJCR3VLWlV0Z09HRE43ZURZbzRU?=
- =?utf-8?B?a053S2Qza01IMjF3YWJ0UWJSY29qTHJVRWxhSWdVYWFuSEhuRHNnS1VXNytp?=
- =?utf-8?B?Yk9meElmQ3o3dnJmMWE4RUN2aHlCK3liUUpmblpIYmxoekZkTVN4SHFpRFJp?=
- =?utf-8?B?ZzVUMWo4Qk5QbW9lbVBRR0haa2lsQkV1ZXdsdTFVN0NPKzAyYWwyTzVNY0t6?=
- =?utf-8?B?cEdEN0QyOVphZ1hERGpCd0JrME00aGZGMmZsaDVZdWlJU05yZnNSSS9keGJU?=
- =?utf-8?B?anBIL0lDRnp5RklvaGZlMVVsRWVNYUpPTW0zNE8xWVVlanZrbEViVWZheVo5?=
- =?utf-8?B?Z1lMSFUxSE5TUU03Q0p5ODdKbVJpNDJNY0RDTTN4MXpDTFl1VmpJVkw2aEU2?=
- =?utf-8?B?bHJkMlhQWDZoSmw0WkdCZyt4cVh3dUtqSFNJZjh6WmoyeVAxMEtRRzlRZ2tH?=
- =?utf-8?B?WmFzdUJjdERTOWRjWTlUcVZNalp6d1ZWVmFtQzJBbTdSZVlqaGRRUGl0aTcv?=
- =?utf-8?B?TDFOcFgyN0wxVTgvWkRzRERUcXRzTWQxQXZtNU9DdTR6NTJjM3RKbE5EMkUy?=
- =?utf-8?Q?WDf5lMdkNosZ1p1xF1dC2/XTZpn6M+hOjwydqbanhA/bY?=
-X-MS-Exchange-AntiSpam-MessageData-1: n+BEnA7XVENQtQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 79911ef6-ea79-4755-9e8b-08df12228626
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 05:39:19.9864
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: V37uBx6JTgmtXBh2OAfXCZv4Cz4y7vp7053GskPUg6Fhhn2nNgxJWquPGy8CoYrhSVAznkZd8jVL2ZQLBljbLw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5922
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v18 6/7] firmware: arm_rmm: Ensure the RMM has GPT entries
+ for memory
+To: Suzuki K Poulose <suzuki.poulose@arm.com>, kvm@vger.kernel.org,
+ kvmarm@lists.linux.dev
+Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
+ joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+ linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+ sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+ WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
+References: <20260912083611.2513845-1-suzuki.poulose@arm.com>
+ <20260912083611.2513845-7-suzuki.poulose@arm.com>
+Content-Language: en-US
+From: Gavin Shan <gshan@redhat.com>
+In-Reply-To: <20260912083611.2513845-7-suzuki.poulose@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sunday, September 13, 2026 9:02=E2=80=AFPM Guangshuo Li wrote:
-> host1x_probe() calls pm_runtime_resume_and_get() and intentionally keeps
-> the runtime PM usage reference for the lifetime of the driver because
-> host1x is not yet ready for dynamic runtime PM.
->=20
-> The probe error path drops this reference with
-> pm_runtime_put_sync_suspend(), but the remove path only calls
-> pm_runtime_force_suspend().
->=20
-> pm_runtime_force_suspend() disables runtime PM and invokes the runtime
-> suspend callback when necessary, but it does not decrement the runtime
-> PM usage counter. As a result, the reference acquired by
-> pm_runtime_resume_and_get() remains held after the driver is unbound.
-> Repeated bind and unbind cycles can therefore leave the runtime PM
-> usage counter increasingly unbalanced.
->=20
-> Drop the usage reference with pm_runtime_put_sync_suspend() before
-> forcing the device into suspend during removal.
->=20
-> This issue was found by manual code inspection.
->=20
-> Fixes: 6b6776e2ab8a ("gpu: host1x: Add initial runtime PM and OPP support=
-")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+On 9/12/26 6:36 PM, Suzuki K Poulose wrote:
+> From: Steven Price <steven.price@arm.com>
+> 
+> The RMM maintains the state of all the granules in the system to make
+> sure that the host is abiding by the rules. This state can be maintained
+> at different granularity, per page (TRACKING_FINE) or per region
+> (TRACKING_COARSE or TRACKING_INTERMEDIATE). The region size depends on the
+> underlying "RMI_GRANULE_SIZE". For a "coarse"/"intermediate" region, all pages
+> in the region must be of the same state, this implies we need to have "fine"
+> tracking for DRAM, so that we can delegate individual pages.
+> 
+> For now we only support a statically carved out memory for tracking
+> granules for the "fine" regions. This can be extended in the future to
+> allow modifying the tracking granularity and remove the need for a
+> static allocation by the firmware.
+> 
+> Similarly, the firmware may create L0 GPT entries describing the total
+> address space. But if we change the "PAS" (Physical Address Space) of a
+> granule, then the firmware may need to create L1 tables to track the PAS
+> at a finer granularity. Linux therefore checks if the platform firmware manages
+> the PAR region. i.e., the firmware is in charge of managing the L1 GPTs
+> (creation and the required memory for the GPT tables - via static carveouts)
+> without host intervention. Support for dynamic GPT creation by the host will be
+> added later.
+> 
+> If the firmware requires us to manage the tracking or GPT memory, Deactivate
+> the RMM and reclaim any memory donated at RMM activation.
+> 
+> Apply the same checks when hotplugged memory is brought online.
+> 
+> Signed-off-by: Steven Price <steven.price@arm.com>
+> [ Switch to RMI_GPT_L1_INFO for checking GPTs and deactivate RMM ]
+> Co-Developed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
 > ---
->  drivers/gpu/host1x/dev.c | 1 +
->  1 file changed, 1 insertion(+)
->=20
-> diff --git a/drivers/gpu/host1x/dev.c b/drivers/gpu/host1x/dev.c
-> index d2c64728f804..bb6a1647e4db 100644
-> --- a/drivers/gpu/host1x/dev.c
-> +++ b/drivers/gpu/host1x/dev.c
-> @@ -729,6 +729,7 @@ static void host1x_remove(struct platform_device *pde=
-v)
->  	host1x_unregister(host);
->  	host1x_debug_deinit(host);
-> =20
-> +	pm_runtime_put_sync_suspend(&pdev->dev);
->  	pm_runtime_force_suspend(&pdev->dev);
+>   Changes since v17:
+>       * Move wrappers that may not be used elsewhere, out of arm-rmi-cmds.h
+>   Changes since v16:
+>       * Check fine tracking and create L1 GPTs for hotplug-added memory.
+>       * Clarify the L1 GPT setup and move the explanatory comment.
+>       * Switch to using RMI_GPT_INFO command for checking the GPTs.
+>       * Deactivate the RMM and reclaim the memory if we can't proceed.
+>   Changes since v15:
+>       * Skip firmware-reserved NOMAP memory in rmi_init_metadata()
+>       * Handle negative error codes from wrappers.
+>   Changes since v14:
+>       * Move the implementation into drivers/firmware/arm_rmm.
+>   Changes since v13:
+>       * Moved out of KVM
+> ---
+>   drivers/firmware/arm_rmm/rmi.c | 200 +++++++++++++++++++++++++++++++++
+>   include/linux/arm-rmi-cmds.h   |   2 +
+>   2 files changed, 202 insertions(+)
+> 
+> diff --git a/drivers/firmware/arm_rmm/rmi.c b/drivers/firmware/arm_rmm/rmi.c
+> index ecc89e91d264d..583e1aca9b15a 100644
+> --- a/drivers/firmware/arm_rmm/rmi.c
+> +++ b/drivers/firmware/arm_rmm/rmi.c
+> @@ -5,12 +5,15 @@
+>   
+>   #include <linux/cpufeature.h>
+>   #include <linux/memblock.h>
+> +#include <linux/memory.h>
+>   #include <linux/arm-rmi-cmds.h>
+>   #include <linux/slab.h>
+>   
+>   #include <asm/memory.h>
+>   #include <asm/pgtable-hwdef.h>
+>   
+> +static bool arm64_rmi_is_available;
+> +
+>   /* Currently only the first 2 registers are used by Linux */
+>   #define RMI_FEAT_REG_COUNT	2
+>   static unsigned long rmi_feat_reg_cache[RMI_FEAT_REG_COUNT] __ro_after_init;
+> @@ -68,6 +71,69 @@ static inline long rmi_granule_range_undelegate(unsigned long base,
+>   	return ret;
+>   }
+>   
+> +/**
+> + * rmi_granule_tracking_get() - Get configuration of a Granule tracking region
+> + * @start: Base PA of the tracking region
+> + * @end: End of the PA region
+> + * @out_category: Memory category
+> + * @out_state: Tracking region state
+> + * @out_top: Top of the memory region
+> + *
+> + * Return: RMI return code
+> + */
+> +static inline int rmi_granule_tracking_get(unsigned long start,
+> +					   unsigned long end,
+> +					   unsigned long *out_category,
+> +					   unsigned long *out_state,
+> +					   unsigned long *out_top)
+> +{
+> +	struct arm_smccc_1_2_regs regs = {
+> +		SMC_RMI_GRANULE_TRACKING_GET, start, end,
+> +	};
+> +
+> +	rmi_smccc_invoke(&regs);
+> +
+> +	if (regs.a0 != RMI_SUCCESS)
+> +		return regs.a0;
+> +
+> +	if (out_category)
+> +		*out_category = regs.a1;
+> +	if (out_state)
+> +		*out_state = regs.a2;
+> +	if (out_top)
+> +		*out_top = regs.a3;
+> +
+> +	return RMI_SUCCESS;
+> +}
+> +
+> +/*
+> + * rmi_gpt_info - Query the GPT info for the given PAR.
+> + * @start: Base of the physical address region
+> + * @top: Top of the physical address region
+> + * @out_top: Top of the phyiscal address region for which
+> + *		the GPT @out_gpt_par_state is valid
+> + * @out_gpt_par_state: State of the GPT covered by [start, out_top)
+> + */
+> +static inline long rmi_gpt_info(unsigned long start, unsigned long end,
+> +				unsigned long *out_top,
+> +				unsigned long *out_gpt_par_state)
+> +{
+> +	struct arm_smccc_1_2_regs regs = {
+> +		SMC_RMI_GPT_INFO, start, end,
+> +	};
+> +
+> +	rmi_smccc_invoke(&regs);
+> +	if (regs.a0 != RMI_SUCCESS)
+> +		return regs.a0;
+> +
+> +	if (out_top)
+> +		*out_top = regs.a1;
+> +	if (out_gpt_par_state)
+> +		*out_gpt_par_state = regs.a2;
+> +
+> +	return RMI_SUCCESS;
+> +}
+> +
+>   /**
+>    * rmi_features() - Read feature register
+>    * @index: Feature register index
+> @@ -759,6 +825,124 @@ static int rmi_configure(void)
+>   	return ret;
+>   }
+>   
+> +/*
+> + * Make sure the area is tracked by RMM at FINE granularity.
+> + * We do not support changing the tracking yet.
+> + */
+> +static int rmi_verify_memory_tracking(phys_addr_t start, phys_addr_t end)
+> +{
+> +	while (start < end) {
+> +		unsigned long ret, category, state, next;
+> +
+> +		ret = rmi_granule_tracking_get(start, end, &category, &state, &next);
+> +		if (ret != RMI_SUCCESS)
+> +			return -ENOMEM;
+> +
+> +		if (state != RMI_TRACKING_FINE ||
+> +		    category != RMI_MEM_CATEGORY_CONVENTIONAL) {
+> +			/* TODO: Set granule tracking in this case */
+> +			pr_err("Granule tracking for region isn't fine/conventional: %llx-%lx\n",
+> +			       start, next);
+> +			return -ENODEV;
+> +		}
+> +		start = next;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
 
-After the pm_runtime_put_sync_suspend, the device should always be=20
-suspended, so I think we should also replace the call to=20
-pm_runtime_force_suspend with a pm_runtime_disable.
+I would suggest to drop rmi_granule_tracking_get() by combining its logics into
+rmi_verify_memory_tracking().
 
-Thank you!
-Mikko
+/*
+  * Make sure the area is tracked by RMM at FINE granularity.
+  * We do not support changing the tracking yet.
+  */
+static int rmi_verify_memory_tracking(phys_addr_t start, phys_addr_t end)
+{
+         struct arm_smccc_1_2_regs args;
 
-> =20
->  	host1x_intr_deinit(host);
-> --=20
-> 2.43.0
->=20
->=20
+         while (start < end) {
+                 args.a0 = SMC_RMI_GRANULE_TRACKING_GET;
+                 args.a1 = start;
+                 args.a2 = end;
+                 rmi_smccc_invoke(&args);
 
+                 if (args.a0 != RMI_SUCCESS)
+                         return -ENOMEM;
 
+                 if (args.a1 != RMI_MEM_CATEGORY_CONVENTIONAL ||
+                     args.a2 != RMI_TRACKING_FINE) {
+                         /* TODO: Set granule tracking in this case */
+                         pr_err("Granule tracking for region isn't fine/conventional: %llx-%lx\n",
+                                 start, args.a3);
+                         return -ENODEV;
+                 }
 
+                 start = args.a3;
+         }
+
+         return 0;
+}
+
+> +/*
+> + * We do not support creating L1 GPTs yet. So, make sure that
+> + * all the regions are managed by the firmware.
+> + */
+> +static int rmi_verify_gpt_firmware_managed(phys_addr_t start, phys_addr_t end)
+> +{
+> +	unsigned long l0gpt_sz;
+> +	unsigned long next, par_state;
+> +
+> +	l0gpt_sz = 1UL << (30 + FIELD_GET(RMI_FEATURE_REGISTER_1_L0GPTSZ,
+> +					  rmi_feat_reg(1)));
+> +	start = ALIGN_DOWN(start, l0gpt_sz);
+> +	end = ALIGN(end, l0gpt_sz);
+> +
+> +	while (start < end) {
+> +		long ret = rmi_gpt_info(start, end, &next, &par_state);
+> +
+> +		if (ret != RMI_SUCCESS)
+> +			return -ENOMEM;
+> +
+> +		if (par_state != RMI_GPT_PAR_PLAT) {
+> +			pr_err("GPT for the region is not managed by firmware %llx-%lx\n",
+> +				start, next);
+> +			return -ENOMEM;
+> +		}
+> +		start = next;
+> +	}
+> +
+> +	return 0;
+> +}
+
+I would suggest to drop rmi_gpt_info() by combining its logics into rmi_verify_gpt_firmware_managed().
+
+/*
+  * We do not support creating L1 GPTs yet. So, make sure that
+  * all the regions are managed by the firmware.
+  */
+static int rmi_verify_gpt_firmware_managed(phys_addr_t start, phys_addr_t end)
+{
+         struct arm_smccc_1_2_regs args;
+         unsigned long l0gpt_sz;
+
+         l0gpt_sz = 1UL << (30 + FIELD_GET(RMI_FEATURE_REGISTER_1_L0GPTSZ,
+                                           rmi_feat_reg(1)));
+         start = ALIGN_DOWN(start, l0gpt_sz);
+         end = ALIGN(end, l0gpt_sz);
+
+         while (start < end) {
+                 args.a0 = SMC_RMI_GPT_INFO;
+                 args.a1 = start;
+                 args.a2 = end;
+                 rmi_smccc_invoke(&args);
+                 if (args.a0 != RMI_SUCCESS)
+                         return -ENOMEM;
+
+                 if (args.a2 != RMI_GPT_PAR_PLAT) {
+                         pr_err("GPT for the region is not managed by firmware %llx-%lx\n",
+                                 start, args.a1);
+                         return -ENODEV;
+                 }
+
+                 start = args.a2;
+         }
+
+         return 0;
+}
+
+> +
+> +static int rmi_prepare_memory(phys_addr_t start, phys_addr_t end)
+> +{
+> +	int ret;
+> +
+> +	ret = rmi_verify_memory_tracking(start, end);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return rmi_verify_gpt_firmware_managed(start, end);
+> +}
+> +
+> +static int rmi_init_metadata(void)
+> +{
+> +	phys_addr_t start, end;
+> +	struct memblock_region *r;
+> +
+> +	for_each_mem_region(r) {
+> +		int ret;
+> +
+> +		/* Firmware-reserved NOMAP regions are not usable system RAM */
+> +		if (memblock_is_nomap(r))
+> +			continue;
+> +
+> +		start = memblock_region_memory_base_pfn(r) << PAGE_SHIFT;
+> +		end = memblock_region_memory_end_pfn(r) << PAGE_SHIFT;
+> +
+
+nit: unnecessary to covert the physical address (struct memblock_region::base and (base + size))
+to PFN and then convert PFN to physical address:
+
+		start = PAGE_ALIGN(r->base);
+		end = PAGE_ALIGN_DOWN(r->base + r->size);
+		if (start >= end)
+			continue;
+
+> +		ret = rmi_prepare_memory(start, end);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int rmi_memory_notifier(struct notifier_block *nb,
+> +			       unsigned long action, void *data)
+> +{
+> +	struct memory_notify *arg = data;
+> +	phys_addr_t start, end;
+> +	int ret;
+> +
+> +	if (action != MEM_GOING_ONLINE)
+> +		return NOTIFY_DONE;
+> +
+> +	start = PFN_PHYS(arg->start_pfn);
+> +	end = PFN_PHYS(arg->start_pfn + arg->nr_pages);
+> +	ret = rmi_prepare_memory(start, end);
+> +
+> +	return notifier_from_errno(ret);
+> +}
+> +
+> +static struct notifier_block rmi_memory_nb = {
+> +	.notifier_call = rmi_memory_notifier,
+> +};
+> +
+> +bool is_rmi_available(void)
+> +{
+> +	return arm64_rmi_is_available;
+> +}
+> +EXPORT_SYMBOL_GPL(is_rmi_available);
+> +
+>   static int __init arm64_init_rmi(void)
+>   {
+>   	int ret;
+> @@ -786,8 +970,24 @@ static int __init arm64_init_rmi(void)
+>   	if (ret) {
+>   		pr_err("RMM activate failed\n");
+>   		ret = ret < 0 ? ret : -ENXIO;
+> +		return ret;
+>   	}
+>   
+> +	ret = rmi_init_metadata();
+> +	if (ret)
+> +		goto out_deactivate;
+> +
+> +	ret = register_memory_notifier(&rmi_memory_nb);
+> +	if (ret)
+> +		goto out_deactivate;
+> +
+> +	arm64_rmi_is_available = true;
+> +	pr_info("RMI configured\n");
+> +
+> +	return 0;
+> +
+> +out_deactivate:
+> +	WARN_ON(rmi_sro_memxfer_cmd(sro, GFP_KERNEL, SMC_RMI_RMM_DEACTIVATE));
+>   	return ret;
+>   }
+>   
+> diff --git a/include/linux/arm-rmi-cmds.h b/include/linux/arm-rmi-cmds.h
+> index cd6e309ddf2d8..27a0c56944976 100644
+> --- a/include/linux/arm-rmi-cmds.h
+> +++ b/include/linux/arm-rmi-cmds.h
+> @@ -58,6 +58,8 @@ static inline int rmi_undelegate_page(phys_addr_t phys)
+>   	return rmi_undelegate_range(phys, PAGE_SIZE);
+>   }
+>   
+> +bool is_rmi_available(void);
+> +
+>   long rmi_sro_memxfer_execute(struct rmi_sro_state *sro, gfp_t gfp);
+>   void rmi_sro_free(struct rmi_sro_state *sro);
+>   long rmi_sro_execute(struct arm_smccc_1_2_regs *regs);
+
+Thanks,
+Gavin
 
