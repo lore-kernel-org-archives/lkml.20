@@ -1,332 +1,117 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D44C43CE65
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:40:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789382433; cv=none; b=rFxL3ER+Ugvow/M6/27ckuN6N6h+2eWlHacNuVcRt8vhjo6i8h6obt2RRSZ087hfyyp96chpBKVkZLHOEnTxRvUfDOJU4+/W3xOeUomem5wfZAuU8y4dNxTkCMV+/RSiab99irfueubonRU8NUHHwwICI2MV2pC6W1iEiVJK714=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789382433; c=relaxed/simple;
-	bh=RDhTYlZS7hi0tzcsCmfwGYPP0/Xl6nTD3N/EEYwrUxI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=WoU99MinFiglgD/r5QRPZGMcJaGfyNNrhgEbpdgbIDxkWt60Z7YIrHh3y1g5JCbSbO7L1m2ptcL9K5BDx5n13fvxJJXVyCOE+ARuRvbflPbkDLVkjI5K14Jsy+H6AsonZxF7tXgn3whFpO3wsHsWyGg+YfvlCz7FSC04Nq3rqOo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XBeLfT4r; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=T6LhdadN; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A37CF43CE70
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:40:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789382444; cv=pass; b=NAIHIT/QbMwHwP53A8Gs+FOf7bT2p/4Dh+KDdq+qFjdaosNeoLrlPuDNeYNOEXogzS0AbtMfvFbKx53vx1hj+s9OOqmnQBDhP7xxawitwv5JVe6qnE+W660x+rDC3J1LBlZfXOfyHswL74/DgG3dnvdq5sx7SYu868+JRhNrB8c=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789382444; c=relaxed/simple;
+	bh=CZXlPdTEAeBHj839T4HU9cpkm6eNyjon46e+njHBZo4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=JEG//lu09bCadzfXy/ODyzJlMuUqFelcRH1stPYVFF7h/DvG4HeP1fm38vnLcbWYOWrey7OcJeyT8AEkwNV3nudPDRmyWpzy87XG3v6ZLMDZVWQdrbrmkOJNu5GJOX5pHNdE4b6wC1I4VuPT4SUbDenXsZL5myJHoYbP92xPIU4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=e1tsi/ah; arc=pass smtp.client-ip=74.125.224.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XBeLfT4r";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="T6LhdadN"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68E9nalw773219
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:40:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=kmGKNQS/caVsWFVS0K6md8Yq/Ng3yDqp2+7
-	Su9CofKM=; b=XBeLfT4rdS5reL1zeWXMvc21OQKiUY64erkAmejdbqsJki3FCbp
-	wEcWilUOPLrSfDc5m3XeYd30WDmpgSyPD8S1rV7Ciip5ONNwlmPxlJ5nHWqY8ZoY
-	QR4cQXpLq9rVwWYpSqTpJtCDRwvC0o6JS3spf2JmnCRdPOlgnnbaJUF0gTUYJmxl
-	JN1DNuE8rLK/UxpRAa+HyNFHFYloO8lZS7x1b5irbSEv9g6aWWPRZ9AS9GCUAc+q
-	EvCuaD+SEcGB5mKaWrlkQkJyIi31/MjQfRTIpsJp90C/26+8XlwtSwGIlCPPn+uj
-	gXDtZjsdgDANlJgWHLh5Ix68IjrWinsHAQg==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpdevrdtc-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:40:29 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3965ba1ba3eso3857401a91.2
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 03:40:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="e1tsi/ah"
+Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66e4ab201ecso1480556d50.2
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 03:40:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789382441; cv=none;
+        d=google.com; s=arc-20260327;
+        b=AcX6mZlOiOLPVjt0kOjVxYq4Cmqae610uYLvTKffuAwZRTXqngEFnXzX2oPiHn0Krv
+         aAiRIQcldFY0uk2PnX9ZGhRUZ5xAJNx1YCD+Ch0AlbTKMvS47ubUL8Vq0GLzEThNVjgZ
+         PETdPTHxSsQL/299cOrkZrydE88kfP0sgL+u4oPigZ+SQ2gZHo5cAUWvmV3YYavalQ5S
+         44+1NNGJYUZKOu7jX49hzNXTmHxen0X5aYhVGZzAMWjeMPrflmnX+L+eEGeRX7/YXUGu
+         GeuviLEzJaiS09MybVURk308KvCFrRdRX3zA2KLy2Swb2LNNQ9RMfFTaFPvW5FfD++ys
+         hdzA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=CZXlPdTEAeBHj839T4HU9cpkm6eNyjon46e+njHBZo4=;
+        fh=sy3yfq8uIkDm/XdfMjV9Q/i2E1BMarTuqXmzQYg0AH4=;
+        b=mTTZcXGsT/alcYT0bP3QFwlBzeVlWehStK6UEsfNx6zm3dPMUlLp9PRsr0cZjlTZ8X
+         jiPurOKCehsqgB5nn0SAGcnKs/A3SAMHnW31dbjFfDgIqL9TtM144pcDFZrvJu2H1lcK
+         lNKQ/tzJgccsNdNBFASRTNzlV+SRH4wI+21eYSiABGiMygzGJ1+N4TVgUY8qcpYterMt
+         iMsl4b9AHcQyDU+Wys3mcJk6SEsQfR4nLHxkFVFROuNE+PSRx2MXDNpFYkjxNcUj9FSQ
+         kHANEmS3uf84pNsNq5ekiyDCCNSgkWQJP4k1Pon/K2EOzuagBD4WqxcECEErjTPFkKKY
+         wyzQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789382428; x=1789987228; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kmGKNQS/caVsWFVS0K6md8Yq/Ng3yDqp2+7Su9CofKM=;
-        b=T6LhdadNvO83xUtbaTBQbMk2uFXKndbDHCQyQYjWsEpivm6QS1bWOreHZVFdX6d6Jy
-         LQv7mKQZcQr7Rphg0KeDgmco0KevUeELHOSpXIOx5iGLqi6fe+DNNihKZr+QvFNyyD5c
-         J82ubHdpj00TSkSneEf9gmybN5ukHWUtNj8+mnWERBUbZB0Mw8Ka9rDeCNw3Ro1xh92M
-         3Q2L4vbzmjVO14eVgDGemAUF8zUxkqdaCO0LjPrHKcrtis/1UVu/YzM3BZOG2g1GXTq4
-         EYMsGLjdiUcLLD2J1ptja+MjMf8j+ao+dcI9Vkqk++ljIoZTpSzcttXkxF5ZlpAai6X+
-         VN5A==
+        d=googlemail.com; s=20251104; t=1789382441; x=1789987241; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=CZXlPdTEAeBHj839T4HU9cpkm6eNyjon46e+njHBZo4=;
+        b=e1tsi/ah4235p451Eyger3ojtmEj/bcXqVdT40mibRJK5AcoqilOqakPl0B+bROf/j
+         O1z0NrlB6ocOniBPPZbHxk/+vVtDIL41S2hF89+z9i1Dhgq//EB89Q/wn2dkf+IubXOe
+         LXxJOrAtoLmslpWhldoPU25R4MDjJGMUoOcHPrjKes7jSXZCLeLQWwrQNhHghpJiv3gM
+         6mCtFghKXPgmreIHQjvojoxs85YpJl9iHTGhH7MSFbn4Kj2Roi2EXvmfylYND6HuCBa/
+         63hs/Lv1DomWkWeer9xmJgEKIwN/WvTvXM2BsES07hKwOlX6BtErUnmpxhTUO5AwuYpE
+         6drw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789382428; x=1789987228;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kmGKNQS/caVsWFVS0K6md8Yq/Ng3yDqp2+7Su9CofKM=;
-        b=mvgRnTfMO2UKkH34fngSL07VtYPfOw+p04n1g0w0GY1w2S44V6l3v7936yUXk+zo3b
-         iLBnrexNaCfZyahE0w+feuhFPRHF89xPBXgLktjAFeOiyKtGaBqfPqymA4yssBmXZeUr
-         AKliOStnaP7AumDacH19JZQxqDHYKL3Ii8StRRRycFKYjbv5mb6t3duecWMDGnXsALF9
-         s8NBASGLCCW/Dwy1h3YOt76DRNSC25Xein5E+WgkK00lg+WBQvgap9zNoGgmFnVhENeK
-         9WqOh4ccyxOZ81Y9PDFYtM1YPCKEROqGp3GN3dfHAoi/7A0IJfooZimCRuXMl+b9e5GC
-         yi2A==
-X-Forwarded-Encrypted: i=1; AKwUvBxHC2Y6bv1K//WJZ6+ZJ0tizlnnqmtGaktqTdM29jpc4avEiJj8gs6rPoQZ6L1CgS/XA+k6pxFFwFiwnLM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nX3jmUnJHcv2jhHVUuCOP1gLXrhkCkj1KUS7T3ZYzPFCGwOVju
-	2lsKMW0PBE61+sJK45e8wU6ouZ+e3CHHW2ccU5U0Xk0Zj50S9nDGC/hlnlYgWdryAMNz7e60WwF
-	v2jyOtxrOpjmDRQEx56O/RW+HrySGeDLOY2gabr+nvXtiF4xxkchYXInk2opC30x2PZs=
-X-Gm-Gg: AYBFou3kpf824Y/rj0w6GsL9Y8wdmjKSfHSB8SQpAu1TVL6wOV71h7Iiph9iXu1g9+y
-	wGkRC37P3VCZ2Ly+pHy3M9S0CeI0hPd3VvvqUMUYYWLPl14pK3gO5sStbBzQBCyqpmtzwpLaWgb
-	NI/F9n5X9mdoPvSZ+6hSNVmwQ7luOa8lJ+l9tCf+/iDSEgbHuRlZCiQg0FD9TIa5QsuBJxea15q
-	N89t7snoJ2MTUZj1ajwjk35iopRlIPj80oOQU+kHFSNINegaOfOFOJwLXOtaRl8n7Vvq2yRE6Ah
-	1eehtsDDoICo35lRg+CFpuLCFmLxXcZKYIm2Nx0TGTwmtok/c04mvfd8DmLv3LRk6i+lBHsupHW
-	ixgHtDSjmQSmOZvkt0tFGqA6HQigJZwew0L/ylP8q08YlgSKgi+Z0g4o2XHl5ftchy/BXfWz0
-X-Received: by 2002:a17:90b:590b:b0:39d:f720:c5a5 with SMTP id 98e67ed59e1d1-39df720d07bmr1003649a91.15.1789382428200;
-        Mon, 14 Sep 2026 03:40:28 -0700 (PDT)
-X-Received: by 2002:a17:90b:590b:b0:39d:f720:c5a5 with SMTP id 98e67ed59e1d1-39df720d07bmr1003519a91.15.1789382427491;
-        Mon, 14 Sep 2026 03:40:27 -0700 (PDT)
-Received: from QCOM-SocCW5bzXR.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39db996bde4sm14328042a91.7.2026.09.14.03.40.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 03:40:27 -0700 (PDT)
-From: Jianping Li <jianping.li@oss.qualcomm.com>
-To: Srinivas Kandagatla <srini@kernel.org>,
-        Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-Cc: Jianping Li <jianping.li@oss.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Sumit Semwal <sumit.semwal@linaro.org>,
-        =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-        Ling Xu <quic_lxu5@quicinc.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
-        linaro-mm-sig@lists.linaro.org, quic_chennak@quicinc.com,
-        stable@kernel.org
-Subject: [PATCH v4] misc: fastrpc: avoid duplicate DMA mappings in fastrpc_create_maps()
-Date: Mon, 14 Sep 2026 18:40:19 +0800
-Message-Id: <20260914104019.492-1-jianping.li@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
+        d=1e100.net; s=20251104; t=1789382441; x=1789987241;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CZXlPdTEAeBHj839T4HU9cpkm6eNyjon46e+njHBZo4=;
+        b=Sb3U1No/afIIGTTc378SCKXD20C2P4u+IFLwEAahAjFWm5ynTJafQFWhmoxLooohXW
+         ahHZLii2+aHPpUVIKGxEWi596djnxwp7rS4nr3oKVhiBHtmEY6EXgo+GNryMJAlu8zcR
+         B7eswWUYIxKKeLYU/JAkR4fRwn08egZO6z+U5ZAEu/KtwuDzg+NiQ5Pnid7eyjDw5jEP
+         ZbGJVu0qTS4P6QaGifGQFMBs7NFhznTCayuNznWyhOzSxOG7XdovlyTCZBUduIn9qTK7
+         3/taN7S1bzCRqN1Z8lwTZrqL/y1uNCCN9wrOQMs3lHEguYoQLuwdMbRMYhiPtXlxF+xI
+         M/pA==
+X-Forwarded-Encrypted: i=1; AKwUvByH7PVOYIXlxjHxi9Cgt3jbicJ0LatCIA0DCCeOr7SyENLr6ErtiNfskyDDEMH9dstTwL3cVj9wdRE4SOE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lXlasNrEL9i8ffmdFNTfo/tHv5JYY4te3Gk7Cv7/OrOsryJTp+
+	vbdeSLzyZkLoGIRPsdS73jBQJhFyt3nCVwYsKNPfsjF8Lt1II91vjp+Uyd5pjw4+fCmlSvgM3KR
+	bH05R+ZgXxY0YWLY73SbeQxbNxyerTPs=
+X-Gm-Gg: AYBFou0e3B+29CDvpQmXbSuqmdDgcJuaxLmjNu3fwFXotuFBvW4Ep9Fg4Q6o9K8YhEu
+	UiJyXVh7gpIANNtoxTzhi/n8+zkoFq15vpS9d8GK8AZuxCrbzMxyfyiNf8nq5+1UiargSGujRat
+	dPZJJ+M/Gmjl+8vyDMY3AYr19eyCp5FBc9hgia6Cwd5KT9BqkzblEnV21+088qQwuXtJcMokGvI
+	FdcWpNw/AOIOX2xEIy8qmJuhdlZil7T0pZR7FNRHGbEEdTt36VIaC9X2C6lzBUQ2OtZQpgG0vKy
+	36IMOtfP4aI/isQWENQnphLouhpQstdEv3madZvFKYfBzkfxs7/TCoC4fSIBwbN/lGNFj4C4qaD
+	Yc+R2qxAX0NKyzgMCjlgZc66C
+X-Received: by 2002:a05:690e:144f:b0:671:1bc2:7f83 with SMTP id
+ 956f58d0204a3-6714e19664emr414645d50.75.1789382441505; Mon, 14 Sep 2026
+ 03:40:41 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: _ivrY-awGRoODR2gG2z79zpTkn6KCc_G
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDE1MiBTYWx0ZWRfX9ujbAMXPtEC7
- tn+8YOKh3R7ca148FJSHkSHyHnwCWhIXD3ongOIMIi4Xd3BrUwd7z74KYLaz87OTTHKbpsrQgBW
- i3KsZGDkCj/BmbPmeKL2V2QOstG+o0Q=
-X-Proofpoint-GUID: _ivrY-awGRoODR2gG2z79zpTkn6KCc_G
-X-Authority-Analysis: v=2.4 cv=ftpJ914f c=1 sm=1 tr=0 ts=6aa7cf1d cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=jcsToSEUEPbHcpESBJIA:9 a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDE1MiBTYWx0ZWRfX8DlYOu2Inu86
- Rc/ds/OzuAl6s7vwP2jCB02woQ2hMSLcAGDVaC7IlV/5AaMoZujkBG/um71tGhMlpvCu4wP4jMX
- RplHTWtG+sNz7AJUt/bCEeJxKzXdXt3S31vuyILB0IpbDqWZyo3FopPlWr2klmUU7+6I5LrhU6N
- x7bpiwYS4ezQRNKoyN1jpzoBEjM+YiI3jLCfcm1aw82thsgShLKr/TrpgzdZoLO1rgMHPalivyT
- gvPVZPQaxiK6E+U1QAV+8H4Eql2O/wPaQQonJOnG/d25FnmiLwVSVu3SzY3BaIdGpBYe1w0nyd4
- zrYZ4sKFvJd8Rl7iAG/fBfbaYXFrx/07gV6jsm5Lkfi2F6TDMO9JD+s87XkVoM3hl74EBM0OftS
- T/2qrQ/XCC88qpQaL7RUHc8RrNdU9qjLUjfY4VSaS6xrfg6OJ8Srqyzh89gT4gyAL2si5YBxEmE
- WJyv62HjYlO2STMOBhQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-14_03,2026-09-13_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 clxscore=1015 phishscore=0 adultscore=0 impostorscore=0
- priorityscore=1501 malwarescore=0 spamscore=0 suspectscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609140152
+References: <20260914-a9-pwr-eth-v1-1-752005131135@amlogic.com>
+In-Reply-To: <20260914-a9-pwr-eth-v1-1-752005131135@amlogic.com>
+From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Date: Mon, 14 Sep 2026 12:40:30 +0200
+X-Gm-Features: AcwNN1WaZUZ01X5-U4jB8BOoolJJHZrM3FcxWuEUtBzFbxVHcUoB7XaLZqR-tLg
+Message-ID: <CAFBinCCgvMbM5zf8OXFhjNRWjDMTjAVPu_BBJf1GRKp7JPqk=A@mail.gmail.com>
+Subject: Re: [PATCH] pmdomain: amlogic: Keep Amlogic A9 ETH domain always on
+To: xianwei.zhao@amlogic.com
+Cc: Ulf Hansson <ulfh@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, linux-pm@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Qingpeng Yang <qingpeng.yang@amlogic.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-DMA handles passed as invoke arguments (scalars beyond nbufs) may refer
-to the same dma_buf fd as an input/output buffer argument. Taking an
-extra reference for such DMA handle maps leads to duplicate mappings and
-an unbalanced reference count, since DMA handle maps are released
-separately when the DSP returns the fd through the fdlist.
+On Mon, Sep 14, 2026 at 10:56=E2=80=AFAM Xianwei Zhao via B4 Relay
+<devnull+xianwei.zhao.amlogic.com@kernel.org> wrote:
+>
+> From: Qingpeng Yang <qingpeng.yang@amlogic.com>
+>
+> Mark the A9 ethernet power domain as always-on since it is required
+> for ethernet online wakeup and must not be powered down.
+Is "online wakeup" a wake up from suspend?
+If so: is the Ethernet controller listed with the "wakeup-source" flag
+in .dts{,i}?
+I'm wondering if the pmdomain and/or power (wakeup) frameworks in
+Linux have other ways of managing this case (e.g. only keeping the
+power domain active if needed).
 
-Fix this by not taking an extra reference for DMA handle arguments
-(take_ref = false) and tagging them with FASTRPC_MAP_DMA_HANDLE. As
-these maps are borrowed references, fastrpc_get_args() re-validates the
-map via fastrpc_map_lookup() before dereferencing it, so it is not used
-after being freed. fastrpc_put_args() only releases maps flagged as
-FASTRPC_MAP_DMA_HANDLE and clears the flag to guarantee the map is freed
-exactly once.
 
-Fixes: 10df039834f84 ("misc: fastrpc: Skip reference for DMA handles")
-Cc: stable@kernel.org
-Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
----
-Patch [v3]: https://lore.kernel.org/all/20260805060940.41414-1-jianping.li@oss.qualcomm.com/
-
-Changes in v4:
-- Do not expose FASTRPC_MAP_DMA_HANDLE through the uapi header. The flag
-  is only set and consumed by the driver, userspace never passes it as an
-  input flag, so define it privately in fastrpc.c instead. This also keeps
-  FASTRPC_MAP_MAX as the real upper bound of the uapi flags.
-- Drop the FASTRPC_MAP_DMA_HANDLE rejection in fastrpc_req_mem_map(): with
-  the flag no longer in the uapi, userspace cannot pass this value through
-  the MEM_MAP path, so the check is dead code. The commit message paragraph
-  describing it is removed as well.
-
-Changes in v3:
-- No functional changes.
-- fastrpc_put_args(): document that clearing map->flags without a lock
-  is safe because the DSP reports a given fd in the fdlist only once,
-  so no concurrent fastrpc_put_args() can race on the same map's flags.
-
-Changes in v2:
-- Rework the commit message to describe the DMA handle reference and
-  lifetime problem more precisely.
-- Introduce a new FASTRPC_MAP_DMA_HANDLE uapi flag and a 'flags' field
-  in struct fastrpc_map to explicitly tag DMA handle maps, instead of
-  relying only on the nbufs boundary / take_ref.
-- Plumb an mflags argument through fastrpc_map_create() and
-  fastrpc_map_attach() so DMA handle maps are tagged at creation time.
-- Re-validate the borrowed map in fastrpc_get_args() via
-  fastrpc_map_lookup() before dereferencing it, to avoid a
-  use-after-free when the map was created with take_ref = false.
-- In fastrpc_put_args(), only release maps tagged FASTRPC_MAP_DMA_HANDLE
-  and clear the flag afterwards, so such maps are freed exactly once.
-- Reject FASTRPC_MAP_DMA_HANDLE in fastrpc_req_mem_map(), since these
-  handles are already mapped implicitly during the remote invoke and
-  must not be mapped again through the explicit MEM_MAP path.
----
- drivers/misc/fastrpc.c | 56 +++++++++++++++++++++++++++++++-----------
- 1 file changed, 41 insertions(+), 15 deletions(-)
-
-diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index d4fac2caca86..58f27e271317 100644
---- a/drivers/misc/fastrpc.c
-+++ b/drivers/misc/fastrpc.c
-@@ -52,6 +52,9 @@
- #define FASTRPC_CTXID_SEQ_SHIFT	16
- #define FASTRPC_CTXID_SEQ_MASK	GENMASK_ULL(63, 16)
- 
-+/* Map the DMA handle in the invoke call for backward compatibility */
-+#define FASTRPC_MAP_DMA_HANDLE  0x20000
-+
- /*
-  * Newer DSP firmware implements a PD (Protection Domain) notification
-  * framework that sends PD state notifications upon request. The PD exit
-@@ -253,6 +256,7 @@ struct fastrpc_map {
- 	u64 len;
- 	u64 raddr;
- 	u32 attr;
-+	u32 flags;
- 	struct kref refcount;
- };
- 
-@@ -879,7 +883,7 @@ static dma_addr_t fastrpc_compute_dma_addr(struct fastrpc_user *fl, dma_addr_t s
- }
- 
- static int fastrpc_map_attach(struct fastrpc_user *fl, int fd,
--			      u64 len, u32 attr, struct fastrpc_map **ppmap)
-+			      u64 len, u32 attr, struct fastrpc_map **ppmap, int mflags)
- {
- 	struct fastrpc_session_ctx *sess = fl->sctx;
- 	struct fastrpc_map *map = NULL;
-@@ -896,6 +900,7 @@ static int fastrpc_map_attach(struct fastrpc_user *fl, int fd,
- 
- 	map->fl = fl;
- 	map->fd = fd;
-+	map->flags = mflags;
- 	map->buf = dma_buf_get(fd);
- 	if (IS_ERR(map->buf)) {
- 		err = PTR_ERR(map->buf);
-@@ -970,13 +975,13 @@ static int fastrpc_map_attach(struct fastrpc_user *fl, int fd,
- 	return err;
- }
- 
--static int fastrpc_map_create(struct fastrpc_user *fl, int fd,
--			      u64 len, u32 attr, struct fastrpc_map **ppmap)
-+static int fastrpc_map_create(struct fastrpc_user *fl, int fd, u64 len, u32 attr,
-+			      struct fastrpc_map **ppmap, bool take_ref, int mflags)
- {
--	if (!fastrpc_map_lookup(fl, fd, ppmap, true))
-+	if (!fastrpc_map_lookup(fl, fd, ppmap, take_ref))
- 		return 0;
- 
--	return fastrpc_map_attach(fl, fd, len, attr, ppmap);
-+	return fastrpc_map_attach(fl, fd, len, attr, ppmap, mflags);
- }
- 
- /*
-@@ -1047,23 +1052,25 @@ static int fastrpc_create_maps(struct fastrpc_invoke_ctx *ctx)
- 	int i, err;
- 
- 	for (i = 0; i < ctx->nscalars; ++i) {
-+		bool take_ref = i < ctx->nbufs;
-+		int mflags = 0;
- 
- 		if (ctx->args[i].fd == 0 || ctx->args[i].fd == -1 ||
- 		    ctx->args[i].length == 0)
- 			continue;
- 
--		if (i < ctx->nbufs)
--			err = fastrpc_map_create(ctx->fl, ctx->args[i].fd,
--				 ctx->args[i].length, ctx->args[i].attr, &ctx->maps[i]);
--		else
--			err = fastrpc_map_attach(ctx->fl, ctx->args[i].fd,
--				 ctx->args[i].length, ctx->args[i].attr, &ctx->maps[i]);
-+		/* Set the DMA handle mapping flag for DMA handles */
-+		if (i >= ctx->nbufs)
-+			mflags = FASTRPC_MAP_DMA_HANDLE;
-+
-+		err = fastrpc_map_create(ctx->fl, ctx->args[i].fd, ctx->args[i].length,
-+					 ctx->args[i].attr, &ctx->maps[i], take_ref, mflags);
- 		if (err) {
- 			dev_err(dev, "Error Creating map %d\n", err);
- 			return -EINVAL;
- 		}
--
- 	}
-+
- 	return 0;
- }
- 
-@@ -1195,6 +1202,16 @@ static int fastrpc_get_args(u32 kernel, struct fastrpc_invoke_ctx *ctx)
- 		list[i].num = ctx->args[i].length ? 1 : 0;
- 		list[i].pgidx = i;
- 		if (ctx->maps[i]) {
-+			/* It is possible that map is created with
-+			 * mflags FASTRPC_MAP_DMA_HANDLE and take_ref
-+			 * is false. Check if map still exists or is
-+			 * being freed as take_ref is false
-+			 */
-+			if (fastrpc_map_lookup(ctx->fl, ctx->args[i].fd,
-+					       &ctx->maps[i], false)) {
-+				ctx->maps[i] = NULL;
-+				return -EINVAL;
-+			}
- 			pages[i].addr = ctx->maps[i]->dma_addr;
- 			pages[i].size = ctx->maps[i]->size;
- 		}
-@@ -1244,8 +1261,17 @@ static int fastrpc_put_args(struct fastrpc_invoke_ctx *ctx,
- 	for (i = 0; i < FASTRPC_MAX_FDLIST; i++) {
- 		if (!fdlist[i])
- 			break;
--		if (!fastrpc_map_lookup(fl, (int)fdlist[i], &mmap, false))
-+		/*
-+		 * DMA handle maps are released when the DSP returns the corresponding fd in
-+		 * fdlist. The DSP is expected to return a specific fd only once in fdlist,
-+		 * so no two fastrpc_put_args() paths should clear the DMA_HANDLE flag for
-+		 * the same map concurrently.
-+		 */
-+		if (!fastrpc_map_lookup(fl, (int)fdlist[i], &mmap, false) &&
-+		    mmap->flags == FASTRPC_MAP_DMA_HANDLE) {
-+			mmap->flags = 0;
- 			fastrpc_map_put(mmap);
-+		}
- 	}
- 
- 	return ret;
-@@ -1621,7 +1647,7 @@ static int fastrpc_init_create_process(struct fastrpc_user *fl,
- 	fl->pd = USER_PD;
- 
- 	if (init.filelen && init.filefd) {
--		err = fastrpc_map_create(fl, init.filefd, init.filelen, 0, &map);
-+		err = fastrpc_map_create(fl, init.filefd, init.filelen, 0, &map, true, 0);
- 		if (err)
- 			goto err;
- 	}
-@@ -2244,7 +2270,7 @@ static int fastrpc_req_mem_map(struct fastrpc_user *fl, char __user *argp)
- 		return -EFAULT;
- 
- 	/* create SMMU mapping */
--	err = fastrpc_map_create(fl, req.fd, req.length, 0, &map);
-+	err = fastrpc_map_create(fl, req.fd, req.length, 0, &map, true, 0);
- 	if (err) {
- 		dev_err(dev, "failed to map buffer, fd = %d\n", req.fd);
- 		return err;
--- 
-2.43.0
-
+Best regards,
+Martin
