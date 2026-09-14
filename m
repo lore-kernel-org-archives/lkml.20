@@ -1,67 +1,136 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6253C3E0245;
-	Mon, 14 Sep 2026 17:13:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AFDD493D32
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 17:13:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789405997; cv=none; b=f3KrTqrFlf8sml4omc5hTkr4l7jNfxYzUiaGSIPKaozRfIy1FwtbaffGvZ9AxGV5ZR9fVfJIU5nDNWYGaoh0mjFwKWgTLB6uLvrckGaFnvKvZJJ1TcD8Ybeqo9kYN+f9OBhn2N8PwAvm6rD5aXVzSXE6GKp9GOHw+cXUD06fQBc=
+	t=1789406001; cv=none; b=rrsr+hD14Pw0ueu8PgF9D3BIYKYga3ZjUMN6hgMVwRwUhWFbfAG/B+/YiecKl+C7T078quF8RLaIllPQ6430oQjJuiQ9ARrXOQjoXPPVPjdl2ArvjhvJPU9j90hdCaTI2TP5Ib/o0k6f/APyQSYVYo1AoKKCxLoMqiiAYCN35Ag=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789405997; c=relaxed/simple;
-	bh=7w3ga8RDZTZh9nq0nX1AMJzLMMuPYHm6vv1VKLt9I+I=;
+	s=arc-20240116; t=1789406001; c=relaxed/simple;
+	bh=DWfd+OrYYBBAjoeKGlYddJuwoBUWlcnOVSA19p7gCPQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MctNmu6WqRaIhIXnMagbKXaDaFRk+1EVKkp7fzLSfqwkHGh/dOv378CPgpy0cfxyZ3kxQU8z/PfPBkWNNk2ldBGK8Ej4lBoyRJPYYRSZuwCqbVsy6IYEARyZai8qOtyraec5+1JURxqAL0UA9bSskgfJgWfihwRhSKhd3LNkfd8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=yMUzUgG8; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	 Content-Type:Content-Disposition:In-Reply-To; b=VgRYSDAdOhQbH66t6DbCpQEM8k6MoQspkEtsfsQL18qMkalibG9gIr5Evr9WCM7o/cQHZnlMdiKoexKkVDFDW/nQSL/SVCWvjmv4RfDASWscOP0fSjKifHxqAOY8CPW6xR/AuC6zBDndcDckGC7KnjGVj4tLc7CWtYNDAKRHyFA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MFRnhab0; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="yMUzUgG8"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=2OrWTkDAaq2ZS60WCcmaZJ0cvaeS8WVVM5bplKuJDVY=; b=yMUzUgG8tNvmakPvYdwEQ4BzK/
-	8XqyWcvzgRMHYg1JEyXFnniP2Y74PrFk/S2oYAgPjBCzIAdDnlMsALIFm3BTiK4vrQUJ8UpZBoSd2
-	tYgE7SWQzvI7P66plpJi6Vmw0I8F3n4yuV/6qvj0lMNLhD/5gnwIgE6ClnP8vIy6D9nE=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x6AEr-0057LP-Fg; Mon, 14 Sep 2026 19:13:05 +0200
-Date: Mon, 14 Sep 2026 19:13:05 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: khendry@reliablecontrols.com
-Cc: =?iso-8859-1?Q?Cl=E9ment_L=E9ger?= <clement.leger@bootlin.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	linux-renesas-soc@vger.kernel.org, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 1/2] net: pcs: rzn1-miic: Fix config array
- initialization
-Message-ID: <c2f3de30-4dea-458c-b9db-ce45aa3d1bbe@lunn.ch>
-References: <20260914-rzn1-miic-fix-array-v4-0-069112feec86@reliablecontrols.com>
- <20260914-rzn1-miic-fix-array-v4-1-069112feec86@reliablecontrols.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MFRnhab0"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49e78adf099so16629135e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:13:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789405997; x=1790010797; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=b+lHxHvQW6ptoO5MEGq5MTyGK+6vHvFuZMkZJq4Ndzc=;
+        b=MFRnhab0hntRf3ahIUL7wo8NO040OIvRogUEtdFVo5Nwzda2TxxX+GMt2UJpWJmWSu
+         Mzvfa2b+TAPy2v3XccD8smBuVpMu3aA8MnscuWlty7Vif266e0Qt2sHReOST2yhq0zBk
+         NKJwrOlBWXjWRm/jl7visdu6zMyfwDnPOW/HYfgxWuY+3zbY+EnptwdRNxqQHQCfedVH
+         kNkdmetUgF8RBD4bfBInEvRgFOfrK3s0X8MtuZETdqJbbBj5CIi/NNWtS25xK/JIGLno
+         VAg65NrBfqvdDs8n7vIxAsMaJdxkay2oAEaGI5sTu8rOJVDMVnWP/HMz2L+QStne0OGg
+         PvCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789405997; x=1790010797;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=b+lHxHvQW6ptoO5MEGq5MTyGK+6vHvFuZMkZJq4Ndzc=;
+        b=quomnKe2gyGzLFJ71nfIFozduJvD+SOuTkFzIrTIUHEkqUkOJkII1q2Ed/Vgj9KQ3y
+         C1LD5FkzQ8jbHUNLV5NxcTwvdrM42VjX5+eu4piVQLtgVqfBh1Vp5nS58FJiqFRNF08I
+         nL8EFyXscII9r2UjWHjfDR5n09eDanOAvC9dSA3PL+xLRDp5kC1+jZdjWozZWneycAoX
+         /EqWLhFYV5IiEeMg3eoiBrNRaCq8VTsw7pTHY2cGgssxTj+6aaltXjEWs2a99C3bCU/T
+         B92OgRqGpHF9SzLvGQUg5UFbR7OjhbqlfmR4N75uDVurOAyomArrgP40POwnkWotypT8
+         Us9g==
+X-Forwarded-Encrypted: i=1; AKwUvBxpY9lguVKgZ2lG4b6WK13nvDN4aptIYBnelJdV+Q/oW0/Ak+01rK0Sw2YvAMA9zR+2ygk+EFzN8v3mDU0=@vger.kernel.org
+X-Gm-Message-State: AFuF++m+7hxhkDSNUVqiarnRaejrfKqmGqy63oXFMX8AA86WK91NxJv3
+	/PURie64rdPMyNffp9WbqlYLt0ZrQMaWQCHIATedKrn6lUuEp/9tESFj
+X-Gm-Gg: AYBFou1XiCknUDPk1bU9Vwg+HwlFthRBxlioFKv8WZ9tjpIn1q2QCFuLMhMe4w9mKQy
+	ucku7Dj5GWoQp3i31rmTz90Hk91EjAV0CFOw+uzEBlGD+K0oRPRGI8i+B/Ngk5Z2MLSOTpfHXAS
+	UGCJ/zLpdrE39Eh2NiXq75krUEhXPMpw7JfX91Xqbq1cavMklQc/bkaF3cHo9uGvzVvtLbvLo5s
+	USnM+MZcxLSlxoQS5XgTfa/ZznMKYyeuo37qMmO3sA2OpDpBl9hnh8yf+3wsN1HtGcb+qlVh61F
+	aT6pdQWHwWTbL1a3+mnkh45hycjc6+JAZ0kIU2y5uJYRRv4E1BmBK54EUlIdqFJ3xAdHz1ZXek5
+	fMcnspEMFlHi0CJVNTgioef5D0KXwIc7QdvxTHydscRrADm8fN0FE0QFzHUQrvw97c8a7KsnnEi
+	VZt9T6gj+lDVXsty6PLZyEMRiFzG16TCew+GxgBpLbSHlTQmy1zkvvK0Q7lNUvSf5ZwcmRDWhzn
+	WpmXmA+gfScbhq19qnObpqP
+X-Received: by 2002:a05:600c:3585:b0:495:4d88:e630 with SMTP id 5b1f17b1804b1-49e7a64b723mr52892565e9.10.1789405996936;
+        Mon, 14 Sep 2026 10:13:16 -0700 (PDT)
+Received: from localhost (ip87-106-108-193.pbiaas.com. [87.106.108.193])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7d675a50sm6040645e9.9.2026.09.14.10.13.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 10:13:16 -0700 (PDT)
+Date: Mon, 14 Sep 2026 19:13:15 +0200
+From: =?iso-8859-1?Q?G=FCnther?= Noack <gnoack3000@gmail.com>
+To: Christopher Lusk <clusk@northecho.dev>
+Cc: =?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>,
+	=?iso-8859-1?Q?G=FCnther?= Noack <gnoack@google.com>,
+	Oleg Nesterov <oleg@redhat.com>, Jiri Slaby <jirislaby@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	Tahera Fahimi <fahimitahera@gmail.com>,
+	Paul Moore <paul@paul-moore.com>,
+	Casey Schaufler <casey@schaufler-ca.com>,
+	John Johansen <john.johansen@canonical.com>,
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org, linux-kselftest@vger.kernel.org
+Subject: Re: [RFC PATCH 0/2] Landlock signal scope and TIOCSIG
+Message-ID: <20260914.239dc75285d2@gnoack.org>
+References: <20260913221958.839429-1-clusk@northecho.dev>
+ <20260914.b8a029f9abb8@gnoack.org>
+ <20260914134013.1457130-1-clusk@northecho.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260914-rzn1-miic-fix-array-v4-1-069112feec86@reliablecontrols.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260914134013.1457130-1-clusk@northecho.dev>
 
-On Mon, Sep 14, 2026 at 09:41:00AM -0700, Kyle Hendry via B4 Relay wrote:
-> From: Kyle Hendry <khendry@reliablecontrols.com>
+Hello!
+
+On Mon, Sep 14, 2026 at 09:40:13AM -0400, Christopher Lusk wrote:
+> Your capability framing convinces me.  Controlling who may attach to (or
+> open a master for) the PTY is the right layer, and the master FD is best
+> thought of as the capability, the same way socketpair() is.
 > 
-> Fix memset parameters to initialize the entire DT value array
-> 
-> Fixes: f39e968dc168a7bd ("net: pcs: rzn1-miic: Move configuration data to SoC-specific struct")
-> Signed-off-by: Kyle Hendry <khendry@reliablecontrols.com>
+> You are also right that the series is incomplete as a fix: the same three
+> signals arrive through the n_tty control-character path (Ctrl-C / Ctrl-\ /
+> Ctrl-Z) that my patch does not touch, and PTYs additionally raise SIGWINCH,
+> SIGHUP and SIGCONT.  That reinforces your point rather than mine.  Chasing
+> individual signal-delivery paths inside the TTY layer is the wrong layer,
+> and a per-ioctl hook would only paper over one entry into a mechanism that
+> is working as designed.
+>
+> One question, mostly so I have the line right in my own notes rather than
+> to relitigate: how do you see this relative to the SIGIO/fowner path that
+> 4b80320ca7ed brought under SCOPE_SIGNAL?  My read of the distinction is
+> that in the SIGIO case the sandboxed process unilaterally selects the target
+> by arming the owner, whereas here the recipients have voluntarily attached
+> to the terminal and the TTY driver delivers job-control signals over that
+> attachment.  If that is the intended boundary, it is a clean one, and I am
+> happy to treat TTY-driven signals as outside the guarantee.
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+Yes, that is the difference why SIGIO had to be protected -- in the
+SIGIO case, it was the already landlocked process which could itself
+select the signal recipients through fcntl(fd, F_SETOWN, ...).
 
-    Andrew
+In the terminal case, it is the TTY-client-side processes that select
+which processes are attached to the terminal.  With the PTY master FD
+alone, it is not possible to signal processes that aren't already
+attached to the terminal.
+
+
+> If it is useful, I would be glad to send a small documentation patch making
+> that explicit: a note in the SCOPE_SIGNAL / IPC-scoping section of
+> landlock.rst that TTY-driver signal delivery (TIOCSIG and the
+> control-character path) is not mediated by SCOPE_SIGNAL, with the practical
+> guidance to control PTY attachment instead.  I will drop the task_kill
+> approach.
+
+Thank you, I would appreciate that!
+
+Thanks,
+–Günther
