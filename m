@@ -1,188 +1,306 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 808553FC5A1;
-	Mon, 14 Sep 2026 08:22:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C121A3ACA5F;
+	Mon, 14 Sep 2026 08:24:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789374141; cv=none; b=soN1g+9JBLCe16M2YKeLViuceL49uYNAIN9VWrdrNlQVFJwkunn08oOL8OS6tYS64IStZJBnrU7+Weu20gLSVxd9L23jqUk6cZas4PFu2gqKTqyhstbSo5M92Z9ygDzt6AbbJTXMdWCKrO39i134uk73b5ZUbosq0MaAIRJXr7s=
+	t=1789374248; cv=none; b=tIsTH9LSnYydiC5SZe7YgyY6Za7XCU0uBaOIN4uIpkjlMP9uUbRzpgRftedKVLb1FhFkalipe3C65n0OGL4oYQkRVk0LCeSJPD5zp01p6IefodwFWRlxa3GpnA/Lhd3Z/HErz5ym2ju7iBedQTX7ja75IISSN68+tw2mRWz8aW0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789374141; c=relaxed/simple;
-	bh=2x6G8Wp4QYVbrbwa17mOv38gkQwWsBwXD/mF/pokOYo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hMZDurMxV8ESoZx+xFXC9okp79sFwCSctQ3h7C/ubzUa5czzxV/+kA+qtA0hk+BLuTvI3OTgSr2yi5kLnrKLLm2/65zKS6voTR/b+V/xVnqf/A8Ey+hD/z60L9pwU6KLMMbDfEuPct0QIs0OGfzD8aKnq8SkYQj7SugDyZUt1x4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.20.42.102])
-	by gateway (Coremail) with SMTP id _____8Axj9G4rqdq1bsLAA--.34152S3;
-	Mon, 14 Sep 2026 16:22:16 +0800 (CST)
-Received: from [10.20.42.102] (unknown [10.20.42.102])
-	by front1 (Coremail) with SMTP id qMiowJCxPs+zrqdqWIYgAA--.4475S2;
-	Mon, 14 Sep 2026 16:22:14 +0800 (CST)
-Message-ID: <4ca28c4a-1a4d-4f12-b9c0-10f092e93a66@loongson.cn>
-Date: Mon, 14 Sep 2026 16:19:31 +0800
+	s=arc-20240116; t=1789374248; c=relaxed/simple;
+	bh=1EN0sfTP2jV+BTBHVUUZe3HcMSI08EFSlZ/aDPeVgmI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qJ9ZaFMCk8vPF1EqqqUr6oN1OFySBc5ysx90GMuHK6d6LLXT6bQOP+plFMu6akISbN0vd0BigXQd2GekvdgPHvKoiJe8aeGEHy5NXJk27OiObqLOh7eMKbTf4WklDjt6JxSGsA2MJKRxeWli+AwJamju0HJpLu1n7r0MQEmor8Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au; spf=pass smtp.mailfrom=gandalf.ozlabs.org; dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b=heP9bc6G; arc=none smtp.client-ip=150.107.74.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b="heP9bc6G"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=gibson.dropbear.id.au; s=202608; t=1789374221;
+	bh=MbZiupoKOkxDjxRAIZy0yrt2WskEO7oB9f/3ZPHaREc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=heP9bc6GI1qWb5drkow+Uy5xe5th16hFIlY6y1Ikxhd7YLXLMDw39yKrwHnjA9nny
+	 0S0XadkWHmQyocdwH1EsP/PBnaKjNwJl6BRWK1w+DDsOZrcpY7bWR1WfmWzEJxnqxv
+	 f3TdIYY9IeXdT8P0KkHA6WpZs7+gurrgktkUU9gJzcDE67jUGSQOBHMS/bhTuVjzmo
+	 +foA78LdWGEGbh7DG5lo2V9raVQyQXoOTwIBZwC7wSsyvSGYfBqZBloLsOav/BudsH
+	 cg/DZtDPs2stB4e/xqDb+ffX3w2/ywnJDBtaiviYdfJj6NcDVDcIPgEuJfDRA4kIga
+	 Y2p+ffncLDHiQ==
+Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
+	id 4hjypj51Mpz4wFC; Mon, 14 Sep 2026 18:23:41 +1000 (AEST)
+Date: Mon, 14 Sep 2026 18:23:49 +1000
+From: David Gibson <david@gibson.dropbear.id.au>
+To: Herve Codina <herve.codina@bootlin.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Ayush Singh <ayush@beagleboard.org>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
+	Hui Pu <hui.pu@gehealthcare.com>,
+	Ian Ray <ian.ray@gehealthcare.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Frank Li <Frank.Li@nxp.com>
+Subject: Re: [PATCH v3 08/15] flattree: Handle unknown tags
+Message-ID: <aqevEJ_VlBxYUp81@gractus.seuss>
+References: <20260826083146.304291-1-herve.codina@bootlin.com>
+ <20260826083146.304291-9-herve.codina@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 2/2] mfd: loongson-se: Fix miscellaneous issues
-To: Huacai Chen <chenhuacai@kernel.org>, Qunqin Zhao <zhaoqunqin@163.com>
-Cc: lee@kernel.org, linux-kernel@vger.kernel.org, loongarch@lists.linux.dev,
- linux-crypto@vger.kernel.org, mfd@lists.linux.dev
-References: <20260911090256.7834-1-zhaoqunqin@163.com>
- <20260911090256.7834-3-zhaoqunqin@163.com>
- <CAAhV-H4VEtZJAoYBz24=ab37fdpLL_kSS92vxMn61Rcq0C33aQ@mail.gmail.com>
-Content-Language: en-US
-From: Qunqin Zhao <zhaoqunqin@loongson.cn>
-In-Reply-To: <CAAhV-H4VEtZJAoYBz24=ab37fdpLL_kSS92vxMn61Rcq0C33aQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJCxPs+zrqdqWIYgAA--.4475S2
-X-CM-SenderInfo: 52kd01pxqtx0o6or00hjvr0hdfq/
-X-Coremail-Antispam: 1Uk129KBj93XoWxtFW5Cr17CrW8ur48WFWDKFX_yoW7Wr4DpF
-	Waka1Ykr4DJr4xuwnxX3W5uFya9395tr1UCa93tayUAr9Fyrn5WFy3KFyUua9rurWxtF12
-	qFWktFZ5uas8AagCm3ZEXasCq-sJn29KB7ZKAUJUUUU5529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUvYb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
-	xVW8Jr0_Cr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx
-	1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv
-	67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41l42xK82IYc2Ij64
-	vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_Jrv_JF1lx2IqxVAqx4xG
-	67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMI
-	IYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E
-	14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJV
-	W8JwCI42IY6I8E87Iv6xkF7I0E14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07j1WlkU
-	UUUU=
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="qW7FTkCa9t5Gj7Ua"
+Content-Disposition: inline
+In-Reply-To: <20260826083146.304291-9-herve.codina@bootlin.com>
+
+--qW7FTkCa9t5Gj7Ua
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Wed, Aug 26, 2026 at 10:31:39AM +0200, Herve Codina wrote:
+> The structured tag value definition introduced recently gives the
+> ability to ignore unknown tags without any error when they are read.
+>=20
+> Handle those structured tag.
+>=20
+> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
+> Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> Reviewed-by: Frank Li <Frank.Li@nxp.com>
+> ---
+>  flattree.c                                 | 65 ++++++++++++++++++++--
+>  tests/run_tests.sh                         |  5 ++
+>  tests/unknown_tags_can_skip.dtb.dts.expect | 19 +++++++
+>  3 files changed, 84 insertions(+), 5 deletions(-)
+>  create mode 100644 tests/unknown_tags_can_skip.dtb.dts.expect
+>=20
+> diff --git a/flattree.c b/flattree.c
+> index f3b698c1..88dbfa7e 100644
+> --- a/flattree.c
+> +++ b/flattree.c
+> @@ -579,7 +579,8 @@ static void flat_read_chunk(struct inbuf *inb, void *=
+p, int len)
+>  	if ((inb->ptr + len) > inb->limit)
+>  		die("Premature end of data parsing flat device tree\n");
+> =20
+> -	memcpy(p, inb->ptr, len);
+> +	if (p)
+> +		memcpy(p, inb->ptr, len);
+> =20
+>  	inb->ptr +=3D len;
+>  }
+> @@ -604,6 +605,61 @@ static void flat_realign(struct inbuf *inb, int alig=
+n)
+>  		die("Premature end of data parsing flat device tree\n");
+>  }
+> =20
+> +static bool flat_skip_unknown_tag(struct inbuf *inb, uint32_t tag)
+> +{
+> +	uint32_t lng;
+> +
+> +	if (!(tag & FDT_TAG_STRUCTURED) || !(tag & FDT_TAG_SKIP_SAFE))
+> +		return false;
+> +
+> +	switch (tag & FDT_TAG_DATA_MASK) {
+> +	case FDT_TAG_DATA_NONE:
+> +		break;
+> +
+> +	case FDT_TAG_DATA_1CELL:
+> +		flat_read_word(inb);
+> +		break;
+> +
+> +	case FDT_TAG_DATA_2CELLS:
+> +		flat_read_word(inb);
+> +		flat_read_word(inb);
+> +		break;
+> +
+> +	case FDT_TAG_DATA_VARLEN:
+> +		/* Get the length */
+> +		lng =3D flat_read_word(inb);
+
+I think it would be more natural to get the length as a single value,
+then have a common flat_read_chunk() and flat_realign() to consume it.
+That's for two reasons:
+ * Assuming we keep this length encoding, getting the final tag size
+   seems like it would make a useful helper function anyway.
+ * Using flat_read_word() is misleading - it implies it's integer data
+   where endianness matters.  In this case it's not - it's just some
+   bytes we're skipping over, we don't know the internal structure.
+
+> +
+> +		/* Skip the following length bytes */
+> +		flat_read_chunk(inb, NULL, lng);
+> +
+> +		flat_realign(inb, sizeof(uint32_t));
+> +		break;
+> +	}
+> +
+> +	return true;
+> +}
+> +
+> +static uint32_t flat_read_tag(struct inbuf *inb)
+> +{
+> +	uint32_t tag;
+> +
+> +	do {
+> +		tag =3D flat_read_word(inb);
+> +		switch (tag) {
+> +		case FDT_BEGIN_NODE:
+> +		case FDT_END_NODE:
+> +		case FDT_PROP:
+> +		case FDT_NOP:
+> +		case FDT_END:
+> +			return tag;
+> +		default:
+> +			break;
+> +		}
+> +	} while (flat_skip_unknown_tag(inb, tag));
+
+Having this as a separate function seems odd to me...
+
+> +	die("Cannot skip unknown tag 0x%08x\n", tag);
+> +}
+> +
+>  static const char *flat_read_string(struct inbuf *inb)
+>  {
+>  	int len =3D 0;
+> @@ -750,7 +806,7 @@ static struct node *unflatten_tree(struct inbuf *dtbu=
+f,
+>  		struct property *prop;
+>  		struct node *child;
+> =20
+> -		val =3D flat_read_word(dtbuf);
+> +		val =3D flat_read_tag(dtbuf);
+>  		switch (val) {
 
 
-在 2026/9/14 15:36, Huacai Chen 写道:
-> Hi, Qunqin,
->
-> On Fri, Sep 11, 2026 at 5:03 PM Qunqin Zhao <zhaoqunqin@163.com> wrote:
->> From: Qunqin Zhao <zhaoqunqin@loongson.cn>
->>
->> Address multiple historical driver issues discovered by the Sashiko
->> Automation system within the loongson_se_probe() initialization flow
->> and the driver's interrupt service routines [1].
->>
->> - Add an explicit bounds check in se_irq_handler() before accessing
->>   the engines array to prevent an out-of-bounds memory access.
->>
->> - Validate the id argument in loongson_se_init_engine() and reject
->>   engine 0, whose data buffer is reused for the command buffers of all
->>   other engines, to prevent out-of-bounds accesses and overlapping DMA
->>   buffers.
->>
->> - Switch from devm_kmalloc() to devm_kzalloc() and initialize all
->>   engine completion structures in probe(), dropping the redundant
->>   init_completion() in loongson_se_init_engine().
->>
->> - Introduce loongson_se_reinit_completion() to mask the target
->>   interrupt, clear any pending status, and reset the completion under
->>   dev_lock before a command is issued, then re-enable the interrupt
->>   under the same lock after the command has been triggered.  This
->>   closes the race where a stale interrupt from a previously
->>   interrupted command could complete the current command's completion.
->>   A new poll_lock serializes the trigger and poll busy-wait so
->>   interrupts are not disabled for up to 10 ms.
-> The locking of this driver is more and more complicated, I doubt
-> whether AI's review is really correct here. For me, the existing
-> locking code is just fine and simple.
+=2E. rather than having handling unknown tags as part of the default:
+case here.
 
-I'm not sure  whether disabling interrupts for 10 ms will cause kernel damage.
+>  		case FDT_PROP:
+>  			if (node->children)
+> @@ -905,14 +961,13 @@ struct dt_info *dt_from_blob(const char *fname)
+> =20
+>  	reservelist =3D flat_read_mem_reserve(&memresvbuf);
+> =20
+> -	val =3D flat_read_word(&dtbuf);
+> -
+> +	val =3D flat_read_tag(&dtbuf);
+>  	if (val !=3D FDT_BEGIN_NODE)
+>  		die("Device tree blob doesn't begin with FDT_BEGIN_NODE (begins with 0=
+x%08x)\n", val);
 
-Or keep the current lock and fix it if we actually run into problems? 
+Hmm.. doesn't this already need to be fixed to handle NOP tags before
+the root node?  Logically that change would go before this one.
 
-After all, this extreme case will not occur. In practical tests, polling 
+> =20
+>  	tree =3D unflatten_tree(&dtbuf, &strbuf, "", flags);
+> =20
+> -	val =3D flat_read_word(&dtbuf);
+> +	val =3D flat_read_tag(&dtbuf);
+>  	if (val !=3D FDT_END)
+>  		die("Device tree blob doesn't end with FDT_END\n");
 
-averages only a few microseconds, with the worst case under 1 ms.
+Likewise here for that matter, a NOP should be valid between the last
+FDT_END_NODE and the FDT_END.
 
-Thanks.
+> diff --git a/tests/run_tests.sh b/tests/run_tests.sh
+> index f3647e63..8fc23cb7 100755
+> --- a/tests/run_tests.sh
+> +++ b/tests/run_tests.sh
+> @@ -882,6 +882,11 @@ dtc_tests () {
+> =20
+>      # Tests for overlay/plugin generation
+>      dtc_overlay_tests
+> +
+> +    # Tests with "unknown tags"
+> +    run_dtc_test -I dtb -O dts -o unknown_tags_can_skip.dtb.dts unknown_=
+tags_can_skip.dtb
+> +    base_run_test check_diff unknown_tags_can_skip.dtb.dts "$SRCDIR/unkn=
+own_tags_can_skip.dtb.dts.expect"
 
->
-> Huacai
->
->> - Wait for controller command completion with a bounded
->>   non-interruptible wait so a pending signal cannot leave the
->>   controller running while its DMA buffers are being torn down, and a
->>   wedged controller cannot hang the kernel indefinitely.
->>
->> - Fix EPROBE_DEFER handling: propagate the error directly from
->>   platform_irq_count() instead of overwriting it with ENODEV so that
->>   probe deferral works when the interrupt provider is not yet ready.
->>
->> - Validate dmam_size from firmware against the minimum required size
->>   to keep the command buffers of all engines within engine 0's data
->>   region and prevent overlapping DMA buffers.
->>
->> - Return the error code from devm_request_irq() instead of silently
->>   continuing to prevent an indefinite hang.
->>
->> - Add a loongson_se_stop() cleanup handler registered with
->>   devm_add_action_or_reset() before loongson_se_init() so that a
->>   failed init still stops the controller and masks all interrupts via
->>   devres, preventing DMA access to freed memory.
->>
->> - Zero-initialize the local controller command structures in
->>   loongson_se_init() and loongson_se_init_engine() to prevent
->>   uninitialized stack data from being written to device registers.
->>
->> - Add the SE_CMD_STOP command definition.
->>
->> Link: https://lore.kernel.org/all/20260618095949.GB1672911@google.com/ [1]
->> Fixes: e551fa3159e3 ("mfd: Add support for Loongson Security Engine chip controller")
->> Signed-off-by: Qunqin Zhao <zhaoqunqin@loongson.cn>
->> ---
->>  drivers/mfd/loongson-se.c       | 112 ++++++++++++++++++++++++++++----
->>  include/linux/mfd/loongson-se.h |   1 +
->>  2 files changed, 102 insertions(+), 11 deletions(-)
->>
->> diff --git a/drivers/mfd/loongson-se.c b/drivers/mfd/loongson-se.c
->> index 7f552a8ee..18075d4fa 100644
->> --- a/drivers/mfd/loongson-se.c
->> +++ b/drivers/mfd/loongson-se.c
->> @@ -23,6 +23,8 @@
->>  struct loongson_se {
->>         void __iomem *base;
->>         spinlock_t dev_lock;
->> +       /* Synchronizes command submission between users of different engines */
->> +       spinlock_t poll_lock;
->>         struct completion cmd_completion;
->>
->>         void *dmam_base;
->> @@ -42,7 +44,7 @@ static int loongson_se_poll(struct loongson_se *se, u32 int_bit)
->>         u32 status;
->>         int err;
->>
->> -       spin_lock_irq(&se->dev_lock);
->> +       spin_lock(&se->poll_lock);
->>
->>         /* Notify the controller that the engine needs to be started */
->>         writel(int_bit, se->base + SE_L2SINT_SET);
->> @@ -52,17 +54,51 @@ static int loongson_se_poll(struct loongson_se *se, u32 int_bit)
->>                                                 !(status & int_bit),
->>                                                 1, LOONGSON_ENGINE_CMD_TIMEOUT_US);
->>
->> +       spin_unlock(&se->poll_lock);
->> +
->> +       spin_lock_irq(&se->dev_lock);
->> +       /*
->> +        * Re-enable the interrupt that loongson_se_reinit_completion() masked.
->> +        * The hardware guarantees that once the interrupt is re-enabled, only
->> +        * interrupts for the command just issued can arrive, so a stale
->> +        * interrupt from a previously interrupted command can never complete
->> +        * this command's completion.
->> +        */
->> +       writel(int_bit | readl(se->base + SE_S2LINT_EN), se->base + SE_S2LINT_EN);
->> +
->>         spin_unlock_irq(&se->dev_lock);
->>
->>         return err;
->>  }
->>
+It's best to avoid tests based on -O dts output unless we're
+explicitly checking -O dts behaviour: because there are multiple ways
+to format property values, the exact output isn't really guaranteed.
 
+What I'd suggest instead is to adjust treegen to generate two dtbs
+that are identical _except_ for the skippable tag.  Then you can use
+dtc -I dtb -O dtb, and compare the dtc output (which should strip the
+tag) against the dtb which was constructed without it in the first
+place.
+
+Or, rather than explicitly creating two new trees, you could make your
+skippable tag example identical to test_tree1, except for the
+additional tag, and re-use one of the other instances of test_tree1 as
+the "tagless" version.
+
+
+> +    run_wrap_error_test $DTC -I dtb -O dts -o unknown_tags_no_skip.dtb.d=
+ts unknown_tags_no_skip.dtb
+>  }
+> =20
+>  cmp_tests () {
+> diff --git a/tests/unknown_tags_can_skip.dtb.dts.expect b/tests/unknown_t=
+ags_can_skip.dtb.dts.expect
+> new file mode 100644
+> index 00000000..2194025b
+> --- /dev/null
+> +++ b/tests/unknown_tags_can_skip.dtb.dts.expect
+> @@ -0,0 +1,19 @@
+> +/dts-v1/;
+> +
+> +/ {
+> +	prop-int =3D <0x3201>;
+> +	prop-str =3D "abcd";
+> +
+> +	subnode1 {
+> +		prop-int =3D <0x6401 0x6402>;
+> +	};
+> +
+> +	subnode2 {
+> +		prop-int1 =3D <0x64020 0x64021>;
+> +		prop-int2 =3D <0x32022>;
+> +
+> +		subsubnode {
+> +			prop-bool;
+> +		};
+> +	};
+> +};
+> --=20
+> 2.55.0
+>=20
+>=20
+
+--=20
+David Gibson (he or they)	| I'll have my music baroque, and my code
+david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
+				| around.
+http://www.ozlabs.org/~dgibson
+
+--qW7FTkCa9t5Gj7Ua
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmqnrxAACgkQzQJF27ox
+2GdKSQ/+N49AYOl3m2eYQD0cuhHrLVWv6qh0oIHnlZbWk+BaY9oEz7MGylOoYelG
+xgGTLQPaMjn74q9fnNJ8jZQ156OTpjB0TSNze0RLgytbZFkNTHClbCs0iumc58jj
+S03Ks1wYltXhpgB+E/uawslp0BNVEO7Iztdrf5jmE/lVX9kWuG81JttzhVvO5mzB
+Dz7/JLEoYcMOzLZEAq1XLrhB6YO4HuWjWScbZyGx6ayJHo2MLlBkRpfzUqrziOvO
+4gALO9Sq/yc0aY7aq3EuP0HbO82pvde+dSKHnTqpQO+Qf4t18eCLCuI9LbhJJ59S
+KGQAwpmGB7GBB8rbmEC0hV/AQayPEeoBVfLyK2/91aADpbNaNrsm+Lw8Y2D9G3+D
+ILJrGf1DeEdvG4NGxm/YMPDPQB+2Z8Qwt72WF6UGLjWKZzQA//+tSQ0hWwh9sN+u
+ctVAcQWcWUVsFgupqvFe1Ohv4jETpXBHVf9XLbAonhYEPAgyidit8P+zGMT5HRAE
+Gm4VlOZITfnIUSS8uJsZcreaKu2RDeN+NYMLDhKU934gndtkCeFTmF3udZACbW1L
+UHmMbzSi5BFgLekbKCmP2N3bQgBMvolSJpS0ZqnBzK7CdfvyF/Lyoi/+IB8JNBgm
+2Znm0yvaqznzGxAGnUkiEBRsnDMfTRhW0YdFxTsTxncRalJldqU=
+=wLEW
+-----END PGP SIGNATURE-----
+
+--qW7FTkCa9t5Gj7Ua--
