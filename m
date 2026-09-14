@@ -1,134 +1,160 @@
-Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com [209.85.167.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DBDC47209A
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:16:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E6403D3CE3
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:16:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789391790; cv=none; b=KkAjzNPwrTe2UK1QpRnkpwAmkcjXyQESgwDzVeM7ifWcyMeUgTzFq4FbIQB1xO6ARo4vN3wEeiyi9U+lABSqtK8ZAywu2UocFqRpOKafrSLITLKAqWkbdx4TZhIOOw4tB1mej/80XEEiyTcyEP6zSAIdQPQMFAq3eiaNHkL0TYY=
+	t=1789391805; cv=none; b=RAN9yjDybqePLZ52O9tspnOg0ixjh8aoiTpRKAAv9xzfQkwP/TSmlbSIs7AQzKuLRPiTI32YfSpsMX10K9QnzaauS9HDBCNeoU6yMsMk6kFc/IJrFs65hizAnbJNabjvsIV2vjpjG2vPzaGXKeZSfGZq5ni0GhLPl4e0XFQjPAI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789391790; c=relaxed/simple;
-	bh=NeGXUXRLm7h5fh/tHrwMbiOXfb3fpgcGV2CwhD2kv9k=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=McbdF7+Oaod760VDoDQ7Cja2+bUoGDMMvGOrCoHypukK0tpQi//5Ic/rgZWacESd7GLnEgDT351KONhLM7wReh9NEW3ubELqVRO8PtA3HpxT1l4H9cU3b8Afz5oPrk7wElTE45ab2TS16yMFc0ygqkHCw5wrmNeM/ENjxmquHvM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LXgd+VsL; arc=none smtp.client-ip=209.85.167.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789391805; c=relaxed/simple;
+	bh=SwyJ6Y8S3qU0UjEMgBRYPLBY9KAqm7d5WriShE7GxSo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CHnUhhwuTekBjZSY961rLRmAeViF93l8rMnKF7alpvo7zwJniyG5i7uYGjfayNXZLPg8ZCr9U7/JA+UTTyeVeC1WQbw4cJIecc2JXuoYjcrsuIvLavGI1m32QPRaLKBt0zzf6L0qkFvNObIofllCW1HMW4wRzrdFqzORrJDJgBo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D1ns/Acl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LXgd+VsL"
-Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5b81a2d33f7so3025792e87.3
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:16:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789391786; x=1789996586; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oeNBUWeOKCT6NHcWHOZPhRDQedkHJaXnecAyw6p7kGQ=;
-        b=LXgd+VsL/LOGW3P9aWU7EnGXT7kMIFs0p0tMb30NFYPUEOY/185oYJacvp3AR+icYS
-         VlmbRymO47Zo+PXGEEDAWoJql4GBXGjJ3v+D57GAJzcQE87auu/hHZDuqVlWdzHa9AEP
-         1V3njdg7QPCqp8H/r9wNIciqvtPHtlAbxGuojY8PNnUNAroVPiu+cErJkCE3LfcTgh0D
-         wS6g9B2Ux1gnT66dtiykmn61Ds1QGXCAUiKpyQXpXtwPkYA1uPzuuGY7agMIU1nHQksm
-         3hcJSihUP/efiREpuDfWX5gRkB3lOrwVk9nLm66hgzasmPhMOTH6XYK95qQpmTE5xGYE
-         +AJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789391786; x=1789996586;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=oeNBUWeOKCT6NHcWHOZPhRDQedkHJaXnecAyw6p7kGQ=;
-        b=rxGRFls9RXtWaCusl7yGjvr7O9Ru8o4otmik6hoPclabzt73neneil89BrytW/tctm
-         wDjUuHF8DFoI3w2D66TMLbrwyVfzPtoJaI2adHt3s79SZvQDIb8L02yYi7HrA/BRwatG
-         0e6ECYQFD+syMW/0B8KH65iOKgJS1Eavd4A15lvufobcxXYrDBItKSG1Xos9GnwHe+39
-         ez7r6nEfm7MVI3qewF51eDz1Roet5x753gKBoYmk7+J5kjeL8Dq4vaANAoe60pV0eIYx
-         4yaq3+q0J630/6RtCUhlUmYkgNXVXaZsTSMKHrh2LtDn4UX+5S91JrDhQQtOcdjDUYsv
-         fWEA==
-X-Forwarded-Encrypted: i=1; AKwUvByg+x2u82vE7ptY/AitHmPXaeRnMxYdQxTMFs/GKFI43QfY8WS1wpQUNViffQ5j26z2GzGFhDSKEeg1gJA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mFw0L2zkOXkr1/Sd5+yvMFLxZglQgbAv6FWOyJZvYValD338/Z
-	P09yGowfZkVjxsgzTjc9zAY+PReqvF5l4xIUCmXog7edkwXztBs5xzkd
-X-Gm-Gg: AYBFou2yQuvGKxHEIiPZ3WH6LuqXcPWk+1aezt9Zh1rnC6YRl22qCw9ghqWSV1Shqlm
-	lPGNiH7kLP/JGgkO07jSZUY8HW+kf39TBv6wZ8zCuxI0Mgitph0qOCht6Vgv7MQsLN+vBQU7BGf
-	vEo7eRWn4ZxA75HvdLHK9JNIXAV+he9RHFs6aVuAc8sl4M404ita3n2i+TRi6Kq4GkBZUeHBacv
-	OJFINT9cwtfOq2yA2ip3daGdHQqTOPBVhr3wJK+j5Itm+7yz0pBAWS5PsLwFJfK1i7OL1M0CA23
-	vnVRKOOfO2uvfcBcJEgbjM8qBn/ePHPSDhGCqcWbD3TpJ4bkdfjnrgyrKQ9QibNI8Jj00mZ0k4x
-	no0JQWYZjb4HCV1p/IDh2rs8+Pa7sPJWdTz0WHNkT/BcD/sdxBfofblLD0wAZElVdL7DZP4iqqA
-	gFULUGcDtn/ONFftWQotkU+ANUdJDYcIOzMn1J7YdveMLee2ZzuADGJrWiECdG
-X-Received: by 2002:a05:6512:691:b0:5b7:6568:3039 with SMTP id 2adb3069b0e04-5b8ae6a7d32mr755913e87.60.1789391786099;
-        Mon, 14 Sep 2026 06:16:26 -0700 (PDT)
-Received: from glass ([81.25.57.180])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8a04804bfsm2423768e87.84.2026.09.14.06.16.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 06:16:25 -0700 (PDT)
-From: Andrey Starostin <ndrstrstn@gmail.com>
-To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-Cc: Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
-	Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Andrey Starostin <ndrstrstn@gmail.com>
-Subject: [PATCH] ASoC: amd: yc: Add DMI entry for Acer Extensa 215-23
-Date: Mon, 14 Sep 2026 16:16:10 +0300
-Message-ID: <20260914131610.46732-1-ndrstrstn@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D1ns/Acl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 596371F000FF;
+	Mon, 14 Sep 2026 13:16:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789391803;
+	bh=GBiUgvbmJL61I74QM9PSZC/060GcMY573CBk0CxwPMI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=D1ns/Acl8NlyCRfAMuWBdUlk9ePUqsUljWh5lM0l3HYkKNbt99m30YPVy3XXTB0X9
+	 g6QifLZRIQ55Gep84FzTXk+L9VwsWHjuH5uNzAtcDxgSMgbUoYFMjJ2fEKemqdKp0e
+	 32Q3xIJ0TpxMTJP0yJJGNiwIdY4eJKc+wkw84y/1drlSwMSYM4G8gpR4BWr7nksKmz
+	 uboaHlq1lPNdhJv25gZzpl/XDiVuaZYqok5NGNEYa+OMHNPMJYG4WN4i3dlxcbwQ5c
+	 QHL9/Z8evXRsbBQ3TRNDWEgr8AfvtxjYqzhl+Vn4asvB2Xsf4/2sdNodFsSNn6d3sC
+	 Xy18WgXGzq1nA==
+Message-ID: <a373d76c-6ff0-4ba7-895e-343eca9c564e@kernel.org>
+Date: Mon, 14 Sep 2026 15:16:33 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 05/16] mm/hugetlb: use direct assignment instead of
+ folio_change_private()
+To: Zi Yan <ziy@nvidia.com>, "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Muchun Song <muchun.song@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Gregory Price <gourry@gourry.net>, Ying Huang
+ <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Kairui Song <kasong@tencent.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Oscar Salvador <osalvador@suse.de>
+References: <20260913-remove-pg_private-v4-0-848550f7574e@nvidia.com>
+ <20260913-remove-pg_private-v4-5-848550f7574e@nvidia.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
+ dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
+ QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
+ XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
+ Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
+ PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
+ WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
+ UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
+ jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
+ B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
+ ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
+ AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
+ 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
+ g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
+ ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
+ 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
+ /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
+ jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
+ DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
+ HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
+ 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
+ LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
+ 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
+ VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
+ /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
+ iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
+ 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
+ zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
+ azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
+ FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
+ sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
+ 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
+ EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
+ IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
+ 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
+ Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
+ sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
+ yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
+ 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
+ r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
+ 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
+ CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
+ qIws/H2t
+In-Reply-To: <20260913-remove-pg_private-v4-5-848550f7574e@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The Acer Extensa 215-23 has an internal digital microphone connected to
-the AMD ACP6x audio coprocessor, but its BIOS does not expose the DMIC
-through ACPI (_WOV / AcpDmicConnected). acp6x_probe() therefore falls
-back to the DMI quirk table, finds no match and returns -ENODEV, so no
-DMIC sound card is created and the internal microphone is unusable.
+On 9/14/26 04:24, Zi Yan wrote:
+> folio_change_private() should be used along with folio_attach_private() and
+> folio_detach_private(), where adding and remove ->private content requires
+> folio refcount change. add_hugetlb_folio() simply sets folio->private to
+> NULL without refcount manipulation. Change it to direct assignment to avoid
+> semantic confusion.
+> 
+> It prepares for a future commit that remove PG_private.
 
-Add a DMI entry for this model.
+s/remove/removes/
 
-Assisted-by: LLM
-Signed-off-by: Andrey Starostin <ndrstrstn@gmail.com>
----
-Tested on the affected machine, running 7.2.3 with this change built as
-an out-of-tree module. Before: writing to the driver's "bind" attribute
-for acp_yc_mach.0 fails with -ENODEV and no DMIC card exists. After:
-"acp_yc_mach acp_yc_mach.0: Enabling ACP DMIC support via DMI", a card
-"acp6x" with "DMIC capture dmic-hifi-0" appears, and arecord/PipeWire
-capture live audio from the internal microphone. Speaker output via the
-HDA codec is unaffected.
+> 
+> No functional change intended.
+> 
+> Assisted-by: LLM
+> To: Muchun Song <muchun.song@linux.dev>
+> To: Oscar Salvador <osalvador@suse.de>
+> To: Andrew Morton <akpm@linux-foundation.org>
+> Cc: David Hildenbrand <david@kernel.org>
+> Cc: linux-mm@kvack.org
+> Cc: linux-kernel@vger.kernel.org
+> Acked-by: Usama Arif <usama.arif@linux.dev>
+> Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+> Signed-off-by: Zi Yan <ziy@nvidia.com>
+> ---
+>  mm/hugetlb.c | 7 ++-----
+>  1 file changed, 2 insertions(+), 5 deletions(-)
+> 
+> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+> index d3a0650ff6905..8d551cdaef9db 100644
+> --- a/mm/hugetlb.c
+> +++ b/mm/hugetlb.c
+> @@ -1446,11 +1446,8 @@ void add_hugetlb_folio(struct hstate *h, struct folio *folio,
+>  	}
+>  
+>  	__folio_set_hugetlb(folio);
+> -	folio_change_private(folio, NULL);
+> -	/*
+> -	 * We have to set hugetlb_vmemmap_optimized again as above
+> -	 * folio_change_private(folio, NULL) cleared it.
+> -	 */
+> +	/* Clear all folio->private flags except hugetlb_vmemmap_optimized. */
+> +	folio->private = NULL;
+>  	folio_set_hugetlb_vmemmap_optimized(folio);
+>  
+>  	arch_clear_hugetlb_flags(folio);
+> 
 
-DMI strings of the machine:
-  sys_vendor:      Acer
-  product_name:    Extensa 215-23
-  product_version: V1.18
-  board_vendor:    MDC
-  board_name:      HerbagEX_MDU
-  bios_version:    V1.18 (06/18/2024)
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Per Documentation/process/generated-content.rst: the diagnosis (HDA pin
-defaults, acp6x_probe() failure path) and this patch were produced with
-the help of an AI coding assistant (Claude); the change was reviewed and
-tested by me on the hardware.
-
- sound/soc/amd/yc/acp6x-mach.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
-index 385fede6d77f..246e18c66272 100644
---- a/sound/soc/amd/yc/acp6x-mach.c
-+++ b/sound/soc/amd/yc/acp6x-mach.c
-@@ -52,6 +52,13 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
- 			DMI_MATCH(DMI_PRODUCT_NAME, "Aspire AG14-22P"),
- 		}
- 	},
-+	{
-+		.driver_data = &acp6x_card,
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "Acer"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "Extensa 215-23"),
-+		}
-+	},
- 	{
- 		.driver_data = &acp6x_card,
- 		.matches = {
 -- 
-2.55.0
+Cheers,
 
+David
