@@ -1,177 +1,152 @@
-Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9C0F42A141
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:22:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789377780; cv=pass; b=b81oVx86FN8hk5JZGevHw034cvndjvAbOoQAtEzIMJcDn3q9ngCpZtMaI/AlXloE8XVobZ47iRCFpXyhzP/qknatM7t91CsenmVnIEoODQoBKzPBckDcSQ2e/fB3R/Je5qa6DYSpsOh/797K3rinlI/xxO8MMIKjEH2EIkAw8os=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789377780; c=relaxed/simple;
-	bh=OQIDM3IadPguqK9CTcDIpxeqUSPP28I07Cp1akqRRk8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=e19Z2tHLM2zCX1G8yqnl0D/NBTg4bdan92iFB2qrSbNx6/1ROedF6Mu++socVfcXVTA12imdMqJqqlI91pB4/9SsqIzOszRhqquOv6Z6w8GLpjRY7BrtYWgi07gHV8lks+L57F/o4scGMs6hu7a4aJ2ihPpQVePnKkKfiaUDLo8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gN9yXWj2; arc=pass smtp.client-ip=74.125.227.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C32B942A175;
+	Mon, 14 Sep 2026 09:23:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789377783; cv=none; b=S6o7+m09MKIS4uQ7MXVcy/lNSlkvf7kRo3l5ODkiG/a9r4QiIeLCPkt1GZf/BqAmQj63yjAmbudwJoe4X1h4knMEqwCokyllmhcQcjdDRwvFslJuAw50hkQgJVYIogjrgqAVy92LVP8vWlszrCPY/misHtjylan5U1xnRHdJJkA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789377783; c=relaxed/simple;
+	bh=EBlEnSGuCnJVwiujMjlFOqeFXEqyFnYzRW7W0NWQNRY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=gVgb62R9YF1AHCeBy5Uny8zYM6vAtlGNvlKWev18SDQWFsBV00swH9v5qbUACX7FC867/Jd2ZuUwE9egXclfZ3KxZVpGvQ5q3tc2EBuAUomqEjbKCzB0ZZBOs8oM/wwOk9jbFsP+sORkmboa2L6iYwwj95A/6Yo7jf7BrbYY8As=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h1YfuEEU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gN9yXWj2"
-Received: by mail-vs2-f12.google.com with SMTP id 71dfb90a1353d-5c7e8a176c1so813872e0c.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:22:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789377776; cv=none;
-        d=google.com; s=arc-20260327;
-        b=JBxfP5ih+4WfjMC2w1ydbwF+a67IFRW0zBzeLVeBYIlYpOnBHlkgzgKXUlRtZZVRoY
-         +/xto8WO7Alhw2kl1u0mpxlunQ8q+ve3Os6kEBXJQAdUKJCDKIqH9I8RwoHJY48uP3Au
-         E3NuCFwaCHqWDON1EcQUGveiKHTF6RfclB1K5kssjdqPRivkK9xcsOazDTgIJbvDazAj
-         NYiZeWUhvdB5MGnsdJHKFIWWR5TlTseFYJtUhPgHkZZQLm0Y2RuAGShyuUtfouVjNoSa
-         UEoMbLm612Ou3do/jVjxTQfHD4P1f1YNExjF6M6pBZpNjTS18nuxtXA1xRygMJcMrxey
-         iHMg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=l+fyavDdNifniiSGc7Q4VRxGCTufa+XKjYswJwqMKYc=;
-        fh=IeWArUP2oIa7obERNeo9NK6nMgnhF3L8AGGvXuX+6Ug=;
-        b=V1adHFpV572XAHboN+ow5Gc0iYcHZvMJIJpAuGskLgYpoYT0wNXusCnfrRrIl/gF6K
-         pJWshPRMsM32ZdmJ0DtcnaFYeNlBRpcZVV+mOtAzPAFwFVqXKNtdKHrSvX4uKlqlXEpI
-         rgZfS4Ky89OiFkctXRpOacosZXI7H3UYOZzUW3PqkAUOPjQwzi/n3hVhOp14RPMtyR28
-         kKg6GdZ/C1U9305u+LDijFXdzvGfOIqRP2FcWPWyh2d4YhqU09968zUI22kxv0mBYFDp
-         f50eB4UxcqR6dcUgGn4ko7tQRN1a9yTRsYs5OQJPCr/+ToA327XaI2PIvqdE4YJ3EE4+
-         zK3A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789377776; x=1789982576; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=l+fyavDdNifniiSGc7Q4VRxGCTufa+XKjYswJwqMKYc=;
-        b=gN9yXWj2NwLeAygJFikNXoAQYCoJ++oqeZ0Y5hC7wNvahvx3+BU6UIP8KB2Wd9G+ha
-         z+ppUR8y4ILjC4GZ+mhAqrXxcFu677LT5zmmzXqdmjjJ5v7PQCTFqPBGgjQUVfBOtHao
-         JqKeeHpxuHbQsGO3UmboepPwIDyzYXHN//94WiD+d9zzbwxgPrCmTyVXEFgF12CzZCrZ
-         eDsDH2CSNepnrpT0GZauLSwYMjN+wTiQo6bt0x9peP01nvXAUEGQE7Wg7ktK841UTmPr
-         3XKTHe8qOpa9lnfhV6DjIS1DQ45n9nRqZzHutlRG1bJZjgnR/+AXmcXORoxq2/kxsiXp
-         iNJw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789377776; x=1789982576;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=l+fyavDdNifniiSGc7Q4VRxGCTufa+XKjYswJwqMKYc=;
-        b=ORbz+6XmigiNq0eijiG2OuDbqo/cqoT6LhEux2Mdxwr+jygL82hWh8B8FtqG6MuM4C
-         J41zUXLNcnb1u6FKBGts8f35SqcAPQdeqFgXM+Jb4gEHess0QVTcDZzbIXaHpE6SWi0r
-         llvX4y+FopirJKCuc5prQPVNBk1eIN+qQVTMR8mKhpl0qFSVRKwZeCBcxe2wwfK9PeTO
-         o/go5J8kbsxOIiJR2ithLOPhTb8c8sIynAWB9+Inf0/RhAm9Ik6bzUCCN5mw3py6gd1D
-         UH7ccvWZMAfyJoKV6U3jjil7GrXdstGKyLOyN6zcekMVpPe5Fv52N8VvKWd+Y58xi7Rh
-         883g==
-X-Forwarded-Encrypted: i=1; AKwUvBwBB58WW75P4PkmW/IPwGoKnnMOZrcuSRGpx+NdTivOHgPF1sqiuw9fCtc3b4J+XPmJ2eSuUYUK6dxIjSU=@vger.kernel.org
-X-Gm-Message-State: AFuF++n3vJfCPSgFTplR/ZxBuc+CBg0eaWmZsCABPG/6JRNMgOxgfPmw
-	y6mHmJBNEBpv4tQOrF563tP4QtzAS1rzMXPiLinBMpHQPH5c3giZ+2uXkQuHkKpE0a77UilvfNp
-	kmuJokq1YHhFS99kUlC+nRL94nscS2EE=
-X-Gm-Gg: AYBFou1JoAMiyRIHNnNkr0nd/ktjZJX1tcH1FHZUIh22veNsTGbUVwNoqMx97efy9NZ
-	bAgvuFpTJr9afpacjPCSsMLZfSA5oY+tlj0MH30eGw9eYtbfgIORWxFFFYwiya5EXiVJMtgWofv
-	NDXnm7Y2niT2g6z/u0BwmN1On6B+lGFNXVZ7imXWAj/A2BhyvzHnRD5FzP/3j+n/Mz862ponhEq
-	ARhh1D0zEaBs/VrJOYojeoK27xLQLZsJjNKbklauJsOKJ+FZ/5YijJNkfMv+Df+CPROmxcAuBw+
-	nhoU5cMId/MH/ClMCOJfT4GEOvBoC16sbHJkGxfk4YLCRX+77qyChj9wAw==
-X-Received: by 2002:a05:6102:3a0c:b0:790:2ae8:32c3 with SMTP id
- ada2fe7eead31-79b58093728mr573931137.6.1789377776433; Mon, 14 Sep 2026
- 02:22:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h1YfuEEU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E0FC1F0089A;
+	Mon, 14 Sep 2026 09:22:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789377781;
+	bh=kU2taAW2zjsL9Ma3CzB5TbBN6AIOAn4hVTWBK2Wl6c8=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=h1YfuEEUr1jL82h2ZqdJ44qNoHvt9yx6buktBtngN8pjpbfu9FIsuq/gzrB9EyEwa
+	 ig3BWeyieBeR/Wzpz8+tG8OLEwaK7HJCiUsBRVobDJjuonQT9a3ivCdCVoPl37yA+d
+	 HkKSEKIzuLXGwNBcRN4KNeehquasJC+eMloCgx5g++n2UfOjFY2qVopCHnCuOAK2G3
+	 i1FCwq8uDPbjtqA6lj452gaM+zTc6yDL+ATUwMEyo/jqJ1n4k74D0RwsNglCg66DAb
+	 4KbMmwNdfdDJ999PZrPrgJTdauP2Y/vVSJXxIh0G8NJ6QLb4GzKpHE9kLsYeKMGCFs
+	 pkcc3Z0/ttRvQ==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Mon, 14 Sep 2026 10:22:04 +0100
+Subject: [PATCH v2 05/21] kbuild: only emit vmlinux relocations when
+ required
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260910-add-tda38740-and-tda38725-v4-0-dbae7fabce09@gmail.com>
- <20260910-add-tda38740-and-tda38725-v4-1-dbae7fabce09@gmail.com> <20260911-placid-clever-lizard-de1258@quoll>
-In-Reply-To: <20260911-placid-clever-lizard-de1258@quoll>
-From: Colin Huang <u8813345@gmail.com>
-Date: Mon, 14 Sep 2026 17:22:44 +0800
-X-Gm-Features: AcwNN1Vq0GUYmtB80Y3cnrvTLaVxABwghCq2riX6lN5HPRWReqpu9nIst8JoDro
-Message-ID: <CAPBH0A_-fUYsbweGEu8gkUEYNHp=dXxupxW0bqNkKKr2vJH--Q@mail.gmail.com>
-Subject: Re: [PATCH v4 1/2] dt-bindings: hwmon: pmbus: Add Infineon tda38740
- and tda38725
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Colin Huang <colin.huang2@amd.com>, Guenter Roeck <linux@roeck-us.net>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, linux-hwmon@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-doc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260914-build-speedup-v2-5-39817ec5db23@kernel.org>
+References: <20260914-build-speedup-v2-0-39817ec5db23@kernel.org>
+In-Reply-To: <20260914-build-speedup-v2-0-39817ec5db23@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>, 
+ Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+ Nick Desaulniers <ndesaulniers@google.com>, 
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+ Masahiro Yamada <masahiroy@kernel.org>, Alexey Gladkov <legion@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>, 
+ Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Ard Biesheuvel <ardb@kernel.org>, 
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
+ Josh Poimboeuf <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, 
+ Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>
+Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ llvm@lists.linux.dev, linux-riscv@lists.infradead.org, 
+ linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+ linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>, 
+ linux-hardening@vger.kernel.org, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2346; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=EBlEnSGuCnJVwiujMjlFOqeFXEqyFnYzRW7W0NWQNRY=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLKW79mfJjlH8lu8/bIJm9d7ln/oNL91RHnWxNU80nppj
+ xVmpp960lHKwiDGxSArpsjy/Iv4/iCRsHmdF/zdYOawMoEMYeDiFICJ5OgzMvz1DJHzd/INU7hz
+ Xqjx3K3WJyzPP2vfli0OT1Kdfav8yByG/+lXQlvNtt2sNmkxv2q55HjohuyO38eXLXj7wEll/d7
+ rpiwA
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-Krzysztof Kozlowski <krzk@kernel.org> =E6=96=BC 2026=E5=B9=B49=E6=9C=8811=
-=E6=97=A5=E9=80=B1=E4=BA=94 =E4=B8=8B=E5=8D=884:49=E5=AF=AB=E9=81=93=EF=BC=
-=9A
->
-> On Thu, Sep 10, 2026 at 08:35:50PM +0800, Colin Huang wrote:
-> > From: Colin Huang <u8813345@gmail.com>
-> >
-> > Add devicetree bindings for the Infineon TDA38740 and TDA38725
-> > single-voltage synchronous buck regulators with PMBus interface.
-> >
-> > Signed-off-by: Colin Huang <u8813345@gmail.com>
-> > ---
-> >  .../bindings/hwmon/pmbus/infineon,tda38740.yaml    | 46 ++++++++++++++=
-++++++++
-> >  1 file changed, 46 insertions(+)
-> >
-> > diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/infineon,tda=
-38740.yaml b/Documentation/devicetree/bindings/hwmon/pmbus/infineon,tda3874=
-0.yaml
-> > new file mode 100644
-> > index 000000000000..28eeb85f13df
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/hwmon/pmbus/infineon,tda38740.y=
-aml
-> > @@ -0,0 +1,46 @@
-> > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +
->
-> There is no blank line here. Do not come with own style (like your
-> version 1).
->
-Hi Krzysztof
-  Thanks for review.
-  I will remove this blank line in next rev.
+A kernel build consists of more than one linking pass on vmlinux.o and
+vmlinux, at minimum two, and with CONFIG_KALLSYMS and BTF enabled on x86-64
+for example there are 5 such stages.
 
-Best regards,
-Colin Huang
+For architectures that build their own relocation tables (x86, riscv, mips,
+s390), vmlinux is linked with the --emit-relocs parameter specified.
 
-> > +$id: http://devicetree.org/schemas/hwmon/pmbus/infineon,tda38740.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: Infineon TDA38740 and TDA38725 PMBus Synchronous Buck Regulator
-> > +
-> > +maintainers:
-> > +  - Colin Huang <u8813345@gmail.com>
-> > +
-> > +description: |
-> > +  The Infineon TDA38740/TDA38725 is a 40A/25A single-voltage synchrono=
-us
-> > +  buck regulator with a PMBus interface designed for industrial use.
-> > +
-> > +  Datasheet:
-> > +  https://www.infineon.com/row/public/documents/24/49/infineon-tda3874=
-0-tda38725-datasheet-en.pdf
-> > +
-> > +properties:
-> > +  compatible:
-> > +    enum:
-> > +      - infineon,tda38725
-> > +      - infineon,tda38740
->
-> I don't see how you responded to Conor's feedback.
->
-Thanks for remind.
-I have responded Connor's feedback today.
+However, this is only required on the final vmlinux link.
 
-Best regards,
-Colin Huang
+Symbol tables of trial links preceding it don't need it because they
+already check that System.map matches kallsyms symbols on each build.
 
-> Best regards,
-> Krzysztof
->
+GNU ld is slow at emitting relocation tables, so this results in a
+reduction in build time.
+
+Whole build, 128-thread Threadripper 9980X, best of N runs:
+
+                                         before   after     delta
+                                         -------------------------------
+  x86 defconfig, touch mm/vma.c, gcc        9.5s     9.1s    -0.42s (-4%)
+  x86 defconfig, clean, gcc                30.1s    29.5s    -0.59s (-2%)
+  x86 allmodconfig, touch mm/vma.c, gcc    37.2s    35.8s     -1.4s (-4%)
+
+Note that this has little impact on LLVM ld which performs this operation
+more efficiently.
+
+Assisted-by: LLM
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+---
+ Makefile                | 2 +-
+ scripts/link-vmlinux.sh | 5 +++++
+ 2 files changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/Makefile b/Makefile
+index 0f1b80100b47..dd4c10afbb7f 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1263,7 +1263,7 @@ LDFLAGS_vmlinux += --orphan-handling=$(CONFIG_LD_ORPHAN_WARN_LEVEL)
+ endif
+ 
+ ifneq ($(CONFIG_ARCH_VMLINUX_NEEDS_RELOCS),)
+-LDFLAGS_vmlinux	+= --emit-relocs --discard-none
++LDFLAGS_vmlinux	+= --discard-none
+ endif
+ 
+ # Align the architecture of userspace programs with the kernel
+diff --git a/scripts/link-vmlinux.sh b/scripts/link-vmlinux.sh
+index 970ca10f8fa9..ed5ff97c0667 100755
+--- a/scripts/link-vmlinux.sh
++++ b/scripts/link-vmlinux.sh
+@@ -96,6 +96,11 @@ vmlinux_link()
+ 		ldflags="${ldflags} ${wl}--strip-debug"
+ 	fi
+ 
++	# Only the final link actually requires the relocations.
++	if [ "${output}" = "${VMLINUX}" ] && is_enabled CONFIG_ARCH_VMLINUX_NEEDS_RELOCS; then
++		ldflags="${ldflags} ${wl}--emit-relocs"
++	fi
++
+ 	if [ -n "${generate_map}" ];  then
+ 		ldflags="${ldflags} ${wl}-Map=vmlinux.map"
+ 	fi
+
+-- 
+2.55.0
+
