@@ -1,139 +1,72 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2420D3A453F;
-	Mon, 14 Sep 2026 08:28:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFACE3438BE
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:29:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789374523; cv=none; b=rYR6vXb/6pz/X0/Im+bA32RvDZthlXwkpbabuNUTI+uivnzlTL0YLWDQDt/jxU748C6zYsTgaQS8tDCOp5/2nSsydV40X4xiHu6n1aAxgTdXfNKMyILTHYJ5Yy8XjO3HDXaxT4TMJujjMsVDIN/X74fY+Et0nj/U508SIzNoq1A=
+	t=1789374546; cv=none; b=amyJ+7ycf5xjd4EYiipkXKy+vui4R0f7k6PtBb2pyRkYWqMQP0oXzF+ZqlyvEqaGX44D0rviQSrtUB0Hqs47kQ9yb5znpatp9Bvl4Mfnlo4+Y/7H+tFs9ogmRHy/19gNPRCD4bnA8pSnY5jJNMw1NMFisVp5PHPATJorLjcyYcg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789374523; c=relaxed/simple;
-	bh=OdWt54YJsb/qlkyiPo64srINfqjwa2VQ+1P8tHq0Ugk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=n0QHzcnZlbWcNjDX2u+dLe6GeyarkOBo71G7D5aRlkyHy8mtVbD4kA8GQ1/uyQWc4+cVqGixycsC2XAoASLVqlUXzPQ4OeefF9XI9BX9creJGSaWUyBmyUDq4rcNVWjpKUgNW8j5jiPFpJ3u5HoN8iFSsVpnwy5qD5CHKgB5MPA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aoWJ6ELu; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aoWJ6ELu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00F601F000FF;
-	Mon, 14 Sep 2026 08:28:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789374521;
-	bh=L16BSpsljFr4PJF8fPayiEIvJaB3/Z4Qh/8Uz4DyO8s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aoWJ6ELuaEiZQNG01VZzZjrcZE0nmTn2/Jo6aQv91PMqj4/aBro3rRP1obdfhdxwp
-	 Asj533f6tmz48f33ZEHKu+68fxqVIjxuHWzwSC1C6MDsImBreU1D2X8DdgOIf3pHK9
-	 Jw/Q57CrTfj34fttT6U4b2XIKAa5HBiLbPUXFJkeVPksZElzeIwLuBnq5KbjyU4sr7
-	 uj4zXRUSpKDjND5OHHmt2s6JODKemDw3fwr0OQd+w7E6ul76a3Nzut3mt+iz7AOn53
-	 aX/w/+PKqVcWSL87epRScWixMn/WgUkUtY1rAlqrhRWBGgGHMGBn8eOYOm4fnEawXN
-	 qKaioVvWp1Qxw==
-Date: Mon, 14 Sep 2026 09:28:29 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, Masahiro Yamada <masahiroy@kernel.org>, 
-	Alexey Gladkov <legion@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Arnd Bergmann <arnd@arndb.de>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
-	Gary Guo <gary@garyguo.net>, =?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, Jonathan Corbet <corbet@lwn.net>, 
-	Randy Dunlap <rdunlap@infradead.org>, linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	llvm@lists.linux.dev, linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, 
-	linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>
-Subject: Re: [PATCH 11/23] kbuild: implement and use depcheck to check
- dependency timestamps
-Message-ID: <aqesjZaXBQd-KkT6@gremlin>
-References: <20260908-build-speedup-v1-0-5dc1ac01672d@kernel.org>
- <20260908-build-speedup-v1-11-5dc1ac01672d@kernel.org>
- <CAHk-=wiA_UJbKiu8fOezKV=MfEcaFuzZiuk8Fto-Bc1KrA=43Q@mail.gmail.com>
+	s=arc-20240116; t=1789374546; c=relaxed/simple;
+	bh=+hhFKZBq+p8n87GCIUkVBbmnTKTvdHmiMg7cDswcAF8=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=UrX3byszACGtGIgoAqRxsKA0lShn+J1i4ruGHX2aL4gUin+n4aG4HqCADCAWXmqDLtDr/iHuaMUsn1dUftRTHp68NrTX1+QIYikn1rbIJsGUL9DzBcmLOrTAk6LI7f/T4CKBGs6qitz5jYnWxuOjtJsrwu2sTt+9r+4m1ARBx34=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4c307941971so4265149b6e.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 01:29:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789374543; x=1789979343;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=PeUH/zJ2IOOmYMm8A/brmMzl91+mwEw6P5lmBe+Whdw=;
+        b=O03e963oOO0SU9UCr4lT6DDbh1ycEi0opWT7anUzxAPqv8MFgkn5cgak6rHxmN/+Qt
+         UabbHeKPEkh63GtCrWTNZNiuV7KcTqWgw8b9kxHH1xY1kRK2MbyT2+Iwp4R7M6GwebWE
+         pcONAm4j9SNzQ87/337InjdMxhF+vhlX0RPVPQ+6wAJBPiQmmXxdnjyEbiyTj16tbNc4
+         KNezpz46QmwCXTAaCw+obfUx1XBgzSnvMTCrwM8TrC26opAL59Kl8t5JwH9f8cYDUOXu
+         GnayMUicENHKLiyK9VkQBYF+2cIa3XJ4++Q8cwDMUYsECLaZvQBcZ+0zLmRv2jVeXY4e
+         vR9Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxOd/WxxMu4EBbt14+i5uIXPA1aAEU1UM6SdIdcxehELX1xWwbhIZ4GxDMzOh+WYpQbvMhgbsoNZ37P4f0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kEmCS5NUEPeIkCslS9VzuregkTS0fOxqy9P0jhOKsKQD4cvqIN
+	fs/4pG5Xks++5OpMY7/Mvq/aC5HA1ntMglpTIJOqUWsEmJFi0lfldS1yFF+GcwabomTaP/Z0m96
+	5TSTbmJuyEzexYYs9JULW5LBzVg43kaMLv6X4OJoSBx1Z7X/EtVsBiiwMNSg=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAHk-=wiA_UJbKiu8fOezKV=MfEcaFuzZiuk8Fto-Bc1KrA=43Q@mail.gmail.com>
+X-Received: by 2002:a05:6820:81c9:b0:6b7:46fc:1df with SMTP id
+ 006d021491bc7-6c542c2ccfemr663508eaf.62.1789374542952; Mon, 14 Sep 2026
+ 01:29:02 -0700 (PDT)
+Date: Mon, 14 Sep 2026 01:29:02 -0700
+In-Reply-To: <6aa7a5d9.10e42a5c.b751b.1185SMTPIN_ADDED_BROKEN@gmr-mx.google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa7b04e.f670cee1.72fc4.0019.GAE@google.com>
+Subject: Re: [syzbot] [raid?] UBSAN: array-index-out-of-bounds in super_90_sync
+From: syzbot <syzbot+9e3014263a35700ab49b@syzkaller.appspotmail.com>
+To: jchuang26@m.fudan.edu.cn, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Sep 09, 2026 at 08:26:42AM -0700, Linus Torvalds wrote:
-> On Tue, 8 Sept 2026 at 13:57, Lorenzo Stoakes (ARM) <ljs@kernel.org> wrote:
-> >
-> > Each object's .cmd file lists its header dependencies, which often
-> > consists of over a thousand dependencies.
-> >
-> > When little has changed in the tree, this is what make spends most of its
-> > time doing, spending over a second, single-threaded when parsing larger
-> > directory trees.
->
-> Side note: from some kernel build profiles I did long ago, I have this
-> memory of it being made much worse by the fact that we use
->
->     "$(wildcard xyzzy)"
->
-> for all our config header files in those .cmd.o files. That then
-> causes extra work for 'make' for all of this.
->
-> And we do that 'wildcard' thing not because we want to actually match
-> a pattern, but because that was the only way to have 'make' not
-> complain about missing config headers.
->
-> I'm not even sure the original reason for it is relevant any more -
-> this is all a very dim memory from years and years ago when I actually
-> tried to look at profiles of 'make' itself (normally when I do kernel
-> build profiles I only look at the what the kernel part of the build
-> is, not user mode).
->
-> I just tried removing the 'wildcard' generation from
-> scripts/basic/fixdep.c and the kernel build didn't care about it at
-> all. The whole 'wildcard' trick goes all the way back to the original
-> commit that added that whole 'fixdep.c' phase.
->
-> Maybe the whole thing is entirely stale now and should be removed. I
-> probably just didn't trigger the situation where those extra
-> 'wildcard' things matter. That whole thing is from a quarter century
-> ago, and nobody has dared look at that code since..
+Hello,
 
-Yeah, unfortunately it seems that it's still required - without it make
-seems to treat a missing target with an empty rule as if it were updated,
-so without the wildcard every object that references an unset option
-results in a rebuild.
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
->
-> Or maybe 'make' is better at those wildcards these days - or other
-> things have shifted.
->
-> From those dim memories, make spent a lot of time doing filesystem
-> lookups (directory reading  and 'stat()' calls - the wildcard thing
-> triggered more getdents calls), but even more time just in string
-> handling.
+Reported-by: syzbot+9e3014263a35700ab49b@syzkaller.appspotmail.com
+Tested-by: syzbot+9e3014263a35700ab49b@syzkaller.appspotmail.com
 
-The depcheck commit ("kbuild: implement and use depcheck to check
-dependency timestamps") actually fixes the overhead issue :) it stops make
-seeing those dependency lists at all for stuff that's up to date so the
-parse cost just goes away.
+Tested on:
 
-After that commit make only sees actually stale stuff.
+commit:         704340f1 Merge tag 'x86_urgent_for_7.3-rc4' of git://g..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=16f4b5f9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
+dashboard link: https://syzkaller.appspot.com/bug?extid=9e3014263a35700ab49b
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=10106601580000
 
-The obvious question here is 'does depcheck make the wildcard stuff
-unnecessary then?' - and sadly no, because there's still places where make
-includes .cmd files directly without using depcheck.
-
-But TL;DR is the overhead is gone.
-
->
->                Linus
-
---
-Cheers, Lorenzo
+Note: testing is done by a robot and is best-effort only.
