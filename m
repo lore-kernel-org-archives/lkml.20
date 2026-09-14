@@ -1,175 +1,434 @@
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EFDC486623;
-	Mon, 14 Sep 2026 13:02:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 892BF46AA81
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:03:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789390959; cv=none; b=S77cU/OQlMkzsVZUx3yzeqOhUIOfuccD6ML5rb3HWhefAy6ym2+QIk9tKJ8NTmTbXHve4a03I6lAScfOXkMH1/eiGzfyxB00UK9rstNXrgYdvzUEbfOHv5QQVcHzju5g9oxVKn8tPwTWMxs3ZlHtLFpgpATTFUUEASUSIwBFacU=
+	t=1789391020; cv=none; b=ifHffNsuie4Ycz5yZyo5FBZWtXjNNtuQirBlM0Ewu+BfJBC7+kRvtk9fQB268+Ykv3e93cbtTQtavt5YO76g6ewMIm1zeBuiVXouTcK8zN1D0DI/Xdt39horUXjYMANfcPjtzCCCqgOInvV/dfsEYsAIZiuw+nMCYkBFgIYA7ko=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789390959; c=relaxed/simple;
-	bh=7GbaiCEjRwQUmr3ACyN5hD3nr1lFtbeBjz7zYOw52pQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=UlUKDRNYuq90rK64/nFjwDnOVP7R6K3upB1LiLaSn972+Sj+fX6qwJrjiw64mmREuCWPjemhFsts3fhPQCSmhcYvCc92J9uPpkNqzjnmTMo6tuC1pT0anFx9nO2Ziil6TnDNA3lPgHSiObtrCUzwlvecHB+zHMINEuSsy+RuI1g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=semi.ac.cn; spf=pass smtp.mailfrom=semi.ac.cn; arc=none smtp.client-ip=159.226.251.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=semi.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=semi.ac.cn
-Received: from localhost.localdomain (unknown [159.226.228.11])
-	by APP-01 (Coremail) with SMTP id qwCowACHWOwe76dqyj74Bw--.19200S4;
-	Mon, 14 Sep 2026 20:57:08 +0800 (CST)
-From: Gaobin Huang <huanggaobin23@semi.ac.cn>
-To: linux-cxl@vger.kernel.org
-Cc: Davidlohr Bueso <dave@stgolabs.net>,
-	Jonathan Cameron <jonathan.cameron@huawei.com>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Alison Schofield <alison.schofield@intel.com>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Ira Weiny <ira.weiny@intel.com>,
-	Dan Williams <dan.j.williams@intel.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] cxl/mbox: bound the Get Supported Logs entry count by the payload
-Date: Mon, 14 Sep 2026 20:57:01 +0800
-Message-Id: <20260914125701.1160136-3-huanggaobin23@semi.ac.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260914125701.1160136-1-huanggaobin23@semi.ac.cn>
-References: <20260914125701.1160136-1-huanggaobin23@semi.ac.cn>
+	s=arc-20240116; t=1789391020; c=relaxed/simple;
+	bh=Zs4BNHtc9YX9asjU6AU9e0WegnRumv5dFKR2zMKnYPM=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=qDrZAaMS9M5jYpfC9cnyXvRdIlPt/6FBeQTcxzXoL+vDc6MlxHULXczuKpdlMvj55/xI1h7U+SkQxJM/FBhSR2RaWpquI1eVJbGKKFP7cWZgrnnGl6IZvlhEsSANrI9zN707hGBdsl448N+4nSUpT5JEMA05ADYuLCZj96Uon+Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=XigczSoi; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="XigczSoi"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1789391016;
+	bh=Zs4BNHtc9YX9asjU6AU9e0WegnRumv5dFKR2zMKnYPM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=XigczSoiw5AvsXHu0V8MKhIYSxuujGcWn6CXd5bw3GjIk374+3214hL0aiOoxOOej
+	 QpfbWTz1pLfsNmtT4+rXuyDXAG2ANcFziW/Qe/tC7Flu1Aq+U8jSM/AxCmSotupDMY
+	 i/HRO6agzDvkcfy0qi0tC4w8M76MrSY1LXwx+oKFfCRaXfbHeWhqVIRpBqPubkRqKE
+	 INliOlquzh1htaLXqOJZpcPHLcTdV+7+S+GOSBQ2k0OrHmn4KkUgbZLdtYjRzJhvFf
+	 nAjxphWq9JPUYqeNJSdQOeuG0xXG2q5JGTtfl3J7koeVnPe+2vdhGNBNSWgLHfrKsI
+	 pCtGmQBJuEg2A==
+Received: from fedora-21.home (unknown [100.64.0.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bbrezillon)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 280E217E0074;
+	Mon, 14 Sep 2026 15:03:36 +0200 (CEST)
+Date: Mon, 14 Sep 2026 15:03:25 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Ketil Johnsen <ketil.johnsen@arm.com>
+Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Daniel Almeida
+ <daniel.almeida@collabora.com>, Alice Ryhl <aliceryhl@google.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Florent
+ Tomasin <florent.tomasin@arm.com>, Paul Toadere <paul.toadere@arm.com>,
+ Samuel Percival <samuel.percival@arm.com>
+Subject: Re: [PATCH v3 5/6] drm/panthor: Add support for entering and
+ exiting protected mode
+Message-ID: <20260914150325.44150a29@fedora-21.home>
+In-Reply-To: <20260911114014.79139-6-ketil.johnsen@arm.com>
+References: <20260911114014.79139-1-ketil.johnsen@arm.com>
+	<20260911114014.79139-6-ketil.johnsen@arm.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qwCowACHWOwe76dqyj74Bw--.19200S4
-X-Coremail-Antispam: 1UD129KBjvJXoWxAw4rWF15uw1xAryrtF48Crg_yoWrAr1kpF
-	WY9a4UJrn3ZFy7CwnrZay5WrZ8uw4kZryUAFyvg34YkwnxCr12qFyDGayYq34FvryfGF12
-	k3Z0qF98Ca1kXF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUmqb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
-	8067AKxVWUXwA2048vs2IY020Ec7CjxVAFwI0_Gr0_Xr1l8cAvFVAK0II2c7xJM28CjxkF
-	64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0cI8IcV
-	CY1x0267AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280
-	aVCY1x0267AKxVWxJr0_GcWlnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcV
-	AaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jrv_JF1lYx0E
-	x4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY1x
-	0262kKe7AKxVWUtVW8ZwCY02Avz4vE14v_Xr1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC
-	6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWw
-	C2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_
-	JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJV
-	WUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIY
-	CTnIWIevJa73UjIFyTuYvjxUkRBTDUUUU
-X-CM-SenderInfo: xkxd0wxjdruxrqstq2xhplhtffof0/
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-cxl_enumerate_cmds() iterates gsl->entries entries of gsl->entry[] using
-the count the device put in the Get Supported Logs response.  The response
-is only checked with .min_out = 2, so a device may report more entries
-than it delivered and the driver reads past the end of the buffer.  This
-is probe time, so it happens on every boot of a machine with such a
-device, without any host action.
+Hi Ketil,
 
-cxl_get_gsl() can already tell the caller how much arrived, because
-__cxl_pci_mbox_send_cmd() records the copied byte count in
-mbox_cmd.size_out.  Derive the number of entries that fit from it and stop
-the loop there.
-Guard the subtraction too: min_out is smaller than the response header, so
-a two byte response would otherwise wrap the size_t arithmetic and leave
-the bound with nothing to do.
+On Fri, 11 Sep 2026 13:40:13 +0200
+Ketil Johnsen <ketil.johnsen@arm.com> wrote:
 
-Seen with a QEMU Type-3 device that reports 0xffff entries while writing
-one, in a 2048 byte buffer:
+> From: Florent Tomasin <florent.tomasin@arm.com>
+> 
+> This patch modifies the Panthor driver code to allow handling
+> of the GPU HW protected mode enter and exit.
+> 
+> The logic added by this patch includes:
+> - the mechanisms needed for entering and exiting protected mode.
+> - the handling of protected mode IRQs and FW interactions.
+> - the scheduler changes needed to decide when to enter
+>   protected mode based on CSG scheduling.
+> - GPU fault handling during protected mode execution.
+> 
+> Note that the submission of a protected mode jobs are done
 
-	BUG: KASAN: slab-out-of-bounds in cxl_enumerate_cmds+0x1e3/0x980
-	Read of size 4 at addr ffff888003707810 by task kworker/u8:2/38
-	cxl_enumerate_cmds+0x1e3/0x980
-	cxl_pci_probe+0x84a/0x11e0
-	 which belongs to the cache kmalloc-2k of size 2048
-	The buggy address is located 16 bytes to the right of the
-	 allocated region
+			   of protected mode jobs
 
-The Read of size 4 is gsl->entry[i].size.  The buffer can hold 102
-entries, so claiming 102 is still inside it and 103 is not, which is what
-the sweep shows.  With the bound in place the same device logs
+> from the user space.
+> 
+> The following is a summary of how protected mode is entered
+> and exited:
+> - When the GPU detects a protected mode job needs to be
+>   executed, an IRQ is sent to the CPU to notify the kernel
+>   driver that the job is blocked until the GPU has entered
+>   protected mode. The entering of protected mode is controlled
+>   by the kernel driver.
+> - The Mali Panthor CSF driver will schedule a tick and evaluate
+>   which CS in the CSG to schedule on slot needs protected mode.
+>   If the priority of the CSG is not sufficiently high, the
+>   protected mode job will not progress until the CSG is
+>   scheduled at top priority.
+> - The Panthor scheduler notifies the GPU that the blocked
+>   protected jobs will soon be able to progress.
+> - Once all CSG and CS slots are updated, the scheduler
+>   requests the GPU to enter protected mode and waits for
+>   it to be acknowledged.
+> - If successful, all protected mode jobs will resume execution
+>   while normal mode jobs block until the GPU exits
+>   protected mode, or the kernel driver rotates the CSGs
+>   and forces the GPU to exit protected mode.
+> - If unsuccessful, the scheduler will request a GPU reset.
+> - Faults during protected mode are reported GPU wide, and not as
+>   CSG/CS errors. We allow only one CSG to run in protected mode at a
+>   time so we know which CSG to blame for the fault.
+> - All faults during protected mode are handled with a GPU reset.
+> - When a protected mode job is suspended as a result of
+>   the CSGs rotation, the GPU will send an IRQ to the CPU
+>   to notify that the protected mode job needs to resume.
+> 
+> This sequence will continue so long the user space is
+> submitting protected mode jobs.
+> 
+> Signed-off-by: Florent Tomasin <florent.tomasin@arm.com>
+> Co-developed-by: Paul Toadere <paul.toadere@arm.com>
+> Signed-off-by: Paul Toadere <paul.toadere@arm.com>
+> Co-developed-by: Samuel Percival <samuel.percival@arm.com>
+> Signed-off-by: Samuel Percival <samuel.percival@arm.com>
+> Co-developed-by: Ketil Johnsen <ketil.johnsen@arm.com>
+> Signed-off-by: Ketil Johnsen <ketil.johnsen@arm.com>
+> 
+> ---
 
-	GSL: device claimed 65535 entries but the payload holds 1
 
-and enumeration continues with the entries that are present.
+> +	/** @protm: Protected mode related data. */
+> +	struct {
+> +		/**
+> +		 * @lock: Lock to prevent MMU operations during protected mode.
+> +		 *
+> +		 * The MMU HW will silently ignore commands issued when the
+> +		 * GPU is in protected mode. It is important that we handle this
+> +		 * for some of the MMU HW interactions.
+> +		 *
+> +		 * Code which interacts with the MMU, typically by calling
+> +		 * panthor_vm_lock_region(), should therefore ensure the
+> +		 * scheduler is not in and will not enter protected mode first.
+> +		 * This is done by calling either
+> +		 * - panthor_sched_protm_block(), or
+> +		 * - panthor_sched_protm_try_block()
+> +		 *
+> +		 * Once the MMU operations have completed, call
+> +		 * panthor_sched_protm_unblock() to tell the scheduler that
+> +		 * it is safe to enter protected mode again.
+> +		 *
+> +		 * The block/unblock for MMU operations take this as reader.
+> +		 * The scheduler holds this as writer when switching into protm.
+> +		 */
+> +		struct rw_semaphore lock;
+> +
+> +		/** @protm_enter_count: Number of times entered protm. */
+							^ we entered ?
+> +		atomic64_t protm_enter_count;
+> +
+> +		/** @protm_exit_count: Number of times exited protm. */
 
-This is the cross-check get_supported_features() already performs in
-drivers/cxl/core/features.c, where a device supplied count is compared
-against the retrieved length before the entries are used.
+						       ^ we exited ?
 
-Fixes: 472b1ce6e9d6 ("cxl/mem: Enable commands via CEL")
-Signed-off-by: Gaobin Huang <huanggaobin23@semi.ac.cn>
----
- drivers/cxl/core/mbox.c | 32 +++++++++++++++++++++++++++-----
- 1 file changed, 27 insertions(+), 5 deletions(-)
+> +		atomic64_t protm_exit_count;
+> +	} protm;
+>  };
+>  
 
-diff --git a/drivers/cxl/core/mbox.c b/drivers/cxl/core/mbox.c
-index a8f51bf0f..c94439554 100644
---- a/drivers/cxl/core/mbox.c
-+++ b/drivers/cxl/core/mbox.c
-@@ -794,7 +794,8 @@ static void cxl_walk_cel(struct cxl_memdev_state *mds, size_t size, u8 *cel)
- 	set_features_cap(cxl_mbox, ro_cmds, wr_cmds);
- }
- 
--static struct cxl_mbox_get_supported_logs *cxl_get_gsl(struct cxl_memdev_state *mds)
-+static struct cxl_mbox_get_supported_logs *cxl_get_gsl(struct cxl_memdev_state *mds,
-+						       size_t *len)
- {
- 	struct cxl_mailbox *cxl_mbox = &mds->cxlds.cxl_mbox;
- 	struct cxl_mbox_get_supported_logs *ret;
-@@ -818,7 +819,7 @@ static struct cxl_mbox_get_supported_logs *cxl_get_gsl(struct cxl_memdev_state *
- 		return ERR_PTR(rc);
- 	}
- 
--
-+	*len = mbox_cmd.size_out;	/* bytes actually received */
- 	return ret;
- }
- 
-@@ -849,18 +850,39 @@ int cxl_enumerate_cmds(struct cxl_memdev_state *mds)
- 	struct cxl_mbox_get_supported_logs *gsl;
- 	struct device *dev = mds->cxlds.dev;
- 	struct cxl_mem_command *cmd;
-+	size_t gsl_len, gsl_hdr, max_entries;
- 	int i, rc;
- 
--	gsl = cxl_get_gsl(mds);
-+	gsl = cxl_get_gsl(mds, &gsl_len);
- 	if (IS_ERR(gsl))
- 		return PTR_ERR(gsl);
- 
-+	/*
-+	 * The device chooses the reported payload length and may return a
-+	 * response as short as the entry count field on its own (min_out is
-+	 * 2), so derive the entry count without underflowing.
-+	 */
-+	gsl_hdr = offsetof(struct cxl_mbox_get_supported_logs, entry);
-+	max_entries = gsl_len > gsl_hdr ?
-+		      (gsl_len - gsl_hdr) / sizeof(gsl->entry[0]) : 0;
-+
- 	rc = -ENOENT;
- 	for (i = 0; i < le16_to_cpu(gsl->entries); i++) {
--		u32 size = le32_to_cpu(gsl->entry[i].size);
--		uuid_t uuid = gsl->entry[i].uuid;
-+		u32 size;
-+		uuid_t uuid;
- 		u8 *log;
- 
-+		if (i >= max_entries) {
-+			dev_warn_ratelimited(dev,
-+					     "GSL: device claimed %u entries but the payload holds %zu\n",
-+					     le16_to_cpu(gsl->entries),
-+					     max_entries);
-+			break;
-+		}
-+
-+		size = le32_to_cpu(gsl->entry[i].size);
-+		uuid = gsl->entry[i].uuid;
-+
- 		dev_dbg(dev, "Found LOG type %pU of size %d", &uuid, size);
- 
- 		if (!uuid_equal(&uuid, &log_uuid[CEL_UUID]))
--- 
-2.34.1
+[...]
 
+> @@ -1281,6 +1283,9 @@ int panthor_fw_post_reset(struct panthor_device *ptdev)
+>  		return ret;
+>  	}
+>  
+> +	atomic64_set(&ptdev->protm.protm_enter_count, 0);
+> +	atomic64_set(&ptdev->protm.protm_exit_count, 0);
+> +
+>  	/* We must re-initialize the global interface even on fast-reset. */
+>  	panthor_fw_init_global_iface(ptdev);
+>  	return 0;
+> @@ -1476,6 +1481,91 @@ static void panthor_fw_ping_work(struct work_struct *work)
+>  	}
+>  }
+>  
+> +static bool wait_protm_enter(struct panthor_device *ptdev,
+> +			     long long enter_count)
+
+Let's use s64 instead of long long and rename this argument
+protm_session_seqno.
+
+> +{
+> +	return (panthor_gpu_status(ptdev) & GPU_STATUS_PROTM_ACTIVE) ||
+> +	       (atomic64_read(&ptdev->protm.protm_exit_count) >= enter_count);
+> +}
+> +
+> +int panthor_fw_protm_enter(struct panthor_device *ptdev)
+> +{
+> +	struct panthor_fw_global_iface *glb_iface =
+> +		panthor_fw_get_glb_iface(ptdev);
+> +	u32 acked;
+> +	int ret;
+> +	long long enter_count;
+
+	s64 protm_session_seqno;
+
+> +
+> +	/* Restart the watchdog timer, so it doesn't hit immediately
+> +	 * after entering protected mode, since this will cause GPU
+> +	 * to exit protected mode to respond to the ping request.
+> +	 */
+> +	mod_delayed_work(ptdev->reset.wq, &ptdev->fw->watchdog.ping_work,
+> +			 msecs_to_jiffies(PING_INTERVAL_MS));
+> +
+> +	panthor_fw_toggle_reqs(glb_iface, req, ack, GLB_PROTM_ENTER);
+> +	panthor_fw_ring_doorbell(ptdev, CSF_GLB_DOORBELL_ID);
+> +
+> +	ret = panthor_fw_glb_wait_acks(ptdev, GLB_PROTM_ENTER, &acked, 250);
+> +	if (ret) {
+> +		drm_err(&ptdev->base,
+> +			"Wait for FW protected mode acknowledge timed out");
+> +		return ret;
+> +	}
+> +
+> +	enter_count = atomic64_inc_return(&ptdev->protm.protm_enter_count);
+> +
+> +	/* Poll for the entry of protected mode.
+> +	 * It is possible that GPU_STATUS_PROTM_ACTIVE is set and cleared
+> +	 * before we check it below, so we must also check for GLB_PROTM_EXIT.
+> +	 * GLB_PROTM_EXIT can not be checked directly, because this could also
+> +	 * be handled and clear before we check below. We count number of
+> +	 * protm enters and exits to safely handle that case.
+> +	 */
+> +	ret = wait_event_timeout(ptdev->fw->req_waitqueue,
+> +				 wait_protm_enter(ptdev, enter_count),
+> +				 msecs_to_jiffies(500));
+> +	if (!ret) {
+> +		drm_err(&ptdev->base,
+> +			"Wait for GPU protected mode enter timed out");
+> +		return -ETIMEDOUT;
+> +	}
+> +
+> +	return 0;
+> +}
+
+[...]
+
+
+> @@ -2633,9 +2643,12 @@ static int remap_evicted_vma(struct drm_gpuvm_bo *vm_bo,
+>  			panthor_vm_unlock_region(vm);
+>  		}
+>  
+> +		panthor_sched_protm_unblock(vm->ptdev);
+> +
+>  		vm->op_ctx = NULL;
+>  	}
+>  
+> +out_unlock:
+>  	mutex_unlock(&vm->op_lock);
+>  
+>  out_cleanup:
+> @@ -2726,9 +2739,13 @@ panthor_vm_exec_op(struct panthor_vm *vm, struct panthor_vm_op_ctx *op,
+>  	mutex_lock(&vm->op_lock);
+>  	vm->op_ctx = op;
+>  
+> +	ret = panthor_sched_protm_block(vm->ptdev);
+> +	if (ret)
+> +		goto out_unlock;
+
+I'm not happy with the fact failing to exit an unrelated PROTM session
+on a different VM/group will make this VM unusable (in case we're
+executing an async VM_BIND). It feels to me that
+panthor_sched_protm_block() should not be allowed to fail. I also think
+the timeout should be on the PROTM session itself, not in
+panthor_sched_protm_block(), and that protm_exit() failures should be
+sorted out with a SOFT_RESET.
+
+Honestly, I wish there was a solution that didn't involve having this
+big lock. Ideally, we'd have a sync mechanism between the host and
+the FW. Before every VM update the host would set as_updated[x] to
+true. Before entering PROTM, the FW would reset as_updated[0..N] to
+false, and just after rebooting in the PROTM_EXIT, it would check the
+values again and raise an interrupt if anything changed, waiting for
+the host to acknowledge this event. When such an event is detected, the
+host would walk the bitset and do an AS_DISABLE/AS_ENABLE cycle for
+each AS which has its as_updated bit set. When done, it would ack the
+event and let the FW proceed with the rest of the PROTM_EXIT procedure.
+
+> +
+>  	ret = panthor_vm_lock_region(vm, op->va.addr, op->va.range);
+>  	if (ret)
+> -		goto out;
+> +		goto out_unblock;
+>  
+>  	switch (op_type) {
+>  	case DRM_PANTHOR_VM_BIND_OP_TYPE_MAP: {
+> @@ -2759,10 +2776,13 @@ panthor_vm_exec_op(struct panthor_vm *vm, struct panthor_vm_op_ctx *op,
+>  
+>  	panthor_vm_unlock_region(vm);
+>  
+> -out:
+> +out_unblock:
+> +	panthor_sched_protm_unblock(vm->ptdev);
+> +
+>  	if (ret && flag_vm_unusable_on_failure)
+>  		panthor_vm_declare_unusable(vm);
+>  
+> +out_unlock:
+>  	vm->op_ctx = NULL;
+>  	mutex_unlock(&vm->op_lock);
+>  
+
+[...]
+
+> +static void sched_process_protm_exit_event_locked(struct panthor_device *ptdev)
+> +{
+> +	struct panthor_fw_global_iface *glb_iface =
+> +		panthor_fw_get_glb_iface(ptdev);
+> +	struct panthor_scheduler *sched = ptdev->scheduler;
+> +
+> +	lockdep_assert_held(&sched->events_lock);
+> +
+> +	atomic64_inc(&ptdev->protm.protm_exit_count);
+
+I only see protm_exit_count incremented here. What happens if the GPU
+hangs while in PROTM, and a SOFT_RESET is issued to unblock the
+situation. Won't we end up with unbalanced enter/exit count thus
+defeating the second checks in wait_protm_enter().
+
+> +
+> +	/* Acknowledge the protm exit */
+> +	panthor_fw_update_reqs(glb_iface, req, glb_iface->output->ack,
+> +			       GLB_PROTM_EXIT);
+> +
+> +	/* If there are pending fault from protected mode execution, then early
+> +	 * out here. The GPU_IRQ_PROTM_FAULT handling will trigger the propper
+> +	 * error recovery via a GPU reset.
+> +	 */
+> +	if (panthor_gpu_protm_fault_pending(ptdev))
+> +		return;
+> +
+> +	/* Protected mode exited successfully. Clear protm.active_group so that
+> +	 * tick_work() is unblocked to schedule new work.
+> +	 */
+> +	if (sched->protm.active_group) {
+> +		group_put(sched->protm.active_group);
+> +		sched->protm.active_group = NULL;
+> +	}
+> +
+> +	sched_queue_delayed_work(sched, tick, 0);
+> +}
+> +
+
+[...]
+
+> @@ -2133,6 +2294,11 @@ tick_ctx_pick_groups_from_list(const struct panthor_scheduler *sched,
+>  		if (!owned_by_tick_ctx)
+>  			group_get(group);
+>  
+> +		/* Only the first pick is allowed to request switch to protm */
+> +		if (ctx->group_count == 0 &&
+> +		    atomic_read(&group->protm_pending_queues))
+> +			ctx->protm_group = group;
+> +
+>  		ctx->group_count++;
+>  
+>  		/* If we have more than one active group with the same priority,
+> @@ -2291,6 +2457,48 @@ static void group_term_work(struct work_struct *work)
+>  	group_put(group);
+>  }
+>  
+> +int panthor_sched_protm_block(struct panthor_device *ptdev)
+
+This sounds like an infallible lock helper, but in practice it can
+fail/timeout. I think we want a _timeout() suffix to reflect that.
+
+> +{
+> +	int ret;
+> +
+> +	down_read(&ptdev->protm.lock);
+> +
+> +	/* First, wait a little bit for FW to exit protected mode on its own.
+> +	 * Only if that fails do we request a protected mode exit.
+> +	 */
+> +
+
+nit: You can drop the blank line.
+
+> +	ret = panthor_fw_protm_exit_wait(ptdev, 5);
+> +	if (ret) {
+> +		ret = panthor_fw_protm_exit(ptdev, 2000);
+
+Given how big the timeout is (2secs), we should at least ensure this is
+interruptible with a wait_event_interruptible_timeout() in
+panthor_fw_protm_exit() and panthor_fw_protm_exit_wait().
+
+> +		if (ret)
+> +			up_read(&ptdev->protm.lock);
+> +	}
+> +
+> +	return ret;
+> +}
+> +
+> +int panthor_sched_protm_try_block(struct panthor_device *ptdev)
+> +{
+> +	int ret;
+> +
+> +	ret = down_read_trylock(&ptdev->protm.lock);
+> +	if (ret) {
+> +		if (panthor_gpu_status(ptdev) & GPU_STATUS_PROTM_ACTIVE) {
+> +			up_read(&ptdev->protm.lock);
+> +			return -EAGAIN;
+> +		}
+> +
+> +		return 0;
+> +	}
+> +
+> +	return -EAGAIN;
+> +}
+> +
+> +void panthor_sched_protm_unblock(struct panthor_device *ptdev)
+> +{
+> +	up_read(&ptdev->protm.lock);
+> +}
+
+While at it, can you add DEFINE_GUARD[_COND]() for these?
+
+I'm stopping here for now because I'm still skeptical about the
+protm_block/unblock pattern proposed in this patch, and I'd like to
+sort it out before commenting on the rest of the PROTM implementation
+since it's likely to impact other aspects of the implementation.
+
+Regards,
+
+Boris
