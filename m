@@ -1,766 +1,220 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6361B3EB81E;
-	Mon, 14 Sep 2026 08:24:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B4683EB81E;
+	Mon, 14 Sep 2026 08:24:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789374257; cv=none; b=RUG/m6RFxyuMSiRRp9t2vOG7Hky6Y+CBM5PVwSL6GUf5MnuAYXk280XdopggxTl8v7y83hU7OiExWFP4wq8ENSgOayM2tB7uWCyUkFhqh19drd5e81/i9211tE6BO4papPEHl/T9IabB50cvlkbCZSKBWvCQ1pHPFjrkw3FzuU4=
+	t=1789374276; cv=none; b=b57dWOkKH4xhC3e6wAfjIqWG1DffJB62kpE6gUmSHP2QFGXCdFk7uQ/MkJmA4t+JB079uCg3eow2nkZSmmtXDrZ/OhJ1eQ2xsyysXDnotgwmPU9TXdaFMALshjIWMeN+h6+2xn1GVIsB4dbGk8+zD3WaXNgAecZKp0EoPpGGBjE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789374257; c=relaxed/simple;
-	bh=iOlqQLp2a6/xVr0+LCYNkahXTO7f5YpjgCxisd6LEvc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=rVe4NiZrB9mg8XBarS/NgwbK/NwsHtwICAgNkOM98mUE61SLfl/FHz8F6LZsoNEeUz3/IsIjI1yddSuDZSs0shK1gfR8HF9CzDAtD5fIbC6+Wk3yOV8ah5rwlqffwAmQJSaXkupgEiJp5exZid9TAO4Ljy4L+6oyVga+gyHsc7w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ABvVUrTI; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789374276; c=relaxed/simple;
+	bh=0EtsyqxjBVKgaPGF/DW7DAhx963k6RccThtCKykmuBQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CybNlLYgpmCZv7O5PUID89utZYgill+nGTUKZQqOEp0XQVIp4qcn9vxc7thqxc+y/6KKk5mttztOwGMBzJmBY/pZq5bZoZiSdFIscQiOZqzY0o9nhXNilkljUsFt5sLSDhvOO2tmUhQ8sub56GmeGj3muTjuTQ1Vm65VlmpGs9Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=Sc2R1FmE; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ABvVUrTI"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 26259C2BCFD;
-	Mon, 14 Sep 2026 08:24:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789374257;
-	bh=iOlqQLp2a6/xVr0+LCYNkahXTO7f5YpjgCxisd6LEvc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=ABvVUrTIOLE27NrlOlRoPLsZKFUw/na2yfHH+wpNJ3+LwIbrbZmBdV3MxGQ+uMdE8
-	 pvs3U6SAI1EnHEfjjP8b132hGYPlc1FQHJQ75fcXzp6zLIUAm1eENJ1MFaIOKDWfXg
-	 BuGX7lqhxZYqAly+1ie4m3sO1rbmR7bY+z67oZPu64gZ07x9Rd3zutoA619Jiail9r
-	 nnhdKC2Y7c9gNcK83L+HbFAq/xw752Tbahpjo2OGuRuTNvLGoede/oUuyxv4Yr7MXA
-	 mL1oVTqiM4v1S36gXVhdvrBrkEPNwKMvthFF2QyV7VYr7UelNhriRoWd1+6WyGLL7T
-	 ZWE9KBJaTFQLw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 01095C88E64;
-	Mon, 14 Sep 2026 08:24:17 +0000 (UTC)
-From: =?utf-8?q?=E5=AE=89=E5=AE=B9_via_B4_Relay?= <devnull+HystericalDragons.proton.me@kernel.org>
-Date: Mon, 14 Sep 2026 16:24:08 +0800
-Subject: [PATCH v5 2/4] arm64: dts: rockchip: Split out the common NanoPi
- RK3528 parts
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="Sc2R1FmE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1789374272;
+	bh=0EtsyqxjBVKgaPGF/DW7DAhx963k6RccThtCKykmuBQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Sc2R1FmEMeIKgP6RqTaGjT3tn/DiE+ku9cJ8FxvAVdJvCvu/gd3PQTHkrWj4PQbC0
+	 ARtkhj+dkaVXwql9321a3OXGVEvvBsuUjxhdbTPSt2Lh0SnL4O2E+TUWaTZby6/L0O
+	 T+Zz5AbRFSvQdcWoK7rY1a2t7j9uubwHuJDUYFiWsjKrEkXxUlXe9OrE94vI1JNSoE
+	 KOI4qkONd2jRDuCQDkns/AjXz9yojPFB7tMnDEgsjKzLeBnI1ddlRvj/kxPdkwpRPn
+	 e1k+PslxWTnhCyund/gCShGhQp9FZNYgOdEdsCBFZOFbJXMB1F6ZnzfhNhRBHWMnfg
+	 asXbISnLxHktw==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id EB51C17E05D3;
+	Mon, 14 Sep 2026 10:24:31 +0200 (CEST)
+Message-ID: <ce216fc7-5eeb-4147-b80c-e6cb532879bf@collabora.com>
+Date: Mon, 14 Sep 2026 10:24:31 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260914-r28s-upstream-v5-2-7409c498e8dc@proton.me>
-References: <20260914-r28s-upstream-v5-0-7409c498e8dc@proton.me>
-In-Reply-To: <20260914-r28s-upstream-v5-0-7409c498e8dc@proton.me>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Chukun Pan <amadeus@jmu.edu.cn>, Jonas Karlman <jonas@kwiboo.se>, 
- jensen <jensenhuang@friendlyarm.com>, 
- Andrey Korshunov <razor1702@gmail.com>, 
- Diederik de Haas <diederik@cknow-tech.com>, 
- =?utf-8?q?=E5=AE=89=E5=AE=B9?= <HystericalDragons@proton.me>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=16201;
- i=HystericalDragons@proton.me; h=from:subject:message-id;
- bh=llwDpGvZviTNSgsVhPo6T6IwMtHhnJj5dY6uGHdQJK4=;
- b=owGbwMvMwCUmepz3XUtTHjvjabUkhqzl6/U9u+2vrRJ7ck5+19mI46nhoRz739/6Y5+y7kRzq
- lN61d2DHaUsDGJcDLJiiiyym6ojhVZFzyxikToOM4eVCWQIAxenAExEaT4jw2NR/0crOvkdcvbP
- eDir6d6ytdKT2GYeE3Iovf/sdYlpdwMjQ/Paw8brDj6JuabEILqcXfGzWVrv956ZF7Y6XD94ffU
- 6KT4A
-X-Developer-Key: i=HystericalDragons@proton.me; a=openpgp;
- fpr=1DB27B5912AA5B9972041AC715C70DEE84826E07
-X-Endpoint-Received: by B4 Relay for HystericalDragons@proton.me/default
- with auth_id=1004
-X-Original-From: =?utf-8?q?=E5=AE=89=E5=AE=B9?= <HystericalDragons@proton.me>
-Reply-To: HystericalDragons@proton.me
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] clk: mediatek: mt8173-mfgtop: do not use the clk API
+ from power_on
+To: Ryan Brue <ryanbrue.dev@gmail.com>, Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, Chen-Yu Tsai <wenst@chromium.org>
+Cc: Brian Masney <bmasney@redhat.com>, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org
+References: <20260913-mfgtop-no-clk-api-power-on-v2-1-b84771a3d5bd@gmail.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <20260913-mfgtop-no-clk-api-power-on-v2-1-b84771a3d5bd@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: 安容 <HystericalDragons@proton.me>
+On 9/13/26 23:47, Ryan Brue wrote:
+> clk_mt8173_mfgtop_power_on() calls clk_prepare_enable() on the mfg_26m gate
+> that this same driver provides. That is a layering inversion which cannot
+> work: clk_core_prepare() calls clk_pm_runtime_get() on the clock provider
+> -- this driver's own device -- and genpd power transitions run at _noirq
+> time, where runtime PM is disabled and pm_runtime_resume_and_get() returns
+> -EACCES.
+> 
+> Measured on mt8173 (amazon-suez) during resume from suspend-to-RAM,
+> immediately after the secondary CPUs come back up:
+> 
+>    clk-mt8173-mfgtop 13fff000.clock-controller: 26 MHz clock enable failed: -13
+> 
+> The failure is not survivable, because genpd_sync_power_on() ignores what
+> power_on() returns and marks the domain on regardless. The clock is then
+> left ungated-but-unprepared, and the next power_off() underflows its
+> refcount:
+> 
+>    mfg_26m already disabled
+>    mfg_26m already unprepared
+>    WARNING: drivers/clk/clk.c:1048 at clk_core_unprepare
+>    Workqueue: pm genpd_power_off_work_fn
+>      clk_unprepare / clk_mt8173_mfgtop_power_off / _genpd_power_off
+> 
+> Gate the bit with a direct regmap write instead. The vendor driver
+> (mtk_mfgsys.c) also drives the four MFG CG bits with raw register writes
+> from its power sequencing. The runtime-PM path was never affected, only the
+> _noirq transitions of system suspend and resume. mfg_26m stays registered
+> as a clock for any consumer that wants it; nothing currently does.
+> 
+> Because the gate is now driven from the domain callbacks, its enable count
+> in the clock framework stays 0 while the domain is on. Mark it
+> CLK_IGNORE_UNUSED so that clk_disable_unused() does not gate the 26 MHz
+> clock under an already-powered domain when a consumer probes before late
+> init; the domain callbacks are the only writers.
+> 
+> Fixes: ebd0b73d2137 ("clk: mediatek: Add mt8173-mfgtop driver")
+> Assisted-by: LLM
+> Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
 
-The FriendlyElec NanoPi Zero2 and the NanoPi R28S share their power
-tree, storage, RGMII Ethernet, RTC, SYS LED and debug console. Move
-those parts into rk3528-nanopi.dtsi so the NanoPi R28S can reuse them,
-and leave only the board specific nodes in the NanoPi Zero2 devicetree.
+I don't exactly like this, but it's the least complicated way of doing this, and
+it's also the one that is less likely to break over time, so...
 
-Suggested-by: Chukun Pan <amadeus@jmu.edu.cn>
-Signed-off-by: 安容 <HystericalDragons@proton.me>
----
- .../boot/dts/rockchip/rk3528-nanopi-zero2.dts      | 307 +--------------------
- arch/arm64/boot/dts/rockchip/rk3528-nanopi.dtsi    | 304 ++++++++++++++++++++
- 2 files changed, 313 insertions(+), 298 deletions(-)
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3528-nanopi-zero2.dts b/arch/arm64/boot/dts/rockchip/rk3528-nanopi-zero2.dts
-index 97d85124d2..a8d99f983f 100644
---- a/arch/arm64/boot/dts/rockchip/rk3528-nanopi-zero2.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3528-nanopi-zero2.dts
-@@ -2,41 +2,13 @@
- 
- /dts-v1/;
- 
--#include <dt-bindings/input/input.h>
- #include <dt-bindings/leds/common.h>
--#include <dt-bindings/pwm/pwm.h>
--#include "rk3528.dtsi"
-+#include "rk3528-nanopi.dtsi"
- 
- / {
- 	model = "FriendlyElec NanoPi Zero2";
- 	compatible = "friendlyarm,nanopi-zero2", "rockchip,rk3528";
- 
--	aliases {
--		ethernet0 = &gmac1;
--		i2c1 = &i2c1;
--		mmc0 = &sdhci;
--		mmc1 = &sdmmc;
--		serial0 = &uart0;
--	};
--
--	chosen {
--		stdout-path = "serial0:1500000n8";
--	};
--
--	adc-keys-0 {
--		compatible = "adc-keys";
--		io-channels = <&saradc 0>;
--		io-channel-names = "buttons";
--		keyup-threshold-microvolt = <1800000>;
--		poll-interval = <100>;
--
--		button-maskrom {
--			label = "MASK";
--			linux,code = <KEY_SETUP>;
--			press-threshold-microvolt = <0>;
--		};
--	};
--
- 	adc-keys-1 {
- 		compatible = "adc-keys";
- 		io-channels = <&saradc 1>;
-@@ -51,28 +23,6 @@ button-recovery {
- 		};
- 	};
- 
--	leds {
--		compatible = "gpio-leds";
--		pinctrl-names = "default";
--		pinctrl-0 = <&led1>, <&led_sys>;
--
--		led-0 {
--			color = <LED_COLOR_ID_RED>;
--			default-state = "on";
--			function = LED_FUNCTION_HEARTBEAT;
--			gpios = <&gpio4 RK_PB0 GPIO_ACTIVE_HIGH>;
--			linux,default-trigger = "heartbeat";
--		};
--
--		led-1 {
--			color = <LED_COLOR_ID_GREEN>;
--			default-state = "on";
--			function = LED_FUNCTION_STATUS;
--			gpios = <&gpio4 RK_PB1 GPIO_ACTIVE_HIGH>;
--			linux,default-trigger = "default-on";
--		};
--	};
--
- 	vcc0v6_ddr: regulator-0v6-vcc-ddr {
- 		compatible = "regulator-fixed";
- 		regulator-name = "vcc0v6_ddr";
-@@ -83,66 +33,6 @@ vcc0v6_ddr: regulator-0v6-vcc-ddr {
- 		vin-supply = <&vcc5v0_sys>;
- 	};
- 
--	vdd_0v9: regulator-0v9-vdd {
--		compatible = "regulator-fixed";
--		regulator-name = "vdd_0v9";
--		regulator-always-on;
--		regulator-boot-on;
--		regulator-min-microvolt = <900000>;
--		regulator-max-microvolt = <900000>;
--		vin-supply = <&vcc5v0_sys>;
--	};
--
--	vcc_ddr: regulator-1v1-vcc-ddr {
--		compatible = "regulator-fixed";
--		regulator-name = "vcc_ddr";
--		regulator-always-on;
--		regulator-boot-on;
--		regulator-min-microvolt = <1100000>;
--		regulator-max-microvolt = <1100000>;
--		vin-supply = <&vcc5v0_sys>;
--	};
--
--	vcc_1v8: regulator-1v8-vcc {
--		compatible = "regulator-fixed";
--		regulator-name = "vcc_1v8";
--		regulator-always-on;
--		regulator-boot-on;
--		regulator-min-microvolt = <1800000>;
--		regulator-max-microvolt = <1800000>;
--		vin-supply = <&vcc_3v3>;
--	};
--
--	vcc_3v3: regulator-3v3-vcc {
--		compatible = "regulator-fixed";
--		regulator-name = "vcc_3v3";
--		regulator-always-on;
--		regulator-boot-on;
--		regulator-min-microvolt = <3300000>;
--		regulator-max-microvolt = <3300000>;
--		vin-supply = <&vcc5v0_sys>;
--	};
--
--	vcc3v3_sd: regulator-3v3-vcc-sd {
--		compatible = "regulator-fixed";
--		gpios = <&gpio4 RK_PA1 GPIO_ACTIVE_LOW>;
--		pinctrl-names = "default";
--		pinctrl-0 = <&sdmmc_pwren_l>;
--		regulator-name = "vcc3v3_sd";
--		regulator-min-microvolt = <3300000>;
--		regulator-max-microvolt = <3300000>;
--		vin-supply = <&vcc_3v3>;
--	};
--
--	vcc5v0_sys: regulator-5v0-vcc-sys {
--		compatible = "regulator-fixed";
--		regulator-name = "vcc5v0_sys";
--		regulator-always-on;
--		regulator-boot-on;
--		regulator-min-microvolt = <5000000>;
--		regulator-max-microvolt = <5000000>;
--	};
--
- 	usb2_host_5v: regulator-5v0-usb2-host {
- 		compatible = "regulator-fixed";
- 		enable-active-high;
-@@ -154,138 +44,21 @@ usb2_host_5v: regulator-5v0-usb2-host {
- 		regulator-max-microvolt = <5000000>;
- 		vin-supply = <&vcc5v0_sys>;
- 	};
--
--	vccio_sd: regulator-vccio-sd {
--		compatible = "regulator-gpio";
--		gpios = <&gpio4 RK_PB6 GPIO_ACTIVE_HIGH>;
--		pinctrl-names = "default";
--		pinctrl-0 = <&sdmmc_vol_ctrl_h>;
--		regulator-name = "vccio_sd";
--		regulator-min-microvolt = <1800000>;
--		regulator-max-microvolt = <3300000>;
--		states = <1800000 0x0>, <3300000 0x1>;
--		vin-supply = <&vcc5v0_sys>;
--	};
--
--	vdd_arm: regulator-vdd-arm {
--		compatible = "pwm-regulator";
--		pwms = <&pwm1 0 5000 PWM_POLARITY_INVERTED>;
--		pwm-supply = <&vcc5v0_sys>;
--		regulator-name = "vdd_arm";
--		regulator-always-on;
--		regulator-boot-on;
--		regulator-min-microvolt = <746000>;
--		regulator-max-microvolt = <1201000>;
--		regulator-settling-time-up-us = <250>;
--	};
--
--	vdd_logic: regulator-vdd-logic {
--		compatible = "pwm-regulator";
--		pwms = <&pwm2 0 5000 PWM_POLARITY_INVERTED>;
--		pwm-supply = <&vcc5v0_sys>;
--		regulator-name = "vdd_logic";
--		regulator-always-on;
--		regulator-boot-on;
--		regulator-min-microvolt = <705000>;
--		regulator-max-microvolt = <1006000>;
--		regulator-settling-time-up-us = <250>;
--	};
--};
--
--&cpu0 {
--	cpu-supply = <&vdd_arm>;
--};
--
--&cpu1 {
--	cpu-supply = <&vdd_arm>;
--};
--
--&cpu2 {
--	cpu-supply = <&vdd_arm>;
--};
--
--&cpu3 {
--	cpu-supply = <&vdd_arm>;
--};
--
--&gmac1 {
--	clock_in_out = "output";
--	phy-handle = <&rgmii_phy>;
--	phy-mode = "rgmii-id";
--	phy-supply = <&vcc_3v3>;
--	pinctrl-names = "default";
--	pinctrl-0 = <&rgmii_miim>, <&rgmii_tx_bus2>, <&rgmii_rx_bus2>,
--		    <&rgmii_rgmii_clk>, <&rgmii_rgmii_bus>;
--	status = "okay";
- };
- 
--&gpu {
--	mali-supply = <&vdd_logic>;
--	status = "okay";
--};
--
--&i2c1 {
--	pinctrl-names = "default";
--	pinctrl-0 = <&i2c1m0_xfer>;
--	status = "okay";
--
--	hym8563: rtc@51 {
--		compatible = "haoyu,hym8563";
--		reg = <0x51>;
--		#clock-cells = <0>;
--		interrupt-parent = <&gpio4>;
--		interrupts = <RK_PC1 IRQ_TYPE_LEVEL_LOW>;
--		pinctrl-names = "default";
--		pinctrl-0 = <&rtc_int_l>;
--		wakeup-source;
--	};
--};
-+&leds {
-+	pinctrl-0 = <&led1>, <&led_sys>;
- 
--&mdio1 {
--	rgmii_phy: ethernet-phy@1 {
--		compatible = "ethernet-phy-ieee802.3-c22";
--		reg = <0x1>;
--		pinctrl-names = "default";
--		pinctrl-0 = <&gmac1_rstn_l>;
--		reset-assert-us = <20000>;
--		reset-deassert-us = <100000>;
--		reset-gpios = <&gpio4 RK_PC2 GPIO_ACTIVE_LOW>;
-+	led-1 {
-+		color = <LED_COLOR_ID_GREEN>;
-+		default-state = "on";
-+		function = LED_FUNCTION_STATUS;
-+		gpios = <&gpio4 RK_PB1 GPIO_ACTIVE_HIGH>;
-+		linux,default-trigger = "default-on";
- 	};
- };
- 
- &pinctrl {
--	ethernet {
--		gmac1_rstn_l: gmac1-rstn-l {
--			rockchip,pins = <4 RK_PC2 RK_FUNC_GPIO &pcfg_pull_none>;
--		};
--	};
--
--	leds {
--		led1: led1 {
--			rockchip,pins = <4 RK_PB1 RK_FUNC_GPIO &pcfg_pull_none>;
--		};
--
--		led_sys: led-sys {
--			rockchip,pins = <4 RK_PB0 RK_FUNC_GPIO &pcfg_pull_none>;
--		};
--	};
--
--	rtc {
--		rtc_int_l: rtc-int-l {
--			rockchip,pins = <4 RK_PC1 RK_FUNC_GPIO &pcfg_pull_up>;
--		};
--	};
--
--	sdmmc {
--		sdmmc_vol_ctrl_h: sdmmc-vol-ctrl-h {
--			rockchip,pins = <4 RK_PB6 RK_FUNC_GPIO &pcfg_pull_none>;
--		};
--
--		sdmmc_pwren_l: sdmmc-pwren-l {
--			rockchip,pins = <4 RK_PA1 RK_FUNC_GPIO &pcfg_pull_none>;
--		};
--	};
--
- 	usb {
- 		usb20_host1_pwren: usb20-host1-pwren {
- 			rockchip,pins = <4 RK_PB5 RK_FUNC_GPIO &pcfg_pull_none>;
-@@ -293,52 +66,6 @@ usb20_host1_pwren: usb20-host1-pwren {
- 	};
- };
- 
--&pwm1 {
--	pinctrl-names = "default";
--	pinctrl-0 = <&pwm1m0_pins>;
--	status = "okay";
--};
--
--&pwm2 {
--	pinctrl-names = "default";
--	pinctrl-0 = <&pwm2m0_pins>;
--	status = "okay";
--};
--
--&saradc {
--	vref-supply = <&vcc_1v8>;
--	status = "okay";
--};
--
--&sdhci {
--	bus-width = <8>;
--	cap-mmc-highspeed;
--	mmc-hs200-1_8v;
--	no-sd;
--	no-sdio;
--	non-removable;
--	vmmc-supply = <&vcc_3v3>;
--	vqmmc-supply = <&vcc_1v8>;
--	status = "okay";
--};
--
--&sdmmc {
--	bus-width = <4>;
--	cap-mmc-highspeed;
--	cap-sd-highspeed;
--	disable-wp;
--	sd-uhs-sdr104;
--	vmmc-supply = <&vcc3v3_sd>;
--	vqmmc-supply = <&vccio_sd>;
--	status = "okay";
--};
--
--&uart0 {
--	pinctrl-names = "default";
--	pinctrl-0 = <&uart0m0_xfer>;
--	status = "okay";
--};
--
- &usb_host0_ehci {
- 	status = "okay";
- };
-@@ -347,23 +74,7 @@ &usb_host0_ohci {
- 	status = "okay";
- };
- 
--&usb_host0_xhci {
--	extcon = <&usb2phy>;
--	maximum-speed = "high-speed";
--	phys = <&usb2phy_otg>;
--	phy-names = "usb2-phy";
--	status = "okay";
--};
--
--&usb2phy {
--	status = "okay";
--};
--
- &usb2phy_host {
- 	phy-supply = <&usb2_host_5v>;
- 	status = "okay";
- };
--
--&usb2phy_otg {
--	status = "okay";
--};
-diff --git a/arch/arm64/boot/dts/rockchip/rk3528-nanopi.dtsi b/arch/arm64/boot/dts/rockchip/rk3528-nanopi.dtsi
-new file mode 100644
-index 0000000000..06a6c0dc82
---- /dev/null
-+++ b/arch/arm64/boot/dts/rockchip/rk3528-nanopi.dtsi
-@@ -0,0 +1,304 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Common parts of the FriendlyElec RK3528 boards: NanoPi Zero2 and NanoPi R28S.
-+ */
-+
-+#include <dt-bindings/input/input.h>
-+#include <dt-bindings/leds/common.h>
-+#include <dt-bindings/pwm/pwm.h>
-+#include "rk3528.dtsi"
-+
-+/ {
-+	aliases {
-+		ethernet0 = &gmac1;
-+		i2c1 = &i2c1;
-+		mmc0 = &sdhci;
-+		mmc1 = &sdmmc;
-+		serial0 = &uart0;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:1500000n8";
-+	};
-+
-+	adc-keys-0 {
-+		compatible = "adc-keys";
-+		io-channels = <&saradc 0>;
-+		io-channel-names = "buttons";
-+		keyup-threshold-microvolt = <1800000>;
-+		poll-interval = <100>;
-+
-+		button-maskrom {
-+			label = "MASK";
-+			linux,code = <KEY_SETUP>;
-+			press-threshold-microvolt = <0>;
-+		};
-+	};
-+
-+	leds: leds {
-+		compatible = "gpio-leds";
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&led_sys>;
-+
-+		led-0 {
-+			color = <LED_COLOR_ID_RED>;
-+			default-state = "on";
-+			function = LED_FUNCTION_HEARTBEAT;
-+			gpios = <&gpio4 RK_PB0 GPIO_ACTIVE_HIGH>;
-+			linux,default-trigger = "heartbeat";
-+		};
-+	};
-+
-+	vdd_0v9: regulator-0v9-vdd {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vdd_0v9";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <900000>;
-+		regulator-max-microvolt = <900000>;
-+		vin-supply = <&vcc5v0_sys>;
-+	};
-+
-+	vcc_ddr: regulator-1v1-vcc-ddr {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc_ddr";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <1100000>;
-+		regulator-max-microvolt = <1100000>;
-+		vin-supply = <&vcc5v0_sys>;
-+	};
-+
-+	vcc_1v8: regulator-1v8-vcc {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc_1v8";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+		vin-supply = <&vcc_3v3>;
-+	};
-+
-+	vcc_3v3: regulator-3v3-vcc {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc_3v3";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		vin-supply = <&vcc5v0_sys>;
-+	};
-+
-+	vcc3v3_sd: regulator-3v3-vcc-sd {
-+		compatible = "regulator-fixed";
-+		gpios = <&gpio4 RK_PA1 GPIO_ACTIVE_LOW>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&sdmmc_pwren_l>;
-+		regulator-name = "vcc3v3_sd";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		vin-supply = <&vcc_3v3>;
-+	};
-+
-+	vcc5v0_sys: regulator-5v0-vcc-sys {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc5v0_sys";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+	};
-+
-+	vccio_sd: regulator-vccio-sd {
-+		compatible = "regulator-gpio";
-+		gpios = <&gpio4 RK_PB6 GPIO_ACTIVE_HIGH>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&sdmmc_vol_ctrl_h>;
-+		regulator-name = "vccio_sd";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <3300000>;
-+		states = <1800000 0x0>, <3300000 0x1>;
-+		vin-supply = <&vcc5v0_sys>;
-+	};
-+
-+	vdd_arm: regulator-vdd-arm {
-+		compatible = "pwm-regulator";
-+		pwms = <&pwm1 0 5000 PWM_POLARITY_INVERTED>;
-+		pwm-supply = <&vcc5v0_sys>;
-+		regulator-name = "vdd_arm";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <746000>;
-+		regulator-max-microvolt = <1201000>;
-+		regulator-settling-time-up-us = <250>;
-+	};
-+
-+	vdd_logic: regulator-vdd-logic {
-+		compatible = "pwm-regulator";
-+		pwms = <&pwm2 0 5000 PWM_POLARITY_INVERTED>;
-+		pwm-supply = <&vcc5v0_sys>;
-+		regulator-name = "vdd_logic";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <705000>;
-+		regulator-max-microvolt = <1006000>;
-+		regulator-settling-time-up-us = <250>;
-+	};
-+};
-+
-+&cpu0 {
-+	cpu-supply = <&vdd_arm>;
-+};
-+
-+&cpu1 {
-+	cpu-supply = <&vdd_arm>;
-+};
-+
-+&cpu2 {
-+	cpu-supply = <&vdd_arm>;
-+};
-+
-+&cpu3 {
-+	cpu-supply = <&vdd_arm>;
-+};
-+
-+&gmac1 {
-+	clock_in_out = "output";
-+	phy-handle = <&rgmii_phy>;
-+	phy-mode = "rgmii-id";
-+	phy-supply = <&vcc_3v3>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&rgmii_miim>, <&rgmii_tx_bus2>, <&rgmii_rx_bus2>,
-+		    <&rgmii_rgmii_clk>, <&rgmii_rgmii_bus>;
-+	status = "okay";
-+};
-+
-+&gpu {
-+	mali-supply = <&vdd_logic>;
-+	status = "okay";
-+};
-+
-+&i2c1 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c1m0_xfer>;
-+	status = "okay";
-+
-+	hym8563: rtc@51 {
-+		compatible = "haoyu,hym8563";
-+		reg = <0x51>;
-+		#clock-cells = <0>;
-+		interrupt-parent = <&gpio4>;
-+		interrupts = <RK_PC1 IRQ_TYPE_LEVEL_LOW>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&rtc_int_l>;
-+		wakeup-source;
-+	};
-+};
-+
-+&mdio1 {
-+	rgmii_phy: ethernet-phy@1 {
-+		compatible = "ethernet-phy-ieee802.3-c22";
-+		reg = <0x1>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&gmac1_rstn_l>;
-+		reset-assert-us = <20000>;
-+		reset-deassert-us = <100000>;
-+		reset-gpios = <&gpio4 RK_PC2 GPIO_ACTIVE_LOW>;
-+	};
-+};
-+
-+&pinctrl {
-+	ethernet {
-+		gmac1_rstn_l: gmac1-rstn-l {
-+			rockchip,pins = <4 RK_PC2 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+
-+	leds {
-+		led1: led1 {
-+			rockchip,pins = <4 RK_PB1 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+
-+		led_sys: led-sys {
-+			rockchip,pins = <4 RK_PB0 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+
-+	rtc {
-+		rtc_int_l: rtc-int-l {
-+			rockchip,pins = <4 RK_PC1 RK_FUNC_GPIO &pcfg_pull_up>;
-+		};
-+	};
-+
-+	sdmmc {
-+		sdmmc_pwren_l: sdmmc-pwren-l {
-+			rockchip,pins = <4 RK_PA1 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+
-+		sdmmc_vol_ctrl_h: sdmmc-vol-ctrl-h {
-+			rockchip,pins = <4 RK_PB6 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+};
-+
-+&pwm1 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pwm1m0_pins>;
-+	status = "okay";
-+};
-+
-+&pwm2 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pwm2m0_pins>;
-+	status = "okay";
-+};
-+
-+&saradc {
-+	vref-supply = <&vcc_1v8>;
-+	status = "okay";
-+};
-+
-+&sdhci {
-+	bus-width = <8>;
-+	cap-mmc-highspeed;
-+	mmc-hs200-1_8v;
-+	no-sd;
-+	no-sdio;
-+	non-removable;
-+	vmmc-supply = <&vcc_3v3>;
-+	vqmmc-supply = <&vcc_1v8>;
-+	status = "okay";
-+};
-+
-+&sdmmc {
-+	bus-width = <4>;
-+	cap-mmc-highspeed;
-+	cap-sd-highspeed;
-+	disable-wp;
-+	sd-uhs-sdr104;
-+	vmmc-supply = <&vcc3v3_sd>;
-+	vqmmc-supply = <&vccio_sd>;
-+	status = "okay";
-+};
-+
-+&uart0 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&uart0m0_xfer>;
-+	status = "okay";
-+};
-+
-+&usb_host0_xhci {
-+	extcon = <&usb2phy>;
-+	maximum-speed = "high-speed";
-+	phys = <&usb2phy_otg>;
-+	phy-names = "usb2-phy";
-+	status = "okay";
-+};
-+
-+&usb2phy {
-+	status = "okay";
-+};
-+
-+&usb2phy_otg {
-+	status = "okay";
-+};
-
--- 
-2.55.0
-
+> ---
+> Changes in v2:
+> - Mark mfg_26m CLK_IGNORE_UNUSED: with the gate driven from the domain
+>    callbacks its CCF enable count stays 0, so clk_disable_unused() would gate
+>    the 26 MHz clock under an already-powered domain if a consumer probed
+>    before late init (reported by the Sashiko review of v1). Verified on the
+>    Fire HD 10: the gate follows the domain (hardware Y with the GPU active, N
+>    after unbind) while the enable count stays 0, and the GPU keeps working.
+> - Link to v1: https://patch.msgid.link/20260912-mfgtop-no-clk-api-power-on-v1-1-def157ad1277@gmail.com
+> ---
+>   drivers/clk/mediatek/clk-mt8173-mfgtop.c | 29 +++++++++++------------------
+>   1 file changed, 11 insertions(+), 18 deletions(-)
+> 
+> diff --git a/drivers/clk/mediatek/clk-mt8173-mfgtop.c b/drivers/clk/mediatek/clk-mt8173-mfgtop.c
+> index 5669ca9954dc..53918ad7f402 100644
+> --- a/drivers/clk/mediatek/clk-mt8173-mfgtop.c
+> +++ b/drivers/clk/mediatek/clk-mt8173-mfgtop.c
+> @@ -30,6 +30,8 @@ static const struct mtk_gate_regs mfg_cg_regs = {
+>   	.set_ofs = 0x0004,
+>   };
+>   
+> +#define MFG_CG_26M	BIT(3)
+> +
+>   #define GATE_MFG(_id, _name, _parent, _shift, _flags)	\
+>   	GATE_MTK_FLAGS(_id, _name, _parent, &mfg_cg_regs, _shift, &mtk_clk_gate_ops_setclr, _flags)
+>   
+> @@ -38,7 +40,8 @@ static const struct mtk_gate mfg_clks[] = {
+>   	GATE_MFG(CLK_MFG_AXI, "mfg_axi", "axi_mfg_in_sel", 0, CLK_SET_RATE_PARENT),
+>   	GATE_MFG(CLK_MFG_MEM, "mfg_mem", "mem_mfg_in_sel", 1, CLK_SET_RATE_PARENT),
+>   	GATE_MFG(CLK_MFG_G3D, "mfg_g3d", "mfg_sel", 2, CLK_SET_RATE_PARENT),
+> -	GATE_MFG(CLK_MFG_26M, "mfg_26m", "clk26m", 3, 0),
+> +	/* Driven by the power domain callbacks, not by a clk consumer */
+> +	GATE_MFG(CLK_MFG_26M, "mfg_26m", "clk26m", 3, CLK_IGNORE_UNUSED),
+>   };
+>   
+>   struct mt8173_mfgtop_data {
+> @@ -46,7 +49,6 @@ struct mt8173_mfgtop_data {
+>   	struct regmap *regmap;
+>   	struct generic_pm_domain genpd;
+>   	struct of_phandle_args parent_pd, child_pd;
+> -	struct clk *clk_26m;
+>   };
+>   
+>   /* Delay count in clock cycles */
+> @@ -66,12 +68,12 @@ struct mt8173_mfgtop_data {
+>   static int clk_mt8173_mfgtop_power_on(struct generic_pm_domain *domain)
+>   {
+>   	struct mt8173_mfgtop_data *data = container_of(domain, struct mt8173_mfgtop_data, genpd);
+> -	int ret;
+>   
+> -	/* drives internal power management */
+> -	ret = clk_prepare_enable(data->clk_26m);
+> -	if (ret)
+> -		return ret;
+> +	/*
+> +	 * Drives internal power management. Written directly: the clk API
+> +	 * needs runtime PM, which is disabled during _noirq transitions.
+> +	 */
+> +	regmap_write(data->regmap, mfg_cg_regs.clr_ofs, MFG_CG_26M);
+>   
+>   	/* Power on/off delays for various signals */
+>   	regmap_write(data->regmap, MFG_ACTIVE_POWER_CON0,
+> @@ -103,7 +105,7 @@ static int clk_mt8173_mfgtop_power_off(struct generic_pm_domain *domain)
+>   	regmap_write(data->regmap, 0xec, 0);
+>   
+>   	/* drives internal power management */
+> -	clk_disable_unprepare(data->clk_26m);
+> +	regmap_write(data->regmap, mfg_cg_regs.set_ofs, MFG_CG_26M);
+>   
+>   	return 0;
+>   }
+> @@ -155,16 +157,10 @@ static int clk_mt8173_mfgtop_probe(struct platform_device *pdev)
+>   		goto put_pm_runtime;
+>   	}
+>   
+> -	data->clk_26m = clk_hw_get_clk(data->clk_data->hws[CLK_MFG_26M], "26m");
+> -	if (IS_ERR(data->clk_26m)) {
+> -		ret = dev_err_probe(dev, PTR_ERR(data->clk_26m), "Failed to get 26 MHz clock\n");
+> -		goto unregister_clks;
+> -	}
+> -
+>   	ret = of_clk_add_hw_provider(node, of_clk_hw_onecell_get, data->clk_data);
+>   	if (ret) {
+>   		dev_err_probe(dev, ret, "Failed to add clk OF provider\n");
+> -		goto put_26m_clk;
+> +		goto unregister_clks;
+>   	}
+>   
+>   	data->genpd.name = "mfg-top";
+> @@ -197,8 +193,6 @@ static int clk_mt8173_mfgtop_probe(struct platform_device *pdev)
+>   	pm_genpd_remove(&data->genpd);
+>   del_clk_provider:
+>   	of_clk_del_provider(node);
+> -put_26m_clk:
+> -	clk_put(data->clk_26m);
+>   unregister_clks:
+>   	mtk_clk_unregister_gates(mfg_clks, ARRAY_SIZE(mfg_clks), data->clk_data);
+>   put_pm_runtime:
+> @@ -217,7 +211,6 @@ static void clk_mt8173_mfgtop_remove(struct platform_device *pdev)
+>   	of_genpd_del_provider(node);
+>   	pm_genpd_remove(&data->genpd);
+>   	of_clk_del_provider(node);
+> -	clk_put(data->clk_26m);
+>   	mtk_clk_unregister_gates(mfg_clks, ARRAY_SIZE(mfg_clks), data->clk_data);
+>   	of_node_put(data->parent_pd.np);
+>   }
+> 
+> ---
+> base-commit: df2908090cda368b01ff43709f51890076c56157
+> change-id: 20260912-mfgtop-no-clk-api-power-on-a5e0a3a43b33
+> 
+> Best regards,
+> --
+> Ryan Brue <ryanbrue.dev@gmail.com>
 
