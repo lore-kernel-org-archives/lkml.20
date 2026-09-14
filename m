@@ -1,148 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C47647AF5F
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 15:21:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3337D30FF08
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 15:21:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789399317; cv=none; b=SyvVTklO+USc02Xs/ufkpIW11W4sc/GqV1CCgbWbsfnne/8aoNeIHFpnfJHwZrTTQIHvh3yLzLxfN4CTmBP1Lo5D+kT31HzDTh+zQCRv6Rhunhnl6NW9+fshE2eIfrbU76UbWSF8lEOYXutomnYagzOgCN9YHjOxISoVOmDkzDQ=
+	t=1789399318; cv=none; b=q3LYteOiYKUWIyKSUo5umlVFY4PRAAZGZXmvRAObqelCHkAkRxD8RachOHX3zLLSC17Y6GwNnehe3qaLyAOfpqwv31jvXlDEWNhNVMronpjko2/mWo5xyIJSV9pOXBRf9Vsxa3gACwtTcjYpNFuwNOxq/c/Oeohp5kHuZwyesY4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789399317; c=relaxed/simple;
-	bh=hxUAw5zcbzsYTGG2pefa+mSRsYXnSpZroJj408y7rr8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kx5/WhrqkSKsjD4cD1rHZQltaIroVGelu7UsXZfxjuOkTueEUDrjrqrp783UM47xXK2VU+Gvu/OkU+oBTYahejCfboxp5raFDbMcA61kWk3Cz7qSZkTb4XLnoYsFauZa41Ia6UIeB+ZpP43b2VMLIRvPOmnj30vy0/YECcdsN00=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HXLwSMkG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789399318; c=relaxed/simple;
+	bh=7nGECr84emLqWyNDyOX70IfdI2ORNdzf43u4uutTtBo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=uqvSY4RZ+K9w+6AaiOcXt6Ac0hKlCroqJBDWfNwmAUfWW62J+N+LpwFqzEP0pmsXAyXHn1kLTBhJIF3jpvX4fz8nTR6xmGUgRK9n8/kUvbAmCD2tJNlNuSb8jDPsqZ8aWVvPqkD1RIslJ6VNO2bCIAkJwpqvCea8zfVHmlYyJgA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=rCvOVXKx; arc=none smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HXLwSMkG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 504B41F000FF;
-	Mon, 14 Sep 2026 15:21:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789399315;
-	bh=BbM/6KmbIwqEmYkcORDjoWrwHW3qkC0k639i+OR+Sr8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HXLwSMkGUQJpjeB6H3k1gKeb4bQKtfUE3zfkdtxMdHq9prST9T7R7/v1Ujd8ovI0V
-	 eCf2nffXt+2XbJScr13PvgAj/Z2DYBBz/fqVuCsPZIjFQqJo2M2oybxC/oiOMfJ9jH
-	 /fmFZXd1qlne4zCEQrqK7ruv7BDqvXt5lHRzqkuPYGd3d2W365qPBWLBsrYKSNX4j1
-	 DX7yT6W15irI9igbkNqy7AvA6APc3nXFkPzv/KpDjvcWf/lU9mfb3ci4l+X0ixBEW0
-	 rrgrUZBXxrzHNG3AYJ5gH2nB/SsjBvhWBNGArrvQkDuFiq8QmaBgF69VSf0+6h4ip6
-	 Pacmx3r5tv4xA==
-Date: Mon, 14 Sep 2026 16:21:45 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Kiryl Shutsemau <kas@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Suren Baghdasaryan <surenb@google.com>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
-	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
-	Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>, Xu Xin <xu.xin16@zte.com.cn>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, Chris Li <chrisl@kernel.org>, 
-	Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
-	Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Youngjun Park <youngjun.park@lge.com>, Peter Xu <peterx@redhat.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Guilherme Giacomo Simoes <trintaeoitogc@gmail.com>
-Subject: Re: [PATCH v2] mm: implement and use vma_anon_tracked(), silence
- KCSAN
-Message-ID: <aqgQw6moAuJYCVw8@gremlin>
-References: <20260910-vma-is-faulted-v2-1-e81ebc7d146b@kernel.org>
- <aqKzUTPbh1qcKs4a@thinkstation>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="rCvOVXKx"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c29703cb470so400202166b.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:21:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1789399314; x=1790004114; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qLA3m0NGa2cvdE7XQveDYTZqplmx5lDSMQV/pnRZYqg=;
+        b=rCvOVXKxPv/FFfQwsHVmxjQFa+mToo3kHUmwb/zeEi86gCXrwww/IsL+EXkmnzSEWM
+         M+Bnbd3W7+ml+S/2sYTojU5J5Ms/9I5fLoC//jrQ9IH8qSvvxiE4KWzZ2+RqxYllreOr
+         IyMFgbUY8QdLcVd9c5CYXlmS12/dz1FoiNfFxbYIPBan2VBuP5MjT7rLNQMTnuzz5z9q
+         KNpZcYlWHRiTjQxgOAA1NLiy+yd7nRcAfFFmzh1seVfzRdLiBy0oO3Vw9KVRW0HXS9kC
+         9hAcigIQ2zDKkI4JqnG/PLMNIMqrIn5qVPNpU+UcfRWqNdKg4FUZYBhhex9RopqdDD48
+         gZRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789399314; x=1790004114;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qLA3m0NGa2cvdE7XQveDYTZqplmx5lDSMQV/pnRZYqg=;
+        b=Jgo4XHH4eEWO5BA4q5oSgkVqcgJuTUGUXjsvKQxpj7DOSO+YKZbJl4zymGkktV07zq
+         kJyLu93w5ByihWHnA/DiQjwJ1+QT/QQGWVjZC1ueyLASUoKHLr/KDja7bRlEZHqG0OOG
+         DdxkCwCK0okDnxtWNpQMiwbnHRgJSpgMMld6L841WhdeKDxiQR8eRU71mn2tr8XCAjBt
+         qey9Z5cMoA0Mj4Au5zq86KRWBkRdjWvyWCamD49zBsEGyQUhcHr59oRU+ppaGiD9yN3U
+         iBaJVuO4xv8Idsic9DYmG4kYiE0eHzPzpgfEss2ErXbZYnVuQhndmdN7u76Vc+yhWjw3
+         FRTw==
+X-Forwarded-Encrypted: i=1; AKwUvBwFumfEsSiuoCDq0wRZ36lRW6PEIBZ6C6rhE9AVfZUwFpQROZIDngtaf0UHwVtfq5qp4KwHLmdXCGxifNo=@vger.kernel.org
+X-Gm-Message-State: AFuF++kMNVBOeBDIECxwW30BXrNQfmr1agVmzHeEcvcT8QCiw1KxLwh9
+	/ZTnTKlYKfZeKkdHxM6x5NP9m+6bik4wDrOn3ReyhNVg7ZMVPDjh+H+Q8Lk8KcLjHQA=
+X-Gm-Gg: AYBFou39tAyl/GQpBSrNjtwKsASGAaPlbPLStQ0xmGNtQ56Nk8fyIYAPy77HcpZ6zI0
+	Rjraf8lc++UBGHCOSomI2VxdU87YQhcQpcZvA79esNNukQVjZEGLI8A2XciM6LaYCaaVw8QJyHH
+	MrW5n6SmSNZs+j5RDd3mxc45xogwW4Vz5VRUw6DJFpPAflDQuuZ5j4ndZgdYKsyDbf8N4qfaDNY
+	NrwSykbF8JqpUJQUOtZcTejY6hZbX7CEmGDEcuPygS/6L+coRjm0HDSO2b8ViWinoKjdWi3VBw+
+	6piOLtrGtlWv7dcymDHCC+d8HO/EB3EVmlx4TPvnuDW3T/cNFbuTFJbm6iCNcZAuiEWmZgY6vvl
+	JLWCsIj2d5ShUA/qN+lcI9rj+BUEZ3ZkmokEo2qJYY8UXdg+R+vzp31GM/BgwZivF8K5YZrDyXC
+	yVjMJq8uB0g7HHZfBHJS/jNeWJFDG2q1mgikjkyJyUkq+3mVzZw+WXAcpQ1bsXZ1KLNxtVXZban
+	n8uulcd/Gw=
+X-Received: by 2002:a17:907:3c94:b0:c25:c979:e76a with SMTP id a640c23a62f3a-c29b8767641mr374816866b.22.1789399313992;
+        Mon, 14 Sep 2026 08:21:53 -0700 (PDT)
+Received: from [192.168.0.167] ([109.76.248.34])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c296608480esm470622966b.36.2026.09.14.08.21.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 14 Sep 2026 08:21:53 -0700 (PDT)
+Message-ID: <18b629b6-5944-4a1c-9573-fd0ee4b25cf4@linaro.org>
+Date: Mon, 14 Sep 2026 16:21:50 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqKzUTPbh1qcKs4a@thinkstation>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/8] media: qcom: camss: vfe-17x: use the write master
+ matching the RDI line
+To: Hitesh Patel <hitesh@ebytelogic.com>, linux-media@vger.kernel.org
+Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, ravi@ebytelogic.com
+References: <20260914133416.1030231-1-hitesh@ebytelogic.com>
+ <20260914133416.1030231-5-hitesh@ebytelogic.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20260914133416.1030231-5-hitesh@ebytelogic.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 10, 2026 at 02:50:25PM +0100, Kiryl Shutsemau wrote:
-> On Thu, Sep 10, 2026 at 02:18:35PM +0100, Lorenzo Stoakes (ARM) wrote:
-> > Provide a function to abstract the common task of checking whether
-> > a VMA is faulted in or not.
-> >
-> > A VMA or mmap lock must be held when calling this function. For an attached
-> > VMA the transitions between unfaulted/faulted state are:
-> >
-> >        Transition        |              VMA/mmap Lock state
-> >  ------------------------|-----------------------------------------------
-> >    unfaulted to faulted  | write lock OR read lock + mm->page_table_lock
-> >    faulted to unfaulted  | write lock
-> >
-> > So vma_anon_tracked() never provides a false positive (the lock precludes
-> > it), but if only a read lock is held, a negative result must be re-checked
-> > with mm->page_table_lock held.
-> >
-> > Detached VMAs cannot be concurrently manipulated as they are removed from
-> > the maple tree so require no guarantees.
-> >
-> > Use data_race() to silence KCSAN about non-existent data races between
-> > concurrent vma->anon_vma read/write on optimistic fault tests.
-> >
-> > Also while here, const-ify vma_is_attached(), vma_assert_stabilised() and
-> > dependants.
->
-> If you end up respinning anyway, this would be a natural separate
-> prep patch.
+On 14/09/2026 14:34, Hitesh Patel wrote:
+> Signed-off-by: Hitesh Patel<hitesh@ebytelogic.com>
+> ---
+>   .../media/platform/qcom/camss/camss-vfe-17x.c | 22 +++++++++++++------
+>   1 file changed, 15 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/media/platform/qcom/camss/camss-vfe-17x.c b/drivers/media/platform/qcom/camss/camss-vfe-17x.c
+> index f62fdabbc..0cfc24255 100644
+> --- a/drivers/media/platform/qcom/camss/camss-vfe-17x.c
+> +++ b/drivers/media/platform/qcom/camss/camss-vfe-17x.c
+> @@ -403,10 +403,20 @@ static int vfe_get_output(struct vfe_line *line)
+>   
+>   	output->wm_num = 1;
+>   
+> -	wm_idx = vfe_reserve_wm(vfe, line->id);
+> -	if (wm_idx < 0) {
+> -		dev_err(vfe->camss->dev, "Can not reserve wm\n");
+> -		goto error_get_wm;
+> +	if (line->id == VFE_LINE_PIX) {
+> +		wm_idx = vfe_reserve_wm(vfe, line->id);
+> +		if (wm_idx < 0) {
+> +			dev_err(vfe->camss->dev, "Can not reserve wm\n");
+> +			goto error;
+> +		}
+> +	} else {
+> +		wm_idx = line->id;
+> +		if (vfe->wm_output_map[wm_idx] != VFE_LINE_NONE) {
+> +			dev_err(vfe->camss->dev, "Can not reserve wm %d\n",
+> +				wm_idx);
+> +			goto error;
+> +		}
+> +		vfe->wm_output_map[wm_idx] = line->id;
 
-Yup will do, Pedro also asked for this!
+I don't get why you are disjuncting on PIX here.
 
->
-> > Finally, update the core VMA merge/split, rmap, mremap, KSM and fault
-> > preparation callers which test vma->anon_vma directly to use
-> > vma_anon_tracked() instead.
-> >
-> > Note that the lockless read in reusable_anon_vma() is doing more than
-> > checking whether the VMA is faulted - it is returning the anon_vma to be
-> > used on fault, so this check is not altered.
-> >
-> > There is one odd one out - file_backed_vma_is_retractable() - which holds
-> > neither a VMA nor mmap lock and is stabilised by the file rmap lock only.
-> >
-> > Therefore just add a comment to explain why the direct vma->anon_vma check
-> > is required.
-> >
-> > Reported-by: Guilherme Giacomo Simoes <trintaeoitogc@gmail.com>
-> > Closes: https://lore.kernel.org/all/20260829100034.423064-1-trintaeoitogc@gmail.com/
-> > Closes: https://lore.kernel.org/all/20260909115723.528501-1-trintaeoitogc@gmail.com/
-> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> > ---
-> > v2:
-> > - Renamed vma_is_faulted() to vma_anon_tracked() as per David.
->
-> I don't particularly like vma_anon_tracked(), but naming is hard...
+Also isn't this a problem for ~ every VFE ?
 
-Yeah it was a compromise because David and I disagreed on naming (again ;)
+Again.
 
-I think vma_has_anon_rmap() is a better compromise?
+- Fixes:
+- Prefix patch title with Fix
+- Fixes go first in the queue of submitted patches before functionality
 
->
-> From quick grep, it seems you missed two cases of direct readers:
->
->   hugepage_vma_revalidate():
->
->       if (expect_anon && (!(*vmap)->anon_vma || !vma_is_anonymous(*vmap)))
->
->   vma_needs_copy():
->
->       if (src_vma->anon_vma)
->
-> Worth fixing? If it is intentional, add a comment why. I don't see it.
+And since you are going in with the knife for vfe 17x you may as well 
+fix this for all of them.
 
-Ack will check.
-
->
-> Anyways:
->
-> Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-
-Thanks!
-
->
-> --
->   Kiryl Shutsemau / Kirill A. Shutemov
-
---
-Cheers, Lorenzo
+---
+bod
