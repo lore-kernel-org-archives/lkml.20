@@ -1,172 +1,94 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F6642D3A93;
-	Mon, 14 Sep 2026 01:13:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89BB926CE05
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 01:13:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789348385; cv=none; b=komOSxy1I+PP72lTSev918yQ24rERgb9rUSsKqYWxA6mgO2qpupXhc5bmbEI3Zc6P92ChP8ZsWf70LeaGVxQdAESaFbWZxRS09h3TPkkxcES1hde9FdsOpXFBuvDQ9IDh36kTOddYOCsEXfGH8qOZdkzNN4IAlESV4K2c1QhsFY=
+	t=1789348398; cv=none; b=n1U97ifJTUoO2RqwWobbxoneF8rjSJmox7ofHeVzbxW1ZgEkczFuCZWjXIlAK8ZCnyfr44D/KCWtR2ViSY3J1PgbJJqxSr08VulyHaHdLbWu8wW9VC7fMrKqiLp10qI80C3S+DFdDlLKoNFPMDJ/fj1A+NZGneYD7Koam/RXeEI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789348385; c=relaxed/simple;
-	bh=igCtFqliQnp/gR5uMJXNZJLWhekJJhWEy63N0y7KNr8=;
+	s=arc-20240116; t=1789348398; c=relaxed/simple;
+	bh=nEiwzoK4SoNy8IEzELJlP5xTHu5XFQc/2OLa7Gpxo+I=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XpWFrMFBh3wfEFmaB3IPSmDKyXS/q7PvC1nUe6cgEFvjFLwET80/UTQK/GpVJ8HzXMajwzOH0jNGR7+EJyJmAmzW1KBSRDaEYYo4Z+ji+0qmLi90qyOqAm2/5t/AIt7CW1nLwAVtXr1Nqjjt8ASu87ljiWX5u6U0G0aBljFNKC8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CyKgo6VB; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=ci9jyhTsXvyVWAnKn+HE2k4tZWpqxBIk9rgVF+WAFDaxb8F78G1IEaJbZVrr19yFmhZkfinvxZKivdXZdiSzmIO8/seK5SdaMc1wKGr3LlvrXc8WBvQoz4tR1tUfiESxzeDR5el1urfrKkKzbaUmofelM4Bv/tmyRPdJPIB94z0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SVnttTLP; arc=none smtp.client-ip=74.125.228.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CyKgo6VB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 243521F000FF;
-	Mon, 14 Sep 2026 01:13:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789348383;
-	bh=S4ijoOjoBG1kX0MqJZWEgFLU5EKm1paRbUc8bRlvdk0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CyKgo6VB09D3y+VTVGYgbuzn6oAD8oIBE8S2KhK7S+mlSQiC1h8dfAZmE5DZBPMgK
-	 2IYgT2Bh/8gR5vNSIV/CF/1xQaa3owyUf3Q7LAKqWNWfyTOe2QMP925LKXNylPoCFA
-	 8wAG/ujqldPeDinyiJV/j93HnXEj6g/aHX0GxA8sa+UGsFB5kbCWdgqdhP0U9OwX1a
-	 70axJWpIo997MHmzPGsVXZ40nLcJajaaENbauYYCU3STkWHTR7mWjZAUdDcR8Ag9sx
-	 qFSMa/arZUv8Q+nPVV6f1KNjb3EDHdCl/QOzPHacxsxrG7ebaN+if2wC3q1o3Zj3Qr
-	 +3WIgOtXFPXgQ==
-Date: Sun, 13 Sep 2026 18:13:01 -0700
-From: Namhyung Kim <namhyung@kernel.org>
-To: Thomas Falcon <thomas.falcon@intel.com>
-Cc: Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Dapeng Mi <dapeng1.mi@linux.intel.com>,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>, Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>
-Subject: Re: [PATCH v8 0/6] perf: Add support for memory region/range
- reporting
-Message-ID: <aqdKHTTfPHf8UjHA@google.com>
-References: <20260910194324.98002-1-thomas.falcon@intel.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SVnttTLP"
+Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-85469b355ffso776304b3a.1
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 18:13:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789348397; x=1789953197; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=AYhF5pMkaESj6kjmpcCVISkdRjgmdv7n0c/SdhgqaIU=;
+        b=SVnttTLPQltCdRMbkj5NmnIeCRblPHiYSoyv6pKqYPf03rN8NfRqXQ51MpZwqGq+V5
+         TjMN8etQeb7yH3uO8KQ+gmVlNW/OLXEKPbhaRLC1owz1Dlw3hKv9RzfpuB8qVU7seZ7b
+         VNcceZCmth4n9nPsrDL7vcarFVcKcbBQIZA5pfORZh+ySg+hUYoIozBC236FT5/fdMLH
+         tiJABXRBvvlwuuZrf94HG06AOIonwDV3K7x8DnIMnBYpzbNFv9v9lXOEQZ/heCv4TmZz
+         ozFKht8R2yPOAdDdGTM2zqDiFGVzeaaqL+jC/T3dNC6b/9meB/EugH3PTEL5MGyH01Ek
+         OVNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789348397; x=1789953197;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AYhF5pMkaESj6kjmpcCVISkdRjgmdv7n0c/SdhgqaIU=;
+        b=AT+uxuuGYLIZ3NqpOeF6aeT2Y9ZswS0zyY4vhRFZVVmsUhjuscFVq1zMIgpVGWxRqM
+         xMTlyi5crzMhobb4KTAUCgm0RzYsv+FAI5QyQ5sbzzltWNmD2Vnu7JkshLXQmsk5eX3w
+         VsA8F1jKqQJ6Y6CaexLzbnnE7PCFRmZ/tH/z3hOxk8P7CKx/Di77hXuMRULuTOmytpO8
+         pwkuP00Gk0cuT/57Fimjk3GlsiiKgh08uzzRapulLXG8Y00GdfqdMPFWNl11xrb8RjZl
+         ptZ39NpT1r+jTgd1uCHMiVRfWqjMK3qIrjdePsona36K1XaOZW/i8vDQrod5n8gn9XnF
+         /OVw==
+X-Forwarded-Encrypted: i=1; AKwUvBxzdb3G8Hj7pQKQn6+8MtDYboTt4CqQ+sm9MxkAgWMgh2bjzaj0sbh+tU1lojvaKPUEEYjSwQOxw5QYhhQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++lTqDsm73T+cqXchLIWYlQ0tp/XjKcZ6P1E6bJ02gFDUBceE89b
+	1IFvCFOgTka+y9tsWtaM+5RxompFmb3oYSFRPqxqd1mLCtqKzq6kNlX9
+X-Gm-Gg: AYBFou1IwN7oojimCwY+KQ2Zk3BuO+FLetF30H3M2wvVG9i+npzDT7OVwrV/n6jgm3e
+	49F5QbHFlUawvsP6aiCC7SJIE9MX7TdEaRslOI62S6Pb9Z5eozm7L8J+WnBv+RsmduH2n5Ic061
+	cjFYyxS1rGDVRf2MfS3eNpPk9Dj/FwDn/MR98rrberaB97ALD9v1mSHfgC5JeUk5WfXUcxCyKOg
+	CbIUl67cjjILfwMKUxOufc70CGDoOX0MU6lKfI1yQzTQammfRxfQeZgMmknM85Q8WN/Iw5kR7sO
+	jEQT7o9tefXJ11aj4vFCy8djSfg3wyP5yi2Wpru03LwrE1C7BdxPp9YiZ1wuBdTN6K3CdVVPqvK
+	EivomTJq8jHnc0Cz6jLQmCAY6BLQbFCg66UBvjyKRhydnZQBIefyHlRMzaKZ942IfK1vu/d4dqd
+	2QTWfQYnJQAha6XqvFjk0SJIn2jYqyR+3ksdACYsQvUy85SQI+jo8gcPkfVI96XmTpFdS31OLG8
+	pj228GMm2WhTkw9sRfndakn190UxfE1OqrZhjyT
+X-Received: by 2002:a05:6a21:4cc6:b0:3cd:8bba:824f with SMTP id adf61e73a8af0-3db4042265emr402955637.4.1789348396768;
+        Sun, 13 Sep 2026 18:13:16 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:a739:376c:7eb4:ea2d])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4e4fb3esm22832868eec.7.2026.09.13.18.13.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 13 Sep 2026 18:13:15 -0700 (PDT)
+Date: Sun, 13 Sep 2026 18:13:12 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: "hpp.iscas" <hppiscas@163.com>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Daniel Mack <daniel@zonque.org>
+Subject: Re: [PATCH] Input: eeti_ts - publish the OF module alias
+Message-ID: <aqdKI55w_6FCCl4b@google.com>
+References: <20260905134004.66336-1-hppiscas@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260910194324.98002-1-thomas.falcon@intel.com>
+In-Reply-To: <20260905134004.66336-1-hppiscas@163.com>
 
-Hello,
+On Sat, Sep 05, 2026 at 09:40:04PM +0800, hpp.iscas wrote:
+> The EETI driver matches eeti,exc3000-i2c Device Tree clients, but only
+> publishes the legacy eeti_ts I2C ID. The I2C core emits an OF modalias
+> for a Device Tree client.
+> 
+> Publish the existing OF match table within its CONFIG_OF guard.
+> 
+> Fixes: e32d7f1b246c ("Input: eeti - add device tree matching table")
+> Signed-off-by: hpp.iscas <hppiscas@163.com>
 
-On Thu, Sep 10, 2026 at 02:43:18PM -0500, Thomas Falcon wrote:
-> Add support for two memory-related reporting features in the perf tool:
-> 
-> 1. Memory region reporting in perf-c2c and perf-script subcommands.
-> 2. Memory range data in perf.data file header and perf-c2c subcommand.
-> 
-> Memory region reporting was introduced as part of support for the
-> Off-module Response facility (OMR) [1], which provides a new data
-> source encoding supporting "up to 8 fine-grained memory regions in
-> addition to the cache region, offering more detailed insights into
-> memory access regions."
-> 
-> Memory Range support was introduced with the addition of the ACPI Memory
-> Range and Region Mapping (MRRM) [2] table. It provides a base address plus
-> a length value for each memory range, as well as NUMA node and local and
-> remote "region ID's" so that "platform firmware can indicate the type of
-> memory for each range."[3]
-> 
-> Include a change allowing PERF_MEM_LVLNUM_L0 to be printed in
-> perf-mem output as well.
+Applied, thank you.
 
-Thanks for working on this.  I think we need v9 for the patch 4 update,
-but it mostly looks good to me.
-
-Reviewed-by: Namhyung Kim <namhyung@kernel.org>
-
-Thanks,
-Namhyung
-
-> 
-> [1]: https://lore.kernel.org/all/20260114011750.350569-1-dapeng1.mi@linux.intel.com/
-> [2]: https://lore.kernel.org/lkml/20250505173819.419271-1-tony.luck@intel.com/
-> [3]: MRRM definition allow for future expansion for the OS to assign
-> these region IDs.
-> 
-> v8:
-> -- Updated developer tags and commit messages with real example output
->    from perf script and perf c2c
-> 
-> v7:
-> -- perf-c2c: fix output_str allocation error handling that introduces a
->    memory leak (Sashiko)
-> 
-> v6: 
-> -- Rebase on 7.3-rc1
-> 
-> v5:
-> -- perf-c2c: make the cacheline header span and ui_quirks() width
->    fixup depend on memory-region availability (Namhyung Kim)
-> 
-> v4:
-> -- perf-script: gate the Region field on the HEADER_MEMORY_RANGES feature
->    bit via perf_session instead of a global flag, with a pipe-mode fallback
-> -- perf-c2c: fix output_str allocation error handling
-> -- perf header: Fix typo in region id bounds checking which made region 255
->    invalid
-> 
-> v3:
-> -- included missing ff-size check in process_memory_ranges
-> -- make memory region reporting in perf c2c-and perf-script conditional
->    on feature bit, requiring some patch reordering (Namhyung Kim)
-> -- used open/openat to read memory range sysfs files in memory_range__read()
->    (Namhyung Kim)
-> -- Removed path name and file name buffers in memory_range__read(),
->    instead pass path name from as a parameter from memory_range__parse()
->    (Namhyung Kim)
-> -- use calloc instead of zalloc in memory_range__parse() and
->    process_memory_ranges() (Namhyung Kim)
-> -- Removed redundant check for existance of memory range directory in
->    memory_range__read() (Namhyung Kim)
-> -- Included output examples of memory ranges in perf header and perf-c2c
->    in commit message (Namhyung Kim)
-> 
-> v2:
-> -- Added missing newline in WARN_ONCE message in c2c_he__set_mem_region()
-> -- increased buffers passed to perf_script__meminfo_scnprintf() from 150
->    to 200 bytes to avoid silent truncation
-> -- Added check for NULL return of sysfs__mountpoint() when parsing
->    memory ranges in sysfs
-> -- increased MAX_MEMORY_RANGES sanity check from 64 to 256 based on
->    ACPI MRRM table implementation in Linux kernel
-> -- added comment for MAX_MEMORY_RANGES to clarify that it is a sanity check
->    for malformed perf.data files
-> -- removed a line of code was removed from util/env.h but was added back in
->    v1 due to bad rebase
-> 
-> Dapeng Mi (3):
->   perf mem: Add support for printing PERF_MEM_LVLNUM_L0
->   perf tools: Show memory region in perf-c2c subcommand
->   perf tools: Show memory region in perf-script subcommand
-> 
-> Thomas Falcon (3):
->   perf mem: Fix size tracking for mem_lvl's in
->     perf_script__meminfo_scnprintf()
->   perf header: Support memory ranges
->   perf c2c: print memory region data with stdio output
-> 
->  tools/perf/Documentation/perf-record.txt      |   2 +-
->  .../Documentation/perf.data-file-format.txt   |  13 ++
->  tools/perf/builtin-c2c.c                      | 128 ++++++++++-
->  tools/perf/builtin-inject.c                   |   1 +
->  tools/perf/builtin-script.c                   |  13 +-
->  tools/perf/util/bpf-filter.l                  |   1 +
->  tools/perf/util/c2c.h                         |   1 +
->  tools/perf/util/env.c                         |   1 +
->  tools/perf/util/env.h                         |  10 +
->  tools/perf/util/header.c                      | 203 ++++++++++++++++++
->  tools/perf/util/header.h                      |   1 +
->  tools/perf/util/mem-events.c                  |  93 +++++++-
->  tools/perf/util/mem-events.h                  |   5 +-
->  .../scripting-engines/trace-event-python.c    |   5 +-
->  14 files changed, 454 insertions(+), 23 deletions(-)
-> 
-> -- 
-> 2.43.0
-> 
+-- 
+Dmitry
