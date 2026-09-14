@@ -1,152 +1,176 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6230442B12;
-	Mon, 14 Sep 2026 11:21:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 916823D9DC1
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:21:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789384902; cv=none; b=NbjBBTMg2NOk10t93MvorrWEE4cXgqmg5kZWwng4E7hcaSbYiqESSnwpJPYwSIVdZe5vsDuSVhv1yLYWZCZex6Sh+PgHF+ILLDJu3COu5ynnXd24gxaiAUcJzAT5Uy3MeeSMpujkH8Q7Zz8wAJAFJJFreTsvuqUj03lc/CN/jEQ=
+	t=1789384904; cv=none; b=uGGop8viN87T3HtSrT2Qn79ikswRVaX7BvbEBMy5xKhzbajefFtdozkOW3+ogPjfSNbRTu+bGZ15nzfBIpm5OgaR45ga7A/4xdFft17dRfPVg0cf4UodCM4KKpkM4EtJPz0Dda2fYSAMjYdT7X/qOdrKbrpJrAwOAoCc9u1IEHY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789384902; c=relaxed/simple;
-	bh=8CPNzfXXQkXjqXEZK66MC05qLo563eN5yGa28t3moAA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=DVMiZyr1JueWGts6uIVCdtJmMpyPHg+zet8NH7QqcoLIVz7w9H0vf2sJGEgTYBDOhIZAtaNnLk4HfQWfBXHTYNZx7JED53Kxz3qBuSvnKMNTEDZ1AIiajv5syBUgh45KfPU4iYZ3haszKqLi+h8/708Pmff1Tu5u0J6Q8zbOEoE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=arPNEJa8; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789384904; c=relaxed/simple;
+	bh=7nErp3sOIpoycdBCoRwncgELWx7WctkkaHNGXjrbHVI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=D9WYs5oyeP3IDWoQ9ozlaX8TNX3rGbJubhFuYtoK+rS9IdV+MBnQpSPnTe4SH8onrWPWvy7M3r9nU9KCqgGJE6HA/OgrDIPu0HKUiYbiV1d+o7UNtEBb+OJeY8Qu+6SD5B+4MHcAS1eZLK/yZQ42xxKSn4UrZ7xRy+geDsYD7Nk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=V42ezw+N; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="arPNEJa8"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 08E14C2BCB8;
-	Mon, 14 Sep 2026 11:21:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789384902;
-	bh=8CPNzfXXQkXjqXEZK66MC05qLo563eN5yGa28t3moAA=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=arPNEJa8e35n5gN4GJo7wd8XJvvTRLWe3MbrW+x20onq9x3j8bzt8OODWzkuas48t
-	 Dc4U50cUM7gfCPNAoohpUu8LIogDPmHvWgnAcb4TXF4ysj8wEIolky0VpYsckwV6ov
-	 GfQ1RGklOwhvn2ptfJa4lyOFxhDpQjRHffmzMOlV3bkjuWfnJHjVUzyDR0H3YPHTNm
-	 AJ+a9xnjBwtcYilXIrYImGw/vsNhwzoZ+J2EXeMP8l1JoayqFL9f7Gsg/A5cN+lrLT
-	 KFRyGSW0QSHYMXGstydUGQoF7/W0/e3iqccUOEnjpWJi1tERzdKLkyZTmFUj7xZ3Hu
-	 gtfT0oYlyXKqg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E97ABC88E50;
-	Mon, 14 Sep 2026 11:21:41 +0000 (UTC)
-From: Maria Lisina via B4 Relay <devnull+sekoohaka.sarisan.gmail.com@kernel.org>
-Date: Mon, 14 Sep 2026 16:21:31 +0500
-Subject: [PATCH v4] mfd: intel-lpss: Prevent DebugFS messages if it is not
- initialized
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="V42ezw+N"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+	MIME-Version:Date:Message-ID:From:Reply-To;
+	bh=2ZUUIAjUkZTdW43jk/Fy91vfwYGp150zBM9c6ct8Z60=; b=V42ezw+NNnwmhnUQUB1raOCpRz
+	qXxRSa25wenok1Sr/1Vzq3h2WP9CLL4zoOHmJh8QhD3ODQtiXQG8hb1862yZ6O4SZzdcS+4lOqDm3
+	/m0O5azB1yOyfiHuHCJC5JW2QX/OVfChYNytJ7UiNCMuZcm4dMrTuh/x8GmE8aDPnzlSAYRDoUXwC
+	nrcQWuKXSJWx/JUmqR4g3PpjE7LwA0gXdxROoK4p9toP/zEujAedY/XwwkiMV6WKBDP2rfGiyer+C
+	VUgMlxFSLGHhT8FdqSW5lUNiZVVENI+49uOo8JwUgrvXYTUcpKHLv6chjMS7jxdz2JEOnA/zi7zRD
+	7itCjJMw==;
+Received: from [81.79.79.1] (helo=[192.168.0.116])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+	id 1x64kZ-001qrG-83; Mon, 14 Sep 2026 13:21:27 +0200
+Message-ID: <f570ea7f-164c-4232-85d8-14604baca607@igalia.com>
+Date: Mon, 14 Sep 2026 12:21:26 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-intel-lpss-debugfs-v4-1-0eb82ea7c1e3@gmail.com>
-X-B4-Tracking: v=1; b=H4sIALvYp2oC/4XNTQ6CMBCG4auYrq1hWiDUlfcwLtoyA034S4uNh
- nB3CyvjQpbvl8wzCwvoHQZ2PS3MY3TBjUOK/HxittVDg9zVqZnIRJkpkNwNM3a8m0LgNZpnQ4E
- jkSyqrAahCpYOJ4/kXjt6f6RuXZhH/95/RNjWv1wEDryS0hpTEpFVt6bXrrvYsWcbF8UxIRKhQ
- eekqbC2lL+EPCZkIsBUKAxQppT4JtZ1/QBcTp+fOgEAAA==
-X-Change-ID: 20260913-intel-lpss-debugfs-eff3580d1295
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Lee Jones <lee@kernel.org>
-Cc: mfd@lists.linux.dev, linux-kernel@vger.kernel.org, 
- Maria Lisina <sekoohaka.sarisan@gmail.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2463;
- i=sekoohaka.sarisan@gmail.com; h=from:subject:message-id;
- bh=X4qdixAU8o/DioyAqR1f0aRwmV99DvMST7JyVMM/pyg=;
- b=owEBbQKS/ZANAwAKARPrfuqZo5+iAcsmYgBqp9jEr2/RafuZN8XLeg2a9rt4Oef57IBy8oV13
- mIQs+N84gKJAjMEAAEKAB0WIQQ8HZKKOdqg5DRiM0sT637qmaOfogUCaqfYxAAKCRAT637qmaOf
- ogVTD/sHI/nnVU7P8mpgE4SF5wD0se1ghune6fC6a/Ta74TDiqUgJd6RanSpMg6bfj6UwpFzuTT
- YtRjIextWZ+Yv4r6OjSXPnxdcL7S8SH7Ruso00unF/YDMfo6bNsDPCWzfCQlEpdpdc6m1EUR9kJ
- 4K4dUePlLhKc/NZfktlV2ETYkEFqli7EyC7xXOSe3jcra8pN/9JCXSP2VRONw3kzeP3mEkfSHTS
- OKP+3pv2ZV9t/tDi6Ke6w/FAuJazp8r+b54BG3jfF+MYc5x4RVqm2t7jLawwZmnu8eeGixMCKLZ
- MbUkMy5Nh7I2gHjRt9IoePZxd1Phh0oLV7CEnt+lPfzbNEay4X05DYuOuOUD4V/FBT1Wus1fgJw
- BeEmoxbJwrc2pdyU5/QW95LTiH/Kd+Dwak4zmmQxY2doV7pIdRbvpY/NrCGwe6xX4fcoppQnyKb
- PD13SDJ4XZ7+16+pYut5JPgDPAduPpiqQV+qh2Y1FNxGoyc+f0dq/1ZW6S/zUcKBo5SSXa+vWb6
- tf+6dY44dWLxhxBsYxc7Ftked5TeuBEFlN1iRl5klfqiENn8NLblo7j6ood5rSEFVMEEmhKkFEr
- WI2uCWHnKv1IqSwZbRllbodt/NaCADSiydJXH3URqhi+k9fjSj4msB7Qtsosn+gDktobMg8b6vr
- 5G8g8ncrTn/E9AA==
-X-Developer-Key: i=sekoohaka.sarisan@gmail.com; a=openpgp;
- fpr=3C1D928A39DAA0E43462334B13EB7EEA99A39FA2
-X-Endpoint-Received: by B4 Relay for sekoohaka.sarisan@gmail.com/default
- with auth_id=1030
-X-Original-From: Maria Lisina <sekoohaka.sarisan@gmail.com>
-Reply-To: sekoohaka.sarisan@gmail.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/sched: Increase drm_mock_sched_job_wait_finished
+ timeout when CONFIG_HZ=100
+To: David Gow <david@davidgow.net>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Danilo Krummrich <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ Philipp Stanner <phasta@kernel.org>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ kernel-dev@igalia.com, kunit-dev@googlegroups.com
+References: <20260913084155.520015-2-david@davidgow.net>
+ <b4f017cc-3dbf-416c-b456-0c19d2f0647a@igalia.com>
+ <0ce1883f-7de3-4a16-82f0-c8950459163e@davidgow.net>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <0ce1883f-7de3-4a16-82f0-c8950459163e@davidgow.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-From: Maria Lisina <sekoohaka.sarisan@gmail.com>
 
-The original code expects DebugFS to be always initialized which
-causes unwanted warnings when DebugFS is simply disabled.
+On 14/09/2026 11:06, David Gow wrote:
+> Le 14/09/2026 à 4:49 PM, Tvrtko Ursulin a écrit :
+>>
+>> On 13/09/2026 09:41, David Gow wrote:
+>>> The drm_sched_scheduler_overhead_tests tests hardcode a timeout of 5x
+>>> total_us, and fail if it's exceeded. However, on systems with
+>>> CONFIG_HZ < 250, this tends to fail.
+>>
+>> Systems plural or just UML? I suppose if no hrtimer support and low HZ
+>> it is plausible since executing the tests needs 1000 x 1ms hrtimer
+>> callbacks to fire.
+> 
+> UML is the most important of the ones I tested (as it doesn't have a way
+> to increase HZ, though it did pass if I manually forced CONFIG_HZ=1000),
+> but even x86/x86_64 will trigger this if CONFIG_HZ_100=y.
+> 
+> For example, I can reproduce it with:
+> ./tools/testing/kunit/kunit.py run --arch x86_64 --kconfig_add CONFIG_DRM=y --kconfig_add CONFIG_HZ_100=y drm_sched_scheduler_overhead_tests
 
-Therefore it spams dmesg with these messages:
+Right, I even developed the tests with that setup, just under arm64 and 
+the default HZ=250.
+  >> Anyway, increasing the tolerance is okay-ish, with the -ish part being
+>> that it would be even better to skip if test could know before hand on a
+>> particular system it would be uselessly slow. Hence I am curious whether
+>> it is just UML or you could point me to other specific platforms/kconfig
+>> combinations where you saw it fail. In which case maybe we can come up
+>> with a skip criteria.
+> 
+> I saw it passing relatively consistently on x86 (under qemu) with
+> CONFIG_HZ=250, and failing consistently on everything with
+> CONFIG_HZ=100.
+> I don't think it'd be a problem to either have the test depend
+> on CONFIG_HZ >= 250 or use that as criteria to skip the test
+> altogether.
+> 
+> I'm happy to send out a v2 of this patch which just uses the same
+> criteria (CONFIG_HZ < 250) to just skip the test if you'd prefer.
 
-  intel-lpss 0000:00:15.0: Failed to create debugfs entries
-  intel-lpss 0000:00:15.3: Failed to create debugfs entries
-  intel-lpss 0000:00:1e.0: Failed to create debugfs entries
-  intel-lpss 0000:00:1e.2: Failed to create debugfs entries
+I suspect the real condition would be HZ < 250 && 
+something-like-!hrtimer_highres_enabled, but as the latter is not 
+exported for modules I have no smart ideas. It's not a loss really to 
+skip the scheduling quality tests on more platforms than strictly 
+required so I'd say lets go with that.
 
-This patch adds proper check to intel_lpss_init() and
-intel_lpss_debugfs_add() functions to prevent writing to
-uninitialized DebugFS.
+Regards,
 
-Signed-off-by: Maria Lisina <sekoohaka.sarisan@gmail.com>
----
-Changes in v4:
-- Keep the dmesg messages, instead check whether DebugFS is initialized
-- Link to v3: https://lore.kernel.org/r/20260913-intel-lpss-debugfs-v3-1-1b8e2b1f0992@gmail.com
+Tvrtko
 
-Changes in v3:
-- Fixed commit name and description.
-- Link to v2: https://lore.kernel.org/r/20260913-intel-lpss-debugfs-v2-1-a1a4faf5cc63@gmail.com
-
-Changes in v2:
-- Fixed function name in comment section.
-- Link to v1: https://lore.kernel.org/r/20260913-intel-lpss-debugfs-v1-1-833cbb6fffc9@gmail.com
----
- drivers/mfd/intel-lpss.c | 16 +++++++++++++++-
- 1 file changed, 15 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/mfd/intel-lpss.c b/drivers/mfd/intel-lpss.c
-index 63d6694f71457b2e09d238af0a9bfb897a169a64..d45728f46c499b3f0c3713d30a17b0ae12106095 100644
---- a/drivers/mfd/intel-lpss.c
-+++ b/drivers/mfd/intel-lpss.c
-@@ -146,6 +146,12 @@ static int intel_lpss_debugfs_add(struct intel_lpss *lpss)
- {
- 	struct dentry *dir;
- 
-+	/* Exit if DebugFS is not initialized */
-+	if (!intel_lpss_debugfs) {
-+		lpss->debugfs = NULL;
-+		return 0;
-+	}
-+
- 	dir = debugfs_create_dir(dev_name(lpss->dev), intel_lpss_debugfs);
- 	if (IS_ERR(dir))
- 		return PTR_ERR(dir);
-@@ -538,7 +544,15 @@ EXPORT_NS_GPL_DEV_PM_OPS(intel_lpss_pm_ops, INTEL_LPSS) = {
- 
- static int __init intel_lpss_init(void)
- {
--	intel_lpss_debugfs = debugfs_create_dir("intel_lpss", NULL);
-+	/*
-+	 * Check whether DebugFS is initialized to
-+	 * prevent unwanted dmesg messages.
-+	 */
-+	if (debugfs_initialized())
-+		intel_lpss_debugfs = debugfs_create_dir("intel_lpss", NULL);
-+	else
-+		intel_lpss_debugfs = NULL;
-+
- 	return 0;
- }
- module_init(intel_lpss_init);
-
----
-base-commit: 2f0c1cf72f4682178506f513bbf015e591b1aa4a
-change-id: 20260913-intel-lpss-debugfs-eff3580d1295
-
-Best regards,
--- 
-Maria Lisina <sekoohaka.sarisan@gmail.com>
-
+>>> As it's possible to configure many architectures to use 100 Hz (and some,
+>>> such as UML, hardcode CONFIG_HZ=100), increase the timeout so that the
+>>> test
+>>> doesn't fail on these configurations.
+>>>
+>>> Fixes: 97ef806a5314 ("drm/sched: Add some scheduling quality unit tests")
+>>> Signed-off-by: David Gow <david@davidgow.net>
+>>> ---
+>>>
+>>> This failure showed up on UML when testing the addition of CONFIG_DRM to
+>>> the KUnit 'alltests' config[1]. Ideally, I'd like to see this test fixed
+>>> (or at least skipped/disabled) on these broken configurations so that the
+>>> alltests run is clean. (I don't actually run any CONFIG_HZ=100 configs
+>>> other than UML, but fixing them all is ideal if we can manage it.)
+>>>
+>>> If you'd rather a different implementation / magic number, let me know.
+>>> I picked 15 here as it gave me plenty of leeway: 10 worked most, but not
+>>> all, of the time under i386 qemu w/ CONFIG_HZ_100, and was fine with UML
+>>> on this machine.
+>>>
+>>> Thanks,
+>>> -- David
+>>>
+>>> [1]: https://lore.kernel.org/all/20260911-kunit-drm-v1-1-
+>>> c5c0f18fc7b0@kernel.org/
+>>> ---
+>>>    drivers/gpu/drm/scheduler/tests/tests_scheduler.c | 11 +++++++++--
+>>>    1 file changed, 9 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/scheduler/tests/tests_scheduler.c b/
+>>> drivers/gpu/drm/scheduler/tests/tests_scheduler.c
+>>> index 285546a2218f..02c83b5c2189 100644
+>>> --- a/drivers/gpu/drm/scheduler/tests/tests_scheduler.c
+>>> +++ b/drivers/gpu/drm/scheduler/tests/tests_scheduler.c
+>>> @@ -13,6 +13,13 @@
+>>>     * logic.
+>>>     */
+>>>    +/* We need a more generous timeout when CONFIG_HZ=100. */
+>>> +#if CONFIG_HZ < 250
+>>> +#define TIMEOUT_MULTIPLIER 15
+>>> +#else
+>>> +#define TIMEOUT_MULTIPLIER 5
+>>> +#endif
+>>> +
+>>>    static int drm_sched_scheduler_init(struct kunit *test)
+>>>    {
+>>>        struct drm_mock_scheduler *sched;
+>>> @@ -88,7 +95,7 @@ static void
+>>> drm_sched_scheduler_queue_overhead(struct kunit *test)
+>>>          /* Wait with a safe margin to avoid every failing. */
+>>>        done = drm_mock_sched_job_wait_finished(job,
+>>> -                        usecs_to_jiffies(total_us) * 5);
+>>> +                        usecs_to_jiffies(total_us) *
+>>> TIMEOUT_MULTIPLIER);
+>>>        end = ktime_get();
+>>>        KUNIT_ASSERT_TRUE(test, done);
+>>>    @@ -149,7 +156,7 @@ static void drm_sched_scheduler_ping_pong(struct
+>>> kunit *test)
+>>>          /* Wait with a safe margin to avoid every failing. */
+>>>        done = drm_mock_sched_job_wait_finished(job,
+>>> -                        usecs_to_jiffies(total_us) * 5);
+>>> +                        usecs_to_jiffies(total_us) *
+>>> TIMEOUT_MULTIPLIER);
+>>>        end = ktime_get();
+>>>        KUNIT_ASSERT_TRUE(test, done);
+>>>    
+>>
+> 
 
