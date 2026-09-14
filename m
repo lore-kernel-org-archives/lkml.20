@@ -1,520 +1,163 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F157477984;
-	Mon, 14 Sep 2026 13:56:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDEEB46A5E1
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:56:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789394167; cv=none; b=nL8RlfSYeB7w6eQw/SfhK4rETltQNzGvPT3Ksw2obgxfjwJ/D6ivI6kI/ti55ge/1J1VKQlfDlOLbSd4V3SNc+iCJ7ywcavjtLTMJCvTiHMs941OsHBsnycPPBw2BPLbAOebbpMQB5UcOcBU4YPO0eZuMYmochZ84yWXAcwdw0E=
+	t=1789394214; cv=none; b=ZnYpArGRgY9htlKXiEwAgjtl2KtxBF4i196kIhdoUWJYBG19lRX6ImhwqTjvxNXU8iWYGR3rOVa/ah/16sjxPb5A3Fiytkm6vPIYSCuRt3vfnPv3YqkMF/TuFVZFXKBhDW55Nwzr2bbDhu3SXUa835RtIMLSSkDJBnwBfnw/k60=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789394167; c=relaxed/simple;
-	bh=TI6Y15jK2WMpO29t4KxW6iYgnJvRaN1hre64+unrls0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=NFettpG5ire7xXNOG6zAALxMrHOSWXMSDn8L8syqWJaMz/imOAVgCHqduClq/dM+vRQHdCWoQF5NkEGfMk7GMue1MlfKDpc5g4yNdOgpt9+PO/MTcw47ZltQtFqgJG3tGM6gr3MjpB2uFSBP2OwQnjuF964qDN1/JUyB4TetmR8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SWCAcz+b; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789394214; c=relaxed/simple;
+	bh=jTXdhOWHb+tc8C306czNkIrV9+xG+lE9QUA2R7XrZmw=;
+	h=Content-Type:Date:Message-Id:Subject:From:To:Cc:Mime-Version:
+	 References:In-Reply-To; b=Kjkfm7wFI3tqVjPL57B9uPz7QwjZUovPKk4ZbvmJLfvgTbd0gbX7Vr4glTxlyBLDbpqYYMuUPLjXzi8xNDlDtvL+rZbkBBBy4/C6HBj/ubV7DfCSDX/66gDJGapkXBvD/SnVaeuC4xaDnHlis5RpysQwjA3uiVtWFDV8eRdM/NE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kko+DJ26; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SWCAcz+b"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 244AAC2BCB8;
-	Mon, 14 Sep 2026 13:56:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789394167;
-	bh=TI6Y15jK2WMpO29t4KxW6iYgnJvRaN1hre64+unrls0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=SWCAcz+bE6QBe1jss6bpNT9GHXXM7uGMMa6CvNsGzvYFRKGoWhEgCQMdxHInnpC1c
-	 z8ug/Dq41gwk93CcT1TvhsTlNFmuJoQ7UrnenEeZL58U34uertlOI6MFSB4sHFsD5q
-	 BJHzRs8Wo+Y8YvA/zy8Yw43pyV9bxO9wCWf4hcdl5tNtYxVy3U6DjpK0MEi960B7/k
-	 G0qkCcog3zC1XXv8vMEaqWmr+EpoIl/rA6AltAgsHSi1hRxYreQu3dCk2/lu+JJdlq
-	 2pe+OZHMhcHrh2OnUHWcCBe2WI+rFQKZI8ph9TtKSU47S02ms4MKimEFG710hHX6HB
-	 VEjeiKkB8TV6Q==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 06997C88E72;
-	Mon, 14 Sep 2026 13:56:07 +0000 (UTC)
-From: Aleksa Paunovic via B4 Relay <devnull+aleksa.paunovic.htecgroup.com@kernel.org>
-Date: Mon, 14 Sep 2026 15:55:56 +0200
-Subject: [PATCH 8/9] riscv: dts: gf: Initial support for the P8700 Boston
- board
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kko+DJ26"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccb652d7so1457258a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:56:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789394212; x=1789999012; darn=vger.kernel.org;
+        h=in-reply-to:references:content-transfer-encoding:mime-version:cc:to
+         :from:subject:message-id:date:content-type:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=czQcbmKAQjpPrrgr487KiVX0zj39eEVICUIzqR7EEkY=;
+        b=kko+DJ26ujlfKwfe3QrU7w9Eq62zp0WlHMn2i3D7DIOrMLyO702mhZCDPt/0oGgCtL
+         V0cLwOc9zewDYvYkmyZ/8igXHHi2dtqyk6ttyNeCvZNU+PgxP/BFxqCaH+nPUlkfdBvy
+         HlUuP0wPypTZOlPYXqH2ikjbXdOIw50KVugsiJHXeMFuNFKtJk4QQIqqOaHKC9tvhjMH
+         Bbl70JCPIfcocT1/jWmaxKp/KurfOxThLWp4gh7GqZ5U06DGBo0Np8r2UOdxEmLLhO49
+         ETh9Nw3X3zZ4GGpnBDGY5or4bzXdm9CC8OUHAKLsvQUdaJmj5+XrPqoGjaD6dSmxINp2
+         n0kA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789394212; x=1789999012;
+        h=in-reply-to:references:content-transfer-encoding:mime-version:cc:to
+         :from:subject:message-id:date:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=czQcbmKAQjpPrrgr487KiVX0zj39eEVICUIzqR7EEkY=;
+        b=fJ2BaZpn3uPBlrHRhpDWVv005zVQOvGYh4PyyCIPOGFJ6i+9iYajNf0IFgXxSVMv1r
+         xnIlVj4v7FbRC03AndlV0hwSKD3MjlVLX8hyV2NCKLkilI5cQP4IAEjdhxKtsLXxvmb4
+         7OxngvAvKoBPyrE7IGupxw3q9xr8R1M7CxLDwFphuf8pZh2Hto5rK/SsjGhL73+D4oAS
+         oTQ5x9Ct56KY1+jImnHhrEqWxeD7/oTQqVaw67bZHwKP89U+eUjuGafT2lwjBLjCTtpz
+         sMXi2IUQTh5vwB8vzgNCMfPB3xNO+gnPYDr304Sfuvg3BFNj04YQhpqvy1pSAzB4bQzV
+         EypA==
+X-Forwarded-Encrypted: i=1; AKwUvBzEbl4mXu5dih+/8u/BEB9yp6BpQtNAxOccfr7iZ584sVcyUla1gVEP6Atw/SZobtyeJznxJYDixxxCLFY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mPjV5muGNHNDsWMeQiOHM0n/EXtNYPFWNyGvYnOagllQGgPqGI
+	+QEFe4CWYegjtwd175LQ6knZTHkP32agkO8mWLMvo1Jdg+hELrCMKu6p
+X-Gm-Gg: AYBFou0Ba5Td8djuwNZVnZoAF5ihZU/6ftpXOC7+2iJIfxqfXuE5rtjS/MDMQrQ+MxR
+	QLe4f7iBnbcua3ggRtYcwk8PzHBR9JVoV9wkuIRJTXgyHpIj72rloAtprNfdhchIASjOaPq0bys
+	+jMJVMLU0tLSsc54S3FgqA5cM7En2havm2FOOkTFNQyYv8IeWkaycBlSiOv851C03LYfyqSAvyU
+	NRB62SlF9tF7U7j1eyhkBCyezUaFO8ageawziJLS/kzmrj7X4iYj5PjFQAtrVcfeiq08f3KryUI
+	FwpB2bj5NSBf4I9vh1IKHsPo+CFJ0ttC2/Smeu4Q/MTa5bUyQc/4syVPaTANNVNnssa9l4JWVu3
+	RXw4fknHfhYFrS+pwu9L88mtvrgz30BkNO9bZgs2DM9YlZAY2Dl+QZazKaA1ON6/MqqiXH+90vI
+	Dvw8LroWQC/LmYhLhZr6baO9pjnfCc0PlJJetttk5KCExi+SWqMyXJm9fe3Tx7BM33yc4ioCpAQ
+	isO8orIw2ltsLX+Rk/vWErKnv6cRUQffxlM5la4
+X-Received: by 2002:a17:90b:3c4b:b0:39d:f2a1:2f with SMTP id 98e67ed59e1d1-39df2a1040fmr3533075a91.17.1789394212037;
+        Mon, 14 Sep 2026 06:56:52 -0700 (PDT)
+Received: from localhost ([2401:7400:c804:63d1:a611:b433:d4e7:c402])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39dfb6ea4c4sm155391a91.0.2026.09.14.06.56.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 14 Sep 2026 06:56:51 -0700 (PDT)
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 14 Sep 2026 21:56:47 +0800
+Message-Id: <DLF3B2I7WMSD.1VDVZ0BB6HE4H@gmail.com>
+Subject: Re: [RFC PATCH] memstick: Add Broadcom BCM57765/BCM57785 host
+ driver
+From: "Ho Jie Feng" <hjf3108@gmail.com>
+To: "Ulf Hansson" <ulf.hansson@oss.qualcomm.com>, "Ho Jie Feng"
+ <hjf3108@gmail.com>
+Cc: <linux-mmc@vger.kernel.org>, "Maxim Levitsky" <maximlevitsky@gmail.com>,
+ "Alex Dubov" <oakad@yahoo.com>, "Ulf Hansson" <ulfh@kernel.org>,
+ <linux-kernel@vger.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-p8700-dts-v1-8-3267f14ebce1@htecgroup.com>
-References: <20260914-p8700-dts-v1-0-3267f14ebce1@htecgroup.com>
-In-Reply-To: <20260914-p8700-dts-v1-0-3267f14ebce1@htecgroup.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, 
- Djordje Todorovic <djordje.todorovic@htecgroup.com>, 
- Anup Patel <anup@brainfault.org>, Thomas Gleixner <tglx@kernel.org>, 
- Radu Rendec <radu@rendec.net>, Inochi Amaoto <inochiama@outlook.com>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Conor Dooley <conor@kernel.org>, linux-riscv@lists.infradead.org, 
- Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, 
- Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789394164; l=12458;
- i=aleksa.paunovic@htecgroup.com; s=20250806; h=from:subject:message-id;
- bh=sdKgjEvUZZC8ghjKq0mA+IWSifHHew1uS0qIbTFq0Zo=;
- b=eCS9CDGlBSaLwX04m02bgLCpgxbKPkhAzCqPlL4F9bEU4rjHqrmqDCPXU8Bzg/o1qNezlm5SL
- VR3Ux3RFmBkABkCRYg0z7KKzkVIet9TltRC2Fmf0Ql4feDSBqTm52KW
-X-Developer-Key: i=aleksa.paunovic@htecgroup.com; a=ed25519;
- pk=Dn4KMnDdgyhlXJNspQQrlHJ04i7/irG29p2H27Avd+8=
-X-Endpoint-Received: by B4 Relay for aleksa.paunovic@htecgroup.com/20250806
- with auth_id=476
-X-Original-From: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
-Reply-To: aleksa.paunovic@htecgroup.com
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260912163810.848989-1-hjf3108@gmail.com>
+ <CAPx+jO8MSY8P1R6ZbRF8C7Vb0zhmePhaDDzgi+BmC3uUdKqMfA@mail.gmail.com>
+In-Reply-To: <CAPx+jO8MSY8P1R6ZbRF8C7Vb0zhmePhaDDzgi+BmC3uUdKqMfA@mail.gmail.com>
 
-From: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
+On Mon Sep 14, 2026 at 6:31 PM +08, Ulf Hansson wrote:
+> On Sat, Sep 12, 2026 at 6:38=E2=80=AFPM Ho Jie Feng <hjf3108@gmail.com> w=
+rote:
+>>
+>> Add support for the MemoryStick function of Broadcom BCM57765 and BCM577=
+85
+>> PCI card readers (14e4:16be).
+>>
+>> The driver is written by inspecting MMIO traces from the windows driver
+>> and experimentally probing the device registers.
+>>
+>> It was found that the controller exposes an SDHCI-like interface with
+>> TPC command handling. DMA mode was then inferred using the positions
+>> of the bits in sdhci.h.
+>>
+>> Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
+>
+> Wow! It's been a while since we received new drivers from memstick contro=
+llers!
+Yep I wrote this quite a while back and only go around to upstreaming it re=
+cently.
 
-Add initial device tree for the MIPS P8700 and the device tree
-for the Boston FPGA development board with a MIPS P8700 bitfile.
+>> +module_param(enable_dma, int, 0444);
+>> +MODULE_PARM_DESC(enable_dma,
+>> +                "Enable usage of the DMA (0 =3D no, 1 =3D yes, 2 =3D au=
+to,default)");
+>
+> I assume this is useful because the DMA functionality is a bit flaky, no?
+>
+> In any case, I would rather not use a module parameter for this, can
+> you please drop this. If needed at all, can we perhaps use a debugfs
+> file instead to switch dynamically?
+>
 
-Add related Makefile and KCONFIG changes.
+The traces from the Windows drivers doesn't use DMA at all, at least only t=
+he nice
+ones which call the kernel APIs to do MMIO operations, unlike some newer dr=
+ivers which
+do the MMIO within the driver. The machine doesn't have VT-d so that is not=
+ usable.
+Due to this, I inferred DMA operation from the bits from sdhci.h and doing =
+some
+experimentation on the device. The flag is only there because I may have mi=
+ssed
+something and the DMA path isn't reliable.
 
-Co-developed-by: Djordje Todorovic <djordje.todorovic@htecgroup.com>
-Signed-off-by: Djordje Todorovic <djordje.todorovic@htecgroup.com>
-Signed-off-by: Aleksa Paunovic <aleksa.paunovic@htecgroup.com>
----
- arch/riscv/Kconfig.socs                 |   6 +
- arch/riscv/boot/dts/Makefile            |   1 +
- arch/riscv/boot/dts/gf/Makefile         |   2 +
- arch/riscv/boot/dts/gf/p8700-boston.dts | 135 ++++++++++++++++++
- arch/riscv/boot/dts/gf/p8700.dtsi       | 241 ++++++++++++++++++++++++++++++++
- 5 files changed, 385 insertions(+)
+I will look into the debugfs stuff, thanks.
 
-diff --git a/arch/riscv/Kconfig.socs b/arch/riscv/Kconfig.socs
-index 429e0758930687c742c4dd09603e71e90dc096a2..78b0a0076feb14ebdafc4b7f0fa1be3aa416d415 100644
---- a/arch/riscv/Kconfig.socs
-+++ b/arch/riscv/Kconfig.socs
-@@ -18,6 +18,12 @@ config ARCH_ESWIN
- 	  This enables support for ESWIN SoC platform hardware,
- 	  including the ESWIN EIC7700 SoC.
- 
-+config ARCH_GF
-+	bool "GlobalFoundries SoCs"
-+	help
-+	  This enables support for GlobalFoundries SoC platform hardware,
-+	  including the MIPS P8700.
-+
- config ARCH_MICROCHIP_POLARFIRE
- 	def_bool ARCH_MICROCHIP
- 
-diff --git a/arch/riscv/boot/dts/Makefile b/arch/riscv/boot/dts/Makefile
-index 69d8751fb17c803f0efb8003e111ee24144c222b..5d8d55c4cf9d0b17f2a8744aa17526819e6c277a 100644
---- a/arch/riscv/boot/dts/Makefile
-+++ b/arch/riscv/boot/dts/Makefile
-@@ -4,6 +4,7 @@ subdir-y += andes
- subdir-y += anlogic
- subdir-y += canaan
- subdir-y += eswin
-+subdir-y += gf
- subdir-y += microchip
- subdir-y += renesas
- subdir-y += sifive
-diff --git a/arch/riscv/boot/dts/gf/Makefile b/arch/riscv/boot/dts/gf/Makefile
-new file mode 100644
-index 0000000000000000000000000000000000000000..180d7cc7f5cf87e48e2219f9ac9882828ca62016
---- /dev/null
-+++ b/arch/riscv/boot/dts/gf/Makefile
-@@ -0,0 +1,2 @@
-+# SPDX-License-Identifier: GPL-2.0
-+dtb-$(CONFIG_ARCH_GF) += p8700-boston.dtb
-diff --git a/arch/riscv/boot/dts/gf/p8700-boston.dts b/arch/riscv/boot/dts/gf/p8700-boston.dts
-new file mode 100644
-index 0000000000000000000000000000000000000000..b829899592aeed5f1cfe3323e755410de07dbdb8
---- /dev/null
-+++ b/arch/riscv/boot/dts/gf/p8700-boston.dts
-@@ -0,0 +1,135 @@
-+// SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+/*
-+ * Copyright (C) 2025 MIPS
-+ *
-+ * Boston FPGA development board with a MIPS P8700 bitfile.
-+ */
-+
-+/dts-v1/;
-+
-+#include "p8700.dtsi"
-+
-+#include <dt-bindings/interrupt-controller/irq.h>
-+
-+/* Clock frequency (in Hz) of the FPGA bitfile */
-+#define BITFILE_FREQ	25000000
-+
-+/ {
-+	model = "MIPS P8700 Boston";
-+	compatible = "gf,mips-p8700-boston";
-+
-+	aliases {
-+		serial0 = &uart0;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	cpus {
-+		timebase-frequency = <BITFILE_FREQ>;
-+	};
-+
-+	memory@80000000 {
-+		device_type = "memory";
-+		reg = <0x80000000 0x80000000>;
-+	};
-+
-+	pci2: pci@14000000 {
-+		compatible = "xlnx,axi-pcie-host-1.00.a";
-+		device_type = "pci";
-+		reg = <0x14000000 0x2000000>;
-+
-+		#address-cells = <3>;
-+		#size-cells = <2>;
-+		#interrupt-cells = <1>;
-+
-+		interrupt-parent = <&aplic_s0>;
-+		interrupts = <7 IRQ_TYPE_LEVEL_HIGH>;
-+
-+		ranges = <0x02000000 0 0x16000000
-+			  0x16000000 0 0x100000>;
-+
-+		bus-range = <0x00 0xff>;
-+
-+		interrupt-map-mask = <0 0 0 7>;
-+		interrupt-map = <0 0 0 1 &pci2_intc 1>,
-+				<0 0 0 2 &pci2_intc 2>,
-+				<0 0 0 3 &pci2_intc 3>,
-+				<0 0 0 4 &pci2_intc 4>;
-+
-+		pci2_intc: interrupt-controller {
-+			interrupt-controller;
-+			#address-cells = <0>;
-+			#interrupt-cells = <1>;
-+		};
-+
-+		pci2_root@0,0 {
-+			compatible = "pci10ee,7021", "pci-bridge";
-+			reg = <0x00000000 0 0 0 0>;
-+
-+			#address-cells = <3>;
-+			#size-cells = <2>;
-+
-+			eg20t_bridge@1,0,0 {
-+				compatible = "pci8086,8800", "pci-bridge";
-+				reg = <0x00010000 0 0 0 0>;
-+
-+				#address-cells = <3>;
-+				#size-cells = <2>;
-+
-+				eg20t_mac@2,0,1 {
-+					compatible = "pci8086,8802",
-+						     "intel,pch-gbe";
-+					reg = <0x00020100 0 0 0 0>;
-+					phy-reset-gpios = <&eg20t_gpio 6 1>;
-+				};
-+
-+				eg20t_gpio: eg20t_gpio@2,0,2 {
-+					compatible = "pci8086,8803",
-+						     "intel,eg20t-gpio";
-+					reg = <0x00020200 0 0 0 0>;
-+
-+					gpio-controller;
-+					#gpio-cells = <2>;
-+				};
-+
-+				eg20t_i2c@2,12,2 {
-+					compatible = "pci8086,8817";
-+					reg = <0x00026200 0 0 0 0>;
-+
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+
-+					rtc@68 {
-+						compatible = "st,m41t81s";
-+						reg = <0x68>;
-+					};
-+				};
-+			};
-+		};
-+	};
-+
-+	uart0: serial@17ffe000 {
-+		compatible = "ns16550a";
-+		reg = <0x17ffe000 0x1000>;
-+		reg-shift = <2>;
-+		reg-io-width = <4>;
-+
-+		interrupt-parent = <&aplic_s0>;
-+		interrupts = <4 IRQ_TYPE_LEVEL_HIGH>;
-+
-+		clock-frequency = <BITFILE_FREQ>;
-+	};
-+
-+	lcd: lcd@17fff000 {
-+		compatible = "img,boston-lcd";
-+		reg = <0x17fff000 0x8>;
-+	};
-+
-+	flash@18000000 {
-+		compatible = "cfi-flash";
-+		reg = <0x18000000 0x8000000>;
-+		bank-width = <2>;
-+	};
-+};
-diff --git a/arch/riscv/boot/dts/gf/p8700.dtsi b/arch/riscv/boot/dts/gf/p8700.dtsi
-new file mode 100644
-index 0000000000000000000000000000000000000000..ba1854df5201bc4a6ca26868811834a7847dc624
---- /dev/null
-+++ b/arch/riscv/boot/dts/gf/p8700.dtsi
-@@ -0,0 +1,241 @@
-+// SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+/*
-+ * Copyright (C) 2025 MIPS
-+ */
-+
-+/dts-v1/;
-+
-+/ {
-+	#address-cells = <1>;
-+	#size-cells = <1>;
-+
-+	cpus {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		cpu0: cpu@0 {
-+			device_type = "cpu";
-+			compatible = "gf,mips-p8700", "riscv";
-+			reg = <0x0>;
-+			mmu-type = "riscv,sv39";
-+			riscv,cbom-block-size = <64>;
-+			riscv,isa-base = "rv64i";
-+			riscv,isa-extensions = "i", "m", "a", "f", "d", "c",
-+					       "zicntr", "zicsr", "zifencei",
-+					       "zihpm", "zba", "zbb",
-+					       "xmipsexectl";
-+
-+			cpu0_intc: interrupt-controller {
-+				compatible = "riscv,cpu-intc";
-+				interrupt-controller;
-+				#interrupt-cells = <1>;
-+			};
-+		};
-+
-+		cpu1: cpu@1 {
-+			device_type = "cpu";
-+			compatible = "gf,mips-p8700", "riscv";
-+			reg = <0x1>;
-+			mmu-type = "riscv,sv39";
-+			riscv,cbom-block-size = <64>;
-+			riscv,isa-base = "rv64i";
-+			riscv,isa-extensions = "i", "m", "a", "f", "d", "c",
-+					       "zicntr", "zicsr", "zifencei",
-+					       "zihpm", "zba", "zbb",
-+					       "xmipsexectl";
-+
-+			cpu1_intc: interrupt-controller {
-+				compatible = "riscv,cpu-intc";
-+				interrupt-controller;
-+				#interrupt-cells = <1>;
-+			};
-+		};
-+
-+		cpu2: cpu@10 {
-+			device_type = "cpu";
-+			compatible = "gf,mips-p8700", "riscv";
-+			reg = <0x10>;
-+			mmu-type = "riscv,sv39";
-+			riscv,cbom-block-size = <64>;
-+			riscv,isa-base = "rv64i";
-+			riscv,isa-extensions = "i", "m", "a", "f", "d", "c",
-+					       "zicntr", "zicsr", "zifencei",
-+					       "zihpm", "zba", "zbb",
-+					       "xmipsexectl";
-+
-+			cpu2_intc: interrupt-controller {
-+				compatible = "riscv,cpu-intc";
-+				interrupt-controller;
-+				#interrupt-cells = <1>;
-+			};
-+		};
-+
-+		cpu3: cpu@11 {
-+			device_type = "cpu";
-+			compatible = "gf,mips-p8700", "riscv";
-+			reg = <0x11>;
-+			mmu-type = "riscv,sv39";
-+			riscv,cbom-block-size = <64>;
-+			riscv,isa-base = "rv64i";
-+			riscv,isa-extensions = "i", "m", "a", "f", "d", "c",
-+					       "zicntr", "zicsr", "zifencei",
-+					       "zihpm", "zba", "zbb",
-+					       "xmipsexectl";
-+
-+			cpu3_intc: interrupt-controller {
-+				compatible = "riscv,cpu-intc";
-+				interrupt-controller;
-+				#interrupt-cells = <1>;
-+			};
-+		};
-+
-+		cpu4: cpu@20 {
-+			device_type = "cpu";
-+			compatible = "gf,mips-p8700", "riscv";
-+			reg = <0x20>;
-+			mmu-type = "riscv,sv39";
-+			riscv,cbom-block-size = <64>;
-+			riscv,isa-base = "rv64i";
-+			riscv,isa-extensions = "i", "m", "a", "f", "d", "c",
-+					       "zicntr", "zicsr", "zifencei",
-+					       "zihpm", "zba", "zbb",
-+					       "xmipsexectl";
-+
-+			cpu4_intc: interrupt-controller {
-+				compatible = "riscv,cpu-intc";
-+				interrupt-controller;
-+				#interrupt-cells = <1>;
-+			};
-+		};
-+
-+		cpu5: cpu@21 {
-+			device_type = "cpu";
-+			compatible = "gf,mips-p8700", "riscv";
-+			reg = <0x21>;
-+			mmu-type = "riscv,sv39";
-+			riscv,cbom-block-size = <64>;
-+			riscv,isa-base = "rv64i";
-+			riscv,isa-extensions = "i", "m", "a", "f", "d", "c",
-+					       "zicntr", "zicsr", "zifencei",
-+					       "zihpm", "zba", "zbb",
-+					       "xmipsexectl";
-+
-+			cpu5_intc: interrupt-controller {
-+				compatible = "riscv,cpu-intc";
-+				interrupt-controller;
-+				#interrupt-cells = <1>;
-+			};
-+		};
-+
-+		cpu6: cpu@30 {
-+			device_type = "cpu";
-+			compatible = "gf,mips-p8700", "riscv";
-+			reg = <0x30>;
-+			mmu-type = "riscv,sv39";
-+			riscv,cbom-block-size = <64>;
-+			riscv,isa-base = "rv64i";
-+			riscv,isa-extensions = "i", "m", "a", "f", "d", "c",
-+					       "zicntr", "zicsr", "zifencei",
-+					       "zihpm", "zba", "zbb",
-+					       "xmipsexectl";
-+
-+			cpu6_intc: interrupt-controller {
-+				compatible = "riscv,cpu-intc";
-+				interrupt-controller;
-+				#interrupt-cells = <1>;
-+			};
-+		};
-+
-+		cpu7: cpu@31 {
-+			device_type = "cpu";
-+			compatible = "gf,mips-p8700", "riscv";
-+			reg = <0x31>;
-+			mmu-type = "riscv,sv39";
-+			riscv,cbom-block-size = <64>;
-+			riscv,isa-base = "rv64i";
-+			riscv,isa-extensions = "i", "m", "a", "f", "d", "c",
-+					       "zicntr", "zicsr", "zifencei",
-+					       "zihpm", "zba", "zbb",
-+					       "xmipsexectl";
-+
-+			cpu7_intc: interrupt-controller {
-+				compatible = "riscv,cpu-intc";
-+				interrupt-controller;
-+				#interrupt-cells = <1>;
-+			};
-+		};
-+	};
-+
-+	soc: soc {
-+		compatible = "simple-bus";
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		ranges;
-+
-+		mtimer0: timer@16108050 {
-+			compatible = "gf,mips-p8700-aclint-mtimer";
-+			reg = <0x16108050 0x8>,
-+			      <0x16154000 0x7ff8>;
-+			reg-names = "mtime", "mtimecmp";
-+			interrupts-extended = <&cpu0_intc 7>, <&cpu1_intc 7>,
-+					      <&cpu2_intc 7>, <&cpu3_intc 7>,
-+					      <&cpu4_intc 7>, <&cpu5_intc 7>,
-+					      <&cpu6_intc 7>, <&cpu7_intc 7>;
-+		};
-+
-+		aplic_m0: interrupt-controller@16140000 {
-+			compatible = "gf,mips-p8700-aplic", "riscv,aplic";
-+			reg = <0x16140000 0x8000>;
-+			interrupt-controller;
-+			#interrupt-cells = <2>;
-+			interrupts-extended = <&cpu0_intc 11>, <&cpu1_intc 11>,
-+					      <&cpu2_intc 11>, <&cpu3_intc 11>,
-+					      <&cpu4_intc 11>, <&cpu5_intc 11>,
-+					      <&cpu6_intc 11>, <&cpu7_intc 11>;
-+			riscv,num-sources = <53>;
-+			riscv,hart-indexes = <0x00 0x01 0x10 0x11
-+					      0x20 0x21 0x30 0x31>;
-+			riscv,children = <&aplic_s0>;
-+			riscv,delegation = <&aplic_s0 1 53>;
-+		};
-+
-+		mswi0: mswi@16150000 {
-+			compatible = "gf,mips-p8700-aclint-mswi";
-+			reg = <0x16150000 0x4000>;
-+			interrupts-extended = <&cpu0_intc 3>, <&cpu1_intc 3>,
-+					      <&cpu2_intc 3>, <&cpu3_intc 3>,
-+					      <&cpu4_intc 3>, <&cpu5_intc 3>,
-+					      <&cpu6_intc 3>, <&cpu7_intc 3>;
-+			riscv,hart-indexes = <0x00 0x01 0x10 0x11
-+					      0x20 0x21 0x30 0x31>;
-+		};
-+
-+		aplic_s0: interrupt-controller@16160000 {
-+			compatible = "gf,mips-p8700-aplic", "riscv,aplic";
-+			reg = <0x16160000 0x8000>;
-+			interrupt-controller;
-+			#interrupt-cells = <2>;
-+			interrupts-extended = <&cpu0_intc 9>, <&cpu1_intc 9>,
-+					      <&cpu2_intc 9>, <&cpu3_intc 9>,
-+					      <&cpu4_intc 9>, <&cpu5_intc 9>,
-+					      <&cpu6_intc 9>, <&cpu7_intc 9>;
-+			riscv,num-sources = <53>;
-+			riscv,hart-indexes = <0x00 0x01 0x10 0x11
-+					      0x20 0x21 0x30 0x31>;
-+		};
-+
-+		sswi0: interrupt-controller@1616c000 {
-+			compatible = "gf,mips-p8700-aclint-sswi",
-+				     "mips,p8700-aclint-sswi";
-+			reg = <0x1616c000 0x4000>;
-+			interrupt-controller;
-+			#interrupt-cells = <0>;
-+			interrupts-extended = <&cpu0_intc 1>, <&cpu1_intc 1>,
-+					      <&cpu2_intc 1>, <&cpu3_intc 1>,
-+					      <&cpu4_intc 1>, <&cpu5_intc 1>,
-+					      <&cpu6_intc 1>, <&cpu7_intc 1>;
-+			riscv,hart-indexes = <0x00 0x01 0x10 0x11
-+					      0x20 0x21 0x30 0x31>;
-+		};
-+	};
-+};
-
--- 
-2.43.0
-
-
+>> +
+>> +static const struct pci_device_id bcm577x5_pci_id_tbl[] =3D {
+>> +       {
+>> +               PCI_VDEVICE(BROADCOM, 0x16be),
+>> +       },
+>> +       {},
+>> +};
+>
+> [...]
+>
+>> +
+>> +static int bcm577x5_reg_waitb(struct bcm577x5_device *dev, int address,=
+ u8 mask,
+>> +                             u8 value, int timeout)
+>> +{
+>> +       unsigned long wait_time =3D jiffies + msecs_to_jiffies(timeout);
+>> +       u8 reg;
+>> +
+>> +       do {
+>> +               reg =3D bcm577x5_reg_readb(dev, address);
+>> +               if ((reg & mask) =3D=3D value)
+>> +                       return 0;
+>> +
+>> +               cpu_relax();
+>> +
+>> +       } while (time_before(jiffies, wait_time));
+>
+> Please avoid the open coding and convert to the io polling helpers
+> instead (iopoll.h).
+Will fix in v2.
