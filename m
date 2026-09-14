@@ -1,137 +1,190 @@
-Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 885F73AA1BA
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 23:47:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789429633; cv=pass; b=pa9xMdoAjHAEK6h5bat+nlwJd1NwuE0KFw+Mk8bji7T7FgUmXGNNmpYDKeHmidSYnL9nD/wA3wwyEiQzxNLsoplr24GWeuZA8Ka4OAKmXh1zZCdYpnL+xasoP1veefpfvzyhVtfomqJT/Ycj49EjLe+xOg5hX1WivDg5FaBPyqw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789429633; c=relaxed/simple;
-	bh=oK9gNr6FEqLo45K0RkNT/yAk3ebgfwqHPtjzK1AF9cU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Kx9gUTKVzOPui3Sr2QlPK9yJ9mvcigjDirPG3gqU9hk/RSeYiHatC1NVii9L7IZgzvmhKz7v5tfwS0ZuPZp++eJobqMJWdmyKf7a8ofjrNJRzvN0yAsXy8y2VOAnz3MrMyAKSjowB3b1MwrSwMmCIT3ku8OX8ZDJa6fbT6gZEd4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=skAGjK7c; arc=pass smtp.client-ip=74.125.224.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E3B73939D2
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 23:48:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789429684; cv=none; b=opKan83Y753tH5RSZLFvsmXbiKTDX1y0zD6xYU9BgB3aSjxVUmStfP9vujD/7deHgaoN6q8Y3aec+mjmvs+Jf+/PNsyO5tYvx1tMHZi4ivQeCfZRVbVsUg1/fdEniZAjMoXF3rrUvk/JRMxVgtSVIWbkrBJEsW+n7xmYJaJR1DE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789429684; c=relaxed/simple;
+	bh=tUORdNhrHwcWgp/YbkquRctE7GdPcEM18x4s7AbvUVo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=X3r+ZzalDBuuXCzIR0hZmhxoW/mzw29mT3ParnEg7+cHLxv23kyVo4Q3zR4mH5hbAGOS+WiMU+wDnrlUk5YaTOTGdi/e4YWNRftoYWWhdVoGsT67bTD4Umvc51qmiXCD8sZAbzQ8gmvz/c78zlMOLFDunmqrSRzia745sacsHQM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CexfMKi9; arc=none smtp.client-ip=74.125.228.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="skAGjK7c"
-Received: by mail-yx2-f12.google.com with SMTP id 00721157ae682-85d43da99easo26195507b3.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 16:47:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789429631; cv=none;
-        d=google.com; s=arc-20260327;
-        b=kNiZBdWutLvtGhLmbr8pQj/n/IKoLwS7hQebVuACyDM1pABwylOZ34IYfgfVor8CzH
-         lr9IjfhkDjSM+pBIJNaZgqM9rwSaeL0PiuSRTYQ0KnqhqsLohAgbaq1So/WgA8PHiON8
-         wQDMHomsVT643yZZlwNVojPae/NybZIdtoR611SOrSmGJy8iZzBLExvSk+6PHjIbKpBl
-         PHTlTtzbLSQcEpd3KwZzPhuJn36hqbmgen6WqfwHup6G5Im0qy/RUDhQQpHFJYopty5M
-         /MCSYaoFjskNb2xV7Q/GoE5pgJcLmzohLct80RFFp7Kkw30qLBRNC7/35YdtPqrBYoWU
-         FUcQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=cFthcrFYFgZKOOCNtEyPVxbnm0K5sPNXxafO3124q6U=;
-        fh=TIvxLuDC9MUIm4IMuHmsJbOr4BWxym0bVX+4FmFQ9IM=;
-        b=XlhHlKhJk0LvHwpe82wt9RL0B8DXlzCbdAT59YhF+wdJ1nkk2kqUzCdpbzZo7l3RvB
-         8K+5ruzayV0Pn0RwMxrfWZIex4BOdoU1THVGP/9TCKahM7PvGyZXSK6TvFH3hshkqSNo
-         RrepNX+eEa9qMA+7laIopYQMlmPv8AaUr+TMiy61Anl4yA1am7E5vKn04vjoCdAcKbui
-         tCJkyIhFGm4S5xfgY3KPM9G79k/2ouNUl7tX97TmJQ6yvakQHvVqxDFQn3UAM2ZWrzNy
-         U9oLq4V9BYA12BXcggBp/8eXnI4CK8FBIBba6UlxfYHuR0cmZ8a7TUe9DsFsgt9KLiyn
-         14Ag==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CexfMKi9"
+Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-86b90133ae8so2088211b3a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 16:48:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789429631; x=1790034431; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cFthcrFYFgZKOOCNtEyPVxbnm0K5sPNXxafO3124q6U=;
-        b=skAGjK7cVNsXrBWKxU0KjzCohPYFFitzBmUKKAVeXboV6gA6vQlqhMQwVChJgk5Nim
-         RPs/+wN11IyIFWzx3b3i+uFXUAq0CxAGyLh6YyLuPCpnh4VIus5/fkZQsqKGUY8hJYAN
-         futHheNy7lj2Gvbqn65J6mWl55w2AVeDb4MEW3h7BHnyPZHvQbC4lI105CvW7x9WLb1Z
-         j16HnPUZE6ejEz8cRPgWLAmEuFj1Cr4orodxx9sntZifqoE5lttrn4hdmlTdhAFewN1N
-         b3Xzcuc2s7A4e0e9IV8JWoIdD0109crvVtE7CurEG2dgAlE1rUUC7mkCxHSg3T021Lm6
-         FGUQ==
+        d=gmail.com; s=20251104; t=1789429682; x=1790034482; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JyCNMJxkTrShME/DIcrG5BOzzpAUEE889vj8TyhVyz0=;
+        b=CexfMKi9RbWBmLaj9nMBqSky0LVtCcxLwEdh6f+YoPtKtZKi8mSRDD6n98CjdJEJTM
+         80yYCWHNPs79FYKOK1tBc4tSJQd4gvJ//Uo3dVIP37Biql6haVxeyFJUETd8Jt6NX2MC
+         nUS1d7zde+1EKR8KcHOnRrswIHRHafVi+OlQ4q5YXSAvGHhLmdhX/gAekJG602X2nH/D
+         soyLFnDCQPU6IgYhiJDoTYOq84SBHpuAzRLePlqis4sfoPWaDKrzyjMHSFSfWcgqYa8H
+         o75q3e9FwpSwaA7bwVPuRU52cuDazADDriL9xcpirVXtMAwpYhCKdlylpq1UYoIHyGOg
+         uMnw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789429631; x=1790034431;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=cFthcrFYFgZKOOCNtEyPVxbnm0K5sPNXxafO3124q6U=;
-        b=ytcc0ufIK71rxgWlL8IRW7stKXnaf4iha5Hpe+vuDT8xnLFEhNJtb1fSICbNBbASLJ
-         ZxJbe1BtfC2a5xRUcjOc90j/H0UUzwsA2wioBsdwXix9kA3z+de6PIGWlP4aIUBYyp7k
-         /7CNvphoD2DqGy4RV+a1bRFo/mP1i0Al1rHN7u9qoke6d9I/AC0o1YtHwu7hB2OdYOcO
-         LZIu8F6HX3vvh1izzKUBg97PXJtsoEGq6twiPt2DtzhXcQbAp5By6Isvuw4O91x89mQm
-         r3Nhq1KOd4qTve3YWNC4u2MUC1dl6oUPR1umfK/oENjAlif4ibx/5jtSx6jopYAfK3Vv
-         c2BA==
-X-Forwarded-Encrypted: i=1; AKwUvBz7T4P/ldmlUbveoqdjV5/SIWduQBW9PjR3Gb/lA9hN00sahdxzXZrclgVXlc5KOuXOpSh0zSIPmoWed3s=@vger.kernel.org
-X-Gm-Message-State: AFuF++muhQLfWhkQFE7iFQ+POYDPAj6HAcumwi70yV5MGtRWxXr15n/d
-	4cIEanH0DV3n2c4Sju97lZMjDbpnilvxTI3ADUCzCR/3VNOo+zhsh+/TrsNRIDqKWu6Q5IcgLjB
-	D87nnrZrH8ouHNplEfOx9kLa/OZ/2GtW4msWEdY5D
-X-Gm-Gg: AYBFou0+WxiQCBc9G3toQJQxg/Dj4bVpS6hBLOuZYMmjvFTZzY1k8b9on+WiXWE93FS
-	n9gkUbPZZAyjtVO1deSjIArTe727tlFe5Ey3CwP82rUKtnRRbsAJNRBmoZJJfAY17BhMjBiLsT3
-	s1AtizBJ1qWazjlGP+1ZH5v4BvMig/WH/wQuBIPV/rVbEFwY+TbNtQhvRLjwGiNUMRuTgIQFLOO
-	HnrFJVLAR+mp7J1ZS64OwL2HJcVi1DphLAFm3KXmdVbAdwUqz5lBSUtyhI0bSOkacup5YrZrvo5
-	Imctai2ughx1YxmYW3JXV8HuksHbRFWhGevKcDx8RDui5Jp/rO0ocILzkcS6nK4z3V12YcR6s4Y
-	y29XNvHF71g==
-X-Received: by 2002:a05:690c:4f85:b0:873:5bd1:98ce with SMTP id
- 00721157ae682-88d246564bemr11903357b3.64.1789429631046; Mon, 14 Sep 2026
- 16:47:11 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789429682; x=1790034482;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JyCNMJxkTrShME/DIcrG5BOzzpAUEE889vj8TyhVyz0=;
+        b=YbIyOzOKAjVoCYFVLWNvfGrSV8P75swRqa9bGsgWdAsWNsN1oGVqKexK3qyk3YqcOq
+         JYRwz3ctUayt3xRgvZ2qSXF4rleYcb5m2LppxTv9tR75mYn3wKZlLioQcCvvUcgV/1ed
+         wmnyt+vUF1ZVm4uWqQQC9yx/Fy2hjMp7SIVN8EyA34yeHHq1ojTXAhwRH12VYXE7NL5g
+         wthZ+gHJO57522YZSs2yhNb4jJl12CorDWcug6mjKhHovkbBgAfc3kmZM5q74eHnw6Pe
+         9HsqWf2nboITc06dsEdXD0L0xdlEgjURIaiJesXLYLs9YpXOKB2ibjSvemTu04LuNiGc
+         L+yw==
+X-Forwarded-Encrypted: i=1; AKwUvBxRadhejC25Ws0xXKSZ2qtrV3Kt7za5ymV70CyuC+SXpgSEbbD7D8YresFFe4jaTf+lmu9S0/rWbPHBPtw=@vger.kernel.org
+X-Gm-Message-State: AFuF++nIo2y2zZ/hRHFMOVlcHWlu6ZfUUxcT+NH/Zt9XRY3WM+UPll1Q
+	OJpS8/V+nwUDe8jsvm8MEK2TJjG4IQ8mb7thhz8EBImb/UFnYYne5d8=
+X-Gm-Gg: AYBFou1AbYks+U6ubUJfdypReK6Rzoy22BPt7/KS3N3p95BP382s0br13+9QEHbxJSW
+	uucYbQUYLTxmxUQ/Bu10e3Zn8lWN6yFmObM+xShpfAXrNP1LHnjK7UCSjBveaqyHFyfME/nCaos
+	CsIgQJ8HLPbRG2GI6/rTvkI4fnue9JusVRLs7fUfLBe7QrRSN+t/ThUOSxdf8QdfQp7suM1AXIS
+	Cy6f3klw4GJNH4LYM604y5GndZ/Xm3Om7MORU2P/Pc+We8QZ/gvi8rFCT9Wvx0qKe5+gZ7r9xGF
+	ZT10mk5TA+Q9mzX/cjYQjcamOM9B2+ezrbmkvh4fO3mrup73sRDQnGBDHU9oE+f7TSLe4/u9ge5
+	oc1Q7g2IZYC6uTX0EfcGK2h96m7dyur5P59oU9Adth8Vd5hpdHWdeqZzLsNPimusJ1FyDriJyWx
+	f9+K0TgquFEUGFFGCPQ2qvMSST5XMh84g/Jk+78v3xAZ/1HoQKZ/B2/NqeJt0/T0g0U6FQqR/sx
+	DA7D9EVesV7tHZKKvheHWBfpOj38g+eV7Rvbw==
+X-Received: by 2002:a05:6a20:4323:b0:3d2:df:1854 with SMTP id adf61e73a8af0-3db4044754dmr8579967637.6.1789429681864;
+        Mon, 14 Sep 2026 16:48:01 -0700 (PDT)
+Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:7f00:8c85:556:537c:f7cd:8a1b])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4f5833fsm34777608eec.23.2026.09.14.16.47.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 16:48:01 -0700 (PDT)
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Tom Zanussi <zanussi@kernel.org>,
+	Sashiko <sashiko-bot@kernel.org>,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] tracing: Save the event file instead of the compatible histogram
+Date: Tue, 15 Sep 2026 08:47:54 +0900
+Message-ID: <20260914234754.3676905-1-donggeunyoo.kernel@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260906202747.4041389-1-samagazaryan@google.com>
- <20260906202747.4041389-4-samagazaryan@google.com> <aqHU-6RV_AapSu3M@lizhi-Precision-Tower-5810>
- <DLC6ERLST1B6.6K3HLH38DQLK@google.com> <5fb77c2c-40b8-4dfe-95d3-e0c73b8559bc@intel.com>
-In-Reply-To: <5fb77c2c-40b8-4dfe-95d3-e0c73b8559bc@intel.com>
-From: Sam Agazaryan <samagazaryan@google.com>
-Date: Mon, 14 Sep 2026 16:46:59 -0700
-X-Gm-Features: AcwNN1V-uXXao4kvW2-FUblLASgfbHJF_w7kOEKYfus9MUe94SpKIUhs3nxCeVQ
-Message-ID: <CAHreonHEAPrzhVH0AiAzrZOr+h8D=T8hB_oC0TP50d79y_OWSA@mail.gmail.com>
-Subject: Re: [PATCH v4 3/3] i3c: add i3cdev module to expose i3c dev in /dev
-To: Adrian Hunter <adrian.hunter@intel.com>
-Cc: Frank Li <Frank.li@oss.nxp.com>, linux-i3c@lists.infradead.org, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Frank Li <Frank.Li@nxp.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Arnd Bergmann <arnd@arndb.de>, 
-	Vitor Soares <vitor.soares@toradex.com>, 
-	Oleksandr Shulzhenko <oleksandr.shulzhenko.viktorovych@intel.com>, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-> actual_len is a problem.  Only 2 controller drivers support it.
-> No I3C device drivers support it.  mctp-i3c reads len not actual_len.
-> regmap-i3c ignores len and actual_len.  And its definition comment
-> is not exactly correct since it is only valid for reads.
->
-> Despite that, the additional issue here, is what to do about a short
-> read.  Seems like it should be in the uapi, but actual_len needs to
-> be fixed first.
+create_field_var_hist() creates a histogram on the matched event to
+supply a field variable, and records it on the target so it can be torn
+down later:
 
-I think something we can do to get around this is to incorporate one
-of Meagan's patches
-[1] which addresses actual_len usage in all the controller drivers.
+	hist_data = find_compatible_hist(target_hist_data, file);
+	...
+	/* Save the compatible histogram information */
+	var_hist->hist_data = hist_data;
 
-With controller support we can add a field for actual_len in the UAPI struct:
+hist_data is not the histogram it creates. It is one that was already
+there, whose keys the new one copies. The saved pointer has a single
+user, unregister_field_var_hists(), which runs when the target is
+removed:
 
-    struct i3c_ioc_xfer {
-        __u64 data;
-        __u16 len;
-        __u16 actual_len;
-        union {
-            __u8 rnw;
-            __u8 cmd;
-        };
-        __u8 mode;
-        __u8 pad[2];
-    };
+	file = hist_data->field_var_hists[i]->hist_data->event_file;
 
-As a follow up, I can also help clean up other i3c drivers in future
-changes, such as mctp-i3c
-since at that point we should have actual_len support across all the
-controller drivers.
+find_compatible_hist() matches on keys alone, so it can pick one with no
+variables of its own. check_var_refs() then returns false and the user
+can remove it while the target still points at it:
 
-Thanks,
-Sam
+ BUG: KASAN: slab-use-after-free in event_hist_trigger_free+0x2b2/0x320
+ Read of size 8 at addr ffff8880093b90e0 by task init/1
 
-[1] https://lore.kernel.org/r/20260911210935.1353126-3-meaganlloyd@linux.microsoft.com
+ Freed by task 1:
+  kfree+0x154/0x420
+  event_hist_trigger_free+0x1d5/0x320
+  event_hist_trigger_parse+0x35f3/0x69e0
+  trigger_process_regex+0x1a6/0x250
+
+Save the event file instead. It is all the dereference ever wanted, and
+it does not go away when the user removes a trigger.
+
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://lore.kernel.org/all/20260914110753.221E61F000FF@smtp.kernel.org/
+Cc: stable@vger.kernel.org
+Fixes: 02205a6752f2 ("tracing: Add support for 'field variables'")
+Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Assisted-by: Claude:claude-fable-5
+---
+x86_64 under QEMU/KVM, CONFIG_KASAN=y, 2 CPUs, base 587858367581.  One
+kernel config; one initramfs image per arm, differing only where stated.
+
+A compatible histogram on sched_waking, an onmatch() target on
+sched_switch naming sched_waking's prio so a field variable is forced,
+then the compatible histogram removed, then the target:
+
+  echo 'hist:keys=pid' > events/sched/sched_waking/trigger
+  echo 'hist:keys=next_pid:onmatch(sched.sched_waking).my_synth(prio)' \
+       > events/sched/sched_switch/trigger
+  echo '!hist:keys=pid' > events/sched/sched_waking/trigger
+  echo '!hist:keys=next_pid:onmatch(...)' > events/sched/sched_switch/trigger
+
+  unfixed                        1 KASAN slab-use-after-free, above
+  unfixed, 3rd command omitted   0
+  patched                        0
+
+The second arm is the control: the other three commands are identical, so
+the report is the removal and not the harness.
+
+The read is on freed memory rather than a pointer that is reliably wrong
+-- whether the '!hist' still reaches the right file depends on what the
+slab has handed out since.
+
+trigger-field-variable-support.tc covers this path, and its removal step
+goes through the line this patch changes.  Run by hand against both arms,
+since the initramfs carries no ftracetest: inter-event histogram PASS,
+field variable created PASS, field variable removed PASS, on both, with
+no KASAN report on either.
+ kernel/trace/trace_events_hist.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
+index 8af97fd4ee2d..cc22bba011b2 100644
+--- a/kernel/trace/trace_events_hist.c
++++ b/kernel/trace/trace_events_hist.c
+@@ -549,7 +549,7 @@ struct field_var {
+ };
+ 
+ struct field_var_hist {
+-	struct hist_trigger_data	*hist_data;
++	struct trace_event_file		*file;
+ 	char				*cmd;
+ };
+ 
+@@ -3118,8 +3118,8 @@ create_field_var_hist(struct hist_trigger_data *target_hist_data,
+ 		return ERR_PTR(-ENOMEM);
+ 	}
+ 
+-	/* Save the compatible histogram information */
+-	var_hist->hist_data = hist_data;
++	/* Needed to remove the histogram when the target goes away */
++	var_hist->file = file;
+ 
+ 	/* Create the new histogram with our variable */
+ 	ret = event_hist_trigger_parse(&trigger_hist_cmd, file,
+@@ -6344,7 +6344,7 @@ static void unregister_field_var_hists(struct hist_trigger_data *hist_data)
+ 	int ret;
+ 
+ 	for (i = 0; i < hist_data->n_field_var_hists; i++) {
+-		file = hist_data->field_var_hists[i]->hist_data->event_file;
++		file = hist_data->field_var_hists[i]->file;
+ 		cmd = hist_data->field_var_hists[i]->cmd;
+ 		ret = event_hist_trigger_parse(&trigger_hist_cmd, file,
+ 					       "!hist", "hist", cmd);
+
+base-commit: 587858367581b9c55c3690f4e63382ad622719d4
+-- 
+2.53.0
+
