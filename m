@@ -1,195 +1,90 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E27EA46EF64;
-	Mon, 14 Sep 2026 13:42:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6B664472082
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:43:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789393371; cv=none; b=oo2ylPzPu1hrEz1QNk2pRbuS8nl7zaUPC2M+YsuNzVUliUpBSjP11DgTg6Unwzyan04JeuZLV0yO6ZJ60QVGKqL0P25y+walYj1T0f/q4Ga3gYs8NgCi9b8r7YAtSivip88NTAKlx8BAZc48Iwwi3aEreEDm+SfJTdmtLkDjEZo=
+	t=1789393385; cv=none; b=nTr7roJ6EnnwrjJeAAlpCfvu56O8v/wE/LM/xls30PfAoywjcg/phftGsgwsTqmHiDIidlC6LULSEpJevm5BqAXA3YzhXe0TTPxySMNDDJaXx0o/hIfG2RHrrAPki9LxXeXdWtc8HhJF93v1MkUVLivljCVXtuV7JghWhZc9Okg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789393371; c=relaxed/simple;
-	bh=ytG8ocPF34y4GXTp7tqgbP+za6+mvxCiVYZgdi98Zyk=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=SE6pg7W+9IqP1LFu0Gcj40lOnjKvOsC2gQqXbA1VVZmDBDTV38OH77PsAKhlkREY1hDKYVM4aa5ddP4gkDqTZaWYd/Wa1hMtg4GaKSyvgAI6q8HU/4t3WdQ8oWawCG5RvxtSoAA3Pd2+vGky8RTG8orP1wZm81PnpelVs220ixY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I5tVHzlP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789393385; c=relaxed/simple;
+	bh=VsD3H2ySCWA+ttXwqRR44/yEVZBVYNu9HiXKcp4JU/I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EOg5a9WPzfIfQPTfqnZ1cEJVNLTaFAoehV5U9JMjenvSvK9IZegWdnCS1Y13uFbU4nxiL8F307fkqrL7VHhH2Nxr6n9UIuRz/JkbLCE7k4mp0PkF8g/6GnQ8kHkmdjmSeTIcYrZ+9qi8vjVYZnlWhxJcNJ+dZ5YYE4pS0oleO3Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=QKEvRdM1; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I5tVHzlP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDA3E1F000FF;
-	Mon, 14 Sep 2026 13:42:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789393369;
-	bh=uXYH+/nJwZIRRlJSJX40vXdbeohaBAmcqYLkggzgf14=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=I5tVHzlPAJ/KrsAxqyGne0O47j8Eak17IwUzmR7gf9kATOVcPOq+QFIGsAXMbBLYa
-	 es6/VLTkLxiZublfkTCPl/INOY0TE5ywDyS5quk4ZY+BeVZRLqNBoCllZGAVwA5R/A
-	 wDm9GpamkLRxefE9q+BjDQgA3BZjMX5ZM5+KyOvs4Q2Jj+BQ5ifegRcW/tsTZ94EHt
-	 54xVQng6Ayyl06kajswrKHcjWx+U+4UZTRyGtu0wCSIbcFCDcBTibTeNcBvaIU1yyo
-	 mHbQU1J7pOwNRUzYn1B9dfdLkgKdXDL2KKDH4vKyezywQ1xRXjew56hpgAeuUq0zHJ
-	 lK+nWGAeqloiA==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1x66xL-00000008eJ3-3RBw;
-	Mon, 14 Sep 2026 13:42:47 +0000
-Date: Mon, 14 Sep 2026 14:42:47 +0100
-Message-ID: <8633vc6jag.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: oupton@kernel.org,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	catalin.marinas@arm.com,
-	will@kernel.org,
-	joey.gouly@arm.com,
-	seiden@linux.ibm.com,
-	suzuki.poulose@arm.com,
-	yuzenghui@huawei.com,
-	mark.rutland@arm.com,
-	steven.price@arm.com,
-	vdonnefort@google.com,
-	qperret@google.com,
-	tabba@google.com
-Subject: Re: [PATCH v3 12/18] KVM: arm64: Prevent host PC adjustments for protected vCPUs
-In-Reply-To: <20260914113338.159227-13-fuad.tabba@linux.dev>
-References: <20260914113338.159227-1-fuad.tabba@linux.dev>
-	<20260914113338.159227-13-fuad.tabba@linux.dev>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="QKEvRdM1"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1895C1570;
+	Mon, 14 Sep 2026 06:42:59 -0700 (PDT)
+Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 239B83F882;
+	Mon, 14 Sep 2026 06:42:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789393382; bh=VsD3H2ySCWA+ttXwqRR44/yEVZBVYNu9HiXKcp4JU/I=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=QKEvRdM1KsJUIgRp2hAnY1MCgGM/jsC+08mreDLmTipFou8mjBZj9V/kx6bWzth3l
+	 tuNqalyLN0cvWZ5wbjjg4t7KqBhT4908Ts+Tkbvtqy48J9zQGOpQbwVeRQIXszeC+r
+	 lPDBN0rq3hBOLFndk/60GPy0jKdhx5mp3czuRW5I=
+Date: Mon, 14 Sep 2026 14:42:51 +0100
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
+Cc: linux-coco@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@nvidia.com>,
+	Greg KH <gregkh@linuxfoundation.org>,
+	Jeremy Linton <jeremy.linton@arm.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Sudeep Holla <sudeep.holla@arm.com>, Will Deacon <will@kernel.org>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Andre Przywara <andre.przywara@arm.com>
+Subject: Re: [PATCH v11 6/7] firmware: smccc: arm-cca-guest: Bind the TSM
+ provider to an SMCCC device
+Message-ID: <aqf524L399WhJ2XV@arm.com>
+References: <20260914060511.277948-1-aneesh.kumar@kernel.org>
+ <20260914060511.277948-7-aneesh.kumar@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: fuad.tabba@linux.dev, oupton@kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, catalin.marinas@arm.com, will@kernel.org, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, mark.rutland@arm.com, steven.price@arm.com, vdonnefort@google.com, qperret@google.com, tabba@google.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260914060511.277948-7-aneesh.kumar@kernel.org>
 
-On Mon, 14 Sep 2026 12:33:32 +0100,
-Fuad Tabba <fuad.tabba@linux.dev> wrote:
+On Mon, Sep 14, 2026 at 11:35:10AM +0530, Aneesh Kumar K.V (Arm) wrote:
+> The Arm CCA guest TSM provider currently binds through the arm-cca-dev
+> platform device. Like arm-smccc-trng, this device is not an independent
+> platform resource; it is a software representation of the RSI firmware
+> service discovered through SMCCC.
 > 
-> __kvm_adjust_pc() lets the host advance a vCPU's PC or inject an
-> exception, which for a protected vCPU would let the host redirect
-> guest execution. Drop the request there: the entry handlers apply the
-> host's PC_UPDATE_REQ on re-entry, where EL2 allows it.
+> Move RSI discovery into the SMCCC firmware driver. When the SMCCC conduit
+> is SMC and if RSI ABI version call is supported, create an arm-rsi-dev
+
+Nit: "arm-rsi". Or did you mean to actually user "arm-rsi-dev" below?
+
+> SMCCC device. Convert the Arm CCA guest TSM provider to an SMCCC driver so
+> it binds to that discovered RSI service and keeps module autoloading
+> through the SMCCC device id table.
 > 
-> __kvm_adjust_pc() adjusts the vCPU a get/put pair returns, the one it
-> was given outside pKVM. Both host callers hold the vCPU mutex, so a
-> hyp vCPU loaded for the vCPU is loaded on the calling CPU. The request
-> for a loaded protected vCPU is dropped. For a loaded non-protected
-> vCPU, PKVM_HOST_STATE_DIRTY selects the copy, since adjusting the hyp
-> vCPU while the host copy is authoritative loses the update at the next
-> flush. Adjusting the hyp vCPU copies PC_UPDATE_REQ in and back out
-> again: without the copy back, INCREMENT_PC outlives the adjustment and
-> the next KVM_SET_VCPU_EVENTS trips WARN_ON(INCREMENT_PC) in
-> kvm_pend_exception(). With no hyp vCPU loaded, as under
-> KVM_SET_VCPU_EVENTS, the host copy is adjusted as before.
+> Keep the old arm-cca-dev platform-device registration for now. Userspace
+> has used that device as a Realm-guest indicator, so removing it is left to
+> a follow-up patch that adds a replacement sysfs ABI.
 > 
-> Until the marshalling patch clears PC_UPDATE_REQ on the host copy at
-> exit, a KVM_RUN that returns to userspace with INCREMENT_PC set leaves
-> it on the host copy of a loaded protected vCPU, and a
-> KVM_SET_VCPU_EVENTS before the next run then trips that WARN_ON.
-> 
-> Suggested-by: Marc Zyngier <maz@kernel.org>
-> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-> ---
->  arch/arm64/kvm/hyp/exception.c             | 21 +++++++++-----
->  arch/arm64/kvm/hyp/include/hyp/adjust_pc.h | 19 +++++++++++++
->  arch/arm64/kvm/hyp/nvhe/hyp-main.c         | 32 ++++++++++++++++++++++
->  3 files changed, 65 insertions(+), 7 deletions(-)
-> 
-> diff --git a/arch/arm64/kvm/hyp/exception.c b/arch/arm64/kvm/hyp/exception.c
-> index 6e60d890afa4a..7ea62e5304ae9 100644
-> --- a/arch/arm64/kvm/hyp/exception.c
-> +++ b/arch/arm64/kvm/hyp/exception.c
-> @@ -353,12 +353,19 @@ static void kvm_inject_exception(struct kvm_vcpu *vcpu)
->   */
->  void __kvm_adjust_pc(struct kvm_vcpu *vcpu)
->  {
-> -	if (vcpu_get_flag(vcpu, PENDING_EXCEPTION)) {
-> -		kvm_inject_exception(vcpu);
-> -		vcpu_clear_flag(vcpu, PENDING_EXCEPTION);
-> -		vcpu_clear_flag(vcpu, EXCEPT_MASK);
-> -	} else if (vcpu_get_flag(vcpu, INCREMENT_PC)) {
-> -		kvm_skip_instr(vcpu);
-> -		vcpu_clear_flag(vcpu, INCREMENT_PC);
-> +	struct kvm_vcpu *target = pkvm_adjust_pc_get(vcpu);
-
-nit: it is really odd to see this 'pkvm' prefix in generic code. The
-point of it is not only to abstract the pvkm complexity away, but also
-to have a wrapper that may be of use in other situations.
-
-Don't respin the series just for this though, I may end-up changing
-this when applying it.
-
-> +	if (!target)
-> +		return;
-> +
-
-I find this one scary, see below.
-
+> Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
 [...]
+> @@ -94,6 +95,11 @@ static const struct smccc_device_info smccc_devices[] __initconst = {
+>  		.requires_smc   = false,
+>  		.device_name    = "arm-smccc-trng",
+>  	},
+> +	{
+> +		.func_id        = SMC_RSI_ABI_VERSION,
+> +		.requires_smc   = true,
+> +		.device_name    = "arm-rsi",
+> +	},
+>  };
 
-> diff --git a/arch/arm64/kvm/hyp/nvhe/hyp-main.c b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-> index da8ab636063cf..1dcc75261dc08 100644
-> --- a/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-> +++ b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-> @@ -642,6 +642,38 @@ static void handle___pkvm_host_mkyoung_guest(struct kvm_cpu_context *host_ctxt)
->  	cpu_reg(host_ctxt, 1) =  ret;
->  }
->  
-> +/*
-> + * PKVM_HOST_STATE_DIRTY names the authoritative copy, the host's when set.
-> + * A loaded protected vCPU takes the request at its next entry instead.
-> + */
-> +struct kvm_vcpu *pkvm_adjust_pc_get(struct kvm_vcpu *vcpu)
-> +{
-> +	struct pkvm_hyp_vcpu *hyp_vcpu;
-> +
-> +	if (!is_protected_kvm_enabled())
-> +		return vcpu;
-> +
-> +	hyp_vcpu = pkvm_get_loaded_hyp_vcpu();
-> +	if (!hyp_vcpu || hyp_vcpu->host_vcpu != vcpu)
-
-Under which circumstances do we get hyp_vcpu->host_vcpu != vcpu?
-
-> +		return vcpu;
-> +
-> +	if (pkvm_hyp_vcpu_is_protected(hyp_vcpu))
-> +		return NULL;
-
-Is it always the case that a protected vcpu cannot see its PC adjusted
-at all? How is PC updated after an exit for MMIO? I feel there is an
-interaction with the above, but I'm not 100% certain...
-
-> +
-> +	if (vcpu_get_flag(vcpu, PKVM_HOST_STATE_DIRTY))
-> +		return vcpu;
-> +
-> +	vcpu_copy_flag(&hyp_vcpu->vcpu, vcpu, PC_UPDATE_REQ);
-> +	return &hyp_vcpu->vcpu;
-> +}
-> +
-> +/* Reflect the consumed request back, otherwise it stays pending. */
-> +void pkvm_adjust_pc_put(struct kvm_vcpu *vcpu, struct kvm_vcpu *target)
-> +{
-> +	if (target != vcpu)
-> +		vcpu_copy_flag(vcpu, target, PC_UPDATE_REQ);
-> +}
-> +
->  static void handle___kvm_adjust_pc(struct kvm_cpu_context *host_ctxt)
->  {
->  	DECLARE_REG(struct kvm_vcpu *, vcpu, host_ctxt, 1);
-
-Thanks,
-
-	M.
-
--- 
-Without deviation from the norm, progress is not possible.
+Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
