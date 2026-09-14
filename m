@@ -1,75 +1,57 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F2240258EF9;
-	Mon, 14 Sep 2026 11:19:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from mx0b-0016f401.pphosted.com (mx0b-0016f401.pphosted.com [67.231.156.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 792023C1D71;
+	Mon, 14 Sep 2026 11:20:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.156.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789384771; cv=none; b=qGVAogj3oGZ1M/nI/73pehilkvOqV2t8mcir+ydsc3qlEOiaG2zF7c2TGPMvef92cm/6QhLLJkFRtT8380RWzltqFWpdKEN/PzEf+upLENaxzT7WtIZg71hn6LJ+4ebPOQHMx8Sqy7B17AQEdjvNtL+/i31nUau0gRB6m4wz+EM=
+	t=1789384847; cv=none; b=po7FJw0xBbst4cJoyuXfDaOI0HJFpknHwfpQadt2BPJGLmzNglm3h9n8l95pU6I5c5voyfM5aqIlC+VkDG64sys4cs4g9G+DsmjbUnkZaVPpzaGugfkGTl7FIn+sFFgd+r1EP83jjQZyw6fJgXSc5UxctZ8E0ULEAWHMnL6UWUY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789384771; c=relaxed/simple;
-	bh=XCRjbAFuEJG34G7htxclzoGwnKvgSXl14XS5nTXx28g=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IvDjHTjOaULixjhlDDzVHJLWTasa89imcR1HgWpXgTqoBotUOAFYu+z1YCA+qHBoGe1M//PiKOv6RUmnrQMfp4dBCcWHfSay4AySpVASs09VvE46DGBiDa3juFPg/JDsMi2ARHe+W5O8TTjdSr6k79vJVWAS2BTgwnS8jlJz15M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=bPyBDfG4; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1789384847; c=relaxed/simple;
+	bh=BK2gSje8Ntak1aO0ck7/sISfvUuuJTb9T2py0KTIaxE=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=QZfnk84SqIcPwHeMVTRoU0Va/03V+SMc0YFmeWNnDHJOf+IPVhv03+ROkl/GM/DPpSK0ptibxsZGQzwGAbTQCBI7m4/Oa0hVXrJu10tICYouPz2TVkcxbDEOeDD6OuUP8ZFQ7ilanzX7GyfX855JnA3rIdDB5DQ/qs10SPQkSt8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com; spf=none smtp.helo=mx0b-0016f401.pphosted.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=hZ/psEfE; arc=none smtp.client-ip=67.231.156.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.helo=mx0b-0016f401.pphosted.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="bPyBDfG4"
-Received: from CPC-namja-026ON.localdomain (unknown [4.213.232.23])
-	by linux.microsoft.com (Postfix) with ESMTPSA id C2F7120B7168;
-	Mon, 14 Sep 2026 04:18:37 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com C2F7120B7168
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1789384726;
-	bh=RLUoEVqqTw8UEs5VCfXVkzx6c5gberuAxjfEayvWmUo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=bPyBDfG4euqR8FSyAw8qmOfzD50NDDoHnRZYYlj9x1aOOcHJ+vdbbjvndMD+cn2DN
-	 T18DLMUW45MM2WAtvqvs+QhT6QNpLhG2DSIZ407Pe9W6yuDbaYDpF4OJo/tddNS8rd
-	 t6MMiUK/uYEPrFnhK/7+28xe9fJ10BshPhLrB0+E=
-From: Naman Jain <namjain@linux.microsoft.com>
-To: Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	"H . Peter Anvin" <hpa@zytor.com>,
-	Wei Liu <wei.liu@kernel.org>,
-	"K . Y . Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Dexuan Cui <decui@microsoft.com>
-Cc: Michael Kelley <mhklinux@outlook.com>,
-	Long Li <longli@microsoft.com>,
-	Nam Cao <namcao@linutronix.de>,
-	Joerg Roedel <joro@8bytes.org>,
-	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
-	Vasant Hegde <vasant.hegde@amd.com>,
-	Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Kees Cook <kees@kernel.org>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Radu Rendec <radu@rendec.net>,
-	Sean Christopherson <seanjc@google.com>,
-	Kai Huang <kai.huang@intel.com>,
-	Dmitry Ilvokhin <d@ilvokhin.com>,
-	Shradha Gupta <shradhagupta@linux.microsoft.com>,
-	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
-	Thierry Reding <treding@nvidia.com>,
-	Jiri Wiesner <jwiesner@suse.de>,
-	Daniel J Blueman <daniel@quora.org>,
-	linux-hyperv@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	iommu@lists.linux.dev,
-	linux-pci@vger.kernel.org
-Subject: [PATCH v5 4/4] x86/irq, iommu/amd, x86/hyperv, PCI: Drop redundant irq_retrigger inits
-Date: Mon, 14 Sep 2026 11:18:36 +0000
-Message-ID: <20260914111836.2119301-5-namjain@linux.microsoft.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260914111836.2119301-1-namjain@linux.microsoft.com>
-References: <20260914111836.2119301-1-namjain@linux.microsoft.com>
+	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="hZ/psEfE"
+Received: from pps.filterd (m0045851.ppops.net [127.0.0.1])
+	by mx0b-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68E9nBH9271386;
+	Mon, 14 Sep 2026 04:20:33 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=pfpt0220; bh=ut7yXY0OU9Y/iDyP7tdE1eJ
+	sQ1JlnvjIivyLM+I0fho=; b=hZ/psEfE5GtUPAjLm/GLDjjb8Tf4l+tNKBOj/MF
+	m1eULLKZpabyuLo6flpSMQSClQRGdjHeoOEklWtHBaciAqTkKcH2jZKz+PkIfWsF
+	ehTI+zr0WMPBTEFUgGadStxhquDCauc4rwDXCJjiPXc+b+0coPLsSUHR/XUw9RBf
+	GGMKMLQBsGj0dYZDY5bJan4/iJFic9jp1Gk70lx4THYy+DJzPz3TLKkSnTk1dbpu
+	JNnHuvFYk8sqkvAJw5inWlx9p3/c5st9AA7ZK5jCCMjxybGGQj90xPPBqQ5Qg+Hq
+	934DQC+fUz5lrbI5hu+EbgYIebchqFW7IXO/h/LOj5ghiVw==
+Received: from dc6wp-exch02.marvell.com ([4.21.29.225])
+	by mx0b-0016f401.pphosted.com (PPS) with ESMTPS id 4gpdm1ge22-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 14 Sep 2026 04:20:33 -0700 (PDT)
+Received: from DC6WP-EXCH02.marvell.com (10.76.176.209) by
+ DC6WP-EXCH02.marvell.com (10.76.176.209) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.25; Mon, 14 Sep 2026 04:20:33 -0700
+Received: from maili.marvell.com (10.69.176.80) by DC6WP-EXCH02.marvell.com
+ (10.76.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
+ Transport; Mon, 14 Sep 2026 04:20:33 -0700
+Received: from c1illp-saixps-016.eng.marvell.com (c1illp-saixps-016.eng.marvell.com [10.205.40.247])
+	by maili.marvell.com (Postfix) with ESMTP id F41F13F70A3;
+	Mon, 14 Sep 2026 04:20:29 -0700 (PDT)
+From: Elad Nachman <enachman@marvell.com>
+To: <enachman@marvell.com>, <andrew+netdev@lunn.ch>, <davem@davemloft.net>,
+        <edumazet@google.com>, <kuba@kernel.org>, <pabeni@redhat.com>,
+        <yevhen.orlov@plvision.eu>, <taras.chornyi@plvision.eu>,
+        <oleksandr.mazur@plvision.eu>, <netdev@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>
+CC: Dan Carpenter <error27@gmail.com>
+Subject: [PATCH] net: prestera: return error on hash table init failure
+Date: Mon, 14 Sep 2026 14:20:26 +0300
+Message-ID: <20260914112026.2822222-1-enachman@marvell.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,119 +59,58 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDE2MSBTYWx0ZWRfX5YEoBD+uCJkR
+ En9Ucm93P205YjB5vGussKG+LzrqzKEHdW2kUsrOLgkXo/55N1dsaR1jXX34tFg9M5/eTfBQYDt
+ W0tGP5HXl3NUGPKoxV/tKA/wfB4U+oXDsuqtG1MheCMLuFurr/bAeEkWv5O2Ho1Ot97xFM20Ehi
+ YjOHSfS0ywtJzl1adkH98zRQfYJtEDu+sJRLijcXIgByK/940bqvSiCZTlFxk8OJWnIaXwoJgBz
+ VgYckfX3rspVZMlyDyFiUxIO4Piixq3bYpjBXpn21WWkl/y7O8/uWakvB6guA60tON+jeRpQCj/
+ hFzeOtpN5Yk5xMBL+6Htiz14Dn4biHtUo+WWNKuNCyeScZPRNl2jSsVBu8dniAcMGvzRCx/wHmG
+ Nz2qCTjQ1evNLp6MqlgmZRnYkMb+Vk2pn891T7f5KLiDBKG0vFQYZ44Cp0m20u8zTzjRnl0nUUI
+ rDjGCaw28ywfJQ9Xg+Q==
+X-Proofpoint-ORIG-GUID: Q5XdNFhkz1jW-SGRF7zjlw6qUUE0GbU7
+X-Authority-Analysis: v=2.4 cv=G8WJgNk5 c=1 sm=1 tr=0 ts=6aa7d881 cx=c_pps
+ a=gIfcoYsirJbf48DBMSPrZA==:117 a=gIfcoYsirJbf48DBMSPrZA==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=l0iWHRpgs5sLHlkKQ1IR:22
+ a=QXcCYyLzdtTjyudCfB6f:22 a=VwQbUJbxAAAA:8 a=M5GUcnROAAAA:8 a=pGLkceISAAAA:8
+ a=-CJc6eoNAwWmckaBU6oA:9 a=OBjm3rFKGHvpk9ecZwUJ:22
+X-Proofpoint-GUID: Q5XdNFhkz1jW-SGRF7zjlw6qUUE0GbU7
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDE2MSBTYWx0ZWRfX4VuyPXb8dnh5
+ DZc5K8bWfDyDKRTeKfRAsK1ST4Ty47OhsxCx51bzd1R9GY6tow73eaUIGAUY0a5FIWZBb9d6/Dx
+ TEHosDcNf8JJLjojteUp7/+q24/jUoc=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-14_03,2026-09-13_01,2025-10-01_01
 
-With fixup_irqs(), msi_set_affinity() and the generic resend path
-(try_retrigger()) now all falling back to irq_chip_retrigger_hierarchy(),
-installing it as the irq_retrigger() callback on the outermost domain chips
-is no longer required. The hierarchy walk reaches the x86 vector domain's
-apic_retrigger_irq() for all of these stacked domain chips.
+From: Elad Nachman <enachman@marvell.com>
 
-Remove the now redundant irq_retrigger() initializations from the outermost
-domain interrupt chips, including the Hyper-V root partition PCI/MSI chip.
+prestera_router_hw_init() calls rhashtable_destroy() on error but then
+still returns success. This causes prestera_router_init() to continue
+without error, going through line 1623, and call
+prestera_router_hw_fini(sw), which will cause dereferencing of freed memory
+'sw->router->nexthop_group_ht.tbl' at line 1560.
 
-No functional change intended.
-
-Suggested-by: Thomas Gleixner <tglx@kernel.org>
-Reviewed-by: Shradha Gupta <shradhagupta@linux.microsoft.com>
-Reviewed-by: Thomas Gleixner <tglx@kernel.org>
-Signed-off-by: Naman Jain <namjain@linux.microsoft.com>
+Fixes: 0a23ae237171 ("net: marvell: prestera: Add router nexthops ABI")
+Reported-by: Dan Carpenter <error27@gmail.com>
+Link: https://lore.kernel.org/kernel-janitors/aqT9h61WBcslE0gJ@stanley.mountain
+Signed-off-by: Elad Nachman <enachman@marvell.com>
 ---
- arch/x86/hyperv/irqdomain.c         | 1 -
- arch/x86/kernel/apic/io_apic.c      | 2 --
- arch/x86/kernel/apic/msi.c          | 2 --
- arch/x86/kernel/hpet.c              | 1 -
- drivers/iommu/amd/init.c            | 1 -
- drivers/pci/controller/pci-hyperv.c | 1 -
- 6 files changed, 8 deletions(-)
+ drivers/net/ethernet/marvell/prestera/prestera_router_hw.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/x86/hyperv/irqdomain.c b/arch/x86/hyperv/irqdomain.c
-index 6d790636c8b95..b3ad50a874dca 100644
---- a/arch/x86/hyperv/irqdomain.c
-+++ b/arch/x86/hyperv/irqdomain.c
-@@ -316,7 +316,6 @@ static bool hv_init_dev_msi_info(struct device *dev, struct irq_domain *domain,
- 		return false;
+diff --git a/drivers/net/ethernet/marvell/prestera/prestera_router_hw.c b/drivers/net/ethernet/marvell/prestera/prestera_router_hw.c
+index ccf6cf98920f..4785fcb62735 100644
+--- a/drivers/net/ethernet/marvell/prestera/prestera_router_hw.c
++++ b/drivers/net/ethernet/marvell/prestera/prestera_router_hw.c
+@@ -93,7 +93,7 @@ int prestera_router_hw_init(struct prestera_switch *sw)
+ err_nexthop_grp_ht_init:
+ 	rhashtable_destroy(&sw->router->nh_neigh_ht);
+ err_nh_neigh_ht_init:
+-	return 0;
++	return err;
+ }
  
- 	chip->flags |= IRQCHIP_SKIP_SET_WAKE | IRQCHIP_MOVE_DEFERRED;
--	chip->irq_retrigger = irq_chip_retrigger_hierarchy;
- 
- 	info->ops->msi_prepare = pci_msi_prepare;
- 
-diff --git a/arch/x86/kernel/apic/io_apic.c b/arch/x86/kernel/apic/io_apic.c
-index 7d7175d012288..18f49a251f23b 100644
---- a/arch/x86/kernel/apic/io_apic.c
-+++ b/arch/x86/kernel/apic/io_apic.c
-@@ -1857,7 +1857,6 @@ static struct irq_chip ioapic_chip __read_mostly = {
- 	.irq_ack		= irq_chip_ack_parent,
- 	.irq_eoi		= ioapic_ack_level,
- 	.irq_set_affinity	= ioapic_set_affinity,
--	.irq_retrigger		= irq_chip_retrigger_hierarchy,
- 	.irq_get_irqchip_state	= ioapic_irq_get_chip_state,
- 	.flags			= IRQCHIP_SKIP_SET_WAKE | IRQCHIP_MOVE_DEFERRED |
- 				  IRQCHIP_AFFINITY_PRE_STARTUP,
-@@ -1871,7 +1870,6 @@ static struct irq_chip ioapic_ir_chip __read_mostly = {
- 	.irq_ack		= irq_chip_ack_parent,
- 	.irq_eoi		= ioapic_ir_ack_level,
- 	.irq_set_affinity	= ioapic_set_affinity,
--	.irq_retrigger		= irq_chip_retrigger_hierarchy,
- 	.irq_get_irqchip_state	= ioapic_irq_get_chip_state,
- 	.flags			= IRQCHIP_SKIP_SET_WAKE |
- 				  IRQCHIP_AFFINITY_PRE_STARTUP,
-diff --git a/arch/x86/kernel/apic/msi.c b/arch/x86/kernel/apic/msi.c
-index 9160227b9b32a..aad2f15eb2176 100644
---- a/arch/x86/kernel/apic/msi.c
-+++ b/arch/x86/kernel/apic/msi.c
-@@ -246,7 +246,6 @@ static bool x86_init_dev_msi_info(struct device *dev, struct irq_domain *domain,
- 	info->ops->msi_prepare		= x86_msi_prepare;
- 
- 	info->chip->irq_ack		= irq_chip_ack_parent;
--	info->chip->irq_retrigger	= irq_chip_retrigger_hierarchy;
- 	info->chip->flags		|= IRQCHIP_SKIP_SET_WAKE |
- 					   IRQCHIP_AFFINITY_PRE_STARTUP;
- 
-@@ -313,7 +312,6 @@ static struct irq_chip dmar_msi_controller = {
- 	.irq_mask		= dmar_msi_mask,
- 	.irq_ack		= irq_chip_ack_parent,
- 	.irq_set_affinity	= msi_domain_set_affinity,
--	.irq_retrigger		= irq_chip_retrigger_hierarchy,
- 	.irq_compose_msi_msg	= dmar_msi_compose_msg,
- 	.irq_write_msi_msg	= dmar_msi_write_msg,
- 	.flags			= IRQCHIP_SKIP_SET_WAKE | IRQCHIP_MOVE_DEFERRED |
-diff --git a/arch/x86/kernel/hpet.c b/arch/x86/kernel/hpet.c
-index 8dc7b710e1250..2bb7a6f466af3 100644
---- a/arch/x86/kernel/hpet.c
-+++ b/arch/x86/kernel/hpet.c
-@@ -509,7 +509,6 @@ static struct irq_chip hpet_msi_controller __ro_after_init = {
- 	.irq_mask = hpet_msi_mask,
- 	.irq_ack = irq_chip_ack_parent,
- 	.irq_set_affinity = msi_domain_set_affinity,
--	.irq_retrigger = irq_chip_retrigger_hierarchy,
- 	.irq_write_msi_msg = hpet_msi_write_msg,
- 	.flags = IRQCHIP_SKIP_SET_WAKE | IRQCHIP_AFFINITY_PRE_STARTUP,
- };
-diff --git a/drivers/iommu/amd/init.c b/drivers/iommu/amd/init.c
-index edcc187b8f14f..bc3da5b0578eb 100644
---- a/drivers/iommu/amd/init.c
-+++ b/drivers/iommu/amd/init.c
-@@ -2477,7 +2477,6 @@ static struct irq_chip intcapxt_controller = {
- 	.irq_unmask		= intcapxt_unmask_irq,
- 	.irq_mask		= intcapxt_mask_irq,
- 	.irq_ack		= irq_chip_ack_parent,
--	.irq_retrigger		= irq_chip_retrigger_hierarchy,
- 	.irq_set_affinity       = intcapxt_set_affinity,
- 	.irq_set_wake		= intcapxt_set_wake,
- 	.flags			= IRQCHIP_MASK_ON_SUSPEND | IRQCHIP_MOVE_DEFERRED,
-diff --git a/drivers/pci/controller/pci-hyperv.c b/drivers/pci/controller/pci-hyperv.c
-index 89816a2bd7cd3..cfc8fa403dad6 100644
---- a/drivers/pci/controller/pci-hyperv.c
-+++ b/drivers/pci/controller/pci-hyperv.c
-@@ -2119,7 +2119,6 @@ static bool hv_pcie_init_dev_msi_info(struct device *dev, struct irq_domain *dom
- 	info->ops->msi_prepare = hv_msi_prepare;
- 
- 	chip->irq_set_affinity = irq_chip_set_affinity_parent;
--	chip->irq_retrigger = irq_chip_retrigger_hierarchy;
- 
- 	if (IS_ENABLED(CONFIG_X86))
- 		chip->flags |= IRQCHIP_MOVE_DEFERRED;
+ void prestera_router_hw_fini(struct prestera_switch *sw)
 -- 
-2.43.0
+2.25.1
 
