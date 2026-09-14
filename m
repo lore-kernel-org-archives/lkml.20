@@ -1,45 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19D5E47A88D
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:19:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 444B447F2CB
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:19:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789395544; cv=none; b=fpsidsNr7xQkHJ+iT6jFD8TYNpeU96be/Qj2cOQPc/JzrMLVwT3iAhr8k7VPZC8cb1TPimtBl/FvRyZaDabg6E2+kt0aPhRKCZcAEVOA7VCWDyDvq5mULVtTRjC0pAKfl4XSUK9kUkq0Xj8jIPxlgiATKHQhvHhjcOOFfDJ7Oz8=
+	t=1789395546; cv=none; b=rbo9CHOARRz1A4BwZN9wedPpc2FsQaWUO/nUc0wwyxgCYmytKwqFe6UfprOUcvQA1fevaXV0t3MzeyyRF798H4tDrCT8BrxStxTlpmcTs1Nh1flMRGgXRocdSFPxar6gcKkcCNX8HqATyP/8JK9DTelAN0IQ4xPHX8bSe2SG840=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789395544; c=relaxed/simple;
-	bh=6lFszZpe1MD/RXf6Q+9dSQJDvm5qoH7GC4WytpenaaE=;
+	s=arc-20240116; t=1789395546; c=relaxed/simple;
+	bh=y+rIsWzSA+6uWvV5PBJwke/G8LxmV1+0yMywHiJ3kog=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=LlFJ4xNlrSdcbTxOJR2Do0vb0dH18vbEPFXtjRkr/pRsPtnX5jlQen55zyyLzo2kt+HxP4EtWWNOVSsNG5xvF6+AgeOZKMOuaJRtDRls1LqkqVq18+SVLTQaaXD9au3quVCmZdHcEODbdtBtbv+afDNfKlhtlDUckhiyrSE9Wdw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZZK34jAF; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=GwEWXjoH90Q88oLVVheJFBhak+kP13fH+A4Gu3RPrBuLTLjb8A6UrYVmmbYBkbDDdAHWd/T8l0bu8T0lvo2EYGDIvKuAH5Y4AzRUcR6u7gV9SxT7ZqtzZmBgwGK5M0vU9dSJir8h8yFCah8NdvOi5LZ+7hFtLQOa327qOhHQLjE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LgPmyk7i; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZZK34jAF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1C801F000FF;
-	Mon, 14 Sep 2026 14:19:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LgPmyk7i"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21C061F00893;
+	Mon, 14 Sep 2026 14:19:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789395542;
-	bh=URkLQJTkU1OWudFW9XfG3Vve/Z8qVfcVe+gmepQKDZ8=;
+	s=k20260515; t=1789395544;
+	bh=OFE6uBPFy4Kt8NhVjhn0jBJdyEdXEQesNbkMWPSNUKw=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=ZZK34jAF+w4QNreVLwQNOzb6QmwS849PujNsfJVlBwa0dVbaDlaXNpQ9RjEeqGWSj
-	 cIsp46z356pgiTnu5Iiw8IBU7DhTEE7M8mGA/RvnrxryfGo5i0Hmj8w+CtXA2TAMrz
-	 eAsXIeWJpycpq9VU8Wtg7/fNuf9T7BdNHui4C6csfSCKMj/bgrOwW7Q9viM3ISZb1P
-	 HEXTdtGaJ23b4dbSlV1otNVbRXVYJoW5RjcELM/4Pl6SCdoIXwCV4h7Gs827nR62n7
-	 jTG6DgF8JDl1KoOPTrLYPPdP4vJs0Wd2bo8PKfwJ9gllH2zynhlBt/vqG7lLGpW57V
-	 rgkBymFg1tEuQ==
+	b=LgPmyk7izrcUpjeKGhUiZcgQlMrVMfYeKHLBjt6KodimObvxWPd9D5bL1hGSm/jX5
+	 2Jratysr/vUFRNXQBfC04P9HuF+mtQiIqCMGZVArj6hmwPWxIQRafTv0XN9MY+MFRm
+	 6wMbaeWOLjT3FpLLU96V63xMZiLzJ+NG8b4Bj28cIBQHNvNgo/9Pzzm4O14rxo7YFa
+	 CkA7CoJmYiewokAsjLUMYV3Ldlzjv8fX5IS7UviZ0g3uZEU4gbnN6prxdZo1HmwM1D
+	 DAHLpdUc2g9OIyML+QIxq6bmKwI7ZU8IEcH+pXuNChPWiwIpCpoDCsA4HwXnm7ykPR
+	 S2mQIE7H/4Ezg==
 From: Michael Walle <mwalle@kernel.org>
 To: Pratyush Yadav <pratyush@kernel.org>, 
- Takahiro Kuwano <takahiro.kuwano@infineon.com>, 
+ Miquel Raynal <miquel.raynal@bootlin.com>, 
  Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
- Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Jon Hunter <jonathanh@nvidia.com>, Steam Lin <STLin2@winbond.com>, 
- linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260911-perso-fix-spi-nor-qe-mxic-v4-1-5da8a25b9579@bootlin.com>
-References: <20260911-perso-fix-spi-nor-qe-mxic-v4-1-5da8a25b9579@bootlin.com>
-Subject: Re: [PATCH v4] mtd: spi-nor: Fix quad-enable for flashes with QER
- bit in SR1
-Message-Id: <178939554051.2550426.10852177724656571043.b4-ty@b4>
-Date: Mon, 14 Sep 2026 16:19:00 +0200
+ Tudor Ambarus <tudor.ambarus@linaro.org>, 
+ Alexander Sverdlin <alex@sverdlin.org>, 
+ Takahiro Kuwano <takahiro.kuwano@infineon.com>
+Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260914-s25fs256s-fixup-v1-0-e94019455c1e@infineon.com>
+References: <20260914-s25fs256s-fixup-v1-0-e94019455c1e@infineon.com>
+Subject: Re: [PATCH 0/2] mtd: spi-nor: spansion: Cleanup S25FS256S
+Message-Id: <178939554286.2550426.10506559169174764251.b4-ty@b4>
+Date: Mon, 14 Sep 2026 16:19:02 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,21 +50,17 @@ Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.16.0
 
 
-On Fri, 11 Sep 2026 19:22:45 +0200, Miquel Raynal wrote:
-> Some flashes (eg. from Macronix) do set BFPT_DWORD15_QER_SR1_BIT6, which
-> means they do not have an SR2 to read from/write to. The new generic QE
-> helper was supposed to accommodate this situation but in the last version
-> that got merged, parts of that specific handling has been moved to a
-> more contained location, swp.c (which needed most of the extra code),
-> yet the Macronix case has been forgotten about in that generic QE
-> handling helper. Booting with such flashes will always fail probing.
-> 
-> [...]
+On Mon, 14 Sep 2026 13:50:35 +0900, Takahiro Kuwano wrote:
+> This series cleans up the S25FS256S entries in the Spansion ID table.
+> Remove the invalid s25fs256s0 entry and assign the existing S25FS-S
+> fixups to s25fs256s1.
 
 Applied, thanks!
 
-[1/1] mtd: spi-nor: Fix quad-enable for flashes with QER bit in SR1
-      commit: 90f242c92d3ab241f0d22e2368b57750b8755667
+[1/2] mtd: spi-nor: spansion: Remove s25fs256s0
+      commit: f917d9edf54c3dd578efc231b8fbcd35744f99cd
+[2/2] mtd: spi-nor: spansion: Assign .fixups to s25fs256s1
+      commit: a96edc3f0b4f036a5b6ebc9b1eca4273ef5ce2d0
 
 Best regards,
 -- 
