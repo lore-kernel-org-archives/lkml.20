@@ -1,110 +1,167 @@
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E22C47ECCF
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:21:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AD7E47F780
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:21:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789395677; cv=none; b=HCWP9GNN61MgeawbW/v1OLajEzAD2Mw3qiWMH9zpeyCVMn0rRF8MULixUFWclVhdy6yZ8WGv82IwmjifX4lTDBYQ1BDpbETg2UnYpapwFkxET3XTbed63fFlKDVVVHCsEVfMfqLff1Wgc+K4I1Q/JHosuHK+08qE5hN2XBLLDWk=
+	t=1789395686; cv=none; b=rgz031mZDvdCqNLFfe/C2TMqinsEwMh44FaAtjrXjRDmaVfNFqkI6Ar1brIN/Wp9hT96kPD9jFFoBXeFgN2ERqeMl/gNnfmzU7Cv4zBKT1jOTkrP59JJ/ppP2iBcUxQExNqmHO8sGFEPqK1lrIpicy2J7VZ5zqiXsOfoG2trFPw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789395677; c=relaxed/simple;
-	bh=3534xZWAmWoeNSroRMnp1vkH3F0sWV3lUxcINo30ufE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RFwNoW1zHkFrIHLKjUNma4DVxOjJiAxWSfCM5TGB33e1oSQ7U16udnhA2NWkzL+PbY+awtaHIZWpYZdaL/XWwdbCIoZeedrI2bIdMVDuPa/2hdmTZBax614OYSmnTaSBStXL4sT+GxWRE6n/rdk176o4tC9Cepz+Dgisq9srL3c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TaOmouQ5; arc=none smtp.client-ip=209.85.216.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789395686; c=relaxed/simple;
+	bh=qpr20bFoWIAVz6Uu6SDBY1Onol/yGpj70dm5w/7HmbQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rXi3Gki57Tyy/TWwN4po66K8f6VShyROxR03akVb/gPssxbh24K2jYfvdbJA7t0lMqS5ogGxKgSeVVzbosUQ0GjhdXksgSLTyZEUUwopZ6iOvU/DBMlqUGHh1g3EJQC/ANUqHBdG+e5ZyURKSuojBSUcMYxNCVvS2GN2bOGpJ34=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZAA0sVec; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dZQtb65n; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TaOmouQ5"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3990fe066ebso2689240a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:21:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZAA0sVec";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dZQtb65n"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68ED0OJC1514357
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:21:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=hsC/n5G/ysH1TDMPqrs15Xr5
+	Fe1eAaS5X/4GfDOh5vA=; b=ZAA0sVecotuQbIutF2EPWz8avV8PBXwK/D22V4EB
+	T7JIXLLQ1Pw29b6EVFSY0wTE0TlLHg8qvV6Ovch1DnuNa6WKDmsBAgDOqC5PTuHw
+	CixdNiZOG/sxPSsQUkr2Jpm8dKWiAr/QMr+AD9bvsFRLx/2dX/P8Syg4vKCUUFV0
+	L1N+4XVPHfeVUI6LLy/0yu5JJQapY83jolFHwcayTw30aMwBkLJUNgcQzrjDmiuy
+	EtLVZFaInA13UVi4sYGXkQg5Tur2Nc3gNJ1GHg1TMmmKRltzL3ZNdMRdbhd0y4qk
+	MjDsMNpT3yqlYInbKgzhkCs/Kot+rkHfPMWXQuX82Ttt7Q==
+Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com [209.85.217.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gp3k0axex-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:21:22 +0000 (GMT)
+Received: by mail-vs1-f71.google.com with SMTP id ada2fe7eead31-792f917d31aso2773075137.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:21:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789395675; x=1790000475; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rbbbFtydZ6bg5SO9oGIYuQ91SLS9B9Wc4jISmGe2uxQ=;
-        b=TaOmouQ5kvU8bAqXLvJF33iPMFf68uT3mEBOwT0qRMZHAbAnqipDcpJrSbNTHPzNCR
-         CYW8yUcwue6+65tGwG4UvXT87Gd5lnqpr1BvtxWEDwJu9t1c//4ap+4qOk0wEW3cBRSd
-         vdVL2WB/H7BhRo7YmQm22rk6h+J7q9newWU1Rmt3faQyu5Q+ReS7+UnupLsoohGbDiiZ
-         xEdzfdwuBn2mgXWUBZ6Jt6lUpArt5cjHuqy8ydt/+/4gV1sHYq8tAJ4Ks0TWVHeYkt9h
-         zAa3hDpJoXzM1F5EhJoylZQqca6BeQxOTXj++hN/w7pJe+C3vgYcfHEyQ74S7PS2iODt
-         zubg==
+        d=oss.qualcomm.com; s=google; t=1789395681; x=1790000481; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=hsC/n5G/ysH1TDMPqrs15Xr5Fe1eAaS5X/4GfDOh5vA=;
+        b=dZQtb65nHQWP/U+6nd8BGH73mm5a8w6wz52rIwnINgZABoGFTDTakG+dMqia/1/Dvg
+         9RS5uXK5f0C324qddWAmOuCAEiGUTZvamsJReUOEgV9KWNx8GyPixE++IPNCq17wsaSm
+         SXIBJZMGXuAUkpgDIQV7TLwWtBAmrK9Iwv1cpciZXhUX9kbixtZf6JQ4cIIqiEtTHHan
+         wjRONlkdE6Fnd3odKhr1/ZqBG/alF9p/1EQOXWWJ65iZ7Y84RUjijBfHQkCAAXtSiiGz
+         c9J0VTg9bY9xZ+OJ+2DvswPTRocLXSH+vN4LhIa37qX/Oz06LUQZeQRaReogwlSzrTbz
+         zyZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789395675; x=1790000475;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rbbbFtydZ6bg5SO9oGIYuQ91SLS9B9Wc4jISmGe2uxQ=;
-        b=mMnJBx5Jw7DKAtU5zwR+S3mPnpQqYp7nNeS0FMU40xXq1z2doIdqJchJa6/eDkYjqa
-         GeXuXTGPLYObvitGXSdDC58Ba9Ch83PiVAR5BPeLRDPbXhnYFDgqMcjH8oWV3zoG2ONS
-         QXc9W5k0+ZX0vcHccxsI91lgl670mSghelolRLQKLgA8sh2lIKUae+V6s2woxpiSLyyV
-         x9YAFMSL31Y/49YjgzRQGHQUN0cGKtuVu2gJXuntfkS1vn/NawuqxUnEcfXiLWh7m4kb
-         L+UL3Qg5Bhb7+wnEsP7A6P/fZ+vfDMz9UGcCdebmW2to+wvIf45Sh/MNy+sdcjwxD4xQ
-         elyw==
-X-Forwarded-Encrypted: i=1; AKwUvBw0ZdlMMoICcEjXzrN6VA/Zjp9ZR2b9ILxGNyBzOjLmvQbtOu8ANlfFqCHfe5C7tyWviqpoA1HWG3WQcV4=@vger.kernel.org
-X-Gm-Message-State: AFuF++kyeNHPmb7c/yYAAYrWhhi2FGBNmo/gcxNZf5uxwgv3FmyrVQXw
-	QeUXNj6SJVWcHZPsx9uYzR37ryZv4qYG5U5t2n3c7y/FtjM+tccbijYF
-X-Gm-Gg: AYBFou1WjzYMdrCLVqV7e9q3Sponogncl/Cl9M+LKbeR5W4/TEzS6oZOqNHCdyNi93Q
-	Ht7YWG1A+LM84zYNjPppZ7KBRyuo6MRQ+vd4tW3BgD79Mu4ZLBzYogKiJQijAk8fKirzQKAPuhu
-	yWRJOKzgGH9/51hTAa19ufl5lBSqAxp5qfzj9zdpdFvfy7iaO3lkj5lOP03D6NOz7hewMIQ4Kxe
-	QWTw/FQiRflCsPvYugYGk/4olqcky09CxR/6WU6Skr2fUsD4s7xGZ/kWMNJSugsWsSm0o2/7EjF
-	qYKECeARzKU3TUqjeLnlrQcl8me90xJtnTNiETulTc0sT17rTEpi0AaiBQ7dyE8B2RF54Uvuhnr
-	rp9zj25ktopnCbjwMyhs2C39eQaEwWOUU3R/vsfgiM8kPhvmNr5+6SDmtiyzDeENKCCVVgFGype
-	ty4S2bSP2dWGdRDECXKPJ7HnZXF/lEGgdF+Q45HS7wONkdQAArKgBGIA==
-X-Received: by 2002:a17:90a:10d6:b0:39d:ec1f:b40a with SMTP id 98e67ed59e1d1-39dec1fe435mr4017399a91.11.1789395675068;
-        Mon, 14 Sep 2026 07:21:15 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d94744dfdsm22113164a91.0.2026.09.14.07.21.12
+        d=1e100.net; s=20251104; t=1789395681; x=1790000481;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hsC/n5G/ysH1TDMPqrs15Xr5Fe1eAaS5X/4GfDOh5vA=;
+        b=c9LeWtwWc3H6huYLguJfmAtimtLz8EM35F+u2kas2iDiAcjE37iHnuFLNWZEpQ46ph
+         QGV8GhaAqVtazGOL6vlyX6guWBjoi6NRjZtU+VP8yBuBG9z0+GPixSQaGsPVZeNGl+/t
+         N/ymvB2mWEhZJXf2d35cOAng4M3PMdJdhZOPYrmkatm3PMpNERrUVHjnO0g5qs/I8hz1
+         j5AHTGG/sn8JhdhSAwzzikQh1i0D/Vh6b/J9wKFMSzt5XORSw1/oKb1uqTkox7BlGsTH
+         M8b8R173Y4gV2A99aN8AQ98lCGNkg/ae4WWpgS17c5QwwaFv5VC+c56NEIjBH2jtF98w
+         fyug==
+X-Forwarded-Encrypted: i=1; AKwUvByHfcD7LD7DucC2IQ4QyA38drbq2PTo5U+Je/vd3U5bEtEVj5WqnBY3S9HHtIU7DBpdBmYVX6CnUMe7F8I=@vger.kernel.org
+X-Gm-Message-State: AFuF++kPPInNYuGdHQiKbUgKCSZ0F9O9lhW2EyuACHuGJZ5KxAijuWfA
+	uh8NcBmxYfyoBqdhYtpBv8lDh64M9V1eljZhTugqX7AEHjO0fcqzqlkzoX5yogzeJLsi0AexW1p
+	vIskaFnMcRJhBVyCgxTjR3t7XmiN6GOVoxQ6PUjH7X3lB6tuBsS3VAkHjk4qBZjPmXps=
+X-Gm-Gg: AYBFou1mPxDo+E7wTCrhZDNqw09GEabvz3mpTOtu8gRtFb7j+eYLXOJt1QMn4AYJKXO
+	tibMF0oCaJCxbadxdeF5pleoMXwlbML8mSHtuQa+f0JR+BXnt1244PmFi+Q5FVSFA6naWFveQ94
+	LjRNlERpGNZ0uydFvPvwMwRATnobRxIStwmsSZ+flnH/K1i8bAYg0zmDE1AxK94MIbxQ1Gn07tG
+	tGRTBZMGHXGl2wJDIyKnD/7hV1sWIhUDsttn/+ba57q7TNlwJfk10CKlWWtk1Yvv6d9mPO3t2gW
+	DxgT6wyKGFVTlQgYziQeagb7yQk53Isj0mSWSPyO4lhtYyxl/Dhvt86gAUir6Neph5Cn/2V/M2o
+	tIDAJ7CHaWhlc7vQ=
+X-Received: by 2002:a05:6102:548a:b0:79b:dfbd:d0f7 with SMTP id ada2fe7eead31-79bdfbded2bmr1730994137.0.1789395679738;
+        Mon, 14 Sep 2026 07:21:19 -0700 (PDT)
+X-Received: by 2002:a05:6102:548a:b0:79b:dfbd:d0f7 with SMTP id ada2fe7eead31-79bdfbded2bmr1730677137.0.1789395677612;
+        Mon, 14 Sep 2026 07:21:17 -0700 (PDT)
+Received: from oss.qualcomm.com ([86.121.170.232])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e6499d57bsm477423505e9.3.2026.09.14.07.21.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 07:21:14 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Colin Leroy <colin@colino.net>,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] macintosh: therm_adt746x: fix memory leak on kthread failure
-Date: Mon, 14 Sep 2026 22:21:06 +0800
-Message-ID: <20260914142106.1747229-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Mon, 14 Sep 2026 07:21:16 -0700 (PDT)
+Date: Mon, 14 Sep 2026 17:21:12 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Muzaffer Kadir <muzafferkadir@mainlining.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Srinivas Kandagatla <srini@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+        Robin Murphy <robin.murphy@arm.com>, Lee Jones <lee@kernel.org>,
+        Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Robert Marko <robimarko@gmail.com>,
+        Guru Das Srinagesh <linux@gurudas.dev>,
+        Amit Kucheria <amitk@kernel.org>,
+        Thara Gopinath <thara.gopinath@gmail.com>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+        Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>,
+        "Guilherme G. Piccoli" <gpiccoli@igalia.com>,
+        Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+        David Heidelberg <david@ixit.cz>, Dang Huynh <danct12@riseup.net>,
+        phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org,
+        iommu@lists.linux.dev, mfd@lists.linux.dev,
+        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+        Krzysztof Kozlowski <krzk@kernel.org>, linux-pm@vger.kernel.org,
+        linux-input@vger.kernel.org
+Subject: Re: [PATCH RFC 15/20] soc: qcom: ubwc: Add UBWC config for MSM8952
+Message-ID: <z7rjt5237gdtytb35chtyjposyvqpgqfsxhov2all4g2527aix@dabjw24dluwa>
+References: <20260912-msm8952-initial-support-v1-0-0e742578b524@mainlining.org>
+ <20260912-msm8952-initial-support-v1-15-0e742578b524@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260912-msm8952-initial-support-v1-15-0e742578b524@mainlining.org>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDIwNSBTYWx0ZWRfX7DG/fxogwApU
+ dikc7atTqCRwoLYKTUPp5UDqGwCbVpQT0NcK1qzcX9ZfFsQ/HLXCGFaQlPHPrz+a1ZNLox/OY+z
+ /iEhk9NMbxKbzDIoA6O7eiTksAT2Y8o=
+X-Proofpoint-GUID: Y7se1_xMZ4eqYNM43UomnKISiq5Zf2pC
+X-Proofpoint-ORIG-GUID: Y7se1_xMZ4eqYNM43UomnKISiq5Zf2pC
+X-Authority-Analysis: v=2.4 cv=BtAIUoX5 c=1 sm=1 tr=0 ts=6aa802e2 cx=c_pps
+ a=P2rfLEam3zuxRRdjJWA2cw==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=OuZLqq7tAAAA:8 a=EUspDBNiAAAA:8 a=OvtQcJRYg_U4C0nSOkMA:9 a=CjuIK1q_8ugA:10
+ a=TpgoBOgV9RAA:10 a=ODZdjJIeia2B_SHc_B0f:22 a=AKGiAy9iJ-JzxKVHQNES:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDIwNSBTYWx0ZWRfXzA/E5+B7TpKT
+ Y7MudMD7D6A6cKjT25iDqVRHIJs/oMTobVS7czxlkM0W2rDtX9q/l5atn8oXewswJRM7bmJInKz
+ 17FAWkyJtcyFFBadjnR20YPLipuxmErrrhvHlbw6ecr2Jg1zXkr+6LJhQdCgq+4IsuZMhksWhyr
+ GyhnzHO8h3LLpjs1vNj1q+YTsCx8kuAJxWuWDSO0B6D9Yq0NT/wOzRd1+uZuYsZ7W5I7UOqZzYV
+ 9JSpojBrDwsRTEMadmGpJcl0ws+Tr8MArAmLEOOflQ60y2YmWqgAVGfRXrQciptVSOf+AOos+D1
+ M6UBw9JLExrNCCgNuHi3EX29aP8nq8LZS3CZUQc770OO0LVOJtOpctHjysFCw5LOaO7PsxxorlI
+ 2x3PPmq/YX3KUV3vWDlGP2MIuts9bOcJwqspMwrs0MSlYNSNFeuPWX/Ddeq2noLgTZpINTKhAbV
+ f9ExjW/BIz9GME4GnOw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-14_03,2026-09-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 spamscore=0 phishscore=0 impostorscore=0 suspectscore=0
+ bulkscore=0 malwarescore=0 adultscore=0 lowpriorityscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140205
 
-probe_thermostat() allocates the thermostat state before creating the
-monitoring kthread. If kthread_run() fails with -ENOMEM, the function
-returns immediately without freeing the allocated state.
+On 26-09-12 11:39:24, Muzaffer Kadir wrote:
+> MSM8952 uses Adreno 405 and predates ubwc just like MSM8939.
+> 
+> Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
 
-Since probe fails, remove_thermostat() will not be called, so the
-allocation is leaked.
-
-Free the thermostat state before returning from the kthread creation
-failure path.
-
-This issue was found by manual code inspection.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/macintosh/therm_adt746x.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/macintosh/therm_adt746x.c b/drivers/macintosh/therm_adt746x.c
-index 1ac29a5cd324..60f292a5aa3b 100644
---- a/drivers/macintosh/therm_adt746x.c
-+++ b/drivers/macintosh/therm_adt746x.c
-@@ -557,6 +557,7 @@ static int probe_thermostat(struct i2c_client *client)
- 	if (th->thread == ERR_PTR(-ENOMEM)) {
- 		printk(KERN_INFO "adt746x: Kthread creation failed\n");
- 		th->thread = NULL;
-+		kfree(th);
- 		return -ENOMEM;
- 	}
- 
--- 
-2.43.0
-
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
