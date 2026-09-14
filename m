@@ -1,245 +1,207 @@
-Received: from mail-106113.protonmail.ch (mail-106113.protonmail.ch [79.135.106.113])
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010008.outbound.protection.outlook.com [52.101.56.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F7953AE6E2;
-	Mon, 14 Sep 2026 07:16:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.113
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789370166; cv=none; b=PQGmHRvbPEsTCmAdBcpeJgXsRlQfgka9/pJ1559LZ6eddgueu+Q5ch6zbbjd6Po0GQ++wqIK3Szz3gt7XRIzS7x3S0et7PkrpssWHq9tSH3oAIy3eMGSEyf+HS+qQCexDOEExPo09e6szXXYBoX/mvCl3PdR3H0mCz84y6wL60g=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789370166; c=relaxed/simple;
-	bh=+9qvXNG0V3EvlwpXeMXN0075vbs75g7OZP2JSZOyNFo=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=IyY2uAdKlk/hKGS543zoUpoiZR12BJNG32YiP6+Ul4b5q7GiNRfxRsQk91PMf+be4De9o9HRrMOOhFdj7TOXN+NCtTZG7XCyzKbs7wMAr/YKBbfIdatIfLbSaiEHaOEslmqV4ChtZDX+Vukl0KKzdytgOu8JZ+mp1NN1KopfyQs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=dsFXt8st; arc=none smtp.client-ip=79.135.106.113
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D445D3A8FE6;
+	Mon, 14 Sep 2026 07:16:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.8
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789370203; cv=fail; b=uHTOVTW79E3AOiS5WMp/ScRWT56WuJKwHyAxkOG6En72TTN20cGSKvqs2wQIyTU53IGSWtFQZ6GtCC9RJ7GcacZad9OWOcVZ7jxXQyqNy+pesVNyH2hH/TfEkqAqHgCCJv8rxnfl8mK/1Atn7Fxk6Y5ry4ZcmpZ+IeVEiurfZHM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789370203; c=relaxed/simple;
+	bh=p/WVd8s0uWK5MJvidiaBr+AsrBv9OJxKy+1lZZtnb2g=;
+	h=Content-Type:Date:Message-Id:To:Cc:Subject:From:References:
+	 In-Reply-To:MIME-Version; b=UEGvWGOwMFkow54zQlsy1oe4TtoOpKqo/VuIudAwkAE+vdCfNcMt+y4DBCiAmp6faIhtYrsFK0qlxpcmogTbXHYAo02N05c8idZG/EP9vu/HqDL6y/wMXRsN3AXHYFTuNTkp1IDD7h73p46c9Ysob2E1VBWs/SJbCjgPRok/1mU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=NkAOHbxh; arc=fail smtp.client-ip=52.101.56.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="dsFXt8st"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail; t=1789370157; x=1789629357;
-	bh=U1IpbkgfNMga2YklmwuKhovIzDnZPM+tL+jR3Z6DJ5o=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=dsFXt8stm8SY+/WMjjOUUvum9fMU0ZcsROpBkIbBBxN+bIBQKfuu7kjebsMY8VXJZ
-	 YQF0UIFlsOuu6hbSQCvCIw1TlG1txuhxSMrHQ5ytuuQIwz8vQWstXNKoyqfQsRf4xA
-	 8wCTjhfHR7wD7bELyKFM/MN2kHR1tUJ/xIJ0VygHIwYkbNSwCN7UrTlYvSIoP/omVI
-	 WireAwbKIlY2B2R0Wu9x7me4XeKcgVJiUFSZh+v8DemEBWjn4zZ+qxsb7HQTEgG7kS
-	 08vrpZcKAcnHuecQNWK34YwPnHXObIODo66DZsjLsWmUX9nK6lDrrG60Lc2lL/orUi
-	 0ZMWmXNt8cBqA==
-X-Pm-Submission-Id: 4hjxJX0l9bz2ScPS
-From: Esben Haabendal <esben@geanix.com>
-To: "Jonathan Cameron" <jic23@kernel.org>
-Cc: "Lars-Peter Clausen" <lars@metafoo.de>,  "Rob Herring"
- <robh@kernel.org>,  "Krzysztof Kozlowski" <krzk+dt@kernel.org>,  "Conor
- Dooley" <conor+dt@kernel.org>,  "Martin Kepplinger" <martink@posteo.de>,
-  "Sean Nyekjaer" <sean@geanix.com>,  "David Lechner"
- <dlechner@baylibre.com>,  Nuno =?utf-8?Q?S=C3=A1?= <nuno.sa@analog.com>,
-  "Andy Shevchenko"
- <andy@kernel.org>,  "Martin Kepplinger"
- <martin.kepplinger@theobroma-systems.com>,  "Christoph Muellner"
- <christoph.muellner@theobroma-systems.com>,  <linux-iio@vger.kernel.org>,
-  <devicetree@vger.kernel.org>,  <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v8 9/9] iio: accel: mma8452: Support interrupt sharing
-In-Reply-To: <20260914002203.5ca07dd0@jic23-hlaptop>
-References: <20260907-mma8452-open-drain-v8-0-c17407e22118@geanix.com>
-	<20260907-mma8452-open-drain-v8-9-c17407e22118@geanix.com>
-	<_9NG2PCqwv-AxkrhQVOkPVIgvYD4-t2CFH5W5HVBmr35w9xmX9v9FIraB1OPE8Ssbd_pjQqM-bq3DEAtRl78Sg==@protonmail.internalid>
-	<20260914002203.5ca07dd0@jic23-hlaptop>
-Date: Mon, 14 Sep 2026 09:15:55 +0200
-Message-ID: <87y0d4pal0.fsf@geanix.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="NkAOHbxh"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=TLpuHYVSPK0q45gUwqDtXHON5O8MA/cAIClKl5CbbRImqC/oJ1/H2bQ2O09xdPpEODvzTa0x95uIYr0MkWQfHpSItCX+20fyM4OArmQnBjxehsZXOuiX+1aIkJ1I41VENC0suKeOs6hV+z7eIKmyZyh7o/6MMmtMRB/kQG/t0A1HIyOdvTjONZxC4LXec7tfa8y46gFrlLD1jXJILXzINIOSS+s9HwiYEMY8JGUAyVC+yUZEVtWRwRd9UYzynK0qwU00LU99j/Z8DHz0HCnIeKBJj+R95j+yIu/n6RxL1oLp5C+wUV99wtTj4DioTb0NBHvuu+YmcNTFYladqJh44g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3a0BwSPxivy3jFGs2kCTXh/7p6GYOTmkbMRkZ1Bdjto=;
+ b=YfT7oHZsiL1GVyiOmimj8Tj9ZhqZIiSdOYC8tuMmpRf0P23Rsz4MYEcpz1XqR+1sNJfIHEXcMVNBzJFfQh4JoxFfuxRyHoZW7f4MBqNYIjxLajMAhl6Zr8ZQdWpokwDmtauoCMU8oPXFbMWM0uS7wKI6OZtYACMKWaOH8RYvxmpwm/wJsl/VRTP4Zw5aokaqD5B2LXFmYFKnxvb2zl/KnQbhw3QKetB7r9r+TOk0I+htcpYuNQ9Eqy6D2afj8Erh/K4MHq6107eT6SPuKXM+0XFMH/TbClGgtUPfVEhS8yVaxG/tFt7kC06V6zXQrQeRLZNFiSkBDCa3aSXJwoW2pg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3a0BwSPxivy3jFGs2kCTXh/7p6GYOTmkbMRkZ1Bdjto=;
+ b=NkAOHbxhneuPrQ2GAwZuXdE9kC+pbzrFiR4Naugh1nnpBCTbPAGiyMFmtk3EoXS3Mx0HMTzrKlZ6giRX42cjb5MPIUY63vHFGj3Ct5375mi/Cyj3cdHNMS2fOUaphv5iQ/5N2rK/rWPkSHxl5Dux7uJFM20hv2wpc2N6H6sOsdAY8LgWo5rZIdD4OxOQfHlnJAAaTAFbG+j4OTpfditVpSdicKxknbH89E/UKzoDKYt7ym0a4Aa/OeO1HodrRgk4ObFKCGFxFQKbgQ6n5Wq9Ouv1dAX3Td03Mi0MYzJHE+cDVEnIze747uxZYc95rZT1ipuDuvZff6oIqbUGozPJXQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
+ PH7PR12MB5596.namprd12.prod.outlook.com (2603:10b6:510:136::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
+ 2026 07:16:37 +0000
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
+ 07:16:37 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 14 Sep 2026 16:16:34 +0900
+Message-Id: <DLEUSN5KTTFU.1OWYCOS7KC3NJ@nvidia.com>
+To: "John Hubbard" <jhubbard@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>, "Alexandre Courbot" <acourbot@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Lorenzo Stoakes"
+ <ljs@kernel.org>, "Vlastimil Babka" <vbabka@kernel.org>, "Liam R. Howlett"
+ <liam@infradead.org>, "Uladzislau Rezki" <urezki@gmail.com>, "Miguel Ojeda"
+ <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Alistair Popple"
+ <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>, "dri-devel"
+ <dri-devel-bounces@lists.freedesktop.org>
+Subject: Re: [PATCH v2 7/8] gpu: nova-core: add NVKV typed decoding
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20260827-b4-nvkv-v2-0-0de9d5c8658c@nvidia.com>
+ <20260827-b4-nvkv-v2-7-0de9d5c8658c@nvidia.com>
+ <DLEQBIQ50C39.23F0YZK9D7VUD@nvidia.com>
+ <DLEUCB80B7ZP.BW7O43IISMQR@nvidia.com>
+ <61f1f28f-d76d-4231-b99e-4dd4a18b4fbb@nvidia.com>
+In-Reply-To: <61f1f28f-d76d-4231-b99e-4dd4a18b4fbb@nvidia.com>
+X-ClientProxiedBy: TY6PR01CA0023.jpnprd01.prod.outlook.com
+ (2603:1096:405:3bb::6) To DS0PR12MB6413.namprd12.prod.outlook.com
+ (2603:10b6:8:ce::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|PH7PR12MB5596:EE_
+X-MS-Office365-Filtering-Correlation-Id: cb12f7dc-7b8e-439d-03e7-08df12301da2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|7416014|376014|366016|10070799003|23010399003|10063799003|22082099003|18002099003|3023799007|11063799006|4143699003|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	flJkZbDmgaF7pq8lOnDYbD8ntt0/7TBDWVzdWkGqt+AYRlNNLO5+fY+TCwFY6E3SFfQ1jWVQYj9wxNDiCAJJiMeTY9nRs3TIQeDZn9lFfy04TMXUuO1rtdI8FqT5L9QApCVWd9cjaadyyc3Wstro+MVlhWJNeEs/KhGwaoirWdkoeJgIvNJzH96zYFDjcDvAzl3Az3vL9VycehwX1u7L2SCTzSLnr96CPBYfWsEey7yOfWAjuGR/Ih06pMRXMV0KBaURU2ZEolbba+sdi5v6+PYEb5Tg2c4gd8nIbJIiTjS6WDt1l0YpHP8o3iG+mLUH90LiIdP9VmhMGxoa3xedFwSgs55YF6KGdf3A9cf4zSa/QRYvKkadifW++vF7LvnPIIsbC/itFIeSHMvMpfMgy2HHgYEdV88poAsfQODXlUQRIzjvWXB0PHPKck8u8l+14JPvJ70UrcC1ZZx2LuiXv3NYAqsZ6oKQjYJzdaR2qyaXbPDCfR9jgkBYhCC6skaKA/wUWjXBngA393bMk+em6ozoD8+D1oafiYjQD6aHOzIeiPUaZ5q//rHyN7pbuXtbVgKu7q0Ah1i0JT/lFJqEQzQ5Yu+SsIj2ueH5LQr1i4KaLN7G+ehP/vaSQTUAcljKYJ4nPWt60gxFA6UGYZ0Q2IICAS26wzf/7V9xcKBmSps=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(366016)(10070799003)(23010399003)(10063799003)(22082099003)(18002099003)(3023799007)(11063799006)(4143699003)(10067099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SFdNaWxXUkRYTTVLWEhoUnlySWRaNHdtSnFWMGhzSjdJMmtCUXAzUEF3NEt4?=
+ =?utf-8?B?UHBXUk1WZjJ5bzRNU1FUeC9qRU9oNUtnMU9qWm1mdytWMVV6LzQ3aDN5NE5T?=
+ =?utf-8?B?KzdYTjRkMmxuaHltblVlc1FJK25mR25KWUE1RURUOHZkNXYxUHlXbEtHQTBB?=
+ =?utf-8?B?ZVdXTWJqRjVSQVFqbWZESXovR3ZBTDhiZDJZRStaMUVVZ3hPbzZjb05ZYzZP?=
+ =?utf-8?B?OGJLUUpkb1V1aG85RVp0NTJZcnB3Z1lJZUpLUkRqZVNwOXF2RmpyRlRxbWdN?=
+ =?utf-8?B?ZzJyNndWL2JJRUViSGhpYUtybHA0QTZBWG5TYzV0KzVRUFF2ckFNL2p4MHBM?=
+ =?utf-8?B?MFNvcXpvQWRpNGdwZmpmSHR4TkpMUDdIZFBFdzFFVFpmMVNsNDRMMUFPNlhS?=
+ =?utf-8?B?VjRRSHdRSjN6djl5Vkpqd3pxVkVQVy9jYnBlck80SDJGT1JUZkkwZS9EMmFF?=
+ =?utf-8?B?TGtoNmkvekFNWERSOWU3cEp4aUNLa1NGWVo1WkJxRFdFN2tVRENFNHRUbEt0?=
+ =?utf-8?B?UENKaWszSzZOdDdER1JNUkVmcjBuSUJsTXRkMHFIV1k0d1E4UkM5Y3ZXWFBS?=
+ =?utf-8?B?MzEvWkZIZzdoanpRdmh3NHVxTnhyL04wcE5IYys1eFhHamdvVExuejVnbHJY?=
+ =?utf-8?B?bGt3RXNIQjVXTXlpMVJCbm9lZHQ0bjg4S1dRclZyYk1aTkhGVEJuNGw0Y1ln?=
+ =?utf-8?B?MXBITFY1Ymdya0pTZkNnZTZsMnp4dXVuV0FkNzRveXdndEdLREJ5QldLOUFW?=
+ =?utf-8?B?dHFvcmNyY0xmUkxLbXFobE5hZFphaXpDcm9iMDN3cDJrQTFuTUl0RDZXaFJz?=
+ =?utf-8?B?bFRkK2VwWVZpQ1Q2TWVtVlZTZDU5ZVlIbDBURlBJWkpSQUdBWUhyNFNBTHhD?=
+ =?utf-8?B?WEJ5RG1VNnQvbjcrUVZ0YnRtbmxiRjVxWGFtdWlucG9qVWNvMkFUL25vM1Vj?=
+ =?utf-8?B?bWhwenJ1Z0IxZ2hZQ2N4WE1EcHFkOXFaRm5ZeWRzM0s5OVllRm9MVHBRMHJN?=
+ =?utf-8?B?QlFicnIzYkh6YUovTi9zT1djUnVsTlFiWHlDNXRVL09rd2lSb2cxRFlrbEdV?=
+ =?utf-8?B?emlaekZJeThlNjl2VDFBYjdZQjlWUXZvSVJweGxlOW1iOThkbGFvcFg3d3Bh?=
+ =?utf-8?B?V1lBQnFDQTRURUc5VEJ6dHVyU1BYejFhQWdSRzFDWFpzMmFDbGN6ZHpkUUc3?=
+ =?utf-8?B?N2R0aU1PRG0rUFRVZlp5VGZmZXVrRGRMQ3RJSVZNVVhRbzNJM0R0c1lBK1RI?=
+ =?utf-8?B?aG1BUWJLTGxWNnltaEp3YzVkbGZ3MjJzRVdzcVhIVjJYYXBnZzB1c21LM1Y2?=
+ =?utf-8?B?ZzJMMTRLb3RMSU14Q1FheVdiZDdGMUxaMHBoQXNVTk82Vm41cTRPWnFZcE44?=
+ =?utf-8?B?VlllbGprVW5PSTJxek1pYU02NEJWRTQyT29jL1ZvSWVHV2VjTSswamJpYzJK?=
+ =?utf-8?B?Z2VyV082eU4vOXlZbzRDdlJYc2c1VHJabHZPV3FRbHdtWDZBK0sxN2dFSndO?=
+ =?utf-8?B?azhBSmkvTFJkL3kvbXpwVW5yMDZRM3FRVlp2RzMrQUMrVTA1VTN0dVpZQjJw?=
+ =?utf-8?B?VjBZVkhXWmxCZE42aUNib1BVUXZjMTFFdzJoK1N5MVQrZkoyd2JYTTdpV3hj?=
+ =?utf-8?B?RGNxMDZsaHFTMkxzTHo3ejN5eHM0cnJVSVltRG45bWdOeHlkRmVjY1RhK3Vn?=
+ =?utf-8?B?QlB4cGVtaGhjYTBIR1Ridkh4akxkTFYzditpZzBHZHE5aDYyTk5FQ1lBYjU2?=
+ =?utf-8?B?R1BTbVhJL040OXN5Q3FldEVKc1NkTmhDS2dtRzRzamtQMHU1VTM5VU5mMmg4?=
+ =?utf-8?B?c3dyRHhDRzRTK0cyRnlTNHNKZVdTdlRzT3ZrRTA3QzN5dUN2TDlmWTIrbUJD?=
+ =?utf-8?B?VjVQMEZCUXl5bU5kZTlNWnFiNFk3Z0hsWnQxTWZYdmNuVnFlTWFsdldoSlVq?=
+ =?utf-8?B?QWZJNWJGc3hMeEhjc1RxZmgxMVVRWlROWm52SStMYUNBckJQcUFYdmNnazhZ?=
+ =?utf-8?B?MmJDcE5vQithNmtlcm50aGxQVXBaeVFSTXpvaGJtYzBtSjBTbG9OeFNwK0FF?=
+ =?utf-8?B?NHh6bGtsTUFJQWExMXB3d25ZSVpSWFRCN2o4dmQxcWNGSUcrUWpYN3AxUVlj?=
+ =?utf-8?B?TFVhZlpTYUtWTVJYMEo4bkdiajRoa1ZXNmJIOWI4WVFXbVdRQ2NHLzl1eENC?=
+ =?utf-8?B?UUxTbmk3RjFVSVcxYWVMNHdaM1ZaSmZXVFpUYkkrTi9CY1IvcVJvM3dxNFhj?=
+ =?utf-8?B?N2UyWFJLSStSWGpXY2I0cTgzSkV6R29xZWVQZERUcjBqbFZZOEVTUGlsTHI1?=
+ =?utf-8?B?V25UL2k4L3BnMWF1b01oR0NzbXhSMU1NMlk2aVJIR1Y2eGd1M0pVbnU0R0Vn?=
+ =?utf-8?Q?4LJPWuzxI68Id6AiV9g5CWjHmsNJS1OrswfG9TYjod0xO?=
+X-MS-Exchange-AntiSpam-MessageData-1: +AdrGg+3xsA2+w==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cb12f7dc-7b8e-439d-03e7-08df12301da2
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 07:16:37.5782
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: gfvjIB2OIFQOGMMJBjqousodmmIgiHh8Ho3jX92HO8MevHncqY9x0NlDTL53ziNKoCz1tn0ZZ0P+BUOKJ5gIhQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5596
 
-"Jonathan Cameron" <jic23@kernel.org> writes:
-
-> On Mon, 07 Sep 2026 16:51:04 +0200
-> Esben Haabendal <esben@geanix.com> wrote:
+On Mon Sep 14, 2026 at 4:04 PM JST, John Hubbard wrote:
+> On 9/13/26 11:55 PM, Eliot Courtney wrote:
+>> On Mon Sep 14, 2026 at 12:46 PM JST, Alexandre Courbot wrote:
+>>> On Thu Aug 27, 2026 at 11:12 PM JST, Eliot Courtney wrote:
+> ...
+>>>> +            fn visit(
+>>>> +                &mut self,
+>>>> +                key: $crate::gsp::nvkv::KeyId,
+>>>> +                index: $crate::gsp::nvkv::Index,
+>>>> +                value: $crate::gsp::nvkv::DecoderValue<'_>,
+>>>> +            ) -> ::kernel::error::Result<bool> {
+>>>> +                Ok(false
+>>>> +                    $( || $crate::gsp::nvkv::Schema::visit(&mut self.=
+$field, key, index, value)? )*)
+>>>
+>>> Mmm looks like this is going to be `O(n)` with `n` being the number of
+>>> fields?
+>>>
+>>> This is ok for a first implementation but eventually I hope we can
+>>> switch to a more efficient dispatch.
+>>=20
+>> I thought quite a bit about this while writing this code, since we need
+>> the escape hatch to imperative decode (custom Schema impl basically). To
+>> be able to get it down to a match on the key, we need to know ahead of
+>> time which keys a Schema will consume. That duplicates the info from the
+>> visit() implementation.
+>>=20
+>> I thought up a few methods but it's unclear to me which one is best, so
+>> I just left it for now. Please LMK if you think this is urgent, I can
+>> try in a follow up to improve this. Here are my ideas (when I say O(1)
+>> lookup I mean modulo how the compiler decides to do it with the set of
+>> key IDs it gets):
+>>=20
+>> 1. current code - just visit()
+>> pros: key source of truth not duplicates
+>> cons: O(field) visit as you say
+>>=20
 >
->> Adding support for sharing interrupt line with other device requires the
->> interrupt handler to handle runtime PM suspension properly, ignoring the
->> irq if the device is suspended (maybe even off). And while at it, we use
->> the PM reference to ensure we do not get suspended while processing an irq.
->>
->> In order to prevent the chip from raising irq while suspended (that is when
->> using fixed regulator, where suspend just means setting the device in
->> STANDBY mode), we disable all interrupt sources by clearing CTRL_REG4, and
->> then restores the value again when resuming.
->>
->> With that in place, it is safe to add the IRQF_SHARED flag.
->>
->> Keep in mind that the device by default is using push-pull for the irq pin,
->> which might require additional hardware design to allow interrupt sharing.
->>
->> Signed-off-by: Esben Haabendal <esben@geanix.com>
->> ---
->>  drivers/iio/accel/mma8452.c | 67 +++++++++++++++++++++++++++++++++++++++------
->>  1 file changed, 58 insertions(+), 9 deletions(-)
->>
->> diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
->> index fda29df5d109..e521dca37f76 100644
->> --- a/drivers/iio/accel/mma8452.c
->> +++ b/drivers/iio/accel/mma8452.c
->> @@ -120,6 +120,7 @@
->>   * @sleep_val:			time in ms to sleep while waiting for drdy
->>   * @ctrl_reg1:			CTRL_REG1 register shadow value
->>   * @data_cfg:			DATA_CFG register shadow value
->> + * @ctrl_reg4:			CTRL_REG4 register value to restore on resume
->>   * @open_drain:			true for irq pin in open-drain mode
->>   */
->>  struct mma8452_data {
->> @@ -138,6 +139,7 @@ struct mma8452_data {
->>  	int sleep_val;
->>  	u8 ctrl_reg1;
->>  	u8 data_cfg;
->> +	u8 ctrl_reg4;
->>  	bool open_drain;
->>  };
->>
->> @@ -1083,15 +1085,21 @@ static irqreturn_t mma8452_interrupt(int irq, void *p)
->>  {
->>  	struct iio_dev *indio_dev = p;
->>  	struct mma8452_data *data = iio_priv(indio_dev);
->> +	struct device *dev = &data->client->dev;
->>  	irqreturn_t ret = IRQ_NONE;
->> +	int pm_status;
->>  	int src;
->>
->> +	pm_status = pm_runtime_get_if_active(dev);
+> Something about the visit pattern has always concerned me, and I think
+> it has to do with the fact that people have been told to use it in
+> all kinds of situations. But it's really only ideal for a few situations,
+> such as updated a bunch of objects on a display, for example.
 >
-> Sashiko raises the question of what happens if you actually get an error
-> return from this. You may be deliberately ignoring those, but if
-> so add a comment.
-
-Yes, sounds like a good idea.
-
-> The fun race around tear down is worth considering in particular (see
-> sashiko comment).
-
-I will look into that. Although very unlikely, it does sound like a real
-issue that *could* occur.
-
-Adding a boolean flag (remove_in_progress = true) to the mma8452_data
-struct, and set that in mma8452_remove() before disabling runtime pm
-seems like a KISS solution. Should we be returning IRQ_HANDLED or
-IRQ_NONE in that case?  There is no IRQ_MAYBE return value :D
-
->> +	if (pm_status == 0)
->> +		return IRQ_NONE; /* device is powered down */
+> It's not a good fit here IMHO.
 >
->> @@ -1784,29 +1796,62 @@ static void mma8452_remove(struct i2c_client *client)
->>  #ifdef CONFIG_PM
->>  static int mma8452_runtime_suspend(struct device *dev)
->>  {
->> -	struct iio_dev *indio_dev = i2c_get_clientdata(to_i2c_client(dev));
->> +	struct i2c_client *client = to_i2c_client(dev);
->> +	struct iio_dev *indio_dev = i2c_get_clientdata(client);
->>  	struct mma8452_data *data = iio_priv(indio_dev);
->>  	int ret;
->>
->> -	scoped_guard(mutex, &data->lock)
->> -		ret = mma8452_standby(data);
->> +	guard(mutex)(&data->lock);
-> Mixing guards...
-
-Yes, I know. Resolving that turned out to be a bit more painful than I
-thought. I do have that resolved in the next series I keep on talking
-about. But distilling that as a separate patch for adding to this series
-turned out to be impossible, as it relies on some of the other work,
-like refactoring of the ACTIVE/STANDBY state handling (synchronization),
-and most importantly, the switch to using regmap caching to properly
-handle restoring of register values on resume.
-
-I am therefore hoping that we can find some way to agree on things here,
-and then properly resolve it in the next series...
-
-For what it is worth, in this very specific case, the only guard used is
-first in the LIFO order, and will therefore be executed in exactly the
-right order on exit, as it will run after all the goto cleanup, just as
-the LIFO cleanup order requires.
-
-Obviously a fragile and undesirable way of doing error handling, but it
-will go away again in the next series where I will eliminate the goto
-error handling in mma8452_runtime_suspend().
-
->> +
->> +	ret = i2c_smbus_read_byte_data(client, MMA8452_CTRL_REG4);
->>  	if (ret < 0) {
->> -		dev_err(dev, "powering off device failed\n");
->> +		dev_warn(dev, "backing up CTRL_REG4 failed\n");
->>  		return -EAGAIN;
->> +	} else
->> +		data->ctrl_reg4 = ret;
->> +
->> +	ret = i2c_smbus_write_byte_data(client, MMA8452_CTRL_REG4, 0);
->> +	if (ret) {
->> +		dev_warn(dev, "disabling interrupt sources (CTRL_REG4) failed\n");
->> +		return -EAGAIN;
->> +	}
->> +
->> +	ret = mma8452_standby(data);
->> +	if (ret < 0) {
->> +		dev_err(dev, "transition to STANDBY mode failed\n");
->> +		ret = -EAGAIN;
->> +		goto out_restore_ctrl_reg4;
+> Is it hard to do one of the other choices, up front? If it's easy,
+> it would be nice to skip this visit entirely. :)
 >
-> and goto is explicitly advised against in the docs in cleanup.h
-> You need to restructure the code to avoid that, potentially via
-> a helper function.
+> thanks,
 
-I agree. See above.
+It's not too hard to do one of #2-4 now, it's just a bit of extra
+complication which is why I left it out. The performance gain is kinda
+minimal since this doesn't happen in a hot path.
 
->>  	}
->>
->> +	/*
->> +	 * Interrupt line should be deasserted now, so we just need ensure any
->> +	 * mid-flight irq is completed (will return IRQ_NONE due to
->> +	 * pm_status==0).
->> +	 */
->> +	if (client->irq)
->> +		synchronize_irq(client->irq);
->> +
->>  	ret = regulator_bulk_disable(ARRAY_SIZE(data->regs), data->regs);
->>  	if (ret) {
->>  		dev_err(dev, "failed to disable regulators\n");
->> -		return ret;
->> +		goto out_active;
->>  	}
->>
->>  	return 0;
->> +
->> +out_active:
->> +	if (mma8452_active(data))
->> +		dev_warn(dev, "failed to switch back to ACTIVE mode\n");
->> +out_restore_ctrl_reg4:
->> +	if (i2c_smbus_write_byte_data(client, MMA8452_CTRL_REG4, data->ctrl_reg4))
->> +		dev_warn(dev, "restoring CTRL_REG4 failed\n");
->> +	return ret;
->>  }
->>
->>  static int mma8452_runtime_resume(struct device *dev)
->>  {
->> -	struct iio_dev *indio_dev = i2c_get_clientdata(to_i2c_client(dev));
->> +	struct i2c_client *client = to_i2c_client(dev);
->> +	struct iio_dev *indio_dev = i2c_get_clientdata(client);
->>  	struct mma8452_data *data = iio_priv(indio_dev);
->>  	int ret, sleep_val;
->>
->> @@ -1820,6 +1865,10 @@ static int mma8452_runtime_resume(struct device *dev)
->>  	if (ret)
->>  		goto runtime_resume_failed;
->>
->> +	ret = i2c_smbus_write_byte_data(client, MMA8452_CTRL_REG4, data->ctrl_reg4);
->> +	if (ret)
->> +		goto runtime_resume_failed;
->> +
->>  	ret = mma8452_active(data);
->>  	if (ret < 0)
->>  		goto runtime_resume_failed;
->>
+That said, all the options I mention here still use `visit`. #2-4 are
+all about adding extra info to help avoid having to call `visit` as much
++ let the compiler have more info so it can generate a jump table etc.
+That said, if you have an alternate approach, happy to hear it.
