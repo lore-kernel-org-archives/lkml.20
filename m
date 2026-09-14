@@ -1,110 +1,81 @@
-Received: from mta0.migadu.com (out-91.mta0.migadu.com [91.218.175.91])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24C2C3F8EA2
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:20:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.91
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8F643D3314
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:20:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789374036; cv=none; b=Vb3TPZnw5uuXFvE/3kTVz8zsXISRhLEbVQDUH3AMK3GzQCZQ2LWLOHsxeH7fL97/joT7D7T9Q09ejateFUX9cybw4nNgpGohgzzNyQ1t+BdAWO+OhwjuNRuct//ZBdfGJz4mwTRBleF5mzAjjH3Mq2AKgMdn7txFriNUV4xXe68=
+	t=1789374047; cv=none; b=YuNSKQMKxMIwBJ52qE8LvmF9xj9y5PcPenRVXxaw4b3LuXQe0R2VFDop3tngL2M8ms2irWJxnqQOIkED0y2fSL3yaDgkeGwFGp152f6m4qfhOe3NWV6LQaWUwJbv6SZU8CQFRCFHjL58+yGIIzN2aISYgFApw3fCXWttbDKjsSQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789374036; c=relaxed/simple;
-	bh=+88ROtLrCstIdLndNiAde/JzZl0qUsawtPJuqfY6oGs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc:
-	 In-Reply-To:References; b=VDgvcwPEwbO2ue+As/cpfTzqeVitm2ZhViGhJXAV9P6qynzRIxxvs9IvjvZdqAvJO5oD6y4c0EfhExgr2/wW5fkkK9dHSj8q8rJOCAv7DzTppSoYCc2xRLu53YuXyFIiRRJ76JuKhzyT/A9WQGcDPJN4OKGL10QeVjYOeSPg7ks=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=cyHlnfdM; arc=none smtp.client-ip=91.218.175.91
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789374047; c=relaxed/simple;
+	bh=Y2M3C3Qm/rkMgvXchYRauWiFqIscj5B5fRKV8vWWMbU=;
+	h=Date:From:To:Cc:Subject:Content-Type:MIME-Version:Message-ID; b=XmSjeLsFw+5e5N0/p8+gKu3aEnHor1V2qouhjvOi+6ZqnElvGagn2o384snBDuoptdUsVKsYTAMuLhysdPZ9HW9lazVJ7L2HMilWy1kRnDjRSMeSzxz/aIZGbQueUQY3wQedpqQiJFmphWSHjnYNX12t/WsZ0VyZWeiw6APEFsY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=ItDMRtuQ; arc=none smtp.client-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="cyHlnfdM"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=+88ROtLrCstIdLndNiAde/JzZl0qUsawtPJuqfY6oGs=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789374032; v=1; x=1789978832;
- b=cyHlnfdMRNSlRtZvnv7GekeN1F7Ww265QlaZ1Rbm7H/cM64WGaTrF52ivdUjX7w3jM5NfCs8
- 6ffayg7JqFoc4UMKpbyTdpZGYgrUmCth9Tf09CZblMVJKVzwvFfT2WVIm5Nw+MbFLT4vxkj0a0A
- cmVMOsCt3oEwxvtthYykf6Kc=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id efc6a5f5c4e9eadc;
-	Mon, 14 Sep 2026 08:20:31 +0000
-X-Mizu-Trace-ID: efc6a5f5c4e9eadc
-X-Migadu-Flow: FLOW_OUT
-From: Troy Mitchell <troy.mitchell@linux.dev>
-Date: Mon, 14 Sep 2026 16:18:06 +0800
-Subject: [PATCH v5 6/6] riscv: dts: spacemit: Add CTF2301 on K3 CoM260
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="ItDMRtuQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=Y2M3C3Qm/rkMgvXchYRauWiFqIscj5B5fRKV8vWWMbU=; b=I
+	tDMRtuQDwpx6ah7bDSkSYCtbUu0nzipH3WxobRxZPwkS9qqPlSmEroqGv0tmMcNc
+	AI/7EMLlFRbZWYguNL0SXKFw3Bh2akNlxjCjJOFeWXKPYf5O+m0SfBnwkmloiGz9
+	n+et3az6OODgGwA7penRIlg5CtMs++3eUtqjVEVnMw=
+Date: Mon, 14 Sep 2026 16:20:08 +0800 (CST)
+From: CJ <firefly0158@163.com>
+To: shaggy@kernel.org, zheng.yu@northwestern.edu
+Cc: jfs-discussion@lists.sourceforge.net, linux-kernel@vger.kernel.org
+Subject: [BUG] jfs: KASAN slab-use-after-free in dtSplitPage
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+X-NTES-SC: AL_Qu2TC/+cu0gr7iOQbekdmEsTju82UcS4ufQl245Xc98Figbk+QAgeFpPNFDG1NiRKyuJkh+TdQFs6cJxc45/IXQGT/Ub38VtI/5vt14xxQ==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-ctl2301-v5-6-522def70acb4@linux.dev>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Guenter Roeck <linux@roeck-us.net>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
- Yixun Lan <dlan@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>
-Cc: Troy Mitchell <troy.mitchell@linux.dev>, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org, 
- linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
- linux-doc@vger.kernel.org
-X-Mailer: b4 0.15.2
-In-Reply-To: <20260914-ctl2301-v5-0-b44b81cd2c3c@linux.dev>
-References: <20260914-ctl2301-v5-0-b44b81cd2c3c@linux.dev>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1044;
- i=troy.mitchell@linux.dev; h=from:subject:message-id;
- bh=+88ROtLrCstIdLndNiAde/JzZl0qUsawtPJuqfY6oGs=;
- b=owGbwMvMwCU2g/N9w09jE33G02pJDFnL1x77WOvBI3yosrjbVvL49Q1N3uEV8cuvJmz80XtvQ
- fTnvJcNHaUsDGJcDLJiiizdD3i2FfhE2RYIFPrCzGFlAhnCwMUpABPZ9Y/hn3GrUaRJ5VfZdfM6
- W9jDEo+E94n/C9T3iD1f9uYKJ6vxVYb/TsXd7haJBzv06mc+3Na87Mb/hVNuusYbPivJ7au4qPG
- ZHQA=
-X-Developer-Key: i=troy.mitchell@linux.dev; a=openpgp;
- fpr=3FE5535CF1B0E658E57DB59BAE1C2FBEA7DB42E1
+Message-ID: <63f1d46b.7a22.1a09f008c52.Coremail.firefly0158@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:hygvCgD3P8A4rqdq_CwPAA--.18660W
+X-CM-SenderInfo: piluvw1o1qikqy6rljoofrz/xtbC3hg+72qnrjiPwQAA3C
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-Enable I2C6 on the K3 CoM260 module and describe the Sensylink
-CTF2301 temperature sensor and fan controller at address 0x4c.
-
-Override the I2C6 pin power source at board level because the IO rail
-voltage is board-specific.
-
-Signed-off-by: Troy Mitchell <troy.mitchell@linux.dev>
----
- arch/riscv/boot/dts/spacemit/k3-com260.dtsi | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
-
-diff --git a/arch/riscv/boot/dts/spacemit/k3-com260.dtsi b/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
-index 37627963a6492..92dea86397798 100644
---- a/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
-+++ b/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
-@@ -58,6 +58,23 @@ serial-number {
- 	};
- };
- 
-+&i2c6_1_cfg {
-+	i2c6-1-pins {
-+		power-source = <3300>;
-+	};
-+};
-+
-+&i2c6 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c6_1_cfg>;
-+	status = "okay";
-+
-+	temperature-sensor@4c {
-+		compatible = "sensylink,ctf2301";
-+		reg = <0x4c>;
-+	};
-+};
-+
- &i2c8 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&i2c8_cfg>;
-
--- 
-2.55.0
-
+SGksCgoKSSBhbSByZXBvcnRpbmcgYSBLQVNBTiBzbGFiLXVzZS1hZnRlci1mcmVlIGluIHRoZSBK
+RlMgZGlyZWN0b3J5IEItdHJlZSBjb2RlLAp0cmlnZ2VyZWQgYnkgYSBzeXprYWxsZXIgcmVwcm9k
+dWNlciB0aGF0IG1vdW50cyBhIGNyYWZ0ZWQgSkZTIGltYWdlLiAgVGhlIGlzc3VlCmlzIHJlcHJv
+ZHVjaWJsZSB3aXRoIEhFQUQgY29tbWl0IGNlZTkzOTVhY2Q4MDQzYmUwNjQ0YjI1YzM0YmZhODY2
+MjNmMmI5MzUKKHY3LjMtcmMxLCBMaW51eCA3LjMuMC1yYzEpLgoKClRoZSByZXByb2R1Y2VyIG1v
+dW50cyBhIGNyYWZ0ZWQgSkZTIGZpbGVzeXN0ZW0gaW1hZ2Ugb24gYSBsb29wIGRldmljZSBhbmQK
+cGVyZm9ybXMgb3BlcmF0aW9ucyB0aGF0IGZvcmNlIGEgZGlyZWN0b3J5IHBhZ2Ugc3BsaXQuCgoK
+S0FTQU4gcmVwb3J0cyBhIHNsYWItdXNlLWFmdGVyLWZyZWUgd2l0aCBhIDEtYnl0ZSB3cml0ZSwg
+d2l0aCB0aGUgcmVwb3J0CmF0dHJpYnV0aW5nIHRoZSBhY2Nlc3MgdG8gZHRNb3ZlRW50cnkgaW5s
+aW5lZCBpbnRvIGR0U3BsaXRQYWdlIGF0CmZzL2pmcy9qZnNfZHRyZWUuYy4gIFRoZSB3cml0ZSBs
+YW5kcyBpbiBhbiBvYmplY3QgZnJvbSBhIHNsYWIgY2FjaGUgdGhhdCBoYWQKYWxyZWFkeSBiZWVu
+IGZyZWVkIHdoZW4gdGhlIHNwbGl0IG1vdmVkIGVudHJpZXMgYmV0d2VlbiBwYWdlcy4KCgpPbmUg
+cG9zc2libGUgY2F1c2UgaXMgdGhhdCBkdFNwbGl0UGFnZSBrZWVwcyB1c2luZyBhIGRpcmVjdG9y
+eSBwYWdlIGJ1ZmZlciBhZnRlcgp0aGUgc3BsaXQgcGF0aCBoYXMgcmVsZWFzZWQgaXQsIHNvIHRo
+ZSBlbnRyeSBtb3ZlIHdyaXRlcyBpbnRvIGZyZWVkIG1lbW9yeS4gIEluCnRoZSBvcmlnaW5hbCBy
+ZXBvcnQgdGhlIHNhbWUgYWNjZXNzIHdhcyByZXBvcnRlZCBhdCBhIHNtYWxsZXIgb2Zmc2V0IGlu
+c2lkZSB0aGUKc2FtZSBmdW5jdGlvbjsgdGhlIG9mZnNldHMgZGlmZmVyIGJlY2F1c2UgdGhlIGZ1
+bmN0aW9uIGlzIGxhcmdlIGFuZCB0aGUgYnVpbGQKZGlmZmVycywgYnV0IHRoZSB0aXRsZSwgdGhl
+IGFjY2VzcyB0eXBlIGFuZCB0aGUgaW5saW5lZCBjYWxsZXIgYXJlIGlkZW50aWNhbC4KVGhpcyBs
+b29rcyBsaWtlIGEgcGFnZS1idWZmZXIgbGlmZXRpbWUgcHJvYmxlbSBpbiB0aGUgZHRyZWUgc3Bs
+aXQgcGF0aCByYXRoZXIKdGhhbiBhIGJvdW5kcyBlcnJvci4gIEkgYW0gcmVwb3J0aW5nIHRoZSBz
+YW5pdGl6ZXIgZmluZGluZyBhbmQgdGhlIHBhdGggYXMKb2JzZXJ2ZWQuCgoKVGhpcyBhcHBlYXJz
+IHRvIGJlIGEgcmVjdXJyZW5jZSBvZiB0aGUgc3l6Ym90IGlzc3VlIHdob3NlIGV4dGVybmFsIGlk
+IGlzCjYzYzQwYTNlZjQ1ZmNlOTQ0NzM5LCB0aXRsZSAiS0FTQU46IHNsYWItdXNlLWFmdGVyLWZy
+ZWUgaW4gZHRTcGxpdFBhZ2UiLiAgSXQKcmVtYWlucyByZXByb2R1Y2libGUgb24gdjcuMy1yYzEu
+CgoKUmVwcm9kdWNlcjogCgoKc3l6IHJlcHJvZHVjZXI6aHR0cHM6Ly9wYXN0ZWJpbi5jb20vcmF3
+L1NkazF2WTl3Cgpjb25zb2xlIG91dHB1dDogaHR0cHM6Ly9wYXN0ZWJpbi5jb20vcmF3L0xtRFFt
+bXlGCgprZXJuZWwgY29uZmlnOiBodHRwczovL3Bhc3RlYmluLmNvbS9yYXcvUVNLU0ZEN3UKCgpL
+ZXJuZWw6CgoKSEVBRCBjb21taXQ6IGNlZTkzOTVhY2Q4MDQzYmUwNjQ0YjI1YzM0YmZhODY2MjNm
+MmI5MzUKZ2l0IHRyZWU6IHVwc3RyZWFtIChsaW51eC5naXQpLCB0ZXN0ZWQgdGhyb3VnaCB0aGUg
+djcuMy1yYzEgYW5ub3RhdGVkIHRhZyBvYmplY3QKwqAgwqAgwqAgwqAgwqAgwqBlNWUwNDcyNmNk
+ZDA0M2UzMDk2NzcwNzFhYjFiNjVhNGIxOGY0MjJiCmtlcm5lbCB2ZXJzaW9uOiA3LjMuMC1yYzEg
+IzEgUFJFRU1QVChmdWxsKQp0ZXN0ZWQgdGFnOiB2Ny4zLXJjMSAoTGludXggNy4zLXJjMSwgMjAy
+Ni0wOC0zMCkKCgpMZXQgbWUga25vdyBpZiB5b3UgbmVlZCBtb3JlIGRldGFpbHMgb3IgdGVzdGlu
+Zy4KCgpCZXN0IHJlZ2FyZHMsCkNoYW5namlhbgoKCgo=
