@@ -1,158 +1,102 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85F501D9A70;
-	Mon, 14 Sep 2026 19:08:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48AD23603C0;
+	Mon, 14 Sep 2026 19:09:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789412937; cv=none; b=Fvo5EFigtmYLe9MW1+5GQMIB9KtcR8pQA53ytJjpr/KduAfqSou2Wt4pkF4WG2C476m3vYNde5N/uqVC8EcqZu5Kset0ok/PsHTpg3zEBJSfZxxGz8LTdSJ0eYywYGY4aafzKkWDzH6I2TziL1GtEsS+P3Sdwz6XKFyR/KENGc4=
+	t=1789412974; cv=none; b=oWxzSvVNa67/3l1MQToE55hiOCdE8ekfOO9ev9xXBpkPeqvjL3JXarbTn8gGc6fZ/2sad3oGa2N1fhxm9o8zyuEKAMD0lOCir92RXoEerLj0feCwF81Mgvsb6UF0HwMtZViC9+TPeqLdA0/ERr77TMrfIXtwicmhC1J/7W43TWM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789412937; c=relaxed/simple;
-	bh=RIsRANN7ugEQL7qQXQlS7dthjTbi6u3BdbqVlpeEhug=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=uUr1nvitIUmqI82OuJX8FOIZpCB0YN1xSEnLEHkuVP8zUfZRyhRsIrJOfwdcvmBrJrdqyaXGTMT0/nglZDSuwOLszvbc3plEIHdpXqJ3vlwf8b0d4C0zY9qs77JDR4w2UUGECkriiMxCKyWsdzrjlYUSGMq2dnO2yqV3k9833N0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=CVtfoLDv; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=IrYtzDyR; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1789412974; c=relaxed/simple;
+	bh=1zwDoquw1Xtyx1Jl4TymiQcyC/FD70QsSBOmxX6cfNI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qxiW3nOEfEkdRRXW6NKsZoNo/o/Ob3O757mdRhxNDaV+f+Giwq0O8N3f4A73m8Mhux+ERrwfG7Mq+vALEKHEtYDlRNnogEU3v4kjdbF45Cj1gt6NZRFrO8w/nDzDPUwMIfoL5IGEbq559PZP/I7GfMiYi0gROkMSr1S0XjEKx5I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=IeZtdKIj; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="CVtfoLDv";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="IrYtzDyR"
-Date: Mon, 14 Sep 2026 19:08:48 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1789412930;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=C8UVXm/OOuA6eGCTD056zFxzSx81ByMvVEh9yzVs0F4=;
-	b=CVtfoLDv3lZaDaB6NRDlzNj2nn4ubqVtcyT4S3VSykquSPVVJEv1LEpz/P2IHIngl6GIM/
-	xLzTBJZVPGNmb/29O7498mlU17nD9PQvUDo4PuwY8vlszkXUMluGMXnMPxltpq9Orlo/BI
-	VHpH/869S/kmWIHwHz2JIRu2DUkKHvXOThA4L08W5bHSG7Xcr3UOLIpyziOCF+Q7kwdMY2
-	JselFqtULroTtZiT2ZMoADgOzG8moDW19WMyifYngrjWU1+/8rurrjr7gK1+a9zS8oPGiL
-	32kdP48+YLcrIUboxftLXWT/twmru4BS2gS/xv6nTL+bVXBLJ6/DUUv3YCSPXA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1789412930;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=C8UVXm/OOuA6eGCTD056zFxzSx81ByMvVEh9yzVs0F4=;
-	b=IrYtzDyRM4hfYJlfj2HRR860RKmwlQCtqo8JSBEV4Lxf3JUCUOzp6E/Pb5hDP1qeYqbQCL
-	8zfmzzmo1g7kwKBg==
-From: "tip-bot2 for Dave Martin" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: x86/cache] x86,fs/resctrl: Add resctrl_arch_preconvert_bw()
-Cc: Dave Martin <dave.martin@arm.com>, Ben Horgan <ben.horgan@arm.com>,
- "Borislav Petkov (AMD)" <bp@alien8.de>,
- Reinette Chatre <reinette.chatre@intel.com>, Gavin Shan <gshan@redhat.com>,
- x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260911163613.1131447-2-ben.horgan@arm.com>
-References: <20260911163613.1131447-2-ben.horgan@arm.com>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="IeZtdKIj"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
+	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
+	In-Reply-To:References; bh=D4zLCujqv+1kOWutlW4uiNHK+qNna0YPclsi/Y3yM/M=; b=Ie
+	ZtdKIjbg5BuN8y55vYK7hiQtnXHwfgmZfYA4OLvyP0LQU3KB2YAUvAm9GTw4OahFAZhMD4spUtT9R
+	/ZmwVh3ntCVZmBegRPLbRHCkGFd0nx0RXtRZeLHnpy0G+8IvIxwyqKa++wGDE+1x2WC9jZ8wQeJ4b
+	O4JSu1LzdebrAu8=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x6C3F-0057sw-3i; Mon, 14 Sep 2026 21:09:13 +0200
+Date: Mon, 14 Sep 2026 21:09:13 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Aleksei Sviridkin <f@lex.la>
+Cc: andrew+netdev@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	pabeni@redhat.com, horms@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, ericwouds@gmail.com,
+	netdev@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH net-next v2 0/7] net: mdio: an MDIO device driver for
+ the Airoha EN8811H
+Message-ID: <f7ce35aa-2c3a-4f8e-9f99-e52367ff6bed@lunn.ch>
+References: <20260908155707.4164559-1-f@lex.la>
+ <44f163ed-8362-4aad-99c9-f8709dfbed76@lunn.ch>
+ <20260910153757.2822676-1-f@lex.la>
+ <20260910204916.1979445-1-f@lex.la>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178941292892.1720534.9402544682385889030.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260910204916.1979445-1-f@lex.la>
 
-The following commit has been merged into the x86/cache branch of tip:
+On Thu, Sep 10, 2026 at 08:49:16PM +0000, Aleksei Sviridkin wrote:
+> Two of the things I said I would do turned out not to be doable as
+> stated.
+> 
+> > It is fine. I would also add a select or depends on the PHY driver
+> > Kconfig stanza to link it to the MDIO_AIROHA_EN8811H driver.
+> 
+> Kconfig refuses it:
+> 
+>   symbol AIR_EN8811H_PHY is implied by MDIO_AIROHA_EN8811H
+>   symbol MDIO_AIROHA_EN8811H is implied by AIR_EN8811H_PHY
+>   error: recursive dependency detected!
 
-Commit-ID:     57a354d20a01287bd173b13231eb5afcda337eee
-Gitweb:        https://git.kernel.org/tip/57a354d20a01287bd173b13231eb5afcda3=
-37eee
-Author:        Dave Martin <dave.martin@arm.com>
-AuthorDate:    Fri, 11 Sep 2026 17:36:11 +01:00
-Committer:     Borislav Petkov (AMD) <bp@alien8.de>
-CommitterDate: Mon, 14 Sep 2026 08:15:11 -07:00
+O.K. So there is a linkage anyway.
 
-x86,fs/resctrl: Add resctrl_arch_preconvert_bw()
+> > The location is fine. MAINTAINERS need to list it. What you might want
+> > to do is list it twice, once in the PHY driver MAINTAINERS record, and
+> > again in the MDIO driver section.
+> 
+> There is no PHY driver record to put it in. Neither air_en8811h.c nor
+> the shared air_phy_lib.c is claimed by any entry, so the header sits in
+> the MDIO record alone. I can add a record covering both files, but that
+> puts my name on code I did not write. Tell me which you would rather
+> see.
 
-On MPAM systems the rounding behaviour of the MBA control would be improved if
-the rounding in the fs/resctrl code is removed but this is not the case for
-x86. To allow any rounding or conversion of the bandwidth value provided by
-the user to be specified by the arch code a new arch hook is required.
+That not great.
 
-Introduce resctrl_arch_preconvert_bw(), and add its x86 implementation.
-This is currently unused in resctrl but when plumbed in it will replace the
-call to roundup() in bw_validate().
+$ ./scripts/get_maintainer.pl drivers/net/phy/air_en8811h.c
+Andrew Lunn <andrew@lunn.ch> (maintainer:ETHERNET PHY LIBRARY)
+Heiner Kallweit <hkallweit1@gmail.com> (maintainer:ETHERNET PHY LIBRARY)
+Russell King <linux@armlinux.org.uk> (reviewer:ETHERNET PHY LIBRARY)
+"David S. Miller" <davem@davemloft.net> (maintainer:NETWORKING DRIVERS)
+Eric Dumazet <edumazet@google.com> (maintainer:NETWORKING DRIVERS)
+Jakub Kicinski <kuba@kernel.org> (maintainer:NETWORKING DRIVERS)
+Paolo Abeni <pabeni@redhat.com> (maintainer:NETWORKING DRIVERS)
 
-Signed-off-by: Dave Martin <dave.martin@arm.com>
-Signed-off-by: Ben Horgan <ben.horgan@arm.com>
-Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
-Reviewed-by: Reinette Chatre <reinette.chatre@intel.com>
-Reviewed-by: Gavin Shan <gshan@redhat.com>
-Link: https://patch.msgid.link/20260911163613.1131447-2-ben.horgan@arm.com
----
- arch/x86/kernel/cpu/resctrl/ctrlmondata.c |  6 ++++++
- include/linux/resctrl.h                   | 19 +++++++++++++++++++
- 2 files changed, 25 insertions(+)
+The usual generic suspects. Turning on some knobs you can additionally
+get:
 
-diff --git a/arch/x86/kernel/cpu/resctrl/ctrlmondata.c b/arch/x86/kernel/cpu/=
-resctrl/ctrlmondata.c
-index e74f1ed..6204448 100644
---- a/arch/x86/kernel/cpu/resctrl/ctrlmondata.c
-+++ b/arch/x86/kernel/cpu/resctrl/ctrlmondata.c
-@@ -16,9 +16,15 @@
- #define pr_fmt(fmt)	KBUILD_MODNAME ": " fmt
-=20
- #include <linux/cpu.h>
-+#include <linux/math.h>
-=20
- #include "internal.h"
-=20
-+u32 resctrl_arch_preconvert_bw(const struct rdt_resource *r, u32 val)
-+{
-+	return roundup(val, (unsigned long)r->membw.bw_gran);
-+}
-+
- int resctrl_arch_update_one(struct rdt_resource *r, struct rdt_ctrl_domain *=
-d,
- 			    u32 closid, enum resctrl_conf_type t, u32 cfg_val)
- {
-diff --git a/include/linux/resctrl.h b/include/linux/resctrl.h
-index dd09c2c..10dfdca 100644
---- a/include/linux/resctrl.h
-+++ b/include/linux/resctrl.h
-@@ -505,6 +505,25 @@ bool resctrl_arch_mbm_cntr_assign_enabled(struct rdt_res=
-ource *r);
-  */
- int resctrl_arch_mbm_cntr_assign_set(struct rdt_resource *r, bool enable);
-=20
-+/**
-+ * resctrl_arch_preconvert_bw() - Prepare bandwidth control value for arch u=
-se.
-+ * @r:		Resource whose schema was written.
-+ * @val:	Bandwidth control value written to the schemata file by userspace.
-+ *
-+ * Convert the user provided bandwidth control value to an appropriate form =
-for
-+ * consumption by the hardware driver for resource @r. Converted value is st=
-ored
-+ * in rdt_ctrl_domain::staged_config[] for later consumption by
-+ * resctrl_arch_update_domains(). Is not called when MBA software controller=
- is
-+ * enabled.
-+ *
-+ * Architectures for which this pre-conversion hook is not useful should sup=
-ply
-+ * an implementation of this function that just returns @val unmodified.
-+ *
-+ * Return:
-+ * The converted value.
-+ */
-+u32 resctrl_arch_preconvert_bw(const struct rdt_resource *r, u32 val);
-+
- /*
-  * Update the ctrl_val and apply this config right now.
-  * Must be called on one of the domain's CPUs.
+"Bjørn Mork" <bjorn@mork.no> (commit_signer:3/9=33%,authored:3/9=33%,added_lines:412/668=62%,removed_lines:34/318=11%)
+Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com> (commit_signer:3/9=33%,authored:3/9=33%,added_lines:58/668=9%,removed_lines:258/318=81%)
+
+Maybe reach out an see if they want to be listed as Maintainer.
+
+      Andrew
