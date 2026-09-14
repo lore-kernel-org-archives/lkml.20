@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE35D3A1A27;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CECC43A380C;
 	Mon, 14 Sep 2026 19:21:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789413685; cv=none; b=BSnsBweSXTRdEPimaaOGiDwFgmkVX92RAHLF4GYA0ZYkfPKscnVRO4WAumNkPDaCKp0r68RxzMcyPaLf/tgM7WYtch7FJgfzaMEb3KNDR3cotCsfhXipxaA3WvlZuzbQqhmTgUbvxEbKNvkinOOGioW9crORmXKX0fox2CPagnw=
+	t=1789413685; cv=none; b=JwD8XuXDAPM62AICgzLzHG+V4SQnL+hPfLZYjuFGHVbDa/06mPlg08cdj35g+gdSCfPCGxquKX4pM2GJoZ2QcjdsD28OPorAMYS0uWjcNgZxxEG1IamCtFeLvlbrlTbF9/bPuz+R2l8h+bJuIDgjKMVqiVw9TUqsPKfdamtdmX8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789413685; c=relaxed/simple;
-	bh=X7NyouCN65aYsOl9IfYiR8GqzCJ8zRJcFc2sniRidO0=;
+	bh=ER+zQkWzydHRzZp5pEY5WGaoGbUivQBZvblB/0wtPVM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=dPycTl3oF0U78T179gEBlVQ+YV8TmjElgI1ifqNXTfv85+0butCujgRBSq+U8obUIzN4+gM3Pr91iOh7BYR7yya7KFzL9+0f1HbkjtZwf2zR09wUBGn5LF2iC2PuwCw605cwTswPuxabQwbjIY21p8FmpWQe986QZTHiVCpO3hA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=xXbAOHN1; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=YyScnnxCRqKCsEIHhyinf11HF2g9c0D/FJgXTjzTHdCl95G8S14qeRs01yj4Z4jeOo+A+2HqG4vB7JOfUyg1PlcscHlImeU0V9JvLRuqE1z1jdhITTX2eZSQ9uHeYKnDyjjZRQ/FjtLFl0Q2FxIHS15mOOLxJhtXQgZ/MrkOimI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=qPCdmJwA; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="xXbAOHN1"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 6AEF6C2BCF6;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="qPCdmJwA"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 90737C2BD05;
 	Mon, 14 Sep 2026 19:21:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
-	t=1789413685; bh=X7NyouCN65aYsOl9IfYiR8GqzCJ8zRJcFc2sniRidO0=;
+	t=1789413685; bh=ER+zQkWzydHRzZp5pEY5WGaoGbUivQBZvblB/0wtPVM=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=xXbAOHN1D3/LzC9nUQrwejxIx7mFJM2gBonZmDHyBt+oZCC69ZbfuQFWWSYrZqqJB
-	 BU5ANFgFfMv+s0W1cMM3r6gd6IROCAaJSi1jxAhlO4uqudmZbkpQjqWhjVizBFGvmJ
-	 BI0+4jpnq0G0Ev2gH6mzePeUc6OuYMR91yLSxK3s=
+	b=qPCdmJwAABpvamyyBgc7mlmppm55CF7lUXUVPxtNRWbg6lfMvpPySG9klzqRkenZ9
+	 cgt9M6ofq5ZLblrQbgU+B8mN/AK1Aoc0OZgvnbmixErX8ipgigO/ZzVcl3QHNAXIk/
+	 SQrAdPI8diCEjq1gXUTQ6DIdG8KgDnp0vfyxPHhs=
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4822CC88E6F;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 766CBC88E7F;
 	Mon, 14 Sep 2026 19:21:25 +0000 (UTC)
 From: Richard Leitner <richard.leitner@linux.dev>
-Date: Mon, 14 Sep 2026 21:20:58 +0200
-Subject: [PATCH 01/10] media: i2c: ov9282: handle error from exposure range
- update
+Date: Mon, 14 Sep 2026 21:21:01 +0200
+Subject: [PATCH 04/10] media: i2c: ov9282: update flash_duration range even
+ when powered down
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,7 +37,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-ov9282-fixes-v1-1-f520af59df1b@linux.dev>
+Message-Id: <20260914-ov9282-fixes-v1-4-f520af59df1b@linux.dev>
 References: <20260914-ov9282-fixes-v1-0-f520af59df1b@linux.dev>
 In-Reply-To: <20260914-ov9282-fixes-v1-0-f520af59df1b@linux.dev>
 To: Dave Stevenson <dave.stevenson@raspberrypi.com>, 
@@ -52,41 +52,54 @@ Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
  linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Richard Leitner <richard.leitner@linux.dev>
 X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789413683; l=890;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789413683; l=1346;
  i=richard.leitner@linux.dev; s=20250225; h=from:subject:message-id;
- bh=X7NyouCN65aYsOl9IfYiR8GqzCJ8zRJcFc2sniRidO0=;
- b=be6Yyk92In/WjPDuMyVaHDaTgkqGHKD3BJ8x/b7FFhUYG5RaY3+gWUmDa+snrnztju5IRIiu2
- c/2OvPRkCFfBHtbvp/8dDlU8/jTDMDPrxy4wv8EkJLYgeRhdIEPvYAW
+ bh=ER+zQkWzydHRzZp5pEY5WGaoGbUivQBZvblB/0wtPVM=;
+ b=koYQdyi9oc7cfHz0ZeuMXhUNtWxeq6ydv4PIYUL370PQLk5MMIKA4vGyfMUg1op2icjHT+y8n
+ mxHUVQxPG4NAKtt+GiUPTTb8SRUbtsIgr8DzalMWhI8RcIBXdTNcNZL
 X-Developer-Key: i=richard.leitner@linux.dev; a=ed25519;
  pk=8hZNyyyQFqZ5ruVJsSGBSPIrmJpfDm5HwHU4QVOP1Pk=
 X-Endpoint-Received: by B4 Relay for richard.leitner@linux.dev/20250225
  with auth_id=350
 
-When setting V4L2_CID_VBLANK the V4L2 range for the exposure control is
-updated v4l2_ctrl_modify_range(). This range update missed a return value
-check, which resulted in ov9282_set_ctrl() not returning on an error from
-that function call.
+The flash_duration range update sat inside ov9282_update_exp_gain(), which
+ov9282_set_ctrl() only reaches after the pm_runtime_get_if_in_use() early
+return. So with the sensor idle the ceiling kept whatever value it had
+when it last streamed. Therefore setting exposure before flash_duration
+while the sensor is powered down may clamp flash_duration against an
+outdated exposure.
 
-Fix this by checking the return value and returning it on error.
+Fix this by moving the range update before the power check.
 
 Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
 ---
- drivers/media/i2c/ov9282.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/media/i2c/ov9282.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
 diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
-index 5d301660a87d8..c10b2e205834e 100644
+index 90a0fe542ce4a..4c88de1965171 100644
 --- a/drivers/media/i2c/ov9282.c
 +++ b/drivers/media/i2c/ov9282.c
-@@ -608,6 +608,8 @@ static int ov9282_set_ctrl(struct v4l2_ctrl *ctrl)
- 					       ov9282->cur_mode->height -
- 					       OV9282_EXPOSURE_OFFSET,
- 					       1, OV9282_EXPOSURE_DEFAULT);
+@@ -645,6 +645,19 @@ static int ov9282_set_ctrl(struct v4l2_ctrl *ctrl)
+ 		if (ret)
+ 			return ret;
+ 		break;
++	case V4L2_CID_EXPOSURE:
++		/*
++		 * Ensure the flash duration range is also updated on powered
++		 * down sensors.
++		 */
++		ret = __v4l2_ctrl_modify_range(ov9282->flash_duration, 0,
++					       ov9282_exposure_to_us(ov9282,
++								     ctrl->val),
++					       1,
++					       OV9282_STROBE_FRAME_SPAN_DEFAULT);
 +		if (ret)
 +			return ret;
- 		break;
++		break;
  	}
  
+ 	/* Set controls only if sensor is in power on state */
 
 -- 
 2.53.0
