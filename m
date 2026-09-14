@@ -1,35 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 400144A2A69
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 21:11:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01BD54A2E2E
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 21:11:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789420288; cv=none; b=V06IJklqccVyXHp7hef0dDEMwS4zF+51awIVFZvcJ5ySaFZF00+l+Pzd7vWS5oKcqs995nqOnhVP/YwJSDTyKHJVbhlq6NbwwxKZpZWHgBdVyR3T1LjJ+K8YKq26xjKj51GTZTiY7vYKjUQwj5ToCJntYYJX90tCMso9K4DTAJs=
+	t=1789420290; cv=none; b=GONmF8jamvVGluwoIqoMMgphl5v44mQFD6SQtIV/9rJy/6n0TAk44MaDztLugwWQWMCqGgi0Kz4jSZjPcqKVSCoMLw+X/3o7KHrZ6scQZW+OtzFTxDz+uP1ozlkiNtTxkTuJh1MDbBMdxQMcm2AjD5TMJn1O2l1gVXpy49bSci8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789420288; c=relaxed/simple;
-	bh=sm7o6cCzp8flppDMwW5Z+rofLj0ey1Q6EInHqIwTGW8=;
+	s=arc-20240116; t=1789420290; c=relaxed/simple;
+	bh=Dv/QiirNXaEGGNxNMEdOvs71nxTnxu7bZFGiiKUplfk=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=hkOwQgM+q1lXoV8Rpq2HeKCToOnX/4SaLBCbDm/cdbHcai1ivhDkn+izD5GOpEmNs3R4SHtaS20H2smL8XtJrgqH/zcoGXiExfSjRjECBHAsEec21IYA1IBroYzzdEbJyA7XFQFaKP/Ez+E0JrsPSe+9p0aQph/nM9ParTI2FAc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fruSOOU5; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=FskymA917JOEUA0Df1gytdQWlHJjBoe69YUy7jw00TTdhBpJva/9nalvd/k8qY1en23NJ7WDy0pPDkS4IWB+Lwf7upSnGvHrpvzR5mWb08B+s1pz6euUkTTh094/eRUPsh4YB7XIeMpLc6GSGMZNMTrNc/67mUTYvBHGSl8suEg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IG7Yg2Xz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fruSOOU5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8FE91F00893;
-	Mon, 14 Sep 2026 21:11:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IG7Yg2Xz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AA9D1F00898;
+	Mon, 14 Sep 2026 21:11:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789420286;
-	bh=cYxLvSFl/YWS+JRovkLaSv4pMP7UxSGmiLqc9zYTVx0=;
+	s=k20260515; t=1789420288;
+	bh=bMZt0GB7fomwJcSjpqK2GXhF/LZOwUajUGEkniPFZLE=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=fruSOOU5y50wTvkWq9Q+iLKfDDZaZMRyyoHMwft+bUygyz2OBly5SIY9tslwOtxXw
-	 iAjRLHvleImwCNRC/OIjlTHmbuPoq59dtAYhvh1AzNCpW6wHnR928s4Y5U1mywoxr0
-	 wyBiorEIiRX9k++gbm25wWv2uTGSH/y8BmTk8LwLJc0Qz2NvGw32P78Z1IuKFh/3Wt
-	 ma3NRwmfOMv6JxixjsLf+cZ1uqiGUi3lNT9+YgWhhSygkZZ/QcEUywhAky4RbN9je0
-	 aMpaavCNApYJQoZ8C7ML5HdcoXtz602DYQL5XUiKreMLod35sjIlDRhZwVLv6qmh+T
-	 mlq9GNEyMlXbg==
+	b=IG7Yg2XzjKo3y/u+JLvX2KMK87d9mct2h9R0zOEdI97TvUliD4MupSWyYGowgDOJW
+	 i5mlKKNC1lf+WA9t4xSJa53DotPGmXND99PvL+JvQsyI44eFAET24hSxdQDAYI/lgK
+	 FgPq5fOS4ZJ9b3ASdEeBAj2xJzsWY4gGugYuy8AXHeL4qqVMsa36fJdS/UKZa0ZdVm
+	 b0G0+NRq8CUIWpM3qr5nlbxitWpv6izryZTNm2E0+5zN4uVc50IqyFTVC/48M3P3fC
+	 LafBHQhoJfZNgtu+SOVpyrG0uKzrNNskbJD3o6yycBPDB3xA9yvdAkiA7DCvGdj9nm
+	 l4eHgMYPEaS1A==
 From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 14 Sep 2026 23:11:18 +0200
-Subject: [PATCH v4 05/10] regulator: ab8500: Test dedicated enable bits
- only
+Date: Mon, 14 Sep 2026 23:11:19 +0200
+Subject: [PATCH v4 06/10] regulator: ab8500: Propagate mode enable read
+ errors
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,7 +38,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-ux500-dts-snowball-regulator-v4-5-dfc453a3031f@kernel.org>
+Message-Id: <20260914-ux500-dts-snowball-regulator-v4-6-dfc453a3031f@kernel.org>
 References: <20260914-ux500-dts-snowball-regulator-v4-0-dfc453a3031f@kernel.org>
 In-Reply-To: <20260914-ux500-dts-snowball-regulator-v4-0-dfc453a3031f@kernel.org>
 To: Stephan Gerhold <stephan@gerhold.net>, 
@@ -47,119 +47,56 @@ To: Stephan Gerhold <stephan@gerhold.net>,
 Cc: linux-kernel@vger.kernel.org, Linus Walleij <linusw@kernel.org>
 X-Mailer: b4 0.14.3
 
-Some regulator control registers have independent enable and low-power
-bits. is_enabled() currently tests their combined update mask, so an
-off regulator with its low-power bit set is incorrectly reported as
-enabled.
+For regulators whose enable and mode share a state field, set_mode()
+first reads that field so changing the requested mode does not enable a
+disabled rail. A register read error is currently treated as true and
+the driver proceeds to write the new mode, potentially enabling a rail
+whose state is unknown.
 
-Add an optional enable mask and use it for VINTCORE, AB8500 TVOUT,
-AB8505 ADC, and AB8505 VAUX5/6. Regulators whose two-bit field encodes
-the complete operating state continue to test the full update mask.
+Return the read error without changing the register or cached mode.
 
-References: AB8500 User Manual, UM0836 Rev 3, p. 214;
-AB8505 User Manual, DM00046744 Rev 3, pp. 171-172 and 223
+References: AB8500 User Manual, UM0836 Rev 3, p. 227;
+AB8505 User Manual, DM00046744 Rev 3, p. 237
 
-Fixes: 65e03ed2d0cd ("regulators: Fixed errors in ab8500 register mapping")
+Fixes: 438e695b87e0 ("regulator: ab8500: Get rid of is_enabled from struct ab8500_regulator_info")
 Assisted-by: LLM
 Signed-off-by: Linus Walleij <linusw@kernel.org>
 ---
- drivers/regulator/ab8500.c | 15 +++++++++++++--
- 1 file changed, 13 insertions(+), 2 deletions(-)
+ drivers/regulator/ab8500.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/regulator/ab8500.c b/drivers/regulator/ab8500.c
-index 42cb8dfdc7c9..05c6b9c7af0c 100644
+index 05c6b9c7af0c..e4c3502c8dbc 100644
 --- a/drivers/regulator/ab8500.c
 +++ b/drivers/regulator/ab8500.c
-@@ -162,6 +162,7 @@ struct ab8500_shared_mode {
-  * @update_bank: bank to control on/off
-  * @update_reg: register to control on/off
-  * @update_mask: mask to enable/disable and set mode of regulator
-+ * @enable_mask: optional mask for an enable bit separate from the mode bit
-  * @update_val: bits holding the regulator current mode
-  * @update_val_idle: bits to enable the regulator in idle (low power) mode
-  * @update_val_normal: bits to enable the regulator in normal (high power) mode
-@@ -183,6 +184,7 @@ struct ab8500_regulator_info {
- 	u8 update_bank;
- 	u8 update_reg;
- 	u8 update_mask;
-+	u8 enable_mask;
- 	u8 update_val;
- 	u8 update_val_idle;
- 	u8 update_val_normal;
-@@ -377,6 +379,7 @@ static int ab8500_regulator_is_enabled(struct regulator_dev *rdev)
+@@ -433,7 +433,7 @@ static unsigned int ab8500_regulator_get_optimum_mode(
+ static int ab8500_regulator_set_mode(struct regulator_dev *rdev,
+ 				     unsigned int mode)
  {
- 	int ret;
+-	int ret = 0;
++	int enabled, ret = 0;
+ 	u8 bank, reg, mask, val;
+ 	bool lp_mode_req = false;
  	struct ab8500_regulator_info *info = rdev_get_drvdata(rdev);
-+	u8 enable_mask;
- 	u8 regval;
- 
- 	if (info == NULL) {
-@@ -392,13 +395,15 @@ static int ab8500_regulator_is_enabled(struct regulator_dev *rdev)
- 		return ret;
+@@ -490,7 +490,17 @@ static int ab8500_regulator_set_mode(struct regulator_dev *rdev,
+ 		goto out_unlock;
  	}
  
-+	enable_mask = info->enable_mask ? info->enable_mask : info->update_mask;
+-	if (info->mode_mask || ab8500_regulator_is_enabled(rdev)) {
++	if (info->mode_mask) {
++		enabled = 1;
++	} else {
++		enabled = ab8500_regulator_is_enabled(rdev);
++		if (enabled < 0) {
++			ret = enabled;
++			goto out_unlock;
++		}
++	}
 +
- 	dev_vdbg(rdev_get_dev(rdev),
- 		"%s-is_enabled (bank, reg, mask, value): 0x%x, 0x%x, 0x%x,"
- 		" 0x%x\n",
- 		info->desc.name, info->update_bank, info->update_reg,
--		info->update_mask, regval);
-+		enable_mask, regval);
- 
--	if (regval & info->update_mask)
-+	if (regval & enable_mask)
- 		return 1;
- 	else
- 		return 0;
-@@ -833,6 +838,7 @@ static struct ab8500_regulator_info
- 		.update_bank		= 0x03,
- 		.update_reg		= 0x80,
- 		.update_mask		= 0x44,
-+		.enable_mask		= 0x04,
- 		.update_val		= 0x44,
- 		.update_val_idle	= 0x44,
- 		.update_val_normal	= 0x04,
-@@ -861,6 +867,7 @@ static struct ab8500_regulator_info
- 		.update_bank		= 0x03,
- 		.update_reg		= 0x80,
- 		.update_mask		= 0x82,
-+		.enable_mask		= 0x02,
- 		.update_val		= 0x02,
- 		.update_val_idle	= 0x82,
- 		.update_val_normal	= 0x02,
-@@ -1070,6 +1077,7 @@ static struct ab8500_regulator_info
- 		.update_bank		= 0x01,
- 		.update_reg		= 0x55,
- 		.update_mask		= 0x18,
-+		.enable_mask		= 0x10,
- 		.update_val		= 0x10,
- 		.update_val_idle	= 0x18,
- 		.update_val_normal	= 0x10,
-@@ -1092,6 +1100,7 @@ static struct ab8500_regulator_info
- 		.update_bank		= 0x01,
- 		.update_reg		= 0x56,
- 		.update_mask		= 0x18,
-+		.enable_mask		= 0x10,
- 		.update_val		= 0x10,
- 		.update_val_idle	= 0x18,
- 		.update_val_normal	= 0x10,
-@@ -1113,6 +1122,7 @@ static struct ab8500_regulator_info
- 		.update_bank		= 0x03,
- 		.update_reg		= 0x80,
- 		.update_mask		= 0x44,
-+		.enable_mask		= 0x04,
- 		.update_val		= 0x04,
- 		.update_val_idle	= 0x44,
- 		.update_val_normal	= 0x04,
-@@ -1141,6 +1151,7 @@ static struct ab8500_regulator_info
- 		.update_bank		= 0x03,
- 		.update_reg		= 0x80,
- 		.update_mask		= 0x82,
-+		.enable_mask		= 0x02,
- 		.update_val		= 0x02,
- 		.update_val_idle	= 0x82,
- 		.update_val_normal	= 0x02,
++	if (enabled) {
+ 		ret = abx500_mask_and_set_register_interruptible(info->dev,
+ 			bank, reg, mask, val);
+ 		if (ret < 0) {
 
 -- 
 2.55.0
