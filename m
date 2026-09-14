@@ -1,171 +1,144 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D20ED429014
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:43:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.141
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789396995; cv=pass; b=mkQaue/FhDiB4ntauVKJA6izI2stSTdN4wnddBykj7vmMDyvvN60JGg2AuPgBjW1wAiyxG7JUQVYco5MeTitHYxcMjfwul9krNAKDhoaFydwbjUQx5kAqLCAxkpHN53Mo+961y3mjCEut3mrXa9oq+urHI29mlaTkCNOAkzIuDc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789396995; c=relaxed/simple;
-	bh=HVlxiLUTNiWE+bPAoyNB60lJPdl4a+s1ny2DsDgGaHw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=MpKy+w7CnkjL+QLPHxFgEUTnTj0bFFedGPAnwk6H5OW3F27d+LpGzpqcAntu+FY2Tz7YbP9WzoiN3r5AJe/S3DkKhta4OgLGSTOCsm+M485I4lRdRysBEi3xhPp7GkZ4+OjzOu79+U6YLZ27dNA03dId75y5H99gz5QJA99YhAA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=knJav3xQ; arc=pass smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67F2947FB1E
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:43:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789397040; cv=none; b=iFXPmojtYnmKiz+c4Or8oNmdgQSdHNzVv4OpkX5lDer7UZDBE0GuFYmEWmbJ43Vu09Nel+Fq7wh4oD3TFUZZSdtfRyy9ecGiCu6CpI8INiXyJ0O16fmIkE+9QfZHPc+M0uzSvbTlO0qhyUUwcPrkubd36y9SX50VX0VKtiU6zA4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789397040; c=relaxed/simple;
+	bh=7+JBSq1lcxjIotZlZ8H7p6Vq1EEcX6XNFUx4HjDQ4oc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=J6x6GsgMAO5sD8+0D15MxrGUrdDZ0hvQhd9gkZeqPeZm0HQntokTjl+MEt8R3z+jkFSgmNjE7vImLMu6SCLD4KBm13Gycj6w9+acMjorEJ9Xo73xcvYx5jCAnjY3HqXzis31dl/5Ib5EGgGGcm3SCe8pvE2swrq/UFvjncS0cjE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T+egMaGu; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="knJav3xQ"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39dbdfaef3cso2111739a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:43:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789396992; cv=none;
-        d=google.com; s=arc-20260327;
-        b=P54qe+Kg61OkpQ2RtWi/lVTDHU+CEC3CpfdQZLWEQPYBGBrx+tDUmCH1HTYNe/vm6U
-         DCSU1mC0zOAvCD2Zu2vb9fGFIL+jBPKv4mneWIL5MBT2TcZ4iFSHBqT3o7EObcpo6SjO
-         yqR5OwoJTiiR6x50DwZSArkCdqWBG5ExlGyLaUeTzocAV27EoHrWJMic1UwhLUoSiRBE
-         4V36t/A2PwvUUEZy1346OSlpHLaEjZ4D72thui6Zf8g+fdIbrGcwZn7ZzQm45MkhR9dw
-         4HMdxCi69d6iqSQQR7OuvlGXsJAbeNfwN4H8d1tfyNhFDGqImOcRwM9JudM8lXE6fKHe
-         IE1g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=LH9xqDwg+UWNhqzaDxSdBTBsbVKqSIk4FBsXYbZlywo=;
-        fh=TPBk5669KHuTZVt++BBcO9xfdVZAaXdK2yDkTZ5CRkI=;
-        b=QH/iZC/OFvUWLTbvaipdeb0KH/2grABNFpDW8nokbabgrl8ZTxRH9l0lH5sTohXSXU
-         FM5mccn3TpHgJoZe9v/fvcAseUCUBF27DbDh/XeA8304YcpUZmaeQm+U1FVSYeuJCfef
-         IY9twY44XMa5qLUC2nTTfU78jbAqVbJl0otMEsTdVST4BMEE7z9EDxxd8GIYXQJ13gTY
-         RDfLFXp0TxeBWbnbh4BsKmWcYmCd/7YmVQXL+hM9ZFfNIGAGzL1LY910asKKg/pZzQTM
-         hQ3cPITfqO7lB55nGsu3Rh/u/f28iIiQXm5StQY/Iqvf51wdUJ4oyc+wNuoVdv43bzRl
-         ANQQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T+egMaGu"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccb652d7so1522128a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:43:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789396992; x=1790001792; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=LH9xqDwg+UWNhqzaDxSdBTBsbVKqSIk4FBsXYbZlywo=;
-        b=knJav3xQjChMSBomH1KDZ1lHehb3lORAd/GWrtYVv9hsj7LwVHDwZ/JHl4u7pqw8Xt
-         8svahyOQmAgbnBoHNKzsdciS4uxAF+TiU/CoRXc8QVv+C2Vds5tR/zdxT8VCnwcwbFQo
-         Ih7wXa8Ln6aIdfoT6fBJnA95ntxO5c17JT6x8rREEwf/r7jS8xacJ6sGjZLQe722TWYS
-         327tFikw8/x/mjIFrzyApgrekJTMa9DXs2M2IsCkPZbedv8IL6SzdvbqxKTMhNZ4yr4h
-         +V5MWoFtBWmSsMbPWl7udIHMeqRTpxCfnZVx81mYntVd11VYW1yDIAs46biz9JRxSDgZ
-         YVPA==
+        d=gmail.com; s=20251104; t=1789397037; x=1790001837; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VbWdB1y5zAgVgUDU6C58oDPNhatCe/TzGoKd8VxEcJ0=;
+        b=T+egMaGuD3bz+QBn2wERO8n9VJKfrTem/Vt/NJWgWp0JplttvC5XteR9bqjdiWz8OL
+         Y90rU9uW+4NMpUOm1jNKOSO/i4WSXPnCPrIkL5CLBBmx0P421PyDP7flgIBMWgKk0Xg3
+         VZZk8S+1L32yklyHzJzGgYLvuirqn8cluP6GuDgherN8NxezwHb1nqJFO/uTvM8Pka0N
+         RPrZgTLfeQgTz44SKmpRN3PAZ5yZQEJjHmUlO/j792afBkQlNz66kQI7rBOo8jozeHUK
+         ErXX9wCoNiBqjDVEBaCaTMeI5mhcj1bJzo7qojKHjfmi6q5OEbqWrW2Vtjgf9y6vQjhW
+         sLBw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789396992; x=1790001792;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LH9xqDwg+UWNhqzaDxSdBTBsbVKqSIk4FBsXYbZlywo=;
-        b=Qd6MkeGQ/1Uu2kNl6yhAbYfJwftynbsySOJGh5T7Wzk2Aqx2TnQoNNvf1fAaDUZxZp
-         JgyV9f20c33bfiskTIa3gaGLiJ+BzjTBzmbB7mabjMfcJyQFRB+5VwYnATmOdDKGc2fc
-         7HEu9kmdrdJKemoWNPnP22YxkPOCX64S7m2f8wyvwbRb+sEp00AtYGrTDl8AsMEC9rdU
-         67FjBu/cXAHGfcN0KP/qPbDkrrSwM1KhBXZ5AYMpP3DqgHhHzMss8qU1tmbcXXJWuVTU
-         gauRaX/hwGAUBwtoZg1GQVwq0r785frvA277gzrCSrMTmsWJksy5RKaf/EN8vCXKI+I+
-         zkvQ==
-X-Forwarded-Encrypted: i=1; AKwUvByfRDawO/XLN4ymobwSTTQ+2ojxKhSSARttCDdR2uHqIArbjWcIB0nIHirdgf2/BQd9RYc+6zLLbAtJagY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nGg6S0/2sCQzqPhIXPJKI9LwNGY/nQqZNhEXg6tk0inoaZCuY7
-	JMWdePNW4nXo5tEOaCQM0iSjTK1l4xrWxP/TWIE3QrVKnltWCwm85MTzlDJkQOymc2tjGr4d229
-	JYvxYjtWphGn2AAzfff+ULfDw65HFK/aTDcYbridv
-X-Gm-Gg: AYBFou3Xf1jiXsXei9Zs+CCp//5MRa7O9+Z4WZUoffoq9VsUElXYfeXhBmda1TORqXv
-	S1ZXRDtJzW687MI6KLmznjIUI49RRAotgZegl2hVUZmVd29XWARwEhsE0IBiJw5W8/FZLa7Yj18
-	klvJ5LJvRrDUMwrXU2E2cgJrVk2wp0xpW7gMkN4SMKTF8pakyIQnrk+h8kwPB1q8+0Qkxpj1yBP
-	EByQzPo7hNJpC9z9x1lAdKRLwL89ik7N+79I+b60bbwyXfngEdrAam/0Hbt2UX1koMSMBkSz6aX
-	m5+T57SUzLsM6eGYRngRBrLBVJoZVtJSEXh3OXHLgPYIMcQSQthMkxxQKm2Zjq8JCo1Oqjr6kLO
-	7uV20sjuDy8vn
-X-Received: by 2002:a17:90b:4b81:b0:39d:f95d:bd08 with SMTP id
- 98e67ed59e1d1-39df95dc372mr1658544a91.14.1789396991179; Mon, 14 Sep 2026
- 07:43:11 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1789397037; x=1790001837;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VbWdB1y5zAgVgUDU6C58oDPNhatCe/TzGoKd8VxEcJ0=;
+        b=Eh/DrxwqFef7t0QZ9ciEc6MEpurhPZG8x9f3e0if6BJUyv28i3PaQdPizmCCuW/VgI
+         gJnzUE94BRItLZE2dXOzze7GO5aOqy+AfpecmTkez+BZSnbHggNH20yKcMAtyaXkr5PP
+         EaudhBZwyvUgzkNQl12VvpuXtdycED0SQT0B/+Z5/5ZrArorbAtYoqMQ7P2HBNjLylj7
+         UDCVhgKpCrBTsNGLKPfApWn8BqRUBoAWRsKAlOEsKh+342OGK9Z5Q4Wqq/jKUjlj0V24
+         eIEOUzzEE0Cps0ClxjlFwbjB7zkhyd4eyeoz1uOkjm1XIKsOChLEmSiy7JpwOI5kL4ey
+         4k3Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwD65apMBN59zBNr6c8GSPz4PsO8u37X9Jg8yCzsDxQbAuna35k/AcpDcPpxj1YZttsjlDixorThELktdI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mHfWJqsgvyVKZJlkfNnAJYq/NhRJA6eUjoaHdEHBkuaO8Wr6uv
+	2exIyLk9bG5XqQcOuOKYiHCKI/tThdTM9114IUuJweguzlez1hGKp5NW
+X-Gm-Gg: AYBFou168CeYZDsBRKWrbuX9ysxtXAP2Btg+7F03hUisUmLp/bqC55dqrDYLotP18A2
+	xuWd4AgwjfBP5SxnYK0ySdeu4yZZPes83jKPUg1C9wXLBPgDUj23XkvnSOOdvt3Fhk7C5pX6M15
+	3naLLQy/k2rpBeB8vawgmmaZotd7l/3dio4ADJ8IrpROstIi5Ryki90FBZIjCSNwovGkL51M8A5
+	eBBmR0qMhFfLucxz2T8RVR/deVIMdNptfntmL7mgJf94rZk+aZoF+3Rq3PkhARWvfaiXIo5/EBY
+	Pb0zOMyz5yTcHvMKPc0O2k+go43NxduBxTmXWjMHF7wh53jBeLGDhR+GRnP0/+H9rugXLgvUb/0
+	BqFnbokhpXBXcXiY+Zur1PmppPU9QiU911u/U/5V34rkZfZ6CWJ/bsQj3W8+0sxb7NRAs7O7I1a
+	JcALYB+LmUHE2uEoxKQrF9iEWaHEM+ajHfkeCNp/P2KEUS5cNfnxUtCzrJFVhNULqfez7KJwopN
+	Mk=
+X-Received: by 2002:a17:90b:4a82:b0:38c:a59b:5189 with SMTP id 98e67ed59e1d1-39dec05f681mr5602152a91.15.1789397037224;
+        Mon, 14 Sep 2026 07:43:57 -0700 (PDT)
+Received: from celestia ([2402:1980:8858:8cc0:7bda:d54a:257:22ec])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d994d8af1sm22675307a91.11.2026.09.14.07.43.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 07:43:56 -0700 (PDT)
+From: Liew Rui Yan <aethernet65535@gmail.com>
+To: sj@kernel.org
+Cc: aethernet65535@gmail.com,
+	akpm@linux-foundation.org,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: Re: [PATCH] mm/damon/core: add short circuit for esz<min_region_sz in damos_adjust_quota()
+Date: Mon, 14 Sep 2026 22:42:34 +0800
+Message-ID: <20260914144409.4592-1-aethernet65535@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260913162046.99109-1-sj@kernel.org>
+References: <20260913162046.99109-1-sj@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260914054632.12877-1-kmehltretter@gmail.com> <20260914054632.12877-5-kmehltretter@gmail.com>
-In-Reply-To: <20260914054632.12877-5-kmehltretter@gmail.com>
-From: Alexander Potapenko <glider@google.com>
-Date: Mon, 14 Sep 2026 16:42:33 +0200
-X-Gm-Features: AcwNN1WppAUKdCf37pS7DpvK-X6wLcpPx-Q57kOJ1aEJoSJxBHs5p6fSfydB6Xo
-Message-ID: <CAG_fn=VwN-1pdK_3=qrwpDb=EsyOdoNgNK19zB7Ga0puQZgScw@mail.gmail.com>
-Subject: Re: [PATCH v3 4/6] sched/core: Pause KCOV in __schedule()
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Andrey Konovalov <andreyknvl@gmail.com>, 
-	Dmitry Vyukov <dvyukov@google.com>, Marco Elver <elver@google.com>, 
-	Bradley Morgan <include@grrlz.net>, Anna-Maria Behnsen <anna-maria@linutronix.de>, 
-	Frederic Weisbecker <frederic@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
-	Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>, 
-	Vincent Guittot <vincent.guittot@linaro.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>, 
-	Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
-	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Clark Williams <clrkwllms@kernel.org>, 
-	linux-rt-devel@lists.linux.dev, kasan-dev@googlegroups.com, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 14, 2026 at 7:48=E2=80=AFAM Karl Mehltretter <kmehltretter@gmai=
-l.com> wrote:
->
-> kernel/sched/ is built without KCOV instrumentation, but callees such
-> as sched_clock(), architecture CPU-capacity helpers and profile_hits() ar=
-e.
->
-> During preemption and schedule() calls, instrumented callees can add
-> nondeterministic scheduler coverage to current.
->
-> With CONFIG_KCOV_SELFTEST added to x86_64 defconfig, the interrupt
-> selftest fails under QEMU, detecting spurious coverage in
-> arch_scale_cpu_capacity().
->
-> Annotating each callee would spread exclusions across architectures.
-> Pause across __schedule() instead, extending the scheduler exclusion to
-> its callees.
->
-> KCOV_PAUSED remains set while a task is switched out. The guard in its
-> resumed __schedule() frame restores the prior state.
->
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-> ---
->  kernel/sched/core.c | 3 +++
->  1 file changed, 3 insertions(+)
->
-> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-> index ae97c63842a4..54b5c5383fe6 100644
-> --- a/kernel/sched/core.c
-> +++ b/kernel/sched/core.c
-> @@ -7116,6 +7116,9 @@ static void __sched notrace __schedule(int sched_mo=
-de)
->         struct rq *rq;
->         int cpu;
->
-> +       /* Instrumented callees would leak coverage into current. */
+On Sun, 13 Sep 2026 09:20:45 -0700 SJ Park <sj@kernel.org> wrote:
 
-Here and in other patches, I believe Peter expected different wording.
-How about "Callees instrumented with KCOV"?
+> Hi Liew,
+> 
+> 
+> From the next time, please complete discussions on the previous version before
+> posting a new version.  For example, in this case, you could replied to my last
+> reply to the previous version of this patch saying you will accept my suggested
+> changes and wait a reasonable time to decide there is no other opinions.
 
+Thank you for your guidance.  From the next time, I will reply and say
+if I will accept your suggestions.
 
+> 
+> I think the subject is not very clear.  How about something like, "skip quota
+> score setup when quota is full"?
 
-> +       guard(kcov_pause)();
-> +
->         /* Trace preemptions consistently with task switches */
->         trace_sched_entry_tp(sched_mode =3D=3D SM_PREEMPT);
->
-> --
-> 2.53.0
->
+Sure, it is shorter and more understandable.
 
+> 
+> On Sun, 13 Sep 2026 19:01:38 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
+> 
+> > After damos_set_effective_quota(), the effective size quota may be lower
+> > than min_region_sz (e.g., when the temporal quota goal is [over-]achieved).
+> 
+> This sounds unnecessarily specific and doesn't cover all the case.  What about
+> 
+> "In damos_adjust_quota(), the quota could already be full."
 
---
-Alexander Potapenko
-Software Engineer
+Agree, that makes sense.  Since users who is using temporal quota
+auto-tuning should know what happens when goal is achieved.
 
-Google Germany GmbH
-Erika-Mann-Stra=C3=9Fe, 33
-80636 M=C3=BCnchen
+> 
+> > 
+> > In this situation, damos_adjust_quota() will still calculates
+> > quota->min_score.  However, this min_score will not be used in this
+> > window, because in damon_do_apply_schemes(), damos_quota_is_full() will
+> > always returns true, preventing the scheme from being applied to any
+> > region.
+> > 
+> > Therefore, add a short circuit for 'esz < min_region_sz' schemes to
+> > early return from damos_adjust_quota() before calculating min_score.
+> > 
+> > Signed-off-by: Liew Rui Yan <aethernet65535@gmail.com>
+> 
+> Assuming you agree to above suggestions,
 
-Gesch=C3=A4ftsf=C3=BChrer: Paul Manicle, Liana Sebastian
-Registergericht und -nummer: Hamburg, HRB 86891
-Sitz der Gesellschaft: Hamburg
+Yes, I agree those all suggestions.
+
+> 
+> Reviewed-by: SJ Park <sj@kernel.org>
+> 
+> With the above assumption, I modified this patch with the suggestions and
+> applied to damon/next [1] tree.  I will repost it for mm.git merge after a
+> week.  So, if you are ok with the plan, no action from your side is needed.
+> 
+> Please let me know if you have different opinions.
+> 
+> [1] https://origin.kernel.org/doc/html/latest/mm/damon/maintainer-profile.html#scm-trees
+
+Best regards,
+Rui Yan
