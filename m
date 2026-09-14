@@ -1,125 +1,125 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EB22043CED8;
-	Mon, 14 Sep 2026 10:41:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CA4941CB4C
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:42:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789382507; cv=none; b=NV6qrjAIdPwXrGn+k7zIE/ouWwcUac9YjaNJ+6W/jKGjFsz9/pK5rkOIWYQfmxOlhCbdulLtfnTVb+pM1wECk9gCMdLQDQY2UdUmmRQPvi1XGlg5olw4C/+3/BBAfcBNxX2YnYd4k4at2+XmuMtAVGEnUvJ4r63ZJMMBcQ4/7IE=
+	t=1789382577; cv=none; b=twcwWL4J6eaOe8i/Q7o6eFqtuLnVlkiNNuYpvSl1WzscJIL3oopPNAVKTqkGzZ/w0J8Bpqk4cgvuzXsStFmgYFR71YDTp4uro1qMmJs6dl4H2BU1aato29Jt+oPFXDqfK7nEd0WJnJGQiXTpAnsBYuDCGCavnK0KD/s3ZlskgNo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789382507; c=relaxed/simple;
-	bh=94qu4rAdu9BDdMWqu386QnYL1IBJ4EFaF1ClssR1BME=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Lcy7XC/9WCd+ndsetc03m1EHUTiCzPGzeROBdJDRpmefPh84Ypb6zG64D/Jr5nvKUNP8nhNH8rDH2zM+qFmu6tGGFBW0SqgGe3A+ywTsHwYUV3C5mEAUstRV05mzTr3BQcvB/ObZaBJbBfNuX0d1EoOnOZFOvMq5eUoj/znbCNk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=BKnlUBUG; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1789382577; c=relaxed/simple;
+	bh=+BbvenQMNXTIOAVBoBW26VkcDlBYYGupfmkeRmBT70k=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Eoc/R/i1iIpmU41L7nO5YbLkEB4okyDX3t6JGaQ+kYgS1tIINiPj+hH73cVfbXN/CT1pM194D2pS1YppgpOsONOUFr+Lkj1LDv++lEgZtOG/VZTxTPcRrBvpGZC6DvMqkvQlc51UGVl9f+2i5ttmJVN9PZCllFHH6PRNpZe+QGM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K3sT7Gdo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="BKnlUBUG"
-Received: from [10.26.7.43] (unknown [4.213.232.17])
-	by linux.microsoft.com (Postfix) with ESMTPSA id CFD0E20B716A;
-	Mon, 14 Sep 2026 03:40:57 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com CFD0E20B716A
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1789382461;
-	bh=ywbtivO3C7A9YnZodIeAOtYclDeN4qmK+nporFagxcw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=BKnlUBUGB0PgLKRWoEyW/SfW9EnwOFv73PqSowkdaGoZSxVHi4I+ST4+/xc9y9Q4u
-	 Nh1yKz8hC/hsq65kNrbsO605LhHPiTO5zIgHuTUSk8/G96/Xv2vF4/gxj2jd6eOkJs
-	 JcC+8mPUyrQZQu1NTL1HqTNLFDk85O8XSpTvzjAk=
-Message-ID: <59a834d6-0041-4eee-8ac0-5f035d093d71@linux.microsoft.com>
-Date: Mon, 14 Sep 2026 16:11:38 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K3sT7Gdo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7B6C1F000FF;
+	Mon, 14 Sep 2026 10:42:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789382576;
+	bh=ciCy+irl3CVqSBupfnZoZAqhk9D/bI5E8bqRZzqlV70=;
+	h=From:To:Cc:Subject:Date;
+	b=K3sT7GdouZcF/iLX7zGY1V45rI3nO/AFFRtzWEtUa2GIgCq02MRpr657Gzi6LUzED
+	 Hb9aNNdp4oIqtp2Xdt+AUAZuJQxYWn7eVtCPl7ik0p5+YlKCIkcYdu5LiHmNyZntbK
+	 m5u+eaeRJo2qF4eR1dPpl71NDovpPxrVfkc4ttbEuYUNrEuYgnyY7M1a0qXRGVT++E
+	 3UAZKyqix/KGyaewuUen65Uk3h2FCJyzNJIX5x+9vxpqeVDEYEznR/sDg8RrZXxV+B
+	 /IiPxytjQJe1etNHP54TR6a5PlAIP74Si2AMhWOlmmMZ8hZbScizCnedMVvUQlr2Ff
+	 R+M94u5vhWr8g==
+From: Thorsten Blum <blum@kernel.org>
+To: Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Thorsten Blum <blum@kernel.org>
+Cc: linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] powerpc/boot: Simplify serial console control flow
+Date: Mon, 14 Sep 2026 12:41:36 +0200
+Message-ID: <20260914104136.74312-3-blum@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] PCI: hv: Warn when wait_for_response() waits
- indefinitely
-To: Wei Liu <wei.liu@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>
-Cc: Naman Jain <namjain@linux.microsoft.com>, kys@microsoft.com,
- haiyangz@microsoft.com, decui@microsoft.com, longli@microsoft.com,
- lpieralisi@kernel.org, kwilczynski@kernel.org, robh@kernel.org,
- bhelgaas@google.com, linux-hyperv@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, mhklinux@outlook.com
-References: <20260908113009.3005964-1-sahilchandna@linux.microsoft.com>
- <c8b6e10f-dd52-4c74-8d16-268563d8bc1f@linux.microsoft.com>
- <hen5k4ejonfffwdir7tfa2gnmxwfbbqabrjtwooo4o5pjf5gnz@x52vfm5phv3l>
- <20260913223952.GE2219269@liuwe-devbox-debian-v2.local>
-Content-Language: en-US
-From: Sahil Chandna <sahilchandna@linux.microsoft.com>
-In-Reply-To: <20260913223952.GE2219269@liuwe-devbox-debian-v2.local>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2032; i=blum@kernel.org; h=from:subject; bh=+BbvenQMNXTIOAVBoBW26VkcDlBYYGupfmkeRmBT70k=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFnLzycoupzoSOh705Z5S693+mvP40XRBqbzfrJt5HjR8 ipFZ8LPjlIWBjEuBlkxRZYHs37M8C2tqdxkErETZg4rE8gQBi5OAZjIbFaGP3wT76nole91PvuI I/rvAnuGlRV1vkWXHh5RsFWc7/KPyYvhr3S4wP37+7751ZeuOhUZc+PU8byr75vup0/KbEt2Xvb lKB8A
+X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
+Content-Transfer-Encoding: 8bit
 
-On 14-09-2026 04:09, Wei Liu wrote:
-> On Fri, Sep 11, 2026 at 12:29:05PM +0200, Manivannan Sadhasivam wrote:
->> On Wed, Sep 09, 2026 at 03:01:22PM +0530, Naman Jain wrote:
->>>
->>>
->>> On 9/8/2026 5:00 PM, Sahil Chandna wrote:
->>>> A guest can wait indefinitely in wait_for_response() for the host to
->>>> send either a rescind message or a packet completion. If the
->>>> host does not send either, the guest can remain blocked with no
->>>> diagnostic indicating a reason.
->>>> This was observed during a guest kernel upgrade in which the
->>>> host-side application handling the PCI channel faulted, causing the
->>>> guest to never receive the completion request.
->>>> Add a warning in wait_for_response() when the wait exceeds
->>>> a timeout so that such a hang is visible in the guest's kernel log
->>>> and can be correlated with host-side state.
->>>>
->>>> Suggested-by: Michael Kelley <mhklinux@outlook.com>
->>>> Signed-off-by: Sahil Chandna <sahilchandna@linux.microsoft.com>
->>>> ---
->>>> Changes since v2:
->>>> - Add counter based timeout instead of introducing another timer
->>>> Link to v2: https://lore.kernel.org/all/20260902115854.2629164-1-sahilchandna@linux.microsoft.com/
->>>>
->>>> Changes since v1:
->>>> - Removed periodic warning to one time warning in 2 minutes
->>>> - Include vmbus relid and stuck PCI msg.
->>>> Link to v1: https://lore.kernel.org/all/20260825051850.2438816-1-sahilchandna@linux.microsoft.com/
->>>>   drivers/pci/controller/pci-hyperv.c | 46 ++++++++++++++++++++++-------
->>>>   1 file changed, 36 insertions(+), 10 deletions(-)
->>>>
->>>> diff --git a/drivers/pci/controller/pci-hyperv.c b/drivers/pci/controller/pci-hyperv.c
->>>> index 89816a2bd7cd..bd07402c47ed 100644
->>>> --- a/drivers/pci/controller/pci-hyperv.c
->>>> +++ b/drivers/pci/controller/pci-hyperv.c
->>>> @@ -1040,19 +1040,38 @@ static void put_pcichild(struct hv_pci_dev *hpdev)
->>>>
->>>>   /*
->>>>    * There is no good way to get notified from vmbus_onoffer_rescind(),
->>>> - * so let's use polling here, since this is not a hot path.
->>>> + * so let's use polling here, since this is not a hot path. If
->>>> + * wait_for_response() has been polling for 2 minutes
->>>> + * without either a rescind or completion, add a warning.
->>>>    */
->>>> +#define PCI_RESPONSE_HANG_TICKS 1200
->>>> +
->>>
->>> Nit, I think this variable name could be misleading, as this represents a
->>> loop counter for a retry logic, but not exactly *ticks* from kernel
->>> terminology.
->>>
->>> I would have preferred something like: PCI_RESPONSE_WARN_POLL_COUNT.
-Ack, I have added in v4.
->>>
->>
->> PCI_RESPONSE_POLL_COUNT?
-> 
-Hi Mani, i am inclining towards PCI_RESPONSE_WARN_POLL_COUNT as
-intention of change is to emit a warning when counter has exceeded a set
-threshold.
+In serial_get_stdout_devp() and serial_console_init(), remove the goto
+statements and return NULL and rc directly.
 
-> Sahil, let me know if you will send out another version. If it is only
-> changing one macro name, I can do that.
-> 
-Hi Wei,
-I have sent out v4.
+In serial_console_init(), handle errors early to reduce indentation.
 
-Regards,
-Sahil
-> Wei
+Signed-off-by: Thorsten Blum <blum@kernel.org>
+---
+ arch/powerpc/boot/serial.c | 28 ++++++++++++----------------
+ 1 file changed, 12 insertions(+), 16 deletions(-)
 
+diff --git a/arch/powerpc/boot/serial.c b/arch/powerpc/boot/serial.c
+index 1d221ff420fd..f46943c21a22 100644
+--- a/arch/powerpc/boot/serial.c
++++ b/arch/powerpc/boot/serial.c
+@@ -87,19 +87,18 @@ static void *serial_get_stdout_devp(void)
+ 
+ 	devp = finddevice("/chosen");
+ 	if (devp == NULL)
+-		goto err_out;
++		return NULL;
+ 
+ 	if (getprop(devp, "linux,stdout-path", path, MAX_PATH_LEN) > 0 ||
+ 		getprop(devp, "stdout-path", path, MAX_PATH_LEN) > 0) {
+ 		devp = finddevice(path);
+ 		if (devp == NULL)
+-			goto err_out;
++			return NULL;
+ 
+ 		if ((getprop(devp, "device_type", devtype, sizeof(devtype)) > 0)
+ 				&& !strcmp(devtype, "serial"))
+ 			return devp;
+ 	}
+-err_out:
+ 	return NULL;
+ }
+ 
+@@ -113,7 +112,7 @@ int serial_console_init(void)
+ 
+ 	devp = serial_get_stdout_devp();
+ 	if (devp == NULL)
+-		goto err_out;
++		return rc;
+ 
+ 	if (dt_is_compatible(devp, "ns16550") ||
+ 	    dt_is_compatible(devp, "pnpPNP,501"))
+@@ -134,19 +133,16 @@ int serial_console_init(void)
+ 		rc = opal_console_init(devp, &serial_cd);
+ #endif
+ 
+-	/* Add other serial console driver calls here */
++	if (rc)
++		return rc;
+ 
+-	if (!rc) {
+-		console_ops.open = serial_open;
+-		console_ops.write = serial_write;
+-		console_ops.close = serial_close;
+-		console_ops.data = &serial_cd;
++	console_ops.open = serial_open;
++	console_ops.write = serial_write;
++	console_ops.close = serial_close;
++	console_ops.data = &serial_cd;
+ 
+-		if (serial_cd.getc)
+-			console_ops.edit_cmdline = serial_edit_cmdline;
++	if (serial_cd.getc)
++		console_ops.edit_cmdline = serial_edit_cmdline;
+ 
+-		return 0;
+-	}
+-err_out:
+-	return -1;
++	return 0;
+ }
