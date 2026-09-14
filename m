@@ -1,130 +1,109 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFA3D3A05C2;
-	Mon, 14 Sep 2026 18:43:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BE3631E84F;
+	Mon, 14 Sep 2026 18:45:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789411433; cv=none; b=ArCddPGEHsNdQtVUKAJjVdZGSjPV5sSPBVd/jjUGOfPy/B13k2dF8Cg+q1ul7sCJVrE/yoGyN4rilYez1SIm1aw71LPMM0jf2jd78CXStLaz0mf6qLFZeh08WjGjBY2tHSTgcUraHs9cdLecH+y3ffezAEhO3FYtGhrTLXuLPNE=
+	t=1789411557; cv=none; b=IGRuICR/xP8fxY6TEjRcsI3LHMtmdfhc3sPFFXbzQG/FcNkXNOmtn5VkcpvTXSWWLeXYkFCyHyppIlZ5hazMHjV5EyQ1iiB/Fqx+qRRRkFdJJ7qb8m3mK257K0jSkJ3zItIrc4lfBbgGbedYMbqBQ1b1eIpP/GygAV+NtEp0zPM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789411433; c=relaxed/simple;
-	bh=zy03KGEW1YeeekDBJmyUfQNa60AVoG7T/gD0XbgBOzw=;
+	s=arc-20240116; t=1789411557; c=relaxed/simple;
+	bh=8VOZP+zwt31TXApxnfnI14pRAd9/bFtucNYDFhoOKvY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Vqms+xFfN9PNsRmarWEbRJ3p2dW6/MzeorQGL8y3XsRrgpG3ebTjNxcp6ymd5wj2mdzPEWIppKM6MNSri0tnkC8W4KE1U9W48EYf8lh3uoOAk5JEbM1JkdAoxLpson+H8am7CD+m5/tvDErumyoVwnjKhMo9JMsxQfBzUAc6dmU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G0/xHYvA; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=JC0zRRMpIaioeBkuCi/RGLK2e0FRXPS/1SApk8LkyT2SwUCeQQt7CZdBNccRTOPUWCn2u5adlr5HJHlTYx8DiJd4S4g3/pDh/5e0euSr3rmbdQH7M4Cndl7VOUEiLu8ULSr2c6p8LLmWYf0dgE4L2y/UkheVm99CQ4vFSIhmylQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HqNwQCAv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G0/xHYvA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEDAA1F00893;
-	Mon, 14 Sep 2026 18:43:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HqNwQCAv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF77B1F000FF;
+	Mon, 14 Sep 2026 18:45:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789411430;
-	bh=bo6GJLiDf9mVwm6AXXi7iuVJHoavl3dsdCOXGh6V4XE=;
+	s=k20260515; t=1789411555;
+	bh=i9gXA1RkdX4vMZMFUGwaIE3uoUpXpiFuI92B74HJ7J0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=G0/xHYvAtQ4HOxtFGJbJlA22cMjDZl+N56G9hsoC0tQv8qT6/15zEdvADlDxeYuQh
-	 ae8Q6N4X+AKq3TVZGTbZs+4oj+vIEXo4zgpz9hevYG1TM/+/i/QF6MM11pZBxxyVq0
-	 vraPPnQ7ZUCWXbPqXPeQbWc8N1vmP5oiVA5uoJav1ICknNtIaaUdkQaW70pDvAs5vE
-	 974HTKmZo3bFjISiUMqs3buCdhMg059Qh11CETtTBafCHxBYrVccHqoUfj37NZD6rk
-	 zB9+I7SuAegOhvn9/uOVYU9JJ+Kw272HbWhBcTsqzySDRKTHj2bpbmSHp8inaUBp/U
-	 YZD68D5G/qndA==
-Date: Mon, 14 Sep 2026 11:43:50 -0700
-From: Kees Cook <kees@kernel.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nicolas Schier <nsc@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	Masahiro Yamada <masahiroy@kernel.org>,
-	Alexey Gladkov <legion@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
-	Josh Poimboeuf <jpoimboe@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev, linux-riscv@lists.infradead.org,
-	linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org,
-	linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
-	linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v2 00/21] kbuild: significantly speed up kernel builds
-Message-ID: <202609141139.AEF875252@keescook>
-References: <20260914-build-speedup-v2-0-39817ec5db23@kernel.org>
- <202609140833.88C0E16E50@keescook>
- <aqg5nvRy9nuvC78L@gremlin>
+	b=HqNwQCAvMKD+GtGTB1UVnO5oeUzfzRSCLeRIQ/NI/5YC/RG8r3BPF3gt7Th8nmezh
+	 52/bjdtG4ljm5K2ylaznkBZ7klnQGPV+ZMsV/hFoADQuNk8YHaCYp+yofBFuAvnJZe
+	 ElLgLdKytCXrZdC6yCKHeoDbIQEcWWTVds2fhZpJEDzuVQ1nK9Bp319qhycp1fdkeN
+	 bWn/RODdLH2egWxUnfOaxYwKI40pI80/tPR6AkuP+W07vm6M08Yrox09wCd4bZYP7I
+	 cwkWlicYtvLmI0ccrZstiC05EfQg4gETzi5+40U10PA4kJMGRZYxFhUBBcuRe7kVRF
+	 h7NCB+gOQnemg==
+Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
+	id 4D626FDBA8E; Mon, 14 Sep 2026 19:45:41 +0100 (BST)
+Date: Mon, 14 Sep 2026 19:45:41 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	Orson Zhai <orsonzhai@gmail.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Gary Yang <gary.yang@cixtech.com>,
+	Fugang Duan <fugang.duan@cixtech.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+	Chunyan Zhang <zhang.lyra@gmail.com>,
+	CIX Linux Kernel Upstream Group <cix-kernel-upstream@cixtech.com>,
+	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	sound-open-firmware@alsa-project.org
+Subject: Re: [PATCH v2 5/12] ASoC: cix-ipbloq: Use
+ devm_of_reserved_mem_device_init()
+Message-ID: <aqhA1bSbwBL3z5Ad@sirena.org.uk>
+References: <20260902194712.2003414-1-mukesh.ojha@oss.qualcomm.com>
+ <20260902194712.2003414-6-mukesh.ojha@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="v9z/FgVXq66TVnlQ"
+Content-Disposition: inline
+In-Reply-To: <20260902194712.2003414-6-mukesh.ojha@oss.qualcomm.com>
+X-Cookie: Orders subject to approval.
+
+
+--v9z/FgVXq66TVnlQ
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <aqg5nvRy9nuvC78L@gremlin>
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 14, 2026 at 07:25:28PM +0100, Lorenzo Stoakes (ARM) wrote:
-> On Mon, Sep 14, 2026 at 08:41:39AM -0700, Kees Cook wrote:
-> > Did you try Clang CONFIG_LTO=y builds?
-> 
-> I tried a CONFIG_LTO_CLANG_THIN in order to check that the *.mod.S stuff
-> worked correctly, all working correctly.
+On Thu, Sep 03, 2026 at 01:17:05AM +0530, Mukesh Ojha wrote:
+> Use the devres-managed devm_of_reserved_mem_device_init() to ensure
+> the reserved memory region is released on device removal, fixing a
+> missing cleanup in the original code.
+>=20
+> Acked-by: Mark Brown <broonie@kernel.org>
+> Reviewed-by: Gary Yang <gary.yang@cixtech.com>
+> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+> ---
+>  sound/hda/controllers/cix-ipbloq.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 
-Okay, thanks! I did the same just now too. It seems to be just fine.
+Please submit patches using subject lines reflecting the style for the
+subsystem, this makes it easier for people to identify relevant patches.
+Look at what existing commits in the area you're changing are doing and
+make sure your subject lines visually resemble what they're doing.
 
-> I can try to get some profiling numbers for thin and full if you want?
+--v9z/FgVXq66TVnlQ
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Mostly I wanted to know if it worked still, and I guess for profiling,
-I'd want to make sure it didn't regress how long it took to build. :)
+-----BEGIN PGP SIGNATURE-----
 
-> Well I rewrote the majority of them, so this is a stinging critique of my
-> commit message writing I guess :)
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqoQNQACgkQJNaLcl1U
+h9Cx3gf/aYLthuCMsMEQmoOqZmVaK7lkMZtutXAHSpVqlCF21WT8OUo8CHJUBOZO
+CqqF3j8USYxrpXTArB7zXq7WjIcSTQLU8LUANUpbY6zzjnwSJqg7no6Q/C2LdLAw
+6dCUZtYHRI5VmtEScEHPn+M3k+ny5NTAqKy9uwlQ+uthFreN5pEpmoFQiUmSQgik
+M4mnRZQQA7yQpfBDt2pp69KONsBH91wD3R0wcj7oHOOV8ma+CYtWty1uEOGtStBC
+5Vd9j6aOTBGU/3G/VzC8nl61V3K+bZX3AJZVBpGof1eV/sAxYW/MsT7wy0RZkAwM
+Lnu7P4u43Mi56mCA9ewYHpNXBgl0zA==
+=q00i
+-----END PGP SIGNATURE-----
 
-Oops! Sorry. I'll go through them again, but I felt like the objtool
-commit logs were very long, but perhaps it is justified. ;)
-
-> (N.B. I have had feedback like that on a fair few human-written commit
-> messages of mine lately so there might be some validity to that ;)
-
-And as I said, I get told I'm often too terse, so perhaps my sensing
-here is broken. :P
-
-> > One area I think might solved via an LLM is the 3-pass kallsyms stuff.
-> > If we could get a deterministic kallsyms build in 1 pass, that would be
-> > very nice. A lot of people have tried, but it has eluded upstreaming.
-> 
-> "going from three passes to one would save around 8s on an allmodconfig
-> build and 2 to 3s on defconfig, out of tails that are currently roughly 25s
-> and 8s." says the LLM :) so that actually does seem worthwhile.
-
-It's what I'm always staring at when I do incrementals. ;)
-
-> But I think best as a follow up?
-
-Yeah, I would imagine it'd be separate. (I think a few of these sets of
-changes could be landed separately too, like the pigz work.)
-
--- 
-Kees Cook
+--v9z/FgVXq66TVnlQ--
