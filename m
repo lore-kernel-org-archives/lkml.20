@@ -1,134 +1,93 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D305B466B77;
-	Mon, 14 Sep 2026 17:05:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C6F3480DEB
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 17:05:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789405511; cv=none; b=jWsONQx1dbTHgWkVZX7Aro4Svz46Q3hXQ5jrZb0CdHZPBqSahyQwu/W1xiWL5yd5QQ911DeNt8DZ9MpESkktBiswg72RqxDgim0VUK+lPGCKYTmy+nv9RmuKoKGyhpDrKBtFKLXXNtqJv2hUY8LKbwCxD7nJY2scEwi7JorZgDE=
+	t=1789405531; cv=none; b=r+Jiy+yk1xqX2ixqUpLLptNHQV3g+JBE35rb+rIDVLZeQAKl3OdGUh9Iy7DMh5eICUWnjFPWO8YV6u4n3sSeIRhrpbafuO9Qv73iRUhykfBG2blkVjhBSFeIgDumbYBKwbQHzP45Yw8iahr4dId1LD2IOfnuSLIslt31G4zafeo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789405511; c=relaxed/simple;
-	bh=tN3269X1oMZsiMxNTQZ2LHaEBILneMhGKqoKilFZtUw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pbd78AOsw+LtbxWhvT0dB7CUSQUMtUlC8s/IC4za+vMzRhlFI3CvzdgtdIiLSkVvwnYNTLvfD5WluXVFQfXGvUJrQ05SGujsBt/5rHVRYF8Tww5TNQ0lsIQStA+Zxvou0OwBL4NYsFyQB1ajAoDHLh/lCPxAL3kxZlQUu29iMkk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=MSVJ8MMs; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1789405531; c=relaxed/simple;
+	bh=jpmgZnur0kKgHy97IWplCoKDjj+PJquH9XtoV405wpc=;
+	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Date; b=nyqNfbxoEyOBpxftwYK0BecjYx4c7vBxFSTwHrNJmpT6Yzx3y0rLfcsRzP0W4F8G5cyqHn/5O8/c1O1HcpqD8Q/QHYF9IlPJFWBp7RR5z1nzVdPpPDpbc47D7lK4Gai5GkuJet1lXTE223ZanBr4ti7X0lcmL5dYg6yynB64FYM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=UPD4vVQO; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="MSVJ8MMs"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=NtyvM1gWRTv42DPmMW9AW6Ak4ICur0T18sy/bJuUgu4=; b=MSVJ8MMsRWGZlRPmOgXKVQ00ZE
-	byr0aRaYAP9lSaIJ0V1zTuhd91b6Nc0tze4IowSPJTLYGKLD2HdXuFgROLEO88B67QRF+rPmgUVd9
-	kapHRDuyG0DOzIcsGUwO8QR735TSMtesIl80D0A16t61HLmV2SD5Iv/3mcISSVJiR71I=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x6A77-0057IK-NT; Mon, 14 Sep 2026 19:05:05 +0200
-Date: Mon, 14 Sep 2026 19:05:05 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: "A. Sverdlin" <alexander.sverdlin@siemens.com>
-Cc: linux-leds@vger.kernel.org, Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	"Mike Marciniszyn (Meta)" <mike.marciniszyn@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>, Kees Cook <kees@kernel.org>,
-	Marek =?iso-8859-1?Q?Beh=FAn?= <kabel@kernel.org>,
-	Christian Marangi <ansuelsmth@gmail.com>,
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="UPD4vVQO"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:From:To:Subject:Date; bh=jpmgZnur0kKgHy9
+	7IWplCoKDjj+PJquH9XtoV405wpc=; b=UPD4vVQOgdeS1EfF5a5DjDrui6zG7q3
+	DVGVr3NwrZfZlh09jSFyPtdB3XADz/uYCLo1L2GO+sAp2x/Cnj9G0pRQ81U3r+X6
+	cxGmiN1qD6Lh8CZaPTlPkdtq8cUr93efYjkl0YxdlQLX0vDcxo6/gjOzBMOrQKV9
+	FkKxJsuOqllQ=
+Received: from localhost (unknown [])
+	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wAn_6AWKahq0RPOAg--.15017S2;
+	Tue, 15 Sep 2026 01:04:22 +0800 (CST)
+Message-ID: <f2f8ba0f978a894a949bf7b993594d4e.sh_def@163.com>
+From: Hui Su <sh_def@163.com>
+To: "zhidao su (Xiaomi)" <soolaugust@gmail.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	John Stultz <jstultz@google.com>
+Cc: Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/3] leds: trigger: netdev: fix sysfs_update_group() vs
- led_trigger_set() races
-Message-ID: <c0845cd6-8027-4813-b086-3890839ad595@lunn.ch>
-References: <20260914132356.807004-1-alexander.sverdlin@siemens.com>
- <20260914132356.807004-3-alexander.sverdlin@siemens.com>
+Subject: Re: [PATCH v5] sched/proxy_exec: Detect cycles in proxy walks
+In-Reply-To: <20260722120346.93000-1-soolaugust@gmail.com>
+References: <51450a8f-f053-45b3-a2fc-2bd0b75181b6@amd.com>
+	<20260722120346.93000-1-soolaugust@gmail.com>
+Date: Tue, 15 Sep 2026 02:10:00 +0900
+X-CM-TRANSID:_____wAn_6AWKahq0RPOAg--.15017S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7AF4rur4rWrWxWw1fKrWktFb_yoW8CFWrpa
+	9xGFW2yw4DJa4IvanrWr4UJa4Uuws5G3yUAryrtw10gws8tF1IkFZayw4Yga48Crs5XFyU
+	Zws09FyrZF4qyaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UeyIUUUUUU=
+X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbCwRgVdGqoKRiNRgAA3A
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260914132356.807004-3-alexander.sverdlin@siemens.com>
 
-On Mon, Sep 14, 2026 at 03:23:51PM +0200, A. Sverdlin wrote:
-> From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
-> 
-> The netdev LED trigger calls sysfs_update_group() to refresh link_speed
-> attribute visibility on NETDEV_CHANGE events and device_name writes.  The
-> link_speed attribute group was listed in netdev_led_trigger.groups, so it
-> was also created and destroyed by the LED core via device_add_groups() /
-> device_remove_groups() in led_trigger_set(), which runs under
-> trigger_lock(W).  These two owners of the same group share no lock and are
-> not serialized against each other.
-> 
-> This was observed as a "cannot create duplicate filename" sysfs splat
-> during boot when the netdev trigger is re-armed while PHY link-up events
-> are being delivered concurrently:
-> 
->   sysfs: cannot create duplicate filename '...green:lan/link_10'
->   ...
->   led_trigger_set
->   led_trigger_write
-> 
-> Race 1: activate() vs NETDEV_CHANGE (confirmed with reproducer)
-> 
->     CPU 0 (led_trigger_set)              CPU 1 (linkwatch workqueue)
->     -----------------------              ---------------------------
->     [holds trigger_lock(W)]
->     activate():
->       register_netdevice_notifier()
->       <- returns
->                                          netdev_trig_notify(NETDEV_CHANGE):
->                                            sysfs_update_group()
->                                              creates "link_10"
->     device_add_groups()
->       creates "link_10" <- EEXIST!
-> 
-> Race 2: device_remove_groups() vs NETDEV_CHANGE
-> 
->     CPU 0 (led_trigger_set)              CPU 1 (linkwatch workqueue)
->     -----------------------              ---------------------------
->     [holds trigger_lock(W)]
->     device_remove_groups()
->       removes "link_10"
->                                          netdev_trig_notify(NETDEV_CHANGE):
->                                            sysfs_update_group()
->                                              creates "link_10" <- ORPHANED
->     deactivate()
->       kfree(trigger_data) <- UAF via orphaned sysfs files
-> 
-> Serializing the trigger's sysfs_update_group() against the core under
-> trigger_lock is not viable: NETDEV_CHANGE is delivered from linkwatch with
-> rtnl_mutex held, whereas led_trigger_set() holds trigger_lock(W) and then
-> takes rtnl_mutex via activate() -> set_device_name().  Acquiring
-> trigger_lock from the NETDEV_CHANGE handler would invert that order and
-> deadlock.
-> 
-> Fix it by construction instead: drop the link_speed group from
-> netdev_led_trigger.groups and let the trigger own its lifecycle.  Create
-> it with sysfs_create_group() in activate() (before registering the
-> notifier) and remove it with sysfs_remove_group() in deactivate() (after
-> unregistering the notifier).  The LED core therefore never touches this
-> group, so sysfs_update_group() can no longer collide with
-> device_add_groups() / device_remove_groups() -- eliminating both races
-> above without taking trigger_lock, and hence without the rtnl_mutex
-> inversion.
-> 
-> The only remaining concurrency -- device_name_store() and
-> netdev_trig_notify() both calling sysfs_update_group() on the now
-> trigger-owned group -- stays serialized by trigger_data->lock.  Creating
-> the group before notifier registration and removing it after notifier
-> unregistration guarantees that no sysfs_update_group() can run while the
-> group is being created or destroyed.
-> 
-> Fixes: 06cdca014eca ("leds: trigger: netdev: Display only supported link speed attribute")
-> Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+> Use the rq pick sequence as a per-walk marker. Mark each task visited by
+> the current walk. If the walk sees the same marker again, break the cycle
+> by clearing blocked_on at the detection point and deactivating that task.
+>
+> The marker is only consumed while holding rq->lock. Clear it when a task is
+> activated, so stale state from an earlier pick or another rq is not carried
+> into the next queued lifetime.
 
-Please reduce the verbosity of the comments in the code.
+I have been experimenting with a different trade-off for the same cycle
+detection problem. I sent it as a separate RFC so it can be reviewed
+independently from the sequence-marker approach:
 
-I know locking is hard, but we don't need a verbose commit message and
-verbose code.
+https://lore.kernel.org/lkml/20260914165455.2126134-1-sh_def@163.com/
 
-	Andrew
+The Online Brent version keeps the cycle-detection state local to the real
+owner walk. It does not add state to task_struct or struct rq, and it does
+not require activation-time marker reset. The cycle detector reuses the
+owner resolution performed by the real walk instead of adding a separate
+preflight traversal.
+
+The trade-off is that Brent may detect a cycle only after the walk has
+temporarily closed the blocked_donor cycle. In the tested natural recovery
+path, the selected cycle member reached mutex_unlock() with blocked_donor
+already cleared. A validation-only forced-stale test also confirmed that
+the existing blocked_on revalidation rejects a stale handoff. I do not
+claim that these tests cover every possible scheduling interleaving.
+
+The RFC includes a comparison against this v5 implementation on the same
+base, configuration, KVM setup, and staged testcase. The normal acyclic
+find_proxy_task() timings were comparable in the tested depths; the main
+design question is whether avoiding persistent task/rq visitation state and
+its activation lifecycle is worth accepting the transient backlink window.
+
+Thanks for the v5 implementation and the detailed discussion.
+
