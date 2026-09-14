@@ -1,99 +1,120 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A361371D05
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:19:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 689053B0AE7;
+	Mon, 14 Sep 2026 08:19:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789373959; cv=none; b=PpjGoZghTW4jcxqtiRFrnL2UmuoDNsGZtc1Y/UKKk0DV4qGOG4aJS9s6HX5WkaQwawtNsmB7Vsw5VHtX2/BUolop2OiBcgUFt05YXSdpzVbNu2LLVGYnFssILFb7ERfK9oNcdFqTcuyzkDjsvF2B8IIxf94ZUfxW85XEXQ0DPgA=
+	t=1789373976; cv=none; b=dka2qd+33V6RTQzZ3SiGeakTYiNZ3WBs68TPdEn8DDPg+RSPkJ9cTKKSSt3cMyvhGQq6OpwzeFe5UAd3bjuWjvcmZPiu6q09dNRNCdxX4q7IiuzmnWnvmRNDPo7G73LDPMti5J3t1pHdywFskD14wUoV+j0RPBfVeka0KyeOiS4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789373959; c=relaxed/simple;
-	bh=hCAZBJhhRP2u77lOKxQO5T4yhqsaUjMYlivSY9/HGgE=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bSsB36sn9ZhDzMkvSgjyFrzpq80dAvkq0yynXxzrHUn5in+klKJmFBhZzyuWEqGz56CMhKWwDvPiwNoGPsMMNInSg0KreCQX9E4O5qzzt+bh2NFnAkts/FmLy4OZOVZJyadM0FCER14danuk1l6ria5J5G86EK8QZ5Z2KCL8ryc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FMIrVYTq; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789373976; c=relaxed/simple;
+	bh=m0ynvs3ASpXg1FC+68FV0PXhWfrNCCs02XWVdpFI/DQ=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=LCbHDmn5Mokbs0SvnuYbCd5tCkWPMx5Gq5SFin9P1x4I4fZqJqbqPpQ7D8OtqVXzYYSyPqazEpf1BSyvIzK/8t3939CIkE/Mpert9ltS9cJsZJqwVNBE10kZsKqZDSw17LRNdDQosoaGVzyJnVeOD7iywzl9ZnQ0XsiJ70P00xk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=qn7Y86S7; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FMIrVYTq"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cea4ae2cso1786993a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 01:19:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789373957; x=1789978757; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hLvHDynvrNxOy0DrTZpZJULh7McezOs0yqokhrkRfvE=;
-        b=FMIrVYTqYyz3hw4XyA/9JYPeEWYX5i9RFH3WCQhE+QJNpjm4gUDCq9aqtbtq46mTEl
-         cl11K4l4DLmyVbZlHcSgYbHvkn8wqRk4UtdL1Eo5sJQdKPS+dd2876YHFfw2MKXhmeBB
-         3ksM/i8JLmViS2B8jD7ZLJk8fAXXTP7BkRFww3koIqbPnkfa7HxiK8mumgpbpQqUEKAD
-         yxODbQpfIi5MPFgA73vpIkFd8tgZdTqFoTuoghJ14NbTFCE5QpsYkNUWT8PlxY1mm2Sk
-         Y3Y99onfzipP/yfQ//sUcZjMD7uZmqUrSVBQwwOmcPOJxtQqrLK3vLEM4JcSVxxsrQ/Y
-         85uw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789373957; x=1789978757;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hLvHDynvrNxOy0DrTZpZJULh7McezOs0yqokhrkRfvE=;
-        b=et6gEpUtzyH78jBeGn21F88pr8dUcKRusLIYsIfC+/ki3VbMRgkCumXrDwZt3bS9RZ
-         olkeEi5SCf1BtQomaBqvGG3vBM9NmARHHlaNEXGemLyYp68qYDX90JsWK6xv5oWyXXx0
-         Tx6aC5sQyX2h4QByuV8v8VJ/wQj2am+b9RGT5fHSHaC9bsp638vVlRyqExxTuZLa3+A4
-         nGeek6VTzDWbqT1/j8ubWk8SKnsanykA9c1daVzV8K1FzG1SxbpTujD8tR6Gg+Cbrp+J
-         1DrmNCncsOISutuuveuZXWkjzZj03NL8BPnBokP+5KXDKulfvt3S+hNoXYMjs4e1r2qE
-         0Iqw==
-X-Forwarded-Encrypted: i=1; AKwUvBxohwAX7VUIG0GGcLqHoUkCIymLShVLTiZKgTbVFFoQm4b4pXezuMc6gfzWo0rPaZQDX1/0D1S1cU1vp+s=@vger.kernel.org
-X-Gm-Message-State: AFuF++lTm7xAkXXN1BGzbNQneQNTJQq83PmOzm6l4bi4if1sYNWZUH2e
-	JFv2U1vveqFtNUqZ34jARhWk0R2hSsoLAWVBnT4PoeZK3LAWzdBHaExj
-X-Gm-Gg: AYBFou1w89BvVyFjFz5qXckojJEkS8FtZlBMwcIiO3z9yG5LnpQRJVVAHwhiujj5VcK
-	kLNrl9+JQhymwKMB58f4RpaGCE9HLljfsXak6uL/CkSovF7oEf7ErVn28CSydLx5ZCcw6KNAcIk
-	HF5FoJSaKYoyOKqByterQ1Mj/mn6YPcqMpjeN2KO64KwNqBj3YweZr/uNv8x897dzzkgMReG4eM
-	jKcbWjkviPsgTSeDVrR6T3/RLR3OwRDKRf+ijucsqMYXWjh3XVsud+ml/BNiIkHDbR/adkSfrUD
-	bKSOymIDY1zpPaOEZ1DZk3HD4ztrpS5jz2ceL276bKNxfp1Mxfg3H2Acs3wG6a+R/1Z7v2LsPBK
-	dB91W0copQRCyQ3WoCvqZR+Fs/qVWEKlEePznZXy/IQIg75r9SZITx5cuqgLd3x0IndwNGZZWLt
-	X4zZbWxNVkQ9kNu4jhRJ1t9CfNGZ0wuPKwfiRoIrBqYp8cToS4BGCGrUThAa8c556IcxK8+G7b4
-	PeyPIqleIY0vKR0phYYGzOQMcTDpQnnAp2A2lLRqiCoX4vzv/Y/7ZNJxfASJG8eZpjedNxsbCgo
-X-Received: by 2002:a17:90a:1c8f:b0:39d:ec24:5ffe with SMTP id 98e67ed59e1d1-39dec2460a2mr2310184a91.9.1789373957212;
-        Mon, 14 Sep 2026 01:19:17 -0700 (PDT)
-Received: from nxpwireless-Inspiron-14-Plus-7440 (61-228-235-216.dynamic-ip.hinet.net. [61.228.235.216])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d95092c06sm19955341a91.4.2026.09.14.01.19.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 01:19:16 -0700 (PDT)
-From: Jeff Chen <chunfan.chen@gmail.com>
-X-Google-Original-From: Jeff Chen <jeff.chen_1@nxp.com>
-Date: Mon, 14 Sep 2026 16:19:10 +0800
-To: Aamir Ahmed <elb12345@hotmail.co.uk>
-Cc: Johannes Berg <johannes@sipsolutions.net>, chunfan.chen@gmail.com,
-	Francesco Dolcini <francesco@dolcini.it>,
-	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH wireless-next v2] wifi: nxpwifi: validate variable IE
- lengths in beacon parser
-Message-ID: <aqet/hLbBlBpj3Xa@nxpwireless-Inspiron-14-Plus-7440>
-References: <AS8P251MB00010E2945A1BE91EB5415F7C8BD2@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="qn7Y86S7"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2155F1570;
+	Mon, 14 Sep 2026 01:19:30 -0700 (PDT)
+Received: from [10.0.128.139] (unknown [10.0.128.139])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 347C73F7B4;
+	Mon, 14 Sep 2026 01:19:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789373973; bh=m0ynvs3ASpXg1FC+68FV0PXhWfrNCCs02XWVdpFI/DQ=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
+	b=qn7Y86S79uT/YwzISi20g2289oLffqODkAmnxFgB2/f7TGFSQH0pkD3Flpjb9goCV
+	 JVxc5wzSGZPvwfsvk8giDVPvJZb6nSQiZf9vHgvAswACRxWTw5hI/Q8OEqEP2oUPT0
+	 WdpXR2joVP3TKazZtFh5ODPYF2WekqdLue2DS+xI=
+Message-ID: <1fca136f-5802-449a-81f1-3a76c31a2f74@arm.com>
+Date: Mon, 14 Sep 2026 09:19:29 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <AS8P251MB00010E2945A1BE91EB5415F7C8BD2@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v18 4/7] firmware: arm_rmm: Add support for SRO
+Content-Language: en-GB
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+To: Gavin Shan <gshan@redhat.com>, kvm@vger.kernel.org, kvmarm@lists.linux.dev
+Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
+ joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+ linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+ sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+ WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
+References: <20260912083611.2513845-1-suzuki.poulose@arm.com>
+ <20260912083611.2513845-5-suzuki.poulose@arm.com>
+ <f00d01d1-8df0-4865-8e52-c85171cf4ca5@redhat.com>
+ <4f18aa66-2296-4b63-87f5-6ab493faecbc@arm.com>
+In-Reply-To: <4f18aa66-2296-4b63-87f5-6ab493faecbc@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Sat, Sep 12, 2026 at 05:20:31 PM +0100, Aamir Ahmed wrote:
->  		case WLAN_EID_OPMODE_NOTIF:
-> +			if (total_ie_len < sizeof(*bss_entry->oper_mode))
-> +				return -EINVAL;
->  			bss_entry->oper_mode = (void *)current_ptr;
->  			bss_entry->oper_mode_offset =
->  				(u16)(current_ptr - bss_entry->beacon_buf);
+On 14/09/2026 07:22, Suzuki K Poulose wrote:
+> Hi Gavin
+> 
+> Thank you for the review, I will address most of them. Responses inline.
+> 
+> On 14/09/2026 06:04, Gavin Shan wrote:
+>> On 9/12/26 6:36 PM, Suzuki K Poulose wrote:
+>>> RMM v2.0 introduces the concept of "Stateful RMI Operations" (SRO). This
+>>> means that an SMC can return with an operation still in progress. The
+>>> host is expected to continue the operation until it reaches a conclusion
+>>> (either success or failure). During this process the RMM can request
+>>> additional memory ('donate') or hand memory back to the host
+>>> ('reclaim'). The host can request an in progress operation is cancelled,
+>>> but still continue the operation until it has completed (otherwise the
+>>> incomplete operation may cause future RMM operations to fail).
+>>>
+>>> The SRO is tracked using a struct rmi_sro_state object which keeps track
+>>> of any memory which has been allocated but not yet consumed by the RMM
+>>> or reclaimed from the RMM. This allows the memory to be reused in a
+>>> future request within the same operation. It will also permit an
+>>> operation to be done in a context where memory allocation may be
+>>> difficult (e.g. atomic context) with the option to abort the operation
+>>> and retry the memory allocation outside of the atomic context. The
+>>> memory stored in the struct rmi_sro_state object can then be reused on
+>>> the subsequent attempt.
+>>>
+>>> Wrappers for SRO RMI commands are also provided here because they depend
+>>> on the rmi_sro_execute() implementation added by this patch.
+>>> Delegate/undelegate handles are also added here because they now use the
+>>> SRO/stateful command infrastructure and are also used for the memory
+>>> DONATE/RECLAIM flows.
+>>>
+>>> Signed-off-by: Steven Price <steven.price@arm.com>
+>>> Co-Developed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+>>> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+> 
+> 
+> 
+>>> ---
+>>>   drivers/firmware/arm_rmm/rmi.c | 586 +++++++++++++++++++++++++++++++++
+>>>   include/linux/arm-rmi-cmds.h   |  41 +++
+>>>   2 files changed, 627 insertions(+)
+>>>
+>>> diff --git a/drivers/firmware/arm_rmm/rmi.c b/drivers/firmware/ 
+>>> arm_rmm/rmi.c
+>>> index 5b0e342ce3d58..4f9898ece7547 100644
+>>> --- a/drivers/firmware/arm_rmm/rmi.c
+>>> +++ b/drivers/firmware/arm_rmm/rmi.c
+> 
+>>
+>> I would drop rmi_granule_range_{delegate, undelegate}() by combining 
+>> their logics to
+>> their only callers rmi_{delegate, undelegate}_range(). More details 
+>> are provided for
+>> rmi_{delegate, undelegate}_range() in the below.
+> 
+> Ack
 
-Any reason to use total_ie_len here instead of element_len?
-Since we only access oper_mode->oper_mode later, would
-	element_len < sizeof(bss_entry->oper_mode->oper_mode)
-also work here?
+I have moved them closer, but kept the logic separate, since this is not
+a simple RMI call.
 
-The current check looks fine to me.
+Cheers
+Suzuki
 
-Reviewed-by: Jeff Chen <jeff.chen_1@nxp.com>
