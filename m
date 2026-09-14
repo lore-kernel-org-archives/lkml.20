@@ -1,152 +1,174 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA2C619D074
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 00:18:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C339213C9C4
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 00:20:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789345087; cv=none; b=dMzSmuJ3nR04EmgUdNDorusZCDEFApI5nGGFVFqOu65//8Tfvif6Evs4b5FHycfgn3983wmNwFDldMPj+rdaE56SmFLplDUPi8QGQ0llr3SuRwexz8FCuYN7KU+tzle9Lb+tCVR/U0oX69HTdFboYfUlrZzdDG0/E7XvUn4WI08=
+	t=1789345246; cv=none; b=Hv7hoWEEnGDnVkH0if/ObpLhla9yOuJiytWnXbJ+bkSCfHbVZok9/IBWmyNv8aY9iBTfvrMY7wyIPzK9TCSwbOtIS9YA2izk4IdiA9VuPyrotlGnot9n69xjuRSjQ6mFpHMuhp+Ix+1aR4A9J+zIIHvfuwkuJksBofmbBDhDhBw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789345087; c=relaxed/simple;
-	bh=vCNmjz3mHu7OjzMHN2/PFAnKbHOceq3ckw4wxm26X5s=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TUynwcGpk3VR1a6ehAWaG3cNTCU6hkOyePlJuSxRMsZocCdDWEjsIQuN4HdH+6wojFpzmYcLrGZJxYx24zQd753BpFLezn2eJGqe240gFt9fPkxfOH3/Lc9tuNoBsk+RSK5xx5xqhG2vIPrOLF3FUag3OnXfGeZufOY/KxvtFm4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Obb0c6NY; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789345246; c=relaxed/simple;
+	bh=3aTF+AWXZ+myUFI7Wq6W+X6+VCBL+ZBF0FBjLK6jDM0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oNRoQc3gUTzFc/JaxCBayM1wpUct6fsx6HQtBqnjEuLkB3s77fGhU/RXwu4SIhEctjF3NDAyeQlzAs0av6EBie9KcPHsjJRtUfFIVWlsi7h8QcuRlBdbV/vZLbnLODln/pNMOxIqYxMoAzwq/2/3xH619pSiwEl9LwDUm/DxLHM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G6FJn5wS; arc=none smtp.client-ip=209.85.128.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Obb0c6NY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789345085; x=1820881085;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=vCNmjz3mHu7OjzMHN2/PFAnKbHOceq3ckw4wxm26X5s=;
-  b=Obb0c6NY/hQ5SyzWjV38Nt9MUyaBNNYrVDMLZyveGazUKzyAuKNIVniw
-   URsjigu2ku0SQuWuS+hqOBMUnbrmnC/8JaEt2LoOijOW1DobSI8KlisiD
-   MsKodLXzhyjCChuZmas2nXR2YWA9IuJy6fOzt6hzFQabzyZ7CnDlzQ/sv
-   fNLyaELyuIZoK29MnWxWDKdgpM73WjxcFQ8Jom8+tf6df0tuYB9dNjLj3
-   npK8z1DJNeIdqzENa4yM8Ips77xh3Oucp31PPqKeO35vQwA2Xdo9G7Srg
-   4iHEdcH/UEeaRDjdgYrwUkzZtbSCDu41OqgInSIOw6dr2BcVIiGesrzj1
-   Q==;
-X-CSE-ConnectionGUID: Uw3hIa02S2Sls3ramnatSQ==
-X-CSE-MsgGUID: xPQ6+yaqQy+z90KPodVnkQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="88844582"
-X-IronPort-AV: E=Sophos;i="6.27,100,1787036400"; 
-   d="scan'208";a="88844582"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Sep 2026 17:18:04 -0700
-X-CSE-ConnectionGUID: 5UJSmWAmTEOJT9pugfY77Q==
-X-CSE-MsgGUID: xFzrN+YuQBmeFMqV8SZMUQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,100,1787036400"; 
-   d="scan'208";a="269209145"
-Received: from dwoodwor-mobl2.amr.corp.intel.com (HELO [10.125.108.110]) ([10.125.108.110])
-  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Sep 2026 17:18:04 -0700
-Message-ID: <2a15ec49-7b83-4881-a9ec-a1193602eb4f@intel.com>
-Date: Sun, 13 Sep 2026 17:18:03 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G6FJn5wS"
+Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-8706dfdcd4fso24598507b3.3
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 17:20:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789345244; x=1789950044; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8tBYt5yyCc29GaDe3JLWH4eveOS5QO7Xbs0vt0s6lq0=;
+        b=G6FJn5wSKvpa/TN9ivlNxhv17eNOCaAU2T5Sb9DfMag8QRmcw8eTtwmbfa6Lry5YHE
+         Cr2I3TA0Off5ubTfv7R4YCLMWhDq0yaEQX7vR6BKsDcEccw2cbJXXdDrs4XxiXudu9ea
+         KabNU+O1JYSUXbPRlVgRCd2LHVFwpbyjGQW2lzPR3XpSyfRfncJkHAW/byDrsoA3QSy4
+         pzQyrMHeOs+kv76MrY7tFHjVj3HvZHGtZxhDkHBNafYSyqvthW8SXZVX62Ok9MB+n/xw
+         oqv5TdJyM7UFsP7DYFqF0KXP7BPgm0U9ABMunLMiUdVTirWNO2acoNw0RJF1nDeL0EXp
+         MuQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789345244; x=1789950044;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8tBYt5yyCc29GaDe3JLWH4eveOS5QO7Xbs0vt0s6lq0=;
+        b=nTq4uqidqlMlMgRZKA0O2uR7sNtSPldIJ1RXI4k7ygaKgCogigpxobFEi4Nn0+6EhP
+         chE+jXjgpIqizjrZFPaJ4fmhrqjku0ePn2CBiw+WZ/D2AMHSXNpVx9TO/jDa96yME9TT
+         YWcqW5kP2CwSh+pdVnx90m12zOytAqD3myDtXjS8+DN9FmDK10TK1K4DWTsVNDFwAclc
+         HtjGfstJbqlyksGHJMG3l85aFcwKbjTaUMM5XII8SfRV64XLDnmzSFUyEAQny/ItUU7f
+         7jRL148GCeZ1cS3ki+gY3N6XZ46hMqbI6CUukh21HSeOQnbVOJ94R7vqW/uxLWJZZ4sd
+         EJ5Q==
+X-Forwarded-Encrypted: i=1; AKwUvByPiScGhAnZHIFXJ5Fjie6rWfM9U4Ge7cbKIFeYgcvUIRvhMz3I8YGDnurXsI6KHRTPESjj5VCy6n6EQYc=@vger.kernel.org
+X-Gm-Message-State: AFuF++kwrATQDabXrwApxNVqGfD9lc0/MfbvctES0g6bR3y7hvd6Qopq
+	m/r1IeADfLtTsxlGNvA8xPV3nCMpBs/CFE4AgjfANkN6w6LNQI+JHLOt
+X-Gm-Gg: AYBFou2i2M0Y5KxgiSYAa/+w0vmMyXvHK2A4nzqDKuQujKkCaYfcRI/Y0NRSBjaSMRL
+	0NkqgmvSs52HNVu+suzB+1dg8Jm9ne/+D8cBitiHfy440eXXcXk8FBwhIG0vss70cp1PmMMvmrn
+	zXyPSmvcPCGuXAQLc7fSk5EsSZXbpIY+/j6dNpb/VSbIhyHwbZOqTYnaPfHjB0Q24hcYGXGNKOh
+	NsQK1hpV6G9MDv376I0maA8C3Yurphnl7zeIdouqQwS4TF7a8UHPjrMM3+WUQh0qqSB/sTBkRA6
+	WD1Kgp8wZ9W269kTWH//h2VZU+coiCzPJTqUiKiYF2KvrC20uLAlK8SM5zXZ8fiaySppews2KeE
+	WLUvrFKJqpTCos4J/vl93K8Dn4wzY41UuzjMcL5VipuiAKpaaX3DEBFhKYDzATa8IlTx7sAq34p
+	VdR2bp43pEl/vdI3lYAHDvUfuAAp03OX/MzgzZEjcRaQg6Wg3gj1o5GCTK8MxVI0As8ft3DIapg
+	Fw+jLT3R0Elp2qzvLBS323gB/+zC4MbnQ==
+X-Received: by 2002:a05:690c:e3c1:b0:845:1064:5c03 with SMTP id 00721157ae682-88d1fbd5731mr809377b3.23.1789345243709;
+        Sun, 13 Sep 2026 17:20:43 -0700 (PDT)
+Received: from zenbox ([2600:1700:18fb:6011:b74e:37b6:46bb:6c50])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-88486c2df1csm31255777b3.19.2026.09.13.17.20.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 13 Sep 2026 17:20:43 -0700 (PDT)
+Date: Sun, 13 Sep 2026 20:20:41 -0400
+From: Justin Suess <utilityemal77@gmail.com>
+To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Cc: Paul Moore <paul@paul-moore.com>, ast@kernel.org, daniel@iogearbox.net, 
+	andrii@kernel.org, kpsingh@kernel.org, matt@bobrowski.net, mic@digikod.net, 
+	viro@zeniv.linux.org.uk, brauner@kernel.org, kees@kernel.org, casey@schaufler-ca.com, 
+	gnoack@google.com, jack@suse.cz, song@kernel.org, yonghong.song@linux.dev, 
+	martin.lau@linux.dev, eddyz87@gmail.com, memxor@gmail.com, jolsa@kernel.org, 
+	m@maowtm.org, bpf@vger.kernel.org, linux-security-module@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH bpf-next v3 04/15] lsm: Add the bpf_lsm_policy_release
+ kfunc and policy object destructor
+Message-ID: <aqcb2eXw61LaFaqY@zenbox>
+References: <20260909193719.518517-1-utilityemal77@gmail.com>
+ <20260909193719.518517-5-utilityemal77@gmail.com>
+ <CAHC9VhQHZ+ngFdzKqmnzBh341CGEg-jexu+QYU8=1qXK=u-x-Q@mail.gmail.com>
+ <aqHUw6k0Mf83CGFT@zenbox>
+ <CAHC9VhTM7emi9vxs+5Za8Hrc_e9dg7fZx+Z6BGUc4VQ1qhEAUA@mail.gmail.com>
+ <DLD0VQ3D8CYC.3V5ZT8HDMY4IH@gmail.com>
+ <aqTZdCz6JaoK16Fp@zenbox>
+ <DLDL7KK3FZKU.17ADLLWJVXB5F@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [GIT PULL] x86/urgent for 7.4-rc4
-To: Linus Torvalds <torvalds@linux-foundation.org>,
- Dave Hansen <dave.hansen@linux.intel.com>
-Cc: x86@kernel.org, linux-kernel@vger.kernel.org,
- Vernon Yang <yanglincheng@kylinos.cn>,
- Rick Edgecombe <rick.p.edgecombe@intel.com>,
- Orson Peters <orsonpeters@gmail.com>
-References: <20260913225356.1033865-1-dave.hansen@linux.intel.com>
- <CAHk-=wiSPMB4tZB4mngU5wUJ3qJj5HwKc7x2E1dj4YnxCGadeQ@mail.gmail.com>
-Content-Language: en-US
-From: Dave Hansen <dave.hansen@intel.com>
-Autocrypt: addr=dave.hansen@intel.com; keydata=
- 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
-In-Reply-To: <CAHk-=wiSPMB4tZB4mngU5wUJ3qJj5HwKc7x2E1dj4YnxCGadeQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DLDL7KK3FZKU.17ADLLWJVXB5F@gmail.com>
 
-On 9/13/26 16:10, Linus Torvalds wrote:
-> On Sun, 13 Sept 2026 at 15:54, Dave Hansen <dave.hansen@linux.intel.com> wrote:
->> The MADV_FREE one is notable for silently losing user data and having
->> been around for a couple of years.
-> That explanation rewards horribly badly.
+On Sat, Sep 12, 2026 at 12:33:13PM -0700, Alexei Starovoitov wrote:
+> On Fri Sep 11, 2026 at 10:26 PM PDT, Justin Suess wrote:
+> >
+> > If fs/, mm/, drivers/, net/, are permitted to have kfuncs, then why not
+> > security/? kfuncs.rst doesn't seem to forbid this.
 > 
-> MADV_FREE itself is fine. It's *supposed* to drop dirty bits and lose
-> user data. That is the whole -m and only - point of MADV_FREE in the
-> first place.
+> because fs, mm, net see the value in bpf. bpf helps these subsytems
+> to focus on their core technologies and moves policy decisions out of
+> kernel and into bpf.
+> while lsm people treat bpf as arch-enemy.
+> kfuncs are not stable. we keep refactoring them.
+> while lsm folks treat anything within *lsm* and *security* as stable apis.
+> So any kfunc where they have a say, will become a huge burden for further
+> bpf development.
+>
+There are patches on the front page of 
+lore.kernel.org/linux-security-module refactoring security
+hooks and changing signatures. Security hooks and the LSM interface
+is not stable, this is explicitly documented. 
+I deliberately chose kfuncs over helpers to avoid having the interface
+be ossified.
+
+
+> > Where would you point me to?
 > 
-> The bug seems to be elsewhere in non-MADV_FREE code that then just is
-> confused about things. But both your pull request and that commit
-> message seem to try to blame MADV_FREE. What's up?
+> landlock was designed for unprivileged users. bpf needs CAP_BPF.
+> There is a fundamental disconnect. If you can tolerate CAP_BPF then
+Landlock is for privileged and unprivileged users alike.
+This patchset is designed to compose with unprivileged use seamlessly,
+which works because of Landlock's monotonicity.
+> just use bpf-lsm and implement whatever policy you need there.
+> If bpf-lsm is missing a feature we can fix that.
+Sure, in some perfect world in the future where every verifier
+challenge is solved and BPF has feature parity with in-tree c on
+a 1:1 basis, you could implement something like SELinux, or Landlock
+in pure eBPF. It would be about as easy and trivial as building a
+skyscraper from lego bricks.
 
-Yeah, the explanation isn't great. Sorry about that.
+There is an entire in-tree ecosystem of LSMs that would provide
+BPF users with well-maintained, versioned, and tested access
+control. Why force every eBPF program that needs to make security
+decisions to reeinvent the wheel? 
 
-My read on it is that problem shows up a bit *after* the actual
-MADV_FREE. The manpage goes over this scenario:
+There are real eBPF users such as Tetragon, Falco, Tracee, that
+could use an actively maintained implementation of security models that
+exist in-tree in security/. This would make access control in eBPF much
+less painful.
 
-	After a successful MADV_FREE operation, any stale data
-	(i.e.,  dirty, unwritten pages) will be lost when the kernel
-	frees the pages. However, subsequent writes to pages in the
-	range will succeed and then kernel cannot free those dirtied
-	pages, so that the caller can always see just written data.
+Instead of implementing every filesystem, network, and 
+socket access control, they can use existing solutions, and with
+the userspace tooling that already exists. And they can
+mix-and-match, doing custom logic/policy in BPF, and use what
+they need in LSM, with BPF making policy decisions.
 
-So the problem isn't with the data which was around at MADV_FREE time,
-it's with the "subsequent writes" that the kernel frees.  I _think_ the
-main way the kernel tells if a "subsequent write" occurs is _PAGE_DIRTY.
+It would fix a real challenge that users have with eBPF, and wouldn't
+take away from BPF's ability to do what it already does.
 
-So the scenario is something like this:
+> 
+> and bpf shouldn't be calling into selinux/landlock internals.
+>
+Agreed. And this patchset doesn't call into landlock, it calls a
+security hook. The LSM hook then dispatches to whatever LSM
+owns the object.
 
- 1. First set of data goes into the page
- 2. MADV_FREE performed, clears _PAGE_DIRTY. Page eligible for reclaim.
- 3. Second set of data is written, sets _PAGE_DIRTY. Page *in*eligible
-    for reclaim.
- 4. PMD is mprotect()'d which flows through pmd_modify(). _PAGE_DIRTY
-    is lost. Page now wrongly eligible for reclaim again.
- 5. Reclaim goes after the page, discards second set of data.
+BPF already calls into LSM through security hooks. This is no
+different than bpf_map_create hooks.
 
-At least that was my read on it.
+Nothing about the way BPF works changes with this patchset.
+There's no verifier internal changes. It doesn't call into
+BPF internals at all, or define any new core constructs.
+It just uses the same kfunc and kptr interface that is available
+to everyone else in the kernel. I think this code could even
+be written with zero changes in kernel/bpf, or files in
+BPF's maintainer's entry, though I'd rather have both subsystems
+coordinating and cooperating on the interface.
+
+Thanks for your feedback (genuinely), I hope you know I make these
+arguments in good faith even when things seem heated.
+
+Thanks,
+Justin
