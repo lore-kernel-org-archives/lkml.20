@@ -1,170 +1,192 @@
-Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7B5237187E
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:58:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789379926; cv=pass; b=IgwfDSBQSYDzxhYnecgV1PVcWwYccoMO94FaSgBBLFr8uQaSyQhh5p3i97HljSkoj/FHrE/wTJ9i16TWE4LvmRXRjBUe8dAnueTIMQWk8w44ZQOGdO6CVD7FCst6JVzVOCyk3HtD1+kPx53e+ohp4gT5GtPsFL+Eq1a6I7tCBvg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789379926; c=relaxed/simple;
-	bh=ekZMqPqix1SfSP0Jg3oOTYIzLY1yHdpuXfG/BQXJszg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=YhxFMg8X+ly20sNDMOLaOYtrfvJPBoE3VCAZuKl5S8vH2CCboguAllMNa6AprXK30lXCH+f1EchszZVdcTmOHP9sfc0KG+oBs4gSqIWxYAzMTs9ZeT6JUPPAqX2FcWDW32c1EdK8XgmZ4SSu4awF9BjzbkNKIBLKdub2IYdVLT8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=fOqlnwcA; arc=pass smtp.client-ip=74.125.228.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E78B145B27
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:00:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789380004; cv=none; b=GcUlOMetrAGIcvSQ4xvgwd98wR2jp3dv7FPndgUzvbB11eGEYEt4pwnQrZJwFUFHmSFan9RRJ+iyaDvamy4FQtiIRX5R0De6I566RImVZvq8s39i26si1anofB9cDp3c9q/RHhhLD/uxoEV4LxaLEtGfNPhSJAvUlC80stj9NB4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789380004; c=relaxed/simple;
+	bh=b4naa9WlCWXdDgBBJw3o2FWfn8Zxu+C00MCs2fJh1Ho=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jjQGejhgnJ1v0GUrVqZaGVLV6sOvJyyjcB3Ew4sHYRJBvjJ9tJFl/x5K3oeg/lz8RcmmARKQSBPyRHFcfqaZBBhkE+PzS4vX83MqsS5jo/k93k1Y8iJvb43PGOfcCYqdaT4d7XR+unIXrzxhsZDn9gwjzsTjMfxv2DCaSPw0VKc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=M/55tDZf; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=gUEkqYzN; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="fOqlnwcA"
-Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-85469a3490bso1629557b3a.3
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:58:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789379924; cv=none;
-        d=google.com; s=arc-20260327;
-        b=AXZvVBZi0UicFl8tCuaP6wUcxEevXxH20bYgy/uI8VFy+Uf2RY64Ypo3rDVeKpTATU
-         XzuB++7HbHequoy0IBMfqJuKqh42+oZijTEcA4UteA41b45fyhcUmHps0MpvxSDk/QHK
-         nFpCxHLfeKq5EeqHLZNjosC/XKlL3vLkpNh7tcWpYe/d3oq0Tu1H5IGMJdSPiaCIGPRl
-         VK9IoRZ1xU87hdxMR7mrPExWT7u1thXFVqjt8298smgY6y31DKhB1x2vYeLTFau0w+uC
-         4JcNrNdJ/1T6fcNs7PvYe1lBVqebvR/al4Ajh7dN1eLsK0egMXQLc+rAVa64mt4qOyyG
-         Rrfg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=BUfuwTxWoTd9y0Vz5pkLwXMFS5QksVwR4BkTSHrTGWs=;
-        fh=WUIRLoBj/Sdvadtsq1gU8iZUnv8yu6FauIlLaF3PiV0=;
-        b=VY54IcTLBrrnMqvDSW9vSsntRghmmaZWYDdZyGaQVP7UWv6BDIAqMqQS76f3h4Mig3
-         NsXqwsLDpNUp8SSUdc7EaLY6EqmnG6ghnRQR1BSmlpW9/ZaED8InhkSllZJMIwL1UGay
-         ftGenSTB5AKQ/ncPiDNqxKIhAaEde4lsyE2miM3Nupgy3FIJLjes3r4IuBPlP2euy7uc
-         vR+hs7eW7nUYx5vta7BmNFdm5SvnR4EoLKfSTHS/LQnpx6EUPNfHaIQo6nNB2FUZ0I6a
-         qAMZDenROAb3zhDBmD/DhfnFWLLYyXc7mPW5ocX3Yta3G68PRS59urwcXLPR9Q81rxFQ
-         oQkQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="M/55tDZf";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="gUEkqYzN"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789380001;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ypy8vva409xUcIhg7UrFn+M558mkrKtyBpJ0I/QZb8I=;
+	b=M/55tDZf8Js9zfR2Av6FDaGclj2S83iJjUn9P8g4ZiP5CC8calvZe5iE9xLJIAARIRjcnZ
+	gRyVcN64XjsMElEH/I79ple7umZEk89FcBSRXTHpqwQLB9yNGUFSf9FfngTx+o/K1Q5qFH
+	rMfMoL9NBDRPxmyiZwPF8xoXAKeRZjE=
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
+ [209.85.216.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-331-NbnrhgArOcO3KAHn_ZA7cw-1; Mon, 14 Sep 2026 05:59:59 -0400
+X-MC-Unique: NbnrhgArOcO3KAHn_ZA7cw-1
+X-Mimecast-MFC-AGG-ID: NbnrhgArOcO3KAHn_ZA7cw_1789379998
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-38e1118e4abso5677897a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:59:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1789379924; x=1789984724; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=BUfuwTxWoTd9y0Vz5pkLwXMFS5QksVwR4BkTSHrTGWs=;
-        b=fOqlnwcADDqMlbQQYzNj+1S4I93vphCKDJkd5RG3EstL6/VcFbWd+3b7TGYiYSvKrR
-         ag7WcZ6g8IkDs0AEqLjBtQzzoh9tIUgOQczP49+RTeBouQf5+xhDYaNHUCX1/d2/rKrI
-         kcaMH9c1oZ1ejOYJ0sWnwpifzVnt/6HiE3aHw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789379924; x=1789984724;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=redhat.com; s=google; t=1789379998; x=1789984798; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=BUfuwTxWoTd9y0Vz5pkLwXMFS5QksVwR4BkTSHrTGWs=;
-        b=IY4JjCHBtVuwNGCe9USpOSf99YP6m0C6LpdanoSIMI6KMSBGZe5RecXxjnf3BTlpYT
-         dUI9PS0n+3C6NszvMO18a8SkaTqHqeBfS69gRvBjKMPrQhMJYd+ZAlb0WsrpaOlc8mbA
-         JmArUWC1kfhDKt6CqHg4lQlePQlLJ47o459y3joGLIClyVrg+p/9l9Q8KpXBD9Kthrte
-         +ygN5fgMCV7QrEPS5r6yt6htvMhqtqVwdwuXjHrSkdAlpHgwbFA8NjRM54+fUshkG0su
-         0NasNVxRA5czQdKmVaLdEt28iOTFY3gMVTOgAXzeRVewGN9hirBDxY/3QfnXnTLoAfMo
-         uijA==
-X-Forwarded-Encrypted: i=1; AKwUvBzXIl5Ln5ENcD1TESQlc/z7Wll/t1WSRNodW+OzDy4pdnuRFt8/wtRF97YGA1iGAfbYvq7JV5i11uIU9HE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kg0dwf6frF9SAwsHthPY4G8sC+djKc9sGY03yL0gHTGUur+U1U
-	qBv1rJP7pmPN5bbWwRTmegzWKtAUqVY6XgbVS7MMtHQdCtA1YOLUYn/I5c8b/yLx1+O3rZzqKbU
-	eXFJMV6oAabgaeDkuqfIY72BeaWGjf2Cwqtjxqe/R
-X-Gm-Gg: AYBFou0bULqy6atjk8NaZqdj82KP48PrguIcyoxvBN+FgmE4IdQ1GNae3h0O4XymLe7
-	cSM/RtkZFjpdc6fAvxBUqd5XsI0wY/c9C5Q0bZBdyI/NecEVx89ZPmvfAJuuw5J2vYAaDD97hel
-	mn0uIJSM3MOqfkftwdrXkIAht39w2AoAH0fjEMaILrwL8PLvuR+Im+Vgx1kW93xT2e3DRQT6lQj
-	uHNom2iXxLz44WjDl5yssUkKg87HjnFSiGbYV18mHA4OEQxmuHl631KcaUlkrSMTh537cJ1s3Pz
-	aJS5u0ypYNEBKEfFfSkzFF2kuq0GZJm4rCcyq/pnbGU+qylChaySvBWb3VPs7Esk4DHP+J/Lc/e
-	T2k32WmarcXjZEBLzB2t5jU/6oWMrjHI4FA==
-X-Received: by 2002:a05:6a00:94d3:b0:857:7337:5db8 with SMTP id
- d2e1a72fcca58-86f85ae8211mr3629691b3a.22.1789379923820; Mon, 14 Sep 2026
- 02:58:43 -0700 (PDT)
+        bh=ypy8vva409xUcIhg7UrFn+M558mkrKtyBpJ0I/QZb8I=;
+        b=gUEkqYzNpu3Sy0P+HyzVbJi+9A9Fc1r3NCsdZ4rYJWVRNt37DEYliH4FEgimT9CDvi
+         YUQgZw9V8foqiNxHXFeZA27k4LYc6cGpqOcW5JkrrPY2wXc5+1H+L9cxfg3Qcs6VV9Gn
+         LgCJJX0XtPiijmrpfeJTBN1uHKIDQdcaz/T7UyUPp+0loXbJtB+ZpoYlTgOTG62CbrF0
+         c/tzxKg7Hd/9+nulhmqM63/5B+9CRCjGkFIaqq5IeTvqbX0Md9eC6FKc/zqTctHP0LJD
+         +scCTf+dDGDgMFzfW3Qhd59MPWTh4+qdhqe0XtUeYZDIrLz+cFN6wMiDAjAQPGZnUjTT
+         qpHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789379998; x=1789984798;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ypy8vva409xUcIhg7UrFn+M558mkrKtyBpJ0I/QZb8I=;
+        b=fZkYhR2bfg32cIv+64qvgBh+fz5hKDLZBNLKO0yg6vS9hIfo/Y2FNcw3fQpUtNiKQD
+         Zk8QN9gb922GDa/iMY8G800Uz4R+RPrmUzDKI4Z1CCSOpDlrb9bz3z/htSaIAhpv/ST2
+         1YEPDFEs74Hzz79WU9CgUZB+VRhIJP8+mTIvXfwYvl8rUc9uaiMYKfi2QebpFDt0CCN8
+         ftgIEdWNrc5GMFooH+SJGitxAutEkIzMTw6pmi3oBcPMTQmAbfDGJL5s6waWRQ8z4YCk
+         64RAbkOf/3dUO3Rnbas+069Jz3VhmHJOaY+8rCCjoiOVWU4+6aSTaQweA0T5PaoQt3ts
+         hteQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxbPjHuA6peez16ocZMqIA0XkO5ReKhEzPlTWVV65439qozhZwgdP3HjqmDbSA+xVDJlEzq0EvYhqBrH60=@vger.kernel.org
+X-Gm-Message-State: AFuF++kxLND87E70BZfthMCEo5YINIHjrmOMoJ4a/Sos7TPOh3a8V+yW
+	6hW3onHZHvl6b3rVKSD9NxJ9w33h3zJYbC9h3Mo9PW5O/dveysODzvAxb/F2FzDMfTI0lm7f0nO
+	9FfzP+29NBvv8H1P6dkN00+NTsxu41XV61atHSWdVJpF1dKEEXwwApR8gSWCN5DK7Kg==
+X-Gm-Gg: AYBFou2/FsfiKKk/erOT7aCtqnrPqJZbfkEod30a4ukn1obud3k8VwASH/Z9K11KwEv
+	2L9QokSBapUt1ww6JhFV0peuWv6c8TAokQijPkpDM/CTTTEfzuCS3Df8IW086eGa2GiAECd8R0P
+	IUwP6/LxqEaRyuJIy5Sj2uP1piFobsK0xEO7zd3Rsv2/3sLxlkU1aLJw3D4npmdBYqHNeWqPR80
+	iqA6SGprc6WHFPtO4DaXhnQA0iNx+cT/6EIrfYK3fXfrqBD4MMBtibOiBSTmuLxUvYesPEamekG
+	izeeCN/gSrYqL11RrqJXeFfHYPlW7S7xqPZP3Q0en4lwzbioRxigF4Efsay7GFMk4in7Ne5YRLk
+	z87hpDWUm5dMBP6QyoJmGfuWrgDR0U1T0viX6nwxasg==
+X-Received: by 2002:a17:90b:4a47:b0:39d:eda4:43f2 with SMTP id 98e67ed59e1d1-39deda4487amr3464025a91.7.1789379998030;
+        Mon, 14 Sep 2026 02:59:58 -0700 (PDT)
+X-Received: by 2002:a17:90b:4a47:b0:39d:eda4:43f2 with SMTP id 98e67ed59e1d1-39deda4487amr3463941a91.7.1789379997512;
+        Mon, 14 Sep 2026 02:59:57 -0700 (PDT)
+Received: from [192.168.68.52] (n175-34-8-244.mrk21.qld.optusnet.com.au. [175.34.8.244])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4fa50e3sm27206495eec.29.2026.09.14.02.59.48
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 14 Sep 2026 02:59:56 -0700 (PDT)
+Message-ID: <ca30e5e2-2bb5-40ec-8357-d5c3eab8a6f3@redhat.com>
+Date: Mon, 14 Sep 2026 19:59:46 +1000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260914065123.4109709-2-bestswngs@gmail.com>
-In-Reply-To: <20260914065123.4109709-2-bestswngs@gmail.com>
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-Date: Mon, 14 Sep 2026 05:58:32 -0400
-X-Gm-Features: AcwNN1U_PEiBsILbnOHs9gCzos_UIObxVxzcwVGwW6bTJBXfjAYney-md8aD38E
-Message-ID: <CAM0EoM=7jH_OqmbERPVNrFg7Q079g2f1oWOKiO4nRLA3Zxcm3A@mail.gmail.com>
-Subject: Re: [PATCH net] net/sched: reject IDR error pointers when deleting actions
-To: Weiming Shi <bestswngs@gmail.com>
-Cc: Jiri Pirko <jiri@resnulli.us>, "David S . Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Vlad Buslov <vladbu@mellanox.com>, Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>, 
-	Xiang Mei <xmei5@asu.edu>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v18 4/7] firmware: arm_rmm: Add support for SRO
+To: Suzuki K Poulose <suzuki.poulose@arm.com>, kvm@vger.kernel.org,
+ kvmarm@lists.linux.dev
+Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
+ joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+ linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+ sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+ WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
+References: <20260912083611.2513845-1-suzuki.poulose@arm.com>
+ <20260912083611.2513845-5-suzuki.poulose@arm.com>
+ <f00d01d1-8df0-4865-8e52-c85171cf4ca5@redhat.com>
+ <4f18aa66-2296-4b63-87f5-6ab493faecbc@arm.com>
+ <1fca136f-5802-449a-81f1-3a76c31a2f74@arm.com>
+Content-Language: en-US
+From: Gavin Shan <gshan@redhat.com>
+In-Reply-To: <1fca136f-5802-449a-81f1-3a76c31a2f74@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 14, 2026 at 2:51=E2=80=AFAM Weiming Shi <bestswngs@gmail.com> w=
-rote:
->
-> tcf_action_delete() drops the reference held by its lookup before calling
-> tcf_idr_delete_index() with the saved action index.  An unlocked
-> classifier can remove that action and reserve the same IDR slot with
-> ERR_PTR(-EBUSY) in between.
->
-> tcf_idr_delete_index() only checks the lookup result for NULL.  It
-> therefore treats the reservation as a tc_action and dereferences
-> tcfa_bindcnt.  A hardware execution breakpoint was used to schedule the
-> interleaving without changing the kernel source.  KASAN reported this
-> decoded trace:
->
->   BUG: KASAN: null-ptr-deref in tca_action_gd+0x5b9/0x1010
->   Read of size 4 at addr 0000000000000010 by task poc/150
->   Oops: general protection fault, probably for non-canonical address 0xdf=
-fffc0000000002
->   RIP: tca_action_gd+0x5c0/0x1010:
->     arch_atomic_read at arch/x86/include/asm/atomic.h:23
->     raw_atomic_read at include/linux/atomic/atomic-arch-fallback.h:457
->     atomic_read at include/linux/atomic/atomic-instrumented.h:33
->     tcf_idr_delete_index at net/sched/act_api.c:766
->     tcf_action_delete at net/sched/act_api.c:1859
->     tcf_del_notify at net/sched/act_api.c:2014
->     tca_action_gd at net/sched/act_api.c:2064
->   R13: 0000000000000010 R15: fffffffffffffff0
->   Kernel panic - not syncing: Fatal exception
->
-> R15 contains ERR_PTR(-EBUSY), and adding the tcfa_bindcnt offset produces
-> the address in R13.  With the guard applied, the same reproducer returned
-> -ENOENT without a KASAN report or panic.  Treat error pointers as absent
-> and return -ENOENT.
->
+On 9/14/26 6:19 PM, Suzuki K Poulose wrote:
+> On 14/09/2026 07:22, Suzuki K Poulose wrote:
+>> On 14/09/2026 06:04, Gavin Shan wrote:
+>>> On 9/12/26 6:36 PM, Suzuki K Poulose wrote:
+>>>> RMM v2.0 introduces the concept of "Stateful RMI Operations" (SRO). This
+>>>> means that an SMC can return with an operation still in progress. The
+>>>> host is expected to continue the operation until it reaches a conclusion
+>>>> (either success or failure). During this process the RMM can request
+>>>> additional memory ('donate') or hand memory back to the host
+>>>> ('reclaim'). The host can request an in progress operation is cancelled,
+>>>> but still continue the operation until it has completed (otherwise the
+>>>> incomplete operation may cause future RMM operations to fail).
+>>>>
+>>>> The SRO is tracked using a struct rmi_sro_state object which keeps track
+>>>> of any memory which has been allocated but not yet consumed by the RMM
+>>>> or reclaimed from the RMM. This allows the memory to be reused in a
+>>>> future request within the same operation. It will also permit an
+>>>> operation to be done in a context where memory allocation may be
+>>>> difficult (e.g. atomic context) with the option to abort the operation
+>>>> and retry the memory allocation outside of the atomic context. The
+>>>> memory stored in the struct rmi_sro_state object can then be reused on
+>>>> the subsequent attempt.
+>>>>
+>>>> Wrappers for SRO RMI commands are also provided here because they depend
+>>>> on the rmi_sro_execute() implementation added by this patch.
+>>>> Delegate/undelegate handles are also added here because they now use the
+>>>> SRO/stateful command infrastructure and are also used for the memory
+>>>> DONATE/RECLAIM flows.
+>>>>
+>>>> Signed-off-by: Steven Price <steven.price@arm.com>
+>>>> Co-Developed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+>>>> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+>>
+>>
+>>
+>>>> ---
+>>>>   drivers/firmware/arm_rmm/rmi.c | 586 +++++++++++++++++++++++++++++++++
+>>>>   include/linux/arm-rmi-cmds.h   |  41 +++
+>>>>   2 files changed, 627 insertions(+)
+>>>>
+>>>> diff --git a/drivers/firmware/arm_rmm/rmi.c b/drivers/firmware/ arm_rmm/rmi.c
+>>>> index 5b0e342ce3d58..4f9898ece7547 100644
+>>>> --- a/drivers/firmware/arm_rmm/rmi.c
+>>>> +++ b/drivers/firmware/arm_rmm/rmi.c
+>>
+>>>
+>>> I would drop rmi_granule_range_{delegate, undelegate}() by combining their logics to
+>>> their only callers rmi_{delegate, undelegate}_range(). More details are provided for
+>>> rmi_{delegate, undelegate}_range() in the below.
+>>
+>> Ack
+> 
+> I have moved them closer, but kept the logic separate, since this is not
+> a simple RMI call.
+> 
 
-We test all submissions to tc. Can you provide a tdc test or reproducer (Po=
-C)?
-Please remember tto do his for any future submissions. If the
-information is sensitive, please send it to me privately.
+Yeah, it's fine by moving rmi_granule_range_{delegate, undelegate}() to their only
+callers. However, the unnecessary if statements can be avoided in their only callers
+rmi_{delegate, undelegate)_range(). Besides, rmi_delegate_range() would come before
+rmi_undelegate_range().
 
-cheer,
-jamal
+	while (...) {
+		ret = rmi_granule_range_undelegate(phys, top, &next);
+		if (ret != RMI_SUCCESS)
+			break;
 
+		/* Buggy RMM ? Let the caller leak the pages */
+		if (next <= phys) {
+			ret = -ENXIO;
+			break;
+		}
 
-> Fixes: 0190c1d452a9 ("net: sched: atomically check-allocate action")
-> Cc: stable@vger.kernel.org
-> Reported-by: Xiang Mei <xmei5@asu.edu>
-> Assisted-by: LLM
-> Signed-off-by: Weiming Shi <bestswngs@gmail.com>
-> ---
->  net/sched/act_api.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/net/sched/act_api.c b/net/sched/act_api.c
-> index 19501dc99..eabe612b7 100644
-> --- a/net/sched/act_api.c
-> +++ b/net/sched/act_api.c
-> @@ -758,7 +758,7 @@ static int tcf_idr_delete_index(struct tcf_idrinfo *i=
-drinfo, u32 index)
->
->         mutex_lock(&idrinfo->lock);
->         p =3D idr_find(&idrinfo->action_idr, index);
-> -       if (!p) {
-> +       if (IS_ERR_OR_NULL(p)) {
->                 mutex_unlock(&idrinfo->lock);
->                 return -ENOENT;
->         }
->
-> base-commit: e6b6078ea1731b05b3b552497b3bce4bf8b014ae
-> --
-> 2.55.0
->
+		phys = next;
+	}
+
+The variable 'out_top' in rmi_{delegate, undelegate)_range() may be renamed to 'next',
+indicating it's the next (starting) granule for the RMI calls.
+
+Thanks,
+Gavin
+
