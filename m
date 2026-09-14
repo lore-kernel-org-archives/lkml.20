@@ -1,166 +1,139 @@
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010010.outbound.protection.outlook.com [40.93.198.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2AD0494812;
-	Mon, 14 Sep 2026 16:42:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.10
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789404136; cv=fail; b=dwwZ2lRhAg5NX2ddG9WC6EDRedg17pGrNmLNXi0M644Afw6txenRJvkp/5HuAvWPyc8wJWIl9XcJie99ZT7AXbsC4G/r66S3kAk6wTldQrSp5FrZkf/a8UqItirBwOJexJ8f4yUUeM4E5/B76dbud/cIWoS/eGr9UjU5wHeCDaI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789404136; c=relaxed/simple;
-	bh=Y3OVJXZxdOqE6eWJhOBGdeDSu/WdG+irvgprHHHyuw4=;
-	h=Message-ID:Date:Subject:To:References:Cc:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=A9XLCAvV4UrMKDySUdozaDRd1eXBZSi+uvAynqvZPJL9MD4p8VZ5mYG2/Eb1rT3dCd3AxFg5y3Y5sy3Mu5l0P0YCdz4728F8l9trlNj4V7fnY0FLo5ynVcn/NHbjy4NZc1v8SZgJlluYZ3nKypeAxZMLIGnzTm0EDRF/0J78NXM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=pjnY+bi6; arc=fail smtp.client-ip=40.93.198.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25294484243
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 16:44:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.198
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789404247; cv=none; b=KHI0SNOTfjbWufmUOEdIfZuIxAg1421kgw+XkU2jZG0oKUi5qZ1szcZynb3h2LgH2DO5lqjaXqAP4oSJwh230yyRh5mSTk5ZisB2/PJmfVnxit31CWYV4Mnt5cpkDBrusjqyN3LRaSHDcLQ587xWFkoaec5D4XxP09P34z5vM24=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789404247; c=relaxed/simple;
+	bh=B72i0TqWFDhyfs7iAPK30i8YZVrELBSfmsv2i7LPbl0=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=o6j+PSKx5GIhJpJpLkcl9QuzinMpuxg0bpqyucDImrij4XFjMGI7MAWOk0Dh8kBWe5RHEUrixWo9lwri2PQI8bs7BBQt/sdKiM6BW3E37SqgCaTTMPTvJi9xjLD/O9ImQ8OHOkZOl8JVXFt25UrEyw45ASWEwbNPSO0NX+iGK3U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--edumazet.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=tZWs8dX8; arc=none smtp.client-ip=209.85.222.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--edumazet.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="pjnY+bi6"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fCrXZnE/UE9qMz4N4N7w9VDIkpR8R2DyROxOZeYdy6cFQ3x4DTVLEW0+N8soc4qKPSsOBQsJQdt3PGXCTsg94KVtLjGZxsjOOstMEumbHcIZwBZYcIzIyrnQXXakaeImoXcmtVNyOYZzf5FEwlPAL92zvenlkcJh2ohSWIeeAzS0AnhSU2o+Bjy5bvrmtYqg05DcAjxCSVxFdchx/WjeRIfmD0PLCen8e81pVup3p4WRwaby95QSJtgRzb5YkwNORU2Jp8fh/w9z1+UXmKHKbWmMCnknqVUdH6dT/Iognp71Yslh0uxP2ahzMfPFfwjpWdO6kXDIM17AHbxEUi+jwQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UfMdRItgickMUGJmGlxlhfN0YrrWV7nWyUA6vtWWLgU=;
- b=WX7wkjEYw/NEsnZ1IcZS2uC8sCDh58Hn4N4OWHoMN/oyCdvfvOsYPNyvy70eV9OTUrP7bbfg/acHBx2HbpOXaIUJem8avRGY9cEO75x0AdyBSqT4pYedgb+xzaCqnq16P8d+Kn80pCZJaUp54zDS5YHpn2ycJcp30MnpljKMkNsFGTPkXfU/Ub0ojh44wrXmWImmMJwrLmMJKcVl2RX840VV0zetLQRU6aBBFhlECnuPN3nWQLFdFxUueuaCrq9L2KqDM21tErvv9nW8er1GhkPPVp5AaLXGAAh71YK1sZI3QeXqkZBtMVWSMJR/JFV3GwBG2x8/iJlARkiYpY8hEg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UfMdRItgickMUGJmGlxlhfN0YrrWV7nWyUA6vtWWLgU=;
- b=pjnY+bi6kvA3TcZCZRKujAJ7frkRcGM3e0hE7lXbzsPE80kFBZJPTmtvBafnzxPKmm/FVejG/5o2mNouULounKYdR2CC8awkgZnNU+Y0LXX0rYlRL2a1iFVQcm2Kfdy+4yGvPfnaDO6I2in5oVRwzyKiPcdacfwLQUF6+fINaBg=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
- by SN7PR12MB6957.namprd12.prod.outlook.com (2603:10b6:806:263::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
- 2026 16:42:06 +0000
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000%7]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
- 16:42:06 +0000
-Message-ID: <10788f18-2229-4165-ba5f-f2e2811281d9@amd.com>
-Date: Mon, 14 Sep 2026 11:42:04 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] platform/x86/amd/pmf: Add AMDI0112 ACPI ID
-Content-Language: en-US
-To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-References: <20260826163611.2268377-1-mario.limonciello@amd.com>
-Cc: Hans de Goede <hansg@kernel.org>, open list
- <linux-kernel@vger.kernel.org>,
- "open list:X86 PLATFORM DRIVERS" <platform-driver-x86@vger.kernel.org>,
- Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <20260826163611.2268377-1-mario.limonciello@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SA0PR11CA0181.namprd11.prod.outlook.com
- (2603:10b6:806:1bc::6) To PH8PR12MB6914.namprd12.prod.outlook.com
- (2603:10b6:510:1cb::21)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="tZWs8dX8"
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-934956beec8so639395385a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:44:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789404243; x=1790009043; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6vLuB0gCfwF6zDMyZTlgcVgD+YFlPOMK6K5wbE2DV94=;
+        b=tZWs8dX8CXU8rIbvTxDWDcYIG+rd0snLpEROaTLOkZptnjoH0Jc+HWuCZvNDPSd2Kl
+         9DE0A1plI1e02htJM2twAct+nFOErTSb6nXRQvqmnurnCio4swtGc51Qtt9aXcyiHHO+
+         6q3juNKxKv0IdYCgo1fUU4C0ZrCIQQ5NteGYWkigNn2vak25xccDlf/Qe+VilaUUOUy/
+         CGuEBh397WPSooHDtA1Q3/tKG29nKz/E6Rbf3knQlSoXdSZuIIv5O9AHabePQEpEaroo
+         3N/q3mqs5q7BOTfUPx1JrmAgOY1M/ky+yLAdz/BzjcBWOg8dIHtm0khRI37t0w1ydVvR
+         QhSA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789404243; x=1790009043;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6vLuB0gCfwF6zDMyZTlgcVgD+YFlPOMK6K5wbE2DV94=;
+        b=jcX1PG2VjN5ys4yVeD1DjKnxakgBds1ZHW4n0QJcXcEIz49+IlLeyzU0ii5UzQo0fG
+         S3HP3wo4qLbZKykkx5mm/E8JqOU0T1L5Vq54vJJnVPsEEwydlQVMZlovqmAqDguVkRFS
+         agUynYpGuZOI9mZbMKpuBW6lNAcjyEJFD5bcn4vBTQZs3OKot+B6cdi0nGidO6U+YMF4
+         cw/ECUGPZSoo8GXczwfdHHhsgbc+LqSIs+QbvrO8+ZGwIY5+6oArOFxv37uW0nV09iqu
+         Mz7XBYfABVSa3zDHpgtXNO6Md81z97yarJ8SEhw4qxfzXbylB47l/AXSKlwIocbx592+
+         gopA==
+X-Gm-Message-State: AFuF++lPrcmNfHUIdoTUATo6EOg6rSIlbwSCT2zSN3+YMNdhgSMYfIxh
+	cZudmviKj2Zi5nMN7grKqqs7P3Ti52EJRTSV9/upNGDvZrnG62k8R58kKlKTDFtcYApAiWoIPpG
+	eUtpP5wu5gmG62Q==
+X-Received: from qknrb22.prod.google.com ([2002:a05:620a:8d16:b0:93a:8de:9f99])
+ (user=edumazet job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:620a:4409:b0:939:9c21:8ece with SMTP id af79cd13be357-93a29a192e5mr456272385a.42.1789404242566;
+ Mon, 14 Sep 2026 09:44:02 -0700 (PDT)
+Date: Mon, 14 Sep 2026 16:44:00 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|SN7PR12MB6957:EE_
-X-MS-Office365-Filtering-Correlation-Id: 94750bfe-53f6-4a4e-64ae-08df127f1c95
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|366016|23010399003|10067099003|22082099003|18002099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	EXSPM9aMeVJpZgSulgRB+PSl4GL7qAXmfoVsw/QcGMkIcGkg2I9mUi+mfayE99VyKRU913HA6T4MwwncAPPzy3Y0/6NV/Ez09/BlQcGl1R1f6FiD61DXsuab0U1SU2tq3VuadLsECC1tqzmOqrkVjOUg0V4oqqdFQ2tNX3kgvJBK8Ym7mCPtH8AzR6V4/8JYY7yXTxfS1fOlPM92w7oLnPU3FQU7r6jeojzNahphROhBbM/E/A9XuSPAJaZ5UpgQg1uv3K9Pn0B9jSa+Zyff/1KMLVw7yghdc0zsSrZBQR9oStOPwj3NmUI9HovLG4TzQQAGwTupb9DnY5t8JU6qbnwysHHcwt/yh6X3rTs1KTsg1YpwWwI6fqeScZrC1ckunO5ORKSSchtJJPwng9fFQ9CQM5t7FlxIw4L3zp2R/OJqukwyiZ5x61VE3uBg+my4xEE0K4acqQmuv9Bd5y+tzaHn92AzmdewDkFeCgdrYQHMTB5euijY+9f5+nmCUn1zYzNcuf8AMg+nuOEnWt0yqSivMHtkDkHeKAV8zixYfUIqp6AfhwvzQkKs4CR+wqPEdbYUHuOO7zTW1lBjVFcRHtepeBs9/stmsjd3b8ZRWin7c+rx/sWlLI3DF3JoKn0+qNiDcSEJfkYr8y7oBbukcN1pJ7fgwMeNPGbNDYZnXzQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB6914.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(10067099003)(22082099003)(18002099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?YjVjODNoSnR4MTJMQW1MVEZQQXdMWlhXbnJkMUxZMC9TWWdUUjdWQ01yZ2Qv?=
- =?utf-8?B?TnoxckFWVG9ZRDJkRUExc0I5T3hGc1pFTCs5WGhnazhlWkZMUWRHc2FTelVl?=
- =?utf-8?B?eDhYcFRMTG5TY0hseEpEN0pCckFVM3NnVFcrVFFETnh5Q0VLY21mbEUvbWUv?=
- =?utf-8?B?QlpNT2xjUm1idklQWU5CS2hpdWhmVkl4WE5aaEVrRDlQeGFkN3Mwb3pTa0Ra?=
- =?utf-8?B?LzNMQW9sYnpoZmRPN3ZnT1N0dnJvL1paTGdNQTlvbkpzL1FUV1JZNkxmeXNC?=
- =?utf-8?B?emJhM1BaT1hxQVdMdU1jRENnYWZadll2cjFuL0hrbE0yajJEbENTNFdta2xK?=
- =?utf-8?B?SjFod1pNVTh6QTFrVWQ4RU9kb0VJSExxT3I5bndwMERkWG5kbGZnSXZHajIr?=
- =?utf-8?B?TXBlZVFBRXUzbHVOUHYwRXJZNU91TXZKQmJZRUpMTFhyQ25RT0NkOHNzUVc0?=
- =?utf-8?B?bzN5YnppMnlKdm5tNzQ3Wm5MeWNMQmdQNjcrT3JYLzhDU2l4cjliRjRNVXp3?=
- =?utf-8?B?TDFkN0Q2TUYzNXRCTGRHNFVoVlprNUx4YktVUEJUdUVqbVNaNmlvYmwyYWls?=
- =?utf-8?B?dkRNb3h0ZW9TeTZ4cmlmL3lzS1k0WDZzbGE2SHJKTmUzeFAxUkhCb00zV2FV?=
- =?utf-8?B?WlEzY1V6bXFJMGFZS3BSWmxwb1FmY3NWclFqTFkvQmRwQmxBM3E3YWIzODZy?=
- =?utf-8?B?dE9TdUNSWUhGUzliYlJ3T2U3YjJBclgzd21veXRCWXVNYWNKSmUyT0lOZVha?=
- =?utf-8?B?QUhJQzZhSDc2NHdOZnR6cUVReXlCQi85U3hBekxlTVJCOEY0SVBjVzltZUlo?=
- =?utf-8?B?Tm04THZGTC8xZjZpcERGQnNVbmpVWE4vV3IxY2FqNTQrR1NJR0VQdno0SmhE?=
- =?utf-8?B?TnlTRVlRRTdja1YzSmtFYUdKVWtHUlJRblVqTVBRZ2xsZUtxRXhXM2JXM05I?=
- =?utf-8?B?ZS8xWmtVV1FLQUpkYUNSZGY2WkZXeTlVOHFPMDRyNmUxMlBraW9iS0Z5a0NQ?=
- =?utf-8?B?eFlGT0Evay9SMlhjWEJzTkR4WmVLSFErdTlqQ3ErV2QwZm9uM2NrYm8xTFBY?=
- =?utf-8?B?SkN0VXJGWXMvWWVMLzg0RkxnWjRTUno0VDBZNGR6dm9GcUxPOW05Vjlvc2F5?=
- =?utf-8?B?VHo4YU9rMUMwQTlEb1BDWU5nMGJFV2xISHRwcjJyeWlDdnNGdVlkYURua0hp?=
- =?utf-8?B?UHNpT3dJb2ZxaGVjOCtYaHlQaC8rcURGSjRPcDh2SzlIekoxQy93bkkvcTVl?=
- =?utf-8?B?OTZZV1FtaklqRi9hUUxKSXp3UEdGS0dNK3REVEVibVRLUEJyY01Qb0hEZnIw?=
- =?utf-8?B?bnJuTUZjR09KNm1IYmZoc1l2Y1JBV0t6b0J1UTZlMVR2V1lpUVpWQm8zUFdl?=
- =?utf-8?B?OTdVUmI3R2h1RDhRSDBLVnBBR2h1T3ovL0VyM3VXZFNiWjREd0xZMWk0NzhI?=
- =?utf-8?B?dUN3QitZQ3ZyaC90MENwSTFIUGsrWmZ6SVVSNG5jaFVOamZZaHJLVWkyVlJn?=
- =?utf-8?B?SEhYWlo2L1BQSDE4M01yRnk2MFFRbEg5RXl0MS9KWHVEUmdDYzY2OEpRUnJl?=
- =?utf-8?B?NXpHUjRNekp3N25CRUVsOWFMU01aWFNqNjhSeXNIZUdtMHhUNkJkQlBRYVpx?=
- =?utf-8?B?WDVkbHFXZlNLWHFYMGJWUWhOMkx6V3hkNklneHo2dUlFMXhjanBEaUFLNldM?=
- =?utf-8?B?S3c5WThKWllNZHBnd0lhcG0zbG5Vakh1ZUpYVTFsMmxRclg5aDJRM210clpj?=
- =?utf-8?B?T2ZiVjlWU09qNzFMbUhza283czNSbG9HOUF2T0Nud3dEY1Q0WWhKeWNxRUNV?=
- =?utf-8?B?UGQyT01SYmVyWjZ6RUJ3T0tRZWEwdlZIMjAwNEgxc2tMcUJ6VmwvektzaFIz?=
- =?utf-8?B?Ymk5endyK280cmR3M1dwbUYvbk5xTmYzMEhvbEZEK01TM0k4SmtBRkk2cGwy?=
- =?utf-8?B?SDdhd1hZWDlveFA5UkJUWklnZjY0YVNtdE9CeWlqUGgwdmhIbmRZOVpjRWxJ?=
- =?utf-8?B?VmpMUEFZcVR4SVdlTjZXRm96UjJKZ3BaUW5XM2lScFEzOFIveHloQVY2V2Y1?=
- =?utf-8?B?RnFWR2NzaFlsV0doalhnTTBLblVzK1J6RnBEZjc4NlNpRjVaUnBVSGQrVFlx?=
- =?utf-8?B?VUZXclZOTjZ3Vlo2L0h4S0lBVXNFQUdWYkpBWUdFS1k2ZEtOZC9YbDN1eTJr?=
- =?utf-8?B?U3NhNWtkUE1MNDY0SVlDa2xTSGJuWVczamJHUWNORHFmRmlsdStEVktRZWxp?=
- =?utf-8?B?Q1hsWlNpMjM1QUpRVFJlcXd3VTlOckZmbUlxU2VJTzN1K3ZYOVphZEd0ZThN?=
- =?utf-8?B?SVZDNWpkdi9kYndKTkZVcEdjbDR4aXptVDViYk96RE04Z0M4UHFqQT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 94750bfe-53f6-4a4e-64ae-08df127f1c95
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 16:42:06.1617
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: sLM1ZrBqr9TaGUst3z5O+SfL3kf95DX9CntLgDttVL+Ez/Ak89V3yZhfPENg3OdcKo0iMm3I6yol1Pgn6giuWA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6957
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.1032.g73a4cd73de-goog
+Message-ID: <20260914164400.2738350-1-edumazet@google.com>
+Subject: [PATCH] dlm: fix send buffer backpressure handling
+From: Eric Dumazet <edumazet@google.com>
+To: Alexander Aring <aahringo@redhat.com>, David Teigland <teigland@redhat.com>
+Cc: linux-kernel <linux-kernel@vger.kernel.org>, gfs2@lists.linux.dev, 
+	Eric Dumazet <eric.dumazet@gmail.com>, netdev@vger.kernel.org, 
+	Eric Dumazet <edumazet@google.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+lowcomms.c tests and clears SOCKWQ_ASYNC_NOSPACE in con->sock->flags,
+but this bit has not been stored there for ten years.
 
+Commit 9cd3e072b0be ("net: rename SOCK_ASYNC_NOSPACE and
+SOCK_ASYNC_WAITDATA") mechanically renamed the two dlm users, then
+commit ceb5d58b2170 ("net: fix sock_wake_async() rcu protection") moved
+the bit from socket->flags to the RCU protected socket_wq->flags, where
+it is reachable only through sk_set_bit() and sk_clear_bit(), and is
+only maintained for sockets having SOCK_FASYNC set.  dlm uses kernel
+sockets, which never have SOCK_FASYNC set, and never sets the bit
+itself, so the test in send_to_sock() has been false ever since.
 
-On 8/26/26 11:36, Mario Limonciello wrote:
-> The AMDI0112 ID is used to bind the PMF driver to some platforms.
-> It doesn't have any Linux side code changes relative to the most
-> similar AMDI0105.
-> 
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-> ---
+The consequence is that when sock_sendmsg() returns -EAGAIN because the
+socket send buffer is full, dlm no longer sets CF_APP_LIMITED, does not
+increment sk_write_pending, and does not return DLM_IO_END to wait for
+lowcomms_write_space().  It returns DLM_IO_RESCHED instead, and
+process_send_sockets() immediately requeues the send work.  A connection
+to a peer that is slow to drain thus keeps cycling through
+sock_sendmsg() and -EAGAIN, burning CPU, instead of sleeping until TCP
+reports that space is available again.
 
-Hi Ilpo,
+Test SOCK_NOSPACE instead.  This is the bit that lives in socket->flags,
+that TCP sets whenever sendmsg() returns -EAGAIN for lack of send buffer
+space (tcp_sendmsg_locked() and sk_stream_wait_memory()), and that
+lowcomms_write_space() already clears.  This restores the semantics dlm
+had before the bit moved.
 
-I sent this a few weeks ago, just want to make sure it wasn't lost in 
-the merge window and is still on your list.
+Also remove the clear_bit() of SOCKWQ_ASYNC_NOSPACE from
+lowcomms_write_space(), for the same reason.
 
-Thanks!
->   drivers/platform/x86/amd/pmf/core.c | 1 +
->   1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/platform/x86/amd/pmf/core.c b/drivers/platform/x86/amd/pmf/core.c
-> index b4eae65e675b8..5966190d1496b 100644
-> --- a/drivers/platform/x86/amd/pmf/core.c
-> +++ b/drivers/platform/x86/amd/pmf/core.c
-> @@ -454,6 +454,7 @@ static const struct acpi_device_id amd_pmf_acpi_ids[] = {
->   	{"AMDI0107", 0},
->   	{"AMDI0108", 0},
->   	{"AMDI0109", 0},
-> +	{"AMDI0112", 0},
->   	{ }
->   };
->   MODULE_DEVICE_TABLE(acpi, amd_pmf_acpi_ids);
-> 
-> base-commit: 5b05bb3f6c5716fab6911e12d60dd1f43ad9806a
+SCTP connections are deliberately left as they are.  SCTP does not set
+SOCK_NOSPACE, and it never calls sk->sk_write_space(): sctp_wfree() ends
+up in sctp_wake_up_waiters(), which calls sctp_write_space() directly.
+lowcomms_write_space() is thus never invoked for an SCTP connection, and
+the test added here stays false, so send_to_sock() keeps returning
+DLM_IO_RESCHED as it does today.  This is the only safe behavior, as
+returning DLM_IO_END would wait for a callback that never comes.
+
+Fixes: ceb5d58b2170 ("net: fix sock_wake_async() rcu protection")
+Cc: stable@vger.kernel.org
+Signed-off-by: Eric Dumazet <edumazet@google.com>
+---
+ fs/dlm/lowcomms.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
+
+diff --git a/fs/dlm/lowcomms.c b/fs/dlm/lowcomms.c
+index 2aff1c7c17de..abe9ae4c643f 100644
+--- a/fs/dlm/lowcomms.c
++++ b/fs/dlm/lowcomms.c
+@@ -522,10 +522,8 @@ static void lowcomms_write_space(struct sock *sk)
+ 	clear_bit(SOCK_NOSPACE, &con->sock->flags);
+ 
+ 	spin_lock_bh(&con->writequeue_lock);
+-	if (test_and_clear_bit(CF_APP_LIMITED, &con->flags)) {
++	if (test_and_clear_bit(CF_APP_LIMITED, &con->flags))
+ 		con->sock->sk->sk_write_pending--;
+-		clear_bit(SOCKWQ_ASYNC_NOSPACE, &con->sock->flags);
+-	}
+ 
+ 	lowcomms_queue_swork(con);
+ 	spin_unlock_bh(&con->writequeue_lock);
+@@ -1391,7 +1389,7 @@ static int send_to_sock(struct connection *con)
+ 	if (ret == -EAGAIN || ret == 0) {
+ 		lock_sock(con->sock->sk);
+ 		spin_lock_bh(&con->writequeue_lock);
+-		if (test_bit(SOCKWQ_ASYNC_NOSPACE, &con->sock->flags) &&
++		if (test_bit(SOCK_NOSPACE, &con->sock->flags) &&
+ 		    !test_and_set_bit(CF_APP_LIMITED, &con->flags)) {
+ 			/* Notify TCP that we're limited by the
+ 			 * application window size.
+-- 
+2.55.0.1007.g17ff1f9808-goog
 
