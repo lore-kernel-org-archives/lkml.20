@@ -1,125 +1,139 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from honk.sigxcpu.org (honk.sigxcpu.org [24.134.29.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D47B134BA5B
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:09:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C16E439F96;
+	Mon, 14 Sep 2026 11:10:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=24.134.29.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789384169; cv=none; b=Xs1O5BOGH+8RNuEZbcQ6Ecoz9JbQMa8hy0iAS2Qrwjys+dd2Vacgv2oYTpWX305dltRv6wQhMLqY/rbHBZzAVuaoYBmd/k/Nf11LlK4m603G66XSlcZMwcWr3BOVhJS7j0qYpHiucGMkENe+36WEIXEBBOT1nPL+fANYAsEXZkM=
+	t=1789384246; cv=none; b=X6i4DqO5khFVhMM+y4p/jvB9fW4ZJcMBHWtFCJD/4cOc/ZDaR0CuKUnbsYZ9/fTzHY7SSa5RTcN+7UzUmjAeY0ePf8dTTE6A4kQtbitjbHOlaRda/djDwOZeUKZZtL0oZtbsowRFYTkYSZcF1GSRLVxBkxRb4vptr4Hf2CKyq00=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789384169; c=relaxed/simple;
-	bh=sE0zgNlM0y6pYWyLk97sioy0+Ar99YdHBGm2Onc1q7U=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=I7Q8h6MCLfrKXvUpEFtRld/MY5B8iZ+yYVq/BzrskauSnkLJG/Pgkjejf1edzO2gPTQk8LNGhDKoG1/pQyigod5TgLjdfBs73T60FdtI/IjwPDmu2hsBkRWrVbT4HlM2xq8kbC6AMJguCsWf76XnJ9gBfatUF3PIMYNJJQF41UU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ne9vbVCA; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789384246; c=relaxed/simple;
+	bh=Snz0OCxdiERQaB60pbDwd668W+usaSatmVo7PTAIJfc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HorVv+QxgysvaOSQuV5taQTo//dBblYCjPlpe1EI5fj4qhKH7yK6BhFeuZKS1K3H6aiox5TBo7WOaMwBEFI2yUSCj2YxFuYK03nu65MVHO/HuxysRYZKo0mcLXQq/4eGPPeoGDNNzKDS/QBRGRH5117u/YJb4xOnp9h+YT91B4w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sigxcpu.org; spf=pass smtp.mailfrom=sigxcpu.org; dkim=pass (2048-bit key) header.d=sigxcpu.org header.i=@sigxcpu.org header.b=n91rP5er; arc=none smtp.client-ip=24.134.29.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sigxcpu.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sigxcpu.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ne9vbVCA"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccd66bb4so1550809a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 04:09:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789384167; x=1789988967; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=CRpE5XBx7HNGGyDVumeAL+DWruwYyiVpmYjdguinMZM=;
-        b=Ne9vbVCAGx5s4ANBTfZl3VTBLDC6viSB2HyqeyNUBgzv2rOafV16bI3M418HQL4AZN
-         vsXOATjkV4chZnxCovvq5FYOmGJzSgPpm/dyThLecNmkKMYoqOQEdXrFh9G1VIJdZnnZ
-         oRUAqm0PIub/h3921lWaZa0Tc7T6dVT9yebe15RDluy6dGKgRbU1IPVfGKbOTqs1ukh9
-         rytq2n1VCsagDOtMDb9cIPt73SabVSje27wMT5FCBxBVTZ5TDV7nJBONnOp5rMffYN+L
-         FSezlNW+XFzAGArjZvL3RNvf3ntCxa+84K6mFBERBPTtFf+FK55gRwzz/Dc5lDir8Kxn
-         sDMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789384167; x=1789988967;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=CRpE5XBx7HNGGyDVumeAL+DWruwYyiVpmYjdguinMZM=;
-        b=edalLSCAHC5a20kW6TE9RrT+bJtMI/MRC+38eW2UkdxDNp15IFxra080CJFdZVuDSe
-         yNMpaIlPIkqqGFagW7h73nHeiVtPW5CkAOi/evJiQhJzG6oN2ppIOOucqAsxv7lIP2U1
-         UCvcgceweaucFX99KXQtFHwV3XvOe6F+G38/JYrt4l3f2d4e8SxVUgCN8L9bT4HQL262
-         m6v9CSxqHWuaus6kw75Ivhu9XGgMFjVxGSMXa0trzwFnDpOUBdLgpYpn+WyCc2iXxffg
-         Q/AxROmpM9Bo/ImkzhCbSwphFqewDykaSXVDPVt4CVULKsv2JM6AWBDWdFWuZ9ZYOSGR
-         wwOg==
-X-Forwarded-Encrypted: i=1; AKwUvBw0Ru0sZwbBcMHBzI4Ck2gOUFQols/m5YNNdx5Sgo2oD0tkzn4/3Wq0ij/9c6NcUC/FOgEd9v1OzxV6zV0=@vger.kernel.org
-X-Gm-Message-State: AFuF++mbRlT2akNp3763BiT8zc+1YEE26pCytL6ytxTwTvZyyNfCn+ob
-	bFgcmA7L9rsuYjIn37jI3FH+B0ZKqI2d1T+oUa/KtLctazgY+iXPzmfU
-X-Gm-Gg: AYBFou1hQr7zbU7LXC5dbRthLGuFzZfSV/nWCihiOyCZ4MNJ821yH8kpR875HDEBgWl
-	Vu9MHJlh/rQ/Mp8mCwewXnBuqiQ4r6Otyxn3x20FNZs53bu6qQTYK9Td9/ppdbuNEP8BwUIdNI8
-	t9+tTDko+ygNo6iw91Dp+ZkQV04anYG7acBXYpgGOzk6e59nUtsGrlto8VnM7eFR1yqJyE++7cY
-	uJw0puuLX5CclgrN2ePKDezOs9yLU8h5YzMKWLYywOD+APowTPhyQ//u9Lp1Dv8xSXF7T7ksXKz
-	Rs00fYCoNsLYN0yzZBcREWPurKHCBr0Ymtj3C/sH6P5kHy2AM+sbplf8hsdQ/j1BQP0U8wuFCdY
-	w9Knkyie+qqhAgymghCr73DXPnxOotOzLjMw12J5Z2Ofy1tkHQ79oH2xY2fnzZ8YgI5CO8eaSIh
-	indC7T22ysx+Cdi9R9nVaf8vo8q47TdjzAG4zBvMQP2IZQUCPBlv128fTcu6Ll+tiEVhmrrK35S
-	c+5DW91opqhPjCpcv06SUxrsd2acPGb61+MbX4ASECmQnt2bCY+jKCY8qdDNkDpJ1f4
-X-Received: by 2002:a17:90b:3f8d:b0:399:e97:8d5a with SMTP id 98e67ed59e1d1-39dec145056mr4629476a91.25.1789384167074;
-        Mon, 14 Sep 2026 04:09:27 -0700 (PDT)
-Received: from junjungu-PC.localdomain ([223.166.246.74])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d95752809sm20313018a91.13.2026.09.14.04.09.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 04:09:26 -0700 (PDT)
-From: Felix Gu <ustc.gu@gmail.com>
-Date: Mon, 14 Sep 2026 19:09:13 +0800
-Subject: [PATCH] usb: musb: mpfs: fix phy unregister in remove()
+	dkim=pass (2048-bit key) header.d=sigxcpu.org header.i=@sigxcpu.org header.b="n91rP5er"
+Received: from localhost (localhost [127.0.0.1])
+	by honk.sigxcpu.org (Postfix) with ESMTP id A05FBFB03;
+	Mon, 14 Sep 2026 13:00:53 +0200 (CEST)
+Received: from honk.sigxcpu.org ([127.0.0.1])
+ by localhost (honk.sigxcpu.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id T89Q9flm9AQz; Mon, 14 Sep 2026 13:00:51 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=sigxcpu.org; s=2024;
+	t=1789383651; bh=Snz0OCxdiERQaB60pbDwd668W+usaSatmVo7PTAIJfc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=n91rP5er2PLxe3m03DLXGE8fQJnS4cP884UhP8y0dhlLm5rF9TGk3GJDKsMafjoQ6
+	 qIOgcOLuO8KGKYFNZdbd5b8yB+frAVyVXTAE8qzDPYOvln1C7eglW6StOBw8HTwLyu
+	 bJkNDkBszFV3tEtqEHOboVGJQWyIvnP0eIOi6hYShPTuihYT30gdgiUktkeGOzRBA4
+	 wusUSKUlwKcjLcenbUeAt5alFCTti17C7UtEH8OBt9PxI+qTIBCFwniHRsOXRo1H6g
+	 H1T8HuLO1vFgGG8ZK+8hRKJKkFubeGIJ4AwUHusmMcfpazvZj2cytzmyQRhi/WDdZA
+	 XkrR3P6oTPVgA==
+Date: Mon, 14 Sep 2026 13:00:49 +0200
+From: Guido =?iso-8859-1?Q?G=FCnther?= <agx@sigxcpu.org>
+To: Val Packett <val@packett.cool>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
+	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH] ASoC: soc-core: use the device tree card name as
+ long_name
+Message-ID: <aqfT4ZzmxtxM2Dn0@quark2.heme.sigxcpu.org>
+References: <20260506041112.412871-2-val@packett.cool>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-mpfs-v1-1-0bb5b6c2e67c@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDS0MT3dyCtGJdAwuzJPMUI6M0i1RTJaDSgqLUtMwKsDHRsRB+cWlSVmp
- yCUivUm0tAGq2KD1oAAAA
-X-Change-ID: 20260914-mpfs-086b7d22f8e5
-To: Conor Dooley <conor.dooley@microchip.com>, 
- Daire McNamara <daire.mcnamara@microchip.com>, Bin Liu <b-liu@ti.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-riscv@lists.infradead.org, linux-usb@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Felix Gu <ustc.gu@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789384158; l=1043;
- i=ustc.gu@gmail.com; h=from:subject:message-id;
- bh=sE0zgNlM0y6pYWyLk97sioy0+Ar99YdHBGm2Onc1q7U=;
- b=dFW+7gHeBm2AIegMt/TyQI2ujV3ViEUxyFCCwY3IPPOOcqEfdTblaOh6qblg4rZa+MpI2jtNg
- XvLpyYBm+pDAINfYA4TfE0SGjMBNN0bv2nbZdzhrHIb6pQPxkzt4toK
-X-Developer-Key: i=ustc.gu@gmail.com; a=ed25519;
- pk=fjUXwmjchVN7Ja6KGP55IXOzFeCl9edaHoQIEUA+/hw=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260506041112.412871-2-val@packett.cool>
 
-mpfs_remove() passed the glue platform device instead of the
-registered generic PHY to usb_phy_generic_unregister(). This
-unregistered the glue device from within its own remove
-callback and leaked glue->phy.
+Hi,
+On Wed, May 06, 2026 at 12:58:55AM -0300, Val Packett wrote:
+> When setting the model property for the sound card on an OF/DT system,
+> the expectation is that that model name would be used in the UCM config
+> path lookup. However, the DT model name was only used as the "short"
+> name, which gets overriden by the "long" name during loading, and
+> the "long" name is automatically set based on DMI data if available.
+> As a result, adding an intermediate bootloader such as U-Boot which
+> provides DMI data on a device that didn't have it before would break
+> the UCM config loading by suddenly looking at the "wrong" path.
+> 
+> Fix by assigning the DT model name to the long_name field as well.
+> 
+> Signed-off-by: Val Packett <val@packett.cool>
+> ---
+> 
+> For more context/examples, see:
+> https://gitlab.postmarketos.org/postmarketOS/pmaports/-/work_items/4386
+> 
+> err, for some reason that link requires an account to view right now,
+> hopefully that's fixed by the time you're reading this. if not, quoting:
+> 
+> > ALSA looks for wrong device name when using U-Boot
+> > 
+> > What's the expected behaviour?
+> >   ALSA finds Fairphone 5.conf
+> > What's the current behaviour?
+> >   ALSA looks for fairphone-Fairphone5-.conf, doesn't find it, and results in no audio.
+> 
+> ("Fairphone 5.conf" coming from `model = "Fairphone 5";` in .dts)
+> 
+> So it's totally unexpected in the DT world that adding DMI info would
+> change which UCM path is used.
+> 
+> Now the question is, could this possibly break anything for anyone???..
+> 
+> Qcom laptops do not rely on these model-based paths at all, instead
+> having custom DMI match `If` conditions inside of "fallback" SoC-wide
+> UCM .conf files such as:
+> https://github.com/alsa-project/alsa-ucm-conf/blob/980fb83651e82c3e53d3a0ab7fa9b7d6fc2d809b/ucm2/Qualcomm/x1e80100/x1e80100.conf
+> 
+> So there it shouldn't make a difference. But does *anyone* use DMI-based
+> soundcard names intentionally on *any* DT platform?
 
-Pass glue->phy instead.
+Would be great to have some guidance from the subsystem / alsa ucm
+maintainers as multiple distros are patching around it atm (either with
+this patch or symlinks in the ucm profiles).
 
-Fixes: 7a96b6ea90a4 ("usb: musb: Add support for PolarFire SoC's musb controller")
-Signed-off-by: Felix Gu <ustc.gu@gmail.com>
----
- drivers/usb/musb/mpfs.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Cheers,
+ -- Guido
 
-diff --git a/drivers/usb/musb/mpfs.c b/drivers/usb/musb/mpfs.c
-index 587127abd30a..6cc2909b8ae3 100644
---- a/drivers/usb/musb/mpfs.c
-+++ b/drivers/usb/musb/mpfs.c
-@@ -357,7 +357,7 @@ static void mpfs_remove(struct platform_device *pdev)
- 
- 	clk_disable_unprepare(glue->clk);
- 	platform_device_unregister(glue->musb);
--	usb_phy_generic_unregister(pdev);
-+	usb_phy_generic_unregister(glue->phy);
- }
- 
- #ifdef CONFIG_OF
-
----
-base-commit: 68142f986ff04b2b70b31db00f719bf690f64a9a
-change-id: 20260914-mpfs-086b7d22f8e5
-
-Best regards,
---  
-Felix Gu <ustc.gu@gmail.com>
-
+> 
+> 
+> Thanks,
+> ~val
+> 
+> P.S. I don't understand the lifecycle of these strings but it seeeems that
+> the expectation is that they point to static data so they're never freed?
+> 
+> ---
+>  sound/soc/soc-core.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+> 
+> diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+> index 3fecf9fc903c..8456595bb41d 100644
+> --- a/sound/soc/soc-core.c
+> +++ b/sound/soc/soc-core.c
+> @@ -2995,6 +2995,14 @@ int snd_soc_of_parse_card_name(struct snd_soc_card *card,
+>  		return ret;
+>  	}
+>  
+> +	/*
+> +	 * When setting the OF property in a device tree, the expectation is
+> +	 * that the UCM config matching the value would be loaded. However if
+> +	 * a long_name is set, it would be used in the config path instead, and
+> +	 * snd_soc_set_dmi_name sets long_name to the DMI name if it's unset.
+> +	 */
+> +	card->long_name = card->name;
+> +
+>  	return 0;
+>  }
+>  EXPORT_SYMBOL_GPL(snd_soc_of_parse_card_name);
+> -- 
+> 2.53.0
+> 
