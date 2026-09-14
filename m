@@ -1,199 +1,256 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from LO0P265CU003.outbound.protection.outlook.com (mail-uksouthazon11022095.outbound.protection.outlook.com [52.101.96.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8B933B7B9D
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 20:51:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789419080; cv=none; b=VZWOP1miI6NSgTNRol1ry85cGM7x6g1TngEt0ptLBYsX+U77lxSaqGPl8xiCbCxmQOdbr2THF7P80pU6e2guvA+R7npVDIqbM3V+l3WoDo8KEwZw5oMwrpgQUIDbM6vIrfqRFCmmDY1AhG6e9E31n4l4lLeDU6EkA7/qQgHE7mE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789419080; c=relaxed/simple;
-	bh=QCGrHCrm6z85xo0wCTFxqu/1/t2FJyTJAeiwiDlU8oo=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=FPwHy1h2xfnYEihtFFz92ygOxRtEjWiPvM/hjYxxCXdkOStwYLHanVL6wbTmhcKKhAMO4/Kgulu7X0MM6S9Pg22gOaoXrKWxKFEWqAUYYwpCgEZ1vClhgpGWlgf7j29ayYbrwIsmZuHysQhJ1sOJygkk4BUgWwKnKS5102sRCoQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XQK/e0NK; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WRRESOMa; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XQK/e0NK";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WRRESOMa"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68EJYR5t1485170
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 20:51:17 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	De9btpAcgFzmvF7mI//3qVjoSQFLmkKthDu+Y3II2EI=; b=XQK/e0NKNXsxiviu
-	MFJhMw7Dvif4XKGgod9mheacclpN9cy+xFxs2bWKF5XHJNE47uuq1nS/WiXbKOS2
-	XJqTDvR+Qtb6RQeeI4zEmar/U3LidHzBz8zpTEjt+Pb8kop3MpH/4b00FHa4B0p9
-	whg1M5sfPfqDeAHHn68p2nyAGnuBxltiWm2T47QDDG0IQ0jNUBEaVMGQu3WN5GHn
-	4zBQ61S5XS+KFiqV3zf6gKXbh7UiGz7PA6YAGE3BFlG4gmpvaqSAlzdHrnGRtZdW
-	Kq7M+i+W6WdRjetOAxgoOrdtQmxt8QtoCbPLIZJf6p3JjohfzbUX1r4AYFYqGoYU
-	sz9XfQ==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpg2kt8x2-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 20:51:17 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-398dcfabbf8so9174095a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:51:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789419076; x=1790023876; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:organization
-         :references:in-reply-to:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=De9btpAcgFzmvF7mI//3qVjoSQFLmkKthDu+Y3II2EI=;
-        b=WRRESOMa1pDvnwayM3hm11mvX11kPTASg2XBSBriHGQ6IwLlaM0brSgzsGxr3iRwnh
-         prWHkSZW1Tr0qWN45qOQX1H+beMUPO7XtUJH9UA95v7/43Ll+LrJPtoNAJ9IiRxBJN4r
-         NQypZP86R/G1R2p+2D1HQ1FLL2c92jYa1+QwOv48zKW6MnzDiBCaSTpiJGdnYtII05yQ
-         7hhmwmKFx053bxki7Z6dTVanYpPtJSMCLjMqdYJOWUXnocBZTs+va/OFXpehA1dx3eog
-         C45i4nEDJEzDpbJe90w8kQUu3uIu0L/dNe5ft7xs0uFN9SK+SsVSMjiil4HBsyAFW6C5
-         OM0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789419076; x=1790023876;
-        h=content-transfer-encoding:content-type:mime-version:organization
-         :references:in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=De9btpAcgFzmvF7mI//3qVjoSQFLmkKthDu+Y3II2EI=;
-        b=k4CJHc3Of1nUhA4aNCPQdWZmIOOlOwqm/Wt6d8OdvGnhNVrr/1GsXnJ5nqpWtuytau
-         r7T5px7KJ4KmfFs0KLMYf4sysbOmBjx+xpuU5ZTllCDrATbH9B7qTUTHTFcsw9xRpHfm
-         X5AYIjUyzms696SrImDIx3P2WEXBGfgZc+Q03m8qyJs2URNBRXby4ljk0oSBma3bI/eE
-         N09NqP0YRj+kKRPll7wY7A5yA8Je2MhQjbVCTsXrh8/X/sEkBTr9zFrq+jSQptpZiYKE
-         4nXER/2W2ndcaZe5EsKNyA5hJW+JWuGdeabJ6QZaceZ6hjI3wLymIfZv0bAPeqRIn0NE
-         9/hg==
-X-Forwarded-Encrypted: i=1; AKwUvBxOFcG/KkMsndsNFtbNMYLENqbRu/u9SQMTbBG6tQKYeQFMmPL485N+a8l2Z25Mcnwbnq/jmzeXmJbUruA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mHeyexc6pP4cLzyEOtgdZHnxMKCseqmzTfhZrgf2YNnarkTNiN
-	1L0GGpHduGeMmJ5aUJwt/UOyuh45CPwnS0VxFcJGU3VFRDf3Jta296Mh8iNdJxiCbp1Z6LUGCR9
-	KAzc2xUH6CICBFkCX5mkU2MVm8tYdQgR6qynw+fd/EPUu1h9YPT0l/vtONmmXycVilbU=
-X-Gm-Gg: AYBFou1bzRxo/Rr2RjuTkDWu+7PUm8OIeYsmRlPoonbo1+N1JUrhAoshOKlDMFxaFKL
-	v2wxQPJ687lM+bV1YjnDkZZIQ8kU6bFQTjVqJIOKs116Q1NIiBS1gifG7doLxg8cav7YvSGzs7h
-	hIaE9UAvUAIh7GMSF6hE0QKBIj1XRqdRw7n+IzjYSvtoq3plQOZEB0OI9mpdcPH4irxtKfUtvnn
-	PirnLKx9yAaoMxlKerAZXQsjaeQiAzl6pINRtuapdFNFZQs/4ybnzg9qcr460BWMrGZRA1eWDjp
-	c58WX6bLuKPbJOZZEGW+g2UqUlkYcjNFL1UkfkYzFBZ+eO7nfMu2xBRiEAVbeA058Sv5UmV3crl
-	oP/gcNcfWy5Npz7t2jJ+q6YR97jQ=
-X-Received: by 2002:a17:903:f8e:b0:2d7:1cee:3682 with SMTP id d9443c01a7336-2dd6c5d0a7emr85662385ad.5.1789419076332;
-        Mon, 14 Sep 2026 13:51:16 -0700 (PDT)
-X-Received: by 2002:a17:903:f8e:b0:2d7:1cee:3682 with SMTP id d9443c01a7336-2dd6c5d0a7emr85661915ad.5.1789419075896;
-        Mon, 14 Sep 2026 13:51:15 -0700 (PDT)
-Received: from localhost ([50.35.44.179])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4e95075sm27865013eec.11.2026.09.14.13.51.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 13:51:15 -0700 (PDT)
-Date: Mon, 14 Sep 2026 13:51:12 -0700
-From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-To: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
-Cc: linux-coco@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-        linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@nvidia.com>,
-        Catalin
- Marinas <catalin.marinas@arm.com>,
-        Greg KH <gregkh@linuxfoundation.org>,
-        Jeremy Linton <jeremy.linton@arm.com>,
-        Jonathan Cameron <jic23@kernel.org>,
-        Lorenzo Pieralisi <lpieralisi@kernel.org>,
-        Mark Rutland
- <mark.rutland@arm.com>,
-        Sudeep Holla <sudeep.holla@arm.com>, Will Deacon
- <will@kernel.org>,
-        Steven Price <steven.price@arm.com>,
-        Suzuki K Poulose
- <Suzuki.Poulose@arm.com>,
-        Andre Przywara <andre.przywara@arm.com>
-Subject: Re: [PATCH v11 6/7] firmware: smccc: arm-cca-guest: Bind the TSM
- provider to an SMCCC device
-Message-ID: <20260914135112.0000684b@oss.qualcomm.com>
-In-Reply-To: <20260914060511.277948-7-aneesh.kumar@kernel.org>
-References: <20260914060511.277948-1-aneesh.kumar@kernel.org>
-	<20260914060511.277948-7-aneesh.kumar@kernel.org>
-Organization: Qualcomm
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58C6C3E95B2
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 20:54:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.96.95
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789419259; cv=fail; b=gzDbFg4/b/0geVnsfJKf/IyZhNyrhLFVOITh/zT6IPsS2PykE6Z/ZphSf/PUYZSHUbUOKyqRKI4o/ipTfj+Ke4KsS+oBg2C9peSXcWgx0MDr+RQuS2+dxWUvIj8YvHm/hnSJbJKWpZkTQS1DOHf3x8VTw16W+PU4Jj+ayazpYyY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789419259; c=relaxed/simple;
+	bh=EgYki2qTg9jEth3mgB8FPu5aA6K7JymVq1hT1S2nUjc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=Vbz+YusvooXmSBU+ZWNlTF8P3uCcvkLj1udNj3EzCa7sDZUQiOhqbyTdM8iQ6oSpjaRkrjSL1bxK5E0wQd4oFb6mZwB8YjY4mspjoe6LkFiGcp2vS6xhXmt+zIcfyKGtsnIuz1vylZ0EA02jdSZM/GkTU7/borvSV+5rj01xjF8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.96.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=S5Ltvs6baQ7VVnqoFBAi8pcrXy1Yn83ajoXsGru8LTmoNkWI97aIZB6zIwyV/N0jo5JyM2SpeamAHAo4G6qmavBj8jelWyvTXFftkt0Mik6592FY2j57DXHBCnq6gu1x2iC+F6B6y6bdH6Olfjp+gLBs27A9NkPP8lX9xgjdLcr0917X/9+IA1YPiH9MKku23m881ASodZQ2jrf5C6Qw6lpH7hLJs7Ac9enKCoBCeTMsBfcNulWyYJGtqA3jQO7otE26AOa+wj55pEQSkFYTdi/H0NO6A5oGOylsZML1YCQ/iuhdQv0OrWX0Ut9Y7+vIGU1wAjG3boXx7rkE8PwwsA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
+ bh=V2X/+C/iMDZL9T17cW3kjeHqw8eLFA7mF4zyexXBTAE=;
+ b=aGjUKPMDjmITYpE20kNWeqAASRLn8os5nbPaHCyZBqwV+juGJofE6hAs6XHTk20b0Du0I4wdRUL3KVTcCVZULPI+V5BKCt8XzdwhWyhC0YnW4SPWhAJdt+u7o8cS95rzPPDsFFrSQBsCe3gyGtA2riE+WLeiwlWmuT3jZR+wqcNrodsjilFcN2IRbFuQ3gMr5iM2xgo4nRiwSDXZzrEvZ5iu/iNxo61hcpd/si4AgSYZeoOVCmk7wWLK1EHn4jTjYLExVQh0t8kn287CHag9Il+L6z36s+V19pbXOeG0i/ONRecGEnrclZzklAw1DecyW4sqINUsTrFAPjsYLlWkTg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
+ dkim=pass header.d=atomlin.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=atomlin.com;
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
+ by CWXP123MB6173.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:1ad::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
+ 2026 20:54:14 +0000
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230%4]) with mapi id 15.21.0406.012; Mon, 14 Sep 2026
+ 20:54:13 +0000
+Date: Mon, 14 Sep 2026 16:54:08 -0400
+From: Aaron Tomlin <atomlin@atomlin.com>
+To: Tejun Heo <tj@kernel.org>
+Cc: leitao@debian.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] tools/workqueue/wq_dump.py: Add busy worker
+ inspection and BH pool states
+Message-ID: <jktxu3et7suijjehlaosiz4cdudqjarqxnrygmsipodegd5x4u@choklcsxima7>
+References: <20260911210625.535285-1-atomlin@atomlin.com>
+ <22e5b93e20119d75440a731054e2845a@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <22e5b93e20119d75440a731054e2845a@kernel.org>
+X-ClientProxiedBy: CY8PR11CA0015.namprd11.prod.outlook.com
+ (2603:10b6:930:48::21) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:400:183::5)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: xnVzXVQNriWItXBnwut6F_bciPzapqsM
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDI5OCBTYWx0ZWRfX0Hnt6SrrvnhE
- fvL+8Ijq19gFqRYfa4T1taktGQk/n9I6BeIEKMpBToyxjLNdVbmTKbKH8dW+R9jivG0bIUNgL52
- VUSjQfRnlcH9ecZbULF+92zzpZdUXzcWYhhOcm/NThwZ36w0l/oDaY2QV/9sHALIu/BxUp7qxNC
- Nsa9lGCG3kBV8v5XJ+zIMd4TgN/5UjuAuoIoYt6kgLbANNPRNgWkXTV+3afiPOcGBL9o3nHpejs
- cC1m+0VjE5sbDlXUE1LPHjF9S70sAL8D+pDkEooNEyZPxvsYq/YfvDujdGV4evv9HafWWbdVHOd
- mTFYEH7zYJ8PMf2LTrOoLQh7mPM8ORuLWUxZ89nlRIPwr2CdfZp37KgypTC7VV4w/KK8InXs5Ml
- Q1kuUt6Ff/0ZON9BnO5MYuxFBzColIMrYZVfVG9MluT1vXjLGEEi2vaiHRS1ADkFy6JFRiB/Zlr
- rNBPkREZuG/YGDZs8oQ==
-X-Proofpoint-GUID: xnVzXVQNriWItXBnwut6F_bciPzapqsM
-X-Authority-Analysis: v=2.4 cv=M7TYuCws c=1 sm=1 tr=0 ts=6aa85e45 cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=aNnz9XPx1a4JIXSYt2cE/A==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Tpk7IuwJ_fedSR-JTnkA:9 a=CjuIK1q_8ugA:10
- a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDI5OCBTYWx0ZWRfX/2KqjB/MC7Db
- IPa9wNuGmFrsf8qLAiJJQQvn/0hlEoSclxDIphAEEZTARXBjRv61LtTtdPCiVZU3KBlNqhLDplr
- RpcQYZFSQAoc8X183UJ3nx0xxx2Getg=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-14_04,2026-09-14_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 clxscore=1015 bulkscore=0 impostorscore=0 suspectscore=0
- malwarescore=0 adultscore=0 lowpriorityscore=0 spamscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140298
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|CWXP123MB6173:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7995a7b4-638a-42c8-11ab-08df12a25557
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|376014|366016|3023799007|6133799003|56012099006|4143699003|18002099003|22082099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	1rb/Y8vADCp6VdhfaOTZC+AzYeKaFzAt/uzyVFtIFWeqdPUF/I1JlO0C9IauzoT/MQbd/oeGNDlwvUW6EfOqcf/nZecqK6FDV4m+Jri+RHmFKH2V3ZVki+chhx1q9DKSjqvFkM4p4ty+SnlANivgrJ8vP8UNJgeetSluzkTOfvPelF1F8CqFQ2bSLVzGM+Wi+8BAU5TDM1csMqMCHlbL89qG3i0dJ38KrHjA4pVEVB8+nU0B5hfZZ+4nmmoi6LQH+7F1hm+NmeUKoL7W24LA8OVknL4rqcYsK4t2Y5pypLGBGaPkmlHpx4C98+xNxcYvOUNIyITw63T8ANRYFcAnEB22jtvyWVD+gHou5jQ/Qtda7HNCV7Rzvxxc67zmrotuBQgSozhgoSTcwMPB2brved7lJOnQUj3GBKyMJLpMg3N2ITfTUxqrZZxbEKr3ZqFmwoEHu1u6+n9tkR9co9AxfM839LPE0fHo1Xg4VlEa7YVY5+NKb1f8ji2/SmnGZKVK7KMDIzs5mqiGMHTVBG6EeyvmJA5HjdxjOGfRC/DD3dxAv8wHJ8VHnusI1A67SkxIMSr3R3YEhSCyQInsTHd6y5SAC6AojGiAtv49FdlCfTyKBJkrGV752QdRRYb1r242oNDs3rMgFsHvfXL6A4XCBY6M5/rVEaY8Rcsi6I7SAtU=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(366016)(3023799007)(6133799003)(56012099006)(4143699003)(18002099003)(22082099003)(10067099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UGxXcVcrcnoxWThmemp6cGNTeEdGN0hhc3VlSmd0akdXZzhKQU5VSlhsNDVQ?=
+ =?utf-8?B?SHdkOWpMczFoVFdPOU54bmo4OVBVc3VFU1JORzVnQjJlYVp4aDBpeVhJOWpn?=
+ =?utf-8?B?d3hIa3pOTEZqbGZGWmRXT3Z4cGJVMTJ0V2FtR3dib01XNXFKUjVqZU5HU0tp?=
+ =?utf-8?B?cjIvczJaeUhZUlFPeUJOankrRlpPeHhQWmh4ZUV5VUJ2ZWcvaTRhNEJLNG1x?=
+ =?utf-8?B?dG04NHhEdmVoT21yU2NDVCtDY1VNYU1rU2dXVGtkdnEzYlFDcjAzOVVGMGxz?=
+ =?utf-8?B?MWhTa2VnZlYvT1ZQWk5aaENoRVg2SXhYNW84YUo3ODdyZUtpRlgwYjlaSGsy?=
+ =?utf-8?B?NUowTUF5empDeVVpbS9MS25zUFJXYjhrTmpmQXVMTWJhQzVoK1RBNlRDbm1V?=
+ =?utf-8?B?TGsyUkpjR2k2Z09ER1NmU0pma3lVOG1vVlgxOFJ0YXMxaXAzWnN4TkdWdVdR?=
+ =?utf-8?B?aFUyc3llQm5ncDFURW93M1ovSnNQVlhDTzJFaytiSHJJbTAwaFk4aG1XamhS?=
+ =?utf-8?B?TXQzL28zS25QZTdVTG5MTEtHZ041VHNKSFJPMEpaTUZ5TDFSTkFrOUtHNTFT?=
+ =?utf-8?B?VkxXL2dZYWhCd3FDS1RUR01TdUxSSndTVWdBYS93Vk50VFlIVHdvVkJ5dzZp?=
+ =?utf-8?B?cWk3ejdiZC9ad29zKzZxazZ3aElNL01UTVl2OXdjL3R3Q2s2MUFnVm43bmNu?=
+ =?utf-8?B?TVF3a2RjZnkyL1kwWDdPK08ybHBpK0JyVENVSEpDbzByNU14aklmbzdDZ2Z3?=
+ =?utf-8?B?YWtDa0p3K1VXNmRVdHYwNnpxamdKQjUxbnk3cGFyQ0RjMTlQRGJnNml0Slcv?=
+ =?utf-8?B?LzhLVEk1ZWMvV3JCL09HZTFpL2ZjOFZFTkZERk5SSjE3UTI2bUNpUHV5M1pG?=
+ =?utf-8?B?OUdyNVAvYjI5am5Yd09MYmR5eHUvZ0xOcjlYN0ZZSzBlK0EyVWMxempxbFdE?=
+ =?utf-8?B?akFRNmV5T0xTaDRHenNLQk1kUEJxcW5tTDVCenJNUjBjaVhkRUpFMmlkWlhQ?=
+ =?utf-8?B?alQ5NzFJOW02TjJCRlFHRVFqVXZ4c0VFVW5aRDFqSWdOZlh0dGVuRFkvN0pQ?=
+ =?utf-8?B?ek5WUjZ4VTJ2aVJLektyZEt0MnhpQU82V3RMaXhCR24rRitOUE1GQnJjeWpY?=
+ =?utf-8?B?MGdyZjNkTjJOMVBjYXA5SkgyeU1uZk5jemtBN3h6STJLZVAxRElDeCtlRXBI?=
+ =?utf-8?B?aDFnTGY2WEZ6ZUNmQ0lsc2NwWFZVMEkrSzM2SEFHMEpqNi9ZOElpMCtlNmlG?=
+ =?utf-8?B?ZGk2WVpiTFVYYXRUV0xPZ3ZqME5leVp6eHovbG8wdC9Ud3l2cVQycldCNWpN?=
+ =?utf-8?B?ZGlSY1E1eHVxMnR1dzFFemRCSkxEVWhFREV5SGwzMjZZNzI4OE02QTg0SHVz?=
+ =?utf-8?B?dDc4RklWblFTSnFrRDhuUHJZZ1ByemdGT1hQeWtoalpVWWNYSDZxeUhsK3RM?=
+ =?utf-8?B?N3ViZjJ0UGNDcXpxY0FSQXNmSytQanRyRGk0UFQwZDQ2blloazduc25FU1hJ?=
+ =?utf-8?B?cXlMOUtmWDFxQ21wMlJ5SEhmMmNKb1J2WlNYM2UyY2tuYnZVYVczS0E0dlhY?=
+ =?utf-8?B?U1RaYmowd09MMGZOOHdPRGNKdTAvM2I4VW1CMG5pVjl0R1pGTmgrbENYYm9u?=
+ =?utf-8?B?V2lNdzdKZFRuMWNKT3Zia1NkMldsRHNvcUJLaE40Vnluc3VqOXh1WEF0Umdz?=
+ =?utf-8?B?cVVVNjN5cllXNXdTaEt1UG5RQ2NtMGJkaGV3NnI4YWhTWjV0T1pkSE9BYVJN?=
+ =?utf-8?B?M0FFUHNSZkpVOEFJWlUrVFgrMVlsNzZjbE9sd1d5OGV3Q1dFMTBURXlkL0pv?=
+ =?utf-8?B?ODVYVkp6aGxDZXNpd0sva1RSSkxpZ2l1cmxpTENtRytEUlUvZVA4QzRTYkNx?=
+ =?utf-8?B?TVhaNzVNK0dBdStZN0UwaUVsaW9XZG1jT2ZDRUUxbHphcTVPV3F6MWFhSk1P?=
+ =?utf-8?B?eVQ0SjRXdzJlcnAzMlJHay9uUC9nOWszZU5HRUJPaCtmaU1icDVVQWJsRXpr?=
+ =?utf-8?B?d3g4alNGVkE0LzgwcDdadXpOdHM4WStRZ0JrdHlsNTBHS3ZKRU5MTC9VRzNv?=
+ =?utf-8?B?T2c4a05naUhpbm14aXhjV3M4VmNtUWxNcWxmdTFJblBvKzZjRkd3bUdYSWZa?=
+ =?utf-8?B?dUJGTkcrcDA5TDVOQjVoWHZFYSsycENuNHhBWDMwNzY4Mko4VnpPR3FueWZI?=
+ =?utf-8?B?aXI5dVFmNk8yU3Q5bWthTUdIWHBHeXFEUWJDdG8zNnlnTEhzMGhJZmVoRnA0?=
+ =?utf-8?B?RzhGTWdNQUhsVnVuWk1iMmh1cEVSWEQweVpyZ0crZWhEUzk3SXJKbFBYUW9N?=
+ =?utf-8?B?UjhQeEo5dDgvZHRYVVNKNVFUcXhUUGVjdytNQVZOcHdiUDQ3QnR5Zz09?=
+X-OriginatorOrg: atomlin.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7995a7b4-638a-42c8-11ab-08df12a25557
+X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 20:54:13.8295
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ifl4nsryDpFrMbi3ElRjSO4xFZAxXc/R1ZCI7pkHrzC70eIV72/+Bi+tJqSYjm15sDoBC9IWVj1Khd03yrW6Nw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWXP123MB6173
 
-On Mon, 14 Sep 2026 11:35:10 +0530
-"Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org> wrote:
-
-> The Arm CCA guest TSM provider currently binds through the arm-cca-dev
-> platform device. Like arm-smccc-trng, this device is not an independent
-> platform resource; it is a software representation of the RSI firmware
-> service discovered through SMCCC.
+On Sun, Sep 13, 2026 at 06:01:41AM -1000, Tejun Heo wrote:
+> Hello, Aaron.
 > 
-> Move RSI discovery into the SMCCC firmware driver. When the SMCCC conduit
-> is SMC and if RSI ABI version call is supported, create an arm-rsi-dev
-> SMCCC device. Convert the Arm CCA guest TSM provider to an SMCCC driver so
-> it binds to that discovered RSI service and keeps module autoloading
-> through the SMCCC device id table.
+> On Fri, Sep 11, 2026 at 05:06:25PM -0400, Aaron Tomlin wrote:
+> > +        for bkt in pool.busy_hash:
+> > +            for worker in hlist_for_each_entry('struct worker', bkt.address_of_(), 'hentry'):
 > 
-> Keep the old arm-cca-dev platform-device registration for now. Userspace
-> has used that device as a Realm-guest indicator, so removing it is left to
-> a follow-up patch that adds a replacement sysfs ABI.
+> worker->hentry shares storage with the idle-list entry, so a worker going
+> idle can send this iterator into the circular idle list. Leaving idle can
+> leave a self-link with WORKER_IDLE clear. The per-worker retries do not
+> bound either case.
 > 
-> Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
+> Could you break out of the bucket on an idle worker, a repeated address, or
+> a traversal read fault? Warn that the pool's busy-worker output is
+> incomplete and ask the user to retry, then continue with the other pools.
+> The exception handler needs to cover iterator advancement too.
+> 
+> Thanks.
+> 
+> -- 
+> tejun
 
-One minor thing inline.
-Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Hi Tejun,
 
-> diff --git a/drivers/virt/coco/arm-cca-guest/main.c b/drivers/virt/coco/arm-cca-guest/main.c
-> index 80659f0885e9..7b1fa008a8f4 100644
-> --- a/drivers/virt/coco/arm-cca-guest/main.c
-> +++ b/drivers/virt/coco/arm-cca-guest/main.c
-d)
-> +static int cca_tsm_probe(struct arm_smccc_device *sdev)
->  {
->  	int ret;
->  
-> @@ -178,30 +170,32 @@ static int __init arm_cca_guest_init(void)
->  		return -ENODEV;
->  
->  	ret = tsm_report_register(&arm_cca_tsm_report_ops, NULL);
-> -	if (ret < 0)
-> -		pr_err("Error %d registering with TSM\n", ret);
-> +	if (ret < 0) {
-> +		dev_err_probe(&sdev->dev, ret, "Error registering with TSM\n");
-> +		return ret;
+Understood, we need to address the lockless race conditions on a live
+system without holding pool->lock. How about the following?
 
-		return dev_err_probe();
+ - Guard lockless busy_hash traversal against circular idle list
+   diversions, self-links, and traversal read faults: check for
+   WORKER_IDLE, track visited worker addresses per bucket, cover iterator
+   advancement with (drgn.FaultError, LookupError) exception handling, and
+   warn if a pool's busy worker dump was incomplete
 
-Having that on one line is one of the nicest things about dev_err_probe()
+diff --git a/tools/workqueue/wq_dump.py b/tools/workqueue/wq_dump.py
+index 4a3281bc5605..32be5c69a61b 100644
+--- a/tools/workqueue/wq_dump.py
++++ b/tools/workqueue/wq_dump.py
+@@ -137,6 +137,7 @@ POOL_BH                 = prog['POOL_BH']
+ POOL_BH_DRAINING        = prog['POOL_BH_DRAINING']
+ POOL_DISASSOCIATED      = prog['POOL_DISASSOCIATED']
+ HIGHPRI_NICE_LEVEL      = prog['HIGHPRI_NICE_LEVEL']
++WORKER_IDLE             = prog['WORKER_IDLE']
+ 
+ WQ_NAME_LEN             = prog['WQ_NAME_LEN'].value_()
+ cpumask_str_len         = len(cpumask_str(wq_unbound_cpumask))
+@@ -203,38 +204,55 @@ for pi, pool in idr_for_each(worker_pool_idr):
+     print('')
+ 
+     if args.busy:
++        incomplete = False
+         for bkt in pool.busy_hash:
+-            for worker in hlist_for_each_entry('struct worker', bkt.address_of_(), 'hentry'):
+-                for _ in range(3):
+-                    try:
+-                        pwq = worker.current_pwq
+-                        func = worker.current_func.value_()
+-                        if not pwq.value_() or not func:
++            if incomplete:
++                break
++            seen = set()
++            try:
++                for worker in hlist_for_each_entry('struct worker', bkt.address_of_(), 'hentry'):
++                    addr = worker.value_()
++                    if addr in seen or (worker.flags & WORKER_IDLE):
++                        incomplete = True
++                        break
++                    seen.add(addr)
++
++                    for _ in range(3):
++                        try:
++                            pwq = worker.current_pwq
++                            func = worker.current_func.value_()
++                            if not pwq.value_() or not func:
++                                continue
++
++                            wq_name = pwq.wq.name.string_().decode()
++                            fn_name = prog.symbol(func).name
++
++                            dur_str = ''
++                            start = worker_current_start(worker)
++                            if 'jiffies' in prog and start:
++                                jiffies = prog['jiffies'].value_()
++                                dur_s = ((jiffies - start) & jiffies_mask) // hz
++                                dur_str = f' for {dur_s}s'
++
++                            if pool.flags & POOL_BH:
++                                w_id = 'bh' if pool.attrs.nice != HIGHPRI_NICE_LEVEL else 'bh-hi'
++                            elif worker.task.value_():
++                                w_id = f'PID {worker.task.pid.value_():<6} ({worker.task.comm.string_().decode()})'
++                            else:
++                                w_id = f'worker[{worker.id.value_()}]'
++
++                            desc = worker.desc.string_().decode()
++                            desc_str = f' desc="{desc}"' if desc and desc != wq_name else ''
++                            print(f'    busy: {w_id}: {wq_name}:{fn_name}{dur_str}{desc_str}')
++                            break
++                        except (drgn.FaultError, LookupError):
+                             continue
++            except (drgn.FaultError, LookupError):
++                incomplete = True
++                break
+ 
+-                        wq_name = pwq.wq.name.string_().decode()
+-                        fn_name = prog.symbol(func).name
+-
+-                        dur_str = ''
+-                        start = worker_current_start(worker)
+-                        if 'jiffies' in prog and start:
+-                            jiffies = prog['jiffies'].value_()
+-                            dur_s = ((jiffies - start) & jiffies_mask) // hz
+-                            dur_str = f' for {dur_s}s'
+-
+-                        if pool.flags & POOL_BH:
+-                            w_id = 'bh' if pool.attrs.nice != HIGHPRI_NICE_LEVEL else 'bh-hi'
+-                        elif worker.task.value_():
+-                            w_id = f'PID {worker.task.pid.value_():<6} ({worker.task.comm.string_().decode()})'
+-                        else:
+-                            w_id = f'worker[{worker.id.value_()}]'
+-
+-                        desc = worker.desc.string_().decode()
+-                        desc_str = f' desc="{desc}"' if desc and desc != wq_name else ''
+-                        print(f'    busy: {w_id}: {wq_name}:{fn_name}{dur_str}{desc_str}')
+-                        break
+-                    except (drgn.FaultError, LookupError):
+-                        continue
++        if incomplete:
++            print(f'    warning: pool[{pi:02}] busy worker dump incomplete, please retry')
+ 
+ print('')
+ print('Workqueue CPU -> pool')
 
 
-> +	}
->  
-> -	return ret;
-> +	return 0;
->  }
-> -module_init(arm_cca_guest_init);
-
-
+Kind regards,
+-- 
+Aaron Tomlin
