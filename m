@@ -1,168 +1,163 @@
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011057.outbound.protection.outlook.com [52.101.62.57])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com [209.85.161.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F265C44999F;
-	Mon, 14 Sep 2026 11:46:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.57
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789386401; cv=fail; b=ouu4msUoQrnSvdVZmh+ABLXpMmnAb+u14TTEQpkkXIaVHQ6kG+wVcChlylsU1yqNYHYKdZqPl0z3fgPmVjBQNbmBHR13IL8lRswmD0+/1v39XFktH/edvKKKSwpzVvSy4D5G9z3vXUAcHsYuDnGv0rdhY1o45RbdOcxPHw8pH8s=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789386401; c=relaxed/simple;
-	bh=yB88AobjWNR/TqyMuz2YHIFeyTRICsTOj/Whq6QP8KQ=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=G8wKFgbir2EKucbEx2v7uUFm54ANQfJr/B/dtsoj2ZGME6Uj76pbhExQf/Dx580Ps4X5azZvH0y7qzauiF0WIxDO9Zlu+DVTZIvgJqnj4eSO9uq7zVV1dkItbsTihCpO7CQfj+4fpvjytxCQBGu068kMbHG40jotG0lc1XkmR6o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=oxTRcO9H; arc=fail smtp.client-ip=52.101.62.57
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="oxTRcO9H"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hzxiJQTyi2VgisHnHL5QIYq/Fqu1I8D7bsxR1P8r0Gdb2ElHGLlvTJG9mDMIFcDGtGkJ0qiLHi16cEfi5eDxIjABz0cixGZFeNWAZaK4OER5HBc4dfd06yviX/SszDMgPNu3g4u4QvhkXoKfQ6cUtt7/MEUPodKEKFPTZuY8j42Ag5Zgoyo6/vDOS2UyHKnw/eVc45sEJRkQGloRUNVMzmD/5qwn1zz7808VDMO/HKP8XVu8n3Y1ek2b5yhtOdUSW7voxraLbolbjIz5tVdQciYn2o6nLufv1eKqIVfZ8NjYQl7fy6vfiqzj31IYb+UXNoL/4i+mX9pWQQsfPu768Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9NxEtL2qAT6NJDXz5T9PpJ/ipi9NSCuLwXUdEd4YP8Q=;
- b=ittxjEkgXj24CuV5bMuz3MIEnKFWDu0sj6kH8+Syh1DqNFRTl76F+MAb8+xubLTklF71MXGCBw3b2uCZb+zxkk2NBMbWP1ChUjlOit+EKZGG9OXs2QO0Y2YSW/1gZYG7KbiMncFIyhDlHxveaIB+8SQGBr+p0Qo8H32HbcToIQW9v4k8gcwqssVoWkqvKXXmcLzSDM3tlku7QdG/pHj73WkcrGi7heaUSnslVJ3xizDj7uKPlFmiiWx8mJiV2RvEA6m01t/30H8xm2PAc9Oe4WOly0Xop88zKAtm43aiBPsPFuhpiUxhT/sn73g2Xof0p2psnoj9Z6nWMq+l8XzU6w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9NxEtL2qAT6NJDXz5T9PpJ/ipi9NSCuLwXUdEd4YP8Q=;
- b=oxTRcO9H8Lb+2yXj7czTIIl3p5mKb9OeBqJI6jMEwtRfzQdehIzimOxOzfc+hAPEYzSoY8SuewK9BUgft69ZcKcZafrPvZsgic1PfEv+fokquFyssUI1riww9QocMpOQ3httXccWx/qtiTPcdgl1JaTCchVsD9K4MN7xK2NXpvM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by MN0PR12MB5907.namprd12.prod.outlook.com (2603:10b6:208:37b::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
- 2026 11:46:37 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0406.005; Mon, 14 Sep 2026
- 11:46:36 +0000
-Message-ID: <b7e1739e-08f4-4283-a480-f06a9738a0c7@amd.com>
-Date: Mon, 14 Sep 2026 13:46:32 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dma-fence: Fix dma_fence_enable_signaling() reference in
- kernel-doc
-To: Karl Mehltretter <kmehltretter@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>
-Cc: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Matthew Brost <matthew.brost@intel.com>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org
-References: <20260911221100.7079-1-kmehltretter@gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260911221100.7079-1-kmehltretter@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BLAPR03CA0087.namprd03.prod.outlook.com
- (2603:10b6:208:329::32) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 459EE3D8122
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:46:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.70
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789386416; cv=none; b=EQ8ng9wNcYQmQxz75NMYXfk1sMA9MrtnnhmQlKLAvwPoRBxm2TEGQjq4xHeOpFrfqMWFh5a3/7VOitGixY1taYUkuHttrp+z5pRiVO5DtgiGS1SgAd4nmma+gWTmCqHiXvPKNvDKjHqohSiVUNU8hUnDbiD9QjNZaFX4C8220tM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789386416; c=relaxed/simple;
+	bh=t4NWASf+VT2ZbPFBf6toI5VMcXq6A6UymHW0HZb+4MU=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=MZbhPavJ3NLxXhC2A330tvYMckcAJ2CnlkXfkpzchRrs2HGTzc9YOfHeH3cPagE31L0oLSoigH6dsq/xwqRPZ31A1vCwOsFI3hYWoT1RH2vYDpfkheU6RhuSeZWm6SN3JARFISg+ZJ1zddRYe1P3SIJesiVw1pVZwqkaLuK+6sw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f70.google.com with SMTP id 006d021491bc7-6c2549d0cbaso3145552eaf.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 04:46:55 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789386414; x=1789991214;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=0hv6YnMz1nh3AsQzOiSQwXzZr7z48BB8fNfr/cM9XX8=;
+        b=bttnjff26Pq7x8lel2IilzwhA89BzfHGuz2VNaufOECaPxK06YCzWlfwEkTPE7+nPY
+         q/g4OhppnrJJ94V8nWrdhyQsRqkHG0ca+OnBenma9GJxyQQRn64MCMdhuh3LQJbZEPhp
+         koaEk5u9EtxYviBe8mOeVi3h5pSUKQMOEMXYMVzLRjKkFVvRbbwT3t4uPdcskrJd+fUJ
+         wWYkdmWDLq3IGiUfzM+MlBxzH3rhxLDkyhx1MXIKlTbjOdeiQEmmtbUIJhinKPN2y93x
+         fq1yLXxILQWP3gPe1pHYFxjrNm0JNIAG/moWm9z5WVIdI036ev7gdVsaGCI5Q7qE7Z78
+         Bwlg==
+X-Gm-Message-State: AFuF++maRYNv8bBMiBKqawB9sHy0xdrVllLDKWWn9O8bq8VNPQ9kv4GK
+	NsUlIw8i9rb+aHKiMSFU4w3odhlNzyMl+DDRtDP75/Rf6fBC8lhc30uM+pgMS33bOEvIzyIE3Ml
+	2ihn9ssFqBuXSuf0tDmOAkWfpjsfWCidDP2kp0nvCG8YwZb87xAUHToyDHyg=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MN0PR12MB5907:EE_
-X-MS-Office365-Filtering-Correlation-Id: 700fd71e-f890-47d5-62bc-08df1255d4ff
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|376014|1800799024|22082099003|18002099003|10067099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	sUN8G1mcMVGMd3Yb9u5VMfP82jz12ILIhkYHMU0fnBQelUIkQTpGjAY/oDhTcvVEBC8ChkwnwZN+/ZkLUBnrVmJkE7nY9vvAcm5HEFPBp3zPUPUE1dXJGoa/CBAH4nKiQiQIvSEb2UyUTAAZIO/D0Adc5lmAEsSjikNvZV37zJ+78gtS9asth4tls/i4DvctfjtkYufGY6R6m/wo2P6rdIg103gwCzFfX3hYpYaSKWyArn1UOUMfqQNQoo2+mSg6belVdzB3qWjhhQpqVl4mpvSt6D8w9fc/S+pq1ZbEJFdf37q7jXYOVRyL//TmTSZsbLB89M1zycDZztD+XANoVowJlm4/7JujkvD6oQumAmO1nKLCuShX4C2SG+OROMtn0TAG4QE8KQz/+JfZplEZdjZubtLVFFvc32yBZvVw69ZODMUjZJo4tQ5ksQC6jdsZ58WxwjlQ6TGd2KXp9w0LQ3tCE+5SqYkU3JrZ1N+xcO2mjSP2qZPu2HK8Lln2sGd8s0RllypJHVr7jUMMnlnCEvNt5N24msWNn+GlEWmxIuQSjj/fSnEqudXlro+0Z1CEaJQnza2sYOgf83OuFi4FJmEtOTO8M9FJCnDl6z9DIYC0kLOOZebt6uAn9R4O1N8yKUHj8oCzjumSmGpyV0P+mrfpbit9C/qWv5O8G/5mKB0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(22082099003)(18002099003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?U1J1NUdkd3o0SFlrVHhvRytnSHNvV094RHRpZTBkQk0vMjlBUkVZejZGcVRs?=
- =?utf-8?B?c1RYUmRNUEFyZTNMZlNLd1A1bnlaUmRERXJXMVlRTVhRakZtczBpNzZnOFc0?=
- =?utf-8?B?NVFkbWp0VTRKQ01BTlFjbHAwZFpyM2J6WGs3NVliR1NnZUd5Nnp6MXJqbXV5?=
- =?utf-8?B?TktWN0o1d1VqenpKRzVUNWUwY0hBMXVBTXlBaFcrc0dyUnE3RjkwalVOL29Q?=
- =?utf-8?B?RTNsNkxYMElsYXBSOENBR3grTTVrRzlKaGp5a0ZFTXJYQ3FjVEQ3QzQ5Vm5P?=
- =?utf-8?B?MExvUUFYNjJKZ1BTZWtTeCtnT2Y0ZjNNeFJDQ3IxT29mQ3BTQXp6c1hJek1m?=
- =?utf-8?B?bHNjZUVSS1ppR25BRTRlcDFJWkoxNTlMY245V2N3Wml2VHpHdFI4Y2lzeUZz?=
- =?utf-8?B?anE2bGN6a0JRMFRUN2Jtc1RHL3NiLzV6WEIrbVF0V2hnRXRIUDNFc1czWUlw?=
- =?utf-8?B?Q1lycTltd3NDekF5UUtmZkl4K08vM0MrNEpudktCOThia0ZqazRpUUdSUnlq?=
- =?utf-8?B?dUF2eWtNanNEejFPbGVPT1ZxMmJxYnVPYUVLbjZqVXAyVkhDcjNzZHhjUDYz?=
- =?utf-8?B?NEIzSDdlWjVJMThLdER5b1FFajhTT1Q1REVEVVRiYXlPMzE3d01yVnZQck1O?=
- =?utf-8?B?dmlXbFczbVhZbDhGZGs4V2phM1JFdFYwbncwZ3NxUzJSZzg4Y01XVzFjSTNu?=
- =?utf-8?B?d0srQ3lFOHE3Yk0vY3JmcUc4ZlZiVHo3aUhTRkhWZGFlQU9NdTJaTUh0N3NZ?=
- =?utf-8?B?Q1hSSmZtZi9pRGswMXlpRTVrUE1mUTRRMlo2Zk0zb1c5em4zUkY1cDljVGw0?=
- =?utf-8?B?VVRYc3hXd2NkTXJSTnFIOXFsSTZXVmVNV2ZYOEV1QU5JaGMwbmdYbmhMUmhi?=
- =?utf-8?B?MHhMVjJ4S1NlT2xsQUE0RFZFMDUwcUlPeXd2Q3ljb3U4Wm5nd3ROdmMvaS8z?=
- =?utf-8?B?RkV2TGtwd2VJc0JEanM5Yjl4Q2Y3alA0ZzBRaUxtaG1zMWZVWXhjZTE0anBD?=
- =?utf-8?B?V1VJb3FFejQ2cGR0ZXhGNjVhTko3YkpTdjRvSUNZcW9kejBmd3NMREZMbVdy?=
- =?utf-8?B?TndCNUlIZXdkVVZTTUtVTmh1a1NaSnZRY2VJVnkwMnF5WXZFTmVDTFRSSjRL?=
- =?utf-8?B?ZTJTNTRSUGN2MitMNGFuWXdSM2dteTNaaG5FaGMrUFZrdGtOUzEwdEFJdU5Z?=
- =?utf-8?B?cG5uVndkTEc1WkJtVWhldVFJMkJKcC9ma3ExT0pvNkwzTVZPdER4c0dXZFFI?=
- =?utf-8?B?UjFwLzdCMDlhbzFPQ2xDbmFJQ2RuUHUvRGtXa3E4SEp2KzNTcVBteldsaThm?=
- =?utf-8?B?eUhiNVhEQlpsR29zRktuUExLSmJCblBrT0VhT2doT3R4WmhMVmJaNG5CdFd4?=
- =?utf-8?B?QkN2Z2ZkWHBOZHFoZ1g3MFZOcW5OdXdtM3M3V2psbFFWK010M1U2SnpHMzV3?=
- =?utf-8?B?V1VDSHhIRDY2T3hTdEYxVUFIeUhNbk9ZTVVaMk8xU2VLNkl6Q2EvZS81RWUz?=
- =?utf-8?B?Q1BxSFhkOUp3UENXaDcxMnFMVXBsclQwWHhKdk9oTXJsTG00eHFHajZtTVhT?=
- =?utf-8?B?WnV4anUvWnZRTDhJazluTEZmSWRtODgxclRmYWZnSWxXdGExL25YQlB1aXd0?=
- =?utf-8?B?ajRqeTRCYStGQzlUTE92ZmdYQXVxUDdiYlhEZDhsL1owN01aQXROR0pZb0tE?=
- =?utf-8?B?bEhnT2xneTgzYjk5U0tvRmV2RVpyZEdxbGd5T2o0cVlIa1Q1UU0rdktZckVX?=
- =?utf-8?B?dzIrR250MEkrbEo3VUpvK2EzVm5SeDVtZXo4R1h2NVBJaDNNZlBiWUxiemcz?=
- =?utf-8?B?ZHNXTzl2cG8zSllDejY1Mm40OGVlQm5jV0JNaXZ0cjBPVFoxeE5kaTA3dTFV?=
- =?utf-8?B?MVlyYkhVSDVTUHlvcnBZVVNvY3NEU3VML3diQmJ0SzFrWkZJTlFab0RUL1F2?=
- =?utf-8?B?aWM1NEdlWGwxZmFIS3doUEQrR0VTeDBsN05uZ242NWF6Lzd5aUZWUHlIelNQ?=
- =?utf-8?B?MjZtd0REUGFFcWNNQWN5SUk4SHludG84N05JYldzcGloMEVmV2g4S2xERENM?=
- =?utf-8?B?Vk1mZDRnbUZkRjFINiszVXV4QTlpTUlXMGtRUlJ1cUp5b3UzbS9ObTZwcm9W?=
- =?utf-8?B?b0xtUno0dkpDeVd6bm9KaTY0TE84TlUyU29rZ1g3Q2xYZE9QWnJrblpaWktH?=
- =?utf-8?B?VFZXTlVJVXZ1VEtWZTBZY3BHaE00OElFMXFBY1RXR3psYzRDYnJQQmY0c2ha?=
- =?utf-8?B?ZEtZZnlZNjhiVzJ4cG5BVW1tZm4xNi95MUxkMmtJZEpkaXJ1RUdLOTRUUmJH?=
- =?utf-8?Q?j7VaH9DA2YKaXwArpL?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 700fd71e-f890-47d5-62bc-08df1255d4ff
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 11:46:36.6121
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MSzTlJgJS7eVXq+4BTGoRJ+rtj7GsZt+Eu9IN/F7OosiEJh+DRcf915m4/sTca7S
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5907
+X-Received: by 2002:a05:6820:3083:b0:6aa:de29:651 with SMTP id
+ 006d021491bc7-6c5426359a7mr1035930eaf.16.1789386414222; Mon, 14 Sep 2026
+ 04:46:54 -0700 (PDT)
+Date: Mon, 14 Sep 2026 04:46:54 -0700
+In-Reply-To: <6aa4291e.f81106d8.2ab401.001e.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa7deae.f81106d8.2ab401.004c.GAE@google.com>
+Subject: Forwarded: [PATCH] KASAN: slab-use-after-free Read in v4l2_release (3)
+From: syzbot <syzbot+34957180b0ed2581edaf@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 9/12/26 00:11, Karl Mehltretter wrote:
-> The kernel-doc comment of dma_fence_is_signaled_locked() refers to
-> dma_fence_enable_sw_signaling, which was renamed to
-> dma_fence_enable_signaling by commit 9370a5c664e8 ("dma-buf: rename
-> dma_fence_enable_sw_signaling"). Say dma_fence_enable_signaling.
-> 
-> Fixes: 9370a5c664e8 ("dma-buf: rename dma_fence_enable_sw_signaling")
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org.
 
-I'm really wondering why that was not automatically renamed.
+***
 
-Anyway reviewed and pushed to drm-misc-next.
+Subject: [PATCH] KASAN: slab-use-after-free Read in v4l2_release (3)
+Author: jchuang26@m.fudan.edu.cn
 
-Thanks,
-Christian.
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 08df884136f1c1197bab2a27814404fd329d9aac
 
-> ---
->  include/linux/dma-fence.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
-> index 158cd609f1036e56668867f092041213cbf30427..3aa85be43aada5a80ea2e1cecc5f76824b434d14 100644
-> --- a/include/linux/dma-fence.h
-> +++ b/include/linux/dma-fence.h
-> @@ -501,7 +501,7 @@ dma_fence_test_signaled_flag(struct dma_fence *fence)
->   * Returns true if the fence was already signaled, false if not. Since this
->   * function doesn't enable signaling, it is not guaranteed to ever return
->   * true if dma_fence_add_callback(), dma_fence_wait() or
-> - * dma_fence_enable_sw_signaling() haven't been called before.
-> + * dma_fence_enable_signaling() haven't been called before.
->   *
->   * This function requires &dma_fence.lock to be held.
->   *
+Reported-by: syzbot+34957180b0ed2581edaf@syzkaller.appspotmail.com
 
+diff --git a/drivers/input/touchscreen/sur40.c b/drivers/input/touchscreen/sur40.c
+index 09d8c5f8d..4da6ad1c3 100644
+--- a/drivers/input/touchscreen/sur40.c
++++ b/drivers/input/touchscreen/sur40.c
+@@ -647,6 +647,24 @@ static int sur40_input_setup_events(struct input_dev *input_dev)
+ 	return 0;
+ }
+ 
++/*
++ * Final cleanup of the driver state.  This runs through v4l2_device_put()
++ * once the last reference to the v4l2_device is gone, i.e. after
++ * video_unregister_device() and after every open file descriptor of the
++ * video node has been closed.  Freeing sur40 earlier (for instance
++ * directly in sur40_disconnect()) would let v4l2_release() access the
++ * already freed video_device.
++ */
++static void sur40_v4l2_release(struct v4l2_device *v4l2_dev)
++{
++	struct sur40_state *sur40 = container_of(v4l2_dev, struct sur40_state, v4l2);
++
++	v4l2_device_unregister(&sur40->v4l2);
++	v4l2_ctrl_handler_free(&sur40->hdl);
++	kfree(sur40->bulk_in_buffer);
++	kfree(sur40);
++}
++
+ /* Check candidate USB interface. */
+ static int sur40_probe(struct usb_interface *interface,
+ 		       const struct usb_device_id *id)
+@@ -727,6 +745,7 @@ static int sur40_probe(struct usb_interface *interface,
+ 
+ 	/* register the video master device */
+ 	snprintf(sur40->v4l2.name, sizeof(sur40->v4l2.name), "%s", DRIVER_LONG);
++	sur40->v4l2.release = sur40_v4l2_release;
+ 	error = v4l2_device_register(sur40->dev, &sur40->v4l2);
+ 	if (error) {
+ 		dev_err(&interface->dev,
+@@ -778,7 +797,6 @@ static int sur40_probe(struct usb_interface *interface,
+ 	if (sur40->hdl.error) {
+ 		dev_err(&interface->dev,
+ 			"Unable to register video controls.");
+-		v4l2_ctrl_handler_free(&sur40->hdl);
+ 		error = sur40->hdl.error;
+ 		goto err_unreg_v4l2;
+ 	}
+@@ -787,7 +805,7 @@ static int sur40_probe(struct usb_interface *interface,
+ 	if (error) {
+ 		dev_err(&interface->dev,
+ 			"Unable to register video subdevice.");
+-		goto err_free_ctrl;
++		goto err_unreg_v4l2;
+ 	}
+ 
+ 	/* register the polled input device */
+@@ -806,10 +824,17 @@ static int sur40_probe(struct usb_interface *interface,
+ 
+ err_unreg_video:
+ 	video_unregister_device(&sur40->vdev);
+-err_free_ctrl:
+-	v4l2_ctrl_handler_free(&sur40->hdl);
+ err_unreg_v4l2:
+-	v4l2_device_unregister(&sur40->v4l2);
++	/*
++	 * Drop the reference taken above by v4l2_device_register().  The
++	 * last reference releases sur40 via sur40_v4l2_release(), which
++	 * also frees the control handler and the bulk buffer.
++	 */
++	input_free_device(input);
++	v4l2_device_put(&sur40->v4l2);
++
++	return error;
++
+ err_free_buffer:
+ 	kfree(sur40->bulk_in_buffer);
+ err_free_input:
+@@ -827,15 +852,19 @@ static void sur40_disconnect(struct usb_interface *interface)
+ 
+ 	input_unregister_device(sur40->input);
+ 
+-	v4l2_ctrl_handler_free(&sur40->hdl);
+ 	video_unregister_device(&sur40->vdev);
+ 	v4l2_device_unregister(&sur40->v4l2);
+ 
+-	kfree(sur40->bulk_in_buffer);
+-	kfree(sur40);
+-
+ 	usb_set_intfdata(interface, NULL);
+ 	dev_dbg(&interface->dev, "%s is now disconnected\n", DRIVER_DESC);
++
++	/*
++	 * Release the reference taken by v4l2_device_register().  If the
++	 * video node is still open, sur40_v4l2_release() is deferred until
++	 * the last file descriptor is closed, so sur40 stays valid for
++	 * v4l2_release().
++	 */
++	v4l2_device_put(&sur40->v4l2);
+ }
+ 
+ /*
