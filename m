@@ -1,149 +1,324 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC7F140DFD7
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:38:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 464A140F751;
+	Mon, 14 Sep 2026 08:38:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789375102; cv=none; b=PfjwIDVofFgcYyPuWuWBK1YaUP5Idwgkjnu4jGop1U7nPa4ScZ8qJKQ2zUbgVdCmBeBVKiUU/btZiBrQOVdhyK4C6q59vzUqYDFAhgto5sPb67aSR0CXmLNK2zE3Wc2l9YdYXiyg6E3FU06Y4fqBS/oCCTTPqDNHlAV3Vl+kRP4=
+	t=1789375104; cv=none; b=JI7+5sd93shZmthlh9MM8vOh0qus8+UZKJXIXcWpWYhGIGTvdtxRKvNFEz+houa7WMVXGSg74FxjsordrwfCRkAGY3OOdQ/b0SP3+2qSudrPmmvQLqbXj38uTOVBY7suNMzZGjRXbJUv3FVgxf1vHpdWH+4r/ReIS9wTqUeWx7c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789375102; c=relaxed/simple;
-	bh=gHKHSOLSzp3WyOusQFfkD5ITajAvimdGQIbANCYNGQk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=YdEIEZqvWPBvGTvfIbFTfyBlWE/Y9+b8TUJC5WDR3ny/PwUIXMYhYOBYLWnCZpFLn0X6CFvoTuxYiXc/F1nad2HdeGvO6jiTRkHrtE/7slGrApEih4T7zJTlbUtJHbVXejchiWiPsxG9OvkjLV8LTMfKUFvZMdjgXOSx5cdU9ZE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=V+Vl5ae/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Gi9OszNh; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789375104; c=relaxed/simple;
+	bh=44Zxr0bAzy/FVaHYHhpGrc8BaI6/0sVp1yPuJiyTLok=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Mx2hqgMCFGgREh4ZpClTBbxKMsaAWUxcghAVeiXTG5ewcChXAypOEul2Hl5xVZ/QMkcH8GGddY3H+xeVfSnl3w6U5xM0oSjkfvqp/e0L+mKBhkxfjW9aTWs+Z2CH/ig04tz2YiSiEK9GTuninRzZv0CdmKng0DME2Cal2bu12qk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=trDYbUBd; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="V+Vl5ae/";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Gi9OszNh"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68E5ivhD3739607
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:38:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	tSoOIOvtikrIT/ETbxvsBkHTAv2xbQod1Y0j2PHnyM8=; b=V+Vl5ae/XfXG1uxI
-	GSoAD8q1+fyk9uGG9BQWaCJnAs1MFZdd40SKwbTSsK6D49aBU7YEl7idCB79Nqtc
-	Waj0A+wlp8fCzdiKsJPQevRijL4OOFS87MuF8jzvxSrqC74Q6xF7xC3POZ3AmvI3
-	5dEq0zaQTng82S4+rCyI/AdjQFfaT6A1fGIDCJtOmPlmI6Cp0kSSrqe63WHGnFn2
-	m82Cj244OANgRelnNPHe0tyA3u6SfcFY0V9llSj72R3enK/tWYUeVgSPtumcM8kT
-	2qW2YHsZkoJNrJIaDFoxvPsHjkxBaFMYfmrLn1cUImNyjkfORnYPmrCqDlSyiDsU
-	J24MpA==
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9dds5e-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:38:18 +0000 (GMT)
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-9105cf082f7so61335816d6.2
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 01:38:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789375093; x=1789979893; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=tSoOIOvtikrIT/ETbxvsBkHTAv2xbQod1Y0j2PHnyM8=;
-        b=Gi9OszNhpqSoOXwdX203sybTt461XS5kmAhbk5g2aDWzs3+4VzYsQ9nKUb4TAC3yY9
-         DMYKE/ilVj4GDEr0hpr8GLGDxTqVxbPMxGdasWh4/SxwGCFDMP9y1B2CaN4gp54J6yFK
-         QFls75WRf6IajxT3c9fgn9BghWaFEsHoUitRmCO/95zMl3r8PCbFYTZ+6fSptr1oc+LO
-         5NvxXwRYIFqpnztlWHxjSIFR4h/t24W/X2c5FNf2M346Cg/du6OdY38EHWf/RX8L6x9w
-         FSCkl888mLGqgw6BQUcc8vZOrb0bl3uXLIAfhkANjYW6pK0LLiKVfN8ulpqDOL19lY9G
-         dGoA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789375093; x=1789979893;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tSoOIOvtikrIT/ETbxvsBkHTAv2xbQod1Y0j2PHnyM8=;
-        b=U53KK31ypuZVYYzlk68q2i0zK8ByT6KO0+LeDUVA60sotJJSZHieHcKyAavaMOMEXI
-         RE00K2KqCdc1krL4PZidemOGXTLhEHTOMeCIUjS4MR9iiSfwTIWR48dYFPcdL8iBVoeb
-         ICLtqVOw2eGgGJTI3qOXHHj7165yyOs4L7uqdrsVBpPv1Tn4GTbMfyCd8hoOGpalgfFB
-         u8hc/+7BCWsnx+Uf/6abZsy9Nmz0rvxGyBKpE53qGGZu8jZYvIRhdVDa1Cl+ocxTIiVI
-         gSfnut9EOYxdk5MYQ3yBP84FhmTO5qYPKXZ5yDERcq+Dxb4CN6JeLT0cIsSBwf5SIeVg
-         sQ8g==
-X-Forwarded-Encrypted: i=1; AKwUvByr+5TErD0WmRTxsFqg5EcFvNaPEj1dw7wjNp8VVsLnDvOWG3j/w3Vy0mf0SK+4s8xBhBEgnIG+bp9MZro=@vger.kernel.org
-X-Gm-Message-State: AFuF++m7KVFvWfUv+hAMjbGPrDA/vCamf5WzXo9oE0hOWDHh54x/oFKT
-	xDjSLDYQxOyeXs3aFLJGSURtbBrIw3c8ciOixKR/QkWgO3l4so2CmVKqrUB69pLPHoW3Kmvg9dG
-	ZXAQ6N830DWrWzVX0NbKWj9WLGrURVcYOpW5m3PyyJmKjvRf+pcTtnY6/JY1P0XfAbNE=
-X-Gm-Gg: AYBFou3t4zYeg4Ul4BSdmGdJiymbHBY9FAubWrpoOAiI7I0VM6rHabtQGGlTKOQdDLB
-	gZk3Pfou3qtk3NsLl2F8d3kDoOfqO5PfDiY9eOvBVFYplBvur3U5F00eK78H5ilnkR2tMpfsvhy
-	q1FEcDAWw/HANOc2H9LLNDeznp1+vXdrk4SEYYHq2XoGGV9MTxxo4SwZSYFpfDfYrdNCtzjYxA2
-	3doJM8xtY1UuSEw3TUFVAROlQ1xRo8thpfuu6vCWm4a8yleAwDyjWJfu22avGfRKxa4k3YWo+yM
-	qXufSiTfsHwOluY4DrwfWL+ek57OqNUtj2hyB4XdYHgl0IHwEAGxndNrloGTSfkziYNCD/TmD4r
-	tnM/2gK8gOtcvNUbw6knjaie8sds=
-X-Received: by 2002:a05:620a:1b93:b0:939:cb1a:2c5a with SMTP id af79cd13be357-93a299f539emr205659085a.31.1789375092937;
-        Mon, 14 Sep 2026 01:38:12 -0700 (PDT)
-X-Received: by 2002:a05:620a:1b93:b0:939:cb1a:2c5a with SMTP id af79cd13be357-93a299f539emr205655685a.31.1789375092381;
-        Mon, 14 Sep 2026 01:38:12 -0700 (PDT)
-Received: from brgl-qcom.home ([2a01:cb1d:dc:7e00:e83a:fc27:4d39:43d7])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb359f38sm23425466f8f.30.2026.09.14.01.38.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 01:38:11 -0700 (PDT)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-To: linux-gpio@vger.kernel.org, Michael Zavertkin <misha.zavertkin@mail.ru>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        Linus Walleij <linusw@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Sander Vanheule <sander@svanheule.net>, Bert Vermeulen <bert@biot.com>,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 0/2] gpio: realtek-otto: add pinctrl support
-Date: Mon, 14 Sep 2026 10:38:08 +0200
-Message-ID: <178937508534.32495.18371049241365585630.b4-ty@oss.qualcomm.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1787830440.git.misha.zavertkin@mail.ru>
-References: <cover.1787830440.git.misha.zavertkin@mail.ru>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="trDYbUBd"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BFD041570;
+	Mon, 14 Sep 2026 01:38:15 -0700 (PDT)
+Received: from [10.0.128.139] (unknown [10.0.128.139])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CD7EC3F7B4;
+	Mon, 14 Sep 2026 01:38:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789375099; bh=44Zxr0bAzy/FVaHYHhpGrc8BaI6/0sVp1yPuJiyTLok=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=trDYbUBd8UJwtxnr5vASuBR49N08Qhrp+erecALsuVHO5qeuyeEwlNO1jTQ9dzICy
+	 5RBCJaUgzOIw888gkG3fO+hInEVEOdJFYEAqqhFfwfoUUcwZoBACn0bOu1n6gl1/G9
+	 M/9oFTHq4omPIvlpXxn5YpbUoMmFgSEg5bpJPIF0=
+Message-ID: <dc733a28-cbca-46cb-a4bd-14840b1a0cc1@arm.com>
+Date: Mon, 14 Sep 2026 09:38:15 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v18 6/7] firmware: arm_rmm: Ensure the RMM has GPT entries
+ for memory
+Content-Language: en-GB
+To: Gavin Shan <gshan@redhat.com>, kvm@vger.kernel.org, kvmarm@lists.linux.dev
+Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
+ joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+ linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+ sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+ WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
+References: <20260912083611.2513845-1-suzuki.poulose@arm.com>
+ <20260912083611.2513845-7-suzuki.poulose@arm.com>
+ <b2fd288e-e0e7-49cc-b0cb-933fba501d79@redhat.com>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <b2fd288e-e0e7-49cc-b0cb-933fba501d79@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDEyMSBTYWx0ZWRfX3jyAM3KTTkof
- kgeRW5ZBBXzuKir1u1bYRz1nrWLLkfsMsm9nHcF8CKwOuz0Hg0ug2PFh1r9nQW9NbVVV3STAiA4
- oDUFcTQ2agaA5MFyyDGz4tsK6Zwsp2E45DCtpBE/CHQ9AgpWiYA3+evnE8brBndrMCdQYMcn6js
- eEo0Rri7CDog4QB1yizE8tx89WbXthbc2mwFupe7lLUHWvPnsY4NW1affkriAdSqT4YLxRS5T4P
- Z41sEcAkB/j6RxL1pgeWHDxCnUMC6yJGXX8pQgk5uy0DyquLHsRZzuvu8Mmj3fJk62JvMSjS9qe
- 7+74o41jImabDDLCK8EZIcPziIbD44jYbG6zpqh005vXDFglcSvKS2ElfMYhSzclY9ZgDPY9cBR
- aNgIMe0NTuh3gC525X6X3keqo/tG8edC+9zy4Id6yq3N2QzN8+sizy8wAq27qLtTHP2IemSyk67
- +/Pm5SmHDRMp/r5Vsdw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDEyMSBTYWx0ZWRfX4G205P47QbB0
- 7xwKx3N2rwVoCVKD6hi+8RquPZy3nuV9GvP2P48A02iOGvGQy4VCq3yjcZ3shLJUJ107My8oU5d
- 4p9RpejjV0mHQHMiRakfFldfTPl5zt4=
-X-Proofpoint-GUID: 0rkoaz_F1s8Bfh4oI9XZdOAs5IMmquRo
-X-Authority-Analysis: v=2.4 cv=OeUNnRTY c=1 sm=1 tr=0 ts=6aa7b27a cx=c_pps
- a=wEM5vcRIz55oU/E2lInRtA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=zBn-OFdvgJRZKxyvXKsA:9 a=QEXdDO2ut3YA:10
- a=OIgjcC2v60KrkQgK7BGD:22
-X-Proofpoint-ORIG-GUID: 0rkoaz_F1s8Bfh4oI9XZdOAs5IMmquRo
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-14_02,2026-09-13_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 malwarescore=0 phishscore=0 bulkscore=0 spamscore=0
- priorityscore=1501 suspectscore=0 impostorscore=0 adultscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140121
 
-
-On Thu, 27 Aug 2026 21:29:29 +0700, Michael Zavertkin wrote:
-> This series adds pinctrl support for RTL9607C and referes it
-> in documentation.
+On 14/09/2026 06:41, Gavin Shan wrote:
+> On 9/12/26 6:36 PM, Suzuki K Poulose wrote:
+>> From: Steven Price <steven.price@arm.com>
+>>
+>> The RMM maintains the state of all the granules in the system to make
+>> sure that the host is abiding by the rules. This state can be maintained
+>> at different granularity, per page (TRACKING_FINE) or per region
+>> (TRACKING_COARSE or TRACKING_INTERMEDIATE). The region size depends on 
+>> the
+>> underlying "RMI_GRANULE_SIZE". For a "coarse"/"intermediate" region, 
+>> all pages
+>> in the region must be of the same state, this implies we need to have 
+>> "fine"
+>> tracking for DRAM, so that we can delegate individual pages.
+>>
+>> For now we only support a statically carved out memory for tracking
+>> granules for the "fine" regions. This can be extended in the future to
+>> allow modifying the tracking granularity and remove the need for a
+>> static allocation by the firmware.
+>>
+>> Similarly, the firmware may create L0 GPT entries describing the total
+>> address space. But if we change the "PAS" (Physical Address Space) of a
+>> granule, then the firmware may need to create L1 tables to track the PAS
+>> at a finer granularity. Linux therefore checks if the platform 
+>> firmware manages
+>> the PAR region. i.e., the firmware is in charge of managing the L1 GPTs
+>> (creation and the required memory for the GPT tables - via static 
+>> carveouts)
+>> without host intervention. Support for dynamic GPT creation by the 
+>> host will be
+>> added later.
+>>
+>> If the firmware requires us to manage the tracking or GPT memory, 
+>> Deactivate
+>> the RMM and reclaim any memory donated at RMM activation.
+>>
+>> Apply the same checks when hotplugged memory is brought online.
+>>
+>> Signed-off-by: Steven Price <steven.price@arm.com>
+>> [ Switch to RMI_GPT_L1_INFO for checking GPTs and deactivate RMM ]
+>> Co-Developed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+>> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+>> ---
+>>   Changes since v17:
+>>       * Move wrappers that may not be used elsewhere, out of arm-rmi- 
+>> cmds.h
+>>   Changes since v16:
+>>       * Check fine tracking and create L1 GPTs for hotplug-added memory.
+>>       * Clarify the L1 GPT setup and move the explanatory comment.
+>>       * Switch to using RMI_GPT_INFO command for checking the GPTs.
+>>       * Deactivate the RMM and reclaim the memory if we can't proceed.
+>>   Changes since v15:
+>>       * Skip firmware-reserved NOMAP memory in rmi_init_metadata()
+>>       * Handle negative error codes from wrappers.
+>>   Changes since v14:
+>>       * Move the implementation into drivers/firmware/arm_rmm.
+>>   Changes since v13:
+>>       * Moved out of KVM
+>> ---
+>>   drivers/firmware/arm_rmm/rmi.c | 200 +++++++++++++++++++++++++++++++++
+>>   include/linux/arm-rmi-cmds.h   |   2 +
+>>   2 files changed, 202 insertions(+)
+>>
+>> diff --git a/drivers/firmware/arm_rmm/rmi.c b/drivers/firmware/ 
+>> arm_rmm/rmi.c
+>> index ecc89e91d264d..583e1aca9b15a 100644
+>> --- a/drivers/firmware/arm_rmm/rmi.c
+>> +++ b/drivers/firmware/arm_rmm/rmi.c
+>> @@ -5,12 +5,15 @@
+>>   #include <linux/cpufeature.h>
+>>   #include <linux/memblock.h>
+>> +#include <linux/memory.h>
+>>   #include <linux/arm-rmi-cmds.h>
+>>   #include <linux/slab.h>
+>>   #include <asm/memory.h>
+>>   #include <asm/pgtable-hwdef.h>
+>> +static bool arm64_rmi_is_available;
+>> +
+>>   /* Currently only the first 2 registers are used by Linux */
+>>   #define RMI_FEAT_REG_COUNT    2
+>>   static unsigned long rmi_feat_reg_cache[RMI_FEAT_REG_COUNT] 
+>> __ro_after_init;
+>> @@ -68,6 +71,69 @@ static inline long 
+>> rmi_granule_range_undelegate(unsigned long base,
+>>       return ret;
+>>   }
+>> +/**
+>> + * rmi_granule_tracking_get() - Get configuration of a Granule 
+>> tracking region
+>> + * @start: Base PA of the tracking region
+>> + * @end: End of the PA region
+>> + * @out_category: Memory category
+>> + * @out_state: Tracking region state
+>> + * @out_top: Top of the memory region
+>> + *
+>> + * Return: RMI return code
+>> + */
+>> +static inline int rmi_granule_tracking_get(unsigned long start,
+>> +                       unsigned long end,
+>> +                       unsigned long *out_category,
+>> +                       unsigned long *out_state,
+>> +                       unsigned long *out_top)
+>> +{
+>> +    struct arm_smccc_1_2_regs regs = {
+>> +        SMC_RMI_GRANULE_TRACKING_GET, start, end,
+>> +    };
+>> +
+>> +    rmi_smccc_invoke(&regs);
+>> +
+>> +    if (regs.a0 != RMI_SUCCESS)
+>> +        return regs.a0;
+>> +
+>> +    if (out_category)
+>> +        *out_category = regs.a1;
+>> +    if (out_state)
+>> +        *out_state = regs.a2;
+>> +    if (out_top)
+>> +        *out_top = regs.a3;
+>> +
+>> +    return RMI_SUCCESS;
+>> +}
+>> +
+>> +/*
+>> + * rmi_gpt_info - Query the GPT info for the given PAR.
+>> + * @start: Base of the physical address region
+>> + * @top: Top of the physical address region
+>> + * @out_top: Top of the phyiscal address region for which
+>> + *        the GPT @out_gpt_par_state is valid
+>> + * @out_gpt_par_state: State of the GPT covered by [start, out_top)
+>> + */
+>> +static inline long rmi_gpt_info(unsigned long start, unsigned long end,
+>> +                unsigned long *out_top,
+>> +                unsigned long *out_gpt_par_state)
+>> +{
+>> +    struct arm_smccc_1_2_regs regs = {
+>> +        SMC_RMI_GPT_INFO, start, end,
+>> +    };
+>> +
+>> +    rmi_smccc_invoke(&regs);
+>> +    if (regs.a0 != RMI_SUCCESS)
+>> +        return regs.a0;
+>> +
+>> +    if (out_top)
+>> +        *out_top = regs.a1;
+>> +    if (out_gpt_par_state)
+>> +        *out_gpt_par_state = regs.a2;
+>> +
+>> +    return RMI_SUCCESS;
+>> +}
+>> +
+>>   /**
+>>    * rmi_features() - Read feature register
+>>    * @index: Feature register index
+>> @@ -759,6 +825,124 @@ static int rmi_configure(void)
+>>       return ret;
+>>   }
+>> +/*
+>> + * Make sure the area is tracked by RMM at FINE granularity.
+>> + * We do not support changing the tracking yet.
+>> + */
+>> +static int rmi_verify_memory_tracking(phys_addr_t start, phys_addr_t 
+>> end)
+>> +{
+>> +    while (start < end) {
+>> +        unsigned long ret, category, state, next;
+>> +
+>> +        ret = rmi_granule_tracking_get(start, end, &category, &state, 
+>> &next);
+>> +        if (ret != RMI_SUCCESS)
+>> +            return -ENOMEM;
+>> +
+>> +        if (state != RMI_TRACKING_FINE ||
+>> +            category != RMI_MEM_CATEGORY_CONVENTIONAL) {
+>> +            /* TODO: Set granule tracking in this case */
+>> +            pr_err("Granule tracking for region isn't fine/ 
+>> conventional: %llx-%lx\n",
+>> +                   start, next);
+>> +            return -ENODEV;
+>> +        }
+>> +        start = next;
+>> +    }
+>> +
+>> +    return 0;
+>> +}
+>> +
 > 
+> I would suggest to drop rmi_granule_tracking_get() by combining its 
+> logics into
+> rmi_verify_memory_tracking().
+> 
+> /*
+>   * Make sure the area is tracked by RMM at FINE granularity.
+>   * We do not support changing the tracking yet.
+>   */
+> static int rmi_verify_memory_tracking(phys_addr_t start, phys_addr_t end)
+> {
+>          struct arm_smccc_1_2_regs args;
+> 
+>          while (start < end) {
+>                  args.a0 = SMC_RMI_GRANULE_TRACKING_GET;
+>                  args.a1 = start;
+>                  args.a2 = end;
+>                  rmi_smccc_invoke(&args);
+> 
+>                  if (args.a0 != RMI_SUCCESS)
+>                          return -ENOMEM;
+> 
+>                  if (args.a1 != RMI_MEM_CATEGORY_CONVENTIONAL ||
+>                      args.a2 != RMI_TRACKING_FINE) {
+>                          /* TODO: Set granule tracking in this case */
+>                          pr_err("Granule tracking for region isn't fine/ 
+> conventional: %llx-%lx\n",
+>                                  start, args.a3);
+>                          return -ENODEV;
+
+I have moved the wrappers closer to the caller, but retained them to
+  make it easier to read the code.
+  e.g., error conditions around next >= start etc.
+
+>                  }
+> 
+>                  start = args.a3;
+>          }
+> 
+>          return 0;
+> }
+
+...
+
+> 
+> I would suggest to drop rmi_gpt_info() by combining its logics into 
+> rmi_verify_gpt_firmware_managed().
 > 
 
-Applied, thanks!
+Same as above.
 
-[1/2] dt-bindings: gpio: otto-gpio: Add gpio-ranges
-      https://git.kernel.org/brgl/c/3f860d25f7be981d78c1b85a8d4fafcd914d4df9
-[2/2] gpio: realtek-otto: add pinctrl support
-      https://git.kernel.org/brgl/c/7257c35db0fdb4fb02d857a8197a16afa84d92c0
+>> +
+>> +static int rmi_init_metadata(void)
+>> +{
+>> +    phys_addr_t start, end;
+>> +    struct memblock_region *r;
+>> +
+>> +    for_each_mem_region(r) {
+>> +        int ret;
+>> +
+>> +        /* Firmware-reserved NOMAP regions are not usable system RAM */
+>> +        if (memblock_is_nomap(r))
+>> +            continue;
+>> +
+>> +        start = memblock_region_memory_base_pfn(r) << PAGE_SHIFT;
+>> +        end = memblock_region_memory_end_pfn(r) << PAGE_SHIFT;
+>> +
+> 
+> nit: unnecessary to covert the physical address (struct 
+> memblock_region::base and (base + size))
+> to PFN and then convert PFN to physical address:
+> 
+>          start = PAGE_ALIGN(r->base);
+>          end = PAGE_ALIGN_DOWN(r->base + r->size);
+>          if (start >= end)
+>              continue;
 
-Best regards,
--- 
-Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Yes, I have handled this already per Sashiko review comment.
+
+Thank you for the review!
+
+Cheers
+Suzuki
