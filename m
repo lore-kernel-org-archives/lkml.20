@@ -1,74 +1,74 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 282513E9C2B
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:43:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AAE93E95B1
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:43:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789371810; cv=none; b=F2sjgnye4fFmr6OKYGMKuwGw7kOTDHR3Takq/oBqZFY+gGDfFfFE6JsbXEOXt69u23i45Lh4hTcLz/gpfE6kByf7jWdpya+sQPTN2REE0taxBVhkQIdJH+u7dC/uq32CtZOUMJXFRkfFitt3+CcPvP1OOqnnPR1uxsjhrX8DRvc=
+	t=1789371815; cv=none; b=GvVcvz77TM2IJWtiEV0LP0+JQHyBzwCJfnCP3IJVQYpQBQUHf7hq9zoEJDTggGZSt4nQsmkybzyLG+IjxqYH2gSKUXtAgm4oaTzZUnWJZYjL8ze4eqI5UJ2y1DAFeFWHwSBxmyqlcvR5gMV8yFMETmkAQFGVkUST/esXgkGTNW8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789371810; c=relaxed/simple;
-	bh=n7fu+Sb2mCNrOfYc1/FQ88AA21MaOhGsdcx1nVUoSyw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iBczdncywRuJvezTLrl0fHnyUr/znJroL3rXE7Gr4sR/6PM5nFGJ9Uv/2e63j+H8vd5WnCZXhOG8ozHqw2BV/xi+6svPZ2KSg8tfkDVadfVImZiCYVqVoZgXM/z7uMPKriW7HmxMYEfX7lpXzguZMm812f4VFr7sbwe16UbdOv8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu; spf=pass smtp.mailfrom=asu.edu; dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b=OuAYzQf8; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
+	s=arc-20240116; t=1789371815; c=relaxed/simple;
+	bh=fBmxLV6HXxFNCdbssUFGk+HfbStZpc+fHwBbY31qTEw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kqY0Qd9wRG0Vvz7nS3o9ALqFhl25xI+i38NGKjK9KTSUpLT7hzR2gMM6qnwByQYoh62ej8qH2iMeLKa+AIF1JdSLzO2ymN4YOK3LZ23DIYXL3pOK0Cwt7Z72u+6a3+yQK+CEflpEOxS7S//uPg1NMg2mhmaZceaE08eOHLB/+xc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ffW/W1ar; arc=none smtp.client-ip=74.125.228.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b="OuAYzQf8"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39b350c6920so1341182a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 00:43:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ffW/W1ar"
+Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-85469b35611so775590b3a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 00:43:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=asu.edu; s=google; t=1789371806; x=1789976606; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789371814; x=1789976614; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Sg+24kMdlq7WqHjfro/gs2jwHR6xZZQwJPn2I5eBEWY=;
-        b=OuAYzQf8CCBbfP/9u3k1xNcS6crbhmQsssTGctfh3Eo1ywXccmn8YT/bEazpZX3aWo
-         HZYqmkC4/Era2xu6I6JWbQcSx/9sFAMkPasoY1Aj1KgNaJeG2NtSbY9WVOPQQ7XLD/Au
-         a37UKPwIDfnCEAE+IdRx5kyWnSaoyV9dKZ+uE3M44kfTz8J3I5YDTZoveunM55ixo8Hi
-         BgA+GvqqStRVybSvaAquWbL7k7nTqWMggbf38uznFQphtdawW+X3NjBqaCuCeKxM6JDU
-         uMeLsc1jYRwWYakM0xqGTBoLeWYh/X2jxbYiTvWc1sy4U4brd5WzBF6O4ceihpe0Trq/
-         Zalg==
+        bh=nYJD7VTts/AH4L8FmbbSGUiWjAUaPCR6VveqwEnLy7U=;
+        b=ffW/W1ardLkAqFhf8jmapRsAmUOA78R6fUv2M53ajoAzJ7XBoBL6pmj4/20Uqcoud4
+         pazvA9NX2uqpTz9jDRaK7YBZYzcaMx8IZbzPL/vqqbwgKqSqfT58kocfv6RYr7PUxs99
+         fkwdESK/eLEkMy6EoQzkBXmoi6zlqINOXntDheU/gHSzPxdAe1fAm4SHA7pOWltM9ov+
+         Xqkzj3C+GsBQvuwdiFx25qub+I92PPTsrOMwbOFEqtxGq6w0mkU27WsjxKXbKmSqWnsa
+         NGHcN9EHwNDQYvdMqySbnNg+47jKU5bqYy3wY2G2v5ztLKcD9nh7f4QQorITYFPOuK+/
+         zOaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789371806; x=1789976606;
+        d=1e100.net; s=20251104; t=1789371814; x=1789976614;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Sg+24kMdlq7WqHjfro/gs2jwHR6xZZQwJPn2I5eBEWY=;
-        b=slIL8UOxA3PslIenA6BzaidslrHRmICzBJpc/FB4FD2IDeS0vYzgkm2hH0D73vHNkn
-         H7JU4V4pOcm2TlJKn1mlAvT5noMqVqR3a4tAY/MazE1omApQozv2FCXt8s26PRhEWflb
-         MdZiITiz3qMCWqL2bbHNO5xnSk69Ma6kwv5bJwx/V8EY4todwi9QTQs9uKiku27qOs0V
-         U9nnYOmL8UYrAKP1Uaj0kmLCysLwEzAaFCElojxqZV2FuzbkPxxvensWElSLUGiPBk4/
-         XzTl2ZjQPDomZ9vpfbMDFO5A5NLHZtQZNnUVH/alkASHyBYPw5f/UyfMLxqWh5HaGj6e
-         E3Pg==
-X-Forwarded-Encrypted: i=1; AKwUvByd6AWCJQSw6hZEgHrBFljmgb9Ih779vuBakt1+O9kEQNw2tqVI8FCqPPOCwEzDCrVdaWu2dGxkPMzjNBs=@vger.kernel.org
-X-Gm-Message-State: AFuF++nLRTATl5SSpj8Ua+WIdufmJ+IrPFHMQxIMm0F2gU7rY+JI7Y84
-	ZJnSvtQcl4Qs8zh7CROxBJR1B4rBTxEQ3XdCd6fRdIfNOlAezHuzsxeVIHpjJRFVfQ==
-X-Gm-Gg: AYBFou1i6fXk78tyhvcYqMPLDfcLteamOmILGWWzXeTPrAhEKFkfsCFp3YhQsfcSxBa
-	iva3C5cQXU4P9bJXM/zA8BrJVSy9TLxGizJblBXc4FczjBuuy0qUBU2X23o7gXLe5iBkHU/kbjF
-	roLJQekY6em5T+Gwjgpukg2j8YcTJN6xnxvuXGNgJGlWRDoMPQ3U6wG5bvik68TJMrd52xJgPRT
-	pWeBVGLbNyI4WOGGeuoQG66OpToMtQVVk20ypvvpchcsMcwSm9gN5DhlFX8bd4vV6Pslt6j7gr5
-	7Q4F4We73AVnzOqLxLaTdn0hZDEASo7VNvKZTsS8kM3ae4S/xHLEQQlCXBjlaPRZtg1WwHTzyAA
-	ABpMc8x+QXMgYQGFrxDMkCzmcpxo4AA22P5xqbt6VbluQ/qBcMDv4JPWWVNf7SNdVvcslzmjkHK
-	Nro/Uqtr7fgbsi8up7XLj2ySHwl+EHs1BIKAbxp552WDI0h08ElWsmdOgHrt+I3oEQSY6dnziFB
-	3rcrNcZQrLVHVhjxBwxPTPHr6hiAgeeb7aKTk6uVgiHCyrf
-X-Received: by 2002:a17:90a:1056:b0:39d:ec9a:8f8e with SMTP id 98e67ed59e1d1-39dec9a90b5mr2070798a91.8.1789371806376;
-        Mon, 14 Sep 2026 00:43:26 -0700 (PDT)
-Received: from p1.. (209-147-138-4.nat.asu.edu. [209.147.138.4])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4fa50efsm27877070eec.28.2026.09.14.00.43.25
+        bh=nYJD7VTts/AH4L8FmbbSGUiWjAUaPCR6VveqwEnLy7U=;
+        b=cKW2qSBaiMop6PG2CxG8f1nJCkV3o1DEBNpEq85XlyVxnbnsIPxFMb55T2JGfqo2ic
+         MUQRhPVvjCFszSYyDWqbhqhMZIl/rFoOYAeVfTtQO1+t+0dk9or+bR4erNC6TS6rqfEf
+         fgaEO1ELF29iY2T3IZQLpznUa/ogE3Ly9K0QM9itBMjPjugBqtE0qPiMEfzp9RF5ry1U
+         T32A8uYSZKpJ4nXt6GUjhk2ssKNyc9jgyt3stImxedg0qE1FpmLmEW9201/HGSrTeu4x
+         vCOtYNRFSnAZQSl5eJbH9dw5ktT4ojrzz5UIT2noGQRYXLgcUUEiGYscgpkQJOpaGCmV
+         3+uA==
+X-Forwarded-Encrypted: i=1; AKwUvBx2il4GVPRwePdl7ohWurI7pWbZsn5tyui1gHS2fAA1hlc+0QhUz8DjO1OMtaZr2BdX/RDM+mDGDNOnbeA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kMaP2lj8sYDQKuoZzP/7CJ60qnsL7bgwds20ahmJtUcOo10ELu
+	Jg2korZPIjqi1o6YOak6GGTbhLHwKyQK7mgNbIw4bunsjso3oJa5eq9R
+X-Gm-Gg: AYBFou3IHLuAENXWeemBDerhg04nLXqjBqbtKCdBtR767FIRF5wXGOwKO1XhS2tvj0K
+	dOQxsbniH8iQWSIKrMpTlaUKtP5gFPDDTcFxgxoMmOPHxfjMDafFd92z+TJ5Vz1fiGEEDAfnN8Y
+	fkCZT9TpWNX4NDAUHNfTE/JjE+nOwBp8TQQ0NjrzfI10ZWIzJeJoyc49aFy/RNaLJ2dpz8LM/f2
+	r75sHgvujlViviJ7kwzJru7WiajG8AgtjIFuzD1B+1FAcINVkYttAx8LVdDhWxvBjXrvcA2H8pD
+	XPJKyLLPmW0YmEJLZjWVJ32X0Ee23wq2Kh8WHkblzXF9FSOvbVolpGsI+giqQbaIn9Wh569uOLi
+	k4itgk+YU6cetWLQdQAMVhu35npPraMPDvLAKDxnZM4NSGNPtQMZV9P/V6RXXGuMSxPcPeGHG/W
+	lU151wIVclAc/7LfomDXd/Z7F1IIQ3LlqtJDhrIuglruUj0q+xgs4ErTjEeCZhyMelki59M5QNw
+	q/tb1FRz/RFlt2bsz0esFt9DJqNetzSX8yaEI0=
+X-Received: by 2002:a05:6a00:4c9c:b0:85f:b00b:8760 with SMTP id d2e1a72fcca58-86f82a5efbamr3533434b3a.5.1789371813846;
+        Mon, 14 Sep 2026 00:43:33 -0700 (PDT)
+Received: from a317-tower1.tail2eac45.ts.net ([59.72.109.34])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b250c544bsm4088751b3a.1.2026.09.14.00.43.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 00:43:25 -0700 (PDT)
-From: Xiang Mei <xmei5@asu.edu>
-To: perex@perex.cz,
-	tiwai@suse.com,
-	torsten.schenk@zoho.com
-Cc: co+855929c2df672879@bugs.sh,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Xiang Mei <xmei5@asu.edu>
-Subject: [PATCH v2] ALSA: 6fire: fix OOB write from device-reported iso length
-Date: Mon, 14 Sep 2026 00:43:24 -0700
-Message-ID: <20260914074324.3590843-1-xmei5@asu.edu>
-X-Mailer: git-send-email 2.43.0
+        Mon, 14 Sep 2026 00:43:32 -0700 (PDT)
+From: "Zimo.Lu" <louis2665573906@gmail.com>
+To: Gregory Price <gourry@gourry.net>
+Cc: David Hildenbrand <david@kernel.org>,
+	Oscar Salvador <osalvador@suse.de>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	linux-mm@kvack.org,
+	linux-cxl@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [RFC PATCH] mm/memory_hotplug: use public nodes for migration targets
+Date: Mon, 14 Sep 2026 15:43:22 +0800
+Message-ID: <20260914074323.3567923-1-louis2665573906@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,89 +77,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-usb6fire_pcm_in_urb_handler() sizes each outgoing isochronous packet as
-(actual_length - 4) / (in_n_analog << 2) * (out_n_analog << 2) + 4, where
-actual_length is the unsigned length the device reported for the matching
-IN packet.  A packet completed with status 0 and actual_length < 4 wraps
-the subtraction to 0x7fffffec; a zero-length isochronous packet is legal
-on the bus, and the preceding loop rejects only non-zero status.  The sum
-reaches memset() on out_urb->buffer, a 4832-byte object from
-kcalloc(PCM_MAX_PACKET_SIZE, PCM_N_PACKETS_PER_URB).
+do_migrate_range() excludes the source node from node_states[N_MEMORY]
+and adds it back only when the nmask is empty. With private nodes in
+N_MEMORY, this can leave a nonempty nmask containing only private nodes,
+when the system has only one public node and others are private nodes.
+Ordinary migration allocations use the public fallback zonelist, so none
+of those nodes can satisfy the allocation.
 
-Even without the wrap the result is out of bounds: at 88.2/96 kHz the
-4-in/6-out scaling turns a full 420-byte IN packet into 628, so eight
-packets span 5024 bytes of that buffer.  usb_submit_urb() rejects an
-over-long descriptor only after the memset() and the
-usb6fire_pcm_playback() copy of user PCM data have run.
+Build the nmask from N_MEMORY_PUBLIC so that private nodes do not prevent
+this fallback.
 
-Guard the subtraction as the sibling usb6fire_pcm_capture() already does,
-and limit the frame count to what fits in rt->out_packet_size, the OUT
-endpoint's wMaxPacketSize.  This bounds total_length by the buffer size
-while keeping each packet length aligned to a whole output frame.
+For HugeTLB migration during memory offlining, this also excludes other
+private nodes from the nmask when the source node is private and public
+nodes are present.
 
-  BUG: KASAN: out-of-bounds in usb6fire_pcm_in_urb_handler (sound/usb/6fire/pcm.c:338)
-  Write of size 18446744073709551456 at addr ffff88802a3d0000 by task vhci_rx/5018
-  Call Trace:
-   dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
-   print_report (mm/kasan/report.c:378 mm/kasan/report.c:482)
-   kasan_report (mm/kasan/report.c:595)
-   kasan_check_range (mm/kasan/generic.c:186 mm/kasan/generic.c:200)
-   __asan_memset (mm/kasan/shadow.c:84)
-   usb6fire_pcm_in_urb_handler (sound/usb/6fire/pcm.c:338)
-   __usb_hcd_giveback_urb (drivers/usb/core/hcd.c:1657)
-   usb_hcd_giveback_urb (drivers/usb/core/hcd.c:1741)
-   vhci_rx_loop (drivers/usb/usbip/vhci_rx.c:107 drivers/usb/usbip/vhci_rx.c:242)
-   kthread (kernel/kthread.c:436)
-   ret_from_fork (arch/x86/kernel/process.c:158)
-   ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
-
-  Allocated by task 10:
-   __kmalloc_cache_noprof (mm/slub.c:5563)
-   usb6fire_pcm_init (sound/usb/6fire/pcm.c:560 sound/usb/6fire/pcm.c:595)
-   usb6fire_chip_probe (sound/usb/6fire/chip.c:133)
-   usb_probe_interface (drivers/usb/core/driver.c:399)
-
-  The buggy address belongs to the object at ffff88802a3d0000
-   which belongs to the cache kmalloc-8k of size 8192
-  The buggy address is located 0 bytes inside of
-   4832-byte region [ffff88802a3d0000, ffff88802a3d12e0)
-  Kernel panic - not syncing: Fatal exception in interrupt
-
-Fixes: c6d43ba816d1 ("ALSA: usb/6fire - Driver for TerraTec DMX 6Fire USB")
-Reported-by: co+855929c2df672879@bugs.sh
-Closes: https://lore.kernel.org/all/gisnub8aWGLbyZLcDCSc7zWsHonMWGcyRgt5%40bugs.sh/
+Signed-off-by: Zimo.Lu <louis2665573906@gmail.com>
 Assisted-by: LLM
-Signed-off-by: Xiang Mei <xmei5@asu.edu>
 ---
- sound/usb/6fire/pcm.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
+Should we use public targets for private-source HugeTLB migration during
+memory offlining as well, or should this fix be limited to the same-node
+fallback problem on a public source node?
 
-diff --git a/sound/usb/6fire/pcm.c b/sound/usb/6fire/pcm.c
-index 21789db6657d..0285d79ace0f 100644
---- a/sound/usb/6fire/pcm.c
-+++ b/sound/usb/6fire/pcm.c
-@@ -335,11 +335,19 @@ static void usb6fire_pcm_in_urb_handler(struct urb *usb_urb)
- 
- 	/* setup out urb structure */
- 	for (i = 0; i < PCM_N_PACKETS_PER_URB; i++) {
-+		unsigned int frames = 0;
-+
- 		isoc_out = &out_urb->instance->iso_frame_desc[i];
- 		isoc_in = &in_urb->instance->iso_frame_desc[i];
-+		if (isoc_in->actual_length > 4)
-+			frames = (isoc_in->actual_length - 4)
-+					/ (rt->in_n_analog << 2);
-+		frames = min_t(unsigned int, frames,
-+				       (rt->out_packet_size - 4)
-+				       / (rt->out_n_analog << 2));
-+
- 		isoc_out->offset = total_length;
--		isoc_out->length = (isoc_in->actual_length - 4) / (rt->in_n_analog << 2)
--				* (rt->out_n_analog << 2) + 4;
-+		isoc_out->length = frames * (rt->out_n_analog << 2) + 4;
- 		isoc_out->status = 0;
- 		total_length += isoc_out->length;
+Based on the author's node_features_v6 WIP snapshot (base below).
+This is not a patch against mainline or the posted v5 series.
+Private-source HugeTLB migration has not been tested.
+
+ mm/memory_hotplug.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/mm/memory_hotplug.c b/mm/memory_hotplug.c
+index 22d20ee96bb1..8a95ba26552d 100644
+--- a/mm/memory_hotplug.c
++++ b/mm/memory_hotplug.c
+@@ -1937,7 +1937,7 @@ put_folio:
+ 		folio_put(folio);
  	}
--- 
-2.43.0
+ 	if (!list_empty(&source)) {
+-		nodemask_t nmask = node_states[N_MEMORY];
++		nodemask_t nmask = node_states[N_MEMORY_PUBLIC];
+ 		struct migration_target_control mtc = {
+ 			.nmask = &nmask,
+ 			.gfp_mask = GFP_KERNEL | __GFP_MOVABLE | __GFP_RETRY_MAYFAIL,
+@@ -1953,8 +1953,8 @@ put_folio:
+ 
+ 		/*
+ 		 * try to allocate from a different node but reuse this node
+-		 * if there are no other online nodes to be used (e.g. we are
+-		 * offlining a part of the only existing node)
++		 * if there are no other public nodes to be used (e.g. we are
++		 * offlining a part of the only public node)
+ 		 */
+ 		node_clear(mtc.nid, nmask);
+ 		if (nodes_empty(nmask))
 
+base-commit: 38c7f48162aa282dc6a9edfb7011378594057c10
