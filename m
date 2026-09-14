@@ -1,27 +1,33 @@
-Received: from sphereful.davidgow.net (sphereful.davidgow.net [203.29.242.92])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F04842124F
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:07:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.242.92
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 95272416872;
+	Mon, 14 Sep 2026 10:08:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789380445; cv=none; b=p01dLIPeBaDqi1qNbQ7WzK2YC+wopPxcwOGurA7RTxWOcQR6qpkx+LMbHtflydQ8UCeHbzy0m39x4Un4PFjKZM34qOdsgrd9oJiwFNAMQ7V67AV0bB19Niwg9L+716assKKTJDryj6YpGFejU4TGyz8SW9YUQ561tYVQIB/mgUk=
+	t=1789380528; cv=none; b=u1TpvMH3QwvAHbVtYrj68CL8tO165qOti9xU4czNx6J85YPB0t8pOiJWW0uycKaecWaU0Nrq+zVGesiqUj92FV3HuTKDz8oznHQRHTJqvime6dRE8v+DTluOMRwCh8VXryqNFmUA17vhnSSy8IvgmeDjUaYwFmz9PL5JVgJmpl4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789380445; c=relaxed/simple;
-	bh=hr07YaU6PFVHxAwCI6L4ceySbzfzdgQYT4svOeTD7jU=;
+	s=arc-20240116; t=1789380528; c=relaxed/simple;
+	bh=5hiwm5m4HgXoKmPMhyVnnwn4Qx2zvIXwgyMsi1FuMRw=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=boAwkeBTDaUeoOfW/BmVIyT5esLHdxx/nVwOTZxklaPFmcBmc4oVpLGF2ld1FERbknAcfQclggKOPMxuj3Y1VDoYZ+oJoPDBvqaUG/MrAarbcIjS/wJJabKoAIRVuQAtV59cI8PrLFWsGSbiN6ar8tRiQfutmzuzXB9uJrZQ9Ms=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=davidgow.net; spf=pass smtp.mailfrom=davidgow.net; arc=none smtp.client-ip=203.29.242.92
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=davidgow.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=davidgow.net
-Received: by sphereful.davidgow.net (Postfix, from userid 119)
-	id D6D2F1EAB58; Mon, 14 Sep 2026 18:07:20 +0800 (AWST)
-X-Spam-Level: 
-Received: from [IPV6:2001:8003:8802:7000::9c4] (unknown [IPv6:2001:8003:8802:7000::9c4])
-	by sphereful.davidgow.net (Postfix) with ESMTPSA id A3E3B1EAB52;
-	Mon, 14 Sep 2026 18:07:18 +0800 (AWST)
-Message-ID: <a03d4e21-71df-432f-b707-3c7e16a37578@davidgow.net>
-Date: Mon, 14 Sep 2026 18:07:16 +0800
+	 In-Reply-To:Content-Type; b=V1K8ycAUfT+80NawoGOFGNxZZAH7m0bADftwaXWVjZ2yI64aFFNutcBZUL8PCwJm5pkK25MLcO3MIJUjsjSt42SF2GOARCAuv81wmS9UNZJq0ho/vgTcjapf9gHlBp8zGzfFkxqYoqar52jWeFtfsOoWgpbFl7gNv0G93F61fcw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=p7YtOasr; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="p7YtOasr"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 863A31570;
+	Mon, 14 Sep 2026 03:08:42 -0700 (PDT)
+Received: from [10.57.9.62] (unknown [10.57.9.62])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A4C503F7B4;
+	Mon, 14 Sep 2026 03:08:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789380526; bh=5hiwm5m4HgXoKmPMhyVnnwn4Qx2zvIXwgyMsi1FuMRw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=p7YtOasrgrzvHcpLJgx2YE2hzPdur0T3l50iJe5WMCVV6HN64LCoIrs2QrbGPkfaj
+	 gO/UBnrKZRvqbrkVraxbPHO0rY9yLWK3F1g0S2gTMUewvEKwVcdwROZDf5zHw6lyzz
+	 PibSlr2sEMnHPRN66wmeOGTWXdhkurVM4ONZnCw8=
+Message-ID: <04fe6b38-c662-4b87-9544-8df1d8367122@arm.com>
+Date: Mon, 14 Sep 2026 12:08:43 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -29,152 +35,156 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/sched: Increase drm_mock_sched_job_wait_finished
- timeout when CONFIG_HZ=100
-To: phasta@kernel.org, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Danilo Krummrich <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- kernel-dev@igalia.com, kunit-dev@googlegroups.com,
- Marco Pagani <marpagan@redhat.com>
-References: <20260913084155.520015-2-david@davidgow.net>
- <4357c0bd2a78e88b49b7375bc18d1116df3275b6.camel@mailbox.org>
-From: David Gow <david@davidgow.net>
-Content-Language: fr
-In-Reply-To: <4357c0bd2a78e88b49b7375bc18d1116df3275b6.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH] pinctrl: sunxi: A523: fix voltage withstand encoding
+To: wens@kernel.org
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jernej Skrabec
+ <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <20260721223956.13665-1-andre.przywara@arm.com>
+ <CAGb2v64E29Tq3vSsVPM1qHgieyZHaNpfwWveYh9ss_Bg212N-A@mail.gmail.com>
+ <20260910221349.19d86f1a@ryzen.lan>
+ <CAGb2v67TW_E7S9Mt1RyGJdw8NbV0D0PzM8Sw0Vhx9PzMe6CVwg@mail.gmail.com>
+Content-Language: en-GB
+From: Andre Przywara <andre.przywara@arm.com>
+In-Reply-To: <CAGb2v67TW_E7S9Mt1RyGJdw8NbV0D0PzM8Sw0Vhx9PzMe6CVwg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Le 14/09/2026 à 5:03 PM, Philipp Stanner a écrit :
-> +Cc Marco
-> 
-> On Sun, 2026-09-13 at 16:41 +0800, David Gow wrote:
->> The drm_sched_scheduler_overhead_tests tests hardcode a timeout of 5x
->> total_us, and fail if it's exceeded. However, on systems with
->> CONFIG_HZ < 250, this tends to fail.
+Hi Chen-Yu,
+
+On 9/13/26 17:34, Chen-Yu Tsai wrote:
+> On Fri, Sep 11, 2026 at 4:14 AM Andre Przywara <andre.przywara@arm.com> wrote:
 >>
->> As it's possible to configure many architectures to use 100 Hz (and some,
->> such as UML, hardcode CONFIG_HZ=100), increase the timeout so that the test
->> doesn't fail on these configurations.
+>> On Thu, 23 Jul 2026 01:26:38 +0800
+>> Chen-Yu Tsai <wens@kernel.org> wrote:
 >>
->> Fixes: 97ef806a5314 ("drm/sched: Add some scheduling quality unit tests")
->> Signed-off-by: David Gow <david@davidgow.net>
->> ---
+>> Hi,
 >>
->> This failure showed up on UML when testing the addition of CONFIG_DRM to
->> the KUnit 'alltests' config[1]. Ideally, I'd like to see this test fixed
->> (or at least skipped/disabled) on these broken configurations so that the
->> alltests run is clean. (I don't actually run any CONFIG_HZ=100 configs
->> other than UML, but fixing them all is ideal if we can manage it.)
+>>> On Wed, Jul 22, 2026 at 6:43 AM Andre Przywara <andre.przywara@arm.com> wrote:
+>>>>
+>>>> The Allwinner A523 uses the same GPIO voltage "withstand" programming
+>>>> (setting the input level voltage thresholds) as the previous SoCs, but
+>>>> for some odd reason inverts the encoding of 1.8V vs. 3.3V.
+>>>>
+>>>> Add a new bias voltage type to note this difference, and select it for
+>>>> the A523. At the same time also use the newer "CTL" version, which in
+>>>> addition allows to turn off the withstand programming for I/O voltages
+>>>> other than exact 1.8V or 3.3V (for instance for 2.5V sometimes used for
+>>>> Ethernet PHYs). The A523 has that enable register, but didn't use it
+>>>> so far.
+>>>>
+>>>> This fixes eMMC and reportedly Ethernet operation on some A523 boards.
+>>>>
+>>>> Fixes: 648be4cd9517 ("pinctrl: sunxi: Add support for the Allwinner A523")
+>>>> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
+>>>
+>>>
+>>> Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
+>>> Tested-by: Chen-Yu Tsai <wens@kernel.org> # Fixes eMMC on Orange Pi 4A
 >>
->> If you'd rather a different implementation / magic number, let me know.
->> I picked 15 here as it gave me plenty of leeway: 10 worked most, but not
->> all, of the time under i386 qemu w/ CONFIG_HZ_100, and was fine with UML
->> on this machine.
->>
->> Thanks,
->> -- David
+>> so what happens to this fix? Is it good to be merged? And who is going
+>> to take this? Linus? Or does it go through sunxi?
 > 
-> Thx for the patch. Where are you running the tests and what for, is it
-> a CI or other test system?
-> 
+> Linus needs to take this. It seems you didn't send it to him, nor the
+> linux-gpio mailing list?
 
-Yeah, this is generally for KUnit in CI (and, in my case, to make sure
-changes to KUnit itself don't regress other tests). But KUnit tests are
-also run in several different CI systems, and now on linux-next as well.
-
-In particular, this has been caught up whilst testing adding
-CONFIG_DRM=y to the KUnit 'alltests' config, which is used to get a
-config which includes as many tests as possible. This is finding some
-real issues, so I think it is worthwhile in general.
-
-> 
-> So one thing about the unit tests is that they were originally not so
-> much intended for being run on all sorts of CIs, but as a development
-> tool for the drm_sched devs to have something to move forward with.
-> That's in part why they contain "scheduling quality tests".
-> 
-> That caused some raised eyebrows already because people run these
-> lengthy tests in CIs.
-
-Yeah, finding the distinction between KUnit as a useful tool/framework
-for writing tests and KUnit as a suite of tests that should be run
-automatically is a bit tricky.
-
-Ultimately, it's a judgement call if the benefit of having the test run
-more widely (potentially uncovering real issues, or discovering issues
-earlier in, e.g, linux-next merges) is worth the effort of making the
-test suitably robust against all of the different environments it runs in.
-
-> Maybe what we actually should have is a split of the test suite into
-> two parts, where one part covers basic sanity, and the other measures
-> scheduling behavior. The former could then be run by CI folks, the
-> latter explicitly be discouraged from being run by anyone who is not a
-> drm_sched-developer.
-> 
-
-That definitely can be done. As-is, the way this is currently handled is
-though CONFIG_KUNIT_ALL_TESTS, and through .kunitconfig files.
-
-If you don't want tests to be caught up in automatic systems (other, I
-guess, than your own), then removing the 'default KUNIT_ALL_TESTS' (and
-'if !KUNIT_ALL_TESTS' from the DRM_SCHED_KUNIT_TEST Kconfig entry is the
-simplest way to do it. You could then set CONFIG_DRM_SCHED_KUNIT_TEST=y
-(either via a .kunitconfig file or some other means) to run them whilst
-doing drm scheduler development in particular.
-
-And, of course, splitting suites up or skipping tests if certain
-prerequisites aren't met are both options for keeping tests in the more
-general CI pool if you'd like.
+Ah, good point, thanks for the heads up, for some reason I CC:ed DT 
+people, but not pinctrl. My bad, and might explain why this was somehow 
+forgotten about.
+Sent a v2 with all the tags, thanks to the testers and reviewers!
 
 Cheers,
--- David
+Andre.
 
+> Can you resend?
 > 
-> P.
-> 
+>> Cheers,
+>> Andre
 >>
->> [1]: https://lore.kernel.org/all/20260911-kunit-drm-v1-1-c5c0f18fc7b0@kernel.org/
->> ---
->>  drivers/gpu/drm/scheduler/tests/tests_scheduler.c | 11 +++++++++--
->>  1 file changed, 9 insertions(+), 2 deletions(-)
+>>>> ---
+>>>>   drivers/pinctrl/sunxi/pinctrl-sun55i-a523-r.c | 2 +-
+>>>>   drivers/pinctrl/sunxi/pinctrl-sun55i-a523.c   | 2 +-
+>>>>   drivers/pinctrl/sunxi/pinctrl-sunxi.c         | 6 ++++++
+>>>>   drivers/pinctrl/sunxi/pinctrl-sunxi.h         | 2 ++
+>>>>   4 files changed, 10 insertions(+), 2 deletions(-)
+>>>>
+>>>> diff --git a/drivers/pinctrl/sunxi/pinctrl-sun55i-a523-r.c b/drivers/pinctrl/sunxi/pinctrl-sun55i-a523-r.c
+>>>> index dfdcfa740ecc9..cffc1e53eef14 100644
+>>>> --- a/drivers/pinctrl/sunxi/pinctrl-sun55i-a523-r.c
+>>>> +++ b/drivers/pinctrl/sunxi/pinctrl-sun55i-a523-r.c
+>>>> @@ -26,7 +26,7 @@ static const u8 a523_r_irq_bank_muxes[SUNXI_PINCTRL_MAX_BANKS] =
+>>>>   static struct sunxi_pinctrl_desc a523_r_pinctrl_data = {
+>>>>          .irq_banks = ARRAY_SIZE(a523_r_irq_bank_map),
+>>>>          .irq_bank_map = a523_r_irq_bank_map,
+>>>> -       .io_bias_cfg_variant = BIAS_VOLTAGE_PIO_POW_MODE_SEL,
+>>>> +       .io_bias_cfg_variant = BIAS_VOLTAGE_PIO_POW_MODE_CTL_INV,
+>>>>          .pin_base = PL_BASE,
+>>>>   };
+>>>>
+>>>> diff --git a/drivers/pinctrl/sunxi/pinctrl-sun55i-a523.c b/drivers/pinctrl/sunxi/pinctrl-sun55i-a523.c
+>>>> index 801f62abc93df..001bd42afa3ef 100644
+>>>> --- a/drivers/pinctrl/sunxi/pinctrl-sun55i-a523.c
+>>>> +++ b/drivers/pinctrl/sunxi/pinctrl-sun55i-a523.c
+>>>> @@ -26,7 +26,7 @@ static const u8 a523_irq_bank_muxes[SUNXI_PINCTRL_MAX_BANKS] =
+>>>>   static struct sunxi_pinctrl_desc a523_pinctrl_data = {
+>>>>          .irq_banks = ARRAY_SIZE(a523_irq_bank_map),
+>>>>          .irq_bank_map = a523_irq_bank_map,
+>>>> -       .io_bias_cfg_variant = BIAS_VOLTAGE_PIO_POW_MODE_SEL,
+>>>> +       .io_bias_cfg_variant = BIAS_VOLTAGE_PIO_POW_MODE_CTL_INV,
+>>>>   };
+>>>>
+>>>>   static int a523_pinctrl_probe(struct platform_device *pdev)
+>>>> diff --git a/drivers/pinctrl/sunxi/pinctrl-sunxi.c b/drivers/pinctrl/sunxi/pinctrl-sunxi.c
+>>>> index cabcb8b6f38e5..634d9f1f23947 100644
+>>>> --- a/drivers/pinctrl/sunxi/pinctrl-sunxi.c
+>>>> +++ b/drivers/pinctrl/sunxi/pinctrl-sunxi.c
+>>>> @@ -718,6 +718,7 @@ static int sunxi_pinctrl_set_io_bias_cfg(struct sunxi_pinctrl *pctl,
+>>>>   {
+>>>>          unsigned short bank;
+>>>>          unsigned long flags;
+>>>> +       bool inverted = false;
+>>>>          u32 val, reg;
+>>>>          int uV;
+>>>>
+>>>> @@ -757,6 +758,9 @@ static int sunxi_pinctrl_set_io_bias_cfg(struct sunxi_pinctrl *pctl,
+>>>>                  writel(reg | val, pctl->membase +
+>>>>                         sunxi_grp_config_reg(pctl, pin));
+>>>>                  return 0;
+>>>> +       case BIAS_VOLTAGE_PIO_POW_MODE_CTL_INV:
+>>>> +               inverted = true;
+>>>> +               fallthrough;
+>>>>          case BIAS_VOLTAGE_PIO_POW_MODE_CTL:
+>>>>                  val = uV > 1800000 && uV <= 2500000 ? BIT(bank) : 0;
+>>>>
+>>>> @@ -771,6 +775,8 @@ static int sunxi_pinctrl_set_io_bias_cfg(struct sunxi_pinctrl *pctl,
+>>>>                  fallthrough;
+>>>>          case BIAS_VOLTAGE_PIO_POW_MODE_SEL:
+>>>>                  val = uV <= 1800000 ? 1 : 0;
+>>>> +               if (inverted)
+>>>> +                       val = !val;
+>>>>
+>>>>                  raw_spin_lock_irqsave(&pctl->lock, flags);
+>>>>                  reg = readl(pctl->membase + pctl->pow_mod_sel_offset);
+>>>> diff --git a/drivers/pinctrl/sunxi/pinctrl-sunxi.h b/drivers/pinctrl/sunxi/pinctrl-sunxi.h
+>>>> index d0936a32123ba..2c8648c3301b6 100644
+>>>> --- a/drivers/pinctrl/sunxi/pinctrl-sunxi.h
+>>>> +++ b/drivers/pinctrl/sunxi/pinctrl-sunxi.h
+>>>> @@ -128,8 +128,10 @@ enum sunxi_desc_bias_voltage {
+>>>>           * Bias voltage is set through PIO_POW_MOD_SEL_REG
+>>>>           * and PIO_POW_MOD_CTL_REG register, as seen on
+>>>>           * A100 and D1 SoC, for example.
+>>>> +        * Some SoCs invert the encoding for 1.8V vs. 3.3V.
+>>>>           */
+>>>>          BIAS_VOLTAGE_PIO_POW_MODE_CTL,
+>>>> +       BIAS_VOLTAGE_PIO_POW_MODE_CTL_INV,
+>>>>   };
+>>>>
+>>>>   struct sunxi_desc_function {
+>>>> --
+>>>> 2.46.4
+>>>>
+>>>
 >>
->> diff --git a/drivers/gpu/drm/scheduler/tests/tests_scheduler.c b/drivers/gpu/drm/scheduler/tests/tests_scheduler.c
->> index 285546a2218f..02c83b5c2189 100644
->> --- a/drivers/gpu/drm/scheduler/tests/tests_scheduler.c
->> +++ b/drivers/gpu/drm/scheduler/tests/tests_scheduler.c
->> @@ -13,6 +13,13 @@
->>   * logic.
->>   */
->>  
->> +/* We need a more generous timeout when CONFIG_HZ=100. */
->> +#if CONFIG_HZ < 250
->> +#define TIMEOUT_MULTIPLIER 15
->> +#else
->> +#define TIMEOUT_MULTIPLIER 5
->> +#endif
->> +
->>  static int drm_sched_scheduler_init(struct kunit *test)
->>  {
->>  	struct drm_mock_scheduler *sched;
->> @@ -88,7 +95,7 @@ static void drm_sched_scheduler_queue_overhead(struct kunit *test)
->>  
->>  	/* Wait with a safe margin to avoid every failing. */
->>  	done = drm_mock_sched_job_wait_finished(job,
->> -						usecs_to_jiffies(total_us) * 5);
->> +						usecs_to_jiffies(total_us) * TIMEOUT_MULTIPLIER);
->>  	end = ktime_get();
->>  	KUNIT_ASSERT_TRUE(test, done);
->>  
->> @@ -149,7 +156,7 @@ static void drm_sched_scheduler_ping_pong(struct kunit *test)
->>  
->>  	/* Wait with a safe margin to avoid every failing. */
->>  	done = drm_mock_sched_job_wait_finished(job,
->> -						usecs_to_jiffies(total_us) * 5);
->> +						usecs_to_jiffies(total_us) * TIMEOUT_MULTIPLIER);
->>  	end = ktime_get();
->>  	KUNIT_ASSERT_TRUE(test, done);
->>  
-> 		
 
