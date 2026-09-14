@@ -1,191 +1,219 @@
-Received: from dispatch1-us1.ppe-hosted.com (dispatch1-us1.ppe-hosted.com [67.231.154.164])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazolkn19010019.outbound.protection.outlook.com [52.103.32.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA3B83A9639;
-	Mon, 14 Sep 2026 23:05:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.154.164
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AB913B14A2;
+	Mon, 14 Sep 2026 23:07:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.32.19
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789427161; cv=fail; b=l8/j38FrqtJHdCPBrQhE+bnJLe1IYGBmAA9O6Y+poVBnoTOOebmsruIaVxM3dDFiXqNCpXKfQ9MtVWGxFHKNV7OfMcdQuQtpl/RLiEr9hCfFmisgvDmh+8NTBTzpmDSWBoP5Ktc3KS4kE9giAvrsBH6GZkPkWFcF497DJcwX+OQ=
+	t=1789427226; cv=fail; b=BCjpUq7+wC2M/DpMEz2UwnGL9sPK++e72pKCS1roWSfe2XRK5UVa+ou0XHPKMMh2A1xAZVnauEsILVPsQptx0nC9oihb+XSm9M1mPdOx4EOEX215wFBR1Qiwh5kk4BZFGWo7eOIcYFjOZrusQ8ftRBOU6JcKPDIN+4ki0Itk4Ss=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789427161; c=relaxed/simple;
-	bh=IbIAevLmgpwgQlvCljyaZOhUiBVwVFl0TILNweDCxbE=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=htwZeg/0bUYncGK32zm+WNlxDBf4QoUJiRyinY9pbV+iuNDc012PIKOMyRU1PnCN+AL+0K9gOKx3z5r06xSljrbm1Cy2+5TFkg8+fy2LIog8bRy8NAh1aSERzpGFSZYz36pTW2ufHeEXAyWsR2TC937oco5vkP6tJ5FicTjxmjo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sitime.com; spf=pass smtp.mailfrom=sitime.com; dkim=pass (2048-bit key) header.d=sitime.com header.i=@sitime.com header.b=liXpwO7B; dkim=pass (2048-bit key) header.d=Sitime.onmicrosoft.com header.i=@Sitime.onmicrosoft.com header.b=zjz4OhUd; arc=fail smtp.client-ip=67.231.154.164
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sitime.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sitime.com
+	s=arc-20240116; t=1789427226; c=relaxed/simple;
+	bh=7croyZ9dpPIvZUWjK8ZQPJmoYXSlnM7ZNPKZrq4J+Nw=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=WzRvq/KgXIVo+QG6JE35+HBNWK0BwJy6wQbLCzf7Xm8alTjEqf1vTzFadI4Kb5iDt5f9A45FKXYjXAHZM3Vt4Nhmd6EvkH/rPYUtunXpqB3VaCwCfIJInx5y/MQMTvVY7qXHNO8dAz3DS9z0BpNlA4x4Bz0HyczfvMTx/ePIxBI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk; spf=pass smtp.mailfrom=hotmail.co.uk; dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b=ksbCu2Kv; arc=fail smtp.client-ip=52.103.32.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sitime.com header.i=@sitime.com header.b="liXpwO7B";
-	dkim=pass (2048-bit key) header.d=Sitime.onmicrosoft.com header.i=@Sitime.onmicrosoft.com header.b="zjz4OhUd"
-Received: from dispatch1-us1.ppe-hosted.com (ip6-localhost [127.0.0.1])
-	by dispatch1-us1.ppe-hosted.com (PPE Hosted ESMTP Server) with ESMTP id 031851C6257;
-	Mon, 14 Sep 2026 23:00:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sitime.com;
- h=cc:cc:content-transfer-encoding:content-transfer-encoding:content-type:content-type:date:date:from:from:in-reply-to:in-reply-to:message-id:message-id:mime-version:mime-version:references:references:subject:subject:to:to;
- s=mail; bh=nWGPdbyJr76o7WFn3S+RW2abYlTblrtiAOFT7X9Cx4w=;
- b=liXpwO7BBOecMLxDp8S4IUTcy4IT6sqbn0FoYFnT3OnWhUIjUtPXtoMvJ0/iscv2vX6qz3Qoy7tefSTSOKQzvNv/snZdD0R0KJfgHBNFjSJ1zV1Qxu8ZJwLlUUJjKrHp10YJ68x2Ad2RcVymGmk0PefiWpt1vokH4KY0TiEuvaaa0QOetcVcbjA9nqo4HvY8kil3C1ocBgdpWDVSB2cO7VIZl7lANgOIcie5yk+Si4j1G03lviYtAph7W3ehs0vJlva71bGqITV0HXVpwC9uuw7lAcayXVXZvLMXth57caMfW6Y8Rb9+WNFGIjd9pfmkve3NC+yn1eIHEyauqlTiBw==
-X-Virus-Scanned: Proofpoint Essentials engine
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11021086.outbound.protection.outlook.com [52.101.52.86])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx1-us1.ppe-hosted.com (PPE Hosted ESMTP Server) with ESMTPS id C1631940095;
-	Mon, 14 Sep 2026 23:00:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b="ksbCu2Kv"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RQoFflPTB2odh5jTJZdmpkPLZquhmZha0ISRR2uKjEWUqcj3aspQ2wArBGPj4kahYceJ7KZL62bJwdBfHmjgMVnlWygrzEE4N04JxRWUsoCPKp0XrgfIP+xPu8dIF25svY3HvSDCwPVDn6wCVYQgM3OVEGmDi/pa952utUaCb5/Wdp6Vo2wbFHt1EjiGQrU8P1QoGl1wGIxPS5dAD+fJu2kaY1m1PJ/1RD/t4CiYAat9Fmm5fRaZO0EpAQGkbgrwUjLKwM/yBdIvcZQ0UHidmyVo6N/KfCwcX2iOJ5NVnoCabjDYFBMKnX21iyzRHU4pU04sWHBW8DWSog6yUD+/Uw==
+ b=qo/2o0JlzrgFqklYBxiIDEFJPRrOcBg/CbThh2O1xGM2apxuEcfVam09c1mgoIf2CTIeVWfaajxiSKJUun4aGVZAQ5EaOhNh4iJ2EZAfj4nI4WDVb+XJkC2xbIF2YZzXKFGZ6LgjUCJQy5wpLW7dSK5szTfrqcjfGdB4y8sg8bo+YS0fsBGi6lJVMyUj9iUO47f1sQY5XzIaBOldk/pz1bPYitw++zJ/4soQu4zQ8vJ/ivX+1Ojr/6R3Tgo0kt4Qop1nfZUpk7VefHVxTRHCPpg+OWO0Pznz01ZMrvXYBeq0nU6T+0HuV0mNFhRbRpWLylAfNekfXjQnKZ9eRLEbPg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nWGPdbyJr76o7WFn3S+RW2abYlTblrtiAOFT7X9Cx4w=;
- b=JnKMZjQRYTJpFwHMqhS0eSv/pj6F0CYu4nsweUgCXWuBNMnyZDaHjYKlZX/TynYrDsZF4jen1ErhDWfbzyr79Ktnf44yu4oFYSbCTNyztZD5JWBPzYmacLcCxyeg/0xflTm9k59Rv5X5m3HX9LHm36ESJ07UAsj1Fgsjs4W/Y+Utxb73Gcj0/VkjUfMCmwgm7ABKRxoGD1+O58+5r7/KrAaLndVILkYABJFbHOfSVOlu5uv+ZQIzr5EVXtJ8iYRN6StJnIqJMPcPDEu7ArxdDfdFimhKHpk97/FJACMrxGjg5iu9dT3KJvUg2dmmMiYwMHK56h4YrJ04qIs+frUlew==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=sitime.com; dmarc=pass action=none header.from=sitime.com;
- dkim=pass header.d=sitime.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=Sitime.onmicrosoft.com; s=selector1-Sitime-onmicrosoft-com;
+ bh=vuZoavzq1vIRSu+p6dqh527j1JOzJEPtPAPkHsWnwks=;
+ b=UK6lEQdNZWmOLGucSoBlzb3dlxKehFVgWFmeb/uawbWhlcakrE/DZnTBCA+3WsQC0oVim8HtzkPujVdU4nABN7C2szWZhouJ693XctPUbx+pgFKC0Luk85iwPfN8VtG10f8of1ZQJmqKnLfWbAjuR2uwT276H9DEepxT6Jrr0y7/G243GrdgD6flRatJNAzjSc6rsvWYHG1sucgeYkvvvwZxJazbq6tyPNIVdJGYAtUH/60iG3+vD/h+YNPNy31PS58ssg7XvFctgqwT4rOaTELsSm8hqcBuwup7dho09IOArivlIWftR8t6MPTZ+CJMaXfcPg3l5Qua4r2QWKd9Jg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=HOTMAIL.CO.UK;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nWGPdbyJr76o7WFn3S+RW2abYlTblrtiAOFT7X9Cx4w=;
- b=zjz4OhUdtoO5YK0RiZ6S6aeLSUszjc7e6TwPbLEMqYGAC+UGLvGyM0axvC6Gj1gjf06yElAGd4sJv6DTDqyEalCPJdHvmNKTIC4agvKicxTKyDmqmSfztRVw8LxzV8O6WGOHIWujIzP6cJ+IK1qIkr/GwLCKq1SmhAj1jefiksW30kLY+vsGQRvkKVV1r7XigZRPcxf7OMIVCVrYExRYkomYqpEubetBu3KIfhnuw76T4JqALMDDz8a7lOJHkcVZ1yR/kd/L9NlC9hLN88Qk6inE6wqN1w06VpoZ6ddpD/cj6WbUlxPL2KZPCvhjY0DNCNgs+jJjpE/+3tFHdwyBeg==
-Received: from LVWPR20MB994915.namprd20.prod.outlook.com
- (2603:10b6:408:3bf::16) by MW6PR20MB6839.namprd20.prod.outlook.com
- (2603:10b6:303:23e::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.11; Mon, 14 Sep
- 2026 23:00:35 +0000
-Received: from LVWPR20MB994915.namprd20.prod.outlook.com
- ([fe80::9551:3864:128b:8c01]) by LVWPR20MB994915.namprd20.prod.outlook.com
- ([fe80::9551:3864:128b:8c01%4]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
- 23:00:34 +0000
-From: Ali Rouhi <arouhi@sitime.com>
-To: "netdev@vger.kernel.org" <netdev@vger.kernel.org>
-CC: Ali Rouhi <arouhi@sitime.com>, "jiri@resnulli.us" <jiri@resnulli.us>,
-	"vadim.fedorenko@linux.dev" <vadim.fedorenko@linux.dev>,
-	"arkadiusz.kubalewski@intel.com" <arkadiusz.kubalewski@intel.com>,
-	"ivecera@redhat.com" <ivecera@redhat.com>, "robh@kernel.org"
-	<robh@kernel.org>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>, "cjubran@nvidia.com"
-	<cjubran@nvidia.com>, "pabeni@redhat.com" <pabeni@redhat.com>,
-	"Oleg.Zadorozhnyi@devoxsoftware.com" <Oleg.Zadorozhnyi@devoxsoftware.com>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH net-next v8 02/15] dt-bindings: dpll: add SiTime SiT95316
- clock generator
-Thread-Topic: [PATCH net-next v8 02/15] dt-bindings: dpll: add SiTime SiT95316
- clock generator
-Thread-Index: AQHdOyOuGzNhwr/bM0uX+E4HTMfYqbbEqX6AgAoZ3AA=
-Date: Mon, 14 Sep 2026 23:00:34 +0000
-Message-ID: <20260914230034.63861-1-arouhi@sitime.com>
-References: <178887151142.219967.9831378889406001382@kernel.org>
-In-Reply-To: <178887151142.219967.9831378889406001382@kernel.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=sitime.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: LVWPR20MB994915:EE_|MW6PR20MB6839:EE_
-x-ms-office365-filtering-correlation-id: 48e2a41e-c15c-4062-3ca0-08df12b3fc32
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|38070700021|10067099003|56012099006|3023799007|18002099003|22082099003;
-x-microsoft-antispam-message-info:
- kXOndVIYIRHEtFG1n1XatM3ppF28Xq6xmGNWgyl3g2UBRBlQT6PciTSIS+CPjIlLm7DR0J46KhD/iOUALT+33kNRiWW3xWkYL9K0MXGhUz7+4E8nox+n+LonCMTZair/BX4c0H+FOW1YcS0tLKruqNCs6cTdjngSnabuh+fZBLbCMLpmz7Qv89UEmD8zP+skSgyBYNvF1wXzkx1EQBHgzYOyS0lxqnkcT/9nEOt2s4ou4Rb3WZ/X4WXDkMXs0SLWe7S90vn/nsuN/w6wL8zcgVPj4FrKGgXJQuPwTD1bd2hASQajIvo6TRqNzfoeOA/WpARC3voXzxyrEglAtXOpx3gh82C2kqV8UZzGQtE2ZZUG4fBe8Zht75E0h6UTYO/3v85cjOytNvlX0vZAaZtNI04TDPfZWBON3Umo3cP6v2g6ZqnrDoqvuEITMvtCf8SUvQaCh3Mkqfu0Am4cpu14LNKMQHWdjkKtJFjn1jkrn3gpbBL9twLrGpF34B/OLoi4K/StOxzKVf2Fi76CvDh6REBtruiSACMzZb6L/xPrhR+0voJ+vj3naXqfQSNp7f/D/4PLWKn8SlVUKGDKu/ZUc2ubkSficMPiX3IejAFn6bQEszo4KTDiNNgKB0XI/QnXxtfI9DniBBIxZ7L0n8Q6Ivynf2i8Ym0t9A+c0cWz/g1PtHdS+ytkJ+JlyTHxbN70fPuRXoWTwNmkA2SCeMII+e5r/kvC/j/STc3BkXlIZpI=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LVWPR20MB994915.namprd20.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(38070700021)(10067099003)(56012099006)(3023799007)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?m5E0UH1H+vGCzcxamw+ADD4yhVQL5Ubh+dEhha6ExvFFRnXnLCJHrAXGwA?=
- =?iso-8859-1?Q?ElMJn2qihEiIQIOllrdSA2b6mtqkU54HfcWfxaXRm9YtIH0hKOqBiUGx8G?=
- =?iso-8859-1?Q?K+kwxKZ86Hee4vf3KiPdEBwYdTTDvaNnxxE254Jn9J9/+yj9kTAUhIbuDw?=
- =?iso-8859-1?Q?yjGko5YL1oaaCi2RQsRvmY/d72UKocG9Cx0tkqYS/MR1eb3M9GQC5tPWcS?=
- =?iso-8859-1?Q?MMoHYkjUJYB4zNY8+oVlBc56K/CP0Z7AoUpqF/LE2anH0ihCVuFinHG+cK?=
- =?iso-8859-1?Q?/ErC0YAFwrgxixpJlk3zLyA8Z5EAaiimbln54CJP3hNx8hb5TKdGrtMqsw?=
- =?iso-8859-1?Q?ZzTnRgNE2PYLKMYNHzFg4/lKd2BFcG1CoGe4cOrkVR37BA++Cs+QfNIU62?=
- =?iso-8859-1?Q?SZ6ygU8AMY0Fh8JKazN5Q3588oR8AVDTax7JaBDnxF/qNShvJlVFIQU1vr?=
- =?iso-8859-1?Q?gHLKf59iye0m3xJSiddFabCQULnGLzRuaZYZbKamKVJn5M2DVLkttM6Ckt?=
- =?iso-8859-1?Q?U8RBvFx5nRMgRiHMeq5z9sm+Rffurq3hl/XSMXsxROoUe1n7UYpCNNihtF?=
- =?iso-8859-1?Q?fzE0v0PN7l2ZfQtHJRngf5s2hUbDbOrqmwHy5+Ru4dSKQdFpB9Tfd4FJds?=
- =?iso-8859-1?Q?dEPCedOJWcHJxFfvBvM3QVQO1bxvStnggxXQ9vahidCr4mP8t8TY8D6X96?=
- =?iso-8859-1?Q?KoNR7/CkLNx1woppitlXz+vWjti5SI1Ci/1Div+XqQgQZl4YUX8+DEuqBc?=
- =?iso-8859-1?Q?xOw4gaFpNg1wM8tl6azm8Wr4dwMwW6+lQ1dwhRkvlSuWSczfGKihbMVW3r?=
- =?iso-8859-1?Q?Q4j063ycO7Nudig5kx+ej7EpooDcmw40OtcQSpcGX29GnG14PgQmcW061H?=
- =?iso-8859-1?Q?JTSnN5wO9phEFkmh/XRBgbOnitsiuSixqYyu4jQkQfmQiyysUi/lBK47Rj?=
- =?iso-8859-1?Q?fnsrQRluEyzfbQOY7RMWXuzwrc8csfKS3pJNL2QizsLwgKBz8VAQls7hrx?=
- =?iso-8859-1?Q?yVAUzQgKG3zpxmuK6TXA2GAmBNbsl1zvfyK4tQSZyO/1FAOJ2yoTKFVYWa?=
- =?iso-8859-1?Q?OzclahMG2GzvSsPK05VRHL1aiapfyG3d9eDF7NtQZVOwhX/8bYPJckLDg6?=
- =?iso-8859-1?Q?u/Qi1pJMSYRxcaSmu3YVongpR07JTr7cd1EjarFaNRWQKUENKaqnHE88gg?=
- =?iso-8859-1?Q?n/W0COePtfjqXEFjZ3YUEE0x6E/NtFDUNjcGoz0DEmadwppQz+SdLpIfOD?=
- =?iso-8859-1?Q?MgUL6OhgTXhrCpUdDqwOR3v7SPgchbPTnAyd/XslLrNDYtq5+1VTbFJpTW?=
- =?iso-8859-1?Q?QaST3j9ExkwNVnEd3rued98J6GZcbXhNWqUxIj92oOXGyKKnKs3AL01icJ?=
- =?iso-8859-1?Q?vX2oCOFtDHYJ993V6/SZXnd2OzG6ufBYabUDjmb14AnPWHHeiMvJXZptH1?=
- =?iso-8859-1?Q?CP2QIht0GZtRhz6yYss97PWzex6rcEViffU1Y7hIN8qRibsUTJxbNSX3aX?=
- =?iso-8859-1?Q?2tOCKTxnsArC4AG0lo5lzWhHBgmc3y6ATMMx/qfvZ/BOKM/lxmGOghwnBj?=
- =?iso-8859-1?Q?hqxFOqSvTSDw1hE1jopTDAwhYxlhmc0udPiqzP7YXnzdk3zx+Ir3knNoqN?=
- =?iso-8859-1?Q?XYUpWq7vLOP3VNmHIm9C8l5fCAQPs9cqdgSLppZjBfbg4FRSk8BWM70W7y?=
- =?iso-8859-1?Q?bBeWFFGcs5ci8P6rW0Cz7ykLWIBOpBBhF9ttbUftsTCjNPcZT3Xh78Xmnm?=
- =?iso-8859-1?Q?hDsEgTIchk8/Zg06fk7/R9VhVLFbzInLUHf4W0DHa9HoAm?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+ bh=vuZoavzq1vIRSu+p6dqh527j1JOzJEPtPAPkHsWnwks=;
+ b=ksbCu2KvUxXObKv5tZo93yiZhuo6GlXSPwHVtkhvBCwTyQ8u0h0b59tCURIaXQXC3EXwDO/sffZht1lKrKaZlZ3eyA8wz1aXvER08Aue9vZQRANQZJiM8Z4VkWbsyB9MMgbVYgLU6plex+226Ve2jTqc2izz20+7vtXcxhjHQBUacPolTyByPCJihA0rPIQoAj5pequGyb878P1kIzuQ2cAY2isnhGS5h2+g6iWqxiqU1M0tKAH1fq2AzxlQOJY2KvKBtUZZPASoli31u9+onHQ+jcpPTrlmvif+ZAGeim+v5FfMhzyUla5w/5HRNG6l2KDT0KvCQTAng4TdKRvPlQ==
+Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM (2603:10a6:20b:344::22)
+ by GV1P251MB0882.EURP251.PROD.OUTLOOK.COM (2603:10a6:150:8d::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
+ 2026 23:07:01 +0000
+Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+ ([fe80::2952:d4d0:4ba:8352]) by AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+ ([fe80::2952:d4d0:4ba:8352%3]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
+ 23:07:00 +0000
+From: Aamir Ahmed <elb12345@hotmail.co.uk>
+To: Andrew Lunn <andrew+netdev@lunn.ch>
+Cc: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Peter Korsgaard <peter@korsgaard.com>,
+	Ziyi Guo <n7l8m4@u.northwestern.edu>,
+	Ethan Nelson-Moore <enelsonmoore@gmail.com>,
+	linux-usb@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Aamir Ahmed <elb12345@hotmail.co.uk>
+Subject: [PATCH net v2] net: usb: catc: bound the RX packet length in catc_rx_done()
+Date: Tue, 15 Sep 2026 00:06:58 +0100
+Message-ID:
+ <AS8P251MB00015FD7716F38C345619B56C8BB2@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+X-Mailer: git-send-email 2.53.0.windows.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: LO4P265CA0157.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:2c7::14) To AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+ (2603:10a6:20b:344::22)
+X-Microsoft-Original-Message-ID:
+ <20260914230658.148754-1-elb12345@hotmail.co.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked:
-	qV8wqHqPtWDK0u17dRUPTpboYjJvYFGVV7DBBJu+4/CaaUjkjinsnI+dwkMxWsdp3eF7iV4amkurhQMN/5jeqOucz2PoOXRmleWUa/I/JE+2cmtvKv421gBdvMuUUj8N4sfy/KKQfJ2S7l3lqYNG7gDQ/vaW4OCLrvzvCmBF/0HigmkdH3Po6k7tqzGCbDyJOqKoXTEojeuzmTiup+otMO29K3zwVjNJPI5bs50dftrODz0RMJCDv/Q7lgSHxwSQCi1UfLWacEQe3uoNyabXZ6jlhr+hF1t0FN4P/lp0SCryY5HauzZFcpuY9WXByrvzQp3FXXUNLwzR1E+/qDdqfw==
-X-OriginatorOrg: sitime.com
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS8P251MB0001:EE_|GV1P251MB0882:EE_
+X-MS-Office365-Filtering-Correlation-Id: 47bb0e6e-4fef-48de-bc1f-08df12b4e210
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|19110799012|41001999006|5062599005|8060799015|12121999013|55001999006|5072599009|24021099003|25010399006|15080799012|37011999003|51005399006|25031999004|4140399003|23021999003|440099028|4302099013|3412199025|26104999009|1602099012|40105399003|2607281247196008|10035399007|1710799026;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?irFfpChdySt4NYT4ka9I7Zv2jnLP4+lprrkIjahG1yvF/76XF2WF4PyhYPtw?=
+ =?us-ascii?Q?4h/Js2RhDy1yRRhBWOga5J1aEzgvMeiNBb4vS39ZCB+yJOjoJiBn6wgb6RlF?=
+ =?us-ascii?Q?OqKG8iCNNhGs5skb1GKX10OHppRLKZt8vQ0mr/9Qarkgqe9m8UXaPYZQ7Oo6?=
+ =?us-ascii?Q?gfcVkAW1YkckJwQ0v7vjqUQWrXjNPPBUW1IH7l820ecw9KyJdglBqZ4//N91?=
+ =?us-ascii?Q?SXPwi/gPL9MSOiGjtLa679UkAkk8YXpkG2jLSLOOhFLPvSh/gQEL82DsPQyS?=
+ =?us-ascii?Q?lcH2e0sXK1Ysb+EGprKd1oGduTr6r9WJPp7KJuYbAHXoztI1fanFPBak0ltZ?=
+ =?us-ascii?Q?82fD/WeXFB2k3hnTvMeayjCpekfHFeI2pPDZoW0hIP9JjIlPoLFSdu30SW9G?=
+ =?us-ascii?Q?xirafX/vVVdBmLcZqaAZbrG8gsMO3fMEuTuAOQfEDWoTjJ6vEpG13Ofn4Tc1?=
+ =?us-ascii?Q?6R2iVhHTPLtW8OEqX9yNvWiFA/E1NEwojnW2mMTHaQvIwhNCfFjiNYakE8kw?=
+ =?us-ascii?Q?gvuQXrK90cDns6vb0BHlFxhuL3VgqJ/0fujVxDwqAOwrbu2oNLlWMmdQsgwc?=
+ =?us-ascii?Q?vj77bxr0NsZhmNjgNby19Jn4KxBYLFI+9QE+1tiKEEYwC/jt2BRiuJSYTHdn?=
+ =?us-ascii?Q?jsmBVUY5AXRKQDN+UwRRrcxNpgD/scPpLBhLHkz5Qk2OyU+MZ+01fgcOethr?=
+ =?us-ascii?Q?FDQWGtYMt9XdAZFxVwolLkBvcxf6tOqoUVFPDXNknstadyEfj97Tm/a5rL0w?=
+ =?us-ascii?Q?tjRZJVx1sEedwgaj1trZJmHz106GWriU4fGgL6SWCsJO7EEGPEDFQBzWOQmC?=
+ =?us-ascii?Q?1ZymDc/r7BkJTW1431BSvFy9U9vjsftxRIB0ECkDAqgNZkRQbgMOSzQxCWl/?=
+ =?us-ascii?Q?hZNg+5S2ThiUx0zcBxOQFe0nLxtGq/zRIWJ2vqYY4mXPKHpa9Qy3zwQOSWw8?=
+ =?us-ascii?Q?1KSXe9ULEuA1N2cIHQ4cq8M71nIiNvozIWZtVxJy3J83kZn9qkaKk1lIZMHV?=
+ =?us-ascii?Q?yhVVJHIVXucwBwR2jZjP4P4PPXeukz+Dz+Gj4E3BlgP6+06bvDpliaTg9SEC?=
+ =?us-ascii?Q?2BysNtpXEAqht0UEO64wRbjBL7TnNGCPQ+SCtFwhcPPeARbauRw6P2FtZIQt?=
+ =?us-ascii?Q?7KQdxS/CFlhC05hkyb9rdWEm5Qv1WNbY9WvC1ZZx2Xv+rmUdrnAIbU5Em5PM?=
+ =?us-ascii?Q?jmW2g8xdXCaFYricyZYWjnw95oca6TlvSFc4F5BSG3vO/e3o/598l0b/z4HJ?=
+ =?us-ascii?Q?zGsnNRwTYPvV2GrRGIbh?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?pfVlyoqHDGRJ97Cx5ybMkrbPDM7L6iURCiDgkwgcIoo6rpPAJVGeKcVuy2PS?=
+ =?us-ascii?Q?WCET6A4RC59WwlHVlFH2JzOZDvDZuU+VZlyj7OqkugW/aC/9bmbLv3v6Losb?=
+ =?us-ascii?Q?XHg0hGBvhHoFnEQGZ2BLyJY8LDBK997NgWqaMX4wZCYzXQ8nZ/DlWTDxLsVl?=
+ =?us-ascii?Q?qJj3vV4c81PjIYjBPdM8mJvF+R0q2vSuS+5yx45QPvKPGBZ9eS0PpL5svmGE?=
+ =?us-ascii?Q?aQRM08qYSgMz2ygIdFrGxJMvRrBDuMokQtXQZo1D2H4dzUFQ51Rx61hEy1n/?=
+ =?us-ascii?Q?Up6i1naYIxc45No+JMs7omzT/RBHFdGegobfSKmnlGvjA08W+PZVCBgVqv50?=
+ =?us-ascii?Q?ftmTfULvVOXc5rVhnm8U0WvimCPUC4ifH8FPIw12VSZn6mOhjdo9Sg0/g0tM?=
+ =?us-ascii?Q?kJgbMVkjSmRt+7OP5hb5ClRLAut6uDxZGPHpE/jQtuUuwJo1AsL1NXEYwnu5?=
+ =?us-ascii?Q?3O/lPpPu8r+HBDdihEIvIYF/XyFKOQ1tsx+Tm3xfB8ZH/NaVFL6fOgBDvp6L?=
+ =?us-ascii?Q?lncjtHuvb0Tn9zhKQfdZ5o1qnOPLPFoBRWXLVppVCbArvJVmNNBiFSWNNks5?=
+ =?us-ascii?Q?SJ9i57uOH0xdevpWLoacRmQu4yGCXjQ3BXT0DH5feGnOq/IAm2hEnlsRUub3?=
+ =?us-ascii?Q?2Pg6feUapgrC8sDQw/FxJHGaqk5qRrY0ZeGNzm0HaUZl9isvP9RSWh5UxnpB?=
+ =?us-ascii?Q?EKuLJj5TOeisQchOoTBYvNI+109DBPsLQzu4oUKBX+epf5a5LzV4BhFBFTsW?=
+ =?us-ascii?Q?Kx7xsPTIcjBdjEks4FO5jIeCIbHKFuTtuDzyZBp8kfKOWsxdbmzbTvNgnWqs?=
+ =?us-ascii?Q?8baGxKhvXPdv3HYPTqgkZk8De3aSnMesfcJJ0ASY3dCN3lIW1BxXinFthitR?=
+ =?us-ascii?Q?vhLezYmK4ZbZe5Fmz7e9/uQEIt3xVMzfbm1BKaWEyoHfac5IUJJGld7Y6keq?=
+ =?us-ascii?Q?BhFd2LEVRHemv3BdfSaRLKyGwoe8a2RkJWsxqfy9EtmRhRpUlNTsL/BZ+Phn?=
+ =?us-ascii?Q?I0gYR8mjFwArqk6LNKyKeMx3t4bAjgaGn1QziG6GO57CC68aupo0x4sedEha?=
+ =?us-ascii?Q?sLKrdDhCfMfZq6Do5mDMpVWnOeozgy7VKScpUyWPtqD5lAp+P0Ytg8A1HQra?=
+ =?us-ascii?Q?EoudFCV2dPCBtM4K9fEnrqTcaVTAaDfghXnOV/6PB2R2Ss/10z8YSxFfKZTT?=
+ =?us-ascii?Q?OqQjkPsR0Uno8dHjnHuwtbVgty3Lakap7sNR3lEdtt/bvMwpT/ACm3E7fGQ0?=
+ =?us-ascii?Q?vWbj24A0/eWnAMXGDYM5z8IB7GNCLAtwXQCzh3H0Az8pywRji5HzjpsbwFPh?=
+ =?us-ascii?Q?0oqHJr9gGzP9ua0QCZWAveQgS8qY7r2/RmUjJP/Wo3r1WhnyBMWd/LG4GDtb?=
+ =?us-ascii?Q?63JVjMb9HWMTAlySuc6Xbz7PdCG6TYjpuF0QVh39PjeQUomK01LxcG++xxW+?=
+ =?us-ascii?Q?m8GQ7qjU3ShK88+zacjr6AZOZL7+PF/P?=
+X-OriginatorOrg: sct-15-20-9412-3-msonline-outlook-fe3f5.templateTenant
+X-MS-Exchange-CrossTenant-Network-Message-Id: 47bb0e6e-4fef-48de-bc1f-08df12b4e210
+X-MS-Exchange-CrossTenant-AuthSource: AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: LVWPR20MB994915.namprd20.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 48e2a41e-c15c-4062-3ca0-08df12b3fc32
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Sep 2026 23:00:34.9029
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 23:07:00.9185
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 8fb55916-cf10-4b0d-96f4-cf3952657263
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Wjl+EPNpHAJWZQn+DvL8Phc7PfRc13yHHXpR91Apd0Cl01UiaXzi1kxMrnTrAgq7oQYYZk1lB7uiIxulA9UKHA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR20MB6839
-X-MDID: 1789426841-l5USAGoGVk_z
-X-PPE-STACK: {"stack":"us1"}
-X-MDID-O:
- us1;at1;1789426841;l5USAGoGVk_z;<arouhi@sitime.com>;ee4c095510f4a2bc549243be2f087a38
-X-PPE-TRUSTED: V=1;DIR=OUT;
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1P251MB0882
 
-Reply inline.=0A=
-=0A=
-> Is the statement that "every valid value exceeds the 32 bits '-hz' allows=
-"=0A=
-> correct?  A "-hz" property can carry 64-bit values, so the stated reason =
-for=0A=
-> dropping the unit suffix does not seem to hold. [...] could the property =
-be=0A=
-> named sitime,pll-fvco-hz while keeping=0A=
-> $ref: /schemas/types.yaml#/definitions/uint64-array [...]=0A=
-=0A=
-The description's 32-bit rationale was wrong and is corrected in v9.=0A=
-The rename itself, however, does not pass dt_binding_check.=0A=
-=0A=
-dtschema types unit-suffix properties centrally: property-units.yaml maps t=
-he=0A=
-"-hz" suffix to uint32-matrix (only "opp-hz" is defined as 64-bit), and the=
-=0A=
-meta-schema rejects a type $ref on any property matching a unit-suffix patt=
-ern=0A=
-("Standard unit suffix properties don't need a type $ref").  So=0A=
-"sitime,pll-fvco-hz" with an explicit uint64-array $ref fails validation, a=
-nd=0A=
-without the $ref the values are typed as 32-bit cells, which cannot carry a=
-=0A=
-VCO frequency (4.9-7.8 GHz).  Verified with dt-doc-validate (dtschema 2026.=
-6):=0A=
-the renamed property produces exactly those two errors.=0A=
-=0A=
-The examples cited work because they are not new vendor properties:=0A=
-"supported-frequencies-hz" is typed 64-bit by the dpll-pin.yaml schema itse=
-lf=0A=
-and "opp-hz" by property-units.yaml.  A new vendor property has no such hoo=
-k,=0A=
-so the name stays suffix-less with the explicit uint64-array $ref, and the =
-v9=0A=
-description now states this real constraint instead of the 32-bit claim.=0A=
+catc_rx_done() walks a multi-packet URB, reading a two-byte length from
+each packet header. Its bound, pkt_len > urb->actual_length, ignores the
+header offset and compares against the whole transfer rather than the
+bytes left from pkt_start, so a crafted packet header makes
+skb_copy_to_linear_data() read past the buffer.
+
+A length below ETH_HLEN is also accepted, including zero, and
+eth_type_trans() then reads a MAC header from the uninitialised tailroom
+of a shorter skb. The is_f5u011 branch takes its length straight from
+the transfer, so a zero-length URB reaches the same path.
+
+Track the bytes remaining from the current packet, and reject a header
+that does not fit, a length past what is left, and a length below an
+Ethernet header.
+
+A transfer shorter than an Ethernet header, including a zero-length one,
+previously became a runt skb passed to netif_rx() and counted as
+received; it is now counted in rx_length_errors and ends the walk.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Assisted-by: LLM
+Signed-off-by: Aamir Ahmed <elb12345@hotmail.co.uk>
+---
+v2:
+  - reject pkt_len below ETH_HLEN, covering the is_f5u011 branch too (Sashiko)
+  - hoist the remaining-bytes calculation so one check bounds both ends
+  - drop Cc: stable; no conforming device reaches this
+  - add Assisted-by: LLM
+v1: https://lore.kernel.org/netdev/AS8P251MB00013A0DCA600A79DC58B0FEC8B22@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM/
+
+Sashiko also suggested a sanity maximum on pkt_len. I left it out: PKT_SZ
+would reject the 1537-1600 byte transfers the is_f5u011 path allows, since
+RX_PKT_SZ is 1600, and dev->mtu excludes the MAC header that pkt_len
+includes.
+
+Built with W=1 (catc.o) on x86_64; no warnings. I have no CATC hardware,
+so this is not runtime-tested.
+
+ drivers/net/usb/catc.c | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/net/usb/catc.c b/drivers/net/usb/catc.c
+index 96e82f94edcf..39b678f175dd 100644
+--- a/drivers/net/usb/catc.c
++++ b/drivers/net/usb/catc.c
+@@ -233,17 +233,26 @@ static void catc_rx_done(struct urb *urb)
+ 	}
+ 
+ 	do {
+-		if(!catc->is_f5u011) {
+-			pkt_len = le16_to_cpup((__le16*)pkt_start);
+-			if (pkt_len > urb->actual_length) {
++		int remaining = urb->actual_length -
++				(pkt_start - (u8 *)urb->transfer_buffer);
++
++		if (!catc->is_f5u011) {
++			if (remaining < pkt_offset) {
+ 				catc->netdev->stats.rx_length_errors++;
+ 				catc->netdev->stats.rx_errors++;
+ 				break;
+ 			}
++			pkt_len = le16_to_cpup((__le16 *)pkt_start);
+ 		} else {
+ 			pkt_len = urb->actual_length;
+ 		}
+ 
++		if (pkt_len < ETH_HLEN || pkt_len + pkt_offset > remaining) {
++			catc->netdev->stats.rx_length_errors++;
++			catc->netdev->stats.rx_errors++;
++			break;
++		}
++
+ 		if (!(skb = dev_alloc_skb(pkt_len)))
+ 			return;
+ 
+
+base-commit: c297ed90fbba72d32b7759aae362b36d15b2db1f
+-- 
+2.43.0
+
