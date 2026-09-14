@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1523A483817;
-	Mon, 14 Sep 2026 15:31:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D058048C3FF
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 15:31:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789399874; cv=none; b=GVXXCBP9OTKuZ/rka5JCBFl7GqOU8bRl4F3IPRNdgYiJEurdi60yWiXjCDF1aBHhVnInmdDwn+3K+TnC7iTtgWZReGbNGRDD1b6+EF4kcCZeNFW5nGNBoXo9Nd04Fp+95RxPnrLUiO4bp0gD0e4po2QZD46mWYF5afVlgdHNulE=
+	t=1789399876; cv=none; b=P20gNOHZTmjSJ0aophk7N/RmZXU9bmqWNDl2P1BI4rW+6nZi23C6F8/mp3klNCjsB5sLMTiMbMkllZKcRJtkFqzvBiaNMoRPKf3TEDcMm25z1HdKCfqNBl0e7r9EBGDCZtfZ5k54KusDr0zABKwrGDEhVMazW0S8Xu2u5Jr/388=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789399874; c=relaxed/simple;
-	bh=dHibTyz/FQavpIDAMGGkANkIWHNNJvPA1wzYTrjMY+Q=;
+	s=arc-20240116; t=1789399876; c=relaxed/simple;
+	bh=A9MI14gZ6eXUO0wTfrhoIvbPsJwkMGiOzomMS+zXiDI=;
 	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=CuvjIUJVrSNpLts37OeT2ggBg1MWgcDmm2/ZK4QMZNMxp52rRwFSUZvbNt1vZf0uzBK0W/cpw4TfASoLGXAQIlaV5W3RWsVoS+qe+U5puALuKJz4TyRnvyss8AOhSBR5K16int41mMbBLAGP/TFl8uAoQKB1ao/zvDFKBIheZtU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WeX8xs9g; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=AZvHlQGaemeT87xn9RUh1Cmk9Uc6nogeooZ4a24j73Kj4+dYmGZFO31IKtqUDGKVzL0y7gvd8t0ifx1qiIqD/RvxoANgzHs36aH5HpJfVOJxZZ9962dUr11aZxloxcUzMv5Zh1B1EdmKaJgcDMTvKGKklORsMvW2DDlTLoVjcw4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TxCx4DEg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WeX8xs9g"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E99951F000FF;
-	Mon, 14 Sep 2026 15:31:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TxCx4DEg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71F771F00893;
+	Mon, 14 Sep 2026 15:31:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789399873;
-	bh=HpY76s3GnvgYwaOhvoeara9xLcQyChW2rfV0iG9R79s=;
+	s=k20260515; t=1789399874;
+	bh=GRni4l4ymYbY7XYMoCKgvBmsHJcn3yOsNFwT+xszDes=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=WeX8xs9gBfGaaTuMrrISuW8ri4bHEZHRM7gyZyJSKwacYUn6fzMakRQ1lfmK/vRgD
-	 Ivk+aNbHeaa8lpnC18Q2uKCn2CmT8ebd3u/yLxXXyfYGlrolYlmhoQ74/ENrvVjq7X
-	 YAns5CutTvpYE0WQ/a60iaN4yJ7GD8r3uXVq76kYEWWFUsnNPrpYnwVowtAXs1bRz/
-	 y6lyTy0nWuX3g5KKLtfKD9AYQNPDIXPPenIBtDU1zQhKvN/iPIONM5Om8y3LTifSje
-	 jOR2Q6iRzJln9wzEfFw5Kx/EfM87q4/fz/+2Rs6zPrxTl0gQZgIl5jssfC3FMU5MfC
-	 ek86ng5fJ0n5Q==
+	b=TxCx4DEgFDzcucn1Lt04a2ETZcqd+9D8sNwR7HIksokdJcFqKFo/nUym/orNGwDrw
+	 6C1Jk7ZUCbTu/HC8Zj7shyaO27IVq5cHxb9sTZGv6HFCD/GQviRIkghLQkQkXaLGN3
+	 4jEcAu+pUStPQP0BXbFnFcvuxVaBivHQ014DdVg6/AcR+OVUsgXWGMHwPFtB0HR5sg
+	 aRz5b16dWYLa3WRhPG6jKGVpeZCMEzgd8U9E+Qk2YDNLbeou6KG4oSoMmRmyMowrr9
+	 hawJQfCncekX/NyGTjkUWQ0V+V6BVsm6/+dG44lz7Nrfj0BlV9WhujQYZ6+xWHhg6X
+	 MsrIvYCEZVl3g==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 56A843924A79;
-	Mon, 14 Sep 2026 15:30:09 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0BAB3924A79;
+	Mon, 14 Sep 2026 15:30:10 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -37,43 +37,41 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [f2fs-dev] [PATCH] f2fs: force out-place update for all writes on
- compressed file
+Subject: Re: [f2fs-dev] [PATCH] f2fs: fix to record both APPEND and UPDATE ino
+ entries
 From: patchwork-bot+f2fs@kernel.org
 Message-Id: 
- <178939980787.647967.18277345902202465744.git-patchwork-notify@kernel.org>
-Date: Mon, 14 Sep 2026 15:30:07 +0000
-References: <20260907-origin-dev-v1-1-85ae7ebc8c98@amlogic.com>
-In-Reply-To: <20260907-origin-dev-v1-1-85ae7ebc8c98@amlogic.com>
-To: Jiucheng Xu <jiucheng.xu@amlogic.com>
-Cc: jaegeuk@kernel.org, chao@kernel.org,
- devnull+jiucheng.xu.amlogic.com@kernel.org, jianxin.pan@amlogic.com,
- tuan.zhang@amlogic.com, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- linux-f2fs-devel@lists.sourceforge.net, tao.zeng@amlogic.com
+ <178939980937.647967.15687709233091039790.git-patchwork-notify@kernel.org>
+Date: Mon, 14 Sep 2026 15:30:09 +0000
+References: <20260910030243.3005578-1-zhiguo.niu@unisoc.com>
+In-Reply-To: <20260910030243.3005578-1-zhiguo.niu@unisoc.com>
+To: Zhiguo Niu <zhiguo.niu@unisoc.com>
+Cc: jaegeuk@kernel.org, chao@kernel.org, ke.wang@unisoc.com,
+ linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net
 
 Hello:
 
 This patch was applied to jaegeuk/f2fs.git (dev)
 by Jaegeuk Kim <jaegeuk@kernel.org>:
 
-On Mon, 07 Sep 2026 19:35:42 +0800 you wrote:
-> From: Jiucheng Xu <jiucheng.xu@amlogic.com>
+On Thu, 10 Sep 2026 11:02:43 +0800 you wrote:
+> In f2fs_post_evict_inode(), record_bits is assigned with BIT(APPEND_INO)
+> and BIT(UPDATE_INO) respectively, so the second assignment overwrites
+> the first one: when both FI_APPEND_WRITE and FI_UPDATE_WRITE are set,
+> only the UPDATE_INO entry is recorded.
 > 
-> For compressed file, compressed write may fail and fall back to raw
-> write.
-> 
-> -Thread A                                         - Thread B
->   - f2fs_write_multi_pages                          - f2fs_down_write(&sbi->cp_rwsem);
->    - f2fs_write_compressed_pages                    - ...
->     - f2fs_trylock_op                               - ...
->      - f2fs_down_read_trylock(&sbi->cp_rwsem);      - ...
->    - f2fs_write_raw_pages                           - ...
+> The two flags are not mutually exclusive.Once the APPEND_INO entry is
+> lost after the inode eviction, the shortcut in f2fs_do_sync_file() can
+> take the flush_out path in the next fsync(), skipping f2fs_fsync_node_pages().
+> As a result, the dnodes holding the newly allocated blocks are not
+> fsync-marked, and after a sudden power loss, the data appended before the
+> eviction is silently lost.
 > 
 > [...]
 
 Here is the summary with links:
-  - [f2fs-dev] f2fs: force out-place update for all writes on compressed file
-    https://git.kernel.org/jaegeuk/f2fs/c/a64a3fec11e7
+  - [f2fs-dev] f2fs: fix to record both APPEND and UPDATE ino entries
+    https://git.kernel.org/jaegeuk/f2fs/c/06768d77ed95
 
 You are awesome, thank you!
 -- 
