@@ -1,151 +1,169 @@
-Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F23C3093CF
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:24:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7800D4570E1
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:24:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789392246; cv=none; b=dP2zFSu4gZX9yNRxkQAfn0hf5IrNQUQKZqht8xk+Kdj+0nSlO38XE2KFF9qffhR5KjTZFnrgQVDc5kVb7LOKcHLjrvS1jAiS2eWx+j7Ll1zys6wEJv8VHAwCm5bamTu3hbrQnoKe5cAtqa7tWF9Kuekaz0fej0jJkrHdc3wZW3M=
+	t=1789392254; cv=none; b=Po48HD4gVsckTbDRDhVW6tLnFo5751M5kRGVpi4ry+MYkUUr3Rm8f73mULAsReMcysaRcZPPMjTNlxOGe3uhmBt9cSJB2E4N8yfqacuPzRguYhVvtV5qfiIq80b/Ae453VZ+Wm0xIjPr/SZhrGPhSNpx3Ld11xaTyexIGKvkiPk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789392246; c=relaxed/simple;
-	bh=G0Du4BFPQbVTw82fdXa3WVWJk3Z63x/Ilv5OfimAoA0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=A60/ZneHJN/5aFC8733eGUvElrt3478yUq8Sq9VvvxSQYVkvWE4K96+HN2ZE1zFQ7asIUNR+RkI19PKcLtwUgIQc7teK1ARZaKQ3WvRY4NRXBIzmZgWozu3ib7YcOIHwysDah4NvRQOenY8iLNvDKaQQ19vzVShiGkH2T/STCAY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GqpbaRuM; arc=none smtp.client-ip=74.125.228.43
+	s=arc-20240116; t=1789392254; c=relaxed/simple;
+	bh=P0mZQNHSkk0xSxSOt2VlrarE2pxLqu0OKAvcOKR40Bo=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=OdgP6oPTTP1hBE173xA2evFYoY6JsUotBj67qBcYQ7/KA4z9bLq1wNSQJoP9kcDdpfrjjA8a7XJ3yGQfdBwQKt2gIEuahvVDLabb6aMx6l2tNqlijb29sWfzoZoTEeth8GlsQULFLtG/kc1AQ7xH+V9C4+YeHCtWzafMC3MtZi8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fsWY3tfL; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GqpbaRuM"
-Received: by mail-pz2-f43.google.com with SMTP id 41be03b00d2f7-cc4aa0f1a94so1333521a12.2
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:24:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fsWY3tfL"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd38e0e5dso24387095e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:24:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789392244; x=1789997044; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fgRiOcxuYT/a5YlmbXURlfn299Pxo8srZQixNKFp+fc=;
-        b=GqpbaRuMzhOWylvAk5M//2j2VhuovW+L7upwUua5pQZmFEf+NpB/MglGT78sPf9PEn
-         0IuNmdAPMmXXhBXA74vWEpFhepT+fGg1so7EkTLmeiQqvWkEMMps1cctzQmL/sCYu/XM
-         odBkZt7fk+RT1O9OeDIbV7tuQxYrM5/LBsL3PJBvRiYF8OUYItJreKcfcGMxhsEmY7cv
-         +2I2l5DIC6X292bqfQUywLHQC6tZN1stRj1FPxfbKmr9W/Wey1IZTmRUMXZg7d1SDcss
-         meN7EEHU+yskuAJN6H6U9UajzpLj5SQ0zBM/4lOW3nwROOOLrVvNpO2EcKwZzkbMhe5C
-         JZmw==
+        d=gmail.com; s=20251104; t=1789392250; x=1789997050; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9L9tcLbdL4KYyum5sr/h04eDCLoRB4iSwMc6XYJwMYo=;
+        b=fsWY3tfLsNhw0qMCJrGxmvWlKzv6s4MWVVxC/jSzW1ZbS4gdUpWNrYeJj1OJKsB1/U
+         hNrtM3j7g/ljf2p+TTRiNIh+rcj9DOA9O3UbZx/0gKOJxyGpy4lyToN2JYgFuIpcsz/I
+         ybjt4K/OHX6UG6iva12xy8qVVl5A5jEkndq8OImRlDu5fAzW/CBrszHoxYafrzTkNKjG
+         MAO8Kg2GW36MM0afN3WvQOc8+Kf+GBtO4+5flqH7yKCkpydPUyfOUXInH9ydYQvbk/Jd
+         FesRmjlzO+WkL6PfAVGKZ1tSFN784LyuQ2jp46Mh+oFFP9vpPnsPAiw4l7qSUKF+YH3+
+         RDyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789392244; x=1789997044;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fgRiOcxuYT/a5YlmbXURlfn299Pxo8srZQixNKFp+fc=;
-        b=MxVs4rXg/D4plvhfjV9vZRJu3KsU6Qn2KAwUXtOObWlSyLPzlp4jZuQuCG1audX0LJ
-         h3qT05rfsn9vuDxWBHZa56+5xXhgflOhL7bn3xjCHh2whI2DCDjqU2PR7GIE8j7PuvE2
-         vwW/Lsr2OUP9iqoTooZuiOioETfPLFpRvHUrAUSQ/t/aioBQ2bfi7HT47cWao05VBaPU
-         1jZxv5Yn53uyxWlOzxGaz15uHW0IaJnbiQCRZh3ve+fidnl8iIgdxqRdv1t8GOiLt4sp
-         vILeMf+FSUGLjPZK1UCwHnRj53wuqheLYs/i0c6xJgzS/aryC9ivnU8pNn6ai3tVATf2
-         OIJA==
-X-Forwarded-Encrypted: i=1; AKwUvBxawmH1zE9EBvl8Oe3HWu97+tUL+bETha4YrF/RPvmopbBHt8549/iOWf8tdMsVumYmAgbiq3R1ZB1QbR8=@vger.kernel.org
-X-Gm-Message-State: AFuF++nyA+eraCyTuRZkRr5w2vWDqsHeVFa4zkh6cMWEAS0nSm/CsL9Y
-	64qowCcPNVv6/leLkH6u0Jhm7G7VEzrWBZa96r6DUVrNYUH9s+2aWzC/
-X-Gm-Gg: AYBFou2qZOXafxRuv+OJsjwSAv/iH7ObNFrRZl7P46V/AoNOPafddMDJl86bxYWNTRa
-	lBSaJpbYOUONAqxccdhgnRXtbK6NGiA2FLd4lE+t1QJZcgX5MgaGATyr3oGRMHDFYg0McQrZtgy
-	Uy4BZaQ7OwBEk4HIhpX37XJp8jRdPrgyq4lUycSAPiZPkHIzviCm0UTsZE274iE8OnWbzdZpTX4
-	0G6owhQVF0eEy4WTZX4Vvc/o+bJ0ib+BcAgqOyaGe6aId/+t38CklQVr/gfo/wHp8fm49VOmupj
-	orRtuLxA0O2xHfXhwOs6CEhRZcAcSIkYbwdNoyCHK6qnxm/7+M8etdLMoXzyApuaLcZjxpEBl8Y
-	pu6BRC84dtMlEUNftxN8GuA8hDZMmaYTvMYA2xVEjJliXO1AWWYvV4blZNMWu6NZtQeKDQcdsxc
-	WD8x4TgrMq0SD4p/5FZFPS2T3X/l+88SHkxE9PM7y1jUAHYI8yZa7Uo8ZoOO/pTxnaWmaY3X09G
-	cdD56muAYDE7Q==
-X-Received: by 2002:a05:6a20:7d9d:b0:3cd:9bb1:c6f5 with SMTP id adf61e73a8af0-3db40452773mr4994899637.10.1789392243791;
-        Mon, 14 Sep 2026 06:24:03 -0700 (PDT)
-Received: from arang.localdomain ([14.47.12.38])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4c6596265sm4938853a12.27.2026.09.14.06.24.01
+        d=1e100.net; s=20251104; t=1789392250; x=1789997050;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9L9tcLbdL4KYyum5sr/h04eDCLoRB4iSwMc6XYJwMYo=;
+        b=HP35VrBUen2uxCyGU/f/+QCxlFB3+DAEucXc17g67XiVZqCexMj+HsMdWKFiG9wDoR
+         wtapB4D182wFMF/j7GnRAzpOly7CPHHVi4PFtdUMybJD1yUda3zEiNDvAGCaAH0K+Rue
+         kBoGHcxT3O4s9MgOjADRM9RolG+2EAwTAZ7fkmvL8aZRPaQUsV2v+BXok6i+bvp4S1yz
+         BPqofC0A2Uw4m3qdpinNaOlMDy5OSvUb3g5iy1w17yTgvkbcveWN3G4Le6ZD8PZcIKOI
+         ARmmrrRUqOd/EvvZ6Ukx37ZG83PuCNoHiqvUaCB2tnYsqoPaJuiUnCaypnd/OAEomq5y
+         3Drw==
+X-Forwarded-Encrypted: i=1; AKwUvBwSLafhtVnh7T5QigAFZBch1Y3s54SAntP5YMDftAPfP9wN30GBtoCq1sXcmLAl1XyyTmTVoQEobKDcf5Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++m67HCJiz6UsugFMwLPsiKBNDXxjuew98fWw1d6BdaXp5i+UKp2
+	YwCs0TvLDMVz5m9+UeqRt6OuvXkwK/Psslf25xB41GFWYeWqVb+FYLMv
+X-Gm-Gg: AYBFou0ClecqJ5zvkETAXI240NyFMdlIMk9yy5kCKbN8GEOdBlpfxfOPI5sIwTupBQc
+	OafWqU6DNTyp3Tz5n8IiSeslvhbGDErgF8nR+yJv+lB4hlp+5E00sPBGhXtFBNTlcsshE4qLy1F
+	lnvJudN7XRnJcM6Nw30XS6XRRWWlsJ1FOvADDVjPUN2fCC2OAPIV9Z0WlBhtfuTQgJbIuhkOtvD
+	N1q2Yk02OejdrMlp8PGShlRHT5RBCJR859831b2TOCbkMcgBrAR7B8o3q+RwqXRb8blPVHK+imq
+	HjPg8fl0R6g85BzvBTYSz0brcsvVwYUIfNrZejcj5AWNuVTMwhvzOXtDSyU51IJfFHlmymnaFZC
+	EBMeWfDgM4Eu51ZSNcWLTXUGhzUxKCieIjAfxFGXgOMtCZdLz0LlUJFk306pHuvkSzX7e3G/3eJ
+	pzFtthSmxmbO8mX/MZIw8KqQzsyN5Pkstq/zOq5lqnRWcwFgKrVCKAHv7PtKbQWka2jraLK6jRn
+	g/Lryvli1oxA/moch0KqBsXh6TUpnDwyoum
+X-Received: by 2002:a05:600c:3585:b0:49d:17d4:aff2 with SMTP id 5b1f17b1804b1-49e7a638783mr70394705e9.1.1789392250149;
+        Mon, 14 Sep 2026 06:24:10 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e6cc11607sm216807325e9.12.2026.09.14.06.24.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 06:24:03 -0700 (PDT)
-From: Jaewook You <jaewook376@gmail.com>
-To: Muchun Song <muchun.song@linux.dev>,
-	Oscar Salvador <osalvador@suse.de>
-Cc: David Hildenbrand <david@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Johan Hovold <johan@kernel.org>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3] mm/hugetlb: preserve mremap address delta when skipping page tables
-Date: Mon, 14 Sep 2026 22:23:52 +0900
-Message-ID: <20260914132352.472-1-jaewook376@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260911182408.75821-1-jaewook376@gmail.com>
-References: <20260911182408.75821-1-jaewook376@gmail.com>
+        Mon, 14 Sep 2026 06:24:09 -0700 (PDT)
+Date: Mon, 14 Sep 2026 14:24:08 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Haakon Bugge <haakon.bugge@oracle.com>
+Cc: Waiman Long <longman@redhat.com>, Linus Torvalds
+ <torvalds@linux-foundation.org>, Peter Zijlstra <peterz@infradead.org>,
+ Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>, Boqun Feng
+ <boqun@kernel.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, Yafang Shao <laoar.shao@gmail.com>, Steven
+ Rostedt <rostedt@goodmis.org>
+Subject: Re: [PATCH v4 next 0/9] locking/osq_lock: Optimisations to osq_lock
+ code
+Message-ID: <20260914142408.7bdf2cb4@pumpkin>
+In-Reply-To: <AE2D42C1-9B5A-4F5E-91FC-C84423ADE7AD@oracle.com>
+References: <20260907084133.3696-1-david.laight.linux@gmail.com>
+	<CAHk-=wget=mgjpkPJ+3-tueqo7AK1m4MR_Jqht6bj3-w+FhQHg@mail.gmail.com>
+	<20260907182705.54585f73@pumpkin>
+	<89F7CD08-2BDD-424D-AA2F-77D72647D93E@oracle.com>
+	<44bdfc4b-4729-4dc3-b7b0-53c671c5ee34@redhat.com>
+	<dd6a7873-7d23-42e2-adbd-b59c43141d96@redhat.com>
+	<0ADD6DCD-6EF1-469D-ACB8-EC7D6A94CC2F@oracle.com>
+	<20260910120016.04ba8ae1@pumpkin>
+	<C81B298B-E8FF-4F96-8216-CFC21D167EC8@oracle.com>
+	<20260910130557.74e1ae45@pumpkin>
+	<E2131B35-DE77-41D3-85C7-521143FF94A5@oracle.com>
+	<20260911181516.313a8a2f@pumpkin>
+	<AE2D42C1-9B5A-4F5E-91FC-C84423ADE7AD@oracle.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-move_hugetlb_page_tables() optimizes mremap() by advancing to the last
-entry in the page table when the source page table does not exist, either
-initially or after unsharing a PMD table.  The common loop increment then
-steps to the first entry in the next page table.
+On Mon, 14 Sep 2026 11:46:02 +0000
+Haakon Bugge <haakon.bugge@oracle.com> wrote:
 
-However, the code advances both the source and destination addresses to
-the last entries in their respective page tables, which is wrong.  The
-destination address must be advanced only by the same amount as the source
-address.
+> > On 11 Sep 2026, at 19:15, David Laight <david.laight.linux@gmail.com> w=
+rote:
+> > On Thu, 10 Sep 2026 15:30:03 +0000
+> > Haakon Bugge <haakon.bugge@oracle.com> wrote: =20
+>=20
+> [snip]
+>=20
+> > > I did it in another way. I just added an "atomic_xchg" test to my
+> > > mutual exclusion framework.
+> > >=20
+> > > Lock acquire:
+> > >                 while (atomic_xchg_acquire(&el->mx_atomic_xchg.lock, =
+1) !=3D 0)
+> > >                         cpu_relax();
+> > >=20
+> > > Lock release:
+> > >                 atomic_set_release(&el->mx_atomic_xchg.lock, 0);
+> > >=20
+> > > This passes. It also (obviously) passes with atomic_xchg() in the lock
+> > > acquire. But the _release _is_ required in the lock release. =20
+> >=20
+> > Isn't that accessing another branch of the 'big union'? =20
+>=20
+> Not sure I quite understand. During the run of one particular test, it
+> is _only_ the corresponding struct in the union that is
+> accessed.=20
 
-If the source and destination offsets within their page tables differ, the
-destination address can be advanced too far, causing follow-up issues.  Fix
-this by advancing the destination address by the source advance distance.
+I misunderstood what you'd done.
+I thought you were adding an extra barrier to the osq_lock test.
+One of the possibilities is that it is speculating all the way through
+into the osq_unlock() code and the first read there is being done
+before the read of node->locked in smp_cond_load_relaxed().
+If adding smp_rmb() between osq_lock() and osq_unlock() doesn't fix
+it then that isn't the problem.
 
-With a reproducer, we were able to trigger a kernel panic on x86-64.  With
-this fix in place, we can no longer reproduce the issue.
+This code really wants the cpu to speculate around the loop in
+smp_cond_load_xxx() so that it doesn't load any other cache lines.
+(I've not looked at the object code (any architecture) to try to guess
+what happens.)
 
-Fixes: e95a9851787b ("hugetlb: skip to end of PT page mapping when pte not present")
-Fixes: 4ddb4d91b82f ("hugetlb: do not update address in huge_pmd_unshare")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Jaewook You <jaewook376@gmail.com>
----
-Changes in v3:
-- Clarify that the optimization advances to the last entry in the current
-  page table before the common loop increment steps to the next entry.
-- Rename remaining_size to offset_to_last_entry as suggested by David.
+David
 
-v2: https://lore.kernel.org/20260911182408.75821-1-jaewook376@gmail.com/
-
- mm/hugetlb.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
-
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index 4f6f58bf3db6c..5749f6270fb1f 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -5161,18 +5161,21 @@ int move_hugetlb_page_tables(struct vm_area_struct *vma,
- 	hugetlb_vma_lock_write(vma);
- 	i_mmap_lock_write(mapping);
- 	for (; old_addr < old_end; old_addr += sz, new_addr += sz) {
-+		const unsigned long offset_to_last_entry =
-+			(old_addr | last_addr_mask) - old_addr;
-+
- 		src_pte = hugetlb_walk(vma, old_addr, sz);
- 		if (!src_pte) {
--			old_addr |= last_addr_mask;
--			new_addr |= last_addr_mask;
-+			old_addr += offset_to_last_entry;
-+			new_addr += offset_to_last_entry;
- 			continue;
- 		}
- 		if (huge_pte_none(huge_ptep_get(mm, old_addr, src_pte)))
- 			continue;
- 
- 		if (huge_pmd_unshare(&tlb, vma, old_addr, src_pte)) {
--			old_addr |= last_addr_mask;
--			new_addr |= last_addr_mask;
-+			old_addr += offset_to_last_entry;
-+			new_addr += offset_to_last_entry;
- 			continue;
- 		}
- 
-
-base-commit: 08df884136f1c1197bab2a27814404fd329d9aac
--- 
-2.43.0
+>=20
+> > So will be overlaying some other field - possibly the count itself? =20
+>=20
+> pahole gives:
+>=20
+> struct {
+> 	atomic_t           lock __attribute__((__aligned__(4))); /*     0     4 =
+*/
+> 	/* XXX 4 bytes hole, try to pack */
+> 	long int           counter;            /*     8     8 */
+> } __attribute__((__aligned__(8))) mx_atomic_xchg __attribute__((__aligned=
+__(8)));  /*     0    16 */
+>=20
+> > It seems unlikely that adding a barrier between the lock and unlock
+> > (or unlock and lock) will have any effect.
+> > In any case I think it is enough to use smp_rmb(), smp_wmb() or smp_mb(=
+). =20
+>=20
+> That might well be, but the intent here was only to mimic
+> the sequence atomic_xchg() in osq_lock() and corresponding
+> atomic_try_cmpxchg_release() in osq_unlock().
+>=20
+>=20
+> Thxs, H=C3=A5kon
+>=20
 
