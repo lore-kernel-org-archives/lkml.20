@@ -1,33 +1,32 @@
-Received: from mta-65-225.siemens.flowmailer.net (mta-65-225.siemens.flowmailer.net [185.136.65.225])
+Received: from mta-65-227.siemens.flowmailer.net (mta-65-227.siemens.flowmailer.net [185.136.65.227])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5935946985B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E73A46AA6B
 	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:24:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.136.65.225
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.136.65.227
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789392265; cv=none; b=KVyQeM2IshfM6a1WTYTexhXn4zfx29wJeXXJDGZrVxPh0rKfp7U4qBLo/bI/q/jXv12P8DQS0jkLgOY6fHuxK+MGEt6bPhRZ0aGLxysBTyenwc90IRuHJCgI5cnUD+03tutjBsD/9243KCbZZTQ/+BygqA2w3Wb/EkHtuCEOkRk=
+	t=1789392265; cv=none; b=WwdAOMkK7MlC3a3pdLcXNVa75w+EPsbXvK62qaIeZH4UseAcsitxHCJpb7tHXiJaXF4fsRa7T3etVN8jT8WiZqiBNJTi234/3zOHiMxbj+iWt1Y6RlqzVXfMyzb44dGDY+q+1d2bSu0nOWouQz8VXA9gmI/zbeRMb4WAZ/QZeDI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789392265; c=relaxed/simple;
-	bh=ZRyRZwHqmaIeKhF8DBZsJx2hVPfAjKqARrJjthV5Ouo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=PbnWIVXJ9hZF1FEKaMJXPbHHTgZA5ciVMHWqZfL2zKdPNeQhxtudYGE7MaRpYallwjYg+DxF5a4jnGmzrjEqeCDLiV8nFfze7FNF4qhBDtZNA4G01yUNB+vvFpEzIfB7Yzd9PXzSOzlLDtHTuQ2mUNx5/Dc692S+1XE/ZSsAvKY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b=rij8mg3r; arc=none smtp.client-ip=185.136.65.225
+	bh=ZBAPehVuJGmMUln2Ef36d5J6jnARy2g89ExbmqR0je4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=BhyhybjhRY7ol9MKNh/mDZr/YTnpI+XXLeQuCck7DqddRVjVzl/aBKZb0Gq9uinuQ470yaWIi5+i8jNqaJdB54vETmkZZ5jLckOD9seP0v4kHMfVmwN/5qkQNiuRP39zLlRTfwHu/nsS+TV0EzWWR7z89YHDe9k/b/7+bMRSmpM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b=MvjfyFdo; arc=none smtp.client-ip=185.136.65.227
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b="rij8mg3r"
-Received: by mta-65-225.siemens.flowmailer.net with ESMTPSA id 202609141324137a05bbb8e9000207ef
+	dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b="MvjfyFdo"
+Received: by mta-65-227.siemens.flowmailer.net with ESMTPSA id 2026091413241339122dd3c300020753
         for <linux-kernel@vger.kernel.org>;
         Mon, 14 Sep 2026 15:24:13 +0200
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm1;
  d=siemens.com; i=alexander.sverdlin@siemens.com;
- h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc:References:In-Reply-To;
- bh=nU15p1Uo/GMZ1ItptzKGpIg4lZVwwfXFaJxNjP/Pnn0=;
- b=rij8mg3r5hjwtffRcjdtw7Z4EH6YJKqw1GHu1L4x1o/iM/ZqAJZ6wwFmhOx6KCIgT1uegZ
- kIzIU/tvzgJP8ZfVGQ1nOp1KGCcEW8N35O1HCrMYFMBC5DS5tdNzj1o8Z7e/aAXpdWqlxKoq
- CZiTFWybiksJm92V7dGeDAZTr6tuUa+YN2OiPsjINBSDIevgNHus8LnKWB6QrwVOyEFNLii1
- Ux9oFQmLLa8KyAL7pPWMUyiwPE2xKSnNL3gKZiN5FUkW/Vx5RH9XUfuRnTXq/kMSR6Xnvwy+
- yccHWwEr3bVgZ/BNhelA8+gjcaoECTFlhdqechSu5K3sgEt7Kd6lP1sg==;
+ h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc;
+ bh=82ARsrIz1SOwySMQdGBQrwndG2ys8JYEtbyvxgwpBik=;
+ b=MvjfyFdoSWubcZO9clUYdeDj6BohUcn43bt7VHF/SusQavfUbiwgzjcGLPzr5aTTAOjTH9
+ Xdp8jyZk3V057UNU2rroEScHQBlJyn3I5ABnmuUDgoZgPop1sdf+JGWyHECgsyGdy+xUEMT+
+ GP3n9A/YBsXJkp3ORENEtNGaC6GJEOMumwMSZEnCZJSWH5LieVd6EIZquPhwpq3oAXOeLtP6
+ A6GlQbeginQkR6paxgimxnygXskOJyvH2r1v5DhUSzQe0PvsPzVw/IaOK10Xr+6L7y1i9MYQ
+ s8eVZfLZlaRTOrWIao221DdRpqDazEcIl9XtHo+gNCx3GAkOeJA61seA==;
 From: "A. Sverdlin" <alexander.sverdlin@siemens.com>
 To: linux-leds@vger.kernel.org
 Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
@@ -40,11 +39,9 @@ Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
 	=?UTF-8?q?Marek=20Beh=C3=BAn?= <kabel@kernel.org>,
 	Christian Marangi <ansuelsmth@gmail.com>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/3] leds: trigger: netdev: hold lock across sysfs_update_group() in device_name_store()
-Date: Mon, 14 Sep 2026 15:23:50 +0200
-Message-ID: <20260914132356.807004-2-alexander.sverdlin@siemens.com>
-In-Reply-To: <20260914132356.807004-1-alexander.sverdlin@siemens.com>
-References: <20260914132356.807004-1-alexander.sverdlin@siemens.com>
+Subject: [PATCH 0/3] leds: trigger: netdev: fix sysfs_update_group() races
+Date: Mon, 14 Sep 2026 15:23:49 +0200
+Message-ID: <20260914132356.807004-1-alexander.sverdlin@siemens.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -58,69 +55,129 @@ Feedback-ID: 519:519-456497:519-21489:flowmailer
 
 From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
 
-device_name_store() calls sysfs_update_group() without holding
-trigger_data->lock. The is_visible callback reads
-trigger_data->supported_link_modes, and the sysfs group modification
-itself is not atomic. This races against netdev_trig_notify() in two
-ways:
+The netdev LED trigger refreshes the link_speed attribute group with
+sysfs_update_group() from several contexts (the NETDEV_CHANGE notifier,
+device_name writes and, indirectly, trigger (de)activation) that share no
+common lock.  On a board that emits PHY link events while the trigger is
+being (re)armed during boot this is observed as a hard sysfs failure:
 
-1) Concurrent sysfs_update_group() on the same group:
+  sysfs: cannot create duplicate filename '...green:lan/link_10'
+  ...
+  led_trigger_set
+  led_trigger_write
 
-    CPU 0 (device_name_store)            CPU 1 (linkwatch workqueue)
-    -------------------------            ---------------------------
-    set_device_name():
-      rtnl_lock()
-      mutex_lock(trigger_data->lock)
-      [sets supported_link_modes]
-      mutex_unlock(trigger_data->lock)
-      rtnl_unlock()
+Patches 1 and 2 close this really observed race.  Patch 1 serializes
+device_name_store()'s sysfs_update_group() (and its is_visible callback's
+read of ->supported_link_modes) against the notifier under
+trigger_data->lock.  Patch 2 removes the remaining collision by construction:
+the link_speed group is dropped from netdev_led_trigger.groups so the LED
+core's device_add_groups() / device_remove_groups() no longer touch it, and
+the trigger owns its lifecycle via sysfs_create_group() in activate() and
+sysfs_remove_group() in deactivate().
 
-    sysfs_update_group():
-      remove("link_10")
-                                         netdev_trig_notify():
-                                           mutex_lock(trigger_data->lock)
-                                           sysfs_update_group():
-                                             remove("link_10") [nop]
-                                             add("link_10") ← CREATED
-                                           mutex_unlock(trigger_data->lock)
-      add("link_10") <- EEXIST!
+The window between activate() and device_add_groups() in led_trigger_set()
+is narrow, so to reproduce it reliably I artificially widened it with the
+debug patch below:
 
-2) The netdev_trig_link_speed_visible() reads supported_link_modes without
-   the lock, racing against get_device_state() called from
-   netdev_trig_notify() which modifies supported_link_modes (a multi-word
-   bitmap) under trigger_data->lock. This can cause
-   netdev_trig_link_speed_visible() to observe a partially-updated bitmap.
+  --- a/drivers/leds/led-triggers.c
+  +++ b/drivers/leds/led-triggers.c
+  @@ -12,6 +12,7 @@
+   #include <linux/list.h>
+   #include <linux/spinlock.h>
+   #include <linux/device.h>
+  +#include <linux/delay.h>
+   #include <linux/timer.h>
+   #include <linux/rwsem.h>
+   #include <linux/leds.h>
+  @@ -223,6 +224,8 @@ int led_trigger_set(struct led_classdev *led_cdev, struct led_trigger *trig)
+                   if (ret)
+                           goto err_activate;
 
-Fix by holding trigger_data->lock around the sysfs_update_group() call
-in device_name_store(), matching the locking context used by
-netdev_trig_notify().
+  +               msleep(5000);
+  +
+                   ret = device_add_groups(led_cdev->dev, trig->groups);
+                   if (ret) {
+                           dev_err(led_cdev->dev, "Failed to add trigger attributes\n");
 
-Fixes: 06cdca014eca ("leds: trigger: netdev: Display only supported link speed attribute")
-Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
----
- drivers/leds/trigger/ledtrig-netdev.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+With that msleep() in place, writing the trigger while a NETDEV_CHANGE is
+delivered from the linkwatch workqueue reproduces the duplicate-filename
+splat every time; with patches 1 and 2 applied it no longer triggers.
 
-diff --git a/drivers/leds/trigger/ledtrig-netdev.c b/drivers/leds/trigger/ledtrig-netdev.c
-index 5b4e92c14dbb4..354d3b640fa53 100644
---- a/drivers/leds/trigger/ledtrig-netdev.c
-+++ b/drivers/leds/trigger/ledtrig-netdev.c
-@@ -336,8 +336,14 @@ static ssize_t device_name_store(struct device *dev,
- 	if (ret < 0)
- 		return ret;
- 
--	/* Refresh link_speed visibility */
-+	/*
-+	 * Refresh link_speed visibility, serialized against netdev_trig_notify()
-+	 * which may concurrently call sysfs_update_group() on the same group
-+	 * while reading supported_link_modes via netdev_trig_link_speed_visible().
-+	 */
-+	mutex_lock(&trigger_data->lock);
- 	sysfs_update_group(&dev->kobj, &netdev_trig_link_speed_attrs_group);
-+	mutex_unlock(&trigger_data->lock);
- 
- 	return size;
- }
+Patch 3 addresses a separate race that I deduced by inspection but did not
+try to reproduce in practice: netdev_led_attr_store() and interval_store()
+mutate the shared trigger_data state (a non-atomic read-modify-write of
+->mode, ->hw_control and set_baseline_state()) without holding
+trigger_data->lock, so they can race with each other and with the notifier.
+It is fixed by taking trigger_data->lock around those updates.
+
+The netdev LED trigger refreshes the link_speed attribute group with
+sysfs_update_group() from several contexts (the NETDEV_CHANGE notifier,
+device_name writes and, indirectly, trigger (de)activation) that share no
+common lock.  On a board that emits PHY link events while the trigger is
+being (re)armed during boot this is observed as a hard sysfs failure:
+
+  sysfs: cannot create duplicate filename '...green:lan/link_10'
+  ...
+  led_trigger_set
+  led_trigger_write
+
+Patches 1 and 2 close this really observed race.  Patch 1 serializes
+device_name_store()'s sysfs_update_group() (and its is_visible callback's
+read of ->supported_link_modes) against the notifier under
+trigger_data->lock.  Patch 2 removes the remaining collision by construction:
+the link_speed group is dropped from netdev_led_trigger.groups so the LED
+core's device_add_groups() / device_remove_groups() no longer touch it, and
+the trigger owns its lifecycle via sysfs_create_group() in activate() and
+sysfs_remove_group() in deactivate().
+
+The window between activate() and device_add_groups() in led_trigger_set()
+is narrow, so to reproduce it reliably I artificially widened it with the
+debug patch below:
+
+  --- a/drivers/leds/led-triggers.c
+  +++ b/drivers/leds/led-triggers.c
+  @@ -12,6 +12,7 @@
+   #include <linux/list.h>
+   #include <linux/spinlock.h>
+   #include <linux/device.h>
+  +#include <linux/delay.h>
+   #include <linux/timer.h>
+   #include <linux/rwsem.h>
+   #include <linux/leds.h>
+  @@ -223,6 +224,8 @@ int led_trigger_set(struct led_classdev *led_cdev, struct led_trigger *trig)
+                   if (ret)
+                           goto err_activate;
+
+  +               msleep(5000);
+  +
+                   ret = device_add_groups(led_cdev->dev, trig->groups);
+                   if (ret) {
+                           dev_err(led_cdev->dev, "Failed to add trigger attributes\n");
+
+With that msleep() in place, writing the trigger while a NETDEV_CHANGE is
+delivered from the linkwatch workqueue reproduces the duplicate-filename
+splat every time; with patches 1 and 2 applied it no longer triggers.
+
+Patch 3 addresses a separate race that I deduced by inspection but did not
+try to reproduce in practice: netdev_led_attr_store() and interval_store()
+mutate the shared trigger_data state (a non-atomic read-modify-write of
+->mode, ->hw_control and set_baseline_state()) without holding
+trigger_data->lock, so they can race with each other and with the notifier.
+It is fixed by taking trigger_data->lock around those updates.
+
+The whole series is LOCKDEP-verified.
+
+Alexander Sverdlin (3):
+  leds: trigger: netdev: hold lock across sysfs_update_group() in
+    device_name_store()
+  leds: trigger: netdev: fix sysfs_update_group() vs led_trigger_set()
+    races
+  leds: trigger: netdev: serialize mode/interval stores with trigger
+    lock
+
+ drivers/leds/trigger/ledtrig-netdev.c | 67 +++++++++++++++++++++++++--
+ 1 file changed, 62 insertions(+), 5 deletions(-)
+
 -- 
 2.55.0
 
