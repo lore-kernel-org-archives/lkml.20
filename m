@@ -1,298 +1,89 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A834A480DEC;
-	Mon, 14 Sep 2026 14:31:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F99B47FAF0;
+	Mon, 14 Sep 2026 14:31:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789396263; cv=none; b=cwcQcCJUMHfrXwM9yMxGgriRuyu6li7jgm/CJjgYm3MnDZ7gNcVwTl4MtGbiyMKMWgv6MOUCGtsH9ocz8YzBr5CjTTsOR1bcvGwSAk94XyVRvSJCClhnV/LmjvhydaduVLYczIZiBTtpOluTRDE1EnVAnKD2koLiA+nhRXGh7+I=
+	t=1789396272; cv=none; b=KlRrhzzlyEa3SXmYwM5cFMgAKCFEkAbYv7exdBXFqIC09nDR35S5+R6d+NViX/wd5tzVyXPmV6ExNNFpuojTjr1n5cA+yPYS4hdBcePiiTcgxHuTJSot8O1hO5SllK5YqCKoq5QYlmQ/I3djcGQMKGSBYGu+LrLlowpNMFcGMmY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789396263; c=relaxed/simple;
-	bh=Z3E1hZeNvURbzCH4DGhMWQZAayLO6QmTSTK8h0higAc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=AWdnjTuNq/keWl4o4qGMJHcbqWV/uCsCo2Tglsqexf1OswmDIlDoHXqMLYXLJLCYcv3XDT508GHxkTFovqZFpku5snkm0jrEapqt0REPBuWItX7NwBxNfqglVs3TvBWW+o0lbDxbpvv+KHi6bF/wuoj7TbZeP8mjht5MRDXpD6w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=oX+q0OYO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789396272; c=relaxed/simple;
+	bh=kyxsl66AC8g55dW435CXg+SoZ9lLfWUu4cPAm63xPjQ=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=hVQob6LegE7K3nqv6po/og3EOM1G3auWSt6o7i9xRu/4d3eIkrWN/azR1p1wBSBeUPw0JC1BDurOdwkQQfJtESyF0Ih4r8tYIts4LWcmnYbRXO/Ma6715zu0/YU3UQHuUyCsCz/qigJx05h009FsDQE8Y+4SAcsuqExjV+LNscs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UnLeLUky; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="oX+q0OYO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 824541F000FF;
-	Mon, 14 Sep 2026 14:31:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789396261;
-	bh=QU/gZVED0AtjJX6+GC2V0P7psA+KVinUaVQghPSJtXw=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=oX+q0OYO1Fktez0rwXQHiVnV+hWx4Kv7NlHOJGc7Y4bbZyCPD80FO1KcxhSpBfbYX
-	 X++G0vdPmuBOKbkgMFl2U3G1wS7V1NvnCp4W8x7oTys1xs8hwXO5UaWq2TASnRagEG
-	 zhwpPDJwB20IhdrlkZivltLl7K4/RF0a8GokOf40=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Date: Mon, 14 Sep 2026 16:30:33 +0200
-Subject: [PATCH v4 3/3] driver core: add TAINT_FORCED_BIND for when
- userspace manually messes with devices and drivers
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UnLeLUky"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A804E1F000FF;
+	Mon, 14 Sep 2026 14:31:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789396270;
+	bh=qP7p6Lw9XBuNpZD4yTpL5ZkISx0ECNRa0OCciHWyqMM=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=UnLeLUkyvfYtHAvBjvIbwR+jupgLARs6tT5nEzAbpyOWQ98xEpiD3ETaQ3iN37Rco
+	 3QxFGGesbMhIRa09yJZ2WU5jB4ePnfEdnlnwOWnR0MCnMLcjpbrS3YDbP44E48jede
+	 aw46t5yvJ43NSrhR6/ElGU8NVR1GQxlwsm6iqXN98aPNOf4ayezcN/2yICBx0s+GHk
+	 0q25sRxFzkCdlHF9AOt2qFEIuQRgYjhmGuh6nPy2Waggonf4jUtDSUGmQ1sM8wV4xu
+	 M+EKaB6s/JtoqUOq0POvZsfSrhA0soe5S4suz2elF3a5eyngdHV6cpIXOha2/eGqCK
+	 wwU13wk06eTAQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 1996B3924A67;
+	Mon, 14 Sep 2026 14:30:07 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-bind_taint-v4-3-eadf8a090903@linuxfoundation.org>
-References: <20260914-bind_taint-v4-0-eadf8a090903@linuxfoundation.org>
-In-Reply-To: <20260914-bind_taint-v4-0-eadf8a090903@linuxfoundation.org>
-To: Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, 
- Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, 
- Aaron Tomlin <atomlin@atomlin.com>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
- Steven Rostedt <rostedt@goodmis.org>, 
- Masami Hiramatsu <mhiramat@kernel.org>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: Bradley Morgan <brads@mainlining.org>, 
- Aleksandr Nogikh <nogikh@google.com>, linux-modules@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-usb@vger.kernel.org, driver-core@lists.linux.dev, 
- linux-trace-kernel@vger.kernel.org, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Johan Hovold <johan@kernel.org>
-X-Mailer: b4 0.17-dev-362b8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=10654;
- i=gregkh@linuxfoundation.org; h=from:subject:message-id;
- bh=Z3E1hZeNvURbzCH4DGhMWQZAayLO6QmTSTK8h0higAc=;
- b=owGbwMvMwCRo6H6F97bub03G02pJDFkrWIWK++seileE2bVHfp3Rr9rS6XP9Kp9pw7fmFX/rj
- 95emn6zI5aFQZCJQVZMkeXLNp6j+ysOKXoZ2p6GmcPKBDKEgYtTACZieZxhwaWmQ6+s72aJf4qc
- 8zYtu/qL11G7WoZ51p6S8fsUbC5PsLgtIiRvonpy7aqzAA==
-X-Developer-Key: i=gregkh@linuxfoundation.org; a=openpgp;
- fpr=F4B60CC5BF78C2214A313DCB3147D40DDB2DFB29
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v2 0/3] Bluetooth: btmtk: firmware debug event routing and
+ WMT
+ FUNC_CTRL status fixes
+From: patchwork-bot+bluetooth@kernel.org
+Message-Id: 
+ <178939620588.604238.15437504595416258002.git-patchwork-notify@kernel.org>
+Date: Mon, 14 Sep 2026 14:30:05 +0000
+References: <20260914065654.102916-1-chris.lu@mediatek.com>
+In-Reply-To: <20260914065654.102916-1-chris.lu@mediatek.com>
+To: Chris Lu <chris.lu@mediatek.com>
+Cc: marcel@holtmann.org, johan.hedberg@gmail.com, luiz.dentz@gmail.com,
+ sean.wang@mediatek.com, will-cy.Lee@mediatek.com, ss.wu@mediatek.com,
+ linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-mediatek@lists.infradead.org
 
-The ability to add and remove devices from a driver through the sysfs
-"bind" and "unbind" files was created all those decades ago as a way
-that kernel developers can iterate faster, and provide a debugging way
-for users to attempt to add a new device to a driver without having to
-rebuild their kernel.
+Hello:
 
-This api over the years has been abused and recently come under a major
-fuzzing "attack" through tools like syzbot which decided that it would
-attempt to just randomly bind any driver to any type of device, causing
-loads of unneeded errors and pointless kernel patches to be generated by
-unsuspecting new developers.
+This series was applied to bluetooth/bluetooth-next.git (master)
+by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
 
-Handle all of this by adding a new taint flag, TAINT_FORCED_BIND, which
-will be set on the driver if the bind/unbind sysfs files are ever
-written to.  This lets kernel developers "know" that a user is
-attempting to do something that is not normal, and as such, if the
-kernel breaks they get to keep the shiny pieces laying around on the
-floor.
+On Mon, 14 Sep 2026 14:56:51 +0800 you wrote:
+> This series bundles three independent MediaTek Bluetooth driver fixes:
+> 
+> Patch 1 is a resend of a fix submitted on 25 Aug 2026
+> ("Bluetooth: btmtk: Route firmware debug event to the diag channel")
+> that received no review feedback at the time.
+> 
+> Patches 2-3 fix how btmtk_usb_hci_wmt_sync() (and its btmtksdio.c /
+> btmtkuart.c counterparts) interpret a WMT FUNC_CTRL event that carries
+> only the WMT header and no trailing 2-byte status word. Such an event
+> is a normal firmware ack for a plain enable/disable request, with the
+> result carried in the header's own flag byte, not a failure as the
+> current code assumes:
+> 
+> [...]
 
-The flag is 'Y' which was unused, and can remembered as the user is
-"yeeting" the device being operated on here (thrown with force without
-regard for the thing being thrown).
+Here is the summary with links:
+  - [v2,1/3] Bluetooth: btmtk: Route firmware debug event to the diag channel
+    (no matching commit)
+  - [v2,2/3] Bluetooth: btmtk: fix wrong status for short WMT FUNC_CTRL events
+    https://git.kernel.org/bluetooth/bluetooth-next/c/8fcc7afecb81
+  - [v2,3/3] Bluetooth: btmtksdio, btmtkuart: validate WMT event length before struct access
+    (no matching commit)
 
-Note, the taint flag gets set _BEFORE_ the bind/unbind callback happens,
-as many times crashes/oops/warnings/failures happen within the callback,
-and the taint flag needs to be there to show what was being attempted.
-If it were to be set after the callback happens, the oops report would
-not properly reflect what foolishness was being attempted.
-
-Fuzzing tools like syzbot, that doesn't have hand-crafted rules to keep
-the tool from hitting bind/unbind, should be run with panic_on_taint
-enabled so that they fall over and don't continue on, thinking that they
-actually found a real issue.
-
-Userspace operations that rely on the bind/unbind files to work around
-the lack of will to upgrade a kernel image to a newer version with
-proper support for new devices, or the lack of will to submit valid
-device ids to driver authors, will still work properly, but now the
-kernel will be flagged in a way that will show that perhaps those users
-should reconsider their behavior and work to have the drivers properly
-support these devices in a "native" manner.
-
-Finally, the bind/unbind files can find real use-after-free issues with
-some drivers by forcing the process to happen virtually without having
-to rely on manual removal processes.  Those real bugs should still be
-worked on, but by adding this taint flag, developers can more easily
-determine bug reports that are actually worth looking at.
-
-Reviewed-by: Johan Hovold <johan@kernel.org>
-Tested-by: Johan Hovold <johan@kernel.org>
-Reviewed-by: Aaron Tomlin <atomlin@atomlin.com>
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- Documentation/admin-guide/tainted-kernels.rst | 52 ++++++++++++++-------------
- drivers/base/bus.c                            |  3 ++
- include/linux/panic.h                         |  3 +-
- include/trace/events/module.h                 |  3 +-
- kernel/panic.c                                |  5 +--
- tools/debugging/kernel-chktaint               |  8 +++++
- 6 files changed, 46 insertions(+), 28 deletions(-)
-
-diff --git a/Documentation/admin-guide/tainted-kernels.rst b/Documentation/admin-guide/tainted-kernels.rst
-index 9ead927a37c0..abbf5e3dd749 100644
---- a/Documentation/admin-guide/tainted-kernels.rst
-+++ b/Documentation/admin-guide/tainted-kernels.rst
-@@ -79,30 +79,31 @@ which bits are set::
- Table for decoding tainted state
- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- 
--===  ===  ======  ========================================================
--Bit  Log  Number  Reason that got the kernel tainted
--===  ===  ======  ========================================================
--  0  G/P       1  proprietary module was loaded
--  1  _/F       2  module was force loaded
--  2  _/S       4  kernel running on an out of specification system
--  3  _/R       8  module was force unloaded
--  4  _/M      16  processor reported a Machine Check Exception (MCE)
--  5  _/B      32  bad page referenced or some unexpected page flags
--  6  _/U      64  taint requested by userspace application
--  7  _/D     128  kernel died recently, i.e. there was an OOPS or BUG
--  8  _/A     256  ACPI table overridden by user
--  9  _/W     512  kernel issued warning
-- 10  _/C    1024  staging driver was loaded
-- 11  _/I    2048  workaround for bug in platform firmware applied
-- 12  _/O    4096  externally-built ("out-of-tree") module was loaded
-- 13  _/E    8192  unsigned module was loaded
-- 14  _/L   16384  soft lockup occurred
-- 15  _/K   32768  kernel has been live patched
-- 16  _/X   65536  auxiliary taint, defined for and used by distros
-- 17  _/T  131072  kernel was built with the struct randomization plugin
-- 18  _/N  262144  an in-kernel test has been run
-- 19  _/J  524288  userspace used a mutating debug operation in fwctl
--===  ===  ======  ========================================================
-+===  ===  =======  ========================================================
-+Bit  Log  Number   Reason that got the kernel tainted
-+===  ===  =======  ========================================================
-+  0  G/P        1  proprietary module was loaded
-+  1  _/F        2  module was force loaded
-+  2  _/S        4  kernel running on an out of specification system
-+  3  _/R        8  module was force unloaded
-+  4  _/M       16  processor reported a Machine Check Exception (MCE)
-+  5  _/B       32  bad page referenced or some unexpected page flags
-+  6  _/U       64  taint requested by userspace application
-+  7  _/D      128  kernel died recently, i.e. there was an OOPS or BUG
-+  8  _/A      256  ACPI table overridden by user
-+  9  _/W      512  kernel issued warning
-+ 10  _/C     1024  staging driver was loaded
-+ 11  _/I     2048  workaround for bug in platform firmware applied
-+ 12  _/O     4096  externally-built ("out-of-tree") module was loaded
-+ 13  _/E     8192  unsigned module was loaded
-+ 14  _/L    16384  soft lockup occurred
-+ 15  _/K    32768  kernel has been live patched
-+ 16  _/X    65536  auxiliary taint, defined for and used by distros
-+ 17  _/T   131072  kernel was built with the struct randomization plugin
-+ 18  _/N   262144  an in-kernel test has been run
-+ 19  _/J   524288  userspace used a mutating debug operation in fwctl
-+ 20  _/Y  1048576  device was manually bound or unbound from a driver
-+===  ===  =======  ========================================================
- 
- Note: The character ``_`` is representing a blank in this table to make reading
- easier.
-@@ -189,3 +190,6 @@ More detailed explanation for tainting
-  19) ``J`` if userspace opened /dev/fwctl/* and performed a FWTCL_RPC_DEBUG_WRITE
-      to use the devices debugging features. Device debugging features could
-      cause the device to malfunction in undefined ways.
-+
-+ 20) ``Y`` If userspace wrote to the `bind` or `unbind` sysfs files and
-+     successfully bound or removed a device from a driver.
-diff --git a/drivers/base/bus.c b/drivers/base/bus.c
-index d17bd91490ee..c51ad96d4de4 100644
---- a/drivers/base/bus.c
-+++ b/drivers/base/bus.c
-@@ -19,6 +19,7 @@
- #include <linux/string.h>
- #include <linux/mutex.h>
- #include <linux/sysfs.h>
-+#include <linux/panic.h>
- #include "base.h"
- #include "power/power.h"
- 
-@@ -241,6 +242,7 @@ static ssize_t unbind_store(struct device_driver *drv, const char *buf,
- 
- 	dev = bus_find_device_by_name(bus, NULL, buf);
- 	if (dev && dev->driver == drv) {
-+		add_taint_module(drv->owner, TAINT_FORCED_BIND, LOCKDEP_STILL_OK);
- 		device_driver_detach(dev);
- 		err = count;
- 	}
-@@ -264,6 +266,7 @@ static ssize_t bind_store(struct device_driver *drv, const char *buf,
- 
- 	dev = bus_find_device_by_name(bus, NULL, buf);
- 	if (dev && driver_match_device(drv, dev)) {
-+		add_taint_module(drv->owner, TAINT_FORCED_BIND, LOCKDEP_STILL_OK);
- 		err = device_driver_attach(drv, dev);
- 		if (!err) {
- 			/* success */
-diff --git a/include/linux/panic.h b/include/linux/panic.h
-index f1dd417e54b2..8e7250b0e913 100644
---- a/include/linux/panic.h
-+++ b/include/linux/panic.h
-@@ -88,7 +88,8 @@ static inline void set_arch_panic_timeout(int timeout, int arch_default_timeout)
- #define TAINT_RANDSTRUCT		17
- #define TAINT_TEST			18
- #define TAINT_FWCTL			19
--#define TAINT_FLAGS_COUNT		20
-+#define TAINT_FORCED_BIND		20
-+#define TAINT_FLAGS_COUNT		21
- #define TAINT_FLAGS_MAX			((1UL << TAINT_FLAGS_COUNT) - 1)
- 
- struct taint_flag {
-diff --git a/include/trace/events/module.h b/include/trace/events/module.h
-index e5a006be9dc6..19df3e39bba4 100644
---- a/include/trace/events/module.h
-+++ b/include/trace/events/module.h
-@@ -26,7 +26,8 @@ struct module;
- 	{ (1UL << TAINT_OOT_MODULE),		"O" },		\
- 	{ (1UL << TAINT_FORCED_MODULE),		"F" },		\
- 	{ (1UL << TAINT_CRAP),			"C" },		\
--	{ (1UL << TAINT_UNSIGNED_MODULE),	"E" })
-+	{ (1UL << TAINT_UNSIGNED_MODULE),	"E" },		\
-+	{ (1UL << TAINT_FORCED_BIND),		"Y" })
- 
- TRACE_EVENT(module_load,
- 
-diff --git a/kernel/panic.c b/kernel/panic.c
-index 892045d8409e..a4dbb6b8cd2b 100644
---- a/kernel/panic.c
-+++ b/kernel/panic.c
-@@ -826,6 +826,7 @@ const struct taint_flag taint_flags[TAINT_FLAGS_COUNT] = {
- 	TAINT_FLAG(RANDSTRUCT,			'T', ' '),
- 	TAINT_FLAG(TEST,			'N', ' '),
- 	TAINT_FLAG(FWCTL,			'J', ' '),
-+	TAINT_FLAG(FORCED_BIND,			'Y', ' '),
- };
- 
- #undef TAINT_FLAG
-@@ -862,9 +863,9 @@ static void print_tainted_seq(struct seq_buf *s, bool verbose)
-  * exact size is allocated dynamically; the initial buffer remains
-  * as a fallback if allocation fails.
-  *
-- * The verbose taint string currently requires up to 327 characters.
-+ * The verbose taint string currently requires up to 344 characters.
-  */
--#define INIT_TAINT_BUF_MAX 350
-+#define INIT_TAINT_BUF_MAX 370
- 
- static char init_taint_buf[INIT_TAINT_BUF_MAX] __initdata;
- static char *taint_buf __refdata = init_taint_buf;
-diff --git a/tools/debugging/kernel-chktaint b/tools/debugging/kernel-chktaint
-index e1571c04afb5..d8628be37214 100755
---- a/tools/debugging/kernel-chktaint
-+++ b/tools/debugging/kernel-chktaint
-@@ -211,6 +211,14 @@ else
- 	addout "J"
- 	echo " * fwctl's mutating debug interface was used (#19)"
- fi
-+
-+T=`expr $T / 2`
-+if [ `expr $T % 2` -eq 0 ]; then
-+	addout " "
-+else
-+	addout "Y"
-+	echo " * device was manually bound or unbound from a driver (#20)"
-+fi
- echo "Raw taint value as int/string: $taint/'$out'"
- 
- # report on any tainted loadable modules
-
+You are awesome, thank you!
 -- 
-2.55.0
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
