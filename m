@@ -1,89 +1,168 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 251313E7BA0;
-	Mon, 14 Sep 2026 23:05:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0B5539936E
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 23:05:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789427152; cv=none; b=fmg2M5HLY71CBEQ8gU/6zjImUkn+IMFYVUhykPQxVKKfOupRE4RmVHqX67+VMHVrmpvZd1SNC6V+lMMWIElJoIQ/0Cbbj/xNlFWUxLjrs3KCg5f8ZGHIausw2FD615X85ZG2qGEu+5rqpwOs7yJTNYCY50RUikZWhJqGRhtOVmM=
+	t=1789427158; cv=none; b=RdmBDShbeZJBsFdX6d0dqOEuxJv9rQNgckgLKS4FmCz2zkgLhsRYHuh+q9L1nt6u7YAz3veuJw00kAZp9TdxL7jtLqnyzIBm3gP6pDsfnsAP787oIEVx7EqzTe7pMR0kvjW0A3hN2o4LfDQ2uYqLZzl4TMpKYeOA2+AZqfiXojU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789427152; c=relaxed/simple;
-	bh=5UJQkTlwYweuJs2+G3l39EcVP0GnQaxCX13R4wZjkuY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RiU5OFJDXWBx9uTbjjNLWKbrikQ3vy3uDQ1v6OHm9/+2GqjWUQyNdO3bk0dO4Sp/CiT4+FSViKwR20XJZ9vdZ3qr0aXRli8G63SzczvK90yTFdz4vzDMoRk1S1Mjv9+MW9VSP4rh8PyRf2yqB370TM8pmEDjiS4pUZWldOubOCo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=V/TfHW0N; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1789427158; c=relaxed/simple;
+	bh=DvM2FkkMtgzT44eWEOzcORIQVcJFd8w3S1+EpLGxZqE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=BffJ7oB1uecOyRoua3j0dhCmA0PxfjoPBA7lnVpOge2necWodwtxzbc4lphOXeaC2c6rfU5kGNFcWyndg+lYIkwGiyJPGJOXymC/M8OIWNvcCHdwx+PzuVnh+UbU6z49a4PkjJBLNEX3xwRAvK1qWunczhHGhXE59jYeUpvitF0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=SemjL3oW; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="V/TfHW0N"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id B083140E022C;
-	Mon, 14 Sep 2026 23:05:39 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id LveRLX-qDzjw; Mon, 14 Sep 2026 23:05:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1789427133; bh=ZfvxsIBgYWczNXPHi5ckUriEVKAeAMa3O0XTOpqTYmY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=V/TfHW0NjhAdVDqCPn3e4IOBJLzbxhR2KknbnBTTLS4QxwtyTK7E5v9KHP1y8jNHC
-	 7st/JYyIKfaZSm8s47Km7KSkJrcpSZokkIfpxrYh5kvDCFcbZPXs9Mi6QwduQbiOIO
-	 0FtPyi+o+nuu+r+Y1VbAfYGQFoPLKKLGOvnWW6dL4FxmIr6xdjW1PKTTBWPeOQAKim
-	 89WLhA/7Jag4R0KGs23BdCdPMbtHJJtfx3GzVDf+cW/nrO9hhzNx2njWOoJsqHnSOq
-	 T0N1A10Qwp/NW42af50li++sOHNc8qzxxfkrN2DxqsJlrVW4m6jn7myOMzv3MOYTsH
-	 ut0Fcrcy3/1LBwMbipSh3MycyhDRCambs8k0NGPAwFfLes0cbVLmJ/7wvZ5jz9rlCn
-	 yHIMYgnTLmvHi5d+KvvY7SrebWuJAy+567VcZsoo2kTpNI8ACbklIjwuXg87YTOkeT
-	 p/5IwHa3vzHjcC8hJ9IJDCKG+uLPyCuXqTr3nbeaV+A+ivRzkENXg4xZ8/dNJJk4Tl
-	 iZsfEuPPIS7p2kXvRjHKoLsIksPagMn6NfAHaRrYhVlqsTHC2MqIgI30NuOFGo03ml
-	 pwUWKB4ZDKfQXRdQc3hGQtuKSNHAIJwlu6R+BTELpWoy/tXOdHe7oAkwc3aBive7kO
-	 4W3W6DuQ0cPB4NLeDVui2pmE=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::e])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 9B41C40E015D;
-	Mon, 14 Sep 2026 23:05:16 +0000 (UTC)
-Date: Mon, 14 Sep 2026 16:05:13 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Aaron Tomlin <atomlin@atomlin.com>
-Cc: tglx@kernel.org, tony.luck@intel.com, mingo@redhat.com,
-	dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
-	frederic@kernel.org, marco.crivellari@suse.com, neelx@suse.com,
-	sean@ashe.io, chjohnst@gmail.com, mproche@gmail.com,
-	nick.lange@gmail.com, linux-edac@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 0/4] x86/mce: Fix timer and storm tracking races, and
- avoid redundant polling
-Message-ID: <20260914230513.GBaqh9qULU8xvkZkVf@fat_crate.local>
-References: <20260911201206.532113-1-atomlin@atomlin.com>
- <20260914045254.GEaqd9pgnKrXYU4thR@fat_crate.local>
- <th75s2gp7u5s4bsgnulrnasbk4bimjhfv64d3pn7popmnaewb3@k5z2lftcvxab>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="SemjL3oW"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843378fb37so1218733f8f.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 16:05:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1789427154; x=1790031954; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Qr3IeifLYnQtsZlKRfNbzaoLm9KRiE+SR2X6IM4IlYo=;
+        b=SemjL3oWdqs3K+qZsBPg+sql2eii3WJ933j8Dqnc+BM8NecVd7WsAsJmZ1lWrJfR7a
+         CoD2lmFJdAK9nbhJs5DMtOpFXLlKTebAle6yKyuc49DoVtl/6PzAE/cu36Jw7NyGDp3t
+         tIi4MlF7yb6rYEApsQArPW/zkRW1E+j9DnGU2ZeulvRA7Ifp7j2jcj4/KkQa/ZG/VhqU
+         aNMIeYsUSmEJq/9/GlFmvuttCtlklgnFKDI9ZfT9hVy6+maeofq5w06UsFFsxnh2BV6/
+         vnLJGteiupQOaUkiE0LBXD2sKXXXYGz18/pN1zYaZtQNCt7r1ihJhxrXFNvMXN5M4t5t
+         45fg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789427154; x=1790031954;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Qr3IeifLYnQtsZlKRfNbzaoLm9KRiE+SR2X6IM4IlYo=;
+        b=kHapP+cJspThoeN+SkV/s9vbVCblVRfBbwVU3VCJVAYvNKOs03KO8bQNUUjNybpsCe
+         SfXNsLlzhs3lWJYSwk4N2zaueQU7Qz91+e8RS2zAKKIaI5bT6PB91XuEdUxbwos3YjUd
+         ZKbLXBLVnNKA/BGtNHCdYc0jy+YUrFE4Ih8Yj6cy5+m3PKRzxGtJ7MY+fqhC/Td2CVkr
+         ib7pICT6cw841mOFA0PDdghg9ryUYZv4rFpoxTa1JuRmTJYR2OXJUrLfzkHbgDbzPuVe
+         YivLkNmJuu7YsusmJUOZ+L9EfwnKD8w0Nq051RVYraoln5dWFJp+age+8HK7E3EOII6Q
+         sKcQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxbPgO3E7lKYThkuwi3CQ1vIOIs1D5sMjdACPPVoFMEvuM9vAU+ubB0nQtEKwXfEpxuhN36XAiW/tcmlp4=@vger.kernel.org
+X-Gm-Message-State: AFuF++m7bhq2W7sSI2WTjyzjfJ6Uqy0pSMivG4Qi10vEN1hPkFBOzziq
+	dXsdYK5caRLYr+K509MoNiY4FhqchXx3F9iVuF2btLPSXWkfCe6Ejuii8eDKVD/nAjs=
+X-Gm-Gg: AYBFou2xET7mA7vGfrjbIjbu8Wyg1z0CS8UfdhEwo+xz8U23mgToC3dN+HbMLdepmab
+	Vnkckd8kwO4pSb1kIoGyQu3xWnwIO9pvmZz6hgJUyR19iH3w2/pi0ULuU7GOS/HUsQ3ytCU48j4
+	U10JMwlm8wQuZ4BJJ7YCaxXXg5qUCJcW+Y+Vw0KtgyGe2yo/TAvDKu6piY6+3u0kngm9T2dh16E
+	ClCuldqsagC/4xNQYTXaFdqch0Yxwu3Tt8Cm+VS3a7wxt6b/n83Lmh+tXQSLKrMzEYSfKp/qmBr
+	nVO7j7rwCpsk63lrEK7w5B/39LLFq96yVMIPyS+9+0M55jc1FY1xlXOS+RPujevovLx32IN3u0d
+	6V6OZeEGXYEw84qn8foUszCHQ4ErUZQigZXCzM9WougNEbCg8YvNqLM6kB8DWB1FaUeBDLlE0vl
+	FFR5KNq1bHunlpXxfwc/pw0uuT7rdFtQ0SYPxNeSOG+SlKAOuEKd29kfPwNg5KB1dN48bRNrTbf
+	hwEFxM2G58+ObSF58vKiXHjXJuJHdCuxDtaEOmqtz1efoxzgudpGOWaUn66ClaU5zrSmMOddA==
+X-Received: by 2002:a05:6000:46c6:b0:487:342:d141 with SMTP id ffacd0b85a97d-4870342d1a0mr3551783f8f.23.1789427153803;
+        Mon, 14 Sep 2026 16:05:53 -0700 (PDT)
+Received: from [127.0.1.1] ([94.4.85.166])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb32d5f1sm32098817f8f.12.2026.09.14.16.05.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 16:05:53 -0700 (PDT)
+From: Alexey Klimov <alexey.klimov@linaro.org>
+Date: Tue, 15 Sep 2026 00:05:43 +0100
+Subject: [PATCH v2 1/2] clk: samsung: acpm: introduce driver data for
+ SoC-specific clocks
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <th75s2gp7u5s4bsgnulrnasbk4bimjhfv64d3pn7popmnaewb3@k5z2lftcvxab>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260915-exynos850-acpm-clk-v2-1-ffad4a6b3fb1@linaro.org>
+References: <20260915-exynos850-acpm-clk-v2-0-ffad4a6b3fb1@linaro.org>
+In-Reply-To: <20260915-exynos850-acpm-clk-v2-0-ffad4a6b3fb1@linaro.org>
+To: Sam Protsenko <semen.protsenko@linaro.org>, 
+ Tudor Ambarus <tudor.ambarus@linaro.org>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, 
+ Sylwester Nawrocki <s.nawrocki@samsung.com>, 
+ Chanwoo Choi <cw00.choi@samsung.com>, Alim Akhtar <alim.akhtar@samsung.com>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
+ Peter Griffin <peter.griffin@linaro.org>, 
+ Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>
+Cc: linux-samsung-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+X-Mailer: b4 0.14.3
 
-On Mon, Sep 14, 2026 at 05:27:48PM -0400, Aaron Tomlin wrote:
-> Would you be happy for me to formalise your diff [1] into a standalone
-> patch, provide a complete changelog, and incorporate it into the series
-> with your authorship and Signed-off-by?
-> 
-> [1]: https://lore.kernel.org/all/878q63lrqr.ffs@fw13/
+Currently, the ACPM clock driver hardcodes the GS101 clock variant
+arrays and counts directly in probe() routine. To support additional
+other SoCs (for instance Exynos850 SoC) that use the same ACPM protocol
+but have different clock trees, the driver needs to be more flexible.
 
-Thomas is fine with it - otherwise I wouldnt've brought it up. Provided his
-fix is still needed after your fixes (I haven't looked at them yet...).
+Introduce driver data attached to the platform_device_id table.
+Update the probe function to dynamically extract the clock lists,
+number of clocks, its names and mailbox channel id based on the matching
+device ID.
 
-Thx.
+Reviewed-by: Tudor Ambarus <tudor.ambarus@linaro.org>
+Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
+---
+ drivers/clk/samsung/clk-acpm.c | 18 +++++++++++++-----
+ 1 file changed, 13 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/clk/samsung/clk-acpm.c b/drivers/clk/samsung/clk-acpm.c
+index 7680bc8c5275..4b68b44fe615 100644
+--- a/drivers/clk/samsung/clk-acpm.c
++++ b/drivers/clk/samsung/clk-acpm.c
+@@ -12,6 +12,7 @@
+ #include <linux/device.h>
+ #include <linux/err.h>
+ #include <linux/firmware/samsung/exynos-acpm-protocol.h>
++#include <linux/mod_devicetable.h>
+ #include <linux/module.h>
+ #include <linux/platform_device.h>
+ #include <linux/types.h>
+@@ -101,6 +102,8 @@ static int acpm_clk_register(struct device *dev, struct acpm_clk *aclk,
+ 
+ static int acpm_clk_probe(struct platform_device *pdev)
+ {
++	const struct acpm_clk_driver_data *drv_data;
++	const struct platform_device_id *id;
+ 	struct acpm_handle *acpm_handle;
+ 	struct clk_hw_onecell_data *clk_data;
+ 	struct clk_hw **hws;
+@@ -114,8 +117,14 @@ static int acpm_clk_probe(struct platform_device *pdev)
+ 		return dev_err_probe(dev, PTR_ERR(acpm_handle),
+ 				     "Failed to get acpm handle\n");
+ 
+-	count = acpm_clk_gs101.nr_clks;
+-	mbox_chan_id = acpm_clk_gs101.mbox_chan_id;
++	id = platform_get_device_id(pdev);
++	if (!id || !id->driver_data)
++		return -ENODEV;
++
++	drv_data  = (const struct acpm_clk_driver_data *)id->driver_data;
++
++	count = drv_data->nr_clks;
++	mbox_chan_id = drv_data->mbox_chan_id;
+ 
+ 	clk_data = devm_kzalloc(dev, struct_size(clk_data, hws, count),
+ 				GFP_KERNEL);
+@@ -142,8 +151,7 @@ static int acpm_clk_probe(struct platform_device *pdev)
+ 
+ 		hws[i] = &aclk->hw;
+ 
+-		err = acpm_clk_register(dev, aclk,
+-					acpm_clk_gs101.clks[i].name);
++		err = acpm_clk_register(dev, aclk, drv_data->clks[i].name);
+ 		if (err)
+ 			return dev_err_probe(dev, err,
+ 					     "Failed to register clock\n");
+@@ -154,7 +162,7 @@ static int acpm_clk_probe(struct platform_device *pdev)
+ }
+ 
+ static const struct platform_device_id acpm_clk_id[] = {
+-	{ .name = "gs101-acpm-clk" },
++	{ .name = "gs101-acpm-clk", (kernel_ulong_t)&acpm_clk_gs101 },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(platform, acpm_clk_id);
 
 -- 
-Regards/Gruss,
-    Boris.
+2.51.0
 
-https://people.kernel.org/tglx/notes-about-netiquette
