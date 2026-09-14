@@ -1,72 +1,72 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2698481ABE
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:55:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 607A647F3D7
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:55:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789397715; cv=none; b=H1DC+xm6G7qhcHztybU5FZEatn67tGeyvQm4bUW4IzgoeF9DU8cXHEkb6eQmsTUo5FsZyoTftHbRZ1za/0trTBq381vdJk4LUghnsAgvKs+hb/rAa+1XXw3Qr4yyw9azFnDGfkU6r4Ecveef+iWIXlLgeqW/2wWALoFGXj4ihzI=
+	t=1789397719; cv=none; b=rll9GMKAidp6wdzC/LPEKc+NU1zHmTHqhIeUd7gkz6+JPTr5iDHNOqw7tGWNMheTgGr141SRdGYI+09l+6Z69trLkA175MnPZvSVdn3tMWtHH81xjHzJF012SeUAQxcRf1Gz6dbkGl2dvElzkG1YKrOinhL/+gf4P+DX64/R6+0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789397715; c=relaxed/simple;
-	bh=7RPJv7BhuOaAk+Mo0IOhmSNSIZQ5l94dLDpG1fs2pa0=;
+	s=arc-20240116; t=1789397719; c=relaxed/simple;
+	bh=lIGJu87IDArxEyWhL0iXD9acKrDMnyg5SF/6N1cb1BI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=l8QFzxTjatb6SbfdceSfEpn28F34Lod/Pqr1qWGsbUnA/swnjODoXSpgfboI3LjAGl2rhzyHnO3Urf+sgUvh5hNQYgcn7LsRE05LFJWAIoMkk2KjGLID1W2LGTtXxU1U2tAu4cao9O2i18Nb56Z53FGO+Ijr52QRgITjZfIM7EQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V5k7ZkI1; arc=none smtp.client-ip=74.125.228.12
+	 MIME-Version; b=rTY0cvnMSIlGY1uePZ/kAeBa78l5FGlFtP6Uc9zZ9bUqNx0W/VoBGnZkU/gToxDGd9Rbzkd0ifcdzYe38RPEsqqBRWcRxIhJibIz4XssxFal+VV+IDhPmZcZE3MnF3Su6kqnI0o2qRP3xeo4zCXxJL28Sr5pd2UQhpKCmZOOVwU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WT8sk6+L; arc=none smtp.client-ip=209.85.215.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V5k7ZkI1"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-8692a856865so2545569b3a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:55:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WT8sk6+L"
+Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cc4dbcf2b85so1486624a12.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:55:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789397713; x=1790002513; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789397717; x=1790002517; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=mmvklgvi0ef/+u5dzaWwSRR1qwVq3sDKvk1AzDRlDKI=;
-        b=V5k7ZkI1exdUJwB0QQ1Mamh3QBtnjzpKGTJWi1tE8mRHrgf/KWYsJLBixMnJrWNjZT
-         Ewa3m5PzP4hbPv06vOMq8W40FPR7j79Dy5gZS1VBshz7PLzuGIn+OgEGVwRHeO3G6SDe
-         edAYhvqxbrsQXK5huw9QNASL/kmuYBRovLFoeEDVG4fjwtpYV+jtnJUExz8uFWT6RM3/
-         B3BC3R5WH1jlDteHRv4l8lOT97RQ4xopf4OJD2zOWNBEkn2UR2jnH9X3K0Z3QnJnEsz9
-         4pKCFbyWx9EaNaKgXdguJHVYLFjJVAMihpJodGgHipRp+tC6NGuYSfpNGofuDT6XSuIe
-         Z0Fw==
+        bh=ITlXRLngn2slKcOGycWl5+67jdUQ/52QuImnyuHZebY=;
+        b=WT8sk6+LDlMZjTQlawqOtZieOWochMLXnJcHUuE7n5F9cOXz4785zLZJWZkCWtIzrg
+         q0wobQDD5Qvo/rqKgiFPQ1N+6b9nrmJs/8z1y4AMZQvKoG67sQg71hLoZ+tsHPIXUFwy
+         xfL/9YNbOcowJhr8YHWXoe663rvz5UKhjp0eYN4XbxzgmUBQCV8FyS3D3RrNHtWyBV3U
+         9z8LoXF/6fSKQyco9A3lvusT03k0+cCx9ZWahzDf2HV0n5fn2kGaUzavPCrZl1jcTtKH
+         3lFk1fopy3Z20iVwhIS0rkgif29fdxHDXLUCzXnsIf0UGzQNt4gpbFydkevYwRpdZEkt
+         MjxQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789397713; x=1790002513;
+        d=1e100.net; s=20251104; t=1789397717; x=1790002517;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mmvklgvi0ef/+u5dzaWwSRR1qwVq3sDKvk1AzDRlDKI=;
-        b=Y/budyjm+Vaf6iPDUr6ypIn3hdVa5AzUm7xKru6P3vCXhQetoDazOq5rmU9CZyF4p1
-         fccL+5CzV/d6eynKajXwTUZd6j2N2o0jtTC8B+1PRdLjf13W4HdPgrRbWuBXNyKLOBJR
-         d39leM7Wg+0/Gii5xEbdREheRhKXlk7nt3CeSyImmWXhCRjqyp0gpqUWUXYcoLzYq0Yy
-         uELt2wbfKIvd2NJXdJV4UnZQ2zKIXE3Kyvn1QmWdZzHEDSjQrnz1yN4LpgF3DrqYGtgG
-         tTmcJkk6fYsJdKv2qGP2N/DWl48K0co14WmY8dKiKyjHvX0RTLkxV7MEshUmm4Y3QnhK
-         T/XA==
-X-Forwarded-Encrypted: i=1; AKwUvByfsYFoKSivy6mmccgSY3Y1ZYSJjZ7LvHBaV06H77mr7r3yRzRfs/Vbc6Ql5qmIZSZ7UMla/+PXDgX3vrw=@vger.kernel.org
-X-Gm-Message-State: AFuF++n1kEDDmjgYqzUNwgPG2JdtM0yoYKlpgn3qyjZ9u+l89y1W9IZH
-	CpE3gHbdADafjrzL8S10opVwm5ZKU15bsCFT2vfMvTdp2LxzhkKOJzyx
-X-Gm-Gg: AYBFou3WP52Im8FBUP0IcjKwwPRkDUH46GtZZnFkswWnyYLwvvw63TDFV88rOnhHXMd
-	P6tN67aww0D1iT5edobzuDH4+ypK3wMOfwcp3VNRznEIMntUjbCeSo9hWulCkiV+biNn1+esZhD
-	OQ31NaFxyYl59OO8T5NPjpiMsQB/ptzHu/qGcDIQvWa9ldIZaeV6zrq3QigaC17E7EnXsnrRjh8
-	IForOf/6FGA4A0XdlIh7SympIasXcLqSCoctac1+GdsfPQk+E2y1lAVIwrIXgRS3/Atoiu80WUw
-	5kcjT8mZe23xS9KrWRS6aGmpI/RtWvz1P2ffb9XhC98+VQuSMYK8iqs0Gj4QHvC95h2uHeX5zGq
-	60FsCVUQRUb+IAuXcp384lVwmuEb5hKBQUcc63xpsNOHhZOIT746P6j057J7upTsAlbeTiupb9j
-	XO7jBdLoS4UujzkwRCZWzf/PpYOwiZx0InxMb6+iRK6hbK1glNG+rJjUZ9DUpb0P1mFRQyvAtcE
-	1Oj9D5dCDy11hH8adXkBGQD6YuHeuSlG9lGWFM=
-X-Received: by 2002:a05:6a20:a105:b0:3d0:ba81:79b9 with SMTP id adf61e73a8af0-3db4052bebcmr5751503637.12.1789397712639;
-        Mon, 14 Sep 2026 07:55:12 -0700 (PDT)
+        bh=ITlXRLngn2slKcOGycWl5+67jdUQ/52QuImnyuHZebY=;
+        b=BtQO7zEbch7As1U0ykDWelLpYJJOjPHlDAWEi9ca4j8iJNGFFoqyVvrJfM0z2cHgp6
+         CFt/cnv3k4hUoBa6kzNrLA5uoRcqWmQdpPzmb1ONqZ8fmBYkytdBQFccfcTzq60oxdq/
+         NuuCkhCuAJg3G63fILqPkVA4WdtlZvydRkaK8/9RHDb0T8ZhIs+KbAezW/LuVCJOEzXs
+         iyhcqN/RkJkpVHw9y8XAl1+OB7W/RWyKc6PjPitThPjNoa/lIJRWiJObrW85QxzN/JWn
+         iPmBDnDWsj6Z4aHNKKOWhouVptHiMMGM18r4XXBFv6JE0ihRfjEmwBFVgjO1r808ok4D
+         jSYw==
+X-Forwarded-Encrypted: i=1; AKwUvBwDzKqLwi/wujZc+4YZhr3zTQGSJws8slB0NZSbVqExbLvTop+k0LsqDSnP1gexUP9TjODVgd0DuoaY6qc=@vger.kernel.org
+X-Gm-Message-State: AFuF++kPU+TCZo9eJmqBv7a+5++un7+Ab4PZTQizYUU0awr1zT3zj/Ts
+	EMoSOSTa4k4tDnU+yucEy/r8DtCS79RTWUxAexOOzHbjyJrQclVrICcL
+X-Gm-Gg: AYBFou38KqJgwa9dgRZVUIMN9saqMAu/KpGriTMN4UtTWugQux4Ks3O/inQHyLk2xUZ
+	Yug5HYuhKuAzAzqY5kymk873W0ujz45kzkmOhTtke3mgECdLGHPFDmo/LULBml7DStTsdArohcZ
+	uQOZf/2dEDiqy4EEVo8vgmHLUQ52ih7DHHCEcU6M/Fpf1pLZCahERZzSpbyjjsEQ65ZC5VEmOhO
+	3ULG4h2WuG8tM9xGTViHSrYpbPcgBZRLywXq28WzQ2dIGG1GyIsRR7CTbXz7IrgYIP9r63HF9qZ
+	RTCzreH1JBGAztuhVhPWPxJ6Dd840DFq4PJQs+J8wGIVU2SRhu3cDd4pD8Q8fWCOWuedga9sf+c
+	sB3TAoKmE7JjOminlN2pulwovjS18QEQREp/QhRAn9UxeWLs2DCUiZCqBDOZ4PjI77iOb0llpjd
+	IBr9Gm7ix3s7ylOHJ4UJS8bKfXV3043rk7/8xtBHFI6HUuM97vVMk/pAsYA/FPE4N+ZnKS+M4jZ
+	2vtLSykUE+AXnLK4Jh+hFQ5bKV2kuE67Uahc+4=
+X-Received: by 2002:a05:6a20:43ac:b0:3d1:39e9:b267 with SMTP id adf61e73a8af0-3db4037cd96mr6822285637.3.1789397717314;
+        Mon, 14 Sep 2026 07:55:17 -0700 (PDT)
 Received: from KRHW1CJW23.bytedance.net ([139.177.225.247])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4c615a65bsm5338805a12.3.2026.09.14.07.55.09
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4c615a65bsm5338805a12.3.2026.09.14.07.55.13
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 14 Sep 2026 07:55:12 -0700 (PDT)
+        Mon, 14 Sep 2026 07:55:15 -0700 (PDT)
 From: Zhao Li <enderaoelyther@gmail.com>
 To: Miri Korenblit <miriam.rachel.korenblit@intel.com>
 Cc: linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 2/3] wifi: iwlwifi: mld: defer freeing PTK PN state on key failure
-Date: Mon, 14 Sep 2026 22:54:32 +0800
-Message-ID: <20260914145433.42830-3-enderaoelyther@gmail.com>
+Subject: [PATCH 3/3] wifi: iwlwifi: mld: unpublish links before freeing on add failure
+Date: Mon, 14 Sep 2026 22:54:33 +0800
+Message-ID: <20260914145433.42830-4-enderaoelyther@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260914145433.42830-1-enderaoelyther@gmail.com>
 References: <20260914145433.42830-1-enderaoelyther@gmail.com>
@@ -78,36 +78,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The PTK packet-number state is published to RCU readers before the key is
-installed in firmware.
+During firmware restart, iwl_mld_add_link() can reuse a link that is
+already published in mld_vif->link[]. If link initialization fails, the
+common error path frees the link without clearing that pointer.
 
-If firmware rejects the key, the error path clears the pointer and
-immediately frees the state while an RX reader may still hold it.
+A later firmware-add failure does clear the pointer, but then immediately
+frees the link while an RCU reader may still hold it.
 
-Defer the free until after an RCU grace period, matching the normal key
-removal path.
+Clear mld_vif->link[] in the common error path and defer freeing dynamic
+links until after an RCU grace period, matching normal link removal.
+
+iwl_mld_link_from_mac80211() reads that same slot under the wiphy mutex, so
+a NULL link means the slot is already NULL; the common clear cannot discard
+another link.
 
 Fixes: d1e879ec600f ("wifi: iwlwifi: add iwlmld sub-driver")
 Cc: stable@vger.kernel.org
 Assisted-by: Codex:gpt-6-astra
 Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
 ---
- drivers/net/wireless/intel/iwlwifi/mld/mac80211.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/net/wireless/intel/iwlwifi/mld/link.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/wireless/intel/iwlwifi/mld/mac80211.c b/drivers/net/wireless/intel/iwlwifi/mld/mac80211.c
-index 3a4c8fda68d0..693f2092a781 100644
---- a/drivers/net/wireless/intel/iwlwifi/mld/mac80211.c
-+++ b/drivers/net/wireless/intel/iwlwifi/mld/mac80211.c
-@@ -2265,7 +2265,7 @@ static int iwl_mld_set_key_add(struct iwl_mld *mld,
+diff --git a/drivers/net/wireless/intel/iwlwifi/mld/link.c b/drivers/net/wireless/intel/iwlwifi/mld/link.c
+index 96e06940b34c..55b84801923d 100644
+--- a/drivers/net/wireless/intel/iwlwifi/mld/link.c
++++ b/drivers/net/wireless/intel/iwlwifi/mld/link.c
+@@ -541,15 +541,15 @@ int iwl_mld_add_link(struct iwl_mld *mld,
+ 	ret = iwl_mld_add_link_to_fw(mld, bss_conf);
  	if (ret) {
- 		if (ptk_pn) {
- 			RCU_INIT_POINTER(mld_sta->ptk_pn[keyidx], NULL);
--			kfree(ptk_pn);
-+			kfree_rcu(ptk_pn, rcu_head);
- 		}
+ 		RCU_INIT_POINTER(mld->fw_id_to_bss_conf[link->fw_id], NULL);
+-		RCU_INIT_POINTER(mld_vif->link[bss_conf->link_id], NULL);
+ 		goto free;
+ 	}
  
- 		return -EOPNOTSUPP;
+ 	return ret;
+ 
+ free:
++	RCU_INIT_POINTER(mld_vif->link[bss_conf->link_id], NULL);
+ 	if (!is_deflink)
+-		kfree(link);
++		kfree_rcu(link, rcu_head);
+ 	return ret;
+ }
+ 
 -- 
 2.55.0
 
