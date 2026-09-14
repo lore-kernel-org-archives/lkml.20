@@ -1,79 +1,84 @@
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2222047A88C
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:35:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C96F443C1C
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:36:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789392917; cv=none; b=PkxO4tO3AmnYjL1OHc/D7FF7cguWYdakzP3wQmH7pRK4ChhGXzKqq7L/glDZw1nN4VykGOq6u/bOBXKFeBWM+DFyZNr5mYR2/oVuyNBOUMtYK72AmqCWjoyRiewymSMA153gwi4Yp4yg7EB1icxqgzE5FVI2SHw/ft3vtoF9aYA=
+	t=1789392989; cv=none; b=I1rhlX8xMIP5him45ZgDEMvagAyE06klXup3yQmCtzFnjfXOU+BZmcAM77rHiHP7guPrbdq05fOpmxnN/kbeTIBJcO5c7ZLCuF1VPJbX/rdnQsxPM++fdrmhIA1ikx16sNyO6V1UgGBx6SL5hd5o5rhJrum2g6cWLWfLi0hU5sU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789392917; c=relaxed/simple;
-	bh=rob29vuMJiM6unglL8riKgmWKOv8j0OKpd04pbbohkE=;
+	s=arc-20240116; t=1789392989; c=relaxed/simple;
+	bh=/meGI1Tm/tBlcwjTqS5kgSZy411s5gxaStb0PgqmkWw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=chshS3JfRkzzD7f/Wefg1OU0LhmyN+6S0E4C7rll0UMwfoq4L+xMmZZZmMSeV9j2SPCPzSSEbGVC+nc0QUqhFp9Ihino1SlSe1+2dJAEZn9uIyQdq+YCUl99D65VIBE/ow78KSHj+hPXiEyfugVB6LNAx+WNigKxHN12hihU1So=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kZAT7/a3; arc=none smtp.client-ip=209.85.218.43
+	 MIME-Version; b=j6CpanE1i6eWzQZrFn0LayjY0zPHzWwnfN0EJCVYpQLBOVpbbQHj9vBk+kZ0becbWsayTJT3mCgYsF2PBpvqfFafJ64mfm+EYU//TJIBwG4WrmZiuw9ULqWjrDG912jnRpr5u+wcNtoBQwx6m7H7Evy9WclMycaZCibIvhOUSng=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SIRn27ym; arc=none smtp.client-ip=74.125.228.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kZAT7/a3"
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c253425b253so514176366b.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:35:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SIRn27ym"
+Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-85469e25400so1550975b3a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:36:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789392912; x=1789997712; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789392987; x=1789997787; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=7u5qVr4y53yodZo8gWGizbwm6BRp6jZIIKbBtggqr88=;
-        b=kZAT7/a3mbujJosWxfKTCqT05ZSrRD39fxUF+69ap/lY2cHDGuhz90ofIQJUrYehE0
-         +Xe90th42rikLASkxM7qCuidIGtuzIf2CR0jy1x5UM5SEq912DiWgw45ml2Cv1AgYkQj
-         yUl9PznwmGvwu7RkgeE5ObJweqps9tZ66u0kj7TCsfs9mjB8Rlj1UFU2FX67+cg+cIFc
-         +ehIitYjJcyFcvDy+tgUPuqZPsBXWOt6/lBKp6vt2yCIQOpAHYBS4QcQrW33xk60f5/l
-         6DZSHwMqRcMN9jGrHrT3AioIuexDBhok7pbeCcjf5HVbmkGyhTzp7rBhOtjyHMH/aWz9
-         2Vkg==
+        bh=kcAESydmQLFB9r6OKjQ0xxj/qfnH2J6wLUt6Y4fcG04=;
+        b=SIRn27ymZKciixj9RgY87RWdzpQ/eJL+qyr6dRiN6t5g9jjAO5efbykvT/cIEl53Di
+         ZnF9GEuNyeZlA6C+vwmPfFXbvrF4OtvsLdk3OE3b6qY4n8Qk+1iE/kcg9dy3459Kv9tF
+         0BecMcF1+BOUJzi4CzofRjaHkqvH5Zt3Ypb285+sWK1F7YKX/gWGA/ioHBbonedVlU1+
+         tsfdED3IT2hgURaowT2Rxn9C/+3oTGfuH2CDS4//WFYHynRKwFFJxykwPEQrDvFg/JzM
+         WJHcFnBhIxMN/Bj7E8zYmJyF/vN/WUgf0FtZCI+qKBvOi+zKNB8hbwZShe+4OpDQo3gp
+         ahpg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789392912; x=1789997712;
+        d=1e100.net; s=20251104; t=1789392987; x=1789997787;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7u5qVr4y53yodZo8gWGizbwm6BRp6jZIIKbBtggqr88=;
-        b=Cu1Zc2TzUYmbs2bAaRfe0r8ribrGljp7wSwkr/8ei6rkMDEsYKnPwlLynozGSsRB7V
-         4wQHytqIsgU2pT0d/Uhv7kDbB5Q0FGktuSWaN8V/R7ifLGwhVZ+1bfPItODoWyYnFBDf
-         NjgJaYwlOcPeiN/CQGnD0DpHQRfNWsHSCzmwnGddVVRNTKkUukVCi3d4eC1mD37BQyw6
-         H7WuobcgpqcdvFAmwmI0oDh9rnmL/T1pMv38ePty1RNEpbWLm6CB79zENxiYc+wU+RXX
-         r9xooB8oL4dmxYDkEP/AJ1/VY8zasAAEoz0eR6M7prbJC/SQ9NSfER3rpB5u6jqaGUpq
-         tQBw==
-X-Forwarded-Encrypted: i=1; AKwUvByIfVjZavHGZxu5HyypAIjsq+R9y0NttqTW+gu8F/W7jNTnjCA5xkgbOklELuBbq2YgfZZMbAtA22WHDPw=@vger.kernel.org
-X-Gm-Message-State: AFuF++lVXVl7uRHr+1xtrLLtQZ5C75+IUBJcqw0R0KWQbbUGwgB/p4MM
-	fkopr141Pc28qU+Pgd1QdpvlPwTAEEvdsgIK9i8eYrUsagVSD7ZlL/mC
-X-Gm-Gg: AYBFou05JLvi7H8VKGSK57TaxhcLBzU1qjCzUCl4r+4W6yMo7DRrofZlOBzwKZNzsrD
-	Qlqs9d+Qve8K7331J43+CXOkk4u0g12E4w4ELgm4UWaz3CIwN79K9467AZriDebisk/zOfaA2HE
-	hF/RFCeJjt8bOipUn8/A4sKEwAJWmPFvKSNOErbKD5ESyTb7iIgtw1ByYP+bSCtZFour3oafb+x
-	lMFAhH7nL8qKCtQ7pwR0cTse84HLOiUlT/pe/jX8Ovsrhwmw6c5h3v31F8BYi0WF0R4pVBzRf7f
-	ROrL42SkjKiC5kO0pPZI6iLrW7xPfTAbgmjNe3o9bS3dcxwhxxbLP0kO/P2xesTb6Hq/Y778dUS
-	r/fIQOwzvtxJm7/SKHVyQTQW/at8TIVegtis6VMVUTJhT2OFvAUV1dF568Pittvw4/fAe0ojiiN
-	287RkOoAbKyqaIpX7CVuNDRm63canl9/bLODG1kiRVnICAbhqWSrMmKonRNt+W9dr022BO2BdEj
-	wXFAns5sT6biz4fxzUJR10+0whgsGG59N7AFTmIAQNCC6VMyA92uXX5gm4=
-X-Received: by 2002:a17:907:1c2a:b0:c26:2fc8:4e91 with SMTP id a640c23a62f3a-c29b87055ffmr157187366b.29.1789392911608;
-        Mon, 14 Sep 2026 06:35:11 -0700 (PDT)
-Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2966159c07sm441454566b.63.2026.09.14.06.35.10
+        bh=kcAESydmQLFB9r6OKjQ0xxj/qfnH2J6wLUt6Y4fcG04=;
+        b=o8rwIFA5tKXIBJShZf0gM5ya8URutjB+OZ/caVXQ1g+/wbRhs2B5Zqzww56kGSn1en
+         rTyLJ7UZOOYl/ak8UTNODMfQw7J8+o4XE3i6rJKdRHogDxh888bTnEdA0V0xb/D/ucMr
+         bBhsq+YerpKqA7udECxuyeh54jMgnwt3qXgbl4iBj5SvRW6RmzUsZr9JVdbPSJbfySc2
+         fDs+fA4Zro1D/Wdk33ECbf7O8puKMBr284Y9nZe08vufepk9Rf3NLxwYd157dBzybMDW
+         kvQ9dKzWpcI/8PtGf7ILdnvXwAoVfKG9eRJ0emASl/Leh/3e3u9gTE55fPF6J0WjrIMZ
+         a/ww==
+X-Forwarded-Encrypted: i=1; AKwUvByWNW18+TZtavuyCGp4k5psC80o9eE78447lLTlQ8aTlrkt6XuFWnDn1gAHzYsPJhyPuTbIN1eK7iX+Onc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lJrZD5y360G8d+yFEtF7R9gkSb5+2qrkAk5gyPgvThIXJ7pK29
+	ccDnLoIbWcdZlrMokAFgEUXwiOj4PW4KZy3ZqlpK5j2trq5quQFFpzmAgwrh2g==
+X-Gm-Gg: AYBFou3tgXH9FRfM5ElJEeZyyVwPopcjveK/UUAQYJnUxNCvoijRoYCLUibIebnkLUI
+	3He+1Dpn0mgoBahbTHhX1kLataMJ0TasayRKD3abMAoaxCW32mkPjE5VAGPnOfoHc9MyKfc/bnl
+	1PLxClxfkh7ECVhr2pamkZb0L5Qq2XnzM0RuW4QwlrsCtG3PdkVRWDmYxHUkaLIlXvzTt1Th8+L
+	fWQxuZgN/TzIR10ELZ5BwH0/Vt+/WhngvIiorgcmBTLSHuxrYvT0owNkjPZcWRXOYU8bvrWp9JM
+	ZZ+mlIVRIpHHY1Q7leVsqo7sSgn1WoG3GxmZfeHFV9WJCI9+j2lTPBl39Mc/oUzEtAoN0lDtIMO
+	Qt7Y/Vc2wFG7RVlyJKVQnLr/71ZrWiNKo3aOhnb235m1/zkTXEwbz7KDGipJiSa1I1BksayTmLC
+	vWvkiyTWKeg24b1Jq2LKqyOJQUqOkU6wpAzPNiypeJ50jwvBMBJRbmlNJPhISDGPgfUV1eZqoCG
+	v7lE9A8Xmij5NZIow==
+X-Received: by 2002:a05:6a20:430f:b0:3da:6bdd:2c74 with SMTP id adf61e73a8af0-3db404bcbc1mr5150299637.10.1789392987256;
+        Mon, 14 Sep 2026 06:36:27 -0700 (PDT)
+Received: from thangnn-ASUS.. ([2405:4802:1d4a:e90:380f:6f8c:214d:70f7])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4c6549ec0sm5081489a12.15.2026.09.14.06.36.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 06:35:11 -0700 (PDT)
-From: David Carlier <devnexen@gmail.com>
-To: rostedt@goodmis.org,
-	mhiramat@kernel.org
-Cc: mathieu.desnoyers@efficios.com,
-	linux-trace-kernel@vger.kernel.org,
+        Mon, 14 Sep 2026 06:36:26 -0700 (PDT)
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+To: Hannes Reinecke <hare@suse.de>
+Cc: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
+	mst@redhat.com,
+	jasowangio@gmail.com,
+	mkp@kernel.org,
+	James.Bottomley@HansenPartnership.com,
+	pbonzini@redhat.com,
+	stefanha@redhat.com,
+	eperezma@redhat.com,
+	virtualization@lists.linux.dev,
+	linux-scsi@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	David Carlier <devnexen@gmail.com>,
-	stable@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH v2 2/2] ring-buffer: Do not show buffer_meta for CPUs without a buffer
-Date: Mon, 14 Sep 2026 14:35:05 +0100
-Message-ID: <20260914133506.4865-3-devnexen@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260914133506.4865-1-devnexen@gmail.com>
-References: <20260914133506.4865-1-devnexen@gmail.com>
+	sashiko-bot@kernel.org
+Subject: Re: [RFC PATCH] scsi: virtio_scsi: bound EH timer resets to avoid unkillable hang
+Date: Mon, 14 Sep 2026 20:36:20 +0700
+Message-ID: <20260914133620.15712-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <28865bba-ac60-4c6e-aec8-64b1fcdb1c8f@suse.de>
+References: <20260911163509.684191F000FF@smtp.kernel.org> <20260911164417.33860-1-ngocthang2710.1999@gmail.com> <28865bba-ac60-4c6e-aec8-64b1fcdb1c8f@suse.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,37 +87,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The per_cpu/cpuN/buffer_meta files are created for every possible CPU,
-but buffer->buffers[cpu] is only allocated once that CPU comes online.
-Reading the file of a CPU that never came online dereferences a NULL
-cpu_buffer in rbm_start().
+On 9/14/26 11:17 AM, Hannes Reinecke wrote:
+> So the better fix would be to implement a host_reset() callback for
+> virtio-scsi which would reset the virtio setup, terminating all
+> outstanding commands and reset the queues.
 
-Fail the open with -ENODEV when the CPU has no buffer, as the other
-per CPU ring buffer interfaces do.
+Thanks for the suggestion, Hannes -- that's exactly what the patch
+below does (also posted separately as [PATCH v2], Message-ID
+<20260914133144.15509-1-ngocthang2710.1999@gmail.com>; linking it back
+into this thread since the subject changed and a couple of mail
+clients won't merge the two threads on their own).
 
-Cc: stable@vger.kernel.org
-Fixes: 950032ffcee7 ("ring-buffer: Add output of ring buffer meta page")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260913134906.6E8A01F000FF@smtp.kernel.org/
-Signed-off-by: David Carlier <devnexen@gmail.com>
+It adds eh_host_reset_handler backed by virtio_reset_device(): once
+virtio_reset_device() returns, the device is guaranteed to have
+stopped touching guest memory, so it's safe to let
+scsi_eh_offline_sdevs() free the stuck commands' DMA buffers
+afterwards -- the guarantee that was missing before (falling through
+to offline with neither target, bus, nor host reset implemented).
+Reuses virtscsi_remove_vqs() + virtscsi_init(), the same
+teardown/rebuild sequence already used across suspend/resume.
+
+Verified against the same QEMU virtio-scsi repro (PCI_COMMAND_MASTER
+cleared mid-write): EH now runs abort -> device reset -> host reset ->
+abort -> device reset -> host reset -> offline, dd's stuck fsync
+returns EIO, D-state drains to 0, ~244s total.
+
+Suggested-by: Hannes Reinecke <hare@suse.de>
+Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
 ---
- kernel/trace/ring_buffer.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/scsi/virtio_scsi.c | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
-diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-index 9c03a555a6ba..8833d04b9fee 100644
---- a/kernel/trace/ring_buffer.c
-+++ b/kernel/trace/ring_buffer.c
-@@ -2381,6 +2381,9 @@ int ring_buffer_meta_seq_init(struct file *file, struct trace_buffer *buffer, in
- 	struct seq_file *m;
- 	int ret;
+diff --git a/drivers/scsi/virtio_scsi.c b/drivers/scsi/virtio_scsi.c
+index b4f20c487718..9698f4f91cc6 100644
+--- a/drivers/scsi/virtio_scsi.c
++++ b/drivers/scsi/virtio_scsi.c
+@@ -833,6 +833,8 @@ static enum scsi_timeout_action virtscsi_eh_timed_out(struct scsi_cmnd *scmnd)
+ 	return SCSI_EH_NOT_HANDLED;
+ }
  
-+	if (!cpumask_test_cpu(cpu, buffer->cpumask))
-+		return -ENODEV;
++static int virtscsi_host_reset(struct scsi_cmnd *sc);
 +
- 	ret = seq_open(file, &rb_meta_seq_ops);
- 	if (ret)
- 		return ret;
+ static const struct scsi_host_template virtscsi_host_template = {
+ 	.module = THIS_MODULE,
+ 	.name = "Virtio SCSI HBA",
+@@ -846,6 +848,7 @@ static const struct scsi_host_template virtscsi_host_template = {
+ 	.eh_abort_handler = virtscsi_abort,
+ 	.eh_device_reset_handler = virtscsi_device_reset,
+ 	.eh_timed_out = virtscsi_eh_timed_out,
++	.eh_host_reset_handler = virtscsi_host_reset,
+ 	.sdev_init = virtscsi_device_alloc,
+ 
+ 	.dma_boundary = UINT_MAX,
+@@ -947,6 +950,27 @@ static int virtscsi_init(struct virtio_device *vdev,
+ 	return err;
+ }
+ 
++/*
++ * No bus/target reset in virtio-scsi, so EH lands here after device
++ * reset also times out. A virtio reset guarantees the device won't
++ * touch guest memory again, so stuck commands can be freed safely.
++ * Same teardown/rebuild already used for suspend/resume.
++ */
++static int virtscsi_host_reset(struct scsi_cmnd *sc)
++{
++	struct virtio_scsi *vscsi = shost_priv(sc->device->host);
++	struct virtio_device *vdev = vscsi->vdev;
++
++	scmd_printk(KERN_INFO, sc, "host reset\n");
++
++	virtscsi_remove_vqs(vdev);
++	if (virtscsi_init(vdev, vscsi))
++		return FAILED;
++
++	virtio_device_ready(vdev);
++	return SUCCESS;
++}
++
+ static int virtscsi_probe(struct virtio_device *vdev)
+ {
+ 	struct Scsi_Host *shost;
 -- 
-2.55.0
+2.43.0
 
+Thanks,
+Thang
