@@ -1,199 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D7CD466B47
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 15:20:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F33648F84F
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 15:20:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789399214; cv=none; b=EAsoUfoPMHQu9Sdt9u/bB8Aqhd8kygpDEiy+U6UiDcdnnFwyEQ9E9mZTJqcwkzTEaCBXs/ROJTwH1PK0j/6QcwK3LmnMkhOf78q9X12OlqdKla8X5OoCpvdLQugWNNgDDzN4gvIgNhvqesalsWtmyjM1CbFly9or3QYdaJe0CoA=
+	t=1789399218; cv=none; b=HWbIrANY2ltWbNej3SIWQT63T7j4CoQMp176AOKmeeKb21/K8fPGXXzBF4lvjBeXMcrc/15cTfc0YPlaR6rk2Z3p6Pj+I3F9ymJ70m6vYWg8AHvpHx0cRrgTnnU5ElgqHQFV6RNo2TxpKEL/nAeB27eLPFtUN8qmneXSciaB8is=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789399214; c=relaxed/simple;
-	bh=yI3WFrtOv/2yVLRc8hE8UhzAgNlZI2VM0DK2QM4ZVHE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iapNwKJKkhyo8+EIPK4Pi61DfkStQbMq+BMiiDifUUzZSHgccr8HMIX+koDx/fRqcxwLj7pUiTiwupCpINNB4R9MP7RXYsYTImTw9WG1MOoaGxUPNmdQAsrH45kSE4FrB4NK0r4nFQUu/o78yTdZSim4XwgbKuxH+PTigqF9xSo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=agVnINAX; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="agVnINAX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F5341F000FF;
-	Mon, 14 Sep 2026 15:20:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789399212;
-	bh=QuICXryj3rtgQiC2AqSchUKR7Zt7J09e5geN7kW0voI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=agVnINAXKULV/DF8wRfY0MB14blSneHnWBCQ2DjZxOTAnrRqXlW9/sS0OPBdnEJXt
-	 pHGa6Vi1rvE39snHRYj83/KVuYkPoQYuCyNhfKETW/gAWgKdMfI/zPmT3z+gvdrfYA
-	 fgjs1ydldyGwpicMWxu/04M4oLdkiwi9i9uZZwRaZrmE/VrbEKgw1tRaXoAKVXH4Tk
-	 1tblCYcfhskxs+iaix8nC9L2f11kYPZ4lFotVO6n3VVbOW+1346J3iO009PcAB5I6e
-	 gaE4lO0rI0JND/pWNHGXNb1RaYAbFmruvtXBJIritkG+PsOyiKS0RnGGoZajqiZMXD
-	 qzzqpsVOXyLqw==
-Date: Mon, 14 Sep 2026 16:20:02 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Suren Baghdasaryan <surenb@google.com>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
-	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
-	Kiryl Shutsemau <kas@kernel.org>, Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>, 
-	Xu Xin <xu.xin16@zte.com.cn>, Chengming Zhou <chengming.zhou@linux.dev>, 
-	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, Chris Li <chrisl@kernel.org>, 
-	Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
-	Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Youngjun Park <youngjun.park@lge.com>, Peter Xu <peterx@redhat.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Guilherme Giacomo Simoes <trintaeoitogc@gmail.com>
-Subject: Re: [PATCH v2] mm: implement and use vma_anon_tracked(), silence
- KCSAN
-Message-ID: <aqgOTUiz-7Mf-2sE@gremlin>
-References: <20260910-vma-is-faulted-v2-1-e81ebc7d146b@kernel.org>
- <7d779a3e-0c12-42fc-91e1-fe53ae2dc641@kernel.org>
+	s=arc-20240116; t=1789399218; c=relaxed/simple;
+	bh=Frm43ufNh8qqB/Bw6xfF1sMT8C8/aL6tF6RXXphvCaI=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=ZJgN2jHEjLxBqvZKAVX1aOqqv6OqndhmK37yibx7/KBtJKRcdVxsPCOcigOn1iAqUauKre9Z5MTCRIsaQlAtYdWn4a5HVCqrSCjasotmvBuENkLzo9CRskEmWD6daUq7UQN20duFseXgoUkUyKPJiKaucc//Kak+WXSsY9MNYOI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4c55ba309c2so2585740b6e.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:20:16 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789399215; x=1790004015;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Frm43ufNh8qqB/Bw6xfF1sMT8C8/aL6tF6RXXphvCaI=;
+        b=XATixXNnI5SMjzTqT8XNReUgi6A5aq2n8bVrQ5sj4AVoaXV6naUVAUEoxHrcQl7K49
+         TdtqtaiZQbTimCUKhDydTQDTLOCxlotaZ52O5//fPrA8kRBSD+CDdTLXJMoiZOfvtOuE
+         nn8+rG95HgBKr8n1Bw/aPuksRJKFrLF8JNAs8KNHs0KgRoJGkQ6Medtm6fXiUH1IrcvI
+         bZP/CHGGkoxkn7V0dM0NlF9qXth4rkgTqEgJjRM4umh944mtqpKLsiChalzt5mqRrone
+         yrbGq1THMkm4FFbHliE6n3u9P33sPjWIdrXqD+hkMVV7v/Fm+y2usG7LCf1qLy8F4r+d
+         4HNQ==
+X-Forwarded-Encrypted: i=1; AKwUvByFo2QCgZlxQw/JkW/AnY8RgJdir9rFUrgMLTqvTsBwYEcN3/IhweCHL48ZaORjLNlzdvon/RaqMZYUteM=@vger.kernel.org
+X-Gm-Message-State: AFuF++n7MpG7ICM1mqvAw8sD74cEr3ODa6IZ54lJqKNOfDt49HOKyB9/
+	0qJOp9YrIU8Uppf++LAK7vKiS9ojTMPjALhWmo2x2JNbKbHkfJaB4re0GfwjcFHi3dhkWr3MNp5
+	bGwi8CLMCT95Qr40y2Y5TIpNm/gXl3r38r5IpnYDYBVBTsHo7XEdMlWhyTcg=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <7d779a3e-0c12-42fc-91e1-fe53ae2dc641@kernel.org>
+X-Received: by 2002:a05:6808:179e:b0:4b3:7c33:456 with SMTP id
+ 5614622812f47-4c7b39d3ccemr1826775b6e.11.1789399215383; Mon, 14 Sep 2026
+ 08:20:15 -0700 (PDT)
+Date: Mon, 14 Sep 2026 08:20:15 -0700
+In-Reply-To: <00000000000034ae0f05e9f94c79@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa810af.f81106d8.2ab401.0050.GAE@google.com>
+Subject: Re: [syzbot] KASAN: use-after-free Read in jfs_lazycommit
+From: syzbot <syzbot+885a4f3281b8d99c48d8@syzkaller.appspotmail.com>
+To: dave.kleikamp@oracle.com, jfs-discussion@lists.sourceforge.net, 
+	kapoorarnav43@gmail.com, linux-kernel@vger.kernel.org, qianqiang.liu@163.com, 
+	shaggy@kernel.org, syzkaller-bugs@googlegroups.com, tristmd@gmail.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Sep 10, 2026 at 04:02:43PM +0200, David Hildenbrand (Arm) wrote:
-> On 9/10/26 15:18, Lorenzo Stoakes (ARM) wrote:
-> > Provide a function to abstract the common task of checking whether
-> > a VMA is faulted in or not.
-> >
-> > A VMA or mmap lock must be held when calling this function. For an attached
-> > VMA the transitions between unfaulted/faulted state are:
-> >
-> >        Transition        |              VMA/mmap Lock state
-> >  ------------------------|-----------------------------------------------
-> >    unfaulted to faulted  | write lock OR read lock + mm->page_table_lock
-> >    faulted to unfaulted  | write lock
-> >
->
-> Still using the faulted/unfaulted terminology above is subotimal but I don't
-> mind too much as long as the code is easy to grasp :)
+This bug is marked as fixed by commit:
+From 7e1a0b91e9efa8bec40fc5397ba6c4e683d72df0 Mon Sep 17 00:00:00 2001
 
-I think this would read terribly as 'anon rmap untracked/anon rmap tracked'
-really.
+But I can't find it in the tested trees[1] for more than 90 days.
+Is it a correct commit? Please update it by replying:
 
-This is why I like fault as a verb here, it is explicitly the event that
-changes state, and also as a noun because once faulted, a VMA is faulted
-and it's just how I've thought about this for years now :)
+#syz fix: exact-commit-title
 
-I understand, obviously, that VMA_SHARED_BIT mappings can be faulted
-unrelatedly but vma_anon_faulted() would then be my preference rather than
-abstracting that (yes I know there are some weird edge cases on with that
-state too).
+Until then the bug is still considered open and new crashes with
+the same signature are ignored.
 
-But I am compromising on the name :)
+Kernel: Linux
+Dashboard link: https://syzkaller.appspot.com/bug?extid=885a4f3281b8d99c48d8
 
-However as far as description goes, I think it's far clearer this way.
+---
+[1] I expect the commit to be present in:
 
-I'm happy to hear an alternative if you feel something else would be
-clearer here though!
+1. for-kernelci branch of
+git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git
 
->
-> > So vma_anon_tracked() never provides a false positive (the lock precludes
-> > it), but if only a read lock is held, a negative result must be re-checked
-> > with mm->page_table_lock held.
-> >
-> > Detached VMAs cannot be concurrently manipulated as they are removed from
-> > the maple tree so require no guarantees.
-> >
-> > Use data_race() to silence KCSAN about non-existent data races between
-> > concurrent vma->anon_vma read/write on optimistic fault tests.
-> >
-> > Also while here, const-ify vma_is_attached(), vma_assert_stabilised() and
-> > dependants.
-> >
-> > Finally, update the core VMA merge/split, rmap, mremap, KSM and fault
-> > preparation callers which test vma->anon_vma directly to use
-> > vma_anon_tracked() instead.
-> >
-> > Note that the lockless read in reusable_anon_vma() is doing more than
-> > checking whether the VMA is faulted - it is returning the anon_vma to be
-> > used on fault, so this check is not altered.
-> >
-> > There is one odd one out - file_backed_vma_is_retractable() - which holds
-> > neither a VMA nor mmap lock and is stabilised by the file rmap lock only.
-> >
-> > Therefore just add a comment to explain why the direct vma->anon_vma check
-> > is required.
-> >
-> > Reported-by: Guilherme Giacomo Simoes <trintaeoitogc@gmail.com>
-> > Closes: https://lore.kernel.org/all/20260829100034.423064-1-trintaeoitogc@gmail.com/
-> > Closes: https://lore.kernel.org/all/20260909115723.528501-1-trintaeoitogc@gmail.com/
-> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> > ---
-> > v2:
-> > - Renamed vma_is_faulted() to vma_anon_tracked() as per David.
-> >
-> > v1:
-> > https://lore.kernel.org/r/20260909-vma-is-faulted-v1-1-3a701f48984a@kernel.org
-> > ---
->
->
->
-> > index dd66c6ad5af1..40669bec953c 100644
-> > --- a/mm/huge_memory.c
-> > +++ b/mm/huge_memory.c
-> > @@ -264,7 +264,7 @@ unsigned long __thp_vma_allowable_orders(struct vm_area_struct *vma,
-> >  	 * Allow page fault since anon_vma may be not initialized until
-> >  	 * the first page fault.
->
-> Do we directly want to fix up such comments to not talk about "anon_vma" but
-> instead of the abstraction?
->
-> Not immediately sure how to rephrase, but I guess the goal would be to avoid the
-> term "anon_vma" and least outside of core-rmap/anon_vma code.
+2. master branch of
+git://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf-next.git
 
-I'll do a pass through. Can be a separate commit in the series I guess.
+3. master branch of
+git://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf.git
 
->
-> [...]
->
-> >  		/* KSM folios don't reach here because of the !anon_vma check */
-> > diff --git a/mm/swapfile.c b/mm/swapfile.c
-> > index 01e7b6b046b6..9f9cd6657360 100644
-> > --- a/mm/swapfile.c
-> > +++ b/mm/swapfile.c
-> > @@ -2705,7 +2705,7 @@ static int unuse_mm(struct mm_struct *mm, unsigned int type)
-> >  	if (check_stable_address_space(mm))
-> >  		goto unlock;
-> >  	for_each_vma(vmi, vma) {
-> > -		if (vma->anon_vma && !is_vm_hugetlb_page(vma)) {
-> > +		if (vma_anon_tracked(vma) && !is_vm_hugetlb_page(vma)) {
-> >  			ret = unuse_vma(vma, type);
-> >  			if (ret)
-> >  				break;
->
-> [...]
->
-> > +/**
-> > + * vma_anon_tracked() - is @vma tracked by an anon_vma?
-> > + * @vma: The VMA to be checked.
-> > + *
-> > + * A VMA or mmap lock must be held.
->
-> I would document here what the implication is: if untracked, there cannot be any
-> anon folios, if tracked, there might. Some callers of this function (e.g., ksm,
-> swapfile) want to know exactly that: could there be any anon folio in there such
-> that they have to provess the VMA.
+4. main branch of
+git://git.kernel.org/pub/scm/linux/kernel/git/davem/net-next.git
 
-Process?
-
-I'll add some more details to the kdoc.
-
-I do think the name is poor now on reflection, vma_has_anon_rmap() seems
-stronger. You OK with that?
-
->
-> --
-> Cheers,
->
-> David
-
---
-Cheers, Lorenzo
+The full list of 11 trees can be found at
+https://syzkaller.appspot.com/upstream/repos
