@@ -1,171 +1,202 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68CF93B42F9
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:53:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66FDD41442B
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:54:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789379623; cv=none; b=UBQjloTwGK78RFS2cLua2cQ4E09dRnFCLeQnSbjOZtlBkZBJproqj/16SnFUo+0ZNFov+YTlJcEijyM81OhD5ebGB9cdwOq3ODmWxbx8+IUyYJLwtePwar8hXror2sdiEo5wLbBN4ZOZSsV2+eTovGOd7iSWCSMrtxLiAaLC9GI=
+	t=1789379673; cv=none; b=Mc7NMGUJW8y4h0qivsXy5YCD/y7Z6eV8mneWUj0N8yCNcb5aHAkwjizJ2T2no9fuVUEp9Ix5h2ZjS6/WextCQyBVc7v4MwXeZWAMlo8jshtOVBapjLY6XW2MpYbVz++2R3WNVPrepBN2FVdFoc6CUsoyrcQwA2K9chF9w/2wIGg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789379623; c=relaxed/simple;
-	bh=Y123/ADqj+NfnYObaRo+ZrAYC6ThuSe4AzOCr0fuZfE=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=VM259fuvCeEPWNc3oF1fhk0rKzh7wya+QFH2u39zyxVQyOXYuYPwpk6j5TCQl0nqJ6abs7pBJkr59I1ngF3X9kUIJKTAn0XQ4i1RfKQSIkfSWbYtJ0ShqTVCyfPQ8QXnW9Hl6vRZwAjD4fMzjLZAdyai1EjEH0bw1bavlAgtviQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MAI5N7wd; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789379673; c=relaxed/simple;
+	bh=V5CJpCM0XrV3ogUCuYsGqhnvSdSEBR8TeXV13tX2vic=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Y9/zHXF3a+k1cAW7bt2J7LDbQ7TQz8POzou7Fh1pPaZdliF0a2ACIElSK9Vr/NAwmGFpSBt0ZX8CjtyKIkc+bPwbG4CZWPbE/ForWQM5Cdy02HaOn2F1XhGEK8CV5tTP0kiYtucHrufEWT/PI6elGKol2r46MfO9JXq5YyuRC+s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RnedIvQR; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=URUoJB+7; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MAI5N7wd"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4834977ae75so938614f8f.3
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:53:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RnedIvQR";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="URUoJB+7"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68E9nXv33663581
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:54:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=7lAxPENrSys7DUlwTxwzPs
+	GcblJmJaA2c7mPu6JomFk=; b=RnedIvQR48xXIPETkH5LTHGf6xKBwgIp/rNR28
+	spFCYgTYju/N+IBQoFWMtcTO46eNLzegAUu4kgEPcb6H7gH5l9lfhXd2slD8tytN
+	bVksekcTIgJ3lkcUMjxWXdYzec+9/nZYUpTzpiUTgPIRuLiUNNNlE6HpNyapIliv
+	sHq4qNyucYzWfXtl/VRroxMcEIPhHTCytYAOkHnkxB/5iMYXMkbEmBYBkxkd5SuN
+	dC/fWevnDVXwQ6CoQoX4elJF+2FSOb94eNTb5htiM3ZsrvRgUmzLDY5QWUtsfZvZ
+	kEH2CoBTjPxmloMAqJCyzjy6lT/c0jwj9xEeTRTn6H/AgXcg==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpcjg0g62-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:54:31 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-398dcfabbf8so8053348a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:54:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789379619; x=1789984419; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=da6ePMIYm/aVtrZu1tTn2uNa2Ehq+6YGaT6o8m85P1A=;
-        b=MAI5N7wdEw2NKr+KvPhwnblqTg62x7VBik4xZeOpN7g1agZ4no0wFovNNHlX7x1DUG
-         0ZsXmZ3xWNaf7Psicqv4P1/+c7Guc9mOf3zkSlI/cCZX8fa+kym7HNz2QC4KHAvsA81h
-         2zETe9RRhVzGN+b+RoFgYjxkIb3vIs/EQXUbm6h+tmg93ZkpHOElGYb9ysDSUP1L6Wis
-         FMOR12r6uLhGfDFJ47/JpMpDmqjLK+Mt4b3+5GJyPvTp2NItLO3RHJxyrn5ZdnALjU17
-         hsHB2+Fy6v8I2zYsjA1UhYh7pLSUK+1NJ8BJGuXF/lgTLSgBXOX6XiGpjIy2YvJ6ybKl
-         3PXA==
+        d=oss.qualcomm.com; s=google; t=1789379671; x=1789984471; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=7lAxPENrSys7DUlwTxwzPsGcblJmJaA2c7mPu6JomFk=;
+        b=URUoJB+7eixSqlemS3rJa5zvZvWvHK6qsrQa9jfSiPmDfT/S0LIrYyzEPmhaRC3Ogv
+         UFDD0PlQDqPRqv/KpHJM229FghxIc5KRl1xOZrhHlotCsP89am2T8/FcCHoTcEIwSueP
+         UOyxBHouZHWDNyMeYpQHJzWVCn8+z+RYtOH50Oe4OhpQPeMbgFo3bTOdQDKemCEOGgoC
+         ZVNvOCk1euxXF4P6EVFRfBXNPzneHLCVSINagAHsRiUuuKPreIQo4o7MApAtqLG2s/q7
+         OcYKlcmqw+mi2IppWgGenFVoKqPuqD0vHiItvvzkQZKj0jhckhBAreRmJ1mU7Xcmw1UC
+         AhJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789379619; x=1789984419;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=da6ePMIYm/aVtrZu1tTn2uNa2Ehq+6YGaT6o8m85P1A=;
-        b=Snuz4Wzx/adZk8uc6uEW8CCNgvBFSAVpH8sHiuHj+aPZv5pasD0VY5OI2Sdfc6waRU
-         u4Lt4qqD3IqueaRYJwHk1hf5E/U0TUSepKhoToqtQ2px8yV0ZHhy5H8p4R6r7n886hLU
-         1uz37K0PkTqqY/Cvl4KyWHIjRwCgZ3pe7ckPrXNJcpAXyJS5pkni+KWr7NOCMoKEz8dl
-         zlWVPjqCHe3iBc5DKqje3ar46u0e06gIcmB446rJTmO5K+19T8v7YMWv3LdDO06FGXyR
-         VBNYK/qKgjmxchoOPD+J6g27PbQ1Q+9OP3MbMse4sGxAOezZUkbR4GgELaLUEE6P86WC
-         qxdA==
-X-Forwarded-Encrypted: i=1; AKwUvBy8R1MpokDms3fNiaFjKZjWvs5vReimyNGd90iMENNrmzxne8QJvQaWYZXJNm/R8L5oiYO+vPmRvusrudQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++l+OIvhaYm6h0NASCX2R7YukzR0oLbkOMc9vcPdCeha+XTthX2x
-	tKXM4lpoYz75nWHDqAMBVam4KNsNOISI4Jg8LAsZ1Y+ELAI6lzK9uGoE
-X-Gm-Gg: AYBFou32XAFpoTzbBmz0rvdBeVUJpl9vhocGCNHinnJ0vfsOLiCZdRJmKHFwsugggLJ
-	7tqu2hHjGsyLzngtWvTnG4yOKTlOrD/1PfVll8FnmRdvz7MUJcvTcO1x1QWk2kRDxPGETEa3M+9
-	m4p/kmf8S5+B9IZEuM0BOHpd47MARyq+IiJh0YjLElk3U8vEBKoVO+v1C/uQ7LsmXntGraxy2yZ
-	GdANOESR/sFKrJq6TmvdOOu7mAfdOJ8WAcj0LCkGThry4anGNvfaPE7FZmxz5LHoa821bkZU6eN
-	m0JNmWWSNNvflzqQ+xNbtEUAZC7KNAthJl0G+/F2Jqe4FpqWujd7ILB4cszOBb5jpa7K4tGr8HB
-	/xH6XXuUXKTC5oiHwEfuvG4YxmDOd1dQxpbaU3tGbgNfYz7ACIZzCULvEeLZHj8hLrsHhz4uuod
-	45ohwHCMufbT3Nai2QjOYzYG83isoW9lkX0+94RTGWg5otJrd+9rDbkOgmHbFfysW/gs4eh+j5m
-	BZqKv/fx89xKFt0e7iElNwFoj9dL//lZAvM
-X-Received: by 2002:a05:600c:4ecc:b0:49e:6be6:d783 with SMTP id 5b1f17b1804b1-49e7a5f419amr39457415e9.0.1789379619381;
-        Mon, 14 Sep 2026 02:53:39 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e71e300f3sm208874455e9.7.2026.09.14.02.53.38
+        d=1e100.net; s=20251104; t=1789379671; x=1789984471;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=7lAxPENrSys7DUlwTxwzPsGcblJmJaA2c7mPu6JomFk=;
+        b=Mmj2mAQyg9dGHaeHWqLiE3Uidz5qDDq2nF85JmzFUwu1Aoy1d149VV1AhQDhsoJZbG
+         5NnXeHk9G/zhQ1kcFu4llTi2+PLOBndqfbRk5/nwkZDLpzFHBiNdf0vhFBj5BV9OuUFy
+         s83MyyjBlTtNXbfN3Kw6Jj0nzw/mj2GeKKIrIrldI2Nch4ExtNnaxc8ewifSOXU0L1i/
+         2YFyWJudcnzQUBI1ZBVY5Zz7uKt1t5vG/QBgrxJhLoJ3PqVHXyV3DPpHntfwsCkrxfIg
+         W3bTYwGLuXB60DqnlM5yrdkpu16cU0FTTxBZncpwWAMG26D9tbAUAhC08Pgr7w/nZ/LV
+         msJA==
+X-Forwarded-Encrypted: i=1; AKwUvBymYsuSqzVhHlSOo2HonXsBnY1BtJpW+owTMZlSCWpyBttvfs832pG+ZpRVH5Chy4GC0C0bQC9BKYf22sk=@vger.kernel.org
+X-Gm-Message-State: AFuF++mX8X9S9b755c44loVZGliysThEH2wyiZqjOlBdmTzzyH8qj0mZ
+	D2mbltz9CWNlzbJxO2AiAB/iwsCcLEErj5ri7WhkrI6DnVn1o875/yF4nTsmmXImL6LZQYQLLKL
+	L1Fjc9dR9EzwLmgAEdaJRuA+s40t61Gw3FnJVrmVDUvaXb++gXjZmUCnIcTQ2uYlvzC8=
+X-Gm-Gg: AYBFou1pFq5HfesPNdz3PnidDRjN6CIwHpQTkYxkNjGlNxTlpx3IdJ2Y53sG3BNd1sY
+	d8aghsyMQr13Sf5q6NStOX/ShBmGpN/BWDbz0sPj/1s8jsBOnlloQ6RS1mtQJH6haxUBhBh6q1M
+	vC97iuUKetqSGer4mlCKFPD5E4Xf6qNMNbx+vtzrI57xp5E11EbKVBpsQVuVjzX4HlIR17sgH7M
+	YOR7ARTCJ6QeFjYjKb2CfxZPp1jleI2cgX3c0TCKtjHqhNJ7VRbg44IFhYD12XDwAhPnJhpPEl7
+	FC+MuUWrQr8onNS48ZF8nWr7YCRyCk2qKg8eBgR5ifUxxMtaAlCCJQs7Dv+bpm+Ju0pvBVODMqp
+	7+gtWAYX1iD02OX5k/RpE0zgVaqBXKsi7hacvgAJCSpsq1jkJZwXOLCja926E+6Wdkq4f/ErrBV
+	4=
+X-Received: by 2002:a17:90b:498c:b0:39d:f114:8f7d with SMTP id 98e67ed59e1d1-39df1148fcemr1935598a91.3.1789379671080;
+        Mon, 14 Sep 2026 02:54:31 -0700 (PDT)
+X-Received: by 2002:a17:90b:498c:b0:39d:f114:8f7d with SMTP id 98e67ed59e1d1-39df1148fcemr1935553a91.3.1789379670674;
+        Mon, 14 Sep 2026 02:54:30 -0700 (PDT)
+Received: from WANGAOW-LAB01.ap.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d94bafb3bsm20664313a91.1.2026.09.14.02.54.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 02:53:39 -0700 (PDT)
-Date: Mon, 14 Sep 2026 10:53:37 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Waiman Long <longman@redhat.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>,
- linux-kernel@vger.kernel.org, Davidlohr Bueso <dave@stgolabs.net>, Haakon
- Bugge <haakon.bugge@oracle.com>, Linus Torvalds
- <torvalds@linux-foundation.org>, Yafang Shao <laoar.shao@gmail.com>, Steven
- Rostedt <rostedt@goodmis.org>
-Subject: Re: [PATCH] locking/osq_lock: Ensure proper locking semantics for
- osq_lock/osq_unlock()
-Message-ID: <20260914105337.576bab34@pumpkin>
-In-Reply-To: <20260910141908.592414-1-longman@redhat.com>
-References: <20260910141908.592414-1-longman@redhat.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+        Mon, 14 Sep 2026 02:54:30 -0700 (PDT)
+From: Wangao Wang <wangao.wang@oss.qualcomm.com>
+Subject: [PATCH 0/4] media: iris: Enable Iris video codec on Eliza
+Date: Mon, 14 Sep 2026 17:54:22 +0800
+Message-Id: <20260914-add_iris_for_eliza-v1-0-e8ccd9b8cf7a@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAE7Ep2oC/z2O3YrDIBCFXyV4vZYxEa252vdYioxRuwP5aZ0ml
+ Ja++5oW9ubAN3C+OU/BqVBi0TdPUdJGTMtcQX01YvjF+ZwkxcqihdaAU1pijJ4Ksc9L8WmkB8o
+ ho+6gc+isEbV4KSnT/S39OX24pOta3bfPUQTkJIdlmujWN+aodJvd0eQMOrTBQuhUDADZKheyc
+ ZCNRoe7ekrM+B7VN/+Ttsvqqcr23NDX2XGk+Sw3LUG64MBqtN2g1ffCfLiuOO6vDzXE6fX6A0B
+ V4UUDAQAA
+X-Change-ID: 20260914-add_iris_for_eliza-cfa43039a976
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Wangao Wang <wangao.wang@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789379665; l=2318;
+ i=wangao.wang@oss.qualcomm.com; s=20251021; h=from:subject:message-id;
+ bh=V5CJpCM0XrV3ogUCuYsGqhnvSdSEBR8TeXV13tX2vic=;
+ b=bhO+mbEGmJxqYK2VUjCFEqyAUvWBQtngqlAzEZN/hQX+swSGhVaF6idZmEyiIlWmFQLeCMSEu
+ DsheER+coCbDbDrftpinlDVijgR1xOW/IHUojRyc7AH9qySUqezNWGp
+X-Developer-Key: i=wangao.wang@oss.qualcomm.com; a=ed25519;
+ pk=bUPgYblBUAsoPyGfssbNR7ZXUSGF8v1VF4FJzSO6/aA=
+X-Authority-Analysis: v=2.4 cv=CKa/zhrD c=1 sm=1 tr=0 ts=6aa7c457 cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=N-TFuj4FxbnEaaYKstYA:9 a=QEXdDO2ut3YA:10
+ a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-ORIG-GUID: gz7tbZ_tic5CUmv89n8AEqbKzUcQDZt8
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDE0MCBTYWx0ZWRfX8XER5fp1cXY9
+ D9iKTJOq/9vi/jmAvblkJKNWqpW7cmhG8F6VimDgALd2WwaaCLhOEqdJa+8ek0UeMTA2x21bHzr
+ qEtAeaM+1SS6A8wgSjNdYEeroOWvoBQ=
+X-Proofpoint-GUID: gz7tbZ_tic5CUmv89n8AEqbKzUcQDZt8
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDE0MCBTYWx0ZWRfX6OtJsI3+6hz6
+ x8x6VQOTHTnqVzw7Zlqv2jWkHRhF7uAfN95X1NNmtC8AzAXIESvxoWW04EILsC7SyGTdVZhj+IZ
+ q9bni2D19nEgKJ2hWSUTzxp8qrYoeMn+Z/YyNRIXqmgWSVyKr9wySNQ8DLUf/FBoh5rbgX8b8B9
+ Z1j53LBnmDwD7KrTkWieSJtvFvggOSeOAZpO+ca7mohsZyynLFjaHwsBgtIsX/FsBzs4CqBdwlV
+ Gp62C88jOUEq1NRwT/ZJI5bKdIF3I+7JOQmbHIMLNPybZm38i3WcIzcGCh2El7GGJZVRngadd2N
+ wE53irOwz99Yp4GM5/074M9QRWzT33JZLJmT8ZLUJ5i0lSEHi/tP3rOQUFVPJqBggj9FwWvny0p
+ VgFQPJExZu1yWAbHAbF+S6VAKO5KWzr7ujAtOAL+IHq2SwJbjQw2zg4rc5Nxi1cGfAf6De7H/+c
+ wB9u0tw9GLERtkpNtSg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-14_03,2026-09-13_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 malwarescore=0 clxscore=1011 priorityscore=1501 impostorscore=0
+ spamscore=0 lowpriorityscore=0 phishscore=0 bulkscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140140
 
-On Thu, 10 Sep 2026 10:19:08 -0400
-Waiman Long <longman@redhat.com> wrote:
+This series enables the Iris video codec on Eliza, allowing Eliza to
+use hardware-accelerated video encoding and decoding.
 
-> The osq_lock is special in the sense that lock transfer from one CPU to
-> the next can happen either over the common optimistic_spin_queue.tail
-> value with uncontended lock or over a lock waiter's own percpu
-> optimistic_spin_node.locked flag when the lock is contended.
->=20
-> To ensure proper lock synchronization, we need to provide
-> the acquire/release semantics for the osq_lock/osq_unlock()
-> functions in both cases. This is currently the case for the
-> common optimistic_spin_queue.tail value, but not for the percpu
-> optimistic_spin_node.locked flag as the proper barriers are missing in
-> some places. Fix that by adding the needed barriers in those places.
->=20
-> Note that the two percpu optimistic_spin_node.locked setting in
-> osq_unlock() are proceeded by a full barrier xchg() call, but the
-> contended cachelines are different. This should probably work in most
-> cases except in some exotic architectures where the barrier semantics
-> may be cacheline specific. Nevertheless a release barrier is still added
-> for safety reason as we may opt to relax the xchg() calls in the future.
->=20
-> The "node->locked" read in osq_lock() was relaxed by commit 036cc30c6b6a
-> ("locking/osq: No need for load/acquire when acquire-polling") a while
-> ago as the smp_load_acquire() loop was causing a performance hit due to
-> the repeated acquire barriers in the loop and it argued that an earlier
-> atomic_xchg() call could provide the needed barrier. That may not be
-> enough especially if we have to loop for a while before the lock is
-> released. Now with the new smp_cond_load_acquire() helper, only one
-> acquire barrier is added at the end of the loop. So it shouldn't have
-> the performance hit noted in that commit.
->=20
-> Currently osq_lock is used only by mutex and rw_semaphore code for queuing
-> purpose. As a result, the imperfect lock synchronization support does
-> not cause harmful consequence as the new osq_lock owner of a contended
-> osq_lock will still have to wait for the real mutex and rwsem lock to
-> be released by the pervious osq_lock owner before it can acquire it and
-> go into its critical section. For correctness, we still have to fix it
-> in case it is used elsewhere which doesn't have this inherent protection.
->=20
-> Fixes: 036cc30c6b6a ("locking/osq: No need for load/acquire when acquire-=
-polling")
-> Tested-by: H=C3=A5kon Bugge <haakon.bugge@oracle.com>
-> Signed-off-by: Waiman Long <longman@redhat.com>
-> ---
->  kernel/locking/osq_lock.c | 11 +++++++----
->  1 file changed, 7 insertions(+), 4 deletions(-)
->=20
-> diff --git a/kernel/locking/osq_lock.c b/kernel/locking/osq_lock.c
-> index b4233dc2c2b0..ef1bbd914917 100644
-> --- a/kernel/locking/osq_lock.c
-> +++ b/kernel/locking/osq_lock.c
-> @@ -143,7 +143,7 @@ bool osq_lock(struct optimistic_spin_queue *lock)
->  	 * is implemented with a monitor-wait. vcpu_is_preempted() relies on
->  	 * polling, be careful.
->  	 */
-> -	if (smp_cond_load_relaxed(&node->locked, VAL || need_resched() ||
-> +	if (smp_cond_load_acquire(&node->locked, VAL || need_resched() ||
->  				  vcpu_is_preempted(node_cpu(node->prev))))
+The Iris codec on Eliza is based on the VPU3.3 hardware, sharing the
+Compared to SM8650, Eliza has:
+- 2 VPP pipes instead of 4, limiting the maximum supported resolution
+  to 4K.
 
-The comment above needs changing to match.
+fluster result:
+H.264:
+Ran 76/135 tests successfully
 
-David
+H.265:
+Ran 138/147 tests successfully
 
->  		return true;
-> =20
-> @@ -224,11 +224,14 @@ void osq_unlock(struct optimistic_spin_queue *lock)
->  	node =3D this_cpu_ptr(&osq_node);
->  	next =3D xchg(&node->next, NULL);
->  	if (next) {
-> -		WRITE_ONCE(next->locked, 1);
-> +		/* Provide release barrier for unlock */
-> +		smp_store_release(&next->locked, 1);
->  		return;
->  	}
-> =20
->  	next =3D osq_wait_next(lock, node, OSQ_UNLOCKED_VAL);
-> -	if (next)
-> -		WRITE_ONCE(next->locked, 1);
-> +	if (next) {
-> +		/* Provide release barrier for unlock */
-> +		smp_store_release(&next->locked, 1);
-> +	}
->  }
+VP9:
+Ran 225/305 tests successfully
+
+Signed-off-by: Wangao Wang <wangao.wang@oss.qualcomm.com>
+---
+Wangao Wang (4):
+      dt-bindings: media: qcom,sm8550-iris: Document Eliza IRIS accelerator
+      media: iris: Add support for Eliza
+      arm64: dts: qcom: eliza: Add iris video codec node
+      arm64: dts: qcom: eliza-mtp: Enable iris video codec
+
+ .../bindings/media/qcom,sm8550-iris.yaml           |  2 +
+ arch/arm64/boot/dts/qcom/eliza-mtp.dts             |  4 +
+ arch/arm64/boot/dts/qcom/eliza.dtsi                | 98 ++++++++++++++++++++++
+ .../platform/qcom/iris/iris_platform_common.h      |  1 +
+ .../media/platform/qcom/iris/iris_platform_vpu3x.c | 45 ++++++++++
+ drivers/media/platform/qcom/iris/iris_probe.c      |  4 +
+ 6 files changed, 154 insertions(+)
+---
+base-commit: 68142f986ff04b2b70b31db00f719bf690f64a9a
+change-id: 20260914-add_iris_for_eliza-cfa43039a976
+prerequisite-message-id: 20260914-vpu_iommu_iova_handling-v4-0-9b9074a73c41@oss.qualcomm.com
+prerequisite-patch-id: e1330b5a848460d14cd6574877fcf607d269d9a1
+prerequisite-patch-id: 20d099e89443a097b9ec5b297f0129d9874ca54b
+prerequisite-patch-id: 2a36ab03d78d8e9c19c900e203b05739a9fd1123
+prerequisite-patch-id: 9e326a273e052af2b63300dd20f2fd6cc78dd5ac
+prerequisite-patch-id: bb9ca73889bfca249029efb854fb1634a4360b5c
+prerequisite-patch-id: 9e71460e2d5f1e4e2993819f4d9fa27c076946f1
+prerequisite-patch-id: a2b127d41c7133ea30721a72eca01333334844f7
+prerequisite-patch-id: e34741f76b6919db19236ead27c966b789736e66
+prerequisite-patch-id: 359d24229ad496633892e70b1cf88c2d88dfad24
+prerequisite-patch-id: 6e2e9069cb620143aa305b7b29b8b1982dd0648b
+prerequisite-patch-id: 3e5fe6ef2271be5263a4bf7ffbd77b0996037b27
+prerequisite-patch-id: e051524017c9f39f8593fb9d2e982e6a4c39fb35
+prerequisite-patch-id: 1b4863f7a7f3a8390c825d76805e8e99de97a2a7
+
+Best regards,
+-- 
+Wangao Wang <wangao.wang@oss.qualcomm.com>
 
