@@ -1,121 +1,113 @@
-Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com [209.85.222.176])
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64DFD27FB25
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:28:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0902D33A9E9
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:28:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789410518; cv=none; b=CMeuSO2gdmlJpD3xYKfn6Y0brDZvyV7xQU0034dA97+W7BOOQbpue3jO2smnsQbTAJWHhQeD67B9eTIOzG4BZ2vw+RjB/l4cSVK2h67YVT4WMMbpK2EAOmvaaBBBeAkaIh3Kc/GA25sanrhyFraSLM6ClBiVEqibyxDRqaOIbBo=
+	t=1789410539; cv=none; b=DyYG3Ixjx2nQFgewWDcawhSoy4rpZyN9Vh2FV7XuEP2gw0gxW5z6HoKg0KZmuzfbFikbaL6baSGjshe0WKPtGRAqg6dM8mNbWxrHLn93UxsnhY4Wqsy715jRMs04ZsqPkBYgerQ5dHbncdPPln5hPCqQOGYhUHxx5w34qfgFxJM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789410518; c=relaxed/simple;
-	bh=Oc3nAJjpp0QjpjXeocnToBp2SCGQxGodC291S1yGpsQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=o344OnzH4Cfa20J4ni8VKbxEeSSekfGrdLdekli7vP7hbkt5AUV4JeWFHhNpz21T4/o9IfbzwBBC/iLytb1MbnbvaB7U7oAgdBGhwSx8DMH3x/b/kYrPXWfNdWsDEkUr8aTbeKuPVkyKPm89fmtzUY2SqcImW4/4QsVTk0ySz/w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HirI/9fp; arc=none smtp.client-ip=209.85.222.176
+	s=arc-20240116; t=1789410539; c=relaxed/simple;
+	bh=Pwu/0Cot70c9cl/FQ0qDdWdGr0VR3q3j9hvKe2dSMUU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VbIWcE7YI9RtrpxuODR/CACfi8MvmuhjHGDuB8MIST9jCuMi7P+RwGyKNJ6c6u2aNsr3HCj8nsQBK/anIRoZ9Efi9j6RbRJlksjJ1jEbqCJ/e722weYHrZMIh9Ho+j6b6x7SfDtkd2wiRbfKFp1Ajr5ldQtubDX28fU9P6PHl/0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tIfOgnJy; arc=none smtp.client-ip=74.125.228.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HirI/9fp"
-Received: by mail-qk1-f176.google.com with SMTP id af79cd13be357-93a125dd74bso162826585a.3
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:28:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tIfOgnJy"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c294496989aso416438266b.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:28:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789410515; x=1790015315; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uXGFxPZOAw9wmXg2dzwPQVLDwdqQiEsc4hGqI92R0HE=;
-        b=HirI/9fpT1gBnLbAejD4U4TUTuRwj+w3Mu3k3i7viNWnNZf9xqTLwZCDO9cRZGTvXY
-         1hLwizlI8sAVoVPWDfoy1mvT9QgkU02vg2qXGsX3n0J3bp5Lf8c8n/fxwRz8uYvtK19S
-         ranxrpjGWsm9lGJp0IUua0sHGp4245uXNfmmx7HF154ZUQI15/pojbM0j25pPuIm9rl7
-         5D6F73L3WPiDlTr0S5IVVHpmdOoPM6wrpaGjQcQFklaXhJm0KpSFBI4w84bOZRo0a/p0
-         SL/nZjEzq9lZ8Z2vsdmc3Ez4ZNXlrqQuPNzz8WCCMu1yGr4gxXrWLEIYjEuDfIiG7jvU
-         mHHw==
+        d=gmail.com; s=20251104; t=1789410535; x=1790015335; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TzAQVlxc3SiItgqPCAg4pRFm0RhGbGZG5JH2sIt5XL4=;
+        b=tIfOgnJyAl/VbEUJeidi5elXy9sxivmH9fqWsr9PJtIClxDujdC6IYllYnY8dPG+3u
+         NJ2U5ONAAcD+UFOMvbBlQMFCpTIwYxZ9/WKXlcCwoJGNssKfGmLCb7TJFv8gbFYx0uJ3
+         8lH0jVe87JkzHmxvUTWPAfBr6ryLvBi+6QsSgfWY9K6a3O1wAJXNE/NgJf+ZHoeD7/Pn
+         E8ef59hAGUTDGF+v3XgbeudtLM+dVPsnDnz8pjR1OQvyiPWek7l9bDtoRsVaQ1NUuEFH
+         Vwdyw14+1i3gfyVuOZRU6nPPDcpoFHh0FKgdTjegktLhCZrXlWkY3N5uibhR61CeI/tU
+         gVNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789410515; x=1790015315;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1789410535; x=1790015335;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=uXGFxPZOAw9wmXg2dzwPQVLDwdqQiEsc4hGqI92R0HE=;
-        b=j1qPMHekly18pw81tsbiRzb2Dks8Q9ig9cxUMv/XXOTefDgIajacyW5zTfIxPhPWUj
-         rdPdHOFRI5VR6TUi41P5PYny2UpVEY2B6bL6bSrbKccFlHaELWJ1HMCt6ZLJI9LHa4OT
-         yU+XlBRPCO2RpflD1RxB8vV2xImVz9AjUw04wr7slJybLABqzSH8vfvR+nU86xCBuFUl
-         8VOIV1XHzLp7Jn4AwvIO0gdJqUGrRXZ5SjO6kLk/SJidm6bHRsK2QtdLL92ZCWUO1p6g
-         IX/Xjdn7N+HkipJk27fJ8Z1cFq7pzIPpWJ++aKiZu7HL3KaOt9ZWdjK1SSvDQFD51Ut3
-         /oNA==
-X-Forwarded-Encrypted: i=1; AKwUvByDOYAmLqYXR0cgmH2N9qHchk4R87KcQnnqbQ4VZVWzU/q8NV/6hE62xBmQbEgvr4ykGRiYLVYF/AOeCSo=@vger.kernel.org
-X-Gm-Message-State: AFuF++lJFYLIj/rfyRrfoPpSn3OmEMvOOEp5l/RM6o1Z1ivRVccnIFzl
-	R89yNykeffICLVgN6f6exHk+ooXvX1z195Eb0RPBSLUKx78zbgsC2Erx
-X-Gm-Gg: AYBFou2yaoZrlKpnlE4NKfJswm8NJErYNt7B2oyWoisLYk2PR6FD/ZfFQDprBZrtf/3
-	LjC2KT64K1qQks5R+EtSsdq8c4gxR4//0MPW1KR+Krf0G/EBwnsqSBPunJnGK0C+SMX5yTiL1bq
-	2Wt3yoQOn3l0rBk7JLGEQfbRZU8xZafF+HJ1uZ32JzooaqyT+jX5TEWb+QdsuWI85fqMwuRHEtP
-	VTxwPwQbe3795lTvm0vH4zgZz6gzqZ3sJJG15djHEvjiDRNbHhI4WG8csevUYhT7G+bFme6SiBY
-	ewkJyjl8dztmdP8AtSspWXb3Aw9QeBEjS+4KEQkSFv6R6iczKaYF9rB5/2EhynIepV7aPmwwMUI
-	zGWceyGRi30lh/puHETXG3Njrxpu1IG0wca04s9yIhpiQBiTddQinFrl4jGJWxiT/qDelSKQ84K
-	BiEPQM5PXst30zCWsSzwdKjBhPMD4qEbImuMJ6aHHtu8jA+naxVUkvKcNzROYqmgk9/QNG0k7pA
-	2z/s/ga0ksv730TOQIcohCyxw==
-X-Received: by 2002:a05:620a:2549:b0:939:3571:bb90 with SMTP id af79cd13be357-93a2994242emr542974585a.24.1789410514974;
-        Mon, 14 Sep 2026 11:28:34 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-939e811b572sm1070310985a.47.2026.09.14.11.28.32
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 14 Sep 2026 11:28:34 -0700 (PDT)
-Message-ID: <3d3c3a1e-8569-4798-9cac-68c58416064b@gmail.com>
-Date: Mon, 14 Sep 2026 11:28:31 -0700
+        bh=TzAQVlxc3SiItgqPCAg4pRFm0RhGbGZG5JH2sIt5XL4=;
+        b=yYUbbPFE3+b1XcNZE4zCozn/Zbqud035CVpZqBTcoM0sgLv2vwJ2Bt/Xy8VhdMBZBR
+         LrCt9IWKmKJDDq/jVYROHBEBUDpen/o3z8an2l1DABC7NwfUASkiTBBj//zwmbYvoWIX
+         JtoaS4Mog+4+C1ADQZBu9EUvoJMeZ+6a3Xx/fjHbKI+pxVhPJ7if7UKTYDDqvmQgcbNs
+         l3xfU1t97W4NBfuvkO2e4j8nlbCeG/vowvcWtBaKEiJbkBIU+tugoJ6ZYYK//4xHzd7w
+         VMCD7KbIr7tGjhQaHncKmc2nTuF3Exh6fmoVPz50U2XLNwztrHJf/x7dOGLgX5ywlKIo
+         L5yw==
+X-Forwarded-Encrypted: i=1; AKwUvByed5Wo3aW1Y/8i6Q2OsF+TVyGT/l7KWtG4bMLHsjfq/SN5UPsYqGWj3hZ2ttaFoTO2vlf9Lh0LY5EPGDc=@vger.kernel.org
+X-Gm-Message-State: AFuF++nyLrrnw5UyrdHrb2/QgttuWp+dHwclW3d6iahZISUTvM7pzBd/
+	XyUCt2gKt4k/n+Ryr9eap5pi0eHj4XFIifL1OZzef7eQ/RRciWgu5t/YQUBLaQ==
+X-Gm-Gg: AYBFou0UO8Rf8xme2hBUUUcrxY5IaNMz24YvY9ew1X+a/uFblWuAbMxO92itg5LtU7Q
+	9iCSYUIewr+ejUEaY8TDJp/WRF7DQJHhgfpvq7wzNQ1h+gz7V9wc//Q2B+agjQc0GHDVEulGD7J
+	ruyrusWf3PohIwyD2xxcel5c1khnh3cDWfKYa8b6F20kmHo7u5sGOJrVVgbo9uT48ShFK55W0x8
+	Jtpljx8aj4RZvUG59Qi5Efj68yefnTY0ta5N+JUVG8TgIW5cDZHTPD8XGRnTt2SklvgI9KtMOCg
+	yW0rut9iurX89YWoG5aRgm3Ewqt4rh5Rb78JIzoHrpVb+D0OIq7v0Z4kFQfZKvwLOSVhkKxFVq6
+	xjiQ7rvYDXzD/6UZQAARnmG2KRVixD/8nCF/0TQ/VShto+KqcVy4sDv96GcrcCiUtzWrs86raOy
+	70PjdHvJQ0CNQ/KCOPT9g2oESiYbOy+tG7jVP6kg9uWJfzx09OrSai/Ubs8rKzgR2ogY7bN6Hpi
+	YuS7QFAiUemjP9OSurKM+i0j+DLnUCSRd93nt1y5sowYvBIKgNFcg6Ad6E=
+X-Received: by 2002:a17:907:c13:b0:c26:1648:a06c with SMTP id a640c23a62f3a-c29b8770a38mr275145766b.39.1789410534761;
+        Mon, 14 Sep 2026 11:28:54 -0700 (PDT)
+Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c296614b29bsm467316666b.62.2026.09.14.11.28.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 11:28:54 -0700 (PDT)
+From: David Carlier <devnexen@gmail.com>
+To: rostedt@goodmis.org,
+	mhiramat@kernel.org
+Cc: mathieu.desnoyers@efficios.com,
+	vdonnefort@google.com,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	David Carlier <devnexen@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] ring-buffer: Take cpus_read_lock() when changing the subbuf order
+Date: Mon, 14 Sep 2026 19:28:43 +0100
+Message-ID: <20260914182850.21449-1-devnexen@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.18 0000/1518] 6.18.52-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20260912065623.398859879@linuxfoundation.org>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <20260912065623.398859879@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/11/26 23:36, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.18.52 release.
-> There are 1518 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Mon, 14 Sep 2026 06:54:17 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.52-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+A CPU coming online during ring_buffer_subbuf_order_set() can be added
+to buffer->cpumask after the allocation loop, and the install loop then
+uses its empty new_pages list, corrupting the buffer.
 
-perf fails to build on arm/arm64/mips with:
+Take cpus_read_lock() as ring_buffer_resize() does.
 
-   LINK 
-/local/users/fainelli/buildroot/output/arm64/build/linux-custom/tools/perf/perf
-/local/stbopt_p/toolchains_303/stbgcc-12.4-2.0/bin/../lib/gcc/aarch64-unknown-linux-gnu/12.4.0/../../../../aarch64-unknown-linux-gnu/bin/ld: 
-/local/users/fainelli/buildroot/output/arm64/build/linux-custom/tools/perf/perf-in.o: 
-in function `perf_c2c__report':
-builtin-c2c.c:(.text+0x420dc): undefined reference to `perf_env__e_machine'
-collect2: error: ld returned 1 exit status
+Fixes: f9b94daa542a ("ring-buffer: Set new size of the ring buffer sub page")
+Cc: stable@vger.kernel.org
+Signed-off-by: David Carlier <devnexen@gmail.com>
+---
+ kernel/trace/ring_buffer.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-that is coming from 629978bc30938bc4929ff6c8b0dbc6fb637ac8f3 ("perf c2c: 
-Use perf_env e_machine rather than arch").
+diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
+index 04bb94c29f58..445931bc9ae0 100644
+--- a/kernel/trace/ring_buffer.c
++++ b/kernel/trace/ring_buffer.c
+@@ -7464,6 +7464,12 @@ int ring_buffer_subbuf_order_set(struct trace_buffer *buffer, int order)
+ 	if (psize > RB_WRITE_MASK + 1)
+ 		return -EINVAL;
+ 
++	/*
++	 * Keep CPUs from coming online while changing the order to
++	 * synchronize with new per CPU buffers being created.
++	 */
++	guard(cpus_read_lock)();
++
+ 	/* prevent another thread from changing buffer sizes */
+ 	guard(mutex)(&buffer->mutex);
+ 
 -- 
-Florian
+2.55.0
+
