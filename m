@@ -1,113 +1,122 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+Received: from mta0.migadu.com (out-187.mta0.migadu.com [91.218.175.187])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0902D33A9E9
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:28:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 211ED37F72E
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:29:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.187
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789410539; cv=none; b=DyYG3Ixjx2nQFgewWDcawhSoy4rpZyN9Vh2FV7XuEP2gw0gxW5z6HoKg0KZmuzfbFikbaL6baSGjshe0WKPtGRAqg6dM8mNbWxrHLn93UxsnhY4Wqsy715jRMs04ZsqPkBYgerQ5dHbncdPPln5hPCqQOGYhUHxx5w34qfgFxJM=
+	t=1789410556; cv=none; b=FfbgsMc88FvBEvICONVXeNMzpjKrPlgUOxlo/cPe683sNoSfr3LMWhRc3iHd3l+cZqd+gDBRaZNZW9XfPLAk6DzPz3lE5aryyGBcxGtC7yC+0GpMenBIwOc8tpBy/QZvDCsE67xmD7aiZDTs0fhCvpgg5YCKaYtcnI6miIt4pEo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789410539; c=relaxed/simple;
-	bh=Pwu/0Cot70c9cl/FQ0qDdWdGr0VR3q3j9hvKe2dSMUU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VbIWcE7YI9RtrpxuODR/CACfi8MvmuhjHGDuB8MIST9jCuMi7P+RwGyKNJ6c6u2aNsr3HCj8nsQBK/anIRoZ9Efi9j6RbRJlksjJ1jEbqCJ/e722weYHrZMIh9Ho+j6b6x7SfDtkd2wiRbfKFp1Ajr5ldQtubDX28fU9P6PHl/0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tIfOgnJy; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789410556; c=relaxed/simple;
+	bh=7/sIrvEWn39u77dnOkwjRM5cwchngQ5qOWcv4z5CNe0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=po1O2PHBRKFWUqD14U2nq7C40pWVeLko7MPWobhyfPbR+WfNJuc7X+Oc7bGWlqcbAJsHnoUhUiBgIJWvgF+6tDStY8uG75d93tUux+mc/vxhQIq1HyLGiqmKg9AHlqgN0pYx/TLBtp8PbVdILrwiWdn775R4681l7TA95S69RW0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=HALt7N0c; arc=none smtp.client-ip=91.218.175.187
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tIfOgnJy"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c294496989aso416438266b.3
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:28:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789410535; x=1790015335; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TzAQVlxc3SiItgqPCAg4pRFm0RhGbGZG5JH2sIt5XL4=;
-        b=tIfOgnJyAl/VbEUJeidi5elXy9sxivmH9fqWsr9PJtIClxDujdC6IYllYnY8dPG+3u
-         NJ2U5ONAAcD+UFOMvbBlQMFCpTIwYxZ9/WKXlcCwoJGNssKfGmLCb7TJFv8gbFYx0uJ3
-         8lH0jVe87JkzHmxvUTWPAfBr6ryLvBi+6QsSgfWY9K6a3O1wAJXNE/NgJf+ZHoeD7/Pn
-         E8ef59hAGUTDGF+v3XgbeudtLM+dVPsnDnz8pjR1OQvyiPWek7l9bDtoRsVaQ1NUuEFH
-         Vwdyw14+1i3gfyVuOZRU6nPPDcpoFHh0FKgdTjegktLhCZrXlWkY3N5uibhR61CeI/tU
-         gVNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789410535; x=1790015335;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TzAQVlxc3SiItgqPCAg4pRFm0RhGbGZG5JH2sIt5XL4=;
-        b=yYUbbPFE3+b1XcNZE4zCozn/Zbqud035CVpZqBTcoM0sgLv2vwJ2Bt/Xy8VhdMBZBR
-         LrCt9IWKmKJDDq/jVYROHBEBUDpen/o3z8an2l1DABC7NwfUASkiTBBj//zwmbYvoWIX
-         JtoaS4Mog+4+C1ADQZBu9EUvoJMeZ+6a3Xx/fjHbKI+pxVhPJ7if7UKTYDDqvmQgcbNs
-         l3xfU1t97W4NBfuvkO2e4j8nlbCeG/vowvcWtBaKEiJbkBIU+tugoJ6ZYYK//4xHzd7w
-         VMCD7KbIr7tGjhQaHncKmc2nTuF3Exh6fmoVPz50U2XLNwztrHJf/x7dOGLgX5ywlKIo
-         L5yw==
-X-Forwarded-Encrypted: i=1; AKwUvByed5Wo3aW1Y/8i6Q2OsF+TVyGT/l7KWtG4bMLHsjfq/SN5UPsYqGWj3hZ2ttaFoTO2vlf9Lh0LY5EPGDc=@vger.kernel.org
-X-Gm-Message-State: AFuF++nyLrrnw5UyrdHrb2/QgttuWp+dHwclW3d6iahZISUTvM7pzBd/
-	XyUCt2gKt4k/n+Ryr9eap5pi0eHj4XFIifL1OZzef7eQ/RRciWgu5t/YQUBLaQ==
-X-Gm-Gg: AYBFou0UO8Rf8xme2hBUUUcrxY5IaNMz24YvY9ew1X+a/uFblWuAbMxO92itg5LtU7Q
-	9iCSYUIewr+ejUEaY8TDJp/WRF7DQJHhgfpvq7wzNQ1h+gz7V9wc//Q2B+agjQc0GHDVEulGD7J
-	ruyrusWf3PohIwyD2xxcel5c1khnh3cDWfKYa8b6F20kmHo7u5sGOJrVVgbo9uT48ShFK55W0x8
-	Jtpljx8aj4RZvUG59Qi5Efj68yefnTY0ta5N+JUVG8TgIW5cDZHTPD8XGRnTt2SklvgI9KtMOCg
-	yW0rut9iurX89YWoG5aRgm3Ewqt4rh5Rb78JIzoHrpVb+D0OIq7v0Z4kFQfZKvwLOSVhkKxFVq6
-	xjiQ7rvYDXzD/6UZQAARnmG2KRVixD/8nCF/0TQ/VShto+KqcVy4sDv96GcrcCiUtzWrs86raOy
-	70PjdHvJQ0CNQ/KCOPT9g2oESiYbOy+tG7jVP6kg9uWJfzx09OrSai/Ubs8rKzgR2ogY7bN6Hpi
-	YuS7QFAiUemjP9OSurKM+i0j+DLnUCSRd93nt1y5sowYvBIKgNFcg6Ad6E=
-X-Received: by 2002:a17:907:c13:b0:c26:1648:a06c with SMTP id a640c23a62f3a-c29b8770a38mr275145766b.39.1789410534761;
-        Mon, 14 Sep 2026 11:28:54 -0700 (PDT)
-Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c296614b29bsm467316666b.62.2026.09.14.11.28.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 11:28:54 -0700 (PDT)
-From: David Carlier <devnexen@gmail.com>
-To: rostedt@goodmis.org,
-	mhiramat@kernel.org
-Cc: mathieu.desnoyers@efficios.com,
-	vdonnefort@google.com,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	David Carlier <devnexen@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] ring-buffer: Take cpus_read_lock() when changing the subbuf order
-Date: Mon, 14 Sep 2026 19:28:43 +0100
-Message-ID: <20260914182850.21449-1-devnexen@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="HALt7N0c"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=7/sIrvEWn39u77dnOkwjRM5cwchngQ5qOWcv4z5CNe0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789410548; v=1; x=1790015348;
+ b=HALt7N0cOxMnNaUow9IIH4OTA9XZK5nHjBI26EWot4SxX/FiokO0Vp6n7rUjQJwqpXAndp9/
+ sLQYEnUTgS2agFYD15teXBYrELTAYWp3d6lJALmYzj3ggqNheIZF61FStfhR1ZfeYW6cp0J4mRi
+ 8rmAr9Bq8cyu83YeE6nt3FBI=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 46738f0eef395c07;
+	Mon, 14 Sep 2026 18:29:08 +0000
+X-Mizu-Trace-ID: 46738f0eef395c07
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <029a18c3-f6f5-4971-8ee2-25a98dec416c@linux.dev>
+Date: Mon, 14 Sep 2026 19:30:54 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/8] soundwire: amd: fix work drain ordering and
+ pm_runtime guard in remove path
+To: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>, vkoul@kernel.org
+Cc: yung-chuan.liao@linux.intel.com, Basavaraj.Hiregoudar@amd.com,
+ Sunil-kumar.Dommati@amd.com, venkataprasad.potturu@amd.com,
+ Syed.SabaKareem@amd.com, Mario.Limonciello@amd.com, Richard.Gong@amd.com,
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260910190240.1604447-1-Vijendar.Mukunda@amd.com>
+ <20260910190240.1604447-4-Vijendar.Mukunda@amd.com>
+ <860a28bf-9c69-48da-9fa7-1cdb82761c35@linux.dev>
+ <3abf2784-49ff-459c-9022-acd88bd767b4@amd.com>
+Content-Language: en-US
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
+In-Reply-To: <3abf2784-49ff-459c-9022-acd88bd767b4@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-A CPU coming online during ring_buffer_subbuf_order_set() can be added
-to buffer->cpumask after the allocation loop, and the install loop then
-uses its empty new_pages list, corrupting the buffer.
+On 9/14/26 08:07, Mukunda,Vijendar wrote:
+> 
+> 
+> On 9/14/26 01:35, Pierre-Louis Bossart wrote:
+>> On 9/10/26 21:00, Vijendar Mukunda wrote:
+>>> amd_sdw_manager_remove() cancelled amd_sdw_work but not
+>>> amd_sdw_irq_thread. Since amd_sdw_irq_thread() calls
+>>> schedule_work(&amd_sdw_work), an in-flight irq_thread item can
+>>> re-queue amd_sdw_work after its cancel returns, defeating the
+>>> cancellation.
+>>>
+>>> Fix by calling amd_disable_sdw_interrupts() first to quiesce the
+>>> hardware IRQ source, then cancel_work_sync() for amd_sdw_irq_thread,
+>>> then cancel_work_sync() for amd_sdw_work. The existing
+>>> cancel_work_sync(amd_sdw_work) is also moved to after
+>>> amd_disable_sdw_interrupts() so that any work item queued between the
+>>> old cancel position and the interrupt disable cannot escape draining.
+>>>
+>>> synchronize_irq() is deliberately not used before the
+>>> cancel_work_sync() calls. Once SoundWire interrupts are masked, no new
+>>> IRQ deliveries can occur. An IRQ handler already in flight may still
+>>> queue amd_sdw_irq_thread, so cancel_work_sync() is used to drain both
+>>> amd_sdw_irq_thread and any amd_sdw_work items it may have scheduled.
+>>> This fully quiesces the driver workqueues, making synchronize_irq()
+>>> unnecessary.
+>>>
+>>> Also guard pm_runtime_disable() so it is only called when runtime PM
+>>> was actually enabled. amd_sdw_manager_start() calls pm_runtime_enable()
+>>> only at the very end, after several fallible hardware init steps. If
+>>> sdw_amd_startup() fails mid-loop (one manager started, the next fails
+>>> before pm_runtime_enable()), sdw_amd_exit() triggers
+>>> platform_device_unregister() for all managers. Calling
+>>> pm_runtime_disable() on the partially-started manager finds
+>>> disable_depth already at its initial value of 1, silently increments it
+>>> to 2 and returns without a warning, so a later pm_runtime_enable() would
+>>> only bring it back to 1 and leave runtime PM disabled. Use
+>>> pm_runtime_enabled() to skip the call when it was never paired with an
+>>> enable.
+>> The alternative is to do a pm_runtime_enable() in the probe(), and later
+>> a pm_runtime_set_active().
+>>
+>> That way if the probe is successful, then the remove() will always deal
+>> a balanced enable.
+>>
+>> Maybe only put a single 'fix' per patch?
+> Thanks for the comments. I agree that it is preferable to keep each patch
+> focused, but in this case both changes are part of the same remove-path
+> cleanup bug and are tightly coupled.
+> 
+> I do not think moving pm_runtime_enable() to probe() is the right fix
+> here. In this driver, runtime PM is intentionally enabled only at the end
+> of amd_sdw_manager_start(), after the fallible hardware bring-up sequence.
+> If one instance succeeds and the next fails before pm_runtime_enable(), the
+> remove path can still run for the partially started instance. In that
+> scenario, an unconditional pm_runtime_disable() is incorrect because there
+> was no matching enable for that instance.
 
-Take cpus_read_lock() as ring_buffer_resize() does.
+My take on error handling is to avoid partially functional setups. Keep
+things simple, fail big and fail early. Well-intended concealment
+schemes will introduce more problems, e.g. if the link for the right amp
+fails the left one might work, but users will complain about left-only
+sounds...
 
-Fixes: f9b94daa542a ("ring-buffer: Set new size of the ring buffer sub page")
-Cc: stable@vger.kernel.org
-Signed-off-by: David Carlier <devnexen@gmail.com>
----
- kernel/trace/ring_buffer.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-index 04bb94c29f58..445931bc9ae0 100644
---- a/kernel/trace/ring_buffer.c
-+++ b/kernel/trace/ring_buffer.c
-@@ -7464,6 +7464,12 @@ int ring_buffer_subbuf_order_set(struct trace_buffer *buffer, int order)
- 	if (psize > RB_WRITE_MASK + 1)
- 		return -EINVAL;
- 
-+	/*
-+	 * Keep CPUs from coming online while changing the order to
-+	 * synchronize with new per CPU buffers being created.
-+	 */
-+	guard(cpus_read_lock)();
-+
- 	/* prevent another thread from changing buffer sizes */
- 	guard(mutex)(&buffer->mutex);
- 
--- 
-2.55.0
-
+That said, I am not going to lay on the tracks if this is the design you
+want for your IP.
