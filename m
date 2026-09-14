@@ -1,102 +1,91 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3F813B0594
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:03:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8FDE444707;
+	Mon, 14 Sep 2026 12:04:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789387440; cv=none; b=YzvgU8XYBr48Vqkzsm6myBSVSQV16r4jFoyv3JTTuizYjjZ/ftMILlTxI8yezXAm5CqzAO6Oh4thDUCdSWudKYaulZ9OE9HKF6RlPgwjJ4ADd+dzypyd4Ql2tUoDLA9cblJTe6lQsv2AoJ+0jMI7v2Z8uHQOxpBp1CGh7os5Cik=
+	t=1789387443; cv=none; b=UrNaDX58BdBj/qujSbgdrhOUqW13lN5myk6frS6PVxcUFfuzXXZKonQq3YgqVwB6+39/V3TSvEpaVSg5XBYajryRs8+RQ7mBPMLo7luHIkw1qPl24JvdgXMnrIVZsCejd/p+zUqHRv7Z2NMr/ttxMDbEwvwWtyraqPQ83lJhEJ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789387440; c=relaxed/simple;
-	bh=NH+/GP4vFtwuHPuWkUzuYIWfvZjs1JBMnufN3gOnkL0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZjVyoMGoG2/nt4dwYuNnhtasQHs6qVJ+GqIpBHepwGWnLJfDx/NyalJzoI8MB9dMgSow4sKYhr16IKgDnCZB1Zbuh9MdejWYJkvLACh5Xck/WbS4VEmkhG9lBSt5kgIlOeqfXODHpI87uKg0EjFNf7IA4IBPP5gVIHcNR6BVyuM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=wK7RZvl9; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1789387443; c=relaxed/simple;
+	bh=e7WLh5KB/B0DBpKcW1DUwnx+lCTe8XcvWZd64p73F14=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=es5XtJkbEsKHd906+oOE2WAZZznxEbKj7Z2RPnNzUuOhexv2xFDVWwtrY60hi42BRkeYWiYaLfx6GBmrF8GE5TvYt7Z1hy8YEHzcDRHGPRREjVM3/XVWy3g+TW1TT+AFlyYLakPSW6W+sDhuvxGNetbZ5I08LjGrgzJW9Puga/g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hm09lbjG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="wK7RZvl9"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=JZd+UOQDFy/E0v5Ar2hwnVR8iz/Z2JUbvw/wD+LnGgw=; b=wK7RZvl9NTQZCLZYEycfos0YYj
-	r2AeGwKNtLcELpxtTJRjwcvWAHet/dq9T0EnJjP2pNH6SN1uBdQmf4nkk5Isk1W+oluP7Hzcc4fbm
-	M0jF/ybNRbnMqikhPbTg0eAYC3zN10EexFmnY5Zu4E8wXm0Pw+ikgHH0jkOifLBcqWZjwDAVYfpCf
-	jsapobp4oIyNKOLdjmwHOqaLM+t8v7nI9NoKh82rUuORJHIh5VlC5BNACKoAoUjj06iqZNn133Z6p
-	oWkSYptvBseiawQpB6yzNmEQuzql09iDfe9yudFC4njW3Aap+9lkmhDwMkLHgQp78Ohthcyxp/hVc
-	x1+M5hfw==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x65Pd-0000000AmZ6-2IG6;
-	Mon, 14 Sep 2026 12:03:53 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id AC00230066A; Mon, 14 Sep 2026 14:03:52 +0200 (CEST)
-Date: Mon, 14 Sep 2026 14:03:52 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Waiman Long <longman@redhat.com>, Ingo Molnar <mingo@redhat.com>,
-	Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hm09lbjG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 256C01F000FF;
+	Mon, 14 Sep 2026 12:04:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789387441;
+	bh=hxY5YIWX2A55LWhwTPL5a90n771CdZxutiK9owzN9tM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=hm09lbjG22f4PN/yF9G8XjJkOF4aj3sN5qj5QWjCyuk76RaboRefzBZNzlyIfqKwu
+	 tvm5UpfLMueqyIZumZ9L7yzuLTJ5B10Vk3bulmN57i4ptJlHKkEACEi6qH7WZ4jBds
+	 oEKJNjJiheQy903xfNUEzSA8VVopfwajnYhZPN1NpgMmsernD5fdd9dXTfrWlSDcZX
+	 9s5X6U+7c7bxajmer28FIPJgkV1yIC4Qa/WoEh+visEE1rtiR354cwDrUvY+7GM5ax
+	 pZCv24o9v/ud0dZJth16m6W13XpRlk8CUn/VOVVyzPru/L/yNMf51mViueMAEr7X3F
+	 +kHot3CyfVK2A==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=valley-girl.lan)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1x65Pi-00000008bC0-3CKp;
+	Mon, 14 Sep 2026 12:03:58 +0000
+From: Marc Zyngier <maz@kernel.org>
+To: Oliver Upton <oupton@kernel.org>,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Yafang Shao <laoar.shao@gmail.com>,
-	Steven Rostedt <rostedt@goodmis.org>
-Subject: Re: [PATCH v4 next 3/9] locking/osq_lock: Set prev_cpu=0 instead of
- locked=1
-Message-ID: <20260914120352.GE3500130@noisy.programming.kicks-ass.net>
-References: <20260907084133.3696-1-david.laight.linux@gmail.com>
- <20260907084133.3696-4-david.laight.linux@gmail.com>
+	Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Vincent Donnefort <vdonnefort@google.com>,
+	Quentin Perret <qperret@google.com>,
+	kvm@vger.kernel.org
+Subject: Re: [PATCH] KVM: arm64: Fix the KVM_ARM_PREFERRED_TARGET documentation
+Date: Mon, 14 Sep 2026 13:03:36 +0100
+Message-ID: <178938739487.3215146.6544975088974680554.b4-ty@b4>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260831162815.269851-1-fuad.tabba@linux.dev>
+References: <20260831162815.269851-1-fuad.tabba@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260907084133.3696-4-david.laight.linux@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: oupton@kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, fuad.tabba@linux.dev, catalin.marinas@arm.com, will@kernel.org, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, vdonnefort@google.com, qperret@google.com, kvm@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Mon, Sep 07, 2026 at 09:41:27AM +0100, David Laight wrote:
+On Mon, 31 Aug 2026 17:28:15 +0100, Fuad Tabba wrote:
+> KVM_ARM_PREFERRED_TARGET has never set a feature bit: the original arm64
+> implementation zeroed the bitmap, and kvm_vcpu_preferred_target(), which
+> only ever zeroed it, was removed by commit 5346f7e13e5e ("KVM: arm64:
+> Always return generic v8 as the preferred target"). The ENODEV error had
+> gone earlier still, with commit 08e873cb70f3 ("KVM: arm64: Change the
+> return type of kvm_vcpu_preferred_target()"). Document what it returns,
+> that userspace selects vCPU features itself, and drop the error.
+> 
+> [...]
 
-> -	for (;;) {
-> -		/*
-> -		 * cpu_relax() below implies a compiler barrier which would
-> -		 * prevent this comparison being optimized away.
-> -		 */
-> +	for (;; prev = READ_ONCE(node->prev)) {
-> +		if (!prev)
-> +			/* Lock acquired */
-> +			return true;
+Applied to next, thanks!
 
-This lacks {}, but also, is not ACQUIRE like the return you remove
-below. Did you want smp_acquire__after_ctrl_dep() in there?
+[1/1] KVM: arm64: Fix the KVM_ARM_PREFERRED_TARGET documentation
+      commit: f3435cb7df9b8fe242bbf776a9ac496bdd2184e9
 
-> +
-> +		prev_ptr = decode_cpu(prev);
-> +
->  		if (data_race(prev_ptr->next) == node &&
->  		    cmpxchg(&prev_ptr->next, node, NULL) == node)
->  			break;
->  
->  		/*
-> -		 * We can only fail the cmpxchg() racing against an unlock(),
-> -		 * in which case we should observe @node->locked becoming
-> -		 * true.
-> +		 * 'prev' must have unlinked (or be in the process of unlinking)
-> +		 * itself from the list.
->  		 */
-> -		if (smp_load_acquire(&node->locked))
-> -			return true;
+Cheers,
 
-This is an ACQUIRE.
+	M.
+-- 
+Without deviation from the norm, progress is not possible.
 
->  
->  		cpu_relax();
-> -
-> -		/*
-> -		 * Or we race against a concurrent unqueue()'s step-B, in which
-> -		 * case its step-C will write us a new @node->prev pointer.
-> -		 */
-> -		prev = READ_ONCE(node->prev);
-> -		prev_ptr = decode_cpu(prev);
->  	}
+
