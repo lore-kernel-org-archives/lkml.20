@@ -1,39 +1,27 @@
-Received: from mail.tuxedocomputers.com (mail.tuxedocomputers.com [157.90.84.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sphereful.davidgow.net (sphereful.davidgow.net [203.29.242.92])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 325C746F4A0;
-	Mon, 14 Sep 2026 13:32:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=157.90.84.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11C733FAE15
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:33:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.242.92
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789392736; cv=none; b=s1/UkK51eq0wH9XdQzdF63o/NSivnDpayosKoG20rGkuYjQXPcygdWALUt5aBwaJmYKrw9vrq0bsvyG5urm7IFERcbXJmg6Q/Uz4ktQrMK0HoHA5j8Ng1E/e9AnkzjTMiDl8BMajZYKZmfCW04R2fsmVleNydtdnabN86+TlF9E=
+	t=1789392796; cv=none; b=TCbJxgaEH+QAjx3oKztL6q7JQKqzZwZL3yIpsJxU8kuD0b0QGoPFCjfQE1+QASWY9s1cc8xNMwc77Xlfvc7/QX1VNezGSKwOH3sGntBg3neoJ5WMfBGDwxn5lnr7RE0vuILK3t8rMZyKFe/N4kko8mK72VmKjhnBXU9yjBqBhEc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789392736; c=relaxed/simple;
-	bh=S/7DoU9w/adzeImuAELyp83bLhS+5tqqdA6JhGXIO/4=;
+	s=arc-20240116; t=1789392796; c=relaxed/simple;
+	bh=WbsbA8MP3iRH/jdx1lVTXcmoKlay3uwN3NglQdZtH4A=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=si4p72LaErq5N1fvBz9HQcAq2fWdwkFl+jAvedPxx8NFjHTsQyDk5KIiHJwL6xKlJL1BMm6p8RC6enMqPnz594o6oJ/Sy2vAc08wrg4yNxLzpS3tluLQbxcqMD8Zb1uR6dui7IeAyZhdqdMP63063lKJnHVaaONzIbk5VfQtS/Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tuxedocomputers.com; spf=pass smtp.mailfrom=tuxedocomputers.com; dkim=pass (1024-bit key) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.b=iItvpyeL; arc=none smtp.client-ip=157.90.84.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tuxedocomputers.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxedocomputers.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.b="iItvpyeL"
-Received: from [10.235.78.2] (dynamic-176-002-023-136.176.2.pool.telefonica.de [176.2.23.136])
-	(Authenticated sender: a.erhardt@tuxedocomputers.com)
-	by mail.tuxedocomputers.com (Postfix) with ESMTPSA id ED9BB2FC0063;
-	Mon, 14 Sep 2026 15:32:04 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tuxedocomputers.com;
-	s=default; t=1789392725;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=BroUSLltzgQ4tFVvgwVa49cEuOWIstWsPc6LnBEpsKI=;
-	b=iItvpyeLfzTYVBbES53XX4NhsoNHvDwSebXHJ4u04HcAU0L9p0+gaRD9tmvSbfMtppdYlT
-	WOOGgCiIJLv9xShUtlS86qK8igLWUJnCBudV4FL9ZCd6EpsuS0tabsCPbddy7+3hcjlNXC
-	LWRDSD5rQmCfOUdtOboyLbOi4UuISwk=
-Authentication-Results: mail.tuxedocomputers.com;
-	auth=pass smtp.auth=a.erhardt@tuxedocomputers.com smtp.mailfrom=aer@tuxedocomputers.com
-Message-ID: <9ea37d10-7b9b-4f4c-b294-e5f392a8d358@tuxedocomputers.com>
-Date: Mon, 14 Sep 2026 15:32:03 +0200
+	 In-Reply-To:Content-Type; b=kFfWqkYAJrTehCKfCNhDJdgx8rtBu3PaCZgNb3NGtBXQR5Wv8kLwZlGFhJb30H6qTTY6+nKwRrlK5a9teqEaMkSQvtljuiZXWwxfXpohKnCekwUDqLcmRCxAmaBXcbP+R2nd9dBRl4Ct1Lrf4hCElmi8MOLB86x162fr1iMElMI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=davidgow.net; spf=pass smtp.mailfrom=davidgow.net; arc=none smtp.client-ip=203.29.242.92
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=davidgow.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=davidgow.net
+Received: by sphereful.davidgow.net (Postfix, from userid 119)
+	id 14FEB1EAB64; Mon, 14 Sep 2026 21:33:12 +0800 (AWST)
+X-Spam-Level: 
+Received: from [IPV6:2001:8003:8802:7000::9c4] (unknown [IPv6:2001:8003:8802:7000::9c4])
+	by sphereful.davidgow.net (Postfix) with ESMTPSA id B86DF1EAB5E;
+	Mon, 14 Sep 2026 21:33:08 +0800 (AWST)
+Message-ID: <097243a3-a75c-434e-b215-47a94e8677d2@davidgow.net>
+Date: Mon, 14 Sep 2026 21:33:06 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,95 +29,46 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 0/2] HID: generic: add LampArray support via
- hid-lamparray helper
-To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>
-Cc: wse@tuxedocomputers.com, linux-input@vger.kernel.org,
- linux-kernel@vger.kernel.org, Armin Wolf <W_Armin@gmx.de>,
- Cristian Mazzotta <cmmazzo@icloud.com>
-References: <20260903073602.3815258-1-aer@tuxedocomputers.com>
-Content-Language: en-US
-From: Aaron Erhardt <aer@tuxedocomputers.com>
-In-Reply-To: <20260903073602.3815258-1-aer@tuxedocomputers.com>
+Subject: Re: [PATCH] drm/sched: Increase drm_mock_sched_job_wait_finished
+ timeout when CONFIG_HZ=100
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, phasta@kernel.org
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Danilo Krummrich <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ kernel-dev@igalia.com, kunit-dev@googlegroups.com
+References: <20260913084155.520015-2-david@davidgow.net>
+ <b4f017cc-3dbf-416c-b456-0c19d2f0647a@igalia.com>
+ <0ce1883f-7de3-4a16-82f0-c8950459163e@davidgow.net>
+ <f570ea7f-164c-4232-85d8-14604baca607@igalia.com>
+ <26926372f9d375e1741b16abd2a910f3754a0410.camel@mailbox.org>
+ <f86fafc7-3e42-47b2-aca7-e0b4be56b699@igalia.com>
+From: David Gow <david@davidgow.net>
+Content-Language: fr
+In-Reply-To: <f86fafc7-3e42-47b2-aca7-e0b4be56b699@igalia.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Am 03.09.26 um 09:35 schrieb Aaron Erhardt:
-> Add a new hid-lamparray helper module and integrate it with the
-> hid-generic driver.
+Le 14/09/2026 à 8:12 PM, Tvrtko Ursulin a écrit :
 > 
-> While more complex lamparray handling should be done in userspace via
-> hidraw, providing a small module to add basic lamparray support makes it
-> possible for userspace software to interact with lamparrays by simply
-> using well-known APIs of the LED subsystem. One use-case would be to
-> enable desktop environments to support keyboard backlight control out of
-> the box for HID lamparray devices without having to implement the whole
-> HID protocol themselves.
+> On 14/09/2026 12:48, Philipp Stanner wrote:
+>> On Mon, 2026-09-14 at 12:21 +0100, Tvrtko Ursulin wrote:
+>>> It's not a loss really to
+>>> skip the scheduling quality tests on more platforms than strictly
+>>> required so I'd say lets go with that.
+>>
+>> Does that mean you agree with my idea of having two options for
+>> building the tests, one for sanity and one for performance-ish things?
 > 
-> This patch is based on previous discussions:
-> https://lore.kernel.org/all/1fb08a74-62c7-4d0c-ba5d-648e23082dcb@tuxedocomputers.com/
-> 
-> The helper provides basic support for devices exposing a
-> Lighting/LampArray application collection (usage page 0x59) and
-> registers a single-zone RGB LED representation via the LED
-> subsystem.
-> 
-> hid-generic now checks for LampArray support after hid_parse() and
-> optionally registers a lamparray instance. Failures in the helper
-> do not abort device probe to keep the driver logic otherwise unchanged.
+> A new kconfig? Makes sense.
 
-Another question that came to my mind while doing some tests on what will soon
-be posted as v6 is the following: Should we really set everything to zero as a
-default? Up to v4, the LEDs were set to full brightness by default which would
-be quite annoying in dark environments or when the LEDs of the device are
-really bright. Turning everything off like the current implementation on the
-other side makes things look like they don't work until a userspace program
-takes over control. So I was wondering whether it would be better to just leave
-everything in autonomous mode until userspace starts writing to the LED. I'm
-not sure yet what the best solution is, so I would like to have some feedback
-on that design if possible.
+This sounds good to me (particularly if it's likely to extend to more
+than just the two tests).
 
-> 
-> LampArray resources are released on driver remove.
-> 
-> This commit was successfully tested on the Microsoft MacroPad reference
-> implementation (https://github.com/microsoft/RP2040MacropadHidSample
-> 1d6c3ad) and in combination with the tuxedo_nb04_wmi driver, albeit
-> only fully functional with a recent fix posted to the LKML
-> (https://lore.kernel.org/all/20260826081149.235487-2-aer@tuxedocomputers.com).
-> 
-> v5:
-> - Proper hardware detection (no quirks necessary anymore)
-> - Add documentation for new sysfs knob
-> - Pass limits of the device to sysfs (intesities & brightness)
-> - More flexible Kconfig (use tristate)
-> - Improved locking
-> - Several memory leak and (de-)initialization fixes
-> - Don't read current color values from hardware (the HID spec does not
->   offer this option)
-> - Remove redundant report dump functionality
-> v4:
-> - Restrict CONFIG_HID_LAMPARRAY to built-in configurations only to fix
->   additional randconfig build errors
-> v3:
-> - Squash V1 and V2 into one patch
-> v2:
-> - Fix Kconfig to avoid build errors when LEDS_CLASS_MULTICOLOR is
->   disabled
-> 
-> Aaron Erhardt (2):
->   HID: lamparray: add new LampArray helper module
->   HID: generic: add LampArray support via hid-lamparray helper
-> 
->  .../ABI/testing/sysfs-driver-hid-lamparray    |  16 +
->  drivers/hid/Kconfig                           |  18 +
->  drivers/hid/Makefile                          |   2 +
->  drivers/hid/hid-generic.c                     |  38 +
->  drivers/hid/hid-lamparray.c                   | 812 ++++++++++++++++++
->  include/linux/hid-lamparray.h                 |  88 ++
->  6 files changed, 974 insertions(+)
->  create mode 100644 Documentation/ABI/testing/sysfs-driver-hid-lamparray
->  create mode 100644 drivers/hid/hid-lamparray.c
->  create mode 100644 include/linux/hid-lamparray.h
-> 
+If they're behind a separate kconfig, there's no need on my end for
+these tests to support UML or other HZ=100 setups (though I don't think
+it's a _bad_ idea to have a more friendly skip or error in that case if
+you'd particularly like one).
 
+Thanks very much,
+-- David
