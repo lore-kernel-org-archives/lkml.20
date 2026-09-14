@@ -1,38 +1,38 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5B4944471C;
-	Mon, 14 Sep 2026 11:58:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92BEB443C39;
+	Mon, 14 Sep 2026 11:58:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789387103; cv=none; b=XTZBOQyE3xslQxCroX1k3XKvm15JbkZ6Qg1v+HaReQwSshddiXo82k5wYXtXuOxAFtUI4nyDgCOhHhqeXb6iqlPv4BrOkqn3/PPbXwDAi+2VhP4GctxOh3qxLuC71xBIxOdfr5bLsUBKGi/Hj4GTkJZPkP9X1/+Ap+NX9CQqSa0=
+	t=1789387104; cv=none; b=klBlg5eL91BiGyeMTx6wMOg+g2sXnFprN6DJ/1WKbiQKo6pPYDYwoi4QfXIi3NVjTS6NDqGfvkwFIsg3ealTWHxRinxRvc7Uoqv8/xr6ziMtmGnHHcnK5IAOQlGnHnoSYdB9ip9okG/t2UcEuVLEdesFP/wXv7c/t84E9V8YejY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789387103; c=relaxed/simple;
-	bh=j/gsFohJsX2pb991NM8358zeV5EJxqTR9EawuUysLmA=;
+	s=arc-20240116; t=1789387104; c=relaxed/simple;
+	bh=qyYNtF6Szv6pA6AN5mfvaTW4lHJbi9aApiqokgMWKXA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QoIS1sJ81ikg61JPr2wJLJ9AWWOlN4qEhWDPjJhxhD9AsXI+u7QDBrmXC/NLomtte7qh+2zslMkastunQpLUO58BBHDhuBlSegmT0VMpswmxCzFFCRp/fusbL45Zo3OXo62/7sxzEO2GcCcIt9D23nFky3lzbOr0p2T+c/nF3LQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=cWpnz3ed; arc=none smtp.client-ip=148.251.105.195
+	 MIME-Version; b=G8Y568LOohBtDbnycqc8l9qzLtn4phBBHyHjeaYxBX6qzS+6d7JME/JFIg94UCwm4U6MHrz0qbxwVzy/T9cXn+4fr4XiBfQyyLfvgzL7YAsi67+cu+4KzkN0yMujwhJ3KDQkWfAXx07Q5s2ORH7IhjVET/MEQuiAoA0HYvcHj6U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=YksS3IlZ; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="cWpnz3ed"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="YksS3IlZ"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1789387098;
-	bh=j/gsFohJsX2pb991NM8358zeV5EJxqTR9EawuUysLmA=;
+	s=mail; t=1789387099;
+	bh=qyYNtF6Szv6pA6AN5mfvaTW4lHJbi9aApiqokgMWKXA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=cWpnz3edcAAZqrpMPttcXjxn40jsxuag2xlIsd+52ur+EDak3abLKd2MDzUikWyN/
-	 EmpiqfPEe1gSurb6dHvIzlvcCcyOLXonpbjoLmBbs26Lk/5q9wlLF80Cn4IPmYwPR2
-	 WYo8cP13aZA0SRmfXJBh8Fxebx/yq4bmoIIdHOX6HNIgagUIHRBz3hCY+KfWtXr2Cw
-	 C9M1Y+oengKmL1egxjFOhGnb1tnqYGtBDjJb/Tx0b6cc+eN1hsg24Z9+uKE3EWwkLW
-	 JxnsuaySuc25Ax6fCfqu04G7HgI0a7uxUjkwtT12BLWHbghwes/xUCWFKioGltvKsd
-	 GBfmJaVTEjNKg==
+	b=YksS3IlZd4rVuwZdzbjgVB/yasXhw+vs0PRd4z2N5oyZ/ZVC2auJuqjMMzEIhT0oc
+	 T9GCCIzfF/NUFt963PSe8wGAxf2iStu0EsSJJ9zQGs+4yb9b252sZ0lmESWlN8rc6j
+	 llSL+zXQd/5LNEWDYyYeXycyCEptq2/dtMW8ks47WNx9awOB7pWYwhw/rGmjSdZ5Y7
+	 sooaUfyDExrnJWGEQuAiXM/h5J7pfkXv8NyghT0BEuMBd6Rakh7aosx+7O8M4J41uM
+	 WbQR6rmTIQLtXJXZnmN+D6Kla/HxfdoWQteC4dXI+Vq0lb4GXvSJxu0480R1dZyOzG
+	 zeDDHg+IYOnMw==
 Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id BF8DA17E0CA0;
-	Mon, 14 Sep 2026 13:58:17 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id BF6A017E0CF4;
+	Mon, 14 Sep 2026 13:58:18 +0200 (CEST)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: chunkuang.hu@kernel.org
 Cc: p.zabel@pengutronix.de,
@@ -55,11 +55,10 @@ Cc: p.zabel@pengutronix.de,
 	kernel@collabora.com,
 	justin.yeh@mediatek.com,
 	jason-jh.lin@mediatek.com,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
 	CK Hu <ck.hu@mediatek.com>
-Subject: [PATCH v7 03/13] dt-bindings: display: mediatek: dsi: Document MT8189 and MT8196
-Date: Mon, 14 Sep 2026 13:58:02 +0200
-Message-ID: <20260914115812.22751-4-angelogioacchino.delregno@collabora.com>
+Subject: [PATCH v7 04/13] drm/mediatek: mtk_dsi: Cleanup encoder if reset fails during bind
+Date: Mon, 14 Sep 2026 13:58:03 +0200
+Message-ID: <20260914115812.22751-5-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260914115812.22751-1-angelogioacchino.delregno@collabora.com>
 References: <20260914115812.22751-1-angelogioacchino.delregno@collabora.com>
@@ -71,30 +70,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add compatible strings for MT8189 and MT8196 SoCs.
-These are compatible with the DSI IPs found in the MT8188/95 and
-others, but with differences making them not fully compatible.
+When binding the dsi component, the .bind() callback initializes
+the encoder, and then will optionally trigger resets.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Should that last operation fail, binding will as well fail but
+the encoder is never removed from the DRM encoder list and if
+the driver gets removed afterwards, this may crash the kernel
+because of an use-after-free condition.
+
+In order to avoid that, cleanup the encoder upon reset failure.
+
+Fixes: 605c83753d97 ("drm/mediatek: mtk_dsi: Reset the dsi0 hardware")
 Reviewed-by: CK Hu <ck.hu@mediatek.com>
 Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
- .../devicetree/bindings/display/mediatek/mediatek,dsi.yaml      | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/mediatek/mtk_dsi.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,dsi.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,dsi.yaml
-index 27ffbccc2a08..b5cdfe0eaca4 100644
---- a/Documentation/devicetree/bindings/display/mediatek/mediatek,dsi.yaml
-+++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,dsi.yaml
-@@ -30,6 +30,8 @@ properties:
-           - mediatek,mt8183-dsi
-           - mediatek,mt8186-dsi
-           - mediatek,mt8188-dsi
-+          - mediatek,mt8189-dsi
-+          - mediatek,mt8196-dsi
-       - items:
-           - enum:
-               - mediatek,mt6795-dsi
+diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediatek/mtk_dsi.c
+index 97b8a91874f5..0b167b4411e5 100644
+--- a/drivers/gpu/drm/mediatek/mtk_dsi.c
++++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
+@@ -1095,7 +1095,13 @@ static int mtk_dsi_bind(struct device *dev, struct device *master, void *data)
+ 	if (ret)
+ 		return ret;
+ 
+-	return device_reset_optional(dev);
++	ret = device_reset_optional(dev);
++	if (ret) {
++		drm_encoder_cleanup(&dsi->encoder);
++		return ret;
++	}
++
++	return 0;
+ }
+ 
+ static void mtk_dsi_unbind(struct device *dev, struct device *master,
 -- 
 2.55.0
 
