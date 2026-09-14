@@ -1,201 +1,154 @@
-Received: from mail-pz2-f14.google.com (mail-pz2-f14.google.com [74.125.228.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3718455625
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:38:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2316F470440;
+	Mon, 14 Sep 2026 13:39:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789393129; cv=none; b=fg1jEoJgNLEWjLRtkQLTBfQLxpajzuSwwb1c9xgIYJkKksq4D3jGbpwusla3vB8ZZ/JX3nAA4xwsaEWWhqXLhPTDRLCRmUqI3f5rcqY0mJMdE6quirP3Oqy+F5hOJv1xIm3YJAAmyH9j6YQ0zZgG6OlGAGqUriDltbyXyRKEVIg=
+	t=1789393150; cv=none; b=h0InP65seUBrb3iMYn79C3qaTMLPzD2cAPrhKNarNP3gusN6t4/ym2MBQV83QhFHzCkN70N7D6DFqwAgDEXNk3SFbPl06caSYVZjCz/uzKWm6w3Am4CDvvBIu7zjD8yz4ZoyjOlqnY2IKQ5XpgrtUy4+Si+RhsZrs1USvd+kZGo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789393129; c=relaxed/simple;
-	bh=G5Q4YusG7EhC2+49TlZOe2QDcwWJ1o9+e8sn8lUHz8s=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DW6x1KFcJ7VXXu0Codd4H3WCppBvXGI5TZXqms7X6DX1Ue4SUlZ04a9xiFgtL9yR+mZnk1CElBan72337vy+ePZbNIYkmRPTXzoWpAsqlGJID1nFKhwObMwTjP4onV8J8sIHCwRBajEQpj+5OQXE1JggDOA1foT5ttLX+MEhcTA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nwA3Lq0U; arc=none smtp.client-ip=74.125.228.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789393150; c=relaxed/simple;
+	bh=ZA936ApCEhckz5J+rWQzpOatwmkdAJ3FLoJd2POVcn4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hUzcP1x0+XpA+3yPYguQiUKxNX4LXd28RpibHVst3Zl+qXft7tw5SS9kAbiRbU7QGwWNcAVNCUW9/xEBEoEQeTiU6ygswcoRct2kVGar2/fj+AEbY/nnx03CvnK5ZiBuhUv90RQc+50evZEEcsOnCGw3eT+csx3P7JDHJzsxX5U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QbM1o6vT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nwA3Lq0U"
-Received: by mail-pz2-f14.google.com with SMTP id 41be03b00d2f7-cc46895f82dso151350a12.3
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:38:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789393127; x=1789997927; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OM4WJQT7eiPiAF6TZgW9/Yhz6QCgt3cljrFGTLgDTGs=;
-        b=nwA3Lq0U4Mgd8/xczWKN4pbtIz1N3ZbjIo4FdXFoMquzJLSGSB4bKOeFe/DAFiCp66
-         ZhJswuo5U9oBy58VYzqA8FOTYRI1qJ4pct5aUNSt0w7NxYwPRBpBAJDx0mMwezbpp661
-         iON2PuMCfagaY/AkOmO4e9l5XKQsy+LfwOyWkIDxoc/ekm4a5phfF7/+MTO2VV3RW/Q1
-         4/pY19ZzXPXHbq8mOGe0JAYliP3VHrCA6tocg3EZIEHC8qGuDHQrDqgbbDXqKmEStpS/
-         URxGpq/MVYKOsL2245r/cK03r4dWqJH4/a2G1QKzUUFATK2q/DKbLbEidV1d0Vwhji3H
-         rVMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789393127; x=1789997927;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OM4WJQT7eiPiAF6TZgW9/Yhz6QCgt3cljrFGTLgDTGs=;
-        b=bNcSTDZ9tdFGCpVTSJmUYVSKTjXZXoeX7Y+Fn5pBesWiGmFNnbpG2FXxrrYlNTfn4Y
-         cTE7U4v+6J58TRlJueBaIr1+u+4FMC4qrhzWbpJqrUIRDAYqCQbik6cZf2LUKwGck88O
-         NdL9Z/t11YPG7oaWCXQQs5hcQn+LdW/jxbW1q0C/26dTXpeTYZVVYciALczq5y9IYrP0
-         o10CH4sSPGiHTJ3miVOpHSDaxC/YYAtjI8XXObF7UmfFHTVNHx5C7bBYAdNhdUWqYMSF
-         xcsJBKCkWJyyNl7sM6EBRVJ9RGwHQxotsXa5hkGs71J9s7HIfY13Im6LDkgUjr4zAtI3
-         xIKQ==
-X-Forwarded-Encrypted: i=1; AKwUvByKvRafz3y7SKIjTy2DR343sQAtLAAv+yOViuUr0DRazrZjeLnZxqdoXV5m8PPGrUhH0khecCs4hFrwTio=@vger.kernel.org
-X-Gm-Message-State: AFuF++lp/+NUJA4YMACSHwguvAr7n0t9EjmefG5rke/2keksvLUHeDgV
-	kdiB+KaidFazwYMxhHwwG4xMzx61xY1D6nvg8orwOrIWUWvkYVvmwjOy
-X-Gm-Gg: AYBFou2ETXDDwcGFisWB3q9Qvc9rN9qnTCdBXJHvuq0OQS0KXuZPdMBhgIOoiX+S7Q+
-	K0vvrxvCzj1s17IZS9iOywqdg5G2op2m8sNqS7VMqTSmyYu8fJGtLOYBC0cOLjR3UrvfAigiiJN
-	7sMelNCsdeKMzOLV9OK8B04hZkL2/UPKDnh8CGlAvqBcqEToRvMc1ale82ojsR2S4aKn9y4Yyku
-	w6VJe1dJ76kwWXctg1Lvd7YkkURTOxAmGPVMjnqjOxGHFQxgYbQdp97S23SvL86S6cjxhYUh1WW
-	cscHXoEjp32bbd6Lc4nzmhUoBr/kOXxzAxSAUMde+V1IR7PS/g+3UeymsuZeqtWh1l8aD8UZMEq
-	TJOLEnLTo0znA7pBT31Kt7JU/wni8GDx7JNyp/2N1hQc3TiOUfrY0mhvSMtnbh8LNnpzkVAqWdu
-	TGywyse8n5hSrzWV0OfNNZ2uE4oM7f2AUenKYrNGUGZOE/wf/jU1vbS4hncjIaUaBwYVb6ep8cJ
-	EILhprJ4zFdEf3uK9wcJ0EggYDw3TP0iM8ZO8A4UYStfUIRF21oJ8E10Gg2PaAPtQ==
-X-Received: by 2002:a17:90b:3e4f:b0:396:a47f:d38f with SMTP id 98e67ed59e1d1-39dec0bbc54mr3706908a91.3.1789393127161;
-        Mon, 14 Sep 2026 06:38:47 -0700 (PDT)
-Received: from localhost.localdomain (45.78.65.84.16clouds.com. [45.78.65.84])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14365bb6ba0sm24565602c88.15.2026.09.14.06.38.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 06:38:46 -0700 (PDT)
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-To: Steffen Klassert <steffen.klassert@secunet.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Chengfeng Ye <nicoyip.dev@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH ipsec v2] xfrm: fix races in device state cleanup
-Date: Mon, 14 Sep 2026 21:35:40 +0800
-Message-ID: <20260914133540.3666907-1-nicoyip.dev@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QbM1o6vT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F0AC1F000FF;
+	Mon, 14 Sep 2026 13:38:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789393148;
+	bh=9BCqD8kAZuJn9pHsxZwwfpeEhm7EpPULp00Tm/xS4r8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=QbM1o6vTrDEZV6964roF4n6AhcrTROnyGsSuuU07RFZAt5GA0529PbdCzvBeerMPP
+	 dSXsFcCmoiGOIJ9z0rdabhNGzfShcpecqZa792W8o53k1tNCcxbKMYTIn76NlPYivS
+	 o6lNDIpaoY4pSXfq84dX3tgv4rzDYcq/oivh1LMOc+h5jcsT6fxNz/kcQ9s6wAEREs
+	 c6ehcEF/Vx42vqZaLgOSZ9pL/yopB6aAiEYwqR0LdkCDaakbCzQpTp33BHJxMppKGm
+	 9guiCSmyCYsCh4oinrfdMK2WTTZgm5S+2CSEaxCKN4lZYkmGVMLt1tLKR5UkN5r4hT
+	 uZV8w+oGxTQqg==
+Message-ID: <a4132624-c602-4d93-86fb-7d9369646223@kernel.org>
+Date: Mon, 14 Sep 2026 15:38:55 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 16/16] mm/page-flags: remove PG_private
+To: Zi Yan <ziy@nvidia.com>, "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Muchun Song <muchun.song@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Gregory Price <gourry@gourry.net>, Ying Huang
+ <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Kairui Song <kasong@tencent.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Baoquan He <baoquan.he@linux.dev>, Pasha Tatashin
+ <pasha.tatashin@soleen.com>, Pratyush Yadav <pratyush@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Jan Kara <jack@suse.cz>,
+ Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
+ <mhiramat@kernel.org>, Dave Young <ruirui.yang@linux.dev>,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ kexec@lists.infradead.org, linux-doc@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-trace-kernel@vger.kernel.org
+References: <20260913-remove-pg_private-v4-0-848550f7574e@nvidia.com>
+ <20260913-remove-pg_private-v4-16-848550f7574e@nvidia.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260913-remove-pg_private-v4-16-848550f7574e@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The deferred-device pass in xfrm_dev_state_flush() finds states under
-xfrm_state_dev_gc_lock, but drops the lock before calling
-xfrm_dev_state_free() because the driver callback may sleep. The device
-GC list does not hold an xfrm_state reference, so the state GC worker can
-destroy the same state concurrently.
+On 9/14/26 04:24, Zi Yan wrote:
+> folio->private != NULL indicates a folio carries private data, replacing
+> PG_private. All PG_private users are converted. Remove PG_private and
+> reserve the space as PG_folio for future use. Unused PG_private functions
+> are removed too.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Zi Yan <ziy@nvidia.com>
+> To: Andrew Morton <akpm@linux-foundation.org>
+> To: Baoquan He <baoquan.he@linux.dev>
+> To: Mike Rapoport <rppt@kernel.org>
+> To: Pasha Tatashin <pasha.tatashin@soleen.com>
+> To: Pratyush Yadav <pratyush@kernel.org>
+> To: Jonathan Corbet <corbet@lwn.net>
+> To: "Matthew Wilcox (Oracle)" <willy@infradead.org>
+> To: Jan Kara <jack@suse.cz>
+> To: David Hildenbrand <david@kernel.org>
+> To: Steven Rostedt <rostedt@goodmis.org>
+> To: Masami Hiramatsu <mhiramat@kernel.org>
+> Cc: Dave Young <ruirui.yang@linux.dev>
+> Cc: Shuah Khan <skhan@linuxfoundation.org>
+> Cc: Lorenzo Stoakes <ljs@kernel.org>
+> Cc: "Liam R. Howlett" <liam@infradead.org>
+> Cc: Vlastimil Babka <vbabka@kernel.org>
+> Cc: Suren Baghdasaryan <surenb@google.com>
+> Cc: Michal Hocko <mhocko@suse.com>
+> Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+> Cc: kexec@lists.infradead.org
+> Cc: linux-doc@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-fsdevel@vger.kernel.org
+> Cc: linux-mm@kvack.org
+> Cc: linux-trace-kernel@vger.kernel.org
+> ---
 
-The race can proceed as follows:
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
-  CPU 0                               CPU 1
-  find x on the device GC list
-  drop xfrm_state_dev_gc_lock
-                                      xfrm_state_gc_destroy(x)
-                                        xfrm_dev_state_free(x)
-                                        xfrm_state_free(x)
-  xfrm_dev_state_free(x)
-
-Both paths can invoke the driver callback and drop the device reference.
-CPU 0 can also access the xfrm_state after CPU 1 has freed it.
-
-KASAN reported:
-
-  BUG: KASAN: slab-use-after-free in xfrm_dev_state_free+0x24c/0x2a0
-  Read of size 8 at addr ffff88810bbaa960 by task poc/102
-
-  Call Trace:
-   xfrm_dev_state_free+0x24c/0x2a0
-   xfrm_dev_state_flush+0x353/0x400
-   xfrm_dev_event+0x26d/0x3a0
-   notifier_call_chain+0xc0/0x280
-   __dev_notify_flags+0x169/0x250
-   netif_change_flags+0xe7/0x160
-   dev_change_flags+0x96/0x220
-   devinet_ioctl+0x7f4/0x1880
-
-  Freed by task 57:
-   kmem_cache_free+0xcb/0x3d0
-   xfrm_state_gc_task+0x4a8/0x650
-   process_one_work+0x63a/0x1070
-
-A third xfrm_dev_state_free() caller in xfrm_state_find() can also race
-with the deferred pass. Both callers can sample the same device before
-either clears xso->dev, then invoke the callback and netdev_put() twice.
-Since hlist_del() leaves the node poisoned rather than unhashed, they can
-also unlink the device GC node twice.
-
-Acquire a state reference while the deferred pass still holds
-xfrm_state_dev_gc_lock. If the reference count is already zero, leave
-destruction to the state GC worker. Also claim device cleanup under the
-same lock by clearing xso->dev and unlinking the node with
-hlist_del_init(). Only the caller that claims the device invokes the
-callback and drops the device reference. The deferred pass releases its
-temporary state reference after cleanup.
-
-Fixes: 07b87f9eea0c ("xfrm: Fix unregister netdevice hang on hardware offload.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
----
-
-Changes in v2:
-- Replace the global mutex with a temporary state reference acquired
-  while walking the device GC list.
-- Claim device cleanup under xfrm_state_dev_gc_lock so concurrent
-  callers cannot run the callback or netdev_put() twice.
-- Use hlist_del_init() to leave the device GC node unhashed.
-- Cover the xfrm_state_find() cleanup path identified during review.
-
-v1: https://lore.kernel.org/netdev/20260730103543.2077749-1-nicoyip.dev@gmail.com/
-
- net/xfrm/xfrm_state.c | 16 ++++++++++------
- 1 file changed, 10 insertions(+), 6 deletions(-)
-
-diff --git a/net/xfrm/xfrm_state.c b/net/xfrm/xfrm_state.c
-index 36a4f6793ede..282d09d0c247 100644
---- a/net/xfrm/xfrm_state.c
-+++ b/net/xfrm/xfrm_state.c
-@@ -780,17 +780,20 @@ EXPORT_SYMBOL_GPL(xfrm_dev_state_delete);
- void xfrm_dev_state_free(struct xfrm_state *x)
- {
- 	struct xfrm_dev_offload *xso = &x->xso;
--	struct net_device *dev = READ_ONCE(xso->dev);
-+	struct net_device *dev;
- 
-+	spin_lock_bh(&xfrm_state_dev_gc_lock);
-+	dev = READ_ONCE(xso->dev);
- 	if (dev && dev->xfrmdev_ops) {
--		spin_lock_bh(&xfrm_state_dev_gc_lock);
-+		WRITE_ONCE(xso->dev, NULL);
- 		if (!hlist_unhashed(&x->dev_gclist))
--			hlist_del(&x->dev_gclist);
--		spin_unlock_bh(&xfrm_state_dev_gc_lock);
-+			hlist_del_init(&x->dev_gclist);
-+	}
-+	spin_unlock_bh(&xfrm_state_dev_gc_lock);
- 
-+	if (dev && dev->xfrmdev_ops) {
- 		if (dev->xfrmdev_ops->xdo_dev_state_free)
- 			dev->xfrmdev_ops->xdo_dev_state_free(dev, x);
--		WRITE_ONCE(xso->dev, NULL);
- 		xso->type = XFRM_DEV_OFFLOAD_UNSPECIFIED;
- 		netdev_put(dev, &xso->dev_tracker);
- 	}
-@@ -1005,9 +1008,10 @@ int xfrm_dev_state_flush(struct net *net, struct net_device *dev, bool task_vali
- 	hlist_for_each_entry_safe(x, tmp, &xfrm_state_dev_gc_list, dev_gclist) {
- 		xso = &x->xso;
- 
--		if (xso->dev == dev) {
-+		if (xso->dev == dev && xfrm_state_hold_rcu(x)) {
- 			spin_unlock_bh(&xfrm_state_dev_gc_lock);
- 			xfrm_dev_state_free(x);
-+			xfrm_state_put(x);
- 			spin_lock_bh(&xfrm_state_dev_gc_lock);
- 			goto restart_gc;
- 		}
-
-base-commit: e6b6078ea1731b05b3b552497b3bce4bf8b014ae
 -- 
-2.43.0
+Cheers,
 
+David
