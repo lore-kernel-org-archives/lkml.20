@@ -1,141 +1,143 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mail-wm1-f99.google.com (mail-wm1-f99.google.com [209.85.128.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75DA747F796
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 17:38:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68435404BE9
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 17:40:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789407530; cv=none; b=YmJ/QIBR463CvQuDUccr/EewtnRYCYyP9SzLUCMPPqPxmihm/Jh++3vsid6AaZp1KidhnoKCjIQtyD4kP+DhOnr+xFIDIt8jRfBMqZYepSuA55XZhTFA05g0pg1A/ISTTjW5+M00k6nSqiX1VNRKUZIxJhVMh/AjSg8/zbR5ydw=
+	t=1789407605; cv=none; b=ltpwS0P1X60BJCGAlHBPGXR0ia0KZ102uLW5qSHvUTOytgFRygyHtx5teU5Wm6dvKaAkhHOSfh2vvkTDJmPhmaHihcwwvW3oJzZhzlOv/bcVEwB1+L0Fjstrq5Ej1WEnJncjoI5SSGNy2kTQJuRw4SXq//0A5uL32UqEz8l3R0E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789407530; c=relaxed/simple;
-	bh=SbuWO6K3oJD2LhlEEwqlQxpEpDLEqVohKRUVF6OSZS0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uXAouJg+De5fQ6KPDD6LB1iNa+Hec2mx+b7w/qaFF3gKtoMOwtwDwJx7CYR0R06RGAvntnNuNonmI7UVhdyvcLQN8dKJjtwQZxyPpzGkmV4ovHyZTTZCoFNkWsOJI0a0meejjk9lrJngmgZY/Sl80ZVd1RycQTCU6nSmGGLrWz0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UVaP0o5V; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789407605; c=relaxed/simple;
+	bh=MFBfT6hbrBgjaLc6AiG9tP3lKhRG5kGH+1HdxloStAk=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=sfSA/FJhAFLLcxdOERGvFmr2XXe9lkTXWh3oIVICsr61VU7M+lKougtWut/N+0iLGRSK+mxqsrOReWOiEBJM9yNHQqXTXZWnCFjbSxDVPnWR7z17AQs6kfoLUwqV2KwXXm3+/crMDAJITAcSTNbkWsfZHvpEv+sOU0lZ0U1L+gQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=JYPSfC0T; arc=none smtp.client-ip=209.85.128.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UVaP0o5V"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469d249c6so2341317b3a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:38:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="JYPSfC0T"
+Received: by mail-wm1-f99.google.com with SMTP id 5b1f17b1804b1-49e77f38910so3183985e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:40:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789407529; x=1790012329; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rnT0qav7UwFgOqf+kbm0vIaYG2Z1UVdPy7kC+ivpDo0=;
-        b=UVaP0o5V5+ztgTGfG8oqqA7zASZFarfqskHoqB37SH21G1JU1cystmhZmKCDP/X7Ao
-         c0TudD1UGgB+Fn7zEbN5eDDPoAOLLBvGZyIpI6yc3QOBAKIKNJ3HkqEzTQ5E+DazWHR/
-         ndtnUe50+BjFqwnvZYdw7P9Xpq96O2MdpX1jKN0n6fXjURhyKgKFjG8YS59T3a32dmP3
-         iv2osSu9ODma1Tf7aKtBXATvJZfxC29GPBvHhMDmVHlGCcplpGccWB1zxJdGZoBgdwHG
-         wtq5dEDCKCSX79Hv35wsINUfTlpmFgZmQeAsQ25tH9CjhJvbtQJPoP+Vi9cFV10qcSRR
-         7egg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789407529; x=1790012329;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=purestorage.com; s=google2022; t=1789407600; x=1790012400; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=rnT0qav7UwFgOqf+kbm0vIaYG2Z1UVdPy7kC+ivpDo0=;
-        b=XERMtfVIXpPbvCG30UpOy6+NEG/OOm2UYZRvlvvLTu44MSXV9oVUy7qWuKTbTyBwhc
-         6jZPYmlBZWXk1u/6mCGGmuHbJMaex7dzFChMUYy/kxTasRAgeah65fOdihsjTKVMzEis
-         MWTrqd21qUu7JhRbHqskk2OKMMypHBWcsssawZ9vu+qKI0InRt4kQeYrEqYq1VRZByLS
-         /nfazMqfniy1tNc9yB3FF/ldIcBxsR+t/Uep2MG9w0SnsRN0ftBtg3yjR4dt1LmafUFQ
-         eaGRw6aBZdDnr6Kd53xeXuSNH+gnGuJjrA6QHuz+2RI7MfViaHTTsrjtYNKQ60777nyF
-         anwg==
-X-Forwarded-Encrypted: i=1; AKwUvByWg3V3JJoiik/2diN8gmM76ECglmWRqdCCBSqsSjsLy4E9jJL6zzLhmFxeCLauyOX7piBmy+UwRBHhtEU=@vger.kernel.org
-X-Gm-Message-State: AFuF++kks5Zat329SMxl8tcvL7UBwVecid0yFPKMxTLdD9pkY//68L9J
-	uFTd9wD8RlXxh75+NaOoJhWAN2/UmKm44ctNp+ZHzte1WlzIKG3suI7f
-X-Gm-Gg: AYBFou0lJquWXqJxglh0J9YCKvW2Q1o5D2SPtWNMJQRC60JWiJXNjiZMeNwG8r5lGKL
-	kNaME/Q2l8h3g3la6SHGWLX/Q4PugoxUEcQKKHV+qLy3w8Hw7UoXuLJY6Y26T8k2oIqsRawy2jX
-	zaS+M6+K0KMlvjVC0UigwWssB7E4a8Ayef0a2nnh/IVgsGsMt8xgqspYSdYSB7j5d2C8kYBzmBk
-	+3CFx7i0KwNl00+3m/VmzDZa8SYPD3VusXFXcmXJQbITe+xqfhuJdpNeH8m58L0GQQJChuHgBWc
-	vmrmNsx9cl8PkLUAyft2V9gCqTK7kEVRYUPT2Y1Dw/dPD+JFV7wB2RnuW1vUeKQuC0eM+F6l06E
-	/aMb1m8MI6pwkCZUvQqPd7RkgLsVWQRVyE8WQH5pI1s95QCC7NjxOAyWlkTQeze7lodMRwFU5jN
-	7bM+8mHTwUrcur/0kUDCKP6BLwM/Cr29xJ6y+F07z4VasQVMxzJPNfwR+76vDrdeALFEAdY3lCk
-	WJzzLhOFVVKjkS4inzvuh5ZxQ==
-X-Received: by 2002:a05:6a00:1791:b0:86b:43f6:67b7 with SMTP id d2e1a72fcca58-86f82e5c9admr6736506b3a.4.1789407528681;
-        Mon, 14 Sep 2026 10:38:48 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b2a1b827esm5006038b3a.51.2026.09.14.10.38.47
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 14 Sep 2026 10:38:48 -0700 (PDT)
-Message-ID: <64dd0faa-fdfa-45a4-812f-638574beca26@gmail.com>
-Date: Mon, 14 Sep 2026 10:38:45 -0700
+        bh=/okP47x+ZZHs6SOk2K8F3sWioEiHJE7O4RkNBoUH35Y=;
+        b=JYPSfC0Tc33gAqqjyXIB7BwjYEDsu6Nv6QsjLdwO5P4jjmXDfnSh2PiQsNFtB9X2Ml
+         NVjbCcKBbkqCmn86uwCpNoySWG3fL9CTj++ZC8TW4ubqkrGOSyMM6SFS0aNuk5kPnkxG
+         ZIKaGMHg753DEs7ZyJFlcbc4c2GzEkXDU+fRYu9ZqYqGyU/PerRT2DumMM637mcMj/h4
+         Rb9av3GinlpedYO42pETbQ0W5P8bSUEl5P5Yac1QwZ6aWtTdFQY77YVOQDBW8i52wXZ/
+         9tho8fop0JCqamA52nbFmNkVKHrwZliR5Lqvx49AMTJRSYoVRnZDjtf8uPHm1UrBACZJ
+         quHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789407600; x=1790012400;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/okP47x+ZZHs6SOk2K8F3sWioEiHJE7O4RkNBoUH35Y=;
+        b=AUMfLs6dHLev+AyBCxgGoTYpWC1hkHOf/Kd14S9uKRASZll3mSMU7B+nxkjDp8a+qY
+         uCGcc0h3yYeqzDfPjaWIWXEvQxcwThxjbKksvyH8n2Wna7VN32sr7G84W8x+UzuO9dUp
+         z/fKSnPBTTUOMEGJwzxA/WqPtgVr0sNeqzobp3wv2mcb1Zi9orI6qUmOY3Gl9HL1l0Gf
+         v6F0uC4BSAsykXUnKpusnXCjqyDBPRnXr7XnghVXP745XoAG+APIp3cq6SrnceQ2c80E
+         j7QDiErEfznjsA3LgFao4lIv5LUZk4qBQ+sdnfRkjiXgw3OaYitduo7AiZJp4MTG/vX0
+         vq2A==
+X-Forwarded-Encrypted: i=1; AKwUvBxaEECMVWy5A4jJEw2FuLLQwKffshXghgtr33cyLGT2/O7LcRAqLgIKnHKpj6VxyanUyE74L+v3K6XcVYI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mjV48x72upwUuuiezdscqLl9QbAOSlY4BfjInpV6lUV4CzERFF
+	wWAyxsqg82f63vsWvY438iqFskd2WDgA0dD7rmKHW0xHdvBPZHkVIe7WXIcGOd0m90tNorIDNIm
+	T8QEQsjk5yn73GckYrDA79GUVKUUJ7tjlk/yN
+X-Gm-Gg: AYBFou3ATP4OquPtrSAp5cCPXjk5lqZ48y0T4hH/k25Fgjs9whmFSFx/QyAQUIxNPZG
+	YcKIIpz+He4FphuNIBNTAUgeApiE44FxPzxTHH5+DCFjOdAp5TzRJhmzN/7bMBVNnyeia1ezZS8
+	hqlir8SP6+GF+ozgYTyp0FH+kCqJwW2qFl8X8ZOJ1ZqhliOx40kaMG5FOIStze9+yupNRkAHoXB
+	OxzjcdZdZhxc6NeGcSA+VuzFZZkFN+QrLRrWCPF2C4hNmiNpHzvMv017n2QJ3RYuBzXCUp3yLuD
+	t510pyrSLnuOraRxhqx2Ko789W7GQptKFCPrJufdIzDLdbEeNJUTkWg0Bt1HTemJWYd3P/iEmw0
+	kakCe7grpUzo6OpVYWB8ggdsAvcUIAT6Wr3NAmQ==
+X-Received: by 2002:a05:600c:698e:b0:499:a277:e8b5 with SMTP id 5b1f17b1804b1-49e7a638778mr91528085e9.3.1789407600452;
+        Mon, 14 Sep 2026 10:40:00 -0700 (PDT)
+Received: from c14-smtp-2023.dev.purestorage.com ([208.88.158.128])
+        by smtp-relay.gmail.com with ESMTPS id 5b1f17b1804b1-49e7d678034sm826955e9.5.2026.09.14.10.40.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 10:40:00 -0700 (PDT)
+X-Relaying-Domain: purestorage.com
+Received: from irdv-tmenninger.dev.purestorage.com (irdv-tmenninger.dev.purestorage.com [10.32.149.15])
+	by c14-smtp-2023.dev.purestorage.com (Postfix) with ESMTPS id 0736C340245;
+	Mon, 14 Sep 2026 10:39:59 -0700 (PDT)
+From: tmenninger@purestorage.com
+To: Chuck Lever <cel@kernel.org>
+Cc: Trond Myklebust <trondmy@kernel.org>,
+	Anna Schumaker <anna@kernel.org>,
+	Tejun Heo <tj@kernel.org>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	linux-nfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Eric Badger <ebadger@everpuredata.com>,
+	Jon Curley <jcurley@everpuredata.com>
+Subject: Re: [PATCH RFC 6/8] SUNRPC: Reduce rpciod workqueue contention
+Date: Mon, 14 Sep 2026 17:39:58 +0000
+Message-Id: <20260914173958.2045683-1-tmenninger@purestorage.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <611738b5-e115-4531-8d08-62607dc7f8ff@slotpi15m67>
+References: <611738b5-e115-4531-8d08-62607dc7f8ff@slotpi15m67>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.1 0000/1191] 6.1.188-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20260912065548.086904252@linuxfoundation.org>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <20260912065548.086904252@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/11/26 23:45, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.1.188 release.
-> There are 1191 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Mon, 14 Sep 2026 06:54:17 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.1.188-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.1.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+> The lock profile did not move. free_slowpath fell by four orders
+> of magnitude and __slab_free took list_lock just as often. So the
+> list_lock contention is not the remote frees, and it never was!
 
-perf fails to build on arm/arm64/bmips with:
+Aha! Okay, thank you for all of your time and help with this.
 
-   CC 
-/local/users/fainelli/buildroot/output/arm/build/linux-custom/tools/perf/util/zlib.o
-util/hisi-ptt-decoder/hisi-ptt-pkt-decoder.c:14:10: fatal error: 
-linux/unaligned.h: No such file or directory
-    14 | #include <linux/unaligned.h>
-       |          ^~~~~~~~~~~~~~~~~~~
-compilation terminated.
-   CC 
-/local/users/fainelli/buildroot/output/arm/build/linux-custom/tools/perf/util/lzma.o
-make[7]: *** 
-[/local/users/fainelli/buildroot/output/arm/build/linux-custom/tools/build/Makefile.build:97: 
-/local/users/fainelli/buildroot/output/arm/build/linux-custom/tools/perf/util/hisi-ptt-decoder/hisi-ptt-pkt-decoder.o] 
-Error 1
-   CC 
-/local/users/fainelli/buildroot/output/arm/build/linux-custom/tools/perf/util/cap.o
-   CC 
-/local/users/fainelli/buildroot/output/arm/build/linux-custom/tools/perf/util/demangle-ocaml.o
-make[6]: *** 
-[/local/users/fainelli/buildroot/output/arm/build/linux-custom/tools/build/Makefile.build:143: 
-hisi-ptt-decoder] Error 2
-make[6]: *** Waiting for unfinished jobs....
-In file included from util/hisi-ptt.c:24:
-util/hisi-ptt-decoder/hisi-ptt-pkt-decoder.h:13:10: fatal error: 
-linux/bitfield.h: No such file or directory
-    13 | #include <linux/bitfield.h>
-       |          ^~~~~~~~~~~~~~~~~~
-compilation terminated.
+If I am understanding correctly, the SLUB/barn/sheaf behavior we are
+looking at here is pre-existing rather than introduced by this series.
+The SMT affinity change is what changes the placement enough to expose
+the remote-free cost on this workload.
 
-this is due to 6c4b82b50c46842683a3a39e1bc8291581e8b1cb ("perf hisi-ptt: 
-Fix PTT trace TLP header parsing")
--- 
-Florian
+> - Total and average wait for the list_lock address in the pinned
+>   run. The unpinned run showed 5.05 min and 90 us average; if the
+>   pinned run is similar, the lock absorbs the same time whichever
+>   way the frees go.
+
+For the node0-pinned run, filtering the dominant lock gave:
+
+    2,907,948   3.37 min   69.62 us   __slab_free
+      269,174  23.00 sec   85.46 us   get_partial_node_bulk
+      175,965  15.17 sec   86.22 us   __refill_objects_node
+
+So in total that is about 3.353M contentions, 4.01 minutes of
+aggregate wait, and roughly 71.8 us average wait.
+
+Compared with the unpinned run:
+
+                        unpinned       node0 pinned
+    contentions         3.346M         3.353M
+    aggregate wait      5.05 min       ~4.01 min
+    average wait        90.48 us       ~71.8 us
+
+So the contention count is essentially unchanged even though
+free_slowpath drops from ~70M to ~9K. The pinned case does have
+somewhat lower wait time per contention.
+
+> - mpstat idle for node 0 in both runs, to tell whether that wait
+>   is idle time being spent or throughput being lost.
+
+Averaging the node0 CPUs (0-23,48-71) in that sample gives about 66% idle.
+In the earlier unpinned/all-local bad-state samples, those CPUs were nearly
+saturated, generally around 0-2% idle.
+
+> - Throughput for the node 0 / node 0 run that produced the counter
+>   table above. It is the one configuration missing from your
+>   throughput table.
+
+Oh yeah, it was the same trend as the workload table below: unpinned was
+43.4 GB/s and node 0 pinned was 46.5 GB/s.
+
+At this point I think we have a reasonably clear separation between the
+pre-existing allocator behavior and the regression introduced by the
+SMT affinity change. I don't have any additional data I think would
+materially change that conclusion, but I'm happy to run any targeted
+follow-up you think would still be useful.
