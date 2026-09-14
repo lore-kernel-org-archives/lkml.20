@@ -1,91 +1,96 @@
-Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com [209.85.161.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41F3331ED93
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 05:49:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49D7835E1D5
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 05:49:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789364951; cv=none; b=KbO2V2iCFlA94GD9pVuwVIFQeeWxvq3xQCSOgr/wDLfgx5ZOg6Wzz1I8uP37mt3oEx7ZI4G1/8mDQXqtxISTWzVEF8jpfmuvwsoVZztFHJ3MWeoJIAILMcPRRCFmi4xa+Ix5TUPvsz2qIsi4AJQex+/Fxyv7HaTkz5jEQUM7ZvQ=
+	t=1789364982; cv=none; b=EBSEHYlksO1QWhKjA3bJB+He71usffUYonawwbKRibh1VDTvf+pTFeWi2rs4AEzsMZqeVFf41fRm45pvswc019NdpR7/dRDQhUzjfAT11+dTeHlJRgdjTds1oGmMRGumV7vCGD6cVqQ3GgexpsI1iSc41p0QV9y0TMFYl1FVwKg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789364951; c=relaxed/simple;
-	bh=ivh13HzVA5QxL+Zb+IHVHtcjSt2Slp4M5sU37uuQdRM=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=sNVgJs/D1xsc4al3dFJLme4HmvXzrAm6ZJB9LE/zFLlBDZVAY4CDX0lwfwb7sKA8IGZayFvwXMjQ1qOVz+N92MsqSqHR6K8pSbfQUQwPlxVv62CEHjh6mDpWcqb0jfk4Lx7S/unyWFLliDa2vOI5gDkzst3hgRMmU1tz1zaqLAU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f72.google.com with SMTP id 006d021491bc7-6b1b8b593a4so2843000eaf.2
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 22:49:10 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789364949; x=1789969749;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=xixKmGIr/+79hnLBM805eu3Ie29jfMAa+RGyQDAWg/I=;
-        b=ZfLZWSYP6xfa1+M3Dpie4c4Avzembu1eSgVpQQj7R5agwdkG3yORuSxdGP7xE58Igs
-         0ybp3Jpg1F+OY1VS6ePVCnOCt7BPdS9GhLtCsDxx4SJPMLMYKUJBwZN79yFRs8L6xfEM
-         XWzLbS/ElwEDMKTniu3fjjG5v0AXXPZSqfNNhHJvzA0aJhh4KaJT2slKWCZqxruotmxD
-         nxf/DFERSBJaehPYNfCgj00MBfcdnTEHr/CGExAIqPNvIVKCo2N2bdaZ82RIJF28z5cT
-         jBbySXGEhwY6i+4Y2DmTXcGtVw3Gu6WdIn3FuOjtoqAKmTwVrW7sQfpJfhsLqmUy2SH7
-         5bFw==
-X-Gm-Message-State: AFuF++nbyUcYFRMwdeL7cHO+WAzJZKJRE3FqBc9FBjVZuy9PGn5Qy8sd
-	+AoYOcJizX/qz9104ytv05wd7sKNxGKe5SOvGuo5FqwaLpBWUDgSWQGXt/v4OVamXc7tD2GJOFN
-	zeYa+6vOAqRM09BZ6JfHdwHauLUiHgm2x6EPfmly75HTmt7l/BghF7NeDGIs=
+	s=arc-20240116; t=1789364982; c=relaxed/simple;
+	bh=XaQ5iHNLoAotdAWe/ZTPVH5Ot4VrpEFRSZkl2rRVoRY=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=HTqAe460GbpFb7und1FQfBPJKdcanuMkDAdYgqkauthMzxm9aWNjsdmPJENoFpHmGrmWI58+JViEw+TpvV7IdmNCjMQUMJnn+CIOWB74OBhe6dBTrD0e3xjYvrrtKfjUx3yciqB+1xL9SzAnyZ7rkj6j2HnvDRVlTKMOx21l2O4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 0e35349eb00011f19a56ed5b684f684d-20260914
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:4d89011c-5503-4e48-9175-ccfbe6a37ec0,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:d37673151fb0105cc92bbcad96967829,BulkI
+	D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50|99,EDM:
+	-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,O
+	SA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 0e35349eb00011f19a56ed5b684f684d-20260914
+X-User: zenghongling@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zenghongling@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 230106171; Mon, 14 Sep 2026 13:49:31 +0800
+From: Hongling Zeng <zenghongling@kylinos.cn>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	zhongling0719@126.com,
+	Hongling Zeng <zenghongling@kylinos.cn>
+Subject: [PATCH v11 0/6] ntfs: fix volume flag races and persist the recorded error state
+Date: Mon, 14 Sep 2026 13:49:20 +0800
+Message-Id: <20260914054926.78808-1-zenghongling@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:c85:b0:6b9:447b:8798 with SMTP id
- 006d021491bc7-6c543112816mr487028eaf.63.1789364949316; Sun, 13 Sep 2026
- 22:49:09 -0700 (PDT)
-Date: Sun, 13 Sep 2026 22:49:09 -0700
-In-Reply-To: <6a6d4178.13bfb6d0.1ecdd5.0256.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa78ad5.f670cee1.72fc4.0017.GAE@google.com>
-Subject: Forwarded: [PATCH] configfs: unhash dentry before dropping the item
-From: syzbot <syzbot+92f5bf49bf4ac75223ca@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org.
+The fs/ntfs runtime metadata-corruption paths only record the in-memory
+NVolErrors() flag, and the caller-side dirty-bit marking races with
+ntfs_sync_fs(): a volume can end up with a clean on-disk dirty flag
+despite modification or recorded corruption, so chkdsk never runs on
+the next mount.  Based on ntfs/ntfs-next (9a05b5715cfa).
 
-***
+ 1/4 makes the volume flag read-modify-write atomic under the
+    $Volume mrec_lock;
+ 2/4 marks the volume dirty unconditionally on metadata changes,
+    dropping the racy caller-side checks in file.c and namei.c;
+ 3/4 derives the on-disk dirty bit from the recorded error state at
+    the persistence points (sync_fs, remount-ro, put_super) and never
+    writes a hibernated volume;
+ 4/4 persists the dirty state after the final put_super() commits so
+    late errors cannot unmount clean.
 
-Subject: [PATCH] configfs: unhash dentry before dropping the item
-Author: jchuang26@m.fudan.edu.cn
+Changes in v11:
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 762137ff748fa0c920f82ce718163691cb02f907
+- Add 5/6: Stop clearing VOLUME_IS_DIRTY during sync. The bit is now
+  cleared only on remount to read-only or clean unmount, preventing a
+  crash during metadata updates from bypassing chkdsk. Verified in QEMU.
 
-Reported-by: syzbot+92f5bf49bf4ac75223ca@syzkaller.appspotmail.com
+- Add 6/6: Check commit and flush errors during remount and unmount.
+  Re-check NInoDirty() after __ntfs_write_inode(). A failed remount is
+  rejected so unmount can retry; unmount failures are reported as warnings.
 
-diff --git a/drivers/usb/atm/ueagle-atm.c b/drivers/usb/atm/ueagle-atm.c
-index 4266a0cb7..b1b358b3a 100644
---- a/drivers/usb/atm/ueagle-atm.c
-+++ b/drivers/usb/atm/ueagle-atm.c
-@@ -2458,12 +2458,21 @@ static int uea_bind(struct usbatm_data *usbatm, struct usb_interface *intf,
- 	struct uea_softc *sc;
- 	int ret, ifnum = intf->altsetting->desc.bInterfaceNumber;
- 	unsigned int alt;
-+	int modem_idx;
- 
- 	/* interface 0 is for firmware/monitoring */
- 	if (ifnum != UEA_INTR_IFACE_NO)
- 		return -ENODEV;
- 
--	usbatm->flags = (sync_wait[modem_index] ? 0 : UDSL_SKIP_HEAVY_INIT);
-+	/*
-+	 * modem_index is a global counter that stops at NB_MODEM once that
-+	 * many devices have been probed. Wrap the index the same way as
-+	 * sc->modem_index below so that the module parameter lookup stays
-+	 * within the bounds of the arrays.
-+	 */
-+	modem_idx = (modem_index < NB_MODEM) ? modem_index : 0;
-+
-+	usbatm->flags = (sync_wait[modem_idx] ? 0 : UDSL_SKIP_HEAVY_INIT);
- 
- 	/* interface 1 is for outbound traffic */
- 	ret = claim_interface(usb, usbatm, UEA_US_IFACE_NO);
+
+Hongling Zeng (4):
+  ntfs: fix volume flag update races
+  ntfs: set the volume dirty bit unconditionally on metadata changes
+  ntfs: sync the volume dirty bit with the recorded error state
+  ntfs: persist the dirty state after the final put_super() commits
+
+ fs/ntfs/file.c   |  20 ++---
+ fs/ntfs/namei.c  |  24 ++----
+ fs/ntfs/ntfs.h   |   1 -
+ fs/ntfs/super.c  | 191 ++++++++++++++++++++++++++++++++++++-----------
+ fs/ntfs/volume.h |   4 +
+ 5 files changed, 171 insertions(+), 69 deletions(-)
+
+-- 
+2.25.1
+
