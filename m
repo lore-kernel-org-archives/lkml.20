@@ -1,200 +1,86 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4C08536D4F1;
-	Mon, 14 Sep 2026 14:48:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 630FD3BB134
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:48:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789397292; cv=none; b=JlVdmB6Mu6o2RICgW0QaTR5yEg5SDhUUYfgJyr+IWd2QEj0W5rNXev/JP41SpdTp+9QpsngWa8Ym8ERxlOsqXG7ViF22ksPldrFDEJPuzKdWmhMsKvs5CHlEM/UB5/HGjtBnZAnLUIK/pdspgqhVt7vn6kxneNCCwa9wFQRUMZA=
+	t=1789397336; cv=none; b=Ek8FR6ufNpqQoFoNYeqS6kHEF6gktzaiZl9LUz2ef9l6bllmZN7FzOTsf+DcsuTI37UlLLk4KOXy7f2RV36yfZ7dJXxfrIUKR2s0zI7jhYupWDVlI9wzq9Jh44FwAtgVqhoiZLy1rJgMqkmJR+Myc2De1VtnBJUBY3z5Wi66yO0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789397292; c=relaxed/simple;
-	bh=sSuxvUZK/IInSTh3DMry4fm7u0hI8Ny9M1h4ityWlBI=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=Bslvi1j7sLSM06lF3ewIgCYjr1nGw4SqYB1PsbQXUFhBVXJgj2qRjSuMnuUTopcrZmUpVH4SDAeOagRX2Eb4tr2NdLiTF9W0gQIXBbgNKLEwE9LTpXRI4J40rKg9nFgZ1lNaJ4Rp7ypMhtX08cUsvI6JRsZ8HUpDrw1j5QCMsDQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=RDKoacyi; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789397336; c=relaxed/simple;
+	bh=1XAHUwjh6zUEXQ3bvhPhcRYD27b50yX9tdUAkDOts+o=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=AQwWsaTMQYKIC2SJXtPAsp5puqtZGsBUsaOGgGDCSgvKb48ZAz/QmA5paAWBfqQNiT810VkgEIlfpdSAvQaH3zB+xP5e4YuM2CLWBg5o1JjyhS4EiLWRYqC0TZdxsz7QG8bZrSclCF7EHFy83W9HSUn2xVSi28i0oM0nactIIQ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ZHp+DMEX; arc=none smtp.client-ip=209.85.216.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="RDKoacyi"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 18646153B;
-	Mon, 14 Sep 2026 07:47:58 -0700 (PDT)
-Received: from [10.0.128.139] (unknown [10.0.128.139])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id F20BB3F86F;
-	Mon, 14 Sep 2026 07:47:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789397281; bh=sSuxvUZK/IInSTh3DMry4fm7u0hI8Ny9M1h4ityWlBI=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
-	b=RDKoacyiTEJcsnBood+kw6BJnBDDLH+xWOGOm6H1cuAOovgJDoklW3GMfhm4kiyXw
-	 bt5sMro68jYrRvGKIW7SRj5qwGXjpsFt150Xc8J274C1qzAGTpQWJs/IzKGVgX4AoL
-	 1B3JAd6cJRUW0jr84JP8ygSYFjCHkQ5JHh7cYJYM=
-Message-ID: <d5541663-3b64-4aaa-9ac6-b07ac0bc2c8a@arm.com>
-Date: Mon, 14 Sep 2026 15:47:57 +0100
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ZHp+DMEX"
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-39d865b11b4so1768852a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:48:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789397334; x=1790002134; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1XAHUwjh6zUEXQ3bvhPhcRYD27b50yX9tdUAkDOts+o=;
+        b=ZHp+DMEXvmSaOoDradMCGJm68rbJ0zekWk2X4vBxUnYktiPmuTJHfU2BuYgmyh+ZvR
+         GV9IWlyUe5kX0czZwJNkg6XvAR4MqN846Z0Hb1g8wnVFl4HlW+qPfRSnvykhhF9d6sJ5
+         aCuRNM4rQtZJ4dqqlItM0F2JhbqCV7m8q/8IDcsFBogGmNxkjo39b6uAOWAlk4EnkEVN
+         U0ohdqxE8GfQGC6R2RYnx1JqtnmSqEtrk+A5GXnqvEPu88gHfZZ3/aps4nBk0+mrIEt1
+         FXg7Pf1h2eteBI8GN34m0nH/InaiAMi2uysEkSw/LGlnGKKBY25PDqt9hLLty1JNlvwc
+         RdAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789397334; x=1790002134;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1XAHUwjh6zUEXQ3bvhPhcRYD27b50yX9tdUAkDOts+o=;
+        b=Z/U5Jwx0W2krUnH26g0ZODOweBxw8E8V2IgPJPpoiwNnY9Q20RoCAC6gZ9JkPsvGRF
+         yUQZGbDQ14osQDizjsKOJ/PJJbfpOBQcrJy0rtuNNGHEZu662bBZFsKahA1A+SbI2g33
+         ZSZEFh19e0o5ThNGCOYGqe0zeq84cvc6Mv4wPXnTJZ8aZThRDCO5MioNOLhcXwtHPugi
+         Bzf0pAaTFVRuFabuvdv0xW4fcifx8HFIxmkjS3DD0EEhPAtNAT+gndJwZiXYreBp8OLx
+         9k1yLUjtTbgWvvs4aG/xOWjDHHlbLEYqFb+7f73XjTpfqXRwVkOz2tgV5upaK70T1cqk
+         QWvw==
+X-Forwarded-Encrypted: i=1; AKwUvBzcUINWm5g4baI34uFKE61deYLhzO0BtEONrDSfifnaymsXAqCtkdtydpgZt4vBSmy1UGw0IMmg+7aZ/M4=@vger.kernel.org
+X-Gm-Message-State: AFuF++k23QYNvq0PCHUeYsNdXPPKEqbgBh2z0BMl3+aVtx7I9shGXYlt
+	yzDP8CDU0zeP8gXyzgZKtCvwyG8UzFDm124zJYv7CdiZq4tDcy+XdW8cQWNTEkHzf2KMBw39k2/
+	LKMj6wW4Va5MvNcpEoFrIBw==
+X-Received: from pjbbs11.prod.google.com ([2002:a17:90a:f20b:b0:39d:93fb:c298])
+ (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:90a:e7d2:b0:398:c0ad:711c with SMTP id 98e67ed59e1d1-39dec08d844mr5799298a91.15.1789397333949;
+ Mon, 14 Sep 2026 07:48:53 -0700 (PDT)
+Date: Mon, 14 Sep 2026 22:48:51 +0800
+In-Reply-To: <b1fccd35bf35abf384c31bee6cf3040e02051755.camel@iokpp.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v18 4/7] firmware: arm_rmm: Add support for SRO
-Content-Language: en-GB
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-To: Sudeep Holla <sudeep.holla@kernel.org>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
- will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
- aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
- WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
-References: <20260912083611.2513845-1-suzuki.poulose@arm.com>
- <20260912083611.2513845-5-suzuki.poulose@arm.com>
- <20260914-talkative-healthy-pogona-334c03@sudeepholla>
- <657e69c2-d0e9-433a-b0d2-4f16bc94ee2c@arm.com>
-In-Reply-To: <657e69c2-d0e9-433a-b0d2-4f16bc94ee2c@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20260913033633.3159296-1-stanleyjhu@google.com>
+ <20260913033633.3159296-3-stanleyjhu@google.com> <b1fccd35bf35abf384c31bee6cf3040e02051755.camel@iokpp.de>
+X-Mailer: git-send-email 2.55.0.1007.g17ff1f9808-goog
+Message-ID: <20260914144851.930983-1-stanleyjhu@google.com>
+Subject: Re: [PATCH v4 2/3] scsi: ufs: rpmb: Decouple device lifecycle from
+ devres to avoid UAF
+From: Stanley Jhu <stanleyjhu@google.com>
+To: beanhuo@iokpp.de, jenswi@kernel.org, mkp@kernel.org
+Cc: gregkh@linuxfoundation.org, arnd@arndb.de, bvanassche@acm.org, 
+	avri.altman@sandisk.com, alim.akhtar@samsung.com, beanhuo@micron.com, 
+	can.guo@oss.qualcomm.com, ulfh@kernel.org, linusw@kernel.org, 
+	shyamsaini@linux.microsoft.com, alex.bennee@linaro.org, 
+	James.Bottomley@hansenpartnership.com, linux-scsi@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Stanley Jhu <stanleyjhu@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On 14/09/2026 15:02, Suzuki K Poulose wrote:
-> On 14/09/2026 13:50, Sudeep Holla wrote:
->> On Sat, Sep 12, 2026 at 09:36:07AM +0100, Suzuki K Poulose wrote:
->>> RMM v2.0 introduces the concept of "Stateful RMI Operations" (SRO). This
->>> means that an SMC can return with an operation still in progress. The
->>> host is expected to continue the operation until it reaches a conclusion
->>> (either success or failure). During this process the RMM can request
->>> additional memory ('donate') or hand memory back to the host
->>> ('reclaim'). The host can request an in progress operation is cancelled,
->>> but still continue the operation until it has completed (otherwise the
->>> incomplete operation may cause future RMM operations to fail).
->>>
->>> The SRO is tracked using a struct rmi_sro_state object which keeps track
->>> of any memory which has been allocated but not yet consumed by the RMM
->>> or reclaimed from the RMM. This allows the memory to be reused in a
->>> future request within the same operation. It will also permit an
->>> operation to be done in a context where memory allocation may be
->>> difficult (e.g. atomic context) with the option to abort the operation
->>> and retry the memory allocation outside of the atomic context. The
->>> memory stored in the struct rmi_sro_state object can then be reused on
->>> the subsequent attempt.
->>>
->>> Wrappers for SRO RMI commands are also provided here because they depend
->>> on the rmi_sro_execute() implementation added by this patch.
->>> Delegate/undelegate handles are also added here because they now use the
->>> SRO/stateful command infrastructure and are also used for the memory
->>> DONATE/RECLAIM flows.
->>>
->>> Signed-off-by: Steven Price <steven.price@arm.com>
->>> Co-Developed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
->>> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
->>
->> [...]
->>
->>> +static int rmi_sro_donate_noncontig(struct rmi_sro_state *sro,
->>> +                    unsigned long sro_handle,
->>> +                    unsigned long donatereq,
->>> +                    struct arm_smccc_1_2_regs *out_regs,
->>> +                    gfp_t gfp)
->>> +{
->>> +    unsigned long block_size_fld = RMI_DONATE_BLOCK_SIZE(donatereq);
->>> +    unsigned long block_size = 
->>> rmi_addr_block_size_to_bytes(block_size_fld);
->>> +    unsigned long count = RMI_DONATE_COUNT(donatereq);
->>> +    unsigned long state = RMI_DONATE_STATE(donatereq);
->>> +    unsigned long found = 0;
->>> +    unsigned long donated_granules;
->>> +    unsigned long granules_per_block = block_size >> PAGE_SHIFT;
->>> +    unsigned long consumed_blocks;
->>> +    int addr_list_start = sro->addr_count;
->>> +
->>> +    int ret;
->>> +
->>> +    for (int i = 0; i < addr_list_start && found < count; i++) {
->>> +        unsigned long entry = sro->addr_list[i];
->>> +
->>> +        if (RMI_ADDR_RANGE_BLOCK_SIZE(entry) == block_size_fld &&
->>> +            RMI_ADDR_RANGE_COUNT(entry) == 1 &&
->>> +            RMI_ADDR_RANGE_STATE(entry) == state) {
->>> +            addr_list_start--;
->>> +            swap(sro->addr_list[addr_list_start],
->>> +                 sro->addr_list[i]);
->>> +            found++;
->>> +            i--;
->>> +        }
->>> +    }
->>> +
->>> +    ret = rmi_sro_ensure_capacity(sro, count - found);
->>> +    if (ret)
->>> +        return ret;
->>> +
->>> +    while (found < count) {
->>> +        unsigned long addr_range;
->>> +        void *virt = alloc_pages_exact(block_size, gfp);
->>> +        phys_addr_t phys;
->>> +
->>> +        if (!virt)
->>> +            return -ENOMEM;
->>> +
->>> +        phys = virt_to_phys(virt);
->>> +
->>> +        if (state == RMI_OP_MEM_DELEGATED) {
->>
->> Based on my understanding, rmi_sro_memxfer_execute() is an exported 
->> function
->> and can be invoked by any module. The donatereq argument appears to 
->> accept one
->> of three operations:
->>
->> RMI_OP_MEM_DELEGATED
->> RMI_OP_MEM_UNDELEGATED
->> RMI_OP_MEM_CONDITIONAL
-> 
-> Ack
-> 
->>
->> Currently, the check confirming the state is RMI_OP_MEM_DELEGATED occurs
->> relatively late in the function execution. It seems this function is
->> explicitly designed to handle only RMI_OP_MEM_DELEGATED.
-> 
-> No, that is not correct. The function handles both OP_MEM_DELEGATED and
-> OP_MEM_UNDELEGATED. In the former case, we explicitly "delegate" the
-> pages before donating. The "UNDELEGATED" case doesn't need to do that
-> extra step.
-> 
->>
->> Given that this is an exported interface, would it make sense to
->> fail-fast by moving this validation to the very beginning of the 
->> function?
->> Even if RMI_OP_MEM_CONDITIONAL is intended for future use, it should
-> 
-> Yep, agree. We can rejec the CONDITIONAL ones.
+On Mon, 2026-09-14 at 11:55 +0200, Bean Huo wrote:
+> why uses list_del_init(), list_del() is not enough?
 
-For the record, the CONDITIONAL ones are required for self-describing
-cases for L1_GPT_CREATE and TRACKING_GRANULE_SET, where the RMM could
-accept DELEGATED granules for the objects (if not self describing) or
-UNDELEGATED granules  (if they are self-describing).
+It is. Back to list_del() in v5, and the INIT_LIST_HEAD() that v4 added
+to pair with it is gone as well.
 
-For now, we don't support such RMMs, so will reject the type for now.
+> every entry on the list has rdev set, so this check is not needed?
 
-Cheers
-Suzuki
-
-> 
->> probably be rejected as invalid for now. Also, it is not clear why the
->> current check is inside the loop while the state itself doesn't get
->> modified.
-> 
-> As above, that check is additionally preparing the memory for RMM
-> consumption.
-> 
-> 
->>
->> If this is a valid concern, the same architectural pattern should 
->> likely be
->> applied to rmi_sro_donate_contig().
->>
-> 
-> Ack, we can reject the CONDITIONAL ones.
-> 
-> Suzuki
-> 
-
+It is not. list_add_tail() only runs after ufs_rpmb->rdev is assigned,
+so the check can never be false. Dropped.
