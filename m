@@ -1,219 +1,148 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0C58386568;
-	Mon, 14 Sep 2026 06:05:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED6073B6C09;
+	Mon, 14 Sep 2026 06:05:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789365925; cv=none; b=uTqLK12zZphE96OXQuV8nh1HJdMBXBVtYRuzbP25YnvKZ42aZJ9kttRc3XtVWyFRS352F1/nzfpoFtooo0NMQ/4RsJ58wQerN8evsl4g8G3Uty43DXV1QAIdQvzJzjhoewmpFN0OOV2C/yBVf90lCzYLrl2VomSguzldUiwEP+s=
+	t=1789365931; cv=none; b=TOWX6zZ+2asfCli9Ebqp1wqO+NJ5I/MxoYMDVQ+5E97qiWD2OSZIGGMDvINbHIF47vb3/UF08OgcFCxAI1vyE/ZzIlQ4c84S+q3IYTC8lfw/bXDLQJ7ValicJQWTEbF4w1B4mQCzK+6XW3KEDoQQrYMJ7cetWt93eToTiCyKDo0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789365925; c=relaxed/simple;
-	bh=SYXr3v6rNpzInFw3vzjRrtjnbMKUOX/lELSBggtoZBI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MwvQB5GlJEa0fTD/cTHSLUfZpvs37pLl2CF1pcuG60ULplxT3LBxCwCeC+q9G3cE+1sN6lezjGUsyKk9+uYs3zfPkcQl4N2gmHIUdyVZXGrn4xpRJhUlyBACJbPMcatdKxB8wWRN+dPeBqQHHuEIMdXUyS3f7jhBc5zNbZ10Oeg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SgPMKeXL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789365931; c=relaxed/simple;
+	bh=ouUPgqF/p+Lw1hguu8gg64pH9INr44vKVkVheRekLw4=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=AWGB7nlO0dE6KYUAYfjU/QjRwyr2WN8hn1ut10F2Ci6JymKFHrE9DedX/3AgKFITRaCn2zuS3adj+hpaMwAEX5sNl/vD9n1rJ41IGde/7tMXOJU2GXhABpsnhG6ZatY5+cWSfyIUgMpLFKvDFuuAsUd4ciseYQ/PsBaT4Sve+F0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N/ZR2EWN; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SgPMKeXL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 941491F000FF;
-	Mon, 14 Sep 2026 06:05:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789365922;
-	bh=B5zIRBsJq6iQL3X+P2GGrZuJeAwviBSya5l0KqfhnHY=;
-	h=From:To:Cc:Subject:Date;
-	b=SgPMKeXL1kKUhB4vKYSP6NmqhQ5x3v84ssV0eSqkTjgcHP6h5vMs68UPCRUpCIvJ8
-	 2P13PTIMoR1FkgM5w6FSz9G99Ua/yCLWkRbrCj/xztBYARfzDh3lDoI44ni+JjYJO7
-	 CLdvQJjoplfHJv48RV5NM4t5VH9O13L8OhPYf5B18Fyi8urdQkPVwg83H5Yrgi05yz
-	 ABqdXZWOvHNPaa4sOO9axRy/cB3uKG5Mam1h3hG+0vs0EaX2BMr8PSHNTU71e0qwll
-	 9MjAxlNQ6EaF10lVp4b91qFl/xkl2o3A44366jtWSvSCaxawfb5SsOfTG2cy1moyeU
-	 y/IkLsRAMdrvg==
-From: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
-To: linux-coco@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
-	Jason Gunthorpe <jgg@nvidia.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Greg KH <gregkh@linuxfoundation.org>,
-	Jeremy Linton <jeremy.linton@arm.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Sudeep Holla <sudeep.holla@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
-	Andre Przywara <andre.przywara@arm.com>
-Subject: [PATCH v11 0/7] Switch Arm SMCCC firmware services to an SMCCC bus
-Date: Mon, 14 Sep 2026 11:35:04 +0530
-Message-ID: <20260914060511.277948-1-aneesh.kumar@kernel.org>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N/ZR2EWN"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 23C1FC2BCFA;
+	Mon, 14 Sep 2026 06:05:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789365930;
+	bh=ouUPgqF/p+Lw1hguu8gg64pH9INr44vKVkVheRekLw4=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=N/ZR2EWNETZNo0LxEXdefsz0m7IZpNgZ+M7JhL3SdhKDWuWu7jbXnEb5C1lwXSCW1
+	 sGN64XuHIMHpEGlvPnAqTxnv1+RDLcAYgAf8SNbJHqcdYl5VgTXK0QYj6JrmeR9xgH
+	 WTeqA8Jq48dAxfg9sKSsWJnWplOC7OpJ+zoAmrBhEyCx3j5SHjMOhWz6/eTrlaikkE
+	 mHFh0R7FFlncXu/iATG/6E9OnvLV0zmOxgVWOTnv55DbWn1QaZRM7A/vb+2u9xbgYO
+	 fY9UhYmX9AiDKL2RQvuKCZqbdB9sDwls4NSq6es0idKP7R3bYDlP9ugcV5BfbfWAWC
+	 2HOXWZSJnVyAA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id ED4E1C88E64;
+	Mon, 14 Sep 2026 06:05:29 +0000 (UTC)
+From: Jens Glathe via B4 Relay <devnull+jens.glathe.oldschoolsolutions.biz@kernel.org>
+Subject: [PATCH v2 0/3] usb: typec: ps883x: fixes for older Thunderbolt 4 /
+ USB4 docks
+Date: Mon, 14 Sep 2026 08:05:00 +0200
+Message-Id: <20260914-ps883x-disable-usb4-v2-0-523c32b4e4d7@oldschoolsolutions.biz>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32OQQ6CMBBFr0K6dkxbFIsr72FY0HaQSRpKOkBQw
+ t2tHMDl+8l//2+CMRGyuBebSLgQUxwy6FMhXN8OLwTymYWWupI3ZWBkY8oVPHFrA8LM9gKqtrJ
+ zqrTX1orcHBN2tB7WZ5O5J55ieh8ji/ql/32LAgkOnam8tLWs8RGDZ9fHGDiGecof+WzpI5p93
+ 7+JaxbiwwAAAA==
+X-Change-ID: 20260718-ps883x-disable-usb4-19b0fc13b5ab
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Abel Vesa <abelvesa@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Sebastian Reichel <sre@kernel.org>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, stable@vger.kernel.org, 
+ "Dr. David Alan Gilbert" <dave@treblig.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789365928; l=3450;
+ i=jens.glathe@oldschoolsolutions.biz; s=20240919;
+ h=from:subject:message-id;
+ bh=ouUPgqF/p+Lw1hguu8gg64pH9INr44vKVkVheRekLw4=;
+ b=bJiVGeLwKgpwRhuCVkpTFvzw1nOWIBBI1al0lJc1vw1HYQqfNQU7qPhofiuxQKZmFmQaRjWJb
+ wunOo/jSdOUCUjS4S+mInn1+f83PL0ZGIFSihfVhnxKYHMzIojVGVg2
+X-Developer-Key: i=jens.glathe@oldschoolsolutions.biz; a=ed25519;
+ pk=JcRJqJc/y8LsxOlPakALD3juGfOKmFBWtO+GfELMJVg=
+X-Endpoint-Received: by B4 Relay for
+ jens.glathe@oldschoolsolutions.biz/20240919 with auth_id=216
+X-Original-From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+Reply-To: jens.glathe@oldschoolsolutions.biz
 
-As discussed here:
-https://lore.kernel.org/all/20250728135216.48084-12-aneesh.kumar@kernel.org
+On Qualcomm X1E80100 / X1P42100 platforms using the Parade PS883x
+retimer, connecting USB4-capable docks such as the Lenovo 40B0 via a
+regular Type-C cable (Type-C fallback mode) often results in working
+USB but no DisplayPort output.
 
-The earlier CCA guest support used an arm-cca-dev platform device as a pure
-software anchor for the TSM class device. That platform device did not
-correspond to a DT/ACPI described device, MMIO range, interrupt, or other
-platform resource; it existed only to make the CCA guest driver bind and to
-place the resulting TSM device in the driver model. The same pattern also
-exists for smccc_trng. Creating separate platform devices for such
-SMCCC-discovered features is misleading, because those features are not
-independent platform devices.
+This series addresses the issue with three driver-only changes:
 
-This series adds an Arm SMCCC bus for services discovered through the SMCCC
-firmware interface. The bus provides SMCCC device and driver registration
-helpers, SMCCC function id based matching, uevent modalias generation, and
-a sysfs modalias attribute. SMCCC service drivers can use
-MODULE_DEVICE_TABLE(arm_smccc, ...) to emit arm_smccc:f<functionid>
-aliases, allowing userspace to autoload service drivers when the SMCCC core
-registers matching firmware-service devices.
+- Support the legacy TYPEC_DP_STATE_F request (deprecated since DP Alt
+  Mode 1.0b) that docks such as the 40B0 and SSK SC220 still send.
+  Handle it in the existing DP altmode path in ps883x_set(), using the
+  same C/E = DP-only and D/F = USB3+DP mapping as qcom-qmp-combo.
 
-The series then moves SMCCC TRNG and the Arm CCA guest RSI service off the
-platform bus. When the SMCCC core discovers the corresponding firmware
-service, it registers an arm-smccc device for that service. The hwrng
-arm_smccc_trng driver and the Arm CCA guest TSM provider are converted to
-SMCCC drivers that bind to those discovered devices.
+- Add a post-configuration delay after writing the connection-status
+  registers so the analog front-end can settle. This makes DP Alt Mode
+  hotplug reliable on the 40B0.
 
-The old arm-cca-dev platform device has also been used by userspace as a Realm
-guest indicator. Removing it without a replacement would leave userspace
-depending on an internal driver-binding device. This series therefore adds
-/sys/firmware/cca/realm_guest as a stable, architecture-provided ABI for
-detecting whether the kernel is running as an Arm CCA Realm guest, and then
-removes the dummy arm-cca-dev platform-device registration.
+- On platforms whose USB4 / DP-tunneling stack is not ready yet, reject
+  TYPEC_MODE_USB4 with -EOPNOTSUPP. That forces the Type-C stack to
+  fall back to USB3 + DP Alt Mode. The quirk is a machine-compatible
+  table inside the driver, not a DT property.
 
-Changes from v10:
-https://lore.kernel.org/all/20260904095000.1184861-1-aneesh.kumar@kernel.org
-* Collect Reviewed-by tags.
-* Add the missing linux/types.h include.
-* Update the arm_smccc_1_1_invoke() call to pass 0 as the input value for x1-x7.
+This is a temporary workaround until full USB4 DP tunneling support is
+available in the X1E USB4 controller and qmp-combo PHY stack.
 
-Changes from v9:
-https://lore.kernel.org/all/20260805063255.1638614-1-aneesh.kumar@kernel.org
-* Rename CONFIG_ARM_RMM to CONFIG_ARM_RMM_RSI to make the Kconfig option RSI-specific.
-* Update the modalias to use the SMCCC function ID.
-* Don't issue SMC64 SMCCC calls on arm32.
-* Drop the IDA usage.
+As an additional observation, the same dock with a Type-C cable works
+well on Thinkpad X13s, Thinkbook 16 G7 QOY and Ideapad 5 14Q8X9, which
+do not use this retimer.
 
-Changes from v8:
-https://lore.kernel.org/all/20260707081351.1680209-1-aneesh.kumar@kernel.org
-* Rebase onto the arm64 for-next/core branch.
-* Move the RSI code from arch/arm64 to drivers/firmware/arm_rmm in patch 3.
-* Add a new patch to move the Realm memory-encryption operations to the RSI code.
-* Drop the Reviewed-by tag from patch 3.
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Abel Vesa <abelvesa@kernel.org>
+To: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+To: Sebastian Reichel <sre@kernel.org>
+Cc: linux-usb@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org
+Cc: stable@vger.kernel.org
+Cc: Dr. David Alan Gilbert <dave@treblig.org>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-Changes from v7:
-https://lore.kernel.org/all/20260611130429.295516-1-aneesh.kumar@kernel.org
-* Rebase to latest kernel
-* Add id_table check in arm_smccc_driver_register
-* Add smccc device name check in arm_smccc_device_register
-* Drop driver_data from struct arm_smccc_device_id
+Assisted-by: Grok(xAI):4.6
+Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+---
+Changes in v2:
+- Drop the parade,disable-usb4 DT property, bindings and board DTS
+  changes (Sebastian Reichel, Krzysztof Kozlowski). DT describes
+  hardware; incomplete software support is not a board property.
+- Disable USB4 from the driver via of_machine_is_compatible() for
+  qcom,x1e80100, qcom,x1p42100, qcom,hamoa and qcom,purwa. The quirk
+  stays kernel-contained and can be dropped later without ABI.
+- Keep DP altmode handling in the existing ps883x_set() path instead
+  of extracting a helper (Konrad Dybcio). Treat STATE_F like STATE_D
+  and STATE_E like STATE_C, matching qcom-qmp-combo.
+- Replace usleep_range(20000, 30000) with fsleep(30000) and document
+  why the delay is required (Heikki Krogerus).
+- Drop the per-event "USB4 disabled via DT property" log; print once
+  at probe when the quirk is active.
+- Link to v1: https://lore.kernel.org/r/20260718-ps883x-disable-usb4-v1-0-cec86d0b909e@oldschoolsolutions.biz
 
-Changes from v6:
-https://lore.kernel.org/all/20260527100233.428018-1-aneesh.kumar@kernel.org
-* Move SMCCC bus-related code to bus.c.
-* Remove CONFIG_ARM64 #ifdefs and switch device creation to use the generic function-ID support framework.
-* Move version-specific checks and other conditionals to the device driver probe routines.
-* Move RSI definitions to include/linux/arm-smccc-rsi.h.
-* Split the file and variable renames into a separate patch.
+---
+Jens Glathe (3):
+      usb: typec: mux: ps883x: support TYPEC_DP_STATE_F like qmp-combo
+      usb: typec: mux: ps883x: add a delay after writing config regs
+      usb: typec: mux: ps883x: disable USB4 on incomplete USB4 platforms
 
-Changes from v5:
-https://lore.kernel.org/all/20260514094030.42495-1-aneesh.kumar@kernel.org
-* Replace the arm-smccc platform-device plus auxiliary-child model with a
-  dedicated Arm SMCCC bus.
-* Add SMCCC module alias support so SMCCC service drivers can use
-  MODULE_DEVICE_TABLE(arm_smccc, ...) and autoload through arm_smccc:<name>
-  aliases.
-* Convert smccc_trng from a platform driver to an SMCCC driver.
-* Convert the Arm CCA guest TSM provider from the arm-cca-dev platform device
-  to an SMCCC driver bound to the discovered RSI service.
-* Add /sys/firmware/cca/realm_guest before removing the old arm-cca-dev dummy
-  platform device.
+ drivers/usb/typec/mux/ps883x.c | 56 +++++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 53 insertions(+), 3 deletions(-)
+---
+base-commit: 68142f986ff04b2b70b31db00f719bf690f64a9a
+change-id: 20260718-ps883x-disable-usb4-19b0fc13b5ab
 
-Changes from v4:
-https://lore.kernel.org/all/20260427061615.905018-1-aneesh.kumar@kernel.org
-* Add /sys/firmware/cca/realm_guest for detecting realm guest
-* Convert smccc_trng to auxiliary device from platform device
-
-Changes from v3:
-https://lore.kernel.org/all/20260309100507.2303361-1-aneesh.kumar@kernel.org
-* Rebased onto the latest kernel
-* Drop pr_fmt() from drivers/firmware/smccc/rmm.c
-
-Cc: Jason Gunthorpe <jgg@nvidia.com> 
-Cc: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Greg KH <gregkh@linuxfoundation.org>
-Cc: Jeremy Linton <jeremy.linton@arm.com>
-Cc: Jonathan Cameron <jic23@kernel.org>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
-Cc: Mark Rutland <mark.rutland@arm.com>
-Cc: Sudeep Holla <sudeep.holla@arm.com>
-Cc: Will Deacon <will@kernel.org>
-Cc: Steven Price <steven.price@arm.com>
-Cc: Suzuki K Poulose <Suzuki.Poulose@arm.com>
-Cc: Andre Przywara <andre.przywara@arm.com>
-
-Aneesh Kumar K.V (Arm) (7):
-  firmware: smccc: Add an Arm SMCCC bus
-  firmware: hwrng: arm_smccc_trng: Register as an SMCCC device
-  firmware: arm_rmm: Move RSI support out of arch/arm64
-  arm64: realm: Move Realm memory encryption ops to RSI code
-  virt: coco: arm-cca-guest: Rename TSM report source file
-  firmware: smccc: arm-cca-guest: Bind the TSM provider to an SMCCC
-    device
-  coco: guest: arm64: Replace dummy CCA device with sysfs ABI
-
- Documentation/ABI/testing/sysfs-firmware-cca  |  10 ++
- arch/arm/include/asm/archrandom.h             |   2 +-
- arch/arm64/Kconfig                            |   1 +
- arch/arm64/include/asm/archrandom.h           |   2 +-
- arch/arm64/include/asm/io.h                   |   2 +-
- arch/arm64/include/asm/mem_encrypt.h          |   5 +-
- arch/arm64/include/asm/pgtable-prot.h         |   2 +-
- arch/arm64/include/asm/rsi.h                  |  70 --------
- arch/arm64/kernel/Makefile                    |   2 +-
- arch/arm64/kernel/setup.c                     |   2 +-
- arch/arm64/mm/init.c                          |   3 +-
- arch/arm64/mm/pageattr.c                      |  38 +----
- drivers/char/hw_random/arm_smccc_trng.c       |  32 ++--
- drivers/firmware/Kconfig                      |   1 +
- drivers/firmware/Makefile                     |   1 +
- drivers/firmware/arm_rmm/Kconfig              |  17 ++
- drivers/firmware/arm_rmm/Makefile             |   2 +
- .../kernel => drivers/firmware/arm_rmm}/rsi.c |  78 +++++++--
- drivers/firmware/smccc/Makefile               |   2 +-
- drivers/firmware/smccc/bus.c                  | 151 ++++++++++++++++++
- drivers/firmware/smccc/smccc.c                |  68 ++++++--
- drivers/virt/coco/arm-cca-guest/Kconfig       |   3 +-
- drivers/virt/coco/arm-cca-guest/Makefile      |   2 +
- .../arm-cca-guest/{arm-cca-guest.c => main.c} |  55 +++----
- .../linux/arm-rsi-cmds.h                      |  76 ++++++++-
- include/linux/arm-smccc-bus.h                 |  48 ++++++
- .../linux/arm-smccc-rsi.h                     |   6 +-
- include/linux/device-id/arm_smccc.h           |  19 +++
- include/linux/mod_devicetable.h               |   1 +
- scripts/mod/devicetable-offsets.c             |   3 +
- scripts/mod/file2alias.c                      |   8 +
- 31 files changed, 523 insertions(+), 189 deletions(-)
- create mode 100644 Documentation/ABI/testing/sysfs-firmware-cca
- delete mode 100644 arch/arm64/include/asm/rsi.h
- create mode 100644 drivers/firmware/arm_rmm/Kconfig
- create mode 100644 drivers/firmware/arm_rmm/Makefile
- rename {arch/arm64/kernel => drivers/firmware/arm_rmm}/rsi.c (70%)
- create mode 100644 drivers/firmware/smccc/bus.c
- rename drivers/virt/coco/arm-cca-guest/{arm-cca-guest.c => main.c} (82%)
- rename arch/arm64/include/asm/rsi_cmds.h => include/linux/arm-rsi-cmds.h (69%)
- create mode 100644 include/linux/arm-smccc-bus.h
- rename arch/arm64/include/asm/rsi_smc.h => include/linux/arm-smccc-rsi.h (98%)
- create mode 100644 include/linux/device-id/arm_smccc.h
-
-
-base-commit: 704340f1cd0dcef829eb62f5b48ae95a2ce17bdf
+Best regards,
 -- 
-2.43.0
+Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+
 
