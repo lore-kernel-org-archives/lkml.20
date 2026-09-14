@@ -1,97 +1,140 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11FD738C421;
-	Mon, 14 Sep 2026 18:39:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA74435C6B0;
+	Mon, 14 Sep 2026 18:40:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789411183; cv=none; b=e5l52WbWdSPqywPcWqV9cC6L37Y1U7T42aW6nPLX+j3HnrZh3fe/H06hMYmuFuspFl7KRLG6k5PxlYvjfn9BbMyWJRLwID7pZYI1jGxL5EqVUBc2uMDindBl3HM8P7N+Ipf5P/BY1DhSizypZT+1nvwgsVjW18Aq4Q+7h5sEzrM=
+	t=1789411205; cv=none; b=IxeFxUif34/PbxzknpgCRyHB0UHxQBhyJQeu+6gXP4YJzpDy10vKo0qnOxeLsvF3yHNweh6TX9M8X5ZbzsvOhdZYdQ7D/eQVMSsgfQ3AE8MYa8KnV1DsMJ1cm58XuGV2UeBvVUanNAwkb4bzo+Xc5Jt5NcTvB/eWOj1tYhpSxnc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789411183; c=relaxed/simple;
-	bh=+EvIFyiaw2QT4DIUq7XxLl31BnnCkBd+XUSVmEJJYmA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ryM+TA6sdQRXBvMfx4gTMVyUTVIfOrkJ60o3pJaorfF66XJisOm0IKHSbbIXwCOY+Os3m8YvFIU5G+jjoyaM1gWDZvWwuss62vYOVtgtRzDx1PW5AKHfA5x8Qq3zN/a7tbigR6drY5gWohUYU5q+sq2HAPCsSGzMRcjHT+V1xOc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=0yeBtz7G; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	s=arc-20240116; t=1789411205; c=relaxed/simple;
+	bh=imwupTGtHvI+dKa/5+UpB083oKRxvJ3TOHk02nBolG4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dIVHXZvvVuSbq9GzLuHb1EMB/GpPJn+HmSdAJpZbO4+Un8XNtgcydUPQIRzqGL8ts5yVPfhhjNUX8Cr045jZieBwJ3R+udZTyvsNfNu8iz8ICwqxhP3tBL1KBL0BioB9JbpRAypGFcRVlJUgla9duXEiR8vOqa1Kfe5DV5q58Pw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=Rpm69m0g; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="0yeBtz7G"
-Received: from francesco-nb.. (xcpe-178-82-167-143.dyn.res.sunrise.net [178.82.167.143])
-	by mail11.truemail.it (Postfix) with ESMTPA id 2FA601FEC8;
-	Mon, 14 Sep 2026 20:39:38 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1789411178;
-	bh=2lpOwqwwWWqvtF5ZG2J22MmAgTdqVo1i0uZSJYQvyg4=; h=From:To:Subject;
-	b=0yeBtz7G3SjFamZwOgEoGQKJVcj29lojNIqR4oTjLqrv9ACPkNuwHNg9MisohyvKh
-	 b4iB9m76RuXQ1NgjF5OW3Hf+3hIyrE0xM2Y8tSbedA+4zfQvcfeH98LkiWDSRDa9pb
-	 7d7RpIjXuJCQXcQ4fp10Qk6gEJnJnzjGdeNgHvSZ4F288ZDGReVFx3hYS3lrArsRlM
-	 Oyjiy4Vdod6WUcwCEKmYUz1NqICcgLZ2Qt+gbh7SYpDS3ll2JKnEuV17F8ICcpe6IE
-	 j36RFuGc4qIqbykx8w1mDuFAkbHZ91F7rGnrAl90QaKRdI1kYTTwZh9Lgp/QpTq9vg
-	 QrsTdTiWQFaFQ==
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>
-Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v1] arm64: dts: freescale: imx8mp-verdin-yavia: fix external GPIOs
-Date: Mon, 14 Sep 2026 20:39:31 +0200
-Message-ID: <20260914183932.30325-1-francesco@dolcini.it>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="Rpm69m0g"
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68EFvkw72345157;
+	Mon, 14 Sep 2026 18:39:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=G/1lSD
+	1AYh/vxHwjVYseqESHwU3wmnYWVJvr7m2J8M0=; b=Rpm69m0gzOCaUjLcBjemyJ
+	prOaWGZ/G5bNtF3CFd1OroBwSVHQl9zxOz1pDdcNAzkrVc03VT67CMnsIe+YMhf+
+	oPo74LB1WDrB1RV/SWqdvLsvyIUVhBwpWuXcnplyjXP5hvwNgzeYVQWgnlCGCiXE
+	wUXtmfgs8Il7QYmwOFAvwJqV8y6DPE6G1oUl0o5nNYcFvNmSrg7yQpQbnMA5+wBN
+	/5QV1Hrw81mvhYbNiERT/2KzthyvDFswyWo7rmOReiPTEuIgB6m05P8QzUgG2Hew
+	6bJx8iPEbhzto2iNLMBSGPouxq9f2hiIFckE4r5o0BDMHfo5QOdSKCGm9pczG4lg
+	==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmv5hke7m-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 14 Sep 2026 18:39:53 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68EGVNWG2359957;
+	Mon, 14 Sep 2026 18:39:52 GMT
+Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gnh2pysnn-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 14 Sep 2026 18:39:52 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
+	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68EIdmBP43254016
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 14 Sep 2026 18:39:48 GMT
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 31F732004B;
+	Mon, 14 Sep 2026 18:39:48 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id B750C20040;
+	Mon, 14 Sep 2026 18:39:47 +0000 (GMT)
+Received: from [9.111.61.130] (unknown [9.111.61.130])
+	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 14 Sep 2026 18:39:47 +0000 (GMT)
+Message-ID: <76c43631-5f87-48c2-bf36-5c323e35c9dd@linux.ibm.com>
+Date: Mon, 14 Sep 2026 20:39:46 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/5] KVM: Serialize vCPU creation and revert vcpu_ids
+ tracking
+To: Sean Christopherson <seanjc@google.com>,
+        Paolo Bonzini <pbonzini@redhat.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Jean-Christophe Guillain <jean-christophe@guillain.net>,
+        =?UTF-8?Q?Pawe=C5=82_S?= <spawel523@gmail.com>,
+        linux-s390 <linux-s390@vger.kernel.org>,
+        Claudio Imbrenda <imbrenda@linux.ibm.com>,
+        Janosch Frank <frankja@linux.ibm.com>
+References: <20260914181223.289061-1-seanjc@google.com>
+Content-Language: en-US
+From: Christian Borntraeger <borntraeger@linux.ibm.com>
+In-Reply-To: <20260914181223.289061-1-seanjc@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDI2MyBTYWx0ZWRfXwWHtlOyaJjv9
+ p5nBdYbJg510ylSCZfuRh4Z7Hi4pvnIYgWAFV36i4TYzdumKQhrubw6Owj/rT2Fmc8ugOA3a7EN
+ uzCVxorIDBqxiK8aNAfFOu1rCp2kNTEGQbVUeL7Yfo9bdL/ryLGdFDoIJJSVMkkgOt0jdtZ6kLO
+ AUaYqvp0Hd5yfXl5lC5n88xCHs2UO8CS+9z57AnQDruf0QlUbXgLakx4vDZ1Uzvb0E8pORdXdaT
+ x3lThrCUYwA8z97vOrTfQjgJxINofREt2MzmjybND2YZj9f7RBmm4ubh/V7jq/x+PHI+B2O4Upp
+ dT+YoW1Li/ff3CEAKJFXvfT3QVYxp8EYqB4nUoiIyirpy/zvjUXhBWllpFc0cFn1u+h0yEVx5Ei
+ 1sHV1cxPXv0w1iu4t5baSeofMnwO55zKbwckBBki9s2X0eNPIGmGEgzHLq29WGuA4C/CGwGCJf7
+ axsx5BXtA1OFv5XcaoQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDI2MyBTYWx0ZWRfX2DNsk+KlLhEV
+ aY6RMTpXBdix3y8SgM/Q/0gE8phE6lW2pKHcFPriosKaoMSEnO6zX2Z7UDEB/7zFmkiCwWk8e6R
+ Axd8AZGVBakOt0CBTo30CiMHDkAQ+lg=
+X-Authority-Analysis: v=2.4 cv=Zsx4uN7G c=1 sm=1 tr=0 ts=6aa83f79 cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VdaaZELl3TLQH4z4TgIA:9
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: 2h3DLmQTaA0VehyNmnRrfsZ2RnEYwHGs
+X-Proofpoint-GUID: sc5rWeNwQ9nh9YSYmQntx-0ZZs1c8o0l
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-14_03,2026-09-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 impostorscore=0 clxscore=1011 priorityscore=1501
+ lowpriorityscore=0 bulkscore=0 adultscore=0 phishscore=0 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609140263
 
-From: Francesco Dolcini <francesco.dolcini@toradex.com>
+Am 14.09.26 um 20:12 schrieb Sean Christopherson:
+> Serialize vCPU creation by holding kvm->lock for the entirety of
+> kvm_vm_ioctl_create_vcpu(), and then revert the now-redundant tracking adding
+> by commit 97d65b544f48 ("KVM: Check for duplicate vcpu_id as early as
+> possible").  I botched the math when justifying the vcpu_ids tracking; it's not
+> an extra 256 bytes, it's an extra 2048 bytes.  Roughly doubling the size of
+> "struct kvm" tripped x86's KVM_SANITY_CHECK_VM_STRUCT_SIZE, and obviously isn't
+> something we want to do in general.
+> 
+> The TL;DR of why it's a-ok to serialize vCPU creation is that no VMM actually
+> does parallel vCPU creation.  As with so many things, KVM's current behavior is
+> the result of decades-old cruft, not intentional, deliberate design.
+> 
+> Patch 1 is a tangentially related bug fix; I included it here because holding
+> kvm->lock for all of vCPU creation allows WARNing if KVM attempts to lock all
+> vCPUs if vCPU creation is in-progress (the caller is must hold kvm->lock).
+> 
+> Sean Christopherson (5):
+>    KVM: Reject attempts to lock all vCPUs if vCPU creation is in-progress
+>    KVM: Protect all of kvm_vm_ioctl_create_vcpu() with kvm->lock
 
-pinctrl_gpios_ext_yavia (SODIMM 64/66) is defined but never applied to
-gpio3, so those pins stay at their NAND reset function instead of GPIO.
 
-Fix SODIMM 64 to the correct pad, MX8MP_IOMUXC_NAND_READY_B (GPIO3_IO16).
+Interesting, that would allow to simplify several aspects in s390 kvm code as well. We might
+also be able to move most things from postcreate into create.
 
-Fixes: b694fbe2ff40 ("arm64: dts: imx8mp-verdin: Add yavia carrier board")
-Cc: stable@vger.kernel.org
-Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
----
- arch/arm64/boot/dts/freescale/imx8mp-verdin-yavia.dtsi | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
-
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-verdin-yavia.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-verdin-yavia.dtsi
-index f3d28e23ba6c..2a90f312fb27 100644
---- a/arch/arm64/boot/dts/freescale/imx8mp-verdin-yavia.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-verdin-yavia.dtsi
-@@ -117,6 +117,11 @@ &flexcan1 {
- 	status = "okay";
- };
- 
-+&gpio3 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_gpios_ext_yavia>;
-+};
-+
- &gpio4 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pinctrl_ctrl_sleep_moci>;
-@@ -266,7 +271,7 @@ MX8MP_IOMUXC_NAND_DATA03__GPIO3_IO09	0x106	/* SODIMM 62 */
- 
- 	pinctrl_gpios_ext_yavia: gpiosextyaviagrp {
- 		fsl,pins = <
--			MX8MP_IOMUXC_NAND_CE1_B__GPIO3_IO02	0x106	/* SODIMM 64 */
-+			MX8MP_IOMUXC_NAND_READY_B__GPIO3_IO16	0x106	/* SODIMM 64 */
- 			MX8MP_IOMUXC_NAND_DQS__GPIO3_IO14	0x106	/* SODIMM 66 */
- 		>;
- 	};
--- 
-2.47.3
-
+Before that, the series as is needs some s390 fixups.
+s390 takes the kvm->lock in
+- kvm_s390_vcpu_setup() locks kvm->lock around kvm_s390_pv_create_cpu() at arch/s390/kvm/s390/s390.c:3760 (added with 29b40f105ec8)
+- kvm_arch_vcpu_postcreate() locks kvm->lock around the epoch copy at arch/s390/kvm/s390/s390.c:3582. That dates back to the TOD attribute commit 72f250206f0f.
+as far as I can tell.
