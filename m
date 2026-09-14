@@ -1,178 +1,136 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F7549463
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:56:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 337FB368D66;
+	Mon, 14 Sep 2026 07:56:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789372563; cv=none; b=M5z7AZzy7AuRG+ViDdXwOV1k102Lhs0jqcI5v7DDaEdWaOjdnrFO3bzg57J7SI0zkRKqn/bg7d8jRWKxtlQVQKN3VDOl+Ip5EEgficX2CgYvsDpkai8YYCuMueYTqr4T1zg17vSibaTZEVs/C1vN6eEtxXmCqmO9OVaTqLo2PDQ=
+	t=1789372585; cv=none; b=njyP4W3EykttAdGkFyd1h36Hq7Mnb8iGFxmeUvU55Qjvbz9ACVKyajREMnCLeNJJENIb0Hk6W0coJ3vISOsvSnKgxiE7DkzAaJzF5cQL7nF+0lhwQmJ58jeq3117DIlP2xWlt5VII4ydvoR/H/AsGnLBVA6cOnKOgjCodDM/+Rs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789372563; c=relaxed/simple;
-	bh=im369v4xYbbax9nJw1RR0rFdXHMg6zdTsynV7CGkZfQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JdwqTvQdf1s50hp8yBEMYVlRwHNu/8Fz4tgi3QXbYZilMMLgTpBu7SAFiVnQk7rLXWsUrxDWPdEtRw3yuJaoOtEl9tB4F5Y5m3DWH9/oYd9fzIkPc4DlkfMR64iTgy1gRjyllZr/LLVUnoGOj5VbDziMJd6RUz30DV9hJhy2h4o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=oB9JJJP1; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XAC62Yt3; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789372585; c=relaxed/simple;
+	bh=m6KeYkp/2qyk9kllJdtAY8e4X2o8u/ogoxZk79ngweY=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Isj711f6weXr+j0ZDVC6XvQDH+LqUA/l1S//2rSWn8Tfg9a4PqMTGWs2fZQWiUhl4B2z78i1nwaGXnduBNKMplPk0is2qLpOcKGZkNKUwb2rgH00O0JDleLSLdU6NQBca9xLAUsfwKw77300fb2HkJGe4Xax7S0MdV1aOXskPBM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=FFC9RJne; arc=none smtp.client-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="oB9JJJP1";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XAC62Yt3"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68E5j0Y83369533
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:56:01 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Hdpi2jzl0BvQv5X+F2dziFnBhCFeUf0VIA21wNKOf5E=; b=oB9JJJP1E/TZlsDk
-	96UPZpWDmngqCXam50q43Hkzct6TF8/JLaxwFVAtm2LgpZho1WVYv7eYhRyQoWc4
-	yQNloyf/8zK1HSWDiR1LEg+vvg0smBxvqqA9JtX0k9lUWeX4f0dEgmpqAGouwFNd
-	YYcmmn3fbrP0+iLx9JM6+583KMvBV+K+7j6Ej1dHFG/advDis3XpoDkDuT913zLB
-	LyI2NW2nXOG+G2E917iopFccrNOEXHmZdzI2QIiulRFYaO7q329nMwSmrr4yEvOY
-	uFlyyFiCldk3CxN/LdWY+tUURitViwDTGBM3gbQwYyQp09cwuxGUnNYgLYfEA8wL
-	PIcMog==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmygd5mq4-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:56:01 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-92e661ce1dcso51334285a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 00:56:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789372560; x=1789977360; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Hdpi2jzl0BvQv5X+F2dziFnBhCFeUf0VIA21wNKOf5E=;
-        b=XAC62Yt3bmqiwwr00jFaedUJGKzHkLs+dSflar8TyXDE/JYwuHOhMLWKHdu58iB7hi
-         PxGRrCGQPHN/i8dlFMHNAqgBfTwTttx84hyLBs0mK5AnejL2W/Xa75wA6teC4DQjJCA+
-         3p7vTFjX6VJ9/dmsa4riltkesBclmCDcZFMdfQ17EgOlfCR13pwFYEeIp3T7qnW3JSNH
-         /1L9qWnk3Kb/+KPpQ7hsnA71XzRv2FV3BwMRchLfJ6Blo7Q4IGbV5Nbpb6Xg5WKCZfS+
-         udiX2w150OZEsS/ucllLSz5zWB64RAGP9v6X7vMMaU4eDzNgSNdEzTMFKHgB3pRuxlGl
-         BVdQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789372560; x=1789977360;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Hdpi2jzl0BvQv5X+F2dziFnBhCFeUf0VIA21wNKOf5E=;
-        b=Mb4etWbXbtbL0CTSDZ6PnWO7dROJUNw+bX3N2zVV02Eu46EbGR8VOa4R4MamNUfKTd
-         Pq5yUfvTLdwz8uxXeQ51CoKxJD750ayks1f70LEHB/Ria4kK7Ky+y/Ao129/63qPs6Qz
-         deoEHxLZ9MPgKJCG77JCDst0TMzxsyuuw65zLm1zoboy7Vynb7HxDmHxebe8HIhbglah
-         HYhsQii0l8HL5FoGwSfR0N3oRovt82lLACxhoH8nM9Acb88nrGa8nL8LomtsDNBaTo7c
-         ylYfW390tgFFaEAtHyOMNPZCDfZdb7NbeUAs10Z1gZ7C8YOqVKfoIw2OGVs3M+m7RgV+
-         FzNw==
-X-Forwarded-Encrypted: i=1; AKwUvBybh2eWwKWFIAE1xgKAxRvodONOyk/9hFyT4QkDDfuX2sHRUx8dl8wtvytHgZyttBJxFL3bXIzdKfHFjxo=@vger.kernel.org
-X-Gm-Message-State: AFuF++nGzo8+CxqEI1QaBfbLMGqDYg/2u+GQT3GdPXKMMFfVWJddO8Ul
-	0n227fzmHnpKuaJYVetNS/v7linzzunG8rcOzUb/iU49GTS+PEpwqQTwr5kNWHgiGjChKposHVE
-	8jOgrzB1hs93exsBXAr4sNpyR4gH+xpOb/5N9aGoRgGf51vFxNQQITzUf3YCQOCtaz0Y=
-X-Gm-Gg: AYBFou1EtW8Z0jP7O1iC2myOVpLC4sAhdsYYe/vonsGCIJQ7Q6ENc7hChVs/Eytb8KJ
-	lcpXaO4nKBtZxNJcCZR0/2wAQY2k3qQZX753/Y8lGwnkF4YsSWGsNg3WPlnXjS3c7fkFvW7+FsA
-	NDWExVXauesjy9R7MCoixyF8i3cfYxuzQLauVW2017T3VgkOUfUseTY3Tc8NV8ReDVlF0p898fB
-	IDXeGeEOGcl02cOPyvxnIBa6E3j26HTmzNNfpQCv3FDqLgF5WNLvkVo2r46cYmWJxVw9SOeNbqR
-	2FrccptR5kYdeUMggZU/AFy0/JlmyxcJLB/6l80kneipYEREOzwSAmISiyzSIDVsCvE80b38moi
-	B2WheWivNm3SqjMfrW35khw==
-X-Received: by 2002:a05:620a:8394:b0:939:eb09:4458 with SMTP id af79cd13be357-93a29bad63cmr143697485a.3.1789372560229;
-        Mon, 14 Sep 2026 00:56:00 -0700 (PDT)
-X-Received: by 2002:a05:620a:8394:b0:939:eb09:4458 with SMTP id af79cd13be357-93a29bad63cmr143696085a.3.1789372559829;
-        Mon, 14 Sep 2026 00:55:59 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2966124c98sm373482966b.56.2026.09.14.00.55.57
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 14 Sep 2026 00:55:59 -0700 (PDT)
-Message-ID: <12b7dc43-b9c6-4cd5-bfaf-fac8bddd7352@oss.qualcomm.com>
-Date: Mon, 14 Sep 2026 09:55:56 +0200
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="FFC9RJne"
+Received: from PC-202605011814.localdomain (unknown [223.112.146.162])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4da815583;
+	Mon, 14 Sep 2026 15:56:10 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: davem@davemloft.net
+Cc: edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	den@openvz.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	jianhao.xu@seu.edu.cn,
+	runyu.xiao@seu.edu.cn
+Subject: [PATCH net] net: neighbour: Serialize proxy timer teardown
+Date: Mon, 14 Sep 2026 15:56:04 +0800
+Message-Id: <20260914075604.120183-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] drm/msm/gem: Add modparam to disable shrinker
- blocking
-To: Rob Clark <robin.clark@oss.qualcomm.com>, dri-devel@lists.freedesktop.org
-Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar
- <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        open list <linux-kernel@vger.kernel.org>
-References: <20260912145922.24115-1-robin.clark@oss.qualcomm.com>
- <20260912145922.24115-2-robin.clark@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260912145922.24115-2-robin.clark@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=RY0FmFtv c=1 sm=1 tr=0 ts=6aa7a891 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=ZVvdkDrwHHLD4pTVV7YA:9 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDExMSBTYWx0ZWRfXzfO/6ICjYP3Y
- Xh1/43G2jieX5C/OA8jdywP/6eP3BFw+iRxVvlgxAX7bbx7rUwYESjAFYzpm4zslspysFKHEuQd
- 4EYYizn+cZ5r1/8j5/c5KAnyUYidoOF0K5nWZLUeE1bhd3Sx51L6lUUtXSgEDLlc5b7wR+Ic+jD
- EEbP0b0TqS1pk7Zj/Nm3Y71NHFRDwmDQjpNrB5YR0Wene8aDsmboP9t/TqLGR15ZLjm5TZmrIRM
- kmeMo7SMMf3R+sg1gDHu22mRv5uBC/wfREzMWRBbNT+oJkeN5ya6K4hVF/kJS40WK/f42JIThH0
- 8YT3AKjU3pO2ykqifUOayefsIjMh2tJ/X1V0y9fBd/mXOhcVH6h4FW3Z/40WPgk+cefC9PuUiJs
- JHISJAuAujokoEdKrln1yHD5JOQQF4My0ZiEjkOs6nDJSgQTJxzS2hla/qgma/YV1oSI6qaIMAC
- AEeb1O/cphvMYH/ivLA==
-X-Proofpoint-ORIG-GUID: PkPp_B3VfOKaFA2HPh9cEeH6sE-sOYlo
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDExMSBTYWx0ZWRfX+j7onvDjDUi2
- 9RxKG54/SOO7yGam1m6950XgP55b9Xbf+jxHx3orHCglZ9UzJ9tHbBXGybkzhmDPTiaCgZW/Bb/
- t20uAzNIUsVuOBh7MAvSBlOMOHlgeJ8=
-X-Proofpoint-GUID: PkPp_B3VfOKaFA2HPh9cEeH6sE-sOYlo
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-14_02,2026-09-13_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 spamscore=0 suspectscore=0
- lowpriorityscore=0 impostorscore=0 phishscore=0 malwarescore=0 bulkscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609140111
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa09eea9bbf03a1kunm9151719e282acb
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaSEkZVk4eSk1OHkoZSUxKTVYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVSkpJVUpPTVVKTUlZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pPSExVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=FFC9RJneWQ9aTDio8XR53ctdVNFehevkrHcIPUCPFHZ/eIJLUhzIdoQZl7tMl2+TeWMs/XP/gEy5lpuMeZp2pVurR1QYN7lvsJRw2C9jy/4WSGeo6TTGU+RYkl7h/bVwWKdfG43gu9XyKIzerGnKkerYFYsUX9aXObKfkJSGewU=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=m6qSJMOGZomrlhHkDs2SzUtJH/3UxLmtfyenGSbF3Gk=;
+	h=date:mime-version:subject:message-id:from;
 
-On 9/12/26 4:59 PM, Rob Clark wrote:
-> Normally if we are under enough memory pressure, the shrinker will
-> eventually start waiting for BOs to become idle.  In some very latency
-> sensitive use-cases this is undesirable.
-> 
-> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
-> ---
->  drivers/gpu/drm/msm/msm_gem_shrinker.c | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/msm/msm_gem_shrinker.c b/drivers/gpu/drm/msm/msm_gem_shrinker.c
-> index 3514d5c84989..83ee032cb21d 100644
-> --- a/drivers/gpu/drm/msm/msm_gem_shrinker.c
-> +++ b/drivers/gpu/drm/msm/msm_gem_shrinker.c
-> @@ -19,6 +19,10 @@ static bool enable_eviction = true;
->  MODULE_PARM_DESC(enable_eviction, "Enable swappable GEM buffers");
->  module_param(enable_eviction, bool, 0600);
->  
-> +static bool eviction_can_block = true;
-> +MODULE_PARM_DESC(eviction_can_block, "Enable blocking for GEM buffer to become idle for eviction");
-> +module_param(eviction_can_block, bool, 0600);
-> +
->  static bool can_swap(void)
->  {
->  	return enable_eviction && get_nr_swap_pages() > 0;
-> @@ -26,6 +30,8 @@ static bool can_swap(void)
->  
->  static bool can_block(struct shrink_control *sc)
->  {
-> +	if (!eviction_can_block)
-> +		return false;
->  	return (sc->gfp_mask & __GFP_DIRECT_RECLAIM) ||
->  	       (current_is_kswapd() && (sc->gfp_mask & __GFP_KSWAPD_RECLAIM));
->  }
+__neigh_ifdown() purges device-specific entries and then checks
+whether the shared proxy queue is empty before deleting proxy_timer. A
+concurrent ARP or NDISC request can enqueue a delayed proxy response
+between the check and timer_delete_sync(). The timer deletion can then
+leave the new skb queued without a timer to process it.
 
-This is just a guess, but can we always keep both and jump out
-of msm_gem_shrinker_scan() early if we can satistfy nr_to_scan
-without locking?
+Serialize proxy queue insertion and timer rearming with the purge, empty
+check, and timer deletion. The timer callback does not take the new lock,
+so timer_delete_sync() can still wait for an in-flight callback. Keep
+timer_delete_sync() rather than timer_shutdown_sync(), since the timer is
+reused after per-device and carrier teardown.
 
-Konrad
+A controlled QEMU test with explicit 5 ms schedule injection reproduced
+the orphaned queue state on the unfixed kernel and did not reproduce it
+with this change. Natural-load runs reached both paths but did not
+trigger the narrow race.
+
+Fixes: 66ba215cb513 ("neigh: fix possible DoS due to net iface start/stop loop")
+Assisted-by: LLM Codex
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+---
+ include/net/neighbour.h | 2 ++
+ net/core/neighbour.c    | 6 ++++++
+ 2 files changed, 8 insertions(+)
+
+diff --git a/include/net/neighbour.h b/include/net/neighbour.h
+index 8860cc2175fc1..15107c00b4df4 100644
+--- a/include/net/neighbour.h
++++ b/include/net/neighbour.h
+@@ -239,6 +239,8 @@ struct neigh_table {
+ 	struct list_head	gc_list;
+ 	struct list_head	managed_list;
+ 	spinlock_t		lock;
++	/* Serializes proxy timer rearming with teardown. */
++	spinlock_t		proxy_timer_lock;
+ 	unsigned long		last_rand;
+ 	struct neigh_statistics	__percpu *stats;
+ 	struct neigh_hash_table __rcu *nht;
+diff --git a/net/core/neighbour.c b/net/core/neighbour.c
+index 1349c0eedb642..1ea794a541efb 100644
+--- a/net/core/neighbour.c
++++ b/net/core/neighbour.c
+@@ -471,10 +471,13 @@ static int __neigh_ifdown(struct neigh_table *tbl, struct net_device *dev,
+ 	spin_unlock_bh(&tbl->lock);
+ 
+ 	pneigh_ifdown(tbl, dev, skip_perm);
++	/* The callback does not take this lock, so sync deletion can wait for it. */
++	spin_lock_bh(&tbl->proxy_timer_lock);
+ 	pneigh_queue_purge(&tbl->proxy_queue, dev ? dev_net(dev) : NULL,
+ 			   tbl->family);
+ 	if (skb_queue_empty_lockless(&tbl->proxy_queue))
+ 		timer_delete_sync(&tbl->proxy_timer);
++	spin_unlock_bh(&tbl->proxy_timer_lock);
+ 	return 0;
+ }
+ 
+@@ -1729,6 +1732,7 @@ void pneigh_enqueue(struct neigh_table *tbl, struct neigh_parms *p,
+ 	NEIGH_CB(skb)->sched_next = sched_next;
+ 	NEIGH_CB(skb)->flags |= LOCALLY_ENQUEUED;
+ 
++	spin_lock_bh(&tbl->proxy_timer_lock);
+ 	spin_lock(&tbl->proxy_queue.lock);
+ 	if (timer_delete(&tbl->proxy_timer)) {
+ 		if (time_before(tbl->proxy_timer.expires, sched_next))
+@@ -1740,6 +1744,7 @@ void pneigh_enqueue(struct neigh_table *tbl, struct neigh_parms *p,
+ 	p->qlen++;
+ 	mod_timer(&tbl->proxy_timer, sched_next);
+ 	spin_unlock(&tbl->proxy_queue.lock);
++	spin_unlock_bh(&tbl->proxy_timer_lock);
+ }
+ EXPORT_SYMBOL(pneigh_enqueue);
+ 
+@@ -1858,6 +1863,7 @@ void neigh_table_init(int index, struct neigh_table *tbl)
+ 		WARN_ON(tbl->entry_size % NEIGH_PRIV_ALIGN);
+ 
+ 	spin_lock_init(&tbl->lock);
++	spin_lock_init(&tbl->proxy_timer_lock);
+ 	mutex_init(&tbl->phash_lock);
+ 
+ 	INIT_DEFERRABLE_WORK(&tbl->gc_work, neigh_periodic_work);
+-- 
+2.34.1
+
