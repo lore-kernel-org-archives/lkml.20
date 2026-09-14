@@ -1,85 +1,297 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 725212F8EBB
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:13:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789351985; cv=none; b=M7OsAfC5zvgnWsTmxNDp+YFR6+G8DYh378ipAU8hh+wL80Bl8GD3ruVvBJT7chTsIdC41rRxCA7kRDI+Ek88c2C3NdC9hM8Qwt/Uda/5jgSfGoAThHRS5ixtsqLtijQV0wpxFmjDHQHGj48Gx6E/4FkqLp6MF6qzJEA1JrE96Kc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789351985; c=relaxed/simple;
-	bh=sdeYl8h25y043VDoiD5U1hUo6wVwRXOrX4A5k54W6Ec=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YNTa4qwSfAQDKXnm7jMMx8ipb4u9ZgGOLeTF+pjUnMSh757Gv1oVjq4lWS4NmVVVbkfjUMD9FiXfrg/4EpTfyDAj9t6lSlF01UkmJitdzABxSj1eCY0L4Ylz5BI26GSbrkCvWiXfyY9i+S3QSW8sFpMsd9MIE5niYRvq/l64bRA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=U7JzSLSU; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCD6817BCA;
+	Mon, 14 Sep 2026 02:15:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.10
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789352152; cv=fail; b=Xdzbv0Y7dBbTeLf9SNEBlBB4yUMt8O/H0SbpAKtQ7+WIFnpkHFgvzdIgDpA/+Km98MD6lrlRX9jzRHCvkNpNBz64PMqkSLknNVt23W0DZBZYOS8REQZqUHmAbO+jeCgqeEvteZt+Vc72ehJQkVuqwBdDQ4Z4dWRWBoubRB4xc64=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789352152; c=relaxed/simple;
+	bh=q5XAd6Rehk8ZrllzstZzlYsBwl8C15+gCU4M9murk/A=;
+	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=Tw0XZH6bIXMOIFmKKx/kzte6+qiFa++q9lTsJ7/5pNyRDlglRSR46Yfa56a+vmVT/yC37uAH0cTrfwSqzwheHe74FaIlpID6Zr3FnFOlDAB8Ec870bQNcnaRL/TzkeS/TjA+C9GvdxsVUJUdOqr3rL2flrKnWGrTBBzW+E8JeEs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=I6X98Bpy; arc=fail smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="U7JzSLSU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=sd
-	eYl8h25y043VDoiD5U1hUo6wVwRXOrX4A5k54W6Ec=; b=U7JzSLSUVAR6Ib/xOM
-	k8/ua1exxaDxhbalFvh312C0n8AZ/OvtFAFBS50f3OMIj1ECawsqF8StD6tcrbNs
-	Pl8q0X40oOtnTj7XiqHWyA1d2QzGox2MFwsiSK2RzOuqlRxgBIZzMRgkCfWIbfvd
-	RTh6M9pys4DYwZ2W1wNcsTDh8=
-Received: from VM-0-3-ubuntu.. (unknown [])
-	by gzsmtp1 (Coremail) with SMTP id PCgvCgC3H5P+V6dqrpMqPA--.35395S2;
-	Mon, 14 Sep 2026 10:12:15 +0800 (CST)
-From: Longlong Xia <xialonglong2025@163.com>
-To: xu.xin16@zte.com.cn
-Cc: Longlong Xia <xialonglong2025@163.com>,
-	david@kernel.org,
-	akpm@linux-foundation.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	vbabka@kernel.org,
-	baohua@kernel.org,
-	ljs@kernel.org,
-	ziy@nvidia.com,
-	xialonglong@kylinos.cn
-Subject: Re: [PATCH 4/4] mm/ksm: add find_mergeable_vma_locked() to use per-VMA locking
-Date: Mon, 14 Sep 2026 10:09:42 +0800
-Message-ID: <20260914020944.664339-1-xialonglong2025@163.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260911161333316ISAQaj9yJhmglKT5A9OnK@zte.com.cn>
-References: <20260911160421076_KNXun8Mpp9Xj7fxHG0i7@zte.com.cn> <20260911161333316ISAQaj9yJhmglKT5A9OnK@zte.com.cn>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="I6X98Bpy"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789352151; x=1820888151;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=q5XAd6Rehk8ZrllzstZzlYsBwl8C15+gCU4M9murk/A=;
+  b=I6X98Bpy2m9IbzZ288bZdmDKhs/HZEwF6DHJ5rWwgK8GM0IhoczfiksH
+   b7maD6k5pHefg46MKMDY5/L9Kc+T9p3ORVKTxPlDOoIJSSKogUbnDIKzT
+   wXhfAGuZ/mDXVKDC2Du7iKXSdN9qlH2cVuaxlSOb6y58MI6P5vd+4dsFi
+   AAlEphu1N2uGhpxvy/UtKF8bbRZ4lLombr+J0iv48hHHXa0CGL0z5KULt
+   2I8ZOf2Hs20eOtP0xNZFcXkb8INo9+SIvidfv03Eq9JhsnHcHN1EB4NMJ
+   fNcV+5pkKDjp5Ekw3L/nWZLNloXTyIEs7nFoD3FkUAq8EKltLATPO8eRt
+   g==;
+X-CSE-ConnectionGUID: eUZ4KGDVTo6DO9fMwKtqPA==
+X-CSE-MsgGUID: Ecyt6HuQQRCe/tF5cNR07A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="101059989"
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
+   d="scan'208";a="101059989"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Sep 2026 19:15:50 -0700
+X-CSE-ConnectionGUID: rBy4U8e0Rqmd5aKpu0Py7g==
+X-CSE-MsgGUID: A2H3aEG7QlGNHflVwNbTEg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
+   d="scan'208";a="269881041"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+  by fmviesa008.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Sep 2026 19:15:49 -0700
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Sun, 13 Sep 2026 19:15:48 -0700
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Sun, 13 Sep 2026 19:15:48 -0700
+Received: from SA9PR02CU001.outbound.protection.outlook.com (40.93.196.50) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Sun, 13 Sep 2026 19:15:47 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tkc42XIktgWbY9OQ3espcnn4tNq+nm3DOmqErbQVzk9pmyPrG+o9SCff7D7bTAHXFxRAoLDfjVajKoT0l2amvGMxLdEqU0y+s5InPw+ujV1FxvVrqznHIpnejEsvj6NO1kfmCfvwuQiFA1cRQO7lEVZfS4PCqBGwR5N4Kybp6d2c3oqA7rOeVNe9K6bmyWynaLthZcDWXqWueH9M9DNFVexMrFW1MxFU3EZJGkAFQQlwvkrHykt9HKqzr0ggwExVJXyJVCO7TnBezZRzhF+zg1lZsCN8y8c5inzc/x0P/LHB65WGDKa11fZjX0wbgnhHgDN7dRbwCWJ0rNo9Ggjf/w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=E0ixxxGYMo3fHST95mKjEv2XfkcW8B0vh+CJT92b0bQ=;
+ b=l8eD3H5oIq2iDVHii4luz/3j6op9DPMKLd4BE9heFO0kDOSMJrOPaAHjCZdB4ZZC76iUUlYzqHqfiVsX5RVxrh6OUSneXjcA/R0cvqxcI/YfHUGGDmbpj9t6/RHctbTL9qztbv/3wCcI1RLNScC/3N8YUvOkaDqByZBIDY6L1JCt/GcJp2pvNYaMI92Z36xn/kGDcoSR4tfVpDTps4ormoNqAhK2r68g5U7vcy4PWEVufDGFrQgEi6vAvzjCA3Aiiq8BA6zZo3UVQWgevXTF7exwRa+uqC6GDVICjn2rO+HeJw/EG8aMizdKNKL2eXaAaQpNvDWR2ToYQN/NbgoX3g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DM4PR11MB6020.namprd11.prod.outlook.com (2603:10b6:8:61::19) by
+ PH7PR11MB6032.namprd11.prod.outlook.com (2603:10b6:510:1d3::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
+ 2026 02:15:38 +0000
+Received: from DM4PR11MB6020.namprd11.prod.outlook.com
+ ([fe80::3058:1480:e4ac:5765]) by DM4PR11MB6020.namprd11.prod.outlook.com
+ ([fe80::3058:1480:e4ac:5765%4]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
+ 02:15:38 +0000
+Date: Mon, 14 Sep 2026 10:02:12 +0800
+From: Chen Yu <yu.c.chen@intel.com>
+To: Kayra Cizmeci <kayracizmeci@gmail.com>
+CC: <tim.c.chen@linux.intel.com>, <brauner@kernel.org>, <bsegall@google.com>,
+	<dietmar.eggemann@arm.com>, <imv4bel@gmail.com>, <jack@suse.cz>,
+	<juri.lelli@redhat.com>, <kees@kernel.org>, <kprateek.nayak@amd.com>,
+	<linux-fsdevel@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-mm@kvack.org>, <mgorman@suse.de>, <mingo@redhat.com>,
+	<peterz@infradead.org>, <qyousef@layalina.io>,
+	<ricardo.neri-calderon@linux.intel.com>, <rostedt@goodmis.org>,
+	<srikar@linux.ibm.com>, <sshegde@linux.ibm.com>,
+	<vincent.guittot@linaro.org>, <vineethr@linux.ibm.com>,
+	<viro@zeniv.linux.org.uk>, <vschneid@redhat.com>, <wanglu.priv@gmail.com>,
+	<yi1.lai@intel.com>, <zhanxusheng1024@gmail.com>, <zhanxusheng@xiaomi.com>,
+	<ziqianlu@bytedance.com>, <chen.yu@linux.dev>
+Subject: Re: [PATCH 1/4] sched/cache: Keep nr_pref_llc_running in the
+ runnable domain
+Message-ID: <aqdVpO66OfmHvvqB@chenyu-dev>
+References: <f3b70dd40e29b309ff3449a95a4af4513ad0ef70.camel@linux.intel.com>
+ <20260910220331.1209469-1-kayracizmeci@gmail.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260910220331.1209469-1-kayracizmeci@gmail.com>
+X-ClientProxiedBy: TP0P295CA0045.TWNP295.PROD.OUTLOOK.COM
+ (2603:1096:910:4::16) To DM4PR11MB6020.namprd11.prod.outlook.com
+ (2603:10b6:8:61::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PCgvCgC3H5P+V6dqrpMqPA--.35395S2
-X-Coremail-Antispam: 1Uf129KBjvdXoW7Wr1xKr1fJFWDJFWUAF4Dtwb_yoW3urXEkr
-	ykCrn7G348AF4jkFsagr13uwn2ga4vy3W8J3yUtr1a934IvFy7uFs3ta45uFnxWayvvrZx
-	KwnIqr4q9rn7ujkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7VUbiiSDUUUUU==
-X-CM-SenderInfo: x0ldz0pqjo00rjsqjki6rwjhhfrp/xtbC2wCak2qnWAA6egAA3H
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR11MB6020:EE_|PH7PR11MB6032:EE_
+X-MS-Office365-Filtering-Correlation-Id: e45d6d69-0e01-47ab-75d3-08df1206114f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|23010399003|7416014|376014|10067099003|4143699003|22082099003|18002099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: IDnM9ym4xfLpy1uH1vWb/eBjZIaTeOi31X/D7YbLv6pVW/1kAIW32ieIFOpIWpXOA0XAJuEJp8sCQjxlnf7qFh+LHRJCzmP9glpu+rd54j2bXJ2bVYtOWwW3mYSMYMNzrtSrIatVFPnpGrLqJkmJ1zGinvjbYNjDYaaOQMYZxoPYbbySKguWyvZmXwkU+cDe+Hmz/B6tcg8R8XoHqMgffROs6a1qkg80vYpcYSibn8kKcXQ8vQDON3LJ7HKXMidPVFq3jy57Haj9vrnzig43zn0ALVRdhHS+kFUvRSJ3k5krX3PG8jCP1kXtbvVujq72a2GaMsyAFJGwVEKgH04vbarFbiY5n+7Vf67NQav3iDnjWBKT/ootstAl8P/aFE7F7AXODY5CLFQMjIS7opGRKR42u5wV0YQGnUJS5nlhx4lMZU3iJA9+767AhUANjHM9Ec+hnULa9hgO4mQrF/V1Ewp9DrWVlmDP3FsLvAyH7R7DXIpy/S/kncBk8KQ0dAaRS2frVCNYAYlHVelFMAd+FSBdBk+oTIZdDt3eKm2LcZEHDD/7jGYo3+Kyr0nSFCYyidmKuQidRK7sIZC3gVGr0IKFCvDEWyRfsKi+TfHKdGunkavC+JF8ZTdVh5bJpMZUlS4yklbx4+Bk2Hkm2Gz6j1DINSASE8MH7xdCvRXn818=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR11MB6020.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(7416014)(376014)(10067099003)(4143699003)(22082099003)(18002099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?8M978x7aUWsB5UmzhE3chcLtHDcW8lvcfDND9xsn485znMLeamQAI7Cf4Vmy?=
+ =?us-ascii?Q?T5k6uwgAlTP1XEaOneBnqSxMmcMW+kbxyiP0Csq4AjputSuDxP3zTa/xHQ6i?=
+ =?us-ascii?Q?Jb3JQoHdKHmEwQRw8ByLllG2uJYcG1mtxLOzQ6rQSNDl2n9egDGd4va0UTme?=
+ =?us-ascii?Q?J5XRkpEmEKQ0N464AEQSkwrLmV3rSFmP1pEMZLu7TwAhTne5jV0LVRMV2kvS?=
+ =?us-ascii?Q?+fu3OKWEbn9/sbG1SFTvwgeIjPPkfIzZmKOoGPy6+3O979T1PyKm+0HVvDg7?=
+ =?us-ascii?Q?75OnZP4PZtg9lOyTMAe0rpHvmwUODwv+63RH2ZAWN+XoBGI6e3/Vp0cEBoQq?=
+ =?us-ascii?Q?QeHVdiOOWwwq8/Px9kPYkcmFvwF4EEykADeFBsBLKjpCtQAxDmmEuxyIKPrk?=
+ =?us-ascii?Q?/tINRDuALBI1SHt6/O7/Xa4x4bG1vIx8wPB/gxEPjx2nWUs77GiotNcqtBqD?=
+ =?us-ascii?Q?g395IsbDEtR7rGsATv0o3XY9d1eHl3gbIFSXZ2PSk4Krm2z+UqUTM28UjjNq?=
+ =?us-ascii?Q?XU+FY9f5e7jC1dOIKHnKlEi6rvaUu793Xjb3KYfgr8FoNKdf9SFIl7M+nd/J?=
+ =?us-ascii?Q?9tUXo0fRLkZtxVDcIsIW+IRQ9slGGkw6bdFE+JjBl2yWXmY8vWrLjWt+PsqO?=
+ =?us-ascii?Q?34oQXAEOL9MYBer2BU4IgDW+2TiG1I9mwg/K2Hzut00uq17DhIWm+WDAV5hH?=
+ =?us-ascii?Q?6rCrv1okjiM3ZFSzSElepMu6awXTnInZBkpampPO5T7vHNny2YaWNtatYCte?=
+ =?us-ascii?Q?mHRssCPWuwLmwwtc2nLt1Q0P0fmKTn17j21RricKOEXuc9ezsbaam6NuDhGG?=
+ =?us-ascii?Q?lmBSGswoqB04evt62yG85P9FV6bzxlK917ek6hH1vkXy/aYoRnaOjXUaDc9r?=
+ =?us-ascii?Q?lR/rIHSHcjoj6DKHEj4TAtMkZp045jw1dQ+ABJWvbDf2LR5B8ceRL4KC2ipw?=
+ =?us-ascii?Q?SgseAhCaT65d2piarY9LgkAFGZNBs9a48oDr4amN7JDvEUNFxXu7OlHid6WX?=
+ =?us-ascii?Q?JiuoSgZexlQh2Wxvw+5pS613TEG7kITp0qUPNTH+7Dh06QVpE4G0QRbchezr?=
+ =?us-ascii?Q?wuGbGJ6bZdRb5xAtlZklHEWA1EJrbY3CS+Skdhe0VuGs/fEx5ari+1tEcj9I?=
+ =?us-ascii?Q?0rXhoAkN2ddQ6p3V9+MNKMQOyfzXSwGQMH14uopWY+HvvEAt5i0vDZqpUS0Z?=
+ =?us-ascii?Q?gl7ZNhOkmLjmoGNnYiy+brnLMoFsbnTmklk0p9osJsQLcv5TUmPT/gqArAGi?=
+ =?us-ascii?Q?Y7s8rG/6nj+kIBPUdZ0uKu8KFBM1tIoqob4SvniddyCW+dQ8RzxA/E2jpg1I?=
+ =?us-ascii?Q?7utP8OR3kvrBe5NQ5IKAc1qjWb7Q5ZtblxclfmBoA7Y83zLTvos4MKWk6F5N?=
+ =?us-ascii?Q?L287aKX8gJdrYhZ8HNayHufQEEBLbfFnrm9p+yVzD0aTnqmjif/JSz/ZBrf8?=
+ =?us-ascii?Q?oGAhsY6BA0Qjonupk78/BY/G0p8h5ur4Hlfh/pb0B+lRzXSE2Vwp4VhHXBaO?=
+ =?us-ascii?Q?P9dFnlJqjgiNSevZ5BO2CCsNNfEqMkSDpuoslreuoGVNhyWwcN85EGEJRcO2?=
+ =?us-ascii?Q?h0dje5v+RKOoutJ4rSrwnuwIW+3tDCuaO14aIbfC7wTXMYfopBBS+hmKK5IW?=
+ =?us-ascii?Q?fc+G8Qjx5Vk4JgZT33JP0+Hov/vH1hktulAaG3Tn7Ev3U7Q7DeHARJhvhV+Y?=
+ =?us-ascii?Q?2A/2TZ8ytyPTJh8rINbYS+sv1X/3vhP6dk+yHrq3N5VzcbnZtPYlGsOYL7po?=
+ =?us-ascii?Q?zEMXAmFOEw=3D=3D?=
+X-Exchange-RoutingPolicyChecked: qa7+al3OJq96+J4uz7ecv2iKCNmEeIsdSXVoiTWNDqeC45w6U9R24ezE09tNh/0cMMiBF/trRK/ELw0edU8fpPg1Das579BdePB9xShIJKy4PVeDRdWZxDy5JV6SnDketDb0AiCcoucanlOCTa1Huencrwqyyt2aXyBviLDTaBGMSu+Noi3KbXjNl+brmWwl3PKswfsNb5XedQJQF8vY4ShUwTP7mtZb+GFq+Qt8KNydVjM1ptOOS5faK/woRNOMC4MSrXAydz26AYQlgIRHBbzQt5aAqdiYnTx7HA7s2r161t8VZ+UOWTcN+yXxeEYszOVkTCRq8tTYFYuqUgFH7A==
+X-MS-Exchange-CrossTenant-Network-Message-Id: e45d6d69-0e01-47ab-75d3-08df1206114f
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB6020.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 02:15:38.2592
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 96jqXR9ABz5gaYS7FPwPyljfh1Sh2mhdn1vsB52b5Pw+5HVbIL9JGjTqCINXz5OLebKCEk9Z9wLmWsuNRcdPow==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB6032
+X-OriginatorOrg: intel.com
 
-Hi Xin,
+Hi Kayra,
 
-Thanks for working on this.
+On Fri, Sep 11, 2026 at 01:03:30AM +0300, Kayra Cizmeci wrote:
+> Hello Tim,
+> 
+> > So moving the accounting next to (or after) the h_nr_runnable update
+> > would make task_pref_llc_runnable() return false and skip the
+> > decrement, leaving nr_pref_llc_running too high.
+> 
+> What I really wanted wasn't getting the accounting next to or after the h_nr_runnable. 
+> If we are updating h_nr_runnable in some way that means we don't need
+> its check since it's already getting updated. And if it's getting updated
+> that means on that branch we know how our check should behave since we 
+> are a subset of it. We can skip the delayed check on that way since we are
+> trying to behave as h_nr_runnable's subset.
+> 
+> >        if (entity_is_task(se))
+> >                pref_llc_running_dec(...);      /* sched_delayed still 0 */
+> >        se->sched_delayed = 1;
+> >        ...
+> >        for_each_sched_entity(se)
+> >                cfs_rq->h_nr_runnable--;        /* sched_delayed already 1 */
+> 
+> For example:
+> 
+> In this code the h_nr_runnable is updated the same way regarding what is sched_delayed.
+> That means if we want to behave as a subset of it, we don't need the check delayed,
+> since we check the delayed to be a subset but if h_nr_runnable is decreasing/increasing
+> we should look into our checks.
+>
 
-Patch 4 addresses the mmap_lock contention problem in
-get_mergeable_page() that I reported in [1]. In that thread, David
-suggested switching to per-VMA locking [2].
+I had a try according to your suggestion. It seems that the code becomes more complex
+and brings more headache :-( due to several corner cases. The current version is a simpler
+version with less code IMO. But I agree it looks a little hard to catch up with, so I added
+some comments around account_llc_dequeue() and adjusted the code sequence of clear_delayed()
+to make it easier to understand. Tim, could you please help check if this makes sense?
 
-Could you please consider adding the following tags to the commit
-message of patch 4/4 in the next revision?
-
-Reported-by: Longlong Xia <xialonglong@kylinos.cn>
-Suggested-by: David Hildenbrand <david@kernel.org>
-
-It would also be helpful to reference the original discussion in the
-commit message.
-
-[1] https://lore.kernel.org/all/20260909023507.1408925-1-xialonglong2025@163.com/
-[2] https://lore.kernel.org/all/91cf8129-d705-4ebd-b420-129bab7ed261@kernel.org/
-
-If you think these tags are not appropriate, please feel free to
-ignore this suggestion.
-
-Thanks,
-Longlong
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index e64d9ad7a108..89311bbadfac 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -1609,8 +1609,58 @@ static void account_llc_dequeue(struct rq *rq, struct task_struct *p)
+ 	if (p->pref_llc_queued) {
+ 		/*
+ 		 * Skipped if still delayed (set_delayed() already removed it);
+-		 * clearing pref_llc_queued below also stops clear_delayed()
+-		 * from re-adding it.
++		 *
++		 * The nr_pref_llc_running varies with h_nr_runnable, it involves
++		 * set_delayed(), clear_delayed(), account_llc_enqueued() and account_llc_dequeue().
++		 * The following shows two typical cases of how nr_pref_llc_running is maintained
++		 * during enqueue/dequeue.
++		 *
++		 * case 1 - wakeup a delayed task
++		 *
++		 * CPU0                                       CPU1
++		 * __dequeue_task [fake dequeue]
++		 *   set_delayed
++		 *     rq0->nr_pref_llc_running--
++		 *     p->se.sched_delayed = 1
++		 *
++		 *                                     try_to_wake_up(p)
++		 *                                       enqueue_task_fair
++		 *                                         requeue_delayed_entity
++		 *                                           clear_delayed
++		 *                                             rq0->nr_pref_llc_running++
++		 *
++		 *
++		 * case 2 - LB for delayed task
++		 *
++		 * CPU0                                       CPU1
++		 * __dequeue_task [fake dequeue]
++		 *   set_delayed
++		 *     rq0->nr_pref_llc_running--
++		 *     p->se.sched_delayed = 1
++		 *
++		 *
++		 *                                     --------- load balance ---------
++		 *                                     detach_task(p, rq0, migrate_load)
++		 *                                       account_llc_dequeue
++		 *                                         ** DO-NOT-DECREASE **
++		 *                                         rq0->nr_pref_llc_running
++		 *
++		 *                                     attach_task(p, rq1)
++		 *                                       account_llc_enqueue
++		 *                                         ** DO-NOT-INCREASE **
++		 *                                         rq1->nr_pref_llc_running
++		 *
++		 *                                     pick_eevdf
++		 *                                       __dequeue_task  [real dequeue]
++		 *                                         account_llc_dequeue(DEQUEUE_DELAYED)
++		 *                                           ** DO-NOT-DECREASE **
++		 *                                           rq1->nr_pref_llc_running
++		 *                                           p->pref_llc_queued = 0;
++		 *
++		 *                                         clear_delayed
++		 *                                           p->se.sched_delayed = 0;
++		 *                                           ** DO-NOT-INCREASE as pref_llc_queued=0 **
++		 *                                           rq1->nr_pref_llc_running
+ 		 */
+ 		pref_llc_running_dec(rq, p);
+ 		/*
+@@ -6415,23 +6465,18 @@ static __always_inline void return_cfs_rq_runtime(struct cfs_rq *cfs_rq);
+ 
+ static void set_delayed(struct sched_entity *se)
+ {
+-	/*
+-	 * Drop a task leaving the runnable set. Must run before sched_delayed
+-	 * is set, or task_pref_llc_runnable() would already exclude it;
+-	 * clear_delayed() mirrors this after clearing the flag.
+-	 */
+-	if (entity_is_task(se))
+-		pref_llc_running_dec(rq_of(cfs_rq_of(se)), task_of(se));
+-
+-	se->sched_delayed = 1;
+-
+ 	/*
+ 	 * Delayed se of cfs_rq have no tasks queued on them.
+ 	 * Do not adjust h_nr_runnable since __dequeue_task()
+ 	 * will account it for blocked tasks.
+ 	 */
+-	if (!entity_is_task(se))
++	if (!entity_is_task(se)) {
++		se->sched_delayed = 1;
+ 		return;
++	}
++
++	pref_llc_running_dec(rq_of(cfs_rq_of(se)), task_of(se));
++	se->sched_delayed = 1;
+ 
+ 	for_each_sched_entity(se) {
+ 		struct cfs_rq *cfs_rq = cfs_rq_of(se);
+-- 
+2.43.0
 
