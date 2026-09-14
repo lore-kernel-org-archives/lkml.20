@@ -1,33 +1,33 @@
-Received: from mta0.migadu.com (out-101.mta0.migadu.com [91.218.175.101])
+Received: from mta0.migadu.com (out-137.mta0.migadu.com [91.218.175.137])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1035144A3F1
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:30:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0700B46D090
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:30:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.137
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789389056; cv=none; b=FBO8VoG6kcaSrU5eHpJqiCqsUq9A12XxHJYH/f13eyrSU4ITGtOXbomgkGecK0mZkhy+FKNSsmEITV1daS5GUL5U2X7wgZqfa89pIO+NlzsS+TmDtoSAYuO60oRsZHpcZllcJzB4HQWReHeLFlTRWa6U7NLQFRjuCZmoLfj4dKA=
+	t=1789389058; cv=none; b=Qwv13a1iggO7Huw1lOaBX1Wo0qT9ntOQRfmyKKatG/bNFrDJL9zqBLLYoxX6dVCXeGdNSTw4P3p00OlnDcR07Un9ut22DAlr97CsHqbfrzJcTpTXedIHWTcB3NhUK5iQoewsZ7FvznzEmjz7rgNzq1o3QWSAPdQDpHfkI/2Mq24=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789389056; c=relaxed/simple;
-	bh=owEO/GVV8kpSqjtX6z75OJu1GLQvZh0Qa08KVOaicH4=;
+	s=arc-20240116; t=1789389058; c=relaxed/simple;
+	bh=BtQeHE2SZzfUtIrg0bS6PVLMNQTg1JxKJHlqS6nP29w=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=h09CHJXAHDR8SyL/jGFPj1BMNp6h976tDCJshjKAFYzYYdRktGeMqWnDTcTyfrnWh4DP6z/ildJf4+nUZYBpNa/J3XtOTsO1xju8U7dVwmOBRioQ4Y1IicGndlcddquUbhPeO79q2R6t9Yr8FdDjwZo2NTroOi+KmOV1xhMedrE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=isnHcp9w; arc=none smtp.client-ip=91.218.175.101
+	 MIME-Version; b=p+UHvN46Cxt9RuDyeVnTA8TQbj7ls0OBLBDmUaMoKRd+9h+aybzPnKXIycbFN/ZIxAGXhSiR9tU+B5PYnr3z8KpmDLPOjNh/QkqzmpkXUgybFY5VV3kr3M0ewNFCo8XjwRQnkZCdTePizsnSgZiL5KSKhr9QuOylRDb5PBvYm6c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=O26aFq95; arc=none smtp.client-ip=91.218.175.137
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="isnHcp9w"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="O26aFq95"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=owEO/GVV8kpSqjtX6z75OJu1GLQvZh0Qa08KVOaicH4=;
+DKIM-Signature: a=rsa-sha256; bh=BtQeHE2SZzfUtIrg0bS6PVLMNQTg1JxKJHlqS6nP29w=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789389046; v=1; x=1789993846;
- b=isnHcp9w4G5qacNcvS5Mi2mZmyThOkjHOVouC8pU6qeH1NSF/4NNT1AjSPqvT2kBoal/Bl36
- PpumCHIC/3aZbzZR8durkmpjgBuFwOyZtHY8FpN7SL6Dim1DUqq+wrUtM9tO+K/Z5xtgbj5daHa
- M8TnSIR9IYEB/oZefNVYqUZ4=
+ t=1789389051; v=1; x=1789993851;
+ b=O26aFq95QqbDPrrBZZAJN+/i5U6vyG752FUsZzaW5Iryt3TedNZY+Z49E+ceOAAKWNmiThEE
+ 4xuXBjMLRG0W1o7P7M4qV3aUdHIlCHJmMztB2anIptP/bFVK/zpY98AhGcOR9b+k/FKqlBEHhLx
+ W4ICbweYO7LQYxDCPSnNtC0I=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 64381a4a761f26a4;
-	Mon, 14 Sep 2026 12:30:46 +0000
-X-Mizu-Trace-ID: 64381a4a761f26a4
+Received: by mta10.migadu.com with ESMTPS id 6a02ba748b326016;
+	Mon, 14 Sep 2026 12:30:51 +0000
+X-Mizu-Trace-ID: 6a02ba748b326016
 X-Migadu-Flow: FLOW_OUT
 From: Usama Arif <usama.arif@linux.dev>
 To: Andrew Morton <akpm@linux-foundation.org>,
@@ -62,11 +62,10 @@ Cc: ying.huang@linux.alibaba.com,
 	luizcap@redhat.com,
 	kernel-team@meta.com,
 	Usama Arif <usama.arif@linux.dev>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>
-Subject: [RESEND v7 02/29] arm64: mm: add PMD swap-exclusive helpers
-Date: Mon, 14 Sep 2026 05:27:52 -0700
-Message-ID: <20260914122950.3283997-3-usama.arif@linux.dev>
+	Madhavan Srinivasan <maddy@linux.ibm.com>
+Subject: [RESEND v7 04/29] powerpc: mm: add PMD swap-exclusive helpers
+Date: Mon, 14 Sep 2026 05:27:54 -0700
+Message-ID: <20260914122950.3283997-5-usama.arif@linux.dev>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260914122950.3283997-1-usama.arif@linux.dev>
 References: <20260914122950.3283997-1-usama.arif@linux.dev>
@@ -82,33 +81,44 @@ A later patch keeps a PMD-mapped anonymous THP mapped by a PMD across the
 swap round-trip, so PG_anon_exclusive now has to survive in a swap PMD and
 not just in a swap PTE.
 
-arm64 encodes a swap PMD exactly like a swap PTE, so the new helpers wrap
-the PTE ones and reuse PTE_SWP_EXCLUSIVE.
+book3s64 builds a swap PMD by running the PTE encoding over pmd_pte(), so
+the PMD helpers use the same _PAGE_SWP_EXCLUSIVE bit. It is also the only
+powerpc variant that selects ARCH_HAS_PMD_SOFTLEAVES, via PPC_THP.
 
-Cc: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Will Deacon <will@kernel.org>
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>
 Signed-off-by: Usama Arif <usama.arif@linux.dev>
 ---
- arch/arm64/include/asm/pgtable.h | 6 ++++++
- 1 file changed, 6 insertions(+)
+ arch/powerpc/include/asm/book3s/64/pgtable.h | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-diff --git a/arch/arm64/include/asm/pgtable.h b/arch/arm64/include/asm/pgtable.h
-index e89ec5f4787b4..d3f53a601aed3 100644
---- a/arch/arm64/include/asm/pgtable.h
-+++ b/arch/arm64/include/asm/pgtable.h
-@@ -599,6 +599,12 @@ static inline int pmd_protnone(pmd_t pmd)
- #define pmd_swp_clear_uffd(pmd) \
- 				pte_pmd(pte_swp_clear_uffd(pmd_pte(pmd)))
- #endif /* CONFIG_HAVE_ARCH_USERFAULTFD_WP */
+diff --git a/arch/powerpc/include/asm/book3s/64/pgtable.h b/arch/powerpc/include/asm/book3s/64/pgtable.h
+index dff8790a047db..28943ef3c1c80 100644
+--- a/arch/powerpc/include/asm/book3s/64/pgtable.h
++++ b/arch/powerpc/include/asm/book3s/64/pgtable.h
+@@ -699,6 +699,23 @@ static inline pte_t pte_swp_clear_exclusive(pte_t pte)
+ 	return __pte_raw(pte_raw(pte) & cpu_to_be64(~_PAGE_SWP_EXCLUSIVE));
+ }
+ 
 +#ifdef CONFIG_ARCH_HAS_PMD_SOFTLEAVES
-+#define pmd_swp_exclusive(pmd)	pte_swp_exclusive(pmd_pte(pmd))
-+#define pmd_swp_mkexclusive(pmd)	pte_pmd(pte_swp_mkexclusive(pmd_pte(pmd)))
-+#define pmd_swp_clear_exclusive(pmd) \
-+				pte_pmd(pte_swp_clear_exclusive(pmd_pte(pmd)))
++static inline pmd_t pmd_swp_mkexclusive(pmd_t pmd)
++{
++	return __pmd_raw(pmd_raw(pmd) | cpu_to_be64(_PAGE_SWP_EXCLUSIVE));
++}
++
++static inline bool pmd_swp_exclusive(pmd_t pmd)
++{
++	return !!(pmd_raw(pmd) & cpu_to_be64(_PAGE_SWP_EXCLUSIVE));
++}
++
++static inline pmd_t pmd_swp_clear_exclusive(pmd_t pmd)
++{
++	return __pmd_raw(pmd_raw(pmd) & cpu_to_be64(~_PAGE_SWP_EXCLUSIVE));
++}
 +#endif
- 
- #define pmd_write(pmd)		pte_write(pmd_pte(pmd))
- 
++
+ static inline bool check_pte_access(unsigned long access, unsigned long ptev)
+ {
+ 	/*
 -- 
 2.53.0-Meta
 
