@@ -1,416 +1,154 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f42.google.com (mail-vs2-f42.google.com [74.125.227.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8C4D3E9C0E
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:36:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52C743E557E
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:36:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789371395; cv=none; b=rtFBLWDjgwBYQL+TO2eM5wdsf51a9xcpsfEPGKL8UauS70+/mikXRYljVc4/QDzK/cXT+EsFD8Iva7DNt4QqUHaMN9wcxcqAtbAax5LROwKT/6ZduDCNidiV5BejR2/MKYnmmWbj0MsAXJQCzv9edTvjHbpVnHzSQQcRS2UYKvE=
+	t=1789371405; cv=none; b=fVQZuKStSS/VJj6Tv+IQbaWVM1ZQt8T6pkX7zeCP7V6ZDxb7T4vre8o0KqLtMtDZTioq9RToG9RB8N3VDQB5XNkeDGrWs0AdpQZ5A+Nni0Hv4dGFqnTHs+/aNUeL0XZ30RjoulXW4ri7U7fMMWRZixiFzIEFAu60/hrA04xPRv8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789371395; c=relaxed/simple;
-	bh=hEm/bEks3irY7+02kfdkjDPhk7yQ+7iNnmO2cR5K+R8=;
+	s=arc-20240116; t=1789371405; c=relaxed/simple;
+	bh=+O3epdP0hNt8bWCh+m7fHo3yvg6cawjfYlW1RkLSlg0=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=WwGfFE5UuXfp6YYvBzxotaaUJ70O7jqOSJqLFXbSO8ZzoTI6NCxoga0S+/79biiFDaTeQQLp/bOQXGVBZiEGH6i/q59IAqmuQBnfP1k1QcTUmRiwtQpn7yT5O31ZFeo5sPdoiYydJsYbvoYOq7WiVd3AwXJvv5pV074emIVyZ1A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K8HKUh7K; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K8HKUh7K"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84A771F00893
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:36:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789371389;
-	bh=iieWhL4+NDVY5pvVLQHdGLRs9vjEjFm1op0rBHnDsvg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=K8HKUh7Kwa+c+t+xaa+26eldeQDTIZjvbrnIlXkgbjKdcUW84gLPrLIrY3E9B8LJ3
-	 TWzAvv1BJCSAO0sYRxnVzNFWxkWBGNVvGLSnBpQLUXJhimg+VxZIF5yLK0v1gSpYpU
-	 VMZ22DFtf5etuMFSomEmDX2unX9G2cXzGMaBZpVGp7vdlnB48oaXyzI0RMpLNbVqJA
-	 gvNW9wyzm1Vm5m0nN9OeCDglS71RRJ41I58Qy/ahMqai0bFVKjo1ohOHClBWZqsOJL
-	 sV8nz6S0CNPdlLpRLKFjeX2MnygOCwoTaA9gWA/h+gPhPmOgzHzYNhCAaHjlCO001I
-	 eX+RWnnMGB05Q==
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a9984f9adcso3420924a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 00:36:29 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxTD/PcVmjNK8zUaXu5tAk5McdTXgwGFLvn+gkjgON9XOCihmOtIYfnXps9Srm0IVZp1fwkZfesyzp88iA=@vger.kernel.org
-X-Gm-Message-State: AFuF++l6+ja711Fa2LJn2a7r2bglZspHwjDdXU5T7ADX2PNaltnFtWVI
-	MkzzY9BVgdeYRpjfs+QLVQwSLN8jSDDo+/X7Ufcwi2EqPxE3EbDyNrjsTdGB7zKGDQ+PLknKi59
-	iqE2EX56499uVACn75AkV4ptPc9wNA0A=
-X-Received: by 2002:a05:6402:24d9:b0:6a9:ce09:dbc1 with SMTP id
- 4fb4d7f45d1cf-6a9f6227995mr664006a12.5.1789371388125; Mon, 14 Sep 2026
- 00:36:28 -0700 (PDT)
+	 To:Cc:Content-Type; b=QV7Dyx6YyrcCgh7ebwVK20xANxsfJNA5YRUW4Zi6rnw4GmdxzUR/4Eo1Z2cTVTKFIXjPAHlGk3k9Iu4WipAPtYH5mezrH7p79q/FOno+0n3BysE9wfIq/Kf3QzCGt6iJRaMhFGsFy+/hIjEbPLVi5mAWCyFdZBJ6sBbGKIVRNQU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vs2-f42.google.com with SMTP id ada2fe7eead31-79028ca939aso1316980137.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 00:36:43 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789371402; x=1789976202;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=MdZ0sJe93gFmfPqzjpCmLFmphoDkWj4ooGAcaz6b51Y=;
+        b=mWwPV1T5i0V2LoW8ktb7JgW8jA25+HpFQ4sAx2+TkCM+j3Ipq5SMg6f6UjLBxRUldd
+         XOkzid03Czo+ghuQ4c1v9wc6LDFz/WYhCWvSyYAGFtNEErrtUIgSNxLBz+mMytHT2NZL
+         y1Cbo46pZWSxytsrJAJo6UyXAqL79lYWgm2GDNtqK3Veq3Vz+pOdKCKGh7i1lfm+puQA
+         qAOs0FmFKLUX+7JiY5JmET1V2LA3SXCYq5gdu8yJJ41BHuCnVB5lkjbBr+853v0MCKrl
+         9JvJ2W+Sz+f9/wNo9rJNJP0wPpXw7fgpQ516HugamhHm8bv/3JNFy3diguz41Ca2Jevj
+         Korw==
+X-Forwarded-Encrypted: i=1; AKwUvBztOK/Tm8gPZjGJLb2TYvc67i2x6vhqTFBXzDvjTFFnBrw1MyyKJEdQYGXcGGY1O1zgo1cl8PAnfuJ2Kr8=@vger.kernel.org
+X-Gm-Message-State: AFuF++luq7d7SMRDbAZimTdDjqphgBkPw/0PM/2+MmKSnEEWsp2ACQsE
+	4LcruZpLzlAUCMS5BL6KRt61xbyjaKTHGLzytqoTjtlLLtng+p37H6HhVFeeWFFI
+X-Gm-Gg: AYBFou1mmV97VUdewNRD3U6YnArxCviurwdI2FoDMHZsnrmwQS20/8YPo9j5/19cZOw
+	zpXx0UAubNCAk9jijajjr33Wi5uw3k8kGfure85nr8IqUe0CMxh1wMHI8ZjXeYOrz0xnQFnCoyZ
+	ZcWvgcjDgPFwiz4GfBxJYP5QqvRKxYAnogwVO7uIHVgB02nYKsp9EUc06lYB1kSznmY9sa0n45p
+	n+M92WrhbILoK7Yf45NnPe6iCxTBHm7DJp+Uvy9+DoBg/7aVPQ+nJ3c2x4yUAldXZDG81qghy1B
+	Jzo5EbiEyytXH1H4pfqYm1CvrelG3jInixABL+Rf9eGNxdqF5vOOUKg+bi2G0Wi+Vj8VNIDe9JU
+	PPv7h322Rt7iiVbwumUC+/zASpLByOsxxsPzdl195ZO0JiQ2xefcBGiZ0FZS4oUcOP7JVlYEPbO
+	77XzVV1ogLLoXXb+LGgncD0S/RLdGYp2B6mHyZZ+zGWMheFezTdcslVjTZBe6RtycHnKjlukVPr
+	mrwi5mEwnH4/83JHvN8+lH89b/8U/TZ+WzXxgNylz7cZXI=
+X-Received: by 2002:a05:6102:918:b0:786:dfa:c5ea with SMTP id ada2fe7eead31-79b57cb42f6mr638634137.5.1789371402002;
+        Mon, 14 Sep 2026 00:36:42 -0700 (PDT)
+Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com. [74.125.227.12])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-982b9ed9257sm10387004241.5.2026.09.14.00.36.41
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 14 Sep 2026 00:36:41 -0700 (PDT)
+Received: by mail-vs2-f12.google.com with SMTP id 71dfb90a1353d-5c83be8db39so1575110e0c.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 00:36:41 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzYQL05Ll1rSAbjSo7tpm4Mym86KPfRSdHDG2+z2xlpeFxqz2XjB4Ie/7roaxFgVT1h8yr4VkQcZOAX6Nw=@vger.kernel.org
+X-Received: by 2002:a05:6122:4697:b0:5c7:fb4e:2cee with SMTP id
+ 71dfb90a1353d-5c981a874d4mr600982e0c.1.1789371396752; Mon, 14 Sep 2026
+ 00:36:36 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260911090256.7834-1-zhaoqunqin@163.com> <20260911090256.7834-3-zhaoqunqin@163.com>
-In-Reply-To: <20260911090256.7834-3-zhaoqunqin@163.com>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Mon, 14 Sep 2026 15:36:15 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H4VEtZJAoYBz24=ab37fdpLL_kSS92vxMn61Rcq0C33aQ@mail.gmail.com>
-X-Gm-Features: AcwNN1W4J0VXunkboYJGsDo05xNt8zCnA_A78X63I9pY7tbgd8CpbxBMHPTJSJI
-Message-ID: <CAAhV-H4VEtZJAoYBz24=ab37fdpLL_kSS92vxMn61Rcq0C33aQ@mail.gmail.com>
-Subject: Re: [PATCH v7 2/2] mfd: loongson-se: Fix miscellaneous issues
-To: Qunqin Zhao <zhaoqunqin@163.com>
-Cc: lee@kernel.org, zhaoqunqin@loongson.cn, linux-kernel@vger.kernel.org, 
-	loongarch@lists.linux.dev, linux-crypto@vger.kernel.org, mfd@lists.linux.dev
+References: <20260913173049.1168963-1-sashal@kernel.org>
+In-Reply-To: <20260913173049.1168963-1-sashal@kernel.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 14 Sep 2026 09:36:25 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdVVpAzuUDMn2zQmbOaLxiroyBGeyD9wZWe83dweoVPVqg@mail.gmail.com>
+X-Gm-Features: AcwNN1XOZqE79DMSk78qvmSH-H90kBGDh0g78DMpY4SxMOMYafpm345WSAqwPF0
+Message-ID: <CAMuHMdVVpAzuUDMn2zQmbOaLxiroyBGeyD9wZWe83dweoVPVqg@mail.gmail.com>
+Subject: Re: [PATCH] firmware: qcom: scm: Hide QCOM_SCM instead of depending
+ on ARCH_QCOM
+To: Sasha Levin <sashal@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Sumit Garg <sumit.garg@oss.qualcomm.com>, kernel test robot <lkp@intel.com>, 
+	Abel Vesa <abelvesa@kernel.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi, Qunqin,
+Hi Sasha,
 
-On Fri, Sep 11, 2026 at 5:03=E2=80=AFPM Qunqin Zhao <zhaoqunqin@163.com> wr=
-ote:
+On Sun, 13 Sept 2026 at 19:30, Sasha Levin <sashal@kernel.org> wrote:
+> imx_v6_v7_defconfig fails to link:
 >
-> From: Qunqin Zhao <zhaoqunqin@loongson.cn>
+>   arm-linux-gnueabihf-ld: drivers/firmware/qcom/qcom_scm.o: in function
+>   `qcom_scm_pas_init_image':
+>   qcom_scm.c:(.text+0xecc): undefined reference to `qcom_tzmem_alloc'
+>   qcom_scm.c:(.text+0x2b0): undefined reference to `qcom_tzmem_free'
+>   qcom_scm.c:(.text+0x1514): undefined reference to `qcom_tzmem_to_phys'
 >
-> Address multiple historical driver issues discovered by the Sashiko
-> Automation system within the loongson_se_probe() initialization flow
-> and the driver's interrupt service routines [1].
+> QCOM_SCM gained a "depends on ARCH_QCOM || COMPILE_TEST", but it is
+> selected from 20 places in the tree and several of those are reachable
+> without ARCH_QCOM. DRM_MSM is one of them, via SOC_IMX5, which is how
+> imx_v6_v7_defconfig ends up here:
 >
-> - Add an explicit bounds check in se_irq_handler() before accessing
->   the engines array to prevent an out-of-bounds memory access.
+>   WARNING: unmet direct dependencies detected for QCOM_SCM
+>     Depends on [n]: ARCH_QCOM [=n] || COMPILE_TEST [=n]
+>     Selected by [y]:
+>     - DRM_MSM [=y] && ... && (ARCH_QCOM [=n] || SOC_IMX5 [=y] ||
+>       COMPILE_TEST [=n]) && ...
 >
-> - Validate the id argument in loongson_se_init_engine() and reject
->   engine 0, whose data buffer is reused for the command buffers of all
->   other engines, to prevent out-of-bounds accesses and overlapping DMA
->   buffers.
+> kconfig still honours the select and sets QCOM_SCM=y, but it does not
+> propagate the selects of a symbol whose own dependencies are unmet, so
+> QCOM_TZMEM is left unset, qcom_tzmem.c is not built, and the
+> unconditional qcom_tzmem_*() calls in qcom_scm.c and qcom_scm-smc.c
+> have nothing to bind to.
 >
-> - Switch from devm_kmalloc() to devm_kzalloc() and initialize all
->   engine completion structures in probe(), dropping the redundant
->   init_completion() in loongson_se_init_engine().
+> The point of the dependency was only to stop asking the user about
+> Qualcomm firmware interfaces when configuring a non-Qualcomm kernel.
+> Express that as a prompt condition, which is what the same commit
+> already did for QCOM_PAS: the symbol stays invisible, but it no longer
+> carries a dependency that silently drops its selects.
 >
-> - Introduce loongson_se_reinit_completion() to mask the target
->   interrupt, clear any pending status, and reset the completion under
->   dev_lock before a command is issued, then re-enable the interrupt
->   under the same lock after the command has been triggered.  This
->   closes the race where a stale interrupt from a previously
->   interrupted command could complete the current command's completion.
->   A new poll_lock serializes the trigger and poll busy-wait so
->   interrupts are not disabled for up to 10 ms.
-The locking of this driver is more and more complicated, I doubt
-whether AI's review is really correct here. For me, the existing
-locking code is just fine and simple.
+> Found by KernelCI builds of the linus-next tree.
 
-Huacai
+linux-next
 
 >
-> - Wait for controller command completion with a bounded
->   non-interruptible wait so a pending signal cannot leave the
->   controller running while its DMA buffers are being torn down, and a
->   wedged controller cannot hang the kernel indefinitely.
+> Fixes: 8fecd3194de3 ("firmware: QCOM interfaces should depend on ARCH_QCOM")
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: https://lore.kernel.org/oe-kbuild-all/202609120634.g0HMAp3g-lkp@intel.com/
+> Assisted-by: LLM
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+
+Thanks for your patch!
+
+> --- a/drivers/firmware/qcom/Kconfig
+> +++ b/drivers/firmware/qcom/Kconfig
+> @@ -26,8 +26,7 @@ config QCOM_PAS_TEE
+>           by the firmware TEE implementation as the backend.
 >
-> - Fix EPROBE_DEFER handling: propagate the error directly from
->   platform_irq_count() instead of overwriting it with ENODEV so that
->   probe deferral works when the interrupt provider is not yet ready.
->
-> - Validate dmam_size from firmware against the minimum required size
->   to keep the command buffers of all engines within engine 0's data
->   region and prevent overlapping DMA buffers.
->
-> - Return the error code from devm_request_irq() instead of silently
->   continuing to prevent an indefinite hang.
->
-> - Add a loongson_se_stop() cleanup handler registered with
->   devm_add_action_or_reset() before loongson_se_init() so that a
->   failed init still stops the controller and masks all interrupts via
->   devres, preventing DMA access to freed memory.
->
-> - Zero-initialize the local controller command structures in
->   loongson_se_init() and loongson_se_init_engine() to prevent
->   uninitialized stack data from being written to device registers.
->
-> - Add the SE_CMD_STOP command definition.
->
-> Link: https://lore.kernel.org/all/20260618095949.GB1672911@google.com/ [1=
-]
-> Fixes: e551fa3159e3 ("mfd: Add support for Loongson Security Engine chip =
-controller")
-> Signed-off-by: Qunqin Zhao <zhaoqunqin@loongson.cn>
-> ---
->  drivers/mfd/loongson-se.c       | 112 ++++++++++++++++++++++++++++----
->  include/linux/mfd/loongson-se.h |   1 +
->  2 files changed, 102 insertions(+), 11 deletions(-)
->
-> diff --git a/drivers/mfd/loongson-se.c b/drivers/mfd/loongson-se.c
-> index 7f552a8ee..18075d4fa 100644
-> --- a/drivers/mfd/loongson-se.c
-> +++ b/drivers/mfd/loongson-se.c
-> @@ -23,6 +23,8 @@
->  struct loongson_se {
->         void __iomem *base;
->         spinlock_t dev_lock;
-> +       /* Synchronizes command submission between users of different eng=
-ines */
-> +       spinlock_t poll_lock;
->         struct completion cmd_completion;
->
->         void *dmam_base;
-> @@ -42,7 +44,7 @@ static int loongson_se_poll(struct loongson_se *se, u32=
- int_bit)
->         u32 status;
->         int err;
->
-> -       spin_lock_irq(&se->dev_lock);
-> +       spin_lock(&se->poll_lock);
->
->         /* Notify the controller that the engine needs to be started */
->         writel(int_bit, se->base + SE_L2SINT_SET);
-> @@ -52,17 +54,51 @@ static int loongson_se_poll(struct loongson_se *se, u=
-32 int_bit)
->                                                 !(status & int_bit),
->                                                 1, LOONGSON_ENGINE_CMD_TI=
-MEOUT_US);
->
-> +       spin_unlock(&se->poll_lock);
-> +
-> +       spin_lock_irq(&se->dev_lock);
-> +       /*
-> +        * Re-enable the interrupt that loongson_se_reinit_completion() m=
-asked.
-> +        * The hardware guarantees that once the interrupt is re-enabled,=
- only
-> +        * interrupts for the command just issued can arrive, so a stale
-> +        * interrupt from a previously interrupted command can never comp=
-lete
-> +        * this command's completion.
-> +        */
-> +       writel(int_bit | readl(se->base + SE_S2LINT_EN), se->base + SE_S2=
-LINT_EN);
-> +
->         spin_unlock_irq(&se->dev_lock);
->
->         return err;
->  }
->
-> +/*
-> + * Prepare a completion for a new command: mask the corresponding interr=
-upt,
-> + * clear any pending interrupt status, and reset the completion.  This r=
-uns
-> + * under dev_lock so that the IRQ handler cannot race with it.  The inte=
-rrupt
-> + * is re-enabled in loongson_se_poll() after the command has been issued=
-.
-> + */
-> +static void loongson_se_reinit_completion(struct loongson_se *se,
-> +                                         struct completion *completion, =
-u32 int_bit)
-> +{
-> +       spin_lock_irq(&se->dev_lock);
-> +
-> +       writel(readl(se->base + SE_S2LINT_EN) & ~int_bit, se->base + SE_S=
-2LINT_EN);
-> +
-> +       writel(int_bit, se->base + SE_S2LINT_CL);
-> +
-> +       reinit_completion(completion);
-> +
-> +       spin_unlock_irq(&se->dev_lock);
-> +}
-> +
->  static int loongson_se_send_controller_cmd(struct loongson_se *se,
->                                            struct loongson_se_controller_=
-cmd *cmd)
->  {
->         u32 *send_cmd =3D (u32 *)cmd;
->         int err, i;
->
-> +       loongson_se_reinit_completion(se, &se->cmd_completion, SE_INT_CON=
-TROLLER);
-> +
->         for (i =3D 0; i < SE_SEND_CMD_REG_LEN; i++)
->                 writel(send_cmd[i], se->base + SE_SEND_CMD_REG + i * 4);
->
-> @@ -70,17 +106,31 @@ static int loongson_se_send_controller_cmd(struct lo=
-ongson_se *se,
->         if (err)
->                 return err;
->
-> -       return wait_for_completion_interruptible(&se->cmd_completion);
-> +       /*
-> +        * Wait for the controller to complete the command.  Use a bounde=
-d
-> +        * non-interruptible wait: a pending signal must not leave the
-> +        * controller running while its DMA buffers are being torn down.
-> +        * One second is far more than any controller command should take=
-,
-> +        * while still bounding the wait if the hardware wedges.
-> +        */
-> +       if (!wait_for_completion_timeout(&se->cmd_completion, HZ))
-> +               return -ETIMEDOUT;
-> +
-> +       return 0;
->  }
->
->  int loongson_se_send_engine_cmd(struct loongson_se_engine *engine)
->  {
-> +       int err;
-> +
-> +       loongson_se_reinit_completion(engine->se, &engine->completion, BI=
-T(engine->id));
-> +
->         /*
->          * After engine initialization, the controller already knows
->          * where to obtain engine commands from. Now all we need to
->          * do is notify the controller that the engine needs to be starte=
-d.
->          */
-> -       int err =3D loongson_se_poll(engine->se, BIT(engine->id));
-> +       err =3D loongson_se_poll(engine->se, BIT(engine->id));
->
->         if (err)
->                 return err;
-> @@ -92,12 +142,17 @@ EXPORT_SYMBOL_GPL(loongson_se_send_engine_cmd);
->  struct loongson_se_engine *loongson_se_init_engine(struct device *dev, i=
-nt id)
->  {
->         struct loongson_se *se =3D dev_get_drvdata(dev);
-> -       struct loongson_se_engine *engine =3D &se->engines[id];
-> -       struct loongson_se_controller_cmd cmd;
-> +       struct loongson_se_engine *engine;
-> +       struct loongson_se_controller_cmd cmd =3D {0};
-> +
-> +       /* Engine 0 does not exist and its data buffer is reused for comm=
-ands */
-> +       if (id <=3D 0 || id >=3D SE_ENGINE_MAX)
-> +               return NULL;
-> +
-> +       engine =3D &se->engines[id];
->
->         engine->se =3D se;
->         engine->id =3D id;
-> -       init_completion(&engine->completion);
->
->         /* Divide DMA memory equally among all engines */
->         engine->buffer_size =3D se->dmam_size / SE_ENGINE_MAX;
-> @@ -155,7 +210,8 @@ static irqreturn_t se_irq_handler(int irq, void *dev_=
-id)
->         /* For engines */
->         while (int_status) {
->                 id =3D __ffs(int_status);
-> -               complete(&se->engines[id].completion);
-> +               if (id < SE_ENGINE_MAX)
-> +                       complete(&se->engines[id].completion);
->                 int_status &=3D ~BIT(id);
->                 writel(BIT(id), se->base + SE_S2LINT_CL);
->         }
-> @@ -167,7 +223,7 @@ static irqreturn_t se_irq_handler(int irq, void *dev_=
-id)
->
->  static int loongson_se_init(struct loongson_se *se, dma_addr_t addr, int=
- size)
->  {
-> -       struct loongson_se_controller_cmd cmd;
-> +       struct loongson_se_controller_cmd cmd =3D {0};
->         int err;
->
->         cmd.command_id =3D SE_CMD_START;
-> @@ -188,6 +244,17 @@ static const struct mfd_cell engines[] =3D {
->         { .name =3D "tpm_loongson" },
->  };
->
-> +static void loongson_se_stop(void *data)
-> +{
-> +       struct loongson_se *se =3D data;
-> +       struct loongson_se_controller_cmd cmd =3D {0};
-> +
-> +       cmd.command_id =3D SE_CMD_STOP;
-> +       loongson_se_send_controller_cmd(se, &cmd);
-> +
-> +       writel(0, se->base + SE_S2LINT_EN);
-> +}
-> +
->  static int loongson_se_probe(struct platform_device *pdev)
->  {
->         struct device *dev =3D &pdev->dev;
-> @@ -195,19 +262,34 @@ static int loongson_se_probe(struct platform_device=
- *pdev)
->         int nr_irq, irq, err, i;
->         dma_addr_t paddr;
->
-> -       se =3D devm_kmalloc(dev, sizeof(*se), GFP_KERNEL);
-> +       se =3D devm_kzalloc(dev, sizeof(*se), GFP_KERNEL);
->         if (!se)
->                 return -ENOMEM;
->
->         dev_set_drvdata(dev, se);
->         init_completion(&se->cmd_completion);
->         spin_lock_init(&se->dev_lock);
-> +       spin_lock_init(&se->poll_lock);
->         mutex_init(&se->engine_init_lock);
->
-> +       for (i =3D 0; i < SE_ENGINE_MAX; i++)
-> +               init_completion(&se->engines[i].completion);
-> +
->         dma_set_mask_and_coherent(dev, DMA_BIT_MASK(64));
->         if (device_property_read_u32(dev, "dmam_size", &se->dmam_size))
->                 return -ENODEV;
->
-> +       /*
-> +        * Engine 0 does not exist and its data buffer is reused as the c=
-ommand
-> +        * buffer for the other engines.  The command buffers of all engi=
-nes
-> +        * therefore must fit within engine 0's data region, i.e.
-> +        * dmam_size / SE_ENGINE_MAX >=3D SE_ENGINE_MAX * 2 * SE_ENGINE_C=
-MD_SIZE.
-> +        * Enforce this to keep each engine's data and command buffers fr=
-om
-> +        * overlapping.
-> +        */
-> +       if ((se->dmam_size / SE_ENGINE_MAX) < (SE_ENGINE_MAX * 2 * SE_ENG=
-INE_CMD_SIZE))
-> +               return -EINVAL;
-> +
->         se->dmam_base =3D dmam_alloc_coherent(dev, se->dmam_size, &paddr,=
- GFP_KERNEL);
->         if (!se->dmam_base)
->                 return -ENOMEM;
-> @@ -217,20 +299,28 @@ static int loongson_se_probe(struct platform_device=
- *pdev)
->                 return PTR_ERR(se->base);
->
->         nr_irq =3D platform_irq_count(pdev);
-> -       if (nr_irq <=3D 0)
-> +       if (nr_irq =3D=3D 0)
->                 return -ENODEV;
-> +       if (nr_irq < 0)
-> +               return nr_irq;
->
->         writel(SE_INT_ALL, se->base + SE_S2LINT_CL);
->
->         for (i =3D 0; i < nr_irq; i++) {
->                 irq =3D platform_get_irq(pdev, i);
->                 err =3D devm_request_irq(dev, irq, se_irq_handler, IRQF_S=
-HARED, "loongson-se", se);
-> -               if (err)
-> +               if (err) {
->                         dev_err(dev, "failed to request IRQ: %d\n", irq);
-> +                       return err;
-> +               }
->         }
->
->         writel(SE_INT_ALL, se->base + SE_S2LINT_EN);
->
-> +       err =3D devm_add_action_or_reset(dev, loongson_se_stop, se);
-> +       if (err)
-> +               return err;
-> +
->         err =3D loongson_se_init(se, paddr, se->dmam_size);
->         if (err)
->                 return err;
-> diff --git a/include/linux/mfd/loongson-se.h b/include/linux/mfd/loongson=
--se.h
-> index 07afa0c25..8237ccab7 100644
-> --- a/include/linux/mfd/loongson-se.h
-> +++ b/include/linux/mfd/loongson-se.h
-> @@ -9,6 +9,7 @@
->  #define SE_SEND_CMD_REG_LEN            0x8
->  /* Controller command ID */
->  #define SE_CMD_START                   0x0
-> +#define SE_CMD_STOP                    0x1
->  #define SE_CMD_SET_DMA                 0x3
->  #define SE_CMD_SET_ENGINE_CMDBUF       0x4
->
-> --
-> 2.47.2
->
+>  config QCOM_SCM
+> -       tristate "Qualcomm PAS SCM interface driver"
+> -       depends on ARCH_QCOM || COMPILE_TEST
+> +       tristate "Qualcomm PAS SCM interface driver" if ARCH_QCOM || COMPILE_TEST
+>         select QCOM_PAS
+>         select QCOM_TZMEM
+>         default y if ARCH_QCOM
+
+LGTM for now, so
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+
+As the MSM driver is used on non-QCOM platforms, too, in the long run,
+the "select QCOM_SCM" and "select QCOM_PAS" for DRM_MSM should probably
+gain dependencies on ARCH_QCOM (like "select QCOM_UBWC_CONFIG if
+ARCH_QCOM" already has), and the various qcom_*() should gain dummies.
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
