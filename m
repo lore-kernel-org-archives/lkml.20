@@ -1,117 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBFBA14A619;
-	Mon, 14 Sep 2026 00:16:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0F7F13C9C4
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 00:17:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789344984; cv=none; b=AKLnVsELpLurAwVljsy1lpRKJAhdSF4sxNxZizRiLLkfCcrAHGW/qYaQwaXO0MVtW8XNamfhQyHBl+WzBgnE3XXz27IqlcpOMnsGNa5d5AWqsa+XerwBwrfqcy+FcJtNehsVFcQEsO3MD/UFK2wyczZhkxtArhNgY/RPXuPT4F0=
+	t=1789345058; cv=none; b=sGkNVKRhe5GClhoQOPDrW/mtE0QLKMg6omeKzB2eNTf20MqHKc+DalOvEaV43n5WrwPc0jT+8oRCOhoBxdMqrzk+HObLP11DInyC93oDlCgPHcJU5qOI1VJDdhK0FKdyt6HeP+1JD77X4TZV1gTc512fs3kE+1m+pECTD/sZyco=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789344984; c=relaxed/simple;
-	bh=7262WMo+xwCJLCR2Nlton5MXTY01hmIGDEcpBdE9S4w=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=d8lAg1u036Wiu1iJt3cbJDtwkQBacISN+PBiB+quKCowmDpablu3pIpgEPYqWJnCtPEkZgJXUn7IYZGt/uJP/oRs47zWtqq+b/Ht9nPFdosAhqRSZRMRR5IDs8RSxHgK36TMVvQRHDzpF8AhNbCDJ0jFU+T6NBiJOhaBrgseAkM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KUsMLnQR; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789345058; c=relaxed/simple;
+	bh=ToUGXbXe0dznPZwkdYYL+ujrWOxxx28Gurz6KZ0/iUM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bG+T5kclHaPrxE9Blj0jQS7yoGyjNmbn8GwqE8cY4hZAIPjL2op9B87TuAHRTZP6bS0n1BwwA5RbkWnvDu/rPuS6YDTWnH/T/Ki9fX69wsEqR/RGbtZPRlP7j9VCMDfQAs91oUB8ehUdV7EPxmxyplhNkibkcOclWsu7pP1Hoho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eRRbRaVT; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KUsMLnQR"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 5AB75C2BCC7;
-	Mon, 14 Sep 2026 00:16:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789344984;
-	bh=7262WMo+xwCJLCR2Nlton5MXTY01hmIGDEcpBdE9S4w=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=KUsMLnQRIthGeAAlziGQTWA8fchPCsU+M8TAuNgF5IcuLA/5l4shSeSV/g3l+hNRK
-	 NGL6TsLoczJoOU47lLY2UgoeE8mO8vVMwuxe7PTnv4az+YT8RqxXLl8bfm/+F/Wy7X
-	 1pCEEfYad/Jd/T3o4eiylAdlsd84n83WSZRuePQ/7hhjZX/D5GarFNXIGu+Qw/x0JZ
-	 qEj7dn8myp4fedDMkq7RDD4XnhRGksr7GissFRwqGg8VJLu3ArrjvWz5LlOMhSeax+
-	 wPEqs2+gqmsHPZhtpv30IxjGrKx1fFFwdvcCKbsLa50b0/XiRz5tb8KC/wuq+5Y+wF
-	 41kAmRoEJbSFQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 37E6DC88E64;
-	Mon, 14 Sep 2026 00:16:24 +0000 (UTC)
-From: Mark Amirkan via B4 Relay <devnull+markdamirkan.gmail.com@kernel.org>
-Date: Sun, 13 Sep 2026 17:15:52 -0700
-Subject: [PATCH] HID: bpf: reject oversized device events before copying
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eRRbRaVT"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39dbdfaef3cso1391872a91.1
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 17:17:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789345057; x=1789949857; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=kIKo4cCMWw2kkhyANUDVgYYj+IlcsbApWlNRIap1r8o=;
+        b=eRRbRaVTbvxD5RmQtHLZjJV+FPJsRxAg8SeW85gCKGBtlpdvjR1ToM0TbKBCLF+6OR
+         390CQHgCAHOha9m6BTRuyGGUmgFza1k/rR6qaUgHuUoNS7RyNsBahcfyL5Jc2C2Ajrxr
+         etKvo3JFHsXTiI4ga/26PG6+cRY1oUQdJqKvxifDcqkncZoiw6mV2lhQbUK3t5fCzWY2
+         JFXyFXh4Dy92U3B5Mw1RiusGvylSFHuyBkIiEurlPIpsVXeVOnB5eLWGdE28PwacVeXN
+         oDh2puRWmvagTiM1oyANGVj3wR36s/Z4GMrUD3brmisHJ4OpylN4QRWZ+qFpzSjw4cde
+         /w6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789345057; x=1789949857;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kIKo4cCMWw2kkhyANUDVgYYj+IlcsbApWlNRIap1r8o=;
+        b=bS/D/tqU7tRwc7BpQKhTyaXQtH9mevdFcwOcwiTZu8YfFVrbvwMMZKp5XlwXZdF9zm
+         bhVESilh/gBHC2ee3CAk47wKGHNY+pGUg7BBUGohvoccNdl7mfnRPq8g15Bv4sbCfNcT
+         v2Ty9VFPTn0kZKHGoGOiGA0oTJ8cLBv3EaKy8TX6MOQJrp/3sR8tUoQGmZXMDgZQCPos
+         8agR1UqABHhWZ/YJn0eM9ROFsyxMHp+hmauzWdLiWbB9RswCteFKxQ/X1FzLnLrIsy2q
+         jOpVknoS+43McNOmI+PxH4cEJHZRFfLbVN6Xz7y529+wwVWcLBDTa3LwacnI/D4E6pxa
+         Lo3w==
+X-Forwarded-Encrypted: i=1; AKwUvByn0Dq+0+WRVTFn1tlEpxgV8lVzJ31HnU+rTFEfaWSp4EgW53TSTVKIXTYHqJn8hFZJWHxLZZHSsBr/IZM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lKuNfRrAGiDqW3Vfn+mrUGWqJ+nMKrKQrgmCPzYMAKhsNUmSyv
+	7JHf+lC6ZNmG7VF1fGzTH1N6X5RjUxAAxIL6SNnJrdnN6IwjxIFgWWPm
+X-Gm-Gg: AYBFou3AaqBkcNC5P2Xpg6ev6N+/Sqgqr3qrYlLwhSQB/EwvNBkMmSJLmFDQOrctk3u
+	AM6lg1tLSF2O1s51Xq9AJbwWWBaHRP5ybjNUo7Rd6PKR8x6NOn8FsuI+25GcWfa9XRQooRqg8aS
+	UuiAKjA5Ct7roW73mSl74vWZbev/XXcPF5XvuJM7duO13MIdvtFgyjByg8AqNqsa7SVQsOhPS9T
+	gOs8wdvpi//PWVftrdD81BdpZwdSRSaP+hWno6ZqRbslYG3PKzfw+dbk3Ey33+OZwLSEDcuuuXE
+	hsAOT7XHPIdyV0w8bvaCrFmKrQl4A84m0wtF9yVuLZ2DqCqP8x2XWQ/IejLEFQ7SG9wGiwAgtD8
+	LhVfpjHh+H5I5q0PH7R3LrfvflhUm/9d0/vkcGt3R/QsGnv2DNrqDPfbGYAbu7+fWDpqPXkro2X
+	cjfCkB/27DdBhrynoXoQmgUES9PGpfvudBuTBRA3VTgdRnlxnD3DrGo8idZ4ridB4KTi0k9Yoij
+	M17Rk66OETjKVzrX2TtsN+RjVkqQUEXJpfTOp++
+X-Received: by 2002:a17:90b:1850:b0:396:40e6:f631 with SMTP id 98e67ed59e1d1-39debf548c6mr731924a91.3.1789345056881;
+        Sun, 13 Sep 2026 17:17:36 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:a739:376c:7eb4:ea2d])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba7a9bb56sm23934228eec.31.2026.09.13.17.17.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 13 Sep 2026 17:17:35 -0700 (PDT)
+Date: Sun, 13 Sep 2026 17:17:32 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Linmao Li <lilinmao@kylinos.cn>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] Input: matrix-keymap - reject keycodes above KEY_MAX
+Message-ID: <aqc9GAV5y0a3J-o0@google.com>
+References: <20260909100739.3107556-1-lilinmao@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260913-b4-send-hid-bpf-event-bounds-v1-1-614fb56a0635@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQ6CMBAG0KuQWTtJi41/VzEsnPZDxkUhHSAmh
- Ltbdfk2byNDURjdmo0KVjUdc4U/NBSHR36CNVVT69qTu/ojS2BDTjxoYpl6xoo8s4xLTsYhOVz
- 82UVIoFpMBb2+f/29+9sWeSHO35P2/QN9qlUagAAAAA==
-X-Change-ID: 20260913-b4-send-hid-bpf-event-bounds-4d0e8170ceb4
-To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
- bpf@vger.kernel.org, stable@vger.kernel.org, 
- Mark Amirkan <markdamirkan@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789344983; l=2003;
- i=markdamirkan@gmail.com; s=pscsi-20260818; h=from:subject:message-id;
- bh=Ia7zUbF957KqlNGyqwYypZyyCwU42rijJnHEBVEKNhk=;
- b=/ogx9vdoMRR7AlMAI52cVD4nGYJ2/YRgv9iUk25VVCPdxw4rOqGtU80OanuLdFs4XcUedo0at
- v1g/vX0R8LPDexYwhHBG8kYNxIxHsLcWdv5W7A4/Yt3mRET+GkVUpCJ
-X-Developer-Key: i=markdamirkan@gmail.com; a=ed25519;
- pk=/wb49ibt4gZFDncmhFQBYtjPvzT1tfJtvK4Mqt1P2Wc=
-X-Endpoint-Received: by B4 Relay for markdamirkan@gmail.com/pscsi-20260818
- with auth_id=961
-X-Original-From: Mark Amirkan <markdamirkan@gmail.com>
-Reply-To: markdamirkan@gmail.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260909100739.3107556-1-lilinmao@kylinos.cn>
 
-From: Mark Amirkan <markdamirkan@gmail.com>
+On Wed, Sep 09, 2026 at 06:07:39PM +0800, Linmao Li wrote:
+> matrix_keypad_map_key() validates the row and column of each entry before
+> using them to update the keymap. It does not validate the keycode before
+> using it as a bit number in input_dev->keybit, which only has KEY_CNT bits.
+> A malformed firmware or platform keymap can therefore write past the
+> bitmap.
+> 
+> Reject keycodes above KEY_MAX before updating the keymap or capability
+> bitmap.
+> 
+> Fixes: 77a53fd21870 ("Input: matrix-keypad - add function to build device keymap")
+> Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
 
-HID-BPF allocates its device-event buffer from the largest report in the
-device's parsed report descriptor.  dispatch_hid_bpf_device_event() then
-copies the transport-provided report into that buffer before checking its
-size.
+Applied, thank you.
 
-An input report larger than the allocated event buffer therefore causes
-a heap out-of-bounds write when a device-event program is attached.  The
-later check of the BPF program's return value cannot prevent the initial
-copy.
-
-Reject reports that exceed either the transport buffer or the persistent
-HID-BPF event buffer before clearing or copying the data.
-
-With a 64-byte event allocation, a same-file KUnit test produced a
-one-byte KASAN out-of-bounds write for a 65-byte report in three runs.
-The 64-byte boundary remained clean.  After this change, both cases were
-clean in three runs and the oversized report returned -EINVAL.  The test
-exercised the production dispatch function but not the complete UHID and
-BPF attachment path.
-
-Fixes: 658ee5a64fcf ("HID: bpf: allocate data memory for device_event BPF programs")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM Symbolic
-Signed-off-by: Mark Amirkan <markdamirkan@gmail.com>
----
- drivers/hid/bpf/hid_bpf_dispatch.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/hid/bpf/hid_bpf_dispatch.c b/drivers/hid/bpf/hid_bpf_dispatch.c
-index 536f6d01fd..06ba833eb9 100644
---- a/drivers/hid/bpf/hid_bpf_dispatch.c
-+++ b/drivers/hid/bpf/hid_bpf_dispatch.c
-@@ -50,6 +50,9 @@ dispatch_hid_bpf_device_event(struct hid_device *hdev, enum hid_report_type type
- 	if (!hdev->bpf.device_data)
- 		return data;
- 
-+	if (*size > *buf_size || *size > ctx_kern.ctx.allocated_size)
-+		return ERR_PTR(-EINVAL);
-+
- 	memset(ctx_kern.data, 0, hdev->bpf.allocated_data);
- 	memcpy(ctx_kern.data, data, *size);
- 
-
----
-base-commit: 9cdc7e6dc7a99ad7311ad5e7c145f2b9ce4e24b0
-change-id: 20260913-b4-send-hid-bpf-event-bounds-4d0e8170ceb4
-
-Best regards,
---  
-Mark Amirkan <markdamirkan@gmail.com>
-
-
+-- 
+Dmitry
