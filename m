@@ -1,90 +1,493 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A9BA48E0F5;
-	Mon, 14 Sep 2026 18:07:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789409254; cv=none; b=gZWek3BvgST5C1NGyJKJkE4Ui0s0BElNaIgFkAPr3IH+ptTJia3xhVo3ygBoA55bCcGGpILv3cU/1INel4S/lsPyT5NeGd1oqf5400Ae8YNRUvZdVjRsYEd9QF0+BE7fgEZo2dyqqQe7GRTH9NcplzadLxFV/HmiaU6ckxYsJ/8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789409254; c=relaxed/simple;
-	bh=WjgZ5sS7PFASU41GAEyepQvJrellvUJD+vnbo/dZmmQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BrMT1JNRXQHpF0zzeif5PHDJHwEvWUtCxKoRrbiif7T0mesKgsOWSyKVRrBDHr8d1/Nkhmih5aXEi9UWc7ewEkLGYYm/f2WuD2L3zljwxGnhu7a2zVeCwpRLacIFXbN+SQzx8tdOF6QIcqHQv6PcKefnyc9guYyV0Cvid++pQ1U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LTvZIFwu; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 466AA49BD8B
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:08:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789409298; cv=pass; b=HuHR0b89oHQu5HUolcTIaFQwil54KQbIfh3s93OjQIRP9jvUbY97u99si8E1/FppNzFIfplcAZL7sYV4WH4Fqrzi2YVRM5pz9upxc6UVlxn1jDAvBg0MfkHrha7ZQzfUtBFc86IIjwLZcTlBokjaPuSVwIFh4xQC8y6g7o34dIo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789409298; c=relaxed/simple;
+	bh=GNtEnyksoZpieQFZBEVPTyijM5iCA+K11bd3cC2SOjU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Lp06+0LkxRD9l9kMfn6Uv0ZQNjzoaed3lZ6cYYpH6mNJX5zOTFw5FOe3nM5JQyoh29XiGUsDNmswTNbCdT8njhyUtiiYVFKXXkviCnVEbROuDx8h0GHXlpeXiaNAT9Fr4EFtO5gdfBmCabN4nisD/BS6cevhZIAYzopKVWVX67I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Nsj7g9SO; arc=pass smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LTvZIFwu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 618471F000FF;
-	Mon, 14 Sep 2026 18:07:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789409252;
-	bh=+2LqkH1uelDs/ssC7yXt/q0DB4WBtY2PlWd9WPboDTs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LTvZIFwuX2Xzox6j58mLWKAdBM5qeYZWak7HtTaWkY3vIfdixphs4/8EU+acLzCB9
-	 IlXsfT1dm+Goam+SFnWwyN7kWSLuYUZYLPr7GfO1Ybkf+b/HIySkbn5RayiUX2VDY1
-	 bgpt9flKd8gJOWuI6I5QSrKluZncd3t5ZBdq8xVakk6Owcc+FIL81WVgTQuruHx5DN
-	 2j7DuThPKpBzowwalGCAsnZGfLTUyg+28NMIsUZwjdKcbggdkRj1TgrAXh29bq2vJ7
-	 JCJLRat0lZbTjXE4JB+kzTzsuzIaQm4512VDxXQF+FWL33SwOysBdHSp/uhvghGrRS
-	 7HCLabECSPwSQ==
-Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
-	id 76B4EFDA6E9; Mon, 14 Sep 2026 19:07:17 +0100 (BST)
-Date: Mon, 14 Sep 2026 19:07:17 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Jonas Rebmann <jre@pengutronix.de>
-Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Marc Kleine-Budde <mkl@pengutronix.de>, kernel@pengutronix.de
-Subject: Re: [PATCH 7/7] spi: spidev_test: print TX on error
-Message-ID: <aqg31UHQ1nkNPNWJ@sirena.org.uk>
-References: <20260914-spi-sun4i-spidev_test-v1-0-72d6a3b38cee@pengutronix.de>
- <20260914-spi-sun4i-spidev_test-v1-7-72d6a3b38cee@pengutronix.de>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Nsj7g9SO"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c2939b2e4caso47113466b.2
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:08:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789409291; cv=none;
+        d=google.com; s=arc-20260327;
+        b=eoaKigRJEzW9p0VGVNnZ/KESpdraYA1a9NLuQ25b//5HDjMgGwpc3iISm4YQ5HiesG
+         tTfuxTdGe2MrjEEp8WGcl6nxxlJCCumeRpHtAFsJ6mcVeUuG8T3VRLvpEpIkfhpssx09
+         +Ru3oW4zIm0XGvemfiBDtHAFXyR/SBEvjvChQ4OzEN9Nn5Zp+YP32PnoqI2OO8d99DpF
+         ocrKbh0fArttmFNPYCM7SCmSTuD/Y8b2n2gv6t3j55HPn+WzcsbvK2yHXSuSZKCkJ0bi
+         S/kgR0wGiZ417eu6jEPA2GELC3rlP/ZwLI/1LXGxUwaFdV9hVKnQtBZ8lHc1DZMoyheB
+         wIsA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=dZsSAMkqmvVrGGLo+Ywm+06xr1Q8V8tL5t2T+paIFpo=;
+        fh=919bnbMB0YMeaDMsnmvHrdOc8efcsVjbKyWhoXB/z6s=;
+        b=eDDvO9IpjysrTDv1dhU1Ek/sGwS07/idJVqAi7Xg8tqOhzf3+vxePP4rEk5ZNJIsnC
+         b91+jOfIStgH+YWbZgehCeffF8gBCTKVXbT/QqLJW9VPD4YA93LgVyOKA9iyMj25UaTJ
+         3Tf0Y/QgxjJ5N7OsdnOdbHOxdAaG01EJjw2fpPJzqr8bRhVnxssmNA9W6rMjQPodyyGY
+         rNiIp5Nk0UrGZ3aTgBgSvM1GqL+WVXR9BpzqAFlCDPVZRwFYvJcgZoJASxSktHe9CnnN
+         NRauVvyoACSD2h/5Wmbu6At2tIULC6sxyy0+4bV56K0noDA0hd4e0uSiLlpoXD5L4KfA
+         qqDQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789409291; x=1790014091; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=dZsSAMkqmvVrGGLo+Ywm+06xr1Q8V8tL5t2T+paIFpo=;
+        b=Nsj7g9SOrGSs9BA704u5oUQu+x0cyu9OjVlbCYuI9ODcRzEhFs8J5vs/866WXHoC/f
+         AgdRF9GUmhINCO3DVSxQ57akTV/jul/YoUj/7FAvnema2jUkgQC7W4zrWZQgDZCdW0Ok
+         4jozPlI+vEi4VwRRPVUQO+vXr8U7JCSHI4vVu2SaCF/TiNZGsz2wPwBb+wt+ExlhAxay
+         eS6pmM5g3kAJjyiMZ4ZrU9U+KxHTE++xkjSKGE1JIpdo4jjCDryWgcqrVpBaXA3kmlLE
+         4hOoIjZfAzagtNKaOSPILJKQP7sO0n1wkLzKvujFy2+BkVLD8rYj22FooVmi+tN+JETa
+         QdjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789409291; x=1790014091;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dZsSAMkqmvVrGGLo+Ywm+06xr1Q8V8tL5t2T+paIFpo=;
+        b=Mz2w3I6/sQYy7WQ1CMchE+J+gEEZL+LIMygH+JhFKLhYXEHh+uGx7a2ywPt3a1VsnW
+         ElzAQN2hOVVqZDwh092EU/2Mh7JxAP9mMyJguyRV/6UUXkmQAvtHF3ZE8MixqL878iDe
+         j4P17gGGy+W2cz2uL1bb8NkbHxSULZl/4YYPkF7K1te111T2Dtns2OfglsJ+KPAw/grq
+         0tnXhi3HFh6pmKtfxii9rlnR+5MHuV82zgNq3TwSCxaFXLnVJb5+aC049rqSYV2ByW9s
+         MaNsw/mo8QYtgu/9iswbWa07n1IEnAublCh9evy8xSNvLxpj5YzmBb+eWDjRhmUVBzeI
+         2H0A==
+X-Forwarded-Encrypted: i=1; AKwUvByOmjuo4xRrk8icgIQG/gpmHSWgqv0B3NaMHtwVII5fKLoAdDB/yk1ufwer/Ob1icm0g5QIykRW4zODaM4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nslQ9InGCfzHNQG82AdJeB1Zx4GRe7Vd/KvnRQ2yvWye8RepH8
+	1WsrJVRhDXvzHP4gvfgrdtSGC0gc9wa7ICTUaSRR5GPF+lJX1C0O/jQJTHs89fZa3dM5keGQIHz
+	ExrFQDGcVzLvFps+S1n3dyCCokkUPo7wweADnvtXIgg==
+X-Gm-Gg: AYBFou2Aa6N7driFVOT0kEzmacgKJs7KxJHV08XZtj/09iy2sF8RtMPkvgJE/e1El7m
+	9IG6jpIAfyvwydealFl74+Ye/v2d8PGsdi3c1hQsG31uaaIY4Lroz3V5j0H/Ww7MBRBa4snFZYn
+	Cd+z9RaRK33fDqmnvHZmZm3Utfn1Kfqz4vj37f82Pv/MPmfrAN4KpFlkVbC7QZZg/TtRH3gZGdJ
+	iH+5+Opc4NsUqu8Nrs7YKKvuhjTlwAv+a6MYA5vAwHV8/XPJyYal0/RPcyZUQPwJWKQaEShLm0B
+	kQ1hL/dBCLJSL/Sdg93LDHNcRutC0zRq1BjtqKKNzb26oO6tRx7GLszNtWLK5ITtefKFQ7BAArF
+	KrvdSuJRU
+X-Received: by 2002:a17:907:961a:b0:c29:4634:5c8f with SMTP id
+ a640c23a62f3a-c29b805aa58mr272778166b.0.1789409290921; Mon, 14 Sep 2026
+ 11:08:10 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="dxKiEFZji3VOi5kA"
-Content-Disposition: inline
-In-Reply-To: <20260914-spi-sun4i-spidev_test-v1-7-72d6a3b38cee@pengutronix.de>
-X-Cookie: Orders subject to approval.
-
-
---dxKiEFZji3VOi5kA
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <20260824150220.216067-1-nicoyip.dev@gmail.com> <3226752.1789397935@warthog.procyon.org.uk>
+In-Reply-To: <3226752.1789397935@warthog.procyon.org.uk>
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+Date: Tue, 15 Sep 2026 02:07:59 +0800
+X-Gm-Features: AcwNN1VV9Vfvtm8hYHvkD4szkX5eYUJBHtX0vHbJHnsG1sOPyeukOzqEL0dVaiI
+Message-ID: <CAAo+4rVwjW07EWGft77D4+B_ptVK+bj8zfHdhr3yJG8BM2+3qA@mail.gmail.com>
+Subject: Re: [PATCH net] rxrpc: Take write lock when publishing the initial
+ RxGK key
+To: David Howells <dhowells@redhat.com>
+Cc: Marc Dionne <marc.dionne@auristor.com>, "David S . Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, linux-afs@lists.infradead.org, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 14, 2026 at 04:50:46PM +0200, Jonas Rebmann wrote:
-> From: Marc Kleine-Budde <mkl@pengutronix.de>
->=20
-> If sending an spi message fails, dump it to the console.
+On Mon, Sep 14, 2026 at 10:59=E2=80=AFPM David Howells <dhowells@redhat.com=
+> wrote:
+>
+> Chengfeng Ye <nicoyip.dev@gmail.com> wrote:
+>
+> > On a client connection, a second sendmsg can observe
+> > RXRPC_CONN_CLIENT through a lockless load of conn->state,
+>
+> I wonder if I need something like the attached also...  Or if it might do
+> instead, though I think there's no harm in doing your writelock suggestio=
+n
+> anyway.
+>
+> David
+> ---
+> commit 21a0c0765f5d2654379f3a0065b059e676d7c761
+> Author: David Howells <dhowells@redhat.com>
+> Date:   Mon Sep 14 14:40:13 2026 +0100
+>
+>     rxrpc: Fix lack of conn->state barriering
+>
+>     Because rxrpc can manipulate the connection state in one thread and t=
+hen
+>     read it in another, but it also guards access to some members in the
+>     struct, it needs to have release/acquire barriers.  Fix this by using
+>     helpers to read/set the connection state.
+>
+>     Fixes: 9d35d880e0e4 ("rxrpc: Move client call connection to the I/O t=
+hread")
+>     Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260907113=
+743.1453210-1-dhowells%40redhat.com
+>     Signed-off-by: David Howells <dhowells@redhat.com>
+>     cc: Marc Dionne <marc.dionne@auristor.com>
+>     cc: Eric Dumazet <edumazet@google.com>
+>     cc: "David S. Miller" <davem@davemloft.net>
+>     cc: Jakub Kicinski <kuba@kernel.org>
+>     cc: Paolo Abeni <pabeni@redhat.com>
+>     cc: Simon Horman <horms@kernel.org>
+>     cc: linux-afs@lists.infradead.org
+>
+> diff --git a/net/rxrpc/ar-internal.h b/net/rxrpc/ar-internal.h
+> index cb36a709f540..dde262ffc7fe 100644
+> --- a/net/rxrpc/ar-internal.h
+> +++ b/net/rxrpc/ar-internal.h
+> @@ -601,7 +601,7 @@ struct rxrpc_connection {
+>         unsigned long           events;
+>         unsigned long           idle_timestamp; /* Time at which last bec=
+ame idle */
+>         spinlock_t              state_lock;     /* state-change lock */
+> -       enum rxrpc_conn_proto_state state;      /* current state of conne=
+ction */
+> +       enum rxrpc_conn_proto_state _state;     /* current state of conne=
+ction */
+>         enum rxrpc_call_completion completion;  /* Completion condition *=
+/
+>         s32                     abort_code;     /* Abort code of connecti=
+on abort */
+>         int                     debug_id;       /* debug ID for printks *=
+/
+> @@ -1185,10 +1185,23 @@ void rxrpc_process_delayed_final_acks(struct rxrp=
+c_connection *, bool);
+>  bool rxrpc_input_conn_packet(struct rxrpc_connection *conn, struct sk_bu=
+ff *skb);
+>  void rxrpc_input_conn_event(struct rxrpc_connection *conn, struct sk_buf=
+f *skb);
+>
+> +static inline void rxrpc_set_conn_state(struct rxrpc_connection *conn,
+> +                                       enum rxrpc_conn_proto_state state=
+)
+> +{
+> +       /* Order write of conn info before write of state. */
+> +       smp_store_release(&conn->_state, state);
+> +}
+> +
+> +static inline
+> +enum rxrpc_conn_proto_state rxrpc_conn_state(const struct rxrpc_connecti=
+on *conn)
+> +{
+> +       /* Order read of state before read of conn info. */
+> +       return smp_load_acquire(&conn->_state);
+> +}
+> +
+>  static inline bool rxrpc_is_conn_aborted(const struct rxrpc_connection *=
+conn)
+>  {
+> -       /* Order reading the abort info after the state check. */
+> -       return smp_load_acquire(&conn->state) =3D=3D RXRPC_CONN_ABORTED;
+> +       return rxrpc_conn_state(conn) =3D=3D RXRPC_CONN_ABORTED;
+>  }
+>
+>  /*
+> diff --git a/net/rxrpc/call_accept.c b/net/rxrpc/call_accept.c
+> index 47824120f1da..1dcfd9e5fca4 100644
+> --- a/net/rxrpc/call_accept.c
+> +++ b/net/rxrpc/call_accept.c
+> @@ -398,8 +398,8 @@ bool rxrpc_new_incoming_call(struct rxrpc_local *loca=
+l,
+>                 rx->app_ops->notify_new_call(&rx->sk, call, call->user_ca=
+ll_ID);
+>
+>         spin_lock(&conn->state_lock);
+> -       if (conn->state =3D=3D RXRPC_CONN_SERVICE_UNSECURED) {
+> -               conn->state =3D RXRPC_CONN_SERVICE_CHALLENGING;
+> +       if (rxrpc_conn_state(conn) =3D=3D RXRPC_CONN_SERVICE_UNSECURED) {
+> +               rxrpc_set_conn_state(conn, RXRPC_CONN_SERVICE_CHALLENGING=
+);
+>                 set_bit(RXRPC_CONN_EV_CHALLENGE, &call->conn->events);
+>                 rxrpc_queue_conn(call->conn, rxrpc_conn_queue_challenge);
+>         }
+> diff --git a/net/rxrpc/call_object.c b/net/rxrpc/call_object.c
+> index 817ed9acb91e..29f9a01394c1 100644
+> --- a/net/rxrpc/call_object.c
+> +++ b/net/rxrpc/call_object.c
+> @@ -459,7 +459,7 @@ void rxrpc_incoming_call(struct rxrpc_sock *rx,
+>
+>         spin_lock(&conn->state_lock);
+>
+> -       switch (conn->state) {
+> +       switch (rxrpc_conn_state(conn)) {
+>         case RXRPC_CONN_SERVICE_UNSECURED:
+>         case RXRPC_CONN_SERVICE_CHALLENGING:
+>                 __set_bit(RXRPC_CALL_CONN_CHALLENGING, &call->flags);
+> diff --git a/net/rxrpc/conn_client.c b/net/rxrpc/conn_client.c
+> index 48519f0de185..3055ef6fd11d 100644
+> --- a/net/rxrpc/conn_client.c
+> +++ b/net/rxrpc/conn_client.c
+> @@ -182,11 +182,12 @@ rxrpc_alloc_client_connection(struct rxrpc_bundle *=
+bundle)
+>         conn->upgrade           =3D bundle->upgrade;
+>         conn->orig_service_id   =3D bundle->service_id;
+>         conn->security_level    =3D bundle->security_level;
+> -       conn->state             =3D RXRPC_CONN_CLIENT_UNSECURED;
+>         conn->service_id        =3D conn->orig_service_id;
+>
+>         if (conn->security =3D=3D &rxrpc_no_security)
+> -               conn->state     =3D RXRPC_CONN_CLIENT;
+> +               rxrpc_set_conn_state(conn, RXRPC_CONN_CLIENT);
+> +       else
+> +               rxrpc_set_conn_state(conn, RXRPC_CONN_CLIENT_UNSECURED);
+>
+>         atomic_inc(&rxnet->nr_conns);
+>         write_lock(&rxnet->conn_lock);
+> @@ -206,6 +207,7 @@ rxrpc_alloc_client_connection(struct rxrpc_bundle *bu=
+ndle)
+>  static bool rxrpc_may_reuse_conn(struct rxrpc_connection *conn)
+>  {
+>         struct rxrpc_net *rxnet;
+> +       enum rxrpc_conn_proto_state state;
+>         int id_cursor, id, distance, limit;
+>
+>         if (!conn)
+> @@ -215,8 +217,9 @@ static bool rxrpc_may_reuse_conn(struct rxrpc_connect=
+ion *conn)
+>         if (test_bit(RXRPC_CONN_DONT_REUSE, &conn->flags))
+>                 goto dont_reuse;
+>
+> -       if ((conn->state !=3D RXRPC_CONN_CLIENT_UNSECURED &&
+> -            conn->state !=3D RXRPC_CONN_CLIENT) ||
+> +       state =3D rxrpc_conn_state(conn);
+> +       if ((state !=3D RXRPC_CONN_CLIENT_UNSECURED &&
+> +            state !=3D RXRPC_CONN_CLIENT) ||
+>             conn->proto.epoch !=3D rxnet->epoch)
+>                 goto mark_dont_reuse;
+>
+> diff --git a/net/rxrpc/conn_event.c b/net/rxrpc/conn_event.c
+> index 611c790bc6d0..f60bceff0bad 100644
+> --- a/net/rxrpc/conn_event.c
+> +++ b/net/rxrpc/conn_event.c
+> @@ -25,14 +25,13 @@ static bool rxrpc_set_conn_aborted(struct rxrpc_conne=
+ction *conn,
+>  {
+>         bool aborted =3D false;
+>
+> -       if (conn->state !=3D RXRPC_CONN_ABORTED) {
+> +       if (rxrpc_conn_state(conn) !=3D RXRPC_CONN_ABORTED) {
+>                 spin_lock_irq(&conn->state_lock);
+> -               if (conn->state !=3D RXRPC_CONN_ABORTED) {
+> +               if (rxrpc_conn_state(conn) !=3D RXRPC_CONN_ABORTED) {
+>                         conn->abort_code =3D abort_code;
+>                         conn->error      =3D err;
+>                         conn->completion =3D compl;
+> -                       /* Order the abort info before the state change. =
+*/
+> -                       smp_store_release(&conn->state, RXRPC_CONN_ABORTE=
+D);
+> +                       rxrpc_set_conn_state(conn, RXRPC_CONN_ABORTED);
+>                         set_bit(RXRPC_CONN_DONT_REUSE, &conn->flags);
+>                         set_bit(RXRPC_CONN_EV_ABORT_CALLS, &conn->events)=
+;
+>                         aborted =3D true;
+> @@ -272,7 +271,7 @@ static int rxrpc_process_event(struct rxrpc_connectio=
+n *conn,
+>         bool secured =3D false;
+>         int ret;
+>
+> -       if (conn->state =3D=3D RXRPC_CONN_ABORTED)
+> +       if (rxrpc_conn_state(conn) =3D=3D RXRPC_CONN_ABORTED)
+>                 return -ECONNABORTED;
+>
+>         _enter("{%d},{%u,%%%u},", conn->debug_id, sp->hdr.type, sp->hdr.s=
+erial);
+> @@ -286,7 +285,7 @@ static int rxrpc_process_event(struct rxrpc_connectio=
+n *conn,
+>
+>         case RXRPC_PACKET_TYPE_RESPONSE:
+>                 spin_lock_irq(&conn->state_lock);
+> -               if (conn->state !=3D RXRPC_CONN_SERVICE_CHALLENGING) {
+> +               if (rxrpc_conn_state(conn) !=3D RXRPC_CONN_SERVICE_CHALLE=
+NGING) {
+>                         spin_unlock_irq(&conn->state_lock);
+>                         return 0;
+>                 }
+> @@ -302,8 +301,8 @@ static int rxrpc_process_event(struct rxrpc_connectio=
+n *conn,
+>                         return ret;
+>
+>                 spin_lock_irq(&conn->state_lock);
+> -               if (conn->state =3D=3D RXRPC_CONN_SERVICE_CHALLENGING) {
+> -                       conn->state =3D RXRPC_CONN_SERVICE;
+> +               if (rxrpc_conn_state(conn) =3D=3D RXRPC_CONN_SERVICE_CHAL=
+LENGING) {
+> +                       rxrpc_set_conn_state(conn, RXRPC_CONN_SERVICE);
+>                         secured =3D true;
+>                 }
+>                 spin_unlock_irq(&conn->state_lock);
+> @@ -548,7 +547,7 @@ void rxrpc_input_conn_event(struct rxrpc_connection *=
+conn, struct sk_buff *skb)
+>                 conn->tx_response =3D NULL;
+>                 spin_unlock_irq(&conn->local->lock);
+>
+> -               if (conn->state !=3D RXRPC_CONN_ABORTED)
+> +               if (rxrpc_conn_state(conn) !=3D RXRPC_CONN_ABORTED)
+>                         rxrpc_send_response(conn, skb);
+>                 rxrpc_free_skb(skb, rxrpc_skb_put_response);
+>         }
+> @@ -556,7 +555,7 @@ void rxrpc_input_conn_event(struct rxrpc_connection *=
+conn, struct sk_buff *skb)
+>         if (skb) {
+>                 switch (skb->mark) {
+>                 case RXRPC_SKB_MARK_SERVICE_CONN_SECURED:
+> -                       if (conn->state !=3D RXRPC_CONN_SERVICE)
+> +                       if (rxrpc_conn_state(conn) !=3D RXRPC_CONN_SERVIC=
+E)
+>                                 break;
+>
+>                         for (loop =3D 0; loop < RXRPC_MAXCALLS; loop++)
+> diff --git a/net/rxrpc/conn_object.c b/net/rxrpc/conn_object.c
+> index 1be50e0c9cee..12914fb72345 100644
+> --- a/net/rxrpc/conn_object.c
+> +++ b/net/rxrpc/conn_object.c
+> @@ -407,7 +407,7 @@ void rxrpc_service_connection_reaper(struct work_stru=
+ct *work)
+>                 ASSERTCMP(atomic_read(&conn->active), >=3D, 0);
+>                 if (likely(atomic_read(&conn->active) > 0))
+>                         continue;
+> -               if (conn->state =3D=3D RXRPC_CONN_SERVICE_PREALLOC)
+> +               if (rxrpc_conn_state(conn) =3D=3D RXRPC_CONN_SERVICE_PREA=
+LLOC)
+>                         continue;
+>
+>                 if (rxnet->live && !conn->local->dead) {
+> diff --git a/net/rxrpc/conn_service.c b/net/rxrpc/conn_service.c
+> index 39c908a3ca6e..04a8206f3a44 100644
+> --- a/net/rxrpc/conn_service.c
+> +++ b/net/rxrpc/conn_service.c
+> @@ -126,7 +126,7 @@ struct rxrpc_connection *rxrpc_prealloc_service_conne=
+ction(struct rxrpc_net *rxn
+>                 /* We maintain an extra ref on the connection whilst it i=
+s on
+>                  * the rxrpc_connections list.
+>                  */
+> -               conn->state =3D RXRPC_CONN_SERVICE_PREALLOC;
+> +               rxrpc_set_conn_state(conn, RXRPC_CONN_SERVICE_PREALLOC);
+>                 refcount_set(&conn->ref, 2);
+>
+>                 atomic_inc(&rxnet->nr_conns);
+> @@ -161,10 +161,6 @@ void rxrpc_new_incoming_connection(struct rxrpc_sock=
+ *rx,
+>         conn->security_ix       =3D sp->hdr.securityIndex;
+>         conn->out_clientflag    =3D 0;
+>         conn->security          =3D sec;
+> -       if (conn->security_ix)
+> -               conn->state     =3D RXRPC_CONN_SERVICE_UNSECURED;
+> -       else
+> -               conn->state     =3D RXRPC_CONN_SERVICE;
+>
+>         /* See if we should upgrade the service.  This can only happen on=
+ the
+>          * first packet on a new connection.  Once done, it applies to al=
+l
+> @@ -174,6 +170,11 @@ void rxrpc_new_incoming_connection(struct rxrpc_sock=
+ *rx,
+>             conn->service_id =3D=3D rx->service_upgrade.from)
+>                 conn->service_id =3D rx->service_upgrade.to;
+>
+> +       if (conn->security_ix)
+> +               rxrpc_set_conn_state(conn, RXRPC_CONN_SERVICE_UNSECURED);
+> +       else
+> +               rxrpc_set_conn_state(conn, RXRPC_CONN_SERVICE);
+> +
+>         atomic_set(&conn->active, 1);
+>
+>         /* Make the connection a target for incoming packets. */
+> diff --git a/net/rxrpc/proc.c b/net/rxrpc/proc.c
+> index e9a27fa7b25d..99d2c850b94e 100644
+> --- a/net/rxrpc/proc.c
+> +++ b/net/rxrpc/proc.c
+> @@ -146,6 +146,7 @@ static int rxrpc_connection_seq_show(struct seq_file =
+*seq, void *v)
+>         struct rxrpc_connection *conn;
+>         struct rxrpc_net *rxnet =3D rxrpc_net(seq_file_net(seq));
+>         const char *state;
+> +       enum rxrpc_conn_proto_state cstate;
+>         char lbuff[RXRPC_PROC_ADDRBUF_SIZE], rbuff[RXRPC_PROC_ADDRBUF_SIZ=
+E];
+>
+>         if (v =3D=3D &rxnet->conn_proc_list) {
+> @@ -159,7 +160,8 @@ static int rxrpc_connection_seq_show(struct seq_file =
+*seq, void *v)
+>         }
+>
+>         conn =3D list_entry(v, struct rxrpc_connection, proc_link);
+> -       if (conn->state =3D=3D RXRPC_CONN_SERVICE_PREALLOC) {
+> +       cstate =3D rxrpc_conn_state(conn);
+> +       if (cstate =3D=3D RXRPC_CONN_SERVICE_PREALLOC) {
+>                 strcpy(lbuff, "no_local");
+>                 strcpy(rbuff, "no_connection");
+>                 goto print;
+> @@ -168,9 +170,9 @@ static int rxrpc_connection_seq_show(struct seq_file =
+*seq, void *v)
+>         scnprintf(lbuff, sizeof(lbuff), "%pISpc", &conn->local->srx.trans=
+port);
+>         scnprintf(rbuff, sizeof(rbuff), "%pISpc", &conn->peer->srx.transp=
+ort);
+>  print:
+> -       state =3D rxrpc_is_conn_aborted(conn) ?
+> +       state =3D (cstate =3D=3D RXRPC_CONN_ABORTED) ?
+>                 rxrpc_call_completions[conn->completion] :
+> -               rxrpc_conn_states[conn->state];
+> +               rxrpc_conn_states[cstate];
+>         seq_printf(seq,
+>                    "UDP   %-47.47s %-47.47s %4x %08x %s %3u %3d"
+>                    " %s %08x %08x %08x %08x %08x %08x %08x\n",
+> diff --git a/net/rxrpc/security.c b/net/rxrpc/security.c
+> index 2bfbf2b2bb37..f64acaa6cf53 100644
+> --- a/net/rxrpc/security.c
+> +++ b/net/rxrpc/security.c
+> @@ -114,12 +114,12 @@ int rxrpc_init_client_conn_security(struct rxrpc_co=
+nnection *conn)
+>
+>  found:
+>         mutex_lock(&conn->security_lock);
+> -       if (conn->state =3D=3D RXRPC_CONN_CLIENT_UNSECURED) {
+> +       if (rxrpc_conn_state(conn) =3D=3D RXRPC_CONN_CLIENT_UNSECURED) {
+>                 ret =3D conn->security->init_connection_security(conn, to=
+ken);
+>                 if (ret =3D=3D 0) {
+>                         spin_lock_irq(&conn->state_lock);
+> -                       if (conn->state =3D=3D RXRPC_CONN_CLIENT_UNSECURE=
+D)
+> -                               conn->state =3D RXRPC_CONN_CLIENT;
+> +                       if (rxrpc_conn_state(conn) =3D=3D RXRPC_CONN_CLIE=
+NT_UNSECURED)
+> +                               rxrpc_set_conn_state(conn, RXRPC_CONN_CLI=
+ENT);
+>                         spin_unlock_irq(&conn->state_lock);
+>                 }
+>         }
+> diff --git a/net/rxrpc/sendmsg.c b/net/rxrpc/sendmsg.c
+> index ed7ff32da184..dcbd2033ca01 100644
+> --- a/net/rxrpc/sendmsg.c
+> +++ b/net/rxrpc/sendmsg.c
+> @@ -336,7 +336,7 @@ static int rxrpc_send_data(struct rxrpc_sock *rx,
+>         if (ret < 0)
+>                 goto out_unlock;
+>
+> -       if (call->conn->state =3D=3D RXRPC_CONN_CLIENT_UNSECURED) {
+> +       if (rxrpc_conn_state(call->conn) =3D=3D RXRPC_CONN_CLIENT_UNSECUR=
+ED) {
+>                 ret =3D rxrpc_init_client_conn_security(call->conn);
+>                 if (ret < 0)
+>                         goto out_unlock;
+>
 
-It could be very large...  possibly gate on verbosity, or limit the
-length?
+Thanks for looking into the problem, this looks like a better fix. If
+appropriate, I would appreciate if there could be a reported-by tag in
+the patch:
 
-> -	if (ret < 1)
-> +	if (ret < 1) {
-> +		if (tx)
-> +			hex_dump(tx, len, 32, "TX");
->  		pabort("can't send spi message");
-> +	}
+Reported-by: Chengfeng Ye <nicoyip.dev@gmail.com>
 
-Writing to the console could overwrite errno here.
-
---dxKiEFZji3VOi5kA
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqoN9QACgkQJNaLcl1U
-h9A78Qf/dRoMP3vRYh+vGCDaDg6hwPv9i44v37xPSAP1FO+X8poksK/JCUshlsxN
-/9EO0c4sWg/c0XDPqBjKertZrxFLP/H3hqrmjiYd0HLn5TD9bOt/Xd6DT9OaaDnK
-dDobnGONKo8Jufbnabp4Hq+cI9aiQTr0R/po7xg0qOTv2FTAHnn4LkJqAEv2iYDi
-AwYK1jpfcYa7G5EEjAwyE2J68JP3oFwv6BQTbpZpMZtd10FssAssaifmcF/sh7gR
-UaNNnhZxgfAPX5wmFdy2RU2uN1S60Ci2mujYCHgRhhdMuTGsTCursN6LQzi2m3CA
-dO9fs+rlvwSw2t7CAuv1ZIYGqyMdQA==
-=mZYT
------END PGP SIGNATURE-----
-
---dxKiEFZji3VOi5kA--
+Best regards,
+Chengfeng
