@@ -1,121 +1,70 @@
-Received: from mta0.migadu.com (out-162.mta0.migadu.com [91.218.175.162])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 892F745C6EB
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 12:31:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.162
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57153472528;
+	Mon, 14 Sep 2026 12:31:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789389117; cv=none; b=FCEb+fx+B8Kw7nomJLWUKyWKS/UOD8rrnn8RkIH+lPd2OS1n36SyQrSb9w8u03POWwFpm/F6sc3yPiIlqipxK63wO39x1cwn240o5P+TR2RHF0xlIGKuU6n8lt2RYPNB2TAET+XLfK1dZ0fxGz+eVVsVb8gkeQHrlBxdsYK6hLA=
+	t=1789389117; cv=none; b=rlax4M+3QsT0Z5x/ktK0atyuLoW6VzFnMBhvcv/NKm5KJRFOVZbMPTRYrUMSvBwr2X29nnYPaZaLOr8sfiGBMAk2QzcAulE75+VPFOxA+zWRYZMLQQC+Q4ThvCjqMraDNyxcOC7hPBrD4jYnPKblfzZmwS2O89K6qMHL/7dgtR8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789389117; c=relaxed/simple;
-	bh=EsV4QmuE2zIVMKtO/SOhRrFUuEtNtiAe7xebMuMrx54=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mHSo46rS5xaa7ePLaSj2itFDhFLq0uBv5+04eSdQhEWfWuxuiGwNJzjSVUglReGdr3ygCQ8aw5CyAlJ1fILHWfUtciWJrLZYPXI/CMrathILOIFUuNUHdXXzAI8aMgrPsaU4OVtcta8KqXTIyNZwywuULsOfMiJVf3fdogWx4Yc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=QhQaOh26; arc=none smtp.client-ip=91.218.175.162
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	bh=JprKAj3WcBPMjGGlKwMb7u1QmjKgBn6gWZ8gnKo1/yo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Jx9YUqmk83NiNwbuueu3Gv5MytrVXU8lhhfkDQreGnJafWEkposTKd0b7OtfMmU4ghQuNlQifCgzVWttjXTISeUln9ud4kKEZkd0wqS0R6rb7Dq8GpJv81kjYAovvZp1M4BgTijRe+5S+qZqs6aida6jkCrcNlPJEUM4z8Wrph0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=gFuUeK4k; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="QhQaOh26"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=EsV4QmuE2zIVMKtO/SOhRrFUuEtNtiAe7xebMuMrx54=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789389103; v=1; x=1789993903;
- b=QhQaOh261LjKiwmhFo7BQr8VctZnuLzKLjEp6oDQVw5IplJ2Rkxh5gSunTOiHUYOG9iFB3OG
- gTKYbLaytZVkuyK2vP/g+Qh8FeBe4vvd5e4BtbIy9znwvjHVlUTMZGmok+tEFf3gfXu5bqAa+xp
- rKIA/i3g7E/Azb2/oRks0voA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id e796bb344a1921fe;
-	Mon, 14 Sep 2026 12:31:43 +0000
-X-Mizu-Trace-ID: e796bb344a1921fe
-X-Migadu-Flow: FLOW_OUT
-From: Usama Arif <usama.arif@linux.dev>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	david@kernel.org,
-	chrisl@kernel.org,
-	kasong@tencent.com,
-	ljs@kernel.org,
-	ziy@nvidia.com,
-	linux-mm@kvack.org
-Cc: ying.huang@linux.alibaba.com,
-	Baoquan He <baoquan.he@linux.dev>,
-	willy@infradead.org,
-	youngjun.park@lge.com,
-	hannes@cmpxchg.org,
-	riel@surriel.com,
-	shakeel.butt@linux.dev,
-	alex@ghiti.fr,
-	kas@kernel.org,
-	baohua@kernel.org,
-	dev.jain@arm.com,
-	baolin.wang@linux.alibaba.com,
-	Nico Pache <nico.pache@linux.dev>,
-	Liam R. Howlett <liam@infradead.org>,
-	ryan.roberts@arm.com,
-	Vlastimil Babka <vbabka@kernel.org>,
-	lance.yang@linux.dev,
-	linux-kernel@vger.kernel.org,
-	nphamcs@gmail.com,
-	shikemeng@huaweicloud.com,
-	yosry@kernel.org,
-	qi.zheng@linux.dev,
-	luizcap@redhat.com,
-	kernel-team@meta.com,
-	Usama Arif <usama.arif@linux.dev>
-Subject: [RESEND v7 17/29] mm/hmm: fault PMD swap entries on demand
-Date: Mon, 14 Sep 2026 05:28:07 -0700
-Message-ID: <20260914122950.3283997-18-usama.arif@linux.dev>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260914122950.3283997-1-usama.arif@linux.dev>
-References: <20260914122950.3283997-1-usama.arif@linux.dev>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="gFuUeK4k"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1789389106;
+	bh=JprKAj3WcBPMjGGlKwMb7u1QmjKgBn6gWZ8gnKo1/yo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=gFuUeK4krZqgQHfcKDSyoAiSnzipqUN7ouuMdphPMobsw04OFTxt+5Mu9HPYAkASH
+	 tR2s65Q7i+1ETuV57y+xhrIbLgPZRPMwAZvJeMXbZb/TImo4m1pSyo9ap6O7VEYQw7
+	 Xk/Mh4fIw3DrKK9sHmNYe91I8glwXanJQvD/OKlI9lhsEqFoHC2qrXyCOnH/URx6tr
+	 AFE5hvIoMNjspfyGTdcxy728DGtsXkWG/emg3ljf7+ItyrlnSwBIwH80kpF4UV5djl
+	 MPGMv3iwgpiAGbEwLiKwOpWaz0zgXFQJ0JOJQR3U95gna5Ap2G6ZjFbIUbzSLubvfi
+	 DXnpIWDkg9XKg==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id B049A17E020C;
+	Mon, 14 Sep 2026 14:31:45 +0200 (CEST)
+Message-ID: <a8610c0e-3332-46b1-9a28-1c1ef504a727@collabora.com>
+Date: Mon, 14 Sep 2026 14:31:45 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dt-bindings: dma: mediatek,uart-dma: add mt6572
+To: rva333@protonmail.com, Sean Wang <sean.wang@mediatek.com>,
+ Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
+ <matthias.bgg@gmail.com>, Long Cheng <long.cheng@mediatek.com>
+Cc: dmaengine@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260914-6572-dt-uartdma-v1-1-b26b429ab68c@protonmail.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <20260914-6572-dt-uartdma-v1-1-b26b429ab68c@protonmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-hmm_vma_handle_absent_pmd() reports anything non-present that is not
-device-private as HMM_PFN_ERROR, so a swapped-out THP would look like a
-permanent failure rather than memory that needs paging in.
+On 9/14/26 14:10, Roman Vivchar via B4 Relay wrote:
+> From: Roman Vivchar <rva333@protonmail.com>
+> 
+> Add a compatible string for the mt6572 APDMA, that is compatible with
+> mt6577 IP.
+> 
+> Signed-off-by: Roman Vivchar <rva333@protonmail.com>
 
-Treat it like a PTE swap entry: record the fault when one was asked for,
-and otherwise report the range as non-resident with no flags, which is what
-hmm_vma_handle_pte() already does in snapshot mode.
-
-Signed-off-by: Usama Arif <usama.arif@linux.dev>
----
- mm/hmm.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
-
-diff --git a/mm/hmm.c b/mm/hmm.c
-index 2f1e98c6b6440..95575ac378888 100644
---- a/mm/hmm.c
-+++ b/mm/hmm.c
-@@ -377,12 +377,21 @@ static int hmm_vma_handle_absent_pmd(struct mm_walk *walk, unsigned long start,
- 	required_fault = hmm_range_need_fault(hmm_vma_walk, hmm_pfns,
- 					      npages, 0);
- 	if (required_fault) {
--		if (softleaf_is_device_private(entry))
-+		if (softleaf_is_device_private(entry) ||
-+		    softleaf_is_swap(entry))
- 			return hmm_record_fault(addr, end, required_fault, walk);
- 		else
- 			return -EFAULT;
- 	}
- 
-+	/*
-+	 * A swapped-out THP is not resident. Report it as not-valid,
-+	 * matching what hmm_vma_handle_pte() does for a PTE swap entry when
-+	 * no fault was requested.
-+	 */
-+	if (softleaf_is_swap(entry))
-+		return hmm_pfns_fill(start, end, range, 0);
-+
- 	return hmm_pfns_fill(start, end, range, HMM_PFN_ERROR);
- }
- #else
--- 
-2.53.0-Meta
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
