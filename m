@@ -1,171 +1,135 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08D9934AB14
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 21:40:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4063441167F;
+	Mon, 14 Sep 2026 21:43:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789422055; cv=none; b=nmnYAV6SWhnp1DvDzFY8JYCNaIr+EsxNNOVnEdQkZ+O2amWFRJxo6i0Y/eJZDV94qaVHoNluI0GmT6CYyMxcP+7WXiMUZt/YfM/dL0x+l0pzAkeXrkwAJTSqypOAK13UgcEihsIiBXblr/gFSWgmhBwoZ94uukuFlUg6JZdDxJE=
+	t=1789422237; cv=none; b=AsmNMKg0SoTSmulbO5o15BeKVUMGNG4iGInHA/GZaaegkKb94NUakOG0DMD1ESAQIt5u7VrstY2Zrju7vnupyzVRD18QFcumjMFW85Pm02NJOCr3hBZET2H5Y/b5nb9OE7kbcXi4oj8DTUO6vXrdoCPoM4iTmOAZwxELk4KckC4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789422055; c=relaxed/simple;
-	bh=rx4dkN1+TsSSDEILFCQSpnWfgYmGVlwKUZynBUyCi/4=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=TGBUzRffntFSFkD/OWdjy4PIQpGW8lQTU1w8tqKCSuUBnW88+1aqhm1CBqnfWgPw0dr/fVyb/MDquRCEBOImGmloYSUgPXrZl0sHCXZ5KSU5ot0X6z2m5FiYb+pWSwxxZWTRd86609pJpGgEdG6tOLjsEXUWgG7yHRoPzKAfqNE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EpPNOjzU; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789422237; c=relaxed/simple;
+	bh=CPe6jMNSnMmO49aMchcQ1LRkoflPElRFcLCMCgbE1C0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=PqvTcpZR5fEERmNFC0r7pc6AXStEX7ECKs/BmFACFFfhNGo18xqTbaVejvCsENLJ1TG2bH3crKAENXZYBVHTTOkii6UpG/NKo8SaHO/QfSQCsjVjJHFJGcy06Q9Oq0OVdOPRpWVnbEkPiknQ6Qoefw4VempV86MLYEKcj6GD/4o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=Gt1Pgp7f; arc=none smtp.client-ip=210.118.77.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EpPNOjzU"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912e64ccso17157785e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:40:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789422052; x=1790026852; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=7xb4iCajz/FOeNwMP9/vRI8V9ZVlNq4vmNdv3kXbOu4=;
-        b=EpPNOjzUWGKG9vIVypiYfsTIZ0/3901oSrKNXPC9hycFt74uslD7JMrBF6j3eB42mn
-         Fq/QtQSXQ7Pi37cDbhiOKI+tlPFEwYB9lO9TQ8a2kv98NsvEZT/y9IL+Soy5QQubNSz3
-         Zjinh47mQsfXtSyC36HT3241Gjt5qTbJqD62XD0siqYarwlSoKSxFpURYaGW0ndLJquc
-         SRzum77euaFCAss2TVaw8ddbyqWJI+wno65qT72A0Jrvd5oetuzEyNFIl7+9o/rqWHLk
-         4SiXsam4BF+IhwS+OZhkVZqJd+ACFpQIFn/dJCTziTgME6yt56IU2ITCVaPSn9q7+9GL
-         yGmg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789422052; x=1790026852;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7xb4iCajz/FOeNwMP9/vRI8V9ZVlNq4vmNdv3kXbOu4=;
-        b=EckU9ZA5VzCwgbQTvIZMsHAjDiNnxipJqoHeT3VE11ja7Ehtr5i7QcE5KQU/WlJ8gE
-         +9sHbs9vkbPuvdOz7jLsZLQdu9OLBc9w5dJICjkl3+6uOlRv7/teczyMrzPkGxrXDPqB
-         rJQr6vUaTWqGx/sleyJzS1pXY1c+jntTfOfWfQ55CR8UaxCLng4J5z11wCnFKKAjXM1p
-         XCyY8vFT5JcUA8EmB9fRTqqv5h6d+h9J6E7InnN08wGRJXx3R2PXA4oVVoASflWrjJQ9
-         igviOB/We/ehbHBHTT6r8dzVWX3w6veur+obM3KVvvXIbK017sMu8ssaG445QO8eGFWC
-         xSiw==
-X-Gm-Message-State: AFuF++kmHQLb9Fys3Ptwqnxs9xmrqHj6TwQTIlXOdm7iWp0Z+yY3zhoY
-	oLr5PpUpgocOx4ZMXH6gf5eQwSYD0cjs7O7SVn6C13N9chBTbxYuDrDb
-X-Gm-Gg: AYBFou2KQd9xLhAZrkVk9M7z1yANNlLkZaRuMGbrndHj2Dqhq/BuGXfKnV4IJC2W+hc
-	GUA4X6kVw/m6TTcnpAwuj3YQBsJYvDnRrHuGJRzakdaKVyUFtvMmsg8EkmNVmST3qBwLci1LD6a
-	rvXlBN5j04o7hPru7bBOgqM8tIlt/Zg+XEJB1uW7Q/CTRlz2D4htFx7aVOC0eVlbVUmTumAeMGx
-	oYrmBT3sEC0Wslyd8G3fGz2S2ry7v+JgkDb3YXK4+PQyDGg/ZEmkjYfhg934okgygxqnxIILq0I
-	08EqukR016jh/v8FhLoezwUdv42u3qkJ4/vXfIslaZUy/2d8/lVSH367KtvVFq6fANINGWKVzVp
-	NqxN5Ojv8S61pIzPyzK3EfyoXGqjhyvvCPOaGRwifea/A53iJzyU2HcaF8wdZsV6CwBy8TTr8HB
-	rkpmEmZURlpeofgYp4i/4N6a5qWnDjAzTReKgC32CX6q9GAufo//lflqn9wibYJglfxcPCKYvWv
-	74pdYpJQID6o5oI1wMK7wnGzDdt/xTDSuxO
-X-Received: by 2002:a05:600c:698e:b0:499:a277:e8b5 with SMTP id 5b1f17b1804b1-49e7a638778mr109073585e9.3.1789422052094;
-        Mon, 14 Sep 2026 14:40:52 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7d2af31dsm22123915e9.4.2026.09.14.14.40.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 14:40:51 -0700 (PDT)
-Date: Mon, 14 Sep 2026 22:40:45 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Haakon Bugge <haakon.bugge@oracle.com>
-Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Peter
- Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, Will
- Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>, Waiman Long
- <longman@redhat.com>, Andrew Morton <akpm@linux-foundation.org>, Shuah Khan
- <shuah@kernel.org>, "linux-kselftest@vger.kernel.org"
- <linux-kselftest@vger.kernel.org>, John Stultz <jstultz@google.com>
-Subject: Re: [PATCH 1/1] kernel/locking: Add mutual exclusion self-test
-Message-ID: <20260914224045.5fdfac58@pumpkin>
-In-Reply-To: <A1E4F810-7A75-4AF8-9DE4-11BBA101F5E5@oracle.com>
-References: <20260817130239.343594-1-haakon.bugge@oracle.com>
-	<20260817130239.343594-2-haakon.bugge@oracle.com>
-	<20260914103545.3db6eb45@pumpkin>
-	<6546A220-4B85-4780-8B45-F8B35D24139C@oracle.com>
-	<A1E4F810-7A75-4AF8-9DE4-11BBA101F5E5@oracle.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="Gt1Pgp7f"
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20260914214351euoutp01fb2c52443c76324af56642af1775fd9c~VTgoHKQsB2279322793euoutp01K;
+	Mon, 14 Sep 2026 21:43:51 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20260914214351euoutp01fb2c52443c76324af56642af1775fd9c~VTgoHKQsB2279322793euoutp01K
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1789422232;
+	bh=cks1cJ9xfELg4JUmWK+0lpYkKgp9d7kXFMM0AFQQmTg=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=Gt1Pgp7fZ7ueqZw6A8frr9jnYyxGlOxe+nOszBSG6658nl/drPglL2DctmgsRj1cH
+	 0yQjZgTokH2lAJm+oCbTMLQnKeB6rmeee21rISPDuQ/GZ/k9BciN5WVkZINYJJLLFz
+	 8E3opR0J9LKlhgl9E7rbAYd3TUK774AILuMQmYVU=
+Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
+	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+	20260914214350eucas1p2a1d39759752b500b940f9596b5ef7387~VTgmk_GQ92704027040eucas1p2d;
+	Mon, 14 Sep 2026 21:43:50 +0000 (GMT)
+Received: from [192.168.1.44] (unknown [106.210.136.40]) by
+	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20260914214347eusmtip187c1d69eecfa6816899035d6db67e411~VTgkUZfqc3045430454eusmtip1C;
+	Mon, 14 Sep 2026 21:43:47 +0000 (GMT)
+Message-ID: <1c8d3bc2-b4ae-436e-806c-e95956961e6e@samsung.com>
+Date: Mon, 14 Sep 2026 23:43:47 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 04/19] dt-bindings: soc: starfive: Add
+ starfive,jh7110-vout-syscon
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
+	<neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof
+	Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrzej
+	Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, Laurent
+	Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+	<jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
+	<luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>, Simona Vetter
+	<simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+	Lee Jones <lee@kernel.org>, Andy Yan <andy.yan@rock-chips.com>, Philipp
+	Zabel <p.zabel@pengutronix.de>, Emil Renner Berthing <kernel@esmil.dk>, Hal
+	Feng <hal.feng@starfivetech.com>, Michael Turquette
+	<mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Brian Masney
+	<bmasney@redhat.com>, Heiko Stuebner <heiko@sntech.de>, Conor Dooley
+	<conor@kernel.org>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt
+	<palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti
+	<alex@ghiti.fr>, Dominique Belhachemi <db@domibel.de>, Brian Masney
+	<bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>,
+	linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	mfd@lists.linux.dev, linux-clk@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+	linux-riscv@lists.infradead.org, Andy Yan <andyshrk@163.com>, Marek
+	Szyprowski <m.szyprowski@samsung.com>, Maud Spierings
+	<maud_spierings@murena.io>, Graham Markall <hello@big-grey.co.uk>, Icenowy
+	Zheng <zhengxingda@iscas.ac.cn>
+Content-Language: en-US
+From: Michal Wilczynski <m.wilczynski@samsung.com>
+In-Reply-To: <20260910-esoteric-axolotl-of-symmetry-c02f5f@quoll>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20260914214350eucas1p2a1d39759752b500b940f9596b5ef7387
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20260904132716eucas1p2d093509db255e62e6bd546e734f04e63
+X-EPHeader: CA
+X-CMS-RootMailID: 20260904132716eucas1p2d093509db255e62e6bd546e734f04e63
+References: <20260904-jh7110-clean-send-v3-0-484f9ae72715@samsung.com>
+	<CGME20260904132716eucas1p2d093509db255e62e6bd546e734f04e63@eucas1p2.samsung.com>
+	<20260904-jh7110-clean-send-v3-4-484f9ae72715@samsung.com>
+	<20260910-esoteric-axolotl-of-symmetry-c02f5f@quoll>
 
-On Mon, 14 Sep 2026 17:21:41 +0000
-Haakon Bugge <haakon.bugge@oracle.com> wrote:
 
-> > On 14 Sep 2026, at 14:32, Haakon Bugge <haakon.bugge@oracle.com> wrote:
-> >=20
-> > On 14 Sep 2026, at 11:35, David Laight <david.laight.linux@gmail.com> w=
-rote: =20
->=20
-> [snip]
->=20
-> >> If you use change the MX_ATOMIC_ADD to use the atomic_long functions
-> >> (I've forgotten the exact name) then all the counter are the same type
-> >> and can be removed from the union.
-> >> The default 'just use +=3D' code can then be moved to the bottom of mx=
-_add(). =20
-> >=20
-> > That is a good idea, but we then misses test coverage for atomic_t. But,
-> > what about: =20
->=20
-> [snip]
->=20
-> I ended up with:
->=20
-> struct mx_elem {
->         /* This union contains locks and lock-free data types */
->         union {
->                 spinlock_t spinlock;
->                 rwlock_t rwlock;
->                 struct mutex mutex;
->                 atomic_t atomic_lock;
->                 atomic_t atomic_counter;
->                 atomic64_t atomic64_counter;
->                 long cmpxchg_counter;
->                 unsigned long bits;
->                 struct ww_mutex ww_mutex;
->                 struct optimistic_spin_queue osq_lock;
->         };
->         /* A counter protected by one of the locks above */
->         long counter;
-> };
->=20
-> This became quite simpler. I'll test somewhat more, and send out
-> a v2 tomorrow.
 
-If you split the 'long counter' into a separate array then it won't
-be in the same cache line as the associated lock.
-That should mean the alignment changes aren't needed.
+On 9/10/26 10:18, Krzysztof Kozlowski wrote:
+> On Fri, Sep 04, 2026 at 03:27:05PM +0200, Michal Wilczynski wrote:
+>> The video output subsystem has its own system controller, documented as
+>> dom_vout_syscon. Among other things it holds the mux that selects which
+>> DC8200 output drives the HDMI transmitter, so the HDMI controller needs
+>> to reach it.
+>>
+>> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
+>> ---
+>>  .../devicetree/bindings/soc/starfive/starfive,jh7110-syscon.yaml    | 6 ++++++
+>>  1 file changed, 6 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/soc/starfive/starfive,jh7110-syscon.yaml b/Documentation/devicetree/bindings/soc/starfive/starfive,jh7110-syscon.yaml
+>> index 0039319e91fe6e6aadc4300114626348e4dfb7ce..47334f6c1243c9950e6fba44daacd41f42b55781 100644
+>> --- a/Documentation/devicetree/bindings/soc/starfive/starfive,jh7110-syscon.yaml
+>> +++ b/Documentation/devicetree/bindings/soc/starfive/starfive,jh7110-syscon.yaml
+>> @@ -24,6 +24,7 @@ properties:
+>>            - enum:
+>>                - starfive,jh7110-aon-syscon
+>>                - starfive,jh7110-stg-syscon
+>> +              - starfive,jh7110-vout-syscon
+>>            - const: syscon
+>>  
+>>    reg:
+>> @@ -90,4 +91,9 @@ examples:
+>>          #power-domain-cells = <1>;
+>>      };
+>>  
+>> +    syscon@295b0000 {
+> 
+> Don't need new example for every compatible. You already have three...
+> and this one is exactly the same as the first one. Drop.
+> 
+> Best regards,
+> Krzysztof
+> 
+> 
 
-When I mentioned a delay in the RMW for xxx->counter++ I was thinking
-of a few clocks, perhaps something like:
-	c =3D xxx->counter;
-	for (auto i =3D c + 10; i !=3D c; i--)
-		OPTIMIZER_HIDE_VAR(i);
-	OPTIMIZER_HIDE_VAR(i);
-	xxx->counter =3D i + delta;
+Will do, thanks !
 
-I may have a '3am can't sleep' part model for the arm cache.
-It might be that when one cpu writes to a 'shared' cache line the 'invalida=
-te'
-that is broadcast is only partial; the invalidate is remembered, but the
-contents of the cache line are still used to satisfy reads.
-So a memory read for a different cache line could easily pick up a write
-that was done later.
-A read barrier actually invalidates all the 'invalidated' cache lines
-so later reads can't use the 'stale' data.
-
-Just need a model for the write barrier now.
-It might just that each 'cache line wide' entry in the store buffer fifo
-can have multiple addresses associated with different groups of writes.
-Then the writes for one fifo entry could happen in any order (or be
-merged into a single wider write.
-(But that is real guesswork.)
-
-It is nice to a have a simple model that mostly matches the observed
-behaviour.
-
-David
-
->=20
->=20
-> Thxs, H=C3=A5kon
->=20
-
+Best regards,
+-- 
+Michal Wilczynski <m.wilczynski@samsung.com>
