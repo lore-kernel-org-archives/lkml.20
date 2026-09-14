@@ -1,55 +1,72 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC51033998;
-	Mon, 14 Sep 2026 01:20:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCC1D33998
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 01:21:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789348837; cv=none; b=Po00GjIuN05jq/Sap93cgZnYsn6hWgqqLOkQtqILCxGRWxe57WQrQNJFN5Zfgb2l96SU2vuDqaDO1iclZXz9QLKYYhMKwqb63pHOhzBzG967qGB8bt22yT9VD7liiG93mod3/tEMTR6gpsTrJiJofY6W1lP89J4mSbDcHvtOjuM=
+	t=1789348872; cv=none; b=Pu4snJDILJPw5AUSV7nH1/pLvlto1ki/WWcYt84/MA1JJfzUbgzgXqpC+5eM1H1CBR+70pCfPvIGSIOLd3sIOHfBL9tHRwW0jom0GJg1q5dsK76dodcY037ZP9HyPzcw/PVZrA/677xvBm7ddD2GATAVfsxKMfd70FtRbMMKrMU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789348837; c=relaxed/simple;
-	bh=3ca8p5g2xMf5iWc0hlpy7f7BLo6a5dixz41iJOhoJH0=;
+	s=arc-20240116; t=1789348872; c=relaxed/simple;
+	bh=p0TdEI9Odp+HHX8ZliRHfs3GoCnFdxCkjA3b83mrZts=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=c7/8KN+YI55rkhwgaLw301TWCutvDrW2qpvY+6/eie/t6hU5EmNXNEYJdA5f2/uqlP7t0cHMDZcJZ0OzB+J3zEqYhYbI1Q+MxAkp6NhWuspKvuO2a0W12EqbFdWDlLVa+FSyVNjw2adApguAemHDBFyo+ENFecZZu/8fX9023Uo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kq24UEU3; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=edPlagBqsuzgyw2aOF7NKVTifKsGGAKti6HhR2aC6Of6nNUaZL7QXBzrQ6xo1gsdX341LTq5llhSeN962+r8/cUeuc+04UBy8iAyviFfxWuyWWuf59vbYQ8lmnxZF5+j9Q8Vw5bJHM2Xe4y1AhoGlGvTDOTXw/ERXScybr5CfgE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UR1FIwaH; arc=none smtp.client-ip=209.85.216.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kq24UEU3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EF0F1F000FF;
-	Mon, 14 Sep 2026 01:20:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789348835;
-	bh=cjQJOduHqAwj6o7DipSItmVFnQfPwlvihYn4mDcpUD0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kq24UEU3HqY8/TTUrb1EXUbWdo5ZauWVeW/Z5ll7ftQHqY4sVATatElsiAsoBMR6q
-	 D+d8stydFiSSF70rz4XefQXbO/yl93pWYgxUwmcVaIY7qkMn86/thfoU+Vdz8H3D9p
-	 /59xH3aSNtdc27ZV6rpmcEWnxftOSsxILMWWvfXL5tkRE3apKASq2hSI6iP9hjQUla
-	 FglS3eUuU8hbp/h41PmnY583lhfq8P3L9lapGAriHK4U+RmWUAD2zcigPP9bkIp5AT
-	 7RxBcSDSqSM6zvdg3OBqzg1ZBLcLhbHpCwpjPSh11u9fSqDLT6dveM0/K4Ln7FmtqZ
-	 DenlbWQmZFsjw==
-Date: Sun, 13 Sep 2026 22:20:31 -0300
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: James Clark <james.clark@linaro.org>
-Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Mike Leach <mike.leach@arm.com>, Leo Yan <leo.yan@arm.com>,
-	John Garry <john.g.garry@oracle.com>, Will Deacon <will@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>, Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Suyash Mahar <smahar@meta.com>, Leo Yan <leo.yan@linux.dev>,
-	linux-arm-kernel@lists.infradead.org, coresight@lists.linaro.org,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Arnaldo Carvalho de Melo <acme@redhat.com>,
-	linux-doc@vger.kernel.org
-Subject: Re: [PATCH 00/14] perf cs-etm: Per-thread mode fixes and snapshot
- wrap support
-Message-ID: <aqdL33fw9AoxTrPq@x2>
-References: <20260811-james-cs-unformatted-per-thread-fix-v1-0-90565318f5f8@linaro.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UR1FIwaH"
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-39647aa9d52so2676794a91.0
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 18:21:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789348870; x=1789953670; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Na/Qz2DkaG9+GH7sd5UZU98HUu9w7cEHSlbtgyG7FmU=;
+        b=UR1FIwaHbQqvvGwhA7ZukWACEp8dyjAhz/4kqGJdsBWASse96+bzT1OXg+7BzDsK/7
+         iwwt39m94tmCfXy9vAWe+d6AUWEbzaSQBiZ84uagSvCCx22Z7SzF597AZ7JbXxUEuUGb
+         s/8Wn2PWp9TGNYBDFxUGsLaxtsH+zdoxRiTKLnLp1ERFvC3XyiKFB0aBhstgr2ACdyqf
+         IUMtH0imgHEPr/ooQqjpAj2NR367NDwu8aEBF2q4znzEAVVL61f3biMAljBPUe45adwK
+         aU6TW/xccIiXg+S+Lqgm+QYGsrfDRefyQcXzOy1H8lR1uZ2L/mCd79ObDOvI1XPYLNeK
+         q5Vw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789348870; x=1789953670;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Na/Qz2DkaG9+GH7sd5UZU98HUu9w7cEHSlbtgyG7FmU=;
+        b=tUfEUE3bMl6UYrjjWlB6o7TaIzdg6J/+gXAD4ahkrCNkO8iw/y2+co4Bo2Q0TCqT8T
+         v3O3YUk/kN+xx2ySAQ2UesfyRCIG30ujSHs9M86zuRYIBjZYLSZEXfbZEBdxfoQmiL6S
+         9N3PAEviZLwje7nGJl+d3GFMxY0YRnd8OCoQsxGSb+IlZqUV/WVvS4jvEgxzkHLZs3Qv
+         Tqu8CI2TUOkU898pz1yy29TN4u1nj7bskpuIztM/s1t490BQuKxtGVPuzqDy38JwL9PL
+         idvjueYGROUN7czND3XtFNWRrxX1LE4zPczBDLzOml7F7QvO71lD/qnKr+om7p2daFXA
+         VsyA==
+X-Forwarded-Encrypted: i=1; AKwUvBzkn595dCQORYpTIJtQXN5+WLsgt7XxMWvgK30L33i9UFBPgTc4JfRQSl4BKvSCKnl5yS/k20O7OXc/zJo=@vger.kernel.org
+X-Gm-Message-State: AFuF++m9F4ru//H29xOMmnMy6T5MUlu2VYC6ZXcr1X+8CbpPgnHuSI0U
+	1ngz4ybkV0/Z+ekDUO7yu+MOTLi5lT3++7M0hvRDYkHKRJyQ5DHxJ6P1
+X-Gm-Gg: AYBFou3ElIKAYeS7Fli9VML5pZjQCv5UN3roDEFe9BcIPiLZYNe4S1E4f/BDoPI0I8U
+	b7JyXUmkfrdwlv/d6qspzf1yDXGlJWnpQ0iZHanadZ31a+1Zqe/H5V4LKZSQ3/fgxKGxE8oL6VB
+	JIlnVnPz0Wb/MPu671kRHQrd+QMlkAcqExRlgb65jg8otpk4pB6+aSExeWduTZOqJw3lMWK93gA
+	WxGgyf02uN9FUfawx64Vq/4oFDmnSYp/1B7jogWa+oWow7MtrFekzhd/g7tgncXSg/OqWIoY1YJ
+	NKbbKy0sMn8UtBoEqU1uug7TLtLH3v6pQwzrMWjW5lfQeEktpnLsVM9JnkmaQgYa0vj71gGEv+N
+	5gpVNe4SNFDh/fJYyM4p0zPTsatpvRoX9cRKbaWAjOWJ76oFWbWBGP9DCDAroap6loLk9jzY6h3
+	lez7RK/jE9ZllPQsFfttSq3PCoSfT53hqfywMoFiojwJ3q0iAGpNOpwjPcZTaSFeUPLHfpi4nGO
+	GOHYBIg4VYm8i0xAA6sk9DVKxIf+TGW6EVtejNmcwpMjuxpqCY=
+X-Received: by 2002:a17:90b:2f07:b0:39d:8b8c:3783 with SMTP id 98e67ed59e1d1-39dd54786acmr4925020a91.6.1789348870069;
+        Sun, 13 Sep 2026 18:21:10 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:a739:376c:7eb4:ea2d])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14365ba71cesm23055666c88.13.2026.09.13.18.21.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 13 Sep 2026 18:21:09 -0700 (PDT)
+Date: Sun, 13 Sep 2026 18:21:06 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Erich Sartison <byt.es@mailbox.org>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] Input: xpad - add support for Victrix Pro BFG Controller
+Message-ID: <aqdL5wRZxLy60T-N@google.com>
+References: <20260903103137.630170-1-byt.es@mailbox.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -58,72 +75,14 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260811-james-cs-unformatted-per-thread-fix-v1-0-90565318f5f8@linaro.org>
+In-Reply-To: <20260903103137.630170-1-byt.es@mailbox.org>
 
-On Tue, Aug 11, 2026 at 04:30:03PM +0100, James Clark wrote:
-> Fix a few issues with per-thread mode:
->   - With TRBE, thread migrations hit a queue without a decoder assert
->   - On nVHE, everything looks like guest trace instead of host
->   - Tracing multiple threads didn't really work
-
-This series applies cleanly to perf-tools-next but has no Reviewed-by
-nor was processed by Sashiko.
-
-Can somebody from the ARM camp take a look at it, please?
-
-Thanks,
-
-- Arnaldo
- 
-> After adding a tests for those, it turns out there were some snapshot
-> bugs not picked up by the other snapshot tests. That showed that the
-> different snapshot searches for Intel BTS and Arm SPE were inconsistent
-> and I think all tracers can benefit from using the same pointer fixup
-> logic, so that gets refactored into the common auxtrace.c. Then SPE can
-> just share the Intel BTS search as it was obviously copied from it
-> originally. IntelPT keeps the more advanced duplicate data search, but
-> in the future that could probably be made the common one and all tracers
-> would benefit from using it (except maybe BTS if it always has a very
-> small buffer, but I doubt the overhead of the duplicate search would be
-> an issue). For now this is more of a refactor rather than behavioral
-> change so don't do that yet.
+On Thu, Sep 03, 2026 at 12:31:37PM +0200, Erich Sartison wrote:
+> The controller doesn't currently work via USB-cable.
 > 
-> Signed-off-by: James Clark <james.clark@linaro.org>
-> ---
-> James Clark (14):
->       perf cs-etm: Fix nVHE per-thread decoding
->       perf cs-etm: Warn for invalid timestamp option
->       perf cs-etm: Turn on context packet timestamps in per-thread mode
->       perf cs-etm: Use per-CPU queues for per-thread mode
->       perf cs-etm: Increase default timestamp generation period
->       perf auxtrace: Turn Intel BTS snapshot search into a generic one
->       perf arm-spe: Use generic snapshot search
->       perf auxtrace: intel-pt: Use new snapshot_has_wrapped callback
->       perf cs-etm: Queue partial AUX records
->       perf cs-etm: Don't print missing buffers in snapshot mode
->       perf auxtrace: cs-etm: Capture wrapped snapshots
->       perf test: Allow infinite named_thread loops
->       perf test: Add test for per-thread mode
->       perf cs-etm: Test multiple per-thread threads
-> 
->  Documentation/userspace-api/perf_ring_buffer.rst   |   6 +-
->  tools/perf/Documentation/perf-test.txt             |   2 +-
->  tools/perf/arch/arm/util/cs-etm.c                  |  30 ++++-
->  tools/perf/arch/arm64/util/arm-spe.c               | 147 +--------------------
->  tools/perf/arch/x86/util/intel-bts.c               | 115 +---------------
->  tools/perf/arch/x86/util/intel-pt.c                |  58 +++-----
->  .../perf/tests/shell/coresight/per-thread-multi.sh |  78 +++++++++++
->  tools/perf/tests/shell/coresight/per-thread.sh     |  48 +++++++
->  .../perf/tests/shell/coresight/raw_dump_stress.sh  |   5 -
->  tools/perf/tests/workloads/named_threads.c         |   7 +-
->  tools/perf/util/auxtrace.c                         | 136 +++++++++++++++++--
->  tools/perf/util/auxtrace.h                         |  20 ++-
->  tools/perf/util/cs-etm.c                           |  98 ++++++++++----
->  13 files changed, 382 insertions(+), 368 deletions(-)
-> ---
-> base-commit: bf10e6ee2ac3034c9068e03eed418fd16961984e
-> change-id: 20260605-james-cs-unformatted-per-thread-fix-50e723aa7f0e
-> 
-> Best regards,
-> --  
-> James Clark <james.clark@linaro.org>
+> Signed-off-by: Erich Sartison <byt.es@mailbox.org>
+
+Applied, thank you.
+
+-- 
+Dmitry
