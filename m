@@ -1,253 +1,84 @@
-Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com [45.249.212.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 616C345199D;
-	Mon, 14 Sep 2026 12:19:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5145044C67C;
+	Mon, 14 Sep 2026 12:20:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789388393; cv=none; b=h9Goe3ceZ77sQ6Crr+nwtoVPOCP0XJE33ttxe2R4eAQ9pl+14xbDySBlUd0kYqmqbvcFVHRkryYvunZIqVtibILXWm0U15bKIDBj4HkmeWxoGsDb6IL12Qq2sCeS+L+NtC/Vc87Zmh1pKuJ4k/vEwwKXOm/AvCdpSSOXTO+eSIk=
+	t=1789388411; cv=none; b=d+wmJ5CHpepl2FYwnpZR/Cfow7cZ1syUNRC3cKPXR3jjTMefyTsxieSoNI1vsM2NNxvkg+hrNHe9GGOB9krChIajgwq6xcHaOWZkTHDCGTHVktluYa2QMSwawTR3YXoUdvt6ZvI7NBPXl+E/nlyrLKkBakt/4/aLabGmJ5DSosg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789388393; c=relaxed/simple;
-	bh=/U6KD0enoKQckIFLUwCMR7gDeSo6RPNYTNqxxabx5kU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lsoQ6w1HtFxOCQcEufZpQZWM5J7Hsxr1iEk0rsd85TmeiPvjOi7lVs15QKRBF8vPl3V/8/MXSpFSSJCSsUzZbqHhaoEgoU02CSQIZtOdCoa7p48aGYGKG3YhmTPpYmDfiz3bwqxO6nAv0qS8wjzNQZiNmiNl2w+MkPso4Cp1Jl4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.170])
-	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hk42t1vvczKHMTB;
-	Mon, 14 Sep 2026 20:19:34 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.112])
-	by mail.maildlp.com (Postfix) with ESMTP id 5D12140561;
-	Mon, 14 Sep 2026 20:19:45 +0800 (CST)
-Received: from [10.67.110.36] (unknown [10.67.110.36])
-	by APP1 (Coremail) with UTF8SMTPA id cCh0CgAXjvhg5qdqpBMTAQ--.37191S2;
-	Mon, 14 Sep 2026 20:19:45 +0800 (CST)
-Message-ID: <5d51668c-3646-402f-83b4-7f6ee4a415e7@huaweicloud.com>
-Date: Mon, 14 Sep 2026 20:19:44 +0800
+	s=arc-20240116; t=1789388411; c=relaxed/simple;
+	bh=1CAcEe4QlA211iDV5LFfJIyFyShs/f5TCZKA9xt3M0o=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:From:To:
+	 References:In-Reply-To; b=X2+foasGcYJuBnZ0Vyn9H34g8/r3yNSRqFEqYkVkBL7nUkNIhg0i+/az+7xs1cj2tC+ox2Q+O3lhprs2k3HOZvJuS4wFaczzSRJmpoMWtgCNjby2iTD0l6ONj+0NC5hNKnDfyC1zUDFGKKnCN+phT9bQgrapwdxzYgaTfOv6SOs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VLXfkuCE; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VLXfkuCE"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 698991F000FF;
+	Mon, 14 Sep 2026 12:20:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789388409;
+	bh=1CAcEe4QlA211iDV5LFfJIyFyShs/f5TCZKA9xt3M0o=;
+	h=Date:Subject:Cc:From:To:References:In-Reply-To;
+	b=VLXfkuCEinZaQfoaqE5dFpScu2TKPiyMQLw6ODNLYWmybVY6ggTF/6q6nD9HqrIEy
+	 5IsvNkmS/WUqRRPWqZLoNN5h34CTM/K2VkiuUePNNMWEolYiZc4naAyPzEfe6Q9DUJ
+	 Vi6JSuvpwByxoD4ETwnSo/zpz+Wh+GzbVuRZ0CGd4m/SpI98XG+aya7J9+B/WdL/59
+	 AgIRovN6a5M8cgwCUfCMcyuVkW++zwA7XxJDw+fjwWYp3s9qtc5aoxr5cupcOiUtCc
+	 OG4pNozHXODhDZ9+ECIpAlMEYe+WsAh4zu+of6RhSEsYKDDUmJVR9qJTWJHdInbcjO
+	 vPWeGvPkNGUtw==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/4] perf annotate-date: Allow out-of-size access for
- flex-array types
-To: Namhyung Kim <namhyung@kernel.org>,
- Arnaldo Carvalho de Melo <acme@kernel.org>
-Cc: Ian Rogers <irogers@google.com>, Jiri Olsa <jolsa@kernel.org>,
- Adrian Hunter <adrian.hunter@intel.com>, James Clark
- <james.clark@linaro.org>, Peter Zijlstra <peterz@infradead.org>,
- Ingo Molnar <mingo@kernel.org>, LKML <linux-kernel@vger.kernel.org>,
- linux-perf-users@vger.kernel.org, Zecheng Li <zli94@ncsu.edu>,
- Yanbo Zhao <yzhao62@ncsu.edu>, Shuai Xue <xueshuai@linux.alibaba.com>
-References: <20260914064535.1671939-1-namhyung@kernel.org>
- <20260914064535.1671939-4-namhyung@kernel.org>
-Content-Language: en-US
-From: Tengda Wu <wutengda@huaweicloud.com>
-In-Reply-To: <20260914064535.1671939-4-namhyung@kernel.org>
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=3c7626485cbfcfdc5d1f2f4e0724e820fdbe28a207f265f06e8767126a80;
+ micalg=pgp-sha384; protocol="application/pgp-signature"
+Date: Mon, 14 Sep 2026 14:20:05 +0200
+Message-Id: <DLF191CC4QMM.1SNYEHUFJ9GK2@kernel.org>
+Subject: Re: [PATCH v2 1/3] mtd: spi-nor: fix the lock left held by
+ spi_nor_rww_start_exclusive()
+Cc: <pratyush@kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-mtd@lists.infradead.org>, <vigneshr@ti.com>, <richard@nod.at>,
+ <takahiro.kuwano@infineon.com>, <stable@vger.kernel.org>
+From: "Michael Walle" <mwalle@kernel.org>
+To: "Miquel Raynal" <miquel.raynal@bootlin.com>, "Itai Handler"
+ <itai.handler@gmail.com>
+X-Mailer: aerc 0.20.0
+References: <20260914081149.1916589-1-itai.handler@gmail.com>
+ <20260914081149.1916589-2-itai.handler@gmail.com>
+ <87ld94owzj.fsf@bootlin.com>
+In-Reply-To: <87ld94owzj.fsf@bootlin.com>
+
+--3c7626485cbfcfdc5d1f2f4e0724e820fdbe28a207f265f06e8767126a80
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:cCh0CgAXjvhg5qdqpBMTAQ--.37191S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxuFykZw1xGrW5Kr45Zw43Wrg_yoW7KFyxpa
-	1DGF1UJrW3Gr42grnaqFZ8Xa4ruw4xX348C3s09a4vyFy3Xr1rGr1UK34F9ayrJr9Yyw4r
-	KwsxJr4UWwsrX3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUv0b4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k2
-	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
-	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7Cj
-	xVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x
-	0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG
-	6I80ewAv7VC0I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFV
-	Cjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS
-	14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I
-	8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8
-	ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x
-	0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_
-	Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IUb
-	mii3UUUUU==
-X-CM-SenderInfo: pzxwv0hjgdqx5xdzvxpfor3voofrz/
 
+> Michael, since we already got a cycle with AI walls of text just to tell
+> "fix that damn conversion", can I (or you) apply that other patch, so we
+> can get rid of these? Let me know what you prefer, although I don't
+> remember where that thread is.
 
+It's already in spi-nor/next since last friday.
 
-On 2026/9/14 14:45, Namhyung Kim wrote:
-> Structs that have a flex array will have accesses beyond its original
-> size as the array was declared as 0 sized.  For now, it just allow any
-> offset bigger than the size.  It could be refined later.
-> 
-> Signed-off-by: Namhyung Kim <namhyung@kernel.org>
-> ---
->  tools/perf/util/annotate-data.c | 63 ++++++++++++++++++---------------
->  tools/perf/util/annotate-data.h |  2 ++
->  2 files changed, 36 insertions(+), 29 deletions(-)
-> 
-> diff --git a/tools/perf/util/annotate-data.c b/tools/perf/util/annotate-data.c
-> index aff60a630fd05b01..e8aff6a916c0afe0 100644
-> --- a/tools/perf/util/annotate-data.c
-> +++ b/tools/perf/util/annotate-data.c
-> @@ -7,6 +7,7 @@
->  #include <errno.h>
->  #include <stdio.h>
->  #include <stdlib.h>
-> +#include <string.h>
->  #include <inttypes.h>
->  #include <linux/zalloc.h>
->  
-> @@ -248,8 +249,15 @@ static int __add_member_cb(Dwarf_Die *die, void *arg)
->  	else
->  		die_mem = member_type;
->  
-> -	if (dwarf_aggregate_size(&die_mem, &size) < 0)
-> -		size = 0;
-> +	if (dwarf_aggregate_size(&die_mem, &size) < 0) {
-> +		if (dwarf_tag(&die_mem) == DW_TAG_array_type) { /* flex-array? */
-> +			die_get_real_type(&die_mem, &die_mem);
-> +			if (dwarf_aggregate_size(&die_mem, &size) < 0)
-> +				size = 0;
-> +		} else {
-> +			size = 0;
-> +		}
-> +	}
->  
->  	if (dwarf_attr_integrate(die, DW_AT_data_member_location, &attr)) {
->  		if (dwarf_formudata(&attr, &loc) != 0) {
-> @@ -399,6 +407,7 @@ static struct annotated_data_type *dso__findnew_data_type(struct dso *dso,
->  	result->self.type_name = type_name;
->  	result->self.size = size;
->  	INIT_LIST_HEAD(&result->self.children);
-> +	result->flex_array = die_has_flex_array(type_die);
->  
->  	if (symbol_conf.annotate_data_member)
->  		add_member_types(result, type_die);
-> @@ -517,13 +526,30 @@ static bool is_better_type(Dwarf_Die *type_a, Dwarf_Die *type_b)
->  	return false;
->  }
->  
-> +static enum type_match_result check_type_offset(Dwarf_Die *type_die, int offset)
-> +{
-> +	Dwarf_Word size;
-> +
-> +	/* Get the size of the actual type */
-> +	if (dwarf_aggregate_size(type_die, &size) < 0)
-> +		return PERF_TMR_NO_SIZE;
-> +
-> +	/* Minimal sanity check */
-> +	if (offset < 0)
-> +		return PERF_TMR_BAD_OFFSET;
-> +
-> +	if ((unsigned)offset >= size && !die_has_flex_array(type_die))
-> +		return PERF_TMR_BAD_OFFSET;
-> +
-> +	return PERF_TMR_OK;
-> +}
-> +
->  /* The type info will be saved in @type_die */
->  static enum type_match_result check_variable(struct data_loc_info *dloc,
->  					     Dwarf_Die *var_die,
->  					     Dwarf_Die *type_die, int reg,
->  					     int offset, bool is_fbreg)
->  {
-> -	Dwarf_Word size;
->  	bool needs_pointer = true;
->  	Dwarf_Die sized_type;
->  
-> @@ -554,15 +580,7 @@ static enum type_match_result check_variable(struct data_loc_info *dloc,
->  	else
->  		sized_type = *type_die;
->  
-> -	/* Get the size of the actual type */
-> -	if (dwarf_aggregate_size(&sized_type, &size) < 0)
-> -		return PERF_TMR_NO_SIZE;
-> -
-> -	/* Minimal sanity check */
-> -	if ((unsigned)offset >= size)
-> -		return PERF_TMR_BAD_OFFSET;
-> -
-> -	return PERF_TMR_OK;
-> +	return check_type_offset(type_die, offset);
->  }
->  
->  struct type_state_stack *find_stack_state(struct type_state *state,
-> @@ -1112,7 +1130,6 @@ static enum type_match_result check_matching_type(struct type_state *state,
->  						  struct disasm_line *dl,
->  						  Dwarf_Die *type_die)
->  {
-> -	Dwarf_Word size;
->  	u32 insn_offset = dl->al.offset;
->  	int reg = dloc->op->reg1;
->  	int offset = dloc->op->offset;
-> @@ -1166,12 +1183,7 @@ static enum type_match_result check_matching_type(struct type_state *state,
->  		else
->  			sized_type = *type_die;
->  
-> -		/* Get the size of the actual type */
-> -		if (dwarf_aggregate_size(&sized_type, &size) < 0 ||
-> -		    (unsigned)dloc->type_offset >= size)
-> -			return PERF_TMR_BAD_OFFSET;
-> -
-> -		return PERF_TMR_OK;
-> +		return check_type_offset(&sized_type, dloc->type_offset);
->  	}
->  
->  	if (state->regs[reg].kind == TSR_KIND_POINTER) {
-> @@ -1190,12 +1202,7 @@ static enum type_match_result check_matching_type(struct type_state *state,
->  
->  		dloc->type_offset = dloc->op->offset + state->regs[reg].offset;
->  
-> -		/* Get the size of the actual type */
-> -		if (dwarf_aggregate_size(type_die, &size) < 0 ||
-> -		    (unsigned)dloc->type_offset >= size)
-> -			return PERF_TMR_BAD_OFFSET;
-> -
-> -		return PERF_TMR_OK;
-> +		return check_type_offset(type_die, dloc->type_offset);
->  	}
->  
->  	if (state->regs[reg].kind == TSR_KIND_PERCPU_POINTER) {
-> @@ -1209,9 +1216,7 @@ static enum type_match_result check_matching_type(struct type_state *state,
->  
->  		dloc->type_offset = dloc->op->offset;
->  
-> -		/* Get the size of the actual type */
-> -		if (dwarf_aggregate_size(type_die, &size) < 0 ||
-> -		    (unsigned)dloc->type_offset >= size)
-> +		if (check_type_offset(type_die, dloc->type_offset) != PERF_TMR_OK)
->  			return PERF_TMR_BAIL_OUT;
->  
->  		return PERF_TMR_OK;
-> @@ -1839,7 +1844,7 @@ int annotated_data_type__update_samples(struct annotated_data_type *adt,
->  			return -1;
->  	}
->  
-> -	if (offset < 0 || offset >= adt->self.size)
-> +	if (offset < 0 || (offset >= adt->self.size && !adt->flex_array))
->  		return -1;
->  
->  	h = &adt->histograms[evsel->core.idx];
-> diff --git a/tools/perf/util/annotate-data.h b/tools/perf/util/annotate-data.h
-> index ca2096a9ee62cbfe..27b7148b64f60350 100644
-> --- a/tools/perf/util/annotate-data.h
-> +++ b/tools/perf/util/annotate-data.h
-> @@ -85,6 +85,7 @@ struct type_hist {
->   * struct annotated_data_type - Data type to profile
->   * @node: RB-tree node for dso->type_tree
->   * @self: Actual type information
-> + * @flex_array: Whethere it has a flex array
+https://git.kernel.org/pub/scm/linux/kernel/git/mtd/linux.git/log/?h=3Dspi-=
+nor/next
+https://lore.kernel.org/linux-mtd/178913311701.1915651.4791624215787396187.=
+b4-ty@b4/T/#me3b51a242469a4d9722089e18547e87fdc65d7c9
 
-Nit: typo in the comment -- Whethere should be Whether.
+-michael
 
-Thanks,
-Tengda
+--3c7626485cbfcfdc5d1f2f4e0724e820fdbe28a207f265f06e8767126a80
+Content-Type: application/pgp-signature; name="signature.asc"
 
->   * @nr_histogram: Number of histogram entries
->   * @histograms: An array of histograms
->   *
-> @@ -93,6 +94,7 @@ struct type_hist {
->  struct annotated_data_type {
->  	struct rb_node node;
->  	struct annotated_member self;
-> +	bool flex_array;
->  	int nr_histograms;
->  	struct type_hist *histograms;
->  };
+-----BEGIN PGP SIGNATURE-----
 
+iKgEABMJADAWIQTIVZIcOo5wfU/AngkSJzzuPgIf+AUCaqfmdhIcbXdhbGxlQGtl
+cm5lbC5vcmcACgkQEic87j4CH/h+rQGA21WADlbJRzTdcUtVgkfLn13FsZlH9fAL
+mL3YyjGxWm8otE5+lAWk9UiwKbbDR2RkAX96KFwcbgZlq2jUCk0r/ZX1/9uZhwHP
+n4v0jC/6LgaWS1IDGhs8UpbKkMQ/AmbCLjg=
+=KUGi
+-----END PGP SIGNATURE-----
+
+--3c7626485cbfcfdc5d1f2f4e0724e820fdbe28a207f265f06e8767126a80--
