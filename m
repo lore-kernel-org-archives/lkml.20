@@ -1,182 +1,232 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0b-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 691893C1F43
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:46:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2080E3EE1F8;
+	Mon, 14 Sep 2026 07:46:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789371994; cv=none; b=chVp0DMWYMHQpHQ/4i1B/KbpAEP2zII624dvHUEaQN9RdUlThPJJrat9STX8kPl3jNL9A2qmDRaDMeH7ZUGeoXtSwF0zSTfzgkzarKOUUwpDf4XdW+W8WBimboSQGeXsC9h/rIJVSIppSVZDqKrdFPAgITQhVrGg7h7IWiHAAZM=
+	t=1789372001; cv=none; b=R16qKteYiMJGhqwKQoJ8OdyScQiat+daXFF2PfDNOYIBkl5LRoOBm0zSYxeInH5S6OFfBRN5pQGizeX5LXWQIYrMYNm6lveLP89ZmWNSNQ4Vuq7KFPxpb8PXWpPKlVXYLRxupGdxJG2Eh0IC9yRBz+3eZ4ySAZOR28vkhHXHYRs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789371994; c=relaxed/simple;
-	bh=ce1O4pelLhDjVlJPpZ7LGe76uCma3HUAKQ1dHmclyB8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DU9dlgppuD54C9AaN0RyX1x20iUsQPMsILqarCLly42LW7sWcWrYUSYGvzKdRhJMQIP5cGSaqhMLelsWM8B2C2V4xzjF/veq7dGeOtt/h+jNzvz1bVXS+ShqSDIujiGbwS6uYh5PP5mc0V/BzZbybTkBj/OEF8FoS0XHRFMubP8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=HkZTQ6Ko; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OmKCcAXl; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789372001; c=relaxed/simple;
+	bh=QIWfivjx2GOW8s4orZRtQu6ys0g6jRn4SzCAEClhEY4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:To:CC; b=g5+qJIIE9VeovUB4rfMaqQusvg2DJRVOrXNQCBpBGPie5FY9tVcyzdE9boJhAseRlacqrSaLThK4LM7yz+WzorXU9Td2XcCQJVqNl7x3enppgvtm3sebp8oC2ZtumuDtFW/LU4H90YKFXeV5Zs3+dP+v2gUFyCR2As8wD/NcJUk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=1DeEcovY; arc=none smtp.client-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="HkZTQ6Ko";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OmKCcAXl"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68E5jSWo237682
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:46:32 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=FtkXZcX3eCc2fMQ+ziqCcCeR
-	Nzu7i+LM1BaMpHPINhM=; b=HkZTQ6Ko2WMUAGjXUdpjHw8socpUkrDnHVs0xogo
-	6MY+t/IrFe4XbsEV0jLD9pu+XHII+jn4cMgC/9Zvda6awrPTU/+PYRfPt7CjF8ZJ
-	2RmwJ0a6RD59cOZjRynA21GiCmmk+kpt/PGDBMZr6s7Yz0tvvu+xOTJ215yE41a8
-	eD6zgTHhx5DLnXI+iQPBMI+un/nvJMfjDd8SJz8MwMOzwHLobQ7+d651EvKYrd5C
-	N7HpJqoGK8vS1t6934paMx9spwtQXFA4SUVJLSLOKynxtEKjtGYV6acs3hdH5zUk
-	0AGb7bN4JG8XjKrEqm7MohKxjhmBPKWX7gFWKf3dizNsHA==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9dnm6m-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:46:32 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-9394ad7f64aso487149085a.3
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 00:46:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789371991; x=1789976791; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FtkXZcX3eCc2fMQ+ziqCcCeRNzu7i+LM1BaMpHPINhM=;
-        b=OmKCcAXlaUcJGoxALA45jxqmbCP6vkSQpkJy5xRUhOxTwNKNxl0I68QBustVs3qG6M
-         rRxPn/tmtuZs8AJltI6azaTvx7r0cE2u9Yi2N8ic+rBjmthFXDeMO++ztm+3oL/5bIpU
-         D19i8L55BlYcq78mbN3UErGrjJC8VbLtUPFxoQTNJ6kuy4wzPco+8i5gtLuOa4RmmUz/
-         f7TC2+tF77aCSlqOZvBlUp1j8iFtgTu2odDsGXdvYVY8edGtAlsNwqYqixD+7kf8R11X
-         hkCA4JLRGLpyvDPZZ7+hrXRCQARamuH38gB1eeei+eQKgGdM6f3R/rkgR3H2by9B4g2u
-         EYLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789371991; x=1789976791;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FtkXZcX3eCc2fMQ+ziqCcCeRNzu7i+LM1BaMpHPINhM=;
-        b=UeTT9/cKfNgGH3DEbVvg59VUtLrzM+SuAN8OOu22KbcrYzyuhEJnExa0vP11CXjRDz
-         E2oj0Gk7J+m+RkPKeN/PQ3JNw0BmkFf2dN8SgaupUnCSECOAhIr3uvxHkyHDYDPVdEU9
-         I4u6j7/gVxKn59pMTlj913RgBK6o/n6OmIS2PPepCnS1d9VIbynGtekY2/NI/lUj8pNH
-         8vYpcwSP0eUsr+iIlT7NfzRaPiHRVQ+bAl62Z4ze6Ay4QivD22nE5kxpwzDcl1zC3UA3
-         WXHT1eKKYyIgnPHBX7yrfWDilBg301jJGGt4aj8QKpQAUQ4brA4ogw02/e7HB05Iu1TM
-         8gHg==
-X-Forwarded-Encrypted: i=1; AKwUvBw3QvaVlL8N1zfRSTOfWZTpaAMybOepDEj+tP6xVFHI+M4mPM8gt82z666MnGT8UcYMcUTbD16NadxaC0M=@vger.kernel.org
-X-Gm-Message-State: AFuF++nfujGvgzzlu41JUJUwtxPV5xQeuQUv3XpRfldREeBjFA8M9HVM
-	pwAxJk2SORwUPDv/KPYiDGjbN4zNiLcAX1Dduw2jF3KnCe5GUpEID0ybeQqfNZ2TpmBkAIERzZZ
-	fA9j5qAXxBErgBppjrRMRxeAppPgGrAx4r5A0KLyH1JMy8OWTu+Au5tHmDr+WnwQdwzY=
-X-Gm-Gg: AYBFou3+NcqZ6hTUNASFfhLqLF87sXOzEchNjltTXQegMCwkuXA0Y6qYCXsEcNFQkPE
-	t1bCYkVZzBdZYJWpo+hpWE2MQ43O9TpghjIOTKYbF81IH8Rkvhlg3UUNHfgYIB/9HHoC1kJuEEd
-	RSSlS1JdrfwF4n8pVlDwRB56I4p4qRsx7Uxh8QzkoDSGzlfpCXGCr4knhD6KeKQgYz/2HfqeK46
-	R4F2C/ZAiJuHna/X3l+t+bHgWzjJbV0t8DeWaQwrpWfgpAbeRkGL7yKx57y94OK8oBSAi3O4/23
-	qckv5qVEbhjrfhdODtdxAbQe8Tfm1MpqVeblYXazeadONN3B/crNsl7n8uEjCQp0MK1RKoxKWZv
-	hoFlBGR85/JZRfBo=
-X-Received: by 2002:a05:620a:6f01:b0:939:c898:ce3f with SMTP id af79cd13be357-93a297e8f80mr202239985a.14.1789371991329;
-        Mon, 14 Sep 2026 00:46:31 -0700 (PDT)
-X-Received: by 2002:a05:620a:6f01:b0:939:c898:ce3f with SMTP id af79cd13be357-93a297e8f80mr202236985a.14.1789371990860;
-        Mon, 14 Sep 2026 00:46:30 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.170.232])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb35bed0sm25587273f8f.32.2026.09.14.00.46.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 00:46:29 -0700 (PDT)
-Date: Mon, 14 Sep 2026 10:46:28 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Georgi Djakov <djakov@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v4 1/2] interconnect: qcom: Make important drivers default
-Message-ID: <npsrkq442luhxv3sfwjoojzfnnv4y4knsplnfucgdwj6df6uar@gjmbzv7yyldv>
-References: <20260914-interconnect-qcom-clean-arm64-v4-0-5b2c0e6a929a@oss.qualcomm.com>
- <20260914-interconnect-qcom-clean-arm64-v4-1-5b2c0e6a929a@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="1DeEcovY"
+Received: from pps.filterd (m0375855.ppops.net [127.0.0.1])
+	by mx0b-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68E5gaVs490418;
+	Mon, 14 Sep 2026 03:46:11 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=DKIM; bh=WPCsp3n8DXeeLf7tNTMYsUERDfb
+	n++9ND/Bwb+vOmI8=; b=1DeEcovYKQDZhyC9mTQLZno61GTPsW510UTPzUrLpCv
+	UQoB+yeHIszptkmi4o1v0FEZTvuW0pARtDK3oIrhXvBSF41AS67Wz55n/uVSlN1f
+	KJk4Jqs80mtjM2Q/tg9nV1/FsTG5I3DjswZkElzBYjC0EZQ0EHO/panciMnFs6Np
+	kgtplrOnilGXEaJFaRA/Vjzi2k7nygzsASn7LFiKsHKhIUotV5n7xih/al6nWLNL
+	N81nNjv62qu/beTUT0fBgEtzcZyeqGmDhokY4oqWxjO4TWABX+Kx8O+38cQ32EDT
+	grsUi4ayoUlcHv4QBvLUsrQ2I8ZZw4pRooevhakTHVw==
+Received: from nwd2mta4.analog.com ([137.71.173.58])
+	by mx0b-00128a01.pphosted.com (PPS) with ESMTPS id 4gnn2ccmtt-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 14 Sep 2026 03:46:11 -0400 (EDT)
+Received: from ASHBMBX8.ad.analog.com (ASHBMBX8.ad.analog.com [10.64.17.5])
+	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 68E7kAUS009379
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Mon, 14 Sep 2026 03:46:10 -0400
+Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by ASHBMBX8.ad.analog.com
+ (10.64.17.5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Mon, 14 Sep
+ 2026 03:46:10 -0400
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
+ (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Mon, 14 Sep 2026 03:46:09 -0400
+Received: from ATORRENO-L02.ad.analog.com ([10.66.6.192])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 68E7juAU031751;
+	Mon, 14 Sep 2026 03:45:59 -0400
+From: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
+Date: Mon, 14 Sep 2026 15:45:17 +0800
+Subject: [PATCH] hwmon: (pmbus/max34440): Add support for ADPM12300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260914-interconnect-qcom-clean-arm64-v4-1-5b2c0e6a929a@oss.qualcomm.com>
-X-Proofpoint-GUID: i4zM72VcixVsPNi89W6Yg0VI4hPWvopN
-X-Proofpoint-ORIG-GUID: i4zM72VcixVsPNi89W6Yg0VI4hPWvopN
-X-Authority-Analysis: v=2.4 cv=NelzRGD4 c=1 sm=1 tr=0 ts=6aa7a658 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=nOPaym-2Fu4dxh1hCxsA:9 a=CjuIK1q_8ugA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDEwOSBTYWx0ZWRfX7e//b1TCjNzN
- rcUNKFhz2PRxnN7CJwpFrenfmbZR+xKx9/Nl0wVY8nowSKd2FImP8fM0osF3c8OEiKOAgUuX11S
- uaWm7lxDFNxkH+mDnGceK+EYfcaQr0Q=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDEwOSBTYWx0ZWRfXxSehYc4Ahrsc
- x6Nbqg32YxLPbE00ul2aYYbTlW5QZR7o4QeGcvezlAQbPqp7OX5tcPEK8kAMkhlkC5k9u8CoXa9
- ZxaPLGfSdhSARqkJJ1T+uyfNTxdy2qIXKxOZwmbZY4P1yN2o9mnQBdoF9Fn86+cMQ/HvKTzRZeD
- xaNMlmc7gFVguZQUJZcZGfnGgUIJopB9NnQr5+W0150K9y+915gsoZimSYQ6QnqkVZY8LzEIFzJ
- iPR/szeDpZoYUA2P31in4BgiID1V+K08Y4wZen9UcggrMPNVP4u6NJ5GH2RogUzJzBT8KP6oOZF
- 6u49P7ckRsNYJjSCQ/FyllWL00UMfDTC17ROtO/T0CjUbFa6CxnCMHJgzNassk7Wdj1/Ao/RU/b
- VyXmy9dXcKo90b8wNKeXOD+MPGsFZfH7t1T49uotpQbtbmRZDrXLC6Urlvycas6BNNnjhX2BQID
- QsPaG24XZtfkpSb8Aaw==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20260914-dev_adpm12300-v1-1-15fc8143d457@analog.com>
+X-B4-Tracking: v=1; b=H4sIAAymp2oC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDS0MT3ZTUsvjElIJcQyNjAwNdY0MT07TEpNQ0MzMDJaCegqLUtMwKsHn
+ RsbW1ACHROXRfAAAA
+X-Change-ID: 20260914-dev_adpm12300-3145fabef660
+To: Guenter Roeck <linux@roeck-us.net>, Jonathan Corbet <corbet@lwn.net>,
+        Shuah Khan <skhan@linuxfoundation.org>,
+        Randy Dunlap <rdunlap@infradead.org>
+CC: <linux-hwmon@vger.kernel.org>, <linux-doc@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>,
+        Alexis Czezar Torreno
+	<alexisczezar.torreno@analog.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789371956; l=5505;
+ i=alexisczezar.torreno@analog.com; s=20250213; h=from:subject:message-id;
+ bh=QIWfivjx2GOW8s4orZRtQu6ys0g6jRn4SzCAEClhEY4=;
+ b=M4+H6J796rM3s3lUGEy41M3aTNU4w4j61ZZmjXdDhdwc0WZ/d9pOtKsVYXwbu3fWtrlztcTpa
+ rY6j5hk9F0pDXS2H8j/xK7T1qPnMCrdNortlLn7yy9VrB/AlB/hQM1h
+X-Developer-Key: i=alexisczezar.torreno@analog.com; a=ed25519;
+ pk=XpXmJnRjnsKdDil6YpOlj9+44S+XYXVFnxvkbmaZ+10=
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Proofpoint-GUID: JeXnKaFR6CB4kWs3kSFpIilAiklGsRjS
+X-Proofpoint-ORIG-GUID: JeXnKaFR6CB4kWs3kSFpIilAiklGsRjS
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDEwOCBTYWx0ZWRfX6aLIMX32YrOv
+ G8XWHysNPIpOQb8ed5CleLMrBGGKOduw2T5fWnysP0KpWE13gVBxv1qqZZBUAmZFB08RqGurC1p
+ DHJVDULD0Hp87XlhzNJguOlznK1vMOwHNNVABrUNxlPZ9EbAnaXNKiuYiQKFiSQcVSo9+iERghy
+ o+QiAmZ2BQ4yRjNQ4YCyM5+wVb7jhDWkWTV9m27cdFTbvxEkjHA5M8v8PyMiG/XRFZzDosRWvBt
+ 7J5ESXGcru2Rz55GPkb+zgJKSlTP5mCd1+TpaEIe35vJ6GxM5rxXnrv2PINfMuG8THY3PLjs4aQ
+ CSSYWGBlD4jv0cERPYqUrKboor9ewL8ut81Sm3zWlLvHSYCpcadV0QD1RjQikwQKBHYCG4mRL2m
+ 5a83ta+rYuN2zQkviQZAwm0MtQwvLvjZRw45zzE+ye1UogjTG1HRmt/Z2u/sto59MTu4M6X0MMq
+ bBTioLu6eYYcYaffoDA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDEwOCBTYWx0ZWRfX68Hbm2BWeYEX
+ TZQ89IP/g5uyCYXTBNq86SUpxl143k9hZhRiJJBEaMA1ewfBIDDjFkjTwA7WzR9juAN+Mhh+6W8
+ ZBus57o2Ryp8Noq6ZyBm5qnZOW/1q+RZJ7bsHI0J2ylmcWANOnlW
+X-Authority-Analysis: v=2.4 cv=bcH+w+PB c=1 sm=1 tr=0 ts=6aa7a643 cx=c_pps
+ a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=0sLvza09kfJOxVLZPwjg:22 a=N--XFCr6TIEc_64PeIT2:22 a=gAnH3GRIAAAA:8
+ a=Xpb0v-N9-WCVBoyP4joA:9 a=QEXdDO2ut3YA:10
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-14_02,2026-09-13_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 adultscore=0 impostorscore=0 priorityscore=1501 clxscore=1015
- spamscore=0 malwarescore=0 suspectscore=0 lowpriorityscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609140109
+ priorityscore=1501 impostorscore=0 lowpriorityscore=0 bulkscore=0
+ suspectscore=0 phishscore=0 adultscore=0 spamscore=0 malwarescore=0
+ clxscore=1011 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609140108
 
-On 26-09-14 08:44:04, Krzysztof Kozlowski wrote:
-> The interconnect drivers for Qualcomm SoC Network-on-Chip are covering a
-> basic or fundamental SoC feature: bandwidth management between internal
-> SoC blocks.  SoC can boot without these, but power management or
-> performance will be affected.  These drivers do not represent any sort
-> of buses visible to the board designers/configurators, thus they should
-> be always enabled, regardless how SoC is used in the final board.
-> 
-> Kernel configuration should not ask users choice of drivers when that
-> choice is obvious and known to the developers that answer should be
-> 'yes' or 'module'.
-> 
-> Switch all almost Qualcomm interconnect drivers to a default 'yes' for
-> ARCH_QCOM.  This has impact:
-> 
-> 1. arm64 defconfig:
->    a. Enable as built-in INTERCONNECT_QCOM_HAWI, INTERCONNECT_QCOM_NORD,
->       INTERCONNECT_QCOM_SHIKRA, INTERCONNECT_QCOM_SDM660,
->       INTERCONNECT_QCOM_SDM670, INTERCONNECT_QCOM_SM7150 and
->       INTERCONNECT_QCOM_SAR2130P, which were not selected before but
->       should be, because these platforms need them anyway for proper
->       functioning.
-> 
->    b. Switch to built-in from a module INTERCONNECT_QCOM_QCS404 and
->       INTERCONNECT_QCOM_MSM8916, which as modules would not make the
->       platform bootable in most cases, and INTERCONNECT_QCOM_OSM_L3,
->       which when module might slow down boot considerably by having
->       caches running at slow speed.
-> 
-> 2. arm qcom_defconfig: Switch to built-in from a module
->    INTERCONNECT_QCOM_RPMH, INTERCONNECT_QCOM_SMD_RPM,
->    INTERCONNECT_QCOM_BCM_VOTER, INTERCONNECT_QCOM_MSM8974,
->    INTERCONNECT_QCOM_SDX55, which as modules would not make the
->    platform bootable in most cases.
-> 
-> 3. arm multi_v7 defconfig: Enable drivers necessary to boot
->    ARM 32-bit platforms, which are already enabled on qcom_defconfig:
-> 
->    a. Enable as built-in INTERCONNECT_QCOM_MSM8974.
->    b. Enable as modules (other dependencies prevent from built-in)
->       INTERCONNECT_QCOM_RPMH, INTERCONNECT_QCOM_BCM_VOTER and
->       INTERCONNECT_QCOM_SDX55.
-> 
-> 4. COMPILE_TEST builds: Enable by default all drivers for arm or arm64
->    builds, whenever ARCH_QCOM is selected.  This has impact on build
->    time and feels logical, because if one selects ARCH_QCOM then
->    probably by default wants to build test it entirely.  Kernels with
->    COMPILE_TEST are not supposed to be used for booting.
-> 
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+ADPM12300 is a quarter brick DC/DC Power Module. It is a high power
+non-isolated converter capable of delivering regulated 12V with
+continuous power level of 3000W. Uses PMBus.
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Signed-off-by: Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
+---
+ADPM12300 is a quarter brick DC/DC Power Module. It is a high power
+non-isolated converter capable of delivering regulated 12V with
+continuous power level of 3000W. Identical to ADPM12250, it simply
+has a higher power rating. Uses PMBus.
+---
+ Documentation/hwmon/max34440.rst | 28 ++++++++++++++++++----------
+ drivers/hwmon/pmbus/Kconfig      |  4 ++--
+ drivers/hwmon/pmbus/max34440.c   |  2 ++
+ 3 files changed, 22 insertions(+), 12 deletions(-)
+
+diff --git a/Documentation/hwmon/max34440.rst b/Documentation/hwmon/max34440.rst
+index 866f22b88e9b360ff54aa52807484bb3e859e56e..8ce10aa425d5db30d13f3868c3466ef32efefdee 100644
+--- a/Documentation/hwmon/max34440.rst
++++ b/Documentation/hwmon/max34440.rst
+@@ -27,6 +27,14 @@ Supported chips:
+ 
+     Datasheet: -
+ 
++  * ADI ADPM12300
++
++    Prefixes: 'adpm12300'
++
++    Addresses scanned: -
++
++    Datasheet: -
++
+   * Maxim MAX34440
+ 
+     Prefixes: 'max34440'
+@@ -105,11 +113,11 @@ This driver supports multiple devices: hardware monitoring for Maxim MAX34440
+ PMBus 6-Channel Power-Supply Manager, MAX34441 PMBus 5-Channel Power-Supply
+ Manager and Intelligent Fan Controller, and MAX34446 PMBus Power-Supply Data
+ Logger; PMBus Voltage Monitor and Sequencers for MAX34451, MAX34452, MAX34460,
+-and MAX34461; PMBus DC/DC Power Module ADPM12160, ADPM12200, and ADPM12250. The
+-MAX34451 and MAX34452 support monitoring voltage or current of 16 channels based
+-on GIN pins. The MAX34460 supports 12 voltage channels, and the MAX34461 supports
+-16 voltage channels. The ADPM12160, ADPM12200, and ADPM12250 also monitor both
+-input and output of voltage and current.
++and MAX34461; PMBus DC/DC Power Module ADPM12160, ADPM12200, ADPM12250 and
++ADPM12300. The MAX34451 and MAX34452 support monitoring voltage or current of 16
++channels based on GIN pins. The MAX34460 supports 12 voltage channels, and the
++MAX34461 supports 16 voltage channels. The ADPM12160, ADPM12200, ADPM12250 and
++ADPM12300 also monitor both input and output of voltage and current.
+ 
+ The driver is a client driver to the core PMBus driver. Please see
+ Documentation/hwmon/pmbus.rst for details on PMBus client drivers.
+@@ -167,8 +175,8 @@ in[1-6]_reset_history	Write any value to reset history.
+ .. note::
+ 
+     - MAX34446 only supports in[1-4].
+-    - ADPM12160, ADPM12200, and ADPM12250 only supports in[1-2]. Label is "vin1"
+-      and "vout1" respectively.
++    - ADPM12160, ADPM12200, ADPM12250, and ADPM12300 only supports in[1-2].
++      Label is "vin1" and "vout1" respectively.
+ 
+ Curr
+ ~~~~
+@@ -190,9 +198,9 @@ curr[1-6]_reset_history	Write any value to reset history.
+ 
+     - in6 and curr6 attributes only exist for MAX34440.
+     - MAX34446 only supports curr[1-4].
+-    - For ADPM12160, ADPM12200, and ADPM12250, curr[1] is "iin1"
++    - For ADPM12160, ADPM12200, ADPM12250, and ADPM12300, curr[1] is "iin1"
+     - For ADPM12160, and ADPM12200 curr[2-6] are "iout[1-5]".
+-    - For ADPM12250, curr[2-4] are "iout[1-3]".
++    - For ADPM12250, and ADPM12300 curr[2-4] are "iout[1-3]".
+ 
+ Power
+ ~~~~~
+@@ -228,7 +236,7 @@ temp[1-8]_reset_history	Write any value to reset history.
+ .. note::
+    - temp7 and temp8 attributes only exist for MAX34440.
+    - MAX34446 only supports temp[1-3].
+-   - ADPM12160, ADPM12200, and ADPM12250 only supports temp[1].
++   - ADPM12160, ADPM12200, ADPM12250, and ADPM12300 only supports temp[1].
+ 
+ 
+ .. note::
+diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
+index 3289ab50a0280d93204ea5fab22e2435c8f01328..90305d5d59e8249b83f33ccef1cb749615bd75e3 100644
+--- a/drivers/hwmon/pmbus/Kconfig
++++ b/drivers/hwmon/pmbus/Kconfig
+@@ -454,8 +454,8 @@ config SENSORS_MAX34440
+ 	help
+ 	  If you say yes here you get hardware monitoring support for Maxim
+ 	  MAX34440, MAX34441, MAX34446, MAX34451, MAX34452, MAX34460, and
+-	  MAX34461. Other compatible devices are ADPM12160, ADPM12200, and
+-	  ADPM12250.
++	  MAX34461. Other compatible devices are ADPM12160, ADPM12200,
++	  ADPM12250, and ADPM12300.
+ 
+ 	  This driver can also be built as a module. If so, the module will
+ 	  be called max34440.
+diff --git a/drivers/hwmon/pmbus/max34440.c b/drivers/hwmon/pmbus/max34440.c
+index 866d25ae8971c49d3e296efb69fc486e5dbac668..7f71dfe486438752fbbded6ed9c4172dd8ab8534 100644
+--- a/drivers/hwmon/pmbus/max34440.c
++++ b/drivers/hwmon/pmbus/max34440.c
+@@ -812,10 +812,12 @@ static int max34440_probe(struct i2c_client *client)
+ 	return pmbus_do_probe(client, &data->info);
+ }
+ 
++/* ADPM12300 is just ADPM12250 with higher power capacity. Reuses driver data */
+ static const struct i2c_device_id max34440_id[] = {
+ 	{ .name = "adpm12160", .driver_data = adpm12160 },
+ 	{ .name = "adpm12200", .driver_data = adpm12200 },
+ 	{ .name = "adpm12250", .driver_data = adpm12250 },
++	{ .name = "adpm12300", .driver_data = adpm12250 },
+ 	{ .name = "max34440", .driver_data = max34440 },
+ 	{ .name = "max34441", .driver_data = max34441 },
+ 	{ .name = "max34446", .driver_data = max34446 },
+
+---
+base-commit: 1f7154a56e446d4f68542fc04f7376a7d6404609
+change-id: 20260914-dev_adpm12300-3145fabef660
+
+Best regards,
+-- 
+Alexis Czezar Torreno <alexisczezar.torreno@analog.com>
+
