@@ -1,86 +1,33 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85B2C38DC4A
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:14:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5492B38F92F;
+	Mon, 14 Sep 2026 06:14:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789366489; cv=none; b=KQhXRMSRW0YVA8KAEai3ghkyCTVJezDMV1zMIIrA58zHNmCA1l1ZL0gDa5T/pZkYwIP//8J85r9x/9iHOskA9fvIfjHZQEoYTGQk6sPRzScm8hTnUZ5wGGKXK9Or8yWOjJRX4KvvSnA8sMszl9E7h7wyn1aiPx4Y8j0pUgiQB6g=
+	t=1789366490; cv=none; b=BC1RnIAlE+iTyRvgepK8AT7CPRHkYa1faTCZGIFm2SShXdFtjLMaF9AFNa1h12CIzil2yNp6zJypkjHGnYyPVxAgLNUvZRP9Kv8KMVBLydilA8A4FinykZe6ybE4EBbvsTQQ7Z2WTbU65PsHO964XUxgDClVdkOJepwoXsCsJ+g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789366489; c=relaxed/simple;
-	bh=90G1Lk9o08R+G1qA1NS44oTM/7XjyUNDLJ6gtrcf/I8=;
+	s=arc-20240116; t=1789366490; c=relaxed/simple;
+	bh=R6nNQ2Vf3r2xxYZfLTkQqd4XV0kVoSqb6az1vwGIgqs=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bDJ2oGBoKNicJ8BdjFEZIUI7SEra8X5g1II2IuRLK0EnlY64UibdjHtUxLYM9OZJpwfNzS9o7vCnt4hYwvIQa3naPPKgB9Coje4nAuUf7ow7algqgErRGweqcIRfO7pWa0tMQYItEjFi2RJ1/40sw6wyh8KUyzeLNSorVDTNopQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Q+U0hxkn; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=GFfkihUS; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 In-Reply-To:Content-Type; b=O2o/F80qz46WC8bAhXIohLCXOY901pArQ1YoWBT2cMBIOTowWZvcoQt66/HRDNm60aGUO8vQw40iM5R6SsE/p5V+ZxKIhydwviej4Y0pS7LLNF0kH6wX1sTzv5jeeWlSCBgLUxAkGrkzLO959Px81eU1UO9g5DMI3WNNEMiVGec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FX6T44Mu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Q+U0hxkn";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="GFfkihUS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789366486;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jd9pq4IajkU40OjK2aSbBzLMMvOXq0c4ILRQjYEobz4=;
-	b=Q+U0hxknzk81zD962ixpY+1GoQUkTgODlIS8nfOPyTjZO49ivthEGhNiXW2+/cABgevKHh
-	ZNfRuPoRnsdOvfgfRZ8SZiibq7udRs+GV1N6pChA4ZqJs2OyDkC47KBXVjtDspfbbkkR1c
-	5qXGuvf377RrnFPabRLadd+zwTN1FNI=
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com
- [209.85.215.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-572-NnK1R6rXPZ-tByB3xe_WIA-1; Mon, 14 Sep 2026 02:14:44 -0400
-X-MC-Unique: NnK1R6rXPZ-tByB3xe_WIA-1
-X-Mimecast-MFC-AGG-ID: NnK1R6rXPZ-tByB3xe_WIA_1789366483
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc1ca15334cso4063820a12.1
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 23:14:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1789366483; x=1789971283; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jd9pq4IajkU40OjK2aSbBzLMMvOXq0c4ILRQjYEobz4=;
-        b=GFfkihUSnWsUiMWS2sRgSYGR9ONKAw9W+5ltANDKnmkcG7jO/9P3SCuSXJzOe5riWs
-         cVH7g/g8IX/yUTIbUTb3Z/W2yKi0doGSYnnS33fDAe23f0Tjk01kqu0yred9D5GSxZWV
-         DKDq8Tk90XEbrQD6+0JvIIovg69GmqIr7MBMB2Q9o1BRe86k6xiDj9C5HRfI4GEC8xO2
-         ao/gbE7giNBEcwaV7x764TabgEJhoclCfO9ty/mkUqbVIbGDnuhATkFdw9b2WdQFgO60
-         /klWSp12lNsKlwd+r/RXnzsVQrJHnFQ5X45+SJ2CaywJXOv8EkI3CShM3atPOhOnpLeW
-         WBoA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789366483; x=1789971283;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jd9pq4IajkU40OjK2aSbBzLMMvOXq0c4ILRQjYEobz4=;
-        b=m4yplkL6H4Vz4OJD/alifRdfwhcjWrCdxmLqixTc19NNHJKFzBvoC9m1P43LaSw1Nt
-         Az820OeK6cF/rtuHGELQVBIdZM9KfKhMCq+D160zKi2o1zkLRqA1NYrKOyFtcW5limMn
-         Ieb2G9spEjexnZ+Ubc74byObPpk0atrBwfDshsTwzlbVlwrIzBE9zRWxg0y49agIdhSt
-         SKRfJZehs6yYrrxDb2z3UQQkh5RgdS90gxA9pCbT+5x/KOQQXcuKMDHGMyK6Dh7ApLYL
-         aPA+XiEgc/qeM6InNcU3EV4PlvMx6WoEj0w4XEwDSSoRjP75d/n8ixAV0tKB8yvehxri
-         fXwQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwmHMFlaeWi2QRWhq8rn1hGF3oCj+KZRvSeNfCniEbzNAlSjvfxGI4zKZWiPZiEgNgFWrrf5/JJwzl65Fo=@vger.kernel.org
-X-Gm-Message-State: AFuF++mgPSpvJAOrpu3EBcGORNynaJVxRdB/xN8W6EpKatJbvkNsunzs
-	36526jZ60bflu1OEql4iAgVZYNOl93JK4XCN1FWiUiJ56alye+UI2O6ECcCfr8IKPFHYF1HF5HE
-	ZCQp6c3YTUDAKJgR8cRuqraHws6H7vT+jRf6e9peW/X1/XPRSucu56F+i37RqHrW4gA==
-X-Gm-Gg: AYBFou3u7JcxJL+xUXKqn9kOyMKqQn8+TcFKgdSrdc/KMryV7KToWqVgU7RzhW5EbsN
-	4IhLHYlLSV+PBxs4cnBCxEFQBkAsagKnOpq9RAjiHhZoGGEmM+Dgn/W0duapZ8B+mA49W2pXFFb
-	dZtLVDf+9BZtYUo7L2MJEM+sh4fclt/9p55W8wiZ0yNcXfusP06nK4ZKgZrsViJj2+2RIKuXQKy
-	NIz7iux+kUjjX99+LvA09FIg+XdjAWEU6zFFeqXE/F8QCLhcLRCt21GY4HxPMflrOqlNtRP4tuR
-	JRYWSxII1C9Am/c2UgUI4LffVctMpwawERzEAt1aHaMKbbiGEIJmqmMYk+MhgrgCcdEIhV7ZexO
-	boHnpLJj6LbkelQhCjxrtn0azp9Num51BerS9MBZz2g==
-X-Received: by 2002:a05:6a20:7283:b0:3da:d45b:3930 with SMTP id adf61e73a8af0-3db4047e387mr1757618637.3.1789366483430;
-        Sun, 13 Sep 2026 23:14:43 -0700 (PDT)
-X-Received: by 2002:a05:6a20:7283:b0:3da:d45b:3930 with SMTP id adf61e73a8af0-3db4047e387mr1757559637.3.1789366482958;
-        Sun, 13 Sep 2026 23:14:42 -0700 (PDT)
-Received: from [192.168.68.52] (n175-34-8-244.mrk21.qld.optusnet.com.au. [175.34.8.244])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4c652ab0dsm4311139a12.6.2026.09.13.23.14.38
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 13 Sep 2026 23:14:42 -0700 (PDT)
-Message-ID: <095ebf41-e3c1-4e7e-b6f9-84b6f94da3ce@redhat.com>
-Date: Mon, 14 Sep 2026 16:14:35 +1000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FX6T44Mu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0A941F000FF;
+	Mon, 14 Sep 2026 06:14:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789366488;
+	bh=hsHhEwjRelMETV0SOSf9KM5LnIitGPECDLvB3vxb5yA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=FX6T44MuMh0nTRbs4ySaFJnbQR3lMxOJaFLksI5P5+PBRsfxXqlfFvNPeA/e1mYlw
+	 zutMD+ojdaDnzTH3S+5d3Ojvm6YWHIE/q45H1k6p5OyxcAIuv5cov2+30+O0r6QEto
+	 MhNRKR4bFwTyxokCFPrre33KaP27bwKG0wdCreQgo197U/qoSfj7VtDkvDDDCSWDcT
+	 IMhy8P2nyWpLhPy9mxRasd8GSPlM4vkVA2fK5D9g8RTCt/eK3j/xNsQAEi1R12Ht4D
+	 HsiKFdxKE6WKe2sDHsxzTlcJk47MeP1rPC8oMQ4i1CzDdEx4x1KTaELmyAp0k0DIxc
+	 tAHBIvdetvqJQ==
+Message-ID: <f0ae73cf-ac0c-4400-a805-21f1db32b5ff@kernel.org>
+Date: Mon, 14 Sep 2026 08:14:42 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -88,65 +35,89 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm_mpam: resctrl: Catch and propagate error from
- get_cpu_cacheinfo_id()
-To: Andre Przywara <andre.przywara@arm.com>, James Morse
- <james.morse@arm.com>, Ben Horgan <ben.horgan@arm.com>
-Cc: Reinette Chatre <reinette.chatre@intel.com>,
- Fenghua Yu <fenghuay@nvidia.com>, Tony Luck <tony.luck@intel.com>,
- Dave Martin <Dave.Martin@arm.com>, Yin Li <yin.li@oss.qualcomm.com>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260902143757.3469690-1-andre.przywara@arm.com>
+Subject: Re: [PATCH 2/3] regulator: mpq4210: Use the -ohms feedback divider
+ property
+To: Tapio Reijonen <tapio.reijonen@vaisala.com>,
+ Saravanan Sekar <sravanhome@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+References: <20260913-mpq4210-ohms-fixup-v1-0-dcff627001ff@vaisala.com>
+ <20260913-mpq4210-ohms-fixup-v1-2-dcff627001ff@vaisala.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: Gavin Shan <gshan@redhat.com>
-In-Reply-To: <20260902143757.3469690-1-andre.przywara@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260913-mpq4210-ohms-fixup-v1-2-dcff627001ff@vaisala.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 9/3/26 12:37 AM, Andre Przywara wrote:
-> get_cpu_cacheinfo_id() can fail, in which case it returns a negative
-> error value.
+On 13/09/2026 13:40, Tapio Reijonen wrote:
+> Follow the binding rename of mps,fb-voltage-divider to
+> mps,fb-voltage-divider-ohms.
 > 
-> Check the returned value for this error condition, before passing the
-> value on to other code, which would hide the negative number in some high
-> value in the unsigned type.
+> The old name was never in a release and this driver is its only reader,
+> so it is dropped rather than kept as a fallback.
 > 
-> Fixes: 36528c7681b8 ("arm_mpam: resctrl: Add support for 'MB' resource")
-> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
+> Fixes: 61879d561e91 ("regulator: Add MPS MPQ4210 buck-boost regulator driver")
+> Suggested-by: Krzysztof Kozlowski <krzk@kernel.org>
+> Link: https://lore.kernel.org/r/20260911-gaur-of-satisfying-action-1a3b0f@quoll
+> Signed-off-by: Tapio Reijonen <tapio.reijonen@vaisala.com>
 > ---
->   drivers/resctrl/mpam_resctrl.c | 5 ++++-
->   1 file changed, 4 insertions(+), 1 deletion(-)
+>  drivers/regulator/mpq4210.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
 > 
+> diff --git a/drivers/regulator/mpq4210.c b/drivers/regulator/mpq4210.c
+> index 227136d8225805a759d2d6545637858ea7122b89..315f8e02ff2a117e37b32f8a128c9e0feacfac74 100644
+> --- a/drivers/regulator/mpq4210.c
+> +++ b/drivers/regulator/mpq4210.c
+> @@ -144,11 +144,12 @@ static int mpq4210_i2c_probe(struct i2c_client *client)
+>  	u32 r[2];
+>  	int ret;
 
-Reviewed-by: Gavin Shan <gshan@redhat.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-> diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
-> index 9d223057953ab..a5e661eff86d7 100644
-> --- a/drivers/resctrl/mpam_resctrl.c
-> +++ b/drivers/resctrl/mpam_resctrl.c
-> @@ -786,7 +786,10 @@ static u32 get_mba_min(struct mpam_props *cprops)
->   /* Find the L3 cache that has affinity with this CPU */
->   static int find_l3_equivalent_bitmask(int cpu, cpumask_var_t tmp_cpumask)
->   {
-> -	u32 cache_id = get_cpu_cacheinfo_id(cpu, 3);
-> +	int cache_id = get_cpu_cacheinfo_id(cpu, 3);
-> +
-> +	if (cache_id < 0)
-> +		return -ENOENT;
->   
->   	lockdep_assert_cpus_held();
->   
-
-find_l3_equivalent_bitmask() passes @cache_id to find_l3_equivalent_bitmask() as
-a 'unsigned long' argument. Actually, it can be 'u32'. It's not directly related
-to this patch though.
-
-int mpam_get_cpumask_from_cache_id(unsigned long cache_id, ...);
-
-can be:
-
-int mpam_get_cpumask_from_cache_id(u32 cache_id, ...);
-
-Thanks,
-Gavin
-
+Best regards,
+Krzysztof
