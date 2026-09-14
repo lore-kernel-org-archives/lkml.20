@@ -1,196 +1,140 @@
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com [209.85.128.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F1F846F4B3
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 17:59:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C19F3D1CC5;
+	Mon, 14 Sep 2026 18:00:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789408765; cv=none; b=Z7s0v3d0mKcK07KAc/3ptfERYlu6s+qpGDJKWppjjoSUEUyQlSZKJb23+vwAw9Ck5RgDYv60uhV/tgwtbP1VxJbKeHhPHPzIuz/lTh0uNWlsHqN3d8VUwbvdLMd7850h2agfeIgRw9TVq3fWZJLRz1Xw2LjII/urd+8ObSLraYQ=
+	t=1789408805; cv=none; b=MI0c3/qNlKYBUk1JGLCtK3ws8pegvKOAQTNDeNpdk/fiBF5gkkU4gmLyYkLLvrlC+QQGSC0iMt7j8JPcXQuk7xOvvYFsSaci35A5Jvd58JjPmhFXdgetkmaoI+1KjOtIoh1tuilbLvq2NXszv5YrizAlleWGzadYhDq240KyTtA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789408765; c=relaxed/simple;
-	bh=Hi3KF1rFSlwOgvsXa0YKg6banHYZooWVqpRPGNChmak=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=CB7Rz4hlY+Xg59JI/iZZHZjLYoGe0aw2F4H68j1DHw1JbeX0E+saNZ0CkAf/y2DbQDcHEQF5D4N6gqm4P+FcwhO/g8lt2QxeKkk4n5enDjcezxAMkflecTfd6EtBT8RuTaXgIYidZ2o2Y7XfnSxxUljeD7+mJa+auSfkiVNog08=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=YERxAAA8; arc=none smtp.client-ip=209.85.128.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com
+	s=arc-20240116; t=1789408805; c=relaxed/simple;
+	bh=OTiu5947C9fA3Y7NrlQcDhXpl9PL87QMkeiajEFAspw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Y0BJbOiN1FcQprn1PA+pNUyIZMnY45iqvY+So9eyt0eV6yfr0yqt9Esb8nxD61QqePF7juDhpINg4q39d72rq4ofHF6GlBdaanNsYcGv6huVawRIqIW0Gc6gp9Xr/EtDivvWtfISReRNRkWVGMgYHNeAMJNopf0wVCih3UHBF+c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=CQFL0ieY; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="YERxAAA8"
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-49ccfbe060aso30311145e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:59:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789408761; x=1790013561; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KAmPM9lg8P4nRxDL5AHK8i1KVL3bJ1XhAL6W+r2RlSI=;
-        b=YERxAAA8mGEP+0eHolShXC9DTmdF+gizKwe0RAcoRnJ+2s7BbM4v/w6xnzUzE/WELA
-         4Xo7p0dIZRa55QikcZRScZ3eLi/jn8SFKrinKjcml92PHXsdm1NzQUOvepyJbWLWbX4J
-         scmLpcuOWjBz68eAqiSCwE03SnLKXPflmRwKANb3xR2qvxssXD+wdjw6ZNdmkCI6fXCe
-         2wO7xLywPBpuNnRB/owSV3CQ5LD5uwU7Zau8U5d5kC1YkSpL5I9jSNMJOqGi5kSSeUfj
-         bF2zvGgj3QGMDpIjn5xZW0N6HNIWKwrNJBfH2O223WywvXTCyb1X+m2vkGEBmtR2KECN
-         DTkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789408761; x=1790013561;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KAmPM9lg8P4nRxDL5AHK8i1KVL3bJ1XhAL6W+r2RlSI=;
-        b=pVsi0jRpcsO+S0NhaTSIWHrLfW5AFryFlheR0naWS2Elqpnm8PjSbPIJjyWhKKQ6BX
-         WIDFyDQ2JCsRrXKqUFQjgqUK5nmdjLYguchHe9OzhnjbSdAe7+syUS3bCv0VBWeBm7+p
-         +jpQHRd5ReP0UBQY8eTCREuDo4EOVq6wlnCcw6QtnD3f7it95KWXBOql6rbyi3x71nQM
-         ZGCUiP26saYfeQWUPvEba6pPpw4A1CGfZQr48wVz9SYj6cyHZ0rLhKpuioI9feHstKZ/
-         y001qE4dUMoi/uSMTLj2FFqrEIgPIEOL2iE6CVnPsJ/+GY3aQSOtWvsvL3duicXbt9va
-         6NNw==
-X-Forwarded-Encrypted: i=1; AKwUvBwfypqpBU2LA+yhgYiDRrl8vU3qZHjEaFSlFLGMrK53kmDjm9B3ANBd4lR7gfrBx4a2sF78xpJ56GzXFLY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kKZ6qT0k59KDMCEpStJGIZiagv1BiichcJeNVPRarpdxxdRMd9
-	iTnjg+QzzJxjEYDJXCj07tAXEzfsCG96WZSmnAtuT5lmCP1d9kcAm4dT/n6LN3Xqma1piZK0bDY
-	KsiDmn3x4p4WJ8Y8KKmUiFQ==
-X-Received: from wmcu10.prod.google.com ([2002:a7b:c04a:0:b0:49e:6b63:7e98])
- (user=vdonnefort job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:3484:b0:49c:fa21:e742 with SMTP id 5b1f17b1804b1-49e7a68c148mr51819185e9.24.1789408761238;
- Mon, 14 Sep 2026 10:59:21 -0700 (PDT)
-Date: Mon, 14 Sep 2026 18:59:07 +0100
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="CQFL0ieY"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68EFvoxw2495162;
+	Mon, 14 Sep 2026 17:59:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=n6XWvEkjUJhke/eXYBmSDyCZt3sChR
+	VssS0jrboyjOE=; b=CQFL0ieYaPas4IYdV09CQtevlNKjrDVFKrgYocAup/KyrO
+	KXLBYiDsue7gh1DvI/djTq7k6OB0oOFEHmBH8LXl8WzmsdqFqds7uuD/vmQC26MP
+	sNe7OaM8xaxkgvhMYPK6zYfEjVHI/MOVH2zdsy4i0OwOPLnxy0rnWrgVTqHrQOQ5
+	t0wzfOP+lOQGH2dB+acDHIltiAHWlDvMZ0iKGEyT3cwqv1F7UqU38U0qTEgfsO/y
+	DUczkLh/G6azIqmtJHe+i5MzHXjb/hoLoZgMOa1UkAJ54AQ+p6mWPl0fUX/np2aG
+	Kw9T7/a/TwhlTEKYMIyogrHnlXe9lSrYIoO1vdlw==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmxf4u46g-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 14 Sep 2026 17:59:59 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68EGVNK82359957;
+	Mon, 14 Sep 2026 17:59:58 GMT
+Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gnh2pykx1-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 14 Sep 2026 17:59:58 +0000 (GMT)
+Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
+	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68EHxsXj50659592
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 14 Sep 2026 17:59:54 GMT
+Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 278ED20043;
+	Mon, 14 Sep 2026 17:59:54 +0000 (GMT)
+Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id B817420040;
+	Mon, 14 Sep 2026 17:59:53 +0000 (GMT)
+Received: from osiris (unknown [9.87.150.220])
+	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Mon, 14 Sep 2026 17:59:53 +0000 (GMT)
+Date: Mon, 14 Sep 2026 19:59:52 +0200
+From: Heiko Carstens <hca@linux.ibm.com>
+To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+        Vineeth Vijayan <vneethv@linux.ibm.com>,
+        Peter Oberparleiter <oberpar@linux.ibm.com>
+Cc: Vasily Gorbik <gor@linux.ibm.com>,
+        Alexander Gordeev <agordeev@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>,
+        Vlastimil Babka <vbabka@kernel.org>, linux-s390@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH v2 06/13] s390/cmf: Use kmalloc() for the CMB area
+Message-ID: <20260914175952.14910Fc6-hca@linux.ibm.com>
+References: <20260910-s390-cio-ready-v2-0-e931086fdde1@kernel.org>
+ <20260910-s390-cio-ready-v2-6-e931086fdde1@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.55.0.1032.g73a4cd73de-goog
-Message-ID: <20260914175907.1027349-1-vdonnefort@google.com>
-Subject: [PATCH v1] ring-buffer: Clean up resize_disabled checks
-From: Vincent Donnefort <vdonnefort@google.com>
-To: rostedt@goodmis.org, mhiramat@kernel.org, 
-	linux-trace-kernel@vger.kernel.org
-Cc: mathieu.desnoyers@efficios.com, kernel-team@android.com, 
-	linux-kernel@vger.kernel.org, devnexen@gmail.com, 
-	Vincent Donnefort <vdonnefort@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260910-s390-cio-ready-v2-6-e931086fdde1@kernel.org>
+X-TM-AS-GCONF: 00
+X-Proofpoint-GUID: iVRITbDW7x6rY8UOuc8lzGASFfpPHKxm
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDI0OCBTYWx0ZWRfX/jZQYnZDbspo
+ eLajtSQuqN9l0P5gCRh/QYG+6NNOuVHNNhWcfApZ8JRauj6x4zbcS1VY8XIapyH2h6wAZV6+KIJ
+ QZiLrt26q8/G/CsYkXX0vlPXiuiBqn4=
+X-Authority-Analysis: v=2.4 cv=cvgOAF4i c=1 sm=1 tr=0 ts=6aa8361f cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=w3GGswcpYwqc3GNkgiYA:9
+ a=CjuIK1q_8ugA:10
+X-Proofpoint-ORIG-GUID: iVRITbDW7x6rY8UOuc8lzGASFfpPHKxm
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDI0OCBTYWx0ZWRfXwret4GbqXc8u
+ 3ZDt6AjnA37okgOmgPCEI6KAKhAXtude1C8F0ksDzCP32Hh0Jx4cpLaLXyD0SiyEtZRc9DGo9xx
+ J+r0m4wIdtZdU/LCRe8GBktgpoSju0CCH1+qOCxOskrOKMLh71r96gNjw1ibURKfEaPqo8egtZV
+ 8Xr6y2f5gLKJkNRyRTjfmyTyg8PIwnDBDERTZUZ3qQMmf8XR0BbbKTXDiNYZcFv/q6Bf4W0Vxue
+ LejoyLKTfAu5zXUvKUwD/7XjzCaREtVsQBaov2DwTqQOWItmFn1yS00ike1VZVeFV+O0bsBLN9s
+ L6wbcfy3CJUzY+qPoMzb3JfTx+VsgyVYWBhnKU8y2L1Yp8auH9Tlb6jLGhEZNkepxoiTzx429fj
+ bJKEHPRyjRPRL+hv7A2cqcjA4D89mHaElKGt9Wmg8/n/TJVZGDBlbaX8h8kFmWYE50Evn0gTz0F
+ s5/yXqW9BoTmKZdP2jA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-14_03,2026-09-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 clxscore=1015 priorityscore=1501
+ suspectscore=0 bulkscore=0 impostorscore=0 phishscore=0 spamscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609140248
 
-ring_buffer_subbuf_order_set() checks for resize_disabled twice under
-the same buffer->mutex hold. Moreover, this check duplicates the logic
-in ring_buffer_resize(). Create a common helper rb_resize_disabled() to
-factor out this code.
+On Thu, Sep 10, 2026 at 02:00:08PM +0300, Mike Rapoport (Microsoft) wrote:
+> alloc_cmb() allocates the channel measurement block area shared by
+> devices using the basic channel measurement format.
+...
+> The measurement block origin must be 32-byte aligned. Each CMB is
+> 32 bytes, so kmalloc() provides the required alignment without rounding
+> the allocation to a power-of-two number of pages. Reject an empty area
+> before allocating it.
+> 
+> Replace use of __get_free_pages() with kmalloc() and free_pages() with
+> kfree().
+...
+>  		spin_unlock(&cmb_area.lock);
+> -		mem = (void *)__get_free_pages(GFP_KERNEL, get_order(size));
+> +		mem = kmalloc(size, GFP_KERNEL);
+>  		spin_lock(&cmb_area.lock);
+>  
+>  		if (cmb_area.mem) {
+>  			/* ok, another thread was faster */
+> -			free_pages((unsigned long)mem, get_order(size));
+> +			kfree(mem);
+>  		} else if (!mem) {
+>  			/* no luck */
+>  			ret = -ENOMEM;
 
-Additionally, remove the unnecessary cpumask_test_cpu in
-ring_buffer_subbuf_order_set().
-for_each_buffer_cpu() already iterates over buffer->cpumask.
+This is the only patch which made me raise an eyebrow, since the allocated
+area is smaller. But it looks all good according to the architecture.
+Since the allocation changed anyway, it might also make sense to switch to
+kzalloc() and get rid of the subsequent memset() (not in the context of the
+above diff).
+But... I doubt it is worth it to send yet another version just for this.
 
-Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
----
- kernel/trace/ring_buffer.c | 67 ++++++++++++++++----------------------
- 1 file changed, 28 insertions(+), 39 deletions(-)
-
-diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-index 04bb94c29f58..37801ac5e92e 100644
---- a/kernel/trace/ring_buffer.c
-+++ b/kernel/trace/ring_buffer.c
-@@ -3280,6 +3280,21 @@ static void update_pages_handler(struct work_struct *work)
- 	complete(&cpu_buffer->update_done);
- }
- 
-+static bool rb_resize_disabled(struct trace_buffer *buffer, int cpu)
-+{
-+	lockdep_assert_held(&buffer->mutex);
-+
-+	if (cpu != RING_BUFFER_ALL_CPUS)
-+		return atomic_read(&buffer->buffers[cpu]->resize_disabled);
-+
-+	for_each_buffer_cpu(buffer, cpu) {
-+		if (atomic_read(&buffer->buffers[cpu]->resize_disabled))
-+			return true;
-+	}
-+
-+	return false;
-+}
-+
- /**
-  * ring_buffer_resize - resize the ring buffer
-  * @buffer: the buffer to resize.
-@@ -3324,20 +3339,17 @@ int ring_buffer_resize(struct trace_buffer *buffer, unsigned long size,
- 	if (nr_pages < 2)
- 		nr_pages = 2;
- 
--	if (cpu_id == RING_BUFFER_ALL_CPUS) {
--		/*
--		 * Don't succeed if resizing is disabled, as a reader might be
--		 * manipulating the ring buffer and is expecting a sane state while
--		 * this is true.
--		 */
--		for_each_buffer_cpu(buffer, cpu) {
--			cpu_buffer = buffer->buffers[cpu];
--			if (atomic_read(&cpu_buffer->resize_disabled)) {
--				err = -EBUSY;
--				goto out_err_unlock;
--			}
--		}
-+	/*
-+	 * Don't succeed if resizing is disabled, as a reader might be
-+	 * manipulating the ring buffer and is expecting a sane state while
-+	 * this is true.
-+	 */
-+	if (rb_resize_disabled(buffer, cpu_id)) {
-+		err = -EBUSY;
-+		goto out_err_unlock;
-+	}
- 
-+	if (cpu_id == RING_BUFFER_ALL_CPUS) {
- 		/* calculate the pages to update */
- 		for_each_buffer_cpu(buffer, cpu) {
- 			cpu_buffer = buffer->buffers[cpu];
-@@ -3409,16 +3421,6 @@ int ring_buffer_resize(struct trace_buffer *buffer, unsigned long size,
- 		if (nr_pages == cpu_buffer->nr_pages)
- 			goto out;
- 
--		/*
--		 * Don't succeed if resizing is disabled, as a reader might be
--		 * manipulating the ring buffer and is expecting a sane state while
--		 * this is true.
--		 */
--		if (atomic_read(&cpu_buffer->resize_disabled)) {
--			err = -EBUSY;
--			goto out_err_unlock;
--		}
--
- 		cpu_buffer->nr_pages_to_update = nr_pages -
- 						cpu_buffer->nr_pages;
- 
-@@ -7473,13 +7475,9 @@ int ring_buffer_subbuf_order_set(struct trace_buffer *buffer, int order)
- 
- 	old_capacity = rb_subbuf_capacity(buffer);
- 
--	/* The mmap fast path reads subbuf_order without buffer->mutex. */
--	for_each_buffer_cpu(buffer, cpu) {
--		if (!cpumask_test_cpu(cpu, buffer->cpumask))
--			continue;
--		if (atomic_read(&buffer->buffers[cpu]->resize_disabled))
--			return -EBUSY;
--	}
-+	/* Check it is resizable before we touch subbuf_order */
-+	if (rb_resize_disabled(buffer, RING_BUFFER_ALL_CPUS))
-+		return -EBUSY;
- 
- 	atomic_inc(&buffer->record_disabled);
- 
-@@ -7490,17 +7488,8 @@ int ring_buffer_subbuf_order_set(struct trace_buffer *buffer, int order)
- 
- 	/* Make sure all new buffers are allocated, before deleting the old ones */
- 	for_each_buffer_cpu(buffer, cpu) {
--
--		if (!cpumask_test_cpu(cpu, buffer->cpumask))
--			continue;
--
- 		cpu_buffer = buffer->buffers[cpu];
- 
--		if (atomic_read(&cpu_buffer->resize_disabled)) {
--			err = -EBUSY;
--			goto error;
--		}
--
- 		/* Update the number of pages to match the new size */
- 		nr_pages = old_capacity * buffer->buffers[cpu]->nr_pages;
- 		nr_pages = DIV_ROUND_UP(nr_pages, rb_subbuf_capacity(buffer));
-
-base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
--- 
-2.55.0.1032.g73a4cd73de-goog
-
+The whole series looks good to me. Vineeth, Peter, any thoughts?
