@@ -1,221 +1,183 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazolkn19012056.outbound.protection.outlook.com [52.103.66.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AECEE41D22C
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:01:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789380102; cv=none; b=ORgcv+ewkFY37xbMBn61QbqgIlohIeAnBSrKmVA2t53VbaGwwmCTK1/u6n1C8z/WxFgdyYzdsVsikaFNIqxdXTulX83jTNELKaKwrW+A05KXpW7KE4O4Ndhv1JFHnXd5tpkDXougjkVY1EY0bA3x/VIxSXIKAX2G5EbJXfbi1Ng=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789380102; c=relaxed/simple;
-	bh=9XuNj/UU//FJkDgIT81Ewen5saR5uWCSxCYYbkO+If8=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=LcQETD0dAsrzOUK7o1MSm6kSmW4jOuodlX4JHeVUTb6ocUh2oYsGFokueLpOJsyscfZOSFGS7r28cDkDaGVMOKWz4P1UlkJ0j88nnTmeT4WKh52DtfbemmF81duc7xoRAzkuW5iXv6sP90Z4bLMHAIKo6BzoxN47gQwI4fhT7JQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HcnPh1en; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A59C0258EF9;
+	Mon, 14 Sep 2026 10:01:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.66.56
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789380104; cv=fail; b=YFB7FG9L+0doZ4suWtSBiYfDXYSkU1I17wx1ff9SxX2h3Xl9/bXm0CdT1S3b1dZSnUOJGrRQEbZ71aAEIF4969QRubIzeuB0yN4FnY/+vodm/ixYw0/JKKds9boEZ//r/22ZpU5KMsH6I/NMSVNj6HDwZwSLuTdNGJQB2iomxNw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789380104; c=relaxed/simple;
+	bh=Cfkdx3bebc908ZgkOnADxR9WrZQ4267AYB6x6H2oaJs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=tmoqLc1K7sz8VReNGFEK6CseU8L4YJrVbCk2xwGKuXlqeoGdXXj7dGT47tKRbkV/6cMn5iOpaf60+Cpc8OwVgWs9iZoMKgd8VuqCMkAofdkVfELhU9+UAjFz0+f0gU/C/cznZkCWWOUvRs5I4cK+KL63QKGBcZ/aJ41Fuk1m7LA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.in; spf=pass smtp.mailfrom=outlook.in; dkim=pass (2048-bit key) header.d=OUTLOOK.IN header.i=@OUTLOOK.IN header.b=F1cVeyc3; arc=fail smtp.client-ip=52.103.66.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.in
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.in
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HcnPh1en"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789380100; x=1820916100;
-  h=from:to:cc:subject:in-reply-to:references:date:
-   message-id:mime-version;
-  bh=9XuNj/UU//FJkDgIT81Ewen5saR5uWCSxCYYbkO+If8=;
-  b=HcnPh1enypzD/LI/YCXpPuWpfejkm4iyMqWNkoKT34bejfzyhS7S/gtA
-   YwC6878nf0EtsWgPH1x+aPVt8INq/MFAo6L0WArB3zS2BOFRjQu1fsSDK
-   MwFi2DgzeahWbIM2FJYwudePRuKLKVAmK4VInEBxgp7EGxwZJruWK6kqR
-   WIfcPyFv1ZHAZOueYDJqO13ljb353mNMVgZXDBp2I6Hb2Cnbhm1DaFbNX
-   cLqXenlRG0nuMICFP09xxREzihfs3BvZGoGqGaJJ//V4nEDEtGp5K6ZOL
-   TlcpiR3ytRSeQtM4QZp2kXp061KcgIfbv5La22o7nRzPESl/vqzUDgArP
-   g==;
-X-CSE-ConnectionGUID: ZDJI24rhRMaotjPhTD14lQ==
-X-CSE-MsgGUID: krguidPiSUO8Q9b3JZz/fw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="89858925"
-X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
-   d="scan'208";a="89858925"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 03:01:39 -0700
-X-CSE-ConnectionGUID: UlH0QwXfQdi7F5yg4M0QOg==
-X-CSE-MsgGUID: rmt74CHbRUeji3DIjuwwkA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
-   d="scan'208";a="310874669"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.96])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 03:01:36 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Theo Andersen Carton <andersen.theo@gmail.com>, rodrigo.vivi@intel.com
-Cc: joonas.lahtinen@linux.intel.com, tursulin@ursulin.net,
- airlied@gmail.com, simona@ffwll.ch, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Theo Andersen Carton
- <andersen.theo@gmail.com>
-Subject: Re: [PATCH] drm/i915/ddi: add DDI A force 4 lanes quirk for Apple
- MacBookPro11,5
-In-Reply-To: <20260912091805.531666-1-andersen.theo@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260912091805.531666-1-andersen.theo@gmail.com>
-Date: Mon, 14 Sep 2026 13:01:32 +0300
-Message-ID: <c7215b173c533cd697d8eb37b56c2a1890ea7c41@intel.com>
+	dkim=pass (2048-bit key) header.d=OUTLOOK.IN header.i=@OUTLOOK.IN header.b="F1cVeyc3"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=APtMABo+ydTj7XCm5Vo1sbkoLCQabDH00S+Dbv+FJI6+0LCuZf73R5JDpxkBUCAN/j4ywzm+Il0UKpvLz4W3ZMUveDC5RU0qcIk+wK2UaoeD58HvQUSIigcRnF0bNFwT9oWbRP6htzbUGFkRZbgZBp+k+b9x5RW+K7tS1fbOA6MC56oiMqZ8THOL2WaBSr4eUrs5JobzGaDGJzJXmclj7dvrqDkvGVIIovfkC/OzyjtSW98vLluUUMWuFdFhUCLzzRx2axz5WOrKzxo8PJROGOjsTNd4Jq793srOtKkwIAOiKJ2eDjNQtXnBk2+36Kr3XQg5C9CBiC0GkguY1zBRQA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/44f/eeH/O2at6ihpVUuxkCuYLRIpVzakwncO3UmWM0=;
+ b=GBPU3JaEpoabxBA6AV0d9NuT3MOv8EuaNpkRU2fh9kvQYDQxUwJbYiJstGULB5Fd3mJNqK3kF0iC/D26SULvfjaPQ0fwk604CibGrghvmNKD/EX5CkUgEN0L3hfA4o0PB7rDazqZt4jh5vy9h1ATM3FIcHArJ7y0KR20DFT/UYTvpXIK7J7SvlCIWTrSFwUUZmVTrLFMy7UQvtt7F1plDGbcP5vVgBZfz3ESgCBUZn28XonWn2p+lQr0qK6hLg/Z5VdDxAxR2HtA8WImOyyNjvF8BhDjJKMUV3jpJO6DUgvYIgNA96oMhFcEHtx2tsrRHVzD+a26PUM9rvQA7bKdOw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=OUTLOOK.IN;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/44f/eeH/O2at6ihpVUuxkCuYLRIpVzakwncO3UmWM0=;
+ b=F1cVeyc3nED9gVvsslLWXwuH7OGsf92ARTGixcoudO1EmBivGDv4AQm4w71qTt1sZTrvk4/MKGWB6JB8VpAwYG6H+P4+YEA7pOWPP4DtNrfbQgu8158ZlHuARdP9HkeRae1sJYTri6NCU1zOUwXAcr6Aj/B8oGioJ022H9uc6xFeor4GL35P63qXzRy7fI2rLxUA/yglgOu/+AA21A0eJDUA/bFreIfL0H9AcT2krGrylU2GtDl19TH+XMipZajhqX6svjKVvPGo2Gj5iBPpJBy0UQgWO6vxTy8DZrTpADPi1Zk0gvr4N+Z6Epv00vgpaMNK+aYyRkrxdeAA+AvOiw==
+Received: from PUZPR01MB5141.apcprd01.prod.exchangelabs.com
+ (2603:1096:301:118::8) by OSNPR01MB7651.apcprd01.prod.exchangelabs.com
+ (2603:1096:604:318::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
+ 2026 10:01:35 +0000
+Received: from PUZPR01MB5141.apcprd01.prod.exchangelabs.com
+ ([fe80::3e9c:908e:6430:83]) by PUZPR01MB5141.apcprd01.prod.exchangelabs.com
+ ([fe80::3e9c:908e:6430:83%5]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
+ 10:01:35 +0000
+From: Shujath Mohd <shujath@outlook.in>
+To: linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org
+Cc: andersson@kernel.org,
+	konradybcio@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	angelogioacchino.delregno@somainline.org,
+	martin.botka@somainline.org,
+	linux-kernel@vger.kernel.org,
+	Shujath Mohd <shujath@outlook.in>
+Subject: [PATCH 1/1] arm64: dts: qcom: sdm845-sony-tama: Enable UFS host controller and PHY
+Date: Mon, 14 Sep 2026 15:31:16 +0530
+Message-ID:
+ <PUZPR01MB514158F5EDA660AC85FA8D5BC3BB2@PUZPR01MB5141.apcprd01.prod.exchangelabs.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <PUZPR01MB5141BA498FEEA594E61CCFB1C3BB2@PUZPR01MB5141.apcprd01.prod.exchangelabs.com>
+References: <PUZPR01MB5141BA498FEEA594E61CCFB1C3BB2@PUZPR01MB5141.apcprd01.prod.exchangelabs.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: MA5PR01CA0141.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:1b9::15) To PUZPR01MB5141.apcprd01.prod.exchangelabs.com
+ (2603:1096:301:118::8)
+X-Microsoft-Original-Message-ID: <20260914100116.15283-2-shujath@outlook.in>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PUZPR01MB5141:EE_|OSNPR01MB7651:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9e13b3c7-6cf9-43a5-37f8-08df12472932
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|51005399006|15080799012|23021999003|25010399006|5072599009|13031999006|8060799015|19110799012|24021099003|40105399003|2607281247196008|3412199025|440099028|26104999009|1710799026;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?5i0IaNHqrvz+SSW27JY8CxSYHh05N1lGulRr3AmylJIe2KU9JBryD4sUv8Oo?=
+ =?us-ascii?Q?bKl98N/wEj1/AoLlRE/JSUyTx/h8O4k4D3RkaLAY+z1YawHNqFaxQp0HuuMm?=
+ =?us-ascii?Q?HKgWVNzuo0ZZOEP5j8hIljD1qnGZe9HwpiAp8IbbU7qHdjtZa0AeT7cfBeHq?=
+ =?us-ascii?Q?kakaoNzPc11Grdlc5mapOpJFo5yCix33Y22KVUbw2R0JuJ6Dqs7d2T5Nyz4I?=
+ =?us-ascii?Q?IRGB9Uz55yCzUcQZt/Jvgh6og8YiWY4GPMcN6yhD4b4csp4yW2yP5h2vPeie?=
+ =?us-ascii?Q?Od/yMP8FCDOobCzoaO+UM326NXzEj0CcuklQzROnE4er8v97prXz1JOGCN3x?=
+ =?us-ascii?Q?jAhZUMgeVVXXbF57VvKpwnyM2ywLm9XX5bFowHW30Tm584nmHSbX+hMInSM5?=
+ =?us-ascii?Q?M5lRPsFQs8Sste4OZjxdOyN3kgeNKCx8G+kAEfF6B+g5wWF9jLaiuDtFSI/b?=
+ =?us-ascii?Q?vWlnaoUFeieO0SjJwnIGGb/HLw0Q7iaJ7rheuLNJWZFI0R1gWUpcZAaRJqZc?=
+ =?us-ascii?Q?ko/uyDvl50Pd70iPjIkDQep5GRjweuCBQOgJlE537hTkypqjECCnlXXCVupX?=
+ =?us-ascii?Q?V1dZ0ouqeD45pFYOX4Mm0E+CjKP3ALrX3e/kGvfTImnYrR7BvjsuqrUq+OgG?=
+ =?us-ascii?Q?8RoYOynPx0aPJcg+ZkDoFsP8vcMhfwTdSsmxTShkbGfmUomCqQHbvcv3+2Dp?=
+ =?us-ascii?Q?5wv8fSDQy8OXEOTbcwiWcze6RDpt993Pqpeoc19LzdO0ZKPV/qO1+qQK1eBS?=
+ =?us-ascii?Q?DXff3UR74kQvkHIxbbKX1IJTrZc8BLjiK7ugmKbVuot8Y2og/4Y+eosmm8F4?=
+ =?us-ascii?Q?pNOF65yEpIvSPNb6dAzEvOhhng6wCbje8OykXNR2mt4P3fH6BJgetKu+yocu?=
+ =?us-ascii?Q?VN/OzgCBijbBCepv04tLOo2FG/HVS6Vme1lF0AzzzsDI6aR50f6TQ2IYL8zU?=
+ =?us-ascii?Q?I6QnsiFdkH4QtLM60tx9cX8aIcX0W8CoKPnyymAoYUb7GFrla3fii8ozfrzN?=
+ =?us-ascii?Q?2Iaa?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?sAwztf20KCaXhfEELLc0lVfs7SMjcJPOJ2y9G0MD8kLnn0i+Pwp7uwzh1alr?=
+ =?us-ascii?Q?8ITn267czYZ80IHj6pk1zLO8okgbCE9EXHQJOHyOiFXDtZuvVfOUQf0PYFOH?=
+ =?us-ascii?Q?SXRRvQWVQz4bsZtdWFGjkHYvxBS2afuogpHljFnuEZw1LyNEZcFhHtf+FWD4?=
+ =?us-ascii?Q?lnWTdN3KiZI3HzfIVVt14y63Ol8DLV8TDcGjcK0jqPe4b0f511MuZnRr5xgZ?=
+ =?us-ascii?Q?Eww+IFJS+7iflu0eWgBCAVrEjkeFJaX7rHY158uYP0mVlienCquHqiPxxPFQ?=
+ =?us-ascii?Q?gLLCGs8xSmdcMlp7dDUerh56ImtZxoeM1wXOuRo1QWbBGMIVZxUbG0Phuy6S?=
+ =?us-ascii?Q?+VqgMg4y542/7WYf5FQ2rLqg9UIjMWcdSp5XGkJsCIOH7e99bzPN8qdS/sOU?=
+ =?us-ascii?Q?u+7EAhZeg8FmwPrzs/vmRo7sMtBk9SdCO2pvhXOiihpmZh46f/cbDxnPH7xD?=
+ =?us-ascii?Q?OlsVesgJv3vHRuTqYwVNaWOr1HVqsFHYp6p4vTMKELIue/xdxQL8xMrDTE5t?=
+ =?us-ascii?Q?Uy6f5Mp5VXBYELy3MIErdCY4KHRK7XkYkzZ3wj8JsLhNWgXR3Yl4jTYlyD+s?=
+ =?us-ascii?Q?wzaf2CrFJRO7DhC0Psfy2nwm9xzMErWMgMFkDLzqBEDfD4Xx8yTR8YjqhHBl?=
+ =?us-ascii?Q?FJfyDiWE22P93eD8U97ZelXKaK2qd5NGJckqyeTHM2rdUt0T57dPrTN5uttv?=
+ =?us-ascii?Q?iQxnABJdVJ2kIi9aSbY6tvNCiNzm2xMg2RJ+ytBSASnOuqJ6WfNtpjydxUF0?=
+ =?us-ascii?Q?tu/9Hl92sgsGEb/lX/264mOfTVLmUs/DpPT4PT3RcFmiDIvTPd3vL367jq9C?=
+ =?us-ascii?Q?L+BTe5yh9+0oLzrO1AFu4qLnbYl0odTJwOapXN49Y8+uSwrpcR2UYef+quWq?=
+ =?us-ascii?Q?0dhlvoGC0ySERcl579qg2VEwTt1QXsM7fKpkScvely94zd82ZSDmZREZC3yN?=
+ =?us-ascii?Q?dUerqyZTALopKBkNzeJ9nHUptVWCC+6jHN4o1lrfUrs69lTZnZln05ehq2vD?=
+ =?us-ascii?Q?byuIkOREP5I+rdjDxhv5UIdTknarErVTtoTqeyAFv9iB6oXk1vI6lA7ctJEQ?=
+ =?us-ascii?Q?piHpSqtBHDTSG2oobZ59fGoUXnY9K3aQmOdVN4ixjN1BgbJNJEOJTEDxoqqo?=
+ =?us-ascii?Q?/wJPP9meldVBQk4eyDI9Xr9h+wzMSQSRUWBMXqkXyqC1BmD+YdCMb3fCS43T?=
+ =?us-ascii?Q?WSc5kGqHXpk2Q4KGCWBpANAP8mZhaQtRkLUaZxB2KFu/pk2RD3Eva5vrLzLe?=
+ =?us-ascii?Q?moii50x8md+GBNrjpcQAnhHOe2jeT9sZzr/tTaRPTP3TjJD8eRl3N9tfn9/0?=
+ =?us-ascii?Q?103puE5ubZIbG85Ti6Xng3prC30eYTP2Zl2gTbA2kIDSCe9H8SPbCelpIX6I?=
+ =?us-ascii?Q?SkKB3N5U1D5mUclnEuJKzDh7wGeW?=
+X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-3e488.templateTenant
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9e13b3c7-6cf9-43a5-37f8-08df12472932
+X-MS-Exchange-CrossTenant-AuthSource: PUZPR01MB5141.apcprd01.prod.exchangelabs.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 10:01:35.6282
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSNPR01MB7651
 
-On Sat, 12 Sep 2026, Theo Andersen Carton <andersen.theo@gmail.com> wrote:
-> On dual-GPU Retina MacBooks the internal panel is muxed to the discrete
-> GPU at boot, so Apple's firmware never lights up eDP on the Intel side.
-> As a result it never sets DDI_A_4_LANES, and intel_ddi_max_lanes() reads
-> back a source maximum of two lanes for port A.
->
-> intel_dp_max_common_lane_count() then takes min3(source_max = 2,
-> sink_max = 4, ...) = 2, giving 2 x 2.7 Gbps x 8/10 = 4.32 Gbps of link
-> bandwidth. The panel's native 2880x1800@60 8bpc mode needs 8.1 Gbps, so
-> every mode is rejected with MODE_CLOCK_HIGH and the connector comes up
-> with no usable modes at all -- the panel stays dark whenever i915 is
-> made to drive it, which looks like a hardware limitation but is not.
->
-> The lanes are physically there. Reading the panel's DPCD from the AMD
-> side, where amdgpu drives it correctly, reports MAX_LANE_COUNT = 0x84,
-> i.e. 4 lanes, and amdgpu's own link_settings shows it running the panel
-> at 4 lanes / HBR. macOS likewise drives this panel from the iGPU at its
-> native resolution, so all four lanes are routed through the gmux to
-> DDI A. Only the register bit is unset.
->
-> intel_ddi_a_force_4_lanes() already exists for exactly this situation --
-> its neighbouring comment notes that "Some BIOS might fail to set this
-> bit on port A if eDP wasn't lit up at boot" -- but it only covers
-> Broxton and Geminilake. Extend it with a DMI quirk so affected Macs get
-> the correct lane count too.
->
-> The DMI match is deliberately narrow. Other dual-GPU models in the same
-> family are very likely affected identically, but they are untested, so
-> widen the match only as reports come in.
->
-> Tested on a MacBookPro11,5 (Broadwell, Iris Pro + Radeon R9 M370X):
-> with the quirk, DDI A comes up as 4 lanes, link training passes at
-> link rate 270000 / lane count 4, and i915 drives the internal panel at
-> its native 2880x1800.
->
-> Signed-off-by: Theo Andersen Carton <andersen.theo@gmail.com>
+Enable the UFS host controller and PHY on Sony Xperia Tama devices.
 
-I'm guessing this is v2 of [1], but I shouldn't have to guess.
+Provide the UFS reset GPIO and required VCC, VDDA-PHY, and VDDA-PLL
+regulators so that the UFS controller and PHY can initialize correctly.
 
-For future reference, please indicate patch revision, and log the
-differences between the revisions. See Documentation/process, other
-messages on the mailing list and git log for plenty of examples.
+The UFS host controller and PHY have been tested on the Akari, Apollo,
+and Akatsuki devices across multiple reboots without observing UFS data
+loss or corruption.
 
-Is there a bug report about this? Would be nice to see the logs in the
-failing case. See [2].
+Fixes: 30a7f99befc6 ("arm64: dts: qcom: Add support for SONY Xperia XZ2 / XZ2C / XZ3 (Tama platform)")
 
+Signed-off-by: Shujath Mohd <shujath@outlook.in>
+---
+ .../boot/dts/qcom/sdm845-sony-xperia-tama.dtsi | 18 +++++++++++++++---
+ 1 file changed, 15 insertions(+), 3 deletions(-)
 
-BR,
-Jani.
-
-
-[1] https://lore.kernel.org/r/CANFnrspHiK7ii28XPdLkOMyhSZcJ9xz6CT-kNX+oiiF+8N-2Fg@mail.gmail.com
-[2] https://drm.pages.freedesktop.org/intel-docs/how-to-file-i915-bugs.html
-
-
-> ---
->  drivers/gpu/drm/i915/display/intel_ddi.c    |  7 +++++
->  drivers/gpu/drm/i915/display/intel_quirks.c | 34 +++++++++++++++++++++
->  drivers/gpu/drm/i915/display/intel_quirks.h |  1 +
->  3 files changed, 42 insertions(+)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-> index 02a53c9848e1..f746287830b3 100644
-> --- a/drivers/gpu/drm/i915/display/intel_ddi.c
-> +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-> @@ -4976,6 +4976,13 @@ static bool intel_ddi_a_force_4_lanes(struct intel_digital_port *dig_port)
->  	if (display->platform.geminilake || display->platform.broxton)
->  		return true;
->  
-> +	/*
-> +	 * Machines whose firmware leaves eDP dark on the Intel side never set
-> +	 * the bit, so trust the quirk rather than the register.
-> +	 */
-> +	if (intel_has_quirk(display, QUIRK_DDI_A_FORCE_4_LANES))
-> +		return true;
-> +
->  	return false;
->  }
->  
-> diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
-> index 33245f44c0d5..feb28956a013 100644
-> --- a/drivers/gpu/drm/i915/display/intel_quirks.c
-> +++ b/drivers/gpu/drm/i915/display/intel_quirks.c
-> @@ -100,6 +100,20 @@ static void quirk_disable_psr2(struct intel_display *display)
->  	drm_info(display->drm, "PSR2 support not currently available for this setup, applying disable PSR2 quirk\n");
->  }
->  
-> +/*
-> + * Dual-GPU Macs boot with the internal panel muxed to the discrete GPU, so
-> + * the firmware never lights up eDP on the Intel side and consequently never
-> + * sets DDI_A_4_LANES -- even though all four lanes are wired through the gmux
-> + * to DDI A. Without the bit, port A is capped at two lanes, which is not
-> + * enough bandwidth for the panel's native mode, leaving the connector with no
-> + * usable modes at all.
-> + */
-> +static void quirk_ddi_a_force_4_lanes(struct intel_display *display)
-> +{
-> +	intel_set_quirk(display, QUIRK_DDI_A_FORCE_4_LANES);
-> +	drm_info(display->drm, "Applying DDI A force 4 lanes quirk\n");
-> +}
-> +
->  struct intel_quirk {
->  	int device;
->  	int subsystem_vendor;
-> @@ -142,6 +156,13 @@ static int intel_dmi_no_pps_backlight(const struct dmi_system_id *id)
->  	return 1;
->  }
->  
-> +static int intel_dmi_ddi_a_force_4_lanes(const struct dmi_system_id *id)
-> +{
-> +	DRM_INFO("DDI A is 4 lanes despite firmware on %s\n", id->ident);
-> +
-> +	return 1;
-> +}
-> +
->  static const struct intel_dmi_quirk intel_dmi_quirks[] = {
->  	{
->  		.dmi_id_list = &(const struct dmi_system_id[]) {
-> @@ -188,6 +209,19 @@ static const struct intel_dmi_quirk intel_dmi_quirks[] = {
->  		},
->  		.hook = quirk_no_pps_backlight_power_hook,
->  	},
-> +	{
-> +		.dmi_id_list = &(const struct dmi_system_id[]) {
-> +			{
-> +				.callback = intel_dmi_ddi_a_force_4_lanes,
-> +				.ident = "Apple MacBookPro11,5",
-> +				.matches = {DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
-> +					    DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "MacBookPro11,5"),
-> +				},
-> +			},
-> +			{ }
-> +		},
-> +		.hook = quirk_ddi_a_force_4_lanes,
-> +	},
->  };
->  
->  static struct intel_quirk intel_quirks[] = {
-> diff --git a/drivers/gpu/drm/i915/display/intel_quirks.h b/drivers/gpu/drm/i915/display/intel_quirks.h
-> index 970a4fe52faf..d2b8e9183c62 100644
-> --- a/drivers/gpu/drm/i915/display/intel_quirks.h
-> +++ b/drivers/gpu/drm/i915/display/intel_quirks.h
-> @@ -23,6 +23,7 @@ enum intel_quirk_id {
->  	QUIRK_EDP_LIMIT_RATE_HBR2,
->  	QUIRK_DISABLE_EDP_PANEL_REPLAY,
->  	QUIRK_DISABLE_PSR2,
-> +	QUIRK_DDI_A_FORCE_4_LANES,
->  };
->  
->  void intel_init_quirks(struct intel_display *display);
-
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama.dtsi b/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama.dtsi
+index 84842e5f77a0..9ee62abd9180 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama.dtsi
+@@ -792,9 +792,21 @@ &uart9 {
+ 	status = "okay";
+ };
+ 
+-/* BIG WARNING! DO NOT TOUCH UFS, YOUR DEVICE WILL DIE! */
+-&ufs_mem_hc { status = "disabled"; };
+-&ufs_mem_phy { status = "disabled"; };
++&ufs_mem_hc {
++	status = "okay";
++
++	reset-gpios = <&tlmm 150 GPIO_ACTIVE_LOW>;
++
++	vcc-supply = <&vreg_l20a_2p7>;
++	vcc-max-microamp = <600000>;
++};
++
++&ufs_mem_phy {
++	status = "okay";
++
++	vdda-phy-supply = <&vreg_l1a_0p9>;
++	vdda-pll-supply = <&vreg_l26a_1p2>;
++};
+ 
+ &usb_1 {
+ 	status = "okay";
 -- 
-Jani Nikula, Intel
+2.55.0
+
