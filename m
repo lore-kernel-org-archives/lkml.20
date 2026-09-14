@@ -1,108 +1,213 @@
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 619FE2BE7DD
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 04:06:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C402D3254A9
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 04:07:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789358764; cv=none; b=SmHME1CqhqelqLlQkgOOL+aeA8TrCs5wu3M/IHYvlJvtFRmBBLjAf03jCSjYkQgcqEzL9Tm7hl+VES2lcztQ0Tp909MnWzi30WuS+0dmybgZdRCasV9Dl3TT5fDhF0gNk+pYQMUUviGvxILcFLQAQe0NuGGNs9r8V7xUZELeLtA=
+	t=1789358870; cv=none; b=H1YGCwFJUmbtazqaVFLdMh9/kUn1LS6aRGnzgpbN5L4Qp9uLcLan/OfupL69y2pNqifRr/U96oFoyacBvCipZydq95mpOKPi0Wr4pLEmTNjbRQ79DuY4jrTQJfzNrQyGaXUGtoaTOV/IuSbC5k+MbnYYDaBO8pL9DgAwRI4aagE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789358764; c=relaxed/simple;
-	bh=hRQOLdp3TKXqen5+i8/UisG0MepPQxTBzBYqYOujO30=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=QmQMmk5xqrO/JGw5ec5PB5qD4a/t4Xx0QDLcP7CR4bfP728NMlisIJoEO3cTvwaExU+RXBEQdUBUU7o73P4ceuEqmxFBkSHCYbJV38TT1a6uMRmiWB4OPnTLS7lx5qrCaRYe+UTzVsHb/1fpo/rBdPutIEYWzHx+DND2pPzup9w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4b3962f71e7so3994666b6e.3
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 21:06:03 -0700 (PDT)
+	s=arc-20240116; t=1789358870; c=relaxed/simple;
+	bh=vsNqmwi/MgccqJf6ROxrYCEiQYYxP8rEBahorUqAVtA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=fu3TmiwiMB/fRIkVgZEdOVMdrRUrTS4W28W8lIr0a64w+KOEpGF02xFRTWEuvTMAvxzycI59jE0Pe4HbfS73TQmDnOmY2xBxjTsUdMKH5K2quBwKQr+H0DsnU9f1K2DCUIkMbiPxDroARsbIfsAA0+kLb79JzHA4VWt7xAfYQFg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=BZf66e8z; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Lbgt2hFW; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="BZf66e8z";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Lbgt2hFW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789358867;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=rCoc2R/ijUeWuWPNV3TxEtpKBXnNgpWvgPneT9lSNbM=;
+	b=BZf66e8zoMb1s00LKEKUOyl1DOXPlTaAMssOeLMenzp507OwBKaZfxV8xn5W6QbgKFILkT
+	N+bo0JpPDtnV7AUvLbWQPVkERROfywOBVw2UWgqZxZ2OII7J0p9mQHEj0cDVw7xq0o0HC6
+	5pV9plDzhbhOnFs1dabD1v0JMK9yM4o=
+Received: from mail-lf1-f69.google.com (mail-lf1-f69.google.com
+ [209.85.167.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-158-KPM68HqMNU6roLPIGzHVGg-1; Mon, 14 Sep 2026 00:07:45 -0400
+X-MC-Unique: KPM68HqMNU6roLPIGzHVGg-1
+X-Mimecast-MFC-AGG-ID: KPM68HqMNU6roLPIGzHVGg_1789358864
+Received: by mail-lf1-f69.google.com with SMTP id 2adb3069b0e04-5b76707e6d9so1446037e87.0
+        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 21:07:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1789358863; x=1789963663; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rCoc2R/ijUeWuWPNV3TxEtpKBXnNgpWvgPneT9lSNbM=;
+        b=Lbgt2hFWEKwh5XyxXko2EIuz5XdoeKN7pv66zz7vAHXer0SAkiSSbwuMzlLEguy60w
+         Oi4HKr7b8qZrZYg1szq9a/FfbsBUH8OcQBw6tL1eUAZiRHR0Xe87Wm5W8OVdelp1jgpL
+         JgMhFnsiGyUn2rrcdJdLFBH3JxpHH+ipmMlsWamVawEyiSIbtNmki8piLRDUVz7IamRx
+         KITwSKyGzxQaZSBpQNec7EMSrutRIOPclUwLj4dhi+fLpJzdQN8AmAnGO/liOj5CNwGG
+         0D4W/SloDvcyaurlxLgKRaAo9wi4p66ZGQ+EbrfJM5sfv6ahBuPOSW+6usFzql7w4Y47
+         4xeg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789358762; x=1789963562;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=FUK59AVPa6bF66ExLAH694aQ+UmTJxsBZOFYXNlF7lo=;
-        b=MeLnmbSK+syDj7w1E+zZ/U5T3oJrU6aHgf5oJNBQ/J5gpkbOOwJ+hOvH+OimqQzMJW
-         zqkSiQxb7BWxXaydk5VZIgbKT/So+NJD26QaurbYY9lVNLBgXru6UNJfo7BlXo4EHQZy
-         DGoq76NqQTTe1crZvUwF+5HTYl54oMT77HeGsfgP1xKhPRkVOBbpa8jZWrQlKxqjhmhJ
-         GPGPP+9MVgdaE0vfz92zaTLZsvvuzLfEsGbmChSMNVCL6qDq9rDy+cfKKV8Jsi/gR+tl
-         O0Qgh+nUoQHYTuJAiOyUp7RKmBlgT6zi2Pi3rqasBScBj3cEvngO0LEUQdBbEHXjxPei
-         r+OQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwwN9Pg6yFyGxb4TZ3TCzbGugnseVdLyk59zRpWvDrhRlu4G+eZR1tdaTPvBRppCTFuB+tVmeIGTo0V0CE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mMURirznjQJwWcnUsI4xEFURmjUu2hsab3yMbEI3ISoyQe6rcQ
-	VvqHShGSvnTIA36RwvDj6Gm1gVyXBxGXf5hZ+ODWhBF4ikCpu8fatjPxyij1sRHqDAPX25qtdmI
-	qjs/1X0pUBUsBRBoy9S0WtncTqhbI6IzWV558gliq8YaTLRQ2pcqXbXOl5Jo=
+        d=1e100.net; s=20251104; t=1789358863; x=1789963663;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rCoc2R/ijUeWuWPNV3TxEtpKBXnNgpWvgPneT9lSNbM=;
+        b=LTQcny0ZcdMlJDnlmX49v15BjtTrYM0OqVLaG1VZxGzfhHDRMDLd2pEDjgonIfC7Xs
+         1wuISpIakgMQy341h+dD2uwt9PvVGPnEgAYh0AQ/B4F7l2T7OCDG1jR0xlkbWBDcCEqX
+         z2dw2/800yoo+i/vvXzLym8Pb2M0kiP/P3hz7MhgREyH5E1ccjVKdpafxVvJY/HoVmBn
+         coEdFPTwfA+UaIQ1FFxZv8BHYLwfHGMpJrYc9NpaAOgPiXLa+aAuFOE24IQ3f2F/o9H+
+         MlJ+IECqqLBxNB3+S8TvmWtTA6tzTdWUHjRQyJ8hDNf649h2Rp9lVc8SxW1gBjbRPWUa
+         36GQ==
+X-Gm-Message-State: AFuF++kmA9+UUKMS3PBl/NuL+tkSkho4z4Fw8AI6CkRMnhjJe3p8f2Yz
+	jGOymqdVze7YTgKsx7LeejrahhJ+PPojtXUBz8gfiE3FIxB9Weksm6lIeGMgYYWNUSzaj/fFZCW
+	3cdMZGGdGlqrMDUD8VDEAWHng/6U1y8QAvg0UR+/I8CwfK8J3NCy81wYrHI0ztDkfkb+4MVd1
+X-Gm-Gg: AYBFou3+3LkZc2r3Oy4ldZ3qIuFN5O2xo7/gmfm+8s47+s3O9hLQLN6A2mzHtZd35S6
+	Yo7aPHK3theOekswfL6ZOpA0qDk1kiIpbsb/2bijmsO8ScIE6ZHsJ1RF7nTgenDGk+RqOR1VEiJ
+	+djlOQUpwO34O96GQMYHXyW3O/aVh0t7g71w7kKFaI1pmN0xOSjxcfofQf5T5ThI3mD5kL0se43
+	9jFoppJYaYSHPNGAkApgkt1bC5GnwnFaMiIMiJW04W/2b14FfrhX+F+oorYZJbN1sjSuDGm9Ilo
+	YjvC0v0Ie9w1rjarExUb+F/qvdfHjde9J+DJLRSdwmLBEzN7SVhOg7tc2rIGJKY20Pd5I8NLu98
+	hNdTUanu4oXH1b/tORYbo
+X-Received: by 2002:a05:6512:3347:b0:5b1:5ccf:5268 with SMTP id 2adb3069b0e04-5b8ae67d301mr224134e87.1.1789358863533;
+        Sun, 13 Sep 2026 21:07:43 -0700 (PDT)
+X-Received: by 2002:a05:6512:3347:b0:5b1:5ccf:5268 with SMTP id 2adb3069b0e04-5b8ae67d301mr224127e87.1.1789358863047;
+        Sun, 13 Sep 2026 21:07:43 -0700 (PDT)
+Received: from fedora (89-27-86-246.bb.dnainternet.fi. [89.27.86.246])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8a0456c11sm2098666e87.21.2026.09.13.21.07.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 13 Sep 2026 21:07:42 -0700 (PDT)
+From: mpenttil@redhat.com
+To: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org,
+	=?UTF-8?q?Mika=20Penttil=C3=A4?= <mpenttil@redhat.com>,
+	Maxime Ripard <mripard@kernel.org>
+Subject: [PATCH] drm/tests: hdmi: fix infoframes tests
+Date: Mon, 14 Sep 2026 07:07:23 +0300
+Message-ID: <20260914040723.2593700-1-mpenttil@redhat.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1510:b0:4b9:a8ac:478 with SMTP id
- 5614622812f47-4c7b57a0177mr370932b6e.22.1789358762353; Sun, 13 Sep 2026
- 21:06:02 -0700 (PDT)
-Date: Sun, 13 Sep 2026 21:06:02 -0700
-In-Reply-To: <20260914035231.25468-1-kartikey406@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa772aa.016ef6ab.da411.0009.GAE@google.com>
-Subject: Re: [syzbot] [raid?] UBSAN: array-index-out-of-bounds in super_90_sync
-From: syzbot <syzbot+9e3014263a35700ab49b@syzkaller.appspotmail.com>
-To: kartikey406@gmail.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hello,
+From: Mika Penttilä <mpenttil@redhat.com>
 
-syzbot has tested the proposed patch but the reproducer is still triggering an issue:
-UBSAN: array-index-out-of-bounds in super_90_sync
+drm_atomic_commit() calls drm_atomic_check_only() internally. Calling
+drm_atomic_check_only() explicitly before the commit leaves the state
+marked as checked and triggers drm_WARN_ON(state->checked) when the
+commit checks the state again.
 
-loop0: detected capacity change from 0 to 4096
-md: async del_gendisk mode will be removed in future, please upgrade to mdadm-4.5+
-------------[ cut here ]------------
-UBSAN: array-index-out-of-bounds in drivers/md/md.c:1698:17
-index 124 is out of range for type 'mdp_disk_t [27]'
-CPU: 2 UID: 0 PID: 6030 Comm: syz-executor296 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- ubsan_epilogue+0xa/0x30 lib/ubsan.c:233
- __ubsan_handle_out_of_bounds+0xcc/0xf0 lib/ubsan.c:455
- super_90_sync+0x1eed/0x1ff0 drivers/md/md.c:1698
- sync_super drivers/md/md.c:2506 [inline]
- sync_sbs drivers/md/md.c:2748 [inline]
- md_update_sb+0xbba/0x2840 drivers/md/md.c:2924
- state_store+0x31e/0x1340 drivers/md/md.c:3246
- rdev_attr_store+0x1d9/0x560 drivers/md/md.c:3769
- sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
- kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
- new_sync_write fs/read_write.c:595 [inline]
- vfs_write+0x6af/0x1050 fs/read_write.c:687
- ksys_write+0x12a/0x250 fs/read_write.c:739
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f8bf35ed6f7
-Code: 48 89 fa 4c 89 df e8 98 1d 00 00 8b 93 08 03 00 00 59 5e 48 83 f8 fc 74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44 24 10 0f 05 <5b> c3 0f 1f 80 00 00 00 00 83 e2 39 83 fa 08 75 de e8 23 ff ff ff
-RSP: 002b:00007ffeefb8d700 EFLAGS: 00000202 ORIG_RAX: 0000000000000001
-RAX: ffffffffffffffda RBX: 000055558c0d1400 RCX: 00007f8bf35ed6f7
-RDX: 0000000000000008 RSI: 00007f8bf3629c12 RDI: 0000000000000003
-RBP: 00007f8bf3629c12 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000202 R12: 00007ffeefb8d7d0
-R13: 00007f8bf3629b5f R14: 00007ffeefb8d8e0 R15: 0000000000000002
- </TASK>
----[ end trace ]---
+Remove the redundant explicit checks.
 
+Fixes: 7436a87db99d ("drm/tests: hdmi: check the infoframes behaviour")
+Cc: Maxime Ripard <mripard@kernel.org>
+Signed-off-by: Mika Penttilä <mpenttil@redhat.com>
+---
+ .../drm/tests/drm_hdmi_state_helper_test.c    | 54 -------------------
+ 1 file changed, 54 deletions(-)
 
-Tested on:
-
-commit:         704340f1 Merge tag 'x86_urgent_for_7.3-rc4' of git://g..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=10bb35f9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
-dashboard link: https://syzkaller.appspot.com/bug?extid=9e3014263a35700ab49b
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=14dd08c9580000
+diff --git a/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c b/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
+index 353a261d42da..f8ae1a0bd5c0 100644
+--- a/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
++++ b/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
+@@ -2929,15 +2929,6 @@ static void drm_test_check_infoframes(struct kunit *test)
+ 
+ 	old_hdmi_update_failures = priv->hdmi_update_failures;
+ 
+-	ret = drm_atomic_check_only(state);
+-	if (ret == -EDEADLK) {
+-		drm_atomic_commit_clear(state);
+-		ret = drm_modeset_backoff(&ctx);
+-		if (!ret)
+-			goto retry_crtc_state;
+-	}
+-	KUNIT_ASSERT_EQ(test, ret, 0);
+-
+ 	ret = drm_atomic_commit(state);
+ 	if (ret == -EDEADLK) {
+ 		drm_atomic_commit_clear(state);
+@@ -3034,15 +3025,6 @@ static void drm_test_check_reject_avi_infoframe(struct kunit *test)
+ 
+ 	old_hdmi_update_failures = priv->hdmi_update_failures;
+ 
+-	ret = drm_atomic_check_only(state);
+-	if (ret == -EDEADLK) {
+-		drm_atomic_commit_clear(state);
+-		ret = drm_modeset_backoff(&ctx);
+-		if (!ret)
+-			goto retry_crtc_state;
+-	}
+-	KUNIT_ASSERT_EQ(test, ret, 0);
+-
+ 	ret = drm_atomic_commit(state);
+ 	if (ret == -EDEADLK) {
+ 		drm_atomic_commit_clear(state);
+@@ -3153,15 +3135,6 @@ static void drm_test_check_reject_hdr_infoframe_bpc_8(struct kunit *test)
+ 
+ 	old_hdmi_update_failures = priv->hdmi_update_failures;
+ 
+-	ret = drm_atomic_check_only(state);
+-	if (ret == -EDEADLK) {
+-		drm_atomic_commit_clear(state);
+-		ret = drm_modeset_backoff(&ctx);
+-		if (!ret)
+-			goto retry_conn_state;
+-	}
+-	KUNIT_ASSERT_EQ(test, ret, 0);
+-
+ 	ret = drm_atomic_commit(state);
+ 	if (ret == -EDEADLK) {
+ 		drm_atomic_commit_clear(state);
+@@ -3276,15 +3249,6 @@ static void drm_test_check_reject_hdr_infoframe_bpc_10(struct kunit *test)
+ 
+ 	old_hdmi_update_failures = priv->hdmi_update_failures;
+ 
+-	ret = drm_atomic_check_only(state);
+-	if (ret == -EDEADLK) {
+-		drm_atomic_commit_clear(state);
+-		ret = drm_modeset_backoff(&ctx);
+-		if (!ret)
+-			goto retry_conn_state;
+-	}
+-	KUNIT_ASSERT_EQ(test, ret, 0);
+-
+ 	ret = drm_atomic_commit(state);
+ 	if (ret == -EDEADLK) {
+ 		drm_atomic_commit_clear(state);
+@@ -3387,15 +3351,6 @@ static void drm_test_check_reject_audio_infoframe(struct kunit *test)
+ 
+ 	old_hdmi_update_failures = priv->hdmi_update_failures;
+ 
+-	ret = drm_atomic_check_only(state);
+-	if (ret == -EDEADLK) {
+-		drm_atomic_commit_clear(state);
+-		ret = drm_modeset_backoff(&ctx);
+-		if (!ret)
+-			goto retry_crtc_state;
+-	}
+-	KUNIT_ASSERT_EQ(test, ret, 0);
+-
+ 	ret = drm_atomic_commit(state);
+ 	if (ret == -EDEADLK) {
+ 		drm_atomic_commit_clear(state);
+@@ -3438,15 +3393,6 @@ static void drm_test_check_reject_audio_infoframe(struct kunit *test)
+ 
+ 	old_hdmi_update_failures = priv->hdmi_update_failures;
+ 
+-	ret = drm_atomic_check_only(state);
+-	if (ret == -EDEADLK) {
+-		drm_atomic_commit_clear(state);
+-		ret = drm_modeset_backoff(&ctx);
+-		if (!ret)
+-			goto retry_crtc_state_2;
+-	}
+-	KUNIT_ASSERT_EQ(test, ret, 0);
+-
+ 	ret = drm_atomic_commit(state);
+ 	if (ret == -EDEADLK) {
+ 		drm_atomic_commit_clear(state);
+-- 
+2.55.0
 
