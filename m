@@ -1,155 +1,185 @@
-Received: from wind.enjellic.com (wind.enjellic.com [67.230.224.160])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9A8B4377567;
-	Mon, 14 Sep 2026 21:24:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.230.224.160
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73D73340281
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 21:25:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789421090; cv=none; b=YA4aKoypiOmLA6oFkgKy3rTbqkYT0gS/FLJMTUQdv6Hq9hdduxyc84HLVSKHfwvTkhCYG95D9lTJDU4pkZGPMDSJ+5nCHaypR74SfG2pq4vvZ1NDMhGfFWEWpFy8QrMyz/XRwmlG9qBsKv212dveGXWWxCBxMUPWPZzYAjix1pg=
+	t=1789421147; cv=none; b=tKPn/WQ0WHNpobXj9NGfQqtkLMwsrm+JeokALg07uZkNlDjTdnyh8IQfGJWDurYG7UwmOBeOJC8UBDk9N9fRHT3l/q/uM+/jzXo2NIPmDx774t/aVhrztRjett8HR2kCMzxrDZpLWaa3GXqi07ttkQu6ZkHTkC4zxBl/q55RsXI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789421090; c=relaxed/simple;
-	bh=NViCHrnd3m24sOLMApGT9OBLH5NNtssA4JEmXRlkfUs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tfAXUyhwTN5NdE6t/s1y6CJQsaBjiqWpOoPKOhxuCIJ9LuGZmB8kJ7RhPEc7i7mHcfXXv+pyiXqk1Xe7gwSEucnP51o+BewnVb6GSP+z5SqIc8beFwtsjQuyzdNZsAsmt4gtAVG/qaTqSg+kZHzmy+a6cD5bl9VtEXY1zd3onqo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=enjellic.com; spf=pass smtp.mailfrom=wind.enjellic.com; arc=none smtp.client-ip=67.230.224.160
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=enjellic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wind.enjellic.com
-Received: from wind.enjellic.com (localhost [127.0.0.1])
-	by wind.enjellic.com (8.15.2/8.15.2) with ESMTP id 68ELIZgV022271;
-	Mon, 14 Sep 2026 16:18:35 -0500
-Received: (from greg@localhost)
-	by wind.enjellic.com (8.15.2/8.15.2/Submit) id 68ELIWZT022270;
-	Mon, 14 Sep 2026 16:18:32 -0500
-Date: Mon, 14 Sep 2026 16:18:32 -0500
-From: "Dr. Greg" <greg@enjellic.com>
-To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Cc: Paul Moore <paul@paul-moore.com>, Justin Suess <utilityemal77@gmail.com>,
-        Alexei Starovoitov <ast@kernel.org>,
-        Daniel Borkmann <daniel@iogearbox.net>,
-        Andrii Nakryiko <andrii@kernel.org>, KP Singh <kpsingh@kernel.org>,
-        Matt Bobrowski <matt@bobrowski.net>,
-        Micka??l Sala??n <mic@digikod.net>,
-        Alexander Viro <viro@zeniv.linux.org.uk>,
-        Christian Brauner <brauner@kernel.org>, Kees Cook <kees@kernel.org>,
-        Casey Schaufler <casey@schaufler-ca.com>,
-        G??nther Noack <gnoack@google.com>, Jan Kara <jack@suse.cz>,
-        Song Liu <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>,
-        Eduard <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-        Jiri Olsa <jolsa@kernel.org>, Tingmao Wang <m@maowtm.org>,
-        bpf <bpf@vger.kernel.org>,
-        LSM List <linux-security-module@vger.kernel.org>,
-        LKML <linux-kernel@vger.kernel.org>,
-        Linus Torvalds <torvalds@linux-foundation.org>
-Subject: Re: LSM boundaries. Was: [PATCH bpf-next v3 04/15] lsm: Add the
- bpf_lsm_policy_release kfunc and policy object destructor
-Message-ID: <aqhkqDvwM6loGihB@wind.enjellic.com>
-Reply-To: "Dr. Greg" <greg@enjellic.com>
-References: <CAHC9VhQHZ+ngFdzKqmnzBh341CGEg-jexu+QYU8=1qXK=u-x-Q@mail.gmail.com>
- <aqHUw6k0Mf83CGFT@zenbox>
- <CAHC9VhTM7emi9vxs+5Za8Hrc_e9dg7fZx+Z6BGUc4VQ1qhEAUA@mail.gmail.com>
- <DLD0VQ3D8CYC.3V5ZT8HDMY4IH@gmail.com>
- <aqTZdCz6JaoK16Fp@zenbox>
- <DLDL7KK3FZKU.17ADLLWJVXB5F@gmail.com>
- <CAHC9VhS0JckwfomqLTUJkZZkDSgeRXYOjMmPQYErgYynQYqMKQ@mail.gmail.com>
- <CAADnVQJCJjy9Eiwn6-88c0iOk4LfgPU6KBv+w0JZdBzmXBMUCw@mail.gmail.com>
- <CAHC9VhTh446SkpPF-hUiLYOHipuurzkgju_nH9LsRGdERSAL1w@mail.gmail.com>
- <CAADnVQLZscKkCxvK5puuOE1aN8nW6PnaS+_dx_zBQjjP2T-DFg@mail.gmail.com>
+	s=arc-20240116; t=1789421147; c=relaxed/simple;
+	bh=bqFq1sFhgxNS/knQASD1NGsWJNtqHqrXmQFR35YL73o=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=RZsetRHw2J99T3fABqydAkFH/iEz9/pMp2dExuOmxkhdgTBvHgHKbL1hMwbSm1zKuZjyWo8K/YpIBJ+dga+0PaJSrKYBdwQpZv5NT7ZMnA9k2awzPVjusKvv3r63+x8Rhv3x6y+slYBuo5vwpVJkXJTtzFrGHqwH/msWgbiMGUQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dE3DOaW9; arc=none smtp.client-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dE3DOaW9"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-485850cbac3so2163845f8f.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:25:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789421144; x=1790025944; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uiicOJgcAHnqowOM1/oeJPpa4eohRRRcrqsrnETq/qk=;
+        b=dE3DOaW9qpPmkZTf0RAytAEw4pKYc/qAdhnN6xxRgywwABCp1jsS4S9FCdVkimYf/I
+         HKkLqYZpRDBGADtgUH4SswJV5D0D8xzAY8jrgbnru8RyjZVDSAegoUdlT78ShQy3hnSk
+         /Hw6sRWvBxmEUtoU/JKnOX/8+YtyXAxRgNO2Om2EyjJ4xsqcXdTmWqZaJOuRDFw3WhpK
+         3V6ZliMOV3rmA+INNcZ+kLCQJQeUQ52NqUwcn2lnl4nZuehUi9rnjFTUmw7johPr3MGX
+         zemhdoFa3qfOxhyzSwUXEi3j/G0t+xCEDH6MvyhjXXELkJ/bAZnG1GAQ/rB/DLn7xpdL
+         1R2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789421144; x=1790025944;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uiicOJgcAHnqowOM1/oeJPpa4eohRRRcrqsrnETq/qk=;
+        b=qyESv81B+29x5v/RzauD2HIMug+DlIisfnyVO12DLvwqGyQ4UpaVXGFfCbi6MrXn6h
+         rswDvWPS1SyYHcKK22isK6NHIPgJu9Qpcls9E8DEzFQt1PyI/mPD8/pQKWo0VO+3qKIB
+         sv0tcYcIVtNZYAV8vNRJV+B4r0gDiRhKaELdyfovjhx3fZmy0exlSd0oqXy3eGBAqqcN
+         OEq0OuCSLAdSLo7Q+LCtK5J1Af2jUhOYe9whHgrsWLvXeivsr1gzDV/l/977IC6EioyP
+         5Cg+dyFyiKxl3G5yYqQoeKwbv08kxbShOJZvF49PgEiMeDcjn/EK5v71XoA90LozaqS1
+         kftg==
+X-Forwarded-Encrypted: i=1; AKwUvBxq3D7L29Gr3nR46FH8/v8d7cPnlhKGupvh774/PYfXysLd5sfKQRaPUirFBi6ZwGW7p6n5Q6twed7R+LU=@vger.kernel.org
+X-Gm-Message-State: AFuF++m1SlGuTae/7N+Iuo3gkCfHVU7ur0zblEp+/qd5zTu+vvVOlYzx
+	lFnnn/uxTcIV061eLDIr3XMyfyC3wt+2PuM87iXVDbSQlgv6Xv+mCaisEFvvMg7Q
+X-Gm-Gg: AYBFou2RTWndo1gr78bU+OUKCIZZRp5n2SmWj5VpRc0dAdkjblH2u/6Y/9ATlRrjpUz
+	Fyu0b1Df6x1Uuid1M6UY5GyFrWBSebX7rK8vyb/NAlwYIt+f7BVvCbmTyxeRm6D6F2FlHIpzcMF
+	uF+/5JTSz8StwoiLGFxuGc6fWP3kbtwmrQE/UbWeWGumDO7L2PzKf4OK2QXaROmzYe0qYB/f/Kb
+	PHuMNN57oKMcSthjOGyij8Jzp84k4dhgzm9Yf3BbuFVXBSl1xSaEkgUMxLpqWebe8ZNZqCP7wRS
+	H7xttQtxpCn0Tyw72mfgjG0Pi904FDqLXQJ0oPFreO4kvlMKwhQObqb/DK9K296vGR1UkFDPJ9i
+	bhJyrDijohV3nZJw2HPmTq7G2u4bMFCp0/wclho57OiUlO0Dpf6HA4bfUT4/9VhVikA9esDYz9G
+	RDUfmSGyOsLt7c+0zAMQZKCZ3V4yVYk3VmzLqvN6Dnt6Bg3wIWnTMJSbt32dStbT/GNbhFAo6JN
+	TUN0ZnfXJriTRb8ICzqfwQeWPCyD+iushHQ8n4UdHz3rRW7fLiQES6QFx2P08cxWfWsXkRs8sMh
+	MF1f0gBcwAdrfKSZupWvqO+61gJNnIAC5LqSwrdkoteX/gJTQiILEGcoYXCVhstvaJXdo7i0YGg
+	Y9Q==
+X-Received: by 2002:a5d:5e92:0:b0:486:f8c4:21e with SMTP id ffacd0b85a97d-48702b16c03mr5089854f8f.28.1789421143402;
+        Mon, 14 Sep 2026 14:25:43 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-af2f-db01-e46b-1486-90be-3932.310.pool.telefonica.de. [2a02:3100:af2f:db01:e46b:1486:90be:3932])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb33fc02sm28563643f8f.16.2026.09.14.14.25.42
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 14 Sep 2026 14:25:42 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	linux-rtc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Arnd Bergmann <arnd@arndb.de>
+Subject: [PATCH] rtc: class: Make the time32 hctosys limit configurable
+Date: Mon, 14 Sep 2026 23:25:37 +0200
+Message-Id: <20260914212537.1452-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAADnVQLZscKkCxvK5puuOE1aN8nW6PnaS+_dx_zBQjjP2T-DFg@mail.gmail.com>
-X-Greylist: Sender passed SPF test, not delayed by milter-greylist-4.2.3 (wind.enjellic.com [127.0.0.1]); Mon, 14 Sep 2026 16:18:35 -0500 (CDT)
+Content-Transfer-Encoding: 8bit
 
-On Sun, Sep 13, 2026 at 07:24:14PM -0700, Alexei Starovoitov wrote:
+On 32-bit systems with RTC_HCTOSYS enabled, rtc_hctosys() rejects
+RTC dates whose seconds value exceeds INT_MAX, even when userspace
+uses a 64-bit time_t. This leaves system time uninitialized by the RTC.
 
-> On Sun, Sep 13, 2026 at 5:10???PM Paul Moore <paul@paul-moore.com> wrote:
-> >
-> > On Sun, Sep 13, 2026 at 7:25???PM Alexei Starovoitov
-> > <alexei.starovoitov@gmail.com> wrote:
-> > > On Sun, Sep 13, 2026 at 12:41???PM Paul Moore <paul@paul-moore.com> wrote:
-> > > > On Sat, Sep 12, 2026 at 3:33???PM Alexei Starovoitov
-> > > > <alexei.starovoitov@gmail.com> wrote:
-> > > > > On Fri Sep 11, 2026 at 10:26 PM PDT, Justin Suess wrote:
-> > > > > >
-> > > > > > If fs/, mm/, drivers/, net/, are permitted to have kfuncs, then why not
-> > > > > > security/? kfuncs.rst doesn't seem to forbid this.
-> > > > >
-> > > > > because fs, mm, net see the value in bpf. bpf helps these subsytems
-> > > > > to focus on their core technologies and moves policy decisions out of
-> > > > > kernel and into bpf.
-> > > > > while lsm people treat bpf as arch-enemy.
-> > > >
-> > > > It's amusing to read this when just this week we merged a patchset
-> > > > into the LSM tree for the benefit of those writing BPF LSMs.  If you
-> > > > look at the discussion around patch 2/2 you will even see a reasonable
-> > > > exchange between Matt Bobrowski, a BPF LSM maintainer, and me about
-> > > > the patch.  Alexei is obviously welcome to his own opinion, but I
-> > > > would encourage those reading this thread to look beyond his comments.
-> > > >
-> > > > https://lore.kernel.org/linux-security-module/20260904-lsm-mount-idmaps-v3-0-920a1963675d@amutable.com/
-> > >
-> > > And that's an example of unacceptable land grab by LSM folks
-> > > that I'm concerned about.
-> >
-> > I made sure that patchset was ACK'd or Reviewed-by'd a VFS maintainer,
-> > a BPF LSM maintainer, and the Smack maintainer before merging (I
-> > covered the LSM and SELinux parts).  You might want to double check
-> > your definition of "land grab".
+Commit b3a5ac42ab18 ("rtc: hctosys: Ensure system time doesn't overflow
+time_t") introduced this limit to protect time32 userspace from future
+RTC dates that can break boot. The same limit prevents systems with
+time64 userspace from initializing the clock from valid post-2038 dates.
 
-> You're still missing the point.
-> Christian could have landed it via vfs tree with your ack for security/*.
-> You have no power over lsm hook changes within vfs.
+Add RTC_HCTOSYS_TIME32_LIMIT for 32-bit kernels, defaulting to y to
+preserve the existing safeguard. Allow integrators to disable it once
+their entire userspace, including init, supports post-2038 dates.
+Warn on rejection with the RTC date and option name so users can
+identify the cause and find the setting.
 
-I've indicated to a number of colleagues that this issue would begin
-to generate considerable dialogue, once everyone finished with their
-summer holidays, I see that fact is now eventuating.
+Keep the option independent of COMPAT_32BIT_TIME. Userspace with a
+64-bit time_t may still need legacy syscalls for operations that do
+not represent post-2038 dates.
 
-There is an important discussion to be had that affects the ability of
-Linux to serve the security needs of its constituency, which at this
-point now, is pretty much the planet and beyond.  Advancing a relevant
-discussion requires casting the underlying issue involved in all of
-this into perhaps the glow of harsh sunlight.
+Fixes: b3a5ac42ab18 ("rtc: hctosys: Ensure system time doesn't overflow time_t")
+Link: https://lore.kernel.org/all/20220908115337.1604277-1-arnd@kernel.org/
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+Tested this exact patch on SAM9X75 Curiosity (32-bit ARM, rtc0),
+using three full kernel builds and six powered warm boots:
 
-The issue at hand is not who gets to ACK or NACK various security
-relevant infrastructure, based on who manages source code in a
-particular directory heirarchy.
+  TIME32_LIMIT  COMPAT_32BIT_TIME  RTC in 2026    RTC in 2040
+  y             y                 hctosys=1      hctosys=0, epoch + 2 s
+  n             y                 hctosys=1      hctosys=1, correct time
+  n             n                 hctosys=1      hctosys=1, correct time
 
-The underlying motivation driving all of this is who gets to control
-and define what can be advertised as 'mainline' Linux security.  This
-has been the bane of Linux security development for a quarter century
-now, Linus openly acknowledges this fact, ie. security people can
-never agree on how to do things.
+The default-limit 2040 boot logged the rejected date and
+CONFIG_RTC_HCTOSYS_TIME32_LIMIT=y. The other boots did not warn.
+Legacy clock_gettime and futex returned -ENOSYS with COMPAT_32BIT_TIME=n.
+Tests used a minimal time64 initramfs without NTP. Current clocks and
+all original boot files were restored after testing.
 
-Given the power that this control conveys on certain parties, the
-objective of maintaining this type of control is certainly
-understandable.
+Host tests checked Kconfig defaults and dependencies, the INT_MAX
+boundary and error paths.
 
-I have deep respect for Linus, but he has failed to demonstrate
-appropriate leadership on this front.  Indicating that people should
-simply figure out how to use what is already in Linux, given the
-current technological tsunami of machine modeling/learning overtaking
-all of us, is so hopelessly naive that I cannot believe that he
-actually believes what he is saying.
+ drivers/rtc/Kconfig | 23 +++++++++++++++++++++++
+ drivers/rtc/class.c |  8 +++++---
+ 2 files changed, 28 insertions(+), 3 deletions(-)
 
-The current static security architectures in Linux, supported by the
-LSM model and its development processes, while still technically
-useful, will not be operationally relevant to the technology industry
-by the end of the decade.
+diff --git a/drivers/rtc/Kconfig b/drivers/rtc/Kconfig
+index 05b9233b9418..a594c041bc35 100644
+--- a/drivers/rtc/Kconfig
++++ b/drivers/rtc/Kconfig
+@@ -30,6 +30,29 @@ config RTC_HCTOSYS
+ 	  the value read from a specified RTC device. This is useful to avoid
+ 	  unnecessary fsck runs at boot time, and to network better.
+ 
++config RTC_HCTOSYS_TIME32_LIMIT
++	bool "Reject RTC dates after the 2038 cutoff"
++	depends on RTC_HCTOSYS && !64BIT
++	default y
++	help
++	  Reject RTC dates after 03:14:07 UTC on 19 January 2038 when
++	  initializing the system clock. This preserves the existing
++	  safeguard for userspace using a signed 32-bit time_t.
++
++	  A rejected date leaves system time unchanged, normally near the
++	  Unix epoch, and the RTC's hctosys sysfs attribute reads 0. Userspace
++	  must supply the time if no other source has initialized it.
++
++	  Disable this only if the entire userspace, including the init
++	  system, supports dates beyond 2038. Otherwise, an invalid future
++	  date in the RTC may prevent booting.
++
++	  Disabling this check does not require disabling COMPAT_32BIT_TIME:
++	  userspace with a 64-bit time_t may still use legacy system calls
++	  for operations that do not represent dates beyond 2038.
++
++	  If unsure, say Y.
++
+ config RTC_HCTOSYS_DEVICE
+ 	string "RTC used to set the system time"
+ 	depends on RTC_HCTOSYS
+diff --git a/drivers/rtc/class.c b/drivers/rtc/class.c
+index 01ba04028f1f..18ea141ab8c2 100644
+--- a/drivers/rtc/class.c
++++ b/drivers/rtc/class.c
+@@ -72,12 +72,14 @@ static void rtc_hctosys(struct rtc_device *rtc)
+ 
+ 	tv64.tv_sec = rtc_tm_to_time64(&tm);
+ 
+-#if BITS_PER_LONG == 32
+-	if (tv64.tv_sec > INT_MAX) {
++	if (IS_ENABLED(CONFIG_RTC_HCTOSYS_TIME32_LIMIT) &&
++	    tv64.tv_sec > INT_MAX) {
++		dev_warn(rtc->dev.parent,
++			 "hctosys: rejecting %ptR UTC due to CONFIG_RTC_HCTOSYS_TIME32_LIMIT=y\n",
++			 &tm);
+ 		err = -ERANGE;
+ 		goto err_read;
+ 	}
+-#endif
+ 
+ 	err = do_settimeofday64(&tv64);
+ 
 
-We need a technical architecture to fix to what is a political
-problem.  That seems consistent with Linux development ostensibly
-being about technology rather than politics.
+base-commit: 587858367581b9c55c3690f4e63382ad622719d4
+-- 
+2.39.5 (Apple Git-154)
 
-The steps in recovery are admitting, and then identifying, that one
-has a problem, before it can be fixed.  Given the agendas involved it
-seems like a great role for the Linux Foundation to assist with.
-
-We now return you to your regularily scheduled programming of who gets
-to ACK/NACK kfuncs.
-
-Greg
-
-My opinions and those of my Golden Retriever Hezzie only.
