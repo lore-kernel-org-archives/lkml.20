@@ -1,108 +1,104 @@
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A36B449B5CC
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 18:12:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D66FA49CF40;
+	Mon, 14 Sep 2026 18:13:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789409558; cv=none; b=q/M8bs6R8pG9KzvkXjyTQUETzUNsqNsM5F8ZAAnYZljHE8Tk6qmzB8Bv4SVXZCgBwl/JiGVpuSMWBNusYul9OK+qNMlxAED23BZiFPXQg2saN9aN2lFMGP95aUlRHXmEW1vsabo6igAgs/HrlDrupOyqj23fqV3BznQIBPRGpCA=
+	t=1789409632; cv=none; b=qnucUX598bkmtJZz8P/v2rQ1YhjTGy9kapowawb5FRlfODDPNHAzC7uUTkN/M5xfiIjCN7tBBYZg5xTVNEJq+sjCZZFpHoQF6fSybTqQLuN4iAHf/7euQLfKKrFqIn3GQR+pJFmgrdKdd/xFpJqQqE7oFZ4cJSOQWBBs6et/xQs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789409558; c=relaxed/simple;
-	bh=dJrvpB5i1rMlVAI+qV3aDnzI33qsio45lawj5JfEjHs=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=lRVRavCBtGrKZnL1RpSiX8x4P2O0q+Ea1E2/B7ECJ1U4dOP7EZ0AGpzquu8/mjmK/BwRo6C1O2OcBgSuCWdv6gAeuUxm7JTaYPiqO+YSJrJqgi2sdBBJEqZ7eOvvnpvFZ8tYL9TE3Yu160523v2gMj9cGKCo4e3Fzxh0ZUYDNAg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ll3QclfO; arc=none smtp.client-ip=209.85.216.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1789409632; c=relaxed/simple;
+	bh=7rRaIlb5/NILuLBTb73lVXxBaNkHm34RtM8W6nwjL5A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RcLBxhHFM2dK6c+Sk7OO7flzvuuIhHaT45gvbqKuagSMsSFEY9l8A2QG0Pb0ywUiQH50J+GEffC7Q993uEjMGbKwLhxX88qATbR8TQulO1gnpD2muCb69IHLqQ2NgjtaKMFOqBKQqdFB7rLl+/cdxNG1BHM5k2IA5JbrBQW9S3I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fb5gt7UX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ll3QclfO"
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38ecc48b3c2so5761868a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 11:12:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789409552; x=1790014352; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=eILuU/ujF/gCxOipJ6aAt7TsmD8PW8XQkQA4cx27AIY=;
-        b=ll3QclfObzQf89D5n0MifPRcHjYAPY8zYA1imWEzyXbIBgBF73qzGNuQny0cTx/z9V
-         gJtZLdKJCLQYt9JykqMC7qt/3HYW0YBl2DYyYSB5JmdukUz026bZpY95atFn75EsV2KF
-         CbUO8svIDspuK4reDoj0cNUd6EncsHvvBFKxKa+eJhyNS5aQ8Zs8wxE0+Uo+w5xiQPDe
-         0s/KJKd1Ht+XUeR8xo0IZGesiy3P9gRw5G+YnG6p8B5y9JRsap2+XLKJ+jhJ+XoXr9dj
-         q0in9xGGsDXmqEhjP97w9vlPXv0VQJ07dMXk0ai0/pUncWstt1n59I8tYZYyd55WJuXU
-         hUwQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789409552; x=1790014352;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=eILuU/ujF/gCxOipJ6aAt7TsmD8PW8XQkQA4cx27AIY=;
-        b=J148Tzdyvn9YVSoZyBDeC+5EoIraU74LExGN2KsnfdcEKyZpUV2xbA89fVdK2Mz6Bg
-         h3FLRgb1t/xKf2vJCoKdxI2G05Yi1PuLjd6kQu47t708jqpTVblH58JScLTOYEzyKRu8
-         lhL6JbaxqbBU4onKSFoi52v52ci0Iite68Y9fBZHxZYJ2KlVH0CqrmI8dH7EXF4roltF
-         15njVn627E9RDv59togFCYY6iNqxwx2nK63roqRpOlM3hVpJfmI+j4dIkEovAJzpwGzo
-         VNQRK5sXhXe15/zax15+IpsZB7PN3GCNblHI1hHwpYckhxFHYJvxeoxZDLx3PJ3VJ8L0
-         I6jA==
-X-Forwarded-Encrypted: i=1; AKwUvBzCWuco+3/FDd8n6Z1J6UUfZrvYHgGQ4VaSo/kHHH5KhaDS5RRYF9cS6F3vxjvE5pcPpA4Qf3HG3R1bOak=@vger.kernel.org
-X-Gm-Message-State: AFuF++liV9BEsSHp/6To69mVToo3O4EBDwsnBmp+665xrZkZFzqpZpIs
-	+Ugn8bDwUL9mB7E6nFPTH7hIFZkG3DLmpYJniDUZvpz4lMRMCXwNvcSYbhHC9TbpkvG0Z6LBCm7
-	cSmH85g==
-X-Received: from pjso8.prod.google.com ([2002:a17:90a:c088:b0:398:ba84:67d7])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:17c8:b0:396:65dd:4093
- with SMTP id 98e67ed59e1d1-39dec04f9d9mr6872853a91.14.1789409550513; Mon, 14
- Sep 2026 11:12:30 -0700 (PDT)
-Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Mon, 14 Sep 2026 11:12:23 -0700
-In-Reply-To: <20260914181223.289061-1-seanjc@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fb5gt7UX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF1D61F000FF;
+	Mon, 14 Sep 2026 18:13:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789409626;
+	bh=7rRaIlb5/NILuLBTb73lVXxBaNkHm34RtM8W6nwjL5A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Fb5gt7UXrnN84vay26iTzNwBQflYZzP37Lw9ekgimEYM2sxxzMlLzUSxvB0WlFzx3
+	 twaLpTb2P+Zxu9f4zKc0o1CaGob4X5EeRpQ1wAuj4AJ/9FAuEhaCpE1Y0eW8l42xON
+	 8ojjNKUPjxQ0H2QLeUHZwrLv4G9g89ly8s8Y6LGKj4IUkJa0iXU8NfpdLTf4Uvk2RK
+	 aybTZno2dWmFo5BNz9JNmKcqGHcof1g11yyVs2RRc5fcICxdBWxKGpul3A9bZh3r2c
+	 yfRlK8nvZssnOxhOOMnmG3pdb/7BGV47c561JDqRdM1Zjv/DXydP56gwoaHn8Z41ZI
+	 9chQHeLE711cA==
+Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
+	id 3BD32FDAB4D; Mon, 14 Sep 2026 19:13:13 +0100 (BST)
+Date: Mon, 14 Sep 2026 19:13:13 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Shengyu Qu <wiagn233@outlook.com>
+Cc: Jack Yu <jack.yu@realtek.com>,
+	Cristian Timohi <cristiantimohi@gmail.com>,
+	Syed Saba Kareem <syed.sabakareem@amd.com>,
+	"Mukunda,Vijendar" <vijendar.mukunda@amd.com>,
+	"Flove(HsinFu)" <flove@realtek.com>,
+	"venkataprasad.potturu@amd.com" <venkataprasad.potturu@amd.com>,
+	"linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>,
+	Oder Chiou <oder_chiou@realtek.com>,
+	"vkoul@kernel.org" <vkoul@kernel.org>,
+	"yung-chuan.liao@linux.intel.com" <yung-chuan.liao@linux.intel.com>,
+	"pierre-louis.bossart@linux.dev" <pierre-louis.bossart@linux.dev>,
+	"lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"Dommati, Sunil-kumar" <Sunil-kumar.Dommati@amd.com>,
+	Fish690103 <fish690103@realtek.com>,
+	Mike Lin =?utf-8?B?KOael+abieiDvSk=?= <mikelin@realtek.com>
+Subject: Re: [BUG] ASoC/AMD ACP70/RT721: ASUS TUF Gaming A14 FA401EA speakers
+ silent and headphone jack buzzes on playback
+Message-ID: <aqg5OYBZ5eYqd-QX@sirena.org.uk>
+References: <CAAAbPi4w+YO=W8vFr63wy6++1WQ2mHUDVfUDKyWR8xcTWKXCKw@mail.gmail.com>
+ <1fdd17c6-a0ab-42de-8362-8e1374d42fac@amd.com>
+ <bc542e80-e572-452b-81ba-53e57ed3126e@amd.com>
+ <30fed968a6f54a6c81eca4ee23ea4166@realtek.com>
+ <CAAAbPi4MekJAyNsCAi2Ww9QHVVrrGkW2cdDTrrpttZYmh7yZHw@mail.gmail.com>
+ <3fa3de8f2bf24041ba9c029e0984abfb@realtek.com>
+ <TY4PR01MB144329FF6B2B48FED9486F12E98BD2@TY4PR01MB14432.jpnprd01.prod.outlook.com>
+ <99e1afd842c4466ea562c83bb736fa74@realtek.com>
+ <TY4PR01MB14432C55B885DB8231CA07C6298BB2@TY4PR01MB14432.jpnprd01.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260914181223.289061-1-seanjc@google.com>
-X-Mailer: git-send-email 2.55.0.1032.g73a4cd73de-goog
-Message-ID: <20260914181223.289061-6-seanjc@google.com>
-Subject: [PATCH 5/5] KVM: WARN if vCPU creation is in-progress when locking
- all vCPUs
-From: Sean Christopherson <seanjc@google.com>
-To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Jean-Christophe Guillain <jean-christophe@guillain.net>, 
-	"=?UTF-8?q?Pawe=C5=82=20S?=" <spawel523@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="DKc/gNg892rRrUgM"
+Content-Disposition: inline
+In-Reply-To: <TY4PR01MB14432C55B885DB8231CA07C6298BB2@TY4PR01MB14432.jpnprd01.prod.outlook.com>
+X-Cookie: Orders subject to approval.
 
-Now that KVM holds kvm->lock for the entirety of vCPU creation, from when
-created_vcpus is incremented until the new vCPU is fully onlined, WARN if
-the impossible happens and KVM somehow sees a discrepancy between the
-number of vCPUs "created" and "onlined".
 
-Signed-off-by: Sean Christopherson <seanjc@google.com>
----
- virt/kvm/kvm_main.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+--DKc/gNg892rRrUgM
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-index 985af39b980a..e66d9761ee49 100644
---- a/virt/kvm/kvm_main.c
-+++ b/virt/kvm/kvm_main.c
-@@ -1363,7 +1363,7 @@ int kvm_trylock_all_vcpus(struct kvm *kvm)
- 
- 	lockdep_assert_held(&kvm->lock);
- 
--	if (kvm_is_vcpu_creation_in_progress(kvm))
-+	if (WARN_ON_ONCE(kvm_is_vcpu_creation_in_progress(kvm)))
- 		return -EBUSY;
- 
- 	kvm_for_each_vcpu(i, vcpu, kvm)
-@@ -1389,7 +1389,7 @@ int kvm_lock_all_vcpus(struct kvm *kvm)
- 
- 	lockdep_assert_held(&kvm->lock);
- 
--	if (kvm_is_vcpu_creation_in_progress(kvm))
-+	if (WARN_ON_ONCE(kvm_is_vcpu_creation_in_progress(kvm)))
- 		return -EBUSY;
- 
- 	kvm_for_each_vcpu(i, vcpu, kvm) {
--- 
-2.55.0.1032.g73a4cd73de-goog
+On Mon, Sep 14, 2026 at 08:16:22PM +0800, Shengyu Qu wrote:
 
+> On my FA401EA this issue doesn't exist so I can't test. Maybe you can ask at
+> bugzilla so other users with this issue could test?
+
+> PS: maybe this is the issue for some old batches of RT721 chip? My device is
+> very new and this might be why I don't have this issue?
+
+Could some firmware update have done something that helps somehow?
+
+--DKc/gNg892rRrUgM
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqoOTgACgkQJNaLcl1U
+h9DdvQf9GfRjnoEOkD6Y4dVEQW4KTWTO64JFN9QPuIP5nH7JvvCegLA1Oe6ihlt+
+zrfJCqlo3ebWprnGZ20OhqhvJtKjj0LqFxVEbMAnVJbStMRMCcwE2wCTuJaKyglP
+pzrzrGmhKCxRPIy3UdE+r7a5+ZkCGTnsvwwPRmYuVP4FNcRAcSYLiNJ4TJVtJ/os
+9AmhIkmXsCzb6/idRxHRto7KSuMcp4IDZeNyF0SwhyRks9uJaug4Kts94Fn9/BiJ
+Wuo3zc94BZLSWtEGND+5VwHl5c7DZmEU6t9XwiTkjqykatUr7t56meqHI0HngW4G
+jk6GHypEqtATJaRU39CWHK2Vuio8og==
+=Prl7
+-----END PGP SIGNATURE-----
+
+--DKc/gNg892rRrUgM--
