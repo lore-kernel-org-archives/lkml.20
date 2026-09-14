@@ -1,48 +1,44 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23FBE41F379;
-	Mon, 14 Sep 2026 09:47:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFADF2C15AC;
+	Mon, 14 Sep 2026 09:47:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789379255; cv=none; b=IcxO7TWhC3t7+jDLytbY864MEmtbYfRDzp+ZrpoaBAsYV+DU9oYf2i3QG8lIlPVYLtgqL7hTtqtGAZ0EcwjtFxcwsOR70Vn4sLfq3tb7TtI5LXQPTpbczAmhnLSN2ZdfZvBu2jhysJl5H8PfwYO5UipPzC8xNsaPZxlTwkY6ZkQ=
+	t=1789379276; cv=none; b=B4yusHBGClkkpVfEBmo9T7NcG97EGwwjCrcPEQl6xLO98QSA6+zlAOzKCCxk4qKPTRzLwFBy/6/lWjUpa4VrlYpEPvbtwU3sKH4UDEJxo6QqAZJvvvpgc5HJAzVUqD4+irBHTgNt31xHCgfUxgGeQLar4LIAAzdc4cfWysZKeMw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789379255; c=relaxed/simple;
-	bh=MEqs3p0DVOvh19W5pBdtXGmxhDlmoDSDCgFKQD1EI6g=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WqQu1QTZ3f1vGpuQuOoqoVHtCQRQtT1qn//dGMxkSTTZ4jtairbyL2siuaqNdMBMRnlhAe6sqFn6ABl24amZA10fjOkGgHubQXZNd0rBxAhonxzc4DVEuVXb45F434+hp48BW93Y1x/MftgGL0irhOqFbcsqsqO5jJkki8WFIp0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=VrtCmVZV; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1789379276; c=relaxed/simple;
+	bh=KMPSY4cwSu6373LyLoo/p4PM6VCfp8K5K1rFGXAGewY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=O6NCtRUfKSVZ7rCVnc7aUfiaCezDK0MLX8lar/Pqo4g7HitVC0fItL7opKNLf+erScyeM1onpYe6C32NV0K6mR7tTJCsWFACZMMTSMOJ3jbDj02cZcU2fp7XxowAmNNYU+6qc2fMs7h8vHKL5MB3kDQp+VSrBjdAD2yTyNP0d2c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qu6RkjLL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="VrtCmVZV"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6A999A47BC;
-	Mon, 14 Sep 2026 11:47:23 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1789379247; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding; bh=fwLF0QDbZ26CN9mks5XhzjeG+MelCcwE9NL21pmcHPI=;
-	b=VrtCmVZVG7SQy+aYd7VqdVPx8gj8BchqIpT63YWzDxd9Kb0sfMLdjplQaWadMWvMhJ1LOP
-	fQ8oMxC4zql7mlPlE71EH4ruonmbhHzKXuBX0dwA6w1P5vUVXlkBLe99I0jr2YOWDLaJdG
-	UsvCiaajolCH35mrETKgNCm3slkB3E13g/pnfkLP7MxzQRUAbwCjmMkVKL53z7ut186xg1
-	xhg6hBL7ZF2kAbEviRya/mZZ8YHjm/iC0LFZPF2xEKh9i5VIxYhHskV3gYizxQaMfhqzRL
-	zPSkoikMATo83W/aWIS58QnOIYaE9Q5su4MZZK/UQQK02F2Lgne/8DwrZrAkjA==
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: Florian Fainelli <florian.fainelli@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Justin Chen <justin.chen@broadcom.com>,
-	Nicolai Buchwitz <nb@tipi-net.de>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next] net: phy: broadcom: enable jumbo frames on BCM54xx
-Date: Mon, 14 Sep 2026 11:47:02 +0200
-Message-ID: <20260914094703.1093504-1-nb@tipi-net.de>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qu6RkjLL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 912511F000FF;
+	Mon, 14 Sep 2026 09:47:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789379275;
+	bh=gTLwRHwiUe7+GvIFtClrzL61I2xfkUvMQEXH2OCtR3Y=;
+	h=From:To:Cc:Subject:Date;
+	b=Qu6RkjLLZ+IgAX/zpNZO3mSIF/XxeqsnBsMgLi66Op5TRLV1ejriB9fdDnb7na3Qk
+	 P0rTVsLTrZedZ0e39Eis2dEsv8Nzvasl9CZgYs7h5AW9JkkT0MiJyU2efqVZJ0uRS/
+	 Fy1z1+us365hzB3w7uVSXIRxa305zBUXO+Suozw20H69lCHzm6pwfp19xTlfdpO/Z+
+	 javBuNhCVt0qm2QkbFvv8Xd3Fnws0+1lADHwdcjxBsnk3tmGRXkjN9qXhd3Nd+gR1D
+	 7wkRYzhPt+HHvcvYv1b52uvPHbwbpAHf0LcsGtOg10ySCw4I6JjQm2Ex8q23W5teZY
+	 EaBJGJ/yeJY2w==
+From: Tzung-Bi Shih <tzungbi@kernel.org>
+To: Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Cc: Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	tzungbi@kernel.org,
+	Sean Wang <sean.wang@mediatek.com>
+Subject: [PATCH] Bluetooth: btmtksdio: Fix PM runtime reference leak in shutdown
+Date: Mon, 14 Sep 2026 09:47:29 +0000
+Message-ID: <20260914094729.3222624-1-tzungbi@kernel.org>
+X-Mailer: git-send-email 2.55.0.1007.g17ff1f9808-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,45 +46,39 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-Jumbo packets need two bits that default to off, extended packet length in
-the auxiliary control register and PCS transmit FIFO elasticity in the
-extended control register. The latter raises the transmit limit from 4.5
-KB to 9 KB at the cost of 16 ns of 1000BASE-T transmit latency, and the
-two together take copper mode to 10 KB.
+In btmtksdio_shutdown(), pm_runtime_get_sync() is called at the
+beginning of the function.  However, if sending the WMT function
+control command fails later, the driver returns early.
 
-Without them such frames are lost on a 100M link while the same frames
-pass at 1G. On a Raspberry Pi CM5, which uses a BCM54210PE, 9142 byte
-frames at 100M are lost 20 out of 20 with the MAC counting every one
-as transmitted. The same frames over the same path at 1G arrive intact.
+It bypasses the corresponding pm_runtime_put_noidle() and
+pm_runtime_disable() calls, leaking the PM usage counter and leaving PM
+runtime enabled indefinitely.
 
-Set both, which bcm_phy_enable_jumbo() already does for bcm7xxx. The
-frames then arrive and the payloads check out byte for byte.
+Fall through to execute the PM runtime cleanup block even if WMT errors.
 
-Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
+Fixes: 7f3c563c575e ("Bluetooth: btmtksdio: Add runtime PM support to SDIO based Bluetooth")
+Signed-off-by: Tzung-Bi Shih <tzungbi@kernel.org>
 ---
- drivers/net/phy/broadcom.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/bluetooth/btmtksdio.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/net/phy/broadcom.c b/drivers/net/phy/broadcom.c
-index d1a4edb34ad2..b515e3875504 100644
---- a/drivers/net/phy/broadcom.c
-+++ b/drivers/net/phy/broadcom.c
-@@ -537,6 +537,13 @@ static int bcm54xx_config_init(struct phy_device *phydev)
+diff --git a/drivers/bluetooth/btmtksdio.c b/drivers/bluetooth/btmtksdio.c
+index fe4ca9395aa3..b7db15268904 100644
+--- a/drivers/bluetooth/btmtksdio.c
++++ b/drivers/bluetooth/btmtksdio.c
+@@ -1249,10 +1249,8 @@ static int btmtksdio_shutdown(struct hci_dev *hdev)
+ 	wmt_params.status = NULL;
  
- 	bcm54xx_ptp_config_init(phydev);
- 
-+	/* Transmit is limited to 4.5 KB without it, see the BCM54210PE
-+	 * datasheet section 5.4.12.14.
-+	 */
-+	err = bcm_phy_enable_jumbo(phydev);
+ 	err = mtk_hci_wmt_sync(hdev, &wmt_params);
+-	if (err < 0) {
 +	if (err < 0)
-+		return err;
-+
- 	/* Acknowledge any left over interrupt and charge the device for
- 	 * wake-up.
- 	 */
+ 		bt_dev_err(hdev, "Failed to send wmt func ctrl (%d)", err);
+-		return err;
+-	}
+ 
+ ignore_wmt_cmd:
+ 	pm_runtime_put_noidle(bdev->dev);
 -- 
-2.53.0
+2.55.0.1007.g17ff1f9808-goog
 
