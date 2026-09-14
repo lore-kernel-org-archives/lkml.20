@@ -1,46 +1,46 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011051.outbound.protection.outlook.com [52.101.57.51])
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010015.outbound.protection.outlook.com [52.101.46.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA5AA2D5926;
-	Mon, 14 Sep 2026 00:59:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 596A523ED5E
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 00:59:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.15
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789347557; cv=fail; b=OT/ABszOMQCVDjTHlv+9XmeDNeCkVT2VzxoPnTmcC9yjoiKZBL5aASBwI0MRXOu60KVHRld8rSjSgBsFEGKCg0qb35P5KrCfveVyBeTQA4NW1jFj65zAZY7f5FzyU6O1LNs85fWBVJjs7CsziUPgkBLuRBvY3vl+lfY+Ls3VMHs=
+	t=1789347564; cv=fail; b=XfJDGxnTTqKQlC2C9GKKHyX/ECJgUqmVIPCecD/zIiwe5uVQz6H43jo9wypZvmQRopo7LRFrdnXKc/GqdOOM4DHHlqh5ixrnPlnhHBLBGaZO6BjydCiMJlTR66llikUYvPogPqVksSy5VqrkA/DYM6yBW/tO0p0F/7Jw8/Jus2o=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789347557; c=relaxed/simple;
-	bh=tWfP2theVb+FGi6Df/pDgswTIV8hFpXpyLeYFndKyFg=;
+	s=arc-20240116; t=1789347564; c=relaxed/simple;
+	bh=mji8UjzWmveGObiRKKtvNq+rlitb9VCTBsawRMQza6g=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=mrdFrP2HKDYSOimFaUi81bGwX0+WyIcHkXdLha3NwUOKfZ+ktyzYqhvVoz0yZzQw16EqrigF/ev1ijIKsUeoReLpdU1bj+J4v62OYC8e0g9aSy1aBJadj6wqRTxU7MB/ntA3N4YUrFpHxRzh9JKX+f1G6o4BkOoX4F1JzD8CyEk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=aULzuy+S; arc=fail smtp.client-ip=52.101.57.51
+	 MIME-Version:Content-Type; b=cKJ+fGzYIQFKL4z+P/AkgDP7uIHnbkKZ1x0rdo+Ih6tpKlhuH8FeO5ChrQtX8NtRdCWYh+Q0wzAV/h1PZj6yL+mR4UUdlgwN7qBQQhrYR6YAhjszp0xf1BQAGA5GgQpFZZ2eo05Lv4LbxlEXMD76X0UGsBRwATDCZohqbtMUCkI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=gwAMBjsV; arc=fail smtp.client-ip=52.101.46.15
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="aULzuy+S"
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="gwAMBjsV"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UBpIL66UVbh76bPd3dKiKprjcHxfsbLmYqVSXjhRjg3MOk1izQM9h1oqxUekLy8CYCJUT42m9a8fI0EC2oqtubTh90pUPB0OqqcyZwXGOGr4a/eolwyFPQwmP1LRjrd8EnADVXzx47VuEo4vkvsDquMSCqw8I3ri9SyJlGo0d173GGSAD/QeMzz3JUTYTs1vFlyOhcByKHavgv1OE7wre6tIhz+qqFy3BuxgJ+xRFAvZQ2kiSlkh83cCLIfq+FU8E+ww35X7BNPxZJJTjX0Wv3XQaRaqDsCXwOSmmqrxD5WOxtJozx0NTQTWx3RBVWfQ5zNb0YBPK+2y49qxyDInjA==
+ b=Xnz6BbGG4IC1kExv3K0+sroWa5c+nNKMR8Pjgpfc3PdkyP6L1huLQ4Wufa7vJhxhmHB1Lt1FpbFr3my6reeUAD8KSAdtaA7uduvRcL1HgcM+6KPRKG4DG1WgSVYD13zCz1lcrGgv6NEMknjQLjaFguN71Jtdv1s8XM/jag8nmDdDDLb9iSnjfbVpAeJ21od7cwseSRp7wiyoog4xo+5d5iDKbKzfP/mSM62WF6fdECJNc9mAqVsiAl9ctCv/jklHQV3Or3zTM6o70f+Gs23aaTJ0acHzerTT+njyEIyTqBi2/eUiDpCDIrFMFpqoctL2n3LOWXxXJKq6PT+pGHmCdQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Qey5GmSRMu7vCCFht38ElMGD+BbJq2EZTN5l9fXytiE=;
- b=LwwsW23p/b6Gpa13DreenzmJcZwUUTNfeGtikGkGdRm0D8EFtuXTLnY9bWImuLS8C8OdhTG1qlbPYQYMNlq4+P/K70dK5HkYwcySoNjRG8MA/esmSB9OkAXfNc2EZKA+BPZKsIcaoGBdkOt4fttzUUXknnLocuVhH+Kx0xLUFGP+Otn+Avckb4Ba4UNRVE2UI31q55ABivwgqoCbeCh6zL2iljDChn8/a/BUUCIyGtmSZeZbhrDpB+3A9NHbQHJ9ZQ4LOrlcZSl2OwYyKZb+eSDiLi1oEFY89+TPkoq0lC/8rw5h0zdJmtmoDx4EXO55ARAjMXOJ/vuBoZSz1137qw==
+ bh=my5IyNwOk1ErsWk/O7eRM3Xdpn7AZk8HSFJAr+mXMcU=;
+ b=gZZzp9ctruEo2Q1P/U9ns3dYdUrg99jrzOhvhYdBDmJWDNAI03F5YvVsHHsR43QvGRw0QXUArCzw2po+/ZI7QqnJyZwDeUM2jgM/1LWBIK8h6YrO/jYkEqQji/FW+3XXmYB2Wdb08QTc2zsaOScjDZcYTSHND6xzilrJ+x+EV7H7BW/P5gy06x0noQbivKihU5gi2sdptkFXkbXPzNbVi1VsJNmTUP6+gNNVDpAJhefH9yrbPLDvSHnZwjNMHC2gKtwcWNW8iVQXr2Fa5+LdcIkFHL967EoOO20DGU3FwGb3suWkvujdJc7R3JbI34QqPg4kK8Ds3H2z+dwbKyA/Mg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Qey5GmSRMu7vCCFht38ElMGD+BbJq2EZTN5l9fXytiE=;
- b=aULzuy+SKlnaoGXBUPkuVkXHVby3Y832I5M0LwMixdxyLMVQZ/ewSvu1NOvhgi2zij7N0PhGzBDDCadcaW5VH0JUk1KGmyR9J9r7JdEWubaeuF2qqeNoLR60YQaWhL34ZkA16ed2B5BPbuxiTJkym2x77GTv9p15fV/5m6MRAc0=
-Received: from BN0PR04CA0023.namprd04.prod.outlook.com (2603:10b6:408:ee::28)
- by DS7PR12MB5840.namprd12.prod.outlook.com (2603:10b6:8:7b::10) with
+ bh=my5IyNwOk1ErsWk/O7eRM3Xdpn7AZk8HSFJAr+mXMcU=;
+ b=gwAMBjsVe4BwGVD8J65Kb9+ORC85ZwJ/vq6Xm/vXfIeJCM31yanxomZQ5yjDNy7q1WvV18I8cV8RPwIqeLgQfjSjTALz5X8P4TFbcxvir2cye74TZ+WYwPFp1fYM7euIAvsLqwDm8lioD9NhEV58a5Y5Bs+VZAKNHucuZsdl+AA=
+Received: from PH8PR07CA0041.namprd07.prod.outlook.com (2603:10b6:510:2cf::29)
+ by IA0PPFAF883AE17.namprd12.prod.outlook.com (2603:10b6:20f:fc04::be1) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
- 2026 00:57:55 +0000
-Received: from BN7PEPF00000094.namprd03.prod.outlook.com
- (2603:10b6:408:ee:cafe::2c) by BN0PR04CA0023.outlook.office365.com
- (2603:10b6:408:ee::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.12 via Frontend Transport; Mon,
- 14 Sep 2026 00:57:54 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Mon, 14 Sep
+ 2026 00:59:20 +0000
+Received: from BY1PEPF000264B4.namprd02.prod.outlook.com
+ (2603:10b6:510:2cf:cafe::a5) by PH8PR07CA0041.outlook.office365.com
+ (2603:10b6:510:2cf::29) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.11 via Frontend Transport; Mon,
+ 14 Sep 2026 00:59:19 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,21 +48,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BN7PEPF00000094.mail.protection.outlook.com (10.167.245.72) with Microsoft
+ BY1PEPF000264B4.mail.protection.outlook.com (10.167.242.121) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.7 via Frontend Transport; Mon, 14 Sep 2026 00:57:54 +0000
+ 15.21.428.7 via Frontend Transport; Mon, 14 Sep 2026 00:59:19 +0000
 Received: from purico-9dcchost.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Sun, 13 Sep
- 2026 19:57:53 -0500
+ 2026 19:59:19 -0500
 From: Melody Wang <huibo.wang@amd.com>
 To: <x86@kernel.org>
 CC: LKML <linux-kernel@vger.kernel.org>, Tom Lendacky
-	<thomas.lendacky@amd.com>, Melody Wang <huibo.wang@amd.com>,
-	<stable@vger.kernel.org>
-Subject: [PATCH v2 1/8] x86/sev: Make SVSM calls preemption-safe
-Date: Mon, 14 Sep 2026 00:57:17 +0000
-Message-ID: <a5bc0d4a2c462a0089109e145c21626b244b2ff0.1789345277.git.huibo.wang@amd.com>
+	<thomas.lendacky@amd.com>, Melody Wang <huibo.wang@amd.com>
+Subject: [PATCH v2 7/8] x86/sev: Allow the guest to configure interrupt vectors for the hypervisor
+Date: Mon, 14 Sep 2026 00:57:23 +0000
+Message-ID: <2178729563ab8b65db276b0d59251f9e882fe4b0.1789345277.git.huibo.wang@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1789345277.git.huibo.wang@amd.com>
 References: <cover.1789345277.git.huibo.wang@amd.com>
@@ -78,85 +77,95 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN7PEPF00000094:EE_|DS7PR12MB5840:EE_
-X-MS-Office365-Filtering-Correlation-Id: e73cbcd7-e9dc-445b-5479-08df11fb35a2
+X-MS-TrafficTypeDiagnostic: BY1PEPF000264B4:EE_|IA0PPFAF883AE17:EE_
+X-MS-Office365-Filtering-Correlation-Id: 15dd4afd-2c3d-4cea-93d6-08df11fb6878
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|6133799003|22082099003|18002099003|3023799007|10067099003|56012099006|11063799006;
+	BCL:0;ARA:13230040|23010399003|82310400026|36860700016|376014|1800799024|22082099003|18002099003|10067099003|56012099006|3023799007|11063799006;
 X-Microsoft-Antispam-Message-Info:
-	11LxPV/ULTNPzZfr4s3RYtt1C+4IKV95/+1zVSHUqfDWaSomQ9UaTLFD3IRfPdBS6dQX/kPrjDb8pb/GhA5GDs/sU8MA6x9tFAepRsGtA+pKNCYfclj/IIYkO4/a52aMqVcKD4CYqJD+IbFR3+GClilHc7+qBOQ3INOevw/Q7hCw7/3J2s0qXiBS7sVBWc9cI3Hj0zmyV0NchwkKddoFvqZH06wArqcHlJkas6AKqaY1vRidmyYWZ1Thqxq/QRwfQQLJF7qzt+lSCx4KRmOdqIyfr4xz/Ejq3UwcJkcpm9nRErVGDV+jpgvdKDlldyPkJ5P+rmY/HUH/U68UNxsIT/as4GnpbZQMnksiZ/Ti3urTEGEwyyn7YJOHu7jI/QGl05/mi/WMq+3AqpU2pnuLjJBJLRzB1LfZgobkOv3gEV+xmYYUEAvr/icLFFsAL8PNis+7r1qjKxpJIm8FeBcBgF6E+/sBdFXhN0iC+R5ctV37Vx6CFnbq2v3M4nvzvJ0l7yRWykOcKjwusJ1gf9wwxLkshNxJxpKvnWqGXC6InKhclHqDnYk/DH5pUo16g7Zd9fZ7Cr0DfbPlTEssFRsjlPDf/iAnqPIj5Nwj2ErmLtwcMh5zAMZhsZbvyEK5aeMsfxwvVsROMQYlpVLzJ4Cn/srPZNCqOfo0t5quIdFDTOI9SeIEYyzr5LuNtsnhLtZuO37gGMVQcIZ73MqvMsEcbQ==
+	9idkeswPogeJ/rBy4FEt57y6UQM18vr8YGTEzmM+ZKJNYyRyAi6WlrnIy19xzq2LROmzecEl19xhWcPIufDXmuixDgpucAwnQwxAx77jDjf1WBnN4xo1n1Q88Kio5XCIuqukFGf39cu80d+4N2yBMl8s7hmxvRS0kng7HQLMLM0LhS40MHnIFy7ov5rFVOtP3fkKiqpblVg5plLWWwYg7llT0nYpVFcopVHOh/BpwQ9m1w5G/1b7kE7s23pHeqHH7xJ5nL37FD8Svub59b9Qt1bf0EOPnx0hYPa6LHUR/LduiItv1FvYRyUqhXWJoXGEXebktFaFMulJJRQp5/oByKc1l+lyRVAxYBfvlY1pPyB++vAD+KiJyUo3AqaiB+y9qSyOsef+UKgk/28FjZV8wB7OBaP5KpVSl+JACZM3WqjTB9dsD7N8kYKmdIutn+eXZ8kbWIcSOh2Lrl7dtl8hyqeZmJIJtqwdJKoVFD1RhGEU0d+QcDvpobwRzMz6lJuXdaJkGOsJYrToNZhDc0OOpIwFcZCeBrLJtRoA32dC1h3eyRDMmuksp1VwFJYmprhY97j61uXGM6RYwYmo8CMUziFxFJye5g9XiCRMEpKh90pD9aU1BRgr/ZaEpsP3R/WHZnPHunfM6ooKIcCKJXlnH5RSKREGMlMTIg2Qi9ls90PJKWfGDn1qcfkPhIhWSzX0iuYUKI2/u9CKO1FVtxfsKA==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(6133799003)(22082099003)(18002099003)(3023799007)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(36860700016)(376014)(1800799024)(22082099003)(18002099003)(10067099003)(56012099006)(3023799007)(11063799006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	koTFeN3XDkM7+AQBWQPai7VbIcsuXF/pk26ePptYgFtxKf8stWZkXUUvIkGBeGcLP/t/UV8c3dkTh9oyTyxe2lIZq7/pYtMhFs6ftmM0xYmuMTO6P90hAK5Y9jWpqE1v1JQ8CsOQhtRY+zcJ1Yx6JMU9twM6nhVlhFkYBM3v9hRLNZ/VBFS8zsVheJBx6w3HDrg0FUnx4T39oGJu7V7B17IQwslIGnfafMiotjIn8x2ngLP5WZPIoYI43LlQ7gInNDoe4scD3DKM5TrFREUrZDfLs79SYNNqZFRkJlJg2m9Nl5vA6C2jTAFVpI6QE+171Rk3Fq7CNvnQc3G8EhLbE/+4r/1w7S4ye1nqDEPTAqH4VYujJzyWq7wcsOmYGNtd4e7BQT3JBNlacy6dt9PK3McQF+2ZLhLXAlUcpj+Cer3G4Hw3QtAeK1dmLUaxlHdf
+	n6zehR8evuXJqPgTJpK/5d/Xp8FpYMQ2dB1eoYgUPdK4JHPSvWrpA82SYP5GA/Dd7U1Rxku+0RyuX7vFoFwAmR4eGRiBxLwbejUCBvP0qJG1tGZulHWISdthFPJHw5BRjZD9MmzlsA0lBQGJUHAykQi0kSdhoATtrj7CFcjvLrmsob88f1HrbAkMiEl1635OPbRH/wuo9Q5me03t87pAlDqpr80DRj0r5NawZAbnN3SlWV6SdWoWtNXlBWdcFfqjcLX72X5bg7CGnG2oYuS+jw3D0KH4hYbpBweENNFGP9uITiQomF6qD6RTEcOo0VUFkDq8DY7hY9FNSIXlwqfjGGgUsUiUjGaGtcQHLdIzSEa1LzVZJAyRsSO8EPkPa+dRT4O5WlAv7X+KBScRk+6XbJpM4ig2FRhUUZe7lgM02Bs5oqD00gpSqXxZiDstB6o3
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 00:57:54.3765
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 00:59:19.6069
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e73cbcd7-e9dc-445b-5479-08df11fb35a2
+X-MS-Exchange-CrossTenant-Network-Message-Id: 15dd4afd-2c3d-4cea-93d6-08df11fb6878
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BN7PEPF00000094.namprd03.prod.outlook.com
+	BY1PEPF000264B4.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5840
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPFAF883AE17
 
-Two functions in the the SVSM vTPM guest implementation do not disable
-preemption when fetching the SVSM Calling Area Address (CAA).
+The SVSM APIC protocol supports 5 API calls. SVSM_APIC_CONFIGURE_VECTOR
+(shortened to SVSM_APIC_CONFIG_VECTOR for brevity), call 4, provides for
+the guest to configure an interrupt vector which the guest allows and
+the hypervisor can use to signal interrupts for it.
 
-The SVSM CAA is a per-CPU structure. When a thread is preempted and
-migrated to a different CPU after fetching the per-CPU CAA, the SVSM
-call will execute on the new CPU with the original CPU's CAA. Which is
-wrong.
+Implement this call, and make the default interrupt setting permissive
+to allow all interrupts when detecting an SVSM and Alternate Injection
+is enabled.
 
-Move the CAA fetching operation inside svsm_perform_call_protocol()
-which disables interrupts around the SVSM call and thus runs
-preemption-safe.
-
-Fixes: 770de678bc28 ("x86/sev: Add SVSM vTPM probe/send_command functions")
 Signed-off-by: Melody Wang <huibo.wang@amd.com>
-Cc: stable@vger.kernel.org
 ---
- arch/x86/coco/sev/svsm.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ arch/x86/boot/compressed/sev.c | 13 ++++++++++++-
+ arch/x86/boot/compressed/sev.h |  7 +++++++
+ 2 files changed, 19 insertions(+), 1 deletion(-)
 
-diff --git a/arch/x86/coco/sev/svsm.c b/arch/x86/coco/sev/svsm.c
-index 916d62cd17dc..2d493d55ff2e 100644
---- a/arch/x86/coco/sev/svsm.c
-+++ b/arch/x86/coco/sev/svsm.c
-@@ -74,6 +74,14 @@ int svsm_perform_call_protocol(struct svsm_call *call)
+diff --git a/arch/x86/boot/compressed/sev.c b/arch/x86/boot/compressed/sev.c
+index 4e52dddc7c7e..73012b1456ce 100644
+--- a/arch/x86/boot/compressed/sev.c
++++ b/arch/x86/boot/compressed/sev.c
+@@ -520,7 +520,11 @@ bool sev_prepare(void)
+ 		return true;
+ 	}
  
- 	flags = native_local_irq_save();
- 
+-	/* Register Alternate Injection */
 +	/*
-+	 * 'caa' is a per-CPU variable. To avoid using a stale or incorrect
-+	 * 'caa' if the task is preempted or migrated to another CPU after it
-+	 * is fetched, always fetch 'caa' and then issue the SVSM call with
-+	 * interrupts disabled. This ensures the correct 'caa' is used.
++	 * When the guest is running at VMPL2 with Alternate Injection enabled,
++	 * register Alternate Injection, and configure all of interrupts as
++	 * permissive by default.
 +	 */
-+	call->caa = svsm_get_caa();
+ 	if (early_is_sevsnp_guest() && snp_vmpl) {
+ 		struct svsm_call call = {};
+ 		int ret;
+@@ -532,6 +536,13 @@ bool sev_prepare(void)
+ 		call.rax = SVSM_APIC_CALL(SVSM_APIC_CONFIG_EMULATION);
+ 		call.rcx = SVSM_AI_REGISTER;
+ 
++		ret = svsm_call_msr_protocol(&call);
++		if (ret)
++			sev_es_terminate(SEV_TERM_SET_LINUX, GHCB_TERM_ALT_INJ_FAIL);
 +
- 	ghcb = __sev_get_ghcb(&state);
++		call.rax = SVSM_APIC_CALL(SVSM_APIC_CONFIG_VECTOR);
++		call.rcx = SVSM_IRQ_ENABLE_ALL;
++
+ 		ret = svsm_call_msr_protocol(&call);
+ 		if (ret)
+ 			sev_es_terminate(SEV_TERM_SET_LINUX, GHCB_TERM_ALT_INJ_FAIL);
+diff --git a/arch/x86/boot/compressed/sev.h b/arch/x86/boot/compressed/sev.h
+index dd058af2e7aa..035a7b46085b 100644
+--- a/arch/x86/boot/compressed/sev.h
++++ b/arch/x86/boot/compressed/sev.h
+@@ -18,6 +18,13 @@ enum svsm_ai_ctrl {
+ 	SVSM_AI_REGISTER,
+ };
  
- 	do {
-@@ -321,7 +329,6 @@ int snp_svsm_vtpm_send_command(u8 *buffer)
- {
- 	struct svsm_call call = {};
- 
--	call.caa = svsm_get_caa();
- 	call.rax = SVSM_VTPM_CALL(SVSM_VTPM_CMD);
- 	call.rcx = __pa(buffer);
- 
-@@ -345,7 +352,6 @@ bool snp_svsm_vtpm_probe(void)
- 	if (!snp_vmpl)
- 		return false;
- 
--	call.caa = svsm_get_caa();
- 	call.rax = SVSM_VTPM_CALL(SVSM_VTPM_QUERY);
- 
- 	if (svsm_perform_call_protocol(&call))
++enum svsm_vec_enable {
++	SVSM_IRQ_DISABLE_SINGLE = (0u << 8),
++	SVSM_IRQ_ENABLE_SINGLE = (1u << 8),
++	SVSM_IRQ_DISABLE_ALL = (2u << 8),
++	SVSM_IRQ_ENABLE_ALL = (3u << 8),
++};
++
+ void snp_accept_memory(phys_addr_t start, phys_addr_t end);
+ u64 sev_get_status(void);
+ bool early_is_sevsnp_guest(void);
 -- 
 2.43.0
 
