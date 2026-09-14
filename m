@@ -1,137 +1,165 @@
-Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBF683E51D3;
-	Mon, 14 Sep 2026 08:26:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 849953A453F
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:26:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789374396; cv=none; b=uI6onVxHU596eoE05ZgfMg0zkCxXk7EPIUPk4RMQCLFYUOXc+fqA4QqWVDFu37D12oV9lOVc+wXb9NfiOea9rPAvb1XAZ61+C3ZPb/zugH3DOXkaXxe86gYVAQDPKR7uzh7+cSd3/swWXtSCHja2gNOUA7aQFrxfGLNSlsdcCkY=
+	t=1789374397; cv=none; b=bclOnEP4GLmmzT+3b+glo1ezBsQAmztLZaWzNTMsVlbCagRrqCyugq4TiDml3oy8VT0VXBzbzEWr1nTsG2BGaiYpxFYgPKsHuzDEvkUJydcPN1B8lc3QMaN4yWmuDjOtdN3Y5IMieBVDI0/XNj2uiaGlULU19gY5jx/xu1tz5Po=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789374396; c=relaxed/simple;
-	bh=bfGGieevK8ATka05Zoy4EA3P1XwdTQV2N9bC1G4l3fc=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=hdb+D60DVwbjEbuanRixsjYTK0nuWxHUoCZXePPPjlD8aIrdsBZrtBkshThb/nm5TkidEBrD/pZ2dldVWcvkK9PFrxWvo827J2OyOyA0NuKNW/jKzSBlDpVQxXpGpuYVqSiFCaA3iWdyS0Jau2jRx6nZclRqwViVjCaxFT5dbUs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=fIk5KZ26; arc=none smtp.client-ip=54.204.34.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1789374397; c=relaxed/simple;
+	bh=AdtMOxjzaLIOo6KsD9vD4jUxBYk+vDmSNeDVBbDLj2g=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LtftnfCEc1//eyVBmobMqmpUr/x1VkfN6LeSBiXMLecA4mNyUqmzVLSdiZM56u6RIB+Kq9Ck/nv4lnZ2Gn8Gv0IIIr3wozdO2Brm6takySkrnaTY7plYxNjogNDmdBWnIUPi0y6JGSdzkN6UammeP975ltfpbNupIc352jbfCPQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Iw3mNtH/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=a2DSfK8d; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="fIk5KZ26"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1789374338;
-	bh=lI+nbrj8btjozV4VFDmdnG9LP3UULfDKR3KDqhgqIQo=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=fIk5KZ26Tc8sHQKhz+d4N3LC1TViKCgIk+It2xYHE2nKYIzyMQYbvd9imBE3dOTVL
-	 13z2EX2gE2okvgCV0fSOIzmND8crR7wFXa7/l2YXI/AmhnMfOMlkrl5U14Eq2vzb3X
-	 yb+cS4w3KVI/demcx2FrE1O7mPrgceQNBUUd5E/s=
-X-QQ-mid: zesmtpgz4t1789374320t50419108
-X-QQ-Originating-IP: QXHOB8GnYnT3dKcfnjvuy96HE1U+5Q1QtFjRuAg7tWU=
-Received: from uniontech.com ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 14 Sep 2026 16:25:18 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 1740976292682735913
-EX-QQ-RecipientCnt: 11
-From: Yichong Chen <chenyichong@uniontech.com>
-To: Theodore Ts'o <tytso@mit.edu>
-Cc: linux-ext4@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Andreas Dilger <adilger.kernel@dilger.ca>,
-	Baokun Li <libaokun@linux.alibaba.com>,
-	Jan Kara <jack@suse.cz>,
-	Ojaswin Mujoo <ojaswin@linux.ibm.com>,
-	Ritesh Harjani <ritesh.list@gmail.com>,
-	Zhang Yi <yi.zhang@huawei.com>,
-	"Aneesh Kumar K . V" <aneesh.kumar@linux.vnet.ibm.com>,
-	Yichong Chen <chenyichong@uniontech.com>
-Subject: [PATCH v2] ext4: fix the logical block counter overflow in indirect migration
-Date: Mon, 14 Sep 2026 16:25:16 +0800
-Message-Id: <20260914082516.3442815-1-chenyichong@uniontech.com>
-X-Mailer: git-send-email 2.20.1
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Iw3mNtH/";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="a2DSfK8d"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68E5j2nR3902171
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:26:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	yE9cXux7SWfKuln0nFstBwjBhpnZF2+pJbTjpUIW9l4=; b=Iw3mNtH/LZvPcp1N
+	7NtBivXRcplxBJtpSppKCICl25OVBfWPBufO+qcNz5WdruToiZfMDTLJ07TjiVrF
+	Acpz+yKPki4BJSU9gNHTDnfBtM6NEgizbjg9qHb0KR6OH5XvX/pQxHMqUlBfFr14
+	vsjqQmjOhuacMhZF2a+q8wZvJzyv65mdIGo1E4T+e/UywarYNJM3pft00wZ8McV9
+	pKc1Ks/12L4Iq0+6/u2oCW9BDD0csszYUfJcfh+vD4DwoU2K9+7nEbbFNxt7awMs
+	akhnR0sEpUzTCSMfOS9/e8r4BkiJx5sYec0OxAYwids/0SUN0UeN1ZNeHy8bqObS
+	LCMHsA==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9d5q4w-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:26:33 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-930a312222dso31143585a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 01:26:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789374393; x=1789979193; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yE9cXux7SWfKuln0nFstBwjBhpnZF2+pJbTjpUIW9l4=;
+        b=a2DSfK8drzYSFskcY31Ch9PzwUv0tComl6DeTIKFYeYFUMGOZEtObsNDoqJxkjgonM
+         8MCKVlG0rtmAugFoWemz6hKVFqeeNYt2Jcg55Vs+wHSRYJJkfL/yZdKHWipmacN/LfBz
+         nkXFjs8uS+FU/DuU2kguvBjJI9R1XwKWqgWBBvxGw9L7OdcsKD2FFiBuBQ8Njyb73EG7
+         ov5beoMmb6mMoz6fx6otZ97TT/OAJfUav7SKTDQzjMG3AN+IHXuWjmzbNrXGSjkDF9UB
+         kIjurM25gwicTa7wJmMzoNAd58JpPHVLv3d2D52XZWqm7OYp7qnrqw++yqWzK1SQToPh
+         TkFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789374393; x=1789979193;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yE9cXux7SWfKuln0nFstBwjBhpnZF2+pJbTjpUIW9l4=;
+        b=sksTYKGpMc/Ev0SLbkLNsFBnuYIsW6FSlO6cA+VcFKHnUXOGwRJABpdkDfGfQwDq80
+         HpFZbffvYIl8llx1E9X27oGeF8yGozAfPcLP087iQE3a6fqBAF/Aae2GZMEtOG6cxooE
+         y69Z/sItQK14nd5n6JKvY2gg0AKxEVxIFLTng90GF8QQPjOiYC2dEqovlWGdcA5rhbfV
+         OnMcLs+ELCAVwL+0eNQgnc6Q7YNuTwlnVXPj6Nmsx/ZRuXE7CCR2XJZQBI0DVZhBaaSu
+         qbOdPN5hRSPMxGIjt5xHCz1UA3n+uFPnHVVHE2I8adMfuWCL4FZqcyPxVyu7t0nyJ3F5
+         bjfg==
+X-Forwarded-Encrypted: i=1; AKwUvBzrNui96IxK7MGwhdg/Q8gxO6CDzt0mCrq8K/9LkQFQCVaGBT+vJlbnTV5+wwuK/ALeGbIO0jUmw9PtEQk=@vger.kernel.org
+X-Gm-Message-State: AFuF++nwRC1opIxZf5uF7deT8eFnePIckLWTPS+QFxO96U7GYq+hc+yY
+	hfELIRXQjlTxJZAduR0I+Gn+9xiMwgJyK/vOStepzwid5rfkhrdkynNFdxmWDYlR6vTGHKUmaa7
+	bpGQLpwsh7zkOHIl+tQ0KyutLWwDewoHxg/zk3S3Zkpy4kabSIRXBK2xi56U8lLmOMbI=
+X-Gm-Gg: AYBFou1Ka2IOmBAkXY3QGe67GOtGNOKQ4vEFjz1aZIbVmoZyxYMlJ9idL1QXDK2AO6t
+	Fs1oBtKJoUAQFlTkxTijO1xdtlwP0niYogbOyqhRRODVupA4K3IvOKSXDu+T8PrKgpaWqThw1Kr
+	xDMN+Imc0LO+H6RegGwY4RvrwIzGo97+DHDXef1BJkAvX5d0+BzCQcIpiC91KrLsf/DOoJcNRav
+	zKDG3c+rKRM6GSriwTJc6gCsUD9XCm/Vy5XFS0f0iFWqDUMIg7brzuC/CYj4jfcbKD9hpkC9z2i
+	+kruEezURbHnX3FarHgKuf9NaaVf14nO+AaA7dN/x1I39Onx0OmZwpGaTqu/nZFvLzwLv4gt2Cx
+	F9hMkieOqMBFJyQ+mRRekLg==
+X-Received: by 2002:a05:620a:6018:b0:939:47f4:935a with SMTP id af79cd13be357-93a29c955b9mr150436585a.5.1789374392803;
+        Mon, 14 Sep 2026 01:26:32 -0700 (PDT)
+X-Received: by 2002:a05:620a:6018:b0:939:47f4:935a with SMTP id af79cd13be357-93a29c955b9mr150434085a.5.1789374392239;
+        Mon, 14 Sep 2026 01:26:32 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c29660ba623sm400996666b.45.2026.09.14.01.26.30
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 14 Sep 2026 01:26:31 -0700 (PDT)
+Message-ID: <ad4496c9-e438-4c4d-8089-0342251902df@oss.qualcomm.com>
+Date: Mon, 14 Sep 2026 10:26:29 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: N6yLXQa++l1YBShACHmAv3Nm3zE9u85NZ0h0x9q/56zCO7KFLvQ89IpJ
-	aO9hv2y6XUhjBroWKVb/S6YrelkqK2zijKrFry6GVkwqtz8Pf6cuDUHemj/2AOaJf2g2jar
-	p8THaoft2P4bj7QXJ0GExKufhPth6hO4WGqJtWOSbRSOYRo8jL/CRoQ2y2eG89Q/lhsTbMn
-	OM0LvQe2NQgCguSSP5TaUro+nVGSSr7SQxeZoqDhfWrMpWtsTiE/YJO5gyhBLVGuXVm2gEZ
-	xbx6dIuu2OU7D/6izr8pBl52UV28lojgB63trQUYJsUxRhD/yGW2uFfPjHvrC2sSVW8hEd4
-	SYRlZoJP4Z5wEzwCoAuxlSpmBstbGLnyZ8lLMUdp2nvL0ljUc6GQqiELuJXRLjMsSDzNVwe
-	42Fgz+u1bzZpS3np0hn8epYNJVbpOZSOJpt3fUUylbEb1BBBrQ5sFLcs5QFFIDa84AclEBW
-	5JE8JQ2ospVZuaUtc6wsSS34r8P3MEfJ09q/2DlI88p4+bWKtNmOgtBmtmOZBkfCNj5gOoh
-	ivBulp67t9sNACFE9XpO/tIGpTTH+g6c5Vjp7+LFhLVQNwwo1fBzBdP2O+U/SclTCLMkY9Z
-	Izin94miZ/V23CVLMVSFWHvEOhdxxEefRiI+WmPnnqZnfY13MLMXeJmAVUjqYMZDnoXLYAz
-	aWEeSA86TUJJ9Nd5CQo8CJVHRsXM3mRKGI/UUCfl/8vLldno38T9F5fYJ8uknsdE0RjTsU3
-	7fZWKlcz9Kzqefdy0LnurAt6oylYISSXt3fBYTAqRNnTxTRi/z+c+0ww2a8aR9f+/4i8th9
-	cY2JfJRly7xWx8KbAixf9nDvytyouw7QO2vCr9wXUoMBGiZ7lljLS0WfDtiEV3cGKalpUYB
-	CJP/tr7SzPqM1fj/dBU4WB7hLlVKUbMFOCkrbBAmq7O/HkwItEyUA2XEiobVObhCoidPLis
-	yY6yXhDKBllPt9xONlFcz2OX8qYRtZil5++bzOfJBY7CCMdeO/Pafm2bTe7cKk6dkXamNxP
-	U43CeW8J+WDaVPDNLgemxhhClGukhVwYwgGbpPzMQjIYsGjiGt0QfyBdEqE9kG1PGZ2p90H
-	WcC9zVeLG4OjDvBv7sjOZgob4hZuq2vgpcv+CTd1VGUZP7DQlpcWuo=
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
-X-QQ-RECHKSPAM: 0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] soc: qcom: pmic_pdcharger_ulog: prevent work requeue
+ during remove
+To: Yibo Tan <lhfff@tju.edu.cn>, Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+        Dmitry Baryshkov <lumag@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260912161210.1683266-1-lhfff@tju.edu.cn>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260912161210.1683266-1-lhfff@tju.edu.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDExOSBTYWx0ZWRfXwGiyGphDanoz
+ fw68UVrDhBOdCKeo4Ihuauid23Fk7ZuWX3KN0/+2IawZM60/O5ZDDadvJBGdBtweXxsDoNDOJfi
+ 6naX5pwYRizgwPQ78yPY6FuTvdXxCCU=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDExOSBTYWx0ZWRfX78+ynLMWKzbL
+ cslVN9vcgg3rbA3os1/tbhCa4j+o/o6TJG7kkgjTLGFM/i7hL5v1sK6AaWhby+neH9L+dTYyyZ/
+ 57lyOrpA2AAKNnes5fVLbgPzkVF7FypwpdIq3QCaNS1xIO2DfbysWdhF2n36RTla0WqeKSXRuI9
+ Z5faTlCT4A5RqbqM2FrEVVMesW5U6GX46vEXFH6GbCinTnxoL6jXgjYz0UgpYRGPY2v7VUWg7Cq
+ 1gjiWADF0RDnByNmGpTs+2nb1G7JyR97ZJfWs1DTrdB98h3SRLNIipjtsyHK4UyO45cCYZysoVv
+ UkMdOMyTsT7ehBToxY8IeKHYMn2zdgWJxXjU0fVGF4Roity395zzZZU0YjIyWHZxYmxnI9M5KB6
+ UeVpnYTSWRxT1YXC3p6xregy8deW8vKqDpKdzJsQAcjpmXextN0zYaFNiFysu3uCLnJZeEA7TEl
+ Z2AcKuyXmU33SnCE+Dg==
+X-Authority-Analysis: v=2.4 cv=IOSXmQvG c=1 sm=1 tr=0 ts=6aa7afb9 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=yWPM8P6GVKE6enYag9kA:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-ORIG-GUID: tWczcOvtqBveiUxbtlgX2UIjjNbW6aud
+X-Proofpoint-GUID: tWczcOvtqBveiUxbtlgX2UIjjNbW6aud
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-14_02,2026-09-13_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 malwarescore=0 phishscore=0 adultscore=0 suspectscore=0
+ priorityscore=1501 lowpriorityscore=0 impostorscore=0 clxscore=1015
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609140119
 
-update_tind_extent_range() advances lb->curr_block, an ext4_lblk_t, by
-max_entries * max_entries for every empty triple-indirect slot.  One
-triple-indirect block spans max_entries^3 logical blocks, which exceeds
-2^32 as soon as the block size is 8K or larger (16384^3 = 2^42 with 64K
-blocks), so the counter wraps while that block is walked.
+On 9/12/26 6:12 PM, Yibo Tan wrote:
+> pmic_pdcharger_ulog_rpmsg_remove() cancels the delayed worker while the
+> RPMsg endpoint can still deliver callbacks. The RPMsg core invokes the
+> driver remove callback before destroying the endpoint, so a response
+> callback can run after cancel_delayed_work_sync() returns and queue the
+> worker again.
+> 
+> Device cleanup then frees the devm-allocated pmic_pdcharger_ulog while the
+> requeued delayed work still embeds and dereferences that object. KASAN
+> reports a slab-use-after-free in pmic_pdcharger_ulog_work().
+> 
+> Use disable_delayed_work_sync() to drain the worker and reject queue
+> attempts that race with removal.
+> 
+> The issue was reproduced in four of four runs with the real target driver,
+> RPMsg bus removal, endpoint teardown, workqueue code and devres cleanup.
+> The test provider delivered a valid response in the window between the
+> driver remove callback and endpoint destruction. With this change, the
+> same late callback occurred in four of four runs without a KASAN report,
+> warning, Oops or panic.
+> 
+> The reproducer uses a test RPMsg provider to control the teardown timing.
+> No unprivileged trigger or physical Qualcomm-device result is claimed.
+> 
+> Fixes: 086fdb48bc65 ("soc: qcom: add ADSP PDCharger ULOG driver")
+> Assisted-by: Codex:GPT-5
+> Signed-off-by: Yibo Tan <lhfff@tju.edu.cn>
+> ---
 
-A wrapped counter makes the migration store a block number that is 2^32
-blocks away from the one the pointer block describes.  Two ranges can then
-end up with the same ee_block, which trips
-BUG_ON(newext->ee_block == nearex->ee_block) in ext4_ext_insert_extent(),
-and without that collision the data is still moved to the wrong logical
-block while the migration reports success.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Keep the counter in 64 bit so that it cannot wrap, and refuse the
-migration with -EOPNOTSUPP once a data block would land on EXT_MAX_BLOCKS
-or beyond: an extent may not cover that block, because
-ext4_valid_extent() rejects a wrapping ee_block + ee_len, and only a
-corrupt block map has data there.
-
-Fixes: c14c6fd5c56a ("ext4: Add EXT4_IOC_MIGRATE ioctl")
-Signed-off-by: Yichong Chen <chenyichong@uniontech.com>
----
-
-Notes:
-    v2: refuse EXT_MAX_BLOCKS (0xffffffff) as well, so the bound is >= instead
-        of >.  An extent may not cover that block: ext4_valid_extent() rejects a
-        wrapping ee_block + ee_len, so storing it would leave the migrated inode
-        corrupt.
-
- fs/ext4/migrate.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/fs/ext4/migrate.c b/fs/ext4/migrate.c
-index e06d847033a1..2ce587043945 100644
---- a/fs/ext4/migrate.c
-+++ b/fs/ext4/migrate.c
-@@ -14,7 +14,7 @@
-  * represented by a single extent
-  */
- struct migrate_struct {
--	ext4_lblk_t first_block, last_block, curr_block;
-+	u64 first_block, last_block, curr_block;
- 	ext4_fsblk_t first_pblock, last_pblock;
- };
- 
-@@ -65,6 +65,10 @@ static int update_extent_range(handle_t *handle, struct inode *inode,
- 			       ext4_fsblk_t pblock, struct migrate_struct *lb)
- {
- 	int retval;
-+
-+	if (lb->curr_block >= EXT_MAX_BLOCKS)
-+		return -EOPNOTSUPP;
-+
- 	/*
- 	 * See if we can add on to the existing range (if it exists)
- 	 */
--- 
-2.51.0
-
+Konrad
