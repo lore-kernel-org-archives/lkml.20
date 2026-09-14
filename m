@@ -1,162 +1,181 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF8FE3546FF
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 22:17:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789424223; cv=pass; b=i6++TXW2AtnAt5WmK7shRny29lyDoO4ry9LqYGb8h4fd4wxgudtbP3BCQr7Ko+o06OkCWZOrR9lEPTYAUmn7PHJqhyXIRCBvKnFRhoaexQm4LWyERve3oYquKh1ESw7hMYjyVPJ970d85Xti2c/dTpS0jXxy/fwL0nlGKVXLXpU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789424223; c=relaxed/simple;
-	bh=F26XusL349fj/POvj6KSDmCxhPlIXdg95qDIGU2tpFU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=gIU9LDCaKYelpG+afLr0D5I7N/iMLICOwunecd2fla4n+nRoI1rPLx1R9Nw4RCzfhyTf0XdAAwlks8Lx+4iFX0IP2EATqhV+1VX58N+DDQi7pvs+Ppy47ScaZBcc2HXrFKMCJcqDnytioJsoQIv6jJzrX8rcvoTKm3NrEH64Wc4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JF4Lg3bg; arc=pass smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DE2A1F4176;
+	Mon, 14 Sep 2026 22:17:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789424244; cv=none; b=VekdLlqcTeQFReUPhFHPgLNKgZJsCqEic5Kl3A1aKCNC0HOzCoG6DB8GIDhgBI530ZB6lyiYyvAq+rpvIOFo/49j4ERQ/DzgKeZ2wZwHLHkbZFvSrlwVKcoUuw/jNPYcUKX+aMWQLtDNP0lDfePtM4iJeuGrjPryQt8ONc4yZB8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789424244; c=relaxed/simple;
+	bh=VmmGQy/SFyLE1yqmNp+unucn6PSxM6ocSME+1Chp/bs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZL/tz6BsXzn39DaNyxbMj1oEkm1zlaMVvvx6+piFxITsLv63ZNt2HSW4nF0Eyzrnn0/rXdcp/zrXK/w27OIwfoN3yIwzqetjGDW01OAD2OaKUzqVqDl4MNHoVODNARcNbpX8sa8pVl5hSwZvWg3cODqWsSxj783D238TdSZBstw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ks1EWNsG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JF4Lg3bg"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a9ab2a135dso3514979a12.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 15:17:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789424220; cv=none;
-        d=google.com; s=arc-20260327;
-        b=XsnoPLHZFQxWT7rzjZZwHmwyxhkuTcySg7Ug/yM5/r7l+L44XrT4jsfXKuc5XF0bOi
-         rhX57hpPyjZbyhfu2OXbzk23cqD7P6c5je5wImXEmUAaIVtGrehCQol4j4YBi/8A0Ugs
-         7sjMdCPFCP7RK+6RSPojm/7q9lmuUOYXTKJ92kwCMMOJra9InXdYeWL17RcJZR410QxS
-         5OZM0bCGLwve6UFMrSp7VQ3S0Dd1jOMmknZu/U9uOZnsRe0hIbocKwzYq6Eqh9ePzwnx
-         2Ea6fH4gfUBgFLN//OawaR7gqySXXhrBGYRpwkH8BGt0oBNLO4y2OBj8NvfLG3bTr5Tv
-         MHNA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=5811usFaNJpGkrxjrcQnbMmTE8twHwPG+c7GaruR6FI=;
-        fh=8R91REZTeWJ+DQnaxOYPuJXaf6b2n/c/YDUapYesN6E=;
-        b=LNCcNrzD9JiO9DRhdYVzMXPkH/t9puyTUs/4U81RltLy2e16krgz5DamWq0/O6hOuw
-         Pm9RJmBpJpivcMIz2SYLwcmcFbCFp8Kh/LZ3cNvXUw6CgDu/2JnfN7AguzBv3IdhAizT
-         g/zsk9u7u2VLmUowzKcOAPksQ3OkGw1lO2ZwjIscjwO0qOhvLkIony/143c0dWlpOUYq
-         KZKaozCei9+q6sOjh9hoGrh7yEjdpjXa0noxLUb67OQUtfyZODt4RChOBpu9OTXf0FNF
-         9IDKchIV1BLN2MtOWnn+qLw9xO4Qh3QXuCBg8XXNhBCVHe0VKoBgdzuGWXGEs4dWgTCv
-         oGow==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789424220; x=1790029020; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5811usFaNJpGkrxjrcQnbMmTE8twHwPG+c7GaruR6FI=;
-        b=JF4Lg3bg1ulIQ8qM8049az39jQMI3l0Kj1ZCq9qy4ckmBw2tpCCDDCT8W4HYVRWqEk
-         I2QMf00irDAWucGI1UdhWsMfKEvRib4n+XnFT15XQdL1AcY/YvX5EznJ7y7fPT6ZRyxZ
-         NF9iX8ubbfxdeLHRz8yNsoRCnvPClc6g7b0J+EqRyVoDp9R2JRUWLVlfPJabLOz9+mvn
-         7UgRYtVVj38hE9/E264xoRNnidFRj33pjRXlZNvZMJWsW8BTvIYYJbhGZVaP/H7iKvIC
-         CcXlsrav8nDAfKEks2sUMfxfWmt/ApPPO3QgPjIxSgGbsGNnFfGgqBs2EDzD7mTvVYMd
-         ksdw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789424220; x=1790029020;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5811usFaNJpGkrxjrcQnbMmTE8twHwPG+c7GaruR6FI=;
-        b=Nma2X1Ly5NDRAgKj2DB1WihUS4TSeE7GjHqt8ij5Xwcsmq3Ot9iIan40ZlvDfjBWmi
-         yV8O2VNUhvM3P4RVnQE9jAmqCU21gVUDHOiqYcSw1fIW1QCXO6Xyv6PgPkI+Ow9ljQy+
-         i2nPBlCnD0iCaAvFiB6wkMxHEkLfnAIWWOWBuSAv5oymmrkKUjvJbDfgA8DV/ZFiOTSy
-         ZBE667jwM3GHvkZy31dPc6VF820zyLu9ohwetHqi9fAsCT5/l13WSYyzdNpWVnzZNg+7
-         h9auTPg9QiSlqUWGD6eN4xSIR0mSX2TYd1DANYjeIOJZ7AbpidpghK3heUCuFKJUfraF
-         bNug==
-X-Forwarded-Encrypted: i=1; AKwUvBwGx2R4IQklqf7TA+Ar4hg5l1nU8bx/TMdGmBPR0uykxVb2mPFPDWhDjZP3hJ3IvTtT4n+OZ0/rl7lLqZg=@vger.kernel.org
-X-Gm-Message-State: AFuF++lgjT/CALgSNdU35iCUR2z2xHtPH0nU6uGPdPP7EoogRdZUkPS+
-	+ytHV4ge5g59iRvradVYIYKbN6gVhcqhh5qU9It6G0dtTqcuYy0m0onwlzmLnFgLqUD3H23oszT
-	l6j48DaxbNfOnfHDaCuoYx/b5nyQ/bg==
-X-Gm-Gg: AYBFou3RxShOi1itVBG9LTL9Os3efvGyA3DfD+4SsekVcJ42SHwuoDmfTRS74zSYiUh
-	8nA4JGea4SYcsa1+8mOJfg2CT3qsZpt0THHPrpDkIlSmekzV6vc0FTdHbJ0Gv4vVccWms9tKFxw
-	e0lnZLGur3RY1i5QNDc8oeejnECYZL+gQ4lkBbOkJdavKg9fR/Ks7pS3eFxSsMYcMp6IWizJ2+N
-	RI3HlVW79ZYbeaY71wMH3Qb5ZVuJ6lVNMSgc+0PaPlXvXvjTA2roZgyDyG3/yyEZJpzhO/Ms+Wz
-	jApSBO0dlK4dgH/aQqdOZG7NvPIB/dv5S2ekkcKZ5xBrSPr3Fm2994uq4qp3jX6IFaKdpHFIndN
-	noMAIa/kwGjUGrJHeYgL4dAPd1sa808g59n89fkXea98KkEzHDbdsjsTn1zEYSuT4knACbQ==
-X-Received: by 2002:a05:6402:2350:b0:6a9:b51c:9d49 with SMTP id
- 4fb4d7f45d1cf-6a9f623840bmr2755096a12.10.1789424219581; Mon, 14 Sep 2026
- 15:16:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ks1EWNsG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8D981F000FF;
+	Mon, 14 Sep 2026 22:17:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789424243;
+	bh=xlmw5Sp1urhZVdxH5bFJ0qTtxuqcS5RQxs8x0o0CImI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Ks1EWNsGCj/8znYwhtVNtNPK8vD5mn84FhSrLpn+4ltFOKwo/u99XA7d7qbCHv5F/
+	 DuWP8oEKgEQiEIKLLCihsIO2s6BWTx+Uk3m8z/7v+8gHtOIOTWFIEBuZHL8jFLu2cO
+	 zVBJYa2rzX5OnEGhJKthAbQgS0gpSn3Rjp576w5REs2FjberPnFfJkIfvBVYa9dxf/
+	 E5AHClCpWIc1LYuZdu3weXiR/JUKffyznWDdkEBSCK3JGs1Uk5mmPb/00T5AMdpACW
+	 +DyWoop+SRcSDiJ0cyswOEoutKHf/aYOV+DNCKJc+DDntoYOm8mC8Cecj1KYHqFj3R
+	 Q4mzx2dRec0kA==
+Date: Mon, 14 Sep 2026 19:17:20 -0300
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Namhyung Kim <namhyung@kernel.org>
+Cc: Ingo Molnar <mingo@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
+	James Clark <james.clark@linaro.org>, Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Clark Williams <williams@redhat.com>, linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	Arnaldo Carvalho de Melo <acme@redhat.com>
+Subject: Re: [PATCH 1/8] perf test: Skip data_type_profiling when the PMU
+ cannot record memory events
+Message-ID: <aqhycPougjUadYif@x2>
+References: <20260913222821.3353-1-acme@kernel.org>
+ <20260913222821.3353-2-acme@kernel.org>
+ <aqdOXOH6KaBTT_b_@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260913013615.22615-1-mhun512@gmail.com> <aqexMdHnHHq_l0Y3@ashevche-desk.local>
-In-Reply-To: <aqexMdHnHHq_l0Y3@ashevche-desk.local>
-From: Myeonghun Pak <mhun512@gmail.com>
-Date: Mon, 14 Sep 2026 18:16:47 -0400
-X-Gm-Features: AcwNN1Wfuc2widyYkZuQibIG_V-Tt3xzJgrCwnfkF6XrA53w0ESfy3a1GYYfxJs
-Message-ID: <CAGEsz8GnHrwmmU9-mLcj8gita4Gh+fBinyV=1WsXzj6TRvCN1g@mail.gmail.com>
-Subject: Re: [PATCH] mfd: intel_soc_pmic_crc: balance IRQ wake enable
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Andy Shevchenko <andy@kernel.org>, Lee Jones <lee@kernel.org>, mfd@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqdOXOH6KaBTT_b_@google.com>
 
-Hello Andy,
+On Sun, Sep 13, 2026 at 06:31:08PM -0700, Namhyung Kim wrote:
+> On Sun, Sep 13, 2026 at 07:28:13PM -0300, Arnaldo Carvalho de Melo wrote:
+> > From: Arnaldo Carvalho de Melo <acme@redhat.com>
+> > 
+> > The test records with 'perf mem record' in per-thread mode and its only
+> > guard matches one specific message:
+> > 
+> >   perf mem record -o /dev/null -- true 2>&1 | \
+> >         grep -q "failed: no PMU supports the memory events" && exit 2
+> > 
+> > A PMU that has memory events but refuses them per-thread falls through
+> > it, and AMD IBS does:
+> > 
+> >   $ perf mem record -o /dev/null -- true
+> >   Error:
+> >   Failure to open event 'ibs_op/ldlat=0/u' on PMU 'ibs_op' which will be removed.
+> >   Invalid event (ibs_op/ldlat=0/u) in per-thread mode, enable system wide with '-a'.
+> >   Error:
+> >   Failure to open any events for recording.
+> 
+> Maybe we need to add a fallback logic to add 'swfilt' term for ibs_op.
 
-Thanks for the review. I'll address these in v2, including releasing
-the wake-disable action at shutdown only if it was registered.
+Patch 9 in the latest series uses it, take a look.
 
-Best regards,
-Myeonghun Pak
-
-2026=EB=85=84 9=EC=9B=94 14=EC=9D=BC (=EC=9B=94) =EC=98=A4=EC=A0=84 4:32, A=
-ndy Shevchenko <andriy.shevchenko@intel.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=
-=84=B1:
->
-> On Sat, Sep 12, 2026 at 09:36:15PM -0400, Myeonghun Pak wrote:
-> > The INT33FD Crystal Cove driver enables the parent IRQ as a wake source
-> > after registering its regmap IRQ chip.  When that succeeds, a later
-> > mfd_add_devices() failure or driver removal leaves the wake enable
-> > unbalanced.
-> >
-> > Register a managed action only after enable_irq_wake() succeeds.  Since
-> > the action is registered after the managed regmap IRQ chip, reverse dev=
-res
-> > order disables IRQ wake before tearing down the IRQ chip.  Keep warning=
- and
-> > continuing when enable_irq_wake() itself fails.
-> >
-> > This is limited to the Bay Trail and Cherry Trail Crystal Cove PMIC
-> > variants using the INT33FD ACPI ID.
-> >
-> > This issue was identified during our ongoing static-analysis research w=
-hile
-> > reviewing kernel code.
->
-> ...
->
-> > Assisted-by: OpenAI:GPT-5.6
->
-> Assisted-by: LLM
->
-> ...
->
-> >       ret =3D enable_irq_wake(pmic->irq);
-> > -     if (ret)
-> > +     if (ret) {
-> >               dev_warn(dev, "Can't enable IRQ as wake source: %d\n", re=
-t);
-> > +     } else {
-> > +             ret =3D devm_add_action_or_reset(dev,
-> > +                                            crystal_cove_disable_irq_w=
-ake, pmic);
->
-> Make it a single line.
->
-> > +             if (ret)
-> > +                     return ret;
-> > +     }
->
->
-> Shouldn't disable_irq_wake() be called at .shutdown() as well?
->
-> --
-> With Best Regards,
-> Andy Shevchenko
->
->
+- Arnaldo
+ 
+> > What follows is not a skip either.  The script runs under 'set -e', so
+> > the bare 'perf mem record' in test_basic_annotate() aborts it through the
+> > EXIT trap, which reports a signal that never happened and exits 1:
+> > 
+> >   Basic Rust perf annotate test
+> >   Unexpected signal in test_basic_annotate
+> > 
+> > so 'perf test' turns "this PMU cannot record these events" into a test
+> > failure:
+> > 
+> >   $ perf test "data type profiling"
+> >    87: perf data type profiling tests             : FAILED!
+> > 
+> > Assisted-by: LLM
+> > Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
+> 
+> Acked-by: Namhyung Kim <namhyung@kernel.org>
+> 
+> Thanks,
+> Namhyung
+> 
+> > ---
+> >  tools/perf/tests/shell/data_type_profiling.sh | 46 +++++++++++++++----
+> >  1 file changed, 36 insertions(+), 10 deletions(-)
+> > 
+> > diff --git a/tools/perf/tests/shell/data_type_profiling.sh b/tools/perf/tests/shell/data_type_profiling.sh
+> > index eca694600a0478d2..a916c410274aa888 100755
+> > --- a/tools/perf/tests/shell/data_type_profiling.sh
+> > +++ b/tools/perf/tests/shell/data_type_profiling.sh
+> > @@ -19,6 +19,15 @@ perfout=$(mktemp /tmp/__perf_test.perf.out.XXXXX)
+> >  perf mem record -o /dev/null -- true  2>&1 | \
+> >    		grep -q "failed: no PMU supports the memory events" && exit 2
+> >  
+> > +# Skip if per-thread mem record is not supported on this PMU (e.g. AMD IBS
+> > +# needs system-wide '-a'): it is what the test records with below, and a
+> > +# failing record must not be reported as a test failure.
+> > +if ! perf mem record -o /dev/null -- true 2>/dev/null
+> > +then
+> > +  echo "Skip: cannot record memory events on this PMU"
+> > +  exit 2
+> > +fi
+> > +
+> >  cleanup() {
+> >    rm -rf "${perfdata}" "${perfout}"
+> >    rm -rf "${perfdata}".old
+> > @@ -52,25 +61,42 @@ test_basic_annotate() {
+> >      index=1 ;;
+> >    esac
+> >  
+> > +  # Under 'set -e' a bare failing command aborts the script through the EXIT
+> > +  # trap, so the commands that report a failure have to be the condition of
+> > +  # an 'if' for that reporting to ever happen.
+> >    if [ "x${mode}" == "xBasic" ]
+> >    then
+> > -    perf mem record -o "${perfdata}" ${testprogs[$index]} 2> /dev/null
+> > +    if ! perf mem record -o "${perfdata}" ${testprogs[$index]} 2> /dev/null
+> > +    then
+> > +      echo "${mode} annotate [Failed: perf record]"
+> > +      err=1
+> > +      return
+> > +    fi
+> >    else
+> > -    perf mem record -o - ${testprogs[$index]} 2> /dev/null > "${perfdata}"
+> > -  fi
+> > -  if [ "x$?" != "x0" ]
+> > -  then
+> > -    echo "${mode} annotate [Failed: perf record]"
+> > -    err=1
+> > -    return
+> > +    if ! perf mem record -o - ${testprogs[$index]} 2> /dev/null > "${perfdata}"
+> > +    then
+> > +      echo "${mode} annotate [Failed: perf record]"
+> > +      err=1
+> > +      return
+> > +    fi
+> >    fi
+> >  
+> >    # Generate the annotated output file
+> >    if [ "x${mode}" == "xBasic" ]
+> >    then
+> > -    perf annotate --code-with-type -i "${perfdata}" --stdio --percent-limit 1 2> /dev/null > "${perfout}"
+> > +    if ! perf annotate --code-with-type -i "${perfdata}" --stdio --percent-limit 1 2> /dev/null > "${perfout}"
+> > +    then
+> > +      echo "${mode} annotate [Failed: perf annotate]"
+> > +      err=1
+> > +      return
+> > +    fi
+> >    else
+> > -    perf annotate --code-with-type -i - --stdio 2> /dev/null --percent-limit 1 < "${perfdata}" > "${perfout}"
+> > +    if ! perf annotate --code-with-type -i - --stdio 2> /dev/null --percent-limit 1 < "${perfdata}" > "${perfout}"
+> > +    then
+> > +      echo "${mode} annotate [Failed: perf annotate]"
+> > +      err=1
+> > +      return
+> > +    fi
+> >    fi
+> >  
+> >    # check if it has the target data type
+> > -- 
+> > 2.55.0
+> > 
