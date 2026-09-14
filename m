@@ -1,170 +1,223 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010005.outbound.protection.outlook.com [52.101.69.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81D39393DF5;
-	Mon, 14 Sep 2026 09:34:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.5
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789378466; cv=fail; b=PdeYbA4jsluZQOMNsEDlUxIkyXZWT1w1K83t9ufGldHyyZUp6Z9rQI4GKnmuRUV4Sj1+BLVL/7mfkE49hyTwTlUZ74Q4nE2hNLIf0eHYmqq4zpbmaWDRm1whdlceMISLgg6MvCAlDKJ5X8TiAP6XjrbLWha7o6IQSOxK2wxcZi4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789378466; c=relaxed/simple;
-	bh=DPRiIA6ZjbvSpq7YVTSM5cwLFzML5FVVeB4Tq2fkY78=;
-	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=rNwflWOY42jvqneAQDjjZltDih+Go9WwyafXn18hAE8re9UtMUrmBjAYXibuFb2Rz/uAkTx3qkF4DEhdTedIvkN/seTAlR4F7NLPZ5kZDwxcWbqixAQMyFB+kfFYozSBloeecLIb7bs8LSHKSuYlyZLQ7BQiLMkDCDwq3nUfLsQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=QGUccJO5; arc=fail smtp.client-ip=52.101.69.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B242841228D
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:34:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789378473; cv=none; b=g0lexlSWPvtIwOxWSPZ1Ge6TO3FPsX2lYC4UlM6T4V7mdTYYNGK7U4eE+TEilEjbXvG6nbcSzrbus66FEVb3LYc3HNCXAq0q56ay+5Bi3oSscvT5bU5vca5gBKXibFETmQFJb3kYBU9ixUOx/HSPIcjhPMU9m6cZ6WAMPVUYylI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789378473; c=relaxed/simple;
+	bh=F9kREIRf3Ig9UgSB4LaiZ0uAxLqbvVsx82KJvon0pPc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FVI0+rK8WdOLcCc+tID1RKNgipIIc5Z3UP6CoZabrDawDv7sQ5WYl8TN8jENFBfHKVtDgd8NYIFc1gQXuttv/hTGySRadJcu+L/YGEGdawvF2A/mpoXojIphf5ESSwdhN0hW0Yf7x3Ph6+4gepqdAjZc9OEJklzf61OuVaPPzS0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qQhRIrby; arc=none smtp.client-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="QGUccJO5"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hbM4/UyJXUHcK2vC9+t26515snQ6iUFbO9Gb9hH0NXd3y+HOmp+9E/mGoE0Iq1CcPuvTHw8afvvS/D4gEPW56Agf5zl6PxheLVOpaHgnVZiqMU1yj+5uNwVMFqkuF9zg2X2TgUOowRLaeIDBmCOLm14uhbsTGxjMWl/cb3lPpZX7cYTR9N84UUSN5pvTajLop6T+2G+uVJL7vW0n1SUWpzKJWGlfBiNNPyRfxa6urHiUVENkJSuDXDoL+IMcmmm07Q2XIt2qsyxupB839sJZHMqAfzq4bhyLLFpAllf8KJtoBnS0HbGuwRDL3mjzga0sNpjJa9cW8Y2TDEj+7BxD5g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AlJTds6UpcSqEvGYSdxYquPuN1F/QVmLZ4kECA+iiFg=;
- b=btxLpRPqmo8kO19DklVRFBijwlSn7JfAfzLhEy3L2739qikZqVz2bTXboY12hFJaOP0ki7pyZMkT+NyAg7uqd8E3wUxnBDB4wEHWWZ6wFufqDFCDXiEJF1klcLgfw/d7KpOANOo9bQ20V+hnoGH4h+cvNMMRolsMkWKNZMcD1Sac5exDiheFqKwVjq2AFMnOvUm9BF3/Q+FzuPjLxIpHadCiD2lQ95ZWC77/0OVZWeCT+jHUME9an+8PQtAgXaKZop1YPu6/TPAx1OWZJmDkh11/2pp61+V4fejWX9IsX3gBiXxuNC7xoxlHFDJHyZ29Webk4B4GznvUSGiiN/tenQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AlJTds6UpcSqEvGYSdxYquPuN1F/QVmLZ4kECA+iiFg=;
- b=QGUccJO5ubn43nKWB8n4jfxh8jMTd/qH6OU/hfE+ooVgdmdCb5Hf1E+BcFUEKA9v2GqHD9Wbg1oTAYerlVjxfxjiEs16HU3n7nYMaowmYpr4CE5VoCLaW5NaB3zMZP7oIbeFIFiTIthPKJD0Q1FumB2FilPuYpGiZ0CAkBP+bnmqG7BwEYZeQI2z9pdHwtXpuonGlq94E82sw9mD0BKRm6LPctde9v6u2KhpLoU70ka4YjaH9SoSCMa1EN6udNaobUUhLJDTBKO40nmhI29NKxShoIAijAzi4jxyz7tA5GNVZK9ZAObWy8x4wf1dQC5EAYzBtcng3RZPnaTfA9gXgw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from PAXPR04MB9422.eurprd04.prod.outlook.com (2603:10a6:102:2b4::21)
- by PA4PR04MB7614.eurprd04.prod.outlook.com (2603:10a6:102:ea::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
- 2026 09:34:20 +0000
-Received: from PAXPR04MB9422.eurprd04.prod.outlook.com
- ([fe80::54e:28bf:aa85:d25d]) by PAXPR04MB9422.eurprd04.prod.outlook.com
- ([fe80::54e:28bf:aa85:d25d%3]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
- 09:34:20 +0000
-From: Xu Yang <xu.yang_2@oss.nxp.com>
-To: badhri@google.com,
-	heikki.krogerus@linux.intel.com,
-	gregkh@linuxfoundation.org
-Cc: linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev,
-	jun.li@nxp.com
-Subject: [PATCH] usb: typec: tcpm: advance vdm_discovery_state on Discover Identity Not_Supported
-Date: Mon, 14 Sep 2026 17:38:28 +0800
-Message-Id: <20260914093828.1910201-1-xu.yang_2@oss.nxp.com>
-X-Mailer: git-send-email 2.34.1
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: MA5P287CA0309.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:21a::12) To PAXPR04MB9422.eurprd04.prod.outlook.com
- (2603:10a6:102:2b4::21)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qQhRIrby"
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-482dd6ee390so2435913f8f.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:34:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789378470; x=1789983270; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qhpKpTgQJRnbW6lGpwxnwI5Tq36h+wEsmUTgFxtkd1g=;
+        b=qQhRIrbyhJDbMjxJCDYWfa8dclFTfZ/PTd6ToHcD1oaLjrx8n4LQisfy5uO3stUMAV
+         Fbg/91Zb0RaLPbAeH1Vp9CcbPsSbt3aSLPg5HtxUiTmKKI2YsI+OWEvWbEq/dWGi2w6/
+         487elbLNXJ1njGjrZi09CcHJeUAm545UZ9Eqbzf5pDsTuSxuQ7EJJsN5xkA5dc1WH6av
+         FOrTbaCfKtRnndOHl2XWLHivGrBiR+i1P8rfAZZFNLCQpynsZHtPGmuuXA/Ov88LGXtS
+         W8QFl0VKnD8azHW1+3iSl027xZeVKM7Eko65p0pPqlIgLQKB8Ob4XQ1DmPJ+qIT5+X1r
+         wDHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789378470; x=1789983270;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=qhpKpTgQJRnbW6lGpwxnwI5Tq36h+wEsmUTgFxtkd1g=;
+        b=Bt0UtPJhmgZWqMrOAc6AiMRGbEKLRzr8siVfvRQSCSpiYfueKhlr3eJX9+0icS2wpr
+         319OKUMXWI4OBYYJqSc1vAGAsk1esWU17aGyOxNr+LsVO687riCXH0DOnGzP+fCikLWz
+         SEUvMOSX5+vaD90PMAqsOiw1qTJy34enNTyb8CDX9XiJT58n8PoowIEMamFCT+gYePIw
+         Ps6wyX83cBW/Fo/9oNeYp/dKEGPxocjVmJmF8K6ipBbgENsoWLXVDiBesV7U6fbWoRE8
+         bE2k56qpFskGgdOJ/MBUCJxkIJu7fnatdxQ/NlmCc05Fa9oa+k+ybS/J/jgIeXJ8/E81
+         KHVw==
+X-Forwarded-Encrypted: i=1; AKwUvBzv9d4agpvaD0yzztGKrczRBcErQjnnlr+BiYv6oXkwS63Bson7tWcEvvqvBdMNm7mVG79mo8nJmhozklA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mzeocCTpMh7aacK4LzKRAZpWqf0onIvWmoLuSvi3oMnWrID3FL
+	Q4dl4sLHI4LTZYly+leSkZdlXav7gy+ycxGRNy7NkH/iCbpd1VojhiHK
+X-Gm-Gg: AYBFou2aemrt0X1X4AyfSAXYPih/1n+3tI0Q0nGhRxpPPznlvyFc/fGGswIkspj3C2h
+	WwPRuedo4oJUnDdyOAhfWUJfVX8anF1d9lfPZdIlrOLhHY3xrFRLARPv8NTYa5VWqF41IZPdqV0
+	fnW8zuzjDlMEkLczt9UWFqK3VcizFg4xNiu2og1rdkTimiLxMv6tIQleY0S0dB+LlprmAlpFJ1M
+	t83nKBqTRtyV55SkjuLH1kGyG3ApK9aIbZyZckbSDc77h1aDMSH1XR5ZTAmS1yWzwX9UQGWDVnc
+	En6EG5q4aQ0Q9lPyDY3aCdvgds0jAXUVnVnPmIOG+rwEto+03nzXdSqnqKH01Ag4H4bEPbV3gcY
+	9zLunRxj8mbVyQL2rB/Mv2l77VXid8LqPP3Kp8htHRU9RGEE/PIyNyzyc+ctCJP69BDvJ+eClPc
+	UpIlB4eHvw6o+xPLqAO/tkikEMG4a2ki3tNXSIGqC8Nrs6vUSziAJmUCUYr0WZuk6QfdYWSpdFi
+	sJOH6YipdWDNqylv1MI6ywSWekdqtC+jgvM
+X-Received: by 2002:a05:600c:1c19:b0:49e:6cc1:14d9 with SMTP id 5b1f17b1804b1-49e7a691ad9mr22121805e9.32.1789378469602;
+        Mon, 14 Sep 2026 02:34:29 -0700 (PDT)
+Received: from localhost (ip87-106-108-193.pbiaas.com. [87.106.108.193])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e63c9a7c9sm509436105e9.13.2026.09.14.02.34.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 02:34:29 -0700 (PDT)
+Date: Mon, 14 Sep 2026 11:34:23 +0200
+From: =?iso-8859-1?Q?G=FCnther?= Noack <gnoack3000@gmail.com>
+To: Christopher Lusk <clusk@northecho.dev>
+Cc: =?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>,
+	=?iso-8859-1?Q?G=FCnther?= Noack <gnoack@google.com>,
+	Oleg Nesterov <oleg@redhat.com>, Jiri Slaby <jirislaby@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	Tahera Fahimi <fahimitahera@gmail.com>,
+	Paul Moore <paul@paul-moore.com>,
+	Casey Schaufler <casey@schaufler-ca.com>,
+	John Johansen <john.johansen@canonical.com>,
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org, linux-kselftest@vger.kernel.org
+Subject: Re: [RFC PATCH 0/2] Landlock signal scope and TIOCSIG
+Message-ID: <20260914.b8a029f9abb8@gnoack.org>
+References: <20260913221958.839429-1-clusk@northecho.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PAXPR04MB9422:EE_|PA4PR04MB7614:EE_
-X-MS-Office365-Filtering-Correlation-Id: d887e9c8-b9e1-4683-89f0-08df12435a57
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|376014|23010399003|1800799024|366016|10067099003|56012099006|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	0s2IKWAUEfBwImGcyPSR68zbA6go9aSfclzKI37gI/VTKKnOSpXUIXU+6HR/NM/ravzjQkrGN7ggAsJlaZ+gRyWjVSO6L42scTKTAA/28NuDbN4UywtcbhAMBPfERtjypGZFHIxrKj56HL+CoFz0PdzisLBvHJwUnpsSPefAkwJfgP5DJZXuhI7VREVIA5fOLCtY6QVJw6nktFozj/drPH+ZGB7bj/fcYRpmCWtNdQ/gXjNDsIUlJl95NNChw2qbBUE7sojLbIzcjklac5VJg77HfwxF8rMkAJz1cUBOLu+3ifBwa2xTmicgP6OVBq4+QlPakjB+IzZgRD0M6jjiXnuydnP9TNRDkzi3WlWHKe5ViIYcKM8eHDkgTPzeZ8fT0B+uTbZo+fEIx5DouYFHsP4yZmM4j7S8PVzD+XjRMQGxqk56h3yCFDi4cl+tmQG5ph7kba4H58QuLNpr1EeYTBhymwtL0dlNEH/+x9LOsUyZRQa8D3tCD/TM4ComukHNLC3A+0vgtPyqG+YCitm78bQb2BeMN0UK2+qLKhDRlvV+Q4NB9eeWd+8tHPzdLVYRBgQcd/DwbUW5lZnnv/P/7EZJJtD8H2yOBA+oGkIHqVHfsX6RRg1JQhy/vCLto/vkVrgY1xEx/7lN/DX2sglkae6CysaAf2PXAwxRPuREPoE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR04MB9422.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(376014)(23010399003)(1800799024)(366016)(10067099003)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?UsLBT/BdShaVkohWsIqAjk54IRtex/rVxagA+dWhKUdT0Chg0IiVWrhIbGnF?=
- =?us-ascii?Q?7x4N3wrvbuXBAEBFLj++TGC/wwqC4ZcgzeldDg2uFHCoF8rqguddaxtf0OfB?=
- =?us-ascii?Q?nnYF9lOZiq1/sCtWZGO/xmFku0wEVZIEPn88bdgYJWzPeW9XPX5fsf1/yt4g?=
- =?us-ascii?Q?HE2XZvyuuI1rYrwxZb4+p5QpXdjGjLVBxQBKPc3+3xi+HBn8i6bc6KL1898I?=
- =?us-ascii?Q?/dgMgzTsZFsSOt1et7LSl2yVHycD2gDm9cTGg1ZUU8qFMNKD4xGWZaZP1fXx?=
- =?us-ascii?Q?Q/UdD5XjNG76wVUy3gEAcp370MedUZJicTLSwtaLdI+xCIx6y51bVd9sHRdP?=
- =?us-ascii?Q?BNRSMGS9RjL3DC9B7/HhV2MnnsJ8aiIa+sBs+p02qE1Kb72XCuziQ79h9J0E?=
- =?us-ascii?Q?vf5shm3WS5C7/IPk5Kfm/CsN2sIddbmDfRcaCc4QuXP7gFb41Wp8m95sXLuZ?=
- =?us-ascii?Q?5NiMuDN9h0/76Ua8hef64a8cRfyX/0B6jkrYU3Ra+gxtBRetWfrvxF6TX5+z?=
- =?us-ascii?Q?ORXMMdMtBJ66EKSIdB7Ps/9LQeFxOnw0xlmflA47REd5pGiy8vzQcIagvI9q?=
- =?us-ascii?Q?NTUpRfhlI9+ECQcfjbGkbRWdaLDeGNAWlh6WFQk32TnHJ+EwZmYDhYC8A27m?=
- =?us-ascii?Q?JBQVWGJFuPG7WxEYr4aJIUL9kL+u8pbd5qTKCubbtbCHGElZavH6lHVagkDC?=
- =?us-ascii?Q?+9glBN8L8d662GcRTltgbdAaB9l5f/LDZo1ABq8LJU6gE4xHrJ6LaZSw5xEG?=
- =?us-ascii?Q?1V50Xxm+o7i9luvY4/0qRuJlNuDmKSToDKMVVMgBKMhp37Aim211HzG7QKP9?=
- =?us-ascii?Q?C4Z4CiM+J2HZ2ks3cM51wlFuCP4poSFtC/8lFlh/KTQ+B75K1KGdpIFGECUu?=
- =?us-ascii?Q?b2ytkzPNmPNidC9EtWBDBiMeG7OtXTZaUj8XbIyVghW1EREGFLuIEwk5y+L6?=
- =?us-ascii?Q?M/JuoRb88+H5JTuXEC6v4GYAzeoxoP5vJfI17VrNXiaYYnQ7dAoEtijx45Ko?=
- =?us-ascii?Q?qZcC8K1/xXSL41LIKfKYuy/qCiexRavi/vFMOuF1KkTUJUuX/P/WJlEQnSZe?=
- =?us-ascii?Q?RMIuDWkbOwyXqAV7G9hT0RZLvdyVqG1ek6UlmuYpAq3qY4mRv7Exsj/eFBsw?=
- =?us-ascii?Q?IQsUi7febrSAXKZVX4NyFE4iWV067vEPITFC2JyhIL9qlGnCBgkhprGrj4zq?=
- =?us-ascii?Q?8yMcz4c7VLL0FDbObRdoxZ4zh/ayHzXcGHEa39aCoaat3WvCdaoGRFcVrxJy?=
- =?us-ascii?Q?Znm+Se+2+VeS4MHNYBDSdUHS+tE/seLvyeWHDw442GEdGqtCC11FvO0IsM3I?=
- =?us-ascii?Q?0slcgLNSLheEMhtYoMyiqnykI6k6BoUfi72UzOQKHE7ZudU7qN5Rk5jg6Hl2?=
- =?us-ascii?Q?kLAXKdsUICVjffB4tFGWKAEi7niZqQK7m7v0W09ZQ84W6qc3ObwQbNUv15Pe?=
- =?us-ascii?Q?j+NYQeh+HW9KgIicH6QhNAwYNewDwLG8Be+3JBzeRET6DRQby8deA/JqnZru?=
- =?us-ascii?Q?B8tAvCMDRmQa9vmO+oplbH+wHAuvagJwZw5cwECSM7k9njVb/ta8Depy5ukQ?=
- =?us-ascii?Q?ux44eK0WVobo+gzbMiHcqK/ZzoGPuBcGmVDSZ3dq1BD9qT5L1NBZ1VjZD8mV?=
- =?us-ascii?Q?acoRpuT4LiNY2OHJDxXuSp3UbcKWSnMQMl74q014Rc1+gxkqfQu5y6Hzilpa?=
- =?us-ascii?Q?kvnznRA8SSL0k8G30zL0oFltSWYKasB/DOhGS6lDiVQvBc0RIM42Qp0qnCAt?=
- =?us-ascii?Q?ubSjESbVikBOuwcHVG90KmEAtlebLTFyacr62ByEohAl4n/xTN1z?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d887e9c8-b9e1-4683-89f0-08df12435a57
-X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB9422.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 09:34:20.0755
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6zMJbKCpNk0VPdWOSXSoKwkTXNX/5Z4HZ0+Mm/UWuJhZElA++Zk3TEuO11SQZGJKn7ZnXwFPCE+mvOnfBsd7g4JGbE18G1rsl+tH1iq0VFS06YzBmAXc3NKSZABFV7ic
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB7614
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260913221958.839429-1-clusk@northecho.dev>
 
-From: Xu Yang <xu.yang_2@nxp.com>
+Hello Christopher!
 
-Commit fa4d0a7cd036 ("usb: typec: tcpm: fix Discover Identity retry loop
-on Control Message reject") advances vdm_discovery_state to
-VDM_DISCOVERY_COMPLETE when a CMDT_RSP_NAK is received, but it does not
-advance the state when a non-modal port returns PD_CTRL_NOT_SUPP.
+On Sun, Sep 13, 2026 at 06:19:56PM -0400, Christopher Lusk wrote:
+> Landlock documents LANDLOCK_SCOPE_SIGNAL as limiting signal delivery to
+> processes in the same or a nested Landlock domain.  A retained PTY master
+> can currently use TIOCSIG to deliver SIGINT, SIGQUIT, or SIGTSTP to an
+> out-of-domain slave foreground process group because the privileged TTY
+> signal path never reaches security_task_kill().
+> 
+> This RFC asks two questions before proposing a final interface.
+> 
+> First, should this be classified as SCOPE_SIGNAL under-enforcement, or as
+> part of Landlock's documented inherited-TTY limitation?  The "Current
+> limitations / IOCTL support" section says that IOCTL_DEV does not affect
+> pre-existing descriptors, names TIOCSTI and TIOCLINUX, and recommends
+> closing inherited TTY descriptors.  That text discusses the filesystem
+> IOCTL_DEV right rather than SCOPE_SIGNAL, and unlike the two named ioctls,
+> TIOCSIG is not CAP_SYS_ADMIN-gated.  Commit 4b80320ca7ed fixed the same
+> effect-level class for SIGIO rather than treating the retained signal
+> source as exempt.
+> 
+> Second, if this is a bug, should TIOCSIG use the existing task_kill hook as
+> patch 1 demonstrates, or should it gain a dedicated TTY-signal hook which
+> Landlock can implement without changing other LSM policies?  The prototype
+> is atomic with process-group delivery and behaviorally narrow to TIOCSIG,
+> but calling task_kill means SELinux, Smack, AppArmor, BPF LSM programs, and
+> future implementations also mediate this operation.  The series does not
+> claim that cross-LSM policy change is settled.
 
-This can re-arm another vdm_discovery_work if the port is going to
-respond with PD_CTRL_NOT_SUPP to the partner.
+Thank you for bringing this up; I was not aware of this code path and
+researched it a bit.
 
-  tcpm_pd_handle_msg(port, PD_MSG_CTRL_NOT_SUPP, NONE_AMS);
-    tcpm_queue_message();
-      mod_tcpm_delayed_work();
-        tcpm_state_machine_work()
-          tcpm_send_queued_message()  -> send PD_MSG_CTRL_NOT_SUPP
-          run_state_machine()
-            case SRC_READY:
-            case SNK_READY:
-              mod_vdm_discovery_delayed_work(port, 0);
+Let me try to paraphrase the issue to make sure I understand:
 
-If both the port and its partner do not support modal operation, they
-will send DISCOVER_IDENTITY to each other infinitely.
+1. A process creates a PTY device and acquires the PTY master FD.
+2. The process then restricts itself into a signal-scoped Landlock domain.
+3. Processes outside of the domain are attached to the terminal
+4. Through the PTY master FD, the master process emulates a terminal
+   to the attached processes.  One of the commands it can issue is
+   TIOCSIG, allowing the PTY master process to send SIGINT ("Ctrl-C"),
+   SIGQUIT ("Ctrl-\") or SIGTSTP ("Ctrl-Z") to TTY-attached processes,
+   which may live *outside* the Landlock domain.  (source:
+   pty_signal() in drivers/tty/pty.c)
 
-Advance vdm_discovery_state to VDM_DISCOVERY_COMPLETE in this path as
-well, mirroring the existing handling for the SVDM CMDT_RSP_NAK case.
+TIOCSIG was introduced in 2010 in Linux [1] and in 1989 in BSD (quoted
+in the Linux patch).  According to the patch, it is only required in a
+special terminal mode where the mapping of signals is disabled.
 
-Fixes: fa4d0a7cd036 ("usb: typec: tcpm: fix Discover Identity retry loop on Control Message reject")
-Signed-off-by: Xu Yang <xu.yang_2@nxp.com>
----
- drivers/usb/typec/tcpm/tcpm.c | 3 +++
- 1 file changed, 3 insertions(+)
+In more normal operation modes, the terminal interprets these keyboard
+shortcuts sent as characters.  This is implemented in
+n_tty_receive_char_special() when you write() the characters '\x03'
+(Ctrl-C), '\x1c' (Ctrl-\) or '\x1a' (Ctrl-Z) to the PTY master FD.
+(Your proposed patch does not fix this either, even though it sends
+the same signals.)
 
-diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
-index 2d6b14aa2085..cc9ea5d5e78a 100644
---- a/drivers/usb/typec/tcpm/tcpm.c
-+++ b/drivers/usb/typec/tcpm/tcpm.c
-@@ -3891,6 +3891,9 @@ static void tcpm_pd_ctrl_request(struct tcpm_port *port,
- 		case SRC_READY:
- 		case SNK_READY:
- 			if (port->vdm_state > VDM_STATE_READY) {
-+				if (port->ams == DISCOVER_IDENTITY)
-+					tcpm_update_vdm_discovery_state(port,
-+									VDM_DISCOVERY_COMPLETE);
- 				port->vdm_state = VDM_STATE_DONE;
- 				if (tcpm_vdm_ams(port))
- 					tcpm_ams_finish(port);
--- 
-2.34.1
+Additionally, PTYs can send:
 
+* SIGWINCH (when you do ioctl(TIOCSWINSZ) on the master FD)
+* SIGHUP and SIGCONT
+
+[1] https://lore.kernel.org/all/E1OR73h-0004VN-JE@lirone.symas.net/
+
+
+In summary:
+
+* Sending signals to attached processes is a very normal way how PTYs
+  interact with the attached processes, and TIOCSIG is not the only
+  cause for it.
+* Processes are attached to a PTY because they were started on that
+  PTY or they have voluntarily attached to it.
+
+With these two points in mind, I am leaning towards treating access to
+the PTY master FD as a "capability" whose acquisition can already be
+adequately restricted with existing Landlock controls.  Like
+socketpair(), which Landlock also don't restrict, the creation of a
+new PTY always returns a new master and client side TTY FD and it
+feels to me more effective to control who attaches to these than to
+control the TTY-internal communication protocols itself.
+
+Maybe the way to think about this is to say that it is the *TTY
+driver* which is sending these signals in response to the PTY master
+FD receiving a TIOCSIG or having a Ctrl-C written to it.  This is
+similar to a SSH or Telnet daemon which can also trigger signals for
+the attached processes on the other end of the terminal by sending the
+right commands over the wire, and I also don't see an issue with that,
+because in the same way as here, the client programs have voluntarily
+attached to the TTY. 🤔
+
+Does that seem reasonable?  I am happy to be corrected if this
+analysis is wrong.
+
+If you agree, I think the best path forward might be to document it
+more clearly that TTY interactions are not part of the SCOPE_SIGNAL
+guarantees.
+
+–Günther
+
+> The demonstrated generic impact is low:
+> CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:C/C:N/I:N/A:L = 3.8.  Scope is changed
+> because the effect reaches a process outside the sandbox authority, but
+> the primitive is limited to three job-control signals and no independent
+> integrity impact has been reproduced.
+> 
+> Patch 1 is the behaviorally validated proof-of-concept fix.  Patch 2 is a
+> minimal regression test; further test polishing should follow the chosen
+> interface direction.
+> 
+> Validation used the same userspace image against the affected and patched
+> kernels.  Across three boots per image and 32 iterations per cell:
+> 
+>   affected: 96/96 cross-domain TIOCSIG deliveries
+>   patched:  96/96 cross-domain TIOCSIG denials
+>   both:     96/96 unconfined deliveries
+>             96/96 same-domain deliveries
+>             96/96 scoped direct-kill denials
+> 
+> The regression test separately fails on the affected image and passes on
+> the patched image, with exactly one TAP test executed in each run.
+> 
+> No external report or patch has been sent before this RFC.  Guidance on
+> both classification and hook direction would be appreciated.
+> 
+> Christopher Lusk (2):
+>   tty: mediate TIOCSIG through task_kill LSM hooks
+>   selftests/landlock: cover TIOCSIG signal scoping
+> 
+>  drivers/tty/pty.c                             |   8 +-
+>  include/linux/sched/signal.h                  |   1 +
+>  kernel/signal.c                               |  30 +++-
+>  .../selftests/landlock/scoped_signal_test.c   | 142 ++++++++++++++++++
+>  4 files changed, 177 insertions(+), 4 deletions(-)
+> 
+> -- 
+> 2.55.0
