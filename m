@@ -1,34 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88F993AA19B
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:46:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AD963B71A4
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:46:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789371964; cv=none; b=SytCxAl0ne7VI4bGJjA+6tEaY0Iystff/I15EO6Ljr+Q5LixE3jOQOkCqp3Vuz3913m7d7qVukP0HqdhG2BymK0VNgRTAqLwX4HHlyR8gbbS5bN2E53lokAM8fgDRqi59FdD4ttrmBWh9sOk5HhSuLBnYdqGsTAJ+zQxFb6q7B4=
+	t=1789371966; cv=none; b=PKlTcJN2c3zw8/Ec+vAWLEr/5MoN2tKp3G3BCzZ5WeWEyorzDu2ah1g1S8Ycb3zr9aqbTtQYNNDKfK7UtNvoPEyCKaB/gdVeUE6c+Lo38GqqyqlQwsJ4wKCCHTC3iL2Vv/GuSfQ+5we9f2bGAbcVi82WiFaYwLL2EKQJWvr3EYg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789371964; c=relaxed/simple;
-	bh=FS0e06uq2+c8pV9O2zUhKyP8PwT0SAscYcdj1/oM0II=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=aI61Jwf8URuWfQLzyZBMNBcIHnN5icuHXbO0ESd9KZFL6je1Wr2kdZg+U546CHPEdDl2po5c7jRlqsyjaxtp6Rw+5JSkKAtlZ+zTwqQDQ1HPDHo6mUIK2Jw+DNYMt8xkQaiRi7muo4Eoot/jd4EeDO2yPXH6Z1OrEArDpZMstD4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ifT3Qo6x; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789371966; c=relaxed/simple;
+	bh=zwEor6K8yGoFURlxDvbOjCkK1oLF41ASBn1v919rW7k=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=tuYVG/GKstO0/AG6Qrb/gUV1fSt4nQl95Vn4VNE3OqTjyiYbWHYVoFyVTqVgq3ByUyIrbqy7rIPHZ57K51kh7Aimc+t1oXoZg9RWUIngcBDHTasoZ3N7l2TvkrLN9HSXrVza8XICDnBC047E8sQCmHJYmbeNIIV6a4/jqOuo2QA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hkNMWODj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ifT3Qo6x"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEE381F000FF;
-	Mon, 14 Sep 2026 07:46:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hkNMWODj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DB751F00898;
+	Mon, 14 Sep 2026 07:46:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789371963;
-	bh=qbvLVLDss0XaL7DLfDeLaqNu1SavKedMsKyL+dneO9k=;
-	h=From:Subject:Date:To:Cc;
-	b=ifT3Qo6xsO/FQX5VJl1vwRvrRn1Y9aazJ/HWKk3WEnvgVH0Enbh/AXhJh7VW22mN/
-	 MLh/4EclfxJ8JQMUYgPvbYglz7XsvLYlxfqCkvKWSAR6WqrBlDYIdV76/TSbZY2g4d
-	 Mn1gqujoJ8mMnKgjXtedye04f8K8/MGPBMWd8zXHObgM6fnEHemZ2z7i2RoVyiDKcF
-	 24Aon6VV/B3itIyBZqOKCeDWr55j72qbtIKXaUYcoqrV5w7vhATfLXFYrF/16vnDr2
-	 qY8XfmwdwbxHYDRXbZ6xInTBG6wmS5W3350iW1hgUj9rbkDuuI08LZpOM0Cobl6etC
-	 G13LfptLoVXcg==
+	s=k20260515; t=1789371964;
+	bh=S6FY7ZetqMty4OJBLyaiR50VfGzmS5JdgvQQAtmW5og=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=hkNMWODjCp66HXsxP40B6blv8cONrbJukcJ/P2yD5rFqHu1HH/cAdIPa6ZXuhv93s
+	 9303f0QcA06EiHGNfU63DL4v/77c41jF3vDiXPO6v0CeV6jfg0Vo0zJVv2nZuWL5RH
+	 ZAr9lzJr6+CDgHX5MiuaC6wKUdbSKS33EDRrNowgZUlwrFRAbIOxcKLy2fHY5mPXbr
+	 EhyJmaTiBbEcvtcnLV+huW2Gj/SF2rzwZCUUu/CQu9LGqrKArnw97S5X76gVRBkFwa
+	 Oc2Q+yds/RTYSv5IB62Vdr3nYHND4TTfDGnS//oCpM7du54OV0DiU/dad6IHatUlQk
+	 zG/jmF4aA/qGQ==
 From: Linus Walleij <linusw@kernel.org>
-Subject: [PATCH v3 00/10] Add AB8500 and AB8505 buck regulator support
-Date: Mon, 14 Sep 2026 09:45:59 +0200
-Message-Id: <20260914-ux500-dts-snowball-regulator-v3-0-7f92a365628e@kernel.org>
+Date: Mon, 14 Sep 2026 09:46:00 +0200
+Subject: [PATCH v3 01/10] regulator: ab8500: Fix AB8505 VANA voltage
+ selectors
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,81 +38,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XNQQ7CIBCF4as0rMXANFjqynsYF0WGlkiogRZrm
- t5d2pgYN7r8XybfzCRisBjJsZhJwGSj7X2OcleQa9f4FqnVuQkwODAJjI6TYIzqIdLo+4dqnKM
- B29E1Qx+oKoUGEKC0qEgm7gGNnTb+fMnd2ZjPntu3xNf1DZf8N5w4ZdQgVLUxRiCXpxsGj27fh
- 5ascoKPVrN/GmyalIpxCbUyX9qyLC8BxPURFwEAAA==
-X-Change-ID: 20260820-ux500-dts-snowball-regulator-b35d2252bd57
+Message-Id: <20260914-ux500-dts-snowball-regulator-v3-1-7f92a365628e@kernel.org>
+References: <20260914-ux500-dts-snowball-regulator-v3-0-7f92a365628e@kernel.org>
+In-Reply-To: <20260914-ux500-dts-snowball-regulator-v3-0-7f92a365628e@kernel.org>
 To: Stephan Gerhold <stephan@gerhold.net>, 
  Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
  Axel Lin <axel.lin@ingics.com>
 Cc: linux-kernel@vger.kernel.org, Linus Walleij <linusw@kernel.org>
 X-Mailer: b4 0.14.3
 
-While working on the Ux500 power domains it became apparent that the
-device trees were using the DB8500 power-domain regulator for supplies
-which actually come from buck converters in the AB8500 PMIC.
+The AB8505 VANA voltage table assumes selector 0 represents 1.05 V
+and all eight selectors increase linearly. Selector 0 actually
+represents 1.2 V. Selectors 1 through 6 cover 1.05 V through
+1.175 V, and selector 7 represents 1.225 V.
 
-First: fix a bunch of bugs. All of these patches have Fixes: tags.
-I do not consider any of them urgent or regressions, they can just
-be queued in front of the new functionality.
+Correct the table so each selector reports and programs the documented
+voltage.
 
-Move some regulators over to using linear ranges before adding new
-stuff since linear ranges are nice.
+Reference: AB8505 User Manual, DM00046744 Rev 3, p. 257
 
-Add regulator driver support for the six SMPS1, SMPS2, SMPS3, ARM,
-APE and MOD buck converters on AB8500. On AB8505, the corresponding
-rails are named VSMPSA, VSMPSB, VSAFE, VARM, VSMPSC and VSMPSM.
-
-The driver follows the active hardware selector, including the
-additional AB8505 selector banks, and uses the variant-specific VARM
-voltage encoding. It provides enable and low-power mode control for the
-three peripheral bucks while leaving the SoC-controlled rails
-voltage-only.
-
-Since peripheral buck enable state is programmed by OTP and can power
-discrete components outside the device tree, preserve any rail which
-the OTP leaves enabled when regulator constraints are completed.
-
-To: Stephan Gerhold <stephan@gerhold.net>
-To: Liam Girdwood <lgirdwood@gmail.com>
-To: Mark Brown <broonie@kernel.org>
-To: Axel Lin <axel.lin@ingics.com>
-Cc: linux-kernel@vger.kernel.org
+Fixes: 8a3b1b8703fe ("regulator: ab8500: Add voltage selection for AUDIO and ANA on AB8505")
 Assisted-by: LLM
 Signed-off-by: Linus Walleij <linusw@kernel.org>
-
-Changes in v3:
-- Dropped patches applied to the MFD and Ux500 SoC tree.
-- Resend just the regulator patches to make things easier for the
-  regulator maintainer.
-- Link to v2: https://lore.kernel.org/r/20260901-ux500-dts-snowball-regulator-v2-0-fe88b01829bf@kernel.org
-
-Changes in v2:
-- Pick up Conor's ACK.
-- Fix some terminology and clarify the DT bindings a bit.
-- Link to v1: https://lore.kernel.org/r/20260831-ux500-dts-snowball-regulator-v1-0-fe279fff5e18@kernel.org
-
 ---
-Linus Walleij (10):
-      regulator: ab8500: Fix AB8505 VANA voltage selectors
-      regulator: ab8500: Add AB8505 VAUX3 3.05 V setting
-      regulator: ab8500: Handle AB8505 VINTCORE selector 7
-      regulator: ab8500: Treat cut 1.0 VAUX3 as fixed
-      regulator: ab8500: Test dedicated enable bits only
-      regulator: ab8500: Propagate mode enable read errors
-      regulator: ab8500: Use linear ranges for LDO voltages
-      regulator: ab8500: Add buck converter support
-      regulator: ab8500: Preserve OTP-enabled buck regulators
-      regulator: ab8500: Use scoped guard for shared mode mutex
+ drivers/regulator/ab8500.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- drivers/regulator/ab8500.c | 748 +++++++++++++++++++++++++++++++++++++++++----
- 1 file changed, 687 insertions(+), 61 deletions(-)
----
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-change-id: 20260820-ux500-dts-snowball-regulator-b35d2252bd57
+diff --git a/drivers/regulator/ab8500.c b/drivers/regulator/ab8500.c
+index 3705c98b0713..ca59406d42a8 100644
+--- a/drivers/regulator/ab8500.c
++++ b/drivers/regulator/ab8500.c
+@@ -264,13 +264,13 @@ static const unsigned int fixed_2050000_voltage[] = {
+ };
+ 
+ static const unsigned int ldo_vana_voltages[] = {
++	1200000,
+ 	1050000,
+ 	1075000,
+ 	1100000,
+ 	1125000,
+ 	1150000,
+ 	1175000,
+-	1200000,
+ 	1225000,
+ };
+ 
 
-Best regards,
 -- 
-Linus Walleij <linusw@kernel.org>
+2.55.0
 
