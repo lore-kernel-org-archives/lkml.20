@@ -1,180 +1,120 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com [209.85.167.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B49548663D
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 15:20:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DD10466B63
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 15:20:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789399241; cv=none; b=iLGVHVzMosiI9zZp8c8B+V+mxCB9fgoyOJ1NkciURbfzh5SjOVtejcrw3dvHIJO8Ybd7LnKXMQVztY51uje3SQdRJPZRhBXhkBwlajgt6MGZsvJWoNxySvzAq8nu7LUWG9Sm2GbYPMD0bFdQID+xrc6eOV6UQtfsJFGxHP0pLKs=
+	t=1789399261; cv=none; b=sMw2od7oxYp+ICtkr0ca8zINagJm1ZaTCpjyph1sG1xocxcwkEzLepBeAICjtx+wcV1Xs4Y5X/NvIRoNiAKcE4sYLClXwTEZEI/mbHpvSkWE7hW6KTJmURDSG2T6pNiiLz5g/GHDzLwdmZRJDyxe3+hI4bvr46LexG/hz4VcR/g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789399241; c=relaxed/simple;
-	bh=R86u+dZCTodjcBLgcHb8H8d3EJ/CATkpdjV43fjKhuE=;
-	h=From:To:cc:Subject:MIME-Version:Content-Type:Date:Message-ID; b=e6q+oJArEohCGQf8XK8GD+ffOulkuHPdqD3jU5ZszSFP1WYJLTn7Uxtv/HOuUYxk2DyZONBNHjK63IDThMTDcPa+1aeJV/0scb/xawRplG5OXA8JYn9rbBojUpRjo3PQwCsj5fhuTAbKkjXDpFMCgy+JLvW2mCJfBZQVrVzZTlk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=giBXtuTX; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789399261; c=relaxed/simple;
+	bh=fFA7B1Zzm+M6TOI4RFrwiV6L7EFm/dOdjC0+vMkdzrE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=jWqFN3LSJzjBPR0lXKEYpRoTRWSQDEjwE84mmVcAQAblKvjNk4Z3tc+HpieKSBK4zPric5uYMf1RF+MgAx2EUwbnQ5nNvwVDBaujrTzwIr/+IOu4qF3EWsfgbMoazp4T87lPa7G/8olAHsGCKkj9XDbVWYjrfWFG/iTRYlpMVxI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=RbY7EThD; arc=none smtp.client-ip=209.85.167.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="giBXtuTX"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789399237;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=buKLTSUlaD4MqKKVAvbS9GtGxrepxqulB+fMUyn6usY=;
-	b=giBXtuTXajDCTFxD+A+7goVJ05Sx0PXG0T0m8BioyIQHEpIcJzpNMfISLxivB30ogen9nT
-	GTMqS3yk+Z2dkEYSBh3b9ZIjJ3OX0i3uVHu6ZAYG/O2LuKJFaacfw9GWkRrrrtTU2OGXfW
-	0yKZP4PKSFimZn0DSDwa0Trg0RRLEcI=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-128-2hvwp7MEMrK3cNaxMzw_7w-1; Mon,
- 14 Sep 2026 11:20:33 -0400
-X-MC-Unique: 2hvwp7MEMrK3cNaxMzw_7w-1
-X-Mimecast-MFC-AGG-ID: 2hvwp7MEMrK3cNaxMzw_7w_1789399232
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 29E89189F3A3;
-	Mon, 14 Sep 2026 15:20:32 +0000 (UTC)
-Received: from warthog.procyon.org.uk (unknown [10.44.32.54])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 33C97180056E;
-	Mon, 14 Sep 2026 15:20:28 +0000 (UTC)
-Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
-	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
-	Kingdom.
-	Registered in England and Wales under Company Registration No. 3798903
-From: David Howells <dhowells@redhat.com>
-To: Christian Brauner <brauner@kernel.org>
-cc: dhowells@redhat.com, Frank Sorenson <sorenson@redhat.com>,
-    Paulo Alcantara <pc@manguebit.org>,
-    Namjae Jeon <linkinjeon@kernel.org>, netfs@lists.linux.dev,
-    linux-cifs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-    linux-kernel@vger.kernel.org
-Subject: [PATCH] netfs: Fix netfs_read_gaps() to use separate sink folios
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="RbY7EThD"
+Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5b8997bc6e6so2186803e87.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:20:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1789399257; x=1790004057; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=fFA7B1Zzm+M6TOI4RFrwiV6L7EFm/dOdjC0+vMkdzrE=;
+        b=RbY7EThDNPuqBEXKz7ggC2orlxSBL/STxefsxB5qB94nNixysUW1qpJ2cKUrP7KUN9
+         JArqI0qJ/xDa8L6K0RGBm7r0+UsPCkAEwVvorZhinzsYnJSsPAiGxg5gsWRUUcsCWCnP
+         4lh/7Ce8u3m7soRniwm04+UQprZPj8T7/CNbk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789399257; x=1790004057;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fFA7B1Zzm+M6TOI4RFrwiV6L7EFm/dOdjC0+vMkdzrE=;
+        b=rtQpLUnoWtkRMx4T/Ft5BNraTwANtfJysAkgSXKxCMunkwX3vsLbR/PvuflptsffYU
+         jtbCl0SqBGbuZTbJ3i/6HLv6mPA0pvnMVlYjV6DFYhyh/0N3MXIvxckiW0k1ifU9c798
+         XpvRfNSlcuEgrNZgS84NL4xPbxuLgQ0GXbKP050dDSAXotGWcPBhf/A2IBKC0IEnEVdq
+         gEUsz91kPHrrhb0NZ1zyJkQFEIxb6r1HNA1DkRwdIXK/+sloez6OHDmon2BZ3KpmuZwZ
+         zlBe0I5PhUV1Cusuo7mEBJqUPuRKQIO1BgAuUvjxX79yvYwQAWbRgOecVQnD+8bCaU4k
+         J10A==
+X-Forwarded-Encrypted: i=1; AKwUvBwo4q9lFLBuwknMFxiacERjP2UNwn6x5G9g8tHFQEfTmepAK937C3zzBXnxzrBTcYRKwU1RD/y6T/3f0+A=@vger.kernel.org
+X-Gm-Message-State: AFuF++nx+W9tLGtB0o4sR3eApSoDgQn+HhohiqvG518MCidX1JQWGneR
+	Blw/5WDeaXKkOzZ9arZddMLjrZDJD8nHyoJnyH5OUcDXf9s1QCoYogEF8U8z4LBn2MjFXmWxi7K
+	iHxzyFw==
+X-Gm-Gg: AYBFou2dYfaF0cJny5gFghwbgnsYBewyz22ouXkT5PFgxw/eb5L8eJaxwK+YLaSKSSN
+	35m0VRpylqi7wyEIRQJGNOzkhBq5pWJWznKOKp8JW3TNlvDgw4UlOu9GypeK0Gi85bk+V00HxgM
+	8Zk66YoqPidMFOX6nDC0BmFGqhYiX2WzqjtHVVH6wqmujdngGxCl1cgiSY0M0J/Ml77/BL3WeXZ
+	CZiPKgt1Xwqu7hL2o75+2eqTntd5X3wSQyBlJAnrZehKWmCnYSk/9PR5tCp78EZPUSz/LMU36sw
+	zfXIPf6Sh+MphfWPPZ/ShdA4QM1ti3dSpTzfFiF8/BbXYeG+/N3D/kLXNpkJ7rwnmHSt8A+vm02
+	tCYrCyqF/Uy70jc4VyCUiVihvEwMONnnPJBnmV2HZYj/gSZmSvn8XB2mxtDXvdmzPTQDasP14i/
+	XdTp8MTFh7fypOTxzhAHJ8gFkfzbOpaixLFfs7DmEJJYw6L6HvnQRxzQLlwVv0CHJUdMh1xOmuf
+	kg6WbaHeKxDpXQP7hVezPsQWVUP0EpD+D4azns=
+X-Received: by 2002:a05:6512:2381:b0:5b8:99c2:84cc with SMTP id 2adb3069b0e04-5b8abb226cemr1311244e87.41.1789399256865;
+        Mon, 14 Sep 2026 08:20:56 -0700 (PDT)
+Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com. [209.85.167.44])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8a04643f5sm2547428e87.43.2026.09.14.08.20.56
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 14 Sep 2026 08:20:56 -0700 (PDT)
+Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5b76694fb7aso3046037e87.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:20:56 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzp8efrjLfwxTwIg262RuCtGDyqVlXMXiHMhtLOYCl5sYmWmAMIzEY0njSNbEdYhE4Fw/ZOfEqg0PlrTLc=@vger.kernel.org
+X-Received: by 2002:a05:6000:1acb:b0:484:3147:49c9 with SMTP id
+ ffacd0b85a97d-487028be8c5mr4006418f8f.2.1789398811422; Mon, 14 Sep 2026
+ 08:13:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <3228133.1789399227.1@warthog.procyon.org.uk>
+References: <20260913201835.250085-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20260913201835.250085-3-srinivas.kandagatla@oss.qualcomm.com> <biywo5isdeagqu323ozaleeakngl4sngps4v7ngwqo23ju2sw7@jn53hxxuccff>
+In-Reply-To: <biywo5isdeagqu323ozaleeakngl4sngps4v7ngwqo23ju2sw7@jn53hxxuccff>
+From: Doug Anderson <dianders@chromium.org>
+Date: Mon, 14 Sep 2026 08:13:19 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=X-Te1fieogNaMuyFAa2q33RKUCVXAUFcce_r7csXAwVg@mail.gmail.com>
+X-Gm-Features: AcwNN1XNTZvJpFGb6MbsUkQxxgT0-VHyrG0ryskn4Oe6UeBRJylCSlvDiAONe_A
+Message-ID: <CAD=FV=X-Te1fieogNaMuyFAa2q33RKUCVXAUFcce_r7csXAwVg@mail.gmail.com>
+Subject: Re: [PATCH 2/4] drm/panel-edp: add CSOT MNE007QB1-1 entry
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	mpearson-lenovo@squebb.ca, sibi.sankar@oss.qualcomm.com
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 14 Sep 2026 16:20:27 +0100
-Message-ID: <3228134.1789399227@warthog.procyon.org.uk>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-    =
+Hi,
 
-Fix netfs_read_gaps() to use separate folios rather than re-using a single
-sink folio to discard the unwanted data so that cifs checksum checking see=
-s
-all the data that was fetched.
+On Mon, Sep 14, 2026 at 12:34=E2=80=AFAM Abel Vesa <abel.vesa@oss.qualcomm.=
+com> wrote:
+>
+> On 26-09-13 21:18:33, Srinivas Kandagatla wrote:
+> > 14" 1920x1200 IPS panel used on Lenovo ThinkPad T14s Gen 7 (Mahua).
+> > Panel identifies as CSW 0x1465 over eDP AUX; uses conservative
+> > delay_200_500_e50 preset in line with sibling MNE007QB/QS panels.
+> >
+> > Assisted-by: Claude:claude-opus-4-7
+> > Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.co=
+m>
+>
+> I think Doug starting asking for EDID dump in the commit message.
 
-Fixes: 7f84a7b9892d ("netfs: Make netfs_read_folio() handle streaming-writ=
-e pages")
-Reported-by: Frank Sorenson <sorenson@redhat.com>
-Closes: https://lore.kernel.org/r/a385053c-1c4a-4060-a3bb-befa007ddb33@red=
-hat.com/
-Signed-off-by: David Howells <dhowells@redhat.com>
-Tested-by: Frank Sorenson <sorenson@redhat.com>
-cc: Paulo Alcantara <pc@manguebit.org>
-cc: Namjae Jeon <linkinjeon@kernel.org>
-cc: netfs@lists.linux.dev
-cc: linux-cifs@vger.kernel.org
-cc: linux-fsdevel@vger.kernel.org
----
- fs/netfs/buffered_read.c |   34 +++++++++++++++++++---------------
- 1 file changed, 19 insertions(+), 15 deletions(-)
+Yup, please send a v2 with the EDID in the commit message. See all
+recent commits to this file for examples.
 
-diff --git a/fs/netfs/buffered_read.c b/fs/netfs/buffered_read.c
-index 424df70a5c30..105194de6e13 100644
---- a/fs/netfs/buffered_read.c
-+++ b/fs/netfs/buffered_read.c
-@@ -482,15 +482,14 @@ static int netfs_read_gaps(struct file *file, struct=
- folio *folio)
- 	struct netfs_group *group =3D netfs_folio_group(folio);
- 	struct netfs_folio *finfo =3D netfs_folio_info(folio);
- 	struct netfs_inode *ctx =3D netfs_inode(mapping->host);
--	struct folio *sink =3D NULL;
--	struct bio_vec *bvec;
-+	struct bio_vec *bvec =3D NULL;
- 	unsigned int from =3D finfo->dirty_offset;
- 	unsigned int to =3D from + finfo->dirty_len;
--	unsigned int off =3D 0, i =3D 0;
-+	unsigned int off =3D 0;
- 	size_t flen =3D folio_size(folio);
- 	size_t nr_bvec =3D flen / PAGE_SIZE + 2;
- 	size_t part;
--	int ret;
-+	int ret, i =3D 0, sink_from =3D -1, sink_to =3D -1;
- =
+It also looks like you are adding the panel without having access to
+the datasheet. That's an OK thing to do if you truly can't get access
+to it, but I'll at least ask if you could get the datasheet to confirm
+the timings...
 
- 	_enter("%lx", folio->index);
- =
-
-@@ -515,24 +514,23 @@ static int netfs_read_gaps(struct file *file, struct=
- folio *folio)
- 	if (!bvec)
- 		goto discard;
- =
-
--	sink =3D folio_alloc(GFP_KERNEL, 0);
--	if (!sink) {
--		kfree(bvec);
--		goto discard;
--	}
--
- 	trace_netfs_folio(folio, netfs_folio_trace_read_gaps);
- =
-
--	rreq->direct_bv =3D bvec;
--	rreq->direct_bv_count =3D nr_bvec;
- 	if (from > 0) {
- 		bvec_set_folio(&bvec[i++], folio, from, 0);
- 		off =3D from;
- 	}
-+	sink_from =3D i;
- 	while (off < to) {
-+		struct folio *sink =3D folio_alloc(GFP_KERNEL, 0);
-+
-+		if (!sink)
-+			goto discard;
- 		part =3D min_t(size_t, to - off, PAGE_SIZE);
--		bvec_set_folio(&bvec[i++], sink, part, 0);
-+		bvec_set_folio(&bvec[i], sink, part, 0);
- 		off +=3D part;
-+		sink_to =3D i;
-+		i++;
- 	}
- 	if (to < flen)
- 		bvec_set_folio(&bvec[i++], folio, flen - to, to);
-@@ -553,8 +551,10 @@ static int netfs_read_gaps(struct file *file, struct =
-folio *folio)
- 		folio_mark_uptodate(folio);
- 	}
- =
-
--	if (sink)
--		folio_put(sink);
-+	if (sink_to >=3D 0)
-+		for (; sink_from <=3D sink_to; sink_from++)
-+			folio_put(bvec_folio(&bvec[sink_from]));
-+	kfree(bvec);
- 	folio_unlock(folio);
- 	netfs_put_request(rreq, netfs_rreq_trace_put_return);
- 	return ret < 0 ? ret : 0;
-@@ -563,6 +563,10 @@ static int netfs_read_gaps(struct file *file, struct =
-folio *folio)
- 	netfs_put_failed_request(rreq);
- alloc_error:
- 	folio_unlock(folio);
-+	if (sink_to >=3D 0)
-+		for (; sink_from <=3D sink_to; sink_from++)
-+			folio_put(bvec_folio(&bvec[sink_from]));
-+	kfree(bvec);
- 	return ret;
- }
- =
-
+-Doug
