@@ -1,281 +1,226 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AA0E39280A
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 21:53:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789422798; cv=pass; b=I3git+jmLx76SCnJILoh3+a9LJUNPw3dcju+QcXu+i+oFpJKOqYyDd+nNnMY0cNpbjvTEq1a/grNbTuKlP67K6TEosqH4b5NwpF/UDAaC+VCbfmMjHEle0IHNu7BM9Sc/g95Iyh507cf/6Gz9Pcdal+5d6OjJG6bAbSkKXwZIjg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789422798; c=relaxed/simple;
-	bh=WdYeo/A++v8hz7OALiWg9OfWNSUhh732rHgb4MtJ78M=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=NaC0YQDQpr/gmRxBxgGYYko7ghcBVnahHuVr4FEdjVklq1Nx45bQRYT5/2ZroQUUHyJFie7mhiYuCsdOO7/cmZIZTKq1rICOvD9RM2MqQ3YZXQWPureE3yTf5I1j10F5RoWRlRRx/cz0btFm31Ngk3ZAXQjw9hiZtLYeXde7mb8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Ut3GxbW/; arc=pass smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FA2D414DCA
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 21:55:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.174
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789422932; cv=none; b=T2x3tLTGbu8L523T2rD+rf6f6k/sKIh1/sZB9LuPbzZ6w2NgH2rVB04uPpEgQEa9/c+OVe3GhPPaWIBPD6DptBBeLbkrxxaN3OFFZXgHPz9PaksH+BMfIAavjHNxJhtb04q6JO5uFwIC6Ar/fvZWJo0RlRPYUzQmo6oS8ITVXNc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789422932; c=relaxed/simple;
+	bh=ZW24AzKibRmsChTIZFpOqpEWa8pPmQADDutsZs1I8K8=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
+	 References:In-Reply-To; b=AIZ9eeKLFklNWdiiiVx3fiMZanNThPfC7GuMOq0JM+pF6XpW/rr/R7HOLQV40Vlw/cy+spRUQA22+vXQHHdNJxB8KLP31+KgYEGicpkf/4Xhn1fv3igfrPbMHPzfasCovZQZ3Zvim51GuK7JQOTywmU6TrRBLNeXHrFrOtIHkrE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=etsalapatis.com; spf=pass smtp.mailfrom=etsalapatis.com; dkim=pass (2048-bit key) header.d=etsalapatis-com.20251104.gappssmtp.com header.i=@etsalapatis-com.20251104.gappssmtp.com header.b=N/h/zzjJ; arc=none smtp.client-ip=209.85.210.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=etsalapatis.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=etsalapatis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Ut3GxbW/"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a9a26ce21aso365a12.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:53:16 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789422795; cv=none;
-        d=google.com; s=arc-20260327;
-        b=USX/uyoECFZkDLoSlnr9xem6SALfdVW90iE1bVShKhFp6uOYkECQjVYciji/l4Cqw1
-         mTh6W7LEtBOSqcRH8WGtatQ7FICdZXokEi4lNLlxkzooB+DiWZAFqIXVG/INhPmxVxCb
-         EDcecNcE9UZpjjLexlDFu6f5RAzyYcDP3SVkxrCWjSEAuLLrihIr0wK/okaTUHqmKzGb
-         /fM/eOR4cMQsgvUJHu84rYQxWq12eF6K0e/TZu599lMr2MO5yVrMMSCPZDuvzzpgTH1v
-         9By3WtfSP+Z/oYG4g/Ajlkq3P+bwCRBfL86kWjfRRHLkklGhZLv9lDkxXFfVzzeSM+1H
-         2Z0A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=IJKoGxgqFqyG8e+2qXBXfJ5LyuJyUQMK4iZh37ivfIs=;
-        fh=BMCON7uhmtrmNa+B2dmW5VWN7CgaQ2DbKjOHacrKq/4=;
-        b=UeLNxXvyfduC9uZwruM/cPNF/tsGAJGVbU5buq3vRVUHMc3lLWgTH3eICvuOPwvt5w
-         qjnOj6ZPND5Zf3ankIGWx7F4vT4+K9xi5O4489+pOqrTJqMhe1t0two6hplJNFWTZ8nH
-         BcMQw/Aylmj5CYCbHaUVCgYpTQY0OMuHpb6Wti5yXMl9A/5bVbma3D7B4dCIudL7GPWS
-         S5HL6fUbLnyAbOEU7FKG8hJ24TVKj2iF2rKtugYn6lYdZVaPCsDIFR0hRwc9K3OqxyJh
-         MY00zg3qWcdfzNE1bMReRNoEBtn/nA5SW6VQbYOzzy9Ff+Pgp7ZFVDWjmp3REufrRqlR
-         zNEQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=etsalapatis-com.20251104.gappssmtp.com header.i=@etsalapatis-com.20251104.gappssmtp.com header.b="N/h/zzjJ"
+Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-86a25369f16so3000515b3a.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:55:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789422795; x=1790027595; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=IJKoGxgqFqyG8e+2qXBXfJ5LyuJyUQMK4iZh37ivfIs=;
-        b=Ut3GxbW/+3nfwQh4UtYUUxcUQ3Sli9RLI2QiKFeBwNdInn/QcjEBnNPXJ/liSdG6yv
-         40a1VCVzXyG5BrWuIrJ2z6SHGH9GbgW0bEyDEGtVHfWoslyuuWbhwjhXMZtGTyAPBDuD
-         LmvlEtwmJbLefFS7gyIAVFAI1DOymES1tZsrN57cVnNz/74qls2C04LN+g1XFCHEq7Oq
-         ttUrrD/Dbhi+pnwqWRpGU4jQMPbP2hunwUl5BXRVWNqjrhoTZ1dkyEavRvidYGpIS+Gb
-         /UQJTyz2YS7N+FbziWW5+FVqeov5U+z7rEwUpLRXbclvT6fpbFQOB2BRkDrFk2ZTjlmB
-         rQuA==
+        d=etsalapatis-com.20251104.gappssmtp.com; s=20251104; t=1789422929; x=1790027729; darn=vger.kernel.org;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=T/TGZ0NqpBEB9GgHRd+TQ3uXQZZ6N+mNyW4FV6tZL6I=;
+        b=N/h/zzjJjRH0m+Oyfcj/xy5x9EtK3sUMWeVZlp5JgAojOOX004qchGrl2hB9yCEskF
+         tJwf1R/NCSK9yAI+K4nYw3dVIudOhV5g9aeBCPASqZMgy1vJLiDiW+YYsKYeHQjUiEXX
+         WJkoogutrbWSr3WelghTNQVTyoAK3SKRNPxhi5Uio4LpT8Dxv4zgHCcndxHMTeO4QquC
+         +8Q9wHh2fHVVe/OlrMsy/QZgMofWG4QakSORIU+KfqEm/XBgAJXKDjAILL3xnGwgyzWA
+         HzcYWoFoQ7Gks2H3rtkZ11YwZFRn1Vik6Af976XabKK3BSRh+7MQRaMqMl8vCAInNMf+
+         iDMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789422795; x=1790027595;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1789422929; x=1790027729;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=IJKoGxgqFqyG8e+2qXBXfJ5LyuJyUQMK4iZh37ivfIs=;
-        b=lVOFgEejXw6uqvq7yrdoG1cLGHhyENViOhwlCtO6auUJhOnMLUHG1j9yAy4BTHHVQO
-         BFANHh92uQR/LKpTJHxnc8MplN/NkVET1wJ4DppTfHwJUS45Pfqd0MFW+4ZwaY+xlPxi
-         j+6zCJtchN0wvcn82DUTSLGV1bBWr63Jc91iEBSb2gjqRPGEbIlF8VsYJ3qOKb7el7+e
-         Uim81a6r1Kzf/WmpzK00x3APznqe17KX5YhsZztMjmyrjnaiLRJ8nVadO1IXKPQ4r5QY
-         W30OprklTSgrtR27v99fJMBwR/PFAtCtozSGQqDzFktMMqpakwXpoTLcAw8bIN1pX0eT
-         EQyA==
-X-Forwarded-Encrypted: i=1; AKwUvByC08bRq/We3SN/k6SPyiR14s6w5ki+qkekBptMjeq2+xUvIxYKrRWr5ULevD0SoPKMyUNO1hAhyameZYY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kJ0Huxbgibw7H7iXV4JXoq5XKUHHJvXz8QikQRvXG+bXWj0iMP
-	3xOMv5GmWhlAcKHnEkGG+avFvmV2tXkdSf9/yE4+B2UWjMqnMy7AuJvXBr+JpDP1lsoEidYQ+g6
-	QYB6hPazZIyEtFN/5qEC21CdYRY5vWJoQey0RDIrL
-X-Gm-Gg: AYBFou1je6xAPnU7tZjsyIZG2VFG7nnAiOGXr14/xycoem1l4ulcUk55cLE7kjEmgEm
-	ktAMKiKU77rdTpB6D4uTqbYL38WuOWzYTwcvKwDspFM1x2R2foYupiUIWnGeHX6KgQnhllHOSLa
-	3UVjxAnaHv6dTrsJtBFNd7D8prf9/+AsA+/PYnxVY11aMBLSXKjr5W5mncisIMXEAsOKBPYR034
-	XxGvtmiYF0eDuIV4QQm15LnKx3nFeznAzdzKEMqtqfsNrBsvA64cOOhUFJLyzDmlTslzamt+aAW
-	VrvxB4OU59P+miFLBdWwNZfds5PF4Xw/Ork9inciVMd96OLdTaqP+ml1mTKKNbbrka1vmVz+sWk
-	XodPG1FPqhg==
-X-Received: by 2002:a05:6402:1859:b0:6a9:f353:ef65 with SMTP id
- 4fb4d7f45d1cf-6aa07ba920dmr10659a12.5.1789422794140; Mon, 14 Sep 2026
- 14:53:14 -0700 (PDT)
+        bh=T/TGZ0NqpBEB9GgHRd+TQ3uXQZZ6N+mNyW4FV6tZL6I=;
+        b=I70xNQpw1qByD//OOb4U/bYSXlT47B/+HRPjR/zPUktm2lsdDFWOXtZM1w79WEWhso
+         WPoxjQYanmA7Govng26PA86Q7mP+JngxGqD4Fdw46G4SGJb8o57fs0goMhBjezxel5am
+         Lh9o/vU76UIJcT1iVS8QdqNrl0pIwnKDDKI36EtCufqtbwNnhFjyhU2QV0Yc9KdsVMCG
+         mrz4mHJCaibgkDOCgegQYRaBEwV88Sfds2BOtz4RIAn1MyLVm5/4S95qKytYgho+aZRU
+         ZY7912dnh+iU2Lx7PkCVXO9kayzamt7DHqo9O0f06uLKBuP/xUge+wHiRL0sNpEME+hu
+         Kd3g==
+X-Forwarded-Encrypted: i=1; AKwUvBw3JtEAszwY+SHI5QUXpOCKAPD5Kz5WPrmzZWNWgk5NCd2dBTRM1guvSqd6O/RzPQI6LMKKFEQVnkbJCMc=@vger.kernel.org
+X-Gm-Message-State: AFuF++m9A4dyvwAhBrzBBDOmPcflThBm1rPXQwrAoS0aU12dQpGQw7mP
+	HIZTFhjCv6eWOxzxrLxbhpeOOaP3N6wr+MA9fPUdJQqWwuekwXmQPugv1wDqnrYANEo=
+X-Gm-Gg: AYBFou2MTUInZUq80H7ArTiiKA/5X5PxZMjokqae22JuPtU+VMnMLztIj14qKHO5Bxk
+	6qBo7F3oIygN5aJpZ5TUPX0meevnR9m4mk2zeuOk8KBw5SjplGuGHxNL0cn3A8poFivgadqPRK7
+	TY43XChTdeOFc4Xhx9J6MoXq7SRqqcS/U2j4/6/twVq8F4zNbuOhmgo6R6tFxGzJacnIozJBZ8B
+	kOELNyD1UH/mhvS1QWP5IAAP8cjhMriKxu+Zi+xD3BMi/NVAF5Z1Cuh9hEdz+YGb6Q/c7x9u/8c
+	dmMo9pomNqlHLRHQU0stRI5tOF3qOR4CzneEKChYM5Ov66CJJ5UeUU+WEzXIRrLgYsLxcWpeO7l
+	MoLsBRmSYRSRapJiRf4UpUJRY96zIshayFw7exOX7+9FlhW8RgKyJuO1RN+1Kz60q5or+YpMlkk
+	MIzkQdPkqal4r00yXXFIbBD+LhWCEo4xpXXZnsPJEkHCjJQhxP3H7dgiylFjGIvQeXmpoDIHtKc
+	hjb+NJ/TBWbX4BXp82o4xgyW9t4
+X-Received: by 2002:a05:6a00:2403:b0:864:cbc5:b8c1 with SMTP id d2e1a72fcca58-86f83344128mr8757554b3a.2.1789422929402;
+        Mon, 14 Sep 2026 14:55:29 -0700 (PDT)
+Received: from localhost (107-190-31-17.cpe.teksavvy.com. [107.190.31.17])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b29dc09d4sm5106016b3a.47.2026.09.14.14.55.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 14 Sep 2026 14:55:27 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260911154555.739041-1-sdf@fomichev.me> <20260911154555.739041-3-sdf@fomichev.me>
-In-Reply-To: <20260911154555.739041-3-sdf@fomichev.me>
-From: Mina Almasry <almasrymina@google.com>
-Date: Mon, 14 Sep 2026 14:53:02 -0700
-X-Gm-Features: AcwNN1Xa08Ra1JDiWW_xCBaLD3wB1JuONlTZQ244Zs_Z2Oc7Jf8FpbUJw44m4wc
-Message-ID: <CAHS8izP-gdUcgn2OewUVSWYFWKXrkWxhavPT3=4GwoziekHi7w@mail.gmail.com>
-Subject: Re: [PATCH net-next v2 2/3] net: devmem: embed net_iov_area in binding
-To: Stanislav Fomichev <sdf.kernel@gmail.com>
-Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com, 
-	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, sdf@fomichev.me, 
-	bobbyeshleman@meta.com, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 14 Sep 2026 21:55:26 +0000
+Message-Id: <DLFDHJU82VG2.PNNHZELXE80C@etsalapatis.com>
+From: "Emil Tsalapatis" <emil@etsalapatis.com>
+To: "Shihuang Liu" <shlomojune6@gmail.com>, <netdev@vger.kernel.org>
+Cc: <bpf@vger.kernel.org>, <linux-kernel@vger.kernel.org>, <ast@kernel.org>,
+ <daniel@iogearbox.net>, <andrii@kernel.org>, <eddyz87@gmail.com>,
+ <memxor@gmail.com>, <martin.lau@linux.dev>, <song@kernel.org>,
+ <yonghong.song@linux.dev>, <jolsa@kernel.org>, <emil@etsalapatis.com>,
+ <ihor.solodrai@linux.dev>, <john.fastabend@gmail.com>, <sdf@fomichev.me>,
+ <davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
+ <pabeni@redhat.com>, <horms@kernel.org>, <akpm@linux-foundation.org>,
+ <leon.hwang@linux.dev>, <yatsenko@meta.com>, <kpsingh@kernel.org>,
+ <dmitry.baryshkov@oss.qualcomm.com>, <jordan@jrife.io>,
+ <nhudson@akamai.com>, <avinash.duduskar@gmail.com>, <rongtao@cestc.cn>,
+ <joe@wand.net.nz>
+Subject: Re: [PATCH bpf v2 1/2] bpf: reject incompatible socket assignments
+X-Mailer: aerc 0.21.0
+References: <20260911172313.64009-1-shlomojune6@gmail.com>
+In-Reply-To: <20260911172313.64009-1-shlomojune6@gmail.com>
 
-On Fri, Sep 11, 2026 at 8:45=E2=80=AFAM Stanislav Fomichev <sdf.kernel@gmai=
-l.com> wrote:
+On Fri Sep 11, 2026 at 5:23 PM UTC, Shihuang Liu wrote:
+> bpf_sk_assign() permits TC ingress programs to associate an IPv6 packet
+> with an AF_INET socket. The receive path can then interpret IPv6 skb
+> control data as IPv4 metadata. When IP_RETOPTS is enabled, this can cause
+> __ip_options_echo() to copy beyond its stack buffer.
 >
-> After replacing the gen_pool with a binding-level freelist, devmem no
-> longer needs a separate chunk owner object. There is only one
-> net_iov_area for the binding, so store it directly in struct
-> net_devmem_dmabuf_binding.
+> Reject incompatible packet and socket families in bpf_sk_assign() and
+> bpf_sk_assign_tcp_reqsk(). Continue to allow IPv4 packets to use
+> dual-stack AF_INET6 sockets.
 >
-> Derive the binding from net_iov_owner() with container_of(), matching the
-> pattern used by io_uring zcrx. This removes the leftover
-> dmabuf_genpool_chunk_owner wrapper and its allocation/free path.
+> Check request sockets against rsk_ops->family, since their sk_family is
+> inherited from the listener and sk_ipv6only is not initialized.
 >
-> Signed-off-by: Stanislav Fomichev <sdf@fomichev.me>
+> Fixes: cf7fbe660f2d ("bpf: Add socket assign support")
+> Assisted-by: LLM
+> Signed-off-by: Shihuang Liu <shlomojune6@gmail.com>
 > ---
->  net/core/devmem.c | 41 ++++++++++-------------------------------
->  net/core/devmem.h | 26 +++++++-------------------
->  2 files changed, 17 insertions(+), 50 deletions(-)
+> Changes since v1:
+> - Move family validation out of the IPv6 receive fast path and into
+>   bpf_sk_assign() and bpf_sk_assign_tcp_reqsk().
+> - Preserve IPv4 assignments to dual-stack AF_INET6 sockets.
+> - Check request sockets using rsk_ops->family.
+> - Split the fix into two patches and target the BPF fixes tree.
 >
-> diff --git a/net/core/devmem.c b/net/core/devmem.c
-> index 4883eb7f3a95..7949f8425bcd 100644
-> --- a/net/core/devmem.c
-> +++ b/net/core/devmem.c
-> @@ -29,15 +29,6 @@ static DEFINE_XARRAY_FLAGS(net_devmem_dmabuf_bindings,=
- XA_FLAGS_ALLOC1);
+> v1:
+> https://lore.kernel.org/netdev/20260823101809.26802-1-shlomojune6@gmail.c=
+om/
 >
->  static const struct memory_provider_ops dmabuf_devmem_ops;
+>  include/uapi/linux/bpf.h       |  4 ++++
+>  net/core/filter.c              | 31 +++++++++++++++++++++++++++++++
+>  tools/include/uapi/linux/bpf.h |  4 ++++
+>  3 files changed, 39 insertions(+)
 >
-> -static void
-> -net_devmem_dmabuf_free_chunk_owner(struct dmabuf_genpool_chunk_owner *ow=
-ner)
-> -{
-> -       if (owner) {
-> -               kvfree(owner->area.niovs);
-> -               kfree(owner);
-> -       }
-> -}
-> -
->  static void net_devmem_dmabuf_binding_release(struct percpu_ref *ref)
->  {
->         struct net_devmem_dmabuf_binding *binding =3D
-> @@ -55,7 +46,7 @@ void __net_devmem_dmabuf_binding_free(struct work_struc=
-t *wq)
->              "can't destroy dmabuf binding. total=3D%zu, free=3D%zu",
->              binding->total_niovs, binding->free_count);
->
-> -       net_devmem_dmabuf_free_chunk_owner(binding->chunk_owner);
-> +       kvfree(binding->area.niovs);
->         dma_buf_unmap_attachment_unlocked(binding->attachment, binding->s=
-gt,
->                                           binding->direction);
->         dma_buf_detach(binding->dmabuf, binding->attachment);
-> @@ -271,23 +262,14 @@ net_devmem_bind_dmabuf(struct net_device *dev, void=
- *vdev,
->         }
->         binding->total_niovs =3D total_niovs;
->
-> -       owner =3D kzalloc_node(sizeof(*owner), GFP_KERNEL,
-> -                            dev_to_node(&dev->dev));
-> -       if (!owner) {
-> +       binding->area.num_niovs =3D total_niovs;
-> +       binding->area.niovs =3D kvmalloc_objs(*binding->area.niovs,
-> +                                           binding->area.num_niovs);
-> +       if (!binding->area.niovs) {
->                 err =3D -ENOMEM;
->                 goto err_free_freelist;
->         }
->
-> -       owner->area.num_niovs =3D total_niovs;
-> -       owner->binding =3D binding;
-> -       owner->area.niovs =3D kvmalloc_objs(*owner->area.niovs,
-> -                                         owner->area.num_niovs);
-> -       if (!owner->area.niovs) {
-> -               err =3D -ENOMEM;
-> -               goto err_free_owner;
-> -       }
-> -       binding->chunk_owner =3D owner;
-> -
->         niov_idx =3D 0;
->         for_each_sgtable_dma_sg(binding->sgt, sg, sg_idx) {
->                 dma_addr_t dma_addr =3D sg_dma_address(sg);
-> @@ -296,8 +278,8 @@ net_devmem_bind_dmabuf(struct net_device *dev, void *=
-vdev,
->                 size_t nr_niovs =3D len >> niov_shift;
->
->                 for (i =3D 0; i < nr_niovs; i++, niov_idx++) {
-> -                       niov =3D &owner->area.niovs[niov_idx];
-> -                       net_iov_init(niov, &owner->area, NET_IOV_DMABUF);
-> +                       niov =3D &binding->area.niovs[niov_idx];
-> +                       net_iov_init(niov, &binding->area, NET_IOV_DMABUF=
-);
->                         page_pool_set_dma_addr_netmem(net_iov_to_netmem(n=
-iov),
->                                                       dma_addr);
->                         if (direction =3D=3D DMA_TO_DEVICE)
-> @@ -311,17 +293,14 @@ net_devmem_bind_dmabuf(struct net_device *dev, void=
- *vdev,
->                               binding, xa_limit_32b, &id_alloc_next,
->                               GFP_KERNEL);
->         if (err < 0)
-> -               goto err_free_chunk_owner;
-> +               goto err_free_niovs;
->
->         list_add(&binding->list, &priv->bindings);
->
->         return binding;
->
-> -err_free_chunk_owner:
-> -       net_devmem_dmabuf_free_chunk_owner(binding->chunk_owner);
-> -       goto err_free_freelist;
-> -err_free_owner:
-> -       kfree(owner);
-> +err_free_niovs:
-> +       kvfree(binding->area.niovs);
->  err_free_freelist:
->         kvfree(binding->freelist);
->  err_tx_vec:
-> diff --git a/net/core/devmem.h b/net/core/devmem.h
-> index a5ee2d8d9169..20a3eb90ea7f 100644
-> --- a/net/core/devmem.h
-> +++ b/net/core/devmem.h
-> @@ -14,9 +14,9 @@
->  #include <net/netdev_netlink.h>
->
->  struct netlink_ext_ack;
-> -struct dmabuf_genpool_chunk_owner;
->
->  struct net_devmem_dmabuf_binding {
-> +       struct net_iov_area area;
->         struct dma_buf *dmabuf;
->         struct dma_buf_attachment *attachment;
->         struct sg_table *sgt;
-> @@ -27,7 +27,6 @@ struct net_devmem_dmabuf_binding {
->          * dereferenced.
->          */
->         void *vdev;
-> -       struct dmabuf_genpool_chunk_owner *chunk_owner;
->         /* Protect dev */
->         struct mutex lock;
->
-> @@ -83,11 +82,6 @@ struct net_devmem_dmabuf_binding {
->  };
->
->  #if defined(CONFIG_NET_DEVMEM)
-> -struct dmabuf_genpool_chunk_owner {
-> -       struct net_iov_area area;
-> -       struct net_devmem_dmabuf_binding *binding;
-> -};
-> -
->  void __net_devmem_dmabuf_binding_free(struct work_struct *wq);
->  struct net_devmem_dmabuf_binding *
->  net_devmem_bind_dmabuf(struct net_device *dev, void *vdev,
-> @@ -102,18 +96,12 @@ int net_devmem_bind_dmabuf_to_queue(struct net_devic=
-e *dev, u32 rxq_idx,
->                                     struct net_devmem_dmabuf_binding *bin=
-ding,
->                                     struct netlink_ext_ack *extack);
->
-> -static inline struct dmabuf_genpool_chunk_owner *
-> -net_devmem_iov_to_chunk_owner(const struct net_iov *niov)
-> -{
-> -       struct net_iov_area *owner =3D net_iov_owner(niov);
-> -
-> -       return container_of(owner, struct dmabuf_genpool_chunk_owner, are=
-a);
-> -}
-> -
->  static inline struct net_devmem_dmabuf_binding *
->  net_devmem_iov_binding(const struct net_iov *niov)
->  {
-> -       return net_devmem_iov_to_chunk_owner(niov)->binding;
-> +       struct net_iov_area *owner =3D net_iov_owner(niov);
+> diff --git a/include/uapi/linux/bpf.h b/include/uapi/linux/bpf.h
+> index 732b35cc08d1c..5d8f5e2c8db38 100644
+> --- a/include/uapi/linux/bpf.h
+> +++ b/include/uapi/linux/bpf.h
+> @@ -4568,6 +4568,10 @@ union bpf_attr {
+>   *		**-EOPNOTSUPP** if the operation is not supported, for example
+>   *		a call from outside of TC ingress.
+>   *
+> + *		**-EAFNOSUPPORT** if the socket family is not compatible with
+> + *		the network layer of the packet, for example an **AF_INET**
+> + *		socket and an IPv6 packet.
+> + *
+>   * long bpf_sk_assign(struct bpf_sk_lookup *ctx, struct bpf_sock *sk, u6=
+4 flags)
+>   *	Description
+>   *		Helper is overloaded depending on BPF program type. This
+> diff --git a/net/core/filter.c b/net/core/filter.c
+> index 61940e7535523..e9cc76b775c0c 100644
+> --- a/net/core/filter.c
+> +++ b/net/core/filter.c
+> @@ -3491,6 +3491,32 @@ static int bpf_skb_proto_xlat(struct sk_buff *skb,=
+ __be16 to_proto)
+>  	return -ENOTSUPP;
+>  }
+> =20
+> +static bool bpf_sk_assign_family_ok(const struct sk_buff *skb,
+> +				    const struct sock *sk)
+
+This should also be used in bpf_skb_adjust_room that can also change the
+address family of the skb after it has been checked against that of the sk.
+
+> +{
+> +	unsigned short family;
 > +
+> +	switch (skb->protocol) {
+> +	case htons(ETH_P_IP):
+> +		family =3D AF_INET;
+> +		break;
+> +	case htons(ETH_P_IPV6):
+> +		family =3D AF_INET6;
+> +		break;
 
-Not worth a local var anymore tbh.
+What about VLAN?
 
-Reviewed-by: Mina Almasry <almasrymina@google.com>
+pw-bot: cr
 
+> +	default:
+> +		return true;
+> +	}
+> +
+> +	/* Requests inherit the listener family, but have family-specific ops. =
+*/
+> +	if (sk->sk_state =3D=3D TCP_NEW_SYN_RECV)
+> +		return inet_reqsk(sk)->rsk_ops->family =3D=3D family;
+> +
+> +	return sk->sk_family =3D=3D family ||
+> +	       (family =3D=3D AF_INET &&
+> +		sk->sk_family =3D=3D AF_INET6 &&
+> +		!ipv6_only_sock(sk));
+> +}
+> +
+>  BPF_CALL_3(bpf_skb_change_proto, struct sk_buff *, skb, __be16, proto,
+>  	   u64, flags)
+>  {
+> @@ -7989,6 +8015,8 @@ BPF_CALL_3(bpf_sk_assign, struct sk_buff *, skb, st=
+ruct sock *, sk, u64, flags)
+>  		return -ENETUNREACH;
+>  	if (sk_unhashed(sk))
+>  		return -EOPNOTSUPP;
+> +	if (!bpf_sk_assign_family_ok(skb, sk))
+> +		return -EAFNOSUPPORT;
+>  	if (sk_is_refcounted(sk) &&
+>  	    unlikely(!refcount_inc_not_zero(&sk->sk_refcnt)))
+>  		return -ENOENT;
+> @@ -12526,6 +12554,9 @@ __bpf_kfunc int bpf_sk_assign_tcp_reqsk(struct __=
+sk_buff *s, struct sock *sk,
+>  	if (net !=3D sock_net(sk))
+>  		return -ENETUNREACH;
+> =20
+> +	if (!bpf_sk_assign_family_ok(skb, sk))
+> +		return -EAFNOSUPPORT;
+> +
+>  	switch (skb->protocol) {
+>  	case htons(ETH_P_IP):
+>  		ops =3D &tcp_request_sock_ops;
+> diff --git a/tools/include/uapi/linux/bpf.h b/tools/include/uapi/linux/bp=
+f.h
+> index 732b35cc08d1c..5d8f5e2c8db38 100644
+> --- a/tools/include/uapi/linux/bpf.h
+> +++ b/tools/include/uapi/linux/bpf.h
+> @@ -4568,6 +4568,10 @@ union bpf_attr {
+>   *		**-EOPNOTSUPP** if the operation is not supported, for example
+>   *		a call from outside of TC ingress.
+>   *
+> + *		**-EAFNOSUPPORT** if the socket family is not compatible with
+> + *		the network layer of the packet, for example an **AF_INET**
+> + *		socket and an IPv6 packet.
+> + *
+>   * long bpf_sk_assign(struct bpf_sk_lookup *ctx, struct bpf_sock *sk, u6=
+4 flags)
+>   *	Description
+>   *		Helper is overloaded depending on BPF program type. This
 
-
---=20
-Thanks,
-Mina
