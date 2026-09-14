@@ -1,61 +1,63 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2ED93AD52F
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:12:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 525EE3F482F
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:12:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789373553; cv=none; b=M8MRt/zytMjymYOBdFXWsC4CcTxN7My6Oz/ikEHkAGDUEFkjOzwQOLD9hoUly99mXp9LsDsJ/88d5MNyiJNGEz/aFguXVuFT8SGOAnJTGEG4/aZ9QocxSQOlZ6stjjC4gntotg9XY0fIlWl00uFRPSceOeNzagw8um7Qeh/3TeU=
+	t=1789373556; cv=none; b=VADbGYz9f/A17Boqs+tub6Ffw6s7B8o0TWFLyeRzz3uO4yqaUBsvoIGI0eIaX6OI/YCqCKlG7uApwH7+UkVXT0Wjnv2YBJ4JR5dJI6Xy93v4kU1nIXZPxY0qnqcpSW/JQZXI0+a1r3RsQ5YdmBslBafBszQwmFnaYkrSsjCXNIY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789373553; c=relaxed/simple;
-	bh=bRWy71teUAqwLcgwZD1j8oe8nBNupPqxBYMN4QKm1pk=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=iRXEbbXI1PaV3g+4gA+wtMwRyqE57GTa3qfU3i55SU/F4+/WO+kx/GcaEGnvU+6Fpdbq8tlRx0sRptMwXn0QFmhCsf6mmOHL4dAmEuw28dibpKOlEKApPpp4kYDODg2dSE5WVytmW+p++0k7uMXTll2H6jXplG+GZg71Qb9QB7Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NZ4FLCu0; arc=none smtp.client-ip=74.125.225.76
+	s=arc-20240116; t=1789373556; c=relaxed/simple;
+	bh=SxT2adBblINXrJRW2bTxfIq1b2HqI+JoCaLJCsifgDE=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=kXkZtm+ArcGI0wTr7Mc2YXdGBirI7FU/s/EGgLnTt0KImWYEdx2c8y13XldsK0R4K4GHgkp4crWgD8s0lZERsPUZPnZp9GDbg6w7MnLgypwFqkqd39DDFBkZTmvR9vXT2GNzDDU9/Y8YqXcK8S1qYay+5yJujSS96C1ICM2WfUM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QjVBo375; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NZ4FLCu0"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482e1b30c94so225703f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 01:12:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QjVBo375"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cfbdac7a1so1042465e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 01:12:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789373550; x=1789978350; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=urdTA4HjJrGTCEZczwl4Arel3MJiGP/u9tgNaNw6UBk=;
-        b=NZ4FLCu0nZFKxavFzeXpBObWGm6xoSkmBMUrlMyIZDl/4Vv+l/cszPdnKtHqKlOdn9
-         T6prYiARvrQ4fDJc+VeP0gaDQv3Vgyu+g56I2NhG+R6MNFbfIGvUQyZ698OJyvEZnSZ8
-         Tx/vAGqypxYtvCb6ur/nYv0p4fTWXXpnfdedyLcwwutuk+UZ0YuPYoptoVcvpAX4zU0d
-         5ugGNis+QR/zZtMgKeNLHMFuPLfFU2c/xOKTSMXvpX0YBe6h1tggDs8K6GXpFzDEvG+u
-         jCE/f79KswF+BInX4FP9Ju8q8EyZ5q/oz0FBF6IIT3Qb7QyFLOyv4X1av9DIGz7FN/iu
-         YREQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789373550; x=1789978350;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1789373553; x=1789978353; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=urdTA4HjJrGTCEZczwl4Arel3MJiGP/u9tgNaNw6UBk=;
-        b=aRYFu+ZTpzQcz/moEmbvD37z3XEaoc8njZoC5w8huDLeUOvOPqTRxYnHWKhdoG8KAn
-         vsb57FNZ28CdvEhTfTuh3cbfa32CBBwGwNl20f6JbEyk4EvSGBbG2rG4F93I5LW3ISWp
-         pIPZrucImCuObGqtKbfTKOt75qV9B0kK/zbptkiNh7koR16JuLT+RX8ddMkgUfxY2rHb
-         aZTffuAyWboiWPYaZfJIoB0G0neAv1gH5Yii31dsO4SGwF35nT8gnMTu3mNqza+PzIoU
-         cdFIXi5BIizMSh4m0O9MjuhhJInb9msGclqaApVGYTha48pMDgTKRjahK70YzxNLDc56
-         h6Dg==
-X-Gm-Message-State: AFuF++kVVtNzIdWLqu1OOUwJsXb+egmBFjH4065dMhv6T6kM3X1brXaU
-	BBluKT6/UokGjSswOyPb/VCrPYczxRZR/uNC8hGRksh9xEAkaJC1Emlb
-X-Gm-Gg: AYBFou3Rh3Tmd2x7+ln8zf1ABa0AT0d7ifkYOQ2dyhDlivuRjc1NycZNxsFEKrp3SnL
-	Z7K7KVW8NPurB+gPojQrpf+c+WMW7Db+jFfrvT1V4rPjyWXjdh0wPI9ob4gOOHzuI2wZTw57jXS
-	MQ3YYHt17LpcPKhbOznIEvf6nWydEtfyhTRPLQZi5kiqTFx+YsHPdyITqMTtPHhgLPJY/KAGz8z
-	qYGH3UuodOXlBXsmkI1y6YaKLK2K0LkGY2ybsMo0vM5EDefU3+9XZQ2F9qvtOkzPvI7maLUh7rH
-	INcXMeuNo5435ysB6sveXjxd3H4ijYR+YPunz+nm51zxMz/gmB0R9M27af5SD0xtX9MPh3DUio+
-	bNKOF9z0YdYcUZ4xOQHZdwYQ9T6Cuoo6TPBSxIdTBqZ3gjebdDRaLDbe8n05HzcEAzh/sAgAH6v
-	Sd0grbVyZL+JKQhfha4oA4bhuFdf/8qkHAQSKhFKInFrddB+JS3cg1z14yi5UTHl3bK/+fhY3aB
-	U54jgJhekTrr4BICaE=
-X-Received: by 2002:a05:600c:3b9f:b0:499:d95a:41f with SMTP id 5b1f17b1804b1-49e7a5f41a5mr18603755e9.0.1789373549421;
-        Mon, 14 Sep 2026 01:12:29 -0700 (PDT)
+        bh=WvL+tll9z+rZiVIgsLmiJriXCowgjHq2TgUmvCdD0FM=;
+        b=QjVBo375JZcFJtecHvZbILRlqVcngQWuPlJ/AqW9LbYoyKePG1QsXSfsQl3se677PY
+         yFwNA9t6Gc19iD9KlVYpYwB6zmwR9fKOMB3UQ8hmXIZQXQZc3RlxAbFRbrG1KAdq4J+L
+         G7T5zFa85QhMyc9aMADvYQtx3CKm28YtPWZ31WZ/DJzEhRALJ9vCD7KWXGYEhcuF4xPz
+         WFlEhJ0vxTTd7V8BOoqoz2UCKOilSGmBIVoNkhlmgpi4ZL0ACMov4iMXW4Zgrrj8XD0m
+         f3euaz59kCIlWHl6LXKH+HvghUs2qIFwu2kz3Ix2Cchm969lj2jGdmW65QQfbVUQGXPu
+         uZ7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789373553; x=1789978353;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WvL+tll9z+rZiVIgsLmiJriXCowgjHq2TgUmvCdD0FM=;
+        b=nIrWaRCR9GP1hRWvjHPdyk11PIzxsThgSB8oBshtmRYxOTdKZoBZ0xDUjWwJmona17
+         OykWQf/ltrAWV4qClR94xWBkmhnBpxhK5zZFQpfUCP3MSdMcFfSOROtPBItm2f+1diZ/
+         mwOo7mTE+0Or/EE0FMkMmIhYszsCFytBWSf9U414QvedOup2A5iMosOm/8sjm8PpE2tW
+         1uBcXQy4qBqGLJf7UxO1OlbI8Ll/ZYBdFm5AOm/efCReFUyLcepDWM2+yXBEUjw47Tu4
+         hS1GNiuxjzb1nIsqj0xVJKCskvPIS5Fkbl/XtyhDc109woVB5OaYwO+TD2BjDDHcWprL
+         +WWw==
+X-Gm-Message-State: AFuF++m0sdIw3hP8P3jslNAu1fCkymcTLmqJBagXgy8uMU3O18n0RpcP
+	XsHlIAN2h/cFcyrhvLorDQ0mZlLud67rAF6SQYhomZARqYm2In1VygoQWTj8UdvQ
+X-Gm-Gg: AYBFou1TAybzvlzw0mEDAo65BN6V2faFlseb9H07DqLWVwNsWGnfa2NBfSnKanx0mA0
+	KWtsO3uwxoZrQvYx+eQEjX5t+54T5D2413EYnzfJdsIke3UhxT7ArJVU3yZKENuUQe3sTOJRqyc
+	ViMqxMEPI+9tntOxVWknFnO8jlXuwAIw2a7FrM6ySMKvuLftO0W8bVLbCAwABW6fjtCL3nXqMMh
+	TrMfmlZpFO8W2gH0FIep6bUIoRJkBDb9ccTuHqcNNJ8jDuRTNbtdLGimS7yxhrbvm5K9ekrmGxB
+	HA/4zvFhzcVxJ8ru6t7OE8bOgm/7D7t89PiYeZnldBaJDuvQtb73nLR9w7SVNhg6A1CZlxwJmrB
+	5HTrrXdHIKiSjM3iEGDH5N25w5kZVMB+/4VuO5SYYA79UhPd0xT5VLTwB1CTrQhrMBeBLaJzur+
+	RD67jtrVxwoPTuHw/Fi3sVFG3MIq9gOB/KFLSJlpPZurvbxalTvjHFXAm3Y97I1+5LoxxzftRH1
+	3d8Ll/rdnaDQv6W0go=
+X-Received: by 2002:a05:600c:4683:b0:49b:9241:7ff0 with SMTP id 5b1f17b1804b1-49e7a5ed9a7mr13611875e9.0.1789373553467;
+        Mon, 14 Sep 2026 01:12:33 -0700 (PDT)
 Received: from L-P-ITAIH2-L-RF.rf.local ([193.169.70.108])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e60acff8bsm301434385e9.9.2026.09.14.01.12.28
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e60acff8bsm301434385e9.9.2026.09.14.01.12.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 01:12:28 -0700 (PDT)
+        Mon, 14 Sep 2026 01:12:33 -0700 (PDT)
 From: Itai Handler <itai.handler@gmail.com>
 To: mwalle@kernel.org,
 	pratyush@kernel.org
@@ -65,11 +67,14 @@ Cc: linux-kernel@vger.kernel.org,
 	richard@nod.at,
 	miquel.raynal@bootlin.com,
 	takahiro.kuwano@infineon.com,
-	Itai Handler <itai.handler@gmail.com>
-Subject: [PATCH v2 0/3] mtd: spi-nor: fix the unlocked restore on shutdown and remove
-Date: Mon, 14 Sep 2026 11:11:46 +0300
-Message-Id: <20260914081149.1916589-1-itai.handler@gmail.com>
+	Itai Handler <itai.handler@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/3] mtd: spi-nor: fix the lock left held by spi_nor_rww_start_exclusive()
+Date: Mon, 14 Sep 2026 11:11:47 +0300
+Message-Id: <20260914081149.1916589-2-itai.handler@gmail.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260914081149.1916589-1-itai.handler@gmail.com>
+References: <20260914081149.1916589-1-itai.handler@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -78,78 +83,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Two threads can talk to the flash at once during reboot/kexec and during
-an unbind, because spi_nor_restore() is called without nor->lock while
-MTD users are still attached. A busy flash silently ignores the restore
-and is left in 4-byte addressing, which is exactly the failure the
-restore was added to prevent; a restore landing inside a read corrupts
-the rest of that read instead.
+spi_nor_rww_start_exclusive() takes nor->lock and never drops it. It
+returns with the mutex held whether it hands out the exclusive claim or
+reports the flash busy, leaving the caller holding a lock it does not
+know it has.
 
-I reproduced this under QEMU, using a flash model extended to implement
-erase busy time. With an erase outstanding, spi_nor_shutdown() issues
-WREN, EX4B and WRDI; the chip refuses all three because it is busy, and
-each one still reports success to the caller:
+Commit 03e7bb864d9a ("mtd: spi-nor: use scope-based mutex cleanup
+helpers") turned its "goto busy" into a plain "return false" and deleted
+the busy: label that did the mutex_unlock(), but kept the mutex_lock()
+at the top instead of replacing it with guard(mutex). It is now the only
+one of the ten spi_nor_rww_{start,end}_* helpers that does not use the
+guard.
 
-  the flash was mid-erase when spi_nor_shutdown() tried to put it back
-  into 3-byte addressing, and refused 3 of its command(s):
-  0x06 (four_byte=1), 0xe9 (four_byte=1), 0x04 (four_byte=1)
+Its only caller is spi_nor_prep_and_lock(), so on a flash with
+SNOR_F_RWW set:
 
-four_byte=1 is the mode the chip was left in, and so the mode the next
-kernel inherits. With the patch, shutdown waits for the erase and the
-restore reaches an idle chip. The reproduction is deterministic: the
-workload keeps the flash busy continuously, so no timing window is
-involved.
+ - if the flash is idle it returns true with nor->lock held, and the
+   matching spi_nor_unlock_and_unprep() calls
+   spi_nor_rww_end_exclusive(), whose guard(mutex)(&nor->lock) then
+   deadlocks on the non-recursive mutex;
 
-Two caveats on that. It runs on a 5.10 vendor tree rather than mainline,
-though the path is unchanged - mainline's spi_nor_shutdown() has the
-same unlocked spi_nor_restore() call. And what started the investigation
-was intermittent hangs after kexec on a Zynq UltraScale+ board, which I
-have not tied to this race.
+ - if the flash is busy it returns false with nor->lock held, and
+   wait_event_killable() sleeps holding it, so the operation that would
+   clear ongoing_* can never take the lock to do so.
 
-Patch 1 is new in v2 and is a prerequisite rather than part of the fix.
-spi_nor_rww_start_exclusive() returns with nor->lock held on both of its
-exits, so taking the flash lock in ->shutdown and ->remove, which is
-what patches 2 and 3 do, would deadlock an RWW flash on every reboot and
-every unbind. Nothing reaches that code today, which is how it survived
-since v6.15, so patch 1 also stands on its own.
+Nothing reaches this today: the only flash with SPI_NOR_RWW is the
+MX25UW51245G, which has neither OTP nor locking ops, so none of the
+existing spi_nor_prep_and_lock() callers in otp.c, swp.c and sst.c apply
+to it. It becomes reachable as soon as any common path takes the
+exclusive lock.
 
-Patch 2 fixes ->shutdown, which every reboot and kexec goes through, and
-is marked for stable. Patch 3 fixes the identical problem in ->remove; I
-have deliberately not marked it for stable, since nobody has reported
-hitting it and it changes how long an unbind can block. Patch 1 carries
-a stable tag too, so that a backport of patch 2 cannot land without it.
+Use guard(mutex) as the other helpers do.
 
-Note what patch 2 does not do: the restore still runs with MTD users
-attached, so an operation starting after it completes still addresses a
-3-byte chip with nor->addr_nbytes == 4. Serialising against operations
-already in flight is what stops the restore being issued into a busy
-chip; fully closing the window would mean stopping MTD from accepting
-operations before ->shutdown, which seemed too big a change to fold in
-here. I am happy to look at that separately if you would prefer it.
+Fixes: 03e7bb864d9a ("mtd: spi-nor: use scope-based mutex cleanup helpers")
+Cc: stable@vger.kernel.org
+Signed-off-by: Itai Handler <itai.handler@gmail.com>
+---
+ drivers/mtd/spi-nor/core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Patches 2 and 3 are independent of each other; patch 3 can be dropped
-without affecting patch 2. Patch 1 has to stay.
-
-Changes in v2:
-- New patch 1/3 fixing the lock that spi_nor_rww_start_exclusive()
-  leaves held on both exits. Without it the rest of the series
-  deadlocks on an RWW flash, because it adds the first ->shutdown and
-  ->remove callers of the exclusive lock. Found while answering the
-  automated review of v1.
-- Patches 2/3 and 3/3 are unchanged from v1 1/2 and 2/2.
-- Link to v1:
-  https://lore.kernel.org/r/20260910184452.895485-1-itai.handler@gmail.com
-
-Itai Handler (3):
-  mtd: spi-nor: fix the lock left held by spi_nor_rww_start_exclusive()
-  mtd: spi-nor: take the flash lock in spi_nor_shutdown()
-  mtd: spi-nor: take the flash lock in spi_nor_remove()
-
- drivers/mtd/spi-nor/core.c | 23 +++++++++++++++++++++--
- 1 file changed, 21 insertions(+), 2 deletions(-)
-
-
-base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
+diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
+index ccf4396cdcd0..8bc117b46e02 100644
+--- a/drivers/mtd/spi-nor/core.c
++++ b/drivers/mtd/spi-nor/core.c
+@@ -1310,7 +1310,7 @@ static bool spi_nor_rww_start_exclusive(struct spi_nor *nor)
+ {
+ 	struct spi_nor_rww *rww = &nor->rww;
+ 
+-	mutex_lock(&nor->lock);
++	guard(mutex)(&nor->lock);
+ 
+ 	if (rww->ongoing_io || rww->ongoing_rd || rww->ongoing_pe)
+ 		return false;
 -- 
 2.34.1
 
