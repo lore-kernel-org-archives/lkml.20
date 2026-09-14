@@ -1,175 +1,1477 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 797CD352017
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:19:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA0D6353A7A
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:19:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789391949; cv=none; b=tIo1VnN8XV6By1O1HhnvoKsqeKs2i4gek099n8w+RkXtqigL+AfgA5M1NCsfiXi8hZA7/R/h/ooXCMxuX1ebOo5atpPRMhjvUYynpdispVYPHXMVYpq1QPtaOZ5xNciL+9kc/HVrYE16X96Pe1P/uaKjXu1LPkbuXFB+UQ93CQU=
+	t=1789391984; cv=none; b=AyVXGscLlsm7o3cGESFVf6gNA58nHvNvrt5rl7w/m8y0+kQYqKqxPasdu/bSr3bU+oQSzHtRVigYJU5aUe1ijFTa8x3ONm5TwQpf6OAIVTLYS4sehBtaoCXp2F++265YfXDfTJ4ZBECKi9Dk//F5M57Qvr3jzIGUhumaCWz/P5A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789391949; c=relaxed/simple;
-	bh=YiSKZVw2fDzM0eJF+VxE9Wf8bagEXNffdOngrQQf+uQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=H67KFGsAlMm9p2mFVCY7GpLn6XUJl3q8yYeVwZ2khTkbXsgUulLGDUWT3YOqnGA8ZlDvOEymQwtOA9Hp6nIamAQ4ky7/MAv7IyjBdFrZ4Dl33P0qAVfHPsnnh7X+ikEIxstNeedXfheEhxkiG2N7eISCQUgdXHYvSjMAnZAMm0M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=k0f9OZ28; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fM+BMEcs; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789391984; c=relaxed/simple;
+	bh=xErAwbXnYhoWSRip5gv6XE0pbM8HInw34JdjXoHNk7g=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=U2beYLfXEmZSedqKX3YJHAIiouqdJT8qaqHfFIJFDFNl4sxEZ6wWR+RJQwrFt6gPyHRyiJ6s9ozpojwPelB2rKKI8IJ9MO2GDkrObyWghZZzWd/U/IMiavpSko9w6bqyZsG+0AEHSHLTNlsPjcohzA//NB3EVeFDkd6WDixTLYw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Hu6o65RM; arc=none smtp.client-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="k0f9OZ28";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fM+BMEcs"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68ED0XHN1025819
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:19:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=jTxHxmy+kUR6RRqJXD/5hkpv
-	gyYXtelfKgZMuBm1egM=; b=k0f9OZ28aB1bOq9HwXQWTh3Hk9bS5SaDLuWQ+jzl
-	9MkbLwAGZCWOujwrjWGXhhds07E3aCoItWmiTQeE1bbRdDnHltNto/ZkDcX+naUO
-	HzkBUSjYu/00sWBLd7QwtnsF7HPWaFuXLFgkYPCJYLRDbJ8u6S9Jz0fj5RwjCcNo
-	/jo0bUEvkVOl70GfNtOI3kl9Q40fygakA7NaddAzI3KQb+gpEX4eByLmE0UyXHBa
-	ZtlMyzrxAlD6Fm5v2YXhsS+1RK+d6SAlINMumfPOPZC+yLTupH/CTIwuEtS0T547
-	cqA6iAfp4eUauzW3hgAHHKZmFN1r3SfdgEIKZNwg2FxcAA==
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gpdb5s2js-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:19:07 +0000 (GMT)
-Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-8645a62066dso6847383b3a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:19:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Hu6o65RM"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-398a5aad413so3182035a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:19:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789391946; x=1789996746; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jTxHxmy+kUR6RRqJXD/5hkpvgyYXtelfKgZMuBm1egM=;
-        b=fM+BMEcsibAPGwS3Yfsw7zg1ODMGE0Ax/iITptqM8a0UK8C/iJ5fYDA3pkaNb/axLQ
-         B2+aiSVEkZT2PLhACRjHnrfSjWzul3yh1UkheqKY9Yn76zZ+0JLO0y2kEY+zDL46uGWn
-         ene8bCAUSkryEdVfI49Duc6kNogzFIJe0q3CHmWtukWoNs7r+TrBTAUQ8Nqegg6NcU8e
-         sQLbcTQ0VUHBLMCRg7z8xSJZ2xKCoSA6mr9VuaorUN/n95/bBrhFLUcIz+Yt+Yade6Qx
-         6pd6ssb1diGBnXsUVlpVZVXcA9u7PxE1ix3nqoxqacpaXwaSdBXj3y7D26cco+A2Esr+
-         QLfg==
+        d=gmail.com; s=20251104; t=1789391981; x=1789996781; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XOPhP6bPpQDdppelZua5az8dgBR4akO+ILkCxP2yFhU=;
+        b=Hu6o65RM+os+IRJyZmi+mIPKzEAoHERxdRbN0jmP0coUwM1m52bM2MwJ/CK2VShvjc
+         o3zc4otgdBDO5332sCNmsrICaP5BpjrhC8Dd/vOnLn7YshduEx7Xe2zasdgXOVeYEEUA
+         Tp3JiQexY4rKZf+s3RJiPRL/nFGXRjrZBkDHlQLXRRnTOlIFoBqodPIrHsn75CGnjbIU
+         AaKyWP1cz21+1XEtdk0nOrXV7fOOxWt+e71loso4P+IRUjlRTX6Nz45DNE4NR3h0BUcP
+         z1MdzxxHAFwiRDUDecY8cR7SLGb1YLvfbsTSHJLkm3YG24pABaNFRMJ0eCVrxvZ0Jrlf
+         AgJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789391946; x=1789996746;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jTxHxmy+kUR6RRqJXD/5hkpvgyYXtelfKgZMuBm1egM=;
-        b=Kw3BEKFdQZFpJ6HtEOG5BHGqyozK+DLogfy5Ke2Q9Ala6TVI2UMwsB5yxHl9SInMCF
-         OTZA9rvVQE6tqMFcIrXfBx694VOLXZyvNwCL81lPXpb6PxPz+YrmLbSTdqxSeImCr6ZK
-         NsHyrj+Dy2TFQZQdKOpphlFkqmALH7fVf1wMaJ/wgUbysI2ZrnKxPDNdZorrucWoI2KM
-         OSokfIrx7sxv0aOmmPp0oZUDsEtBBkkJX3PsgtnufDZWcX6psrBvu72rY4kezQkL6Nim
-         xwB4zh2kJY1LWAvYXcwtzclu0OxxKTAjnQrnGMBr6LWxd254Abf31E+SHp7LbJrg7cHE
-         fiLA==
-X-Forwarded-Encrypted: i=1; AKwUvBwfK06I4DOMx0VhQFG4IepZAmsGXXvWJJyBdPpAFTbNcIs6cQcNUEF51je6JTHudAMsjfPuQBRnPLJK93k=@vger.kernel.org
-X-Gm-Message-State: AFuF++ke6N8CCDHeAgZtFpzOtKWS9vjMGiIcP6fVLWL9FXC27K2KcvDZ
-	Y5rUPkxDVl5n0wKqpWWaRFbHDNIZQYXATJakvZzPRrt4fuvw/WFIolC+/nAA9X2BfFCJjVatmBC
-	G7s5PSJOMMn36hh/1ZJ1WIB0WA8gMu4roUfp2QaImeA6037xIqRgzNrzaLBnUFClRkT8=
-X-Gm-Gg: AYBFou0OrKD/KdGks8qoXLW6Mle+bJf4T2ZnbEPMGpVgfxB4c3BN7ZeHBH7bd/2Xg6c
-	U6h8kvLGAR7/AEkooMgPTq97wPmAahPE8LxCmoKFD5pUT73t6ltWz2m1ARucOtRpkrbcS9SVL5b
-	iB35vFmRlUxAK+j7Ls8MRRMrHLqRJuh/wUP+K5ck+PJ3ZpvXVJsWwZf8u0Ki7fjk75beI44yc45
-	82dR1QFOUfcOWQZj4RUKzCG5Kbo4vcGrCvVtUcoGy6y5/hblOkNY4QbPMhAAMmNPoK5kwdaq1r3
-	Fie1Hg8pwRNE/qt7X13Hk78CVRdZR4ba0X43t+pHaEahDqrR5doPNVzV1sy8vnz25jpS16R3f7l
-	4Sv9aPRzl49U3qw/604802vzn8087ybBCUCLWlSZUf5kV/Y5/G0abZIBUXzXnWYMfRCtMJL2R6N
-	Qfvk6e0J6TQZXr/KpihkCSUHhk
-X-Received: by 2002:a05:6a20:939f:b0:3da:ec28:2cc6 with SMTP id adf61e73a8af0-3db406fc7fbmr5352326637.22.1789391946108;
-        Mon, 14 Sep 2026 06:19:06 -0700 (PDT)
-X-Received: by 2002:a05:6a20:939f:b0:3da:ec28:2cc6 with SMTP id adf61e73a8af0-3db406fc7fbmr5352223637.22.1789391945575;
-        Mon, 14 Sep 2026 06:19:05 -0700 (PDT)
-Received: from hu-himchau-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4f739b5sm26633558eec.25.2026.09.14.06.19.01
+        d=1e100.net; s=20251104; t=1789391981; x=1789996781;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XOPhP6bPpQDdppelZua5az8dgBR4akO+ILkCxP2yFhU=;
+        b=HmbricEpGKXMu5Ea7IoZvo/gIcSbTe9cguqkAEC3KXdlCE6IAg1Hlk4vpa2ycxUbm/
+         NPl6V4Ay8MVy4E0VHRguq5wbiRTO2qV4wnYcF9CgtpK6MNCObDFfcqIHDwW4XYpCf55c
+         8aJiN0sP5Z5WM48t7sT8ZQYKajbRHF3+5zvrIHF/6bCzQmnrpe5b3qkXNTfJEUmTt8My
+         TkZWXhM0aYdPIgfxGX/2tKJ/j/l2rPc/qpnpSVbAE3XGW2uvKvcvxqBfO7dRsl3Lwz5M
+         IaYbgc4os3rkOOSXmlCOKsmHad+tsohMZ9+5qLrMxzNRYx1G19xFnHINKT4afPHOLv9n
+         6HJQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy2hb2ZWBMYGdMTTUrBxgSpyTz1A4lnYbZAtLShuznyA+0VMC+03yJnTYi+NxXGaENUY6ZAmsEVMSMkRJk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kasQpf3H+KoZ/rlWuW8wYwtqz1fB6c8zfz/m1HrXtK+4fzWEvW
+	LrLPaUf4HHr+NrFRZhKYaah2/69s+ydi/aFoNjGrQblM1t2IXqnbhG+C
+X-Gm-Gg: AYBFou3tUQeBKLMy5J6wAF5vxzLrNYs+75kIkOGMB2jhThf8qsklmtEEIiUTvFyOmNm
+	YhIaLkcWlFywdhUxJT0NfPXDoVR0AYbypsRr+JrjUXMggwRbwLHnQNrrBqCCdC4zj7uQvp5N4dF
+	lAN6jF4IsMCHr7pJEo9Kakv9pDGQPGWf6SgCNBAfh8NySyf1MV1QvIOOyHuy0iqI06BO7ZXzLS8
+	/AOGyMIhfaQ6JHLrUnn55uHCR5Y7NhKo2FP0eE2hiGDSDv1+N6VEDxBj2JfRtNxzJ8weQZw5sO9
+	LsNrl1+uoTuoBsFUeTsgD5TvTy4hwvpOTqokaG6iQ7jpcA+nyzGb7rAQn/iEFQe/ud179r9zCUG
+	R+eu2Zg1dJDKmVOWMWB/JSPbElP5eMhjxwChhL2E2rxUA3LGa3fGw0+Zp66x8TUVMPChl9jhL4z
+	PU9UN8j3u112NmmoNQQfCZWW8C7egmFKupWeeK9JEF2mJFTKpgVnt9Lt+IaavLZJ7msTIZn3HzV
+	GOoxEorxDB4mGn3Efz8CKj9bCPh
+X-Received: by 2002:a17:90a:e16:b0:39d:f058:ce11 with SMTP id 98e67ed59e1d1-39df058d05bmr2756417a91.13.1789391980804;
+        Mon, 14 Sep 2026 06:19:40 -0700 (PDT)
+Received: from hostname ([2401:7400:c804:63d1:a611:b433:d4e7:c402])
+        by smtp.googlemail.com with ESMTPSA id 98e67ed59e1d1-39d94744dfdsm21817075a91.0.2026.09.14.06.19.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 06:19:05 -0700 (PDT)
-Date: Mon, 14 Sep 2026 18:48:58 +0530
-From: Himanshu Chauhan <himanshu.chauhan@oss.qualcomm.com>
-To: Rui Qi <qirui.001@bytedance.com>
-Cc: linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
-        qingfang.deng@linux.dev, alex@ghiti.fr, aou@eecs.berkeley.edu,
-        palmer@dabbelt.com, pjw@kernel.org, shuah@kernel.org,
-        thecharlesjenkins@gmail.com, jtaubepe@redhat.com
-Subject: Re: [PATCH v6 1/5] riscv: Introduce support for hardware
- break/watchpoints
-Message-ID: <aqf0QmoUmkPUcCzi@hu-himchau-blr.qualcomm.com>
-References: <20260803134913.2013674-2-himanshu.chauhan@oss.qualcomm.com>
- <20260911085359.95227-2-qirui.001@bytedance.com>
+        Mon, 14 Sep 2026 06:19:40 -0700 (PDT)
+From: Ho Jie Feng <hjf3108@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: Ho Jie Feng <hjf3108@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] drm/trigger5: Add MCT Trigger 5 USB display driver
+Date: Mon, 14 Sep 2026 21:19:19 +0800
+Message-ID: <20260914131924.196251-1-hjf3108@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260910171709.396071-1-hjf3108@gmail.com>
+References: <20260910171709.396071-1-hjf3108@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260911085359.95227-2-qirui.001@bytedance.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE0MDE5MSBTYWx0ZWRfXxEK2MCsqfRyj
- 63+Tt/nndgo9vOoiPeX4bzJUtZK8n9UZHB0pPQEtopu+dmrgDaByhujH6/I0U24aYI+6zD4ulf2
- Xg4pI8sthgZI+GgcrJIDsQoUU6wga68=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE0MDE5MSBTYWx0ZWRfX/anDIFog/0CP
- yCN5yaOvHL9bYNvJSSFj8knRZswpDZ495rfWxC274esCgukgXtMJgsBycR0x1BOMpwrC0IVTEqs
- ymV52cheZMzcTHu7nAodFyCFRp1V1LpRxk9L5OK4XIHxFRWizvoi31Z2oiXpfOyLL4Ne1jLuiDu
- snQYoCSowUwXkSOQcQrnV+HyfsiFNBdzh4L0suX+fpXHmdStX+h2aT140mS1aVGa+UJRVJMics5
- 9qmBzvkde97kkh9GoDsRxqVTrIw8MzQ21XAnR+jQYn6PxKFC9cvbdZIPilXOLnekQd/rRw4lcgD
- u2e0SFYbV6DIHY2jW/J6/DYCPHgAd5FnXclRc6Bf8znfSt18kBSL3ZEX0y/UEHM4pdG9skx72iT
- neryWBeyooZbgUVZbsC0coRa5x3JXrEipk4Ai9W3FagVbj+WgjfEhXwtIqSOEkeerPiYp3rHKHw
- Kjpj2u5Fg+t3yHb1CKw==
-X-Proofpoint-GUID: Fjjd0-xAABgsyvwGn3Dhbw_832gv-Kn1
-X-Authority-Analysis: v=2.4 cv=Ie4Symqa c=1 sm=1 tr=0 ts=6aa7f44b cx=c_pps
- a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EuAT8bhfm2lHp6HEtwcA:9 a=CjuIK1q_8ugA:10 a=OpyuDcXvxspvyRM73sMx:22
-X-Proofpoint-ORIG-GUID: Fjjd0-xAABgsyvwGn3Dhbw_832gv-Kn1
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-14_03,2026-09-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 impostorscore=0 phishscore=0 adultscore=0
- malwarescore=0 suspectscore=0 clxscore=1015 lowpriorityscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609140191
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 11, 2026 at 04:54:00PM +0800, Rui Qi wrote:
-> Hi Himanshu,
-> 
-> While testing this series on a platform exposing type-6 triggers, I hit a
-> failure that seems related to the mcontrol6 timing/hit semantics.
-> 
-> The current execute breakpoint path demuxes the event only by comparing
-> the programmed breakpoint address with regs->epc:
-> 
->     if (bp->address == args->regs->epc)
->         perf_bp_event(event, args->regs);
-> 
-> On our platform the execute trigger did fire, but the breakpoint
-> exception was reported with EPC pointing to the next instruction. For
-> example, the trigger was installed at 0x1062e, while the trap came in
-> with epc=0x10632. As a result the handler did not call perf_bp_event()
-> and the breakpoint selftest timed out.
-> 
-> This does not look like an instruction-size matching issue. The trigger
-> itself matched. The problem is that the kernel identifies the matching
-> execute trigger only by EPC equality.
-> 
-> For mcontrol6, I think the driver also needs to be careful about the
-> Sdtrig version exposed by tinfo. With tinfo.version > 0, bit 20 of
-> mcontrol6 is no longer the old timing bit, and hit1/hit0 encode the
-> fire timing. The series currently still defines/clears
-> RISCV_DBTR_MC6_TIMING_BIT and, for watchpoints, only checks
-> RISCV_DBTR_MC6_HIT_BIT. The execute path does not use hit information
-> at all.
-> 
-> Would it make sense to make the type-6 path version-aware, or otherwise
-> avoid relying solely on regs->epc == bp->address?
->
+Add a DRM driver for MCT Trigger 5 USB display adapters. The driver
+implements modesetting and USB framebuffer updates, connector detection,
+and EDID retrieval.
 
-Hi Rui,
+The protocol is based on reverse-engineering work by Forest Crossman
+(cyrozap) at: https://github.com/cyrozap/mct-usb-display-adapter-re
+and usb packet captures between the Windows driver and the device.
 
-Thanks for testing this out. I acknowledge this issue. Similar point is also
-raised by Pei. I will fix this issue in the next patch set.
+Only the HDMI path has been tested. VGA selection is inferred from the
+absence of USB audio interfaces.
 
-Thanks
-Regards
+Tested on JUA355. The list of USB device IDs are taken from the
+Windows driver INF.
 
-Himanshu
+Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
+---
+Changes in v2:
+- Move the buffer resizing to crtc_* functions so that we can report
+  out of memory errors to userspace
+- Change the PLL search function so that it is faster and doesn't
+  produce checkpatch warnings
+- Update drm functions: crtc reset becomes create_state
+- Fix warnings reported by kernel test robot
+
+sashiko review false positives in v1:
+- atomic in these function names mean that the changes should go through
+  through at once or not at all, nothing to do with atomic context.
+  Furthermore other drivers also have similar patterns
+- drm_gem_fb_begin_cpu_access is also required
+
+ MAINTAINERS                                   |    7 +
+ drivers/gpu/drm/Kconfig                       |    1 +
+ drivers/gpu/drm/Makefile                      |    1 +
+ drivers/gpu/drm/trigger5/Kconfig              |   14 +
+ drivers/gpu/drm/trigger5/Makefile             |    4 +
+ drivers/gpu/drm/trigger5/trigger5.h           |  141 +++
+ drivers/gpu/drm/trigger5/trigger5_connector.c |  102 ++
+ drivers/gpu/drm/trigger5/trigger5_drv.c       | 1010 +++++++++++++++++
+ 8 files changed, 1280 insertions(+)
+ create mode 100644 drivers/gpu/drm/trigger5/Kconfig
+ create mode 100644 drivers/gpu/drm/trigger5/Makefile
+ create mode 100644 drivers/gpu/drm/trigger5/trigger5.h
+ create mode 100644 drivers/gpu/drm/trigger5/trigger5_connector.c
+ create mode 100644 drivers/gpu/drm/trigger5/trigger5_drv.c
+
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 5b5a4e4b35cf4..f40a6fb9c3c2e 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -8250,6 +8250,13 @@ S:	Maintained
+ F:	Documentation/devicetree/bindings/display/panel/mantix,mlaf057we51-x.yaml
+ F:	drivers/gpu/drm/panel/panel-mantix-mlaf057we51.c
  
-> Thanks,
++DRM DRIVER FOR MCT TRIGGER 5 USB DISPLAY ADAPTERS
++M:	Ho Jie Feng <hjf3108@gmail.com>
++L:	dri-devel@lists.freedesktop.org
++S:	Maintained
++T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
++F:	drivers/gpu/drm/trigger5/
++
+ DRM DRIVER FOR MGA G200 GRAPHICS CHIPS
+ M:	Dave Airlie <airlied@redhat.com>
+ R:	Thomas Zimmermann <tzimmermann@suse.de>
+diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+index 323422861e8f6..75b5f5f4e94d4 100644
+--- a/drivers/gpu/drm/Kconfig
++++ b/drivers/gpu/drm/Kconfig
+@@ -350,6 +350,7 @@ source "drivers/gpu/drm/tegra/Kconfig"
+ source "drivers/gpu/drm/tidss/Kconfig"
+ source "drivers/gpu/drm/tilcdc/Kconfig"
+ source "drivers/gpu/drm/tiny/Kconfig"
++source "drivers/gpu/drm/trigger5/Kconfig"
+ source "drivers/gpu/drm/tve200/Kconfig"
+ source "drivers/gpu/drm/tyr/Kconfig"
+ source "drivers/gpu/drm/udl/Kconfig"
+diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+index e635fcffd3790..85a2dbfa643d9 100644
+--- a/drivers/gpu/drm/Makefile
++++ b/drivers/gpu/drm/Makefile
+@@ -238,6 +238,7 @@ obj-$(CONFIG_DRM_SPRD) += sprd/
+ obj-$(CONFIG_DRM_LOONGSON) += loongson/
+ obj-$(CONFIG_DRM_POWERVR) += imagination/
+ obj-$(CONFIG_DRM_VERISILICON_DC) += verisilicon/
++obj-$(CONFIG_DRM_TRIGGER5) += trigger5/
+ 
+ # Ensure drm headers are self-contained and pass kernel-doc
+ hdrtest-files := \
+diff --git a/drivers/gpu/drm/trigger5/Kconfig b/drivers/gpu/drm/trigger5/Kconfig
+new file mode 100644
+index 0000000000000..e489db641f3e1
+--- /dev/null
++++ b/drivers/gpu/drm/trigger5/Kconfig
+@@ -0,0 +1,14 @@
++# SPDX-License-Identifier: GPL-2.0-only
++config DRM_TRIGGER5
++	tristate "MCT Trigger 5 USB display adapters"
++	depends on DRM && USB && MMU
++	select DRM_CLIENT_SELECTION
++	select DRM_GEM_SHMEM_HELPER
++	select DRM_KMS_HELPER
++	help
++	  DRM driver for USB display adapters based on the MCT Trigger 5
++	  chipset, including the StarTech USB32VGAES and USB32HDES and the
++	  j5create JUA310 and JUA350.
++
++	  To compile this driver as a module, choose M here: the module
++	  will be called trigger5.
+diff --git a/drivers/gpu/drm/trigger5/Makefile b/drivers/gpu/drm/trigger5/Makefile
+new file mode 100644
+index 0000000000000..03b146e2fe813
+--- /dev/null
++++ b/drivers/gpu/drm/trigger5/Makefile
+@@ -0,0 +1,4 @@
++# SPDX-License-Identifier: GPL-2.0-only
++
++trigger5-y := trigger5_drv.o trigger5_connector.o
++obj-$(CONFIG_DRM_TRIGGER5) += trigger5.o
+diff --git a/drivers/gpu/drm/trigger5/trigger5.h b/drivers/gpu/drm/trigger5/trigger5.h
+new file mode 100644
+index 0000000000000..3e4fa6b74185a
+--- /dev/null
++++ b/drivers/gpu/drm/trigger5/trigger5.h
+@@ -0,0 +1,141 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++#ifndef __TRIGGER5_H__
++#define __TRIGGER5_H__
++
++#include <linux/completion.h>
++#include <linux/scatterlist.h>
++#include <linux/timer.h>
++#include <linux/types.h>
++#include <linux/usb.h>
++#include <linux/workqueue.h>
++
++#include <drm/drm_connector.h>
++#include <drm/drm_crtc.h>
++#include <drm/drm_device.h>
++#include <drm/drm_encoder.h>
++#include <drm/drm_plane.h>
++#include <drm/drm_rect.h>
++
++#define DRIVER_NAME		"trigger5"
++#define DRIVER_DESC		"MCT Trigger 5 USB display adapter"
++
++#define DRIVER_MAJOR		1
++#define DRIVER_MINOR		0
++
++#define TRIGGER5_NUM_TRANSFERS	2
++
++struct trigger5_transfer_buf {
++	void *data;
++	struct sg_table sgt;
++	size_t len;
++};
++
++struct trigger5_transfer {
++	struct trigger5_device *trigger5;
++
++	struct trigger5_transfer_buf buf;
++	size_t frame_len;
++	struct drm_rect transfer_rect;
++
++	struct timer_list timer;
++	struct usb_sg_request sgr;
++
++	struct work_struct transfer_work;
++	struct completion frame_complete;
++};
++
++struct trigger5_device {
++	struct drm_device drm;
++	struct usb_interface *intf;
++	unsigned int bulk_pipe;
++
++	struct drm_connector connector;
++	struct drm_plane plane;
++	struct drm_crtc crtc;
++	struct drm_encoder encoder;
++
++	u16 frame_counter;
++
++	int current_transfer;
++	struct drm_rect pending_rect;
++	struct workqueue_struct *transfer_wq;
++	bool display_enabled;
++	struct delayed_work keepalive_work;
++
++	struct trigger5_transfer transfers[TRIGGER5_NUM_TRANSFERS];
++};
++
++struct trigger5_crtc_state {
++	struct drm_crtc_state base;
++
++	/* Staged transfer buffer to be swapped in during enable */
++	struct trigger5_transfer_buf bufs[TRIGGER5_NUM_TRANSFERS];
++};
++
++struct trigger5_pll {
++	u8 prediv;
++	u8 mul1;
++	u8 mul2;
++	u8 div1;
++	u8 div2;
++} __packed;
++
++struct trigger5_mode_request {
++	__be16 height;
++	__be16 width;
++	__be16 line_total_pixels; /* minus one */
++	__be16 line_sync_pulse; /* minus one */
++	__be16 line_back_porch; /* minus one */
++	__be16 unknown1;
++	__be16 unknown2;
++	__be16 width_minus_one;
++	__be16 frame_total_lines; /* minus one */
++	__be16 frame_sync_pulse; /* minus one */
++	__be16 frame_back_porch; /* minus one */
++	__be16 unknown3;
++	__be16 unknown4;
++	__be16 height_minus_one;
++	struct trigger5_pll pll;
++	u8 hsync_polarity;
++	u8 vsync_polarity;
++} __packed;
++
++/* gm12u320.c uses the same header format */
++struct trigger5_bulk_header {
++	u8 magic; /* 0xfb */
++	u8 length; /* 0x14 */
++	__le16 counter; /* lower 12-bit counter, upper 4-bit packet flags */
++	__le16 horizontal_offset; /* lower 13-bit offset, upper 3-bit unknown */
++	__le16 vertical_offset; /* lower 13-bit offset, upper 3-bit unknown */
++	__le16 width; /* lower 13-bit width, upper 3-bit unknown */
++	__le16 height; /* lower 13-bit height, upper 3-bit unknown */
++	__le32 payload_length; /* lower 28-bit length, upper 4-bit flags */
++	u8 flags; /* bit 0 must be set */
++	u8 unknown1;
++	u8 unknown2;
++	u8 checksum;
++} __packed;
++
++#define TRIGGER5_REQUEST_KEEPALIVE		0x91
++#define TRIGGER5_REQUEST_GET_REGISTER		0xA5
++#define TRIGGER5_REQUEST_GET_STATUS		0xA6
++#define TRIGGER5_REQUEST_GET_EDID		0xA8
++#define TRIGGER5_REQUEST_SET_MODE		0xC3
++#define TRIGGER5_REQUEST_SET_REGISTER		0xC4
++#define TRIGGER5_REQUEST_SET_CURSOR_POSITION	0xC8
++#define TRIGGER5_REQUEST_FIRMWARE_RESET		0xD1
++
++#define TRIGGER5_KEEPALIVE_INTERVAL_MS	2000
++#define TRIGGER5_BULK_TIMEOUT_MS		5000
++
++#define to_trigger5(x) container_of(x, struct trigger5_device, drm)
++
++static inline struct trigger5_crtc_state *
++to_trigger5_crtc_state(struct drm_crtc_state *state)
++{
++	return container_of(state, struct trigger5_crtc_state, base);
++}
++
++int trigger5_connector_init(struct trigger5_device *trigger5,
++			    int connector_type);
++#endif /* __TRIGGER5_H__ */
+diff --git a/drivers/gpu/drm/trigger5/trigger5_connector.c b/drivers/gpu/drm/trigger5/trigger5_connector.c
+new file mode 100644
+index 0000000000000..a63e86fd74ab8
+--- /dev/null
++++ b/drivers/gpu/drm/trigger5/trigger5_connector.c
+@@ -0,0 +1,102 @@
++// SPDX-License-Identifier: GPL-2.0-only
++
++#include <drm/drm_atomic_state_helper.h>
++#include <drm/drm_connector.h>
++#include <drm/drm_drv.h>
++#include <drm/drm_edid.h>
++#include <drm/drm_modeset_helper_vtables.h>
++#include <drm/drm_probe_helper.h>
++
++#include "trigger5.h"
++
++static int trigger5_read_edid(void *data, u8 *buf, unsigned int block,
++			      size_t len)
++{
++	struct trigger5_device *trigger5 = data;
++	struct usb_device *udev = interface_to_usbdev(trigger5->intf);
++	int idx, ret;
++
++	if (!drm_dev_enter(&trigger5->drm, &idx))
++		return -ENODEV;
++
++	ret = usb_control_msg(udev, usb_rcvctrlpipe(udev, 0),
++			      TRIGGER5_REQUEST_GET_EDID,
++			      USB_DIR_IN | USB_TYPE_VENDOR | USB_RECIP_DEVICE,
++			      block, 0, buf, len, USB_CTRL_GET_TIMEOUT);
++	drm_dev_exit(idx);
++
++	if (ret < 0)
++		return ret;
++	if (ret != len)
++		return -EIO;
++
++	return 0;
++}
++
++static int trigger5_connector_get_modes(struct drm_connector *connector)
++{
++	struct trigger5_device *trigger5 = to_trigger5(connector->dev);
++	const struct drm_edid *edid;
++	int count;
++
++	edid = drm_edid_read_custom(connector, trigger5_read_edid, trigger5);
++	drm_edid_connector_update(connector, edid);
++	count = drm_edid_connector_add_modes(connector);
++	if (!count)
++		count = drm_add_modes_noedid(connector, 1920, 1200);
++	drm_edid_free(edid);
++
++	return count;
++}
++
++static enum drm_connector_status
++trigger5_detect(struct drm_connector *connector, bool force)
++{
++	struct trigger5_device *trigger5 = to_trigger5(connector->dev);
++	struct usb_device *udev = interface_to_usbdev(trigger5->intf);
++	u8 status[2];
++	int idx, ret;
++
++	if (!drm_dev_enter(&trigger5->drm, &idx))
++		return connector_status_disconnected;
++
++	ret = usb_control_msg_recv(udev, 0, TRIGGER5_REQUEST_GET_STATUS,
++				   USB_DIR_IN | USB_TYPE_VENDOR |
++					   USB_RECIP_DEVICE,
++				   0xff, 0x3, status, sizeof(status),
++				   USB_CTRL_GET_TIMEOUT, GFP_KERNEL);
++	drm_dev_exit(idx);
++
++	if (ret)
++		return connector_status_unknown;
++
++	return status[1] == 1 ? connector_status_connected :
++			     connector_status_disconnected;
++}
++
++static const struct drm_connector_helper_funcs trigger5_connector_helper_funcs = {
++	.get_modes = trigger5_connector_get_modes,
++};
++
++static const struct drm_connector_funcs trigger5_connector_funcs = {
++	.fill_modes = drm_helper_probe_single_connector_modes,
++	.destroy = drm_connector_cleanup,
++	.detect = trigger5_detect,
++	.reset = drm_atomic_helper_connector_reset,
++	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
++	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
++};
++
++int trigger5_connector_init(struct trigger5_device *trigger5,
++			    int connector_type)
++{
++	int ret;
++
++	drm_connector_helper_add(&trigger5->connector,
++				 &trigger5_connector_helper_funcs);
++	ret = drm_connector_init(&trigger5->drm, &trigger5->connector,
++				 &trigger5_connector_funcs, connector_type);
++	trigger5->connector.polled =
++		DRM_CONNECTOR_POLL_CONNECT | DRM_CONNECTOR_POLL_DISCONNECT;
++	return ret;
++}
+diff --git a/drivers/gpu/drm/trigger5/trigger5_drv.c b/drivers/gpu/drm/trigger5/trigger5_drv.c
+new file mode 100644
+index 0000000000000..4090342e5d295
+--- /dev/null
++++ b/drivers/gpu/drm/trigger5/trigger5_drv.c
+@@ -0,0 +1,1010 @@
++// SPDX-License-Identifier: GPL-2.0-only
++
++#include <linux/array_size.h>
++#include <linux/err.h>
++#include <linux/iosys-map.h>
++#include <linux/jiffies.h>
++#include <linux/limits.h>
++#include <linux/math.h>
++#include <linux/math64.h>
++#include <linux/module.h>
++#include <linux/overflow.h>
++#include <linux/sizes.h>
++#include <linux/slab.h>
++#include <linux/timer.h>
++#include <linux/vmalloc.h>
++
++#include <drm/clients/drm_client_setup.h>
++#include <drm/drm_atomic.h>
++#include <drm/drm_atomic_helper.h>
++#include <drm/drm_atomic_state_helper.h>
++#include <drm/drm_crtc_helper.h>
++#include <drm/drm_damage_helper.h>
++#include <drm/drm_drv.h>
++#include <drm/drm_fbdev_shmem.h>
++#include <drm/drm_format_helper.h>
++#include <drm/drm_fourcc.h>
++#include <drm/drm_framebuffer.h>
++#include <drm/drm_gem.h>
++#include <drm/drm_gem_atomic_helper.h>
++#include <drm/drm_gem_framebuffer_helper.h>
++#include <drm/drm_gem_shmem_helper.h>
++#include <drm/drm_managed.h>
++#include <drm/drm_modeset_helper.h>
++#include <drm/drm_modeset_helper_vtables.h>
++#include <drm/drm_print.h>
++#include <drm/drm_probe_helper.h>
++
++#include "trigger5.h"
++
++static void trigger5_stop_io(struct trigger5_device *trigger5)
++{
++	WRITE_ONCE(trigger5->display_enabled, false);
++	flush_workqueue(trigger5->transfer_wq);
++	cancel_delayed_work_sync(&trigger5->keepalive_work);
++}
++
++static int trigger5_usb_suspend(struct usb_interface *interface,
++				pm_message_t message)
++{
++	struct trigger5_device *trigger5 = usb_get_intfdata(interface);
++	int ret;
++
++	ret = drm_mode_config_helper_suspend(&trigger5->drm);
++	if (ret)
++		return ret;
++
++	trigger5_stop_io(trigger5);
++
++	return 0;
++}
++
++static int trigger5_usb_resume(struct usb_interface *interface)
++{
++	struct trigger5_device *trigger5 = usb_get_intfdata(interface);
++
++	return drm_mode_config_helper_resume(&trigger5->drm);
++}
++
++DEFINE_DRM_GEM_FOPS(trigger5_driver_fops);
++
++static const struct drm_driver trigger5_drm_driver = {
++	.driver_features = DRIVER_ATOMIC | DRIVER_GEM | DRIVER_MODESET,
++
++	/* GEM hooks */
++	.fops = &trigger5_driver_fops,
++	DRM_GEM_SHMEM_DRIVER_OPS,
++	DRM_FBDEV_SHMEM_DRIVER_OPS,
++
++	.name = DRIVER_NAME,
++	.desc = DRIVER_DESC,
++	.major = DRIVER_MAJOR,
++	.minor = DRIVER_MINOR,
++};
++
++static const struct drm_mode_config_funcs trigger5_mode_config_funcs = {
++	.fb_create = drm_gem_fb_create_with_dirty,
++	.atomic_check = drm_atomic_helper_check,
++	.atomic_commit = drm_atomic_helper_commit,
++};
++
++static u64 trigger5_calculate_pll(struct trigger5_pll *pll, int clock)
++{
++	u64 ref_clock = 10000000;
++	u64 target_clock = (u64)clock * 1000;
++	u64 calculated_clock, calculated_err, best_err = U64_MAX;
++	int prediv_div2, prediv, mul1, mul2, div1, div2;
++
++	/* Use values found in the capture */
++	for (prediv_div2 = 0x02; prediv_div2 <= 0x100; prediv_div2 <<= 1) {
++		for (mul1 = 1; mul1 <= 0x32; mul1++) {
++			for (mul2 = mul1; mul2 <= 0x32; mul2++) {
++				for (div1 = 1; div1 <= 0x32; div1++) {
++					if (!best_err)
++						break;
++					calculated_clock =
++						div_u64(ref_clock * mul1 * mul2,
++							prediv_div2 * div1);
++					calculated_err =
++						abs_diff(calculated_clock,
++							 target_clock);
++					if (prediv_div2 <= 0x10) {
++						div2 = prediv_div2;
++						prediv = 1;
++					} else {
++						div2 = 0x10;
++						prediv = prediv_div2 >> 4;
++					}
++					if (calculated_err < best_err) {
++						best_err =
++							calculated_err;
++						pll->mul1 = mul1;
++						pll->mul2 = mul2;
++						pll->div1 = div1;
++						pll->div2 = div2;
++						pll->prediv = prediv;
++					}
++				}
++			}
++		}
++	}
++	return best_err;
++}
++
++static void trigger5_bulk_timeout(struct timer_list *t)
++{
++	struct trigger5_transfer *transfer =
++		timer_container_of(transfer, t, timer);
++
++	usb_sg_cancel(&transfer->sgr);
++}
++
++static void trigger5_transfer_work(struct work_struct *work)
++{
++	struct trigger5_transfer *transfer =
++		container_of(work, struct trigger5_transfer, transfer_work);
++	struct trigger5_device *trigger5 = transfer->trigger5;
++	struct usb_device *udev = interface_to_usbdev(trigger5->intf);
++	int idx, ret;
++
++	if (!drm_dev_enter(&trigger5->drm, &idx))
++		goto complete;
++
++	/* Submit bulk transfer with a five-second timeout. */
++	ret = usb_sg_init(&transfer->sgr, udev, trigger5->bulk_pipe, 0,
++			  transfer->buf.sgt.sgl,
++			  transfer->buf.sgt.nents, transfer->frame_len,
++			  GFP_KERNEL);
++	if (ret) {
++		drm_err_ratelimited(&trigger5->drm,
++				    "failed to initialize USB transfer: %d\n",
++				    ret);
++		goto exit;
++	}
++
++	mod_timer(&transfer->timer,
++		  jiffies + msecs_to_jiffies(TRIGGER5_BULK_TIMEOUT_MS));
++	usb_sg_wait(&transfer->sgr);
++	timer_delete_sync(&transfer->timer);
++
++	if (transfer->sgr.status)
++		drm_err_ratelimited(&trigger5->drm,
++				    "USB transfer failed: %d\n",
++				    transfer->sgr.status);
++	else if (transfer->sgr.bytes != transfer->frame_len)
++		drm_err_ratelimited(&trigger5->drm,
++				    "short USB transfer: %zu/%zu bytes\n",
++				    transfer->sgr.bytes, transfer->frame_len);
++	else if (READ_ONCE(trigger5->display_enabled))
++		/* Keepalive must only be sent after a frame has been sent */
++		queue_delayed_work(trigger5->transfer_wq,
++				   &trigger5->keepalive_work,
++				   msecs_to_jiffies(TRIGGER5_KEEPALIVE_INTERVAL_MS));
++
++exit:
++	drm_dev_exit(idx);
++complete:
++	complete(&transfer->frame_complete);
++}
++
++static void trigger5_keepalive_work(struct work_struct *work)
++{
++	struct trigger5_device *trigger5 =
++		container_of(to_delayed_work(work), struct trigger5_device,
++			     keepalive_work);
++	struct usb_device *udev = interface_to_usbdev(trigger5->intf);
++	u8 response;
++	int idx, ret;
++
++	if (!READ_ONCE(trigger5->display_enabled))
++		return;
++
++	if (!drm_dev_enter(&trigger5->drm, &idx))
++		return;
++
++	ret = usb_control_msg_recv(udev, 0, TRIGGER5_REQUEST_KEEPALIVE,
++				   USB_DIR_IN | USB_TYPE_VENDOR |
++					   USB_RECIP_DEVICE,
++				   0x0002, 0x0000, &response,
++				   sizeof(response), USB_CTRL_GET_TIMEOUT,
++				   GFP_KERNEL);
++	if (ret)
++		drm_err_ratelimited(&trigger5->drm,
++				    "keepalive request failed: %d\n", ret);
++
++	if (READ_ONCE(trigger5->display_enabled))
++		mod_delayed_work(trigger5->transfer_wq,
++				 &trigger5->keepalive_work,
++				 msecs_to_jiffies(TRIGGER5_KEEPALIVE_INTERVAL_MS));
++
++	drm_dev_exit(idx);
++}
++
++static void trigger5_free_bulk_buffer(struct trigger5_transfer_buf *buf)
++{
++	if (!buf->data)
++		return;
++	sg_free_table(&buf->sgt);
++	vfree(buf->data);
++	buf->data = NULL;
++	buf->len = 0;
++}
++
++/*
++ * Swap the new buffers in here because atomic_enable is not called for
++ * a CRTC that is enabled but inactive.
++ */
++static void trigger5_atomic_commit_tail(struct drm_atomic_commit *state)
++{
++	struct trigger5_device *trigger5 = to_trigger5(state->dev);
++	struct drm_crtc_state *crtc_state;
++	struct trigger5_crtc_state *tstate;
++	int idx, i;
++
++	crtc_state = drm_atomic_get_new_crtc_state(state, &trigger5->crtc);
++	if (!crtc_state)
++		goto commit;
++
++	tstate = to_trigger5_crtc_state(crtc_state);
++	if (!tstate->bufs[0].data)
++		goto commit;
++
++	if (!drm_dev_enter(state->dev, &idx))
++		goto commit;
++
++	trigger5_stop_io(trigger5);
++	for (i = 0; i < TRIGGER5_NUM_TRANSFERS; i++) {
++		trigger5_free_bulk_buffer(&trigger5->transfers[i].buf);
++		trigger5->transfers[i].buf = tstate->bufs[i];
++		memset(&tstate->bufs[i], 0, sizeof(tstate->bufs[i]));
++	}
++
++	drm_dev_exit(idx);
++commit:
++	drm_atomic_helper_commit_tail_rpm(state);
++}
++
++static const struct drm_mode_config_helper_funcs
++trigger5_mode_config_helper_funcs = {
++	.atomic_commit_tail = trigger5_atomic_commit_tail,
++};
++
++static int trigger5_alloc_bulk_buffer(struct trigger5_transfer_buf *buf,
++				      size_t len)
++{
++	unsigned int num_pages;
++	int ret, i;
++	struct page **pages;
++	u8 *data;
++	void *ptr;
++
++	/* Large transfer buffer requires vmalloc and a scatterlist. */
++	data = vmalloc_32(len);
++	if (!data)
++		return -ENOMEM;
++
++	num_pages = DIV_ROUND_UP(len, PAGE_SIZE);
++	pages = kmalloc_array(num_pages, sizeof(struct page *), GFP_KERNEL);
++	if (!pages) {
++		ret = -ENOMEM;
++		goto err_vfree;
++	}
++	for (i = 0, ptr = data; i < num_pages; i++, ptr += PAGE_SIZE)
++		pages[i] = vmalloc_to_page(ptr);
++	ret = sg_alloc_table_from_pages(&buf->sgt, pages,
++					num_pages, 0, len, GFP_KERNEL);
++	kfree(pages);
++	if (ret)
++		goto err_vfree;
++
++	buf->data = data;
++	buf->len = len;
++
++	return 0;
++err_vfree:
++	vfree(data);
++	return ret;
++}
++
++static void trigger5_init_transfer(struct trigger5_device *trigger5,
++				   struct trigger5_transfer *transfer)
++{
++	init_completion(&transfer->frame_complete);
++	complete(&transfer->frame_complete);
++	timer_setup(&transfer->timer, trigger5_bulk_timeout, 0);
++	INIT_WORK(&transfer->transfer_work, trigger5_transfer_work);
++	transfer->trigger5 = trigger5;
++}
++
++static struct drm_crtc_state *
++trigger5_crtc_create_state(struct drm_crtc *crtc)
++{
++	struct trigger5_crtc_state *tstate = kzalloc_obj(*tstate);
++
++	if (!tstate)
++		return ERR_PTR(-ENOMEM);
++
++	__drm_atomic_helper_crtc_state_init(&tstate->base, crtc);
++
++	return &tstate->base;
++}
++
++static struct drm_crtc_state *
++trigger5_crtc_duplicate_state(struct drm_crtc *crtc)
++{
++	struct trigger5_crtc_state *tstate;
++
++	if (drm_WARN_ON(crtc->dev, !crtc->state))
++		return NULL;
++
++	/* Staged buffers stay with the state that allocated them */
++	tstate = kzalloc_obj(*tstate);
++	if (!tstate)
++		return NULL;
++
++	__drm_atomic_helper_crtc_duplicate_state(crtc, &tstate->base);
++
++	return &tstate->base;
++}
++
++static void trigger5_crtc_destroy_state(struct drm_crtc *crtc,
++					struct drm_crtc_state *state)
++{
++	struct trigger5_crtc_state *tstate = to_trigger5_crtc_state(state);
++	int i;
++
++	for (i = 0; i < TRIGGER5_NUM_TRANSFERS; i++)
++		trigger5_free_bulk_buffer(&tstate->bufs[i]);
++
++	__drm_atomic_helper_crtc_destroy_state(state);
++	kfree(tstate);
++}
++
++static size_t trigger5_mode_buf_len(const struct drm_display_mode *mode)
++{
++	return size_add(array3_size(mode->hdisplay, mode->vdisplay, 3),
++			sizeof(struct trigger5_bulk_header));
++}
++
++static int trigger5_crtc_atomic_check(struct drm_crtc *crtc,
++				      struct drm_atomic_commit *state)
++{
++	struct drm_crtc_state *old_crtc_state =
++		drm_atomic_get_old_crtc_state(state, crtc);
++	struct drm_crtc_state *crtc_state =
++		drm_atomic_get_new_crtc_state(state, crtc);
++	struct trigger5_crtc_state *tstate = to_trigger5_crtc_state(crtc_state);
++	size_t len;
++	int ret, i;
++
++	ret = drm_crtc_helper_atomic_check(crtc, state);
++	if (ret)
++		return ret;
++
++	if (!drm_atomic_crtc_needs_modeset(crtc_state) || !crtc_state->enable)
++		return 0;
++
++	/* Same size? do nothing */
++	len = trigger5_mode_buf_len(&crtc_state->mode);
++	if (old_crtc_state->enable &&
++	    trigger5_mode_buf_len(&old_crtc_state->mode) == len)
++		return 0;
++
++	/*
++	 * Allocate the transfer buffers for the new mode here so that
++	 * failure is reported to userspace.
++	 */
++	for (i = 0; i < TRIGGER5_NUM_TRANSFERS; i++) {
++		ret = trigger5_alloc_bulk_buffer(&tstate->bufs[i], len);
++		if (ret)
++			return ret;
++	}
++
++	return 0;
++}
++
++static void trigger5_crtc_atomic_enable(struct drm_crtc *crtc,
++					struct drm_atomic_commit *state)
++{
++	struct trigger5_device *trigger5 = to_trigger5(crtc->dev);
++	struct usb_device *udev = interface_to_usbdev(trigger5->intf);
++	struct drm_crtc_state *crtc_state =
++		drm_atomic_get_new_crtc_state(state, crtc);
++	struct drm_display_mode *mode = &crtc_state->mode;
++	struct trigger5_mode_request request = {};
++	u8 data[4];
++	u64 clk;
++	int idx, ret;
++
++	if (!drm_dev_enter(crtc->dev, &idx))
++		return;
++
++	trigger5_stop_io(trigger5);
++
++	/* Sequence recovered from USB captures. */
++	ret = usb_control_msg_recv(udev, 0,
++				   TRIGGER5_REQUEST_FIRMWARE_RESET,
++				   USB_DIR_IN | USB_TYPE_VENDOR |
++					   USB_RECIP_DEVICE,
++				   0x0000, 0x0000, data, 1,
++				   USB_CTRL_GET_TIMEOUT, GFP_KERNEL);
++	if (ret)
++		goto err;
++
++	request.height = cpu_to_be16(mode->vdisplay);
++	request.height_minus_one = cpu_to_be16(mode->vdisplay - 1);
++	request.width = cpu_to_be16(mode->hdisplay);
++	request.width_minus_one = cpu_to_be16(mode->hdisplay - 1);
++
++	request.line_total_pixels = cpu_to_be16(mode->htotal - 1);
++	request.line_sync_pulse =
++		cpu_to_be16(mode->hsync_end - mode->hsync_start - 1);
++	request.line_back_porch =
++		cpu_to_be16(mode->htotal - mode->hsync_end - 1);
++
++	request.frame_total_lines = cpu_to_be16(mode->vtotal - 1);
++	request.frame_sync_pulse =
++		cpu_to_be16(mode->vsync_end - mode->vsync_start - 1);
++	request.frame_back_porch =
++		cpu_to_be16(mode->vtotal - mode->vsync_end - 1);
++	request.unknown1 = cpu_to_be16(0xff);
++	request.unknown2 = cpu_to_be16(0xff);
++	request.unknown3 = cpu_to_be16(0xff);
++	request.unknown4 = cpu_to_be16(0xff);
++
++	request.hsync_polarity = (mode->flags & DRM_MODE_FLAG_PHSYNC) ? 0 : 1;
++	request.vsync_polarity = (mode->flags & DRM_MODE_FLAG_PVSYNC) ? 0 : 1;
++
++	trigger5_calculate_pll(&request.pll, mode->clock);
++	clk = div_u64(10000000ULL * request.pll.mul1 * request.pll.mul2,
++		      (u32)request.pll.prediv * request.pll.div1 *
++			      request.pll.div2 * 1000);
++	drm_dbg_kms(&trigger5->drm,
++		    "pll: %02x %02x %02x %02x %02x -> %llu kHz (want %d kHz)\n",
++		    request.pll.prediv, request.pll.mul1, request.pll.mul2,
++		    request.pll.div1, request.pll.div2, clk, mode->clock);
++
++	/* wValue can be any value since we are sending a custom mode */
++	ret = usb_control_msg_send(udev, 0, TRIGGER5_REQUEST_SET_MODE,
++				   USB_DIR_OUT | USB_TYPE_VENDOR |
++					   USB_RECIP_DEVICE,
++				   0, 0, &request, sizeof(request),
++				   USB_CTRL_SET_TIMEOUT, GFP_KERNEL);
++	if (ret)
++		goto err;
++
++	ret = usb_control_msg_recv(udev, 0,
++				   TRIGGER5_REQUEST_FIRMWARE_RESET,
++				   USB_DIR_IN | USB_TYPE_VENDOR |
++					   USB_RECIP_DEVICE,
++				   0x0201, 0x0000, data, 1,
++				   USB_CTRL_GET_TIMEOUT, GFP_KERNEL);
++	if (ret)
++		goto err;
++
++	ret = usb_control_msg_recv(udev, 0,
++				   TRIGGER5_REQUEST_GET_REGISTER,
++				   USB_DIR_IN | USB_TYPE_VENDOR |
++					   USB_RECIP_DEVICE,
++				   0x0000, 0xec34, data, sizeof(data),
++				   USB_CTRL_GET_TIMEOUT, GFP_KERNEL);
++	if (ret)
++		goto err;
++
++	data[0] = 0x60;
++	data[1] = 0x00;
++	data[2] = 0x00;
++	data[3] = 0x10;
++	ret = usb_control_msg_send(udev, 0,
++				   TRIGGER5_REQUEST_SET_REGISTER,
++				   USB_DIR_OUT | USB_TYPE_VENDOR |
++					   USB_RECIP_DEVICE,
++				   0x0000, 0xec34, data, sizeof(data),
++				   USB_CTRL_SET_TIMEOUT, GFP_KERNEL);
++	if (ret)
++		goto err;
++
++	WRITE_ONCE(trigger5->display_enabled, true);
++
++	goto exit;
++
++err:
++	drm_err(&trigger5->drm, "failed to configure display mode: %d\n", ret);
++exit:
++	drm_dev_exit(idx);
++}
++
++static void trigger5_crtc_atomic_disable(struct drm_crtc *crtc,
++					 struct drm_atomic_commit *state)
++{
++	struct trigger5_device *trigger5 = to_trigger5(crtc->dev);
++	struct usb_device *udev = interface_to_usbdev(trigger5->intf);
++	u8 data;
++	int idx, ret;
++
++	if (!drm_dev_enter(crtc->dev, &idx))
++		return;
++
++	trigger5_stop_io(trigger5);
++
++	ret = usb_control_msg_recv(udev, 0,
++				   TRIGGER5_REQUEST_FIRMWARE_RESET,
++				   USB_DIR_IN | USB_TYPE_VENDOR |
++					   USB_RECIP_DEVICE,
++				   0x0001, 0x0000, &data, 1,
++				   USB_CTRL_GET_TIMEOUT, GFP_KERNEL);
++	if (ret)
++		drm_err(&trigger5->drm, "failed to disable display: %d\n", ret);
++
++	drm_dev_exit(idx);
++}
++
++static enum drm_mode_status
++trigger5_crtc_mode_valid(struct drm_crtc *crtc,
++			 const struct drm_display_mode *mode)
++{
++	struct trigger5_pll pll;
++	u64 err, ppm;
++
++	/*
++	 * The protocol stores totals, sync pulses, and back porches minus one
++	 * in 16-bit fields.
++	 */
++	if (mode->hsync_end <= mode->hsync_start ||
++	    mode->htotal <= mode->hsync_end ||
++	    mode->htotal > U16_MAX + 1)
++		return MODE_H_ILLEGAL;
++
++	if (mode->vsync_end <= mode->vsync_start ||
++	    mode->vtotal <= mode->vsync_end ||
++	    mode->vtotal > U16_MAX + 1)
++		return MODE_V_ILLEGAL;
++
++	if (trigger5_mode_buf_len(mode) > SZ_16M)
++		return MODE_MEM;
++
++	err = trigger5_calculate_pll(&pll, mode->clock);
++	ppm = div64_u64(err * 1000, mode->clock);
++	if (ppm > 10000)
++		return MODE_CLOCK_RANGE;
++
++	return MODE_OK;
++}
++
++static int trigger5_plane_atomic_check(struct drm_plane *plane,
++				       struct drm_atomic_commit *state)
++{
++	struct drm_plane_state *new_plane_state =
++		drm_atomic_get_new_plane_state(state, plane);
++	struct drm_shadow_plane_state *shadow_plane_state =
++		to_drm_shadow_plane_state(new_plane_state);
++	struct drm_crtc *crtc = new_plane_state->crtc;
++	struct drm_crtc_state *new_crtc_state;
++	size_t len;
++	int ret;
++
++	if (!new_plane_state->fb)
++		return 0;
++
++	new_crtc_state = drm_atomic_get_new_crtc_state(state, crtc);
++
++	ret = drm_atomic_helper_check_plane_state(new_plane_state,
++						  new_crtc_state,
++						  DRM_PLANE_NO_SCALING,
++						  DRM_PLANE_NO_SCALING,
++						  false, false);
++	if (ret || !new_plane_state->visible)
++		return ret;
++
++	/* For drm_fb_xrgb8888_to_rgb888 temp buffer */
++	len = new_plane_state->fb->width * sizeof(u32);
++	if (!drm_format_conv_state_reserve(&shadow_plane_state->fmtcnv_state,
++					   len, GFP_KERNEL))
++		return -ENOMEM;
++
++	return 0;
++}
++
++static u8 trigger5_bulk_header_checksum(const struct trigger5_bulk_header *header)
++{
++	const u8 *data = (const u8 *)header;
++	u16 checksum = 0;
++	size_t i;
++
++	for (i = 0; i < sizeof(struct trigger5_bulk_header) - 1; i++)
++		checksum += data[i];
++	checksum &= 0xff;
++	checksum = 0x100 - checksum;
++	return checksum & 0xff;
++}
++
++static void trigger5_clear_rect(struct drm_rect *rect)
++{
++	rect->x1 = INT_MAX;
++	rect->y1 = INT_MAX;
++	rect->x2 = 0;
++	rect->y2 = 0;
++}
++
++static void trigger5_merge_rect(struct drm_rect *r1, const struct drm_rect *r2)
++{
++	r1->x1 = min(r1->x1, r2->x1);
++	r1->y1 = min(r1->y1, r2->y1);
++	r1->x2 = max(r1->x2, r2->x2);
++	r1->y2 = max(r1->y2, r2->y2);
++}
++
++static void trigger5_plane_atomic_update(struct drm_plane *plane,
++					 struct drm_atomic_commit *atomic_state)
++{
++	struct drm_plane_state *old_state =
++		drm_atomic_get_old_plane_state(atomic_state, plane);
++	struct drm_plane_state *state =
++		drm_atomic_get_new_plane_state(atomic_state, plane);
++	struct drm_shadow_plane_state *shadow_plane_state =
++		to_drm_shadow_plane_state(state);
++	struct trigger5_device *trigger5 = to_trigger5(plane->dev);
++	struct trigger5_transfer *current_transfer, *previous_transfer;
++	struct trigger5_bulk_header *header;
++	struct drm_rect current_rect, src_rect;
++	struct iosys_map data_map;
++	size_t frame_len, payload_len;
++	int width, height;
++	int idx, ret;
++
++	if (!drm_atomic_helper_damage_merged(old_state, state, &current_rect))
++		return;
++
++	if (!drm_dev_enter(plane->dev, &idx))
++		return;
++
++	current_transfer =
++		&trigger5->transfers[trigger5->current_transfer];
++	previous_transfer = &trigger5->transfers[1 - trigger5->current_transfer];
++
++	src_rect = drm_plane_state_src(state);
++
++	/* Match drm_atomic_helper_damage_iter_init() rounding. */
++	src_rect.x1 >>= 16;
++	src_rect.y1 >>= 16;
++	src_rect.x2 = (src_rect.x2 >> 16) + !!(src_rect.x2 & 0xffff);
++	src_rect.y2 = (src_rect.y2 >> 16) + !!(src_rect.y2 & 0xffff);
++
++	/* Latency reduction: requeue with the latest frame data. */
++	if (cancel_work(&previous_transfer->transfer_work)) {
++		complete(&previous_transfer->frame_complete);
++
++		trigger5_merge_rect(&current_rect, &previous_transfer->transfer_rect);
++
++		current_transfer = previous_transfer;
++		trigger5->current_transfer = !trigger5->current_transfer;
++	}
++
++	/* Damage deferred by an earlier failed update. */
++	trigger5_merge_rect(&current_rect, &trigger5->pending_rect);
++	trigger5_clear_rect(&trigger5->pending_rect);
++
++	/* Clip merged damage to the new resolution. */
++	if (!drm_rect_intersect(&current_rect, &src_rect))
++		goto exit;
++
++	width = drm_rect_width(&current_rect);
++	height = drm_rect_height(&current_rect);
++	payload_len = array3_size(width, height, 3);
++	frame_len = size_add(payload_len, sizeof(*header));
++
++	/* Buffers are sized for the full mode in crtc atomic_check. */
++	if (drm_WARN_ON_ONCE(plane->dev, frame_len > current_transfer->buf.len))
++		goto exit;
++
++	/*
++	 * This should almost never wait because we have should have a
++	 * pending transfer ready to be de-queued above in case the transfer
++	 * hasn't finished, but do a bounded wait just in case it gets stuck
++	 */
++	if (!wait_for_completion_timeout(&current_transfer->frame_complete,
++					 msecs_to_jiffies(20)))
++		goto exit_save_pending;
++
++	current_transfer->transfer_rect = current_rect;
++
++	current_transfer->frame_len = frame_len;
++	header = current_transfer->buf.data;
++	header->magic = 0xfb;
++	header->length = 0x14;
++	/* flags 0: uncompressed 24-bit RGB888. */
++	header->counter =
++		cpu_to_le16((trigger5->frame_counter++) & 0xfff);
++	header->horizontal_offset = cpu_to_le16(current_rect.x1);
++	header->vertical_offset = cpu_to_le16(current_rect.y1);
++	header->width = cpu_to_le16(width);
++	header->height = cpu_to_le16(height);
++	header->payload_length = cpu_to_le32((u32)payload_len);
++	header->flags = 0x1;
++	header->unknown1 = 0;
++	header->unknown2 = 0;
++	header->checksum = trigger5_bulk_header_checksum(header);
++
++	iosys_map_set_vaddr(&data_map,
++			    current_transfer->buf.data + sizeof(*header));
++
++	ret = drm_gem_fb_begin_cpu_access(state->fb, DMA_FROM_DEVICE);
++	if (ret < 0) {
++		complete(&current_transfer->frame_complete);
++		goto exit_save_pending;
++	}
++
++	drm_fb_xrgb8888_to_rgb888(&data_map, NULL,
++				  &shadow_plane_state->data[0],
++				  state->fb, &current_rect,
++				  &shadow_plane_state->fmtcnv_state);
++
++	drm_gem_fb_end_cpu_access(state->fb, DMA_FROM_DEVICE);
++
++	queue_work(trigger5->transfer_wq, &current_transfer->transfer_work);
++	trigger5->current_transfer = !trigger5->current_transfer;
++	goto exit;
++
++	/* Retry the dropped damage on the next update. */
++exit_save_pending:
++	trigger5->pending_rect = current_rect;
++exit:
++	drm_dev_exit(idx);
++}
++
++static const struct drm_crtc_helper_funcs trigger5_crtc_helper_funcs = {
++	.mode_valid = trigger5_crtc_mode_valid,
++	.atomic_disable = trigger5_crtc_atomic_disable,
++	.atomic_check = trigger5_crtc_atomic_check,
++	.atomic_enable = trigger5_crtc_atomic_enable,
++};
++
++static const struct drm_crtc_funcs trigger5_crtc_funcs = {
++	.atomic_create_state = trigger5_crtc_create_state,
++	.destroy = drm_crtc_cleanup,
++	.set_config = drm_atomic_helper_set_config,
++	.page_flip = drm_atomic_helper_page_flip,
++	.atomic_duplicate_state = trigger5_crtc_duplicate_state,
++	.atomic_destroy_state = trigger5_crtc_destroy_state,
++};
++
++static const struct drm_plane_helper_funcs trigger5_plane_helper_funcs = {
++	DRM_GEM_SHADOW_PLANE_HELPER_FUNCS,
++	.atomic_check = trigger5_plane_atomic_check,
++	.atomic_update = trigger5_plane_atomic_update,
++};
++
++static const struct drm_plane_funcs trigger5_plane_funcs = {
++	.update_plane = drm_atomic_helper_update_plane,
++	.disable_plane = drm_atomic_helper_disable_plane,
++	.destroy = drm_plane_cleanup,
++	DRM_GEM_SHADOW_PLANE_FUNCS,
++};
++
++static const struct drm_encoder_funcs trigger5_encoder_funcs = {
++	.destroy = drm_encoder_cleanup,
++};
++
++static const u32 trigger5_plane_formats[] = {
++	DRM_FORMAT_XRGB8888,
++};
++
++static int trigger5_usb_probe(struct usb_interface *interface,
++			      const struct usb_device_id *id)
++{
++	int ret;
++	struct trigger5_device *trigger5;
++	struct usb_endpoint_descriptor *bulk_out;
++	struct drm_device *dev;
++	struct device *dma_dev;
++	struct usb_device *udev = interface_to_usbdev(interface);
++	/* Heuristic: Presence of audio interfaces indicates HDMI. */
++	bool is_hdmi = udev->actconfig->desc.bNumInterfaces > 1;
++
++	trigger5 = devm_drm_dev_alloc(&interface->dev, &trigger5_drm_driver,
++				      struct trigger5_device, drm);
++	if (IS_ERR(trigger5))
++		return PTR_ERR(trigger5);
++
++	trigger5->intf = interface;
++
++	ret = usb_find_bulk_out_endpoint(interface->cur_altsetting, &bulk_out);
++	if (ret)
++		return ret;
++	trigger5->bulk_pipe =
++		usb_sndbulkpipe(udev, usb_endpoint_num(bulk_out));
++
++	dev = &trigger5->drm;
++
++	dma_dev = usb_intf_get_dma_device(interface);
++	if (dma_dev) {
++		drm_dev_set_dma_dev(dev, dma_dev);
++		put_device(dma_dev);
++	} else {
++		drm_warn(dev,
++			 "buffer sharing not supported"); /* not an error */
++	}
++
++	ret = drmm_mode_config_init(dev);
++	if (ret)
++		return ret;
++
++	/*
++	 * The device has a built-in mode list, however we ignore
++	 * the mode list because the device accepts custom modes
++	 */
++	dev->mode_config.min_width = 1;
++	dev->mode_config.max_width = 8191;
++	dev->mode_config.min_height = 1;
++	dev->mode_config.max_height = 8191;
++
++	dev->mode_config.funcs = &trigger5_mode_config_funcs;
++	dev->mode_config.helper_private = &trigger5_mode_config_helper_funcs;
++
++	trigger5_clear_rect(&trigger5->pending_rect);
++	trigger5_init_transfer(trigger5, &trigger5->transfers[0]);
++	trigger5_init_transfer(trigger5, &trigger5->transfers[1]);
++
++	ret = drm_universal_plane_init(dev, &trigger5->plane, 0,
++				       &trigger5_plane_funcs,
++				       trigger5_plane_formats,
++				       ARRAY_SIZE(trigger5_plane_formats), NULL,
++				       DRM_PLANE_TYPE_PRIMARY, NULL);
++	if (ret)
++		return ret;
++
++	drm_plane_helper_add(&trigger5->plane, &trigger5_plane_helper_funcs);
++	drm_plane_enable_fb_damage_clips(&trigger5->plane);
++
++	ret = drm_crtc_init_with_planes(dev, &trigger5->crtc, &trigger5->plane,
++					NULL, &trigger5_crtc_funcs, NULL);
++	if (ret)
++		return ret;
++
++	drm_crtc_helper_add(&trigger5->crtc, &trigger5_crtc_helper_funcs);
++
++	ret = trigger5_connector_init(trigger5, is_hdmi ?
++					      DRM_MODE_CONNECTOR_HDMIA :
++					      DRM_MODE_CONNECTOR_VGA);
++	if (ret)
++		return ret;
++
++	ret = drm_encoder_init(dev, &trigger5->encoder, &trigger5_encoder_funcs,
++			       is_hdmi ? DRM_MODE_ENCODER_TMDS :
++					 DRM_MODE_ENCODER_DAC, NULL);
++	if (ret)
++		return ret;
++	trigger5->encoder.possible_crtcs = drm_crtc_mask(&trigger5->crtc);
++
++	ret = drm_connector_attach_encoder(&trigger5->connector,
++					   &trigger5->encoder);
++	if (ret)
++		return ret;
++
++	trigger5->transfer_wq = alloc_ordered_workqueue(DRIVER_NAME, 0);
++	if (!trigger5->transfer_wq) {
++		ret = -ENOMEM;
++		return ret;
++	}
++
++	INIT_DELAYED_WORK(&trigger5->keepalive_work,
++			  trigger5_keepalive_work);
++
++	drm_mode_config_reset(dev);
++
++	usb_set_intfdata(interface, trigger5);
++
++	drm_kms_helper_poll_init(dev);
++
++	ret = drm_dev_register(dev, 0);
++	if (ret)
++		goto err_poll_fini;
++
++	drm_client_setup(dev, NULL);
++
++	return 0;
++
++err_poll_fini:
++	drm_kms_helper_poll_fini(dev);
++	usb_set_intfdata(interface, NULL);
++	destroy_workqueue(trigger5->transfer_wq);
++	return ret;
++}
++
++static void trigger5_usb_disconnect(struct usb_interface *interface)
++{
++	struct trigger5_device *trigger5 = usb_get_intfdata(interface);
++	struct drm_device *dev = &trigger5->drm;
++
++	drm_kms_helper_poll_fini(dev);
++	drm_dev_unplug(dev);
++	drm_atomic_helper_shutdown(dev);
++	trigger5_stop_io(trigger5);
++	destroy_workqueue(trigger5->transfer_wq);
++	trigger5_free_bulk_buffer(&trigger5->transfers[0].buf);
++	trigger5_free_bulk_buffer(&trigger5->transfers[1].buf);
++}
++
++static const struct usb_device_id id_table[] = {
++	/* From Windows driver INF file */
++	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5800, 0) }, /* HDMI */
++	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5801, 0) },
++	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5802, 0) },
++	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5803, 0) },
++	{ USB_DEVICE(0x0711, 0x5804) }, /* VGA */
++	{ USB_DEVICE(0x0711, 0x5805) },
++	{ USB_DEVICE(0x0711, 0x5806) },
++	{ USB_DEVICE(0x0711, 0x5807) },
++	{ USB_DEVICE(0x0711, 0x5808) },
++	{ USB_DEVICE(0x0711, 0x5809) },
++	{ USB_DEVICE(0x0711, 0x580A) },
++	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x580B, 0) },
++	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x580C, 0) },
++	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x580D, 0) },
++	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x580E, 0) },
++	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x580F, 0) },
++	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5810, 0) },
++	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5811, 0) },
++	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5812, 0) },
++	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5813, 0) },
++	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5814, 0) },
++	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5815, 0) },
++	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5816, 0) },
++	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5817, 0) },
++	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5818, 0) },
++	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5819, 0) },
++	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x581A, 0) },
++	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x581B, 0) },
++	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x581C, 0) },
++	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x581D, 0) },
++	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x581E, 0) },
++	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x581F, 0) },
++	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5820, 0) },
++	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5821, 0) },
++	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5822, 0) },
++	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5823, 0) },
++	{ USB_DEVICE(0x0711, 0x5824) },
++	{ USB_DEVICE(0x0711, 0x5825) },
++	{ USB_DEVICE(0x0711, 0x5826) },
++	{ USB_DEVICE(0x0711, 0x5827) },
++	{ USB_DEVICE(0x0711, 0x5828) },
++	{ USB_DEVICE(0x0711, 0x5829) },
++	{ USB_DEVICE(0x0711, 0x582A) },
++	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x582B, 0) },
++	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x582C, 0) },
++	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x582D, 0) },
++	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x582E, 0) },
++	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x582F, 0) },
++	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5830, 0) },
++	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5831, 0) },
++	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5832, 0) },
++	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x5833, 0) },
++	{ USB_DEVICE(0x0711, 0x5834) },
++	{ USB_DEVICE(0x0711, 0x5835) },
++	{ USB_DEVICE(0x0711, 0x5836) },
++	{ USB_DEVICE(0x0711, 0x5837) },
++	{ USB_DEVICE(0x0711, 0x5838) },
++	{ USB_DEVICE(0x0711, 0x5839) },
++	{ USB_DEVICE(0x0711, 0x583A) },
++	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x583B, 0) },
++	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x583C, 0) },
++	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x583D, 0) },
++	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x583E, 0) },
++	{ USB_DEVICE_INTERFACE_NUMBER(0x0711, 0x583F, 0) },
++	{},
++};
++MODULE_DEVICE_TABLE(usb, id_table);
++
++static struct usb_driver trigger5_driver = {
++	.name = DRIVER_NAME,
++	.probe = trigger5_usb_probe,
++	.disconnect = trigger5_usb_disconnect,
++	.suspend = trigger5_usb_suspend,
++	.resume = trigger5_usb_resume,
++	.reset_resume = trigger5_usb_resume,
++	.id_table = id_table,
++};
++module_usb_driver(trigger5_driver);
++MODULE_AUTHOR("Ho Jie Feng <hjf3108@gmail.com>");
++MODULE_DESCRIPTION(DRIVER_DESC);
++MODULE_LICENSE("GPL");
+
+base-commit: 3e391b0b516b007dafcbbd8742886717ebaf8cf9
+-- 
+2.55.0
+
