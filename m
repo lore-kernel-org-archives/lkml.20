@@ -1,50 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2CFF42668B;
-	Mon, 14 Sep 2026 09:24:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6DC943785D;
+	Mon, 14 Sep 2026 09:24:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789377859; cv=none; b=jBc04ikbolPEXtYyLegRKKIiW7PA0Ot1apTaeNLSnREXu61bghCdnpCrdkj94/oxISUmAvUclyavHutosYj66mtTvLMlEYLOkSXtrn5lVKRG5TKYG7DBC2zmVW1UvgmLF5Pb/7N6zz9uUhZe1xY36+PYXs1GexNAoTE9I+6fIB0=
+	t=1789377860; cv=none; b=YPmiTPBbntDXNtGhu3BIejsDT6bWuyffDeHCtttz+POFKVks8Z717bMx8F0U275xWvRVOT6yEx8MH3CGNStcneFaqRkl4tVLGfJN+Kcs9aLjdKXq1mQqxo2Y0SEpNcK8PkVc76gGWbp6xekNfaaiQJi3fnYOvGfOl5fcvgxK0oQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789377859; c=relaxed/simple;
-	bh=kLvWlprQnIRWSPtEAKnN7A7nxK4UTEzVWAHY2WJ6JDw=;
-	h=From:To:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=Lq9Sv3TMDEJG5I4xWblls7mDg0U8gq2jTAfLM2jhDu+GN6TmbIXsGV+LerRe5B5Ndg7qOwVR6nt9c+5mGXLuqRWoXX7s/6bXYPWOLc8fINmkCxiYvrYnB9QtnQ89xY1SBXAb3gHwDKKpZfoen9L+22EbgWY2x1JS6UZnFqrCJf0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nspUx3mt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789377860; c=relaxed/simple;
+	bh=PX8IN9JrsL8iJYLg139us1x7mcO+XIIlC9tEYIW77Ho=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=s4KDFKltCmcP+GQ+TJ/hQAA4Gg+qf4cE59VEW/Vs3DkxqOdFB687K02tLPBwxrWHXZA0nLB+ESzAjZDW66xy0Sw6dc76FEQqfLWg5O/4rN8qcDG0P+Xkq1oiWABijsSA1eockHkVF4r0Mpu/CpCTzsuknCb97+cgjY5N3xmMkxM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iH8CDrUk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nspUx3mt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5FE71F000FF;
-	Mon, 14 Sep 2026 09:24:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iH8CDrUk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6A631F00898;
+	Mon, 14 Sep 2026 09:24:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789377857;
-	bh=yl1VYOcTE/3CX3UWsQgOyYMZmU0KbF2rQp0ezzp9AAI=;
-	h=From:To:In-Reply-To:References:Subject:Date;
-	b=nspUx3mtaiLDv+zFtZB8b+6VTtPAc/QyqiIYnrfbFcv1Yy72F2h45hzyGnx6A3wzJ
-	 uqu5OgL0LSjqvuBqlxNpAlwDCD6oqh2XaY+Sm443vlV96SFqQW4c1esRzF1sQKy+qs
-	 lvWGgodqR1qvpjJWsL+0I2dVd+K744fn4tgmQkXBcoBAT0HdBASlVHJLSPJOxvdB+e
-	 KFuHYpY3T7INGy/IdzniD7zqM8BCvMz8engTnq4VnA4fO2wC8UBejaXD488Hxil8wt
-	 uDNNJWGaob/T/UUE79/K42VyWyNQoTswjDhWwq3z5lr8KxL3lvFwQKVQqRFxptsRAx
-	 x3/EEX39DQRhg==
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Ivaylo Ivanov <ivo.ivanov.ivanov1@gmail.com>, 
- Saravanan Sekar <sravanhome@gmail.com>, Iskren Chernev <me@iskren.info>, 
- Jisheng Zhang <jszhang@kernel.org>, Joy Zou <joy.zou@nxp.com>, 
- Christoph Fritz <chf.fritz@googlemail.com>, 
- Brian Norris <briannorris@chromium.org>, Lee Jones <lee@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- ChiYuan Huang <cy_huang@richtek.com>, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-In-Reply-To: <20260913123212.99817-2-krzysztof.kozlowski@oss.qualcomm.com>
-References: <20260913123212.99817-2-krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH] regulator: dt-bindings: Use consistent indentation in
- the example
-Message-Id: <178931248778.924975.2279213599006097904.b4-ty@b4>
-Date: Sun, 13 Sep 2026 16:14:47 +0100
+	s=k20260515; t=1789377858;
+	bh=2gnDaqR7QH9Z9HodpfUWD1aJEAoGawd7+ykHT7EyQU8=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=iH8CDrUk1TR7rZ/Ijm5+YidnQGMK07J0ho1v/afYDlb/e9WwluKvY7J5rJLDYnUj1
+	 1QuAN516IgpqRz5DZ7e88DaO8Z8tB27Q4EJFfz2y42esOQvzNA7u2ttXXNCigxteM8
+	 fZpJLfd4bp9s5yulyPOUfYWK8qBGyjrhab6pPUrcFNq0Qrbr7SpC5vlGm/yM7Wc/hL
+	 hE8bX7jr7SWY9HvZwvFdkfq0Obr1M3rLfMmjRq4AmEOSSUSj1CviXrt9A/UxVGBib7
+	 MtYZ3xBk5uOT0KLdVbCCzBnrpU9b2axIEw7Kbekm566hbat0pUUrI7HztVoUxjL9Ax
+	 xScLzNPfRsH9A==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Mon, 14 Sep 2026 10:22:13 +0100
+Subject: [PATCH v2 14/21] kbuild: batch module finalisation
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -53,47 +37,140 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1163; i=broonie@kernel.org;
- h=from:subject:message-id; bh=kLvWlprQnIRWSPtEAKnN7A7nxK4UTEzVWAHY2WJ6JDw=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqp707ls/2fvJ5mpoHBsmBT5YWdxobuwHxqW0/O
- U5zPVLuc2uJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCaqe9OwAKCRAk1otyXVSH
- 0A4xB/kBHH/yRTDSU0Z2YxgyJYIS7w5HDFNe/aslhGSdkTmTzX55JxqcOvA1IOinrEtbyfVXasx
- GZXBgDjxdkOYvmvcPpW/j3QmdTzw7xK7+NWonPyKwMkDb4gcu+hm7hTmYtBVNMj/5ouGlHNNosz
- oLTy5nhE3VeoQu+EhdEURVdK6ui6jv+N0hej5bCXlKKU58yEXvseJKZGqwJ0tV1BSyF5FaOMDyj
- 9dnf/REJ3Kd4+xP+feLjJ0Ayd9WRR8cHwA9QADRFDSWqXqwS722kh78bfP/khIXxslSj21DeC7D
- Ft/jJdPbq4XKoG5p4+LGBzl9gq+qXlwkvmOG6c37T2M+2/KE
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Message-Id: <20260914-build-speedup-v2-14-39817ec5db23@kernel.org>
+References: <20260914-build-speedup-v2-0-39817ec5db23@kernel.org>
+In-Reply-To: <20260914-build-speedup-v2-0-39817ec5db23@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>, 
+ Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+ Nick Desaulniers <ndesaulniers@google.com>, 
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+ Masahiro Yamada <masahiroy@kernel.org>, Alexey Gladkov <legion@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>, 
+ Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Ard Biesheuvel <ardb@kernel.org>, 
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
+ Josh Poimboeuf <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, 
+ Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>
+Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ llvm@lists.linux.dev, linux-riscv@lists.infradead.org, 
+ linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+ linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>, 
+ linux-hardening@vger.kernel.org, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3374; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=PX8IN9JrsL8iJYLg139us1x7mcO+XIIlC9tEYIW77Ho=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLKW7zloe05tFaPol9Aw+1M3+4Q4AnpTDQ0jOwVaPzw64
+ 3xsb+PNjlIWBjEuBlkxRZbnX8T3B4mEzeu84O8GM4eVCWQIAxenAEzkph4jw710v5K5zCbOX4VE
+ TmYJn1FaocloYNIY6nB3Tk3d5ESpd4wM2/TDWwK0O8S9C+e5nz+70Wyf3j/Hirq1l6bnM+y7kb2
+ BBwA=
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-On Sun, 13 Sep 2026 14:32:13 +0200, Krzysztof Kozlowski wrote:
-> regulator: dt-bindings: Use consistent indentation in the example
+Module finalisation on allmodconfig builds consists of a large number of
+very short-lived jobs, and the make job dispatcher cannot possibly dispatch
+jobs fast enough.
 
-Applied to
+For allmodconfig x86-64 this can be on the order of ~22,000 jobs of a few
+milliseconds in duration each.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-7.4
+However per-job cost grows with the variables the instance holds, here the
+savedcmd_* of every .mod.o and .ko read back from the .cmd files, since it
+walks them all to build each child's environment.
 
-Thanks!
+This makes module finalisation very inefficient when large numbers of
+modules are being built.
 
-[1/1] regulator: dt-bindings: Use consistent indentation in the example
-      https://git.kernel.org/broonie/regulator/c/b89f8972f754
+Fix this by splitting modules.order into chunks of 128 at a time, run in
+parallel.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+Each instance holds only its own modules' variables and the top-level one
+reads no per-module .cmd files at all, the same rules serve both levels,
+and an instance is told its chunk with modfinal-first=<index>.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+"make modules" with every *.mod.o and *.ko deleted goes from 28.9s to 15.9s
+with clang 22. No-op "make modules" goes from 5.6s to 4.8s, as checking the
+22,000 targets is spread over the chunks too.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+Whole build, 128-thread Threadripper 9980X, best of N runs:
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+                                         before   after     delta
+                                         -------------------------------
+  x86 allmodconfig, no-op make, gcc         2.3s     1.4s    -0.85s (-38%)
+  x86 allmodconfig, no-op make, clang       2.8s     1.8s    -0.94s (-34%)
+  x86 allmodconfig, clean, gcc            306.6s   294.1s     -12.6s (-4%)
+  x86 allmodconfig, clean, clang          290.2s   283.9s     -6.4s (-2%)
 
-Thanks,
-Mark
+Assisted-by: LLM
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+---
+ scripts/Makefile.modfinal | 26 +++++++++++++++++++++++++-
+ 1 file changed, 25 insertions(+), 1 deletion(-)
+
+diff --git a/scripts/Makefile.modfinal b/scripts/Makefile.modfinal
+index 75e9effdf02c..858fa798090b 100644
+--- a/scripts/Makefile.modfinal
++++ b/scripts/Makefile.modfinal
+@@ -13,9 +13,30 @@ include $(srctree)/scripts/Makefile.lib
+ # find all modules listed in modules.order
+ modules := $(call read-file, modules.order)
+ 
++modfinal-chunk-size := 128
++
++ifdef modfinal-first
++
++# this instance handles the chunk of modules.order starting at $(modfinal-first)
++modules := $(wordlist $(modfinal-first), $(words $(modules)), $(modules))
++modules := $(wordlist 1, $(modfinal-chunk-size), $(modules))
++
+ __modfinal: $(modules:%.o=%.ko)
+ 	@:
+ 
++else
++
++modfinal-chunks := $(addprefix chunk-, $(shell seq 1 $(modfinal-chunk-size) $(words $(modules))))
++
++PHONY += $(modfinal-chunks)
++$(modfinal-chunks): .module-common.o
++	$(Q)$(MAKE) -f $(srctree)/scripts/Makefile.modfinal modfinal-first=$(@:chunk-%=%)
++
++__modfinal: $(modfinal-chunks)
++	@:
++
++endif
++
+ # modname and part-of-module are set to make c_flags define proper module flags
+ modname = $(notdir $(@:.mod.o=))
+ part-of-module = y
+@@ -58,7 +79,10 @@ ifdef CONFIG_DEBUG_INFO_BTF_MODULES
+ endif
+ 	+$(call cmd,check_tracepoint)
+ 
+-targets += $(modules:%.o=%.ko) $(modules:%.o=%.mod.o) .module-common.o
++targets += .module-common.o
++ifdef modfinal-first
++targets += $(modules:%.o=%.ko) $(modules:%.o=%.mod.o)
++endif
+ 
+ # Add FORCE to the prerequisites of a target to force it to be always rebuilt.
+ # ---------------------------------------------------------------------------
+
+-- 
+2.55.0
 
