@@ -1,106 +1,176 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 094C5476041
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:05:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789391139; cv=none; b=UiSEXAEOEwaHwdYX/zdhxUI8GzlmFjf/JGcBQW4Ax19MOMSYF+VAFMRB2xPEd7b94c/QcefWg5YeqOioykKt/h7SEH/P/WNx0g/B16So7H/zNWu3ACfmzT40lJkTpIpeHkErjUes2wJIdhhr92lU5I/q/usJYkB8Nn93Yz/w6fg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789391139; c=relaxed/simple;
-	bh=q5o+CKn0Co/R2u4gXcpA7aZ6Z7WqyCo44To0XEIGF3E=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=aRs3LUVTFIlZtyGiv8XivAwGz18PGfKu1liw3fqtWYM1p5HRNrBKWU9p0IirzQQFu5mxeHiuJZauXOK/ATz4d3F/wYDx+UW2M9NOZet/E6bWbk++eRuwnEwyJUpoVpjojxs+VRIi3X9qmMzCFT+MbDKXTKrBW7vBggTbmxLOFvg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=O/66uSa6; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 627FC46A5FB
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:05:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.141
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789391147; cv=pass; b=VlF9/2EhNbohIBpZZShD3xWBTkZnpGPmoFYmQb9kt7u0XUsAiVCBWPAXP7HTAe+MibBHUtYCbEsdNlYXljbz5+wPj/7fJ10RZltS/HsmgpCm5UQQAHOAMY02Xqg+zv+ccZwEermQsv6jR2BaMX2if2m0rs+OSU4qxGqe+Ufa9x0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789391147; c=relaxed/simple;
+	bh=bbQUKXpSrm8Dumgxw0+FiKY3C3ThRr3S/59ssFTR3yM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=UQSvuk3CcZnQaAysAX7+gu+uQzj8FrNN+pyyda75tN64NMg1bIVFB0WFZdgIeazcX6WyUc0+UEzn4hnMH5DvKjG6z03IXQbWoeC7x6MtW1u239Vr/WxqXzuseASdMjZZgAJkdRXmp1+H4eeu/0VGTtpQhcfZddPEiyqHKwHGBzs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ogHRB5ZO; arc=pass smtp.client-ip=74.125.224.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="O/66uSa6"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789391136;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=IIrbGOfIQRouXedn+IFe+NVdpQt1cwK8/ve6LQAjMBQ=;
-	b=O/66uSa6uvvM3oivI1M6pxBpCAbuTQPT/R9Xr/GPRjyCtQ+96ogwaVCdPwRru0GK8d6C83
-	LMDYBt15pueHdSGvX+ozSOXBkp5pJAZ4g8RGOVBm+nIUdUPVQ3xKb9BQnLLY5wM3QtHP09
-	Tu+1OmPJeEk04behp3sB6q/PCmC6efw=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-349-v8tbygsCPh-78Yel-q_hfQ-1; Mon,
- 14 Sep 2026 09:05:32 -0400
-X-MC-Unique: v8tbygsCPh-78Yel-q_hfQ-1
-X-Mimecast-MFC-AGG-ID: v8tbygsCPh-78Yel-q_hfQ_1789391129
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id E27241955F21;
-	Mon, 14 Sep 2026 13:05:28 +0000 (UTC)
-Received: from aesteve-thinkpadp1gen8.rmtes.csb (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id B1325180056E;
-	Mon, 14 Sep 2026 13:05:26 +0000 (UTC)
-From: Albert Esteve <aesteve@redhat.com>
-Date: Mon, 14 Sep 2026 15:05:19 +0200
-Subject: [PATCH] ath10k: clear QMI if failed during init
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ogHRB5ZO"
+Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66f943b286fso1463820d50.2
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:05:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789391144; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ieg+NKU73AFgzOExsNK8WrF+eCGubglWzPkCP/lGSZRokzfS1LmA092Wl4vsJsU8uT
+         XursPoc5Ys8uFWukZU/lccn/F2m2rePQ04WZseboq58PmxqggW3IMYN9qTr4+hK2sKlv
+         JDIPt1mAn4H7vWRLLt7KsU1OrXne8Ta9Ak95aHlOEGUS6+TBCa6rdD8klExrAtMarIAX
+         TJgQm/C5YfgV/+cA7baDdKNCzpG/Mejh/H39/iogktVf75neL7ntUIvy8SPWI95oQG5x
+         d6GQKeXxamXQpgpXLE05D62AUiyLs24hQzxUMUMw/9KITxHqLUVJNNtKyfdC46TMAoLs
+         YUqQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ATb80abIxzRNOcrbBCbD0LbdOqIeRMoUZA0iOkkMQfc=;
+        fh=tME8qBdDLfSEzLVAj30h8RDUMT3ZCkGItPcatKHFXKk=;
+        b=lZA3CPIA1RAjIVIxm5k8PWamHe8P9kPJ9id3Ba9NV5U+XZpwhS4e6kzJErFDME3B+1
+         OSE8s91SdE/ZYUxdQ9WRr9JeKqeWmzp0k+U4+6IlwqglwcjVqc144FQKvat85P8vtRRC
+         Or+6PjS1XbCfb9K4BrrRet1o69esPbvaN9ZkhCfmpscrd6hwSMYa7AB3GYgdakXmuQrk
+         BlTyruq8Ub3blR40/9QF13AolJhww+sY9UQlQFNWGuzye1yi53SyEgzKBKritj8HF3v/
+         lpGXgIZ+FRWpNtPaQFQrx6TpwhDTzOqXngiZr/TWvVCRo2rHkCoWBXPwWSk/UfRaaUby
+         2oIw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789391144; x=1789995944; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ATb80abIxzRNOcrbBCbD0LbdOqIeRMoUZA0iOkkMQfc=;
+        b=ogHRB5ZOyCPHNpfgDyoO64GCdqzJkMtH4uRpkGUnuKEv8tdSRaXXKlnrk54ydY5hek
+         33hjOJuCNAutwfTmkACgEsYyQxjK6EYzmcVpDkJogYTamk09ceeYQJ8gFySWvg8k73As
+         hxisvrVY4aB5qSp7QS2SJQMY6+rg1Egyz6ePag7DQOEW0sQDoICgvlZc87Iyv7vN+QRz
+         HPkaZdR3rF89+5ZZOJ9kJ7UYmVcEEJW/g7Fw7qaYJwq/8wVo9xpb7V0NrwBNfOthLISn
+         zhkOg/Ch1MxfHxGrqh2MI0A37d/ykJ2MN08EsZvX675HvfbZ8hign4oU7jBMXEc37CYR
+         v2CA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789391144; x=1789995944;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ATb80abIxzRNOcrbBCbD0LbdOqIeRMoUZA0iOkkMQfc=;
+        b=OcvMY5jx1bZwpWtgIbQ/f5Nuo7mnxiYhgfz/Xc5fly+m7YzbW47C5kEFGEbYTMrmFO
+         a0KNCcv//un4K+MU/ipu3E3EiL+0+GvcA5LomW4qAun3U4w9XcwhYtYGPSjhJJwL6mIZ
+         CoD3E7utVcDgKapVZIkk4/5wwdicPefKQvPy9vCDMWMAUteqcYySF6mj8hgbFI7/ccdI
+         bT30cux3NVtXe31qRwqXOPz48hvL6pAxKA+4wz3bd+fSHy7cE3dldWDAn7HJYGIP1f4c
+         IHeYaDbG8cT6c81DwTRGrIytBNTHOLZVEOujix04GdY2KlutLOtBsVTVRF8mH6iYkn2M
+         +FrA==
+X-Forwarded-Encrypted: i=1; AKwUvBycJ8pRvXpgZYOc5pb2vUxGxDM8r/muyBInhQlppgPShpTANdEKcuFfNAZzY8ZKfbRE0Sb4Ag+uHke40zI=@vger.kernel.org
+X-Gm-Message-State: AFuF++ncJmv0aAn19hEpQLYQ2sCUUiJUwP0LxlIqvhZkSQSj1yPsnPFg
+	rUUq24COs6P1MDTklqBT/e5wmIjgvPJseyMXL0pA6d3ndl5xyk4HVfNG8qLJ9liHE/VSzN3HMNu
+	+iiF+CPwYJh8BcpDl9to6d7UMo9+J+HE=
+X-Gm-Gg: AYBFou2kAA92IUEqmAjPKpa1QeKnSKKZNicLexr7KDBQiRYoKh13tkXpr0Dt63uVYxI
+	llvK18tDLAIgaiHkbCCTz1FkVDYNT32TDyFDjGt2IxbrPUYYWJgF+ZZlhSw6N7DRxgoUYpkfCvi
+	R7xZoMQccNr4Msg2WMEaZorQuLRkhw8v6SroVKkHwwawjIkTUvt9R8ag4RE7Bh8MketxK/uLi8l
+	icLRH+qz+eJPJ/Xyclhzs6b8BTk0poaynzvSqoCOHz1qVFMBLH7fG52a+zXAJ/dEvAuc4cGBIt6
+	XteAEilQOwk9ectRYbtp1Oej4BL781AE+NXjiyComnheCCXbnBx71qwvvrQ2H+woq97CdDhXxER
+	m10jKVAm6Dz5Z
+X-Received: by 2002:a05:690e:4390:b0:670:f743:6eb0 with SMTP id
+ 956f58d0204a3-6714e30999amr315323d50.98.1789391142036; Mon, 14 Sep 2026
+ 06:05:42 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-fix-ath10k-dangling-v1-1-15c5089682b1@redhat.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MQQqAMAwEvyI5G2iLtuhXxIPaaINSpRURxL8bP
- A47Ow9kSkwZ2uKBRBdn3qOALguYwhAXQvbCYJSxqtEVznzjcAatVvSybxwX1LV11lfGTeMI8jw
- SifZXu/59P0FKLW1lAAAA
-X-Change-ID: 20260914-fix-ath10k-dangling-15676d427cbb
-To: Jeff Johnson <jjohnson@kernel.org>, Kalle Valo <kvalo@kernel.org>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Govind Singh <govinds@codeaurora.org>, 
- Brian Norris <briannorris@chromium.org>, 
- Niklas Cassel <niklas.cassel@linaro.org>
-Cc: linux-wireless@vger.kernel.org, ath10k@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Albert Esteve <aesteve@redhat.com>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789391126; l=928;
- i=aesteve@redhat.com; s=20260827; h=from:subject:message-id;
- bh=q5o+CKn0Co/R2u4gXcpA7aZ6Z7WqyCo44To0XEIGF3E=;
- b=FllOoEx11IsQvIExPmEjc7zvCB6JpPPqftbJxleq4hs7bjcJpONSe3ItkwpiRa8GzlfV6YUZP
- pudK/qMvdQqD9SIS5BBH9KG+C+0GFb2O/eUwRnriEebFaJVq7f7pazd
-X-Developer-Key: i=aesteve@redhat.com; a=ed25519;
- pk=zI2RBeZgocwYm3AkJW4CtjoJnKoDZrfBl1xe5Ed6h+U=
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+References: <20260827172100.39176-1-architanant5@gmail.com>
+ <20260827172100.39176-7-architanant5@gmail.com> <apCP7TkGVZ3I4jFO@ashevche-desk.local>
+ <178813067693.2788519.14185731509268102204.b4-reply@b4>
+In-Reply-To: <178813067693.2788519.14185731509268102204.b4-reply@b4>
+From: Archit Anant <architanant5@gmail.com>
+Date: Mon, 14 Sep 2026 18:35:26 +0530
+X-Gm-Features: AcwNN1Xeq6_r3LCXmWL2fFSYRWYfvRHnKfx33tbn8arVaRIb_7x0aHNdDWvjW8o
+Message-ID: <CADJHxWB1EyM0q=qDx9f79XMkTkX6ngiswFA7++A3oZvzMQV3Bw@mail.gmail.com>
+Subject: Re: [PATCH v4 6/8] iio: adc: ti-ads1015: Convert to managed resources
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Andy Shevchenko <andriy.shevchenko@intel.com>, dlechner@baylibre.com, andy@kernel.org, 
+	nuno.sa@analog.com, u.kleine-koenig@baylibre.com, linux-iio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-A failed ath10k_qmi_init() left a dangling
-pointer (ar_snoc->qmi) in the cleanup path.
-Clear the pointer on the way out for hygiene
-and consistency with deinit().
+On Mon, Aug 31, 2026 at 4:28=E2=80=AFAM Jonathan Cameron <jic23@kernel.org>=
+ wrote:
+>
+> On 2026-08-27 22:28:45+03:00, Andy Shevchenko wrote:
+> > On Thu, Aug 27, 2026 at 10:50:58PM +0530, Archit Anant wrote:
+> >
+> > > Use managed resource helpers for the mutex and runtime PM setup.
+> > >
+> > > Replace mutex_init() with devm_mutex_init() and replace the separate
+> > > pm_runtime_set_active() and devm_pm_runtime_enable() calls with
+> > > devm_pm_runtime_set_active_enabled().
+> > >
+> > > This simplifies resource management and ensures resources are
+> > > automatically cleaned up on probe failure and device removal.
+> >
+> > ...
+> >
+> > >     data =3D iio_priv(indio_dev);
+> > >     i2c_set_clientdata(client, indio_dev);
+> > >
+> > > -   mutex_init(&data->lock);
+> > > +   ret =3D devm_mutex_init(dev, &data->lock);
+> > > +   if (ret)
+> > > +           return ret;
+> >
+> > This part is good and maybe introduced in a separate commit (depends on=
+ the
+> > resolution for the below).
+> >
+> > ...
+> >
+> > > -   ret =3D pm_runtime_set_active(dev);
+> > > -   if (ret)
+> > > -           return ret;
+> > >     pm_runtime_set_autosuspend_delay(dev, ADS1015_SLEEP_DELAY_MS);
+> > >     pm_runtime_use_autosuspend(dev);
+> > > -   ret =3D devm_pm_runtime_enable(dev);
+> > > +   ret =3D devm_pm_runtime_set_active_enabled(dev);
+> > >     if (ret)
+> > >             return ret;
+> >
+> > This should be done with care. There were some changes lately that actu=
+ally
+> > moved from devm_*() back to regular calls due to some races in runtime =
+PM.
 
-Fixes: ba94c753ccb4 ("ath10k: add QMI message handshake for wcn3990 client")
-Signed-off-by: Albert Esteve <aesteve@redhat.com>
----
- drivers/net/wireless/ath/ath10k/qmi.c | 1 +
- 1 file changed, 1 insertion(+)
+I reviewed the series again. Considering Andy's concerns, I looked
+through other patches that included this change and the concerns
+raised there.
+However, in this driver the runtime suspend/resume callbacks only
+update the conversion-mode bits through regmap. The existing
+ads1015_power_down() devm action also only switches the device to
+single-shot mode; it does not manipulate runtime-PM usage counts or
+shared resources such as regulators or clocks (as in other cases).
+Thus, I don't see a runtime-PM reference-count or resource-balance
+issue introduced by the conversion.
+Is there a type of condition I have missed? If there is a relevant
+thread, I would be happy to check that out.
 
-diff --git a/drivers/net/wireless/ath/ath10k/qmi.c b/drivers/net/wireless/ath/ath10k/qmi.c
-index 0d74548a5f34..08a64f737fb4 100644
---- a/drivers/net/wireless/ath/ath10k/qmi.c
-+++ b/drivers/net/wireless/ath/ath10k/qmi.c
-@@ -1128,6 +1128,7 @@ int ath10k_qmi_init(struct ath10k *ar, u32 msa_size)
- 
- err:
- 	kfree(qmi);
-+	ar_snoc->qmi = NULL;
- 	return ret;
- }
- 
+>
+> In particular here, the patch description needs to say what this
+> changes.  It is not a noop change.
+>
+> I'm not saying it is wrong, but I would do it in a seperate patch
+> where you can clearly talk about what changes as a result of this
+> and what affect that can be expected to have.
 
----
-base-commit: bc35965f6940a9bf834d54187b6088b8eb09206d
-change-id: 20260914-fix-ath10k-dangling-15676d427cbb
+I understand now. Although the cleanup callback itself is simple, the
+change to managed runtime PM also changes the teardown semantics, so
+it is not a no-op change. I'll move this to a separate patch and
+explicitly describe the behavioral change.
 
-Best regards,
--- 
-Albert Esteve <aesteve@redhat.com>
-
+--=20
+Sincerely,
+Archit Anant
