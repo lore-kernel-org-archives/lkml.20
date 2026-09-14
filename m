@@ -1,151 +1,256 @@
-Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com [209.85.208.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07BF0329E44
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:46:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.180
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789353984; cv=pass; b=QRRDungA5x1E6jYZM5esQSHBilbGOEpX+lNNNME50kEW716J6bKdZDHuBTUxSDz7BHAlRph5ffPaZ/Vbw7WKCzVCgCU+0NWqIU0soeD/apSkw9V7pyKwTtVS9OrWQ67Nxl2sXW8gqRDYsB+2K6lSyJXY0/Ah86QoV+YkU7v9qsY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789353984; c=relaxed/simple;
-	bh=pdLJmeXyTQ9rHJgZF5UazEIfFtz1igLOQKfDmJfXugw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=GhzNWB5F6dFMrsjbTTLAjJqwy8FMIxwx4Qq4JfTv3unChCfddeT823dzLkyTV5RoN0Z5tu86l+j9kY1lg5j734VhjDWQwz5SLKBqP8eYb1ilD9bGIjuDJiLSc22BNdAkHPOKg+OHAPkh4V7aVFkN3FLIfjrWIG/e76UGiCPsCSw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lHRNT0YN; arc=pass smtp.client-ip=209.85.208.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 898F0282F17
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:46:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789354019; cv=none; b=dMakWCrB/TchbTX7l53AXFVUHJH19ara6x7gWauzJSIZARuCfQtYfouaxvXGyC6L2IWRNKjkcDsWvp3uEDS/C8G2SoUs+yP2Ht9QqEzyxSK7VtOaoEVFB8sFDOP0nntxMdsxD7G6YC8Z4D0xosnQZ8y9ZC65svY9UcPw1oZ23l4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789354019; c=relaxed/simple;
+	bh=NgocNdtx6jfiM0d293Fivhltj4bS8b9C5T0tk3kBrGI=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=jnnm1tF8lV8mpoATEMfko8WZgWmFUn75TUjSCkp3MhlKLNf9L+6IndCOqxQrT0gATHN5CViY1gXoERfZQjmK62ZswTlDUGU8P7ZKoZ7wAlC3xGJsiHfInQaz7dksXlFey3qCIMc4QpJx63Al9VbqPziMrw3zZ7Ag+Bmt6Z/WYW8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=im5/rs4p; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lHRNT0YN"
-Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-3a20367cf82so22176231fa.1
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 19:46:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789353981; cv=none;
-        d=google.com; s=arc-20260327;
-        b=NfJpSGtS/aWQ7aMu4nxzvseuF617a9amZ1am5xQ351C/HlT+yGWjVYPuMgmZZQjcYw
-         CRiZmSBCIAgjCzQnOCoTJEZhFw36XoBotC7jj6XsbLAze0XAmT5X47Yz16lOuLSTJ4kE
-         j4XFz2CFBc8R2w+HZvv5JK/N4bxcrijo/JSlIZH+r6v+oXWkfi//K4ds8vApIyiJ7ifh
-         fqnsMjDwHfNDRr2Gl/SwlOdLF5Oy2utQY4+gbS9z/0EUqNGjpZhqDcAchCaiYUjfDhNn
-         oUc3xaL4QiI/Rc+ejPX8YXY4nmF2G29BMlT9URwVPd7Xc8De+OGS39fs4KwrHjtmuAXP
-         21jQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=1FuJzn/2R5Scc5m2lJpVpNzaSeSlPcbk/PD0ZHGJTnI=;
-        fh=OiAi+amVT+lj9SIzdbnDDFrkKh6Zq+aDkzztaaR+Vzk=;
-        b=FXFeqxEI+CX0FPIPeCike+SWv8gFTUbyzkMkm7CECApcYmREAXgzbiHk0BhEy8KTid
-         Rox0pqFS2zMUOdpywV5p5Rom92S2xvDa+BSN3/Scl5XRX7PB8Ku8+T+sZ2eidoIAEA7I
-         6n3azsAUsnxNaoY2W9xcOIghXtBIqvcGSaBqz7uUxuQ55uhcX+gzfVrUZti6Rz5uTv/P
-         rG5pe2Z8zzZVhH4tn6IIVmhYwzbHerA2Wr2HxtT/4qlBCnIqb+oTOLL0RxWtaXpdlNh1
-         AGTw9z6MSI3nOfLMJ5ezgZj7gjMZwBjAjAvy5y9bZ7uCIo/J6+Ia9ujLepLxc40QfgOA
-         qDhw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789353981; x=1789958781; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=1FuJzn/2R5Scc5m2lJpVpNzaSeSlPcbk/PD0ZHGJTnI=;
-        b=lHRNT0YN1yxjkrlAM1lPdc2WLMf399E6idNIwxJWsrTL6PTkAVQcvlyPCvl5nFYBK3
-         AcyPn13QqKVVRrL1zipwxIuzpUn+hZQyrfLwU8vfxMlO1Sg+/Wc/b8ssKZIBikPTpW3o
-         Qfhv5VYeyTDS4rgr3Y1crm9tbApDt3VgOUSmg4HGowYFcg2iQD6Atwm+T8mrtuzpDzdI
-         FplW7jJahMK8c5NcaherFUGtK7yxNILDMASgehGniR15Q0fSqZ94oqBaNSuxDJMRDdPq
-         P/0+TRgkg5jJVzXDicJjiIXLH2dlZUYYr2nDCwskIOBgCIztS2v9Y18IRTjj+Bd2PmH6
-         vHAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789353981; x=1789958781;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1FuJzn/2R5Scc5m2lJpVpNzaSeSlPcbk/PD0ZHGJTnI=;
-        b=DLG8ReifWRtwrnqGGFScfVhTpLXdZHVTvWNt7bbHzL8IqFrAYN1fgtyuQVsa9bGyzi
-         P16Dp48wM7wFbwX9Owclz6cuMY2nnbiFhXpMRxluVD+9oweP0ZErlRc+ftLfxsP4C4hO
-         tzb8u/6KA1X8aWECA55WrqkJjt2M1PRkdnsWnkI65KxR9aHtPBMFjexWZS6H7TWm21k/
-         sRf2rz7QF3dmAgKaJDGXvTlKWzCCWW/sVvdyENNAgPId6KCuaEDu8Wk9Zz+SxxcVHt60
-         ukGRVHhZzDAAduajWzM6EquA5K+lFGOIuJAbDsUOvQXZ4Je7o4sHprH6DQyWaa3rL9vo
-         CUVw==
-X-Forwarded-Encrypted: i=1; AKwUvBzmsKbq9V5T2iD5Nj5qt9KuQ62cUImyA19GYDEOfTDjLqbSvg5AZc9wNI6cE/c1uEU7YseZcy84fy8nBVY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mGRXgaJwqyIxTNfVCTzKohnWvCyqPqOvvSbrgGnb9zCXTCoyS8
-	XNO6PCIW+SV5nd+f8PcCeRoA51Y5901mWjzTAVR+61JuOsYXHJQ3QffXhRne7VCA5YVuLirBWg2
-	m0wmbp9uPhr9OA11gzx3Fh/AJ8F92wNA=
-X-Gm-Gg: AYBFou2wmDiJWWtEsnOucKLWb17RPaXzizABFdD4wrCLg1hHGE653bPtLCJRiqo7uZ4
-	HyJTml8qMmEQW0+/8pVCh4QICS7oXLiPCwEshF+3PHRkD4N/IEGZXz42ZbF1h27A0cwqW6FIRAM
-	563SmNjqrLum/aqtIKJ/xzWhhUN6W/m6l1Q5yYUJ+VDqQTaZ4Ct9lzG6OR67MFRGhFneOLDLE4n
-	2KoluaAk5yUHrTjZHZ2AY1Kwit2vvucfj/y89LNnFJEJzkUw8AJtfAbNs8FKk8ucYToP7jEQqPP
-	EQc8zenqarDbqm8hQ3TlY2UsOEv6bxre7ungkEPjPjmfqREuR3xrRhb6zqyMftA7aFba2Req7RM
-	zuEWgdiMajMSLBoimlVvlj3LigRnqp0l5R8Pe+lHlbg==
-X-Received: by 2002:a05:6512:3042:b0:5b6:1a7c:59cc with SMTP id
- 2adb3069b0e04-5b8ae69c885mr78058e87.38.1789353980592; Sun, 13 Sep 2026
- 19:46:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="im5/rs4p"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789354018; x=1820890018;
+  h=date:from:to:cc:subject:message-id;
+  bh=NgocNdtx6jfiM0d293Fivhltj4bS8b9C5T0tk3kBrGI=;
+  b=im5/rs4pPO1NFJTNKhRLJR8S7OkuwP8MhlHyl15/XdKI4uRIs3FNjoYv
+   X76qXf/W9pczssnMyteDKTOnfKqZMJLS7ZRMk6Rc844YkCwrXT6hsbAEg
+   jo+WUNGFkPhTW0P/SzoLWOCXIaUmddR2v2z5/LvdmI5qy4eKw9Yqi6mgh
+   +bQxUmX2UcMkku/7mkFpm9NH82yC1IMHonpTTI5t0i9qsymB7pDevW5en
+   HO6kbJcF95R628IOleLRzIRD54fZNghB/oTWjEKQqZwOn/aLYNC5xxFmU
+   GYMsVGDmBrCh4wrgI6Cr6Wvg4BI769DCk/vXc0v5Mbu9w9t3LHUY7beVR
+   w==;
+X-CSE-ConnectionGUID: wHsCUmzXRcmtm6TaxHxvIQ==
+X-CSE-MsgGUID: RmThsYsDQ2uXJf5eryxoRA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="89471299"
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
+   d="scan'208";a="89471299"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Sep 2026 19:46:57 -0700
+X-CSE-ConnectionGUID: k+1mHxErSNegJ1URGpbpLw==
+X-CSE-MsgGUID: eI4n5crzRziI1eutUZ17Pw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
+   d="scan'208";a="271096975"
+Received: from igk-lkp-server01.igk.intel.com (HELO 2232cf45ba3c) ([10.211.93.152])
+  by orviesa010.jf.intel.com with ESMTP; 13 Sep 2026 19:46:55 -0700
+Received: from kbuild by 2232cf45ba3c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x5wia-000000001qJ-2pyu;
+	Mon, 14 Sep 2026 02:46:52 +0000
+Date: Mon, 14 Sep 2026 04:46:29 +0200
+From: kernel test robot <lkp@intel.com>
+To: Rong Xu <xur@google.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Nathan Chancellor <nathan@kernel.org>,
+ Masahiro Yamada <masahiroy@kernel.org>
+Subject: ld.lld: error: relocation R_RISCV_CALL_PLT cannot refer to
+ absolute symbol: $d
+Message-ID: <202609140412.mMAbdsg8-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260715-pwm-loongson-fix-v3-0-0aab2847eaa7@gmail.com>
- <20260715-pwm-loongson-fix-v3-2-0aab2847eaa7@gmail.com> <ap6Ciw_sMALvlROd@monoceros>
- <CAJhJPsULo0S5c6GKQvRqLtVx3nixZLuqRrh7hi5yJ7C5BuwLUQ@mail.gmail.com> <aqK2R9HodI399ehb@monoceros>
-In-Reply-To: <aqK2R9HodI399ehb@monoceros>
-From: Keguang Zhang <keguang.zhang@gmail.com>
-Date: Mon, 14 Sep 2026 10:45:43 +0800
-X-Gm-Features: AcwNN1UbS5KoKs3oMsJvuOYqiNKtHepxzTF7RNhGPEaA55gBaJPAbm_T3WS7wqQ
-Message-ID: <CAJhJPsUpefK7CQjHY+e9BQt90jQoTEf4ki258z4f--G-ATjKkw@mail.gmail.com>
-Subject: Re: [PATCH v3 2/2] pwm: loongson: Reload PWM configuration through
- counter reset
-To: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <ukleinek@kernel.org>
-Cc: Binbin Zhou <zhoubinbin@loongson.cn>, linux-pwm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 10, 2026 at 9:54=E2=80=AFPM Uwe Kleine-K=C3=B6nig <ukleinek@ker=
-nel.org> wrote:
->
-> Hello,
->
-> On Thu, Sep 10, 2026 at 07:58:12PM +0800, Keguang Zhang wrote:
-> > On Mon, Sep 7, 2026 at 5:33=E2=80=AFPM Uwe Kleine-K=C3=B6nig <ukleinek@=
-kernel.org> wrote:
-> > > [...] I wonder if the fix is incomplete. If at driver bind time
-> > > LOONGSON_PWM_CTRL_REG_RST isn't set and there are still wrong values =
-in
-> > > the shadowed LOW and PERIOD registers the first period will be wrong.
-> > >
-> > > This would need:
-> > >
-> > >         val =3D pwm_loongson_readl(ddata, LOONGSON_PWM_REG_CTRL);
-> > > +
-> > > +       /*
-> > > +        * Ensure that the values of LOW and PERIOD are sampled into
-> > > +        * the shadow register when the hardware starts running.
-> > > +        */
-> > > +       if (!(val & LOONGSON_PWM_CTRL_REG_RST))
-> > > +               pwm_loongson_writel(ddata, val | LOONGSON_PWM_CTRL_RE=
-G_RST, LOONGSON_PWM_REG_CTRL);
-> > > +
-> > >         val &=3D ~LOONGSON_PWM_CTRL_REG_RST;
-> > >         val |=3D LOONGSON_PWM_CTRL_REG_EN;
-> > >         pwm_loongson_writel(ddata, val, LOONGSON_PWM_REG_CTRL);
-> > >
-> > > I think.
-> >
-> > You are right that this patch doesn't handle the initial hardware
-> > state when the driver binds.
-> > Would you prefer that I submit a follow-up patch to address this, or
-> > are you planning to fix it yourself?
->
-> I don't have the hardware, so if you do that and test it, that's very
-> appreciated.
->
-Sure. I'll add this fix in the next version.
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   fd73f4a6659897191fa0d40695fe370925dd3780
+commit: 9f2aee8f7d1842be08da860e45265d30dba0d1f7 kbuild: distributed build support for Clang ThinLTO
+date:   4 months ago
+config: riscv-randconfig-r063-20260913 (https://download.01.org/0day-ci/archive/20260914/202609140412.mMAbdsg8-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 707c032dae3bee24eae29c6f4c459a6d6dc6556d)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260914/202609140412.mMAbdsg8-lkp@intel.com/reproduce)
 
-> Best regards
-> Uwe
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: 9f2aee8f7d18 ("kbuild: distributed build support for Clang ThinLTO")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609140412.mMAbdsg8-lkp@intel.com/
 
+All error/warnings (new ones prefixed by >>):
 
+>> ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: length exceeds section size
+>> ld.lld: warning: parsing line table prologue at offset 0x000014d8: unsupported version 26814
+>> ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: length exceeds section size
+   ld.lld: warning: parsing line table prologue at offset 0x000000c2: unsupported version 0
+>> ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: length exceeds section size
+   ld.lld: warning: parsing line table prologue at offset 0x000000ce: unsupported version 48959
+>> ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+>> ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+>> ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+>> ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+>> ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+>> ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+>> ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+>> ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+>> ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+>> ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+>> ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+>> ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+>> ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+>> ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+>> ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+>> ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: length exceeds section size
+   ld.lld: warning: parsing line table prologue at offset 0x00000102: unsupported version 0
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: length exceeds section size
+   ld.lld: warning: parsing line table prologue at offset 0x0000010a: unsupported version 55501
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: length exceeds section size
+   ld.lld: warning: parsing line table prologue at offset 0x0000318e: unsupported version 26118
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: length exceeds section size
+   ld.lld: warning: parsing line table prologue at offset 0x00003198: unsupported version 774
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: length exceeds section size
+   ld.lld: warning: parsing line table prologue at offset 0x00005636: unsupported version 42234
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: length exceeds section size
+   ld.lld: warning: parsing line table prologue at offset 0x000083c2: unsupported version 0
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: length exceeds section size
+   ld.lld: warning: parsing line table prologue at offset 0x00000648: unsupported version 60295
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: length exceeds section size
+   ld.lld: warning: parsing line table prologue at offset 0x0000e29e: unsupported version 62283
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: length exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: length exceeds section size
+   ld.lld: warning: parsing line table prologue at offset 0x0000e2b2: unsupported version 20741
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: length exceeds section size
+   ld.lld: warning: parsing line table prologue at offset 0x0000e2c8: unsupported version 25034
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: length exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: length exceeds section size
+   ld.lld: warning: parsing line table prologue at offset 0x0000e2ca: unsupported version 52915
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: length exceeds section size
+   ld.lld: warning: parsing line table prologue at offset 0x0000e2d0: unsupported version 26722
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: length exceeds section size
+   ld.lld: warning: parsing line table prologue at offset 0x00017054: unsupported reserved unit length of value 0x5aabc0001fd65
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: length exceeds section size
+   ld.lld: warning: parsing line table prologue at offset 0x0001705c: unsupported version 38382
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: length exceeds section size
+   ld.lld: warning: parsing line table prologue at offset 0x00017060: unsupported version 7967
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: length exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: length exceeds section size
+   ld.lld: warning: parsing line table prologue at offset 0x00017064: unsupported version 19
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: length exceeds section size
+   ld.lld: warning: parsing line table prologue at offset 0x0001919c: unexpected end of data at offset 0x191a6 while reading [0x191a6, 0x191a7)
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: length exceeds section size
+   ld.lld: warning: parsing line table prologue at offset 0x000191ac: unexpected end of data at offset 0x191b6 while reading [0x191b6, 0x191b7)
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: section offset exceeds section size
+   ld.lld: warning: vmlinux.o: invalid reference to or invalid content in .debug_str_offsets[.dwo]: length exceeds section size
+--
+>> ld.lld: error: relocation R_RISCV_CALL_PLT cannot refer to absolute symbol: $d
+   >>> defined in vmlinux.o
+   >>> referenced by strrchr.o
+   >>>               vmlinux.o:(netfs_prefetch_for_write)
+--
+>> ld.lld: error: relocation R_RISCV_CALL_PLT cannot refer to absolute symbol: $d
+   >>> defined in vmlinux.o
+   >>> referenced by strrchr.o
+   >>>               vmlinux.o:(netfs_unbuffered_write)
+--
+>> ld.lld: error: relocation R_RISCV_CALL_PLT cannot refer to absolute symbol: $d
+   >>> defined in vmlinux.o
+   >>> referenced by strrchr.o
+   >>>               vmlinux.o:(netfs_write_collection)
+--
+>> ld.lld: error: relocation R_RISCV_CALL_PLT cannot refer to absolute symbol: $d
+   >>> defined in vmlinux.o
+   >>> referenced by strrchr.o
+   >>>               vmlinux.o:(netfs_create_write_req)
+--
+>> ld.lld: error: relocation R_RISCV_CALL_PLT cannot refer to absolute symbol: $d
+   >>> defined in vmlinux.o
+   >>> referenced by strrchr.o
+   >>>               vmlinux.o:(netfs_advance_write)
+--
+>> ld.lld: error: relocation R_RISCV_CALL_PLT cannot refer to absolute symbol: $d
+   >>> defined in vmlinux.o
+   >>> referenced by strrchr.o
+   >>>               vmlinux.o:(netfs_writepages)
+--
+>> ld.lld: error: relocation R_RISCV_CALL_PLT cannot refer to absolute symbol: $d
+   >>> defined in vmlinux.o
+   >>> referenced by strrchr.o
+   >>>               vmlinux.o:(netfs_begin_writethrough)
+--
+>> ld.lld: error: relocation R_RISCV_CALL_PLT cannot refer to absolute symbol: $d
+   >>> defined in vmlinux.o
+   >>> referenced by strrchr.o
+   >>>               vmlinux.o:(netfs_writeback_single)
+--
+>> ld.lld: error: relocation R_RISCV_CALL_PLT cannot refer to absolute symbol: $d
+   >>> defined in vmlinux.o
+   >>> referenced by strrchr.o
+   >>>               vmlinux.o:(device_write)
+--
+>> ld.lld: error: relocation R_RISCV_CALL_PLT cannot refer to absolute symbol: $d
+   >>> defined in vmlinux.o
+   >>> referenced by strrchr.o
+   >>>               vmlinux.o:(netfs_readahead)
+..
 
---=20
-Best regards,
-
-Keguang Zhang
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
