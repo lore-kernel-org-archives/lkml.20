@@ -1,245 +1,271 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80A5941DEF7
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:29:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789378170; cv=pass; b=lf/5E2afkzbiImMqn3hjCaQ8CKZ2+dwPdjVh6SJhRH9IdknTKl0Aqp7Fmk480ET0ZmWZPV/4g8F6ofsDR+MaVKxFJv1miUqX05JSTnlJKHbR2bsGbpNuv7Jc1nzEt1pGWRGJ6L1EaD1rwlK67d+neZm/THe+YF2GiCpuFckLdW4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789378170; c=relaxed/simple;
-	bh=NU1dpS4TUm1I27X1n+bW1b5d70aTJuUzLdbWKavJmAo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Ox45MOAWRzG+j6SSGjoF3TPFp4IXp7xIMCZB1MdMIo+Hh0JPoZUKQtXsw6O+NxIcP+3IBW87em2P5gG0gpg9Rou9bxQzuUxiMltqmnsEqQtBENB0/bzQGkOklTjepJcje9wsoIRBGYPQXB/CC22POC6mt1FQLUaMcoSKuoTRn5o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W4jh4rTX; arc=pass smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5E4E1422E3F;
+	Mon, 14 Sep 2026 09:29:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789378192; cv=none; b=ke1udu8+LajvyXiR29pLJeBtKjbfJo0ecK6biFGMysDvEBw++uv/1GWHp7Mf1f5E5AuqUr3czIlys1LFtIx0PhH0DlJjSCMd5ruZbqSx0eZTpi3Bed5X7tUtf294LfnSSJmNYzioJ4eb8/fBXEDTY9SFCZNXStRyNuKRyCFRk4Y=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789378192; c=relaxed/simple;
+	bh=WgFDTRyIzj72ID3M8rCFA6KeJAl2VOfUbS2RSxda34M=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ozntfvyPWTljxwjOQPb4WVW5eWKvNjypWjSji9TKdsPgVLBQtvLy32v9tK/DWC+uI5auruwFLQd17h7AFUtJYukRv3GWHpaJJa/PrsCqKDu1NqHLikkeQaS1LyeDgrUlIFj5Ebl6w0bvhu+Ulx0VpDoRe6fqRUJ1SrcuCh9rnEg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=CqIni/X+; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W4jh4rTX"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843178b1c8so247287f8f.0
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 02:29:28 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789378167; cv=none;
-        d=google.com; s=arc-20260327;
-        b=S5bna1Zlcb9L5TfztZZ/3lOJcdLEHtofQ27LhxGwlTJtyuvan3yMwPmrhiFNl44Zrz
-         aCJVYcp1nWPNbYZiqn2kdio6sUPzjQE2ZbiR9i+Ndohkfd7YmHrPbGAYjuk+9mlWzjUs
-         LO1VixfEZJ6jYJdD/Ml3DKgz9QtlS8DuXBk+dTp2ThGaEcoy2tomIv2BhR3e2KedVv92
-         Gyg3X8WqHEBq3/sHgy/7hIQbjDadFy39PduEpy8fwucw3e9UESHMNtfeM1iHY3gx1pmm
-         tA9u4V0Nuqyd9TO5ONgrjHHjnAybE1/c17fn6fkW0lnvNY2acn2u9q5EyfWiXJrOYCED
-         vR9g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=NwCoRysRjmgkYc8XKCXoUjQ9awyjkZJjQbM5wLecwTU=;
-        fh=jMS5G4cNLZsXlCAJlXC5EapkBZ7ZPamMbBVAwmRAP4A=;
-        b=qGUElHL0wI7dD3PqgMfbXvODMTOeGB1VlTpdCipI0Y0V5ZpHmuyZ3m56RuFznPrYnR
-         RfGVucUILd23vcf8wEhkwhPQIcIV/4BCmbm9q6z4UYqZ3aXY8N7Mjok9PJSKRGDnPH5/
-         MnA2jSCmqTfz4BHxhcA6hhEUkk7K+y/wEtuZmUtBt+3px55fa+jW7DsrTFLqCyyldIU5
-         udx/Eees14VJwLtmtdsmQFhYDl3DGoA27+S/NenAKLuAWkOkSrGQGARtVz/KfhRIWCGP
-         Zo15O3n83ELRFh/mFTmU/uDzQ8bWj++G1LndNSqDH4R3YxInCNlNkSLWIHO/UCQoLs7W
-         H+bA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789378167; x=1789982967; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=NwCoRysRjmgkYc8XKCXoUjQ9awyjkZJjQbM5wLecwTU=;
-        b=W4jh4rTXV6Nh+aExR19ShAn6C4KjWZjI5w2XhIIZStV4C0X5juasSSnm1pc0hI7WWm
-         W2UM4BOgMT44/PN3VhcuFR3ogCrPglTogIkgqU2HPhklRD7x9UvopjIM2zAKBObWdi4R
-         NEVIFudjOwcg2+hRNJbKRw4zPF4sVp6Z45BOHW4OHaok8uXzaa3lJpVUIzPLfFjTwXno
-         dtM69SHRQjEF6zLPwyDAsx0fybsCsXz+0yIdYUo2o2c8nOwFCF7tvegODZrJZMzYIifU
-         BLHihgEMu7mSLfSV6zjJj2/S6fKVRSKyzTh80nufGEQADS2a2WhW6k1ajMb/8CIEnKoH
-         IDog==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789378167; x=1789982967;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NwCoRysRjmgkYc8XKCXoUjQ9awyjkZJjQbM5wLecwTU=;
-        b=Tm1mF4c/0KnsZRB42O6z0nsh1IpN8p48SvCpzJKwEveLT6InsvYDwL4j7CYHtf7iBJ
-         Fg9E0rc5fx0bhXsDI+9s/rDbsKZHT1La67VB+KOTWdd5kmgWy4Mvuhy4eGZh9BKwl7S4
-         K0/7pLcuXtspVuOvUD4xnfb5C6dAraTYRoNsYjokeIKcvjwHC66GLJCZnyJ3QRhpoXzJ
-         MUx/b75Ih1eyfP00LywAm+LjcHLLxdC6SAHC9ENIY5iehXrxeYGOnF4EvVRxo1cZrUrH
-         sGu3trYvhb3KoS58h3RhNs3+SfG0rHsqecGx7gh0MK9SHauBa4Y2AT0GhQtwPVDAPldt
-         u9IA==
-X-Forwarded-Encrypted: i=1; AKwUvBxqrHx+7x26jc1JcALgzCz1DWoVN9TLfswXd8nq4n1SbVWRnDzSNyio0j/CDSBcXC61MHQ46rrc5u5C8yM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kvZ939QpW4MQV9ttmidNFqHr6kVqNN2EVRpDS6IwkMNMT9Gyn4
-	Df+n0S7Ap0Qndw5fQlsnv9YL+r+zvmdlWo9oJ1ulwtjSwavIpf+5DVkCtX8/Y2OWAmOJi8apdfA
-	AUZJkvuTB+Wp7h7FLCSEW1ChgMnc0Zfl4bvTf
-X-Gm-Gg: AYBFou3fZcT2U2mgZ57mkebMBluoZ8yyjLZz7aEIy99HSNkX2LqdoZtzHIwWuCE3fgJ
-	oGqsDO2ZIIpMZp5MIA9VQl9WK9nsEqhaD7N/umjOm2MReYm0VqZZGwffD9e5Dg04GI8xEWC/5D/
-	af/fh9zkFQim0DAUe39T82pBJByW1/2YWG11A36scSSxO6ampSsOTUdjUvnaH1YoZjw4FCul7Il
-	2M/wRoAeUJf8w2C2JVGHjrr6pVaRKOFFdppHabz0GTgSsgF2lm+zMUopgVf67KHlflPCOk2ooLz
-	a1jAxmGJffsmh6TCywCcSfEEcLrJ8/OS0DCDe7SddNiyseWOSkPVxq5g
-X-Received: by 2002:a05:6000:26c8:b0:486:f3be:2a69 with SMTP id
- ffacd0b85a97d-48702b5ac36mr1759290f8f.3.1789378166509; Mon, 14 Sep 2026
- 02:29:26 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="CqIni/X+"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9532F152B;
+	Mon, 14 Sep 2026 02:29:42 -0700 (PDT)
+Received: from [10.0.129.72] (unknown [10.0.129.72])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 82BDA3F59E;
+	Mon, 14 Sep 2026 02:29:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789378186; bh=WgFDTRyIzj72ID3M8rCFA6KeJAl2VOfUbS2RSxda34M=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=CqIni/X+msMkTBJ38OtxnAmKm3vT4WfopjM7VTolXtMzfVTqCtuuwBWm8px50pxfY
+	 VKOgsxPcXTjc8cUIu0A0TnCmZjb+xok+KPMktvxetNwT+RUocshLNspgSFn3BWh7ja
+	 n4j2+vDS9RoW++2VD6TWPcOcL1vDP6Oot8PCnDWw=
+Message-ID: <92b9c67b-677c-4cfe-8055-13f8e3e9c2cf@arm.com>
+Date: Mon, 14 Sep 2026 10:29:35 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260911232405.1815804-1-chao@kernel.org> <20260911232405.1815804-13-chao@kernel.org>
-In-Reply-To: <20260911232405.1815804-13-chao@kernel.org>
-From: Zhiguo Niu <niuzhiguo84@gmail.com>
-Date: Mon, 14 Sep 2026 17:29:15 +0800
-X-Gm-Features: AcwNN1XZSezrqxzMSh7wGOk44PcQ6ee43D72sizJQMIKky8XnPByYgEe4In5Wa4
-Message-ID: <CAHJ8P3JQVP+bJ3Vb+f=07bWcRVQk7mHYkiMsih_ir4Wm4d-3Jw@mail.gmail.com>
-Subject: Re: [f2fs-dev] [PATCH v7 12/12] f2fs: cache: show per-cache usage in debugfs
-To: Chao Yu <chao@kernel.org>
-Cc: jaegeuk@kernel.org, linux-kernel@vger.kernel.org, 
-	linux-f2fs-devel@lists.sourceforge.net
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 02/15] ACPI: CPPC: Validate _CPC entry and control
+ semantics
+To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Cc: Viresh Kumar <viresh.kumar@linaro.org>, linux-pm@vger.kernel.org,
+ linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Jie Zhan <zhanjie9@hisilicon.com>, Lifeng Zheng <zhenglifeng1@huawei.com>,
+ Pierre Gondois <pierre.gondois@arm.com>, Sumit Gupta <sumitg@nvidia.com>,
+ Sudeep Holla <sudeep.holla@arm.com>,
+ Ionela Voinescu <ionela.voinescu@arm.com>, zhongqiu.han@oss.qualcomm.com,
+ Sashiko <sashiko-bot@kernel.org>
+References: <20260830115644.2056983-1-christian.loehle@arm.com>
+ <20260830115644.2056983-3-christian.loehle@arm.com>
+ <e363804d-78d7-4f09-8d49-f70a4dfc6f71@arm.com>
+ <CAJZ5v0j=n4uf=GFVDumb2v1sqcS_f293BG2iCD-Vmp2vpLC=xg@mail.gmail.com>
+ <CAJZ5v0igEL-WvvCSadRkGDdZaXRJM0kPAH8i918T+FaDg9oZ5A@mail.gmail.com>
+ <7985c629-8d36-4562-a789-074d35e9f260@arm.com>
+ <CAJZ5v0jp9q-ZzOKXsOVpvF0ABytHXU9qeSdGyHdhLUL-cLX4sA@mail.gmail.com>
+ <CAJZ5v0ieZt_FSM4e=F_UjvN_oZbbiU_aHQgfFk2jifqW2Un5rw@mail.gmail.com>
+Content-Language: en-US
+From: Christian Loehle <christian.loehle@arm.com>
+In-Reply-To: <CAJZ5v0ieZt_FSM4e=F_UjvN_oZbbiU_aHQgfFk2jifqW2Un5rw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Chao Yu via Linux-f2fs-devel <linux-f2fs-devel@lists.sourceforge.net>
-=E4=BA=8E2026=E5=B9=B49=E6=9C=8812=E6=97=A5=E5=91=A8=E5=85=AD 07:28=E5=86=
-=99=E9=81=93=EF=BC=9A
->
-> From: Chao Yu <chao@kernel.org>
->
-> This patch exposes per-cache memory usage (entry struct memory vs.
-> cached block buffer memory) for meta, node, and compress caches under
-> the memory section in debugfs:
->   - meta entry: xxx KB, meta cache: xxx KB
->   - node entry: xxx KB, node cache: xxx KB
->   - compress entry: xxx KB, compress cache: xxx KB
->
-> Signed-off-by: Chao Yu <chao@kernel.org>
-Reviewed-by: Zhiguo Niu <zhiguo.niu@unisoc.com>
-thanks=EF=BC=81
-> ---
->  fs/f2fs/cache.h |  1 +
->  fs/f2fs/debug.c | 49 ++++++++++++++++++++++++++++++++++++++++---------
->  fs/f2fs/f2fs.h  |  2 ++
->  3 files changed, 43 insertions(+), 9 deletions(-)
->
-> diff --git a/fs/f2fs/cache.h b/fs/f2fs/cache.h
-> index d2dd77ca2bc1..42e7c49cef47 100644
-> --- a/fs/f2fs/cache.h
-> +++ b/fs/f2fs/cache.h
-> @@ -38,6 +38,7 @@ enum f2fs_cache_type {
->         F2FS_META_CACHE,
->         F2FS_NODE_CACHE,
->         F2FS_COMPRESS_CACHE,
-> +       NR_CACHE_TYPES,
->  };
->
->  /* Main cache control structure (per sb_info) */
-> diff --git a/fs/f2fs/debug.c b/fs/f2fs/debug.c
-> index 4ed5c271dba3..8c0cffde2457 100644
-> --- a/fs/f2fs/debug.c
-> +++ b/fs/f2fs/debug.c
-> @@ -380,17 +380,36 @@ static void update_mem_info(struct f2fs_sb_info *sb=
-i)
->                 si->cache_mem +=3D si->ext_mem[i];
->         }
->
-> -       si->page_mem =3D 0;
-> -       si->page_mem +=3D (unsigned long long)META_CACHE(sbi)->num_entrie=
-s << PAGE_SHIFT;
-> -       si->cache_mem +=3D META_CACHE(sbi)->num_entries * sizeof(struct f=
-2fs_cached_block);
-> -       si->page_mem +=3D (unsigned long long)NODE_CACHE(sbi)->num_entrie=
-s << PAGE_SHIFT;
-> -       si->cache_mem +=3D NODE_CACHE(sbi)->num_entries * sizeof(struct f=
-2fs_cached_block);
-> +       si->cache_entry_mem[F2FS_META_CACHE] =3D
-> +               (unsigned long long)META_CACHE(sbi)->num_entries *
-> +               sizeof(struct f2fs_cached_block);
-> +       si->cache_data_mem[F2FS_META_CACHE] =3D
-> +               (unsigned long long)META_CACHE(sbi)->num_entries * sbi->b=
-locksize;
-> +
-> +       si->cache_entry_mem[F2FS_NODE_CACHE] =3D
-> +               (unsigned long long)NODE_CACHE(sbi)->num_entries *
-> +               sizeof(struct f2fs_cached_block);
-> +       si->cache_data_mem[F2FS_NODE_CACHE] =3D
-> +               (unsigned long long)NODE_CACHE(sbi)->num_entries * sbi->b=
-locksize;
-> +
-> +       si->cache_mem +=3D si->cache_entry_mem[F2FS_META_CACHE] +
-> +                        si->cache_entry_mem[F2FS_NODE_CACHE];
-> +       si->page_mem =3D si->cache_data_mem[F2FS_META_CACHE] +
-> +                       si->cache_data_mem[F2FS_NODE_CACHE];
->  #ifdef CONFIG_F2FS_FS_COMPRESSION
->         if (test_opt(sbi, COMPRESS_CACHE)) {
-> -               unsigned long npages =3D COMPRESS_CACHE(sbi)->num_entries=
-;
-> -
-> -               si->page_mem +=3D (unsigned long long)npages << PAGE_SHIF=
-T;
-> -               si->cache_mem +=3D npages * sizeof(struct f2fs_cached_blo=
-ck);
-> +               si->cache_entry_mem[F2FS_COMPRESS_CACHE] =3D
-> +                       (unsigned long long)COMPRESS_CACHE(sbi)->num_entr=
-ies *
-> +                       sizeof(struct f2fs_cached_block);
-> +               si->cache_data_mem[F2FS_COMPRESS_CACHE] =3D
-> +                       (unsigned long long)COMPRESS_CACHE(sbi)->num_entr=
-ies *
-> +                       sbi->blocksize;
-> +
-> +               si->cache_mem +=3D si->cache_entry_mem[F2FS_COMPRESS_CACH=
-E];
-> +               si->page_mem +=3D si->cache_data_mem[F2FS_COMPRESS_CACHE]=
-;
-> +       } else {
-> +               si->cache_entry_mem[F2FS_COMPRESS_CACHE] =3D 0;
-> +               si->cache_data_mem[F2FS_COMPRESS_CACHE] =3D 0;
->         }
->  #endif
->  }
-> @@ -749,6 +768,18 @@ static int stat_show(struct seq_file *s, void *v)
->                                 si->ext_mem[EX_READ] >> 10);
->                 seq_printf(s, "  - block age extent cache: %llu KB\n",
->                                 si->ext_mem[EX_BLOCK_AGE] >> 10);
-> +               seq_printf(s, "  - meta entry: %llu KB, meta cache: %llu =
-KB\n",
-> +                               si->cache_entry_mem[F2FS_META_CACHE] >> 1=
-0,
-> +                               si->cache_data_mem[F2FS_META_CACHE] >> 10=
-);
-> +               seq_printf(s, "  - node entry: %llu KB, node cache: %llu =
-KB\n",
-> +                               si->cache_entry_mem[F2FS_NODE_CACHE] >> 1=
-0,
-> +                               si->cache_data_mem[F2FS_NODE_CACHE] >> 10=
-);
-> +#ifdef CONFIG_F2FS_FS_COMPRESSION
-> +               if (test_opt(sbi, COMPRESS_CACHE))
-> +                       seq_printf(s, "  - compress entry: %llu KB, compr=
-ess cache: %llu KB\n",
-> +                                       si->cache_entry_mem[F2FS_COMPRESS=
-_CACHE] >> 10,
-> +                                       si->cache_data_mem[F2FS_COMPRESS_=
-CACHE] >> 10);
-> +#endif
->                 seq_printf(s, "  - paged : %llu KB\n",
->                                 si->page_mem >> 10);
->         }
-> diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-> index 69690b061236..34878d99a2f0 100644
-> --- a/fs/f2fs/f2fs.h
-> +++ b/fs/f2fs/f2fs.h
-> @@ -4525,6 +4525,8 @@ struct f2fs_stat_info {
->         unsigned int block_count[2];
->         unsigned int inplace_count;
->         unsigned long long base_mem, cache_mem, page_mem;
-> +       unsigned long long cache_entry_mem[NR_CACHE_TYPES];
-> +       unsigned long long cache_data_mem[NR_CACHE_TYPES];
->         struct f2fs_dev_stats *dev_stats;
->  };
->
-> --
-> 2.49.0
->
->
->
-> _______________________________________________
-> Linux-f2fs-devel mailing list
-> Linux-f2fs-devel@lists.sourceforge.net
-> https://lists.sourceforge.net/lists/listinfo/linux-f2fs-devel
+On 9/10/26 18:13, Rafael J. Wysocki (Intel) wrote:
+> On Fri, Sep 4, 2026 at 6:57 PM Rafael J. Wysocki (Intel)
+> <rafael@kernel.org> wrote:
+>>
+>> On Thu, Sep 3, 2026 at 10:02 PM Christian Loehle
+>> <christian.loehle@arm.com> wrote:
+>>>
+>>> On 9/3/26 20:44, Rafael J. Wysocki (Intel) wrote:
+>>>> On Thu, Sep 3, 2026 at 9:27 PM Rafael J. Wysocki (Intel)
+>>>> <rafael@kernel.org> wrote:
+>>>>>
+>>>>> On Sun, Aug 30, 2026 at 3:32 PM Christian Loehle
+>>>>> <christian.loehle@arm.com> wrote:
+>>>>>>
+>>>>>> On 8/30/26 12:56, Christian Loehle wrote:
+>>>>>>> Writable _CPC controls are Register descriptors encoded as Buffer objects.
+>>>>>>> Integer entries represent fixed values or unsupported optional registers;
+>>>>>>> Autonomous Selection Integer 1 is the special immutable form which enables
+>>>>>>> operation without Desired Performance.
+>>>>>>>
+>>>>>>> The parser accepts arbitrary object types and cpc_write() assumes that its
+>>>>>>> argument contains a GAS. Malformed firmware can therefore make it interpret
+>>>>>>> an Integer union member as a register.
+>>>>>>>
+>>>>>>> Validate the portion of each encoding consumed by the driver: bound Integer
+>>>>>>> DWORD forms to 32 bits, and require Buffer entries to start with a complete
+>>>>>>> Generic Register descriptor with the expected header. Continue tolerating
+>>>>>>> Integer 0 for an absent optional register and retain type checks in
+>>>>>>> cpc_write() as defense in depth. Reject an attempt to disable immutable
+>>>>>>> Autonomous Selection instead of silently applying only the EPP part of the
+>>>>>>> request.
+>>>>>>>
+>>>>>>> Capability registers are read into u64 temporaries but exposed through u32
+>>>>>>> fields. Reject values above U32_MAX instead of allowing them to be
+>>>>>>> truncated. In particular, a truncated Highest Performance value can become
+>>>>>>> a zero divisor in the performance-to-frequency conversion. Enforce the
+>>>>>>> required ordering from Highest through Nominal, Lowest Nonlinear, and
+>>>>>>> Lowest Performance, and constrain a present Guaranteed Performance to the
+>>>>>>> inclusive Lowest-to-Nominal range. Also reject reversed frequency anchors
+>>>>>>> and unequal frequency anchors with identical performance anchors. Those
+>>>>>>> invalid tuples otherwise make affine-conversion differences wrap or divide
+>>>>>>> by zero.
+>>>>>>>
+>>>>>>> Check mandatory object presence separately from the Integer-zero convention
+>>>>>>> for absent optional fields. ACPI does not reserve zero in the abstract
+>>>>>>> Lowest Performance scale, so accept a present Lowest Performance DWORD of
+>>>>>>> zero when distinct frequency anchors provide a usable nonzero physical
+>>>>>>> minimum. Retain the old rejection when that mapping is unavailable and the
+>>>>>>> fallback conversion would expose a 0 kHz cpufreq endpoint.
+>>>>>>>
+>>>>>>> Minimum Performance also defines zero as a real no-limit value, but the
+>>>>>>> exported cppc_set_perf() interface historically used zero to omit a bound.
+>>>>>>> Add explicit validity flags so callers can request zero without changing
+>>>>>>> that legacy convention. Populate the flags when reading the controls and
+>>>>>>> mark the bounds supplied by amd-pstate explicitly.
+>>>>>>>
+>>>>>>> Performance Limited is listed as a required Buffer, but the interface does
+>>>>>>> not depend on it to control performance and the specification permits a
+>>>>>>> platform with no limiting indication to always report zero. Preserve
+>>>>>>> the compatibility with firmware that represents that case using a NULL
+>>>>>>> register descriptor instead of disabling CPPC entirely.
+>>>>>>>
+>>>>>>> Emit an error when a present _CPC package fails parsing or initialization
+>>>>>>> so such firmware and resource failures no longer silently suppress cpufreq.
+>>>>>>> Initialize malformed-package failures to -EINVAL and preserve specific
+>>>>>>> allocation, mapping, and unsupported-access errors in that diagnostic.
+>>>>>>>
+>>>>>>> Fixes: 337aadff8e45 ("ACPI: Introduce CPU performance controls using CPPC")
+>>>>>>> Reported-by: Sashiko <sashiko-bot@kernel.org>
+>>>>>>> Link: https://sashiko.dev/#/patchset/20260724134251.1632824-1-christian.loehle%40arm.com
+>>>>>>> Signed-off-by: Christian Loehle <christian.loehle@arm.com>
+>>>>>>> ---
+>>>>>>>  drivers/acpi/cppc_acpi.c     | 172 ++++++++++++++++++++++++++++++-----
+>>>>>>>  drivers/cpufreq/amd-pstate.c |  12 ++-
+>>>>>>>  include/acpi/cppc_acpi.h     |   2 +
+>>>>>>>  3 files changed, 159 insertions(+), 27 deletions(-)
+>>>>>>>
+>>>>>>> diff --git a/drivers/acpi/cppc_acpi.c b/drivers/acpi/cppc_acpi.c
+>>>>>>> index 3b8cdf88e31d..6f3ffa4a1845 100644
+>>>>>>> --- a/drivers/acpi/cppc_acpi.c
+>>>>>>> +++ b/drivers/acpi/cppc_acpi.c
+>>>>>>> @@ -129,6 +129,21 @@ static DEFINE_PER_CPU(struct cpc_desc *, cpc_desc_ptr);
+>>>>>>>                               !!(cpc)->cpc_entry.int_value :          \
+>>>>>>>                               !IS_NULL_REG(&(cpc)->cpc_entry.reg))
+>>>>>>>
+>>>>>>> +static bool cpc_is_writable(const struct cpc_register_resource *cpc)
+>>>>>>> +{
+>>>>>>> +     return cpc->type == ACPI_TYPE_BUFFER &&
+>>>>>>> +            !IS_NULL_REG(&cpc->cpc_entry.reg);
+>>>>>>> +}
+>>>>>>> +
+>>>>>>> +static bool cpc_entry_present(const struct cpc_register_resource *cpc)
+>>>>>>> +{
+>>>>>>> +     if (cpc->type == ACPI_TYPE_INTEGER)
+>>>>>>> +             return true;
+>>>>>>> +
+>>>>>>> +     return cpc->type == ACPI_TYPE_BUFFER &&
+>>>>>>> +            !IS_NULL_REG(&cpc->cpc_entry.reg);
+>>>>>>> +}
+>>>>>>> +
+>>>>>>>  /*
+>>>>>>>   * Each bit indicates the optionality of the register in per-cpu
+>>>>>>>   * cpc_regs[] with the corresponding index. 0 means mandatory and 1
+>>>>>>> @@ -142,6 +157,29 @@ static DEFINE_PER_CPU(struct cpc_desc *, cpc_desc_ptr);
+>>>>>>>   */
+>>>>>>>  #define IS_OPTIONAL_CPC_REG(reg_idx) (REG_OPTIONAL & (1U << (reg_idx)))
+>>>>>>>
+>>>>>>> +static bool cpc_integer_entry_valid(unsigned int reg_idx, u64 value)
+>>>>>>> +{
+>>>>>>> +     switch (reg_idx) {
+>>>>>>> +     case HIGHEST_PERF:
+>>>>>>> +     case NOMINAL_PERF:
+>>>>>>> +     case LOW_NON_LINEAR_PERF:
+>>>>>>> +     case LOWEST_PERF:
+>>>>>>> +     case CTR_WRAP_TIME:
+>>>>>>> +     case REFERENCE_PERF:
+>>>>>>> +     case LOWEST_FREQ:
+>>>>>>> +     case NOMINAL_FREQ:
+>>>>>>> +             return value <= U32_MAX;
+>>>>>>
+>>>>>>
+>>>>>> Sashiko:
+>>>>>> "Does this incorrectly restrict the counter wraparound time to 32 bits?
+>>>>>> The ACPI specification allows firmware to provide a 64-bit QWord integer
+>>>>>> for the Counter Wraparound Time. The cppc_perf_fb_ctrs structure already
+>>>>>> models this as a 64-bit value internally
+>>>>>> If firmware provides a valid 64-bit integer exceeding U32_MAX for this
+>>>>>> register, cpc_integer_entry_valid() will return false and completely abort
+>>>>>> CPPC initialization for the CPU. Can we remove this restriction for
+>>>>>> CTR_WRAP_TIME?"
+>>>>>
+>>>>>> This is true. ACPI spec 6.6 and 6.5 (Table 8.23) describe it as
+>>>>>> Integer (DWORD) or Buffer
+>>>>>> The 64-bit internal representation is only for the case of firmware
+>>>>>> providing it as Buffer.
+>>>>
+>>>> Sashiko is right, the table in the spec is wrong.  If it is Integer,
+>>>> it is 64-bit.
+>>>>
+>>>> The size of an Integer in ASL cannot be restricted.
+>>>
+>>> Duh, thanks!
+>>>
+>>>>
+>>>>>>
+>>>>>>> +     case AUTO_SEL_ENABLE:
+>>>>>>> +             return value <= 1;
+>>>>>>> +     case DESIRED_PERF:
+>>>>>>> +             /* Validated against Autonomous Selection after parsing. */
+>>>>>>> +             return value == 0;
+>>>>>>> +     default:
+>>>>>>> +             /* Tolerate the customary Integer 0 for an absent option. */
+>>>>>>> +             return value == 0 && IS_OPTIONAL_CPC_REG(reg_idx);
+>>>>>>> +     }
+>>>>>>> +}
+>>>>>>> +
+>>>>>> Sashiko:
+>>>>>> "Does this incorrectly restrict the counter wraparound time to 32 bits?
+>>>>>> The ACPI specification allows firmware to provide a 64-bit QWord integer
+>>>>>> for the Counter Wraparound Time. The cppc_perf_fb_ctrs structure already
+>>>>>> models this as a 64-bit value internally.
+>>>>>> If firmware provides a valid 64-bit integer exceeding U32_MAX for this
+>>>>>> register, cpc_integer_entry_valid() will return false and completely abort
+>>>>>> CPPC initialization for the CPU. Can we remove this restriction for
+>>>>>> CTR_WRAP_TIME?"
+>>>>>
+>>>>> It looks like you pasted the same comment twice.  Or did Sashiko hallucinate?
+>>>>
+>>>> Well, its other comment is actually different from the first one.  Let
+>>>> me paste it:
+>>>
+>>> Apparently I hallucinated :)
+>>>
+>>>>
+>>>> Will this strict rejection break CPPC initialization on compliant firmware
+>>>> that provides non-zero integers for other optional capabilities?
+>>>> For capability registers not explicitly listed in the switch statement
+>>>> above, such as GUARANTEED_PERF or TIME_WINDOW, the ACPI 6.5 specification
+>>>> explicitly allows platforms to provide fixed non-zero values encoded as
+>>>> Integer objects.
+>>>>
+>>>> When firmware provides a valid non-zero integer for these optional
+>>>> registers, this default case enforces that the value must be zero. Since
+>>>> acpi_cppc_processor_probe() fails and returns -EINVAL when this returns
+>>>> false, it will completely disable cpufreq and CPPC support for the CPU.
+>>>> Should we allow non-zero integer values for these other optional registers?
+>>>>
+>>>>>> GUARANTEED_PERF and TIME_WINDOW: both are Buffer-only Register descriptors.
+>>>>>> Nonzero Integer encodings are invalid and Integer 0 is tolerated because
+>>>>>> the previous parser allowed it too. I don't know of any platform describing
+>>>>>> this myself.
+>>>>
+>>>> Strictly speaking Integer 0 is not allowed, see
+>>>>
+>>>> https://uefi.org/specs/ACPI/6.6/08_Processor_Configuration_and_Control.html#cpc-continuous-performance-control
+>>>
+>>> I'm happy to reject it too, I was just being careful here because I only have
+>>> a tiny subset of ACPI platforms to test this on with and it's for -fixes
+>>
+>> Instead of rejecting it entirely, you may log an FW_BUG message when
+>> it is used, to avoid breaking legacy platforms that possibly used it.
+> 
+> Still waiting for an update here and reviews from folks.
+> 
+> If this is the only patch that needs to be updated, please just send
+> an update of it alone.
+
+I know, unfortunately I had to update some of the later patches, too.
+I'll send the entire series shortly.
+Thanks!
