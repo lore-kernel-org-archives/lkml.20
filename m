@@ -1,139 +1,80 @@
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8232D481AAD
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:49:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79E8E47F3CB;
+	Mon, 14 Sep 2026 14:50:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789397361; cv=none; b=sPJ2yksiAZ9hoFzi1OBDJ1MIvRNcIyQDy8MJ7xFkuRqzAObMGOz33nUrueUcVuhyKxdFkeRuxnKoDCTUE9pOFCAPu5H1CuTKCAZS38uko2dbcGziRwXSZqlLDINK4kUf2k3ioI9GILf/Lqr9ABrCBkhy95nfdPz5Mt5dnQ5pGGI=
+	t=1789397438; cv=none; b=KLbdPw7KLbnfJBfk70Uc+3EPSA5mhz5FJLiUYhASLppWc2BdHCdjnPbY2GsLgqHJW029bXpRkuXgb/29RzB5DTjYhmHan7J5snTPBqw5PWpLPzYyEAF7KR3fs02lwgld0x0yZx8d2VGVY6V+1nDi4KDkcxh+SxQN/EKJ+wFRRBI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789397361; c=relaxed/simple;
-	bh=MOZvIDLp+P4PaYMlBybrB7g2C8901KtST7iPIcuJYX8=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=A9Ezz319cS9HLqJUSFohrqGyy8/4gdrQnfWQI4qeZPxeMu7hjfGsV3PJVtY53VytCG0WZ6KPSGCBGs/vaH3dYBJUe/sW0KwJPxy6Jop+IljNDOE+4e3II5xujGTHYQlQe+yOsrHRQ87g1MVP4M5BY9kkklauX004deLS3WmYmFs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Ef5z76FD; arc=none smtp.client-ip=209.85.214.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
+	s=arc-20240116; t=1789397438; c=relaxed/simple;
+	bh=uAX6tpMiWWWOWbLHaGqSlvPsehR39N8Jg0uZlK/KESw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=jFupByrku1l2SuKppxqGajnl0mOQokH3vQGD2jhHZ47BkaKUcM+ASCEt4Gd+va9Fqife0I7wSz/tK/EeXHqI4m2BFUD0pDPtiAwQHLpV4CNX56L9pJ0qKP51iPBgmFS+hg1dZloSFlgDHUCSmxr9hF8BPtHbx5G8tpJCwjAOFbg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xrh5nycr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Ef5z76FD"
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2d001671a54so64948835ad.2
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:49:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789397359; x=1790002159; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GLuFMMXFta9UIcczpAvsByGxUUvVheyRObO/swxvTLo=;
-        b=Ef5z76FDVm+xuBXJuMir2RXldcRSQn+UhyZYHeluZ3ANDkgC0BYV4ZYlOxsrkJMtZG
-         XcKgk+9u61fwoL+eaU+qoxGpb+lOPAt1pc5Yckgwb/ogPFdImK9amogGEhNydQ1Abjj2
-         KVz9arysg+XVR1wObSW+dCa6ori2G/ZdWYlkLvnZtHnXM7wGzZvX9F1XyjnOZuqlOApK
-         WWMe5SaOgTAer9Rk4q7SbX1UCHe1CwBg1AJQt81tixideRSkCYA+9ytnfBirICrqiRhX
-         4Tc+HiIWv7gMALrYq8VEnv/pbL2uVy2MmQqBi/P2uJtnYz+eiL9ZZrTjd6nYqdspVnjr
-         wjSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789397359; x=1790002159;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GLuFMMXFta9UIcczpAvsByGxUUvVheyRObO/swxvTLo=;
-        b=oFrZzhUhZPBbQRcM4BOSenUX+skRg79uK1n18240CcosqTO7KF1rzxCMpk7wXHIdff
-         TWYox0ys0PDqw/A6Tb6UXyMaLlQj9L2QzMj7L+nrLORFu/OGfJpkKMWXfvo/ANe5r4Dh
-         6B+dvFAQMBLRXeufNaTQrGXP7CTbwiKTztuh72lDbNG9lKm9kJ6noOlo2IIPD9hxeEaa
-         OHkMmZkCduBOLKw/n14ch07ux6FDMJfCBnDeweDVPl4uCf36mBfDNr5WXG9dOIq6/13S
-         8FCXZbSga+AJT9kcfp+vPxTrMxBIhmoPX8+j09JITkMax10GDvbmUYCwiLlP3OFgZd5F
-         t06A==
-X-Forwarded-Encrypted: i=1; AKwUvBwFK76hRpyA84b/MBH4KNcl1WIpDhONd7AtqUuDz3BEyJhEftUT+od0l80KFi+4oBmy/DHac90UjQKvchU=@vger.kernel.org
-X-Gm-Message-State: AFuF++ksDW6sw/mlFZDH4b3eBLJicYH44MsBxqGruhFFfy6Jd1j5ZPUV
-	XV9HXpCiZh57OMLvgVwj6pOUsnLe/5SwVPzKPNKdagc6X/tnrOGiHTHzL8dfCvNMkiDbYL5p0WX
-	tUgYA1kvbH1A8rr5xSPgJlw==
-X-Received: from pldu13.prod.google.com ([2002:a17:903:108d:b0:2db:4e23:16ee])
- (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:902:ebc8:b0:2d8:d4d0:792f with SMTP id d9443c01a7336-2dd6c76cee8mr56584075ad.19.1789397358517;
- Mon, 14 Sep 2026 07:49:18 -0700 (PDT)
-Date: Mon, 14 Sep 2026 22:49:10 +0800
-In-Reply-To: <20260914144910.931518-1-stanleyjhu@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xrh5nycr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F1861F00893;
+	Mon, 14 Sep 2026 14:50:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789397436;
+	bh=DdSX/wEBxUG3+6tT6fIjeyRChWGrmi9MuX4lYifuSLI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Xrh5nycrsmxLdc0/rrB872qvYgTBBsiopVxuoL0Eg76RwQd4wfl7SIELOttWi7vbf
+	 67u945e7BRvfzE1fM69NYRvHQ6om7BFeIp5Axac812YZKEsAioBldiq8FFK6VeO0jr
+	 BWNIimoefN9o7bUuSaYhqlAbZc3jaMMFWlVDrsuBXMOp7bKpdducaLnmKclQ3Ap35H
+	 lPDa3GSujp4JT3vIIiFJ9yuMBzF/cu2rObi4GDzzbloWSDcJk0W4KOLExovapM+7+I
+	 p3NMtyfiLm2goxQuOR042ubCTl0Nn1hsBA/gB4QoXl1xeNoPG2O3jst4eO/QO20/Qy
+	 DBt6n7R3GJiNA==
+From: SJ Park <sj@kernel.org>
+To: SJ Park <sj@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Brendan Higgins <brendan.higgins@linux.dev>,
+	David Gow <davidgow@davidgow.net>,
+	David Hildenbrand <david@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Michal Hocko <mhocko@suse.com>,
+	Mike Rapoport <rppt@kernel.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Sang-Heon Jeon <ekffu200098@gmail.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	damon@lists.linux.dev,
+	kunit-dev@googlegroups.com,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: Re: [PATCH 0/6] mm/damon: misc improvements in tests and documents
+Date: Mon, 14 Sep 2026 07:50:27 -0700
+Message-ID: <20260914145028.94705-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260914141952.91465-1-sj@kernel.org>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260914144910.931518-1-stanleyjhu@google.com>
-X-Mailer: git-send-email 2.55.0.1007.g17ff1f9808-goog
-Message-ID: <20260914144910.931518-4-stanleyjhu@google.com>
-Subject: [PATCH v5 3/3] scsi: ufs: rpmb: Drop the unregistered ufs_rpmb bus
-From: Stanley Jhu <stanleyjhu@google.com>
-To: jenswi@kernel.org, mkp@kernel.org
-Cc: gregkh@linuxfoundation.org, arnd@arndb.de, bvanassche@acm.org, 
-	avri.altman@sandisk.com, alim.akhtar@samsung.com, beanhuo@micron.com, 
-	can.guo@oss.qualcomm.com, ulfh@kernel.org, linusw@kernel.org, 
-	shyamsaini@linux.microsoft.com, alex.bennee@linaro.org, 
-	James.Bottomley@hansenpartnership.com, linux-scsi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Stanley Jhu <stanleyjhu@google.com>, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-ufs_rpmb_probe() assigns ufs_rpmb_bus_type to dev.bus, but that bus is
-never passed to bus_register(). bus_add_device() used to return success
-and leave such a device off the bus. UFS RPMB therefore registered from
-v6.19 onwards, with /sys/bus/ufs_rpmb simply absent. Since commit
-36f35b8df697 ("driver core: reject devices with unregistered buses") in
-v7.2-rc1 it returns -EINVAL instead, and device_register() fails:
+On Mon, 14 Sep 2026 07:19:45 -0700 SJ Park <sj@kernel.org> wrote:
 
-  bus_add_device: cannot add device 'ufs_rpmb0' to unregistered bus
-  'ufs_rpmb'
-  ufshcd 0000:00:02.0: Failed to register UFS RPMB device 0
+> Add various improvements to DAMON tests and documents.
 
-ufs_rpmb_probe() unwinds on the first failure, so no region registers at
-all and /sys/class/rpmb stays empty.
+Sashiko found no blocker for this series.  Sashiko send its findings to damon@
+mailing list [1], and I reply those if anything needs to be clarified.  Please
+refer to those for details.
 
-ufs_rpmb_bus_type declares no .match and no .probe, and no driver binds
-to it. RPMB devices are exposed to consumers through /sys/class/rpmb/,
-which rpmb_dev_register() already sets up. Drop the bus rather than
-register it: device_register() works with dev.bus left NULL given a
-parent and a release callback, both of which ufs_rpmb_probe() sets.
+[1] https://lore.kernel.org/damon/
 
-With the bus gone, on a device advertising four RPMB regions:
 
-  ufshcd 0000:00:02.0: UFS RPMB region 0 registered (capacity=32)
-  ufshcd 0000:00:02.0: UFS RPMB region 1 registered (capacity=32)
-  ufshcd 0000:00:02.0: UFS RPMB region 2 registered (capacity=32)
-  ufshcd 0000:00:02.0: UFS RPMB region 3 registered (capacity=32)
+Thanks,
+SJ
 
-/sys/class/rpmb then holds rpmb0 to rpmb3, and unbinding the host
-removes them.
-
-Fixes: b06b8c421485 ("scsi: ufs: core: Add OP-TEE based RPMB driver for UFS devices")
-Cc: stable@vger.kernel.org
-Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
-Reviewed-by: Bean Huo <beanhuo@micron.com>
----
- drivers/ufs/core/ufs-rpmb.c | 5 -----
- 1 file changed, 5 deletions(-)
-
-diff --git a/drivers/ufs/core/ufs-rpmb.c b/drivers/ufs/core/ufs-rpmb.c
-index a3e43902bf08..ad3e8b054dc6 100644
---- a/drivers/ufs/core/ufs-rpmb.c
-+++ b/drivers/ufs/core/ufs-rpmb.c
-@@ -28,10 +28,6 @@
- #define UFS_RPMB_SEC_PROTOCOL		0xEC	/* JEDEC UFS application */
- #define UFS_RPMB_SEC_PROTOCOL_ID	0x01	/* JEDEC UFS RPMB protocol ID, CDB byte3 */
- 
--static const struct bus_type ufs_rpmb_bus_type = {
--	.name = "ufs_rpmb",
--};
--
- /* UFS RPMB device structure */
- struct ufs_rpmb_dev {
- 	u8 region_id;
-@@ -206,7 +202,6 @@ int ufs_rpmb_probe(struct ufs_hba *hba)
- 		ufs_rpmb->sdev = sdev;
- 		ufs_rpmb->region_id = region;
- 		ufs_rpmb->dev.parent = &sdev->sdev_gendev;
--		ufs_rpmb->dev.bus = &ufs_rpmb_bus_type;
- 		ufs_rpmb->dev.release = ufs_rpmb_device_release;
- 		dev_set_name(&ufs_rpmb->dev, "ufs_rpmb%d", region);
- 
--- 
-2.55.0.1007.g17ff1f9808-goog
-
+[...]
