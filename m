@@ -1,154 +1,72 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com [209.85.161.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E53B3471402;
-	Mon, 14 Sep 2026 15:45:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 231E447279C
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 15:46:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789400753; cv=none; b=VrEFgQ2Y90QtHDQtC6zF0u8eqxWIYyEMz8sWGDaLSAh0mvKDrL2TV/Hoju65h4l2OaXgbsguwrCrBnwcUPmbOI9s/2wT0N+uZXJQksuhPFoTslSmEJrjCgkkN7qTHZpWer1yQZyOTL60tL6z8O3opgHObVf19MYy+47f5iXiW1s=
+	t=1789400765; cv=none; b=fquQ/u/6QnJAq0I/4DRIdosIj0JnSAK/cPDZeVUPU0iI4e+hfyCHymAgrCM7uKxvMFuDKtTY+kwspISxtQros328NzTogsbQaIK35iZS+RwOlBbb6ok0FeCE03NVWnev/MDDtwcQecMWR/tkfHHE51LZUl4UZwGjtiomt9Vhmkg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789400753; c=relaxed/simple;
-	bh=mn85R6gn5joqfq/27Ylll0IG4HweQE6I1R4zABXCi7o=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=maonzAqV9iSDIVxcqLT/hGQkU3BfpcUcMFsLNbmMMQupO/0NInvPTLExZCXfZToTylN2gmUPeyQOQ+ZXiDUIsFGS14hGKs+a3zMvi7fCbS0UH73fMHhZ/OHqt/9uw6hMsmbr49k7l1X7lJ2oLERc5fGpd+P5+R3bmSew9FKp6gM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XzR7Lrfj; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XzR7Lrfj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 296CE1F000FF;
-	Mon, 14 Sep 2026 15:45:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789400751;
-	bh=nDX7JZqoWhgFQgfHCxZfacjrtDXYvoz5wh0AP6O1u2Y=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=XzR7LrfjtoVwE2o58UzBkJqtRP246P40wXSftVMsisZuXYyxxdcfo2PUiKQAkSkF1
-	 55OYhi++y/BbzhG7pbIM+c/viVYAO3Va9RCwBSmThkywEKxDitfx2zEYz90ES6Tahw
-	 R5L4IScN9YlulQigXN5JVBjtTKewUbzUTH2/tjPJcCiryzt8Hpz+4kEWRvZ9subgzv
-	 wjbKVGWIqhhqsTS4opzHyDSq7lSAGSjMiQfTB+4TYMt/HPky40mAmTTZ/xdfwoJ8In
-	 r6PhKBiWuXP0IwZ0HkHuHNKE7GNJUNGtHAiTZxE9vkGhW8b+1eAdBqQLS63bDUMmK8
-	 dbyCeZsUlL3WA==
-Message-ID: <f2186082-8799-4eb6-8e0e-2b2036578661@kernel.org>
-Date: Mon, 14 Sep 2026 17:45:43 +0200
+	s=arc-20240116; t=1789400765; c=relaxed/simple;
+	bh=2fBmMwH2Ih/hZFqNPhgnXzEqop2XyTKVfWdlfW6ehys=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=Qr1v4pczfU+Z+Oq7AdoWCn3bf8a8Z7QKtE1rZLBzO6eu4hSBEQUkSpCZykkKUJizLZmHe9m+n6r048hMPI6I/6t01Gek4NKykiw4eIYdww1HH5bIqmnrx4iCszMq+TX+YQ3v7oWvDT/AV8pQ3sFGBUK5/oW6cZCbY2yTUmuISh0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-6be260da3fdso3805698eaf.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:46:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789400763; x=1790005563;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=4cDw45+0zaQYdhq4ainOY0iQXXHCxIFKqVl7CfSJk5o=;
+        b=Yu34fLDhqfTqAWwB/FlhychGXkdLNXDl/Gi8QnlKfvXJ7HZNxSynHqwKHq69/LGq0Q
+         ngUcidh4adiV3ma4nSL3kfTIREYNG13kpOAK96sk3rKwHS1Z63+33xBWj81Zn19rQ5Ho
+         50xlpVCyhMiTa8MMysBKjhmZrYoJL2iy2EYjZdm+ED6R/8KVHYfTbvrOmST1SGC2EGhp
+         uGsEN/SVClGIdmmETaHuIjqIqdOA6/kwADlTC0NJF4LslKtNmJultptMo3D2Wwqe5efU
+         93mMcv5wHf9hOXyanDaSoTD4hLzh8pbwKzPUijYpCxkHGsuWmRKMn8UB7P3MfFNCR089
+         fwEA==
+X-Forwarded-Encrypted: i=1; AKwUvBxBpTbje+X5nfWtal8Rsl2HK2AF/0ZeCsT1sBe31oUzSrIalMG626+1QN8mG3iezc2HVrQGOUkl9tmsWUM=@vger.kernel.org
+X-Gm-Message-State: AFuF++kUkYBPJb977UfLxP9j1D+nkNney1EaGP4BAaQ23vxkmrgy8yuH
+	BwcT5ZuvIhCedm2BD5+i03KrPykBs1+Sefwj2RLarN1n4o3H+eFulendWVpTuGRATKqLMRwJ4Sa
+	yitEu4P4r5WrjAA9DXsWgc9T+luKeaAAJmza5kxN8RyCf6bd2oPbmzyj6jyc=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/6] ASoC: meson: add audin main module and I2S formatter
-To: Valerio Setti <vsetti@baylibre.com>
-Cc: Jerome Brunet <jbrunet@baylibre.com>, Liam Girdwood
- <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260912-audin-v1-0-7fbefe928711@baylibre.com>
- <20260912-audin-v1-2-7fbefe928711@baylibre.com>
- <20260913-inventive-millipede-of-certainty-dd58ce@quoll>
- <964d6626-202c-4d0a-aef2-86a383f405ab@baylibre.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
- /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
- s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
- EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
- rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
- DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
- IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
- vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
- oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
- sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
- vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
- Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
- BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
- 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
- f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
- WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
- XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
- IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
- YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
- p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
- GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
- YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
- vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
- ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
- QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
- +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
- wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
- c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
- K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
- n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
- qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <964d6626-202c-4d0a-aef2-86a383f405ab@baylibre.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6820:610:b0:6b3:b9d1:f629 with SMTP id
+ 006d021491bc7-6c5429335d7mr2612267eaf.31.1789400762879; Mon, 14 Sep 2026
+ 08:46:02 -0700 (PDT)
+Date: Mon, 14 Sep 2026 08:46:02 -0700
+In-Reply-To: <6aa7e616.0d1f51e9.2e6de3.473fSMTPIN_ADDED_BROKEN@gmr-mx.google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa816ba.4c28b7d0.c1bba.001e.GAE@google.com>
+Subject: Re: [syzbot] [jfs?] UBSAN: array-index-out-of-bounds in dbFindLeaf (2)
+From: syzbot <syzbot+1afe7ef2d0062e19eeb3@syzkaller.appspotmail.com>
+To: jchuang26@m.fudan.edu.cn, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 14/09/2026 15:14, Valerio Setti wrote:
-> Thanks for your review and feedbacks.
-> 
-> 
-> On 9/13/26 11:41 AM, Krzysztof Kozlowski wrote:
->> On Sat, Sep 12, 2026 at 12:14:32AM +0200, Valerio Setti wrote:
->>> +static int meson_gx_audin_probe(struct platform_device *pdev)
->>> +{
->>> +	struct device *dev = &pdev->dev;
->>> +	struct resource *res;
->>> +	void __iomem *mmio;
->>> +	struct regmap *regmap;
->>> +	struct clk *clk;
->>> +	int ret;
->>> +
->>> +	ret = device_reset(dev);
->>> +	if (ret)
->>> +		return dev_err_probe(dev, ret, "Failed to reset device\n");
->>> +
->>> +	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
->>> +	if (!res)
->>> +		return dev_err_probe(dev, -EINVAL, "Failed to get memory resource\n");
->>> +
->>> +	/*
->>> +	 * Do not use devm_platform_ioremap_resource() here: it would claim the
->>> +	 * whole AUDIN window exclusively and the FIFO children would then fail
->>> +	 * to request their own sub-ranges.
->>> +	 */
->>
->> And this should point you that child is not a separate device.
->>
->> Please open your datasheet and read what is the address space of this
->> device. You claim here ENTIRE address space. If you insist that entire
->> address space is not owned by this device, then you misrepresented
->> hardware in the DT anyway.
-> 
-> As I mentioned in the cover letter I designed it this way so that I 
-> could easily re-use the same driver code for all 3 FIFOs just offsetting 
-> the base address. I knew it was a bit hackish a solution, but IMO that 
-> was worth it since it was simplifying a bit driver's code. Perhaps it 
-> was more software-oriented rather than hardware related.
-> The other possible approach is to fully copy what AIU is doing and 
-> allocate each FIFO as a DAI. I'll follow that design then, but if you 
-> have any better idea please let me know.
+Hello,
 
-Do not design hardware description - so DTS - to facilitate your driver
-design. Specifically requested by writing bindings.
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
+Reported-by: syzbot+1afe7ef2d0062e19eeb3@syzkaller.appspotmail.com
+Tested-by: syzbot+1afe7ef2d0062e19eeb3@syzkaller.appspotmail.com
 
-Best regards,
-Krzysztof
+Tested on:
+
+commit:         f0b9d8eb Merge tag 'nfsd-6.19-3' of git://git.kernel.o..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=160a8df9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=8e9663b61025701e
+dashboard link: https://syzkaller.appspot.com/bug?extid=1afe7ef2d0062e19eeb3
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=16f29c8e580000
+
+Note: testing is done by a robot and is best-effort only.
