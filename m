@@ -1,153 +1,128 @@
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4771C3BFE52
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 15:24:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DFAC49B5C5;
+	Mon, 14 Sep 2026 15:24:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789399443; cv=none; b=TsjcdOE2a4sA3SC0Kkfv/6QF89gRs1OUoJMFbSvV7vxAqn2dmqnXRc/UycGq/vADfCkUNWKbUQr4w3GeL3sONx7FbNt/JRK9c0+/Eo4yRX13FQfagQ6TEm8dHjY245o3i38i9d2N/mUXSm8lULzEEtk9enSuKtvNZSmwrgCZkAQ=
+	t=1789399496; cv=none; b=qXg1hoyTWZMLDPmGWUGAC5o82I3HUrXQnKSYixtpHPPzTb/zyAmJ6iX1Wck0AHm18s/dUTl79HdS3/HsGpB9n6C2mppXMM+1Y/NfVzOcEHwBCLfUjlde7eutABbT5wdFyqSR+DRprAiRD9qvjG/UXwzWzMJ8kPU1Z+3VPy/d3hE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789399443; c=relaxed/simple;
-	bh=Dp1r9+b5Hs9Uh3OVe9GcXcWDzCu2xvMsVrqQUoo0b6k=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=EoD5/ieryi9ZmHeVIroT6/XASUM+0/cVXFRcXOG0QmOl6QhexkKjDt64mUH+SP2Xb9Q1YvmUUpAcx1Op/oRUY+f1S3Z4IfgvXjMDDfSINvP2P8jy+5FyK/IUmsNVuRHPg9Z/8r5OQMBzbRj/RV6zxaXGp+p8ulTaFbtxIHrtc14=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=rSgclG00; arc=none smtp.client-ip=209.85.210.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1789399496; c=relaxed/simple;
+	bh=jfKIlrnTmBvLbSkuzoW7nwMNniJMwOJsHByASfjaE18=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lXc0xh2RcYDd5bfQFuX2s5yepb0vle9QSTd3kGa+HjuhzDwtW4S+7BmBdED/ZsvocwbfYFjirKbse/apAwgYghbwgclv83Tue1+T9n1DGpjo/YBPaDyu16uQtNg3hdUYhnNv3moTRwBCzj2Zba9WHVUVLwPhkzPEFuy7MSYWvZg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D6by0sBS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="rSgclG00"
-Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-86a0dc7f26cso5165468b3a.3
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 08:24:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789399440; x=1790004240; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=PBy5/r8Ty8ZUvAoaRhMuHW5wuQOXtAxIcP8jqfHdgR8=;
-        b=rSgclG00ZsR0FrRm5TmrmODSdbg2tgsyxnzBA9N04AlBVkBR4cqdMC6VTQocHYjDwK
-         LIfGkKKIKnBUEg0gLVWsH5Qy9LsBy0zBBIRoQ7vAj1O8MK7mHcxn4Y7XyBkbO2diL0MB
-         4TMRbLzrQhHNIL+THKaF3F2YkWfl9fkibi9XL9iJAj6ETHKpDKii5XoYN7eqRlHTEQD2
-         AntXot+C9m/A4pdIyWqJ6rGP/PrHci7TiPEax3l7ZpGI8RV2Te+aQwr4Orb+a2myb8Q2
-         wP3MiArneieywivkDqceVKdbB9NwPe3iBDBnvRGxh4Htn8QHhThEaT99zJX+gxIcIY3U
-         G9qA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789399440; x=1790004240;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PBy5/r8Ty8ZUvAoaRhMuHW5wuQOXtAxIcP8jqfHdgR8=;
-        b=h4KEO/6FXXO1vkP73HxexcxzSxb19ixvtLEZLKTanIYYNMPatjVIZbxbKB7GOdp1aS
-         ZZHSNVw3Ptdl8C/ZSI+xl2PE+hv1ER5Phh2XxTjO+d7oyuebDFXBKnOjW5rL9pz/AjP3
-         xKMmUgTOATpU+vpvdTGtQM3gbDTYCcHKWnv/Bkh2tWLvFjRyiuVqRdinkx3mf3p8KE3X
-         dyahkRjjff6uU8FIoy1Afr04AhgD6VNUsVH2Qe51HAAFxthX7WrxRW+fOOpoIp2G9Q09
-         HUahwLPgtA20+N+6AIXbVwkrQc4lDmRN/WMacqSDSWhavgM2dyVGEvs7p1WCkjBcGRL6
-         SE6Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxy8VjdaqCF6RmG36YQtVpCzbUCc95JgHplttgMU5sJqhIZZStKTwiFaWwbwmQOGpdypzxqWLjmh5uWdPs=@vger.kernel.org
-X-Gm-Message-State: AFuF++nM/q+dkDeBg2Yia3nK9ELZw6brlG5zQgUus4+8EDo18+Wc7DHV
-	GJqiZOUlvdQ8T9uK5bFTMrVhBm5+ScnIuLwlQIYDtD69kPnACiBkvB+vgDgNcTKITtsd0oFgfBS
-	PJUNmmQ==
-X-Received: from pfgf9-n1.prod.google.com ([2002:a05:6a00:c589:10b0:84a:3ba8:3bf2])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:1791:b0:86b:43f6:67b7
- with SMTP id d2e1a72fcca58-86f82e5c9admr5856724b3a.4.1789399440212; Mon, 14
- Sep 2026 08:24:00 -0700 (PDT)
-Date: Mon, 14 Sep 2026 08:23:59 -0700
-In-Reply-To: <20260914143702.915401-3-aharivel@redhat.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D6by0sBS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D28771F000FF;
+	Mon, 14 Sep 2026 15:24:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789399495;
+	bh=WL86cKdk/ZUM1qTOZj4B+L+bc1frQqDRCUlhlSxv/JQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=D6by0sBSuPsWnPY/q+3+4xxuX6qvTRutko6G8MFgm2Cgx7icFf77LFko08xgOogFa
+	 Q7hoHM9IO7d/MfeE/M35aFQUHhgNS8dCHhTb2vdRWWhepoRdkSG+3aIrGEpcO2uL1O
+	 SGeyDR+u4PbiXRNjfxFaz4YYPqI/uqF6Q1hTc37azbSMl2Z+PG2xV7V/wVVpLW1+5N
+	 jKCFeGb0EYtA5i/SCA7hk6dbkuVRO9cq3VEyZas+X47IL8Eijo12e4khM0fl5mUJV2
+	 Hg+16wB7QyUOYfGnlM4ppjr1ZK+lmVnEEdNmQ/oqGVaJ3hUpBtr7eI85g02Pn16I33
+	 zLHsGFg95m+vg==
+Date: Mon, 14 Sep 2026 16:24:41 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: John Stoffel <john@stoffel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
+	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, Masahiro Yamada <masahiroy@kernel.org>, 
+	Alexey Gladkov <legion@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Arnd Bergmann <arnd@arndb.de>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	Gary Guo <gary@garyguo.net>, =?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, Jonathan Corbet <corbet@lwn.net>, 
+	Randy Dunlap <rdunlap@infradead.org>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	llvm@lists.linux.dev, linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+	linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v2 11/21] kbuild: avoid re-running compiler and linker
+ probes
+Message-ID: <aqgRXk6DXyAah488@gremlin>
+References: <20260914-build-speedup-v2-0-39817ec5db23@kernel.org>
+ <20260914-build-speedup-v2-11-39817ec5db23@kernel.org>
+ <27304.3198.867048.379684@quad.stoffel.home>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260914143702.915401-1-aharivel@redhat.com> <20260914143702.915401-3-aharivel@redhat.com>
-Message-ID: <aqgRj7mfDhCUqWw4@google.com>
-Subject: Re: [PATCH RFC v3 2/3] KVM: x86: add KVM_CAP_CSTATE_POLICY for per-VM
- C-state enforcement
-From: Sean Christopherson <seanjc@google.com>
-To: Anthony Harivel <aharivel@redhat.com>
-Cc: kvm@vger.kernel.org, pbonzini@redhat.com, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <27304.3198.867048.379684@quad.stoffel.home>
 
-On Mon, Sep 14, 2026, Anthony Harivel wrote:
-> Add a new VM-scoped capability that allows userspace to set a maximum
-> C-state ceiling for host cpuidle when vCPUs halt.
->=20
-> When a vCPU enters kvm_vcpu_block(), KVM temporarily disables cpuidle
-> states deeper than max_cstate on the current pCPU using the existing
-> states_usage[].disable mechanism (CPUIDLE_STATE_DISABLED_BY_DRIVER).
-> After wakeup, the original disable flags are restored.
->=20
-> The capability follows the same pattern as KVM_CAP_HALT_POLL:
->   - VM-scoped ioctl via KVM_ENABLE_CAP
->   - args[0] =3D max_cstate (-1 to 6, -1 disables the policy)
->   - Re-callable at runtime without VM restart
->   - Memory ordering via smp_wmb/rmb
->=20
-> This fills an operational gap for NFV and latency-sensitive deployments
-> where the host operator needs per-VM control over idle depth without
-> requiring guest cooperation. The enforcement is scoped to pinned-core
-> configurations where the disable flags do not race with other tasks.
+On Mon, Sep 14, 2026 at 11:02:22AM -0400, John Stoffel wrote:
+> >>>>> "Lorenzo" == Lorenzo Stoakes (ARM) <ljs@kernel.org> writes:
+>
+> > Each kernel make invocation begins with ~30 compiler and linker runs each
+> > of which performs duplicate probe for a number of compiler and linker
+> > options.
+>
+> > This is useless work - the compiler and its version is known, so use these
+> > to determine which options are available, once.
+>
+> > A convention already exists for this - CC_HAS_xxx, LD_HAS_xxx in Kconfig
+> > files (for example, CC_HAS_COUNTED_BY), so convert these probes to Kconfig
+> > options where appropriate.
+>
+> > This change avoids a sublte issue with ppc32 (big endian) - clang doesn't
+>                        ^^^^^^
+>
+> subtle
 
-Sorry, NAK, this doesn't belong in KVM.  Given that the only way this can w=
-ork
-is if vCPU are pinned 1:1 to pCPUs, then it should be very doable for the c=
-puidle
-subystem to provide an interface to let (privileged?) userspace restrict th=
-e
-maximum C-state on a per-CPU basis.
+Oops!
 
-My apologies for not responding to v1 or v2, I am guilty of Jim's axiom tha=
-t
-upstream doesn't respond to RFCs without code.
+I love that I ran this through AI review several times and it missed
+something as simple as this :)
 
-Pulling in the other options here:
+>
+> > accept -fno-stack-clash-protection on this sub-target, so keep this option
+> > in the Makefile.
+>
+> > With gcc and clang, defconfig and allmodconfig, the recorded command
+> > lines are unchanged, a build with nothing to do rebuilds nothing and W=1
+> > continues to function correctly.
+>
+> > Doing this improves all builds, but has a particularly positive impact on
+> > no-op builds (builds where nothing has changed).
+>
+> > Whole build, 128-thread Threadripper 9980X, best of N runs:
+>
+> >                                          before   after     delta
+> >                                          -------------------------------
+> >   x86 defconfig, no-op make, gcc           0.78s    0.60s    -0.18s (-23%)
+> >   x86 defconfig, no-op make, clang         0.94s    0.66s    -0.28s (-30%)
+> >   x86 defconfig, touch mm/vma.c, gcc        8.6s     8.5s    -0.16s (-2%)
+> >   x86 defconfig, touch mm/vma.c, clang      8.0s     7.7s    -0.24s (-3%)
+> >   x86 defconfig, clean, clang              29.8s    29.4s    -0.37s (-1%)
+> >   x86 allmodconfig, no-op make, gcc        12.9s    12.7s    -0.23s (-2%)
+> >   x86 allmodconfig, no-op make, clang      14.2s    13.9s    -0.29s (-2%)
+> >   x86 allmodconfig, touch mm/vma.c, clang  32.2s    31.9s    -0.30s (-1%)
+>
+> Are these deltas just per-patch, but cumulative with all the previous
+> patches applied?
+>
 
-+    The enforcement point is kvm_vcpu_halt() =E2=86=92 kvm_vcpu_block() =
-=E2=86=92
-+    schedule() =E2=86=92 cpuidle. The problem: cpuidle has no per-task
-+    C-state constraint. states_usage[].disable is per-CPU, and
-+    forced_idle_latency_limit_ns is also per-CPU.
+Per-patch. I let the threadripper do builds for a LONG time to accumulate
+these... :)
 
-I don't understand why per-CPU controls are a bad thing.  A task-based sche=
-me can
-really only work if vCPUs are pinned to pCPUs, i.e. you effectively need pe=
-r-CPU
-controls anyways.  And explicit per-CPU controls would allow for more relax=
-ed
-scheduling too, e.g. would allow affining vCPUs to a set of pCPUs without n=
-eeding
-to have strict 1:1 pinning.
-
-+
-+    Three options I see:
-+
-+      Option A: Temporarily toggle states_usage[i].disable on the
-+      pinned pCPU before/after kvm_vcpu_block(). Set
-+      CPUIDLE_STATE_DISABLED_BY_DRIVER for states > max_cstate,
-+      restore after wakeup. Simple, works with existing API, but
-+      only correct with dedicated pinning =E2=80=94 overcommit with mixed
-+      policies would race on the disable flags.
-+
-+      Option B: Use forced_idle_latency_limit_ns on the pCPU.
-+      Same per-CPU limitation, and latency-based rather than
-+      state-index-based =E2=80=94 less precise.
-
-Conceptually, (b) seems like the right approach.  Per-task will be a mess b=
-ecause
-similar to a KVM-based interface, it can probably only work if tasks are pi=
-nned
-to pCPUs.
-
-And isn't abstracting away the exact C-state via forced_idle_latency_limit_=
-ns a
-*good* thing?  Without that, userspace will need to tune its configuration =
-for
-each individual uarch based on the properties of various C-states for a giv=
-en CPU.
-
-+
-+      Option C: Propose a new cpuidle API for per-task idle
-+      constraints (e.g. a per-task_struct annotation checked by
-+      the governor during select()). Correct for all cases, but
-+      bigger scope and needs cpuidle maintainer buy-in.
+--
+Cheers, Lorenzo
