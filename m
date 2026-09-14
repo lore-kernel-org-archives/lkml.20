@@ -1,136 +1,113 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com [209.85.128.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AFDD493D32
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 17:13:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ADDC493D37
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 17:13:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789406001; cv=none; b=rrsr+hD14Pw0ueu8PgF9D3BIYKYga3ZjUMN6hgMVwRwUhWFbfAG/B+/YiecKl+C7T078quF8RLaIllPQ6430oQjJuiQ9ARrXOQjoXPPVPjdl2ArvjhvJPU9j90hdCaTI2TP5Ib/o0k6f/APyQSYVYo1AoKKCxLoMqiiAYCN35Ag=
+	t=1789406028; cv=none; b=n5ZEDqrB51NQZkI9K6rd9DIqiJuO+b/rs6Nf/eM59lYeaFa2G7mGIc0jvY973sJZLsspP8pdS4RyXeABeahXLNrAHdWfxJTXim+mLGe7pERVu5unS11Wcwlzo6nbw/0ONwHSP8v9JnPmb1hzKvAjjy5ZLyqIJri1n8EhZKW5lss=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789406001; c=relaxed/simple;
-	bh=DWfd+OrYYBBAjoeKGlYddJuwoBUWlcnOVSA19p7gCPQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VgRYSDAdOhQbH66t6DbCpQEM8k6MoQspkEtsfsQL18qMkalibG9gIr5Evr9WCM7o/cQHZnlMdiKoexKkVDFDW/nQSL/SVCWvjmv4RfDASWscOP0fSjKifHxqAOY8CPW6xR/AuC6zBDndcDckGC7KnjGVj4tLc7CWtYNDAKRHyFA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MFRnhab0; arc=none smtp.client-ip=209.85.128.47
+	s=arc-20240116; t=1789406028; c=relaxed/simple;
+	bh=uLTJwvuhHJuRdXlB1C8pmGPIC2/l0e58nI7GsoLCsMs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WJImzMT7vr7DhYZ3ZjuNgkQ5FQlrE6qEe8muH3RtX5HpojEtUDZEt7sTpm6eJA9P3kfof8sMTC+x78qmTXfTlDqgLrf9POBaLPdfllqAa2WOwu8eQXurX6rFZPd/Xf1Bnmo2Mu6hPug/SLdl01kEwsghqlLeMZtVwXOGdo4w9ZU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Nc84pUQX; arc=none smtp.client-ip=209.85.128.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MFRnhab0"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49e78adf099so16629135e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:13:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Nc84pUQX"
+Received: by mail-yw1-f174.google.com with SMTP id 00721157ae682-861a2ae9c51so32136387b3.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 10:13:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789405997; x=1790010797; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=b+lHxHvQW6ptoO5MEGq5MTyGK+6vHvFuZMkZJq4Ndzc=;
-        b=MFRnhab0hntRf3ahIUL7wo8NO040OIvRogUEtdFVo5Nwzda2TxxX+GMt2UJpWJmWSu
-         Mzvfa2b+TAPy2v3XccD8smBuVpMu3aA8MnscuWlty7Vif266e0Qt2sHReOST2yhq0zBk
-         NKJwrOlBWXjWRm/jl7visdu6zMyfwDnPOW/HYfgxWuY+3zbY+EnptwdRNxqQHQCfedVH
-         kNkdmetUgF8RBD4bfBInEvRgFOfrK3s0X8MtuZETdqJbbBj5CIi/NNWtS25xK/JIGLno
-         VAg65NrBfqvdDs8n7vIxAsMaJdxkay2oAEaGI5sTu8rOJVDMVnWP/HMz2L+QStne0OGg
-         PvCQ==
+        d=gmail.com; s=20251104; t=1789406026; x=1790010826; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ovEgINGmapqd39G2xDwqgD2EjPG8Mps/2I0DRD6EygU=;
+        b=Nc84pUQXTCBvmG8TuYlKy9cP9R5q8sMN+ygEmfqCIw/5F4Dvc709PTAofOPxe+rRFx
+         IZcylKrOoPm4Szlc8GwV/3sp++oiTgwH98v2jy+VOKf1dIR1WIDSxYx3zIWHQUZfLR1r
+         SnnfE7IDp4DQltVebKfQGchmacxRPpVLttlXZvnxxIMOphJhIKpLi78p2L2e6BErfGT7
+         tjwXpabW0kpr5moKngjSow6kWYeRWMD6eMnneyAjo3wjjmbRCraclqfonuFz899uUCJr
+         WaGeLyQoCMkSX3priKG+VejsHg5d8OfTrvHPqV+JfMEt/kalBCyd4hutRcaLnzwW/zDp
+         jEHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789405997; x=1790010797;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=b+lHxHvQW6ptoO5MEGq5MTyGK+6vHvFuZMkZJq4Ndzc=;
-        b=quomnKe2gyGzLFJ71nfIFozduJvD+SOuTkFzIrTIUHEkqUkOJkII1q2Ed/Vgj9KQ3y
-         C1LD5FkzQ8jbHUNLV5NxcTwvdrM42VjX5+eu4piVQLtgVqfBh1Vp5nS58FJiqFRNF08I
-         nL8EFyXscII9r2UjWHjfDR5n09eDanOAvC9dSA3PL+xLRDp5kC1+jZdjWozZWneycAoX
-         /EqWLhFYV5IiEeMg3eoiBrNRaCq8VTsw7pTHY2cGgssxTj+6aaltXjEWs2a99C3bCU/T
-         B92OgRqGpHF9SzLvGQUg5UFbR7OjhbqlfmR4N75uDVurOAyomArrgP40POwnkWotypT8
-         Us9g==
-X-Forwarded-Encrypted: i=1; AKwUvBxpY9lguVKgZ2lG4b6WK13nvDN4aptIYBnelJdV+Q/oW0/Ak+01rK0Sw2YvAMA9zR+2ygk+EFzN8v3mDU0=@vger.kernel.org
-X-Gm-Message-State: AFuF++m+7hxhkDSNUVqiarnRaejrfKqmGqy63oXFMX8AA86WK91NxJv3
-	/PURie64rdPMyNffp9WbqlYLt0ZrQMaWQCHIATedKrn6lUuEp/9tESFj
-X-Gm-Gg: AYBFou1XiCknUDPk1bU9Vwg+HwlFthRBxlioFKv8WZ9tjpIn1q2QCFuLMhMe4w9mKQy
-	ucku7Dj5GWoQp3i31rmTz90Hk91EjAV0CFOw+uzEBlGD+K0oRPRGI8i+B/Ngk5Z2MLSOTpfHXAS
-	UGCJ/zLpdrE39Eh2NiXq75krUEhXPMpw7JfX91Xqbq1cavMklQc/bkaF3cHo9uGvzVvtLbvLo5s
-	USnM+MZcxLSlxoQS5XgTfa/ZznMKYyeuo37qMmO3sA2OpDpBl9hnh8yf+3wsN1HtGcb+qlVh61F
-	aT6pdQWHwWTbL1a3+mnkh45hycjc6+JAZ0kIU2y5uJYRRv4E1BmBK54EUlIdqFJ3xAdHz1ZXek5
-	fMcnspEMFlHi0CJVNTgioef5D0KXwIc7QdvxTHydscRrADm8fN0FE0QFzHUQrvw97c8a7KsnnEi
-	VZt9T6gj+lDVXsty6PLZyEMRiFzG16TCew+GxgBpLbSHlTQmy1zkvvK0Q7lNUvSf5ZwcmRDWhzn
-	WpmXmA+gfScbhq19qnObpqP
-X-Received: by 2002:a05:600c:3585:b0:495:4d88:e630 with SMTP id 5b1f17b1804b1-49e7a64b723mr52892565e9.10.1789405996936;
-        Mon, 14 Sep 2026 10:13:16 -0700 (PDT)
-Received: from localhost (ip87-106-108-193.pbiaas.com. [87.106.108.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7d675a50sm6040645e9.9.2026.09.14.10.13.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 10:13:16 -0700 (PDT)
-Date: Mon, 14 Sep 2026 19:13:15 +0200
-From: =?iso-8859-1?Q?G=FCnther?= Noack <gnoack3000@gmail.com>
-To: Christopher Lusk <clusk@northecho.dev>
-Cc: =?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>,
-	=?iso-8859-1?Q?G=FCnther?= Noack <gnoack@google.com>,
-	Oleg Nesterov <oleg@redhat.com>, Jiri Slaby <jirislaby@kernel.org>,
-	Shuah Khan <shuah@kernel.org>,
-	Tahera Fahimi <fahimitahera@gmail.com>,
-	Paul Moore <paul@paul-moore.com>,
-	Casey Schaufler <casey@schaufler-ca.com>,
-	John Johansen <john.johansen@canonical.com>,
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org, linux-kselftest@vger.kernel.org
-Subject: Re: [RFC PATCH 0/2] Landlock signal scope and TIOCSIG
-Message-ID: <20260914.239dc75285d2@gnoack.org>
-References: <20260913221958.839429-1-clusk@northecho.dev>
- <20260914.b8a029f9abb8@gnoack.org>
- <20260914134013.1457130-1-clusk@northecho.dev>
+        d=1e100.net; s=20251104; t=1789406026; x=1790010826;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ovEgINGmapqd39G2xDwqgD2EjPG8Mps/2I0DRD6EygU=;
+        b=Gs4MvFMlkCloRQbBA0+oX2xOqaXawJC3EMOZrixbu8I20OYdDLVtFtWN5MXg4R3v5P
+         RADmRQL1zaKl3NwIzOfaA3bQ9vEA6SXLNF4EgGGKVc3GHRnC3lNr3Ad1/SwtG81/8wGE
+         AMs14Uzr5VpcY0AZtHWtAcJzo35Zeu6SsSbgc417zMMTa/TMJI+1SJO1HJXgty6FfHFG
+         RCd2EfO+hoTX0gi/aYYvpZUiuGGw0bMw7SzRuCEhblPb+GJrQXTjecq95dhfk3fR9K7V
+         bCEsdOdctmBwHiSb5wRh8oGaWQKQ+7as3EehzO5n1Rd8tdecGHLQngIHLizINoRPIySN
+         pP1Q==
+X-Forwarded-Encrypted: i=1; AKwUvBx8KWmmV3cYOoKqqRnKctXpnFjGjMsJMf4XX9fR85sU1aT7AcnZTB8RD31fY8qshyNf675K7yP0iQLRLGU=@vger.kernel.org
+X-Gm-Message-State: AFuF++liu9PA+SxijP2j8lAM+SdDxr0VJgjYmQGrWt5wBoKebo4kks0y
+	Ec2GGZBITaFfGld/ujYvt7iK4pG8zxAXGrfrptWP56/T0U+GDzm6gnct
+X-Gm-Gg: AYBFou33IjFwyrYp1r1Xxa0EUQ4os6fH+T47iucirS3Sh9PciNDsEwkEHw3XmI673E5
+	XWXKfq3IV3TCMVrVpcDO/y78Sr/ivi6HYsZwH0c25jgyydZIggN8TSDFctispmn3olrBTMeVx84
+	O6mrdasHXkx+mIMXJsKh51GvKufGQJuo3atSOB8jCAL3QwwxIyR83KUsiw09xQbvjFGfzKoqyAV
+	TPDOX7m0xW6MOqof1n+aWoOLB0p75yJZDHZvRR8FczGBqpiwpQe/HzdjqhUzWsr2R5EzeaeSNA3
+	2HxQqgw5Kx/SC9GaOb6cyeF5ie57MODZOcnD+GAEiOX5L/ssJhx0pb4xJ0ViEXmuNDokbcgONuc
+	Q+kcxYxhsHI4IP9OlsvQA8yc5rcxp5PpGCj/7+tOCNmmqAmZCeSlvlN6GZHcn7PdbdwCQeIKCBZ
+	zY0ItFYVEAuwDLwjuLKPxMuHn0WL6Ml9nz1k3VFs6FEx/HzlQi3qKAG5orBeWGDv8h33W9m5oCO
+	fQgJE3ebqASLJJfT8XJYlwz+A==
+X-Received: by 2002:a05:690c:12:b0:873:5bb2:6c23 with SMTP id 00721157ae682-88d22ece335mr12117147b3.42.1789406025821;
+        Mon, 14 Sep 2026 10:13:45 -0700 (PDT)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8847db4476bsm39563067b3.5.2026.09.14.10.13.41
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 14 Sep 2026 10:13:44 -0700 (PDT)
+Message-ID: <72168bd0-27ce-4bf7-82a1-0d1719ddc15f@gmail.com>
+Date: Mon, 14 Sep 2026 10:13:39 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260914134013.1457130-1-clusk@northecho.dev>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5.10 000/798] 5.10.270-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com
+References: <20260912065516.948645775@linuxfoundation.org>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <f.fainelli@gmail.com>
+In-Reply-To: <20260912065516.948645775@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hello!
-
-On Mon, Sep 14, 2026 at 09:40:13AM -0400, Christopher Lusk wrote:
-> Your capability framing convinces me.  Controlling who may attach to (or
-> open a master for) the PTY is the right layer, and the master FD is best
-> thought of as the capability, the same way socketpair() is.
+On 9/11/26 23:53, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 5.10.270 release.
+> There are 798 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 > 
-> You are also right that the series is incomplete as a fix: the same three
-> signals arrive through the n_tty control-character path (Ctrl-C / Ctrl-\ /
-> Ctrl-Z) that my patch does not touch, and PTYs additionally raise SIGWINCH,
-> SIGHUP and SIGCONT.  That reinforces your point rather than mine.  Chasing
-> individual signal-delivery paths inside the TTY layer is the wrong layer,
-> and a per-ioctl hook would only paper over one entry into a mechanism that
-> is working as designed.
->
-> One question, mostly so I have the line right in my own notes rather than
-> to relitigate: how do you see this relative to the SIGIO/fowner path that
-> 4b80320ca7ed brought under SCOPE_SIGNAL?  My read of the distinction is
-> that in the SIGIO case the sandboxed process unilaterally selects the target
-> by arming the owner, whereas here the recipients have voluntarily attached
-> to the terminal and the TTY driver delivers job-control signals over that
-> attachment.  If that is the intended boundary, it is a clean one, and I am
-> happy to treat TTY-driven signals as outside the guarantee.
+> Responses should be made by Mon, 14 Sep 2026 06:54:17 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-5.10.270-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-5.10.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-Yes, that is the difference why SIGIO had to be protected -- in the
-SIGIO case, it was the already landlocked process which could itself
-select the signal recipients through fcntl(fd, F_SETOWN, ...).
+On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
+BMIPS_GENERIC:
 
-In the terminal case, it is the TTY-client-side processes that select
-which processes are attached to the terminal.  With the PTY master FD
-alone, it is not possible to signal processes that aren't already
-attached to the terminal.
-
-
-> If it is useful, I would be glad to send a small documentation patch making
-> that explicit: a note in the SCOPE_SIGNAL / IPC-scoping section of
-> landlock.rst that TTY-driver signal delivery (TIOCSIG and the
-> control-character path) is not mediated by SCOPE_SIGNAL, with the practical
-> guidance to control PTY attachment instead.  I will drop the task_kill
-> approach.
-
-Thank you, I would appreciate that!
-
-Thanks,
-–Günther
+Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
+-- 
+Florian
