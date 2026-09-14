@@ -1,229 +1,266 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010026.outbound.protection.outlook.com [52.101.84.26])
+Received: from mail.zytor.com (terminus.zytor.com [198.137.202.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B27514446E9
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 16:51:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.26
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789404691; cv=fail; b=Jlp9z9XpKlE54fsdGVqLrVDVobMk+Tsz4zFUL46UhZGSBMZ1nscIsNbSdWJFWXqy5qeQSds87EssDkxsO8I/5SOXIQSBh2NQ0wLlvddbI9COT0WRavMbbaLYlvKI447yT0d+RYLieL4yN457w0ZwztZtgq0GTzUfDuz9A1+JNUY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789404691; c=relaxed/simple;
-	bh=fRoMKbHMRGQOmDZFj8Wk9UjnAkF5RSK4H6CkYyEpo/Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=dbc66bXkWQGc2FU9dG2BdVc3xjT43L5oAXzscVMN/Gr9jhSvO3zcN3jkzRUkajrxjOUKjIfbOhL/qRezgioEo1n/uUlg+jH+WgMaK4xZB2Vx7CJItFywHLnIgYYION6HXbPWiE36Qbu0fgxO+1l7nBSY+PqPyM/bJ8FR3K5T/GE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=D8MNRlas; arc=fail smtp.client-ip=52.101.84.26
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2635E48F844;
+	Mon, 14 Sep 2026 16:51:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.136
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789404702; cv=none; b=fvwOFpkxsaWWxkCuJD2CzYc+qM9TVDCqu0adhuVz2gOnVpGWOMKUv2RZ0LJvZOTbdM6OFt6iksFIi/DB5KEpGb2H9mXZ/V4yrOqIUeSXcH72XCkn6oyy4qEnCw/aD8s6TuZpj0SejqC152Vyln+otIDz7PTuuqLJqgT6ueMPhAI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789404702; c=relaxed/simple;
+	bh=uGY6NcMWNLywvTowFym9tgnQwZjzy9Owr6elQkyVpjk=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=YHt38HarHcVMVVkdicMBp8qgC602SZTn3JFkKHtL1QtKRSgvxLCk7fAKnLPH6iWK8+4qhL9JzUBO6xqYUrEARpB7lAi/YPmRHjidNMVsrU5duIlIW17YiO9IEr/FGjHo7TyQ+2wRhTUUlgUL7cf8lIT/D8ChUMG70y2OiSnggRo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com; spf=pass smtp.mailfrom=zytor.com; dkim=pass (2048-bit key) header.d=zytor.com header.i=@zytor.com header.b=UPqg+1WX; arc=none smtp.client-ip=198.137.202.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zytor.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="D8MNRlas"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XigGeLsbmMhKauahslkcIG3PcljGcNsuLK7Nn4hvACWfbqMUlrcz5yEVut8sMsC0zN3IJGGnynC/sD+llhewplk41pLC+/BpKEGR+6QKKVpHZSAYv5B7bH1eKtZ9dmVfICFG8/eiTv2Bz0ylINMqGt081EFFi/8kxQ2QmwgwbkugDLwg6nHrvkFtqN4VppvKOTpudnSvi8w0GFqVD1DyOuEnGCD71e55nBeXrtt6dwLDG4GLAw5TXLdeWxK8+npkxx81IPojpaQCK5xDwc3N5Hg9wots1UWmzZw9OWMvo5CowddqavstugrBrh7Oav6nGGEWUAHsUDmX3Vyy5SIPMg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Qu+p/CreV7P5UUPbysbFiWCcL4VTYVMfCNtJ3PX8XMA=;
- b=ozoKRWTtXiNVbhSAJseH34KcXlCRLCYaGgxOo5EIvnpQ2O+GqDWSGFZLEtKghLanrTAPs/oRS1gAmw7v0LKPseJejtHMtiMCPuFmt3DIjFNwRlPuu3OrDS+JMqqyy+rMgYk8FJL4cieKt1gffw2AppVf6EgKcoTKA/olDu7pbhopwDaWEcP7e8Bi9lGv9ld2+In7UOcXCsbZnPDBm9WMbfouHxKX+cNFOe1BCuExJ+MkYFd6Q/xfxM89hBWKVEzD39n0ETE+9K7MMxoB6ZNqxOoL5e3SijD9rCaIzVQBSKLH+YieK9OULAMr+apyoDR+QrevrKgxlnZUO5AeZEkFLw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Qu+p/CreV7P5UUPbysbFiWCcL4VTYVMfCNtJ3PX8XMA=;
- b=D8MNRlasT7kYz60l8jfSVTd6YoyE4Ta9pNapZqbyAqG8zl0pyGZc0J91oM8dKokgF8db4+4yorE9yIvHtHpf7+TBNcPOWKsk7PeNsfR0W80CJCb8eiV+g6/8ERlONhiZ6tTdJ046IsIOcIjK+hDG0tmZ3oDW/rv5WIB9eWHB4fsbWpPJIJO3+XU/Do+W/V0sperSpxtB7wRxlBp45a0QXyAkBFIEVpN5K8wqdxAuBi5mXBb/iRX3/JXOKE2WBFZtj7VQW2u1kvjadz77T792OSL6dYavBDW/enVdzwb6LHIjdi9rdqbPDpUpQSegPzqY8QED1wRG3QMaEMxsnnvkmw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by GVXPR04MB10994.eurprd04.prod.outlook.com (2603:10a6:150:224::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Mon, 14 Sep
- 2026 16:51:25 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
- 16:51:25 +0000
-Date: Mon, 14 Sep 2026 12:51:18 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Adrian Hunter <adrian.hunter@intel.com>
-Cc: alexandre.belloni@bootlin.com, Frank.Li@nxp.com,
-	billy_tsai@aspeedtech.com, linux-i3c@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 11/17] i3c: mipi-i3c-hci: Stop rings gracefully when
- suspending
-Message-ID: <aqgmBvo2EYMJk-Y0@lizhi-Precision-Tower-5810>
-References: <20260914113003.183150-1-adrian.hunter@intel.com>
- <20260914113003.183150-12-adrian.hunter@intel.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260914113003.183150-12-adrian.hunter@intel.com>
-X-ClientProxiedBy: CY5PR14CA0003.namprd14.prod.outlook.com
- (2603:10b6:930:2::19) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=zytor.com header.i=@zytor.com header.b="UPqg+1WX"
+Received: from ehlo.thunderbird.net (c-76-133-66-138.hsd1.ca.comcast.net [76.133.66.138])
+	(authenticated bits=0)
+	by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 68EGnuOe3963808
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
+	Mon, 14 Sep 2026 09:49:57 -0700
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 68EGnuOe3963808
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
+	s=2026082801; t=1789404601;
+	bh=chqvEsr84Q297eDSZWoD36RZB2nZvFGrsL9c2mf5qBQ=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
+	b=UPqg+1WX23h3Ki5DLrty1pJx1am44iqWHAyIVVRI9r5yZ0J2cNq/MctPf7fMKr0Nn
+	 1YGB5OcBbL6YqDk32/y1VC1DUpsxdZaJ0ojSZhe8qeiGwSjiIFm7smQ4QJ9Yx8iTtq
+	 wd3waGp1gGqIyiv10qjg0VAYZIm0gE18GeUOH4Gkf13htytTHq8YQMCf8LSqUnGWp4
+	 nnKj/qVbZk1Hye5oVOx7+nQyO8rNnREqM0BHrOWHcL7tICPNAhTMCN0lVlRsV1u+cB
+	 rC9NpgEtdZ5Cf1Ki4BlrNSpYuzW/XrLi2+rCMZx/UZOwL2EgCOj6sn9KaOggIsy0MH
+	 wSEhy1WjEjh3g==
+Date: Mon, 14 Sep 2026 09:49:50 -0700
+From: "H. Peter Anvin" <hpa@zytor.com>
+To: Kees Cook <kees@kernel.org>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+CC: Linus Torvalds <torvalds@linux-foundation.org>,
+        Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
+        Nick Desaulniers <ndesaulniers@google.com>,
+        Bill Wendling <morbo@google.com>,
+        Justin Stitt <justinstitt@google.com>,
+        Masahiro Yamada <masahiroy@kernel.org>,
+        Alexey Gladkov <legion@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+        Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+        Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+        Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+        Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+        Arnd Bergmann <arnd@arndb.de>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+        Ard Biesheuvel <ardb@kernel.org>,
+        Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+        Josh Poimboeuf <jpoimboe@kernel.org>,
+        Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>,
+        Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+        =?ISO-8859-1?Q?Bj=F6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+        Benno Lossin <lossin@kernel.org>,
+        Andreas Hindborg <a.hindborg@kernel.org>,
+        Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+        Danilo Krummrich <dakr@kernel.org>,
+        Daniel Almeida <daniel.almeida@collabora.com>,
+        Tamir Duberstein <tamird@kernel.org>,
+        Alexandre Courbot <acourbot@nvidia.com>,
+        =?ISO-8859-1?Q?Onur_=D6zkan?= <work@onurozkan.dev>,
+        Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>,
+        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+        linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
+        llvm@lists.linux.dev, linux-riscv@lists.infradead.org,
+        linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+        linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org,
+        linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
+        linux-hardening@vger.kernel.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v2_21/21=5D_kbuild=3A_use_pi?=
+ =?US-ASCII?Q?gz_for_gzip_compression_if_available?=
+User-Agent: K-9 Mail for Android
+In-Reply-To: <202609140844.FA7E848A@keescook>
+References: <20260914-build-speedup-v2-0-39817ec5db23@kernel.org> <20260914-build-speedup-v2-21-39817ec5db23@kernel.org> <202609140844.FA7E848A@keescook>
+Message-ID: <BCCCC1E7-25B7-4A8D-BDFC-D5D1FA295F6C@zytor.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|GVXPR04MB10994:EE_
-X-MS-Office365-Filtering-Correlation-Id: d1172b74-9b63-4c41-2872-08df128069cb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|19092799006|18002099003|22082099003|11063799006|4143699003|5023799004|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	0GklI/LfgkVFRrfa4LvmXHxqal4rHHxgxZ+i8W8FNemAZYY/treWah2EDLsDqzZ0XQzp1QFz5OP51m/oMbJ3OAclVnHOhieyPpSyBwRjxxalXqqmHArTYadIMCKWdxg3V0OY/F3M5RZNes2J6OVUuok2QH7840x2qAcMedz4Z8OxQtWrFlaJeuszjshDYCfnxMCifdOO8qKgndOPYw5Ttb1XLYwCY0vhRLrFMkVfacVv6A/NZIDf0K9Gz/mEmo4ss/dELPipT2mX+2GpQ2wBDZsbI1svORQWVocisYQoLd4iOpHNzTSeaeZvaA8LavTVSBt2r1CAk4m5ZOYg2iC523dM47LJi6QIXaKBeIm4gupihDEnH8rHvk8JfaKlyxrUNfEItC7hpXVVOatphsSYZk+VQl/3nYuK+baWCCcMDDPJ8AvOnZp9EoxIzgjyKUmHzQUp0a687eNftLacHK53teWhUEJon2Kt30WRr8sTtBnEOSYItA1rY/Xs/A2b0g4iKzkV1jQ66LuWcFYYnLeg/EDS0z4C7ja4BlCCIldAJ9BD3XphN1nNwb+CcF5IcqvkPysJ9TLpOa2TgTTZzrhAXVezNqZn+QYG4KFt5m9ZdvUAtF8dNM1IBqNq2DwoLtEOtHKQEjr9Ag2C21LeFqtwzAVb1uhw8OS68BDSJAzSiOw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(19092799006)(18002099003)(22082099003)(11063799006)(4143699003)(5023799004)(10067099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Z+icp9rfw6cWiMAuqV9C5z8ejWFr1bVhqeMwU9uMQyh8qOUExqLrZUab7vsh?=
- =?us-ascii?Q?lvOsEYlJ7VQ7oo/7AJvFmXMj4lKC32vz2ya8u4NuyOvYrsPpZVHaYFc+KmEk?=
- =?us-ascii?Q?bvTZ498rkqDqGjswKFuZj8BMj4z2Dqppwdxz6ekgta9/GWiDHMyDj7w+YOKY?=
- =?us-ascii?Q?Br3ucI3+gCwlMUpBYbLbyhhQ1EGPd+57FrP1YdIi3R/2cMHsrjMH0ndRB2tu?=
- =?us-ascii?Q?BZh7OeDu0OTJsSORjOGBU2gnd90HGkncuxSw21dCF608Yj9C9AAd+k0kS1+N?=
- =?us-ascii?Q?2W6MnJjTMq40UCZTxIRm2N3Lsxu/iB2ac6WNEv3TJHLF5qn88nIDeu+xu4Is?=
- =?us-ascii?Q?ZBfQvOXuV33YEKUMeuA8ey2BviPDx1k1J9JnGnPCEzKPgIXsmOSdsqe+q47b?=
- =?us-ascii?Q?iuAI9TlYhU4SGN47cBvr071oRqkaqYFYgY2G/JABklc//zVusGklE4FPMYvp?=
- =?us-ascii?Q?f/0sYwWsccwMTI2A9zHDZp7TvoeWqNGmtFHYfZ5+E/QZ7GYbhZGlpXWBOzG5?=
- =?us-ascii?Q?iEgXOWJb08kPepSwQHMpF2OV6RwBGAxkfaCObKOQEe1ZNmpZlThiNIH7Ap2T?=
- =?us-ascii?Q?Fkye/YXhO1rFhF4yqruKJHzQwIIQkFrAIJZPOrPZZVNNwbNQVPWVg29ijmVD?=
- =?us-ascii?Q?xCU0/ieuZAnCIJwIXgnYUe4bqVoFPqNZaU2vLXEclvEZ7yk7ABX/In/BLND3?=
- =?us-ascii?Q?HURREKqW2w1jM+u2JNJMGEuvCmCYfkQq34nIHgAoOmNxRdiXHYvZrqHkWhxe?=
- =?us-ascii?Q?bajPUQXCSYsTEaDHT52l1NTIt7F7j7GZDtawVdKv74IxtTe/0aryGrvRHOut?=
- =?us-ascii?Q?wX8kiG38u0zXnbr8HLhrQ+H+wac4ufmy7Yf523NbOJ3WJYOSvQLFd6BNw8GA?=
- =?us-ascii?Q?H/JBbdT2SHH7H5J2fkw9CU1Ne3u08CVBvryzu2HUV1wZl1rkLXNki3ulBa/n?=
- =?us-ascii?Q?xOq5P3c77tFWdwz9gJq+h7QWyWh5p5YcQ/7Usb+v+7J82wV42D8+H2uafEyw?=
- =?us-ascii?Q?fEdEnaIa8MDy2q8umDJMuzZMm5bZmBWOeXiW1JRVRborpM8HrLt9/mOctfre?=
- =?us-ascii?Q?VSg3VeL2bSD3KTQ6kzUPcTkzKrB2fXjqUTtqj1qOUd2GAreyRFDcTBF5XGBX?=
- =?us-ascii?Q?Rm6N5P4pj1c7aF4he07RexOr4gk1g18H8eYCQ1hVJdS1wAsuNzqqzXY7cdxi?=
- =?us-ascii?Q?G5hcqRUM0YdMjloEmFT8Vial3HDgRDmwEG26tuUf+bRdTDy6+vgkz9gbJmVl?=
- =?us-ascii?Q?W0ErswJRkr5y0PHuUA2wia5pTGsBw1oHT32Voy0ly9B3fw+Sqv+rBR3+YC9V?=
- =?us-ascii?Q?QHa5rD9NddxIFeoa739blE5qOFYDEJ2KKTJXR8oFBqpUf8VWJxi75q3kWeTw?=
- =?us-ascii?Q?UN+M+7gjiT5EN0oYF4003sS7w60xWA4o9AFW6+VWtIz/tY9KRFfbJgsMNupm?=
- =?us-ascii?Q?gbqGJkIaX8Y2dWf/tHUfVLYxP67MZ82aGw/5MAaTaTQjfCotmEI1RsKKylpA?=
- =?us-ascii?Q?C9jc4Z/IA137yFZVUCuzYHlf8PYJpWAkVghl2E1Ih1LxChWoKssT/5FFxh49?=
- =?us-ascii?Q?ry3B84q+9fvXffe4/EV6b7cA4aTSPI22fGUufxAxob7zC2otjskXIHG4ve2V?=
- =?us-ascii?Q?B/6+/sT7W0hdXCo0jXgBSCW/dZA27dJpkuOmxjpgA5vz/s+r+bKS3Wmv5t0o?=
- =?us-ascii?Q?h1CWFvdEW/ipe5YrzKHVCbmk2wo8LrPXX+LUdefvdRb144HpQPxd0tdEHoyj?=
- =?us-ascii?Q?hHWWtCzxdTcPlY2dB0Ubb+bBwVsR2Ya/U/pLYuzkTNxY1IRf3Fjs?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d1172b74-9b63-4c41-2872-08df128069cb
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 16:51:25.3056
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dYLGbwl6xQAmLnsbcgtJ1RTwq4KYO2/qUkuWpPhiWxZs+eWmyX9a+/PVV7CZ3x2Wts5d+myr0vZm2x7VfJYLsM8vXXUGcapHcovbn5KU4c5D4OQZ5Tn6vCBoB2MIAcvb
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB10994
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 14, 2026 at 02:29:57PM +0300, Adrian Hunter wrote:
-> hci_dma_suspend() tore the rings down with a single write of zero to
-> RH_RING_CONTROL, clearing the RS and ENABLE fields together and without
-> waiting for the ring to stop.  I3C HCI v1.1 section 6.1.2 separates those
-> steps: clear RS for all running Ring Bundles, and only then clear ENABLE
-> for all enabled Ring Bundles.
+On September 14, 2026 9:39:07 AM PDT, Kees Cook <kees@kernel=2Eorg> wrote:
+>On Mon, Sep 14, 2026 at 10:22:20AM +0100, Lorenzo Stoakes (ARM) wrote:
+>> On a 128-core Threadripper, gzip -9 of a 36 MiB x86-64 vmlinux=2Ebin ta=
+kes
+>> 1=2E6s, and with pigz it takes 0=2E09s, so the performance increase is
+>> significant=2E
 >
-> The ring registers were also written outside hci->lock, while the
-> interrupt handler, which takes that lock, could still be running on
-> another CPU.  i3c_hci_sync_irq_inactive() was called only afterwards.
+>Neat! I wanna go learn how pigz accomplishes this -- I thought the
+>problem with gzip was a common lookup table=2E Anyway=2E=2E=2E
 >
-> Finally, an IBI can still be sitting in the IBI Status Ring when suspend
-> runs.  Clearing HC_CONTROL.BUS_ENABLE is deferred: per the description of
-> that field, if a disable request occurs while receiving an IBI, the
-> actual disabling does not occur until reception of the IBI is complete.
+>> --- a/Documentation/kbuild/reproducible-builds=2Erst
+>> +++ b/Documentation/kbuild/reproducible-builds=2Erst
+>> @@ -76,6 +76,22 @@ include generated files=2E  You should ensure the so=
+urce tree is
+>>  pristine by running ``make mrproper`` or ``git clean -d -f -x`` before
+>>  building a source package=2E
+>> =20
+>> +Compression tools
+>> +-----------------
+>> +
+>> +The compressed kernel image, compressed modules and packages are produ=
+ced
+>> +using the program named by the make variable ``KGZIP`` (described in
+>> +Documentation/kbuild/kbuild=2Erst)=2E
+>> +
+>> +It defaults to ``pigz`` if installed (a parallel implementation of gzi=
+p),
+>> +or ``gzip`` otherwise=2E
+>> +
+>> +The generated output between two invocations of identical builds with
+>> +either of the default tools will be byte-for-byte equivalent=2E
+>> +
+>> +However, for reproducible builds, ensure the same tool is used on all =
+build
+>> +hosts, as different tools may generate different output from one anoth=
+er=2E
+>> +
+>>  Module signing
+>>  --------------
+>> =20
 >
-> Instead, clear RS under hci->lock, wait for RING_STATUS_RUNNING to clear,
-> and make the interrupt handler inactive.  Only then disable the ring
-> interrupt signals, drain anything left in the IBI ring, and clear ENABLE.
+>This doc update seems totally unneeded? Having the same build tools for R=
+B
+>is already a known requirement=2E I don't think anything new is added her=
+e?
 >
-> Fixes: 816958720443 ("i3c: mipi-i3c-hci: Add DMA suspend and resume support")
-> Signed-off-by: Adrian Hunter <adrian.hunter@intel.com>
-> ---
->  drivers/i3c/master/mipi-i3c-hci/dma.c | 46 ++++++++++++++++++++++++---
->  1 file changed, 42 insertions(+), 4 deletions(-)
+>> diff --git a/Makefile b/Makefile
+>> index 790ef23c5e8a=2E=2E38c0cdc9f591 100644
+>> --- a/Makefile
+>> +++ b/Makefile
+>> @@ -561,7 +561,7 @@ PERL		=3D perl
+>>  PYTHON3		=3D python3
+>>  CHECK		=3D sparse
+>>  BASH		=3D bash
+>> -KGZIP		=3D gzip
+>> +KGZIP		:=3D $(if $(shell command -v pigz 2>/dev/null),pigz,gzip)
 >
-> diff --git a/drivers/i3c/master/mipi-i3c-hci/dma.c b/drivers/i3c/master/mipi-i3c-hci/dma.c
-> index ec4b469abd33..9c163ee4d215 100644
-> --- a/drivers/i3c/master/mipi-i3c-hci/dma.c
-> +++ b/drivers/i3c/master/mipi-i3c-hci/dma.c
-> @@ -15,6 +15,7 @@
->  #include <linux/errno.h>
->  #include <linux/i3c/master.h>
->  #include <linux/io.h>
-> +#include <linux/iopoll.h>
+>I think the more idiomatic way to do this is:
 >
->  #include "hci.h"
->  #include "cmd.h"
-> @@ -1052,19 +1053,56 @@ static bool hci_dma_irq_handler(struct i3c_hci *hci)
->  	return handled;
->  }
+>KGZIP :=3D $(call try-run,command -v pigz,pigz,gzip)
 >
-> +#define RING_STOP_TIMEOUT_US	(100 * USEC_PER_MSEC)
-> +#define RING_STOP_SLEEP_US	100
-> +
+>However, parallelism needs to be set=2E We can't let it eat all CPUs: it
+>needs to respect the -j make option (and make its CPU reservation known
+>to "make"), which we already have a solution for in
+>scripts/jobserver-exec=2E
+>
+>However, I would actually argue that given such an improvement we should =
+just
+>make pigz explicitly required and not optional=2E It is packaged everywhe=
+re:
+>
+>  =E2=94=82 Debian / Ubuntu              =E2=94=82 =E2=9C=85          =E2=
+=94=82 pigz (main)
+>  =E2=94=82 Fedora                       =E2=94=82 =E2=9C=85          =E2=
+=94=82 pigz 2=2E8 (current)
+>  =E2=94=82 RHEL / CentOS / Rocky / Alma =E2=94=82 =E2=9C=85 via EPEL =E2=
+=94=82 pigz =E2=80=94 not in base/AppStream
+>  =E2=94=82 openSUSE / SLE               =E2=94=82 =E2=9C=85          =E2=
+=94=82 pigz
+>  =E2=94=82 Arch Linux                   =E2=94=82 =E2=9C=85          =E2=
+=94=82 pigz (extra)
+>  =E2=94=82 Alpine                       =E2=94=82 =E2=9C=85          =E2=
+=94=82 pigz
+>  =E2=94=82 Gentoo                       =E2=94=82 =E2=9C=85          =E2=
+=94=82 app-arch/pigz 2=2E8
+>
+>Only RHEL appears a little glitchy, but likely they would trivially move
+>it to base since it's already packaged, but off in EPEL=2E
+>
+>So, I would say that pigz would be best run as something like:
+>
+>  KGZIP :=3D $(PYTHON3) $(abs_srctree)/scripts/jobserver-exec $(abs_srctr=
+ee)/scripts/parallel-pigz
+>
+>with scripts/parallel-pigz being something like:
+>
+>	#!/bin/sh
+>	exec pigz -p ${PARALLELISM:-1} "$@"
+>
+>> --- a/scripts/Makefile=2Emodinst
+>> +++ b/scripts/Makefile=2Emodinst
+>> @@ -145,8 +145,10 @@ endif
+>>  #
+>>  # Compression
+>>  #
+>> +# Modules are compressed in parallel by make itself, so keep the compr=
+essor
+>> +# single-threaded when it is pigz=2E
+>>  quiet_cmd_gzip =3D GZIP    $@
+>> -      cmd_gzip =3D $(KGZIP) -n -f $<
+>> +      cmd_gzip =3D $(KGZIP) $(if $(filter pigz,$(notdir $(firstword $(=
+KGZIP)))),-p 1) -n -f $<
+>>  quiet_cmd_xz =3D XZ      $@
+>
+>Then this could be:
+>
+>	cmd_gzip =3D SINGLE_THREADED=3D1 $(KGZIP) -n -f $<
+>
+>and we patch scripts/jobserver-exec:
+>
+>diff --git a/scripts/jobserver-exec b/scripts/jobserver-exec
+>index 21b319e6c9a5=2E=2E8b953148ee9f 100755
+>--- a/scripts/jobserver-exec
+>+++ b/scripts/jobserver-exec
+>@@ -5,6 +5,7 @@
+> Determines how many parallel tasks "make" is expecting, as it is
+> not exposed via any special variables, reserves them all, runs a subproc=
+ess
+> with PARALLELISM environment variable set, and releases the jobs back ag=
+ain=2E
+>+If SINGLE_THREADED is set, nothing is reserved and PARALLELISM is 1=2E
+>=20
+> See:
+>     https://www=2Egnu=2Eorg/software/make/manual/html_node/POSIX-Jobserv=
+er=2Ehtml#POSIX-Jobserver
+>diff --git a/tools/lib/python/jobserver=2Epy b/tools/lib/python/jobserver=
+=2Epy
+>index 0b1ffdf9f7a3=2E=2Efc38c5020b22 100755
+>--- a/tools/lib/python/jobserver=2Epy
+>+++ b/tools/lib/python/jobserver=2Epy
+>@@ -29,6 +29,11 @@ $claim child to do the actual work=2E
+> The end goal here is to keep the total number of build tasks under the
+> limit established by the initial ``make -j$n_proc`` call=2E
+>=20
+>+Setting the ``SINGLE_THREADED`` environment variable skips the reservati=
+on
+>+entirely and runs the command with ``PARALLELISM=3D1``=2E This is meant =
+for callers
+>+that run many short commands in parallel themselves, where each one shou=
+ld use
+>+only the job slot it already holds=2E
+>+
+> See:
+>     https://www=2Egnu=2Eorg/software/make/manual/html_node/POSIX-Jobserv=
+er=2Ehtml#POSIX-Jobserver
+> """
+>@@ -68,6 +73,13 @@ class JobserverExec:
+>         self=2Eis_open =3D True  # We only try once
+>         self=2Eclaim =3D None
+>         #
+>+        # SINGLE_THREADED asks for no reservation at all: the command ru=
+ns
+>+        # with PARALLELISM=3D1, using only the slot its caller already h=
+olds=2E
+>+        #
+>+        if os=2Eenviron=2Eget('SINGLE_THREADED'):
+>+            self=2Eclaim =3D 1
+>+            return
+>+        #
+>         # Check the make flags for "--jobserver=3DR,W"
+>         # Note that GNU Make has used --jobserver-fds and --jobserver-au=
+th
+>         # so this handles all of them=2E
+>
 
-Can you add comments where these timeout value from? standard spec or
-you just engineerring choice.
-
-Frank
->  static void hci_dma_suspend(struct i3c_hci *hci)
->  {
->  	struct hci_rings_data *rings = hci->io_data;
->  	int n = rings ? rings->total : 0;
-> +	struct hci_rh_data *rh;
-> +	u32 regval;
->
-> -	for (int i = 0; i < n; i++) {
-> -		struct hci_rh_data *rh = &rings->headers[i];
-> +	/* Gracefully stop the rings */
-> +	scoped_guard(spinlock_irqsave, &hci->lock) {
-> +		for (int i = 0; i < n; i++) {
-> +			rh = &rings->headers[i];
-> +			regval = rh_reg_read(RING_CONTROL);
-> +			if (regval & RING_CTRL_RUN_STOP)
-> +				rh_reg_write(RING_CONTROL, regval & ~RING_CTRL_RUN_STOP);
-> +		}
-> +	}
->
-> -		rh_reg_write(INTR_SIGNAL_ENABLE, 0);
-> -		rh_reg_write(RING_CONTROL, 0);
-> +	/* Wait for actual stop */
-> +	for (int i = 0; i < n; i++) {
-> +		rh = &rings->headers[i];
-> +		if (readx_poll_timeout(readl, rh->regs + RH_RING_STATUS, regval,
-> +				       !(regval & RING_STATUS_RUNNING),
-> +				       RING_STOP_SLEEP_US, RING_STOP_TIMEOUT_US))
-> +			dev_err(&hci->master.dev, "%s: Ring did not stop, status %#x\n",
-> +				__func__, regval);
->  	}
->
-> +	/*
-> +	 * With the rings stopped, no more IBIs can be received. Flush and make
-> +	 * the interrupt handler inactive.
-> +	 */
->  	i3c_hci_sync_irq_inactive(hci);
-> +
-> +	/* Disable interrupt signals and disable the rings */
-> +	scoped_guard(spinlock_irqsave, &hci->lock)
-> +		for (int i = 0; i < n; i++) {
-> +			rh = &rings->headers[i];
-> +			rh_reg_write(INTR_SIGNAL_ENABLE, 0);
-> +			/*
-> +			 * Be absolutely certain there is no unprocessed IBI.
-> +			 * hci_dma_drain_ibi_ring() will do nothing if there is
-> +			 * none.
-> +			 */
-> +			if (i < IBI_RINGS)
-> +				hci_dma_drain_ibi_ring(hci, rh);
-> +			rh_reg_write(RING_CONTROL, 0);
-> +		}
->  }
->
->  static void hci_dma_resume(struct i3c_hci *hci)
-> --
-> 2.53.0
->
+If we are going to add dependencies, can we add *any* scripting language t=
+hat is less stone tablet than POSIX awk?
