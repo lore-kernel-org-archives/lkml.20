@@ -1,68 +1,144 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com [209.85.208.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D74CA47606D;
-	Mon, 14 Sep 2026 13:53:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1348476070
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 13:53:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789394019; cv=none; b=FFEX628M0ouo5tDzldg1b/tchSQnnUK38hgaVeAN/fiWWekNwpLdnYTXoT29aeMB4wGL2P/lWrc/c2jcr5FdGJGgHySWwt2hDjySncqbtqlLGLXn4oSfS62hiUh7ACEPcaVfGAIdyU652VXtv3Q5nUhJQVVv6cl0xPDNyTf/qkI=
+	t=1789394021; cv=none; b=lWoWFOeQDtOrGrYFgBXFxsUmou2SET8C/or4OgeQy2RHX5EVIMOnCkzchAvVakjcBpOgiZIkQY0eS3ogblWXA+R9YiSPlxABJxh94UPPw7nVyTt3t8UrXI99ElHJ3PsqheoJpFF/UQuSeExEYOml9Gi6HYUH9dNF1f2D+zOuOyU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789394019; c=relaxed/simple;
-	bh=zbPxyxy2b9yZbB01NvBErM59t21lMTAqf8Yh7Nfwtt8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fyBd2/TS5AYf1p9oe3iUERRPC0ox/dzsDPqqO0I6HFPhhNwxrecc3LxlsQuqK8JSALVMGnxZqXYTQxlPDPadQBlywZBqILx20nkgn4dzGIZeFzC4zhLFO1JegmE1EtiCtqpxnd5nFfDj+ilUJBaAVI0OunbTBUSmZ/yWf61NKNc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OvArNlHe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789394021; c=relaxed/simple;
+	bh=64NapLqxHH6tJSEV83TdJWZtANu5nmqRrk1E1ae8QJw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=aPUdQi5/czcfdcO7zJ2pW1QxNk5UMKzOZj2gyR2zF5Y9Q1moL0Qvgdepe0QL6HC9rQR5Wvw54Ofw37KebMjHYM6Db6AhAIBTgMhNhnbYbLU/yRdtQ1y6oJv0SeTibfVEOh/driwl8qveekBeAYg2mq1zpvcweePR0kz5co0thT4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=jsLNzZwb; arc=none smtp.client-ip=209.85.208.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OvArNlHe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D63AB1F000FF;
-	Mon, 14 Sep 2026 13:53:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789394017;
-	bh=wu65N1dXA+OvvO8uZvoNd+pErDlIjde4zdJjCR1HSl4=;
-	h=From:To:Cc:Subject:Date;
-	b=OvArNlHeDSOVRhhZRGrCBpdMzl8jo9dd9AdXyAQyNGIoEMbAU2fj6wgMMKz8QD0Z+
-	 7zc45KW3ZavyOYj9hFA67nREunG+7ZZBMG6wC/fxqljl7yArjmLTDbo4ZGhPcKNTqB
-	 durLGT11dbmp2+EtxyhM22nMU6eH0XsnJF8ZWqWUx5Mr9eDtypGPeoRpYDSDMBp4TF
-	 IrM2w5+TegvI1buK8LNNPOtV/sISBhrI52K/v8NhwGSPVvCxxa+E/bbhxhyUW8q7Ba
-	 IttHKvH8UfRxMOEfZ+p+s/rPF6pWXEfEsmXh0uJfYcN76+SxEPJcuYIllB1NCxLvMD
-	 Y4sLjSiSPyuew==
-From: Chuck Lever <cel@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: <linux-kernel@vger.kernel.org>,
-	<linux-nfs@vger.kernel.org>,
-	Jeff Layton <jlayton@kernel.org>
-Subject: [GIT PULL] Fixes for NFSD in v7.3-rc
-Date: Mon, 14 Sep 2026 09:53:36 -0400
-Message-ID: <20260914135336.350043-1-cel@kernel.org>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="jsLNzZwb"
+Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-3a5a0703ae7so18430301fa.0
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:53:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1789394016; x=1789998816; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tS09zB4gsK6IH3J6tb9FICxkiH+S9C9kJxAP8cTa3+U=;
+        b=jsLNzZwbV1cnyavFdXs/JmbpvPHoVN/XRVbDz39qeT/DJMVvWOI4P1xOsXIWCWeK22
+         q0CHVB30PvzPuNIonSd/WDbms0SZfrmhzsO1tON8PT+KvXBNfO5fkKUc9yVj0kYADRrZ
+         6cJ7kp4hUkXZKo/CYREJWgh63E0ebbeNzOK2A=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789394016; x=1789998816;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tS09zB4gsK6IH3J6tb9FICxkiH+S9C9kJxAP8cTa3+U=;
+        b=XHs0mxBTx1mzNrIL9bvxDshhs4nAjOCHYFvzCxqhz/KSGJYLCa1OWRlSmPsqzaT7rF
+         f5n/6dAuohTIP2Yvhei4nud4jmt5rpMRjUwAOXYx3BQUPFCAR1VtStIxCJ/ucM2/SKd/
+         jLycnXLJCVuUt2opQ5w6NbgtQQ32m8ixSyP/A8nLJHS7Jk2P0rc0FR0K8rg/y8pRRIYt
+         boPvinD3uSbyPyOajO9wzZOXo5mLWpXtmb2uTwUp/q8lxSrxcUHOQL4fYwOf9dquJbXg
+         jd/GjhGC7pQkbeTzIBqgy1KSVU37HDK3Hj7rDJaRY72AdQ5Wu2lwyGzjUgMO2/y+jFZx
+         oA1A==
+X-Forwarded-Encrypted: i=1; AKwUvBxpouuQnl+KZx45qk/XGyxzJWpc4N8JaJlkvh4NKKd6wwFh3uNDFnPxJAZOTIZtkTR0cq6FAiAi31cSS2Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++miHfabLSGJrmrvXM1Wq0n0bmTte67EdWcN6rWsiJhfG9ChDUTP
+	rCzyET0d+wYdyK66FnQmDgenI5+MTQlJOjE/ZO8Y6uu+YGDKtmNYJ1O2d3OK6V9SQg==
+X-Gm-Gg: AYBFou0Unu0OVSZpkwiFFugvXmL72d8xgrGphTLDN/PukaqORhzuprQiApQhyjrzpsS
+	RZUWA3ESMYKb34/TjNTupl9z0fyRJN/rXeJ1oNltlOnG/XAoOzprhQyl+WwjZiXTR18pjlq5loz
+	sBaDMEVIqebK9SuDrp2EOC+H5oIpvuQcv5ds/P5alCP1Z0iPlqNmWXFuVXXqICPl/je7zOqpvkr
+	bx20LAjSi74/29rjrotKAan87jIToGbDsaHG2XHNG4vszyQAIFfOibIgzHm2Qwiv9EhXTtBNvKn
+	Wx6Igj5RORfyT3d3ItH/1tSEpANZJnOgIjqUWs0x+C4WYUjg6wW7yFeHmybgpvjOtDI3dWEW3ny
+	b+FZ36lYxqjcJry5KqJDUb8WFA9jTMw8YkBUvWYhsgYZzvs9eQipTh7cwsqiU1ylIde929ZtTp7
+	6ZEFGtmJZdM5LrxMnb0dHUdNdgXTJq3/+GpbOlJOkNsn/17XCkHJYI1jltiUcqfqMisbhAUTXGJ
+	aiy2XhKs87lCaKaxOlwIx3qzIh+U6wTIKmMussACR+wDeCnyQ==
+X-Received: by 2002:a05:651c:146f:b0:3a3:61ec:43bc with SMTP id 38308e7fff4ca-3a5be1ea6a3mr8393601fa.13.1789394016399;
+        Mon, 14 Sep 2026 06:53:36 -0700 (PDT)
+Received: from ribalda.c.googlers.com (11.36.88.34.bc.googleusercontent.com. [34.88.36.11])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a5a3304b38sm29433921fa.13.2026.09.14.06.53.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 06:53:35 -0700 (PDT)
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Mon, 14 Sep 2026 13:53:32 +0000
+Subject: [PATCH v2 2/2] x86/uaccess: Drop the address space qualifier from
+ put_user()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260914-unqual-v2-2-60a1407a0cd4@chromium.org>
+References: <20260914-unqual-v2-0-60a1407a0cd4@chromium.org>
+In-Reply-To: <20260914-unqual-v2-0-60a1407a0cd4@chromium.org>
+To: "Paul E. McKenney" <paulmck@kernel.org>, 
+ Frederic Weisbecker <frederic@kernel.org>, 
+ Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, 
+ Joel Fernandes <joelagnelf@nvidia.com>, 
+ Josh Triplett <josh@joshtriplett.org>, Boqun Feng <boqun@kernel.org>, 
+ Uladzislau Rezki <urezki@gmail.com>, Steven Rostedt <rostedt@goodmis.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Lai Jiangshan <jiangshanlai@gmail.com>, Zqiang <qiang.zhang@linux.dev>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+ Chris Li <sparse@chrisli.org>, Dan Carpenter <error27@gmail.com>
+Cc: David Laight <david.laight.linux@gmail.com>, rcu@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-sparse@vger.kernel.org, 
+ Ricardo Ribalda <ribalda@chromium.org>
+X-Mailer: b4 0.14.3
 
-The following changes since commit 46db3c8a1be96a354758b44b1d4fbb4b70d09a20:
+__typeof__() preserves every qualifier, the address space included.
 
-  nfsd: export NFSv4 callback op stats via netlink (2026-08-10 09:54:35 -0400)
+When we do __typeof(*__user *int), we are declaring a __user integer,
+which is pretty much meaningless. A value in a register or in the stack
+does not live in the user address space.
 
-are available in the Git repository at:
+This annotation did not trigger any error until a recent version of
+smatch[1] started caring. And as a result of that now we have tens of
+warnings like:
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/cel/linux.git tags/nfsd-7.3-1
+  drivers/media/usb/uvc/uvc_v4l2.c:1112:13: warning: incorrect type in argument 2 (different address spaces)
+  drivers/media/usb/uvc/uvc_v4l2.c:1112:13:    expected void const *from
+  drivers/media/usb/uvc/uvc_v4l2.c:1112:13:    got unsigned int __user *
 
-for you to fetch changes up to f76017a7663c4ce5e379f8a8d39f032bdb1fd865:
+Instead of __typeof__() use TYPEOF_UNQUAL(). It maps to
+__typeof_unqual__() in recent compilers, so the address space annotation
+is gone.
 
-  nfsd: fix handling of NFSEXP_PNFS in the netlink codepath (2026-09-04 13:14:44 -0400)
+[1] https://github.com/error27/smatch/commit/e53027a4e816a772403baafa83c09e4a94c1cb8f
 
-----------------------------------------------------------------
-nfsd-7.3 fixes:
+Suggested-by: Dan Carpenter <dan.carpenter@linaro.org>
+Link: https://lore.kernel.org/r/20260825-unqual-v1-2-7024fb81b4f9@chromium.org
+Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+---
+ arch/x86/include/asm/uaccess.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Issues reported with v7.3-rc:
-- Fix handling of NFSEXP_PNFS in the netlink codepath
+diff --git a/arch/x86/include/asm/uaccess.h b/arch/x86/include/asm/uaccess.h
+index 3a0dd3c2b233..4e576c0b9131 100644
+--- a/arch/x86/include/asm/uaccess.h
++++ b/arch/x86/include/asm/uaccess.h
+@@ -172,7 +172,7 @@ extern void __put_user_nocheck_8(void);
+ 	int __ret_pu;							\
+ 	void __user *__ptr_pu;						\
+ 	register __typeof__(*(ptr)) __val_pu asm("%"_ASM_AX);		\
+-	__typeof__(*(ptr)) __x = (x); /* eval x once */			\
++	TYPEOF_UNQUAL(*(ptr)) __x = (x); /* eval x once */		\
+ 	__typeof__(ptr) __ptr = (ptr); /* eval ptr once */		\
+ 	__chk_user_ptr(__ptr);						\
+ 	__ptr_pu = __ptr;						\
+@@ -231,7 +231,7 @@ extern void __put_user_nocheck_8(void);
+ 
+ #define __put_user_size(x, ptr, size, label)				\
+ do {									\
+-	__typeof__(*(ptr)) __x = (x); /* eval x once */			\
++	TYPEOF_UNQUAL(*(ptr)) __x = (x); /* eval x once */		\
+ 	__typeof__(ptr) __ptr = (ptr); /* eval ptr once */		\
+ 	__chk_user_ptr(__ptr);						\
+ 	switch (size) {							\
 
-----------------------------------------------------------------
-Jeff Layton (1):
-      nfsd: fix handling of NFSEXP_PNFS in the netlink codepath
+-- 
+2.55.0.1007.g17ff1f9808-goog
 
- fs/nfsd/export.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
