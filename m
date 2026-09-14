@@ -1,60 +1,56 @@
-Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com [209.85.161.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from 0001.3ffe.de (0001.3ffe.de [159.69.201.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5031B33A71A
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:33:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C06342F7EF5
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 06:33:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.69.201.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789367624; cv=none; b=M7F0B347Lw2i0hhfoGSqzbox5cJyZCgiD0DqDqMG5n6Y55iFa3so0DdykSHwdQSrQmLD7jf3JA5zeoq6bq+WYlx3/7szDR8rIsNmx5KdZAJ8MDo2XY9O12OBMb6LsfrOdWieHCb6H9BLC2XpH/foZ3GYjq2Hh4SbiJNvnAEnbsI=
+	t=1789367629; cv=none; b=I9oLVqr9y2kX8lbSgQSi5OKnxUbMoabqcEMM6+nq/R/od5aUe9s+WSF2PSTxKjYWaSC4nEPkS4dK90Mb0xTSUhdaDrmqmpcErMv6PNDmNXaQepDQzgTccA+goV/ohn+YJn5qWLk1L7ErYXRn4gq0xeKjbE/B0OcyPtImSRq1KqU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789367624; c=relaxed/simple;
-	bh=OWN+We5NsiyHyp1lHtXNvIAe3s/AGDn9G5qTEMP12WY=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:Cc:
-	 Content-Type; b=gFuyo+u9O8yf/IMBexEKCcFPwUiKyoNCqRYDnjbcve/d+SzxQiPfFZ+/30g2ivWaeJAxdYcvSen2lGvugSKDNBLcXoWXoZM0Qo0Q3P5zrGiBSexhq5rIOjrau2Mk6+0oCvdAjbynLFBq4zn9RvXmOJo3pM1zD94CMNZgN8XpZho=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f72.google.com with SMTP id 006d021491bc7-6c1a8f2c565so2962987eaf.2
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 23:33:43 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789367622; x=1789972422;
-        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=OWN+We5NsiyHyp1lHtXNvIAe3s/AGDn9G5qTEMP12WY=;
-        b=nvScl9GnEZpRtrfARmXCj6xRnbDzD8dvLFR4CI8fX0Z3yd2vZ2WkI3DkNWY6BX+7hC
-         q8CsoWbVODIxcbXvxII3MiidbQria2QKzoEhSHddYahOakkt3qWk48B7/0TXR+jVr3O6
-         8JEmsaKrycvSce6CYxZTz0UqNTrtAHhxHPvl077cq106mRL25d0+Rpo17i8yAFUtP2QP
-         3LvhPNOwu9NkjO/d8X1Igi8h1OLcGXFdFU6Ar7iZroTZ2Te1Y8YjfyO7WSw9CyCtlP2Y
-         s8pNub9ChGcNn4+Aosd5ZCmNLB+P+j5i0c47rDxy34xKOBDQUNrdBWDD2pzyDvHA1rxk
-         D3Cg==
-X-Forwarded-Encrypted: i=1; AKwUvByoTcAJWfS65l80uKgwxNl+WrQ6AIVqRearrfqp4JQeKuHEWSp3wNGwFtJchEJYflFUXxuE/rxot8CMRes=@vger.kernel.org
-X-Gm-Message-State: AFuF++k5dPRmKdPu8D0PXxHrmdE+puXrHNouy2H68nQ8FeMdVHHwryAF
-	B2hfwWYwS+AEw2kw5EBHYJGYfq2elyAKZ2To/SUS4QNceM/IJyL7/0tNrMCygAAXpLOPPtDnuhC
-	vV3+XudLn1gZg/ev5ch/lBJkDmUWPzfOh4SgVfeaAhniD/q6Kib/e8gVaeWs=
+	s=arc-20240116; t=1789367629; c=relaxed/simple;
+	bh=uz/zgmqy1rIDFTBJoxe11CkT82ASoa0317D8mWpjnsw=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Subject:Cc:
+	 References:In-Reply-To; b=ht+hc9QxOhjZa0J2pcZ1Idc4oLL1KRLPlSs6tZ9w4LJevQ8+ojffKkoCD7OhA8V5OPiXRV+eNHrgBV8mJZ5zSqzOVTGLg1J2hRmLxMpEpLr4JLlghFcvyhjqDjX2Oj24OvLj2XqGImOmFk+wW2wYHpQnrORXz5oKGdF/fE0YwAQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=kernel.org; spf=pass smtp.mailfrom=walle.cc; arc=none smtp.client-ip=159.69.201.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=kernel.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=walle.cc
+Received: from localhost (unknown [IPv6:2a02:810b:4320:1000:4685:ff:fe12:5967])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.3ffe.de (Postfix) with ESMTPSA id 13202132;
+	Mon, 14 Sep 2026 08:33:45 +0200 (CEST)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-Received: by 2002:a05:6820:f013:b0:6c2:e131:6760 with SMTP id
- 006d021491bc7-6c54214b322mr509404eaf.3.1789367622336; Sun, 13 Sep 2026
- 23:33:42 -0700 (PDT)
-Date: Sun, 13 Sep 2026 23:33:42 -0700
-In-Reply-To: <6aa79546.6ade2a62.1c1e11.9d24SMTPIN_ADDED_BROKEN@gmr-mx.google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa79546.f81106d8.2ab401.0044.GAE@google.com>
-Subject: Re: [PATCH] WARNING in gid_table_release_one (3)
-From: syzbot <syzbot+b0da83a6c0e2e2bddbd4@syzkaller.appspotmail.com>
-To: jchuang26@m.fudan.edu.cn
-Cc: jchuang26@m.fudan.edu.cn, syzkaller-bugs@googlegroups.com, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 14 Sep 2026 08:33:44 +0200
+Message-Id: <DLETVUMUX3AN.3SSH7NN2CKAIU@kernel.org>
+From: "Michael Walle" <mwalle@kernel.org>
+To: <takahiro.kuwano@infineon.com>, "Pratyush Yadav" <pratyush@kernel.org>,
+ "Miquel Raynal" <miquel.raynal@bootlin.com>, "Richard Weinberger"
+ <richard@nod.at>, "Vignesh Raghavendra" <vigneshr@ti.com>, "Tudor Ambarus"
+ <tudor.ambarus@linaro.org>, "Alexander Sverdlin" <alex@sverdlin.org>
+Subject: Re: [PATCH 2/2] mtd: spi-nor: spansion: Assign .fixups to
+ s25fs256s1
+Cc: <linux-mtd@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+X-Mailer: aerc 0.20.0
+References: <20260914-s25fs256s-fixup-v1-0-e94019455c1e@infineon.com>
+ <20260914-s25fs256s-fixup-v1-2-e94019455c1e@infineon.com>
+In-Reply-To: <20260914-s25fs256s-fixup-v1-2-e94019455c1e@infineon.com>
 
-> #syz test: git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git a7b8e876e0ef0232b8076972c57ce9a7286b47ca
-
-This bug is already marked as fixed. No point in testing.
-
+On Mon Sep 14, 2026 at 6:50 AM CEST, Takahiro Kuwano via B4 Relay wrote:
+> From: Takahiro Kuwano <takahiro.kuwano@infineon.com>
 >
+> s25fs256s1 has incorrect SFDP entries, like s25fs512s and s25fs128s1.
+> Assign the common s25fs_s_nor_fixups to s25fs256s1 to fix its page size
+> and sector map.
+
+Do you have an SFDP dump by chance? I haven't found one on the list
+for this flash.
+
+-michael
