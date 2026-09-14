@@ -1,62 +1,61 @@
-Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com [209.85.160.69])
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D09536F915
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 05:06:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFD91377EAF;
+	Mon, 14 Sep 2026 05:08:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789362416; cv=none; b=uBPTbhHV3koyh1hts2cBZ+8wvolZ+3PdfZEmONPS5WAhsRK7tM+y6B5EFC2XYrLi3+iNqDPZ9JFZyim+PNYbiKbz3qd5j2UJs7Yc7IkmU9EYjrojzOlkLre7zGHduqoa9b+hYnRCWtXa4ZXaAfxMKlWIChJiLextXUIHqXCI+G8=
+	t=1789362528; cv=none; b=quHiBNKe6R+p/K2JlDMsPHdPPDQvmtLI48QTI1F/muywYNB4Z+qEplBWALETALlzpRdggrlCol0RBx9Vut6Q8blveAh7rKkCHlF7II6NVAv+ACHfyoNtc4Ps0SB1NspV+OPXlWVhce6EhHM9GHSPEcyrIQDC95cLOabosq3fJps=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789362416; c=relaxed/simple;
-	bh=YQW1snMUsXn3OKsXa0oe6Xbuy8FLufnL+1YbE6HDqQA=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=s08R3O5Qqp/ZNh8h2REg42GTt6v3rsrur/i//XIJpF5TcmO+z+DUgt9K9gjkcwnY2QsiY/H25dUzSjzSbMByJBMif93tqn3a/pmw7vbL5HaVVGGbh8JjNAV8l9TDQZ8fnBOaRYGHqNq7Z/a3JBz49SQq2gWOm2Rj2PNHMuY1x2I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oa1-f69.google.com with SMTP id 586e51a60fabf-44899f99756so4441543fac.2
-        for <linux-kernel@vger.kernel.org>; Sun, 13 Sep 2026 22:06:54 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789362414; x=1789967214;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=YQW1snMUsXn3OKsXa0oe6Xbuy8FLufnL+1YbE6HDqQA=;
-        b=jVGdD1EPegIBrmKTUDzGsX90/micAyExg1e449S7vR5zyyTC+CGz9z51Wy/g7TIUnk
-         mcSeq89x7A3ShqTeq63oyp/bU7zRMRVenGQ+/Ki8es43svCoRn7LW9PV7EwnwDilnlIk
-         Vi3hfihmXslUIWjfXVrJNtTGvC7kHaQAl6Yna/kZK16RHwi3W2P5SNEzw9CJjOD3te4U
-         1gy/ylOxS3ZTp74nFgYFjh2SE8aSudmq49XswuZwwRaqroGtMdGyKwcrdTyEYwwq5jwG
-         eAVa1arrdKSRZxJmpTjQKqcWm2+dI9JgJFoiEXzPO8TQQmBmXGLwJ2nFS3w4bBTXFE4t
-         Wijw==
-X-Gm-Message-State: AFuF++lnTlVKr+HLW2nX75EW4egn8kzWUsVWcmGbkgAaaD8CvSTbftki
-	zkwSC0Dkr8HKGrQeJ1kK9HtnlAtkV8t8Q1WaFOqQIxAeqQFfxB3QmjAWAwoqZJBdaRWfbK6WAtz
-	BZS+ntYJtVRJ98PlMSxOkPTEUEmFRZ59tpKOVJc//Aq6Diao0KMLv4PKTj/U=
+	s=arc-20240116; t=1789362528; c=relaxed/simple;
+	bh=JzJBpGl81aXSebDE02l7kCnjSuuK6GZrBrbYbHQe+x8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pL+PhaAJzxda23sPFxN2HZk72sX70iLlfI4LxmkKtiTZB6hRT3ZuSlj7bgGQWoudwv6Aca+hU+l5PrJ6jsHurXUuJDX6BOtss9YgVLiSuG1b6FZMwIJHXuL6IDvUJ0I88iKO1C27qpSmgvYON6mslxgneds0JzXNKwSxFzBf27s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=BN73q+Yl; arc=none smtp.client-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="BN73q+Yl"
+Received: from francesco-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch [83.173.201.248])
+	by mail11.truemail.it (Postfix) with ESMTPA id 0848824461;
+	Mon, 14 Sep 2026 07:08:40 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1789362520;
+	bh=riKm+4fvd5kRjGwq8180YtfFX4MGZR2V2vH3sDauuMc=; h=From:To:Subject;
+	b=BN73q+Yl/JgDCAprZ5MxGylRC0NkpE0V4jF+pnMxdiY4vXBzeun+Lif8qQIJoEFnD
+	 KFsrIdMJ9F88t8zHxtnHNh/iB6GuIIH+dFxZFJC4dsVJF+GPkvlw5NLSpC7KzaLTLj
+	 BGFDcL3rLqSl3VLLI41XTsAH59LXWXDfH/Pnu/wdvubWA5hXU2PwIZXc5Ip8S1/ZME
+	 5ycql/GHpVgD6NQuqGF4KOiDl37jc6I22DqKCPjJ82a83dGFvWhus8oXxhWt+N6sU9
+	 GZR/VylnFR8iucJVN/X2g1bWLCPAhSeEmUgnTObABYzaxkm/dLiE39gecUCr1rLxyP
+	 HwyXE0LmuXR2g==
+Date: Mon, 14 Sep 2026 07:08:35 +0200
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 6.6 0000/1424] 6.6.157-rc1 review
+Message-ID: <20260914050835.GA17380@francesco-nb>
+References: <20260912065607.279695368@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:1c90:b0:6be:b2e3:27e with SMTP id
- 006d021491bc7-6c53fc7ab29mr413852eaf.16.1789362414027; Sun, 13 Sep 2026
- 22:06:54 -0700 (PDT)
-Date: Sun, 13 Sep 2026 22:06:54 -0700
-In-Reply-To: <6a74aa44.01d0871a.3a0d52.0028.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa780ee.a211d2ce.1a5198.028a.GAE@google.com>
-Subject: Forwarded: [PATCH] configfs: unhash dentry before dropping the item
-From: syzbot <syzbot+abd6a8dca0f2b7726060@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260912065607.279695368@linuxfoundation.org>
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org.
+On Sat, Sep 12, 2026 at 08:40:32AM +0200, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.6.157 release.
+> There are 1424 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-***
-
-Subject: [PATCH] configfs: unhash dentry before dropping the item
-Author: jchuang26@m.fudan.edu.cn
-
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 069f4aad347e1f3181639d2dfbadfae592df93e7
-
+Tested-by: Francesco Dolcini <francesco.dolcini@toradex.com>
