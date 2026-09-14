@@ -1,320 +1,175 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 763C438CFF8
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:15:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7464F3A9D94
+	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 07:15:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789370116; cv=none; b=EyKHQfjoaz9XA7B3nIdzJb4/IEj1k+NQycuIVEMbTgk/cnhWbN8AXv78KPMoCIrOcbPikelTvnZV2CXF8agoVYxtyMojd7lCAQ6k+vaRYYfHb3g6awG5zZCg0FKxYgLgGT492/JNSitKlFulGkptyY6e1W3byZ8GRx/vl+wCurQ=
+	t=1789370140; cv=none; b=WXuUy9Luw2LIpycSymQTOSf+y5v+OzrQhCitfMUsTzt/snME995Z0urEZd44ikIy5oha2r4UT6olvURC8cgkFDT66TTXALNzxoubftEcTtqeWKQk36s6VPEH4AzYp2K0o4Y4b6hK0+3WyRw/7r7uRJjvKYkajrMjXyIvXmdHTsU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789370116; c=relaxed/simple;
-	bh=vUZm7QHev/nySo8j91oEaOKr+RHXHmfvtrQgDdMKgY0=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=UJyQwoqOZy3XYchdq4gFLwxOQruD7f9kfI6+DPmlKVd0GzenWtNEVFCuXZpMj79xsmD8atWYxC3WmwqJ6mcxDSPAWSaFBI42tpnxiJTcaOpy+qXfwXXtRwiQc2KwmnIZdJouZxfjPuj89ypHDL+QdpVqxvzjonWOVPlyNRxucpQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DYY7CBvL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789370140; c=relaxed/simple;
+	bh=jSb2Ftos2O4Cle3dQjevzii599zWf1wPdvUMiVakE/8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Y0P9jTZfDtbloUSRxEKPjsc71XZCgkO8AnwCQi+QyA0WJ5vFzk5oZMl0lxcG7vxhEyAL+gNm/lyDwQLosrUBsym1cn0m056CpiCW5MxgOVEkfBx/y1oOZ9SlJD00+ReAtS8Tsb9OxH1Z8psIdgLTEgc/OIs6rRFBWijh5397Edg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hkSLEcF9; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DYY7CBvL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 193D61F000FF;
-	Mon, 14 Sep 2026 07:15:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789370115;
-	bh=hbHWa1mgKQIlL8FsgrsgFAgtrZj2ARowhm8D5gm9ClE=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=DYY7CBvLE4mqeBEFuNc5GirJORud2VnpfL1osT9WXPcjBBygMxJAS/w8MuA1OHjJF
-	 0pLcMEVeg2KAJhO0VFDC0Y4VKOgU7vbz+1PBOUKCuUAPW24HsAbc13chuiY67XGu4p
-	 OaOAatOoqdSS/PBPTF7DS+UOngNItkiiGPejfZN8/FF7QYga2vZIb5YG4e06rgsaEj
-	 P6FBOqbxafDIkKRy6sCf/sD79xo4H2Cnz+936Z/QC/sLQqIcYHfHcK1rcxWOm+UOtT
-	 I5JImBK8/r1cS+SRB4763YrUu+tU/GwV8BRsZmAcEqZ7QsLLYYPr24XY4cdeqV+eou
-	 qrx2LsdMmb5Yw==
-Message-ID: <3e5f2bd4-f0e6-4f79-b182-6cb8ac331580@kernel.org>
-Date: Mon, 14 Sep 2026 07:15:12 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hkSLEcF9"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843f22dc83so1079952f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 00:15:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789370136; x=1789974936; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=g961FMFmva6MFSFgsk5zUmE0FV5DENfWVjlPpCRBaQ8=;
+        b=hkSLEcF9nYaoDuuhkyHzO5DrpGOvzS2Gy1Irgzv0aHj4mmHNdojX2vP+d9LsxtTDme
+         MYS8/lbY6ijSqjrRX1nSBjkfbG4ZeYtwyvjjSuB3caz7XcwVLwzI0yuip6x46kipQj2E
+         qkjdtgtyRmBbOB9j9kztVR5e7ClYrdCiCWaoMEeN+q6F/X1jBlGW+XghottGfyZx93Qf
+         lr3sqoK9H/xInmKuH3nZo4TensBJi93CbEFiuNrZ2FKGcdYqhBD3wqs7Q4GaY8nKYSel
+         J8MChB650d+xGBNxlGoJl8eZJdmKvSV0WTElbSAHWRgqBxQChyJnuohiwGi6hUpiROB4
+         k31Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789370136; x=1789974936;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=g961FMFmva6MFSFgsk5zUmE0FV5DENfWVjlPpCRBaQ8=;
+        b=q0sSlu+imm+KGDV1IK1Hd6WV9FTClCZ/MooOuQeVYIV0B7gxb/6r6g3bLdoFjgtnXy
+         ilm+9xSIFQE2FAeVZOImPRTivTY2UJvGqe1PG8hWNURt2JxGRM+Oh2vM3S80XxBfHxn3
+         HzwkOhkCC9le58k3jXp9Le8PV6c3r4woSYQ2sv9zxb/i9OPngHQN6giAOLrD44Xhb0MD
+         oAIuSv4CX+5itGf/XA6LJPOI/Sz0L0p0sMpZEFBko+2mAK6mkfNw4kXBfZB0gp0R7Gwt
+         eV75SkjtWUcCdfIRUfVkgGLTiMGhrDz0nUQarYkQC3yNHMgbOkVbmNXUuWZmiu5qTEzB
+         6CvQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx30sunIOXuB33AoLPkEzoZxvaVpyVTNjskxIFODYHodKmjEoJmcszBPT62nbZP2kRhffjidznwX/jra/4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kUOGvdT0EKrzDAtkh7hPem9vSZXzGTU2cZU8m/FpwmpQWLA2ZB
+	IbvQhRtys+QqhZcu/lQk59rP98VxtES6ysPBYU2WJHhLjLaMbiNoOSkg
+X-Gm-Gg: AYBFou0mx7tBXgzcjuxzcU/30weZZYmbiXozB3VtQBIpOBJzCi64alDDt+HV35rW6JB
+	Hsky4L+irpu9swR+9FVb3bXuGO0ezDjR3qvY+FNPP/Pvu0QWjG+eJ8hDszTktTPK7SGLs4D7zkQ
+	fp/9cx4f0Gn2I9RCxZPA0UWmIfJCQNLqxqWVqzuGA3pCirqwJo6MU8g6vhF9eEDYYE7xUlm88+j
+	aSoA+06bwgBc6w0catrFAms0vZvimU8PdPcbbLYDinSoA3prxPXry0oTD5gORUL8rqX0QQ6HY2X
+	zzFJQ1MZBPEXVLySyS9QnNYs0Ct3+QnvAD6vwdkwWAGGKBz7yqf3UkvCXpjGBFo/CMUP0+TBe8+
+	kzLGplPby/lj2cKYq4sUKzoSMCURy9OwTCTZbDJLzDOjEkdZi2YbB9VDrV19a6qlbzGsP2JO+KU
+	eOzEJ+F2tvZR/xUNtoJrsCZD614Ucfm5apNWlCbB6Ko2VeP5c6xQYfVY/Z7fnq/ygnTeCOTvMIO
+	88VOuX1xwfP8Fw9r8cW2H1ZJQZl0+w9tFjWqX3dzg==
+X-Received: by 2002:a05:6000:98f:b0:486:fe85:ec9b with SMTP id ffacd0b85a97d-48702ac343emr1115649f8f.24.1789370135494;
+        Mon, 14 Sep 2026 00:15:35 -0700 (PDT)
+Received: from fedora-tap.advaoptical.com ([82.166.23.19])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb34e4b5sm24472558f8f.22.2026.09.14.00.15.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 00:15:34 -0700 (PDT)
+From: Sagi Maimon <maimon.sagi@gmail.com>
+To: Richard Cochran <richardcochran@gmail.com>,
+	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+	Jakub Kicinski <kuba@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Simon Horman <horms@kernel.org>,
+	Jiri Pirko <jiri@resnulli.us>,
+	Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	netdev@vger.kernel.org
+Cc: linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Sagi Maimon <maimon.sagi@gmail.com>
+Subject: [PATCH net-next v14 0/4] ptp: ocp: add TAP CPLD support for ADVA TimeCard X1
+Date: Mon, 14 Sep 2026 10:15:27 +0300
+Message-ID: <20260914071531.11640-1-maimon.sagi@gmail.com>
+X-Mailer: git-send-email 2.47.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Chao Yu <chao@kernel.org>
-Subject: Re: [f2fs-dev] [PATCH v2 2/2] f2fs: introduce reserve_shrink mount
- option for filesystem shrinkage
-To: Daeho Jeong <daeho43@gmail.com>, linux-kernel@vger.kernel.org,
- linux-f2fs-devel@lists.sourceforge.net, kernel-team@android.com
-Cc: chao@kernel.org, Daeho Jeong <daehojeong@google.com>
-References: <20260911143549.909867-1-daeho43@gmail.com>
- <20260911143549.909867-2-daeho43@gmail.com>
-Content-Language: en-US
-In-Reply-To: <20260911143549.909867-2-daeho43@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/11/26 22:35, Daeho Jeong wrote:
-> From: Daeho Jeong <daehojeong@google.com>
-> 
-> When preparing for subsequent online filesystem shrinkage (e.g., during
-> partition resizing or FOTA updates), sufficient free space must be
-> preserved so that valid data blocks can be evacuated and the filesystem
-> can safely shrink.
-> 
-> Existing reserve_root cannot prevent space exhaustion by privileged root
-> processes (such as OTA updaters, package managers, and system daemons
-> running with CAP_SYS_RESOURCE), which can allocate blocks from the root
-> reserve and lead to resize failures due to lack of space. Moreover,
+The ADVA TimeCard X1 (PCI device 0x0410) carries a Lattice MachXO3 CPLD
+on the TMC I2C bus.  This series adds access to it and an update path
+through devlink flash.
 
-I'm thinking about reusing existing mount option AMAP, is there any problem
-to use "reserve_root=" w/ 128mb+shrunk_size_mb when we execute online filesyste
-shrinkage? once it is done, recover w/ reserve_root=128mb.
+The card has two I2C controllers.  Linux registers only the one at
+0x00150000, normally routed to the config EEPROMs; the one at 0x00120000
+belongs to the on-card MicroBlaze and is routed to the TMC or M.2 bus as
+its firmware selects.  A request/grant handshake re-routes the host
+controller onto the TMC bus, where the PCA9548 and the CPLD behind its
+channel 0 live.  Everything here is built on that handshake.
 
-> runtime configurable reserved_blocks represents permanent GC and metadata
-> headroom that must persist after resize, which would cause double-counting
-> if inflated for shrinkage.
+Patches 1 and 2 are pre-existing probe-error-path bugs that were buried
+in the feature commit in v13; they are split out with Fixes: tags, as
+requested.  Patch 1 is also a prerequisite: patch 3 adds a mutex that
+ptp_ocp_detach() destroys, so devlink has to be unregistered first.
+Patch 3 adds the bus arbitration and the read-only interfaces, patch 4
+the flashing.
 
-I didn't get it, can you please explain a bit more about this issue?
+v13: https://lore.kernel.org/netdev/20260908122328.52641-1-maimon.sagi@gmail.com/T/#u
 
-Thanks,
+Changes since v13:
 
-> 
-> To resolve this, introduce a dedicated reserve_shrink=<blocks>
-> mount option:
-> 1. Symmetrically mirrors reserve_root=<blocks> in block units to
->     pre-reserve space specifically for subsequent filesystem shrinkage.
-> 2. In get_available_block_count(), unconditionally deducts
->     reserve_shrink_blocks for all callers, strictly rejecting all
->     allocations (including root / CAP_SYS_RESOURCE) once available blocks
->     are exhausted.
-> 3. In f2fs_statfs(), deducts reserve_shrink_blocks from f_bfree (and
->     f_bavail) so that filesystem statistics accurately reflect usable space.
-> 4. In f2fs_resize_fs(), automatically resets reserve_shrink_blocks to 0
->     and clears F2FS_MOUNT_RESERVE_SHRINK upon successful shrink completion,
->     releasing any remaining reservation.
-> 5. In sysfs: reserved_blocks, subtracts reserve_shrink_blocks when
->     validating the upper limit of configurable reserved blocks.
-> 
-> Signed-off-by: Daeho Jeong <daehojeong@google.com>
-> ---
-> v2:
->   - Split out mount option bitmask expansion (BIT_ULL) into a separate
->     prerequisite patch (Patch 1/2).
-> ---
->   Documentation/filesystems/f2fs.rst |  7 +++++
->   fs/f2fs/f2fs.h                     |  9 ++++++
->   fs/f2fs/gc.c                       |  5 ++++
->   fs/f2fs/super.c                    | 47 ++++++++++++++++++++++++++++++
->   fs/f2fs/sysfs.c                    | 13 +++++++--
->   5 files changed, 79 insertions(+), 2 deletions(-)
-> 
-> diff --git a/Documentation/filesystems/f2fs.rst b/Documentation/filesystems/f2fs.rst
-> index 771216f45207..dbdc5d5a83ad 100644
-> --- a/Documentation/filesystems/f2fs.rst
-> +++ b/Documentation/filesystems/f2fs.rst
-> @@ -191,6 +191,13 @@ reserve_node=%d		 Support configuring reserved nodes which are used for
->   			 gid, the default limit is 12.5% of all nodes.
->   resuid=%d		 The user ID which may use the reserved blocks and nodes.
->   resgid=%d		 The group ID which may use the reserved blocks and nodes.
-> +reserve_shrink=%d	 Support pre-reserving space for subsequent filesystem
-> +			 shrinkage (e.g. during partition resizing or FOTA),
-> +			 unit: blocks. Unlike reserve_root, allocations from
-> +			 this reserved space strictly reject all callers
-> +			 (including root / CAP_SYS_RESOURCE). Once the
-> +			 filesystem is successfully shrunk via resize, this
-> +			 value is automatically reset to 0.
->   fault_injection=%d	 Enable fault injection in all supported types with
->   			 specified injection rate.
->   fault_type=%d		 Support configuring fault injection type, should be
-> diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-> index 4aaf29de3f6f..48a91771be95 100644
-> --- a/fs/f2fs/f2fs.h
-> +++ b/fs/f2fs/f2fs.h
-> @@ -145,6 +145,7 @@ enum f2fs_mount_opt {
->   	 */
->   	F2FS_MOUNT_LAZYTIME,
->   	F2FS_MOUNT_RESERVE_NODE,
-> +	F2FS_MOUNT_RESERVE_SHRINK,
->   };
->   
->   #define F2FS_OPTION(sbi)	((sbi)->mount_opt)
-> @@ -226,6 +227,7 @@ struct f2fs_mount_info {
->   	unsigned long long opt;
->   	block_t root_reserved_blocks;	/* root reserved blocks */
->   	block_t root_reserved_nodes;	/* root reserved nodes */
-> +	block_t reserve_shrink_blocks;	/* reserve blocks for shrink */
->   	kuid_t s_resuid;		/* reserved blocks for uid */
->   	kgid_t s_resgid;		/* reserved blocks for gid */
->   	int active_logs;		/* # of active logs */
-> @@ -2658,6 +2660,13 @@ static inline unsigned int get_available_block_count(struct f2fs_sb_info *sbi,
->   	if (test_opt(sbi, RESERVE_ROOT) && !__allow_reserved_root(sbi, inode, cap))
->   		avail_user_block_count -= F2FS_OPTION(sbi).root_reserved_blocks;
->   
-> +	if (test_opt(sbi, RESERVE_SHRINK)) {
-> +		if (avail_user_block_count > F2FS_OPTION(sbi).reserve_shrink_blocks)
-> +			avail_user_block_count -= F2FS_OPTION(sbi).reserve_shrink_blocks;
-> +		else
-> +			avail_user_block_count = 0;
-> +	}
-> +
->   	if (unlikely(is_sbi_flag_set(sbi, SBI_CP_DISABLED))) {
->   		if (avail_user_block_count > sbi->unusable_block_count)
->   			avail_user_block_count -= sbi->unusable_block_count;
-> diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
-> index bc22dde1cb30..556c4793478d 100644
-> --- a/fs/f2fs/gc.c
-> +++ b/fs/f2fs/gc.c
-> @@ -2492,6 +2492,11 @@ int f2fs_resize_fs(struct file *filp, __u64 block_count)
->   		spin_lock(&sbi->stat_lock);
->   		sbi->user_block_count += shrunk_blocks;
->   		spin_unlock(&sbi->stat_lock);
-> +	} else if (test_opt(sbi, RESERVE_SHRINK)) {
-> +		spin_lock(&sbi->stat_lock);
-> +		F2FS_OPTION(sbi).reserve_shrink_blocks = 0;
-> +		clear_opt(sbi, RESERVE_SHRINK);
-> +		spin_unlock(&sbi->stat_lock);
->   	}
->   out_err:
->   	f2fs_up_write_trace(&sbi->cp_global_sem, &clc);
-> diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
-> index a5e109bdcebc..58f33750b2a8 100644
-> --- a/fs/f2fs/super.c
-> +++ b/fs/f2fs/super.c
-> @@ -196,6 +196,7 @@ enum {
->   	Opt_data_flush,
->   	Opt_reserve_root,
->   	Opt_reserve_node,
-> +	Opt_reserve_shrink,
->   	Opt_resgid,
->   	Opt_resuid,
->   	Opt_mode,
-> @@ -328,6 +329,7 @@ static const struct fs_parameter_spec f2fs_param_specs[] = {
->   	fsparam_flag("data_flush", Opt_data_flush),
->   	fsparam_u32("reserve_root", Opt_reserve_root),
->   	fsparam_u32("reserve_node", Opt_reserve_node),
-> +	fsparam_u32("reserve_shrink", Opt_reserve_shrink),
->   	fsparam_gid("resgid", Opt_resgid),
->   	fsparam_uid("resuid", Opt_resuid),
->   	fsparam_enum("mode", Opt_mode, f2fs_param_mode),
-> @@ -407,6 +409,7 @@ static match_table_t f2fs_checkpoint_tokens = {
->   #define F2FS_SPEC_lookup_mode			(1 << 24)
->   #define F2FS_SPEC_reserve_node			(1 << 25)
->   #define F2FS_SPEC_resizable_tail_secno		(1 << 26)
-> +#define F2FS_SPEC_reserve_shrink		(1 << 27)
->   
->   struct f2fs_fs_context {
->   	struct f2fs_mount_info info;
-> @@ -550,6 +553,27 @@ static inline void limit_reserve_root(struct f2fs_sb_info *sbi)
->   					   F2FS_OPTION(sbi).s_resgid));
->   }
->   
-> +static inline void limit_reserve_shrink(struct f2fs_sb_info *sbi)
-> +{
-> +	block_t block_limit;
-> +
-> +	if (!test_opt(sbi, RESERVE_SHRINK))
-> +		return;
-> +
-> +	block_limit = sbi->user_block_count - sbi->reserved_blocks;
-> +	if (test_opt(sbi, RESERVE_ROOT)) {
-> +		if (block_limit > F2FS_OPTION(sbi).root_reserved_blocks)
-> +			block_limit -= F2FS_OPTION(sbi).root_reserved_blocks;
-> +		else
-> +			block_limit = 0;
-> +	}
-> +	if (F2FS_OPTION(sbi).reserve_shrink_blocks > block_limit) {
-> +		F2FS_OPTION(sbi).reserve_shrink_blocks = block_limit;
-> +		f2fs_info(sbi, "Reduce reserved blocks for shrink = %u",
-> +			  F2FS_OPTION(sbi).reserve_shrink_blocks);
-> +	}
-> +}
-> +
->   static inline void adjust_unusable_cap_perc(struct f2fs_sb_info *sbi)
->   {
->   	if (!F2FS_OPTION(sbi).unusable_cap_perc)
-> @@ -953,6 +977,14 @@ static int f2fs_parse_param(struct fs_context *fc, struct fs_parameter *param)
->   		F2FS_CTX_INFO(ctx).root_reserved_nodes = result.uint_32;
->   		ctx->spec_mask |= F2FS_SPEC_reserve_node;
->   		break;
-> +	case Opt_reserve_shrink:
-> +		if (result.uint_32)
-> +			ctx_set_opt(ctx, F2FS_MOUNT_RESERVE_SHRINK);
-> +		else
-> +			ctx_clear_opt(ctx, F2FS_MOUNT_RESERVE_SHRINK);
-> +		F2FS_CTX_INFO(ctx).reserve_shrink_blocks = result.uint_32;
-> +		ctx->spec_mask |= F2FS_SPEC_reserve_shrink;
-> +		break;
->   	case Opt_resuid:
->   		F2FS_CTX_INFO(ctx).s_resuid = result.uid;
->   		ctx->spec_mask |= F2FS_SPEC_resuid;
-> @@ -1775,6 +1807,9 @@ static void f2fs_apply_options(struct fs_context *fc, struct super_block *sb)
->   	if (ctx->spec_mask & F2FS_SPEC_reserve_node)
->   		F2FS_OPTION(sbi).root_reserved_nodes =
->   					F2FS_CTX_INFO(ctx).root_reserved_nodes;
-> +	if (ctx->spec_mask & F2FS_SPEC_reserve_shrink)
-> +		F2FS_OPTION(sbi).reserve_shrink_blocks =
-> +					F2FS_CTX_INFO(ctx).reserve_shrink_blocks;
->   	if (ctx->spec_mask & F2FS_SPEC_resgid)
->   		F2FS_OPTION(sbi).s_resgid = F2FS_CTX_INFO(ctx).s_resgid;
->   	if (ctx->spec_mask & F2FS_SPEC_resuid)
-> @@ -2300,6 +2335,13 @@ static int f2fs_statfs(struct dentry *dentry, struct kstatfs *buf)
->   	buf->f_bfree = user_block_count - valid_user_blocks(sbi) -
->   						sbi->current_reserved_blocks;
->   
-> +	if (test_opt(sbi, RESERVE_SHRINK)) {
-> +		if (buf->f_bfree > F2FS_OPTION(sbi).reserve_shrink_blocks)
-> +			buf->f_bfree -= F2FS_OPTION(sbi).reserve_shrink_blocks;
-> +		else
-> +			buf->f_bfree = 0;
-> +	}
-> +
->   	if (unlikely(buf->f_bfree <= sbi->unusable_block_count))
->   		buf->f_bfree = 0;
->   	else
-> @@ -2524,6 +2566,9 @@ static int f2fs_show_options(struct seq_file *seq, struct dentry *root)
->   					F2FS_OPTION(sbi).s_resuid),
->   				from_kgid_munged(&init_user_ns,
->   					F2FS_OPTION(sbi).s_resgid));
-> +	if (test_opt(sbi, RESERVE_SHRINK))
-> +		seq_printf(seq, ",reserve_shrink=%u",
-> +				F2FS_OPTION(sbi).reserve_shrink_blocks);
->   #ifdef CONFIG_F2FS_FAULT_INJECTION
->   	if (test_opt(sbi, FAULT_INJECTION)) {
->   		seq_printf(seq, ",fault_injection=%u",
-> @@ -3105,6 +3150,7 @@ static int __f2fs_remount(struct fs_context *fc, struct super_block *sb)
->   
->   	adjust_pinned_area_boundary(sbi);
->   	limit_reserve_root(sbi);
-> +	limit_reserve_shrink(sbi);
->   	fc->sb_flags = (flags & ~SB_LAZYTIME) | (sb->s_flags & SB_LAZYTIME);
->   
->   	sbi->umount_lock_holder = NULL;
-> @@ -5322,6 +5368,7 @@ static int f2fs_fill_super(struct super_block *sb, struct fs_context *fc)
->   	sbi->current_reserved_blocks = 0;
->   	sbi->alias_reserved_blocks = 0;
->   	limit_reserve_root(sbi);
-> +	limit_reserve_shrink(sbi);
->   	adjust_unusable_cap_perc(sbi);
->   
->   	f2fs_init_extent_cache_info(sbi);
-> diff --git a/fs/f2fs/sysfs.c b/fs/f2fs/sysfs.c
-> index aaca9ed9b169..d61940d095b4 100644
-> --- a/fs/f2fs/sysfs.c
-> +++ b/fs/f2fs/sysfs.c
-> @@ -591,9 +591,18 @@ static ssize_t __sbi_store(struct f2fs_attr *a,
->   	}
->   #endif
->   	if (a->struct_type == RESERVED_BLOCKS) {
-> +		unsigned long limit;
-> +
->   		spin_lock(&sbi->stat_lock);
-> -		if (t > (unsigned long)(sbi->user_block_count -
-> -				F2FS_OPTION(sbi).root_reserved_blocks)) {
-> +		limit = sbi->user_block_count -
-> +				F2FS_OPTION(sbi).root_reserved_blocks;
-> +		if (test_opt(sbi, RESERVE_SHRINK)) {
-> +			if (limit > F2FS_OPTION(sbi).reserve_shrink_blocks)
-> +				limit -= F2FS_OPTION(sbi).reserve_shrink_blocks;
-> +			else
-> +				limit = 0;
-> +		}
-> +		if (t > limit) {
->   			spin_unlock(&sbi->stat_lock);
->   			return -EINVAL;
->   		}
+ - The CPLD is no longer flashed through the firmware-upload subsystem.
+   It is a devlink flash component instead:
+
+     devlink dev flash pci/0000:02:00.0 file cpld.bin component fw.cpld
+
+   ->info_get() reports fw.cpld as a running version with
+   DEVLINK_INFO_VERSION_TYPE_COMPONENT, carrying the USERCODE of the
+   image in the part, which is also what makes the core accept the
+   component name.  No component still means the card flash.  This
+   removed fw_upload_ops, the adva-cpld.N node, the FW_LOADER/FW_UPLOAD
+   selects and the cancellation state machine - and with it a race where
+   a cancel arriving after one upload finished could abort the next.
+   Patch 4.  (Jakub Kicinski)
+ - cpld_status now contains the names of the flags that are set, space
+   separated, and an empty line when none is, instead of
+   "done=<0|1> busy=<0|1> failed=<0|1>".  Patch 3.  (Jakub Kicinski)
+ - The commit was split; the two pre-existing fixes it contained are
+   patches 1 and 2 with Fixes: tags.  (Jakub Kicinski)
+ - The flash path now validates the state after REFRESH - DONE set, not
+   busy, and no sysCONFIG error - and fails the devlink command rather
+   than reporting success for an image that did not come back.  Patch 4.
+ - adva_x1_mblaze_release() waits for the firmware to drop the grant
+   instead of writing RELEASE and returning, and warns if it does not.
+   Patch 3.
+ - The i2c bus notifier only caches the adapter number for the card's
+   own controller, not for an i2c-mux child registered on it.  The
+   adapter is also resolved once from probe, because the notifier fires
+   from inside platform_device_register() - before bp->i2c_ctrl is
+   assigned - whenever the i2c controller driver is already loaded.
+   Patch 3.
+ - ptp_ocp_devlink_info_get() checks bp->has_cpld explicitly rather than
+   relying on cpld_id being zero on boards without one.  Patch 3.
+ - ptp_ocp_sync_work() no longer latches the one-shot ID read on -EBUSY,
+   so a read that collided with a CPLD operation is retried.  Patch 3.
+ - Documentation/networking/devlink/ptp_ocp.rst documents the flash
+   components and states the accepted image format: a raw bitstream, a
+   whole number of 16-byte pages; .jed and other containers are
+   rejected.  Patch 4.
+
+Tested on an ADVA TimeCard X1: a full erase/program/refresh cycle of a
+6526-page image through "devlink dev flash ... component fw.cpld", the
+CPLD reporting done afterwards and still done across a reboot, and both
+rejection paths (a .jed image, and an unknown component name).
+
+
+Sagi Maimon (4):
+  ptp: ocp: unregister devlink before detach on probe error
+  ptp: ocp: fix dpll cleanup on probe error
+  ptp: ocp: add TAP CPLD access for ADVA TimeCard X1
+  ptp: ocp: add TAP CPLD flashing via devlink
+
+ Documentation/ABI/testing/sysfs-timecard     |  28 +
+ Documentation/networking/devlink/index.rst   |   1 +
+ Documentation/networking/devlink/ptp_ocp.rst |  70 ++
+ MAINTAINERS                                  |   1 +
+ drivers/ptp/ptp_ocp.c                        | 774 ++++++++++++++++++-
+ 5 files changed, 868 insertions(+), 6 deletions(-)
+ create mode 100644 Documentation/networking/devlink/ptp_ocp.rst
+
+
+base-commit: 879e280b8486d4612ad1aa050d6fada2dd80cf1c
+-- 
+2.47.0
 
