@@ -1,146 +1,232 @@
-Received: from smtpo63.interia.pl (smtpo63.interia.pl [217.74.67.63])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F8FE423EB9
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 09:50:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.74.67.63
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789379441; cv=none; b=azUIIsWgw7vuvvQZQ8q2eixTl4KzGHH5cczdnSb02J0G1rsM+9U0wkvm+sAURNNReeL+8uT3un3PkUvQUp8wH4PoYUxVqq1tMevdDJsFpBFqtItcFfwgcJsMTd6z8tJ3VPf768hSjYsAPZ/vLz8dvKDywuJbsnWdtAmZOa7GuCI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789379441; c=relaxed/simple;
-	bh=lOn8gRXqvS7hF+moEVAKdLL/rL+TDs0AzKWVEtTpFUQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OH/zvqySMT2Iq3Q1hPnBsWfiJdTGMHWyy3HQs4D3/FTbmIIsn7K7lABCiTsbxPSoet3sbzTgF109EWlJ8EcC6++K28iL7+VfN4QBEOElY1GQdAWBCeFCsXe645EIMNbPqgzAE9MTlt/U4oTJMBO8kl+sjMv152cDQvOymsTVJDY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=poczta.fm; spf=pass smtp.mailfrom=poczta.fm; dkim=pass (1024-bit key) header.d=poczta.fm header.i=@poczta.fm header.b=fHSPUpYi; arc=none smtp.client-ip=217.74.67.63
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=poczta.fm
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=poczta.fm
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 235AD36657B;
+	Mon, 14 Sep 2026 09:50:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.4
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789379444; cv=fail; b=UFH9amiQ5r0aK3X7fjs70krqPAiGkHXoDnSRlB5pKLqdCNlrDNfTKQylo+wn2e+2AMVgjPOhYT8RTIvbCOoJ1URVichkZDKC2zrqEZCtZVoZCU0QF6b1mxIBGZB1bKg7M7YJe40/8CUCwHK/1sdpyaZBGRYvI2DUUsKMgU2yhOw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789379444; c=relaxed/simple;
+	bh=cKVNOXQl+zi6vhIPk9VYJ8gaRrsjcTSZ+mfeSHt34kU=;
+	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=YE8DqFGu1Xp92ZXtBtqPPvEjg20Grg0DV06WqjxTPZpBrF2jF9Eqd+csrAIYYbM3OHd6pRPXZ9XVjCw3BZbADnXOjxlKjHrbXteHr/CCm7aKab3tqYfpiLircW8pGokh0lnRsgIpPDHMg68gjIZwTzjUsUbdACsmUnnOvpuk2XY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VgPXofBi; arc=fail smtp.client-ip=192.198.163.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=poczta.fm header.i=@poczta.fm header.b="fHSPUpYi"
-Received: from localhost (unknown [80.68.231.31])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by poczta.interia.pl (INTERIA.PL) with ESMTPSA;
-	Mon, 14 Sep 2026 11:50:33 +0200 (CEST)
-From: Slawomir Stepien <sst@poczta.fm>
-To: syzkaller-bugs@googlegroups.com,
-	Basavaraj Natikar <Basavaraj.Natikar@amd.com>,
-	bentiss@kernel.org,
-	jikos@kernel.org,
-	linux-input@vger.kernel.org,
-	sandeep.singh@amd.com
-Cc: linux-kernel@vger.kernel.org,
-	syzbot@lists.linux.dev,
-	Slawomir Stepien <sst@poczta.fm>,
-	syzbot+4eadd4dfe9e66522bae8@syzkaller.appspotmail.com
-Subject: [PATCH v2] HID: amd_sfh: Validate PCI BAR size before mapping
-Date: Mon, 14 Sep 2026 11:50:07 +0200
-Message-ID: <20260914095007.205287-1-sst@poczta.fm>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VgPXofBi"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789379444; x=1820915444;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=cKVNOXQl+zi6vhIPk9VYJ8gaRrsjcTSZ+mfeSHt34kU=;
+  b=VgPXofBiU277yxegRB7OmLRSBND3ZTeVSWmoebSx1NBgVoWP6NgwfvPI
+   bLTMqmEvF33JHkN/NnYTvhwSP0nPM72JRr6nuHgYz7LCpgcftDQwFRlN3
+   /t+JN/aFxBE0dZHBRg5xqiIPki4aaAMC5ll0o7jgid1952jzeE2ue4eZ0
+   nP0mprL9CV1eBot/uAFiu1bskP9Gl0zPBve224ju1YLX3/MCUZ6dBIYul
+   wA8T1bL4hmIkdMvZAX4bJ1ribuAcqU0+Cseu/pVJtrXeAYxOZQwYcSVCX
+   8YqgH83TWtIiJJUrKUOE7WwdX9iMJ1ojlLCUPkgQ9+rPM1daTUC1tY3cD
+   Q==;
+X-CSE-ConnectionGUID: Aci9pO7YSN2d/FFCyzPmMw==
+X-CSE-MsgGUID: L0npmQ9YT161EiiJXawiAA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="239551"
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
+   d="scan'208";a="239551"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa114.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 02:50:43 -0700
+X-CSE-ConnectionGUID: pbSkmvXtRFSYkDSxcxYy9w==
+X-CSE-MsgGUID: MMlhsyowSBK4lb16FE04bw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
+   d="scan'208";a="268303372"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+  by fmviesa006.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 02:50:42 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Mon, 14 Sep 2026 02:50:42 -0700
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Mon, 14 Sep 2026 02:50:42 -0700
+Received: from PH8PR06CU001.outbound.protection.outlook.com (40.107.209.2) by
+ edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Mon, 14 Sep 2026 02:50:41 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZJj2uNTXKW+Zypxp+b3COwfX9h9HS9gFQLhZtbCzYtLoluCHzIj0Brj+LyYVDYaAStKPe2Wj9TtEciABVc+GHVjKttioe1Y8ZX99IoyYnVuToJ2m74aRQsSnB1tjgKJYGAy4sQXymKHniiKXrouUyLMxmkWAAnSS7ivqDa48G/fxMAJbtIUhLDOmjqXMbLv1mI13sBE4z8FIy4+pGeKY5BBml/ABKcJ5ycmNqqRUVS4gulITpIAT9cRjxsgRCJ/Afl47n4Us5iXEwVTb3z+E0/5mc1zRyslztVWnW+aHlpb5UM/GFX7CaEjoIkBZD3tNFfItNyDNhYFOOcCIZv2WDg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=NCi43l5//WBbs/pJ2vD5rXmheEvF/dQMUBPohGaRy/s=;
+ b=IeqySSeqLgwTBzSr9gYjMWyP7+rlZU92qq4t1KBGh3b/TPLDwXRWH3pWkHTQlaXgNlek1xFddIo7DHuuZkw/QgivksYpsOA3hyVo6qqNu+8ILibYeFk9L3VGZqCfoTk7gJBl5+qpi6e1H6KVPaFlHDAqezVe4KvOHXnUpnWwsJs4eVjCe248zdW4/GTlim+R6NVjsnON9tSjvHc79neIwUnJzD52JAcUav702UiSwsBhBzuLujJX23r5dZ0GtYKqbMem15je+VUGlR4XOzdupN+YGXxq0ME34ISinkv7F2VtRSIjlpEAMjyPu8IH/0biIoRuLq4xC5DmlufC2QU2tQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from LV3PR11MB8508.namprd11.prod.outlook.com (2603:10b6:408:1b4::8)
+ by CYYPR11MB8408.namprd11.prod.outlook.com (2603:10b6:930:b9::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.10; Mon, 14 Sep
+ 2026 09:50:35 +0000
+Received: from LV3PR11MB8508.namprd11.prod.outlook.com
+ ([fe80::a1e8:1786:e5d1:8e51]) by LV3PR11MB8508.namprd11.prod.outlook.com
+ ([fe80::a1e8:1786:e5d1:8e51%5]) with mapi id 15.21.0406.007; Mon, 14 Sep 2026
+ 09:50:34 +0000
+Message-ID: <4ad84736-f0cc-4ac6-aee2-8b21a5b8b8d1@intel.com>
+Date: Mon, 14 Sep 2026 11:52:50 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ixgbe: fix incomplete ACI command buffer backup on retry
+To: Linkui Xiao <xiaolinkui@126.com>, <anthony.l.nguyen@intel.com>,
+	<andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
+	<pabeni@redhat.com>, <intel-wired-lan@lists.osuosl.org>
+CC: <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>, Linkui Xiao
+	<xiaolinkui@kylinos.cn>
+References: <20260912013403.2818191-1-xiaolinkui@126.com>
+From: Przemek Kitszel <przemyslaw.kitszel@intel.com>
+Content-Language: en-US
+In-Reply-To: <20260912013403.2818191-1-xiaolinkui@126.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: VIXP296CA0009.AUTP296.PROD.OUTLOOK.COM
+ (2603:10a6:800:2a9::14) To LV3PR11MB8508.namprd11.prod.outlook.com
+ (2603:10b6:408:1b4::8)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=poczta.fm; s=dk;
-	t=1789379434; bh=FVa+YjjcW9hmFc3cvqqLFK8kvWsctFf1lA9TzHiUzRc=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=fHSPUpYimmQJwRXJJMwauDMh4YC2dOr0lbSESJrhIuk8069d6i45hKt1PZOI12pY+
-	 q1qx7CorWSJ+JFttOIXvJmOhobNi+64e6mlbODH/yJIsppO6DSOrYyen9Y2+hcTk+A
-	 6kiugcgEwqnJcqWLRrfPnoWuJhJp/kjdFucx28HY=
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV3PR11MB8508:EE_|CYYPR11MB8408:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9981f3d8-c6b9-456d-30d1-08df12459f1c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|6133799003|10067099003|56012099006|11063799006|18002099003|3023799007|22082099003;
+X-Microsoft-Antispam-Message-Info: 8RwZXICT5kSSWhnUbtJzEf+uTlKMQGi5y+R6NFZ9fJ7B5WA2raVfzysktEk4hRbTP2CkO5z+SVNTHWz7v/WSXiy5/s7YQKwkKTVWtH+aL38wrcW7kadBKIKR/8H6PURCuUIwknaQ8Qt9G0gFzrMNcJEPfnnETtlsnNglMRsEZOv0m5oZ0TmKCBoadpUXvjfdUq8QsEIQBgv+SpWophEdLvnZFLBzMNJUtS+T2K+S2AKxNdC04Tma0c+HuvuIRgJ1GAO28jTugKDRtH7svfqJY1KN+s9edmyhYNhJW0Y5NSAOWqaucHVnCkUEgyi7PhAAHqmR/gHpNPDtuEfedavyioWABJSkvpwGunfvoR88zo21wj1F4HNJhD8W/WsqBa6jvzbJdWk54pbULAZQwPZnhE9FAAI/i6pBljkn90a6JYTjgjLMMNNlHunAYxt4E1Lz4JZkinShfyI0l48o0QUe0HSvY7HzJtF0R3WczOlBE8U4jmOy7zxohuJmy6pwEqRahDE+uZyKt+YU3X3yanGqeXLKyzuvrQKEQjNtFOoNvfOMzz1KhoeI8re3748ILA9q7pqfavxBoY6LPP01QP8YRPi0MaBw5mMXL97k+0jFdAoRekppMRjR1s3YWaNQPbCiJwp9y5Iv8dvGx15glUupMAC/xqpm8YPb9jfpEiqffHU=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV3PR11MB8508.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(6133799003)(10067099003)(56012099006)(11063799006)(18002099003)(3023799007)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OVpVR2JvaEhqOWVyQ2JtU21nTDJmQVlNVEFrZDg0ZXluNXZ5OFphd2xudEhW?=
+ =?utf-8?B?a0VhWGhvSkx0NWpCOEpTREhwK1Y4aUxpdnBQQStyU01GVm1xQkZJZkJhZnk3?=
+ =?utf-8?B?SnFhMzRvaUtMbWQwbVh4VWRKajFHVnpNR05HejM0NDdBTmxOMG5jaWJUU2Jj?=
+ =?utf-8?B?STB1SW94ek5JTXVOL2RsQXJ1Z1JCKzEwTjdkenRZMUNXcldSaGRFMDBTRUVN?=
+ =?utf-8?B?S3UxN0RrWDZtdFpSVU1SbFFrOW1jbXkwTFMxUHhpdm9VMy9OTzVWOTBReEtT?=
+ =?utf-8?B?UDY3QTB6bXlqQm1hd1hVcTZEdVVYQUZzSUVEanpCeVEvOUFUcHVwTTNHTWdk?=
+ =?utf-8?B?ZTlVRHNhdkpHVjdzZjRuaFVucnpZS3JjM0RwMytHQkh6a1hpeTlSdEwrQk1G?=
+ =?utf-8?B?cEF2cFFiakNVUXp5ODBrMUQzYVRDbVJGVlB3NllVOFhxL1lWS281Qm16T0wv?=
+ =?utf-8?B?clZlYk1vakNNV2FOU2JJME9CK1hvUXcvZVVpODl4U0w0RUlDUDZ5aXloOVEw?=
+ =?utf-8?B?QS9uTlJVYUROaVRGT3RLeURKeU1ZZG5sa1FkblNML3FHYVd1Wm5YWDVzYzNs?=
+ =?utf-8?B?ZXBUWHVlZ0hRUTc5YmRQT0d4bVRIL0NuVkd2bzJSTEJxSURoZmRIZzRLUHNB?=
+ =?utf-8?B?N1ozdFVZZk1PbGJjZ1VaNjhNenNFN3FxU0pnejg4eC9VdStrUU54Y2N2Vjkx?=
+ =?utf-8?B?NU5vVjloVkd4UmZFQlk2TEpId205Y3lLWlNtRkgyNm9ROHNhVTQrMFVyaG1u?=
+ =?utf-8?B?RmNPV1VKZmdGMkp5S2FQWVRqQ1lvMkp0VnZXTzB6TE92S1N0M1IzblE5MEtD?=
+ =?utf-8?B?SFBuZmd3YTU3MmtKK0FwRFE2Q05sdml3SXhacGYvUExYcVR3eWhMSEdxbVk5?=
+ =?utf-8?B?MTREd0psaklHWlhZQkh3YWkvRUZLL1YzMnZiUU40WldLbHJDVzMwS3VCNmll?=
+ =?utf-8?B?Ly9sNzRBS25CdmZYT3VIanZGWE1sY2czVmwrTXJLVG5mT0VMZUJpdU1US3U1?=
+ =?utf-8?B?cUU4K2tGaEZSTlBkUGVKb29kR0tOc3g4aXQyaHRtam1VdC9VZVR5VUZLZTlh?=
+ =?utf-8?B?SG81L1U0eHVaUlVqS0Eva0UyL25hOXNFMWh1dm1lem1vRzVZRUJtTDAwYjNt?=
+ =?utf-8?B?dk1jVDBlZlZwRXFWd2t2aGVacVV5eVN5bWRKUjVTOUkwMiswQ2x5VlY4L1Bt?=
+ =?utf-8?B?WnhLU2xWa1BOSjRLYzBvVWRZMnZZekY1aE1lMWgzb1lqcWNjK0pWa3BLbTkz?=
+ =?utf-8?B?TnBOSlFiWXZzUnc3RUY2VHNza1hrRWtPM2J3bE9JU0IyT2RuRHZ4Nk9aUUJl?=
+ =?utf-8?B?NmFjN3lid1Z4NFVvT3Rzb2QrV3lCU0t6WjJhdVRneU1mQzJ6ZlBmVkVsK0pw?=
+ =?utf-8?B?VFRNc2hLU3pNdlNPZlVXckNtLzJGc0xYa2ZsN1F3S3hMZ1NuSkUvVmdhM2dJ?=
+ =?utf-8?B?SE9wVTU2TU1ER1VhNk92THd0QVl4Wll4Yytnd3ZFSVpYL3E0RFpPbjViQnRk?=
+ =?utf-8?B?d1hhZHJNNHBiYjkydUJyMldreVVTZGFUN0VSeWFUd3RjQTVqL3loYmhkY1Nk?=
+ =?utf-8?B?TDhCL2Vta2lIeldEZWpRYkJKd2xadWlkemdWWmdWdDVQdXpwQnVJTlBrVzZT?=
+ =?utf-8?B?R2F6Z1hzc3FjMXFXdFZFZmdaL2ZYSXFtREY0LytiZE9sVGFPTnBRRk0rVFN5?=
+ =?utf-8?B?VUdKUEZ3R2FLaWlPRDZoaE5RMUtUVFlldUhQanJlQU5zZTRYeWFWSmJLZVZ4?=
+ =?utf-8?B?WGQwUDBkclNVWG0yaUpqZUdBeUlCV2ErMW1nUitQdkJVZVRhL256enQvcWdl?=
+ =?utf-8?B?YStocmtlVHJYSzk5U01tcUt2eVVUcUdTOXErdG1iekE1UlFVamJmMHA3TjZI?=
+ =?utf-8?B?MUZmSy9zODZFOEFaQkpZTXUxZHYvK2xkOE1tcDdVMnhNcThiUm9JWFc5SWpK?=
+ =?utf-8?B?T25sLzQ1TjJjZDVvMmZxNzZ5ZlIwMVRtM3A0WmtTNG13eG1mQVI4QVV6U3Fq?=
+ =?utf-8?B?RlpXbDZacjBlbndLL20zR1dodlNPaW9kRVQ1WTVaa0p1MzhYbm9SMy9GWk9x?=
+ =?utf-8?B?ajV5WFYxZG9BeXFqMCtoajhXS2wySDkvcmlhOWpyWENjODF1b2hlRlpwSkNy?=
+ =?utf-8?B?YUpBU25vZHU0RDdwUWJTZkFpMGYzMEJjVUdpZkkzTGtJTHJqVmJ2NTJEakxR?=
+ =?utf-8?B?ODNuZUcwaGRGeEw3UlNsdGNYSkNYUldONmFpWGxnelB6VjFWbDNHNUlNUWZE?=
+ =?utf-8?B?aWNhUzNnMC9XeDdDU09lcEY5alhubytGUjdpdThYL1VUczQyTlRNVWY2THNS?=
+ =?utf-8?B?MTQrWjAyWHNhNTVVUHQ2bEs2VTM3c0xYSEw0MDhReEVyYkJqenhsbEdzWnla?=
+ =?utf-8?Q?VSNw619UuTFwIRpw=3D?=
+X-Exchange-RoutingPolicyChecked: pN/ZEPSu63v7TEGSaD2Evx02QUazoegcLSbAgO0oQ6ZFDgQXgqO64Euzen2HVxWXBNffacs66AJcGTEP9PDla2DUC0rsVL2xRmAmN3Ax5uYAm8SWMjUn6GF1BNsABRYSAfBfMLO7adIjQcPkMbZuztvB3GjG+AVNVdcgsqFoBFjT3KsKeqygu3gUOXdzTdLNFKV90UuHhBbdabKpCjLeP3VjR64goBT6zg1uU6yW51yZIftRrt/TPuchZbDWtMMVorn/k7QHFVruWL/NXoT90Bu/6VX9MXwYPYQoGW0r95UlG3trXHRMgeV63t9d+GL275LRCDwz8KvqBVtu1u5AjA==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9981f3d8-c6b9-456d-30d1-08df12459f1c
+X-MS-Exchange-CrossTenant-AuthSource: LV3PR11MB8508.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Sep 2026 09:50:34.3403
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4xnFAq1/NmmRVYCnm/rgdmRnD7SFEq5jxInJGYNNx8kJ7Je5FFPMHdrKqOJIiebiNRHxRevwv4HWPtQk7oN1kqr4WFxI6MKqiDf24oHBEWE=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR11MB8408
+X-OriginatorOrg: intel.com
 
-The amd_sfh driver maps PCI BAR 2 using pcim_iomap_regions() and
-subsequently accesses MMIO registers at offsets up to 0x10958 (e.g.,
-AMD_P2C_MSG3 at 0x1068C). However, the driver never validates that the BAR
-size is large enough to cover these accesses. If the driver is bound to a
-device with a smaller BAR 2, this leads to an out-of-bounds memory access
-and a page fault during the probe function.
+On 9/12/26 03:34, Linkui Xiao wrote:
+> From: Linkui Xiao <xiaolinkui@kylinos.cn>
+> 
+> ixgbe_aci_send_cmd() backs up the indirect command buffer so that it can
+> be restored before an EBUSY retry, but the backup only copies the very
+> first byte of it:
+> 
+>      buf_cpy = kmalloc(buf_size, GFP_KERNEL);
+>      ...
+>      *buf_cpy = *(u8 *)buf;
+> 
+> while the restore path copies the full buffer back out of it:
+> 
+>      if (buf)
+>          memcpy(buf, buf_cpy, buf_size);
+> 
+> So every retry hands the firmware a buffer whose content, apart from the
+> first byte, is uninitialized slab memory, and on a read command the
+> caller's buffer is overwritten with that garbage when the retry finally
+> gives up. The buffer of a read command is an output buffer, so the caller
+> does not initialize it either.
+> 
+> Use kmemdup() to copy the whole buffer, exactly like the equivalent
+> ice_sq_send_cmd() already does.
+> 
+> Also skip the backup when buf_size is 0. kmalloc(0) returns
+> ZERO_SIZE_PTR and the single byte store above would write to it, and
+> restore based on buf_cpy instead of buf so that this case never passes
+> ZERO_SIZE_PTR to memcpy().
+> 
+> Fixes: 46761fd52a88 ("ixgbe: Add support for E610 FW Admin Command Interface")
+> Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
+> ---
+>   drivers/net/ethernet/intel/ixgbe/ixgbe_e610.c | 7 +++----
+>   1 file changed, 3 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/intel/ixgbe/ixgbe_e610.c b/drivers/net/ethernet/intel/ixgbe/ixgbe_e610.c
+> index 4d8ae5b56145..5dd88ee7ea58 100644
+> --- a/drivers/net/ethernet/intel/ixgbe/ixgbe_e610.c
+> +++ b/drivers/net/ethernet/intel/ixgbe/ixgbe_e610.c
+> @@ -214,11 +214,10 @@ int ixgbe_aci_send_cmd(struct ixgbe_hw *hw, struct libie_aq_desc *desc,
+>   
+>   	is_cmd_for_retry = ixgbe_should_retry_aci_send_cmd_execute(opcode);
+>   	if (is_cmd_for_retry) {
+> -		if (buf) {
+> -			buf_cpy = kmalloc(buf_size, GFP_KERNEL);
+> +		if (buf && buf_size) {
+> +			buf_cpy = kmemdup(buf, buf_size, GFP_KERNEL);
+>   			if (!buf_cpy)
+>   				return -ENOMEM;
+> -			*buf_cpy = *(u8 *)buf;
+>   		}
+>   		desc_cpy = *desc;
+>   	}
+> @@ -234,7 +233,7 @@ int ixgbe_aci_send_cmd(struct ixgbe_hw *hw, struct libie_aq_desc *desc,
+>   		    last_status != LIBIE_AQ_RC_EBUSY)
+>   			break;
+>   
+> -		if (buf)
+> +		if (buf_cpy)
 
-For example, a page fault can occur when reading from privdata->mmio +
-AMD_P2C_MSG3 in mp2_select_ops():
+ough ;F, thank your for the cleanup
+Reviewed-by: Przemek Kitszel <przemyslaw.kitszel@intel.com>
 
-  BUG: unable to handle page fault for address: ffffc9000390368c
-  PGD 100000067 P4D 100000067 PUD 1012c1067 PMD 105b64067 PTE 0
-  Oops: Oops: 0000 [#1] SMP KASAN NOPTI
-  RIP: 0010:readl arch/x86/include/asm/io.h:59 [inline]
-  RIP: 0010:mp2_select_ops drivers/hid/amd-sfh-hid/amd_sfh_pcie.c:282
-  [inline]
-  RIP: 0010:amd_mp2_pci_probe+0x337/0x5f0
-  drivers/hid/amd-sfh-hid/amd_sfh_pcie.c:487
-  Call Trace:
-   <TASK>
-   local_pci_probe drivers/pci/pci-driver.c:332 [inline]
-   pci_call_probe drivers/pci/pci-driver.c:394 [inline]
-   __pci_device_probe drivers/pci/pci-driver.c:455 [inline]
-   pci_device_probe+0x431/0xc90 drivers/pci/pci-driver.c:489
-
-Fix this by verifying that the length of BAR 2 is at least 128KB before
-attempting to map it. Since the maximum accessed offset is 0x10958, and PCI
-BAR sizes are powers of 2, any legitimate hardware will have a BAR size of
-at least 128KB.
-
-Fixes: 4f567b9f8141 ("SFH: PCIe driver to add support of AMD sensor fusion hub")
-Assisted-by: Gemini:gemini-3.7-flash Gemini:gemini-3.1-pro-preview syzbot
-Reported-by: syzbot+4eadd4dfe9e66522bae8@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=4eadd4dfe9e66522bae8
-Link: https://syzkaller.appspot.com/ai_job?id=3bc1c45c-548f-4ab5-8243-d2c8ec321d6c
-Signed-off-by: Slawomir Stepien <sst@poczta.fm>
-Acked-by: Basavaraj Natikar <Basavaraj.Natikar@amd.com>
----
-v2:
-* Use SZ_128K for AMD_SFH_MIN_BAR_SIZE define
-* Add comment why we need 128K
-* Add 'Acked-by: Basavaraj Natikar <Basavaraj.Natikar@amd.com>' since no logical changes
-
-v1:
-* https://lore.kernel.org/all/94704655-d654-4500-8122-b80bea9bd908@mail.kernel.org/
----
- drivers/hid/amd-sfh-hid/amd_sfh_common.h |  4 ++++
- drivers/hid/amd-sfh-hid/amd_sfh_pcie.c   | 10 ++++++++++
- 2 files changed, 14 insertions(+)
-
-diff --git a/drivers/hid/amd-sfh-hid/amd_sfh_common.h b/drivers/hid/amd-sfh-hid/amd_sfh_common.h
-index f8c6b7fc34fb..3d29119a3765 100644
---- a/drivers/hid/amd-sfh-hid/amd_sfh_common.h
-+++ b/drivers/hid/amd-sfh-hid/amd_sfh_common.h
-@@ -13,11 +13,15 @@
- #include <linux/auxiliary_bus.h>
- #include <linux/mutex.h>
- #include <linux/pci.h>
-+#include <linux/sizes.h>
- #include "amd_sfh_hid.h"
- 
- #define PCI_DEVICE_ID_AMD_MP2		0x15E4
- #define PCI_DEVICE_ID_AMD_MP2_1_1	0x164A
- 
-+/* The BAR 2 size must cover the highest register offset (0x10958) */
-+#define AMD_SFH_MIN_BAR_SIZE		SZ_128K
-+
- #define AMD_C2P_MSG(regno) (0x10500 + ((regno) * 4))
- #define AMD_P2C_MSG(regno) (0x10680 + ((regno) * 4))
- 
-diff --git a/drivers/hid/amd-sfh-hid/amd_sfh_pcie.c b/drivers/hid/amd-sfh-hid/amd_sfh_pcie.c
-index eda26a094d3f..061a63519d44 100644
---- a/drivers/hid/amd-sfh-hid/amd_sfh_pcie.c
-+++ b/drivers/hid/amd-sfh-hid/amd_sfh_pcie.c
-@@ -497,6 +497,16 @@ static int amd_mp2_pci_probe(struct pci_dev *pdev, const struct pci_device_id *i
- 	if (rc)
- 		return rc;
- 
-+	if (!(pci_resource_flags(pdev, 2) & IORESOURCE_MEM)) {
-+		dev_err(&pdev->dev, "BAR 2 is not IORESOURCE_MEM\n");
-+		return -ENODEV;
-+	}
-+
-+	if (pci_resource_len(pdev, 2) < AMD_SFH_MIN_BAR_SIZE) {
-+		dev_err(&pdev->dev, "BAR 2 is too small\n");
-+		return -EINVAL;
-+	}
-+
- 	rc = pcim_iomap_regions(pdev, BIT(2), DRIVER_NAME);
- 	if (rc)
- 		return rc;
--- 
-2.55.0
+>   			memcpy(buf, buf_cpy, buf_size);
+>   		*desc = desc_cpy;
+>   
 
