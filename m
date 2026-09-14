@@ -1,78 +1,142 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 274AE47F788
-	for <linux-kernel@vger.kernel.org>; Mon, 14 Sep 2026 14:50:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EEF7481255;
+	Mon, 14 Sep 2026 14:50:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789397466; cv=none; b=shX8pvVATugJQG6qEKGSJiZgGORxwBUwBligGd5drC2cIQau3GQjCcGJFu34CnoNYPfzaD7WHXYZzVSfvOYFcfIUtb2WhNa6BKUyfWzbnGg8OuuQ51Abn2IYJdyt0fOtQqYbz9MswMHByivIMOwwkQib1Nxssuet6ZLm8RkkEzQ=
+	t=1789397466; cv=none; b=QwBoRTHdb7K4lO8JMcJZtV+IDcnb53zNARW7c/9MmfvBucah4e9A3iCcJy9OZfsd33OYBS2DkwixIYUWpDWgcRoOKojxbRhcHZDw67PQpTPnQvs3bvc94SRpmYJEhwjunrLxDeRrLpSU7QsEeixMAVsR8GAVFMkt7bjOmK7Av4A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789397466; c=relaxed/simple;
-	bh=fDxs3RSMgLMHYM2xJnti/dp16e+QGBfMd1fd6wVbCsM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PQpBWO5HhpmgeIGrRyGzy3ueSaGiqhJ+/58nOPnFOZ3I6rS8OvQ5CCBC3w0qf8GT/lYpxjNRQ4pFM02TmoWLystzyPWZCQShHExhGjhYdCO0DL1Xeo1cTo1lDBbr7zUIyTYdbyBS8x1YMZvnYNSygur4YZGxTkx22iF2NMaVjB4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Fq7v4RIB; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Fq7v4RIB"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id ED021153B;
-	Mon, 14 Sep 2026 07:50:51 -0700 (PDT)
-Received: from [10.0.128.139] (unknown [10.0.128.139])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 646E33F9A2;
-	Mon, 14 Sep 2026 07:50:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789397455; bh=fDxs3RSMgLMHYM2xJnti/dp16e+QGBfMd1fd6wVbCsM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Fq7v4RIBTyW6Flh4cvLImhdyoMuZXe+QwP6fHOBIcZXAcK1B74ZfU928xjBU/apV0
-	 Y3AHQ1ZplqMPJqRTc8XUo+GxwnDEjFAJFtUG57N1UJHTV3vK30CYEyJCXP1QZKc9zz
-	 k1RPSf9O1PwTqyptUlSYNVa34PEihESyl2auRgKU=
-Message-ID: <db219147-e2b5-43ce-9e14-a01ca65c52c7@arm.com>
-Date: Mon, 14 Sep 2026 15:50:51 +0100
+	bh=O2mIRbzfyydoVcq6ZD+4eXn2XyRdMD7JsGA2cqw1IW0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=D0G6CVS6tYpmWL+/3SO7YrWs2HNtgIH65lfJqC9RH/hQVnRQKMJV14fRfK2AVrwY0ACsnwvWivOi25xPzszYRlN2aS0f+qfND1TjPVQSi0+eP6udyZCfzANinSrL5gDlY3vUMMKrnJm+YRuY7gbdWo2nZNafW+z+Bl7/tKbanYA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+X-PTX-Original-Recipient: linux-spi@vger.kernel.org
+X-PTX-Original-Recipient: linux-kernel@vger.kernel.org
+X-PTX-Original-Recipient: broonie@kernel.org
+X-PTX-Original-Recipient: jre@pengutronix.de
+X-PTX-Original-Recipient: kernel@pengutronix.de
+X-PTX-Original-Recipient: mkl@pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 24D2F20288B;
+	Mon, 14 Sep 2026 16:50:55 +0200 (CEST)
+Received: from dude04.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::ac])
+	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.96)
+	(envelope-from <jre@pengutronix.de>)
+	id 1x681H-000v8b-06;
+	Mon, 14 Sep 2026 16:50:55 +0200
+From: Jonas Rebmann <jre@pengutronix.de>
+Date: Mon, 14 Sep 2026 16:50:41 +0200
+Subject: [PATCH 2/7] spi: spidev_test: add compare mode
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 4/7] arm64: realm: Move Realm memory encryption ops to
- RSI code
-Content-Language: en-GB
-To: Catalin Marinas <catalin.marinas@arm.com>,
- "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
-Cc: linux-coco@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@nvidia.com>,
- Greg KH <gregkh@linuxfoundation.org>, Jeremy Linton <jeremy.linton@arm.com>,
- Jonathan Cameron <jic23@kernel.org>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Sudeep Holla <sudeep.holla@arm.com>,
- Will Deacon <will@kernel.org>, Steven Price <steven.price@arm.com>,
- Andre Przywara <andre.przywara@arm.com>
-References: <20260914060511.277948-1-aneesh.kumar@kernel.org>
- <20260914060511.277948-5-aneesh.kumar@kernel.org> <aqf0lyf6dQRc4eDR@arm.com>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <aqf0lyf6dQRc4eDR@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260914-spi-sun4i-spidev_test-v1-2-72d6a3b38cee@pengutronix.de>
+References: <20260914-spi-sun4i-spidev_test-v1-0-72d6a3b38cee@pengutronix.de>
+In-Reply-To: <20260914-spi-sun4i-spidev_test-v1-0-72d6a3b38cee@pengutronix.de>
+To: Mark Brown <broonie@kernel.org>
+Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Marc Kleine-Budde <mkl@pengutronix.de>, kernel@pengutronix.de, 
+ Jonas Rebmann <jre@pengutronix.de>
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2749; i=jre@pengutronix.de;
+ h=from:subject:message-id; bh=bDTMwUdBsSo0f0ru/t7hZY2vv3h+kAW8HmZqE7fjn+M=;
+ b=owGbwMvMwCV2ZcYT3onnbjcwnlZLYshawXnGs1qKK+HhqZkPlPd8aJ0ZzDtX4WnrWXXFw/WZz
+ kF9fzUkO0pZGMS4GGTFFFli1eQUhIz9r5tV2sXCzGFlAhnCwMUpABMp3cnwP9Vr47nVudfqpKab
+ TTe7+/Q9a4nQ+Z1uMpOYJLcwKmZW3Gf4H7dlt8Bi9+03/TXvGFyJu6/FdfDqmV/X1Z+Jslgfu1A
+ uyw0A
+X-Developer-Key: i=jre@pengutronix.de; a=openpgp;
+ fpr=0B7B750D5D3CD21B3B130DE8B61515E135CD49B5
 
-On 14/09/2026 14:20, Catalin Marinas wrote:
-> On Mon, Sep 14, 2026 at 11:35:08AM +0530, Aneesh Kumar K.V (Arm) wrote:
->> Realm memory encryption callbacks are CCA-specific. Keep the Realm callback
->> registration with the RSI initialization code instead of pageattr.c, which
->> only needs to provide the low-level page-attribute transition helper.
->>
->> Export __set_memory_enc_dec() within arm64 so the RSI code can wrap it with
->> the Realm-specific encrypt/decrypt callbacks and warning policy.
-> 
-> Suzuki commented on v9 I think not to expose this function but I don't
-> see a nice way around since we now moved the realm_crypt_ops out of
-> pageattr.c (so we'd have to export something out of that file).
+From: Marc Kleine-Budde <mkl@pengutronix.de>
 
-Yep, you are right. Thats the conclusion we reached to.
+Check whether the received data correspond to the transferred data but
+without enabling loopback mode in the controller.
 
-> 
-> Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+This is for testing with TX physically bridged to RX which is useful if
+a loopback mode is unavailable or insufficient.
 
-Thanks
-Suzuki
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+Signed-off-by: Jonas Rebmann <jre@pengutronix.de>
+---
+ tools/spi/spidev_test.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
+
+diff --git a/tools/spi/spidev_test.c b/tools/spi/spidev_test.c
+index 8058a7830b50..05c585ea71b2 100644
+--- a/tools/spi/spidev_test.c
++++ b/tools/spi/spidev_test.c
+@@ -46,6 +46,7 @@ static int verbose;
+ static int transfer_size;
+ static int iterations;
+ static int interval = 5; /* interval in seconds for showing transfer rate */
++static int compare;
+ 
+ static uint8_t default_tx[] = {
+ 	0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+@@ -173,13 +174,14 @@ static void transfer(int fd, uint8_t const *tx, uint8_t const *rx, size_t len)
+ 
+ static void print_usage(const char *prog)
+ {
+-	printf("Usage: %s [-2348CDFHILMNORSZbdilopsvw]\n", prog);
++	printf("Usage: %s [-2348CDFHILMNORSZbdilcopsvw]\n", prog);
+ 	puts("general device settings:\n"
+ 		 "  -D --device         device to use (default /dev/spidev1.1)\n"
+ 		 "  -s --speed          max speed (Hz)\n"
+ 		 "  -d --delay          delay (usec)\n"
+ 		 "  -w --word-delay     word delay (usec)\n"
+ 		 "  -l --loop           loopback\n"
++		 "  -c --compare        compare RX'ed and TX'ed data\n"
+ 		 "spi mode:\n"
+ 		 "  -H --cpha           clock phase\n"
+ 		 "  -O --cpol           clock polarity\n"
+@@ -217,6 +219,7 @@ static void parse_opts(int argc, char *argv[])
+ 			{ "delay",         1, 0, 'd' },
+ 			{ "word-delay",    1, 0, 'w' },
+ 			{ "loop",          0, 0, 'l' },
++			{ "compare",       0, 0, 'c' },
+ 			{ "cpha",          0, 0, 'H' },
+ 			{ "cpol",          0, 0, 'O' },
+ 			{ "rx-cpha-flip",  0, 0, 'F' },
+@@ -240,7 +243,7 @@ static void parse_opts(int argc, char *argv[])
+ 		};
+ 		int c;
+ 
+-		c = getopt_long(argc, argv, "D:s:d:w:b:i:o:lHOLC3ZFMNR248p:vS:I:",
++		c = getopt_long(argc, argv, "D:s:d:w:b:i:o:lcHOLC3ZFMNR248p:vS:I:",
+ 				lopts, NULL);
+ 
+ 		if (c == -1)
+@@ -270,6 +273,10 @@ static void parse_opts(int argc, char *argv[])
+ 			break;
+ 		case 'l':
+ 			mode |= SPI_LOOP;
++			compare = 1;
++			break;
++		case 'c':
++			compare = 1;
+ 			break;
+ 		case 'H':
+ 			mode |= SPI_CPHA;
+@@ -427,7 +434,7 @@ static void transfer_buf(int fd, int len)
+ 	_write_count += len;
+ 	_read_count += len;
+ 
+-	if (mode & SPI_LOOP) {
++	if (compare) {
+ 		if (memcmp(tx, rx, len)) {
+ 			fprintf(stderr, "transfer error !\n");
+ 			hex_dump(tx, len, 32, "TX");
+
+-- 
+2.55.0.806.gb8242b093d
 
